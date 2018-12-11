@@ -194,7 +194,7 @@ XStatus XPm_CreateSubsystem(void (*const NotifyCb)(u32 SubsystemId,
 
 XStatus XPm_DestroySubsystem(u32 SubsystemId);
 
-XStatus XPm_RequestWakeUp(const u32 DeviceId,
+XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 			const u32 SetAddress,
 			const u64 Address);
 

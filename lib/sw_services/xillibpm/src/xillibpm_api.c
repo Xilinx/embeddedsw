@@ -56,11 +56,20 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	u32 SubsystemId = Cmd->SubsystemId;
 	u32 *Pload = Cmd->Payload;
 	u32 Len = Cmd->Len;
+	u32 SetAddress, Address;
 
 	PmInfo("Processing Cmd %x\n\r", Cmd->CmdId);
 	switch (Cmd->CmdId & 0xFF) {
 		case PM_GET_API_VERSION:
 			Status = XPm_GetApiVersion(ApiResponse);
+			break;
+		case PM_REQUEST_WAKEUP:
+			/* setAddress is encoded in the 1st bit of the low-word address */
+			SetAddress = Pload[1] & 0x1U;
+			/* addresses are word-aligned, ignore bit 0 */
+			Address = ((u64) Pload[2]) << 32ULL;
+			Address += Pload[1] & ~0x1U;
+			Status = XPm_RequestWakeUp(SubsystemId, Pload[0], SetAddress, Address);
 			break;
 		case PM_CLOCK_SETPARENT:
 			Status = XPm_SetClockParent(SubsystemId, Pload[0], Pload[1]);
@@ -310,6 +319,7 @@ XStatus XPm_DestroySubsystem(u32 SubsystemId)
  * to run, it will start running.  If the target subsystem is suspended, it
  * will resume.
  *
+ * @param SubsystemId		Subsystem ID
  * @param  DeviceId	Processor device ID
  * @param  SetAddress 	Specifies whether to set the start address.
  * - 0 : do not set start address
@@ -323,16 +333,16 @@ XStatus XPm_DestroySubsystem(u32 SubsystemId)
  * the request has been received.
  *
  ****************************************************************************/
-XStatus XPm_RequestWakeUp(const u32 DeviceId,
+XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 			const u32 SetAddress,
 			const u64 Address)
 {
 	XStatus Status;
 	XPm_Core *Core;
 
-	if(NODECLASS(DeviceId) != XPM_NODECLASS_DEVICE || NODESUBCLASS(DeviceId) != XPM_NODESUBCL_DEV_CORE)
-	{
-		Status = XST_FAILURE;
+	/*Validate acccess first */
+	Status = XPm_IsWakeAllowed(SubsystemId, DeviceId);
+	if (XST_FAILURE == Status) {
 		goto done;
 	}
 

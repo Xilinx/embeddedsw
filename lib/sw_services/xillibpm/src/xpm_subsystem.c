@@ -59,6 +59,26 @@ u32 XPmSubsystem_GetSubSysId(u32 IpiId)
 	return IpiId;
 }
 
+XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId)
+{
+	XStatus Status = XST_SUCCESS;
+
+	if (SubsystemId > XPM_SUBSYSID_MAX) {
+		Status = XST_FAILURE;
+                goto done;
+        }
+	if(NODECLASS(NodeId) != XPM_NODECLASS_DEVICE || NODESUBCLASS(NodeId) != XPM_NODESUBCL_DEV_CORE)
+	{
+                Status = XST_INVALID_PARAM;
+                goto done;
+        }
+
+
+	/*TODO: Add validation based on permissions defined by user*/
+done:
+	return Status;
+}
+
 XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 {
 	XStatus Status = XST_FAILURE;

@@ -80,6 +80,7 @@ extern XPm_Subsystem PmSubsystems[XPM_SUBSYSID_MAX];
 
 u32 XPmSubsystem_GetIPIMask(u32 SubsystemId);
 u32 XPmSubsystem_GetSubSysId(u32 IpiId);
+XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId);
 XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId);
 XStatus XPmSubsystem_Reserve(u32 *SubsystemId);
 void XPmSubsystem_Offline(const u32 SubsystemId);
