@@ -127,7 +127,7 @@ extern "C" {
 //#define PMCFW_DEBUG
 #define PMCFW_DEBUG_INFO
 //#define PMCFW_DEBUG_DETAILED
-
+//#define PMCFW_DEBUG_REG_WRITE
 /**
  * @name PMCFW code include options
  *

@@ -158,6 +158,7 @@ XStatus XPmcFw_PdiLoad(XPmcFw* PmcFwInstancePtr)
 	u32 PrtnNum;
 	Offset = XPMCFW_SMAP_BUS_WIDTH_SIZE;
 
+	XPMCFW_DBG_WRITE(0x7U);
 	/* Update the Image Hdr structure */
 	/* Flush out Boot Hdr */
 	Status = PmcFwInstancePtr->DeviceOps.Copy(XPMCFW_RDBK_SRC_ADDR,
@@ -205,6 +206,7 @@ XStatus XPmcFw_PdiLoad(XPmcFw* PmcFwInstancePtr)
 			goto END;
 		}
 	}
+	XPMCFW_DBG_WRITE(0x8U);
 	XPmcFw_Printf(DEBUG_INFO,"Pdi Load completed\n\r");
 END:
 	return Status;
