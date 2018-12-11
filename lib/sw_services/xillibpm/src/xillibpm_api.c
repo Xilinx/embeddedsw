@@ -117,8 +117,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			Status = XPm_GetResetState(Pload[0], ApiResponse);
 			break;
 		case PM_CREATE_SUBSYSTEM:
-			Status = XPm_CreateSubsystem((const u32 *)Pload[0],
-				(void (*)(u32, u32))Pload[1], (u32 *)Pload[2]);
+			Status = XPm_CreateSubsystem((void (*)(u32, u32))Pload[1], (u32 *)Pload[2]);
 			break;
 		case PM_DESTROY_SUBSYSTEM:
 			Status = XPm_DestroySubsystem(SubsystemId);
@@ -272,13 +271,13 @@ enum XPmBootStatus XPm_GetBootStatus()
  * clean-up will be necessary
  *
  ****************************************************************************/
-XStatus XPm_CreateSubsystem(const u32 *SubsystemCdo,
-	void (*const NotifyCb)(u32 SubsystemId, const u32 EventId),
-	u32 *SubsystemId)
+XStatus XPm_CreateSubsystem(void (*const NotifyCb)(u32 SubsystemId,
+						   const u32 EventId),
+			    u32 *SubsystemId)
 {
 	XStatus Status;
 
-	Status = XPmSubsystem_Create(SubsystemCdo, NotifyCb, SubsystemId);
+	Status = XPmSubsystem_Create(NotifyCb, SubsystemId);
 
 	return Status;
 }

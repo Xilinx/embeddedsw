@@ -84,9 +84,9 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId);
 XStatus XPmSubsystem_Reserve(u32 *SubsystemId);
 void XPmSubsystem_Offline(const u32 SubsystemId);
 void XPmSubsystem_Online(const u32 SubsystemId);
-XStatus XPmSubsystem_Create(const u32 *SubsystemCdo,
-	void (*const NotifyCb)(u32 SubsystemId, const u32 EventId),
-	u32 *SubsystemId);
+XStatus XPmSubsystem_Create(void (*const NotifyCb)(u32 SubsystemId,
+						   const u32 EventId),
+			    u32 *SubsystemId);
 XStatus XPmSubsystem_Destroy(u32 SubsystemId);
 
 #endif /* XPM_SUBSYSTEM_H_ */
