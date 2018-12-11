@@ -31,7 +31,7 @@
 
 #include "xpm_requirement.h"
 
-#define	INVALID_SUBSYSID	-1
+#define	INVALID_SUBSYSID	-1U
 
 /**
  * Subsystem IDs
