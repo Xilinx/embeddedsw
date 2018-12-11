@@ -27,6 +27,7 @@
 ******************************************************************************/
 
 #include "xil_io.h"
+#include "xpm_regs.h"
 #include "xpm_psm.h"
 
 #define GLOBAL_CNTRL(BASE)	((BASE) + PSM_GLOBAL_CNTRL)
@@ -39,6 +40,32 @@
 #define PSM_NID		NODEID(XPM_NODECLASS_DEVICE, \
 	XPM_NODESUBCL_DEV_CORE, XPM_NODETYPE_DEV_CORE_PSM, XPM_NODEIDX_DEV_PSM_PROC)
 
+static XStatus XPmPsm_WakeUp(XPm_Core *Core, u32 SetAddress,
+			  u64 Address)
+{
+	XStatus Status = XST_SUCCESS;
+	XPm_Psm *Psm = (XPm_Psm *)Core;
+	u32 CRLBaseAddress = Psm->Core.RegAddress[0];
+
+	/* Set reset address */
+	if (1 == SetAddress) {
+		if(Address)
+			PmWarn("Handoff address is not used for PSM.\r\n");
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Assert wakeup bit to Wakeup PSM */
+	PmRmw32(CRLBaseAddress + CRL_PSM_RST_MODE_OFFSET, XPM_PSM_WAKEUP_MASK, XPM_PSM_WAKEUP_MASK);
+
+done:
+	return Status;
+}
+
+struct XPm_CoreOps PsmOps = {
+		.RequestWakeup = XPmPsm_WakeUp,
+};
+
 XStatus XPmPsm_Init(XPm_Psm *Psm,
 	u32 Ipi,
 	u32 *BaseAddress,
@@ -48,7 +75,7 @@ XStatus XPmPsm_Init(XPm_Psm *Psm,
 
 	Status = XPmCore_Init(&Psm->Core,
 		PSM_NID, BaseAddress,
-		Power, Clock, Reset, Ipi, NULL);
+		Power, Clock, Reset, Ipi, &PsmOps);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
