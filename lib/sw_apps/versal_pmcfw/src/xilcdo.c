@@ -546,6 +546,7 @@ XStatus XilCdo_ExecuteCmds(u32* ConfigData, u32 TotalSections)
 		}
 		/** Current section completed */
 	}
+	XPMCFW_DBG_WRITE(0x2U);
 	Status = XST_SUCCESS;
 
 	XilCdo_Printf(DEBUG_INFO, "------End of Configuration------ \n\r");

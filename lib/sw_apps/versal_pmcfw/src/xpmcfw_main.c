@@ -103,6 +103,7 @@ int main(void )
 	XPmcFw_InitializeVar();
 
 	/* Initialization */
+	XPMCFW_DBG_WRITE(0x1U);
 	XPmcFw_Printf(DEBUG_GENERAL,
 		 "\n\r==========Initialization========\n\r");
 	Status = XPmcFw_Initialize(&PmcFwInstance);
@@ -217,6 +218,7 @@ static XStatus XPmcFw_LoadSubsystem(void)
 		XPmcFw_Printf(DEBUG_GENERAL,
 			      "P%d Load Time \n\r", PrtnNum);
 	}
+	XPMCFW_DBG_WRITE(0x5U);
 	Status = XPMCFW_SUCCESS;
 
 END:
@@ -242,6 +244,7 @@ static XStatus XPmcFw_StartSubsystem(void)
 	if (XPMCFW_SUCCESS != Status) {
 		goto END;
 	}
+	XPMCFW_DBG_WRITE(0x6U);
 END:
 	return Status;
 }

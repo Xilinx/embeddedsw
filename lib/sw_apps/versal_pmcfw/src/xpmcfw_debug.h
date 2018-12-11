@@ -112,6 +112,12 @@ extern u32 UartInitialized;
 	   (UartInitialized == TRUE)) \
 	{xil_printf (__VA_ARGS__); }
 
+#ifdef PMCFW_DEBUG_REG_WRITE
+#define XPMCFW_DBG_WRITE(Val)	Xil_Out32(PMC_GLOBAL_GLOBAL_GEN_STORAGE0, Val);
+#else
+#define XPMCFW_DBG_WRITE(Val)
+#endif
+
 /* Functions defined in xpmcfw_uart.c */
 XStatus XPmcFw_InitPsUart(void );
 XStatus XPmcFw_InitMdmUart(void );
