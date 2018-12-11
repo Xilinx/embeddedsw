@@ -1960,7 +1960,7 @@ XStatus XPmPin_Init(XPm_PinNode *Pin, u32 PinId, u32 BaseAddress)
 
 	PinIdx = NODEINDEX(PinId);
 
-	Status = XPmNode_Init((XPm_Node *)Pin,
+	Status = XPmNode_Init(&Pin->Node,
 				PinId, XPM_PINSTATE_UNUSED, BaseAddress);
 	if (XST_SUCCESS != Status) {
 		goto done;

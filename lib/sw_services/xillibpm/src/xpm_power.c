@@ -218,7 +218,7 @@ XStatus XPmPower_Init(XPm_Power *Power,
 		goto done;
 	}
 
-	XPmNode_Init((XPm_Node *)Power,
+	XPmNode_Init(&Power->Node,
 		Id, (u32)XPM_POWER_STATE_STANDBY, BaseAddress);
 
 	Power->Parent = Parent;
