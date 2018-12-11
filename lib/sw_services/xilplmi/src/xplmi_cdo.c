@@ -101,7 +101,7 @@ static u32 XPlmi_CmdSize(u32 *Buf, u32 Len)
  * @return
  *
  *****************************************************************************/
-static void XPlmi_SetupCmd(XPlmi_Cmd * Cmd, u32 *Buf, u32 Len)
+static void XPlmi_SetupCmd(XPlmi_Cmd * Cmd, u32 *Buf)
 {
 	Cmd->CmdId = Buf[0];
 	Cmd->Len = (Cmd->CmdId >> 16) & 255;
@@ -143,7 +143,7 @@ int XPlmi_ProcessCdo(u32 *Buf, u32 Len)
 		}
 
 		Size = XPlmi_CmdSize(Buf, Len);
-		XPlmi_SetupCmd(&Cmd, Buf, Size);
+		XPlmi_SetupCmd(&Cmd, Buf);
 		Buf = Buf + Size;
 		Len -= Size;
 		Status = XPlmi_CmdExecute(&Cmd);
