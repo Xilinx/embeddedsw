@@ -38,7 +38,6 @@ typedef struct XPm_ApuCore XPm_ApuCore;
  */
 struct XPm_ApuCore {
 	XPm_Core Core; /**< Processor core devices */
-	u8 Ipi; /**< IPI channel */
 };
 
 /************************** Function Prototypes ******************************/
@@ -47,8 +46,6 @@ XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,
 	u32 Ipi,
 	u32 *BaseAddress,
 	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset);
-
-XStatus XPmApuCore_WakeUp(XPm_ApuCore *ApuCore, u32 SetAddress, u64 Address);
 
 /** @} */
 #endif /* XPM_APUCORE_H_ */

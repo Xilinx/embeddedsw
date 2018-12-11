@@ -29,7 +29,7 @@
 #include "xpm_core.h"
 
 XStatus XPmCore_Init(XPm_Core *Core, u32 Id, u32 *BaseAddress,
-	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset)
+	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset, u8 IpiCh, struct XPm_CoreOps *Ops)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -41,6 +41,8 @@ XStatus XPmCore_Init(XPm_Core *Core, u32 Id, u32 *BaseAddress,
 
 	Core->DebugMode = 0;
 	Core->ImageId = 0;
+	Core->Ipi = IpiCh;
+	Core->CoreOps = Ops;
 	Core->RegAddress[0] = BaseAddress[1];
 	Core->RegAddress[1] = BaseAddress[2];
 

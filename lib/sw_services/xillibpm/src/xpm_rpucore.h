@@ -44,7 +44,6 @@ typedef struct XPm_RpuCore XPm_RpuCore;
  */
 struct XPm_RpuCore {
 	XPm_Core Core; /**< Processor core devices */
-	u8 Ipi; /**< IPI channel */
 	u32 ResumeCfg;
 };
 
@@ -52,7 +51,7 @@ struct XPm_RpuCore {
 XStatus XPmRpuCore_Init(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, u32 *BaseAddress,
 			XPm_Power *Power, XPm_ClockNode *Clock,
 			XPm_ResetNode *Reset);
-XStatus XPmRpuCore_WakeUp(XPm_RpuCore *RpuCore, u32 SetAddress, u64 Address);
+
 void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode);
 XStatus XPm_RpuBootAddrConfig(const u32 DeviceId, const u32 BootAddr);
 /** @} */
