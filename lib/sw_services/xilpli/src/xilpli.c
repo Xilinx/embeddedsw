@@ -316,7 +316,7 @@ int XPli_StartSubSystemPdi(XilPdi *PdiPtr)
                         {
 				XPli_Printf(DEBUG_INFO,
 				    " Request APU wakeup\r\n");
-				Status = XPm_RequestWakeUp(
+				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC,
 					XPM_DEVID_ACPU_0, 1, HandoffAddr);
                         }break;
                         case XIH_PH_ATTRB_DSTN_CPU_R5_0:
@@ -326,7 +326,7 @@ int XPli_StartSubSystemPdi(XilPdi *PdiPtr)
 				XPm_DevIoctl(XPM_DEVID_R50_0,
 					     IOCTL_SET_RPU_OPER_MODE,
 					     XPM_RPU_MODE_SPLIT, 0, 0);
-				Status = XPm_RequestWakeUp(XPM_DEVID_R50_0, 1,
+				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0, 1,
 							   HandoffAddr);
 			}break;
                         case XIH_PH_ATTRB_DSTN_CPU_R5_1:
@@ -336,7 +336,7 @@ int XPli_StartSubSystemPdi(XilPdi *PdiPtr)
 				XPm_DevIoctl(XPM_DEVID_R50_1,
 					     IOCTL_SET_RPU_OPER_MODE,
 					     XPM_RPU_MODE_SPLIT, 0, 0);
-				Status = XPm_RequestWakeUp(XPM_DEVID_R50_1, 1,
+				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC, XPM_DEVID_R50_1, 1,
 							   HandoffAddr);
 			}break;
                         case XIH_PH_ATTRB_DSTN_CPU_R5_L:
@@ -346,7 +346,7 @@ int XPli_StartSubSystemPdi(XilPdi *PdiPtr)
 				XPm_DevIoctl(XPM_DEVID_R50_0,
 					     IOCTL_SET_RPU_OPER_MODE,
 					     XPM_RPU_MODE_LOCKSTEP, 0, 0);
-				Status = XPm_RequestWakeUp(XPM_DEVID_R50_0, 1,
+				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0, 1,
 							   HandoffAddr);
 			}break;
                         default:
