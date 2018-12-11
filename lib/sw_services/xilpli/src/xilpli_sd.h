@@ -56,6 +56,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xplmi_hw.h"
+#include "xstatus.h"
 #if defined(XILPLI_SD_0) || defined(XILPLI_SD_1)
 #include "xplmi_debug.h"
 /************************** Constant Definitions *****************************/
@@ -66,7 +67,7 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 
 int XPli_SdInit(u32 DeviceFlags);
-int XPli_SdCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+XStatus XPli_SdCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 int XPli_SdRelease(void );
 
 /************************** Variable Definitions *****************************/
