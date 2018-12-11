@@ -188,9 +188,9 @@ XStatus XPm_GetApiVersion(u32 *Version);
 
 enum XPmBootStatus XPm_GetBootStatus();
 
-XStatus XPm_CreateSubsystem(const u32 *SubSystemCdo,
-			void (*const NotifyCb)(u32 SubsystemId, const u32 EventId),
-			u32 *SubsystemId);
+XStatus XPm_CreateSubsystem(void (*const NotifyCb)(u32 SubsystemId,
+						   const u32 EventId),
+			    u32 *SubsystemId);
 
 XStatus XPm_DestroySubsystem(u32 SubsystemId);
 

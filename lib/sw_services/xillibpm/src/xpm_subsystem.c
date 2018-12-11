@@ -181,9 +181,9 @@ void XPmSubsystem_Online(const u32 SubsystemId)
 	return;
 }
 
-XStatus XPmSubsystem_Create(const u32 *SubsystemCdo,
-	void (*const NotifyCb)(u32 SubsystemId, const u32 EventId),
-	u32 *SubsystemId)
+XStatus XPmSubsystem_Create(void (*const NotifyCb)(u32 SubsystemId,
+						   const u32 EventId),
+			    u32 *SubsystemId)
 {
 	XStatus Status = XST_FAILURE;
 	u32 SubsysId;
