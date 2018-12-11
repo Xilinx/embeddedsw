@@ -119,12 +119,6 @@ done:
 	return Status;
 }
 
-XStatus XPmPsm_SwReset(u32 BitMask)
-{
-	// Todo: Add software reset seqeunce */
-	return XST_SUCCESS;
-}
-
 u32 XPmPsm_FwIsPresent(void)
 {
 	u32 Reg = FALSE;
