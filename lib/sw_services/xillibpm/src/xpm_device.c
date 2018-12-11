@@ -766,7 +766,8 @@ XStatus XPmDevice_Alloc(u32 NumDevices)
 
 XStatus XPmDevice_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 {
-	int Status = XST_SUCCESS, i=0;
+	XStatus Status = XST_SUCCESS;
+	u32 i = 0;
 	u32 DeviceIndex = NODEINDEX(Id);
 	XPm_Device *DevPtr = XPmDevice_GetById(Id);
 

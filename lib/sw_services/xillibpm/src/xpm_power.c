@@ -254,7 +254,7 @@ XStatus XPmPower_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 	int Status = XST_SUCCESS;
 	XPm_Power *Power;
 	XPm_Power *PowerParent;
-	int i;
+	u32 i;
 
 	Power = GetPowerNode(Id);
 
