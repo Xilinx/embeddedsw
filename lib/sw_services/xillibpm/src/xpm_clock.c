@@ -126,13 +126,6 @@ static uint32_t ClkInvalidList[] = {
 	XPM_NODEIDX_CLK_TIMESTAMP_REF,
 };
 
-XStatus XPmClock_AllocNodes(u32 NumClkNodes)
-{
-	int Status = XST_SUCCESS;
-
-	return Status;
-}
-
 static XStatus XPmClock_Init(XPm_ClockNode *Clk, u32 Id, u32 ControlReg,
 			     u8 TopologyType, u8 NumCustomNodes, u8 NumParents)
 {

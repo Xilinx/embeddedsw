@@ -199,7 +199,6 @@ XStatus XPmDevice_GetStatus(const u32 SubsystemId,
 			const u32 DeviceId,
 			XPm_DeviceStatus *const DeviceStatus);
 
-XStatus XPmDevice_Alloc(u32 NumDevices);
 XStatus XPmDevice_AddParent(u32 Id, u32 *Parents, u32 NumParents);
 XStatus XPmDevice_GetPermissions(XPm_Device *Device, u32 *PermissionMask);
 

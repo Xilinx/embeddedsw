@@ -144,7 +144,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			Status = XPm_DevIoctl(Pload[0], Pload[1], Pload[2], Pload[3], ApiResponse);
 			break;
 		case PM_DESCRIBE_NODES:
-			Status = XPm_DescribeNodes(&Pload[0], Len);
+			Status = XPm_DescribeNodes(Len);
 			break;
 		case PM_ADD_NODE:
 			Status = XPm_AddNode(&Pload[0], Len);
@@ -1330,10 +1330,10 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_DescribeNodes(u32 *Args, u32 NumArgs)
+XStatus XPm_DescribeNodes(u32 NumArgs)
 {
 	int Status = XST_SUCCESS;
-	u32 NumPwrNodes, NumClkNodes, NumRstNodes, NumMioNodes, NumDevices;
+	/*u32 NumPwrNodes, NumClkNodes, NumRstNodes, NumMioNodes, NumDevices;*/
 
 	if(NumArgs < 3)
 	{
@@ -1341,7 +1341,8 @@ XStatus XPm_DescribeNodes(u32 *Args, u32 NumArgs)
 		goto done;
 	}
 
-	NumPwrNodes = (Args[0] >> 16) & 0xFFFF;
+	/* Uncomment when AllocNodes will implement */
+	/*NumPwrNodes = (Args[0] >> 16) & 0xFFFF;
 	NumClkNodes = Args[0] & 0xFFFF;
 	NumRstNodes = (Args[1] >> 16) & 0xFFFF;
 	NumMioNodes = Args[1] & 0xFFFF;
@@ -1356,7 +1357,7 @@ XStatus XPm_DescribeNodes(u32 *Args, u32 NumArgs)
 	if (NumMioNodes != 0)
 		Status = XPmMio_AllocNodes(NumMioNodes);
 	if (NumDevices != 0)
-		Status = XPmDevice_Alloc(NumDevices);
+		Status = XPmDevice_Alloc(NumDevices);*/
 done:
 	return Status;
 }

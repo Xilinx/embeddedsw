@@ -48,13 +48,6 @@ static XPm_ResetOps ResetOps[] = {
 	},
 };
 
-XStatus XPmReset_AllocNodes(u32 NumRstNodes)
-{
-	int Status = XST_SUCCESS;
-
-	return Status;
-}
-
 static XStatus XPmReset_Init(XPm_ResetNode *Rst, u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetType, u8 NumParents, u32* Parents)
 {
 	u32 Status = XST_SUCCESS, i = 0;

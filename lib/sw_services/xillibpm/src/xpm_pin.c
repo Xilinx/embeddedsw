@@ -1933,13 +1933,6 @@ static u8 ValidatePinFunc(XPm_PinNode *Pin, XPm_PinFunc *PinFunc)
 	return IsValid;
 }
 
-XStatus XPmMio_AllocNodes(u32 NumMioNodes)
-{
-	int Status = XST_SUCCESS;
-
-	return Status;
-}
-
 /****************************************************************************/
 /**
  * @brief  This function initializes the XPm_PinNode data staructure.
