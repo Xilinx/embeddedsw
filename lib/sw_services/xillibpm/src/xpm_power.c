@@ -242,13 +242,6 @@ done:
 	return Status;
 }
 
-XStatus XPmPower_AllocNodes(u32 NumPwrNodes)
-{
-	int Status = XST_SUCCESS;
-
-	return Status;
-}
-
 XStatus XPmPower_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 {
 	int Status = XST_SUCCESS;

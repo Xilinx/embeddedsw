@@ -756,13 +756,6 @@ done:
 	return Status;
 }
 
-XStatus XPmDevice_Alloc(u32 NumDevices)
-{
-	int Status = XST_SUCCESS;
-
-	return Status;
-}
-
 XStatus XPmDevice_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 {
 	XStatus Status = XST_SUCCESS;
