@@ -51,7 +51,7 @@ done:
 	return Status;
 }
 
-XStatus XPmApuCore_WakeUp(XPm_ApuCore *ApuCore, u32 DeviceId, u32 SetAddress, u64 Address)
+XStatus XPmApuCore_WakeUp(XPm_ApuCore *ApuCore, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_ResetNode *Reset;
@@ -76,6 +76,6 @@ XStatus XPmApuCore_WakeUp(XPm_ApuCore *ApuCore, u32 DeviceId, u32 SetAddress, u6
 		Status = Reset->Ops->SetState(Reset, PM_RESET_ACTION_RELEASE);
 		Reset = Reset->NextReset;
 	}
-done:
+
 	return Status;
 }

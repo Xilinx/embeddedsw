@@ -57,8 +57,7 @@ done:
 	return Status;
 }
 
-XStatus XPmRpuCore_WakeUp(XPm_RpuCore *RpuCore, u32 DeviceId, u32 SetAddress,
-			  u64 Address)
+XStatus XPmRpuCore_WakeUp(XPm_RpuCore *RpuCore, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_ResetNode *Reset;

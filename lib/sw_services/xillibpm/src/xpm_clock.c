@@ -133,7 +133,8 @@ XStatus XPmClock_AllocNodes(u32 NumClkNodes)
 	return Status;
 }
 
-static XStatus XPmClock_Init(XPm_ClockNode *Clk, u32 Id, u32 ControlReg, u8 TopologyType, u8 NumCustomNodes, u8 NumParents, u32 PowerDomainId)
+static XStatus XPmClock_Init(XPm_ClockNode *Clk, u32 Id, u32 ControlReg,
+			     u8 TopologyType, u8 NumCustomNodes, u8 NumParents)
 {
 	int Status = XST_SUCCESS;
 	u32 Subclass = NODESUBCLASS(Id);
@@ -174,7 +175,8 @@ done:
 	return Status;
 }
 
-XStatus XPmClock_AddNode(u32 Id, u32 ControlReg, u8 TopologyType, u8 NumCustomNodes, u8 NumParents, u32 PowerDomainId)
+XStatus XPmClock_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
+			 u8 NumCustomNodes, u8 NumParents)
 {
 	int Status = XST_SUCCESS;
 	u32 Subclass = NODESUBCLASS(Id);
@@ -206,7 +208,8 @@ XStatus XPmClock_AddNode(u32 Id, u32 ControlReg, u8 TopologyType, u8 NumCustomNo
 		goto done;
 	}
 
-	Status = XPmClock_Init(Clk, Id, ControlReg, TopologyType, NumCustomNodes, NumParents, PowerDomainId);
+	Status = XPmClock_Init(Clk, Id, ControlReg, TopologyType,
+			       NumCustomNodes, NumParents);
 
 	if (XST_SUCCESS == Status) {
 		ClkNodeList[ClockIndex] = Clk;

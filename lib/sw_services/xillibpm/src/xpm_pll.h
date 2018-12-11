@@ -154,7 +154,7 @@ struct XPm_PllClockNode {
 #define PLL_FRAC_CFG_ENABLED_MASK	(0x80000000U)
 
 /************************** Function Prototypes ******************************/
-XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType, u32 PowerDomainId, u16 *Offsets);
+XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType, u16 *Offsets);
 XStatus XPmClockPll_Request(u32 PllId);
 XStatus XPmClockPll_Release(u32 PllId);
 XStatus XPmClockPll_SetMode(XPm_PllClockNode *Pll, u32 Mode);

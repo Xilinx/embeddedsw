@@ -96,7 +96,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			Status = XPm_GetPllMode(Pload[0], ApiResponse);
 			break;
 		case PM_REQUEST_DEVICE:
-			Status = XPm_RequestDevice(SubsystemId, Pload[0], Pload[1], Pload[2], Pload[3], Pload[4]);
+			Status = XPm_RequestDevice(Pload[0], Pload[1], Pload[2], Pload[3], Pload[4]);
 			break;
 		case PM_RELEASE_DEVICE:
 			Status = XPm_ReleaseDevice(SubsystemId, Pload[0]);
@@ -334,11 +334,11 @@ XStatus XPm_RequestWakeUp(const u32 DeviceId,
 	if ((DeviceId == XPM_DEVID_ACPU_0) ||
 	    (DeviceId == XPM_DEVID_ACPU_1)) {
 		ApuCore = (XPm_ApuCore *)XPmDevice_GetById(DeviceId);
-		Status = XPmApuCore_WakeUp(ApuCore, DeviceId, SetAddress, Address);
+		Status = XPmApuCore_WakeUp(ApuCore, SetAddress, Address);
 	} else if ((DeviceId == XPM_DEVID_R50_0) ||
 		   (DeviceId == XPM_DEVID_R50_1)) {
 		RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
-		Status = XPmRpuCore_WakeUp(RpuCore, DeviceId, SetAddress, Address);
+		Status = XPmRpuCore_WakeUp(RpuCore, SetAddress, Address);
 	} else {
 		Status = XST_INVALID_PARAM;
 	}
@@ -355,7 +355,6 @@ XStatus XPm_RequestWakeUp(const u32 DeviceId,
  * be used by one subsystem, any other subsystems will now be blocked from
  * accessing this device until it is released.
  *
- * @param SubsystemId		Subsystem ID
  * @param TargetSubsystemId	Target subsystem ID (can be the same subsystem)
  * @param Device			ID of the device
  * @param Capabilities		Capability requirements (1-hot)
@@ -368,8 +367,7 @@ XStatus XPm_RequestWakeUp(const u32 DeviceId,
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_RequestDevice(const u32 SubsystemId,
-			const u32 TargetSubsystemId,
+XStatus XPm_RequestDevice(const u32 TargetSubsystemId,
 			const u32 DeviceId,
 			const u32 Capabilities,
 			const u32 Latency,
@@ -377,8 +375,8 @@ XStatus XPm_RequestDevice(const u32 SubsystemId,
 {
 	XStatus Status;
 
-	Status = XPmDevice_Request(SubsystemId,
-		TargetSubsystemId, DeviceId, Capabilities, Latency, QoS);
+	Status = XPmDevice_Request(TargetSubsystemId, DeviceId, Capabilities,
+				   Latency, QoS);
 
 	return Status;
 }
@@ -1479,7 +1477,8 @@ done:
 static XStatus XPm_AddNodeClock(u32 *Args, u32 NumArgs)
 {
 	int Status = XST_SUCCESS;
-	u32 ClockId, ControlReg, PowerDomainId;
+	u32 ClockId, ControlReg;
+	/*u32 PowerDomainId;*/
 	u8 TopologyType, NumCustomNodes=0, NumParents;
 
 	if(NumArgs < 4)
@@ -1505,12 +1504,15 @@ static XStatus XPm_AddNodeClock(u32 *Args, u32 NumArgs)
 		TopologyType = Args[2] & 0xFF;
 		NumCustomNodes = (Args[2] >> 8) & 0xFF;
 		NumParents = (Args[2] >> 16) & 0xFF;
-		PowerDomainId = Args[3];
+		/* Uncoment when PowerDomainId will use */
+		/*PowerDomainId = Args[3];*/
 		if (ISPLL(ClockId)) {
 			u16 *Offsets = (u16 *)&Args[4];
-			Status = XPmClockPll_AddNode(ClockId, ControlReg, TopologyType, PowerDomainId, Offsets);
+			Status = XPmClockPll_AddNode(ClockId, ControlReg, TopologyType, Offsets);
 		} else {
-			Status = XPmClock_AddNode(ClockId, ControlReg, TopologyType, NumCustomNodes, NumParents, PowerDomainId);
+			Status = XPmClock_AddNode(ClockId, ControlReg,
+						  TopologyType, NumCustomNodes,
+						  NumParents);
 		}
 	}
 	else
@@ -1733,7 +1735,7 @@ done:
 	return Status;
 }
 
-static XStatus AddProcDevice(u32 *Args, u32 NumArgs, u32 PowerId)
+static XStatus AddProcDevice(u32 *Args, u32 PowerId)
 {
 	XStatus Status = XST_FAILURE;
 	u32 DeviceId;
@@ -1807,7 +1809,7 @@ done:
 	return Status;
 }
 
-static XStatus AddPeriphDevice(u32 *Args, u32 NumArgs, u32 PowerId)
+static XStatus AddPeriphDevice(u32 *Args, u32 PowerId)
 {
 	XStatus Status = XST_FAILURE;
 	u32 DeviceId;
@@ -1850,7 +1852,7 @@ done:
 	return Status;
 }
 
-static XStatus AddMemDevice(u32 *Args, u32 NumArgs, u32 PowerId)
+static XStatus AddMemDevice(u32 *Args, u32 PowerId)
 {
 	XStatus Status = XST_FAILURE;
 	u32 DeviceId;
@@ -1860,8 +1862,9 @@ static XStatus AddMemDevice(u32 *Args, u32 NumArgs, u32 PowerId)
 	XPm_Device *Device;
 	XPm_Power *Power = PmPowers[NODEINDEX(PowerId)];;
 	u32 BaseAddr;
-	u32 StartAddr;
-	u32 EndAddr;
+	/* Uncomment when Memory init is supported */
+	/*u32 StartAddr;
+	u32 EndAddr;*/
 
 	DeviceId = Args[0];
 	BaseAddr = Args[2];
@@ -1940,13 +1943,13 @@ static XStatus XPm_AddDevice(u32 *Args, u32 NumArgs)
 	switch (SubClass)
 	{
 		case XPM_NODESUBCL_DEV_CORE:
-			Status = AddProcDevice(Args, NumArgs, PowerId);
+			Status = AddProcDevice(Args, PowerId);
 			break;
 		case XPM_NODESUBCL_DEV_PERIPH:
-			Status = AddPeriphDevice(Args, NumArgs, PowerId);
+			Status = AddPeriphDevice(Args, PowerId);
 			break;
 		case XPM_NODESUBCL_DEV_MEM:
-			Status = AddMemDevice(Args, NumArgs, PowerId);
+			Status = AddMemDevice(Args, PowerId);
 			break;
 		default:
 			Status = XST_INVALID_PARAM;

@@ -34,7 +34,7 @@ static struct XPm_PllTopology PllTopologies[] =
 	{TOPOLOGY_NOC_PLL, PLLPARAMS, RESET_SHIFT, BYPASS_SHIFT, NPLL_LOCK_SHIFT, NPLL_STABLE_SHIFT },
 };
 
-XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType, u32 PowerDomainId, u16 *Offsets)
+XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType, u16 *Offsets)
 {
 	int Status = XST_SUCCESS;
 	u32 ClockIndex = NODEINDEX(Id);

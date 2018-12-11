@@ -579,8 +579,7 @@ done:
 	return Device;
 }
 
-XStatus XPmDevice_Request(const u32 SubsystemId,
-			const u32 TargetSubsystemId,
+XStatus XPmDevice_Request(const u32 TargetSubsystemId,
 			const u32 DeviceId,
 			const u32 Capabilities,
 			const u32 Latency,

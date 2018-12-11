@@ -166,7 +166,8 @@ extern u32 PmNumClocks;
 
 /************************** Function Prototypes ******************************/
 XStatus XPmClock_AllocNodes(u32 NumClkNodes);
-XStatus XPmClock_AddNode(u32 Id, u32 ControlReg, u8 TopologyType, u8 NumCustomNodes, u8 NumParents, u32 PowerDomainId);
+XStatus XPmClock_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
+			 u8 NumCustomNodes, u8 NumParents);
 XStatus XPmClock_AddClkName(u32 Id, char *Name);
 XStatus XPmClock_AddSubNode(u32 Id, u32 Type, u32 ControlReg, u8 Param1, u8 Param2, u32 Flags);
 XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u32 NumParents);
