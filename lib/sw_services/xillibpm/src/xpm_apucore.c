@@ -33,7 +33,7 @@
 XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,
 	u32 Id,
 	u32 Ipi,
-	u32 BaseAddress,
+	u32 *BaseAddress,
 	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset)
 {
 	XStatus Status = XST_FAILURE;

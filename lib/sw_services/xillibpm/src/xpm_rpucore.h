@@ -49,7 +49,7 @@ struct XPm_RpuCore {
 };
 
 /************************** Function Prototypes ******************************/
-XStatus XPmRpuCore_Init(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, u32 BaseAddress,
+XStatus XPmRpuCore_Init(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, u32 *BaseAddress,
 			XPm_Power *Power, XPm_ClockNode *Clock,
 			XPm_ResetNode *Reset);
 XStatus XPmRpuCore_WakeUp(XPm_RpuCore *RpuCore, u32 SetAddress, u64 Address);

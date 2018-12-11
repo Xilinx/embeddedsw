@@ -1747,12 +1747,14 @@ static XStatus AddProcDevice(u32 *Args, u32 PowerId)
 	XPm_RpuCore *RpuCore;
 	XPm_Core *Core;
 	XPm_Power *Power = PmPowers[NODEINDEX(PowerId)];
-	u32 BaseAddr;
+	u32 BaseAddr[MAX_BASEADDR_LEN];
 	u32 Ipi;
 
 	DeviceId = Args[0];
-	BaseAddr = Args[2];
+	BaseAddr[0] = Args[2];
 	Ipi = Args[3];
+	BaseAddr[1] = Args[4];
+	BaseAddr[2] = Args[5];
 
 	Type = NODETYPE(DeviceId);
 	Index = NODEINDEX(DeviceId);
