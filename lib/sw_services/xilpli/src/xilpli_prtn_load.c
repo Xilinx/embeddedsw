@@ -53,6 +53,7 @@
 #include "xilpli_dma.h"
 #include "xplmi_debug.h"
 #include "xplmi_cdo.h"
+#include "xillibpm_api.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -61,6 +62,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XPLI_DMA_LEN_ALIGN		16U
 #define XPLI_SUCCESS_NOT_PRTN_OWNER	(0x100U)
+#define XPLI_NO_PSM_IMG_PARTITIONS	2U
 /************************** Function Prototypes ******************************/
 static int XPli_PrtnHdrValidation(XilPdi* PdiPtr, u32 PrtnNum);
 static int XPli_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnNum);
@@ -259,6 +261,7 @@ static void XPli_UpdateHandoffParam(XilPdi* PdiPtr, u32 PrtnNum)
 	u32 DstnCpu;
 	u32 CpuNo;
 	XilPdi_PrtnHdr * PrtnHdr;
+	static unsigned int PsmImgPrtnCount = 0;
 
 	/* Assign the partition header to local variable */
 	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
@@ -286,9 +289,17 @@ static void XPli_UpdateHandoffParam(XilPdi* PdiPtr, u32 PrtnNum)
 	 */
 	if (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_PSM)
 	{
-		/**
-		 * TODO libPM call to start PSM subsystem
-		 */
+		PsmImgPrtnCount++;
+		/* TODO: No of PSM partitions are hard coded for now, later it
+			needs to be fixed*/
+		if(PsmImgPrtnCount == XPLI_NO_PSM_IMG_PARTITIONS)
+		{
+			XPli_Printf(DEBUG_INFO,
+			" Request PSM wakeup \r\n");
+			XPm_RequestWakeUp(XPM_SUBSYSID_PMC,
+			XPM_DEVID_PSM, 0, 0);
+			PsmImgPrtnCount = 0;
+		}
 	}
 
 }
