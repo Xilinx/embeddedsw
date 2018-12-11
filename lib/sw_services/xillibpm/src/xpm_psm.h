@@ -58,7 +58,6 @@ XStatus XPmPsm_Init(XPm_Psm *Psm,
 	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset);
 XStatus XPmPsm_PowerUp(u32 BitMask);
 XStatus XPmPsm_PowerDown(u32 BitMask);
-XStatus XPmPsm_SwReset(u32 BitMask);
 u32 XPmPsm_FwIsPresent(void);
 
 /** @} */
