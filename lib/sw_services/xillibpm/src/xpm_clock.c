@@ -279,7 +279,8 @@ done:
 
 XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 {
-	int Status = XST_SUCCESS, i=0;
+	XStatus Status = XST_SUCCESS;
+	u32 i = 0;
 	u32 ClockIndex = NODEINDEX(Id);
 	XPm_OutClockNode *ClkPtr = (XPm_OutClockNode *)XPmClock_GetById(Id);
 
@@ -500,7 +501,8 @@ XStatus XPmClock_SetParent(XPm_OutClockNode *Clk, u32 ParentIdx)
 		goto done;
 	}
 
-	if ((ParentIdx > BITMASK(Ptr->Param2.Width)) || (ParentIdx > (Clk->ClkNode.NumParents-1))) {
+	if ((ParentIdx > BITMASK(Ptr->Param2.Width)) ||
+	    (ParentIdx > (u32)(Clk->ClkNode.NumParents - 1))) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
