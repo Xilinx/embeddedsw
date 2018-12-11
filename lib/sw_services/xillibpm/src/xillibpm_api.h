@@ -197,8 +197,7 @@ XStatus XPm_RequestWakeUp(const u32 DeviceId,
 			const u32 SetAddress,
 			const u64 Address);
 
-XStatus XPm_RequestDevice(const u32 SubsystemId,
-			const u32 TargetSubsystemId,
+XStatus XPm_RequestDevice(const u32 TargetSubsystemId,
 			const u32 DeviceId,
 			const u32 Capabilities,
 			const u32 Latency,

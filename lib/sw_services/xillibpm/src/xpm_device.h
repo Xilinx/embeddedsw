@@ -181,8 +181,7 @@ u8 XPmDevice_IsAllocated(u32 DeviceId, XPm_Subsystem *Subsystem);
 
 XPm_Device *XPmDevice_GetById(const u32 DeviceId);
 
-XStatus XPmDevice_Request(const u32 SubsystemId,
-			const u32 TargetSubsystemId,
+XStatus XPmDevice_Request(const u32 TargetSubsystemId,
 			const u32 DeviceId,
 			const u32 Capabilities,
 			const u32 Latency,

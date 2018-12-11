@@ -48,8 +48,7 @@ XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,
 	u32 BaseAddress,
 	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset);
 
-XStatus XPmApuCore_WakeUp(XPm_ApuCore *ApuCore,
-	u32 DeviceId, u32 SetAddress, u64 Address);
+XStatus XPmApuCore_WakeUp(XPm_ApuCore *ApuCore, u32 SetAddress, u64 Address);
 
 /** @} */
 #endif /* XPM_APUCORE_H_ */
