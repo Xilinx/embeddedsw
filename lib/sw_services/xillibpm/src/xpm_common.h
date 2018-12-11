@@ -99,6 +99,11 @@
 #define XPm_Write32			XPm_Out32
 
 void *XPm_AllocBytes(u32 Size);
+
+void XPm_Out32(u32 RegAddress, u32 l_Val);
+
+u32 XPm_In32(u32 RegAddress);
+
 /**
  * Read Modify Write a register
  */
