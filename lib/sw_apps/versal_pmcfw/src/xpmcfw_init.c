@@ -147,7 +147,7 @@ XStatus XPmcFw_Initialize(XPmcFw * PmcFwInstancePtr)
 #endif
 	}
 #endif
-
+	XPMCFW_DBG_WRITE(0x4U);
 END:
 	return Status;
 }
@@ -195,6 +195,7 @@ XStatus XPmcFw_BootDeviceInit(XPmcFw * PmcFwInstancePtr)
 			goto END;
 		}
 	}
+	XPMCFW_DBG_WRITE(0x3U);
 
 END:
 	return Status;
