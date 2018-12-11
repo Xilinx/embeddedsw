@@ -79,7 +79,7 @@ int XPlm_PmInit()
 	 * Initialize the libPM component. It registers the callback handlers,
 	 * variables, events
 	 */
-	Status = XPm_Init(NULL, NULL);
+	Status = XPm_Init(NULL);
 
 	return Status;
 }

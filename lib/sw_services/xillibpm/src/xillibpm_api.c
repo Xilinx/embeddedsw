@@ -186,8 +186,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_Init(XIpiPsu *const IpiInst,
-			void (* const RequestCb)(u32 SubsystemId, const u32 EventId))
+XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId))
 {
 	XStatus Status = XST_SUCCESS;
 	unsigned int i;
