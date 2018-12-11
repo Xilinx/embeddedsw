@@ -48,7 +48,6 @@ typedef struct XPm_Psm XPm_Psm;
  */
 struct XPm_Psm {
 	XPm_Core Core; /**< Processor core device */
-	u32 Ipi; /**< IPI channel */
 };
 
 /************************** Function Prototypes ******************************/

@@ -48,12 +48,10 @@ XStatus XPmPsm_Init(XPm_Psm *Psm,
 
 	Status = XPmCore_Init(&Psm->Core,
 		PSM_NID, BaseAddress,
-		Power, Clock, Reset);
+		Power, Clock, Reset, Ipi, NULL);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
-
-	Psm->Ipi = Ipi;
 
 done:
 	return Status;

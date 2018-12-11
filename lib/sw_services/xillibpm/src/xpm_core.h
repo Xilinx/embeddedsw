@@ -36,6 +36,11 @@
 
 typedef struct XPm_Core XPm_Core;
 
+/* Core Operations */
+struct XPm_CoreOps {
+	XStatus (*RequestWakeup)(XPm_Core *Core, u32 SetAddress, u64 Address);
+};
+
 /**
  * The processor core class.  This is the base class for all processor cores.
  */
@@ -43,12 +48,14 @@ struct XPm_Core {
 	XPm_Device Device; /**< Device: Base class */
 	u8 DebugMode; /**< DebugMode: Debugger is connected */
 	u32 ImageId; /**< ImageId: Image ID */
+	u8 Ipi; /**< IPI channel */
 	u32 RegAddress[MAX_BASEADDR_LEN-1];	/*Proc device is allowed to pass 3 base addresses, 1 will be stored as node baseaddress*/
+	struct XPm_CoreOps *CoreOps; /**< Core operations */
 };
 
 /************************** Function Prototypes ******************************/
 XStatus XPmCore_Init(XPm_Core *Core, u32 Id, u32 *BaseAddress,
-	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset);
+	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset, u8 IpiCh, struct XPm_CoreOps *Ops);
 
 /** @} */
 #endif /* XPM_CORE_H_ */

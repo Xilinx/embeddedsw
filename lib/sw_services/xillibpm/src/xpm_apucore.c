@@ -30,31 +30,11 @@
 #include "xpm_apucore.h"
 #include "xpm_regs.h"
 
-XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,
-	u32 Id,
-	u32 Ipi,
-	u32 *BaseAddress,
-	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset)
-{
-	XStatus Status = XST_FAILURE;
-
-	Status = XPmCore_Init(&ApuCore->Core,
-		Id, BaseAddress,
-		Power, Clock, Reset);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	ApuCore->Ipi = Ipi;
-
-done:
-	return Status;
-}
-
-XStatus XPmApuCore_WakeUp(XPm_ApuCore *ApuCore, u32 SetAddress, u64 Address)
+static XStatus XPmApuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_ResetNode *Reset;
+	XPm_ApuCore *ApuCore = (XPm_ApuCore *)Core;
 
 	/* Set reset address */
 	if (1 == SetAddress) {
@@ -76,6 +56,24 @@ XStatus XPmApuCore_WakeUp(XPm_ApuCore *ApuCore, u32 SetAddress, u64 Address)
 		Status = Reset->Ops->SetState(Reset, PM_RESET_ACTION_RELEASE);
 		Reset = Reset->NextReset;
 	}
+	return Status;
+}
+
+struct XPm_CoreOps ApuOps = {
+		.RequestWakeup = XPmApuCore_WakeUp,
+};
+
+XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,
+	u32 Id,
+	u32 Ipi,
+	u32 *BaseAddress,
+	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset)
+{
+	XStatus Status = XST_FAILURE;
+
+	Status = XPmCore_Init(&ApuCore->Core,
+		Id, BaseAddress,
+		Power, Clock, Reset, Ipi, &ApuOps);
 
 	return Status;
 }
