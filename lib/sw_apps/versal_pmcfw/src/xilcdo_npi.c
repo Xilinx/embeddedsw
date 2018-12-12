@@ -52,6 +52,7 @@
 /***************************** Include Files *********************************/
 #include "xilcdo_npi.h"
 #include "xpmcfw_util.h"
+#include "xpmcfw_hw.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -64,7 +65,7 @@ extern XilCdo_Prtn XilCdoPrtnInst;
 
 XILCDO_NPI_SEQ* XilCdoNpiSeqInstPtr = NULL;
 XILCDO_NPI_SEQ XilCdoNpiSeqInstance;
-
+u32 ScanClearDone;
 /*****************************************************************************/
 /**
  * This function writes PCSR control register
@@ -603,7 +604,6 @@ void XilCdo_SetLockState(u32 BaseAddr)
  *****************************************************************************/
 void XilCdo_SetPRMode(u32 BaseAddr)
 {
-	u32 RegVal;
 	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_NSU_PR_MASK,
 				PCSR_MASK_NSU_PR_MASK);
 }
@@ -620,7 +620,6 @@ void XilCdo_SetPRMode(u32 BaseAddr)
  *****************************************************************************/
 void XilCdo_ClearPRMode(u32 BaseAddr)
 {
-	u32 RegVal;
 	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_NSU_PR_MASK, 0x0U);
 }
 
@@ -700,6 +699,180 @@ void XilCdo_RunNsuPRMode(u32 BaseAddr)
 			break;
 		}
 	}
+}
+
+void XilCdo_ClearInitCtrl(u32 BaseAddr)
+{
+	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_INIT_CTRL_MASK, 0U);
+}
+void XilCdo_SetBISRTrigger(u32 BaseAddr)
+{
+	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_BISR_TRIGGER_MASK,
+			PCSR_MASK_BISR_TRIGGER_MASK);
+}
+
+u32 XilCdo_CheckBISRPass(u32 BaseAddr)
+{
+	/* Check for BISR success */
+	return ((Xil_In32(BaseAddr+XILCDO_NPI_PCSR_STATUS_OFFSET)
+				& PCSR_STATUS_BISRERR_MASK)
+			== PCSR_STATUS_BISRERR_MASK);
+}
+
+void XilCdo_WaitForBISRDone(u32 BaseAddr)
+{
+	/* Wait for BISR to complete */
+	while((Xil_In32(BaseAddr+XILCDO_NPI_PCSR_STATUS_OFFSET)
+				& PCSR_STATUS_BISRDONE_MASK)
+			!= PCSR_STATUS_BISRDONE_MASK);
+}
+
+u32 XilCdo_ScanClear(u32 NpiParam)
+{
+	u32 Status;
+	if((NpiParam & PCSR_PRECFG_SCANCLR_MASK) == 0U)
+	{
+		Status = XST_SUCCESS;
+		goto END;
+	}
+	if(ScanClearDone == FALSE)
+	{
+		XPmcFw_UtilRMW(PMC_ANALOG_SCAN_CLEAR_TRIGGER,
+				PMC_ANALOG_SCAN_CLEAR_TRIGGER_NOC_MASK,
+				PMC_ANALOG_SCAN_CLEAR_TRIGGER_NOC_MASK);
+
+		XilCdo_WaitForScanClearDone();
+		ScanClearDone = TRUE;
+		Status = XilCdo_CheckScanClearPass();
+	}
+	else
+	{
+		Status = XST_SUCCESS;
+	}
+END:
+	return Status;
+}
+
+u32 XilCdo_CheckScanClearPass(void)
+{
+	/* Check for Scan Clear success */
+	return ((Xil_In32(PMC_ANALOG_SCAN_CLEAR_DONE)
+				& PMC_ANALOG_SCAN_CLEAR_DONE_PMC_MASK)
+			== PMC_ANALOG_SCAN_CLEAR_DONE_PMC_MASK);
+}
+
+void XilCdo_WaitForScanClearDone(void)
+{
+	/* Wait for Scan Clear to complete */
+	while((Xil_In32(PMC_ANALOG_SCAN_CLEAR_DONE)
+				& PMC_ANALOG_SCAN_CLEAR_DONE_PMC_MASK)
+			!= PMC_ANALOG_SCAN_CLEAR_DONE_PMC_MASK);
+}
+
+u32 XilCdo_ScanClearME(u32 BaseAddr)
+{
+	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_SCANCLR_MASK,
+			PCSR_MASK_SCANCLR_MASK);
+	XilCdo_WaitForScanClearMEDone(BaseAddr);
+	return XilCdo_CheckScanClearMEPass(BaseAddr);
+}
+
+u32 XilCdo_CheckScanClearMEPass(u32 BaseAddr)
+{
+	/* Check for MBIST success */
+	return ((Xil_In32(BaseAddr+XILCDO_NPI_PCSR_STATUS_OFFSET)
+				& PCSR_STATUS_SCANERR_MASK)
+			== PCSR_STATUS_SCANERR_MASK);
+}
+
+void XilCdo_WaitForScanClearMEDone(u32 BaseAddr)
+{
+	/* Wait for MBIST to complete */
+	while((Xil_In32(BaseAddr+XILCDO_NPI_PCSR_STATUS_OFFSET)
+				& PCSR_STATUS_SCANDONE_MASK)
+			!= PCSR_STATUS_SCANDONE_MASK);
+}
+
+void XilCdo_SetMBISTTrigger(u32 BaseAddr)
+{
+	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_MBISTCLR_MASK,
+			PCSR_MASK_MBISTCLR_MASK);
+}
+
+void XilCdo_ClearMBISTTrigger(u32 BaseAddr)
+{
+	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_MBISTCLR_MASK, 0U);
+}
+
+u32 XilCdo_CheckMBISTPass(u32 BaseAddr)
+{
+	/* Check for MBIST success */
+	return ((Xil_In32(BaseAddr+XILCDO_NPI_PCSR_STATUS_OFFSET)
+				& PCSR_STATUS_MBISTERR_MASK)
+			== PCSR_STATUS_MBISTERR_MASK);
+}
+
+void XilCdo_WaitForMBISTDone(u32 BaseAddr)
+{
+	/* Wait for MBIST to complete */
+	while((Xil_In32(BaseAddr+XILCDO_NPI_PCSR_STATUS_OFFSET)
+				& PCSR_STATUS_MBISTDONE_MASK)
+			!= PCSR_STATUS_MBISTDONE_MASK);
+}
+
+u32 XilCdo_ChkMEPwrSupply(u32 BaseAddr)
+{
+	return ((Xil_In32(BaseAddr+XILCDO_NPI_PCSR_STATUS_OFFSET)
+				& PCSR_STATUS_ME_PWR_SUPPLY_MASK)
+			== PCSR_STATUS_ME_PWR_SUPPLY_MASK);
+}
+
+void XilCdo_ClearME_POR(u32 BaseAddr)
+{
+	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_ME_IPOR_MASK, 0x0U);
+}
+
+void XilCdo_ClearODisable0(u32 BaseAddr)
+{
+	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_ODISABLE0_MASK, 0x0U);
+}
+
+void XilCdo_ClearODisable1(u32 BaseAddr)
+{
+	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_ODISABLE1_MASK, 0x0U);
+}
+
+void XilCdo_ClearMEArrayReset(u32 BaseAddr)
+{
+	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_ME_ARRAY_RESET_MASK, 0x0U);
+}
+
+void XilCdo_SetMemClearEnAll(u32 BaseAddr)
+{
+	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_MEM_CLEAR_EN_ALL,
+			PCSR_MASK_MEM_CLEAR_EN_ALL);
+}
+
+void XilCdo_ClearOD_MBIST_ASYNC_RESET(u32 BaseAddr)
+{
+	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_OD_MBIST_ASYNC_RESET, 0x0U);
+}
+
+void XilCdo_SetOD_MBIST_ASYNC_RESET(u32 BaseAddr)
+{
+	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_OD_MBIST_ASYNC_RESET,
+			PCSR_MASK_OD_MBIST_ASYNC_RESET);
+}
+
+void XilCdo_ClearOD_BIST_SETUP1(u32 BaseAddr)
+{
+	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_OD_BIST_SETUP1, 0x0U);
+}
+
+void XilCdo_SetOD_BIST_SETUP1(u32 BaseAddr)
+{
+	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_OD_BIST_SETUP1,
+			PCSR_MASK_OD_BIST_SETUP1);
 }
 
 /*****************************************************************************/
@@ -1999,7 +2172,7 @@ XStatus XilCdo_NpiWrite(u32 CmdArgs[10U])
 			Count = 0U;
 		}
 		RegVal = Xil_In32(SrcAddr + Count);
-		Xil_Out32(DestAddr + ProcWords<<2U, RegVal);
+		Xil_Out32(DestAddr + (ProcWords<<2U), RegVal);
 		Count+=4U;
 		++ProcWords;
 	}
@@ -2393,4 +2566,196 @@ void XilCdo_ShutBlkNCRB(u32 BaseAddr)
 	XilCdo_SetInitState(BaseAddr);
 	XilCdo_SetHoldState(BaseAddr);
 	XilCdo_SetGateReg(BaseAddr);
+}
+/*****************************************************************************/
+/**
+ * This function does the required Pre Configration for NPI blocks
+ *
+ * @param       Command Args
+ *
+ * @return      none
+ *
+ *****************************************************************************/
+XStatus XilCdo_NpiPreCfg(u32 CmdArgs[10U])
+{
+	u32 BaseAddr = CmdArgs[0U];
+	u32 NpiParam = CmdArgs[1U];
+	u32 BlockType;
+	XStatus Status;
+
+	CmdArgs[9U] = CMD_NPI_PRECFG_ARGS;
+
+	BlockType = NpiParam & XILCDO_NPI_BLK_MASK;
+
+	switch(BlockType)
+	{
+		case XILCDO_NPI_BLK_GT:
+			{
+				Status = XilCdo_NpiPreCfg_GTY(BaseAddr, NpiParam);
+			}
+			break;
+
+		case XILCDO_NPI_BLK_DDRMC:
+			{
+				Status = XilCdo_ScanClear(NpiParam);
+				if(Status != XST_SUCCESS)
+				{
+					goto END;
+				}
+
+				Status = XilCdo_NpiPreCfg_DDRMC(BaseAddr, NpiParam);
+			}
+			break;
+
+		case XILCDO_NPI_BLK_ME_NPI:
+			{
+				Status = XilCdo_NpiPreCfg_ME(BaseAddr, NpiParam);
+			}
+			break;
+
+		case XILCDO_NPI_BLK_NOC_NPS:
+		case XILCDO_NPI_BLK_NOC_NCRB:
+		case XILCDO_NPI_BLK_NOC_NSU:
+		case XILCDO_NPI_BLK_NOC_IDB:
+			{
+				Status = XilCdo_ScanClear(NpiParam);
+			}
+			break;
+
+		case XILCDO_NPI_BLK_NOC_NMU:
+			{
+				Status = XilCdo_ScanClear(NpiParam);
+				if(Status != XST_SUCCESS)
+				{
+					goto END;
+				}
+
+				Status = XilCdo_NpiPreCfg_NOC_NMU(BaseAddr, NpiParam);
+			}
+			break;
+
+		default:
+			{
+				Status = XST_SUCCESS;
+			}
+			break;
+	}
+END:
+	return Status;
+}
+
+XStatus XilCdo_NpiPreCfg_GTY(u32 BaseAddr, u32 NpiParam)
+{
+	u32 Status;
+	XilCdo_ClearLockState(BaseAddr);
+	XilCdo_ClearInitCtrl(BaseAddr);
+#if XPMCFW_BISR_ENABLED
+	//to do : Load efuse data into BISR cache
+	XilCdo_SetBISRTrigger(BaseAddr);
+	XilCdo_WaitForBISRDone(BaseAddr);
+	Status = XilCdo_CheckBISRPass(BaseAddr);
+	if(Status != XST_SUCCESS)
+	{
+		goto END;
+	}
+#endif
+	if((NpiParam & PCSR_PRECFG_MEMCLR_MASK) == PCSR_PRECFG_MEMCLR_MASK)
+	{
+		XilCdo_SetMBISTTrigger(BaseAddr);
+		XilCdo_WaitForMBISTDone(BaseAddr);
+		Status = XilCdo_CheckMBISTPass(BaseAddr);
+		if(Status != XST_SUCCESS)
+		{
+			goto END;
+		}
+	}
+	XilCdo_ClearGateReg(BaseAddr);
+	XilCdo_SetLockState(BaseAddr);
+END:
+	return Status;
+}
+
+XStatus XilCdo_NpiPreCfg_DDRMC(u32 BaseAddr, u32 NpiParam)
+{
+	u32 Status;
+	XilCdo_ClearLockState(BaseAddr);
+#if XPMCFW_BISR_ENABLED
+	//to do : Load efuse data into BISR cache
+	XilCdo_SetBISRTrigger(BaseAddr);
+#endif
+	if((NpiParam & PCSR_PRECFG_MEMCLR_MASK) == PCSR_PRECFG_MEMCLR_MASK)
+	{
+		XilCdo_SetMBISTTrigger(BaseAddr);
+		XilCdo_WaitForMBISTDone(BaseAddr);
+		Status = XilCdo_CheckMBISTPass(BaseAddr);
+		if(Status != XST_SUCCESS)
+		{
+			goto END;
+		}
+	}
+	XilCdo_SetHoldState(BaseAddr);
+	XilCdo_SetLockState(BaseAddr);
+END:
+	return Status;
+}
+
+XStatus XilCdo_NpiPreCfg_ME(u32 BaseAddr, u32 NpiParam)
+{
+	u32 Status = XilCdo_ChkMEPwrSupply(BaseAddr);
+	if(Status)
+	{
+		XilCdo_ClearLockState(BaseAddr);
+		XilCdo_ClearME_POR(BaseAddr);
+#if XPMCFW_BISR_ENABLED
+		//to do : Load efuse data into BISR cache
+#endif
+		XilCdo_ClearODisable1(BaseAddr);
+		Status = XilCdo_ScanClearME(BaseAddr);
+		if(Status != XST_SUCCESS)
+		{
+			goto END;
+		}
+		XilCdo_ClearODisable0(BaseAddr);
+		XilCdo_ClearGateReg(BaseAddr);
+		XilCdo_ClearInitState(BaseAddr);
+		XilCdo_ClearMEArrayReset(BaseAddr);
+		XilCdo_SetMemClearEnAll(BaseAddr);
+		XilCdo_ClearOD_MBIST_ASYNC_RESET(BaseAddr);
+		XilCdo_SetOD_BIST_SETUP1(BaseAddr);
+		if((NpiParam & PCSR_PRECFG_MEMCLR_MASK) == PCSR_PRECFG_MEMCLR_MASK)
+		{
+			XilCdo_SetMBISTTrigger(BaseAddr);
+			XilCdo_WaitForMBISTDone(BaseAddr);
+			Status = XilCdo_CheckMBISTPass(BaseAddr);
+			if(Status != XST_SUCCESS)
+			{
+				goto END;
+			}
+		}
+		XilCdo_SetOD_MBIST_ASYNC_RESET(BaseAddr);
+		XilCdo_ClearOD_BIST_SETUP1(BaseAddr);
+		XilCdo_ClearMBISTTrigger(BaseAddr);
+		XilCdo_SetLockState(BaseAddr);
+	}
+END:
+	return Status;
+}
+
+XStatus XilCdo_NpiPreCfg_NOC_NMU(u32 BaseAddr, u32 NpiParam)
+{
+	u32 Status;
+	XilCdo_ClearLockState(BaseAddr);
+	if((NpiParam & PCSR_PRECFG_MEMCLR_MASK) == PCSR_PRECFG_MEMCLR_MASK)
+	{
+		XilCdo_SetMBISTTrigger(BaseAddr);
+		XilCdo_WaitForMBISTDone(BaseAddr);
+		Status = XilCdo_CheckMBISTPass(BaseAddr);
+		if(Status != XST_SUCCESS)
+		{
+			goto END;
+		}
+	}
+	XilCdo_SetLockState(BaseAddr);
+END:
+	return Status;
 }
