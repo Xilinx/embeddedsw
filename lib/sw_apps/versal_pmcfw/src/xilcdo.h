@@ -166,6 +166,7 @@ XStatus XilCdo_CopyCdoBuf(void);
 XStatus XilCdo_DmaWrite(u32 CmdArgs[10U]);
 XStatus XilCdo_DmaXfer(u32 CmdArgs[10U]);
 XStatus XilCdo_DmaTransfer(u64 SrcAddr, u64 DestAddr, u32 Len);
+XStatus XilCdo_NpiPreCfg(u32 CmdArgs[10U]);
 #ifdef __cplusplus
 }
 #endif
