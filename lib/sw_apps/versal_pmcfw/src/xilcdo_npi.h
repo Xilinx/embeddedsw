@@ -293,6 +293,7 @@ void XilCdo_ShutBlkNSU(u32 BaseAddr);
 void XilCdo_ShutBlkNMU(u32 BaseAddr);
 void XilCdo_ShutBlkNCRB(u32 BaseAddr);
 void XilCdo_ShutBlkXPLL(u32 BaseAddr);
+void XilCdo_ShutBlkNPS(u32 BaseAddr);
 void XilCdo_RunNsuPRMode(u32 BaseAddr);
 void XilCdo_RunAxiReqRejectMode(u32 BaseAddr);
 void XilCdo_SetAxiReqRejectMode(u32 BaseAddr);

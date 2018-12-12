@@ -2160,8 +2160,12 @@ XStatus XilCdo_NpiShutDown(u32 CmdArgs[10U])
 			XilCdo_ShutBlkXPLL(BaseAddr);
 		}
 		break;
-		case XILCDO_NPI_BLK_ME_NPI:
 		case XILCDO_NPI_BLK_NOC_NPS:
+		{
+			XilCdo_ShutBlkNPS(BaseAddr);
+		}
+		break;
+		case XILCDO_NPI_BLK_ME_NPI:
 		case XILCDO_NPI_BLK_AMS_SAT:
 		case XILCDO_NPI_BLK_AMS_ROOT:
 		case XILCDO_NPI_BLK_NOC_IDB:
@@ -2609,6 +2613,22 @@ void XilCdo_ShutBlkNCRB(u32 BaseAddr)
 	XilCdo_SetHoldState(BaseAddr);
 	XilCdo_SetGateReg(BaseAddr);
 }
+
+/*****************************************************************************/
+/**
+ * This function does the required NPI shutdown sequence for NOC_NPS blocks
+ *
+ * @param       BaseAddr is base address of the block
+ *
+ * @return      none
+ *
+ *****************************************************************************/
+void XilCdo_ShutBlkNPS(u32 BaseAddr)
+{
+	XilCdo_ClearLockState(BaseAddr);
+	XilCdo_ClearCompleteState(BaseAddr);
+}
+
 /*****************************************************************************/
 /**
  * This function does the required Pre Configration for NPI blocks
