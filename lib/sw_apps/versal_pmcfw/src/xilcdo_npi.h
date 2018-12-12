@@ -113,12 +113,19 @@ extern "C" {
 /**
  * PCSR MASK register bit fields
  */
+#define PCSR_MASK_BISR_TRIGGER_MASK				(0x20000000U)
 #define PCSR_MASK_SHTDN_MASK    				(0x08000000U)
+#define PCSR_MASK_ME_ARRAY_RESET_MASK			(0x04000000U)
 #define PCSR_MASK_NSU_PR_MASK					(0x04000000U)
 #define PCSR_MASK_AXI_REQ_REJECT_MASK			(0x04000000U)
+#define PCSR_MASK_ME_IPOR_MASK					(0x01000000U)
 #define PCSR_MASK_DESKEW_MASK					(0x01000000U)
 #define PCSR_MASK_UB_INIT_MASK					(0x01000000U)
+#define PCSR_MASK_INIT_CTRL_MASK				(0x01000000U)
+#define PCSR_MASK_MEM_CLEAR_EN_ALL				(0x00800000U)
+#define PCSR_MASK_OD_BIST_SETUP1				(0x00400000U)
 #define PCSR_MASK_DCI_OFC_RST_MASK              (0x00200000U)
+#define PCSR_MASK_OD_MBIST_ASYNC_RESET			(0x00200000U)
 #define PCSR_MASK_STARTBISR_MASK    			(0x00080000U)
 #define PCSR_MASK_MBISTCLR_MASK					(0x00040000U)
 #define PCSR_MASK_SYS_RST_MASK_MASK 			(0x00038000U)
@@ -132,12 +139,15 @@ extern "C" {
 #define PCSR_MASK_HOLDSTATE_MASK    			(0x00000080U)
 #define PCSR_MASK_INITSTATE_MASK    			(0x00000040U)
 #define PCSR_MASK_ODISABLE_MASK    				(0x0000003CU)
+#define PCSR_MASK_ODISABLE1_MASK				(0x00000008U)
+#define PCSR_MASK_ODISABLE0_MASK				(0x00000004U)
 #define PCSR_MASK_GATEREG_MASK    				(0x00000002U)
 #define PCSR_MASK_PCOMPLETE_MASK    			(0x00000001U)
 
 /**
  * Register: PCSR_STATUS
  */
+#define PCSR_STATUS_ME_PWR_SUPPLY_MASK			(0x00008000U)
 #define PCSR_STATUS_BISRERR_MASK    			(0x00000200U)
 #define PCSR_STATUS_BISRDONE_MASK    			(0x00000100U)
 #define PCSR_STATUS_MBISTERR_MASK    			(0x00000080U)
@@ -155,6 +165,8 @@ extern "C" {
 #define PCSR_LOCK_STATE_MASK    				(0x00000001U)
 #define PCSR_UNLOCK_VAL							(0xF9E8D7C6U)
 
+#define PCSR_PRECFG_MEMCLR_MASK					(0x01000000U)
+#define PCSR_PRECFG_SCANCLR_MASK				(0x02000000U)
 /**************************** Type Definitions *******************************/
 
 /************************** Structure Declarations ***************************/
@@ -259,6 +271,32 @@ void XilCdo_SetPRMode(u32 BaseAddr);
 void XilCdo_ClearPRMode(u32 BaseAddr);
 void XilCdo_SetShutDown(u32 BaseAddr);
 void XilCdo_ClearShutDown(u32 BaseAddr);
+void XilCdo_ClearInitCtrl(u32 BaseAddr);
+void XilCdo_SetBISRTrigger(u32 BaseAddr);
+u32 XilCdo_CheckBISRPass(u32 BaseAddr);
+void XilCdo_WaitForBISRDone(u32 BaseAddr);
+void XilCdo_SetMBISTTrigger(u32 BaseAddr);
+u32 XilCdo_CheckMBISTPass(u32 BaseAddr);
+void XilCdo_WaitForMBISTDone(u32 BaseAddr);
+u32 XilCdo_CheckScanClearPass(void);
+void XilCdo_WaitForScanClearDone(void);
+u32 XilCdo_ScanClear(u32 NpiParam);
+u32 XilCdo_CheckScanClearMEPass(u32 BaseAddr);
+void XilCdo_WaitForScanClearMEDone(u32 BaseAddr);
+u32 XilCdo_ScanClearME(u32 BaseAddr);
+u32 XilCdo_ChkMEPwrSupply(u32 BaseAddr);
+void XilCdo_ClearME_POR(u32 BaseAddr);
+void XilCdo_ClearODisable0(u32 BaseAddr);
+void XilCdo_ClearMEArrayReset(u32 BaseAddr);
+void XilCdo_SetMemClearEnAll(u32 BaseAddr);
+void XilCdo_ClearOD_MBIST_ASYNC_RESET(u32 BaseAddr);
+void XilCdo_SetOD_MBIST_ASYNC_RESET(u32 BaseAddr);
+void XilCdo_ClearOD_BIST_SETUP(u32 BaseAddr);
+XStatus XilCdo_NpiPreCfg_GTY(u32 BaseAddr, u32 NpiParam);
+XStatus XilCdo_NpiPreCfg_DDRMC(u32 BaseAddr, u32 NpiParam);
+XStatus XilCdo_NpiPreCfg_ME(u32 BaseAddr, u32 NpiParam);
+XStatus XilCdo_NpiPreCfg_NOC(u32 BaseAddr, u32 NpiParam);
+XStatus XilCdo_NpiPreCfg_NOC_NMU(u32 BaseAddr, u32 NpiParam);
 XStatus XilCdo_CheckDeskew(u32 BaseAddr);
 XStatus XilCdo_NpiWrite(u32 CmdArgs[10U]);
 XStatus XilCdo_NpiSeq(u32 CmdArgs[10U]);

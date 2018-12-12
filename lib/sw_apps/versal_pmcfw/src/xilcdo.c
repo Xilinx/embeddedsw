@@ -369,8 +369,7 @@ XStatus XilCdo_ProcessCmd(u32 Cmd, u32 *CmdData, u32 *ArgNum)
 		case CMD_NPI_PRECFG:
 			{
 				*ArgNum = CMD_NPI_PRECFG_ARGS;
-				Status = XST_SUCCESS;
-				goto END;
+				XilCdo_CmdHdlr =  XilCdo_NpiPreCfg;
 			}
 			break;
 		default:
