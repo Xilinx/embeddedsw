@@ -15,6 +15,10 @@ var struct_x_v___hdmi_rx =
     [ "ConnectRef", "struct_x_v___hdmi_rx.html#af488febbfc741a436dac4b6ff44aadcf", null ],
     [ "DdcCallback", "struct_x_v___hdmi_rx.html#a780aa401adc23e90de0864d8896a0b5d", null ],
     [ "DdcRef", "struct_x_v___hdmi_rx.html#af7519c3087b27b537256a07affd2d6c7", null ],
+    [ "Hdcp14ProtEvtCallback", "struct_x_v___hdmi_rx.html#a0adf094898db51c89b2a7f16d6337d62", null ],
+    [ "Hdcp14ProtEvtRef", "struct_x_v___hdmi_rx.html#a0978cc0ede32d9f4318d8f270de82dd4", null ],
+    [ "Hdcp22ProtEvtCallback", "struct_x_v___hdmi_rx.html#a7469dd0ba77215d51ae399e4964d41d0", null ],
+    [ "Hdcp22ProtEvtRef", "struct_x_v___hdmi_rx.html#a9d58b29139f8b19c5f5da5dd3a482265", null ],
     [ "HdcpCallback", "struct_x_v___hdmi_rx.html#a7a380f0815c05dd7a216b9b296d799d2", null ],
     [ "HdcpRef", "struct_x_v___hdmi_rx.html#a7169a3f83e3ee81d3e8224badb5f6308", null ],
     [ "IsAudCallbackSet", "struct_x_v___hdmi_rx.html#a16b8220d3d5726ce667fd2126cd77ce1", null ],
@@ -22,6 +26,8 @@ var struct_x_v___hdmi_rx =
     [ "IsBrdgOverflowCallbackSet", "struct_x_v___hdmi_rx.html#a4ddfef9f679173707e39db6763396fff", null ],
     [ "IsConnectCallbackSet", "struct_x_v___hdmi_rx.html#a98be1192a38df457a49b96b8fc4b15f2", null ],
     [ "IsDdcCallbackSet", "struct_x_v___hdmi_rx.html#ae59867a2fbf7898eb95b4c2b45d28410", null ],
+    [ "IsHdcp14ProtEvtCallbackSet", "struct_x_v___hdmi_rx.html#a0269fe1b15528caca4976bd466f966d4", null ],
+    [ "IsHdcp22ProtEvtCallbackSet", "struct_x_v___hdmi_rx.html#a19f0d7e7c3fecd139a63d6917538bd3d", null ],
     [ "IsHdcpCallbackSet", "struct_x_v___hdmi_rx.html#aebf0ba5748af0de838f803bf2225f6f3", null ],
     [ "IsLinkErrorCallbackSet", "struct_x_v___hdmi_rx.html#a61c86cd9b5a7a1d1750c0c7bbd758bae", null ],
     [ "IsLnkStaCallbackSet", "struct_x_v___hdmi_rx.html#aa0cb2c8145cd396993c88b73b706a50a", null ],
@@ -31,6 +37,7 @@ var struct_x_v___hdmi_rx =
     [ "IsStreamInitCallbackSet", "struct_x_v___hdmi_rx.html#ac02d9af178c3238017a0a144d62f03b3", null ],
     [ "IsStreamUpCallbackSet", "struct_x_v___hdmi_rx.html#ab0aaa52f119c073b465ad6c3bd80931b", null ],
     [ "IsSyncLossCallbackSet", "struct_x_v___hdmi_rx.html#ae04a163494be12bcb9ecade3059a5808", null ],
+    [ "IsTmdsClkRatioCallbackSet", "struct_x_v___hdmi_rx.html#aec543849385f6a23a19f7a985ad17868", null ],
     [ "LinkErrorCallback", "struct_x_v___hdmi_rx.html#a3afe28fcccb6357b4617f0537630981c", null ],
     [ "LinkErrorRef", "struct_x_v___hdmi_rx.html#ab5db24e6c4914a908e485f83104372a3", null ],
     [ "LnkStaCallback", "struct_x_v___hdmi_rx.html#a9bc3519cb42839fc78d65e734578877b", null ],
@@ -45,5 +52,7 @@ var struct_x_v___hdmi_rx =
     [ "StreamUpCallback", "struct_x_v___hdmi_rx.html#af7af2be88a6f34fe61a23127b05da53e", null ],
     [ "StreamUpRef", "struct_x_v___hdmi_rx.html#a201b3f4452b50dd5d52136b2518ac749", null ],
     [ "SyncLossCallback", "struct_x_v___hdmi_rx.html#abbac689c275d51dc275f3ddae8287956", null ],
-    [ "SyncLossRef", "struct_x_v___hdmi_rx.html#a46b5b26b3d14ed42965881c7c93e0e20", null ]
+    [ "SyncLossRef", "struct_x_v___hdmi_rx.html#a46b5b26b3d14ed42965881c7c93e0e20", null ],
+    [ "TmdsClkRatioCallback", "struct_x_v___hdmi_rx.html#aeaad76669a3ca9272ae198ab9797a6b8", null ],
+    [ "TmdsClkRatioRef", "struct_x_v___hdmi_rx.html#ac7788776866f058296a22ddcd7b1bf16", null ]
 ];

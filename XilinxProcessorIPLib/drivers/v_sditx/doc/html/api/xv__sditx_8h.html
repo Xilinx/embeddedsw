@@ -70,12 +70,14 @@ $(document).ready(function(){initNavTree('xv__sditx_8h.html','');});
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
 <div class="textblock"><pre>
-MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
+  MODIFICATION HISTORY:</pre><pre>  Ver   Who    Date     Changes
 <hr/>
 
-1.00  jsr    07/17/17 Initial release.
+  1.00  jsr    07/17/17 Initial release.
         jsr    02/23/2018 YUV420 color format support.
-</pre> </div><table class="memberdecls">
+<h1>2.0   vve    10/03/18 Add support for ST352 in C Stream</h1>
+</pre><pre>
+  </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_v___sdi_tx___config.html">XV_SdiTx_Config</a></td></tr>
@@ -198,6 +200,12 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>XV_SdiTx_SetVidFormat<
 <tr class="memitem:a62c8fbdcb856eff73bbb32ebcf78a41e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditx_8h.html#a62c8fbdcb856eff73bbb32ebcf78a41e">XV_SdiTx_SetColorFormat</a> (<a class="el" href="struct_x_v___sdi_tx.html">XV_SdiTx</a> *InstancePtr, XVidC_ColorFormat ColorFormat)</td></tr>
 <tr class="memdesc:a62c8fbdcb856eff73bbb32ebcf78a41e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function Set the video format of the SDI TX core.  <a href="#a62c8fbdcb856eff73bbb32ebcf78a41e">More...</a><br /></td></tr>
 <tr class="separator:a62c8fbdcb856eff73bbb32ebcf78a41e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac68a902fd4b2c666020356621c33700d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditx_8h.html#ac68a902fd4b2c666020356621c33700d">XV_SdiTx_ST352CStreamEnable</a> (<a class="el" href="struct_x_v___sdi_tx.html">XV_SdiTx</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ac68a902fd4b2c666020356621c33700d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enables the insertion of ST352 in C stream of the SDI TX Ss core.  <a href="#ac68a902fd4b2c666020356621c33700d">More...</a><br /></td></tr>
+<tr class="separator:ac68a902fd4b2c666020356621c33700d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd56b720f4019c4a47715a803eb24bc3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditx_8h.html#afd56b720f4019c4a47715a803eb24bc3">XV_SdiTx_ST352CSwitch3GA</a> (<a class="el" href="struct_x_v___sdi_tx.html">XV_SdiTx</a> *InstancePtr)</td></tr>
+<tr class="memdesc:afd56b720f4019c4a47715a803eb24bc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enables the ST352 value to be used from DS2 instead of DS3 register in C stream of the SDI TX Ss core.  <a href="#afd56b720f4019c4a47715a803eb24bc3">More...</a><br /></td></tr>
+<tr class="separator:afd56b720f4019c4a47715a803eb24bc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb4de6395b66aedaf45726f35181e0b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sditx_8h.html#adb4de6395b66aedaf45726f35181e0b8">XV_SdiTx_VidBridgeEnable</a> (<a class="el" href="struct_x_v___sdi_tx.html">XV_SdiTx</a> *InstancePtr)</td></tr>
 <tr class="memdesc:adb4de6395b66aedaf45726f35181e0b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enables the video bridge.  <a href="#adb4de6395b66aedaf45726f35181e0b8">More...</a><br /></td></tr>
 <tr class="separator:adb4de6395b66aedaf45726f35181e0b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -257,7 +265,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>XV_SdiTx_SetVidFormat<
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__sditx__hw_8h.html#a473ff53a4f74d89a57e04a65c72416af">XV_SdiTx_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">  (XV_SDITX_VER_OFFSET))</div><div class="ttc" id="xv__sditx__hw_8h_html_a473ff53a4f74d89a57e04a65c72416af"><div class="ttname"><a href="xv__sditx__hw_8h.html#a473ff53a4f74d89a57e04a65c72416af">XV_SdiTx_ReadReg</a></div><div class="ttdeci">#define XV_SdiTx_ReadReg(BaseAddress, RegOffset)</div><div class="ttdoc">This macro reads a value from a SDI TX register. </div><div class="ttdef"><b>Definition:</b> xv_sditx_hw.h:239</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="xv__sditx__hw_8h.html#a473ff53a4f74d89a57e04a65c72416af">XV_SdiTx_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">  (XV_SDITX_VER_OFFSET))</div><div class="ttc" id="xv__sditx__hw_8h_html_a473ff53a4f74d89a57e04a65c72416af"><div class="ttname"><a href="xv__sditx__hw_8h.html#a473ff53a4f74d89a57e04a65c72416af">XV_SdiTx_ReadReg</a></div><div class="ttdeci">#define XV_SdiTx_ReadReg(BaseAddress, RegOffset)</div><div class="ttdoc">This macro reads a value from a SDI TX register. </div><div class="ttdef"><b>Definition:</b> xv_sditx_hw.h:247</div></div>
 </div><!-- fragment -->
 <p>This macro reads the TX version. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1474,6 +1482,66 @@ HandlerType                       Callback Function Type
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_v___sdi_tx___config.html#a55bc404bba9a241e65bc618992c289a3">XV_SdiTx_Config::BaseAddress</a>, <a class="el" href="struct_x_v___sdi_tx.html#a3fe081b6dd8372f1128ccda2c2a1d825">XV_SdiTx::Config</a>, <a class="el" href="struct_x_v___sdi_tx.html#a973312cc838aaf0e1e0bd7807cb48822">XV_SdiTx::Transport</a>, and <a class="el" href="xv__sditx__hw_8h.html#a473ff53a4f74d89a57e04a65c72416af">XV_SdiTx_ReadReg</a>.</p>
+
+</div>
+</div>
+<a id="ac68a902fd4b2c666020356621c33700d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac68a902fd4b2c666020356621c33700d">&#9670;&nbsp;</a></span>XV_SdiTx_ST352CStreamEnable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_SdiTx_ST352CStreamEnable </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___sdi_tx.html">XV_SdiTx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function enables the insertion of ST352 in C stream of the SDI TX Ss core. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___sdi_tx.html" title="The XV_SdiTx driver instance data. ">XV_SdiTx</a> core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___sdi_tx___config.html#a55bc404bba9a241e65bc618992c289a3">XV_SdiTx_Config::BaseAddress</a>, <a class="el" href="struct_x_v___sdi_tx.html#a3fe081b6dd8372f1128ccda2c2a1d825">XV_SdiTx::Config</a>, and <a class="el" href="xv__sditx__hw_8h.html#a473ff53a4f74d89a57e04a65c72416af">XV_SdiTx_ReadReg</a>.</p>
+
+</div>
+</div>
+<a id="afd56b720f4019c4a47715a803eb24bc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd56b720f4019c4a47715a803eb24bc3">&#9670;&nbsp;</a></span>XV_SdiTx_ST352CSwitch3GA()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_SdiTx_ST352CSwitch3GA </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___sdi_tx.html">XV_SdiTx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function enables the ST352 value to be used from DS2 instead of DS3 register in C stream of the SDI TX Ss core. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___sdi_tx.html" title="The XV_SdiTx driver instance data. ">XV_SdiTx</a> core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___sdi_tx___config.html#a55bc404bba9a241e65bc618992c289a3">XV_SdiTx_Config::BaseAddress</a>, <a class="el" href="struct_x_v___sdi_tx.html#a3fe081b6dd8372f1128ccda2c2a1d825">XV_SdiTx::Config</a>, and <a class="el" href="xv__sditx__hw_8h.html#a473ff53a4f74d89a57e04a65c72416af">XV_SdiTx_ReadReg</a>.</p>
 
 </div>
 </div>

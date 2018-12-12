@@ -80,18 +80,17 @@ $(document).ready(function(){initNavTree('xtmrctr__intr__64bit__example_8c.html'
   4.2   ms   01/23/17 Added xil_printf statement in main function to
                       ensure that "Successfully ran" and "Failed" strings
                       are available in all examples. This is a fix for
-                      CR-965028.</pre><pre>*</pre> </div><table class="memberdecls">
+                      CR-965028.
+  4.5   mus  07/05/18 Updated example to call TmrCtrDisableIntr function
+                      with correct arguments. Presently device id is
+                      being passed instead of interrupt id. It fixes
+                      CR#1006251.
+  4.5   mus  07/05/18 Fixed checkpatch errors and warnings.</pre><pre>*</pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a232646e3ad3fc178f3ffb78c3b3584ec"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtmrctr__intr__64bit__example_8c.html#a232646e3ad3fc178f3ffb78c3b3584ec">TmrCtrCascadeIntrExample</a> (XIntc *IntcInstancePtr, <a class="el" href="struct_x_tmr_ctr.html">XTmrCtr</a> *TmrCtrInstancePtr, u16 DeviceId, u16 IntrId)</td></tr>
 <tr class="memdesc:a232646e3ad3fc178f3ffb78c3b3584ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function does a minimal test on the timer counter device and driver as a design example.  <a href="#a232646e3ad3fc178f3ffb78c3b3584ec">More...</a><br /></td></tr>
 <tr class="separator:a232646e3ad3fc178f3ffb78c3b3584ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbe44987ea37b6cd0166ecc6780cff4e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtmrctr__intr__64bit__example_8c.html#abbe44987ea37b6cd0166ecc6780cff4e">TimerCounterHandler</a> (void *CallBackRef, u8 TmrCtrNumber)</td></tr>
-<tr class="memdesc:abbe44987ea37b6cd0166ecc6780cff4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the handler which performs processing for the timer counter.  <a href="#abbe44987ea37b6cd0166ecc6780cff4e">More...</a><br /></td></tr>
-<tr class="separator:abbe44987ea37b6cd0166ecc6780cff4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e29befcf794126460f5c7b688bcaedf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtmrctr__intr__64bit__example_8c.html#a6e29befcf794126460f5c7b688bcaedf">TmrCtrDisableIntr</a> (XIntc *IntcInstancePtr, u16 IntrId)</td></tr>
-<tr class="memdesc:a6e29befcf794126460f5c7b688bcaedf"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function disables the interrupts for the Timer.  <a href="#a6e29befcf794126460f5c7b688bcaedf">More...</a><br /></td></tr>
-<tr class="separator:a6e29befcf794126460f5c7b688bcaedf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtmrctr__intr__64bit__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the main function of the Tmrctr 64 bit example using Interrupts.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br /></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -126,49 +125,6 @@ Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p class="reference">References <a class="el" href="xtmrctr__intr__64bit__example_8c.html#a232646e3ad3fc178f3ffb78c3b3584ec">TmrCtrCascadeIntrExample()</a>.</p>
-
-</div>
-</div>
-<a id="abbe44987ea37b6cd0166ecc6780cff4e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abbe44987ea37b6cd0166ecc6780cff4e">&#9670;&nbsp;</a></span>TimerCounterHandler()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void TimerCounterHandler </td>
-          <td>(</td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>CallBackRef</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>TmrCtrNumber</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function is the handler which performs processing for the timer counter. </p>
-<p>It is called from an interrupt context such that the amount of processing performed should be minimized. It is called when the timer counter expires if interrupts are enabled.</p>
-<p>This handler provides an example of how to handle timer counter interrupts but is application specific.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">CallBackRef</td><td>is a pointer to the callback function </td></tr>
-    <tr><td class="paramname">TmrCtrNumber</td><td>is the number of the timer to which this handler is associated with.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p class="reference">References <a class="el" href="group__tmrctr__v4__4.html#ga44d19561a31682753e4996c7b57d6982">XTmrCtr_IsExpired()</a>.</p>
 
 </div>
 </div>
@@ -229,48 +185,9 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This function contains an infinite loop such that if interrupts are not working it may never return. </dd></dl>
 
-<p class="reference">References <a class="el" href="group__tmrctr__v4__4.html#gad5f9b6172f448d2dd13d1c200ca37928">XTmrCtr_Initialize()</a>, and <a class="el" href="group__tmrctr__v4__4.html#ga42b972b6d7ae5d18a9bb2ca99446b1e7">XTmrCtr_SelfTest()</a>.</p>
+<p class="reference">References <a class="el" href="group__tmrctr__v4__5.html#gad5f9b6172f448d2dd13d1c200ca37928">XTmrCtr_Initialize()</a>, and <a class="el" href="group__tmrctr__v4__5.html#ga42b972b6d7ae5d18a9bb2ca99446b1e7">XTmrCtr_SelfTest()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="xtmrctr__intr__64bit__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
-
-</div>
-</div>
-<a id="a6e29befcf794126460f5c7b688bcaedf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e29befcf794126460f5c7b688bcaedf">&#9670;&nbsp;</a></span>TmrCtrDisableIntr()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void TmrCtrDisableIntr </td>
-          <td>(</td>
-          <td class="paramtype">XIntc *&#160;</td>
-          <td class="paramname"><em>IntcInstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u16&#160;</td>
-          <td class="paramname"><em>IntrId</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function disables the interrupts for the Timer. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">IntcInstancePtr</td><td>is a reference to the Interrupt Controller driver Instance. </td></tr>
-    <tr><td class="paramname">IntrId</td><td>is XPAR_&lt;INTC_instance&gt;_&lt;Timer_instance&gt;_VEC_ID value from xparameters.h.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
 </div>

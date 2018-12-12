@@ -76,6 +76,7 @@ var xvtc__hw_8h =
     [ "XVTC_FSXX_HSTART_MASK", "group__vtc__v7__2.html#gaf8f1fa0cc91836625a35c94312338466", null ],
     [ "XVTC_FSXX_VSTART_MASK", "group__vtc__v7__2.html#gaa69be863f1b3c3961ab0d9f135e4b391", null ],
     [ "XVTC_FSXX_VSTART_SHIFT", "group__vtc__v7__2.html#ga4705a1946469f96743216d595dc8e420", null ],
+    [ "XVTC_GASIZE_F1_OFFSET", "group__vtc__v7__2.html#ga541ae8ee56dea825911d32c5bcd2eb1c", null ],
     [ "XVTC_GASIZE_OFFSET", "group__vtc__v7__2.html#ga10c0e460c3df1f6cf5cde54cb597b9b9", null ],
     [ "XVTC_GFENC_OFFSET", "group__vtc__v7__2.html#ga94bc001b50845a4eca652498aed73ee1", null ],
     [ "XVTC_GGD_HDELAY_MASK", "group__vtc__v7__2.html#gafdfbb60141c1787d0b7d960588c0812a", null ],

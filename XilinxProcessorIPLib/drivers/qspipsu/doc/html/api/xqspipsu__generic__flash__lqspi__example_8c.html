@@ -71,7 +71,7 @@ $(document).ready(function(){initNavTree('xqspipsu__generic__flash__lqspi__examp
 <div class="textblock"><p>This file contains a design example using the QSPIPSU driver (<a class="el" href="struct_x_qspi_psu.html" title="The XQspiPsu driver instance data. ">XQspiPsu</a>) with a serial Flash device greater than or equal to 128Mb. </p>
 <p>The example writes to flash in GQSPI mode and reads it back in Linear QSPI mode.This examples runs with GENFIFO Manual start. It runs in interrupt mode.This example runs in single mode.</p>
 <p>The hardware which this example runs on, must have a serial Flash (Micron N25Q or Spansion S25FL) for it to run.</p>
-<p>This example has been tested with the Micron Serial Flash (N25Q512A) in single mode using A53 and R5 processors.</p>
+<p>This example has been tested with the Micron Serial Flash (N25Q512A) and ISSI Serial Flash parts of IS25WP and IS25LP series flashes in single mode using A53 and R5 processors.</p>
 <dl class="section note"><dt>Note</dt><dd></dd></dl>
 <p>In dual parallel mode flash connection, ZynqMP GQSPI writes data in bytes(Even bytes in lower flash and odd bytes in upper flash), where as LQSPI reads the data in bitwise. so this is causing data mismatch while reading in LQSPI mode. so this application proceeds with single mode irrespective of flash connection.</p>
 <pre>
@@ -94,6 +94,9 @@ $(document).ready(function(){initNavTree('xqspipsu__generic__flash__lqspi__examp
   1.7   tjs 01/11/18 Added support for MX66L1G45G flash from Macronix CR-992367
   1.7   tjs 26/03/18 In dual parallel mode enable both CS when issuing Write
                                  enable command. CR-998478
+  1.8   tjs 05/02/18 Added support for IS25LP064 and IS25WP064.
+  1.8   tjs 16/07/18 Added support for the low density ISSI flash parts.
+  1.8   tjs 09/14/18 Fixed compilation warnings.
 *</pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>

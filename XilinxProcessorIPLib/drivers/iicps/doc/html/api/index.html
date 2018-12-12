@@ -73,8 +73,8 @@ $(document).ready(function(){initNavTree('index.html','');});
 <p>To support multiple runtime loading and initialization strategies employed by various operating systems, the driver instance can be initialized in the following way:</p>
 <ul>
 <li>XIicPs_LookupConfig(DeviceId) - Use the device identifier to find the static configuration structure defined in <a class="el" href="xiicps__g_8c.html">xiicps_g.c</a>. This is setup by the tools. For some operating systems the config structure will be initialized by the software and this call is not needed.</li>
+<li>XIicPs_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a configuration structure provided by the caller. If running in a system with address translation, the provided virtual memory base address replaces the physical address in the configuration structure.</li>
 </ul>
-<p>XIicPs_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a configuration structure provided by the caller. If running in a system with address translation, the provided virtual memory base address replaces the physical address in the configuration structure.</p>
 <p><b>Multiple Masters</b></p>
 <p>More than one master can exist, bus arbitration is defined in the IIC standard. Lost of arbitration causes arbitration loss interrupt on the device.</p>
 <p><b>Multiple Slaves</b></p>
@@ -149,7 +149,8 @@ $(document).ready(function(){initNavTree('index.html','');});
        ms  03/17/17 Added readme.txt file in examples folder for doxygen
                     generation.
  3.7   ask  04/17/18 Updated the Eeprom scanning mechanism
-                     as per the other examples (CR#997545)</pre><pre> </pre> </div></div><!-- contents -->
+                     as per the other examples (CR#997545)
+ 3.8   ask  08/01/18   Fix for Cppcheck and Doxygen warnings</pre><pre> </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

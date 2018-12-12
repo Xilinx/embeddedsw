@@ -1,9 +1,15 @@
 var struct_x_sdi_aud =
 [
+    [ "ActiveChannelChangeDetHandler", "struct_x_sdi_aud.html#aa392887fe5c17854f21a7f3b58fb21b1", null ],
+    [ "ActiveChannelChangeDetHandlerRef", "struct_x_sdi_aud.html#a27fb79de853d8428e254dfbe81197308", null ],
+    [ "AesCsChangeDetHandler", "struct_x_sdi_aud.html#a32d8054f30b5bc736979976705cae0b8", null ],
+    [ "AesCsChangeDetHandlerRef", "struct_x_sdi_aud.html#afa60569bfd7b8b9e3ec317dc2c7f0893", null ],
+    [ "AesCsUpdateDetHandler", "struct_x_sdi_aud.html#aa6683873b095ab75e8e33699c47bab54", null ],
+    [ "AesCsUpdateDetHandlerRef", "struct_x_sdi_aud.html#a37e49d04cf2f4b87a1d91464e4fd468a", null ],
+    [ "AsxChangeDetHandler", "struct_x_sdi_aud.html#a5548a6b98ae49097450daea15cfdd5f1", null ],
+    [ "AsxChangeDetHandlerRef", "struct_x_sdi_aud.html#a92e1da87ab6788508cd0698806e35fb2", null ],
     [ "ChecksumErrDetHandler", "struct_x_sdi_aud.html#a9a9677d6047e8f2775c3859931d56567", null ],
     [ "ChecksumErrDetHandlerRef", "struct_x_sdi_aud.html#a1e0752da820379badb8f8563921125a1", null ],
-    [ "CntrlPktDetHandler", "struct_x_sdi_aud.html#aba159008676f66969ac906e80ed6c83c", null ],
-    [ "CntrlPktDetHandlerRef", "struct_x_sdi_aud.html#ada94cb7f9b549bc81c4c1ebb56a8cae5", null ],
     [ "Config", "struct_x_sdi_aud.html#ac25a09acc7056003e1beb8e8111f5e0d", null ],
     [ "FifoOvrflwDetHandler", "struct_x_sdi_aud.html#ad02253af50e52b94ae988ecc61b22705", null ],
     [ "FifoOvrflwDetHandlerRef", "struct_x_sdi_aud.html#a4a022005a4ea9a08c2d5d9c6e82f0eb3", null ],
@@ -14,7 +20,11 @@ var struct_x_sdi_aud =
     [ "NumOfCh", "struct_x_sdi_aud.html#a471887a3276a4ef1d1259d780c05de71", null ],
     [ "ParityErrDetHandler", "struct_x_sdi_aud.html#a019b9077df653ca7ebd43524cedf9a1d", null ],
     [ "ParityErrDetHandlerRef", "struct_x_sdi_aud.html#af59230a4bded4cb4c9bd8b361e7b6c9b", null ],
+    [ "SampleRateChangeDetHandler", "struct_x_sdi_aud.html#aa52548326e684990653e2eab156f81b7", null ],
+    [ "SampleRateChangeDetHandlerRef", "struct_x_sdi_aud.html#af8f039701b726c6b17ebe293af64110f", null ],
     [ "StatChangeDetHandler", "struct_x_sdi_aud.html#ae3285b1d179549df42bc032d3ca9414d", null ],
     [ "StatChangeDetHandlerRef", "struct_x_sdi_aud.html#a6aeed604e54fcee660a7093053488752", null ],
-    [ "StrtGrpNum", "struct_x_sdi_aud.html#a7d4b6072bd9d32260e21d0465e97ec5d", null ]
+    [ "StrtGrpNum", "struct_x_sdi_aud.html#a7d4b6072bd9d32260e21d0465e97ec5d", null ],
+    [ "VidPropChangeDetHandler", "struct_x_sdi_aud.html#a83f2ed1503a571d7e5f7ab63f1bdca16", null ],
+    [ "VidPropChangeDetHandlerRef", "struct_x_sdi_aud.html#a8c41d5ceafa0fe84cf3402b357ce9cc3", null ]
 ];

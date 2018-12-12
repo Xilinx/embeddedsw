@@ -1,5 +1,6 @@
 var xv__hdmirxss_8c =
 [
+    [ "XV_HdmiRxSs_AudioMute", "xv__hdmirxss_8c.html#afbf6577a7f6af0c3e2da373f736ca49e", null ],
     [ "XV_HdmiRxSs_GetAudioChannels", "xv__hdmirxss_8c.html#a9800e58c46167ce458da016451f88c8d", null ],
     [ "XV_HdmiRxSs_GetAudioFormat", "xv__hdmirxss_8c.html#a64e45e8b7892c815eab9b50c39790f10", null ],
     [ "XV_HdmiRxSs_GetAudioInfoframe", "xv__hdmirxss_8c.html#a05f94117a349e62618cd03cefe3208af", null ],

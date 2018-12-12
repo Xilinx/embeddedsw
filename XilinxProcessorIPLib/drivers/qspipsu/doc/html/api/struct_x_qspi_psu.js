@@ -6,6 +6,7 @@ var struct_x_qspi_psu =
     [ "IsBusy", "struct_x_qspi_psu.html#ab6f2b5a35423f4a2c34053eaeec3dcd6", null ],
     [ "IsReady", "struct_x_qspi_psu.html#ae6039f5b4f8cdf2e528931ec383deb31", null ],
     [ "ReadMode", "struct_x_qspi_psu.html#abcf49b02b0b90a7eecf9fb5ba40ac0b3", null ],
+    [ "RecvBuffer", "struct_x_qspi_psu.html#a5847b936a60565902840095849c90331", null ],
     [ "RecvBufferPtr", "struct_x_qspi_psu.html#a5464cdad6cf047e5228f13cb3a761c3f", null ],
     [ "RxBytes", "struct_x_qspi_psu.html#ac45ddbc82ca891a58fbc9f25150fce30", null ],
     [ "SendBufferPtr", "struct_x_qspi_psu.html#a2a11cb56ad7d4b388a4669359156ab0b", null ],

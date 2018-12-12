@@ -13,6 +13,7 @@ var files =
     [ "xtmrctr_low_level_example.c", "xtmrctr__low__level__example_8c.html", "xtmrctr__low__level__example_8c" ],
     [ "xtmrctr_options.c", "xtmrctr__options_8c.html", "xtmrctr__options_8c" ],
     [ "xtmrctr_polled_example.c", "xtmrctr__polled__example_8c.html", "xtmrctr__polled__example_8c" ],
+    [ "xtmrctr_pwm_example.c", "xtmrctr__pwm__example_8c.html", "xtmrctr__pwm__example_8c" ],
     [ "xtmrctr_selftest.c", "xtmrctr__selftest_8c.html", "xtmrctr__selftest_8c" ],
     [ "xtmrctr_selftest_example.c", "xtmrctr__selftest__example_8c.html", "xtmrctr__selftest__example_8c" ],
     [ "xtmrctr_sinit.c", "xtmrctr__sinit_8c.html", "xtmrctr__sinit_8c" ],

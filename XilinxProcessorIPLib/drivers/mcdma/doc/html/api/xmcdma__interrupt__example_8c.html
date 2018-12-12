@@ -69,13 +69,17 @@ $(document).ready(function(){initNavTree('xmcdma__interrupt__example_8c.html',''
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
 <div class="textblock"><p>This file demonstrates how to use the mcdma driver on the Xilinx AXI MCDMA core (AXI MCDMA) to transfer packets in interrupt mode. </p>
-<p>This examples shows how to do multiple packets transfers, as well as how to do multiple show how to do multiple packets transfers, as well as how to do multiple BD's per packet transfers.</p>
-<p>H/W Requirments: In order to test this example at the h/w level AXI MCDMA MM2S should connect with the S2MM.</p>
-<p>System level Considerations for ZynqUltrascale+ designs: Please refer <a class="el" href="xmcdma__polled__example_8c.html" title="This file demonstrates how to use the mcdma driver on the Xilinx AXI MCDMA core (AXI MCDMA) to transf...">xmcdma_polled_example.c</a> file.</p>
+<p>This examples shows how to do multiple packets and multiple BD's Per packet transfers.</p>
+<p>H/W Requirements: In order to test this example at the h/w level AXI MCDMA MM2S should connect with the S2MM.</p>
+<p>System level Considerations for Zynq UltraScale+ designs: Please refer <a class="el" href="xmcdma__polled__example_8c.html" title="This file demonstrates how to use the mcdma driver on the Xilinx AXI MCDMA core (AXI MCDMA) to transf...">xmcdma_polled_example.c</a> file.</p>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date      Changes
 ----- ---- --------  -------------------------------------------------------
 1.0      adk  18/07/17  Initial Version.
+1.2      rsp  07/19/18  Read channel count from IP config.
+                Fix gcc 'pointer from integer without a cast' warning.
+      rsp  08/17/18     Fix typos and rephrase comments.
+      rsp  08/17/18  Read Length register value from IP config.
 </pre><hr/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>

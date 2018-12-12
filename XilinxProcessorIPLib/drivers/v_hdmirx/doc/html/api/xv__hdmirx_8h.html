@@ -143,6 +143,13 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
       MMO    08/02/18 Added XV_HdmiRx_SyncStatus enumaration, and as
                           an element in <a class="el" href="struct_x_v___hdmi_rx___stream.html" title="This typedef contains HDMI RX stream specific data structure. ">XV_HdmiRx_Stream</a> for Sync Loss
                           handling
+2.20  EB     16/08/18 Replaced TIME_10MS, TIME_16MS, TIME_200MS with
+                          XV_HdmiRx_GetTime10Ms, XV_HdmiRx_GetTime16Ms
+                          XV_HdmiRx_GetTime200Ms
+                      Added TMDS Clock Ratio callback support
+      YB     15/08/18   Added new callbacks for HDCP 1.4 &amp; 2.2 protocol events.
+                      Enumerated new entries for HDCP 1.4 &amp; 2.2 protocol
+                          events in XV_HdmiRx_HandlerType enum.
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
@@ -181,10 +188,13 @@ Enumerations</h2></td></tr>
 <br />
 &#160;&#160;<a class="el" href="xv__hdmirx_8h.html#a93574b274899e5038d38e6524eab66fca0688b523e4e9a64c96b31def929a0209">XV_HDMIRX_HANDLER_STREAM_UP</a>, 
 <a class="el" href="xv__hdmirx_8h.html#a93574b274899e5038d38e6524eab66fcadc3fa6f8c9722ebb3233ef96105131b7">XV_HDMIRX_HANDLER_HDCP</a>, 
-<a class="el" href="xv__hdmirx_8h.html#a93574b274899e5038d38e6524eab66fcaf5b1a36e9a7d6f0fae43b84fe2ae8287">XV_HDMIRX_HANDLER_LINK_ERROR</a>, 
-<a class="el" href="xv__hdmirx_8h.html#a93574b274899e5038d38e6524eab66fcafbe340f87937ffaf36f6456bc4385152">XV_HDMIRX_HANDLER_SYNC_LOSS</a>, 
+<a class="el" href="xv__hdmirx_8h.html#a93574b274899e5038d38e6524eab66fca5fd4c9f3ea0b9a0c6764bc5acbb2f77b">XV_HDMIRX_HANDLER_DDC_HDCP_14_PROT</a>, 
+<a class="el" href="xv__hdmirx_8h.html#a93574b274899e5038d38e6524eab66fca11423ccdfe94709a72344bda8d22ac24">XV_HDMIRX_HANDLER_DDC_HDCP_22_PROT</a>, 
 <br />
-&#160;&#160;<a class="el" href="xv__hdmirx_8h.html#a93574b274899e5038d38e6524eab66fcadd79a4e97d3958caf5b10fb4ef5dc7e2">XV_HDMIRX_HANDLER_MODE</a>
+&#160;&#160;<a class="el" href="xv__hdmirx_8h.html#a93574b274899e5038d38e6524eab66fcaf5b1a36e9a7d6f0fae43b84fe2ae8287">XV_HDMIRX_HANDLER_LINK_ERROR</a>, 
+<a class="el" href="xv__hdmirx_8h.html#a93574b274899e5038d38e6524eab66fcafbe340f87937ffaf36f6456bc4385152">XV_HDMIRX_HANDLER_SYNC_LOSS</a>, 
+<a class="el" href="xv__hdmirx_8h.html#a93574b274899e5038d38e6524eab66fcadd79a4e97d3958caf5b10fb4ef5dc7e2">XV_HDMIRX_HANDLER_MODE</a>, 
+<a class="el" href="xv__hdmirx_8h.html#a93574b274899e5038d38e6524eab66fca4e5cde1d3f281a79cf48fdce32329202">XV_HDMIRX_HANDLER_TMDS_CLK_RATIO</a>
 <br />
  }<tr class="memdesc:a93574b274899e5038d38e6524eab66fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">These constants specify different types of handler and used to differentiate interrupt requests from peripheral.  <a href="xv__hdmirx_8h.html#a93574b274899e5038d38e6524eab66fc">More...</a><br /></td></tr>
 </td></tr>
@@ -210,15 +220,15 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 HDMI RX audio format</h2></td></tr>
-<tr class="memitem:a538f6978102edb024555a3bb35e56af2"><td class="memItemLeft" align="right" valign="top"><a id="a538f6978102edb024555a3bb35e56af2"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>TIME_10MS</b>&#160;&#160;&#160;(XPAR_XV_HDMIRX_0_AXI_LITE_FREQ_HZ/100)</td></tr>
-<tr class="separator:a538f6978102edb024555a3bb35e56af2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad54e9da64211cd4fe074da1a8a736a9a"><td class="memItemLeft" align="right" valign="top"><a id="ad54e9da64211cd4fe074da1a8a736a9a"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>TIME_200MS</b>&#160;&#160;&#160;(XPAR_XV_HDMIRX_0_AXI_LITE_FREQ_HZ/5)</td></tr>
-<tr class="separator:ad54e9da64211cd4fe074da1a8a736a9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1281376ea775dcac0b2d63413d57b9e5"><td class="memItemLeft" align="right" valign="top"><a id="a1281376ea775dcac0b2d63413d57b9e5"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>TIME_16MS</b>&#160;&#160;&#160;((XPAR_XV_HDMIRX_0_AXI_LITE_FREQ_HZ*10)/625)</td></tr>
-<tr class="separator:a1281376ea775dcac0b2d63413d57b9e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17849b6428cc8a3c781311f57dafcfc6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirx_8h.html#a17849b6428cc8a3c781311f57dafcfc6">XV_HdmiRx_GetTime10Ms</a>(InstancePtr)&#160;&#160;&#160;(InstancePtr)-&gt;Config.AxiLiteClkFreq/100</td></tr>
+<tr class="memdesc:a17849b6428cc8a3c781311f57dafcfc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns the clock cycles required to count up to 10MS with respect to AXI Lite Frequency.  <a href="#a17849b6428cc8a3c781311f57dafcfc6">More...</a><br /></td></tr>
+<tr class="separator:a17849b6428cc8a3c781311f57dafcfc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a1036430ba351ea963563db4535da4b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirx_8h.html#a2a1036430ba351ea963563db4535da4b">XV_HdmiRx_GetTime16Ms</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;Config.AxiLiteClkFreq*10)/625</td></tr>
+<tr class="memdesc:a2a1036430ba351ea963563db4535da4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns the clock cycles required to count up to 16MS with respect to AXI Lite Frequency.  <a href="#a2a1036430ba351ea963563db4535da4b">More...</a><br /></td></tr>
+<tr class="separator:a2a1036430ba351ea963563db4535da4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f435060df122213e924791f6c53fbbd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirx_8h.html#a8f435060df122213e924791f6c53fbbd">XV_HdmiRx_GetTime200Ms</a>(InstancePtr)&#160;&#160;&#160;(InstancePtr)-&gt;Config.AxiLiteClkFreq/5</td></tr>
+<tr class="memdesc:a8f435060df122213e924791f6c53fbbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns the clock cycles required to count up to 200MS with respect to AXI Lite Frequency.  <a href="#a8f435060df122213e924791f6c53fbbd">More...</a><br /></td></tr>
+<tr class="separator:a8f435060df122213e924791f6c53fbbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a08c3eeefe53e3f62401dfa8f99c2b7b5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirx_8h.html#a08c3eeefe53e3f62401dfa8f99c2b7b5">XV_HdmiRx_GetVersion</a>(InstancePtr)&#160;&#160;&#160;<a class="el" href="xv__hdmirx__hw_8h.html#ab1245a8a62b2b5611cc4cbb2aa4af75b">XV_HdmiRx_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddress, (<a class="el" href="xv__hdmirx__hw_8h.html#a09dd02e2eec9abeece66f495f3f1624d">XV_HDMIRX_VER_VERSION_OFFSET</a>))</td></tr>
 <tr class="memdesc:a08c3eeefe53e3f62401dfa8f99c2b7b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro reads the RX version.  <a href="#a08c3eeefe53e3f62401dfa8f99c2b7b5">More...</a><br /></td></tr>
 <tr class="separator:a08c3eeefe53e3f62401dfa8f99c2b7b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -751,9 +761,9 @@ typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiRx_H
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">        if (Enable) { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#a1d084bc85a72b35776b604a1f15d24df">XV_HDMIRX_PIO_OUT_AXIS_EN_MASK</a>)); \</div><div class="line">        } \</div><div class="line">        else { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#a1d084bc85a72b35776b604a1f15d24df">XV_HDMIRX_PIO_OUT_AXIS_EN_MASK</a>)); \</div><div class="line">        } \</div><div class="line">}</div><div class="ttc" id="xv__hdmirx__hw_8h_html_a80d63952308a1e96d3bfd10db732b94c"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_CLR_OFFSET</div><div class="ttdoc">PIO Out Register Clear offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:97</div></div>
-<div class="ttc" id="xv__hdmirx__hw_8h_html_add1b42f293960a225e7c7addc81ba41a"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_SET_OFFSET</div><div class="ttdoc">PIO Out Register Set offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:96</div></div>
-<div class="ttc" id="xv__hdmirx__hw_8h_html_a1d084bc85a72b35776b604a1f15d24df"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#a1d084bc85a72b35776b604a1f15d24df">XV_HDMIRX_PIO_OUT_AXIS_EN_MASK</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_AXIS_EN_MASK</div><div class="ttdoc">PIO Out Axis Enable mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:121</div></div>
+<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">        if (Enable) { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#a1d084bc85a72b35776b604a1f15d24df">XV_HDMIRX_PIO_OUT_AXIS_EN_MASK</a>)); \</div><div class="line">        } \</div><div class="line">        else { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#a1d084bc85a72b35776b604a1f15d24df">XV_HDMIRX_PIO_OUT_AXIS_EN_MASK</a>)); \</div><div class="line">        } \</div><div class="line">}</div><div class="ttc" id="xv__hdmirx__hw_8h_html_a80d63952308a1e96d3bfd10db732b94c"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_CLR_OFFSET</div><div class="ttdoc">PIO Out Register Clear offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:93</div></div>
+<div class="ttc" id="xv__hdmirx__hw_8h_html_add1b42f293960a225e7c7addc81ba41a"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_SET_OFFSET</div><div class="ttdoc">PIO Out Register Set offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:92</div></div>
+<div class="ttc" id="xv__hdmirx__hw_8h_html_a1d084bc85a72b35776b604a1f15d24df"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#a1d084bc85a72b35776b604a1f15d24df">XV_HDMIRX_PIO_OUT_AXIS_EN_MASK</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_AXIS_EN_MASK</div><div class="ttdoc">PIO Out Axis Enable mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:117</div></div>
 </div><!-- fragment -->
 <p>This macro asserts or clears the AXIS enable output port. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -793,9 +803,9 @@ typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiRx_H
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">        if (SetClr) { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#a818e2b5f24ae64c160d8291e2a72bbb3">XV_HDMIRX_PIO_OUT_BRIDGE_PIXEL_MASK</a>)); \</div><div class="line">        } \</div><div class="line">        else { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#a818e2b5f24ae64c160d8291e2a72bbb3">XV_HDMIRX_PIO_OUT_BRIDGE_PIXEL_MASK</a>)); \</div><div class="line">        } \</div><div class="line">}</div><div class="ttc" id="xv__hdmirx__hw_8h_html_a80d63952308a1e96d3bfd10db732b94c"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_CLR_OFFSET</div><div class="ttdoc">PIO Out Register Clear offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:97</div></div>
-<div class="ttc" id="xv__hdmirx__hw_8h_html_add1b42f293960a225e7c7addc81ba41a"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_SET_OFFSET</div><div class="ttdoc">PIO Out Register Set offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:96</div></div>
-<div class="ttc" id="xv__hdmirx__hw_8h_html_a818e2b5f24ae64c160d8291e2a72bbb3"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#a818e2b5f24ae64c160d8291e2a72bbb3">XV_HDMIRX_PIO_OUT_BRIDGE_PIXEL_MASK</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_BRIDGE_PIXEL_MASK</div><div class="ttdoc">PIO Out Bridge_Pixel drop mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:128</div></div>
+<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">        if (SetClr) { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#a818e2b5f24ae64c160d8291e2a72bbb3">XV_HDMIRX_PIO_OUT_BRIDGE_PIXEL_MASK</a>)); \</div><div class="line">        } \</div><div class="line">        else { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#a818e2b5f24ae64c160d8291e2a72bbb3">XV_HDMIRX_PIO_OUT_BRIDGE_PIXEL_MASK</a>)); \</div><div class="line">        } \</div><div class="line">}</div><div class="ttc" id="xv__hdmirx__hw_8h_html_a80d63952308a1e96d3bfd10db732b94c"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_CLR_OFFSET</div><div class="ttdoc">PIO Out Register Clear offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:93</div></div>
+<div class="ttc" id="xv__hdmirx__hw_8h_html_add1b42f293960a225e7c7addc81ba41a"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_SET_OFFSET</div><div class="ttdoc">PIO Out Register Set offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:92</div></div>
+<div class="ttc" id="xv__hdmirx__hw_8h_html_a818e2b5f24ae64c160d8291e2a72bbb3"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#a818e2b5f24ae64c160d8291e2a72bbb3">XV_HDMIRX_PIO_OUT_BRIDGE_PIXEL_MASK</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_BRIDGE_PIXEL_MASK</div><div class="ttdoc">PIO Out Bridge_Pixel drop mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:124</div></div>
 </div><!-- fragment -->
 <p>This macro controls the Pixel Drop mode for video bridge. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -835,9 +845,9 @@ typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiRx_H
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">        if (SetClr) { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#ade6f035d0bef0ec35894c6d90d700f16">XV_HDMIRX_PIO_OUT_BRIDGE_YUV420_MASK</a>)); \</div><div class="line">        } \</div><div class="line">        else { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#ade6f035d0bef0ec35894c6d90d700f16">XV_HDMIRX_PIO_OUT_BRIDGE_YUV420_MASK</a>)); \</div><div class="line">        } \</div><div class="line">}</div><div class="ttc" id="xv__hdmirx__hw_8h_html_a80d63952308a1e96d3bfd10db732b94c"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_CLR_OFFSET</div><div class="ttdoc">PIO Out Register Clear offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:97</div></div>
-<div class="ttc" id="xv__hdmirx__hw_8h_html_ade6f035d0bef0ec35894c6d90d700f16"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#ade6f035d0bef0ec35894c6d90d700f16">XV_HDMIRX_PIO_OUT_BRIDGE_YUV420_MASK</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_BRIDGE_YUV420_MASK</div><div class="ttdoc">PIO Out Bridge_YUV420 mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:127</div></div>
-<div class="ttc" id="xv__hdmirx__hw_8h_html_add1b42f293960a225e7c7addc81ba41a"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_SET_OFFSET</div><div class="ttdoc">PIO Out Register Set offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:96</div></div>
+<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">        if (SetClr) { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#ade6f035d0bef0ec35894c6d90d700f16">XV_HDMIRX_PIO_OUT_BRIDGE_YUV420_MASK</a>)); \</div><div class="line">        } \</div><div class="line">        else { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#ade6f035d0bef0ec35894c6d90d700f16">XV_HDMIRX_PIO_OUT_BRIDGE_YUV420_MASK</a>)); \</div><div class="line">        } \</div><div class="line">}</div><div class="ttc" id="xv__hdmirx__hw_8h_html_a80d63952308a1e96d3bfd10db732b94c"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_CLR_OFFSET</div><div class="ttdoc">PIO Out Register Clear offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:93</div></div>
+<div class="ttc" id="xv__hdmirx__hw_8h_html_ade6f035d0bef0ec35894c6d90d700f16"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#ade6f035d0bef0ec35894c6d90d700f16">XV_HDMIRX_PIO_OUT_BRIDGE_YUV420_MASK</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_BRIDGE_YUV420_MASK</div><div class="ttdoc">PIO Out Bridge_YUV420 mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:123</div></div>
+<div class="ttc" id="xv__hdmirx__hw_8h_html_add1b42f293960a225e7c7addc81ba41a"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_SET_OFFSET</div><div class="ttdoc">PIO Out Register Set offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:92</div></div>
 </div><!-- fragment -->
 <p>This macro controls the YUV420 mode for video bridge. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1119,9 +1129,9 @@ typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiRx_H
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">        XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#a8272d8237c5560511743f6645351c889">XV_HDMIRX_DDC_CTRL_SET_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#a2fcc95a6129eacc331e014e496db9031">XV_HDMIRX_DDC_CTRL_SCDC_CLR_MASK</a>)); \</div><div class="line">        XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#ac5fcd5ad68b451baf56e90de899e7ede">XV_HDMIRX_DDC_CTRL_CLR_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#a2fcc95a6129eacc331e014e496db9031">XV_HDMIRX_DDC_CTRL_SCDC_CLR_MASK</a>)); \</div><div class="line">}</div><div class="ttc" id="xv__hdmirx__hw_8h_html_a8272d8237c5560511743f6645351c889"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#a8272d8237c5560511743f6645351c889">XV_HDMIRX_DDC_CTRL_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_DDC_CTRL_SET_OFFSET</div><div class="ttdoc">DDC Control Register Set offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:211</div></div>
-<div class="ttc" id="xv__hdmirx__hw_8h_html_a2fcc95a6129eacc331e014e496db9031"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#a2fcc95a6129eacc331e014e496db9031">XV_HDMIRX_DDC_CTRL_SCDC_CLR_MASK</a></div><div class="ttdeci">#define XV_HDMIRX_DDC_CTRL_SCDC_CLR_MASK</div><div class="ttdoc">DDC Control SCDC clear mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:229</div></div>
-<div class="ttc" id="xv__hdmirx__hw_8h_html_ac5fcd5ad68b451baf56e90de899e7ede"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#ac5fcd5ad68b451baf56e90de899e7ede">XV_HDMIRX_DDC_CTRL_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_DDC_CTRL_CLR_OFFSET</div><div class="ttdoc">DDC Control Register Clear offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:212</div></div>
+<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">        XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#a8272d8237c5560511743f6645351c889">XV_HDMIRX_DDC_CTRL_SET_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#a2fcc95a6129eacc331e014e496db9031">XV_HDMIRX_DDC_CTRL_SCDC_CLR_MASK</a>)); \</div><div class="line">        XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#ac5fcd5ad68b451baf56e90de899e7ede">XV_HDMIRX_DDC_CTRL_CLR_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#a2fcc95a6129eacc331e014e496db9031">XV_HDMIRX_DDC_CTRL_SCDC_CLR_MASK</a>)); \</div><div class="line">}</div><div class="ttc" id="xv__hdmirx__hw_8h_html_a8272d8237c5560511743f6645351c889"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#a8272d8237c5560511743f6645351c889">XV_HDMIRX_DDC_CTRL_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_DDC_CTRL_SET_OFFSET</div><div class="ttdoc">DDC Control Register Set offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:207</div></div>
+<div class="ttc" id="xv__hdmirx__hw_8h_html_a2fcc95a6129eacc331e014e496db9031"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#a2fcc95a6129eacc331e014e496db9031">XV_HDMIRX_DDC_CTRL_SCDC_CLR_MASK</a></div><div class="ttdeci">#define XV_HDMIRX_DDC_CTRL_SCDC_CLR_MASK</div><div class="ttdoc">DDC Control SCDC clear mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:225</div></div>
+<div class="ttc" id="xv__hdmirx__hw_8h_html_ac5fcd5ad68b451baf56e90de899e7ede"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#ac5fcd5ad68b451baf56e90de899e7ede">XV_HDMIRX_DDC_CTRL_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_DDC_CTRL_CLR_OFFSET</div><div class="ttdoc">DDC Control Register Clear offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:208</div></div>
 </div><!-- fragment -->
 <p>This macro clears the SCDC registers in the DDC peripheral. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1188,6 +1198,87 @@ typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiRx_H
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Number of active audio channels.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: u32 <a class="el" href="xv__hdmirx_8h.html#a417c9c99d829658f6f5614398692432c" title="This macro returns the number of active audio channels. ">XV_HdmiRx_GetAudioChannels(XV_HdmiRx *InstancePtr)</a> </dd></dl>
+
+</div>
+</div>
+<a id="a17849b6428cc8a3c781311f57dafcfc6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17849b6428cc8a3c781311f57dafcfc6">&#9670;&nbsp;</a></span>XV_HdmiRx_GetTime10Ms</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XV_HdmiRx_GetTime10Ms</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr</td><td>)</td>
+          <td>&#160;&#160;&#160;(InstancePtr)-&gt;Config.AxiLiteClkFreq/100</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This macro returns the clock cycles required to count up to 10MS with respect to AXI Lite Frequency. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the XV_HdmiRX core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="a2a1036430ba351ea963563db4535da4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a1036430ba351ea963563db4535da4b">&#9670;&nbsp;</a></span>XV_HdmiRx_GetTime16Ms</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XV_HdmiRx_GetTime16Ms</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr</td><td>)</td>
+          <td>&#160;&#160;&#160;((InstancePtr)-&gt;Config.AxiLiteClkFreq*10)/625</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This macro returns the clock cycles required to count up to 16MS with respect to AXI Lite Frequency. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the XV_HdmiRX core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="a8f435060df122213e924791f6c53fbbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f435060df122213e924791f6c53fbbd">&#9670;&nbsp;</a></span>XV_HdmiRx_GetTime200Ms</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XV_HdmiRx_GetTime200Ms</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr</td><td>)</td>
+          <td>&#160;&#160;&#160;(InstancePtr)-&gt;Config.AxiLiteClkFreq/5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This macro returns the clock cycles required to count up to 200MS with respect to AXI Lite Frequency. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the XV_HdmiRX core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
 
 </div>
 </div>
@@ -1288,9 +1379,9 @@ typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiRx_H
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">        if (SetClr) { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#aebf168954f7f549697220cb79a2db0e5">XV_HDMIRX_PIO_OUT_LNK_EN_MASK</a>)); \</div><div class="line">        } \</div><div class="line">        else { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#aebf168954f7f549697220cb79a2db0e5">XV_HDMIRX_PIO_OUT_LNK_EN_MASK</a>)); \</div><div class="line">        } \</div><div class="line">}</div><div class="ttc" id="xv__hdmirx__hw_8h_html_a80d63952308a1e96d3bfd10db732b94c"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_CLR_OFFSET</div><div class="ttdoc">PIO Out Register Clear offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:97</div></div>
-<div class="ttc" id="xv__hdmirx__hw_8h_html_add1b42f293960a225e7c7addc81ba41a"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_SET_OFFSET</div><div class="ttdoc">PIO Out Register Set offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:96</div></div>
-<div class="ttc" id="xv__hdmirx__hw_8h_html_aebf168954f7f549697220cb79a2db0e5"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#aebf168954f7f549697220cb79a2db0e5">XV_HDMIRX_PIO_OUT_LNK_EN_MASK</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_LNK_EN_MASK</div><div class="ttdoc">PIO Out video enable mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:114</div></div>
+<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">        if (SetClr) { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#aebf168954f7f549697220cb79a2db0e5">XV_HDMIRX_PIO_OUT_LNK_EN_MASK</a>)); \</div><div class="line">        } \</div><div class="line">        else { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#aebf168954f7f549697220cb79a2db0e5">XV_HDMIRX_PIO_OUT_LNK_EN_MASK</a>)); \</div><div class="line">        } \</div><div class="line">}</div><div class="ttc" id="xv__hdmirx__hw_8h_html_a80d63952308a1e96d3bfd10db732b94c"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_CLR_OFFSET</div><div class="ttdoc">PIO Out Register Clear offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:93</div></div>
+<div class="ttc" id="xv__hdmirx__hw_8h_html_add1b42f293960a225e7c7addc81ba41a"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_SET_OFFSET</div><div class="ttdoc">PIO Out Register Set offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:92</div></div>
+<div class="ttc" id="xv__hdmirx__hw_8h_html_aebf168954f7f549697220cb79a2db0e5"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#aebf168954f7f549697220cb79a2db0e5">XV_HDMIRX_PIO_OUT_LNK_EN_MASK</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_LNK_EN_MASK</div><div class="ttdoc">PIO Out video enable mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:110</div></div>
 </div><!-- fragment -->
 <p>This macro asserts or clears the HDMI RX link enable. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1554,9 +1645,9 @@ typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiRx_H
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">        if (Reset) { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#ae9ededc60f434b8f94a94138d0ae1770">XV_HDMIRX_PIO_OUT_RESET_MASK</a>)); \</div><div class="line">        } \</div><div class="line">        else { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#ae9ededc60f434b8f94a94138d0ae1770">XV_HDMIRX_PIO_OUT_RESET_MASK</a>)); \</div><div class="line">        } \</div><div class="line">}</div><div class="ttc" id="xv__hdmirx__hw_8h_html_a80d63952308a1e96d3bfd10db732b94c"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_CLR_OFFSET</div><div class="ttdoc">PIO Out Register Clear offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:97</div></div>
-<div class="ttc" id="xv__hdmirx__hw_8h_html_add1b42f293960a225e7c7addc81ba41a"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_SET_OFFSET</div><div class="ttdoc">PIO Out Register Set offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:96</div></div>
-<div class="ttc" id="xv__hdmirx__hw_8h_html_ae9ededc60f434b8f94a94138d0ae1770"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#ae9ededc60f434b8f94a94138d0ae1770">XV_HDMIRX_PIO_OUT_RESET_MASK</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_RESET_MASK</div><div class="ttdoc">PIO Out Reset mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:113</div></div>
+<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">        if (Reset) { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#ae9ededc60f434b8f94a94138d0ae1770">XV_HDMIRX_PIO_OUT_RESET_MASK</a>)); \</div><div class="line">        } \</div><div class="line">        else { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#ae9ededc60f434b8f94a94138d0ae1770">XV_HDMIRX_PIO_OUT_RESET_MASK</a>)); \</div><div class="line">        } \</div><div class="line">}</div><div class="ttc" id="xv__hdmirx__hw_8h_html_a80d63952308a1e96d3bfd10db732b94c"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_CLR_OFFSET</div><div class="ttdoc">PIO Out Register Clear offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:93</div></div>
+<div class="ttc" id="xv__hdmirx__hw_8h_html_add1b42f293960a225e7c7addc81ba41a"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_SET_OFFSET</div><div class="ttdoc">PIO Out Register Set offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:92</div></div>
+<div class="ttc" id="xv__hdmirx__hw_8h_html_ae9ededc60f434b8f94a94138d0ae1770"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#ae9ededc60f434b8f94a94138d0ae1770">XV_HDMIRX_PIO_OUT_RESET_MASK</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_RESET_MASK</div><div class="ttdoc">PIO Out Reset mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:109</div></div>
 </div><!-- fragment -->
 <p>This macro asserts or clears the HDMI RX reset. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1596,14 +1687,14 @@ typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiRx_H
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">        if (SetClr) { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#a923b78bca6113c26d4c9aa2450e12d31">XV_HDMIRX_PIO_OUT_SCRM_MASK</a>)); \</div><div class="line">                (InstancePtr)-&gt;Stream.IsScrambled = (TRUE); \</div><div class="line">        } \</div><div class="line">        else { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#a923b78bca6113c26d4c9aa2450e12d31">XV_HDMIRX_PIO_OUT_SCRM_MASK</a>)); \</div><div class="line">                (InstancePtr)-&gt;Stream.IsScrambled = (FALSE); \</div><div class="line">        } \</div><div class="line">}</div><div class="ttc" id="xv__hdmirx__hw_8h_html_a80d63952308a1e96d3bfd10db732b94c"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_CLR_OFFSET</div><div class="ttdoc">PIO Out Register Clear offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:97</div></div>
-<div class="ttc" id="xv__hdmirx__hw_8h_html_add1b42f293960a225e7c7addc81ba41a"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_SET_OFFSET</div><div class="ttdoc">PIO Out Register Set offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:96</div></div>
-<div class="ttc" id="xv__hdmirx__hw_8h_html_a923b78bca6113c26d4c9aa2450e12d31"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#a923b78bca6113c26d4c9aa2450e12d31">XV_HDMIRX_PIO_OUT_SCRM_MASK</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_SCRM_MASK</div><div class="ttdoc">PIO Out Scrambler mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:126</div></div>
+<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">        if (SetClr) { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#a923b78bca6113c26d4c9aa2450e12d31">XV_HDMIRX_PIO_OUT_SCRM_MASK</a>)); \</div><div class="line">                (InstancePtr)-&gt;Stream.IsScrambled = (TRUE); \</div><div class="line">        } \</div><div class="line">        else { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#a923b78bca6113c26d4c9aa2450e12d31">XV_HDMIRX_PIO_OUT_SCRM_MASK</a>)); \</div><div class="line">                (InstancePtr)-&gt;Stream.IsScrambled = (FALSE); \</div><div class="line">        } \</div><div class="line">}</div><div class="ttc" id="xv__hdmirx__hw_8h_html_a80d63952308a1e96d3bfd10db732b94c"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_CLR_OFFSET</div><div class="ttdoc">PIO Out Register Clear offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:93</div></div>
+<div class="ttc" id="xv__hdmirx__hw_8h_html_add1b42f293960a225e7c7addc81ba41a"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_SET_OFFSET</div><div class="ttdoc">PIO Out Register Set offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:92</div></div>
+<div class="ttc" id="xv__hdmirx__hw_8h_html_a923b78bca6113c26d4c9aa2450e12d31"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#a923b78bca6113c26d4c9aa2450e12d31">XV_HDMIRX_PIO_OUT_SCRM_MASK</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_SCRM_MASK</div><div class="ttdoc">PIO Out Scrambler mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:122</div></div>
 </div><!-- fragment -->
 <p>This macro controls the HDMI RX Scrambler. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the XHdmi_Tx core instance. </td></tr>
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the XHdmi_Rx core instance. </td></tr>
     <tr><td class="paramname">SetClr</td><td>specifies TRUE/FALSE value to either enable or disable the scrambler.</td></tr>
   </table>
   </dd>
@@ -1788,9 +1879,9 @@ typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiRx_H
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">        if (SetClr) { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#a5461b9268a85702c01115f85b1e49537">XV_HDMIRX_PIO_OUT_VID_EN_MASK</a>)); \</div><div class="line">        } \</div><div class="line">        else { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#a5461b9268a85702c01115f85b1e49537">XV_HDMIRX_PIO_OUT_VID_EN_MASK</a>)); \</div><div class="line">        } \</div><div class="line">}</div><div class="ttc" id="xv__hdmirx__hw_8h_html_a80d63952308a1e96d3bfd10db732b94c"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_CLR_OFFSET</div><div class="ttdoc">PIO Out Register Clear offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:97</div></div>
-<div class="ttc" id="xv__hdmirx__hw_8h_html_add1b42f293960a225e7c7addc81ba41a"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_SET_OFFSET</div><div class="ttdoc">PIO Out Register Set offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:96</div></div>
-<div class="ttc" id="xv__hdmirx__hw_8h_html_a5461b9268a85702c01115f85b1e49537"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#a5461b9268a85702c01115f85b1e49537">XV_HDMIRX_PIO_OUT_VID_EN_MASK</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_VID_EN_MASK</div><div class="ttdoc">PIO Out video enable mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:115</div></div>
+<b>Value:</b><div class="fragment"><div class="line">{ \</div><div class="line">        if (SetClr) { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#a5461b9268a85702c01115f85b1e49537">XV_HDMIRX_PIO_OUT_VID_EN_MASK</a>)); \</div><div class="line">        } \</div><div class="line">        else { \</div><div class="line">                XV_HdmiRx_WriteReg((InstancePtr)-&gt;Config.BaseAddress, (<a class="code" href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a>), (<a class="code" href="xv__hdmirx__hw_8h.html#a5461b9268a85702c01115f85b1e49537">XV_HDMIRX_PIO_OUT_VID_EN_MASK</a>)); \</div><div class="line">        } \</div><div class="line">}</div><div class="ttc" id="xv__hdmirx__hw_8h_html_a80d63952308a1e96d3bfd10db732b94c"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#a80d63952308a1e96d3bfd10db732b94c">XV_HDMIRX_PIO_OUT_CLR_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_CLR_OFFSET</div><div class="ttdoc">PIO Out Register Clear offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:93</div></div>
+<div class="ttc" id="xv__hdmirx__hw_8h_html_add1b42f293960a225e7c7addc81ba41a"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#add1b42f293960a225e7c7addc81ba41a">XV_HDMIRX_PIO_OUT_SET_OFFSET</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_SET_OFFSET</div><div class="ttdoc">PIO Out Register Set offset. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:92</div></div>
+<div class="ttc" id="xv__hdmirx__hw_8h_html_a5461b9268a85702c01115f85b1e49537"><div class="ttname"><a href="xv__hdmirx__hw_8h.html#a5461b9268a85702c01115f85b1e49537">XV_HDMIRX_PIO_OUT_VID_EN_MASK</a></div><div class="ttdeci">#define XV_HDMIRX_PIO_OUT_VID_EN_MASK</div><div class="ttdoc">PIO Out video enable mask. </div><div class="ttdef"><b>Definition:</b> xv_hdmirx_hw.h:111</div></div>
 </div><!-- fragment -->
 <p>This macro asserts or clears the HDMI RX video enable. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -2015,11 +2106,17 @@ typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>XV_HdmiRx_H
 </td></tr>
 <tr><td class="fieldname"><a id="a93574b274899e5038d38e6524eab66fcadc3fa6f8c9722ebb3233ef96105131b7"></a>XV_HDMIRX_HANDLER_HDCP&#160;</td><td class="fielddoc"><p>Interrupt type for hdcp. </p>
 </td></tr>
+<tr><td class="fieldname"><a id="a93574b274899e5038d38e6524eab66fca5fd4c9f3ea0b9a0c6764bc5acbb2f77b"></a>XV_HDMIRX_HANDLER_DDC_HDCP_14_PROT&#160;</td><td class="fielddoc"><p>Interrupt type for HDCP14PROT event. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a93574b274899e5038d38e6524eab66fca11423ccdfe94709a72344bda8d22ac24"></a>XV_HDMIRX_HANDLER_DDC_HDCP_22_PROT&#160;</td><td class="fielddoc"><p>Interrupt type for HDCP22PROT event. </p>
+</td></tr>
 <tr><td class="fieldname"><a id="a93574b274899e5038d38e6524eab66fcaf5b1a36e9a7d6f0fae43b84fe2ae8287"></a>XV_HDMIRX_HANDLER_LINK_ERROR&#160;</td><td class="fielddoc"><p>Interrupt type for link error. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a93574b274899e5038d38e6524eab66fcafbe340f87937ffaf36f6456bc4385152"></a>XV_HDMIRX_HANDLER_SYNC_LOSS&#160;</td><td class="fielddoc"><p>Interrupt type for sync loss. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a93574b274899e5038d38e6524eab66fcadd79a4e97d3958caf5b10fb4ef5dc7e2"></a>XV_HDMIRX_HANDLER_MODE&#160;</td><td class="fielddoc"><p>Interrupt type for mode. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a93574b274899e5038d38e6524eab66fca4e5cde1d3f281a79cf48fdce32329202"></a>XV_HDMIRX_HANDLER_TMDS_CLK_RATIO&#160;</td><td class="fielddoc"><p>Interrupt type for TMDS clock ratio. </p>
 </td></tr>
 </table>
 

@@ -1,4 +1,4 @@
 var xiicps__g_8c =
 [
-    [ "XIicPs_ConfigTable", "group__iicps__v3__7.html#ga11a983ef1b7318339618ff352e81bb2e", null ]
+    [ "XIicPs_ConfigTable", "group__iicps__v3__8.html#ga11a983ef1b7318339618ff352e81bb2e", null ]
 ];

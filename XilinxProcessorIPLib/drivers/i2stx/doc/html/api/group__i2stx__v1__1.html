@@ -119,6 +119,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gae1ee6ead0b1745ef400ec3e5198068aa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2stx__v1__1.html#gae1ee6ead0b1745ef400ec3e5198068aa">XI2s_Tx_ClrAesChStatRegs</a> (<a class="el" href="struct_x_i2s___tx.html">XI2s_Tx</a> *InstancePtr)</td></tr>
 <tr class="memdesc:gae1ee6ead0b1745ef400ec3e5198068aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function clears the captured AES Channel Status bits.  <a href="#gae1ee6ead0b1745ef400ec3e5198068aa">More...</a><br /></td></tr>
 <tr class="separator:gae1ee6ead0b1745ef400ec3e5198068aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae5c7f651728493e9ca5a13d824f47893"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2stx__v1__1.html#gae5c7f651728493e9ca5a13d824f47893">XI2s_Tx_JustifyEnable</a> (<a class="el" href="struct_x_i2s___tx.html">XI2s_Tx</a> *InstancePtr, u8 Enable)</td></tr>
+<tr class="memdesc:gae5c7f651728493e9ca5a13d824f47893"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enables/disables the justification.  <a href="#gae5c7f651728493e9ca5a13d824f47893">More...</a><br /></td></tr>
+<tr class="separator:gae5c7f651728493e9ca5a13d824f47893"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab101d38c979a17b2bd4540a3b418933d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2stx__v1__1.html#gab101d38c979a17b2bd4540a3b418933d">XI2s_Tx_Justify</a> (<a class="el" href="struct_x_i2s___tx.html">XI2s_Tx</a> *InstancePtr, <a class="el" href="xi2stx_8h.html#a2530845dc4c6c409a2cb7025beda590f">XI2s_Tx_Justification</a> Justify)</td></tr>
+<tr class="memdesc:gab101d38c979a17b2bd4540a3b418933d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is to enable right/left justification.  <a href="#gab101d38c979a17b2bd4540a3b418933d">More...</a><br /></td></tr>
+<tr class="separator:gab101d38c979a17b2bd4540a3b418933d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2a5815edce7bde17b937480d41849d02"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2stx__v1__1.html#ga2a5815edce7bde17b937480d41849d02">XI2s_Tx_LogWrite</a> (<a class="el" href="struct_x_i2s___tx.html">XI2s_Tx</a> *InstancePtr, <a class="el" href="group__i2stx__v1__1.html#ga6aae04d874f9b352d54806ffba47b000">XI2s_Tx_LogEvt</a> Event, u8 Data)</td></tr>
 <tr class="memdesc:ga2a5815edce7bde17b937480d41849d02"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function writes I2S Transmitter logs into the buffer.  <a href="#ga2a5815edce7bde17b937480d41849d02">More...</a><br /></td></tr>
 <tr class="separator:ga2a5815edce7bde17b937480d41849d02"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -571,6 +577,94 @@ XI2s_Tx_LogEvt</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_i2stx___config.html#af68feefd4d9c6ccefa84679124e68735">XI2stx_Config::BaseAddress</a>, <a class="el" href="struct_x_i2s___tx.html#afe2bf6f0435f85ab88ec2912abe01137">XI2s_Tx::Config</a>, <a class="el" href="struct_x_i2s___tx.html#a27283d1e5773c1e61982e5501d93821d">XI2s_Tx::IsReady</a>, <a class="el" href="group__i2stx__v1__0.html#gad3a413e9c7d1c7be7eb5c970b2b1da8b">XI2S_TX_INTR_AES_BLKCMPLT_MASK</a>, <a class="el" href="group__i2stx__v1__0.html#gae026183d4bfda7b544050c93cc14f431">XI2S_TX_IRQCTRL_OFFSET</a>, <a class="el" href="group__i2stx__v1__0.html#gaf0727cfd1d5dd6c4dc2957d380b82878">XI2S_TX_IRQSTS_OFFSET</a>, and <a class="el" href="group__i2stx__v1__0.html#ga70bc2238ba573d955a77cf6752fa209a">XI2s_Tx_ReadReg</a>.</p>
+
+</div>
+</div>
+<a id="gab101d38c979a17b2bd4540a3b418933d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab101d38c979a17b2bd4540a3b418933d">&#9670;&nbsp;</a></span>XI2s_Tx_Justify()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XI2s_Tx_Justify </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_i2s___tx.html">XI2s_Tx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="xi2stx_8h.html#a2530845dc4c6c409a2cb7025beda590f">XI2s_Tx_Justification</a>&#160;</td>
+          <td class="paramname"><em>Justify</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xi2stx_8c.html">xi2stx.c</a>&gt;</code></p>
+
+<p>This function is to enable right/left justification. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the XI2s Transmitter instance. </td></tr>
+    <tr><td class="paramname">Justify</td><td>is a enum to select the left or right justfication.<ul>
+<li>XI2S_TX_JUSTIFY_LEFT : Left justication</li>
+<li>XI2S_TX_JUSTIFY_RIGHT : Right justification</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_i2stx___config.html#af68feefd4d9c6ccefa84679124e68735">XI2stx_Config::BaseAddress</a>, <a class="el" href="struct_x_i2s___tx.html#afe2bf6f0435f85ab88ec2912abe01137">XI2s_Tx::Config</a>, <a class="el" href="group__i2stx__v1__0.html#ga5433601a320e6d1725885e7311c0bab4">XI2S_TX_CORE_CTRL_OFFSET</a>, <a class="el" href="group__i2stx__v1__0.html#ga70bc2238ba573d955a77cf6752fa209a">XI2s_Tx_ReadReg</a>, <a class="el" href="group__i2stx__v1__0.html#ga079cf019c32c23a6c9d4de4a1d3f79d7">XI2S_TX_REG_CTRL_LORJF_MASK</a>, and <a class="el" href="group__i2stx__v1__0.html#gabc89f508a120762f9abfd61105622c06">XI2s_Tx_WriteReg</a>.</p>
+
+</div>
+</div>
+<a id="gae5c7f651728493e9ca5a13d824f47893"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae5c7f651728493e9ca5a13d824f47893">&#9670;&nbsp;</a></span>XI2s_Tx_JustifyEnable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XI2s_Tx_JustifyEnable </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_i2s___tx.html">XI2s_Tx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xi2stx_8c.html">xi2stx.c</a>&gt;</code></p>
+
+<p>This function enables/disables the justification. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the XI2s Transmitter instance. </td></tr>
+    <tr><td class="paramname">Enable</td><td>specifies TRUE/FALSE value to either enable or disable the justification.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_i2stx___config.html#af68feefd4d9c6ccefa84679124e68735">XI2stx_Config::BaseAddress</a>, <a class="el" href="struct_x_i2s___tx.html#afe2bf6f0435f85ab88ec2912abe01137">XI2s_Tx::Config</a>, <a class="el" href="group__i2stx__v1__0.html#ga5433601a320e6d1725885e7311c0bab4">XI2S_TX_CORE_CTRL_OFFSET</a>, <a class="el" href="group__i2stx__v1__0.html#ga70bc2238ba573d955a77cf6752fa209a">XI2s_Tx_ReadReg</a>, <a class="el" href="group__i2stx__v1__0.html#ga1ea8f32a59f2631f40ae16a73ae81049">XI2S_TX_REG_CTRL_JFE_MASK</a>, and <a class="el" href="group__i2stx__v1__0.html#gabc89f508a120762f9abfd61105622c06">XI2s_Tx_WriteReg</a>.</p>
 
 </div>
 </div>

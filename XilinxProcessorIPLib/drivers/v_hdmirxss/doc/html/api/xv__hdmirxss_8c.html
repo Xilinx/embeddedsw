@@ -146,9 +146,11 @@ $(document).ready(function(){initNavTree('xv__hdmirxss_8c.html','');});
                             for cleaner HPD flow during transition from HDMI2.0
                             to HDMI1.4
         YH     13/04/18 Fixed a bug in XV_HdmiRxSs_BrdgOverflowCallback
-******************************************************************************/</pre><pre>/***************************** Include Files *********************************/</pre><pre><h1>125 "/proj/xhdsswstaff/saddepal/2018.2_esw/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/src/xv_hdmirxss.c" 2</h1>
+  5.20  EB     03/08/18 Added function XV_HdmiRxSs_AudioMute
+                        Added TMDS Clock Ratio callback support
+******************************************************************************/</pre><pre>/***************************** Include Files *********************************/</pre><pre><h1>123 "/proj/xhdsswstaff/saddepal/github_2018.3/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/src/xv_hdmirxss.c" 2</h1>
 </pre><pre>
-<h1>126 "/proj/xhdsswstaff/saddepal/2018.2_esw/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/src/xv_hdmirxss.c" 2</h1>
+<h1>124 "/proj/xhdsswstaff/saddepal/github_2018.3/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/src/xv_hdmirxss.c" 2</h1>
 </pre><pre></pre><pre>/************************** Constant Definitions *****************************/</pre><pre>/**************************** Type Definitions *******************************/
 /**
    This typedef declares the driver instances of all the cores in the subsystem
@@ -173,7 +175,8 @@ static void XV_HdmiRxSs_StreamDownCallback(void *CallbackRef);
 static void XV_HdmiRxSs_StreamInitCallback(void *CallbackRef);
 static void XV_HdmiRxSs_StreamUpCallback(void *CallbackRef);
 static void XV_HdmiRxSs_SyncLossCallback(void *CallbackRef);
-static void XV_HdmiRxSs_ModeCallback(void *CallbackRef);</pre><pre>static void XV_HdmiRxSs_ReportCoreInfo(XV_HdmiRxSs *InstancePtr);
+static void XV_HdmiRxSs_ModeCallback(void *CallbackRef);
+static void XV_HdmiRxSs_TmdsClkRatioCallback(void *CallbackRef);</pre><pre>static void XV_HdmiRxSs_ReportCoreInfo(XV_HdmiRxSs *InstancePtr);
 static void XV_HdmiRxSs_ReportTiming(XV_HdmiRxSs *InstancePtr);
 static void XV_HdmiRxSs_ReportLinkQuality(XV_HdmiRxSs *InstancePtr);
 static void XV_HdmiRxSs_ReportAudio(XV_HdmiRxSs *InstancePtr);
@@ -365,6 +368,9 @@ static int XV_HdmiRxSs_RegisterSubsysCallbacks(XV_HdmiRxSs *InstancePtr)
                           (void *)InstancePtr);</pre><pre>    XV_HdmiRx_SetCallback(HdmiRxSsPtr-&gt;HdmiRxPtr,
                           XV_HDMIRX_HANDLER_MODE,
                           (void *)XV_HdmiRxSs_ModeCallback,
+                          (void *)InstancePtr);</pre><pre>    XV_HdmiRx_SetCallback(HdmiRxSsPtr-&gt;HdmiRxPtr,
+                          XV_HDMIRX_HANDLER_TMDS_CLK_RATIO,
+                          (void *)XV_HdmiRxSs_TmdsClkRatioCallback,
                           (void *)InstancePtr);
   }</pre><pre>  return(XST_SUCCESS);
 }</pre><pre>/*****************************************************************************/
@@ -564,7 +570,8 @@ void XV_HdmiRxSs_SYSRST(XV_HdmiRxSs *InstancePtr, u8 Reset)
 ******************************************************************************/
 static void XV_HdmiRxSs_BrdgOverflowCallback(void *CallbackRef)
 {
-  <a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> *HdmiRxSsPtr = (<a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> *)CallbackRef;</pre><pre>  // Check if user callback has been registered
+  <a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> *HdmiRxSsPtr = (<a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> *)CallbackRef;</pre><pre>  xdbg_printf(XDBG_DEBUG_GENERAL,
+              "\r\nWarning: RX Bridge Overflow\r\n");</pre><pre>  // Check if user callback has been registered
   if (HdmiRxSsPtr-&gt;BrdgOverflowCallback) {
     HdmiRxSsPtr-&gt;BrdgOverflowCallback(HdmiRxSsPtr-&gt;BrdgOverflowRef);
   }</pre><pre>}</pre><pre>/*****************************************************************************/
@@ -674,6 +681,21 @@ static void XV_HdmiRxSs_ModeCallback(void *CallbackRef)
   if (XV_HdmiRxSs_GetVideoStreamType(HdmiRxSsPtr )) {</pre><pre>    XV_HdmiRxSs_LogWrite(HdmiRxSsPtr, XV_HDMIRXSS_LOG_EVT_HDMIMODE, 0);</pre><pre>  }</pre><pre>  // DVI mode
   else {</pre><pre>    XV_HdmiRxSs_LogWrite(HdmiRxSsPtr, XV_HDMIRXSS_LOG_EVT_DVIMODE, 0);</pre><pre>  }
 }</pre><pre>/*****************************************************************************/
+/**</pre><pre>  This function is called when the TMDS CLK ratio changes.</pre><pre><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">None.</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
+******************************************************************************/
+static void XV_HdmiRxSs_TmdsClkRatioCallback(void *CallbackRef)
+{
+  <a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> *HdmiRxSsPtr = (<a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> *)CallbackRef;</pre><pre>  // Check if user callback has been registered
+  if (HdmiRxSsPtr-&gt;TmdsClkRatioCallback) {
+      HdmiRxSsPtr-&gt;TmdsClkRatioCallback(HdmiRxSsPtr-&gt;TmdsClkRatioRef);
+  }</pre><pre>}</pre><pre>/*****************************************************************************/
 /**</pre><pre>  This function retrieves the Vendor Specific Info Frame.</pre><pre><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">None.</td><td></td></tr>
@@ -923,8 +945,51 @@ Functions</h2></td></tr>
 <tr class="memitem:a3c8f4247ffd9a6540e8aed78e23699a7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8c.html#a3c8f4247ffd9a6540e8aed78e23699a7">XV_HdmiRxSS_SetAppVersion</a> (<a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *InstancePtr, u8 maj, u8 min)</td></tr>
 <tr class="memdesc:a3c8f4247ffd9a6540e8aed78e23699a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will set the major and minor application version in RXSs struct.  <a href="#a3c8f4247ffd9a6540e8aed78e23699a7">More...</a><br /></td></tr>
 <tr class="separator:a3c8f4247ffd9a6540e8aed78e23699a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbf6577a7f6af0c3e2da373f736ca49e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8c.html#afbf6577a7f6af0c3e2da373f736ca49e">XV_HdmiRxSs_AudioMute</a> (<a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *InstancePtr, u8 Enable)</td></tr>
+<tr class="memdesc:afbf6577a7f6af0c3e2da373f736ca49e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function set HDMI RX audio parameters.  <a href="#afbf6577a7f6af0c3e2da373f736ca49e">More...</a><br /></td></tr>
+<tr class="separator:afbf6577a7f6af0c3e2da373f736ca49e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="afbf6577a7f6af0c3e2da373f736ca49e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbf6577a7f6af0c3e2da373f736ca49e">&#9670;&nbsp;</a></span>XV_HdmiRxSs_AudioMute()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_HdmiRxSs_AudioMute </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function set HDMI RX audio parameters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Enable</td><td>0: Unmute the audio 1: Mute the audio.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_rx_ss.html#a3d76e27b48746aa888d284583ce9399a">XV_HdmiRxSs::HdmiRxPtr</a>.</p>
+
+</div>
+</div>
 <a id="a9800e58c46167ce458da016451f88c8d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9800e58c46167ce458da016451f88c8d">&#9670;&nbsp;</a></span>XV_HdmiRxSs_GetAudioChannels()</h2>
 

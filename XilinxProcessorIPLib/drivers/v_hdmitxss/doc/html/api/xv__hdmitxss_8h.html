@@ -135,6 +135,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
                             <a class="el" href="struct_x_v___hdmi_tx_ss___config.html" title="Video Processing Subsystem configuration structure. ">XV_HdmiTxSs_Config</a>
       SM     28/02/18 Added XV_HdmiTxSS_SetAppVersion API and AppMajVer and
                           AppMinVer version number in <a class="el" href="struct_x_v___hdmi_tx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiTxSs</a> structure
+      MMO    11/08/18 Added Bridge Overflow and Bridge Underflow Interrupt
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
@@ -201,6 +202,7 @@ Enumerations</h2></td></tr>
 <a class="el" href="xv__hdmitxss_8h.html#aef570d7b5f53958b25121d5be8e6923fad2f745553ef25a196a3124d61ab5f200">XV_HDMITXSS_LOG_EVT_PIX_REPEAT_ERR</a>, 
 <br />
 &#160;&#160;<a class="el" href="xv__hdmitxss_8h.html#aef570d7b5f53958b25121d5be8e6923fafca459a3730bab2094fc6f08728d9fd9">XV_HDMITXSS_LOG_EVT_VTC_RES_ERR</a>, 
+<a class="el" href="xv__hdmitxss_8h.html#aef570d7b5f53958b25121d5be8e6923fae56a3c83db8aaa525d32d89671482314">XV_HDMITXSS_LOG_EVT_BRDG_UNLOCKED</a>, 
 <a class="el" href="xv__hdmitxss_8h.html#aef570d7b5f53958b25121d5be8e6923faf3507fec8d35951f98bb567d793b2186">XV_HDMITXSS_LOG_EVT_DUMMY</a>
 <br />
  }</td></tr>
@@ -216,14 +218,16 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aad64de5091b790ce765359d266a851fcc">XV_HDMITXSS_HANDLER_CONNECT</a> = 1, 
 <a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa7db7ce25c83128621b0728b921a2e4fc">XV_HDMITXSS_HANDLER_TOGGLE</a>, 
 <a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa9004f7b526a4a8e3aca9c1aff84bf161">XV_HDMITXSS_HANDLER_BRDGUNLOCK</a>, 
+<a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aac6653a55ff7432a0ec22e2250c4866f0">XV_HDMITXSS_HANDLER_BRDGOVERFLOW</a>, 
+<br />
+&#160;&#160;<a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa85820f497bfdfe0ab25dc15e4aab2c48">XV_HDMITXSS_HANDLER_BRDGUNDERFLOW</a>, 
 <a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa043d547ea77a44995bf3e483f1bada1d">XV_HDMITXSS_HANDLER_VS</a>, 
-<br />
-&#160;&#160;<a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa45814d803f385ccfea6521b1bd49372e">XV_HDMITXSS_HANDLER_STREAM_DOWN</a>, 
+<a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa45814d803f385ccfea6521b1bd49372e">XV_HDMITXSS_HANDLER_STREAM_DOWN</a>, 
 <a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aad2a9c65b9a408437bd152a1cc19d0734">XV_HDMITXSS_HANDLER_STREAM_UP</a>, 
-<a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa9fb92fc397b283ac5cb2ee04cba389df">XV_HDMITXSS_HANDLER_HDCP_AUTHENTICATED</a>, 
-<a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa9f3a5f03672a15ac4c8cc34c0d8b39be">XV_HDMITXSS_HANDLER_HDCP_DOWNSTREAM_TOPOLOGY_AVAILABLE</a>, 
 <br />
-&#160;&#160;<a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa02b2e220136a6879a08ec7ccc7aefcb3">XV_HDMITXSS_HANDLER_HDCP_UNAUTHENTICATED</a>
+&#160;&#160;<a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa9fb92fc397b283ac5cb2ee04cba389df">XV_HDMITXSS_HANDLER_HDCP_AUTHENTICATED</a>, 
+<a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa9f3a5f03672a15ac4c8cc34c0d8b39be">XV_HDMITXSS_HANDLER_HDCP_DOWNSTREAM_TOPOLOGY_AVAILABLE</a>, 
+<a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa02b2e220136a6879a08ec7ccc7aefcb3">XV_HDMITXSS_HANDLER_HDCP_UNAUTHENTICATED</a>
 <br />
  }<tr class="memdesc:ab33aa43cac6faa5a98d29b2067fb8d0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">These constants specify different types of handler and used to differentiate interrupt requests from peripheral.  <a href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0a">More...</a><br /></td></tr>
 </td></tr>
@@ -490,6 +494,10 @@ Functions</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="ab33aa43cac6faa5a98d29b2067fb8d0aa9004f7b526a4a8e3aca9c1aff84bf161"></a>XV_HDMITXSS_HANDLER_BRDGUNLOCK&#160;</td><td class="fielddoc"><p>Handler for bridge unlocked event. </p>
 </td></tr>
+<tr><td class="fieldname"><a id="ab33aa43cac6faa5a98d29b2067fb8d0aac6653a55ff7432a0ec22e2250c4866f0"></a>XV_HDMITXSS_HANDLER_BRDGOVERFLOW&#160;</td><td class="fielddoc"><p>Handler for bridge overflow event. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab33aa43cac6faa5a98d29b2067fb8d0aa85820f497bfdfe0ab25dc15e4aab2c48"></a>XV_HDMITXSS_HANDLER_BRDGUNDERFLOW&#160;</td><td class="fielddoc"><p>Handler for bridge underflow event. </p>
+</td></tr>
 <tr><td class="fieldname"><a id="ab33aa43cac6faa5a98d29b2067fb8d0aa043d547ea77a44995bf3e483f1bada1d"></a>XV_HDMITXSS_HANDLER_VS&#160;</td><td class="fielddoc"><p>Handler for vsync event. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ab33aa43cac6faa5a98d29b2067fb8d0aa45814d803f385ccfea6521b1bd49372e"></a>XV_HDMITXSS_HANDLER_STREAM_DOWN&#160;</td><td class="fielddoc"><p>Handler for stream down event. </p>
@@ -594,6 +602,8 @@ Functions</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="aef570d7b5f53958b25121d5be8e6923fafca459a3730bab2094fc6f08728d9fd9"></a>XV_HDMITXSS_LOG_EVT_VTC_RES_ERR&#160;</td><td class="fielddoc"><p>Log event Resolution Unsupported by VTC. </p>
 </td></tr>
+<tr><td class="fieldname"><a id="aef570d7b5f53958b25121d5be8e6923fae56a3c83db8aaa525d32d89671482314"></a>XV_HDMITXSS_LOG_EVT_BRDG_UNLOCKED&#160;</td><td class="fielddoc"><p>VID-OUT bridge unlocked. </p>
+</td></tr>
 <tr><td class="fieldname"><a id="aef570d7b5f53958b25121d5be8e6923faf3507fec8d35951f98bb567d793b2186"></a>XV_HDMITXSS_LOG_EVT_DUMMY&#160;</td><td class="fielddoc"><p>Dummy Event should be last. </p>
 </td></tr>
 </table>
@@ -646,7 +656,7 @@ Functions</h2></td></tr>
 <p>This function set HDMI TX audio parameters. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
+    <tr><td class="paramname">Enable</td><td>0: Unmute the audio 1: Mute the audio.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1514,8 +1524,6 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>.</p>
-
 </div>
 </div>
 <a id="a307a169df642cd4875e2b58c772fa772"></a>
@@ -1555,8 +1563,6 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>.</p>
-
 </div>
 </div>
 <a id="ae24535e3c48c0a873b3a31b47273e568"></a>
@@ -1595,8 +1601,6 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>.</p>
 
 </div>
 </div>
@@ -2067,6 +2071,8 @@ HandlerType                     Callback Function Type
 (XV_HDMITXSS_HANDLER_VS)            VsCallback
 (XV_HDMITXSS_HANDLER_STREAM_DOWN)   StreamDownCallback
 (XV_HDMITXSS_HANDLER_STREAM_UP)     StreamUpCallback
+(XV_HDMITXSS_HANDLER_BRDGOVERFLOW)  BrdgOverflowCallback
+(XV_HDMITXSS_HANDLER_BRDGUNDERFLOW) BrdgUnderflowCallback
 (XV_HDMITXSS_HANDLER_HDCP_AUTHENTICATED)
 (XV_HDMITXSS_HANDLER_HDCP_DOWNSTREAM_TOPOLOGY_AVAILABLE)
 (XV_HDMITXSS_HANDLER_HDCP_UNAUTHENTICATED)
@@ -2086,7 +2092,7 @@ HandlerType                     Callback Function Type
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Invoking this function for a handler that already has been installed replaces it with the new handler. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#a9a0a5b6dcda4a018ab7afb525e92af90">XV_HdmiTxSs::BrdgUnlockedCallback</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#a63b0ccbe1730df1f410633768c18f3f8">XV_HdmiTxSs::BrdgUnlockedRef</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#a39b5e05a75519d2a5ea95843a73d5b3d">XV_HdmiTxSs::ConnectCallback</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#af2d693256a7ab9bd3b4bbee0a1f52a94">XV_HdmiTxSs::ConnectRef</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#a4ff347124bdb910394b00d725243be78">XV_HdmiTxSs::StreamDownCallback</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#ab62bab6450fcc9831cd79663de159dd1">XV_HdmiTxSs::StreamDownRef</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#aef99e4d9cd474bb2e4cc5357eef0f106">XV_HdmiTxSs::StreamUpCallback</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#accd28d7f2aa53abb2acbd9230242781a">XV_HdmiTxSs::StreamUpRef</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#a82e0e82c8fc5f19bc91f6d70b8593223">XV_HdmiTxSs::ToggleCallback</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#af8f91ad07477ab64bba29392617b48e4">XV_HdmiTxSs::ToggleRef</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#ad06778e85cc7cb789875687ff8c0a50f">XV_HdmiTxSs::VsCallback</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#a91d38a22ee614ca20bc20bd50a4a15cd">XV_HdmiTxSs::VsRef</a>, <a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa9004f7b526a4a8e3aca9c1aff84bf161">XV_HDMITXSS_HANDLER_BRDGUNLOCK</a>, <a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aad64de5091b790ce765359d266a851fcc">XV_HDMITXSS_HANDLER_CONNECT</a>, <a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa9fb92fc397b283ac5cb2ee04cba389df">XV_HDMITXSS_HANDLER_HDCP_AUTHENTICATED</a>, <a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa9f3a5f03672a15ac4c8cc34c0d8b39be">XV_HDMITXSS_HANDLER_HDCP_DOWNSTREAM_TOPOLOGY_AVAILABLE</a>, <a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa02b2e220136a6879a08ec7ccc7aefcb3">XV_HDMITXSS_HANDLER_HDCP_UNAUTHENTICATED</a>, <a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa45814d803f385ccfea6521b1bd49372e">XV_HDMITXSS_HANDLER_STREAM_DOWN</a>, <a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aad2a9c65b9a408437bd152a1cc19d0734">XV_HDMITXSS_HANDLER_STREAM_UP</a>, <a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa7db7ce25c83128621b0728b921a2e4fc">XV_HDMITXSS_HANDLER_TOGGLE</a>, and <a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa043d547ea77a44995bf3e483f1bada1d">XV_HDMITXSS_HANDLER_VS</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#a50062c59d6b992dfb8e3b5bcf019c390">XV_HdmiTxSs::BrdgOverflowCallback</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#af48f4099705037e963b940f6b8ff3088">XV_HdmiTxSs::BrdgOverflowRef</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#a7f3649165f32243cd4ec90d5d6932c6a">XV_HdmiTxSs::BrdgUnderflowCallback</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#a25c93b472276666d887e20bc3dda4991">XV_HdmiTxSs::BrdgUnderflowRef</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#a9a0a5b6dcda4a018ab7afb525e92af90">XV_HdmiTxSs::BrdgUnlockedCallback</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#a63b0ccbe1730df1f410633768c18f3f8">XV_HdmiTxSs::BrdgUnlockedRef</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#a39b5e05a75519d2a5ea95843a73d5b3d">XV_HdmiTxSs::ConnectCallback</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#af2d693256a7ab9bd3b4bbee0a1f52a94">XV_HdmiTxSs::ConnectRef</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#a4ff347124bdb910394b00d725243be78">XV_HdmiTxSs::StreamDownCallback</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#ab62bab6450fcc9831cd79663de159dd1">XV_HdmiTxSs::StreamDownRef</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#aef99e4d9cd474bb2e4cc5357eef0f106">XV_HdmiTxSs::StreamUpCallback</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#accd28d7f2aa53abb2acbd9230242781a">XV_HdmiTxSs::StreamUpRef</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#a82e0e82c8fc5f19bc91f6d70b8593223">XV_HdmiTxSs::ToggleCallback</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#af8f91ad07477ab64bba29392617b48e4">XV_HdmiTxSs::ToggleRef</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#ad06778e85cc7cb789875687ff8c0a50f">XV_HdmiTxSs::VsCallback</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#a91d38a22ee614ca20bc20bd50a4a15cd">XV_HdmiTxSs::VsRef</a>, <a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aac6653a55ff7432a0ec22e2250c4866f0">XV_HDMITXSS_HANDLER_BRDGOVERFLOW</a>, <a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa85820f497bfdfe0ab25dc15e4aab2c48">XV_HDMITXSS_HANDLER_BRDGUNDERFLOW</a>, <a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa9004f7b526a4a8e3aca9c1aff84bf161">XV_HDMITXSS_HANDLER_BRDGUNLOCK</a>, <a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aad64de5091b790ce765359d266a851fcc">XV_HDMITXSS_HANDLER_CONNECT</a>, <a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa9fb92fc397b283ac5cb2ee04cba389df">XV_HDMITXSS_HANDLER_HDCP_AUTHENTICATED</a>, <a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa9f3a5f03672a15ac4c8cc34c0d8b39be">XV_HDMITXSS_HANDLER_HDCP_DOWNSTREAM_TOPOLOGY_AVAILABLE</a>, <a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa02b2e220136a6879a08ec7ccc7aefcb3">XV_HDMITXSS_HANDLER_HDCP_UNAUTHENTICATED</a>, <a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa45814d803f385ccfea6521b1bd49372e">XV_HDMITXSS_HANDLER_STREAM_DOWN</a>, <a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aad2a9c65b9a408437bd152a1cc19d0734">XV_HDMITXSS_HANDLER_STREAM_UP</a>, <a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa7db7ce25c83128621b0728b921a2e4fc">XV_HDMITXSS_HANDLER_TOGGLE</a>, and <a class="el" href="xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa043d547ea77a44995bf3e483f1bada1d">XV_HDMITXSS_HANDLER_VS</a>.</p>
 
 </div>
 </div>

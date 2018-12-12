@@ -222,6 +222,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gace8c49312a72bbabfb622b62d88ffc0a"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__usbpsu__v1__3.html#gace8c49312a72bbabfb622b62d88ffc0a">XUsbPsu_U2SleepDisable</a> (struct <a class="el" href="struct_x_usb_psu.html">XUsbPsu</a> *InstancePtr)</td></tr>
 <tr class="memdesc:gace8c49312a72bbabfb622b62d88ffc0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable U2 disable sleep.  <a href="#gace8c49312a72bbabfb622b62d88ffc0a">More...</a><br /></td></tr>
 <tr class="separator:gace8c49312a72bbabfb622b62d88ffc0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7e0a64e9adf5e221b4bd8386ad38055e"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__usbpsu__v1__3.html#ga7e0a64e9adf5e221b4bd8386ad38055e">XUsbPsu_IsSuperSpeed</a> (struct <a class="el" href="struct_x_usb_psu.html">XUsbPsu</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga7e0a64e9adf5e221b4bd8386ad38055e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the current speed is Super Speed or not.  <a href="#ga7e0a64e9adf5e221b4bd8386ad38055e">More...</a><br /></td></tr>
+<tr class="separator:ga7e0a64e9adf5e221b4bd8386ad38055e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac0f03c974b69a658189698e083456080"><td class="memItemLeft" align="right" valign="top">struct XUsbPsu_EpParams *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__usbpsu__v1__3.html#gac0f03c974b69a658189698e083456080">XUsbPsu_GetEpParams</a> (struct <a class="el" href="struct_x_usb_psu.html">XUsbPsu</a> *InstancePtr)</td></tr>
 <tr class="memdesc:gac0f03c974b69a658189698e083456080"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns zeroed parameters to be used by Endpoint commands.  <a href="#gac0f03c974b69a658189698e083456080">More...</a><br /></td></tr>
 <tr class="separator:gac0f03c974b69a658189698e083456080"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1682,6 +1685,8 @@ Register offsets</h2></td></tr>
 
 <p class="reference">References <a class="el" href="group__usbpsu__v1__3.html#gabac77c4d579fcd2220b05cc5b2b8a37b">XUsbPsu_ReadReg</a>.</p>
 
+<p class="reference">Referenced by <a class="el" href="xusb__freertos__audio_8c.html#a60ea477a82aa7c54308785af705e5cd3">SetupInterruptSystem()</a>.</p>
+
 </div>
 </div>
 <a id="ga426259ea4430f2bccf744c55e88dcea9"></a>
@@ -2874,6 +2879,8 @@ Register offsets</h2></td></tr>
 
 <p class="reference">References <a class="el" href="group__usbpsu__v1__3.html#gabac77c4d579fcd2220b05cc5b2b8a37b">XUsbPsu_ReadReg</a>.</p>
 
+<p class="reference">Referenced by <a class="el" href="xusb__freertos__audio_8c.html#a60ea477a82aa7c54308785af705e5cd3">SetupInterruptSystem()</a>.</p>
+
 </div>
 </div>
 <a id="ga940e5d8d4c56eec4e394507eb0e1ab8b"></a>
@@ -2923,6 +2930,38 @@ Register offsets</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_usb_psu___ep.html#ac848e7b64a1137b6922a32dfebe62ab5">XUsbPsu_Ep::PhyEpNum</a>.</p>
+
+</div>
+</div>
+<a id="ga7e0a64e9adf5e221b4bd8386ad38055e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7e0a64e9adf5e221b4bd8386ad38055e">&#9670;&nbsp;</a></span>XUsbPsu_IsSuperSpeed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 XUsbPsu_IsSuperSpeed </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="struct_x_usb_psu.html">XUsbPsu</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xusbpsu_8c.html">xusbpsu.c</a>&gt;</code></p>
+
+<p>Checks if the current speed is Super Speed or not. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb_psu.html" title="USB Device Controller representation. ">XUsbPsu</a> instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS else XST_FAILURE</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">Referenced by <a class="el" href="xusb__wrapper_8h.html#a02e8ef492f6fb18133f23f90205cc573">IsSuperSpeed()</a>.</p>
 
 </div>
 </div>

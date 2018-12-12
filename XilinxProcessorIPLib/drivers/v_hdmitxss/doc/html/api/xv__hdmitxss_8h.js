@@ -10,6 +10,8 @@ var xv__hdmitxss_8h =
       [ "XV_HDMITXSS_HANDLER_CONNECT", "xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aad64de5091b790ce765359d266a851fcc", null ],
       [ "XV_HDMITXSS_HANDLER_TOGGLE", "xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa7db7ce25c83128621b0728b921a2e4fc", null ],
       [ "XV_HDMITXSS_HANDLER_BRDGUNLOCK", "xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa9004f7b526a4a8e3aca9c1aff84bf161", null ],
+      [ "XV_HDMITXSS_HANDLER_BRDGOVERFLOW", "xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aac6653a55ff7432a0ec22e2250c4866f0", null ],
+      [ "XV_HDMITXSS_HANDLER_BRDGUNDERFLOW", "xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa85820f497bfdfe0ab25dc15e4aab2c48", null ],
       [ "XV_HDMITXSS_HANDLER_VS", "xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa043d547ea77a44995bf3e483f1bada1d", null ],
       [ "XV_HDMITXSS_HANDLER_STREAM_DOWN", "xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aa45814d803f385ccfea6521b1bd49372e", null ],
       [ "XV_HDMITXSS_HANDLER_STREAM_UP", "xv__hdmitxss_8h.html#ab33aa43cac6faa5a98d29b2067fb8d0aad2a9c65b9a408437bd152a1cc19d0734", null ],
@@ -49,6 +51,7 @@ var xv__hdmitxss_8h =
       [ "XV_HDMITXSS_LOG_EVT_HDCP22_AUTHREQ", "xv__hdmitxss_8h.html#aef570d7b5f53958b25121d5be8e6923fa6e7f95d49b59cb67f095b3fc4c018bdc", null ],
       [ "XV_HDMITXSS_LOG_EVT_PIX_REPEAT_ERR", "xv__hdmitxss_8h.html#aef570d7b5f53958b25121d5be8e6923fad2f745553ef25a196a3124d61ab5f200", null ],
       [ "XV_HDMITXSS_LOG_EVT_VTC_RES_ERR", "xv__hdmitxss_8h.html#aef570d7b5f53958b25121d5be8e6923fafca459a3730bab2094fc6f08728d9fd9", null ],
+      [ "XV_HDMITXSS_LOG_EVT_BRDG_UNLOCKED", "xv__hdmitxss_8h.html#aef570d7b5f53958b25121d5be8e6923fae56a3c83db8aaa525d32d89671482314", null ],
       [ "XV_HDMITXSS_LOG_EVT_DUMMY", "xv__hdmitxss_8h.html#aef570d7b5f53958b25121d5be8e6923faf3507fec8d35951f98bb567d793b2186", null ]
     ] ],
     [ "XVMaskColorId", "xv__hdmitxss_8h.html#a5560783b48cec42ab0d279ecebd4d7cd", null ],

@@ -21,6 +21,10 @@ var xi2srx_8h =
       [ "XI2S_RX_HANDLER_AUD_OVRFLW", "group__i2srx__v1__0.html#gga73cea697b9b2b7edb411ac4ecf01b349adbc31f3ef63cffa075c18ad2a1288b0d", null ],
       [ "XI2S_RX_NUM_HANDLERS", "group__i2srx__v1__0.html#gga73cea697b9b2b7edb411ac4ecf01b349a743f017dc379e345fa2511aa81fc3621", null ]
     ] ],
+    [ "XI2s_Rx_Justification", "group__i2srx__v1__0.html#ga787bbfc7c06021fa68c40dd4e1248ec1", [
+      [ "XI2S_RX_JUSTIFY_LEFT", "group__i2srx__v1__0.html#gga787bbfc7c06021fa68c40dd4e1248ec1aa461181648e4f912e5f6bf33b922dae8", null ],
+      [ "XI2S_RX_JUSTIFY_RIGHT", "group__i2srx__v1__0.html#gga787bbfc7c06021fa68c40dd4e1248ec1a9bd0f58e092109daff42c8007ef31110", null ]
+    ] ],
     [ "XI2s_Rx_CfgInitialize", "group__i2srx__v1__0.html#ga4d444eaa5a0dd7d980c0d216b3382260", null ],
     [ "XI2s_Rx_ClrAesChStatRegs", "group__i2srx__v1__0.html#ga700662592a50d2f7ee92aff8304706f3", null ],
     [ "XI2s_Rx_Enable", "group__i2srx__v1__0.html#ga3a853463222fc023817337626e04ea1a", null ],
@@ -28,6 +32,8 @@ var xi2srx_8h =
     [ "XI2s_Rx_IntrDisable", "group__i2srx__v1__0.html#ga80556a73ef85dd5a4731afab9ad10f22", null ],
     [ "XI2s_Rx_IntrEnable", "group__i2srx__v1__0.html#ga595ca2872d1b5b59f05a229b3a28fd86", null ],
     [ "XI2s_Rx_IntrHandler", "group__i2srx__v1__0.html#gaca17a3387ef6bb0acdcfd20b94c0b7b1", null ],
+    [ "XI2s_Rx_Justify", "group__i2srx__v1__0.html#ga68a5ca9532a69737b7d8788edd9f822d", null ],
+    [ "XI2s_Rx_JustifyEnable", "group__i2srx__v1__0.html#ga4407276f62220e4983d6ec7251ad98d6", null ],
     [ "XI2s_Rx_LatchAesChannelStatus", "group__i2srx__v1__0.html#gae745a449c173356fad2c4f4d3f19d9e0", null ],
     [ "XI2s_Rx_LogDisplay", "group__i2srx__v1__0.html#gad30090fdf63b203192a837ca5860992b", null ],
     [ "XI2s_Rx_LogRead", "group__i2srx__v1__0.html#gace02e57eaf489fffb38e0f3d4f69c8d3", null ],

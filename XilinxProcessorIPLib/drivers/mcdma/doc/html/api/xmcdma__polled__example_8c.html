@@ -69,27 +69,31 @@ $(document).ready(function(){initNavTree('xmcdma__polled__example_8c.html','');}
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
 <div class="textblock"><p>This file demonstrates how to use the mcdma driver on the Xilinx AXI MCDMA core (AXI MCDMA) to transfer packets in polling mode. </p>
-<p>This examples shows how to do multiple packets transfers, as well as how to do multiple show how to do multiple packets transfers, as well as how to do multiple BD's per packet transfers.</p>
-<p>H/W Requirments: In order to test this example at the h/w level AXI MCDMA MM2S should connect with the S2MM.</p>
-<p>System level Considerations for ZynqUltrascale+ designs: On ZU+ MPSOC for PL IP's 3 differnet ports are availble HP, HPC and ACP.</p>
+<p>This examples shows how to do multiple packets and multiple BD's per packet transfers.</p>
+<p>H/W Requirements: In order to test this example at the h/w level AXI MCDMA MM2S should connect with the S2MM.</p>
+<p>System level Considerations for Zynq UltraScale+ designs: On ZU+ MPSOC for PL IP's 3 different ports are available HP, HPC and ACP.</p>
 <p>The explanation below talks about HPC and HP port.</p>
-<p>HPC design considerations: ZU+ MPSOC has in-built cache coherent interconnect(CCI) to take care of coherency through HPC port. Following needs to be done by the users before running the examples. 1) Snooping should be enabled in the S3 (0xFD6E4000) 2) Mark the DDR memory being used for buffers as outer sharable. To do that please modify baremetal bsp file translation_table.S. Change .set Memory, 0x405 | (3 &lt;&lt; 8) | (0x0). to .set Memory, 0x405 | (2 &lt;&lt; 8) | (0x0).</p>
-<p>Please uncomment below define for HPC design so that applicaiton won't do Any Cache flush/invalidation.</p>
+<p>HPC design considerations: ZU+ MPSOC has in-built cache coherent interconnect(CCI) to take care of Coherency through HPC port. Following needs to be done by the users before running the examples. 1) Snooping should be enabled in the S3 (0xFD6E4000) 2) Mark the DDR memory being used for buffers as outer sharable. To do that please modify baremetal bsp file translation_table.S. Change .set Memory, 0x405 | (3 &lt;&lt; 8) | (0x0). to .set Memory, 0x405 | (2 &lt;&lt; 8) | (0x0).</p>
+<p>Please uncomment below define for HPC design so that application won't do Any cache flush/invalidation.</p>
 <p>//#define HPC_DESIGN</p>
 <p>It is recomended to use HPC to make use of H/W coherency feature.</p>
 <p>HP design considerations: The example uses un-cached memory for buffer descriptors and uses Normal memory for buffers..</p>
-<p>A53 does not provide seperate instruction for cache invalidation. It supports flush (clean + invalidation). Before a DMA starts, Application is expected to do a cache flush for the relevant memory. Once DMA ends, the data can simply be read from memory. However, there will be occasions when A53 L1 cache system can prefetch memory locations Which were earlier flushed. On such scenarios there is high probablity that CPU reads Memory from cache and DMA is still not complete for this memory. This leads lost Coherency between cache and memory. Subsequent data verification(after DMA is complete) thus fails.</p>
-<p>It is generally an unpredictable behavior. It is highly unlikely to happen for a single buffer usecase. But for multiple buffers staying in adjacent cache locations, There is a high probability that users can get into such failures.</p>
+<p>A53 does not provide separate instruction for cache invalidation. It supports flush (clean + invalidation). Before a DMA starts, Application is expected to do a cache flush for the relevant memory. Once DMA ends, the data can simply be read from memory. However, there will be occasions when A53 L1 cache system can prefetch Memory locations which were earlier flushed. On such scenarios there is High probability that CPU reads memory from cache and DMA is still not Complete for this memory. This leads lost coherency between cache and Memory. Subsequent data verification(after DMA is complete) thus fails.</p>
+<p>It is generally an unpredictable behavior. It is highly unlikely to happen For a single buffer usecase. But for multiple buffers staying in adjacent Cache locations,There is a high probability that users can get into such Failures.</p>
 <p>The L1 prefetch is a feature of the L1 cache system for improving performance. The L1 cache has its own algorithm to prefetch. The prefetch stops when: -&gt; the memory accesses cross a 4KB page boundary. -&gt; a dsb or PRFM instruction is executed. -&gt; the program execution does not hit the prefetched data lines.</p>
 <p>Accordingly the solution for the above problem is:</p>
-<p>1) Use dsb The location of the dsb is crucial. The programmer needs to predict the maximum probabilty When the L1 prefetch will happen for relevant DMA addresses. It will be typically in the DMA done interrupt (where the data verification happens for a buffer). The cache line size is 64 bytes. The prefetch obviously will happen in chunks of 64 bytes. However, because of the unpredictability nature of the prefetch, it is difficult to find out the exact point of dsb. To be at a safer side, the dsb can be put for every memory location fetched.</p>
-<p>There will be heavy performance penalty. Every dsb clears the store buffers. Executing dsbs very frequently will degrade the performance significantly.</p>
+<p>1) Use dsb The location of the dsb is crucial. The programmer needs to predict the Maximum probability when the L1 prefetch will happen for relevant DMA Addresses.It will be typically in the DMA done interrupt (where the Data verification happens for a buffer).The cache line size is 64 bytes. The prefetch obviously will happen in chunks of 64 bytes.</p>
+<p>However, because of the unpredictability nature of the prefetch, it is Difficult to find out the exact point of dsb.To be at a safer side, The dsb can be put for every memory location fetched.</p>
+<p>There will be heavy performance penalty. Every dsb clears the store Buffers. Executing dsbs very frequently will degrade the performance Significantly.</p>
 <p>2) Disable Prefetch of L1 Cahe This can be done by setting the CPUACTLR_EL1 register.</p>
 <p>3) Put buffers from 4k apart</p>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date       Changes
 ----- ---- --------   -------------------------------------------------------
 1.0      adk  18/07/2017 Initial Version.
+1.2      rsp  07/19/2018 Read channel count from IP config.
+      rsp  08/17/2018 Fix typos and rephrase comments.
+      rsp  08/17/2018 Read Length register value from IP config.
 </pre><hr/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>

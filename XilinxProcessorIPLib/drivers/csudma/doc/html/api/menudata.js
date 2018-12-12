@@ -14,7 +14,11 @@ var menudata={children:[
 {text:"m",url:"globals.html#index_m"},
 {text:"s",url:"globals.html#index_s"},
 {text:"x",url:"globals.html#index_x"}]},
-{text:"Functions",url:"globals_func.html"},
+{text:"Functions",url:"globals_func.html",children:[
+{text:"_",url:"globals_func.html#index__"},
+{text:"i",url:"globals_func.html#index_i"},
+{text:"m",url:"globals_func.html#index_m"},
+{text:"x",url:"globals_func.html#index_x"}]},
 {text:"Variables",url:"globals_vars.html"},
 {text:"Enumerations",url:"globals_enum.html"},
 {text:"Enumerator",url:"globals_eval.html"},

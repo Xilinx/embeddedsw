@@ -5,6 +5,8 @@ var xcsi_8h =
     [ "XCSI_H_", "group__csi__v1__1.html#ga2e3bcd13f9f45da17b465a438cc4da44", null ],
     [ "XCSI_MAX_LANES", "group__csi__v1__1.html#ga786775de6fcbfda6a432ab45e8a539e7", null ],
     [ "XCSI_MAX_VC", "group__csi__v1__1.html#gacfff4ce86a309b659d22a5727b4bd0c4", null ],
+    [ "XCSI_V10_MAX_VC", "group__csi__v1__1.html#gaa32a1ad4d81c6c8328298f5339674d18", null ],
+    [ "XCSI_V20_MAX_VC", "group__csi__v1__1.html#gac1807bf23ad5a48693ea0a6c91cfd8a5", null ],
     [ "XCsi_CallBack", "group__csi__v1__1.html#gabc3d7e499b9f5558577adde15683095b", null ],
     [ "XCsi_Activate", "group__csi__v1__1.html#ga067001a4c7e39114b27d3926c4ae8e63", null ],
     [ "XCsi_CfgInitialize", "group__csi__v1__1.html#ga0805b66d6432c2d9cc42b1e2e8a547bc", null ],

@@ -2,6 +2,7 @@ var files =
 [
     [ "xsysmon.c", "xsysmon_8c.html", "xsysmon_8c" ],
     [ "xsysmon.h", "xsysmon_8h.html", "xsysmon_8h" ],
+    [ "xsysmon_aux_polled_example.c", "xsysmon__aux__polled__example_8c.html", "xsysmon__aux__polled__example_8c" ],
     [ "xsysmon_extmux_example.c", "xsysmon__extmux__example_8c.html", "xsysmon__extmux__example_8c" ],
     [ "xsysmon_g.c", "xsysmon__g_8c.html", "xsysmon__g_8c" ],
     [ "xsysmon_hw.h", "xsysmon__hw_8h.html", "xsysmon__hw_8h" ],

@@ -8,6 +8,7 @@ var struct_x_sd_ps =
     [ "CardType", "struct_x_sd_ps.html#ace9a2dd34b39f3100f97fcd50883f833", null ],
     [ "Config", "struct_x_sd_ps.html#a9ab6ed4e7a1155a0708152ca2f27d650", null ],
     [ "Config_TapDelay", "struct_x_sd_ps.html#ab324e7da5994f9c52ad26c1bec8b9e1f", null ],
+    [ "Dma64BitAddr", "struct_x_sd_ps.html#af0e45cda323df91369aa88c61d8e00e2", null ],
     [ "HC_Version", "struct_x_sd_ps.html#a11d4222e3ecae1a01aa4c3e34a00ef35", null ],
     [ "HCS", "struct_x_sd_ps.html#a1b42689f5e0abe7e468108755a1691fd", null ],
     [ "Host_Caps", "struct_x_sd_ps.html#ad8613960aa0353d5a3515d9bc8d8540a", null ],

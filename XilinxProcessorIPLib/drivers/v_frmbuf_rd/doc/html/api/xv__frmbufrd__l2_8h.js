@@ -39,5 +39,6 @@ var xv__frmbufrd__l2_8h =
     [ "XVFrmbufRd_SetFieldID", "group__v__frmbuf__rd__v2__0.html#ga76d715c4caace0c73116230fb3b51a66", null ],
     [ "XVFrmbufRd_SetMemFormat", "group__v__frmbuf__rd__v2__0.html#ga8d3a4c93e59a529e936c21169f738202", null ],
     [ "XVFrmbufRd_Start", "group__v__frmbuf__rd__v2__0.html#ga0e9f4473b9679d84441160c08b461d9b", null ],
-    [ "XVFrmbufRd_Stop", "group__v__frmbuf__rd__v2__0.html#gaf95f5597208997861ca3b2de238821e1", null ]
+    [ "XVFrmbufRd_Stop", "group__v__frmbuf__rd__v2__0.html#gaf95f5597208997861ca3b2de238821e1", null ],
+    [ "XVFrmbufRd_WaitForIdle", "group__v__frmbuf__rd__v2__0.html#ga05848286286c2df893b2ef8195167e47", null ]
 ];

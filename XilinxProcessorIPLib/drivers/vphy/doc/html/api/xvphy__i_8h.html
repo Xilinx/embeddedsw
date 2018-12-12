@@ -83,6 +83,9 @@ Ver   Who  Date     Changes
 1.6   gm   06/08/17 Added XVphy_MmcmLocked, XVphy_ErrorHandler and
                       XVphy_PllLayoutErrorHandler APIs
 1.7   gm   13/09/17 Removed XVphy_MmcmWriteParameters API
+1.8   gm   23/07/18 Moved APIs XVphy_SetTxVoltageSwing and
+                      XVphy_SetTxPreEmphasis to <a class="el" href="xvphy_8c.html" title="Contains a minimal set of functions for the XVphy driver that allow access to all of the Video PHY co...">xvphy.c</a>/h
+           05/09/18 Added XVphy_GetRefClkSourcesCount API
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -101,12 +104,6 @@ Functions</h2></td></tr>
 <tr class="memitem:gab4dbca672563dce677d06d7bbbbe23d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#gab4dbca672563dce677d06d7bbbbe23d9">XVphy_SetRxLpm</a> (<a class="el" href="struct_x_vphy.html">XVphy</a> *InstancePtr, u8 QuadId, <a class="el" href="group__xvphy__v1__7.html#ga535e4dd9425d8b7818e02930ce9e2b8e">XVphy_ChannelId</a> ChId, XVphy_DirectionType Dir, u8 Enable)</td></tr>
 <tr class="memdesc:gab4dbca672563dce677d06d7bbbbe23d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will enable or disable the LPM logic in the Video PHY core.  <a href="group__xvphy__v1__7.html#gab4dbca672563dce677d06d7bbbbe23d9">More...</a><br /></td></tr>
 <tr class="separator:gab4dbca672563dce677d06d7bbbbe23d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7526bb0de496313d804798dcc1df8cc8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#ga7526bb0de496313d804798dcc1df8cc8">XVphy_SetTxVoltageSwing</a> (<a class="el" href="struct_x_vphy.html">XVphy</a> *InstancePtr, u8 QuadId, <a class="el" href="group__xvphy__v1__7.html#ga535e4dd9425d8b7818e02930ce9e2b8e">XVphy_ChannelId</a> ChId, u8 Vs)</td></tr>
-<tr class="memdesc:ga7526bb0de496313d804798dcc1df8cc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will set the TX voltage swing value for a given channel.  <a href="group__xvphy__v1__7.html#ga7526bb0de496313d804798dcc1df8cc8">More...</a><br /></td></tr>
-<tr class="separator:ga7526bb0de496313d804798dcc1df8cc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4071a10340c3cda8cfb3aa3bfb4483e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#ga4071a10340c3cda8cfb3aa3bfb4483e9">XVphy_SetTxPreEmphasis</a> (<a class="el" href="struct_x_vphy.html">XVphy</a> *InstancePtr, u8 QuadId, <a class="el" href="group__xvphy__v1__7.html#ga535e4dd9425d8b7818e02930ce9e2b8e">XVphy_ChannelId</a> ChId, u8 Pe)</td></tr>
-<tr class="memdesc:ga4071a10340c3cda8cfb3aa3bfb4483e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will set the TX pre-emphasis value for a given channel.  <a href="group__xvphy__v1__7.html#ga4071a10340c3cda8cfb3aa3bfb4483e9">More...</a><br /></td></tr>
-<tr class="separator:ga4071a10340c3cda8cfb3aa3bfb4483e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5041cead7e1fe927d645c4e681e95837"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#ga5041cead7e1fe927d645c4e681e95837">XVphy_WriteCfgRefClkSelReg</a> (<a class="el" href="struct_x_vphy.html">XVphy</a> *InstancePtr, u8 QuadId)</td></tr>
 <tr class="memdesc:ga5041cead7e1fe927d645c4e681e95837"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function writes the current software configuration for the reference clock selections to hardware for the specified quad on all channels.  <a href="group__xvphy__v1__7.html#ga5041cead7e1fe927d645c4e681e95837">More...</a><br /></td></tr>
 <tr class="separator:ga5041cead7e1fe927d645c4e681e95837"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -182,6 +179,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gaee5af44d484a3efa16330f845a7dc65e"><td class="memItemLeft" align="right" valign="top">u64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#gaee5af44d484a3efa16330f845a7dc65e">XVphy_GetPllVcoFreqHz</a> (<a class="el" href="struct_x_vphy.html">XVphy</a> *InstancePtr, u8 QuadId, <a class="el" href="group__xvphy__v1__7.html#ga535e4dd9425d8b7818e02930ce9e2b8e">XVphy_ChannelId</a> ChId, XVphy_DirectionType Dir)</td></tr>
 <tr class="memdesc:gaee5af44d484a3efa16330f845a7dc65e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function calculates the PLL VCO operating frequency.  <a href="group__xvphy__v1__7.html#gaee5af44d484a3efa16330f845a7dc65e">More...</a><br /></td></tr>
 <tr class="separator:gaee5af44d484a3efa16330f845a7dc65e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad7d51be62c760e14b013be39f4a02b23"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#gad7d51be62c760e14b013be39f4a02b23">XVphy_GetRefClkSourcesCount</a> (<a class="el" href="struct_x_vphy.html">XVphy</a> *InstancePtr)</td></tr>
+<tr class="memdesc:gad7d51be62c760e14b013be39f4a02b23"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the number of active reference clock sources based in the CFG.  <a href="group__xvphy__v1__7.html#gad7d51be62c760e14b013be39f4a02b23">More...</a><br /></td></tr>
+<tr class="separator:gad7d51be62c760e14b013be39f4a02b23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga73b006ef6011c416c0e582d546b192a5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#ga73b006ef6011c416c0e582d546b192a5">XVphy_ErrorHandler</a> (<a class="el" href="struct_x_vphy.html">XVphy</a> *InstancePtr)</td></tr>
 <tr class="memdesc:ga73b006ef6011c416c0e582d546b192a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the error condition handler.  <a href="group__xvphy__v1__7.html#ga73b006ef6011c416c0e582d546b192a5">More...</a><br /></td></tr>
 <tr class="separator:ga73b006ef6011c416c0e582d546b192a5"><td class="memSeparator" colspan="2">&#160;</td></tr>

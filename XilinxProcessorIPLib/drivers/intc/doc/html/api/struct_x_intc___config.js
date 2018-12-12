@@ -8,5 +8,6 @@ var struct_x_intc___config =
     [ "IntcType", "struct_x_intc___config.html#ae54682e47e6e506a52c7b6da6314a29a", null ],
     [ "IntVectorAddr", "struct_x_intc___config.html#a3680484ddceab0bc26f7a4ac2e3b7852", null ],
     [ "NumberofIntrs", "struct_x_intc___config.html#a6e2fc4f937193eb9e665a2e66af97db2", null ],
-    [ "Options", "struct_x_intc___config.html#ac3efdbf93e34b88aedead2e7ca44cee1", null ]
+    [ "Options", "struct_x_intc___config.html#ac3efdbf93e34b88aedead2e7ca44cee1", null ],
+    [ "VectorAddrWidth", "struct_x_intc___config.html#a630c8585f41eea348ae0d6d134b0ad8f", null ]
 ];

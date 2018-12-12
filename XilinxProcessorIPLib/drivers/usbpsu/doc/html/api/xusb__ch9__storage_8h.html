@@ -62,7 +62,6 @@ $(document).ready(function(){initNavTree('xusb__ch9__storage_8h.html','');});
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Data Structures</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xusb_ch9_storage.h File Reference</div>  </div>
@@ -77,15 +76,6 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 1.0   sg  06/06/16  First release
 1.4   BK  12/01/18  Renamed the file and added changes to have a common
                example for all USB IPs.</pre><pre></pre> </div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct____attribute____.html">__attribute__</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB Standard Control Request.  <a href="struct____attribute____.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct____attribute____.html">__attribute__</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB Standard Control Request.  <a href="struct____attribute____.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a8eaa9363a2026b377cee0a09377f6420"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9__storage_8h.html#a8eaa9363a2026b377cee0a09377f6420">Usb_Ch9SetupDevDescReply</a> (struct Usb_DevData *InstancePtr, u8 *BufPtr, u32 BufLen)</td></tr>
@@ -323,6 +313,15 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS else XST_FAILURE</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the Usb_DevData instance. </td></tr>
+    <tr><td class="paramname">Ctrl</td><td>is a pointer to the Setup packet data.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS or XST_FAILURE if device is not in address state</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
@@ -354,6 +353,17 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This function is called by Chapter9 handler when SET_CONFIGURATION command is received from Host. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is pointer to Usb_DevData instance. </td></tr>
+    <tr><td class="paramname">SetupData</td><td>is the setup packet received from Host.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>- XST_SUCCESS if successful,<ul>
+<li>XST_FAILURE if unsuccessful.</li>
+</ul>
+</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is pointer to Usb_DevData instance. </td></tr>

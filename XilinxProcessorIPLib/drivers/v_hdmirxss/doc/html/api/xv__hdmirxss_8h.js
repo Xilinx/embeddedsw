@@ -22,7 +22,8 @@ var xv__hdmirxss_8h =
       [ "XV_HDMIRXSS_HANDLER_HDCP_AUTHENTICATION_REQUEST", "xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca2d48f41d950509ae150f468a4e4f53de", null ],
       [ "XV_HDMIRXSS_HANDLER_HDCP_STREAM_MANAGE_REQUEST", "xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca3d2a7adebe7dc6a7bfa77df401c66011", null ],
       [ "XV_HDMIRXSS_HANDLER_HDCP_TOPOLOGY_UPDATE", "xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca8e3b76e177cee74843e7fd0ba83eac11", null ],
-      [ "XV_HDMIRXSS_HANDLER_HDCP_ENCRYPTION_UPDATE", "xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca4296543c68b257e88bed08c9613c9db3", null ]
+      [ "XV_HDMIRXSS_HANDLER_HDCP_ENCRYPTION_UPDATE", "xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca4296543c68b257e88bed08c9613c9db3", null ],
+      [ "XV_HDMIRXSS_HANDLER_TMDS_CLK_RATIO", "xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdcae0e8cd62ff6fc40b785c4c5634b6500e", null ]
     ] ],
     [ "XV_HdmiRxSs_HdcpProtocol", "xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828d", [
       [ "XV_HDMIRXSS_HDCP_NONE", "xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828da60bae6631c611be7225e9993e5a9b754", null ],
@@ -58,6 +59,7 @@ var xv__hdmirxss_8h =
       [ "XV_HDMIRXSS_LOG_EVT_SYNCEST", "xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a3df268d692b5be88acf20c37ac15709d", null ],
       [ "XV_HDMIRXSS_LOG_EVT_DUMMY", "xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a7358229960ff258552c62dce8a49b98f", null ]
     ] ],
+    [ "XV_HdmiRxSs_AudioMute", "xv__hdmirxss_8h.html#afbf6577a7f6af0c3e2da373f736ca49e", null ],
     [ "XV_HdmiRxSs_GetAudioChannels", "xv__hdmirxss_8h.html#a9800e58c46167ce458da016451f88c8d", null ],
     [ "XV_HdmiRxSs_GetAudioFormat", "xv__hdmirxss_8h.html#a64e45e8b7892c815eab9b50c39790f10", null ],
     [ "XV_HdmiRxSs_GetAudioInfoframe", "xv__hdmirxss_8h.html#a05f94117a349e62618cd03cefe3208af", null ],

@@ -13,6 +13,7 @@ var xvphy__i_8c =
     [ "XVphy_GetPllVcoFreqHz", "group__xvphy__v1__7.html#gaee5af44d484a3efa16330f845a7dc65e", null ],
     [ "XVphy_GetQuadRefClkFreq", "group__xvphy__v1__7.html#ga6e276d9949bad733adaf9cacb6e2d554", null ],
     [ "XVphy_GetRcfgChId", "group__xvphy__v1__7.html#ga742f461cf5a891acfd63d38ad99c068a", null ],
+    [ "XVphy_GetRefClkSourcesCount", "group__xvphy__v1__7.html#gad7d51be62c760e14b013be39f4a02b23", null ],
     [ "XVphy_GetSysClkDataSel", "group__xvphy__v1__7.html#ga8e1cf75cf2ecce4902aeb0faca3d0c7c", null ],
     [ "XVphy_GetSysClkOutSel", "group__xvphy__v1__7.html#gafa18f0da25042d12e577a5e16d950476", null ],
     [ "XVphy_GtUserRdyEnable", "group__xvphy__v1__7.html#gae11d25f939879208256c3e8155f9873c", null ],
@@ -25,7 +26,5 @@ var xvphy__i_8c =
     [ "XVphy_PowerDownGtPll", "group__xvphy__v1__7.html#ga1b82d1b302268e36126450121d948505", null ],
     [ "XVphy_SetBufgGtDiv", "group__xvphy__v1__7.html#ga15c1341136ca5bde85ab447ba9e09c56", null ],
     [ "XVphy_SetRxLpm", "group__xvphy__v1__7.html#gab4dbca672563dce677d06d7bbbbe23d9", null ],
-    [ "XVphy_SetTxPreEmphasis", "group__xvphy__v1__7.html#ga4071a10340c3cda8cfb3aa3bfb4483e9", null ],
-    [ "XVphy_SetTxVoltageSwing", "group__xvphy__v1__7.html#ga7526bb0de496313d804798dcc1df8cc8", null ],
     [ "XVphy_WriteCfgRefClkSelReg", "group__xvphy__v1__7.html#ga5041cead7e1fe927d645c4e681e95837", null ]
 ];

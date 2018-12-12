@@ -95,6 +95,13 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
                           each clock domain
       MMO    08/02/18 Adding proper handling for Sync Loss/Sync Recover
 2.10  YH     13/04/18 Fixed a bug in PioIntrHandler
+2.20  EB     16/08/18 Replaced TIME_10MS, TIME_16MS, TIME_200MS with
+                          XV_HdmiRx_GetTime10Ms, XV_HdmiRx_GetTime16Ms
+                          XV_HdmiRx_GetTime200Ms
+                      Added TMDS Clock Ratio callback support
+      YB     15/08/18 Added new cases for HDCP 1.4 &amp; 2.2 protocol events in
+                          XV_HdmiRx_SetCallback function.
+                      Updated the HdmiRx_DdcIntrHandler() function.
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>

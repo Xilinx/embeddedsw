@@ -152,7 +152,42 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
       sk     04/24/18 Add API to get the Link Coupling mode.
       sk     04/28/18 Implement timeouts for PLL Lock, Startup and shutdown.
       sk     05/30/18 Removed CalibrationMode check for DAC.
-      sk     06/05/18 Updated minimum Ref clock value to 102.40625MHz.</pre><pre></pre> </div></div><!-- contents -->
+      sk     06/05/18 Updated minimum Ref clock value to 102.40625MHz.
+5.0   sk     06/25/18 Update DAC min sampling rate to 500MHz and also update
+                      VCO Range, PLL_DIVIDER and PLL_FPDIV ranges.
+                      Update PLL structure with calculated sampling rate.
+      sk     06/25/18 Add <a class="el" href="group__rfdc__v5__0.html#gaee66e0a82e88de2ca82db20b0aa869dd" title="This API is to get the divider for clock fabric out. ">XRFdc_GetFabClkOutDiv()</a> API to read fabric clk div.
+                      Add Inline APIs XRFdc_CheckBlockEnabled(),
+                      XRFdc_CheckTileEnabled().
+      sk     07/06/18 Add support to dump HSCOM regs in <a class="el" href="group__rfdc__v5__0.html#gadfcff833fb9078071546a872f78b03a1" title="This Prints the offset of the register along with the content. ">XRFdc_DumpRegs()</a> API
+      sk     07/12/18 Fixed Multiband crossbar settings in C2C mode.
+      sk     07/19/18 Add MixerType member to MixerSettings structure and 
+                      Update Mixer Settings APIs to consider the MixerType
+                      variable.
+      sk     07/19/18 Add XRFdc_GetMultibandConfig() API to read Multiband
+                      configuration.
+      sk     07/20/18 Update the APIs to check the corresponding section
+                      (Digital/Analog)enable/disable.
+      sk     07/26/18 Fixed Doxygen, coverity warnings.
+      sk     08/03/18 Fixed MISRAC warnings.
+      sk     08/24/18 Move mixer related APIs to <a class="el" href="xrfdc__mixer_8c.html">xrfdc_mixer.c</a> file.
+                      Define asserts for Linux, Re-arranged XRFdc_RestartIPSM,
+                      <a class="el" href="group__rfdc__v5__0.html#ga259ea2f270f0ce46ac06912cd7dcdfb9" title="Initializes a specific XRFdc instance such that the driver is ready to use. ">XRFdc_CfgInitialize()</a> and <a class="el" href="group__rfdc__v5__0.html#ga4f6f323a097768136b0a64bcb8d43906" title="User-level API to setup multiband configuration. ">XRFdc_MultiBand()</a>  APIs.
+                      Reorganize the code to improve readability and
+                      optimization.
+      mus    08/17/18 Removed structure paddings from <a class="el" href="struct_x_r_fdc___config.html" title="RFdc Config Structure. ">XRFdc_Config</a> structure.
+                      It has been done to have 1:1 mapping between
+                      <a class="el" href="struct_x_r_fdc___config.html" title="RFdc Config Structure. ">XRFdc_Config</a> structure and device tree property
+                      "param-list", over linux platform.
+      sk     09/24/18 Update powerup-state value based on PLL mode in
+                      <a class="el" href="group__rfdc__v5__0.html#ga2390330eaf525d57a9500d298d712db1" title="This function used for dynamically switch between internal PLL and external clcok source and configur...">XRFdc_DynamicPLLConfig()</a> API.
+      sk     10/10/18 Check for DigitalPath enable in <a class="el" href="group__rfdc__v5__0.html#ga7ab226b7c257253e4976343b3744e190" title="Get the Nyquist zone. ">XRFdc_GetNyquistZone()</a>
+                      and <a class="el" href="group__rfdc__v5__0.html#gaab11b20e3aadaf71a627350a447e6f98" title="This API is to get the Calibration mode. ">XRFdc_GetCalibrationMode()</a> APIs for Multiband.
+      sk     10/13/18 Add support to read the REFCLKDIV param from design.
+                      Update XRFdc_SetPLLConfig() API to support range of
+                      REF_CLK_DIV values(1 to 4).
+                      Add XRFDC_MIXER_MODE_R2R option to support BYPASS mode
+                      for Real input.</pre><pre></pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

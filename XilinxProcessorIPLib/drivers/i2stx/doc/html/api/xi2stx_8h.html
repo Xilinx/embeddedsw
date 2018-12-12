@@ -99,6 +99,11 @@ Enumerations</h2></td></tr>
  }<tr class="memdesc:ga5aae612901765b9ea6bb107e5b66b619"><td class="mdescLeft">&#160;</td><td class="mdescRight">These constants specify different channel ID's.  <a href="group__i2stx__v1__1.html#ga5aae612901765b9ea6bb107e5b66b619">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:ga5aae612901765b9ea6bb107e5b66b619"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2530845dc4c6c409a2cb7025beda590f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xi2stx_8h.html#a2530845dc4c6c409a2cb7025beda590f">XI2s_Tx_Justification</a> { <a class="el" href="xi2stx_8h.html#a2530845dc4c6c409a2cb7025beda590fabdb67d3f765c6f594cab030416ec0582">XI2S_TX_JUSTIFY_LEFT</a> = 0, 
+<a class="el" href="xi2stx_8h.html#a2530845dc4c6c409a2cb7025beda590fac30016a424a039d624fece3591ee9f6a">XI2S_TX_JUSTIFY_RIGHT</a>
+ }<tr class="memdesc:a2530845dc4c6c409a2cb7025beda590f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef specifies the justification of the the XI2s Transmitter.  <a href="xi2stx_8h.html#a2530845dc4c6c409a2cb7025beda590f">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:a2530845dc4c6c409a2cb7025beda590f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">XI2S_Tx_Handlertype</div></td></tr>
 <tr class="memitem:ga826ab5acb6a522281f46f358fc908bf3"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2stx__v1__1.html#ga826ab5acb6a522281f46f358fc908bf3">XI2s_Tx_HandlerType</a> { <br />
 &#160;&#160;<a class="el" href="group__i2stx__v1__1.html#gga826ab5acb6a522281f46f358fc908bf3aee14491aed8a040a938a4a67e74bc6bd">XI2S_TX_HANDLER_AES_BLKCMPLT</a> = 0, 
@@ -148,6 +153,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga8d2df1eb8affcff7f6b1eacad5016b39"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2stx__v1__1.html#ga8d2df1eb8affcff7f6b1eacad5016b39">XI2s_Tx_IntrEnable</a> (<a class="el" href="struct_x_i2s___tx.html">XI2s_Tx</a> *InstancePtr, u32 Mask)</td></tr>
 <tr class="memdesc:ga8d2df1eb8affcff7f6b1eacad5016b39"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enables the specified interrupt of the I2s Transmitter.  <a href="group__i2stx__v1__1.html#ga8d2df1eb8affcff7f6b1eacad5016b39">More...</a><br /></td></tr>
 <tr class="separator:ga8d2df1eb8affcff7f6b1eacad5016b39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae5c7f651728493e9ca5a13d824f47893"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2stx__v1__1.html#gae5c7f651728493e9ca5a13d824f47893">XI2s_Tx_JustifyEnable</a> (<a class="el" href="struct_x_i2s___tx.html">XI2s_Tx</a> *InstancePtr, u8 Enable)</td></tr>
+<tr class="memdesc:gae5c7f651728493e9ca5a13d824f47893"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enables/disables the justification.  <a href="group__i2stx__v1__1.html#gae5c7f651728493e9ca5a13d824f47893">More...</a><br /></td></tr>
+<tr class="separator:gae5c7f651728493e9ca5a13d824f47893"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab101d38c979a17b2bd4540a3b418933d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2stx__v1__1.html#gab101d38c979a17b2bd4540a3b418933d">XI2s_Tx_Justify</a> (<a class="el" href="struct_x_i2s___tx.html">XI2s_Tx</a> *InstancePtr, <a class="el" href="xi2stx_8h.html#a2530845dc4c6c409a2cb7025beda590f">XI2s_Tx_Justification</a> Justify)</td></tr>
+<tr class="memdesc:gab101d38c979a17b2bd4540a3b418933d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is to enable right/left justification.  <a href="group__i2stx__v1__1.html#gab101d38c979a17b2bd4540a3b418933d">More...</a><br /></td></tr>
+<tr class="separator:gab101d38c979a17b2bd4540a3b418933d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad17911935c47159f6b1c144c3df63ce2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i2stx__v1__1.html#gad17911935c47159f6b1c144c3df63ce2">XI2s_Tx_IntrHandler</a> (void *InstancePtr)</td></tr>
 <tr class="memdesc:gad17911935c47159f6b1c144c3df63ce2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the interrupt handler for the I2S Transmitter driver.  <a href="group__i2stx__v1__1.html#gad17911935c47159f6b1c144c3df63ce2">More...</a><br /></td></tr>
 <tr class="separator:gad17911935c47159f6b1c144c3df63ce2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -225,6 +236,28 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="a986ff4cc8196e017c2a11b5784cfa410a84dfb423929256e872592e9c921fd099"></a>XI2S_TX_CHMUX_AXIS_67&#160;</td><td class="fielddoc"><p>AXI-Stream Audio Channel 6 and 7. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a986ff4cc8196e017c2a11b5784cfa410ae563eb5c2611dddc3b40f94aa619b991"></a>XI2S_TX_CHMUX_WAVEGEN&#160;</td><td class="fielddoc"><p>Wave Generator. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="a2530845dc4c6c409a2cb7025beda590f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2530845dc4c6c409a2cb7025beda590f">&#9670;&nbsp;</a></span>XI2s_Tx_Justification</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="xi2stx_8h.html#a2530845dc4c6c409a2cb7025beda590f">XI2s_Tx_Justification</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This typedef specifies the justification of the the XI2s Transmitter. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a2530845dc4c6c409a2cb7025beda590fabdb67d3f765c6f594cab030416ec0582"></a>XI2S_TX_JUSTIFY_LEFT&#160;</td><td class="fielddoc"><p>Left Justification is enabled. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a2530845dc4c6c409a2cb7025beda590fac30016a424a039d624fece3591ee9f6a"></a>XI2S_TX_JUSTIFY_RIGHT&#160;</td><td class="fielddoc"><p>Right Justification is enabled. </p>
 </td></tr>
 </table>
 

@@ -31,7 +31,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"annotated.html"
+"annotated.html",
+"xzdma__readonlymode__example_8c.html#a235b9177886740839edf913fc7107d81"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

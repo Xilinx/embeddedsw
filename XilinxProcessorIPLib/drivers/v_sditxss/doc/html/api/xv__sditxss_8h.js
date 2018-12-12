@@ -54,6 +54,8 @@ var xv__sditxss_8h =
     [ "XV_SdiTxSs_SetCoreSettings", "xv__sditxss_8h.html#a1d4fc65e3e0bf26e83db1ae9caf2cdd9", null ],
     [ "XV_SdiTxSs_SetStream", "xv__sditxss_8h.html#a926a8be7d91d7ea5963b38fee737b180", null ],
     [ "XV_SdiTxSs_SetVideoStream", "xv__sditxss_8h.html#a54cbf51612a95c4f1dca721f9888250f", null ],
+    [ "XV_SdiTxSs_ST352CStreamEnable", "xv__sditxss_8h.html#ac6a4e5af042d945efa96a2d510c08a4b", null ],
+    [ "XV_SdiTxSs_ST352CSwitch3GA", "xv__sditxss_8h.html#a8b2b3cc3de317fdcd41dabf6dd330c60", null ],
     [ "XV_SdiTxSs_Stop", "xv__sditxss_8h.html#aa665c8a153ad4e024a9b02d5fc4fb691", null ],
     [ "XV_SdiTxSs_StreamConfig", "xv__sditxss_8h.html#ac527da1833b83b72a0bf989e4230c8ae", null ],
     [ "XV_SdiTxSs_StreamStart", "xv__sditxss_8h.html#aaedc93d7d8d155ea9407b0627508e6b6", null ]

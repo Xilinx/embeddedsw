@@ -106,6 +106,10 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
                     available in all examples. This is a fix for CR-965028.
       ms   04/05/17 Added tabspace for return statements in functions
                     for proper documentation while generating doxygen.
+5.8   rsp  07/23/18 Fix gcc '[-Wint-conversion]' warning.
+      rsp  10/22/18 Set RX BD length to jumbo frame size. It fixes 'Error
+                    committing RxBD to HW' error for designs having length
+                    register width &lt; 19 bits.
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>

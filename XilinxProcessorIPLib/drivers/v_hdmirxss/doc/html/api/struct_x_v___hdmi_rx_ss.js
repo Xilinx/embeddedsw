@@ -36,6 +36,8 @@ var struct_x_v___hdmi_rx_ss =
     [ "StreamInitRef", "struct_x_v___hdmi_rx_ss.html#a8ee1e45506bb23876a272c913dae7053", null ],
     [ "StreamUpCallback", "struct_x_v___hdmi_rx_ss.html#ae6f6eddc32a4d8473cea90fc2aaf9d6e", null ],
     [ "StreamUpRef", "struct_x_v___hdmi_rx_ss.html#a517bfdc93369c91bdcf5f562856af304", null ],
+    [ "TmdsClkRatioCallback", "struct_x_v___hdmi_rx_ss.html#a5fb37ea6c1dbc943d2c89c533df9862b", null ],
+    [ "TmdsClkRatioRef", "struct_x_v___hdmi_rx_ss.html#a8612f005e6703303363b2937166bf972", null ],
     [ "TMDSClockRatio", "struct_x_v___hdmi_rx_ss.html#aaccf9db2828b2d0ee5f6e05e80665a9d", null ],
     [ "UserTimerPtr", "struct_x_v___hdmi_rx_ss.html#ae099cade24fdc0ec177759907006f5ed", null ],
     [ "UserTimerWaitUs", "struct_x_v___hdmi_rx_ss.html#ac9c0602439eff8c90c74c19129879e90", null ],

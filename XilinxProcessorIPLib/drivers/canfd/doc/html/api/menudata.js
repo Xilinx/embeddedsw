@@ -1,5 +1,10 @@
 var menudata={children:[
 {text:"Overview",url:"index.html"},
+{text:"Data Structures",url:"annotated.html",children:[
+{text:"Data Structures",url:"annotated.html"},
+{text:"Data Fields",url:"functions.html",children:[
+{text:"All",url:"functions.html"},
+{text:"Variables",url:"functions_vars.html"}]}]},
 {text:"APIs",url:"globals.html",children:[
 {text:"All",url:"globals.html",children:[
 {text:"m",url:"globals.html#index_m"},

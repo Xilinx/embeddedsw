@@ -73,7 +73,6 @@ $(document).ready(function(){initNavTree('index.html','');});
 <li>PWM operation</li>
 <li>Cascade Operation (This is to be used for getting a 64 bit timer and this feature is present in the latest versions of the axi_timer IP)</li>
 </ul>
-<p>The driver does not currently support the PWM operation of the device.</p>
 <p>The timer counter operates in 2 primary modes, compare and capture. In either mode, the timer counter may count up or down, with up being the default.</p>
 <p>Compare mode is typically used for creating a single time period or multiple repeating time periods in the auto reload mode, such as a periodic interrupt. When started, the timer counter loads an initial value, referred to as the compare value, into the timer counter and starts counting down or up. The timer counter expires when it rolls over/under depending upon the mode of counting. An external compare output signal may be configured such that a pulse is generated with this signal when it hits the compare value.</p>
 <p>Capture mode is typically used for measuring the time period between external events. This mode uses an external capture input signal to cause the value of the timer counter to be captured. When started, the timer counter loads an initial value, referred to as the compare value,</p>
@@ -144,6 +143,10 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
                     generation.
 4.4   ms   04/18/17 Modified tcl file to add suffix U for all macros
                     definitions of tmrctr in xparameters.h
+4.5   cjp  03/22/18 Added APIs to support PWM feature. XTmrCtr_PwmConfigure
+                    is used to configure PWM to operate for specific period
+                    and high time. XTmrCtr_PwmEnable and XTmrCtr_PwmDisable
+                    are used to enable/disable the PWM output.
 </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

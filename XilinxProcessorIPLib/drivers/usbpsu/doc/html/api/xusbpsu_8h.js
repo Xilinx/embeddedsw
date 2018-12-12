@@ -50,6 +50,7 @@ var xusbpsu_8h =
     [ "XUsbPsu_InitializeEps", "group__usbpsu__v1__3.html#ga0a8dac1b0ab6d81d8a4e797f2be49845", null ],
     [ "XUsbPsu_IntrHandler", "group__usbpsu__v1__3.html#ga9b106790d1b007e134bda766af314a9a", null ],
     [ "XUsbPsu_IsEpStalled", "group__usbpsu__v1__3.html#ga940e5d8d4c56eec4e394507eb0e1ab8b", null ],
+    [ "XUsbPsu_IsSuperSpeed", "group__usbpsu__v1__3.html#ga7e0a64e9adf5e221b4bd8386ad38055e", null ],
     [ "XUsbPsu_LinkStsChangeIntr", "group__usbpsu__v1__3.html#ga4cf4f7f831c9b7968d7ef0005ea64b50", null ],
     [ "XUsbPsu_LookupConfig", "group__usbpsu__v1__3.html#ga10b910700eb2400378dc0a013410ba26", null ],
     [ "XUsbPsu_PhyReset", "group__usbpsu__v1__3.html#ga4c5f57fc85b14ae756481518c5318362", null ],

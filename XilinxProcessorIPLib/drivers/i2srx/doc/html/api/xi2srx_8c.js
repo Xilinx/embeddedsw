@@ -5,6 +5,8 @@ var xi2srx_8c =
     [ "XI2s_Rx_Enable", "group__i2srx__v1__0.html#ga3a853463222fc023817337626e04ea1a", null ],
     [ "XI2s_Rx_IntrDisable", "group__i2srx__v1__0.html#ga80556a73ef85dd5a4731afab9ad10f22", null ],
     [ "XI2s_Rx_IntrEnable", "group__i2srx__v1__0.html#ga595ca2872d1b5b59f05a229b3a28fd86", null ],
+    [ "XI2s_Rx_Justify", "group__i2srx__v1__0.html#ga68a5ca9532a69737b7d8788edd9f822d", null ],
+    [ "XI2s_Rx_JustifyEnable", "group__i2srx__v1__0.html#ga4407276f62220e4983d6ec7251ad98d6", null ],
     [ "XI2s_Rx_LatchAesChannelStatus", "group__i2srx__v1__0.html#gae745a449c173356fad2c4f4d3f19d9e0", null ],
     [ "XI2s_Rx_SetAesChStatus", "group__i2srx__v1__0.html#ga0732ac9b13399678fe408cf55eeab264", null ],
     [ "XI2s_Rx_SetChMux", "group__i2srx__v1__0.html#ga522d6260d91826f18572844fb0fbf39d", null ],

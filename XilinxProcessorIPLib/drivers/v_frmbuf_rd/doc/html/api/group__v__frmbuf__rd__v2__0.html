@@ -97,6 +97,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gaf95f5597208997861ca3b2de238821e1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__rd__v2__0.html#gaf95f5597208997861ca3b2de238821e1">XVFrmbufRd_Stop</a> (<a class="el" href="struct_x_v___frmbuf_rd__l2.html">XV_FrmbufRd_l2</a> *InstancePtr)</td></tr>
 <tr class="memdesc:gaf95f5597208997861ca3b2de238821e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function stops the core instance.  <a href="#gaf95f5597208997861ca3b2de238821e1">More...</a><br /></td></tr>
 <tr class="separator:gaf95f5597208997861ca3b2de238821e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga05848286286c2df893b2ef8195167e47"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__rd__v2__0.html#ga05848286286c2df893b2ef8195167e47">XVFrmbufRd_WaitForIdle</a> (<a class="el" href="struct_x_v___frmbuf_rd__l2.html">XV_FrmbufRd_l2</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga05848286286c2df893b2ef8195167e47"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function Waits for the core to reach idle state.  <a href="#ga05848286286c2df893b2ef8195167e47">More...</a><br /></td></tr>
+<tr class="separator:ga05848286286c2df893b2ef8195167e47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8d3a4c93e59a529e936c21169f738202"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__rd__v2__0.html#ga8d3a4c93e59a529e936c21169f738202">XVFrmbufRd_SetMemFormat</a> (<a class="el" href="struct_x_v___frmbuf_rd__l2.html">XV_FrmbufRd_l2</a> *InstancePtr, u32 StrideInBytes, XVidC_ColorFormat MemFmt, const XVidC_VideoStream *StrmOut)</td></tr>
 <tr class="memdesc:ga8d3a4c93e59a529e936c21169f738202"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function configures the frame buffer read memory input.  <a href="#ga8d3a4c93e59a529e936c21169f738202">More...</a><br /></td></tr>
 <tr class="separator:ga8d3a4c93e59a529e936c21169f738202"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -700,7 +703,38 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if the core in stop state XST_FAILURE if the core is not in stop state </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___frmbuf_rd__l2.html#a0ae31af8998fd7d5456807e3397602ca">XV_FrmbufRd_l2::FrmbufRd</a>.</p>
+
+</div>
+</div>
+<a id="ga05848286286c2df893b2ef8195167e47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga05848286286c2df893b2ef8195167e47">&#9670;&nbsp;</a></span>XVFrmbufRd_WaitForIdle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XVFrmbufRd_WaitForIdle </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___frmbuf_rd__l2.html">XV_FrmbufRd_l2</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xv__frmbufrd__l2_8c.html">xv_frmbufrd_l2.c</a>&gt;</code></p>
+
+<p>This function Waits for the core to reach idle state. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to core instance to be worked upon</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if the core is in idle state XST_FAILURE if the core is not in idle state </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_v___frmbuf_rd__l2.html#a0ae31af8998fd7d5456807e3397602ca">XV_FrmbufRd_l2::FrmbufRd</a>.</p>
 

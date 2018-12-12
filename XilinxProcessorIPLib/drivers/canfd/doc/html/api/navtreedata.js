@@ -1,6 +1,13 @@
 var NAVTREE =
 [
   [ "canfd", "index.html", [
+    [ "Data Structures", "annotated.html", [
+      [ "Data Structures", "annotated.html", "annotated_dup" ],
+      [ "Data Fields", "functions.html", [
+        [ "All", "functions.html", null ],
+        [ "Variables", "functions_vars.html", null ]
+      ] ]
+    ] ],
     [ "APIs", "globals.html", [
       [ "All", "globals.html", "globals_dup" ],
       [ "Functions", "globals_func.html", null ],
@@ -17,9 +24,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"example.html",
-"group__canfd__v1__2.html#ga63bdf6600ff8c4d45759c321b3233f87",
-"group__canfd__v1__2.html#gacce0f487607f85fd398f4f5c6b76326c"
+"annotated.html",
+"group__canfd__v2__0.html#ga803def41df9dba6c449e1136fb14fc7d"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -1178,8 +1178,8 @@ FIFO Depth</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>#include &lt;<a class="el" href="xspips_8h.html">xspips.h</a>&gt;</code></p>
-<b>Value:</b><div class="fragment"><div class="line">XSpiPs_Out32(((InstancePtr)-&gt;Config.BaseAddress) + <a class="code" href="group__spips__v3__1.html#ga96a2524f86a513015b982462f7a6ffcb">XSPIPS_ER_OFFSET</a>, \</div><div class="line">                <a class="code" href="group__spips__v3__1.html#gaa31de4b8fd2bc4cd055be77a535f9048">XSPIPS_ER_ENABLE_MASK</a>)</div><div class="ttc" id="group__spips__v3__1_html_gaa31de4b8fd2bc4cd055be77a535f9048"><div class="ttname"><a href="group__spips__v3__1.html#gaa31de4b8fd2bc4cd055be77a535f9048">XSPIPS_ER_ENABLE_MASK</a></div><div class="ttdeci">#define XSPIPS_ER_ENABLE_MASK</div><div class="ttdoc">SPI Enable Bit Mask. </div><div class="ttdef"><b>Definition:</b> xspips_hw.h:192</div></div>
-<div class="ttc" id="group__spips__v3__1_html_ga96a2524f86a513015b982462f7a6ffcb"><div class="ttname"><a href="group__spips__v3__1.html#ga96a2524f86a513015b982462f7a6ffcb">XSPIPS_ER_OFFSET</a></div><div class="ttdeci">#define XSPIPS_ER_OFFSET</div><div class="ttdoc">Enable/Disable Register. </div><div class="ttdef"><b>Definition:</b> xspips_hw.h:89</div></div>
+<b>Value:</b><div class="fragment"><div class="line">XSpiPs_Out32(((InstancePtr)-&gt;Config.BaseAddress) + <a class="code" href="group__spips__v3__1.html#ga96a2524f86a513015b982462f7a6ffcb">XSPIPS_ER_OFFSET</a>, \</div><div class="line">                <a class="code" href="group__spips__v3__1.html#gaa31de4b8fd2bc4cd055be77a535f9048">XSPIPS_ER_ENABLE_MASK</a>)</div><div class="ttc" id="group__spips__v3__1_html_gaa31de4b8fd2bc4cd055be77a535f9048"><div class="ttname"><a href="group__spips__v3__1.html#gaa31de4b8fd2bc4cd055be77a535f9048">XSPIPS_ER_ENABLE_MASK</a></div><div class="ttdeci">#define XSPIPS_ER_ENABLE_MASK</div><div class="ttdoc">SPI Enable Bit Mask. </div><div class="ttdef"><b>Definition:</b> xspips_hw.h:188</div></div>
+<div class="ttc" id="group__spips__v3__1_html_ga96a2524f86a513015b982462f7a6ffcb"><div class="ttname"><a href="group__spips__v3__1.html#ga96a2524f86a513015b982462f7a6ffcb">XSPIPS_ER_OFFSET</a></div><div class="ttdeci">#define XSPIPS_ER_OFFSET</div><div class="ttdoc">Enable/Disable Register. </div><div class="ttdef"><b>Definition:</b> xspips_hw.h:85</div></div>
 </div><!-- fragment -->
 <p>Enable the device and uninhibit master transactions. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1391,7 +1391,7 @@ FIFO Depth</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>#include &lt;<a class="el" href="xspips_8h.html">xspips.h</a>&gt;</code></p>
-<b>Value:</b><div class="fragment"><div class="line">XSpiPs_In32(((InstancePtr)-&gt;Config.BaseAddress) +               \</div><div class="line">        <a class="code" href="group__spips__v3__1.html#ga4498f0a85ffc367f14d705f37a2dcc11">XSPIPS_SICR_OFFSET</a>)</div><div class="ttc" id="group__spips__v3__1_html_ga4498f0a85ffc367f14d705f37a2dcc11"><div class="ttname"><a href="group__spips__v3__1.html#ga4498f0a85ffc367f14d705f37a2dcc11">XSPIPS_SICR_OFFSET</a></div><div class="ttdeci">#define XSPIPS_SICR_OFFSET</div><div class="ttdoc">Slave Idle Count. </div><div class="ttdef"><b>Definition:</b> xspips_hw.h:93</div></div>
+<b>Value:</b><div class="fragment"><div class="line">XSpiPs_In32(((InstancePtr)-&gt;Config.BaseAddress) +               \</div><div class="line">        <a class="code" href="group__spips__v3__1.html#ga4498f0a85ffc367f14d705f37a2dcc11">XSPIPS_SICR_OFFSET</a>)</div><div class="ttc" id="group__spips__v3__1_html_ga4498f0a85ffc367f14d705f37a2dcc11"><div class="ttname"><a href="group__spips__v3__1.html#ga4498f0a85ffc367f14d705f37a2dcc11">XSPIPS_SICR_OFFSET</a></div><div class="ttdeci">#define XSPIPS_SICR_OFFSET</div><div class="ttdoc">Slave Idle Count. </div><div class="ttdef"><b>Definition:</b> xspips_hw.h:89</div></div>
 </div><!-- fragment -->
 <p>Get the contents of the slave idle count register. </p>
 <p>Use the XSPIPS_SICR_* constants defined in <a class="el" href="xspips__hw_8h.html">xspips_hw.h</a> to interpret the bit-mask returned.</p>
@@ -1891,7 +1891,7 @@ FIFO Depth</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>#include &lt;<a class="el" href="xspips_8h.html">xspips.h</a>&gt;</code></p>
-<b>Value:</b><div class="fragment"><div class="line">XSpiPs_Out32(((InstancePtr)-&gt;Config.BaseAddress) +              \</div><div class="line">                <a class="code" href="group__spips__v3__1.html#ga708b416f4994dca83b3d50a464552286">XSPIPS_RXWR_OFFSET</a>, (RegisterValue))</div><div class="ttc" id="group__spips__v3__1_html_ga708b416f4994dca83b3d50a464552286"><div class="ttname"><a href="group__spips__v3__1.html#ga708b416f4994dca83b3d50a464552286">XSPIPS_RXWR_OFFSET</a></div><div class="ttdeci">#define XSPIPS_RXWR_OFFSET</div><div class="ttdoc">Receive FIFO Watermark. </div><div class="ttdef"><b>Definition:</b> xspips_hw.h:95</div></div>
+<b>Value:</b><div class="fragment"><div class="line">XSpiPs_Out32(((InstancePtr)-&gt;Config.BaseAddress) +              \</div><div class="line">                <a class="code" href="group__spips__v3__1.html#ga708b416f4994dca83b3d50a464552286">XSPIPS_RXWR_OFFSET</a>, (RegisterValue))</div><div class="ttc" id="group__spips__v3__1_html_ga708b416f4994dca83b3d50a464552286"><div class="ttname"><a href="group__spips__v3__1.html#ga708b416f4994dca83b3d50a464552286">XSPIPS_RXWR_OFFSET</a></div><div class="ttdeci">#define XSPIPS_RXWR_OFFSET</div><div class="ttdoc">Receive FIFO Watermark. </div><div class="ttdef"><b>Definition:</b> xspips_hw.h:91</div></div>
 </div><!-- fragment -->
 <p>Set the contents of the receive FIFO watermark register. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1933,7 +1933,7 @@ FIFO Depth</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>#include &lt;<a class="el" href="xspips_8h.html">xspips.h</a>&gt;</code></p>
-<b>Value:</b><div class="fragment"><div class="line">XSpiPs_Out32(((InstancePtr)-&gt;Config.BaseAddress) +      \</div><div class="line">                <a class="code" href="group__spips__v3__1.html#ga4498f0a85ffc367f14d705f37a2dcc11">XSPIPS_SICR_OFFSET</a>, (RegisterValue))</div><div class="ttc" id="group__spips__v3__1_html_ga4498f0a85ffc367f14d705f37a2dcc11"><div class="ttname"><a href="group__spips__v3__1.html#ga4498f0a85ffc367f14d705f37a2dcc11">XSPIPS_SICR_OFFSET</a></div><div class="ttdeci">#define XSPIPS_SICR_OFFSET</div><div class="ttdoc">Slave Idle Count. </div><div class="ttdef"><b>Definition:</b> xspips_hw.h:93</div></div>
+<b>Value:</b><div class="fragment"><div class="line">XSpiPs_Out32(((InstancePtr)-&gt;Config.BaseAddress) +      \</div><div class="line">                <a class="code" href="group__spips__v3__1.html#ga4498f0a85ffc367f14d705f37a2dcc11">XSPIPS_SICR_OFFSET</a>, (RegisterValue))</div><div class="ttc" id="group__spips__v3__1_html_ga4498f0a85ffc367f14d705f37a2dcc11"><div class="ttname"><a href="group__spips__v3__1.html#ga4498f0a85ffc367f14d705f37a2dcc11">XSPIPS_SICR_OFFSET</a></div><div class="ttdeci">#define XSPIPS_SICR_OFFSET</div><div class="ttdoc">Slave Idle Count. </div><div class="ttdef"><b>Definition:</b> xspips_hw.h:89</div></div>
 </div><!-- fragment -->
 <p>Set the contents of the slave idle count register. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1975,7 +1975,7 @@ FIFO Depth</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>#include &lt;<a class="el" href="xspips_8h.html">xspips.h</a>&gt;</code></p>
-<b>Value:</b><div class="fragment"><div class="line">XSpiPs_Out32(((InstancePtr)-&gt;Config.BaseAddress) +              \</div><div class="line">                <a class="code" href="group__spips__v3__1.html#ga82b0c7855556fbb3d13b1d0fc3f7ae24">XSPIPS_TXWR_OFFSET</a>, (RegisterValue))</div><div class="ttc" id="group__spips__v3__1_html_ga82b0c7855556fbb3d13b1d0fc3f7ae24"><div class="ttname"><a href="group__spips__v3__1.html#ga82b0c7855556fbb3d13b1d0fc3f7ae24">XSPIPS_TXWR_OFFSET</a></div><div class="ttdeci">#define XSPIPS_TXWR_OFFSET</div><div class="ttdoc">Transmit FIFO Watermark. </div><div class="ttdef"><b>Definition:</b> xspips_hw.h:94</div></div>
+<b>Value:</b><div class="fragment"><div class="line">XSpiPs_Out32(((InstancePtr)-&gt;Config.BaseAddress) +              \</div><div class="line">                <a class="code" href="group__spips__v3__1.html#ga82b0c7855556fbb3d13b1d0fc3f7ae24">XSPIPS_TXWR_OFFSET</a>, (RegisterValue))</div><div class="ttc" id="group__spips__v3__1_html_ga82b0c7855556fbb3d13b1d0fc3f7ae24"><div class="ttname"><a href="group__spips__v3__1.html#ga82b0c7855556fbb3d13b1d0fc3f7ae24">XSPIPS_TXWR_OFFSET</a></div><div class="ttdeci">#define XSPIPS_TXWR_OFFSET</div><div class="ttdoc">Transmit FIFO Watermark. </div><div class="ttdef"><b>Definition:</b> xspips_hw.h:90</div></div>
 </div><!-- fragment -->
 <p>Set the contents of the transmit FIFO watermark register. </p>
 <dl class="params"><dt>Parameters</dt><dd>

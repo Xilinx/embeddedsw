@@ -1,4 +1,4 @@
 var xzdma__sinit_8c =
 [
-    [ "XZDma_LookupConfig", "group__zdma__v1__5.html#ga3de69499d007ed840aa3b95fe9b63354", null ]
+    [ "XZDma_LookupConfig", "group__zdma__v1__6.html#ga1f24016eafb7226d1f8754082a24d95d", null ]
 ];

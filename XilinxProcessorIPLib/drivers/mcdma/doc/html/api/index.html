@@ -69,7 +69,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <p>In AXI MCDMA Primary high-speed DMA data movement between system memory and Stream target is through the AXI4 Read Master to AXI4 memory-mapped to Stream (MM2S) Master, and AXI stream to memory-mapped (S2MM) Slave to AXI4 Write Master. AXI DMA enables up to 16 multiple channels of data movement on both MM2S and S2MM paths.</p>
 <p><b>Initialization &amp; Configuration</b></p>
 <p>The device driver enables higher layer software (e.g., an application) to communicate to the AXI MCDMA IP core.</p>
-<p><a class="el" href="group__mcdma__v1__0.html#gaded8280c89d619daddc45d217358a319" title="This function initializes an MCDMA core. ">XMcDma_CfgInitialize()</a> API is used to initialize the MCDMA core. The user needs to first call the XMcDma_LookupConfig() API which returns the Configuration structure pointer which is passed as a parameter to the <a class="el" href="group__mcdma__v1__0.html#gaded8280c89d619daddc45d217358a319" title="This function initializes an MCDMA core. ">XMcDma_CfgInitialize()</a> API.</p>
+<p><a class="el" href="group__mcdma__v1__2.html#gaded8280c89d619daddc45d217358a319" title="This function initializes an MCDMA core. ">XMcDma_CfgInitialize()</a> API is used to initialize the MCDMA core. The user needs to first call the XMcDma_LookupConfig() API which returns the Configuration structure pointer which is passed as a parameter to the <a class="el" href="group__mcdma__v1__2.html#gaded8280c89d619daddc45d217358a319" title="This function initializes an MCDMA core. ">XMcDma_CfgInitialize()</a> API.</p>
 <p><b> Interrupts </b> In single interrupt mulitple channels case driver provides interrupt handler XMcdma_TxIntrHandler and XMcdma_IntrHandler for mm2s and s2mm side respectively for handling the interrupt from the MCDMA core. The users of this driver have to register this handler with the interrupt system and provide the callback functions by using XMcdma_SetCallBack API.</p>
 <p><b>Buffer Descriptors(BD) management </b></p>
 <p>BD is shared by the software and the hardware. To use BD for SG DMA transfers, the application needs to use the driver API to do the following:</p>
@@ -97,11 +97,11 @@ $(document).ready(function(){initNavTree('index.html','');});
 </ul>
 <p>The driver also provides API functions to get the status of a completed BD, along with get functions for other fields in the BD.</p>
 <p>The following diagram shows the correct flow of BDs:</p>
-<p>The diagram shows a complete cycle for BDs, starting from requesting the BDs to freeing the BDs. </p><pre></pre><pre>        <a class="el" href="group__mcdma__v1__0.html#ga043e7eb1811040fdbdafe288cd4ac5ea" title="This function Populates the BD Chain with the required buffer address and length fields. ">XMcDma_ChanSubmit()</a>                   <a class="el" href="group__mcdma__v1__0.html#gadccaaa44cfbb7f8c45790050fa14a9aa" title="This function triggers/Starts the h/w by programming the Current and Tail Descriptors and enabling th...">XMcDma_ChanToHw()</a>
+<p>The diagram shows a complete cycle for BDs, starting from requesting the BDs to freeing the BDs. </p><pre></pre><pre>        <a class="el" href="group__mcdma__v1__2.html#ga043e7eb1811040fdbdafe288cd4ac5ea" title="This function Populates the BD Chain with the required buffer address and length fields. ">XMcDma_ChanSubmit()</a>                   <a class="el" href="group__mcdma__v1__2.html#gadccaaa44cfbb7f8c45790050fa14a9aa" title="This function triggers/Starts the h/w by programming the Current and Tail Descriptors and enabling th...">XMcDma_ChanToHw()</a>
 Free ------------------------&gt; Pre-process ----------------------&gt; Hardware
                                                                    |
  /|\                                                               |
-  |    <a class="el" href="group__mcdma__v1__0.html#gac503b02c1b13e908931f84facd8eae44" title="Frees a set of BDs that had been previously retrieved with XMcdma_BdChainFromHW(). ">XMcdma_BdChainFree()</a>                 <a class="el" href="group__mcdma__v1__0.html#gaab94e04161d34aae300d76dd51948117" title="Returns a set of BD(s) that have been processed by hardware. ">XMcdma_BdChainFromHW()</a> |
+  |    <a class="el" href="group__mcdma__v1__2.html#gac503b02c1b13e908931f84facd8eae44" title="Frees a set of BDs that had been previously retrieved with XMcdma_BdChainFromHW(). ">XMcdma_BdChainFree()</a>                 <a class="el" href="group__mcdma__v1__2.html#gaab94e04161d34aae300d76dd51948117" title="Returns a set of BD(s) that have been processed by hardware. ">XMcdma_BdChainFromHW()</a> |
   +--------------------------- Post-process &lt;----------------------+</pre><pre></pre><p><b> Virtual Memory </b></p>
 <p>This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space.</p>
 <p><b> Threads </b></p>
@@ -113,7 +113,7 @@ Free ------------------------&gt; Pre-process ----------------------&gt; Hardwar
 <p>This header file contains identifiers and register-level driver functions (or macros), range macros, structure typedefs that can be used to access the Xilinx AXI MCDMA core instance.</p>
 <p>MODIFICATION HISTORY:</p>
 <p>Ver Who Date Changes </p><hr/>
-<p> 1.0 adk 18/07/17 Initial version. 1.0 adk 09/02/18 Fixed CR#994435 Changes are made in the driver tcl file. </p>
+<p> 1.0 adk 18/07/17 Initial version. 1.0 adk 09/02/18 Fixed CR#994435 Changes are made in the driver tcl file. 1.2 mj 05/03/18 Exported APIs <a class="el" href="group__mcdma__v1__2.html#gac503b02c1b13e908931f84facd8eae44" title="Frees a set of BDs that had been previously retrieved with XMcdma_BdChainFromHW(). ">XMcdma_BdChainFree()</a> and <a class="el" href="group__mcdma__v1__2.html#ga357821499f1231555343dc309c59c67a" title="Set the APP word at the specified APP word offset for a BD. ">XMcDma_BdSetAppWord()</a>. 1.2 mus 11/05/18 Support 64 bit DMA addresses for Microblaze-X platform. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

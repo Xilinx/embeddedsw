@@ -77,8 +77,12 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who     Date     Changes
       ms      04/10/17 Modified filename tag in <a class="el" href="xcsudma__selftest__example_8c.html" title="This file contains an example using the XCsudma driver to do self test on the device. ">xcsudma_selftest_example.c</a> to
                        include the file in doxygen examples.
 1.2   adk     11/22/17 Added peripheral test app support for CSUDMA driver.
-      adk       09/03/18 Added new API <a class="el" href="group__csudma__v1__2.html#ga83a1043112b6067b1901d2bdcb29563d" title="This function sets the starting address and amount(size) of the data to be transfered from/to the mem...">XCsuDma_64BitTransfer()</a> useful for 64-bit
+      adk       09/03/18 Added new API <a class="el" href="group__csudma__v1__3.html#ga83a1043112b6067b1901d2bdcb29563d" title="This function sets the starting address and amount(size) of the data to be transfered from/to the mem...">XCsuDma_64BitTransfer()</a> useful for 64-bit
                  dma transfers through PMU processor(CR#996201).
+1.3   adk     13/07/18 Fixed doxygen warnings in the driver(CR#1006262).
+      adk       08/08/18 Added new API <a class="el" href="xcsudma_8h.html#a1894053d016edd84ed745aaa85c5d8ce" title="This function will poll for completion of data transfer periodically until DMA done bit set or till t...">XCsuDma_WaitForDoneTimeout()</a> useful for
+                 polling dma transfer done.
+1.4   adk     28/08/18 Fixed misra-c required standard violations..
 </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

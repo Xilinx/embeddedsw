@@ -36,6 +36,8 @@ var xv__sditx_8h =
     [ "XV_SdiTx_SetPayloadLineNum", "xv__sditx_8h.html#aa37349324994a3c15641e3dbd621ad2d", null ],
     [ "XV_SdiTx_SetStream", "xv__sditx_8h.html#afd533c42c55560f3844b5631606a0bfa", null ],
     [ "XV_SdiTx_SetVidBridgeMode", "xv__sditx_8h.html#a46de41a6552e21e68a735b30a40d5044", null ],
+    [ "XV_SdiTx_ST352CStreamEnable", "xv__sditx_8h.html#ac68a902fd4b2c666020356621c33700d", null ],
+    [ "XV_SdiTx_ST352CSwitch3GA", "xv__sditx_8h.html#afd56b720f4019c4a47715a803eb24bc3", null ],
     [ "XV_SdiTx_StartSdi", "xv__sditx_8h.html#aac2a887b9e8db796240c9018c311f2ab", null ],
     [ "XV_SdiTx_StopSdi", "xv__sditx_8h.html#a3bb43320e53ea983eb94f8e020ac1606", null ],
     [ "XV_SdiTx_StreamStart", "xv__sditx_8h.html#a8ad731d07be9932825ca0ef037ae2299", null ],

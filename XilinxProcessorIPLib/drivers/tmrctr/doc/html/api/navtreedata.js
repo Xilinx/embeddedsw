@@ -22,7 +22,8 @@ var NAVTREE =
       [ "xtmrctr_intr_example.c", "example.html#ex3", null ],
       [ "xtmrctr_low_level_example.c", "example.html#ex4", null ],
       [ "xtmrctr_polled_example.c", "example.html#ex5", null ],
-      [ "xtmrctr_selftest_example.c", "example.html#ex6", null ]
+      [ "xtmrctr_selftest_example.c", "example.html#ex6", null ],
+      [ "xtmrctr_pwm_example.c", "example.html#ex7", null ]
     ] ]
   ] ]
 ];

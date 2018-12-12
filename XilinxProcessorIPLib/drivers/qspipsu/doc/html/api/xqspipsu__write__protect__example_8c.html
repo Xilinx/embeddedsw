@@ -70,7 +70,7 @@ $(document).ready(function(){initNavTree('xqspipsu__write__protect__example_8c.h
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
 <div class="textblock"><p>This file contains a design example using the QSPIPSU driver (<a class="el" href="struct_x_qspi_psu.html" title="The XQspiPsu driver instance data. ">XQspiPsu</a>) with a serial Flash device greater than or equal to 128Mb. </p>
 <p>The example writes to flash and reads it back in DMA mode. This examples runs with GENFIFO Manual start. It runs in interrupt mode. This example works only with single mode and x1 or x2 data mode. This example will not work with x4 data mode and dual parallel or stacked configuration. The hardware which this example runs on, must have a serial Flash (Micron N25Q or MT25Q) for it to run. In order to test in single flash configurations the necessary HW must be present and QSPI_MODE (also reflected in ConnectionMode in the instance) has to be in sync with HW flash configuration being tested.</p>
-<p>This example neither set the required MIO to control the Write Protect pin nor the driver is setting the MIO. The MIO must be configured to be used by QSPI.This example has been tested with the Micron Serial Flash (N25Q512) in single mode using A53 and R5 processors.</p>
+<p>This example neither set the required MIO to control the Write Protect pin nor the driver is setting the MIO. The MIO must be configured to be used by QSPI.This example has been tested with the Micron Serial Flash (N25Q512) and ISSI Serial Flash parts of IS25WP and IS25LP series flashes in single mode using A53 and R5 processors.</p>
 <dl class="section note"><dt>Note</dt><dd></dd></dl>
 <p>None.</p>
 <pre>
@@ -80,6 +80,8 @@ $(document).ready(function(){initNavTree('xqspipsu__write__protect__example_8c.h
   1.7   tjs 01/25/18 Added support to toggle the WP pin of flash. (PR#2448)
   1.7   tjs 26/03/18 In dual parallel mode enable both CS when issuing Write
                                  enable command. CR-998478
+  1.8   tjs 05/02/18 Added support for IS25LP064 and IS25WP064.
+  1.8   tjs 16/07/18 Added support for the low density ISSI flash parts.
 *</pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>

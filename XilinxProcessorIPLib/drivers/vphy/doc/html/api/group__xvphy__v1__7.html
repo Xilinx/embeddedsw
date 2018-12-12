@@ -324,12 +324,15 @@ Functions</h2></td></tr>
 <tr class="memitem:ga871b3166b3cda10fc41fdba4a1afc185"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#ga871b3166b3cda10fc41fdba4a1afc185">XVphy_TxPrbsForceError</a> (<a class="el" href="struct_x_vphy.html">XVphy</a> *InstancePtr, u8 QuadId, <a class="el" href="group__xvphy__v1__7.html#ga535e4dd9425d8b7818e02930ce9e2b8e">XVphy_ChannelId</a> ChId, u8 ForceErr)</td></tr>
 <tr class="memdesc:ga871b3166b3cda10fc41fdba4a1afc185"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will set the TX/RXPRBSEL of the GT.  <a href="#ga871b3166b3cda10fc41fdba4a1afc185">More...</a><br /></td></tr>
 <tr class="separator:ga871b3166b3cda10fc41fdba4a1afc185"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4915dce480601d44a2184f2619eddd02"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#ga4915dce480601d44a2184f2619eddd02">XVphy_DrpWrite</a> (<a class="el" href="struct_x_vphy.html">XVphy</a> *InstancePtr, u8 QuadId, <a class="el" href="group__xvphy__v1__7.html#ga535e4dd9425d8b7818e02930ce9e2b8e">XVphy_ChannelId</a> ChId, u16 Addr, u16 Val) __attribute__((deprecated))</td></tr>
-<tr class="memdesc:ga4915dce480601d44a2184f2619eddd02"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will initiate a write DRP transaction.  <a href="#ga4915dce480601d44a2184f2619eddd02">More...</a><br /></td></tr>
-<tr class="separator:ga4915dce480601d44a2184f2619eddd02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab14e7dbb1334daed0c6868756be87db0"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#gab14e7dbb1334daed0c6868756be87db0">XVphy_DrpRead</a> (<a class="el" href="struct_x_vphy.html">XVphy</a> *InstancePtr, u8 QuadId, <a class="el" href="group__xvphy__v1__7.html#ga535e4dd9425d8b7818e02930ce9e2b8e">XVphy_ChannelId</a> ChId, u16 Addr) __attribute__((deprecated))</td></tr>
-<tr class="memdesc:gab14e7dbb1334daed0c6868756be87db0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will initiate a read DRP transaction.  <a href="#gab14e7dbb1334daed0c6868756be87db0">More...</a><br /></td></tr>
-<tr class="separator:gab14e7dbb1334daed0c6868756be87db0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7526bb0de496313d804798dcc1df8cc8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#ga7526bb0de496313d804798dcc1df8cc8">XVphy_SetTxVoltageSwing</a> (<a class="el" href="struct_x_vphy.html">XVphy</a> *InstancePtr, u8 QuadId, <a class="el" href="group__xvphy__v1__7.html#ga535e4dd9425d8b7818e02930ce9e2b8e">XVphy_ChannelId</a> ChId, u8 Vs)</td></tr>
+<tr class="memdesc:ga7526bb0de496313d804798dcc1df8cc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will set the TX voltage swing value for a given channel.  <a href="#ga7526bb0de496313d804798dcc1df8cc8">More...</a><br /></td></tr>
+<tr class="separator:ga7526bb0de496313d804798dcc1df8cc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4071a10340c3cda8cfb3aa3bfb4483e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#ga4071a10340c3cda8cfb3aa3bfb4483e9">XVphy_SetTxPreEmphasis</a> (<a class="el" href="struct_x_vphy.html">XVphy</a> *InstancePtr, u8 QuadId, <a class="el" href="group__xvphy__v1__7.html#ga535e4dd9425d8b7818e02930ce9e2b8e">XVphy_ChannelId</a> ChId, u8 Pe)</td></tr>
+<tr class="memdesc:ga4071a10340c3cda8cfb3aa3bfb4483e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will set the TX pre-emphasis value for a given channel.  <a href="#ga4071a10340c3cda8cfb3aa3bfb4483e9">More...</a><br /></td></tr>
+<tr class="separator:ga4071a10340c3cda8cfb3aa3bfb4483e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga66bc59cb2c2578b0f5738fab63960a66"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#ga66bc59cb2c2578b0f5738fab63960a66">XVphy_SetTxPostCursor</a> (<a class="el" href="struct_x_vphy.html">XVphy</a> *InstancePtr, u8 QuadId, <a class="el" href="group__xvphy__v1__7.html#ga535e4dd9425d8b7818e02930ce9e2b8e">XVphy_ChannelId</a> ChId, u8 Pc)</td></tr>
+<tr class="memdesc:ga66bc59cb2c2578b0f5738fab63960a66"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will set the TX post-curosr value for a given channel.  <a href="#ga66bc59cb2c2578b0f5738fab63960a66">More...</a><br /></td></tr>
+<tr class="separator:ga66bc59cb2c2578b0f5738fab63960a66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga971063cd7765cd7e7814bca5dff6e607"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#ga971063cd7765cd7e7814bca5dff6e607">XVphy_DrpWr</a> (<a class="el" href="struct_x_vphy.html">XVphy</a> *InstancePtr, u8 QuadId, <a class="el" href="group__xvphy__v1__7.html#ga535e4dd9425d8b7818e02930ce9e2b8e">XVphy_ChannelId</a> ChId, u16 Addr, u16 Val)</td></tr>
 <tr class="memdesc:ga971063cd7765cd7e7814bca5dff6e607"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will initiate a write DRP transaction.  <a href="#ga971063cd7765cd7e7814bca5dff6e607">More...</a><br /></td></tr>
 <tr class="separator:ga971063cd7765cd7e7814bca5dff6e607"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -393,12 +396,6 @@ Functions</h2></td></tr>
 <tr class="memitem:gab4dbca672563dce677d06d7bbbbe23d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#gab4dbca672563dce677d06d7bbbbe23d9">XVphy_SetRxLpm</a> (<a class="el" href="struct_x_vphy.html">XVphy</a> *InstancePtr, u8 QuadId, <a class="el" href="group__xvphy__v1__7.html#ga535e4dd9425d8b7818e02930ce9e2b8e">XVphy_ChannelId</a> ChId, XVphy_DirectionType Dir, u8 Enable)</td></tr>
 <tr class="memdesc:gab4dbca672563dce677d06d7bbbbe23d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will enable or disable the LPM logic in the Video PHY core.  <a href="#gab4dbca672563dce677d06d7bbbbe23d9">More...</a><br /></td></tr>
 <tr class="separator:gab4dbca672563dce677d06d7bbbbe23d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7526bb0de496313d804798dcc1df8cc8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#ga7526bb0de496313d804798dcc1df8cc8">XVphy_SetTxVoltageSwing</a> (<a class="el" href="struct_x_vphy.html">XVphy</a> *InstancePtr, u8 QuadId, <a class="el" href="group__xvphy__v1__7.html#ga535e4dd9425d8b7818e02930ce9e2b8e">XVphy_ChannelId</a> ChId, u8 Vs)</td></tr>
-<tr class="memdesc:ga7526bb0de496313d804798dcc1df8cc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will set the TX voltage swing value for a given channel.  <a href="#ga7526bb0de496313d804798dcc1df8cc8">More...</a><br /></td></tr>
-<tr class="separator:ga7526bb0de496313d804798dcc1df8cc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4071a10340c3cda8cfb3aa3bfb4483e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#ga4071a10340c3cda8cfb3aa3bfb4483e9">XVphy_SetTxPreEmphasis</a> (<a class="el" href="struct_x_vphy.html">XVphy</a> *InstancePtr, u8 QuadId, <a class="el" href="group__xvphy__v1__7.html#ga535e4dd9425d8b7818e02930ce9e2b8e">XVphy_ChannelId</a> ChId, u8 Pe)</td></tr>
-<tr class="memdesc:ga4071a10340c3cda8cfb3aa3bfb4483e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will set the TX pre-emphasis value for a given channel.  <a href="#ga4071a10340c3cda8cfb3aa3bfb4483e9">More...</a><br /></td></tr>
-<tr class="separator:ga4071a10340c3cda8cfb3aa3bfb4483e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5041cead7e1fe927d645c4e681e95837"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#ga5041cead7e1fe927d645c4e681e95837">XVphy_WriteCfgRefClkSelReg</a> (<a class="el" href="struct_x_vphy.html">XVphy</a> *InstancePtr, u8 QuadId)</td></tr>
 <tr class="memdesc:ga5041cead7e1fe927d645c4e681e95837"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function writes the current software configuration for the reference clock selections to hardware for the specified quad on all channels.  <a href="#ga5041cead7e1fe927d645c4e681e95837">More...</a><br /></td></tr>
 <tr class="separator:ga5041cead7e1fe927d645c4e681e95837"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -474,6 +471,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gaee5af44d484a3efa16330f845a7dc65e"><td class="memItemLeft" align="right" valign="top">u64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#gaee5af44d484a3efa16330f845a7dc65e">XVphy_GetPllVcoFreqHz</a> (<a class="el" href="struct_x_vphy.html">XVphy</a> *InstancePtr, u8 QuadId, <a class="el" href="group__xvphy__v1__7.html#ga535e4dd9425d8b7818e02930ce9e2b8e">XVphy_ChannelId</a> ChId, XVphy_DirectionType Dir)</td></tr>
 <tr class="memdesc:gaee5af44d484a3efa16330f845a7dc65e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function calculates the PLL VCO operating frequency.  <a href="#gaee5af44d484a3efa16330f845a7dc65e">More...</a><br /></td></tr>
 <tr class="separator:gaee5af44d484a3efa16330f845a7dc65e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad7d51be62c760e14b013be39f4a02b23"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#gad7d51be62c760e14b013be39f4a02b23">XVphy_GetRefClkSourcesCount</a> (<a class="el" href="struct_x_vphy.html">XVphy</a> *InstancePtr)</td></tr>
+<tr class="memdesc:gad7d51be62c760e14b013be39f4a02b23"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the number of active reference clock sources based in the CFG.  <a href="#gad7d51be62c760e14b013be39f4a02b23">More...</a><br /></td></tr>
+<tr class="separator:gad7d51be62c760e14b013be39f4a02b23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga73b006ef6011c416c0e582d546b192a5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy__v1__7.html#ga73b006ef6011c416c0e582d546b192a5">XVphy_ErrorHandler</a> (<a class="el" href="struct_x_vphy.html">XVphy</a> *InstancePtr)</td></tr>
 <tr class="memdesc:ga73b006ef6011c416c0e582d546b192a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the error condition handler.  <a href="#ga73b006ef6011c416c0e582d546b192a5">More...</a><br /></td></tr>
 <tr class="separator:ga73b006ef6011c416c0e582d546b192a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2893,67 +2893,6 @@ Register access macro definitions.</h2></td></tr>
 
 </div>
 </div>
-<a id="gab14e7dbb1334daed0c6868756be87db0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab14e7dbb1334daed0c6868756be87db0">&#9670;&nbsp;</a></span>XVphy_DrpRead()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">u16 XVphy_DrpRead </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_vphy.html">XVphy</a> *&#160;</td>
-          <td class="paramname"><em>InstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>QuadId</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group__xvphy__v1__7.html#ga535e4dd9425d8b7818e02930ce9e2b8e">XVphy_ChannelId</a>&#160;</td>
-          <td class="paramname"><em>ChId</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u16&#160;</td>
-          <td class="paramname"><em>Addr</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;<a class="el" href="xvphy_8h.html">xvphy.h</a>&gt;</code></p>
-
-<p>This function will initiate a read DRP transaction. </p>
-<p>It is a wrapper around XVphy_DrpAccess.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_vphy.html" title="The XVphy driver instance data. ">XVphy</a> core instance. </td></tr>
-    <tr><td class="paramname">QuadId</td><td>is the GT quad ID to operate on. </td></tr>
-    <tr><td class="paramname">ChId</td><td>is the channel ID on which to direct the DRP access. </td></tr>
-    <tr><td class="paramname">Dir</td><td>is an indicator for write (TX) or read (RX). </td></tr>
-    <tr><td class="paramname">Addr</td><td>is the DRP address to issue the DRP access to.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if the DRP access was successful.</li>
-<li>XST_FAILURE otherwise, if the busy bit did not go low, or if the ready bit did not go high.</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-
-</div>
-</div>
 <a id="ga971063cd7765cd7e7814bca5dff6e607"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga971063cd7765cd7e7814bca5dff6e607">&#9670;&nbsp;</a></span>XVphy_DrpWr()</h2>
 
@@ -3018,74 +2957,6 @@ Register access macro definitions.</h2></td></tr>
 </ul>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-</div>
-</div>
-<a id="ga4915dce480601d44a2184f2619eddd02"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga4915dce480601d44a2184f2619eddd02">&#9670;&nbsp;</a></span>XVphy_DrpWrite()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">u32 XVphy_DrpWrite </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_vphy.html">XVphy</a> *&#160;</td>
-          <td class="paramname"><em>InstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>QuadId</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group__xvphy__v1__7.html#ga535e4dd9425d8b7818e02930ce9e2b8e">XVphy_ChannelId</a>&#160;</td>
-          <td class="paramname"><em>ChId</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u16&#160;</td>
-          <td class="paramname"><em>Addr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u16&#160;</td>
-          <td class="paramname"><em>Val</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;<a class="el" href="xvphy_8h.html">xvphy.h</a>&gt;</code></p>
-
-<p>This function will initiate a write DRP transaction. </p>
-<p>It is a wrapper around XVphy_DrpAccess.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_vphy.html" title="The XVphy driver instance data. ">XVphy</a> core instance. </td></tr>
-    <tr><td class="paramname">QuadId</td><td>is the GT quad ID to operate on. </td></tr>
-    <tr><td class="paramname">ChId</td><td>is the channel ID on which to direct the DRP access. </td></tr>
-    <tr><td class="paramname">Dir</td><td>is an indicator for write (TX) or read (RX). </td></tr>
-    <tr><td class="paramname">Addr</td><td>is the DRP address to issue the DRP access to. </td></tr>
-    <tr><td class="paramname">Val</td><td>is the value to write to the DRP address.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if the DRP access was successful.</li>
-<li>XST_FAILURE otherwise, if the busy bit did not go low, or if the ready bit did not go high.</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
 
 </div>
 </div>
@@ -3383,6 +3254,38 @@ Register access macro definitions.</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The Channel ID to be used for reconfiguration</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="gad7d51be62c760e14b013be39f4a02b23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad7d51be62c760e14b013be39f4a02b23">&#9670;&nbsp;</a></span>XVphy_GetRefClkSourcesCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XVphy_GetRefClkSourcesCount </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_vphy.html">XVphy</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xvphy__i_8h.html">xvphy_i.h</a>&gt;</code></p>
+
+<p>This function returns the number of active reference clock sources based in the CFG. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_vphy.html" title="The XVphy driver instance data. ">XVphy</a> core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>No of active REFCLK sources</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_vphy.html#a45ad21128fb62d2f120e92ae3488c32c">XVphy::Config</a>, and <a class="el" href="struct_x_vphy___config.html#adbe118ccdd7e2f16d6ff2f0eb84e73fc">XVphy_Config::TxProtocol</a>.</p>
 
 </div>
 </div>
@@ -5196,6 +5099,61 @@ Register access macro definitions.</h2></td></tr>
 
 </div>
 </div>
+<a id="ga66bc59cb2c2578b0f5738fab63960a66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga66bc59cb2c2578b0f5738fab63960a66">&#9670;&nbsp;</a></span>XVphy_SetTxPostCursor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XVphy_SetTxPostCursor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_vphy.html">XVphy</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>QuadId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__xvphy__v1__7.html#ga535e4dd9425d8b7818e02930ce9e2b8e">XVphy_ChannelId</a>&#160;</td>
+          <td class="paramname"><em>ChId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Pc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xvphy_8h.html">xvphy.h</a>&gt;</code></p>
+
+<p>This function will set the TX post-curosr value for a given channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_vphy.html" title="The XVphy driver instance data. ">XVphy</a> core instance. </td></tr>
+    <tr><td class="paramname">QuadId</td><td>is the GT quad ID to operate on. </td></tr>
+    <tr><td class="paramname">ChId</td><td>is the channel ID to operate on. </td></tr>
+    <tr><td class="paramname">Pe</td><td>is the pre-emphasis value to write.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
 <a id="ga4071a10340c3cda8cfb3aa3bfb4483e9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga4071a10340c3cda8cfb3aa3bfb4483e9">&#9670;&nbsp;</a></span>XVphy_SetTxPreEmphasis()</h2>
 
@@ -5234,7 +5192,7 @@ Register access macro definitions.</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><code>#include &lt;<a class="el" href="xvphy__i_8h.html">xvphy_i.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="xvphy_8h.html">xvphy.h</a>&gt;</code></p>
 
 <p>This function will set the TX pre-emphasis value for a given channel. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -5289,7 +5247,7 @@ Register access macro definitions.</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><code>#include &lt;<a class="el" href="xvphy__i_8h.html">xvphy_i.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="xvphy_8h.html">xvphy.h</a>&gt;</code></p>
 
 <p>This function will set the TX voltage swing value for a given channel. </p>
 <dl class="params"><dt>Parameters</dt><dd>

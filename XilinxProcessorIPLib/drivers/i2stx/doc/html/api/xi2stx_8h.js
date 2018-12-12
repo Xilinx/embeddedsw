@@ -25,12 +25,18 @@ var xi2stx_8h =
       [ "XI2S_TX_HANDLER_AUD_UNDRFLW", "group__i2stx__v1__1.html#gga826ab5acb6a522281f46f358fc908bf3a346f30997b8d6d69e215f08a6db8d4ac", null ],
       [ "XI2S_TX_NUM_HANDLERS", "group__i2stx__v1__1.html#gga826ab5acb6a522281f46f358fc908bf3a9dfc593232c7f0a4b318f14bd1680e6d", null ]
     ] ],
+    [ "XI2s_Tx_Justification", "xi2stx_8h.html#a2530845dc4c6c409a2cb7025beda590f", [
+      [ "XI2S_TX_JUSTIFY_LEFT", "xi2stx_8h.html#a2530845dc4c6c409a2cb7025beda590fabdb67d3f765c6f594cab030416ec0582", null ],
+      [ "XI2S_TX_JUSTIFY_RIGHT", "xi2stx_8h.html#a2530845dc4c6c409a2cb7025beda590fac30016a424a039d624fece3591ee9f6a", null ]
+    ] ],
     [ "XI2s_Tx_CfgInitialize", "group__i2stx__v1__1.html#gab33cb9b421dbb85cef8a75a0dbf8a1dd", null ],
     [ "XI2s_Tx_ClrAesChStatRegs", "group__i2stx__v1__1.html#gae1ee6ead0b1745ef400ec3e5198068aa", null ],
     [ "XI2s_Tx_Enable", "group__i2stx__v1__1.html#gac4321c85028de0ddb48f966d80325b10", null ],
     [ "XI2s_Tx_GetAesChStatus", "group__i2stx__v1__1.html#gab68c1f16ccac1a678e93bd9c3bcdaed0", null ],
     [ "XI2s_Tx_IntrEnable", "group__i2stx__v1__1.html#ga8d2df1eb8affcff7f6b1eacad5016b39", null ],
     [ "XI2s_Tx_IntrHandler", "group__i2stx__v1__1.html#gad17911935c47159f6b1c144c3df63ce2", null ],
+    [ "XI2s_Tx_Justify", "group__i2stx__v1__1.html#gab101d38c979a17b2bd4540a3b418933d", null ],
+    [ "XI2s_Tx_JustifyEnable", "group__i2stx__v1__1.html#gae5c7f651728493e9ca5a13d824f47893", null ],
     [ "XI2s_Tx_LogDisplay", "group__i2stx__v1__1.html#ga6ecb01665e82e3373ad2de2085a8dc87", null ],
     [ "XI2s_Tx_LogRead", "group__i2stx__v1__1.html#ga18ca2b281e98177be7e6062051cb352f", null ],
     [ "XI2s_Tx_LogReset", "group__i2stx__v1__1.html#gaaa1a03db44d1813c7632b95ec83765d5", null ],

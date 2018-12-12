@@ -13,5 +13,6 @@ var xv__frmbufwr__l2_8c =
     [ "XVFrmbufWr_SetChromaBufferAddr", "group__v__frmbuf__wr__v2__0.html#gae3ad3f1fa2f369041d8e9ab7683a05b0", null ],
     [ "XVFrmbufWr_SetMemFormat", "group__v__frmbuf__wr__v2__0.html#ga4951453d9f7373886327dbbcb8b3ada2", null ],
     [ "XVFrmbufWr_Start", "group__v__frmbuf__wr__v2__0.html#ga62c170ef332a536b7461b3ce81def351", null ],
-    [ "XVFrmbufWr_Stop", "group__v__frmbuf__wr__v2__0.html#ga0cfe9c77cc5534a27e613e5fc87a8ab4", null ]
+    [ "XVFrmbufWr_Stop", "group__v__frmbuf__wr__v2__0.html#ga0cfe9c77cc5534a27e613e5fc87a8ab4", null ],
+    [ "XVFrmbufWr_WaitForIdle", "group__v__frmbuf__wr__v2__0.html#ga28dc4f189245f3c9e8152ff270a40813", null ]
 ];

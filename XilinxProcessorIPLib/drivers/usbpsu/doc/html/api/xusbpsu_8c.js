@@ -8,6 +8,7 @@ var xusbpsu_8c =
     [ "XUsbPsu_EventBuffersReset", "group__usbpsu__v1__3.html#ga2a632b97b8857d2b93040c018f31efb2", null ],
     [ "XUsbPsu_EventBuffersSetup", "group__usbpsu__v1__3.html#ga2137782bf79ed3f9148defc507786a9c", null ],
     [ "XUsbPsu_GetLinkState", "group__usbpsu__v1__3.html#ga9cbed8bca45ba92f86a74aa96eab3477", null ],
+    [ "XUsbPsu_IsSuperSpeed", "group__usbpsu__v1__3.html#ga7e0a64e9adf5e221b4bd8386ad38055e", null ],
     [ "XUsbPsu_PhyReset", "group__usbpsu__v1__3.html#ga4c5f57fc85b14ae756481518c5318362", null ],
     [ "XUsbPsu_ReadHwParams", "group__usbpsu__v1__3.html#ga320848a4722e7150a31427f5635bab56", null ],
     [ "XUsbPsu_SetDeviceAddress", "group__usbpsu__v1__3.html#ga12567217fd7112e7d8fc4c6d91b20e11", null ],

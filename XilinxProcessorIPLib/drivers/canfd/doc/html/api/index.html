@@ -113,7 +113,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <p><b>Asserts</b></p>
 <p>Asserts are used within all Xilinx drivers to enforce constraints on argument values. Asserts can be turned off on a system-wide basis by defining, at compile time, the NDEBUG identifier. By default, asserts are turned on and it is recommended that users leave asserts on during development.</p>
 <p><b>Building the driver</b></p>
-<p>The XCanFd driver is composed of several source files.This allows the user to build and link only those parts of the driver that are necessary. <br />
+<p>The <a class="el" href="struct_x_can_fd.html" title="The XCanFd driver instance data. ">XCanFd</a> driver is composed of several source files.This allows the user to build and link only those parts of the driver that are necessary. <br />
 <br />
 </p>
 <pre>
@@ -124,16 +124,16 @@ $(document).ready(function(){initNavTree('index.html','');});
   1.0   nsk  06/04/15 First release
   1.0   nsk  15/05/15 Updated <a class="el" href="xcanfd_8c.html">xcanfd.c</a> for correct AFRID and AFRMSK Registers
                       Updated <a class="el" href="xcanfd_8c.html">xcanfd.c</a> and <a class="el" href="xcanfd_8h.html">xcanfd.h</a> to get configurable
-                      TxBuffers in XCanFd_Config Struct and
-                      <a class="el" href="group__canfd__v1__2.html#ga7450b3856ad1539c7a8ed0649b8efab7" title="This Routine returns the Free Buffer out of 32 Transmit Buffers. ">XCanFd_GetFreeBuffer()</a>.
+                      TxBuffers in <a class="el" href="struct_x_can_fd___config.html" title="This typedef contains configuration information for a device. ">XCanFd_Config</a> Struct and
+                      <a class="el" href="group__canfd__v2__0.html#gab41b6198a5a28b106e241e7c785fbcae" title="This Routine returns the Free Buffer out of 32 Transmit Buffers. ">XCanFd_GetFreeBuffer()</a>.
                       Modified XCANFD_BTR_TS1_MASK in <a class="el" href="xcanfd__hw_8h.html">xcanfd_hw.h</a>.
                       Updated <a class="el" href="xcanfd_8c.html">xcanfd.c</a> while sending data when EDL is Zero.
                       Updated driver tcl file to get configurable TxBuffers.
                       (CR 861772).
-  1.0   nsk  16/06/15 Updated <a class="el" href="group__canfd__v1__2.html#gae93c2c9dd933e4258b9d4118c4bf6220" title="This function receives a CAN Frame in MAIL BOX Mode. ">XCanFd_Recv_Mailbox()</a>, <a class="el" href="group__canfd__v1__2.html#gaaa893768ea4f0db5796f31ab3d8ca431" title="This function allows the CAN device to enter one of the following operation modes: ...">XCanFd_EnterMode()</a>
-                      <a class="el" href="group__canfd__v1__2.html#ga8e1df3e2b6ed809dda14de08d8b6d0a5" title="This routine returns current operation mode the CAN device is in. ">XCanFd_GetMode()</a> in <a class="el" href="xcanfd_8c.html">xcanfd.c</a> and Added new definition
+  1.0   nsk  16/06/15 Updated <a class="el" href="group__canfd__v2__0.html#gae93c2c9dd933e4258b9d4118c4bf6220" title="This function receives a CAN Frame in MAIL BOX Mode. ">XCanFd_Recv_Mailbox()</a>, <a class="el" href="group__canfd__v2__0.html#gaaa893768ea4f0db5796f31ab3d8ca431" title="This function allows the CAN device to enter one of the following operation modes: ...">XCanFd_EnterMode()</a>
+                      <a class="el" href="group__canfd__v2__0.html#ga8e1df3e2b6ed809dda14de08d8b6d0a5" title="This routine returns current operation mode the CAN device is in. ">XCanFd_GetMode()</a> in <a class="el" href="xcanfd_8c.html">xcanfd.c</a> and Added new definition
                       for Register bits in <a class="el" href="xcanfd__hw_8h.html">xcanfd_hw.h</a> and updated
-                      <a class="el" href="group__canfd__v1__2.html#ga9576c384b9ef2e8436298b5947010f90" title="This routine is the interrupt handler for the CAN driver. ">XCanFd_IntrHandler()</a> in <a class="el" href="xcanfd__intr_8c.html">xcanfd_intr.c</a> as per new RTL.
+                      <a class="el" href="group__canfd__v2__0.html#ga9576c384b9ef2e8436298b5947010f90" title="This routine is the interrupt handler for the CAN driver. ">XCanFd_IntrHandler()</a> in <a class="el" href="xcanfd__intr_8c.html">xcanfd_intr.c</a> as per new RTL.
                       Changes in RTL, Added new bits to MSR,SR,ISR,IER,ICR
                       Registers and modified TS2 bits in BTR and F_SJW bits
                       in F_BTR Registers.
@@ -149,7 +149,41 @@ $(document).ready(function(){initNavTree('index.html','');});
         ms   04/05/17 Added tabspace for return statements in functions
                       of canfd examples for proper documentation while
                       generating doxygen.
-  </pre> </div></div><!-- contents -->
+  2.0   ask  08/08/18 Fixed Gcc, Cppcheck and doxygen warnings in api's :
+                                          XCanFd_PollQueue_Buffer, XCanFd_AcceptFilterSet,
+                                          XCanFd_Recv_Sequential, XCanFd_SetBitTiming,
+                                          XCanFd_SetBitRateSwitch_EnableNominal.
+                                          Changed value of Canfd Id to 11 bit value to comply
+                                          with standard Can ID.
+        ask  09/21/18 Fixed CanFD hang issue in selftest by correcting the
+                      Configuration regarding the Baud Rate and bit timing
+                      for both Arbitration and Data Phase.</pre><pre>  2.0  ask  09/12/18 Added support for canfd 2.0 spec sequential mode.
+                                         API's added : XCanFd_Recv_Sequential
+                                                                       XCanFd_SeqRecv_logic
+                                                                       XCanFd_Recv_TXEvents_Sequential
+                                                                       XCanFd_GetNofMessages_Stored_TXE_FIFO
+                                                                       XCanFd_GetNofMessages_Stored_Rx_Fifo
+                                                                       above apis added in <a class="el" href="xcanfd_8c.html">xcanfd.c</a> .</pre><pre>                                                                       XCanFd_SetRxIntrWatermarkFifo1
+                                                                       XCanFd_SetTxEventIntrWatermark
+                                                                       XCanFd_SetRxFilterPartition
+                                    above apis added in <a class="el" href="xcanfd__config_8c.html">xcanfd_config.c</a>
+<pre class="fragment">                               XCANFD_TXEID_OFFSET
+                               XCANFD_TXEDLC_OFFSET
+                               XCANFD_FIFO_1_RXID_OFFSET
+                               XCANFD_FIFO_1_RXDLC_OFFSET
+                               XCANFD_FIFO_1_RXDW_OFFSET
+                               above apis added in xcanfd.h
+</pre>
+                        Fixed Message Queuing logic by modifying in functions
+                                                XCanFd_Send_Queue, XCanFd_Addto_Queue, XCanFd_Send,
+                                                and XCanFd_GetFreeBuffer.
+                         Added an static function
+                                                XCanfd_TrrVal_Get_SetBit_Position, added in <a class="el" href="xcanfd_8c.html">xcanfd.c</a>
+                                                XCanFD_Check_TrrVal_Set_Bit, added in <a class="el" href="xcanfd_8h.html">xcanfd.h</a>
+                         Modified apis
+                                                XCanFd_SetBitTiming
+                                                XCanFd_SetFBitTiming in <a class="el" href="xcanfd_8h.html">xcanfd.h</a>
+  2.0   nsk  11/16/18 Updated the version in change log(CR 1016901).</pre><pre>  </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

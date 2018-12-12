@@ -114,7 +114,7 @@ Functions</h2></td></tr>
 <p>This is typically a 2nd level handler that is called from the interrupt controller interrupt handler. This handler would typically perform device specific processing such as reading and writing the registers of the device to clear the interrupt condition and pass any data to an application using the device driver. Many drivers already provide this handler and the user is not required to create it.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">CallbackRef</td><td>is passed back to the device driver's interrupt handler by the <a class="el" href="struct_x_scu_gic.html" title="The XScuGic driver instance data. ">XScuGic</a> driver. It was given to the <a class="el" href="struct_x_scu_gic.html" title="The XScuGic driver instance data. ">XScuGic</a> driver in the <a class="el" href="group__scugic__v3__8.html#ga48f9dd531aa861a74e6bd627943573ea" title="Makes the connection between the Int_Id of the interrupt source and the associated handler that is to...">XScuGic_Connect()</a> function call. It is typically a pointer to the device driver instance variable. In this example, we do not care about the callback reference, so we passed it a 0 when connecting the handler to the <a class="el" href="struct_x_scu_gic.html" title="The XScuGic driver instance data. ">XScuGic</a> driver and we make no use of it here.</td></tr>
+    <tr><td class="paramname">CallbackRef</td><td>is passed back to the device driver's interrupt handler by the <a class="el" href="struct_x_scu_gic.html" title="The XScuGic driver instance data. ">XScuGic</a> driver. It was given to the <a class="el" href="struct_x_scu_gic.html" title="The XScuGic driver instance data. ">XScuGic</a> driver in the <a class="el" href="group__scugic__v3__10.html#ga48f9dd531aa861a74e6bd627943573ea" title="Makes the connection between the Int_Id of the interrupt source and the associated handler that is to...">XScuGic_Connect()</a> function call. It is typically a pointer to the device driver instance variable. In this example, we do not care about the callback reference, so we passed it a 0 when connecting the handler to the <a class="el" href="struct_x_scu_gic.html" title="The XScuGic driver instance data. ">XScuGic</a> driver and we make no use of it here.</td></tr>
   </table>
   </dd>
 </dl>
@@ -179,7 +179,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS to indicate success, otherwise XST_FAILURE</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_scu_gic___config.html#a0766a78c836a58b4eed2543799abaebc">XScuGic_Config::CpuBaseAddress</a>, <a class="el" href="xscugic__example_8c.html#a89589e10926b9add4601dac19679feda">SetUpInterruptSystem()</a>, <a class="el" href="group__scugic__v3__8.html#gaf8e0bfe31c0fa2ca654c36715a3c13f8">XScuGic_CfgInitialize()</a>, <a class="el" href="group__scugic__v3__8.html#ga48f9dd531aa861a74e6bd627943573ea">XScuGic_Connect()</a>, <a class="el" href="group__scugic__v3__8.html#gab2c0554b809121cc91a96fcd8c749c25">XScuGic_LookupConfig()</a>, and <a class="el" href="group__scugic__v3__8.html#ga081a9a62546b413d94e609894282a575">XScuGic_SelfTest()</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_scu_gic___config.html#a0766a78c836a58b4eed2543799abaebc">XScuGic_Config::CpuBaseAddress</a>, <a class="el" href="xscugic__example_8c.html#a89589e10926b9add4601dac19679feda">SetUpInterruptSystem()</a>, <a class="el" href="group__scugic__v3__10.html#gaf8e0bfe31c0fa2ca654c36715a3c13f8">XScuGic_CfgInitialize()</a>, <a class="el" href="group__scugic__v3__10.html#ga48f9dd531aa861a74e6bd627943573ea">XScuGic_Connect()</a>, <a class="el" href="group__scugic__v3__10.html#gab2c0554b809121cc91a96fcd8c749c25">XScuGic_LookupConfig()</a>, and <a class="el" href="group__scugic__v3__10.html#ga081a9a62546b413d94e609894282a575">XScuGic_SelfTest()</a>.</p>
 
 </div>
 </div>
@@ -210,7 +210,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="group__scugic__v3__8.html#gaa26a952ecd376be0bc3d8433023d1364">XScuGic_InterruptHandler()</a>.</p>
+<p class="reference">References <a class="el" href="group__scugic__v3__10.html#gaa26a952ecd376be0bc3d8433023d1364">XScuGic_InterruptHandler()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="xscugic__example_8c.html#a60ae419afb4e026a75cda3350d50f1cb">ScuGicExample()</a>.</p>
 

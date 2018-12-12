@@ -70,7 +70,7 @@ $(document).ready(function(){initNavTree('xqspips__dual__flash__lqspi__example_8
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
 <div class="textblock"><p>This file contains a design example using the QSPI driver (<a class="el" href="struct_x_qspi_ps.html" title="The XQspiPs driver instance data. ">XQspiPs</a>) in Linear QSPI mode, with two serial FLASH devices on seperate buses. </p>
 <p>With two flash memories on seperate buses, even numbered bits in data words are written to the lower memory and odd numbered bits are written to the upper memory. This example writes to the two flash memories in QSPI mode and reads the data back from the flash memories, in Linear QSPI mode. It is recommended to use Manual CS + Auto start for best performance.</p>
-<p>The hardware which this example runs on, must have a serial FLASH (Numonyx N25Q, Winbond W25Q, or Spansion S25FL) for it to run. This example has been tested with the Numonyx Serial Flash (N25Q128).</p>
+<p>The hardware which this example runs on, must have a serial FLASH (Numonyx N25Q, Winbond W25Q, Spansion S25FL, ISSI IS25WP) for it to run. This example has been tested with the Numonyx Serial Flash (N25Q128) and IS25WP series flash parts.</p>
 <dl class="section note"><dt>Note</dt><dd></dd></dl>
 <p>None.</p>
 <pre>
@@ -92,6 +92,9 @@ $(document).ready(function(){initNavTree('xqspips__dual__flash__lqspi__example_8
         ms  04/05/17 Modified Comment lines in functions to
                      recognize it as documentation block for doxygen
                      generation.
+  3.5   tjs 07/16/18 Added support for low density ISSI flash parts.
+                     Added FlashQuadEnable API to enable quad mode in flash.
+                     Added FlashReadID API to read and identify the flash.
 *</pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -104,6 +107,12 @@ Functions</h2></td></tr>
 <tr class="memitem:af28c30bb35e57c70a8b73c8796fb3fb1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspips__dual__flash__lqspi__example_8c.html#af28c30bb35e57c70a8b73c8796fb3fb1">FlashRead</a> (<a class="el" href="struct_x_qspi_ps.html">XQspiPs</a> *QspiPtr, u32 Address, u32 ByteCount, u8 Command)</td></tr>
 <tr class="memdesc:af28c30bb35e57c70a8b73c8796fb3fb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads from the serial FLASH connected to the QSPI interface.  <a href="#af28c30bb35e57c70a8b73c8796fb3fb1">More...</a><br /></td></tr>
 <tr class="separator:af28c30bb35e57c70a8b73c8796fb3fb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa424c9f6fee5f08746f8f3233b7467ed"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspips__dual__flash__lqspi__example_8c.html#aa424c9f6fee5f08746f8f3233b7467ed">FlashReadID</a> (void)</td></tr>
+<tr class="memdesc:aa424c9f6fee5f08746f8f3233b7467ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads serial FLASH ID connected to the SPI interface.  <a href="#aa424c9f6fee5f08746f8f3233b7467ed">More...</a><br /></td></tr>
+<tr class="separator:aa424c9f6fee5f08746f8f3233b7467ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6682571380b6d4dee70c0db72199278c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspips__dual__flash__lqspi__example_8c.html#a6682571380b6d4dee70c0db72199278c">FlashQuadEnable</a> (<a class="el" href="struct_x_qspi_ps.html">XQspiPs</a> *QspiPtr)</td></tr>
+<tr class="memdesc:a6682571380b6d4dee70c0db72199278c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enables quad mode in the serial flash connected to the SPI interface.  <a href="#a6682571380b6d4dee70c0db72199278c">More...</a><br /></td></tr>
+<tr class="separator:a6682571380b6d4dee70c0db72199278c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7715e559a0225cb169e53054c65d3b8c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspips__dual__flash__lqspi__example_8c.html#a7715e559a0225cb169e53054c65d3b8c">LinearQspiFlashExample</a> (<a class="el" href="struct_x_qspi_ps.html">XQspiPs</a> *QspiInstancePtr, u16 QspiDeviceId)</td></tr>
 <tr class="memdesc:a7715e559a0225cb169e53054c65d3b8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The purpose of this function is to illustrate how to use the <a class="el" href="struct_x_qspi_ps.html" title="The XQspiPs driver instance data. ">XQspiPs</a> device driver in Linear mode.  <a href="#a7715e559a0225cb169e53054c65d3b8c">More...</a><br /></td></tr>
 <tr class="separator:a7715e559a0225cb169e53054c65d3b8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -151,6 +160,34 @@ Functions</h2></td></tr>
     <tr><td class="paramname">QspiPtr</td><td>is a pointer to the QSPI driver component to use. </td></tr>
     <tr><td class="paramname">Address</td><td>contains the address of the first sector which needs to be erased. </td></tr>
     <tr><td class="paramname">ByteCount</td><td>contains the total size to be erased.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="a6682571380b6d4dee70c0db72199278c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6682571380b6d4dee70c0db72199278c">&#9670;&nbsp;</a></span>FlashQuadEnable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FlashQuadEnable </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_qspi_ps.html">XQspiPs</a> *&#160;</td>
+          <td class="paramname"><em>QspiPtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function enables quad mode in the serial flash connected to the SPI interface. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">QspiPtr</td><td>is a pointer to the QSPI driver component to use.</td></tr>
   </table>
   </dd>
 </dl>
@@ -208,6 +245,34 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="aa424c9f6fee5f08746f8f3233b7467ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa424c9f6fee5f08746f8f3233b7467ed">&#9670;&nbsp;</a></span>FlashReadID()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int FlashReadID </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function reads serial FLASH ID connected to the SPI interface. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">None.</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if read id, otherwise XST_FAILURE.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
@@ -316,7 +381,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, else XST_FAILURE.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_qspi_ps___config.html#a26d9a68f7ad821671044d35e5e8a851e">XQspiPs_Config::BaseAddress</a>, <a class="el" href="group__qspips__v3__4.html#gaf348b6ee07c1e3e7d01857a789e658d4">XQspiPs_CfgInitialize()</a>, <a class="el" href="group__qspips__v3__4.html#ga3f4fa51f1ba6d49a6ec9e9b079fc4fd7">XQspiPs_LookupConfig()</a>, <a class="el" href="group__qspips__v3__4.html#ga0975016f42a8249235098408ab0c9da6">XQspiPs_SelfTest()</a>, and <a class="el" href="group__qspips__v3__4.html#ga3d5c1b501b5dc6e14297682279bbfee2">XQspiPs_SetLqspiConfigReg</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_qspi_ps___config.html#a26d9a68f7ad821671044d35e5e8a851e">XQspiPs_Config::BaseAddress</a>, <a class="el" href="group__qspips__v3__5.html#gaf348b6ee07c1e3e7d01857a789e658d4">XQspiPs_CfgInitialize()</a>, <a class="el" href="group__qspips__v3__5.html#ga3f4fa51f1ba6d49a6ec9e9b079fc4fd7">XQspiPs_LookupConfig()</a>, <a class="el" href="group__qspips__v3__5.html#ga0975016f42a8249235098408ab0c9da6">XQspiPs_SelfTest()</a>, and <a class="el" href="group__qspips__v3__5.html#ga3d5c1b501b5dc6e14297682279bbfee2">XQspiPs_SetLqspiConfigReg</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="xqspips__dual__flash__lqspi__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 

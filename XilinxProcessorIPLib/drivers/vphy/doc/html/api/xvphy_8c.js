@@ -4,9 +4,7 @@ var xvphy_8c =
     [ "XVphy_CfgLineRate", "group__xvphy__v1__7.html#gad5d2ef80f68b92db024b3e690d0c410e", null ],
     [ "XVphy_Clkout1OBufTdsEnable", "group__xvphy__v1__7.html#gab5c0be51d9acd79559d092d16e7d1fe8", null ],
     [ "XVphy_DrpRd", "group__xvphy__v1__7.html#gae4d08e59f79f192fb01b0729daacd7b6", null ],
-    [ "XVphy_DrpRead", "group__xvphy__v1__7.html#gab14e7dbb1334daed0c6868756be87db0", null ],
     [ "XVphy_DrpWr", "group__xvphy__v1__7.html#ga971063cd7765cd7e7814bca5dff6e607", null ],
-    [ "XVphy_DrpWrite", "group__xvphy__v1__7.html#ga4915dce480601d44a2184f2619eddd02", null ],
     [ "XVphy_GetLineRateHz", "group__xvphy__v1__7.html#ga83265bb40529b7550588a1ee0216fe1f", null ],
     [ "XVphy_GetPllType", "group__xvphy__v1__7.html#gacc589d8dad782b38e7da73526c30207b", null ],
     [ "XVphy_GetVersion", "group__xvphy__v1__7.html#gaa4cef4dea102e0cbb7671d8113f9d52e", null ],
@@ -21,6 +19,9 @@ var xvphy_8c =
     [ "XVphy_SetErrorCallback", "group__xvphy__v1__7.html#ga42e45ee74841b79166013cf423b625a6", null ],
     [ "XVphy_SetPolarity", "group__xvphy__v1__7.html#ga68f7e59747886068c7a4829e93e4fd6b", null ],
     [ "XVphy_SetPrbsSel", "group__xvphy__v1__7.html#ga0b84e89a63bfed4a253be21d5c1d45d7", null ],
+    [ "XVphy_SetTxPostCursor", "group__xvphy__v1__7.html#ga66bc59cb2c2578b0f5738fab63960a66", null ],
+    [ "XVphy_SetTxPreEmphasis", "group__xvphy__v1__7.html#ga4071a10340c3cda8cfb3aa3bfb4483e9", null ],
+    [ "XVphy_SetTxVoltageSwing", "group__xvphy__v1__7.html#ga7526bb0de496313d804798dcc1df8cc8", null ],
     [ "XVphy_TxPrbsForceError", "group__xvphy__v1__7.html#ga871b3166b3cda10fc41fdba4a1afc185", null ],
     [ "XVphy_WaitUs", "group__xvphy__v1__7.html#ga54b6787198c16e99851326d82568421d", null ]
 ];

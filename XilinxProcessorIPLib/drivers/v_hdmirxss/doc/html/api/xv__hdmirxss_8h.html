@@ -123,6 +123,12 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
                           XV_HdmiRxSs_GetVSIF
       SM     28/02/18 Added XV_HdmiRxSS_SetAppVersion API and AppMajVer and
                           AppMinVer version number in <a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> structure
+5.2   YB     08/14/18 Added dedicated callbacks for HDCP 1.4 and HDCP 2.2
+                          protocol events.
+      EB     03/08/18 Added function XV_HdmiRxSs_AudioMute
+                      Added TMDS Clock Ratio callback support
+      YB     17/08/18 Marked XV_HDMIRXSS_HDCP_1_PROT_EVT and
+                          XV_HDMIRXSS_HDCP_2_PROT_EVT as deprecated.
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
@@ -225,6 +231,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a7296f98d74b618438a08c0bb4d303350"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8h.html#a7296f98d74b618438a08c0bb4d303350">XV_HdmiRxSs_SetPpc</a> (<a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *InstancePtr, u8 Id, u8 Ppc)</td></tr>
 <tr class="memdesc:a7296f98d74b618438a08c0bb4d303350"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will set PPC specified by user.  <a href="#a7296f98d74b618438a08c0bb4d303350">More...</a><br /></td></tr>
 <tr class="separator:a7296f98d74b618438a08c0bb4d303350"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbf6577a7f6af0c3e2da373f736ca49e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8h.html#afbf6577a7f6af0c3e2da373f736ca49e">XV_HdmiRxSs_AudioMute</a> (<a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *InstancePtr, u8 Enable)</td></tr>
+<tr class="memdesc:afbf6577a7f6af0c3e2da373f736ca49e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function set HDMI RX audio parameters.  <a href="#afbf6577a7f6af0c3e2da373f736ca49e">More...</a><br /></td></tr>
+<tr class="separator:afbf6577a7f6af0c3e2da373f736ca49e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c4367511513d15ca3b13fd6f77143ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8h.html#a1c4367511513d15ca3b13fd6f77143ec">XV_HdmiRxSs_LogReset</a> (<a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *InstancePtr)</td></tr>
 <tr class="memdesc:a1c4367511513d15ca3b13fd6f77143ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will reset the driver's logging mechanism.  <a href="#a1c4367511513d15ca3b13fd6f77143ec">More...</a><br /></td></tr>
 <tr class="separator:a1c4367511513d15ca3b13fd6f77143ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -311,7 +320,9 @@ Handler Types</h2></td></tr>
 &#160;&#160;<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca2d48f41d950509ae150f468a4e4f53de">XV_HDMIRXSS_HANDLER_HDCP_AUTHENTICATION_REQUEST</a>, 
 <a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca3d2a7adebe7dc6a7bfa77df401c66011">XV_HDMIRXSS_HANDLER_HDCP_STREAM_MANAGE_REQUEST</a>, 
 <a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca8e3b76e177cee74843e7fd0ba83eac11">XV_HDMIRXSS_HANDLER_HDCP_TOPOLOGY_UPDATE</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca4296543c68b257e88bed08c9613c9db3">XV_HDMIRXSS_HANDLER_HDCP_ENCRYPTION_UPDATE</a>
+<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca4296543c68b257e88bed08c9613c9db3">XV_HDMIRXSS_HANDLER_HDCP_ENCRYPTION_UPDATE</a>, 
+<br />
+&#160;&#160;<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdcae0e8cd62ff6fc40b785c4c5634b6500e">XV_HDMIRXSS_HANDLER_TMDS_CLK_RATIO</a>
 <br />
  }<tr class="memdesc:a0a9c3372906c60e8125731f9753d4bdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">These constants specify different types of handler and used to differentiate interrupt requests from peripheral.  <a href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdc">More...</a><br /></td></tr>
 </td></tr>
@@ -405,6 +416,8 @@ Handler Types</h2></td></tr>
 <tr><td class="fieldname"><a id="a0a9c3372906c60e8125731f9753d4bdca8e3b76e177cee74843e7fd0ba83eac11"></a>XV_HDMIRXSS_HANDLER_HDCP_TOPOLOGY_UPDATE&#160;</td><td class="fielddoc"><p>Handler for HDCP topology update event. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a0a9c3372906c60e8125731f9753d4bdca4296543c68b257e88bed08c9613c9db3"></a>XV_HDMIRXSS_HANDLER_HDCP_ENCRYPTION_UPDATE&#160;</td><td class="fielddoc"><p>Handler for HDCP encryption status update event. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a0a9c3372906c60e8125731f9753d4bdcae0e8cd62ff6fc40b785c4c5634b6500e"></a>XV_HDMIRXSS_HANDLER_TMDS_CLK_RATIO&#160;</td><td class="fielddoc"><p>Handler type for TMDS clock ratio change. </p>
 </td></tr>
 </table>
 
@@ -505,6 +518,46 @@ Handler Types</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="afbf6577a7f6af0c3e2da373f736ca49e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbf6577a7f6af0c3e2da373f736ca49e">&#9670;&nbsp;</a></span>XV_HdmiRxSs_AudioMute()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_HdmiRxSs_AudioMute </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function set HDMI RX audio parameters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Enable</td><td>0: Unmute the audio 1: Mute the audio.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_rx_ss.html#a3d76e27b48746aa888d284583ce9399a">XV_HdmiRxSs::HdmiRxPtr</a>.</p>
+
+</div>
+</div>
 <a id="a9800e58c46167ce458da016451f88c8d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9800e58c46167ce458da016451f88c8d">&#9670;&nbsp;</a></span>XV_HdmiRxSs_GetAudioChannels()</h2>
 

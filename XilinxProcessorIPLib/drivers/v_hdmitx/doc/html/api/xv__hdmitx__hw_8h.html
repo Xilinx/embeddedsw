@@ -81,13 +81,17 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 1.02  YH     14/11/16 Added BRIDGE_YUV420 and BRIDGE_PIXEL mask to PIO Out
 1.03  MG     06/03/17 Added XV_HDMITX_AUX_STA_PKT_RDY_MASK
 1.04  MMO    03/05/17 Updated the comments for XV_HdmiTx_ReadReg and
-                           XV_HdmiTx_WriteReg
+                        XV_HdmiTx_WriteReg
 1.1   MG     03/05/17 Introduced video mask peripheral
 1.2   YH     22/08/17 Added XV_HDMITX_AUD_CTRL_AUDFMT_MASK (Audio Format)
 1.3   YH     06/10/17 Added XV_HDMITX_AUD_CTRL_AUDFMT_SHIFT (Audio Format)
 1.4   YH     16/01/18 Added PIO_OUT for dedicated reset for each clock domain
                       Added PIO_IN to bridge unlock interrupt
                       Added PIO_OUT to set GCP_AVMUTE
+1.5   MMO    11/08/18 Added PIO_IN to bridge overflow and underflow interrupt
+      EB     14/08/18 Added XV_HDMITX_HPD_TIMEGRID_OFFSET,
+                        XV_HDMITX_TOGGLE_CONF_OFFSET and
+                        XV_HDMITX_CONNECT_CONF_OFFSET
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -137,11 +141,20 @@ Macros</h2></td></tr>
 <tr class="memdesc:a5393d399e287df6c50b6c32b90b1cf93"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO In Event Register * offset.  <a href="#a5393d399e287df6c50b6c32b90b1cf93">More...</a><br /></td></tr>
 <tr class="separator:a5393d399e287df6c50b6c32b90b1cf93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a50a497ec4e91768009efd7752e7ed9f6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#a50a497ec4e91768009efd7752e7ed9f6">XV_HDMITX_PIO_IN_EVT_RE_OFFSET</a>&#160;&#160;&#160;((XV_HDMITX_PIO_BASE)+(11*4))</td></tr>
-<tr class="memdesc:a50a497ec4e91768009efd7752e7ed9f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO In Event Rising Edge * Register offset.  <a href="#a50a497ec4e91768009efd7752e7ed9f6">More...</a><br /></td></tr>
+<tr class="memdesc:a50a497ec4e91768009efd7752e7ed9f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO In Event Rising Edge Register offset.  <a href="#a50a497ec4e91768009efd7752e7ed9f6">More...</a><br /></td></tr>
 <tr class="separator:a50a497ec4e91768009efd7752e7ed9f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab26c31b92aedb7564284403ca2db65f5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#ab26c31b92aedb7564284403ca2db65f5">XV_HDMITX_PIO_IN_EVT_FE_OFFSET</a>&#160;&#160;&#160;((XV_HDMITX_PIO_BASE)+(12*4))</td></tr>
-<tr class="memdesc:ab26c31b92aedb7564284403ca2db65f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO In Event Falling Edge * Register offset.  <a href="#ab26c31b92aedb7564284403ca2db65f5">More...</a><br /></td></tr>
+<tr class="memdesc:ab26c31b92aedb7564284403ca2db65f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO In Event Falling Edge Register offset.  <a href="#ab26c31b92aedb7564284403ca2db65f5">More...</a><br /></td></tr>
 <tr class="separator:ab26c31b92aedb7564284403ca2db65f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a156f0cd891a36ae3a64beec049eec7e2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#a156f0cd891a36ae3a64beec049eec7e2">XV_HDMITX_HPD_TIMEGRID_OFFSET</a>&#160;&#160;&#160;((XV_HDMITX_PIO_BASE)+(13*4))</td></tr>
+<tr class="memdesc:a156f0cd891a36ae3a64beec049eec7e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO HPD Config.  <a href="#a156f0cd891a36ae3a64beec049eec7e2">More...</a><br /></td></tr>
+<tr class="separator:a156f0cd891a36ae3a64beec049eec7e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6a3dac57dd04dfaa2605bbc65f53755"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#ae6a3dac57dd04dfaa2605bbc65f53755">XV_HDMITX_TOGGLE_CONF_OFFSET</a>&#160;&#160;&#160;((XV_HDMITX_PIO_BASE)+(14*4))</td></tr>
+<tr class="memdesc:ae6a3dac57dd04dfaa2605bbc65f53755"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO HPD Config.  <a href="#ae6a3dac57dd04dfaa2605bbc65f53755">More...</a><br /></td></tr>
+<tr class="separator:ae6a3dac57dd04dfaa2605bbc65f53755"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa822ff727ff8bbf1c83a6fc0dd27d1db"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#aa822ff727ff8bbf1c83a6fc0dd27d1db">XV_HDMITX_CONNECT_CONF_OFFSET</a>&#160;&#160;&#160;((XV_HDMITX_PIO_BASE)+(15*4))</td></tr>
+<tr class="memdesc:aa822ff727ff8bbf1c83a6fc0dd27d1db"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO HPD Config.  <a href="#aa822ff727ff8bbf1c83a6fc0dd27d1db">More...</a><br /></td></tr>
+<tr class="separator:aa822ff727ff8bbf1c83a6fc0dd27d1db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40a412194d70fcbb53cef17eea048fa3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#a40a412194d70fcbb53cef17eea048fa3">XV_HDMITX_PIO_CTRL_RUN_MASK</a>&#160;&#160;&#160;(1&lt;&lt;0)</td></tr>
 <tr class="memdesc:a40a412194d70fcbb53cef17eea048fa3"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO Control Run mask.  <a href="#a40a412194d70fcbb53cef17eea048fa3">More...</a><br /></td></tr>
 <tr class="separator:a40a412194d70fcbb53cef17eea048fa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -235,6 +248,12 @@ Macros</h2></td></tr>
 <tr class="memitem:af0d1a093d1b0ef6ff6d0c595fbbc689d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#af0d1a093d1b0ef6ff6d0c595fbbc689d">XV_HDMITX_PIO_IN_BRDG_LOCKED_MASK</a>&#160;&#160;&#160;(1&lt;&lt;9)</td></tr>
 <tr class="memdesc:af0d1a093d1b0ef6ff6d0c595fbbc689d"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO In Bridge Locked mask.  <a href="#af0d1a093d1b0ef6ff6d0c595fbbc689d">More...</a><br /></td></tr>
 <tr class="separator:af0d1a093d1b0ef6ff6d0c595fbbc689d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a183040712bab60e3b122ced003b6094d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#a183040712bab60e3b122ced003b6094d">XV_HDMITX_PIO_IN_BRDG_OVERFLOW_MASK</a>&#160;&#160;&#160;(1&lt;&lt;10)</td></tr>
+<tr class="memdesc:a183040712bab60e3b122ced003b6094d"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO In Bridge Overflow mask.  <a href="#a183040712bab60e3b122ced003b6094d">More...</a><br /></td></tr>
+<tr class="separator:a183040712bab60e3b122ced003b6094d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeeca103fdb0a14d806a07cbbbac3a5a6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#aeeca103fdb0a14d806a07cbbbac3a5a6">XV_HDMITX_PIO_IN_BRDG_UNDERFLOW_MASK</a>&#160;&#160;&#160;(1&lt;&lt;11)</td></tr>
+<tr class="memdesc:aeeca103fdb0a14d806a07cbbbac3a5a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">PIO In Bridge Underflow mask.  <a href="#aeeca103fdb0a14d806a07cbbbac3a5a6">More...</a><br /></td></tr>
+<tr class="separator:aeeca103fdb0a14d806a07cbbbac3a5a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4af3a11ac2e2a2190f6e8c39111199d3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#a4af3a11ac2e2a2190f6e8c39111199d3">XV_HDMITX_DDC_ID_OFFSET</a>&#160;&#160;&#160;((XV_HDMITX_DDC_BASE)+(0*4))</td></tr>
 <tr class="memdesc:a4af3a11ac2e2a2190f6e8c39111199d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">DDC Identification * Register offset.  <a href="#a4af3a11ac2e2a2190f6e8c39111199d3">More...</a><br /></td></tr>
 <tr class="separator:a4af3a11ac2e2a2190f6e8c39111199d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -926,6 +945,25 @@ Macros</h2></td></tr>
 
 </div>
 </div>
+<a id="aa822ff727ff8bbf1c83a6fc0dd27d1db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa822ff727ff8bbf1c83a6fc0dd27d1db">&#9670;&nbsp;</a></span>XV_HDMITX_CONNECT_CONF_OFFSET</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XV_HDMITX_CONNECT_CONF_OFFSET&#160;&#160;&#160;((XV_HDMITX_PIO_BASE)+(15*4))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PIO HPD Config. </p>
+<ul>
+<li>Register offset </li>
+</ul>
+
+</div>
+</div>
 <a id="a7356d56189f12a10c6f79a97012e3882"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7356d56189f12a10c6f79a97012e3882">&#9670;&nbsp;</a></span>XV_HDMITX_DDC_CMD_OFFSET</h2>
 
@@ -1402,6 +1440,25 @@ Macros</h2></td></tr>
 
 </div>
 </div>
+<a id="a156f0cd891a36ae3a64beec049eec7e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a156f0cd891a36ae3a64beec049eec7e2">&#9670;&nbsp;</a></span>XV_HDMITX_HPD_TIMEGRID_OFFSET</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XV_HDMITX_HPD_TIMEGRID_OFFSET&#160;&#160;&#160;((XV_HDMITX_PIO_BASE)+(13*4))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PIO HPD Config. </p>
+<ul>
+<li>offset </li>
+</ul>
+
+</div>
+</div>
 <a id="a0711485d228f909cc65b275f866e526c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0711485d228f909cc65b275f866e526c">&#9670;&nbsp;</a></span>XV_HDMITX_HW_H_</h2>
 
@@ -1757,6 +1814,38 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p>PIO In Bridge Locked mask. </p>
+
+</div>
+</div>
+<a id="a183040712bab60e3b122ced003b6094d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a183040712bab60e3b122ced003b6094d">&#9670;&nbsp;</a></span>XV_HDMITX_PIO_IN_BRDG_OVERFLOW_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XV_HDMITX_PIO_IN_BRDG_OVERFLOW_MASK&#160;&#160;&#160;(1&lt;&lt;10)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PIO In Bridge Overflow mask. </p>
+
+</div>
+</div>
+<a id="aeeca103fdb0a14d806a07cbbbac3a5a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeeca103fdb0a14d806a07cbbbac3a5a6">&#9670;&nbsp;</a></span>XV_HDMITX_PIO_IN_BRDG_UNDERFLOW_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XV_HDMITX_PIO_IN_BRDG_UNDERFLOW_MASK&#160;&#160;&#160;(1&lt;&lt;11)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PIO In Bridge Underflow mask. </p>
 <p>DDC (Display Data Channel) peripheral register offsets The DDC is the second peripheral on the local bus </p>
 
 </div>
@@ -1773,7 +1862,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>PIO In Event Falling Edge * Register offset. </p>
+<p>PIO In Event Falling Edge Register offset. </p>
 
 </div>
 </div>
@@ -1805,7 +1894,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>PIO In Event Rising Edge * Register offset. </p>
+<p>PIO In Event Rising Edge Register offset. </p>
 
 </div>
 </div>
@@ -2450,6 +2539,25 @@ Macros</h2></td></tr>
 <p>16 shift value </p>
 
 <p class="reference">Referenced by <a class="el" href="xv__hdmitx__selftest_8c.html#a0934e75073446925a9698485b52e2c00">XV_HdmiTx_SelfTest()</a>.</p>
+
+</div>
+</div>
+<a id="ae6a3dac57dd04dfaa2605bbc65f53755"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6a3dac57dd04dfaa2605bbc65f53755">&#9670;&nbsp;</a></span>XV_HDMITX_TOGGLE_CONF_OFFSET</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XV_HDMITX_TOGGLE_CONF_OFFSET&#160;&#160;&#160;((XV_HDMITX_PIO_BASE)+(14*4))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PIO HPD Config. </p>
+<ul>
+<li>Register offset </li>
+</ul>
 
 </div>
 </div>

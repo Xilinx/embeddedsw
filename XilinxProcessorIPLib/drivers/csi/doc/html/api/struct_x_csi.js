@@ -14,5 +14,7 @@ var struct_x_csi =
     [ "ProtDecErrRef", "struct_x_csi.html#a68ba8b307c888284f4c56bd8e64a1aeb", null ],
     [ "ProtDecodeErrCallBack", "struct_x_csi.html#abc9974457110808626dcbbee8e189abc", null ],
     [ "ShortPacketCallBack", "struct_x_csi.html#a1e8a9855b48d7110615dd76476a766af", null ],
-    [ "ShortPacketRef", "struct_x_csi.html#a814e78a706b75732626f4dd2151ac133", null ]
+    [ "ShortPacketRef", "struct_x_csi.html#a814e78a706b75732626f4dd2151ac133", null ],
+    [ "VCXErrCallBack", "struct_x_csi.html#adafcf436efdfd4b5e5eaebf3a0a9833f", null ],
+    [ "VCXErrRef", "struct_x_csi.html#acb9c75b998cacffa5f70a3db6809d2fa", null ]
 ];
