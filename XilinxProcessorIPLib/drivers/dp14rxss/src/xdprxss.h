@@ -29,15 +29,7 @@
 /**
 *
 * @file xdprxss.h
-<<<<<<< HEAD
-<<<<<<< HEAD
 * @addtogroup dprxss_v4_2
-=======
-* @addtogroup dprxss_v4_1
->>>>>>> Updated addtogroup to appropriate files
-=======
-* @addtogroup dprxss_v4_2
->>>>>>> Addtogroup version updated for dprxss
 * @{
 * @details
 *
@@ -222,10 +214,6 @@ typedef enum {
 	XDPRXSS_DRV_HANDLER_DP_VID_EVENT,       /**< Drv Valid video event
 						  *  interrupt type for
 						  *  DisplayPort core */
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> xdprxss : Adding interrupt support for DP1.4.
 	XDPRXSS_DRV_HANDLER_DP_NO_VID_EVENT,     /**< Drv No video event
 						  *  interrupt type for
 						  *  DisplayPort core */
@@ -236,12 +224,6 @@ typedef enum {
 						  *  interrupt type for
 						  *  DisplayPort core */
 	XDPRXSS_HANDLER_ACCESS_ERROR_COUNTER_EVENT   /**< Drv Access error counter
-<<<<<<< HEAD
-=======
-	XDPRXSS_DRV_HANDLER_DP_NO_VID_EVENT     /**< Drv No video event
->>>>>>> DPRXSS Added interrupt handler for video and power
-=======
->>>>>>> xdprxss : Adding interrupt support for DP1.4.
 						  *  interrupt type for
 						  *  DisplayPort core */
 } XDpRxSs_HandlerType;
@@ -405,16 +387,8 @@ typedef struct {
 	u8 ltState; 		/**< To check if current LT is in CR or CE */
 	u8 prevLinkRate;
 	u8 prevLaneCounts;
-<<<<<<< HEAD
-<<<<<<< HEAD
 	u8 link_up_trigger;
 	u8 no_video_trigger;
-=======
->>>>>>> xdprxss : Adding support for DP1.4 related MCDP6000 functionality.
-=======
-	u8 link_up_trigger;
-	u8 no_video_trigger;
->>>>>>> xdprxss : Adding flag to track DP1.4 linkUp and VideoTrigger status.
 } XDpRxSs;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -585,14 +559,7 @@ void XDpRxSs_DrvNoVideoHandler(void *InstancePtr);
 void XDpRxSs_DrvVideoHandler(void *InstancePtr);
 void XDpRxSs_DrvPowerChangeHandler(void *InstancePtr);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 void XDpRxSs_McDp6000_init(void *InstancePtr, u32 I2CAddress);
-=======
->>>>>>> DPRXSS Added interrupt handler for video and power
-=======
-void XDpRxSs_McDp6000_init(void *InstancePtr, u32 I2CAddress);
->>>>>>> xdprxss : Adding support for DP1.4 related MCDP6000 functionality.
 /************************** Variable Declarations ****************************/
 
 

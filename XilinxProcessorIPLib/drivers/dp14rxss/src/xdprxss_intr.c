@@ -29,15 +29,7 @@
 /**
 *
 * @file xdprxss_intr.c
-<<<<<<< HEAD
-<<<<<<< HEAD
 * @addtogroup dprxss_v4_2
-=======
-* @addtogroup dprxss_v4_1
->>>>>>> Updated addtogroup to appropriate files
-=======
-* @addtogroup dprxss_v4_2
->>>>>>> Addtogroup version updated for dprxss
 * @{
 *
 * This file contains interrupt related functions of Xilinx DisplayPort RX
@@ -255,10 +247,6 @@ void XDpRxSs_DrvPowerChangeHandler(void *InstancePtr)
        if (Rdata == PowerDownMode) {
                XDp_RxInterruptDisable(XDpRxSsPtr->DpPtr,
                                XDP_RX_INTERRUPT_MASK_UNPLUG_MASK);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> xdprxss : Adding functional updates for DP1.4.
                if (XDpRxSsPtr->DpPtr->Config.DpProtocol != 
 						XDP_PROTOCOL_DP_1_4) {
                        XDpRxSs_Dp159Config(XDpRxSsPtr->IicPtr,
@@ -266,14 +254,6 @@ void XDpRxSs_DrvPowerChangeHandler(void *InstancePtr)
 					   XDpRxSsPtr->UsrOpt.LinkRate,
 					   XDpRxSsPtr->UsrOpt.LaneCount);
                }
-<<<<<<< HEAD
-=======
-               XDpRxSs_Dp159Config(XDpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_UNPLUG,
-                               XDpRxSsPtr->UsrOpt.LinkRate,
-                               XDpRxSsPtr->UsrOpt.LaneCount);
->>>>>>> DPRXSS Added interrupt handler for video and power
-=======
->>>>>>> xdprxss : Adding functional updates for DP1.4.
        }
 }
 
@@ -347,16 +327,6 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 			XDp_RxSetCallback(InstancePtr->DpPtr,
 					XDP_RX_HANDLER_PWRSTATECHANGE,
 					CallbackFunc, CallbackRef);
-<<<<<<< HEAD
-			Status = XST_SUCCESS;
-			break;
-
-		case XDPRXSS_DRV_HANDLER_DP_PWR_CHG_EVENT:
-			XDp_RxSetCallback(InstancePtr->DpPtr,
-					XDP_RX_HANDLER_DRV_PWRSTATE,
-					CallbackFunc, CallbackRef);
-=======
->>>>>>> dp : Merged multiple functions to set the DP intr handlers into a single generic function.
 			Status = XST_SUCCESS;
 			break;
 
@@ -371,16 +341,6 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 			XDp_RxSetCallback(InstancePtr->DpPtr,
 					XDP_RX_HANDLER_NOVIDEO,
 					CallbackFunc, CallbackRef);
-<<<<<<< HEAD
-			Status = XST_SUCCESS;
-			break;
-
-		case XDPRXSS_DRV_HANDLER_DP_NO_VID_EVENT:
-			XDp_RxSetCallback(InstancePtr->DpPtr,
-					XDP_RX_HANDLER_DRV_NOVIDEO,
-					CallbackFunc, CallbackRef);
-=======
->>>>>>> dp : Merged multiple functions to set the DP intr handlers into a single generic function.
 			Status = XST_SUCCESS;
 			break;
 
@@ -409,16 +369,6 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 			XDp_RxSetCallback(InstancePtr->DpPtr,
 					XDP_RX_HANDLER_VIDEO,
 					CallbackFunc, CallbackRef);
-<<<<<<< HEAD
-			Status = XST_SUCCESS;
-			break;
-
-		case XDPRXSS_DRV_HANDLER_DP_VID_EVENT:
-			XDp_RxSetCallback(InstancePtr->DpPtr,
-					XDP_RX_HANDLER_DRV_VIDEO,
-					CallbackFunc, CallbackRef);
-=======
->>>>>>> dp : Merged multiple functions to set the DP intr handlers into a single generic function.
 			Status = XST_SUCCESS;
 			break;
 
