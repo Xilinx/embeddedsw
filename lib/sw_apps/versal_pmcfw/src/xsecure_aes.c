@@ -599,7 +599,7 @@ u32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 		if (Dst != (u8*)(void *)XSECURE_DESTINATION_PCAP_ADDR)
 		{
 			/* Wait for the Dst DMA completion. */
-		XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr,
+			XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr,
 						XCSUDMA_DST_CHANNEL);
 
 
@@ -658,7 +658,7 @@ u32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 					XSECURE_SECURE_HDR_SIZE/4U, 1);
 
 	/* Wait for the Src DMA completion. */
- XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
+	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
 
 
 
