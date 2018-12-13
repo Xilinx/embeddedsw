@@ -42,7 +42,40 @@ proc libpm_drc {libhandle} {
 }
 
 proc generate {libhandle} {
+	# Copy over the right set of files as src based on processor type
+	set sw_proc_handle [hsi::get_sw_processor]
+	set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
+	set proctype [common::get_property IP_NAME $hw_proc_handle]
+	set procname [common::get_property NAME    $hw_proc_handle]
 
+	set clientSrcDir "./src/client"
+	set serverSrcDir "./src/server"
+	set commonSrcdir "./src/common"
+
+	foreach entry [glob -nocomplain [file join $commonSrcdir *]] {
+		file copy -force $entry "./src"
+	}
+
+	switch $proctype {
+		"psu_cortexr5"  -
+		"psu_cortexa72"  {
+			foreach entry [glob -nocomplain [file join $clientSrcDir *]] {
+				file copy -force $entry "./src/"
+			}
+		}
+
+		"psu_pmc"  {
+			foreach entry [glob -nocomplain [file join $serverSrcDir *]] {
+				file copy -force $entry "./src/"
+			}
+		}
+
+		"default"  {error "Error: Processor type $proctype is not supported\n"}
+	}
+
+	file delete -force $clientSrcDir
+	file delete -force $serverSrcDir
+	file delete -force $commonSrcdir
 }
 
 
