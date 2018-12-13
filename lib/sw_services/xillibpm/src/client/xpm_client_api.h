@@ -57,5 +57,13 @@ XStatus XPmClient_SetClockDivider(const u32 ClockId, const u32 Divider);
 XStatus XPmClient_GetClockDivider(const u32 ClockId, u32 *const Divider);
 XStatus XPmClient_SetClockParent(const u32 ClockId, const u32 ParentId);
 XStatus XPmClient_GetClockParent(const u32 ClockId, u32 *const ParentId);
+XStatus XPmClient_SetPllParameter(const u32 ClockId,
+				  const enum XPm_PllConfigParams ParamId,
+				  const u32 Value);
+XStatus XPmClient_GetPllParameter(const u32 ClockId,
+				  const enum XPm_PllConfigParams ParamId,
+				  u32 *const Value);
+XStatus XPmClient_SetPllMode(const u32 ClockId, const u32 Value);
+XStatus XPmClient_GetPllMode(const u32 ClockId, u32 *const Value);
 
 #endif /* _XPM_CLIENT_API_H_ */
