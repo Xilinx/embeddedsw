@@ -878,3 +878,181 @@ XStatus XPmClient_GetClockParent(const u32 ClockId, u32 *const ParentId)
 done:
 	return Status;
 }
+
+/****************************************************************************/
+/**
+ * @brief  This function is used to set the parameters for specified PLL clock
+ *
+ * @param  ClockId		Clock ID
+ * @param  ParamId		Parameter ID
+ *				- PLL_PARAM_ID_CLKOUTDIV
+ *				- PLL_PARAM_ID_FBDIV
+ *				- PLL_PARAM_ID_FRAC_DATA
+ *				- PLL_PARAM_ID_PRE_SRC
+ *				- PLL_PARAM_ID_POST_SRC
+ *				- PLL_PARAM_ID_LOCK_DLY
+ *				- PLL_PARAM_ID_LOCK_CNT
+ *				- PLL_PARAM_ID_LFHF
+ *				- PLL_PARAM_ID_CP
+ *				- PLL_PARAM_ID_RES
+ * @param  Value		Value of parameter
+ *				(See register description for possible values)
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmClient_SetPllParameter(const u32 ClockId,
+				  const enum XPm_PllConfigParams ParamId,
+				  const u32 Value)
+{
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	PACK_PAYLOAD3(Payload, PM_PLL_SET_PARAMETER, ClockId, ParamId, Value);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function is used to get the parameter of specified PLL clock
+ *
+ * @param  ClockId		Clock ID
+ * @param  ParamId		Parameter ID
+ *				- PLL_PARAM_ID_CLKOUTDIV
+ *				- PLL_PARAM_ID_FBDIV
+ *				- PLL_PARAM_ID_FRAC_DATA
+ *				- PLL_PARAM_ID_PRE_SRC
+ *				- PLL_PARAM_ID_POST_SRC
+ *				- PLL_PARAM_ID_LOCK_DLY
+ *				- PLL_PARAM_ID_LOCK_CNT
+ *				- PLL_PARAM_ID_LFHF
+ *				- PLL_PARAM_ID_CP
+ *				- PLL_PARAM_ID_RES
+ * @param  Value		Pointer to store parameter value
+ *				(See register description for possible values)
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmClient_GetPllParameter(const u32 ClockId,
+				  const enum XPm_PllConfigParams ParamId,
+				  u32 *const Value)
+{
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	if (NULL == Value) {
+		XPm_Dbg("ERROR: Passing NULL pointer to %s\r\n", __func__);
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	PACK_PAYLOAD2(Payload, PM_PLL_GET_PARAMETER, ClockId, ParamId);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, Value, NULL, NULL);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function is used to set the mode of specified PLL clock
+ *
+ * @param  ClockId		Clock ID
+ * @param  Value		Mode which need to be set
+ *				- 0 for Reset mode
+ *				- 1 for Integer mode
+ *				- 2 for Fractional mode
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmClient_SetPllMode(const u32 ClockId, const u32 Value)
+{
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	PACK_PAYLOAD2(Payload, PM_PLL_SET_MODE, ClockId, Value);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function is used to get the mode of specified PLL clock
+ *
+ * @param  ClockId		Clock ID
+ * @param  Value		Pointer to store the value of mode
+ *				- 0 for Reset mode
+ *				- 1 for Integer mode
+ *				- 2 for Fractional mode
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmClient_GetPllMode(const u32 ClockId, u32 *const Value)
+{
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	if (NULL == Value) {
+		XPm_Dbg("ERROR: Passing NULL pointer to %s\r\n", __func__);
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	PACK_PAYLOAD1(Payload, PM_PLL_GET_MODE, ClockId);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, Value, NULL, NULL);
+
+done:
+	return Status;
+}
