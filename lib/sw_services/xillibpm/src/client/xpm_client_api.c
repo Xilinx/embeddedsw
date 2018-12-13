@@ -116,3 +116,178 @@ XStatus XPmClient_GetApiVersion(u32 *Version)
 done:
 	return Status;
 }
+
+/****************************************************************************/
+/**
+ * @brief  This function is used to request the device
+ *
+ * @param  TargetSubsystemId	Targeted Id of subsystem
+ * @param  DeviceId		Device which needs to be requested
+ * @param  Capabilities		Device Capabilities, can be combined
+ *				- PM_CAP_ACCESS  : full access / functionality
+ *				- PM_CAP_CONTEXT : preserve context
+ *				- PM_CAP_WAKEUP  : emit wake interrupts
+ * @param  Latency		Maximum wake-up latency in us
+ * @param  QoS			Quality of Service (0-100) required
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmClient_RequestDevice(const u32 TargetSubsystemId, const u32 DeviceId,
+				const u32 Capabilities, const u32 Latency,
+				const u32 QoS)
+{
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	PACK_PAYLOAD5(Payload, PM_REQUEST_DEVICE, TargetSubsystemId, DeviceId,
+		      Capabilities, Latency, QoS);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function is used to release the requested device
+ *
+ * @param  DeviceId		Device which needs to be released
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmClient_ReleaseDevice(const u32 DeviceId)
+{
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	PACK_PAYLOAD1(Payload, PM_RELEASE_DEVICE, DeviceId);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function is used to set the requirement for specified device
+ *
+ * @param  DeviceId		Device for which requirement needs to be set
+ * @param  Capabilities		Device Capabilities, can be combined
+ *				- PM_CAP_ACCESS  : full access / functionality
+ *				- PM_CAP_CONTEXT : preserve context
+ *				- PM_CAP_WAKEUP  : emit wake interrupts
+ * @param  Latency		Maximum wake-up latency in us
+ * @param  QoS			Quality of Service (0-100) required
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmClient_SetRequirement(const u32 DeviceId, const u32 Capabilities,
+				 const u32 Latency, const u32 QoS)
+{
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	PACK_PAYLOAD4(Payload, PM_SET_REQUIREMENT, DeviceId, Capabilities, Latency, QoS);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function is used to get the device status
+ *
+ * @param  DeviceId		Device for which status is requested
+ * @param  DeviceStatus		Structure pointer to store device status
+ * 				- Status - The current power state of the device
+ * 				 - For CPU nodes:
+ * 				  - 0 : if CPU is powered down,
+ * 				  - 1 : if CPU is active (powered up),
+ * 				  - 2 : if CPU is suspending (powered up)
+ * 				 - For power islands and power domains:
+ * 				  - 0 : if island is powered down,
+ * 				  - 1 : if island is powered up
+ * 				 - For slaves:
+ * 				  - 0 : if slave is powered down,
+ * 				  - 1 : if slave is powered up,
+ * 				  - 2 : if slave is in retention
+ *
+ * 				- Requirement - Requirements placed on the device by the caller
+ *
+ * 				- Usage
+ * 				 - 0 : node is not used by any PU,
+ * 				 - 1 : node is used by caller exclusively,
+ * 				 - 2 : node is used by other PU(s) only,
+ * 				 - 3 : node is used by caller and by other PU(s)
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmClient_GetDeviceStatus(const u32 DeviceId,
+				  XPm_DeviceStatus *const DeviceStatus)
+{
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	if (NULL == DeviceStatus) {
+		XPm_Dbg("ERROR: Passing NULL pointer to %s\r\n", __func__);
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	PACK_PAYLOAD1(Payload, PM_GET_DEVICE_STATUS, DeviceId);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, &DeviceStatus->Status,
+				   &DeviceStatus->Requirement,
+				   &DeviceStatus->Usage);
+
+done:
+	return Status;
+}
