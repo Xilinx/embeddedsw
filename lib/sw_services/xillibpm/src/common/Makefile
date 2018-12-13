@@ -44,8 +44,6 @@ OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 LIBPM_SRCS := $(wildcard *.c)
 LIBPM_OBJS = $(addprefix $(LIBPM_DIR)/, $(LIBPM_SRCS:%.c=%.o))
 
-INCLUDEFILES=$(LIBPM_DIR)/xillibpm_api.h
-
 libs: libxillibpm.a
 
 libxillibpm.a: print_msg_xillibpm $(LIBPM_OBJS)
@@ -55,10 +53,8 @@ print_msg_xillibpm:
 	@echo "Compiling XilLibPM Library"
 
 .PHONY: include
-include: libxillibpm_includes
-
-libxillibpm_includes:
-	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
+include:
+	echo "Include files for this library have already been copied."
 
 clean:
 	rm -rf $(LIBPM_DIR)/${OBJECTS}
