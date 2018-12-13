@@ -30,22 +30,7 @@
 #define XPM_PLL_H_
 
 #include "xpm_clock.h"
-
-/* PLL parameters */
-enum XPm_PllConfigParams {
-	PLL_PARAM_ID_CLKOUTDIV,
-	PLL_PARAM_ID_FBDIV,
-	PLL_PARAM_ID_FRAC_DATA,
-	PLL_PARAM_ID_PRE_SRC,
-	PLL_PARAM_ID_POST_SRC,
-	PLL_PARAM_ID_LOCK_DLY,
-	PLL_PARAM_ID_LOCK_CNT,
-	PLL_PARAM_ID_LFHF,
-	PLL_PARAM_ID_CP,
-	PLL_PARAM_ID_RES,
-	PLL_PARAM_MAX,
-};
-
+#include "xillibpm_defs.h"
 
 /**
  * The PLL class.  This is the class to represent pll nodes.
