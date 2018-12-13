@@ -83,3 +83,36 @@ XStatus XPmClient_InitXillibpm(XIpiPsu *IpiInst)
 done:
 	return Status;
 }
+
+/****************************************************************************/
+/**
+ * @brief  This function is used to request the version number of the API
+ * running on the platform management controller.
+ *
+ * @param  version Returns the API 32-bit version number.
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmClient_GetApiVersion(u32 *Version)
+{
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	PACK_PAYLOAD0(Payload, PM_GET_API_VERSION);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, Version, NULL, NULL);
+
+done:
+	return Status;
+}
