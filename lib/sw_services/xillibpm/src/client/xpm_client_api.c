@@ -291,3 +291,81 @@ XStatus XPmClient_GetDeviceStatus(const u32 DeviceId,
 done:
 	return Status;
 }
+
+/****************************************************************************/
+/**
+ * @brief  This function is used to assert or release reset for a particular
+ * reset line. Alternatively a reset pulse can be requested as well.
+ *
+ * @param  ResetId		Reset ID
+ * @param  Action		Reset action to be taken
+ *				- 1 for Assert Reset
+ *				- 2 for Release Reset
+ *				- 3 for Pulse Reset
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmClient_ResetAssert(const u32 ResetId, const u32 Action)
+{
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	PACK_PAYLOAD2(Payload, PM_RESET_ASSERT, ResetId, Action);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function is used to get the status of reset
+ *
+ * @param  ResetId		Reset ID
+ * @param  State		Pointer to store the status of specified reset
+ *				- 1 for reset asserted
+ *				- 2 for reset released
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmClient_ResetGetStatus(const u32 ResetId, u32 *const State)
+{
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	if (NULL == State) {
+		XPm_Dbg("ERROR: Passing NULL pointer to %s\r\n", __func__);
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	PACK_PAYLOAD1(Payload, PM_RESET_GET_STATUS, ResetId);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, State, NULL, NULL);
+
+done:
+	return Status;
+}
