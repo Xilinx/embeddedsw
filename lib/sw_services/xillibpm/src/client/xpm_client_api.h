@@ -33,5 +33,6 @@
 #include "xillibpm_defs.h"
 
 XStatus XPmClient_InitXillibpm(XIpiPsu *IpiInst);
+XStatus XPmClient_GetApiVersion(u32 *version);
 
 #endif /* _XPM_CLIENT_API_H_ */
