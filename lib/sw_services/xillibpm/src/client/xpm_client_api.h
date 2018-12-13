@@ -50,5 +50,12 @@ XStatus XPmClient_SetPinFunction(const u32 PinId, const u32 FunctionId);
 XStatus XPmClient_GetPinFunction(const u32 PinId, u32 *const FunctionId);
 XStatus XPmClient_SetPinParameter(const u32 PinId, const u32 ParamId, const u32 ParamVal);
 XStatus XPmClient_GetPinParameter(const u32 PinId, const u32 ParamId, u32 *const ParamVal);
+XStatus XPmClient_ClockEnable(const u32 ClockId);
+XStatus XPmClient_ClockDisable(const u32 ClockId);
+XStatus XPmClient_GetClockState(const u32 ClockId, u32 *const State);
+XStatus XPmClient_SetClockDivider(const u32 ClockId, const u32 Divider);
+XStatus XPmClient_GetClockDivider(const u32 ClockId, u32 *const Divider);
+XStatus XPmClient_SetClockParent(const u32 ClockId, const u32 ParentId);
+XStatus XPmClient_GetClockParent(const u32 ClockId, u32 *const ParentId);
 
 #endif /* _XPM_CLIENT_API_H_ */
