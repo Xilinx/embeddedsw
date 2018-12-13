@@ -42,5 +42,7 @@ XStatus XPmClient_SetRequirement(const u32 DeviceId, const u32 Capabilities,
 				 const u32 Latency, const u32 QoS);
 XStatus XPmClient_GetDeviceStatus(const u32 DeviceId,
 				  XPm_DeviceStatus *const DeviceStatus);
+XStatus XPmClient_ResetAssert(const u32 ResetId, const u32 Action);
+XStatus XPmClient_ResetGetStatus(const u32 ResetId, u32 *const State);
 
 #endif /* _XPM_CLIENT_API_H_ */
