@@ -322,4 +322,3 @@ XStatus XPmClockPll_GetParam(XPm_PllClockNode *Pll, u32 Param, u32 *Val)
 done:
 	return Status;
 }
-

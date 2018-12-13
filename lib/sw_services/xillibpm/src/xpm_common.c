@@ -76,7 +76,7 @@ void XPm_DumpMemUsage(void)
 
 u32 XPm_In32(u32 RegAddress)
 {
-	
+
 	return Xil_In32(RegAddress);
 }
 
@@ -90,7 +90,7 @@ void XPm_Out32(u32 RegAddress, u32 l_Val)
 	} else {
 		Xil_Out32(RegAddress, l_Val);
 	}
-}	
+}
 
 void XPm_RMW32(u32 RegAddress, u32 Mask, u32 Value)
 {

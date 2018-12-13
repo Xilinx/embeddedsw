@@ -62,7 +62,7 @@ static XStatus XPmReset_Init(XPm_ResetNode *Rst, u32 Id, u32 ControlReg, u8 Shif
 	for (i=0; i<NumParents; i++) {
 		Rst->Parents[i] = Parents[i];
 	}
-	
+
 	return Status;
 }
 XStatus XPmReset_AddNode(u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetType, u8 NumParents, u32* Parents)
