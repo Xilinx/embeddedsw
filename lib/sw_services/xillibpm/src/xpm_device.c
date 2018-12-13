@@ -721,7 +721,7 @@ XStatus XPmDevice_GetStatus(const u32 SubsystemId,
 	 * Return the power state of the device.
 	 */
 	 if (NULL == Device->Power) {
-	 	goto done;
+		goto done;
 	}
 	DeviceStatus->Status = Device->Power->Node.State;
 

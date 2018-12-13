@@ -268,7 +268,7 @@ XStatus XPmClock_AddSubNode(u32 Id, u32 Type, u32 ControlReg, u8 Param1, u8 Para
 	if (i == OutClkPtr->Topology.NumNodes) {
 		Status = XST_INVALID_PARAM;
 	}
-	
+
 done:
 	return Status;
 }
