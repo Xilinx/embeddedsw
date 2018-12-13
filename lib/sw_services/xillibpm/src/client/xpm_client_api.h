@@ -44,5 +44,11 @@ XStatus XPmClient_GetDeviceStatus(const u32 DeviceId,
 				  XPm_DeviceStatus *const DeviceStatus);
 XStatus XPmClient_ResetAssert(const u32 ResetId, const u32 Action);
 XStatus XPmClient_ResetGetStatus(const u32 ResetId, u32 *const State);
+XStatus XPmClient_PinCtrlRequest(const u32 PinId);
+XStatus XPmClient_PinCtrlRelease(const u32 PinId);
+XStatus XPmClient_SetPinFunction(const u32 PinId, const u32 FunctionId);
+XStatus XPmClient_GetPinFunction(const u32 PinId, u32 *const FunctionId);
+XStatus XPmClient_SetPinParameter(const u32 PinId, const u32 ParamId, const u32 ParamVal);
+XStatus XPmClient_GetPinParameter(const u32 PinId, const u32 ParamId, u32 *const ParamVal);
 
 #endif /* _XPM_CLIENT_API_H_ */

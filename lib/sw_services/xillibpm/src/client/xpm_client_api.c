@@ -369,3 +369,264 @@ XStatus XPmClient_ResetGetStatus(const u32 ResetId, u32 *const State)
 done:
 	return Status;
 }
+
+/****************************************************************************/
+/**
+ * @brief  This function is used to request the pin
+ *
+ * @param  PinId		Pin ID
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmClient_PinCtrlRequest(const u32 PinId)
+{
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	PACK_PAYLOAD1(Payload, PM_PINCTRL_REQUEST, PinId);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function is used to release the pin
+ *
+ * @param  PinId		Pin ID
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmClient_PinCtrlRelease(const u32 PinId)
+{
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	PACK_PAYLOAD1(Payload, PM_PINCTRL_RELEASE, PinId);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function is used to set the function on specified pin
+ *
+ * @param  PinId		Pin ID
+ * @param  FunctionId		Function ID which needs to be set
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmClient_SetPinFunction(const u32 PinId, const u32 FunctionId)
+{
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	PACK_PAYLOAD2(Payload, PM_PINCTRL_SET_FUNCTION, PinId, FunctionId);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function is used to get the function on specified pin
+ *
+ * @param  PinId		Pin ID
+ * @param  FunctionId		Pointer to Function ID
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmClient_GetPinFunction(const u32 PinId, u32 *const FunctionId)
+{
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	if (NULL == FunctionId) {
+		XPm_Dbg("ERROR: Passing NULL pointer to %s\r\n", __func__);
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	PACK_PAYLOAD1(Payload, PM_PINCTRL_GET_FUNCTION, PinId);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, FunctionId, NULL, NULL);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function is used to set the pin parameter of specified pin
+ *
+ * @param  PinId		Pin ID
+ * @param  ParamId		Parameter ID
+ * @param  ParamVal		Value of the parameter
+ *
+ * ----------------------------------------------------------------------------
+ *  ParamId				| ParamVal
+ * ----------------------------------------------------------------------------
+ *  PINCTRL_CONFIG_SLEW_RATE		| PINCTRL_SLEW_RATE_SLOW
+ *					| PINCTRL_SLEW_RATE_FAST
+ *					|
+ *  PINCTRL_CONFIG_BIAS_STATUS		| PINCTRL_BIAS_DISABLE
+ *					| PINCTRL_BIAS_ENABLE
+ *					|
+ *  PINCTRL_CONFIG_PULL_CTRL		| PINCTRL_BIAS_PULL_DOWN
+ *					| PINCTRL_BIAS_PULL_UP
+ *					|
+ *  PINCTRL_CONFIG_SCHMITT_CMOS		| PINCTRL_INPUT_TYPE_CMOS
+ *					| PINCTRL_INPUT_TYPE_SCHMITT
+ *					|
+ *  PINCTRL_CONFIG_DRIVE_STRENGTH	| PINCTRL_DRIVE_STRENGTH_TRISTATE
+ *					| PINCTRL_DRIVE_STRENGTH_4MA
+ *					| PINCTRL_DRIVE_STRENGTH_8MA
+ *					| PINCTRL_DRIVE_STRENGTH_12MA
+ *					|
+ *  PINCTRL_CONFIG_TRI_STATE		| PINCTRL_TRI_STATE_DISABLE
+ *					| PINCTRL_TRI_STATE_ENABLE
+ * ----------------------------------------------------------------------------
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmClient_SetPinParameter(const u32 PinId, const u32 ParamId, const u32 ParamVal)
+{
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	PACK_PAYLOAD3(Payload, PM_PINCTRL_CONFIG_PARAM_SET, PinId, ParamId, ParamVal);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function is used to get the pin parameter of specified pin
+ *
+ * @param  PinId		Pin ID
+ * @param  ParamId		Parameter ID
+ * @param  ParamVal		Pointer to the value of the parameter
+ *
+ * ----------------------------------------------------------------------------
+ *  ParamId				| ParamVal
+ * ----------------------------------------------------------------------------
+ *  PINCTRL_CONFIG_SLEW_RATE		| PINCTRL_SLEW_RATE_SLOW
+ *					| PINCTRL_SLEW_RATE_FAST
+ *					|
+ *  PINCTRL_CONFIG_BIAS_STATUS		| PINCTRL_BIAS_DISABLE
+ *					| PINCTRL_BIAS_ENABLE
+ *					|
+ *  PINCTRL_CONFIG_PULL_CTRL		| PINCTRL_BIAS_PULL_DOWN
+ *					| PINCTRL_BIAS_PULL_UP
+ *					|
+ *  PINCTRL_CONFIG_SCHMITT_CMOS		| PINCTRL_INPUT_TYPE_CMOS
+ *					| PINCTRL_INPUT_TYPE_SCHMITT
+ *					|
+ *  PINCTRL_CONFIG_DRIVE_STRENGTH	| PINCTRL_DRIVE_STRENGTH_TRISTATE
+ *					| PINCTRL_DRIVE_STRENGTH_4MA
+ *					| PINCTRL_DRIVE_STRENGTH_8MA
+ *					| PINCTRL_DRIVE_STRENGTH_12MA
+ *					|
+ *  PINCTRL_CONFIG_VOLTAGE_STATUS	| 1 for 1.8v mode
+ *					| 0 for 3.3v mode
+ *					|
+ *  PINCTRL_CONFIG_TRI_STATE		| PINCTRL_TRI_STATE_DISABLE
+ *					| PINCTRL_TRI_STATE_ENABLE
+ * ----------------------------------------------------------------------------
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmClient_GetPinParameter(const u32 PinId, const u32 ParamId, u32 *const ParamVal)
+{
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	if (NULL == ParamVal) {
+		XPm_Dbg("ERROR: Passing NULL pointer to %s\r\n", __func__);
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	PACK_PAYLOAD2(Payload, PM_PINCTRL_CONFIG_PARAM_GET, PinId, ParamId);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, ParamVal, NULL, NULL);
+
+done:
+	return Status;
+}
