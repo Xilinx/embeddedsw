@@ -82,12 +82,23 @@ u32 XPm_In32(u32 RegAddress)
 
 void XPm_Out32(u32 RegAddress, u32 l_Val)
 {
-	if ((RegAddress & 0xFFFF0000) == PMC_IOU_SLCR_BASEADDR)
-	{
+	if ((RegAddress & 0xFFFF0000) == PMC_IOU_SLCR_BASEADDR) {
 		Xil_Out32(PMC_IOU_SLCR_WPROT0, 0x0U);
 		Xil_Out32(RegAddress, l_Val);
 		Xil_Out32(PMC_IOU_SLCR_WPROT0, 0x1U);
-	} else {
+	} else if ((RegAddress & 0xFFFF0000) == LPD_IOU_SLCR_BASEADDR) {
+                Xil_Out32(LPD_IOU_SLCR_WPROT0, 0x0U);
+                Xil_Out32(RegAddress, l_Val);
+                Xil_Out32(LPD_IOU_SLCR_WPROT0, 0x1U);
+        }  else if ((RegAddress & 0xFFFF0000) == LPD_SLCR_BASEADDR) {
+                Xil_Out32(LPD_SLCR_WPROT0, 0x0U);
+                Xil_Out32(RegAddress, l_Val);
+                Xil_Out32(LPD_SLCR_WPROT0, 0x1U);
+        }  else if ((RegAddress & 0xFFFF0000) == FPD_SLCR_BASEADDR) {
+                Xil_Out32(FPD_SLCR_WPROT0, 0x0U);
+                Xil_Out32(RegAddress, l_Val);
+                Xil_Out32(FPD_SLCR_WPROT0, 0x1U);
+        } else {
 		Xil_Out32(RegAddress, l_Val);
 	}
 }
