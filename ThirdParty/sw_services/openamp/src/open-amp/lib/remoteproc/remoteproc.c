@@ -891,13 +891,20 @@ remoteproc_create_virtio(struct remoteproc *rproc,
 	metal_list_for_each(&rproc->vdevs, node) {
 		rpvdev = metal_container_of(node, struct remoteproc_virtio,
 					    node);
-		if (rpvdev->vdev.index == notifyid)
+		if (rpvdev->vdev.index == notifyid) {
+			metal_mutex_release(&rproc->lock);
 			return &rpvdev->vdev;
+		}
 	}
 	vdev = rproc_virtio_create_vdev(role, notifyid,
 					vdev_rsc, vdev_rsc_io, rproc,
 					remoteproc_virtio_notify,
 					rst_cb);
+	if (!vdev) {
+		metal_mutex_release(&rproc->lock);
+		return NULL;
+	}
+
 	rpvdev = metal_container_of(vdev, struct remoteproc_virtio, vdev);
 	metal_list_add_tail(&rproc->vdevs, &rpvdev->node);
 	num_vrings = vdev_rsc->num_of_vrings;
