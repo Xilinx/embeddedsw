@@ -7,6 +7,7 @@
  */
 
 #include <metal/alloc.h>
+#include <metal/cpu.h>
 #include <metal/log.h>
 #include <metal/utilities.h>
 #include <openamp/elf_loader.h>
@@ -908,6 +909,14 @@ remoteproc_create_virtio(struct remoteproc *rproc,
 	rpvdev = metal_container_of(vdev, struct remoteproc_virtio, vdev);
 	metal_list_add_tail(&rproc->vdevs, &rpvdev->node);
 	num_vrings = vdev_rsc->num_of_vrings;
+
+	while (1) {
+		if ((vdev->func->get_status(vdev) &
+		    VIRTIO_CONFIG_STATUS_DRIVER_OK)) {
+			break;
+		}
+		metal_cpu_yield();
+	}
 	/* set the notification id for vrings */
 	for (i = 0; i < num_vrings; i++) {
 		struct fw_rsc_vdev_vring *vring_rsc;
