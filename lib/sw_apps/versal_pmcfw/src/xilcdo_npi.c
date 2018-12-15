@@ -822,8 +822,8 @@ u32 XilCdo_CheckBISRPass(u32 BaseAddr)
 {
 	/* Check for BISR success */
 	return ((Xil_In32(BaseAddr+XILCDO_NPI_PCSR_STATUS_OFFSET)
-				& PCSR_STATUS_BISRERR_MASK)
-			== PCSR_STATUS_BISRERR_MASK);
+				& PCSR_STATUS_BISR_PASS_MASK)
+			!= PCSR_STATUS_BISR_PASS_MASK);
 }
 
 void XilCdo_WaitForBISRDone(u32 BaseAddr)
@@ -864,8 +864,8 @@ u32 XilCdo_CheckScanClearPass(void)
 {
 	/* Check for Scan Clear success */
 	return ((Xil_In32(PMC_ANALOG_SCAN_CLEAR_DONE)
-				& PMC_ANALOG_SCAN_CLEAR_DONE_PMC_MASK)
-			== PMC_ANALOG_SCAN_CLEAR_DONE_PMC_MASK);
+				& PMC_ANALOG_SCAN_CLEAR_PASS_PMC_MASK)
+			!= PMC_ANALOG_SCAN_CLEAR_PASS_PMC_MASK);
 }
 
 void XilCdo_WaitForScanClearDone(void)
@@ -888,8 +888,8 @@ u32 XilCdo_CheckScanClearMEPass(u32 BaseAddr)
 {
 	/* Check for MBIST success */
 	return ((Xil_In32(BaseAddr+XILCDO_NPI_PCSR_STATUS_OFFSET)
-				& PCSR_STATUS_SCANERR_MASK)
-			== PCSR_STATUS_SCANERR_MASK);
+				& PCSR_STATUS_SCAN_PASS_MASK)
+			!= PCSR_STATUS_SCAN_PASS_MASK);
 }
 
 void XilCdo_WaitForScanClearMEDone(u32 BaseAddr)
@@ -915,8 +915,8 @@ u32 XilCdo_CheckMBISTPass(u32 BaseAddr)
 {
 	/* Check for MBIST success */
 	return ((Xil_In32(BaseAddr+XILCDO_NPI_PCSR_STATUS_OFFSET)
-				& PCSR_STATUS_MBISTERR_MASK)
-			== PCSR_STATUS_MBISTERR_MASK);
+				& PCSR_STATUS_MBIST_PASS_MASK)
+			!= PCSR_STATUS_MBIST_PASS_MASK);
 }
 
 void XilCdo_WaitForMBISTDone(u32 BaseAddr)
