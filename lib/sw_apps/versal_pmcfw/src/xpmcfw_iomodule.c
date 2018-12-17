@@ -280,9 +280,11 @@ static void XPmcFw_GpiIrqHandler(void)
 	{
 		Xil_Out32(PMC_GLOBAL_PMC_PPU1_GPI,
 		RegVal&(0x1U<<PMC_GLOBAL_PMC_PPU1_GPI_GPI_0_SHIFT));
+#ifdef XPMCFW_SBI
 		PmcFwInstance.MetaHdr.DeviceCopy = XPmcFw_SbiCopy;
 		PmcFwInstance.DeviceOps.Copy = XPmcFw_SbiCopy;
 		(void)XPmcFw_PdiLoad(&PmcFwInstance);
+#endif
 	}
 
 	if((RegVal & PMC_GLOBAL_PMC_PPU1_GPI_GPI_1_MASK) != FALSE)
