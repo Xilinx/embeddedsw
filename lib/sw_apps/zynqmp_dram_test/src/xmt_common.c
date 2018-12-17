@@ -41,6 +41,7 @@
  * 1.0   mn   08/17/18 Initial release
  *       mn   09/21/18 Modify code manually enter the DDR memory test size
  *       mn   09/27/18 Modify code to add 2D Read/Write Eye Tests support
+ *       mn   12/17/18 Limit VRefMin to minimum of 0 for 2D eye scan
  *
  * </pre>
  *
@@ -522,7 +523,9 @@ u32 XMt_GetVRefAutoMin(XMt_CfgData *XMtPtr)
 				XMtPtr->VRefAuto[Index];
 	}
 
-	return VRefMin - 25;
+	VRefMin = (VRefMin > 25) ? (VRefMin - 25) : 0;
+
+	return VRefMin;
 }
 
 /*****************************************************************************/
