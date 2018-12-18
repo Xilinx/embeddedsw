@@ -68,5 +68,6 @@ XStatus XPmClient_GetPllMode(const u32 ClockId, u32 *const Value);
 XStatus XPmClient_SelfSuspend(const u32 DeviceId, const u32 Latency,
 			      const u8 State, const u64 Address);
 void XPmClient_SuspendFinalize(void);
+XStatus XPmClient_AbortSuspend(const enum XPmAbortReason Reason);
 
 #endif /* _XPM_CLIENT_API_H_ */

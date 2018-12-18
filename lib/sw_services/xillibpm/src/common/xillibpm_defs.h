@@ -38,6 +38,16 @@
 #define PM_VERSION      ((PM_VERSION_MAJOR << 16) | PM_VERSION_MINOR)
 
 /**
+ *  PM Abort Reasons Enum
+ */
+enum XPmAbortReason {
+	ABORT_REASON_WKUP_EVENT = 100,
+	ABORT_REASON_PU_BUSY,
+	ABORT_REASON_NO_PWRDN,
+	ABORT_REASON_UNKNOWN,
+};
+
+/**
  *  @name Boot Status Enum
  */
 enum XPmBootStatus {

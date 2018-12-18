@@ -181,3 +181,16 @@ void XPmClient_ClientSuspendFinalize(void)
 	__asm__("wfi");
 	XPm_Dbg("WFI exit...\n");
 }
+
+void XPmClient_ClientAbortSuspend(void)
+{
+	u32 PwrDwnReg;
+
+	/* Clear powerdown request */
+	PwrDwnReg = XPm_Read(PrimaryProc->PwrCtrl);
+	PwrDwnReg &= ~PrimaryProc->PwrDwnMask;
+	XPm_Write(PrimaryProc->PwrCtrl, PwrDwnReg);
+
+	/* Enable interrupts at processor level */
+	XpmEnableInterrupts();
+}

@@ -73,5 +73,6 @@ void XPmClient_SetPrimaryProc(void);
 struct XPm_Proc *XpmClient_GetProcByDeviceId(u32 DeviceId);
 void XPmClient_Suspend(const struct XPm_Proc *const Proc);
 void XPmClient_ClientSuspendFinalize(void);
+void XPmClient_ClientAbortSuspend(void);
 
 #endif /* XPM_CLIENT_COMMON_H_ */
