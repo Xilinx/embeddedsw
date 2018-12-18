@@ -76,6 +76,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 						 Pload[1], Pload[2], Pload[3],
 						 Pload[4]);
 			break;
+		case PM_ABORT_SUSPEND:
+			Status = XPm_AbortSuspend(SubsystemId, Pload[0], Pload[1]);
+			break;
 		case PM_CLOCK_SETPARENT:
 			Status = XPm_SetClockParent(SubsystemId, Pload[0], Pload[1]);
 			break;
@@ -318,6 +321,46 @@ XStatus XPm_DestroySubsystem(u32 SubsystemId)
 
 	Status = XPmSubsystem_Destroy(SubsystemId);
 
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function can be used by a subsystem to aborting suspend of a
+ * child subsystem.
+ *
+ * @param SubsystemId	Subsystem ID
+ * @param Reason	Abort reason
+ * @param DeviceId	Processor device ID
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note        None
+ *
+ ****************************************************************************/
+XStatus XPm_AbortSuspend(const u32 SubsystemId, const u32 Reason,
+			 const u32 DeviceId)
+{
+	XStatus Status = XST_SUCCESS;
+	XPm_Core *Core;
+
+	PmInfo("(%lu, %lu)\r\n", Reason, DeviceId);
+
+	if((NODECLASS(DeviceId) == XPM_NODECLASS_DEVICE) &&
+	   (NODESUBCLASS(DeviceId) == XPM_NODESUBCL_DEV_CORE)) {
+		Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+		Core->Device.Node.State = XPM_DEVSTATE_RUNNING;
+	} else {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	DISABLE_WFI(Core->Mask);
+
+	Status = XPmSubsystem_SetState(SubsystemId, ONLINE);
+
+done:
 	return Status;
 }
 
