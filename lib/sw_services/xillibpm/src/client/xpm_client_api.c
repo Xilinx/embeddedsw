@@ -1136,3 +1136,50 @@ void XPmClient_SuspendFinalize(void)
 
 	XPmClient_ClientSuspendFinalize();
 }
+
+/****************************************************************************/
+/**
+ * @brief  This function is called by a CPU after a SelfSuspend call to
+ * notify the platform management controller that CPU has aborted suspend
+ * or in response to an init suspend request when the PU refuses to suspend.
+ *
+ * @param  reason Reason code why the suspend can not be performed or completed
+ * - ABORT_REASON_WKUP_EVENT : local wakeup-event received
+ * - ABORT_REASON_PU_BUSY : PU is busy
+ * - ABORT_REASON_NO_PWRDN : no external powerdown supported
+ * - ABORT_REASON_UNKNOWN : unknown error during suspend procedure
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmClient_AbortSuspend(const enum XPmAbortReason Reason)
+{
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	PACK_PAYLOAD2(Payload, PM_ABORT_SUSPEND, Reason, PrimaryProc->DevId);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/*
+	 * Do client specific abort suspend operations
+	 * (e.g. enable interrupts and clear powerdown request bit)
+	 */
+	XPmClient_ClientAbortSuspend();
+
+done:
+	return Status;
+}
