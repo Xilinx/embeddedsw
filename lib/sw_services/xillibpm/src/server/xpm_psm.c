@@ -163,3 +163,18 @@ u32 XPmPsm_FwIsPresent(void)
 done:
 	return Reg;
 }
+
+void XPmPsm_RegWrite(const u32 Offset, const u32 Value)
+{
+	XPm_Psm *Psm;
+
+	Psm = (XPm_Psm *)PmDevices[XPM_NODEIDX_DEV_PSM_PROC];
+	if (NULL == Psm) {
+		goto done;
+	}
+
+	PmOut32(Psm->Core.Device.Node.BaseAddress + Offset, Value);
+
+done:
+	return;
+}
