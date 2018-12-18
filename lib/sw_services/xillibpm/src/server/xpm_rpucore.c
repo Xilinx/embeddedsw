@@ -85,9 +85,11 @@ XStatus XPmRpuCore_Init(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, u32 *BaseAddress,
 	if (XPM_DEVID_R50_0 == Id) {
 		RpuCore->ResumeCfg = RpuCore->Core.Device.Node.BaseAddress +
 				     RPU_0_CFG_OFFSET;
+		RpuCore->Core.Mask = XPM_RPU0_0_PWR_CTRL_MASK;
 	} else {
 		RpuCore->ResumeCfg = RpuCore->Core.Device.Node.BaseAddress +
 				     RPU_1_CFG_OFFSET;
+		RpuCore->Core.Mask = XPM_RPU0_1_PWR_CTRL_MASK;
 	}
 
 done:

@@ -38,6 +38,7 @@
 #define PSM_GLOBAL_REQ_PWRUP_TRIG		(0x00000120)
 #define PSM_GLOBAL_REQ_PWRDWN_EN		(0x00000218)
 #define PSM_GLOBAL_REQ_PWRDWN_TRIG		(0x00000220)
+#define PSM_GLOBAL_PWR_CTRL_EN			(0x0000071C)
 
 #define PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK    (0x00000010)
 #define XPM_PSM_WAKEUP_MASK			BIT(2)
@@ -59,6 +60,7 @@ XStatus XPmPsm_Init(XPm_Psm *Psm,
 XStatus XPmPsm_PowerUp(u32 BitMask);
 XStatus XPmPsm_PowerDown(u32 BitMask);
 u32 XPmPsm_FwIsPresent(void);
+void XPmPsm_RegWrite(const u32 Offset, const u32 Value);
 
 /** @} */
 #endif /* XPM_PSM_H_ */

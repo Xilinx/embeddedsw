@@ -71,6 +71,11 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			Address += Pload[1] & ~0x1U;
 			Status = XPm_RequestWakeUp(SubsystemId, Pload[0], SetAddress, Address);
 			break;
+		case PM_SELF_SUSPEND:
+			Status = XPm_SelfSuspend(SubsystemId, Pload[0],
+						 Pload[1], Pload[2], Pload[3],
+						 Pload[4]);
+			break;
 		case PM_CLOCK_SETPARENT:
 			Status = XPm_SetClockParent(SubsystemId, Pload[0], Pload[1]);
 			break;
@@ -216,9 +221,13 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId))
 
 	/* Initialize subsystems */
 	for (i = 0; i < XPM_SUBSYSID_MAX; i++) {
-		XPmSubsystem_Offline(i);
+		Status = XPmSubsystem_SetState(i, OFFLINE);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 	}
 
+done:
 	return Status;
 }
 
@@ -309,6 +318,57 @@ XStatus XPm_DestroySubsystem(u32 SubsystemId)
 
 	Status = XPmSubsystem_Destroy(SubsystemId);
 
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function can be used by a subsystem to suspend a child
+ * subsystem.
+ *
+ * @param SubsystemId	Subsystem ID
+ * @param DeviceId	Processor device ID
+ * @param Latency	Maximum wake-up latency requirement in us(microsecs)
+ * @param State		Instead of specifying a maximum latency, a CPU can also
+ *			explicitly request a certain power state.
+ * @param AddressLow	Lower Address from which to resume when wake up.
+ * @param AddressHigh	Higher Address from which to resume when wake up.
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
+XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
+			const u32 Latency, const u8 State,
+			u32 AddrLow, u32 AddrHigh)
+{
+	XStatus Status = XST_SUCCESS;
+	XPm_Core *Core;
+	u64 Address = (u64)AddrLow + ((u64)AddrHigh << 32ULL);
+
+	/* TODO: Remove this warning fix hack when functionality is implemented */
+	(void)Latency;
+	(void)State;
+
+	if((NODECLASS(DeviceId) == XPM_NODECLASS_DEVICE) &&
+	   (NODESUBCLASS(DeviceId) == XPM_NODESUBCL_DEV_CORE)) {
+		Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+		Core->ResumeAddr = Address | 1U;
+		Core->Device.Node.State = XPM_DEVSTATE_SUSPENDING;
+	} else {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	ENABLE_WFI(Core->Mask);
+
+	if (XST_SUCCESS == XPmSubsystem_IsAllProcDwn(SubsystemId)) {
+		Status = XPmSubsystem_SetState(SubsystemId, SUSPENDING);
+	}
+
+done:
 	return Status;
 }
 

@@ -187,18 +187,20 @@ done:
 	return Status;
 }
 
-void XPmSubsystem_Offline(const u32 SubsystemId)
+XStatus XPmSubsystem_SetState(const u32 SubsystemId, const u32 State)
 {
-	PmSubsystems[SubsystemId].State = OFFLINE;
-	ReservedSubsystemId = INVALID_SUBSYSID;
-	return;
-}
+	XStatus Status = XST_FAILURE;
 
-void XPmSubsystem_Online(const u32 SubsystemId)
-{
-	PmSubsystems[SubsystemId].State = ONLINE;
+	if ((State >= MAX_STATE) || (SubsystemId >= XPM_SUBSYSID_MAX)) {
+		goto done;
+	}
+
+	PmSubsystems[SubsystemId].State = State;
 	ReservedSubsystemId = INVALID_SUBSYSID;
-	return;
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
 }
 
 XStatus XPmSubsystem_Create(void (*const NotifyCb)(u32 SubsystemId,
@@ -219,16 +221,53 @@ XStatus XPmSubsystem_Create(void (*const NotifyCb)(u32 SubsystemId,
 	Status = XST_SUCCESS;
 #endif
 	if (XST_FAILURE == Status) {
-		XPmSubsystem_Offline(SubsysId);
+		Status = XPmSubsystem_SetState(SubsysId, OFFLINE);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 		(void) XPmSubsystem_Destroy(SubsysId);
 		goto done;
 	}
 
 	PmSubsystems[SubsysId].NotifyCb = NotifyCb;
-	XPmSubsystem_Online(SubsysId);
+	Status = XPmSubsystem_SetState(SubsysId, ONLINE);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	*SubsystemId = SubsysId;
 	Status = XST_SUCCESS;
+done:
+	return Status;
+}
+
+XStatus XPmSubsystem_IsAllProcDwn(u32 SubsystemId)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Subsystem *Subsystem;
+	XPm_Requirement *Reqm;
+	XPm_Device *Device;
+	u32 SubClass;
+
+	if (SubsystemId >= XPM_SUBSYSID_MAX) {
+		goto done;
+	}
+
+	Subsystem = &PmSubsystems[SubsystemId];
+	Reqm = Subsystem->Requirements;
+	while (NULL != Reqm) {
+		if (TRUE == Reqm->Allocated) {
+			Device = Reqm->Device;
+			SubClass = NODESUBCLASS(Device->Node.Id);
+			if ((XPM_NODESUBCL_DEV_CORE == SubClass) &&
+			    (XPM_DEVSTATE_RUNNING == Device->Node.State)) {
+				goto done;
+			}
+		}
+		Reqm = Reqm->NextDevice;
+	}
+	Status = XST_SUCCESS;
+
 done:
 	return Status;
 }
@@ -257,8 +296,7 @@ XStatus XPmSubsystem_Destroy(u32 SubsystemId)
 		Reqm = Reqm->NextDevice;
 	}
 
-	XPmSubsystem_Offline(SubsystemId);
-	Status = XST_SUCCESS;
+	Status = XPmSubsystem_SetState(SubsystemId, OFFLINE);
 done:
 	return Status;
 }

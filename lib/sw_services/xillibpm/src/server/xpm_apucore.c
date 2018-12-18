@@ -75,5 +75,11 @@ XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,
 		Id, BaseAddress,
 		Power, Clock, Reset, Ipi, &ApuOps);
 
+	if (XPM_DEVID_ACPU_0 == Id) {
+		ApuCore->Core.Mask = XPM_ACPU_0_PWR_CTRL_MASK;
+	} else {
+		ApuCore->Core.Mask = XPM_ACPU_1_PWR_CTRL_MASK;
+	}
+
 	return Status;
 }

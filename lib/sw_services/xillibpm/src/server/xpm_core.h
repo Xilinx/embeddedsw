@@ -34,6 +34,8 @@
 
 #define MAX_CORE_REGS 3
 
+#define ENABLE_WFI(Mask)	XPmPsm_RegWrite(PSM_GLOBAL_PWR_CTRL_EN, Mask);
+
 typedef struct XPm_Core XPm_Core;
 
 /* Core Operations */
@@ -50,7 +52,9 @@ struct XPm_Core {
 	u32 ImageId; /**< ImageId: Image ID */
 	u8 Ipi; /**< IPI channel */
 	u32 RegAddress[MAX_BASEADDR_LEN-1];	/*Proc device is allowed to pass 3 base addresses, 1 will be stored as node baseaddress*/
+	u64 ResumeAddr;
 	struct XPm_CoreOps *CoreOps; /**< Core operations */
+	u32 Mask;
 };
 
 /************************** Function Prototypes ******************************/

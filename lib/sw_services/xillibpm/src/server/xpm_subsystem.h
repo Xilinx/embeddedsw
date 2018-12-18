@@ -56,7 +56,9 @@ typedef enum {
 typedef enum {
 	OFFLINE,
 	RESERVED,
-	ONLINE
+	ONLINE,
+	SUSPENDING,
+	MAX_STATE
 } XPm_SubsysState;
 
 typedef struct XPm_Requirement XPm_Requirement;
@@ -83,11 +85,11 @@ u32 XPmSubsystem_GetSubSysId(u32 IpiId);
 XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId);
 XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId);
 XStatus XPmSubsystem_Reserve(u32 *SubsystemId);
-void XPmSubsystem_Offline(const u32 SubsystemId);
-void XPmSubsystem_Online(const u32 SubsystemId);
+XStatus XPmSubsystem_SetState(const u32 SubsystemId, const u32 State);
 XStatus XPmSubsystem_Create(void (*const NotifyCb)(u32 SubsystemId,
 						   const u32 EventId),
 			    u32 *SubsystemId);
 XStatus XPmSubsystem_Destroy(u32 SubsystemId);
+XStatus XPmSubsystem_IsAllProcDwn(u32 SubsystemId);
 
 #endif /* XPM_SUBSYSTEM_H_ */
