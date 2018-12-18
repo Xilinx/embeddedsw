@@ -39,7 +39,7 @@
 #include "xpm_pin.h"
 #include "xplmi_modules.h"
 
-void (* PmRequestCb)(u32 SubsystemId, const u32 EventId);
+void (* PmRequestCb)(u32 SubsystemId, const u32 EventId, u32 *Payload);
 
 static XPlmi_ModuleCmd XPlmi_PmCmds[PM_API_MAX+1];
 static XPlmi_Module XPlmi_Pm =
@@ -75,6 +75,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			Status = XPm_SelfSuspend(SubsystemId, Pload[0],
 						 Pload[1], Pload[2], Pload[3],
 						 Pload[4]);
+			break;
+		case PM_REQUEST_SUSPEND:
+			Status = XPm_RequestSuspend(SubsystemId, Pload[0], Pload[1], Pload[2]);
 			break;
 		case PM_ABORT_SUSPEND:
 			Status = XPm_AbortSuspend(SubsystemId, Pload[0], Pload[1]);
@@ -203,7 +206,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId))
+XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u32 *Payload))
 {
 	XStatus Status = XST_SUCCESS;
 	unsigned int i;
@@ -411,6 +414,64 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 
 	if (XST_SUCCESS == XPmSubsystem_IsAllProcDwn(SubsystemId)) {
 		Status = XPmSubsystem_SetState(SubsystemId, SUSPENDING);
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function can be used by a subsystem to send suspend request
+ * to another subsystem.  If the target subsystem accepts the request, it
+ * needs to initiate its own self suspend.
+ *
+ * @param SubsystemId		Subsystem ID
+ * @param TargetSubsystemId	Target subsystem ID (cannot be the same subsystem)
+ * @param Latency		Desired wakeup latency
+ * @param State			Desired power state
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   This function does not block.  A successful return code means that
+ * the request has been sent.
+ *
+ ****************************************************************************/
+XStatus XPm_RequestSuspend(const u32 SubsystemId, const u32 TargetSubsystemId,
+			   const u32 Latency, const u32 State)
+{
+	XStatus Status = XST_SUCCESS;
+	u32 IpiMask = 0;
+	u32 Payload[5] = {0};
+
+	IpiMask = XPmSubsystem_GetIPIMask(TargetSubsystemId);
+	if (0 == IpiMask) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if (SubsystemId == TargetSubsystemId) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* TODO: Check if current subsystem has access to request target subsystem */
+
+	/* TODO: Target subsystem must be active to get the suspend request */
+
+	/* TODO: Check if other subsystem has sent suspend request to target subsystem */
+
+	Payload[0] = XPM_INIT_SUSPEND_CB;
+	Payload[1] = SUSPEND_REASON_SUBSYSTEM_REQ;
+	Payload[2] = Latency;
+	Payload[3] = State;
+	/* Payload[4] is for timeout which is not considered */
+	Payload[4] = 0U;
+
+	/* Send the suspend request via callback */
+	if (PmRequestCb) {
+		(*PmRequestCb)(IpiMask, XPM_INIT_SUSPEND_CB, Payload);
 	}
 
 done:
