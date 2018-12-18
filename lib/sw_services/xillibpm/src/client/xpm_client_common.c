@@ -27,6 +27,7 @@
 ******************************************************************************/
 
 #include "xpm_client_common.h"
+#include <xil_cache.h>
 #include "xillibpm_node.h"
 #if defined (__aarch64__)
 #include <xreg_cortexa53.h>
@@ -34,14 +35,34 @@
 #include <xreg_cortexr5.h>
 #endif
 
+#define XPM_ARRAY_SIZE(x)		(sizeof(x) / sizeof(x[0]))
+
+#define APU_DEVID(IDX)			NODEID(XPM_NODECLASS_DEVICE, \
+					       XPM_NODESUBCL_DEV_CORE, \
+					       XPM_NODETYPE_DEV_CORE_APU, (IDX))
+
+#define RPU_DEVID(IDX)			NODEID(XPM_NODECLASS_DEVICE, \
+					       XPM_NODESUBCL_DEV_CORE, \
+					       XPM_NODETYPE_DEV_CORE_RPU, (IDX))
+
 #define PM_AFL0_MASK			(0xFF)
 
 #if defined (__aarch64__)
+#define APU_PWRCTRL_OFFSET		(0x90)
+#define APU_0_PWRCTL_CPUPWRDWNREQ_MASK	(0x00000001)
+#define APU_1_PWRCTL_CPUPWRDWNREQ_MASK	(0x00000002)
+
 static struct XPm_Proc Proc_APU0 = {
+	.DevId = APU_DEVID(XPM_NODEIDX_DEV_ACPU_0),
+	.PwrCtrl = XPAR_PSU_APU_0_S_AXI_BASEADDR + APU_PWRCTRL_OFFSET,
+	.PwrDwnMask = APU_0_PWRCTL_CPUPWRDWNREQ_MASK,
 	.Ipi = NULL,
 };
 
 static struct XPm_Proc Proc_APU1 = {
+	.DevId = APU_DEVID(XPM_NODEIDX_DEV_ACPU_1),
+	.PwrCtrl = XPAR_PSU_APU_0_S_AXI_BASEADDR + APU_PWRCTRL_OFFSET,
+	.PwrDwnMask = APU_1_PWRCTL_CPUPWRDWNREQ_MASK,
 	.Ipi = NULL,
 };
 
@@ -52,14 +73,23 @@ static struct XPm_Proc *const ProcList[] = {
 
 struct XPm_Proc *PrimaryProc = &Proc_APU0;
 #elif defined (__arm__)
+#define RPU_0_PWRDWN_OFFSET		(0x108)
+#define RPU_1_PWRDWN_OFFSET		(0x208)
+#define RPU_PWRDWN_EN_MASK		(0x1)
 #define RPU_GLBL_CTRL_OFFSET		(0x00)
 #define RPU_GLBL_CNTL_SLSPLIT_MASK	(0x00000008)
 
 static struct XPm_Proc Proc_RPU0 = {
+	.DevId = RPU_DEVID(XPM_NODEIDX_DEV_RPU0_0),
+	.PwrCtrl = XPAR_PSU_RPU_0_S_AXI_BASEADDR + RPU_0_PWRDWN_OFFSET,
+	.PwrDwnMask = RPU_PWRDWN_EN_MASK,
 	.Ipi = NULL,
 };
 
 static struct XPm_Proc Proc_RPU1 = {
+	.DevId = RPU_DEVID(XPM_NODEIDX_DEV_RPU0_1),
+	.PwrCtrl = XPAR_PSU_RPU_0_S_AXI_BASEADDR + RPU_1_PWRDWN_OFFSET,
+	.PwrDwnMask = RPU_PWRDWN_EN_MASK,
 	.Ipi = NULL,
 };
 
@@ -100,4 +130,54 @@ void XPmClient_SetPrimaryProc(void)
 
 	ProcId &= PM_AFL0_MASK;
 	PrimaryProc = ProcList[ProcId];
+}
+
+struct XPm_Proc *XpmClient_GetProcByDeviceId(u32 DeviceId)
+{
+	struct XPm_Proc *Proc = NULL;
+	u8 Idx;
+
+	for (Idx = 0; Idx < XPM_ARRAY_SIZE(ProcList); Idx++) {
+		if (DeviceId == ProcList[Idx]->DevId) {
+			Proc = ProcList[Idx];
+			break;
+		}
+	}
+
+	return Proc;
+}
+
+void XPmClient_Suspend(const struct XPm_Proc *const Proc)
+{
+	u32 PwrDwnReg;
+
+	/* Disable interrupts at processor level */
+	XpmDisableInterrupts();
+
+	/* Set powerdown request */
+	PwrDwnReg = XPm_Read(Proc->PwrCtrl);
+	PwrDwnReg |= Proc->PwrDwnMask;
+	XPm_Write(Proc->PwrCtrl, PwrDwnReg);
+}
+
+void XPmClient_ClientSuspendFinalize(void)
+{
+	u32 CtrlReg;
+
+	/* Flush the data cache only if it is enabled */
+#ifdef __aarch64__
+	CtrlReg = mfcp(SCTLR_EL3);
+	if (XREG_CONTROL_DCACHE_BIT & CtrlReg) {
+		Xil_DCacheFlush();
+	}
+#else
+	CtrlReg = mfcp(XREG_CP15_SYS_CONTROL);
+	if (XREG_CP15_CONTROL_C_BIT & CtrlReg) {
+		Xil_DCacheFlush();
+	}
+#endif
+
+	XPm_Dbg("Going to WFI...\n");
+	__asm__("wfi");
+	XPm_Dbg("WFI exit...\n");
 }

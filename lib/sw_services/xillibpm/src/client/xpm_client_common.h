@@ -42,6 +42,9 @@
  * XPm_Proc - Processor structure
  */
 struct XPm_Proc {
+	const u32 DevId;                /**< Device ID */
+	const u32 PwrCtrl;              /**< Power Control Register Address */
+	const u32 PwrDwnMask;           /**< Power Down Mask */
 	XIpiPsu *Ipi;			/**< IPI Instance */
 };
 
@@ -49,6 +52,8 @@ extern struct XPm_Proc *PrimaryProc;
 
 #define XPm_Read(addr)			Xil_In32(addr)
 #define XPm_Write(addr, value)		Xil_Out32(addr, value)
+#define XpmEnableInterrupts()		Xil_ExceptionEnable()
+#define XpmDisableInterrupts()		Xil_ExceptionDisable()
 
 #if defined (__aarch64__)
 #define XPm_Print(MSG, ...)		xil_printf("APU: "MSG, ##__VA_ARGS__)
@@ -65,5 +70,8 @@ extern char ProcName[5];
 #endif
 
 void XPmClient_SetPrimaryProc(void);
+struct XPm_Proc *XpmClient_GetProcByDeviceId(u32 DeviceId);
+void XPmClient_Suspend(const struct XPm_Proc *const Proc);
+void XPmClient_ClientSuspendFinalize(void);
 
 #endif /* XPM_CLIENT_COMMON_H_ */

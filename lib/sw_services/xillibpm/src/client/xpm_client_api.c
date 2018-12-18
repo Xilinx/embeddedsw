@@ -1056,3 +1056,83 @@ XStatus XPmClient_GetPllMode(const u32 ClockId, u32 *const Value)
 done:
 	return Status;
 }
+
+/****************************************************************************/
+/**
+ * @brief  This function is used by a CPU to declare that it is about to
+ * suspend itself.
+ *
+ * @param DeviceId	Device ID of the CPU
+ * @param Latency	Maximum wake-up latency requirement in us(microsecs)
+ * @param State		Instead of specifying a maximum latency, a CPU can also
+ *			explicitly request a certain power state.
+ * @param Address	Address from which to resume when woken up.
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmClient_SelfSuspend(const u32 DeviceId, const u32 Latency,
+			      const u8 State, const u64 Address)
+{
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+	struct XPm_Proc *Proc;
+
+	Proc = XpmClient_GetProcByDeviceId(DeviceId);
+	if (NULL == Proc) {
+		XPm_Dbg("ERROR: Invalid Device ID\r\n");
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	XPmClient_Suspend(Proc);
+
+	PACK_PAYLOAD5(Payload, PM_SELF_SUSPEND, DeviceId, Latency, State,
+		      (u32)Address, (u32)(Address >> 32));
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(Proc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(Proc, NULL, NULL, NULL);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This Function waits for firmware to finish all previous API requests
+ * sent by the PU and performs client specific actions to finish suspend
+ * procedure (e.g. execution of wfi instruction on A53 and R5 processors).
+ *
+ * @note   This function should not return if the suspend procedure is
+ * successful.
+ *
+ ****************************************************************************/
+void XPmClient_SuspendFinalize(void)
+{
+	XStatus Status;
+
+	/*
+	 * Wait until previous IPI request is handled by the PMU.
+	 * If PMU is busy, keep trying until PMU becomes responsive
+	 */
+	do {
+		Status = XIpiPsu_PollForAck(PrimaryProc->Ipi,
+					    TARGET_IPI_INT_MASK,
+					    PM_IPI_TIMEOUT);
+		if (Status != XST_SUCCESS) {
+			XPm_Dbg("ERROR timed out while waiting for PMU to"
+				" finish processing previous PM-API call\n");
+		}
+	} while (XST_SUCCESS != Status);
+
+	XPmClient_ClientSuspendFinalize();
+}
