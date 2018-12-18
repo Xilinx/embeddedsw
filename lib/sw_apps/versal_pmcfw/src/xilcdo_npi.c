@@ -66,6 +66,7 @@ extern XilCdo_Prtn XilCdoPrtnInst;
 XILCDO_NPI_SEQ* XilCdoNpiSeqInstPtr = NULL;
 XILCDO_NPI_SEQ XilCdoNpiSeqInstance;
 u32 ScanClearDone;
+u32 NpiCmd;
 /*****************************************************************************/
 /**
  * This function writes PCSR control register
@@ -179,10 +180,53 @@ void XilCdo_SetGlobalSignals(void)
 	XilCdo_DisableCFUWrite();
 }
 
+void XilCdo_ClearGlobalSignals(void)
+{
+	u32 RegVal = Xil_In32(CFU_APB_CFU_FGCR);
+
+	XilCdo_EnableCFUWrite();
+	XilCdo_SetGSCWE();
+	XilCdo_ClearEOS();
+	XilCdo_ClearGWE();
+
+	Xil_Out32(CFU_APB_CFU_MASK, CFU_APB_CFU_FGCR_GRESTORE_MASK);
+	RegVal &= ~CFU_APB_CFU_FGCR_GRESTORE_MASK;
+	Xil_Out32(CFU_APB_CFU_FGCR, RegVal);
+
+
+	RegVal |= CFU_APB_CFU_FGCR_GRESTORE_MASK;
+	Xil_Out32(CFU_APB_CFU_MASK,CFU_APB_CFU_FGCR_GRESTORE_MASK);
+	Xil_Out32(CFU_APB_CFU_FGCR, RegVal);
+
+	RegVal &= ~CFU_APB_CFU_FGCR_GTS_CFG_B_MASK;
+	Xil_Out32(CFU_APB_CFU_MASK, CFU_APB_CFU_FGCR_GTS_CFG_B_MASK);
+	Xil_Out32(CFU_APB_CFU_FGCR, RegVal);
+
+	RegVal &= ~CFU_APB_CFU_FGCR_GHIGH_B_MASK;
+	Xil_Out32(CFU_APB_CFU_MASK, CFU_APB_CFU_FGCR_GHIGH_B_MASK);
+	Xil_Out32(CFU_APB_CFU_FGCR, RegVal);
+
+	usleep(100U);
+
+	Xil_Out32(CFU_APB_CFU_MASK, CFU_APB_CFU_FGCR_GMC_B_MASK);
+	RegVal &= ~CFU_APB_CFU_FGCR_GMC_B_MASK;
+	Xil_Out32(CFU_APB_CFU_FGCR, RegVal);
+
+	XilCdo_DisableCFUWrite();
+}
+
 void XilCdo_SetEOS(void)
 {
 	u32 RegVal = Xil_In32(CFU_APB_CFU_FGCR);
 	RegVal |= CFU_APB_CFU_FGCR_EOS_MASK;
+	Xil_Out32(CFU_APB_CFU_MASK, CFU_APB_CFU_FGCR_EOS_MASK);
+	Xil_Out32(CFU_APB_CFU_FGCR, RegVal);
+}
+
+void XilCdo_ClearEOS(void)
+{
+	u32 RegVal = Xil_In32(CFU_APB_CFU_FGCR);
+	RegVal &= ~CFU_APB_CFU_FGCR_EOS_MASK;
 	Xil_Out32(CFU_APB_CFU_MASK, CFU_APB_CFU_FGCR_EOS_MASK);
 	Xil_Out32(CFU_APB_CFU_FGCR, RegVal);
 }
@@ -192,6 +236,30 @@ void XilCdo_SetGWE(void)
 	u32 RegVal = Xil_In32(CFU_APB_CFU_FGCR);
 	RegVal |= CFU_APB_CFU_FGCR_GWE_MASK;
 	Xil_Out32(CFU_APB_CFU_MASK, CFU_APB_CFU_FGCR_GWE_MASK);
+	Xil_Out32(CFU_APB_CFU_FGCR, RegVal);
+}
+
+void XilCdo_ClearGWE(void)
+{
+	u32 RegVal = Xil_In32(CFU_APB_CFU_FGCR);
+	RegVal &= ~CFU_APB_CFU_FGCR_GWE_MASK;
+	Xil_Out32(CFU_APB_CFU_MASK, CFU_APB_CFU_FGCR_GWE_MASK);
+	Xil_Out32(CFU_APB_CFU_FGCR, RegVal);
+}
+
+void XilCdo_SetGSCWE(void)
+{
+	u32 RegVal = Xil_In32(CFU_APB_CFU_FGCR);
+	RegVal |= CFU_APB_CFU_FGCR_GSCWE_MASK;
+	Xil_Out32(CFU_APB_CFU_MASK, CFU_APB_CFU_FGCR_GSCWE_MASK);
+	Xil_Out32(CFU_APB_CFU_FGCR, RegVal);
+}
+
+void XilCdo_ClearGSCWE(void)
+{
+	u32 RegVal = Xil_In32(CFU_APB_CFU_FGCR);
+	RegVal &= ~CFU_APB_CFU_FGCR_GSCWE_MASK;
+	Xil_Out32(CFU_APB_CFU_MASK, CFU_APB_CFU_FGCR_GSCWE_MASK);
 	Xil_Out32(CFU_APB_CFU_FGCR, RegVal);
 }
 
@@ -638,6 +706,11 @@ void XilCdo_ClearShutDown(u32 BaseAddr)
 	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_SHTDN_MASK, 0x0U);
 }
 
+void XilCdo_CheckShutDown(u32 BaseAddr)
+{
+	while((Xil_In32(BaseAddr + XILCDO_NPI_PCSR_STATUS_OFFSET) & PCSR_STATUS_SHUTDN_COMP_MASK)==0U);
+}
+
 /*****************************************************************************/
 /**
  * This function clears the TriState bit for the block
@@ -784,6 +857,17 @@ void XilCdo_RunAxiReqRejectMode(u32 BaseAddr)
 	}
 }
 
+void XilCdo_CheckRegBusy(u32 BaseAddr)
+{
+	while(Xil_In32(BaseAddr + XILCDO_REG_BUSY_OFFSET) & XILCDO_REG_BUSY_MASK);
+}
+
+void XilCdo_CheckRegPendingBurst(u32 BaseAddr)
+{
+	while(Xil_In32(BaseAddr + XILCDO_REG_PEND_BURST_OFFSET) &
+							XILCDO_REG_PEND_BURST_OFFSET_MASK);
+}
+
 /*****************************************************************************/
 /**
  * This function runs the PR Mode for NOC NSU blocks
@@ -812,6 +896,12 @@ void XilCdo_ClearInitCtrl(u32 BaseAddr)
 {
 	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_INIT_CTRL_MASK, 0U);
 }
+
+void XilCdo_SetInitCtrl(u32 BaseAddr)
+{
+	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_INIT_CTRL_MASK, PCSR_MASK_INIT_CTRL_MASK);
+}
+
 void XilCdo_SetBISRTrigger(u32 BaseAddr)
 {
 	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_BISR_TRIGGER_MASK,
@@ -949,6 +1039,26 @@ void XilCdo_ClearODisable1(u32 BaseAddr)
 	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_ODISABLE1_MASK, 0x0U);
 }
 
+void XilCdo_SetODisableAXI(u32 BaseAddr)
+{
+	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_ODISABLE_AXI_MASK, PCSR_MASK_ODISABLE_AXI_MASK);
+}
+
+void XilCdo_ClearODisableNPP(u32 BaseAddr)
+{
+	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_ODISABLE_NPP_MASK, 0U);
+}
+
+void XilCdo_ClearODisableAXI(u32 BaseAddr)
+{
+	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_ODISABLE_AXI_MASK, 0U);
+}
+
+void XilCdo_SetODisableNPP(u32 BaseAddr)
+{
+	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_ODISABLE_NPP_MASK, PCSR_MASK_ODISABLE_NPP_MASK);
+}
+
 void XilCdo_ClearMEArrayReset(u32 BaseAddr)
 {
 	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_ME_ARRAY_RESET_MASK, 0x0U);
@@ -982,6 +1092,17 @@ void XilCdo_SetOD_BIST_SETUP1(u32 BaseAddr)
 			PCSR_MASK_OD_BIST_SETUP1);
 }
 
+void XilCdo_SetPRFreeze(u32 BaseAddr)
+{
+	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_PR_FREEZE_MASK,
+			PCSR_MASK_PR_FREEZE_MASK);
+}
+
+void XilCdo_ClearPRFreeze(u32 BaseAddr)
+{
+	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_PR_FREEZE_MASK, 0U);
+}
+
 /*****************************************************************************/
 /**
  * This function does the required NPI startup sequence for the block
@@ -993,12 +1114,24 @@ void XilCdo_SetOD_BIST_SETUP1(u32 BaseAddr)
  *****************************************************************************/
 XStatus XilCdo_NpiSeq(u32 CmdArgs[10U])
 {
+	XStatus Status;
+
+	CmdArgs[9U] = CMD_NPI_SEQ_ARGS;
+	if((NpiCmd != 0U) &&(NpiCmd != CMD_NPI_SEQ))
+	{
+		XilCdo_RunPendingNpiSeq();
+	}
+	NpiCmd = CMD_NPI_SEQ;
+	Status = XilCdo_StoreNpiParams(CmdArgs);
+	return Status;
+}
+
+XStatus XilCdo_StoreNpiParams(u32 CmdArgs[10U])
+{
 	u32 BaseAddr = CmdArgs[0U];
 	u32 NpiParam = CmdArgs[1U];
 	u32 BlockType;
 	XStatus Status;
-
-	CmdArgs[9U] = CMD_NPI_SEQ_ARGS;
 	if(XilCdoNpiSeqInstPtr == NULL)
 	{
 		/** Initialization of instance variable */
@@ -1040,75 +1173,85 @@ XStatus XilCdo_NpiSeq(u32 CmdArgs[10U])
 		case XILCDO_NPI_BLK_VERT_TO_HSR:
 			{
 				XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VERT_TO_HSR_BaseAddr
-					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]] = BaseAddr;
+					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]++] = BaseAddr;
 			}
 			break;
 		case XILCDO_NPI_BLK_VERT_TO_HSR_GT:
 			{
 				XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VERT_TO_HSR_GT_BaseAddr
-					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]] = BaseAddr;
+					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]++] = BaseAddr;
 			}
 			break;
 		case XILCDO_NPI_BLK_REBUF_VRT:
 			{
 				XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_REBUF_VRT_BaseAddr
-					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]] = BaseAddr;
+					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]++] = BaseAddr;
 			}
 			break;
 		case XILCDO_NPI_BLK_REBUF_VRT_GT:
 			{
 				XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_REBUF_VRT_GT_BaseAddr
-					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]] = BaseAddr;
+					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]++] = BaseAddr;
 			}
 			break;
 		case XILCDO_NPI_BLK_REBUF_HSR_TNOC_ME:
 			{
 				XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_REBUF_HSR_TNOC_ME_BaseAddr
-					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]] = BaseAddr;
+					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]++] = BaseAddr;
 			}
 			break;
 		case XILCDO_NPI_BLK_HSR_BUFGS:
 			{
 				XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_HSR_BUFGS_BaseAddr
-					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]] = BaseAddr;
+					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]++] = BaseAddr;
 			}
 			break;
 		case XILCDO_NPI_BLK_VNOC_PS:
 			{
 				XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VNOC_PS_BaseAddr
-					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]] = BaseAddr;
+					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]++] = BaseAddr;
 			}
 			break;
 		case XILCDO_NPI_BLK_VNOC:
 			{
 				XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VNOC_BaseAddr
-					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]] = BaseAddr;
+					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]++] = BaseAddr;
 			}
 			break;
 		case XILCDO_NPI_BLK_CLK_GT:
 			{
 				XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_CLK_GT_BaseAddr
-					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]] = BaseAddr;
+					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]++] = BaseAddr;
 			}
 			break;
 		case XILCDO_NPI_BLK_MMCM:
 			{
 				XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_MMCM_BaseAddr
-					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]] = BaseAddr;
+					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]++] = BaseAddr;
 			}
 			break;
 		case XILCDO_NPI_BLK_DPLL:
 			{
 				XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DPLL_BaseAddr
-					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]] = BaseAddr;
+					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]++] = BaseAddr;
 			}
 			break;
 		case XILCDO_NPI_BLK_XPLL:
 			{
-				XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr
-					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]] = BaseAddr;
-				XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_NpiParam
-					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]++] = NpiParam;
+				if(BaseAddr < XILCDO_NPI_BLK_XPLL_START_ADDR)
+				{
+					XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_PLL_PHY_BaseAddr
+						[XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_PLL_PHY]] = BaseAddr;
+					XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_PLL_PHY_NpiParam
+						[XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_PLL_PHY]++] = NpiParam;
+				}
+				else
+				{
+					XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr
+						[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]] = BaseAddr;
+					XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_NpiParam
+						[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]++] = NpiParam;
+				}
 			}
 			break;
 		case XILCDO_NPI_BLK_XPHY:
@@ -1122,19 +1265,19 @@ XStatus XilCdo_NpiSeq(u32 CmdArgs[10U])
 		case XILCDO_NPI_BLK_DDRMC:
 			{
 				XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_BaseAddr
-					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]] = BaseAddr;
+					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]++] = BaseAddr;
 			}
 			break;
 		case XILCDO_NPI_BLK_AMS_SAT:
 			{
 				XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_AMS_SAT_BaseAddr
-					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]] = BaseAddr;
+					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]++] = BaseAddr;
 			}
 			break;
 		case XILCDO_NPI_BLK_AMS_ROOT:
 			{
 				XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_AMS_ROOT_BaseAddr
-					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]] = BaseAddr;
+					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]++] = BaseAddr;
 			}
 			break;
 		case XILCDO_NPI_BLK_XPIPE:
@@ -1156,25 +1299,25 @@ XStatus XilCdo_NpiSeq(u32 CmdArgs[10U])
 		case XILCDO_NPI_BLK_ME_NPI:
 			{
 				XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_ME_NPI_BaseAddr
-					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]] = BaseAddr;
+					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]++] = BaseAddr;
 			}
 			break;
 		case XILCDO_NPI_BLK_NOC_NPS:
 			{
 				XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NPS_BaseAddr
-					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]] = BaseAddr;
+					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]++] = BaseAddr;
 			}
 			break;
 		case XILCDO_NPI_BLK_NOC_IDB:
 			{
 				XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_IDB_BaseAddr
-					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]] = BaseAddr;
+					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]++] = BaseAddr;
 			}
 			break;
 		case XILCDO_NPI_BLK_NOC_NCRB:
 			{
 				XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NCRB_BaseAddr
-					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]] = BaseAddr;
+					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]++] = BaseAddr;
 			}
 			break;
 		case XILCDO_NPI_BLK_NOC_NSU:
@@ -1214,21 +1357,49 @@ END:
 XStatus XilCdo_RunPendingNpiSeq(void)
 {
 	XStatus Status;
+	u32 Count;
+
 	if(XilCdoNpiSeqInstPtr == NULL)
 	{
 		Status = XST_SUCCESS;
 		goto END;
 	}
-	XilCdo_ResetGlobalSignals();
-	XilCdo_SetGlobalSignals();
-	XilCdo_ProcIOModules();
-	XilCdoProcNocModules();
-	XilCdoProcAMSModules();
-	XilCdoProcGTModules();
-	XilCdoProcMMCM_CLK();
-	XilCdo_AssertGlobalSignals();
+	if(NpiCmd == CMD_NPI_SEQ)
+	{
+		XPmcFw_Printf(DEBUG_DETAILED,"\n Running all pending Startup/PR sequences \n\r");
+		for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_GT]; ++Count)
+		{
+			XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+		}
+		for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_GT]; ++Count)
+		{
+			XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+			XilCdo_ClearInitCtrl(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+		}
+		XilCdo_SetGlobalSignals();
+		XilCdo_ProcIOModules();
+		XilCdoProcNocModules();
+		XilCdoProcAMSModules();
+		XilCdoProcGTModules();
+		XilCdoProcMMCM_CLK();
+		XilCdo_AssertGlobalSignals();
+	}
+	else if(NpiCmd == CMD_NPI_SHUTDN)
+	{
+		XPmcFw_Printf(DEBUG_DETAILED,"\n Running all pending shut down sequences \n\r");
+		XilCdo_ShutNocModules();
+		XilCdo_ShutIOModules();
+		XilCdo_ShutGTModules();
+		XilCdo_ShutMMCM_CLK();
+		XilCdo_ClearGlobalSignals();
+	}
+	else
+	{
+
+	}
 	memset(&XilCdoNpiSeqInstance, 0U, sizeof(XilCdoNpiSeqInstance));
 	XilCdoNpiSeqInstPtr = NULL;
+	NpiCmd = 0U;
 	Status = XST_SUCCESS;
 END:
 	return Status;
@@ -1252,6 +1423,11 @@ void XilCdo_ProcIOModules(void)
 		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
 	}
 
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_PLL_PHY]; ++Count)
+	{
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_PLL_PHY_BaseAddr[Count]);
+	}
+
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPHY]; ++Count)
 	{
 		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPHY_BaseAddr[Count]);
@@ -1265,6 +1441,10 @@ void XilCdo_ProcIOModules(void)
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIO_IOMISC]; ++Count)
 	{
 		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_IOMISC_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIO_IOMISC]; ++Count)
+	{
 		XilCdo_ClearGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_IOMISC_BaseAddr[Count]);
 		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_IOMISC_NpiParam[Count] &
 					XILCDO_NPI_DDRMC_PRESENT_MASK) == XILCDO_NPI_DDRMC_PRESENT_MASK)
@@ -1285,6 +1465,10 @@ void XilCdo_ProcIOModules(void)
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIO]; ++Count)
 	{
 		XilCdo_ClearGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIO]; ++Count)
+	{
 		XilCdo_ClearODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_BaseAddr[Count]);
 	}
 
@@ -1296,6 +1480,10 @@ void XilCdo_ProcIOModules(void)
 			XilCdo_ClearTriState(XilCdoNpiSeqInstPtr->
 					XILCDO_NPI_BLK_XPIO_IOMISC_BaseAddr[Count]);
 		}
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIO_IOMISC]; ++Count)
+	{
 		XilCdo_ClearInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_IOMISC_BaseAddr[Count]);
 		XilCdo_ClearDCIOfcReset(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_IOMISC_BaseAddr[Count]);
 	}
@@ -1305,25 +1493,36 @@ void XilCdo_ProcIOModules(void)
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIO_IOMISC]; ++Count)
 	{
 		XilCdo_CheckCalibration(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_IOMISC_BaseAddr[Count]);
-		XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_IOMISC_BaseAddr[Count]);
 	}
 
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIO_IOMISC]; ++Count)
+	{
+		XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_IOMISC_BaseAddr[Count]);
+	}
 
 	/* DDR related changes */
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIO]; ++Count)
 	{
-		if(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_NpiParam[Count] &
-				XILCDO_NPI_DDRMC_PRESENT_MASK)
+		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_NpiParam[Count] &
+				XILCDO_NPI_DDRMC_PRESENT_MASK) == XILCDO_NPI_DDRMC_PRESENT_MASK)
 		{
-			XilCdo_ClearTriState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
-			XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
+			XilCdo_ClearTriState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_BaseAddr[Count]);
+			XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_BaseAddr[Count]);
 		}
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_PLL_PHY]; ++Count)
+	{
+		XilCdo_ClearGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_PLL_PHY_BaseAddr[Count]);
 	}
 
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPLL]; ++Count)
 	{
 		XilCdo_ClearGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
+	}
 
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPLL]; ++Count)
+	{
 		if(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_NpiParam[Count] & XILCDO_NPI_DDRMC_PRESENT_MASK)
 		{
 			XilCdo_SetApbEnable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
@@ -1333,7 +1532,27 @@ void XilCdo_ProcIOModules(void)
 		{
 			XilCdo_ClearInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
 			XilCdo_ClearODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
+		}
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPLL]; ++Count)
+	{
+		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_NpiParam[Count] & XILCDO_NPI_DDRMC_PRESENT_MASK)==0U)
+		{
 			XilCdo_CheckCalibration(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
+		}
+
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_PLL_PHY]; ++Count)
+	{
+		XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_PLL_PHY_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPLL]; ++Count)
+	{
+		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_NpiParam[Count] & XILCDO_NPI_DDRMC_PRESENT_MASK)==0U)
+		{
 			if(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_NpiParam[Count] & XILCDO_NPI_FABRICEN_MASK)
 			{
 				XilCdo_SetFabricEnable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
@@ -1346,9 +1565,25 @@ void XilCdo_ProcIOModules(void)
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPHY]; ++Count)
 	{
 		XilCdo_ClearGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPHY_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPHY]; ++Count)
+	{
 		XilCdo_ClearInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPHY_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPHY]; ++Count)
+	{
 		XilCdo_ClearODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPHY_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPHY]; ++Count)
+	{
 		XilCdo_ClearHoldState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPHY_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPHY]; ++Count)
+	{
 		XilCdo_ClearTriState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPHY_BaseAddr[Count]);
 		XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPHY_BaseAddr[Count]);
 	}
@@ -1356,52 +1591,76 @@ void XilCdo_ProcIOModules(void)
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_DDRMC]; ++Count)
 	{
 		XilCdo_ClearHoldState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_BaseAddr[Count]);
-		XilCdo_ClearInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_BaseAddr[Count]);
-		XilCdo_ClearUBInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_BaseAddr[Count]);
-		XilCdo_SetStartCal(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_BaseAddr[Count]);
 	}
-	usleep(100U);
 
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_DDRMC]; ++Count)
 	{
-		XilCdo_CheckCalibration(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_BaseAddr[Count]);
+		XilCdo_ClearInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_BaseAddr[Count]);
+		XilCdo_ClearUBInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_BaseAddr[Count]);
 	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_DDRMC]; ++Count)
+	{
+		XilCdo_SetStartCal(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_BaseAddr[Count]);
+	}
+	usleep(100U);
 
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPLL]; ++Count)
 	{
 		if(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_NpiParam[Count] & XILCDO_NPI_DDRMC_PRESENT_MASK)
 		{
 			XilCdo_ClearInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
-			XilCdo_ClearODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
 		}
 	}
 
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPLL]; ++Count)
+	{
+		if(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_NpiParam[Count] & XILCDO_NPI_DDRMC_PRESENT_MASK)
+		{
+			XilCdo_ClearODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
+		}
+	}
 	usleep(100U);
 
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPLL]; ++Count)
 	{
-		XilCdo_CheckCalibration(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
-		XilCdo_SetLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
+		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_NpiParam[Count] &
+						XILCDO_NPI_DDRMC_PRESENT_MASK) == XILCDO_NPI_DDRMC_PRESENT_MASK)
+		{
+			XilCdo_CheckCalibration(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
+		}
 	}
 
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_DDRMC]; ++Count)
 	{
 		XilCdo_CheckCalibration(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_BaseAddr[Count]);
-		XilCdo_ClearODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_BaseAddr[Count]);
-		XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_BaseAddr[Count]);
-		XilCdo_SetLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_BaseAddr[Count]);
 	}
 
-	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_VREF]; ++Count)
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_DDRMC]; ++Count)
 	{
-		XilCdo_SetLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VREF_BaseAddr[Count]);
+		XilCdo_ClearODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_BaseAddr[Count]);
+		XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIO]; ++Count)
+	{
+		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_NpiParam[Count] &
+					XILCDO_NPI_PR_FREEZE_MASK) == XILCDO_NPI_PR_FREEZE_MASK)
+		{
+			XilCdo_ClearPRFreeze(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_BaseAddr[Count]);
+		}
 	}
 
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIO]; ++Count)
 	{
 		XilCdo_ClearTriState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_BaseAddr[Count]);
 		XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_BaseAddr[Count]);
-		XilCdo_SetLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_BaseAddr[Count]);
+	}
+
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_VREF]; ++Count)
+	{
+		XilCdo_SetLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VREF_BaseAddr[Count]);
 	}
 
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIO_IOMISC]; ++Count)
@@ -1414,6 +1673,25 @@ void XilCdo_ProcIOModules(void)
 		XilCdo_SetLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPHY_BaseAddr[Count]);
 	}
 
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPLL]; ++Count)
+	{
+		XilCdo_SetLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_DDRMC]; ++Count)
+	{
+		XilCdo_SetLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIO]; ++Count)
+	{
+		XilCdo_SetLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_PLL_PHY]; ++Count)
+	{
+		XilCdo_SetLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_PLL_PHY_BaseAddr[Count]);
+	}
 }
 
 void XilCdoProcMMCM_CLK(void)
@@ -1479,6 +1757,11 @@ void XilCdoProcMMCM_CLK(void)
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPLL]; ++Count)
 	{
 		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_PLL_PHY]; ++Count)
+	{
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_PLL_PHY_BaseAddr[Count]);
 	}
 
 	/* Deassert GateReg for all CLK elements */
@@ -1704,16 +1987,6 @@ void XilCdoProcMMCM_CLK(void)
 		XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VERT_TO_HSR_GT_BaseAddr[Count]);
 	}
 
-	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_REBUF_VRT]; ++Count)
-	{
-		XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_REBUF_VRT_BaseAddr[Count]);
-	}
-
-	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_REBUF_VRT_GT]; ++Count)
-	{
-		XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_REBUF_VRT_GT_BaseAddr[Count]);
-	}
-
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_REBUF_HSR_TNOC_ME]; ++Count)
 	{
 		XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_REBUF_HSR_TNOC_ME_BaseAddr[Count]);
@@ -1757,6 +2030,11 @@ void XilCdoProcMMCM_CLK(void)
 		XilCdo_ClearGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
 	}
 
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_PLL_PHY]; ++Count)
+	{
+		XilCdo_ClearGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_PLL_PHY_BaseAddr[Count]);
+	}
+
 	/* Clear Init State for MMCM/DPLL and clear ODisable for DPLL/XPLL */
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_MMCM]; ++Count)
 	{
@@ -1771,6 +2049,7 @@ void XilCdoProcMMCM_CLK(void)
 
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPLL]; ++Count)
 	{
+		XilCdo_ClearInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
 		XilCdo_ClearODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
 	}
 
@@ -1779,6 +2058,17 @@ void XilCdoProcMMCM_CLK(void)
 	{
 		XilCdo_CheckCalibration(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
 	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_DPLL]; ++Count)
+	{
+		XilCdo_CheckCalibration(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DPLL_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_MMCM]; ++Count)
+	{
+		XilCdo_CheckCalibration(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_MMCM_BaseAddr[Count]);
+	}
+
 	/* Set Complete state */
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_MMCM]; ++Count)
 	{
@@ -1793,6 +2083,11 @@ void XilCdoProcMMCM_CLK(void)
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPLL]; ++Count)
 	{
 		XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_PLL_PHY]; ++Count)
+	{
+		XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_PLL_PHY_BaseAddr[Count]);
 	}
 
 	XilCdo_SetEOS();
@@ -1859,6 +2154,10 @@ void XilCdoProcMMCM_CLK(void)
 		XilCdo_SetLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
 	}
 
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_PLL_PHY]; ++Count)
+	{
+		XilCdo_SetLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_PLL_PHY_BaseAddr[Count]);
+	}
 }
 
 void XilCdoProcNocModules()
@@ -1882,18 +2181,37 @@ void XilCdoProcNocModules()
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NSU]; ++Count)
 	{
 		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NSU_BaseAddr[Count]);
-		XilCdo_SetODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NSU_BaseAddr[Count]);
 	}
 
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NMU]; ++Count)
 	{
 		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_BaseAddr[Count]);
-		XilCdo_SetODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NSU]; ++Count)
+	{
+		XilCdo_SetODisableNPP(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NSU_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NMU]; ++Count)
+	{
+		XilCdo_SetODisableNPP(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_BaseAddr[Count]);
 	}
 
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NPS]; ++Count)
 	{
 		XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NPS_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NCRB]; ++Count)
+	{
+		XilCdo_ClearGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NCRB_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NCRB]; ++Count)
+	{
+		XilCdo_ClearInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NCRB_BaseAddr[Count]);
+		XilCdo_ClearHoldState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NCRB_BaseAddr[Count]);
 	}
 
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NCRB]; ++Count)
@@ -1905,41 +2223,79 @@ void XilCdoProcNocModules()
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NCRB]; ++Count)
 	{
 		XilCdo_CheckCalibration(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NCRB_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NCRB]; ++Count)
+	{
 		XilCdo_ClearODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NCRB_BaseAddr[Count]);
 		XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NCRB_BaseAddr[Count]);
 	}
 
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_IDB]; ++Count)
 	{
-		XilCdo_ClearODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_IDB_BaseAddr[Count]);
+		XilCdo_ClearODisableNPP(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_IDB_BaseAddr[Count]);
 		XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_IDB_BaseAddr[Count]);
 	}
 
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NSU]; ++Count)
 	{
-		XilCdo_ClearHoldState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NSU_BaseAddr[Count]);
-		XilCdo_ClearInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NSU_BaseAddr[Count]);
+		XilCdo_ClearGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NSU_BaseAddr[Count]);
+	}
 
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NSU]; ++Count)
+	{
+		XilCdo_ClearHoldState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NSU_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NSU]; ++Count)
+	{
+		XilCdo_ClearInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NSU_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NSU]; ++Count)
+	{
 		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NSU_NpiParam[Count] &
 					XILCDO_NPI_FABRICEN_MASK) == XILCDO_NPI_FABRICEN_MASK)
 		{
 			XilCdo_SetFabricEnable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NSU_BaseAddr[Count]);
 		}
-		XilCdo_ClearODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NSU_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NSU]; ++Count)
+	{
+		XilCdo_ClearODisableNPP(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NSU_BaseAddr[Count]);
+		XilCdo_ClearODisableAXI(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NSU_BaseAddr[Count]);
 		XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NSU_BaseAddr[Count]);
 	}
 
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NMU]; ++Count)
 	{
-		XilCdo_ClearHoldState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_BaseAddr[Count]);
-		XilCdo_ClearInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_BaseAddr[Count]);
+		XilCdo_ClearGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_BaseAddr[Count]);
+	}
 
-		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NSU_NpiParam[Count] &
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NMU]; ++Count)
+	{
+		XilCdo_ClearHoldState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NMU]; ++Count)
+	{
+		XilCdo_ClearInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NMU]; ++Count)
+	{
+		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_NpiParam[Count] &
 					XILCDO_NPI_FABRICEN_MASK) == XILCDO_NPI_FABRICEN_MASK)
 		{
 			XilCdo_SetFabricEnable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_BaseAddr[Count]);
 		}
-		XilCdo_ClearODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NMU]; ++Count)
+	{
+		XilCdo_ClearODisableNPP(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_BaseAddr[Count]);
+		XilCdo_ClearODisableAXI(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_BaseAddr[Count]);
 		XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_BaseAddr[Count]);
 	}
 
@@ -1981,8 +2337,20 @@ void XilCdoProcAMSModules(void)
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_AMS_SAT]; ++Count)
 	{
 		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_AMS_SAT_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_AMS_SAT]; ++Count)
+	{
 		XilCdo_ClearGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_AMS_SAT_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_AMS_SAT]; ++Count)
+	{
 		XilCdo_ClearInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_AMS_SAT_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_AMS_SAT]; ++Count)
+	{
 		XilCdo_ClearHoldState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_AMS_SAT_BaseAddr[Count]);
 		XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_AMS_SAT_BaseAddr[Count]);
 	}
@@ -1990,15 +2358,27 @@ void XilCdoProcAMSModules(void)
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_AMS_ROOT]; ++Count)
 	{
 		XilCdo_ClearGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_AMS_ROOT_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_AMS_ROOT]; ++Count)
+	{
 		XilCdo_ClearInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_AMS_ROOT_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_AMS_ROOT]; ++Count)
+	{
 		XilCdo_ClearODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_AMS_ROOT_BaseAddr[Count]);
 		XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_AMS_ROOT_BaseAddr[Count]);
-		XilCdo_SetLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_AMS_ROOT_BaseAddr[Count]);
 	}
 
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_AMS_ROOT]; ++Count)
 	{
 		XilCdo_SetLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_AMS_ROOT_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_AMS_SAT]; ++Count)
+	{
+		XilCdo_SetLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_AMS_SAT_BaseAddr[Count]);
 	}
 }
 
@@ -2007,40 +2387,70 @@ void XilCdoProcGTModules(void)
 {
 	u32 Count;
 
-	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_GT]; ++Count)
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIPE]; ++Count)
 	{
-		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
-		XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIPE_BaseAddr[Count]);
 	}
 
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIPE]; ++Count)
 	{
-		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIPE_BaseAddr[Count]);
 		XilCdo_ClearGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIPE_BaseAddr[Count]);
+	}
 
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIPE]; ++Count)
+	{
 		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIPE_NpiParam[Count] &
 					XILCDO_NPI_FABRICEN_MASK) == XILCDO_NPI_FABRICEN_MASK)
 		{
 			XilCdo_SetFabricEnable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIPE_BaseAddr[Count]);
 		}
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIPE]; ++Count)
+	{
 		XilCdo_ClearInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIPE_BaseAddr[Count]);
 		XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIPE_BaseAddr[Count]);
-		XilCdo_SetLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIPE_BaseAddr[Count]);
 	}
 
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_GT]; ++Count)
 	{
 		XilCdo_ClearGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+	}
 
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_GT]; ++Count)
+	{
 		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_NpiParam[Count] &
-					XILCDO_NPI_FABRICEN_MASK) == XILCDO_NPI_FABRICEN_MASK)
+					XILCDO_NPI_FABRICEN_MASK) == 0U)
 		{
 			XilCdo_SetFabricEnable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
 		}
+
+		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_NpiParam[Count] &
+					XILCDO_NPI_APBEN_MASK) == XILCDO_NPI_APBEN_MASK)
+		{
+			XilCdo_SetApbEnable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+		}
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_GT]; ++Count)
+	{
 		XilCdo_ClearTriState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_GT]; ++Count)
+	{
 		XilCdo_ClearInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
 		XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_GT]; ++Count)
+	{
 		XilCdo_SetLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIPE]; ++Count)
+	{
+		XilCdo_SetLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIPE_BaseAddr[Count]);
 	}
 }
 
@@ -2056,128 +2466,14 @@ void XilCdoProcGTModules(void)
  *****************************************************************************/
 XStatus XilCdo_NpiShutDown(u32 CmdArgs[10U])
 {
-	u32 BlockType;
 	XStatus Status;
-	u32 BaseAddr = CmdArgs[0U];
-	u32 NpiParam = CmdArgs[1U];
-
-	CmdArgs[9U] = CMD_NPI_SEQ_ARGS;
-	BlockType = NpiParam & XILCDO_NPI_BLK_MASK;
-
-	switch(BlockType)
+	if((NpiCmd != 0U) &&( NpiCmd != CMD_NPI_SHUTDN))
 	{
-		case XILCDO_NPI_BLK_VREF:
-		{
-			XilCdo_ShutBlkVREF(BaseAddr);
-		}
-		break;
-		case XILCDO_NPI_BLK_XPIO:
-		{
-			XilCdo_ShutBlkXPIO(BaseAddr);
-		}
-		break;
-		case XILCDO_NPI_BLK_XPIO_IOMISC:
-		{
-			XilCdo_ShutBlkDCI(BaseAddr);
-		}
-		break;
-		case XILCDO_NPI_BLK_VERT_TO_HSR:
-		case XILCDO_NPI_BLK_VERT_TO_HSR_GT:
-		case XILCDO_NPI_BLK_REBUF_VRT:
-		case XILCDO_NPI_BLK_REBUF_VRT_GT:
-		{
-			XilCdo_ShutBlkHSR_VRT(BaseAddr);
-		}
-		break;
-		case XILCDO_NPI_BLK_REBUF_HSR_TNOC_ME:
-		{
-			XilCdo_ShutBlkHSR_TNOC_ME(BaseAddr);
-		}
-		break;
-		case XILCDO_NPI_BLK_HSR_BUFGS:
-		{
-			XilCdo_ShutBlkHSR_BUFGS(BaseAddr);
-		}
-		break;
-		case XILCDO_NPI_BLK_VNOC_PS:
-		{
-			XilCdo_ShutBlkVNOC_PS(BaseAddr);
-		}
-		break;
-		case XILCDO_NPI_BLK_VNOC:
-		{
-			XilCdo_ShutBlkVNOC(BaseAddr);
-		}
-		break;
-		case XILCDO_NPI_BLK_CLK_GT:
-		{
-			XilCdo_ShutBlkCLK_GT(BaseAddr);
-		}
-		break;
-		case XILCDO_NPI_BLK_MMCM:
-		case XILCDO_NPI_BLK_DPLL:
-		{
-			XilCdo_ShutBlkMMCM_DPLL(BaseAddr);
-		}
-		break;
-		case XILCDO_NPI_BLK_XPHY:
-		{
-			XilCdo_ShutBlkXPHY(BaseAddr);
-		}
-		break;
-		case XILCDO_NPI_BLK_DDRMC:
-		{
-			XilCdo_ShutBlkDDRMC(BaseAddr);
-		}
-		break;
-		case XILCDO_NPI_BLK_XPIPE:
-		{
-			XilCdo_ShutBlkXPIPE(BaseAddr);
-		}
-		break;
-		case XILCDO_NPI_BLK_GT:
-		{
-			XilCdo_ShutBlkGT(BaseAddr);
-		}
-		break;
-		case XILCDO_NPI_BLK_NOC_NSU:
-		{
-			XilCdo_ShutBlkNSU(BaseAddr);
-		}
-		break;
-		case XILCDO_NPI_BLK_NOC_NMU:
-		{
-			XilCdo_ShutBlkNMU(BaseAddr);
-		}
-		break;
-		case XILCDO_NPI_BLK_NOC_NCRB:
-		{
-			XilCdo_ShutBlkNCRB(BaseAddr);
-		}
-		break;
-		case XILCDO_NPI_BLK_XPLL:
-		{
-			XilCdo_ShutBlkXPLL(BaseAddr);
-		}
-		break;
-		case XILCDO_NPI_BLK_NOC_NPS:
-		{
-			XilCdo_ShutBlkNPS(BaseAddr);
-		}
-		break;
-		case XILCDO_NPI_BLK_ME_NPI:
-		case XILCDO_NPI_BLK_AMS_SAT:
-		case XILCDO_NPI_BLK_AMS_ROOT:
-		case XILCDO_NPI_BLK_NOC_IDB:
-		break;
-		default:
-		{
-			Status = XST_FAILURE;
-			goto END;
-		}
+		XilCdo_RunPendingNpiSeq();
 	}
-	Status = XST_SUCCESS;
-END:
+	NpiCmd = CMD_NPI_SHUTDN;
+	Status = XilCdo_StoreNpiParams(CmdArgs);
+	CmdArgs[9U] = CMD_NPI_SHUTDN_ARGS;
 	return Status;
 }
 
@@ -2264,369 +2560,6 @@ XStatus XilCdo_NpiWrite(u32 CmdArgs[10U])
 	XilCdo_SetLockState(DestAddr & ~(0xFFFFU));
 END:
 	return Status;
-}
-
-/*****************************************************************************/
-/**
- * This function does the required NPI shutdown sequence for VREF blocks
- *
- * @param	BaseAddr is base address of the block
- *
- * @return	none
- *
- *****************************************************************************/
-void XilCdo_ShutBlkVREF(u32 BaseAddr)
-{
-	XilCdo_ClearLockState(BaseAddr);
-	XilCdo_SetGateReg(BaseAddr);
-	XilCdo_ClearCompleteState(BaseAddr);
-	XilCdo_SetODisable(BaseAddr);
-	XilCdo_SetTriState(BaseAddr);
-	XilCdo_ClearFabricEnable(BaseAddr);
-	XilCdo_SetInitState(BaseAddr);
-}
-
-/*****************************************************************************/
-/**
- * This function does the required NPI shutdown sequence for XPIO blocks
- *
- * @param	BaseAddr is base address of the block
- *
- * @return	none
- *
- *****************************************************************************/
-void XilCdo_ShutBlkXPIO(u32 BaseAddr)
-{
-	XilCdo_ClearLockState(BaseAddr);
-	XilCdo_SetTriState(BaseAddr);
-	XilCdo_ClearCompleteState(BaseAddr);
-	XilCdo_SetGateReg(BaseAddr);
-	XilCdo_SetODisable(BaseAddr);
-	XilCdo_ClearFabricEnable(BaseAddr);
-	XilCdo_SetInitState(BaseAddr);
-}
-
-/*****************************************************************************/
-/**
- * This function does the required NPI shutdown sequence for DCI blocks
- *
- * @param	BaseAddr is base address of the block
- *
- * @return	none
- *
- *****************************************************************************/
-void XilCdo_ShutBlkDCI(u32 BaseAddr)
-{
-	XilCdo_ClearLockState(BaseAddr);
-	XilCdo_ClearCompleteState(BaseAddr);
-	XilCdo_SetInitState(BaseAddr);
-	XilCdo_SetDCIOfcReset(BaseAddr);
-	XilCdo_SetGateReg(BaseAddr);
-	XilCdo_SetHoldState(BaseAddr);
-}
-
-/*****************************************************************************/
-/**
- * This function does the required NPI shutdown sequence for
- * VERT_TO_HSR, VERT_TO_HSR_GT, REBUF_VRT and REBUF_VRT_GT blocks
- *
- * @param	BaseAddr is base address of the block
- *
- * @return	none
- *
- *****************************************************************************/
-void XilCdo_ShutBlkHSR_VRT(u32 BaseAddr)
-{
-	XilCdo_ClearLockState(BaseAddr);
-	XilCdo_ClearCompleteState(BaseAddr);
-	XilCdo_SetODisable(BaseAddr);
-	XilCdo_SetGateReg(BaseAddr);
-}
-
-/*****************************************************************************/
-/**
- * This function does the required NPI shutdown sequence for HSR_TNOC_ME blocks
- *
- * @param	BaseAddr is base address of the block
- *
- * @return	none
- *
- *****************************************************************************/
-void XilCdo_ShutBlkHSR_TNOC_ME(u32 BaseAddr)
-{
-	XilCdo_ClearLockState(BaseAddr);
-	XilCdo_ClearCompleteState(BaseAddr);
-	XilCdo_SetODisable(BaseAddr);
-	XilCdo_SetGateReg(BaseAddr);
-}
-
-/*****************************************************************************/
-/**
- * This function does the required NPI shutdown sequence for HSR_BUFGS blocks
- *
- * @param	BaseAddr is base address of the block
- *
- * @return	none
- *
- *****************************************************************************/
-void XilCdo_ShutBlkHSR_BUFGS(u32 BaseAddr)
-{
-	XilCdo_ClearLockState(BaseAddr);
-	XilCdo_SetODisable(BaseAddr);
-	XilCdo_ClearCompleteState(BaseAddr);
-	XilCdo_SetGateReg(BaseAddr);
-	XilCdo_SetHoldState(BaseAddr);
-}
-
-/*****************************************************************************/
-/**
- * This function does the required NPI shutdown sequence for VNOC_PS blocks
- *
- * @param	BaseAddr is base address of the block
- *
- * @return	none
- *
- *****************************************************************************/
-void XilCdo_ShutBlkVNOC_PS(u32 BaseAddr)
-{
-	XilCdo_ClearLockState(BaseAddr);
-	XilCdo_ClearCompleteState(BaseAddr);
-	XilCdo_SetODisable(BaseAddr);
-	XilCdo_SetGateReg(BaseAddr);
-	XilCdo_SetHoldState(BaseAddr);
-}
-
-/*****************************************************************************/
-/**
- * This function does the required NPI shutdown sequence for VNOC blocks
- *
- * @param	BaseAddr is base address of the block
- *
- * @return	none
- *
- *****************************************************************************/
-void XilCdo_ShutBlkVNOC(u32 BaseAddr)
-{
-	XilCdo_ClearLockState(BaseAddr);
-	XilCdo_ClearCompleteState(BaseAddr);
-	XilCdo_SetODisable(BaseAddr);
-	XilCdo_SetGateReg(BaseAddr);
-}
-
-/*****************************************************************************/
-/**
- * This function does the required NPI shutdown sequence for CLK_GT blocks
- *
- * @param	BaseAddr is base address of the block
- *
- * @return	none
- *
- *****************************************************************************/
-void XilCdo_ShutBlkCLK_GT(u32 BaseAddr)
-{
-	XilCdo_ClearLockState(BaseAddr);
-	XilCdo_ClearCompleteState(BaseAddr);
-	XilCdo_SetODisable(BaseAddr);
-	XilCdo_SetGateReg(BaseAddr);
-	XilCdo_SetHoldState(BaseAddr);
-}
-
-/*****************************************************************************/
-/**
- * This function does the required NPI shutdown sequence for MMCM/DPLL blocks
- *
- * @param	BaseAddr is base address of the block
- *
- * @return	none
- *
- *****************************************************************************/
-void XilCdo_ShutBlkMMCM_DPLL(u32 BaseAddr)
-{
-	XilCdo_ClearLockState(BaseAddr);
-	XilCdo_SetInitState(BaseAddr);
-	XilCdo_ClearCompleteState(BaseAddr);
-	XilCdo_ClearFabricEnable(BaseAddr);
-	XilCdo_SetGateReg(BaseAddr);
-}
-
-/*****************************************************************************/
-/**
- * This function does the required NPI shutdown sequence for XPHY blocks
- *
- * @param	BaseAddr is base address of the block
- *
- * @return	none
- *
- *****************************************************************************/
-void XilCdo_ShutBlkXPHY(u32 BaseAddr)
-{
-	XilCdo_ClearLockState(BaseAddr);
-	XilCdo_SetODisable(BaseAddr);
-	XilCdo_SetTriState(BaseAddr);
-	XilCdo_ClearCompleteState(BaseAddr);
-	XilCdo_SetGateReg(BaseAddr);
-	XilCdo_SetInitState(BaseAddr);
-	XilCdo_SetHoldState(BaseAddr);
-
-}
-
-/*****************************************************************************/
-/**
- * This function does the required NPI shutdown sequence for XPLL blocks
- *
- * @param	BaseAddr is base address of the block
- *
- * @return	none
- *
- *****************************************************************************/
-void XilCdo_ShutBlkXPLL(u32 BaseAddr)
-{
-	XilCdo_ClearLockState(BaseAddr);
-	XilCdo_SetInitState(BaseAddr);
-	XilCdo_SetODisable(BaseAddr);
-	XilCdo_ClearApbEnable(BaseAddr);
-	XilCdo_ClearCompleteState(BaseAddr);
-	XilCdo_SetGateReg(BaseAddr);
-}
-
-/*****************************************************************************/
-/**
- * This function does the required NPI shutdown sequence for DDRMC blocks
- *
- * @param	BaseAddr is base address of the block
- *
- * @return	none
- *
- *****************************************************************************/
-void XilCdo_ShutBlkDDRMC(u32 BaseAddr)
-{
-	XilCdo_ClearLockState(BaseAddr);
-	XilCdo_SetODisable(BaseAddr);
-	XilCdo_ClearCompleteState(BaseAddr);
-	XilCdo_SetInitState(BaseAddr);
-	XilCdo_SetUBInitState(BaseAddr);
-	XilCdo_SetHoldState(BaseAddr);
-	XilCdo_ClearFabricEnable(BaseAddr);
-	XilCdo_SetGateReg(BaseAddr);
-}
-
-/*****************************************************************************/
-/**
- * This function does the required NPI shutdown sequence for XPIPE blocks
- *
- * @param	BaseAddr is base address of the block
- *
- * @return	none
- *
- *****************************************************************************/
-void XilCdo_ShutBlkXPIPE(u32 BaseAddr)
-{
-	XilCdo_ClearLockState(BaseAddr);
-	XilCdo_SetInitState(BaseAddr);
-	XilCdo_ClearCompleteState(BaseAddr);
-	XilCdo_SetGateReg(BaseAddr);
-	XilCdo_ClearFabricEnable(BaseAddr);
-}
-
-/*****************************************************************************/
-/**
- * This function does the required NPI shutdown sequence for GT blocks
- *
- * @param	BaseAddr is base address of the block
- *
- * @return	none
- *
- *****************************************************************************/
-void XilCdo_ShutBlkGT(u32 BaseAddr)
-{
-	XilCdo_ClearLockState(BaseAddr);
-	XilCdo_SetShutDown(BaseAddr);
-	XilCdo_SetTriState(BaseAddr);
-	XilCdo_ClearCompleteState(BaseAddr);
-	XilCdo_SetODisable(BaseAddr);
-	XilCdo_SetTriState(BaseAddr);
-	XilCdo_ClearFabricEnable(BaseAddr);
-	XilCdo_SetInitState(BaseAddr);
-	XilCdo_SetGateReg(BaseAddr);
-	XilCdo_ClearShutDown(BaseAddr);
-}
-
-/*****************************************************************************/
-/**
- * This function does the required NPI shutdown sequence for NOC_NSU blocks
- *
- * @param	BaseAddr is base address of the block
- *
- * @return	none
- *
- *****************************************************************************/
-void XilCdo_ShutBlkNSU(u32 BaseAddr)
-{
-	XilCdo_ClearLockState(BaseAddr);
-	XilCdo_RunNsuPRMode(BaseAddr);
-	XilCdo_SetODisable(BaseAddr);
-	XilCdo_ClearFabricEnable(BaseAddr);
-	XilCdo_ClearCompleteState(BaseAddr);
-	XilCdo_SetInitState(BaseAddr);
-	XilCdo_SetHoldState(BaseAddr);
-	XilCdo_SetGateReg(BaseAddr);
-	XilCdo_ClearPRMode(BaseAddr);
-}
-
-/*****************************************************************************/
-/**
- * This function does the required NPI shutdown sequence for NOC_NMU blocks
- *
- * @param	BaseAddr is base address of the block
- *
- * @return	none
- *
- *****************************************************************************/
-void XilCdo_ShutBlkNMU(u32 BaseAddr)
-{
-	XilCdo_ClearLockState(BaseAddr);
-	XilCdo_RunAxiReqRejectMode(BaseAddr);
-	XilCdo_SetODisable(BaseAddr);
-	XilCdo_ClearFabricEnable(BaseAddr);
-	XilCdo_ClearCompleteState(BaseAddr);
-	XilCdo_SetInitState(BaseAddr);
-	XilCdo_SetHoldState(BaseAddr);
-	XilCdo_SetGateReg(BaseAddr);
-	XilCdo_ClearAxiReqRejectMode(BaseAddr);
-}
-
-/*****************************************************************************/
-/**
- * This function does the required NPI shutdown sequence for NOC_NCRB blocks
- *
- * @param	BaseAddr is base address of the block
- *
- * @return	none
- *
- *****************************************************************************/
-void XilCdo_ShutBlkNCRB(u32 BaseAddr)
-{
-	XilCdo_ClearLockState(BaseAddr);
-	XilCdo_SetODisable(BaseAddr);
-	XilCdo_ClearCompleteState(BaseAddr);
-	XilCdo_SetInitState(BaseAddr);
-	XilCdo_SetHoldState(BaseAddr);
-	XilCdo_SetGateReg(BaseAddr);
-}
-
-/*****************************************************************************/
-/**
- * This function does the required NPI shutdown sequence for NOC_NPS blocks
- *
- * @param       BaseAddr is base address of the block
- *
- * @return      none
- *
- *****************************************************************************/
-void XilCdo_ShutBlkNPS(u32 BaseAddr)
-{
-	XilCdo_ClearLockState(BaseAddr);
-	XilCdo_ClearCompleteState(BaseAddr);
 }
 
 /*****************************************************************************/
@@ -2721,7 +2654,7 @@ XStatus XilCdo_NpiPreCfg_GTY(u32 BaseAddr, u32 NpiParam)
 		goto END;
 	}
 #endif
-	if((NpiParam & PCSR_PRECFG_MEMCLR_MASK) == PCSR_PRECFG_MEMCLR_MASK)
+	if((NpiParam & XILCDO_NPI_MEMCLR_MASK) == XILCDO_NPI_MEMCLR_MASK)
 	{
 		XilCdo_SetMBISTTrigger(BaseAddr);
 		XilCdo_WaitForMBISTDone(BaseAddr);
@@ -2730,6 +2663,10 @@ XStatus XilCdo_NpiPreCfg_GTY(u32 BaseAddr, u32 NpiParam)
 		{
 			goto END;
 		}
+	}
+	else
+	{
+		Status = XST_SUCCESS;
 	}
 	XilCdo_ClearGateReg(BaseAddr);
 	XilCdo_SetLockState(BaseAddr);
@@ -2745,7 +2682,8 @@ XStatus XilCdo_NpiPreCfg_DDRMC(u32 BaseAddr, u32 NpiParam)
 	//to do : Load efuse data into BISR cache
 	XilCdo_SetBISRTrigger(BaseAddr);
 #endif
-	if((NpiParam & PCSR_PRECFG_MEMCLR_MASK) == PCSR_PRECFG_MEMCLR_MASK)
+
+	if((NpiParam & XILCDO_NPI_MEMCLR_MASK) == XILCDO_NPI_MEMCLR_MASK)
 	{
 		XilCdo_SetMBISTTrigger(BaseAddr);
 		XilCdo_WaitForMBISTDone(BaseAddr);
@@ -2755,6 +2693,11 @@ XStatus XilCdo_NpiPreCfg_DDRMC(u32 BaseAddr, u32 NpiParam)
 			goto END;
 		}
 	}
+	else
+	{
+		Status = XST_SUCCESS;
+	}
+
 	XilCdo_SetHoldState(BaseAddr);
 	XilCdo_SetLockState(BaseAddr);
 END:
@@ -2784,7 +2727,7 @@ XStatus XilCdo_NpiPreCfg_ME(u32 BaseAddr, u32 NpiParam)
 		XilCdo_SetMemClearEnAll(BaseAddr);
 		XilCdo_ClearOD_MBIST_ASYNC_RESET(BaseAddr);
 		XilCdo_SetOD_BIST_SETUP1(BaseAddr);
-		if((NpiParam & PCSR_PRECFG_MEMCLR_MASK) == PCSR_PRECFG_MEMCLR_MASK)
+		if((NpiParam & XILCDO_NPI_MEMCLR_MASK) == XILCDO_NPI_MEMCLR_MASK)
 		{
 			XilCdo_SetMBISTTrigger(BaseAddr);
 			XilCdo_WaitForMBISTDone(BaseAddr);
@@ -2793,6 +2736,10 @@ XStatus XilCdo_NpiPreCfg_ME(u32 BaseAddr, u32 NpiParam)
 			{
 				goto END;
 			}
+		}
+		else
+		{
+			Status = XST_SUCCESS;
 		}
 		XilCdo_SetOD_MBIST_ASYNC_RESET(BaseAddr);
 		XilCdo_ClearOD_BIST_SETUP1(BaseAddr);
@@ -2807,7 +2754,7 @@ XStatus XilCdo_NpiPreCfg_NOC_NMU(u32 BaseAddr, u32 NpiParam)
 {
 	u32 Status;
 	XilCdo_ClearLockState(BaseAddr);
-	if((NpiParam & PCSR_PRECFG_MEMCLR_MASK) == PCSR_PRECFG_MEMCLR_MASK)
+	if((NpiParam & XILCDO_NPI_MEMCLR_MASK) == XILCDO_NPI_MEMCLR_MASK)
 	{
 		XilCdo_SetMBISTTrigger(BaseAddr);
 		XilCdo_WaitForMBISTDone(BaseAddr);
@@ -2817,6 +2764,10 @@ XStatus XilCdo_NpiPreCfg_NOC_NMU(u32 BaseAddr, u32 NpiParam)
 			goto END;
 		}
 	}
+	else
+	{
+		Status = XST_SUCCESS;
+	}
 	XilCdo_SetLockState(BaseAddr);
 END:
 	return Status;
@@ -2824,13 +2775,632 @@ END:
 
 void XilCdo_AssertGlobalSignals()
 {
-	if(XilCdoNpiSeqInstPtr != NULL)
+	XilCdo_EnableCFUWrite();
+	XilCdo_SetGWE();
+	XilCdo_SetEOS();
+	XilCdo_ClearEnGlob();
+	XilCdo_DisableCFUWrite();
+}
+
+void XilCdo_ShutIOModules(void)
+{
+	u32 Count;
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_VREF]; ++Count)
 	{
-		XilCdo_EnableCFUWrite();
-		XilCdo_SetGWE();
-		XilCdo_SetEOS();
-		XilCdo_ClearEnGlob();
-		XilCdo_DisableCFUWrite();
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VREF_BaseAddr[Count]);
 	}
-	XilCdoNpiSeqInstPtr =NULL;
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIO]; ++Count)
+	{
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPLL]; ++Count)
+	{
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_DDRMC]; ++Count)
+	{
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPHY]; ++Count)
+	{
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPHY_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIO_IOMISC]; ++Count)
+	{
+
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_IOMISC_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_PLL_PHY]; ++Count)
+	{
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_PLL_PHY_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIO]; ++Count)
+	{
+		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_NpiParam[Count] &
+					XILCDO_NPI_PR_FREEZE_MASK) == XILCDO_NPI_PR_FREEZE_MASK)
+		{
+			XilCdo_SetPRFreeze(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_BaseAddr[Count]);
+		}
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPLL]; ++Count)
+	{
+		XilCdo_ClearCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
+		XilCdo_SetInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
+
+		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_NpiParam[Count] &
+			XILCDO_NPI_DDRMC_PRESENT_MASK) == XILCDO_NPI_DDRMC_PRESENT_MASK)
+		{
+			XilCdo_ClearApbEnable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
+		}
+		else
+		{
+			XilCdo_SetODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
+		}
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_PLL_PHY]; ++Count)
+	{
+		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_NpiParam[Count] &
+			XILCDO_NPI_DDRMC_PRESENT_MASK) == XILCDO_NPI_DDRMC_PRESENT_MASK)
+		{
+			XilCdo_ClearCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_PLL_PHY_BaseAddr[Count]);
+			XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_PLL_PHY_BaseAddr[Count]);
+		}
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPLL]; ++Count)
+	{
+		XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_PLL_PHY]; ++Count)
+	{
+		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_NpiParam[Count] &
+			XILCDO_NPI_DDRMC_PRESENT_MASK) == 0U)
+		{
+			XilCdo_ClearCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_PLL_PHY_BaseAddr[Count]);
+			XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_PLL_PHY_BaseAddr[Count]);
+		}
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_DDRMC]; ++Count)
+	{
+		XilCdo_ClearCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_BaseAddr[Count]);
+		XilCdo_SetODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_DDRMC]; ++Count)
+	{
+		XilCdo_SetInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_BaseAddr[Count]);
+		XilCdo_SetUBInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_DDRMC]; ++Count)
+	{
+		XilCdo_SetStartCal(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIO]; ++Count)
+	{
+		XilCdo_ClearCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_BaseAddr[Count]);
+		XilCdo_SetTriState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_BaseAddr[Count]);
+		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_NpiParam[Count] &
+				XILCDO_NPI_DDRMC_PRESENT_MASK) == XILCDO_NPI_DDRMC_PRESENT_MASK)
+		{
+			XilCdo_SetODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_BaseAddr[Count]);
+		}
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIO]; ++Count)
+	{
+		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_NpiParam[Count] & XILCDO_NPI_DDRMC_PRESENT_MASK) == 0U)
+		{
+			XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_BaseAddr[Count]);
+			XilCdo_SetODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_BaseAddr[Count]);
+		}
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_VREF]; ++Count)
+	{
+		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VREF_NpiParam[Count] &
+					XILCDO_NPI_DDRMC_PRESENT_MASK) == XILCDO_NPI_DDRMC_PRESENT_MASK)
+		{
+			XilCdo_ClearCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VREF_BaseAddr[Count]);
+			XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VREF_BaseAddr[Count]);
+		}
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIO_IOMISC]; ++Count)
+	{
+		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_IOMISC_NpiParam[Count] &
+					XILCDO_NPI_DDRMC_PRESENT_MASK) == 0U)
+		{
+			XilCdo_ClearCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_IOMISC_BaseAddr[Count]);
+			XilCdo_SetInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_IOMISC_BaseAddr[Count]);
+			XilCdo_SetDCIOfcReset(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_IOMISC_BaseAddr[Count]);
+		}
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIO_IOMISC]; ++Count)
+	{
+		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_IOMISC_NpiParam[Count] &
+					XILCDO_NPI_DDRMC_PRESENT_MASK) == 0U)
+		{
+			XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_IOMISC_BaseAddr[Count]);
+			XilCdo_SetHoldState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_IOMISC_BaseAddr[Count]);
+		}
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_VREF]; ++Count)
+	{
+		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VREF_NpiParam[Count] &
+					XILCDO_NPI_DDRMC_PRESENT_MASK) == 0U)
+		{
+			XilCdo_ClearCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VREF_BaseAddr[Count]);
+			XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VREF_BaseAddr[Count]);
+		}
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIO]; ++Count)
+	{
+		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_NpiParam[Count] &
+						XILCDO_NPI_DDRMC_PRESENT_MASK) == XILCDO_NPI_DDRMC_PRESENT_MASK)
+		{
+			XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIO_BaseAddr[Count]);
+		}
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPHY]; ++Count)
+	{
+		XilCdo_ClearCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPHY_BaseAddr[Count]);
+		XilCdo_SetODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPHY_BaseAddr[Count]);
+		XilCdo_SetTriState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPHY_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPHY]; ++Count)
+	{
+		XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPHY_BaseAddr[Count]);
+		XilCdo_SetInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPHY_BaseAddr[Count]);
+		XilCdo_SetHoldState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPHY_BaseAddr[Count]);
+	}
+}
+
+void XilCdo_ShutMMCM_CLK(void)
+{
+	u32 Count;
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_VERT_TO_HSR]; ++Count)
+	{
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VERT_TO_HSR_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_VERT_TO_HSR_GT]; ++Count)
+	{
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VERT_TO_HSR_GT_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_REBUF_VRT]; ++Count)
+	{
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_REBUF_VRT_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_REBUF_VRT_GT]; ++Count)
+	{
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_REBUF_VRT_GT_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_REBUF_HSR_TNOC_ME]; ++Count)
+	{
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_REBUF_HSR_TNOC_ME_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_HSR_BUFGS]; ++Count)
+	{
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_HSR_BUFGS_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_VNOC_PS]; ++Count)
+	{
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VNOC_PS_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_VNOC]; ++Count)
+	{
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VNOC_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_CLK_GT]; ++Count)
+	{
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_CLK_GT_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_MMCM]; ++Count)
+	{
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_MMCM_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_DPLL]; ++Count)
+	{
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DPLL_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPLL]; ++Count)
+	{
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_PLL_PHY]; ++Count)
+	{
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_PLL_PHY_BaseAddr[Count]);
+	}
+
+	/* Init state de-asserted in BUFGS and active deskew state machines */
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_HSR_BUFGS]; ++Count)
+	{
+		XilCdo_ClearCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_HSR_BUFGS_BaseAddr[Count]);
+		XilCdo_SetODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_HSR_BUFGS_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_VNOC_PS]; ++Count)
+	{
+		XilCdo_ClearCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VNOC_PS_BaseAddr[Count]);
+		XilCdo_SetODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VNOC_PS_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_CLK_GT]; ++Count)
+	{
+		XilCdo_ClearCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_CLK_GT_BaseAddr[Count]);
+		XilCdo_SetODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_CLK_GT_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_HSR_BUFGS]; ++Count)
+	{
+		XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_HSR_BUFGS_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_VNOC_PS]; ++Count)
+	{
+		XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VNOC_PS_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_CLK_GT]; ++Count)
+	{
+		XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_CLK_GT_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_HSR_BUFGS]; ++Count)
+	{
+		XilCdo_SetHoldState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_HSR_BUFGS_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_VNOC_PS]; ++Count)
+	{
+		XilCdo_SetHoldState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VNOC_PS_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_CLK_GT]; ++Count)
+	{
+		XilCdo_SetHoldState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_CLK_GT_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_MMCM]; ++Count)
+	{
+		XilCdo_ClearCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_MMCM_BaseAddr[Count]);
+		XilCdo_SetInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_MMCM_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_DPLL]; ++Count)
+	{
+		XilCdo_ClearCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DPLL_BaseAddr[Count]);
+		XilCdo_SetInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DPLL_BaseAddr[Count]);
+		XilCdo_SetODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DPLL_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPLL]; ++Count)
+	{
+		XilCdo_ClearCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
+		XilCdo_SetInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
+		XilCdo_SetODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_PLL_PHY]; ++Count)
+	{
+		XilCdo_ClearCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_PLL_PHY_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_PLL_PHY]; ++Count)
+	{
+		XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_PLL_PHY_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_MMCM]; ++Count)
+	{
+		XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_MMCM_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_DPLL]; ++Count)
+	{
+		XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DPLL_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPLL]; ++Count)
+	{
+		XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPLL_BaseAddr[Count]);
+	}
+
+
+
+	/* Set ODisable for all CLK distribution elements */
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_VERT_TO_HSR]; ++Count)
+	{
+		XilCdo_ClearCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VERT_TO_HSR_BaseAddr[Count]);
+		XilCdo_SetODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VERT_TO_HSR_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_VERT_TO_HSR_GT]; ++Count)
+	{
+		XilCdo_ClearCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VERT_TO_HSR_GT_BaseAddr[Count]);
+		XilCdo_SetODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VERT_TO_HSR_GT_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_REBUF_VRT]; ++Count)
+	{
+		XilCdo_ClearCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_REBUF_VRT_BaseAddr[Count]);
+		XilCdo_SetODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_REBUF_VRT_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_REBUF_VRT_GT]; ++Count)
+	{
+		XilCdo_ClearCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_REBUF_VRT_GT_BaseAddr[Count]);
+		XilCdo_SetODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_REBUF_VRT_GT_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_REBUF_HSR_TNOC_ME]; ++Count)
+	{
+		XilCdo_ClearCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_REBUF_HSR_TNOC_ME_BaseAddr[Count]);
+		XilCdo_SetODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_REBUF_HSR_TNOC_ME_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_VNOC]; ++Count)
+	{
+		XilCdo_ClearCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VNOC_BaseAddr[Count]);
+		XilCdo_SetODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VNOC_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_VERT_TO_HSR]; ++Count)
+	{
+		XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VERT_TO_HSR_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_VERT_TO_HSR_GT]; ++Count)
+	{
+		XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VERT_TO_HSR_GT_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_REBUF_VRT]; ++Count)
+	{
+		XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_REBUF_VRT_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_REBUF_VRT_GT]; ++Count)
+	{
+		XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_REBUF_VRT_GT_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_REBUF_HSR_TNOC_ME]; ++Count)
+	{
+		XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_REBUF_HSR_TNOC_ME_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_VNOC]; ++Count)
+	{
+		XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_VNOC_BaseAddr[Count]);
+	}
+}
+
+void XilCdo_ShutNocModules(void)
+{
+	u32 Count;
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NPS]; ++Count)
+	{
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NPS_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_IDB]; ++Count)
+	{
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_IDB_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NCRB]; ++Count)
+	{
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NCRB_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NSU]; ++Count)
+	{
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NSU_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NMU]; ++Count)
+	{
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NPS]; ++Count)
+	{
+		XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NPS_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NMU]; ++Count)
+	{
+		XilCdo_SetAxiReqRejectMode(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_BaseAddr[Count]);
+	}
+	usleep(5U);
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NMU]; ++Count)
+	{
+		XilCdo_CheckRegBusy(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NMU]; ++Count)
+	{
+		XilCdo_ClearCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_BaseAddr[Count]);
+		XilCdo_SetODisableAXI(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_BaseAddr[Count]);
+		XilCdo_SetODisableNPP(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_BaseAddr[Count]);
+		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_NpiParam[Count] &
+					XILCDO_NPI_FABRICEN_MASK) == XILCDO_NPI_FABRICEN_MASK)
+		{
+			XilCdo_ClearFabricEnable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_BaseAddr[Count]);
+		}
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NMU]; ++Count)
+	{
+		XilCdo_SetInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_BaseAddr[Count]);
+		XilCdo_SetHoldState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NMU]; ++Count)
+	{
+		XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NMU]; ++Count)
+	{
+		XilCdo_ClearAxiReqRejectMode(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_BaseAddr[Count]);
+	}
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NSU]; ++Count)
+	{
+		XilCdo_SetPRMode(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NSU_BaseAddr[Count]);
+	}
+
+	usleep(5U);
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NSU]; ++Count)
+	{
+		XilCdo_CheckRegPendingBurst(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NSU_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NSU]; ++Count)
+	{
+		XilCdo_ClearCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NSU_BaseAddr[Count]);
+		XilCdo_SetODisableAXI(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NSU_BaseAddr[Count]);
+		XilCdo_SetODisableNPP(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NSU_BaseAddr[Count]);
+		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NSU_NpiParam[Count] &
+					XILCDO_NPI_FABRICEN_MASK) == XILCDO_NPI_FABRICEN_MASK)
+		{
+			XilCdo_ClearFabricEnable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NSU_BaseAddr[Count]);
+		}
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NSU]; ++Count)
+	{
+		XilCdo_SetInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NSU_BaseAddr[Count]);
+		XilCdo_SetHoldState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NSU_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NSU]; ++Count)
+	{
+		XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NSU_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NSU]; ++Count)
+	{
+		XilCdo_ClearPRMode(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NSU_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NCRB]; ++Count)
+	{
+		XilCdo_ClearCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NCRB_BaseAddr[Count]);
+		XilCdo_SetODisable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NCRB_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NCRB]; ++Count)
+	{
+		XilCdo_SetInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NCRB_BaseAddr[Count]);
+		XilCdo_SetHoldState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NCRB_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NCRB]; ++Count)
+	{
+		XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NCRB_BaseAddr[Count]);
+	}
+}
+
+void XilCdo_ShutGTModules(void)
+{
+	u32 Count;
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIPE]; ++Count)
+	{
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIPE_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_GT]; ++Count)
+	{
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_GT]; ++Count)
+	{
+		XilCdo_SetShutDown(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_GT]; ++Count)
+	{
+		XilCdo_CheckShutDown(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_GT]; ++Count)
+	{
+		XilCdo_ClearCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+		XilCdo_SetTriState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_GT]; ++Count)
+	{
+		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_NpiParam[Count] &
+					XILCDO_NPI_FABRICEN_MASK) == XILCDO_NPI_FABRICEN_MASK)
+		{
+			XilCdo_ClearFabricEnable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+		}
+		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_NpiParam[Count] &
+					XILCDO_NPI_APBEN_MASK) == XILCDO_NPI_APBEN_MASK)
+		{
+			XilCdo_ClearApbEnable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+		}
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_GT]; ++Count)
+	{
+		XilCdo_SetInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+		XilCdo_SetInitCtrl(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+		XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+		XilCdo_ClearShutDown(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIPE]; ++Count)
+	{
+		XilCdo_ClearCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIPE_BaseAddr[Count]);
+		XilCdo_SetInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIPE_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIPE]; ++Count)
+	{
+		XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIPE_BaseAddr[Count]);
+		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIPE_NpiParam[Count] &
+					XILCDO_NPI_FABRICEN_MASK) == XILCDO_NPI_FABRICEN_MASK)
+		{
+			XilCdo_ClearFabricEnable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIPE_BaseAddr[Count]);
+		}
+	}
+
 }
