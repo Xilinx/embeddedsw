@@ -228,6 +228,8 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId))
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
+		/* TODO: IPI mask should come from somewhere else */
+		PmSubsystems[i].IpiMask = XPm_SubsystemIpiMask[i];
 	}
 
 done:
