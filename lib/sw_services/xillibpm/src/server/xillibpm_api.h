@@ -44,7 +44,17 @@
 #define PGGS_BASEADDR	(0xFFD90050U)
 #define PGGS_NUM_REGS	(4)
 
-XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId));
+/* Suspend reasons */
+#define SUSPEND_REASON_SUBSYSTEM_REQ		(201U)
+#define SUSPEND_REASON_ALERT			(202U)
+#define SUSPEND_REASON_SYS_SHUTDOWN 		(203U)
+
+/* PM API callback ids */
+#define XPM_INIT_SUSPEND_CB			(30U)
+#define XPM_ACKNOWLEDGE_CB			(31U)
+#define XPM_NOTIFY_CB				(32U)
+
+XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u32 *Payload));
 
 XStatus XPm_GetApiVersion(u32 *Version);
 
@@ -137,6 +147,8 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 			u32 AddrLow, u32 AddrHigh);
 XStatus XPm_AbortSuspend(const u32 SubsystemId, const u32 Reason,
 			 const u32 DeviceId);
+XStatus XPm_RequestSuspend(const u32 SubsystemId, const u32 TargetSubsystemId,
+			   const u32 Latency, const u32 State);
 
 /** @} */
 #endif /* XILLIBPM_API_H_ */
