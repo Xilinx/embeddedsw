@@ -77,6 +77,7 @@ struct XPm_Subsystem {
 
 extern u32 ReservedSubsystemId;
 extern XPm_Subsystem PmSubsystems[XPM_SUBSYSID_MAX];
+extern u32 XPm_SubsystemIpiMask[XPM_SUBSYSID_MAX];
 
 /************************** Function Prototypes ******************************/
 
