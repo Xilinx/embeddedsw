@@ -35,6 +35,7 @@
 #define MAX_CORE_REGS 3
 
 #define ENABLE_WFI(Mask)	XPmPsm_RegWrite(PSM_GLOBAL_PWR_CTRL_EN, Mask);
+#define DISABLE_WFI(Mask)	XPmPsm_RegWrite(PSM_GLOBAL_PWR_CTRL_DIS, Mask);
 
 typedef struct XPm_Core XPm_Core;
 
