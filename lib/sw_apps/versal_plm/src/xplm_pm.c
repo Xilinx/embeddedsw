@@ -62,6 +62,24 @@
 
 /************************** Variable Definitions *****************************/
 
+void XPlm_PmRequestCb(const u32 IpiMask, const u32 EventId, u32* Payload)
+{
+	XStatus Status;
+
+	if (XPM_INIT_SUSPEND_CB == EventId) {
+		Status = XPlmi_IpiWrite(IpiMask, Payload, XPLMI_CMD_RESP_SIZE, XIPIPSU_BUF_TYPE_MSG);
+		if (XST_SUCCESS != Status) {
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s Error in IPI write: %d\r\n", __func__, Status);
+		}
+
+		Status = XPlmi_IpiTrigger(IpiMask);
+		if (XST_SUCCESS != Status) {
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s Error in IPI trigger: %d\r\n", __func__, Status);
+		}
+	} else {
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s Error: Unsupported EventId: %d\r\n", __func__, EventId);
+	}
+}
 
 /*****************************************************************************/
 /**
@@ -79,7 +97,7 @@ int XPlm_PmInit()
 	 * Initialize the libPM component. It registers the callback handlers,
 	 * variables, events
 	 */
-	Status = XPm_Init(NULL);
+	Status = XPm_Init(XPlm_PmRequestCb);
 
 	return Status;
 }
