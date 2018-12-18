@@ -99,7 +99,7 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /* SDK release version */
-#define PMCFW_RELEASE_VERSION	"8.0"
+#define PMCFW_RELEASE_VERSION	"8.1"
 #define SDK_RELEASE_YEAR	"2019"
 #define SDK_RELEASE_QUARTER	"1"
 
