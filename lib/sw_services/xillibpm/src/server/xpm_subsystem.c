@@ -35,6 +35,18 @@
 
 XPm_Subsystem PmSubsystems[XPM_SUBSYSID_MAX];
 
+/**
+ * IPI mask array of subsystems
+ */
+u32 XPm_SubsystemIpiMask[XPM_SUBSYSID_MAX] = {
+	[XPM_SUBSYSID_PMC]		= 0x00000002U,
+	[XPM_SUBSYSID_PSM]		= 0x00000001U,
+	[XPM_SUBSYSID_APU]		= 0x00000004U,
+	[XPM_SUBSYSID_RPU0_LOCK]	= 0x00000008U,
+	[XPM_SUBSYSID_RPU0_0]		= 0x00000008U,
+	[XPM_SUBSYSID_RPU0_1]		= 0x00000010U,
+};
+
 /*
  * Global SubsystemId which is set and is valid during XPm_CreateSubsystem()
  */
