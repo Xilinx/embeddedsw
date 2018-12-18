@@ -1139,6 +1139,44 @@ void XPmClient_SuspendFinalize(void)
 
 /****************************************************************************/
 /**
+ * @brief  This function is used by a CPU to request suspend to another CPU.
+ *
+ * @param  TargetSubsystemId	Subsystem ID of the target
+ * @param  Latency		Maximum wake-up latency requirement in us(microsecs)
+ * @param  State		Power State
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmClient_RequestSuspend(const u32 TargetSubsystemId, const u32 Latency,
+				 const u32 State)
+{
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	PACK_PAYLOAD3(Payload, PM_REQUEST_SUSPEND, TargetSubsystemId, Latency, State);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function is called by a CPU after a SelfSuspend call to
  * notify the platform management controller that CPU has aborted suspend
  * or in response to an init suspend request when the PU refuses to suspend.
