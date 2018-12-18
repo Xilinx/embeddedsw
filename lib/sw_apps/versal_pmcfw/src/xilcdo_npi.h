@@ -65,9 +65,11 @@ extern "C" {
  */
 #define XILCDO_NPI_BLK_MASK				(0xFFU)
 #define XILCDO_NPI_FABRICEN_MASK				(0x100U)
-#define XILCDO_NPI_APB3EN_MASK					(0x200U)
+#define XILCDO_NPI_APBEN_MASK					(0x200U)
 #define XILCDO_NPI_DDRMC_PRESENT_MASK			(0x400U)
 #define XILCDO_NPI_PR_FREEZE_MASK			(0x800U)
+#define XILCDO_NPI_MEMCLR_MASK				(0x1000000U)
+#define XILCDO_NPI_SCANCLR_MASK				(0x2000000U)
 /**
  * Block Type values
  */
@@ -99,6 +101,7 @@ extern "C" {
 #define XILCDO_NPI_BLK_AMS_SAT                          (0x19U)
 #define XILCDO_NPI_BLK_AMS_ROOT                         (0x1AU)
 #define XILCDO_NPI_BLK_ME_NPI                           (0x1BU)
+#define XILCDO_NPI_BLK_PLL_PHY							(0x1CU)
 #define XILCDO_TOTAL_NPI_BLKS                           (0x20U)
 
 /**
@@ -108,6 +111,7 @@ extern "C" {
 #define XILCDO_NPI_BLK_XPIO_MAXCOUNT			(0x110U)
 #define XILCDO_NPI_BLK_XPIO_IOMISC_MAXCOUNT		(0x10U)
 #define XILCDO_NPI_BLK_XPLL_MAXCOUNT			(0x20U)
+#define XILCDO_NPI_BLK_PLL_PHY_MAXCOUNT			(0x10U)
 #define XILCDO_NPI_BLK_XPHY_MAXCOUNT			(0x70U)
 #define XILCDO_NPI_BLK_DDRMC_MAXCOUNT			(0x4U)
 #define XILCDO_NPI_BLK_XPIPE_MAXCOUNT			(0x4U)
@@ -118,20 +122,21 @@ extern "C" {
 #define XILCDO_NPI_BLK_NOC_NMU_MAXCOUNT			(0x40U)
 #define XILCDO_NPI_BLK_NOC_IDB_MAXCOUNT			(0x10U)
 #define XILCDO_NPI_BLK_VERT_TO_HSR_MAXCOUNT		(0x4U)
-#define XILCDO_NPI_BLK_VERT_TO_HSR_GT_MAXCOUNT		(0x4U)
+#define XILCDO_NPI_BLK_VERT_TO_HSR_GT_MAXCOUNT	(0x4U)
 #define XILCDO_NPI_BLK_REBUF_VRT_MAXCOUNT		(0x10U)
-#define XILCDO_NPI_BLK_REBUF_VRT_GT_MAXCOUNT		(0x10U)
+#define XILCDO_NPI_BLK_REBUF_VRT_GT_MAXCOUNT	(0x10U)
 #define XILCDO_NPI_BLK_HSR_BUFGS_MAXCOUNT		(0x10U)
 #define XILCDO_NPI_BLK_VNOC_MAXCOUNT			(0x10U)
 #define XILCDO_NPI_BLK_VNOC_PS_MAXCOUNT			(0x4U)
 #define XILCDO_NPI_BLK_CLK_GT_MAXCOUNT			(0x10U)
-#define XILCDO_NPI_BLK_REBUF_HSR_TNOC_ME_MAXCOUNT	(0x10U)
+#define XILCDO_NPI_BLK_REBUF_HSR_TNOC_ME_MAXCNT	(0x10U)
 #define XILCDO_NPI_BLK_MMCM_MAXCOUNT			(0x10U)
 #define XILCDO_NPI_BLK_DPLL_MAXCOUNT			(0x20U)
 #define XILCDO_NPI_BLK_AMS_SAT_MAXCOUNT			(0x30U)
 #define XILCDO_NPI_BLK_AMS_ROOT_MAXCOUNT		(0x10U)
 #define XILCDO_NPI_BLK_ME_NPI_MAXCOUNT			(0x10U)
-#define XILCDO_TOTAL_NPI_BLKS				(0x20U)
+#define XILCDO_TOTAL_NPI_BLKS					(0x20U)
+#define XILCDO_NPI_BLK_XPLL_START_ADDR 			(0xF6099000U)
 /*
  * PCSR register offsets
  */
@@ -151,6 +156,7 @@ extern "C" {
 #define PCSR_MASK_NSU_PR_MASK					(0x04000000U)
 #define PCSR_MASK_AXI_REQ_REJECT_MASK			(0x04000000U)
 #define PCSR_MASK_ME_IPOR_MASK					(0x01000000U)
+#define PCSR_MASK_PR_FREEZE_MASK				(0x01000000U)
 #define PCSR_MASK_DESKEW_MASK					(0x01000000U)
 #define PCSR_MASK_UB_INIT_MASK					(0x01000000U)
 #define PCSR_MASK_INIT_CTRL_MASK				(0x01000000U)
@@ -172,13 +178,16 @@ extern "C" {
 #define PCSR_MASK_INITSTATE_MASK    			(0x00000040U)
 #define PCSR_MASK_ODISABLE_MASK    				(0x0000003CU)
 #define PCSR_MASK_ODISABLE1_MASK				(0x00000008U)
+#define PCSR_MASK_ODISABLE_NPP_MASK				(0x00000008U)
 #define PCSR_MASK_ODISABLE0_MASK				(0x00000004U)
+#define PCSR_MASK_ODISABLE_AXI_MASK				(0x00000004U)
 #define PCSR_MASK_GATEREG_MASK    				(0x00000002U)
 #define PCSR_MASK_PCOMPLETE_MASK    			(0x00000001U)
 
 /**
  * Register: PCSR_STATUS
  */
+#define PCSR_STATUS_SHUTDN_COMP_MASK			(0x00040000U)
 #define PCSR_STATUS_ME_PWR_SUPPLY_MASK			(0x00008000U)
 #define PCSR_STATUS_BISR_PASS_MASK    			(0x00000200U)
 #define PCSR_STATUS_BISRDONE_MASK    			(0x00000100U)
@@ -199,6 +208,11 @@ extern "C" {
 
 #define PCSR_PRECFG_MEMCLR_MASK					(0x01000000U)
 #define PCSR_PRECFG_SCANCLR_MASK				(0x02000000U)
+
+#define XILCDO_REG_BUSY_OFFSET					(0x810U)
+#define XILCDO_REG_BUSY_MASK					(0x1U)
+#define XILCDO_REG_PEND_BURST_OFFSET			(0x264U)
+#define XILCDO_REG_PEND_BURST_OFFSET_MASK		(0x3FFFU)
 /**************************** Type Definitions *******************************/
 
 /************************** Structure Declarations ***************************/
@@ -208,6 +222,7 @@ typedef struct
 	u32 XILCDO_NPI_BLK_XPIO_BaseAddr[XILCDO_NPI_BLK_XPIO_MAXCOUNT];
 	u32 XILCDO_NPI_BLK_XPIO_IOMISC_BaseAddr[XILCDO_NPI_BLK_XPIO_IOMISC_MAXCOUNT];
 	u32 XILCDO_NPI_BLK_XPLL_BaseAddr[XILCDO_NPI_BLK_XPLL_MAXCOUNT];
+	u32 XILCDO_NPI_BLK_PLL_PHY_BaseAddr[XILCDO_NPI_BLK_PLL_PHY_MAXCOUNT];
 	u32 XILCDO_NPI_BLK_XPHY_BaseAddr[XILCDO_NPI_BLK_XPHY_MAXCOUNT];
 	u32 XILCDO_NPI_BLK_DDRMC_BaseAddr[XILCDO_NPI_BLK_DDRMC_MAXCOUNT];
 	u32 XILCDO_NPI_BLK_XPIPE_BaseAddr[XILCDO_NPI_BLK_XPIPE_MAXCOUNT];
@@ -225,7 +240,7 @@ typedef struct
 	u32 XILCDO_NPI_BLK_VNOC_BaseAddr[XILCDO_NPI_BLK_VNOC_MAXCOUNT];
 	u32 XILCDO_NPI_BLK_VNOC_PS_BaseAddr[XILCDO_NPI_BLK_VNOC_PS_MAXCOUNT];
 	u32 XILCDO_NPI_BLK_CLK_GT_BaseAddr[XILCDO_NPI_BLK_CLK_GT_MAXCOUNT];
-	u32 XILCDO_NPI_BLK_REBUF_HSR_TNOC_ME_BaseAddr[XILCDO_NPI_BLK_REBUF_HSR_TNOC_ME_MAXCOUNT];
+	u32 XILCDO_NPI_BLK_REBUF_HSR_TNOC_ME_BaseAddr[XILCDO_NPI_BLK_REBUF_HSR_TNOC_ME_MAXCNT];
 	u32 XILCDO_NPI_BLK_MMCM_BaseAddr[XILCDO_NPI_BLK_MMCM_MAXCOUNT];
 	u32 XILCDO_NPI_BLK_DPLL_BaseAddr[XILCDO_NPI_BLK_DPLL_MAXCOUNT];
 	u32 XILCDO_NPI_BLK_AMS_SAT_BaseAddr[XILCDO_NPI_BLK_AMS_SAT_MAXCOUNT];
@@ -240,6 +255,7 @@ typedef struct
 	u32 XILCDO_NPI_BLK_GT_NpiParam[XILCDO_NPI_BLK_GT_MAXCOUNT];
 	u32 XILCDO_NPI_BLK_NOC_NSU_NpiParam[XILCDO_NPI_BLK_NOC_NSU_MAXCOUNT];
 	u32 XILCDO_NPI_BLK_NOC_NMU_NpiParam[XILCDO_NPI_BLK_NOC_NMU_MAXCOUNT];
+	u32 XILCDO_NPI_BLK_PLL_PHY_NpiParam[XILCDO_NPI_BLK_PLL_PHY_MAXCOUNT];
 	u32 BaseAddrCnt[XILCDO_TOTAL_NPI_BLKS];
 }XILCDO_NPI_SEQ;
 
@@ -275,25 +291,6 @@ void XilCdo_SetUBInitState(u32 BaseAddr);
 void XilCdo_SetDCIOfcReset(u32 BaseAddr);
 void XilCdo_ClearDCIOfcReset(u32 BaseAddr);
 void XilCdo_SetPwrDown(u32 BaseAddr);
-void XilCdo_ShutBlkVREF(u32 BaseAddr);
-void XilCdo_ShutBlkXPIO(u32 BaseAddr);
-void XilCdo_ShutBlkDCI(u32 BaseAddr);
-void XilCdo_ShutBlkHSR_VRT(u32 BaseAddr);
-void XilCdo_ShutBlkHSR_TNOC_ME(u32 BaseAddr);
-void XilCdo_ShutBlkHSR_BUFGS(u32 BaseAddr);
-void XilCdo_ShutBlkVNOC_PS(u32 BaseAddr);
-void XilCdo_ShutBlkVNOC(u32 BaseAddr);
-void XilCdo_ShutBlkCLK_GT(u32 BaseAddr);
-void XilCdo_ShutBlkMMCM_DPLL(u32 BaseAddr);
-void XilCdo_ShutBlkXPHY(u32 BaseAddr);
-void XilCdo_ShutBlkDDRMC(u32 BaseAddr);
-void XilCdo_ShutBlkXPIPE(u32 BaseAddr);
-void XilCdo_ShutBlkGT(u32 BaseAddr);
-void XilCdo_ShutBlkNSU(u32 BaseAddr);
-void XilCdo_ShutBlkNMU(u32 BaseAddr);
-void XilCdo_ShutBlkNCRB(u32 BaseAddr);
-void XilCdo_ShutBlkXPLL(u32 BaseAddr);
-void XilCdo_ShutBlkNPS(u32 BaseAddr);
 void XilCdo_RunNsuPRMode(u32 BaseAddr);
 void XilCdo_RunAxiReqRejectMode(u32 BaseAddr);
 void XilCdo_SetAxiReqRejectMode(u32 BaseAddr);
@@ -323,6 +320,8 @@ void XilCdo_SetMemClearEnAll(u32 BaseAddr);
 void XilCdo_ClearOD_MBIST_ASYNC_RESET(u32 BaseAddr);
 void XilCdo_SetOD_MBIST_ASYNC_RESET(u32 BaseAddr);
 void XilCdo_ClearOD_BIST_SETUP(u32 BaseAddr);
+void XilCdo_ClearODisableNPP(u32 BaseAddr);
+void XilCdo_ClearODisableAXI(u32 BaseAddr);
 XStatus XilCdo_NpiPreCfg_GTY(u32 BaseAddr, u32 NpiParam);
 XStatus XilCdo_NpiPreCfg_DDRMC(u32 BaseAddr, u32 NpiParam);
 XStatus XilCdo_NpiPreCfg_ME(u32 BaseAddr, u32 NpiParam);
@@ -332,6 +331,7 @@ XStatus XilCdo_CheckDeskew(u32 BaseAddr);
 XStatus XilCdo_NpiWrite(u32 CmdArgs[10U]);
 XStatus XilCdo_NpiSeq(u32 CmdArgs[10U]);
 XStatus XilCdo_NpiShutDown(u32 CmdArgs[10U]);
+XStatus XilCdo_StoreNpiParams(u32 CmdArgs[10U]);
 XStatus XilCdo_RunPendingNpiSeq(void);
 XStatus XilCdo_CheckDeskew(u32 BaseAddr);
 void XilCdo_CheckCalibration(u32 BaseAddr);
@@ -342,14 +342,27 @@ void XilCdo_ResetGlobalSignalsPostShutdwn(void);
 void XilCdo_ResetGlobalSignals_ME(void);
 void XilCdo_SetGlobalSignals(void);
 void XilCdo_SetEOS(void);
+void XilCdo_ClearEOS(void);
 void XilCdo_SetGWE(void);
+void XilCdo_ClearGWE(void);
+void XilCdo_SetGSCWE(void);
+void XilCdo_ClearGSCWE(void);
 void XilCdo_ClearEnGlob(void);
+void XilCdo_CheckRegBusy(u32 BaseAddr);
+void XilCdo_CheckRegPendingBurst(u32 BaseAddr);
 void XilCdo_ProcIOModules(void);
 void XilCdoProcMMCM_CLK(void);
 void XilCdoProcNocModules(void);
 void XilCdoProcAMSModules(void);
 void XilCdoProcGTModules(void);
-void XilCdo_AssertGlobalSignals();
+void XilCdo_ShutNocModules(void);
+void XilCdo_ShutIOModules(void);
+void XilCdo_ShutGTModules(void);
+void XilCdo_ShutMMCM_CLK(void);
+void XilCdo_AssertGlobalSignals(void);
+void XilCdo_ClearGlobalSignals(void);
+void XilCdo_PR_IOModules(void);
+void XilCdo_PR_NocModules(void);
 #ifdef __cplusplus
 }
 #endif
