@@ -105,6 +105,7 @@ typedef enum {
 	XPM_DEVSTATE_RST_ON,	/* Assert reset */
 	XPM_DEVSTATE_CLK_OFF,	/* Disable clock */
 	XPM_DEVSTATE_PWR_OFF,	/* Power down */
+	XPM_DEVSTATE_SUSPENDING,
 } XPm_DeviceState;
 
 /* Device events */

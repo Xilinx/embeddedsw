@@ -31,6 +31,9 @@
 
 #include "xpm_core.h"
 
+#define XPM_ACPU_0_PWR_CTRL_MASK	BIT(0)
+#define XPM_ACPU_1_PWR_CTRL_MASK	BIT(1)
+
 typedef struct XPm_ApuCore XPm_ApuCore;
 
 /**

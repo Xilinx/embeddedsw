@@ -132,6 +132,9 @@ XStatus XPm_DescribeNodes(u32 NumArgs);
 XStatus XPm_AddNodeParent(u32 *Args, u32 NumArgs);
 XStatus XPm_AddNodeName(u32 *Args, u32 NumArgs);
 XStatus XPm_AddNode(u32 *Args, u32 NumArgs);
+XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
+			const u32 Latency, const u8 State,
+			u32 AddrLow, u32 AddrHigh);
 
 /** @} */
 #endif /* XILLIBPM_API_H_ */
