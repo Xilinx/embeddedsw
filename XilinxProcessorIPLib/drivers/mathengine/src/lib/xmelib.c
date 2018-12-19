@@ -68,6 +68,7 @@
 
 #else /* Non-baremetal application, ex Linux */
 
+#include <stdarg.h>
 #include <stdio.h>
 #include <unistd.h>
 
@@ -245,7 +246,10 @@ void XMeLib_IntPrint(const char *Format, ...)
 #elif defined __MEBAREMTL__
 	xil_printf(Format);
 #else
-	printf(Format);
+	va_list argptr;
+	va_start(argptr, Format);
+	vprintf(Format, argptr);
+	va_end(argptr);
 #endif
 }
 
