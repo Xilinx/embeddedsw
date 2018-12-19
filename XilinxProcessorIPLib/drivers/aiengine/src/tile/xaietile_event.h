@@ -40,6 +40,7 @@
 * ----- ------  -------- -----------------------------------------------------
 * 1.0   Hyun    10/02/2018  Initial creation
 * 1.1   Nishad  12/05/2018  Renamed ME attributes to AIE
+* 1.2   Hyun    12/13/2018  Added the core PC event API
 * </pre>
 *
 ******************************************************************************/
@@ -64,6 +65,11 @@
 #define XAIETILE_EVENT_MODE_EVENT_TIME			0x00U
 #define XAIETILE_EVENT_MODE_EVENT_PC			0x01U
 #define XAIETILE_EVENT_MODE_EXECUTION			0x10U
+
+#define XAIETILE_EVENT_CORE_PC_EVENT0			0x0U
+#define XAIETILE_EVENT_CORE_PC_EVENT1			0x1U
+#define XAIETILE_EVENT_CORE_PC_EVENT2			0x2U
+#define XAIETILE_EVENT_CORE_PC_EVENT3			0x3U
 
 /*
  * Core module events
@@ -464,6 +470,7 @@ u8 XAieTileCore_EventBroadcast(XAieGbl_Tile *TileInstPtr, u8 BroadcastId, u8 Eve
 u8 XAieTileCore_EventBroadcastBlockSet(XAieGbl_Tile *TileInstPtr, u8 Dir, u8 Mask);
 u8 XAieTileCore_EventBroadcastBlockClear(XAieGbl_Tile *TileInstPtr, u8 Dir, u8 Mask);
 u32 XAieTileCore_EventBroadcastBlockValue(XAieGbl_Tile *TileInstPtr, u8 Dir);
+u8 XAieTileCore_EventPCEvent(XAieGbl_Tile *TileInstPtr, u8 PCEvent, u16 PCAddr, u8 Valid);
 
 /*
  * PL module

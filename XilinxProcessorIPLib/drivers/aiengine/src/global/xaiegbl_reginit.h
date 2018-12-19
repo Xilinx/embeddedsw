@@ -47,6 +47,7 @@
 * 1.5  Hyun    10/03/2018  Added event port select registers
 * 1.6  Hyun    10/12/2018  Added the column reset register
 * 1.7  Nishad  12/05/2018  Renamed ME attributes to AIE
+* 1.6  Hyun    12/13/2018  Added the core PC event registers
 * </pre>
 *
 ******************************************************************************/
@@ -462,6 +463,15 @@ typedef struct {
 	u32 RegOff[2U];                  /**< Register offset */
 	XAieGbl_RegFldAttr Event[8U];     /**< Event */
 } XAieGbl_RegTraceEvent;
+
+/**
+ * This typedef contains the attributes for Core PC events.
+ */
+typedef struct {
+	u32 RegOff;                             /**< Register offset */
+	XAieGbl_RegFldAttr PCAddr;               /**< PC address */
+	XAieGbl_RegFldAttr Valid;                /**< Valid bit */
+} XAieGbl_RegCorePCEvent;
 
 /**************************** Macro Definitions *****************************/
 
