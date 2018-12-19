@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 18 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -56,6 +56,7 @@
 *       vns 02/19/18 Modified XSecure_AesKeyZero() to clear KUP and AES key
 *                    Added XSecure_AesKeyZero() call in XSecure_AesDecrypt()
 *                    API to clear keys.
+* 4.0   arc 18/12/18 Fixed MISRA-C violations.
 *
 * </pre>
 *
@@ -99,7 +100,7 @@ static u32 XSecure_Zeroize(u8 *DataPtr,u32 Length);
  *
  ******************************************************************************/
 s32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
-				u32 KeySel, u32* Iv,  u32* Key)
+				u32 KeySel, u32* IvPtr,  u32* KeyPtr)
 {
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -108,8 +109,8 @@ s32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
 	InstancePtr->BaseAddress = XSECURE_CSU_AES_BASE;
 	InstancePtr->CsuDmaPtr = CsuDmaPtr;
 	InstancePtr->KeySel = KeySel;
-	InstancePtr->Iv = Iv;
-	InstancePtr->Key = Key;
+	InstancePtr->Iv = IvPtr;
+	InstancePtr->Key = KeyPtr;
 	InstancePtr->IsChunkingEnabled = XSECURE_CSU_AES_CHUNKING_DISABLED;
 
 	return XST_SUCCESS;
@@ -136,12 +137,12 @@ s32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
  ******************************************************************************/
 void XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 {
-	u32 SssCfg = 0U;
+	u32 SssCfg;
 	u32 SssDma;
 	u32 SssAes;
-	u32 Count=0U;
-	u32 Value=0U;
-	u32 Addr=0U;
+	u32 Count;
+	u32 Value;
+	u32 Addr;
 	XCsuDma_Configure ConfigurValues = {0};
 
 	/* Assert validates the input arguments */
@@ -171,7 +172,7 @@ void XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 			Value = Xil_Htonl(InstancePtr->Key[Count]);
 			Addr = InstancePtr->BaseAddress +
 				XSECURE_CSU_AES_KUP_0_OFFSET
-					+ (Count * 4);
+					+ (Count * 4U);
 			XSecure_Out32(Addr, Value);
 		}
 		XSecure_AesKeySelNLoad(InstancePtr);
@@ -344,12 +345,12 @@ void XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 		u32 Size, u8 *GcmTagAddr)
 {
 
-	u32 SssCfg = 0x0U;
+	u32 SssCfg;
 	u32 SssAes;
 	XCsuDma_Configure ConfigurValues = {0};
-	u32 Count = 0U;
-	u32 Value = 0U;
-	u32 Addr = 0U;
+	u32 Count;
+	u32 Value;
+	u32 Addr;
 
 	/* Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -390,7 +391,7 @@ void XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 			Value = Xil_Htonl(InstancePtr->Key[Count]);
 			Addr = InstancePtr->BaseAddress +
 					XSECURE_CSU_AES_KUP_0_OFFSET
-					+ (Count * 4);
+					+ (Count * 4U);
 			XSecure_Out32(Addr, Value);
 		}
 		XSecure_AesKeySelNLoad(InstancePtr);
@@ -462,7 +463,7 @@ void XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
  ******************************************************************************/
 s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 {
-	u32 GcmStatus;
+	u32 GcmStatus = XST_SUCCESS;
 	XCsuDma_Configure ConfigurValues = {0};
 	u8 IsFinalUpdate = FALSE;
 
@@ -537,17 +538,18 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 			/* Zeroize the decrypted data*/
 			GcmStatus = XSecure_Zeroize(InstancePtr->Destination,
 							InstancePtr->SizeofData);
-			if (GcmStatus != XST_SUCCESS) {
-				return GcmStatus;
+			if (GcmStatus != (u32)XST_SUCCESS) {
+				goto END;
 			}
-			return XSECURE_CSU_AES_GCM_TAG_MISMATCH;
+			GcmStatus = XSECURE_CSU_AES_GCM_TAG_MISMATCH;
+			goto END;
 		}
 	}
 
 	/* Update the size of data */
 	InstancePtr->SizeofData = InstancePtr->SizeofData - Size;
-
-	return XST_SUCCESS;
+END:
+	return (s32)GcmStatus;
 
 }
 
@@ -566,24 +568,28 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
  *			- XST_SUCCESS: If Zeroization is Scuccesfull.
  *
  ********************************************************************************/
-u32 XSecure_Zeroize(u8 *DataPtr,u32 Length)
+static u32 XSecure_Zeroize(u8 *DataPtr, u32 Length)
 {
 	u32 WordLen;
 	u32 Index;
 	u32 *DataAddr = (u32 *)DataPtr;
+	u32 Status;
 
 	/* Clear the decrypted data */
-	memset(DataPtr, 0, Length);
+	(void)memset(DataPtr, 0, Length);
 	WordLen = Length/4U;
 
 	/* Read it back to verify*/
-	 for (Index = 0; Index < WordLen; Index++) {
+	 for (Index = 0U; Index < WordLen; Index++) {
 		if(*DataAddr != 0x00U) {
-			return XSECURE_CSU_AES_ZEROIZATION_ERROR;
+			Status = (u32)XSECURE_CSU_AES_ZEROIZATION_ERROR;
+			goto END;
 		}
 		DataAddr++;
 	}
-	return XST_SUCCESS;
+	Status = (u32)XST_SUCCESS;
+END:
+	return Status;
 }
 /*****************************************************************************/
 /**
@@ -610,7 +616,7 @@ u32 XSecure_Zeroize(u8 *DataPtr,u32 Length)
 s32 XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u8 * DecData, u8 *EncData,
 		u32 Size, u8 * GcmTagAddr)
 {
-	s32 Status = XST_SUCCESS;
+	s32 Status;
 
 	XSecure_AesDecryptInit(InstancePtr, DecData, Size, GcmTagAddr);
 
@@ -684,7 +690,7 @@ void XSecure_AesSetChunkConfig(XSecure_Aes *InstancePtr, u8 *ReadBuffer,
 	Xil_AssertVoid(DeviceCopy != NULL);
 	Xil_AssertVoid(ChunkSize != 0U);
 	/* Chunk Size has to be multiple of words */
-	Xil_AssertVoid(ChunkSize % 4U == 0U);
+	Xil_AssertVoid((ChunkSize % 4U) == 0U);
 
 	InstancePtr->ReadBuffer = ReadBuffer;
 	InstancePtr->ChunkSize = ChunkSize;
@@ -712,7 +718,7 @@ static void XSecure_AesWaitKeyLoad(XSecure_Aes *InstancePtr)
 	do {
 		Status = XSecure_ReadReg(InstancePtr->BaseAddress,
 					XSECURE_CSU_AES_STS_OFFSET);
-	} while (!((u32)Status & XSECURE_CSU_AES_STS_KEY_INIT_DONE));
+	} while (((u32)Status & XSECURE_CSU_AES_STS_KEY_INIT_DONE) == 0U);
 }
 
 /*****************************************************************************/
@@ -735,7 +741,7 @@ void XSecure_AesWaitForDone(XSecure_Aes *InstancePtr)
 	do {
 		Status = XSecure_ReadReg(InstancePtr->BaseAddress,
 					XSECURE_CSU_AES_STS_OFFSET);
-	} while ((u32)Status & XSECURE_CSU_AES_STS_AES_BUSY);
+	} while (((u32)Status & XSECURE_CSU_AES_STS_AES_BUSY) != 0U);
 }
 
 /*****************************************************************************/
@@ -779,7 +785,7 @@ u32 XSecure_AesKeyZero(XSecure_Aes *InstancePtr)
 
 	volatile u32 Status;
 	u32 ReadReg;
-	u32 TimeOut = XSECURE_AES_TIMEOUT_MAX;
+	u32 TimeOut = XSECURE_AES_TIMEOUT_MAX + 1U;
 
 	ReadReg = XSecure_ReadReg(InstancePtr->BaseAddress,
 				XSECURE_CSU_AES_KEY_CLR_OFFSET);
@@ -790,6 +796,7 @@ u32 XSecure_AesKeyZero(XSecure_Aes *InstancePtr)
 						XSECURE_CSU_AES_KUP_ZERO));
 
 	do {
+		TimeOut = TimeOut - 1U;
 		Status = XSecure_ReadReg(InstancePtr->BaseAddress,
 					 XSECURE_CSU_AES_STS_OFFSET) &
 		(XSECURE_CSU_AES_STS_AES_KEY_ZERO | XSECURE_CSU_AES_STS_KUP_ZEROED);
@@ -798,11 +805,11 @@ u32 XSecure_AesKeyZero(XSecure_Aes *InstancePtr)
 			break;
 		}
 
-	} while (TimeOut-- != 0x00);
+	} while (TimeOut != 0x00U);
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 					XSECURE_CSU_AES_KEY_CLR_OFFSET, (u32)ReadReg);
-	if (TimeOut == 0) {
+	if (TimeOut == 0U) {
 		return XSECURE_CSU_AES_KEY_CLEAR_ERROR;
 	}
 
@@ -868,12 +875,13 @@ static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Len != 0U);
+	Xil_AssertNonvoid((InstancePtr->ChunkSize) != 0U);
 
 	s32 Status = XST_SUCCESS;
 
 	u32 NumChunks = Len / (InstancePtr->ChunkSize);
 	u32 RemainingBytes = Len % (InstancePtr->ChunkSize);
-	u32 Index = 0U;
+	u32 Index;
 	u32 StartAddrByte = (u32)(INTPTR)Src;
 
 	/*
@@ -881,15 +889,15 @@ static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
 	 * decrypted data to PCAP
 	 */
 
-	for(Index = 0; Index < NumChunks; Index++)
+	for(Index = 0U; Index < NumChunks; Index++)
 	{
-		Status = InstancePtr->DeviceCopy(StartAddrByte,
+		Status = (s32)InstancePtr->DeviceCopy(StartAddrByte,
 					(UINTPTR)(InstancePtr->ReadBuffer),
 					InstancePtr->ChunkSize);
 
 		if (XST_SUCCESS != Status)
 		{
-			Status = XSECURE_CSU_AES_DEVICE_COPY_ERROR;
+			Status = (s32)XSECURE_CSU_AES_DEVICE_COPY_ERROR;
 			return Status;
 		}
 
@@ -911,14 +919,14 @@ static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
 		StartAddrByte += InstancePtr->ChunkSize;
 	}
 
-	if((RemainingBytes != 0))
+	if((RemainingBytes != 0U))
 	{
-		Status = InstancePtr->DeviceCopy(StartAddrByte,
+		Status = (s32)InstancePtr->DeviceCopy(StartAddrByte,
 				(UINTPTR)(InstancePtr->ReadBuffer), RemainingBytes);
 
 		if (XST_SUCCESS != Status)
 		{
-			Status = XSECURE_CSU_AES_DEVICE_COPY_ERROR;
+			Status = (s32)XSECURE_CSU_AES_DEVICE_COPY_ERROR;
 			return Status;
 		}
 
@@ -964,7 +972,7 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 
 	volatile s32 Status = XST_SUCCESS;
 
-	u32 GcmStatus = 0U;
+	u32 GcmStatus;
 	u32 StartAddrByte = (u32)(INTPTR)Src;
 
 	/* Start the message. */
@@ -993,7 +1001,7 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 	XCsuDma_SetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 				&ConfigurValues);
 
-	if(Flag)
+	if(Flag != 0U)
 	{
 		/*
 		 * This means we are decrypting Block of the boot image.
@@ -1095,14 +1103,14 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 	if (InstancePtr->IsChunkingEnabled == XSECURE_CSU_AES_CHUNKING_ENABLED)
 	{
 		/* Copy the secure header and GCM tag from flash to OCM */
-		Status = InstancePtr->DeviceCopy(StartAddrByte,
+		Status = (s32)InstancePtr->DeviceCopy(StartAddrByte,
 				(UINTPTR)(InstancePtr->ReadBuffer),
 				(XSECURE_SECURE_HDR_SIZE
 				+ XSECURE_SECURE_GCM_TAG_SIZE));
 
 		if (XST_SUCCESS != Status)
 		{
-			Status = XSECURE_CSU_AES_DEVICE_COPY_ERROR;
+			Status = (s32)XSECURE_CSU_AES_DEVICE_COPY_ERROR;
 			return Status;
 		}
 
@@ -1126,7 +1134,7 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 
 	/* Restore Key write register to 0. */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
-					XSECURE_CSU_AES_KUP_WR_OFFSET, 0x0);
+					XSECURE_CSU_AES_KUP_WR_OFFSET, 0x0U);
 
 	/* Push the GCM tag. */
 	if (InstancePtr->IsChunkingEnabled == XSECURE_CSU_AES_CHUNKING_ENABLED)
@@ -1167,9 +1175,9 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 				XSECURE_CSU_AES_STS_OFFSET) &
 				XSECURE_CSU_AES_STS_GCM_TAG_OK;
 
-	if (!!GcmStatus == 0U)
+	if (GcmStatus == 0U)
 	{
-		return XSECURE_CSU_AES_GCM_TAG_MISMATCH;
+		return (s32)XSECURE_CSU_AES_GCM_TAG_MISMATCH;
 	}
 
 	return Status;
@@ -1238,19 +1246,19 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 				|| (InstancePtr->IsChunkingEnabled
 					== XSECURE_CSU_AES_CHUNKING_DISABLED)));
 
-	u32 SssCfg = 0x0U;
-	volatile s32 Status = XST_SUCCESS;
+	u32 SssCfg;
+	volatile u32 Status = XST_SUCCESS;
 	u32 CurrentImgLen = 0x0U;
 	u32 NextBlkLen = 0x0U;
 	u32 PrevBlkLen = 0x0U;
 	u8 *DestAddr= 0x0U;
 	u8 *SrcAddr = 0x0U;
-	u8 *GcmTagAddr = 0x0U;
+	u8 *GcmTagAddr;
 	u32 BlockCnt = 0x0U;
 	u32 ImageLen = 0x0U;
-	u32 SssPcap = 0x0U;
-	u32 SssDma = 0x0U;
-	u32 SssAes = 0x0U;
+	u32 SssPcap;
+	u32 SssDma;
+	u32 SssAes;
 	XCsuDma_Configure ConfigurValues = {0};
 	u32 KeyClearStatus;
 
@@ -1293,8 +1301,8 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 	}
 	else
 	{
-		u32 Count=0U, Value=0U;
-		u32 Addr=0U;
+		u32 Count, Value;
+		u32 Addr;
 		for(Count = 0U; Count < 8U; Count++)
 		{
 			/* Helion AES block expects the key in big-endian. */
@@ -1302,7 +1310,7 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 
 			Addr = InstancePtr->BaseAddress +
 				XSECURE_CSU_AES_KUP_0_OFFSET
-				+ (Count * 4);
+				+ (Count * 4U);
 
 			XSecure_Out32(Addr, Value);
 		}
@@ -1312,7 +1320,7 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 	do
 	{
 		PrevBlkLen = NextBlkLen;
-		if (BlockCnt == 0) {
+		if (BlockCnt == 0U) {
 			/* Enable CSU DMA Src channel for byte swapping.*/
 			XCsuDma_GetConfig(InstancePtr->CsuDmaPtr,
 				XCSUDMA_SRC_CHANNEL, &ConfigurValues);
@@ -1323,13 +1331,13 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 
 		/* Start decryption of Secure-Header/Block/Footer. */
 
-		Status = XSecure_AesDecryptBlk(InstancePtr, DestAddr,
+		Status = (u32)XSecure_AesDecryptBlk(InstancePtr, DestAddr,
 						(const u8 *)SrcAddr,
 						((const u8 *)GcmTagAddr),
 						NextBlkLen, BlockCnt);
 
 		/* If decryption failed then return error. */
-		if(Status != XST_SUCCESS)
+		if(Status != (u32)XST_SUCCESS)
 		{
 			goto ENDF;
 		}
@@ -1339,7 +1347,7 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 		 * Size is in 32-bit words so mul it with 4
 		 */
 		NextBlkLen = Xil_Htonl(XSecure_ReadReg(InstancePtr->BaseAddress,
-					XSECURE_CSU_AES_IV_3_OFFSET)) * 4;
+					XSECURE_CSU_AES_IV_3_OFFSET)) * 4U;
 
 		/* Update the current image size. */
 		CurrentImgLen += NextBlkLen;
@@ -1353,7 +1361,7 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 				 * if the current image != size in the header
 				 * then return error.
 				 */
-				Status = XSECURE_CSU_AES_IMAGE_LEN_MISMATCH;
+				Status = (u32)XSECURE_CSU_AES_IMAGE_LEN_MISMATCH;
 				goto ENDF;
 			}
 			else
@@ -1370,7 +1378,7 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 			 */
 			if(CurrentImgLen > ImageLen)
 			{
-				Status = XSECURE_CSU_AES_IMAGE_LEN_MISMATCH;
+				Status = (u32)XSECURE_CSU_AES_IMAGE_LEN_MISMATCH;
 				goto ENDF;
 			}
 		}
@@ -1404,21 +1412,21 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 
 ENDF:
 	XSecure_AesReset(InstancePtr);
-	if ((Status == XSECURE_CSU_AES_GCM_TAG_MISMATCH) &&
+	if ((Status == (u32)XSECURE_CSU_AES_GCM_TAG_MISMATCH) &&
 		(Dst != (u8*)XSECURE_DESTINATION_PCAP_ADDR)) {
 		/* Zeroize the decrypted data*/
-		Status = XSecure_Zeroize(Dst,ImageLen);
-		if (Status != XST_SUCCESS) {
-			Status = XSECURE_CSU_AES_ZEROIZATION_ERROR;
+		Status = (u32)XSecure_Zeroize(Dst,ImageLen);
+		if (Status != (u32)XST_SUCCESS) {
+			Status = (u32)XSECURE_CSU_AES_ZEROIZATION_ERROR;
 		}
 		else {
-			Status = XSECURE_CSU_AES_GCM_TAG_MISMATCH;
+			Status = (u32)XSECURE_CSU_AES_GCM_TAG_MISMATCH;
 		}
 	}
 	KeyClearStatus = XSecure_AesKeyZero(InstancePtr);
-	if (KeyClearStatus != XST_SUCCESS) {
+	if (KeyClearStatus != (u32)XST_SUCCESS) {
 		Status = Status | KeyClearStatus;
 	}
 
-	return Status;
+	return (s32)Status;
 }

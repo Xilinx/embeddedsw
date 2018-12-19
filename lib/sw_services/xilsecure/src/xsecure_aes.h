@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 18 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -82,6 +82,7 @@
 *                     XSECURE_AES_TIMEOUT_MAX
 * 3.1   ka   03/16/18 Added Zeroization of Aes Decrypted data in case of
 *                    GCM_TAG_MISMATCH
+* 4.0   arc  18/12/18 Fixed MISRA-C violations.
 * </pre>
 * @endcond
 *
@@ -207,7 +208,7 @@ typedef struct {
 /* Initialization Functions */
 
 s32  XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
-				u32 KeySel, u32* Iv,  u32* Key);
+				u32 KeySel, u32* IvPtr,  u32* KeyPtr);
 
 /* Decryption of data */
 void XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
