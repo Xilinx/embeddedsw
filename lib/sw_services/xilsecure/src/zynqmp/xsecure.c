@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -68,6 +48,10 @@
 * 4.1   psl 07/02/19 Fixed Coverity warning.
 *       mmd 07/05/19 Optimized the code
 *       psl 07/31/19 Fixed MISRA-C violations.
+* 4.2   kal 03/12/20 Authenticate SizeofImgHdr before use, incase of failure
+*                    return XSECURE_IMAGE_HEADER_SIZE_ERR.
+*                    Added support to hold Aes engine in reset after secure
+*                    image processing.
 *
 * </pre>
 *
@@ -87,13 +71,24 @@ static XSecure_Sha3 Sha3Instance;
 
 static XCsuDma CsuDma = {0U};
 #if defined (__GNUC__)
+#if defined (PSU_PMU)
 u8 EfusePpk[XSECURE_PPK_SIZE]__attribute__ ((aligned (32)));
 			/**< eFUSE verified PPK */
 u8 AcBuf[XSECURE_AUTH_CERT_MIN_SIZE]__attribute__ ((aligned (32)));
 			/**< Buffer to store authentication certificate */
 u8 Buffer[XSECURE_BUFFER_SIZE] __attribute__ ((aligned (32)));
 			/**< Buffer to store */
+#else	/*!PSU_PMU*/
+u8 EfusePpk[XSECURE_PPK_SIZE]__attribute__ ((aligned (64)));
+			/**< eFUSE verified PPK */
+u8 AcBuf[XSECURE_AUTH_CERT_MIN_SIZE]__attribute__ ((aligned (64)));
+			/**< Buffer to store authentication certificate */
+u8 Buffer[XSECURE_BUFFER_SIZE] __attribute__ ((aligned (64)));
+			/**< Buffer to store */
+#endif
+
 #elif defined (__ICCARM__)
+#if defined (PSU_PMU)
 #pragma data_alignment = 32
 u8 EfusePpk[XSECURE_PPK_SIZE];
 			/**< eFUSE verified PPK */
@@ -103,9 +98,19 @@ u8 AcBuf[XSECURE_AUTH_CERT_MIN_SIZE];
 #pragma data_alignment = 32
 u8 Buffer[XSECURE_BUFFER_SIZE];
 			/**< Buffer to store */
+#else	/*!PSU_PMU*/
+#pragma data_alignment = 64
+u8 EfusePpk[XSECURE_PPK_SIZE];
+			/**< eFUSE verified PPK */
+#pragma data_alignment = 64
+u8 AcBuf[XSECURE_AUTH_CERT_MIN_SIZE];
+			/**< Buffer to store authentication certificate */
+#pragma data_alignment = 64
+u8 Buffer[XSECURE_BUFFER_SIZE];
+			/**< Buffer to store */
+#endif
 #endif
 u32 XsecureIv[XSECURE_IV_LEN];
-u32 XsecureKey[XSECURE_KEY_LEN];
 
 /**************************** Type Definitions *******************************/
 typedef struct {
@@ -280,18 +285,13 @@ u32 XSecure_RsaCore(u32 SrcAddrHigh, u32 SrcAddrLow, u32 SrcSize,
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
-	switch (Flags & XSECURE_RSA_CORE_OPERATION) {
-	case XSECURE_DEC:
+	if ((Flags & XSECURE_RSA_CORE_OPERATION) == (u32)XSECURE_DEC) {
 		Status = (u32)XSecure_RsaPrivateDecrypt(&Secure_Rsa,
 			(u8 *)(UINTPTR)WrAddr, SrcSize, (u8 *)(UINTPTR)WrAddr);
-		break;
-	case XSECURE_ENC:
+	}
+	else {
 		Status = (u32)XSecure_RsaPublicEncrypt(&Secure_Rsa,
 			(u8 *)(UINTPTR)WrAddr, SrcSize, (u8 *)(UINTPTR)WrAddr);
-		break;
-	default:
-		Status = XSECURE_INVALID_FLAG;
-		break;
 	}
 
 END:
@@ -350,13 +350,9 @@ static u32 XSecure_InitAes(u32 AddrHigh, u32 AddrLow)
 	}
 	/* Initialize the Aes driver so that it's ready to use */
 	if (AesParams->KeySrc == XSECURE_AES_KUP_KEY) {
-		for (Index = 0U; Index < XSECURE_KEY_LEN; Index++) {
-			XsecureKey[Index] = *KeyPtr;
-			KeyPtr++;
-		}
 		(void)XSecure_AesInitialize(&SecureAes, &CsuDma,
 				XSECURE_CSU_AES_KEY_SRC_KUP,
-				XsecureIv, XsecureKey);
+				XsecureIv, KeyPtr);
 	}
 	else {
 		(void)XSecure_AesInitialize(&SecureAes, &CsuDma,
@@ -790,6 +786,7 @@ u32 XSecure_AuthenticationHeaders(u8 *StartAddr, XSecure_ImageInfo *ImageInfo)
 	u8 IsEncrypted = 0U;
 	u8 EncOnly = 0U;
 	XSecure_PartitionHeader *Ph;
+	u8 *IvPtr = (u8 *)(ImageInfo->Iv + (XSECURE_IV_LEN - 1));
 	u8 BootgenBinFormat[] = {0x66, 0x55, 0x99, 0xAA,
 				 0x58, 0x4E, 0x4C, 0x58};/* Sync Word */
 
@@ -850,6 +847,11 @@ u32 XSecure_AuthenticationHeaders(u8 *StartAddr, XSecure_ImageInfo *ImageInfo)
 
 	/* Copy image header to internal memory */
 	SizeofImgHdr = AuthCertOffset - ImgHdrToffset;
+
+	if (SizeofImgHdr > sizeof(Buffer)) {
+		Status = XSECURE_IMAGE_HEADER_SIZE_ERR;
+		goto END;
+	}
 	(void)XSecure_MemCopy((void *)(UINTPTR)Buffer, (u8 *)(StartAddr + ImgHdrToffset),
 					SizeofImgHdr/XSECURE_WORD_LEN);
 
@@ -929,8 +931,8 @@ UPDATE:
 
 	/* Add partition header IV to boot header IV */
 	 if (ImageInfo->KeySrc != 0x00U) {
-		 *(ImageInfo->Iv + (XSECURE_IV_LEN - 1U)) =
-			 (*(ImageInfo->Iv + (XSECURE_IV_LEN - 1U))) +
+		 *(IvPtr + XSECURE_IV_LEN) =
+			 (*(IvPtr + XSECURE_IV_LEN)) +
 			 (ImageInfo->PartitionHdr->Iv & XSECURE_PH_IV_MASK);
 	}
 
@@ -971,7 +973,7 @@ u32 XSecure_SecureImage(u32 AddrHigh, u32 AddrLow,
 	u8 NoAuth = 0;
 	u32 EncOnly;
 	u8 IsEncrypted;
-	u8 *IvPtr = (u8 *)(UINTPTR)XsecureIv;
+	u8 *IvPtr = (u8 *)(UINTPTR)&XsecureIv[XSECURE_IV_LEN - 1];
 	u32 Offset;
 
 	/* Address provided is null */
@@ -1070,8 +1072,8 @@ u32 XSecure_SecureImage(u32 AddrHigh, u32 AddrLow,
 			(void)XSecure_MemCopy(ImageHdrInfo.Iv,
 				(Buffer + XSECURE_IV_OFFSET), XSECURE_IV_LEN);
 			/* Add partition header IV to boot header IV */
-			*(IvPtr + (XSECURE_IV_LEN - 1U)) =
-				(*(IvPtr + (XSECURE_IV_LEN - 1U))) +
+			*(IvPtr + XSECURE_IV_LEN) =
+				(*(IvPtr + XSECURE_IV_LEN)) +
 				(ImageHdrInfo.PartitionHdr->Iv & XSECURE_PH_IV_MASK);
 		}
 		/*
@@ -1107,10 +1109,6 @@ u32 XSecure_SecureImage(u32 AddrHigh, u32 AddrLow,
 	Status = XSecure_DecryptPartition(&ImageHdrInfo, SrcAddr, KupKey, Addr);
 
 END:
-	if (KupKey != 0x00) {
-		/* Clear the user key */
-		(void)memset(KupKey, 0, XSECURE_KEY_STR_LEN);
-	}
 	/* Clear internal buffers */
 	(void)memset(Buffer, 0, XSECURE_BUFFER_SIZE);
 	(void)memset(AcBuf, 0, XSECURE_AUTH_CERT_MIN_SIZE);
@@ -1446,7 +1444,8 @@ static u32 XSecure_BhdrValidation(XSecure_ImageInfo *ImageInfo)
 	ImgAttributes = Xil_In32((UINTPTR)(Buffer +
 				XSECURE_IMAGE_ATTR_OFFSET));
 
-	if ((ImgAttributes & XSECURE_IMG_ATTR_BHDR_MASK) != 0x00U) {
+	if ((ImgAttributes & XSECURE_IMG_ATTR_BHDR_MASK) ==
+				XSECURE_IMG_ATTR_BHDR_MASK) {
 		ImageInfo->BhdrAuth = XSECURE_ENABLED;
 	}
 
@@ -1526,6 +1525,7 @@ static u32 XSecure_DecryptPartition(XSecure_ImageInfo *ImageHdrInfo,
 	u32 Index;
 	u8 *EncSrc;
 	u8 *DecDst;
+	u32 AesKupKey[XSECURE_KEY_LEN];
 
 	if (ImageHdrInfo->KeySrc == XSECURE_KEY_SRC_KUP) {
 		if (KupKey != 0x00) {
@@ -1533,15 +1533,15 @@ static u32 XSecure_DecryptPartition(XSecure_ImageInfo *ImageHdrInfo,
 			 * So this conversion is required here.
 			 */
 			Status = Xil_ConvertStringToHex((char *)(UINTPTR)KupKey,
-			                                   XsecureKey, XSECURE_KEY_STR_LEN);
+			                                   AesKupKey, XSECURE_KEY_STR_LEN);
 			if (Status != (u32)XST_SUCCESS) {
 				goto END;
 			}
 
 			/* XilSecure expects Key in big endian form */
-			for (Index = 0U; Index < XSECURE_ARRAY_LENGTH(XsecureKey);
+			for (Index = 0U; Index < XSECURE_ARRAY_LENGTH(AesKupKey);
 							Index++) {
-				XsecureKey[Index] = Xil_Htonl(XsecureKey[Index]);
+				AesKupKey[Index] = Xil_Htonl(AesKupKey[Index]);
 			}
 		}
 		else {
@@ -1560,7 +1560,7 @@ static u32 XSecure_DecryptPartition(XSecure_ImageInfo *ImageHdrInfo,
 	if (ImageHdrInfo->KeySrc == XSECURE_KEY_SRC_KUP) {
 		(void)XSecure_AesInitialize(&SecureAes, &CsuDma,
 				XSECURE_CSU_AES_KEY_SRC_KUP,
-				(u32 *)ImageHdrInfo->Iv, XsecureKey);
+				(u32 *)ImageHdrInfo->Iv, AesKupKey);
 	}
 	else {
 		(void)XSecure_AesInitialize(&SecureAes, &CsuDma,
@@ -1601,7 +1601,13 @@ static u32 XSecure_DecryptPartition(XSecure_ImageInfo *ImageHdrInfo,
 		Addr->AddrLow = (u32)(UINTPTR)(DecDst);
 	}
 
+	XSecure_SetReset(SecureAes.BaseAddress, XSECURE_CSU_AES_RESET_OFFSET);
+
 END:
+	if (KupKey != 0x00) {
+		/* Clear local user key */
+		(void)memset(AesKupKey, 0, XSECURE_KEY_LEN * XSECURE_WORD_LEN);
+	}
 	return Status;
 }
 
