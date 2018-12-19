@@ -13,6 +13,10 @@ Add extern c macro.
 llfifo_v5_3:
 Fix poll and interrupt examples receive programming sequence.
 
+ttcps_v3_8:
+Modified in XTtcPs_ClearInterruptStatus function to clear
+interrupt status register by reading instead of writing it.
+
 wdttb_v4_4:
 Fixed compiler warning.
 
