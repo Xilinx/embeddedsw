@@ -69,6 +69,7 @@
 
 #else /* Non-baremetal application, ex Linux */
 
+#include <stdarg.h>
 #include <stdio.h>
 #include <unistd.h>
 
@@ -246,7 +247,10 @@ void XAieLib_IntPrint(const char *Format, ...)
 #elif defined __AIEBAREMTL__
 	xil_printf(Format);
 #else
-	printf(Format);
+	va_list argptr;
+	va_start(argptr, Format);
+	vprintf(Format, argptr);
+	va_end(argptr);
 #endif
 }
 
