@@ -29,7 +29,7 @@
 /**
 *
 * @file xintc.h
-* @addtogroup intc_v3_8
+* @addtogroup intc_v3_9
 * @{
 * @details
 *
