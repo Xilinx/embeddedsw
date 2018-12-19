@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 18 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -61,6 +61,7 @@
 * 2.0   vns  01/28/17 Added API to read SHA3 hash.
 * 2.2   vns  07/06/17 Added doxygen tags
 * 3.0   vns  01/23/18 Added NIST SHA3 support.
+* 4.0   arc  18/12/18 Fixed MISRA-C violations.
 *
 * </pre>
 *
@@ -98,7 +99,7 @@ extern "C" {
 
 #define XSECURE_SHA3_LAST_PACKET	(0x1U) /**< Last Data Packet */
 
-#define XSECURE_CSU_DMA_MAX_TRANSFER	(0x1ffffffc) /** < CSU DMA Max Transfer 
+#define XSECURE_CSU_DMA_MAX_TRANSFER	(0x1ffffffcU) /** < CSU DMA Max Transfer
 							rate in bytes*/
 
 /***************************** Type Definitions******************************/
@@ -141,8 +142,8 @@ void XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In,
 						const u32 Size, u8 *Out);
 void XSecure_Sha3_ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash);
 s32 XSecure_Sha3PadSelection(XSecure_Sha3 *InstancePtr,
-		XSecure_Sha3PadType Sha3Type);
-
+		XSecure_Sha3PadType Sha3PadType);
+void XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr);
 #ifdef __cplusplus
 extern "C" }
 #endif
