@@ -31,9 +31,11 @@
 *       rama 18/03/19 Fixed IAR compiler errors and warnings
 *       psl  03/26/19 Fixed MISRA-C violation
 * 4.1   psl  07/31/19 Fixed MISRA-C violation.
-* 4.2   kal  03/12/20 Authenticate SizeofImgHdr before use, incase of failure
+* 4.2   kal  03/12/20 Authenticate SizeofImgHdr before use, in case of failure
 *                     return XSECURE_IMAGE_HEADER_SIZE_ERR.
-*
+*       ana  04/03/20 Removed support of storing key in global array
+*       rpo  04/09/20 Aligned buffers used by DMA to 64 bytes
+*		rpo	 09/10/20 Added a new error for RSA input validation parameter
 * </pre>
 *
 * @note
@@ -122,6 +124,7 @@ extern "C" {
 #define XSECURE_IMAGE_HEADER_SIZE_ERR	0x21U
 
 #define XSECURE_AES_ERROR		0x80U
+#define XSECURE_RSA_INVALID_PARAM_RESERVED 0x82U
 #define XSECURE_AUTH_NOT_ENABLED 	0xFFU
 
 #define XSECURE_PPK_ERR			0x100U
