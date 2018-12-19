@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 18 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -51,6 +51,7 @@
 *                     has support only 2048 and 4096 key sizes.
 * 3.2   vns  04/30/18 Added check for private RSA key decryption, such that only
 *                     data to be decrypted should always be lesser than modulus
+* 4.0 	arc  18/12/18 Fixed MISRA-C violations.
 *
 * </pre>
 *
@@ -149,17 +150,17 @@ static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
 	/* Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	u32 Index = 0U;
-	u32 DataOffset = 0U;
-	u32 TmpIndex = 0U;
-	u32 Data = 0U;
+	u32 Index;
+	u32 DataOffset;
+	u32 TmpIndex;
+	u32 Data;
 
 	/** Each of this loop will write 192 bits of data*/
 	for (DataOffset = 0U; DataOffset < 22U; DataOffset++)
 	{
 		for (Index = 0U; Index < 6U; Index++)
 		{
-			TmpIndex = (DataOffset*6) + Index;
+			TmpIndex = (DataOffset*6U) + Index;
 			/**
 			* Exponent size is only 4 bytes
 			* and rest of the data needs to be 0
@@ -194,12 +195,12 @@ static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
 				}
 			}
 			XSecure_WriteReg(InstancePtr->BaseAddress,
-			(XSECURE_CSU_RSA_WR_DATA_0_OFFSET + (Index * 4)),
+			(XSECURE_CSU_RSA_WR_DATA_0_OFFSET + (Index * 4U)),
 							Data);
 		}
 		XSecure_WriteReg(InstancePtr->BaseAddress,
 				XSECURE_CSU_RSA_WR_ADDR_OFFSET,
-				((RamOffset * 22) + DataOffset));
+				((RamOffset * 22U) + DataOffset));
 	}
 }
 
@@ -221,21 +222,21 @@ static void XSecure_RsaGetData(XSecure_Rsa *InstancePtr, u32 *RdData)
 	/* Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	u32 Index = 0U;
-	u32 DataOffset = 0U;
-	s32 TmpIndex = 0;
+	u32 Index;
+	u32 DataOffset;
+	s32 TmpIndex;
 
 	/* Each of this loop will write 192 bits of data */
 	for (DataOffset = 0U; DataOffset < 22U; DataOffset++)
 	{
 		XSecure_WriteReg(InstancePtr->BaseAddress,
 				XSECURE_CSU_RSA_RD_ADDR_OFFSET,
-				(XSECURE_CSU_RSA_RAM_RES_Y * 22) + DataOffset);
+				(XSECURE_CSU_RSA_RAM_RES_Y * 22U) + DataOffset);
 
-		Index = (DataOffset == 0U) ? 2: 0;
-		for (; Index < 6; Index++)
+		Index = (DataOffset == 0U) ? 2U: 0U;
+		for (; Index < 6U; Index++)
 		{
-			TmpIndex = (InstancePtr->SizeInWords + 1) - ((DataOffset*6) + Index);
+			TmpIndex = (InstancePtr->SizeInWords + 1U) - ((DataOffset*6U) + Index);
 			if(TmpIndex < 0)
 			{
 				break;
@@ -247,7 +248,7 @@ static void XSecure_RsaGetData(XSecure_Rsa *InstancePtr, u32 *RdData)
 			 */
 			RdData[TmpIndex] = Xil_Htonl(XSecure_ReadReg(
 						InstancePtr->BaseAddress,
-			(XSECURE_CSU_RSA_RD_DATA_0_OFFSET+ (Index * 4))));
+			(XSECURE_CSU_RSA_RD_DATA_0_OFFSET+ (Index * 4U))));
 		}
 	}
 
@@ -273,27 +274,27 @@ static void XSecure_RsaMod32Inverse(XSecure_Rsa *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	/* Calculate the MINV */
-	u8 Count = 0U;
+	u8 Count;
 	u32 *ModPtr = (u32 *)(InstancePtr->Mod);
 	u32 ModVal = Xil_Htonl(ModPtr[InstancePtr->SizeInWords - 1]);
-	u32 Inv = 2U - ModVal;
+	u32 Inv = (u32)2U - ModVal;
 
 	for (Count = 0U; Count < 4U; ++Count)
 	{
 		Inv = (Inv * (2U - ( ModVal * Inv ) ) );
 	}
 
-	Inv = -Inv;
+	Inv = ~Inv + 1U;
 
 	/* Put the value in MINV registers */
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_RSA_MINV0_OFFSET,
-						(Inv & 0xFF ));
+						(Inv & 0xFFU ));
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_RSA_MINV1_OFFSET,
-						((Inv >> 8) & 0xFF ));
+						((Inv >> 8) & 0xFFU ));
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_RSA_MINV2_OFFSET,
-						((Inv >> 16) & 0xFF ));
+						((Inv >> 16) & 0xFFU ));
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_RSA_MINV3_OFFSET,
-						((Inv >> 24) & 0xFF ));
+						((Inv >> 24) & 0xFFU ));
 }
 
 /*****************************************************************************/
@@ -353,7 +354,7 @@ s32 XSecure_RsaDecrypt(XSecure_Rsa *InstancePtr, u8 *EncText, u8 *Result)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Result != NULL);
 
-	volatile u32 Status = 0x0U;
+	volatile u32 Status;
 	s32 ErrorCode = XST_SUCCESS;
 
 	InstancePtr->EncDec = XSECURE_RSA_SIGN_ENC;
@@ -436,7 +437,7 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 	/* If Silicon version is not 1.0 then use the latest NIST approved SHA-3
 	 * id for padding
 	 */
-	if (XGetPSVersion_Info() != XPS_VERSION_1)
+	if (XGetPSVersion_Info() != (u32)XPS_VERSION_1)
 	{
 		if(XSECURE_HASH_TYPE_SHA3 == HashLen)
 		{
@@ -546,7 +547,7 @@ ENDF:
 s32 XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 					u8 *Result)
 {
-	s32 ErrorCode = XST_SUCCESS;
+	s32 ErrorCode;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -568,7 +569,7 @@ s32 XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 
 	/* Setting for RSA signature encryption with public key */
 	InstancePtr->EncDec = XSECURE_RSA_SIGN_ENC;
-	InstancePtr->SizeInWords = Size/4;
+	InstancePtr->SizeInWords = Size/4U;
 
 	ErrorCode = XSecure_RsaOperation(InstancePtr, Input, Result);
 
@@ -629,15 +630,16 @@ s32 XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 	 * here we are checking only MSB byte
 	 */
 	if (*(InstancePtr->Mod) < *Input) {
-		return XSECURE_RSA_DATA_VALUE_ERROR;
+		ErrorCode = (s32)XSECURE_RSA_DATA_VALUE_ERROR;
+		goto END;
 	}
 
 	/* Setting to perform RSA signature decryption with private key */
 	InstancePtr->EncDec = XSECURE_RSA_SIGN_DEC;
-	InstancePtr->SizeInWords = Size/4;
+	InstancePtr->SizeInWords = Size/4U;
 
 	ErrorCode = XSecure_RsaOperation(InstancePtr, Input, Result);
-
+END:
 	return ErrorCode;
 }
 
@@ -658,7 +660,7 @@ s32 XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 static s32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 							u8 *Result)
 {
-	volatile u32 Status = 0x0U;
+	volatile u32 Status;
 	s32 ErrorCode = XST_SUCCESS;
 	u32 RsaType = XSECURE_CSU_RSA_CONTROL_4096;
 
@@ -714,7 +716,11 @@ static s32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 			break;
 		default:
 			ErrorCode = XST_FAILURE;
-			goto END;
+			break;
+	}
+
+	if(ErrorCode == XST_FAILURE) {
+		goto END;
 	}
 
 	/* Start the RSA operation. */
