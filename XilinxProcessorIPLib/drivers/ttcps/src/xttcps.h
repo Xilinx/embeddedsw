@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xttcps.h
-* @addtogroup ttcps_v3_7
+* @addtogroup ttcps_v3_8
 * @{
 * @details
 *
@@ -98,7 +98,8 @@
 * 3.4   ms   04/18/17 Modified tcl file to add suffix U for all macros
 *                     definitions of ttcps in xparameters.h
 * 3.5   srm  10/06/17 Added new typedef XMatchRegValue for match register width
-*
+* 3.8   aru  12/19/18 Modified in XTtcPs_ClearInterruptStatus function to clear
+*                     Interrupt status register by reading instead of writing it.
 * </pre>
 *
 ******************************************************************************/
@@ -418,8 +419,7 @@ typedef u32 XMatchRegValue;
 *
 ******************************************************************************/
 #define XTtcPs_ClearInterruptStatus(InstancePtr, InterruptMask) \
-		InstWriteReg((InstancePtr), XTTCPS_ISR_OFFSET, \
-		 (InterruptMask))
+		InstReadReg((InstancePtr), XTTCPS_ISR_OFFSET)
 
 
 /************************** Function Prototypes ******************************/
