@@ -29,7 +29,7 @@
 /**
 *
 * @file xintc_selftest.c
-* @addtogroup intc_v3_8
+* @addtogroup intc_v3_9
 * @{
 *
 * Contains diagnostic self-test functions for the XIntc component. This file
