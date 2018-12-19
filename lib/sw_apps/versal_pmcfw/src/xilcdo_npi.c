@@ -2699,6 +2699,7 @@ XStatus XilCdo_NpiPreCfg_DDRMC(u32 BaseAddr, u32 NpiParam)
 	}
 
 	XilCdo_SetHoldState(BaseAddr);
+	XilCdo_ClearUBInitState(BaseAddr);
 	XilCdo_SetLockState(BaseAddr);
 END:
 	return Status;
