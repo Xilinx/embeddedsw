@@ -41,6 +41,7 @@
 * 1.0   Hyun    10/02/2018  Initial creation
 * 1.1   Hyun    10/10/2018  Use the mask write API
 * 1.2   Nishad  12/05/2018  Renamed ME attributes to AIE
+* 1.3   Hyun    12/13/2018  Add the core event API
 * </pre>
 *
 ******************************************************************************/
@@ -65,6 +66,7 @@ extern XAieGbl_RegEventBroadcastClear EventBroadcastClear[];
 extern XAieGbl_RegEventBroadcastValue EventBroadcastValue[];
 extern XAieGbl_RegTraceCtrls TraceCtrl[];
 extern XAieGbl_RegTraceEvent TraceEvent[];
+extern XAieGbl_RegCorePCEvent CorePCEvents[];
 
 /************************** Function Definitions *****************************/
 
@@ -983,6 +985,44 @@ u8 XAieTile_EventTraceEventInit(XAieGbl_Tile *TileInstPtr,
 	for (Idx = 0U; Idx < XAIETILE_EVENT_NUM_TRACE_EVENT; Idx++) {
 		TraceEvents->TraceEvent[Idx] = 0U;
 	}
+
+	return XAIE_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API sets the PC event for core module
+*
+* @param	TileInstPtr - Pointer to the Tile instance with core module.
+* @param	PCEvent - which PC event to set. Should be one of
+* XAIETILE_EVENT_CORE_PC_EVENT0, XAIETILE_EVENT_CORE_PC_EVENT1,
+* XAIETILE_EVENT_CORE_PC_EVENT2, or XAIETILE_EVENT_CORE_PC_EVENT3.
+* @param	PCAddr - PC address to generate an event
+* @param	Valid - Valid bit. Should be 0 or 1.
+*
+* @return	XAIE_SUCCESS on success
+*
+* @note		None.
+*
+*******************************************************************************/
+u8 XAieTileCore_EventPCEvent(XAieGbl_Tile *TileInstPtr, u8 PCEvent, u16 PCAddr,
+		u8 Valid)
+{
+	u32 RegVal;
+
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(PCEvent >= XAIETILE_EVENT_CORE_PC_EVENT0 &&
+			PCEvent <= XAIETILE_EVENT_CORE_PC_EVENT3);
+	XAie_AssertNonvoid(Valid == 0 || Valid == 1);
+
+	RegVal = XAie_SetField(PCAddr, CorePCEvents[PCEvent].PCAddr.Lsb,
+			CorePCEvents[PCEvent].PCAddr.Mask);
+	RegVal |= XAie_SetField(Valid, CorePCEvents[PCEvent].Valid.Lsb,
+			CorePCEvents[PCEvent].Valid.Mask);
+	XAieGbl_Write32(TileInstPtr->TileAddr + CorePCEvents[PCEvent].RegOff,
+			RegVal);
 
 	return XAIE_SUCCESS;
 }
