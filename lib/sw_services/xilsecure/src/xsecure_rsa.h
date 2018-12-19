@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 18 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -72,6 +72,7 @@
 *                     1408, 1536, 1984, 3072 key sizes, where previous verision
 *                     has support only 2048 and 4096 key sizes.
 * 3.2   vns  04/30/18 Added error code XSECURE_RSA_DATA_VALUE_ERROR
+* 4.0 	arc  18/12/18 Fixed MISRA-C violations.
 *
 * </pre>
 *
@@ -96,19 +97,19 @@ extern "C" {
 @{
 */
 /* Key size in bytes */
-#define XSECURE_RSA_512_KEY_SIZE	(512/8)	 /**< RSA 512 key size */
-#define XSECURE_RSA_576_KEY_SIZE	(576/8)	 /**< RSA 576 key size */
-#define XSECURE_RSA_704_KEY_SIZE	(704/8)	 /**< RSA 704 key size */
-#define XSECURE_RSA_768_KEY_SIZE	(768/8)	 /**< RSA 768 key size */
-#define XSECURE_RSA_992_KEY_SIZE	(992/8)	 /**< RSA 992 key size */
-#define XSECURE_RSA_1024_KEY_SIZE	(1024/8) /**< RSA 1024 key size */
-#define XSECURE_RSA_1152_KEY_SIZE	(1152/8) /**< RSA 1152 key size */
-#define XSECURE_RSA_1408_KEY_SIZE	(1408/8) /**< RSA 1408 key size */
-#define XSECURE_RSA_1536_KEY_SIZE	(1536/8) /**< RSA 1536 key size */
-#define XSECURE_RSA_1984_KEY_SIZE	(1984/8) /**< RSA 1984 key size */
-#define XSECURE_RSA_2048_KEY_SIZE	(2048/8) /**< RSA 2048 key size */
-#define XSECURE_RSA_3072_KEY_SIZE	(3072/8) /**< RSA 3072 key size */
-#define XSECURE_RSA_4096_KEY_SIZE	(4096/8) /**< RSA 4096 key size */
+#define XSECURE_RSA_512_KEY_SIZE	(512U/8U)	 /**< RSA 512 key size */
+#define XSECURE_RSA_576_KEY_SIZE	(576U/8U)	 /**< RSA 576 key size */
+#define XSECURE_RSA_704_KEY_SIZE	(704U/8U)	 /**< RSA 704 key size */
+#define XSECURE_RSA_768_KEY_SIZE	(768U/8U)	 /**< RSA 768 key size */
+#define XSECURE_RSA_992_KEY_SIZE	(992U/8U)	 /**< RSA 992 key size */
+#define XSECURE_RSA_1024_KEY_SIZE	(1024U/8U) /**< RSA 1024 key size */
+#define XSECURE_RSA_1152_KEY_SIZE	(1152U/8U) /**< RSA 1152 key size */
+#define XSECURE_RSA_1408_KEY_SIZE	(1408U/8U) /**< RSA 1408 key size */
+#define XSECURE_RSA_1536_KEY_SIZE	(1536U/8U) /**< RSA 1536 key size */
+#define XSECURE_RSA_1984_KEY_SIZE	(1984U/8U) /**< RSA 1984 key size */
+#define XSECURE_RSA_2048_KEY_SIZE	(2048U/8U) /**< RSA 2048 key size */
+#define XSECURE_RSA_3072_KEY_SIZE	(3072U/8U) /**< RSA 3072 key size */
+#define XSECURE_RSA_4096_KEY_SIZE	(4096U/8U) /**< RSA 4096 key size */
 
 /* Key size in words */
 #define XSECURE_RSA_512_SIZE_WORDS	(16)	/**< RSA 512 Size in words */
@@ -123,7 +124,7 @@ extern "C" {
 #define XSECURE_RSA_1984_SIZE_WORDS	(62)	/**< RSA 1984 Size in words */
 #define XSECURE_RSA_2048_SIZE_WORDS	(64)	/**< RSA 2048 Size in words */
 #define XSECURE_RSA_3072_SIZE_WORDS	(96)	/**< RSA 3072 Size in words */
-#define XSECURE_RSA_4096_SIZE_WORDS	(128)	/**< RSA 4096 Size in words */
+#define XSECURE_RSA_4096_SIZE_WORDS	(128U)	/**< RSA 4096 Size in words */
 
 /** @name Control Register
  *
