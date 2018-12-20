@@ -62,6 +62,7 @@
 /************************** Variable Definitions *****************************/
 XilCdo_Prtn XilCdoPrtnInst; /** Instance to copy CDO partition to buffer */
 u32 BlkDma = 0U; /** BlkDma denotes whether Dma0/Dma1 is used as blocking Dma*/
+extern u32 NpiFabricEnabled;
 /*****************************************************************************/
 /**
  * @param	CmdArgs is pointer to configuration data
@@ -545,7 +546,10 @@ XStatus XilCdo_ExecuteCmds(u32* ConfigData, u32 TotalSections)
 		}
 		/** Current section completed */
 	}
-	XilCdo_RunPendingNpiSeq();
+	if(NpiFabricEnabled == 0U)
+	{
+		XilCdo_RunPendingNpiSeq();
+	}
 	XPMCFW_DBG_WRITE(0x2U);
 	Status = XST_SUCCESS;
 

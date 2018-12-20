@@ -230,9 +230,6 @@ XStatus XPmcFw_FabricStartSeq()
 
 	/* Set CFU settings */
 	Status = XCfupmc_CheckParam(&CfupmcIns);
-
-	/* Start the PL global sequence */
-	XCfupmc_StartGlblSeq(&CfupmcIns);
 	if (XPMCFW_SUCCESS != Status)
 	{
 		goto END;
