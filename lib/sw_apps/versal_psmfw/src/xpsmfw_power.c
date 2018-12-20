@@ -527,7 +527,7 @@ static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	/* This is already handled by common handler so no need to handle here */
 
 	/* Enable wake interrupt by GIC for ACPUx */
-	XPsmFw_Write32(PSM_GLOBAL_REG_PWR_CTRL_IRQ_EN, Args->PwrStateMask);
+	XPsmFw_Write32(PSM_GLOBAL_REG_WAKEUP_IRQ_EN, Args->PwrStateMask);
 
 	/*
 	 * If FPD bit is set in the REQ_PWRDWN_STATUS register unmask the FPD
@@ -778,7 +778,7 @@ static XStatus XPsmFwRPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	/* This is already handled by common handler so no need to handle here */
 
 	/* Enable wake interrupt by GIC for RPUx */
-	XPsmFw_Write32(PSM_GLOBAL_REG_PWR_CTRL_IRQ_EN, Args->PwrStateMask >> 6);
+	XPsmFw_Write32(PSM_GLOBAL_REG_WAKEUP_IRQ_EN, Args->PwrStateMask >> 6);
 
 	/* If R5 is in split mode and other R5 core is powered on, do not power off R5 */
 	OtherCorePowerStateMask = Args->PwrStateMask ^ (PSM_LOCAL_PWR_STATE_R5_0_MASK | PSM_LOCAL_PWR_STATE_R5_1_MASK);
