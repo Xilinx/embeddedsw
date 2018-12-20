@@ -66,7 +66,8 @@ extern XilCdo_Prtn XilCdoPrtnInst;
 XILCDO_NPI_SEQ* XilCdoNpiSeqInstPtr = NULL;
 XILCDO_NPI_SEQ XilCdoNpiSeqInstance;
 u32 ScanClearDone;
-u32 NpiCmd;
+u32 NpiCmd = 0U;
+u32 NpiFabricEnabled = 0U;
 /*****************************************************************************/
 /**
  * This function writes PCSR control register
@@ -1342,6 +1343,12 @@ XStatus XilCdo_StoreNpiParams(u32 CmdArgs[10U])
 				goto END;
 			}
 	}
+
+	if((NpiParam & XILCDO_NPI_FABRICEN_MASK) == XILCDO_NPI_FABRICEN_MASK)
+	{
+		NpiFabricEnabled = 1U;
+	}
+
 	Status = XST_SUCCESS;
 END:
 	return Status;
@@ -1376,13 +1383,11 @@ XStatus XilCdo_RunPendingNpiSeq(void)
 			XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
 			XilCdo_ClearInitCtrl(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
 		}
-		XilCdo_SetGlobalSignals();
 		XilCdo_ProcIOModules();
 		XilCdoProcNocModules();
 		XilCdoProcAMSModules();
 		XilCdoProcGTModules();
 		XilCdoProcMMCM_CLK();
-		XilCdo_AssertGlobalSignals();
 	}
 	else if(NpiCmd == CMD_NPI_SHUTDN)
 	{
@@ -1391,7 +1396,11 @@ XStatus XilCdo_RunPendingNpiSeq(void)
 		XilCdo_ShutIOModules();
 		XilCdo_ShutGTModules();
 		XilCdo_ShutMMCM_CLK();
-		XilCdo_ClearGlobalSignals();
+		if(NpiFabricEnabled == 1U)
+		{
+			XilCdo_ClearGlobalSignals();
+		}
+		NpiFabricEnabled = 0U;
 	}
 	else
 	{

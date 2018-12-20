@@ -54,7 +54,7 @@
 /***************************** Include Files *********************************/
 #include "xpmcfw_main.h"
 #include "xpmcfw_config.h"
-
+#include "xilcdo_npi.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -66,6 +66,7 @@
 
 /************************** Variable Definitions *****************************/
 u32 Offset;
+extern u32 NpiFabricEnabled;
 /*****************************************************************************/
 XStatus XPmcFw_PdiInit(XPmcFw * PmcFwInstancePtr)
 {
@@ -197,6 +198,8 @@ XStatus XPmcFw_PdiLoad(XPmcFw* PmcFwInstancePtr)
 
 	/* TODO Authenticate the image header */
 
+	PmcFwInstancePtr->PlCfiPresent = 0U;
+	NpiFabricEnabled = FALSE;
 	for (PrtnNum = 0U;
 		(PrtnNum < PmcFwInstancePtr->MetaHdr.ImgHdrTable.NoOfPrtns);
 	     PrtnNum++)
@@ -205,6 +208,18 @@ XStatus XPmcFw_PdiLoad(XPmcFw* PmcFwInstancePtr)
 		if (XPMCFW_SUCCESS != Status) {
 			goto END;
 		}
+	}
+
+	if ((PmcFwInstancePtr->PlCfiPresent == TRUE) || (NpiFabricEnabled == 1U))
+	{
+		XilCdo_SetGlobalSignals();
+	}
+
+	XilCdo_RunPendingNpiSeq();
+
+	if ((PmcFwInstancePtr->PlCfiPresent == TRUE) || (NpiFabricEnabled == 1U))
+	{
+		XilCdo_AssertGlobalSignals();
 	}
 	XPMCFW_DBG_WRITE(0x8U);
 	XPmcFw_Printf(DEBUG_INFO,"Pdi Load completed\n\r");
