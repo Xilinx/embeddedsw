@@ -62,8 +62,9 @@
 
 /************************** Variable Definitions *****************************/
 
-void XPlm_PmRequestCb(const u32 IpiMask, const u32 EventId, u32* Payload)
+void XPlm_PmRequestCb(const u32 IpiMask, const u32 EventId, u32 *Payload)
 {
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
 	XStatus Status;
 
 	if (XPM_INIT_SUSPEND_CB == EventId) {
@@ -79,6 +80,9 @@ void XPlm_PmRequestCb(const u32 IpiMask, const u32 EventId, u32* Payload)
 	} else {
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s Error: Unsupported EventId: %d\r\n", __func__, EventId);
 	}
+#else
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s Error: IPI is not defined\r\n", __func__);
+#endif /* XPAR_XIPIPSU_0_DEVICE_ID */
 }
 
 /*****************************************************************************/
