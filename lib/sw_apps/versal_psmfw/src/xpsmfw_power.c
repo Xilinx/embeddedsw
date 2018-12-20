@@ -419,7 +419,7 @@ static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	/* This is already handled by common handler so no need to handle here */
 
 	/* Enable Direct Power-down Request of ACPUx */
-	XPsmFw_Write32(PSM_GLOBAL_REG_REQ_PWRDWN_INT_EN, Args->PwrStateMask);
+	XPsmFw_Write32(PSM_GLOBAL_REG_PWR_CTRL_IRQ_EN, Args->PwrStateMask);
 
 	/*
 	 * Unmask interrupt for all Power-up Requests and Reset Requests that
@@ -679,7 +679,7 @@ static XStatus XPsmFwRPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	/* This is already handled by common handler so no need to handle here */
 
 	/* Enable Direct Power-down Request of RPUx */
-	XPsmFw_Write32(PSM_GLOBAL_REG_REQ_PWRDWN_INT_EN, Args->PwrStateMask >> 6);
+	XPsmFw_Write32(PSM_GLOBAL_REG_PWR_CTRL_IRQ_EN, Args->PwrStateMask >> 6);
 
 	/*
 	 * Unmask interrupt for all Power-up Requests and Reset Requests that
