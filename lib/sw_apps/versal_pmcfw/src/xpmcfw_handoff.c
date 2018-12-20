@@ -54,6 +54,7 @@
 #include "xil_cache.h"
 #include "xpmcfw_main.h"
 #include "xpmcfw_fabric.h"
+#include "xilcdo_npi.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -66,7 +67,7 @@
 static XStatus XPmcFw_HandoffCpus(XPmcFw * PmcFwInstancePtr);
 
 /************************** Variable Definitions *****************************/
-
+extern u32 NpiFabricEnabled;
 /*****************************************************************************/
 /**
  * This function starts the whole system
@@ -89,17 +90,22 @@ XStatus XPmcFw_Handoff (XPmcFw * PmcFwInstancePtr)
 	goto END;
     }
 
+	if ((PmcFwInstancePtr->PlCfiPresent == TRUE) || (NpiFabricEnabled == 1U))
+	{
+		XilCdo_SetGlobalSignals();
+	}
+
+	XilCdo_RunPendingNpiSeq();
 	/* Hook before handoff */
 	Status = XPmcFw_HookBeforeHandoff();
 	if (XPMCFW_SUCCESS != Status) {
 		goto END;
 	}
 
-	/* PL Global Sequence END if bit stream is loaded */
-	if (PmcFwInstancePtr->PlCfiPresent == TRUE)
+	/* PL Global Sequence END if only cfi or npi bit stream is loaded */
+	if ((PmcFwInstancePtr->PlCfiPresent == TRUE) || (NpiFabricEnabled == 1U))
 	{
-		/* Fabric end sequence and indicate fabric is ready */
-		XPmcFw_FabricEndSeq();
+		XilCdo_AssertGlobalSignals();
 #if 1
 	/* Enable Readback */
 	XPmcFw_ReadFabricData((u32 *)XPMCFW_PMCRAM_BASEADDR, 100*4);
