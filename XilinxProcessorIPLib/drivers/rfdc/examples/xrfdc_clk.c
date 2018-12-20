@@ -91,12 +91,13 @@ XIicPs Iic; /* Instance of the IIC Device */
 
 #define LMK04208_count 26
 #define LMX2594_A_count 113
+#define MAX_FREQ  27
 typedef struct {
 	int XFrequency;
 	unsigned int LMX2594_A[LMX2594_A_count];
 } XClockingLmx;
 
-XClockingLmx ClockingLmx[26] = {
+XClockingLmx ClockingLmx[MAX_FREQ] = {
 	{5120000, {7340032, 7274496, 7208960, 7143424, 7077888, 7012352, 6946816,
 	6881313, 6815744, 6750208, 6700928, 6619153, 6553600, 6488064, 6423040,
 	6359176, 6291456, 6225920, 6160384, 6094848, 6029312, 5963776, 5898240,
@@ -551,7 +552,7 @@ static int Lmx2594UpdateFreq(int XIicDevFile,int  XFrequency)
 		IicWriteData(XIicDevFile, 0xd, 3, tx_array);
 		return 0;
 	}
-	for(XFreqIndex=0 ; XFreqIndex<20; XFreqIndex++) {
+	for(XFreqIndex=0 ; XFreqIndex< MAX_FREQ; XFreqIndex++) {
 		if (ClockingLmx[XFreqIndex].XFrequency == XFrequency) {
 			Lmx2594Updatei2c( XIicDevFile, ClockingLmx[XFreqIndex].LMX2594_A);
 			return 0;
@@ -731,7 +732,7 @@ void LMX2594ClockConfig(int XIicBus, int XFrequency)
 	int freq_index=0;
 	int XFreqIndex;
 
-	for(XFreqIndex=0 ; XFreqIndex<20; XFreqIndex++) {
+	for(XFreqIndex=0 ; XFreqIndex<MAX_FREQ; XFreqIndex++) {
 		if (ClockingLmx[XFreqIndex].XFrequency == XFrequency) {
 			freq_index =XFreqIndex;
 			xil_printf("LMX configured to frequency %d \n", XFrequency);
