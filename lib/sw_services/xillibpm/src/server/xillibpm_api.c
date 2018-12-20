@@ -56,7 +56,8 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	u32 SubsystemId = Cmd->SubsystemId;
 	u32 *Pload = Cmd->Payload;
 	u32 Len = Cmd->Len;
-	u32 SetAddress, Address;
+	u32 SetAddress;
+	u64 Address;
 
 	PmInfo("Processing Cmd %x\n\r", Cmd->CmdId);
 	switch (Cmd->CmdId & 0xFF) {
