@@ -38,6 +38,12 @@
 
 #define DEBUG_MODE
 
+#ifndef bool
+	#define bool	u8
+	#define true	1U
+	#define false	0U
+#endif
+
 /**
  * XPm_Proc - Processor structure
  */
@@ -72,6 +78,7 @@ extern char ProcName[5];
 void XPmClient_SetPrimaryProc(void);
 struct XPm_Proc *XpmClient_GetProcByDeviceId(u32 DeviceId);
 void XPmClient_Suspend(const struct XPm_Proc *const Proc);
+void XPmClient_WakeUp(const struct XPm_Proc *const Proc);
 void XPmClient_ClientSuspendFinalize(void);
 void XPmClient_ClientAbortSuspend(void);
 

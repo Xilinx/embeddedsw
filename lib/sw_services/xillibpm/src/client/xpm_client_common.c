@@ -160,6 +160,17 @@ void XPmClient_Suspend(const struct XPm_Proc *const Proc)
 	XPm_Write(Proc->PwrCtrl, PwrDwnReg);
 }
 
+void XPmClient_WakeUp(const struct XPm_Proc *const Proc)
+{
+	if (NULL != Proc) {
+		u32 Val;
+
+		Val = XPm_Read(Proc->PwrCtrl);
+		Val &= ~Proc->PwrDwnMask;
+		XPm_Write(Proc->PwrCtrl, Val);
+	}
+}
+
 void XPmClient_ClientSuspendFinalize(void)
 {
 	u32 CtrlReg;
