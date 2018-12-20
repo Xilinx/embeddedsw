@@ -1108,6 +1108,55 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  This function can be used to request power up of a CPU node
+ * within the same PU, or to power up another PU.
+ *
+ * @param  TargetDevId     Device ID of the CPU or PU to be powered/woken up.
+ * @param  SetAddress Specifies whether the start address argument is being passed.
+ * - 0 : do not set start address
+ * - 1 : set start address
+ * @param  Address    Address from which to resume when woken up.
+ * Will only be used if set_address is 1.
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmClient_RequestWakeUp(const u32 TargetDevId, const bool SetAddress,
+				const u64 Address)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Payload[PAYLOAD_ARG_CNT];
+	u64 EncodedAddr;
+	struct XPm_Proc *Proc;
+
+	Proc = XpmClient_GetProcByDeviceId(TargetDevId);
+
+	XPmClient_WakeUp(Proc);
+
+	/* encode set Address into 1st bit of address */
+	EncodedAddr = Address | !!SetAddress;
+
+	PACK_PAYLOAD3(Payload, PM_REQUEST_WAKEUP, TargetDevId, (u32)EncodedAddr,
+			(u32)(EncodedAddr >> 32));
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(Proc, NULL, NULL, NULL);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This Function waits for firmware to finish all previous API requests
  * sent by the PU and performs client specific actions to finish suspend
  * procedure (e.g. execution of wfi instruction on A53 and R5 processors).
