@@ -17,8 +17,6 @@ rsc_handler rsc_handler_table[] = {
 	handle_dummy_rsc, /**< IOMMU dev mem resource */
 	handle_trace_rsc, /**< trace buffer resource */
 	handle_vdev_rsc, /**< virtio resource */
-	handle_dummy_rsc, /**< rproc shared memory resource */
-	handle_dummy_rsc, /**< firmware checksum resource */
 };
 
 int handle_rsc_table(struct remoteproc *rproc,
