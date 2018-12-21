@@ -64,8 +64,11 @@
 #include "xil_io.h"
 #include "xil_assert.h"
 #include "xil_printf.h"
+#include "xil_cache.h"
 #include "xstatus.h"
 #include "sleep.h"
+
+#include <stdlib.h>
 
 #else /* Non-baremetal application, ex Linux */
 
@@ -81,6 +84,16 @@
 /***************************** Include Files *********************************/
 
 /***************************** Macro Definitions *****************************/
+/*
+ * Default heap size in baremetal bsp is 0x2000. Use half of it unless
+ * specified.
+ */
+#ifndef XAIELIB_BAREMTL_DEF_MEM_SIZE
+#define XAIELIB_BAREMTL_DEF_MEM_SIZE	(0x1000)
+#endif
+
+/* Address should be aligned at 128 bit / 16 bytes */
+#define XAIELIB_SHIM_MEM_ALIGN		16
 
 /************************** Variable Definitions *****************************/
 
@@ -270,6 +283,7 @@ void XAieLib_MemFinish(XAieLib_MemInst *XAieLib_MemInstPtr)
 {
 #ifdef __AIESIM__
 #elif defined __AIEBAREMTL__
+	free(XAieLib_MemInstPtr);
 #else
 	XAieIO_Mem *MemInstPtr = (XAieIO_Mem *)XAieLib_MemInstPtr;
 	XAieIO_MemFinish(MemInstPtr);
@@ -295,7 +309,7 @@ XAieLib_MemInst *XAieLib_MemInit(u8 idx)
 #ifdef __AIESIM__
 	return 0;
 #elif defined __AIEBAREMTL__
-	return NULL;
+	return malloc(XAIELIB_BAREMTL_DEF_MEM_SIZE);
 #else
 	return (XAieLib_MemInst *)XAieIO_MemInit(idx);
 #endif
@@ -318,7 +332,8 @@ u64 XAieLib_MemGetSize(XAieLib_MemInst *XAieLib_MemInstPtr)
 #ifdef __AIESIM__
 	return 0;
 #elif defined __AIEBAREMTL__
-	return 0;
+	return XAIELIB_BAREMTL_DEF_MEM_SIZE -
+		((u64)XAieLib_MemInstPtr % XAIELIB_SHIM_MEM_ALIGN);
 #else
 	XAieIO_Mem *MemInstPtr = (XAieIO_Mem *)XAieLib_MemInstPtr;
 	return XAieIO_MemGetSize(MemInstPtr);
@@ -344,7 +359,8 @@ u64 XAieLib_MemGetVaddr(XAieLib_MemInst *XAieLib_MemInstPtr)
 #ifdef __AIESIM__
 	return 0;
 #elif defined __AIEBAREMTL__
-	return 0;
+	return ((u64)XAieLib_MemInstPtr + XAIELIB_SHIM_MEM_ALIGN - 1) &
+		~(XAIELIB_SHIM_MEM_ALIGN - 1);
 #else
 	XAieIO_Mem *MemInstPtr = (XAieIO_Mem *)XAieLib_MemInstPtr;
 	return XAieIO_MemGetVaddr(MemInstPtr);
@@ -369,7 +385,8 @@ u64 XAieLib_MemGetPaddr(XAieLib_MemInst *XAieLib_MemInstPtr)
 #ifdef __AIESIM__
 	return 0;
 #elif defined __AIEBAREMTL__
-	return 0;
+	return ((u64)XAieLib_MemInstPtr + XAIELIB_SHIM_MEM_ALIGN - 1) &
+		~(XAIELIB_SHIM_MEM_ALIGN - 1);
 #else
 	XAieIO_Mem *MemInstPtr = (XAieIO_Mem *)XAieLib_MemInstPtr;
 	return XAieIO_MemGetPaddr(MemInstPtr);
@@ -394,6 +411,8 @@ void XAieLib_MemWrite32(XAieLib_MemInst *XAieLib_MemInstPtr, u64 Addr, u32 Data)
 {
 #ifdef __AIESIM__
 #elif defined __AIEBAREMTL__
+	Xil_Out32(Addr, Data);
+	Xil_DCacheFlushRange(Addr, 4);
 #else
 	XAieIO_Mem *MemInstPtr = (XAieIO_Mem *)XAieLib_MemInstPtr;
 	XAieIO_MemWrite32(MemInstPtr, Addr, Data);
@@ -418,7 +437,8 @@ u32 XAieLib_MemRead32(XAieLib_MemInst *XAieLib_MemInstPtr, u64 Addr)
 #ifdef __AIESIM__
 	return 0;
 #elif defined __AIEBAREMTL__
-	return 0;
+	Xil_DCacheInvalidateRange(Addr, 4);
+	return Xil_In32(Addr);
 #else
 	XAieIO_Mem *MemInstPtr = (XAieIO_Mem *)XAieLib_MemInstPtr;
 	return XAieIO_MemRead32(MemInstPtr, Addr);
