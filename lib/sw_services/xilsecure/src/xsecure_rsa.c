@@ -52,6 +52,7 @@
 * 3.2   vns  04/30/18 Added check for private RSA key decryption, such that only
 *                     data to be decrypted should always be lesser than modulus
 * 4.0 	arc  18/12/18 Fixed MISRA-C violations.
+*       vns  21/12/18 Added RSA key zeroization after RSA operation
 *
 * </pre>
 *
@@ -86,6 +87,7 @@ static const u8 XSecure_Silicon2_TPadSha3[] = {0x30U, 0x41U, 0x30U, 0x0DU,
 /************************** Function Prototypes ******************************/
 static s32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 					u8 *Result);
+static void XSecure_RsaZeroize(XSecure_Rsa *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -401,6 +403,9 @@ s32 XSecure_RsaDecrypt(XSecure_Rsa *InstancePtr, u8 *EncText, u8 *Result)
 	XSecure_RsaGetData(InstancePtr, (u32 *)Result);
 
 END:
+	/* Zeroize RSA memory space */
+	XSecure_RsaZeroize(InstancePtr);
+
 	return ErrorCode;
 }
 
@@ -573,6 +578,9 @@ s32 XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 
 	ErrorCode = XSecure_RsaOperation(InstancePtr, Input, Result);
 
+	/* Zeroize RSA memory space */
+	XSecure_RsaZeroize(InstancePtr);
+
 	return ErrorCode;
 
 }
@@ -640,6 +648,10 @@ s32 XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 
 	ErrorCode = XSecure_RsaOperation(InstancePtr, Input, Result);
 END:
+
+	/* Zeroize RSA memory space */
+	XSecure_RsaZeroize(InstancePtr);
+
 	return ErrorCode;
 }
 
@@ -756,5 +768,35 @@ static s32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 
 END:
 	return ErrorCode;
+
+}
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This function clears whole RSA memory space. This function clears stored
+ * exponent, modulus and exponentiation key components along with digest.
+ *
+ * @param	InstancePtr	Pointer to the XSecure_Rsa instance.
+ *
+ * @return	None.
+ *
+ *****************************************************************************/
+static void XSecure_RsaZeroize(XSecure_Rsa *InstancePtr)
+{
+
+	u32 RamOffset = 0;
+	u32 DataOffset;
+
+	XSecure_WriteReg(InstancePtr->BaseAddress,
+			XSECURE_CSU_RSA_ZERO_OFFSET, 1U);
+	do {
+		for (DataOffset = 0U; DataOffset < 22U; DataOffset++) {
+			XSecure_WriteReg(InstancePtr->BaseAddress,
+				XSECURE_CSU_RSA_WR_ADDR_OFFSET,
+				((RamOffset * 22) + DataOffset));
+		}
+		RamOffset++;
+	} while(RamOffset <= XSECURE_CSU_RSA_RAM_RES_Q);
 
 }
