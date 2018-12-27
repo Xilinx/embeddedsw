@@ -58,8 +58,8 @@ XStatus XPmPsm_Init(XPm_Psm *Psm,
 	u32 Ipi,
 	u32 *BaseAddress,
 	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset);
-XStatus XPmPsm_PowerUp(u32 BitMask);
-XStatus XPmPsm_PowerDown(u32 BitMask);
+XStatus XPmPsm_SendPowerUpReq(u32 BitMask);
+XStatus XPmPsm_SendPowerDownReq(u32 BitMask);
 u32 XPmPsm_FwIsPresent(void);
 void XPmPsm_RegWrite(const u32 Offset, const u32 Value);
 
