@@ -278,8 +278,10 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 						Device->PendingReqm->Allocated = 0;
 						Device->WfDealloc = 0;
 					}
-					XPm_RequiremntUpdate(Device->PendingReqm);
-					Device->PendingReqm = NULL;
+					if(Device->PendingReqm != NULL) {
+						XPm_RequiremntUpdate(Device->PendingReqm);
+						Device->PendingReqm = NULL;
+					}
 					if (0 == IsRunning(Device)) {
 						Node->State = XPM_DEVSTATE_UNUSED;
 					} else {
