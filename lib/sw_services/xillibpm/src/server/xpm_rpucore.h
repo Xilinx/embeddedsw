@@ -38,6 +38,8 @@
 #define XPM_RPU_SLCLAMP_MASK		BIT(4)
 #define XPM_RPU0_0_PWR_CTRL_MASK	BIT(4)
 #define XPM_RPU0_1_PWR_CTRL_MASK	BIT(5)
+#define XPM_RPU_0_CPUPWRDWNREQ_MASK  BIT(0)
+#define XPM_RPU_1_CPUPWRDWNREQ_MASK  BIT(0)
 
 typedef struct XPm_RpuCore XPm_RpuCore;
 

@@ -67,6 +67,7 @@ done:
 
 struct XPm_CoreOps PsmOps = {
 		.RequestWakeup = XPmPsm_WakeUp,
+		.PowerDown = NULL,
 };
 
 XStatus XPmPsm_Init(XPm_Psm *Psm,
