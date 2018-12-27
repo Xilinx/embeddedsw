@@ -2398,11 +2398,7 @@ void XilCdo_ProcGTModules(void)
 
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIPE]; ++Count)
 	{
-		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIPE_NpiParam[Count] &
-					XILCDO_NPI_FABRICEN_MASK) == XILCDO_NPI_FABRICEN_MASK)
-		{
-			XilCdo_SetFabricEnable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIPE_BaseAddr[Count]);
-		}
+		XilCdo_SetFabricEnable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIPE_BaseAddr[Count]);
 	}
 
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIPE]; ++Count)
@@ -2418,11 +2414,7 @@ void XilCdo_ProcGTModules(void)
 
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_GT]; ++Count)
 	{
-		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_NpiParam[Count] &
-					XILCDO_NPI_FABRICEN_MASK) == 0U)
-		{
-			XilCdo_SetFabricEnable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
-		}
+		XilCdo_SetFabricEnable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
 
 		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_NpiParam[Count] &
 					XILCDO_NPI_APBEN_MASK) == XILCDO_NPI_APBEN_MASK)
@@ -3321,11 +3313,7 @@ void XilCdo_ShutGTModules(void)
 
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_GT]; ++Count)
 	{
-		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_NpiParam[Count] &
-					XILCDO_NPI_FABRICEN_MASK) == XILCDO_NPI_FABRICEN_MASK)
-		{
-			XilCdo_ClearFabricEnable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
-		}
+		XilCdo_ClearFabricEnable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
 		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_NpiParam[Count] &
 					XILCDO_NPI_APBEN_MASK) == XILCDO_NPI_APBEN_MASK)
 		{
@@ -3350,11 +3338,7 @@ void XilCdo_ShutGTModules(void)
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_XPIPE]; ++Count)
 	{
 		XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIPE_BaseAddr[Count]);
-		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIPE_NpiParam[Count] &
-					XILCDO_NPI_FABRICEN_MASK) == XILCDO_NPI_FABRICEN_MASK)
-		{
-			XilCdo_ClearFabricEnable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIPE_BaseAddr[Count]);
-		}
+		XilCdo_ClearFabricEnable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_XPIPE_BaseAddr[Count]);
 	}
 
 }
