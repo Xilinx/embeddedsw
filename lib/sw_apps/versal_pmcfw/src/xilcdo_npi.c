@@ -1239,7 +1239,7 @@ XStatus XilCdo_StoreNpiParams(u32 CmdArgs[10U])
 			break;
 		case XILCDO_NPI_BLK_XPLL:
 			{
-				if(BaseAddr < XILCDO_NPI_BLK_XPLL_START_ADDR)
+				if((BaseAddr &0x800U) == 0x800U)
 				{
 					XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_PLL_PHY_BaseAddr
 						[XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_PLL_PHY]] = BaseAddr;
