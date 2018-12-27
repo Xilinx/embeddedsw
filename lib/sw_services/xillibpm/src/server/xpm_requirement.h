@@ -45,6 +45,11 @@ struct XPm_ReqmInfo {
 
 typedef struct XPm_Device XPm_Device;
 typedef struct XPm_Requirement XPm_Requirement;
+typedef enum {
+        RELEASE_ONE,
+        RELEASE_ALL,
+        RELEASE_UNREQUESTED,
+} XPm_ReleaseScope;
 
 /**
  * The requirement class.
@@ -64,6 +69,6 @@ XStatus XPmRequirement_Init(XPm_Requirement *Reqm,
 		XPm_Subsystem *Subsystem, XPm_Device *Device);
 
 void XPm_RequiremntUpdate(XPm_Requirement *Reqm);
-
+XStatus XPmRequirement_Release(XPm_Requirement *Reqm, XPm_ReleaseScope Scope);
 /** @} */
 #endif /* XPM_REQUIREMENT_H_ */
