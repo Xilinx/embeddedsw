@@ -61,6 +61,34 @@ u32 XPmSubsystem_GetIPIMask(u32 SubsystemId)
 	return Subsystem->IpiMask;
 }
 
+XStatus XPmSubsystem_ForceDownCleanup(u32 SubsystemId)
+{
+        XStatus Status;
+	XPm_Subsystem *Subsystem;
+
+	VERIFY(SubsystemId < XPM_SUBSYSID_MAX);
+	Subsystem = &PmSubsystems[SubsystemId];
+
+        Status = XPmRequirement_Release(Subsystem->Requirements, RELEASE_ALL);
+		/* Todo: Cancel wakeup if scheduled
+		 * Should be included with wakeup support
+		XPm_WakeUpCancelScheduled(SubsystemId);*/
+
+        /*Todo: Unregister all notifier for this subsystem
+		 * Should be included with register notifier API support */
+
+        return Status;
+}
+
+XStatus XPmSubsystem_Idle(u32 SubsystemId)
+{
+        XStatus Status = XST_SUCCESS;
+
+	VERIFY(SubsystemId < XPM_SUBSYSID_MAX);
+	/* TBD: Add diling support */
+        return Status;
+}
+
 u32 XPmSubsystem_GetSubSysId(u32 IpiId)
 {
 	/*
