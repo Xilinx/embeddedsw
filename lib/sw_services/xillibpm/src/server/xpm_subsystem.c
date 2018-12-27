@@ -99,6 +99,23 @@ u32 XPmSubsystem_GetSubSysId(u32 IpiId)
 	return IpiId;
 }
 
+XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId)
+{
+	XStatus Status = XST_SUCCESS;
+
+	if (SubsystemId > XPM_SUBSYSID_MAX) {
+		Status = XST_FAILURE;
+                goto done;
+	}
+
+	/*Warning Fix*/
+	(void) (NodeId);
+
+	/*TODO: Add validation based on permissions defined by user*/
+done:
+	return Status;
+}
+
 XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId)
 {
 	XStatus Status = XST_SUCCESS;

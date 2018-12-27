@@ -72,6 +72,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			Address += Pload[1] & ~0x1U;
 			Status = XPm_RequestWakeUp(SubsystemId, Pload[0], SetAddress, Address);
 			break;
+		case PM_FORCE_POWERDOWN:
+			Status = XPm_ForcePowerdown(SubsystemId, Pload[0], Pload[1]);
+			break;
 		case PM_SYSTEM_SHUTDOWN:
 			Status = XPm_SystemShutdown(SubsystemId, Pload[0], Pload[1]);
 			break;
@@ -524,6 +527,71 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 	}
 done:
 	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function can be used by a subsystem to Powerdown other
+ * 		processor or domain node forcefully. To powerdown whole
+ * 		subsystem, this function needs to be called for all processors
+ * 		of target subsystem, which in turn will power down the whole
+ * 		subsystem
+ *
+ * @param SubsystemId	Subsystem ID
+ * @param  Node 		Processor or domain node to be powered down
+ * @param  Ack			Ack request
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   The affected PUs are not notified about the upcoming powerdown,
+ *          and PMU does not wait for their WFI interrupt.
+ *
+ ****************************************************************************/
+XStatus XPm_ForcePowerdown(u32 SubsystemId,
+                             const u32 NodeId,
+                             const u32 Ack)
+{
+	XStatus Status = XST_SUCCESS;
+	XPm_Core *Core;
+
+	/* Warning Fix */
+	(void) (Ack);
+
+	/*Validate acccess first */
+	Status = XPm_IsForcePowerDownAllowed(SubsystemId, NodeId);
+	if (XST_FAILURE == Status) {
+		goto done;
+	}
+
+        if (NODECLASS(NodeId) == XPM_NODECLASS_DEVICE && NODESUBCLASS(NodeId) == XPM_NODESUBCL_DEV_CORE) {
+		Core = (XPm_Core *)XPmDevice_GetById(NodeId);
+		if(Core->CoreOps->PowerDown)
+		{
+			Status = Core->CoreOps->PowerDown(Core);
+			if(XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+		if (XST_SUCCESS == XPmSubsystem_IsAllProcDwn(SubsystemId)) {
+			/* idle the subsystem */
+			Status = XPmSubsystem_Idle(SubsystemId);
+			if(XST_SUCCESS != Status) {
+				goto done;
+			}
+			Status = XPmSubsystem_ForceDownCleanup(SubsystemId);
+			if(XST_SUCCESS != Status) {
+				goto done;
+			}
+			XPmSubsystem_SetState(SubsystemId, OFFLINE);
+		}
+        } else if (NODECLASS(NodeId) == XPM_NODECLASS_POWER && (NODESUBCLASS(NodeId) == XPM_NODESUBCL_POWER_DOMAIN || NODESUBCLASS(NodeId) == XPM_NODESUBCL_POWER_ISLAND)) {
+                /* TBD: Add power domain/island force poweroff support*/
+        } else
+		Status = XST_INVALID_PARAM;
+
+done:
+        return Status;
 }
 
 /****************************************************************************/
