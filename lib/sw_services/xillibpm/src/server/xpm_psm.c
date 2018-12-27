@@ -35,6 +35,9 @@
 #define PWR_UP_TRIG(BASE)	((BASE) + PSM_GLOBAL_REQ_PWRUP_TRIG)
 #define PWR_DN_EN(BASE)		((BASE) + PSM_GLOBAL_REQ_PWRDWN_EN)
 #define PWR_DN_TRIG(BASE)	((BASE) + PSM_GLOBAL_REQ_PWRDWN_TRIG)
+#define SLEEP_EN(BASE)		((BASE) + PSM_GLOBAL_PWR_CTRL_EN)
+#define SLEEP_DIS(BASE)		((BASE) + PSM_GLOBAL_PWR_CTRL_DIS)
+#define SLEEP_TRIG(BASE)	((BASE) + PSM_GLOBAL_PWR_CTRL_TRIG)
 #define PWR_STAT(BASE)		((BASE) + PSM_GLOBAL_PWR_STATE)
 
 #define PSM_NID		NODEID(XPM_NODECLASS_DEVICE, \
@@ -134,6 +137,36 @@ XStatus XPmPsm_SendPowerDownReq(u32 BitMask)
 
 	PmOut32(PWR_DN_TRIG(Psm->Core.Device.Node.BaseAddress), BitMask);
 	PmOut32(PWR_DN_EN(Psm->Core.Device.Node.BaseAddress), BitMask);
+	do {
+		PmIn32(PWR_STAT(Psm->Core.Device.Node.BaseAddress), Reg);
+	} while (0 != (Reg & BitMask));
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+XStatus XPmPsm_SendSleepReq(u32 BitMask)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Reg;
+	XPm_Psm *Psm;
+
+	PmInfo("BitMask=0x%08X\n\r", BitMask);
+
+	Psm = (XPm_Psm *)PmDevices[XPM_NODEIDX_DEV_PSM_PROC];
+	if (NULL == Psm) {
+		goto done;
+	}
+
+	if (XPmPsm_FwIsPresent() != TRUE) {
+		Status = XST_NOT_ENABLED;
+		goto done;
+	}
+
+	PmOut32(SLEEP_TRIG(Psm->Core.Device.Node.BaseAddress), BitMask);
+	PmOut32(SLEEP_EN(Psm->Core.Device.Node.BaseAddress), BitMask);
 	do {
 		PmIn32(PWR_STAT(Psm->Core.Device.Node.BaseAddress), Reg);
 	} while (0 != (Reg & BitMask));
