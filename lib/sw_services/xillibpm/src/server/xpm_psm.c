@@ -84,7 +84,7 @@ done:
 	return Status;
 }
 
-XStatus XPmPsm_PowerUp(u32 BitMask)
+XStatus XPmPsm_SendPowerUpReq(u32 BitMask)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Reg;
@@ -114,7 +114,7 @@ done:
 	return Status;
 }
 
-XStatus XPmPsm_PowerDown(u32 BitMask)
+XStatus XPmPsm_SendPowerDownReq(u32 BitMask)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Reg;
