@@ -40,6 +40,7 @@
 #define PSM_GLOBAL_REQ_PWRDWN_TRIG		(0x00000220)
 #define PSM_GLOBAL_PWR_CTRL_EN			(0x0000071C)
 #define PSM_GLOBAL_PWR_CTRL_DIS			(0x00000720)
+#define PSM_GLOBAL_PWR_CTRL_TRIG		(0x00000724)
 
 #define PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK    (0x00000010)
 #define XPM_PSM_WAKEUP_MASK			BIT(2)
@@ -60,6 +61,7 @@ XStatus XPmPsm_Init(XPm_Psm *Psm,
 	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset);
 XStatus XPmPsm_SendPowerUpReq(u32 BitMask);
 XStatus XPmPsm_SendPowerDownReq(u32 BitMask);
+XStatus XPmPsm_SendSleepReq(u32 BitMask);
 u32 XPmPsm_FwIsPresent(void);
 void XPmPsm_RegWrite(const u32 Offset, const u32 Value);
 
