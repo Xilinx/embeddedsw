@@ -34,14 +34,12 @@
 
 #define MAX_CORE_REGS 3
 
-#define ENABLE_WFI(Mask)	XPmPsm_RegWrite(PSM_GLOBAL_PWR_CTRL_EN, Mask);
-#define DISABLE_WFI(Mask)	XPmPsm_RegWrite(PSM_GLOBAL_PWR_CTRL_DIS, Mask);
-
 typedef struct XPm_Core XPm_Core;
 
 /* Core Operations */
 struct XPm_CoreOps {
 	XStatus (*RequestWakeup)(XPm_Core *Core, u32 SetAddress, u64 Address);
+	XStatus (*PowerDown) (XPm_Core *Core);
 };
 
 /**
@@ -55,12 +53,14 @@ struct XPm_Core {
 	u32 RegAddress[MAX_BASEADDR_LEN-1];	/*Proc device is allowed to pass 3 base addresses, 1 will be stored as node baseaddress*/
 	u64 ResumeAddr;
 	struct XPm_CoreOps *CoreOps; /**< Core operations */
-	u32 Mask;
+	u32 SleepMask;
+	u32 PwrDwnMask;
 };
 
 /************************** Function Prototypes ******************************/
 XStatus XPmCore_Init(XPm_Core *Core, u32 Id, u32 *BaseAddress,
 	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset, u8 IpiCh, struct XPm_CoreOps *Ops);
+XStatus XPmCore_PwrDwn(XPm_Core *Core, u32 RegOffset);
 
 /** @} */
 #endif /* XPM_CORE_H_ */

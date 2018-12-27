@@ -27,6 +27,7 @@
 ******************************************************************************/
 
 #include "xpm_core.h"
+#include "xpm_psm.h"
 
 XStatus XPmCore_Init(XPm_Core *Core, u32 Id, u32 *BaseAddress,
 	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset, u8 IpiCh, struct XPm_CoreOps *Ops)
@@ -45,6 +46,65 @@ XStatus XPmCore_Init(XPm_Core *Core, u32 Id, u32 *BaseAddress,
 	Core->CoreOps = Ops;
 	Core->RegAddress[0] = BaseAddress[1];
 	Core->RegAddress[1] = BaseAddress[2];
+
+done:
+	return Status;
+}
+
+static XStatus XPmCore_Sleep(XPm_Core *Core)
+{
+	XStatus Status = XST_FAILURE;
+
+	/*
+	 * If parent is on, then only send sleep request
+	 */
+	if (Core->Device.Power->Parent->Node.State == XPM_POWER_STATE_ON) {
+		/*
+		 * Power down the core
+		 */
+		Status = XPmPsm_SendSleepReq(Core->SleepMask);
+	} else {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	if (NULL != Core->Device.Power) {
+		Core->Device.Power->Node.HandleEvent(&Core->Device.Power->Node, XPM_POWER_EVENT_PWR_DOWN);
+	}
+
+	if (NULL != Core->Device.ClkHandles) {
+		XPmClock_Release(Core->Device.ClkHandles);
+	}
+
+done:
+	return Status;
+}
+
+XStatus XPmCore_PwrDwn(XPm_Core *Core, u32 PwrDwnRegOffset)
+{
+	XStatus Status = XST_FAILURE;
+	u32 PwrReq;
+
+	if(Core->Device.Node.State == XPM_DEVSTATE_PWR_OFF || Core->Device.Node.State == XPM_DEVSTATE_UNUSED) {
+		goto done;
+	}
+
+	if(Core->Device.Node.State == XPM_DEVSTATE_SUSPENDING) {
+		DISABLE_WFI(Core->SleepMask);
+	}
+
+	Status = XPmCore_Sleep(Core);
+	if(Status != XST_SUCCESS) {
+		goto done;
+	}
+	Core->Device.Node.State = XPM_DEVSTATE_PWR_OFF;
+
+	/* CLear Power Down Request */
+	PmIn32(Core->Device.Node.BaseAddress + PwrDwnRegOffset, PwrReq);
+	if (0U != (Core->PwrDwnMask & PwrReq)) {
+		PwrReq &= ~Core->PwrDwnMask;
+		PmOut32(Core->Device.Node.BaseAddress + PwrDwnRegOffset, PwrReq);
+	}
 
 done:
 	return Status;

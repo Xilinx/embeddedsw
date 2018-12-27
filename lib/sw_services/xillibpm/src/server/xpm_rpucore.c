@@ -65,8 +65,30 @@ done:
 	return Status;
 }
 
+static XStatus XPmRpuCore_PwrDwn(XPm_Core *Core)
+{
+	XStatus Status = XST_FAILURE;
+	u32 CoreId = Core->Device.Node.Id;
+	u32 RegOffset;
+
+	if(NODEINDEX(CoreId) == XPM_NODEIDX_DEV_RPU0_0) {
+		RegOffset = RPU_0_PWRDWN_OFFSET;
+	} else if(NODEINDEX(CoreId) == XPM_NODEIDX_DEV_RPU0_1) {
+		RegOffset = RPU_1_PWRDWN_OFFSET;
+	} else {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = XPmCore_PwrDwn(Core, RegOffset);
+
+done:
+	return Status;
+}
+
 struct XPm_CoreOps RpuOps = {
 		.RequestWakeup = XPmRpuCore_WakeUp,
+		.PowerDown = XPmRpuCore_PwrDwn,
 };
 
 
@@ -85,11 +107,13 @@ XStatus XPmRpuCore_Init(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, u32 *BaseAddress,
 	if (XPM_DEVID_R50_0 == Id) {
 		RpuCore->ResumeCfg = RpuCore->Core.Device.Node.BaseAddress +
 				     RPU_0_CFG_OFFSET;
-		RpuCore->Core.Mask = XPM_RPU0_0_PWR_CTRL_MASK;
+		RpuCore->Core.SleepMask = XPM_RPU0_0_PWR_CTRL_MASK;
+		RpuCore->Core.PwrDwnMask = XPM_RPU_0_CPUPWRDWNREQ_MASK;
 	} else {
 		RpuCore->ResumeCfg = RpuCore->Core.Device.Node.BaseAddress +
 				     RPU_1_CFG_OFFSET;
-		RpuCore->Core.Mask = XPM_RPU0_1_PWR_CTRL_MASK;
+		RpuCore->Core.SleepMask = XPM_RPU0_1_PWR_CTRL_MASK;
+		RpuCore->Core.PwrDwnMask = XPM_RPU_1_CPUPWRDWNREQ_MASK;
 	}
 
 done:
