@@ -185,6 +185,9 @@ enum XPm_PllConfigParams {
 	PLL_PARAM_MAX,
 };
 
+/* System shutdown macros */
+#define XPM_SHUTDOWN_TYPE_SHUTDOWN      0U
+#define XPM_SHUTDOWN_TYPE_RESET         1U
 
 /* RPU operation mode */
 #define XPM_RPU_MODE_LOCKSTEP	0U

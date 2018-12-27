@@ -70,6 +70,9 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 			const u32 SetAddress,
 			const u64 Address);
 
+XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type,
+                             const u32 SubType);
+
 XStatus XPm_RequestDevice(const u32 TargetSubsystemId,
 			const u32 DeviceId,
 			const u32 Capabilities,

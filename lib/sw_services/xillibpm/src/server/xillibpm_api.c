@@ -72,6 +72,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			Address += Pload[1] & ~0x1U;
 			Status = XPm_RequestWakeUp(SubsystemId, Pload[0], SetAddress, Address);
 			break;
+		case PM_SYSTEM_SHUTDOWN:
+			Status = XPm_SystemShutdown(SubsystemId, Pload[0], Pload[1]);
+			break;
 		case PM_SELF_SUSPEND:
 			Status = XPm_SelfSuspend(SubsystemId, Pload[0],
 						 Pload[1], Pload[2], Pload[3],
@@ -521,6 +524,75 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 	}
 done:
 	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function can be used by a subsystem to shutdown self or restart
+ * 			self, Ps or system
+ *
+ * @param SubsystemId		Subsystem ID
+ * @param  Type				Shutdown type
+ * @param SubType			Shutdown subtype
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   This function does not block.  A successful return code means that
+ * the request has been received.
+ *
+ ****************************************************************************/
+XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type,
+                             const u32 SubType)
+{
+        XStatus Status = XST_SUCCESS;
+	XPm_Subsystem *Subsystem;
+	XPm_Requirement *Reqm;
+	XPm_Device *Device;
+	XPm_Core *Core = NULL;
+
+	/* Warning Fix */
+	(void) (SubType);
+
+       /* For shutdown type the subtype is irrelevant: shut the caller down */
+        if (XPM_SHUTDOWN_TYPE_SHUTDOWN == Type) {
+		VERIFY(SubsystemId < XPM_SUBSYSID_MAX);
+		Subsystem = &PmSubsystems[SubsystemId];
+		Reqm = Subsystem->Requirements;
+		while (NULL != Reqm) {
+			if (TRUE == Reqm->Allocated) {
+				Device = Reqm->Device;
+				if (XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Device->Node.Id)) {
+					Core = (XPm_Core *)XPmDevice_GetById(Device->Node.Id);
+					if(Core->CoreOps->PowerDown)
+					{
+						Status = Core->CoreOps->PowerDown(Core);
+						if(XST_SUCCESS != Status) {
+							goto done;
+						}
+					}
+				}
+			}
+			Reqm = Reqm->NextDevice;
+		}
+        } else {
+                Status = XST_INVALID_PARAM;
+                goto done;
+        }
+
+	/* Idle the subsystem */
+	Status = XPmSubsystem_Idle(SubsystemId);
+	if(XST_SUCCESS != Status) {
+		goto done;
+	}
+	Status = XPmSubsystem_ForceDownCleanup(SubsystemId);
+	if(XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	XPmSubsystem_SetState(SubsystemId, OFFLINE);
+done:
+        return Status;
 }
 
 /****************************************************************************/
