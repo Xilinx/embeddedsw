@@ -362,7 +362,7 @@ XStatus XPm_AbortSuspend(const u32 SubsystemId, const u32 Reason,
 		goto done;
 	}
 
-	DISABLE_WFI(Core->Mask);
+	DISABLE_WFI(Core->SleepMask);
 
 	Status = XPmSubsystem_SetState(SubsystemId, ONLINE);
 
@@ -411,7 +411,7 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 		goto done;
 	}
 
-	ENABLE_WFI(Core->Mask);
+	ENABLE_WFI(Core->SleepMask);
 
 	if (XST_SUCCESS == XPmSubsystem_IsAllProcDwn(SubsystemId)) {
 		Status = XPmSubsystem_SetState(SubsystemId, SUSPENDING);

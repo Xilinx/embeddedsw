@@ -59,8 +59,18 @@ static XStatus XPmApuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	return Status;
 }
 
+static XStatus XPmApuCore_PwrDwn(XPm_Core *Core)
+{
+	XStatus Status = XST_FAILURE;
+
+	Status = XPmCore_PwrDwn(Core, FPD_APU_PWRCTL_OFFSET);
+
+	return Status;
+}
+
 struct XPm_CoreOps ApuOps = {
 		.RequestWakeup = XPmApuCore_WakeUp,
+		.PowerDown = XPmApuCore_PwrDwn,
 };
 
 XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,
@@ -75,10 +85,14 @@ XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,
 		Id, BaseAddress,
 		Power, Clock, Reset, Ipi, &ApuOps);
 
-	if (XPM_DEVID_ACPU_0 == Id) {
-		ApuCore->Core.Mask = XPM_ACPU_0_PWR_CTRL_MASK;
+	if(NODEINDEX(Id) == XPM_NODEIDX_DEV_ACPU_0) {
+		ApuCore->Core.SleepMask = XPM_ACPU_0_PWR_CTRL_MASK;
+		ApuCore->Core.PwrDwnMask = XPM_ACPU_0_CPUPWRDWNREQ_MASK;
+	} else if(NODEINDEX(Id) == XPM_NODEIDX_DEV_ACPU_1) {
+		ApuCore->Core.SleepMask = XPM_ACPU_1_PWR_CTRL_MASK;
+		ApuCore->Core.PwrDwnMask = XPM_ACPU_1_CPUPWRDWNREQ_MASK;
 	} else {
-		ApuCore->Core.Mask = XPM_ACPU_1_PWR_CTRL_MASK;
+		Status = XST_INVALID_PARAM;
 	}
 
 	return Status;
