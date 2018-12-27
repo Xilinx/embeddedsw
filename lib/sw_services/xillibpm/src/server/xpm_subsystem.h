@@ -92,5 +92,7 @@ XStatus XPmSubsystem_Create(void (*const NotifyCb)(u32 SubsystemId,
 			    u32 *SubsystemId);
 XStatus XPmSubsystem_Destroy(u32 SubsystemId);
 XStatus XPmSubsystem_IsAllProcDwn(u32 SubsystemId);
+XStatus XPmSubsystem_ForceDownCleanup(u32 SubsystemId);
+XStatus XPmSubsystem_Idle(u32 SubsystemId);
 
 #endif /* XPM_SUBSYSTEM_H_ */
