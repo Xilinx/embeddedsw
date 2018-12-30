@@ -106,7 +106,7 @@ XStatus XPmcFw_Handoff (XPmcFw * PmcFwInstancePtr)
 	if ((PmcFwInstancePtr->PlCfiPresent == TRUE) || (NpiFabricEnabled == 1U))
 	{
 		XilCdo_AssertGlobalSignals();
-#if 1
+#if 0
 	/* Enable Readback */
 	XPmcFw_ReadFabricData((u32 *)XPMCFW_PMCRAM_BASEADDR, 100*4);
 #endif
