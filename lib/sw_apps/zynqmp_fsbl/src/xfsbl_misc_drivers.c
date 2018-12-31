@@ -267,11 +267,6 @@ void XFsbl_StopWdt(void)
 		XWdtPs_Stop(&Watchdog);
 	}
 
-	/* Disable SWDT0/1 System Watchdog Timer Error */
-	RegValue = XFsbl_In32(PMU_GLOBAL_ERROR_EN_1);
-	RegValue &= ~(XFSBL_WDT_MASK);
-	XFsbl_Out32(PMU_GLOBAL_ERROR_EN_1, RegValue);
-
 	/* Disable generation of system reset by PMU due to SWDT0/1 */
 	RegValue = XFsbl_In32(PMU_GLOBAL_ERROR_SRST_DIS_1);
 	RegValue |= XFSBL_WDT_MASK;
