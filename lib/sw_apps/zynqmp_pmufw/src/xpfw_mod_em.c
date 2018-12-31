@@ -158,6 +158,13 @@ static void CheckFsblCompletion(void)
 			*/
 		}
 
+		/*
+		 * Once FSBL execution is completed, PMU need to enable the LPD WDT
+		 * error and set the error action as FSBL disables while exiting.
+		 */
+		XPfw_EmSetAction(EM_ERR_ID_LPD_SWDT, EM_ACTION_SRST,
+				ErrorTable[EM_ERR_ID_LPD_SWDT].Handler);
+
 		Status = XPfw_CoreRemoveTask(EmModPtr, (u32)CHECK_FSBL_COMPLETION,
 				CheckFsblCompletion);
 		if (XST_FAILURE == Status) {
