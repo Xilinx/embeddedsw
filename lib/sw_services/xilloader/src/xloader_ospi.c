@@ -31,7 +31,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xilpli_ospi.c
+* @file xloader_ospi.c
 *
 * This is the file which contains ospi related code for the PLM.
 *
@@ -48,11 +48,11 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
-#include "xilpli_ospi.h"
-#include "xilpli.h"
+#include "xloader_ospi.h"
+#include "xloader.h"
 #include "xplmi_hw.h"
 
-#ifdef XILPLI_OSPI
+#ifdef XLOADER_OSPI
 
 /************************** Constant Definitions *****************************/
 /*
@@ -64,8 +64,8 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions ********************/
-#define XILPLI_OSPI_DEVICE_ID  XPAR_PSU_OSPI_0_DEVICE_ID
-#define XILPLI_OSPI_BASEADDR   XPAR_PSU_OSPI_0_BASEADDR 
+#define XLOADER_OSPI_DEVICE_ID  XPAR_PSU_OSPI_0_DEVICE_ID
+#define XLOADER_OSPI_BASEADDR   XPAR_PSU_OSPI_0_BASEADDR
 /************************** Function Prototypes ******************************/
 static int FlashReadID(XOspiPsv *OspiPsvPtr);
 
@@ -112,15 +112,15 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 		goto END;
 	}
 	
-	XPli_Printf(DEBUG_GENERAL, "FlashID=0x%x 0x%x 0x%x\n\r", ReadBuffer[0],
+	XLoader_Printf(DEBUG_GENERAL, "FlashID=0x%x 0x%x 0x%x\n\r", ReadBuffer[0],
                                         ReadBuffer[1], ReadBuffer[2]);
 
         /*
          * Deduce flash make
          */
        	if (ReadBuffer[0] != MICRON_OCTAL_ID_BYTE0) {
-                Status = XILPLI_ERR_UNSUPPORTED_OSPI;
-                XPli_Printf(DEBUG_GENERAL,"XILPLI_ERR_UNSUPPORTED_OSPI\r\n");
+                Status = XLOADER_ERR_UNSUPPORTED_OSPI;
+                XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_UNSUPPORTED_OSPI\r\n");
                 goto END;
         }
 	else
@@ -136,8 +136,8 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 	if(ReadBuffer[2] == MICRON_OCTAL_ID_BYTE2_512) {
 		OspiFlashSize = FLASH_SIZE_512M;
 	} else {
-            Status = XILPLI_ERR_UNSUPPORTED_OSPI_SIZE;
-            XPli_Printf(DEBUG_GENERAL,"XILPLI_ERR_UNSUPPORTED_OSPI_SIZE\r\n");
+            Status = XLOADER_ERR_UNSUPPORTED_OSPI_SIZE;
+            XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_UNSUPPORTED_OSPI_SIZE\r\n");
             goto END;
         }
 
@@ -157,7 +157,7 @@ END:
  * @return	None
  *
  *****************************************************************************/
-int XPli_OspiInit(u32 DeviceFlags)
+int XLoader_OspiInit(u32 DeviceFlags)
 {
 	XOspiPsv_Config *OspiConfig;
 	XOspiPsv* OspiPsvInstancePtr = &OspiPsvInstance;
@@ -168,17 +168,17 @@ int XPli_OspiInit(u32 DeviceFlags)
 	/**
 	 * Initialize the QSPI driver so that it's ready to use
 	 */
-	OspiConfig =  XOspiPsv_LookupConfig(XILPLI_OSPI_DEVICE_ID);
+	OspiConfig =  XOspiPsv_LookupConfig(XLOADER_OSPI_DEVICE_ID);
 	if (NULL == OspiConfig) {
-		Status = XILPLI_ERR_OSPI_INIT;
-		XPli_Printf(DEBUG_GENERAL,"XILPLI_ERR_OSPI_INIT\r\n");
+		Status = XLOADER_ERR_OSPI_INIT;
+		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_OSPI_INIT\r\n");
 		goto END;
 	}
 
 	Status =  XOspiPsv_CfgInitialize(OspiPsvInstancePtr, OspiConfig);
-	if (Status != XILPLI_SUCCESS) {
-		Status = XILPLI_ERR_OSPI_CFG;
-		XPli_Printf(DEBUG_GENERAL,"XILPLI_ERR_OSPI_CFG\r\n");
+	if (Status != XLOADER_SUCCESS) {
+		Status = XLOADER_ERR_OSPI_CFG;
+		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_OSPI_CFG\r\n");
 		goto END;
 	}
 
@@ -226,16 +226,16 @@ END:
  * @param Length Length of the bytes to be copied
  *
  * @return
- *		- XILPLI_SUCCESS for successful copy
- *		- errors as mentioned in xilpli_error.h
+ *		- XLOADER_SUCCESS for successful copy
+ *		- errors as mentioned in xloader_error.h
  *
  *****************************************************************************/
-int XPli_OspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
+int XLoader_OspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 {
 	
 	int Status;
 
-	XPli_Printf(DEBUG_INFO,"OSPI Reading Src 0x%0x, Dest 0x%0x," 
+	XLoader_Printf(DEBUG_INFO,"OSPI Reading Src 0x%0x, Dest 0x%0x,"
 		"Length 0x%0x, Flags 0x%0x\r\n", SrcAddr, (u32)(DestAddr&(0XFFFFFFFFU)), 
 		Length, Flags);
 			
@@ -271,9 +271,9 @@ END:
  * @return	None
  *
  *****************************************************************************/
-int XPli_OspiRelease(void)
+int XLoader_OspiRelease(void)
 {
-	int Status = XILPLI_SUCCESS;
+	int Status = XLOADER_SUCCESS;
 
 	return Status;
 }

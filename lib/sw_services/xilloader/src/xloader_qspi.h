@@ -30,7 +30,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xilpli_qspi.h
+* @file xloader_qspi.h
 *
 * This is the header file which contains qspi declarations for the PLM.
 *
@@ -46,8 +46,8 @@
 *
 ******************************************************************************/
 
-#ifndef XILPLI_QSPI_H
-#define XILPLI_QSPI_H
+#ifndef XLOADER_QSPI_H
+#define XLOADER_QSPI_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -55,7 +55,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xplmi_hw.h"
-#ifdef XILPLI_QSPI
+#ifdef XLOADER_QSPI
 #include "xqspipsu.h"
 #include "xplmi_debug.h"
 /************************** Constant Definitions *****************************/
@@ -182,17 +182,17 @@ extern "C" {
 #define FLASH_SIZE_2G			(0x10000000U)
 
 /* TODO change to QSPI driver API */
-#define XILPLI_QSPIDMA_DST_CTRL	(0xF103080CU)
+#define XLOADER_QSPIDMA_DST_CTRL	(0xF103080CU)
 
 /* Error codes */
-#define XILPLI_ERR_QSPI_READ_ID                         (0x1000)
-#define XILPLI_ERR_UNSUPPORTED_QSPI                     (0x1100)
-#define XILPLI_ERR_QSPI_INIT                            (0x1200)
-#define XILPLI_ERR_QSPI_LENGTH                          (0x1300)
-#define XILPLI_ERR_QSPI_READ                            (0x1400)
-#define XILPLI_ERR_QSPI_CONNECTION                      (0x1500)
-#define XILPLI_ERR_QSPI_MANUAL_START                    (0x1600)
-#define XILPLI_ERR_QSPI_PRESCALER_CLK                   (0x1700)
+#define XLOADER_ERR_QSPI_READ_ID                         (0x1000)
+#define XLOADER_ERR_UNSUPPORTED_QSPI                     (0x1100)
+#define XLOADER_ERR_QSPI_INIT                            (0x1200)
+#define XLOADER_ERR_QSPI_LENGTH                          (0x1300)
+#define XLOADER_ERR_QSPI_READ                            (0x1400)
+#define XLOADER_ERR_QSPI_CONNECTION                      (0x1500)
+#define XLOADER_ERR_QSPI_MANUAL_START                    (0x1600)
+#define XLOADER_ERR_QSPI_PRESCALER_CLK                   (0x1700)
 
 /**************************** Type Definitions *******************************/
 
@@ -200,21 +200,21 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 
-int XPli_Qspi24Init(u32 DeviceFlags);
-XStatus XPli_Qspi24Copy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
-int XPli_Qspi24Release(void );
-int XPli_Qspi32Init(u32 DeviceFlags);
-XStatus XPli_Qspi32Copy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
-int XPli_Qspi32Release(void );
-void XPli_SetQspiDmaMode(u32 DmaMode);
+int XLoader_Qspi24Init(u32 DeviceFlags);
+XStatus XLoader_Qspi24Copy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+int XLoader_Qspi24Release(void );
+int XLoader_Qspi32Init(u32 DeviceFlags);
+XStatus XLoader_Qspi32Copy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+int XLoader_Qspi32Release(void );
+void XLoader_SetQspiDmaMode(u32 DmaMode);
 
 /************************** Variable Definitions *****************************/
 
 
-#endif /* end of XILPLI_QSPI */
+#endif /* end of XLOADER_QSPI */
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  /* XILPLI_QSPI_H */
+#endif  /* XLOADER_QSPI_H */

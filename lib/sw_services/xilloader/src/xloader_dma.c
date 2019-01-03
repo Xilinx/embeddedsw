@@ -30,7 +30,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xilpli_dma.c
+* @file xloader_dma.c
 *
 * This is the file which contains PMC DMA interface code for the PLM.
 *
@@ -48,18 +48,18 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xilpli_dma.h"
+#include "xloader_dma.h"
 #include "xplmi_debug.h"
-#include "xilpli.h"
+#include "xloader.h"
 #include "xplmi_generic.h"
 #include "xplmi_util.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XILPLI_ERR_DMA_LOOKUP                           (0x2200)
-#define XILPLI_ERR_DMA_CFG                              (0x2300)
-#define XILPLI_ERR_DMA_SELFTEST                         (0x2400)
+#define XLOADER_ERR_DMA_LOOKUP                           (0x2200)
+#define XLOADER_ERR_DMA_CFG                              (0x2300)
+#define XLOADER_ERR_DMA_SELFTEST                         (0x2400)
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
@@ -77,7 +77,7 @@ XCsuDma_Configure DmaCtrl = {0x40, 0, 0, 0, 0xFFE, 0x80,
  * @param DeviceId Device ID of the DMA as defined in xparameters.h
  * @return Error Codes  
 *****************************************************************************/
-int XPli_DmaDrvInit(XCsuDma *DmaPtr, u32 DeviceId)
+int XLoader_DmaDrvInit(XCsuDma *DmaPtr, u32 DeviceId)
 {
 	XCsuDma_Config *Config;
 	int Status;
@@ -89,13 +89,13 @@ int XPli_DmaDrvInit(XCsuDma *DmaPtr, u32 DeviceId)
 	 */
 	Config = XCsuDma_LookupConfig((u16)DeviceId);
 	if (NULL == Config) {
-		Status = XILPLI_ERR_DMA_LOOKUP;
+		Status = XLOADER_ERR_DMA_LOOKUP;
 		goto END;
 	}
 
 	Status = XCsuDma_CfgInitialize(DmaPtr, Config, Config->BaseAddress);
 	if (Status != XST_SUCCESS) {
-		Status = XILPLI_UPDATE_ERR(XILPLI_ERR_DMA_CFG, Status);
+		Status = XLOADER_UPDATE_ERR(XLOADER_ERR_DMA_CFG, Status);
 		goto END;
 	}
 
@@ -104,7 +104,7 @@ int XPli_DmaDrvInit(XCsuDma *DmaPtr, u32 DeviceId)
 	 */
 	Status = XCsuDma_SelfTest(DmaPtr);
 	if (Status != XST_SUCCESS) {
-		Status = XILPLI_UPDATE_ERR(XILPLI_ERR_DMA_SELFTEST, Status);
+		Status = XLOADER_UPDATE_ERR(XLOADER_ERR_DMA_SELFTEST, Status);
 		goto END;
 	}
 
@@ -118,16 +118,16 @@ END:
  *
  * @return Error Codes 
  *****************************************************************************/
-int XPli_DmaInit()
+int XLoader_DmaInit()
 {
 	int Status;
 
-	Status = XPli_DmaDrvInit(&CsuDma0, CSUDMA_0_DEVICE_ID);
+	Status = XLoader_DmaDrvInit(&CsuDma0, CSUDMA_0_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XPli_DmaDrvInit(&CsuDma1, CSUDMA_1_DEVICE_ID);
+	Status = XLoader_DmaDrvInit(&CsuDma1, CSUDMA_1_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -143,20 +143,20 @@ END:
  * @param Flags Flags to select PMC DMA
  * @return  none
  *****************************************************************************/
-void XPli_SSSCfgDmaDma(u32 Flags)
+void XLoader_SSSCfgDmaDma(u32 Flags)
 {
 
-	XPli_Printf(DEBUG_DETAILED, "SSS config for DMA0/1 to DMA0/1\n\r");
+	XLoader_Printf(DEBUG_DETAILED, "SSS config for DMA0/1 to DMA0/1\n\r");
 
 	/* it is DMA0/1 to DMA0/1 configuration */
-	if ((Flags & XILPLI_PMCDMA_0) == XILPLI_PMCDMA_0) {
+	if ((Flags & XLOADER_PMCDMA_0) == XLOADER_PMCDMA_0) {
 		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
-				XILPLI_SSSCFG_DMA0_MASK,
-				XILPLI_SSS_DMA0_DMA0);
-	} else if ((Flags & XILPLI_PMCDMA_1) == XILPLI_PMCDMA_1) {
+				XLOADER_SSSCFG_DMA0_MASK,
+				XLOADER_SSS_DMA0_DMA0);
+	} else if ((Flags & XLOADER_PMCDMA_1) == XLOADER_PMCDMA_1) {
 		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
-				XILPLI_SSSCFG_DMA1_MASK,
-				XILPLI_SSS_DMA1_DMA1);
+				XLOADER_SSSCFG_DMA1_MASK,
+				XLOADER_SSS_DMA1_DMA1);
 	}
 }
 
@@ -167,26 +167,26 @@ void XPli_SSSCfgDmaDma(u32 Flags)
  * @param Flags Flags to select PMC DMA
  * @return  none
  *****************************************************************************/
-void XPli_SSSCfgSbiDma(u32 Flags)
+void XLoader_SSSCfgSbiDma(u32 Flags)
 {
 
-	XPli_Printf(DEBUG_DETAILED, "SSS config for SBI to DMA0/1\n\r");
+	XLoader_Printf(DEBUG_DETAILED, "SSS config for SBI to DMA0/1\n\r");
 
 	/* Read from SBI to DMA0/1 */
-	if ((Flags & XILPLI_PMCDMA_0) == XILPLI_PMCDMA_0) {
+	if ((Flags & XLOADER_PMCDMA_0) == XLOADER_PMCDMA_0) {
 		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
-				XILPLI_SSSCFG_DMA0_MASK,
-				XILPLI_SSS_DMA0_SBI);
+				XLOADER_SSSCFG_DMA0_MASK,
+				XLOADER_SSS_DMA0_SBI);
 		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
-				XILPLI_SSSCFG_SBI_MASK,
-				XILPLI_SSS_SBI_DMA0);
-	} else if ((Flags & XILPLI_PMCDMA_1) == XILPLI_PMCDMA_1) {
+				XLOADER_SSSCFG_SBI_MASK,
+				XLOADER_SSS_SBI_DMA0);
+	} else if ((Flags & XLOADER_PMCDMA_1) == XLOADER_PMCDMA_1) {
 		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
-				XILPLI_SSSCFG_DMA1_MASK,
-				XILPLI_SSS_DMA1_SBI);
+				XLOADER_SSSCFG_DMA1_MASK,
+				XLOADER_SSS_DMA1_SBI);
 		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
-				XILPLI_SSSCFG_SBI_MASK,
-				XILPLI_SSS_SBI_DMA1);
+				XLOADER_SSSCFG_SBI_MASK,
+				XLOADER_SSS_SBI_DMA1);
 	}
 }
 
@@ -197,19 +197,19 @@ void XPli_SSSCfgSbiDma(u32 Flags)
  * @param Flags Flags to select PMC DMA
  * @return  none
  *****************************************************************************/
-void XPli_SSSCfgDmaSbi(u32 Flags)
+void XLoader_SSSCfgDmaSbi(u32 Flags)
 {
 
-	XPli_Printf(DEBUG_DETAILED, "SSS config for DMA0/1 to SBI\n\r");
+	XLoader_Printf(DEBUG_DETAILED, "SSS config for DMA0/1 to SBI\n\r");
 
-	if ((Flags & XILPLI_PMCDMA_0) == XILPLI_PMCDMA_0) {
+	if ((Flags & XLOADER_PMCDMA_0) == XLOADER_PMCDMA_0) {
 		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
-				XILPLI_SSSCFG_SBI_MASK,
-				XILPLI_SSS_SBI_DMA0);
-	} else if ((Flags & XILPLI_PMCDMA_1) == XILPLI_PMCDMA_1) {
+				XLOADER_SSSCFG_SBI_MASK,
+				XLOADER_SSS_SBI_DMA0);
+	} else if ((Flags & XLOADER_PMCDMA_1) == XLOADER_PMCDMA_1) {
 		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
-				XILPLI_SSSCFG_SBI_MASK,
-				XILPLI_SSS_SBI_DMA1);
+				XLOADER_SSSCFG_SBI_MASK,
+				XLOADER_SSS_SBI_DMA1);
 	}
 }
 
@@ -223,25 +223,25 @@ void XPli_SSSCfgDmaSbi(u32 Flags)
  * @param Flags Flags to select PMC DMA and DMA Burst type
  * @return Error Codes 
  *****************************************************************************/
-int XPli_DmaChXfer(u64 Addr, u32 Len, XCsuDma_Channel Channel, u32 Flags)
+int XLoader_DmaChXfer(u64 Addr, u32 Len, XCsuDma_Channel Channel, u32 Flags)
 {
 	int Status;
 	XCsuDma *DmaPtr;
 
 	/* Select DMA pointer */
-	if ((Flags & XILPLI_PMCDMA_0) == XILPLI_PMCDMA_0) {
-		XPli_Printf(DEBUG_INFO, "PMCDMA0\n\r");
+	if ((Flags & XLOADER_PMCDMA_0) == XLOADER_PMCDMA_0) {
+		XLoader_Printf(DEBUG_INFO, "PMCDMA0\n\r");
 		DmaPtr = &CsuDma0;
 	} else {
-		XPli_Printf(DEBUG_INFO, "PMCDMA1\n\r");
+		XLoader_Printf(DEBUG_INFO, "PMCDMA1\n\r");
 		DmaPtr = &CsuDma1;
 	}
 
 	/* Setting PMC_DMA in AXI FIXED mode */
 	if ( ((Channel == XCSUDMA_DST_CHANNEL) &&
-		((Flags&XILPLI_DST_CH_AXI_FIXED) == XILPLI_DST_CH_AXI_FIXED)) ||
+		((Flags&XLOADER_DST_CH_AXI_FIXED) == XLOADER_DST_CH_AXI_FIXED)) ||
 		((Channel == XCSUDMA_SRC_CHANNEL) &&
-		((Flags&XILPLI_SRC_CH_AXI_FIXED) == XILPLI_SRC_CH_AXI_FIXED)) )
+		((Flags&XLOADER_SRC_CH_AXI_FIXED) == XLOADER_SRC_CH_AXI_FIXED)) )
 	{
 		DmaCtrl.AxiBurstType=1U;
 		XCsuDma_SetConfig(DmaPtr, Channel, &DmaCtrl);
@@ -257,9 +257,9 @@ int XPli_DmaChXfer(u64 Addr, u32 Len, XCsuDma_Channel Channel, u32 Flags)
 
 	/* Revert the setting of PMC_DMA in AXI FIXED mode */
 	if ( ((Channel == XCSUDMA_DST_CHANNEL) &&
-		((Flags&XILPLI_DST_CH_AXI_FIXED) == XILPLI_DST_CH_AXI_FIXED)) ||
+		((Flags&XLOADER_DST_CH_AXI_FIXED) == XLOADER_DST_CH_AXI_FIXED)) ||
 		((Channel == XCSUDMA_SRC_CHANNEL) &&
-		((Flags&XILPLI_SRC_CH_AXI_FIXED) == XILPLI_SRC_CH_AXI_FIXED)) )
+		((Flags&XLOADER_SRC_CH_AXI_FIXED) == XLOADER_SRC_CH_AXI_FIXED)) )
 	{
 		DmaCtrl.AxiBurstType=0U;
 		XCsuDma_SetConfig(DmaPtr, Channel, &DmaCtrl);
@@ -278,18 +278,18 @@ int XPli_DmaChXfer(u64 Addr, u32 Len, XCsuDma_Channel Channel, u32 Flags)
  * @param Flags Flags to select PMC DMA and DMA Burst type
  * @return Error Codes 
  *****************************************************************************/
-int XPli_SbiDmaXfer(u64 DestAddr, u32 Len, u32 Flags)
+int XLoader_SbiDmaXfer(u64 DestAddr, u32 Len, u32 Flags)
 {
 	int Status;
 
-	XPli_Printf(DEBUG_INFO, "SBI to Dma Xfer Dest 0x%0x, Len 0x%0x: ",
+	XLoader_Printf(DEBUG_INFO, "SBI to Dma Xfer Dest 0x%0x, Len 0x%0x: ",
 			(u32)DestAddr, Len);
 
 	/* Configure the secure stream switch */
-	XPli_SSSCfgSbiDma(Flags);
+	XLoader_SSSCfgSbiDma(Flags);
 
 	/* Receive the data from destination channel */
-	Status = XPli_DmaChXfer(DestAddr, Len, XCSUDMA_DST_CHANNEL, Flags);
+	Status = XLoader_DmaChXfer(DestAddr, Len, XCSUDMA_DST_CHANNEL, Flags);
 
 	return Status;
 }
@@ -303,18 +303,18 @@ int XPli_SbiDmaXfer(u64 DestAddr, u32 Len, u32 Flags)
  * @param Flags Flags to select PMC DMA and DMA Burst type
  * @return Error codes
  *****************************************************************************/
-int XPli_DmaSbiXfer(u64 SrcAddr, u32 Len, u32 Flags)
+int XLoader_DmaSbiXfer(u64 SrcAddr, u32 Len, u32 Flags)
 {
 	int Status;
 
-	XPli_Printf(DEBUG_INFO, "Dma to SBI Xfer Src 0x%0x, Len 0x%0x: ",
+	XLoader_Printf(DEBUG_INFO, "Dma to SBI Xfer Src 0x%0x, Len 0x%0x: ",
 			(u32)SrcAddr, Len);
 
 	/* Configure the secure stream switch */
-	XPli_SSSCfgDmaSbi(Flags);
+	XLoader_SSSCfgDmaSbi(Flags);
 
 	/* Receive the data from destination channel */
-	Status = XPli_DmaChXfer(SrcAddr, Len, XCSUDMA_SRC_CHANNEL, Flags);
+	Status = XLoader_DmaChXfer(SrcAddr, Len, XCSUDMA_SRC_CHANNEL, Flags);
 
 	return Status;
 }
@@ -329,50 +329,50 @@ int XPli_DmaSbiXfer(u64 SrcAddr, u32 Len, u32 Flags)
  * @param Flags Flags to select PMC DMA and DMA Burst type
  * @return Error codes 
  *****************************************************************************/
-int XPli_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
+int XLoader_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 {
 	int Status;
 	XCsuDma *DmaPtr;
 
-	Status = XPli_StartDma(SrcAddr, DestAddr, Len, Flags, &DmaPtr);
+	Status = XLoader_StartDma(SrcAddr, DestAddr, Len, Flags, &DmaPtr);
 
 	/* Polling for transfer to be done */
-	if((Flags & XILPLI_DMA_SRC_NONBLK) == FALSE)
+	if((Flags & XLOADER_DMA_SRC_NONBLK) == FALSE)
 	{
 		XCsuDma_WaitForDone(DmaPtr, XCSUDMA_SRC_CHANNEL);
 	}
-	if((Flags & XILPLI_DMA_DST_NONBLK) == FALSE)
+	if((Flags & XLOADER_DMA_DST_NONBLK) == FALSE)
 	{
 		XCsuDma_WaitForDone(DmaPtr, XCSUDMA_DST_CHANNEL);
 	}
 
 	/* To acknowledge the transfer has completed */
-	if((Flags & XILPLI_DMA_SRC_NONBLK) == FALSE)
+	if((Flags & XLOADER_DMA_SRC_NONBLK) == FALSE)
 	{
 		XCsuDma_IntrClear(DmaPtr, XCSUDMA_SRC_CHANNEL, XCSUDMA_IXR_DONE_MASK);
 	}
-	if((Flags & XILPLI_DMA_DST_NONBLK) == FALSE)
+	if((Flags & XLOADER_DMA_DST_NONBLK) == FALSE)
 	{
 		XCsuDma_IntrClear(DmaPtr, XCSUDMA_DST_CHANNEL, XCSUDMA_IXR_DONE_MASK);
 	}
 
 	/* Reverting the AXI Burst setting of CSU_DMA */
-	if (((Flags & XILPLI_DMA_SRC_NONBLK) == FALSE) &&
-		((Flags&XILPLI_SRC_CH_AXI_FIXED) == XILPLI_SRC_CH_AXI_FIXED))
+	if (((Flags & XLOADER_DMA_SRC_NONBLK) == FALSE) &&
+		((Flags&XLOADER_SRC_CH_AXI_FIXED) == XLOADER_SRC_CH_AXI_FIXED))
 	{
 		DmaCtrl.AxiBurstType=0U;
 		XCsuDma_SetConfig(DmaPtr, XCSUDMA_SRC_CHANNEL, &DmaCtrl);
 	}
-	if (((Flags & XILPLI_DMA_DST_NONBLK) == FALSE) &&
-		((Flags&XILPLI_DST_CH_AXI_FIXED) == XILPLI_DST_CH_AXI_FIXED))
+	if (((Flags & XLOADER_DMA_DST_NONBLK) == FALSE) &&
+		((Flags&XLOADER_DST_CH_AXI_FIXED) == XLOADER_DST_CH_AXI_FIXED))
 	{
 		DmaCtrl.AxiBurstType=0U;
 		XCsuDma_SetConfig(DmaPtr, XCSUDMA_DST_CHANNEL, &DmaCtrl);
 	}
 
-	if((Flags & (XILPLI_DMA_SRC_NONBLK | XILPLI_DMA_DST_NONBLK)) == FALSE)
+	if((Flags & (XLOADER_DMA_SRC_NONBLK | XLOADER_DMA_DST_NONBLK)) == FALSE)
 	{
-		XPli_Printf(DEBUG_INFO, "DMA Xfer completed \n\r");
+		XLoader_Printf(DEBUG_INFO, "DMA Xfer completed \n\r");
 	}
 	Status = XST_SUCCESS;
 	return Status;
@@ -388,36 +388,36 @@ int XPli_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
  * @param Flags Flags to select PMC DMA and DMA Burst type
  * @return Error codes 
  *****************************************************************************/
-u32 XPli_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
+u32 XLoader_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
 										XCsuDma** DmaPtrAddr)
 {
 	u32 Status;
 	u32 EnLast=0U;
 	XCsuDma *DmaPtr;
 
-	XPli_Printf(DEBUG_INFO, "DMA Xfer Src 0x%llx, Dest 0x%llx, Len 0x%0x,"
+	XLoader_Printf(DEBUG_INFO, "DMA Xfer Src 0x%llx, Dest 0x%llx, Len 0x%0x,"
 		"Flags 0x%0x: ", SrcAddr, DestAddr, Len, Flags);
 
 	/* Select DMA pointer */
-	if ((Flags & XILPLI_PMCDMA_0) == XILPLI_PMCDMA_0) {
-		XPli_Printf(DEBUG_INFO, "PMCDMA0\n\r");
+	if ((Flags & XLOADER_PMCDMA_0) == XLOADER_PMCDMA_0) {
+		XLoader_Printf(DEBUG_INFO, "PMCDMA0\n\r");
 		DmaPtr = &CsuDma0;
 	} else {
-		XPli_Printf(DEBUG_INFO, "PMCDMA1\n\r");
+		XLoader_Printf(DEBUG_INFO, "PMCDMA1\n\r");
 		DmaPtr = &CsuDma1;
 	}
 
 	/* Configure the secure stream switch */
-	XPli_SSSCfgDmaDma(Flags);
+	XLoader_SSSCfgDmaDma(Flags);
 
 	/* Setting CSU_DMA in AXI Burst mode */
-	if ((Flags&XILPLI_SRC_CH_AXI_FIXED) == XILPLI_SRC_CH_AXI_FIXED)
+	if ((Flags&XLOADER_SRC_CH_AXI_FIXED) == XLOADER_SRC_CH_AXI_FIXED)
 	{
 		DmaCtrl.AxiBurstType=1U;
 		XCsuDma_SetConfig(DmaPtr, XCSUDMA_SRC_CHANNEL, &DmaCtrl);
 	}
 	/* Setting CSU_DMA in AXI Burst mode */
-	if ((Flags&XILPLI_DST_CH_AXI_FIXED) == XILPLI_DST_CH_AXI_FIXED)
+	if ((Flags&XLOADER_DST_CH_AXI_FIXED) == XLOADER_DST_CH_AXI_FIXED)
 	{
 		DmaCtrl.AxiBurstType=1U;
 		XCsuDma_SetConfig(DmaPtr, XCSUDMA_DST_CHANNEL, &DmaCtrl);
@@ -441,12 +441,12 @@ u32 XPli_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
  * @param Len Length of the area to be initialized in bytes
  * @return
  *****************************************************************************/
-int XPli_EccInit(u64 Addr, u32 Len)
+int XLoader_EccInit(u64 Addr, u32 Len)
 {
 #if 0
 	u32 SrcAddr[4] __attribute__ ((aligned(16))) = {0U};
-	return XPli_DmaXfr((u64 ) &SrcAddr, Addr, Len/4,
-			    XILPLI_SRC_CH_AXI_FIXED);
+	return XLoader_DmaXfr((u64 ) &SrcAddr, Addr, Len/4,
+			    XLOADER_SRC_CH_AXI_FIXED);
 #else
 	memset((u8 *)Addr, 0U, Len);
 	return 0;
