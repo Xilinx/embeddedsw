@@ -35,19 +35,25 @@ static XStatus XPmApuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	XStatus Status = XST_FAILURE;
 	XPm_ResetNode *Reset;
 	XPm_ApuCore *ApuCore = (XPm_ApuCore *)Core;
+	u32 AddrLow;
+	u32 AddrHigh;
 
 	/* Set reset address */
-	if (1 == SetAddress) {
-		u32 addrLow;
-		u32 addrHigh;
-
-		Address |= 1ULL;
-		addrLow = (u32) (Address & 0xfffffffeULL);
-		addrHigh = (u32) (Address >> 32ULL);
-
-		PmOut32(ApuCore->Core.Device.Node.BaseAddress + APU_DUAL_RVBARADDR0L_OFFSET, addrLow);
-		PmOut32(ApuCore->Core.Device.Node.BaseAddress + APU_DUAL_RVBARADDR0H_OFFSET, addrHigh);
+	if (0 == SetAddress) {
+		if (Core->ResumeAddr & 1ULL) {
+			Address = Core->ResumeAddr;
+		} else {
+			PmErr("Invalid resume address\r\n");
+			Status = XST_FAILURE;
+			goto done;
+		}
 	}
+
+	AddrLow = (u32) (Address & 0xfffffffeULL);
+	AddrHigh = (u32) (Address >> 32ULL);
+
+	PmOut32(ApuCore->Core.Device.Node.BaseAddress + APU_DUAL_RVBARADDR0L_OFFSET, AddrLow);
+	PmOut32(ApuCore->Core.Device.Node.BaseAddress + APU_DUAL_RVBARADDR0H_OFFSET, AddrHigh);
 
 	/* release reset for all resets attached to this core*/
 	Reset = ApuCore->Core.Device.Reset;
@@ -56,6 +62,10 @@ static XStatus XPmApuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 		Status = Reset->Ops->SetState(Reset, PM_RESET_ACTION_RELEASE);
 		Reset = Reset->NextReset;
 	}
+
+	Core->ResumeAddr = 0ULL;
+
+done:
 	return Status;
 }
 
