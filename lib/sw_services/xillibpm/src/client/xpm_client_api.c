@@ -1149,7 +1149,7 @@ XStatus XPmClient_RequestWakeUp(const u32 TargetDevId, const bool SetAddress,
 	}
 
 	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(Proc, NULL, NULL, NULL);
+	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
 
 done:
 	return Status;
