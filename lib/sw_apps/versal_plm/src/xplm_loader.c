@@ -27,72 +27,30 @@
 * in advertising or otherwise to promote the sale, use or other dealings in
 * this Software without prior written authorization from Xilinx.
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
-* @file xilpli_ospi.h
+* @file xplm_loader.c
 *
-* This is the header file which contains ospi declarations for the PLM.
+* This file contains the wrapper functions for platfrom loader
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kc   02/21/2017 Initial release
+* 1.00  kc   08/20/2018 Initial release
+*
 * </pre>
 *
 * @note
 *
 ******************************************************************************/
-#ifndef XILPLI_OSPI_H
-#define XILPLI_OSPI_H
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 
 /***************************** Include Files *********************************/
-//#define XILPLI_OSPI
-#ifdef XILPLI_OSPI
-#include "xparameters.h"	/* SDK generated parameters */
-#include "xospipsv.h"		/* OSPIPSV device driver */
-
+#include "xplm_loader.h"
 /************************** Constant Definitions *****************************/
-
-/**
- * Flash connection type as defined in PCW
- */
-#define FLASH_SIZE_16MB				(0x1000000U)
-#define MICRON_ID				(0x20U)
-#define FLASH_SIZE_ID_512M			(0x20U)
-#define FLASH_SIZE_512M				(0x4000000U)
-#define READ_CMD_OCTAL_4B    			(0x7CU)
-#define READ_ID					(0x9FU)
-#define MICRON_INDEX_START			(0x0U)
-#define WRITE_DISABLE_CMD			(0x4U)
-#define WRITE_ENABLE_CMD			(0x6U)
-#define ENTER_4B_ADDR_MODE      0xB7
-#define EXIT_4B_ADDR_MODE       0xE9
-#define READ_FLAG_STATUS_CMD	0X70
-/*
- * Identification of Flash
- * Micron:
- * Byte 0 is Manufacturer ID;
- * Byte 1 is first byte of Device ID - 0x5B
- * Byte 2 is second byte of Device ID describes flash size:
- * 512Mbit : 0x1A
- */
-#define	MICRON_OCTAL_ID_BYTE0	0x2C
-#define MICRON_OCTAL_ID_BYTE2_512	0x1A
-
-
-/* Error Codes */
-#define XILPLI_ERR_OSPI_INIT                            (0x4000)
-#define XILPLI_ERR_OSPI_CFG                             (0x4100)
-#define XILPLI_ERR_UNSUPPORTED_OSPI                     (0x4200)
-#define XILPLI_ERR_UNSUPPORTED_OSPI_SIZE        	(0x4300)
 
 /**************************** Type Definitions *******************************/
 
@@ -100,17 +58,62 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 
-int XPli_OspiInit(u32 DeviceFlags);
-int XPli_OspiCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
-int XPli_OspiRelease(void );
-int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr);
 /************************** Variable Definitions *****************************/
+XilPdi PdiInstance;
 
+/*****************************************************************************/
+/**
+* It loads the boot PDI
+*
+* @param	None
+* @return	None
+*
+*****************************************************************************/
+int XPlm_LoadBootPdi(struct metal_event *event, void *arg)
+{
+	int Status;
+	u32 BootMode;
+	XPlmi_Printf(DEBUG_INFO, "%s\n\r", __func__);
 
-#endif /* end of XILPLI_QSPI */
+	/**
+	 * 1. Read Boot mode register and multiboot offset register
+	 * 2. Load subsystem present in PDI
+	 */
+	XilPdi* PdiPtr = &PdiInstance;
+	BootMode = XLoader_GetBootMode();
+	/**
+	 * In case of JTAG boot mode, no PDI loading is present
+	 */
+	if(BootMode == XLOADER_PDI_SRC_JTAG)
+	{
+		goto END;
+	}
 
-#ifdef __cplusplus
+	Status = XLoader_PdiInit(PdiPtr, BootMode, 0U);
+	if (Status != XST_SUCCESS)
+	{
+		goto END;
+	}
+
+        Status = XLoader_LoadSubSystemPdi(PdiPtr);
+	if (Status != XST_SUCCESS)
+	{
+		goto END;
+	}
+
+        Status = XLoader_StartSubSystemPdi(PdiPtr);
+	if (Status != XST_SUCCESS)
+	{
+		goto END;
+	}
+
+END:
+	/**
+	 * TODO: Proper error reporting should be added to the code
+	 */
+	/**
+	 * Irrespective of the Status, as EVENT
+	 * is completed, metal event handled is returned
+	 */
+	return METAL_EVENT_HANDLED;
 }
-#endif
-
-#endif  /* XILPLI_QSPI_H */

@@ -12,7 +12,7 @@
 # The above copyright notice and this permission notice shall be included in
 # all copies or substantial portions of the Software.
 #
-# Use of the Software is limited solely to applications:
+# Use of the Software is limited solely to aplications:
 # (a) running on a Xilinx device, or
 # (b) that interact with a Xilinx device through a bus or interconnect.
 #
@@ -35,38 +35,38 @@ ARCHIVER=
 CP=cp
 COMPILER_FLAGS=
 EXTRA_COMPILER_FLAGS=
-LIB= libxilpli.a
+LIB= libxilloader.a
 
 EXTRA_ARCHIVE_FLAGS=rc
 RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
 
-LIBPLI_DIR = .
+LIBLOADER_DIR = .
 OUTS = *.o
 OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
-LIBPLI_SRCS := $(wildcard *.c)
-LIBPLI_OBJS = $(addprefix $(LIBPLI_DIR)/, $(LIBPLI_SRCS:%.c=%.o))
+LIBLOADER_SRCS := $(wildcard *.c)
+LIBLOADER_OBJS = $(addprefix $(LIBLOADER_DIR)/, $(LIBLOADER_SRCS:%.c=%.o))
 
-INCLUDEFILES=$(LIBPLI_DIR)/xilpli.h
+INCLUDEFILES=$(LIBLOADER_DIR)/xloader.h
 
-libs: libxilpli.a
+libs: libxilloader.a
 
-libxilpli.a: print_msg_xilpli $(LIBPLI_OBJS)
-	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${LIBPLI_OBJS}
+libxilloader.a: print_msg_xilloader $(LIBLOADER_OBJS)
+	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${LIBLOADER_OBJS}
 
-print_msg_xilpli:
-	@echo "Compiling XPli Library"
+print_msg_xilloader:
+	@echo "Compiling XilLoader Library"
 
 .PHONY: include
-include: libxilpli_includes
+include: libxilloader_includes
 
-libxilpli_includes:
+libxilloader_includes:
 	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
-	rm -rf $(LIBPLI_DIR)/${OBJECTS}
+	rm -rf $(LIBLOADER_DIR)/${OBJECTS}
 	rm -rf ${RELEASEDIR}/${LIB}
 
-$(LIBPLI_DIR)/%.o: $(LIBPLI_DIR)/%.c $(INCLUDEFILES)
+$(LIBLOADER_DIR)/%.o: $(LIBLOADER_DIR)/%.c $(INCLUDEFILES)
 	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) -c $< -o $@
