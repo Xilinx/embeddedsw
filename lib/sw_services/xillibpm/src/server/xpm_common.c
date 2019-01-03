@@ -121,7 +121,7 @@ void XPm_Wait(u32 TimeOutCount)
 	}
 }
 
-XStatus XPfw_PollForMask(u32 RegAddress, u32 Mask, u32 TimeOutCount)
+XStatus XPm_PollForMask(u32 RegAddress, u32 Mask, u32 TimeOutCount)
 {
 	u32 l_RegValue;
 	u32 TimeOut = TimeOutCount;

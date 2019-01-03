@@ -209,7 +209,7 @@ XStatus XPmClockPll_Reset(XPm_PllClockNode *Pll, uint8_t Flags)
 		XPm_RMW32(ControlReg, BIT(Pll->Topology->ResetShift),
 			   ~BIT(Pll->Topology->ResetShift));
 		/* Poll status register for the lock */
-		Status = XPfw_PollForMask(Pll->StatusReg, BIT(Pll->Topology->LockShift),
+		Status = XPm_PollForMask(Pll->StatusReg, BIT(Pll->Topology->LockShift),
 						  PLL_LOCK_TIMEOUT);
 		/* Deassert bypass if the PLL locked */
 		if (XST_SUCCESS == Status) {
