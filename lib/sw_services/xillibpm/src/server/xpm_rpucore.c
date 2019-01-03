@@ -35,7 +35,7 @@ static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_ResetNode *Reset;
-	u32 addrLow;
+	u32 AddrLow;
 	XPm_RpuCore *RpuCore = (XPm_RpuCore *)Core;
 
 	/* Set reset address */
@@ -43,10 +43,10 @@ static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 		goto done;
 	}
 
-	addrLow = (u32) (Address & 0xffff0000ULL);
+	AddrLow = (u32) (Address & 0xffff0000ULL);
 
 	/* CFG_VINITHI_MASK mask is common for both processors */
-	if (XPM_PROC_RPU_HIVEC_ADDR == addrLow) {
+	if (XPM_PROC_RPU_HIVEC_ADDR == AddrLow) {
 		PmRmw32(RpuCore->ResumeCfg, XPM_RPU_VINITHI_MASK,
 			XPM_RPU_VINITHI_MASK);
 	} else {
