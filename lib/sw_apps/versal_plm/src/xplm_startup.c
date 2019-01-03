@@ -51,7 +51,7 @@
 /***************************** Include Files *********************************/
 #include "xplm_startup.h"
 #include "xplm_pm.h"
-#include "xplm_pli.h"
+#include "xplm_loader.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/

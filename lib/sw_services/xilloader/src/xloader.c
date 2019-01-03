@@ -30,7 +30,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xilpli.c
+* @file xloader.c
 *
 * This file contains the code related to PDI image loading.
 *
@@ -48,7 +48,7 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xilpli.h"
+#include "xloader.h"
 #include "xillibpm_api.h"
 /************************** Constant Definitions *****************************/
 
@@ -58,58 +58,58 @@
 
 /************************** Variable Definitions *****************************/
 /*****************************************************************************/
-#define XILPLI_DEVICEOPS_INIT(DevInit, DevCopy)	\
+#define XLOADER_DEVICEOPS_INIT(DevInit, DevCopy)	\
 	{ \
 		.DeviceBaseAddr = 0U, \
 		.Init = DevInit, \
 		.Copy = DevCopy, \
 	}
 
-XilPli_DeviceOps DeviceOps[] =
+XLoader_DeviceOps DeviceOps[] =
 {
-	XILPLI_DEVICEOPS_INIT(XPli_SbiInit, XPli_SbiCopy),  /* JTAG - 0U */
-#ifdef  XILPLI_QSPI
-	XILPLI_DEVICEOPS_INIT(XPli_Qspi24Init, XPli_Qspi24Copy), /* QSPI24 - 1U */
-	XILPLI_DEVICEOPS_INIT(XPli_Qspi32Init, XPli_Qspi32Copy), /* QSPI32- 2U */
+	XLOADER_DEVICEOPS_INIT(XLoader_SbiInit, XLoader_SbiCopy),  /* JTAG - 0U */
+#ifdef  XLOADER_QSPI
+	XLOADER_DEVICEOPS_INIT(XLoader_Qspi24Init, XLoader_Qspi24Copy), /* QSPI24 - 1U */
+	XLOADER_DEVICEOPS_INIT(XLoader_Qspi32Init, XLoader_Qspi32Copy), /* QSPI32- 2U */
 #else
-	XILPLI_DEVICEOPS_INIT(NULL, NULL),
-	XILPLI_DEVICEOPS_INIT(NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL),
 #endif
-#ifdef	XILPLI_SD_0
-	XILPLI_DEVICEOPS_INIT(XPli_SdInit, XPli_SdCopy), /* SD0 - 3U*/
+#ifdef	XLOADER_SD_0
+	XLOADER_DEVICEOPS_INIT(XLoader_SdInit, XLoader_SdCopy), /* SD0 - 3U*/
 #else
-	XILPLI_DEVICEOPS_INIT(NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL),
 #endif
-	XILPLI_DEVICEOPS_INIT(NULL, NULL),  /* 4U */
-#ifdef  XILPLI_SD_0
-	XILPLI_DEVICEOPS_INIT(XPli_SdInit, XPli_SdCopy), /* eMMC0 - 5U */
+	XLOADER_DEVICEOPS_INIT(NULL, NULL),  /* 4U */
+#ifdef  XLOADER_SD_0
+	XLOADER_DEVICEOPS_INIT(XLoader_SdInit, XLoader_SdCopy), /* eMMC0 - 5U */
 #else
-	XILPLI_DEVICEOPS_INIT(NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL),
 #endif
-#ifdef  XILPLI_SD_1
-	XILPLI_DEVICEOPS_INIT(XPli_SdInit, XPli_SdCopy), /* SD1 - 6U */
+#ifdef  XLOADER_SD_1
+	XLOADER_DEVICEOPS_INIT(XLoader_SdInit, XLoader_SdCopy), /* SD1 - 6U */
 #else
-	XILPLI_DEVICEOPS_INIT(NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL),
 #endif
-	XILPLI_DEVICEOPS_INIT(NULL, NULL),  /* 7U */
-#ifdef  XILPLI_OSPI
-	XILPLI_DEVICEOPS_INIT(XPli_OspiInit, XPli_OspiCopy), /* OSPI - 8U */
+	XLOADER_DEVICEOPS_INIT(NULL, NULL),  /* 7U */
+#ifdef  XLOADER_OSPI
+	XLOADER_DEVICEOPS_INIT(XLoader_OspiInit, XLoader_OspiCopy), /* OSPI - 8U */
 #else
-	XILPLI_DEVICEOPS_INIT(NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL),
 #endif
-	XILPLI_DEVICEOPS_INIT(NULL, NULL), /* 9U */
-#ifdef XILPLI_SMAP
-	XILPLI_DEVICEOPS_INIT(XPli_SbiInit, XPli_SbiCopy), /* SMAP - 0xA */
+	XLOADER_DEVICEOPS_INIT(NULL, NULL), /* 9U */
+#ifdef XLOADER_SMAP
+	XLOADER_DEVICEOPS_INIT(XLoader_SbiInit, XLoader_SbiCopy), /* SMAP - 0xA */
 #else
-	XILPLI_DEVICEOPS_INIT(NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL),
 #endif
-	XILPLI_DEVICEOPS_INIT(NULL, NULL), /* 0xBU */
-	XILPLI_DEVICEOPS_INIT(NULL, NULL), /* 0xCU */
-	XILPLI_DEVICEOPS_INIT(NULL, NULL), /* 0xDU */
-#ifdef XILPLI_SD_1
-	XILPLI_DEVICEOPS_INIT(XPli_SdInit, XPli_SdCopy) /* SD1 LS - 0xEU */
+	XLOADER_DEVICEOPS_INIT(NULL, NULL), /* 0xBU */
+	XLOADER_DEVICEOPS_INIT(NULL, NULL), /* 0xCU */
+	XLOADER_DEVICEOPS_INIT(NULL, NULL), /* 0xDU */
+#ifdef XLOADER_SD_1
+	XLOADER_DEVICEOPS_INIT(XLoader_SdInit, XLoader_SdCopy) /* SD1 LS - 0xEU */
 #else
-	XILPLI_DEVICEOPS_INIT(NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL),
 #endif
 };
 
@@ -179,7 +179,7 @@ int XSubSys_CopyPdi(u32 PdiSrc, u64 SrcAddr, u64 DestAddr, u32 PdiLen)
  * @param SubsystemId is the subsystem handle returned by libPM or Master ID
  * of processor
  *
- * @return	returns XILPLI_SUCCESS on success
+ * @return	returns XLOADER_SUCCESS on success
  *****************************************************************************/
 int XSubSys_ReStart(u32 SubsysHd)
 {
@@ -198,10 +198,10 @@ int XSubSys_ReStart(u32 SubsysHd)
  * @param PdiAddr is the address at PDI is located in the PDI source
  *        mentioned
  *
- * @return	returns XILPLI_SUCCESS on success
+ * @return	returns XLOADER_SUCCESS on success
  *
  *****************************************************************************/
-int XPli_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
+int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 {
 	int Status;
 
@@ -214,7 +214,7 @@ int XPli_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 
 	if(DeviceOps[PdiSrc].Init==NULL)
 	{
-		Status = XILPLI_UNSUPPORTED_BOOT_MODE;
+		Status = XLOADER_UNSUPPORTED_BOOT_MODE;
 		goto END;
 	}
 
@@ -258,9 +258,9 @@ END:
  *
  * @param PdiPtr Pdi instance pointer
  *
- * @return	returns XILPLI_SUCCESS on success
+ * @return	returns XLOADER_SUCCESS on success
  *****************************************************************************/
-int XPli_LoadSubSystemPdi(XilPdi *PdiPtr)
+int XLoader_LoadSubSystemPdi(XilPdi *PdiPtr)
 {
 
 	/**
@@ -277,7 +277,7 @@ int XPli_LoadSubSystemPdi(XilPdi *PdiPtr)
 	for(u32 PrtnNum=1U;
 	    PrtnNum < PdiPtr->MetaHdr.ImgHdrTable.NoOfPrtns; ++PrtnNum)
 	{
-		Status = XPli_PrtnLoad(PdiPtr, PrtnNum);
+		Status = XLoader_PrtnLoad(PdiPtr, PrtnNum);
 		if(Status != XST_SUCCESS)
 		goto END;
 	}
@@ -292,16 +292,16 @@ END:
  *
  * @param PdiPtr Pdi instance pointer
  *
- * @return	returns XILPLI_SUCCESS on success
+ * @return	returns XLOADER_SUCCESS on success
  *****************************************************************************/
-int XPli_StartSubSystemPdi(XilPdi *PdiPtr)
+int XLoader_StartSubSystemPdi(XilPdi *PdiPtr)
 {
 	int Status;
         u32 Index;
         u32 CpuId;
         u64 HandoffAddr;
 
-	XPli_Printf(DEBUG_INFO, "XPli_StartSubSystemPdi enter\r\n");
+	XLoader_Printf(DEBUG_INFO, "XLoader_StartSubSystemPdi enter\r\n");
         /* Handoff to the cpus */
         for (Index=0U;Index<PdiPtr->NoOfHandoffCpus;Index++)
         {
@@ -314,14 +314,14 @@ int XPli_StartSubSystemPdi(XilPdi *PdiPtr)
                         case XIH_PH_ATTRB_DSTN_CPU_A72_0:
                         case XIH_PH_ATTRB_DSTN_CPU_A72_1:
                         {
-				XPli_Printf(DEBUG_INFO,
+				XLoader_Printf(DEBUG_INFO,
 				    " Request APU wakeup\r\n");
 				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC,
 					XPM_DEVID_ACPU_0, 1, HandoffAddr);
                         }break;
                         case XIH_PH_ATTRB_DSTN_CPU_R5_0:
 			{
-				XPli_Printf(DEBUG_INFO,
+				XLoader_Printf(DEBUG_INFO,
 					    "Request RPU 0 wakeup\r\n");
 				XPm_DevIoctl(XPM_DEVID_R50_0,
 					     IOCTL_SET_RPU_OPER_MODE,
@@ -331,7 +331,7 @@ int XPli_StartSubSystemPdi(XilPdi *PdiPtr)
 			}break;
                         case XIH_PH_ATTRB_DSTN_CPU_R5_1:
 			{
-				XPli_Printf(DEBUG_INFO,
+				XLoader_Printf(DEBUG_INFO,
 					    "Request RPU 1 wakeup\r\n");
 				XPm_DevIoctl(XPM_DEVID_R50_1,
 					     IOCTL_SET_RPU_OPER_MODE,
@@ -341,7 +341,7 @@ int XPli_StartSubSystemPdi(XilPdi *PdiPtr)
 			}break;
                         case XIH_PH_ATTRB_DSTN_CPU_R5_L:
 			{
-				XPli_Printf(DEBUG_INFO,
+				XLoader_Printf(DEBUG_INFO,
 					    "Request RPU wakeup\r\n");
 				XPm_DevIoctl(XPM_DEVID_R50_0,
 					     IOCTL_SET_RPU_OPER_MODE,
@@ -355,7 +355,7 @@ int XPli_StartSubSystemPdi(XilPdi *PdiPtr)
                 }
 
         }
-        Status = XILPLI_SUCCESS;
+        Status = XLOADER_SUCCESS;
 	return Status;
 }
 
@@ -369,13 +369,13 @@ int XPli_StartSubSystemPdi(XilPdi *PdiPtr)
  * @param PdiPtr Pdi instance pointer
  * @param ImageId Id of the image present in PDI
  *
- * @return	returns XILPLI_SUCCESS on success
+ * @return	returns XLOADER_SUCCESS on success
  *****************************************************************************/
-int XPli_LoadImage(XilPdi *PdiPtr, u32 ImageId)
+int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId)
 {
 
 
-	return XILPLI_SUCCESS;
+	return XLOADER_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -386,12 +386,12 @@ int XPli_LoadImage(XilPdi *PdiPtr, u32 ImageId)
  * @param PdiPtr Pdi instance pointer
  * @param ImageId Id of the image present in PDI
  *
- * @return	returns XILPLI_SUCCESS on success
+ * @return	returns XLOADER_SUCCESS on success
  *****************************************************************************/
-int XPli_StartImage(XilPdi *PdiPtr, u32 ImageId)
+int XLoader_StartImage(XilPdi *PdiPtr, u32 ImageId)
 {
 
 
-	return XILPLI_SUCCESS;
+	return XLOADER_SUCCESS;
 }
 #endif

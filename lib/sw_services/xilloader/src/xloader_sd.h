@@ -30,92 +30,53 @@
 /*****************************************************************************/
 /**
 *
-* @file xilpli_dma.h
+* @file xloader_sd.h
 *
-* This is the file which contains common code for the PLM.
+* This is the header file which contains qspi declarations for the PLM.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kc   02/21/2017 Initial release
-*
+* 1.00  kc   02/21/2018 Initial release
 * </pre>
 *
 * @note
 *
 ******************************************************************************/
 
-#ifndef XILPLI_DMA_H
-#define XILPLI_DMA_H
+#ifndef XLOADER_SD_H
+#define XLOADER_SD_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+
 /***************************** Include Files *********************************/
-#include "xcsudma.h"
+#include "xplmi_hw.h"
+#include "xstatus.h"
+#if defined(XLOADER_SD_0) || defined(XLOADER_SD_1)
+#include "xplmi_debug.h"
 /************************** Constant Definitions *****************************/
-
 /**************************** Type Definitions *******************************/
-
-#define XILPLI_SRC_CH_AXI_FIXED 	(0x1U)
-#define XILPLI_READ_AXI_FIXED		(0x1U)
-#define XILPLI_DST_CH_AXI_FIXED 	(0x1U<<16U)
-#define XILPLI_PMCDMA_0			(0x100U)
-#define XILPLI_PMCDMA_1			(0x200U)
-#define XILPLI_DMA_SRC_NONBLK	(0x2U)
-#define XILPLI_DMA_DST_NONBLK   (0x1U<<17U)
-/*
- * The following constants map to the XPAR parameters created in the
- * xparameters.h file. They are defined here such that a user can easily
- * change all the needed parameters in one place.
- */
-#define CSUDMA_0_DEVICE_ID	XPAR_XCSUDMA_0_DEVICE_ID /* CSUDMA device Id */
-#define CSUDMA_1_DEVICE_ID	XPAR_XCSUDMA_1_DEVICE_ID /* CSUDMA device Id */
-#define CSUDMA_LOOPBACK_CFG	0x0000000F	/**< LOOP BACK configuration */
-
-/* SSS configurations and masks */
-#define XILPLI_SSSCFG_DMA0_MASK		(0x0000000FU)
-#define XILPLI_SSSCFG_DMA1_MASK		(0x000000F0U)
-#define XILPLI_SSSCFG_PTP1_MASK		(0x00000F00U)
-#define XILPLI_SSSCFG_AES_MASK		(0x0000F000U)
-#define XILPLI_SSSCFG_SHA_MASK		(0x000F0000U)
-#define XILPLI_SSSCFG_SBI_MASK		(0x00F00000U)
-
-#define XILPLI_SSS_SBI_DMA0			(0x00500000U)
-#define XILPLI_SSS_SBI_DMA1			(0x00B00000U)
-
-#define XILPLI_SSS_SHA_DMA0			(0x000C0000U)
-#define XILPLI_SSS_SHA_DMA1			(0x00070000U)
-
-#define XILPLI_SSS_AES_DMA0			(0x0000E000U)
-#define XILPLI_SSS_AES_DMA1			(0x00005000U)
-
-#define XILPLI_SSS_PTPI_DMA0		(0x00000D00U)
-#define XILPLI_SSS_PTPI_DMA1		(0x00000A00U)
-
-#define XILPLI_SSS_DMA1_DMA1		(0x00000090U)
-#define XILPLI_SSS_DMA1_AES			(0x00000070U)
-#define XILPLI_SSS_DMA1_SBI			(0x000000E0U)
-
-#define XILPLI_SSS_DMA0_DMA0		(0x0000000DU)
-#define XILPLI_SSS_DMA0_AES			(0x00000006U)
-#define XILPLI_SSS_DMA0_SBI			(0x0000000BU)
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-int XPli_DmaInit();
-int XPli_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags);
-int XPli_SbiDmaXfer(u64 DestAddr, u32 Len, u32 Flags);
-int XPli_DmaSbiXfer(u64 SrcAddr, u32 Len, u32 Flags);
-int XPli_EccInit(u64 Addr, u32 Len);
-u32 XPli_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
-		XCsuDma** DmaPtrAddr);
+
+int XLoader_SdInit(u32 DeviceFlags);
+XStatus XLoader_SdCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+int XLoader_SdRelease(void );
+
+/************************** Variable Definitions *****************************/
+
+
+#endif /* end of XLOADER_SD */
+
 #ifdef __cplusplus
 }
 #endif
 
-#endif  /* XILPLI_DMA_H */
+#endif  /* XLOADER_SD_H */

@@ -30,24 +30,23 @@
 /*****************************************************************************/
 /**
 *
-* @file xilpli_sd.h
+* @file xloader_ospi.h
 *
-* This is the header file which contains qspi declarations for the PLM.
+* This is the header file which contains ospi declarations for the PLM.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kc   02/21/2018 Initial release
+* 1.00  kc   02/21/2017 Initial release
 * </pre>
 *
 * @note
 *
 ******************************************************************************/
-
-#ifndef XILPLI_SD_H
-#define XILPLI_SD_H
+#ifndef XLOADER_OSPI_H
+#define XLOADER_OSPI_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -55,28 +54,63 @@ extern "C" {
 
 
 /***************************** Include Files *********************************/
-#include "xplmi_hw.h"
-#include "xstatus.h"
-#if defined(XILPLI_SD_0) || defined(XILPLI_SD_1)
-#include "xplmi_debug.h"
+//#define XLOADER_OSPI
+#ifdef XLOADER_OSPI
+#include "xparameters.h"	/* SDK generated parameters */
+#include "xospipsv.h"		/* OSPIPSV device driver */
+
 /************************** Constant Definitions *****************************/
+
+/**
+ * Flash connection type as defined in PCW
+ */
+#define FLASH_SIZE_16MB				(0x1000000U)
+#define MICRON_ID				(0x20U)
+#define FLASH_SIZE_ID_512M			(0x20U)
+#define FLASH_SIZE_512M				(0x4000000U)
+#define READ_CMD_OCTAL_4B    			(0x7CU)
+#define READ_ID					(0x9FU)
+#define MICRON_INDEX_START			(0x0U)
+#define WRITE_DISABLE_CMD			(0x4U)
+#define WRITE_ENABLE_CMD			(0x6U)
+#define ENTER_4B_ADDR_MODE      0xB7
+#define EXIT_4B_ADDR_MODE       0xE9
+#define READ_FLAG_STATUS_CMD	0X70
+/*
+ * Identification of Flash
+ * Micron:
+ * Byte 0 is Manufacturer ID;
+ * Byte 1 is first byte of Device ID - 0x5B
+ * Byte 2 is second byte of Device ID describes flash size:
+ * 512Mbit : 0x1A
+ */
+#define	MICRON_OCTAL_ID_BYTE0	0x2C
+#define MICRON_OCTAL_ID_BYTE2_512	0x1A
+
+
+/* Error Codes */
+#define XLOADER_ERR_OSPI_INIT                            (0x4000)
+#define XLOADER_ERR_OSPI_CFG                             (0x4100)
+#define XLOADER_ERR_UNSUPPORTED_OSPI                     (0x4200)
+#define XLOADER_ERR_UNSUPPORTED_OSPI_SIZE        	(0x4300)
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
 
-int XPli_SdInit(u32 DeviceFlags);
-XStatus XPli_SdCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
-int XPli_SdRelease(void );
-
+int XLoader_OspiInit(u32 DeviceFlags);
+int XLoader_OspiCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+int XLoader_OspiRelease(void );
+int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr);
 /************************** Variable Definitions *****************************/
 
 
-#endif /* end of XILPLI_SD */
+#endif /* end of XLOADER_QSPI */
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  /* XILPLI_SD_H */
+#endif  /* XLOADER_QSPI_H */

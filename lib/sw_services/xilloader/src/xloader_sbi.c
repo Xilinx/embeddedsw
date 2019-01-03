@@ -31,7 +31,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xilpli_sbi.c
+* @file xloader_sbi.c
 *
 * This is the file which contains SBI related code for the platfrom loader.
 *
@@ -48,14 +48,14 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
-#include "xilpli.h"
+#include "xloader.h"
 #include "xplmi_generic.h"
 #include "xplmi_util.h"
-#include "xilpli_dma.h"
-#include "xilpli_sbi.h"
+#include "xloader_dma.h"
+#include "xloader_sbi.h"
 #include "xplmi_hw.h"
 
-#if defined(XILPLI_SBI)
+#if defined(XLOADER_SBI)
 
 /************************** Constant Definitions *****************************/
 
@@ -64,10 +64,10 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /* SBI definitions */
-#define XILPLI_SBI_CTRL_INTERFACE_SMAP                  (0x0U)
-#define XILPLI_SBI_CTRL_INTERFACE_JTAG                  (0x4U)
-#define XILPLI_SBI_CTRL_INTERFACE_AXI_SLAVE             (0x8U)
-#define XILPLI_SBI_CTRL_ENABLE                          (0x1U)
+#define XLOADER_SBI_CTRL_INTERFACE_SMAP                  (0x0U)
+#define XLOADER_SBI_CTRL_INTERFACE_JTAG                  (0x4U)
+#define XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE             (0x8U)
+#define XLOADER_SBI_CTRL_ENABLE                          (0x1U)
 
 /************************** Function Prototypes ******************************/
 
@@ -83,21 +83,21 @@
  * @return	None
  *
  *****************************************************************************/
-int XPli_SbiInit(u32 DeviceFlags)
+int XLoader_SbiInit(u32 DeviceFlags)
 {
 
-	if (DeviceFlags == XILPLI_PDI_SRC_SMAP)
+	if (DeviceFlags == XLOADER_PDI_SRC_SMAP)
 	{
 		XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
 			       SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
-			       XILPLI_SBI_CTRL_INTERFACE_SMAP);
+			       XLOADER_SBI_CTRL_INTERFACE_SMAP);
 	} else {
 		XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
 			       SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
-			       XILPLI_SBI_CTRL_INTERFACE_JTAG);
+			       XLOADER_SBI_CTRL_INTERFACE_JTAG);
 	}
 
-	return XILPLI_SUCCESS;
+	return XLOADER_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -109,12 +109,12 @@ int XPli_SbiInit(u32 DeviceFlags)
  * @return	None
  *
  *****************************************************************************/
-void XPli_SbiConfig(u32 CtrlInterface)
+void XLoader_SbiConfig(u32 CtrlInterface)
 {
 	XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
 			SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK, CtrlInterface);
 	XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
-			SLAVE_BOOT_SBI_CTRL_ENABLE_MASK, XILPLI_SBI_CTRL_ENABLE);
+			SLAVE_BOOT_SBI_CTRL_ENABLE_MASK, XLOADER_SBI_CTRL_ENABLE);
 }
 
 /*****************************************************************************/
@@ -126,20 +126,20 @@ void XPli_SbiConfig(u32 CtrlInterface)
  * @return	None
  *
  *****************************************************************************/
-int XPli_SlaveSbiConfig(u64 SlrBaseAddr)
+int XLoader_SlaveSbiConfig(u64 SlrBaseAddr)
 {
 	u64 SbiCtrlAddr = ((u64)SlrBaseAddr +
 					((u64)(SLAVE_BOOT_SBI_CTRL - PMC_LOCAL_BASEADDR)));
 
-	XPlmi_UtilRMW64((SbiCtrlAddr >> 32), (SbiCtrlAddr & XILPLI_32BIT_MASK),
+	XPlmi_UtilRMW64((SbiCtrlAddr >> 32), (SbiCtrlAddr & XLOADER_32BIT_MASK),
 				SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
-				XILPLI_SBI_CTRL_INTERFACE_AXI_SLAVE);
+				XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE);
 
-	XPlmi_UtilRMW64((SbiCtrlAddr >> 32), (SbiCtrlAddr & XILPLI_32BIT_MASK),
+	XPlmi_UtilRMW64((SbiCtrlAddr >> 32), (SbiCtrlAddr & XLOADER_32BIT_MASK),
 				SLAVE_BOOT_SBI_CTRL_ENABLE_MASK,
-				XILPLI_SBI_CTRL_ENABLE);
+				XLOADER_SBI_CTRL_ENABLE);
 
-	return XILPLI_SUCCESS;
+	return XLOADER_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -155,11 +155,11 @@ int XPli_SlaveSbiConfig(u64 SlrBaseAddr)
  * @param Length Length of the bytes to be copied
  *
  * @return
- *		- XILPLI_SUCCESS for successful copy
- *		- errors as mentioned in xilpli_error.h
+ *		- XLOADER_SUCCESS for successful copy
+ *		- errors as mentioned in xloader_error.h
  *
  *****************************************************************************/
-XStatus XPli_SbiCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
+XStatus XLoader_SbiCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 {
 	int Status;
 	u32 ReadFlags;
@@ -169,14 +169,14 @@ XStatus XPli_SbiCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 	 */
 	(void) (SrcAddress);
 
-	if (Flags == XILPLI_READ_AXI_FIXED)
+	if (Flags == XLOADER_READ_AXI_FIXED)
 	{
-		ReadFlags = XILPLI_DST_CH_AXI_FIXED | XILPLI_PMCDMA_1;
+		ReadFlags = XLOADER_DST_CH_AXI_FIXED | XLOADER_PMCDMA_1;
 	} else {
-		ReadFlags = XILPLI_PMCDMA_1;
+		ReadFlags = XLOADER_PMCDMA_1;
 	}
 
-	Status = XPli_SbiDmaXfer(DestAddress, Length/4, ReadFlags);
+	Status = XLoader_SbiDmaXfer(DestAddress, Length/4, ReadFlags);
 
 	return Status;
 }
@@ -190,10 +190,10 @@ XStatus XPli_SbiCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
  * @return	None
  *
  *****************************************************************************/
-int XPli_SbiRelease(void )
+int XLoader_SbiRelease(void )
 {
 
-	return XILPLI_SUCCESS;
+	return XLOADER_SUCCESS;
 }
 
-#endif /* end of XILPLI_SBI */
+#endif /* end of XLOADER_SBI */

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2017-2018 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -27,51 +27,54 @@
 * in advertising or otherwise to promote the sale, use or other dealings in
 * this Software without prior written authorization from Xilinx.
 ******************************************************************************/
-
 /*****************************************************************************/
 /**
 *
-* @file xplm_pli.h
+* @file xloader_sbi.h
 *
-* This file contains the declarations of platfrom loader wrapper functions
+* This is the header file which contains qspi declarations for the PLM.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kc   07/20/2018 Initial release
-*
+* 1.00  kc   02/21/2017 Initial release
 * </pre>
 *
 * @note
 *
 ******************************************************************************/
-#ifndef XPLM_PLI_H
-#define XPLM_PLI_H
+
+#ifndef XLOADER_SBI_H
+#define XLOADER_SBI_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-/***************************** Include Files *********************************/
-#include "xplm_default.h"
-#include "xplm_task.h"
-#include "xilpli.h"
-/************************** Constant Definitions *****************************/
 
+/***************************** Include Files *********************************/
+#include "xplmi_hw.h"
+#ifdef XLOADER_SBI
+#include "xplmi_debug.h"
+/************************** Constant Definitions *****************************/
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
 
+int XLoader_SbiInit(u32 DeviceFlags);
+XStatus XLoader_SbiCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+int XLoader_SbiRelease(void );
+
 /************************** Variable Definitions *****************************/
 
-int XPlm_LoadBootPdi(struct metal_event *event, void *arg);
 
+#endif /* end of XLOADER_SBI */
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  /* XPLM_PLI_H */
+#endif  /* XLOADER_SBI_H */

@@ -30,7 +30,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xilpli.h
+* @file xloader.h
 *
 * This file contains declarations for image store functions.
 *
@@ -47,8 +47,8 @@
 *
 ******************************************************************************/
 
-#ifndef XILPLI_H
-#define XILPLI_H
+#ifndef XLOADER_H
+#define XLOADER_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -59,40 +59,40 @@ extern "C" {
 #include "xplmi_hw.h"
 #include <xstatus.h>
 #include "xplmi_debug.h"
-#include "xilpli_ospi.h"
-#include "xilpli_sd.h"
-#include "xilpli_sbi.h"
-#include "xilpli_qspi.h"
+#include "xloader_ospi.h"
+#include "xloader_sd.h"
+#include "xloader_sbi.h"
+#include "xloader_qspi.h"
 #include "xpm_device.h"
 /************************** Constant Definitions *****************************/
-#define XILPLI_SUCCESS		XST_SUCCESS
-#define XPli_Printf		XPlmi_Printf
-#define XILPLI_32BIT_MASK	(0xFFFFFFFFU)
+#define XLOADER_SUCCESS		XST_SUCCESS
+#define XLoader_Printf		XPlmi_Printf
+#define XLOADER_32BIT_MASK	(0xFFFFFFFFU)
 #define PMC_LOCAL_BASEADDR	(0xF0000000U)
 
 /* Boot Modes */
-enum XILPLI_PDI_SRC {
-	XILPLI_PDI_SRC_JTAG = (0x0U),
-	XILPLI_PDI_SRC_QSPI24 = (0x1U),
-	XILPLI_PDI_SRC_QSPI32 = (0x2U),
-	XILPLI_PDI_SRC_SD0 =    (0x3U),
-	XILPLI_PDI_SRC_SD1 =    (0x5U),
-	XILPLI_PDI_SRC_EMMC =   (0x6U),
-	XILPLI_PDI_SRC_USB =    (0x7U),
-	XILPLI_PDI_SRC_OSPI =   (0x8U),
-	XILPLI_PDI_SRC_SMAP =   (0xAU),
-	XILPLI_PDI_SRC_SD1_LS = (0xEU),
-	XILPLI_PDI_SRC_SBI_JTAG = (0x10U)
+enum XLOADER_PDI_SRC {
+	XLOADER_PDI_SRC_JTAG = (0x0U),
+	XLOADER_PDI_SRC_QSPI24 = (0x1U),
+	XLOADER_PDI_SRC_QSPI32 = (0x2U),
+	XLOADER_PDI_SRC_SD0 =    (0x3U),
+	XLOADER_PDI_SRC_SD1 =    (0x5U),
+	XLOADER_PDI_SRC_EMMC =   (0x6U),
+	XLOADER_PDI_SRC_USB =    (0x7U),
+	XLOADER_PDI_SRC_OSPI =   (0x8U),
+	XLOADER_PDI_SRC_SMAP =   (0xAU),
+	XLOADER_PDI_SRC_SD1_LS = (0xEU),
+	XLOADER_PDI_SRC_SBI_JTAG = (0x10U)
 };
 
 /* Error Codes */
-#define XILPLI_ERR_MASK                         (0xFF00U)
-#define XILPLI_ERR_MODULE_MASK                  (0xFFU)
-#define XILPLI_UPDATE_ERR(XilPliErr, ModuleErr)          \
-                ((XilPliErr&XILPLI_ERR_MASK) + \
-                 (ModuleErr&XILPLI_ERR_MODULE_MASK))
+#define XLOADER_ERR_MASK                         (0xFF00U)
+#define XLOADER_ERR_MODULE_MASK                  (0xFFU)
+#define XLOADER_UPDATE_ERR(XLoaderErr, ModuleErr)          \
+                ((XLoaderErr&XLOADER_ERR_MASK) + \
+                 (ModuleErr&XLOADER_ERR_MODULE_MASK))
 
-#define XILPLI_UNSUPPORTED_BOOT_MODE	(0x200U)
+#define XLOADER_UNSUPPORTED_BOOT_MODE	(0x200U)
 /**************************** Type Definitions *******************************/
 
 /**
@@ -101,7 +101,7 @@ enum XILPLI_PDI_SRC {
 typedef struct {
         u32 CpuSettings;
         u64 HandoffAddr;
-} XilPli_HandoffParam;
+} XLoader_HandoffParam;
 
 typedef struct {
 	u32 DeviceBaseAddr; /**< Flash device base address */
@@ -109,7 +109,7 @@ typedef struct {
 		/**< Function pointer for Device initialization code */
 	XStatus (*Copy) (u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 		/**< Function pointer for device copy */
-} XilPli_DeviceOps;
+} XLoader_DeviceOps;
 
 
 /**
@@ -124,7 +124,7 @@ typedef struct {
 	XilPdi_MetaHdr MetaHdr; /**< Metaheader of the PDI */
 	XStatus (*DeviceCopy) (u32, u64, u32, u32);
 	u32 NoOfHandoffCpus; /**< Number of CPU's loader will handoff to */
-        XilPli_HandoffParam HandoffParam[10];
+        XLoader_HandoffParam HandoffParam[10];
 	u32 EccStatus;
 } XilPdi;
 
@@ -139,7 +139,7 @@ typedef struct {
 } XilSubsystem;
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XPli_GetBootMode()	XPlmi_In32(CRP_BOOT_MODE_USER) & \
+#define XLoader_GetBootMode()	XPlmi_In32(CRP_BOOT_MODE_USER) & \
 				CRP_BOOT_MODE_USER_BOOT_MODE_MASK
 
 
@@ -149,18 +149,18 @@ int XSubSys_Init(u32 * CdoBuf);
 int XSubSys_LoadPdi(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr);
 int XSubSys_CopyPdi(u32 PdiSrc, u64 SrcAddr, u64 DestAddr, u32 PdiLen);
 int XSubSys_ReStart(u32 SubsysHd);
-int XPli_LoadImage(XilPdi *PdiPtr, u32 ImageId);
-int XPli_StartImage(XilPdi *PdiPtr, u32 ImageId);
+int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId);
+int XLoader_StartImage(XilPdi *PdiPtr, u32 ImageId);
 #endif
 
-int XPli_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr);
-int XPli_LoadSubSystemPdi(XilPdi *PdiPtr);
-int XPli_StartSubSystemPdi(XilPdi *PdiPtr);
+int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr);
+int XLoader_LoadSubSystemPdi(XilPdi *PdiPtr);
+int XLoader_StartSubSystemPdi(XilPdi *PdiPtr);
 
-/* functions defined in xilpli_prtn_load.c */
-int XPli_PrtnLoad(XilPdi* PdiPtr, u32 PrtnNum);
+/* functions defined in xloader_prtn_load.c */
+int XLoader_PrtnLoad(XilPdi* PdiPtr, u32 PrtnNum);
 #ifdef __cplusplus
 }
 #endif
 
-#endif  /* XILPLI_H */
+#endif  /* XLOADER_H */

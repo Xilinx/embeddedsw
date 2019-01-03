@@ -30,7 +30,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xilpli_prtn_load.c
+* @file xloader_prtn_load.c
 *
 * This is the file which contains partition load code for the Platfrom
 * loader..
@@ -49,8 +49,8 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xilpli.h"
-#include "xilpli_dma.h"
+#include "xloader.h"
+#include "xloader_dma.h"
 #include "xplmi_debug.h"
 #include "xplmi_cdo.h"
 #include "xillibpm_api.h"
@@ -60,16 +60,16 @@
 //extern XilCdo_Prtn XilCdoPrtnInst;
 //extern XCsuDma CsuDma0;
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XPLI_DMA_LEN_ALIGN		16U
-#define XPLI_SUCCESS_NOT_PRTN_OWNER	(0x100U)
-#define XPLI_NO_PSM_IMG_PARTITIONS	2U
+#define XLOADER_DMA_LEN_ALIGN		16U
+#define XLOADER_SUCCESS_NOT_PRTN_OWNER	(0x100U)
+#define XLOADER_NO_PSM_IMG_PARTITIONS	2U
 /************************** Function Prototypes ******************************/
-static int XPli_PrtnHdrValidation(XilPdi* PdiPtr, u32 PrtnNum);
-static int XPli_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnNum);
-static int XPli_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum);
-static int XPli_PrtnValidation(XilPdi* PdiPtr, u32 PrtnNum);
-static int XPli_CheckHandoffCpu (XilPdi* PdiPtr, u32 DstnCpu);
-static void XPli_UpdateHandoffParam(XilPdi* PdiPtr, u32 PrtnNum);
+static int XLoader_PrtnHdrValidation(XilPdi* PdiPtr, u32 PrtnNum);
+static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnNum);
+static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum);
+static int XLoader_PrtnValidation(XilPdi* PdiPtr, u32 PrtnNum);
+static int XLoader_CheckHandoffCpu (XilPdi* PdiPtr, u32 DstnCpu);
+static void XLoader_UpdateHandoffParam(XilPdi* PdiPtr, u32 PrtnNum);
 
 /************************** Variable Definitions *****************************/
 
@@ -77,7 +77,7 @@ static void XPli_UpdateHandoffParam(XilPdi* PdiPtr, u32 PrtnNum);
 /**
  * This function loads the partition
  *
- * @param	PdiPtr is pointer to the XPli Instance
+ * @param	PdiPtr is pointer to the XLoader Instance
  *
  * @param	PrtnNum is the partition number in the image to be loaded
  *
@@ -85,17 +85,17 @@ static void XPli_UpdateHandoffParam(XilPdi* PdiPtr, u32 PrtnNum);
  *			returns XST_SUCCESS on success
  *
  *****************************************************************************/
-int XPli_PrtnLoad(XilPdi* PdiPtr, u32 PrtnNum)
+int XLoader_PrtnLoad(XilPdi* PdiPtr, u32 PrtnNum)
 {
 	int Status;
 
 	/* Load and validate the partition */
 
 	/* Prtn Hdr Validation */
-	Status = XPli_PrtnHdrValidation(PdiPtr, PrtnNum);
+	Status = XLoader_PrtnHdrValidation(PdiPtr, PrtnNum);
 
 	/* PLM is not partition owner and skip this partition */
-	if (Status == XPLI_SUCCESS_NOT_PRTN_OWNER)
+	if (Status == XLOADER_SUCCESS_NOT_PRTN_OWNER)
 	{
 		Status = XST_SUCCESS;
 		goto END;
@@ -108,7 +108,7 @@ int XPli_PrtnLoad(XilPdi* PdiPtr, u32 PrtnNum)
 	}
 
 	/* Process Partition */
-	Status = XPli_ProcessPrtn(PdiPtr, PrtnNum);
+	Status = XLoader_ProcessPrtn(PdiPtr, PrtnNum);
 	if (XST_SUCCESS != Status)
 	{
 		goto END;
@@ -122,13 +122,13 @@ END:
 /**
  * This function validates the partition header
  *
- * @param	PdiPtr is pointer to the XPli Instance
+ * @param	PdiPtr is pointer to the XLoader Instance
  *
  * @param	PrtnNum is the partition number in the image to be loaded
  *
  * @return	returns the error codes 
  *****************************************************************************/
-static int XPli_PrtnHdrValidation(XilPdi* PdiPtr,
+static int XLoader_PrtnHdrValidation(XilPdi* PdiPtr,
 		u32 PrtnNum)
 {
 	int Status;
@@ -144,7 +144,7 @@ static int XPli_PrtnHdrValidation(XilPdi* PdiPtr,
 		/* If the partition doesn't belong to PLM, skip the partition */
 		XPlmi_Printf(DEBUG_GENERAL, "Skipping the Prtn 0x%08x\n\r",
 				PrtnNum);
-		Status = XPLI_SUCCESS_NOT_PRTN_OWNER;
+		Status = XLOADER_SUCCESS_NOT_PRTN_OWNER;
 		goto END;
 	}
 
@@ -163,13 +163,13 @@ END:
 /**
  * This function copies the partition to specified destination
  *
- * @param	PdiPtr is pointer to the XPli Instance
+ * @param	PdiPtr is pointer to the XLoader Instance
  *
  * @param	PrtnNum is the partition number in the image to be loaded
  *
  * @return	returns the error codes 
  *****************************************************************************/
-static int XPli_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
+static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 {
 	int Status;
 	u32 SrcAddr;
@@ -189,8 +189,8 @@ static int XPli_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 		/* Make Length 16byte aligned
 		 * TODO remove this after partition len is made
 		 * 16byte aligned by bootgen*/
-		if (Len%XPLI_DMA_LEN_ALIGN != 0U) {
-			Len = Len + XPLI_DMA_LEN_ALIGN - (Len%XPLI_DMA_LEN_ALIGN);
+		if (Len%XLOADER_DMA_LEN_ALIGN != 0U) {
+			Len = Len + XLOADER_DMA_LEN_ALIGN - (Len%XLOADER_DMA_LEN_ALIGN);
 		}
 
 
@@ -223,7 +223,7 @@ END:
 /**
  * This function validates the partition
  *
- * @param	PdiPtr is pointer to the XPli Instance
+ * @param	PdiPtr is pointer to the XLoader Instance
  *
  * @param	PrtnNum is the partition number in the image to be loaded
  *
@@ -231,13 +231,13 @@ END:
  *			returns XST_SUCCESS on success
  *
  *****************************************************************************/
-static int XPli_PrtnValidation(XilPdi* PdiPtr, u32 PrtnNum)
+static int XLoader_PrtnValidation(XilPdi* PdiPtr, u32 PrtnNum)
 {
 	int Status;
 	/* Validate the partition */
 
 	/* Update the handoff values */
-	XPli_UpdateHandoffParam(PdiPtr, PrtnNum);
+	XLoader_UpdateHandoffParam(PdiPtr, PrtnNum);
 
 	Status = XST_SUCCESS;
 	return Status;
@@ -256,7 +256,7 @@ static int XPli_PrtnValidation(XilPdi* PdiPtr, u32 PrtnNum)
  * @note
  *
  *****************************************************************************/
-static void XPli_UpdateHandoffParam(XilPdi* PdiPtr, u32 PrtnNum)
+static void XLoader_UpdateHandoffParam(XilPdi* PdiPtr, u32 PrtnNum)
 {
 	u32 DstnCpu;
 	u32 CpuNo;
@@ -271,7 +271,7 @@ static void XPli_UpdateHandoffParam(XilPdi* PdiPtr, u32 PrtnNum)
 	    (DstnCpu < XIH_PH_ATTRB_DSTN_CPU_PSM))
 	{
 		CpuNo = PdiPtr->NoOfHandoffCpus;
-		if (XPli_CheckHandoffCpu(PdiPtr, DstnCpu) == XST_SUCCESS)
+		if (XLoader_CheckHandoffCpu(PdiPtr, DstnCpu) == XST_SUCCESS)
 		{
 			/* Update the CPU settings */
 			PdiPtr->HandoffParam[CpuNo].CpuSettings =
@@ -292,9 +292,9 @@ static void XPli_UpdateHandoffParam(XilPdi* PdiPtr, u32 PrtnNum)
 		PsmImgPrtnCount++;
 		/* TODO: No of PSM partitions are hard coded for now, later it
 			needs to be fixed*/
-		if(PsmImgPrtnCount == XPLI_NO_PSM_IMG_PARTITIONS)
+		if(PsmImgPrtnCount == XLOADER_NO_PSM_IMG_PARTITIONS)
 		{
-			XPli_Printf(DEBUG_INFO,
+			XLoader_Printf(DEBUG_INFO,
 			" Request PSM wakeup \r\n");
 			XPm_RequestWakeUp(XPM_SUBSYSID_PMC,
 			XPM_DEVID_PSM, 0, 0);
@@ -320,7 +320,7 @@ static void XPli_UpdateHandoffParam(XilPdi* PdiPtr, u32 PrtnNum)
  * @note
  *
  *****************************************************************************/
-static int XPli_CheckHandoffCpu (XilPdi* PdiPtr, u32 DstnCpu)
+static int XLoader_CheckHandoffCpu (XilPdi* PdiPtr, u32 DstnCpu)
 {
 	u32 ValidHandoffCpuNo;
 	int Status;
@@ -362,7 +362,7 @@ END:
  * @note
  *
  *****************************************************************************/
-static int XPli_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
+static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 {
 	int Status;
 	u32 SrcAddr;
@@ -383,9 +383,9 @@ static int XPli_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 	 * TODO remove this after partition len is made
 	 * 16byte aligned by bootgen
 	 */
-        if (Len%XPLI_DMA_LEN_ALIGN != 0U) {
-                Len = Len - (Len%XPLI_DMA_LEN_ALIGN) +
-                        XPLI_DMA_LEN_ALIGN;
+        if (Len%XLOADER_DMA_LEN_ALIGN != 0U) {
+                Len = Len - (Len%XLOADER_DMA_LEN_ALIGN) +
+                        XLOADER_DMA_LEN_ALIGN;
         }
 
 	PdiPtr->DeviceCopy(SrcAddr, XPLMI_PMCRAM_BASEADDR, Len, 0U);
@@ -413,7 +413,7 @@ END:
  * @note
  *
  *****************************************************************************/
-static int XPli_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnNum)
+static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnNum)
 {
 	int Status;
 	XilPdi_PrtnHdr * PrtnHdr;
@@ -426,12 +426,12 @@ static int XPli_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnNum)
 	PrtnType = XilPdi_GetPrtnType(PrtnHdr);
 	if(PrtnType == XIH_PH_ATTRB_PRTN_TYPE_CDO)
 	{
-		Status = XPli_ProcessCdo(PdiPtr, PrtnNum);
+		Status = XLoader_ProcessCdo(PdiPtr, PrtnNum);
 	} else {
 
 		XPlmi_Printf(DEBUG_INFO, "Copying elf/data partition \n\r");
 		/* Partition Copy */
-		Status = XPli_PrtnCopy(PdiPtr, PrtnNum);
+		Status = XLoader_PrtnCopy(PdiPtr, PrtnNum);
 	}
 
 	if (XST_SUCCESS != Status)
@@ -440,7 +440,7 @@ static int XPli_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnNum)
 	}
 
 	/* Partition Validation */
-	Status = XPli_PrtnValidation(PdiPtr, PrtnNum);
+	Status = XLoader_PrtnValidation(PdiPtr, PrtnNum);
 	if (XST_SUCCESS != Status)
 	{
 		goto END;

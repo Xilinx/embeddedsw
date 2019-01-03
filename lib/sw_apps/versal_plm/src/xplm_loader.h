@@ -31,25 +31,32 @@
 /*****************************************************************************/
 /**
 *
-* @file xplm_pli.c
+* @file xplm_loader.h
 *
-* This file contains the wrapper functions for platfrom loader
+* This file contains the declarations of platfrom loader wrapper functions
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kc   08/20/2018 Initial release
+* 1.00  kc   07/20/2018 Initial release
 *
 * </pre>
 *
 * @note
 *
 ******************************************************************************/
+#ifndef XPLM_PLI_H
+#define XPLM_PLI_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 /***************************** Include Files *********************************/
-#include "xplm_pli.h"
+#include "xplm_default.h"
+#include "xplm_task.h"
+#include "xloader.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -59,61 +66,12 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-XilPdi PdiInstance;
 
-/*****************************************************************************/
-/**
-* It loads the boot PDI
-*
-* @param	None
-* @return	None
-*
-*****************************************************************************/
-int XPlm_LoadBootPdi(struct metal_event *event, void *arg)
-{
-	int Status;
-	u32 BootMode;
-	XPlmi_Printf(DEBUG_INFO, "%s\n\r", __func__);
+int XPlm_LoadBootPdi(struct metal_event *event, void *arg);
 
-	/**
-	 * 1. Read Boot mode register and multiboot offset register
-	 * 2. Load subsystem present in PDI
-	 */
-	XilPdi* PdiPtr = &PdiInstance;
-	BootMode = XPli_GetBootMode();
-	/**
-	 * In case of JTAG boot mode, no PDI loading is present
-	 */
-	if(BootMode == XILPLI_PDI_SRC_JTAG)
-	{
-		goto END;
-	}
 
-	Status = XPli_PdiInit(PdiPtr, BootMode, 0U);
-	if (Status != XST_SUCCESS)
-	{
-		goto END;
-	}
-
-        Status = XPli_LoadSubSystemPdi(PdiPtr);
-	if (Status != XST_SUCCESS)
-	{
-		goto END;
-	}
-
-        Status = XPli_StartSubSystemPdi(PdiPtr);
-	if (Status != XST_SUCCESS)
-	{
-		goto END;
-	}
-
-END:
-	/**
-	 * TODO: Proper error reporting should be added to the code
-	 */
-	/**
-	 * Irrespective of the Status, as EVENT
-	 * is completed, metal event handled is returned
-	 */
-	return METAL_EVENT_HANDLED;
+#ifdef __cplusplus
 }
+#endif
+
+#endif  /* XPLM_PLI_H */

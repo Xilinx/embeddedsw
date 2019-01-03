@@ -137,20 +137,20 @@ extern "C" {
  * Definition for QSPI to be included
  */
 #if (!defined(PLM_QSPI_EXCLUDE) && defined(XPAR_XQSPIPSU_0_DEVICE_ID))
-#define XILPLI_QSPI
-#define XILPLI_QSPI_BASEADDR    XPAR_XQSPIPS_0_BASEADDR
+#define XLOADER_QSPI
+#define XLOADER_QSPI_BASEADDR    XPAR_XQSPIPS_0_BASEADDR
 #endif
 
 /**
  * Definitions for SD to be included
  */
 #if (!defined(PLM_SD_EXCLUDE) && (XPAR_XSDPS_0_BASEADDR == 0xF1040000))
-#define XILPLI_SD_0
+#define XLOADER_SD_0
 #endif
 
 #if (!defined(PLM_SD_EXCLUDE) && (XPAR_XSDPS_0_BASEADDR == 0xF1050000) ||\
                 (XPAR_XSDPS_1_BASEADDR == 0xF1050000))
-#define XILPLI_SD_1
+#define XLOADER_SD_1
 #endif
 
 
@@ -158,7 +158,7 @@ extern "C" {
  * Definition for SBI to be included
  */
 #if !defined(PLM_SBI_EXCLUDE)
-#define XILPLI_SBI
+#define XLOADER_SBI
 #endif
 
 /**
