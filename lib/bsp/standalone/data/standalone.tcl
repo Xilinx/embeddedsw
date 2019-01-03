@@ -600,7 +600,7 @@ proc xcreate_cmake_toolchain_file {os_handle is_versal} {
 		# Windows
 		# Note: windows tcl exec does not do well when trying to provide ${cmake_opt}
 		#       for now hardcoding the values directly on the command line.
-		if { [catch {exec ${cmake_cmd} "../src/" -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=../src/toolchain -DCMAKE_INSTALL_PREFIX=/ -DCMAKE_VERBOSE_MAKEFILE=on -DWITH_DEFAULT_LOGGER=off -DWITH_DOC=off } msg] } {
+		if { [catch {exec ${cmake_cmd} "../src/" -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=../src/toolchain.cmake -DCMAKE_INSTALL_PREFIX=/ -DCMAKE_VERBOSE_MAKEFILE=on -DWITH_DEFAULT_LOGGER=off -DWITH_DOC=off } msg] } {
 			error "Failed to generate cmake files.${msg}"
 		} else {
 			puts "${msg}"
