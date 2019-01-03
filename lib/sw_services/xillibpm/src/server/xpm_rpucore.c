@@ -70,6 +70,10 @@ static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 
 	Core->ResumeAddr = 0ULL;
 
+	/* Put RPU in running state from halt state */
+	PmRmw32(RpuCore->ResumeCfg, XPM_RPU_NCPUHALT_MASK,
+		XPM_RPU_NCPUHALT_MASK);
+
 done:
 	return Status;
 }

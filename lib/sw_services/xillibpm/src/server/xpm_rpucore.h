@@ -32,6 +32,7 @@
 #include "xpm_core.h"
 
 #define XPM_PROC_RPU_HIVEC_ADDR		0xFFFC0000U
+#define XPM_RPU_NCPUHALT_MASK		BIT(0)
 #define XPM_RPU_VINITHI_MASK		BIT(2)
 #define XPM_RPU_SLSPLIT_MASK		BIT(3)
 #define XPM_RPU_TCM_COMB_MASK		BIT(6)
