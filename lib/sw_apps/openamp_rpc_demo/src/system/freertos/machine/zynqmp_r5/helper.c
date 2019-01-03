@@ -108,7 +108,7 @@ int init_system(void)
 	/* Initialize metal Xilinx IRQ controller */
 	ret = metal_xlnx_irq_init();
 	if (ret) {
-		ML_ERR("metal_xlnx_irq_init failed.\n");
+		ML_ERR("metal_xlnx_irq_init failed.\r\n");
 	}
 
 	ML_DBG("buf,len,configTICK_RATE_HZ = %p,%u,%u \n",

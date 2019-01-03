@@ -82,7 +82,7 @@ int init_system(void)
 	/* Initialize metal Xilinx IRQ controller */
 	ret = metal_xlnx_irq_init();
 	if (ret) {
-		xil_printf("%s: Xilinx metal IRQ controller init failed.\n",
+		xil_printf("%s: Xilinx metal IRQ controller init failed.\r\n",
 			__func__);
 	}
 

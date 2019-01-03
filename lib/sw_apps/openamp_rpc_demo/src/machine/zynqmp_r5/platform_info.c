@@ -159,7 +159,7 @@ int platform_init(int argc, char *argv[], void **platform)
 	/* metal_log setup is in init_system */
 	if (!platform) {
 		xil_printf("Failed to initialize platform,"
-			   "NULL pointer to store platform data.\n");
+			   "NULL pointer to store platform data.\r\n");
 		return -EINVAL;
 	}
 	/* Initialize HW system components */
@@ -176,7 +176,7 @@ int platform_init(int argc, char *argv[], void **platform)
 	ML_INFO("platform_create_proc()\r\n");
 	rproc = platform_create_proc(proc_id, rsc_id);
 	if (!rproc) {
-		ML_ERR("Failed to create remoteproc device.\n");
+		ML_ERR("Failed to create remoteproc device.\r\n");
 		return -EINVAL;
 	}
 	*platform = rproc;
