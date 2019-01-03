@@ -1306,3 +1306,37 @@ XStatus XPmClient_ForcePowerDown(const u32 TargetDevId, const u32 Ack)
 done:
 	return Status;
 }
+
+/****************************************************************************/
+/**
+ * @brief  This function can be used by a privileged PU to shut down
+ * or restart the complete device.
+ *
+ * @param  Type		Shutdown type (shutdown/restart)
+ * @param  SubType	Shutdown subtype (subsystem-only/PU-only/system)
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmClient_SystemShutdown(const u32 Type, const u32 SubType)
+{
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	PACK_PAYLOAD2(Payload, PM_SYSTEM_SHUTDOWN, Type, SubType);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
+
+done:
+	return Status;
+}
