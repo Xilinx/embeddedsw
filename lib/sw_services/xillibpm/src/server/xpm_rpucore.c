@@ -40,7 +40,13 @@ static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 
 	/* Set reset address */
 	if (0 == SetAddress) {
-		goto done;
+		if (Core->ResumeAddr & 1ULL) {
+			Address = Core->ResumeAddr;
+		} else {
+			PmErr("Invalid resume address\r\n");
+			Status = XST_FAILURE;
+			goto done;
+		}
 	}
 
 	AddrLow = (u32) (Address & 0xffff0000ULL);
@@ -61,6 +67,9 @@ static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 		Status = Reset->Ops->SetState(Reset, PM_RESET_ACTION_RELEASE);
 		Reset = Reset->NextReset;
 	}
+
+	Core->ResumeAddr = 0ULL;
+
 done:
 	return Status;
 }
