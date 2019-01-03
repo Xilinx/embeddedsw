@@ -128,20 +128,42 @@ static uint32_t rproc_virtio_negotiate_features(struct virtio_device *vdev,
 static void rproc_virtio_read_config(struct virtio_device *vdev,
 				     uint32_t offset, void *dst, int length)
 {
-	(void)vdev;
-	(void)offset;
-	(void)dst;
-	(void)length;
+	struct remoteproc_virtio *rpvdev;
+	struct fw_rsc_vdev *vdev_rsc;
+	struct metal_io_region *io;
+	char *config;
+
+	rpvdev = metal_container_of(vdev, struct remoteproc_virtio, vdev);
+	vdev_rsc = rpvdev->vdev_rsc;
+	config = (char *)(&vdev_rsc->vring[vdev->vrings_num]);
+	io = rpvdev->vdev_rsc_io;
+
+	if (offset + length <= vdev_rsc->config_len)
+		metal_io_block_read(io,
+				metal_io_virt_to_offset(io, config + offset),
+				dst, length);
 }
 
 #ifndef VIRTIO_SLAVE_ONLY
 static void rproc_virtio_write_config(struct virtio_device *vdev,
 				      uint32_t offset, void *src, int length)
 {
-	(void)vdev;
-	(void)offset;
-	(void)src;
-	(void)length;
+	struct remoteproc_virtio *rpvdev;
+	struct fw_rsc_vdev *vdev_rsc;
+	struct metal_io_region *io;
+	char *config;
+
+	rpvdev = metal_container_of(vdev, struct remoteproc_virtio, vdev);
+	vdev_rsc = rpvdev->vdev_rsc;
+	config = (char *)(&vdev_rsc->vring[vdev->vrings_num]);
+	io = rpvdev->vdev_rsc_io;
+
+	if (offset + length <= vdev_rsc->config_len) {
+		metal_io_block_write(io,
+				metal_io_virt_to_offset(io, config + offset),
+				src, length);
+		rpvdev->notify(rpvdev->priv, vdev->notifyid);
+	}
 }
 
 static void rproc_virtio_reset_device(struct virtio_device *vdev)
