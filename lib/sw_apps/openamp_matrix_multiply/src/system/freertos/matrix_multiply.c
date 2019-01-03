@@ -70,7 +70,7 @@ static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
 	(void)src;
 
 	if ((*(unsigned int *)data) == SHUTDOWN_MSG) {
-		ML_INFO("shutdown message is received.\n");
+		ML_INFO("shutdown message is received.\r\n");
 		shutdown_req = 1;
 		return RPMSG_SUCCESS;
 	}
@@ -81,7 +81,7 @@ static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
 
 	/* Send the result of matrix multiplication back to master. */
 	if (rpmsg_send(ept, &matrix_result, sizeof(matrix)) < 0) {
-		ML_ERR("rpmsg_send failed\n");
+		ML_ERR("rpmsg_send failed\r\n");
 	}
 	return RPMSG_SUCCESS;
 }
@@ -89,7 +89,7 @@ static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
 static void rpmsg_service_unbind(struct rpmsg_endpoint *ept)
 {
 	(void)ept;
-	ML_ERR("Endpoint is destroyed\n");
+	ML_ERR("Endpoint is destroyed\r\n");
 	shutdown_req = 1;
 }
 
@@ -105,11 +105,11 @@ int app(struct rpmsg_device *rdev, void *priv)
 				   rpmsg_endpoint_cb,
 				   rpmsg_service_unbind);
 	if (ret) {
-		ML_ERR("Failed to create endpoint.\n");
+		ML_ERR("Failed to create endpoint.\r\n");
 		return -1;
 	}
 
-	LPRINTF("Waiting for events...\n");
+	LPRINTF("Waiting for events...\r\n");
 	while(1) {
 		platform_poll(priv);
 		/* we got a shutdown request, exit */
@@ -130,23 +130,23 @@ static void processing(void *unused_arg)
 	void *platform;
 	struct rpmsg_device *rpdev;
 
-	LPRINTF("Starting application...\n");
+	LPRINTF("Starting application...\r\n");
 	/* Initialize platform */
 	if (platform_init(NULL, NULL, &platform)) {
-		LPERROR("Failed to initialize platform.\n");
+		LPERROR("Failed to initialize platform.\r\n");
 	} else {
 		rpdev = platform_create_rpmsg_vdev(platform, 0,
 										VIRTIO_DEV_SLAVE,
 										NULL, NULL);
 		if (!rpdev){
-			ML_ERR("Failed to create rpmsg virtio device.\n");
+			ML_ERR("Failed to create rpmsg virtio device.\r\n");
 		} else {
 			app(rpdev, platform);
 			platform_release_rpmsg_vdev(rpdev, platform);
 		}
 	}
 
-	ML_INFO("Stopping application...\n");
+	ML_INFO("Stopping application...\r\n");
 	platform_cleanup(platform);
 
 	/* Terminate this task */
@@ -164,7 +164,7 @@ int main(void)
 	stat = xTaskCreate(processing, ( const char * ) "HW2",
 				1024, NULL, 2, &comm_task);
 	if (stat != pdPASS) {
-		LPERROR("cannot create task\n");
+		LPERROR("cannot create task\r\n");
 	} else {
 		/* Start running FreeRTOS tasks */
 		vTaskStartScheduler();

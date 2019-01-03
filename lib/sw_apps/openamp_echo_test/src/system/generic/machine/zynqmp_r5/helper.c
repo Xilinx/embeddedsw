@@ -154,10 +154,10 @@ int init_system(void)
 	/* Initialize metal Xilinx IRQ controller */
 	ret = metal_xlnx_irq_init();
 	if (ret) {
-		ML_ERR("metal_xlnx_irq_init failed.\n");
+		ML_ERR("metal_xlnx_irq_init failed.\r\n");
 	}
 
-	ML_DBG("c_buf,c_len = %p,%u\n", circ.c_buf, circ.c_len);
+	ML_DBG("c_buf,c_len = %p,%u\r\n", circ.c_buf, circ.c_len);
 	return ret;
 }
 

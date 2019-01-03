@@ -40,14 +40,14 @@ static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
 
 	/* On reception of a shutdown we signal the application to terminate */
 	if ((*(unsigned int *)data) == SHUTDOWN_MSG) {
-		ML_INFO("shutdown message is received.\n");
+		ML_INFO("shutdown message is received.\r\n");
 		shutdown_req = 1;
 		return RPMSG_SUCCESS;
 	}
 
 	/* Send data back to master */
 	if (rpmsg_send(ept, data, len) < 0) {
-		ML_ERR("rpmsg_send failed\n");
+		ML_ERR("rpmsg_send failed\r\n");
 	}
 	return RPMSG_SUCCESS;
 }
@@ -55,7 +55,7 @@ static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
 static void rpmsg_service_unbind(struct rpmsg_endpoint *ept)
 {
 	(void)ept;
-	ML_INFO("unexpected Remote endpoint destroy\n");
+	ML_INFO("unexpected Remote endpoint destroy\r\n");
 	shutdown_req = 1;
 }
 
@@ -67,18 +67,18 @@ int app(struct rpmsg_device *rdev, void *priv)
 	int ret;
 
 	/* Initialize RPMSG framework */
-	ML_INFO("Try to create rpmsg endpoint.\n");
+	ML_INFO("Try to create rpmsg endpoint.\r\n");
 
 	ret = rpmsg_create_ept(&lept, rdev, RPMSG_SERVICE_NAME,
 				RPMSG_ADDR_ANY, RPMSG_ADDR_ANY,
 				rpmsg_endpoint_cb,
 				rpmsg_service_unbind);
 	if (ret) {
-		ML_ERR("Failed to create endpoint.\n");
+		ML_ERR("Failed to create endpoint.\r\n");
 		return -1;
 	}
 
-	ML_INFO("Successfully created rpmsg endpoint.\n");
+	ML_INFO("Successfully created rpmsg endpoint.\r\n");
 	while(1) {
 		platform_poll(priv);
 		/* we got a shutdown request, exit */
@@ -86,7 +86,7 @@ int app(struct rpmsg_device *rdev, void *priv)
 			break;
 		}
 	}
-	ML_DBG("out of platform_poll loop\n");
+	ML_DBG("out of platform_poll loop\r\n");
 	rpmsg_destroy_ept(&lept);
 
 	return 0;
@@ -101,23 +101,23 @@ static void processing(void *unused_arg)
 	struct rpmsg_device *rpdev;
 
 	/* can't use ML_INFO, metal_log setup is in init_system */
-	LPRINTF("Starting application...\n");
+	LPRINTF("Starting application...\r\n");
 	/* Initialize platform */
 	if (platform_init(0, NULL, &platform)) {
-		LPERROR("Failed to initialize platform.\n");
+		LPERROR("Failed to initialize platform.\r\n");
 	} else {
 		rpdev = platform_create_rpmsg_vdev(platform, 0,
 										VIRTIO_DEV_SLAVE,
 										NULL, NULL);
 		if (!rpdev){
-			ML_ERR("Failed to create rpmsg virtio device.\n");
+			ML_ERR("Failed to create rpmsg virtio device.\r\n");
 		} else {
 			app(rpdev, platform);
 			platform_release_rpmsg_vdev(rpdev, platform);
 		}
 	}
 
-	ML_INFO("Stopping application...\n");
+	ML_INFO("Stopping application...\r\n");
 	platform_cleanup(platform);
 
 	/* Terminate this task */
@@ -135,7 +135,7 @@ int main(int ac, char **av)
 	stat = xTaskCreate(processing, ( const char * ) "HW2",
 				1024, NULL, 2, &comm_task);
 	if (stat != pdPASS) {
-		LPERROR("cannot create task\n");
+		LPERROR("cannot create task\r\n");
 	} else {
 		/* Start running FreeRTOS tasks */
 		vTaskStartScheduler();

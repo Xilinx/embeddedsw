@@ -140,7 +140,7 @@ int platform_init(int argc, char *argv[], void **platform)
 
 	if (!platform) {
 		xil_printf("Failed to initialize platform,"
-			   "NULL pointer to store platform data.\n");
+			   "NULL pointer to store platform data.\r\n");
 		return -EINVAL;
 	}
 	/* Initialize HW system components */
@@ -156,7 +156,7 @@ int platform_init(int argc, char *argv[], void **platform)
 
 	rproc = platform_create_proc(proc_id, rsc_id);
 	if (!rproc) {
-		xil_printf("Failed to create remoteproc device.\n");
+		xil_printf("Failed to create remoteproc device.\r\n");
 		return -EINVAL;
 	}
 	*platform = rproc;
