@@ -1270,3 +1270,39 @@ XStatus XPmClient_AbortSuspend(const enum XPmAbortReason Reason)
 done:
 	return Status;
 }
+
+/****************************************************************************/
+/**
+ * @brief  This function is used by PU to request a forced poweroff of another
+ * PU or its power island or power domain. This can be used for killing an
+ * unresponsive PU, in which case all resources of that PU will be
+ * automatically released.
+ *
+ * @param  TargetDevId	Device ID of the PU node to be forced powered down.
+ * @param  Ack		Requested acknowledge type
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   Force power down may not be requested by a PU for itself.
+ *
+ ****************************************************************************/
+XStatus XPmClient_ForcePowerDown(const u32 TargetDevId, const u32 Ack)
+{
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	PACK_PAYLOAD2(Payload, PM_FORCE_POWERDOWN, TargetDevId, Ack);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
+
+done:
+	return Status;
+}
