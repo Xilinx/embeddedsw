@@ -53,7 +53,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 {
 	u32 ApiResponse[XPLMI_CMD_RESP_SIZE-1] = {0, 0, 0};
 	u32 Status = XST_SUCCESS;
-	u32 SubsystemId = Cmd->SubsystemId;
+	u32 SubsystemId = XPmSubsystem_GetSubSysIdByIpiMask(Cmd->IpiMask);
 	u32 *Pload = Cmd->Payload;
 	u32 Len = Cmd->Len;
 	u32 SetAddress;

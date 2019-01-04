@@ -61,6 +61,31 @@ u32 XPmSubsystem_GetIPIMask(u32 SubsystemId)
 	return Subsystem->IpiMask;
 }
 
+u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask)
+{
+	u32 SubSysId;
+
+	/*
+	 * Note: This is temporary hack till PLMI is not passing
+	 * SubSystemID to LibPM in command. This will be removed
+	 * when subsystem ID is passed.
+	 */
+	if (0 == IpiMask) {
+		SubSysId = XPM_SUBSYSID_PMC;
+		goto done;
+	}
+
+	for (SubSysId = 0; SubSysId < XPM_SUBSYSID_MAX; SubSysId++)
+	{
+		if (XPm_SubsystemIpiMask[SubSysId] == IpiMask) {
+			break;
+		}
+	}
+
+done:
+	return SubSysId;
+}
+
 XStatus XPmSubsystem_ForceDownCleanup(u32 SubsystemId)
 {
         XStatus Status;
@@ -87,16 +112,6 @@ XStatus XPmSubsystem_Idle(u32 SubsystemId)
 	VERIFY(SubsystemId < XPM_SUBSYSID_MAX);
 	/* TBD: Add diling support */
         return Status;
-}
-
-u32 XPmSubsystem_GetSubSysId(u32 IpiId)
-{
-	/*
-	 * Need to decide on IpiId to SubsystemId mapping,
-	 * for now IpiId == SubsystemId.
-	 */
-	VERIFY(IpiId < XPM_SUBSYSID_MAX);
-	return IpiId;
 }
 
 XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId)
