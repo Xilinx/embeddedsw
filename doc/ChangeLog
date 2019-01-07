@@ -12,6 +12,7 @@ Updated the Number of words per frame as mention in the ug570.
 ipipsu_v2_5:
 Make IPI driver common for both ZynqMP and Versal platforms.
 Add extern c macro.
+Fix the ipis without buffer.
 
 llfifo_v5_3:
 Fix poll and interrupt examples receive programming sequence.
