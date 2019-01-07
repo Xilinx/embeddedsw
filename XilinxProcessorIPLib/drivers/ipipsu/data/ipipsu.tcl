@@ -34,6 +34,7 @@
 # 1.00 mjr  02/03/15  Created
 # 2.3  ms   04/11/17  Modified tcl file to add U suffix for all macros
 #                     of ipipsu in xparameters.h
+# 2.5  sd   04/01/19  Added support for the the no buffer ipi
 ##############################################################################
 
 #uses "xillib.tcl"
@@ -56,6 +57,11 @@ proc ipi_define_xpar {inst param} {
 	set param_name [string range $param [string length "CONFIG."] [string length $param]]
 	set name [string range $param_name 2 end]
 	set param_value [common::get_property $param [hsi::get_cells -hier $inst]]
+	if { [string compare $name "BUFFER_INDEX"] == 0} {
+		if { [string compare $param_value "NIL"] == 0} {
+			set param_value 0xFFFF
+		}
+	}
 	if { [string compare $name "BIT_POSITION"] == 0} {
 		set name "BIT_MASK"
 		set param_value [ipi_format_hexmask $param_value]
