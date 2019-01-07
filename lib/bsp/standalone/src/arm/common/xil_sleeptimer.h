@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -41,12 +41,18 @@
 * Ver   Who  Date	 Changes
 * ----- ---- -------- -------------------------------------------------------
 * 6.6	srm  10/18/17 First Release.
+* 7.0   mus  01/07/19 Add cpp extern macro
 *
 * </pre>
 *****************************************************************************/
 
 #ifndef XIL_SLEEPTIMER_H		/* prevent circular inclusions */
 #define XIL_SLEEPTIMER_H		/* by using protection macros */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /****************************  Include Files  ********************************/
 
 #include "xil_io.h"
@@ -114,4 +120,9 @@ void Xil_SleepTTCCommon(u32 delay, u64 frequency);
 void XTime_StartTTCTimer();
 
 #endif
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif /* XIL_SLEEPTIMER_H */
