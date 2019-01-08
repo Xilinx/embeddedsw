@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -953,6 +953,11 @@ s32 PmMasterRestart(PmMaster* const master)
 	/* Master restart is currently supported only for APU */
 	if (master != &pmMasterApu_g) {
 		status = XST_NO_FEATURE;
+		goto done;
+	}
+
+	status = XPfw_RestoreFsblToOCM();
+	if (XST_SUCCESS != status) {
 		goto done;
 	}
 

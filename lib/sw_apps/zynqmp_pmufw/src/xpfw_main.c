@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -36,6 +36,7 @@
 #include "xpfw_core.h"
 #include "xpfw_user_startup.h"
 #include "xpfw_platform.h"
+#include "xpfw_restart.h"
 #include "pm_system.h"
 #ifdef ENABLE_DDR_SR_WR
 #include "pm_hooks.h"
@@ -87,6 +88,12 @@ XStatus XPfw_Main(void)
 		}
 	}
 #endif
+
+	Status = XPfw_StoreFsblToDDR();
+	if (XST_SUCCESS != Status) {
+		XPfw_Printf(DEBUG_ERROR,"%s: Error! Storing FSBL for APU-only restart "
+				"failed. APU-only warm-restart may not work\r\n", __func__);
+	}
 
 	/* Wait to Service the Requests */
 	Status = XPfw_CoreLoop();

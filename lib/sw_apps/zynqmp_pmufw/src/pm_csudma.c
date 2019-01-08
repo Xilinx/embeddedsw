@@ -26,7 +26,7 @@
 
 #include "pm_csudma.h"
 
-static XCsuDma CsuDma;          /* Instance of the Csu_Dma Device */
+XCsuDma CsuDma;          /* Instance of the Csu_Dma Device */
 
 XStatus PmDmaInit(void)
 {

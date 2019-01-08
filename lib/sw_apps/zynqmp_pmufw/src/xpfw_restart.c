@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -34,6 +34,10 @@
 #include "pm_reset.h"
 #include "xpfw_resets.h"
 #include "xpfw_restart.h"
+#include "pm_csudma.h"
+#include "xsecure_sha.h"
+
+static XSecure_Sha3 Sha3Instance;
 
 #ifdef ENABLE_RECOVERY
 
@@ -451,3 +455,95 @@ void XPfw_RecoveryStop(PmMaster *Master) { }
 
 void XPfw_RecoveryRestart(PmMaster *Master) { }
 #endif /* ENABLE_RECOVERY */
+
+/**
+ *
+ * This function is used to store the FSBL image from OCM to
+ * reserved location of DDR.
+ *
+ * @param       None
+ *
+ * @return      Returns the status
+ *
+ */
+s32 XPfw_StoreFsblToDDR(void)
+{
+	u32 FsblStatus;
+	s32 Status;
+
+	Status = PmDmaInit();
+	if (XST_SUCCESS != Status) {
+		goto END;
+	}
+
+	Status = XSecure_Sha3Initialize(&Sha3Instance, &CsuDma);
+	if (XST_SUCCESS != Status) {
+		goto END;
+	}
+
+	/* Check if FSBL started */
+	do {
+		FsblStatus = XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5);
+	} while ((FsblStatus & FSBL_RUNNING_STATUS) != FSBL_RUNNING_STATUS);
+
+	/* Check if FSBL is running on A53 and store it to DDR */
+	if ((XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5) & FSBL_IS_RUNNING_ON_A53)
+			== FSBL_IS_RUNNING_ON_A53) {
+		memcpy((u32 *)FSBL_STORE_ADDR, (u32 *)FSBL_LOAD_ADDR,
+				FSBL_IMAGE_SIZE);
+
+		XSecure_Sha3Digest(&Sha3Instance, (u8 *)FSBL_STORE_ADDR,
+				FSBL_IMAGE_SIZE, (u8 *)FSBL_IMAGE_HASH_ADDR);
+		XPfw_Printf(DEBUG_DETAILED, "Copied FSBL image to DDR and "
+				"image hash checksum calculation successful\r\n");
+	} else {
+		XPfw_Printf(DEBUG_DETAILED, "FSBL is running on RPU. \r\n"
+				"Note: APU-only restart is supported only "
+				"if FSBL boots on APU.\r\n");
+		Status = XST_FAILURE;
+	}
+END:
+	return Status;
+}
+
+/**
+ *
+ * This function is used to load the FSBL image from reserved location of DDR
+ * to OCM.
+ *
+ * @param       None
+ *
+ * @return      Returns the status
+ *
+ */
+s32 XPfw_RestoreFsblToOCM(void)
+{
+	u32 Index;
+	u32 *HashExpected = (u32 *)FSBL_IMAGE_HASH_ADDR;
+	u32 *HashCalculated = (u32 *)FSBL_IMAGE_HASH_VERIFY_ADDR;
+	u32 Status = XST_SUCCESS;
+
+	XSecure_Sha3Digest(&Sha3Instance, (u8 *)FSBL_STORE_ADDR,
+				FSBL_IMAGE_SIZE, (u8 *)FSBL_IMAGE_HASH_VERIFY_ADDR);
+
+	for (Index = 0; Index < 12; Index++) {
+		if (HashExpected[Index] != HashCalculated[Index]) {
+			Status = XST_FAILURE;
+			break;
+		} else {
+			Status = XST_SUCCESS;
+		}
+	}
+
+	if (XST_SUCCESS == Status) {
+		memcpy((u32 *)FSBL_LOAD_ADDR, (u32 *)FSBL_STORE_ADDR,
+				FSBL_IMAGE_SIZE);
+		XPfw_Printf(DEBUG_DETAILED, "FSBL image hash checksum matched\r\n");
+	} else {
+		XPfw_Printf(DEBUG_DETAILED, "FSBL image hash checksum is not matching."
+				" This could be due to FSBL image being corrupted. "
+				"Unable to do APU-only restart\r\n");
+	}
+
+	return Status;
+}
