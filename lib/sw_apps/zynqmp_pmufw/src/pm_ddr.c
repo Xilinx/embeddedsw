@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -1712,6 +1712,7 @@ static s32 store_training_data()
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
+	PmSetCsuDmaLoopbackMode();
 
 	PmDma64BitTransfer(RESERVED_ADDRESS, 0, 0, 0, size);
 
@@ -1767,6 +1768,7 @@ static void restore_training_data()
 			      status);
 #endif
 	}
+	PmSetCsuDmaLoopbackMode();
 
 	PmDma64BitTransfer(0, 0, RESERVED_ADDRESS, 0, size);
 
