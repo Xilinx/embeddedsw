@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -42,3 +42,4 @@
 XStatus PmDmaInit(void);
 void PmDma64BitTransfer(u32 DstAddrLow, u32 DstAddrHigh,
 			 u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size);
+void PmSetCsuDmaLoopbackMode(void);

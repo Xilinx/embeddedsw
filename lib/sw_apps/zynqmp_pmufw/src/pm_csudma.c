@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -59,15 +59,18 @@ XStatus PmDmaInit(void)
 		goto Done;
 	}
 
+Done:
+	return Status;
+}
+
+void PmSetCsuDmaLoopbackMode(void)
+{
 	/*
 	 * Setting CSU_DMA in loop back mode.
 	 */
 	Xil_Out32(XCSU_BASEADDRESS + CSU_SSS_CONFIG_OFFSET,
 		((Xil_In32(XCSU_BASEADDRESS + CSU_SSS_CONFIG_OFFSET) & 0xF0000) |
 		  CSUDMA_LOOPBACK_CFG));
-
-Done:
-	return Status;
 }
 
 void PmDma64BitTransfer(u32 DstAddrLow, u32 DstAddrHigh,
