@@ -39,6 +39,8 @@
 /* LOOP BACK configuration macro */
 #define CSUDMA_LOOPBACK_CFG	0x00000050
 
+extern XCsuDma CsuDma;          /* Instance of the Csu_Dma Device */
+
 XStatus PmDmaInit(void);
 void PmDma64BitTransfer(u32 DstAddrLow, u32 DstAddrHigh,
 			 u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size);
