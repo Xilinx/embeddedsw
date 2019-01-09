@@ -34,7 +34,6 @@
 static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_ResetNode *Reset;
 	u32 AddrLow;
 	XPm_RpuCore *RpuCore = (XPm_RpuCore *)Core;
 
@@ -60,13 +59,8 @@ static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 			~XPM_RPU_VINITHI_MASK);
 	}
 
-	/* release reset for all resets attached to this core*/
-	Reset = RpuCore->Core.Device.Reset;
-
-	while (NULL != Reset) {
-		Status = Reset->Ops->SetState(Reset, PM_RESET_ACTION_RELEASE);
-		Reset = Reset->NextReset;
-	}
+	/* Release reset for all resets attached to this core */
+	Status = XPmDevice_Reset(&Core->Device, PM_RESET_ACTION_RELEASE);
 
 	Core->ResumeAddr = 0ULL;
 

@@ -139,6 +139,12 @@ struct XPm_DeviceOps {
 		/**< Release: Release the device */
 };
 
+/* Reset node list allocated to device */
+typedef struct XPm_ResetNodeList {
+	XPm_ResetNode *Reset; /**< Reset pointer for current node */
+	struct XPm_ResetNodeList *NextNode; /**< Pointer to next node in list */
+} XPm_ResetNodeList;
+
 /**
  * The device class.  This is the base class for all the processor core,
  * memory bank and peripheral classes.
@@ -147,7 +153,7 @@ struct XPm_Device {
 	XPm_Node Node; /**< Node: Base class */
 	XPm_Power *Power; /**< Device power node */
 	XPm_ClockHandle *ClkHandles; /**< Head of the list of device clocks */
-	XPm_ResetNode *Reset; /**< Device reset node */
+	XPm_ResetNodeList *ResetList; /**< Device reset node list */
 	XPm_Requirement *Requirements;
 		/**< Head of the list of requirements for all subsystems */
 
@@ -176,7 +182,9 @@ XStatus XPmDevice_SetPower(XPm_Device *Device, XPm_Power *Power);
 
 XStatus XPmDevice_AddClock(XPm_Device *Device, XPm_ClockNode *Clock);
 
-XStatus XPmDevice_SetReset(XPm_Device *Device, XPm_ResetNode *Reset);
+XStatus XPmDevice_AddReset(XPm_Device *Device, XPm_ResetNode *Reset);
+
+XStatus XPmDevice_Reset(XPm_Device *Device, const XPm_ResetActions Action);
 
 u8 XPmDevice_IsAllocated(u32 DeviceId, XPm_Subsystem *Subsystem);
 
