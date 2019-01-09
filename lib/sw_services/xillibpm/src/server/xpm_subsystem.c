@@ -183,14 +183,18 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 		break;
 	case XPM_NODECLASS_RESET:
 		Node = (XPm_Node *)XPmReset_GetById(NodeId);
+		XPm_ResetNodeList *RstList;
 		if (NULL == Node) {
 			goto done;
 		}
 		while (NULL != Reqm) {
-			if (((XPm_ResetNode *)Node == Reqm->Device->Reset) &&
-				(TRUE == Reqm->Allocated)) {
+			RstList = Reqm->Device->ResetList;
+			while ((NULL != RstList) && (TRUE == Reqm->Allocated)) {
+				if ((XPm_ResetNode *)Node == RstList->Reset) {
 					Status = XST_SUCCESS;
 					goto done;
+				}
+				RstList = RstList->NextNode;
 			}
 			Reqm = Reqm->NextDevice;
 		}

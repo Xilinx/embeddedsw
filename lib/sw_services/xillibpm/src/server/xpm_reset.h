@@ -71,13 +71,11 @@ typedef struct XPmResetOps {
 /**
  * The reset class.	 This is the base class for all the reset nodes.
  */
-
 struct XPm_ResetNode {
 	XPm_Node Node;
 	u32 Parents[MAX_RESET_PARENTS];
 	uint8_t Shift;
 	uint8_t Width;
-	XPm_ResetNode *NextReset; /**< Next reset for the device */
 	XPm_ResetOps *Ops;
 };
 

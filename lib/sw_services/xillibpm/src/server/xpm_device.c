@@ -166,12 +166,10 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 					/* De-assert reset for peripheral devices */
 					if (XPM_NODESUBCL_DEV_PERIPH ==
 						NODESUBCLASS(Device->Node.Id)) {
-						if (NULL != Device->Reset) {
-							Status = Device->Reset->Ops->SetState(Device->Reset,
-								PM_RESET_ACTION_RELEASE);
-							if (XST_SUCCESS != Status) {
-								break;
-							}
+						Status = XPmDevice_Reset(Device,
+							PM_RESET_ACTION_RELEASE);
+						if (XST_SUCCESS != Status) {
+							break;
 						}
 					}
 					/* Todo: Start timer to poll the reset node */
@@ -219,12 +217,10 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				/* Assert reset for peripheral devices */
 				if (XPM_NODESUBCL_DEV_PERIPH ==
 					NODESUBCLASS(Device->Node.Id)) {
-					if (NULL != Device->Reset) {
-						Status = Device->Reset->Ops->SetState(Device->Reset,
+					Status = XPmDevice_Reset(Device,
 							PM_RESET_ACTION_ASSERT);
-						if (XST_SUCCESS != Status) {
-							break;
-						}
+					if (XST_SUCCESS != Status) {
+						break;
 					}
 				}
 				/* Todo: Start timer to poll reset node */
@@ -450,12 +446,16 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 	}
 
 	Device->Power = Power;
-	Device->Reset = Reset;
 	Device->PendingReqm = NULL;
 	Device->WfDealloc = 0;
 	Device->WfPwrUseCnt = 0;
 
 	Status = XPmDevice_AddClock(Device, Clock);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = XPmDevice_AddReset(Device, Reset);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -526,18 +526,58 @@ done:
 	return Status;
 }
 
-XStatus XPmDevice_SetReset(XPm_Device *Device, XPm_ResetNode *Reset)
+XStatus XPmDevice_AddReset(XPm_Device *Device, XPm_ResetNode *Reset)
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = XST_SUCCESS;
+	XPm_ResetNodeList *CurrRstList, *RstNode;
 
-	if (NULL != Device->Reset) {
-		/* Cannot set reset node again */
+	if (NULL == Device) {
+		Status = XST_FAILURE;
 		goto done;
 	}
 
-	Device->Reset = Reset;
+	if (NULL == Reset) {
+		goto done;
+	}
 
-	Status = XST_SUCCESS;
+	RstNode = (XPm_ResetNodeList *)XPm_AllocBytes(sizeof(XPm_ResetNodeList));
+	if (NULL == RstNode) {
+		Status = XST_BUFFER_TOO_SMALL;
+		goto done;
+	}
+
+	RstNode->Reset = Reset;
+	RstNode->NextNode = NULL;
+
+	if (NULL == Device->ResetList) {
+		Device->ResetList = RstNode;
+	} else {
+		CurrRstList = Device->ResetList;
+		while (CurrRstList->NextNode != NULL) {
+			CurrRstList = CurrRstList->NextNode;
+		}
+		CurrRstList->NextNode = RstNode;
+	}
+
+done:
+	return Status;
+}
+
+XStatus XPmDevice_Reset(XPm_Device *Device, const XPm_ResetActions Action)
+{
+	u32 Status = XST_SUCCESS;
+	XPm_ResetNodeList *RstList;
+
+	if (NULL == Device) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	RstList = Device->ResetList;
+	while (NULL != RstList) {
+		RstList->Reset->Ops->SetState(RstList->Reset, Action);
+		RstList = RstList->NextNode;
+	}
 
 done:
 	return Status;
@@ -788,15 +828,15 @@ XStatus XPmDevice_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 		}
 		else if(NODECLASS(Parents[i]) == XPM_NODECLASS_RESET)
 		{
-			XPm_ResetNode *Rst;
-			if(DevPtr->Reset == NULL)
-				DevPtr->Reset = RstNodeList[NODEINDEX(Parents[i])];
-			else
-			{
-				Rst = DevPtr->Reset;
-				while(Rst->NextReset != NULL)
-					Rst = Rst->NextReset;
-				Rst->NextReset = RstNodeList[NODEINDEX(Parents[i])];
+			XPm_ResetNode *Rst = XPmReset_GetById(Parents[i]);
+			if (NULL == Rst) {
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
+
+			Status = XPmDevice_AddReset(DevPtr, Rst);
+			if (XST_SUCCESS != Status) {
+				goto done;
 			}
 		}
 		else if(NODECLASS(Parents[i]) == XPM_NODECLASS_POWER)
