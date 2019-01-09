@@ -29,8 +29,7 @@
 #include "xpm_domain_iso.h"
 #include "xpm_common.h"
 #include "xpm_regs.h"
-
-u32 XPmDomainIso_CtrlAddr = PMC_GLOBAL_DOMAIN_ISO_CNTRL;
+#include "xpm_core.h"
 
 u32 XPmDomainIso_MaskList[XPM_DOMAIN_ISO_MAX] = {
 	[XPM_DOMAIN_ISO_FPD_PL_TEST] = PMC_GLOBAL_DOMAIN_ISO_CNTRL_FPD_PL_TEST_MASK,
@@ -57,12 +56,18 @@ u32 XPmDomainIso_MaskList[XPM_DOMAIN_ISO_MAX] = {
 XStatus XPm_DomainIsoEnable(enum XPmDomainIso IsoId)
 {
 	XStatus Status = XST_FAILURE;
+	XPm_Core *Pmc;
 
 	if (IsoId >= XPM_DOMAIN_ISO_MAX)
 		goto done;
 
-	XPm_RMW32(XPmDomainIso_CtrlAddr, XPmDomainIso_MaskList[IsoId],
-		  XPmDomainIso_MaskList[IsoId]);
+	Pmc = (XPm_Core *)PmDevices[XPM_NODEIDX_DEV_PMC_PROC];
+	if (NULL == Pmc) {
+		goto done;
+	}
+
+	XPm_RMW32((Pmc->RegAddress[0] + DOMAIN_ISO_CTRL_OFFSET),
+		  XPmDomainIso_MaskList[IsoId], XPmDomainIso_MaskList[IsoId]);
 	Status = XST_SUCCESS;
 
 done:
@@ -72,11 +77,18 @@ done:
 XStatus XPm_DomainIsoDisable(enum XPmDomainIso IsoId)
 {
 	XStatus Status = XST_FAILURE;
+	XPm_Core *Pmc;
 
 	if (IsoId >= XPM_DOMAIN_ISO_MAX)
 		goto done;
 
-	XPm_RMW32(XPmDomainIso_CtrlAddr, XPmDomainIso_MaskList[IsoId], 0);
+	Pmc = (XPm_Core *)PmDevices[XPM_NODEIDX_DEV_PMC_PROC];
+	if (NULL == Pmc) {
+		goto done;
+	}
+
+	XPm_RMW32((Pmc->RegAddress[0] + DOMAIN_ISO_CTRL_OFFSET),
+		  XPmDomainIso_MaskList[IsoId], 0);
 	Status = XST_SUCCESS;
 
 done:
