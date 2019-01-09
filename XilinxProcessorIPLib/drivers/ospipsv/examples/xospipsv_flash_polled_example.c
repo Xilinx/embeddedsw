@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -50,6 +50,9 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.0   nsk  02/19/17 First release
+*       sk   01/09/19 Updated flash configuration table with
+*                     supported commands.
+*       sk   02/04/19 Add support for SDR+PHY and DDR+PHY modes.
 *</pre>
 *
 ******************************************************************************/
@@ -69,103 +72,29 @@
  */
 
 #define WRITE_STATUS_CMD	0x01
-#define WRITE_CMD		0x02
-#define READ_CMD		0x03
 #define WRITE_DISABLE_CMD	0x04
-#define READ_STATUS_CMD		0x05
 #define WRITE_ENABLE_CMD	0x06
-#define FAST_READ_CMD		0x0B
-#define DUAL_READ_CMD		0x3B
-#define QUAD_READ_CMD		0x6B
 #define BULK_ERASE_CMD		0xC7
-#define SEC_ERASE_CMD		0xD8
+#define DIE_ERASE_CMD		0xC4
 #define READ_ID			0x9F
 #define READ_CONFIG_CMD		0x35
 #define WRITE_CONFIG_CMD	0x01
-#define READ_CMD_OCTAL		0x8B
-#define READ_CMD_OCTAL_IO	0xCB
-#define WRITE_OCTAL_CMD		0x82
-#define WRITE_OCTAL_IO_CMD	0xC2
-
+#define READ_FLAG_STATUS_CMD	0x70
 #define WRITE_CMD_4B		0x12
-#define READ_CMD_4B		0x13
-#define FAST_READ_CMD_4B	0x0C
-#define DUAL_READ_CMD_4B	0x3C
-#define QUAD_READ_CMD_4B	0x6C
 #define SEC_ERASE_CMD_4B	0xDC
-#define READ_CMD_OCTAL_4B	0x7C
 #define READ_CMD_OCTAL_IO_4B	0xCC
+#define READ_CMD_OCTAL_DDR	0x9D
 #define WRITE_CMD_OCTAL_4B	0x84
-#define WRITE_CMD_OCTAL_IO_4B	0x8E
 #define ENTER_4B_ADDR_MODE	0xB7
 #define EXIT_4B_ADDR_MODE	0xE9
-
-#define BANK_REG_RD		0x16
-#define BANK_REG_WR		0x17
-/* Bank register is called Extended Address Register in Micron */
-#define EXTADD_REG_RD		0xC8
-#define EXTADD_REG_WR		0xC5
-#define DIE_ERASE_CMD		0xC4
-#define READ_FLAG_STATUS_CMD	0x70
-
-/*
- * The following constants define the offsets within a FlashBuffer data
- * type for each kind of data.  Note that the read data offset is not the
- * same as the write data because the OSPIPS driver is designed to allow full
- * duplex transfers such that the number of bytes received is the number
- * sent and received.
- */
-#define COMMAND_OFFSET		0 /* Flash instruction */
-#define ADDRESS_1_OFFSET	1 /* MSB byte of address to read or write */
-#define ADDRESS_2_OFFSET	2 /* Middle byte of address to read or write */
-#define ADDRESS_3_OFFSET	3 /* LSB byte of address to read or write */
-#define ADDRESS_4_OFFSET	4 /* LSB byte of address to read or write when 4 byte address */
-#define DATA_OFFSET		5 /* Start of Data for Read/Write */
-#define DUMMY_OFFSET		4 /* Dummy byte offset for fast, dual and quad
-				     reads */
-#define DUMMY_SIZE		1 /* Number of dummy bytes for fast, dual and
-				     quad reads */
-#define DUMMY_CLOCKS		8 /* Number of dummy bytes for fast, dual and
-				     quad reads */
-#define RD_ID_SIZE		4 /* Read ID command + 3 bytes ID response */
-#define BULK_ERASE_SIZE		1 /* Bulk Erase command size */
-#define SEC_ERASE_SIZE		4 /* Sector Erase command + Sector address */
-#define BANK_SEL_SIZE	2 /* BRWR or EARWR command + 1 byte bank value */
-#define RD_CFG_SIZE		2 /* 1 byte Configuration register + RD CFG command*/
-#define WR_CFG_SIZE		3 /* WRR command + 1 byte each Status and Config Reg*/
-#define DIE_ERASE_SIZE	4	/* Die Erase command + Die address */
-
-/*
- * The following constants specify the extra bytes which are sent to the
- * Flash on the OSPIPS interface, that are not data, but control information
- * which includes the command and address
- */
-#define OVERHEAD_SIZE		4
-
-/*
- * Base address of Flash1
- */
-#define FLASH1BASE 0x000000
+#define WRITE_CONFIG_REG	0x81
+#define READ_CONFIG_REG		0x85
 
 /*
  * Sixteen MB
  */
 #define SIXTEENMB 0x1000000
 #define ONEMB	0x100000
-#define DEVSIZE 0x2000000
-
-
-/*
- * Mask for quad enable bit in Flash configuration register
- */
-#define FLASH_QUAD_EN_MASK 0x02
-
-#define FLASH_SRWD_MASK 0x80
-
-/*
- * Bank mask
- */
-#define BANKMASK 0xF000000
 
 /*
  * Identification of Flash
@@ -226,13 +155,12 @@ typedef struct{
 	u8 DeviceIDMemSize;	/* Byte of device ID indicating the memory size */
 	u32 SectMask;		/* Mask to get sector start address */
 	u8 NumDie;		/* No. of die forming a single flash */
+	u32 ReadCmd;		/* Read command used to read data from flash */
+	u32 WriteCmd;	/* Write command used to write data to flash */
+	u32 EraseCmd;	/* Erase Command */
+	u8 StatusCmd;	/* Status Command */
+	u8 DummyCycles;	/* Number of Dummy cycles for Read operation */
 }FlashInfo;
-
-u8 ReadCmd;
-u8 WriteCmd;
-u8 StatusCmd;
-u8 SectorEraseCmd;
-u8 FSRFlag;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -242,12 +170,12 @@ int OspiPsvPolledFlashExample(XOspiPsv *OspiPsvInstancePtr, u16 OspiPsvDeviceId)
 
 int FlashReadID(XOspiPsv *OspiPsvPtr);
 int FlashErase(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr);
-int FlashIoWrite(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount, u8 Command,
+int FlashIoWrite(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 				u8 *WriteBfrPtr);
-int FlashLinearWrite(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount, u8 Command,
+int FlashLinearWrite(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 				u8 *WriteBfrPtr);
 
-int FlashRead(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount, u8 Command,
+int FlashRead(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 				u8 *WriteBfrPtr, u8 *ReadBfrPtr);
 u32 GetRealAddr(XOspiPsv *OspiPsvPtr, u32 Address);
 int BulkErase(XOspiPsv *OspiPsvPtr, u8 *WriteBfrPtr);
@@ -257,14 +185,18 @@ int FlashRegisterWrite(XOspiPsv *OspiPsvPtr, u32 ByteCount, u8 Command,
 					u8 *WriteBfrPtr, u8 WrEn);
 s32 InitCmd(XOspiPsv *OspiPsvInstancePtr);
 int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, int Enable);
+int FlashSetSDRDDRMode(XOspiPsv *OspiPsvPtr, int Mode);
 
 /************************** Variable Definitions *****************************/
 u8 TxBfrPtr;
-u8 ReadBfrPtr[3];
-FlashInfo Flash_Config_Table[28] = {
+u8 ReadBfrPtr[8]__attribute__ ((aligned(4)));
+FlashInfo Flash_Config_Table[1] = {
 	/* Micron */
-	{0x20000, 0x200, 256, 0x40000, 0x2000000,
-		MICRON_OCTAL_ID_BYTE0, MICRON_OCTAL_ID_BYTE2_512, 0xFFFF0000, 1}
+	{0x20000, 0x200, 256, 0x40000, 0x4000000, MICRON_OCTAL_ID_BYTE0,
+		MICRON_OCTAL_ID_BYTE2_512, 0xFFFF0000, 1, READ_CMD_OCTAL_IO_4B,
+		(WRITE_CMD_OCTAL_4B << 8) | WRITE_CMD_4B,
+		(DIE_ERASE_CMD << 16) | (BULK_ERASE_CMD << 8) | SEC_ERASE_CMD_4B,
+		READ_FLAG_STATUS_CMD, 16}
 };
 
 u32 FlashMake;
@@ -289,12 +221,17 @@ int Test = 1;
 /*
  * The following variables are used to read and write to the flash and they
  * are global to avoid having large buffers on the stack
- * The buffer size accounts for maximum page size and maximum banks -
- * for each bank separate read will be performed leading to that many
- * (overhead+dummy) bytes
  */
-u8 ReadBuffer[(PAGE_COUNT * MAX_PAGE_SIZE) + (DATA_OFFSET + DUMMY_SIZE)*8];
-u8 WriteBuffer[(PAGE_COUNT * MAX_PAGE_SIZE) + DATA_OFFSET];
+#ifdef __ICCARM__
+#pragma data_alignment = 64
+u8 ReadBuffer[(PAGE_COUNT * MAX_PAGE_SIZE)];
+#pragma data_alignment = 4
+u8 WriteBuffer[(PAGE_COUNT * MAX_PAGE_SIZE)];
+#else
+u8 ReadBuffer[(PAGE_COUNT * MAX_PAGE_SIZE)] __attribute__ ((aligned(64)));
+u8 WriteBuffer[(PAGE_COUNT * MAX_PAGE_SIZE)] __attribute__ ((aligned(4)));
+#endif
+
 u8 CmdBfr[8];
 
 /*
@@ -357,8 +294,8 @@ int OspiPsvPolledFlashExample(XOspiPsv *OspiPsvInstancePtr, u16 OspiPsvDeviceId)
 	int Page = 0;
 	XOspiPsv_Config *OspiPsvConfig;
 	int ReadBfrSize;
-	ReadBfrSize = (PAGE_COUNT * MAX_PAGE_SIZE) +
-			(DATA_OFFSET + DUMMY_SIZE)*8;
+	ReadBfrSize = (PAGE_COUNT * MAX_PAGE_SIZE);
+
 
 	/*
 	 * Initialize the OSPIPS driver so that it's ready to use
@@ -367,12 +304,12 @@ int OspiPsvPolledFlashExample(XOspiPsv *OspiPsvInstancePtr, u16 OspiPsvDeviceId)
 	if (NULL == OspiPsvConfig) {
 		return XST_FAILURE;
 	}
-	/* To test, change connection mode here if not obtained from HDF */
 
 	Status = XOspiPsv_CfgInitialize(OspiPsvInstancePtr, OspiPsvConfig);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
+
 	/*
 	 * Enable IDAC controller in OSPI
 	 */
@@ -380,9 +317,14 @@ int OspiPsvPolledFlashExample(XOspiPsv *OspiPsvInstancePtr, u16 OspiPsvDeviceId)
 	/*
 	 * Set the prescaler for OSPIPS clock
 	 */
+	XOspiPsv_SetClkPrescaler(OspiPsvInstancePtr, XOSPIPSV_CLK_PRESCALE_12);
 
-	XOspiPsv_SetClkPrescaler(OspiPsvInstancePtr, XOSPIPSV_CLK_PRESCALE_15);
 	Status = XOspiPsv_SelectFlash(OspiPsvInstancePtr, XOSPIPSV_SELECT_FLASH_CS0);
+	if (Status != XST_SUCCESS)
+		return XST_FAILURE;
+
+	/* Set Flash device and Controller modes */
+	Status = FlashSetSDRDDRMode(OspiPsvInstancePtr, XOSPIPSV_EDGE_MODE_SDR_NON_PHY);
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
 	/*
@@ -391,57 +333,43 @@ int OspiPsvPolledFlashExample(XOspiPsv *OspiPsvInstancePtr, u16 OspiPsvDeviceId)
 	 * performing proceeding to any operation, including
 	 * preparing the WriteBuffer
 	 */
-
 	Status = FlashReadID(OspiPsvInstancePtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 	MaxData = PAGE_COUNT * (Flash_Config_Table[FCTIndex].PageSize);
-	/*
-	 * Address size and read command selection
-	 * Micron flash on REMUS doesn't support this 4B write/erase cmd
-	 */
-
-	/* Status cmd - SR or FSR selection */
-	if((Flash_Config_Table[FCTIndex].NumDie > 1) &&
-		(FlashMake == MICRON_OCTAL_ID_BYTE0)) {
-		StatusCmd = READ_FLAG_STATUS_CMD;
-		FSRFlag = 1;
-	} else {
-		StatusCmd = READ_STATUS_CMD;
-		FSRFlag = 0;
-	}
-
-	StatusCmd = READ_FLAG_STATUS_CMD;
 
 	for (UniqueValue = UNIQUE_VALUE, Count = 0;
-		Count < Flash_Config_Table[FCTIndex].PageSize * 32;
+		Count < Flash_Config_Table[FCTIndex].PageSize * PAGE_COUNT;
 			Count++, UniqueValue++) {
 		WriteBuffer[Count] = (u8)(UniqueValue + Test);
 
 	}
 
-	InitCmd(OspiPsvInstancePtr);
-	xil_printf("ReadCmd: 0x%x, WriteCmd: 0x%x, EraseCmd 0x%x\n\r", ReadCmd, WriteCmd,
-		SectorEraseCmd) ;
+	if(Flash_Config_Table[FCTIndex].FlashDeviceSize > SIXTEENMB) {
+		Status = FlashEnterExit4BAddMode(OspiPsvInstancePtr, 1);
+		if(Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+	}
+
 	Status = FlashErase(OspiPsvInstancePtr, TEST_ADDRESS, MaxData, CmdBfr);
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
 
 	if (XOspiPsv_GetOptions(OspiPsvInstancePtr) == XOSPIPSV_DAC_EN_OPTION) {
-		for (Page = 0; Page < PAGE_COUNT; Page++) {
-			Status = FlashLinearWrite(OspiPsvInstancePtr,
-			(Page * Flash_Config_Table[FCTIndex].PageSize) + TEST_ADDRESS,
-			((Flash_Config_Table[FCTIndex].PageSize)), WriteCmd, WriteBuffer);
-			if (Status != XST_SUCCESS)
-				return XST_FAILURE;
-		}
+		xil_printf("WriteCmd: 0x%x\n\r", (u8)(Flash_Config_Table[FCTIndex].WriteCmd >> 8));
+		Status = FlashLinearWrite(OspiPsvInstancePtr, TEST_ADDRESS,
+		(Flash_Config_Table[FCTIndex].PageSize * PAGE_COUNT), WriteBuffer);
+		if (Status != XST_SUCCESS)
+			return XST_FAILURE;
 	} else {
+		xil_printf("WriteCmd: 0x%x\n\r", (u8)Flash_Config_Table[FCTIndex].WriteCmd);
 		for (Page = 0; Page < PAGE_COUNT; Page++) {
 			Status = FlashIoWrite(OspiPsvInstancePtr,
 			(Page * Flash_Config_Table[FCTIndex].PageSize) + TEST_ADDRESS,
-			((Flash_Config_Table[FCTIndex].PageSize)), WriteCmd, WriteBuffer);
+			((Flash_Config_Table[FCTIndex].PageSize)), WriteBuffer);
 			if (Status != XST_SUCCESS)
 				return XST_FAILURE;
 		}
@@ -450,7 +378,7 @@ int OspiPsvPolledFlashExample(XOspiPsv *OspiPsvInstancePtr, u16 OspiPsvDeviceId)
 		ReadBuffer[Count] = 0;
 	}
 
-	Status = FlashRead(OspiPsvInstancePtr, TEST_ADDRESS, MaxData, ReadCmd,
+	Status = FlashRead(OspiPsvInstancePtr, TEST_ADDRESS, MaxData,
 			CmdBfr, ReadBuffer);
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
@@ -465,12 +393,19 @@ int OspiPsvPolledFlashExample(XOspiPsv *OspiPsvInstancePtr, u16 OspiPsvDeviceId)
 			return XST_FAILURE;
 		}
 	}
+
 	if(Flash_Config_Table[FCTIndex].FlashDeviceSize > SIXTEENMB) {
-				Status = FlashEnterExit4BAddMode(OspiPsvInstancePtr, 0);
-				if(Status != XST_SUCCESS) {
-					return XST_FAILURE;
-				}
+		Status = FlashEnterExit4BAddMode(OspiPsvInstancePtr, 0);
+		if(Status != XST_SUCCESS) {
+			return XST_FAILURE;
 		}
+	}
+
+	/* Set Extended SPI Mode in OSPI device and Controller */
+	Status = FlashSetSDRDDRMode(OspiPsvInstancePtr, XOSPIPSV_EDGE_MODE_SDR_NON_PHY);
+	if (Status != XST_SUCCESS)
+		return XST_FAILURE;
+
 	return XST_SUCCESS;
 }
 
@@ -493,91 +428,15 @@ u32 XOspiPsv_Get_Proto(XOspiPsv *OspiPsvInstancePtr, int Read)
 	u32 Val;
 
 	if(Read) {
-		switch(ReadCmd) {
-			case	READ_CMD_4B:
-			case 	READ_CMD:
-			case	FAST_READ_CMD:
-				Val = XOSPIPSV_READ_1_1_1;
-				break;
-			case 	READ_CMD_OCTAL:
-			case	READ_CMD_OCTAL_4B:
-				Val = XOSPIPSV_READ_1_1_8;
-				break;
-			case	READ_CMD_OCTAL_IO_4B:
-			case	READ_CMD_OCTAL_IO:
-				Val = XOSPIPSV_READ_1_8_8;
-				break;
-		}
+		Val = XOSPIPSV_READ_1_8_8;
 	} else {
-		switch(WriteCmd) {
-			case	WRITE_CMD:
-			case 	WRITE_CMD_4B:
-				Val = XOSPIPSV_WRITE_1_1_1;
-				break;
-			case	WRITE_OCTAL_CMD:
-			case	WRITE_CMD_OCTAL_4B:
-				Val = XOSPIPSV_WRITE_1_1_8;
-				break;
-			case 	WRITE_OCTAL_IO_CMD:
-			case	WRITE_CMD_OCTAL_IO_4B:
-				Val = XOSPIPSV_WRITE_1_8_8;
-				break;
+		if (OspiPsvInstancePtr->OpMode == XOSPIPSV_IDAC_MODE) {
+			Val = XOSPIPSV_WRITE_1_1_1;
+		} else {
+			Val = XOSPIPSV_WRITE_1_1_8;
 		}
 	}
 	return Val;
-}
-
-/*****************************************************************************/
-/**
-*
-* The purpose of this function is to initialize the commands used in IO, linear
-* or DMA mode
-*
-* @param	OspiPsvPtr is a pointer to the OSPIPS driver component to use.
-*
-* @return	XST_SUCCESS if successful, else XST_FAILURE.
-*
-* @note		None.
-*
-*****************************************************************************/
-s32 InitCmd(XOspiPsv *OspiPsvInstancePtr)
-{
-	u32 Status;
-
-	if(Flash_Config_Table[FCTIndex].FlashDeviceSize > SIXTEENMB) {
-		Status = FlashEnterExit4BAddMode(OspiPsvInstancePtr, 1);
-		if(Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-		if (XOspiPsv_GetOptions(OspiPsvInstancePtr) == XOSPIPSV_IDAC_EN_OPTION) {
-			WriteCmd = WRITE_CMD_4B;
-			SectorEraseCmd = SEC_ERASE_CMD_4B;
-			ReadCmd = READ_CMD_OCTAL_IO_4B;
-		} else if (XOspiPsv_GetOptions(OspiPsvInstancePtr) == XOSPIPSV_DAC_EN_OPTION) {
-			WriteCmd = WRITE_CMD_OCTAL_4B;
-			SectorEraseCmd = SEC_ERASE_CMD_4B;
-			ReadCmd = READ_CMD_OCTAL_IO_4B;
-		} else {
-			WriteCmd = WRITE_CMD_4B;
-			SectorEraseCmd = SEC_ERASE_CMD_4B;
-			ReadCmd = READ_CMD_4B;
-		}
-	} else {
-		if (XOspiPsv_GetOptions(OspiPsvInstancePtr) == XOSPIPSV_IDAC_EN_OPTION) {
-			WriteCmd = WRITE_CMD;
-			SectorEraseCmd = SEC_ERASE_CMD;
-			ReadCmd = READ_CMD_OCTAL;
-		} else if (XOspiPsv_GetOptions(OspiPsvInstancePtr) == XOSPIPSV_DAC_EN_OPTION) {
-			WriteCmd = WRITE_OCTAL_CMD;
-			SectorEraseCmd = SEC_ERASE_CMD;
-			ReadCmd = READ_CMD_OCTAL;
-		} else  {
-			WriteCmd = WRITE_CMD;
-			SectorEraseCmd = SEC_ERASE_CMD;
-			ReadCmd = READ_CMD;
-		}
-	}
-	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -595,7 +454,6 @@ s32 InitCmd(XOspiPsv *OspiPsvInstancePtr)
 int FlashReadID(XOspiPsv *OspiPsvPtr)
 {
 	int Status;
-	int StartIndex;
 	int ReadIdBytes = 8;
 
 	/*
@@ -608,6 +466,12 @@ int FlashReadID(XOspiPsv *OspiPsvPtr)
 	FlashMsg.RxBfrPtr = ReadBfrPtr;
 	FlashMsg.ByteCount = ReadIdBytes;
 	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
+	FlashMsg.Dummy = 0;
+	FlashMsg.IsDDROpCode = 0;
+	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.Dummy = 8;
+		FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
+	}
 	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -623,7 +487,6 @@ int FlashReadID(XOspiPsv *OspiPsvPtr)
 	 */
 	if (ReadBfrPtr[0] == MICRON_OCTAL_ID_BYTE0) {
 		FlashMake = MICRON_OCTAL_ID_BYTE0;
-		StartIndex = MICRON_INDEX_START;
 	}
 
 	/*
@@ -649,9 +512,6 @@ int FlashReadID(XOspiPsv *OspiPsvPtr)
 * @param	OspiPsvPtr is a pointer to the OSPIPS driver component to use.
 * @param	Address contains the address to write data to in the Flash.
 * @param	ByteCount contains the number of bytes to write.
-* @param	Command is the command used to write data to the flash. OSPIPS
-*		device supports only Page Program command to write data to the
-*		flash.
 * @param	Pointer to the write buffer (which is to be transmitted)
 *
 * @return	XST_SUCCESS if successful, else XST_FAILURE.
@@ -659,10 +519,11 @@ int FlashReadID(XOspiPsv *OspiPsvPtr)
 * @note		None.
 *
 ******************************************************************************/
-int FlashLinearWrite(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount, u8 Command,
+int FlashLinearWrite(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 				u8 *WriteBfrPtr)
 {
 	u8 Status;
+
 	FlashMsg.Opcode = WRITE_ENABLE_CMD;
 	FlashMsg.Addrsize = 0;
 	FlashMsg.Addrvalid = 0;
@@ -670,31 +531,37 @@ int FlashLinearWrite(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount, u8 Comman
 	FlashMsg.RxBfrPtr = NULL;
 	FlashMsg.ByteCount = 0;
 	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+	FlashMsg.IsDDROpCode = 0;
+	FlashMsg.Proto = 0;
+	FlashMsg.Dummy = 0;
+	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
+	}
 
 	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
 
-	FlashMsg.Opcode = Command;
+	FlashMsg.Opcode = (u8)(Flash_Config_Table[FCTIndex].WriteCmd >> 8);
 	FlashMsg.Addrvalid = 1;
 	FlashMsg.TxBfrPtr = WriteBfrPtr;
 	FlashMsg.RxBfrPtr = NULL;
 	FlashMsg.ByteCount = ByteCount;
 	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
-	if((Command == WRITE_CMD_4B) || (Command == WRITE_CMD_OCTAL_4B))
-		FlashMsg.Addrsize = 4;
-	else
-		FlashMsg.Addrsize = 3;
-
+	FlashMsg.Addrsize = 4;
 	FlashMsg.Addr = Address;
 	FlashMsg.Proto = XOspiPsv_Get_Proto(OspiPsvPtr, 0);
+	FlashMsg.Dummy = 0;
+	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.Proto = XOSPIPSV_WRITE_8_8_8;
+	}
+	FlashMsg.IsDDROpCode = 0;
 	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
 
 	return 0;
 }
-
 
 /*****************************************************************************/
 /**
@@ -707,9 +574,6 @@ int FlashLinearWrite(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount, u8 Comman
 * @param	OspiPsvPtr is a pointer to the OSPIPS driver component to use.
 * @param	Address contains the address to write data to in the Flash.
 * @param	ByteCount contains the number of bytes to write.
-* @param	Command is the command used to write data to the flash. OSPIPS
-*		device supports only Page Program command to write data to the
-*		flash.
 * @param	Pointer to the write buffer (which is to be transmitted)
 *
 * @return	XST_SUCCESS if successful, else XST_FAILURE.
@@ -717,12 +581,12 @@ int FlashLinearWrite(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount, u8 Comman
 * @note		None.
 *
 ******************************************************************************/
-int FlashIoWrite(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount, u8 Command,
+int FlashIoWrite(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 				u8 *WriteBfrPtr)
 {
-	u8 FlashStatus;
+	u8 FlashStatus[2] __attribute__ ((aligned(4)));
 	u8 Status;
-	u32 Butestowrite;
+	u32 Bytestowrite;
 
 	while(ByteCount != 0) {
 		FlashMsg.Opcode = WRITE_ENABLE_CMD;
@@ -732,30 +596,39 @@ int FlashIoWrite(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount, u8 Command,
 		FlashMsg.RxBfrPtr = NULL;
 		FlashMsg.ByteCount = 0;
 		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+		FlashMsg.IsDDROpCode = 0;
+		FlashMsg.Proto = 0;
+		FlashMsg.Dummy = 0;
+		if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+			FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
+		}
 
 		Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 		if (Status != XST_SUCCESS)
 			return XST_FAILURE;
 
 		if(ByteCount <= 8) {
-			Butestowrite = ByteCount;
+			Bytestowrite = ByteCount;
 			ByteCount = 0;
 		} else {
-			Butestowrite = 8;
+			Bytestowrite = 8;
 			ByteCount -= 8;
 		}
-		FlashMsg.Opcode = Command;
+
+		FlashMsg.Opcode = (u8)Flash_Config_Table[FCTIndex].WriteCmd;
 		FlashMsg.Addrvalid = 1;
 		FlashMsg.TxBfrPtr = WriteBfrPtr;
 		FlashMsg.RxBfrPtr = NULL;
-		FlashMsg.ByteCount = Butestowrite;
+		FlashMsg.ByteCount = Bytestowrite;
 		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
-		if((Command == WRITE_CMD_4B) || (Command == WRITE_CMD_OCTAL_4B))
-			FlashMsg.Addrsize = 4;
-		else
-			FlashMsg.Addrsize = 3;
-
+		FlashMsg.Proto = XOspiPsv_Get_Proto(OspiPsvPtr, 0);
+		FlashMsg.Dummy = 0;
+		FlashMsg.Addrsize = 4;
+		FlashMsg.IsDDROpCode = 0;
 		FlashMsg.Addr = Address;
+		if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+			FlashMsg.Proto = XOSPIPSV_WRITE_8_8_8;
+		}
 		Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 		if (Status != XST_SUCCESS)
 			return XST_FAILURE;
@@ -764,19 +637,27 @@ int FlashIoWrite(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount, u8 Command,
 		Address += 8;
 
 		while (1) {
-			FlashMsg.Opcode = StatusCmd;
-			FlashMsg.Addrsize = 3;
+			FlashMsg.Opcode = Flash_Config_Table[FCTIndex].StatusCmd;
+			FlashMsg.Addrsize = 0;
 			FlashMsg.Addrvalid = 0;
 			FlashMsg.TxBfrPtr = NULL;
-			FlashMsg.RxBfrPtr = &FlashStatus;
+			FlashMsg.RxBfrPtr = FlashStatus;
 			FlashMsg.ByteCount = 1;
+			FlashMsg.Dummy = 0;
 			FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
+			FlashMsg.IsDDROpCode = 0;
+			FlashMsg.Proto = 0;
+			if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+				FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
+				FlashMsg.ByteCount = 2;
+				FlashMsg.Dummy = 8;
+			}
 
 			Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 			if (Status != XST_SUCCESS)
 				return XST_FAILURE;
 
-			if ((FlashStatus & 0x80) != 0)
+			if ((FlashStatus[0] & 0x80) != 0)
 				break;
 		}
 }
@@ -805,7 +686,7 @@ int FlashErase(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 {
 	int Sector;
 	u32 NumSect;
-	u8 FlashStatus;
+	u8 FlashStatus[2] __attribute__ ((aligned(4)));
 	u8 Status;
 
 	/*
@@ -817,6 +698,7 @@ int FlashErase(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 
 
 		if(Flash_Config_Table[FCTIndex].NumDie == 1) {
+			xil_printf("EraseCmd 0x%x\n\r", (u8)(Flash_Config_Table[FCTIndex].EraseCmd >> 8));
 			/*
 			 * Call Bulk erase
 			 */
@@ -824,6 +706,7 @@ int FlashErase(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 		}
 
 		if(Flash_Config_Table[FCTIndex].NumDie > 1) {
+			xil_printf("EraseCmd 0x%x\n\r", (u8)(Flash_Config_Table[FCTIndex].EraseCmd >> 16));
 			/*
 			 * Call Die erase
 			 */
@@ -832,6 +715,7 @@ int FlashErase(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 		return 0;
 	}
 
+	xil_printf("EraseCmd 0x%x\n\r", (u8)Flash_Config_Table[FCTIndex].EraseCmd);
 	/*
 	 * If the erase size is less than the total size of the flash, use
 	 * sector erase command
@@ -868,40 +752,58 @@ int FlashErase(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 		FlashMsg.RxBfrPtr = NULL;
 		FlashMsg.ByteCount = 0;
 		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+		FlashMsg.IsDDROpCode = 0;
+		FlashMsg.Proto = 0;
+		FlashMsg.Dummy = 0;
+		if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+			FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
+		}
 
 		Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 		if (Status != XST_SUCCESS)
 			return XST_FAILURE;
 
-		FlashMsg.Opcode = SectorEraseCmd;
-		if(FlashMsg.Opcode == SEC_ERASE_CMD_4B)
-			FlashMsg.Addrsize = 4;
-		else
-			FlashMsg.Addrsize = 3;
+		FlashMsg.Opcode = (u8)Flash_Config_Table[FCTIndex].EraseCmd;
+		FlashMsg.Addrsize = 4;
 		FlashMsg.Addrvalid = 1;
 		FlashMsg.TxBfrPtr = NULL;
 		FlashMsg.RxBfrPtr = NULL;
 		FlashMsg.ByteCount = 0;
 		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
 		FlashMsg.Addr = Address;
+		FlashMsg.IsDDROpCode = 0;
+		FlashMsg.Proto = 0;
+		FlashMsg.Dummy = 0;
+		if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+			FlashMsg.Proto = XOSPIPSV_WRITE_8_8_0;
+		}
 		Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
 		while (1) {
-			FlashMsg.Opcode = StatusCmd;
-			FlashMsg.Addrsize = 3;
+			FlashMsg.Opcode = Flash_Config_Table[FCTIndex].StatusCmd;
+			FlashMsg.Addrsize = 0;
 			FlashMsg.Addrvalid = 0;
 			FlashMsg.TxBfrPtr = NULL;
-			FlashMsg.RxBfrPtr = &FlashStatus;
+			FlashMsg.RxBfrPtr = FlashStatus;
 			FlashMsg.ByteCount = 1;
 			FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
+			FlashMsg.Dummy = 0;
+			FlashMsg.IsDDROpCode = 0;
+			FlashMsg.Proto = 0;
+			if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+				FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
+				FlashMsg.ByteCount = 2;
+				FlashMsg.Dummy = 8;
+			}
 
 			Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 			if (Status != XST_SUCCESS) {
 				return XST_FAILURE;
 			}
-			if ((FlashStatus & 0x80) != 0) {
+
+			if ((FlashStatus[0] & 0x80) != 0) {
 				break;
 			}
 		}
@@ -919,8 +821,6 @@ int FlashErase(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 * @param	Address contains the address of the first sector which needs to
 *			be erased.
 * @param	ByteCount contains the total size to be erased.
-* @param	Command is the command used to read data from the flash. Supports
-* 			normal, fast, dual and quad read commands.
 * @param	Pointer to the write buffer which contains data to be transmitted
 * @param	Pointer to the read buffer to which valid received data should be
 * 			written
@@ -930,16 +830,14 @@ int FlashErase(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 * @note		None.
 *
 ******************************************************************************/
-int FlashRead(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount, u8 Command,
+int FlashRead(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 				u8 *WriteBfrPtr, u8 *ReadBfrPtr)
 {
 	u8 Status;
-	FlashMsg.Opcode = Command;
-	if((Command == READ_CMD_OCTAL_4B) || (Command == READ_CMD_OCTAL_IO_4B)
-			|| (Command == READ_CMD_4B))
-		FlashMsg.Addrsize = 4;
-	else
-		FlashMsg.Addrsize = 3;
+
+	xil_printf("ReadCmd 0x%x\r\n", Flash_Config_Table[FCTIndex].ReadCmd);
+	FlashMsg.Opcode = (u8)Flash_Config_Table[FCTIndex].ReadCmd;
+	FlashMsg.Addrsize = 4;
 	FlashMsg.Addrvalid = 1;
 	FlashMsg.TxBfrPtr = NULL;
 	FlashMsg.RxBfrPtr = ReadBfrPtr;
@@ -947,16 +845,13 @@ int FlashRead(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount, u8 Command,
 	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
 	FlashMsg.Addr = Address;
 	FlashMsg.Proto = XOspiPsv_Get_Proto(OspiPsvPtr, 1);
-	/* It is recommended to have a separate entry for dummy */
-	if ((Command == FAST_READ_CMD) || (Command == DUAL_READ_CMD) ||
-	    (Command == QUAD_READ_CMD) || (Command == FAST_READ_CMD_4B) ||
-	    (Command == DUAL_READ_CMD_4B) || (Command == QUAD_READ_CMD_4B) ||
-	    (Command == READ_CMD_OCTAL) ||
-	    (Command == READ_CMD_OCTAL_4B)) {
-		FlashMsg.Dummy = 8;
-	} else if( (Command == READ_CMD_OCTAL_IO)|| (Command == READ_CMD_OCTAL_IO_4B)) {
+	FlashMsg.Dummy = Flash_Config_Table[FCTIndex].DummyCycles;
+	FlashMsg.IsDDROpCode = 0;
+	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.Proto = XOSPIPSV_READ_8_8_8;
 		FlashMsg.Dummy = 16;
 	}
+
 	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -981,7 +876,7 @@ int FlashRead(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount, u8 Command,
 ******************************************************************************/
 int BulkErase(XOspiPsv *OspiPsvPtr, u8 *WriteBfrPtr)
 {
-	u8 FlashStatus;
+	u8 FlashStatus[2] __attribute__ ((aligned(4)));
 	int Status;
 
 
@@ -992,40 +887,63 @@ int BulkErase(XOspiPsv *OspiPsvPtr, u8 *WriteBfrPtr)
 	FlashMsg.RxBfrPtr = NULL;
 	FlashMsg.ByteCount = 0;
 	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+	FlashMsg.IsDDROpCode = 0;
+	FlashMsg.Proto = 0;
+	FlashMsg.Dummy = 0;
+	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
+	}
 
-	XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
+	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
+	if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+	}
 
 	/*
 	 * Send the write enable command to the Flash so that it can be
 	 * written to, this needs to be sent as a separate transfer before
 	 * the write
 	 */
-	FlashMsg.Opcode = BULK_ERASE_CMD;
+	FlashMsg.Opcode = (u8)(Flash_Config_Table[FCTIndex].EraseCmd >> 8);
 	FlashMsg.Addrsize = 0;
 	FlashMsg.Addrvalid = 0;
 	FlashMsg.TxBfrPtr = NULL;
 	FlashMsg.RxBfrPtr = NULL;
 	FlashMsg.ByteCount = 0;
 	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+	FlashMsg.IsDDROpCode = 0;
+	FlashMsg.Proto = 0;
+	FlashMsg.Dummy = 0;
+	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
+	}
 
 	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 	if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 	}
 	while (1) {
-		FlashMsg.Opcode = StatusCmd;
-		FlashMsg.Addrsize = 3;
+		FlashMsg.Opcode = Flash_Config_Table[FCTIndex].StatusCmd;
+		FlashMsg.Addrsize = 0;
 		FlashMsg.Addrvalid = 0;
 		FlashMsg.TxBfrPtr = NULL;
-		FlashMsg.RxBfrPtr = &FlashStatus;
+		FlashMsg.RxBfrPtr = FlashStatus;
 		FlashMsg.ByteCount = 1;
 		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
+		FlashMsg.Dummy = 0;
+		FlashMsg.IsDDROpCode = 0;
+		FlashMsg.Proto = 0;
+		if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+			FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
+			FlashMsg.ByteCount = 2;
+			FlashMsg.Dummy = 8;
+		}
 
 		Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 		if (Status != XST_SUCCESS)
 			return XST_FAILURE;
 
-		if ((FlashStatus & 0x80) != 0)
+		if ((FlashStatus[0] & 0x80) != 0)
 			break;
 	}
 	return XST_SUCCESS;
@@ -1049,7 +967,7 @@ int BulkErase(XOspiPsv *OspiPsvPtr, u8 *WriteBfrPtr)
 int DieErase(XOspiPsv *OspiPsvPtr, u8 *WriteBfrPtr)
 {
 	u8 DieCnt;
-	u8 FlashStatus;
+	u8 FlashStatus[2] __attribute__ ((aligned(4)));
 	int Status;
 
 	for(DieCnt = 0; DieCnt < Flash_Config_Table[FCTIndex].NumDie; DieCnt++) {
@@ -1065,35 +983,55 @@ int DieErase(XOspiPsv *OspiPsvPtr, u8 *WriteBfrPtr)
 		FlashMsg.RxBfrPtr = NULL;
 		FlashMsg.ByteCount = 0;
 		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+		FlashMsg.IsDDROpCode = 0;
+		FlashMsg.Proto = 0;
+		FlashMsg.Dummy = 0;
+		if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+			FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
+		}
 
 		Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 		if (Status != XST_SUCCESS)
 			return XST_FAILURE;
 
-		FlashMsg.Opcode = DIE_ERASE_CMD;
+		FlashMsg.Opcode = (u8)(Flash_Config_Table[FCTIndex].EraseCmd >> 16);
 		FlashMsg.Addrsize = 0;
 		FlashMsg.Addrvalid = 0;
 		FlashMsg.TxBfrPtr = NULL;
 		FlashMsg.RxBfrPtr = NULL;
 		FlashMsg.ByteCount = 0;
 		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+		FlashMsg.IsDDROpCode = 0;
+		FlashMsg.Proto = 0;
+		FlashMsg.Dummy = 0;
+		if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+			FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
+		}
 
 		Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 		if (Status != XST_SUCCESS)
 			return XST_FAILURE;
 		while (1) {
-			FlashMsg.Opcode = StatusCmd;
-			FlashMsg.Addrsize = 3;
+			FlashMsg.Opcode = Flash_Config_Table[FCTIndex].StatusCmd;
+			FlashMsg.Addrsize = 0;
 			FlashMsg.Addrvalid = 0;
 			FlashMsg.TxBfrPtr = NULL;
-			FlashMsg.RxBfrPtr = &FlashStatus;
+			FlashMsg.RxBfrPtr = FlashStatus;
 			FlashMsg.ByteCount = 1;
 			FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
+			FlashMsg.Dummy = 0;
+			FlashMsg.IsDDROpCode = 0;
+			FlashMsg.Proto = 0;
+			if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+				FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
+				FlashMsg.ByteCount = 2;
+				FlashMsg.Dummy = 8;
+			}
 
 			Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 			if (Status != XST_SUCCESS)
 				return XST_FAILURE;
-			if ((FlashStatus & 0x80) != 0)
+			if ((FlashStatus[0] & 0x80) != 0)
 				break;
 		}
 	}
@@ -1118,7 +1056,7 @@ int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, int Enable)
 {
 	int Status;
 	u8 Command;
-	u8 FlashStatus;
+	u8 FlashStatus[2] __attribute__ ((aligned(4)));
 
 	if(Enable)
 		Command = ENTER_4B_ADDR_MODE;
@@ -1134,10 +1072,15 @@ int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, int Enable)
 			FlashMsg.RxBfrPtr = NULL;
 			FlashMsg.ByteCount = 0;
 			FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
-
+			FlashMsg.IsDDROpCode = 0;
+			FlashMsg.Proto = 0;
+			if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+				FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
+			}
 			Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
-			if (Status != XST_SUCCESS)
+			if (Status != XST_SUCCESS) {
 				return XST_FAILURE;
+			}
 			break;
 
 		default:
@@ -1145,32 +1088,45 @@ int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, int Enable)
 	}
 	FlashMsg.Opcode = Command;
 	FlashMsg.Addrvalid = 0;
+	FlashMsg.Addrsize = 0;
 	FlashMsg.TxBfrPtr = NULL;
 	FlashMsg.RxBfrPtr = NULL;
 	FlashMsg.ByteCount = 0;
 	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
 	FlashMsg.Addrsize = 3;
+	FlashMsg.IsDDROpCode = 0;
+	FlashMsg.Proto = 0;
+	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
+	}
 
 	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
 
 	while (1) {
-		FlashMsg.Opcode = StatusCmd;
-		FlashMsg.Addrsize = 3;
+		FlashMsg.Opcode = Flash_Config_Table[FCTIndex].StatusCmd;
+		FlashMsg.Addrsize = 0;
 		FlashMsg.Addrvalid = 0;
 		FlashMsg.TxBfrPtr = NULL;
-		FlashMsg.RxBfrPtr = &FlashStatus;
+		FlashMsg.RxBfrPtr = FlashStatus;
 		FlashMsg.ByteCount = 1;
 		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
+		FlashMsg.Dummy = 0;
+		FlashMsg.IsDDROpCode = 0;
+		FlashMsg.Proto = 0;
+		if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+			FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
+			FlashMsg.ByteCount = 2;
+			FlashMsg.Dummy = 8;
+		}
 
 		Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 		if (Status != XST_SUCCESS)
 			return XST_FAILURE;
 
-		if ((FlashStatus & 0x80) != 0)
+		if ((FlashStatus[0] & 0x80) != 0)
 			break;
-
 	}
 
 	switch (FlashMake) {
@@ -1182,6 +1138,11 @@ int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, int Enable)
 		FlashMsg.RxBfrPtr = NULL;
 		FlashMsg.ByteCount = 0;
 		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+		FlashMsg.IsDDROpCode = 0;
+		FlashMsg.Proto = 0;
+		if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+			FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
+		}
 
 		Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
 		if (Status != XST_SUCCESS)
@@ -1191,5 +1152,111 @@ int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, int Enable)
 		default:
 			break;
 	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* This API enters the flash device into Octal DDR mode or exit from octal DDR
+* mode (switches to Extended SPI mode).
+*
+* @param	QspiPtr is a pointer to the QSPIPSU driver component to use.
+* @param	Enable is either 1 or 0 if 1 then enter octal DDR mode if 0 exits.
+*
+* @return	 - XST_SUCCESS if successful.
+* 		 - XST_FAILURE if it fails.
+*
+*
+******************************************************************************/
+int FlashSetSDRDDRMode(XOspiPsv *OspiPsvPtr, int Mode)
+{
+	int Status;
+	u8 ConfigReg[2] __attribute__ ((aligned(4)));
+	u8 Data[2] __attribute__ ((aligned(4)));
+
+	if (Mode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		Data[0] = 0xE7;
+		Data[1] = 0xE7;
+	} else {
+		Data[0] = 0xFF;
+		Data[1] = 0xFF;
+	}
+
+
+	FlashMsg.Opcode = WRITE_ENABLE_CMD;
+	FlashMsg.Addrsize = 0;
+	FlashMsg.Addrvalid = 0;
+	FlashMsg.TxBfrPtr = NULL;
+	FlashMsg.RxBfrPtr = NULL;
+	FlashMsg.ByteCount = 0;
+	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+	FlashMsg.IsDDROpCode = 0;
+	FlashMsg.Proto = 0;
+	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
+	}
+
+	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	if (OspiPsvPtr->OpMode == XOSPIPSV_DAC_EN_OPTION)
+		XOspiPsv_ConfigureAutoPolling(OspiPsvPtr, Mode);
+
+	FlashMsg.Opcode = WRITE_CONFIG_REG;
+	FlashMsg.Addrvalid = 1;
+	FlashMsg.Addrsize = 3;
+	FlashMsg.Addr = 0x0;
+	FlashMsg.TxBfrPtr = Data;
+	FlashMsg.RxBfrPtr = NULL;
+	FlashMsg.ByteCount = 1;
+	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+	FlashMsg.IsDDROpCode = 0;
+	FlashMsg.Proto = 0;
+	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.Proto = XOSPIPSV_WRITE_8_8_8;
+		FlashMsg.Addrsize = 4;
+		FlashMsg.ByteCount = 2;
+	}
+
+	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
+	if (Status != XST_SUCCESS)
+		return XST_FAILURE;
+
+	if (Mode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		XOspiPsv_SetSdrDdrMode(OspiPsvPtr, XOSPIPSV_EDGE_MODE_DDR_PHY);
+	} else if (Mode == XOSPIPSV_EDGE_MODE_SDR_PHY) {
+		XOspiPsv_SetSdrDdrMode(OspiPsvPtr, XOSPIPSV_EDGE_MODE_SDR_PHY);
+	} else {
+		XOspiPsv_SetSdrDdrMode(OspiPsvPtr, XOSPIPSV_EDGE_MODE_SDR_NON_PHY);
+	}
+
+	/* Read Configuration register */
+	FlashMsg.Opcode = READ_CONFIG_REG;
+	FlashMsg.Addrsize = 3;
+	FlashMsg.Addr = 0x0;
+	FlashMsg.Addrvalid = 1;
+	FlashMsg.TxBfrPtr = NULL;
+	FlashMsg.RxBfrPtr = ConfigReg;
+	FlashMsg.ByteCount = 1;
+	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
+	FlashMsg.Dummy = 8;
+	FlashMsg.IsDDROpCode = 0;
+	FlashMsg.Proto = 0;
+	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		/* Read Configuration register */
+		FlashMsg.ByteCount = 2;
+		FlashMsg.Proto = XOSPIPSV_READ_8_8_8;
+		FlashMsg.Addrsize = 4;
+	}
+	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
+	if (Status != XST_SUCCESS)
+		return XST_FAILURE;
+
+	if (ConfigReg[0] != Data[0])
+		return XST_FAILURE;
+
 	return Status;
 }
