@@ -33,7 +33,6 @@
 static XStatus XPmApuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_ResetNode *Reset;
 	XPm_ApuCore *ApuCore = (XPm_ApuCore *)Core;
 	u32 AddrLow;
 	u32 AddrHigh;
@@ -55,13 +54,8 @@ static XStatus XPmApuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	PmOut32(ApuCore->Core.Device.Node.BaseAddress + APU_DUAL_RVBARADDR0L_OFFSET, AddrLow);
 	PmOut32(ApuCore->Core.Device.Node.BaseAddress + APU_DUAL_RVBARADDR0H_OFFSET, AddrHigh);
 
-	/* release reset for all resets attached to this core*/
-	Reset = ApuCore->Core.Device.Reset;
-	while(Reset != NULL)
-	{
-		Status = Reset->Ops->SetState(Reset, PM_RESET_ACTION_RELEASE);
-		Reset = Reset->NextReset;
-	}
+	/* Release reset for all resets attached to this core */
+	Status = XPmDevice_Reset(&Core->Device, PM_RESET_ACTION_RELEASE);
 
 	Core->ResumeAddr = 0ULL;
 
