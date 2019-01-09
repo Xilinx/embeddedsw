@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -41,6 +41,10 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.0   nsk  02/19/18 First release
+*       sk   01/09/19 Added interrupt mode support.
+*                     Remove STIG/DMA mode selection by the user, driver will
+*                     take care of operating in DMA/STIG based on command.
+*                     Added support for unaligned byte count read.
 *
 * </pre>
 *
@@ -59,41 +63,35 @@
 /************************** Function Prototypes ******************************/
 static inline u32 XOspiPsv_Process_Read_Write(XOspiPsv *InstancePtr,
 	XOspiPsv_Msg *Msg);
-static inline u32 XOspiPsv_Process_Stig_Read(XOspiPsv *InstancePtr,
+static inline void XOspiPsv_FifoRead(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg);
+static inline u32 XOspiPsv_Stig_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg);
+static inline void XOspiPsv_Stig_Write(XOspiPsv *InstancePtr,
 	XOspiPsv_Msg *Msg);
-static inline u32 XOspiPsv_Process_Stig_Data_Write(XOspiPsv *InstancePtr,
-	XOspiPsv_Msg *Msg);
-static inline void XOspiPsv_Process_Stig_Command_Write(XOspiPsv *InstancePtr,
-	XOspiPsv_Msg *Msg);
+static inline void XOspiPsv_FifoWrite(XOspiPsv *InstancePtr,
+		XOspiPsv_Msg *Msg);
 static inline u32 XOspiPsv_Dac_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg);
-static inline u32 XOspiPsv_Dac_Write(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg);
-static inline void XOspiPsv_Dac_Configure(XOspiPsv *InstancePtr,
-	XOspiPsv_Msg *Msg);
-static inline u32 XOspiPsv_Check_Idle(XOspiPsv *InstancePtr);
-static inline void XOspiPsv_Disable(XOspiPsv *InstancePtr);
-static inline void XOspiPsv_Enable(XOspiPsv *InstancePtr);
-static inline void XOspiPsv_Disable_Dac(XOspiPsv *InstancePtr);
-static inline void XOspiPsv_Enable_Dac(XOspiPsv *InstancePtr);
-static inline u32 XOspiPsv_Indr_RdTransfer_Complete(XOspiPsv *InstancePtr);
-static inline void XOspiPsv_Setup_Stig_Ctrl(XOspiPsv *InstancePtr, u32 Cmd_op,
+static inline u32 XOspiPsv_Dac_Write(XOspiPsv *InstancePtr, const XOspiPsv_Msg *Msg);
+static inline void XOspiPsv_Disable(const XOspiPsv *InstancePtr);
+static inline void XOspiPsv_Enable(const XOspiPsv *InstancePtr);
+static inline void XOspiPsv_Setup_Stig_Ctrl(const XOspiPsv *InstancePtr, u32 Cmd_op,
 	u32 Rd_data_en, u32 Num_rd_data_bytes, u32 Cmd_addr_en, u32 Mode_bit_en,
 	u32 Num_addr_bytes, u32 Wr_data_en, u32 Num_wr_data_bytes, u32 Dummy,
 	u32 Membank_en);
-static inline void XOspiPsv_EnableDma(XOspiPsv *InstancePtr);
-static inline void XOspiPsv_DisableDma(XOspiPsv *InstancePtr);
-static inline void XOspiPsv_Setup_Dev_Write_Instr_Reg(XOspiPsv *InstancePtr,
-	XOspiPsv_Msg *Msg);
-static inline void XOspiPsv_Setup_Dev_Read_Instr_Reg(XOspiPsv *InstancePtr,
-	XOspiPsv_Msg *Msg);
-static inline void XOspiPsv_Setup_Devsize(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg);
-static inline void XOspiPsv_Start_Indr_RdTransfer(XOspiPsv *InstancePtr);
-static inline void XOspiPsv_Config_IndirectAhb(XOspiPsv *InstancePtr,
-		XOspiPsv_Msg *Msg) ;
-static inline void XOspiPsv_Config_Dma(XOspiPsv *InstancePtr,
-		XOspiPsv_Msg *Msg) ;
-static inline void XOspiPsv_Exec_Dma(XOspiPsv *InstancePtr);
-s32 XOspiPsv_DeAssertCS(XOspiPsv *InstancePtr);
-s32 XOspiPsv_AssertCS(XOspiPsv *InstancePtr);
+static inline void XOspiPsv_Setup_Dev_Write_Instr_Reg(const XOspiPsv *InstancePtr,
+	const XOspiPsv_Msg *Msg);
+static inline void XOspiPsv_Setup_Dev_Read_Instr_Reg(const XOspiPsv *InstancePtr,
+	const XOspiPsv_Msg *Msg);
+static inline void XOspiPsv_Setup_Devsize(const XOspiPsv *InstancePtr,
+		const XOspiPsv_Msg *Msg);
+static inline void XOspiPsv_Start_Indr_RdTransfer(const XOspiPsv *InstancePtr);
+static inline void XOspiPsv_Config_IndirectAhb(const XOspiPsv *InstancePtr,
+		const XOspiPsv_Msg *Msg);
+static inline void XOspiPsv_Config_Dma(const XOspiPsv *InstancePtr,
+		const XOspiPsv_Msg *Msg);
+static inline void XOspiPsv_Exec_Dma(const XOspiPsv *InstancePtr);
+static inline void XOspiPsv_DeAssertCS(const XOspiPsv *InstancePtr);
+static inline void XOspiPsv_AssertCS(const XOspiPsv *InstancePtr);
+static void StubStatusHandler(void *CallBackRef, u32 StatusEvent);
 
 /************************** Variable Definitions *****************************/
 
@@ -124,11 +122,12 @@ s32 XOspiPsv_AssertCS(XOspiPsv *InstancePtr);
 * @note		None.
 *
 ******************************************************************************/
-s32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr, XOspiPsv_Config *ConfigPtr)
+u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr,
+					const XOspiPsv_Config *ConfigPtr)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
-	s32 Status;
+	u32 Status;
 
 	/*
 	 * If the device is busy, disallow the initialize and return a status
@@ -137,7 +136,7 @@ s32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr, XOspiPsv_Config *ConfigPtr)
 	 * initializing. This assumes the busy flag is cleared at startup.
 	 */
 	if (InstancePtr->IsBusy == TRUE) {
-		Status = (s32)XST_DEVICE_IS_STARTED;
+		Status = (u32)XST_DEVICE_IS_STARTED;
 	} else {
 
 		/* Set some default values. */
@@ -147,9 +146,11 @@ s32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr, XOspiPsv_Config *ConfigPtr)
 		/* Other instance variable initializations */
 		InstancePtr->SendBufferPtr = NULL;
 		InstancePtr->RecvBufferPtr = NULL;
-		InstancePtr->TxBytes = 0;
-		InstancePtr->RxBytes = 0;
-		InstancePtr->OpMode = XOSPIPSV_READMODE_DMA;
+		InstancePtr->TxBytes = 0U;
+		InstancePtr->RxBytes = 0U;
+		InstancePtr->OpMode = XOSPIPSV_IDAC_MODE;
+		InstancePtr->IsUnaligned = 0U;
+		InstancePtr->StatusHandler = StubStatusHandler;
 
 		/*
 		 * Reset the OSPIPS device to get it into its initial state. It is
@@ -160,7 +161,7 @@ s32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr, XOspiPsv_Config *ConfigPtr)
 
 		InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
-		Status = XST_SUCCESS;
+		Status = (u32)XST_SUCCESS;
 	}
 
 	return Status;
@@ -169,8 +170,7 @@ s32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr, XOspiPsv_Config *ConfigPtr)
 /*****************************************************************************/
 /**
 *
-* Resets the OSPIPS device. Reset must only be called after the driver has
-* been initialized. Any data transfer that is in progress is aborted.
+* This function reset the configuration register.
 *
 * The Upper layer software is responsible for re-configuring (if necessary)
 * and restarting the OSPIPS device after the reset.
@@ -182,25 +182,13 @@ s32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr, XOspiPsv_Config *ConfigPtr)
 * @note		None.
 *
 ******************************************************************************/
-void XOspiPsv_Reset(XOspiPsv *InstancePtr)
+void XOspiPsv_Reset(const XOspiPsv *InstancePtr)
 {
-	u32 ConfigReg;
-
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	ConfigReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
-			XOSPIPSV_CONFIG_REG);
-	ConfigReg &= ~XOSPIPSV_CONFIG_REG_ENB_SPI_FLD_MASK;
-
-	ConfigReg &= ~((u32)XOSPIPSV_CONFIG_REG_ENB_AHB_ADDR_REMAP_FLD_MASK);
-	ConfigReg &= ~((u32)XOSPIPSV_CONFIG_REG_ENB_DIR_ACC_CTLR_FLD_MASK);
-	ConfigReg &= ~(XOSPIPSV_CONFIG_REG_ENB_LEGACY_IP_MODE_FLD_MASK);
-	ConfigReg &= ~(XOSPIPSV_CONFIG_REG_PERIPH_SEL_DEC_FLD_MASK);
-	ConfigReg &= (XOSPIPSV_CONFIG_REG_PERIPH_CS_LINES_FLD_MASK);
-	ConfigReg &= ~(XOSPIPSV_CONFIG_REG_MSTR_BAUD_DIV_FLD_MASK);
-
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_CONFIG_REG,
-		ConfigReg);
+			XOSPIPSV_CONFIG_INIT_VALUE);
+
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_DEV_DELAY_REG,
 			XOSPIPSV_DELY_DEF_VALUE);
 }
@@ -217,25 +205,19 @@ void XOspiPsv_Reset(XOspiPsv *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-s32 XOspiPsv_AssertCS(XOspiPsv *InstancePtr)
+static inline void XOspiPsv_AssertCS(const XOspiPsv *InstancePtr)
 {
 	u32 Cfg;
 	u32 Cs;
 
-	if (InstancePtr->ChipSelect > 2U) {
-		return (s32)XST_FAILURE;
-	}
-
-	Cfg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress, XOSPIPSV_CONFIG_REG);
+	Cfg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_CONFIG_REG);
 	Cfg &= ~(XOSPIPSV_CONFIG_REG_PERIPH_CS_LINES_FLD_MASK);
 	/* Set Peripheral select lines */
 	Cs = (~(1U << InstancePtr->ChipSelect)) & 0xFU;
 	Cfg |= ((Cs) << XOSPIPSV_CONFIG_REG_PERIPH_CS_LINES_FLD_SHIFT);
-	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_CONFIG_REG, Cfg);
-
-	Cfg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress, XOSPIPSV_CONFIG_REG);
-
-	return XST_SUCCESS;
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_CONFIG_REG, Cfg);
 }
 
 /*****************************************************************************/
@@ -250,26 +232,21 @@ s32 XOspiPsv_AssertCS(XOspiPsv *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-s32 XOspiPsv_DeAssertCS(XOspiPsv *InstancePtr)
+static inline void XOspiPsv_DeAssertCS(const XOspiPsv *InstancePtr)
 {
 	u32 Cfg;
 
-	if (InstancePtr->ChipSelect > 2U) {
-		return (s32)XST_FAILURE;
-	}
-
-	Cfg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress, XOSPIPSV_CONFIG_REG);
+	Cfg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_CONFIG_REG);
 
 	/* Clear Peripheral select bit and Peripheral select lines, meaning one of
 	 * CS will be used
 	 */
 	Cfg &= ~(XOSPIPSV_CONFIG_REG_PERIPH_CS_LINES_FLD_MASK);
 	/* Set Peripheral select lines */
-	Cfg |= (XOSPIPSV_CONFIG_REG_PERIPH_CS_LINES_FLD_MASK);
-	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_CONFIG_REG, Cfg);
-	Cfg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress, XOSPIPSV_CONFIG_REG);
-
-	return (s32)XST_SUCCESS;
+	Cfg |= (u32)(XOSPIPSV_CONFIG_REG_PERIPH_CS_LINES_FLD_MASK);
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_CONFIG_REG, Cfg);
 }
 
 /*****************************************************************************/
@@ -284,14 +261,14 @@ s32 XOspiPsv_DeAssertCS(XOspiPsv *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static inline void XOspiPsv_Disable(XOspiPsv *InstancePtr)
+static inline void XOspiPsv_Disable(const XOspiPsv *InstancePtr)
 {
 	u32 cfg_reg;
 
 	cfg_reg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 		XOSPIPSV_CONFIG_REG);
 
-	cfg_reg &= ~(XOSPIPSV_CONFIG_REG_ENB_SPI_FLD_MASK);
+	cfg_reg &= ~(u32)(XOSPIPSV_CONFIG_REG_ENB_SPI_FLD_MASK);
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_CONFIG_REG,
 		cfg_reg);
 }
@@ -308,58 +285,14 @@ static inline void XOspiPsv_Disable(XOspiPsv *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static inline void XOspiPsv_Enable(XOspiPsv *InstancePtr)
+static inline void XOspiPsv_Enable(const XOspiPsv *InstancePtr)
 {
-	u32 Cfg_reg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+	u32 ConfigReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 			XOSPIPSV_CONFIG_REG);
 
-	Cfg_reg |= XOSPIPSV_CONFIG_REG_ENB_SPI_FLD_MASK;
+	ConfigReg |= XOSPIPSV_CONFIG_REG_ENB_SPI_FLD_MASK;
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-		XOSPIPSV_CONFIG_REG, Cfg_reg);
-}
-
-/*****************************************************************************/
-/**
-*
-* Disable the DAC in OSPIPS device.
-*
-* @param	InstancePtr is a pointer to the XOspiPsv instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-static inline void XOspiPsv_Disable_Dac(XOspiPsv *InstancePtr)
-{
-	u32 Cfg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
-			XOSPIPSV_CONFIG_REG);
-
-	Cfg &= (~(XOSPIPSV_CONFIG_REG_ENB_DIR_ACC_CTLR_FLD_MASK));
-	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-		XOSPIPSV_CONFIG_REG, Cfg);
-}
-
-/*****************************************************************************/
-/**
-*
-* Enable the DAC in OSPIPS device.
-*
-* @param	InstancePtr is a pointer to the XOspiPsv instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-static inline void XOspiPsv_Enable_Dac(XOspiPsv *InstancePtr)
-{
-	u32 Cfg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
-			XOSPIPSV_CONFIG_REG);
-
-	Cfg |= (XOSPIPSV_CONFIG_REG_ENB_DIR_ACC_CTLR_FLD_MASK);
-	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-		XOSPIPSV_CONFIG_REG, Cfg);
+		XOSPIPSV_CONFIG_REG, ConfigReg);
 }
 
 /*****************************************************************************/
@@ -382,13 +315,15 @@ static inline void XOspiPsv_Enable_Dac(XOspiPsv *InstancePtr)
 u32 XOspiPsv_PollTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 {
 	u32 Status;
+	u32 ReadReg;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Check whether there is another transfer in progress. Not thread-safe */
 	if (InstancePtr->IsBusy == TRUE) {
-		return (u32)XST_DEVICE_BUSY;
+		Status = (u32)XST_DEVICE_BUSY;
+		goto ERROR_PATH;
 	}
 
 	/*
@@ -397,10 +332,28 @@ u32 XOspiPsv_PollTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 	 */
 	InstancePtr->IsBusy = TRUE;
 	InstancePtr->Msg = Msg;
+
 	XOspiPsv_Enable(InstancePtr);
+	XOspiPsv_AssertCS(InstancePtr);
+	ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_CONFIG_REG);
+	while((ReadReg & XOSPIPSV_CONFIG_REG_IDLE_FLD_MASK) == 0U) {
+		ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+					XOSPIPSV_CONFIG_REG);
+	}
 	Status = XOspiPsv_Process_Read_Write(InstancePtr, Msg);
+	ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_CONFIG_REG);
+	while((ReadReg & XOSPIPSV_CONFIG_REG_IDLE_FLD_MASK) == 0U) {
+		ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+					XOSPIPSV_CONFIG_REG);
+	}
+	XOspiPsv_DeAssertCS(InstancePtr);
+	XOspiPsv_Disable(InstancePtr);
+
 	InstancePtr->IsBusy = FALSE;
 
+ERROR_PATH:
 	return Status;
 }
 
@@ -411,7 +364,7 @@ u32 XOspiPsv_PollTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 * @param	Cmd_op is command opcode.
-* @param	Rd_data_en specifies whether cmd_op is requires data to read or not.
+* @param	Rd_data_en specifies whether cmd_op requires data to read or not.
 * @param	Num_rd_data_bytes is number of bytes to read.
 * @param	Cmd_addr_en specifies whether cmd_op requires addr or not.
 * @param	Mode_bit_en is used to represent mode bit configuration reg.
@@ -426,16 +379,17 @@ u32 XOspiPsv_PollTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 * @note		None.
 *
 ******************************************************************************/
-static inline void XOspiPsv_Setup_Stig_Ctrl(XOspiPsv *InstancePtr, u32 Cmd_op,
-		u32 Rd_data_en,	u32 Num_rd_data_bytes, u32 Cmd_addr_en, u32 Mode_bit_en,
-		u32 Num_addr_bytes, u32 Wr_data_en, u32 Num_wr_data_bytes, u32 Dummy,
-		u32 Membank_en)
+static inline void XOspiPsv_Setup_Stig_Ctrl(const XOspiPsv *InstancePtr,
+		u32 Cmd_op, u32 Rd_data_en,	u32 Num_rd_data_bytes, u32 Cmd_addr_en,
+		u32 Mode_bit_en, u32 Num_addr_bytes, u32 Wr_data_en,
+		u32 Num_wr_data_bytes, u32 Dummy, u32 Membank_en)
 {
 	u32 Val;
 
 	Val =(((Cmd_op << (u32)XOSPIPSV_FLASH_CMD_CTRL_REG_CMD_OPCODE_FLD_SHIFT)
 			& XOSPIPSV_FLASH_CMD_CTRL_REG_CMD_OPCODE_FLD_MASK) |
-		((Rd_data_en << (u32)XOSPIPSV_FLASH_CMD_CTRL_REG_ENB_READ_DATA_FLD_SHIFT)
+		((Rd_data_en <<
+			(u32)XOSPIPSV_FLASH_CMD_CTRL_REG_ENB_READ_DATA_FLD_SHIFT)
 			& XOSPIPSV_FLASH_CMD_CTRL_REG_ENB_READ_DATA_FLD_MASK) |
 		((Num_rd_data_bytes <<
 		(u32)XOSPIPSV_FLASH_CMD_CTRL_REG_NUM_RD_DATA_BYTES_FLD_SHIFT)
@@ -479,14 +433,14 @@ static inline void XOspiPsv_Setup_Stig_Ctrl(XOspiPsv *InstancePtr, u32 Cmd_op,
 * @note		Wait till the command executed.
 *
 ******************************************************************************/
-static inline void XOspiPsv_Exec_Flash_Cmd(XOspiPsv *InstancePtr)
+static inline void XOspiPsv_Exec_Flash_Cmd(const XOspiPsv *InstancePtr)
 {
 	u32 Cmd_ctrl;
 
 	Cmd_ctrl = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 		XOSPIPSV_FLASH_CMD_CTRL_REG);
 	Cmd_ctrl |= (XOSPIPSV_FLASH_CMD_CTRL_REG_CMD_EXEC_FLD_MASK);
-		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 		XOSPIPSV_FLASH_CMD_CTRL_REG, Cmd_ctrl);
 
 	Cmd_ctrl = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
@@ -497,6 +451,37 @@ static inline void XOspiPsv_Exec_Flash_Cmd(XOspiPsv *InstancePtr)
 		Cmd_ctrl = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 			XOSPIPSV_FLASH_CMD_CTRL_REG);
 	}
+}
+
+/*****************************************************************************/
+/**
+*
+* Read the data from RX FIFO
+*
+* @param	InstancePtr is a pointer to the XOspiPsv instance.
+* @param	Msg is a pointer to the structure containing transfer data.
+*
+* @return   None
+*
+* @note		This operation is IO mode of reading.
+*
+******************************************************************************/
+static inline void XOspiPsv_FifoRead(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
+{
+	u32 Lower;
+	u32 Upper;
+
+	Lower = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_FLASH_RD_DATA_LOWER_REG);
+	if(InstancePtr->RxBytes <= (u32)4) {
+		Xil_MemCpy(Msg->RxBfrPtr, &Lower, InstancePtr->RxBytes);
+	} else {
+		Xil_MemCpy(Msg->RxBfrPtr, &Lower, 4);
+		Upper = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_FLASH_RD_DATA_UPPER_REG);
+		Xil_MemCpy(&Msg->RxBfrPtr[4], &Upper, InstancePtr->RxBytes - 4);
+	}
+	InstancePtr->RxBytes = 0U;
 }
 
 /*****************************************************************************/
@@ -514,70 +499,43 @@ static inline void XOspiPsv_Exec_Flash_Cmd(XOspiPsv *InstancePtr)
 * @note		This operation is IO mode of reading.
 *
 ******************************************************************************/
-static inline u32 XOspiPsv_Process_Stig_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
+static inline u32 XOspiPsv_Stig_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 {
-	u32 Cmd_addr = Msg->Addr;
-	u32 Reqaddr = 0;
-	s32 ByteCount;
-	u32 Lower;
-	u32 Upper;
-	u32 CopyOffset = 4;
+	u32 Reqaddr;
+	u32 Status;
+
+	if (InstancePtr->RxBytes <= 0U) {
+		Status = (u32)XST_FAILURE;
+		goto ERROR_PATH;
+	}
 
 	if (Msg->Addrvalid != 0U) {
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_FLASH_CMD_ADDR_REG, Msg->Addr);
 		Reqaddr = 1;
+	} else {
+		Reqaddr = 0U;
 	}
-	if (InstancePtr->RxBytes <= 0) {
-		return (u32)XST_FAILURE;
-	}
-	while (InstancePtr->RxBytes > 0) {
-		if (InstancePtr->RxBytes >= 8) {
-			ByteCount = 8;
-		} else {
-			ByteCount = InstancePtr->RxBytes;
-		}
-		if (Msg->Addrvalid != 0U) {
-			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-				XOSPIPSV_FLASH_CMD_ADDR_REG, Cmd_addr);
 
-		}
-		XOspiPsv_Setup_Stig_Ctrl(InstancePtr, (u32)Msg->Opcode,
-			1, (u32)ByteCount - 1, Reqaddr, 0, (u32)Msg->Addrsize - 1,
-			0, 0, (u32)Msg->Dummy, 0);
+	XOspiPsv_Setup_Stig_Ctrl(InstancePtr, (u32)Msg->Opcode,
+		1, (u32)InstancePtr->RxBytes - 1, Reqaddr, 0, (u32)Msg->Addrsize - 1,
+		0, 0, (u32)Msg->Dummy, 0);
 
-		/* Exec cmd */
-		XOspiPsv_Exec_Flash_Cmd(InstancePtr);
+	/* Execute command */
+	XOspiPsv_Exec_Flash_Cmd(InstancePtr);
 
-		/* Read data */
-		Lower = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
-				XOSPIPSV_FLASH_RD_DATA_LOWER_REG);
-		if(InstancePtr->RxBytes < 4)
-			memcpy(Msg->RxBfrPtr, &Lower, InstancePtr->RxBytes);
-		else
-			memcpy(Msg->RxBfrPtr, &Lower, 4);
-		if (InstancePtr->RxBytes > 4) {
-			Upper = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
-					XOSPIPSV_FLASH_RD_DATA_UPPER_REG);
-			Msg->RxBfrPtr += 4;
-			Cmd_addr += 4;
-			if(InstancePtr->RxBytes < 8)
-				memcpy(Msg->RxBfrPtr, &Upper, InstancePtr->RxBytes - 4);
-			else
-				memcpy(Msg->RxBfrPtr, &Upper, 4);
-		}
-		InstancePtr->RxBytes -= ByteCount;
-		if (InstancePtr->RxBytes != 0) {
-			Msg->RxBfrPtr += 4U;
-			Cmd_addr += 4U;
-		}
-		while(XOspiPsv_Check_Idle(InstancePtr) == 0U);
-	}
-	return XST_SUCCESS;
+	XOspiPsv_FifoRead(InstancePtr, Msg);
+
+	Status = (u32)XST_SUCCESS;
+
+ERROR_PATH:
+	return Status;
 }
 
 /*****************************************************************************/
 /**
 *
-* Flash command based data write using flash command control registers.
+* Write data to TX FIFO
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 * @param	Msg is a pointer to the structure containing transfer data.
@@ -589,146 +547,68 @@ static inline u32 XOspiPsv_Process_Stig_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg
 * @note		This operation is IO mode of writing.
 *
 ******************************************************************************/
-static inline u32 XOspiPsv_Process_Stig_Data_Write(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
+static inline void XOspiPsv_FifoWrite(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 {
-	u32 Cmd_addr = Msg->Addr;
 	u32 Lower = 0;
 	u32 Upper = 0;
-	u32 Reqaddr = 0;
-	u32 Reqwridataen = 1;
-	s32 ByteCount = 0;
-	u32 CopyOffset = 4;
 
-	if (Msg->Addrvalid != 0U) {
-		Reqaddr = 1;
-	}
-
-	ByteCount = InstancePtr->TxBytes;
-	if(InstancePtr->TxBytes < 4)
-		memcpy(&Lower, Msg->TxBfrPtr, InstancePtr->TxBytes);
-	else
-		memcpy(&Lower, Msg->TxBfrPtr, 4);
-	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-		XOSPIPSV_FLASH_WR_DATA_LOWER_REG, Lower);
-
-	if (InstancePtr->TxBytes > 4) {
-		Msg->TxBfrPtr += 4;
-		if(InstancePtr->TxBytes < 8)
-			memcpy(&Upper, Msg->TxBfrPtr,InstancePtr->TxBytes - 4);
-		else {
-			memcpy(&Upper, Msg->TxBfrPtr,4);
-		}
+	if(InstancePtr->TxBytes <= (u32)4) {
+		Xil_MemCpy(&Lower, Msg->TxBfrPtr, InstancePtr->TxBytes);
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_FLASH_WR_DATA_LOWER_REG, Lower);
+	} else {
+		Xil_MemCpy(&Lower, Msg->TxBfrPtr, 4);
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_FLASH_WR_DATA_LOWER_REG, Lower);
+		Xil_MemCpy(&Upper, &Msg->TxBfrPtr[4],InstancePtr->TxBytes - 4);
 		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 			XOSPIPSV_FLASH_WR_DATA_UPPER_REG, Upper);
 	}
-	if (Msg->Addrvalid != 0U) {
-		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-			XOSPIPSV_FLASH_CMD_ADDR_REG, Cmd_addr);
-		XOspiPsv_Setup_Stig_Ctrl(InstancePtr, (u32)Msg->Opcode,
-			0, 0, Reqaddr, 0, (u32)Msg->Addrsize - 1,
-			Reqwridataen, (u32)ByteCount - 1,0, 0);
-	}
-	/* Exec cmd */
-	XOspiPsv_Exec_Flash_Cmd(InstancePtr);
-	while(XOspiPsv_Check_Idle(InstancePtr) == 0U);
-
-	return XST_SUCCESS;
-};
+	InstancePtr->TxBytes = 0U;
+}
 
 /*****************************************************************************/
 /**
 *
-* Flash command based command write to flash using flash command control registers.
+* Flash command based data write using flash command control registers.
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 * @param	Msg is a pointer to the structure containing transfer data.
 *
-* @return	None
+* @return   None
 *
 * @note		This operation is IO mode of writing.
 *
 ******************************************************************************/
-static inline void XOspiPsv_Process_Stig_Command_Write(XOspiPsv *InstancePtr,
-		XOspiPsv_Msg *Msg)
+static inline void XOspiPsv_Stig_Write(XOspiPsv *InstancePtr,
+			XOspiPsv_Msg *Msg)
 {
-	u32 Reqaddr = 0;
-	u32 Reqwridataen = 0;
-	u32 ByteCount = 1;
-
-	if (Msg->Addrvalid != 0U) {
-		Reqaddr = 1;
-	}
-
-	XOspiPsv_Setup_Stig_Ctrl(InstancePtr, (u32)Msg->Opcode, 0, 0,
-		Reqaddr, 0, (u32)Msg->Addrsize - 1, Reqwridataen,
-		(u32)ByteCount, (u32)Msg->Dummy, 0);
+	u32 Reqaddr;
+	u32 Reqwridataen;
+	u32 ByteCount;
 
 	if (Msg->Addrvalid != 0U) {
 		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 			XOSPIPSV_FLASH_CMD_ADDR_REG, Msg->Addr);
+		Reqaddr = 1;
+	} else {
+		Reqaddr = 0U;
 	}
+	if (InstancePtr->TxBytes != 0U) {
+		Reqwridataen = 1;
+		ByteCount = InstancePtr->TxBytes;
+		XOspiPsv_FifoWrite(InstancePtr, Msg);
+	} else {
+		Reqwridataen = 0U;
+		ByteCount = 1;
+	}
+	XOspiPsv_Setup_Stig_Ctrl(InstancePtr, (u32)Msg->Opcode,
+		0, 0, Reqaddr, 0, (u32)Msg->Addrsize - 1,
+		Reqwridataen, (u32)ByteCount - 1, 0, 0);
+
 	/* Exec cmd */
 	XOspiPsv_Exec_Flash_Cmd(InstancePtr);
-}
-
-/*****************************************************************************/
-/**
-*
-* Enable the DMA in the Controller.
-*
-* @param	InstancePtr is a pointer to the XOspiPsv instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-static inline void XOspiPsv_EnableDma(XOspiPsv *InstancePtr)
-{
-	u32 Val;
-
-	Val = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
-			XOSPIPSV_CONFIG_REG);
-
-	/* Wait for idle */
-	while(XOspiPsv_Check_Idle(InstancePtr) == 0U);
-
-	/* Disable the direct access ctrlr */
-	Val &= ~(XOSPIPSV_CONFIG_REG_ENB_DIR_ACC_CTLR_FLD_MASK);
-
-	/* Enable DMA */
-	Val |= (XOSPIPSV_CONFIG_REG_ENB_DMA_IF_FLD_MASK);
-
-	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_CONFIG_REG,
-		Val);
-}
-
-/*****************************************************************************/
-/**
-*
-* Disable DMA in the controller.
-*
-* @param	InstancePtr is a pointer to the XOspiPsv instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-static inline void XOspiPsv_DisableDma(XOspiPsv *InstancePtr)
-{
-	u32 Val;
-
-	Val = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress, XOSPIPSV_CONFIG_REG);
-
-	/* Wait for idle */
-	while(XOspiPsv_Check_Idle(InstancePtr) == 0U);
-
-	/* Enable DMA */
-	Val &= ~(XOSPIPSV_CONFIG_REG_ENB_DMA_IF_FLD_MASK);
-
-	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_CONFIG_REG, Val);
-}
+};
 
 /*****************************************************************************/
 /**
@@ -745,34 +625,35 @@ static inline void XOspiPsv_DisableDma(XOspiPsv *InstancePtr)
 * @note		Used in DMA or Linear operations.
 *
 ******************************************************************************/
-static inline void XOspiPsv_Setup_Dev_Write_Instr_Reg(XOspiPsv *InstancePtr,
-		XOspiPsv_Msg *Msg)
+static inline void XOspiPsv_Setup_Dev_Write_Instr_Reg(const XOspiPsv *InstancePtr,
+		const XOspiPsv_Msg *Msg)
 {
 	u32 Dummy_clks = 0U;
-	u32 Dataxfer_Type = DQ0;
-	u32 Addrxfer_Type = DQ0;
+	u32 Dataxfer_Type;
+	u32 Addrxfer_Type;
+	u32 Instxfer_Type;
 	u32 Regval;
 
 	switch((u32)Msg->Proto) {
 		case XOSPIPSV_WRITE_1_1_1:
 			Dataxfer_Type = DQ0;
-			break;
-		case XOSPIPSV_WRITE_1_1_2:
-			Dataxfer_Type = DQ0_1;
-			break;
-		case XOSPIPSV_WRITE_1_1_4:
-			Dataxfer_Type = DQ0_3;
+			Addrxfer_Type = DQ0;
+			Instxfer_Type = DQ0;
 			break;
 		case XOSPIPSV_WRITE_1_1_8:
 			Dataxfer_Type = DQ0_7;
+			Addrxfer_Type = DQ0;
+			Instxfer_Type = DQ0;
 			break;
 		case XOSPIPSV_WRITE_1_8_8:
+			Instxfer_Type = DQ0;
 			Dataxfer_Type = DQ0_7;
 			Addrxfer_Type = DQ0_7;
 			break;
 		default :
 			Dataxfer_Type = DQ0;
 			Addrxfer_Type = DQ0;
+			Instxfer_Type = DQ0;
 			break;
 	}
 
@@ -781,16 +662,22 @@ static inline void XOspiPsv_Setup_Dev_Write_Instr_Reg(XOspiPsv *InstancePtr,
 			& XOSPIPSV_DEV_INSTR_WR_CONFIG_REG_DUMMY_WR_CLK_CYCLES_FLD_MASK) |
 		((Dataxfer_Type  <<
 		(u32)XOSPIPSV_DEV_INSTR_WR_CONFIG_REG_DATA_XFER_TYPE_EXT_MODE_FLD_SHIFT)
-			& XOSPIPSV_DEV_INSTR_WR_CONFIG_REG_DATA_XFER_TYPE_EXT_MODE_FLD_MASK) |
+		& XOSPIPSV_DEV_INSTR_WR_CONFIG_REG_DATA_XFER_TYPE_EXT_MODE_FLD_MASK) |
 		((Addrxfer_Type <<
-		(u32)XOSPIPSV_DEV_INSTR_WR_CONFIG_REG_ADDR_XFER_TYPE_STD_MODE_FLD_SHIFT )
-			& XOSPIPSV_DEV_INSTR_WR_CONFIG_REG_ADDR_XFER_TYPE_STD_MODE_FLD_MASK) |
+		(u32)XOSPIPSV_DEV_INSTR_WR_CONFIG_REG_ADDR_XFER_TYPE_STD_MODE_FLD_SHIFT)
+		& XOSPIPSV_DEV_INSTR_WR_CONFIG_REG_ADDR_XFER_TYPE_STD_MODE_FLD_MASK) |
 		(((u32)Msg->Opcode <<
 		(u32)XOSPIPSV_DEV_INSTR_WR_CONFIG_REG_WR_OPCODE_FLD_SHIFT ) &
 			XOSPIPSV_DEV_INSTR_WR_CONFIG_REG_WR_OPCODE_FLD_MASK));
 
-	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_DEV_INSTR_WR_CONFIG_REG,
-		Regval);
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_DEV_INSTR_WR_CONFIG_REG, Regval);
+
+	Regval = ((Instxfer_Type <<
+					(u32)XOSPIPSV_DEV_INSTR_RD_CONFIG_REG_INSTR_TYPE_FLD_SHIFT)
+			& XOSPIPSV_DEV_INSTR_RD_CONFIG_REG_INSTR_TYPE_FLD_MASK);
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+					XOSPIPSV_DEV_INSTR_RD_CONFIG_REG, Regval);
 }
 
 /*****************************************************************************/
@@ -808,33 +695,33 @@ static inline void XOspiPsv_Setup_Dev_Write_Instr_Reg(XOspiPsv *InstancePtr,
 * @note		Used in DMA or Linear operations
 *
 ******************************************************************************/
-static inline void XOspiPsv_Setup_Dev_Read_Instr_Reg(XOspiPsv *InstancePtr,
-		XOspiPsv_Msg *Msg)
+static inline void XOspiPsv_Setup_Dev_Read_Instr_Reg(const XOspiPsv *InstancePtr,
+		const XOspiPsv_Msg *Msg)
 {
 	u32 Mode_bit_en = 0;
-	u32 Dataxfer_Type = DQ0;
-	u32 Addrxfer_Type = DQ0;
-	u32 Instxfer_Type = DQ0;
+	u32 Dataxfer_Type;
+	u32 Addrxfer_Type;
+	u32 Instxfer_Type;
 	u32 Regval;
 
 	switch((u32)Msg->Proto) {
 		case XOSPIPSV_READ_1_1_1:
 			Dataxfer_Type = DQ0;
-			break;
-		case XOSPIPSV_READ_1_1_2:
-			Dataxfer_Type = DQ0_1;
-			break;
-		case XOSPIPSV_READ_1_1_4:
-			Dataxfer_Type = DQ0_3;
+			Addrxfer_Type = DQ0;
+			Instxfer_Type = DQ0;
 			break;
 		case XOSPIPSV_READ_1_1_8:
 			Dataxfer_Type = DQ0_7;
+			Addrxfer_Type = DQ0;
+			Instxfer_Type = DQ0;
 			break;
 		case XOSPIPSV_READ_1_8_8:
 			Dataxfer_Type = DQ0_7;
 			Addrxfer_Type = DQ0_7;
+			Instxfer_Type = DQ0;
 			break;
 		default :
+			Instxfer_Type = DQ0;
 			Dataxfer_Type = DQ0;
 			Addrxfer_Type = DQ0;
 			break;
@@ -852,14 +739,15 @@ static inline void XOspiPsv_Setup_Dev_Read_Instr_Reg(XOspiPsv *InstancePtr,
 		((Addrxfer_Type <<
 		(u32)XOSPIPSV_DEV_INSTR_RD_CONFIG_REG_ADDR_XFER_TYPE_STD_MODE_FLD_SHIFT)
 		& XOSPIPSV_DEV_INSTR_RD_CONFIG_REG_ADDR_XFER_TYPE_STD_MODE_FLD_MASK) |
-		((Instxfer_Type << (u32)XOSPIPSV_DEV_INSTR_RD_CONFIG_REG_INSTR_TYPE_FLD_SHIFT)
+		((Instxfer_Type <<
+				(u32)XOSPIPSV_DEV_INSTR_RD_CONFIG_REG_INSTR_TYPE_FLD_SHIFT)
 		& XOSPIPSV_DEV_INSTR_RD_CONFIG_REG_INSTR_TYPE_FLD_MASK) |
 		(((u32)Msg->Opcode <<
 		(u32)XOSPIPSV_DEV_INSTR_RD_CONFIG_REG_RD_OPCODE_NON_XIP_FLD_SHIFT)
 		& XOSPIPSV_DEV_INSTR_RD_CONFIG_REG_RD_OPCODE_NON_XIP_FLD_MASK) );
 
-	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_DEV_INSTR_RD_CONFIG_REG,
-		Regval);
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_DEV_INSTR_RD_CONFIG_REG, Regval);
 }
 
 /*****************************************************************************/
@@ -875,14 +763,17 @@ static inline void XOspiPsv_Setup_Dev_Read_Instr_Reg(XOspiPsv *InstancePtr,
 * @note		None
 *
 ******************************************************************************/
-static inline void XOspiPsv_Setup_Devsize(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
+static inline void XOspiPsv_Setup_Devsize(const XOspiPsv *InstancePtr,
+				const XOspiPsv_Msg *Msg)
 {
 	u32 Reg;
 
 	Reg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 			XOSPIPSV_DEV_SIZE_CONFIG_REG);
 	Reg &= ~(XOSPIPSV_DEV_SIZE_CONFIG_REG_NUM_ADDR_BYTES_FLD_MASK);
-	Reg |= ((u32)Msg->Addrsize - 1);
+	if (Msg->Addrsize != 0U) {
+		Reg |= ((u32)Msg->Addrsize - 1);
+	}
 
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 		XOSPIPSV_DEV_SIZE_CONFIG_REG, Reg);
@@ -900,7 +791,7 @@ static inline void XOspiPsv_Setup_Devsize(XOspiPsv *InstancePtr, XOspiPsv_Msg *M
 * @note		None
 *
 ******************************************************************************/
-static inline void XOspiPsv_Start_Indr_RdTransfer(XOspiPsv *InstancePtr)
+static inline void XOspiPsv_Start_Indr_RdTransfer(const XOspiPsv *InstancePtr)
 {
 	u32 Val;
 
@@ -910,27 +801,6 @@ static inline void XOspiPsv_Start_Indr_RdTransfer(XOspiPsv *InstancePtr)
 
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 			XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG, (Val));
-}
-
-/*****************************************************************************/
-/**
-*
-* This function returns the indirect read transfer completion status
-*
-* @param	InstancePtr is a pointer to the XOspiPsv instance.
-*
-* @return	None
-*
-* @note		None
-*
-******************************************************************************/
-static inline u32 XOspiPsv_Indr_RdTransfer_Complete(XOspiPsv *InstancePtr)
-{
-	u32 Val;
-
-	Val = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
-			XOSPIPSV_OSPIDMA_DST_I_STS);
-	return (Val & XOSPIPSV_OSPIDMA_DST_I_STS_DONE_MASK);
 }
 
 /*****************************************************************************/
@@ -946,7 +816,8 @@ static inline u32 XOspiPsv_Indr_RdTransfer_Complete(XOspiPsv *InstancePtr)
 * @note		None
 *
 ******************************************************************************/
-static inline void XOspiPsv_Config_IndirectAhb(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
+static inline void XOspiPsv_Config_IndirectAhb(const XOspiPsv *InstancePtr,
+		const XOspiPsv_Msg *Msg)
 {
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 		XOSPIPSV_INDIRECT_READ_XFER_WATERMARK_REG, XOSPIPSV_RXWATER_MARK_DEF);
@@ -969,7 +840,7 @@ static inline void XOspiPsv_Config_IndirectAhb(XOspiPsv *InstancePtr, XOspiPsv_M
 /*****************************************************************************/
 /**
 *
-* This function setup the Dma configuration
+* This function Read the data using DMA
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 * @param	Msg is a pointer to the structure containing transfer data.
@@ -979,41 +850,75 @@ static inline void XOspiPsv_Config_IndirectAhb(XOspiPsv *InstancePtr, XOspiPsv_M
 * @note		None
 *
 ******************************************************************************/
-static inline void XOspiPsv_Config_Dma(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
+static inline void XOspiPsv_Dma_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 {
-	s32 Remainder;
-	s32 DmaRxBytes;
-	u64 AddrTemp;
+	if ((Msg->ByteCount % 4U) != 0U) {
+		InstancePtr->IsUnaligned = 1;
+	}
 
-	AddrTemp = (u64)((INTPTR)(Msg->RxBfrPtr) &
+	if (Msg->ByteCount >= (u32)4) {
+		Msg->ByteCount -= (Msg->ByteCount % 4U);
+		XOspiPsv_Config_Dma(InstancePtr,Msg);
+		XOspiPsv_Config_IndirectAhb(InstancePtr,Msg);
+		XOspiPsv_Exec_Dma(InstancePtr);
+		if (InstancePtr->IsUnaligned != 0U) {
+			InstancePtr->RecvBufferPtr += Msg->ByteCount;
+			Msg->Addr += Msg->ByteCount;
+		}
+	}
+
+	if (InstancePtr->IsUnaligned != 0U) {
+		Msg->ByteCount = 4;
+		Msg->RxBfrPtr = InstancePtr->UnalignReadBuffer;
+		InstancePtr->RxBytes = (InstancePtr->RxBytes % 4U);
+		XOspiPsv_Config_Dma(InstancePtr,Msg);
+		XOspiPsv_Config_IndirectAhb(InstancePtr,Msg);
+		XOspiPsv_Exec_Dma(InstancePtr);
+		Xil_MemCpy(InstancePtr->RecvBufferPtr, InstancePtr->UnalignReadBuffer,
+				InstancePtr->RxBytes);
+		InstancePtr->IsUnaligned = 0U;
+	}
+}
+/*****************************************************************************/
+/**
+*
+* This function setup the Dma configuration
+*
+* @param	InstancePtr is a pointer to the XOspiPsv instance.
+* @param	Msg is a pointer to the structure containing transfer data.
+*
+* @return	XST_SUCCESS
+*           XST_FAILURE if byte count is not aligned
+*
+* @note		None
+*
+******************************************************************************/
+static inline void XOspiPsv_Config_Dma(const XOspiPsv *InstancePtr,
+		const XOspiPsv_Msg *Msg)
+{
+	UINTPTR AddrTemp;
+
+	AddrTemp = ((UINTPTR)(Msg->RxBfrPtr) &
 			XOSPIPSV_OSPIDMA_DST_ADDR_ADDR_MASK);
 
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 		XOSPIPSV_DMA_PERIPH_CONFIG_REG, XOSPIPSV_DMA_PERIPH_CONFIG_VAL);
 
-
-	Remainder = Msg->ByteCount % 4;
-	DmaRxBytes = Msg->ByteCount;
-	if (Remainder != 0) {
-		/* This is done to make Dma bytes aligned */
-		DmaRxBytes = Msg->ByteCount - Remainder;
-		Msg->ByteCount = (u32)DmaRxBytes;
-	}
-
-	Xil_DCacheInvalidateRange((INTPTR)Msg->RxBfrPtr, DmaRxBytes);
+	Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 		XOSPIPSV_OSPIDMA_DST_ADDR, (u32)AddrTemp);
 
-#ifdef __aarch64__
-	AddrTemp = (u64)((INTPTR)(Msg->RxBfrPtr) >> 32);
+#if defined(__aarch64__) || defined(__arch64__)
+	AddrTemp = ((UINTPTR)(Msg->RxBfrPtr) >> 32);
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 		XOSPIPSV_OSPIDMA_DST_ADDR_MSB, (u32)AddrTemp &
 		XOSPIPSV_OSPIDMA_DST_ADDR_MSB_ADDR_MSB_MASK);
+#else
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+		XOSPIPSV_OSPIDMA_DST_ADDR_MSB, 0x0);
 #endif
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 		XOSPIPSV_SRAM_PARTITION_CFG_REG, XOSPIPSV_SRAM_PARTITION_CFG_VAL);
-
-	XOspiPsv_Setup_Dev_Read_Instr_Reg(InstancePtr, Msg);
 
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 		XOSPIPSV_OSPIDMA_SRC_RD_ADDR, XOSPIPSV_IND_TRIGGAHB_BASE);
@@ -1022,7 +927,7 @@ static inline void XOspiPsv_Config_Dma(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 		XOSPIPSV_OSPIDMA_DST_SIZE, Msg->ByteCount);
 
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-		XOSPIPSV_OSPIDMA_DST_CTRL,  XOSPIPSV_DMA_DST_CTRL_DEF);
+		XOSPIPSV_OSPIDMA_DST_CTRL, XOSPIPSV_DMA_DST_CTRL_DEF);
 }
 
 /*****************************************************************************/
@@ -1038,43 +943,29 @@ static inline void XOspiPsv_Config_Dma(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 * @note		None
 *
 ******************************************************************************/
-static inline void XOspiPsv_Exec_Dma(XOspiPsv *InstancePtr)
+static inline void XOspiPsv_Exec_Dma(const XOspiPsv *InstancePtr)
 {
+	u32 ReadReg;
+
 	/* Start the transfer */
 	XOspiPsv_Start_Indr_RdTransfer(InstancePtr);
 
+	ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_OSPIDMA_DST_I_STS);
 	/* Wait for complete */
-	while(XOspiPsv_Indr_RdTransfer_Complete(InstancePtr) == 0U);
-	/* Check for Idle */
-	while(XOspiPsv_Check_Idle(InstancePtr) == 0U);
+	while((ReadReg & XOSPIPSV_OSPIDMA_DST_I_STS_DONE_MASK) == 0U) {
+		ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+					XOSPIPSV_OSPIDMA_DST_I_STS);
+	}
+
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 		XOSPIPSV_OSPIDMA_DST_I_STS,
 		XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 		XOSPIPSV_OSPIDMA_DST_I_STS));
-	while(XOspiPsv_Check_Idle(InstancePtr) == 0U);
 
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 		XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG,
 		(XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG_IND_OPS_DONE_STATUS_FLD_MASK));
-}
-
-/*****************************************************************************/
-/**
-*
-* This function returns the OSPI controller idle state
-*
-* @param	InstancePtr is a pointer to the XOspiPsv instance.
-*
-* @return	Idle state of OSPI controller
-*
-* @note		None
-*
-******************************************************************************/
-static inline u32 XOspiPsv_Check_Idle(XOspiPsv *InstancePtr)
-{
-
-	return (XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
-		XOSPIPSV_CONFIG_REG) & XOSPIPSV_CONFIG_REG_IDLE_FLD_MASK);
 }
 
 /*****************************************************************************/
@@ -1090,86 +981,50 @@ static inline u32 XOspiPsv_Check_Idle(XOspiPsv *InstancePtr)
 * @note		None
 *
 ******************************************************************************/
-static inline u32 XOspiPsv_Process_Read_Write(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
+static inline u32 XOspiPsv_Process_Read_Write(XOspiPsv *InstancePtr,
+		XOspiPsv_Msg *Msg)
 {
+	u32 Status;
 
-	u32 Status = (u32)XST_SUCCESS;
-
-	if (((Msg->Flags & XOSPIPSV_MSG_FLAG_RX) != FALSE) &&
-		((Msg->Flags & XOSPIPSV_MSG_FLAG_TX) == FALSE)) {
-			InstancePtr->RxBytes = (s32)Msg->ByteCount;
-			InstancePtr->SendBufferPtr = NULL;
-			InstancePtr->RecvBufferPtr = Msg->RxBfrPtr;
-			XOspiPsv_AssertCS(InstancePtr);
-			if((InstancePtr->OpMode == XOSPIPSV_READMODE_IO) ||
-					((u32)Msg->ByteCount <= XOSPIPSV_IOMODE_BYTECNT))
-					Status = XOspiPsv_Process_Stig_Read(InstancePtr,
-						 Msg);
-			else if(InstancePtr->OpMode == XOSPIPSV_READMODE_DMA) {
-				XOspiPsv_Setup_Devsize(InstancePtr, Msg);
-				XOspiPsv_Config_IndirectAhb(InstancePtr,Msg);
-				XOspiPsv_Config_Dma(InstancePtr,Msg);
-				XOspiPsv_Exec_Dma(InstancePtr);
-			} else {
-				XOspiPsv_Dac_Configure(InstancePtr, Msg);
-				while(XOspiPsv_Check_Idle(InstancePtr) == 0U);
-				return XOspiPsv_Dac_Read(InstancePtr, Msg);
-			}
-			while(XOspiPsv_Check_Idle(InstancePtr) == 0U);
-			XOspiPsv_DeAssertCS(InstancePtr);
-	} else if (((Msg->Flags & XOSPIPSV_MSG_FLAG_TX) != FALSE) &&
-		((Msg->Flags & XOSPIPSV_MSG_FLAG_RX) == FALSE)) {
-			InstancePtr->TxBytes = (s32)Msg->ByteCount;
-			InstancePtr->SendBufferPtr = Msg->TxBfrPtr;
-			InstancePtr->RecvBufferPtr = NULL;
-			XOspiPsv_AssertCS(InstancePtr);
-			if (InstancePtr->TxBytes != 0U) {
-				if(InstancePtr->OpMode == XOSPIPSV_READMODE_DAC) {
-					while(XOspiPsv_Check_Idle(InstancePtr) == 0U);
-					XOspiPsv_Dac_Configure(InstancePtr, Msg);
-					while(XOspiPsv_Check_Idle(InstancePtr) == 0U);
-					Status = XOspiPsv_Dac_Write(InstancePtr, Msg);
-				} else {
-					Status = XOspiPsv_Process_Stig_Data_Write(InstancePtr,
-						Msg);
-				}
-			} else {
-				XOspiPsv_Process_Stig_Command_Write(InstancePtr, Msg);
-			}
-			while(XOspiPsv_Check_Idle(InstancePtr) == 0U);
-			XOspiPsv_DeAssertCS(InstancePtr);
-		}
-	return Status;
-}
-
-
-/*****************************************************************************/
-/**
-*
-* This function enables Linear controller in OSPI
-*
-* @param	InstancePtr is a pointer to the XOspiPsv instance.
-* @param	Msg is a pointer to the structure containing transfer data.
-*
-* @return	None
-*
-* @note		None
-*
-******************************************************************************/
-static inline void XOspiPsv_Dac_Configure(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
-{
-	/* Wait for idle */
-	while (XOspiPsv_Check_Idle(InstancePtr) ==0U);
-
-	if (Msg->Flags & XOSPIPSV_MSG_FLAG_RX) {
-		XOspiPsv_Setup_Dev_Read_Instr_Reg(InstancePtr, Msg);
-	} else {
-		XOspiPsv_Setup_Dev_Write_Instr_Reg(InstancePtr, Msg);
+	if ((Msg->Flags != XOSPIPSV_MSG_FLAG_RX) &&
+			(Msg->Flags != XOSPIPSV_MSG_FLAG_TX)) {
+		Status = XST_FAILURE;
+		goto ERROR_PATH;
 	}
 
 	XOspiPsv_Setup_Devsize(InstancePtr, Msg);
-	XOspiPsv_Enable(InstancePtr);
-	XOspiPsv_Enable_Dac(InstancePtr);
+	if ((Msg->Flags & XOSPIPSV_MSG_FLAG_RX) != FALSE) {
+		XOspiPsv_Setup_Dev_Read_Instr_Reg(InstancePtr, Msg);
+		InstancePtr->RxBytes = Msg->ByteCount;
+		InstancePtr->SendBufferPtr = NULL;
+		InstancePtr->RecvBufferPtr = Msg->RxBfrPtr;
+		if ((InstancePtr->OpMode == XOSPIPSV_IDAC_MODE) ||
+					(Msg->Addrvalid == 0U)) {
+			if (Msg->Addrvalid == 0U) {
+				Status = XOspiPsv_Stig_Read(InstancePtr, Msg);
+			} else {
+				XOspiPsv_Dma_Read(InstancePtr,Msg);
+				Status = (u32)XST_SUCCESS;
+			}
+		} else {
+			Status = XOspiPsv_Dac_Read(InstancePtr, Msg);
+		}
+	} else {
+		XOspiPsv_Setup_Dev_Write_Instr_Reg(InstancePtr, Msg);
+		InstancePtr->TxBytes = Msg->ByteCount;
+		InstancePtr->SendBufferPtr = Msg->TxBfrPtr;
+		InstancePtr->RecvBufferPtr = NULL;
+		if((InstancePtr->OpMode == XOSPIPSV_DAC_MODE) &&
+				(InstancePtr->TxBytes != 0U)) {
+			Status = XOspiPsv_Dac_Write(InstancePtr, Msg);
+		} else {
+			XOspiPsv_Stig_Write(InstancePtr, Msg);
+			Status = (u32)XST_SUCCESS;
+		}
+	}
+
+ERROR_PATH:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -1187,30 +1042,20 @@ static inline void XOspiPsv_Dac_Configure(XOspiPsv *InstancePtr, XOspiPsv_Msg *M
 ******************************************************************************/
 static inline u32 XOspiPsv_Dac_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 {
-	u32 Addr = (long unsigned int)XOSPIPSV_LINEAR_ADDR_BASE + Msg->Addr;
-	u32 Val;
-	u32 ByteCount;
+	u32 Status;
+	u32 *Addr = (u32 *)XOSPIPSV_LINEAR_ADDR_BASE + Msg->Addr;
 
-	while (InstancePtr->RxBytes > 0) {
-		if (Addr >= (XOSPIPSV_LINEAR_ADDR_BASE + SIZE_512MB)) {
-			xil_printf("Dac supports only 512Mb data Read\n\r");
-			return XST_FAILURE;
-		}
-		if (InstancePtr->RxBytes >= 4)
-			ByteCount = 4;
-		else
-			ByteCount = InstancePtr->RxBytes;
-
-		Val = Xil_In32(Addr);
-		memcpy(Msg->RxBfrPtr, &Val, ByteCount);
-		InstancePtr->RxBytes -= ByteCount;
-		if (InstancePtr->RxBytes) {
-			Msg->RxBfrPtr += 4;
-			Addr += 4;
-		}
+	if (Addr >= (u32 *)(XOSPIPSV_LINEAR_ADDR_BASE + SIZE_512MB)) {
+		Status = XST_FAILURE;
+		goto ERROR_PATH;
 	}
 
-	return XST_SUCCESS;
+	Xil_MemCpy(Msg->RxBfrPtr, Addr, InstancePtr->RxBytes);
+	InstancePtr->RxBytes = 0U;
+
+	Status = (u32)XST_SUCCESS;
+ERROR_PATH:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -1226,32 +1071,343 @@ static inline u32 XOspiPsv_Dac_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 * @note		None
 *
 ******************************************************************************/
-static inline u32 XOspiPsv_Dac_Write(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
+static inline u32 XOspiPsv_Dac_Write(XOspiPsv *InstancePtr, const XOspiPsv_Msg *Msg)
 {
-	u32 Addr = (long unsigned int)XOSPIPSV_LINEAR_ADDR_BASE + Msg->Addr;
-	u32 Val;
+	u32 Status;
+	u32 *Addr = (u32 *)XOSPIPSV_LINEAR_ADDR_BASE + Msg->Addr;
+
+	if (Addr >= (u32 *)(XOSPIPSV_LINEAR_ADDR_BASE + SIZE_512MB)) {
+		Status = XST_FAILURE;
+		goto ERROR_PATH;
+	}
+
+	Xil_MemCpy(Addr, Msg->TxBfrPtr, InstancePtr->TxBytes);
+	InstancePtr->TxBytes = 0U;
+
+	Status = (u32)XST_SUCCESS;
+ERROR_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function performs a transfer on the bus in interrupt mode.
+*
+* @param	InstancePtr is a pointer to the XOspiPsv instance.
+* @param	Msg is a pointer to the structure containing transfer data.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_DEVICE_BUSY if a transfer is already in progress.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XOspiPsv_IntrTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
+{
+	u32 Status;
+	u32 IntrMask;
 	u32 ByteCount;
+	u8 WriteDataEn;
+	u32 Reqaddr;
+	u32 ReadReg;
 
-	while(InstancePtr->TxBytes > 0) {
-		if (Addr >= (XOSPIPSV_LINEAR_ADDR_BASE + SIZE_512MB)) {
-			xil_printf("Dac supports only 512Mb data Write\n\r");
-			return XST_FAILURE;
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	/* Check whether there is another transfer in progress. Not thread-safe */
+	if (InstancePtr->IsBusy == TRUE) {
+		Status = XST_DEVICE_BUSY;
+		goto ERROR_PATH;
+	}
+
+	/* DAC read/write not supported in interrupt mode */
+	if (InstancePtr->OpMode == XOSPIPSV_DAC_MODE) {
+		Status = XST_FAILURE;
+		goto ERROR_PATH;
+	}
+
+	if ((Msg->Flags != XOSPIPSV_MSG_FLAG_RX) &&
+			(Msg->Flags != XOSPIPSV_MSG_FLAG_TX)) {
+		Status = XST_FAILURE;
+		goto ERROR_PATH;
+	}
+
+	/*
+	 * Set the busy flag, which will be cleared when the transfer is
+	 * entirely done.
+	 */
+	InstancePtr->IsBusy = TRUE;
+	InstancePtr->Msg = Msg;
+
+	XOspiPsv_Enable(InstancePtr);
+
+	XOspiPsv_AssertCS(InstancePtr);
+
+	ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_CONFIG_REG);
+	while((ReadReg & XOSPIPSV_CONFIG_REG_IDLE_FLD_MASK) == 0U) {
+		ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_CONFIG_REG);
+	}
+
+	IntrMask = ((u32)XOSPIPSV_IRQ_MASK_REG_STIG_REQ_MASK_FLD_MASK |
+			(u32)XOSPIPSV_IRQ_MASK_REG_TX_CRC_CHUNK_BRK_MASK_FLD_MASK |
+			(u32)XOSPIPSV_IRQ_MASK_REG_RX_CRC_DATA_VAL_MASK_FLD_MASK |
+			(u32)XOSPIPSV_IRQ_MASK_REG_RX_CRC_DATA_ERR_MASK_FLD_MASK |
+			(u32)XOSPIPSV_IRQ_MASK_REG_INDIRECT_XFER_LEVEL_BREACH_MASK_FLD_MASK |
+			(u32)XOSPIPSV_IRQ_MASK_REG_ILLEGAL_ACCESS_DET_MASK_FLD_MASK |
+			(u32)XOSPIPSV_IRQ_MASK_REG_PROT_WR_ATTEMPT_MASK_FLD_MASK |
+			(u32)XOSPIPSV_IRQ_MASK_REG_INDIRECT_TRANSFER_REJECT_MASK_FLD_MASK);
+
+	XOspiPsv_Setup_Devsize(InstancePtr, Msg);
+
+	if ((Msg->Flags & XOSPIPSV_MSG_FLAG_RX) != 0U) {
+		XOspiPsv_Setup_Dev_Read_Instr_Reg(InstancePtr, Msg);
+		InstancePtr->RxBytes = Msg->ByteCount;
+		InstancePtr->RecvBufferPtr = Msg->RxBfrPtr;
+		InstancePtr->SendBufferPtr = NULL;
+		if (Msg->Addrvalid == 0U) {
+			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+					XOSPIPSV_IRQ_MASK_REG, IntrMask);
+			XOspiPsv_Setup_Stig_Ctrl(InstancePtr, (u32)Msg->Opcode,
+				1, (u32)InstancePtr->RxBytes - 1, Msg->Addrvalid, 0,
+				(u32)Msg->Addrsize - 1, 0, 0, (u32)Msg->Dummy, 0);
+			/* Execute the command */
+			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_FLASH_CMD_CTRL_REG,
+				(XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+					XOSPIPSV_FLASH_CMD_CTRL_REG) |
+					(u32)XOSPIPSV_FLASH_CMD_CTRL_REG_CMD_EXEC_FLD_MASK));
+		} else {
+			/* Enable DMA DONE interrupt */
+			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_OSPIDMA_DST_I_EN, XOSPIPSV_OSPIDMA_DST_I_EN_DONE_MASK);
+
+			if (Msg->ByteCount >= (u32)4) {
+				Msg->ByteCount -= (Msg->ByteCount % 4U);
+				if ((Msg->ByteCount % 4U) != 0U) {
+					InstancePtr->IsUnaligned = 1U;
+				}
+			} else {
+				Msg->ByteCount = 4;
+				Msg->RxBfrPtr = InstancePtr->UnalignReadBuffer;
+				InstancePtr->IsUnaligned = 0U;
+			}
+			XOspiPsv_Config_Dma(InstancePtr,Msg);
+			XOspiPsv_Config_IndirectAhb(InstancePtr,Msg);
+			/* Start the transfer */
+			XOspiPsv_Start_Indr_RdTransfer(InstancePtr);
 		}
-		if(InstancePtr->TxBytes >= 4)
-			ByteCount = 4;
-		else
+	} else {
+		XOspiPsv_Setup_Dev_Write_Instr_Reg(InstancePtr, Msg);
+		InstancePtr->TxBytes = Msg->ByteCount;
+		InstancePtr->SendBufferPtr = Msg->TxBfrPtr;
+		InstancePtr->RecvBufferPtr = NULL;
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_IRQ_MASK_REG, IntrMask);
+		if (Msg->Addrvalid != 0U) {
+			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_FLASH_CMD_ADDR_REG, Msg->Addr);
+			Reqaddr = 1;
+		} else {
+			Reqaddr = 0U;
+		}
+		if (InstancePtr->TxBytes != 0U) {
+			WriteDataEn = 1;
 			ByteCount = InstancePtr->TxBytes;
-
-		memcpy(&Val, Msg->TxBfrPtr, 4);
-		Xil_Out32(Addr, Val);
-		InstancePtr->TxBytes -= ByteCount;
-		if (InstancePtr->TxBytes) {
-			Msg->TxBfrPtr += 4;
-			Addr += 4;
+			XOspiPsv_FifoWrite(InstancePtr, Msg);
+		} else {
+			WriteDataEn = 0U;
+			ByteCount = 1;
 		}
+		XOspiPsv_Setup_Stig_Ctrl(InstancePtr, (u32)Msg->Opcode,
+			0, 0, Reqaddr, 0, (u32)Msg->Addrsize - 1,
+			WriteDataEn, (u32)ByteCount - 1, 0, 0);
+
+		/* Execute the command */
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_FLASH_CMD_CTRL_REG,
+			(XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_FLASH_CMD_CTRL_REG) |
+				(u32)XOSPIPSV_FLASH_CMD_CTRL_REG_CMD_EXEC_FLD_MASK));
+	}
+
+	Status = (u32)XST_SUCCESS;
+ERROR_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function handles interrupt based transfers.
+*
+* @param	InstancePtr is a pointer to the XOspiPsv instance.
+* @param	Msg is a pointer to the structure containing transfer data.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_DEVICE_BUSY if a transfer is already in progress.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XOspiPsv_IntrHandler(XOspiPsv *InstancePtr)
+{
+	u32 StatusReg;
+	u32 DmaStatusReg;
+	XOspiPsv_Msg *Msg = InstancePtr->Msg;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	if (((Msg->Flags & XOSPIPSV_MSG_FLAG_RX) != 0U) &&
+					(Msg->Addrvalid != 0U)) {
+		DmaStatusReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_OSPIDMA_DST_I_STS);
+		if ((DmaStatusReg & XOSPIPSV_OSPIDMA_DST_I_EN_DONE_MASK) != 0U) {
+			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG,
+				(XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG_IND_OPS_DONE_STATUS_FLD_MASK));
+			/* Clear the ISR */
+			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_OSPIDMA_DST_I_STS, XOSPIPSV_OSPIDMA_DST_I_EN_DONE_MASK);
+			if (InstancePtr->IsUnaligned != 0U) {
+				InstancePtr->RecvBufferPtr += Msg->ByteCount;
+				Msg->Addr += Msg->ByteCount;
+				Msg->ByteCount = 4;
+				InstancePtr->RxBytes = (InstancePtr->RxBytes % 4U);
+				Msg->RxBfrPtr = InstancePtr->UnalignReadBuffer;
+				XOspiPsv_Config_Dma(InstancePtr,Msg);
+				XOspiPsv_Config_IndirectAhb(InstancePtr,Msg);
+				/* Start the transfer */
+				XOspiPsv_Start_Indr_RdTransfer(InstancePtr);
+				InstancePtr->IsUnaligned = 0U;
+			} else {
+				if (Msg->RxBfrPtr == InstancePtr->UnalignReadBuffer) {
+					Xil_MemCpy(InstancePtr->RecvBufferPtr,
+						InstancePtr->UnalignReadBuffer, InstancePtr->RxBytes);
+				}
+				/* Disable the interrupt */
+				XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+					XOSPIPSV_OSPIDMA_DST_I_DIS, XOSPIPSV_OSPIDMA_DST_I_EN_DONE_MASK);
+				InstancePtr->RxBytes = 0U;
+				InstancePtr->StatusHandler(InstancePtr->StatusRef,
+						XST_SPI_TRANSFER_DONE);
+				XOspiPsv_DeAssertCS(InstancePtr);
+				XOspiPsv_Disable(InstancePtr);
+				InstancePtr->IsBusy = FALSE;
+			}
+		}
+	} else {
+		StatusReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+					XOSPIPSV_IRQ_STATUS_REG);
+		if (((Msg->Flags & XOSPIPSV_MSG_FLAG_RX) != 0U) &&
+					(Msg->Addrvalid == 0U)) {
+			if ((StatusReg & XOSPIPSV_IRQ_MASK_REG_STIG_REQ_MASK_FLD_MASK) != 0U) {
+				/* Clear the ISR */
+				XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+					XOSPIPSV_IRQ_STATUS_REG,
+					XOSPIPSV_IRQ_MASK_REG_STIG_REQ_MASK_FLD_MASK);
+				/* Read the data from FIFO */
+				XOspiPsv_FifoRead(InstancePtr, Msg);
+				/* Disable the interrupt */
+				XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+					XOSPIPSV_IRQ_MASK_REG,
+					XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+					XOSPIPSV_IRQ_MASK_REG) &
+					~(u32)XOSPIPSV_IRQ_MASK_REG_STIG_REQ_MASK_FLD_MASK);
+				StatusReg &= ~(u32)XOSPIPSV_IRQ_MASK_REG_STIG_REQ_MASK_FLD_MASK;
+				StatusReg |= (u32)XST_SPI_TRANSFER_DONE;
+			}
+		} else {
+			if (((Msg->Flags & XOSPIPSV_MSG_FLAG_TX) != 0U) &&
+				((StatusReg & XOSPIPSV_IRQ_MASK_REG_STIG_REQ_MASK_FLD_MASK) != 0U)) {
+				/* Clear the interrupt */
+				XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+					XOSPIPSV_IRQ_STATUS_REG,
+					XOSPIPSV_IRQ_MASK_REG_STIG_REQ_MASK_FLD_MASK);
+				/* Disable the interrupts */
+				XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+					XOSPIPSV_IRQ_MASK_REG,
+					XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+					XOSPIPSV_IRQ_MASK_REG) &
+					~(u32)XOSPIPSV_IRQ_MASK_REG_STIG_REQ_MASK_FLD_MASK);
+				StatusReg &= ~(u32)XOSPIPSV_IRQ_MASK_REG_STIG_REQ_MASK_FLD_MASK;
+				StatusReg |= (u32)XST_SPI_TRANSFER_DONE;
+
+			}
+		}
+		InstancePtr->StatusHandler(InstancePtr->StatusRef, StatusReg);
+		XOspiPsv_DeAssertCS(InstancePtr);
+		XOspiPsv_Disable(InstancePtr);
+		InstancePtr->IsBusy = FALSE;
 	}
 
 	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * Sets the status callback function, the status handler, which the driver
+ * calls when it encounters conditions that should be reported to upper
+ * layer software. The handler executes in an interrupt context, so it must
+ * minimize the amount of processing performed. One of the following status
+ * events is passed to the status handler.
+ *
+ * <pre>
+ *
+ * XST_SPI_TRANSFER_DONE		The requested data transfer is done
+ *
+ * </pre>
+ * @param	InstancePtr is a pointer to the XOspiPsv instance.
+ * @param	CallBackRef is the upper layer callback reference passed back
+ *		when the callback function is invoked.
+ * @param	FuncPointer is the pointer to the callback function.
+ *
+ * @return	None.
+ *
+ * @note
+ *
+ * The handler is called within interrupt context, so it should do its work
+ * quickly and queue potentially time-consuming work to a task-level thread.
+ *
+ ******************************************************************************/
+void XOspiPsv_SetStatusHandler(XOspiPsv *InstancePtr, void *CallBackRef,
+				XOspiPsv_StatusHandler FuncPointer)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(FuncPointer != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	InstancePtr->StatusHandler = FuncPointer;
+	InstancePtr->StatusRef = CallBackRef;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This is a stub for the status callback. The stub is here in case the upper
+ * layers forget to set the handler.
+ *
+ * @param	CallBackRef is a pointer to the upper layer callback reference
+ * @param	StatusEvent is the event that just occurred.
+ * @param	ByteCount is the number of bytes transferred up until the event
+ *		occurred.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+static void StubStatusHandler(void *CallBackRef, u32 StatusEvent)
+{
+	(void) CallBackRef;
+	(void) StatusEvent;
+
+	Xil_AssertVoidAlways();
 }
 
 /** @} */

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xospipsv_options.c
-* @addtogroup ospips_v1_0
+* @addtogroup ospipsv_v1_0
 * @{
 *
 * This file implements funcitons to configure the OSPIPS component,
@@ -41,6 +41,9 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.0   nsk  02/19/18 First release
+*       sk   01/09/19 Updated XOspiPsv_SetOptions() API to support
+*                     DAC mode switching.
+*                     Removed Legacy/STIG mode option in OptionsTable.
 *
 * </pre>
 *
@@ -75,13 +78,12 @@ static OptionsMap OptionsTable[] = {
 	{XOSPIPSV_CLK_POL_OPTION, (XOSPIPSV_CONFIG_REG_SEL_CLK_POL_FLD_MASK)},
 	{XOSPIPSV_CLK_PHASE_OPTION, (XOSPIPSV_CONFIG_REG_SEL_CLK_PHASE_FLD_MASK)},
 	{XOSPIPSV_PHY_EN_OPTION, (XOSPIPSV_CONFIG_REG_PHY_MODE_ENABLE_FLD_MASK)},
-	{XOSPIPSV_DAC_EN_OPTION, (XOSPIPSV_CONFIG_REG_ENB_DIR_ACC_CTLR_FLD_MASK)},
-	{XOSPIPSV_LEGIP_EN_OPTION, (XOSPIPSV_CONFIG_REG_ENB_LEGACY_IP_MODE_FLD_MASK)},
+	{XOSPIPSV_DAC_EN_OPTION, (((u32)XOSPIPSV_CONFIG_REG_ENB_DIR_ACC_CTLR_FLD_MASK) |
+			(u32)XOSPIPSV_CONFIG_REG_ENB_AHB_ADDR_REMAP_FLD_MASK)},
 	{XOSPIPSV_IDAC_EN_OPTION, (XOSPIPSV_CONFIG_REG_ENB_DMA_IF_FLD_MASK)},
 	{XOSPIPSV_DTR_EN_OPTION, (XOSPIPSV_CONFIG_REG_ENABLE_DTR_PROTOCOL_FLD_MASK)},
 	{XOSPIPSV_CRC_EN_OPTION, (XOSPIPSV_CONFIG_REG_CRC_ENABLE_FLD_MASK)},
 	{XOSPIPSV_DB_OP_EN_OPTION, (XOSPIPSV_CONFIG_REG_DUAL_BYTE_OPCODE_EN_FLD_MASK)},
-	{XOSPIPSV_IO_EN_OPTION, (XOSPIPSV_CONFIG_REG_IO_EN_FLD_MASK)},
 };
 
 #define XOSPIPSV_NUM_OPTIONS	(sizeof(OptionsTable) / sizeof(OptionsMap))
@@ -109,11 +111,11 @@ static OptionsMap OptionsTable[] = {
 * This function is not thread-safe.
 *
 ******************************************************************************/
-s32 XOspiPsv_SetOptions(XOspiPsv *InstancePtr, u32 Options)
+u32 XOspiPsv_SetOptions(XOspiPsv *InstancePtr, u32 Options)
 {
 	u32 Index;
-	s32 Status;
-	u32 ConfigReg = 0;
+	u32 Status;
+	u32 ConfigReg;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -123,30 +125,50 @@ s32 XOspiPsv_SetOptions(XOspiPsv *InstancePtr, u32 Options)
 	 * progress. Not thread-safe.
 	 */
 	if (InstancePtr->IsBusy == TRUE) {
-		Status = (s32)XST_DEVICE_BUSY;
+		Status = XST_DEVICE_BUSY;
 	} else {
+		ConfigReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_CONFIG_REG);
 		for (Index = 0U; Index < XOSPIPSV_NUM_OPTIONS; Index++) {
 			if ((Options & OptionsTable[Index].Option) != FALSE) {
 				ConfigReg |= OptionsTable[Index].Mask;
-
-				if(OptionsTable[Index].Mask &
-						XOSPIPSV_CONFIG_REG_ENB_DMA_IF_FLD_MASK) {
-					InstancePtr->OpMode = XOSPIPSV_READMODE_DMA;
-				} else if(OptionsTable[Index].Mask &
-						XOSPIPSV_CONFIG_REG_ENB_DIR_ACC_CTLR_FLD_MASK) {
-					InstancePtr->OpMode = XOSPIPSV_READMODE_DAC;
+				if((OptionsTable[Index].Mask &
+						XOSPIPSV_CONFIG_REG_ENB_DIR_ACC_CTLR_FLD_MASK) != 0U) {
+					XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+							XOSPIPSV_REMAP_ADDR_REG, XOSPIPSV_REMAP_ADDR_VAL);
+					InstancePtr->OpMode = XOSPIPSV_DAC_MODE;
+					/* IOU_SLCR MUX selection */
+					XOspiPsv_WriteReg(XPMC_IOU_SLCR_BASEADDR,
+						XPMC_IOU_SLCR_OSPI_MUX_SEL,
+						XOspiPsv_ReadReg(XPMC_IOU_SLCR_BASEADDR,
+							XPMC_IOU_SLCR_OSPI_MUX_SEL) |
+							(u32)XPMC_IOU_SLCR_OSPI_MUX_SEL_DAC_MASK);
 				} else {
-					InstancePtr->OpMode = XOSPIPSV_READMODE_IO;
+					XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+								XOSPIPSV_REMAP_ADDR_REG, 0x0U);
+					if((OptionsTable[Index].Mask &
+						XOSPIPSV_CONFIG_REG_ENB_DMA_IF_FLD_MASK) != 0U) {
+						InstancePtr->OpMode = XOSPIPSV_IDAC_MODE;
+					}
 				}
 
 			} else {
+				if (OptionsTable[Index].Option == XOSPIPSV_DAC_EN_OPTION) {
+					if ((ConfigReg & XOSPIPSV_CONFIG_REG_ENB_DIR_ACC_CTLR_FLD_MASK) != 0U) {
+						XOspiPsv_WriteReg(XPMC_IOU_SLCR_BASEADDR,
+							XPMC_IOU_SLCR_OSPI_MUX_SEL,
+							XOspiPsv_ReadReg(XPMC_IOU_SLCR_BASEADDR,
+								XPMC_IOU_SLCR_OSPI_MUX_SEL) &
+								~(u32)XPMC_IOU_SLCR_OSPI_MUX_SEL_DAC_MASK);
+					}
+				}
 				ConfigReg &= ~(OptionsTable[Index].Mask);
 			}
 		}
-		Status = (s32)XST_SUCCESS;
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_CONFIG_REG,
+					ConfigReg);
+		Status = (u32)XST_SUCCESS;
 	}
-	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_CONFIG_REG,
-			ConfigReg);
 
 	return Status;
 }
@@ -168,7 +190,7 @@ s32 XOspiPsv_SetOptions(XOspiPsv *InstancePtr, u32 Options)
 * @note		None.
 *
 ******************************************************************************/
-u32 XOspiPsv_GetOptions(XOspiPsv *InstancePtr)
+u32 XOspiPsv_GetOptions(const XOspiPsv *InstancePtr)
 {
 	u32 OptionsFlag = 0;
 	u32 ConfigReg;
@@ -177,14 +199,13 @@ u32 XOspiPsv_GetOptions(XOspiPsv *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	/*
-	 * Get the current options from OSPIPS configuration register.
-	 */
-	ConfigReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
-			XOSPIPSV_CONFIG_REG);
-
 	/* Loop through the options table to grab options */
 	for (Index = 0U; Index < XOSPIPSV_NUM_OPTIONS; Index++) {
+		/*
+		 * Get the current options from OSPIPS configuration register.
+		 */
+		ConfigReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_CONFIG_REG);
 		if ((ConfigReg & OptionsTable[Index].Mask) != FALSE) {
 			OptionsFlag |= OptionsTable[Index].Option;
 		}
@@ -211,10 +232,10 @@ u32 XOspiPsv_GetOptions(XOspiPsv *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-s32 XOspiPsv_SetClkPrescaler(XOspiPsv *InstancePtr, u8 Prescaler)
+u32 XOspiPsv_SetClkPrescaler(const XOspiPsv *InstancePtr, u8 Prescaler)
 {
 	u32 ConfigReg;
-	s32 Status;
+	u32 Status;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -225,7 +246,7 @@ s32 XOspiPsv_SetClkPrescaler(XOspiPsv *InstancePtr, u8 Prescaler)
 	 * progress. Not thread-safe.
 	 */
 	if (InstancePtr->IsBusy == TRUE) {
-		Status = (s32)XST_DEVICE_BUSY;
+		Status = (u32)XST_DEVICE_BUSY;
 	} else {
 
 		/*
@@ -235,13 +256,13 @@ s32 XOspiPsv_SetClkPrescaler(XOspiPsv *InstancePtr, u8 Prescaler)
 		 */
 		ConfigReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_CONFIG_REG);
-				ConfigReg &= (u32)(~(XOSPIPSV_CONFIG_REG_MSTR_BAUD_DIV_FLD_MASK));
-				ConfigReg |= (u32) ((u32)Prescaler & XOSPIPSV_CR_PRESC_MAXIMUM)
-								<< (u32)XOSPIPSV_CONFIG_REG_MSTR_BAUD_DIV_FLD_SHIFT;
+		ConfigReg &= (u32)(~(XOSPIPSV_CONFIG_REG_MSTR_BAUD_DIV_FLD_MASK));
+		ConfigReg |= (u32) ((u32)Prescaler & XOSPIPSV_CR_PRESC_MAXIMUM)
+						<< (u32)XOSPIPSV_CONFIG_REG_MSTR_BAUD_DIV_FLD_SHIFT;
 
-				XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-						XOSPIPSV_CONFIG_REG, ConfigReg);
-				Status = XST_SUCCESS;
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_CONFIG_REG, ConfigReg);
+		Status = (u32)XST_SUCCESS;
 
 	}
 
@@ -269,15 +290,20 @@ s32 XOspiPsv_SetClkPrescaler(XOspiPsv *InstancePtr, u8 Prescaler)
 *		lower bus and CS line.
 *
 ******************************************************************************/
-s32 XOspiPsv_SelectFlash(XOspiPsv *InstancePtr, u8 chip_select)
+u32 XOspiPsv_SelectFlash(XOspiPsv *InstancePtr, u8 chip_select)
 {
-	if(chip_select > 2U) {
-		return (s32)XST_FAILURE;
+	u32 Status;
+
+	if(chip_select >= 2U) {
+		Status = (u32)XST_FAILURE;
+		goto ERROR_PATH;
 	}
 
 	InstancePtr->ChipSelect = chip_select;
 
-	return (s32)XST_SUCCESS;
+	Status = (u32)XST_SUCCESS;
+ERROR_PATH:
+	return Status;
 }
 
 /** @} */
