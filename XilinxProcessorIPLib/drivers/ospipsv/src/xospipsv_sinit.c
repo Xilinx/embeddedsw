@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xospipsv_sinit.c
-* @addtogroup ospips_v1_0
+* @addtogroup ospipsv_v1_0
 * @{
 *
 * The implementation of the XOspiPsv component's static initialization
