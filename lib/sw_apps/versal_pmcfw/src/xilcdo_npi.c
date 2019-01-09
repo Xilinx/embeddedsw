@@ -1237,6 +1237,14 @@ XStatus XilCdo_StoreNpiParams(u32 CmdArgs[10U])
 					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]++] = BaseAddr;
 			}
 			break;
+		case XILCDO_NPI_BLK_PLL_PHY:
+			{
+				XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_PLL_PHY_BaseAddr
+					[XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_PLL_PHY]] = BaseAddr;
+				XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_PLL_PHY_NpiParam
+					[XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_PLL_PHY]++] = NpiParam;
+			}
+			break;
 		case XILCDO_NPI_BLK_XPLL:
 			{
 				if((BaseAddr &0x800U) == 0x800U)
@@ -1335,6 +1343,12 @@ XStatus XilCdo_StoreNpiParams(u32 CmdArgs[10U])
 					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]] = BaseAddr;
 				XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_NpiParam
 					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]++] = NpiParam;
+			}
+			break;
+		case XILCDO_NPI_BLK_NOC_NIR:
+			{
+				XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NIR_BaseAddr = BaseAddr;
+				XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]++;
 			}
 			break;
 		default:
@@ -1601,7 +1615,7 @@ void XilCdo_ProcPLLModules()
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_DDRMC]; ++Count)
 	{
 		XilCdo_ClearInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_BaseAddr[Count]);
-		XilCdo_SetUBInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_BaseAddr[Count]);
+		XilCdo_ClearUBInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_BaseAddr[Count]);
 	}
 
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_DDRMC]; ++Count)
@@ -2195,6 +2209,11 @@ void XilCdo_ProcNocModules()
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NMU]; ++Count)
 	{
 		XilCdo_SetODisableNPP(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NMU_BaseAddr[Count]);
+	}
+
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NIR]; ++Count)
+	{
+		XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NIR_BaseAddr);
 	}
 
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_NOC_NPS]; ++Count)
