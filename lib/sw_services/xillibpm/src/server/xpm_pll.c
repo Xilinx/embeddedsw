@@ -94,11 +94,11 @@ XStatus XPmClockPll_SetMode(XPm_PllClockNode *Pll, u32 Mode)
 		goto done;
 	} else if (PM_PLL_MODE_FRACTIONAL == Mode) {
 		/* Enable fractional mode */
-		XPm_RMW32(Pll->ConfigReg, PLL_FRAC_CFG_ENABLED_MASK,
+		XPm_RMW32(Pll->FracConfigReg, PLL_FRAC_CFG_ENABLED_MASK,
 			  PLL_FRAC_CFG_ENABLED_MASK);
 	} else if (PM_PLL_MODE_INTEGER == Mode) {
 		/* Disable fractional mode */
-		XPm_RMW32(Pll->ConfigReg, PLL_FRAC_CFG_ENABLED_MASK, 0);
+		XPm_RMW32(Pll->FracConfigReg, PLL_FRAC_CFG_ENABLED_MASK, 0);
 	} else {
 		Status = XST_INVALID_PARAM;
 		goto done;
@@ -121,7 +121,7 @@ XStatus XPmClockPll_GetMode(XPm_PllClockNode *Pll, u32 *Mode)
 	if (0 != (Val & BIT(Pll->Topology->ResetShift))) {
 		*Mode = PM_PLL_MODE_RESET;
 	} else {
-		Val = XPm_Read32(Pll->ConfigReg);
+		Val = XPm_Read32(Pll->FracConfigReg);
 		if (0 != (Val & PLL_FRAC_CFG_ENABLED_MASK)) {
 			*Mode = PM_PLL_MODE_FRACTIONAL;
 		} else {
