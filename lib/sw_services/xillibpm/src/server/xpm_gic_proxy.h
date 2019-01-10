@@ -26,30 +26,43 @@
 *
 ******************************************************************************/
 
+#ifndef XPM_GIC_H_
+#define XPM_GIC_H_
+
 #include "xpm_periph.h"
-#include "xpm_gic_proxy.h"
 
-struct XPm_PeriphOps GenericOps = {
-	.SetWakeupSource = XPmGicProxy_WakeEventSet,
-};
+/**
+ * GicProxyGroup - Properties of a GIC Proxy group
+ * @SetMask	When GIC Proxy is Enabled, Enable the interrupts whose masks
+ *		are set in this variable
+ */
+typedef struct {
+	u32 SetMask;
+} XPm_GicProxyGroup;
 
-XStatus XPmPeriph_Init(XPm_Periph *Periph, u32 Id, u32 BaseAddress,
-		       XPm_Power *Power, XPm_ClockNode *Clock,
-		       XPm_ResetNode *Reset, u32 GicProxyMask,
-		       u32 GicProxyGroup)
-{
-	XStatus Status = XST_FAILURE;
+/**
+ * XPm_GicProxy - Structure containing GIC Proxy properties
+ * @Groups	Pointer to the array of GIC Proxy Groups
+ * @GroupsCnt	Number of elements in the array of GIC Proxy Groups
+ * @Clear	Clear all set wake-up sources (Flags for all Groups)
+ * @Enable	Function that Enables GIC Proxy and all interrupts that are set
+ *		as wake sources
+ * @Flags	GIC Proxy Flags (is Enabled or not)
+ */
+typedef struct {
+	XPm_GicProxyGroup* const Groups;
+	void (*const Clear)(void);
+	void (*const Enable)(void);
+	const u8 GroupsCnt;
+	u8 Flags;
+} XPm_GicProxy_t;
 
-	Status = XPmDevice_Init(&Periph->Device, Id, BaseAddress, Power, Clock,
-				Reset);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
+/*********************************************************************
+ * Global data declarations
+ ********************************************************************/
 
-	Periph->PeriphOps = &GenericOps;
-	Periph->GicProxyMask = GicProxyMask;
-	Periph->GicProxyGroup = GicProxyGroup;
+extern XPm_GicProxy_t XPm_GicProxy;
 
-done:
-	return Status;
-}
+XStatus XPmGicProxy_WakeEventSet(XPm_Periph *Periph, u8 Enable);
+
+#endif /*XPM_GIC_H_*/
