@@ -569,6 +569,9 @@ u32 XMt_MeasureRdEye2D(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len)
 
 	XMt_Print2DEyeResultsHeader(XMtPtr);
 
+	/* Disable the DFI */
+	XMt_DfiDisable();
+
 	/* Disable VT compensation */
 	XMt_DisableVtcomp();
 
@@ -629,6 +632,9 @@ u32 XMt_MeasureRdEye2D(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len)
 	XMt_PrintLine(XMtPtr, 5);
 
 	XMt_ResetVrefAuto(XMtPtr);
+
+	/* Enable the DFI */
+	XMt_DfiEnable();
 
 	/* Give back Exception Handling to the system defined handlers */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_SYNC_INT,
