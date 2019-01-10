@@ -95,5 +95,6 @@ XStatus XPmSubsystem_IsAllProcDwn(u32 SubsystemId);
 XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId);
 XStatus XPmSubsystem_ForceDownCleanup(u32 SubsystemId);
 XStatus XPmSubsystem_Idle(u32 SubsystemId);
+XPm_Subsystem * XPmSubsystem_GetById(u32 SubsystemId);
 
 #endif /* XPM_SUBSYSTEM_H_ */
