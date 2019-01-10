@@ -1784,7 +1784,11 @@ XStatus XPm_AddNodeParent(u32 *Args, u32 NumArgs)
 			Status = XPmPower_AddParent(Id,Parents,NumParents);
 			break;
 		case XPM_NODECLASS_CLOCK:
-			Status = XPmClock_AddParent(Id,Parents,NumParents);
+			if (ISPLL(Id)) {
+				Status = XPmClockPll_AddParent(Id, Parents, NumParents);
+			} else {
+				Status = XPmClock_AddParent(Id, Parents, NumParents);
+			}
 			break;
 		case XPM_NODECLASS_RESET:
 			break;

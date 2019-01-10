@@ -70,6 +70,26 @@ done:
 	return Status;
 }
 
+XStatus XPmClockPll_AddParent(u32 Id, u32 *Parents, u32 NumParents)
+{
+	XStatus Status = XST_SUCCESS;
+	XPm_PllClockNode *PllPtr = (XPm_PllClockNode *)XPmClock_GetById(Id);
+
+	if (PllPtr == NULL) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	if (PllPtr->ClkNode.NumParents == 1 && NumParents != 1)	{
+		Status = XST_INVALID_PARAM;
+		goto done;
+	} else {
+		PllPtr->ClkNode.ParentId = Parents[0];
+	}
+
+done:
+	return Status;
+}
+
 XStatus XPmClockPll_SetMode(XPm_PllClockNode *Pll, u32 Mode)
 {
 	u32 Status = XST_SUCCESS;
