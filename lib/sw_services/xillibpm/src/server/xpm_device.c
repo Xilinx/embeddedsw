@@ -67,6 +67,39 @@ XPm_Requirement *FindReqm(XPm_Device *Device, XPm_Subsystem *Subsystem)
 	return Reqm;
 }
 
+/****************************************************************************/
+/**
+ * @brief  This function checks device capability
+ *
+ * @param Device	Device for capability check
+ * @param Subsystem	Subsystem for which device capability needs to check
+ * @param Caps		Capability
+ *
+ * @return XST_SUCCESS if desired Caps is available in Device for Subsystem
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPm_CheckCapabilities(XPm_Device *Device, XPm_Subsystem *Subsystem,
+			      u32 Caps)
+{
+	u32 Status = XST_FAILURE;
+	XPm_Requirement *Reqm = NULL;
+
+	Reqm = Device->Requirements;
+	while (NULL != Reqm) {
+		if ((Reqm->Subsystem == Subsystem) &&
+		    ((Reqm->Curr.Capabilities & Caps) == Caps)) {
+				Status = XST_SUCCESS;
+				goto done;
+		}
+		Reqm = Reqm->NextSubsystem;
+	}
+
+done:
+	return Status;
+}
+
 static u32 IsRunning(XPm_Device *Device)
 {
 	u32 Running = 0;
