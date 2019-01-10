@@ -33,6 +33,7 @@
 #include "xpm_pmcdomain.h"
 #include "xpm_pslpdomain.h"
 #include "xpm_psm.h"
+#include "xpm_periph.h"
 #include "xpm_apucore.h"
 #include "xpm_rpucore.h"
 #include "xpm_power.h"
@@ -2134,13 +2135,17 @@ static XStatus AddPeriphDevice(u32 *Args, u32 PowerId)
 	u32 DeviceId;
 	u32 Type;
 	u32 Index;
+	u32 GicProxyMask;
+	u32 GicProxyGroup;
 
-	XPm_Device *Device;
+	XPm_Periph *Device;
 	XPm_Power *Power = PmPowers[NODEINDEX(PowerId)];
 	u32 BaseAddr;
 
 	DeviceId = Args[0];
 	BaseAddr = Args[2];
+	GicProxyMask = Args[3];
+	GicProxyGroup = Args[4];
 
 	Type = NODETYPE(DeviceId);
 	Index = NODEINDEX(DeviceId);
@@ -2158,12 +2163,14 @@ static XStatus AddPeriphDevice(u32 *Args, u32 PowerId)
 	switch (Type)
 	{
 		default:
-			Device = (XPm_Device *)XPm_AllocBytes(sizeof(XPm_Device));
+			Device = (XPm_Periph *)XPm_AllocBytes(sizeof(XPm_Periph));
 			if (NULL == Device) {
 				Status = XST_BUFFER_TOO_SMALL;
 				goto done;
 			}
-			Status = XPmDevice_Init(Device, DeviceId, BaseAddr, Power, NULL, NULL);
+			Status = XPmPeriph_Init(Device, DeviceId, BaseAddr,
+						Power, NULL, NULL, GicProxyMask,
+						GicProxyGroup);
 			break;
 	}
 
