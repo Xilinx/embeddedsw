@@ -75,5 +75,7 @@ XStatus XPmClient_RequestSuspend(const u32 TargetSubsystemId, const u32 Latency,
 XStatus XPmClient_AbortSuspend(const enum XPmAbortReason Reason);
 XStatus XPmClient_ForcePowerDown(const u32 TargetDevId, const u32 Ack);
 XStatus XPmClient_SystemShutdown(const u32 Type, const u32 SubType);
+XStatus XPmClient_SetWakeupSource(const u32 TargetSubsystemId,
+				  const u32 DeviceId, const u32 Enable);
 
 #endif /* _XPM_CLIENT_API_H_ */

@@ -1340,3 +1340,41 @@ XStatus XPmClient_SystemShutdown(const u32 Type, const u32 SubType)
 done:
 	return Status;
 }
+
+/****************************************************************************/
+/**
+ * @brief  This function is used by a CPU to set wakeup source
+ *
+ * @param  TargetSubsystemId	Subsystem ID of the target
+ * @param  DeviceID		Device ID used as wakeup source
+ * @param  Enable		1 - Enable, 0 - Disable
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmClient_SetWakeupSource(const u32 TargetSubsystemId, const u32 DeviceID,
+				  const u32 Enable)
+{
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	PACK_PAYLOAD3(Payload, PM_SET_WAKEUP_SOURCE, TargetSubsystemId, DeviceID, Enable);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+done:
+	return Status;
+}
