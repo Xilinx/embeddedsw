@@ -90,6 +90,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		case PM_ABORT_SUSPEND:
 			Status = XPm_AbortSuspend(SubsystemId, Pload[0], Pload[1]);
 			break;
+		case PM_SET_WAKEUP_SOURCE:
+			Status = XPm_SetWakeupSource(SubsystemId, Pload[0], Pload[1], Pload[2]);
+			break;
 		case PM_CLOCK_SETPARENT:
 			Status = XPm_SetClockParent(SubsystemId, Pload[0], Pload[1]);
 			break;
@@ -662,6 +665,72 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type,
 	XPmSubsystem_SetState(SubsystemId, OFFLINE);
 done:
         return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function can be used by a subsystem to to set wake up
+ * source
+ *
+ * @param SubsystemId Initiator of the request
+ * @param TargetNodeId  Core to be woken-up (currently must be same as initiator)
+ * @param SourceNodeId  Source of the wake-up (Device that generates interrupt)
+ * @param Enable      Flag stating should event be enabled or disabled
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   This function does not block.  A successful return code means that
+ * the request has been received.
+ *
+ ****************************************************************************/
+XStatus XPm_SetWakeupSource(const u32 SubsystemId, const u32 TargetNodeId,
+			    const u32 SourceNodeId, const u32 Enable)
+{
+	int Status = XST_SUCCESS;
+	XPm_Periph *Periph = NULL;
+	XPm_Subsystem *Subsystem;
+
+	/* Check if given target node is valid */
+	if(NODECLASS(TargetNodeId) != XPM_NODECLASS_DEVICE ||
+	   NODESUBCLASS(TargetNodeId) != XPM_NODESUBCL_DEV_CORE)
+	{
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	/* The call applies only to peripheral nodes */
+	if (NODECLASS(SourceNodeId) != XPM_NODECLASS_DEVICE ||
+	    NODESUBCLASS(SourceNodeId) != XPM_NODESUBCL_DEV_PERIPH) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Is subsystem allowed to use resource (slave)? */
+	Status = XPm_IsAccessAllowed(SubsystemId, SourceNodeId);
+	if (XST_FAILURE == Status) {
+		goto done;
+	}
+
+	Periph = (XPm_Periph *)XPmDevice_GetById(SourceNodeId);
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if(!Periph || !Subsystem) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Check whether the device has wake-up capability */
+	Status = XPm_CheckCapabilities(&Periph->Device, Subsystem, PM_CAP_WAKEUP);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	if (NULL != Periph->PeriphOps->SetWakeupSource) {
+		Periph->PeriphOps->SetWakeupSource(Periph, Enable);
+	}
+
+done:
+	return Status;
 }
 
 /****************************************************************************/
