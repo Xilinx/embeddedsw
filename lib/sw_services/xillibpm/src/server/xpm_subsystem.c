@@ -131,6 +131,30 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  This function gives Subsystem from SubsystemId.
+ *
+ * @param SubsystemId	Subsystem ID
+ *
+ * @return XPm_Subsystem if successful else NULL
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XPm_Subsystem * XPmSubsystem_GetById(u32 SubsystemId)
+{
+	XPm_Subsystem *SubSystem;
+
+	if (SubsystemId > XPM_SUBSYSID_MAX) {
+		SubSystem = NULL;
+	} else {
+		SubSystem = &PmSubsystems[SubsystemId];
+	}
+
+	return SubSystem;
+}
+
 XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId)
 {
 	XStatus Status = XST_SUCCESS;
