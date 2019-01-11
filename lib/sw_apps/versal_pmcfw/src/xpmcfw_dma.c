@@ -204,10 +204,16 @@ void XPmcFw_SSSCfgDmaSbi(u32 Flags)
 		XPmcFw_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
 				XPMCFW_SSSCFG_SBI_MASK,
 				XPMCFW_SSS_SBI_DMA0);
+		XPmcFw_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
+                                XPMCFW_SSSCFG_DMA0_MASK,
+                                XPMCFW_SSS_DMA0_SBI);
 	} else if ((Flags & XPMCFW_PMCDMA_1) == XPMCFW_PMCDMA_1) {
 		XPmcFw_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
 				XPMCFW_SSSCFG_SBI_MASK,
 				XPMCFW_SSS_SBI_DMA1);
+		XPmcFw_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
+                                XPMCFW_SSSCFG_DMA1_MASK,
+                                XPMCFW_SSS_DMA1_SBI);
 	}
 }
 
