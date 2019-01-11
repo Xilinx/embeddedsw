@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -95,20 +95,20 @@ XStatus XPmRequirement_Release(XPm_Requirement *Reqm, XPm_ReleaseScope Scope)
 	XStatus Status = XST_FAILURE;
 
 	if (RELEASE_ONE == Scope) {
-			XPmRequirement_Clear(Reqm);
-			Status = Reqm->Device->Node.HandleEvent((XPm_Node *)Reqm->Device,
+		XPmRequirement_Clear(Reqm);
+		Status = Reqm->Device->Node.HandleEvent((XPm_Node *)Reqm->Device,
 							XPM_DEVEVENT_SHUTDOWN);
-			goto done;
+		goto done;
 	}
 
 	while (NULL != Reqm) {
-			if (((RELEASE_ALL == Scope) && (Reqm->Allocated==1)) ||
-			   ((RELEASE_UNREQUESTED == Scope) && (Reqm->Allocated==0))) {
-					XPmRequirement_Clear(Reqm);
-					Reqm->Device->Node.HandleEvent((XPm_Node *)Reqm->Device,
-							XPM_DEVEVENT_SHUTDOWN);
-			}
-			Reqm = Reqm->NextDevice;
+		if (((RELEASE_ALL == Scope) && (1 == Reqm->Allocated)) ||
+		    ((RELEASE_UNREQUESTED == Scope) && (0 == Reqm->Allocated))) {
+			XPmRequirement_Clear(Reqm);
+			Reqm->Device->Node.HandleEvent((XPm_Node *)Reqm->Device,
+						       XPM_DEVEVENT_SHUTDOWN);
+		}
+		Reqm = Reqm->NextDevice;
 	}
 done:
 	return Status;
