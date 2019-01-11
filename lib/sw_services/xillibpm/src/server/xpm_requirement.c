@@ -105,8 +105,11 @@ XStatus XPmRequirement_Release(XPm_Requirement *Reqm, XPm_ReleaseScope Scope)
 		if (((RELEASE_ALL == Scope) && (1 == Reqm->Allocated)) ||
 		    ((RELEASE_UNREQUESTED == Scope) && (0 == Reqm->Allocated))) {
 			XPmRequirement_Clear(Reqm);
-			Reqm->Device->Node.HandleEvent((XPm_Node *)Reqm->Device,
-						       XPM_DEVEVENT_SHUTDOWN);
+			Status = Reqm->Device->Node.HandleEvent((XPm_Node *)Reqm->Device,
+								XPM_DEVEVENT_SHUTDOWN);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
 		}
 		Reqm = Reqm->NextDevice;
 	}
