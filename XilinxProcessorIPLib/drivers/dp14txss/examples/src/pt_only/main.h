@@ -69,7 +69,10 @@
 
 #include "xv_frmbufrd_l2.h"
 #include "xv_frmbufwr_l2.h"
+
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 #include "xv_axi4s_remap.h"
+#endif
 
 #include "xi2stx.h"
 #include "xi2srx.h"
@@ -193,7 +196,52 @@
 
 #ifdef versal
 #define XVPHY_DEVICE_ID					0
+#define GT_QUAD_BASE                    XPAR_GT_QUAD_GT_QUAD_BASE_BASEADDR
+#define CH1CLKDIV_REG					0x3694
+#define DIV 							0x00000278
+#define DIV_MASK 						0x000003FF
+
+/* In Versal, GT, DP is implemented in RAW16 mode and requires
+ * two clocks. One is /16 and other is /20
+ * In case of RX, the /20 clock is derived using MMCM
+ * In case of TX, the /20 clock is derived from txch1outclk by
+ * modifying GT parameter.
+ * If the hardware is of 1 lane, then /20 clock for TX also has
+ * to be derived using MMCM similar to the RX.
+ */
+
+#define VERSAL_FABRIC_8B10B             1
 #endif
+
+/* The following FLAG enables the Adaptive Sync feature of the
+ * DP RX and TX. Set ADAPTIVE to 0 if ADAPTIVE sync is not
+ * needed.
+ */
+#define ADAPTIVE 1
+
+/* The following determines the type of ADAPTIVE sync mechanism
+ * in the system.
+ * 1 : TX will adapt to the incoming rate. FrameBuffer Read is triggered
+ * 		every time FrameBuffer Write is completed. Here, TX will always
+ * 		be in Adaptive Sync mode, even if the received video is of
+ * 		constant rate.
+ * 0 : TX will be in guided mode. it will stretch by the amount
+ *      specified by the user. This amount is determined by the information
+ *      provided by the DP RX on every frame. FrameBuffer Read is in
+ *      auto-restart mode. This mode is interrupt intensive.
+ *      In this mode, interrupt is enabled on RX. This interrupt is
+ *      asserted when RX detects any change in rate
+ */
+#define ADAPTIVE_TYPE (0 * ADAPTIVE)
+
+/* This value determines the amount by which the Vertical Front Porch is
+ * stretched. When Adaptive Mode is 0x1, this specifies the Max limit of
+ * stretching.
+ * In case of Mode 0, user shoukd manually program the amount of stretch
+ * in the VTC
+ */
+#define DPTXSS_VFP_STRETCH 0xFFF
+
 /*
  * User can tune these variables as per their system
  */
@@ -239,7 +287,7 @@
 /* Some Monitors require audio to be started after some delay
  * This param adds a delay to start the audio
  */
-#define AUD_START_DELAY 500000
+#define AUD_START_DELAY 5000 //00
 
 /* VPHY Specific Defines
  */
@@ -264,6 +312,9 @@
 #define TIMER_RESET_VALUE        1000
 
 #define ENABLE_AUDIO XPAR_DP_RX_HIER_0_V_DP_RXSS1_0_AUDIO_ENABLE
+
+#define AUXFIFOSIZE 4
+#define XDP_DPCD_EXT_DPCD_FEATURE 0x2210
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -295,6 +346,8 @@ typedef struct
         unsigned char lane_count;
         unsigned char link_rate;
 } lane_link_rate_struct;
+
+XDp_TxVscExtPacket ExtFrame_tx_vsc;
 
 /************************** Function Prototypes ******************************/
 
@@ -371,13 +424,16 @@ u64 XVFRMBUFWR_BUFFER_BASEADDR;
 u64 XVFRMBUFRD_BUFFER_BASEADDR_Y;
 u64 XVFRMBUFWR_BUFFER_BASEADDR_Y;
 
+
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 XV_axi4s_remap_Config   *rx_remap_Config;
 XV_axi4s_remap          rx_remap;
 XV_axi4s_remap_Config   *tx_remap_Config;
 XV_axi4s_remap          tx_remap;
+#endif
 
 XDp_TxAudioInfoFrame *xilInfoFrame;
-XIicPs_Config *XIic0Ps_ConfigPtr;
+//XIicPs_Config *XIic0Ps_ConfigPtr;
 XIicPs_Config *XIic1Ps_ConfigPtr;
 
 #if ENABLE_AUDIO
@@ -392,3 +448,16 @@ XAxis_Switch axis_switch_rx;
 XAxis_Switch axis_switch_tx;
 
 #endif
+
+/* Defining constants for colors in printing */
+#define ANSI_COLOR_RED          "\x1b[31m"
+#define ANSI_COLOR_GREEN    "\x1b[32m"
+#define ANSI_COLOR_YELLOW   "\x1b[33m"
+#define ANSI_COLOR_BLUE     "\x1b[34m"
+#define ANSI_COLOR_MAGENTA  "\x1b[35m"
+#define ANSI_COLOR_CYAN     "\x1b[36m"
+#define ANSI_COLOR_WHITE    "\x1b[37m"
+#define ANSI_COLOR_RESET    "\x1b[0m"
+
+u8 use_vsc;
+u8 type_vsc;

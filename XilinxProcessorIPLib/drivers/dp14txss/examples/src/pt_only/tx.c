@@ -105,7 +105,7 @@ void test_pattern_gen_help();
 void format_help_menu(void);
 void operationMenu(void);
 char inbyte_local(void);
-extern u8 tx_after_rx;
+
 extern u8 tx_done;
 extern u8 i2s_started;
 u8 linkrate_tx_run;
@@ -155,9 +155,83 @@ u32 DpTxSs_SetupIntrSystem(void)
 						&DpPt_LinkrateChgHandler, &DpTxSsInst);
 	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_PE_VS_ADJUST),
 						&DpPt_pe_vs_adjustHandler, &DpTxSsInst);
+	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_EXT_PKT_EVENT),
+						&DpTxSs_ExtPacketHandler, &DpTxSsInst);
+	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_VSYNC),
+						&DpTxSs_VsyncHandler, &DpTxSsInst);
+
 
 	return (XST_SUCCESS);
 }
+
+extern u32 infofifo[32];
+extern u8 endindex;
+extern u8 fifocount;
+u8 startindex = 0;
+u16 vsync_counter = 0;
+u16 ektpkt_counter = 0;
+u8 tx_pass = 0;
+u8 onetime = 0;
+u8 prog_misc1 = 0;
+u8 prog_fb_rd;
+
+void DpTxSs_VsyncHandler(void *InstancePtr)
+{
+	tx_pass = 1;
+	u8 i = 0;
+	u32 fifosts = 0;
+
+	if(fifocount > AUXFIFOSIZE-1) {
+		startindex = endindex;
+	}
+
+	while (startindex != endindex) {
+		fifosts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+						 0x6A0);
+		fifosts &= 0x00000003;
+		i = 0;
+		if (fifosts == 0) {
+			for (i = 0; i < 8; i++) {
+				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+						XDP_TX_AUDIO_INFO_DATA(1), infofifo[(startindex*8+i)]);
+			}
+		} else {
+//			xil_printf(ANSI_COLOR_RED"TX InfoFrame Fifo is full!!"ANSI_COLOR_RESET"\r\n");
+		}
+		if(startindex < (AUXFIFOSIZE - 1)) {
+			startindex++;
+		} else {
+			startindex = 0;
+		}
+
+	}
+
+	fifocount = 0;
+	vsync_counter++;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is the callback function for Generic Packet Handling of
+* 32-Bytes payload.
+*
+* @param    InstancePtr is a pointer to the XDpTxSs instance.
+*
+* @return    None.
+*
+* @note        None.
+*
+******************************************************************************/
+void DpTxSs_ExtPacketHandler(void *InstancePtr)
+{
+	/* This handler can be used to modify the extended pkt
+	 * The packet is written in the DP TX drivers
+	 */
+	ektpkt_counter++;
+
+}
+
 
 /*****************************************************************************/
 /**
@@ -344,6 +418,7 @@ void DpPt_HpdEventHandler(void *InstancePtr)
 //		sink_power_down();
 		sink_power_up();
 		tx_is_reconnected++;
+		onetime = 0;
 //		usleep(50000);
 	}
 	else
@@ -514,7 +589,11 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 		i2s_started = 0;
 	}
 
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_INTERRUPT_MASK, 0x0);
+	/* Mask Unsued Interrupts
+	 *
+	 */
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+			XDP_TX_INTERRUPT_MASK, 0x0);
 }
 
 
@@ -531,115 +610,115 @@ u32 DpTxSubsystem_Start(XDpTxSs *InstancePtr,
 	return Status;
 }
 
-/*****************************************************************************/
-/**
-*
-* This function sets up DPTxSubsystem
-*
-* @param	LineRate
-* @param	LaneCount
-* @param	edid 1st block
-* @param	edid 2nd block
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void DpTxSs_Setup(u8 *LineRate_init, u8 *LaneCount_init,
-			u8 Edid_org[128], u8 Edid1_org[128]){
-	u8 Status;
-
-	XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_INTERRUPT_STATUS);
-
-	DpTxSsInst.DpPtr->TxInstance.TxSetMsaCallback = NULL;
-	DpTxSsInst.DpPtr->TxInstance.TxMsaCallbackRef = NULL;
-
-	u8 connected;
-	// this is intentional infinite while loop
-	while (!XDpTxSs_IsConnected(&DpTxSsInst)) {
-		if (connected == 0) {
-	xil_printf(
-			"Please connect a DP Monitor to start the application !!!\r\n");
-			connected = 1;
-		}
-	}
-
-	//Waking up the monitor
-	sink_power_cycle();
-
-
-	//reading the first block of EDID
-	if (XDpTxSs_IsConnected(&DpTxSsInst)) {
-		XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid_org, 0);
-		//reading the second block of EDID
-		XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid1_org, 1);
-		xil_printf("Reading EDID contents of the DP Monitor..\r\n");
-
-		Status  = XDp_TxAuxRead(DpTxSsInst.DpPtr,
-								XDP_DPCD_MAX_LINK_RATE,  1, LineRate_init);
-		Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr,
-								XDP_DPCD_MAX_LANE_COUNT, 1, LaneCount_init);
-
-		u8 rData = 0;
-		// check the EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT bit
-		XDp_TxAuxRead(DpTxSsInst.DpPtr,
-			      XDP_DPCD_TRAIN_AUX_RD_INTERVAL,
-			      1, &rData);
-		/* if EXTENDED_RECEIVER_CAPABILITY_FIELD is enabled */
-		if (rData & 0x80) {
-			/* read maxLineRate */
-			XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x2201, 1, &rData);
-			if (rData == XDP_DPCD_LINK_BW_SET_810GBPS) {
-				*LineRate_init = 0x1E;
-			}
-		}
-
-
-		if (Status != XST_SUCCESS) { // give another chance to monitor.
-			//Waking up the monitor
-			sink_power_cycle();
-
-			XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid_org, 0);
-			//reading the second block of EDID
-			XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid1_org, 1);
-			xil_printf("Reading EDID contents of the DP Monitor..\r\n");
-
-			Status = XDp_TxAuxRead(DpTxSsInst.DpPtr,
-								XDP_DPCD_MAX_LINK_RATE, 1, LineRate_init);
-			Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr,
-								XDP_DPCD_MAX_LANE_COUNT, 1, LaneCount_init);
-			if (Status != XST_SUCCESS)
-				xil_printf ("Failed to read sink capabilities\r\n");
-
-			// check the EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT bit
-			XDp_TxAuxRead(DpTxSsInst.DpPtr,
-				      XDP_DPCD_TRAIN_AUX_RD_INTERVAL,
-				      1, &rData);
-			/* if EXTENDED_RECEIVER_CAPABILITY_FIELD is enabled */
-			if (rData & 0x80) {
-				/* read maxLineRate */
-				XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x2201, 1, &rData);
-				if (rData == XDP_DPCD_LINK_BW_SET_810GBPS) {
-					*LineRate_init = 0x1E;
-				}
-			}
-
-		}
-	} else {
-		xil_printf("Please connect a DP Monitor and try again !!!\r\n");
-		return;
-	}
-
-	*LineRate_init &= 0xFF;
-	*LaneCount_init &= 0xF;
-//	xil_printf("System capabilities set to: LineRate %x, LaneCount %x\r\n",
-//			*LineRate_init,*LaneCount_init);
-
-#if ENABLE_AUDIO
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, 0x0);
-#endif
-}
+///*****************************************************************************/
+///**
+//*
+//* This function sets up DPTxSubsystem
+//*
+//* @param	LineRate
+//* @param	LaneCount
+//* @param	edid 1st block
+//* @param	edid 2nd block
+//*
+//* @return	None.
+//*
+//* @note		None.
+//*
+//******************************************************************************/
+//void DpTxSs_Setup(u8 *LineRate_init, u8 *LaneCount_init,
+//			u8 Edid_org[128], u8 Edid1_org[128]){
+//	u8 Status;
+//
+//	XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_INTERRUPT_STATUS);
+//
+//	DpTxSsInst.DpPtr->TxInstance.TxSetMsaCallback = NULL;
+//	DpTxSsInst.DpPtr->TxInstance.TxMsaCallbackRef = NULL;
+//
+//	u8 connected;
+//	// this is intentional infinite while loop
+//	while (!XDpTxSs_IsConnected(&DpTxSsInst)) {
+//		if (connected == 0) {
+//	xil_printf(
+//			"Please connect a DP Monitor to start the application !!!\r\n");
+//			connected = 1;
+//		}
+//	}
+//
+//	//Waking up the monitor
+//	sink_power_cycle();
+//
+//
+//	//reading the first block of EDID
+//	if (XDpTxSs_IsConnected(&DpTxSsInst)) {
+//		XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid_org, 0);
+//		//reading the second block of EDID
+//		XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid1_org, 1);
+//		xil_printf("Reading EDID contents of the DP Monitor..\r\n");
+//
+//		Status  = XDp_TxAuxRead(DpTxSsInst.DpPtr,
+//								XDP_DPCD_MAX_LINK_RATE,  1, LineRate_init);
+//		Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr,
+//								XDP_DPCD_MAX_LANE_COUNT, 1, LaneCount_init);
+//
+//		u8 rData = 0;
+//		// check the EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT bit
+//		XDp_TxAuxRead(DpTxSsInst.DpPtr,
+//			      XDP_DPCD_TRAIN_AUX_RD_INTERVAL,
+//			      1, &rData);
+//		/* if EXTENDED_RECEIVER_CAPABILITY_FIELD is enabled */
+//		if (rData & 0x80) {
+//			/* read maxLineRate */
+//			XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x2201, 1, &rData);
+//			if (rData == XDP_DPCD_LINK_BW_SET_810GBPS) {
+//				*LineRate_init = 0x1E;
+//			}
+//		}
+//
+//
+//		if (Status != XST_SUCCESS) { // give another chance to monitor.
+//			//Waking up the monitor
+//			sink_power_cycle();
+//
+//			XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid_org, 0);
+//			//reading the second block of EDID
+//			XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid1_org, 1);
+//			xil_printf("Reading EDID contents of the DP Monitor..\r\n");
+//
+//			Status = XDp_TxAuxRead(DpTxSsInst.DpPtr,
+//								XDP_DPCD_MAX_LINK_RATE, 1, LineRate_init);
+//			Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr,
+//								XDP_DPCD_MAX_LANE_COUNT, 1, LaneCount_init);
+//			if (Status != XST_SUCCESS)
+//				xil_printf ("Failed to read sink capabilities\r\n");
+//
+//			// check the EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT bit
+//			XDp_TxAuxRead(DpTxSsInst.DpPtr,
+//				      XDP_DPCD_TRAIN_AUX_RD_INTERVAL,
+//				      1, &rData);
+//			/* if EXTENDED_RECEIVER_CAPABILITY_FIELD is enabled */
+//			if (rData & 0x80) {
+//				/* read maxLineRate */
+//				XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x2201, 1, &rData);
+//				if (rData == XDP_DPCD_LINK_BW_SET_810GBPS) {
+//					*LineRate_init = 0x1E;
+//				}
+//			}
+//
+//		}
+//	} else {
+//		xil_printf("Please connect a DP Monitor and try again !!!\r\n");
+//		return;
+//	}
+//
+//	*LineRate_init &= 0xFF;
+//	*LaneCount_init &= 0xF;
+////	xil_printf("System capabilities set to: LineRate %x, LaneCount %x\r\n",
+////			*LineRate_init,*LaneCount_init);
+//
+//#if ENABLE_AUDIO
+//	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, 0x0);
+//#endif
+//}
 
 #ifndef versal
 /*****************************************************************************/
@@ -750,6 +829,11 @@ u32 PHY_Configuration_Tx(XVphy *InstancePtr,
 * @note		None.
 *
 ******************************************************************************/
+
+extern u8 supports_adaptive;
+extern u8 supports_vsc;
+
+
 u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 			XDpTxSs_MainStreamAttributes Msa[4])
 {
@@ -759,8 +843,7 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	u8 format = user_config.user_format-1;
 	u8 C_VideoUserStreamPattern[8] = {0x10, 0x11, 0x12, 0x13, 0x14,
 												0x15, 0x16, 0x17}; //Duplicate
-
-
+	u8 i = 0;
 	u32 Status;
 	lanecount_tx_run = lane_count;
 	linkrate_tx_run = line_rate;
@@ -776,12 +859,23 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	sink_power_cycle();
 
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
-// Give a bit of time for DP IP after monitor came up and starting Link training
+	// Give a bit of time for DP IP after monitor came up and starting Link training
 	usleep(100000);
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x1);
 
-	xil_printf("\r\nTraining TX with: Link rate %x, Lane %d, BPC %d\r\n",
-		   line_rate,lane_count, bpc);
+	/* DP TX supports sending colorimetry info over VSC ExtPkt
+	 * If VSC information is to be sent, then TX has to be configured
+	 * for VSC mode before the training is started
+	 * User is responsible to provide the entire packet
+	 * BPC, VideoMode information is extracted by the driver based
+	 * on the packet contents
+	 */
+
+	XDpTxss_EnableVscColorimetry (&DpTxSsInst, use_vsc);
+	XDpTxSs_SetVscExtendedPacket (&DpTxSsInst, ExtFrame_tx_vsc);
+
+	xil_printf("\r\nTraining TX with: Link rate %x, Lane %d, BPC %d, (%d)\r\n",
+		   line_rate,lane_count, bpc, use_vsc);
 
 	XDpTxSs_SetLinkRate(&DpTxSsInst, line_rate);
 	xil_printf (".");
@@ -821,13 +915,18 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	}
 
 	xil_printf (".");
+#ifdef XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR
 	//updates required timing values in Video Pattern Generator
 	Vpg_StreamSrcConfigure(DpTxSsInst.DpPtr, 0, 1);
+#endif
+
+	Gen_vid_clk(DpTxSsInst.DpPtr,(XDP_TX_STREAM_ID1));
 	xil_printf (".");
+#ifdef XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR
 	// setting video pattern
 	Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr,
 				 C_VideoUserStreamPattern[pat]);
-
+#endif
 
 	xil_printf (".");
 	clk_wiz_locked();
@@ -856,9 +955,13 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 			return (XST_FAILURE);
 		}
 	}
+	/* Mask unsused interrupts
+	 *
+	 */
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 			XDP_TX_INTERRUPT_MASK, 0x0);
 
+	vsync_counter = 0;
 
 	/*
 	 * Initialize CRC
@@ -866,14 +969,19 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	/* Reset CRC*/
 	XVidFrameCrc_Reset(&VidFrameCRC_tx);
 	/* Set Pixel width in CRC engine*/
-	XVidFrameCrc_WriteReg(VidFrameCRC_tx.Base_Addr,
+	if (format != 2) {
+		XVidFrameCrc_WriteReg(VidFrameCRC_tx.Base_Addr,
 				  VIDEO_FRAME_CRC_CONFIG,
-				  XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-					  XDP_TX_USER_PIXEL_WIDTH));
+				  0x4);
+	} else { // 422
+		XVidFrameCrc_WriteReg(VidFrameCRC_tx.Base_Addr,
+				  VIDEO_FRAME_CRC_CONFIG,
+					0x4 | 0x80000000);
 
-//	start_audio_passThrough(line_rate);
+	}
+
 	xil_printf ("..done !\r\n");
-
+	tx_pass = 0;
 	tx_started = 1;
 	return XST_SUCCESS;
 }
@@ -923,12 +1031,30 @@ static void clk_wiz_locked(void) {
 void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 		u8 Edid1_org[128], u16 res_update)
 {
+	u8 rData;
+	u32 Status;
 
 	/* This is a PassThrough System to display the Video received on RX
 	 * onto TX. There is nothing special done in the hpd_connect handler.
 	 * On a HPD the application simply tries to retrain the monitor
 	 */
-
+#if ADAPTIVE
+	XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_DOWNSP_COUNT_MSA_OUI, 1, &rData);
+	if(rData & 0x40){
+//		xil_printf ("Supports MSA less !!!!!\r\n");
+		supports_adaptive = 1;
+	}
+	else {
+		supports_adaptive = 0;
+	}
+#endif
+    Status = XDpTxSs_CheckVscColorimetrySupport(&DpTxSsInst);
+    if (Status == XST_SUCCESS) {
+//		xil_printf ("Monitor Supports Colorimetry over VSC Ext packet !!!!!\r\n");
+		supports_vsc = 1;
+    } else {
+	supports_vsc = 0;
+    }
 }
 
 /*****************************************************************************/
@@ -1373,9 +1499,8 @@ u32 config_phy(int LineRate_init_tx){
     while ((dptx_sts != ALL_LANE) && retry < 255) {
          dptx_sts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
          dptx_sts &= ALL_LANE;
-         DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 1000);
+         DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 100);
          retry++;
-    //        xil_printf ("tmp is %d\r\n", tmp);
       }
     if(retry==255)
     {
@@ -1385,7 +1510,8 @@ u32 config_phy(int LineRate_init_tx){
 
 	if (Status != XST_SUCCESS) {
 		xil_printf (
-			"+++++++ TX GT configuration encountered a failure +++++++\r\n");
+				"+++\r\n");
+//			"+++++++ TX GT configuration encountered a failure +++++++\r\n");
 	}
 
 	return Status;
