@@ -116,6 +116,7 @@ static void tx_main_loop(void);
 int Vpg_StreamSrcConfigure(XDp *InstancePtr, u8 VSplitMode, u8 first_time);
 void Vpg_VidgenSetUserPattern(XDp *InstancePtr, u8 Pattern);
 void ReportVideoCRC(void);
+void mask_intr(void);
 
 void bpc_help_menu(int DPTXSS_BPC_int);
 void sub_help_menu(void);
@@ -784,6 +785,9 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	XDpTxSs_SetLaneCount(&DpTxSsInst, lane_count);
 	xil_printf (".");
 
+	// SetVidMode and SetBPC are not required in PassThrough
+	// In Passthrough these values are captured when
+	// DpTxSubsystem_Start is called with Msa values
 	if (res_table !=0) {
 		Status = XDpTxSs_SetVidMode(&DpTxSsInst, res_table);
 		if (Status != XST_SUCCESS) {
@@ -808,6 +812,10 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	// VTC requires linkup(video clk) before setting values.
 	// This is why we need to linkup once to get proper CLK on VTC.
 	Status = DpTxSubsystem_Start(&DpTxSsInst, Msa);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: "
+			"DP SS Start setup failed!\n\r");
+	}
 
 	xil_printf (".");
 	//updates required timing values in Video Pattern Generator
@@ -828,15 +836,10 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 		DpTxSsInst.UsrOpt.VtcAdjustBs);
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: "
-				"VTC%d setup failed!\n\r", Index);
+				"VTC setup failed!\n\r");
 		}
 	}
 
-// No longer needed to start twice
-//	Status = DpTxSubsystem_Start(&DpTxSsInst, Msa);
-//	xil_printf (".");
-
-//	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 500000);
 	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 100000);
 
 	Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
@@ -1373,3 +1376,23 @@ void sink_power_cycle(void){
 //	usleep(40000);
 }
 
+/*****************************************************************************/
+/**
+*
+* This function masks the TX interrupts
+*
+* @param	user_config_struct.
+*
+* @return	Status.
+*
+* @note		None.
+*
+******************************************************************************/
+
+
+void mask_intr (void) {
+
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+			XDP_TX_INTERRUPT_MASK, 0xFFF);
+
+}
