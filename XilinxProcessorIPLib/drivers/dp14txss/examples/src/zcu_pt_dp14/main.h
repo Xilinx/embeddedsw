@@ -64,6 +64,7 @@
 #include <xvphy_dp.h>
 #include <xvphy_hw.h>
 #include "sleep.h"
+#include <xil_cache.h>
 
 #include "xvidframe_crc.h"
 
@@ -105,7 +106,8 @@
 	XPAR_FABRIC_DP14TXSS_0_VEC_ID
 
 #define XINTC_DPRXSS_DP_INTERRUPT_ID \
-    XPAR_FABRIC_DPRXSS_0_VEC_ID
+    XPAR_FABRIC_DP14RXSS_0_VEC_ID
+
 #define XINTC_DEVICE_ID          XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define XINTC                    XScuGic
 #define XINTC_HANDLER            XScuGic_InterruptHandler
@@ -322,14 +324,18 @@ void remap_start_rd(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
 int IDT_8T49N24x_Configure(u32 I2CBaseAddress, u8 I2CSlaveAddress);
 
 void operationMenu(void);
-void frameBuffer_start_wr(XVidC_VideoMode VmId,
-		XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
+//void frameBuffer_start_wr(XVidC_VideoMode VmId,
+//		XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
+
+void frameBuffer_start_wr(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
 
 //void frameBuffer_start(XVidC_VideoMode VmId,
 //		XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
 
-void frameBuffer_start_rd(XVidC_VideoMode VmId,
-		XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
+//void frameBuffer_start_rd(XVidC_VideoMode VmId,
+//		XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
+
+void frameBuffer_start_rd(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
 
 
 u32 xil_gethex(u8 num_chars);
@@ -348,6 +354,10 @@ XV_FrmbufRd_l2     frmbufrd;
 XV_FrmbufWr_l2     frmbufwr;
 u64 XVFRMBUFRD_BUFFER_BASEADDR;
 u64 XVFRMBUFWR_BUFFER_BASEADDR;
+
+u64 XVFRMBUFRD_BUFFER_BASEADDR_Y;
+u64 XVFRMBUFWR_BUFFER_BASEADDR_Y;
+
 //u64 BUF1 =  0x10000000;
 //u64 BUF2 =  0x18000000;
 //u64 BUF3 =  0x20000000;

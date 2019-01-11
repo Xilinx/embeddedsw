@@ -68,8 +68,6 @@
  * There is only one interrupt controlled to be selected from SCUGIC and GPIO
  * INTC. INTC selection is based on INTC parameters defined xparameters.h file.
  */
-#define XINTC_DPRXSS_DP_INTERRUPT_ID \
-    XPAR_FABRIC_DP14RXSS_0_VEC_ID
 #define XINTC_DEVICE_ID 	XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define 			XINTC XScuGic
 #define XINTC_HANDLER 		XScuGic_InterruptHandler
@@ -209,6 +207,7 @@ u32 DpRxSs_SetupIntrSystem(void);
 
 void DpRxSs_PowerChangeHandler(void *InstancePtr);
 void DpRxSs_NoVideoHandler(void *InstancePtr);
+void DpRxSs_VmChangeHandler(void *InstancePtr);
 void DpRxSs_VerticalBlankHandler(void *InstancePtr);
 void DpRxSs_TrainingLostHandler(void *InstancePtr);
 void DpRxSs_VideoHandler(void *InstancePtr);

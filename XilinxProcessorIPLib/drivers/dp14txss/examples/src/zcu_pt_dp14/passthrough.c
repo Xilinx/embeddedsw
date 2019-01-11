@@ -79,6 +79,8 @@ void operationMenu(void);
 void Dppt_DetectAudio (void);
 int Dppt_DetectResolution(void *InstancePtr,
 		XDpTxSs_MainStreamAttributes Msa[4], u8 plugged);
+int Dppt_DetectColor(void *InstancePtr,
+		XDpTxSs_MainStreamAttributes Msa[4], u8 plugged);
 
 
 
@@ -116,6 +118,7 @@ extern lane_link_rate_struct lane_link_table[];
 extern u32 StreamOffset[4];
 u8 tx_done = 0;
 u8 i2s_tx_started = 0;
+u8 rx_and_tx_started = 0;
 u8 status_captured = 0;
 u8 aes_sts[24];
 int filter_count_b = 0;
@@ -161,6 +164,7 @@ void DpPt_Main(void){
 
 	// disabling this when compliance is enabled
 #if !PHY_COMP
+
 	//Waking up the monitor
 	sink_power_cycle();
 
@@ -262,6 +266,14 @@ void DpPt_Main(void){
 
 	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_SET_MSA),
 					&DpPt_TxSetMsaValuesImmediate, &DpTxSsInst);
+
+	// Reading and clearing any residual interrupt on TX
+	// Also Masking the interrupts
+	XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+			0x140);
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+			XDP_TX_INTERRUPT_MASK, 0xFFF);
+
 
 	XScuGic_Enable(&IntcInst, XINTC_DPTXSS_DP_INTERRUPT_ID);
 	XScuGic_Enable(&IntcInst, XINTC_DPRXSS_DP_INTERRUPT_ID);
@@ -400,12 +412,12 @@ void DpPt_Main(void){
 				break;
 
 				case '3':
-					unplug_proc();
-					XDp_RxInterruptDisable(DpRxSsInst.DpPtr, 0xFFF8FFFF);
-					XDp_RxInterruptEnable(DpRxSsInst.DpPtr,  0x80000000);
 					// Disabling TX interrupts
 					XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 							XDP_TX_INTERRUPT_MASK, 0xFFF);
+					unplug_proc();
+					XDp_RxInterruptDisable(DpRxSsInst.DpPtr, 0xFFF8FFFF);
+					XDp_RxInterruptEnable(DpRxSsInst.DpPtr,  0x80000000);
 					XDpTxSs_Stop(&DpTxSsInst);
 					XDp_RxGenerateHpdInterrupt(DpRxSsInst.DpPtr, 5000);
 					xil_printf("\r\n- HPD Toggled for 5ms! -\n\r");
@@ -418,11 +430,12 @@ void DpPt_Main(void){
 					user_config.user_bpc = Msa[0].BitsPerColor;
 					user_config.VideoMode_local = VmId;
 					user_config.user_pattern = 0; /*pass-through (Default)*/
-					user_config.user_format = XVIDC_CSF_RGB;
+					user_config.user_format = Msa[0].ComponentFormat;
 #if !I2S_AUDIO
 					XGpio_WriteReg (aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x0);
 #endif
-
+					frameBuffer_stop_wr();
+					frameBuffer_stop_rd();
 					//Waking up the monitor
 					sink_power_cycle();
 
@@ -437,7 +450,17 @@ void DpPt_Main(void){
 					DpTxSsInst.no_video_trigger = 1;
 					XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 								     XDP_TX_AUDIO_CONTROL, 0x0);
-					frameBuffer_stop_rd();
+
+					break;
+
+				case '5':
+					xil_printf ("Stopping WR FB and starting..\r\n ");
+					XDp_RxDtgDis(DpRxSsInst.DpPtr);
+					XDp_RxDtgEn(DpRxSsInst.DpPtr);
+					frameBuffer_stop_wr();
+//					Dppt_DetectResolution(DpRxSsInst.DpPtr, Msa,
+//									DpRxSsInst.link_up_trigger);
+//					frameBuffer_start_wr();
 					break;
 
 				case 'c':
@@ -696,21 +719,18 @@ void DpPt_Main(void){
 
 							switch  (CmdKey[0]){
 							case 'x' :
-							exit = 1;
+								pt_help_menu();
+								exit = 1;
 							break;
 
 							default :
 							xil_printf("You have selected command '%c'\r\n",
 														CmdKey[0]);
-							if(CmdKey[0] >= 'a' && CmdKey[0] <= 'z'){
-								Command = CmdKey[0] -'a' + 10;
+							if(CmdKey[0] == 'x'){
 								exit = 1;
 							}else if (Command > 47 && Command < 58) {
 								Command = Command - 48;
-								exit = 1;
-							}else if (Command >= 58 || Command <= 47) {
 								exit = 0;
-								break;
 							}
 
 							if((Command>=0)&&(Command<4)){
@@ -887,19 +907,19 @@ void DpPt_Main(void){
 				DpRxSsInst.link_up_trigger == 1) {
 		    tx_after_rx = 0;
 		    if (track_msa == 1) {
-			usleep(20000);
-			start_tx_after_rx();
-			// It is observed that some monitors do not give HPD
-			// pulse. Hence checking the link to re-trigger
-			Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
-			if (Status != XST_SUCCESS) {
-				xil_printf ("^*^");
-				hpd_pulse_con(&DpTxSsInst, Msa);
-			}
-				tx_done = 1;
+				usleep(20000);
+				start_tx_after_rx();
+				// It is observed that some monitors do not give HPD
+				// pulse. Hence checking the link to re-trigger
+				Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
+				if (Status != XST_SUCCESS) {
+					xil_printf ("^*^");
+					hpd_pulse_con(&DpTxSsInst, Msa);
+				}
+					tx_done = 1;
 		    } else {
 			tx_done = 0;
-			xil_printf ("Problem !! : Unable to get RX MSA Values\r\n");
+			xil_printf ("Cannot Start TX...\r\n");
 		    }
 		}
 
@@ -1025,7 +1045,7 @@ void start_tx_after_rx (void) {
 					"resolution. Forcing 4K@30 resolution\r\n");
 			// to keep 4Byte mode, it has to be 4K60
 			VmId = XVIDC_VM_3840x2160_30_P;//_RB;
-			Msa[0].Vtm.FrameRate = 60;
+			Msa[0].Vtm.FrameRate = 30;
 			DpTxSsInst.DpPtr->TxInstance.TxSetMsaCallback = NULL;
 			DpTxSsInst.DpPtr->TxInstance.TxMsaCallbackRef = NULL;
 
@@ -1083,8 +1103,9 @@ void start_tx_after_rx (void) {
 
 
 	frameBuffer_stop_rd();
-	frameBuffer_start_rd(VmId, Msa, downshift4K);
-	start_audio_passThrough (LineRate_init_tx);
+	frameBuffer_start_rd(Msa, downshift4K);
+//	start_audio_passThrough (LineRate_init_tx);
+	rx_and_tx_started = 1;
 
 }
 
@@ -1097,8 +1118,10 @@ void unplug_proc (void) {
 	tx_started = 0;
     rx_unplugged = 0;
     start_i2s_clk = 0;
+    I2cClk_Ps(0, 36864000);
     DpRxSsInst.VBlankCount = 0;
     appx_fs_dup = 0;
+    XDp_RxDtgDis(DpRxSsInst.DpPtr);
 	frameBuffer_stop();
 
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
@@ -1127,12 +1150,13 @@ void unplug_proc (void) {
 		XVPHY_GTHE4_PREEMP_DP_L0);
 
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,	XDP_TX_AUDIO_CONTROL, 0x0);
-	XACR_WriteReg (RX_ACR_ADDR, RXACR_MODE, 0x1);
+	XACR_WriteReg (RX_ACR_ADDR, RXACR_MODE, 0x0);// 1);
 
 
 #if ENABLE_AUDIO
-	i2s_stop_proc();
 	XDpRxSs_AudioDisable(&DpRxSsInst);
+	i2s_stop_proc();
+	audio_init();
 #endif
 	XDp_RxDtgDis(DpRxSsInst.DpPtr);
 	DpRxSs_Setup();
@@ -1164,17 +1188,18 @@ void audio_init (void) {
      XAxisScr_RegUpdateEnable (&axis_switch_tx);
 #endif
 
-	//Enabling the I2S TX to capture the channel Status
-    XACR_WriteReg (RX_ACR_ADDR, 0x30, 256); // set to half of I2S TX FIFO Depth
-    XACR_WriteReg (RX_ACR_ADDR, 0x34, 60);  // Max limit of +/-
-    XACR_WriteReg (RX_ACR_ADDR, 0x38, 20);  // incr, decr granularity
-    XACR_WriteReg (RX_ACR_ADDR, 0x3C, 8*384);
-    XACR_WriteReg (RX_ACR_ADDR, 0x40, 0x6); // Averaging time
-	XACR_WriteReg (RX_ACR_ADDR, RXACR_MODE, 0x1); // 5 - ctrl loop, 1- no loop
-	XACR_WriteReg (RX_ACR_ADDR, RXACR_DIV, 0x40); // divider
-	XI2s_Tx_SetSclkOutDiv (&I2s_tx, 48000*I2S_CLK_MULT, 48000);
-	XI2s_Tx_Enable(&I2s_tx, 1);
-	XI2s_Rx_Enable(&I2s_rx, 0);
+
+     XACR_WriteReg (RX_ACR_ADDR, 0x30, 512); // set to half of I2S TX FIFO Depth
+     XACR_WriteReg (RX_ACR_ADDR, 0x34, 15);  // Max limit of +/-
+     XACR_WriteReg (RX_ACR_ADDR, 0x38, 3);  // incr, decr granularity
+     XACR_WriteReg (RX_ACR_ADDR, 0x3C, 8*384);
+     XACR_WriteReg (RX_ACR_ADDR, 0x40, 8); // Averaging time
+
+     XACR_WriteReg (RX_ACR_ADDR, RXACR_MODE, 0x1); // 5 - ctrl loop, 1- no loop
+     XACR_WriteReg (RX_ACR_ADDR, RXACR_DIV, 0x40); // divider
+     XI2s_Tx_SetSclkOutDiv (&I2s_tx, 48000*I2S_CLK_MULT, 48000);
+     XI2s_Tx_Enable(&I2s_tx, 1);
+     XI2s_Rx_Enable(&I2s_rx, 0);
 }
 
 void audio_start_rx (void) {
@@ -1194,7 +1219,6 @@ void audio_start_rx (void) {
 				XI2s_Rx_SetAesChStatus(&I2s_rx, aes_sts);
 				status_captured = 1;
 				XI2s_Tx_Enable(&I2s_tx, 0);
-				usleep(20000);
 //            xil_printf ("Channel Status captured from I2S TX to I2S RX\r\n");
 			}
 		}
@@ -1203,14 +1227,18 @@ void audio_start_rx (void) {
 #endif
 
 		// process to start Pass Through Audio and program the Audio pipe
-		if (status_captured) { // && rx_trained == 1 && DpRxSsInst.link_up_trigger == 1) { // && rx_all_detect) {
+		if (status_captured) {
 				I2cClk_Ps(appx_fs_dup, 768*appx_fs_dup);
-				xil_printf ("Audio Sampling rate is %d Hz\r\n",appx_fs_dup);
+				usleep(200000);
+				//Reset the MMCM that generates the clock to DAC/ADC
+				XGpio_WriteReg (aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x1);
+				XGpio_WriteReg (aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x0);
 #if I2S_AUDIO
-				XI2s_Tx_SetSclkOutDiv (&I2s_tx, appx_fs_dup*I2S_CLK_MULT, appx_fs_dup);
-				XI2s_Tx_Enable(&I2s_tx, 1);
-				XGpio_WriteReg (aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x2);
-				XACR_WriteReg (RX_ACR_ADDR, RXACR_MODE, 0x5); // 5 - ctrl loop, 0- no loop
+				//Giving some time for Si5328 to get accustomed to change
+				//Not starting I2S TX here
+				usleep(200000);
+				usleep(200000);
+				XACR_WriteReg (RX_ACR_ADDR, RXACR_MODE, 0x4); // 4 - ctrl loop, 0- no loop
 #endif
 				start_i2s_clk = 0;
 				i2s_tx_started = 1;
@@ -1227,18 +1255,28 @@ void audio_start_tx (void) {
 	filter_count_b++;
 	//Audio may not work properly on some monitors if this is started too early
 	//hence the delay here
-	if (filter_count_b < 100) {
+	if (filter_count_b < 50) {
 		start_audio_passThrough(LineRate_init_tx);
-	} else if (filter_count_b > 200000) {
+	} else if (filter_count_b > 500) {
 
 #if I2S_AUDIO
+	if (appx_fs_dup != 0) {
+		XGpio_WriteReg (aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x2);
+		XI2s_Tx_SetSclkOutDiv (&I2s_tx, appx_fs_dup*I2S_CLK_MULT, appx_fs_dup);
 		XI2s_Rx_SetSclkOutDiv (&I2s_rx, appx_fs_dup*I2S_CLK_MULT, appx_fs_dup);
 		XI2s_Rx_LatchAesChannelStatus (&I2s_rx);
+		//Start RX and TX I2S
+		//Put the ACR in External N/CTS update mode with loop control
 		XI2s_Rx_Enable(&I2s_rx, 1);
+
+		XI2s_Tx_Enable(&I2s_tx, 1);
+		XACR_WriteReg (RX_ACR_ADDR, RXACR_MODE, 0x4);
+		xil_printf ("Audio Sampling rate is %d Hz\r\n",appx_fs_dup);
+	}
 #else
 		XGpio_WriteReg (aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x2);
 #endif
-		xil_printf ("Starting audio on DP TX..\r\n");
+		xil_printf ("Starting audio....\r\n");
 		i2s_started = 1;
 		filter_count_b = 0;
 	}
@@ -1319,9 +1357,14 @@ void dprx_tracking (void) {
 #endif
 		rx_aud = 1;
 		track_msa = Dppt_DetectResolution(DpRxSsInst.DpPtr, Msa,
-				DpRxSsInst.link_up_trigger);
+				DpRxSsInst.link_up_trigger);// && DpRxSsInst.link_up_trigger;
 	}
 
+	if(tx_done == 1) {
+
+		Dppt_DetectColor(DpRxSsInst.DpPtr, Msa,
+		DpRxSsInst.link_up_trigger);
+	}
 }
 
 void dptx_tracking (void) {
@@ -1348,7 +1391,7 @@ void dptx_tracking (void) {
 	}
 
 	if(hpd_pulse_con_event == 1 && rx_trained == 1 &&
-			DpRxSsInst.link_up_trigger == 1) {
+			DpRxSsInst.link_up_trigger == 1 && tx_done == 1) {// && DpTxSsInst.no_video_trigger == 0) {
 		//if short HPD pulse detected
 		//run a loop for 3000 times to filter HPD pulses on cable unplug
 		//this time should be more that the BS IDLE time
