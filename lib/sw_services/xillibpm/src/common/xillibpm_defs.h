@@ -269,8 +269,10 @@ enum XPm_PllConfigParams {
 #define PM_PLL_SET_MODE					55U
 #define PM_PLL_GET_MODE					56U
 
+#define PM_ADD_REQUIREMENT		57U
+
 #define PM_API_MIN      PM_GET_API_VERSION
-#define PM_API_MAX      PM_PLL_GET_MODE
+#define PM_API_MAX      PM_ADD_REQUIREMENT
 
 
 #endif /* XILLIBPM_DEFS_H_ */

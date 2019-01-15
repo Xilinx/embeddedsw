@@ -451,8 +451,6 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 		XPm_Power *Power, XPm_ClockNode * Clock, XPm_ResetNode *Reset)
 {
 	XStatus Status = XST_FAILURE;
-	u32 i;
-	XPm_Requirement *Reqm;
 
 	if (PmDevices[NODEINDEX(Id)] != NULL) {
 		Status = XST_DEVICE_BUSY;
@@ -463,19 +461,6 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 		Id, XPM_DEVSTATE_UNUSED, BaseAddress);
 	if (XST_SUCCESS != Status) {
 		goto done;
-	}
-
-	Reqm = (XPm_Requirement *)XPm_AllocBytes(sizeof(XPm_Requirement) * XPM_SUBSYSID_MAX);
-	if (NULL == Reqm) {
-		Status = XST_BUFFER_TOO_SMALL;
-		goto done;
-	}
-
-	for (i = 0; i < XPM_SUBSYSID_MAX; i++) {
-		Status = XPmRequirement_Init(&Reqm[i], &PmSubsystems[i], Device);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
 	}
 
 	Device->Power = Power;
