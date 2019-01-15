@@ -186,6 +186,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		case PM_ADD_NODE_NAME:
 			Status = XPm_AddNodeName(&Pload[0], Len);
 			break;
+		case PM_ADD_REQUIREMENT:
+			Status = XPm_AddRequirement(Pload[0], Pload[1]);
+			break;
 		default:
 			Status = XST_INVALID_PARAM;
 			break;
@@ -2451,5 +2454,39 @@ XStatus XPm_AddNode(u32 *Args, u32 NumArgs)
 			break;
 	}
 
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function links a device to a subsystem so requirement
+ *         assignment could be made by XPm_RequestDevice() or
+ *         XPm_SetRequirement() call.
+ *
+ * @param  SubsystemId	Subsystem Id
+ * @param  DeviceId 	Device Id
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPm_AddRequirement(const u32 SubsystemId, const u32 DeviceId)
+{
+	XStatus Status = XST_INVALID_PARAM;
+	XPm_Device *Device = NULL;
+
+	if (SubsystemId > XPM_SUBSYSID_MAX) {
+		goto done;
+	}
+
+	Device = (XPm_Device *)XPmDevice_GetById(DeviceId);
+	if (NULL == Device) {
+		goto done;
+	}
+
+	Status = XPmRequirement_Add(&PmSubsystems[SubsystemId], Device);
+done:
 	return Status;
 }

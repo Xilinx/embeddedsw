@@ -54,6 +54,22 @@ XStatus XPmRequirement_Init(XPm_Requirement *Reqm,
 	return XST_SUCCESS;
 }
 
+XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Requirement *Reqm;
+
+	Reqm = (XPm_Requirement *)XPm_AllocBytes(sizeof(XPm_Requirement));
+	if (NULL == Reqm) {
+		Status = XST_BUFFER_TOO_SMALL;
+		goto done;
+	}
+
+	Status = XPmRequirement_Init(Reqm, Subsystem, Device);
+done:
+	return Status;
+}
+
 void XPm_RequiremntUpdate(XPm_Requirement *Reqm)
 {
 	Reqm->Curr.Capabilities = Reqm->Next.Capabilities;
