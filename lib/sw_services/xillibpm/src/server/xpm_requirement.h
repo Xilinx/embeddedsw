@@ -67,7 +67,7 @@ struct XPm_Requirement {
 /************************** Function Prototypes ******************************/
 XStatus XPmRequirement_Init(XPm_Requirement *Reqm,
 		XPm_Subsystem *Subsystem, XPm_Device *Device);
-
+XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device);
 void XPm_RequiremntUpdate(XPm_Requirement *Reqm);
 XStatus XPmRequirement_Release(XPm_Requirement *Reqm, XPm_ReleaseScope Scope);
 /** @} */
