@@ -1,8 +1,0 @@
-if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53-32")
-add_subdirectory(32bit)
-else()
-add_subdirectory(64bit)
-endif()
-if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53-32") OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53"))
-add_subdirectory(includes_ps)
-endif()

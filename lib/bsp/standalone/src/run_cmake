@@ -1,3 +1,0 @@
-#!/bin/bash
-
-${XILINX_SDK}/tps/lnx64/cmake-3.3.2/bin/cmake $@ 2>&1
