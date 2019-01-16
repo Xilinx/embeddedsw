@@ -1,8 +1,30 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* SPDX-License-Identifier: MIT
-******************************************************************************/
-
+ *
+ * Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+ * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ * Except as contained in this notice, the name of the Xilinx shall not be used
+ * in advertising or otherwise to promote the sale, use or other dealings in
+ * this Software without prior written authorization from Xilinx.
+ *
+ ******************************************************************************/
 /*****************************************************************************/
 /**
  *
@@ -18,7 +40,7 @@
  * 5.2	pkp  28/05/15 First release
  * 5.5	pkp	 04/15/16 Updated the Xil_DCacheInvalidate,
  *			Xil_DCacheInvalidateLine and Xil_DCacheInvalidateRange
- *			functions description for proper explanation
+ *			functions description for proper explaination
  * 6.8  aru  06/15/18 Removed unused variables.
  * 6.8	aru  07/04/18 Optimized code in Xil_DCacheInvalidate and
  *			Xil_DCacheFlush
@@ -108,7 +130,7 @@ void Xil_DCacheDisable(void)
  *
  * @return	None.
  *
- * @note	In Cortex-A53, functionality to simply invalid the
+ * @note	In Cortex-A53, functionality to simply invalide the
  *		cachelines is not present. Such operations are a
  *		problem for an environment that supports virtualisation.
  *		It would allow one OS to invalidate a line belonging to
@@ -198,7 +220,7 @@ void Xil_DCacheInvalidate(void)
  *
  * @return	None.
  *
- * @note	In Cortex-A53, functionality to simply invalid
+ * @note	In Cortex-A53, functionality to simply invalide
  *		the cachelines is not present. Such operations
  *		are a problem for an environment that supports
  *		virtualisation. It would allow one OS to invalidate
@@ -242,7 +264,7 @@ void Xil_DCacheInvalidateLine(u32 adr)
  *
  * @return	None.
  *
- * @notice	In Cortex-A53, functionality to simply invalid the cachelines
+ * @notice	In Cortex-A53, functionality to simply invalide the cachelines
  *		is not present. Such operations are a problem for an
  *		environment that supports virtualisation. It would allow
  *		one OS to invalidate a line belonging to another OS.
