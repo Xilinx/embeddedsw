@@ -1,8 +1,30 @@
 /******************************************************************************
-* Copyright (c) 2010 - 2020 Xilinx, Inc.  All rights reserved.
-* SPDX-License-Identifier: MIT
+*
+* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in
+* all copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*
+* Except as contained in this notice, the name of the Xilinx shall not be used
+* in advertising or otherwise to promote the sale, use or other dealings in
+* this Software without prior written authorization from Xilinx.
+*
 ******************************************************************************/
-
 /*****************************************************************************/
 /**
 *
@@ -265,12 +287,12 @@ void Xil_DCacheInvalidateLine(u32 adr)
 * 			flushed out to memory. Then it can safely be invalidated. Again it
 * 			sounds good, but this can result in issues. For example, when the
 * 			invalidation happens in a typical ISR (after a DMA transfer has
-* 			updated the memory), then flushing the cache line means, losing
+* 			updated the memory), then flushing the cache line means, loosing
 * 			data that were updated recently before the ISR got invoked.
 *
 * 			Linux prefers the second one. To have uniform implementation
 * 			(across standalone and Linux), the second option is implemented.
-* 			This being the case, following needs to be taken care of:
+* 			This being the case, follwoing needs to be taken care of:
 * 			1. Whenever possible, the addresses must be cache line aligned.
 * 			Please nore that, not just start address, even the end address must
 * 			be cache line aligned. If that is taken care of, this will always
@@ -776,7 +798,7 @@ void Xil_L1DCacheInvalidate(void)
 
 	/* Check for the cache status. If cache is enabled, then only
 	 * flush stack memory to save return address. If cache is disabled,
-	 * don't flush anything as it might result in flushing stale date into
+	 * dont flush anything as it might result in flushing stale date into
 	 * memory which is undesirable.
 	 * */
 	CtrlReg = mfcp(XREG_CP15_SYS_CONTROL);
@@ -1370,7 +1392,7 @@ void Xil_L2CacheInvalidate(void)
 
 	/* Check for the cache status. If cache is enabled, then only
 	 * flush stack memory to save return address. If cache is disabled,
-     * don't flush anything as it might result in flushing stale date into
+     * dont flush anything as it might result in flushing stale date into
 	 * memory which is undesirable.
 	 */
 	L2CCReg = Xil_In32(XPS_L2CC_BASEADDR + XPS_L2CC_CNTRL_OFFSET);

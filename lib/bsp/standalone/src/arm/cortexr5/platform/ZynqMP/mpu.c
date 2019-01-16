@@ -15,12 +15,14 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
+* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
 *
-*
+* Except as contained in this notice, the name of the Xilinx shall not be used
+* in advertising or otherwise to promote the sale, use or other dealings in
+* this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -39,8 +41,6 @@
 * 6.00  pkp  06/27/16 moving the Init_MPU code to .boot section since it is a
 *                     part of processor boot process
 * 6.2   mus  01/27/17 Updated to support IAR compiler
-* 7.1   mus  09/11/19 Added warning message if DDR size is not in power of 2.
-*                     Fix for CR#1038577.
 * </pre>
 *
 * @note
@@ -51,7 +51,6 @@
 /***************************** Include Files *********************************/
 
 #include "xil_types.h"
-#include "xil_printf.h"
 #include "xreg_cortexr5.h"
 #include "xil_mpu.h"
 #include "xpseudo_asm.h"
@@ -128,7 +127,7 @@ void Init_MPU(void)
 	u32 Addr;
 	u32 RegSize = 0U;
 	u32 Attrib;
-	u32 RegNum = 0, i, Offset = 0;
+	u32 RegNum = 0, i;
 	u64 size;
 
 	Xil_DisableMPURegions();
@@ -142,17 +141,6 @@ void Init_MPU(void)
 		for (i = 0; i < sizeof region_size / sizeof region_size[0]; i++) {
 			if (size <= region_size[i].size) {
 				RegSize = region_size[i].encoding;
-
-				/* Check if DDR size is in power of 2*/
-				if ( XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR == 0x100000)
-					Offset = XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR;
-				if (region_size[i].size > (size + Offset + 1)) {
-					xil_printf ("WARNING: DDR size mapped to Cortexr5 processor is not \
-								in power of 2. As processor allocates MPU regions size \
-								in power of 2, address range %x to %x has been \
-								incorrectly mapped as normal memory \n", \
-								region_size[i].size - 1, XPAR_PSU_R5_DDR_0_S_AXI_HIGHADDR + 1);
-				}
 				break;
 			}
 		}

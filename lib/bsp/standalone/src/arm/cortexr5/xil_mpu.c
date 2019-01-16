@@ -1,8 +1,30 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-* SPDX-License-Identifier: MIT
+*
+* Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in
+* all copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*
+* Except as contained in this notice, the name of the Xilinx shall not be used
+* in advertising or otherwise to promote the sale, use or other dealings in
+* this Software without prior written authorization from Xilinx.
+*
 ******************************************************************************/
-
 /*****************************************************************************/
 /**
 * @file xil_mpu.c
@@ -559,44 +581,36 @@ u32 Xil_GetNextMPURegion(void)
 * @brief       Memory mapping for Cortex r5.
 *
 * @param       Physaddr is base physical address at which to start mapping.
-*                   NULL in Physaddr masks possible mapping errors.
 * @param       size of region to be mapped.
 * @param       flags used to set translation table.
 *
-* @return      Physaddr on success, NULL on error. Ambiguous if Physaddr==NULL
+* @return      Pointer to virtual address.
 *
-* @note:    u32overflow() is defined for readability and (for __GNUC__) to
-*           - force the type of the check to be the same as the first argument
-*           - hide the otherwise unused third argument of the builtin
-*           - improve safety by choosing the explicit _uadd_ version.
-*           Consider __builtin_add_overflow_p() when available.
-*           Use an alternative (less optimal?) for compilers w/o the builtin.
+* @note:      Previously this was implemented in libmetal. Move
+*	      to embeddedsw as this functionality is specific to r5.
 *
 ******************************************************************************/
-#ifdef __GNUC__
-#define u32overflow(a, b) ({typeof(a) s; __builtin_uadd_overflow(a, b, &s); })
-#else
-#define u32overflow(a, b) ((a) > ((a) + (b)))
-#endif /* __GNUC__ */
-void *Xil_MemMap(UINTPTR Physaddr, size_t size, u32 flags)
+void* Xil_MemMap(UINTPTR Physaddr, size_t size, u32 flags)
 {
 	size_t Regionsize = MPU_REGION_SIZE_MIN;
-	UINTPTR Basephysaddr = 0, end = Physaddr + size;
+	UINTPTR Basephysaddr;
 
 	if (!flags)
 		return (void *)Physaddr;
-	if (u32overflow(Physaddr, size))
-		return NULL;
-	for ( ; Regionsize != 0; Regionsize <<= 1) {
-		if (Regionsize >= size) {
+
+	while(1) {
+		if (Regionsize < size) {
+			Regionsize <<= 1;
+			continue;
+		} else {
 			Basephysaddr = Physaddr & ~(Regionsize - 1);
-			if (u32overflow(Basephysaddr, Regionsize))
-				break;
-			if ((Basephysaddr + Regionsize) >= end)
-				return Xil_SetMPURegion(Basephysaddr,
-					Regionsize, flags) == XST_SUCCESS ?
-					(void *)Physaddr : NULL;
+			if ((Basephysaddr + Regionsize) < (Physaddr + size)) {
+				Regionsize <<= 1;
+				continue;
+			}
+			break;
 		}
 	}
-	return NULL;
+	Xil_SetMPURegion(Basephysaddr, Regionsize, flags);
+	return (void *)Physaddr;
 }
