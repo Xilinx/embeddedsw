@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2016 - 2018 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2011 - 2015 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -11,10 +11,6 @@
 #
 # The above copyright notice and this permission notice shall be included in
 # all copies or substantial portions of the Software.
-#
-# Use of the Software is limited solely to applications:
-# (a) running on a Xilinx device, or
-# (b) that interact with a Xilinx device through a bus or interconnect.
 #
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -29,24 +25,57 @@
 # this Software without prior written authorization from Xilinx.
 #
 ###############################################################################
-#
-# Modification History
-#
-# Ver   Who  Date     Changes
-# ----- ---- -------- -----------------------------------------------
-# 1.0   mus  04/18/18 First release
-#
-##############################################################################
 
-OPTION psf_version = 2.1;
+include config.make
 
-BEGIN LIBRARY xilmem
-  OPTION drc = mem_drc;
-  OPTION copyfiles = all;
-  OPTION REQUIRES_OS = (standalone freertos10_xilinx);
-  OPTION SUPPORTED_PERIPHERALS = (microblaze psu_cortexa53 psu_cortexa72 psu_cortexr5 psu_pmu psu_pmc psu_psm);
-  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilmem,-lxilstandalone,-lxil,-lgcc,-lc,--end-group";
-  OPTION desc = "Xilmem provides cache and MMU/MPU interfaces to standalone applications";
-  OPTION VERSION = 1.0;
-  OPTION NAME = xilmem;
-END LIBRARY
+AS=iasmarm
+COMPILER=iccarm
+ARCHIVER=iarchive
+CP=cp
+COMPILER_FLAGS=
+EXTRA_COMPILER_FLAGS=
+
+LIB=libxil.a
+
+CC_FLAGS = $(COMPILER_FLAGS)
+ECC_FLAGS = $(EXTRA_COMPILER_FLAGS)
+ECC_FLAGS	+= --fpu=VFPv3
+
+RELEASEDIR=../../../lib
+INCLUDEDIR=../../../include
+
+INCLUDES=-I./. -I${INCLUDEDIR}
+
+INCLUDEFILES=*.h
+
+OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
+OBJECTS +=	$(addsuffix .o, $(basename $(wildcard *.s)))
+#OBJECTS +=	boot.o
+
+libs: banner $(LIBS) clean
+
+#boot.s: boot.S
+#	${COMPILER} $(INCLUDES) -E -o $@ $<
+#	rm -f boot.S
+
+%.o: %.s
+	${AS} --cpu Cortex-R5 --fpu VFPv3 $(INCLUDES) -o $@ $<
+
+%.o: %.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<
+
+banner:
+	echo "Compiling standalone"
+	echo "${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<"
+
+standalone_libs: ${OBJECTS}
+	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS}
+
+.PHONY: include
+include: standalone_includes
+
+standalone_includes:
+	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
+
+clean:
+	rm -rf ${OBJECTS}
