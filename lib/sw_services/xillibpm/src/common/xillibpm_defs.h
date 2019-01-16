@@ -113,8 +113,8 @@ enum pm_pinctrl_config_param {
 };
 
 enum pm_pinctrl_slew_rate {
-	PINCTRL_SLEW_RATE_SLOW,
 	PINCTRL_SLEW_RATE_FAST,
+	PINCTRL_SLEW_RATE_SLOW,
 };
 
 enum pm_pinctrl_bias_status {
