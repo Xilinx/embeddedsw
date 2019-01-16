@@ -255,21 +255,19 @@ enum XPm_PllConfigParams {
 #define PM_CLOCK_GETPARENT              44U
 #define PM_SECURE_IMAGE                 45U
 #define PM_FPGA_READ                    46U
+#define PM_PLL_SET_PARAMETER		48U
+#define PM_PLL_GET_PARAMETER		49U
+#define PM_PLL_SET_MODE			50U
+#define PM_PLL_GET_MODE			51U
 
-#define PM_CREATE_SUBSYSTEM             47U
-#define PM_DESTROY_SUBSYSTEM             48U
+#define PM_CREATE_SUBSYSTEM             54U
+#define PM_DESTROY_SUBSYSTEM            55U
 
-#define PM_DESCRIBE_NODES				49U
-#define	PM_ADD_NODE						50U
-#define	PM_ADD_NODE_PARENT				51U
-#define	PM_ADD_NODE_NAME				52U
-
-#define PM_PLL_SET_PARAMETER			53U
-#define PM_PLL_GET_PARAMETER			54U
-#define PM_PLL_SET_MODE					55U
-#define PM_PLL_GET_MODE					56U
-
-#define PM_ADD_REQUIREMENT		57U
+#define PM_DESCRIBE_NODES		56U
+#define	PM_ADD_NODE			57U
+#define	PM_ADD_NODE_PARENT		58U
+#define	PM_ADD_NODE_NAME		59U
+#define PM_ADD_REQUIREMENT		60U
 
 #define PM_API_MIN      PM_GET_API_VERSION
 #define PM_API_MAX      PM_ADD_REQUIREMENT
