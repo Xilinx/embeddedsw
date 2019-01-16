@@ -1,6 +1,6 @@
 ##############################################################################
 #
-# Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
+# Copyright (C) 2014 - 2019 Xilinx, Inc. All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -181,9 +181,41 @@ proc generate {os_handle} {
     set boardname [common::get_property BOARD [hsi::current_hw_design]]
     set enable_sw_profile [common::get_property CONFIG.enable_sw_intrusive_profiling $os_handle]
     set mb_exceptions false
-    set procdrv [hsi::get_sw_processor]
-    set compiler [common::get_property CONFIG.compiler $procdrv]
 
+    # proctype should be "microblaze" or psu_cortexa53 or psu_cortexr5 or ps7_cortexa9
+    set mbsrcdir "./src/microblaze"
+    set cortexa53srcdir "./src/arm/cortexa53"
+    set cortexr5srcdir "./src/arm/cortexr5"
+    set cortexa9srcdir "./src/arm/cortexa9"
+    set procdrv [hsi::get_sw_processor]
+    set commonsrcdir "./src/common"
+    set armcommonsrcdir "./src/arm/common"
+    set armsrcdir "./src/arm"
+
+    foreach entry [glob -nocomplain [file join $commonsrcdir *]] {
+        file copy -force $entry "./src"
+    }
+    if { $proctype == "psu_cortexa53" || $proctype == "psu_cortexa72" || $proctype == "ps7_cortexa9" || $proctype == "psu_cortexr5" } {
+        set compiler [common::get_property CONFIG.compiler $procdrv]
+        foreach entry [glob -nocomplain [file join $armcommonsrcdir *]] {
+            file copy -force $entry "./src"
+            file delete -force "./src/gcc"
+            file delete -force "./src/iccarm"
+        }
+        if {[string compare -nocase $compiler "armcc"] != 0 && [string compare -nocase $compiler "iccarm"] != 0} {
+            set commonccdir "./src/arm/common/gcc"
+            foreach entry [glob -nocomplain [file join $commonccdir *]] {
+	         file copy -force $entry "./src/"
+            }
+        } elseif {[string compare -nocase $compiler "iccarm"] == 0} {
+            set commonccdir "./src/arm/common/iccarm"
+            foreach entry [glob -nocomplain [file join $commonccdir *]] {
+                 file copy -force $entry "./src/"
+            }
+        }
+
+    }
+   
     set cortexa72proc [hsi::get_cells -hier -filter "IP_NAME==psu_cortexa72"]
 
 
@@ -192,18 +224,34 @@ proc generate {os_handle} {
     # write a API which needs compiler,
     switch $proctype {
         "microblaze" {
+            foreach entry [glob -nocomplain [file join $mbsrcdir *]] {
+                # Copy over only files that are not related to exception handling. All such files have exception in their names
+                file copy -force $entry "./src/"
+            }
             set need_config_file "true"
             set mb_exceptions [mb_has_exceptions $hw_proc_handle]
         }
 	"psu_pmc" {
+	    foreach entry [glob -nocomplain [file join $mbsrcdir *]] {
+                # Copy over only files that are not related to exception handling. All such files have exception in their names
+                file copy -force $entry "./src/"
+            }
             set need_config_file "true"
             set mb_exceptions [mb_has_exceptions $hw_proc_handle]
         }
 	"psu_psm" {
+	    foreach entry [glob -nocomplain [file join $mbsrcdir *]] {
+                # Copy over only files that are not related to exception handling. All such files have exception in their names
+                file copy -force $entry "./src/"
+            }
             set need_config_file "true"
             set mb_exceptions [mb_has_exceptions $hw_proc_handle]
         }
         "psu_pmu" {
+	    foreach entry [glob -nocomplain [file join $mbsrcdir *]] {
+                # Copy over only files that are not related to exception handling. All such files have exception in their names
+                file copy -force $entry "./src/"
+            }
             set need_config_file "true"
             set mb_exceptions [mb_has_exceptions $hw_proc_handle]
             set pss_ref_clk_mhz [get_psu_config "PSU__PSS_REF_CLK__FREQMHZ"]
@@ -250,7 +298,50 @@ proc generate {os_handle} {
             close $file_handle
 
         }
-        "psu_cortexa53"  {
+        "psu_cortexa53" -
+	"psu_cortexa72"
+	{
+            set procdrv [hsi::get_sw_processor]
+            set compiler [get_property CONFIG.compiler $procdrv]
+            if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
+		set ccdir "./src/arm/ARMv8/32bit/gcc"
+		set cortexa53srcdir1 "./src/arm/ARMv8/32bit"
+		set platformsrcdir "./src/arm/ARMv8/32bit/platform/ZynqMP"
+	    } else {
+	        set ccdir "./src/arm/ARMv8/64bit/gcc"
+	        set cortexa53srcdir1 "./src/arm/ARMv8/64bit"
+		if { $proctype == "psu_cortexa53" }  {
+		    set platformsrcdir "./src/arm/ARMv8/64bit/platform/ZynqMP"
+		 } else {
+		    set platformsrcdir "./src/arm/ARMv8/64bit/platform/versal"
+		 }
+	        set pvconsoledir "./src/arm/ARMv8/64bit/xpvxenconsole"
+	        set hypervisor_guest [common::get_property CONFIG.hypervisor_guest $os_handle ]
+	        if { $hypervisor_guest == "true" } {
+	             foreach entry [glob -nocomplain [file join $pvconsoledir *]] {
+			file copy -force $entry "./src/"
+		     }
+		}
+	    }
+
+	    set includedir "./src/arm/ARMv8/includes_ps"
+            foreach entry [glob -nocomplain [file join $cortexa53srcdir1 *]] {
+                file copy -force $entry "./src/"
+            }
+            foreach entry [glob -nocomplain [file join $ccdir *]] {
+                file copy -force $entry "./src/"
+            }
+	    foreach entry [glob -nocomplain [file join $platformsrcdir *]] {
+	    	file copy -force $entry "./src/"
+	    }
+	    file delete -force $platformsrcdir     
+	    file copy -force $includedir "./src/"
+            file delete -force "./src/gcc"
+            file delete -force "./src/profile"
+	    file delete -force "./src/xpvxenconsole"
+            if { $enable_sw_profile == "true" } {
+                error "ERROR: Profiling is not supported for A53/A72"
+            }
 	    set pss_ref_clk_mhz [common::get_property CONFIG.C_PSS_REF_CLK_FREQ $hw_proc_handle]
             if { $pss_ref_clk_mhz == "" } {
                 puts "WARNING: CONFIG.C_PSS_REF_CLK_FREQ not found. Using default value for XPAR_PSU_PSS_REF_CLK_FREQ_HZ."
@@ -262,6 +353,10 @@ proc generate {os_handle} {
             puts $file_handle ""
             puts $file_handle "#include \"xparameters_ps.h\""
             puts $file_handle ""
+	    if {[llength $cortexa72proc] > 0} { 
+	    	puts $file_handle "#define XPAR_PSU_DDR_0_S_AXI_BASEADDR 0x00000000"
+            	puts $file_handle "#define XPAR_PSU_DDR_0_S_AXI_HIGHADDR 0x7FFFFFFF"
+	    }
             # If board name is valid, define corresponding symbol in xparameters
             if { [string length $boardname] != 0 } {
                 set fields [split $boardname ":"]
@@ -275,37 +370,31 @@ proc generate {os_handle} {
             }
             xdefine_fabric_reset $file_handle
             close $file_handle
-        }
-          "psu_cortexa72"  {
-		    set pss_ref_clk_mhz [common::get_property CONFIG.C_PSS_REF_CLK_FREQ $hw_proc_handle]
-	            if { $pss_ref_clk_mhz == "" } {
-	                puts "WARNING: CONFIG.C_PSS_REF_CLK_FREQ not found. Using default value for XPAR_PSU_PSS_REF_CLK_FREQ_HZ."
-	                set pss_ref_clk_mhz 33333000
-	             }
-	            set file_handle [::hsi::utils::open_include_file "xparameters.h"]
-		    puts $file_handle " /* Definition for PSS REF CLK FREQUENCY */"
-	            puts $file_handle [format %s%.0f%s "#define XPAR_PSU_PSS_REF_CLK_FREQ_HZ " [expr $pss_ref_clk_mhz]  "U"]
-	            puts $file_handle ""
-	            puts $file_handle "#include \"xparameters_ps.h\""
-                    puts $file_handle ""
-                    puts $file_handle "#define XPAR_PSU_DDR_0_S_AXI_BASEADDR 0x00000000"
-                    puts $file_handle "#define XPAR_PSU_DDR_0_S_AXI_HIGHADDR 0x7FFFFFFF"
-
-	            # If board name is valid, define corresponding symbol in xparameters
-	            if { [string length $boardname] != 0 } {
-	                set fields [split $boardname ":"]
-	                lassign $fields prefix board suffix
-	                if { [string length $board] != 0 } {
-	                    set def "#define XPS_BOARD_"
-	                    append def [string toupper $board]
-	                    puts $file_handle $def
-	                    puts $file_handle ""
-	                }
-	            }
-	            xdefine_fabric_reset $file_handle
-	            close $file_handle
-        }
+        }  
         "psu_cortexr5"  {
+	    set procdrv [hsi::get_sw_processor]
+	    set includedir "./src/arm/ARMv8/includes_ps"
+	    if {[string compare -nocase $compiler "iccarm"] == 0} {
+	           set ccdir "./src/arm/cortexr5/iccarm"
+            } else {
+	           set ccdir "./src/arm/cortexr5/gcc"
+	   }
+	    foreach entry [glob -nocomplain [file join $cortexr5srcdir *]] {
+		file copy -force $entry "./src/"
+	    }
+	    foreach entry [glob -nocomplain [file join $ccdir *]] {
+		file copy -force $entry "./src/"
+	    }
+	    
+	    if {[llength $cortexa72proc] == 0} {
+	        file copy -force $includedir "./src/"
+	    }
+	    file delete -force "./src/gcc"
+	    file delete -force "./src/iccarm"
+	    file delete -force "./src/profile"
+            if { $enable_sw_profile == "true" } {
+                error "ERROR: Profiling is not supported for R5"
+            }
 	    set pss_ref_clk_mhz [common::get_property CONFIG.C_PSS_REF_CLK_FREQ $hw_proc_handle]
 	    if { $pss_ref_clk_mhz == "" } {
 		puts "WARNING: CONFIG.C_PSS_REF_CLK_FREQ not found. Using default value for XPAR_PSU_PSS_REF_CLK_FREQ_HZ."
@@ -317,10 +406,20 @@ proc generate {os_handle} {
 	    puts $file_handle ""
 	    puts $file_handle "#include \"xparameters_ps.h\""
 	    puts $file_handle ""
-            puts $file_handle "#define XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR 0x00100000"
-            puts $file_handle "#define XPAR_PSU_R5_DDR_0_S_AXI_HIGHADDR 0x7FFFFFFF"
-            puts $file_handle ""
+	    if {[llength $cortexa72proc] > 0} { 
+            	puts $file_handle "#define XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR 0x00100000"
+            	puts $file_handle "#define XPAR_PSU_R5_DDR_0_S_AXI_HIGHADDR 0x7FFFFFFF"
+            	puts $file_handle ""
+		set platformsrcdir "./src/arm/cortexr5/platform/versal"
+	    } else {
+	        set platformsrcdir "./src/arm/cortexr5/platform/ZynqMP"
+	    }
 
+	    foreach entry [glob -nocomplain [file join $platformsrcdir *]] {
+		file copy -force $entry "./src/"
+	    }
+            file delete -force $platformsrcdir   
+	    
             # If board name is valid, define corresponding symbol in xparameters
             if { [string length $boardname] != 0 } {
                 set fields [split $boardname ":"]
@@ -347,6 +446,32 @@ proc generate {os_handle} {
 	    close $file_handle
         }
        "ps7_cortexa9"  {
+                   set procdrv [hsi::get_sw_processor]
+                   set compiler [common::get_property CONFIG.compiler $procdrv]
+                   if {[string compare -nocase $compiler "armcc"] == 0} {
+                       set ccdir "./src/arm/cortexa9/armcc"
+	    } elseif {[string compare -nocase $compiler "iccarm"] == 0} {
+		set ccdir "./src/arm/cortexa9/iccarm"
+                   } else {
+                       set ccdir "./src/arm/cortexa9/gcc"
+                   }
+                   foreach entry [glob -nocomplain [file join $cortexa9srcdir *]] {
+                       file copy -force $entry "./src/"
+                   }
+                   foreach entry [glob -nocomplain [file join $ccdir *]] {
+                       file copy -force $entry "./src/"
+                   }
+                       file delete -force "./src/armcc"
+                       file delete -force "./src/gcc"
+			file delete -force "./src/iccarm"
+                   if {[string compare -nocase $compiler "armcc"] == 0} {
+                       file delete -force "./src/profile"
+                       set enable_sw_profile "false"
+	    }
+		if {[string compare -nocase $compiler "iccarm"] == 0} {
+                           file delete -force "./src/profile"
+                           set enable_sw_profile "false"
+                   }
                    set file_handle [::hsi::utils::open_include_file "xparameters.h"]
                    puts $file_handle "#include \"xparameters_ps.h\""
                    puts $file_handle ""
@@ -355,7 +480,39 @@ proc generate {os_handle} {
         "default" {puts "unknown processor type $proctype\n"}
     }
 
+    # Write the Config.make file
+    set makeconfig [open "./src/config.make" w]
+#    print_generated_header_tcl $makeconfig "Configuration parameters for Standalone Makefile"
+    if { $proctype == "microblaze" || $proctype == "psu_pmu" || $proctype == "psu_psm" || $proctype == "psu_pmc" } {
+        puts $makeconfig "LIBSOURCES = *.c *.S"
+        puts $makeconfig "PROFILE_ARCH_OBJS = profile_mcount_mb.o"
+    } elseif { $proctype == "psu_cortexr5" } {
+	puts $makeconfig "LIBSOURCES = *.c *.S"
+    } elseif { $proctype == "psu_cortexa53" || $proctype == "psu_cortexa72" }  {
+            puts $makeconfig "LIBSOURCES = *.c *.S"
+    } elseif { $proctype == "ps7_cortexa9" } {
+        if {[string compare -nocase $compiler "armcc"] == 0} {
+            puts $makeconfig "LIBSOURCES = *.c *.s"
+        } elseif {[string compare -nocase $compiler "iccarm"] == 0} {
+            puts $makeconfig "LIBSOURCES = *.c *.s"
+		} else {
+            puts $makeconfig "LIBSOURCES = *.c *.S"
+            puts $makeconfig "PROFILE_ARCH_OBJS = profile_mcount_arm.o"
+        }
+    } else {
+        error "ERROR: processor $proctype is not supported"
+    }
+    if { $enable_sw_profile == "true" } {
+        puts $makeconfig "LIBS = standalone_libs profile_libs"
+    } else {
+        puts $makeconfig "LIBS = standalone_libs"
+    }
+    close $makeconfig
 
+    # Remove microblaze,  cortexr5, cortexa53 and common directories...
+    file delete -force $mbsrcdir
+    file delete -force $commonsrcdir
+    file delete -force $armsrcdir
 
     # Handle stdin
     set stdin [common::get_property CONFIG.stdin $os_handle]
@@ -393,7 +550,7 @@ proc generate {os_handle} {
     }
 
     # Create bspconfig file
-    set bspcfg_fn [file join "src" "common" "bspconfig.h"]
+    set bspcfg_fn [file join "src" "bspconfig.h"]
     file delete $bspcfg_fn
     set bspcfg_fh [open $bspcfg_fn w]
     ::hsi::utils::write_c_header $bspcfg_fh "Configurations for Standalone BSP"
@@ -424,7 +581,6 @@ proc generate {os_handle} {
     }
 
     if { $proctype == "psu_cortexa53" } {
-        set compiler [common::get_property CONFIG.compiler $procdrv]
 	if {[string compare -nocase $compiler "arm-none-eabi-gcc"] != 0} {
 		set hypervisor_guest [common::get_property CONFIG.hypervisor_guest $os_handle ]
 		if { $hypervisor_guest == "true" } {
@@ -503,7 +659,7 @@ proc generate {os_handle} {
 	 puts $file_handle "/******************************************************************/"
 
 	close $file_handle
-	xcreate_cmake_toolchain_file $os_handle $cortexa72proc
+#	xcreate_cmake_toolchain_file $os_handle $cortexa72proc
 }
 
 proc xcreate_cmake_toolchain_file {os_handle is_versal} {
@@ -722,7 +878,7 @@ proc xcreate_mb_intr_config_file {handler arg} {
 
     set mb_table "MB_InterruptVectorTable"
 
-    set filename [file join "src" "microblaze" "microblaze_interrupts_g.c"]
+    set filename [file join "src" "microblaze_interrupts_g.c"]
     file delete $filename
     set config_file [open $filename w]
 
@@ -749,7 +905,7 @@ proc xcreate_mb_intr_config_file {handler arg} {
 # -------------------------------------------
 proc xcreate_mb_exc_config_file {os_handle} {
 
-    set hfilename [file join "src" "microblaze" "microblaze_exceptions_g.h"]
+    set hfilename [file join "src" "microblaze_exceptions_g.h"]
     file delete $hfilename
     set hconfig_file [open $hfilename w]
     ::hsi::utils::write_c_header $hconfig_file "Exception Handling Header for MicroBlaze Processor"
@@ -820,6 +976,37 @@ proc xcreate_mb_exc_config_file {os_handle} {
 }
 
 
+# --------------------------------------
+# Tcl procedure post_generate
+#
+# This proc removes _interrupt_handler.o
+# from libxil.a
+# --------------------------------------
+proc post_generate {os_handle} {
+
+    set sw_proc_handle [hsi::get_sw_processor]
+    set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
+
+    set procname [common::get_property NAME $hw_proc_handle]
+    set proctype [common::get_property IP_NAME $hw_proc_handle]
+
+    if {[string compare -nocase $proctype "microblaze"] == 0} {
+
+        set procdrv [hsi::get_sw_processor]
+        # Remove _interrupt_handler.o from libxil.a for mb-gcc
+        set archiver [common::get_property CONFIG.archiver $procdrv]
+        set libgloss_a [file join .. .. lib libgloss.a]
+        if { ![file exists $libgloss_a] } {
+		set libgloss_a [file join .. .. lib libxil.a]
+        }
+        exec $archiver -d $libgloss_a _interrupt_handler.o
+
+        # Remove _hw_exception_handler.o from libgloss.a for microblaze_v3_00_a
+        if { [mb_has_exceptions $hw_proc_handle] } {
+		exec $archiver -d $libgloss_a _hw_exception_handler.o
+        }
+    }
+}
 
 # --------------------------------------
 # Return true if this MB has

@@ -1,8 +1,0 @@
-add_subdirectory(gcc)
-add_subdirectory(platform)
-collect (PROJECT_LIB_SOURCES sleep.c)
-collect (PROJECT_LIB_SOURCES usleep.c)
-collect (PROJECT_LIB_SOURCES xtime_l.c)
-collect (PROJECT_LIB_HEADERS xpseudo_asm.h)
-collect (PROJECT_LIB_HEADERS xtime_l.h)
-collect (PROJECT_LIB_HEADERS xreg_cortexa53.h)

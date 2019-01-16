@@ -30,7 +30,7 @@ OPTION psf_version = 2.1;
 
 BEGIN OS standalone
 OPTION drc = standalone_drc;
-OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilstandalone,-lxil,-lgcc,-lc,--end-group";
+OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lgcc,-lc,--end-group";
 OPTION DESC = "Standalone is a simple, low-level software layer. It provides access to basic processor features such as caches, interrupts and exceptions as well as the basic features of a hosted environment, such as standard input and output, profiling, abort and exit.";
 OPTION copyfiles = all;
 OPTION OS_STATE = ACTIVE;
