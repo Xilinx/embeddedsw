@@ -1207,6 +1207,9 @@ u32 XilSKey_CrcCalculation(u8 *Key)
 	defined (XSK_ZYNQ_ULTRA_MP_PLATFORM)
 	u32 Key_32 = 0U;
 #endif
+#ifdef XSK_MICROBLAZE_PLATFORM
+	u8 Row = 0U;
+#endif
 	u8 FullKey[64U] = {0U};
 	u32 Length = strlen((char *)Key);
 
@@ -1221,12 +1224,10 @@ u32 XilSKey_CrcCalculation(u8 *Key)
 		XilSKey_StrCpyRange(Key, FullKey, 0U, Length);
 	}
 #ifdef XSK_MICROBLAZE_ULTRA_PLUS
-	u8 Row = 0U;
 	MaxIndex = 16U;
 	Row = 5U;
 #endif
 #ifdef XSK_MICROBLAZE_ULTRA
-	u8 Row = 0U;
 	MaxIndex = 8U;
 	Row = 20U;
 #endif
@@ -1411,14 +1412,15 @@ u32 XilSkey_CrcCalculation_AesKey(u8 *Key)
 		u32 Key_32 = 0U;
 		u32 Index1;
 #endif
+#ifdef XSK_MICROBLAZE_PLATFORM
+	u32 Row;
+#endif
 
 #ifdef XSK_MICROBLAZE_ULTRA_PLUS
-	u32 Row;
 	MaxIndex = 16U;
 	Row = 5U;
 #endif
 #ifdef XSK_MICROBLAZE_ULTRA
-	u32 Row;
 	MaxIndex = 8U;
 	Row = 20U;
 #endif
