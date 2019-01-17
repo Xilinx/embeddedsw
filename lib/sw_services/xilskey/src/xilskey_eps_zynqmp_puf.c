@@ -194,7 +194,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPufHelprData(u32 *Address)
 
 	u32 Status;
 	u32 Row;
-	u32 RowData[128];
+	u32 RowData[128] = {0U};
 	u32 *PtrEfuse2 = &RowData[0];
 	u32 *PtrEfuse3 = &RowData[64];
 	u32 *AddrPtr = (u32 *)Address;
@@ -281,7 +281,7 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufChash(XilSKey_Puf *InstancePtr)
 {
 
 	u32 Status;
-	u8 Value[32];
+	u8 Value[32] = {0U};
 	u8 Column = 0;
 	XskEfusePs_Type EfuseType;
 	u8 *CHash = (u8 *)&(InstancePtr->Chash);
@@ -406,7 +406,7 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufAux(XilSKey_Puf *InstancePtr)
 {
 
 	u32 Status;
-	u8 Value[32];
+	u8 Value[32] = {0U};
 	u8 Column = 0;
 	XskEfusePs_Type EfuseType;
 	u32 RowData;
@@ -641,7 +641,7 @@ u32 XilSKey_Puf_Regeneration(XilSKey_Puf *InstancePtr)
 {
 	u32 PufStatus;
 	u32 Status = XST_SUCCESS;
-	u32 PufChash;
+	u32 PufChash = 0U;
 	u32 Debug = XSK_PUF_DEBUG_GENERAL;
 
         /* Assert validates the input arguments */
@@ -760,7 +760,7 @@ u32 XilSKey_Write_Puf_EfusePs_SecureBits(XilSKey_Puf_Secure *WriteSecureBits)
 	XskEfusePs_Type EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
 	u32 Row = XSK_ZYNQMP_EFUSEPS_PUF_AUX_ROW;
 	u32 RowData;
-	u8 DataInBits[XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW];
+	u8 DataInBits[XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW] = {0U};
 	u32 Debug = XSK_PUF_DEBUG_GENERAL;
 
 	/* If user requests any of the secure bit to be programmed */
@@ -922,7 +922,7 @@ static inline u32 XilSKey_Read_Puf_EfusePs_SecureBits_Regs(
 		XilSKey_Puf_Secure *SecureBits, u8 ReadOption)
 {
 
-	u32 RegData;
+	u32 RegData = 0U;
 	u32 Status = XST_SUCCESS;
 
 	if (ReadOption == XSK_EFUSEPS_READ_FROM_CACHE) {
@@ -1076,8 +1076,8 @@ END:
  ******************************************************************************/
 static inline u32 XilSkey_Puf_Validate_Access_Rules(u8 RequestType)
 {
-	u32 PufChash;
-	u32 PufAux;
+	u32 PufChash = 0U;
+	u32 PufAux = 0U;
 	u32 Status = XST_SUCCESS;
 	u32 Debug = XSK_PUF_DEBUG_GENERAL;
 	XilSKey_SecCtrlBits ReadSecCtrlBits;
