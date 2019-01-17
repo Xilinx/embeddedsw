@@ -606,8 +606,8 @@ static inline u32 XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits_Regs(
 		(RegData & XSK_ZYNQMP_EFUSEPS_SEC_CTRL_DFT_DIS_MASK) >>
 			XSK_ZYNQMP_EFUSEPS_SEC_CTRL_DFT_DIS_SHIFT;
 	ReadBackSecCtrlBits->ProgGate =
-		(RegData & XSK_ZYNQMP_EFUSEPS_SEC_CTRL_PROG_GATE_MASK) >>
-			XSK_ZYNQMP_EFUSEPS_SEC_CTRL_PROG_GATE_0_SHIFT;
+		(RegData & (u32)XSK_ZYNQMP_EFUSEPS_SEC_CTRL_PROG_GATE_MASK) >>
+			(u32)XSK_ZYNQMP_EFUSEPS_SEC_CTRL_PROG_GATE_0_SHIFT;
 	ReadBackSecCtrlBits->SecureLock =
 		(RegData & XSK_ZYNQMP_EFUSEPS_SEC_CTRL_LOCK_MASK) >>
 			XSK_ZYNQMP_EFUSEPS_SEC_CTRL_LOCK_SHIFT;
@@ -991,7 +991,7 @@ u32 XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(u8 Row, u8 Column,
 				XSK_ZYNQMP_EFUSEPS_CFG_OFFSET) &
 				(~XSK_ZYNQMP_EFUSEPS_CFG_MARGIN_RD_MASK);
 		ReadReg = ReadReg |
-				(MarginRead << XSK_ZYNQMP_EFUSEPS_CFG_MARGIN_RD_SHIFT);
+				(u32)((u32)MarginRead << (u32)XSK_ZYNQMP_EFUSEPS_CFG_MARGIN_RD_SHIFT);
 
 		XilSKey_WriteReg(XSK_ZYNQMP_EFUSEPS_BASEADDR, \
 				XSK_ZYNQMP_EFUSEPS_CFG_OFFSET, ReadReg);
@@ -1032,8 +1032,9 @@ u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
 {
 	u32 WriteValue;
 	u32 ReadValue;
+	u8 EfusePsType = EfuseType;
 
-	WriteValue = ((EfuseType << (u8)XSK_ZYNQMP_EFUSEPS_RD_ADDR_SHIFT) &
+	WriteValue = ((EfusePsType << (u8)XSK_ZYNQMP_EFUSEPS_RD_ADDR_SHIFT) &
 					XSK_ZYNQMP_EFUSEPS_RD_ADDR_MASK) |
 			((Row << (u8)XSK_ZYNQMP_EFUSEPS_RD_ADDR_ROW_SHIFT) &
 					XSK_ZYNQMP_EFUSEPS_RD_ADDR_ROW_MASK);
@@ -1084,8 +1085,9 @@ static inline u32 XilSKey_ZynqMp_EfusePs_WriteBit(u8 Row, u8 Column,
 
 	u32 WriteValue;
 	u32 ReadValue;
+	u8 EfusePsType = EfuseType;
 
-	WriteValue = ((EfuseType << (u8)XSK_ZYNQMP_EFUSEPS_PGM_ADDR_SHIFT) &
+	WriteValue = ((EfusePsType << (u8)XSK_ZYNQMP_EFUSEPS_PGM_ADDR_SHIFT) &
 					XSK_ZYNQMP_EFUSEPS_PGM_ADDR_MASK) |
 			((Row << (u8)XSK_ZYNQMP_EFUSEPS_PGM_ADDR_ROW_SHIFT) &
 					XSK_ZYNQMP_EFUSEPS_PGM_ADDR_ROW_MASK) |
@@ -2686,8 +2688,8 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 				goto END;
 			}
 			if (*Val32 &
-			     (XSK_ZYNQMP_EFUSEPS_MISC_USER_CTRL_RESERVED_MASK |
-			    XSK_ZYNQMP_EFUSEPS_MISC_USER_CTRL_LBIST_EN_MASK)) {
+			     ((u32)XSK_ZYNQMP_EFUSEPS_MISC_USER_CTRL_RESERVED_MASK |
+			    (u32)XSK_ZYNQMP_EFUSEPS_MISC_USER_CTRL_LBIST_EN_MASK)) {
 				Status = XSK_EFUSEPS_ERROR_RESRVD_BITS_PRGRMG;
 				goto END;
 			}

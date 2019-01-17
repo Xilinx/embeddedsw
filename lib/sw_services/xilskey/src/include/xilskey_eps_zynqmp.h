@@ -440,7 +440,7 @@ typedef struct {
 	(XilSKey_WriteReg(XSK_ZYNQMP_EFUSEPS_BASEADDR, \
 		XSK_ZYNQMP_EFUSEPS_CFG_OFFSET, \
 	(XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR, \
-	XSK_ZYNQMP_EFUSEPS_CFG_OFFSET) | XSK_ZYNQMP_EFUSEPS_CFG_PGM_EN_MASK)))
+	XSK_ZYNQMP_EFUSEPS_CFG_OFFSET) | (u32)XSK_ZYNQMP_EFUSEPS_CFG_PGM_EN_MASK)))
 
 /***************************************************************************/
 /**
