@@ -41,7 +41,7 @@ BEGIN LIBRARY libmetal
   OPTION DRC = libmetal_drc;
   OPTION COPYFILES = all;
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
-  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lxilstandalone,-lxilmem,-lmetal,-lgcc,-lc,--end-group";
+  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lmetal,-lgcc,-lc,--end-group";
   OPTION DESC = "Libmetal Library";
   OPTION VERSION = 1.4;
   OPTION NAME = libmetal;
