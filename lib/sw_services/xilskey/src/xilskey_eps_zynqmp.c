@@ -2247,8 +2247,8 @@ static inline u32 XilSKey_ZynqMp_EfusePs_UserFuses_TobeProgrammed(
 static inline u32 XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
 	XilSKey_ZynqMpEPs *InstancePtr, XilSKey_UsrFuses *UserFuses_ToBePrgrmd)
 {
-	u8 UserFuses_Read[8][32] = {{0}};
-	u8 UserFuses_Write[8][32] = {{0}};
+	u8 UserFuses_Read[8][32] = {{0},{0},{0},{0},{0},{0},{0},{0}};
+	u8 UserFuses_Write[8][32] = {{0},{0},{0},{0},{0},{0},{0},{0}};
 	u32 UserFuseRead;
 
 	if (InstancePtr->PrgrmUser0Fuse == TRUE) {
