@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -41,7 +41,8 @@
 * 4.0   vns     10/01/15 First release
 * 6.0   vns     07/18/16 Modified RSA enable bit mask
 * 6.2   vns     03/10/17 Added support for LBIST, LPD and FPD sc enable,
-*                       PBR_BOOT_ERROR.
+*                        PBR_BOOT_ERROR.
+* 6.7   arc     01/05/19 Fixed MISRA-C violations.
 * </pre>
 *
 ******************************************************************************/

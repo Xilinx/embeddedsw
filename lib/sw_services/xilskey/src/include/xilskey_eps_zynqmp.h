@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -61,6 +61,7 @@
 *                        PPK0Revoke->PPK0InVld and PPK1Revoke->PPK1InVld
 * 6.6   vns     06/06/18 Added doxygen tags
 *       vns     09/18/18 Added APIs to support eFUSE programming from linux
+* 6.7   arc     01/05/19 Fixed MISRA-C violations.
 * </pre>
 *
 *****************************************************************************/
