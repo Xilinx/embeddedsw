@@ -41,7 +41,7 @@ BEGIN LIBRARY xilffs
   OPTION drc = ffs_drc;
   OPTION copyfiles = all;
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
-  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilffs,-lxilmem,-lxil,-lgcc,-lc,--end-group";
+  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilffs,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Generic Fat File System Library";
   OPTION VERSION = 4.1;
   OPTION NAME = xilffs;

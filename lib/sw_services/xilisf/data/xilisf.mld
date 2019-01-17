@@ -49,7 +49,7 @@ BEGIN LIBRARY xilisf
   OPTION drc = isf_drc;
   OPTION copyfiles = all;
   OPTION REQUIRES_OS = (standalone xilkernel freertos10_xilinx);
-  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilisf,-lxilstandalone,-lxilmem,-lxil,-lgcc,-lc,--end-group";
+  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilisf,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx In-system and Serial Flash Library";
   OPTION VERSION = 5.12;
   OPTION NAME = xilisf;
