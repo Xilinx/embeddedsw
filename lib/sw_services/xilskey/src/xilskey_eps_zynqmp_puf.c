@@ -1141,6 +1141,9 @@ static inline u32 XilSkey_Puf_Validate_Access_Rules(u8 RequestType)
 				"Authentication:0x%08x\r\n", Status);
 			}
 		}
+		else {
+			Status = (u32)XST_SUCCESS;
+		}
 	}
 	else {
 		Status = (u32)XSK_EFUSEPS_ERROR_PUF_INVALID_REQUEST;
