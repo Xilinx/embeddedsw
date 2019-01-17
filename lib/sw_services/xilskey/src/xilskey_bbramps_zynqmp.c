@@ -90,7 +90,7 @@ extern u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr);
 u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey)
 {
 
-	u32 Status = XST_SUCCESS;
+	u32 Status;
 	u32 AesCrc;
 	u32 *KeyPtr = AesKey;
 	u32 StatusRead;
@@ -205,7 +205,6 @@ void XilSKey_ZynqMp_Bbram_Zeroise()
 static inline u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void)
 {
 
-	u32 Status = XST_SUCCESS;
 	u32 StatusRead;
 
 	/*
@@ -239,7 +238,7 @@ static inline u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void)
 		return (u32)XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG_ENABLE;
 	}
 
-	return Status;
+	return (u32)XST_SUCCESS;
 
 }
 

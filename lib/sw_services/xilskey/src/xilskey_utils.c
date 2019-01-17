@@ -509,7 +509,7 @@ void XilSKey_Efuse_StartTimer(void)
 
 u64 XilSKey_Efuse_GetTime(void)
 {
-    volatile u64 t=0;
+    volatile u64 t = 0U;
 #ifdef XSK_ARM_PLATFORM
 	volatile u32 t_hi = 0U, t_lo = 0U;
 
@@ -591,7 +591,7 @@ static u32 XilSKey_EfusePs_ConvertCharToNibble (char InChar, u8 *Num)
 	 * Convert the char to nibble
 	 */
 	if ((InChar >= '0') && (InChar <= '9')) {
-		*Num = InChar - '0';
+		*Num = (u8)InChar - (u8)'0';
 	}
 	else if ((InChar >= 'a') && (InChar <= 'f')) {
 		*Num = (u8)InChar - (u8)'a' + 10U;
@@ -639,7 +639,7 @@ static u32 XilSKey_EfusePs_ConvertCharToNibble (char InChar, u8 *Num)
 
 u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
 {
-	u32 ConvertedLen=0;
+	u32 ConvertedLen;
 	u8 LowerNibble = 0U, UpperNibble = 0U;
 
 	/**
@@ -737,7 +737,7 @@ u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
 
 u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len)
 {
-	u32 ConvertedLen = 0U;
+	u32 ConvertedLen;
 		u8 LowerNibble = 0U, UpperNibble = 0U;
 		u32 index;
 
@@ -853,7 +853,7 @@ void XilSKey_EfusePs_ConvertBytesBeToLe(const u8 *Be, u8 *Le, u32 Len)
  ****************************************************************************/
 void XilSKey_Efuse_ConvertBitsToBytes(const u8 * Bits, u8 * Bytes, u32 Len)
 {
-	u8 Data = 0U;
+	u8 Data;
 	u32 Index, BitIndex = 0U, ByteIndex = 0U;
 
 	/**
@@ -961,21 +961,21 @@ u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
      * Make sure passed key is not NULL
      */
     if(Key == NULL) {
-	return (u32)(XSK_EFUSEPL_ERROR_KEY_VALIDATION +
-			XSK_EFUSEPL_ERROR_NULL_KEY);
+	return ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION +
+			(u32)XSK_EFUSEPL_ERROR_NULL_KEY);
     }
 
     if(Len == 0U) {
-	return (u32)(XSK_EFUSEPL_ERROR_KEY_VALIDATION +
-			XSK_EFUSEPL_ERROR_ZERO_KEY_LENGTH);
+	return ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION +
+			(u32)XSK_EFUSEPL_ERROR_ZERO_KEY_LENGTH);
     }
 
 	/**
 	 * Make sure the key has valid length
 	 */
     if (strlen(Key) != Len) {
-		return (u32)(XSK_EFUSEPL_ERROR_KEY_VALIDATION +
-				XSK_EFUSEPL_ERROR_NOT_VALID_KEY_LENGTH);
+		return ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION +
+				(u32)XSK_EFUSEPL_ERROR_NOT_VALID_KEY_LENGTH);
     }
 
     /**
@@ -1104,11 +1104,11 @@ u32 XilSKey_Timer_Intialise()
  ****************************************************************************/
 void XilSKey_StrCpyRange(u8 *Src, u8 *Dst, u32 From, u32 To)
 {
-	u32 Index,J = 0;
+	u32 Index, J = 0U;
 	for (Index = From; Index <= To; Index++) {
 		Dst[J++] = Src[Index];
 	}
-	Dst[J] = '\0';
+	Dst[J] = (u8)'\0';
 
 }
 

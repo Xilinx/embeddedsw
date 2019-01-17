@@ -282,7 +282,7 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufChash(XilSKey_Puf *InstancePtr)
 
 	u32 Status;
 	u8 Value[32] = {0U};
-	u8 Column = 0;
+	u8 Column;
 	XskEfusePs_Type EfuseType;
 	u8 *CHash = (u8 *)&(InstancePtr->Chash);
 
@@ -407,7 +407,7 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufAux(XilSKey_Puf *InstancePtr)
 
 	u32 Status;
 	u8 Value[32] = {0U};
-	u8 Column = 0;
+	u8 Column;
 	XskEfusePs_Type EfuseType;
 	u32 RowData;
 	u8 *AuxValue = (u8 *)&(InstancePtr->Aux);
@@ -566,7 +566,7 @@ u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 		XSK_ZYNQMP_CSU_PUF_CFG1, XSK_ZYNQMP_PUF_CFG1_INIT_VAL_4K);
 	}
 	else {
-		Status = XSK_EFUSEPS_ERROR_PUF_INVALID_REG_MODE;
+		Status = (u32)XSK_EFUSEPS_ERROR_PUF_INVALID_REG_MODE;
 		xPuf_printf(Debug,"API:Invalid Registration Mode:0x%08x\r\n",
 							Status);
 		goto ENDF;
@@ -608,7 +608,7 @@ u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 	if ((PufStatus & XSK_ZYNQMP_CSU_PUF_STATUS_OVERFLOW_MASK) != 0U) {
 		xPuf_printf(Debug,
 			"API: Overflow warning\r\n");
-		Status = XSK_EFUSEPS_ERROR_PUF_DATA_OVERFLOW;
+		Status = (u32)XSK_EFUSEPS_ERROR_PUF_DATA_OVERFLOW;
 	}
 	/* Capture CHASH & AUX */
 	InstancePtr->Chash = InstancePtr->SyndromeData[Index - 1];
@@ -652,7 +652,7 @@ u32 XilSKey_Puf_Regeneration(XilSKey_Puf *InstancePtr)
                 goto END;
         }
 	if (PufChash == 0U) {
-		Status = XSK_EFUSEPS_ERROR_PUF_INVALID_REQUEST;
+		Status = (u32)XSK_EFUSEPS_ERROR_PUF_INVALID_REQUEST;
 		xPuf_printf(Debug,"PUF regeneration is not allowed"
 			", as PUF data is not stored in eFuse\r\n");
 		goto END;
@@ -702,7 +702,7 @@ u32 XilSKey_Puf_Debug2(XilSKey_Puf *InstancePtr)
 {
 	u32 Status=XST_SUCCESS;
 	u32 PufStatus;
-	u32 Index = 0;
+	u32 Index;
 	u32 Debug = XSK_PUF_DEBUG_GENERAL;
 
 	xPuf_printf(Debug,"API: PUF Debug 2\r\n");
@@ -1009,7 +1009,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_PufRowWrite(u8 Row,
 static inline u32 XilSKey_ZynqMp_EfusePs_CheckZeros_Puf(void)
 {
 	u32 RowData = 0U;
-	u32 Status = (u32)XST_SUCCESS;
+	u32 Status;
 
 	/*
 	 * By the time of checking PUF syndrome data T bits
@@ -1024,7 +1024,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_CheckZeros_Puf(void)
 	}
 	if ((RowData & (~(XSK_ZYNQMP_EFUSEPS_TBITS_MASK <<
 			XSK_ZYNQMP_EFUSEPS_TBITS_SHIFT))) != 0x00U) {
-		Status = XSK_EFUSEPS_ERROR_PUF_DATA_ALREADY_PROGRAMMED;
+		Status = (u32)XSK_EFUSEPS_ERROR_PUF_DATA_ALREADY_PROGRAMMED;
 		goto END;
 	}
 
@@ -1036,7 +1036,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_CheckZeros_Puf(void)
 	}
 	if ((RowData & (~(XSK_ZYNQMP_EFUSEPS_TBITS_MASK <<
 			XSK_ZYNQMP_EFUSEPS_TBITS_SHIFT))) != 0x00U) {
-		Status = XSK_EFUSEPS_ERROR_PUF_DATA_ALREADY_PROGRAMMED;
+		Status = (u32)XSK_EFUSEPS_ERROR_PUF_DATA_ALREADY_PROGRAMMED;
 		goto END;
 	}
 
@@ -1044,7 +1044,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_CheckZeros_Puf(void)
 		(XSK_ZYNQMP_EFUSEPS_PUF_ROW_START + 1U),
 		XSK_ZYNQMP_EFUSEPS_PUF_ROW_END, XSK_ZYNQMP_EFUSEPS_EFUSE_2) !=
 								(u32)XST_SUCCESS) {
-		Status = XSK_EFUSEPS_ERROR_PUF_DATA_ALREADY_PROGRAMMED;
+		Status = (u32)XSK_EFUSEPS_ERROR_PUF_DATA_ALREADY_PROGRAMMED;
 		goto END;
 	}
 
@@ -1052,7 +1052,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_CheckZeros_Puf(void)
 		(XSK_ZYNQMP_EFUSEPS_PUF_ROW_START + 1U),
 		XSK_ZYNQMP_EFUSEPS_PUF_ROW_END,
 		XSK_ZYNQMP_EFUSEPS_EFUSE_3) != (u32)XST_SUCCESS) {
-		Status = XSK_EFUSEPS_ERROR_PUF_DATA_ALREADY_PROGRAMMED;
+		Status = (u32)XSK_EFUSEPS_ERROR_PUF_DATA_ALREADY_PROGRAMMED;
 		goto END;
 	}
 
@@ -1112,7 +1112,7 @@ static inline u32 XilSkey_Puf_Validate_Access_Rules(u8 RequestType)
 		 * 	2.1  Make sure that use RSA bits set in eFUSE.
 		 */
 		if (PufSecureBits.RegisterDis != 0U ) {
-			Status = XSK_EFUSEPS_ERROR_PUF_REG_DISABLED;
+			Status = (u32)XSK_EFUSEPS_ERROR_PUF_REG_DISABLED;
 			xPuf_printf(Debug,
 				"API: PUF Registration not allowed "
 			"(Disabled in eFUSE):0x%08x\r\n",Status);
@@ -1120,7 +1120,7 @@ static inline u32 XilSkey_Puf_Validate_Access_Rules(u8 RequestType)
 		else if ((PufChash != 0U) || (PufAux != 0U)) {
 			if (ReadSecCtrlBits.RSAEnable == 0U) {
 				Status =
-				XSK_EFUSEPS_ERROR_PUF_REG_WO_AUTH;
+				(u32)XSK_EFUSEPS_ERROR_PUF_REG_WO_AUTH;
 				xPuf_printf(Debug,
 				"API:Registration not allowed w/o "
 				"Authentication:0x%08x\r\n", Status);
@@ -1128,7 +1128,7 @@ static inline u32 XilSkey_Puf_Validate_Access_Rules(u8 RequestType)
 		}
 	}
 	else {
-		Status = XSK_EFUSEPS_ERROR_PUF_INVALID_REQUEST;
+		Status = (u32)XSK_EFUSEPS_ERROR_PUF_INVALID_REQUEST;
 		xPuf_printf(Debug,
 		"API: Invalid Request type for validation:0x%08x\r\n",
 			Status);
