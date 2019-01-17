@@ -67,7 +67,7 @@ extern "C" {
 /**
  * Key length definition for RSA KEY Hash
  */
-#define XSK_EFUSEPS_RSA_KEY_HASH_LEN_IN_BYTES			(32)
+#define XSK_EFUSEPS_RSA_KEY_HASH_LEN_IN_BYTES			(32U)
 
 /**
  * XSKEfusePs is the PS eFUSE driver instance. Using this

@@ -110,7 +110,7 @@ u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey)
 	while (Offset <= XSK_ZYNQMP_BBRAM_7_OFFSET) {
 		XilSKey_WriteReg(XSK_ZYNQMP_BBRAM_BASEADDR, Offset, *KeyPtr);
 		KeyPtr++;
-		Offset = Offset + 4;
+		Offset = Offset + 4U;
 	}
 
 	XilSKey_WriteReg(XSK_ZYNQMP_BBRAM_BASEADDR,
@@ -169,7 +169,7 @@ void XilSKey_ZynqMp_Bbram_Zeroise()
 	Offset = XSK_ZYNQMP_BBRAM_0_OFFSET;
 	while (Offset <= XSK_ZYNQMP_BBRAM_7_OFFSET) {
 		XilSKey_WriteReg(XSK_ZYNQMP_BBRAM_BASEADDR, Offset, 0x0U);
-		Offset = Offset + 4;
+		Offset = Offset + 4U;
 	}
 
 	/* Issue the zeroize comand */
@@ -258,18 +258,18 @@ static inline u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void)
 ******************************************************************************/
 static inline u32 XilSKey_ZynqMp_Bbram_CrcCalc(u32 *AesKey)
 {
-	u32 Crc = 0;
+	u32 Crc = 0U;
 	u32 Index;
-	u32 Key_32 = 0;
+	u32 Key_32 = 0U;
 
-	for (Index = 0; Index < 9 ; Index++) {
-		if (Index != 0) {
+	for (Index = 0U; Index < 9U ; Index++) {
+		if (Index != 0U) {
 			Crc =
 				XilSKey_RowCrcCalculation(
-					Crc, AesKey[8 - Index], 9-Index);
+					Crc, AesKey[8U - Index], 9U-Index);
 		}
 		else {
-			Crc = XilSKey_RowCrcCalculation(Crc, Key_32, 9-Index);
+			Crc = XilSKey_RowCrcCalculation(Crc, Key_32, 9U-Index);
 		}
 
 	}

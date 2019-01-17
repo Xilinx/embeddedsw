@@ -151,7 +151,7 @@ u32 XilSKey_EfusePs_XAdcInit (void )
 	 */
 	XAdcPs_SetSequencerMode(XAdcInstPtr, XADCPS_SEQ_MODE_SAFE);
 
-	Status = XST_SUCCESS;
+	Status = (u32)XST_SUCCESS;
 #endif
 #ifdef XSK_MICROBLAZE_PLATFORM
 	Status = XST_FAILURE;
@@ -511,14 +511,14 @@ u64 XilSKey_Efuse_GetTime(void)
 {
     volatile u64 t=0;
 #ifdef XSK_ARM_PLATFORM
-	volatile u32 t_hi=0, t_lo=0;
+	volatile u32 t_hi = 0U, t_lo = 0U;
 
     do {
 			t_hi = Xil_In32(XSK_GLOBAL_TIMER_COUNT_REG_HIGH);
 			t_lo = Xil_In32(XSK_GLOBAL_TIMER_COUNT_REG_LOW);
 	}while(t_hi != Xil_In32(XSK_GLOBAL_TIMER_COUNT_REG_HIGH));
 
-	t = (((u64) t_hi) << 32) | (u64) t_lo;
+	t = (((u64) t_hi) << 32U) | (u64) t_lo;
 
 #else
 		 t = XTmrCtr_GetValue(&XTmrCtrInst, XSK_TMRCTR_NUM);
@@ -593,7 +593,7 @@ static u32 XilSKey_EfusePs_ConvertCharToNibble (char InChar, u8 *Num)
 	if ((InChar >= '0') && (InChar <= '9'))
 		*Num = InChar - '0';
 	else if ((InChar >= 'a') && (InChar <= 'f'))
-		*Num = InChar - 'a' + 10;
+		*Num = InChar - 'a' + 10U;
 	else if ((InChar >= 'A') && (InChar <= 'F'))
 		*Num = InChar - 'A' + 10;
 	else
@@ -636,7 +636,7 @@ static u32 XilSKey_EfusePs_ConvertCharToNibble (char InChar, u8 *Num)
 u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
 {
 	u32 ConvertedLen=0;
-	u8 LowerNibble, UpperNibble;
+	u8 LowerNibble = 0U, UpperNibble = 0U;
 
 	/**
 	 * Check the parameters
@@ -650,10 +650,10 @@ u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
 	/**
 	 * Len has to be multiple of 2
 	 */
-	if ((Len == 0) || (Len%2 == 1))
+	if ((Len == 0U) || (Len%2U == 1U))
 		return XSK_EFUSEPS_ERROR_PARAMETER_NULL;
 
-	ConvertedLen = 0;
+	ConvertedLen = 0U;
 	while (ConvertedLen < Len) {
 		/**
 		 * Convert char to nibble
@@ -669,7 +669,7 @@ u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
 				 * Merge upper and lower nibble to Hex
 				 */
 				Buf[ConvertedLen/2] =
-						(UpperNibble << 4) | LowerNibble;
+						(UpperNibble << 4U) | LowerNibble;
 			}
 			else {
 				/**
@@ -689,7 +689,7 @@ u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
 		 */
 		xeFUSE_printf(XSK_EFUSE_DEBUG_GENERAL,"Converted %c%c to %0x\n",
 				Str[ConvertedLen],Str[ConvertedLen+1],Buf[ConvertedLen/2]);
-		ConvertedLen += 2;
+		ConvertedLen += 2U;
 	}
 
 	return XST_SUCCESS;
@@ -730,8 +730,8 @@ u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
 
 u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len)
 {
-	u32 ConvertedLen=0;
-		u8 LowerNibble, UpperNibble;
+	u32 ConvertedLen = 0U;
+		u8 LowerNibble = 0U, UpperNibble = 0U;
 		u32 index;
 
 		/**
@@ -746,11 +746,11 @@ u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len)
 		/**
 		 * Len has to be multiple of 2
 		 */
-		if ((Len == 0) || (Len%2 == 1))
+		if ((Len == 0U) || (Len % 2U == 1U))
 			return XSK_EFUSEPS_ERROR_PARAMETER_NULL;
 
-		index = (Len/8) - 1;
-		ConvertedLen = 0;
+		index = (Len/8U) - 1U;
+		ConvertedLen = 0U;
 		while (ConvertedLen < Len) {
 			/**
 			 * Convert char to nibble
@@ -766,7 +766,7 @@ u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len)
 					 * Merge upper and lower nibble to Hex
 					 */
 					Buf[index--] =
-							(UpperNibble << 4) | LowerNibble;
+							(UpperNibble << 4U) | LowerNibble;
 				}
 				else {
 					/**
@@ -784,7 +784,7 @@ u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len)
 			/**
 			 * Converted upper and lower nibbles
 			 */
-			ConvertedLen += 2;
+			ConvertedLen += 2U;
 		}
 
 		return XST_SUCCESS;
@@ -810,10 +810,10 @@ void XilSKey_EfusePs_ConvertBytesBeToLe(const u8 *Be, u8 *Le, u32 Len)
 {
 	u32 Index;
 
-	if ((Be == NULL) || (Le == NULL) || (Len == 0))
+	if ((Be == NULL) || (Le == NULL) || (Len == 0U))
 		return;
 
-	for (Index=0;Index<Len;Index=Index+4) {
+	for (Index = 0U; Index < Len; Index = Index+4U) {
 		Le[Index+3]=Be[Index];
 		Le[Index+2]=Be[Index+1];
 		Le[Index+1]=Be[Index+2];
@@ -842,32 +842,32 @@ void XilSKey_EfusePs_ConvertBytesBeToLe(const u8 *Be, u8 *Le, u32 Len)
  ****************************************************************************/
 void XilSKey_Efuse_ConvertBitsToBytes(const u8 * Bits, u8 * Bytes, u32 Len)
 {
-	u8 Data=0;
-	u32 Index=0, BitIndex=0, ByteIndex=0;
+	u8 Data = 0U;
+	u32 Index, BitIndex = 0U, ByteIndex = 0U;
 
 	/**
 	 * Make sure the bytes array is 0'ed first.
 	 */
-	for(Index=0;Index<Len;Index++) {
-		Bytes[Index] = 0;
+	for(Index = 0U; Index < Len; Index++) {
+		Bytes[Index] = 0U;
 	}
 
 	while(Len) {
 		/**
 		 * Convert 8 Bit One Byte to 1 Bit 8 Bytes
 		 */
-		for(Index=0;Index<8;Index++) {
+		for(Index = 0U; Index < 8U; Index++) {
 			/**
 			 * Convert from LSB -> MSB - Little Endian
 			 */
-			Data = (Bits[BitIndex] >> Index) & 0x1;
+			Data = (Bits[BitIndex] >> Index) & 0x1U;
 			Bytes[ByteIndex] = Data;
 			ByteIndex++;
 			Len--;
 			/**
 			 * If len is not Byte aligned
 			 */
-			if(Len == 0)
+			if(Len == 0U)
 				return;
 		}
 		BitIndex++;
@@ -896,32 +896,32 @@ void XilSKey_Efuse_ConvertBitsToBytes(const u8 * Bits, u8 * Bytes, u32 Len)
  ****************************************************************************/
 void XilSKey_EfusePs_ConvertBytesToBits(const u8 * Bytes, u8 * Bits , u32 Len)
 {
-	u8 Tmp=0;
-	u32 Index=0, BitIndex=0, ByteIndex=0;
+	u8 Tmp = 0U;
+	u32 Index, BitIndex = 0U, ByteIndex = 0U;
 
 	/**
 	 * Make sure the bits array is 0 first.
 	 */
-	for(Index=0;Index<((Len%8)?((Len/8)+1):(Len/8));Index++) {
-		Bits[Index] = 0;
+	for(Index = 0U; Index < ((Len % 8U) ? ((Len / 8U) + 1U) : (Len / 8U)); Index++) {
+		Bits[Index] = 0U;
 	}
 
 	while(Len) {
 		/**
 		 * Convert 1 Bit 8 Bytes to 8 Bit 1 Byte
 		 */
-		for(Index=0;Index<8;Index++) {
+		for(Index = 0U; Index < 8U; Index++) {
 			/**
 			 * Store from LSB -> MSB - Little Endian
 			 */
-			Tmp = (Bytes[ByteIndex]) & 0x1;
+			Tmp = (Bytes[ByteIndex]) & 0x1U;
 			Bits[BitIndex] |= (Tmp << Index);
 			ByteIndex++;
 			Len--;
 			/**
 			 * If Len is not Byte aligned
 			 */
-			if(Len == 0)
+			if(Len == 0U)
 				return;
 		}
 		BitIndex++;
@@ -952,7 +952,7 @@ u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
 			XSK_EFUSEPL_ERROR_NULL_KEY);
     }
 
-    if(Len == 0) {
+    if(Len == 0U) {
 	return (XSK_EFUSEPL_ERROR_KEY_VALIDATION +
 			XSK_EFUSEPL_ERROR_ZERO_KEY_LENGTH);
     }
@@ -968,7 +968,7 @@ u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
     /**
      * Make sure the key has valid characters
      */
-	for(i=0;i<strlen(Key);i++) {
+	for(i = 0U; i < strlen(Key); i++) {
 		if(XilSKey_Efuse_IsValidChar(&Key[i]) != XST_SUCCESS)
 			return (XSK_EFUSEPL_ERROR_KEY_VALIDATION +
 					XSK_EFUSEPL_ERROR_NOT_VALID_KEY_CHAR);
@@ -1017,21 +1017,21 @@ u32 XilSKey_Efuse_IsValidChar(const char *c)
 u32 XilSKey_Timer_Intialise()
 {
 
-	u32 RefClk = 0;
+	u32 RefClk = 0U;
 
 #ifdef XSK_ZYNQ_PLATFORM
-	TimerTicksfor100ns = 0;
+	TimerTicksfor100ns = 0U;
 	u32 ArmPllFdiv;
 	u32 ArmClkDivisor;
 		/**
 		 *  Extract PLL FDIV value from ARM PLL Control Register
 		 */
-	ArmPllFdiv = (Xil_In32(XSK_ARM_PLL_CTRL_REG)>>12 & 0x7F);
+	ArmPllFdiv = (Xil_In32(XSK_ARM_PLL_CTRL_REG) >> 12U & 0x7FU);
 
 		/**
 		 *  Extract Clock divisor value from ARM Clock Control Register
 		 */
-	ArmClkDivisor = (Xil_In32(XSK_ARM_CLK_CTRL_REG)>>8 & 0x3F);
+	ArmClkDivisor = (Xil_In32(XSK_ARM_CLK_CTRL_REG) >> 8U & 0x3FU);
 
 		/**
 		 * Initialize the variables
@@ -1043,17 +1043,17 @@ u32 XilSKey_Timer_Intialise()
 	 * Calculate the Timer ticks per 100ns
 	 */
 	TimerTicksfor100ns =
-			(((RefClk * ArmPllFdiv)/ArmClkDivisor)/2)/10000000;
+			(((RefClk * ArmPllFdiv)/ArmClkDivisor) / 2U) / 10000000U;
 #endif
 #ifdef XSK_MICROBLAZE_PLATFORM
 
 	u32 Status;
-	TimerTicksfor1000ns = 0;
+	TimerTicksfor1000ns = 0U;
 
 	RefClk = XSK_EFUSEPL_CLCK_FREQ_ULTRA;
 
 	Status = XTmrCtr_Initialize(&XTmrCtrInst, XTMRCTR_DEVICE_ID);
-	if (Status == XST_FAILURE) {
+	if (Status == (u32)XST_FAILURE) {
 		return XST_FAILURE;
 	}
 	/*
@@ -1065,7 +1065,7 @@ u32 XilSKey_Timer_Intialise()
 		return XST_FAILURE;
 	}
 
-	TimerTicksfor1000ns =  XSK_EFUSEPL_CLCK_FREQ_ULTRA/100000;
+	TimerTicksfor1000ns =  XSK_EFUSEPL_CLCK_FREQ_ULTRA/100000U;
 
 #endif
 
@@ -1125,74 +1125,74 @@ void XilSKey_StrCpyRange(u8 *Src, u8 *Dst, u32 From, u32 To)
  ****************************************************************************/
 u32 XilSKey_CrcCalculation(u8 *Key)
 {
-	u32 Crc = 0;
-	u8 Key_8[8];
-	u8 Key_Hex[4];
+	u32 Crc = 0U;
+	u8 Key_8[8U];
+	u8 Key_Hex[4U];
 	u32 Index;
-	u8 MaxIndex = 8;
+	u8 MaxIndex = 8U;
 
 #if defined (XSK_MICROBLAZE_PLATFORM) || \
 	defined (XSK_ZYNQ_ULTRA_MP_PLATFORM)
-		u32 Key_32;
+	u32 Key_32 = 0U;
 #endif
-	u8 FullKey[64] = {0};
+	u8 FullKey[64U] = {0U};
 	u32 Length = strlen((char *)Key);
 
-	if (Length > 64) {
+	if (Length > 64U) {
 		return XSK_EFUSEPL_ERROR_NOT_VALID_KEY_LENGTH;
 	}
-	if (Length < 64) {
-		XilSKey_StrCpyRange(Key, &FullKey[64-Length + 1], 0, Length);
+	if (Length < 64U) {
+		XilSKey_StrCpyRange(Key, &FullKey[64U - Length + 1U], 0U, Length);
 
 	}
 	else {
-		XilSKey_StrCpyRange(Key, FullKey, 0, Length);
+		XilSKey_StrCpyRange(Key, FullKey, 0U, Length);
 	}
 #ifdef XSK_MICROBLAZE_ULTRA_PLUS
-	u8 Row = 0;
-	MaxIndex = 16;
-	Row = 5;
+	u8 Row = 0U;
+	MaxIndex = 16U;
+	Row = 5U;
 #endif
 #ifdef XSK_MICROBLAZE_ULTRA
-	u8 Row = 0;
-	MaxIndex = 8;
-	Row = 20;
+	u8 Row = 0U;
+	MaxIndex = 8U;
+	Row = 20U;
 #endif
 
 
-	for (Index = 0; Index < MaxIndex; Index++) {
+	for (Index = 0U; Index < MaxIndex; Index++) {
 #ifdef XSK_MICROBLAZE_PLATFORM
 #ifdef XSK_MICROBLAZE_ULTRA
-		XilSKey_StrCpyRange(FullKey, Key_8, ((7 - Index)*8),
-					((((7 - Index) + 1)*8)-1));
+		XilSKey_StrCpyRange(FullKey, Key_8, ((7U - Index) * 8U),
+					((((7U - Index) + 1U) * 8U) - 1U));
 #endif
 #ifdef XSK_MICROBLAZE_ULTRA_PLUS
-		XilSKey_StrCpyRange(FullKey, Key_8, (64 - ((Index + 1)*4)),
-					(63 - (Index * 4)));
+		XilSKey_StrCpyRange(FullKey, Key_8, (64U - ((Index + 1U) * 4U)),
+					(63U - (Index * 4U)));
 #endif
 #endif
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-		XilSKey_StrCpyRange(FullKey, Key_8, ((Index) * 8),
-							((((Index) *8) + 8) -1));
+		XilSKey_StrCpyRange(FullKey, Key_8, ((Index) * 8U),
+							((((Index) * 8U) + 8U) - 1U));
 #endif
 
-		XilSKey_Efuse_ConvertStringToHexBE((char *)Key_8, Key_Hex, 8);
+		XilSKey_Efuse_ConvertStringToHexBE((char *)Key_8, Key_Hex, 8U);
 #if defined (XSK_MICROBLAZE_ULTRA) || \
 	defined (XSK_ZYNQ_ULTRA_MP_PLATFORM)
-		Key_32 = (Key_Hex[0] << 24) | (Key_Hex[1] << 16) |
-				(Key_Hex[2] << 8) | (Key_Hex[3]);
+		Key_32 = (Key_Hex[0U] << 24U) | (Key_Hex[1U] << 16U) |
+				(Key_Hex[2U] << 8U) | (Key_Hex[3U]);
 #endif
 #ifdef	XSK_MICROBLAZE_ULTRA_PLUS
-	Key_32 = 0x00;
-	Key_32 = (Key_Hex[0] << 8) | Key_Hex[1];
+	Key_32 = 0x00U;
+	Key_32 = (Key_Hex[0U] << 8U) | Key_Hex[1U];
 #endif
 #ifdef XSK_MICROBLAZE_PLATFORM
 		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, Row + Index);
 #endif
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, 8 - Index);
+		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, 8U - Index);
 #endif
 
 	}
@@ -1220,24 +1220,24 @@ u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr)
 	u32 Row = Addr;
 	u32 Index;
 
-	for (Index = 0; Index < 32; Index++) {
-		if ((((Value & 0x1) ^ Crc) & 0x1) != 0) {
-			Crc = ((Crc >> 1) ^ REVERSE_POLYNOMIAL);
+	for (Index = 0U; Index < 32U; Index++) {
+		if ((((Value & 0x1U) ^ Crc) & 0x1U) != 0U) {
+			Crc = ((Crc >> 1U) ^ REVERSE_POLYNOMIAL);
 		}
 		else {
-			Crc = Crc >>1;
+			Crc = Crc >> 1U;
 		}
-		Value = Value >>1;
+		Value = Value >> 1U;
 	}
 
-	for (Index = 0; Index < 5; Index++) {
-		if ((((Row & 0x1) ^ Crc) & 0x1) != 0) {
-			Crc = ((Crc >> 1) ^ REVERSE_POLYNOMIAL);
+	for (Index = 0U; Index < 5U; Index++) {
+		if ((((Row & 0x1U) ^ Crc) & 0x1U) != 0U) {
+			Crc = ((Crc >> 1U) ^ REVERSE_POLYNOMIAL);
 		}
 		else {
-			Crc = Crc >>1;
+			Crc = Crc >> 1U;
 		}
-		Row = Row >> 1;
+		Row = Row >> 1U;
 	}
 
 	return Crc;
@@ -1257,16 +1257,16 @@ u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr)
  ****************************************************************************/
 u32 XilSKey_Efuse_ReverseHex(u32 Input)
 {
-	u32 Index = 0;
-	u32 Rev = 0;
+	u32 Index = 0U;
+	u32 Rev = 0U;
 	u32 Bit;
 
-	while (Index++ < 32) {
-	Bit = Input & 1;
-	Input = Input >> 1;
-	Rev = Rev ^ Bit;
-	if (Index < 32)
-		Rev = Rev << 1;
+	while (Index++ < 32U) {
+		Bit = Input & 1U;
+		Input = Input >> 1U;
+		Rev = Rev ^ Bit;
+		if (Index < 32U)
+			Rev = Rev << 1U;
 	}
 
 	return Rev;
@@ -1288,8 +1288,8 @@ u32 XilSKey_Ceil(float Value)
 {
 	u32 RetValue;
 
-	RetValue = ((Value > (u32)Value) || ((u32)Value == 0)) ?
-					(u32)(Value + 1) : (u32)Value;
+	RetValue = ((Value > (u32)Value) || ((u32)Value == 0U)) ?
+					(u32)(Value + 1U) : (u32)Value;
 
 	return RetValue;
 
@@ -1325,47 +1325,47 @@ u32 XilSKey_Ceil(float Value)
  ****************************************************************************/
 u32 XilSkey_CrcCalculation_AesKey(u8 *Key)
 {
-	u32 Crc = 0;
+	u32 Crc = 0U;
 	u32 Index;
-	u32 MaxIndex = 8;
+	u32 MaxIndex = 8U;
 #if defined (XSK_MICROBLAZE_PLATFORM) || \
 	defined (XSK_ZYNQ_ULTRA_MP_PLATFORM)
-		u32 Key_32;
+		u32 Key_32 = 0U;
 		u32 Index1;
 #endif
 
 #ifdef XSK_MICROBLAZE_ULTRA_PLUS
 	u32 Row;
-	MaxIndex = 16;
-	Row = 5;
+	MaxIndex = 16U;
+	Row = 5U;
 #endif
 #ifdef XSK_MICROBLAZE_ULTRA
 	u32 Row;
-	MaxIndex = 8;
-	Row = 20;
+	MaxIndex = 8U;
+	Row = 20U;
 #endif
 
-	for (Index = 0; Index < MaxIndex; Index++) {
+	for (Index = 0U; Index < MaxIndex; Index++) {
 #ifdef XSK_MICROBLAZE_ULTRA
-		Index1 = (Index * 4);
+		Index1 = (Index * 4U);
 #endif
 #ifdef XSK_MICROBLAZE_ULTRA_PLUS
-		Index1 = (Index * 2);
+		Index1 = (Index * 2U);
 #endif
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-		Index1 = ((7 - Index) * 4);
+		Index1 = ((7U - Index) * 4U);
 #endif
 
 #if defined XSK_MICROBLAZE_ULTRA || \
 	defined XSK_ZYNQ_ULTRA_MP_PLATFORM
-	Key_32 = (Key[Index1 + 3] << 24) | (Key[Index1 + 2] << 16) |
-			(Key[Index1 + 1] << 8) | (Key[Index1 + 0]);
+	Key_32 = (Key[Index1 + 3] << 24U) | (Key[Index1 + 2] << 16U) |
+			(Key[Index1 + 1] << 8U) | (Key[Index1 + 0U]);
 #endif
 
 #ifdef XSK_MICROBLAZE_ULTRA_PLUS
-	Key_32 = 0x00;
-	Key_32 = (Key[Index1 + 1] << 8) | Key[Index1];
+	Key_32 = 0x00U;
+	Key_32 = (Key[Index1 + 1] << 8U) | Key[Index1];
 #endif
 
 #ifdef XSK_MICROBLAZE_PLATFORM
@@ -1373,7 +1373,7 @@ u32 XilSkey_CrcCalculation_AesKey(u8 *Key)
 #endif
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, 8 - Index);
+		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, 8U - Index);
 #endif
 
 #ifdef XSK_ZYNQ_PLATFORM
