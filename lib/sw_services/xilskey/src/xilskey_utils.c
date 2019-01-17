@@ -779,8 +779,9 @@ u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len)
 					/**
 					 * Merge upper and lower nibble to Hex
 					 */
-					Buf[index--] =
+					Buf[index] =
 							(UpperNibble << 4U) | LowerNibble;
+					index = index - 1U;
 				}
 				else {
 					/**
@@ -1110,9 +1111,10 @@ void XilSKey_StrCpyRange(u8 *Src, u8 *Dst, u32 From, u32 To)
 {
 	u32 Index, J = 0U;
 	for (Index = From; Index <= To; Index++) {
-		Dst[J++] = Src[Index];
+		Dst[J] = Src[Index];
+		J = J + 1U;
 	}
-	Dst[J] = (u8)'\0';
+	Dst[J] = '\0';
 
 }
 
@@ -1280,7 +1282,8 @@ u32 XilSKey_Efuse_ReverseHex(u32 Input)
 	u32 Rev = 0U;
 	u32 Bit;
 
-	while (Index++ < 32U) {
+	while (Index < 32U) {
+		Index = Index + 1U;
 		Bit = Input & 1U;
 		Input = Input >> 1U;
 		Rev = Rev ^ Bit;

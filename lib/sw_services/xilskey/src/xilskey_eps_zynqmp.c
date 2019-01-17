@@ -2578,7 +2578,8 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 			for (Index = 0U;
 			Index < XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES;
 								Index++) {
-				EfuseInstance.User0Fuses[Index] = *Val++;
+				EfuseInstance.User0Fuses[Index] = *Val;
+				Val = Val + 1U;
 			}
 			break;
 		case (XSK_ZYNQMP_EFUSEPS_USER_1_OFFSET &
@@ -2591,7 +2592,8 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 			for (Index = 0U;
 			 Index < XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES;
 								Index++) {
-				EfuseInstance.User1Fuses[Index] = *Val++;
+				EfuseInstance.User1Fuses[Index] = *Val;
+				Val = Val + 1U;
 			}
 			break;
 		case (XSK_ZYNQMP_EFUSEPS_USER_2_OFFSET &
@@ -2604,7 +2606,8 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 			for (Index = 0U;
 			 Index < XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES;
 								Index++) {
-				EfuseInstance.User2Fuses[Index] = *Val++;
+				EfuseInstance.User2Fuses[Index] = *Val;
+				Val = Val + 1U;
 			}
 			break;
 		case (XSK_ZYNQMP_EFUSEPS_USER_3_OFFSET &
@@ -2617,7 +2620,8 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 			for (Index = 0U;
 			 Index < XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES;
 								Index++) {
-				EfuseInstance.User3Fuses[Index] = *Val++;
+				EfuseInstance.User3Fuses[Index] = *Val;
+				Val = Val + 1U;
 			}
 			break;
 		case (XSK_ZYNQMP_EFUSEPS_USER_4_OFFSET &
@@ -2630,7 +2634,8 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 			for (Index = 0U;
 			 Index < XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES;
 								Index++) {
-				EfuseInstance.User4Fuses[Index] = *Val++;
+				EfuseInstance.User4Fuses[Index] = *Val;
+				Val = Val + 1U;
 			}
 			break;
 		case (XSK_ZYNQMP_EFUSEPS_USER_5_OFFSET &
@@ -2643,7 +2648,8 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 			for (Index = 0U;
 			 Index < XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES;
 								Index++) {
-				EfuseInstance.User5Fuses[Index] = *Val++;
+				EfuseInstance.User5Fuses[Index] = *Val;
+				Val = Val + 1U;
 			}
 			break;
 		case (XSK_ZYNQMP_EFUSEPS_USER_6_OFFSET &
@@ -2656,7 +2662,8 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 			for (Index = 0U;
 			 Index < XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES;
 								Index++) {
-				EfuseInstance.User6Fuses[Index] = *Val++;
+				EfuseInstance.User6Fuses[Index] = *Val;
+				Val = Val + 1U;
 			}
 			break;
 		case (XSK_ZYNQMP_EFUSEPS_USER_7_OFFSET &
@@ -2669,7 +2676,8 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 			for (Index = 0U;
 			 Index < XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES;
 								Index++) {
-				EfuseInstance.User7Fuses[Index] = *Val++;
+				EfuseInstance.User7Fuses[Index] = *Val;
+				Val = Val + 1U;
 			}
 			break;
 		case (XSK_ZYNQMP_EFUSEPS_MISC_USER_CTRL_OFFSET &
@@ -2834,7 +2842,8 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 			for (Index = 0U;
 			     Index < XSK_ZYNQMP_EFUSEPS_SPKID_LEN_IN_BYTES;
 			     Index++) {
-				EfuseInstance.SpkId[Index] = *Val++;
+				EfuseInstance.SpkId[Index] = *Val;
+				Val = Val + 1U;
 			}
 			break;
 		case (XSK_ZYNQMP_EFUSEPS_AES_KEY_START_ROW << 2U):
@@ -2847,7 +2856,8 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 			for (Index = 0U;
 			     Index < XSK_ZYNQMP_EFUSEPS_AES_KEY_LEN_IN_BYTES;
 			     Index++) {
-				EfuseInstance.AESKey[Index] = *Val++;
+				EfuseInstance.AESKey[Index] = *Val;
+				Val = Val + 1U;
 			}
 			break;
 		case (XSK_ZYNQMP_EFUSEPS_PPK0_0_OFFSET &
@@ -2862,7 +2872,8 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 			for (Index = 0U;
 			     Index < XSK_ZYNQMP_EFUSEPS_PPK_HASH_LEN_IN_BYTES;
 			     Index++) {
-				EfuseInstance.Ppk0Hash[Index] = *Val++;
+				EfuseInstance.Ppk0Hash[Index] = *Val;
+				Val = Val + 1U;
 			}
 			break;
 		case (XSK_ZYNQMP_EFUSEPS_PPK1_0_OFFSET &
@@ -2877,7 +2888,8 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 			for (Index = 0U;
 			     Index < XSK_ZYNQMP_EFUSEPS_PPK_HASH_LEN_IN_BYTES;
 			     Index++) {
-				EfuseInstance.Ppk1Hash[Index] = *Val++;
+				EfuseInstance.Ppk1Hash[Index] = *Val;
+				Val = Val + 1U;
 			}
 			break;
 		default:
