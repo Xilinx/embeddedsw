@@ -851,10 +851,12 @@ static inline u32 XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowRange(u8 *Data,
 	u8 Column;
 	u32 Status = (u32)XST_SUCCESS;
 	u32 Bit;
+	u8 Bit_u8;
 
 	for (Row = RowStart; Row <= RowEnd; Row++) {
 		for (Column = 0U; Column < 32U; Column++) {
-			Bit = (u32)((u8)(Row - RowStart) * (u8)XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW);
+			Bit_u8 = (Row - RowStart);
+			Bit = (u32)Bit_u8 * (u32)XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW;
 			Bit = Bit + (u32)Column;
 			if (Data[Bit] != 0U) {
 				Status =

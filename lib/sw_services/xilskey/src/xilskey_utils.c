@@ -1121,7 +1121,7 @@ u32 XilSKey_Timer_Intialise(void)
 
 	RefClk = XSK_EFUSEPL_CLCK_FREQ_ULTRA;
 
-	Status = (u32)XTmrCtr_Initialize(&XTmrCtrInst, XTMRCTR_DEVICE_ID);
+	Status = (u32)XTmrCtr_Initialize(&XTmrCtrInst, (u16)XTMRCTR_DEVICE_ID);
 	if (Status == (u32)XST_FAILURE) {
 		return (u32)XST_FAILURE;
 	}
@@ -1262,7 +1262,7 @@ u32 XilSKey_CrcCalculation(u8 *Key)
 	Key_32 = ((u32)Key_Hex[0U] << 8U) | (u32)Key_Hex[1U];
 #endif
 #ifdef XSK_MICROBLAZE_PLATFORM
-		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, (u32)(Row + (u8)Index));
+		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, (u32)Row + Index);
 #endif
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
