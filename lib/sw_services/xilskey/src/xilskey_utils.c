@@ -597,7 +597,7 @@ static u32 XilSKey_EfusePs_ConvertCharToNibble (char InChar, u8 *Num)
 		*Num = (u8)InChar - (u8)'a' + 10U;
 	}
 	else if ((InChar >= 'A') && (InChar <= 'F')) {
-		*Num = (u8)InChar - (u8)'A' + 10;
+		*Num = (u8)InChar - (u8)'A' + 10U;
 	}
 	else {
 		return (u32)XSK_EFUSEPS_ERROR_STRING_INVALID;
@@ -666,12 +666,12 @@ u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
 		 * Convert char to nibble
 		 */
 		if (XilSKey_EfusePs_ConvertCharToNibble (Str[ConvertedLen],&UpperNibble)
-				==XST_SUCCESS) {
+				== (u32)XST_SUCCESS) {
 			/**
 			 * Convert char to nibble
 			 */
 			if (XilSKey_EfusePs_ConvertCharToNibble (Str[ConvertedLen+1],
-					&LowerNibble)==XST_SUCCESS) {
+					&LowerNibble) == (u32)XST_SUCCESS) {
 				/**
 				 * Merge upper and lower nibble to Hex
 				 */
@@ -771,7 +771,7 @@ u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len)
 				 * Convert char to nibble
 				 */
 				if (XilSKey_EfusePs_ConvertCharToNibble (Str[ConvertedLen+1],
-						&LowerNibble)==XST_SUCCESS)	{
+						&LowerNibble) == (u32)XST_SUCCESS)	{
 					/**
 					 * Merge upper and lower nibble to Hex
 					 */
@@ -1207,7 +1207,7 @@ u32 XilSKey_CrcCalculation(u8 *Key)
 #endif
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, 8U - Index);
+		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, (u32)8U - Index);
 #endif
 
 	}
@@ -1389,7 +1389,7 @@ u32 XilSkey_CrcCalculation_AesKey(u8 *Key)
 #endif
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, 8U - Index);
+		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, (u32)8U - Index);
 #endif
 
 #ifdef XSK_ZYNQ_PLATFORM

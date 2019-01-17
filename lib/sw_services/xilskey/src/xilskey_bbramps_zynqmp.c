@@ -102,7 +102,7 @@ u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey)
 	/* Set in programming mode */
 	Status = XilSKey_ZynqMp_Bbram_PrgrmEn();
 	if (Status != (u32)XST_SUCCESS) {
-		return (u32)(Status + XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG);
+		return (u32)(Status + (u32)XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG);
 	}
 
 	/* Program with provided key and check key written */
@@ -119,8 +119,8 @@ u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey)
 	/* Check for CRC done */
 	StatusRead = XilSKey_ReadReg(XSK_ZYNQMP_BBRAM_BASEADDR,
 					XSK_ZYNQMP_BBRAM_STS_OFFSET);
-	while ((StatusRead & XSK_ZYNQMP_BBRAM_STS_AES_CRC_DONE_MASK)
-							== 0x00) {
+	while ((StatusRead & (u32)XSK_ZYNQMP_BBRAM_STS_AES_CRC_DONE_MASK)
+							== 0x00U) {
 		StatusRead =
 			XilSKey_ReadReg(XSK_ZYNQMP_BBRAM_BASEADDR,
 					XSK_ZYNQMP_BBRAM_STS_OFFSET);
@@ -181,7 +181,7 @@ void XilSKey_ZynqMp_Bbram_Zeroise()
 				XSK_ZYNQMP_BBRAM_STS_OFFSET);
 
 	/* Wait for zeroize complete bit to get set */
-	while ((Status & XSK_ZYNQMP_BBRAM_STS_ZEROIZED_MASK) == 0x00) {
+	while ((Status & (u32)XSK_ZYNQMP_BBRAM_STS_ZEROIZED_MASK) == 0x00U) {
 		Status = XilSKey_ReadReg(XSK_ZYNQMP_BBRAM_BASEADDR,
 						XSK_ZYNQMP_BBRAM_STS_OFFSET);
 	}
@@ -223,8 +223,8 @@ static inline u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void)
 	StatusRead = XilSKey_ReadReg(XSK_ZYNQMP_BBRAM_BASEADDR,
 				XSK_ZYNQMP_BBRAM_STS_OFFSET);
 
-	while ((StatusRead & XSK_ZYNQMP_BBRAM_STS_ZEROIZED_MASK) ==
-							0x00) {
+	while ((StatusRead & (u32)XSK_ZYNQMP_BBRAM_STS_ZEROIZED_MASK) ==
+							0x00U) {
 		StatusRead =
 		XilSKey_ReadReg(XSK_ZYNQMP_BBRAM_BASEADDR,
 				XSK_ZYNQMP_BBRAM_STS_OFFSET);
@@ -266,10 +266,10 @@ static inline u32 XilSKey_ZynqMp_Bbram_CrcCalc(u32 *AesKey)
 		if (Index != 0U) {
 			Crc =
 				XilSKey_RowCrcCalculation(
-					Crc, AesKey[8U - Index], 9U-Index);
+					Crc, AesKey[(u32)8U - Index], (u32)9U - Index);
 		}
 		else {
-			Crc = XilSKey_RowCrcCalculation(Crc, Key_32, 9U-Index);
+			Crc = XilSKey_RowCrcCalculation(Crc, Key_32, (u32)9U-Index);
 		}
 
 	}
