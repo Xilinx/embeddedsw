@@ -143,7 +143,10 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufHelprData(XilSKey_Puf *InstancePtr)
 		DataPtr++;
 		XilSKey_Efuse_ConvertBitsToBytes((u8 *)&Data, DataInBits,
 				XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW);
-		XilSKey_ZynqMp_EfusePs_PufRowWrite(Row, DataInBits, EfuseType);
+		Status = XilSKey_ZynqMp_EfusePs_PufRowWrite(Row, DataInBits, EfuseType);
+		if (Status != (u32)XST_SUCCESS) {
+			goto END;
+		}
 	}
 	DataPtr--;
 
