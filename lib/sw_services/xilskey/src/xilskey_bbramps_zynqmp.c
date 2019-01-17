@@ -149,7 +149,7 @@ END:
 * @note		BBRAM key will be zeroized.
 *
 ******************************************************************************/
-void XilSKey_ZynqMp_Bbram_Zeroise()
+void XilSKey_ZynqMp_Bbram_Zeroise(void)
 {
 
 	u32 Status;
