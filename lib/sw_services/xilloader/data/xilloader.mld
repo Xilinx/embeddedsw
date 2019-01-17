@@ -8,6 +8,7 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 1.00  kc   09/26/2018 Initial Release
+# 1.01  ana  06/05/2020 mld version updated
 #
 ##############################################################################
 
@@ -20,6 +21,6 @@ BEGIN LIBRARY xilloader
   OPTION SUPPORTED_PERIPHERALS = (psu_pmc psu_psm psv_pmc psv_psm);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilloader,-lxilpm,-lxilplmi,-lxilffs,-lxilpdi,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Versal Platform Loader Library";
-  OPTION VERSION = 1.1;
+  OPTION VERSION = 1.2;
   OPTION NAME = xilloader;
 END LIBRARY
