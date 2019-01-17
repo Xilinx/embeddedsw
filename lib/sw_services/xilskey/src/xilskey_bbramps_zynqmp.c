@@ -101,7 +101,7 @@ u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey)
 
 	/* Set in programming mode */
 	Status = XilSKey_ZynqMp_Bbram_PrgrmEn();
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		return (Status + XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG);
 	}
 
