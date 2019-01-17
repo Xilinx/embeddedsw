@@ -1,5 +1,8 @@
 Change Log for lwip
 =================================
+2019-01-11
+	* Upgrage to lwip211
+	* Fix cache handling in RX path for GEM
 2018-10-01
 	* Fix warning for redefining BYTE_ORDER
 2018-09-19
