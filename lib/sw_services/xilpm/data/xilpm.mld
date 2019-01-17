@@ -31,7 +31,7 @@ OPTION psf_version = 2.1;
 BEGIN LIBRARY xilpm
   OPTION copyfiles = all;
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
-  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilpm,-lxilmem,-lxil,-lgcc,-lc,--end-group";
+  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilpm,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Power Management API Library for ZynqMP";
   OPTION VERSION = 2.4;
   OPTION NAME = xilpm;
