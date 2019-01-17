@@ -69,6 +69,37 @@ proc Check_ttc_ip {instance_name} {
 	}
 	error "FreeRTOS requires valid ticker timer. The HW platform doesn't have a specified ticker timer $instance_name."
 }
+
+proc generate_license {fd} {
+	puts $fd " /*"
+	puts $fd " * FreeRTOS Kernel V10.0.0"
+	puts $fd " * Copyright (C) 2010-2018 Xilinx, Inc. All Rights Reserved."
+	puts $fd " * Copyright (C) 2017 Amazon.com, Inc. or its affiliates.  All Rights Reserved."
+	puts $fd " *"
+	puts $fd " * Permission is hereby granted, free of charge, to any person obtaining a copy of"
+	puts $fd " * this software and associated documentation files (the \"Software\"), to deal in"
+	puts $fd " * the Software without restriction, including without limitation the rights to"
+	puts $fd " * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of"
+	puts $fd " * the Software, and to permit persons to whom the Software is furnished to do so,"
+	puts $fd " * subject to the following conditions:"
+	puts $fd " *"
+	puts $fd " * The above copyright notice and this permission notice shall be included in all"
+	puts $fd " * copies or substantial portions of the Software. If you wish to use our Amazon"
+	puts $fd " * FreeRTOS name, please do so in a fair use way that does not cause confusion."
+	puts $fd " *"
+	puts $fd " * THE SOFTWARE IS PROVIDED \"AS-IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR"
+	puts $fd " * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS"
+	puts $fd " * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR"
+	puts $fd " * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER"
+	puts $fd " * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN"
+	puts $fd " * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+	puts $fd " *"
+	puts $fd " * http://www.FreeRTOS.org"
+	puts $fd " * http://aws.amazon.com/freertos"
+	puts $fd " *"
+	puts $fd " * 1 tab == 4 spaces!"
+	puts $fd " */"
+}
 proc generate {os_handle} {
 
 	set standalone_version [get_standalone_version]
@@ -80,7 +111,38 @@ proc generate {os_handle} {
 	set enable_sw_profile [common::get_property CONFIG.enable_sw_intrusive_profiling $os_handle]
 	set is_versal [hsi::get_cells -hier -filter "IP_NAME==psu_cortexa72"]
 	# proctype should be "microblaze", ps7_cortexa9, psu_cortexr5 or psu_cortexa53
+	set commonsrcdir "../${standalone_version}/src/common"
+	set mbsrcdir "../${standalone_version}/src/microblaze"
+	set armr5srcdir "../${standalone_version}/src/arm/cortexr5"
+	set armr5gccdir "../${standalone_version}/src/arm/cortexr5/gcc"
+	set arma53srcdir "../${standalone_version}/src/arm/ARMv8"
+	set arma5364srcdir "../${standalone_version}/src/arm/ARMv8/64bit"
+	set arma5332srcdir "../${standalone_version}/src/arm/ARMv8/32bit"
+	set arma5364gccdir "../${standalone_version}/src/arm/ARMv8/64bit/gcc"
+	set arma5332gccdir "../${standalone_version}/src/arm/ARMv8/32bit/gcc"
+	set includedir "../${standalone_version}/src/arm/ARMv8/includes_ps"
+	set arma9srcdir "../${standalone_version}/src/arm/cortexa9"
+	set arma9gccdir "../${standalone_version}/src/arm/cortexa9/gcc"
+	set arma9armccdir "../${standalone_version}/src/arm/cortexa9/armcc"
+	set arma9iarccdir "../${standalone_version}/src/arm/cortexa9/iarcc"
+	set armcommonsrcdir "../${standalone_version}/src/arm/common"
+	set armsrcdir "../${standalone_version}/src/arm"
 
+	foreach entry [glob -nocomplain [file join $commonsrcdir *]] {
+		file copy -force $entry [file join ".." "${standalone_version}" "src"]
+	}
+
+	if { $proctype == "psu_cortexa53" || $proctype == "ps7_cortexa9" || $proctype == "psu_cortexr5" } {
+	        foreach entry [glob -nocomplain [file join $armcommonsrcdir *]] {
+	       file copy -force $entry [file join ".." "${standalone_version}" "src"]
+	       file delete -force "../${standalone_version}/src/gcc"
+	       file delete -force "../${standalone_version}/src/iccarm"
+	     }
+	     set commonccdir "../${standalone_version}/src/arm/common/gcc"
+	     foreach entry [glob -nocomplain [file join $commonccdir *]] {
+                 file copy -force $entry [file join ".." "${standalone_version}" "src"]
+	     }
+	 }
 
 	switch $proctype {
 
@@ -88,6 +150,18 @@ proc generate {os_handle} {
 				puts "In start copy psu_cortexr5"
 				file copy -force "./src/Makefile_psu_cortexr5" "./src/Makefile"
 				file copy -force "./src/Makefile" "./src/Makefile_dep"
+				foreach entry [glob -nocomplain [file join $armr5srcdir *]] {
+					file copy -force $entry [file join ".." "${standalone_version}" "src"]
+				}
+
+				foreach entry [glob -nocomplain [file join $armr5gccdir *]] {
+					file copy -force $entry [file join ".." "${standalone_version}" "src"]
+				}
+
+				file copy -force $includedir "../${standalone_version}/src/"
+				file delete -force "../${standalone_version}/src/gcc"
+				file delete -force "../${standalone_version}/src/iccarm"
+				file delete -force "../${standalone_version}/src/profile"
 				if { $enable_sw_profile == "true" } {
 					error "ERROR: Profiling is not supported for R5"
 				}
@@ -110,7 +184,16 @@ proc generate {os_handle} {
 					puts $file_handle "#define XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR 0x00100000"
 					puts $file_handle "#define XPAR_PSU_R5_DDR_0_S_AXI_HIGHADDR 0x7FFFFFFF"
 					puts $file_handle ""
+					set platformsrcdir "../${standalone_version}/src/arm/cortexr5/platform/versal"
+				} else {
+				        set platformsrcdir "../${standalone_version}/src/arm/cortexr5/platform/ZynqMP"
 				}
+				
+                                foreach entry [glob -nocomplain [file join $platformsrcdir *]] {
+		                     file copy -force $entry [file join ".." "${standalone_version}" "src"]
+	                        }
+				
+				file delete -force $platformsrcdir 
 				close $file_handle
 			}
 		"psu_cortexa53"  {
@@ -122,6 +205,20 @@ proc generate {os_handle} {
 				puts "In start copy psu_cortexa53"
 				file copy -force "./src/Makefile_psu_cortexa53" "./src/Makefile"
 				file copy -force "./src/Makefile" "./src/Makefile_dep"
+				foreach entry [glob -nocomplain [file join $arma5364srcdir *]] {
+					file copy -force $entry [file join ".." "${standalone_version}" "src"]
+				}
+
+				foreach entry [glob -nocomplain [file join $arma5364gccdir *]] {
+					file copy -force $entry [file join ".." "${standalone_version}" "src"]
+				}
+                                set platformsrcdir "../${standalone_version}/src/arm/ARMv8/64bit/platform/ZynqMP"
+		                foreach entry [glob -nocomplain [file join $platformsrcdir *]] {
+                                    file copy -force $entry [file join ".." "${standalone_version}" "src"]
+		                }
+				file copy -force $includedir "../${standalone_version}/src/"
+				file delete -force "../${standalone_version}/src/gcc"
+				file delete -force "../${standalone_version}/src/profile"
 				if { $enable_sw_profile == "true" } {
 					error "ERROR: Profiling is not supported for A53"
 				}
@@ -144,6 +241,18 @@ proc generate {os_handle} {
 				puts "In start copy ps7_cortexa9"
 				file copy -force "./src/Makefile_ps7_cortexa9" "./src/Makefile"
 				file copy -force "./src/Makefile" "./src/Makefile_dep"
+
+				foreach entry [glob -nocomplain [file join $arma9srcdir *]] {
+					file copy -force $entry [file join ".." "${standalone_version}" "src"]
+				}
+
+				foreach entry [glob -nocomplain [file join $arma9gccdir *]] {
+					file copy -force $entry [file join ".." "${standalone_version}" "src"]
+				}
+
+				file delete -force "../${standalone_version}/src/gcc"
+				file delete -force "../${standalone_version}/src/iccarm"
+				file delete -force "../${standalone_version}/src/armcc"
 				set need_config_file "true"
 
 				set file_handle [::hsi::utils::open_include_file "xparameters.h"]
@@ -157,6 +266,12 @@ proc generate {os_handle} {
 				file copy -force "./src/Makefile_microblaze" "./src/Makefile"
 				file copy -force "./src/Makefile" "./src/Makefile_dep"
 
+				foreach entry [glob -nocomplain [file join $mbsrcdir *]] {
+					if { [string first "microblaze_interrupt_handler" $entry] == -1 } { ;# Do not copy over the Standalone BSP exception handler
+						file copy -force $entry [file join ".." "${standalone_version}" "src"]
+					}
+				}
+
 				set need_config_file "true"
 			}
 
@@ -165,6 +280,22 @@ proc generate {os_handle} {
 		}
 	}
 
+	# Write the Config.make file
+	set makeconfig [open "../${standalone_version}/src/config.make" w]
+	file rename -force -- "../${standalone_version}/src/Makefile" "../${standalone_version}/src/Makefile_depends"
+
+	if { $proctype == "psu_cortexr5" || $proctype == "ps7_cortexa9" || $proctype == "microblaze" || $proctype == "psu_cortexa53" } {
+		puts $makeconfig "LIBSOURCES = *.c *.S"
+		puts $makeconfig "LIBS = standalone_libs"
+	}
+
+	close $makeconfig
+
+	# Remove arm directory...
+	file delete -force $armr5srcdir
+	file delete -force $arma9srcdir
+	file delete -force $arma5364srcdir
+	file delete -force $mbsrcdir
 
 	# Copy core kernel files to the main src directory
 	file copy -force [file join src Source tasks.c] ./src
@@ -197,7 +328,7 @@ proc generate {os_handle} {
 		file copy -force [file join src Source portable GCC ARM_CA9 portZynq7000.c] ./src
 	}
 	# Create bspconfig file
-	set bspcfg_fn [file join ".." "${standalone_version}" "src" "common" "bspconfig.h"]
+	set bspcfg_fn [file join ".." "${standalone_version}" "src"  "bspconfig.h"]
 	file delete $bspcfg_fn
 	set bspcfg_fh [open $bspcfg_fn w]
 	xprint_generated_header $bspcfg_fh "Configurations for Standalone BSP"
@@ -292,6 +423,11 @@ proc generate {os_handle} {
 
 	file delete -force [file join src Source]
 
+	# Remove microblaze, cortexa9 and common directories...
+	file delete -force $mbsrcdir
+	file delete -force $commonsrcdir
+	file delete -force $armsrcdir
+
 	# Handle stdin
 	set stdin [common::get_property CONFIG.stdin $os_handle]
 	if { $stdin == "" || $stdin == "none" } {
@@ -309,7 +445,7 @@ proc generate {os_handle} {
 
 	file copy -force "./src/outbyte.c" "../${standalone_version}/src/"
 	file copy -force "./src/inbyte.c" "../${standalone_version}/src/"
-	xcreate_cmake_toolchain_file $os_handle $is_versal $standalone_version
+
 	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 	puts $file_handle "\n/******************************************************************/\n"
 	set val [common::get_property CONFIG.enable_stm_event_trace $os_handle]
@@ -343,7 +479,12 @@ proc generate {os_handle} {
 	## Add constants common to all architectures to the configuration file.
 	############################################################################
 
-	set config_file [xopen_new_include_file "./src/FreeRTOSConfig.h" "FreeRTOS Configuration parameters"]
+	set config_file [open "./src/FreeRTOSConfig.h" w]
+	generate_license $config_file
+	puts $config_file ""
+	puts $config_file "#ifndef _FREERTOSCONFIG_H"
+	puts $config_file "#define _FREERTOSCONFIG_H"
+	puts $config_file ""
 	puts $config_file "\#include \"xparameters.h\" \n"
 
 	set val [common::get_property CONFIG.use_preemption $os_handle]
@@ -1016,112 +1157,6 @@ proc generate {os_handle} {
 	# complete the header protectors
 	puts $config_file "\#endif"
 	close $config_file
-}
-
-
-proc xcreate_cmake_toolchain_file {os_handle is_versal standalone_version} {
-	# Get the processor
-	set proc_instance [hsi::get_sw_processor]
-	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
-	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
-	set os [common::get_property NAME [hsi::get_os]]
-	set compiler_str [common::get_property CONFIG.compiler -object ${proc_instance}]
-	set compiler_l [split ${compiler_str}]
-	set compiler [lindex ${compiler_l} 0]
-	set crosscompile [string map {gcc ""} "${compiler}"]
-	set c_flags [common::get_property CONFIG.compiler_flags -object ${proc_instance}]
-	set extra_flags [common::get_property CONFIG.extra_compiler_flags -object ${proc_instance}]
-	set linclude [file normalize "../.."]
-	set extra_flags "${extra_flags} -I${linclude}/include"
-	set standalone_dir "../${standalone_version}"
-	set standalone_cmake_path "../src/run_cmake"
-
-	# Generate cmake toolchain file and run cmake to generate make file
-	set toolchain_cmake "toolchain"
-	set toolchain_file "../src/${toolchain_cmake}.cmake"
-	set bdir "${standalone_dir}/build_xilstandalone"
-	if { [catch {file mkdir "${bdir}"} msg] } {
-		error "Failed to create xilstandalone build directory."
-	}
-	set workdir [pwd]
-	cd "${bdir}"
-	set cmake_cmd ${standalone_cmake_path}
-	set os_platform_type "$::tcl_platform(platform)"
-	set fd [open "${toolchain_file}" w]
-
-	if { "${proc_type}" == "psu_cortexr5" } {
-		puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"cortexr5\" CACHE STRING \"\")"
-		if { [llength $is_versal] > 0} {
-			puts $fd "set (MACHINE \"versal\")"
-		} else {
-			puts $fd "set (MACHINE \"ZynqMP\")"
-		}
-	} elseif { "${proc_type}" == "psu_cortexa53"} {
-		if { "${compiler}" == "arm-none-eabi-gcc" } {
-			puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"cortexa53-32\" CACHE STRING \"\")"
-			puts $fd "set (MACHINE \"ZynqMP\")"
-		} else {
-			puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"cortexa53\" CACHE STRING \"\")"
-			puts $fd "set (MACHINE \"ZynqMP\")"
-		}
-	} elseif { "${proc_type}" == "psu_cortexa72"} {
-			puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"cortexa72\" CACHE STRING \"\")"
-			puts $fd "set (MACHINE \"versal\")"
-	} elseif { "${proc_type}" == "ps7_cortexa9" } {
-		puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"cortexa9\" CACHE STRING \"\")"
-		puts $fd "set (MACHINE \"Zynq\")"
-	} elseif { "${proc_type}" == "microblaze" || "${proc_type}" == "psu_pmc" || "${proc_type}" == "psu_psm"} {
-		puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"microblaze\" CACHE STRING \"\")"
-		puts $fd "set (MACHINE \"microblaze_generic\")"
-		set c_flags "${c_flags}  -mlittle-endian"
-	}
-	puts $fd "set (CROSS_PREFIX \"${crosscompile}\" CACHE STRING \"\")"
-	puts $fd "set (CMAKE_C_FLAGS \"${c_flags} ${extra_flags}\" CACHE STRING \"\")"
-	puts $fd "set (CMAKE_ASM_FLAGS \"${c_flags} ${extra_flags}\" CACHE STRING \"\")"
-	if { [string match "freertos*" "${os}"] > 0 } {
-		puts $fd "set (CMAKE_SYSTEM_NAME \"FreeRTOS\" CACHE STRING \"\")"
-	} else {
-		puts $fd "set (CMAKE_SYSTEM_NAME \"Generic\" CACHE STRING \"\")"
-	}
-	puts $fd "include (CMakeForceCompiler)"
-	puts $fd "CMAKE_FORCE_C_COMPILER (\"\$\{CROSS_PREFIX\}gcc\" GNU)"
-	puts $fd "CMAKE_FORCE_CXX_COMPILER (\"\$\{CROSS_PREFIX\}g++\" GNU)"
-
-	puts $fd "set (CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER CACHE STRING \"\")"
-	puts $fd "set (CMAKE_FIND_ROOT_PATH_MODE_LIBRARY NEVER CACHE STRING \"\")"
-	puts $fd "set (CMAKE_FIND_ROOT_PATH_MODE_INCLUDE NEVER CACHE STRING \"\")"
-	close $fd
-
-	
-	#copy toolchain file to libsrc directory of BSP
-	file copy -force ${toolchain_file} ../../
-
-	set cmake_opt "-DCMAKE_TOOLCHAIN_FILE=${toolchain_file}"
-	append cmake_opt " -DCMAKE_INSTALL_PREFIX=/"
-	append cmake_opt " -DCMAKE_VERBOSE_MAKEFILE=on"
-	append cmake_opt " -DWITH_DEFAULT_LOGGER=off"
-
-	if { [string match -nocase "windows*" "${os_platform_type}"] == 0 } {
-		# Linux
-		file attributes ${cmake_cmd} -permissions ugo+rx
-		if { [catch {exec ${cmake_cmd} "../src"  ${cmake_opt}} msg] } {
-			error "Failed to generate cmake files.${msg}"
-		} else {
-			puts "${msg}"
-		}
-	} else {
-		# Windows
-		# Note: windows tcl exec does not do well when trying to provide ${cmake_opt}
-		#       for now hardcoding the values directly on the command line.
-		if { [catch {exec ${cmake_cmd} "../src" -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=../src/toolchain.cmake -DCMAKE_INSTALL_PREFIX=/ -DCMAKE_VERBOSE_MAKEFILE=on -DWITH_DEFAULT_LOGGER=off} msg] } {
-			error "Failed to generate cmake files.${msg}"
-		} else {
-			puts "${msg}"
-		}
-	}
-	
-	cd "${workdir}"
-
 }
 
 proc xopen_new_include_file { filename description } {
