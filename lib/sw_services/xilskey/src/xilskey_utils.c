@@ -743,7 +743,7 @@ u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len)
 {
 	u32 ConvertedLen;
 		u8 LowerNibble = 0U, UpperNibble = 0U;
-		u32 index;
+		u32 StrIndex;
 
 		/**
 		 * Check the parameters
@@ -763,7 +763,7 @@ u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len)
 			return (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
 		}
 
-		index = (Len/8U) - 1U;
+		StrIndex = (Len/8U) - 1U;
 		ConvertedLen = 0U;
 		while (ConvertedLen < Len) {
 			/**
@@ -779,9 +779,9 @@ u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len)
 					/**
 					 * Merge upper and lower nibble to Hex
 					 */
-					Buf[index] =
+					Buf[StrIndex] =
 							(UpperNibble << 4U) | LowerNibble;
-					index = index - 1U;
+					StrIndex = StrIndex - 1U;
 				}
 				else {
 					/**
@@ -860,15 +860,15 @@ void XilSKey_Efuse_ConvertBitsToBytes(const u8 * Bits, u8 * Bytes, u32 Len)
 {
 	u8 Data;
 	u32 Index, BitIndex = 0U, ByteIndex = 0U;
-
+	u32 BytLen = Len;
 	/**
 	 * Make sure the bytes array is 0'ed first.
 	 */
-	for(Index = 0U; Index < Len; Index++) {
+	for(Index = 0U; Index < BytLen; Index++) {
 		Bytes[Index] = 0U;
 	}
 
-	while(Len) {
+	while(BytLen) {
 		/**
 		 * Convert 8 Bit One Byte to 1 Bit 8 Bytes
 		 */
@@ -879,11 +879,11 @@ void XilSKey_Efuse_ConvertBitsToBytes(const u8 * Bits, u8 * Bytes, u32 Len)
 			Data = (Bits[BitIndex] >> Index) & 0x1U;
 			Bytes[ByteIndex] = Data;
 			ByteIndex++;
-			Len--;
+			BytLen--;
 			/**
 			 * If len is not Byte aligned
 			 */
-			if(Len == 0U) {
+			if(BytLen == 0U) {
 				return;
 			}
 		}
@@ -915,15 +915,16 @@ void XilSKey_EfusePs_ConvertBytesToBits(const u8 * Bytes, u8 * Bits , u32 Len)
 {
 	u8 Tmp = 0U;
 	u32 Index, BitIndex = 0U, ByteIndex = 0U;
+	u32 BytLen = Len;
 
 	/**
 	 * Make sure the bits array is 0 first.
 	 */
-	for(Index = 0U; Index < ((Len % 8U) ? ((Len / 8U) + 1U) : (Len / 8U)); Index++) {
+	for(Index = 0U; Index < ((BytLen % 8U) ? ((BytLen / 8U) + 1U) : (BytLen / 8U)); Index++) {
 		Bits[Index] = 0U;
 	}
 
-	while(Len) {
+	while(BytLen) {
 		/**
 		 * Convert 1 Bit 8 Bytes to 8 Bit 1 Byte
 		 */
@@ -934,11 +935,11 @@ void XilSKey_EfusePs_ConvertBytesToBits(const u8 * Bytes, u8 * Bits , u32 Len)
 			Tmp = (Bytes[ByteIndex]) & 0x1U;
 			Bits[BitIndex] |= (Tmp << Index);
 			ByteIndex++;
-			Len--;
+			BytLen--;
 			/**
 			 * If Len is not Byte aligned
 			 */
-			if(Len == 0U) {
+			if(BytLen == 0U) {
 				return;
 			}
 		}
@@ -1281,11 +1282,12 @@ u32 XilSKey_Efuse_ReverseHex(u32 Input)
 	u32 Index = 0U;
 	u32 Rev = 0U;
 	u32 Bit;
+	u32 InputVar = Input;
 
 	while (Index < 32U) {
 		Index = Index + 1U;
 		Bit = Input & 1U;
-		Input = Input >> 1U;
+		InputVar = InputVar >> 1U;
 		Rev = Rev ^ Bit;
 		if (Index < 32U) {
 			Rev = Rev << 1U;
