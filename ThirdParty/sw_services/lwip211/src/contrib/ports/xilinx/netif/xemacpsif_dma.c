@@ -494,6 +494,11 @@ void emacps_recv_handler(void *arg)
 #endif
 			pbuf_realloc(p, rx_bytes);
 
+			/* Invalidate RX frame before queuing to handle
+			 * L1 cache prefetch conditions on any architecture.
+			 */
+			Xil_DCacheInvalidateRange((UINTPTR)p->payload, rx_bytes);
+
 			/* store it in the receive queue,
 			 * where it'll be processed by a different handler
 			 */
@@ -555,24 +560,6 @@ XStatus init_dma(struct xemac_s *xemac)
 	XEmacPs_Bd *bdtxterminate;
 	XEmacPs_Bd *bdrxterminate;
 	u32 *temp;
-
-	/*
-	 * Disable L1 prefetch if the processor type is Cortex A53. It is
-	 * observed that the L1 prefetching for ARMv8 can cause issues while
-	 * dealing with cache memory on Rx path. On Rx path, the lwIP adapter
-	 * does a clean and invalidation of buffers (pbuf payload) before
-	 * allocating them to Rx BDs. However, there are chances that the
-	 * the same cache line may get prefetched by the time Rx data is
-	 * DMAed to the same buffer. In such cases, CPU fetches stale data from
-	 * cache memory instead of getting them from memory. To avoid such
-	 * scenarios L1 prefetch is being disabled for ARMv8. That can cause
-	 * a performance degaradation in the range of 3-5%. In tests, it is
-	 * generally observed that this performance degaradation is quite
-	 * insignificant to be really visible.
-	 */
-#if defined __aarch64__
-	Xil_ConfigureL1Prefetch(0);
-#endif
 
 	xemacpsif_s *xemacpsif = (xemacpsif_s *)(xemac->state);
 	struct xtopology_t *xtopologyp = &xtopology[xemac->topology_index];
