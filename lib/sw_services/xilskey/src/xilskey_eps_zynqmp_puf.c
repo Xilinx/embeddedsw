@@ -802,7 +802,7 @@ u32 XilSKey_Write_Puf_EfusePs_SecureBits(XilSKey_Puf_Secure *WriteSecureBits)
 			xPuf_printf(Debug,"API: Failed programming Syndrome"
 						" invalid bit\r\n");
 			Status = (Status +
-				XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_INVLD);
+				(u32)XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_INVLD);
 			goto END;
 		}
 	}
@@ -814,7 +814,7 @@ u32 XilSKey_Write_Puf_EfusePs_SecureBits(XilSKey_Puf_Secure *WriteSecureBits)
 			xPuf_printf(Debug,"API: Failed programming Syndrome"
 							" write lock bit\r\n");
 			Status = (Status +
-				XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_WRLK);
+				(u32)XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_WRLK);
 			goto END;
 		}
 	}
@@ -826,7 +826,7 @@ u32 XilSKey_Write_Puf_EfusePs_SecureBits(XilSKey_Puf_Secure *WriteSecureBits)
 			xPuf_printf(Debug,"API: Failed programming register"
 							" disable bit\r\n");
 			Status = (Status +
-				XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_REG_DIS);
+				(u32)XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_REG_DIS);
 			goto END;
 		}
 	}
@@ -839,7 +839,7 @@ u32 XilSKey_Write_Puf_EfusePs_SecureBits(XilSKey_Puf_Secure *WriteSecureBits)
 			xPuf_printf(Debug,"API: Failed programming reserved"
 							" bit\r\n");
 			Status = (Status +
-					XSK_EFUSEPS_ERROR_WRITE_PUF_RESERVED_BIT);
+					(u32)XSK_EFUSEPS_ERROR_WRITE_PUF_RESERVED_BIT);
 			goto END;
 		}
 	}
@@ -1043,7 +1043,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_CheckZeros_Puf(void)
 	if (XilSKey_ZynqMp_EfusePs_CheckForZeros(
 		(XSK_ZYNQMP_EFUSEPS_PUF_ROW_START + 1U),
 		XSK_ZYNQMP_EFUSEPS_PUF_ROW_END, XSK_ZYNQMP_EFUSEPS_EFUSE_2) !=
-								XST_SUCCESS) {
+								(u32)XST_SUCCESS) {
 		Status = XSK_EFUSEPS_ERROR_PUF_DATA_ALREADY_PROGRAMMED;
 		goto END;
 	}
