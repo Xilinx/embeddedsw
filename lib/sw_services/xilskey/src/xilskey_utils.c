@@ -594,10 +594,10 @@ static u32 XilSKey_EfusePs_ConvertCharToNibble (char InChar, u8 *Num)
 		*Num = InChar - '0';
 	}
 	else if ((InChar >= 'a') && (InChar <= 'f')) {
-		*Num = InChar - 'a' + 10U;
+		*Num = (u8)InChar - (u8)'a' + 10U;
 	}
 	else if ((InChar >= 'A') && (InChar <= 'F')) {
-		*Num = InChar - 'A' + 10;
+		*Num = (u8)InChar - (u8)'A' + 10;
 	}
 	else {
 		return XSK_EFUSEPS_ERROR_STRING_INVALID;
@@ -1305,7 +1305,7 @@ u32 XilSKey_Ceil(float Value)
 	u32 RetValue;
 
 	RetValue = ((Value > (u32)Value) || ((u32)Value == 0U)) ?
-					(u32)(Value + 1U) : (u32)Value;
+					(u32)((u32)Value + 1U) : (u32)Value;
 
 	return RetValue;
 
