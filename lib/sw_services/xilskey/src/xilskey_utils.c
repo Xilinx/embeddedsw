@@ -1048,23 +1048,28 @@ u32 XilSKey_Timer_Intialise()
 		 *  Extract PLL FDIV value from ARM PLL Control Register
 		 */
 	ArmPllFdiv = ((Xil_In32(XSK_ARM_PLL_CTRL_REG) >> 12U) & 0x7FU);
-
+	if(ArmPllFdiv == 0U) {
+		return (u32)XST_FAILURE;
+	}
 		/**
 		 *  Extract Clock divisor value from ARM Clock Control Register
 		 */
 	ArmClkDivisor = ((Xil_In32(XSK_ARM_CLK_CTRL_REG) >> 8U) & 0x3FU);
+	if( ArmClkDivisor == 0U) {
+		return (u32)XST_FAILURE;
+	}
 
 		/**
 		 * Initialize the variables
 		 */
 	RefClk = ((XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ * ArmClkDivisor)/
 					ArmPllFdiv);
-
 	/**
 	 * Calculate the Timer ticks per 100ns
 	 */
 	TimerTicksfor100ns =
-			(((RefClk * ArmPllFdiv)/ArmClkDivisor) / 2U) / 10000000U;
+		(((RefClk * ArmPllFdiv)/ArmClkDivisor) / 2U) / 10000000U;
+
 #endif
 #ifdef XSK_MICROBLAZE_PLATFORM
 
