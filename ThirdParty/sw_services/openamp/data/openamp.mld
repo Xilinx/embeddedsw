@@ -43,7 +43,7 @@ BEGIN LIBRARY openamp
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION supported_peripherals = (ps7_cortexa9 psu_cortexr5);
   OPTION DEPENDS = (libmetal_v1_4);
-  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lxilstandalone,-lxilmem,-lmetal,-lopen_amp,-lgcc,-lc,--end-group";
+  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lmetal,-lopen_amp,-lgcc,-lc,--end-group";
   OPTION DESC = "OpenAmp Library";
   OPTION VERSION = 1.5;
   OPTION NAME = openamp;
