@@ -111,9 +111,9 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 *
 ****************************************************************************/
 
-u32 XilSKey_EfusePs_XAdcInit (void )
+u32 XilSKey_EfusePs_XAdcInit (void)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status = (u32)XST_SUCCESS;
 #ifdef XSK_ZYNQ_PLATFORM
 	XAdcPs_Config *ConfigPtr;
 	XAdcPs *XAdcInstPtr = &XAdcInst;
@@ -132,16 +132,16 @@ u32 XilSKey_EfusePs_XAdcInit (void )
 		return XSK_EFUSEPS_ERROR_XADC_CONFIG;
 	}
 
-	Status = XAdcPs_CfgInitialize(XAdcInstPtr, ConfigPtr,
+	Status = (u32)XAdcPs_CfgInitialize(XAdcInstPtr, ConfigPtr,
 			ConfigPtr->BaseAddress);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		return XSK_EFUSEPS_ERROR_XADC_INITIALIZE;
 	}
 	/**
 	 * Self Test the XADC/ADC device
 	 */
-	Status = XAdcPs_SelfTest(XAdcInstPtr);
-	if (Status != XST_SUCCESS) {
+	Status = (u32)XAdcPs_SelfTest(XAdcInstPtr);
+	if (Status != (u32)XST_SUCCESS) {
 		return XSK_EFUSEPS_ERROR_XADC_SELF_TEST;
 	}
 
@@ -177,14 +177,14 @@ u32 XilSKey_EfusePs_XAdcInit (void )
 
 	Status = XSysMonPsu_CfgInitialize(XSysmonInstPtr, ConfigPtr,
 			ConfigPtr->BaseAddress);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		return XSK_EFUSEPS_ERROR_XADC_INITIALIZE;
 	}
 	/**
 	 * Self Test for sysmon device
 	 */
 	Status = XSysMonPsu_SelfTest(XSysmonInstPtr);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		return XSK_EFUSEPS_ERROR_XADC_SELF_TEST;
 	}
 
@@ -195,7 +195,7 @@ u32 XilSKey_EfusePs_XAdcInit (void )
 	XSysMonPsu_SetSequencerMode(XSysmonInstPtr,
 				XSM_SEQ_MODE_SAFE, XSYSMON_PS);
 
-	Status = XST_SUCCESS;
+	Status = (u32)XST_SUCCESS;
 #endif
 
 	return Status;
@@ -756,7 +756,7 @@ u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len)
 			 * Convert char to nibble
 			 */
 			if (XilSKey_EfusePs_ConvertCharToNibble (Str[ConvertedLen],
-										&UpperNibble) == XST_SUCCESS) {
+										&UpperNibble) == (u32)XST_SUCCESS) {
 				/**
 				 * Convert char to nibble
 				 */
@@ -969,7 +969,7 @@ u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
      * Make sure the key has valid characters
      */
 	for(i = 0U; i < strlen(Key); i++) {
-		if(XilSKey_Efuse_IsValidChar(&Key[i]) != XST_SUCCESS)
+		if(XilSKey_Efuse_IsValidChar(&Key[i]) != (u32)XST_SUCCESS)
 			return (XSK_EFUSEPL_ERROR_KEY_VALIDATION +
 					XSK_EFUSEPL_ERROR_NOT_VALID_KEY_CHAR);
 	}
@@ -1052,17 +1052,17 @@ u32 XilSKey_Timer_Intialise()
 
 	RefClk = XSK_EFUSEPL_CLCK_FREQ_ULTRA;
 
-	Status = XTmrCtr_Initialize(&XTmrCtrInst, XTMRCTR_DEVICE_ID);
+	Status = (u32)XTmrCtr_Initialize(&XTmrCtrInst, XTMRCTR_DEVICE_ID);
 	if (Status == (u32)XST_FAILURE) {
-		return XST_FAILURE;
+		return (u32)XST_FAILURE;
 	}
 	/*
 	 * Perform a self-test to ensure that the hardware was built
 	 * correctly.
 	 */
-	Status = XTmrCtr_SelfTest(&XTmrCtrInst, XSK_TMRCTR_NUM);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	Status = (u32)XTmrCtr_SelfTest(&XTmrCtrInst, XSK_TMRCTR_NUM);
+	if (Status != (u32)XST_SUCCESS) {
+		return (u32)XST_FAILURE;
 	}
 
 	TimerTicksfor1000ns =  XSK_EFUSEPL_CLCK_FREQ_ULTRA/100000U;
@@ -1188,7 +1188,7 @@ u32 XilSKey_CrcCalculation(u8 *Key)
 	Key_32 = (Key_Hex[0U] << 8U) | Key_Hex[1U];
 #endif
 #ifdef XSK_MICROBLAZE_PLATFORM
-		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, Row + Index);
+		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, (u32)(Row + (u8)Index));
 #endif
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
@@ -1359,17 +1359,17 @@ u32 XilSkey_CrcCalculation_AesKey(u8 *Key)
 
 #if defined XSK_MICROBLAZE_ULTRA || \
 	defined XSK_ZYNQ_ULTRA_MP_PLATFORM
-	Key_32 = (Key[Index1 + 3] << 24U) | (Key[Index1 + 2] << 16U) |
-			(Key[Index1 + 1] << 8U) | (Key[Index1 + 0U]);
+	Key_32 = (Key[Index1 + 3U] << 24U) | (Key[Index1 + 2U] << 16U) |
+			(Key[Index1 + 1U] << 8U) | (Key[Index1 + 0U]);
 #endif
 
 #ifdef XSK_MICROBLAZE_ULTRA_PLUS
 	Key_32 = 0x00U;
-	Key_32 = (Key[Index1 + 1] << 8U) | Key[Index1];
+	Key_32 = (Key[Index1 + 1U] << 8U) | Key[Index1];
 #endif
 
 #ifdef XSK_MICROBLAZE_PLATFORM
-		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, Row + Index);
+		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, (u32)(Row + Index));
 #endif
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
