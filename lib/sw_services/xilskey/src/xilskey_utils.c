@@ -163,7 +163,7 @@ u32 XilSKey_EfusePs_XAdcInit (void)
 #endif
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-	XSysMonPsu_Config *ConfigPtr;
+	XSysMonPsu_Config *ConfigPtr = NULL;
 	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
 
 	/**
