@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -319,6 +319,9 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				} else {
 					/* Todo: Start timer to poll power node use count */
 				}
+			} else if (XPM_DEVEVENT_SHUTDOWN == Event) {
+				/* Device is alreay in power off state */
+				Status = XST_SUCCESS;
 			}
 			break;
 		default:
