@@ -590,14 +590,18 @@ static u32 XilSKey_EfusePs_ConvertCharToNibble (char InChar, u8 *Num)
 	/**
 	 * Convert the char to nibble
 	 */
-	if ((InChar >= '0') && (InChar <= '9'))
+	if ((InChar >= '0') && (InChar <= '9')) {
 		*Num = InChar - '0';
-	else if ((InChar >= 'a') && (InChar <= 'f'))
+	}
+	else if ((InChar >= 'a') && (InChar <= 'f')) {
 		*Num = InChar - 'a' + 10U;
-	else if ((InChar >= 'A') && (InChar <= 'F'))
+	}
+	else if ((InChar >= 'A') && (InChar <= 'F')) {
 		*Num = InChar - 'A' + 10;
-	else
+	}
+	else {
 		return XSK_EFUSEPS_ERROR_STRING_INVALID;
+	}
 
 	return XST_SUCCESS;
 }
@@ -641,17 +645,20 @@ u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
 	/**
 	 * Check the parameters
 	 */
-	if (Str == NULL)
+	if (Str == NULL) {
 		return XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+	}
 
-	if (Buf == NULL)
+	if (Buf == NULL) {
 		return XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+	}
 
 	/**
 	 * Len has to be multiple of 2
 	 */
-	if ((Len == 0U) || (Len%2U == 1U))
+	if ((Len == 0U) || (Len%2U == 1U)) {
 		return XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+	}
 
 	ConvertedLen = 0U;
 	while (ConvertedLen < Len) {
@@ -737,17 +744,20 @@ u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len)
 		/**
 		 * Check the parameters
 		 */
-		if (Str == NULL)
+		if (Str == NULL) {
 			return XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+		}
 
-		if (Buf == NULL)
+		if (Buf == NULL) {
 			return XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+		}
 
 		/**
 		 * Len has to be multiple of 2
 		 */
-		if ((Len == 0U) || (Len % 2U == 1U))
+		if ((Len == 0U) || (Len % 2U == 1U)) {
 			return XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+		}
 
 		index = (Len/8U) - 1U;
 		ConvertedLen = 0U;
@@ -810,8 +820,9 @@ void XilSKey_EfusePs_ConvertBytesBeToLe(const u8 *Be, u8 *Le, u32 Len)
 {
 	u32 Index;
 
-	if ((Be == NULL) || (Le == NULL) || (Len == 0U))
+	if ((Be == NULL) || (Le == NULL) || (Len == 0U)) {
 		return;
+	}
 
 	for (Index = 0U; Index < Len; Index = Index+4U) {
 		Le[Index+3]=Be[Index];
@@ -867,8 +878,9 @@ void XilSKey_Efuse_ConvertBitsToBytes(const u8 * Bits, u8 * Bytes, u32 Len)
 			/**
 			 * If len is not Byte aligned
 			 */
-			if(Len == 0U)
+			if(Len == 0U) {
 				return;
+			}
 		}
 		BitIndex++;
 	}
@@ -921,8 +933,9 @@ void XilSKey_EfusePs_ConvertBytesToBits(const u8 * Bytes, u8 * Bits , u32 Len)
 			/**
 			 * If Len is not Byte aligned
 			 */
-			if(Len == 0U)
+			if(Len == 0U) {
 				return;
+			}
 		}
 		BitIndex++;
 	}
@@ -969,9 +982,10 @@ u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
      * Make sure the key has valid characters
      */
 	for(i = 0U; i < strlen(Key); i++) {
-		if(XilSKey_Efuse_IsValidChar(&Key[i]) != (u32)XST_SUCCESS)
+		if(XilSKey_Efuse_IsValidChar(&Key[i]) != (u32)XST_SUCCESS) {
 			return (XSK_EFUSEPL_ERROR_KEY_VALIDATION +
 					XSK_EFUSEPL_ERROR_NOT_VALID_KEY_CHAR);
+		}
 	}
     return XSK_EFUSEPL_ERROR_NONE;
 }
@@ -992,8 +1006,9 @@ u32 XilSKey_Efuse_IsValidChar(const char *c)
     char ValidChars[] = "0123456789abcdefABCDEF";
     char *RetVal;
 
-    if(c == NULL)
+    if(c == NULL) {
 	return XST_FAILURE;
+    }
 
     RetVal = strchr(ValidChars, (int)*c);
     if(RetVal == NULL) {
@@ -1265,8 +1280,9 @@ u32 XilSKey_Efuse_ReverseHex(u32 Input)
 		Bit = Input & 1U;
 		Input = Input >> 1U;
 		Rev = Rev ^ Bit;
-		if (Index < 32U)
+		if (Index < 32U) {
 			Rev = Rev << 1U;
+		}
 	}
 
 	return Rev;
