@@ -165,7 +165,7 @@ u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
 	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 
 	/* Check the unlock status */
-	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
+	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
 		Status = (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
 		goto UNLOCK;
 	}
@@ -481,7 +481,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits(
 		/* Unlock the controller */
 		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 		/* Check the unlock status */
-		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
+		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
 			return (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
 		}
 		Status = XilSKey_ZynqMp_EfusePs_Init();
@@ -837,7 +837,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowRange(u8 *Data,
 		for (Column = 0U; Column < 32U; Column++) {
 			Bit = (u32)((Row - RowStart) * (u8)XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW);
 			Bit = Bit + (u32)Column;
-			if (Data[Bit]) {
+			if (Data[Bit] != 0U) {
 				Status =
 				XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(Row,
 							Column, EfuseType);
@@ -1053,7 +1053,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
 			(XSK_ZYNQMP_EFUSEPS_ISR_RD_ERR_MASK |
 				XSK_ZYNQMP_EFUSEPS_ISR_RD_DONE_MASK);
 	}
-	if (ReadValue & XSK_ZYNQMP_EFUSEPS_ISR_RD_ERR_MASK) {
+	if ((ReadValue & XSK_ZYNQMP_EFUSEPS_ISR_RD_ERR_MASK) != 0U) {
 		return (u32)XSK_EFUSEPS_ERROR_READ;
 	}
 
@@ -1139,7 +1139,7 @@ u32 XilSKey_ZynqMp_EfusePs_CacheLoad(void)
 	volatile u32 CacheStatus;
 
 	/* Check the unlock status */
-	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
+	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
 		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 	}
 
@@ -1767,7 +1767,7 @@ u32 XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc(u32 CrcValue)
 	u32 ReadReg;
 
 	/* Check the unlock status */
-	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
+	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
 		/* Unlock the controller */
 		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 	}
@@ -1837,7 +1837,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadUserFuse(u32 *UseFusePtr, u8 UserFuse_Num,
 		/* Unlock the controller */
 		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 		/* Check the unlock status */
-		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
+		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
 			return (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
 		}
 		Status = XilSKey_ZynqMp_EfusePs_Init();
@@ -1907,7 +1907,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPpk0Hash(u32 *Ppk0Hash, u8 ReadOption)
 		/* Unlock the controller */
 		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 		/* Check the unlock status */
-		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
+		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
 			return (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
 		}
 		Status = XilSKey_ZynqMp_EfusePs_Init();
@@ -1981,7 +1981,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPpk1Hash(u32 *Ppk1Hash, u8 ReadOption)
 		/* Unlock the controller */
 		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 		/* Check the unlock status */
-		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
+		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
 			return (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
 		}
 		Status = XilSKey_ZynqMp_EfusePs_Init();
@@ -2044,7 +2044,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadSpkId(u32 *SpkId, u8 ReadOption)
 		/* Unlock the controller */
 		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 		/* Check the unlock status */
-		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
+		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
 			return (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
 		}
 		Status = XilSKey_ZynqMp_EfusePs_Init();
@@ -2695,9 +2695,9 @@ static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 				Status = (u32)XST_SUCCESS;
 				goto END;
 			}
-			if (*Val32 &
+			if ((*Val32 &
 			     ((u32)XSK_ZYNQMP_EFUSEPS_MISC_USER_CTRL_RESERVED_MASK |
-			    (u32)XSK_ZYNQMP_EFUSEPS_MISC_USER_CTRL_LBIST_EN_MASK)) {
+			    (u32)XSK_ZYNQMP_EFUSEPS_MISC_USER_CTRL_LBIST_EN_MASK)) != 0U) {
 				Status = (u32)XSK_EFUSEPS_ERROR_RESRVD_BITS_PRGRMG;
 				goto END;
 			}
