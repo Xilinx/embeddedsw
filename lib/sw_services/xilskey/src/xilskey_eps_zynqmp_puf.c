@@ -213,12 +213,12 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPufHelprData(u32 *Address)
 	}
 
 	for (Row = 0U; Row <= XSK_ZYNQMP_EFUSEPS_PUF_ROW_END; Row++) {
-		Status = XilSKey_ZynqMp_EfusePs_ReadRow(Row,
+		Status = XilSKey_ZynqMp_EfusePs_ReadRow((u8)Row,
 			XSK_ZYNQMP_EFUSEPS_EFUSE_2, PtrEfuse2);
 		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
-		Status = XilSKey_ZynqMp_EfusePs_ReadRow(Row,
+		Status = XilSKey_ZynqMp_EfusePs_ReadRow((u8)Row,
 			XSK_ZYNQMP_EFUSEPS_EFUSE_3, PtrEfuse3);
 		if (Status != (u32)XST_SUCCESS) {
 			goto END;
@@ -758,7 +758,7 @@ u32 XilSKey_Write_Puf_EfusePs_SecureBits(XilSKey_Puf_Secure *WriteSecureBits)
 {
 	u32 Status;
 	XskEfusePs_Type EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
-	u32 Row = XSK_ZYNQMP_EFUSEPS_PUF_AUX_ROW;
+	u8 Row = XSK_ZYNQMP_EFUSEPS_PUF_AUX_ROW;
 	u32 RowData;
 	u8 DataInBits[XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW] = {0U};
 	u32 Debug = XSK_PUF_DEBUG_GENERAL;
@@ -939,17 +939,17 @@ static inline u32 XilSKey_Read_Puf_EfusePs_SecureBits_Regs(
 	}
 
 	SecureBits->SynInvalid =
-		(RegData & XSK_ZYNQMP_EFUSEPS_PUF_MISC_SYN_INVLD_MASK) >>
-				XSK_ZYNQMP_EFUSEPS_PUF_MISC_SYN_INVLD_SHIFT;
+		(u8)((RegData & XSK_ZYNQMP_EFUSEPS_PUF_MISC_SYN_INVLD_MASK) >>
+				XSK_ZYNQMP_EFUSEPS_PUF_MISC_SYN_INVLD_SHIFT);
 	SecureBits->SynWrLk =
-		(RegData & XSK_ZYNQMP_EFUSEPS_PUF_MISC_SYN_WRLK_MASK) >>
-				XSK_ZYNQMP_EFUSEPS_PUF_MISC_SYN_WRLK_SHIFT;
+		(u8)((RegData & XSK_ZYNQMP_EFUSEPS_PUF_MISC_SYN_WRLK_MASK) >>
+				XSK_ZYNQMP_EFUSEPS_PUF_MISC_SYN_WRLK_SHIFT);
 	SecureBits->RegisterDis =
-		(RegData & XSK_ZYNQMP_EFUSEPS_PUF_MISC_REG_DIS_MASK) >>
-			XSK_ZYNQMP_EFUSEPS_PUF_MISC_REG_DIS_SHIFT;
+		(u8)((RegData & XSK_ZYNQMP_EFUSEPS_PUF_MISC_REG_DIS_MASK) >>
+			XSK_ZYNQMP_EFUSEPS_PUF_MISC_REG_DIS_SHIFT);
 	SecureBits->Reserved =
-			(RegData & XSK_ZYNQMP_EFUSEPS_PUF_MISC_RESERVED_MASK) >>
-				XSK_ZYNQMP_EFUSEPS_PUF_MISC_RESERVED_SHIFT;
+			(u8)((RegData & XSK_ZYNQMP_EFUSEPS_PUF_MISC_RESERVED_MASK) >>
+				XSK_ZYNQMP_EFUSEPS_PUF_MISC_RESERVED_SHIFT);
 END:
 
 	return Status;
