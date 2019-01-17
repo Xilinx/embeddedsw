@@ -1300,12 +1300,12 @@ u32 XilSKey_Efuse_ReverseHex(u32 Input)
 * @note	None.
 *
 *****************************************************************************/
-u32 XilSKey_Ceil(float Value)
+u32 XilSKey_Ceil(float Freq)
 {
 	u32 RetValue;
 
-	RetValue = ((Value > (u32)Value) || ((u32)Value == 0U)) ?
-					(u32)((u32)Value + 1U) : (u32)Value;
+	RetValue = ((Freq > (u32)Freq) || ((u32)Freq == 0U)) ?
+					(u32)((u32)Freq + 1U) : (u32)Freq;
 
 	return RetValue;
 

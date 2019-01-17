@@ -40,7 +40,7 @@
 * ----- ----  -------- ------------------------------------------------------
 * 4.0   vns   10/01/15 First release
 *     vns     10/20/15 Modified XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits API
-*                      when reading from efuse memory to return (u32)both bits
+*                      when reading from efuse memory to return both bits
 *                      of secure control feature for RSA enable, PPK hash
 *                      bits invalid bits.
 * 6.0   vns   07/18/16 PR #1968, Provided User FUSEs single bit programming
@@ -124,7 +124,7 @@ u32 XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(u8 Row, u8 Column,
 						XskEfusePs_Type EfuseType);
 u32 XilSKey_ZynqMp_EfusePs_CheckForZeros(u8 RowStart, u8 RowEnd,
 						XskEfusePs_Type EfuseType);
-static inline u32 XilSKey_ZynqMp_EfusePs_Enable_Rsa(u8 *RsaBits_read);
+static inline u32 XilSKey_ZynqMp_EfusePs_Enable_Rsa(u8 *SecBits_read);
 u32 XilSKey_ZynqMp_EfusePs_Init(void);
 static u32 XilSKey_ZynqMpEfuseRead(const u32 AddrHigh, const u32 AddrLow);
 static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow);
@@ -2209,7 +2209,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_CheckZeros_BfrPrgrmg(
 ******************************************************************************/
 static inline u32 XilSKey_ZynqMp_EfusePs_UserFuses_TobeProgrammed(
 				u8 *UserFuses_Write, u8 *UserFuses_Read,
-				XilSKey_UsrFuses *UserFuses_TobePrgrmd)
+				XilSKey_UsrFuses *UserFuses_ToBePrgrmd)
 {
 	u32 UserFuseColumn;
 
@@ -2221,7 +2221,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_UserFuses_TobeProgrammed(
 		}
 		if ((UserFuses_Write[UserFuseColumn] == 1U) &&
 			(UserFuses_Read[UserFuseColumn] == 0U)) {
-			UserFuses_TobePrgrmd->UserFuse[UserFuseColumn] = 1U;
+			UserFuses_ToBePrgrmd->UserFuse[UserFuseColumn] = 1U;
 		}
 	}
 
@@ -2247,7 +2247,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_UserFuses_TobeProgrammed(
 *
 ******************************************************************************/
 static inline u32 XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
-	XilSKey_ZynqMpEPs *InstancePtr, XilSKey_UsrFuses *UserFuses_ToBePrgrmd)
+	XilSKey_ZynqMpEPs *InstancePtr, XilSKey_UsrFuses *ToBePrgrmd)
 {
 	u8 UserFuses_Read[8][32] = {{0},{0},{0},{0},{0},{0},{0},{0}};
 	u8 UserFuses_Write[8][32] = {{0},{0},{0},{0},{0},{0},{0},{0}};
@@ -2267,7 +2267,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
 		if (XilSKey_ZynqMp_EfusePs_UserFuses_TobeProgrammed(
 			&UserFuses_Write[XSK_ZYNQMP_EFUSEPS_USR0_FUSE][0],
 			&UserFuses_Read[XSK_ZYNQMP_EFUSEPS_USR0_FUSE][0],
-		(UserFuses_ToBePrgrmd + XSK_ZYNQMP_EFUSEPS_USR0_FUSE)) !=
+		(ToBePrgrmd + XSK_ZYNQMP_EFUSEPS_USR0_FUSE)) !=
 							XST_SUCCESS) {
 			return (u32)(XSK_EFUSEPS_ERROR_WRITE_USER0_FUSE +
 				XSK_EFUSEPS_ERROR_USER_BIT_CANT_REVERT);
@@ -2288,7 +2288,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
 		if (XilSKey_ZynqMp_EfusePs_UserFuses_TobeProgrammed(
 			&UserFuses_Write[XSK_ZYNQMP_EFUSEPS_USR1_FUSE][0],
 			&UserFuses_Read[XSK_ZYNQMP_EFUSEPS_USR1_FUSE][0],
-		(UserFuses_ToBePrgrmd + XSK_ZYNQMP_EFUSEPS_USR1_FUSE)) !=
+		(ToBePrgrmd + XSK_ZYNQMP_EFUSEPS_USR1_FUSE)) !=
 							XST_SUCCESS) {
 			return (u32)(XSK_EFUSEPS_ERROR_WRITE_USER1_FUSE +
 				XSK_EFUSEPS_ERROR_USER_BIT_CANT_REVERT);
@@ -2308,7 +2308,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
 		if (XilSKey_ZynqMp_EfusePs_UserFuses_TobeProgrammed(
 			&UserFuses_Write[XSK_ZYNQMP_EFUSEPS_USR2_FUSE][0],
 			&UserFuses_Read[XSK_ZYNQMP_EFUSEPS_USR2_FUSE][0],
-		(UserFuses_ToBePrgrmd + XSK_ZYNQMP_EFUSEPS_USR2_FUSE)) !=
+		(ToBePrgrmd + XSK_ZYNQMP_EFUSEPS_USR2_FUSE)) !=
 							XST_SUCCESS) {
 			return (u32)(XSK_EFUSEPS_ERROR_WRITE_USER2_FUSE +
 				XSK_EFUSEPS_ERROR_USER_BIT_CANT_REVERT);
@@ -2328,7 +2328,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
 		if (XilSKey_ZynqMp_EfusePs_UserFuses_TobeProgrammed(
 			&UserFuses_Write[XSK_ZYNQMP_EFUSEPS_USR3_FUSE][0],
 			&UserFuses_Read[XSK_ZYNQMP_EFUSEPS_USR3_FUSE][0],
-		(UserFuses_ToBePrgrmd + XSK_ZYNQMP_EFUSEPS_USR3_FUSE)) !=
+		(ToBePrgrmd + XSK_ZYNQMP_EFUSEPS_USR3_FUSE)) !=
 							XST_SUCCESS) {
 			return (u32)(XSK_EFUSEPS_ERROR_WRITE_USER3_FUSE +
 				XSK_EFUSEPS_ERROR_USER_BIT_CANT_REVERT);
@@ -2349,7 +2349,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
 		if (XilSKey_ZynqMp_EfusePs_UserFuses_TobeProgrammed(
 			&UserFuses_Write[XSK_ZYNQMP_EFUSEPS_USR4_FUSE][0],
 			&UserFuses_Read[XSK_ZYNQMP_EFUSEPS_USR4_FUSE][0],
-		(UserFuses_ToBePrgrmd + XSK_ZYNQMP_EFUSEPS_USR4_FUSE)) !=
+		(ToBePrgrmd + XSK_ZYNQMP_EFUSEPS_USR4_FUSE)) !=
 							XST_SUCCESS) {
 			return (u32)(XSK_EFUSEPS_ERROR_WRITE_USER4_FUSE +
 				XSK_EFUSEPS_ERROR_USER_BIT_CANT_REVERT);
@@ -2370,7 +2370,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
 		if (XilSKey_ZynqMp_EfusePs_UserFuses_TobeProgrammed(
 			&UserFuses_Write[XSK_ZYNQMP_EFUSEPS_USR5_FUSE][0],
 			&UserFuses_Read[XSK_ZYNQMP_EFUSEPS_USR5_FUSE][0],
-		(UserFuses_ToBePrgrmd + XSK_ZYNQMP_EFUSEPS_USR5_FUSE)) !=
+		(ToBePrgrmd + XSK_ZYNQMP_EFUSEPS_USR5_FUSE)) !=
 								XST_SUCCESS) {
 			return (u32)(XSK_EFUSEPS_ERROR_WRITE_USER5_FUSE +
 				XSK_EFUSEPS_ERROR_USER_BIT_CANT_REVERT);
@@ -2390,7 +2390,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
 		if (XilSKey_ZynqMp_EfusePs_UserFuses_TobeProgrammed(
 			&UserFuses_Write[XSK_ZYNQMP_EFUSEPS_USR6_FUSE][0],
 			&UserFuses_Read[XSK_ZYNQMP_EFUSEPS_USR6_FUSE][0],
-		(UserFuses_ToBePrgrmd + XSK_ZYNQMP_EFUSEPS_USR6_FUSE)) !=
+		(ToBePrgrmd + XSK_ZYNQMP_EFUSEPS_USR6_FUSE)) !=
 								XST_SUCCESS) {
 			return (u32)(XSK_EFUSEPS_ERROR_WRITE_USER6_FUSE +
 				XSK_EFUSEPS_ERROR_USER_BIT_CANT_REVERT);
@@ -2411,7 +2411,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
 		if (XilSKey_ZynqMp_EfusePs_UserFuses_TobeProgrammed(
 			&UserFuses_Write[XSK_ZYNQMP_EFUSEPS_USR7_FUSE][0],
 			&UserFuses_Read[XSK_ZYNQMP_EFUSEPS_USR7_FUSE][0],
-		(UserFuses_ToBePrgrmd + XSK_ZYNQMP_EFUSEPS_USR7_FUSE)) !=
+		(ToBePrgrmd + XSK_ZYNQMP_EFUSEPS_USR7_FUSE)) !=
 								XST_SUCCESS) {
 			return (u32)(XSK_EFUSEPS_ERROR_WRITE_USER7_FUSE +
 				XSK_EFUSEPS_ERROR_USER_BIT_CANT_REVERT);
@@ -2464,7 +2464,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_Enable_Rsa(
 
 	for (Bit = BitStart; Bit <= BitEnd; Bit++) {
 		/* Program only if the bit is not already programmed */
-		if (SecBits_read[Bit] == 0x00) {
+		if (SecBits_read[Bit] == 0x00U) {
 			Status = XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(Row,
 					Bit, EfuseType);
 			if (Status != (u32)XST_SUCCESS) {
