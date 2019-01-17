@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -41,6 +41,7 @@
 *                     is fixed for PUF registration.
 * 6.2   vns  02/18/17 Added masking for PUF auxilary read.
 * 6.6   vns  06/06/18 Added doxygen tags
+* 6.7	arc  01/05/19 Fixed MISRA-C violations.
 * </pre>
 *
 *****************************************************************************/
@@ -549,10 +550,9 @@ END:
  *****************************************************************************/
 u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 {
-	u32 Status = (u32)XST_SUCCESS;
+	u32 Status;
 	u32 PufStatus;
-	u32 Index;
-	Index = 0U;
+	u32 Index = 0U;
 	u32 Debug = XSK_PUF_DEBUG_GENERAL;
 
 	/* Assert validates the input arguments */
@@ -652,7 +652,7 @@ ENDF:
 u32 XilSKey_Puf_Regeneration(XilSKey_Puf *InstancePtr)
 {
 	u32 PufStatus;
-	u32 Status = (u32)XST_SUCCESS;
+	u32 Status;
 	u32 PufChash = 0U;
 	u32 Debug = XSK_PUF_DEBUG_GENERAL;
 
@@ -991,7 +991,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_PufRowWrite(u8 Row,
 {
 
 	u8 Column;
-	u32 Status = XST_SUCCESS;
+	u32 Status = (u32)XST_SUCCESS;
 
 	for (Column = 0U; Column < XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW;
 						Column++) {
@@ -1093,7 +1093,7 @@ static inline u32 XilSkey_Puf_Validate_Access_Rules(u8 RequestType)
 {
 	u32 PufChash = 0U;
 	u32 PufAux = 0U;
-	u32 Status = (u32)XST_SUCCESS;
+	u32 Status;
 	u32 Debug = XSK_PUF_DEBUG_GENERAL;
 	XilSKey_SecCtrlBits ReadSecCtrlBits;
 	XilSKey_Puf_Secure PufSecureBits;

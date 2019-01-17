@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -55,6 +55,7 @@
 *                        enable obfuscation feature for eFUSE AES key
 *       vns     03/09/18 Added correct status bit positions to Ultrascale plus
 * 6.6   vns     06/06/18 Added doxygen tags
+* 6.7   arc     01/05/19 Fixed MISRA-C violations.
 *
 ****************************************************************************/
 #ifndef XILSKEY_EPL_H

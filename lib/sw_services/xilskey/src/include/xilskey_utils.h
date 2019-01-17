@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -66,6 +66,7 @@
 *       vns     09/18/18 Added error code for zynqmp efuseps
 *       vns     10/11/18 Added new error code for SPKID bit revert request
 *                        XSK_EFUSEPS_ERROR_SPKID_BIT_CANT_REVERT
+* 6.7   arc     01/05/19 Fixed MISRA-C violations.
 *
  *****************************************************************************/
 

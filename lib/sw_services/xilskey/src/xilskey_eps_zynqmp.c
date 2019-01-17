@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -63,6 +63,7 @@
 * 6.6   vns   06/06/18 Added doxygen tags
 *       vns   09/18/18 Added APIs to support eFUSE programming from linux
 *       vns   10/11/18 Added support to re-program non-zero SPKID
+* 6.7	arc   01/05/19 Fixed MISRA-C violations.
 *
 * </pre>
 *
@@ -150,7 +151,7 @@ static u32 XilSkey_ZynqMpUsrFuseRd(u32 Offset, u32 *Buffer, u32 Size, u8 UsrFuse
 ****************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
 {
-	u32 Status = (u32)XST_SUCCESS;
+	u32 Status;
 	u8 AesKeyInBits[XSK_ZYNQMP_EFUSEPS_AES_KEY_LEN_IN_BITS] = {0};
 	u8 Ppk0InBits[XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS] = {0};
 	u8 Ppk1InBits[XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS] = {0};
@@ -1363,7 +1364,7 @@ END:
 static inline u32 XilSKey_ZynqMp_EfusePs_Write_SecCtrlBits(
 				XilSKey_ZynqMpEPs *InstancePtr)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status = (u32)XST_SUCCESS;
 	XskEfusePs_Type EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
 	u32 Row;
 	u32 RowDataVal;
@@ -3012,7 +3013,7 @@ END:
 static u32 XilSkey_ZynqMpUsrFuseRd(u32 Offset, u32 *Buffer,
 					u32 Size, u8 UsrFuseNum)
 {
-	u32 Status = (u32)XST_SUCCESS;
+	u32 Status;
 	u8 FuseNum = UsrFuseNum;
 	u32 *Value = Buffer;
 	u32 Words = Size;
