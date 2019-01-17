@@ -52,7 +52,7 @@ BEGIN LIBRARY xilflash
   OPTION REQUIRES_OS = (standalone xilkernel freertos10_xilinx);
   OPTION REQUIRES_INTERFACE = (xilflash);
   OPTION supported_peripherals = (opb_emc_v2_00_a plb_emc mch_opb_emc xps_mch_emc axi_emc);
-  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilflash,-lxilstandalone,-lxilmem,--end-group";
+  OPTION APP_LINKER_FLAGS = "-lxilflash";
   OPTION desc = "Xilinx Flash library for Intel/AMD CFI compliant parallel flash";
   OPTION VERSION = 4.6;
   OPTION NAME = xilflash;
