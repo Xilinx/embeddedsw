@@ -199,8 +199,8 @@ typedef uintptr_t mem_ptr_t;
 #include <unistd.h>
 #endif
 #else /* SSIZE_MAX */
-typedef int ssize_t;
-#define SSIZE_MAX INT_MAX
+//typedef int ssize_t;
+#define SSIZE_MAX LONG_MAX
 #endif /* SSIZE_MAX */
 
 /* some maximum values needed in lwip code */
