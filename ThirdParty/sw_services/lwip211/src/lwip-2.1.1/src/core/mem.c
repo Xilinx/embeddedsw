@@ -62,6 +62,7 @@
 
 #include <string.h>
 
+#undef MEM_USE_POOLS
 #if MEM_LIBC_MALLOC
 #include <stdlib.h> /* for malloc()/free() */
 #endif
