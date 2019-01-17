@@ -868,7 +868,7 @@ void XilSKey_Efuse_ConvertBitsToBytes(const u8 * Bits, u8 * Bytes, u32 Len)
 		Bytes[Index] = 0U;
 	}
 
-	while(BytLen) {
+	while(BytLen != 0U) {
 		/**
 		 * Convert 8 Bit One Byte to 1 Bit 8 Bytes
 		 */
@@ -920,11 +920,11 @@ void XilSKey_EfusePs_ConvertBytesToBits(const u8 * Bytes, u8 * Bits , u32 Len)
 	/**
 	 * Make sure the bits array is 0 first.
 	 */
-	for(Index = 0U; Index < ((BytLen % 8U) ? ((BytLen / 8U) + 1U) : (BytLen / 8U)); Index++) {
+	for(Index = 0U; Index < (((BytLen % 8U) != 0U) ? ((BytLen / 8U) + 1U) : (BytLen / 8U)); Index++) {
 		Bits[Index] = 0U;
 	}
 
-	while(BytLen) {
+	while(BytLen != 0U) {
 		/**
 		 * Convert 1 Bit 8 Bytes to 8 Bit 1 Byte
 		 */

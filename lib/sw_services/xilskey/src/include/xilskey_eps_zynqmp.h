@@ -409,8 +409,8 @@ typedef struct {
 *
 ****************************************************************************/
 #define XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() \
-	(XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR, \
-		XSK_ZYNQMP_EFUSEPS_WR_LOCK_OFFSET) ? 1 : 0)
+	(((XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR, \
+		XSK_ZYNQMP_EFUSEPS_WR_LOCK_OFFSET)) != 0U) ? 1U : 0U)
 
 /***************************************************************************/
 /**

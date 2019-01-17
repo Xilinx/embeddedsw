@@ -110,7 +110,7 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufHelprData(XilSKey_Puf *InstancePtr)
 	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 
 	/* Check the unlock status */
-	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
+	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
 		return (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
 	}
 
@@ -203,7 +203,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPufHelprData(u32 *Address)
 	/* Unlock the controller */
 	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 	/* Check the unlock status */
-	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
+	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
 		return (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
 	}
 	/* Init timer and AMS */
@@ -289,7 +289,7 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufChash(XilSKey_Puf *InstancePtr)
 	/* Unlock the controller */
 	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 	/* Check the unlock status */
-	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
+	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
 		return (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
 	}
 
@@ -359,7 +359,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPufChash(u32 *Address, u8 ReadOption)
 		/* Unlock the controller */
 		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 		/* Check the unlock status */
-		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
+		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
 			return (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
 		}
 		/* Init timer and AMS */
@@ -416,7 +416,7 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufAux(XilSKey_Puf *InstancePtr)
 	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 
 	/* Check the unlock status */
-	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
+	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
 		return (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
 	}
 
@@ -490,7 +490,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPufAux(u32 *Address, u8 ReadOption)
 		/* Unlock the controller */
 		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 		/* Check the unlock status */
-		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
+		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
 			return (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
 		}
 		/* Init timer and AMS */
@@ -772,7 +772,7 @@ u32 XilSKey_Write_Puf_EfusePs_SecureBits(XilSKey_Puf_Secure *WriteSecureBits)
 		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 
 		/* Check the unlock status */
-		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
+		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
 			return (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
 		}
 
@@ -885,7 +885,7 @@ u32 XilSKey_Read_Puf_EfusePs_SecureBits(
 		/* Unlock the controller */
 		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 		/* Check the unlock status */
-		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
+		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
 			return (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
 		}
 		Status = XilSKey_ZynqMp_EfusePs_Init();
