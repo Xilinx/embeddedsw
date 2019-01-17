@@ -865,7 +865,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowRange(u8 *Data,
 ******************************************************************************/
 static inline u32 XilSKey_ZynqMp_EfusePs_PrgrmTbits(void)
 {
-	u32 RowData = 0U;
+	u32 RowDataVal = 0U;
 	u32 Status;
 	u8 Column;
 	u32 TbitsPrgrmReg;
@@ -879,31 +879,31 @@ static inline u32 XilSKey_ZynqMp_EfusePs_PrgrmTbits(void)
 		(TbitsPrgrmReg & (~XSK_ZYNQMP_EFUSEPS_TBITS_PRGRMG_EN_MASK)));
 
 	Status = XilSKey_ZynqMp_EfusePs_ReadRow(XSK_ZYNQMP_EFUSEPS_TBITS_ROW,
-					XSK_ZYNQMP_EFUSEPS_EFUSE_0, &RowData);
+					XSK_ZYNQMP_EFUSEPS_EFUSE_0, &RowDataVal);
 	if (Status != (u32)XST_SUCCESS) {
 		return Status;
 	}
-	if (((RowData >> XSK_ZYNQMP_EFUSEPS_TBITS_SHIFT) &
+	if (((RowDataVal >> XSK_ZYNQMP_EFUSEPS_TBITS_SHIFT) &
 			XSK_ZYNQMP_EFUSEPS_TBITS_MASK) != 0x00U) {
 		return (u32)XSK_EFUSEPS_ERROR_PROGRAMMING_TBIT_PATTERN;
 	}
 
 	Status = XilSKey_ZynqMp_EfusePs_ReadRow(XSK_ZYNQMP_EFUSEPS_TBITS_ROW,
-			XSK_ZYNQMP_EFUSEPS_EFUSE_2, &RowData);
+			XSK_ZYNQMP_EFUSEPS_EFUSE_2, &RowDataVal);
 	if (Status != (u32)XST_SUCCESS) {
 		return Status;
 	}
-	if (((RowData >> XSK_ZYNQMP_EFUSEPS_TBITS_SHIFT) &
+	if (((RowDataVal >> XSK_ZYNQMP_EFUSEPS_TBITS_SHIFT) &
 				XSK_ZYNQMP_EFUSEPS_TBITS_MASK) != 0x00U) {
 		return (u32)XSK_EFUSEPS_ERROR_PROGRAMMING_TBIT_PATTERN;
 	}
 
 	Status = XilSKey_ZynqMp_EfusePs_ReadRow(XSK_ZYNQMP_EFUSEPS_TBITS_ROW,
-					XSK_ZYNQMP_EFUSEPS_EFUSE_3, &RowData);
+					XSK_ZYNQMP_EFUSEPS_EFUSE_3, &RowDataVal);
 	if (Status != (u32)XST_SUCCESS) {
 		return Status;
 	}
-	if (((RowData >> XSK_ZYNQMP_EFUSEPS_TBITS_SHIFT) &
+	if (((RowDataVal >> XSK_ZYNQMP_EFUSEPS_TBITS_SHIFT) &
 				XSK_ZYNQMP_EFUSEPS_TBITS_MASK) != 0x00U) {
 		return (u32)XSK_EFUSEPS_ERROR_PROGRAMMING_TBIT_PATTERN;
 	}
@@ -957,7 +957,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_PrgrmTbits(void)
 u32 XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(u8 Row, u8 Column,
 						XskEfusePs_Type EfuseType)
 {
-	u32 RowData = 0U;
+	u32 RowDataVal = 0U;
 	u32 Status;
 	u8 MarginRead;
 	u32 ReadReg;
@@ -996,13 +996,13 @@ u32 XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(u8 Row, u8 Column,
 		XilSKey_WriteReg(XSK_ZYNQMP_EFUSEPS_BASEADDR, \
 				XSK_ZYNQMP_EFUSEPS_CFG_OFFSET, ReadReg);
 
-		Status = XilSKey_ZynqMp_EfusePs_ReadRow(Row, EfuseType, &RowData);
+		Status = XilSKey_ZynqMp_EfusePs_ReadRow(Row, EfuseType, &RowDataVal);
 
 		if (Status != (u32)XST_SUCCESS) {
 			return Status;
 		}
 
-		if (((RowData >> Column) & 0x01U) == 0x00U) {
+		if (((RowDataVal >> Column) & 0x01U) == 0x00U) {
 			return (u32)XSK_EFUSEPS_ERROR_VERIFICATION;
 		}
 	}
@@ -1332,7 +1332,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_Write_SecCtrlBits(
 	u32 Status;
 	XskEfusePs_Type EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
 	u32 Row;
-	u32 RowData;
+	u32 RowDataVal;
 	u8 DataInBits[XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW] = {0};
 
 	Row = XSK_ZYNQMP_EFUSEPS_SEC_CTRL_ROW;
@@ -1352,11 +1352,11 @@ static inline u32 XilSKey_ZynqMp_EfusePs_Write_SecCtrlBits(
 		(InstancePtr->PrgrmgSecCtrlBits.PPK1WrLock != 0x00U) ||
 		(InstancePtr->PrgrmgSecCtrlBits.PPK1InVld != 0x00U)) {
 		Status = XilSKey_ZynqMp_EfusePs_ReadRow((u8)Row, EfuseType,
-							&RowData);
+							&RowDataVal);
 		if (Status != (u32)XST_SUCCESS) {
 			return Status;
 		}
-		XilSKey_Efuse_ConvertBitsToBytes((u8 *)&RowData, DataInBits,
+		XilSKey_Efuse_ConvertBitsToBytes((u8 *)&RowDataVal, DataInBits,
 			XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW);
 	}
 
@@ -1530,11 +1530,11 @@ static inline u32 XilSKey_ZynqMp_EfusePs_Write_SecCtrlBits(
 	if (InstancePtr->PrgrmgSecCtrlBits.PbrBootErr == TRUE) {
 		Row = XSK_ZYNQMP_EFUSEPS_PBR_BOOT_ERR_ROW;
 		Status = XilSKey_ZynqMp_EfusePs_ReadRow(
-			(u8)Row, XSK_ZYNQMP_EFUSEPS_EFUSE_0, &RowData);
+			(u8)Row, XSK_ZYNQMP_EFUSEPS_EFUSE_0, &RowDataVal);
 		if (Status != (u32)XST_SUCCESS) {
 			return Status;
 		}
-		XilSKey_Efuse_ConvertBitsToBytes((u8 *)&RowData, DataInBits,
+		XilSKey_Efuse_ConvertBitsToBytes((u8 *)&RowDataVal, DataInBits,
 					XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW);
 
 		if (DataInBits[XSK_ZYNQMP_EFUSEPS_PBR_BOOT_ERR_0] == 0x00U) {
@@ -1591,7 +1591,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_Write_UsrCtrlBits(
 	XskEfusePs_Type EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
 	u8 Row = XSK_ZYNQMP_EFUSEPS_MISC_USR_CTRL_ROW;
 	u8 DataInBits[XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW] = {0};
-	u32 RowData;
+	u32 RowDataVal;
 
 	if ((InstancePtr->PrgrmgSecCtrlBits.UserWrLk0 != 0x00U) ||
 		(InstancePtr->PrgrmgSecCtrlBits.UserWrLk1 != 0x00U) ||
@@ -1605,11 +1605,11 @@ static inline u32 XilSKey_ZynqMp_EfusePs_Write_UsrCtrlBits(
 		(InstancePtr->PrgrmgSecCtrlBits.FpdScEn != 0x00U) ||
 		(InstancePtr->PrgrmgSecCtrlBits.LpdScEn != 0x00U)) {
 		Status = XilSKey_ZynqMp_EfusePs_ReadRow(Row, EfuseType,
-							&RowData);
+							&RowDataVal);
 		if (Status != (u32)XST_SUCCESS) {
 			return Status;
 		}
-		XilSKey_Efuse_ConvertBitsToBytes((u8 *)&RowData, DataInBits,
+		XilSKey_Efuse_ConvertBitsToBytes((u8 *)&RowDataVal, DataInBits,
 			XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW);
 	}
 	else {
@@ -2118,15 +2118,15 @@ u32 XilSKey_ZynqMp_EfusePs_CheckForZeros(u8 RowStart, u8 RowEnd,
 
 	u32 Status = XST_SUCCESS;
 	u8 Row;
-	u32 RowData = 0U;
+	u32 RowDataVal = 0U;
 
 	for (Row = RowStart; Row <= RowEnd; Row++) {
 		Status = XilSKey_ZynqMp_EfusePs_ReadRow(Row, EfuseType,
-								&RowData);
+								&RowDataVal);
 		if (Status != (u32)XST_SUCCESS) {
 			return Status;
 		}
-		if (RowData != 0x00U) {
+		if (RowDataVal != 0x00U) {
 			return (u32)XST_FAILURE;
 		}
 	}
@@ -2973,7 +2973,7 @@ static u32 XilSKey_ZynqMpEfuseRead(const u32 AddrHigh, const u32 AddrLow)
 	u64 Addr = ((u64)AddrHigh << 32) | AddrLow;
 	XilSKey_Efuse *EfuseAccess = (XilSKey_Efuse *)(UINTPTR)Addr;
 	u32 *Val = (u32 *)(UINTPTR)EfuseAccess->Src;
-	u8 UserEfuseNum;
+	u8 UsrEfuseNo;
 
 	switch(EfuseAccess->Offset) {
 		case (XSK_ZYNQMP_EFUSEPS_DNA_0_OFFSET &
@@ -2987,66 +2987,66 @@ static u32 XilSKey_ZynqMpEfuseRead(const u32 AddrHigh, const u32 AddrLow)
 			break;
 		case (XSK_ZYNQMP_EFUSEPS_USER_0_OFFSET &
 			XSK_EFUSEPS_OFFSET_MASK):
-			UserEfuseNum = XSK_ZYNQMP_EFUSEPS_USR0_FUSE;
+			UsrEfuseNo = XSK_ZYNQMP_EFUSEPS_USR0_FUSE;
 			Status = XilSkey_ZynqMpUsrFuseRd(EfuseAccess->Offset,
 					Val, EfuseAccess->Size,
-					UserEfuseNum);
+					UsrEfuseNo);
 			break;
 		case (XSK_ZYNQMP_EFUSEPS_USER_1_OFFSET &
 				XSK_EFUSEPS_OFFSET_MASK):
-			UserEfuseNum = XSK_ZYNQMP_EFUSEPS_USR1_FUSE;
+			UsrEfuseNo = XSK_ZYNQMP_EFUSEPS_USR1_FUSE;
 			Status = XilSkey_ZynqMpUsrFuseRd(EfuseAccess->Offset,
 							 Val,
 							 EfuseAccess->Size,
-							 UserEfuseNum);
+							 UsrEfuseNo);
 			break;
 		case (XSK_ZYNQMP_EFUSEPS_USER_2_OFFSET &
 				XSK_EFUSEPS_OFFSET_MASK):
-			UserEfuseNum = XSK_ZYNQMP_EFUSEPS_USR2_FUSE;
+			UsrEfuseNo = XSK_ZYNQMP_EFUSEPS_USR2_FUSE;
 			Status = XilSkey_ZynqMpUsrFuseRd(EfuseAccess->Offset,
 							 Val,
 							 EfuseAccess->Size,
-							 UserEfuseNum);
+							 UsrEfuseNo);
 			break;
 		case (XSK_ZYNQMP_EFUSEPS_USER_3_OFFSET &
 				XSK_EFUSEPS_OFFSET_MASK):
-			UserEfuseNum = XSK_ZYNQMP_EFUSEPS_USR3_FUSE;
+			UsrEfuseNo = XSK_ZYNQMP_EFUSEPS_USR3_FUSE;
 			Status = XilSkey_ZynqMpUsrFuseRd(EfuseAccess->Offset,
 							 Val,
 							 EfuseAccess->Size,
-							 UserEfuseNum);
+							 UsrEfuseNo);
 			break;
 		case (XSK_ZYNQMP_EFUSEPS_USER_4_OFFSET &
 				XSK_EFUSEPS_OFFSET_MASK):
-			UserEfuseNum = XSK_ZYNQMP_EFUSEPS_USR4_FUSE;
+			UsrEfuseNo = XSK_ZYNQMP_EFUSEPS_USR4_FUSE;
 			Status = XilSkey_ZynqMpUsrFuseRd(EfuseAccess->Offset,
 							 Val,
 							 EfuseAccess->Size,
-							 UserEfuseNum);
+							 UsrEfuseNo);
 			break;
 		case (XSK_ZYNQMP_EFUSEPS_USER_5_OFFSET &
 				XSK_EFUSEPS_OFFSET_MASK):
-			UserEfuseNum = XSK_ZYNQMP_EFUSEPS_USR5_FUSE;
+			UsrEfuseNo = XSK_ZYNQMP_EFUSEPS_USR5_FUSE;
 			Status = XilSkey_ZynqMpUsrFuseRd(EfuseAccess->Offset,
 							 Val,
 							 EfuseAccess->Size,
-							 UserEfuseNum);
+							 UsrEfuseNo);
 			break;
 		case (XSK_ZYNQMP_EFUSEPS_USER_6_OFFSET &
 				XSK_EFUSEPS_OFFSET_MASK):
-			UserEfuseNum = XSK_ZYNQMP_EFUSEPS_USR6_FUSE;
+			UsrEfuseNo = XSK_ZYNQMP_EFUSEPS_USR6_FUSE;
 			Status = XilSkey_ZynqMpUsrFuseRd(EfuseAccess->Offset,
 							 Val,
 							 EfuseAccess->Size,
-							 UserEfuseNum);
+							 UsrEfuseNo);
 			break;
 		case (XSK_ZYNQMP_EFUSEPS_USER_7_OFFSET &
 				XSK_EFUSEPS_OFFSET_MASK):
-			UserEfuseNum = XSK_ZYNQMP_EFUSEPS_USR7_FUSE;
+			UsrEfuseNo = XSK_ZYNQMP_EFUSEPS_USR7_FUSE;
 			Status = XilSkey_ZynqMpUsrFuseRd(EfuseAccess->Offset,
 							 Val,
 							 EfuseAccess->Size,
-							 UserEfuseNum);
+							 UsrEfuseNo);
 			break;
 		case (XSK_ZYNQMP_EFUSEPS_MISC_USER_CTRL_OFFSET &
 				XSK_EFUSEPS_OFFSET_MASK):

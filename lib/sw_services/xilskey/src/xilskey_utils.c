@@ -74,7 +74,7 @@
 /************************** Variable Definitions ****************************/
 #ifdef XSK_ZYNQ_PLATFORM
 static XAdcPs XAdcInst;     /**< XADC driver instance */
-u16 XAdcDeviceId;	/**< XADC Device ID */
+u16 XAdcDevId;	/**< XADC Device ID */
 #endif
 #ifdef XSK_MICROBLAZE_PLATFORM
 XTmrCtr XTmrCtrInst;
@@ -82,7 +82,7 @@ XTmrCtr XTmrCtrInst;
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
 XSysMonPsu XSysmonInst; /* Sysmon PSU instance */
-u16 XSysmonDeviceId; /* Sysmon PSU device ID */
+u16 XSysmonDevId; /* Sysmon PSU device ID */
 #endif
 
 u32 TimerTicksfor100ns; /**< Global Variable to store ticks/100ns*/
@@ -122,7 +122,7 @@ u32 XilSKey_EfusePs_XAdcInit (void)
 	 * specify the Device ID that is
 	 * generated in xparameters.h
 	 */
-	XAdcDeviceId=XADC_DEVICE_ID;
+	XAdcDevId = XADC_DEVICE_ID;
 
 	/**
 	 * Initialize the XAdc driver.
@@ -165,12 +165,12 @@ u32 XilSKey_EfusePs_XAdcInit (void)
 	 * specify the Device ID that is
 	 * generated in xparameters.h
 	 */
-	XSysmonDeviceId = XSYSMON_DEVICE_ID;
+	XSysmonDevId = XSYSMON_DEVICE_ID;
 
 	/**
 	 * Initialize the XAdc driver.
 	 */
-	ConfigPtr = XSysMonPsu_LookupConfig(XSysmonDeviceId);
+	ConfigPtr = XSysMonPsu_LookupConfig(XSysmonDevId);
 	if (NULL == ConfigPtr) {
 		return (u32)XSK_EFUSEPS_ERROR_XADC_CONFIG;
 	}
