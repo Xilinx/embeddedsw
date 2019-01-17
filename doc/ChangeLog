@@ -17,6 +17,10 @@ Fix the ipis without buffer.
 llfifo_v5_3:
 Fix poll and interrupt examples receive programming sequence.
 
+lwip211_v1_0:
+Upgrade lwip to open source version 2.1.1
+Fix cache handling in RX path for GEM.
+
 ttcps_v3_8:
 Modified in XTtcPs_ClearInterruptStatus function to clear
 interrupt status register by reading instead of writing it.
