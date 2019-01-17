@@ -712,8 +712,11 @@ static inline u32 XilSKey_ZynqMp_EfusePsWrite_Checks(
 
 
 	/* Read secure and control bits */
-	XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits(
+	Status = XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits(
 			&(InstancePtr->ReadBackSecCtrlBits), 0);
+	if(Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
 		if (InstancePtr->PrgrmAesKey == TRUE) {
 			if (InstancePtr->ReadBackSecCtrlBits.AesKeyWrite ==
 									TRUE) {
@@ -1160,7 +1163,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_WriteBit(u8 Row, u8 Column,
 u32 XilSKey_ZynqMp_EfusePs_CacheLoad(void)
 {
 	volatile u32 CacheStatus;
-	u32 Status = XST_SUCCESS;
+	u32 Status = (u32)XST_SUCCESS;
 
 	/* Check the unlock status */
 	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
@@ -1243,7 +1246,10 @@ u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions(void)
 		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
-		XilSKey_ZynqMp_EfusePs_CacheLoad();
+		Status = XilSKey_ZynqMp_EfusePs_CacheLoad();
+		if (Status != (u32)XST_SUCCESS) {
+			goto END;
+		}
 	}
 END:
 	return Status;

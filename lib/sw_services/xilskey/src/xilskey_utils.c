@@ -1200,6 +1200,7 @@ u32 XilSKey_CrcCalculation(u8 *Key)
 	u8 Key_Hex[4U] = {0};
 	u32 Index;
 	u8 MaxIndex = 8U;
+	u32 Status;
 
 #if defined (XSK_MICROBLAZE_PLATFORM) || \
 	defined (XSK_ZYNQ_ULTRA_MP_PLATFORM)
@@ -1247,7 +1248,10 @@ u32 XilSKey_CrcCalculation(u8 *Key)
 							((((Index) * 8U) + 8U) - 1U));
 #endif
 
-		XilSKey_Efuse_ConvertStringToHexBE((char *)Key_8, Key_Hex, 8U);
+		Status = XilSKey_Efuse_ConvertStringToHexBE((char *)Key_8, Key_Hex, 8U);
+		if (Status != (u32)XST_SUCCESS) {
+			return Status;
+		}
 #if defined (XSK_MICROBLAZE_ULTRA) || \
 	defined (XSK_ZYNQ_ULTRA_MP_PLATFORM)
 		Key_32 = (((u32)Key_Hex[0U] << 24U) | ((u32)Key_Hex[1U] << 16U) |
