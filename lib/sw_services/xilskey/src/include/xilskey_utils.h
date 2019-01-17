@@ -1009,7 +1009,7 @@ u64 XilSKey_Efuse_GetTime(void);
 void XilSKey_Efuse_SetTimeOut(volatile u64* t, u64 us);
 u8 XilSKey_Efuse_IsTimerExpired(u64 t);
 void XilSKey_Efuse_ConvertBitsToBytes(const u8 * Bits, u8 * Bytes, u32 Len);
-void XilSKey_EfusePs_ConvertBytesToBits(const u8 * Bits, u8 * Bytes, u32 Len);
+void XilSKey_EfusePs_ConvertBytesToBits(const u8 * Bytes, u8 * Bits, u32 Len);
 void XilSKey_EfusePs_ConvertBytesBeToLe(const u8 *Be, u8 *Le, u32 Len);
 u32 XilSKey_Efuse_ValidateKey(const char *key, u32 len);
 u32 XilSKey_Efuse_IsValidChar(const char *c);
