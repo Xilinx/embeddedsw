@@ -69,22 +69,22 @@ extern "C" {
 /**
  *  AES Key size in Bytes
  */
-#define XSK_EFUSEPL_AES_KEY_SIZE_IN_BYTES				(32)
+#define XSK_EFUSEPL_AES_KEY_SIZE_IN_BYTES				(32U)
 /**
  *  User Key size in Bytes
  */
-#define XSK_EFUSEPL_USER_KEY_SIZE_IN_BYTES				(4)
+#define XSK_EFUSEPL_USER_KEY_SIZE_IN_BYTES				(4U)
 /**
  *  CRC of AES key with all zeros
  */
-#define XSK_EFUSEPL_CRC_FOR_AES_ZEROS					(0x621C42AA)
+#define XSK_EFUSEPL_CRC_FOR_AES_ZEROS					(0x621C42AAU)
 
 /* CRC of AES key with all zeros for Ultrascale plus */
-#define XSK_EFUSEPL_CRC_FOR_AES_ZEROS_ULTRA_PLUS			(0x3117503A)
+#define XSK_EFUSEPL_CRC_FOR_AES_ZEROS_ULTRA_PLUS			(0x3117503AU)
 /**
  * AES key String length
  */
-#define XSK_EFUSEPL_AES_KEY_STRING_LEN					(64)
+#define XSK_EFUSEPL_AES_KEY_STRING_LEN					(64U)
 
 /*
  * Status register index values of Ultrascale's Fuse
