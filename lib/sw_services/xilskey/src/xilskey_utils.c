@@ -127,7 +127,7 @@ u32 XilSKey_EfusePs_XAdcInit (void)
 	/**
 	 * Initialize the XAdc driver.
 	 */
-	ConfigPtr = XAdcPs_LookupConfig(XAdcDeviceId);
+	ConfigPtr = XAdcPs_LookupConfig(XAdcDevId);
 	if (NULL == ConfigPtr) {
 		return (u32)XSK_EFUSEPS_ERROR_XADC_CONFIG;
 	}
