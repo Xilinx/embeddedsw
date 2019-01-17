@@ -129,20 +129,23 @@ u32 XilSKey_EfusePs_XAdcInit (void)
 	 */
 	ConfigPtr = XAdcPs_LookupConfig(XAdcDevId);
 	if (NULL == ConfigPtr) {
-		return (u32)XSK_EFUSEPS_ERROR_XADC_CONFIG;
+		Status = (u32)XSK_EFUSEPS_ERROR_XADC_CONFIG;
+		goto END;
 	}
 
 	Status = (u32)XAdcPs_CfgInitialize(XAdcInstPtr, ConfigPtr,
 			ConfigPtr->BaseAddress);
 	if (Status != (u32)XST_SUCCESS) {
-		return (u32)XSK_EFUSEPS_ERROR_XADC_INITIALIZE;
+		Status = (u32)XSK_EFUSEPS_ERROR_XADC_INITIALIZE;
+		goto END;
 	}
 	/**
 	 * Self Test the XADC/ADC device
 	 */
 	Status = (u32)XAdcPs_SelfTest(XAdcInstPtr);
 	if (Status != (u32)XST_SUCCESS) {
-		return (u32)XSK_EFUSEPS_ERROR_XADC_SELF_TEST;
+		Status = (u32)XSK_EFUSEPS_ERROR_XADC_SELF_TEST;
+		goto END;
 	}
 
 	/**
@@ -154,7 +157,8 @@ u32 XilSKey_EfusePs_XAdcInit (void)
 	Status = (u32)XST_SUCCESS;
 #endif
 #ifdef XSK_MICROBLAZE_PLATFORM
-	Status = XST_FAILURE;
+	Status = (u32)XST_FAILURE;
+	goto END;
 #endif
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
@@ -172,20 +176,23 @@ u32 XilSKey_EfusePs_XAdcInit (void)
 	 */
 	ConfigPtr = XSysMonPsu_LookupConfig(XSysmonDevId);
 	if (NULL == ConfigPtr) {
-		return (u32)XSK_EFUSEPS_ERROR_XADC_CONFIG;
+		Status = (u32)XSK_EFUSEPS_ERROR_XADC_CONFIG;
+		goto END;
 	}
 
 	Status = XSysMonPsu_CfgInitialize(XSysmonInstPtr, ConfigPtr,
 			ConfigPtr->BaseAddress);
 	if (Status != (u32)XST_SUCCESS) {
-		return (u32)XSK_EFUSEPS_ERROR_XADC_INITIALIZE;
+		Status = (u32)XSK_EFUSEPS_ERROR_XADC_INITIALIZE;
+		goto END;
 	}
 	/**
 	 * Self Test for sysmon device
 	 */
 	Status = XSysMonPsu_SelfTest(XSysmonInstPtr);
 	if (Status != (u32)XST_SUCCESS) {
-		return (u32)XSK_EFUSEPS_ERROR_XADC_SELF_TEST;
+		Status = (u32)XSK_EFUSEPS_ERROR_XADC_SELF_TEST;
+		goto END;
 	}
 
 	/**
@@ -197,7 +204,7 @@ u32 XilSKey_EfusePs_XAdcInit (void)
 
 	Status = (u32)XST_SUCCESS;
 #endif
-
+END:
 	return Status;
 
 }
@@ -219,13 +226,13 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 					XSKEfusePs_XAdc *XAdcInstancePtr)
 {
 	if (NULL == XAdcInstancePtr) {
-		return;
+		goto END;
 	}
 
 	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
 
 	if (NULL == XSysmonInstPtr) {
-		return;
+		goto END;
 	}
 	/**
 	 * Read the on-chip Temperature Data (Current)
@@ -237,7 +244,8 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 		"Read Temperature Value: %0x -> %d in Centigrades \n",
 		XAdcInstancePtr->Temp,
 	(int )XSysMonPsu_RawToTemperature_OnChip(XAdcInstancePtr->Temp));
-
+END:
+	return;
 
 }
 
@@ -261,14 +269,14 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
 				XSKEfusePs_XAdc *XAdcInstancePtr)
 {
 	if (NULL == XAdcInstancePtr) {
-		return;
+		goto END;
 	}
 
 	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
 	u8 V;
 
 	if (NULL == XSysmonInstPtr) {
-		return;
+		goto END;
 	}
 	/**
 	 * Read the VccPint/PAUX Voltage Data (Current/Maximum/Minimum) from
@@ -292,7 +300,8 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
 			"Read Voltage Value: %0x -> %d in Volts \n",
 			XAdcInstancePtr->V,
 			(int )XSysMonPsu_RawToVoltage(XAdcInstancePtr->V));
-
+END:
+	return;
 }
 #endif
 /***************************************************************************/
@@ -318,7 +327,7 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
 void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstancePtr)
 {
 	if (NULL == XAdcInstancePtr) {
-		return;
+		goto END;
 	}
 
 #ifdef XSK_MICROBLAZE_PLATFORM
@@ -334,7 +343,7 @@ void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstance
 
 
 	if (NULL == XAdcInstPtr) {
-		return;
+		goto END;
 	}
 
 	/**
@@ -403,6 +412,7 @@ void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstance
 				(int )XAdcPs_RawToVoltage(XAdcInstancePtr->V));
 
 #endif
+END:
 	return;
 }
 
@@ -430,23 +440,26 @@ u32 XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks(void)
 	XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(&XAdcInstance);
 	if ((XAdcInstance.Temp < XSK_EFUSEPS_TEMP_MIN_RAW) ||
 			((XAdcInstance.Temp > XSK_EFUSEPS_TEMP_MAX_RAW))) {
-		return (u32)XSK_EFUSEPS_ERROR_READ_TMEPERATURE_OUT_OF_RANGE;
+		Status = (u32)XSK_EFUSEPS_ERROR_READ_TMEPERATURE_OUT_OF_RANGE;
+		goto END;
 	}
 	XAdcInstance.VType = XSK_EFUSEPS_VPAUX;
 	XilSKey_ZynqMP_EfusePs_ReadSysmonVol(&XAdcInstance);
 	if ((XAdcInstance.V < XSK_EFUSEPS_VPAUX_MIN_RAW) ||
 			((XAdcInstance.V > XSK_EFUSEPS_VPAUX_MAX_RAW))) {
-		return (u32)XSK_EFUSEPS_ERROR_READ_VCCPAUX_VOLTAGE_OUT_OF_RANGE;
+		Status = (u32)XSK_EFUSEPS_ERROR_READ_VCCPAUX_VOLTAGE_OUT_OF_RANGE;
+		goto END;
 	}
 	XAdcInstance.VType = XSK_EFUSEPS_VPINT;
 	XilSKey_ZynqMP_EfusePs_ReadSysmonVol(&XAdcInstance);
 	if ((XAdcInstance.V < XSK_EFUSEPS_VCC_PSINTLP_MIN_RAW) ||
 			((XAdcInstance.V > XSK_EFUSEPS_VCC_PSINTLP_MAX_RAW))) {
-		return (u32)XSK_EFUSEPS_ERROR_READ_VCCPAUX_VOLTAGE_OUT_OF_RANGE;
+		Status = (u32)XSK_EFUSEPS_ERROR_READ_VCCPAUX_VOLTAGE_OUT_OF_RANGE;
+		goto END;
 	}
+END:
 #endif
-
-	return (u32)XST_SUCCESS;
+	return Status;
 
 }
 
@@ -591,6 +604,7 @@ u8 XilSKey_Efuse_IsTimerExpired(u64 t)
  ****************************************************************************/
 static u32 XilSKey_EfusePs_ConvertCharToNibble (char InChar, u8 *Num)
 {
+	u32 Status = (u32)XST_SUCCESS;
 	/**
 	 * Convert the char to nibble
 	 */
@@ -604,10 +618,11 @@ static u32 XilSKey_EfusePs_ConvertCharToNibble (char InChar, u8 *Num)
 		*Num = (u8)InChar - (u8)'A' + 10U;
 	}
 	else {
-		return (u32)XSK_EFUSEPS_ERROR_STRING_INVALID;
+		Status = (u32)XSK_EFUSEPS_ERROR_STRING_INVALID;
+		goto END;
 	}
-
-	return (u32)XST_SUCCESS;
+END:
+	return Status;
 }
 
 /****************************************************************************/
@@ -645,23 +660,27 @@ u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
 {
 	u32 ConvertedLen;
 	u8 LowerNibble = 0U, UpperNibble = 0U;
+	u32 Status = (u32)XST_SUCCESS;
 
 	/**
 	 * Check the parameters
 	 */
 	if (Str == NULL) {
-		return (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+		Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+		goto END;
 	}
 
 	if (Buf == NULL) {
-		return (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+		Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+		goto END;
 	}
 
 	/**
 	 * Len has to be multiple of 2
 	 */
 	if ((Len == 0U) || (Len%2U == 1U)) {
-		return (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+		Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+		goto END;
 	}
 
 	ConvertedLen = 0U;
@@ -686,14 +705,16 @@ u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
 				/**
 				 * Error converting Lower nibble
 				 */
-				return (u32)XSK_EFUSEPS_ERROR_STRING_INVALID;
+				Status = (u32)XSK_EFUSEPS_ERROR_STRING_INVALID;
+				goto END;
 			}
 		}
 		else {
 			/**
 			 * Error converting Upper nibble
 			 */
-			return (u32)XSK_EFUSEPS_ERROR_STRING_INVALID;
+			Status = (u32)XSK_EFUSEPS_ERROR_STRING_INVALID;
+			goto END;
 		}
 		/**
 		 * Converted upper and lower nibbles
@@ -702,8 +723,8 @@ u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
 				Str[ConvertedLen],Str[ConvertedLen+1],Buf[ConvertedLen/2]);
 		ConvertedLen += 2U;
 	}
-
-	return (u32)XST_SUCCESS;
+END:
+	return Status;
 }
 
 
@@ -744,23 +765,27 @@ u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len)
 	u32 ConvertedLen;
 		u8 LowerNibble = 0U, UpperNibble = 0U;
 		u32 StrIndex;
+		u32 Status = (u32)XST_SUCCESS;
 
 		/**
 		 * Check the parameters
 		 */
 		if (Str == NULL) {
-			return (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+			Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+			goto END;
 		}
 
 		if (Buf == NULL) {
-			return (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+			Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+			goto END;
 		}
 
 		/**
 		 * Len has to be multiple of 2
 		 */
 		if ((Len == 0U) || (Len % 2U == 1U)) {
-			return (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+			Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+			goto END;
 		}
 
 		StrIndex = (Len/8U) - 1U;
@@ -787,22 +812,24 @@ u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len)
 					/**
 					 * Error converting Lower nibble
 					 */
-					return (u32)XSK_EFUSEPS_ERROR_STRING_INVALID;
+					Status = (u32)XSK_EFUSEPS_ERROR_STRING_INVALID;
+					goto END;
 				}
 			}
 			else {
 				/**
 				 * Error converting Upper nibble
 				 */
-				return (u32)XSK_EFUSEPS_ERROR_STRING_INVALID;
+				Status = (u32)XSK_EFUSEPS_ERROR_STRING_INVALID;
+				goto END;
 			}
 			/**
 			 * Converted upper and lower nibbles
 			 */
 			ConvertedLen += 2U;
 		}
-
-		return (u32)XST_SUCCESS;
+END:
+	return Status;
 }
 
 /***************************************************************************/
@@ -826,7 +853,7 @@ void XilSKey_EfusePs_ConvertBytesBeToLe(const u8 *Be, u8 *Le, u32 Len)
 	u32 Index;
 
 	if ((Be == NULL) || (Le == NULL) || (Len == 0U)) {
-		return;
+		goto END;
 	}
 
 	for (Index = 0U; Index < Len; Index = Index+4U) {
@@ -835,6 +862,7 @@ void XilSKey_EfusePs_ConvertBytesBeToLe(const u8 *Be, u8 *Le, u32 Len)
 		Le[Index+1]=Be[Index+2];
 		Le[Index]=Be[Index+3];
 	}
+END:
 	return;
 }
 
@@ -884,11 +912,12 @@ void XilSKey_Efuse_ConvertBitsToBytes(const u8 * Bits, u8 * Bytes, u32 Len)
 			 * If len is not Byte aligned
 			 */
 			if(BytLen == 0U) {
-				return;
+				goto END;
 			}
 		}
 		BitIndex++;
 	}
+END:
 	return;
 }
 
@@ -940,11 +969,12 @@ void XilSKey_EfusePs_ConvertBytesToBits(const u8 * Bytes, u8 * Bits , u32 Len)
 			 * If Len is not Byte aligned
 			 */
 			if(BytLen == 0U) {
-				return;
+				goto END;
 			}
 		}
 		BitIndex++;
 	}
+END:
 	return;
 }
 
@@ -963,37 +993,43 @@ void XilSKey_EfusePs_ConvertBytesToBits(const u8 * Bytes, u8 * Bits , u32 Len)
 u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
 {
 	u32 i;
-    /**
-     * Make sure passed key is not NULL
-     */
-    if(Key == NULL) {
-	return ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION +
+	u32 Status = (u32)XSK_EFUSEPL_ERROR_NONE;
+	/**
+	* Make sure passed key is not NULL
+	*/
+	if(Key == NULL) {
+		Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION +
 			(u32)XSK_EFUSEPL_ERROR_NULL_KEY);
-    }
+		goto END;
+	}
 
-    if(Len == 0U) {
-	return ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION +
+	if(Len == 0U) {
+		Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION +
 			(u32)XSK_EFUSEPL_ERROR_ZERO_KEY_LENGTH);
-    }
+		goto END;
+	}
 
 	/**
 	 * Make sure the key has valid length
 	 */
-    if (strlen(Key) != Len) {
-		return ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION +
-				(u32)XSK_EFUSEPL_ERROR_NOT_VALID_KEY_LENGTH);
-    }
+	if (strlen(Key) != Len) {
+		Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION +
+			(u32)XSK_EFUSEPL_ERROR_NOT_VALID_KEY_LENGTH);
+		goto END;
+	}
 
-    /**
-     * Make sure the key has valid characters
-     */
+	/**
+	* Make sure the key has valid characters
+	*/
 	for(i = 0U; i < strlen(Key); i++) {
 		if(XilSKey_Efuse_IsValidChar(&Key[i]) != (u32)XST_SUCCESS) {
-			return ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION +
-					(u32)XSK_EFUSEPL_ERROR_NOT_VALID_KEY_CHAR);
+			Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION +
+				(u32)XSK_EFUSEPL_ERROR_NOT_VALID_KEY_CHAR);
+			goto END;
 		}
 	}
-    return (u32)XSK_EFUSEPL_ERROR_NONE;
+END:
+	return Status;
 }
 /****************************************************************************/
 /**
@@ -1009,20 +1045,26 @@ u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
 
 u32 XilSKey_Efuse_IsValidChar(const char *c)
 {
-    char ValidChars[] = "0123456789abcdefABCDEF";
-    char *RetVal;
+	char ValidChars[] = "0123456789abcdefABCDEF";
+	char *RetVal;
+	u32 Status = (u32)XST_SUCCESS;
 
-    if(c == NULL) {
-	return (u32)XST_FAILURE;
-    }
+	if(c == NULL) {
+		Status = (u32)XST_FAILURE;
+		goto END;
+	}
 
-    RetVal = strchr(ValidChars, (int)*c);
-    if(RetVal == NULL) {
-	return (u32)XST_FAILURE;
-    }
-    else {
-	return (u32)XST_SUCCESS;
-    }
+	RetVal = strchr(ValidChars, (int)*c);
+	if(RetVal == NULL) {
+		Status = (u32)XST_FAILURE;
+		goto END;
+	}
+	else {
+		Status = (u32)XST_SUCCESS;
+		goto END;
+	}
+END:
+	return Status;
 }
 /****************************************************************************/
 /**

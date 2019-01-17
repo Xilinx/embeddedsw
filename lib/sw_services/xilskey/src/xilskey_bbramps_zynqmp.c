@@ -102,7 +102,8 @@ u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey)
 	/* Set in programming mode */
 	Status = XilSKey_ZynqMp_Bbram_PrgrmEn();
 	if (Status != (u32)XST_SUCCESS) {
-		return (u32)(Status + (u32)XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG);
+		Status = (Status + (u32)XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG);
+		goto END;
 	}
 
 	/* Program with provided key and check key written */
@@ -128,9 +129,10 @@ u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey)
 
 	if ((StatusRead & XSK_ZYNQMP_BBRAM_STS_AES_CRC_PASS_MASK) !=
 				XSK_ZYNQMP_BBRAM_STS_AES_CRC_PASS_MASK) {
-		return (u32)XSK_ZYNQMP_BBRAMPS_ERROR_IN_CRC_CHECK;
+		Status = (u32)XSK_ZYNQMP_BBRAMPS_ERROR_IN_CRC_CHECK;
+		goto END;
 	}
-
+END:
 	return Status;
 
 }
@@ -206,6 +208,7 @@ static inline u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void)
 {
 
 	u32 StatusRead;
+	u32 Status = (u32)XST_SUCCESS;
 
 	/*
 	 * Always issue a zeroize command (since we may
@@ -235,10 +238,11 @@ static inline u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void)
 
 	if ((StatusRead & XSK_ZYNQMP_BBRAM_STS_PGM_MODE_MASK) !=
 				XSK_ZYNQMP_BBRAM_STS_PGM_MODE_MASK) {
-		return (u32)XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG_ENABLE;
+		Status = (u32)XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG_ENABLE;
+		goto END;
 	}
-
-	return (u32)XST_SUCCESS;
+END:
+	return Status;
 
 }
 
