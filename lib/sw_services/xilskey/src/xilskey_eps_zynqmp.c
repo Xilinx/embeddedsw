@@ -1033,9 +1033,9 @@ u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
 	u32 WriteValue;
 	u32 ReadValue;
 
-	WriteValue = ((EfuseType << XSK_ZYNQMP_EFUSEPS_RD_ADDR_SHIFT) &
+	WriteValue = ((EfuseType << (u8)XSK_ZYNQMP_EFUSEPS_RD_ADDR_SHIFT) &
 					XSK_ZYNQMP_EFUSEPS_RD_ADDR_MASK) |
-			((Row << XSK_ZYNQMP_EFUSEPS_RD_ADDR_ROW_SHIFT) &
+			((Row << (u8)XSK_ZYNQMP_EFUSEPS_RD_ADDR_ROW_SHIFT) &
 					XSK_ZYNQMP_EFUSEPS_RD_ADDR_ROW_MASK);
 	XilSKey_WriteReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 		XSK_ZYNQMP_EFUSEPS_RD_ADDR_OFFSET, WriteValue);
@@ -1085,9 +1085,9 @@ static inline u32 XilSKey_ZynqMp_EfusePs_WriteBit(u8 Row, u8 Column,
 	u32 WriteValue;
 	u32 ReadValue;
 
-	WriteValue = ((EfuseType << XSK_ZYNQMP_EFUSEPS_PGM_ADDR_SHIFT) &
+	WriteValue = ((EfuseType << (u8)XSK_ZYNQMP_EFUSEPS_PGM_ADDR_SHIFT) &
 					XSK_ZYNQMP_EFUSEPS_PGM_ADDR_MASK) |
-			((Row << XSK_ZYNQMP_EFUSEPS_PGM_ADDR_ROW_SHIFT) &
+			((Row << (u8)XSK_ZYNQMP_EFUSEPS_PGM_ADDR_ROW_SHIFT) &
 					XSK_ZYNQMP_EFUSEPS_PGM_ADDR_ROW_MASK) |
 			(Column & XSK_ZYNQMP_EFUSEPS_PGM_ADDR_COL_MASK);
 
@@ -1892,7 +1892,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPpk0Hash(u32 *Ppk0Hash, u8 ReadOption)
 	u32 DataRead;
 
 	if (ReadOption == 0U) {
-		for (RegNum = (XSK_ZYNQMP_EFUSEPS_PPK_HASH_REG_NUM - 1);
+		for (RegNum = (s32)(XSK_ZYNQMP_EFUSEPS_PPK_HASH_REG_NUM - 1U);
 		RegNum >= (s32)0; RegNum--) {
 			DataRead = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 				XSK_ZYNQMP_EFUSEPS_PPK0_0_OFFSET

@@ -155,15 +155,15 @@ extern "C" {
 
 /* Timer related macros */
 #define XilSKey_ZynqMp_EfusePs_Tprgrm(RefClk) \
-	XilSKey_Ceil(((float)5 * RefClk) / (float)1000000)
+	XilSKey_Ceil(((float)5.0 * RefClk) / (float)1000000.0)
 #define XilSKey_ZynqMp_EfusePs_Trd(RefClk) \
-	XilSKey_Ceil(((float)15 * RefClk) / (float)100000000)
+	XilSKey_Ceil(((float)15.0 * RefClk) / (float)100000000.0)
 #define XilSKey_ZynqMp_EfusePs_TsuHPs(RefClk) \
-	XilSKey_Ceil(((float)67 * RefClk) / (float)1000000000)
+	XilSKey_Ceil(((float)67.0 * RefClk) / (float)1000000000.0)
 #define XilSKey_ZynqMp_EfusePs_TsuHPsCs(RefClk) \
-	XilSKey_Ceil(((float)46 * RefClk) / (float)1000000000)
+	XilSKey_Ceil(((float)46.0 * RefClk) / (float)1000000000.0)
 #define XilSKey_ZynqMp_EfusePs_TsuHCs(RefClk) \
-	XilSKey_Ceil(((float)30 * RefClk) / (float)1000000000)
+	XilSKey_Ceil(((float)30.0 * RefClk) / (float)1000000000.0)
 
 #define XSK_ZYNQMP_SEC_PPK_INVLD_BITS_SET	(0x3U)
 			/**< If PPK invalid bits are set */
