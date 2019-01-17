@@ -524,7 +524,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits_Regs(
 		XilSKey_SecCtrlBits *ReadBackSecCtrlBits, u8 ReadOption)
 {
 
-	u32 RegData;
+	u32 RegData = 0U;
 	u32 Status = XST_SUCCESS;
 
 	if (ReadOption == 0U) {
@@ -957,7 +957,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_PrgrmTbits(void)
 u32 XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(u8 Row, u8 Column,
 						XskEfusePs_Type EfuseType)
 {
-	u32 RowData;
+	u32 RowData = 0U;
 	u32 Status;
 	u8 MarginRead = 0U;
 	u32 ReadReg;
@@ -1331,7 +1331,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_Write_SecCtrlBits(
 	XskEfusePs_Type EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
 	u32 Row;
 	u32 RowData;
-	u8 DataInBits[XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW];
+	u8 DataInBits[XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW] = {0};
 
 	Row = XSK_ZYNQMP_EFUSEPS_SEC_CTRL_ROW;
 
@@ -1588,7 +1588,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_Write_UsrCtrlBits(
 	u32 Status;
 	XskEfusePs_Type EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
 	u32 Row = XSK_ZYNQMP_EFUSEPS_MISC_USR_CTRL_ROW;
-	u8 DataInBits[XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW];
+	u8 DataInBits[XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW] = {0};
 	u32 RowData;
 
 	if ((InstancePtr->PrgrmgSecCtrlBits.UserWrLk0 != 0x00U) ||
@@ -2117,7 +2117,7 @@ u32 XilSKey_ZynqMp_EfusePs_CheckForZeros(u8 RowStart, u8 RowEnd,
 
 	u32 Status = XST_SUCCESS;
 	u8 Row;
-	u32 RowData;
+	u32 RowData = 0U;
 
 	for (Row = RowStart; Row <= RowEnd; Row++) {
 		Status = XilSKey_ZynqMp_EfusePs_ReadRow(Row, EfuseType,

@@ -1127,7 +1127,7 @@ u32 XilSKey_CrcCalculation(u8 *Key)
 {
 	u32 Crc = 0U;
 	u8 Key_8[8U];
-	u8 Key_Hex[4U];
+	u8 Key_Hex[4U] = {0};
 	u32 Index;
 	u8 MaxIndex = 8U;
 
