@@ -835,8 +835,8 @@ static inline u32 XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowRange(u8 *Data,
 
 	for (Row = RowStart; Row <= RowEnd; Row++) {
 		for (Column = 0U; Column < 32U; Column++) {
-			Bit = (Row - RowStart) * XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW;
-			Bit += Column;
+			Bit = (u32)((Row - RowStart) * (u8)XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW);
+			Bit = Bit + (u32)Column;
 			if (Data[Bit]) {
 				Status =
 				XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(Row,
@@ -1032,12 +1032,12 @@ u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
 {
 	u32 WriteValue;
 	u32 ReadValue;
-	u8 EfusePsType = EfuseType;
+	u32 EfusePsType = EfuseType;
 
-	WriteValue = ((EfusePsType << (u8)XSK_ZYNQMP_EFUSEPS_RD_ADDR_SHIFT) &
-					XSK_ZYNQMP_EFUSEPS_RD_ADDR_MASK) |
-			((Row << (u8)XSK_ZYNQMP_EFUSEPS_RD_ADDR_ROW_SHIFT) &
-					XSK_ZYNQMP_EFUSEPS_RD_ADDR_ROW_MASK);
+	WriteValue = ((EfusePsType << (u32)XSK_ZYNQMP_EFUSEPS_RD_ADDR_SHIFT) &
+					(u32)XSK_ZYNQMP_EFUSEPS_RD_ADDR_MASK) |
+			(((u32)Row << (u32)XSK_ZYNQMP_EFUSEPS_RD_ADDR_ROW_SHIFT) &
+					(u32)XSK_ZYNQMP_EFUSEPS_RD_ADDR_ROW_MASK);
 	XilSKey_WriteReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 		XSK_ZYNQMP_EFUSEPS_RD_ADDR_OFFSET, WriteValue);
 
@@ -1085,13 +1085,13 @@ static inline u32 XilSKey_ZynqMp_EfusePs_WriteBit(u8 Row, u8 Column,
 
 	u32 WriteValue;
 	u32 ReadValue;
-	u8 EfusePsType = EfuseType;
+	u32 EfusePsType = EfuseType;
 
-	WriteValue = ((EfusePsType << (u8)XSK_ZYNQMP_EFUSEPS_PGM_ADDR_SHIFT) &
-					XSK_ZYNQMP_EFUSEPS_PGM_ADDR_MASK) |
-			((Row << (u8)XSK_ZYNQMP_EFUSEPS_PGM_ADDR_ROW_SHIFT) &
-					XSK_ZYNQMP_EFUSEPS_PGM_ADDR_ROW_MASK) |
-			(Column & XSK_ZYNQMP_EFUSEPS_PGM_ADDR_COL_MASK);
+	WriteValue = ((EfusePsType << (u32)XSK_ZYNQMP_EFUSEPS_PGM_ADDR_SHIFT) &
+					(u32)XSK_ZYNQMP_EFUSEPS_PGM_ADDR_MASK) |
+			((Row << (u32)XSK_ZYNQMP_EFUSEPS_PGM_ADDR_ROW_SHIFT) &
+					(u32)XSK_ZYNQMP_EFUSEPS_PGM_ADDR_ROW_MASK) |
+			((u32)Column & (u32)XSK_ZYNQMP_EFUSEPS_PGM_ADDR_COL_MASK);
 
 	XilSKey_WriteReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 		XSK_ZYNQMP_EFUSEPS_PGM_ADDR_OFFSET, WriteValue);
@@ -1831,7 +1831,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadUserFuse(u32 *UseFusePtr, u8 UserFuse_Num,
 	if (ReadOption ==  0U) {
 		*UseFusePtr = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 				(XSK_ZYNQMP_EFUSEPS_USER_0_OFFSET
-				+ (UserFuse_Num * 4U)));
+				+ ((u32)UserFuse_Num * 4U)));
 	}
 	else {
 		/* Unlock the controller */

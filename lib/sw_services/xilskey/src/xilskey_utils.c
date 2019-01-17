@@ -1041,12 +1041,12 @@ u32 XilSKey_Timer_Intialise()
 		/**
 		 *  Extract PLL FDIV value from ARM PLL Control Register
 		 */
-	ArmPllFdiv = (Xil_In32(XSK_ARM_PLL_CTRL_REG) >> 12U & 0x7FU);
+	ArmPllFdiv = ((Xil_In32(XSK_ARM_PLL_CTRL_REG) >> 12U) & 0x7FU);
 
 		/**
 		 *  Extract Clock divisor value from ARM Clock Control Register
 		 */
-	ArmClkDivisor = (Xil_In32(XSK_ARM_CLK_CTRL_REG) >> 8U & 0x3FU);
+	ArmClkDivisor = ((Xil_In32(XSK_ARM_CLK_CTRL_REG) >> 8U) & 0x3FU);
 
 		/**
 		 * Initialize the variables
@@ -1195,12 +1195,12 @@ u32 XilSKey_CrcCalculation(u8 *Key)
 		XilSKey_Efuse_ConvertStringToHexBE((char *)Key_8, Key_Hex, 8U);
 #if defined (XSK_MICROBLAZE_ULTRA) || \
 	defined (XSK_ZYNQ_ULTRA_MP_PLATFORM)
-		Key_32 = (Key_Hex[0U] << 24U) | (Key_Hex[1U] << 16U) |
-				(Key_Hex[2U] << 8U) | (Key_Hex[3U]);
+		Key_32 = (((u32)Key_Hex[0U] << 24U) | ((u32)Key_Hex[1U] << 16U) |
+				((u32)Key_Hex[2U] << 8U) | ((u32)Key_Hex[3U]));
 #endif
 #ifdef	XSK_MICROBLAZE_ULTRA_PLUS
 	Key_32 = 0x00U;
-	Key_32 = (Key_Hex[0U] << 8U) | Key_Hex[1U];
+	Key_32 = ((u32)Key_Hex[0U] << 8U) | (u32)Key_Hex[1U];
 #endif
 #ifdef XSK_MICROBLAZE_PLATFORM
 		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, (u32)(Row + (u8)Index));
@@ -1370,18 +1370,18 @@ u32 XilSkey_CrcCalculation_AesKey(u8 *Key)
 #endif
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-		Index1 = ((7U - Index) * 4U);
+		Index1 = (((u32)7U - Index) * 4U);
 #endif
 
 #if defined XSK_MICROBLAZE_ULTRA || \
 	defined XSK_ZYNQ_ULTRA_MP_PLATFORM
-	Key_32 = (Key[Index1 + 3U] << 24U) | (Key[Index1 + 2U] << 16U) |
-			(Key[Index1 + 1U] << 8U) | (Key[Index1 + 0U]);
+	Key_32 = ((u32)Key[Index1 + 3U] << 24U) | ((u32)Key[Index1 + 2U] << 16U) |
+			((u32)Key[Index1 + 1U] << 8U) | ((u32)Key[Index1 + 0U]);
 #endif
 
 #ifdef XSK_MICROBLAZE_ULTRA_PLUS
 	Key_32 = 0x00U;
-	Key_32 = (Key[Index1 + 1U] << 8U) | Key[Index1];
+	Key_32 = ((u32)Key[Index1 + 1U] << 8U) | (u32)Key[Index1];
 #endif
 
 #ifdef XSK_MICROBLAZE_PLATFORM
