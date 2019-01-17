@@ -509,16 +509,20 @@ void XilSKey_Efuse_StartTimer(void)
 
 u64 XilSKey_Efuse_GetTime(void)
 {
-    volatile u64 t = 0U;
+    volatile u64 t;
 #ifdef XSK_ARM_PLATFORM
-	volatile u32 t_hi = 0U, t_lo = 0U;
+	volatile u32 t_hi, t_lo;
+	u32 TiHi;
+	u32 TiLo;
 
     do {
-			t_hi = Xil_In32(XSK_GLOBAL_TIMER_COUNT_REG_HIGH);
-			t_lo = Xil_In32(XSK_GLOBAL_TIMER_COUNT_REG_LOW);
-	}while(t_hi != Xil_In32(XSK_GLOBAL_TIMER_COUNT_REG_HIGH));
+		t_hi = Xil_In32(XSK_GLOBAL_TIMER_COUNT_REG_HIGH);
+		t_lo = Xil_In32(XSK_GLOBAL_TIMER_COUNT_REG_LOW);
+		TiHi = t_hi;
+		TiLo = t_lo;
+	}while(TiHi != Xil_In32(XSK_GLOBAL_TIMER_COUNT_REG_HIGH));
 
-	t = (((u64) t_hi) << 32U) | (u64) t_lo;
+	t = (((u64) TiHi) << 32U) | (u64) TiLo;
 
 #else
 		 t = XTmrCtr_GetValue(&XTmrCtrInst, XSK_TMRCTR_NUM);
