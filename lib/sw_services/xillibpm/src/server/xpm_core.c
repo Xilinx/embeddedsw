@@ -85,7 +85,9 @@ XStatus XPmCore_PwrDwn(XPm_Core *Core, u32 PwrDwnRegOffset)
 	XStatus Status = XST_FAILURE;
 	u32 PwrReq;
 
-	if(Core->Device.Node.State == XPM_DEVSTATE_PWR_OFF || Core->Device.Node.State == XPM_DEVSTATE_UNUSED) {
+	if ((Core->Device.Node.State == XPM_DEVSTATE_PWR_OFF) ||
+	    (Core->Device.Node.State == XPM_DEVSTATE_UNUSED)) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
