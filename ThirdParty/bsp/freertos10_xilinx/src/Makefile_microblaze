@@ -61,6 +61,7 @@ INCLUDEDIR = $(SYSTEMDIR)/include
 
 # Kernel library.
 LIBFREERTOS = ${LIBDIR}/libfreertos.a
+LIBXIL = ${LIBDIR}/libxil.a
 
 INCLUDEFILES =	${TOPDIR}/*.h
 
@@ -73,17 +74,31 @@ OUTS = *.o
 
 OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 
+STANDALONE_VERSION = $(wildcard ../../standalone_*)
 
 libs:	$(KERNEL_AR_OBJS)
+	$(MAKE) -f Makefile_depends -e "COMPILER_FLAGS=$(COMPILER_FLAGS)" "EXTRA_COMPILER_FLAGS=$(EXTRA_COMPILER_FLAGS)" -C ${STANDALONE_VERSION}/src libs
 	@echo "Compiling FreeRTOS"
 	@$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $^
 	@$(ARCHIVER) -r ${LIBFREERTOS} ${OUTS}
+	@$(ARCHIVER) -d ${LIBXIL} asm_vectors.o
+	@$(ARCHIVER) -s ${LIBXIL}
 
 	make clean
+
+
+
+
+include_standalone:
+	@echo "includes"
+	$(MAKE) -f Makefile_depends -e "COMPILER_FLAGS=$(COMPILER_FLAGS)" "EXTRA_COMPILER_FLAGS=$(EXTRA_COMPILER_FLAGS)" -C ${STANDALONE_VERSION}/src include
+	$(CP) -rf $(INCLUDEFILES) $(INCLUDEDIR)
+
 
 .PHONY: include
 include:
 	@echo "include"
+	$(MAKE) -f Makefile_depends -e "COMPILER_FLAGS=$(COMPILER_FLAGS)" "EXTRA_COMPILER_FLAGS=$(EXTRA_COMPILER_FLAGS)" -C ${STANDALONE_VERSION}/src include
 	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
