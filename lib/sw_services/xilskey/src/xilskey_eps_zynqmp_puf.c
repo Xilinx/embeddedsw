@@ -111,7 +111,8 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufHelprData(XilSKey_Puf *InstancePtr)
 
 	/* Check the unlock status */
 	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
-		return (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+		Status = (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+		goto END;
 	}
 
 	Status = XilSKey_ZynqMp_EfusePs_SetWriteConditions();
@@ -204,12 +205,13 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPufHelprData(u32 *Address)
 	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 	/* Check the unlock status */
 	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
-		return (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+		Status = (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+		goto END;
 	}
 	/* Init timer and AMS */
 	Status = XilSKey_ZynqMp_EfusePs_Init();
 	if (Status != (u32)XST_SUCCESS) {
-		return Status;
+		goto END;
 	}
 
 	for (Row = 0U; Row <= XSK_ZYNQMP_EFUSEPS_PUF_ROW_END; Row++) {
@@ -290,7 +292,8 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufChash(XilSKey_Puf *InstancePtr)
 	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 	/* Check the unlock status */
 	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
-		return (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+		Status = (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+		goto END;
 	}
 
 	Status = XilSKey_ZynqMp_EfusePs_SetWriteConditions();
@@ -303,7 +306,8 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufChash(XilSKey_Puf *InstancePtr)
 	if (XilSKey_ZynqMp_EfusePs_CheckForZeros(
 		XSK_ZYNQMP_EFUSEPS_PUF_CHASH_ROW,
 		XSK_ZYNQMP_EFUSEPS_PUF_CHASH_ROW, EfuseType) != (u32)XST_SUCCESS) {
-		return (u32)XST_FAILURE; /* Error code */
+		Status = (u32)XST_FAILURE; /* Error code */
+		goto END;
 	}
 
 	XilSKey_Efuse_ConvertBitsToBytes((u8 *)PufChash, Value,
@@ -360,12 +364,13 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPufChash(u32 *Address, u8 ReadOption)
 		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 		/* Check the unlock status */
 		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
-			return (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+			Status = (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+			goto END;
 		}
 		/* Init timer and AMS */
 		Status = XilSKey_ZynqMp_EfusePs_Init();
 		if (Status != (u32)XST_SUCCESS) {
-			return Status;
+			goto END;
 		}
 		Status = XilSKey_ZynqMp_EfusePs_ReadRow(
 			XSK_ZYNQMP_EFUSEPS_PUF_CHASH_ROW,
@@ -417,7 +422,8 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufAux(XilSKey_Puf *InstancePtr)
 
 	/* Check the unlock status */
 	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
-		return (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+		Status = (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+		goto END;
 	}
 
 	Status = XilSKey_ZynqMp_EfusePs_SetWriteConditions();
@@ -430,10 +436,12 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufAux(XilSKey_Puf *InstancePtr)
 	if (XilSKey_ZynqMp_EfusePs_ReadRow(
 		XSK_ZYNQMP_EFUSEPS_PUF_AUX_ROW, EfuseType, &RowDataVal)
 						!= (u32)XST_SUCCESS) {
-		return (u32)XST_FAILURE; /* Error code */
+		Status = (u32)XST_FAILURE; /* Error code */
+		goto END;
 	}
 	if ((RowDataVal & XSK_ZYNQMP_EFUSEPS_PUF_MISC_AUX_MASK) != 0x00U) {
-		return (u32)XST_FAILURE;
+		Status = (u32)XST_FAILURE;
+		goto END;
 	}
 
 	XilSKey_Efuse_ConvertBitsToBytes((u8 *)AuxValue, Value,
@@ -491,12 +499,13 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPufAux(u32 *Address, u8 ReadOption)
 		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 		/* Check the unlock status */
 		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
-			return (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+			Status = (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+			goto END;
 		}
 		/* Init timer and AMS */
 		Status = XilSKey_ZynqMp_EfusePs_Init();
 		if (Status != (u32)XST_SUCCESS) {
-			return Status;
+			goto END;
 		}
 		Status = XilSKey_ZynqMp_EfusePs_ReadRow(
 				XSK_ZYNQMP_EFUSEPS_PUF_AUX_ROW,
@@ -773,7 +782,8 @@ u32 XilSKey_Write_Puf_EfusePs_SecureBits(XilSKey_Puf_Secure *WriteSecureBits)
 
 		/* Check the unlock status */
 		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
-			return (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+			Status = (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+			goto END;
 		}
 
 		Status = XilSKey_ZynqMp_EfusePs_SetWriteConditions();
@@ -785,13 +795,14 @@ u32 XilSKey_Write_Puf_EfusePs_SecureBits(XilSKey_Puf_Secure *WriteSecureBits)
 		if (Status != (u32)XST_SUCCESS) {
 			xPuf_printf(Debug,
 				"API: Failed at reading secure bits\r\n");
-			return Status;
+			goto END;
 		}
 		XilSKey_Efuse_ConvertBitsToBytes((u8 *)&RowDataVal, DataInBits,
 			XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW);
 	}
 	else {
-		return (u32)XST_SUCCESS;
+		Status = (u32)XST_SUCCESS;
+		goto END;
 	}
 
 	if ((WriteSecureBits->SynInvalid != 0x00U) &&
@@ -875,7 +886,7 @@ u32 XilSKey_Read_Puf_EfusePs_SecureBits(
 		XilSKey_Puf_Secure *SecureBitsRead, u8 ReadOption)
 {
 
-	u32 Status;
+	u32 Status = XST_SUCCESS;
 
 	if (ReadOption == XSK_EFUSEPS_READ_FROM_CACHE) {
 		Status = XilSKey_Read_Puf_EfusePs_SecureBits_Regs(
@@ -886,17 +897,18 @@ u32 XilSKey_Read_Puf_EfusePs_SecureBits(
 		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 		/* Check the unlock status */
 		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
-			return (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+			Status = (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+			goto END;
 		}
 		Status = XilSKey_ZynqMp_EfusePs_Init();
 		if (Status != (u32)XST_SUCCESS) {
-			return Status;
+			goto END;
 		}
 		Status = XilSKey_Read_Puf_EfusePs_SecureBits_Regs(
 					SecureBitsRead,ReadOption);
 		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 	}
-
+END:
 	return Status;
 }
 
@@ -976,7 +988,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_PufRowWrite(u8 Row,
 {
 
 	u8 Column;
-	u32 Status;
+	u32 Status = XST_SUCCESS;
 
 	for (Column = 0U; Column < XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW;
 						Column++) {
@@ -984,12 +996,12 @@ static inline u32 XilSKey_ZynqMp_EfusePs_PufRowWrite(u8 Row,
 		Status = XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(Row,
 							Column, EfuseType);
 			if (Status != (u32)XST_SUCCESS) {
-				return Status;
+				goto END;
 			}
 		}
 	}
-
-	return (u32)XST_SUCCESS;
+END:
+	return Status;
 
 }
 
