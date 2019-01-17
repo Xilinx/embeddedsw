@@ -51,6 +51,10 @@
 #include "lwipopts.h"
 #include "lwip/debug.h"
 
+#ifdef __MICROBLAZE__
+#include "mb_interface.h"
+#endif
+
 /**
  * @defgroup lwip_opts Options (lwipopts.h)
  * @ingroup lwip
