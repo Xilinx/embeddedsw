@@ -432,6 +432,7 @@ END:
 ****************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks(void)
 {
+	u32 Status = (u32)XST_SUCCESS;
 	/**
 	 * Check the temperature and voltage(VCC_AUX and VCC_PINT_LP)
 	 */
@@ -678,7 +679,7 @@ u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
 	/**
 	 * Len has to be multiple of 2
 	 */
-	if ((Len == 0U) || (Len%2U == 1U)) {
+	if ((Len == 0U) || ((Len%2U) == 1U)) {
 		Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
 		goto END;
 	}
@@ -783,7 +784,7 @@ u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len)
 		/**
 		 * Len has to be multiple of 2
 		 */
-		if ((Len == 0U) || (Len % 2U == 1U)) {
+		if ((Len == 0U) || ((Len % 2U) == 1U)) {
 			Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
 			goto END;
 		}
@@ -1077,7 +1078,7 @@ END:
  * @note	None.
  *
  ****************************************************************************/
-u32 XilSKey_Timer_Intialise()
+u32 XilSKey_Timer_Intialise(void)
 {
 
 	u32 RefClk = 0U;
