@@ -1890,10 +1890,10 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPpk0Hash(u32 *Ppk0Hash, u8 ReadOption)
 	XskEfusePs_Type EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
 	s32 RegNum;
 	u32 DataRead;
+	s32 Reg = (s32)(XSK_ZYNQMP_EFUSEPS_PPK_HASH_REG_NUM - 1U);
 
 	if (ReadOption == 0U) {
-		for (RegNum = (s32)(XSK_ZYNQMP_EFUSEPS_PPK_HASH_REG_NUM - 1U);
-		RegNum >= (s32)0; RegNum--) {
+		for (RegNum = Reg; RegNum >= (s32)0; RegNum--) {
 			DataRead = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 				XSK_ZYNQMP_EFUSEPS_PPK0_0_OFFSET
 						+ ((u32)RegNum * 4U));
@@ -1964,11 +1964,10 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPpk1Hash(u32 *Ppk1Hash, u8 ReadOption)
 	XskEfusePs_Type EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
 	s32 RegNum;
 	u32 DataRead;
+	s32 Reg = (s32)(XSK_ZYNQMP_EFUSEPS_PPK_HASH_REG_NUM - 1U);
 
 	if (ReadOption == 0U) {
-		for (RegNum = (s32)(XSK_ZYNQMP_EFUSEPS_PPK_HASH_REG_NUM - 1U);
-			RegNum >= (s32)0;
-								RegNum--) {
+		for (RegNum = Reg; RegNum >= (s32)0; RegNum--) {
 			DataRead = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 					XSK_ZYNQMP_EFUSEPS_PPK1_0_OFFSET
 							+ ((u32)RegNum * 4U));
