@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -63,17 +63,26 @@ static XStatus XPmCore_Sleep(XPm_Core *Core)
 		 * Power down the core
 		 */
 		Status = XPmPsm_SendSleepReq(Core->SleepMask);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 	} else {
 		Status = XST_SUCCESS;
 		goto done;
 	}
 
 	if (NULL != Core->Device.Power) {
-		Core->Device.Power->Node.HandleEvent(&Core->Device.Power->Node, XPM_POWER_EVENT_PWR_DOWN);
+		Status = Core->Device.Power->Node.HandleEvent(&Core->Device.Power->Node, XPM_POWER_EVENT_PWR_DOWN);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 	}
 
 	if (NULL != Core->Device.ClkHandles) {
-		XPmClock_Release(Core->Device.ClkHandles);
+		Status = XPmClock_Release(Core->Device.ClkHandles);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 	}
 
 done:
