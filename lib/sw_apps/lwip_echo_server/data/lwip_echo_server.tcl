@@ -127,12 +127,9 @@ proc swapp_is_supported_hw {} {
      set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $proc]]
     if { $proc_type == "microblaze"} {
         # make sure there is a timer (if this is a MB)
-        set timerlist [hsi::get_cells -hier -filter { ip_name == "xps_timer" }];
+        set timerlist [hsi::get_cells -hier -filter { ip_name == "axi_timer" }];
         if { [llength $timerlist] <= 0 } {
-            set timerlist [hsi::get_cells -hier -filter { ip_name == "axi_timer" }];
-            if { [llength $timerlist] <= 0 } {
-                error "There seems to be no timer peripheral in the hardware. lwIP requires an xps_timer for TCP operations.";
-            }
+                error "There seems to be no timer peripheral in the hardware. lwIP requires an axi_timer for TCP operations.";
         }
     }
 
@@ -311,10 +308,7 @@ proc generate_timer_config { fp } {
     }
     set intc [lindex $intcs 0];
 
-    set timers [hsi::get_cells -hier -filter { ip_name == "xps_timer" }];
-    if { [llength $timers] == 0 } {
-        set timers [hsi::get_cells -hier -filter { ip_name == "axi_timer" }];
-    }
+    set timers [hsi::get_cells -hier -filter { ip_name == "axi_timer" }];
     set timer [lindex $timers 0];
 
     # baseaddr
