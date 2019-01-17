@@ -987,8 +987,8 @@ u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
      */
 	for(i = 0U; i < strlen(Key); i++) {
 		if(XilSKey_Efuse_IsValidChar(&Key[i]) != (u32)XST_SUCCESS) {
-			return (u32)(XSK_EFUSEPL_ERROR_KEY_VALIDATION +
-					XSK_EFUSEPL_ERROR_NOT_VALID_KEY_CHAR);
+			return ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION +
+					(u32)XSK_EFUSEPL_ERROR_NOT_VALID_KEY_CHAR);
 		}
 	}
     return (u32)XSK_EFUSEPL_ERROR_NONE;
