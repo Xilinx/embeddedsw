@@ -1,6 +1,10 @@
 #ifndef XDEBUG  /* prevent circular inclusions */
 #define XDEBUG  /* by using protection macros */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #if defined(DEBUG) && !defined(NDEBUG)
 
 #ifndef XDEBUG_WARNING
@@ -28,5 +32,9 @@ int printf(const char *format, ...);
 #define xdbg_printf(...)
 
 #endif /* defined(DEBUG) && !defined(NDEBUG) */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XDEBUG */
