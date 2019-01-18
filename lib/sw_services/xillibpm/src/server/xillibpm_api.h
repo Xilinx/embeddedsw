@@ -98,10 +98,8 @@ XStatus XPm_GetDeviceStatus(const u32 SubsystemId,
 			const u32 DeviceId,
 			XPm_DeviceStatus *const DeviceStatus);
 
-XStatus XPm_Query(const u32 Qid,
-			const u32 Arg1,
-			const u32 Arg2,
-			u32 *const Output);
+XStatus XPm_Query(const u32 Qid, const u32 Arg1, const u32 Arg2,
+		  const u32 Arg3, u32 *const Output);
 
 XStatus XPm_SetClockState(const u32 SubsystemId, const u32 ClockId, const u32 Enable);
 
