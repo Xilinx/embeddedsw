@@ -55,6 +55,10 @@
 #ifndef XIL_ERRATA_H
 #define XIL_ERRATA_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @name errata_definitions
  *
@@ -112,6 +116,10 @@
 
 /*@}*/
 #endif  /* ENABLE_ARM_ERRATA */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  /* XIL_ERRATA_H */
 /**

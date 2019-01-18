@@ -30,6 +30,10 @@
 #ifndef _PROFILE_CONFIG_H
 #define _PROFILE_CONFIG_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define BINSIZE 4U
 #define SAMPLE_FREQ_HZ 100000U
 #define TIMER_CLK_TICKS 1000U
@@ -40,5 +44,9 @@
 #define PROFILE_TIMER_INTR_ID 0U
 
 #define TIMER_CONNECT_INTC
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

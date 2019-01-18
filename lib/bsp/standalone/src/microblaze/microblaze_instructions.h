@@ -47,6 +47,10 @@
 #ifndef MICROBLAZE_INSTRUCTIONS_H /* prevent circular inclusions */
 #define MICROBLAZE_INSTRUCTIONS_H /* by using protection macros */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #if defined (__arch64__)
 #define ADDIK addlik
 #define ADDK addlk
@@ -95,6 +99,10 @@
 #define BLEI  blei
 #define BEQI  beqi
 #define BRI   bri
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif /* MICROBLAZE_INSTRUCTIONS_H */
