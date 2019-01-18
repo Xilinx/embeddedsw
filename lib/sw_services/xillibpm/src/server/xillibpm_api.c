@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -71,7 +71,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			/* addresses are word-aligned, ignore bit 0 */
 			Address = ((u64) Pload[2]) << 32ULL;
 			Address += Pload[1] & ~0x1U;
-			Status = XPm_RequestWakeUp(SubsystemId, Pload[0], SetAddress, Address);
+			Status = XPm_RequestWakeUp(SubsystemId, Pload[0],
+						   SetAddress, Address,
+						   Pload[3]);
 			break;
 		case PM_FORCE_POWERDOWN:
 			Status = XPm_ForcePowerdown(SubsystemId, Pload[0], Pload[1]);
@@ -505,6 +507,7 @@ done:
  * - 0 : do not set start address
  * - 1 : set start address
  * @param  Address	Address from which to resume when woken up.
+ * @param  Ack		Ack request
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -514,11 +517,14 @@ done:
  *
  ****************************************************************************/
 XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
-			const u32 SetAddress,
-			const u64 Address)
+			  const u32 SetAddress, const u64 Address,
+			  const u32 Ack)
 {
 	XStatus Status;
 	XPm_Core *Core;
+
+	/* Warning Fix */
+	(void) (Ack);
 
 	/*Validate acccess first */
 	Status = XPm_IsWakeAllowed(SubsystemId, DeviceId);

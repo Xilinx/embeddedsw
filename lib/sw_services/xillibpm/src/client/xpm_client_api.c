@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -1117,6 +1117,7 @@ done:
  * - 1 : set start address
  * @param  Address    Address from which to resume when woken up.
  * Will only be used if set_address is 1.
+ * @param  Ack		Requested acknowledge type
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -1125,7 +1126,7 @@ done:
  *
  ****************************************************************************/
 XStatus XPmClient_RequestWakeUp(const u32 TargetDevId, const bool SetAddress,
-				const u64 Address)
+				const u64 Address, const u32 Ack)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -1139,8 +1140,8 @@ XStatus XPmClient_RequestWakeUp(const u32 TargetDevId, const bool SetAddress,
 	/* encode set Address into 1st bit of address */
 	EncodedAddr = Address | !!SetAddress;
 
-	PACK_PAYLOAD3(Payload, PM_REQUEST_WAKEUP, TargetDevId, (u32)EncodedAddr,
-			(u32)(EncodedAddr >> 32));
+	PACK_PAYLOAD4(Payload, PM_REQUEST_WAKEUP, TargetDevId, (u32)EncodedAddr,
+			(u32)(EncodedAddr >> 32), Ack);
 
 	/* Send request to the target module */
 	Status = XPm_IpiSend(PrimaryProc, Payload);

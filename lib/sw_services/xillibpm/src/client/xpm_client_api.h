@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -68,7 +68,7 @@ XStatus XPmClient_GetPllMode(const u32 ClockId, u32 *const Value);
 XStatus XPmClient_SelfSuspend(const u32 DeviceId, const u32 Latency,
 			      const u8 State, const u64 Address);
 XStatus XPmClient_RequestWakeUp(const u32 TargetDevId, const bool SetAddress,
-				const u64 Address);
+				const u64 Address, const u32 Ack);
 void XPmClient_SuspendFinalize(void);
 XStatus XPmClient_RequestSuspend(const u32 TargetSubsystemId, const u32 Latency,
 				 const u32 State);
