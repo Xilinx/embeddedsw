@@ -90,11 +90,9 @@ XStatus XPm_RequestDevice(const u32 TargetSubsystemId,
 
 XStatus XPm_ReleaseDevice(const u32 SubsystemId, const u32 DeviceId);
 
-XStatus XPm_SetRequirement(const u32 SubsystemId,
-			const u32 DeviceId,
-			const u32 Capabilities,
-			const u32 Latency,
-			const u32 QoS);
+XStatus XPm_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
+			   const u32 Capabilities, const u32 QoS,
+			   const u32 Ack);
 
 XStatus XPm_GetDeviceStatus(const u32 SubsystemId,
 			const u32 DeviceId,

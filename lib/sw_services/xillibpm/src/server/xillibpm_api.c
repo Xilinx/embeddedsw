@@ -819,8 +819,8 @@ done:
  * @param SubsystemId	Subsystem ID.
  * @param DeviceId	ID of the device.
  * @param Capabilities	Capabilities required
- * @param Latency	Maximum time allowed in resuming full power, in msec
  * @param QoS		Quality of Service (0-100) required.
+ * @param Ack		Ack request
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -831,21 +831,21 @@ done:
  * controller, (e.g. WFI interrupt).
  *
  ****************************************************************************/
-XStatus XPm_SetRequirement(const u32 SubsystemId,
-			const u32 DeviceId,
-			const u32 Capabilities,
-			const u32 Latency,
-			const u32 QoS)
+XStatus XPm_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
+			   const u32 Capabilities, const u32 QoS, const u32 Ack)
 {
 	XStatus Status = XST_FAILURE;
+
+	/* Warning Fix */
+	(void) (Ack);
 
 	Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
 	if (XST_FAILURE == Status) {
 		goto done;
 	}
 
-	Status = XPmDevice_SetRequirement(SubsystemId,
-		DeviceId, Capabilities, Latency, QoS);
+	Status = XPmDevice_SetRequirement(SubsystemId, DeviceId,
+					  Capabilities, QoS);
 done:
 	return Status;
 }

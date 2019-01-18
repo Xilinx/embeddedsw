@@ -338,6 +338,9 @@ static XStatus Request(XPm_Device *Device,
 	u32 Status = XST_FAILURE;
 	XPm_Requirement *Reqm;
 
+	/* Warning Fix */
+	(void) (Latency);
+
 	if ((XPM_DEVSTATE_UNUSED != Device->Node.State) &&
 		(XPM_DEVSTATE_RUNNING != Device->Node.State)) {
 			Status = XST_DEVICE_BUSY;
@@ -361,16 +364,15 @@ static XStatus Request(XPm_Device *Device,
 	/* Allocated device for the subsystem */
 	Reqm->Allocated = 1;
 
-	Status = Device->DeviceOps->SetRequirement(Device,
-		Subsystem, Capabilities, Latency, QoS);
+	Status = Device->DeviceOps->SetRequirement(Device, Subsystem,
+						   Capabilities, QoS);
 
 done:
 	return Status;
 }
 
-static XStatus SetRequirement(XPm_Device *Device,
-		XPm_Subsystem *Subsystem,
-		u32 Capabilities, const u32 Latency, const u32 QoS)
+static XStatus SetRequirement(XPm_Device *Device, XPm_Subsystem *Subsystem,
+			      u32 Capabilities, const u32 QoS)
 {
 	u32 Status = XST_FAILURE;
 
@@ -386,7 +388,6 @@ static XStatus SetRequirement(XPm_Device *Device,
 	}
 
 	Device->PendingReqm->Next.Capabilities = Capabilities;
-	Device->PendingReqm->Next.Latency = Latency;
 	Device->PendingReqm->Next.QoS = QoS;
 
 	if (0U != Capabilities) {
@@ -441,8 +442,8 @@ static XStatus Release(XPm_Device *Device,
 
 	Device->WfDealloc = 1;
 
-	Status = Device->DeviceOps->SetRequirement(Device,
-		Subsystem, 0, XPM_DEF_LATENCY, XPM_DEF_QOS);
+	Status = Device->DeviceOps->SetRequirement(Device, Subsystem, 0,
+						   XPM_DEF_QOS);
 
 done:
 	return Status;
@@ -718,11 +719,8 @@ done:
 	return Status;
 }
 
-XStatus XPmDevice_SetRequirement(const u32 SubsystemId,
-			const u32 DeviceId,
-			const u32 Capabilities,
-			const u32 Latency,
-			const u32 QoS)
+XStatus XPmDevice_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
+				 const u32 Capabilities, const u32 QoS)
 {
 	u32 Status = XST_FAILURE;
 	XPm_Device *Device;
@@ -752,7 +750,8 @@ XStatus XPmDevice_SetRequirement(const u32 SubsystemId,
 	}
 	Subsystem = &PmSubsystems[SubsystemId];
 
-	Status = Device->DeviceOps->SetRequirement(Device, Subsystem, Capabilities, Latency, QoS);
+	Status = Device->DeviceOps->SetRequirement(Device, Subsystem,
+						   Capabilities, QoS);
 
 done:
 	return Status;
