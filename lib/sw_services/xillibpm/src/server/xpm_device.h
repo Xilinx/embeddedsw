@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -133,7 +133,7 @@ struct XPm_DeviceOps {
 
 	XStatus (*SetRequirement)(XPm_Device *Device,
 		XPm_Subsystem *Subsystem,
-		u32 Capabilities, const u32 Latency, const u32 QoS);
+		u32 Capabilities, const u32 QoS);
 		/**< SetRequirement: Set the device requirement */
 
 	XStatus (*Release)(XPm_Device *Device,
@@ -202,11 +202,8 @@ XStatus XPmDevice_Request(const u32 TargetSubsystemId,
 
 XStatus XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId);
 
-XStatus XPmDevice_SetRequirement(const u32 SubsystemId,
-			const u32 DeviceId,
-			const u32 Capabilities,
-			const u32 Latency,
-			const u32 QoS);
+XStatus XPmDevice_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
+				 const u32 Capabilities, const u32 QoS);
 
 XStatus XPmDevice_GetStatus(const u32 SubsystemId,
 			const u32 DeviceId,

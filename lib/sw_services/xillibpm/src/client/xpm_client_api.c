@@ -200,8 +200,8 @@ done:
  *				- PM_CAP_ACCESS  : full access / functionality
  *				- PM_CAP_CONTEXT : preserve context
  *				- PM_CAP_WAKEUP  : emit wake interrupts
- * @param  Latency		Maximum wake-up latency in us
  * @param  QoS			Quality of Service (0-100) required
+ * @param  Ack			Requested acknowledge type
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -210,12 +210,12 @@ done:
  *
  ****************************************************************************/
 XStatus XPmClient_SetRequirement(const u32 DeviceId, const u32 Capabilities,
-				 const u32 Latency, const u32 QoS)
+				 const u32 QoS, const u32 Ack)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD4(Payload, PM_SET_REQUIREMENT, DeviceId, Capabilities, Latency, QoS);
+	PACK_PAYLOAD4(Payload, PM_SET_REQUIREMENT, DeviceId, Capabilities, QoS, Ack);
 
 	/* Send request to the target module */
 	Status = XPm_IpiSend(PrimaryProc, Payload);
