@@ -339,15 +339,11 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 	return Status;
 }
 
-static XStatus Request(XPm_Device *Device,
-		XPm_Subsystem *Subsystem,
-		u32 Capabilities, const u32 Latency, const u32 QoS)
+static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
+		       u32 Capabilities, const u32 QoS)
 {
 	u32 Status = XST_FAILURE;
 	XPm_Requirement *Reqm;
-
-	/* Warning Fix */
-	(void) (Latency);
 
 	if ((XPM_DEVSTATE_UNUSED != Device->Node.State) &&
 		(XPM_DEVSTATE_RUNNING != Device->Node.State)) {
@@ -656,7 +652,6 @@ done:
 XStatus XPmDevice_Request(const u32 TargetSubsystemId,
 			const u32 DeviceId,
 			const u32 Capabilities,
-			const u32 Latency,
 			const u32 QoS)
 {
 	u32 Status = XST_FAILURE;
@@ -687,7 +682,8 @@ XStatus XPmDevice_Request(const u32 TargetSubsystemId,
 	}
 	Subsystem = &PmSubsystems[TargetSubsystemId];
 
-	Status = Device->DeviceOps->Request(Device, Subsystem, Capabilities, Latency, QoS);
+	Status = Device->DeviceOps->Request(Device, Subsystem, Capabilities,
+					    QoS);
 
 done:
 	return Status;

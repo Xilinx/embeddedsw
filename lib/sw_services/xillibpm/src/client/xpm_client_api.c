@@ -121,14 +121,13 @@ done:
 /**
  * @brief  This function is used to request the device
  *
- * @param  TargetSubsystemId	Targeted Id of subsystem
  * @param  DeviceId		Device which needs to be requested
  * @param  Capabilities		Device Capabilities, can be combined
  *				- PM_CAP_ACCESS  : full access / functionality
  *				- PM_CAP_CONTEXT : preserve context
  *				- PM_CAP_WAKEUP  : emit wake interrupts
- * @param  Latency		Maximum wake-up latency in us
  * @param  QoS			Quality of Service (0-100) required
+ * @param  Ack			Requested acknowledge type
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -136,15 +135,14 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_RequestDevice(const u32 TargetSubsystemId, const u32 DeviceId,
-				const u32 Capabilities, const u32 Latency,
-				const u32 QoS)
+XStatus XPmClient_RequestDevice(const u32 DeviceId, const u32 Capabilities,
+				const u32 QoS, const u32 Ack)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD5(Payload, PM_REQUEST_DEVICE, TargetSubsystemId, DeviceId,
-		      Capabilities, Latency, QoS);
+	PACK_PAYLOAD4(Payload, PM_REQUEST_DEVICE, DeviceId, Capabilities,
+		      QoS, Ack);
 
 	/* Send request to the target module */
 	Status = XPm_IpiSend(PrimaryProc, Payload);
