@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -68,7 +68,8 @@ XStatus XPm_DestroySubsystem(u32 SubsystemId);
 
 XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 			const u32 SetAddress,
-			const u64 Address);
+			const u64 Address,
+			const u32 Ack);
 
 XStatus XPm_ForcePowerdown(u32 SubsystemId,
                              const u32 NodeId,

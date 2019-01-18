@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -317,7 +317,7 @@ int XLoader_StartSubSystemPdi(XilPdi *PdiPtr)
 				XLoader_Printf(DEBUG_INFO,
 				    " Request APU wakeup\r\n");
 				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC,
-					XPM_DEVID_ACPU_0, 1, HandoffAddr);
+					XPM_DEVID_ACPU_0, 1, HandoffAddr, 0);
                         }break;
                         case XIH_PH_ATTRB_DSTN_CPU_R5_0:
 			{
@@ -327,7 +327,7 @@ int XLoader_StartSubSystemPdi(XilPdi *PdiPtr)
 					     IOCTL_SET_RPU_OPER_MODE,
 					     XPM_RPU_MODE_SPLIT, 0, 0);
 				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0, 1,
-							   HandoffAddr);
+							   HandoffAddr, 0);
 			}break;
                         case XIH_PH_ATTRB_DSTN_CPU_R5_1:
 			{
@@ -337,7 +337,7 @@ int XLoader_StartSubSystemPdi(XilPdi *PdiPtr)
 					     IOCTL_SET_RPU_OPER_MODE,
 					     XPM_RPU_MODE_SPLIT, 0, 0);
 				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC, XPM_DEVID_R50_1, 1,
-							   HandoffAddr);
+							   HandoffAddr, 0);
 			}break;
                         case XIH_PH_ATTRB_DSTN_CPU_R5_L:
 			{
@@ -347,7 +347,7 @@ int XLoader_StartSubSystemPdi(XilPdi *PdiPtr)
 					     IOCTL_SET_RPU_OPER_MODE,
 					     XPM_RPU_MODE_LOCKSTEP, 0, 0);
 				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0, 1,
-							   HandoffAddr);
+							   HandoffAddr, 0);
 			}break;
                         default:
                         {
