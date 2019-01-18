@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 -2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -220,6 +220,9 @@ extern "C" {
 #define XILPDI_ERR_ZERO_LENGTH		(0x4U)
 #define XILPDI_ERR_TOTAL_LENGTH		(0x5U)
 #define XILPDI_ERR_PRTN_TYPE		(0x6U)
+
+#define SMAP_BUS_WIDTH_WORD1		(0xDD000000U)
+#define SMAP_BUS_WIDTH_LENGTH		(16U)
 
 /**************************** Type Definitions *******************************/
 

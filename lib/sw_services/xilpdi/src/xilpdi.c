@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -361,18 +361,51 @@ XStatus XilPdi_ReadBootHdr(XilPdi_MetaHdr * MetaHdrPtr)
 XStatus XilPdi_ReadAndValidateImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
 {
 	XStatus Status;
+	u32 SmapBusWidthCheck[4];
 	/**
 	 * Read the Img header table of 64 bytes
 	 * and update the image header table structure
 	 */
 	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
-		    MetaHdrPtr->BootHdr.BootHdrFwRsvd.MetaHdrOfst,
-		    (u64 )(UINTPTR) &(MetaHdrPtr->ImgHdrTable),
-		    XIH_IHT_LEN, 0x0U);
+			MetaHdrPtr->BootHdr.BootHdrFwRsvd.MetaHdrOfst,
+			(u64 )(UINTPTR) &(SmapBusWidthCheck),
+			SMAP_BUS_WIDTH_LENGTH, 0x0U);
+
 	if (XST_SUCCESS != Status)
 	{
 		XilPdi_Printf("Device Copy Failed \n\r");
 		goto END;
+	}
+
+	if (SMAP_BUS_WIDTH_WORD1 == SmapBusWidthCheck[0U]) {
+
+		Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
+			    MetaHdrPtr->BootHdr.BootHdrFwRsvd.MetaHdrOfst +
+				SMAP_BUS_WIDTH_LENGTH,
+			    (u64 )(UINTPTR) &(MetaHdrPtr->ImgHdrTable),
+			    XIH_IHT_LEN, 0x0U);
+		if (XST_SUCCESS != Status)
+		{
+			XilPdi_Printf("Device Copy Failed \n\r");
+			goto END;
+		}
+
+	} else {
+
+		memcpy((u8 *)&(MetaHdrPtr->ImgHdrTable), SmapBusWidthCheck,
+				SMAP_BUS_WIDTH_LENGTH);
+
+		Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
+			    MetaHdrPtr->BootHdr.BootHdrFwRsvd.MetaHdrOfst +
+				SMAP_BUS_WIDTH_LENGTH,
+			    (u64 )(UINTPTR) &(MetaHdrPtr->ImgHdrTable) +
+				SMAP_BUS_WIDTH_LENGTH,
+			    (XIH_IHT_LEN - SMAP_BUS_WIDTH_LENGTH), 0x0U);
+		if (XST_SUCCESS != Status)
+		{
+			XilPdi_Printf("Device Copy Failed \n\r");
+			goto END;
+		}
 	}
 
 	/**
