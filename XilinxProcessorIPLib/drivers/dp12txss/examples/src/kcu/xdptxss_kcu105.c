@@ -3227,6 +3227,8 @@ void Dprx_InterruptHandlerUplug(void *InstancePtr)
 
 void Dprx_InterruptHandlerPwr(void *InstancePtr)
 {
+// This is handeled in drivers. Disabling from application
+#if 0
 #if !COMPLIANCE
 	u32 rdata;
 	rdata = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
@@ -3237,6 +3239,7 @@ void Dprx_InterruptHandlerPwr(void *InstancePtr)
 		XDpRxSs_Dp159Config(DpRxSsInst.IicPtr, XDPRXSS_DP159_CT_UNPLUG,
 				DpRxSsInst.UsrOpt.LinkRate, DpRxSsInst.UsrOpt.LaneCount);
 	}
+#endif
 #endif
 }
 
