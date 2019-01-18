@@ -126,9 +126,8 @@ typedef struct XPm_DeviceStatus XPm_DeviceStatus;
 
 /* Device Operations */
 struct XPm_DeviceOps {
-	XStatus (*Request)(XPm_Device *Device,
-		XPm_Subsystem *Subsystem,
-		u32 Capabilities, const u32 Latency, const u32 QoS);
+	XStatus (*Request)(XPm_Device *Device, XPm_Subsystem *Subsystem,
+			   u32 Capabilities, const u32 QoS);
 		/**< Request: Request the device */
 
 	XStatus (*SetRequirement)(XPm_Device *Device,
@@ -194,11 +193,8 @@ XPm_Device *XPmDevice_GetById(const u32 DeviceId);
 
 XStatus XPm_CheckCapabilities(XPm_Device *Device, XPm_Subsystem *Subsystem, u32 Capabilities);
 
-XStatus XPmDevice_Request(const u32 TargetSubsystemId,
-			const u32 DeviceId,
-			const u32 Capabilities,
-			const u32 Latency,
-			const u32 QoS);
+XStatus XPmDevice_Request(const u32 TargetSubsystemId, const u32 DeviceId,
+			  const u32 Capabilities, const u32 QoS);
 
 XStatus XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId);
 
