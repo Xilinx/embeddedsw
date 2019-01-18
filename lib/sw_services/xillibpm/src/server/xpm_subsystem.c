@@ -83,6 +83,7 @@ XPm_Subsystem PmSubsystems[XPM_SUBSYSID_MAX] =
  * Global SubsystemId which is set and is valid during XPm_CreateSubsystem()
  */
 u32 ReservedSubsystemId = INVALID_SUBSYSID;
+static u32 CurrentSubsystemId = INVALID_SUBSYSID;
 
 u32 XPmSubsystem_GetIPIMask(u32 SubsystemId)
 {
@@ -97,16 +98,6 @@ u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask)
 {
 	u32 SubSysId;
 
-	/*
-	 * Note: This is temporary hack till PLMI is not passing
-	 * SubSystemID to LibPM in command. This will be removed
-	 * when subsystem ID is passed.
-	 */
-	if (0 == IpiMask) {
-		SubSysId = XPM_SUBSYSID_PMC;
-		goto done;
-	}
-
 	for (SubSysId = 0; SubSysId < XPM_SUBSYSID_MAX; SubSysId++)
 	{
 		if (PmSubsystems[SubSysId].IpiMask == IpiMask) {
@@ -114,7 +105,10 @@ u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask)
 		}
 	}
 
-done:
+	if(SubSysId == XPM_SUBSYSID_MAX) {
+		SubSysId = INVALID_SUBSYSID;
+	}
+
 	return SubSysId;
 }
 
@@ -330,6 +324,27 @@ XStatus XPmSubsystem_SetState(const u32 SubsystemId, const u32 State)
 	PmSubsystems[SubsystemId].State = State;
 	ReservedSubsystemId = INVALID_SUBSYSID;
 	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+u32 XPmSubsystem_GetCurrent(void)
+{
+	return CurrentSubsystemId;
+}
+
+
+XStatus XPmSubsystem_SetCurrent(u32 SubsystemId)
+{
+	XStatus Status = XST_SUCCESS;
+
+	if (SubsystemId >= XPM_SUBSYSID_MAX) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	CurrentSubsystemId = SubsystemId;
 
 done:
 	return Status;

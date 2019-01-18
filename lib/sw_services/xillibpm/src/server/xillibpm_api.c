@@ -54,13 +54,26 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 {
 	u32 ApiResponse[XPLMI_CMD_RESP_SIZE-1] = {0, 0, 0};
 	u32 Status = XST_SUCCESS;
-	u32 SubsystemId = XPmSubsystem_GetSubSysIdByIpiMask(Cmd->IpiMask);
+	u32 SubsystemId = INVALID_SUBSYSID;
 	u32 *Pload = Cmd->Payload;
 	u32 Len = Cmd->Len;
 	u32 SetAddress;
 	u64 Address;
 
 	PmInfo("Processing Cmd %x\n\r", Cmd->CmdId);
+
+	if((Cmd->CmdId & 0xFF) != PM_SET_CURRENT_SUBSYSTEM) {
+		if(Cmd->IpiMask == 0) {
+			SubsystemId = XPmSubsystem_GetCurrent();
+		} else {
+			SubsystemId = XPmSubsystem_GetSubSysIdByIpiMask(Cmd->IpiMask);
+		}
+		if(SubsystemId == INVALID_SUBSYSID) {
+			Status = XST_FAILURE;
+			goto done;
+		}
+	}
+
 	switch (Cmd->CmdId & 0xFF) {
 		case PM_GET_API_VERSION:
 			Status = XPm_GetApiVersion(ApiResponse);
@@ -192,6 +205,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		case PM_ADD_REQUIREMENT:
 			Status = XPm_AddRequirement(Pload[0], Pload[1]);
 			break;
+		case PM_SET_CURRENT_SUBSYSTEM:
+			Status = XPm_SetCurrentSubsystem(Pload[0]);
+			break;
 		default:
 			Status = XST_INVALID_PARAM;
 			break;
@@ -205,7 +221,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		Cmd->ResumeHandler = NULL;
 	/*else
 		TBD*/
-
+done:
 	return Status;
 }
 
@@ -309,6 +325,27 @@ XStatus XPm_CreateSubsystem(void (*const NotifyCb)(u32 SubsystemId,
 	XStatus Status;
 
 	Status = XPmSubsystem_Create(NotifyCb, SubsystemId);
+
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function allows to set current subsystem id.
+ *
+ * @param  SubsystemId	Address to store the new subsystem ID
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   none
+ *
+ ****************************************************************************/
+XStatus XPm_SetCurrentSubsystem(u32 SubsystemId)
+{
+	XStatus Status;
+
+	Status = XPmSubsystem_SetCurrent(SubsystemId);
 
 	return Status;
 }
