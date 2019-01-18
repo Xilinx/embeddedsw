@@ -62,6 +62,7 @@
 #include <xvphy.h>
 #include <xvphy_dp.h>
 #include <xvphy_hw.h>
+#include <xil_cache.h>
 
 #include "xvidframe_crc.h"
 
@@ -461,6 +462,9 @@ int VideoFMC_Init(void){
 int main()
 {
 	u32 Status;
+        Xil_ICacheEnable();
+        Xil_DCacheEnable();
+
 
 	xil_printf("------------------------------------------\n\r");
 	xil_printf("DisplayPort RX Only Example\n\r");
