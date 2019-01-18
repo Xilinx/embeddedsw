@@ -631,6 +631,51 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  This function performs driver-like IOCTL functions on shared system
+ * devices.
+ *
+ * @param DeviceId              ID of the device
+ * @param IoctlId               IOCTL function ID
+ * @param Arg1                  Argument 1
+ * @param Arg2                  Argument 2
+ * @param Response              Ioctl response
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmClient_DevIoctl(const u32 DeviceId, const u32 IoctlId,
+			   const u32 Arg1, const u32 Arg2, u32 *const Response)
+{
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	if (NULL == Response) {
+		XPm_Dbg("ERROR: Passing NULL pointer to %s\r\n", __func__);
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	PACK_PAYLOAD4(Payload, PM_IOCTL, DeviceId, IoctlId, Arg1, Arg2);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, Response, NULL, NULL);
+
+done:
+
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function is used to enable the specified clock
  *
  * @param  ClockId		Clock ID

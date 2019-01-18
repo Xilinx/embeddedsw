@@ -49,6 +49,8 @@ XStatus XPmClient_SetPinFunction(const u32 PinId, const u32 FunctionId);
 XStatus XPmClient_GetPinFunction(const u32 PinId, u32 *const FunctionId);
 XStatus XPmClient_SetPinParameter(const u32 PinId, const u32 ParamId, const u32 ParamVal);
 XStatus XPmClient_GetPinParameter(const u32 PinId, const u32 ParamId, u32 *const ParamVal);
+XStatus XPmClient_DevIoctl(const u32 DeviceId, const u32 IoctlId,
+			   const u32 Arg1, const u32 Arg2, u32 *const Response);
 XStatus XPmClient_ClockEnable(const u32 ClockId);
 XStatus XPmClient_ClockDisable(const u32 ClockId);
 XStatus XPmClient_GetClockState(const u32 ClockId, u32 *const State);
