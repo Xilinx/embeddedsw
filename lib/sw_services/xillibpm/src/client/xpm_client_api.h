@@ -77,5 +77,6 @@ XStatus XPmClient_ForcePowerDown(const u32 TargetDevId, const u32 Ack);
 XStatus XPmClient_SystemShutdown(const u32 Type, const u32 SubType);
 XStatus XPmClient_SetWakeupSource(const u32 TargetSubsystemId,
 				  const u32 DeviceId, const u32 Enable);
-
+XStatus XPmClient_Query(const u32 QueryId, const u32 Arg1, const u32 Arg2,
+			const u32 Arg3, u32 *const Data);
 #endif /* _XPM_CLIENT_API_H_ */
