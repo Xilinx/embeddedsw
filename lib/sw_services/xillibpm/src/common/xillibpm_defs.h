@@ -197,6 +197,10 @@ enum XPm_PllConfigParams {
 #define XPM_RPU_BOOTMEM_LOVEC	(0U)
 #define XPM_RPU_BOOTMEM_HIVEC	(1U)
 
+/* RPU TCM mode */
+#define XPM_RPU_TCM_SPLIT	0U
+#define XPM_RPU_TCM_COMB	1U
+
 /* PM API ids */
 #define PM_GET_API_VERSION              1U
 #define PM_SET_CONFIGURATION            2U
