@@ -142,7 +142,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			Status = XPm_GetPllMode(Pload[0], ApiResponse);
 			break;
 		case PM_REQUEST_DEVICE:
-			Status = XPm_RequestDevice(Pload[0], Pload[1], Pload[2], Pload[3], Pload[4]);
+			Status = XPm_RequestDevice(SubsystemId, Pload[0],
+						   Pload[1], Pload[2],
+						   Pload[3]);
 			break;
 		case PM_RELEASE_DEVICE:
 			Status = XPm_ReleaseDevice(SubsystemId, Pload[0]);
@@ -797,10 +799,10 @@ done:
  * accessing this device until it is released.
  *
  * @param TargetSubsystemId	Target subsystem ID (can be the same subsystem)
- * @param Device			ID of the device
+ * @param Device		ID of the device
  * @param Capabilities		Capability requirements (1-hot)
- * @param Latency			Maximum time allowed in resuming full power, in msec
- * @param QoS				Quality of Service (0-100) required
+ * @param QoS			Quality of Service (0-100) required
+ * @param Ack			Ack request
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -808,16 +810,16 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_RequestDevice(const u32 TargetSubsystemId,
-			const u32 DeviceId,
-			const u32 Capabilities,
-			const u32 Latency,
-			const u32 QoS)
+XStatus XPm_RequestDevice(const u32 TargetSubsystemId, const u32 DeviceId,
+			  const u32 Capabilities, const u32 QoS, const u32 Ack)
 {
 	XStatus Status;
 
+	/* Warning Fix */
+	(void) (Ack);
+
 	Status = XPmDevice_Request(TargetSubsystemId, DeviceId, Capabilities,
-				   Latency, QoS);
+				   QoS);
 
 	return Status;
 }
