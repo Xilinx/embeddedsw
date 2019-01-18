@@ -1712,6 +1712,13 @@ XStatus XPm_DevIoctl(const u32 DeviceId,
 	XStatus Status = XST_FAILURE;
 
 	switch (IoctlId) {
+	case IOCTL_GET_RPU_OPER_MODE:
+		if ((DeviceId != XPM_DEVID_R50_0) &&
+		    (DeviceId != XPM_DEVID_R50_1)) {
+			goto done;
+		}
+		XPm_RpuGetOperMode(DeviceId, Response);
+		break;
 	case IOCTL_SET_RPU_OPER_MODE:
 		if ((DeviceId != XPM_DEVID_R50_0) &&
 		    (DeviceId != XPM_DEVID_R50_1)) {
@@ -1725,6 +1732,13 @@ XStatus XPm_DevIoctl(const u32 DeviceId,
 			goto done;
 		}
 		Status = XPm_RpuBootAddrConfig(DeviceId, Arg1);
+		break;
+	case IOCTL_TCM_COMB_CONFIG:
+		if ((XPM_DEVID_R50_0 != DeviceId) &&
+		    (XPM_DEVID_R50_1 != DeviceId)) {
+			goto done;
+		}
+		Status = XPm_RpuTcmCombConfig(DeviceId, Arg1);
 		break;
 	case IOCTL_WRITE_GGS:
 		if (Arg1 >= GGS_NUM_REGS) {

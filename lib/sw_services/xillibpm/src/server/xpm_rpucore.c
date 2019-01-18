@@ -127,6 +127,21 @@ done:
 	return Status;
 }
 
+void XPm_RpuGetOperMode(const u32 DeviceId, u32 *Mode)
+{
+	u32 Val;
+	XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
+
+	PmIn32(RpuCore->Core.Device.Node.BaseAddress + RPU_GLBL_CNTL_OFFSET,
+	       Val);
+	Val &= XPM_RPU_SLSPLIT_MASK;
+	if (0 == Val) {
+		*Mode = XPM_RPU_MODE_LOCKSTEP;
+	} else {
+		*Mode = XPM_RPU_MODE_SPLIT;
+	}
+}
+
 void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 {
 	u32 Val;
@@ -164,6 +179,26 @@ XStatus XPm_RpuBootAddrConfig(const u32 DeviceId, const u32 BootAddr)
 			XPM_RPU_VINITHI_MASK);
 	} else {
 		Status = XST_FAILURE;
+	}
+
+	return Status;
+}
+
+XStatus XPm_RpuTcmCombConfig(const u32 DeviceId, const u32 Config)
+{
+	XStatus Status = XST_SUCCESS;
+	u32 Address;
+	XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
+
+	Address = RpuCore->Core.Device.Node.BaseAddress + RPU_GLBL_CNTL_OFFSET;
+	if (Config == XPM_RPU_TCM_SPLIT) {
+		PmRmw32(Address, XPM_RPU_TCM_COMB_MASK,
+			~XPM_RPU_TCM_COMB_MASK);
+	} else if (Config == XPM_RPU_TCM_COMB) {
+		PmRmw32(Address, XPM_RPU_TCM_COMB_MASK,
+			XPM_RPU_TCM_COMB_MASK);
+	} else {
+		Status = XST_INVALID_PARAM;
 	}
 
 	return Status;
