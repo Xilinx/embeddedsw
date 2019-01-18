@@ -1192,6 +1192,7 @@ void XPmClient_SuspendFinalize(void)
  * @brief  This function is used by a CPU to request suspend to another CPU.
  *
  * @param  TargetSubsystemId	Subsystem ID of the target
+ * @param  Ack			Requested acknowledge type
  * @param  Latency		Maximum wake-up latency requirement in us(microsecs)
  * @param  State		Power State
  *
@@ -1201,13 +1202,13 @@ void XPmClient_SuspendFinalize(void)
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_RequestSuspend(const u32 TargetSubsystemId, const u32 Latency,
-				 const u32 State)
+XStatus XPmClient_RequestSuspend(const u32 TargetSubsystemId, const u32 Ack,
+				 const u32 Latency, const u32 State)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD3(Payload, PM_REQUEST_SUSPEND, TargetSubsystemId, Latency, State);
+	PACK_PAYLOAD4(Payload, PM_REQUEST_SUSPEND, TargetSubsystemId, Ack, Latency, State);
 
 	/* Send request to the target module */
 	Status = XPm_IpiSend(PrimaryProc, Payload);
