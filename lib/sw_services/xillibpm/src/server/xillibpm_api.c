@@ -141,7 +141,8 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			Status = XPm_GetDeviceStatus(SubsystemId, Pload[0], (XPm_DeviceStatus *)ApiResponse);
 			break;
 		case PM_QUERY_DATA:
-			Status = XPm_Query(Pload[0], Pload[1], Pload[2], ApiResponse);
+			Status = XPm_Query(Pload[0], Pload[1], Pload[2],
+					   Pload[3], ApiResponse);
 			break;
 		case PM_RESET_ASSERT:
 			Status = XPm_SetResetState(SubsystemId, Pload[0], Pload[1]);
@@ -905,18 +906,20 @@ XStatus XPm_GetDeviceStatus(const u32 SubsystemId,
  * @param Qid		The type of data to query
  * @param Arg1		Query argument 1
  * @param Arg2		Query argument 2
+ * @param Arg3		Query argument 3
  * @param Output	Pointer to the output data
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
  ****************************************************************************/
-XStatus XPm_Query(const u32 Qid,
-			const u32 Arg1,
-			const u32 Arg2,
-			u32 *const Output)
+XStatus XPm_Query(const u32 Qid, const u32 Arg1, const u32 Arg2,
+		  const u32 Arg3, u32 *const Output)
 {
 	u32 Status = XST_SUCCESS;
+
+	/* Warning Fix */
+	(void) (Arg3);
 
 	switch (Qid) {
 		case XPM_QID_CLOCK_GET_NAME:
