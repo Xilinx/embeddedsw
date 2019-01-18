@@ -1380,3 +1380,46 @@ XStatus XPmClient_SetWakeupSource(const u32 TargetSubsystemId, const u32 DeviceI
 done:
 	return Status;
 }
+
+/****************************************************************************/
+/**
+ * @brief  This function queries information about the platform resources.
+ *
+ * @param Qid		The type of data to query
+ * @param Arg1		Query argument 1
+ * @param Arg2		Query argument 2
+ * @param Arg3		Query argument 3
+ * @param Data		Pointer to the output data
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ ****************************************************************************/
+
+XStatus XPmClient_Query(const u32 QueryId, const u32 Arg1, const u32 Arg2,
+			const u32 Arg3, u32 *const Data)
+{
+
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	if (NULL == Data) {
+		XPm_Dbg("ERROR: Passing NULL pointer to %s\r\n", __func__);
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	PACK_PAYLOAD4(Payload, PM_QUERY_DATA, QueryId, Arg1, Arg2, Arg3);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, Data, NULL, NULL);
+
+done:
+	return Status;
+}
