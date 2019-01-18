@@ -48,10 +48,18 @@
 #ifndef XIL_HAL_H
 #define XIL_HAL_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "xil_cache.h"
 #include "xil_io.h"
 #include "xil_assert.h"
 #include "xil_exception.h"
 #include "xil_types.h"
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

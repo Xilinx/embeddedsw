@@ -56,8 +56,17 @@
 ******************************************************************************/
 #ifndef XPSEUDO_ASM_H
 #define XPSEUDO_ASM_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "xreg_cortexa53.h"
 #include "xpseudo_asm_gcc.h"
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XPSEUDO_ASM_H */
 /**

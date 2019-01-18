@@ -48,6 +48,10 @@
 #ifndef XBASIC_TYPES_H	/* prevent circular inclusions */
 #define XBASIC_TYPES_H	/* by using protection macros */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /** @name Legacy types
  * Deprecated legacy types.
  * @{
@@ -111,5 +115,8 @@ typedef Xuint8          u8;
 #warning  The xbasics_type.h file is deprecated and users should use xil_types.h and xil_assert.
 #warning  Please refer the Standalone BSP UG647 for further details
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif	/* end of protection macro */
