@@ -1108,7 +1108,7 @@ static inline void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 
 	/* If only dummy is requested as a separate entry */
 	if (((Msg->Flags & XQSPIPSU_MSG_FLAG_TX) == FALSE) &&
-			(Msg->Flags & XQSPIPSU_MSG_FLAG_RX) == FALSE) {
+			((Msg->Flags & XQSPIPSU_MSG_FLAG_RX) == FALSE)) {
 		*GenFifoEntry |= XQSPIPSU_GENFIFO_DATA_XFER;
 		*GenFifoEntry &= ~(XQSPIPSU_GENFIFO_TX | XQSPIPSU_GENFIFO_RX);
 		InstancePtr->TxBytes = 0;
