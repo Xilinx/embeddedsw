@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -48,6 +48,8 @@
 * 1.7	tjs	03/14/18 Added support in EL1 NS mode.
 * 2.0	tjs	04/17/18 Updated register addresses as per the latest revision
 * 					 of versal (CR#999610)
+* 1.10  aru 01/17/19 Fixed the violations for  MISRAC-2012
+*                  in safety mode .Done changes such as added U suffix
 *
 * </pre>
 *
