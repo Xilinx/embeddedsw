@@ -1586,11 +1586,11 @@ void XQspiPsu_PollData(XQspiPsu *QspiPsuPtr, XQspiPsu_Msg *FlashMsg)
 	GenFifoEntry |= QspiPsuPtr->GenFifoBus;
 	GenFifoEntry |= QspiPsuPtr->GenFifoCS;
 	GenFifoEntry |= (u32)XQSPIPSU_GENFIFO_MODE_SPI;
-	if (((FlashMsg->Flags) & XQSPIPSU_MSG_FLAG_STRIPE) != FALSE)
+	if (((FlashMsg->Flags) & XQSPIPSU_MSG_FLAG_STRIPE) != FALSE) {
 		GenFifoEntry |= XQSPIPSU_GENFIFO_STRIPE;
-	else
+	} else {
 		GenFifoEntry &= ~XQSPIPSU_GENFIFO_STRIPE;
-
+	}
 	XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress,
 		XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
 
@@ -1638,12 +1638,14 @@ static inline u32 XQspiPsu_Create_PollConfigData(XQspiPsu *QspiPsuPtr,
 {
 	u32 ConfigData = 0;
 
-	if (QspiPsuPtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_UPPER)
+	if (QspiPsuPtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_UPPER) {
 		ConfigData = XQSPIPSU_SELECT_FLASH_BUS_LOWER <<
 				XQSPIPSU_POLL_CFG_EN_MASK_UPPER_SHIFT;
-	if (QspiPsuPtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_LOWER)
+}
+	if (QspiPsuPtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_LOWER) {
 		ConfigData |= XQSPIPSU_SELECT_FLASH_BUS_LOWER <<
 				XQSPIPSU_POLL_CFG_EN_MASK_LOWER_SHIFT;
+}
 	ConfigData |= ((FlashMsg->PollBusMask <<
 			XQSPIPSU_POLL_CFG_MASK_EN_SHIFT)
 			& XQSPIPSU_POLL_CFG_MASK_EN_MASK);
