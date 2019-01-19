@@ -606,7 +606,7 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		return (s32)XST_DEVICE_BUSY;
 	}
 
-	if (Msg[0].Flags & XQSPIPSU_MSG_FLAG_POLL) {
+	if ((Msg[0].Flags & XQSPIPSU_MSG_FLAG_POLL) != FALSE) {
 		InstancePtr->IsBusy = TRUE;
 		XQspiPsu_PollData(InstancePtr, Msg);
 	} else {
@@ -901,7 +901,7 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 		}
 	}
 	if ((TxRxFlag & XQSPIPSU_MSG_FLAG_POLL) != FALSE) {
-		if (QspiPsuStatusReg & XQSPIPSU_ISR_RXNEMPTY_MASK) {
+		if ((QspiPsuStatusReg & XQSPIPSU_ISR_RXNEMPTY_MASK) != FALSE) {
 			/*
 			 * Read data from RXFIFO, since when data from the
 			 * flash device (status data) matched with configured
@@ -926,7 +926,7 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 			XQspiPsu_Disable(InstancePtr);
 
 		}
-		if (QspiPsuStatusReg & XQSPIPSU_ISR_POLL_TIME_EXPIRE_MASK) {
+		if ((QspiPsuStatusReg & XQSPIPSU_ISR_POLL_TIME_EXPIRE_MASK) != FALSE) {
 			InstancePtr->StatusHandler(InstancePtr->StatusRef,
 					XST_FLASH_TIMEOUT_ERROR, 0);
 		}
@@ -1640,11 +1640,11 @@ static inline u32 XQspiPsu_Create_PollConfigData(XQspiPsu *QspiPsuPtr,
 {
 	u32 ConfigData = 0;
 
-	if (QspiPsuPtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_UPPER) {
+	if ((QspiPsuPtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_UPPER) != FALSE) {
 		ConfigData = XQSPIPSU_SELECT_FLASH_BUS_LOWER <<
 				XQSPIPSU_POLL_CFG_EN_MASK_UPPER_SHIFT;
-}
-	if (QspiPsuPtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_LOWER) {
+	}
+	if ((QspiPsuPtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_LOWER) != FALSE) {
 		ConfigData |= XQSPIPSU_SELECT_FLASH_BUS_LOWER <<
 				XQSPIPSU_POLL_CFG_EN_MASK_LOWER_SHIFT;
 	}

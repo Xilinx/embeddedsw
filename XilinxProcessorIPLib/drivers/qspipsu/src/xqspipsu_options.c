@@ -159,7 +159,7 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 		 * depending on whether the bit is set in the incoming options flag.
 		 */
 		for (Index = 0U; Index < XQSPIPSU_NUM_OPTIONS; Index++) {
-			if ((Options & OptionsTable[Index].Option) != FALSE) {
+			if ((Options & OptionsTable[Index].Option) != OptionsTable[Index].Option) {
 				/* Turn it on */
 				ConfigReg |= OptionsTable[Index].Mask;
 			} else {
@@ -179,8 +179,8 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 			InstancePtr->IsManualstart = TRUE;
 		}
 
-		if (QspiPsuOptions & XQSPIPSU_LQSPI_MODE_OPTION) {
-			if (Options & XQSPIPSU_LQSPI_LESS_THEN_SIXTEENMB) {
+		if ((QspiPsuOptions & XQSPIPSU_LQSPI_MODE_OPTION) != FALSE) {
+			if ((Options & XQSPIPSU_LQSPI_LESS_THEN_SIXTEENMB) != FALSE) {
 				XQspiPsu_WriteReg(XQSPIPS_BASEADDR,XQSPIPSU_LQSPI_CR_OFFSET,XQSPIPS_LQSPI_CR_RST_STATE);
 			} else {
 				XQspiPsu_WriteReg(XQSPIPS_BASEADDR,XQSPIPSU_LQSPI_CR_OFFSET,XQSPIPS_LQSPI_CR_4_BYTE_STATE);
