@@ -1265,7 +1265,7 @@ static inline void XQspiPsu_Setup64BRxDma(XQspiPsu *InstancePtr,
 {
 	s32 Remainder;
 	s32 DmaRxBytes;
-	u32 AddrTemp;
+	u64 AddrTemp;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	AddrTemp = Msg->RxAddr64bit & XQSPIPSU_QSPIDMA_DST_ADDR_MASK;
