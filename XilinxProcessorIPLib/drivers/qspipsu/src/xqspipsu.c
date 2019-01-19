@@ -488,18 +488,19 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 			} else {
 				if ((Msg[Index].Flags &
 					XQSPIPSU_MSG_FLAG_RX) != FALSE) {
-					/*
-					 * Check if PIO RX is complete and
-					 * update RxBytes
-					 */
-					RxThr = (s32)XQspiPsu_ReadReg(
-						BaseAddress,
-						XQSPIPSU_RX_THRESHOLD_OFFSET);
 					if ((QspiPsuStatusReg &
 						XQSPIPSU_ISR_RXNEMPTY_MASK)
 						!= 0U) {
+						/*
+						 * Check if PIO RX is complete and
+						 * update RxBytes
+						 */
+						RxThr = (s32)XQspiPsu_ReadReg(
+						        BaseAddress,
+						        XQSPIPSU_RX_THRESHOLD_OFFSET);
+						RxThr = RxThr*4;
 						XQspiPsu_ReadRxFifo(InstancePtr,
-							&Msg[Index], RxThr*4);
+							&Msg[Index], RxThr);
 
 					} else {
 						if ((QspiPsuStatusReg &
@@ -783,9 +784,10 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 					RxThr =
 					(s32)XQspiPsu_ReadReg(BaseAddress,
 						XQSPIPSU_RX_THRESHOLD_OFFSET);
+					RxThr = RxThr*4;
 					XQspiPsu_ReadRxFifo(InstancePtr,
 						&Msg[MsgCnt],
-						RxThr*4);
+						RxThr);
 				} else {
 					if (((QspiPsuStatusReg &
 						XQSPIPSU_ISR_GENFIFOEMPTY_MASK)
