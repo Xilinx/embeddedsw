@@ -83,7 +83,7 @@
 /************************** Function Prototypes ******************************/
 
 #if defined (ARMR5) || (__aarch64__)
-s32 XQspi_Set_TapDelay(XQspiPsu * InstancePtr,u32 TapdelayBypass,
+static s32 XQspi_Set_TapDelay(XQspiPsu * InstancePtr,u32 TapdelayBypass,
 						u32 LPBKDelay,u32 Datadelay);
 static s32 XQspipsu_Calculate_Tapdelay(XQspiPsu *InstancePtr, u8 Prescaler);
 #endif
@@ -338,7 +338,7 @@ u32 XQspiPsu_GetOptions(XQspiPsu *InstancePtr)
 * This function is not thread-safe.
 *
 ******************************************************************************/
-s32 XQspi_Set_TapDelay(XQspiPsu * InstancePtr,u32 TapdelayBypass,
+static s32 XQspi_Set_TapDelay(XQspiPsu * InstancePtr,u32 TapdelayBypass,
 						u32 LPBKDelay,u32 Datadelay)
 {
 	s32 Status;
