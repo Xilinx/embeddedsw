@@ -1645,11 +1645,11 @@ static inline u32 XQspiPsu_Create_PollConfigData(XQspiPsu *QspiPsuPtr,
 	if (QspiPsuPtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_LOWER) {
 		ConfigData |= XQSPIPSU_SELECT_FLASH_BUS_LOWER <<
 				XQSPIPSU_POLL_CFG_EN_MASK_LOWER_SHIFT;
-}
-	ConfigData |= ((FlashMsg->PollBusMask <<
+	}
+	ConfigData |= (u32)(((u32)FlashMsg->PollBusMask <<
 			XQSPIPSU_POLL_CFG_MASK_EN_SHIFT)
 			& XQSPIPSU_POLL_CFG_MASK_EN_MASK);
-	ConfigData |= ((FlashMsg->PollData <<
+	ConfigData |= (u32)(((u32)FlashMsg->PollData <<
 			XQSPIPSU_POLL_CFG_DATA_VALUE_SHIFT)
 			& XQSPIPSU_POLL_CFG_DATA_VALUE_MASK);
 	return ConfigData;
