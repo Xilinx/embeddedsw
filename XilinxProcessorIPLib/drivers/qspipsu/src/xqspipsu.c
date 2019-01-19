@@ -380,6 +380,7 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	u32 BaseAddress;
 	s32 RxThr;
 	u32 IOPending = (u32)FALSE;
+	s32 Status;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -392,7 +393,8 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	 * Not thread-safe
 	 */
 	if (InstancePtr->IsBusy == TRUE) {
-		return (s32)XST_DEVICE_BUSY;
+		Status = (s32)XST_DEVICE_BUSY;
+		goto END;
 	}
 
 	/* Check for ByteCount upper limit - 2^28 for DMA */
@@ -400,7 +402,8 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		if ((Msg[Index].ByteCount > XQSPIPSU_DMA_BYTES_MAX) &&
 				((Msg[Index].Flags &
 					XQSPIPSU_MSG_FLAG_RX) != FALSE)) {
-			return (s32)XST_FAILURE;
+			Status = (s32)XST_FAILURE;
+			goto END;
 		}
 	}
 
@@ -563,7 +566,10 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	/* Disable the device. */
 	XQspiPsu_Disable(InstancePtr);
 
-	return XST_SUCCESS;
+	Status = XST_SUCCESS;
+
+	END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -591,6 +597,7 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 
 	s32 Index;
 	u32 BaseAddress;
+	s32 Status;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -603,7 +610,8 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	 * Not thread-safe
 	 */
 	if (InstancePtr->IsBusy == TRUE) {
-		return (s32)XST_DEVICE_BUSY;
+		Status = (s32)XST_DEVICE_BUSY;
+		goto END;
 	}
 
 	if ((Msg[0].Flags & XQSPIPSU_MSG_FLAG_POLL) != FALSE) {
@@ -615,7 +623,8 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 			if ((Msg[Index].ByteCount > XQSPIPSU_DMA_BYTES_MAX) &&
 				((Msg[Index].Flags &
 					XQSPIPSU_MSG_FLAG_RX) != FALSE)) {
-				return (s32)XST_FAILURE;
+				Status = (s32)XST_FAILURE;
+				goto END;
 			}
 		}
 
@@ -663,7 +672,10 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 				XQSPIPSU_QSPIDMA_DST_I_EN_DONE_MASK);
 	}
 	}
-	return XST_SUCCESS;
+	Status = XST_SUCCESS;
+
+	END:
+	return Status;
 }
 
 /*****************************************************************************/
