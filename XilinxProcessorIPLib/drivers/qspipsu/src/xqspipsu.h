@@ -187,7 +187,7 @@ extern "C" {
  *		transferred.  This may be less than the number of bytes
  *		requested if the status event indicates an error.
  */
-typedef void (*XQspiPsu_StatusHandler) (void *CallBackRef, u32 StatusEvent,
+typedef void (*XQspiPsu_StatusHandler) (const void *CallBackRef, u32 StatusEvent,
 					u32 ByteCount);
 
 /**
@@ -359,7 +359,7 @@ typedef struct {
 
 /* Initialization and reset */
 XQspiPsu_Config *XQspiPsu_LookupConfig(u16 DeviceId);
-s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr, XQspiPsu_Config *ConfigPtr,
+s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr, const XQspiPsu_Config *ConfigPtr,
 				u32 EffectiveAddr);
 void XQspiPsu_Reset(XQspiPsu *InstancePtr);
 void XQspiPsu_Abort(XQspiPsu *InstancePtr);
@@ -374,14 +374,14 @@ void XQspiPsu_SetStatusHandler(XQspiPsu *InstancePtr, void *CallBackRef,
 				XQspiPsu_StatusHandler FuncPointer);
 
 /* Configuration functions */
-s32 XQspiPsu_SetClkPrescaler(XQspiPsu *InstancePtr, u8 Prescaler);
+s32 XQspiPsu_SetClkPrescaler(const XQspiPsu *InstancePtr, u8 Prescaler);
 void XQspiPsu_SelectFlash(XQspiPsu *InstancePtr, u8 FlashCS, u8 FlashBus);
 s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options);
 s32 XQspiPsu_ClearOptions(XQspiPsu *InstancePtr, u32 Options);
-u32 XQspiPsu_GetOptions(XQspiPsu *InstancePtr);
+u32 XQspiPsu_GetOptions(const XQspiPsu *InstancePtr);
 s32 XQspiPsu_SetReadMode(XQspiPsu *InstancePtr, u32 Mode);
-void XQspiPsu_SetWP(XQspiPsu *InstancePtr, u8 Value);
-void XQspiPsu_WriteProtectToggle(XQspiPsu *InstancePtr, u32 Toggle);
+void XQspiPsu_SetWP(const XQspiPsu *InstancePtr, u8 Value);
+void XQspiPsu_WriteProtectToggle(const XQspiPsu *InstancePtr, u32 Toggle);
 
 #ifdef __cplusplus
 }
