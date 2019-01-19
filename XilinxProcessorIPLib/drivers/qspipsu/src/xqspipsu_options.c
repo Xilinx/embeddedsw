@@ -395,7 +395,7 @@ static s32 XQspipsu_Calculate_Tapdelay(XQspiPsu *InstancePtr, u8 Prescaler)
 	u32 FreqDiv, Divider, Tapdelay, LBkModeReg, delayReg;
 	s32 Status;
 
-	Divider = (1 << (Prescaler+1));
+	Divider = (1U << (Prescaler+1));
 
 	FreqDiv = (InstancePtr->Config.InputClockHz)/Divider;
 #if EL1_NONSECURE && defined (__aarch64__) && !defined (versal)
