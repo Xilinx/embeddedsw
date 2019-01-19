@@ -166,6 +166,7 @@ extern "C" {
 #include "xstatus.h"
 #include "xqspipsu_hw.h"
 #include "xil_cache.h"
+#include "xil_mem.h"
 
 /**************************** Type Definitions *******************************/
 /**
