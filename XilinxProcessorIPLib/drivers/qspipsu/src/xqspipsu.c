@@ -906,7 +906,7 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 			 * value in poll_cfg, then controller writes the
 			 * matched data into RXFIFO.
 			 */
-			XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
+			(void)XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
 				XQSPIPSU_RXD_OFFSET);
 
 			XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_IDR_OFFSET,
