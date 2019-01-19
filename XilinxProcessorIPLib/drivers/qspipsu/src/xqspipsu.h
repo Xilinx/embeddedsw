@@ -341,7 +341,7 @@ typedef struct {
 
 #define XQspiPsu_Select(InstancePtr, Mask)	\
 	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + \
-			XQSPIPSU_SEL_OFFSET, Mask)
+			XQSPIPSU_SEL_OFFSET, (Mask))
 
 #define XQspiPsu_Enable(InstancePtr)	\
 	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + \
