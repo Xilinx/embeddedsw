@@ -1685,12 +1685,11 @@ void XQspiPsu_WriteProtectToggle(XQspiPsu *QspiPsuPtr, u32 Toggle)
 		XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress,
 			XQSPIPSU_GPIO_OFFSET, Toggle);
 
-	} else if ((QspiPsuPtr->Config.ConnectionMode ==
-			XQSPIPSU_CONNECTION_MODE_PARALLEL) ||
-			(QspiPsuPtr->Config.ConnectionMode ==
-					XQSPIPSU_CONNECTION_MODE_STACKED)) {
+	} else {
+#ifdef DEBUG
 		xil_printf("Dual Parallel/Stacked configuration ");
 		xil_printf("is not supported by this API\r\n");
+#endif
 	}
 }
 /** @} */
