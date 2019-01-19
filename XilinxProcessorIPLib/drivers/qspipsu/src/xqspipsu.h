@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014-2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -149,7 +149,11 @@
  *                  transfer length up to 255 for reducing the extra loop.
  * 2.0 tjs 11/22/17 Added the check for A72 and R5 processors (CR-987075)
  * 2.0 tjs 04/17/18 Updated register addresses as per the latest revision
- *		    of zynq3 (CR#999610)
+ *		    of versal (CR#999610)
+ * 1.10  aru 01/17/19 Fixed the violations for  MISRAC-2012
+ *                  in safety mode .Done changes such as added U suffix,
+ *                  Declared pointer param as const.
+ *
  * </pre>
  *
  ******************************************************************************/
