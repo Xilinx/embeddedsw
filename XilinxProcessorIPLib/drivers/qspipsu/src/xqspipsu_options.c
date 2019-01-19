@@ -667,7 +667,7 @@ void XQspiPsu_SetWP(XQspiPsu *InstancePtr, u8 Value)
 
 	ConfigReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
 			XQSPIPSU_CFG_OFFSET);
-	ConfigReg |= Value << XQSPIPSU_CFG_WP_HOLD_SHIFT;
+	ConfigReg |= (u32)((u32)Value << XQSPIPSU_CFG_WP_HOLD_SHIFT);
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
 					 ConfigReg);
 }
