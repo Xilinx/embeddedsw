@@ -1233,7 +1233,7 @@ static inline void XQspiPsu_SetupRxDma(XQspiPsu *InstancePtr,
 		DmaRxBytes = InstancePtr->RxBytes - Remainder;
 		Msg->ByteCount = (u32)DmaRxBytes;
 	}
-	if (InstancePtr->Config.IsCacheCoherent == 0) {
+	if (InstancePtr->Config.IsCacheCoherent == 0U) {
 		Xil_DCacheInvalidateRange((INTPTR)Msg->RxBfrPtr,
 			Msg->ByteCount);
 	}
