@@ -412,10 +412,10 @@ static s32 XQspipsu_Calculate_Tapdelay(XQspiPsu *InstancePtr, u8 Prescaler)
 	LBkModeReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
 			XQSPIPSU_LPBK_DLY_ADJ_OFFSET);
 
-	LBkModeReg = (LBkModeReg &
+	LBkModeReg = ((LBkModeReg &
 			(~(XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_MASK))) &
 			(LBkModeReg & (~(XQSPIPSU_LPBK_DLY_ADJ_DLY1_MASK))) &
-			(LBkModeReg & (~(XQSPIPSU_LPBK_DLY_ADJ_DLY0_MASK)));
+			(LBkModeReg & (~(XQSPIPSU_LPBK_DLY_ADJ_DLY0_MASK))));
 
 	delayReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
 			XQSPIPSU_DATA_DLY_ADJ_OFFSET);
