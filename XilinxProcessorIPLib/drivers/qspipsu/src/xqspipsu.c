@@ -1207,11 +1207,11 @@ static inline void XQspiPsu_SetupRxDma(XQspiPsu *InstancePtr,
 {
 	s32 Remainder;
 	s32 DmaRxBytes;
-	u64 AddrTemp;
+	UINTPTR AddrTemp;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	AddrTemp = (u64)((INTPTR)(Msg->RxBfrPtr) &
+	AddrTemp = ((UINTPTR)(Msg->RxBfrPtr) &
 				XQSPIPSU_QSPIDMA_DST_ADDR_MASK);
 	/* Check for RXBfrPtr to be word aligned */
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
@@ -1219,7 +1219,7 @@ static inline void XQspiPsu_SetupRxDma(XQspiPsu *InstancePtr,
 			(u32)AddrTemp);
 
 #if defined(__aarch64__) || defined(__arch64__)
-	AddrTemp = (u64)((INTPTR)(Msg->RxBfrPtr) >> 32);
+	AddrTemp = ((UINTPTR)(Msg->RxBfrPtr) >> 32U);
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 			XQSPIPSU_QSPIDMA_DST_ADDR_MSB_OFFSET,
 			(u32)AddrTemp &
