@@ -1671,18 +1671,18 @@ static inline u32 XQspiPsu_Create_PollConfigData(XQspiPsu *QspiPsuPtr,
  *		will enable the protection.
  *
  ******************************************************************************/
-void XQspiPsu_WriteProtectToggle(XQspiPsu *QspiPsuPtr, u32 Toggle)
+void XQspiPsu_WriteProtectToggle(XQspiPsu *InstancePtr, u32 Toggle)
 {
 	/* For Single and Stacked flash configuration with x1 or x2 mode*/
-	if (QspiPsuPtr->Config.ConnectionMode ==
+	if (InstancePtr->Config.ConnectionMode ==
 		XQSPIPSU_CONNECTION_MODE_SINGLE) {
 		/* Enable */
-		XQspiPsu_Enable(QspiPsuPtr);
+		XQspiPsu_Enable(InstancePtr);
 
 		/* Select slave */
-		XQspiPsu_GenFifoEntryCSAssert(QspiPsuPtr);
+		XQspiPsu_GenFifoEntryCSAssert(InstancePtr);
 
-		XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress,
+		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 			XQSPIPSU_GPIO_OFFSET, Toggle);
 
 	} else {
