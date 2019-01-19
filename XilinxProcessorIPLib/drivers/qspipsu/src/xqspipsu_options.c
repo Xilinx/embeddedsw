@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -53,6 +53,10 @@
 * 1.8  tjs 07/26/18 Resolved cppcheck errors. (CR#1006336)
 * 2.0	tjs	04/17/18 Updated register addresses as per the latest revision
 * 					 of versal (CR#999610)
+* 1.10  aru 01/17/19 Fixes violations according to MISRAC-2012
+*                  in safety mode and modified the code such as
+*                  Added Xil_MemCpy inplace of memcpy,Declared the pointer param
+*                  as Pointer to const, declared XQspi_Set_TapDelay() as static.
 *
 * </pre>
 *
