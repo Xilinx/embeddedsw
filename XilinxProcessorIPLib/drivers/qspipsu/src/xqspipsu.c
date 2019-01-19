@@ -1550,7 +1550,7 @@ static inline void XQspiPsu_ReadRxFifo(XQspiPsu *InstancePtr,
  * @note	None.
  *
  ******************************************************************************/
-void XQspiPsu_PollData(XQspiPsu *QspiPsuPtr, XQspiPsu_Msg *FlashMsg)
+static inline void XQspiPsu_PollData(XQspiPsu *QspiPsuPtr, XQspiPsu_Msg *FlashMsg)
 {
 
 	u32 GenFifoEntry;
