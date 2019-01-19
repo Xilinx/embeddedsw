@@ -89,26 +89,26 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
+static void StubStatusHandler(const void *CallBackRef, u32 StatusEvent,
 			u32 ByteCount);
 static inline u32 XQspiPsu_SelectSpiMode(u8 SpiMode);
 static inline void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 			u32 *GenFifoEntry);
 static inline void XQspiPsu_FillTxFifo(XQspiPsu *InstancePtr,
 			XQspiPsu_Msg *Msg, s32 Size);
-static inline void XQspiPsu_SetupRxDma(XQspiPsu *InstancePtr,
+static inline void XQspiPsu_SetupRxDma(const XQspiPsu *InstancePtr,
 			XQspiPsu_Msg *Msg);
-static inline void XQspiPsu_GenFifoEntryCSAssert(XQspiPsu *InstancePtr);
+static inline void XQspiPsu_GenFifoEntryCSAssert(const XQspiPsu *InstancePtr);
 static inline void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr,
 			XQspiPsu_Msg *Msg, s32 Index);
-static inline void XQspiPsu_GenFifoEntryCSDeAssert(XQspiPsu *InstancePtr);
+static inline void XQspiPsu_GenFifoEntryCSDeAssert(const XQspiPsu *InstancePtr);
 static inline void XQspiPsu_ReadRxFifo(XQspiPsu *InstancePtr,
 			XQspiPsu_Msg *Msg, s32 Size);
 static inline void XQspiPsu_PollData(XQspiPsu *QspiPsuPtr,
 		XQspiPsu_Msg *FlashMsg);
-static inline u32 XQspiPsu_Create_PollConfigData(XQspiPsu *QspiPsuPtr,
-		XQspiPsu_Msg *FlashMsg);
-static inline void XQspiPsu_Setup64BRxDma(XQspiPsu *InstancePtr,
+static inline u32 XQspiPsu_Create_PollConfigData(const XQspiPsu *QspiPsuPtr,
+		const XQspiPsu_Msg *FlashMsg);
+static inline void XQspiPsu_Setup64BRxDma(const XQspiPsu *InstancePtr,
 			XQspiPsu_Msg *Msg);
 /************************** Variable Definitions *****************************/
 
@@ -139,7 +139,7 @@ static inline void XQspiPsu_Setup64BRxDma(XQspiPsu *InstancePtr,
  * @note	None.
  *
  ******************************************************************************/
-s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr, XQspiPsu_Config *ConfigPtr,
+s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr, const XQspiPsu_Config *ConfigPtr,
 				u32 EffectiveAddr)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1010,10 +1010,10 @@ void XQspiPsu_SetStatusHandler(XQspiPsu *InstancePtr, void *CallBackRef,
  * @note	None.
  *
  ******************************************************************************/
-static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
+static void StubStatusHandler(const void *CallBackRef, u32 StatusEvent,
 				u32 ByteCount)
 {
-	(void) CallBackRef;
+	(const void) CallBackRef;
 	(void) StatusEvent;
 	(void) ByteCount;
 
@@ -1216,7 +1216,7 @@ static inline void XQspiPsu_FillTxFifo(XQspiPsu *InstancePtr,
  * @note	None.
  *
  ******************************************************************************/
-static inline void XQspiPsu_SetupRxDma(XQspiPsu *InstancePtr,
+static inline void XQspiPsu_SetupRxDma(const XQspiPsu *InstancePtr,
 					XQspiPsu_Msg *Msg)
 {
 	s32 Remainder;
@@ -1272,7 +1272,7 @@ static inline void XQspiPsu_SetupRxDma(XQspiPsu *InstancePtr,
  * @note	None.
  *
  ******************************************************************************/
-static inline void XQspiPsu_Setup64BRxDma(XQspiPsu *InstancePtr,
+static inline void XQspiPsu_Setup64BRxDma(const XQspiPsu *InstancePtr,
 					XQspiPsu_Msg *Msg)
 {
 	s32 Remainder;
@@ -1318,7 +1318,7 @@ static inline void XQspiPsu_Setup64BRxDma(XQspiPsu *InstancePtr,
  * @note	None.
  *
  ******************************************************************************/
-static inline void XQspiPsu_GenFifoEntryCSAssert(XQspiPsu *InstancePtr)
+static inline void XQspiPsu_GenFifoEntryCSAssert(const XQspiPsu *InstancePtr)
 {
 	u32 GenFifoEntry;
 
@@ -1474,7 +1474,7 @@ static inline void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr,
  * @note	None.
  *
  ******************************************************************************/
-static inline void XQspiPsu_GenFifoEntryCSDeAssert(XQspiPsu *InstancePtr)
+static inline void XQspiPsu_GenFifoEntryCSDeAssert(const XQspiPsu *InstancePtr)
 {
 	u32 GenFifoEntry;
 
@@ -1647,8 +1647,8 @@ static inline void XQspiPsu_PollData(XQspiPsu *QspiPsuPtr, XQspiPsu_Msg *FlashMs
  * @note	None.
  *
  ******************************************************************************/
-static inline u32 XQspiPsu_Create_PollConfigData(XQspiPsu *QspiPsuPtr,
-		XQspiPsu_Msg *FlashMsg)
+static inline u32 XQspiPsu_Create_PollConfigData(const XQspiPsu *QspiPsuPtr,
+		const XQspiPsu_Msg *FlashMsg)
 {
 	u32 ConfigData = 0;
 
@@ -1685,7 +1685,7 @@ static inline u32 XQspiPsu_Create_PollConfigData(XQspiPsu *QspiPsuPtr,
  *		will enable the protection.
  *
  ******************************************************************************/
-void XQspiPsu_WriteProtectToggle(XQspiPsu *InstancePtr, u32 Toggle)
+void XQspiPsu_WriteProtectToggle(const XQspiPsu *InstancePtr, u32 Toggle)
 {
 	/* For Single and Stacked flash configuration with x1 or x2 mode*/
 	if (InstancePtr->Config.ConnectionMode ==
