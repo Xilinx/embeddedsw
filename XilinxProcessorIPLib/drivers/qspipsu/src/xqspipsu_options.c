@@ -138,6 +138,8 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 	u32 Index;
 	u32 QspiPsuOptions;
 	s32 Status;
+	u32 OptionsVal;
+	OptionsVal = Options;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -152,14 +154,14 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 
 		ConfigReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
 					      XQSPIPSU_CFG_OFFSET);
-		QspiPsuOptions = Options & XQSPIPSU_LQSPI_MODE_OPTION;
-		Options &= ~XQSPIPSU_LQSPI_MODE_OPTION;
+		QspiPsuOptions = OptionsVal & XQSPIPSU_LQSPI_MODE_OPTION;
+		OptionsVal &= (~XQSPIPSU_LQSPI_MODE_OPTION);
 		/*
 		 * Loop through the options table, turning the option on
 		 * depending on whether the bit is set in the incoming options flag.
 		 */
 		for (Index = 0U; Index < XQSPIPSU_NUM_OPTIONS; Index++) {
-			if ((Options & OptionsTable[Index].Option) != OptionsTable[Index].Option) {
+			if ((OptionsVal & OptionsTable[Index].Option) != OptionsTable[Index].Option) {
 				/* Turn it on */
 				ConfigReg |= OptionsTable[Index].Mask;
 			} else {
@@ -175,7 +177,7 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
 				 ConfigReg);
 
-		if ((Options & XQSPIPSU_MANUAL_START_OPTION) != FALSE) {
+		if ((OptionsVal & XQSPIPSU_MANUAL_START_OPTION) != FALSE) {
 			InstancePtr->IsManualstart = TRUE;
 		}
 
