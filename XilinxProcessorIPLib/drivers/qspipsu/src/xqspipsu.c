@@ -1166,13 +1166,13 @@ static inline void XQspiPsu_FillTxFifo(XQspiPsu *InstancePtr,
 
 	while ((InstancePtr->TxBytes > 0) && (Count < Size)) {
 		if (InstancePtr->TxBytes >= 4) {
-			(void)memcpy(&Data, Msg->TxBfrPtr, 4);
+			(void)Xil_MemCpy((u8 *)&Data, Msg->TxBfrPtr, 4);
 			Msg->TxBfrPtr += 4;
 			InstancePtr->TxBytes -= 4;
 			Count += 4;
 		} else {
-			(void)memcpy(&Data, Msg->TxBfrPtr,
-				InstancePtr->TxBytes);
+			(void)Xil_MemCpy((u8 *)&Data, Msg->TxBfrPtr,
+				(u32)InstancePtr->TxBytes);
 			Msg->TxBfrPtr += InstancePtr->TxBytes;
 			Count += InstancePtr->TxBytes;
 			InstancePtr->TxBytes = 0;
@@ -1519,14 +1519,14 @@ static inline void XQspiPsu_ReadRxFifo(XQspiPsu *InstancePtr,
 		xil_printf("\nData is %08x\r\n", Data);
 #endif
 		if (InstancePtr->RxBytes >= 4) {
-			(void)memcpy(Msg->RxBfrPtr, &Data, 4);
+			(void)Xil_MemCpy(Msg->RxBfrPtr, (u8 *)&Data, 4);
 			InstancePtr->RxBytes -= 4;
 			Msg->RxBfrPtr += 4;
 			Count += 4;
 		} else {
 			/* Read unaligned bytes (< 4 bytes) */
-			(void)memcpy(Msg->RxBfrPtr, &Data,
-				InstancePtr->RxBytes);
+			(void)Xil_MemCpy(Msg->RxBfrPtr, (u8 *)&Data,
+				(u32)InstancePtr->RxBytes);
 			Msg->RxBfrPtr += InstancePtr->RxBytes;
 			Count += InstancePtr->RxBytes;
 			InstancePtr->RxBytes = 0;
