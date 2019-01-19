@@ -438,9 +438,14 @@ static s32 XQspipsu_Calculate_Tapdelay(XQspiPsu *InstancePtr, u8 Prescaler)
 		LBkModeReg = LBkModeReg |
 				(USE_DLY_LPBK  <<  XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_SHIFT ) |
 				(LPBK_DLY_ADJ_DLY0  << XQSPIPSU_LPBK_DLY_ADJ_DLY0_SHIFT);
+	} else {
+		Status = XST_FAILURE;
+		goto END;
 	}
 	Status = XQspi_Set_TapDelay(InstancePtr, Tapdelay, LBkModeReg, delayReg);
 
+
+	END:
 	return Status;
 }
 #endif
