@@ -30,7 +30,7 @@
 /**
  *
  * @file xqspipsu.h
- * @addtogroup qspipsu_v1_9
+ * @addtogroup qspipsu_v1_10
  * @{
  * @details
  *
