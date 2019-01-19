@@ -178,10 +178,6 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 		if ((Options & XQSPIPSU_MANUAL_START_OPTION) != FALSE) {
 			InstancePtr->IsManualstart = TRUE;
 		}
-		/*
-		 * Check for the LQSPI configuration options.
-		 */
-		ConfigReg = XQspiPsu_ReadReg(XQSPIPS_BASEADDR,XQSPIPSU_LQSPI_CR_OFFSET);
 
 		if (QspiPsuOptions & XQSPIPSU_LQSPI_MODE_OPTION) {
 			if (Options & XQSPIPSU_LQSPI_LESS_THEN_SIXTEENMB) {
@@ -193,6 +189,10 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 			/* Enable the QSPI controller */
 			XQspiPsu_WriteReg(XQSPIPS_BASEADDR,XQSPIPSU_EN_OFFSET,XQSPIPSU_EN_MASK);
 		} else {
+			/*
+			 * Check for the LQSPI configuration options.
+			 */
+			ConfigReg = XQspiPsu_ReadReg(XQSPIPS_BASEADDR,XQSPIPSU_LQSPI_CR_OFFSET);
 			ConfigReg &= ~(XQSPIPSU_LQSPI_CR_LINEAR_MASK);
 			XQspiPsu_WriteReg(XQSPIPS_BASEADDR,XQSPIPSU_LQSPI_CR_OFFSET, ConfigReg);
 		}
@@ -300,14 +300,13 @@ u32 XQspiPsu_GetOptions(XQspiPsu *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	/*
-	 * Get the current options from QSPIPSU configuration register.
-	 */
-	ConfigReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
-				      XQSPIPSU_CFG_OFFSET);
-
 	/* Loop through the options table to grab options */
 	for (Index = 0U; Index < XQSPIPSU_NUM_OPTIONS; Index++) {
+		/*
+		 * Get the current options from QSPIPSU configuration register.
+		 */
+		ConfigReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
+						      XQSPIPSU_CFG_OFFSET);
 		if ((ConfigReg & OptionsTable[Index].Mask) != FALSE) {
 			OptionsFlag |= OptionsTable[Index].Option;
 		}
