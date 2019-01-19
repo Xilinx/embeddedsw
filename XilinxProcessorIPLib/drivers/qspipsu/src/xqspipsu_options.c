@@ -83,9 +83,9 @@
 /************************** Function Prototypes ******************************/
 
 #if defined (ARMR5) || (__aarch64__)
-static s32 XQspi_Set_TapDelay(XQspiPsu * InstancePtr,u32 TapdelayBypass,
+static s32 XQspi_Set_TapDelay(const XQspiPsu * InstancePtr,u32 TapdelayBypass,
 						u32 LPBKDelay,u32 Datadelay);
-static s32 XQspipsu_Calculate_Tapdelay(XQspiPsu *InstancePtr, u8 Prescaler);
+static s32 XQspipsu_Calculate_Tapdelay(const XQspiPsu *InstancePtr, u8 Prescaler);
 #endif
 
 /************************** Variable Definitions *****************************/
@@ -293,7 +293,7 @@ s32 XQspiPsu_ClearOptions(XQspiPsu *InstancePtr, u32 Options)
 * @note		None.
 *
 ******************************************************************************/
-u32 XQspiPsu_GetOptions(XQspiPsu *InstancePtr)
+u32 XQspiPsu_GetOptions(const XQspiPsu *InstancePtr)
 {
 	u32 OptionsFlag = 0;
 	u32 ConfigReg;
@@ -338,7 +338,7 @@ u32 XQspiPsu_GetOptions(XQspiPsu *InstancePtr)
 * This function is not thread-safe.
 *
 ******************************************************************************/
-static s32 XQspi_Set_TapDelay(XQspiPsu * InstancePtr,u32 TapdelayBypass,
+static s32 XQspi_Set_TapDelay(const XQspiPsu * InstancePtr,u32 TapdelayBypass,
 						u32 LPBKDelay,u32 Datadelay)
 {
 	s32 Status;
@@ -391,7 +391,7 @@ static s32 XQspi_Set_TapDelay(XQspiPsu * InstancePtr,u32 TapdelayBypass,
 * @note		None.
 *
 ******************************************************************************/
-static s32 XQspipsu_Calculate_Tapdelay(XQspiPsu *InstancePtr, u8 Prescaler)
+static s32 XQspipsu_Calculate_Tapdelay(const XQspiPsu *InstancePtr, u8 Prescaler)
 {
 	u32 FreqDiv, Divider, Tapdelay, LBkModeReg, delayReg;
 	s32 Status;
@@ -469,7 +469,7 @@ static s32 XQspipsu_Calculate_Tapdelay(XQspiPsu *InstancePtr, u8 Prescaler)
 * @note		None.
 *
 ******************************************************************************/
-s32 XQspiPsu_SetClkPrescaler(XQspiPsu *InstancePtr, u8 Prescaler)
+s32 XQspiPsu_SetClkPrescaler(const XQspiPsu *InstancePtr, u8 Prescaler)
 {
 	u32 ConfigReg;
 	s32 Status;
@@ -667,7 +667,7 @@ s32 XQspiPsu_SetReadMode(XQspiPsu *InstancePtr, u32 Mode)
 * x4 data mode and dual parallel and stacked flash configuration.
 *
 ******************************************************************************/
-void XQspiPsu_SetWP(XQspiPsu *InstancePtr, u8 Value)
+void XQspiPsu_SetWP(const XQspiPsu *InstancePtr, u8 Value)
 {
 	u32 ConfigReg;
 
