@@ -750,7 +750,7 @@ u8 XSpiPs_GetSlaveSelect(XSpiPs *InstancePtr)
 			/*
 			 * Get selected slave number (0,1 or 2)
 			 */
-			SlaveSel = ((~ConfigReg) & XSPIPS_CR_SSCTRL_MAXIMUM)/2;
+			SlaveSel = ((~ConfigReg) & XSPIPS_CR_SSCTRL_MAXIMUM)/2U;
 		}
 	}
 	return (u8)SlaveSel;
@@ -1125,7 +1125,7 @@ void XSpiPs_Abort(XSpiPs *InstancePtr)
 	 * Read all RX_FIFO entries
 	 */
 #if !defined(versal)
-	for (Count = 0; Count < XSPIPS_FIFO_DEPTH; Count++) {
+	for (Count = 0U; Count < XSPIPS_FIFO_DEPTH; Count++) {
 		(void)XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
 			XSPIPS_RXD_OFFSET);
 	}
