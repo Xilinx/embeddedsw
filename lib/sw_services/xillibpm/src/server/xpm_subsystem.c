@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,18 +33,50 @@
 #include "xpm_device.h"
 #include "xpm_pin.h"
 
-XPm_Subsystem PmSubsystems[XPM_SUBSYSID_MAX];
-
-/**
- * IPI mask array of subsystems
- */
-u32 XPm_SubsystemIpiMask[XPM_SUBSYSID_MAX] = {
-	[XPM_SUBSYSID_PMC]		= 0x00000002U,
-	[XPM_SUBSYSID_PSM]		= 0x00000001U,
-	[XPM_SUBSYSID_APU]		= 0x00000004U,
-	[XPM_SUBSYSID_RPU0_LOCK]	= 0x00000008U,
-	[XPM_SUBSYSID_RPU0_0]		= 0x00000008U,
-	[XPM_SUBSYSID_RPU0_1]		= 0x00000010U,
+XPm_Subsystem PmSubsystems[XPM_SUBSYSID_MAX] =
+{
+	[XPM_SUBSYSID_PMC] = {
+		.Id = XPM_SUBSYSID_PMC,
+		.State = OFFLINE,
+		.IpiMask = 0x00000002U,
+	},
+	[XPM_SUBSYSID_PSM] = {
+		.Id = XPM_SUBSYSID_PSM,
+		.State = OFFLINE,
+		.IpiMask = 0x00000001U,
+	},
+	[XPM_SUBSYSID_APU] = {
+		.Id = XPM_SUBSYSID_APU,
+		.State = OFFLINE,
+		.IpiMask = 0x00000004U,
+	},
+	[XPM_SUBSYSID_RPU0_LOCK] = {
+		.Id = XPM_SUBSYSID_RPU0_LOCK,
+		.State = OFFLINE,
+		.IpiMask = 0x00000008U,
+	},
+	[XPM_SUBSYSID_RPU0_0] = {
+		.Id = XPM_SUBSYSID_RPU0_0,
+		.State = OFFLINE,
+		.IpiMask = 0x00000008U,
+	},
+	[XPM_SUBSYSID_RPU0_1] = {
+		.Id = XPM_SUBSYSID_RPU0_1,
+		.State = OFFLINE,
+		.IpiMask = 0x00000010U,
+	},
+	[XPM_SUBSYSID_DDR0] = {
+		.Id = XPM_SUBSYSID_DDR0,
+		.State = OFFLINE,
+	},
+	[XPM_SUBSYSID_ME] = {
+		.Id = XPM_SUBSYSID_ME,
+		.State = OFFLINE,
+	},
+	[XPM_SUBSYSID_PL] = {
+		.Id = XPM_SUBSYSID_PL,
+		.State = OFFLINE,
+	}
 };
 
 /*
@@ -77,7 +109,7 @@ u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask)
 
 	for (SubSysId = 0; SubSysId < XPM_SUBSYSID_MAX; SubSysId++)
 	{
-		if (XPm_SubsystemIpiMask[SubSysId] == IpiMask) {
+		if (PmSubsystems[SubSysId].IpiMask == IpiMask) {
 			break;
 		}
 	}

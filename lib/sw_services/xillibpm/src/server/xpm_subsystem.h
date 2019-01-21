@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -68,6 +68,7 @@ typedef struct XPm_Subsystem XPm_Subsystem;
  * The subsystem class.
  */
 struct XPm_Subsystem {
+	u32 Id; /**< Subsystem ID */
 	XPm_SubsysState State; /**< Subsystem state */
 	u32 IpiMask;
 	XPm_Requirement *Requirements;
