@@ -544,6 +544,7 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 			GcmStatus = XSECURE_CSU_AES_GCM_TAG_MISMATCH;
 			goto END;
 		}
+		GcmStatus = (u32)XST_SUCCESS;
 	}
 
 	/* Update the size of data */
