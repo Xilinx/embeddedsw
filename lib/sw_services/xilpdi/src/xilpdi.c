@@ -342,7 +342,6 @@ XStatus XilPdi_ReadBootHdr(XilPdi_MetaHdr * MetaHdrPtr)
 		MetaHdrPtr->BootHdr.BootHdrFwRsvd.MetaHdrLen);
 	XilPdi_Printf("Meta Header AC Offset: 0x%0lx \n\r",
 		MetaHdrPtr->BootHdr.BootHdrFwRsvd.MetaHdrAcOfst);
-END:
 	return Status;
 }
 
