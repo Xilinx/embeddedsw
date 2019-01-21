@@ -29,7 +29,7 @@
 /**
 *
 * @file xspips.h
-* @addtogroup spips_v3_3
+* @addtogroup spips_v3_2
 * @{
 * @details
 *
