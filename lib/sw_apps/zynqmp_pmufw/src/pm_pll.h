@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,6 +37,10 @@
 
 #ifndef PM_PLL_H_
 #define PM_PLL_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "pm_node.h"
 
@@ -117,4 +121,8 @@ static inline u32 PmPllGetPermissions(const PmPll* const pll)
 	return pll->perms;
 };
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* PM_PLL_H_ */

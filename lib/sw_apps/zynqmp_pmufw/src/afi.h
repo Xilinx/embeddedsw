@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -77,5 +77,9 @@ extern "C" {
  * AFI FM6 Base Address
  */
 #define AFI_FM6_BASEADDR                        ((u32)0xFF9B0000U)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _AFI_H_ */

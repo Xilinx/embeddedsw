@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,6 +30,10 @@
 
 #ifndef PM_SRAM_H_
 #define PM_SRAM_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "pm_slave.h"
 
@@ -83,4 +87,8 @@ extern PmSlaveTcm pmSlaveTcm0B_g;
 extern PmSlaveTcm pmSlaveTcm1A_g;
 extern PmSlaveTcm pmSlaveTcm1B_g;
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* PM_SRAM_H_ */

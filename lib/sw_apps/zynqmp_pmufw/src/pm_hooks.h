@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,6 +26,11 @@
 
 #ifndef PM_HOOKS_H_
 #define PM_HOOKS_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "pm_common.h"
 #include "pm_slave.h"
 
@@ -78,4 +83,8 @@ void PmHookPowerOffSuspendDdrReady(void);
 void PmHookSystemStart(void);
 #endif
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* PM_HOOKS_H_ */

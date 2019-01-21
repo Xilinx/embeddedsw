@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,6 +31,10 @@
 
 #ifndef PM_MASTER_H_
 #define PM_MASTER_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "pm_slave.h"
 #include "pm_common.h"
@@ -256,4 +260,8 @@ bool PmMasterIsLastSuspending(const PmMaster* const master);
 bool PmMasterIsUniqueWakeup(const PmSlave* const slave);
 s32 PmMasterReleaseAll(void);
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* PM_MASTER_H_ */

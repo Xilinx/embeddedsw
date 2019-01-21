@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,6 +32,10 @@
 #ifndef SRC_PM_NODE_RESET_H_
 #define SRC_PM_NODE_RESET_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*
  * Idle request macro
  */
@@ -42,5 +46,9 @@
  * Idle and reset the node
  */
 void PmNodeReset(const PmMaster *const Master, const u32 NodeId, const u32 IdleReq);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* SRC_PM_NODE_RESET_H_ */
