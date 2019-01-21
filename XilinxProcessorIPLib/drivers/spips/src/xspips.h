@@ -432,7 +432,7 @@ typedef struct {
 *		- FALSE if option is not set
 *
 * @note		C-Style signature:
-*		u8 XSpiPs_IsManualStart(XSpiPs *InstancePtr);
+*		u8 XSpiPs_IsManualStart(XSpiPs *InstancePtr)
 *
 *****************************************************************************/
 #define XSpiPs_IsManualStart(InstancePtr) \
@@ -451,7 +451,7 @@ typedef struct {
 *		- FALSE if option is not set
 *
 * @note		C-Style signature:
-*		u8 XSpiPs_IsManualChipSelect(XSpiPs *InstancePtr);
+*		u8 XSpiPs_IsManualChipSelect(XSpiPs *InstancePtr)
 *
 *****************************************************************************/
 #define XSpiPs_IsManualChipSelect(InstancePtr) \
@@ -470,7 +470,7 @@ typedef struct {
 *		- FALSE if option is not set
 *
 * @note		C-Style signature:
-*		u8 XSpiPs_IsDecodeSSelect(XSpiPs *InstancePtr);
+*		u8 XSpiPs_IsDecodeSSelect(XSpiPs *InstancePtr)
 *
 *****************************************************************************/
 #define XSpiPs_IsDecodeSSelect(InstancePtr) \
@@ -489,7 +489,7 @@ typedef struct {
 *		- FALSE if option is not set
 *
 * @note		C-Style signature:
-*		u8 XSpiPs_IsMaster(XSpiPs *InstancePtr);
+*		u8 XSpiPs_IsMaster(XSpiPs *InstancePtr)
 *
 *****************************************************************************/
 #define XSpiPs_IsMaster(InstancePtr) \
