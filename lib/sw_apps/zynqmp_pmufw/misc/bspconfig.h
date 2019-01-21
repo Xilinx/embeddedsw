@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,5 +25,17 @@
  * this Software without prior written authorization from Xilinx.
  *
  ******************************************************************************/
+#ifndef BSPCONFIG_H_
+#define BSPCONFIG_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #define MICROBLAZE_PVR_NONE
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* BSPCONFIG_H_ */
