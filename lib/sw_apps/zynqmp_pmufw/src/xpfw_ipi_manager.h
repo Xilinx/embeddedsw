@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -26,6 +26,10 @@
 
 #ifndef XPFW_IPI_MANAGER_H_
 #define XPFW_IPI_MANAGER_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "xstatus.h"
 #include "xpfw_default.h"
@@ -134,5 +138,9 @@ s32 XPfw_IpiTrigger(u32 DestCpuMask);
  * 			XST_FAILURE if a timeout occurred
  */
 s32 XPfw_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XPFW_IPI_MANAGER_H_ */

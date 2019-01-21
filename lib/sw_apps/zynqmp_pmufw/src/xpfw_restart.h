@@ -26,6 +26,10 @@
 #ifndef XPFW_RESTART_H_
 #define XPFW_RESTART_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "xil_types.h"
 #include "pm_master.h"
 
@@ -44,5 +48,9 @@ void XPfw_RecoveryAck(PmMaster *Master);
 
 s32 XPfw_StoreFsblToDDR(void);
 s32 XPfw_RestoreFsblToOCM(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XPFW_RESTART_H_ */
