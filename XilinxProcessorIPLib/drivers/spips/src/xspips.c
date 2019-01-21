@@ -96,7 +96,7 @@
 * @return	None.
 *
 * @note		C-Style signature:
-*		void XSpiPs_SendByte(u32 BaseAddress, u8 Data);
+*		void XSpiPs_SendByte(u32 BaseAddress, u8 Data)
 *
 *****************************************************************************/
 #define XSpiPs_SendByte(BaseAddress, Data) \
@@ -113,7 +113,7 @@
 * @return	The byte retrieved from the receive FIFO/register.
 *
 * @note		C-Style signature:
-*		u8 XSpiPs_RecvByte(u32 BaseAddress);
+*		u8 XSpiPs_RecvByte(u32 BaseAddress)
 *
 *****************************************************************************/
 #define XSpiPs_RecvByte(BaseAddress) \
