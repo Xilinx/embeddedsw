@@ -121,7 +121,7 @@ void XSpiPs_ResetHw(u32 BaseAddress)
 	 * Read all RXFIFO entries
 	 */
 #if !defined(versal)
-	for (Count = 0; Count < XSPIPS_FIFO_DEPTH; Count++) {
+	for (Count = 0U; Count < XSPIPS_FIFO_DEPTH; Count++) {
 		(void)XSpiPs_ReadReg(BaseAddress, XSPIPS_RXD_OFFSET);
 	}
 #endif

@@ -222,7 +222,7 @@ u32 XSpiPs_GetOptions(XSpiPs *InstancePtr)
 	/*
 	 * Loop through the options table to grab options
 	 */
-	for (Index = 0; Index < XSPIPS_NUM_OPTIONS; Index++) {
+	for (Index = 0U; Index < XSPIPS_NUM_OPTIONS; Index++) {
 		if ((ConfigReg & OptionsTable[Index].Mask) != FALSE) {
 			OptionsFlag |= OptionsTable[Index].Option;
 		}
