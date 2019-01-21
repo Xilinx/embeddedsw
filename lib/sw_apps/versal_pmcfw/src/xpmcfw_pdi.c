@@ -60,8 +60,6 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XPMCFW_BOOT_HDR_SIZE			0xF70U
-#define XPMCFW_SMAP_BUS_WIDTH_SIZE		0x10U
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
@@ -157,17 +155,10 @@ XStatus XPmcFw_PdiLoad(XPmcFw* PmcFwInstancePtr)
 {
 	XStatus Status;
 	u32 PrtnNum;
-	Offset = XPMCFW_SMAP_BUS_WIDTH_SIZE;
+	Offset = 0U;
 
 	XPMCFW_DBG_WRITE(0x7U);
 	/* Update the Image Hdr structure */
-	/* Flush out Boot Hdr */
-	Status = PmcFwInstancePtr->DeviceOps.Copy(XPMCFW_RDBK_SRC_ADDR,
-				XPMCFW_PMCRAM_BASEADDR, XPMCFW_BOOT_HDR_SIZE,0U);
-	if (XPMCFW_SUCCESS != Status)
-	{
-		goto END;
-	}
 
 	/* Read Img Hdr Table and verify Checksum */
 	Status = XilPdi_ReadAndValidateImgHdrTbl(&(PmcFwInstancePtr->MetaHdr));
@@ -244,7 +235,7 @@ END:
 XStatus XPmcFw_MemCopy(u32 SrcPtr, u64 DestPtr, u32 Len, u32 Flags)
 {
 	u32 Src = XPMCFW_RDBK_SRC_ADDR;
-	memcpy((u8*)DestPtr,(u8*)(Src+Offset),Len);
+	XPmcFw_DmaXfr(Src+Offset, DestPtr, Len>>2U, XPMCFW_PMCDMA_0);
 	Offset += Len;
 	return XST_SUCCESS;
 }
@@ -265,6 +256,6 @@ XStatus XPmcFw_MemCopy(u32 SrcPtr, u64 DestPtr, u32 Len, u32 Flags)
  *****************************************************************************/
 XStatus XPmcFw_MemCopySecure(u32 SrcPtr, u64 DestPtr, u32 Len, u32 Flags)
 {
-	memcpy((u8*)DestPtr,(u8*)SrcPtr,Len);
+	XPmcFw_DmaXfr(SrcPtr, DestPtr, Len>>2U, XPMCFW_PMCDMA_0);
 	return XST_SUCCESS;
 }
