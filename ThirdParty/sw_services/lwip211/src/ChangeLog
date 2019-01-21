@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2019-01-21
+	* Fix freertos echo server compilation on emaclite platform.
 2019-01-11
 	* Upgrage to lwip211
 	* Fix cache handling in RX path for GEM

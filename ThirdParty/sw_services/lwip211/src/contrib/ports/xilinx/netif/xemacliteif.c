@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007 - 2018 Xilinx, Inc.
+ * Copyright (C) 2007 - 2019 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -41,8 +41,7 @@
 #include "semphr.h"
 #include "timers.h"
 #endif
-#include "lwip/sys.h"
-#include "lwip/timers.h"
+#include "lwip/timeouts.h"
 #endif
 
 #include <stdio.h>
