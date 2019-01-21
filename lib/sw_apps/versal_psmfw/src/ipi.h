@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -52,11 +52,19 @@
 #ifndef _IPI_H_
 #define _IPI_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * IPI Base Address
  */
 #define IPI_BASEADDR      ((u32)0XFF300000U)
 
 #define IPI_PSM_ISR    ( ( IPI_BASEADDR ) + ((u32)0x00010010U) )
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _IPI_H_ */

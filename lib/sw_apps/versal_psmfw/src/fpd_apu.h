@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -52,6 +52,10 @@
 #ifndef _FPD_APU_H_
 #define _FPD_APU_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * FPD_APU Base Address
  */
@@ -90,5 +94,9 @@
 #define FPD_APU_PWRSTAT_DBGNOPWRDWN_SHIFT   0
 #define FPD_APU_PWRSTAT_DBGNOPWRDWN_WIDTH   2
 #define FPD_APU_PWRSTAT_DBGNOPWRDWN_MASK    0X00000003
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _FPD_APU_H_ */
