@@ -68,7 +68,10 @@
 * 						application. CR#998910
 * 4.0   tjs    11/23/17 Added a check for A72 and R5 processor to
 *                       avoid changes made for the workaround DT#842463.
-*
+* 3.3	aru    01/20/19 Fixes violations according to MISRAC-2012
+*                       in safety mode and done changes such as
+*                       Declared the pointer param as Pointer to const,
+*			added goto statements.
 * </pre>
 *
 ******************************************************************************/
