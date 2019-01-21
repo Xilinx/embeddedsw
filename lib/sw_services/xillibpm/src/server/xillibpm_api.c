@@ -555,50 +555,64 @@ done:
  *          and PMU does not wait for their WFI interrupt.
  *
  ****************************************************************************/
-XStatus XPm_ForcePowerdown(u32 SubsystemId,
-                             const u32 NodeId,
-                             const u32 Ack)
+XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 {
 	XStatus Status = XST_SUCCESS;
 	XPm_Core *Core;
+	u32 TargetSubsystemId;
+	XPm_Requirement *Reqm;
 
 	/* Warning Fix */
 	(void) (Ack);
 
 	/*Validate acccess first */
 	Status = XPm_IsForcePowerDownAllowed(SubsystemId, NodeId);
-	if (XST_FAILURE == Status) {
+	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
-        if (NODECLASS(NodeId) == XPM_NODECLASS_DEVICE && NODESUBCLASS(NodeId) == XPM_NODESUBCL_DEV_CORE) {
+        if ((NODECLASS(NodeId) == XPM_NODECLASS_DEVICE) &&
+	    (NODESUBCLASS(NodeId) == XPM_NODESUBCL_DEV_CORE)) {
 		Core = (XPm_Core *)XPmDevice_GetById(NodeId);
-		if(Core->CoreOps->PowerDown)
-		{
+		if (Core && Core->CoreOps && Core->CoreOps->PowerDown) {
 			Status = Core->CoreOps->PowerDown(Core);
-			if(XST_SUCCESS != Status) {
+			if (XST_SUCCESS != Status) {
 				goto done;
 			}
 		}
-		if (XST_SUCCESS == XPmSubsystem_IsAllProcDwn(SubsystemId)) {
-			/* idle the subsystem */
-			Status = XPmSubsystem_Idle(SubsystemId);
-			if(XST_SUCCESS != Status) {
-				goto done;
+
+		Reqm = Core->Device.Requirements;
+		while (Reqm) {
+			if (TRUE == Reqm->Allocated) {
+				TargetSubsystemId = Reqm->Subsystem->Id;
+				if (XST_SUCCESS == XPmSubsystem_IsAllProcDwn(TargetSubsystemId)) {
+					/* Idle the subsystem */
+					Status = XPmSubsystem_Idle(TargetSubsystemId);
+					if(XST_SUCCESS != Status) {
+						goto done;
+					}
+
+					Status = XPmSubsystem_ForceDownCleanup(TargetSubsystemId);
+					if(XST_SUCCESS != Status) {
+						goto done;
+					}
+
+					XPmSubsystem_SetState(TargetSubsystemId, OFFLINE);
+				}
+				XPmRequirement_Clear(Reqm);
 			}
-			Status = XPmSubsystem_ForceDownCleanup(SubsystemId);
-			if(XST_SUCCESS != Status) {
-				goto done;
-			}
-			XPmSubsystem_SetState(SubsystemId, OFFLINE);
+			Reqm = Reqm->NextSubsystem;
 		}
-        } else if (NODECLASS(NodeId) == XPM_NODECLASS_POWER && (NODESUBCLASS(NodeId) == XPM_NODESUBCL_POWER_DOMAIN || NODESUBCLASS(NodeId) == XPM_NODESUBCL_POWER_ISLAND)) {
-                /* TBD: Add power domain/island force poweroff support*/
-        } else
+	} else if ((XPM_NODECLASS_POWER == NODECLASS(NodeId)) &&
+		   (NODESUBCLASS(NodeId) == XPM_NODESUBCL_POWER_DOMAIN ||
+		   NODESUBCLASS(NodeId) == XPM_NODESUBCL_POWER_ISLAND)) {
+		/* TBD: Add power domain/island force poweroff support*/
+	} else {
 		Status = XST_INVALID_PARAM;
+	}
 
 done:
-        return Status;
+	return Status;
 }
 
 /****************************************************************************/
