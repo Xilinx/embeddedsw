@@ -571,7 +571,8 @@ s32 XSpiPs_PolledTransfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 						InstancePtr->Config.BaseAddress,
 						XSPIPS_SR_OFFSET,
 						XSPIPS_IXR_MODF_MASK);
-					return (s32)XST_SEND_ERROR;
+					Status_Polled = (s32)XST_SEND_ERROR;
+					goto END;
 				}
 		        CheckTransfer = (StatusReg &
 							XSPIPS_IXR_TXOW_MASK);
@@ -621,6 +622,8 @@ s32 XSpiPs_PolledTransfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 		XSpiPs_Disable(InstancePtr);
 		Status_Polled = (s32)XST_SUCCESS;
 	}
+
+	END:
 	return Status_Polled;
 }
 
@@ -926,7 +929,7 @@ void XSpiPs_InterruptHandler(XSpiPs *InstancePtr)
 		SpiPtr->StatusHandler(SpiPtr->StatusRef, XST_SPI_MODE_FAULT,
 					BytesDone);
 
-		return; /* Do not continue servicing other interrupts. */
+		goto END; /* Do not continue servicing other interrupts. */
 	}
 
 
@@ -1078,6 +1081,9 @@ void XSpiPs_InterruptHandler(XSpiPs *InstancePtr)
 		SpiPtr->StatusHandler(SpiPtr->StatusRef,
 			XST_SPI_TRANSMIT_UNDERRUN, BytesDone);
 	}
+
+	END:
+	return;
 
 }
 

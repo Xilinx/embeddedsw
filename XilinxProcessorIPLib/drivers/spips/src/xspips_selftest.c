@@ -109,13 +109,15 @@ s32 XSpiPs_SelfTest(XSpiPs *InstancePtr)
 	Register = XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
 				 XSPIPS_CR_OFFSET);
 	if (Register != XSPIPS_CR_RESET_STATE) {
-		return (s32)XST_REGISTER_ERROR;
+		Status = (s32)XST_REGISTER_ERROR;
+		goto END;
 	}
 
 	Register = XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
 				 XSPIPS_SR_OFFSET);
 	if (Register != XSPIPS_ISR_RESET_STATE) {
-		return (s32)XST_REGISTER_ERROR;
+		Status = (s32)XST_REGISTER_ERROR;
+		goto END;;
 	}
 
 	DelayTestNss = 0x5AU;
@@ -130,19 +132,20 @@ s32 XSpiPs_SelfTest(XSpiPs *InstancePtr)
 	Status = XSpiPs_SetDelays(InstancePtr, DelayTestNss, DelayTestBtwn,
 				   DelayTestAfter, DelayTestInit);
 	if (Status != (s32)XST_SUCCESS) {
-		return Status;
+		goto END;
 	}
 
 	XSpiPs_GetDelays(InstancePtr, &DelayTestNss, &DelayTestBtwn,
 			&DelayTestAfter, &DelayTestInit);
 	if ((0x5AU != DelayTestNss) || (0xA5U != DelayTestBtwn) ||
 		(0xAAU != DelayTestAfter) || (0x55U != DelayTestInit)) {
-		return (s32)XST_REGISTER_ERROR;
+		Status = (s32)XST_REGISTER_ERROR;
+		goto END;
 	}
 
 	Status = XSpiPs_SetDelays(InstancePtr, 0U, 0U, 0U, 0U);
 	if (Status != (s32)XST_SUCCESS) {
-		return Status;
+		goto END;
 	}
 
 	/*
@@ -150,6 +153,9 @@ s32 XSpiPs_SelfTest(XSpiPs *InstancePtr)
 	 */
 	XSpiPs_Reset(InstancePtr);
 
-	return (s32)XST_SUCCESS;
+	Status = (s32)XST_SUCCESS;
+
+	END:
+	return Status;
 }
 /** @} */
