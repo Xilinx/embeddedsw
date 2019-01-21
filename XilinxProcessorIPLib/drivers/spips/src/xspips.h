@@ -385,7 +385,7 @@ extern "C" {
  *		transferred.  This may be less than the number of bytes
  *		requested if the status event indicates an error.
  */
-typedef void (*XSpiPs_StatusHandler) (void *CallBackRef, u32 StatusEvent,
+typedef void (*XSpiPs_StatusHandler) (const void *CallBackRef, u32 StatusEvent,
 					u32 ByteCount);
 
 /**
@@ -653,7 +653,7 @@ XSpiPs_Config *XSpiPs_LookupConfig(u16 DeviceId);
 /*
  * Functions implemented in xspips.c
  */
-s32 XSpiPs_CfgInitialize(XSpiPs *InstancePtr, XSpiPs_Config * ConfigPtr,
+s32 XSpiPs_CfgInitialize(XSpiPs *InstancePtr, const XSpiPs_Config * ConfigPtr,
 				u32 EffectiveAddr);
 
 void XSpiPs_Reset(XSpiPs *InstancePtr);
@@ -671,7 +671,7 @@ void XSpiPs_InterruptHandler(XSpiPs *InstancePtr);
 void XSpiPs_Abort(XSpiPs *InstancePtr);
 
 s32 XSpiPs_SetSlaveSelect(XSpiPs *InstancePtr, u8 SlaveSel);
-u8 XSpiPs_GetSlaveSelect(XSpiPs *InstancePtr);
+u8 XSpiPs_GetSlaveSelect(const XSpiPs *InstancePtr);
 
 /*
  * Functions for selftest, in xspips_selftest.c
@@ -681,15 +681,15 @@ s32 XSpiPs_SelfTest(XSpiPs *InstancePtr);
 /*
  * Functions for options, in xspips_options.c
  */
-s32 XSpiPs_SetOptions(XSpiPs *InstancePtr, u32 Options);
-u32 XSpiPs_GetOptions(XSpiPs *InstancePtr);
+s32 XSpiPs_SetOptions(const XSpiPs *InstancePtr, u32 Options);
+u32 XSpiPs_GetOptions(const XSpiPs *InstancePtr);
 
-s32 XSpiPs_SetClkPrescaler(XSpiPs *InstancePtr, u8 Prescaler);
-u8 XSpiPs_GetClkPrescaler(XSpiPs *InstancePtr);
+s32 XSpiPs_SetClkPrescaler(const XSpiPs *InstancePtr, u8 Prescaler);
+u8 XSpiPs_GetClkPrescaler(const XSpiPs *InstancePtr);
 
-s32 XSpiPs_SetDelays(XSpiPs *InstancePtr, u8 DelayNss, u8 DelayBtwn,
+s32 XSpiPs_SetDelays(const XSpiPs *InstancePtr, u8 DelayNss, u8 DelayBtwn,
 			u8 DelayAfter, u8 DelayInit);
-void XSpiPs_GetDelays(XSpiPs *InstancePtr, u8 *DelayNss, u8 *DelayBtwn,
+void XSpiPs_GetDelays(const XSpiPs *InstancePtr, u8 *DelayNss, u8 *DelayBtwn,
 			u8 *DelayAfter, u8 *DelayInit);
 #ifdef __cplusplus
 }
