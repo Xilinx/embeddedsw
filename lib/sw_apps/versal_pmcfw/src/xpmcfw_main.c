@@ -72,6 +72,7 @@ static XStatus XPmcFw_LoadSlaveSlr(u64 SlrBaseAddr);
 
 /************************** Variable Definitions *****************************/
 XPmcFw PmcFwInstance;
+u32 Platform;
 /*****************************************************************************/
 /** This is the PMCFW main function and is implemented stage wise.
  *
@@ -321,7 +322,6 @@ void XPmcFw_PrintPmcFwBanner(void )
 {
 	u32 Version;
 	u32 PlatformVersion;
-	u32 Platform;
 	u32 RtlVersion;
 	u32 PsVersion;
 	u32 PmcVersion;

@@ -57,6 +57,7 @@
 
 /**************************** Type Definitions *******************************/
 extern XilCdo_Prtn XilCdoPrtnInst;
+extern u32 Platform;
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
@@ -616,14 +617,15 @@ void XilCdo_RunCalibration(u32 BaseAddr, u32 Deskew)
  *****************************************************************************/
 void XilCdo_CheckCalibration(u32 BaseAddr)
 {
-	/*Wait for Calibration to complete */
-	while((Xil_In32(BaseAddr + XILCDO_NPI_PCSR_STATUS_OFFSET)
-				& PCSR_STATUS_CALDONE_MASK) != PCSR_STATUS_CALDONE_MASK)
+	if(Platform != PMC_TAP_VERSION_SPP)
 	{
-		;
+		/*Wait for Calibration to complete */
+		while((Xil_In32(BaseAddr + XILCDO_NPI_PCSR_STATUS_OFFSET)
+			& PCSR_STATUS_CALDONE_MASK) != PCSR_STATUS_CALDONE_MASK)
+		{
+			;
+		}
 	}
-
-
 	XilCdo_ClearStartCal(BaseAddr);
 
 }
@@ -709,7 +711,11 @@ void XilCdo_ClearShutDown(u32 BaseAddr)
 
 void XilCdo_CheckShutDown(u32 BaseAddr)
 {
-	while((Xil_In32(BaseAddr + XILCDO_NPI_PCSR_STATUS_OFFSET) & PCSR_STATUS_SHUTDN_COMP_MASK)==0U);
+	if(Platform != PMC_TAP_VERSION_SPP)
+	{
+		while((Xil_In32(BaseAddr + XILCDO_NPI_PCSR_STATUS_OFFSET) &
+			PCSR_STATUS_SHUTDN_COMP_MASK)==0U);
+	}
 }
 
 /*****************************************************************************/
@@ -860,13 +866,20 @@ void XilCdo_RunAxiReqRejectMode(u32 BaseAddr)
 
 void XilCdo_CheckRegBusy(u32 BaseAddr)
 {
-	while(Xil_In32(BaseAddr + XILCDO_REG_BUSY_OFFSET) & XILCDO_REG_BUSY_MASK);
+	if(Platform != PMC_TAP_VERSION_SPP)
+	{
+		while(Xil_In32(BaseAddr + XILCDO_REG_BUSY_OFFSET) &
+			XILCDO_REG_BUSY_MASK);
+	}
 }
 
 void XilCdo_CheckRegPendingBurst(u32 BaseAddr)
 {
-	while(Xil_In32(BaseAddr + XILCDO_REG_PEND_BURST_OFFSET) &
-							XILCDO_REG_PEND_BURST_OFFSET_MASK);
+	if(Platform != PMC_TAP_VERSION_SPP)
+	{
+		while(Xil_In32(BaseAddr + XILCDO_REG_PEND_BURST_OFFSET) &
+				XILCDO_REG_PEND_BURST_OFFSET_MASK);
+	}
 }
 
 /*****************************************************************************/
@@ -911,18 +924,30 @@ void XilCdo_SetBISRTrigger(u32 BaseAddr)
 
 u32 XilCdo_CheckBISRPass(u32 BaseAddr)
 {
-	/* Check for BISR success */
-	return ((Xil_In32(BaseAddr+XILCDO_NPI_PCSR_STATUS_OFFSET)
+	u32 Status;
+	if(Platform != PMC_TAP_VERSION_SPP)
+	{
+		/* Check for BISR success */
+		Status = ((Xil_In32(BaseAddr+XILCDO_NPI_PCSR_STATUS_OFFSET)
 				& PCSR_STATUS_BISR_PASS_MASK)
-			!= PCSR_STATUS_BISR_PASS_MASK);
+				!= PCSR_STATUS_BISR_PASS_MASK);
+	}
+	else
+	{
+		Status = XST_SUCCESS;
+	}
+	return Status;
 }
 
 void XilCdo_WaitForBISRDone(u32 BaseAddr)
 {
-	/* Wait for BISR to complete */
-	while((Xil_In32(BaseAddr+XILCDO_NPI_PCSR_STATUS_OFFSET)
+	if(Platform != PMC_TAP_VERSION_SPP)
+	{
+		/* Wait for BISR to complete */
+		while((Xil_In32(BaseAddr+XILCDO_NPI_PCSR_STATUS_OFFSET)
 				& PCSR_STATUS_BISRDONE_MASK)
-			!= PCSR_STATUS_BISRDONE_MASK);
+				!= PCSR_STATUS_BISRDONE_MASK);
+	}
 }
 
 u32 XilCdo_ScanClear(u32 NpiParam)
@@ -953,18 +978,30 @@ END:
 
 u32 XilCdo_CheckScanClearPass(void)
 {
-	/* Check for Scan Clear success */
-	return ((Xil_In32(PMC_ANALOG_SCAN_CLEAR_DONE)
+	u32 Status;
+	if(Platform != PMC_TAP_VERSION_SPP)
+	{
+		/* Check for Scan Clear success */
+		Status = ((Xil_In32(PMC_ANALOG_SCAN_CLEAR_DONE)
 				& PMC_ANALOG_SCAN_CLEAR_PASS_PMC_MASK)
-			!= PMC_ANALOG_SCAN_CLEAR_PASS_PMC_MASK);
+				!= PMC_ANALOG_SCAN_CLEAR_PASS_PMC_MASK);
+	}
+	else
+	{
+		Status = XST_SUCCESS;
+	}
+	return Status;
 }
 
 void XilCdo_WaitForScanClearDone(void)
 {
-	/* Wait for Scan Clear to complete */
-	while((Xil_In32(PMC_ANALOG_SCAN_CLEAR_DONE)
-				& PMC_ANALOG_SCAN_CLEAR_DONE_PMC_MASK)
+	if(Platform != PMC_TAP_VERSION_SPP)
+	{
+		/* Wait for Scan Clear to complete */
+		while((Xil_In32(PMC_ANALOG_SCAN_CLEAR_DONE)
+			& PMC_ANALOG_SCAN_CLEAR_DONE_PMC_MASK)
 			!= PMC_ANALOG_SCAN_CLEAR_DONE_PMC_MASK);
+	}
 }
 
 u32 XilCdo_ScanClearME(u32 BaseAddr)
@@ -977,18 +1014,30 @@ u32 XilCdo_ScanClearME(u32 BaseAddr)
 
 u32 XilCdo_CheckScanClearMEPass(u32 BaseAddr)
 {
-	/* Check for MBIST success */
-	return ((Xil_In32(BaseAddr+XILCDO_NPI_PCSR_STATUS_OFFSET)
-				& PCSR_STATUS_SCAN_PASS_MASK)
-			!= PCSR_STATUS_SCAN_PASS_MASK);
+	u32 Status;
+	if(Platform != PMC_TAP_VERSION_SPP)
+	{
+		/* Check for MBIST success */
+		Status = ((Xil_In32(BaseAddr+XILCDO_NPI_PCSR_STATUS_OFFSET)
+					& PCSR_STATUS_SCAN_PASS_MASK)
+					!= PCSR_STATUS_SCAN_PASS_MASK);
+	}
+	else
+	{
+		Status = XST_SUCCESS;
+	}
+	return Status;
 }
 
 void XilCdo_WaitForScanClearMEDone(u32 BaseAddr)
 {
-	/* Wait for MBIST to complete */
-	while((Xil_In32(BaseAddr+XILCDO_NPI_PCSR_STATUS_OFFSET)
+	if(Platform != PMC_TAP_VERSION_SPP)
+	{
+		/* Wait for MBIST to complete */
+		while((Xil_In32(BaseAddr+XILCDO_NPI_PCSR_STATUS_OFFSET)
 				& PCSR_STATUS_SCANDONE_MASK)
-			!= PCSR_STATUS_SCANDONE_MASK);
+				!= PCSR_STATUS_SCANDONE_MASK);
+	}
 }
 
 void XilCdo_SetMBISTTrigger(u32 BaseAddr)
@@ -1004,25 +1053,46 @@ void XilCdo_ClearMBISTTrigger(u32 BaseAddr)
 
 u32 XilCdo_CheckMBISTPass(u32 BaseAddr)
 {
-	/* Check for MBIST success */
-	return ((Xil_In32(BaseAddr+XILCDO_NPI_PCSR_STATUS_OFFSET)
-				& PCSR_STATUS_MBIST_PASS_MASK)
-			!= PCSR_STATUS_MBIST_PASS_MASK);
+	u32 Status;
+	if(Platform != PMC_TAP_VERSION_SPP)
+	{
+		/* Check for MBIST success */
+		Status = ((Xil_In32(BaseAddr+XILCDO_NPI_PCSR_STATUS_OFFSET)
+					& PCSR_STATUS_MBIST_PASS_MASK)
+					!= PCSR_STATUS_MBIST_PASS_MASK);
+	}
+	else
+	{
+		Status = XST_SUCCESS;
+	}
+	return Status;
 }
 
 void XilCdo_WaitForMBISTDone(u32 BaseAddr)
 {
-	/* Wait for MBIST to complete */
-	while((Xil_In32(BaseAddr+XILCDO_NPI_PCSR_STATUS_OFFSET)
-				& PCSR_STATUS_MBISTDONE_MASK)
-			!= PCSR_STATUS_MBISTDONE_MASK);
+	if(Platform != PMC_TAP_VERSION_SPP)
+	{
+		/* Wait for MBIST to complete */
+		while((Xil_In32(BaseAddr+XILCDO_NPI_PCSR_STATUS_OFFSET)
+					& PCSR_STATUS_MBISTDONE_MASK)
+					!= PCSR_STATUS_MBISTDONE_MASK);
+	}
 }
 
 u32 XilCdo_ChkMEPwrSupply(u32 BaseAddr)
 {
-	return ((Xil_In32(BaseAddr+XILCDO_NPI_PCSR_STATUS_OFFSET)
+	u32 Status;
+	if(Platform != PMC_TAP_VERSION_SPP)
+	{
+		Status = ((Xil_In32(BaseAddr+XILCDO_NPI_PCSR_STATUS_OFFSET)
 				& PCSR_STATUS_ME_PWR_SUPPLY_MASK)
-			== PCSR_STATUS_ME_PWR_SUPPLY_MASK);
+				== PCSR_STATUS_ME_PWR_SUPPLY_MASK);
+	}
+	else
+	{
+		Status = XST_SUCCESS;
+	}
+	return Status;
 }
 
 void XilCdo_ClearME_POR(u32 BaseAddr)
