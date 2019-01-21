@@ -242,17 +242,6 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u3
 	init_pm_objects();
 #endif
 
-	/* Initialize subsystems */
-	for (i = 0; i < XPM_SUBSYSID_MAX; i++) {
-		Status = XPmSubsystem_SetState(i, OFFLINE);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-		/* TODO: IPI mask should come from somewhere else */
-		PmSubsystems[i].IpiMask = XPm_SubsystemIpiMask[i];
-	}
-
-done:
 	return Status;
 }
 
