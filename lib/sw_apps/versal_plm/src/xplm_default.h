@@ -81,4 +81,9 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif /* end of XPLM_DEFAULT_H */
