@@ -58,6 +58,7 @@
 #define XMT_DEFAULT_TEST_PATTERN	0U
 #define XMT_MAX_MODE_NUM		15U
 
+#ifdef XPAR_PSU_DDR_0_S_AXI_BASEADDR
 #ifdef XPAR_PSU_DDR_1_S_AXI_BASEADDR
 /*
  * If the Upper DDR is enabled calculate the DDR total size by adding both
@@ -74,6 +75,10 @@
 #define XMT_DDR_MAX_SIZE		(XPAR_PSU_DDR_0_S_AXI_HIGHADDR -\
 				XPAR_PSU_DDR_0_S_AXI_BASEADDR + 1U)
 #define XMT_DDR_1_BASEADDR		XPAR_PSU_DDR_0_S_AXI_BASEADDR
+#endif
+#else
+#define XMT_DDR_MAX_SIZE		0U
+#define XMT_DDR_1_BASEADDR		0U
 #endif
 
 
