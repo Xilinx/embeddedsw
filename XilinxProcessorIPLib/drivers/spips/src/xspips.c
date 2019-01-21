@@ -121,7 +121,7 @@
 
 /************************** Function Prototypes ******************************/
 
-static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
+static void StubStatusHandler(const void *CallBackRef, u32 StatusEvent,
 				u32 ByteCount);
 
 /************************** Variable Definitions *****************************/
@@ -161,7 +161,7 @@ static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
 * @note		None.
 *
 ******************************************************************************/
-s32 XSpiPs_CfgInitialize(XSpiPs *InstancePtr, XSpiPs_Config *ConfigPtr,
+s32 XSpiPs_CfgInitialize(XSpiPs *InstancePtr, const XSpiPs_Config *ConfigPtr,
 				u32 EffectiveAddr)
 {
 	s32 Status;
@@ -720,7 +720,7 @@ s32 XSpiPs_SetSlaveSelect(XSpiPs *InstancePtr, u8 SlaveSel)
 * @note		None.
 *
 ******************************************************************************/
-u8 XSpiPs_GetSlaveSelect(XSpiPs *InstancePtr)
+u8 XSpiPs_GetSlaveSelect(const XSpiPs *InstancePtr)
 {
 	u32 ConfigReg;
 	u32 SlaveSel;
@@ -830,10 +830,10 @@ void XSpiPs_SetStatusHandler(XSpiPs *InstancePtr, void *CallBackRef,
 * @note		None.
 *
 ******************************************************************************/
-static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
+static void StubStatusHandler(const void *CallBackRef, u32 StatusEvent,
 				u32 ByteCount)
 {
-	(void) CallBackRef;
+	(const void) CallBackRef;
 	(void) StatusEvent;
 	(void) ByteCount;
 

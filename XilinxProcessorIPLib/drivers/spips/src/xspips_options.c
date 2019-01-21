@@ -114,7 +114,7 @@ static OptionsMap OptionsTable[] = {
 * This function is not thread-safe.
 *
 ******************************************************************************/
-s32 XSpiPs_SetOptions(XSpiPs *InstancePtr, u32 Options)
+s32 XSpiPs_SetOptions(const XSpiPs *InstancePtr, u32 Options)
 {
 	u32 ConfigReg;
 	u32 Index;
@@ -203,7 +203,7 @@ s32 XSpiPs_SetOptions(XSpiPs *InstancePtr, u32 Options)
 * @note		None.
 *
 ******************************************************************************/
-u32 XSpiPs_GetOptions(XSpiPs *InstancePtr)
+u32 XSpiPs_GetOptions(const XSpiPs *InstancePtr)
 {
 	u32 OptionsFlag = 0U;
 	u32 ConfigReg;
@@ -252,7 +252,7 @@ u32 XSpiPs_GetOptions(XSpiPs *InstancePtr)
 * This function is not thread-safe.
 *
 ******************************************************************************/
-s32 XSpiPs_SetClkPrescaler(XSpiPs *InstancePtr, u8 Prescaler)
+s32 XSpiPs_SetClkPrescaler(const XSpiPs *InstancePtr, u8 Prescaler)
 {
 	u32 ConfigReg;
 	s32 Status;
@@ -303,7 +303,7 @@ s32 XSpiPs_SetClkPrescaler(XSpiPs *InstancePtr, u8 Prescaler)
 *
 *
 ******************************************************************************/
-u8 XSpiPs_GetClkPrescaler(XSpiPs *InstancePtr)
+u8 XSpiPs_GetClkPrescaler(const XSpiPs *InstancePtr)
 {
 	u32 ConfigReg;
 
@@ -350,7 +350,7 @@ u8 XSpiPs_GetClkPrescaler(XSpiPs *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-s32 XSpiPs_SetDelays(XSpiPs *InstancePtr, u8 DelayNss, u8 DelayBtwn,
+s32 XSpiPs_SetDelays(const XSpiPs *InstancePtr, u8 DelayNss, u8 DelayBtwn,
 			 u8 DelayAfter, u8 DelayInit)
 {
 	u32 DelayRegister;
@@ -403,7 +403,7 @@ s32 XSpiPs_SetDelays(XSpiPs *InstancePtr, u8 DelayNss, u8 DelayBtwn,
 * @note		None.
 *
 ******************************************************************************/
-void XSpiPs_GetDelays(XSpiPs *InstancePtr,u8 *DelayNss, u8 *DelayBtwn,
+void XSpiPs_GetDelays(const XSpiPs *InstancePtr,u8 *DelayNss, u8 *DelayBtwn,
 			u8 *DelayAfter, u8 *DelayInit)
 {
 	u32 DelayRegister;
