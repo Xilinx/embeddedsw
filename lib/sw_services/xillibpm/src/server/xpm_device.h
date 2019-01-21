@@ -162,7 +162,7 @@ struct XPm_Device {
 	XPm_Requirement *PendingReqm; /**< Requirement being updated */
 	u8 WfDealloc; /**< Deallocation is pending */
 	u8 WfPwrUseCnt; /**< Pending power use count */
-
+	u8 UseCount; /**< Device use count */
 	XPm_DeviceOps *DeviceOps; /**< Device operations */
 };
 

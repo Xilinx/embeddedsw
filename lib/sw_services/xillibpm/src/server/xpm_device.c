@@ -246,19 +246,26 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				Status = Node->HandleEvent(Node, XPM_DEVEVENT_TIMER);
 			} else if (XPM_DEVEVENT_SHUTDOWN == Event) {
 				Status = XST_SUCCESS;
-				Node->State = XPM_DEVSTATE_RST_ON;
-				/* Assert reset for peripheral devices */
-				if (XPM_NODESUBCL_DEV_PERIPH ==
-					NODESUBCLASS(Device->Node.Id)) {
-					Status = XPmDevice_Reset(Device,
-							PM_RESET_ACTION_ASSERT);
-					if (XST_SUCCESS != Status) {
-						break;
+				if (Device->UseCount == 1) {
+					Node->State = XPM_DEVSTATE_RST_ON;
+					/* Assert reset for peripheral devices */
+					if (XPM_NODESUBCL_DEV_PERIPH ==
+					    NODESUBCLASS(Device->Node.Id)) {
+						Status = XPmDevice_Reset(Device,
+									 PM_RESET_ACTION_ASSERT);
+						if (XST_SUCCESS != Status) {
+							break;
+						}
 					}
+					/* Todo: Start timer to poll reset node */
+					/* Hack */
+					Status = Node->HandleEvent(Node, XPM_DEVEVENT_TIMER);
+				} else {
+					Device->UseCount--;
+					Device->WfPwrUseCnt = Device->Power->UseCount - 1U;
+					Status = Device->Power->Node.HandleEvent(
+						&Device->Power->Node, XPM_POWER_EVENT_PWR_DOWN);
 				}
-				/* Todo: Start timer to poll reset node */
-				/* Hack */
-				Status = Node->HandleEvent(Node, XPM_DEVEVENT_TIMER);
 			} else {
 				/* Required by MISRA */
 			}
@@ -311,6 +318,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 						XPm_RequiremntUpdate(Device->PendingReqm);
 						Device->PendingReqm = NULL;
 					}
+					Device->UseCount--;
 					if (0 == IsRunning(Device)) {
 						Node->State = XPM_DEVSTATE_UNUSED;
 					} else {
@@ -363,6 +371,7 @@ static XStatus Request(XPm_Device *Device,
 
 	/* Allocated device for the subsystem */
 	Reqm->Allocated = 1;
+	Device->UseCount++;
 
 	Status = Device->DeviceOps->SetRequirement(Device, Subsystem,
 						   Capabilities, QoS);
@@ -471,6 +480,7 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 	Device->PendingReqm = NULL;
 	Device->WfDealloc = 0;
 	Device->WfPwrUseCnt = 0;
+	Device->UseCount = 0;
 
 	Status = XPmDevice_AddClock(Device, Clock);
 	if (XST_SUCCESS != Status) {
