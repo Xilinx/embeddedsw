@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -51,6 +51,11 @@
 
 #ifndef XPSMFW_IOMODULE_H_
 #define XPSMFW_IOMODULE_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "xpsmfw_default.h"
 #include "xiomodule.h"
 #include "xpsmfw_ipi_manager.h"
@@ -259,5 +264,9 @@
 int XPsmFw_IoModuleInit(u32 DeviceId);
 int SetUpInterruptSystem(void);
 void XPsmFw_IntrHandler(void *IntrNumber);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XPSMFW_IOMODULE_H_ */

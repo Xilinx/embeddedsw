@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -52,9 +52,17 @@
 #ifndef XPSMFW_MAIN_H
 #define XPSMFW_MAIN_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**************************Include Files**************************/
 
 /* PSM Firmware version: SDK_RELEASE.QUARTER_RELEASE */
 #define versal_PSMFW_VERSION "2018.1"
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XPSMFW_MAIN_H_ */

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -51,6 +51,10 @@
 
 #ifndef _RPU_H_
 #define _RPU_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
  * RPU Base Address
@@ -128,5 +132,9 @@
 #define RPU_RPU_1_PWRDWN_EN_SHIFT   0
 #define RPU_RPU_1_PWRDWN_EN_WIDTH   1
 #define RPU_RPU_1_PWRDWN_EN_MASK    0X00000001
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _RPU_H_ */

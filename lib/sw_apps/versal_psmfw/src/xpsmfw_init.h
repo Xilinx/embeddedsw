@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -51,6 +51,11 @@
 
 #ifndef XPSMFW_INIT_H
 #define XPSMFW_INIT_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "psm_local.h"
 #include "xpsmfw_debug.h"
 #include "xil_io.h"
@@ -59,5 +64,9 @@
 int XPsmFw_Init();
 int XPsmFw_FPD_MBISR();
 int XPsmFw_ScanClear(u32 ScanClearAddr);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XPSMFW_INIT_H_ */

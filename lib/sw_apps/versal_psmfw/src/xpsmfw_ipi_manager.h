@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -50,6 +50,10 @@
 #ifndef XPSMFW_IPI_MANAGER_H_
 #define XPSMFW_IPI_MANAGER_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "xparameters.h"
 
 #ifdef XPAR_PSU_IPI_PSM_DEVICE_ID
@@ -77,6 +81,10 @@ extern u32 IpiMaskList[XPSMFW_IPI_MASK_COUNT];
 s32 XPsmfw_IpiManagerInit(void);
 
 int XPsmFw_DispatchIpiHandler(u32 SrcMask);
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif /* XPSMFW_IPI_MANAGER_H_ */
