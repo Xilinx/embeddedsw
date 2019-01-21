@@ -43,7 +43,9 @@
 * 1.00  drg/jz 01/25/10 First release
 * 1.04a	sg     01/30/13 SetDelays test includes DelayTestNss parameter.
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
-*
+* 3.3   aru    01/20/19 Fixes violations according to MISRAC-2012
+*                       in safety mode and done changes such as
+*                       Added goto statements.
 * </pre>
 *
 ******************************************************************************/
