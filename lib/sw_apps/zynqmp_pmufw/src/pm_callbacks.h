@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,6 +33,10 @@
 #ifndef PM_CALLBACKS_H_
 #define PM_CALLBACKS_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "pm_master.h"
 #include "xil_types.h"
 
@@ -45,4 +49,9 @@ void PmNotifyCb(const PmMaster* const master, const PmNodeId nodeId,
 void PmInitSuspendCb(const PmMaster* const master, const u32 reason,
 		     const u32 latency, const u32 state, const u32 timeout);
 
+
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* PM_CALLBACKS_H_ */

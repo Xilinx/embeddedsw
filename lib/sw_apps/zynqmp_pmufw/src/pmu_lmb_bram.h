@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -38,4 +38,9 @@ extern "C" {
 #define PMU_LMB_BRAM_CE_CNT_REG			0xFFD5000CU
 
 #define PMU_LMB_BRAM_CE_MASK			0x2U
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif /* _PMU_LMB_BRAM_H_ */

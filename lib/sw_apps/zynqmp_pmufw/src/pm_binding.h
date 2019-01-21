@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,6 +30,10 @@
 
 #ifndef PM_BINDING_H_
 #define PM_BINDING_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "xil_types.h"
 #include "xstatus.h"
@@ -68,4 +72,8 @@ void XPfw_DapFpdWakeEvent(void);
 /* Call from DAP event handlers to inform PM about the RPU power state change */
 void XPfw_DapRpuWakeEvent(void);
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* PM_BINDING_H_ */

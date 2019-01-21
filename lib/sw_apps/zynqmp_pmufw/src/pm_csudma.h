@@ -24,6 +24,13 @@
  * this Software without prior written authorization from Xilinx.
  */
 
+#ifndef PM_CSUDMA_H_
+#define PM_CSUDMA_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "xcsudma.h"
 #include "pm_common.h"
 
@@ -45,3 +52,9 @@ XStatus PmDmaInit(void);
 void PmDma64BitTransfer(u32 DstAddrLow, u32 DstAddrHigh,
 			 u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size);
 void PmSetCsuDmaLoopbackMode(void);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* PM_CSUDMA_H_ */
