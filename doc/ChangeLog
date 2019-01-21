@@ -171,6 +171,9 @@ Fix microblaze_disable_dcache for 64 bit microblaze
 Added frequently used functions in common area in xil_utils.c, so that other
 modules can make use of it.
 
+spips_v3_3:
+Resolved MISRA-C:2012 violations in safety mode(CR#1016116)
+
 ttcps_v3_8:
 Modified in XTtcPs_ClearInterruptStatus function to clear
 interrupt status register by reading instead of writing it.
