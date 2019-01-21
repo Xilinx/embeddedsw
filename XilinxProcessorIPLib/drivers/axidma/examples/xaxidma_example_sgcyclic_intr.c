@@ -62,6 +62,7 @@
  *                     and typecasting buffer address(CR-992638).
  * 9.8   rsp  07/24/18 Set TX DMACR[Cyclic BD enable] before starting DMA
  *                     operation i.e. in TxSetup.
+ * 9.9   rsp  01/21/19 Fix use of #elif check in deriving DDR_BASE_ADDR.
  * </pre>
  *
  * ***************************************************************************
@@ -99,11 +100,11 @@ extern void xil_printf(const char *format, ...);
 
 #ifdef XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
 #define DDR_BASE_ADDR		XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
-#elif XPAR_MIG7SERIES_0_BASEADDR
+#elif defined (XPAR_MIG7SERIES_0_BASEADDR)
 #define DDR_BASE_ADDR	XPAR_MIG7SERIES_0_BASEADDR
-#elif XPAR_MIG_0_BASEADDR
+#elif defined (XPAR_MIG_0_BASEADDR)
 #define DDR_BASE_ADDR	XPAR_MIG_0_BASEADDR
-#elif XPAR_PSU_DDR_0_S_AXI_BASEADDR
+#elif defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR)
 #define DDR_BASE_ADDR	XPAR_PSU_DDR_0_S_AXI_BASEADDR
 #endif
 
