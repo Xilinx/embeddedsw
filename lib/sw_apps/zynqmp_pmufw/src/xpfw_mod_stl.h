@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -26,8 +26,17 @@
 
 #ifndef SRC_XPFW_MOD_STL_H_
 #define SRC_XPFW_MOD_STL_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "xpfw_default.h"
 
 void ModStlInit(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* SRC_XPFW_MOD_STL_H_ */

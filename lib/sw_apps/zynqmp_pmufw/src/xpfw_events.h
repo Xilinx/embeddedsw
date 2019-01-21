@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -27,6 +27,10 @@
 ******************************************************************************/
 #ifndef XPFW_EVENTS_H_
 #define XPFW_EVENTS_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "xpfw_default.h"
 #define    XPFW_EV_MB_FAULT                1U
@@ -149,4 +153,9 @@ XStatus XPfw_EventRemoveOwner(u32 ModId, u32 EventId);
 u32 XPfw_EventGetId(u32 EventType, u32 Mask);
 
 u32 XPfw_EventGetType(u32 EventId);
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif /* XPFW_EVENTS_H_ */

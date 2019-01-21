@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -27,6 +27,14 @@
 #ifndef XPFW_MOD_WDT_H_
 #define XPFW_MOD_WDT_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void ModWdtInit(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XPFW_MOD_WDT_H_ */
