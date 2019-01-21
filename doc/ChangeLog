@@ -37,6 +37,9 @@ Add additional LFN options in mld.
 xxvethernet_v1_2:
 In tcl use unique global variables to fix bsp generation for certain designs.
 
+axidma_v9_9:
+examples- Fix use of #elif check in deriving DDR_BASE_ADDR.
+
 Changes for 2018.3
 ===============================
 dp12_v7_0:
