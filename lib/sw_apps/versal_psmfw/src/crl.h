@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -52,6 +52,9 @@
 #ifndef _CRL_H_
 #define _CRL_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
  * CRL base address
@@ -135,5 +138,9 @@
 #define CRL_RST_FPD_POR_SHIFT                         (0U)
 #define CRL_RST_FPD_POR_WIDTH                         (1U)
 #define CRL_RST_FPD_POR_MASK                          ((u32)0x00000001)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _CRL_H_ */

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -51,6 +51,10 @@
 
 #ifndef _PSM_GLOBAL_H_
 #define _PSM_GLOBAL_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
  * PSM Global base address
@@ -1802,5 +1806,9 @@
 #define PSM_GLOBAL_REG_MBIST_GO_APU_SHIFT   0
 #define PSM_GLOBAL_REG_MBIST_GO_APU_WIDTH   1
 #define PSM_GLOBAL_REG_MBIST_GO_APU_MASK    0X00000001
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _PSM_GLOBAL_H_ */

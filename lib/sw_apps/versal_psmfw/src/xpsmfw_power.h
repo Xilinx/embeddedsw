@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -51,6 +51,10 @@
 
 #ifndef XPSMFW_POWER_H_
 #define XPSMFW_POWER_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #define FPD_SLCR_BASEADDR                             ((u32)0xFD610000U)
 #define FPD_SLCR_WPROT0                               ( ( FPD_SLCR_BASEADDR ) + ((u32)0x00000000U) )
@@ -254,5 +258,9 @@ XStatus XPsmFw_DispatchPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask);
 XStatus XPsmFw_DispatchPwrDwnHandler(u32 PwrDwnStatus, u32 PwrDwnIntMask, u32 PwrUpStatus, u32 PwrUpIntMask);
 XStatus XPsmFw_DispatchWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask);
 XStatus XPsmFw_DispatchPwrCtlHandler(u32 PwrCtlStatus, u32 PwrCtlIntMask);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XPSMFW_POWER_H_ */
