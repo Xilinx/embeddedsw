@@ -77,7 +77,7 @@ void XPm_RequiremntUpdate(XPm_Requirement *Reqm)
 	Reqm->Curr.QoS = Reqm->Next.QoS;
 }
 
-static void XPmRequirement_Clear(XPm_Requirement* Reqm)
+void XPmRequirement_Clear(XPm_Requirement* Reqm)
 {
         /* Clear flag - master is not using slave anymore */
 		Reqm->Allocated = 0;

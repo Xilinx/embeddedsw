@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -70,5 +70,6 @@ XStatus XPmRequirement_Init(XPm_Requirement *Reqm,
 XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device);
 void XPm_RequiremntUpdate(XPm_Requirement *Reqm);
 XStatus XPmRequirement_Release(XPm_Requirement *Reqm, XPm_ReleaseScope Scope);
+void XPmRequirement_Clear(XPm_Requirement* Reqm);
 /** @} */
 #endif /* XPM_REQUIREMENT_H_ */
