@@ -119,6 +119,7 @@ XStatus XPmcFw_DmaSbiXfer(u64 SrcAddr, u32 Len, u32 Flags);
 XStatus XPmcFw_EccInit(u64 Addr, u32 Len);
 u32 XPmcFw_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
 		XCsuDma** DmaPtrAddr);
+void XPmcFw_WaitForNonBlkDma(void);
 #ifdef __cplusplus
 }
 #endif

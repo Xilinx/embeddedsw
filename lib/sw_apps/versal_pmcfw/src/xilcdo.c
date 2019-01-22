@@ -670,6 +670,7 @@ XStatus XilCdo_DmaXfer(u32 CmdArgs[10U])
 	u64 SrcAddr = (SrcAddrHigh<<32U) | SrcAddrLow;
 	u64 DestAddr = (DestAddrHigh<<32U) | DestAddrLow;
 	u32 DmaFlags = Flags;
+	u32 RegVal;
 
 	if(SrcAddr == 0L)
 	{
@@ -715,6 +716,10 @@ XStatus XilCdo_DmaXfer(u32 CmdArgs[10U])
 
 	if(DestAddr == XILCDO_SMAP_DEST_ADDR)
 	{
+		XPmcFw_UtilRMW(SLAVE_BOOT_SBI_MODE,
+			SLAVE_BOOT_SBI_MODE_SELECT_MASK,
+			SLAVE_BOOT_SBI_MODE_SELECT_MASK);
+
 		Status = XPmcFw_DmaSbiXfer(SrcAddr, Len, DmaFlags);
 	}
 	else
@@ -723,8 +728,42 @@ XStatus XilCdo_DmaXfer(u32 CmdArgs[10U])
 	}
 
 	if(Status != XST_SUCCESS)
+    {
+	goto END;
+    }
+
+	if(!((Flags & XPMCFW_DMA_DST_NONBLK) || (Flags & XPMCFW_DMA_SRC_NONBLK)))
 	{
-		goto END;
+		XPmcFw_WaitForNonBlkDma();
+        if((Xil_In32(SLAVE_BOOT_SBI_MODE) & SLAVE_BOOT_SBI_MODE_SELECT_MASK)==0U)
+		{
+			goto END;
+		}
+		while(1)
+        {
+		RegVal = Xil_In32(SLAVE_BOOT_SBI_STATUS);
+            if(((RegVal & SLAVE_BOOT_SBI_STATUS_CMN_BUF_SPACE_MASK)
+													>>3U)==0x200U)
+            {
+		/** Do Nothing */
+            }
+            else
+            {
+		continue;
+            }
+
+            if(((RegVal & SLAVE_BOOT_SBI_STATUS_SMAP_DOUT_FIFO_SPACE_MASK)
+															>>20U)==0x8U)
+            {
+		break;
+            }
+            else
+            {
+		continue;
+            }
+        }
+		XPmcFw_UtilRMW(SLAVE_BOOT_SBI_MODE,
+			SLAVE_BOOT_SBI_MODE_SELECT_MASK, 0U);
 	}
 END:
 	return Status;
