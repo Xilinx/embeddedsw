@@ -94,7 +94,7 @@ extern uint64_t ullPortYieldRequired;			\
 }
 
 #define portYIELD_FROM_ISR( x ) portEND_SWITCHING_ISR( x )
-#if defined( GUEST )
+#if EL1_NONSECURE
 	#define portYIELD() __asm volatile ( "SVC 0" ::: "memory" )
 #else
 	#define portYIELD() __asm volatile ( "SMC 0" ::: "memory" )

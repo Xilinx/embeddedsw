@@ -103,7 +103,7 @@ context. */
 #define portSP_ELx						( ( StackType_t ) 0x01 )
 #define portSP_EL0						( ( StackType_t ) 0x00 )
 
-#if defined( GUEST )
+#if EL1_NONSECURE
 	#define portEL1						( ( StackType_t ) 0x04 )
 	#define portINITIAL_PSTATE				( portEL1 | portSP_EL0 )
 #else
@@ -191,8 +191,8 @@ volatile uint32_t ulHighFrequencyTimerTicks;
 #endif
 
 /* The space on the stack required to hold the FPU registers.  This is 32 128-bit
- * registers, plus a 32-bit status register. */
-#define portFPU_REGISTER_WORDS	( ( 64 * 2 ) + 1 )
+ * registers, that means (64 * 8) 64 double words */
+#define portFPU_REGISTER_DOUBLE_WORDS ( 64 )
 
 #if defined(GICv2)
 /* Used in the ASM code. */
@@ -295,12 +295,11 @@ StackType_t *pxPortInitialiseStack( StackType_t *pxTopOfStack, TaskFunction_t px
 
 	*pxTopOfStack = ( StackType_t ) pxCode; /* Exception return address. */
 	pxTopOfStack--;
-
-	/* The task will start with a critical nesting count of 0 as interrupts are
-	enabled. */
-	*pxTopOfStack = portNO_CRITICAL_NESTING;
 	#if( configUSE_TASK_FPU_SUPPORT == 1 )
 	{
+	/* The task will start with a critical nesting count of 0 as interrupts are
+		enabled. */
+	*pxTopOfStack = portNO_CRITICAL_NESTING;
 	/* The task will start without a floating point context.  A task that uses
 	the floating point hardware must call vPortTaskUsesFPU() before executing
 	any floating point instructions. */
@@ -311,9 +310,13 @@ StackType_t *pxPortInitialiseStack( StackType_t *pxTopOfStack, TaskFunction_t px
 	{
 		/* The task will start with a floating point context.  Leave enough
 		 * space for the registers - and ensure they are initialised to 0. */
-		pxTopOfStack -= portFPU_REGISTER_WORDS;
-		memset( pxTopOfStack, 0x00, portFPU_REGISTER_WORDS * sizeof( StackType_t ) );
+		pxTopOfStack -= (portFPU_REGISTER_DOUBLE_WORDS-1);
+		memset( pxTopOfStack, 0x00, portFPU_REGISTER_DOUBLE_WORDS * sizeof( StackType_t ) );
 
+		/* The task will start with a critical nesting count of 0 as interrupts are
+			enabled. */
+		pxTopOfStack--;
+		*pxTopOfStack = portNO_CRITICAL_NESTING;
 		pxTopOfStack--;
 		*pxTopOfStack = pdTRUE;
 		ullPortTaskHasFPUContext = pdTRUE;
@@ -485,7 +488,7 @@ uint32_t ulBpr;
 	__asm volatile ( "MRS %0, CurrentEL" : "=r" ( ulAPSR ) );
 	ulAPSR &= portAPSR_MODE_BITS_MASK;
 
-#if defined( GUEST )
+#if EL1_NONSECURE
 	#warning Building for execution as a guest under XEN. THIS IS NOT A FULLY TESTED PATH.
 	configASSERT( ulAPSR == portEL1 );
 	if( ulAPSR == portEL1 )
