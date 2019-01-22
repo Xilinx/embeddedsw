@@ -43,6 +43,7 @@
 * 1.2  Naresh  06/20/2018  Fixed CR#1005445
 * 1.3  Naresh  07/11/2018  Updated copyright info
 * 1.4  Nishad  12/05/2018  Renamed ME attributes to AIE
+* 1.5  Hyun    01/08/2019  Don't poll the status after control change
 * </pre>
 *
 ******************************************************************************/
@@ -601,10 +602,7 @@ void XAieDma_TileBdClear(XAieDma_Tile *DmaInstPtr, u8 BdNum)
 /*****************************************************************************/
 /**
 *
-* This API is used to reset/enable the selected Tile DMA channel. If channel is
-* reset/disabled, the API will wait against a timeout for the status to move to
-* IDLE and if the channel is enabled, API will wait for status to change to
-* Starting.
+* This API is used to reset/enable the selected Tile DMA channel.
 *
 * @param	DmaInstPtr - Pointer to the Tile DMA instance.
 * @param	ChNum - Channel number (0-S2MM0,1-S2MM1,2-MM2S0,3-MM2S1).
@@ -620,8 +618,6 @@ u32 XAieDma_TileChControl(XAieDma_Tile *DmaInstPtr, u8 ChNum, u8 Reset, u8 Enabl
 {
         u64 RegAddr;
         u32 RegVal;
-        u32 TimeOut = XAIEDMA_TILE_CHSTS_POLL_TIMEOUT;
-        u32 RetSts = XAIE_FAILURE;
         u8 State;
 
         XAie_AssertNonvoid(DmaInstPtr != XAIE_NULL);
@@ -638,37 +634,7 @@ u32 XAieDma_TileChControl(XAieDma_Tile *DmaInstPtr, u8 ChNum, u8 Reset, u8 Enabl
         /* Write to channel control register */
         XAieGbl_Write32(RegAddr, RegVal);
 
-        if(DmaInstPtr->StartBd[ChNum] == 0xFFU) {
-                /* Channel enabled without BD in start queue */
-                return XAIE_SUCCESS;
-        }
-
-        /* Get address of channel status register */
-        RegAddr = DmaInstPtr->BaseAddress + TileDmaCh[ChNum].StsOff;
-        while(TimeOut > 0U) {
-                RegVal = XAieGbl_Read32(RegAddr);
-                State = XAie_GetField(RegVal, TileDmaCh[ChNum].Sts.Lsb,
-                				TileDmaCh[ChNum].Sts.Mask);
-
-                /*
-                 * If channel is reset/disabled, poll for channel to move to 
-                 * IDLE, or if channel is enabled, poll for channel to move to 
-                 * Starting or Running
-                 */
-                if(((Reset == XAIE_RESETENABLE) || (Enable == XAIE_DISABLE)) &&
-                                        (State == XAIEDMA_TILE_CHSTS_IDLE)) {
-                        RetSts = XAIE_SUCCESS;
-                        break;
-                } else if((Enable == XAIE_ENABLE) &&
-                                ((State == XAIEDMA_TILE_CHSTS_STARTING) ||
-                                (State == XAIEDMA_TILE_CHSTS_RUNNING))) {
-                        RetSts = XAIE_SUCCESS;
-                        break;
-                }
-                TimeOut--;
-        }
-
-        return RetSts;
+        return XAIE_SUCCESS;
 }
 
 /** @} */
