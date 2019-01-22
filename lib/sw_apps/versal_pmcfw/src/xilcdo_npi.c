@@ -69,6 +69,7 @@ XILCDO_NPI_SEQ XilCdoNpiSeqInstance;
 u32 ScanClearDone;
 u32 NpiCmd = 0U;
 u32 NpiFabricEnabled = 0U;
+u32 NocSysRstReq = 0U;
 /*****************************************************************************/
 /**
  * This function writes PCSR control register
@@ -1079,6 +1080,13 @@ void XilCdo_WaitForMBISTDone(u32 BaseAddr)
 	}
 }
 
+void XilCdo_NocSysRst(void)
+{
+	XPmcFw_UtilRMW(CRP_RST_NONPS, CRP_RST_NONPS_NOC_RESET_MASK |
+		CRP_RST_NONPS_SYS_RST_1_MASK | CRP_RST_NONPS_SYS_RST_2_MASK |
+					CRP_RST_NONPS_SYS_RST_3_MASK, 0U);
+}
+
 u32 XilCdo_ChkMEPwrSupply(u32 BaseAddr)
 {
 	u32 Status;
@@ -1455,6 +1463,13 @@ XStatus XilCdo_RunPendingNpiSeq(void)
 		Status = XST_SUCCESS;
 		goto END;
 	}
+
+	if(NocSysRstReq == 1U)
+	{
+		XilCdo_NocSysRst();
+		NocSysRstReq = 0U;
+	}
+
 	if(NpiCmd == CMD_NPI_SEQ)
 	{
 		XPmcFw_Printf(DEBUG_DETAILED,"\n Running all pending Startup/PR sequences \n\r");
@@ -2709,6 +2724,7 @@ XStatus XilCdo_NpiPreCfg(u32 CmdArgs[10U])
 		case XILCDO_NPI_BLK_NOC_IDB:
 			{
 				Status = XilCdo_ScanClear(NpiParam);
+				NocSysRstReq = 1U;
 			}
 			break;
 
@@ -2721,6 +2737,7 @@ XStatus XilCdo_NpiPreCfg(u32 CmdArgs[10U])
 				}
 
 				Status = XilCdo_NpiPreCfg_NOC_NMU(BaseAddr, NpiParam);
+				NocSysRstReq = 1U;
 			}
 			break;
 
