@@ -34,6 +34,14 @@
 
 /* BSP includes. */
 #include "xil_types.h"
+#include "xpseudo_asm.h"
+#include "FreeRTOSConfig.h"
+
+#if defined (versal) && !defined(ARMR5)
+#define GICv3
+#else
+#define GICv2
+#endif
 
 /*-----------------------------------------------------------
  * Port specific definitions.
@@ -100,16 +108,29 @@ extern UBaseType_t uxPortSetInterruptMask( void );
 extern void vPortClearInterruptMask( UBaseType_t uxNewMaskValue );
 extern void vPortInstallFreeRTOSVectorTable( void );
 
+#if defined (GICv3)
+#define portDISABLE_INTERRUPTS()									\
+	__asm volatile ( "MSR DAIFSET, #3" ::: "memory" );				\
+	__asm volatile ( "DSB SY" );									\
+	__asm volatile ( "ISB SY" );
+#else
 #define portDISABLE_INTERRUPTS()									\
 	__asm volatile ( "MSR DAIFSET, #2" ::: "memory" );				\
 	__asm volatile ( "DSB SY" );									\
 	__asm volatile ( "ISB SY" );
+#endif
 
+#if defined (GICv3)
+#define portENABLE_INTERRUPTS()										\
+	__asm volatile ( "MSR DAIFCLR, #3" ::: "memory" );				\
+	__asm volatile ( "DSB SY" );									\
+	__asm volatile ( "ISB SY" );
+#else
 #define portENABLE_INTERRUPTS()										\
 	__asm volatile ( "MSR DAIFCLR, #2" ::: "memory" );				\
 	__asm volatile ( "DSB SY" );									\
 	__asm volatile ( "ISB SY" );
-
+#endif
 
 /* These macros do not globally disable/enable interrupts.  They do mask off
 interrupts that have a priority below configMAX_API_CALL_INTERRUPT_PRIORITY. */
@@ -225,6 +246,7 @@ void vPortTaskUsesFPU( void );
 
 /* The number of bits to shift for an interrupt priority is dependent on the
 number of bits implemented by the interrupt controller. */
+
 #if configUNIQUE_INTERRUPT_PRIORITIES == 16
 	#define portPRIORITY_SHIFT 4
 	#define portMAX_BINARY_POINT_VALUE	3
@@ -244,6 +266,8 @@ number of bits implemented by the interrupt controller. */
 	#error Invalid configUNIQUE_INTERRUPT_PRIORITIES setting.  configUNIQUE_INTERRUPT_PRIORITIES must be set to the number of unique priorities implemented by the target hardware
 #endif
 
+
+#if defined(GICv2)
 /* Interrupt controller access addresses. */
 #define portICCPMR_PRIORITY_MASK_OFFSET  						( 0x04 )
 #define portICCIAR_INTERRUPT_ACKNOWLEDGE_OFFSET 				( 0x0C )
@@ -258,5 +282,5 @@ number of bits implemented by the interrupt controller. */
 #define portICCPMR_PRIORITY_MASK_REGISTER_ADDRESS 			( portINTERRUPT_CONTROLLER_CPU_INTERFACE_ADDRESS + portICCPMR_PRIORITY_MASK_OFFSET )
 #define portICCBPR_BINARY_POINT_REGISTER 					( *( ( const volatile uint32_t * ) ( portINTERRUPT_CONTROLLER_CPU_INTERFACE_ADDRESS + portICCBPR_BINARY_POINT_OFFSET ) ) )
 #define portICCRPR_RUNNING_PRIORITY_REGISTER 				( *( ( const volatile uint32_t * ) ( portINTERRUPT_CONTROLLER_CPU_INTERFACE_ADDRESS + portICCRPR_RUNNING_PRIORITY_OFFSET ) ) )
-
+#endif
 #endif /* PORTMACRO_H */

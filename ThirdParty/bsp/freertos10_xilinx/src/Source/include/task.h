@@ -2302,7 +2302,7 @@ void vTaskSetTaskNumber( TaskHandle_t xTask, const UBaseType_t uxHandle ) PRIVIL
 void vTaskStepTick( const TickType_t xTicksToJump ) PRIVILEGED_FUNCTION;
 
 /*
- * Only avilable when configUSE_TICKLESS_IDLE is set to 1.
+ * Only available when configUSE_TICKLESS_IDLE is set to 1.
  * Provided for use within portSUPPRESS_TICKS_AND_SLEEP() to allow the port
  * specific sleep function to determine if it is ok to proceed with the sleep,
  * and if it is ok to proceed, if it is ok to sleep indefinitely.
