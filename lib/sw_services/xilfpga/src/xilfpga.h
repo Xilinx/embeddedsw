@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -79,6 +79,12 @@
  ******************************************************************************/
 #ifndef XILFPGA_H
 #define XILFPGA_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/***************************** Include Files ********************************/
 #include "xil_io.h"
 #include "xil_types.h"
 #include "xil_assert.h"
@@ -204,4 +210,9 @@ u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 			  u32 ConfigReg_NumFrames);
 void XFpga_GetDmaPtr(XFpga *InstancePtr, XCsuDma *DmaPtr);
 #endif
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif  /* XILFPGA_H */
