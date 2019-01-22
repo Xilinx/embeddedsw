@@ -33,6 +33,7 @@ Fixed compiler warning.
 
 xilffs_v4_1:
 Add additional LFN options in mld.
+Add support to enable use of CHMOD functionality.
 
 xxvethernet_v1_2:
 In tcl use unique global variables to fix bsp generation for certain designs.
