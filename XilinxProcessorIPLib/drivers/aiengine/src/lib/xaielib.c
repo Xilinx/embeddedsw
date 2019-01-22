@@ -50,6 +50,7 @@
 * 1.7  Hyun    11/14/2018  Move platform dependent code to xaielib.c
 * 1.8  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.9  Hyun    01/08/2019  Implement 128bit IO operations for baremetal
+* 2.0  Hyun    01/08/2019  Add XAieLib_MaskPoll()
 * </pre>
 *
 ******************************************************************************/
@@ -607,3 +608,55 @@ void XAieLib_WriteCmd(u8 Command, u8 ColId, u8 RowId, u32 CmdWd0,
 
 /** @} */
 
+/*****************************************************************************/
+/**
+*
+* This is the IO function to poll until the value at the address to be given
+* masked value.
+*
+* @param	Addr: Address to write to.
+* @param	Mask: Mask to be applied to read data.
+* @param	Value: The expected value
+* @param	TimeOutUs: Minimum timeout in usec.
+*
+* @return	XAIELIB_SUCCESS on success, otherwise XAIELIB_FAILURE
+*
+* @note		None.
+*
+*******************************************************************************/
+u32 XAieLib_MaskPoll(u64 Addr, u32 Mask, u32 Value, u32 TimeOutUs)
+{
+	u32 RegVal;
+	u32 Ret = XAIELIB_FAILURE;
+
+#ifdef __AIESIM__
+	if (XAieSim_MaskPoll(Addr, Mask, Value, TimeOutUs) == XAIESIM_SUCCESS) {
+		Ret = XAIELIB_SUCCESS;
+	}
+#else
+	u32 Count, MinTimeOutUs;
+
+	/*
+	 * Any value less than 200 us becomes noticable overhead. This is based
+	 * on some profiling, and it may vary between platforms.
+	 */
+	MinTimeOutUs = 200;
+	Count = (TimeOutUs + MinTimeOutUs - 1) / MinTimeOutUs;
+
+	while (Count > 0U) {
+		if ((XAieLib_Read32(Addr) & Mask) == Value) {
+			Ret = XAIELIB_SUCCESS;
+			break;
+		}
+		XAieLib_usleep(MinTimeOutUs);
+		Count--;
+	}
+
+	/* Check for the break from timed-out loop */
+	if ((Ret == XAIELIB_FAILURE) &&
+			((XAieLib_Read32(Addr) & Mask) == Value)) {
+		Ret = XAIELIB_SUCCESS;
+	}
+#endif
+	return Ret;
+}

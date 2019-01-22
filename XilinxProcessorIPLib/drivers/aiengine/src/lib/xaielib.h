@@ -45,6 +45,7 @@
 * 1.4  Hyun    10/10/2018  Added the mask write API
 * 1.5  Hyun    11/14/2018  Move platform dependent code to xaielib.c
 * 1.6  Nishad  12/05/2018  Renamed ME attributes to AIE
+* 1.7  Hyun    01/08/2019  Add XAieLib_MaskPoll()
 * </pre>
 *
 ******************************************************************************/
@@ -78,6 +79,7 @@ void XAieLib_Write32(u64 Addr, u32 Data);
 void XAieLib_MaskWrite32(u64 Addr, u32 Mask, u32 Data);
 void XAieLib_Write128(u64 Addr, u32 *Data);
 void XAieLib_WriteCmd(u8 Command, u8 ColId, u8 RowId, u32 CmdWd0, u32 CmdWd1, u8 *CmdStr);
+u32 XAieLib_MaskPoll(u64 Addr, u32 Mask, u32 Value, u32 TimeOutUs);
 
 u32 XAieLib_AssertNonvoid(u8 Cond);
 void XAieLib_AssertVoid(u8 Cond);
