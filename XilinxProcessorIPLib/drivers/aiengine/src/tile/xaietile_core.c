@@ -44,6 +44,7 @@
 *                          status instead of Core_Enable and also added an
 *                          API to read core done status
 * 1.3  Nishad  12/05/2018  Renamed ME attributes to AIE
+* 1.4  Hyun    01/08/2019  Use the poll function
 * </pre>
 *
 ******************************************************************************/
@@ -118,53 +119,33 @@ void XAieTile_CoreControl(XAieGbl_Tile *TileInstPtr, u8 Enable, u8 Reset)
 u8 XAieTile_CoreWaitStatus(XAieGbl_Tile *TileInstPtr, u32 TimeOut, u32 Status)
 {
 	u64 RegAddr;
-	u32 RegVal;
-        u32 LoopCnt;
-        u32 Lsb;
-        u32 Mask;
-        u8 State;
-        u8 StateExp;
+	u32 Mask;
+	u8 Value;
+	u8 Ret = 1;
 
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 
-        if(TimeOut == 0U) {
-                /* Set timeout to default value */
-                TimeOut = XAIETILE_CORE_STATUS_DEF_WAIT_USECS;
-        }
-
-        if(Status == XAIETILE_CORE_STATUS_DONE) {
-                Lsb = CoreStsReg.Done.Lsb;
-                Mask = CoreStsReg.Done.Mask;
-                StateExp = XAIETILE_CORE_STATUS_DONE;
-        } else if(Status == XAIETILE_CORE_STATUS_DISABLE) {
-                Lsb = CoreStsReg.En.Lsb;
-                Mask = CoreStsReg.En.Mask;
-                StateExp = XAIETILE_CORE_STATUS_DISABLE;
-        }
-
-        /* Loop count rounded off */
-	LoopCnt = (TimeOut + XAIETILE_CORE_STATUS_MIN_WAIT_USECS - 1U) /
-					XAIETILE_CORE_STATUS_MIN_WAIT_USECS;
-
-        /* Get the Core status register address */
-        RegAddr = TileInstPtr->TileAddr + CoreStsReg.RegOff;
-
-	while(LoopCnt > 0U) {
-                /* Read the Core status register */
-                RegVal = XAieGbl_Read32(RegAddr);
-
-                /* Get the core done/disable status */
-		State = XAie_GetField(RegVal, Lsb, Mask);
-
-		if(State == StateExp) {
-			break;
-		}
-
-		XAie_usleep(XAIETILE_CORE_STATUS_MIN_WAIT_USECS);
-		LoopCnt--;
+	if(Status == XAIETILE_CORE_STATUS_DONE) {
+		Mask = CoreStsReg.Done.Mask;
+		Value = XAIETILE_CORE_STATUS_DONE << CoreStsReg.Done.Lsb;
+	} else if(Status == XAIETILE_CORE_STATUS_DISABLE) {
+		Mask = CoreStsReg.En.Mask;
+		Value = XAIETILE_CORE_STATUS_DISABLE << CoreStsReg.En.Lsb;
 	}
 
-        return State;
+	/* Get the Core status register address */
+	RegAddr = TileInstPtr->TileAddr + CoreStsReg.RegOff;
+
+	if(TimeOut == 0U) {
+		/* Set timeout to default value */
+		TimeOut = XAIETILE_CORE_STATUS_DEF_WAIT_USECS;
+	}
+
+	if (XAieGbl_MaskPoll(RegAddr, Mask, Value, TimeOut) == XAIE_SUCCESS) {
+		Ret = 0;
+	}
+
+	return Ret;
 }
 
 /*****************************************************************************/
