@@ -6,6 +6,11 @@ In tcl use unique global variables to fix bsp generation for certain designs.
 emaclite_v4_4:
 Fix poll example failure on microblaze platform.
 
+freertos10_xilinx_v1_3:
+Declared attribute of vApplicationAssert() as weak in
+portZynqUltrascale.c for A53. It fixes CR#1014562
+Upgraded FreeRTOS to new version 10.1.1 (PR#10686)
+
 hwicap_v11_2:
 Updated the Number of words per frame as mention in the ug570.
 
@@ -129,10 +134,6 @@ Added Xilinx copyright to files containing xilinx code
 and retain FreeRTOS license text as-is. Also, added
 FreeRTOS copyright in porting files which uses FreeRTOS
 code, wherever it is missing.
-
-freertos10_xilinx_v1_3:
-Declared attribute of vApplicationAssert() as weak in
-portZynqUltrascale.c for A53. It fixes CR#1014562
 
 hdcp1x_v4_2:
 Addded hdcp14_PropagateTopoErrUpstream flag to track topology failures and ready the topology for the repeater application to read.
