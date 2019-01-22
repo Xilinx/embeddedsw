@@ -1,7 +1,6 @@
 /*
- * FreeRTOS Kernel V10.0.0
- * Copyright (C) 2012 - 2018 Xilinx, Inc. All rights reserved.
- * Copyright (C) 2017 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * FreeRTOS Kernel V10.1.1
+ * Copyright (C) 2018 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -11,8 +10,7 @@
  * subject to the following conditions:
  *
  * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software. If you wish to use our Amazon
- * FreeRTOS name, please do so in a fair use way that does not cause confusion.
+ * copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
@@ -49,7 +47,7 @@ the scheduler being commenced interrupts should not be enabled, so the critical
 nesting variable is initialised to a non-zero value. */
 #define portINITIAL_NESTING_VALUE	( 0xff )
 
-/* The bit within the MSR register that enabled/disables interrupts and 
+/* The bit within the MSR register that enabled/disables interrupts and
 exceptions respectively. */
 #define portMSR_IE					( 0x02U )
 #define portMSR_EE					( 0x100U )
@@ -133,7 +131,7 @@ extern void _start1( void );
 	disabled.  Each task will enable interrupts automatically when it enters
 	the running state for the first time. */
 	*pxTopOfStack = mfmsr() & ~portMSR_IE;
-	
+
 	#if( MICROBLAZE_EXCEPTIONS_ENABLED == 1 )
 	{
 		/* Ensure exceptions are enabled for the task. */
@@ -307,7 +305,13 @@ int32_t lReturn;
 	lReturn = prvEnsureInterruptControllerIsInitialised();
 	if( lReturn == pdPASS )
 	{
-		XIntc_Enable( &xInterruptControllerInstance, ucInterruptID );
+		/* Critical section protects read/modify/writer operation inside
+		XIntc_Enable(). */
+		portENTER_CRITICAL();
+		{
+			XIntc_Enable( &xInterruptControllerInstance, ucInterruptID );
+		}
+		portEXIT_CRITICAL();
 	}
 
 	configASSERT( lReturn );

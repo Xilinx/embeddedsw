@@ -1,6 +1,6 @@
 /*
- * FreeRTOS Kernel V10.0.0
- * Copyright (C) 2017 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * FreeRTOS Kernel V10.1.1
+ * Copyright (C) 2018 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -10,8 +10,7 @@
  * subject to the following conditions:
  *
  * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software. If you wish to use our Amazon
- * FreeRTOS name, please do so in a fair use way that does not cause confusion.
+ * copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
@@ -48,7 +47,7 @@ void MPU_vTaskDelete( TaskHandle_t xTaskToDelete );
 void MPU_vTaskDelay( const TickType_t xTicksToDelay );
 void MPU_vTaskDelayUntil( TickType_t * const pxPreviousWakeTime, const TickType_t xTimeIncrement );
 BaseType_t MPU_xTaskAbortDelay( TaskHandle_t xTask );
-UBaseType_t MPU_uxTaskPriorityGet( TaskHandle_t xTask );
+UBaseType_t MPU_uxTaskPriorityGet( const TaskHandle_t xTask );
 eTaskState MPU_eTaskGetState( TaskHandle_t xTask );
 void MPU_vTaskGetInfo( TaskHandle_t xTask, TaskStatus_t *pxTaskStatus, BaseType_t xGetFreeStackSpace, eTaskState eState );
 void MPU_vTaskPrioritySet( TaskHandle_t xTask, UBaseType_t uxNewPriority );
@@ -85,8 +84,8 @@ BaseType_t MPU_xTaskGetSchedulerState( void );
 /* MPU versions of queue.h API functions. */
 BaseType_t MPU_xQueueGenericSend( QueueHandle_t xQueue, const void * const pvItemToQueue, TickType_t xTicksToWait, const BaseType_t xCopyPosition );
 BaseType_t MPU_xQueueReceive( QueueHandle_t xQueue, void * const pvBuffer, TickType_t xTicksToWait );
-BaseType_t xQueuePeek( QueueHandle_t xQueue, void * const pvBuffer, TickType_t xTicksToWait );
-BaseType_t xQueueSemaphoreTake( QueueHandle_t xQueue, TickType_t xTicksToWait );
+BaseType_t MPU_xQueuePeek( QueueHandle_t xQueue, void * const pvBuffer, TickType_t xTicksToWait );
+BaseType_t MPU_xQueueSemaphoreTake( QueueHandle_t xQueue, TickType_t xTicksToWait );
 UBaseType_t MPU_uxQueueMessagesWaiting( const QueueHandle_t xQueue );
 UBaseType_t MPU_uxQueueSpacesAvailable( const QueueHandle_t xQueue );
 void MPU_vQueueDelete( QueueHandle_t xQueue );
@@ -94,7 +93,7 @@ QueueHandle_t MPU_xQueueCreateMutex( const uint8_t ucQueueType );
 QueueHandle_t MPU_xQueueCreateMutexStatic( const uint8_t ucQueueType, StaticQueue_t *pxStaticQueue );
 QueueHandle_t MPU_xQueueCreateCountingSemaphore( const UBaseType_t uxMaxCount, const UBaseType_t uxInitialCount );
 QueueHandle_t MPU_xQueueCreateCountingSemaphoreStatic( const UBaseType_t uxMaxCount, const UBaseType_t uxInitialCount, StaticQueue_t *pxStaticQueue );
-void* MPU_xQueueGetMutexHolder( QueueHandle_t xSemaphore );
+TaskHandle_t MPU_xQueueGetMutexHolder( QueueHandle_t xSemaphore );
 BaseType_t MPU_xQueueTakeMutexRecursive( QueueHandle_t xMutex, TickType_t xTicksToWait );
 BaseType_t MPU_xQueueGiveMutexRecursive( QueueHandle_t pxMutex );
 void MPU_vQueueAddToRegistry( QueueHandle_t xQueue, const char *pcName );
@@ -139,6 +138,7 @@ UBaseType_t MPU_uxEventGroupGetNumber( void* xEventGroup );
 size_t MPU_xStreamBufferSend( StreamBufferHandle_t xStreamBuffer, const void *pvTxData, size_t xDataLengthBytes, TickType_t xTicksToWait );
 size_t MPU_xStreamBufferSendFromISR( StreamBufferHandle_t xStreamBuffer, const void *pvTxData, size_t xDataLengthBytes, BaseType_t * const pxHigherPriorityTaskWoken );
 size_t MPU_xStreamBufferReceive( StreamBufferHandle_t xStreamBuffer, void *pvRxData, size_t xBufferLengthBytes, TickType_t xTicksToWait );
+size_t MPU_xStreamBufferNextMessageLengthBytes( StreamBufferHandle_t xStreamBuffer );
 size_t MPU_xStreamBufferReceiveFromISR( StreamBufferHandle_t xStreamBuffer, void *pvRxData, size_t xBufferLengthBytes, BaseType_t * const pxHigherPriorityTaskWoken );
 void MPU_vStreamBufferDelete( StreamBufferHandle_t xStreamBuffer );
 BaseType_t MPU_xStreamBufferIsFull( StreamBufferHandle_t xStreamBuffer );
