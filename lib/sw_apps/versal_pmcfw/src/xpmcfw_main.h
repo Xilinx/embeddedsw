@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017-2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -165,7 +165,7 @@ typedef struct {
 #define XPMCFW_SBI_CTRL_ENABLE					(0x1U)
 
 /* XDMA Registers */
-#define XPMCFW_XDMA_SCRATCH_PAD_REG1			(0x92003080U)
+#define XPMCFW_XDMA_SCRATCH_PAD_REG1			(0xE1003080U)
 #define XPMCFW_SBI_DATA_RECV_READY				(0x1U)
 
 /* SSIT error/interrupt masks */
