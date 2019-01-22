@@ -53,6 +53,7 @@
 *                          select at runtime as a part of CDO generation
 *                          support. CR-1012480
 * 1.8  Nishad  12/05/2018  Renamed ME attributes to AIE
+* 1.9  Hyun    01/08/2018  Add the MaskPoll
 * </pre>
 *
 ******************************************************************************/
@@ -83,6 +84,8 @@ typedef struct XAieSim_IO_Funcs {
 	void (*Write128)(uint64_t Addr, uint32 *Data);
 	void (*WriteCmd)(uint8 Command, uint8 ColId, uint8 RowId,
 			uint32 CmdWd0, uint32 CmdWd1, uint8 *CmdStr);
+	uint32 (*MaskPoll)(uint64_t Addr, uint32 Mask, uint32 Value,
+			uint32 TimeOutUs);
 } XAieSim_IO_Funcs;
 
 /************************** Variable Definitions *****************************/
@@ -154,6 +157,14 @@ static inline void  XAieSim_CdoWriteCmd(uint8 Command, uint8 ColId, uint8 RowId,
 	/* no-op */
 }
 
+static inline uint32 XAieSim_CdoMaskPoll(uint64_t Addr, uint32 Mask,
+		uint32 Value, uint32 TimeOutUs)
+{
+	/* Round up to msec */
+	cdo_MaskPoll(Addr, Mask, Value, (TimeOutUs + 999) / 1000);
+	return XAIESIM_SUCCESS;
+}
+
 static const XAieSim_IO_Funcs Cdo_IO_Funcs = {
 	.Read32 = XAieSim_CdoRead32,
 	.Read128 = XAieSim_CdoRead128,
@@ -161,6 +172,7 @@ static const XAieSim_IO_Funcs Cdo_IO_Funcs = {
 	.MaskWrite32 = XAieSim_CdoMaskWrite32,
 	.Write128 = XAieSim_CdoWrite128,
 	.WriteCmd = XAieSim_CdoWriteCmd,
+	.MaskPoll = XAieSim_CdoMaskPoll,
 };
 
 /*
@@ -201,6 +213,24 @@ static inline void XAieSim_EssWriteCmd(uint8 Command, uint8 ColId, uint8 RowId,
 		uint32 CmdWd0, uint32 CmdWd1, uint8 *CmdStr)
 {
 	ess_WriteCmd(Command, ColId, RowId, CmdWd0, CmdWd1, CmdStr);
+
+}
+
+static inline uint32 XAieSim_EssMaskPoll(uint64_t Addr, uint32 Mask,
+		uint32 Value, uint32 TimeOutUs)
+{
+	uint32 Ret = XAIESIM_FAILURE;
+
+	while (TimeOutUs > 0U) {
+		if ((ess_Read32(Addr) & Mask) == Value) {
+			Ret = XAIESIM_SUCCESS;
+			break;
+		}
+		usleep(1);
+		TimeOutUs--;
+	}
+
+	return Ret;
 }
 
 static const XAieSim_IO_Funcs Ess_IO_Funcs = {
@@ -210,6 +240,7 @@ static const XAieSim_IO_Funcs Ess_IO_Funcs = {
 	.MaskWrite32 = XAieSim_EssMaskWrite32,
 	.Write128 = XAieSim_EssWrite128,
 	.WriteCmd = XAieSim_EssWriteCmd,
+	.MaskPoll = XAieSim_EssMaskPoll,
 };
 #endif
 
@@ -260,6 +291,23 @@ static inline void  XAieSim_SockWriteCmd(uint8 Command, uint8 ColId,
 	XSock_WriteCmd(Command, ColId, RowId, CmdWd0, CmdWd1, CmdStr);
 }
 
+static inline void XAieSim_SockMaskPoll(uint64_t Addr, uint32 Mask,
+		uint32 Value, uint32 TimeOutUs)
+{
+	uint32 Ret = XAIESIM_FAILURE;
+
+	while (TimeOutUs > 0U) {
+		if ((ess_Read32(Addr) & Mask) == Value) {
+			Ret = XAIESIM_SUCCESS;
+			break;
+		}
+		usleep(1);
+		TimeOutUs--;
+	}
+
+	return Ret;
+}
+
 static const XAieSim_IO_Funcs Sock_IO_Funcs = {
 	.Read32 = XAieSim_SockRead32,
 	.Read128 = XAieSim_SockRead128,
@@ -267,6 +315,7 @@ static const XAieSim_IO_Funcs Sock_IO_Funcs = {
 	.MaskWrite32 = XAieSim_SockMaskWrite32,
 	.Write128 = XAieSim_SockWrite128,
 	.WriteCmd = XAieSim_SockWriteCmd,
+	.MaskPoll = XAieSim_SockMaskPoll,
 };
 #endif
 
@@ -402,6 +451,27 @@ void XAieSim_WriteCmd(uint8 Command, uint8 ColId, uint8 RowId, uint32 CmdWd0,
 						uint32 CmdWd1, uint8 *CmdStr)
 {
         IO_Funcs->WriteCmd(Command, ColId, RowId, CmdWd0, CmdWd1, CmdStr);
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the IO function to poll until the value at the address to be given
+* masked value.
+*
+* @param	Addr: Address to write to.
+* @param	Mask: Mask to be applied to read data.
+* @param	Value: The expected value
+* @param	TimeOutUs: Minimum timeout in usec.
+*
+* @return	XAIESIM_SUCCESS if successful, else XAIESIM_FAILURE.
+*
+* @note		None.
+*
+*******************************************************************************/
+uint32 XAieSim_MaskPoll(uint64_t Addr, uint32 Mask, uint32 Value, uint32 TimeOutUs)
+{
+        return IO_Funcs->MaskPoll(Addr, Mask, Value, TimeOutUs);
 }
 
 /*****************************************************************************/
