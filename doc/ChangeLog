@@ -36,6 +36,9 @@ xilffs_v4_1:
 Add additional LFN options in mld.
 Add support to enable use of CHMOD functionality.
 
+xilflash_v4_6:
+Fixed compilation errors for application with xilflash(CR#1018603)
+
 xxvethernet_v1_2:
 In tcl use unique global variables to fix bsp generation for certain designs.
 
