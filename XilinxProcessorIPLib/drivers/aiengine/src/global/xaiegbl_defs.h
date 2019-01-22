@@ -42,6 +42,7 @@
 * 1.1  Naresh  07/11/2018  Updated copyright info
 * 1.2  Hyun    10/10/2018  Added the mask write API
 * 1.3  Nishad  12/05/2018  Renamed ME attributes to AIE
+* 1.4  Hyun    01/08/2019  Add the mask poll function
 * </pre>
 *
 ******************************************************************************/
@@ -80,6 +81,7 @@
 #define XAieGbl_MaskWrite32              XAieLib_MaskWrite32
 #define XAieGbl_Write128                 XAieLib_Write128
 #define XAieGbl_WriteCmd                 XAieLib_WriteCmd
+#define XAieGbl_MaskPoll                 XAieLib_MaskPoll
 #define XAieGbl_LoadElf                  XAieLib_LoadElf
 
 #define XAieGbl_MemInst                  XAieLib_MemInst
