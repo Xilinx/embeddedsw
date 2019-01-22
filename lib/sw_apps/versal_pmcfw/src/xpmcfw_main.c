@@ -162,8 +162,6 @@ int main(void )
 		}
 #endif
 	}
-	/* TODO to indicate PMC FW has completed booting */
-	Xil_Out32(PMC_GLOBAL_PMC_FW_ERR, XPMCFW_POST_BOOT);
 
 	XPmcFw_MeasurePerfTime(StartT1);
 	XPmcFw_Printf(DEBUG_GENERAL, "Boot time \n\r");
@@ -175,6 +173,8 @@ int main(void )
 	/*Configure interrupt handlers and enable interrupts */
 	XPmcFw_SetUpInterruptSystem();
 	/* Be in sleep mode waiting for interrupts */
+	/* TODO to indicate PMC FW has completed booting */
+	Xil_Out32(PMC_GLOBAL_PMC_FW_ERR, XPMCFW_POST_BOOT);
 	while(1){
 		mb_sleep();
 	}
