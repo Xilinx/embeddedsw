@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2012 - 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2012 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -62,6 +62,8 @@
  * 5.12 tjs	05/21/18 Added check for Spansion flash before proceeding to
  *                    quad mode read CR#1002769
  * 5.12 tjs	 06/18/18 Removed checkpatch and gcc warnings.
+ * 5.13 nsk  01/22/18 Make variable declaration to XQspiPsu_Msg as global
+ *                    CR#1015808.
  *
  * </pre>
  *
@@ -87,7 +89,9 @@
 #ifdef XPAR_XISF_INTERFACE_PSQSPI
 extern int SendBankSelect(XIsf *InstancePtr, u32 BankSel);
 #endif
-
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+	XQspiPsu_Msg FlashMsg[3];
+#endif
 static int ReadData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr,
 		u32 ByteCount);
 static int FastReadData(XIsf *InstancePtr, u8 Command, u32 Address,
@@ -441,7 +445,6 @@ static int ReadData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr, u32 ByteCount)
 	u8 DiscardByteCnt;
 	int DieNo;
 	u8 *NULLPtr = NULL;
-	XQspiPsu_Msg FlashMsg[3];
 #endif
 
 	if (LocalByteCnt <= 0)
@@ -709,7 +712,6 @@ static int FastReadData(XIsf *InstancePtr, u8 Command, u32 Address,
 	u8 DiscardByteCnt;
 	int DieNo;
 	u8 *NULLPtr = NULL;
-	XQspiPsu_Msg FlashMsg[3];
 #endif
 
 	if (LocalByteCnt <= 0)
