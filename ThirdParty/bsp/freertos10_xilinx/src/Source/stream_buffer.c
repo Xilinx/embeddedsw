@@ -1,6 +1,6 @@
 /*
- * FreeRTOS Kernel V10.1.1
- * Copyright (C) 2018 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * FreeRTOS Kernel V10.3.0
+ * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -52,7 +52,7 @@ correct privileged Vs unprivileged linkage and placement. */
 /* If the user has not provided application specific Rx notification macros,
 or #defined the notification macros away, them provide default implementations
 that uses task notifications. */
-/*lint -save -e9026 Function like macros allowed and needed here so they can be overridden. */
+/*lint -save -e9026 Function like macros allowed and needed here so they can be overidden. */
 #ifndef sbRECEIVE_COMPLETED
 	#define sbRECEIVE_COMPLETED( pxStreamBuffer )										\
 		vTaskSuspendAll();																\
