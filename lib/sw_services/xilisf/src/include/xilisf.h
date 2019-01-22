@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2012 - 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2012 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -526,6 +526,8 @@
  * 5.12 tjs	 06/18/18 Added support for low density ISSI
  *			  flash parts. PR#9237
  * 5.12 tjs	 08/13/18 Fixed the compilation warnings for ARMCC (CR#1008307)
+ * 5.13 nsk  01/22/18 Make variable declaration to XQspiPsu_Msg as global
+ *                    CR#1015808.
  *
  * </pre>
  *

@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2012 - 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2012 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -106,6 +106,8 @@
  *					  flash.CR#1004264
  * 5.12 tjs  06/18/18 Added support for low density ISSI
  *		      flash parts. PR#9237
+ * 5.13 nsk  01/22/18 Make variable declaration to XQspiPsu_Msg as global
+ *                    CR#1015808.
  *
  * </pre>
  *
@@ -229,6 +231,9 @@ static int AtmelFlashInitialize(XIsf *InstancePtr, u8 *ReadBuf);
 	((!defined(XPAR_XISF_INTERFACE_PSQSPI)) && \
 	(!defined(XPAR_XISF_INTERFACE_QSPIPSU))))
 static int IntelStmFlashInitialize(XIsf *InstancePtr, u8 *ReadBuf);
+#endif
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+	XQspiPsu_Msg FlashMsg[2];
 #endif
 /**
  * (((XPAR_XISF_FLASH_FAMILY == INTEL) || \
@@ -942,7 +947,6 @@ int XIsf_GetStatus(XIsf *InstancePtr, u8 *ReadPtr)
 	int Status;
 	u8 Mode;
 #ifdef XPAR_XISF_INTERFACE_QSPIPSU
-	XQspiPsu_Msg FlashMsg[2];
 	u8 *NULLPtr = NULL;
 #endif
 
@@ -1029,9 +1033,6 @@ int XIsf_GetStatusReg2(XIsf *InstancePtr, u8 *ReadPtr)
 {
 	int Status;
 	u8 Mode;
-#ifdef XPAR_XISF_INTERFACE_QSPIPSU
-	XQspiPsu_Msg FlashMsg[2];
-#endif
 	u8 *NULLPtr = NULL;
 
 	if (InstancePtr == NULL)
@@ -1117,7 +1118,6 @@ int XIsf_GetDeviceInfo(XIsf *InstancePtr, u8 *ReadPtr)
 	int Status;
 	u8 Mode;
 #ifdef XPAR_XISF_INTERFACE_QSPIPSU
-	XQspiPsu_Msg FlashMsg[2];
 	u8 *NULLPtr = NULL;
 #endif
 
@@ -1207,9 +1207,6 @@ int XIsf_WriteEnable(XIsf *InstancePtr, u8 WriteEnable)
 	u8 Mode;
 	u8 WriteEnableBuf[1] = {0};
 	u8 *NULLPtr = NULL;
-#ifdef XPAR_XISF_INTERFACE_QSPIPSU
-	XQspiPsu_Msg FlashMsg[2];
-#endif
 
 #if ((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) || \
 	(XPAR_XISF_FLASH_FAMILY == WINBOND) ||  \
@@ -1305,9 +1302,6 @@ int XIsf_Ioctl(XIsf *InstancePtr, XIsf_IoctlOperation Operation)
 	int Status;
 	u8 Mode;
 	u8 *NULLPtr = NULL;
-#ifdef XPAR_XISF_INTERFACE_QSPIPSU
-	XQspiPsu_Msg FlashMsg[2];
-#endif
 
 #if ((XPAR_XISF_FLASH_FAMILY == INTEL) || (XPAR_XISF_FLASH_FAMILY == STM) || \
 	(XPAR_XISF_FLASH_FAMILY == WINBOND) || \
@@ -1708,7 +1702,6 @@ int XIsf_MicronFlashEnter4BAddMode(XIsf *InstancePtr)
 	u8 *NULLPtr = NULL;
 	u8 Mode;
 #ifdef XPAR_XISF_INTERFACE_QSPIPSU
-	XQspiPsu_Msg FlashMsg[2];
 	u8 ReadStatusCmd, FSRFlag;
 	u8 FlashStatus[2] = {0};
 #endif
@@ -1842,7 +1835,6 @@ int XIsf_MicronFlashExit4BAddMode(XIsf *InstancePtr)
 	u8 *NULLPtr = NULL;
 	u8 Mode;
 #ifdef XPAR_XISF_INTERFACE_QSPIPSU
-	XQspiPsu_Msg FlashMsg[2];
 	u8 ReadStatusCmd, FSRFlag;
 	u8 FlashStatus[2] = {0};
 #endif
@@ -2092,7 +2084,6 @@ static int SpaMicWinFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
 
 #ifdef XPAR_XISF_INTERFACE_QSPIPSU
 	u8 *NULLPtr = NULL;
-	XQspiPsu_Msg FlashMsg[2];
 	/*
 	 * Read ID
 	 */
