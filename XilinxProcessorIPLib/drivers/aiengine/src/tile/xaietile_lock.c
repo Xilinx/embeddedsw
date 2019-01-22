@@ -42,6 +42,7 @@
 * 1.1  Naresh  04/19/2018  Updated code to fix CR#1000292
 * 1.2  Naresh  07/11/2018  Updated copyright info
 * 1.3  Nishad  12/05/2018  Renamed ME attributes to AIE
+* 1.4  Hyun    01/08/2019  Use the poll function
 * </pre>
 *
 ******************************************************************************/
@@ -85,11 +86,9 @@ u8 XAieTile_LockAcquire(XAieGbl_Tile *TileInstPtr, u8 LockId, u8 LockVal,
 								u32 TimeOut)
 {
 	u64 RegAddr;
-	u32 RegVal;
-	u32 LoopCnt = 0U;
 	u8 AcqDone = XAIETILE_LOCK_ACQ_FAILED;
-	u8 AcqDoneLsb;
-	u32 AcqDoneMask;
+	u8 Lsb;
+	u32 Mask, Value;
 	XAieGbl_RegLocks *RegPtr;
 
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
@@ -104,38 +103,26 @@ u8 XAieTile_LockAcquire(XAieGbl_Tile *TileInstPtr, u8 LockId, u8 LockVal,
 	if(LockVal == XAIETILE_LOCK_ACQ_VALINVALID) {
 		/* Acquire lock with no value register address */
 		RegAddr = TileInstPtr->TileAddr + RegPtr->AcqNvOff;
-		AcqDoneLsb = RegPtr->AcqNv.Lsb;
-		AcqDoneMask = RegPtr->AcqNv.Mask;
+		Lsb = RegPtr->AcqNv.Lsb;
+		Mask = RegPtr->AcqNv.Mask;
 
 	} else if(LockVal == XAIETILE_LOCK_ACQ_VAL0) {
 		/* Acquire lock with value 0 register address */
 		RegAddr = TileInstPtr->TileAddr + RegPtr->AcqV0Off;
-		AcqDoneLsb = RegPtr->AcqV0.Lsb;
-		AcqDoneMask = RegPtr->AcqV0.Mask;
+		Lsb = RegPtr->AcqV0.Lsb;
+		Mask = RegPtr->AcqV0.Mask;
 
 	} else if(LockVal == XAIETILE_LOCK_ACQ_VAL1) {
 		/* Acquire lock with value 1 register address */
 		RegAddr = TileInstPtr->TileAddr + RegPtr->AcqV1Off;
-		AcqDoneLsb = RegPtr->AcqV1.Lsb;
-		AcqDoneMask = RegPtr->AcqV1.Mask;
+		Lsb = RegPtr->AcqV1.Lsb;
+		Mask = RegPtr->AcqV1.Mask;
 	}
 
-	/* Loop count rounded off */
-	LoopCnt = (TimeOut + XAIETILE_LOCK_ACQ_MIN_WAIT_USECS - 1U) /
-					XAIETILE_LOCK_ACQ_MIN_WAIT_USECS;
+	Value = XAIETILE_LOCK_ACQ_SUCCESS << Lsb;
 
-	while(LoopCnt >= 0U) {
-		/* Read request to Lock#_Acquire_NV/V0/V1 */
-		RegVal = XAieGbl_Read32(RegAddr);
-		AcqDone = XAie_GetField(RegVal, AcqDoneLsb, AcqDoneMask);
-
-		if((AcqDone == XAIETILE_LOCK_ACQ_SUCCESS) ||
-                                (LoopCnt == 0U)) {
-			break;
-		}
-		LoopCnt--;
-
-                XAie_usleep(XAIETILE_LOCK_ACQ_MIN_WAIT_USECS);
+	if (XAieGbl_MaskPoll(RegAddr, Mask, Value, TimeOut) == XAIE_SUCCESS) {
+		AcqDone = XAIETILE_LOCK_ACQ_SUCCESS;
 	}
 
 	return AcqDone;
@@ -168,10 +155,9 @@ u8 XAieTile_LockRelease(XAieGbl_Tile *TileInstPtr, u8 LockId, u8 LockVal,
 {
 	u64 RegAddr;
 	u32 RegVal;
-	u32 LoopCnt = 0U;
 	u8 RelDone = XAIETILE_LOCK_REL_FAILED;
-	u8 RelDoneLsb;
-	u32 RelDoneMask;
+	u8 Lsb;
+	u32 Mask, Value;
         XAieGbl_RegLocks *RegPtr;
 
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
@@ -186,38 +172,26 @@ u8 XAieTile_LockRelease(XAieGbl_Tile *TileInstPtr, u8 LockId, u8 LockVal,
 	if(LockVal == XAIETILE_LOCK_REL_VALINVALID) {
 		/* Release lock with no value register address */
 		RegAddr = TileInstPtr->TileAddr + RegPtr->RelNvOff;
-		RelDoneLsb = RegPtr->RelNv.Lsb;
-		RelDoneMask = RegPtr->RelNv.Mask;
+		Lsb = RegPtr->RelNv.Lsb;
+		Mask = RegPtr->RelNv.Mask;
 
 	} else if(LockVal == XAIETILE_LOCK_REL_VAL0) {
 		/* Release lock with value 0 register address */
 		RegAddr = TileInstPtr->TileAddr + RegPtr->RelV0Off;
-		RelDoneLsb = RegPtr->RelV0.Lsb;
-		RelDoneMask = RegPtr->RelV0.Mask;
+		Lsb = RegPtr->RelV0.Lsb;
+		Mask = RegPtr->RelV0.Mask;
 
 	} else if(LockVal == XAIETILE_LOCK_REL_VAL1) {
 		/* Release lock with value 1 register address */
 		RegAddr = TileInstPtr->TileAddr + RegPtr->RelV1Off;
-		RelDoneLsb = RegPtr->RelV1.Lsb;
-		RelDoneMask = RegPtr->RelV1.Mask;
+		Lsb = RegPtr->RelV1.Lsb;
+		Mask = RegPtr->RelV1.Mask;
 	}
 
-	/* Loop count rounded off */
-	LoopCnt = (TimeOut + XAIETILE_LOCK_ACQ_MIN_WAIT_USECS - 1U) /
-					XAIETILE_LOCK_REL_MIN_WAIT_USECS;
+	Value = XAIETILE_LOCK_REL_SUCCESS << Lsb;
 
-	while(LoopCnt >= 0U) {
-		/* Read request to Lock#_Release_NV/V0/V1 */
-		RegVal = XAieGbl_Read32(RegAddr);
-		RelDone = XAie_GetField(RegVal, RelDoneLsb, RelDoneMask);
-
-		if((RelDone == XAIETILE_LOCK_REL_SUCCESS) ||
-                                (LoopCnt == 0U)) {
-			break;
-		}
-		LoopCnt--;
-
-		XAie_usleep(XAIETILE_LOCK_REL_MIN_WAIT_USECS);
+	if (XAieGbl_MaskPoll(RegAddr, Mask, Value, TimeOut) == XAIE_SUCCESS) {
+		RelDone = XAIETILE_LOCK_REL_SUCCESS;
 	}
 
 	return RelDone;
