@@ -519,6 +519,21 @@ void XAieLib_Write32(u64 Addr, u32 Data)
 #endif
 }
 
+/*****************************************************************************/
+/**
+*
+* This is the memory IO function to write a masked 32bit data to
+* the specified address.
+*
+* @param	Addr: Address to write to.
+* @param	Mask: Mask to be applied to Data.
+* @param	Data: 32-bit data to be written.
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
 void XAieLib_MaskWrite32(u64 Addr, u32 Mask, u32 Data)
 {
 	u32 RegVal;
