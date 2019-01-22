@@ -49,6 +49,7 @@
 *                          it's needed
 * 1.7  Hyun    11/14/2018  Move platform dependent code to xaielib.c
 * 1.8  Nishad  12/05/2018  Renamed ME attributes to AIE
+* 1.9  Hyun    01/08/2019  Implement 128bit IO operations for baremetal
 * </pre>
 *
 ******************************************************************************/
@@ -489,6 +490,7 @@ void XAieLib_Read128(u64 Addr, u32 *Data)
 #ifdef __AIESIM__
 		Data[Idx] = XAieSim_Read32(Addr + Idx*4U);
 #elif defined __AIEBAREMTL__
+		Data[Idx] = Xil_In32(Addr + Idx*4U);
 #else
 		Data[Idx] = XAieIO_Read32(Addr + Idx*4U);
 #endif
@@ -571,6 +573,11 @@ void XAieLib_Write128(u64 Addr, u32 *Data)
 #ifdef __AIESIM__
 	XAieSim_Write128(Addr, Data);
 #elif defined __AIEBAREMTL__
+	u8 Idx;
+
+	for(Idx = 0U; Idx < 4U; Idx++) {
+		Xil_Out32((u32)Addr + Idx * 4U, Data[Idx]);
+	}
 #else
 	XAieIO_Write128(Addr, Data);
 #endif
