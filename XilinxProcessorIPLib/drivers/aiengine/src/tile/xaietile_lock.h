@@ -55,14 +55,12 @@
 #define XAIETILE_LOCK_ACQ_VALINVALID		0xFFU
 #define XAIETILE_LOCK_ACQ_VAL0			0U
 #define XAIETILE_LOCK_ACQ_VAL1			1U
-#define XAIETILE_LOCK_ACQ_MIN_WAIT_USECS		1U
 
 #define XAIETILE_LOCK_REL_SUCCESS		1U
 #define XAIETILE_LOCK_REL_FAILED			0U
 #define XAIETILE_LOCK_REL_VALINVALID		0xFFU
 #define XAIETILE_LOCK_REL_VAL0			0U
 #define XAIETILE_LOCK_REL_VAL1			1U
-#define XAIETILE_LOCK_REL_MIN_WAIT_USECS		1U
 
 /**************************** Type Definitions *******************************/
 
