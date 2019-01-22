@@ -215,7 +215,7 @@
 * 4.3   ms   01/17/17 Fixed compilation warnings.
 * 4.4   ms   08/03/17 Added doxygen tags.
 * 4.5	tjs  08/13/18 Fixed compilation errors for ARMCC (CR#1008306)
-*
+* 4.6	akm  01/22/19 Fixed compilation errors (CR#1018603)
 * </pre>
 *
 ***************************************************************************/
