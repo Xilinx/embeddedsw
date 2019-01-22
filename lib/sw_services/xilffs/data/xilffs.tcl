@@ -116,6 +116,7 @@ proc xgen_opts_file {libhandle} {
 	set use_strfunc [common::get_property CONFIG.use_strfunc $libhandle]
 	set set_fs_rpath [common::get_property CONFIG.set_fs_rpath $libhandle]
 	set word_access [common::get_property CONFIG.word_access $libhandle]
+	set use_chmod [common::get_property CONFIG.use_chmod $libhandle]
 
 	# do processor specific checks
 	set proc  [hsi::get_sw_processor];
@@ -174,6 +175,14 @@ proc xgen_opts_file {libhandle} {
 		}
 		if {$enable_multi_partition == true} {
 			puts $file_handle "\#define FILE_SYSTEM_MULTI_PARTITION"
+		}
+		if {$use_chmod == true} {
+			if {$read_only == false} {
+				puts $file_handle "\#define FILE_SYSTEM_USE_CHMOD"
+			} else {
+				puts "WARNING : Cannot Enable CHMOD in \
+						Read Only Mode"
+			}
 		}
 		if {$num_logical_vol > 10} {
 			puts "WARNING : File System supports only upto 10 logical drives\
