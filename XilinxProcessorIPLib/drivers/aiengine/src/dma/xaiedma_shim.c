@@ -41,6 +41,7 @@
 * 1.0  Naresh  03/14/2018  Initial creation
 * 1.1  Naresh  07/11/2018  Updated copyright info
 * 1.2  Nishad  12/05/2018  Renamed ME attributes to AIE
+* 1.3  Hyun    01/08/2019  Use the poll function
 * </pre>
 *
 ******************************************************************************/
@@ -51,8 +52,7 @@
 /***************************** Include Files *********************************/
 
 /***************************** Macro Definitions *****************************/
-#define XAIEDMA_SHIM_DONE_DEF_WAIT_USECS		50 * 1000 * 1000U
-#define XAIEDMA_SHIM_DONE_MIN_WAIT_USECS		1U
+#define XAIEDMA_SHIM_DONE_DEF_WAIT_USECS		1000000U
 
 /************************** Variable Definitions *****************************/
 
@@ -442,49 +442,26 @@ void XAieDma_ShimBdClear(XAieDma_Shim *DmaInstPtr, u8 BdNum)
 u8 XAieDma_ShimWaitDone(XAieDma_Shim *DmaInstPtr, u32 ChNum, u32 TimeOut)
 {
 	u64 RegAddr;
-	u32 RegVal;
-	u32 LoopCnt;
-	u32 Status, Stalled, StartQSize;
+	u32 Mask, Value;
+	u32 Ret = 0;
 
 	XAie_AssertNonvoid(DmaInstPtr != XAIE_NULL);
+
+	RegAddr = DmaInstPtr->BaseAddress + ShimDmaSts[ChNum].RegOff;
+	Mask = ShimDmaSts[ChNum].Sts.Mask | ShimDmaSts[ChNum].Stalled.Mask |
+		ShimDmaSts[ChNum].StartQSize.Mask;
+	/* This will check the stalled and start queue size bits to be zero */
+	Value = XAIEGBL_NOC_DMASTA_STA_IDLE << ShimDmaSts[ChNum].Sts.Lsb;
 
 	if (TimeOut == 0U) {
 		TimeOut = XAIEDMA_SHIM_DONE_DEF_WAIT_USECS;
 	}
 
-	LoopCnt = (TimeOut + XAIEDMA_SHIM_DONE_MIN_WAIT_USECS - 1U) /
-		XAIEDMA_SHIM_DONE_MIN_WAIT_USECS;
-
-	RegAddr = DmaInstPtr->BaseAddress + ShimDmaSts[ChNum].RegOff;
-
-	while (LoopCnt > 0U) {
-		RegVal = XAieGbl_Read32(RegAddr);
-
-		Status = XAie_GetField(RegVal, ShimDmaSts[ChNum].Sts.Lsb,
-				ShimDmaSts[ChNum].Sts.Mask);
-
-		if (Status == XAIEGBL_NOC_DMASTA_STA_IDLE) {
-			/*
-			 * Check the channel is not stalled by lock, and nothing
-			 * is in the queue.
-			 */
-			Stalled = XAie_GetField(RegVal,
-					ShimDmaSts[ChNum].Stalled.Lsb,
-					ShimDmaSts[ChNum].Stalled.Mask);
-			StartQSize = XAie_GetField(RegVal,
-					ShimDmaSts[ChNum].StartQSize.Lsb,
-					ShimDmaSts[ChNum].StartQSize.Mask);
-			if (!Stalled && !StartQSize) {
-				break;
-			}
-			Status = 1;
-		}
-
-		XAie_usleep(XAIEDMA_SHIM_DONE_MIN_WAIT_USECS);
-		LoopCnt--;
+	if (XAieGbl_MaskPoll(RegAddr, Mask, Value, TimeOut) == XAIE_SUCCESS) {
+		Ret = 1;
 	}
 
-	return Status;
+	return Ret;
 }
 
 /*****************************************************************************/
