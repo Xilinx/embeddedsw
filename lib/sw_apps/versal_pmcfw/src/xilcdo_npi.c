@@ -1464,8 +1464,11 @@ XStatus XilCdo_RunPendingNpiSeq(void)
 		}
 		for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_GT]; ++Count)
 		{
-			XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
-			XilCdo_ClearInitCtrl(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+			if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_NpiParam[Count] & XILCDO_NPI_GTY_USED_MASK)
+				== XILCDO_NPI_GTY_USED_MASK)
+			{
+				XilCdo_ClearInitCtrl(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+			}
 		}
 		XilCdo_ProcIOModules();
 		XilCdo_ProcMMCM_CLK();
@@ -2503,24 +2506,36 @@ void XilCdo_ProcGTModules(void)
 
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_GT]; ++Count)
 	{
-		XilCdo_SetFabricEnable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
-
-		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_NpiParam[Count] &
-					XILCDO_NPI_APBEN_MASK) == XILCDO_NPI_APBEN_MASK)
+		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_NpiParam[Count] & XILCDO_NPI_GTY_USED_MASK)
+                                == XILCDO_NPI_GTY_USED_MASK)
 		{
-			XilCdo_SetApbEnable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+			XilCdo_SetFabricEnable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+
+			if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_NpiParam[Count] &
+					XILCDO_NPI_APBEN_MASK) == XILCDO_NPI_APBEN_MASK)
+			{
+				XilCdo_SetApbEnable(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+			}
 		}
 	}
 
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_GT]; ++Count)
 	{
-		XilCdo_ClearTriState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_NpiParam[Count] & XILCDO_NPI_GTY_USED_MASK)
+                                == XILCDO_NPI_GTY_USED_MASK)
+		{
+			XilCdo_ClearTriState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+		}
 	}
 
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_GT]; ++Count)
 	{
-		XilCdo_ClearInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
-		XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+		if((XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_NpiParam[Count] & XILCDO_NPI_GTY_USED_MASK)
+                                == XILCDO_NPI_GTY_USED_MASK)
+		{
+			XilCdo_ClearInitState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+			XilCdo_SetCompleteState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_GT_BaseAddr[Count]);
+		}
 	}
 
 	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_GT]; ++Count)
@@ -2748,7 +2763,6 @@ XStatus XilCdo_NpiPreCfg_GTY(u32 BaseAddr, u32 NpiParam)
 	{
 		Status = XST_SUCCESS;
 	}
-	XilCdo_ClearGateReg(BaseAddr);
 	XilCdo_SetLockState(BaseAddr);
 END:
 	return Status;
