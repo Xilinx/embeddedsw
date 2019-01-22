@@ -256,9 +256,6 @@ XSecure_Sha3Finish is updated with error condtion if padding is wrongly selected
 Updated Xsecure.c and xsecure.h files to fix IV size, made csudma as
 static variable added an API to give csudma pointer to xilfpga.
 
-xilflash_v4_6:
-Fixed compilation errors for application with xilflash(CR#1018603)
-
 xxvethernet_v1_2:
 In tcl use unique global variables to fix bsp generation for certain designs.
 
