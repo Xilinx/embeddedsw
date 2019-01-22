@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2012 - 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2012 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -65,6 +65,8 @@
  * 5.12 tjs	 06/18/18 Removed checkpatch and gcc warnings.
  * 5.12 tjs	07/05/18 Removed the mentions of Spansion flash from
  *			 BlockErase API CR#1006247
+ * 5.13 nsk  01/22/18 Make variable declaration to XQspiPsu_Msg as global
+ *                    CR#1015808.
  *
  * </pre>
  *
@@ -92,6 +94,9 @@ static int PageErase(XIsf *InstancePtr, u32 Address);
 	(XPAR_XISF_FLASH_FAMILY == INTEL) || \
 	(XPAR_XISF_FLASH_FAMILY == WINBOND))
 static int BlockErase(XIsf *InstancePtr, u32 Address);
+#endif
+#ifdef	XPAR_XISF_INTERFACE_QSPIPSU
+	XQspiPsu_Msg FlashMsg[2];
 #endif
 static int SectorErase(XIsf *InstancePtr, u32 Address);
 static int SubSectorErase(XIsf *InstancePtr, u32 Address);
@@ -326,9 +331,6 @@ static int SectorErase(XIsf *InstancePtr, u32 Address)
 	u8 FlashStatus[2] = {0};
 #if !defined(XPAR_XISF_INTERFACE_PSQSPI)
 	u8 FSRFlag, ReadStatusCmd;
-#endif
-#ifdef	XPAR_XISF_INTERFACE_QSPIPSU
-	XQspiPsu_Msg FlashMsg[2];
 #endif
 
 #if defined(XPAR_XISF_INTERFACE_PSQSPI) || \
@@ -583,9 +585,6 @@ static int SubSectorErase(XIsf *InstancePtr, u32 Address)
 #endif
 #if ((XPAR_XISF_FLASH_FAMILY != ATMEL) && \
 	(XPAR_XISF_FLASH_FAMILY != WINBOND))
-#ifdef	XPAR_XISF_INTERFACE_QSPIPSU
-	XQspiPsu_Msg FlashMsg[2];
-#endif
 
 #if defined(XPAR_XISF_INTERFACE_PSQSPI) || \
 	defined(XPAR_XISF_INTERFACE_QSPIPSU)
@@ -820,9 +819,6 @@ static int BulkErase(XIsf *InstancePtr)
 {
 	int Status = (int)(XST_FAILURE);
 	u8 *NULLPtr = NULL;
-#ifdef XPAR_XISF_INTERFACE_QSPIPSU
-	XQspiPsu_Msg FlashMsg[2];
-#endif
 
 #if ((XPAR_XISF_FLASH_FAMILY == INTEL) || \
 	(XPAR_XISF_FLASH_FAMILY == STM) || \
@@ -904,7 +900,6 @@ static int DieErase(XIsf *InstancePtr)
 	int Status = (int)(XST_FAILURE);
 	u8 *NULLPtr = NULL;
 #ifdef	XPAR_XISF_INTERFACE_QSPIPSU
-	XQspiPsu_Msg FlashMsg[2];
 	u8 ReadStatusCmd, FSRFlag;
 	u32 FlashMake = InstancePtr->ManufacturerID;
 	u8 FlashStatus[2] = {0};

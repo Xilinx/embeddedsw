@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2012 - 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2012 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -59,6 +59,8 @@
  *				Xisf_Write, CR#980169
  *      ms   08/03/17 Added tags and modified comment lines style for doxygen.
  * 5.12 tjs	 06/18/18 Removed checkpatch and gcc warnings.
+ * 5.13 nsk  01/22/18 Make variable declaration to XQspiPsu_Msg as global
+ *                    CR#1015808.
  *
  * </pre>
  *
@@ -80,6 +82,9 @@
 
 #ifdef XPAR_XISF_INTERFACE_PSQSPI
 extern int SendBankSelect(XIsf *InstancePtr, u32 BankSel);
+#endif
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+	XQspiPsu_Msg FlashMsg[2];
 #endif
 static int WriteData(XIsf *InstancePtr, u8 Command, u32 Address,
 			u8 *BufferPtr, u32 ByteCount);
@@ -440,7 +445,6 @@ static int WriteData(XIsf *InstancePtr, u8 Command, u32 Address,
 	u8 *NULLPtr = NULL;
 	u8 *LocalBufPtr = BufferPtr;
 #ifdef	XPAR_XISF_INTERFACE_QSPIPSU
-	XQspiPsu_Msg FlashMsg[2];
 	u8 ReadStatusCmd, FSRFlag;
 	u32 CmdByteCount;
 #endif
