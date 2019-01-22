@@ -56,8 +56,7 @@
 #define XAIETILE_CORE_STATUS_DONE                1U
 #define XAIETILE_CORE_STATUS_DISABLE             0U
 
-#define XAIETILE_CORE_STATUS_DEF_WAIT_USECS      50*1000*1000U
-#define XAIETILE_CORE_STATUS_MIN_WAIT_USECS      1U
+#define XAIETILE_CORE_STATUS_DEF_WAIT_USECS      500U
 
 /***************************** Type Definitions ******************************/
 
