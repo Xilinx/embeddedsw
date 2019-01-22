@@ -670,18 +670,23 @@ XStatus XilCdo_DmaXfer(u32 CmdArgs[10U])
 	u64 SrcAddr = (SrcAddrHigh<<32U) | SrcAddrLow;
 	u64 DestAddr = (DestAddrHigh<<32U) | DestAddrLow;
 	u32 DmaFlags = Flags;
-	CmdArgs[9U] = CMD_DMA_XFER_ARGS;
 
 	if(SrcAddr == 0L)
 	{
-		SrcAddr = (u32)&CmdArgs[CMD_DMA_XFER_ARGS];
-		CmdArgs[9U] += Len;
+		SrcAddr = CmdArgs[9U];
+		CmdArgs[9U] = Len;
 
 		if(SrcAddr == XILCDO_PMCRAM_ENDADDR)
 		{
 			SrcAddr = XPMCFW_PMCRAM_BASEADDR;
 		}
 	}
+	else
+	{
+		CmdArgs[9U] = 0U;
+	}
+
+	CmdArgs[9U] += CMD_DMA_XFER_ARGS;
 	if((Flags & XPMCFW_DMA_DST_NONBLK) || (Flags & XPMCFW_DMA_SRC_NONBLK))
 	{
 		if(BlkDma == 0U)
@@ -694,6 +699,7 @@ XStatus XilCdo_DmaXfer(u32 CmdArgs[10U])
 		{
 			DmaFlags |= XPMCFW_PMCDMA_1;
 			DmaFlags &= ~XPMCFW_PMCDMA_0;
+			BlkDma = 0U;
 		}
 	}
 	else if(BlkDma == 0U)
