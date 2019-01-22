@@ -82,7 +82,6 @@ extern XAieGbl_RegTileDmaCh TileDmaCh[];
 #define XAIEDMA_TILE_CHSTS_STARTING              1U
 #define XAIEDMA_TILE_CHSTS_RUNNING               2U
 #define XAIEDMA_TILE_CHSTS_INVALID               0xFFU
-#define XAIEDMA_TILE_CHSTS_POLL_TIMEOUT          0x8000U
 
 #define XAIEDMA_TILE_BD_VALID			1U
 
