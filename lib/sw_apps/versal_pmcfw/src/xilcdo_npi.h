@@ -315,6 +315,7 @@ u32 XilCdo_ScanClear(u32 NpiParam);
 u32 XilCdo_CheckScanClearMEPass(u32 BaseAddr);
 void XilCdo_WaitForScanClearMEDone(u32 BaseAddr);
 u32 XilCdo_ScanClearME(u32 BaseAddr);
+void XilCdo_NocSysRst(void);
 u32 XilCdo_ChkMEPwrSupply(u32 BaseAddr);
 void XilCdo_ClearME_POR(u32 BaseAddr);
 void XilCdo_ClearODisable0(u32 BaseAddr);
