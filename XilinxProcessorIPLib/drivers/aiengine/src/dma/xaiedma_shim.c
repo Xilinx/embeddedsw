@@ -434,7 +434,7 @@ void XAieDma_ShimBdClear(XAieDma_Shim *DmaInstPtr, u8 BdNum)
 * XAIEDMA_SHIM_CHNUM_S2MM1, XAIEDMA_SHIM_CHNUM_MM2S0, or XAIEDMA_SHIM_CHNUM_MM2S1.
 * @param	TimeOut - Minimum timeout value in micro seconds.
 *
-* @return	1 if completed or 0 for timedout.
+* @return	0 if completed or 1 for timedout.
 *
 * @note		None.
 *
@@ -443,7 +443,7 @@ u8 XAieDma_ShimWaitDone(XAieDma_Shim *DmaInstPtr, u32 ChNum, u32 TimeOut)
 {
 	u64 RegAddr;
 	u32 Mask, Value;
-	u32 Ret = 0;
+	u32 Ret = 1;
 
 	XAie_AssertNonvoid(DmaInstPtr != XAIE_NULL);
 
@@ -458,7 +458,7 @@ u8 XAieDma_ShimWaitDone(XAieDma_Shim *DmaInstPtr, u32 ChNum, u32 TimeOut)
 	}
 
 	if (XAieGbl_MaskPoll(RegAddr, Mask, Value, TimeOut) == XAIE_SUCCESS) {
-		Ret = 1;
+		Ret = 0;
 	}
 
 	return Ret;
