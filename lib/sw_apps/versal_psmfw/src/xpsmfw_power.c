@@ -1512,6 +1512,42 @@ XStatus XPsmFw_DirectPwrDwn(const u32 DeviceId)
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Direct power up processor
+ *
+ * @param DeviceId	Device ID of processor
+ *
+ * @return	XST_SUCCESS or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
+XStatus XPsmFw_DirectPwrUp(const u32 DeviceId)
+{
+	XStatus Status = XST_SUCCESS;
+
+	switch (DeviceId) {
+		case XPSMFW_DEV_ACPU_0:
+			Status = XPsmFwACPUxDirectPwrUp(&Acpu0PwrCtrl);
+			break;
+		case XPSMFW_DEV_ACPU_1:
+			Status = XPsmFwACPUxDirectPwrUp(&Acpu1PwrCtrl);
+			break;
+		case XPSMFW_DEV_RPU0_0:
+			Status = XPsmFwRPUxDirectPwrUp(&Rpu0PwrCtrl);
+			break;
+		case XPSMFW_DEV_RPU0_1:
+			Status = XPsmFwRPUxDirectPwrUp(&Rpu1PwrCtrl);
+			break;
+		default:
+			Status = XST_INVALID_PARAM;
+			break;
+	}
+
+	return Status;
+}
+
 static struct PwrCtlWakeupHandlerTable_t WakeupHandlerTable[] = {
 	{ PSM_GLOBAL_REG_WAKEUP_IRQ_STATUS_ACPU0_MASK, ACPU0Wakeup},
 	{ PSM_GLOBAL_REG_WAKEUP_IRQ_STATUS_ACPU1_MASK, ACPU1Wakeup},
