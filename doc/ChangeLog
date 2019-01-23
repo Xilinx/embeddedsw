@@ -3,6 +3,10 @@ Changes for 2019.1
 axiethernet_v5_9:
 In tcl use unique global variables to fix bsp generation for certain designs.
 
+canfd_v2_1:
+Update fifo number to read data from RX FIFO 0 or RX FIFO 1
+Fix incorrect setting of data phase buad rate prescaler
+
 emaclite_v4_4:
 Fix poll example failure on microblaze platform.
 
