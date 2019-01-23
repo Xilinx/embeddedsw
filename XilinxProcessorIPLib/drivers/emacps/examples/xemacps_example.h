@@ -50,6 +50,7 @@
 * 3.0   hk   02/20/15 Increase array sizes to add support for jumbo frames.
 * 3.2   mus  02//16 Added support support to INTC controller
 * 3.3   kpc  12/09/16 Fixed issue when -O2 is enabled
+* 3.9   hk   01/23/19 Update versal emulation specific fixes.
 * </pre>
 *
 *****************************************************************************/
@@ -88,6 +89,13 @@
 #define EMACPS_PHY_DELAY_SEC     4	/* Amount of time to delay waiting on
 					   PHY to reset */
 #define EMACPS_SLCR_DIV_MASK	0xFC0FC0FF
+
+#define CSU_VERSION		0xFFCA0044
+#define PLATFORM_MASK		0xF000
+#define PLATFORM_SILICON	0x0000
+/* Define a non zero Versal emulation version.
+ * Can be replaced with version register when available */
+#define PLATFORM_VERSALEMU	0x5000
 
 /***************** Macros (Inline Functions) Definitions ********************/
 
@@ -130,6 +138,7 @@ void EmacpsDelay(u32 delay);
 
 extern XEmacPs EmacPsInstance;	/* Device instance used throughout examples */
 extern char EmacPsMAC[];	/* Local MAC address */
+extern u32 Platform;
 
 
 #endif /* XEMACPS_EXAMPLE_H */
