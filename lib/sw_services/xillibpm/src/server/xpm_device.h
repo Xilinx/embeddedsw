@@ -233,5 +233,10 @@ XStatus XPmDevice_GetStatus(const u32 SubsystemId,
 XStatus XPmDevice_AddParent(u32 Id, u32 *Parents, u32 NumParents);
 XStatus XPmDevice_GetPermissions(XPm_Device *Device, u32 *PermissionMask);
 
+u32 XPmDevice_GetSubsystemIdOfCore(XPm_Device *Device);
+
+XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState);
+XStatus XPmDevice_UpdateStatus(XPm_Device *Device);
+
 /** @} */
 #endif /* XPM_DEVICE_H_ */

@@ -86,6 +86,61 @@ XPm_Requirement *FindReqm(XPm_Device *Device, XPm_Subsystem *Subsystem)
 
 /****************************************************************************/
 /**
+ * @brief	Get subsystem ID of processor
+ *
+ * @param  Device	Processor whose subsystem needs to found
+ *
+ * @return	Subsystem ID of that processor
+ *
+ * @note	Core must be requested from single subsystem. If it is
+ *		requested from multiple subsystems then it returns only one
+ *		subsystem ID and if it is not requested from any subsystem
+ *		then this function returns maximum subsystem ID which is
+ *		invalid.
+ *
+ ****************************************************************************/
+u32 XPmDevice_GetSubsystemIdOfCore(XPm_Device *Device)
+{
+	XPm_Requirement *Reqm;
+	u32 Idx;
+
+	for (Idx = 0; Idx < XPM_SUBSYSID_MAX; Idx++) {
+		XPm_Subsystem *Subsystem = &PmSubsystems[Idx];
+		Reqm = FindReqm(Device, Subsystem);
+		if ((NULL != Reqm) && (TRUE == Reqm->Allocated)) {
+			break;
+		}
+	}
+
+	return Idx;
+}
+
+/****************************************************************************/
+/**
+ * @brief	Get maximum of all requested capabilities of device
+ * @param Device	Device whose maximum required capabilities should be
+ *			determined
+ *
+ * @return	32bit value encoding the capabilities
+ *
+ * @note	None
+ *
+ ****************************************************************************/
+static u32 GetMaxCapabilities(const XPm_Device* const Device)
+{
+	XPm_Requirement* Reqm = Device->Requirements;
+	u32 MaxCaps = 0U;
+
+	while (NULL != Reqm) {
+		MaxCaps |= Reqm->Curr.Capabilities;
+		Reqm = Reqm->NextSubsystem;
+	}
+
+	return MaxCaps;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function checks device capability
  *
  * @param Device	Device for capability check
@@ -442,6 +497,17 @@ static XStatus SetRequirement(XPm_Device *Device, XPm_Subsystem *Subsystem,
 
 	Device->PendingReqm->Next.Capabilities = Capabilities;
 	Device->PendingReqm->Next.QoS = QoS;
+
+	/*
+	 * If subsystem state is suspending then do not change device's state
+	 * according to capabilities, only schedule requirements by setting
+	 * device's next requirements.
+	 */
+	if (SUSPENDING == Subsystem->State) {
+		Device->PendingReqm = NULL;
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
 	if (0U != Capabilities) {
 		if (0U == Device->PendingReqm->Curr.Capabilities) {
@@ -956,6 +1022,128 @@ XStatus XPmDevice_GetPermissions(XPm_Device *Device, u32 *PermissionMask)
 		}
 		Reqm = Reqm->NextSubsystem;
 	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief	Change state of a device
+ *
+ * @param Device	Device pointer whose state should be changed
+ * @param NextState		New state
+ *
+ * @return	XST_SUCCESS if transition was performed successfully.
+ *              Error otherwise.
+ *
+ * @note	None
+ *
+ ****************************************************************************/
+XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_DeviceFsm* Fsm = Device->DeviceFsm;
+	u32 OldState = Device->Node.State;
+	u32 Trans;
+
+	if (0U == Fsm->TransCnt) {
+		/* Device's FSM has no transitions when it has only one state */
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	for (Trans = 0U; Trans < Fsm->TransCnt; Trans++) {
+		/* Find transition from current state to next state */
+		if ((Fsm->Trans[Trans].FromState != Device->Node.State) ||
+			(Fsm->Trans[Trans].ToState != NextState)) {
+			continue;
+		}
+
+		if (NULL != Device->DeviceFsm->EnterState) {
+			/* Execute transition action of device's FSM */
+			Status = Device->DeviceFsm->EnterState(Device, NextState);
+		} else {
+			Status = XST_SUCCESS;
+		}
+
+		break;
+	}
+
+	if ((OldState != NextState) && (XST_SUCCESS == Status)) {
+		Device->Node.State = NextState;
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief	Get state with provided capabilities
+ *
+ * @param Device	Device whose states are searched
+ * @param Caps		Capabilities the state must have
+ * @param State		Pointer to a u32 variable where the result is put if
+ *			state is found
+ *
+ * @return	Status of the operation
+ *		- XST_SUCCESS if state is found
+ *
+ * @note	None
+ *
+ ****************************************************************************/
+static XStatus GetStateWithCaps(const XPm_Device* const Device, const u32 Caps,
+				u32* const State)
+{
+	u32 Idx;
+	XStatus Status = XST_FAILURE;
+
+	for (Idx = 0U; Idx < Device->DeviceFsm->StatesCnt; Idx++) {
+		/* Find the first state that contains all capabilities */
+		if ((Caps & Device->DeviceFsm->States[Idx]) == Caps) {
+			Status = XST_SUCCESS;
+			if (NULL != State) {
+				*State = Idx;
+			}
+			break;
+		}
+	}
+
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief	Update the device's state according to the current requirements
+ *		from all subsystems
+ * @param Device	Device whose state is about to be updated
+ *
+ * @return      Status of operation of updating device's state.
+ *
+ * @note	None
+ *
+ ****************************************************************************/
+XStatus XPmDevice_UpdateStatus(XPm_Device *Device)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Caps = GetMaxCapabilities(Device);
+	u32 State;
+
+	if ((XPM_DEVSTATE_UNUSED != Device->Node.State) &&
+	    (XPM_DEVSTATE_RUNNING != Device->Node.State)) {
+			Status = XST_DEVICE_BUSY;
+			goto done;
+	}
+
+	/* TODO: Handle latency margin */
+
+	Status = GetStateWithCaps(Device, Caps, &State);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = XPmDevice_ChangeState(Device, State);
 
 done:
 	return Status;

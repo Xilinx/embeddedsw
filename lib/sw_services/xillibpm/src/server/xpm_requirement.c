@@ -116,3 +116,57 @@ XStatus XPmRequirement_Release(XPm_Requirement *Reqm, XPm_ReleaseScope Scope)
 done:
 	return Status;
 }
+
+/****************************************************************************/
+/**
+ * @brief	Triggers the setting for scheduled requirements
+ *
+ * @param Subsystem	Subsystem which changed the state and whose scheduled
+			requirements are triggered
+ * @param Swap	Flag stating should current requirements be saved as next
+ *
+ * @note 	a) swap=false
+ *		Set scheduled requirements of a subsystem without swapping
+ *		current and next requirements - means the current requirements
+ *		will be dropped. Upon every self suspend, subsystem has to
+ *		explicitly re-request device requirements.
+ *		b) swap=true
+ *		Set scheduled requirements of a subsystem with swapping current
+ *		and next requirements (swapping means the current requirements
+ *		will be saved as next, and will be configured once subsystem
+ *		wakes-up).
+ *
+ ****************************************************************************/
+XStatus XPmRequirement_UpdateScheduled(XPm_Subsystem *Subsystem, u32 Swap)
+{
+	XStatus Status = XST_SUCCESS;
+	XPm_Requirement *Reqm = Subsystem->Requirements;
+	XPm_ReqmInfo TempReq;
+
+	while (NULL != Reqm) {
+		if (Reqm->Curr.Capabilities != Reqm->Next.Capabilities) {
+			TempReq.Capabilities = Reqm->Next.Capabilities;
+			TempReq.Latency = Reqm->Next.Latency;
+			TempReq.QoS = Reqm->Next.QoS;
+
+			if (TRUE == Swap) {
+				Reqm->Next.Capabilities = Reqm->Curr.Capabilities;
+				Reqm->Next.Latency = Reqm->Curr.Latency;
+				Reqm->Next.QoS = Reqm->Curr.QoS;
+			}
+
+			Reqm->Curr.Capabilities = TempReq.Capabilities;
+			Reqm->Curr.Latency = TempReq.Latency;
+			Reqm->Curr.QoS = TempReq.QoS;
+
+			Status = XPmDevice_UpdateStatus(Reqm->Device);
+			if (XST_SUCCESS != Status) {
+				PmErr("Updating %x\r\n", Reqm->Device->Node.Id);
+				break;
+			}
+		}
+		Reqm = Reqm->NextDevice;
+	}
+
+	return Status;
+}

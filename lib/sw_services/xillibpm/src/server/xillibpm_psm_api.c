@@ -169,6 +169,8 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 {
 	XStatus Status = XST_SUCCESS;
 	XPm_Core *Core;
+	XPm_Subsystem *Subsystem;
+	u32 SubsystemId;
 
 	if ((XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) ||
 	    (XPM_NODESUBCL_DEV_CORE != NODESUBCLASS(DeviceId))) {
@@ -185,6 +187,20 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 
 	if (NULL != Core->CoreOps->PowerDown) {
 		Status = Core->CoreOps->PowerDown(Core);
+	}
+
+	SubsystemId = XPmDevice_GetSubsystemIdOfCore((XPm_Device *)Core);
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	if (SUSPENDING == Subsystem->State) {
+		Status = XPmRequirement_UpdateScheduled(Subsystem, TRUE);
+
+		XPmSubsystem_SetState(SubsystemId, OFFLINE);
 	}
 
 done:
