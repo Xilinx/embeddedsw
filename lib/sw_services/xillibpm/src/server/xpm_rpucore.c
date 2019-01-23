@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -47,7 +47,6 @@ static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 			goto done;
 		}
 	}
-
 	AddrLow = (u32) (Address & 0xffff0000ULL);
 
 	/* CFG_VINITHI_MASK mask is common for both processors */
@@ -59,6 +58,14 @@ static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 			~XPM_RPU_VINITHI_MASK);
 	}
 
+	if (XPM_DEVSTATE_RUNNING != Core->Device.Node.State) {
+		Status = XPmCore_WakeUp(Core);
+		if (XST_SUCCESS != Status) {
+			PmErr("Core Wake Up failed, Status = %x\r\n", Status);
+			goto done;
+		}
+	}
+
 	/* Release reset for all resets attached to this core */
 	Status = XPmDevice_Reset(&Core->Device, PM_RESET_ACTION_RELEASE);
 
@@ -67,6 +74,8 @@ static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	/* Put RPU in running state from halt state */
 	PmRmw32(RpuCore->ResumeCfg, XPM_RPU_NCPUHALT_MASK,
 		XPM_RPU_NCPUHALT_MASK);
+
+	Core->Device.Node.State = XPM_DEVSTATE_RUNNING;
 
 done:
 	return Status;

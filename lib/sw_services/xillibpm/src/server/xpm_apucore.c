@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -54,10 +54,19 @@ static XStatus XPmApuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	PmOut32(ApuCore->Core.Device.Node.BaseAddress + APU_DUAL_RVBARADDR0L_OFFSET, AddrLow);
 	PmOut32(ApuCore->Core.Device.Node.BaseAddress + APU_DUAL_RVBARADDR0H_OFFSET, AddrHigh);
 
+	if (XPM_DEVSTATE_RUNNING != Core->Device.Node.State) {
+		Status = XPmCore_WakeUp(Core);
+		if (XST_SUCCESS != Status) {
+			PmErr("Core Wake Up failed, Status = %x\r\n", Status);
+			goto done;
+		}
+	}
+
 	/* Release reset for all resets attached to this core */
 	Status = XPmDevice_Reset(&Core->Device, PM_RESET_ACTION_RELEASE);
 
 	Core->ResumeAddr = 0ULL;
+	Core->Device.Node.State = XPM_DEVSTATE_RUNNING;
 
 done:
 	return Status;
