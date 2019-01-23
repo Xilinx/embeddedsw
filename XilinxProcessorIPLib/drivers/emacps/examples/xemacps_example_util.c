@@ -405,6 +405,10 @@ u32 XEmacPsDetectPHY(XEmacPs * EmacPsInstancePtr)
 #define PHY_REGCR_ADDR	0x001F
 #define PHY_REGCR_DATA	0x401F
 
+/* RGMII RX and TX tuning values */
+#define PHY_TI_RGMII_ZCU102	0xA8
+#define PHY_TI_RGMII_VERSALEMU	0xAB
+
 LONG EmacPsUtilMarvellPhyLoopback(XEmacPs * EmacPsInstancePtr,
 									u32 Speed, u32 PhyAddr)
 {
@@ -503,6 +507,7 @@ LONG EmacPsUtilTiPhyLoopback(XEmacPs * EmacPsInstancePtr,
 {
 	LONG Status;
 	u16 PhyReg0  = 0;
+	u16 RgmiiTuning = PHY_TI_RGMII_ZCU102;
 
 	/*
 	 * Setup speed and duplex
@@ -599,7 +604,10 @@ LONG EmacPsUtilTiPhyLoopback(XEmacPs * EmacPsInstancePtr,
 	XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_REGCR, PHY_REGCR_ADDR);
 	XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_ADDAR, PHY_RGMIIDCTL);
 	XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_REGCR, PHY_REGCR_DATA);
-	Status = XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_ADDAR, 0xA8);
+	if ((Platform & PLATFORM_MASK) == PLATFORM_VERSALEMU) {
+		RgmiiTuning = PHY_TI_RGMII_VERSALEMU;
+	}
+	Status = XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_ADDAR, RgmiiTuning);
 		if (Status != XST_SUCCESS) {
 		EmacPsUtilErrorTrap("Error in tuning");
 		return XST_FAILURE;

@@ -179,10 +179,12 @@
 #define SLCR_ADDR_GEM_RST_CTRL		(XPS_SYS_CTRL_BASEADDR + 0x214)
 
 /* CRL APB registers for GEM clock control */
+#ifdef XPAR_PSU_CRL_APB_S_AXI_BASEADDR
 #define CRL_GEM0_REF_CTRL	(XPAR_PSU_CRL_APB_S_AXI_BASEADDR + 0x50)
 #define CRL_GEM1_REF_CTRL	(XPAR_PSU_CRL_APB_S_AXI_BASEADDR + 0x54)
 #define CRL_GEM2_REF_CTRL	(XPAR_PSU_CRL_APB_S_AXI_BASEADDR + 0x58)
 #define CRL_GEM3_REF_CTRL	(XPAR_PSU_CRL_APB_S_AXI_BASEADDR + 0x5C)
+#endif
 
 #define CRL_GEM_DIV_MASK	0x003F3F00
 #define CRL_GEM_1G_DIV0		0x00000C00
@@ -191,9 +193,8 @@
 #define JUMBO_FRAME_SIZE	10240
 #define FRAME_HDR_SIZE		18
 
-#define CSU_VERSION			0xFFCA0044
-#define PLATFORM_MASK		0xF000
-#define PLATFORM_SILICON	0x0000
+#define GEMVERSION_VERSAL	0x107
+
 /*************************** Variable Definitions ***************************/
 
 EthernetFrame TxFrame;		/* Transmit buffer */
@@ -366,7 +367,9 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 
 	GemVersion = ((Xil_In32(Config->BaseAddress + 0xFC)) >> 16) & 0xFFF;
 
-	if (GemVersion > 2) {
+	if (GemVersion == GEMVERSION_VERSAL) {
+		Platform = PLATFORM_VERSALEMU;
+	} else if (GemVersion > 2) {
 		Platform = Xil_In32(CSU_VERSION);
 	}
 	/* Enable jumbo frames for zynqmp */
@@ -1368,6 +1371,7 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 
 	if ((GemVersion > 2) && ((Platform & PLATFORM_MASK) == PLATFORM_SILICON)) {
 
+#ifdef XPAR_PSU_CRL_APB_S_AXI_BASEADDR
 #ifdef XPAR_PSU_ETHERNET_0_DEVICE_ID
 		if (EmacPsIntrId == XPS_GEM0_INT_ID) {
 			/* GEM0 1G clock configuration*/
@@ -1419,6 +1423,7 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 			*(volatile unsigned int *)(CRL_GEM3_REF_CTRL) =
 									ClkCntrl;
 		}
+#endif
 #endif
 	}
 }
