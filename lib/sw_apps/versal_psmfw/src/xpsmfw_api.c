@@ -64,6 +64,9 @@ XStatus XPsmFw_ProcessIpi(u32 *Payload)
 		case PSM_API_DIRECT_PWR_DWN:
 			Status = XPsmFw_DirectPwrDwn(DeviceId);
 			break;
+		case PSM_API_DIRECT_PWR_UP:
+			Status = XPsmFw_DirectPwrUp(DeviceId);
+			break;
 		default:
 			Status = XST_INVALID_PARAM;
 			break;
