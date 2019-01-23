@@ -53,6 +53,9 @@ static int XPm_ProcessPsmCmd(XPlmi_Cmd * Cmd)
 		case PM_PWR_DWN_EVENT:
 			Status = XPm_PwrDwnEvent(Pload[0]);
 			break;
+		case PM_WAKE_UP_EVENT:
+			Status = XPm_WakeUpEvent(Pload[0]);
+			break;
 		default:
 			Status = XST_INVALID_PARAM;
 			break;
@@ -182,6 +185,39 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 
 	if (NULL != Core->CoreOps->PowerDown) {
 		Status = Core->CoreOps->PowerDown(Core);
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief This Function is called by PSM to wake processor.
+ *
+ * @param DeviceId	Device ID of processor
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code.
+ *
+ * @note none
+ *
+ ****************************************************************************/
+XStatus XPm_WakeUpEvent(const u32 DeviceId)
+{
+	XStatus Status = XST_SUCCESS;
+	XPm_Core *Core;
+
+	if ((XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) ||
+	    (XPM_NODESUBCL_DEV_CORE != NODESUBCLASS(DeviceId))) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+	if (Core->CoreOps->RequestWakeup) {
+		Status = Core->CoreOps->RequestWakeup(Core, 0, 0);
+	} else {
+		Status = XST_FAILURE;
 	}
 
 done:
