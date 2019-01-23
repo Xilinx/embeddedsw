@@ -76,8 +76,11 @@
 				       XPSMFW_NODETYPE_DEV_CORE_RPU,	\
 				       XPSMFW_NODEIDX_DEV_RPU0_1)
 
+#define PM_PWR_DWN_EVENT	(1U)
+
 #define PSM_API_DIRECT_PWR_DWN	(1U)
 
+XStatus XPsmFw_PowerDownEvent(u32 DevId);
 XStatus XPsmFw_ProcessIpi(u32 *Payload);
 
 #endif /* XPSMFW_API_H_ */
