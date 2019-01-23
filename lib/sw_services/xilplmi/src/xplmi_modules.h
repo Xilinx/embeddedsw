@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -67,6 +67,7 @@ extern "C" {
 #define XPLMI_MODULE_SEM_ID				(3U)
 #define XPLMI_MODULE_XILFPGA_ID			(4U)
 #define XPLMI_MODULE_XILSECURE_ID			(5U)
+#define XPLMI_MODULE_XILPSM_ID				(6U)
 
 #define XPLMI_MODULE_COMMAND(FUNC)		{ (FUNC) }
 
