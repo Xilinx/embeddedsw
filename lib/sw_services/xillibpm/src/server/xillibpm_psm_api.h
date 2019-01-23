@@ -32,9 +32,14 @@
 #include "xil_types.h"
 #include "xstatus.h"
 
-#define PSM_API_MIN				(0U)
-#define PSM_API_MAX				(0U)
+#define PM_PWR_DWN_EVENT			(1U)
+#define PSM_API_MIN				PM_PWR_DWN_EVENT
+#define PSM_API_MAX				PM_PWR_DWN_EVENT
+
+#define PSM_API_DIRECT_PWR_DWN			(1U)
 
 void XPm_PsmModuleInit(void);
+XStatus XPm_PwrDwnEvent(const u32 DeviceId);
+XStatus XPm_DirectPwrDwn(const u32 DeviceId);
 
 #endif
