@@ -28,6 +28,7 @@
 
 #include "xillibpm_api.h"
 #include "xillibpm_defs.h"
+#include "xillibpm_psm_api.h"
 #include "xpm_pll.h"
 #include "xpm_powerdomain.h"
 #include "xpm_pmcdomain.h"
@@ -254,6 +255,8 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u3
 	for(i=1; i<XPlmi_Pm.CmdCnt; i++)
 		XPlmi_PmCmds[i].Handler = XPm_ProcessCmd;
 	XPlmi_ModuleRegister(&XPlmi_Pm);
+
+	XPm_PsmModuleInit();
 
 #ifdef SELF_TEST
 	/* Todo: Replace this code with the CDO parser */
