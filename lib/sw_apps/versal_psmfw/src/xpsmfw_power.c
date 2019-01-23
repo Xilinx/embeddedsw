@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -49,6 +49,7 @@
 *
 ******************************************************************************/
 
+#include "xpsmfw_api.h"
 #include "xpsmfw_default.h"
 #include "xpsmfw_power.h"
 #include "fpd_apu.h"
@@ -57,7 +58,6 @@
 #include "crl.h"
 #include "crf.h"
 #include "pmc_global.h"
-
 #define CHECK_BIT(reg, mask)	((reg & mask) == mask)
 
 static struct XPsmFwPwrCtrl_t Acpu0PwrCtrl = {
@@ -1474,6 +1474,42 @@ static XStatus R51Wakeup(void)
 static XStatus R51Sleep(void)
 {
 	return XPsmFwRPUxDirectPwrDwn(&Rpu1PwrCtrl);
+}
+
+/****************************************************************************/
+/**
+ * @brief	Direct power down processor
+ *
+ * @param DeviceId	Device ID of processor
+ *
+ * @return	XST_SUCCESS or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
+XStatus XPsmFw_DirectPwrDwn(const u32 DeviceId)
+{
+	XStatus Status = XST_SUCCESS;
+
+	switch (DeviceId) {
+		case XPSMFW_DEV_ACPU_0:
+			Status = XPsmFwACPUxDirectPwrDwn(&Acpu0PwrCtrl);
+			break;
+		case XPSMFW_DEV_ACPU_1:
+			Status = XPsmFwACPUxDirectPwrDwn(&Acpu1PwrCtrl);
+			break;
+		case XPSMFW_DEV_RPU0_0:
+			Status = XPsmFwRPUxDirectPwrDwn(&Rpu0PwrCtrl);
+			break;
+		case XPSMFW_DEV_RPU0_1:
+			Status = XPsmFwRPUxDirectPwrDwn(&Rpu1PwrCtrl);
+			break;
+		default:
+			Status = XST_INVALID_PARAM;
+			break;
+	}
+
+	return Status;
 }
 
 static struct PwrCtlWakeupHandlerTable_t WakeupHandlerTable[] = {

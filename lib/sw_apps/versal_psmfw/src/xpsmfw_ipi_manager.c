@@ -49,6 +49,7 @@
 *
 ******************************************************************************/
 
+#include "xpsmfw_api.h"
 #include "xpsmfw_ipi_manager.h"
 #include "ipi.h"
 
@@ -100,6 +101,7 @@ int XPsmFw_DispatchIpiHandler(u32 SrcMask)
 	int Status;
 	u32 MaskIndex;
 	u32 Payload[XPSMFW_IPI_MAX_MSG_LEN];
+	u32 Response[XPSMFW_IPI_MAX_MSG_LEN];
 
 	XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "In IPI handler\r\n");
 
@@ -110,9 +112,11 @@ int XPsmFw_DispatchIpiHandler(u32 SrcMask)
 			if (XST_SUCCESS != Status) {
 				XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "Failure to read IPI msg\r\n");
 			} else {
-				for (int i = 0; i < 8; i++) {
-					XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "IPI Msg: 0x%x\r\n", Payload[i]);
-				}
+				Status = XPsmFw_ProcessIpi(&Payload[0]);
+
+				Response[0] = Status;
+				XPsmFw_IpiSendResponse(IPI_PSM_IER_PMC_MASK,
+						       Response);
 			}
 		}
 	}
