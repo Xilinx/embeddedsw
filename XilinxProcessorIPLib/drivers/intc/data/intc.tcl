@@ -491,8 +491,7 @@ proc xredefine_intc {drvhandle config_inc} {
         set periph_ip_name [common::get_property NAME $periph]
 
         set num_intr_inputs [common::get_property CONFIG.C_NUM_INTR_INPUTS $periph]
-	set valid_intr_inputs [llength $source_list]
-	if {$num_intr_inputs != $valid_intr_inputs} {
+	if {$num_intr_inputs != $total_source_intrs} {
 	    error "ERROR: unconnected interrupt pins in the design.\n" "" "MDT_ERROR"
 	    return
 	}
