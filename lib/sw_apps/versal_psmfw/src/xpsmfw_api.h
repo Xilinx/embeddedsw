@@ -79,6 +79,7 @@
 #define PM_PWR_DWN_EVENT	(1U)
 
 #define PSM_API_DIRECT_PWR_DWN	(1U)
+#define PSM_API_DIRECT_PWR_UP	(2U)
 
 XStatus XPsmFw_PowerDownEvent(u32 DevId);
 XStatus XPsmFw_ProcessIpi(u32 *Payload);
