@@ -52,6 +52,23 @@ XPm_Device *PmDevices[XPM_NODEIDX_DEV_MAX];
 u32 MaxDevices=XPM_NODEIDX_DEV_MAX;
 u32 PmNumDevices=0;
 
+static const u32 XPmGenericDeviceStates[] = {
+	[XPM_DEVSTATE_UNUSED] = XPM_MIN_CAPABILITY,
+	[XPM_DEVSTATE_RUNNING] = XPM_MAX_CAPABILITY,
+};
+
+static const XPm_StateTran XPmGenericDevTransitions[] = {
+	{
+		.FromState = XPM_DEVSTATE_RUNNING,
+		.ToState = XPM_DEVSTATE_UNUSED,
+		.Latency = XPM_DEF_LATENCY,
+	}, {
+		.FromState = XPM_DEVSTATE_UNUSED,
+		.ToState = XPM_DEVSTATE_RUNNING,
+		.Latency = XPM_DEF_LATENCY,
+	},
+};
+
 XPm_Requirement *FindReqm(XPm_Device *Device, XPm_Subsystem *Subsystem)
 {
 	XPm_Requirement *Reqm = NULL;
@@ -339,6 +356,37 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 	return Status;
 }
 
+static XStatus HandleDeviceState(XPm_Device* const Device, const u32 NextState)
+{
+	XStatus Status = XST_SUCCESS;
+
+	switch (Device->Node.State) {
+	case XPM_DEVSTATE_UNUSED:
+		if (XPM_DEVSTATE_RUNNING == NextState) {
+			Status = Device->Node.HandleEvent((XPm_Node *)Device,
+							  XPM_DEVEVENT_BRINGUP_ALL);
+		}
+		break;
+	case XPM_DEVSTATE_RUNNING:
+		if (XPM_DEVSTATE_UNUSED == NextState) {
+			Status = Device->Node.HandleEvent((XPm_Node *)Device,
+							  XPM_DEVEVENT_SHUTDOWN);
+		}
+		break;
+	default:
+		Status = XST_FAILURE;
+		break;
+	}
+
+	return Status;
+}
+
+static const XPm_DeviceFsm XPmGenericDeviceFsm = {
+	DEFINE_DEV_STATES(XPmGenericDeviceStates),
+	DEFINE_DEV_TRANS(XPmGenericDevTransitions),
+	.EnterState = HandleDeviceState,
+};
+
 static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 		       u32 Capabilities, const u32 QoS)
 {
@@ -494,6 +542,7 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 	PmDeviceOps.SetRequirement = SetRequirement;
 	PmDeviceOps.Release = Release;
 	Device->DeviceOps = &PmDeviceOps;
+	Device->DeviceFsm = &XPmGenericDeviceFsm;
 
 	PmDevices[NODEINDEX(Id)] = Device;
 	PmNumDevices++;
