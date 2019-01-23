@@ -416,7 +416,7 @@ static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	XPsmFw_RMW32(PSM_GLOBAL_REG_APU_PWR_STATUS_INIT, Args->PwrStateMask, ~Args->PwrStateMask);
 
 	/* Disable and clear ACPUx direct wake-up interrupt request */
-	/* This is already handled by common handler so no need to handle here */
+	XPsmFw_Write32(PSM_GLOBAL_REG_WAKEUP_IRQ_STATUS, Args->PwrStateMask);
 
 	/* Enable Direct Power-down Request of ACPUx */
 	XPsmFw_Write32(PSM_GLOBAL_REG_PWR_CTRL_IRQ_EN, Args->PwrStateMask);
@@ -524,7 +524,7 @@ static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	}
 
 	/* Disable and clear ACPUx direct power-down interrupt request */
-	/* This is already handled by common handler so no need to handle here */
+	XPsmFw_Write32(PSM_GLOBAL_REG_PWR_CTRL_IRQ_STATUS, Args->PwrStateMask);
 
 	/* Enable wake interrupt by GIC for ACPUx */
 	XPsmFw_Write32(PSM_GLOBAL_REG_WAKEUP_IRQ_EN, Args->PwrStateMask);
@@ -676,7 +676,7 @@ static XStatus XPsmFwRPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	XPsmFw_RMW32(CRL_RST_CPU_R5, Args->RstCtrlMask, ~Args->RstCtrlMask);
 
 	/* Disable wake interrupt by GIC for RPUx */
-	/* This is already handled by common handler so no need to handle here */
+	XPsmFw_Write32(PSM_GLOBAL_REG_WAKEUP_IRQ_STATUS, Args->PwrStateMask >> 6);
 
 	/* Enable Direct Power-down Request of RPUx */
 	XPsmFw_Write32(PSM_GLOBAL_REG_PWR_CTRL_IRQ_EN, Args->PwrStateMask >> 6);
@@ -775,7 +775,7 @@ static XStatus XPsmFwRPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	XPsmFw_RMW32(PSM_LOCAL_PWR_STATE, PwrStateMask, ~PwrStateMask);
 
 	/* Disable and clear RPU direct power-down interrupt request */
-	/* This is already handled by common handler so no need to handle here */
+	XPsmFw_Write32(PSM_GLOBAL_REG_PWR_CTRL_IRQ_STATUS, Args->PwrStateMask >> 6);
 
 	/* Enable wake interrupt by GIC for RPUx */
 	XPsmFw_Write32(PSM_GLOBAL_REG_WAKEUP_IRQ_EN, Args->PwrStateMask >> 6);
@@ -1582,8 +1582,6 @@ XStatus XPsmFw_DispatchWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask)
 			Status = WakeupHandlerTable[Index].Handler();
 		}
 
-		/* Ack the service */
-		XPsmFw_Write32(PSM_GLOBAL_REG_WAKEUP_IRQ_STATUS, WakeupHandlerTable[Index].Mask);
 		XPsmFw_Write32(PSM_GLOBAL_REG_WAKEUP_IRQ_DIS, WakeupHandlerTable[Index].Mask);
 	}
 
@@ -1610,8 +1608,6 @@ XStatus XPsmFw_DispatchPwrCtlHandler(u32 PwrCtlStatus, u32 PwrCtlIntMask)
 			Status = SleepHandlerTable[Index].Handler();
 		}
 
-		/* Ack the service */
-		XPsmFw_Write32(PSM_GLOBAL_REG_PWR_CTRL_IRQ_STATUS, SleepHandlerTable[Index].Mask);
 		XPsmFw_Write32(PSM_GLOBAL_REG_PWR_CTRL_IRQ_DIS, SleepHandlerTable[Index].Mask);
 	}
 
