@@ -29,6 +29,8 @@
 #ifndef XILLIBPM_DEFS_H_
 #define XILLIBPM_DEFS_H_
 
+#include "xil_types.h"
+
 /*
  * Version number is a 32bit value, like:
  * (PM_VERSION_MAJOR << 16) | PM_VERSION_MINOR
