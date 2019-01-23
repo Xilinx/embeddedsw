@@ -26,6 +26,7 @@
 *
 ******************************************************************************/
 
+#include "xillibpm_psm_api.h"
 #include "xpm_core.h"
 #include "xpm_psm.h"
 
@@ -62,7 +63,7 @@ static XStatus XPmCore_Sleep(XPm_Core *Core)
 		/*
 		 * Power down the core
 		 */
-		Status = XPmPsm_SendSleepReq(Core->SleepMask);
+		Status = XPm_DirectPwrDwn(Core->Device.Node.Id);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}

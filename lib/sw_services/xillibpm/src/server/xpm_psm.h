@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -68,7 +68,6 @@ XStatus XPmPsm_Init(XPm_Psm *Psm,
 	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset);
 XStatus XPmPsm_SendPowerUpReq(u32 BitMask);
 XStatus XPmPsm_SendPowerDownReq(u32 BitMask);
-XStatus XPmPsm_SendSleepReq(u32 BitMask);
 u32 XPmPsm_FwIsPresent(void);
 void XPmPsm_RegWrite(const u32 Offset, const u32 Value);
 
