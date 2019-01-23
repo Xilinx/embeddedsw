@@ -27,7 +27,21 @@
  ******************************************************************************/
 
 #include "xpsmfw_api.h"
+#include "xpsmfw_ipi_manager.h"
 #include "xpsmfw_power.h"
+
+#define PACK_PAYLOAD(Payload, Arg0, Arg1)	\
+	Payload[0] = (u32)Arg0;		\
+	Payload[1] = (u32)Arg1;         \
+	XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "%s(%x)\r\n", __func__, Arg1);
+
+#define LIBPM_MODULE_ID			(0x06)
+#define HEADER(len, ApiId)		((len << 16) | (LIBPM_MODULE_ID << 8) | (ApiId))
+
+#define PACK_PAYLOAD0(Payload, ApiId)	\
+	PACK_PAYLOAD(Payload, HEADER(0, ApiId), NULL)
+#define PACK_PAYLOAD1(Payload, ApiId, Arg1)	\
+	PACK_PAYLOAD(Payload, HEADER(1, ApiId), Arg1)
 
 /****************************************************************************/
 /**
@@ -54,6 +68,29 @@ XStatus XPsmFw_ProcessIpi(u32 *Payload)
 			Status = XST_INVALID_PARAM;
 			break;
 	}
+
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief	Send power down event to PMC
+ *
+ * @param DevId	Device ID of powering down processor
+ *
+ * @return	XST_SUCCESS or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
+XStatus XPsmFw_PowerDownEvent(u32 DevId)
+{
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	PACK_PAYLOAD1(Payload, PM_PWR_DWN_EVENT, DevId);
+
+	Status = XPsmFw_IpiSend(IPI_PSM_IER_PMC_MASK, Payload);
 
 	return Status;
 }
