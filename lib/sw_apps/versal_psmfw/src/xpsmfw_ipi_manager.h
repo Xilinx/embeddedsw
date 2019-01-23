@@ -55,9 +55,9 @@ extern "C" {
 #endif
 
 #include "xparameters.h"
+#include "xpsmfw_default.h"
 
 #ifdef XPAR_PSU_IPI_PSM_DEVICE_ID
-#include "xpsmfw_default.h"
 #include "xipipsu.h"
 
 /* Instance of IPI Driver */
@@ -67,6 +67,12 @@ extern "C" {
 extern u32 IpiMaskList[XPSMFW_IPI_MASK_COUNT];
 
 #define XPSMFW_IPI_MAX_MSG_LEN XIPIPSU_MAX_MSG_LEN
+
+#endif /* XPAR_PSU_IPI_PSM_DEVICE_ID */
+
+#define XPSMFW_IPI_TIMEOUT	(~0U)
+#define PAYLOAD_ARG_CNT		(8U)
+#define RESPONSE_ARG_CNT	(8U)
 
 #ifdef XPAR_XIPIPS_TARGET_PSU_PMC_0_CH0_MASK
 #define IPI_PSM_IER_PMC_MASK	  XPAR_XIPIPS_TARGET_PSU_PMC_0_CH0_MASK
@@ -81,7 +87,10 @@ extern u32 IpiMaskList[XPSMFW_IPI_MASK_COUNT];
 s32 XPsmfw_IpiManagerInit(void);
 
 int XPsmFw_DispatchIpiHandler(u32 SrcMask);
-#endif
+
+XStatus XPsmFw_IpiSend(u32 IpiMask, u32 *Payload);
+
+XStatus XPsmFw_IpiSendResponse(u32 IpiMask, u32 *Payload);
 
 #ifdef __cplusplus
 }
