@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -67,6 +67,8 @@
 *       ask  08/27/18 Modified RecvSeq function to return XST_NO_DATA when the
 *       		fifo fill levels are zero.
 *		ask  08/08/18 Fixed Cppcheck warnings.
+* 2.1   nsk  01/22/19 Pass correct fifo number to XCanFd_SeqRecv_logic()
+*		      CR# 1018379
 *
 * </pre>
 ******************************************************************************/
@@ -676,8 +678,8 @@ u32 XCanFd_Recv_Sequential(XCanFd *InstancePtr, u32 *FramePtr)
 {
 	u32 Result;
 	u32 ReadIndex = 0;
-	u32 status = (u32)XST_NO_DATA;
-	u8  fifo_no = 0xFF;
+	u32 Status = (u32)XST_NO_DATA;
+	u8  FifoNo = 0xFF;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -692,6 +694,7 @@ u32 XCanFd_Recv_Sequential(XCanFd *InstancePtr, u32 *FramePtr)
 		/*Fill the canfd frame for current RI value for Fifo 0 */
 
 				ReadIndex = Result & XCANFD_FSR_RI_MASK;
+				FifoNo = XCANFD_RX_FIFO_0;
 		}
 
 		if (Result & XCANFD_FSR_FL_1_MASK) {
@@ -699,12 +702,13 @@ u32 XCanFd_Recv_Sequential(XCanFd *InstancePtr, u32 *FramePtr)
 
 				ReadIndex = ((Result & XCANFD_FSR_IRI_1_MASK)
 						>> XCANFD_FSR_RI_1_SHIFT);
+				FifoNo = XCANFD_RX_FIFO_1;
 		}
 
-		status = XCanFd_SeqRecv_logic(InstancePtr, ReadIndex, Result,
-			      FramePtr, fifo_no);
+		Status = XCanFd_SeqRecv_logic(InstancePtr, ReadIndex, Result,
+			      FramePtr, FifoNo);
 	}
-	return status;
+	return Status;
 
 }
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -253,6 +253,8 @@ exclusion
 *	ask  09/21/18 Fixed CanFD hang issue in selftest by correcting the
 *                    Configuration regarding the Baud Rate and bit timing
 *                    for both Arbitration and Data Phase.
+* 2.1   nsk  01/22/19 Pass correct fifo number to XCanFd_SeqRecv_logic() in
+*		      xcanfd.c CR# 1018379
 *
 * </pre>
 *
