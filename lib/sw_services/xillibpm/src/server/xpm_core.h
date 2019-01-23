@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -61,6 +61,7 @@ struct XPm_Core {
 XStatus XPmCore_Init(XPm_Core *Core, u32 Id, u32 *BaseAddress,
 	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset, u8 IpiCh, struct XPm_CoreOps *Ops);
 XStatus XPmCore_PwrDwn(XPm_Core *Core, u32 RegOffset);
+XStatus XPmCore_WakeUp(XPm_Core *Core);
 
 /** @} */
 #endif /* XPM_CORE_H_ */
