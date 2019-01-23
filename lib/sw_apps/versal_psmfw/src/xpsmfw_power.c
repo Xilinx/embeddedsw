@@ -1413,7 +1413,7 @@ static XStatus ACPU0Wakeup(void)
  */
 static XStatus ACPU0Sleep(void)
 {
-	return XPsmFwACPUxDirectPwrDwn(&Acpu0PwrCtrl);
+	return XPsmFw_PowerDownEvent(XPSMFW_DEV_ACPU_0);
 }
 
 /**
@@ -1433,7 +1433,7 @@ static XStatus ACPU1Wakeup(void)
  */
 static XStatus ACPU1Sleep(void)
 {
-	return XPsmFwACPUxDirectPwrDwn(&Acpu1PwrCtrl);
+	return XPsmFw_PowerDownEvent(XPSMFW_DEV_ACPU_1);
 }
 
 /**
@@ -1453,7 +1453,7 @@ static XStatus R50Wakeup(void)
  */
 static XStatus R50Sleep(void)
 {
-	return XPsmFwRPUxDirectPwrDwn(&Rpu0PwrCtrl);
+	return XPsmFw_PowerDownEvent(XPSMFW_DEV_RPU0_0);
 }
 
 /**
@@ -1473,7 +1473,7 @@ static XStatus R51Wakeup(void)
  */
 static XStatus R51Sleep(void)
 {
-	return XPsmFwRPUxDirectPwrDwn(&Rpu1PwrCtrl);
+	return XPsmFw_PowerDownEvent(XPSMFW_DEV_RPU0_1);
 }
 
 /****************************************************************************/
