@@ -90,6 +90,28 @@ done:
 	return Status;
 }
 
+XStatus XPmCore_WakeUp(XPm_Core *Core)
+{
+	XStatus Status = XST_FAILURE;
+
+	if (NULL != Core->Device.Power) {
+		Status = Core->Device.Power->Node.HandleEvent(&Core->Device.Power->Node,
+							XPM_POWER_EVENT_PWR_UP);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	if (NULL != Core->Device.ClkHandles) {
+		XPmClock_Request(Core->Device.ClkHandles);
+	}
+
+	Status = XPm_DirectPwrUp(Core->Device.Node.Id);
+
+done:
+	return Status;
+}
+
 XStatus XPmCore_PwrDwn(XPm_Core *Core, u32 PwrDwnRegOffset)
 {
 	XStatus Status = XST_FAILURE;
