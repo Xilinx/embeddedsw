@@ -97,3 +97,26 @@ XStatus XPsmFw_PowerDownEvent(u32 DevId)
 
 	return Status;
 }
+
+/****************************************************************************/
+/**
+ * @brief	Send wake event to PMC
+ *
+ * @param DevId	Device ID of powering down processor
+ *
+ * @return	XST_SUCCESS or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
+XStatus XPsmFw_WakeEvent(u32 DevId)
+{
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	PACK_PAYLOAD1(Payload, PM_WAKE_UP_EVENT, DevId);
+
+	Status = XPsmFw_IpiSend(IPI_PSM_IER_PMC_MASK, Payload);
+
+	return Status;
+}

@@ -1403,7 +1403,7 @@ XStatus XPsmFw_DispatchPwrDwnHandler(u32 PwrDwnStatus, u32 pwrDwnIntMask,
  */
 static XStatus ACPU0Wakeup(void)
 {
-	return XPsmFwACPUxDirectPwrUp(&Acpu0PwrCtrl);
+	return XPsmFw_WakeEvent(XPSMFW_DEV_ACPU_0);
 }
 
 /**
@@ -1423,7 +1423,7 @@ static XStatus ACPU0Sleep(void)
  */
 static XStatus ACPU1Wakeup(void)
 {
-	return XPsmFwACPUxDirectPwrUp(&Acpu1PwrCtrl);
+	return XPsmFw_WakeEvent(XPSMFW_DEV_ACPU_1);
 }
 
 /**
@@ -1443,7 +1443,7 @@ static XStatus ACPU1Sleep(void)
  */
 static XStatus R50Wakeup(void)
 {
-	return XPsmFwRPUxDirectPwrUp(&Rpu0PwrCtrl);
+	return XPsmFw_WakeEvent(XPSMFW_DEV_RPU0_0);
 }
 
 /**
@@ -1463,7 +1463,7 @@ static XStatus R50Sleep(void)
  */
 static XStatus R51Wakeup(void)
 {
-	return XPsmFwRPUxDirectPwrUp(&Rpu1PwrCtrl);
+	return XPsmFw_WakeEvent(XPSMFW_DEV_RPU0_1);
 }
 
 /**
