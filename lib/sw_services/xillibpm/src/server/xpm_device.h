@@ -97,6 +97,12 @@
 #define XPM_DEVID_SDIO_0	PERIPH_DEVID(XPM_NODEIDX_DEV_SDIO_0)
 #define XPM_DEVID_SDIO_1	PERIPH_DEVID(XPM_NODEIDX_DEV_SDIO_1)
 
+#define DEFINE_DEV_STATES(S)	.States = (S), \
+				.StatesCnt = ARRAY_SIZE(S)
+
+#define DEFINE_DEV_TRANS(T)	.Trans = (T), \
+				.TransCnt = ARRAY_SIZE(T)
+
 /* Device states */
 typedef enum {
 	XPM_DEVSTATE_UNUSED,
@@ -146,6 +152,24 @@ typedef struct XPm_ResetNodeList {
 	struct XPm_ResetNodeList *NextNode; /**< Pointer to next node in list */
 } XPm_ResetNodeList;
 
+/* Transition for a state in finite state machine */
+typedef struct {
+	const u32 Latency; /**< Transition latency in microseconds */
+	const u32 FromState; /**< From which state the transition is taken */
+	const u32 ToState; /**< To which state the transition is taken */
+} XPm_StateTran;
+
+/* Device Finite state machine */
+typedef struct {
+	const u32* const States; /**< Pointer to states array. */
+	XStatus (*const EnterState)(XPm_Device* const Device, const u32 NextState);
+	/**< Pointer to a function that executes FSM actions to enter a state*/
+	const XPm_StateTran* const Trans;
+	/**< Pointer to array of transitions of the FSM */
+	const u8 StatesCnt; /**< Number of elements in states array */
+	const u8 TransCnt; /**< Number of elements in transition array */
+} XPm_DeviceFsm;
+
 /**
  * The device class.  This is the base class for all the processor core,
  * memory bank and peripheral classes.
@@ -163,6 +187,7 @@ struct XPm_Device {
 	u8 WfPwrUseCnt; /**< Pending power use count */
 	u8 UseCount; /**< Device use count */
 	XPm_DeviceOps *DeviceOps; /**< Device operations */
+	const XPm_DeviceFsm* DeviceFsm; /**< Device finite state machine */
 };
 
 typedef struct XPm_Mem {
