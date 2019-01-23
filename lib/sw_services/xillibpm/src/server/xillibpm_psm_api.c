@@ -26,9 +26,13 @@
  *
  ******************************************************************************/
 
+#include "xillibpm_defs.h"
 #include "xillibpm_psm_api.h"
 #include "xplmi_modules.h"
 #include "xpm_common.h"
+#include "xpm_core.h"
+#include "xpm_device.h"
+#include "xpm_ipi.h"
 
 static XPlmi_ModuleCmd XPlmi_PsmCmds[PSM_API_MAX+1];
 static XPlmi_Module XPlmi_Psm =
@@ -41,8 +45,18 @@ static XPlmi_Module XPlmi_Psm =
 static int XPm_ProcessPsmCmd(XPlmi_Cmd * Cmd)
 {
 	u32 Status = XST_SUCCESS;
+	u32 *Pload = Cmd->Payload;
 
 	PmInfo("Processing Cmd %x\n\r", Cmd->CmdId);
+
+	switch (Cmd->CmdId & 0xFF) {
+		case PM_PWR_DWN_EVENT:
+			Status = XPm_PwrDwnEvent(Pload[0]);
+			break;
+		default:
+			Status = XST_INVALID_PARAM;
+			break;
+	}
 
 	Cmd->Response[0] = Status;
 
@@ -72,4 +86,73 @@ void XPm_PsmModuleInit(void)
 		XPlmi_PsmCmds[Idx].Handler = XPm_ProcessPsmCmd;
 	}
 	XPlmi_ModuleRegister(&XPlmi_Psm);
+}
+
+/****************************************************************************/
+/**
+ * @brief This Function will power down processor by sending IPI to PSM for
+ *       performing direct power down operation.
+ *
+ * @param DeviceId	Device ID of processor
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code.
+ *
+ * @note none
+ *
+ ****************************************************************************/
+XStatus XPm_DirectPwrDwn(const u32 DeviceId)
+{
+	XStatus Status = XST_SUCCESS;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	Payload[0] = PSM_API_DIRECT_PWR_DWN;
+	Payload[1] = DeviceId;
+
+	Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = XPm_IpiReadStatus(PSM_IPI_INT_MASK);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief This Function is called by PSM to perform actions to finish suspend
+ *       procedur of processor.
+ *
+ * @param DeviceId	Device ID of processor
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code.
+ *
+ * @note none
+ *
+ ****************************************************************************/
+XStatus XPm_PwrDwnEvent(const u32 DeviceId)
+{
+	XStatus Status = XST_SUCCESS;
+	XPm_Core *Core;
+
+	if ((XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) ||
+	    (XPM_NODESUBCL_DEV_CORE != NODESUBCLASS(DeviceId))) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+
+	if (XPM_DEVSTATE_SUSPENDING != Core->Device.Node.State) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	if (NULL != Core->CoreOps->PowerDown) {
+		Status = Core->CoreOps->PowerDown(Core);
+	}
+
+done:
+	return Status;
 }
