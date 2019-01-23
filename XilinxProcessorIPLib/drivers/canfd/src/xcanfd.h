@@ -255,6 +255,8 @@ exclusion
 *                    for both Arbitration and Data Phase.
 * 2.1   nsk  01/22/19 Pass correct fifo number to XCanFd_SeqRecv_logic() in
 *		      xcanfd.c CR# 1018379
+* 2.1   nsk  01/22/19 Fixed XCanFd_SetFBaudPrescalar(), which is not setting
+*		      prescalar value properly in xcanfd_config.c CR# 1016013
 *
 * </pre>
 *
