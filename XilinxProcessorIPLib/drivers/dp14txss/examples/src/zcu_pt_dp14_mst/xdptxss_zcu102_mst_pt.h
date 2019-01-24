@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -204,21 +202,6 @@ typedef struct
 
 typedef struct
 {
-        u8 type;
-        u8 version;
-        u8 length;
-        u8 audio_coding_type;
-        u8 audio_channel_count;
-        u8 sampling_frequency;
-        u8 sample_size;
-        u8 level_shift;
-        u8 downmix_inhibit;
-        u8 channel_allocation;
-        u16 info_length;
-} XilAudioInfoFrame;
-
-typedef struct
-{
         u8 sec_id;//DP Specific
         u8 type;
         u8 version;
@@ -254,7 +237,7 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128], u8 Edid1_org[128], u16 res_
 //void hpd_pulse_con(XDpTxSs *InstancePtr);
 char xil_getc(u32 timeout_ms);
 static u32 xil_gethex(u8 num_chars);
-void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame);
+//void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame);
 void Vpg_Audio_start(void);
 void Vpg_Audio_stop(void);
 u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
@@ -325,7 +308,7 @@ u8 num_sinks;
 #define XVPHY_DRP_RX_INT_DATA_WIDTH 0x66
 
 
-#define DP_BS_IDLE_TIMEOUT      0x77359400
+#define DP_BS_IDLE_TIMEOUT      0x047868C0
 #define AUX_DEFER_COUNT         6
 /* DEFAULT VALUE=0. Enabled programming of
  *Rx Training Algo Register for Debugging Purpose
@@ -347,7 +330,7 @@ u8 num_sinks;
 #define DEFAULT_STREAM 1
 
 // When set to 1, Audio Infoframe would be programmed in TX
-#define SEND_AIF 0
+#define SEND_AIF 1
 
 // we have observed NO-video interrupt getting flagged with some
 // GPUs. Hence not executing
@@ -403,6 +386,9 @@ void DpPt_TxSetMsaValuesImmediate(void *InstancePtr);
 void DpRxSs_PowerChangeHandler(void *InstancePtr);
 void DpRxSs_NoVideoHandler(void *InstancePtr);
 void DpRxSs_VerticalBlankHandler(void *InstancePtr);
+void DpRxSs_VerticalBlank1Handler(void *InstancePtr);
+void DpRxSs_VerticalBlank2Handler(void *InstancePtr);
+void DpRxSs_VerticalBlank3Handler(void *InstancePtr);
 void DpRxSs_TrainingLostHandler(void *InstancePtr);
 void DpRxSs_VideoHandler(void *InstancePtr);
 void DpRxSs_InfoPacketHandler(void *InstancePtr);
