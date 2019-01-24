@@ -12,6 +12,10 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
+* Use of the Software is limited solely to applications:
+* (a) running on a Xilinx device, or
+* (b) that interact with a Xilinx device through a bus or interconnect.
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -31,7 +35,7 @@
 * @file videofmc_defs.h
 * @addtogroup VideoFMC
 * @{
-*
+* 
 * <pre>
 *
 * MODIFICATION HISTORY:
@@ -39,7 +43,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * X.XX  XX     YY/MM/DD
-* 1.00  RHe    16/06/20 Initial release.
+* 1.00  RHe    16/06/20 Initial release. 
 * </pre>
 *
 ******************************************************************************/
@@ -61,8 +65,8 @@ extern "C" {
 #define I2C_CLK_ADDR       0x68 /**< I2C Clk Address */
 #define I2C_VFMCEXP_1_ADDR 0x65 /**< I2C VideoFMC IO Expander 1 address */
 #define I2C_VFMCEXP_0_ADDR 0x64 /**< I2C VideoFMC IO Expander 0 address */
-#define I2C_LMK03318_ADDR  0x50 /**< I2C TI LMK03318 Address */
-
+#define I2C_LMK03318_ADDR  0x50 /**< I2C TI LMK03318 Address */ 
+ 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/

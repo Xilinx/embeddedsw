@@ -12,6 +12,10 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
+* Use of the Software is limited solely to applications:
+* (a) running on a Xilinx device, or
+* (b) that interact with a Xilinx device through a bus or interconnect.
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -489,7 +493,7 @@ static int IDT_8T49N24x_CalculateSettings(int FIn, int FOut,
 	    ((FracDiv/2.0) == (int)(FracDiv/2.0))) {
 		N_Q2 = (int)round_func(FracDiv / 2.0);
 		NFRAC_Q2 = 0;
-	} else {
+	} else { 
 		/* This is the case where the
 		 * fractional portion is not 0. */
 		N_Q2 = (int)floor_func(FracDiv / 2.0);
@@ -2587,6 +2591,10 @@ int round_func(double number)
 //*
 //* The above copyright notice and this permission notice shall be included in
 //* all copies or substantial portions of the Software.
+//*
+//* Use of the Software is limited solely to applications:
+//* (a) running on a Xilinx device, or
+//* (b) that interact with a Xilinx device through a bus or interconnect.
 //*
 //* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
