@@ -12,6 +12,10 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
+* Use of the Software is limited solely to applications:
+* (a) running on a Xilinx device, or
+* (b) that interact with a Xilinx device through a bus or interconnect.
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -31,7 +35,7 @@
 * @file ti_lmk03318.h
 * @addtogroup TI_LMK03318
 * @{
-*
+* 
 * <pre>
 *
 * MODIFICATION HISTORY:
@@ -39,7 +43,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * X.XX  XX     YY/MM/DD
-* 1.00  RHe    16/06/20 Initial release.
+* 1.00  RHe    16/06/20 Initial release. 
 * </pre>
 *
 ******************************************************************************/
@@ -67,7 +71,7 @@ extern "C" {
 
 #define TI_LMK03318_FPD_MAX 150000000  //!< Maximum Phase Detector Frequency in Hz
 #define TI_LMK03318_FPD_MIN   1000000  //!< Minimum Phase Detector Frequency in Hz
-
+ 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
