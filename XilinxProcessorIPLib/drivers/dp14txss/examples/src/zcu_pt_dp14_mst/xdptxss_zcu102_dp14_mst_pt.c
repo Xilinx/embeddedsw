@@ -16,6 +16,7 @@
 * 1.01 KU  09/09/19 Added support for unplug, enhanced audio check
 * 1.02 ND  02/14/19 mcdp related function call now need dprxss instance address
 *                   instead of base address  as first parameter
+* 1.03 ND  09/11/20 Added support for New AV pattern generator
 * </pre>
 *
 ******************************************************************************/
@@ -323,7 +324,7 @@ u32 DpMST_PlatformInit(void)
      if (Status != XST_SUCCESS) {
              return XST_FAILURE;
      }
-
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
  	rx_remap_Config = XV_axi4s_remap_LookupConfig(REMAP_RX_DEVICE_ID);
  	Status = XV_axi4s_remap_CfgInitialize(&rx_remap, rx_remap_Config,
  					      rx_remap_Config->BaseAddress);
@@ -355,7 +356,7 @@ u32 DpMST_PlatformInit(void)
  	XV_axi4s_remap_Set_ColorFormat(&tx_remap, 0);
  	XV_axi4s_remap_Set_inPixClk(&tx_remap, 4);
  	XV_axi4s_remap_Set_outPixClk(&tx_remap, 4);
-
+#endif
 //    XVidFrameCrc_Initialize(&VidFrameCRC);
 	/* FrameBuffer initialization. */
 	Status = XVFrmbufRd_Initialize(&frmbufrd, FRMBUF_RD_DEVICE_ID);
@@ -1136,12 +1137,13 @@ void Dprx_InterruptHandlerPayloadAlloc(void *InstancePtr)
 	/* Virtual Channel Payload allocation,
 	 * de-allocation and partial deletion handler
 	 */
+	XDpRxSs *DpRxSsPtr = (XDpRxSs *)InstancePtr;
 	u32 RegVal = 0;
-	XDp *DpPtr = (XDp *)InstancePtr;
+	XDp *DpPtr = DpRxSsPtr->DpPtr;
 	RegVal = XDp_ReadReg(DpPtr->Config.BaseAddr, XDP_RX_MST_ALLOC);
 //	StreamIdRecv = (RegVal & XDP_RX_MST_ALLOC_VCP_ID_MASK);
 
-	XDp_RxAllocatePayloadStream((XDp *)InstancePtr);
+	XDp_RxAllocatePayloadStream(DpPtr);
 }
 
 void Dprx_InterruptHandlerActRx(void *InstancePtr)
@@ -2120,6 +2122,10 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	// setting video pattern
 	Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr,
 				 C_VideoUserStreamPattern[pat]);
+    /* Generate the video clock using MMCM
+     */
+    Gen_vid_clk(DpTxSsInst.DpPtr,(XDP_TX_STREAM_ID1));
+
 	clk_wiz_locked();
 	xil_printf (".");
 	//Keeping the splitter in false mode
@@ -2211,6 +2217,7 @@ u32 start_tx_only(u8 line_rate, u8 lane_count,user_config_struct user_config){
 	xil_printf (".");
 	//updates required timing values in Video Pattern Generator
 	Vpg_StreamSrcConfigure(DpTxSsInst.DpPtr, 0, 1);
+    Gen_vid_clk(DpTxSsInst.DpPtr,(XDP_TX_STREAM_ID1));
 	xil_printf (".");
 	// setting video pattern
 	xil_printf (".");
@@ -3485,9 +3492,9 @@ void frameBuffer_start_wr(XDpTxSs_MainStreamAttributes Msa[4],
 	VidStream.Timing = Msa[0].Vtm.Timing;
 	VidStream.FrameRate = Msa[0].Vtm.FrameRate;
 
-
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 	remap_start_wr(Msa, downshift4K);
-
+#endif
 
 	/* Configure Frame Buffer */
 	// Rx side
@@ -3547,8 +3554,9 @@ void frameBuffer_start_rd(XDpTxSs_MainStreamAttributes Msa[4],
 	VidStream.Timing = Msa[0].Vtm.Timing;
 	VidStream.FrameRate = Msa[0].Vtm.FrameRate;
 
-
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 	remap_start_rd(Msa, downshift4K);
+#endif
 
 
 	/* Configure Frame Buffer */
@@ -3573,6 +3581,8 @@ void frameBuffer_start_rd(XDpTxSs_MainStreamAttributes Msa[4],
 
 
 }
+
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 
 void remap_set(XV_axi4s_remap *remap, u8 in_ppc, u8 out_ppc, u16 width,
 		u16 height, u8 color_format){
@@ -3646,6 +3656,7 @@ void remap_start_wr(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K)
 	XV_axi4s_remap_EnableAutoRestart(&rx_remap);
 	XV_axi4s_remap_Start(&rx_remap);
 }
+#endif
 
 /*
  * This function is a call back to write the MSA values to Tx as they are

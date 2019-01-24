@@ -45,7 +45,9 @@
 #include "xv_frmbufrd_l2.h"
 #include "xv_frmbufwr_l2.h"
 #include "xaxis_switch.h"
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 #include "xv_axi4s_remap.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -332,7 +334,7 @@ typedef struct {
 
 
 DP_Rx_Training_Algo_Config RxTrainConfig;
-
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 #define REMAP_RX_BASEADDR  XPAR_DP_RX_HIER_0_REMAP_RX_S_AXI_CTRL_BASEADDR
 #define REMAP_TX_BASEADDR  XPAR_DP_TX_HIER_0_REMAP_TX_S_AXI_CTRL_BASEADDR
 #define REMAP_RX_DEVICE_ID  XPAR_DP_RX_HIER_0_REMAP_RX_DEVICE_ID
@@ -342,6 +344,7 @@ XV_axi4s_remap_Config   *rx_remap_Config;
 XV_axi4s_remap          rx_remap;
 XV_axi4s_remap_Config   *tx_remap_Config;
 XV_axi4s_remap          tx_remap;
+#endif
 
 XDpTxSs_Config *ConfigPtr;
 XDpRxSs_Config *ConfigPtr_rx;
