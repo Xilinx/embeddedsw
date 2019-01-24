@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -34,7 +14,8 @@
 * ---- --- -------- --------------------------------------------------
 * 1.00 KU  02/05/19 Initial release.
 * 1.01 KU  09/09/19 Added support for unplug, enhanced audio check
-*
+* 1.02 ND  02/14/19 mcdp related function call now need dprxss instance address
+*                   instead of base address  as first parameter
 * </pre>
 *
 ******************************************************************************/
@@ -343,37 +324,37 @@ u32 DpMST_PlatformInit(void)
              return XST_FAILURE;
      }
 
-	rx_remap_Config = XV_axi4s_remap_LookupConfig(REMAP_RX_DEVICE_ID);
-	Status = XV_axi4s_remap_CfgInitialize(&rx_remap, rx_remap_Config,
-					      rx_remap_Config->BaseAddress);
-	rx_remap.IsReady = XIL_COMPONENT_IS_READY;
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERROR:: AXI4S_REMAP Initialization "
-			   "failed %d\r\n", Status);
-		return (XST_FAILURE);
-	}
+ 	rx_remap_Config = XV_axi4s_remap_LookupConfig(REMAP_RX_DEVICE_ID);
+ 	Status = XV_axi4s_remap_CfgInitialize(&rx_remap, rx_remap_Config,
+ 					      rx_remap_Config->BaseAddress);
+ 	rx_remap.IsReady = XIL_COMPONENT_IS_READY;
+ 	if (Status != XST_SUCCESS) {
+ 		xil_printf("ERROR:: AXI4S_REMAP Initialization "
+ 			   "failed %d\r\n", Status);
+ 		return (XST_FAILURE);
+ 	}
 
-	tx_remap_Config = XV_axi4s_remap_LookupConfig(REMAP_TX_DEVICE_ID);
-	Status = XV_axi4s_remap_CfgInitialize(&tx_remap, tx_remap_Config,
-					      tx_remap_Config->BaseAddress);
-	tx_remap.IsReady = XIL_COMPONENT_IS_READY;
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERROR:: AXI4S_REMAP Initialization "
-			   "failed %d\r\n", Status);
-		return(XST_FAILURE);
-	}
+ 	tx_remap_Config = XV_axi4s_remap_LookupConfig(REMAP_TX_DEVICE_ID);
+ 	Status = XV_axi4s_remap_CfgInitialize(&tx_remap, tx_remap_Config,
+ 					      tx_remap_Config->BaseAddress);
+ 	tx_remap.IsReady = XIL_COMPONENT_IS_READY;
+ 	if (Status != XST_SUCCESS) {
+ 		xil_printf("ERROR:: AXI4S_REMAP Initialization "
+ 			   "failed %d\r\n", Status);
+ 		return(XST_FAILURE);
+ 	}
 
-	XV_axi4s_remap_Set_width(&rx_remap, 7680);
-	XV_axi4s_remap_Set_height(&rx_remap, 4320);
-	XV_axi4s_remap_Set_ColorFormat(&rx_remap, 0);
-	XV_axi4s_remap_Set_inPixClk(&rx_remap, 4);
-	XV_axi4s_remap_Set_outPixClk(&rx_remap, 4);
+ 	XV_axi4s_remap_Set_width(&rx_remap, 7680);
+ 	XV_axi4s_remap_Set_height(&rx_remap, 4320);
+ 	XV_axi4s_remap_Set_ColorFormat(&rx_remap, 0);
+ 	XV_axi4s_remap_Set_inPixClk(&rx_remap, 4);
+ 	XV_axi4s_remap_Set_outPixClk(&rx_remap, 4);
 
-	XV_axi4s_remap_Set_width(&tx_remap, 7680);
-	XV_axi4s_remap_Set_height(&tx_remap, 4320);
-	XV_axi4s_remap_Set_ColorFormat(&tx_remap, 0);
-	XV_axi4s_remap_Set_inPixClk(&tx_remap, 4);
-	XV_axi4s_remap_Set_outPixClk(&tx_remap, 4);
+ 	XV_axi4s_remap_Set_width(&tx_remap, 7680);
+ 	XV_axi4s_remap_Set_height(&tx_remap, 4320);
+ 	XV_axi4s_remap_Set_ColorFormat(&tx_remap, 0);
+ 	XV_axi4s_remap_Set_inPixClk(&tx_remap, 4);
+ 	XV_axi4s_remap_Set_outPixClk(&tx_remap, 4);
 
 //    XVidFrameCrc_Initialize(&VidFrameCRC);
 	/* FrameBuffer initialization. */
@@ -464,7 +445,7 @@ u32 DpMST_PlatformInit(void)
 			return XST_FAILURE;
 	}
 
-	XDpRxSs_McDp6000_init(&DpRxSsInst, DpRxSsInst.IicPtr->BaseAddress);
+	XDpRxSs_McDp6000_init(&DpRxSsInst);
 
 	/* issue HPD at here to inform DP source */
 	XDp_RxInterruptDisable(DpRxSsInst.DpPtr, 0xFFF8FFFF);
@@ -570,15 +551,15 @@ u32 Dp_SetupIntrSystem(void)
     XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_INFO_PKT_EVENT,
                         &DpRxSs_InfoPacketHandler, &DpRxSsInst);
     XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_EXT_PKT_EVENT,
-			&DpRxSs_ExtPacketHandler, &DpRxSsInst);
+                    	&DpRxSs_ExtPacketHandler, &DpRxSsInst);
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_DWN_REQ_EVENT,
-					&Dprx_InterruptHandlerDownReq, &DpRxSsInst);
+			        	&Dprx_InterruptHandlerDownReq, &DpRxSsInst);
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_DWN_REP_EVENT,
-					&Dprx_InterruptHandlerDownReply, &DpRxSsInst);
+			        	&Dprx_InterruptHandlerDownReply, &DpRxSsInst);
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_PAYLOAD_ALLOC_EVENT,
-					&Dprx_InterruptHandlerPayloadAlloc, &DpRxSsInst);
+			        	&Dprx_InterruptHandlerPayloadAlloc, &DpRxSsInst);
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_ACT_RX_EVENT,
-					&Dprx_InterruptHandlerActRx, &DpRxSsInst);
+			        	&Dprx_InterruptHandlerActRx, &DpRxSsInst);
 
 	XVFrmbufWr_SetCallback(&frmbufwr, XVFRMBUFWR_HANDLER_DONE,
 			            bufferWr_callback, &frmbufwr);
@@ -760,19 +741,19 @@ void DpRxSs_TrainingLostHandler(void *InstancePtr)
 {
         XDp_RxGenerateHpdInterrupt(DpRxSsInst.DpPtr, 750);
         XDpRxSs_AudioDisable(&DpRxSsInst);
-	XDp_RxDtgDis(DpRxSsInst.DpPtr);
+    	XDp_RxDtgDis(DpRxSsInst.DpPtr);
         DpRxSsInst.link_up_trigger = 0;
         DpRxSsInst.VBlankCount = 0;
         aud_info_rcvd = 0;
         AudioinfoFrame.frame_count = 0;
         appx_fs_dup = 0;
-	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x80);
-	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x0);
-	tx_is_up = 0;
-	if (rx_trained == 1) {
-		xil_printf ("Training Lost !!\r\n");
-	}
-	rx_trained = 0;
+    	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x80);
+    	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x0);
+    	tx_is_up = 0;
+    	if (rx_trained == 1) {
+    		xil_printf ("Training Lost !!\r\n");
+    	}
+    	rx_trained = 0;
 }
 
 /*****************************************************************************/
@@ -1033,9 +1014,9 @@ void DpRxSs_AccessLinkQualHandler(void *InstancePtr)
                                XVPHY_RX_CONTROL_REG, DrpVal);
 
                 /*Set PRBS mode in Retimer*/
-                XDpRxSs_MCDP6000_EnablePrbs7_Rx(XPAR_IIC_0_BASEADDR,
+                XDpRxSs_MCDP6000_EnablePrbs7_Rx(&DpRxSsInst,
                                         I2C_MCDP6000_ADDR);
-                XDpRxSs_MCDP6000_ClearCounter(XPAR_IIC_0_BASEADDR,
+                XDpRxSs_MCDP6000_ClearCounter(&DpRxSsInst,
                                       I2C_MCDP6000_ADDR);
         //      MCDP6000_EnableCounter(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
         } else {
@@ -1047,9 +1028,9 @@ void DpRxSs_AccessLinkQualHandler(void *InstancePtr)
                            XVPHY_RX_CONTROL_REG, DrpVal);
 
             /*Disable PRBS mode in Retimer*/
-            XDpRxSs_MCDP6000_DisablePrbs7_Rx(XPAR_IIC_0_BASEADDR,
+            XDpRxSs_MCDP6000_DisablePrbs7_Rx(&DpRxSsInst,
                                                                                     I2C_MCDP6000_ADDR);
-            XDpRxSs_MCDP6000_ClearCounter(XPAR_IIC_0_BASEADDR,
+            XDpRxSs_MCDP6000_ClearCounter(&DpRxSsInst,
                                   I2C_MCDP6000_ADDR);
     //      MCDP6000_EnableCounter(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
     }
