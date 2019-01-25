@@ -29,7 +29,7 @@
 /**
 *
 * @file xqspipsu_hw.h
-* @addtogroup qspipsu_v1_10
+* @addtogroup qspipsu_v1_9
 * @{
 *
 * This file contains low level access funcitons using the base address
@@ -46,9 +46,9 @@
 * 1.2	nsk 07/01/16 Added LQSPI supported Masks
 *       rk  07/15/16 Added support for TapDelays at different frequencies.
 * 1.7	tjs	03/14/18 Added support in EL1 NS mode.
-* 2.0	tjs	04/17/18 Updated register addresses as per the latest revision
+* 1.9	tjs	04/17/18 Updated register addresses as per the latest revision
 * 					 of versal (CR#999610)
-* 1.10  aru 01/17/19 Fixed the violations for  MISRAC-2012
+* 1.9  aru 01/17/19 Fixed the violations for  MISRAC-2012
 *                  in safety mode .Done changes such as added U suffix
 *
 * </pre>
