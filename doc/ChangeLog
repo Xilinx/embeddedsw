@@ -31,6 +31,9 @@ Upgrade lwip to open source version 2.1.1
 Fix cache handling in RX path for GEM.
 Fix freertos echo server compilation on emaclite platform.
 
+qspipsu_v1_9:
+Resolved MISRA-C:2012 violations in safety mode(CR#1014359)
+
 spips_v3_3:
 Resolved MISRA-C:2012 violations in safety mode(CR#1016116)
 
