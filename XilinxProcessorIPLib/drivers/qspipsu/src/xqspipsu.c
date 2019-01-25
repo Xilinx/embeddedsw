@@ -30,7 +30,7 @@
 /**
  *
  * @file xqspipsu.c
- * @addtogroup qspipsu_v1_10
+ * @addtogroup qspipsu_v1_9
  * @{
  *
  * This file implements the functions required to use the QSPIPSU hardware to
@@ -70,10 +70,10 @@
  * 1.8 tjs 09/06/18 Fixed the code in XQspiPsu_GenFifoEntryData() for data
  *                  transfer length up to 255 for reducing the extra loop.
  * 1.8  mus 11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
- * 2.0 tjs 11/22/17 Added the check for A72 and R5 processors (CR-987075)
- * 2.0 tjs 04/17/18 Updated register addresses as per the latest revision
+ * 1.9 tjs 11/22/17 Added the check for A72 and R5 processors (CR-987075)
+ * 1.9 tjs 04/17/18 Updated register addresses as per the latest revision
  *		    of versal (CR#999610)
- * 1.10  aru 01/17/19 Fixes violations according to MISRAC-2012
+ * 1.9  aru 01/17/19 Fixes violations according to MISRAC-2012
  *                  in safety mode and modified the code such as
  *                  Added UNITPTR inplace of INTPTR,Declared the pointer param
  *		    as Pointer to const .
@@ -501,7 +501,7 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 						 * Check if PIO RX is complete and
 						 * update RxBytes
 						 */
-						RxThr = (s32)XQspiPsu_ReadReg(
+					RxThr = (s32)XQspiPsu_ReadReg(
 						        BaseAddress,
 						        XQSPIPSU_RX_THRESHOLD_OFFSET);
 						RxThr = RxThr*4;
