@@ -27,6 +27,7 @@
 ******************************************************************************/
 #include "xpm_device.h"
 #include "xpm_core.h"
+#include "xpm_rpucore.h"
 #include "xillibpm_api.h"
 
 const char *PmDevStates[] = {
@@ -276,6 +277,9 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 						if (XST_SUCCESS != Status) {
 							break;
 						}
+					} else if(Node->Id == XPM_DEVID_R50_0 || Node->Id == XPM_DEVID_R50_1) {
+						/*RPU has a special handling */
+						XPmRpuCore_Halt(Device);
 					}
 					/* Todo: Start timer to poll the reset node */
 					/* Hack */
