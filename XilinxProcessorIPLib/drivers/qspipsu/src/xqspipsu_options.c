@@ -29,7 +29,7 @@
 /**
 *
 * @file xqspipsu_options.c
-* @addtogroup qspipsu_v1_10
+* @addtogroup qspipsu_v1_9
 * @{
 *
 * This file implements funcitons to configure the QSPIPSU component,
@@ -51,9 +51,9 @@
 * 1.7	tjs	03/14/18 Added support in EL1 NS mode. (CR#974882)
 * 1.8  tjs 05/02/18 Added support for IS25LP064 and IS25WP064.
 * 1.8  tjs 07/26/18 Resolved cppcheck errors. (CR#1006336)
-* 2.0	tjs	04/17/18 Updated register addresses as per the latest revision
+* 1.9	tjs	04/17/18 Updated register addresses as per the latest revision
 * 					 of versal (CR#999610)
-* 1.10  aru 01/17/19 Fixes violations according to MISRAC-2012
+* 1.9  aru 01/17/19 Fixes violations according to MISRAC-2012
 *                  in safety mode and modified the code such as
 *                  Added Xil_MemCpy inplace of memcpy,Declared the pointer param
 *                  as Pointer to const, declared XQspi_Set_TapDelay() as static.
@@ -165,7 +165,7 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 		 * depending on whether the bit is set in the incoming options flag.
 		 */
 		for (Index = 0U; Index < XQSPIPSU_NUM_OPTIONS; Index++) {
-			if ((OptionsVal & OptionsTable[Index].Option) != OptionsTable[Index].Option) {
+			if ((OptionsVal & OptionsTable[Index].Option) == OptionsTable[Index].Option) {
 				/* Turn it on */
 				ConfigReg |= OptionsTable[Index].Mask;
 			} else {

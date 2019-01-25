@@ -30,7 +30,7 @@
 /**
  *
  * @file xqspipsu.h
- * @addtogroup qspipsu_v1_10
+ * @addtogroup qspipsu_v1_9
  * @{
  * @details
  *
@@ -147,10 +147,10 @@
  * 1.8 tjs 07/18/18 Added support for the low density ISSI flash parts.
  * 1.8 tjs 09/06/18 Fixed the code in XQspiPsu_GenFifoEntryData() for data
  *                  transfer length up to 255 for reducing the extra loop.
- * 2.0 tjs 11/22/17 Added the check for A72 and R5 processors (CR-987075)
- * 2.0 tjs 04/17/18 Updated register addresses as per the latest revision
+ * 1.9 tjs 11/22/17 Added the check for A72 and R5 processors (CR-987075)
+ * 1.9 tjs 04/17/18 Updated register addresses as per the latest revision
  *		    of versal (CR#999610)
- * 1.10  aru 01/17/19 Fixed the violations for  MISRAC-2012
+ * 1.9  aru 01/17/19 Fixed the violations for  MISRAC-2012
  *                  in safety mode .Done changes such as added U suffix,
  *                  Declared pointer param as const.
  *
