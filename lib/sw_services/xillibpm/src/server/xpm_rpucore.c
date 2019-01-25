@@ -31,6 +31,21 @@
 #include "xpm_regs.h"
 #include "xillibpm_api.h"
 
+XStatus XPmRpuCore_Halt(XPm_Device *Device)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_RpuCore *RpuCore = (XPm_RpuCore *)Device;
+
+	/* Put RPU in  halt state */
+	PmRmw32(RpuCore->ResumeCfg, XPM_RPU_NCPUHALT_MASK,
+		~XPM_RPU_NCPUHALT_MASK);
+
+	/* Release reset for all resets attached to this core */
+	Status = XPmDevice_Reset(&RpuCore->Core.Device, PM_RESET_ACTION_RELEASE);
+
+	return Status;
+}
+
 static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
