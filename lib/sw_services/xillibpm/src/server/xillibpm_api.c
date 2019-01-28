@@ -1954,6 +1954,10 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 		}
 		PmIn32((PGGS_BASEADDR + (Arg1 << 2)), *Response);
 		break;
+	case IOCTL_SET_BOOT_HEALTH_STATUS:
+		PmRmw32(GGS_BASEADDR + GGS_4_OFFSET,
+			XPM_BOOT_HEALTH_STATUS_MASK, Arg1);
+		break;
 	default:
 		/* Not supported yet */
 		goto done;
