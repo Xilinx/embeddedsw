@@ -1466,3 +1466,39 @@ XStatus XPmClient_Query(const u32 QueryId, const u32 Arg1, const u32 Arg2,
 done:
 	return Status;
 }
+
+/****************************************************************************/
+/**
+ * @brief  This function is used by a CPU to announce a change in the
+ *         maximum wake-up latency requirements for a specific device
+ *         currently used by that CPU.
+ *
+ * @param  DeviceId	Device ID.
+ * @param  Latency	Maximum wake-up latency required.
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   Setting maximum wake-up latency can constrain the set of
+ *         possible power states a resource can be put into.
+ *
+ ****************************************************************************/
+int XPmClient_SetMaxLatency(const u32 DeviceId, const u32 Latency)
+{
+	int Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	PACK_PAYLOAD2(Payload, PM_SET_MAX_LATENCY, DeviceId, Latency);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Read the result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
+
+done:
+	return Status;
+}
