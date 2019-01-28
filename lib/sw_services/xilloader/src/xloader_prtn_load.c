@@ -63,6 +63,8 @@
 #define XLOADER_DMA_LEN_ALIGN		16U
 #define XLOADER_SUCCESS_NOT_PRTN_OWNER	(0x100U)
 #define XLOADER_NO_PSM_IMG_PARTITIONS	2U
+#define XLOADER_CHUNK_MEMORY		(XPLMI_PMCRAM_BASEADDR)
+#define XLOADER_CHUNK_SIZE		(64U*1024U) /** 64K */
 /************************** Function Prototypes ******************************/
 static int XLoader_PrtnHdrValidation(XilPdi* PdiPtr, u32 PrtnNum);
 static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnNum);
@@ -367,7 +369,8 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 	int Status;
 	u32 SrcAddr;
 	u32 Len;
-	u32* CmdsBuf = (u32*)XPLMI_PMCRAM_BASEADDR;
+	u32 ChunkLen;
+	XPlmiCdo Cdo = {0};
 	XilPdi_PrtnHdr * PrtnHdr;
 	/* Assign the partition header to local variable */
 	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
@@ -388,11 +391,41 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
                         XLOADER_DMA_LEN_ALIGN;
         }
 
-	PdiPtr->DeviceCopy(SrcAddr, XPLMI_PMCRAM_BASEADDR, Len, 0U);
-	Status = XPlmi_ProcessCdo(CmdsBuf, XPLMI_PMCRAM_LEN);
-	if(Status != XST_SUCCESS)
+
+	/**
+	 * Initialize the Cdo Pointer and
+	 * check CDO header contents
+	 */
+	XPlmi_InitCdo(&Cdo);
+
+	/**
+	 * Process CDO in chunks.
+	 * Chunk size is based on the available PRAM size.
+	 */
+	ChunkLen = XLOADER_CHUNK_SIZE;
+	while (Len > 0U)
 	{
-		goto END;
+		/** Update the len for last chunk */
+		if (Len < XLOADER_CHUNK_SIZE)
+		{
+			ChunkLen = Len;
+		}
+
+		/** Copy the data to PRAM buffer */
+		PdiPtr->DeviceCopy(SrcAddr, XLOADER_CHUNK_MEMORY, ChunkLen, 0U);
+		Cdo.BufPtr = (u32 *)XLOADER_CHUNK_MEMORY;
+		Cdo.BufLen = ChunkLen;
+
+		/** Process the chunk */
+		Status = XPlmi_ProcessCdo(&Cdo);
+		if(Status != XST_SUCCESS)
+		{
+			goto END;
+		}
+
+		/** Update variables for next chunk */
+		SrcAddr += ChunkLen;
+		Len -= ChunkLen;
 	}
 END:
 	return Status;
