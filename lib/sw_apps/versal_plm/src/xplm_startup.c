@@ -51,6 +51,7 @@
 /***************************** Include Files *********************************/
 #include "xplm_startup.h"
 #include "xplm_pm.h"
+#include "xplm_module.h"
 #include "xplm_loader.h"
 /************************** Constant Definitions *****************************/
 
@@ -84,6 +85,7 @@ int XPlm_NpiInit(struct metal_event *event, void *arg);
  */
 struct metal_event StartUpTaskList[] =
 {
+	XPLM_METAL_EVENT_DEFINE(XPlm_ModuleInit, 0U, XPLM_TASK_PRIORITY_0),
 	XPLM_METAL_EVENT_DEFINE(XPlm_ProcessPlmCdo, 0U, XPLM_TASK_PRIORITY_0),
 	XPLM_METAL_EVENT_DEFINE(XPlm_NpiInit, 0U, XPLM_TASK_PRIORITY_0),
 	XPLM_METAL_EVENT_DEFINE(XPlm_LoadBootPdi, 0U, XPLM_TASK_PRIORITY_0)
