@@ -85,7 +85,7 @@ extern "C" {
 
 #define XPlmi_In32(Addr)		Xil_In32(Addr)
 
-#define XPlmi_In64(Addr)		Xil_In64(Addr)
+#define XPlmi_In64(Addr)		lwea(Addr)
 
 /****************************************************************************/
 /**
@@ -107,7 +107,7 @@ extern "C" {
 
 #define XPlmi_Out32(Addr, Data)		Xil_Out32(Addr, Data)
 
-#define XPlmi_Out64(Addr, Data)		Xil_Out64(Addr, Data)
+#define XPlmi_Out64(Addr, Data)		swea(Addr, Data)
 
 
 #define PMC_TAP_VERSION				(0xF11A0004U)

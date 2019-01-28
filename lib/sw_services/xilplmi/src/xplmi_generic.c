@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -52,6 +52,7 @@
 #include "xplmi_generic.h"
 #include "xstatus.h"
 #include "xplmi_util.h"
+#include "xplmi_hw.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -183,8 +184,34 @@ static int XPlmi_DmaWrite(XPlmi_Cmd * Cmd)
  *****************************************************************************/
 static int XPlmi_MaskPoll64(XPlmi_Cmd * Cmd)
 {
+	u64 Addr = (((u64)Cmd->Payload[0] << 32U) | Cmd->Payload[1U]);
+	u32 Mask = Cmd->Payload[2U];
+	u32 Value = Cmd->Payload[3U];
+	u32 ReadValue;
+	u32 TimeOut = Cmd->Payload[4U];
 	XPlmi_Printf(DEBUG_INFO, "%s %p\n\r", __func__, Cmd);
-	return XST_SUCCESS;
+
+	/**
+	 * Read the Register value
+	 */
+	ReadValue = XPlmi_In64(Addr);
+
+	/**
+	 * Loop while the Mask is not set or we timeout
+	 */
+	while(((ReadValue & Mask) != Value) && (TimeOut > 0U)){
+		/**
+		 * Latch up the value again
+		 */
+		ReadValue = XPlmi_In64(Addr);
+
+		/**
+		 * Decrement the TimeOut Count
+		 */
+		TimeOut--;
+	}
+
+	return ((TimeOut == 0U) ? XST_FAILURE : XST_SUCCESS);
 }
 
 /*****************************************************************************/
@@ -198,7 +225,20 @@ static int XPlmi_MaskPoll64(XPlmi_Cmd * Cmd)
  *****************************************************************************/
 static int XPlmi_MaskWrite64(XPlmi_Cmd * Cmd)
 {
+	u64 Addr = (((u64)Cmd->Payload[0] << 32U) | Cmd->Payload[1U]);
+	u32 Mask = Cmd->Payload[2U];
+	u32 Value = Cmd->Payload[3U];
+	u32 ReadVal;
 	XPlmi_Printf(DEBUG_INFO, "%s %p\n\r", __func__, Cmd);
+
+	/**
+	 * Read the Register value
+	 */
+	ReadVal = XPlmi_In64(Addr);
+	ReadVal = (ReadVal & (~Mask)) | (Mask & Value);
+
+	XPlmi_Out64(Addr, ReadVal);
+
 	return XST_SUCCESS;
 }
 
@@ -213,7 +253,12 @@ static int XPlmi_MaskWrite64(XPlmi_Cmd * Cmd)
  *****************************************************************************/
 static int XPlmi_Write64(XPlmi_Cmd * Cmd)
 {
+	u64 Addr = (((u64)Cmd->Payload[0] << 32U) | Cmd->Payload[1U]);
+	u32 Value = Cmd->Payload[2U];
 	XPlmi_Printf(DEBUG_INFO, "%s %p\n\r", __func__, Cmd);
+
+	XPlmi_Out64(Addr, Value);
+
 	return XST_SUCCESS;
 }
 
