@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -60,14 +60,40 @@ extern "C" {
 #include "xplmi_debug.h"
 
 /************************** Constant Definitions *****************************/
+/** CDO Header definitions */
+#define XPLMI_CDO_HDR_IDN_WRD			(0x004F4443U)
+#define XPLMI_CDO_HDR_LEN			(0x5U)
+
+/** commands defined */
 #define XPLMI_CMD_END				(0x00100U)
 
-/**************************** Type Definitions *******************************/
+#define XPLMI_CMD_STATE_RESUME		(1U)
 
+/**************************** Type Definitions *******************************/
+/**
+ * The XPlmiCdo is instance data. The user is required to allocate a
+ * variable of this type for every Cdo processing. A pointer
+ * to a variable of this type is then passed to the PLMI CDO API functions.
+ */
+typedef struct {
+	u32 *BufPtr;		/**< CDO Buffer */
+	u32 BufLen;		/**< Buffer length */
+	u32 CdoLen;		/**< CDO length */
+	u32 ProcessedCdoLen;	/**< Processed CDO length */
+	u32 CmdState;		/**< Cmd processing state */
+	u32 CopiedCmdLen;	/**< Copied Command length */
+	u32 TempCmdBuf[8];	/**< temperary buffer to store commands
+				 between iterations */
+	XPlmi_Cmd Cmd;		/**< Pointer to the cmd */
+	u32 CmdEndDetected;	/**< Flag to detect end of commands */
+	u32 Cdo1stChunk;	/**< This is used for first time to validate
+				CDO header*/
+} XPlmiCdo;
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-int XPlmi_ProcessCdo(u32 *Buf, u32 Len);
+void XPlmi_InitCdo(XPlmiCdo *CdoPtr);
+int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr);
 
 /************************** Variable Definitions *****************************/
 
