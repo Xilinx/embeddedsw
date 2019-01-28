@@ -360,7 +360,7 @@ int XLoader_StartSubSystemPdi(XilPdi *PdiPtr)
 			{
 				XLoader_Printf(DEBUG_INFO,
 					    "Request RPU 0 wakeup\r\n");
-				XPm_DevIoctl(XPM_DEVID_R50_0,
+				XPm_DevIoctl(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0,
 					     IOCTL_SET_RPU_OPER_MODE,
 					     XPM_RPU_MODE_SPLIT, 0, 0);
 				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0, 1,
@@ -370,7 +370,7 @@ int XLoader_StartSubSystemPdi(XilPdi *PdiPtr)
 			{
 				XLoader_Printf(DEBUG_INFO,
 					    "Request RPU 1 wakeup\r\n");
-				XPm_DevIoctl(XPM_DEVID_R50_1,
+				XPm_DevIoctl(XPM_SUBSYSID_PMC, XPM_DEVID_R50_1,
 					     IOCTL_SET_RPU_OPER_MODE,
 					     XPM_RPU_MODE_SPLIT, 0, 0);
 				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC, XPM_DEVID_R50_1, 1,
@@ -380,7 +380,7 @@ int XLoader_StartSubSystemPdi(XilPdi *PdiPtr)
 			{
 				XLoader_Printf(DEBUG_INFO,
 					    "Request RPU wakeup\r\n");
-				XPm_DevIoctl(XPM_DEVID_R50_0,
+				XPm_DevIoctl(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0,
 					     IOCTL_SET_RPU_OPER_MODE,
 					     XPM_RPU_MODE_LOCKSTEP, 0, 0);
 				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0, 1,
