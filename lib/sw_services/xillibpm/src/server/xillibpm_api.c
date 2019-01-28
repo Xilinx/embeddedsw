@@ -1690,6 +1690,46 @@ XStatus XPm_GetPinParameter(const u32 PinId,
 
 /****************************************************************************/
 /**
+ * @brief  Enable/Disable tap delay bypass
+ *
+ * @param  DeviceId	ID of the device
+ * @param  Type		Type of tap delay to enable/disable (QSPI)
+ * @param  Value	Enable/Disable
+ *
+ * @return XST_SUCCESS if successful else error code or a reason code
+ *
+ ****************************************************************************/
+static int XPm_SetTapdelayBypass(const u32 DeviceId, const u32 Type,
+				 const u32 Value)
+{
+	int Status = XST_SUCCESS;
+	XPm_Device *Device = XPmDevice_GetById(DeviceId);
+	u32 BaseAddress;
+
+	if (NULL == Device) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	/* QSPI base address */
+	BaseAddress = Device->Node.BaseAddress;
+
+	if (((XPM_TAPDELAY_BYPASS_ENABLE != Value) &&
+	    (XPM_TAPDELAY_BYPASS_DISABLE != Value)) ||
+	    (XPM_TAPDELAY_QSPI != Type)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	PmRmw32(BaseAddress + TAPDLY_BYPASS_OFFSET, XPM_TAP_DELAY_MASK,
+		Value << Type);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function performs driver-like IOCTL functions on shared system
  * devices.
  *
@@ -1715,9 +1755,6 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 			const u32 Arg2, u32 *const Response)
 {
 	XStatus Status = XST_FAILURE;
-
-	/* Compilation warning fix */
-	(void)SubsystemId;
 
 	switch (IoctlId) {
 	case IOCTL_GET_RPU_OPER_MODE:
@@ -1747,6 +1784,18 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 			goto done;
 		}
 		Status = XPm_RpuTcmCombConfig(DeviceId, Arg1);
+		break;
+	case IOCTL_SET_TAPDELAY_BYPASS:
+		if (XPM_DEVID_QSPI != DeviceId) {
+			goto done;
+		}
+
+		Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		Status = XPm_SetTapdelayBypass(DeviceId, Arg1, Arg2);
 		break;
 	case IOCTL_WRITE_GGS:
 		if (Arg1 >= GGS_NUM_REGS) {
