@@ -1147,7 +1147,7 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 					XIH_BH_IMAGE_ATTRB_RSA_MASK)) {
 		Status = XFSBL_ERROR_BH_AUTH_IS_NOTALLOWED;
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_BH_AUTH_IS_NOTALLOWED"
-					" when eFSUE RSA bit is set \n\r");
+					" when eFUSE RSA bit is set \n\r");
 		goto END;
 	}
 
