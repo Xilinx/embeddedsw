@@ -1788,6 +1788,65 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  This function sets input/output tap delay for the SD device.
+ *
+ * @param  DeviceId	DeviceId of the device
+ * @param  Type		Type of tap delay to set (input/output)
+ * @param  Value	Value to set fot the tap delay
+ *
+ * @return XST_SUCCESS if successful else error code or a reason code
+ *
+ ****************************************************************************/
+static int XPm_SetSdTapDelay(const u32 DeviceId, const u32 Type,
+			     const u32 Value)
+{
+	int Status = XST_SUCCESS;
+	XPm_Device *Device = XPmDevice_GetById(DeviceId);
+	u32 BaseAddress;
+
+	if (NULL == Device) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	/* SD0/1 base address */
+	BaseAddress = Device->Node.BaseAddress;
+
+	Status = XPm_SdDllReset(DeviceId, XPM_DLL_RESET_ASSERT);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	switch (Type) {
+	case XPM_TAPDELAY_INPUT:
+		PmRmw32(BaseAddress + ITAPDLY_OFFSET, XPM_SD_ITAPCHGWIN_MASK,
+			XPM_SD_ITAPCHGWIN_MASK);
+		PmRmw32(BaseAddress + ITAPDLY_OFFSET, XPM_SD_ITAPDLYENA_MASK,
+			XPM_SD_ITAPDLYENA_MASK);
+		PmRmw32(BaseAddress + ITAPDLY_OFFSET, XPM_SD_ITAPDLYSEL_MASK,
+			Value);
+		PmRmw32(BaseAddress + ITAPDLY_OFFSET, XPM_SD_ITAPCHGWIN_MASK,
+			~XPM_SD_ITAPCHGWIN_MASK);
+		break;
+	case XPM_TAPDELAY_OUTPUT:
+		PmRmw32(BaseAddress + OTAPDLY_OFFSET, XPM_SD_OTAPDLYENA_MASK,
+			XPM_SD_OTAPDLYENA_MASK);
+		PmRmw32(BaseAddress + OTAPDLY_OFFSET, XPM_SD_OTAPDLYSEL_MASK,
+			Value);
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+	}
+
+	Status = XPm_SdDllReset(DeviceId, XPM_DLL_RESET_RELEASE);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function performs driver-like IOCTL functions on shared system
  * devices.
  *
@@ -1862,6 +1921,14 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 		}
 
 		Status = XPm_SdDllReset(DeviceId, Arg1);
+		break;
+	case IOCTL_SET_SD_TAPDELAY:
+		Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		Status = XPm_SetSdTapDelay(DeviceId, Arg1, Arg2);
 		break;
 	case IOCTL_WRITE_GGS:
 		if (Arg1 >= GGS_NUM_REGS) {
