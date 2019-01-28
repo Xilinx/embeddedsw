@@ -226,6 +226,8 @@ XStatus XPmPower_Init(XPm_Power *Power,
 	Power->Node.HandleEvent = HandlePowerEvent;
 	Power->UseCount = 0;
 	Power->WfParentUseCnt = 0;
+	Power->PwrDnLatency = 0;
+	Power->PwrUpLatency = 0;
 
 	if (NULL != Parent) {
 		PowerDomain = (XPm_PowerDomain *)Parent;

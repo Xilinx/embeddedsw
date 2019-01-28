@@ -1260,6 +1260,38 @@ static int ConstrainStateByLatency(const XPm_Device *const Device,
 
 /****************************************************************************/
 /**
+ * @brief  Device updates its power parent about latency req
+ *
+ * @param  Device	Device whose latency requirement have changed
+ *
+ * @return If the change of the latency requirement caused the power up of the
+ * power parent, the status of performing power up operation is returned,
+ * otherwise XST_SUCCESS is returned.
+ *
+ ****************************************************************************/
+static int UpdatePwrLatencyReq(const XPm_Device *const Device)
+{
+	int Status = XST_SUCCESS;
+	XPm_Power* Power = Device->Power;
+
+	if (XPM_POWER_STATE_ON == Power->Node.State) {
+		goto done;
+	}
+
+	/* Power is down, check if latency requirements trigger the power up */
+	if (Device->Node.LatencyMarg <
+	    (Power->PwrDnLatency + Power->PwrUpLatency)) {
+		Power->Node.LatencyMarg = 0U;
+		Status = Power->Node.HandleEvent(&Power->Node,
+						 XPM_POWER_EVENT_PWR_UP);
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief	Update the device's state according to the current requirements
  *		from all subsystems
  * @param Device	Device whose state is about to be updated
@@ -1303,6 +1335,12 @@ XStatus XPmDevice_UpdateStatus(XPm_Device *Device)
 
 	if (State != Device->Node.State) {
 		Status = XPmDevice_ChangeState(Device, State);
+	} else {
+		if ((XPM_DEVSTATE_UNUSED == Device->Node.State) &&
+		    (NULL != Device->Power)) {
+			/* Notify power parent (changed latency requirement) */
+			Status = UpdatePwrLatencyReq(Device);
+		}
 	}
 
 done:
