@@ -44,6 +44,10 @@
 #define PGGS_BASEADDR	(0xFFD90050U)
 #define PGGS_NUM_REGS	(4)
 
+/* Tap delay bypass */
+#define TAPDLY_BYPASS_OFFSET			(0x0000003CU)
+#define XPM_TAP_DELAY_MASK			(0x4U)
+
 /* Suspend reasons */
 #define SUSPEND_REASON_SUBSYSTEM_REQ		(201U)
 #define SUSPEND_REASON_ALERT			(202U)
