@@ -70,7 +70,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XPlm_GenericInit();
-int XPlm_ModuleInit(void);
+int XPlm_ModuleInit(struct metal_event *event, void *arg);
 
 /************************** Variable Definitions *****************************/
 

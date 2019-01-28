@@ -76,7 +76,6 @@ static ModuleInit ModuleList[] =
 	XPlmi_IpiInit,
 #endif
 	XPlm_PmInit,
-	XPlm_TaskInit,
 };
 
 /*****************************************************************************/
@@ -106,7 +105,7 @@ int XPlm_GenericInit(void )
  * @return	Status as defined in xplm_status.h
  *
  *****************************************************************************/
-int XPlm_ModuleInit(void)
+int XPlm_ModuleInit(struct metal_event *event, void *arg)
 {
 	u32 Index;
 	int Status;
@@ -121,5 +120,12 @@ int XPlm_ModuleInit(void)
 	}
 
 END:
-	return Status;
+	/**
+	 * TODO: Proper error reporting should be added to the code
+	 */
+	/**
+	 * Irrespective of the Status, as EVENT
+	 * is completed, metal event handled is returned
+	 */
+	return METAL_EVENT_HANDLED;
 }
