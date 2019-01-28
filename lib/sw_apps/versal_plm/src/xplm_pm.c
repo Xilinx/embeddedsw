@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -135,17 +135,6 @@ int XPlm_ProcessPlmCdo(struct metal_event *event, void *arg)
 	 */
 
 	/** Process the PLM CDO */
-	/**
-	 * TODO There is no way to find the PLM CDO length right now,
-	 * with out reading the boot header.
-	 * Passing the whole RAM length now and will break the loop
-	 * when CMD_END is detected
-	 */
-	XPlmi_ProcessCdo((u32 *)XPLMI_PMCRAM_BASEADDR, XPLMI_PMCRAM_LEN);
-
-#ifdef DEBUG_UART_PS
-	XPlm_InitUart();
-#endif
 
 	Status = METAL_EVENT_HANDLED;
 	return Status;

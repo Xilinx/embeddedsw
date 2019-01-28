@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -50,6 +50,7 @@
 
 /***************************** Include Files *********************************/
 #include "xplm_module.h"
+#include "xplm_main.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -71,10 +72,21 @@ static ModuleInit ModuleList[] =
 {
 	XPlm_SetUpInterruptSystem,
 	XPlm_GenericInit,
+	XPlm_PmInit,
+};
+
+/**
+ * It contains the all the PS LPD init functions to be run for every module that
+ * is present as a part of PLM.
+ */
+static ModuleInit LpdModuleList[] =
+{
+#ifdef DEBUG_UART_PS
+	XPlm_InitUart,
+#endif
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
 	XPlmi_IpiInit,
 #endif
-	XPlm_PmInit,
 };
 
 /*****************************************************************************/
@@ -112,6 +124,43 @@ int XPlm_ModuleInit(struct metal_event *event, void *arg)
 	for (Index = 0; Index < sizeof ModuleList / sizeof *ModuleList; Index++)
 	{
 		Status = ModuleList[Index]();
+		if (Status != XPLM_SUCCESS)
+		{
+			goto END;
+		}
+	}
+
+END:
+	/**
+	 * TODO: Proper error reporting should be added to the code
+	 */
+	/**
+	 * Irrespective of the Status, as EVENT
+	 * is completed, metal event handled is returned
+	 */
+	return METAL_EVENT_HANDLED;
+}
+
+/*****************************************************************************/
+/**
+ * @brief This function call all the PS LPD init functions of all the different
+ * modules. As a part of init functions, modules can register the
+ * command handlers, interrupt handlers with the interface layer.
+ *
+ * @param	None
+ *
+ * @return	Status as defined in xplm_status.h
+ *
+ *****************************************************************************/
+int XPlm_LpdModuleInit(struct metal_event *event, void *arg)
+{
+	u32 Index;
+	int Status;
+
+	for (Index = 0; Index <
+	     sizeof LpdModuleList / sizeof *LpdModuleList; Index++)
+	{
+		Status = LpdModuleList[Index]();
 		if (Status != XPLM_SUCCESS)
 		{
 			goto END;

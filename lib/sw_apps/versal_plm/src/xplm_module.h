@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -71,6 +71,7 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 int XPlm_GenericInit();
 int XPlm_ModuleInit(struct metal_event *event, void *arg);
+int XPlm_LpdModuleInit(struct metal_event *event, void *arg);
 
 /************************** Variable Definitions *****************************/
 
