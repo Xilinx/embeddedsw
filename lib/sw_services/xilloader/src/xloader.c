@@ -190,6 +190,27 @@ int XSubSys_ReStart(u32 SubsysHd)
 
 /*****************************************************************************/
 /**
+ * This function initializes the loader instance and registers loader
+ * commands with PLM
+ *
+ * @param None
+ *
+ * @return	returns XST_SUCCESS on success
+ *
+ *****************************************************************************/
+int XLoader_Init()
+{
+
+	/** Initializes the DMA pointers */
+	XLoader_DmaInit();
+
+	/** Register the loader commands */
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
  * This function initializes the PDI instance with required details and read
  * the meta header
  *
@@ -241,6 +262,22 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	{
 		goto END;
 	}
+
+	/*
+	 * In SMAP or JTAG bootmode, next data that comes is Image headers
+	 * read the image headers
+	 */
+	if ((PdiSrc == XLOADER_PDI_SRC_SMAP) ||
+		(PdiSrc == XLOADER_PDI_SRC_JTAG))
+	{
+		/* Read image Hdrs */
+		Status = XilPdi_ReadAndVerifyImgHdr(&(PdiPtr->MetaHdr));
+		if (XST_SUCCESS != Status)
+		{
+			goto END;
+		}
+	}
+
 
 	Status = XilPdi_ReadAndVerifyPrtnHdr(&PdiPtr->MetaHdr);
 	if(Status != XST_SUCCESS)

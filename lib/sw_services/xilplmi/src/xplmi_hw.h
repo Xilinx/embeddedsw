@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -178,6 +178,9 @@ extern "C" {
  * Definitions required from slave_boot.h
  */
 #define SLAVE_BOOT_BASEADDR      0XF1220000
+#define SLAVE_BOOT_SBI_MODE    ( ( SLAVE_BOOT_BASEADDR ) + 0X00000000 )
+#define SLAVE_BOOT_SBI_MODE_JTAG_MASK    0X00000002
+
 #define SLAVE_BOOT_SBI_CTRL    ( ( SLAVE_BOOT_BASEADDR ) + 0X00000004 )
 #define SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK    0X0000001C
 #define SLAVE_BOOT_SBI_CTRL_ENABLE_MASK    0X00000001

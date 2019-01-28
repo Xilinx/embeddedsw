@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -63,6 +63,24 @@ XilPdi PdiInstance;
 
 /*****************************************************************************/
 /**
+* It initializes the loader structures and registers  the CDO loader
+* commands
+*
+* @param	None
+* @return	None
+*
+*****************************************************************************/
+int XPlm_LoaderInit()
+{
+	int Status;
+
+	Status = XLoader_Init();
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
 * It loads the boot PDI
 *
 * @param	None
@@ -80,6 +98,7 @@ int XPlm_LoadBootPdi(struct metal_event *event, void *arg)
 	 */
 	XilPdi* PdiPtr = &PdiInstance;
 	BootMode = XLoader_GetBootMode();
+
 	/**
 	 * In case of JTAG boot mode and jtag mode is not SBI,
 	 * no PDI loading is present

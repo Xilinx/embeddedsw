@@ -57,6 +57,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xplm_default.h"
 #include "xplm_pm.h"
+#include "xplm_loader.h"
 #include "xplm_proc.h"
 #include "xplm_task.h"
 #include "xplmi_generic.h"

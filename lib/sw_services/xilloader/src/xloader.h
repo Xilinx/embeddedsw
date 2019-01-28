@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -63,6 +63,7 @@ extern "C" {
 #include "xloader_sd.h"
 #include "xloader_sbi.h"
 #include "xloader_qspi.h"
+#include "xloader_dma.h"
 #include "xpm_device.h"
 /************************** Constant Definitions *****************************/
 #define XLOADER_SUCCESS		XST_SUCCESS
@@ -142,6 +143,10 @@ typedef struct {
 #define XLoader_GetBootMode()	XPlmi_In32(CRP_BOOT_MODE_USER) & \
 				CRP_BOOT_MODE_USER_BOOT_MODE_MASK
 
+#define XLoader_IsJtagSbiMode()	((XPlmi_In32(SLAVE_BOOT_SBI_MODE) & \
+				SLAVE_BOOT_SBI_MODE_JTAG_MASK) == \
+				    SLAVE_BOOT_SBI_MODE_JTAG_MASK) ? \
+					(TRUE) : (FALSE)
 
 /************************** Function Prototypes ******************************/
 #if 0
@@ -153,6 +158,7 @@ int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId);
 int XLoader_StartImage(XilPdi *PdiPtr, u32 ImageId);
 #endif
 
+int XLoader_Init();
 int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr);
 int XLoader_LoadSubSystemPdi(XilPdi *PdiPtr);
 int XLoader_StartSubSystemPdi(XilPdi *PdiPtr);
