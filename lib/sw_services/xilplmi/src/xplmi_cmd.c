@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -81,8 +81,6 @@ int XPlmi_CmdExecute(XPlmi_Cmd * Cmd)
 	const XPlmi_ModuleCmd * ModuleCmd = NULL;
 	int Status;
 
-	//Xil_AssertNonvoid(Cmd->ResumeHandler == NULL);
-
 	/** Assign Module */
 	if (ModuleId < XPLMI_MAX_MODULES)
 	{
@@ -94,30 +92,30 @@ int XPlmi_CmdExecute(XPlmi_Cmd * Cmd)
 		goto END;
 	}
 
-	/** Check and call the registered command handler */
+	/** Check if it is within the commands registered */
 	if (ApiId >= Module->CmdCnt)
 	{
 		Status = XST_FAILURE;
 		goto END;
 	}
 
+	/** Check if proper handler is registered */
 	ModuleCmd = &Module->CmdAry[ApiId];
 	if (ModuleCmd->Handler == NULL)
 	{
 		Status = XST_FAILURE;
 		goto END;
 	}
+
+	/** Run the command handler */
 	Status = ModuleCmd->Handler(Cmd);
 	if (Status != XST_SUCCESS)
 	{
-		if (Cmd->ResumeHandler == NULL)
-		{
-			Cmd->ResumeHandler = ModuleCmd->Handler;
-		}
-	} else {
-		Xil_AssertNonvoid(Cmd->ResumeHandler == NULL);
+		goto END;
 	}
 
+	/** Increment the processed length and it can be used during resume */
+	Cmd->ProcessedLen += Cmd->PayloadLen;
 END:
 	return Status;
 }
