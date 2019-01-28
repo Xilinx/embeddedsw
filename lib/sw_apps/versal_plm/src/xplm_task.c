@@ -126,6 +126,8 @@ void XPlm_TaskDispatchLoop(void )
 	struct metal_list *Node;
 	struct metal_event *Event;
 	int Status;
+	u64 TaskStartTime;
+
 	XPlmi_Printf(DEBUG_DETAILED, "%s\n\r", __func__);
 
 	while (1)
@@ -141,6 +143,9 @@ void XPlm_TaskDispatchLoop(void )
 				continue;
 			}
 
+			/** Start time of the task  */
+			TaskStartTime = XPlm_GetTimerValue();
+
 			/** Call the task handler */
 			Node = EvQueue[Index].next;
 			Event = metal_container_of(Node,
@@ -151,6 +156,10 @@ void XPlm_TaskDispatchLoop(void )
 			{
 				metal_event_pop(Event);
 			}
+
+			/** Start time of the task  */
+			XPlm_MeasurePerfTime(TaskStartTime);
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Task Time \n\r");
 		}
 #if 0
 		/**
