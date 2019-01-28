@@ -430,6 +430,12 @@ XStatus XPmcFw_SetUpInterruptSystem()
 				PMC_GLOBAL_GICP_PMC_IRQ_ENABLE_SRC2_MASK,
 				PMC_GLOBAL_GICP_PMC_IRQ_ENABLE_SRC2_MASK);
 	/*
+     * TODO: Enable GICP4 interrupt in the respective module
+     */
+	XPmcFw_RMW32(PMC_GLOBAL_GICP_PMC_IRQ_ENABLE,
+			PMC_GLOBAL_GICP_PMC_IRQ_ENABLE_SRC4_MASK,
+				PMC_GLOBAL_GICP_PMC_IRQ_ENABLE_SRC4_MASK);
+	/*
          * TODO: Enable Readback mask in the respective module
          */
 	XPmcFw_RMW32(PMC_GLOBAL_GICP0_IRQ_ENABLE,
