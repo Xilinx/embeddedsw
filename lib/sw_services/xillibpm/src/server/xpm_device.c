@@ -1033,6 +1033,53 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  Set maximum allowed latency for the device
+ *
+ * @param  SubsystemId	Initiator of the request who must previously requested
+ *			the device
+ * @param  DeviceId	Device whose latency is specified
+ * @param  Latency	Maximum allowed latency in microseconds
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ ****************************************************************************/
+int XPmDevice_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
+			    const u32 Latency)
+{
+	int Status = XST_SUCCESS;
+	XPm_Requirement *Reqm;
+	XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
+	XPm_Device *Device = XPmDevice_GetById(DeviceId);
+
+	if ((NULL == Subsystem) || (NULL == Device)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Reqm = FindReqm(Device, Subsystem);
+	if (NULL == Reqm) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	Reqm->Next.Latency = Latency;
+	Reqm->SetLatReq = 1;
+
+	Status = XPmDevice_UpdateStatus(Device);
+	if (XST_SUCCESS != Status) {
+		Reqm->SetLatReq = 0;
+		goto done;
+	}
+
+	Reqm->Curr.Latency = Latency;
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief	Change state of a device
  *
  * @param Device	Device pointer whose state should be changed
@@ -1119,6 +1166,100 @@ static XStatus GetStateWithCaps(const XPm_Device* const Device, const u32 Caps,
 
 /****************************************************************************/
 /**
+ * @brief  Find minimum of all latency requirements
+ *
+ * @Param  Device	Device whose min required latency is requested
+ *
+ * @return Latency in microseconds
+ *
+ ****************************************************************************/
+static u32 GetMinRequestedLatency(const XPm_Device *const Device)
+{
+	XPm_Requirement *Reqm = Device->Requirements;
+	u32 MinLatency = XPM_MAX_LATENCY;
+
+	while (NULL != Reqm) {
+		if ((TRUE == Reqm->SetLatReq) &&
+		    (MinLatency > Reqm->Next.Latency)) {
+			MinLatency = Reqm->Next.Latency;
+		}
+		Reqm = Reqm->NextSubsystem;
+	}
+
+	return MinLatency;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Get latency from given state to the highest state
+ *
+ * @param  Device	Pointer to the device whose states are in question
+ * @param  State	State from which the latency is calculated
+ *
+ * @return Return value for the found latency
+ *
+ ****************************************************************************/
+static u32 GetLatencyFromState(const XPm_Device *const Device, const u32 State)
+{
+	u32 Idx;
+	u32 Latency = 0U;
+	u32 HighestState = Device->DeviceFsm->StatesCnt - 1;
+
+	for (Idx = 0U; Idx < Device->DeviceFsm->TransCnt; Idx++) {
+		if ((State == Device->DeviceFsm->Trans[Idx].FromState) &&
+		    (HighestState == Device->DeviceFsm->Trans[Idx].ToState)) {
+			Latency = Device->DeviceFsm->Trans[Idx].Latency;
+			break;
+		}
+	}
+
+	return Latency;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Find a higher power state which satisfies latency requirements
+ *
+ * @param  Device	Device whose state may be constrained
+ * @param  State	Chosen state which does not satisfy latency requirements
+ * @param  CapsToSet	Capabilities that the state must have
+ * @param  MinLatency	Latency requirements to be satisfied
+ *
+ * @return Status showing whether the higher power state is found or not.
+ * State may not be found if multiple subsystem have contradicting requirements,
+ * then XST_FAILURE is returned. Otherwise, function returns success.
+ *
+ ****************************************************************************/
+static int ConstrainStateByLatency(const XPm_Device *const Device,
+				   u32 *const State, const u32 CapsToSet,
+				   const u32 MinLatency)
+{
+	int Status = XST_FAILURE;
+	u32 StartState = *State;
+	u32 WkupLat;
+	u32 Idx;
+
+	for (Idx = StartState; Idx < Device->DeviceFsm->StatesCnt; Idx++) {
+		if ((CapsToSet & Device->DeviceFsm->States[Idx]) != CapsToSet) {
+			/* State candidate has no required capabilities */
+			continue;
+		}
+		WkupLat = GetLatencyFromState(Device, Idx);
+		if (WkupLat > MinLatency) {
+			/* State does not satisfy latency requirement */
+			continue;
+		}
+
+		Status = XST_SUCCESS;
+		*State = Idx;
+		break;
+	}
+
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief	Update the device's state according to the current requirements
  *		from all subsystems
  * @param Device	Device whose state is about to be updated
@@ -1132,6 +1273,7 @@ XStatus XPmDevice_UpdateStatus(XPm_Device *Device)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Caps = GetMaxCapabilities(Device);
+	u32 WkupLat, MinLat;
 	u32 State;
 
 	if ((XPM_DEVSTATE_UNUSED != Device->Node.State) &&
@@ -1147,7 +1289,21 @@ XStatus XPmDevice_UpdateStatus(XPm_Device *Device)
 		goto done;
 	}
 
-	Status = XPmDevice_ChangeState(Device, State);
+	MinLat = GetMinRequestedLatency(Device);
+	WkupLat = GetLatencyFromState(Device, State);
+	if (WkupLat > MinLat) {
+		/* State does not satisfy latency requirement, find another */
+		Status = ConstrainStateByLatency(Device, &State, Caps, MinLat);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		WkupLat = GetLatencyFromState(Device, State);
+	}
+
+	if (State != Device->Node.State) {
+		Status = XPmDevice_ChangeState(Device, State);
+	}
 
 done:
 	return Status;

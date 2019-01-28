@@ -60,6 +60,7 @@ struct XPm_Requirement {
 	XPm_Requirement *NextDevice; /**< Requirement on the next device from this subsystem */
 	XPm_Requirement *NextSubsystem; /**< Requirement from the next subsystem on this device */
 	u8 Allocated; /**< Device has been allocated to the subsystem */
+	u8 SetLatReq; /**< Latency has been set from the subsystem */
 	XPm_ReqmInfo Curr; /**< Current requirements */
 	XPm_ReqmInfo Next; /**< Pending requirements */
 };

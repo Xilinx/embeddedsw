@@ -44,6 +44,7 @@ XStatus XPmRequirement_Init(XPm_Requirement *Reqm,
 	Reqm->Device = Device;
 
 	Reqm->Allocated = 0;
+	Reqm->SetLatReq = 0;
 	Reqm->Curr.Capabilities = XPM_MIN_CAPABILITY;
 	Reqm->Curr.Latency = XPM_MAX_LATENCY;
 	Reqm->Curr.QoS = XPM_MAX_QOS;
