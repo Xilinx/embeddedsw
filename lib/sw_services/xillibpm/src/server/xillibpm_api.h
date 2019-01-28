@@ -48,6 +48,11 @@
 #define TAPDLY_BYPASS_OFFSET			(0x0000003CU)
 #define XPM_TAP_DELAY_MASK			(0x4U)
 
+/* SD DLL control */
+#define SD0_CTRL_OFFSET				(0x00000404U)
+#define SD1_CTRL_OFFSET				(0x00000484U)
+#define XPM_SD_DLL_RST_MASK			(0x4U)
+
 /* Suspend reasons */
 #define SUSPEND_REASON_SUBSYSTEM_REQ		(201U)
 #define SUSPEND_REASON_ALERT			(202U)
