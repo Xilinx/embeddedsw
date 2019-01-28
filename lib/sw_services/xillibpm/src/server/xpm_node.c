@@ -26,6 +26,7 @@
 *
 ******************************************************************************/
 
+#include "xillibpm_defs.h"
 #include "xpm_common.h"
 #include "xpm_node.h"
 
@@ -38,6 +39,7 @@ XStatus XPmNode_Init(XPm_Node *Node, u32 Id, u32 State, u32 BaseAddress)
 	Node->State = State;
 	Node->BaseAddress = BaseAddress;
 	Node->HandleEvent = NULL;
+	Node->LatencyMarg = XPM_MAX_LATENCY;
 
 	return XST_SUCCESS;
 }
