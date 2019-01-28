@@ -118,6 +118,7 @@ int XPlm_PmInit()
 int XPlm_ProcessPlmCdo(struct metal_event *event, void *arg)
 {
 	int Status;
+	XPlmiCdo Cdo;
 	XPlmi_Printf(DEBUG_DETAILED, "%s\n\r", __func__);
 
 	/**
@@ -135,6 +136,10 @@ int XPlm_ProcessPlmCdo(struct metal_event *event, void *arg)
 	 */
 
 	/** Process the PLM CDO */
+	XPlmi_InitCdo(&Cdo);
+	Cdo.BufPtr = (u32 *)XPLMI_PMCRAM_BASEADDR;
+	Cdo.BufLen = XPLMI_PMCRAM_LEN;
+	Status = XPlmi_ProcessCdo(&Cdo);
 
 	Status = METAL_EVENT_HANDLED;
 	return Status;

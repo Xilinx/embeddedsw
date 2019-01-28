@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -73,6 +73,8 @@ struct XPlmi_Cmd {
 	u32 IpiMask;
 	u32 CmdId;
 	u32 Len;
+	u32 ProcessedLen;
+	u32 PayloadLen;
 	u32 *Payload;
 	u32 Response[XPLMI_CMD_RESP_SIZE];
 	int (*ResumeHandler)(XPlmi_Cmd * CmdPtr);
