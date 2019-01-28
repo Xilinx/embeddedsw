@@ -73,6 +73,7 @@ static ModuleInit ModuleList[] =
 	XPlm_SetUpInterruptSystem,
 	XPlm_GenericInit,
 	XPlm_PmInit,
+	XPlm_LoaderInit,
 };
 
 /**
