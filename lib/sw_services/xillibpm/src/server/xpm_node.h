@@ -43,6 +43,7 @@ struct XPm_Node {
 	u32 Id;	/**< Node ID: For LibPM clock and pin APIs */
 	u32 State; /**< Node state: Specific to node type */
 	u32 BaseAddress; /**< Base address: Specify to node type */
+	u32 LatencyMarg; /**< lowest latency requirement - powerup latency */
 	XStatus (* HandleEvent)(XPm_Node *Node, u32 Event);
 		/**< HandleEvent: Pointer to event handler */
 };

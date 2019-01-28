@@ -1282,8 +1282,6 @@ XStatus XPmDevice_UpdateStatus(XPm_Device *Device)
 			goto done;
 	}
 
-	/* TODO: Handle latency margin */
-
 	Status = GetStateWithCaps(Device, Caps, &State);
 	if (XST_SUCCESS != Status) {
 		goto done;
@@ -1300,6 +1298,8 @@ XStatus XPmDevice_UpdateStatus(XPm_Device *Device)
 
 		WkupLat = GetLatencyFromState(Device, State);
 	}
+
+	Device->Node.LatencyMarg = MinLat - WkupLat;
 
 	if (State != Device->Node.State) {
 		Status = XPmDevice_ChangeState(Device, State);
