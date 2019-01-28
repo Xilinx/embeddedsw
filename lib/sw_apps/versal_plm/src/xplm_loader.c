@@ -73,7 +73,6 @@ int XPlm_LoadBootPdi(struct metal_event *event, void *arg)
 {
 	int Status;
 	u32 BootMode;
-	XPlmi_Printf(DEBUG_INFO, "%s\n\r", __func__);
 
 	/**
 	 * 1. Read Boot mode register and multiboot offset register
@@ -82,12 +81,16 @@ int XPlm_LoadBootPdi(struct metal_event *event, void *arg)
 	XilPdi* PdiPtr = &PdiInstance;
 	BootMode = XLoader_GetBootMode();
 	/**
-	 * In case of JTAG boot mode, no PDI loading is present
+	 * In case of JTAG boot mode and jtag mode is not SBI,
+	 * no PDI loading is present
 	 */
-	if(BootMode == XLOADER_PDI_SRC_JTAG)
+	if ((BootMode == XLOADER_PDI_SRC_JTAG) &&
+	    (!XLoader_IsJtagSbiMode()))
 	{
 		goto END;
 	}
+
+	XPlmi_Printf(DEBUG_INFO, "PDI Load: Started\n\r");
 
 	Status = XLoader_PdiInit(PdiPtr, BootMode, 0U);
 	if (Status != XST_SUCCESS)
@@ -107,6 +110,7 @@ int XPlm_LoadBootPdi(struct metal_event *event, void *arg)
 		goto END;
 	}
 
+	XPlmi_Printf(DEBUG_INFO, "PDI Load: Done\n\r");
 END:
 	/**
 	 * TODO: Proper error reporting should be added to the code
