@@ -210,6 +210,10 @@ enum XPm_PllConfigParams {
 #define XPM_TAPDELAY_BYPASS_DISABLE	(0U)
 #define XPM_TAPDELAY_BYPASS_ENABLE	(1U)
 
+/* Tap delay type */
+#define XPM_TAPDELAY_INPUT		(0U)
+#define XPM_TAPDELAY_OUTPUT		(1U)
+
 /* Dll reset type */
 #define XPM_DLL_RESET_ASSERT		(0U)
 #define XPM_DLL_RESET_RELEASE		(1U)
