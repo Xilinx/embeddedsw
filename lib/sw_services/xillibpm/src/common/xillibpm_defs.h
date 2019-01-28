@@ -203,6 +203,9 @@ enum XPm_PllConfigParams {
 #define XPM_RPU_TCM_SPLIT	0U
 #define XPM_RPU_TCM_COMB	1U
 
+/* Boot health status mask */
+#define XPM_BOOT_HEALTH_STATUS_MASK	(0x1U)
+
 /* Tap delay signal type */
 #define XPM_TAPDELAY_QSPI		(2U)
 
