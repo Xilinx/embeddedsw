@@ -1041,7 +1041,8 @@ static XStatus PowerUp_FP(void)
 	RegVal = XPsmFw_Read32(PSM_LOCAL_PWR_STATE);
 	if (!CHECK_BIT(RegVal, PSM_LOCAL_PWR_STATE_FP_MASK)) {
 
-		/* TODO: Disable PSM interrupts */
+		/* Disable PSM interrupts */
+		microblaze_disable_interrupts();
 
 		/*
 		 * Capture the current Power State
@@ -1119,7 +1120,8 @@ static XStatus PowerUp_FP(void)
 		/* Clear Request Status bit in the REQ_PWRUP_STATUS register */
 		/* This is already handled by common handler so no need to handle here */
 
-		/* TODO: Enable PSM Interrupts */
+		/* Enable PSM Interrupts */
+		microblaze_enable_interrupts();
 	}
 	return Status;
 }
