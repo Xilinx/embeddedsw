@@ -191,7 +191,8 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			Status = XPm_SetPinParameter(SubsystemId, Pload[0], Pload[1], Pload[2]);
 			break;
 		case PM_IOCTL:
-			Status = XPm_DevIoctl(Pload[0], Pload[1], Pload[2], Pload[3], ApiResponse);
+			Status = XPm_DevIoctl(SubsystemId, Pload[0], Pload[1],
+					      Pload[2], Pload[3], ApiResponse);
 			break;
 		case PM_DESCRIBE_NODES:
 			Status = XPm_DescribeNodes(Len);
@@ -1692,6 +1693,7 @@ XStatus XPm_GetPinParameter(const u32 PinId,
  * @brief  This function performs driver-like IOCTL functions on shared system
  * devices.
  *
+ * @param SubsystemId		ID of the subsystem
  * @param DeviceId		ID of the device
  * @param IoctlId		IOCTL function ID
  * @param Arg1			Argument 1
@@ -1707,12 +1709,15 @@ XStatus XPm_GetPinParameter(const u32 PinId,
  * requested this pin.
  *
  ****************************************************************************/
-XStatus XPm_DevIoctl(const u32 DeviceId,
+XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 			const u32 IoctlId,
 			const u32 Arg1,
 			const u32 Arg2, u32 *const Response)
 {
 	XStatus Status = XST_FAILURE;
+
+	/* Compilation warning fix */
+	(void)SubsystemId;
 
 	switch (IoctlId) {
 	case IOCTL_GET_RPU_OPER_MODE:
