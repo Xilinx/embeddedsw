@@ -203,6 +203,13 @@ enum XPm_PllConfigParams {
 #define XPM_RPU_TCM_SPLIT	0U
 #define XPM_RPU_TCM_COMB	1U
 
+/* Tap delay signal type */
+#define XPM_TAPDELAY_QSPI		(2U)
+
+/* Tap delay bypass */
+#define XPM_TAPDELAY_BYPASS_DISABLE	(0U)
+#define XPM_TAPDELAY_BYPASS_ENABLE	(1U)
+
 /* PM API ids */
 #define PM_GET_API_VERSION              1U
 #define PM_SET_CONFIGURATION            2U
