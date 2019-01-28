@@ -80,6 +80,14 @@ int main(void )
 	/** If MDM UART, banner can be printed before any initialization */
 	XPlm_InitUart();
 #endif
+
+	/** Initialize the timers, enable exceptions */
+	Status = XPlm_InitProc();
+	if (Status != XST_SUCCESS)
+	{
+		XPlm_ErrMgr(Status);
+	}
+
 	/** Initialize the start up events */
 	Status = XPlm_TaskInit();
 	if (Status != XST_SUCCESS)

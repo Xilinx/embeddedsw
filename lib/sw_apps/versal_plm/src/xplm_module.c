@@ -69,7 +69,6 @@ typedef int (*ModuleInit)(void);
  */
 static ModuleInit ModuleList[] =
 {
-	XPlm_InitProc,
 	XPlm_SetUpInterruptSystem,
 	XPlm_GenericInit,
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
