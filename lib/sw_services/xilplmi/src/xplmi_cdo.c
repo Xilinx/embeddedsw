@@ -108,6 +108,7 @@ static u32 XPlmi_CmdSize(u32 *Buf, u32 Len)
 static void XPlmi_SetupCmd(XPlmi_Cmd * Cmd, u32 *Buf, u32 BufLen)
 {
 	Cmd->CmdId = Buf[0];
+	Cmd->IpiMask = 0;
 	Cmd->Len = (Cmd->CmdId >> 16) & 255;
 	Cmd->Payload = Buf + 1;
 	if (Cmd->Len == 255) {
