@@ -81,7 +81,7 @@ int main(void )
 	XPlm_InitUart();
 #endif
 	/** Initialize the start up events */
-	Status = XPlm_ModuleInit();
+	Status = XPlm_TaskInit();
 	if (Status != XST_SUCCESS)
 	{
 		XPlm_ErrMgr(Status);
