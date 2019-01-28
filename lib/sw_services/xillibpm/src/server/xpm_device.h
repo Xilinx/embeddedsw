@@ -235,8 +235,10 @@ XStatus XPmDevice_GetPermissions(XPm_Device *Device, u32 *PermissionMask);
 
 u32 XPmDevice_GetSubsystemIdOfCore(XPm_Device *Device);
 
+int XPmDevice_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
+			    const u32 Latency);
+
 XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState);
 XStatus XPmDevice_UpdateStatus(XPm_Device *Device);
-
 /** @} */
 #endif /* XPM_DEVICE_H_ */

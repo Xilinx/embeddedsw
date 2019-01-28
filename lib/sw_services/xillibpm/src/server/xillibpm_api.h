@@ -113,6 +113,9 @@ XStatus XPm_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 			   const u32 Capabilities, const u32 QoS,
 			   const u32 Ack);
 
+int XPm_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
+		      const u32 Latency);
+
 XStatus XPm_GetDeviceStatus(const u32 SubsystemId,
 			const u32 DeviceId,
 			XPm_DeviceStatus *const DeviceStatus);
