@@ -1730,6 +1730,64 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  This function resets DLL logic for the SD device.
+ *
+ * @param  DeviceId	DeviceId of the device
+ * @param  Type		Reset type
+ *
+ * @return XST_SUCCESS if successful else error code or a reason code
+ *
+ ****************************************************************************/
+static int XPm_SdDllReset(const u32 DeviceId, const u32 Type)
+{
+	int Status = XST_SUCCESS;
+	XPm_Device *Device = XPmDevice_GetById(XPM_DEVID_PMC);
+	u32 BaseAddress;
+	u32 Offset;
+
+	if (NULL == Device) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	/* PMC_IOU_SLCR base address */
+	BaseAddress = Device->Node.BaseAddress;
+
+	if (XPM_DEVID_SDIO_0 == DeviceId) {
+		Offset = SD0_CTRL_OFFSET;
+	} else if (XPM_DEVID_SDIO_1 == DeviceId) {
+		Offset = SD1_CTRL_OFFSET;
+	} else {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	switch (Type) {
+	case XPM_DLL_RESET_ASSERT:
+		PmRmw32(BaseAddress + Offset, XPM_SD_DLL_RST_MASK,
+			XPM_SD_DLL_RST_MASK);
+		break;
+	case XPM_DLL_RESET_RELEASE:
+		PmRmw32(BaseAddress + Offset, XPM_SD_DLL_RST_MASK,
+			~XPM_SD_DLL_RST_MASK);
+		break;
+	case XPM_DLL_RESET_PULSE:
+		PmRmw32(BaseAddress + Offset, XPM_SD_DLL_RST_MASK,
+			XPM_SD_DLL_RST_MASK);
+		PmRmw32(BaseAddress + Offset, XPM_SD_DLL_RST_MASK,
+			~XPM_SD_DLL_RST_MASK);
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function performs driver-like IOCTL functions on shared system
  * devices.
  *
@@ -1796,6 +1854,14 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 		}
 
 		Status = XPm_SetTapdelayBypass(DeviceId, Arg1, Arg2);
+		break;
+	case IOCTL_SD_DLL_RESET:
+		Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		Status = XPm_SdDllReset(DeviceId, Arg1);
 		break;
 	case IOCTL_WRITE_GGS:
 		if (Arg1 >= GGS_NUM_REGS) {
