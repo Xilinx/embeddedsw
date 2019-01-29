@@ -241,6 +241,8 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 		case XPM_DEVSTATE_UNUSED:
 			if (XPM_DEVEVENT_BRINGUP_ALL == Event) {
 				Status = BringUp(Node);
+			} else if (XPM_DEVEVENT_SHUTDOWN == Event) {
+				Status = XST_SUCCESS;
 			}
 			break;
 		case XPM_DEVSTATE_PWR_ON:
