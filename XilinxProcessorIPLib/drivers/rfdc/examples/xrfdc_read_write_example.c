@@ -72,6 +72,7 @@
 *                       platform.
 *       sk     09/07/18 Modified phasecorrection factor as per  QMC Phase
 *                       correction factor range in driver
+* 5.1   cog    01/29/19 Fixed some comments.
 *
 * </pre>
 *
@@ -191,7 +192,7 @@ int main(void)
 
 	printf("RFdc Read and Write Example Test\r\n");
 	/*
-	 * Run the RFdc Ericsson use case example, specify the Device ID that is
+	 * Specify the Device ID
 	 * generated in xparameters.h.
 	 */
 	Status = RFdcReadWriteExample(RFDC_DEVICE_ID);
