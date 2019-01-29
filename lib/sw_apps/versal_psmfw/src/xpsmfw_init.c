@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -54,19 +54,7 @@
 
 int XPsmFw_Init()
 {
-	int Status = XST_FAILURE;
-	
-	/* Trigger Scan Clear on FPD */
-	Status = XPsmFw_ScanClear(PSM_LOCAL_SCAN_CLEAR_FPD);
-	if (Status != XST_SUCCESS) {
-		XPsmFw_Printf(DEBUG_ERROR, "Scan clear failed\r\n");
-	}
-
-	/* Trigger MBISR on FPD */
-	Status = XPsmFw_FPD_MBISR();
-	if (Status != XST_SUCCESS) {
-		XPsmFw_Printf(DEBUG_ERROR, "FPD MBISR failed\r\n");
-	}
+	int Status = XST_SUCCESS;
 	
 #ifdef XPAR_PSU_IPI_PSM_DEVICE_ID
 	XPsmfw_IpiManagerInit();
