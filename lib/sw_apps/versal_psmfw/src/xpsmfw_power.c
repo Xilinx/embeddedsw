@@ -52,6 +52,7 @@
 #include "xpsmfw_api.h"
 #include "xpsmfw_default.h"
 #include "xpsmfw_power.h"
+#include "xpsmfw_init.h"
 #include "fpd_apu.h"
 #include "psm_global.h"
 #include "rpu.h"
@@ -297,6 +298,46 @@ enum XPsmFWPwrUpDwnType {
 	XPSMFW_PWR_UPDWN_REQUEST,
 };
 
+/* NOTE: SPP doesn't emulate BISR/BIST */
+#ifdef SPP_HACK
+static int XPsmFw_ACPU_BISR(const u32 MbistBitMask)
+{
+	int Status = XST_SUCCESS;
+	u32 ErrorCnt = 0;
+
+	/* Applying bISR trigger */
+	XPsmFw_Write32(FPD_SLCR_WPROT0, 0x0);
+	XPsmFw_Write32(FPD_SLCR_BISR_CACHE_CTRL_0, 0x1);
+
+	/* Polling for BISR done and pass status */
+	Status = XPsmFw_UtilPollForMask(FPD_SLCR_BISR_CACHE_STATUS, 0x3FF, FPD_SLCR_BISR_CACHE_STATUS_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Initiating odm for ACPUx */
+	XPsmFw_Write32(PSM_GLOBAL_REG_MBIST_RSTN, MbistBitMask);
+	XPsmFw_Write32(PSM_GLOBAL_REG_MBIST_SETUP, MbistBitMask);
+	XPsmFw_Write32(PSM_GLOBAL_REG_MBIST_PG_EN, MbistBitMask);
+
+	/* Polling for DONE status */
+	Status = XPsmFw_UtilPollForMask(PSM_GLOBAL_REG_MBIST_DONE, MbistBitMask, PSM_GLOBAL_MBIST_DONE_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Checking for GO status after DONE */
+	if (MbistBitMask != XPsmFw_Read32(PSM_GLOBAL_REG_MBIST_GO)) {
+		ErrorCnt = ErrorCnt + 1;
+		XPsmFw_Write32(LPD_SLCR_PERSISTENT0, ErrorCnt);
+	}
+	XPsmFw_UtilWait(20);
+
+done:
+	return Status;
+}
+#endif // SPP_HACK
+
 static XStatus XPsmFwIslandPwrUp(struct XPsmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_SUCCESS;
@@ -326,9 +367,6 @@ done:
 static XStatus XPsmFwACPUxPwrUp(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDwnType Type)
 {
 	XStatus Status = XST_SUCCESS;
-#ifdef SPP_HACK
-	u32 ErrorCnt = 0;
-#endif
 
 	Status = XPsmFwIslandPwrUp(Args);
 	if (XST_SUCCESS != Status) {
@@ -347,34 +385,11 @@ static XStatus XPsmFwACPUxPwrUp(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDw
 	/* NOTE: SPP doesn't emulate BISR/BIST */
 #ifdef SPP_HACK
 	/* Run BISR on ACPUx */
-
-	/* Applying bISR trigger */
-	XPsmFw_Write32(FPD_SLCR_WPROT0, 0x0);
-	XPsmFw_Write32(FPD_SLCR_BISR_CACHE_CTRL_0, 0x1);
-
-	/* Polling for BISR done and pass status */
-	Status = XPsmFw_UtilPollForMask(FPD_SLCR_BISR_CACHE_STATUS, 0x3FF, FPD_SLCR_BISR_CACHE_STATUS_TIMEOUT);
+	/* TODO: Call BISR sequence based on value of status register */
+	Status = XPsmFw_ACPU_BISR(Args->MbistBitMask);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
-
-	/* Initiating odm for ACPUx */
-	XPsmFw_Write32(PSM_GLOBAL_REG_MBIST_RSTN, Args->MbistBitMask);
-	XPsmFw_Write32(PSM_GLOBAL_REG_MBIST_SETUP, Args->MbistBitMask);
-	XPsmFw_Write32(PSM_GLOBAL_REG_MBIST_PG_EN, Args->MbistBitMask);
-
-	/* Polling for DONE status */
-	Status = XPsmFw_UtilPollForMask(PSM_GLOBAL_REG_MBIST_DONE, Args->MbistBitMask, PSM_GLOBAL_MBIST_DONE_TIMEOUT);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Checking for GO status after DONE */
-	if (Args->MbistBitMask != XPsmFw_Read32(PSM_GLOBAL_REG_MBIST_GO)) {
-		ErrorCnt = ErrorCnt + 1;
-		XPsmFw_Write32(LPD_SLCR_PERSISTENT0, ErrorCnt);
-	}
-	XPsmFw_UtilWait(20);
 #endif // SPP_HACK
 
 	/* Mask and clear ACPUx requested power-up interrupt request */
@@ -1081,7 +1096,32 @@ static XStatus PowerUp_FP(void)
 		/* Wait until reset is propogated in FPD */
 		XPsmFw_UtilWait(XPSMFW_PWRON_RST_FPD_WAIT_TIME);
 
-		/* TODO: Run FPD and ACPU BISR engines */
+		/* NOTE: SPP doesn't emulate BISR/BIST */
+#ifdef SPP_HACK
+		/* Run Scan Clear on FPD */
+		Status = XPsmFw_ScanClear(PSM_LOCAL_SCAN_CLEAR_FPD);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		/* Run BISR on FPD */
+		Status = XPsmFw_FPD_MBISR();
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		/* Run BISR on ACPU0 */
+		Status = XPsmFw_ACPU_BISR(PSM_GLOBAL_ACPU0_MBIST_BIT_MASK);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		/* Run BISR on ACPU1 */
+		Status = XPsmFw_ACPU_BISR(PSM_GLOBAL_ACPU1_MBIST_BIT_MASK);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+#endif // SPP_HACK
 
 		/* Check the Saved PWR_STATE in Stage 3 and power off any ACPU cores that were off */
 		if ((PwrState & PSM_GLOBAL_REG_PWR_STATE_ACPU0_MASK))
@@ -1123,6 +1163,10 @@ static XStatus PowerUp_FP(void)
 		/* Enable PSM Interrupts */
 		microblaze_enable_interrupts();
 	}
+
+#ifdef SPP_HACK
+done:
+#endif // SPP_HACK
 	return Status;
 }
 
