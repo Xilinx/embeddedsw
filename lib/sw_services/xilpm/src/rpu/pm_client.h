@@ -46,7 +46,7 @@
 #define IPI_TRIG_OFFSET		0x0
 #define IPI_OBS_OFFSET		0x4
 
-char* XPm_GetMasterName(void);
+const char* XPm_GetMasterName(void);
 
 #define pm_print(MSG, ...)	xil_printf("%s: "MSG, \
 					   XPm_GetMasterName(), ##__VA_ARGS__)
