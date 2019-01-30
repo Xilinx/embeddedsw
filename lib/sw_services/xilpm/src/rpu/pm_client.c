@@ -205,7 +205,7 @@ const char* XPm_GetMasterName(void)
 {
 	static const char* retptr;
 	bool lockstep = !(pm_read(RPU_RPU_GLBL_CNTL) &
-		     RPU_RPU_GLBL_CNTL_SLSPLIT_MASK);
+		     (u32)RPU_RPU_GLBL_CNTL_SLSPLIT_MASK);
 
 	if (lockstep != 0U) {
 		retptr = "RPU";
@@ -243,7 +243,7 @@ void XPm_ClientSetPrimaryMaster(void)
 
 	master_id = mfcp(XREG_CP15_MULTI_PROC_AFFINITY) & PM_CLIENT_AFL0_MASK;
 	lockstep = !(pm_read(RPU_RPU_GLBL_CNTL) &
-		     RPU_RPU_GLBL_CNTL_SLSPLIT_MASK);
+		     (u32)RPU_RPU_GLBL_CNTL_SLSPLIT_MASK);
 	if (lockstep) {
 		primary_master = &pm_rpu_0_master;
 	} else {
