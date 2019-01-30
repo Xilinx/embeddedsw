@@ -24,6 +24,12 @@
 /* Mask to get affinity level 0 */
 #define PM_CLIENT_AFL0_MASK              0xFFU
 
+#if defined (__GNUC__)
+#define WFI	__asm__("wfi");
+#elif defined (__ICCARM__)
+#define WFI	__asm("wfi");
+#endif
+
 static struct XPm_Master pm_rpu_0_master = {
 	.node_id = NODE_RPU_0,
 	.pwrctl = RPU_RPU_0_PWRDWN,
@@ -171,11 +177,9 @@ void XPm_ClientSuspendFinalize(void)
 	}
 
 	pm_dbg("%s: Going to WFI...\n", __func__);
-#if defined (__GNUC__)
-	__asm__("wfi");
-#elif defined (__ICCARM__)
-	__asm("wfi");
-#endif
+
+	WFI;
+
 	pm_dbg("%s: WFI exit...\n", __func__);
 }
 
@@ -189,13 +193,12 @@ void XPm_ClientSuspendFinalize(void)
 const char* XPm_GetMasterName(void)
 {
 	static const char* retptr;
-	bool lockstep = !(pm_read(RPU_RPU_GLBL_CNTL) &
-		     (u32)RPU_RPU_GLBL_CNTL_SLSPLIT_MASK);
+	u32 mode = pm_read(RPU_RPU_GLBL_CNTL) &
+		   (u32)RPU_RPU_GLBL_CNTL_SLSPLIT_MASK;
 
-	if (lockstep != 0U) {
+	if (RPU_RPU_GLBL_CNTL_SLSPLIT_MASK != mode) {
 		retptr = "RPU";
-	}
-	else {
+	} else {
 		switch (primary_master->node_id) {
 		case NODE_RPU_0:
 			retptr = "RPU0";
@@ -224,7 +227,7 @@ const char* XPm_GetMasterName(void)
 void XPm_ClientSetPrimaryMaster(void)
 {
 	u32 master_id;
-	bool lockstep;
+	u32 mode;
 
 #if defined (__GNUC__)
 	master_id = mfcp(XREG_CP15_MULTI_PROC_AFFINITY) & PM_CLIENT_AFL0_MASK;
@@ -232,12 +235,13 @@ void XPm_ClientSetPrimaryMaster(void)
 	mfcp(XREG_CP15_MULTI_PROC_AFFINITY, master_id);
 	master_id &= PM_CLIENT_AFL0_MASK;
 #endif
-	lockstep = !(pm_read(RPU_RPU_GLBL_CNTL) &
-		     (u32)RPU_RPU_GLBL_CNTL_SLSPLIT_MASK);
-	if (lockstep) {
+	mode = pm_read(RPU_RPU_GLBL_CNTL) &
+		(u32)RPU_RPU_GLBL_CNTL_SLSPLIT_MASK;
+	if (RPU_RPU_GLBL_CNTL_SLSPLIT_MASK != mode) {
 		primary_master = &pm_rpu_0_master;
+		pm_print("Running in Lock-Step mode\n");
 	} else {
 		primary_master = pm_masters_all[master_id];
+		pm_print("Running in Split mode\n");
 	}
-	pm_print("Running in %s mode\n", lockstep ? "Lock-Step" : "Split");
 }
