@@ -143,16 +143,22 @@ void XPm_ClientSuspend(const struct XPm_Master *const master)
 	pm_disable_int();
 	/* Set powerdown request */
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_client.c
 	if (NULL != master) {
 		pwrdn_req = pm_read(master->pwrctl);
 		pwrdn_req |= master->pwrdn_mask;
 		pm_write(master->pwrctl, pwrdn_req);
 	}
+<<<<<<< HEAD
 =======
 	pwrdn_req = pm_read(master->pwrctl);
 	pwrdn_req |= master->pwrdn_mask;
 	pm_write(master->pwrctl, pwrdn_req);
 >>>>>>> Xilpm: Fixes DU anomaly dead code in pm_client.c
+=======
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_client.c
 }
 
 void XPm_ClientAbortSuspend(void)
