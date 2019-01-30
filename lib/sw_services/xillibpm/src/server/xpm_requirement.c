@@ -94,11 +94,28 @@ void XPmRequirement_Clear(XPm_Requirement* Reqm)
 XStatus XPmRequirement_Release(XPm_Requirement *Reqm, XPm_ReleaseScope Scope)
 {
 	XStatus Status = XST_FAILURE;
+	XPm_Requirement *NextReqm = NULL;
 
 	if (RELEASE_ONE == Scope) {
 		XPmRequirement_Clear(Reqm);
 		Status = Reqm->Device->Node.HandleEvent((XPm_Node *)Reqm->Device,
 							XPM_DEVEVENT_SHUTDOWN);
+		goto done;
+	}
+
+	/*
+	 * Release requirements of a device from all subsystems that are
+	 * sharing the device.
+	 */
+	if (RELEASE_DEVICE == Scope) {
+		NextReqm = Reqm;
+		while (NULL != NextReqm) {
+			Status = XPmRequirement_Release(NextReqm, RELEASE_ONE);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+			NextReqm = NextReqm->NextSubsystem;
+		}
 		goto done;
 	}
 
