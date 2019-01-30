@@ -1156,6 +1156,9 @@ static XStatus PowerUp_FP(void)
 			     CRL_RST_FPD_SRST_MASK,
 			     ~CRL_RST_FPD_SRST_MASK);
 
+		/* Mark FPD as powered ON */
+		XPsmFw_RMW32(PSM_LOCAL_PWR_STATE, PSM_LOCAL_PWR_STATE_FP_MASK,
+			     PSM_LOCAL_PWR_STATE_FP_MASK);
 
 		/* Clear Request Status bit in the REQ_PWRUP_STATUS register */
 		/* This is already handled by common handler so no need to handle here */
