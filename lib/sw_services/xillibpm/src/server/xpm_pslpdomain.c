@@ -176,3 +176,159 @@ XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd,
 
 	return XST_SUCCESS;
 }
+
+/****************************************************************************/
+/**
+ * @brief  This function executes scan clear sequence for LPD
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE
+ *
+ ****************************************************************************/
+int XPmPsLpDomain_ScanClearLpd(void)
+{
+	int Status = XST_FAILURE;
+
+	/* Trigger Scan clear on LPD/LPD_IOU */
+	PmRmw32(PMC_ANALOG_SCAN_CLEAR_TRIGGER,
+		(PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_MASK |
+		 PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_IOU_MASK |
+		 PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_RPU_MASK),
+		(PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_MASK |
+		 PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_IOU_MASK |
+		 PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_RPU_MASK));
+
+	Status = XPm_PollForMask(PMC_ANALOG_SCAN_CLEAR_DONE,
+				 (PMC_ANALOG_SCAN_CLEAR_DONE_LPD_IOU_MASK |
+				  PMC_ANALOG_SCAN_CLEAR_DONE_LPD_MASK |
+				  PMC_ANALOG_SCAN_CLEAR_DONE_LPD_RPU_MASK),
+				 XPM_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = XPm_PollForMask(PMC_ANALOG_SCAN_CLEAR_PASS,
+				 (PMC_ANALOG_SCAN_CLEAR_PASS_LPD_IOU_MASK |
+				  PMC_ANALOG_SCAN_CLEAR_PASS_LPD_MASK |
+				  PMC_ANALOG_SCAN_CLEAR_PASS_LPD_RPU_MASK),
+				 XPM_POLL_TIMEOUT);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function executes LBIST sequence for LPD
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE
+ *
+ ****************************************************************************/
+int XPmPsLpDomain_LpdLBIST(void)
+{
+	int Status = XST_FAILURE;
+
+	/* Trigger LBIST on LPD */
+	PmRmw32(PMC_ANALOG_LBIST_ENABLE,
+		(PMC_ANALOG_LBIST_ENABLE_LPD_MASK |
+		 PMC_ANALOG_LBIST_ENABLE_LPD_RPU_MASK),
+		(PMC_ANALOG_LBIST_ENABLE_LPD_MASK |
+		 PMC_ANALOG_LBIST_ENABLE_LPD_RPU_MASK));
+
+	Status = XPm_PollForMask(PMC_ANALOG_LBIST_DONE,
+				 (PMC_ANALOG_LBIST_DONE_LPD_MASK |
+				  PMC_ANALOG_LBIST_DONE_LPD_RPU_MASK),
+				 XPM_POLL_TIMEOUT);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function executes BISR sequence for LPD
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE
+ *
+ ****************************************************************************/
+int XPmPsLpDomain_LpdBISR(void)
+{
+	int Status = XST_FAILURE;
+
+	PmRmw32(LPD_SLCR_BISR_CACHE_CTRL_0, LPD_SLCR_BISR_TRIGGER_MASK,
+		LPD_SLCR_BISR_TRIGGER_MASK);
+
+	Status = XPm_PollForMask(LPD_SLCR_BISR_CACHE_STATUS,
+				 (LPD_SLCR_BISR_DONE_GLOBAL_MASK |
+				  LPD_SLCR_BISR_DONE_1_MASK |
+				  LPD_SLCR_BISR_DONE_0_MASK),
+				 XPM_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = XPm_PollForMask(LPD_SLCR_BISR_CACHE_STATUS,
+				 (LPD_SLCR_BISR_PASS_GLOBAL_MASK |
+				  LPD_SLCR_BISR_PASS_1_MASK |
+				  LPD_SLCR_BISR_PASS_0_MASK),
+				 XPM_POLL_TIMEOUT);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function executes MBIST sequence for LPD
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE
+ *
+ ****************************************************************************/
+int XPmPsLpDomain_LpdMBIST(void)
+{
+	int Status = XST_FAILURE;
+	u32 RegValue;
+
+	PmRmw32(PMC_ANALOG_OD_MBIST_RST,
+		(PMC_ANALOG_OD_MBIST_RST_LPD_IOU_MASK |
+		 PMC_ANALOG_OD_MBIST_RST_LPD_RPU_MASK |
+		 PMC_ANALOG_OD_MBIST_RST_LPD_MASK),
+		(PMC_ANALOG_OD_MBIST_RST_LPD_IOU_MASK |
+		 PMC_ANALOG_OD_MBIST_RST_LPD_RPU_MASK |
+		 PMC_ANALOG_OD_MBIST_RST_LPD_MASK));
+
+	PmRmw32(PMC_ANALOG_OD_MBIST_SETUP,
+		(PMC_ANALOG_OD_MBIST_SETUP_LPD_IOU_MASK |
+		 PMC_ANALOG_OD_MBIST_SETUP_LPD_RPU_MASK |
+		 PMC_ANALOG_OD_MBIST_SETUP_LPD_MASK),
+		(PMC_ANALOG_OD_MBIST_SETUP_LPD_IOU_MASK |
+		 PMC_ANALOG_OD_MBIST_SETUP_LPD_RPU_MASK |
+		 PMC_ANALOG_OD_MBIST_SETUP_LPD_MASK));
+
+	PmRmw32(PMC_ANALOG_OD_MBIST_PG_EN,
+		(PMC_ANALOG_OD_MBIST_PG_EN_LPD_IOU_MASK |
+		 PMC_ANALOG_OD_MBIST_PG_EN_LPD_RPU_MASK |
+		 PMC_ANALOG_OD_MBIST_PG_EN_LPD_MASK),
+		(PMC_ANALOG_OD_MBIST_PG_EN_LPD_IOU_MASK |
+		 PMC_ANALOG_OD_MBIST_PG_EN_LPD_RPU_MASK |
+		 PMC_ANALOG_OD_MBIST_PG_EN_LPD_MASK));
+
+	Status = XPm_PollForMask(PMC_ANALOG_OD_MBIST_DONE,
+				 (PMC_ANALOG_OD_MBIST_DONE_LPD_IOU_MASK|
+				  PMC_ANALOG_OD_MBIST_DONE_LPD_RPU_MASK |
+				  PMC_ANALOG_OD_MBIST_DONE_LPD_MASK),
+				 XPM_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	PmIn32(PMC_ANALOG_OD_MBIST_GOOD, RegValue);
+
+	if ((PMC_ANALOG_OD_MBIST_GOOD_LPD_IOU_MASK |
+	     PMC_ANALOG_OD_MBIST_GOOD_LPD_RPU_MASK |
+	     PMC_ANALOG_OD_MBIST_GOOD_LPD_MASK) != RegValue) {
+		Status = XST_FAILURE;
+	}
+
+done:
+	return Status;
+}
