@@ -74,6 +74,7 @@ Optimize the execution time for Image validation.
 
 xilisf_v5_13:
 Declare XQspiPsu_Msg instance as global.
+Fixed multiple definition error in C++ project.
 
 xxvethernet_v1_2:
 In tcl use unique global variables to fix bsp generation for certain designs.
