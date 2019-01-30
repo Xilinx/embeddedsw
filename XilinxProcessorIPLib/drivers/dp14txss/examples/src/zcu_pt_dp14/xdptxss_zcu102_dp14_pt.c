@@ -2066,8 +2066,6 @@ u32 appx_fs_dup = 0;
 u32 maud_dup = 0;
 u32 naud_dup = 0;
 
-
-
 void Dppt_DetectAudio (void) {
 
 #if ENABLE_AUDIO
@@ -2159,9 +2157,9 @@ int Dppt_DetectResolution(void *InstancePtr,
 
 	u32 DpHres = 0;
 	u32 DpVres = 0;
+	char *color;
 
 	int i = 0;
-	XVidC_VideoMode VmId_1;
 
 	frameBuffer_stop_wr();
 
@@ -2230,15 +2228,18 @@ int Dppt_DetectResolution(void *InstancePtr,
 	//YUV422
 		Msa[0].ComponentFormat =
 				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
+		color = "YCbCr422";
 	}
 	else if( (Msa[0].Misc0 & 0x6 ) == 0x4  ) {
 	//RGB or YUV444
 		Msa[0].ComponentFormat =
 				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
-	}else
+		color = "YCbCr444";
+	}else {
 		Msa[0].ComponentFormat =
 				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
-
+		color = "RGB";
+	}
 
 	u32 recv_clk_freq =
 		(((int)DpRxSsInst.UsrOpt.LinkRate*27)*rxMsaMVid)/rxMsaNVid;
@@ -2275,22 +2276,20 @@ int Dppt_DetectResolution(void *InstancePtr,
 	if((recv_clk_freq*1000000)>540000000
 			&& (int)DpRxSsInst.UsrOpt.LaneCount==4){
 		tx_ppc_set = 0x4;
-		Msa[0].UserPixelWidth = 0x4; //(int)DpRxSsInst.UsrOpt.LaneCount;
+		Msa[0].UserPixelWidth = 0x4;
 
 	}
 	else if((recv_clk_freq*1000000)>270000000
 			&& (int)DpRxSsInst.UsrOpt.LaneCount!=1){
 		tx_ppc_set = 0x2;
-		Msa[0].UserPixelWidth = 0x2; //(int)DpRxSsInst.UsrOpt.LaneCount;
+		Msa[0].UserPixelWidth = 0x2;
 
 	}
 	else{
 		tx_ppc_set = 0x1;
-		Msa[0].UserPixelWidth = 0x1; //(int)DpRxSsInst.UsrOpt.LaneCount;
+		Msa[0].UserPixelWidth = 0x1;
 
 	}
-
-//	xil_printf ("TX PPC is %d\r\n",tx_ppc_set);
 
 	XDp_RxSetUserPixelWidth(DpRxSsInst.DpPtr, (int)DpRxSsInst.UsrOpt.LaneCount);
 
@@ -2300,43 +2299,29 @@ int Dppt_DetectResolution(void *InstancePtr,
 	XDp_RxDtgDis(DpRxSsInst.DpPtr);
 
 	if (DpRxSsInst.link_up_trigger == 1) {
-	xil_printf(
-		"*** Detected resolution: "
-			"%lu x %lu @ %luHz, BPC = %lu, PPC = %d***\n\r",
-		DpHres, DpVres,recv_frame_clk_int,bpc,(int)DpRxSsInst.UsrOpt.LaneCount
-	);
+		xil_printf(
+			"*** Resolution: "
+				"%lu x %lu @ %luHz, BPC = %lu, PPC = %d, Color = %s ***\r\r",
+			DpHres, DpVres,recv_frame_clk_int,bpc,(int)DpRxSsInst.UsrOpt.LaneCount, color
+		);
 	}
 
-//	VmId_1 = XVidC_GetVideoModeId(
-//			Msa[0].Vtm.Timing.HActive,
-//			Msa[0].Vtm.Timing.VActive,
-//			Msa[0].Vtm.FrameRate,0);
-
-//    if (VmId_1 != XVIDC_VM_NOT_SUPPORTED) {
-		if (DpRxSsInst.link_up_trigger == 1) {
-			frameBuffer_start_wr(Msa, 0);
-			XDp_RxDtgEn(DpRxSsInst.DpPtr);
-		}
+	if (DpRxSsInst.link_up_trigger == 1) {
+		frameBuffer_start_wr(Msa, 0);
+		XDp_RxDtgEn(DpRxSsInst.DpPtr);
+	}
 
 #if PHY_COMP
 		CalculateCRC();
 #endif
 
 		return 1;
-//    } else {
-//    	xil_printf ("Unable to determine VideoMode from RX MSA\r\n");
-//    	return 0;
-//    }
-
-
 }
 
 extern u8 tx_after_rx;
 
 int Dppt_DetectColor(void *InstancePtr,
 							XDpTxSs_MainStreamAttributes Msa[4]){
-
-	int i = 0;
 
 	u32 rxMsamisc0 = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 			XDP_RX_MSA_MISC0);
@@ -2359,19 +2344,13 @@ int Dppt_DetectColor(void *InstancePtr,
 	if (DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat !=
 			Msa[0].ComponentFormat) {
 
+		usleep(200000);
+		usleep(200000);
+		usleep(200000);
 
-		XDp_RxDtgDis(DpRxSsInst.DpPtr);
-		frameBuffer_stop();
-		DpTxSsInst.no_video_trigger = 1;
-//		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
-//		XDpTxSs_Stop(&DpTxSsInst);
-		//wait for see if it is bogus
-		while ((i < 800000) && DpRxSsInst.link_up_trigger == 1) {
-			i++;
-		}
-
-		if (i > 800000) {
-			xil_printf ("Color Format change detected.. restarting video\r\n");
+		if (DpRxSsInst.link_up_trigger == 1) {
+			frameBuffer_stop();
+			xil_printf ("Color Format change detected.. restarting video & TX\r\n");
 			Dppt_DetectResolution(InstancePtr, Msa);
 			if (DpRxSsInst.link_up_trigger == 1) {
 				tx_after_rx = 1;
@@ -2448,6 +2427,7 @@ void DpPt_TxSetMsaValuesImmediate(void *InstancePtr){
 			 & 0x6 ) == 0x4){
 	// YUV444
 		DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat =
+
 				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
 	}else
 	// RGB
