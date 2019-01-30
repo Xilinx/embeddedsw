@@ -43,9 +43,12 @@
 #include "pm_defs.h"
 #include "pm_common.h"
 
+<<<<<<< HEAD
 #ifdef __cplusplus
 extern "C" {
 #endif
+=======
+>>>>>>> Xilpm: Fixes MISRA-C:2012 R.2.5 in pm_client.h
 
 const char* XPm_GetMasterName(void);
 <<<<<<< HEAD
