@@ -67,6 +67,7 @@
  * 4.2	 adk   23/08/18 Added support for unaligned bitstream programming.
  * 4.2   adk   28/08/18 Fixed misra-c required standard violations.
  * 4.2   Nava  15/09/18 Fixed global function call-backs issue.
+ * 5.0	 Nava  10/01/19	Improve the PS-PL resets handling.
  *
  * </pre>
  *
@@ -132,6 +133,9 @@
 #define XFPGA_FIRMWARE_STATE_UNKNOWN	0
 #define XFPGA_FIRMWARE_STATE_SECURE	1
 #define XFPGA_FIRMWARE_STATE_NONSECURE	2
+
+/* PS-PL Reset Time */
+#define XFPGA_PS_PL_RESET_TIME_US	1U
 
 /**************************** Type Definitions *******************************/
 #ifdef __MICROBLAZE__
@@ -546,6 +550,7 @@ static u32 XFpga_PostConfigPcap(XFpga *InstancePtr)
 	if (!(InstancePtr->PLInfo.Flags & XFPGA_PARTIAL_EN)) {
 		/* PS-PL reset Low */
 		XFpga_PsPlGpioResetsLow(FPGA_NUM_FABRIC_RESETS);
+		usleep(XFPGA_PS_PL_RESET_TIME_US);
 		/* Power-Up PL */
 		Status = XFpga_PowerUpPl();
 		if (Status != XFPGA_SUCCESS) {
@@ -2058,7 +2063,6 @@ static u32 XFpga_PsPlGpioResetsLow(u32 TotalResets)
 	RegVal = ~(~(~0U << TotalResets) << (MAX_REG_BITS + 1 - TotalResets))
 		& 0xFFFF0000;
 	Xil_Out32(GPIO_MASK_DATA_5_MSW, RegVal);
-	usleep(1000);
 
 	return Status;
 }
@@ -2091,7 +2095,6 @@ static u32 XFpga_PsPlGpioResetsHigh(u32 TotalResets)
 	RegVal = MaskVal & ~(~(~0U << TotalResets) <<
 				(MAX_REG_BITS + 1 - TotalResets));
 	Xil_Out32(GPIO_MASK_DATA_5_MSW, RegVal);
-	usleep(1000);
 
 	return Status;
 }
