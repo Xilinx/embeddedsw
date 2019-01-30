@@ -74,10 +74,13 @@ static struct XPm_Master *const pm_masters_all[] = {
  */
 struct XPm_Master *pm_get_master(const u32 cpuid)
 {
+	struct XPm_Master *master = NULL;
 	if (PM_ARRAY_SIZE(pm_masters_all)) {
-		return pm_masters_all[cpuid];
+		master = pm_masters_all[cpuid];
+		goto done;
 	}
-	return NULL;
+done:
+	return master;
 }
 
 /**
@@ -89,27 +92,35 @@ struct XPm_Master *pm_get_master(const u32 cpuid)
 struct XPm_Master *pm_get_master_by_node(const enum XPmNodeId nid)
 {
 	u8 i;
+	struct XPm_Master *master = NULL;
 
 	for (i = 0; i < PM_ARRAY_SIZE(pm_masters_all); i++) {
 		if (nid == pm_masters_all[i]->node_id) {
-			return pm_masters_all[i];
+			master = pm_masters_all[i];
+			goto done;
 		}
 	}
 
-	return NULL;
+done:
+	return master;
 }
 
 static u32 pm_get_cpuid(const enum XPmNodeId node)
 {
 	u32 i;
+	u32 ret;
 
 	for (i = 0; i < PM_ARRAY_SIZE(pm_masters_all); i++) {
 		if (pm_masters_all[i]->node_id == node) {
-			return i;
+			ret = i;
+			goto done;
 		}
 	}
 
-	return UNDEFINED_CPUID;
+	ret = UNDEFINED_CPUID;
+
+done:
+	return ret;
 }
 
 const enum XPmNodeId subsystem_node = NODE_RPU;
@@ -183,23 +194,30 @@ void XPm_ClientSuspendFinalize(void)
  *
  * @return     Name of the master
  */
-char* XPm_GetMasterName(void)
+const char* XPm_GetMasterName(void)
 {
+	static const char* retptr;
 	bool lockstep = !(pm_read(RPU_RPU_GLBL_CNTL) &
 		     RPU_RPU_GLBL_CNTL_SLSPLIT_MASK);
 
 	if (lockstep) {
-		return "RPU";
-	} else {
+		retptr = "RPU";
+	}
+	else {
 		switch (primary_master->node_id) {
 		case NODE_RPU_0:
-			return "RPU0";
+			retptr = "RPU0";
+			break;
 		case NODE_RPU_1:
-			return "RPU1";
+			retptr = "RPU1";
+			break;
 		default:
-			return "ERROR";
+			retptr = "ERROR";
+			break;
 		};
-	};
+	}
+
+	return retptr;
 }
 
 /**
