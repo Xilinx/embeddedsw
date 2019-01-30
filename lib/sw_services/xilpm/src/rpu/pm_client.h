@@ -48,8 +48,11 @@ extern "C" {
 #endif
 
 const char* XPm_GetMasterName(void);
+<<<<<<< HEAD
 #ifdef DEBUG_MODE
 #if defined (__GNUC__)
+=======
+>>>>>>> Xilpm: Fixed MISRA-C:2012 R.15.5 in pm_client.c
 
 #define pm_print(MSG, ...)	xil_printf("%s: "MSG, \
 										XPm_GetMasterName(), ##__VA_ARGS__)

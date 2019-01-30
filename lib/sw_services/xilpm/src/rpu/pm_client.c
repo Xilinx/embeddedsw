@@ -75,7 +75,11 @@ static struct XPm_Master *const pm_masters_all[] = {
 struct XPm_Master *pm_get_master(const u32 cpuid)
 {
 	struct XPm_Master *master = NULL;
+<<<<<<< HEAD
 	if (PM_ARRAY_SIZE(pm_masters_all) != 0U) {
+=======
+	if (PM_ARRAY_SIZE(pm_masters_all)) {
+>>>>>>> Xilpm: Fixed MISRA-C:2012 R.15.5 in pm_client.c
 		master = pm_masters_all[cpuid];
 		goto done;
 	}
@@ -220,7 +224,11 @@ const char* XPm_GetMasterName(void)
 	bool lockstep = !(pm_read(RPU_RPU_GLBL_CNTL) &
 		     (u32)RPU_RPU_GLBL_CNTL_SLSPLIT_MASK);
 
+<<<<<<< HEAD
 	if (lockstep != 0U) {
+=======
+	if (lockstep) {
+>>>>>>> Xilpm: Fixed MISRA-C:2012 R.15.5 in pm_client.c
 		retptr = "RPU";
 	}
 	else {
