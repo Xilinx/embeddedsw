@@ -26,8 +26,8 @@
 *
 ******************************************************************************/
 
-#ifndef _PM_RPU_H_
-#define _PM_RPU_H_
+#ifndef PM_RPU_H
+#define PM_RPU_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -1520,4 +1520,4 @@ extern "C" {
 #endif
 
 
-#endif /* _PM_RPU_H_ */
+#endif /* PM_RPU_H */
