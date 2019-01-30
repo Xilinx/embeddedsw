@@ -76,10 +76,14 @@ struct XPm_Master *pm_get_master(const u32 cpuid)
 {
 	struct XPm_Master *master = NULL;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if (PM_ARRAY_SIZE(pm_masters_all) != 0U) {
 =======
 	if (PM_ARRAY_SIZE(pm_masters_all)) {
 >>>>>>> Xilpm: Fixed MISRA-C:2012 R.15.5 in pm_client.c
+=======
+	if (PM_ARRAY_SIZE(pm_masters_all) != 0U) {
+>>>>>>> Xilpm: Fixes MISRA-C:R.10.1, R.14.4 pm_client.c
 		master = pm_masters_all[cpuid];
 		goto done;
 	}
@@ -195,10 +199,14 @@ void XPm_ClientSuspendFinalize(void)
 #if defined (__GNUC__)
 	/* Flush data cache if the cache is enabled */
 	ctrlReg = mfcp(XREG_CP15_SYS_CONTROL);
+<<<<<<< HEAD
 #elif defined (__ICCARM__)
 	mfcp(XREG_CP15_SYS_CONTROL, ctrlReg);
 #endif
 	if ((XREG_CP15_CONTROL_C_BIT & ctrlReg) != 0U) {
+=======
+	if ((XREG_CP15_CONTROL_C_BIT & ctrlReg) != 0U)
+>>>>>>> Xilpm: Fixes MISRA-C:R.10.1, R.14.4 pm_client.c
 		Xil_DCacheFlush();
 	}
 
@@ -225,10 +233,14 @@ const char* XPm_GetMasterName(void)
 		     (u32)RPU_RPU_GLBL_CNTL_SLSPLIT_MASK);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if (lockstep != 0U) {
 =======
 	if (lockstep) {
 >>>>>>> Xilpm: Fixed MISRA-C:2012 R.15.5 in pm_client.c
+=======
+	if (lockstep != 0U) {
+>>>>>>> Xilpm: Fixes MISRA-C:R.10.1, R.14.4 pm_client.c
 		retptr = "RPU";
 	}
 	else {
