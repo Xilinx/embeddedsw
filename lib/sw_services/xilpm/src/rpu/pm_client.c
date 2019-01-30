@@ -44,7 +44,7 @@
 #define PM_CLIENT_RPU_FAULT_LOG_EN_MASK  0x00000101U
 
 /* Mask to get affinity level 0 */
-#define PM_CLIENT_AFL0_MASK              0xFF
+#define PM_CLIENT_AFL0_MASK              0xFFU
 
 static struct XPm_Master pm_rpu_0_master = {
 	.node_id = NODE_RPU_0,
@@ -94,7 +94,7 @@ struct XPm_Master *pm_get_master_by_node(const enum XPmNodeId nid)
 	u8 i;
 	struct XPm_Master *master = NULL;
 
-	for (i = 0; i < PM_ARRAY_SIZE(pm_masters_all); i++) {
+	for (i = 0U; i < PM_ARRAY_SIZE(pm_masters_all); i++) {
 		if (nid == pm_masters_all[i]->node_id) {
 			master = pm_masters_all[i];
 			goto done;
@@ -110,7 +110,7 @@ static u32 pm_get_cpuid(const enum XPmNodeId node)
 	u32 i;
 	u32 ret;
 
-	for (i = 0; i < PM_ARRAY_SIZE(pm_masters_all); i++) {
+	for (i = 0U; i < PM_ARRAY_SIZE(pm_masters_all); i++) {
 		if (pm_masters_all[i]->node_id == node) {
 			ret = i;
 			goto done;
