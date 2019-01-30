@@ -206,6 +206,7 @@ void XPm_ClientSuspendFinalize(void)
 	/* Flush data cache if the cache is enabled */
 	ctrlReg = mfcp(XREG_CP15_SYS_CONTROL);
 <<<<<<< HEAD
+<<<<<<< HEAD
 #elif defined (__ICCARM__)
 	mfcp(XREG_CP15_SYS_CONTROL, ctrlReg);
 #endif
@@ -213,6 +214,9 @@ void XPm_ClientSuspendFinalize(void)
 =======
 	if ((XREG_CP15_CONTROL_C_BIT & ctrlReg) != 0U)
 >>>>>>> Xilpm: Fixes MISRA-C:R.10.1, R.14.4 pm_client.c
+=======
+	if ((XREG_CP15_CONTROL_C_BIT & ctrlReg) != 0U) {
+>>>>>>> Xilpm: Fixes MISRA-C:2012 R.15.6 in pm_client.c
 		Xil_DCacheFlush();
 	}
 
