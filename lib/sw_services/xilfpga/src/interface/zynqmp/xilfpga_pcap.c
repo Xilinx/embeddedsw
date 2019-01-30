@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2016-2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2016-2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -68,6 +68,8 @@
  * 4.2   adk   28/08/18 Fixed misra-c required standard violations.
  * 4.2   Nava  15/09/18 Fixed global function call-backs issue.
  * 5.0	 Nava  10/01/19	Improve the PS-PL resets handling.
+ * 5.0   Nava  10/01/19 Improve the Image validation handling logic for
+ *			bootgen created Bitstream Images.
  *
  * </pre>
  *
@@ -244,10 +246,10 @@ static const u8 BootgenBinFormat[] = {
  *
  * @param InstancePtr Pointer to the XFgpa structure.
  *
- * @return None
+ * @return error status based on implemented functionality (SUCCESS by default)
  ******************************************************************************/
 u32 XFpga_Initialize(XFpga *InstancePtr) {
-	u32 Status;
+	u32 Status = XFPGA_SUCCESS;
 
 	InstancePtr->XFpga_ValidateBitstream = XFpga_ValidateBitstreamImage;
 	InstancePtr->XFpga_PreConfig = XFpga_PreConfigPcap;
@@ -256,13 +258,6 @@ u32 XFpga_Initialize(XFpga *InstancePtr) {
 	InstancePtr->XFpga_GetInterfaceStatus = XFpga_PcapStatus;
 	InstancePtr->XFpga_GetConfigReg = XFpga_GetConfigRegPcap;
 	InstancePtr->XFpga_GetConfigData = XFpga_GetPLConfigData;
-
-	/* Initialize CSU DMA driver */
-	Status = XFpga_CsuDmaInit();
-	if (Status != XFPGA_SUCCESS) {
-		Status = XFPGA_PCAP_UPDATE_ERR(XFPGA_ERROR_CSUDMA_INIT_FAIL,
-					       Status);
-	}
 
 	return Status;
 }
@@ -292,7 +287,9 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 	u8 NoAuth = 0;
 	u8 *IvPtr = (u8 *)(UINTPTR)Iv;
 	u32 BitstreamPos = 0;
-	u32 PartHeaderOffset;
+	u32 PartHeaderOffset = 0;
+	u32 BitstreamOffset = 0;
+	u32 BitstreamAddress = 0;
 
 	if (!(XFPGA_SECURE_MODE_EN) &&
 		(InstancePtr->WriteInfoPtr->Flags & XFPGA_SECURE_FLAGS)) {
@@ -302,17 +299,38 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 		goto END;
 	}
 
+	/* Initialize CSU DMA driver */
+	Status = XFpga_CsuDmaInit();
+	if (Status != XFPGA_SUCCESS) {
+		Status = XFPGA_PCAP_UPDATE_ERR(XFPGA_ERROR_CSUDMA_INIT_FAIL,
+						Status);
+		goto END;
+	}
+
 	if (!(InstancePtr->WriteInfoPtr->Flags & XFPGA_SECURE_FLAGS)) {
-		Status = XFpga_SelectEndianess(
+		PartHeaderOffset = Xil_In32(
+				InstancePtr->WriteInfoPtr->BitstreamAddr
+				+ PARTATION_HEADER_OFFSET);
+		BitstreamOffset = Xil_In32(
+				InstancePtr->WriteInfoPtr->BitstreamAddr
+				+ PartHeaderOffset
+				+ BITSTREAM_PARTATION_OFFSET);
+		BitstreamAddress = (BitstreamOffset * WORD_LEN) +
+				InstancePtr->WriteInfoPtr->BitstreamAddr;
+
+		if (memcmp((u8 *)(BitstreamAddress + SYNC_BYTE_POSITION),
+		    BootgenBinFormat, ARRAY_LENGTH(BootgenBinFormat))) {
+			Status = XFpga_SelectEndianess(
 				(u8 *)InstancePtr->WriteInfoPtr->BitstreamAddr,
 				(u32)InstancePtr->WriteInfoPtr->AddrPtr_Size,
 				&BitstreamPos);
-		if (Status != XFPGA_SUCCESS) {
-			Status = XFPGA_PCAP_UPDATE_ERR(Status, 0);
+			if (Status != XFPGA_SUCCESS) {
+				Status = XFPGA_PCAP_UPDATE_ERR(Status, 0);
+			}
 			goto END;
-		} else if (BitstreamPos != BOOTGEN_DATA_OFFSET) {
+		} else {
+			BitstreamPos = BOOTGEN_DATA_OFFSET;
 			Status = XFPGA_SUCCESS;
-			goto END;
 		}
 	}
 
@@ -399,18 +417,26 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 
 END:
 	if (!(InstancePtr->WriteInfoPtr->Flags & XFPGA_SECURE_FLAGS)) {
-		if (BitstreamPos == BOOTGEN_DATA_OFFSET) {
-			PartHeaderOffset = *(
-			(UINTPTR *)(InstancePtr->WriteInfoPtr->BitstreamAddr +
-			 PARTATION_HEADER_OFFSET));
-			InstancePtr->WriteInfoPtr->AddrPtr_Size =
-			*((UINTPTR *)(InstancePtr->WriteInfoPtr->BitstreamAddr +
-					      PartHeaderOffset)) * WORD_LEN;
+		if (Status == XFPGA_SUCCESS) {
+			if (BitstreamPos == BOOTGEN_DATA_OFFSET) {
+				InstancePtr->WriteInfoPtr->AddrPtr_Size =
+				Xil_In32(
+				InstancePtr->WriteInfoPtr->BitstreamAddr +
+				PartHeaderOffset) * WORD_LEN;
+				InstancePtr->WriteInfoPtr->BitstreamAddr =
+							BitstreamAddress;
+
+			} else {
+				InstancePtr->WriteInfoPtr->AddrPtr_Size -=
+								BitstreamPos;
+				InstancePtr->WriteInfoPtr->BitstreamAddr +=
+								BitstreamPos;
+			}
 		} else {
-			InstancePtr->WriteInfoPtr->AddrPtr_Size -= BitstreamPos;
+			Status = XFPGA_PCAP_UPDATE_ERR(Status, 0);
 		}
-		InstancePtr->WriteInfoPtr->BitstreamAddr += BitstreamPos;
 	}
+
 	return Status;
 
 }
