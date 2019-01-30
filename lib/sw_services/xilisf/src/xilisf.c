@@ -106,8 +106,11 @@
  *					  flash.CR#1004264
  * 5.12 tjs  06/18/18 Added support for low density ISSI
  *		      flash parts. PR#9237
- * 5.13 nsk  01/22/18 Make variable declaration to XQspiPsu_Msg as global
+ * 5.13 nsk  01/22/19 Make variable declaration to XQspiPsu_Msg as global
  *                    CR#1015808.
+ * 5.13 akm  01/30/19 Fixed multiple definition error in C++ project
+ *                         CR#1019773
+ *
  *
  * </pre>
  *
@@ -120,6 +123,11 @@
 /************************** Constant Definitions *****************************/
 
 #define SIXTEENMB	0x1000000	/**< Sixteen MB */
+
+/************************** Variable Definition *****************************/
+
+u32 XIsf_StatusEventInfo;
+unsigned int XIsf_ByteCountInfo;
 
 /**************************** Type Definitions *******************************/
 
