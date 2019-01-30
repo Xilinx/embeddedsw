@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014-2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -84,7 +84,7 @@
 * to build and link only those parts of the driver that are necessary.
 *
 * @file xcsudma.h
-* @addtogroup csudma_v1_4
+* @addtogroup csudma_v1_5
 * @{
 * @details
 *
