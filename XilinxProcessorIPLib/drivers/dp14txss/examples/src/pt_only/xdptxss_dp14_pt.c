@@ -25,11 +25,18 @@
 *                         - CRC is reported on each component
 *                         - checking for 0x84 type frame in Infoframe
 * 1.03 KU 12/23/19 2020.1 - Minor updates
-* 1.04 ND 02/14/19 2020.1 - mcdp related function call now need dprxss instance address
+* 1.04 ND 02/14/20 2020.1 - mcdp related function call now need dprxss instance address
 *                           instead of base address  as first parameter
 * 1.05 ND 03/06/20 2020.1 - Added support for VCK190.
 * 						    Application file are common for VCK190 and
 * 						    ZCU102 PT design.
+* 1.06 ND 07/28/20 2020.2 - Minor updates and removal of redundant code related to PSIIC
+* 							initialization.
+* 1.07 KU 09/02/20 2020.2 - Added support for Adaptive Sync, HDR InfoFrames and
+* 							Colorimetry Information over VSC packets
+* 							New Interrupt added for Vsync On TX
+* 							This application does not support Y420
+* 							Added support for Fabric 8b10b for Versal
 *
 * </pre>
 *
@@ -45,12 +52,16 @@
 //
 #define PS_IIC_CLK 400000
 //
-XIicPs Ps_Iic0, Ps_Iic1;
+XIicPs Ps_Iic1;
 //
 
 #ifdef versal
 XClk_Wiz_Config *CfgPtr_Dynamic;
 XClk_Wiz ClkWiz_Dynamic;
+#if (VERSAL_FABRIC_8B10B == 1)
+XClk_Wiz_Config *CfgPtr_Dynamic_rx;
+XClk_Wiz ClkWiz_Dynamic_rx;
+#endif
 #endif
 
 #ifdef Tx
@@ -81,105 +92,10 @@ u8 frame_pointer_rd = 2;
 u8 not_to_read = 1;
 u8 not_to_write = 3;
 u8 fb_rd_start = 0;
-
-//extern XVidC_VideoMode resolution_table[];
-// adding new resolution definition example
-// XVIDC_VM_3840x2160_30_P_SB, XVIDC_B_TIMING3_60_P_RB
-// and XVIDC_VM_3840x2160_60_P_RB has added
-typedef enum {
-    XVIDC_VM_1920x1080_60_P_RB = (XVIDC_VM_CUSTOM + 1),
-	XVIDC_B_TIMING3_60_P_RB ,
-	XVIDC_VM_3840x2160_120_P_RB,
-	XVIDC_VM_7680x4320_DP_24_P,
-	XVIDC_VM_7680x4320_DP_25_P,
-	XVIDC_VM_7680x4320_DP_30_P,
-	XVIDC_VM_3840x2160_100_P_RB2,
-	XVIDC_VM_7680x4320_30_DELL,
-	XVIDC_VM_5120x2880_60_P_RB2,
-
-	XVIDC_VM_7680x4320_30_MSTR,
-	XVIDC_VM_5120x2880_60_MSTR,
-	XVIDC_VM_3840x2160_120_MSTR,
-    XVIDC_CM_NUM_SUPPORTED
-} XVIDC_CUSTOM_MODES;
-
-// CUSTOM_TIMING: Here is the detailed timing for each custom resolutions.
-const XVidC_VideoTimingMode XVidC_MyVideoTimingMode[
-					(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1))] =
-{
-	{ XVIDC_VM_1920x1080_60_P_RB, "1920x1080@60Hz (RB)", XVIDC_FR_60HZ,
-		{1920, 48, 32, 80, 2080, 1,
-		1080, 3, 5, 23, 1111, 0, 0, 0, 0, 0}},
-	{ XVIDC_B_TIMING3_60_P_RB, "2560x1440@60Hz (RB)", XVIDC_FR_60HZ,
-		 {2560, 48, 32, 80, 2720, 1,
-		1440, 3, 5, 33, 1481, 0, 0, 0, 0, 0}},
-	{ XVIDC_VM_3840x2160_120_P_RB, "3840x2160@120Hz (RB)", XVIDC_FR_120HZ,
-		{3840, 8, 32, 40, 3920, 1,
-		2160, 113, 8, 6, 2287, 0, 0, 0, 0, 1} },
-
-	{ XVIDC_VM_7680x4320_DP_24_P, "7680x4320@24Hz", XVIDC_FR_24HZ,
-		{7680, 352, 176, 592, 8800, 1,
-		4320, 16, 20, 144, 4500, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_7680x4320_DP_25_P, "7680x4320@25Hz", XVIDC_FR_25HZ,
-		{7680, 352, 176, 592, 8800, 1,
-		4320, 16, 20, 144, 4500, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_7680x4320_DP_30_P, "7680x4320@30Hz", XVIDC_FR_30HZ,
-		{7680, 8, 32, 40, 7760, 0,
-		4320, 47, 8, 6, 4381, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_3840x2160_100_P_RB2, "3840x2160@100Hz (RB2)", XVIDC_FR_100HZ,
-		{3840, 8, 32, 40, 3920, 0,
-		2160, 91, 8, 6, 2265, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_7680x4320_30_DELL, "7680x4320_DELL@30Hz", XVIDC_FR_30HZ,
-		{7680, 48, 32, 80, 7840, 0,
-		4320, 3, 5, 53, 4381, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_5120x2880_60_P_RB2, "5120x2880@60Hz (RB2)", XVIDC_FR_60HZ,
-		{5120, 8, 32, 40, 5200, 0,
-		2880, 68, 8, 6, 2962, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_7680x4320_30_MSTR, "7680x4320_MSTR@30Hz", XVIDC_FR_30HZ,
-		{7680, 25, 97, 239, 8041, 0,
-		4320, 48, 9, 5, 4382, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_5120x2880_60_MSTR, "5120x2880@60Hz_MSTR", XVIDC_FR_60HZ,
-		{5120, 25, 97, 239, 5481, 0,
-		2880, 48, 9, 5, 2942, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_3840x2160_120_MSTR, "3840x2160@120Hz_MSTR", XVIDC_FR_120HZ,
-		{3840, 48, 34, 79, 4001, 1,
-		2160, 4, 6, 53, 2223, 0, 0, 0, 0, 1}},
-};
-
-XVidC_VideoMode resolution_table[] =
-{
-	XVIDC_VM_640x480_60_P,
-	XVIDC_VM_480_60_P,
-	XVIDC_VM_800x600_60_P,
-	XVIDC_VM_1024x768_60_P,
-	XVIDC_VM_720_60_P,
-	XVIDC_VM_1600x1200_60_P,
-	XVIDC_VM_1366x768_60_P,
-	XVIDC_VM_1080_60_P,
-	XVIDC_VM_UHD_30_P,
-	XVIDC_VM_UHD_60_P,
-	XVIDC_VM_2560x1600_60_P,
-	XVIDC_VM_1280x1024_60_P,
-	XVIDC_VM_1792x1344_60_P,
-	XVIDC_VM_848x480_60_P,
-	XVIDC_VM_1280x960_60_P,
-	XVIDC_VM_1920x1440_60_P,
-	XVIDC_VM_USE_EDID_PREFERRED,
-
-	XVIDC_VM_1920x1080_60_P_RB,
-	XVIDC_VM_3840x2160_60_P_RB,
-	XVIDC_VM_3840x2160_120_P_RB,
-	XVIDC_VM_7680x4320_DP_24_P,
-	XVIDC_VM_7680x4320_DP_30_P,
-	XVIDC_VM_3840x2160_100_P_RB2,
-	XVIDC_VM_7680x4320_30_DELL,
-	XVIDC_VM_5120x2880_60_P_RB2,
-	XVIDC_VM_7680x4320_30_MSTR,
-	XVIDC_VM_5120x2880_60_MSTR,
-	XVIDC_VM_3840x2160_120_MSTR
-
-};
-
+u32 vblank_init = 0;
+u8 vblank_captured = 0;
+u16 fb_wr_count = 0;
+u16 fb_rd_count = 0;
 
 typedef struct {
 	XVidC_ColorFormat MemFormat;
@@ -210,6 +126,7 @@ VideoFormats ColorFormats[NUM_TEST_FORMATS] =
 
 
 extern u32 StreamOffset[4];
+extern u8 supports_adaptive;
 
 /*****************************************************************************/
 /**
@@ -231,33 +148,6 @@ int VideoFMC_Init(void)
 
 	xil_printf("VFMC: Setting IO Expanders...\n\r");
 
-#ifndef versal
-	XIic_Config *ConfigPtr_IIC;     /* Pointer to configuration data */
-	/* Initialize the IIC driver so that it is ready to use. */
-	ConfigPtr_IIC = XIic_LookupConfig(IIC_DEVICE_ID);
-	if (ConfigPtr_IIC == NULL) {
-	        return XST_FAILURE;
-	}
-
-	Status = XIic_CfgInitialize(&IicInstance, ConfigPtr_IIC,
-			ConfigPtr_IIC->BaseAddress);
-	if (Status != XST_SUCCESS) {
-	        return XST_FAILURE;
-	}
-
-	XIic_Reset(&IicInstance);
-
-
-	/* Set the I2C Mux to select the HPC FMC */
-	Buffer[0] = 0x01;
-	ByteCount = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_MUX_ADDR,
-			(u8*)Buffer, 1, XIIC_STOP);
-	if (ByteCount != 1) {
-		xil_printf("Failed to set the I2C Mux.\n\r");
-	    return XST_FAILURE;
-	}
-#endif
-
 //	I2C_Scan(XPAR_IIC_0_BASEADDR);
 
 	/* Configure VFMC IO Expander 0:
@@ -267,7 +157,7 @@ int VideoFMC_Init(void)
 	 * Disable LMK61E2*/
 	Buffer[0] = 0x52;
 #ifdef versal
-	  Status = XIicPs_MasterSendPolled(&Ps_Iic0,(u8 *)&Buffer,
+	  Status = XIicPs_MasterSendPolled(&Ps_Iic1,(u8 *)&Buffer,
 									  1,I2C_VFMCEXP_0_ADDR);
 	    if(Status == XST_SUCCESS)
 	    {
@@ -293,7 +183,7 @@ int VideoFMC_Init(void)
 	 * Enable IDT8T49N241 */
 	Buffer[0] = 0x1E;
 #ifdef versal
-	Status = XIicPs_MasterSendPolled(&Ps_Iic0,
+	Status = XIicPs_MasterSendPolled(&Ps_Iic1,
 	           (u8 *)&Buffer,1,I2C_VFMCEXP_1_ADDR);
     if(Status == XST_SUCCESS)
     {
@@ -366,6 +256,10 @@ int main()
 					2 * SET_TX_TO_2BYTE);
 	xil_printf("                      Use I2S and ACR : %d \r\n",
 					1 * I2S_AUDIO);
+#if ADAPTIVE
+	xil_printf("                      Adaptive Sync Mode : %d \r\n",
+					1 * ADAPTIVE_TYPE);
+#endif
 	xil_printf("\n********************************************************"
 				"********\n\r");
 #if PHY_COMP
@@ -434,7 +328,7 @@ int I2cMux_Ps(u8 mux)
 
 #else
   Buffer = mux;
-  Status = XIicPs_MasterSendPolled(&Ps_Iic0,
+  Status = XIicPs_MasterSendPolled(&Ps_Iic1,
                                    (u8 *)&Buffer,
                                    1,
 									  I2C_MUX_ADDR_SI);
@@ -506,6 +400,7 @@ u32 DpSs_Main(void)
 	u8 UserInput;
     u32 dprx_sts = 0;
     u32 dptx_sts = 0;
+    u32 retval = 0;
 #ifdef Rx
 	XDpRxSs_Config *ConfigPtr_rx;
 #endif
@@ -595,8 +490,23 @@ u32 DpSs_Main(void)
     }
     if (loop == 10000) {
 	xil_printf("+\r\n");
+        // Issue one more reset. Sometimes the first reset may not complete the
+        // POR
+        GtCtrl (GT_RST_MASK, 0x00000001, 1);
+        GtCtrl (GT_RST_MASK, 0x00000000, 1);
     }
-
+    loop = 0;
+    good = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
+    good &= ALL_LANE;
+    while ((good != ALL_LANE) && loop < 10000) {
+        good = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
+        good &= ALL_LANE;
+        loop++;
+    }
+    if (loop == 10000) {
+	xil_printf("++\r\n");
+    }
+    loop = 0;
 #endif
 
 	/* Set DP141 Tx driver here. */
@@ -608,6 +518,20 @@ u32 DpSs_Main(void)
     i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x08, 0x3C);
     i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x0B, 0x3C);
 
+#endif
+
+#ifdef versal
+#if (VERSAL_FABRIC_8B10B == 1)
+        /* Unlocking the NPI space so that GT CH1 divider value
+         * can be programmed. This will generate a /20 clk
+         */
+	XDp_WriteReg(GT_QUAD_BASE,0xC,0xF9E8D7C6);
+	retval=XDp_ReadReg(GT_QUAD_BASE,CH1CLKDIV_REG);
+	retval &= ~DIV_MASK;
+	retval |= DIV;
+	XDp_WriteReg(GT_QUAD_BASE,CH1CLKDIV_REG,retval);
+//	retval=XDp_ReadReg(GT_QUAD_BASE,CH1CLKDIV_REG);
+#endif
 #endif
 
 	config_phy(0x14);
@@ -626,18 +550,55 @@ u32 DpSs_Main(void)
         loop++;
     }
     if (loop == 10000) {
-	xil_printf("GT Rx reset failure\r\n");
-//        xil_printf ("RX first timeout %x %x!!\r\n",good, good1);
-    } else {
-//        xil_printf ("RX out of reset %x %x!!\r\n",good, good1);
+	xil_printf("-\r\n");
+        // Issue one more reset. Sometimes the first reset may not complete the
+        // POR
+        GtCtrl (GT_RST_MASK, 0x00000001, 0);
+        GtCtrl (GT_RST_MASK, 0x00000000, 0);
     }
     loop = 0;
+    good = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x208);
+    good &= ALL_LANE;
+    while ((good != ALL_LANE) && loop < 10000) {
+        good = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x208);
+        good &= ALL_LANE;
+        loop++;
+    }
 
+    if (loop == 10000) {
+	xil_printf("--\r\n");
+    }
+
+    GtCtrl (GT_RATE_MASK, (VERSAL_810G << 1), 0); //bridge << 1); //rate
+    loop = 0;
+    good = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x208);
+    good &= ALL_LANE;
+    while ((good != ALL_LANE) && loop < 10000) {
+        good = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x208);
+        good &= ALL_LANE;
+        loop++;
+    }
+
+#if (VERSAL_FABRIC_8B10B == 1)
+	loop = 0;
+	//issue reset
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, 0x0, 0xA);
+	while(!(XClk_Wiz_ReadReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_STATUS_OFFSET) & 1)) {
+		if(loop == 10000) {
+				break;
+		}
+		usleep(100);
+		loop++;
+	}
+	if (loop == 10000) {
+		xil_printf ("Rx Clk_wizard failed to lock\r\n");
+	}
+#endif
 #endif
 
 	/*Megachips Retimer Initialization*/
 #ifdef versal
-	DpRxSsInst.IicPsPtr = &Ps_Iic0;
+	DpRxSsInst.IicPsPtr = &Ps_Iic1;
 #endif
 	XDpRxSs_McDp6000_init(&DpRxSsInst);
 
@@ -647,7 +608,6 @@ u32 DpSs_Main(void)
 	XDp_RxGenerateHpdInterrupt(DpRxSsInst.DpPtr, 50000);
 
 #endif
-
 
 	/* FrameBuffer initialization. */
 	Status = XVFrmbufRd_Initialize(&frmbufrd, FRMBUF_RD_DEVICE_ID);
@@ -667,8 +627,6 @@ u32 DpSs_Main(void)
 	resetIp_rd();
 	resetIp_wr();
 
-
-
 #if ENABLE_AUDIO
 #ifdef versal
 	//programming IDT_8T49N24x for Audio clock
@@ -682,15 +640,6 @@ u32 DpSs_Main(void)
 #endif
 
 	DpSs_SetupIntrSystem();
-
-	// Adding custom resolutions at here.
-	xil_printf("INFO> Registering Custom Timing Table with %d entries \r\n",
-							(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1)));
-	Status = XVidC_RegisterCustomTimingModes(XVidC_MyVideoTimingMode,
-							(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1)));
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: Unable to register custom timing table\r\r\n\n");
-	}
 
     operationMenu();
 	while (1) {
@@ -969,14 +918,13 @@ void CalculateCRC(void)
     if (VidFrameCRC_rx.Mode_422 != 0x1) {
 	XVidFrameCrc_WriteReg(VidFrameCRC_rx.Base_Addr,
                           VIDEO_FRAME_CRC_CONFIG,
-                            DpRxSsInst.UsrOpt.LaneCount);
+                            4/*DpRxSsInst.UsrOpt.LaneCount*/);
     } else { // 422
         XVidFrameCrc_WriteReg(VidFrameCRC_rx.Base_Addr,
                               VIDEO_FRAME_CRC_CONFIG,
-                                (DpRxSsInst.UsrOpt.LaneCount | 0x80000000));
-
+                                (/*DpRxSsInst.UsrOpt.LaneCount*/4 | 0x80000000));
     }
-
+#if PHY_COMP
     /* Add delay (~40 ms) for Frame CRC
      * to compute on couple of frames. */
     CustomWaitUs(DpRxSsInst.DpPtr, 400000);
@@ -1018,7 +966,7 @@ void CalculateCRC(void)
                VidFrameCRC_rx.Pixel_r, VidFrameCRC_rx.Pixel_g,
                VidFrameCRC_rx.Pixel_b);
 
-
+#endif
 
 }
 #endif
@@ -1170,7 +1118,7 @@ int i2c_write_dp141(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 			return XST_SUCCESS;
 		}
 #else
-	    Status = XIicPs_MasterSendPolled(&Ps_Iic0,
+	    Status = XIicPs_MasterSendPolled(&Ps_Iic1,
 	                                             (u8 *)&Buffer,
 	                                             2,
 												 I2CSlaveAddress);
@@ -1206,7 +1154,7 @@ void read_DP141()
     u8 Buffer;
     u32 Status;
     Buffer = 0x02 & 0xff;
-    Status = XIicPs_MasterSendPolled(&Ps_Iic0,
+    Status = XIicPs_MasterSendPolled(&Ps_Iic1,
                                              (u8 *)&Buffer,
                                              1,
 											 I2C_TI_DP141_ADDR);
@@ -1214,7 +1162,7 @@ void read_DP141()
 
 //        for(i=0; i<0xD; i++){
 //                Data = i2c_read_dp141( XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, i);
-                XIicPs_MasterRecvPolled(&Ps_Iic0, &Data, 1, I2C_TI_DP141_ADDR);
+                XIicPs_MasterRecvPolled(&Ps_Iic1, &Data, 1, I2C_TI_DP141_ADDR);
                 xil_printf("%x : %02x \r\n",i, Data);
 //        }
 #endif
@@ -1238,9 +1186,9 @@ void read_DP141()
 u32 DpSs_PlatformInit(void)
 {
 	u32 Status;
+	u8 Buffer[2];
+	int ByteCount;
 
-	/*Initializing vck190 onboard IDT8T49N24X for audio*/
-#ifdef versal
 	XIic_Config *ConfigPtr_IIC;     /* Pointer to configuration data */
 	int result=XST_SUCCESS;
 	/* Initialize the IIC driver so that it is ready to use. */
@@ -1257,12 +1205,15 @@ u32 DpSs_PlatformInit(void)
 
 	XIic_Reset(&IicInstance);
 
+
+	/*Initializing vck190 onboard IDT8T49N24X for audio*/
+#ifdef versal
+
 	result=IDT_8T49N24x_Init(XPAR_IIC_0_BASEADDR, I2C_IDT8N49_ADDR_1);
 	if(result!=XST_SUCCESS)
 	{
 		xil_printf("IDT_8T49N24x_Init failed\r\n");
 	}
-
 
    /*
 	  * Get the CLK_WIZ Dynamic reconfiguration driver instance
@@ -1281,6 +1232,24 @@ u32 DpSs_PlatformInit(void)
 			 return XST_FAILURE;
 	 }
 
+#if (VERSAL_FABRIC_8B10B == 1)
+
+	 CfgPtr_Dynamic_rx = XClk_Wiz_LookupConfig(XPAR_CLK_WIZ_1_DEVICE_ID);
+	 if (!CfgPtr_Dynamic_rx) {
+			 return XST_FAILURE;
+	 }
+
+	 /*
+	  * Initialize the CLK_WIZ Dynamic reconfiguration driver
+	  */
+	 Status = XClk_Wiz_CfgInitialize(&ClkWiz_Dynamic_rx, CfgPtr_Dynamic_rx,
+			  CfgPtr_Dynamic_rx->BaseAddr);
+	 if (Status != XST_SUCCESS) {
+			 return XST_FAILURE;
+	 }
+
+
+#endif
 #endif
 
 	/* Initialize CRC & Set default Pixel Mode to 1. */
@@ -1303,37 +1272,50 @@ u32 DpSs_PlatformInit(void)
 	XTmrCtr_Start(&TmrCtr, XTIMER0_DEVICE_ID);
 
 //   /* Initialize PS IIC1 */
-#ifdef versal
-	XIic0Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_DEVICE_ID);
-	if (NULL == XIic0Ps_ConfigPtr) {
+	XIic1Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_DEVICE_ID);
+	if (NULL == XIic1Ps_ConfigPtr) {
 			return XST_FAILURE;
 	}
 
-	Status = XIicPs_CfgInitialize(&Ps_Iic0, XIic0Ps_ConfigPtr,
-								XIic0Ps_ConfigPtr->BaseAddress);
+	Status = XIicPs_CfgInitialize(&Ps_Iic1, XIic1Ps_ConfigPtr,
+								XIic1Ps_ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 	}
 
-	XIicPs_Reset(&Ps_Iic0);
+	XIicPs_Reset(&Ps_Iic1);
 	/*
 	 * Set the IIC serial clock rate.
 	 */
-	XIicPs_SetSClk(&Ps_Iic0, PS_IIC_CLK);
+	XIicPs_SetSClk(&Ps_Iic1, PS_IIC_CLK);
 
+	/* Set the I2C Mux to select the HPC FMC */
+#ifdef versal
 	I2cMux_Ps(0x04);
+#else
+	Buffer[0] = 0x01;
+	ByteCount = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_MUX_ADDR,
+			(u8*)Buffer, 1, XIIC_STOP);
+	if (ByteCount != 1) {
+		xil_printf("Failed to set the I2C Mux.\n\r");
+	    return XST_FAILURE;
+	}
 #endif
 
 	VideoFMC_Init();
 
 #ifndef versal
-	IDT_8T49N24x_Configure(XPAR_IIC_0_BASEADDR, I2C_IDT8N49_ADDR);
+	IDT_8T49N24x_SetClock(XPAR_IIC_0_BASEADDR, I2C_IDT8N49_ADDR, 0,
+            270000000, TRUE);
 #else
 	IDT_8T49N24x_SetClock(0x0, I2C_IDT8N49_ADDR, 0,
             270000000, TRUE);
 #endif
 
 	usleep(300000);
+
+
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 
 	rx_remap_Config = XV_axi4s_remap_LookupConfig(REMAP_RX_DEVICE_ID);
 	Status = XV_axi4s_remap_CfgInitialize(&rx_remap, rx_remap_Config,
@@ -1366,44 +1348,7 @@ u32 DpSs_PlatformInit(void)
 	XV_axi4s_remap_Set_ColorFormat(&tx_remap, 0);
 	XV_axi4s_remap_Set_inPixClk(&tx_remap, 4);
 	XV_axi4s_remap_Set_outPixClk(&tx_remap, 4);
-
-#ifndef versal
-    XIic0Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_0_DEVICE_ID);
-    if (NULL == XIic0Ps_ConfigPtr) {
-            return XST_FAILURE;
-    }
-
-    Status = XIicPs_CfgInitialize(&Ps_Iic0, XIic0Ps_ConfigPtr,
-								XIic0Ps_ConfigPtr->BaseAddress);
-    if (Status != XST_SUCCESS) {
-            return XST_FAILURE;
-    }
-
-    XIicPs_Reset(&Ps_Iic0);
-    /*
-     * Set the IIC serial clock rate.
-     */
-    XIicPs_SetSClk(&Ps_Iic0, PS_IIC_CLK);
 #endif
-
-    /* Initialize PS IIC1 */
-    XIic1Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_DEVICE_ID);
-    if (NULL == XIic1Ps_ConfigPtr) {
-            return XST_FAILURE;
-    }
-
-    Status = XIicPs_CfgInitialize(&Ps_Iic1, XIic1Ps_ConfigPtr,
-								XIic1Ps_ConfigPtr->BaseAddress);
-    if (Status != XST_SUCCESS) {
-            return XST_FAILURE;
-    }
-
-    XIicPs_Reset(&Ps_Iic1);
-    /*
-     * Set the IIC serial clock rate.
-     */
-    XIicPs_SetSClk(&Ps_Iic1, PS_IIC_CLK);
-
 
 #if ENABLE_AUDIO
 
@@ -1512,7 +1457,12 @@ u32 DpSs_SetupIntrSystem(void)
 #endif
 
 	XVFrmbufWr_SetCallback(&frmbufwr, XVFRMBUFWR_HANDLER_DONE,
-								&bufferWr_callback,&frmbufwr);
+								&bufferWr_callback, &frmbufwr);
+
+
+	XVFrmbufRd_SetCallback(&frmbufrd, XVFRMBUFRD_HANDLER_DONE,
+								&bufferRd_callback, &frmbufrd);
+
 
 	/* The configuration parameters of the interrupt controller */
 	XScuGic_Config *IntcConfig;
@@ -1584,7 +1534,7 @@ u32 DpSs_SetupIntrSystem(void)
 	}
 
 	/* Disable the interrupt vector at the interrupt controller */
-	XScuGic_Disable(IntcInstPtr, XPAR_FABRIC_V_FRMBUF_RD_0_VEC_ID);
+	XScuGic_Enable(IntcInstPtr, XPAR_FABRIC_V_FRMBUF_RD_0_VEC_ID);
 
 
 #endif
@@ -1685,7 +1635,7 @@ int TI_LMK03318_SetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 	Buffer[0] = RegisterAddress;
 	Buffer[1] = Value;
 #ifdef versal
-	Status = XIicPs_MasterSendPolled(&Ps_Iic0,
+	Status = XIicPs_MasterSendPolled(&Ps_Iic1,
 		                                             (u8 *)&Buffer,
 		                                             2,
 													 I2CSlaveAddress);
@@ -1787,14 +1737,8 @@ u32 DpSs_PhyInit(u16 DeviceId)
      XVphy_BufgGtReset(&VPhyInst, XVPHY_DIR_RX,(FALSE));
 #else
 
-     u32 good,good1,loop;
-
-     //Setting the bridge for 4 lanes
-     //deasserting the Reset Hold Mask
-     GtCtrl (GT_LANE_MASK, (XPAR_DPTXSS_0_LANE_COUNT << 4), 1);
-     GtCtrl (GT_LANE_MASK, (XPAR_DPTXSS_0_LANE_COUNT << 4), 0);
-     GtCtrl (GT_RST_HOLD_MASK, 0x00000000, 1);
-     GtCtrl (GT_RST_HOLD_MASK, 0x00000000, 0);
+     //Setting Vswing on TX
+     GtCtrl (0x1F00,(5 << 8), 1);
 
 #endif
 
@@ -1833,7 +1777,7 @@ int ConfigFrmbuf_wr(u32 StrideInBytes,
 
 	/* Enable Interrupt */
 	XVFrmbufWr_InterruptEnable(&frmbufwr,
-			XVFRMBUFWR_HANDLER_READY | XVFRMBUFWR_HANDLER_DONE);
+			XVFRMBUFWR_HANDLER_DONE);
 
 	XV_frmbufwr_EnableAutoRestart(&frmbufwr.FrmbufWr);
 	/* Start Frame Buffers */
@@ -1843,10 +1787,14 @@ int ConfigFrmbuf_wr(u32 StrideInBytes,
 	return(Status);
 }
 
+u8 stopped = 1;
+u8 start_rdfb = 0;
 
 /*****************************************************************************/
 /**
  * This function configures Frame Buffer for defined mode
+ * The FrramBuffer is put in Autorestart mode for non-Adaptive Sync mode
+ * When Adaptive Sync mode is enabled the FrameBuffer is put in manual mode
  *
  * @return XST_SUCCESS if init is OK else XST_FAILURE
  *
@@ -1858,8 +1806,8 @@ int ConfigFrmbuf_rd(u32 StrideInBytes,
 
 	int Status;
 
-	XVFRMBUFRD_BUFFER_BASEADDR = frame_array[frame_pointer_rd];
-	XVFRMBUFRD_BUFFER_BASEADDR_Y = frame_array_y[frame_pointer_rd];
+	XVFRMBUFRD_BUFFER_BASEADDR = frame_array[frame_pointer];
+	XVFRMBUFRD_BUFFER_BASEADDR_Y = frame_array_y[frame_pointer];
 
 	/* Configure  Frame Buffers */
 	Status = XVFrmbufRd_SetMemFormat(&frmbufrd, StrideInBytes, Cfmt, StreamPtr);
@@ -1868,23 +1816,28 @@ int ConfigFrmbuf_rd(u32 StrideInBytes,
 		return(XST_FAILURE);
 	}
 
-	Status = XVFrmbufRd_SetBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR);
-	Status |= XVFrmbufRd_SetChromaBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR_Y);
-	if(Status != XST_SUCCESS) {
-		xil_printf("ERROR:: Unable to configure Frame Buffer "
-				"Read buffer address\r\n");
-		return(XST_FAILURE);
+	if (!supports_adaptive || !ADAPTIVE_TYPE) {
+		Status = XVFrmbufRd_SetBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR);
+		Status |= XVFrmbufRd_SetChromaBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR_Y);
+		if(Status != XST_SUCCESS) {
+			xil_printf("ERROR:: Unable to configure Frame Buffer "
+					"Read buffer address\r\n");
+			return(XST_FAILURE);
+		}
 	}
 
 	/* Enable Interrupt */
-//	XVFrmbufRd_InterruptEnable(&frmbufrd,
-//			XVFRMBUFRD_HANDLER_READY | XVFRMBUFRD_HANDLER_DONE);
+	XVFrmbufRd_InterruptEnable(&frmbufrd,
+			XVFRMBUFRD_HANDLER_DONE);
 
-
-	XV_frmbufrd_EnableAutoRestart(&frmbufrd.FrmbufRd);
-	/* Start Frame Buffers */
-	XVFrmbufRd_Start(&frmbufrd);
-
+	/* When Adaptive mode is 0 or Monitor does not support Adaptive Sync
+	 * the FB read is configured in AutoEnableRestart mode
+	 */
+	if (!supports_adaptive || !ADAPTIVE_TYPE) {
+		XV_frmbufrd_EnableAutoRestart(&frmbufrd.FrmbufRd);
+		/* Start Frame Buffers */
+		XVFrmbufRd_Start(&frmbufrd);
+	}
 	//xil_printf("INFO: FRMBUFrd configured\r\n");
 	return(Status);
 }
@@ -1968,7 +1921,7 @@ void frameBuffer_stop_rd() {
 	if (Status != XST_SUCCESS) {
 		xil_printf ("Frame Buffer is not Idle\r\n");
 	}
-
+	usleep(1000);
 }
 
 
@@ -1983,12 +1936,10 @@ void frameBuffer_stop_wr() {
 	if (Status != XST_SUCCESS) {
 		xil_printf ("Frame Buffer is not Idle\r\n");
 	}
+	usleep (1000);
 
 }
 
-
-//void frameBuffer_start_wr(XVidC_VideoMode VmId,
-//		XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K) {
 void frameBuffer_start_wr(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K) {
 
 
@@ -2030,24 +1981,21 @@ void frameBuffer_start_wr(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K) {
 	}
 
 	VidStream.PixPerClk  = (int)DpRxSsInst.UsrOpt.LaneCount;
-//	VidStream.VmId = VmId;
-//	TimingPtr = XVidC_GetTimingInfo(VidStream.VmId);
 	VidStream.Timing = Msa[0].Vtm.Timing;
 	VidStream.FrameRate = Msa[0].Vtm.FrameRate;
-
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 	remap_start_wr(Msa, downshift4K);
-
+#endif
 	/* Configure Frame Buffer */
 	// Rx side
 	u32 stride = CalcStride(Cfmt,
 					256,
 					&VidStream);
 	ConfigFrmbuf_wr(stride, Cfmt, &VidStream);
+	stopped = 1;
+	fb_wr_count = 0;
 }
 
-
-//void frameBuffer_start_rd(XVidC_VideoMode VmId,
-//		XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K) {
 void frameBuffer_start_rd(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K) {
 
 	XVidC_ColorFormat Cfmt;
@@ -2089,14 +2037,12 @@ void frameBuffer_start_rd(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K) {
 	}
 
 	VidStream.PixPerClk  = Msa[0].UserPixelWidth;
-//	VidStream.VmId = VmId;
-//	TimingPtr = XVidC_GetTimingInfo(VidStream.VmId);
 	VidStream.Timing = Msa[0].Vtm.Timing;
 	VidStream.FrameRate = Msa[0].Vtm.FrameRate;
 
-
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 	remap_start_rd(Msa, downshift4K);
-
+#endif
 	/* Configure Frame Buffer */
 	// Rx side
 	u32 stride = CalcStride(Cfmt,
@@ -2112,8 +2058,8 @@ void frameBuffer_start_rd(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K) {
 	}
 
 	ConfigFrmbuf_rd(stride, Cfmt, &VidStream);
-
 	fb_rd_start = 1;
+	fb_rd_count = 0;
 
 }
 
@@ -2156,6 +2102,8 @@ void resetIp_wr()
 }
 
 
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
+
 void remap_set(XV_axi4s_remap *remap, u8 in_ppc, u8 out_ppc, u16 width,
 		u16 height, u8 color_format){
 	XV_axi4s_remap_Set_width(remap, width);
@@ -2164,6 +2112,10 @@ void remap_set(XV_axi4s_remap *remap, u8 in_ppc, u8 out_ppc, u16 width,
 	XV_axi4s_remap_Set_inPixClk(remap, in_ppc);
 	XV_axi4s_remap_Set_outPixClk(remap, out_ppc);
 }
+#endif
+
+
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 
 void remap_start_wr(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K)
 {
@@ -2184,7 +2136,10 @@ void remap_start_wr(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K)
 	XV_axi4s_remap_EnableAutoRestart(&rx_remap);
 	XV_axi4s_remap_Start(&rx_remap);
 }
+#endif
 
+
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 
 void remap_start_rd(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K)
 {
@@ -2233,9 +2188,38 @@ void remap_start_rd(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K)
 	XV_axi4s_remap_Start(&tx_remap);
 }
 
+#endif
 
 void bufferWr_callback(void *InstancePtr){
 	u32 Status;
+
+	/* If Adaptive Mode is 1, the FB Read is triggered on FB Wr Interrupt
+	 * This ensures that the frame rate is maintained at TX (appx)
+	 *
+	 */
+	if (fb_rd_start && supports_adaptive && ADAPTIVE_TYPE) {
+		Status = XVFrmbufRd_SetBufferAddr(&frmbufrd, XVFRMBUFWR_BUFFER_BASEADDR);
+		Status |= XVFrmbufRd_SetChromaBufferAddr(&frmbufrd, XVFRMBUFWR_BUFFER_BASEADDR_Y);
+		if(Status != XST_SUCCESS) {
+			xil_printf("ERROR:: Unable to configure Frame Buffer "
+					"Read buffer address\r\n");
+		}
+		if (stopped) {
+			XVFrmbufRd_Start(&frmbufrd);
+			start_rdfb = 0;
+			stopped = 0;
+		} else {
+			/* Ideally this should never be hit in Adaptive Mode 1
+			 * However it can get hit due to system latencies or
+			 * due to delay in servicing interrupts.
+			 * Setting start_rdfb to 1. If this is 1 then FB RD will be
+			 * started when RD interrupt is asserted
+			 */
+            start_rdfb = 1;
+//	        xil_printf(ANSI_COLOR_RED"FrameBUffer RD is not idle !!"ANSI_COLOR_RESET"\r\n");
+		}
+	}
+
 
 	if(XVFRMBUFWR_BUFFER_BASEADDR >= (0 + (0x10000000) + (0x10000000 * 2))){
 
@@ -2243,7 +2227,6 @@ void bufferWr_callback(void *InstancePtr){
 										offset_rd);
 		XVFRMBUFRD_BUFFER_BASEADDR_Y = (0 + (0x40000000) + (0x10000000 * 1) +
 										offset_rd);
-
 
 		XVFRMBUFWR_BUFFER_BASEADDR = 0 + (0x10000000);
 		XVFRMBUFWR_BUFFER_BASEADDR_Y = 0 + (0x40000000);
@@ -2262,19 +2245,30 @@ void bufferWr_callback(void *InstancePtr){
 				"Write buffer address\r\n");
 	}
 
-	if (fb_rd_start) {
-	Status = XVFrmbufRd_SetBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR);
-	Status |= XVFrmbufRd_SetChromaBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR_Y);
-	if(Status != XST_SUCCESS) {
-		xil_printf("ERROR:: Unable to configure Frame Buffer "
-				"Read buffer address\r\n");
+	/* In Non-Adaptive Scenario, the FB Read is in Autorestart mode
+	 *
+	 */
+
+	if (fb_rd_start && (!supports_adaptive || !ADAPTIVE_TYPE)) {
+		Status = XVFrmbufRd_SetBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR);
+		Status |= XVFrmbufRd_SetChromaBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR_Y);
+		if(Status != XST_SUCCESS) {
+			xil_printf("ERROR:: Unable to configure Frame Buffer "
+					"Read buffer address\r\n");
+		}
 	}
-	}
+	fb_wr_count++;
 }
 
 
 void bufferRd_callback(void *InstancePtr){
-
+	stopped = 1;
+	if (start_rdfb) {
+		start_rdfb = 0;
+		XVFrmbufRd_Start(&frmbufrd);
+		stopped = 0;
+	}
+	fb_rd_count++;
 }
 
 
@@ -2329,7 +2323,6 @@ u8 lock = 0;
 volatile u32 appx_fs_dup = 0;
 u32 maud_dup = 0;
 u32 naud_dup = 0;
-//extern u8 audio_info_avail;
 
 void Dppt_DetectAudio (void) {
 
@@ -2394,10 +2387,6 @@ void Dppt_DetectAudio (void) {
 		XACR_WriteReg (RX_ACR_ADDR, RXACR_MODE, 0x0); // use streaming from DP
 		start_i2s_clk = 1;
 		AudioinfoFrame.frame_count = 0;
-//		audio_info_avail = 0;
-		XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
-				XDP_RX_INTERRUPT_MASK_INFO_PKT_MASK);
-//		xil_printf (" old new = %d %d\r\n",appx_fs_dup,appx_fs);
 		appx_fs_dup = appx_fs;
 		XACR_WriteReg (RX_ACR_ADDR, RXACR_ENABLE, 0x1);
 		xil_printf ("^^\r\n");
@@ -2429,7 +2418,10 @@ int Dppt_DetectResolution(void *InstancePtr,
 
 	u32 DpHres = 0;
 	u32 DpVres = 0;
+	u8 bpc;
 	char *color;
+	u8 color_mode = 0;
+	u8 Bpc[] = {6, 8, 10, 12, 16};
 
 	int i = 0;
 
@@ -2460,19 +2452,19 @@ int Dppt_DetectResolution(void *InstancePtr,
 	u32 rxMsaNVid = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 			XDP_RX_MSA_NVID);
 
+	use_vsc = ((rxMsamisc1 >> 6) &0x1);
 
 	Msa[0].Misc0 = rxMsamisc0;
 	Msa[0].Misc1 = rxMsamisc1;
 	rxMsamisc0 = ((rxMsamisc0 >> 5) & 0x00000007);
-//	u8 comp = ((rxMsamisc0 >> 1) & 0x00000003);
-
-	u8 Bpc[] = {6, 8, 10, 12, 16};
-
-
 	Msa[0].Vtm.Timing.HActive = DpHres;
 	Msa[0].Vtm.Timing.VActive = DpVres;
 	Msa[0].Vtm.Timing.HTotal = DpHres_total;
 	Msa[0].Vtm.Timing.F0PVTotal = DpVres_total;
+#if ADAPTIVE
+	vblank_captured = 1;
+	vblank_init = DpVres_total - DpVres;
+#endif
 	Msa[0].MVid = rxMsaMVid;
 	Msa[0].NVid = rxMsaNVid;
 	Msa[0].HStart =
@@ -2492,25 +2484,28 @@ int Dppt_DetectResolution(void *InstancePtr,
 
 
 	Msa[0].SynchronousClockMode = rxMsamisc0 & 1;
-	u8 bpc = Bpc[rxMsamisc0];
+	bpc = XDpRxss_GetBpc(&DpRxSsInst, XDP_TX_STREAM_ID1);
 	Msa[0].BitsPerColor = bpc;
 
-	/* Check for YUV422, BPP has to be set using component value to 2 */
-	if( (Msa[0].Misc0 & 0x6 ) == 0x2  ) {
-	//YUV422
-		Msa[0].ComponentFormat =
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
-		color = "YCbCr422";
+	color_mode = XDpRxss_GetColorComponent(&DpRxSsInst, XDP_TX_STREAM_ID1);
+
+	if(color_mode == 0){
+			Msa[0].ComponentFormat =
+					XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
+			color = "RGB";
 	}
-	else if( (Msa[0].Misc0 & 0x6 ) == 0x4  ) {
-	//RGB or YUV444
-		Msa[0].ComponentFormat =
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
-		color = "YCbCr444";
-	}else {
-		Msa[0].ComponentFormat =
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
-		color = "RGB";
+	else if(color_mode == 1){
+			Msa[0].ComponentFormat =
+					XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
+			color = "YCbCr444";
+	}
+	else if(color_mode == 2){
+			Msa[0].ComponentFormat =
+					XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
+			color = "YCbCr422";
+	} else {
+		//RAW, 420, Y unsupported
+		xil_printf ("Unsupported Color Format\r\n");
 	}
 
 	u32 recv_clk_freq =
@@ -2537,13 +2532,10 @@ int Dppt_DetectResolution(void *InstancePtr,
 		recv_frame_clk_int = 120;
 	}
 
-
 	Msa[0].Vtm.FrameRate = recv_frame_clk_int;
-
-
 	Msa[0].PixelClockHz = DpHres_total * DpVres_total * recv_frame_clk_int;
-	Msa[0].DynamicRange = XDP_DR_CEA;
-	Msa[0].YCbCrColorimetry = XDP_TX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT601;
+	Msa[0].DynamicRange = XDpRxss_GetDynamicRange(&DpRxSsInst, XDP_TX_STREAM_ID1);
+	Msa[0].YCbCrColorimetry = XDpRxss_GetColorimetry(&DpRxSsInst, XDP_TX_STREAM_ID1);
 
 	if((recv_clk_freq*1000000)>540000000
 			&& (int)DpRxSsInst.UsrOpt.LaneCount==4){
@@ -2571,8 +2563,9 @@ int Dppt_DetectResolution(void *InstancePtr,
 	if (DpRxSsInst.link_up_trigger == 1) {
 		xil_printf(
 			"*** Resolution: "
-				"%lu x %lu @ %luHz, BPC = %lu, PPC = %d, Color = %s ***\r\n",
-			DpHres, DpVres,recv_frame_clk_int,bpc,(int)DpRxSsInst.UsrOpt.LaneCount, color
+				"%lu x %lu @ %luHz, BPC = %lu, PPC = %d, Color = %s (%d) ***\r\n",
+			DpHres, DpVres,recv_frame_clk_int,bpc,(int)DpRxSsInst.UsrOpt.LaneCount,
+				color, use_vsc
 		);
 	}
 
@@ -2581,9 +2574,7 @@ int Dppt_DetectResolution(void *InstancePtr,
 		XDp_RxDtgEn(DpRxSsInst.DpPtr);
 	}
 
-#if PHY_COMP
-		CalculateCRC();
-#endif
+	CalculateCRC();
 
 		return 1;
 }
@@ -2594,27 +2585,32 @@ int Dppt_DetectColor(void *InstancePtr,
 							XDpTxSs_MainStreamAttributes Msa[4]){
 
 	int x,y = 0;
+	u8 color_mode = 0;
+	u8 use_vsc_local = 0;
+	u8 component;
 
-	u32 rxMsamisc0 = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-			XDP_RX_MSA_MISC0);
-
-	Msa[0].Misc0 = rxMsamisc0;
-	/* Check for YUV422, BPP has to be set using component value to 2 */
-	if( (Msa[0].Misc0 & 0x6 ) == 0x2  ) {
-	//YUV422
-		Msa[0].ComponentFormat =
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
+	u32 rxMsamisc1 = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+			XDP_RX_MSA_MISC1);
+	use_vsc_local = ((rxMsamisc1 >> 6) &0x1);
+	color_mode = XDpRxss_GetColorComponent(&DpRxSsInst, XDP_TX_STREAM_ID1);
+	if(color_mode == 0){
+		component =
+					XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
 	}
-	else if( (Msa[0].Misc0 & 0x6 ) == 0x4  ) {
-	//RGB or YUV444
-		Msa[0].ComponentFormat =
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
-	}else
-		Msa[0].ComponentFormat =
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
+	else if(color_mode == 1){
+		component =
+					XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
+	}
+	else if(color_mode == 2){
+		component =
+					XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
+	} else {
+		//RAW, 420, Y unsupported
+		xil_printf(ANSI_COLOR_RED"Unsupported Color Format !!"ANSI_COLOR_RESET"\r\n");
+	}
 
-	if (DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat !=
-			Msa[0].ComponentFormat) {
+	if ((component != Msa[0].ComponentFormat) ||
+			(use_vsc != use_vsc_local)) {
 
 			for (x=0;x<500;x++){
 				for (y=0;y<500;y++){
@@ -2652,10 +2648,9 @@ int Dppt_DetectColor(void *InstancePtr,
 		} else {
 			return 0;
 		}
+	} else {
+		return 0;
 	}
-
-
-
 }
 
 
@@ -2698,36 +2693,17 @@ void DpPt_TxSetMsaValuesImmediate(void *InstancePtr){
 					XDP_RX_MSA_VSTART));
 	//Ensure to set TX in async mode. The TX is in ASYNC mode
 	//Setting the MISC0[0] to 0
+	//Setting bit[12] of Misc0 to '1' for VSC packet
+
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_MAIN_STREAM_MISC0 +
-			StreamOffset[0], ((XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-					XDP_RX_MSA_MISC0)) & 0xFFFFFFFE));
+			StreamOffset[0], (((XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+					XDP_RX_MSA_MISC0)) | 0x00001000) & 0xFFFFFFFE));
 
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_MAIN_STREAM_MISC1 +
 			StreamOffset[0], XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 					XDP_RX_MSA_MISC1));
+
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_USER_PIXEL_WIDTH +
 		StreamOffset[0], tx_ppc_set);
-//		XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,XDP_RX_USER_PIXEL_WIDTH)
-//			);
-
-
-
-	/* Check for YUV422, BPP has to be set using component value to 2 */
-	if( ( (XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_MSA_MISC0))
-			 & 0x6 ) == 0x2  ) {
-	//YUV422
-		DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat =
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
-	}
-	else if(( (XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,XDP_RX_MSA_MISC0))
-			 & 0x6 ) == 0x4){
-	// YUV444
-		DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat =
-
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
-	}else
-	// RGB
-		DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat =
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
 }
 #endif
