@@ -49,6 +49,7 @@ typedef enum {
         RELEASE_ONE,
         RELEASE_ALL,
         RELEASE_UNREQUESTED,
+        RELEASE_DEVICE,
 } XPm_ReleaseScope;
 
 /**

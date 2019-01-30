@@ -606,8 +606,11 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 {
 	XStatus Status = XST_SUCCESS;
 	XPm_Core *Core;
+	XPm_Device *Device;
+	XPm_Power *Power;
 	u32 TargetSubsystemId;
 	XPm_Requirement *Reqm;
+	int i;
 
 	/* Warning Fix */
 	(void) (Ack);
@@ -650,10 +653,48 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 			}
 			Reqm = Reqm->NextSubsystem;
 		}
-	} else if ((XPM_NODECLASS_POWER == NODECLASS(NodeId)) &&
-		   (NODESUBCLASS(NodeId) == XPM_NODESUBCL_POWER_DOMAIN ||
-		   NODESUBCLASS(NodeId) == XPM_NODESUBCL_POWER_ISLAND)) {
-		/* TBD: Add power domain/island force poweroff support*/
+
+	} else if (XPM_NODECLASS_POWER == NODECLASS(NodeId)) {
+		if (XPM_NODESUBCL_POWER_ISLAND == NODESUBCLASS(NodeId)) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+		VERIFY(XPM_NODESUBCL_POWER_DOMAIN == NODESUBCLASS(NodeId));
+
+		/*
+		 * PMC power domain can not be powered off.
+		 */
+		if (XPM_NODEIDX_POWER_PMC == NODEINDEX(NodeId)) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+
+		/*
+		 * Release devices belonging to the power domain.
+		 */
+		for (i = 1; i < XPM_NODEIDX_DEV_MAX; i++) {
+			Device = PmDevices[i];
+			if ((NULL == Device) ||
+			    (XPM_DEVSTATE_UNUSED == Device->Node.State)) {
+				continue;
+			}
+
+			/*
+			 * Check power topology of this device to identify
+			 * if it belongs to the power domain.
+			 */
+			Power = Device->Power;
+			while (NULL != Power) {
+				if (NodeId == Power->Node.Id) {
+					Status = XPmRequirement_Release(
+					    Device->Requirements, RELEASE_DEVICE);
+					if (XST_SUCCESS != Status) {
+						goto done;
+					}
+				}
+				Power = Power->Parent;
+			}
+		}
 	} else {
 		Status = XST_INVALID_PARAM;
 	}
