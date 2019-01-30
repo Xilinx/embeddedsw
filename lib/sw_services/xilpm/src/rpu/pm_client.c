@@ -75,7 +75,7 @@ static struct XPm_Master *const pm_masters_all[] = {
 struct XPm_Master *pm_get_master(const u32 cpuid)
 {
 	struct XPm_Master *master = NULL;
-	if (PM_ARRAY_SIZE(pm_masters_all)) {
+	if (PM_ARRAY_SIZE(pm_masters_all) != 0U) {
 		master = pm_masters_all[cpuid];
 		goto done;
 	}
@@ -179,7 +179,7 @@ void XPm_ClientSuspendFinalize(void)
 
 	/* Flush data cache if the cache is enabled */
 	ctrlReg = mfcp(XREG_CP15_SYS_CONTROL);
-	if (XREG_CP15_CONTROL_C_BIT & ctrlReg)
+	if ((XREG_CP15_CONTROL_C_BIT & ctrlReg) != 0U)
 		Xil_DCacheFlush();
 
 	pm_dbg("Going to WFI...\n");
@@ -200,7 +200,7 @@ const char* XPm_GetMasterName(void)
 	bool lockstep = !(pm_read(RPU_RPU_GLBL_CNTL) &
 		     RPU_RPU_GLBL_CNTL_SLSPLIT_MASK);
 
-	if (lockstep) {
+	if (lockstep != 0U) {
 		retptr = "RPU";
 	}
 	else {
