@@ -526,8 +526,11 @@
  * 5.12 tjs	 06/18/18 Added support for low density ISSI
  *			  flash parts. PR#9237
  * 5.12 tjs	 08/13/18 Fixed the compilation warnings for ARMCC (CR#1008307)
- * 5.13 nsk  01/22/18 Make variable declaration to XQspiPsu_Msg as global
+ * 5.13 nsk  01/22/19 Make variable declaration to XQspiPsu_Msg as global
  *                    CR#1015808.
+ * 5.13 akm	 01/30/19 Fixed multiple definition error in C++ project
+ *   			  CR#1019773
+ *
  *
  * </pre>
  *
@@ -1048,10 +1051,10 @@ typedef struct {
 } XIsf_BufferReadParam;
 
 
-/************************** Variable Definitions *****************************/
+/************************** Variable Declaration *****************************/
 
-u32 XIsf_StatusEventInfo;
-unsigned int XIsf_ByteCountInfo;
+extern u32 XIsf_StatusEventInfo;
+extern unsigned int XIsf_ByteCountInfo;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
