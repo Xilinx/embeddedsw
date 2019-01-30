@@ -125,7 +125,7 @@ void XPm_ClientSuspend(const struct XPm_Master *const master)
 	/* Set powerdown request */
 	pwrdn_req = pm_read(master->pwrctl);
 	pwrdn_req |= master->pwrdn_mask;
-	pm_write(master->pwrctl, pm_read(master->pwrctl) | master->pwrdn_mask);
+	pm_write(master->pwrctl, pwrdn_req);
 }
 
 void XPm_ClientAbortSuspend(void)
