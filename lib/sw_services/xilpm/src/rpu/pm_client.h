@@ -43,8 +43,6 @@
 #include "pm_defs.h"
 #include "pm_common.h"
 
-#define IPI_TRIG_OFFSET		0x0
-#define IPI_OBS_OFFSET		0x4
 
 const char* XPm_GetMasterName(void);
 
