@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2003 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2003 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@
 ******************************************************************************/
 /*****************************************************************************/
 /**
-* @file xhwicap_read_config_reg.c
+* @file xhwicap_read_config_reg_example.c
 *
 * This file contains a design example using the HwIcap driver and hardware
 * device.
@@ -69,6 +69,9 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 11.2 Nava 30/01/19  Rename the example since sdk is expecting _example
+*		      extension to support the import examples feature
+*		      from system.mss file.
 * </pre>
 *
 ******************************************************************************/
