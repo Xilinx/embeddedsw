@@ -580,6 +580,7 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 		XPm_Power *Power, XPm_ClockNode * Clock, XPm_ResetNode *Reset)
 {
 	XStatus Status = XST_FAILURE;
+	XPm_Requirement *Reqm;
 
 	if (PmDevices[NODEINDEX(Id)] != NULL) {
 		Status = XST_DEVICE_BUSY;
@@ -588,6 +589,17 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 
 	Status = XPmNode_Init(&Device->Node,
 		Id, XPM_DEVSTATE_UNUSED, BaseAddress);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Add requirement by default for PMC subsystem */
+	Reqm = (XPm_Requirement *)XPm_AllocBytes(sizeof(XPm_Requirement));
+	if (NULL == Reqm) {
+		Status = XST_BUFFER_TOO_SMALL;
+		goto done;
+	}
+	Status = XPmRequirement_Init(Reqm, &PmSubsystems[XPM_SUBSYSID_PMC], Device);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
