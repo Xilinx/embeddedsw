@@ -103,3 +103,28 @@ static void _metal_irq_set_enable(int irq, unsigned int state)
 	}
 	cntr->irq_set_enable(cntr, irq, state);
 }
+
+int metal_irq_register(int irq,
+		       metal_irq_handler irq_handler,
+		       struct metal_device *dev,
+		       void *arg)
+{
+	struct metal_irq_controller *cntr;
+	struct metal_irq *irq_data;
+
+	(void)dev;
+	cntr = metal_irq_get_controller(irq);
+	if (cntr == NULL) {
+		return -EINVAL;
+	}
+	if (cntr->irq_register != NULL) {
+		return cntr->irq_register(cntr, irq, irq_handler, arg);
+	}
+	if (cntr->irqs == NULL) {
+		return -EINVAL;
+	}
+	irq_data = &cntr->irqs[irq - cntr->irq_base];
+	irq_data->hd = irq_handler;
+	irq_data->arg = arg;
+	return 0;
+}
