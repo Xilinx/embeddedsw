@@ -242,8 +242,8 @@ extern "C" {
 #define XFPGA_PCAP_ERR_MASK			(0xFF00U)
 #define XFPGA_ERR_MODULE_MASK			(0xFFFF0000U)
 #define XFPGA_PCAP_UPDATE_ERR(XfpgaPcapErr, ModuleErr)		\
-		(((ModuleErr) << 16U) & XFPGA_ERR_MODULE_MASK) + \
-		(((XfpgaPcapErr) << 8U) & XFPGA_PCAP_ERR_MASK)
+		(((ModuleErr) << (u32)16U) & XFPGA_ERR_MODULE_MASK) + \
+		(((XfpgaPcapErr) << (u32)8U) & XFPGA_PCAP_ERR_MASK)
 
 #define XFPGA_STATE_MASK	0x00FF0000U
 #define XFPGA_STATE_SHIFT	16U
