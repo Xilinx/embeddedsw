@@ -34,8 +34,8 @@
  * the execution environment.
  */
 
-#ifndef _PM_CLIENT_H_
-#define _PM_CLIENT_H_
+#ifndef PM_CLIENT_H
+#define PM_CLIENT_H
 
 #include <xil_exception.h>
 #include <xil_io.h>
@@ -50,4 +50,4 @@
 
 #define pm_print(MSG, ...)	xil_printf("APU: "MSG,##__VA_ARGS__)
 
-#endif /* _PM_CLIENT_H_ */
+#endif /* PM_CLIENT_H */
