@@ -26,6 +26,10 @@ extern "C" {
 
 #ifdef METAL_INTERNAL
 
+#ifndef XLNX_MAXIRQS
+#define XLNX_MAXIRQS 32
+#endif
+
 void metal_weak sys_irq_enable(unsigned int vector);
 
 void metal_weak sys_irq_disable(unsigned int vector);
