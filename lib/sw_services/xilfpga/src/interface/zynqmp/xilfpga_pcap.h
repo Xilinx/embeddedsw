@@ -50,8 +50,8 @@
  *  - CSU DMA driver is used to transfer the actual Bit stream file for the
  *    PS to PL after PCAP initialization
  *
- *  - Xilsecure_library provides APIs to access secure hardware on the Zynq&reg;
- *    UltraScale+&tm; MPSoC devices. This library includes:
+ *  - Xilsecure_library provides APIs to access secure hardware on the Zynq&reg
+ *    UltraScale+&tm MPSoC devices. This library includes:
  *	 - SHA-3 engine hash functions
  *	 - AES for symmetric key encryption
  *	 - RSA for authentication
