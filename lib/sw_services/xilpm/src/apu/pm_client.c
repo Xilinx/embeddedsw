@@ -35,7 +35,7 @@
 
 #include "pm_client.h"
 #include "xparameters.h"
-#include <xil_cache.h>
+#include "xil_cache.h"
 #include <xreg_cortexa53.h>
 #include <xpseudo_asm.h>
 
