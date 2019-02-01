@@ -1396,8 +1396,8 @@ static u32 XFpga_WriteEncryptToPcap(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 	}
 
 	EncSrc = (u8 *)(UINTPTR)(BitstreamAddr +
-			(ImageHdrInfo->PartitionHdr->DataWordOffset) *
-						XSECURE_WORD_LEN);
+			((ImageHdrInfo->PartitionHdr->DataWordOffset) *
+						XSECURE_WORD_LEN));
 	Status = XSecure_AesDecrypt(&Secure_Aes,
 			(u8 *) XFPGA_DESTINATION_PCAP_ADDR, EncSrc,
 			ImageHdrInfo->PartitionHdr->UnEncryptedDataWordLength *
@@ -2081,8 +2081,8 @@ static u32 XFpga_PsPlGpioResetsLow(u32 TotalResets)
 	u32 RegVal = 0U;
 
 	/* Set EMIO Direction */
-	RegVal = Xil_In32(GPIO_DIRM_5_EMIO) |
-		~(~0U << TotalResets) << (MAX_REG_BITS + 1U - TotalResets);
+	RegVal = (Xil_In32(GPIO_DIRM_5_EMIO) |
+		(~(~0U << TotalResets) << (MAX_REG_BITS + 1U - TotalResets)));
 	Xil_Out32(GPIO_DIRM_5_EMIO, RegVal);
 
 	/*De-assert the EMIO with the required Mask */
@@ -2112,15 +2112,15 @@ static u32 XFpga_PsPlGpioResetsHigh(u32 TotalResets)
 	u32 MaskVal;
 
 	/* Set EMIO Direction */
-	RegVal = Xil_In32(GPIO_DIRM_5_EMIO) |
-		~(~0U << TotalResets) << (MAX_REG_BITS + 1U - TotalResets);
+	RegVal = (Xil_In32(GPIO_DIRM_5_EMIO) |
+		(~(~0U << TotalResets) << (MAX_REG_BITS + 1U - TotalResets)));
 	Xil_Out32(GPIO_DIRM_5_EMIO, RegVal);
 
 	/*Assert the EMIO with the required Mask */
-	MaskVal = ~(~0U << TotalResets) << (MAX_REG_BITS/2U + 1U - TotalResets) |
-								0xFFFF0000U;
-	RegVal = MaskVal & ~(~(~0U << TotalResets) <<
-				(MAX_REG_BITS + 1U - TotalResets));
+	MaskVal = (~(~0U << TotalResets)) << ((MAX_REG_BITS/2U) + 1U - TotalResets) |
+								0xFFFF0000U);
+	RegVal = MaskVal & (~(~(~0U << TotalResets) <<
+				(MAX_REG_BITS + 1U - TotalResets)));
 	Xil_Out32(GPIO_MASK_DATA_5_MSW, RegVal);
 	usleep(1000U);
 
@@ -2213,10 +2213,10 @@ static u32 XFpga_ConvertStringToHex(const u8 *Str, u32 *buf, u8 Len)
 			}
 		}
 
-		buf[index++] = Nibble[0] << 28U | Nibble[1] << 24U |
-				Nibble[2] << 20U | Nibble[3] << 16U |
-				Nibble[4] << 12U | Nibble[5] << 8U |
-				Nibble[6] << 4U | Nibble[7];
+		buf[index++] = ((Nibble[0] << 28U) | (Nibble[1] << 24U) |
+				(Nibble[2] << 20U) | (Nibble[3] << 16U) |
+				(Nibble[4] << 12U) | (Nibble[5] << 8U) |
+				(Nibble[6] << 4U) | Nibble[7]);
 	}
 END:
 	return Status;
