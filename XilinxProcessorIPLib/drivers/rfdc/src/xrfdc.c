@@ -132,6 +132,7 @@
 *                       REF_CLK_DIV values(1 to 4).
 * 5.1   cog    01/29/19 Replace structure reference ADC checks with
 *                       function.
+*       cog    01/29/19 Added XRFdc_SetDither() and XRFdc_GetDither() APIs.
 * </pre>
 *
 ******************************************************************************/
@@ -5352,6 +5353,128 @@ u32 XRFdc_GetLinkCoupling(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 		*ModePtr = XRFDC_LINK_COUPLING_AC;
 	} else {
 		*ModePtr = XRFDC_LINK_COUPLING_DC;
+	}
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is used to set the IM3 Dither mode.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Tile_Id indicates Tile number (0-3).
+* @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
+* @param	Mode 0: Disable
+*				 1: Enable
+*
+* @return
+*       - XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if Tile not enabled.
+*
+* @note		Only for ADC blocks
+*
+******************************************************************************/
+u32 XRFdc_SetDither(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
+							u32 Mode)
+{
+	u32 Status;
+	u32 BaseAddr;
+	u32 Index;
+	u32 NoOfBlocks;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id,
+								Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Requested block not "
+								"available in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+
+	if(Mode > XRFDC_DITH_ENABLE){
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR, "\n Invalid Dither Mode "
+								"in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+	Index = Block_Id;
+	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
+		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
+		if (Block_Id == XRFDC_BLK_ID1) {
+			Index = XRFDC_BLK_ID2;
+			NoOfBlocks = XRFDC_NUM_OF_BLKS4;
+		}
+	} else {
+		NoOfBlocks = Block_Id + 1U;
+	}
+
+	for (; Index < NoOfBlocks; Index++) {
+		BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Index);
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr,
+			XRFDC_ADC_DAC_MC_CFG0_OFFSET, XRFDC_RX_MC_CFG0_IM3_DITH_MASK,
+			(Mode << XRFDC_RX_MC_CFG0_IM3_DITH_SHIFT));
+	}
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is used to get the IM3 Dither mode.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Tile_Id indicates Tile number (0-3).
+* @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
+* @param	ModePtr pointer to get link coupling mode.
+*
+* @return
+*       - XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if Tile not enabled.
+*
+* @note		Only for ADC blocks
+*
+******************************************************************************/
+u32 XRFdc_GetDither(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
+							u32 *ModePtr)
+{
+	u32 Status;
+	u16 ReadReg;
+	u32 BaseAddr;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(ModePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id,
+								Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Requested block not "
+								"available in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
+			(Block_Id == XRFDC_BLK_ID1)) {
+		Block_Id = XRFDC_BLK_ID2;
+	}
+
+	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Block_Id);
+
+	ReadReg = XRFdc_RDReg(InstancePtr, BaseAddr,
+					XRFDC_ADC_DAC_MC_CFG0_OFFSET, XRFDC_RX_MC_CFG0_IM3_DITH_MASK);
+	if (ReadReg != 0U) {
+		*ModePtr = XRFDC_DITH_ENABLE;
+	} else {
+		*ModePtr = XRFDC_DITH_DISABLE;
 	}
 
 	Status = XRFDC_SUCCESS;
