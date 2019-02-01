@@ -72,6 +72,7 @@
  * 4.2   adk   28/08/18 Fixed misra-c required standard violations.
  * 4.2   Nava  15/09/18 Fixed global function call-backs issue.
  * 5.0   Nava  11/05/18 Added full bitstream loading support for versal Platform.
+ * 5.0   Div   21/01/19 Fixed misra-c required standard violations.
  * </pre>
  *
  * @note

@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -44,6 +44,7 @@
  *			different PL programming interfaces.
  * 4.2  Nava  15/09/18 Fixed global function call-backs issue.
  * 5.0  Nava 11/05/18  Added full bitstream loading support for versal Platform.
+ * 5.0  Div  21/01/19  Fixed misra-c required standard violation for zynqmp.
  *</pre>
  *
  *@note
