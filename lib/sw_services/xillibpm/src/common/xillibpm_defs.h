@@ -285,7 +285,7 @@ enum XPm_PllConfigParams {
 #define PM_PLL_SET_MODE			50U
 #define PM_PLL_GET_MODE			51U
 
-#define PM_CREATE_SUBSYSTEM             54U
+#define PM_ADD_SUBSYSTEM         	    54U
 #define PM_DESTROY_SUBSYSTEM            55U
 
 #define PM_DESCRIBE_NODES		56U
