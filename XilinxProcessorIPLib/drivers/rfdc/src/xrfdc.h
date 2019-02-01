@@ -187,7 +187,8 @@
 *                       REF_CLK_DIV values(1 to 4).
 *                       Add XRFDC_MIXER_MODE_R2R option to support BYPASS mode
 *                       for Real input.
-*
+* 5.1   cog    01/29/19 Replace structure reference ADC checks with
+*                       function.
 * </pre>
 *
 ******************************************************************************/
@@ -220,6 +221,7 @@ extern "C" {
 #include "xrfdc_hw.h"
 
 /**************************** Type Definitions *******************************/
+#define XRFdc_IsADC4GSPS(InstPtr) XRFdc_IsHighSpeedADC(InstPtr, 0)
 
 #ifndef __BAREMETAL__
 typedef __u32 u32;
@@ -398,6 +400,8 @@ typedef struct {
 	u32 OutputDiv;
 	u32 RefClkDiv;
 	u32 MultibandConfig;
+	double MaxSampleRate;
+	u32 NumSlices;
 	XRFdc_DACBlock_AnalogDataPath_Config DACBlock_Analog_Config[4];
 	XRFdc_DACBlock_DigitalDataPath_Config DACBlock_Digital_Config[4];
 } XRFdc_DACTile_Config;
@@ -415,6 +419,8 @@ typedef struct {
 	u32 OutputDiv;
 	u32 RefClkDiv;
 	u32 MultibandConfig;
+	double MaxSampleRate;
+	u32 NumSlices;
 	XRFdc_ADCBlock_AnalogDataPath_Config ADCBlock_Analog_Config[4];
 	XRFdc_ADCBlock_DigitalDataPath_Config ADCBlock_Digital_Config[4];
 } XRFdc_ADCTile_Config;
@@ -430,6 +436,7 @@ typedef struct {
 	u32 MasterDACTile;	/* DAC Master Tile */
 	u32 ADCSysRefSource;
 	u32 DACSysRefSource;
+	u32 IPType;
 	XRFdc_DACTile_Config DACTile_Config[4];
 	XRFdc_ADCTile_Config ADCTile_Config[4];
 } XRFdc_Config;
@@ -561,6 +568,8 @@ typedef struct {
 #define XRFDC_SUCCESS                     0U
 #define XRFDC_FAILURE                     1U
 #define XRFDC_COMPONENT_IS_READY     	0x11111111U
+#define XRFDC_NUM_SLICES_HSADC			2
+#define XRFDC_NUM_SLICES_LSADC			4
 #ifndef __BAREMETAL__
 #define XRFDC_PLATFORM_DEVICE_DIR		"/sys/bus/platform/devices/"
 #define XRFDC_BUS_NAME					"platform"
@@ -803,6 +812,8 @@ typedef struct {
 #define XRFDC_HSCOM_PWR_STATS_PLL		0xFFC0U
 #define XRFDC_HSCOM_PWR_STATS_EXTERNAL	0xF240U
 
+#define XRFDC_DISABLED 0
+#define XRFDC_ENABLED 1
 /*****************************************************************************/
 /**
 *
@@ -1163,7 +1174,7 @@ static inline u32 XRFdc_GetNoOfADCBlocks(XRFdc *InstancePtr, u32 Tile_Id)
 /*****************************************************************************/
 /**
 *
-* Get ADC type is 4GSPS or not.
+* Get ADC type is High Speed or Medium Speed.
 *
 * @param	InstancePtr is a pointer to the XRfdc instance.
 *
@@ -1171,17 +1182,14 @@ static inline u32 XRFdc_GetNoOfADCBlocks(XRFdc *InstancePtr, u32 Tile_Id)
 *		- Return 1 if ADC type is 4GSPS, otherwise 0.
 *
 ******************************************************************************/
-static inline u32 XRFdc_IsADC4GSPS(XRFdc *InstancePtr)
+
+static inline u32 XRFdc_IsHighSpeedADC(XRFdc *InstancePtr, int Tile)
 {
-	u32 Status;
-
-	if (InstancePtr->RFdc_Config.ADCType == XRFDC_ADC_4GSPS) {
-		Status = 1U;
-	} else {
-		Status = 0U;
+	if(InstancePtr->RFdc_Config.ADCTile_Config[Tile].NumSlices == 0){
+		return InstancePtr->ADC4GSPS;
+	}else{
+		return (InstancePtr->RFdc_Config.ADCTile_Config[Tile].NumSlices == XRFDC_NUM_SLICES_HSADC);
 	}
-
-	return Status;
 }
 
 /*****************************************************************************/

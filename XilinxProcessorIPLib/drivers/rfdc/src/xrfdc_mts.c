@@ -50,7 +50,8 @@
 *       sk     08/03/18 Check for Block0 enable for tiles participating in MTS.
 *       sk     08/24/18 Reorganize the code to improve readability and
 *                       optimization.
-*
+* 5.1   cog    01/29/19 Replace structure reference ADC checks with
+*                       function.
 * </pre>
 *
 ******************************************************************************/
@@ -204,7 +205,7 @@ static u32 XRFdc_MTS_Sysref_Dist(XRFdc *InstancePtr, int Num_DAC)
 
 	if (Num_DAC < 0) {
 		/* Auto-detect. Only 2 types Supported - 2GSPS ADCs, 4GSPS ADCs */
-		if (XRFdc_IsADC4GSPS(InstancePtr) != 0U) {
+		if (XRFdc_IsHighSpeedADC(InstancePtr,0) != 0U) {
 			Num_DAC = 2;
 		} else {
 			Num_DAC = 4;

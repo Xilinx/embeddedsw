@@ -47,6 +47,8 @@
 * 2.2   sk     10/18/17 Add support for FIFO and DATA overflow interrupt
 * 5.0   sk     08/24/18 Reorganize the code to improve readability and
 *                       optimization.
+* 5.1   cog    01/29/19 Replace structure reference ADC checks with
+*                       function.
 * </pre>
 *
 ******************************************************************************/
@@ -105,7 +107,7 @@ void XRFdc_IntrEnable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	}
 
 	Index = Block_Id;
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Type == XRFDC_ADC_TILE)) {
 		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
 		if (Block_Id == XRFDC_BLK_ID1) {
@@ -238,7 +240,7 @@ void XRFdc_IntrDisable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	}
 
 	Index = Block_Id;
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Type == XRFDC_ADC_TILE)) {
 		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
 		if (Block_Id == XRFDC_BLK_ID1) {
@@ -349,7 +351,7 @@ u32 XRFdc_GetIntrStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
 	Block = Block_Id;
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 					(Type == XRFDC_ADC_TILE)) {
 		if ((Block_Id == XRFDC_BLK_ID2) || (Block_Id == XRFDC_BLK_ID3)) {
 			Block = XRFDC_BLK_ID1;
@@ -442,7 +444,7 @@ void XRFdc_IntrClr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	Xil_AssertVoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
 	Block = Block_Id;
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 					(Type == XRFDC_ADC_TILE)) {
 		if ((Block_Id == XRFDC_BLK_ID2) || (Block_Id == XRFDC_BLK_ID3)) {
 			Block = XRFDC_BLK_ID1;
@@ -652,7 +654,7 @@ u32 XRFdc_IntrHandler(u32 Vector, void *XRFdcPtr)
 	}
 	Block = Block_Id;
 
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Type == XRFDC_ADC_TILE)) {
 		if ((Block_Id == XRFDC_BLK_ID0) || (Block_Id == XRFDC_BLK_ID1)) {
 			Block = XRFDC_BLK_ID0;
