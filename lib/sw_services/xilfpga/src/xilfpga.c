@@ -101,7 +101,7 @@ u32 XFpga_PL_BitStream_Load(UINTPTR BitstreamImageAddr,
 			    UINTPTR AddrPtr, u32 Flags)
 {
 	u32 Status;
-	XFpga_Info PLInfo = {0};
+	XFpga_Info PLInfo = {0U};
 
 	PLInfo.BitstreamAddr = BitstreamImageAddr;
 	PLInfo.AddrPtr = AddrPtr;
@@ -142,8 +142,8 @@ END:
 u32 XFpga_PL_ValidateImage(XFpga_Info *PLInfoPtr)
 {
 	u32 Status;
-	XFpga XFpgaInstance = {0};
-	XFpga_Write WriteInfo = {0};
+	XFpga XFpgaInstance = {0U};
+	XFpga_Write WriteInfo = {0U};
 
 	/* Initialize the XFpga Instance */
 	Status = XFpga_Initialize(&XFpgaInstance);
@@ -188,7 +188,7 @@ END:
 u32 XFpga_PL_Preconfig(XFpga_Info *PLInfoPtr)
 {
 	u32 Status;
-	XFpga XFpgaInstance = {0};
+	XFpga XFpgaInstance = {0U};
 
 	/* Initialize the XFpga Instance */
 	Status = XFpga_Initialize(&XFpgaInstance);
@@ -224,8 +224,8 @@ END:
 u32 XFpga_PL_WriteToPl(XFpga_Info *PLInfoPtr)
 {
 	 u32 Status;
-	 XFpga_Write WriteInfo = {0};
-	 XFpga XFpgaInstance = {0};
+	 XFpga_Write WriteInfo = {0U};
+	 XFpga XFpgaInstance = {0U};
 
 	 /* Initialize the XFpga Instance */
 	 Status = XFpga_Initialize(&XFpgaInstance);
@@ -266,8 +266,8 @@ END:
 u32 XFpga_PL_PostConfig(XFpga_Info *PLInfoPtr)
 {
 	u32 Status;
-	XFpga XFpgaInstance = {0};
-	XFpga_Write WriteInfo = {0};
+	XFpga XFpgaInstance = {0U};
+	XFpga_Write WriteInfo = {0U};
 
 	/* Initialize the XFpga Instance */
 	Status = XFpga_Initialize(&XFpgaInstance);
@@ -311,8 +311,8 @@ END:
 u32 XFpga_GetPlConfigData(XFpga_Info *PLInfoPtr)
 {
 	u32 Status;
-	XFpga_Read ReadInfo = {0};
-	XFpga XFpgaInstance = {0};
+	XFpga_Read ReadInfo = {0U};
+	XFpga XFpgaInstance = {0U};
 
 	/* Initialize the XFpga Instance */
 	Status = XFpga_Initialize(&XFpgaInstance);
@@ -352,8 +352,8 @@ END:
 u32 XFpga_GetPlConfigReg(u32 ConfigReg, UINTPTR Address)
 {
 	u32 Status;
-	XFpga XFpgaInstance = {0};
-	XFpga_Read ReadInfo = {0};
+	XFpga XFpgaInstance = {0U};
+	XFpga_Read ReadInfo = {0U};
 
 	/* Initialize the XFpga Instance */
 	Status = XFpga_Initialize(&XFpgaInstance);
@@ -389,7 +389,7 @@ END:
 u32 XFpga_InterfaceStatus(void)
 {
 	u32 Status;
-	XFpga XFpgaInstance = {0};
+	XFpga XFpgaInstance = {0U};
 
 	XFpga_Initialize(&XFpgaInstance);
 	if (!XFpgaInstance.XFpga_GetInterfaceStatus) {
@@ -499,7 +499,7 @@ u32 XFpga_PL_ValidateImage(XFpga *InstancePtr,
 			   UINTPTR AddrPtr_Size, u32 Flags)
 {
 	u32 Status;
-	XFpga_Write WriteInfo = {0};
+	XFpga_Write WriteInfo = {0U};
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -584,7 +584,7 @@ u32 XFpga_PL_Write(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
 		   UINTPTR AddrPtr_Size, u32 Flags)
 {
 	 u32 Status;
-	 XFpga_Write WriteInfo = {0};
+	 XFpga_Write WriteInfo = {0U};
 
 	 Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -655,7 +655,7 @@ u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 			  u32 ConfigReg_NumFrames)
 {
 	u32 Status;
-	XFpga_Read ReadInfo = {0};
+	XFpga_Read ReadInfo = {0U};
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
