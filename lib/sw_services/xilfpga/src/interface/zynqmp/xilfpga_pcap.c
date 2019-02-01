@@ -293,7 +293,7 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 
 	if (!(XFPGA_SECURE_MODE_EN) &&
 		(InstancePtr->WriteInfoPtr->Flags & XFPGA_SECURE_FLAGS)) {
-		Status = XFPGA_PCAP_UPDATE_ERR(XFPGA_ERROR_SECURE_MODE_EN, 0U);
+		Status = XFPGA_PCAP_UPDATE_ERR((u32)XFPGA_ERROR_SECURE_MODE_EN, (u32)0U);
 		Xfpga_Printf(XFPGA_DEBUG, "Fail to load: Enable secure mode "
 			"and try Error Code: 0x%08x\r\n", Status);
 		goto END;
@@ -325,7 +325,7 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 				(u32)InstancePtr->WriteInfoPtr->AddrPtr_Size,
 				&BitstreamPos);
 			if (Status != XFPGA_SUCCESS) {
-			Status = XFPGA_PCAP_UPDATE_ERR(Status, 0U);
+			Status = XFPGA_PCAP_UPDATE_ERR(Status, (u32)0U);
 			}
 			goto END;
 		} else {
@@ -360,7 +360,7 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 		if ((ImageHdrDataPtr->PartitionHdr->PartitionAttributes &
 				XSECURE_PH_ATTR_AUTH_ENABLE) != 0x00U) {
 			Status = XFPGA_PCAP_UPDATE_ERR(
-					XFPGA_HDR_NOAUTH_PART_AUTH, 0U);
+					(u32)XFPGA_HDR_NOAUTH_PART_AUTH, (u32)0U);
 			goto END;
 		}
 	}
@@ -374,7 +374,7 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 
 		if (!IsEncrypted) {
 			Status = XFPGA_PCAP_UPDATE_ERR(
-					XFPGA_ENC_ISCOMPULSORY, 0U);
+					(u32)XFPGA_ENC_ISCOMPULSORY, (u32)0U);
 			goto END;
 		}
 	}
@@ -400,7 +400,7 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 			(ImageHdrDataPtr->KeySrc == XSECURE_KEY_SRC_GREY_BH) ||
 			(ImageHdrDataPtr->KeySrc == XSECURE_KEY_SRC_BLACK_BH)) {
 			Status = XFPGA_PCAP_UPDATE_ERR(
-						XFPGA_DEC_WRONG_KEY_SOURCE, 0U);
+						(u32)XFPGA_DEC_WRONG_KEY_SOURCE, (u32)0U);
 			goto END;
 		}
 	}
@@ -409,7 +409,7 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 	Status = XFpga_ValidateCryptoFlags(ImageHdrDataPtr,
 					   InstancePtr->WriteInfoPtr->Flags);
 	if (Status != XFPGA_SUCCESS) {
-		Status = XFPGA_PCAP_UPDATE_ERR(XFPGA_ERROR_CRYPTO_FLAGS, 0U);
+		Status = XFPGA_PCAP_UPDATE_ERR((u32)XFPGA_ERROR_CRYPTO_FLAGS, (u32)0U);
 		Xfpga_Printf(XFPGA_DEBUG,
 		"Crypto flags not matched with Image crypto operation "
 		"with Error Code:0x%08x\r\n", Status);
@@ -469,7 +469,7 @@ static u32 XFpga_PreConfigPcap(const XFpga *InstancePtr)
 			Xfpga_Printf(XFPGA_DEBUG,
 				"XFPGA_ERROR_PL_POWER_UP\r\n");
 			Status = XFPGA_PCAP_UPDATE_ERR(
-						XFPGA_ERROR_PL_POWER_UP, 0U);
+						(u32)XFPGA_ERROR_PL_POWER_UP, (u32)0U);
 			goto END;
 		}
 
@@ -479,14 +479,14 @@ static u32 XFpga_PreConfigPcap(const XFpga *InstancePtr)
 			Xfpga_Printf(XFPGA_DEBUG,
 				"XFPGA_ERROR_PL_ISOLATION\r\n");
 			Status = XFPGA_PCAP_UPDATE_ERR(
-						XFPGA_ERROR_PL_ISOLATION, 0U);
+						(u32)XFPGA_ERROR_PL_ISOLATION, (u32)0U);
 			goto END;
 		}
 	}
 
 	Status = XFpga_PcapInit(InstancePtr->PLInfo.Flags);
 	if (Status != XFPGA_SUCCESS) {
-		Status = XFPGA_PCAP_UPDATE_ERR(XPFGA_ERROR_PCAP_INIT, 0U);
+		Status = XFPGA_PCAP_UPDATE_ERR((u32)XPFGA_ERROR_PCAP_INIT, (u32)0U);
 	}
 
 END:
@@ -537,7 +537,7 @@ static u32 XFpga_WriteToPlPcap(XFpga *InstancePtr)
 				InstancePtr->WriteInfoPtr->BitstreamAddr);
 		if (Status != XFPGA_SUCCESS) {
 			Status = XFPGA_PCAP_UPDATE_ERR(
-					XFPGA_ERROR_BITSTREAM_LOAD_FAIL, 0U);
+					(u32)XFPGA_ERROR_BITSTREAM_LOAD_FAIL, (u32)0U);
 		}
 	}
 	if (Status != XFPGA_SUCCESS) {
@@ -548,7 +548,7 @@ static u32 XFpga_WriteToPlPcap(XFpga *InstancePtr)
 	}
 	Status = XFpga_PLWaitForDone();
 	if (Status != XFPGA_SUCCESS) {
-		Status = XFPGA_PCAP_UPDATE_ERR(Status, 0U);
+		Status = XFPGA_PCAP_UPDATE_ERR(Status, (u32)0U);
 		Xfpga_Printf(XFPGA_DEBUG,
 		"FPGA fail to get the PCAP Done status Error Code:0x%08x\r\n",
 		Status);
@@ -583,7 +583,7 @@ static u32 XFpga_PostConfigPcap(const XFpga *InstancePtr)
 			Xfpga_Printf(XFPGA_DEBUG,
 				"XFPGA_ERROR_PL_POWER_UP\r\n");
 			Status = XFPGA_PCAP_UPDATE_ERR(
-					XFPGA_ERROR_PL_POWER_UP, 0U);
+					(u32)XFPGA_ERROR_PL_POWER_UP, (u32)0U);
 		}
 		/* PS-PL reset high*/
 		if (Status == XFPGA_SUCCESS) {
@@ -650,7 +650,7 @@ static u32 XFpga_PcapInit(u32 flags)
 	 *  Wait for PL_init completion
 	 */
 	RegVal = 0U;
-	PollCount = (PL_DONE_POLL_COUNT);
+	PollCount = (u32)(PL_DONE_POLL_COUNT);
 	while (PollCount) {
 		RegVal = Xil_In32(CSU_PCAP_STATUS) &
 		CSU_PCAP_STATUS_PL_INIT_MASK;
@@ -680,7 +680,7 @@ static u32 XFpga_PcapWaitForDone(void)
 	u32 PollCount;
 	u32 Status = XFPGA_SUCCESS;
 
-	PollCount = (PL_DONE_POLL_COUNT);
+	PollCount = (u32)(PL_DONE_POLL_COUNT);
 	while (PollCount) {
 		RegVal = Xil_In32(CSU_PCAP_STATUS);
 		RegVal = RegVal & CSU_PCAP_STATUS_PCAP_WR_IDLE_MASK;
@@ -746,7 +746,7 @@ static u32 XFpga_PcapWaitForidle(void)
 	u32 PollCount;
 	u32 Status = XFPGA_SUCCESS;
 
-	PollCount = (PL_DONE_POLL_COUNT);
+	PollCount = (u32)(PL_DONE_POLL_COUNT);
 	while (PollCount) {
 		RegVal = Xil_In32(CSU_PCAP_STATUS);
 		RegVal = RegVal & CSU_PCAP_STATUS_PCAP_RD_IDLE_MASK;
@@ -907,8 +907,8 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 	PartationAcOffset = ImageInfo->PartitionHdr->AuthCertificateOffset
 						* XSECURE_WORD_LEN;
 	PartationLen = PartationAcOffset - PartationOffset;
-	TotalBitPartCount = PartationLen/PL_PARTATION_SIZE;
-	RemaningBytes = PartationLen - (TotalBitPartCount * PL_PARTATION_SIZE);
+	TotalBitPartCount = (u8)(PartationLen/PL_PARTATION_SIZE);
+	RemaningBytes = PartationLen - ((u32)TotalBitPartCount * PL_PARTATION_SIZE);
 	BitAddr = PartationOffset + BitstreamAddr;
 	AcPtr = PartationAcOffset + BitstreamAddr;
 
@@ -943,10 +943,10 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 		}
 	}
 
-	for (s32 i = 0; i < TotalBitPartCount; i++) {
+	for (s32 i = 0; i < (s32)TotalBitPartCount; i++) {
 		/* Copy authentication certificate to internal memory */
 		XSecure_MemCopy(AcBuf, (u8 *)AcPtr,
-				XSECURE_AUTH_CERT_MIN_SIZE/XSECURE_WORD_LEN);
+				XSECURE_AUTH_CERT_MIN_SIZE/(u32)XSECURE_WORD_LEN);
 		/*Verify Spk */
 		Status = XSecure_VerifySpk(AcBuf, ImageInfo->EfuseRsaenable);
 		if (Status != XST_SUCCESS) {
@@ -977,7 +977,7 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 
 		if (Status != XFPGA_SUCCESS) {
 			Status = XFPGA_PCAP_UPDATE_ERR(
-					XFPGA_ERROR_DDR_AUTH_WRITE_PL, 0U);
+					(u32)XFPGA_ERROR_DDR_AUTH_WRITE_PL, (u32)0U);
 			goto END;
 		}
 
@@ -989,7 +989,7 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 
 		/* Copy authentication certificate to internal memory */
 		XSecure_MemCopy(AcBuf, (u8 *)AcPtr,
-				XSECURE_AUTH_CERT_MIN_SIZE/XSECURE_WORD_LEN);
+				XSECURE_AUTH_CERT_MIN_SIZE/(u32)XSECURE_WORD_LEN);
 		/*Verify Spk */
 		Status = XSecure_VerifySpk(AcBuf, ImageInfo->EfuseRsaenable);
 		if (Status != XST_SUCCESS) {
@@ -1021,7 +1021,7 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 
 		if (Status != XFPGA_SUCCESS) {
 			Status = XFPGA_PCAP_UPDATE_ERR(
-					XFPGA_ERROR_DDR_AUTH_WRITE_PL, 0U);
+					(u32)XFPGA_ERROR_DDR_AUTH_WRITE_PL, (u32)0U);
 			goto END;
 		}
 	}
@@ -1062,8 +1062,8 @@ static u32 XFpga_SecureBitstreamOcmLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 	PartationAcOffset = ImageInfo->PartitionHdr->AuthCertificateOffset
 							* XSECURE_WORD_LEN;
 	PartationLen = PartationAcOffset - PartationOffset;
-	TotalBitPartCount = PartationLen/PL_PARTATION_SIZE;
-	RemaningBytes = PartationLen - (TotalBitPartCount * PL_PARTATION_SIZE);
+	TotalBitPartCount = (u8)(PartationLen/PL_PARTATION_SIZE);
+	RemaningBytes = PartationLen - ((u32)TotalBitPartCount * PL_PARTATION_SIZE);
 	BitAddr = PartationOffset + BitstreamAddr;
 	AcPtr = PartationAcOffset + BitstreamAddr;
 
@@ -1096,11 +1096,11 @@ static u32 XFpga_SecureBitstreamOcmLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 		}
 	}
 
-	for (s32 i = 0; i < TotalBitPartCount; i++) {
+	for (s32 i = 0; i < (s32)TotalBitPartCount; i++) {
 
 		/* Copy authentication certificate to internal memory */
 		XSecure_MemCopy(AcBuf, (u8 *)AcPtr,
-				XSECURE_AUTH_CERT_MIN_SIZE/XSECURE_WORD_LEN);
+				XSECURE_AUTH_CERT_MIN_SIZE/(u32)XSECURE_WORD_LEN);
 		/*Verify Spk */
 		Status = XSecure_VerifySpk(AcBuf, ImageInfo->EfuseRsaenable);
 		if (Status != XST_SUCCESS) {
@@ -1124,7 +1124,7 @@ static u32 XFpga_SecureBitstreamOcmLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 						       flags);
 		if (Status != XFPGA_SUCCESS) {
 			Status = XFPGA_PCAP_UPDATE_ERR(
-					XFPGA_ERROR_OCM_REAUTH_WRITE_PL, 0U);
+					(u32)XFPGA_ERROR_OCM_REAUTH_WRITE_PL, (u32)0U);
 			goto END;
 		}
 
@@ -1135,7 +1135,7 @@ static u32 XFpga_SecureBitstreamOcmLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 	if (RemaningBytes) {
 		/* Copy authentication certificate to internal memory */
 		XSecure_MemCopy(AcBuf, (u8 *)AcPtr,
-				XSECURE_AUTH_CERT_MIN_SIZE/XSECURE_WORD_LEN);
+				XSECURE_AUTH_CERT_MIN_SIZE/(u32)XSECURE_WORD_LEN);
 		/*Verify Spk */
 		Status = XSecure_VerifySpk(AcBuf, ImageInfo->EfuseRsaenable);
 		if (Status != XST_SUCCESS) {
@@ -1158,7 +1158,7 @@ static u32 XFpga_SecureBitstreamOcmLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 						       RemaningBytes, flags);
 		if (Status != XFPGA_SUCCESS) {
 			Status = XFPGA_PCAP_UPDATE_ERR(
-					XFPGA_ERROR_OCM_REAUTH_WRITE_PL, 0U);
+					(u32)XFPGA_ERROR_OCM_REAUTH_WRITE_PL, (u32)0U);
 			goto END;
 		}
 
@@ -1184,7 +1184,7 @@ static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr)
 	u64 OcmAddr = OCM_PL_ADDR;
 	u32 NumChunks = NUM_OF_PL_CHUNKS(Size);
 	u32 ChunkSize = PL_CHUNK_SIZE_BYTES;
-	u32 OcmChunkAddr = OCM_PL_ADDR + ChunkSize;
+	u32 OcmChunkAddr = (u32)OCM_PL_ADDR + ChunkSize;
 	u32 RemaningBytes;
 	u32 Count;
 	XSecure_RsaKey Key;
@@ -1241,7 +1241,7 @@ static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr)
 	XSecure_Sha3Finish(&Secure_Sha3, Sha3Hash);
 
 	/* Calculate Hash on the given signature  and compare with Sha3Hash */
-	AcPtr += (XSECURE_RSA_AC_ALIGN + XSECURE_PPK_SIZE);
+	AcPtr += ((u32)XSECURE_RSA_AC_ALIGN + XSECURE_PPK_SIZE);
 	Key.Modulus = AcPtr;
 
 	AcPtr += XSECURE_SPK_MOD_SIZE;
@@ -1276,7 +1276,7 @@ static u32 XFpga_ReAuthPlChunksWriteToPl(XFpgaPs_PlPartition *PlAesInfo,
 	u64 OcmAddr = OCM_PL_ADDR;
 	u32 NumChunks = NUM_OF_PL_CHUNKS(Size);
 	u32 ChunkSize = PL_CHUNK_SIZE_BYTES;
-	u32 OcmChunkAddr = OCM_PL_ADDR + ChunkSize;
+	u32 OcmChunkAddr = (u32)OCM_PL_ADDR + ChunkSize;
 	u32 RemaningBytes;
 	u32 Count;
 	u8 Sha3Hash[HASH_LEN] = {0U};
@@ -1403,7 +1403,7 @@ static u32 XFpga_WriteEncryptToPcap(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 	EncSrc = (u8 *)(UINTPTR)(BitstreamAddr +
 			((ImageHdrInfo->PartitionHdr->DataWordOffset) *
 						XSECURE_WORD_LEN));
-	Status = XSecure_AesDecrypt(&Secure_Aes,
+	Status = (u32)XSecure_AesDecrypt(&Secure_Aes,
 			(u8 *) XFPGA_DESTINATION_PCAP_ADDR, EncSrc,
 			ImageHdrInfo->PartitionHdr->UnEncryptedDataWordLength *
 							XSECURE_WORD_LEN);
@@ -1415,7 +1415,7 @@ static u32 XFpga_WriteEncryptToPcap(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 	}
 	Status = XFpga_PcapWaitForDone();
 	if (Status != XFPGA_SUCCESS) {
-		Status = XFPGA_PCAP_UPDATE_ERR(Status, 0U);
+		Status = XFPGA_PCAP_UPDATE_ERR(Status, (u32)0U);
 	}
 END:
 	return Status;
@@ -1502,7 +1502,7 @@ static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
 				XSECURE_CSU_AES_KUP_WR_OFFSET,
 				XSECURE_CSU_AES_IV_WR | XSECURE_CSU_AES_KUP_WR);
 		/* Decrypting the Secure header */
-		Status = XSecure_AesDecryptUpdate(
+		Status = (u32)XSecure_AesDecryptUpdate(
 			PartitionParams->PlEncrypt.SecureAes,
 			(u8 *)(SrcAddr), XSECURE_SECURE_HDR_SIZE);
 		if (Status != XFPGA_SUCCESS) {
@@ -1567,7 +1567,7 @@ static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
 		Size = Size - (XFPGA_AES_TAG_SIZE - PartitionParams->Hdr);
 		if (Size != 0x00U) {
 			NextBlkAddr = SrcAddr +
-				(XFPGA_AES_TAG_SIZE - PartitionParams->Hdr);
+				((u64)XFPGA_AES_TAG_SIZE - (u64)PartitionParams->Hdr);
 		}
 		PartitionParams->Hdr = 0U;
 		memset(PartitionParams->SecureHdr, 0U, XFPGA_AES_TAG_SIZE);
@@ -1756,7 +1756,7 @@ static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
 			PartitionParams->PlEncrypt.SecureAes->SizeofData/
 								WORD_LEN, 0U);
 			SrcAddr = SrcAddr +
-			PartitionParams->PlEncrypt.SecureAes->SizeofData;
+			(u64)PartitionParams->PlEncrypt.SecureAes->SizeofData;
 			Size = Size -
 			PartitionParams->PlEncrypt.SecureAes->SizeofData;
 			PartitionParams->PlEncrypt.SecureAes->SizeofData = 0U;
@@ -1773,7 +1773,7 @@ static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
 				XSECURE_SECURE_GCM_TAG_SIZE)) {
 				memcpy(PartitionParams->SecureHdr,
 						(u8 *)(UINTPTR)SrcAddr, Size);
-				PartitionParams->Hdr = Size;
+				PartitionParams->Hdr = (u8)Size;
 				Size = 0U;
 			}
 		}
@@ -1927,7 +1927,7 @@ static u32 XFpga_PLWaitForDone(void)
 	u32 PollCount;
 	u32 RegVal = 0U;
 
-	PollCount = (PL_DONE_POLL_COUNT);
+	PollCount = (u32)(PL_DONE_POLL_COUNT);
 	while (PollCount) {
 		/* Read PCAP Status register and check for PL_DONE bit */
 		RegVal = Xil_In32(CSU_PCAP_STATUS);
@@ -1948,7 +1948,7 @@ static u32 XFpga_PLWaitForDone(void)
 	RegVal = RegVal | CSU_PCAP_RESET_RESET_MASK;
 	Xil_Out32(CSU_PCAP_RESET, RegVal);
 
-	PollCount = (PL_DONE_POLL_COUNT);
+	PollCount = (u32)(PL_DONE_POLL_COUNT);
 	RegVal = 0U;
 	while (PollCount) {
 		RegVal = Xil_In32(CSU_PCAP_RESET);
@@ -2091,11 +2091,11 @@ static u32 XFpga_PsPlGpioResetsLow(u32 TotalResets)
 
 	/* Set EMIO Direction */
 	RegVal = (Xil_In32(GPIO_DIRM_5_EMIO) |
-		(~(~0U << TotalResets) << (MAX_REG_BITS + 1U - TotalResets)));
+		(~(~(u32)0U << TotalResets) << ((u32)MAX_REG_BITS + (u32)1U - TotalResets)));
 	Xil_Out32(GPIO_DIRM_5_EMIO, RegVal);
 
 	/*De-assert the EMIO with the required Mask */
-	RegVal = ~(~(~0U << TotalResets) << (MAX_REG_BITS + 1U - TotalResets))
+	RegVal = ~(~(~(u32)0U << TotalResets) << ((u32)MAX_REG_BITS + (u32)1U - TotalResets))
 		& 0xFFFF0000U;
 	Xil_Out32(GPIO_MASK_DATA_5_MSW, RegVal);
 	usleep(1000U);
@@ -2122,14 +2122,14 @@ static u32 XFpga_PsPlGpioResetsHigh(u32 TotalResets)
 
 	/* Set EMIO Direction */
 	RegVal = (Xil_In32(GPIO_DIRM_5_EMIO) |
-		(~(~0U << TotalResets) << (MAX_REG_BITS + 1U - TotalResets)));
+		(~(~(u32)0U << TotalResets) << ((u32)MAX_REG_BITS + (u32)1U - TotalResets)));
 	Xil_Out32(GPIO_DIRM_5_EMIO, RegVal);
 
 	/*Assert the EMIO with the required Mask */
-	MaskVal = (~(~0U << TotalResets)) << ((MAX_REG_BITS/2U) + 1U - TotalResets) |
+	MaskVal = (~(~(u32)0U << TotalResets)) << (((u32)(MAX_REG_BITS/2U) + (u32)1U - TotalResets) |
 								0xFFFF0000U);
-	RegVal = MaskVal & (~(~(~0U << TotalResets) <<
-				(MAX_REG_BITS + 1U - TotalResets)));
+	RegVal = MaskVal & (~(~(~(u32)0U << TotalResets) <<
+				((u32)MAX_REG_BITS + (u32)1U - TotalResets)));
 	Xil_Out32(GPIO_MASK_DATA_5_MSW, RegVal);
 	usleep(1000U);
 
@@ -2172,14 +2172,14 @@ static u32 XFpga_ConvertCharToNibble(u8 InChar, u8 *Num)
 	u32 Status = XFPGA_SUCCESS;
 
 	/* Convert the char to nibble */
-	if ((InChar >= '0') && (InChar <= '9')) {
-		*Num = InChar - '0';
+	if ((InChar >= (u8)'0') && (InChar <= (u8)'9')) {
+		*Num = InChar - (u8)'0';
 	}
-	else if ((InChar >= 'a') && (InChar <= 'f')) {
-		*Num = InChar - 'a' + 10U;
+	else if ((InChar >= (u8)'a') && (InChar <= (u8)'f')) {
+		*Num = InChar - (u8)'a' + 10U;
 	}
-	else if ((InChar >= 'A') && (InChar <= 'F')) {
-		*Num = InChar - 'A' + 10U;
+	else if ((InChar >= (u8)'A') && (InChar <= (u8)'F')) {
+		*Num = InChar - (u8)'A' + 10U;
 	}
 	else {
 		Status = XFPGA_STRING_INVALID_ERROR;
@@ -2217,8 +2217,8 @@ static u32 XFpga_ConvertStringToHex(const u8 *Str, u32 *buf, u8 Len)
 		/* Convert char to nibble */
 		for (u8 i = 0U; i < ARRAY_LENGTH(Nibble); i++) {
 			Status = XFpga_ConvertCharToNibble(
-					Str[ConvertedLen++], &Nibble[i]);
-
+					Str[ConvertedLen], &Nibble[i]);
+			ConvertedLen = ConvertedLen +1U;
 			if (Status != XFPGA_SUCCESS) {
 				/* Error converting char to nibble */
 				Status = XFPGA_STRING_INVALID_ERROR;
@@ -2226,10 +2226,10 @@ static u32 XFpga_ConvertStringToHex(const u8 *Str, u32 *buf, u8 Len)
 			}
 		}
 
-		buf[index++] = ((Nibble[0] << 28U) | (Nibble[1] << 24U) |
-				(Nibble[2] << 20U) | (Nibble[3] << 16U) |
-				(Nibble[4] << 12U) | (Nibble[5] << 8U) |
-				(Nibble[6] << 4U) | Nibble[7]);
+		buf[index++] = ((Nibble[0] << (u8)28U )| (Nibble[1] << (u8)24U) |
+				(Nibble[2] << (u8)20U) | (Nibble[3] << (u8)16U) |
+				(Nibble[4] << (u8)12U) | (Nibble[5] << (u8)8U)|
+				(Nibble[6] << (u8)4U) | (u32)Nibble[7]);
 	}
 END:
 	return Status;
@@ -2258,7 +2258,7 @@ static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 	u32 CmdIndex;
 	u32 *CmdBuf;
 
-	CmdBuf = (void *)(UINTPTR)Address;
+	CmdBuf = (u32*)Address;
 
 	Status = XFpga_GetFirmwareState();
 	if (Status == XFPGA_FIRMWARE_STATE_SECURE) {
@@ -2283,7 +2283,7 @@ static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 	CmdBuf[CmdIndex++] = 0xFFFFFFFFU; /* Dummy Word */
 	CmdBuf[CmdIndex++] = 0xAA995566U; /* Sync Word */
 	CmdBuf[CmdIndex++] = 0x20000000U; /* Type 1 NOOP Word 0 */
-	CmdBuf[CmdIndex++] = Xfpga_RegAddr(InstancePtr->ReadInfoPtr->ConfigReg_NumFrames,
+	CmdBuf[CmdIndex++] = Xfpga_RegAddr((u8)(InstancePtr->ReadInfoPtr->ConfigReg_NumFrames),
 					   OPCODE_READ, 0x1U);
 	CmdBuf[CmdIndex++] = 0x20000000U; /* Type 1 NOOP Word 0 */
 	CmdBuf[CmdIndex++] = 0x20000000U; /* Type 1 NOOP Word 0 */
@@ -2389,7 +2389,7 @@ static u32 XFpga_GetPLConfigData(const XFpga *InstancePtr)
 		goto END;
 	}
 
-	CmdBuf = (void *)(UINTPTR)Address;
+	CmdBuf = (u32*)Address;
 
 	/* Enable the PCAP clk */
 	RegVal = Xil_In32(PCAP_CLK_CTRL);
@@ -2433,7 +2433,7 @@ static u32 XFpga_GetPLConfigData(const XFpga *InstancePtr)
 	CmdBuf[cmdindex++] = 0x20000000U; /* Type 1 NOOP Word 0 */
 
 	/* Step 5 --- 5 NOOPS Words */
-	for (i = 0 ; i < 5 ; i++) {
+	for (i = 0 ; i < (s32)5 ; i++) {
 		CmdBuf[cmdindex++] = 0x20000000U;
 	}
 
@@ -2452,7 +2452,7 @@ static u32 XFpga_GetPLConfigData(const XFpga *InstancePtr)
 	CmdBuf[cmdindex++] = Xfpga_Type2Pkt(OPCODE_READ, NumFrames);
 
 	/* Step 9 --- 64 NOOPS Words */
-	for (i = 0 ; i < 64 ; i++) {
+	for (i = 0 ; i < (s32)64 ; i++) {
 		CmdBuf[cmdindex++] = 0x20000000U;
 	}
 
@@ -2575,9 +2575,9 @@ static u32 Xfpga_RegAddr(u8 Register, u8 OpCode, u16 Size)
 	 * as only read operation is to be carried out and then performing OR
 	 * operation with the Word Length.
 	 */
-	return (((XDC_TYPE_1 << XDC_TYPE_SHIFT) |
-		(Register << XDC_REGISTER_SHIFT) |
-		(OpCode << XDC_OP_SHIFT)) | Size);
+	return (((XDC_TYPE_1 << (u8)XDC_TYPE_SHIFT) |
+		(Register << (u8)XDC_REGISTER_SHIFT) |
+		(OpCode << (u8)XDC_OP_SHIFT)) | (u32)Size);
 }
 
 /****************************************************************************/
@@ -2612,8 +2612,8 @@ static u32 Xfpga_Type2Pkt(u8 OpCode, u32 Size)
 	 * Header Mask, OpCode and then performing OR
 	 * operation with the Word Length.
 	 */
-	return (((XDC_TYPE_2 << XDC_TYPE_SHIFT) |
-		(OpCode << XDC_OP_SHIFT)) | Size);
+	return (((XDC_TYPE_2 << (u8)XDC_TYPE_SHIFT) |
+		(OpCode << (u8)XDC_OP_SHIFT)) | Size);
 }
 
 /*****************************************************************************/
@@ -2630,7 +2630,7 @@ static void XFpga_SetFirmwareState(u8 State)
 	/* Set Firmware State in PMU GLOBAL GEN STORAGE1 Register */
 	RegVal = Xil_In32(PMU_GLOBAL_GEN_STORAGE5);
 	RegVal &= ~XFPGA_STATE_MASK;
-	RegVal |= (State << XFPGA_STATE_SHIFT);
+	RegVal |= ((u32)State << XFPGA_STATE_SHIFT);
 	Xil_Out32(PMU_GLOBAL_GEN_STORAGE5, RegVal);
 }
 
