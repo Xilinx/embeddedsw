@@ -25,7 +25,7 @@ static void metal_shmem_io_close(struct metal_io_region *io)
 }
 
 static const struct metal_io_ops metal_shmem_io_ops = {
-	NULL, NULL, NULL, NULL, NULL, metal_shmem_io_close
+	NULL, NULL, NULL, NULL, NULL, metal_shmem_io_close, NULL, NULL
 };
 
 static int metal_shmem_try_map(struct metal_page_size *ps, int fd, size_t size,
