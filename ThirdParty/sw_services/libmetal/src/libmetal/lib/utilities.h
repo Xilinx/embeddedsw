@@ -13,6 +13,7 @@
 #define __METAL_UTILITIES__H__
 
 #include <stdint.h>
+#include <limits.h>
 #include <metal/assert.h>
 
 #ifdef __cplusplus
@@ -69,7 +70,7 @@ extern "C" {
 #define metal_container_of(ptr, structure, member)	\
 	(void *)((uintptr_t)(ptr) - metal_offset_of(structure, member))
 
-#define METAL_BITS_PER_ULONG	(8 * sizeof(unsigned long))
+#define METAL_BITS_PER_ULONG	(CHAR_BIT * sizeof(unsigned long))
 
 #define metal_bit(bit)		(1UL << (bit))
 

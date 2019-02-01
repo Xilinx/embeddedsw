@@ -123,7 +123,7 @@ int metal_io_block_set(struct metal_io_region *io, unsigned long offset,
 		unsigned int i;
 
 		for (i = 1; i < sizeof(int); i++)
-			cint |= ((unsigned int)value << (8 * i));
+			cint |= ((unsigned int)value << (CHAR_BIT * i));
 
 		for (; len && ((uintptr_t)ptr % sizeof(int)); ptr++, len--)
 			*(unsigned char *)ptr = (unsigned char) value;
