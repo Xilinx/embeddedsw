@@ -28,10 +28,10 @@ extern "C" {
 /**
  * @brief	type of interrupt handler
  * @param[in]   irq interrupt id
- * @param[in]	priv private data
+ * @param[in]	arg argument to pass to the handler
  * @return      irq handled status
  */
-typedef int (*metal_irq_handler) (int irq, void *priv);
+typedef int (*metal_irq_handler) (int irq, void *arg);
 
 struct metal_device;
 
@@ -45,14 +45,14 @@ struct metal_device;
  * @param[in]  irq         interrupt id
  * @param[in]  irq_handler interrupt handler
  * @param[in]  dev         metal device this irq belongs to (can be NULL).
- * @param[in]  drv_id      driver id is a unique interrupt handler identifier.
- *                         It can also be used for driver data.
+ * @param[in]  arg         arg is the argument pointing to the data which
+ *                         will be passed to the interrupt handler.
  * @return     0 for success, non-zero on failure
  */
 int metal_irq_register(int irq,
 		       metal_irq_handler irq_handler,
 		       struct metal_device *dev,
-		       void *drv_id);
+		       void *arg);
 
 /**
  * @brief      Unregister interrupt handler for interrupt.
