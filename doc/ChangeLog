@@ -1,5 +1,13 @@
 Changes for 2019.1
 ===============================
+libmetal_v1_5:
+Sync up libmetal upstream 5774af1b8e28ea39cbf92ae131eee4f93af699b2
+CPP atomic bug fix;
+metal io region offset<->phy to support the OS which has function to do
+this conversion;
+interrupt API update to separate IRQ controller implementation and
+device driver interrupt handling.
+
 axiethernet_v5_9:
 In tcl use unique global variables to fix bsp generation for certain designs.
 
