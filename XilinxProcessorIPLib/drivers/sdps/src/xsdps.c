@@ -95,6 +95,7 @@
 *       mn     10/01/18 Change Expected Response for CMD3 to R1 for MMC
 *       mus    11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
 * 3.7   mn     01/23/19 Add Manual Tuning Support for SD/eMMC
+*       mn     02/01/19 Add support for idling of SDIO
 * </pre>
 *
 ******************************************************************************/
@@ -1872,5 +1873,74 @@ s32 XSdPs_MmcCardInitialize(XSdPs *InstancePtr)
 RETURN_PATH:
 	return Status;
 
+}
+
+/*****************************************************************************/
+/**
+*
+* API to idle the SDIO Interface
+*
+*
+* @param	InstancePtr is a pointer to the XSdPs instance.
+*
+* @return	None
+*
+* @note		None.
+*
+******************************************************************************/
+void XSdPs_Idle(XSdPs *InstancePtr)
+{
+	u32 Timeout = MAX_TIMEOUT;
+	u32 PresentStateReg;
+	u32 StatusReg;
+	u8 RegVal;
+
+	PresentStateReg = XSdPs_ReadReg8(InstancePtr->Config.BaseAddress,
+			XSDPS_PRES_STATE_OFFSET);
+	/* Check for Card Present */
+	if (PresentStateReg & XSDPS_PSR_CARD_INSRT_MASK) {
+		/* Check for SD idle */
+		do {
+			StatusReg = XSdPs_ReadReg8(InstancePtr->Config.BaseAddress,
+					XSDPS_PRES_STATE_OFFSET);
+		} while ((StatusReg & (XSDPS_PSR_INHIBIT_CMD_MASK
+				| XSDPS_PSR_INHIBIT_DAT_MASK
+				| XSDPS_PSR_DAT_ACTIVE_MASK))
+				&& --Timeout);
+	}
+	/* Reset the eMMC card */
+	if (InstancePtr->CardType == XSDPS_CHIP_EMMC) {
+		RegVal = XSdPs_ReadReg8(InstancePtr->Config.BaseAddress,
+				XSDPS_POWER_CTRL_OFFSET);
+		XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
+				XSDPS_POWER_CTRL_OFFSET,
+				RegVal | XSDPS_PC_EMMC_HW_RST_MASK);
+		usleep(1000);
+		RegVal = XSdPs_ReadReg8(InstancePtr->Config.BaseAddress,
+				XSDPS_POWER_CTRL_OFFSET);
+		XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
+				XSDPS_POWER_CTRL_OFFSET,
+				RegVal & ~XSDPS_PC_EMMC_HW_RST_MASK);
+	}
+
+	/* Disable bus power */
+	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
+			XSDPS_POWER_CTRL_OFFSET, 0);
+
+	/* Delay to disable bus power to card */
+	(void)usleep(1000U);
+
+	/* "Software reset for all" is initiated */
+	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
+			XSDPS_SW_RST_OFFSET, XSDPS_SWRST_ALL_MASK);
+
+	Timeout = MAX_TIMEOUT;
+	/* Proceed with initialization only after reset is complete */
+	RegVal = XSdPs_ReadReg8(InstancePtr->Config.BaseAddress,
+			XSDPS_SW_RST_OFFSET);
+	while (((RegVal & XSDPS_SWRST_ALL_MASK) != 0U) && --Timeout) {
+		RegVal = XSdPs_ReadReg8(InstancePtr->Config.BaseAddress,
+				XSDPS_SW_RST_OFFSET);
+	}
 }
 /** @} */
