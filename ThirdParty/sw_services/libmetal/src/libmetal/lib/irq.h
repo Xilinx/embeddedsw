@@ -19,6 +19,7 @@ extern "C" {
 /** \defgroup irq Interrupt Handling Interfaces
  *  @{ */
 
+#include <metal/list.h>
 #include <stdlib.h>
 
 /** IRQ handled status */
@@ -27,13 +28,11 @@ extern "C" {
 
 /**
  * @brief	type of interrupt handler
- * @param[in]   irq interrupt id
+ * @param[in]	irq interrupt id
  * @param[in]	arg argument to pass to the handler
- * @return      irq handled status
+ * @return	irq handled status
  */
 typedef int (*metal_irq_handler) (int irq, void *arg);
-
-struct metal_device;
 
 /**
  * @brief      Register interrupt handler for interrupt.
