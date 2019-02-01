@@ -128,3 +128,13 @@ int metal_irq_register(int irq,
 	irq_data->arg = arg;
 	return 0;
 }
+
+void metal_irq_enable(unsigned int vector)
+{
+	_metal_irq_set_enable((int)vector, METAL_IRQ_ENABLE);
+}
+
+void metal_irq_disable(unsigned int vector)
+{
+	_metal_irq_set_enable((int)vector, METAL_IRQ_DISABLE);
+}
