@@ -885,7 +885,7 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 					const XSecure_ImageInfo *ImageInfo, u32 flags)
 {
 	u32 Status = XFPGA_SUCCESS;
-	XFpgaPs_PlPartition PlAesInfo;
+	XFpgaPs_PlPartition PlAesInfo = {0U};
 	XSecure_Aes Secure_Aes;
 	u32 PartationLen;
 	u32 PartationOffset;
@@ -894,7 +894,7 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 	u32 RemaningBytes;
 	UINTPTR AcPtr;
 	UINTPTR BitAddr;
-	u32 AesKey[XSECURE_KEY_LEN];
+	u32 AesKey[XSECURE_KEY_LEN] = {0U};
 
 	/* Authenticate the PL Partation's */
 	PartationOffset = ImageInfo->PartitionHdr->DataWordOffset
@@ -1040,7 +1040,7 @@ static u32 XFpga_SecureBitstreamOcmLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 				const XSecure_ImageInfo *ImageInfo, u32 flags)
 {
 	u32 Status = XFPGA_SUCCESS;
-	XFpgaPs_PlPartition PlAesInfo;
+	XFpgaPs_PlPartition PlAesInfo = {0U};
 	XSecure_Aes Secure_Aes;
 	u32 PartationLen;
 	u32 PartationOffset;
@@ -1049,7 +1049,7 @@ static u32 XFpga_SecureBitstreamOcmLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 	u32 RemaningBytes;
 	UINTPTR AcPtr;
 	UINTPTR BitAddr;
-	u32 AesKey[XSECURE_KEY_LEN];
+	u32 AesKey[XSECURE_KEY_LEN] = {0U};
 
 	/* Authenticate the PL Partation's */
 	PartationOffset = ImageInfo->PartitionHdr->DataWordOffset
@@ -1175,7 +1175,7 @@ END:
 static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr)
 {
 	u32 Status;
-	XSecure_Sha3 Secure_Sha3;
+	XSecure_Sha3 Secure_Sha3 = {0U};
 	u64 OcmAddr = OCM_PL_ADDR;
 	u32 NumChunks = NUM_OF_PL_CHUNKS(Size);
 	u32 ChunkSize = PL_CHUNK_SIZE_BYTES;
@@ -1185,7 +1185,7 @@ static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr)
 	XSecure_RsaKey Key;
 	u8 *AcPtr = (u8 *)(UINTPTR)AcAddr;
 	u8 *Signature = (AcPtr + XSECURE_AUTH_CERT_PARTSIG_OFFSET);
-	u8 Sha3Hash[HASH_LEN];
+	u8 Sha3Hash[HASH_LEN] = {0U};
 
 	RemaningBytes = (Size - (ChunkSize * NumChunks));
 
@@ -1274,7 +1274,7 @@ static u32 XFpga_ReAuthPlChunksWriteToPl(XFpgaPs_PlPartition *PlAesInfo,
 	u32 OcmChunkAddr = OCM_PL_ADDR + ChunkSize;
 	u32 RemaningBytes;
 	u32 Count;
-	u8 Sha3Hash[HASH_LEN];
+	u8 Sha3Hash[HASH_LEN] = {0U};
 
 	RemaningBytes = (Size  - (ChunkSize * NumChunks));
 
@@ -1373,7 +1373,7 @@ static u32 XFpga_WriteEncryptToPcap(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 {
 	u32 Status = XFPGA_SUCCESS;
 	XSecure_Aes Secure_Aes;
-	u32 key[XSECURE_KEY_LEN];
+	u32 key[XSECURE_KEY_LEN] = {0U};
 	u8 *EncSrc;
 
 	if (flags & XFPGA_ENCRYPTION_USERKEY_EN) {
@@ -2198,7 +2198,7 @@ static u32 XFpga_ConvertStringToHex(const u8 *Str, u32 *buf, u8 Len)
 {
 	u32 Status = XFPGA_SUCCESS;
 	u8 ConvertedLen = 0U, index = 0U;
-	u8 Nibble[MAX_NIBBLES];
+	u8 Nibble[MAX_NIBBLES] = {0U};
 
 	while (ConvertedLen < Len) {
 		/* Convert char to nibble */
