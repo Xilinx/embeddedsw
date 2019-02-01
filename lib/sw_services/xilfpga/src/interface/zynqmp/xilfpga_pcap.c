@@ -1191,13 +1191,13 @@ static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr)
 	u8 *AcPtr = (u8 *)(UINTPTR)AcAddr;
 	u8 *Signature = (AcPtr + XSECURE_AUTH_CERT_PARTSIG_OFFSET);
 	u8 Sha3Hash[HASH_LEN] = {0U};
-
+	UINTPTR Temp_BitstreamAddr = BitstreamAddr;
 	RemaningBytes = (Size - (ChunkSize * NumChunks));
 
 	XSecure_Sha3Initialize(&Secure_Sha3, &CsuDma);
 	XSecure_Sha3Start(&Secure_Sha3);
 	for (Count = 0U; Count < NumChunks; Count++) {
-		Status = XFpga_CopyToOcm((UINTPTR)BitstreamAddr,
+		Status = XFpga_CopyToOcm((UINTPTR)Temp_BitstreamAddr,
 				(UINTPTR)OcmAddr, ChunkSize/WORD_LEN);
 		if (Status != XFPGA_SUCCESS) {
 			goto END;
@@ -1211,11 +1211,11 @@ static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr)
 		/* Copy SHA3 hash into the OCM */
 		memcpy((u32 *)(UINTPTR)OcmChunkAddr, Sha3Hash, HASH_LEN);
 		OcmChunkAddr = OcmChunkAddr + HASH_LEN;
-		BitstreamAddr = BitstreamAddr + ChunkSize;
+		Temp_BitstreamAddr = Temp_BitstreamAddr + ChunkSize;
 	}
 
 	if (RemaningBytes) {
-		Status = XFpga_CopyToOcm((UINTPTR)BitstreamAddr,
+		Status = XFpga_CopyToOcm((UINTPTR)Temp_BitstreamAddr,
 					(UINTPTR)OcmAddr,
 					RemaningBytes/WORD_LEN);
 		if (Status != XFPGA_SUCCESS) {
@@ -1280,13 +1280,13 @@ static u32 XFpga_ReAuthPlChunksWriteToPl(XFpgaPs_PlPartition *PlAesInfo,
 	u32 RemaningBytes;
 	u32 Count;
 	u8 Sha3Hash[HASH_LEN] = {0U};
-
+	UINTPTR Temp_BitstreamAddr = BitstreamAddr;
 	RemaningBytes = (Size  - (ChunkSize * NumChunks));
 
 	XSecure_Sha3Initialize(&Secure_Sha3, &CsuDma);
 	XSecure_Sha3Start(&Secure_Sha3);
 	for (Count = 0U; Count < NumChunks; Count++) {
-		Status = XFpga_CopyToOcm((UINTPTR)BitstreamAddr,
+		Status = XFpga_CopyToOcm((UINTPTR)Temp_BitstreamAddr,
 					(UINTPTR)OcmAddr, ChunkSize/WORD_LEN);
 		if (Status != XFPGA_SUCCESS) {
 			Status = XFPGA_FAILURE;
@@ -1321,10 +1321,10 @@ static u32 XFpga_ReAuthPlChunksWriteToPl(XFpgaPs_PlPartition *PlAesInfo,
 			goto END;
 		}
 
-		BitstreamAddr = BitstreamAddr + ChunkSize;
+		Temp_BitstreamAddr = Temp_BitstreamAddr + ChunkSize;
 	}
 	if (RemaningBytes) {
-		Status = XFpga_CopyToOcm((UINTPTR)BitstreamAddr,
+		Status = XFpga_CopyToOcm((UINTPTR)Temp_BitstreamAddr,
 					(UINTPTR)OcmAddr,
 					RemaningBytes/WORD_LEN);
 		if (Status != XFPGA_SUCCESS) {
