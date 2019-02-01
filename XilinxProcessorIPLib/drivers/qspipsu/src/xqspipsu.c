@@ -79,6 +79,7 @@
  *		    as Pointer to const .
  * 1.9  nsk 02/01/19 Clear DMA_DST_ADDR_MSB register on 32bit machine, if the
  *		     address is of only 32bit (CR#1020031)
+ * 1.9  nsk 02/01/19 Added QSPI idling support.
  * </pre>
  *
  ******************************************************************************/
@@ -202,6 +203,43 @@ s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr, const XQspiPsu_Config *ConfigP
 	}
 
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * Stops the transfer of data to internal DST FIFO from stream interface and
+ * also stops the issuing of new write commands to memory.
+ *
+ * By calling this API, any ongoing Dma transfers will be paused and DMA will
+ * not issue AXI write commands to memory
+ *
+ * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+void XQspiPsu_Idle(const XQspiPsu *InstancePtr)
+{
+	u32 RegEn;
+	u32 DmaStatus;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	/* Check for QSPI enable */
+	RegEn = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
+			XQSPIPSU_EN_OFFSET);
+	if (RegEn & XQSPIPSU_EN_MASK) {
+		DmaStatus = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
+				XQSPIPSU_QSPIDMA_DST_CTRL_OFFSET);
+		DmaStatus |= XQSPIPSU_QSPIDMA_DST_CTRL_PAUSE_STRM_MASK;
+		DmaStatus |= XQSPIPSU_QSPIDMA_DST_CTRL_PAUSE_MEM_MASK;
+		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				XQSPIPSU_QSPIDMA_DST_CTRL_OFFSET,
+				DmaStatus);
+	}
 }
 
 /*****************************************************************************/
