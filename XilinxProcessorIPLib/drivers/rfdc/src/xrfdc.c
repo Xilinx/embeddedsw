@@ -135,6 +135,8 @@
 *       cog    01/29/19 Added XRFdc_SetDither() and XRFdc_GetDither() APIs.
 *       cog    01/29/19 Rename DataType for mixer input to MixerInputDataType
 *                       for readability.
+*       cog    01/29/19 Refactoring of interpolation and decimation APIs and
+*                       changed fabric rate for decimation X8 for non-high speed ADCs.
 * </pre>
 *
 ******************************************************************************/
@@ -1774,7 +1776,6 @@ u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 					u32 DecimationFactor)
 {
 	u32 Status;
-	u16 ReadReg;
 	u32 BaseAddr;
 	u32 Index;
 	u32 NoOfBlocks;
@@ -1821,9 +1822,6 @@ u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 				XRFDC_ADC_DECI_CONFIG_OFFSET, XRFDC_DEC_CFG_MASK);
 
 		/* Decimation factor */
-		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-					XRFDC_ADC_DECI_MODE_OFFSET) &
-					~XRFDC_DEC_MOD_MASK;
 		Factor = DecimationFactor;
 		if (DecimationFactor == XRFDC_INTERP_DECIM_4X) {
 			Factor = 0x3;
@@ -1831,9 +1829,9 @@ u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 		if (DecimationFactor == XRFDC_INTERP_DECIM_8X) {
 			Factor = 0x4;
 		}
-		ReadReg |= Factor;
-		XRFdc_WriteReg16(InstancePtr, BaseAddr,
-				XRFDC_ADC_DECI_MODE_OFFSET, ReadReg);
+
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_DECI_MODE_OFFSET,
+				XRFDC_DEC_MOD_MASK, Factor);
 
 		/* Fabric rate */
 		FabricRate = XRFdc_RDReg(InstancePtr, BaseAddr,
@@ -1852,7 +1850,8 @@ u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 					FabricRate = XRFDC_FAB_RATE_2;
 					break;
 				case XRFDC_INTERP_DECIM_8X:
-					FabricRate = XRFDC_FAB_RATE_1;
+					FabricRate = XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id)?
+							XRFDC_FAB_RATE_1:XRFDC_FAB_RATE_2;
 					break;
 				default:
 					metal_log(METAL_LOG_DEBUG, "\n Decimation block "
@@ -2023,7 +2022,6 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 						u32 InterpolationFactor)
 {
 	u32 Status;
-	u16 ReadReg;
 	u32 BaseAddr;
 	u16 FabricRate;
 	u8 DataType;
@@ -2065,9 +2063,6 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 	}
 
 	/* Interpolation factor */
-	ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-			XRFDC_DAC_INTERP_CTRL_OFFSET) &
-			~XRFDC_INTERP_MODE_MASK;
 	Factor = InterpolationFactor;
 	if (InterpolationFactor == XRFDC_INTERP_DECIM_4X) {
 		Factor = 0x3;
@@ -2075,12 +2070,12 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 	if (InterpolationFactor == XRFDC_INTERP_DECIM_8X) {
 		Factor = 0x4;
 	}
-	ReadReg |= Factor;
 	if (DataType == XRFDC_ADC_MIXER_MODE_IQ) {
-		ReadReg |= Factor << XRFDC_INTERP_MODE_Q_SHIFT;
+		Factor |= Factor << XRFDC_INTERP_MODE_Q_SHIFT;
 	}
-	XRFdc_WriteReg16(InstancePtr, BaseAddr,
-			XRFDC_DAC_INTERP_CTRL_OFFSET, ReadReg);
+
+	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_INTERP_CTRL_OFFSET,
+			XRFDC_INTERP_MODE_MASK, Factor);
 
 	/* Fabric rate */
 	FabricRate = XRFdc_RDReg(InstancePtr, BaseAddr,
