@@ -137,6 +137,8 @@
 *                       for readability.
 *       cog    01/29/19 Refactoring of interpolation and decimation APIs and
 *                       changed fabric rate for decimation X8 for non-high speed ADCs.
+*       cog    01/29/19 New inline functions to determine max & min sampling rates
+*                       rates in PLL range checking.
 * </pre>
 *
 ******************************************************************************/
@@ -5148,6 +5150,8 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	u32 Status;
 	u32 BaseAddr;
 	u32 PLLEnable = 0x0;
+	double MaxSampleRate;
+	double MinSampleRate;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
@@ -5176,6 +5180,24 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		goto RETURN_PATH;
 	}
 
+	if (XRFdc_GetMaxSampleRate(InstancePtr, Type, Tile_Id, &MaxSampleRate) != XRFDC_SUCCESS) {
+		Status = XRFDC_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	if (XRFdc_GetMinSampleRate(InstancePtr, Type, Tile_Id, &MinSampleRate) != XRFDC_SUCCESS) {
+			Status = XRFDC_FAILURE;
+			goto RETURN_PATH;
+	}
+
+	if ((SamplingRate < MinSampleRate) ||
+		(SamplingRate > MaxSampleRate)) {
+		metal_log(METAL_LOG_ERROR,  "\n Invalid sampling "
+				"rate value in %s\r\n", __func__);
+		Status = XRFDC_FAILURE;
+		goto RETURN_PATH;
+	}
+
 	if ((Source != XRFDC_INTERNAL_PLL_CLK) &&
 			(ClkSrc != XRFDC_INTERNAL_PLL_CLK)) {
 		metal_log(METAL_LOG_DEBUG,  "\n Requested Tile %d "
@@ -5192,30 +5214,7 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		Status = XRFDC_SUCCESS;
 		goto RETURN_PATH;
 	}
-	if ((((SamplingRate < XRFDC_DAC_SAMPLING_MIN) ||
-			(SamplingRate > XRFDC_DAC_SAMPLING_MAX)) &&
-			(Type == XRFDC_DAC_TILE))) {
-		metal_log(METAL_LOG_ERROR,  "\n Invalid sampling "
-				"rate value in %s\r\n", __func__);
-		Status = XRFDC_FAILURE;
-		goto RETURN_PATH;
-	}
-	if ((((SamplingRate < XRFDC_ADC_4G_SAMPLING_MIN) ||
-			(SamplingRate > XRFDC_ADC_4G_SAMPLING_MAX)) &&
-		((Type == XRFDC_ADC_TILE) && (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)))) {
-		metal_log(METAL_LOG_ERROR,  "\n Invalid sampling "
-				"rate value in %s\r\n", __func__);
-		Status = XRFDC_FAILURE;
-		goto RETURN_PATH;
-	}
-	if ((((SamplingRate < XRFDC_ADC_2G_SAMPLING_MIN) ||
-			(SamplingRate > XRFDC_ADC_2G_SAMPLING_MAX)) &&
-		((Type == XRFDC_ADC_TILE) && (InstancePtr->ADC4GSPS != XRFDC_ADC_4GSPS)))) {
-		metal_log(METAL_LOG_ERROR,  "\n Invalid sampling "
-				"rate value in %s\r\n", __func__);
-		Status = XRFDC_FAILURE;
-		goto RETURN_PATH;
-	}
+
 	if (Source == XRFDC_INTERNAL_PLL_CLK) {
 		if ((RefClkFreq < XRFDC_REFFREQ_MIN) ||
 				(RefClkFreq > XRFDC_REFFREQ_MAX)) {
