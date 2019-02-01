@@ -126,7 +126,7 @@ static inline size_t metal_io_region_size(struct metal_io_region *io)
 static inline void *
 metal_io_virt(struct metal_io_region *io, unsigned long offset)
 {
-	return (io->virt != METAL_BAD_VA && offset <= io->size
+	return (io->virt != METAL_BAD_VA && offset < io->size
 		? (uint8_t *)io->virt + offset
 		: NULL);
 }
@@ -157,7 +157,7 @@ metal_io_phys(struct metal_io_region *io, unsigned long offset)
 	unsigned long page = (io->page_shift >=
 			     sizeof(offset) * CHAR_BIT ?
 			     0 : offset >> io->page_shift);
-	return (io->physmap != NULL && offset <= io->size
+	return (io->physmap != NULL && offset < io->size
 		? io->physmap[page] + (offset & io->page_mask)
 		: METAL_BAD_PHYS);
 }

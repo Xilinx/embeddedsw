@@ -37,7 +37,7 @@ int metal_io_block_read(struct metal_io_region *io, unsigned long offset,
 	unsigned char *dest = dst;
 	int retlen;
 
-	if (offset > io->size)
+	if (offset >= io->size)
 		return -ERANGE;
 	if ((offset + len) > io->size)
 		len = io->size - offset;
@@ -74,7 +74,7 @@ int metal_io_block_write(struct metal_io_region *io, unsigned long offset,
 	const unsigned char *source = src;
 	int retlen;
 
-	if (offset > io->size)
+	if (offset >= io->size)
 		return -ERANGE;
 	if ((offset + len) > io->size)
 		len = io->size - offset;
@@ -110,7 +110,7 @@ int metal_io_block_set(struct metal_io_region *io, unsigned long offset,
 	unsigned char *ptr = metal_io_virt(io, offset);
 	int retlen = len;
 
-	if (offset > io->size)
+	if (offset >= io->size)
 		return -ERANGE;
 	if ((offset + len) > io->size)
 		len = io->size - offset;
