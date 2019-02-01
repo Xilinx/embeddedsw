@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xrfdc_mixer.c
-* @addtogroup xrfdc_v7_0
+* @addtogroup rfdc_v8_0
 * @{
 *
 * Contains the interface functions of the Mixer Settings in XRFdc driver.
@@ -56,6 +36,16 @@
 *                       be incorrect.
 *       cog    09/19/19 Calibration mode 1 does not need the frequency shifting workaround
 *                       for Gen 3 devices.
+* 7.1   cog    11/28/19 Prevent setting non compliant mixer settings when in the bypass
+*                       datapath mode.
+*       cog    12/20/19 Metal log messages are now more descriptive.
+*              12/23/19 Fabric rate is now auto-corrected when changing a miixer from IQ
+*                       to real (and vice versa).
+*       cog    01/29/20 Fixed metal log typos.
+* 8.0   cog    02/10/20 Updated addtogroup.
+*       cog    03/05/20 IMR datapath modes require the frequency word to be doubled.
+*       cog    03/23/20 Relegate the datapath being in bypass mode to a warning when
+*                       getting mixer parameters.
 * </pre>
 *
 ******************************************************************************/
@@ -71,7 +61,8 @@
 static void XRFdc_SetFineMixer(XRFdc *InstancePtr, u32 BaseAddr, XRFdc_Mixer_Settings *MixerSettingsPtr);
 static void XRFdc_SetCoarseMixer(XRFdc *InstancePtr, u32 Type, u32 BaseAddr, u32 Tile_Id, u32 Block_Id,
 				 u32 CoarseMixFreq, XRFdc_Mixer_Settings *MixerSettingsPtr);
-static u32 XRFdc_MixerRangeCheck(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_Mixer_Settings *MixerSettingsPtr);
+static u32 XRFdc_MixerRangeCheck(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id,
+				 XRFdc_Mixer_Settings *MixerSettingsPtr);
 static void XRFdc_MixersOff(XRFdc *InstancePtr, u32 BaseAddr);
 
 /************************** Function Prototypes ******************************/
@@ -119,6 +110,9 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 	double NCOFreq;
 	u32 NyquistZone = 0U;
 	u32 Offset;
+	u32 DatapathMode;
+	u32 FabricRate;
+	u32 BWDiv = XRFDC_FULL_BW_DIVISOR;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(MixerSettingsPtr != NULL);
@@ -128,8 +122,29 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 	if (Status != XRFDC_SUCCESS) {
 		goto RETURN_PATH;
 	}
+	if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
+		if (Type == XRFDC_DAC_TILE) {
+			DatapathMode = XRFdc_RDReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id),
+						   XRFDC_DAC_DATAPATH_OFFSET, XRFDC_DATAPATH_MODE_MASK);
+			switch (DatapathMode) {
+			case XRFDC_DAC_INT_MODE_FULL_BW_BYPASS:
+				Status = XRFDC_FAILURE;
+				metal_log(METAL_LOG_ERROR,
+					  "\n Can't set mixer as DAC %u DUC %u is in bypass mode in %s\r\n", Tile_Id,
+					  Block_Id, __func__);
+				goto RETURN_PATH;
+			case XRFDC_DAC_INT_MODE_HALF_BW_IMR:
+				BWDiv = XRFDC_HALF_BW_DIVISOR;
+				break;
+			case XRFDC_DAC_INT_MODE_FULL_BW:
+			default:
+				BWDiv = XRFDC_FULL_BW_DIVISOR;
+				break;
+			}
+		}
+	}
 
-	Status = XRFdc_MixerRangeCheck(InstancePtr, Type, Tile_Id, MixerSettingsPtr);
+	Status = XRFdc_MixerRangeCheck(InstancePtr, Type, Tile_Id, Block_Id, MixerSettingsPtr);
 	if (Status != XRFDC_SUCCESS) {
 		goto RETURN_PATH;
 	}
@@ -155,34 +170,50 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 			/* DAC */
 			MixerConfigPtr =
 				&InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Index].Mixer_Settings;
-			SamplingRate = InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate;
+			SamplingRate = InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate / BWDiv;
 		}
 
 		BaseAddr = XRFDC_BLOCK_BASE(Type, Tile_Id, Index);
 
 		if (SamplingRate <= 0) {
 			Status = XRFDC_FAILURE;
-			metal_log(METAL_LOG_ERROR, "\n Incorrect Sampling rate in %s\r\n", __func__);
+			metal_log(METAL_LOG_ERROR, "\n Incorrect Sampling rate (%2.4f GHz) for %s %u in %s\r\n",
+				  SamplingRate, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 			goto RETURN_PATH;
 		} else {
-			metal_log(METAL_LOG_DEBUG, "\n Sampling rate is %2.4f in %s\r\n", SamplingRate, __func__);
+			metal_log(METAL_LOG_DEBUG, "\n Sampling rate is %2.4f GHz for %s %u in %s\r\n", SamplingRate,
+				  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		}
 
 		SamplingRate *= XRFDC_MILLI;
 		/* Set MixerInputDataType for ADC and DAC */
 		if (Type == XRFDC_DAC_TILE) {
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_DAC_ITERP_DATA_OFFSET);
-			ReadReg &= ~XRFDC_DAC_INTERP_DATA_MASK;
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Index].MixerInputDataType =
-				XRFDC_DATA_TYPE_REAL;
-			if ((MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2C) ||
-			    (MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2R)) {
+			FabricRate = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_OFFSET,
+						 XRFDC_DAC_FAB_RATE_RD_MASK);
+			FabricRate = FabricRate >> XRFDC_FAB_RATE_RD_SHIFT;
+			if (((MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2C) ||
+			     (MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2R)) &&
+			    (InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Index].MixerInputDataType ==
+			     XRFDC_DATA_TYPE_REAL)) {
 				ReadReg |= XRFDC_DAC_INTERP_DATA_MASK;
 				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Index].MixerInputDataType =
 					XRFDC_DATA_TYPE_IQ;
+				FabricRate <<= 1;
+			} else if ((MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2R) &&
+				   (InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Index].MixerInputDataType ==
+				    XRFDC_DATA_TYPE_IQ)) {
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Index].MixerInputDataType =
+					XRFDC_DATA_TYPE_REAL;
+				ReadReg &= ~XRFDC_DAC_INTERP_DATA_MASK;
+				FabricRate >>= 1;
 			}
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_OFFSET, XRFDC_DAC_FAB_RATE_RD_MASK,
+					(FabricRate << XRFDC_FAB_RATE_RD_SHIFT));
 			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_DAC_ITERP_DATA_OFFSET, ReadReg);
 		} else {
+			FabricRate = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_OFFSET,
+						 XRFDC_ADC_FAB_RATE_WR_MASK);
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_DECI_CONFIG_OFFSET);
 			ReadReg &= ~XRFDC_DEC_CFG_MASK;
 			if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
@@ -194,14 +225,23 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 				ReadReg |= XRFDC_DEC_CFG_CHA_MASK;
 			}
 			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_ADC_DECI_CONFIG_OFFSET, ReadReg);
-			if (MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2C) {
+			if ((MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2C) &&
+			    (InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Index].MixerInputDataType ==
+			     XRFDC_DATA_TYPE_REAL)) {
 				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Index].MixerInputDataType =
 					XRFDC_DATA_TYPE_IQ;
-			}
-			if ((MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2C) ||
-			    (MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2R)) {
+				FabricRate <<= 1;
+			} else if (((MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2C) ||
+				    (MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2R)) &&
+				   (InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Index].MixerInputDataType ==
+				    XRFDC_DATA_TYPE_IQ)) {
 				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Index].MixerInputDataType =
 					XRFDC_DATA_TYPE_REAL;
+				FabricRate >>= 1;
+			}
+			if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 0) {
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_OFFSET,
+						XRFDC_ADC_FAB_RATE_WR_MASK, FabricRate);
 			}
 		}
 
@@ -351,24 +391,31 @@ RETURN_PATH:
 * @note     None.
 *
 ******************************************************************************/
-static u32 XRFdc_MixerRangeCheck(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_Mixer_Settings *MixerSettingsPtr)
+static u32 XRFdc_MixerRangeCheck(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id,
+				 XRFdc_Mixer_Settings *MixerSettingsPtr)
 {
 	u32 Status;
 
 	if ((MixerSettingsPtr->PhaseOffset >= XRFDC_MIXER_PHASE_OFFSET_UP_LIMIT) ||
 	    (MixerSettingsPtr->PhaseOffset <= XRFDC_MIXER_PHASE_OFFSET_LOW_LIMIT)) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid phase offset value in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid phase offset value (%lf) for %s %u block %u in %s\r\n",
+			  MixerSettingsPtr->PhaseOffset, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id,
+			  __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
 	if ((MixerSettingsPtr->EventSource > XRFDC_EVNT_SRC_PL) ||
 	    ((MixerSettingsPtr->EventSource == XRFDC_EVNT_SRC_MARKER) && (Type == XRFDC_ADC_TILE))) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid event source selection in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid event source selection (%u) for %s %u block %u in %s\r\n",
+			  MixerSettingsPtr->EventSource, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id,
+			  __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
 	if (MixerSettingsPtr->MixerMode > XRFDC_MIXER_MODE_R2R) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid fine mixer mode in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid fine mixer mode in (%u) for %s %u block %u in %s\r\n",
+			  MixerSettingsPtr->MixerMode, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id,
+			  __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -377,34 +424,44 @@ static u32 XRFdc_MixerRangeCheck(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFd
 	    (MixerSettingsPtr->CoarseMixFreq != XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR) &&
 	    (MixerSettingsPtr->CoarseMixFreq != XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR) &&
 	    (MixerSettingsPtr->CoarseMixFreq != XRFDC_COARSE_MIX_BYPASS)) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid coarse mix frequency value in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid coarse mix frequency value (%u) for %s %u block %u in %s\r\n",
+			  MixerSettingsPtr->CoarseMixFreq, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id,
+			  __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
 	if (MixerSettingsPtr->FineMixerScale > XRFDC_MIXER_SCALE_0P7) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Invalid Mixer Scale in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Mixer Scale (%u) for %s %u block %u in %s\r\n",
+			  MixerSettingsPtr->PhaseOffset, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id,
+			  __func__);
 		goto RETURN_PATH;
 	}
 	if (((MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2C) && (Type == XRFDC_DAC_TILE)) ||
 	    ((MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2R) && (Type == XRFDC_ADC_TILE))) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Invalid Mixer mode in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Mixer mode (%u) for %s %u block %u in %s\r\n",
+			  MixerSettingsPtr->MixerMode, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id,
+			  __func__);
 		goto RETURN_PATH;
 	}
 	if ((MixerSettingsPtr->MixerType != XRFDC_MIXER_TYPE_FINE) &&
 	    (MixerSettingsPtr->MixerType != XRFDC_MIXER_TYPE_COARSE) &&
 	    (MixerSettingsPtr->MixerType != XRFDC_MIXER_TYPE_OFF)) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Invalid Mixer Type in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Mixer Type (%u) for %s %u block %u in %s\r\n",
+			  MixerSettingsPtr->MixerType, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id,
+			  __func__);
 		goto RETURN_PATH;
 	}
 	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) && (Type == XRFDC_ADC_TILE) &&
 	    ((MixerSettingsPtr->EventSource == XRFDC_EVNT_SRC_SLICE) ||
 	     (MixerSettingsPtr->EventSource == XRFDC_EVNT_SRC_IMMEDIATE))) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Invalid Event Source, event source is not supported in 4GSPS ADC %s\r\n",
-			  __func__);
+		metal_log(
+			METAL_LOG_ERROR,
+			"\n Invalid Event Source (%u), event source is not supported in 4GSPS ADC for ADC %u block %u in %s\r\n",
+			MixerSettingsPtr->EventSource, Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 	if (((MixerSettingsPtr->MixerType == XRFDC_MIXER_TYPE_COARSE) &&
@@ -412,32 +469,49 @@ static u32 XRFdc_MixerRangeCheck(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFd
 	    ((MixerSettingsPtr->MixerType == XRFDC_MIXER_TYPE_FINE) &&
 	     (MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_OFF))) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Invalid Combination of Mixer settings in %s\r\n", __func__);
+		metal_log(
+			METAL_LOG_ERROR,
+			"\n Invalid Combination of Mixer type (%u) Mixer mode (%u)/Coarse Mix Frequency (%u) for %s %u block %u in %s\r\n",
+			MixerSettingsPtr->MixerType, MixerSettingsPtr->MixerMode, MixerSettingsPtr->CoarseMixFreq,
+			(Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 	if ((MixerSettingsPtr->MixerType == XRFDC_MIXER_TYPE_COARSE) &&
 	    (MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_OFF)) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Invalid Combination of Mixer type and Mixer mode in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR,
+			  "\n Invalid Combination of Mixer type (%u) and Mixer mode (%u) for %s %u block %u in %s\r\n",
+			  MixerSettingsPtr->MixerType, MixerSettingsPtr->MixerMode,
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 	if ((MixerSettingsPtr->MixerType == XRFDC_MIXER_TYPE_FINE) &&
 	    (MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2R)) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Invalid Combination of Mixer type and Mixer mode in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR,
+			  "\n Invalid Combination of Mixer type (%u) and Mixer mode (%u) for %s %u block %u in %s\r\n",
+			  MixerSettingsPtr->MixerType, MixerSettingsPtr->MixerMode,
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 	if ((MixerSettingsPtr->MixerType == XRFDC_MIXER_TYPE_COARSE) &&
 	    (MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2R) &&
 	    (MixerSettingsPtr->CoarseMixFreq != XRFDC_COARSE_MIX_BYPASS)) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Invalid Combination of Mixer type and Mixer mode in %s\r\n", __func__);
+		metal_log(
+			METAL_LOG_ERROR,
+			"\n Invalid Combination of Mixer type (%u) and Mixer mode (%u) (non-bypass) for %s %u block %u in %s\r\n",
+			MixerSettingsPtr->MixerType, MixerSettingsPtr->MixerMode,
+			(Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 	if ((MixerSettingsPtr->MixerType == XRFDC_MIXER_TYPE_OFF) &&
 	    (MixerSettingsPtr->MixerMode != XRFDC_MIXER_MODE_OFF)) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Invalid Combination of Mixer type and Mixer mode in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR,
+			  "\n Invalid Combination of Mixer type (%u) and Mixer mode (%u) for %s %u block %u in %s\r\n",
+			  MixerSettingsPtr->MixerType, MixerSettingsPtr->MixerMode,
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 	Status = XRFDC_SUCCESS;
@@ -656,7 +730,9 @@ static void XRFdc_SetCoarseMixer(XRFdc *InstancePtr, u32 Type, u32 BaseAddr, u32
 		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_MXR_CFG1_OFFSET, XRFDC_MIX_CFG1_MASK,
 				XRFDC_CRSE_MIX_OFF);
 	} else {
-		metal_log(METAL_LOG_ERROR, "\n Invalid Coarse Mixer frequency in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Coarse Mixer frequency (%u) for %s %u block %u in %s\r\n",
+			  MixerSettingsPtr->CoarseMixFreq, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id,
+			  __func__);
 	}
 
 	/* Fine mixer mode is OFF */
@@ -705,6 +781,8 @@ u32 XRFdc_GetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 	double NCOFreq;
 	u32 FineMixerMode;
 	u32 CoarseMixerMode = 0x0;
+	u32 BWDiv = XRFDC_FULL_BW_DIVISOR;
+	u32 DatapathMode;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(MixerSettingsPtr != NULL);
@@ -724,20 +802,40 @@ u32 XRFdc_GetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 			Block_Id = XRFDC_BLK_ID1;
 		}
 	}
-
+	if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
+		if (Type == XRFDC_DAC_TILE) {
+			DatapathMode = XRFdc_RDReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id),
+						   XRFDC_DAC_DATAPATH_OFFSET, XRFDC_DATAPATH_MODE_MASK);
+			switch (DatapathMode) {
+			case XRFDC_DAC_INT_MODE_FULL_BW_BYPASS:
+				metal_log(METAL_LOG_WARNING, "\n DAC %u DUC %u is in bypass mode in %s\r\n", Tile_Id,
+					  Block_Id, __func__);
+				BWDiv = XRFDC_FULL_BW_DIVISOR;
+				break;
+			case XRFDC_DAC_INT_MODE_HALF_BW_IMR:
+				BWDiv = XRFDC_HALF_BW_DIVISOR;
+				break;
+			case XRFDC_DAC_INT_MODE_FULL_BW:
+			default:
+				BWDiv = XRFDC_FULL_BW_DIVISOR;
+				break;
+			}
+		}
+	}
 	if (Type == XRFDC_ADC_TILE) {
 		/* ADC */
 		SamplingRate = InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate;
 		MixerConfigPtr = &InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].Mixer_Settings;
 	} else {
 		/* DAC */
-		SamplingRate = InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate;
+		SamplingRate = InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate / BWDiv;
 		MixerConfigPtr = &InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Block_Id].Mixer_Settings;
 	}
 
 	if (SamplingRate <= 0) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Incorrect Sampling rate in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Incorrect Sampling rate (%2.4f GHz) for %s %u in %s\r\n", SamplingRate,
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -823,7 +921,9 @@ u32 XRFdc_GetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 		CoarseMixerMode = XRFDC_MIXER_MODE_C2C;
 	}
 	if (MixerSettingsPtr->CoarseMixFreq == 0x20U) {
-		metal_log(METAL_LOG_ERROR, "\n Coarse mixer settings not match any of the modes %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR,
+			  "\n Coarse mixer settings not match any of the modes for %s %u block %u in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 	}
 	if ((MixerConfigPtr->MixerMode == XRFDC_MIXER_MODE_C2R) && (CoarseMixerMode == XRFDC_MIXER_MODE_C2C)) {
 		CoarseMixerMode = XRFDC_MIXER_MODE_C2R;
@@ -861,7 +961,9 @@ u32 XRFdc_GetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 	} else if (InstancePtr->UpdateMixerScale == 0x1U) {
 		MixerSettingsPtr->FineMixerScale = XRFDC_MIXER_SCALE_0P7;
 	} else {
-		metal_log(METAL_LOG_ERROR, "\n Invalid Fine mixer scale in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Fine mixer scale in (%u) for %s %u block %u in %s\r\n",
+			  InstancePtr->UpdateMixerScale, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id,
+			  __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
