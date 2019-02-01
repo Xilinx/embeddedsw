@@ -86,11 +86,13 @@ static struct XPm_Master *const pm_masters_all[] = {
  */
 struct XPm_Master *pm_get_master(const u32 cpuid)
 {
+	struct XPm_Master *master = NULL;
 	if (cpuid < PM_ARRAY_SIZE(pm_masters_all)) {
-		return pm_masters_all[cpuid];
+		master = pm_masters_all[cpuid];
+		goto done;
 	}
-
-	return NULL;
+done:
+	return master;
 }
 
 /**
@@ -102,27 +104,35 @@ struct XPm_Master *pm_get_master(const u32 cpuid)
 struct XPm_Master *pm_get_master_by_node(const enum XPmNodeId nid)
 {
 	u8 i;
+	struct XPm_Master *master = NULL;
 
-	for (i = 0; i < PM_ARRAY_SIZE(pm_masters_all); i++) {
+	for (i = 0U; i < PM_ARRAY_SIZE(pm_masters_all); i++) {
 		if (nid == pm_masters_all[i]->node_id) {
-			return pm_masters_all[i];
+			master = pm_masters_all[i];
+			goto done;
 		}
 	}
 
-	return NULL;
+done:
+	return master;
 }
 
 static u32 pm_get_cpuid(const enum XPmNodeId node)
 {
 	u32 i;
+	u32 ret;
 
-	for (i = 0; i < PM_ARRAY_SIZE(pm_masters_all); i++) {
+	for (i = 0U; i < PM_ARRAY_SIZE(pm_masters_all); i++) {
 		if (pm_masters_all[i]->node_id == node) {
-			return i;
+			ret = i;
+			goto done;
 		}
 	}
 
-	return UNDEFINED_CPUID;
+	ret = UNDEFINED_CPUID;
+
+done:
+	return ret;
 }
 
 const enum XPmNodeId subsystem_node = NODE_APU;
