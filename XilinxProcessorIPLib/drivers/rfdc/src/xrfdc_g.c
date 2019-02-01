@@ -1,5 +1,5 @@
 /*******************************************************************
-* Copyright (C) 2017-2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2017-2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -30,7 +30,7 @@
 /**
 *
 * @file xrfdc_g.c
-* @addtogroup rfdc_v5_0
+* @addtogroup xrfdc_v5_1
 * @{
 *
 * This file contains a configuration table that specifies the configuration of
