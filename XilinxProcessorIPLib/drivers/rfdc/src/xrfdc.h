@@ -194,6 +194,7 @@
 *                       for readability.
 *       cog    01/29/19 Refactoring of interpolation and decimation APIs and
 *                       changed fabric rate for decimation X8 for non-high speed ADCs.
+*       cog    01/29/19 New inline functions to determine max & min sampling rates.
 * </pre>
 *
 ******************************************************************************/
@@ -1662,7 +1663,86 @@ static inline u32 XRFdc_CheckTileEnabled(XRFdc *InstancePtr, u32 Type,
 RETURN_PATH:
 	return Status;
 }
+/*****************************************************************************/
+/**
+*
+* Gets ADC/DAC tile maximum sampling rate.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC.
+* @param	Tile_Id Valid values are 0-3.
+* @param	MaxSampleRatePtr pointer for maximum sample rate.
+*
+* @return
+*		- XRFDC_SUCCESS if found sampling rate.
+*       - XRFDC_FAILURE if could not find sampling rate.
+*
+******************************************************************************/
+static inline u32 XRFdc_GetMaxSampleRate(XRFdc *InstancePtr, u32 Type,
+								u32 Tile_Id, double *MaxSampleRatePtr)
+{
+	u32 Status;
 
+	if ((Type != XRFDC_ADC_TILE) && (Type != XRFDC_DAC_TILE)) {
+		Status = XRFDC_FAILURE;
+		goto RETURN_PATH;
+	}
+	if (Tile_Id > XRFDC_TILE_ID_MAX) {
+		Status = XRFDC_FAILURE;
+		goto RETURN_PATH;
+	}
+	if (Type == XRFDC_ADC_TILE) {
+		*MaxSampleRatePtr = InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].MaxSampleRate*1000;
+		if(*MaxSampleRatePtr == 0){
+			*MaxSampleRatePtr = XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id)?XRFDC_ADC_4G_SAMPLING_MAX:XRFDC_ADC_2G_SAMPLING_MAX;
+		}
+	} else {
+		*MaxSampleRatePtr = InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].MaxSampleRate*1000;
+		if(*MaxSampleRatePtr == 0){
+			*MaxSampleRatePtr = XRFDC_DAC_SAMPLING_MAX;
+		}
+	}
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+/*****************************************************************************/
+/**
+*
+* Gets ADC/DAC tile minimum sampling rate.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC.
+* @param	Tile_Id Valid values are 0-3.
+* @param	MinSampleRatePtr pointer for minimum sample rate.
+*
+* @return
+*		- XRFDC_SUCCESS if found sampling rate.
+*       - XRFDC_FAILURE if could not find sampling rate.
+*
+******************************************************************************/
+static inline u32 XRFdc_GetMinSampleRate(XRFdc *InstancePtr, u32 Type,
+								u32 Tile_Id, double *MinSampleRatePtr)
+{
+	u32 Status;
+
+	if ((Type != XRFDC_ADC_TILE) && (Type != XRFDC_DAC_TILE)) {
+		Status = XRFDC_FAILURE;
+		goto RETURN_PATH;
+	}
+	if (Tile_Id > XRFDC_TILE_ID_MAX) {
+		Status = XRFDC_FAILURE;
+		goto RETURN_PATH;
+	}
+	if (Type == XRFDC_ADC_TILE) {
+		*MinSampleRatePtr = XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id)?XRFDC_ADC_4G_SAMPLING_MIN:XRFDC_ADC_2G_SAMPLING_MIN;
+	} else {
+		*MinSampleRatePtr = XRFDC_DAC_SAMPLING_MIN;
+	}
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
 /*****************************************************************************/
 /**
 *
