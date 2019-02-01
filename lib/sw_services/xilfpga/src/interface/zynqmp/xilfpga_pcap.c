@@ -863,7 +863,7 @@ static u32 XFpga_SecureLoadToPl(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 	default:
 
 		Xfpga_Printf(XFPGA_DEBUG, "Invalid Option\r\n");
-
+        break;
 
 	}
 
