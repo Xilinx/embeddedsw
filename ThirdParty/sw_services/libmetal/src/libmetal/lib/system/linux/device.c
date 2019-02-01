@@ -250,6 +250,7 @@ static int metal_uio_dev_open(struct linux_bus *lbus, struct linux_device *ldev)
 	} else {
 		ldev->device.irq_num =  1;
 		ldev->device.irq_info = (void *)(intptr_t)ldev->fd;
+		metal_linux_irq_register_dev(&ldev->device, ldev->fd);
 	}
 
 	return 0;
