@@ -10,9 +10,10 @@
  */
 
 #ifndef __METAL_GENERIC_SYS__H__
-#error "Include metal/sys.h instead of metal/generic/@PROJECT_MACHINE@/sys.h"
+#error "Include metal/sys.h instead of metal/system/generic/@PROJECT_MACHINE@/sys.h"
 #endif
 
+#include <metal/system/@PROJECT_SYSTEM@/xlnx_common/sys.h>
 #include "xscugic.h"
 
 #ifndef __METAL_GENERIC_ZYNQMP_R5_SYS__H__
