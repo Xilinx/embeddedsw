@@ -153,6 +153,8 @@
  * 1.9  aru 01/17/19 Fixed the violations for  MISRAC-2012
  *                  in safety mode .Done changes such as added U suffix,
  *                  Declared pointer param as const.
+ * 1.9  nsk 02/01/19 Clear DMA_DST_ADDR_MSB register on 32bit machine, if the
+ *		     address is of only 32bit (CR#1020031)
  *
  * </pre>
  *

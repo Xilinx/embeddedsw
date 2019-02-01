@@ -77,6 +77,8 @@
  *                  in safety mode and modified the code such as
  *                  Added UNITPTR inplace of INTPTR,Declared the pointer param
  *		    as Pointer to const .
+ * 1.9  nsk 02/01/19 Clear DMA_DST_ADDR_MSB register on 32bit machine, if the
+ *		     address is of only 32bit (CR#1020031)
  * </pre>
  *
  ******************************************************************************/
@@ -1241,6 +1243,10 @@ static inline void XQspiPsu_SetupRxDma(const XQspiPsu *InstancePtr,
 			XQSPIPSU_QSPIDMA_DST_ADDR_MSB_OFFSET,
 			(u32)AddrTemp &
 			XQSPIPSU_QSPIDMA_DST_ADDR_MSB_MASK);
+#else
+	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
+			XQSPIPSU_QSPIDMA_DST_ADDR_MSB_OFFSET,
+			0U);
 #endif
 
 	Remainder = InstancePtr->RxBytes % 4;
