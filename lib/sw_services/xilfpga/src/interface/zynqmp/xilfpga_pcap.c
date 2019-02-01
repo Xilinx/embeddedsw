@@ -180,26 +180,26 @@ static u32 XFpga_PsPlGpioResetsLow(u32 TotalResets);
 static u32 XFpga_PsPlGpioResetsHigh(u32 TotalResets);
 static u32 Xfpga_RegAddr(u8 Register, u8 OpCode, u16 Size);
 static u32 Xfpga_Type2Pkt(u8 OpCode, u32 Size);
-static u32 XFpga_ValidateCryptoFlags(XSecure_ImageInfo *ImageInfo, u32 flags);
+static u32 XFpga_ValidateCryptoFlags(const XSecure_ImageInfo *ImageInfo, u32 flags);
 static u32 XFpga_ValidateBitstreamImage(XFpga  *InstancePtr);
-static u32 XFpga_PreConfigPcap(XFpga *InstancePtr);
+static u32 XFpga_PreConfigPcap(const XFpga *InstancePtr);
 static u32 XFpga_WriteToPlPcap(XFpga *InstancePtr);
-static u32 XFpga_PostConfigPcap(XFpga *InstancePtr);
+static u32 XFpga_PostConfigPcap(const XFpga *InstancePtr);
 static u32 XFpga_PcapStatus(void);
-static u32 XFpga_GetConfigRegPcap(XFpga *InstancePtr);
-static u32 XFpga_GetPLConfigData(XFpga *InstancePtr);
+static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr);
+static u32 XFpga_GetPLConfigData(const XFpga *InstancePtr);
 static void XFpga_SetFirmwareState(u8 State);
 static u8 XFpga_GetFirmwareState(void);
 static u32 XFpga_SelectEndianess(u8 *Buf, u32 Size, u32 *Pos);
 #ifdef XFPGA_SECURE_MODE
 static u32 XFpga_SecureLoadToPl(UINTPTR BitstreamAddr,	UINTPTR KeyAddr,
-				XSecure_ImageInfo *ImageInfo, u32 flags);
+				const XSecure_ImageInfo *ImageInfo, u32 flags);
 static u32 XFpga_WriteEncryptToPcap(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
-				XSecure_ImageInfo *ImageInfo, u32 flags);
+				const XSecure_ImageInfo *ImageInfo, u32 flags);
 static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
-				XSecure_ImageInfo *ImageInfo, u32 flags);
+				const XSecure_ImageInfo *ImageInfo, u32 flags);
 static u32 XFpga_SecureBitstreamOcmLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
-				XSecure_ImageInfo *ImageInfo, u32 flags);
+				const XSecure_ImageInfo *ImageInfo, u32 flags);
 static u32 XFpga_ConvertCharToNibble(u8 InChar, u8 *Num);
 static u32 XFpga_ConvertStringToHex(const u8 *Str, u32 *buf, u8 Len);
 static u32 XFpga_CopyToOcm(UINTPTR Src, UINTPTR Dst, u32 Size);
@@ -453,7 +453,7 @@ END:
  *		- XPFGA_ERROR_PCAP_INIT
  *
  *****************************************************************************/
-static u32 XFpga_PreConfigPcap(XFpga *InstancePtr)
+static u32 XFpga_PreConfigPcap(const XFpga *InstancePtr)
 {
 	u32 Status = XFPGA_SUCCESS;
 	u32 RegVal;
@@ -568,7 +568,7 @@ END:
  *		- XFPGA_ERROR_PL_POWER_UP
  *
  *****************************************************************************/
-static u32 XFpga_PostConfigPcap(XFpga *InstancePtr)
+static u32 XFpga_PostConfigPcap(const XFpga *InstancePtr)
 {
 	u32 Status = XFPGA_SUCCESS;
 	u32 RegVal;
@@ -768,7 +768,7 @@ static u32 XFpga_PcapWaitForidle(void)
  * @return error status based on implemented functionality (SUCCESS by default)
  *
  *****************************************************************************/
-static u32 XFpga_ValidateCryptoFlags(XSecure_ImageInfo *ImageInfo, u32 flags)
+static u32 XFpga_ValidateCryptoFlags(const XSecure_ImageInfo *ImageInfo, u32 flags)
 {
 	u32 Status = XFPGA_SUCCESS;
 	u8 IsImageAuthenticated = 0U;
@@ -831,7 +831,7 @@ static u32 XFpga_ValidateCryptoFlags(XSecure_ImageInfo *ImageInfo, u32 flags)
  *
  *****************************************************************************/
 static u32 XFpga_SecureLoadToPl(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
-			XSecure_ImageInfo *ImageInfo, u32 flags)
+			const XSecure_ImageInfo *ImageInfo, u32 flags)
 {
 	u32 Status = XFPGA_FAILURE;
 
@@ -882,7 +882,7 @@ return Status;
  *
  *****************************************************************************/
 static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
-					XSecure_ImageInfo *ImageInfo, u32 flags)
+					const XSecure_ImageInfo *ImageInfo, u32 flags)
 {
 	u32 Status = XFPGA_SUCCESS;
 	XFpgaPs_PlPartition PlAesInfo;
@@ -1037,7 +1037,7 @@ END:
  *
  *****************************************************************************/
 static u32 XFpga_SecureBitstreamOcmLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
-				XSecure_ImageInfo *ImageInfo, u32 flags)
+				const XSecure_ImageInfo *ImageInfo, u32 flags)
 {
 	u32 Status = XFPGA_SUCCESS;
 	XFpgaPs_PlPartition PlAesInfo;
@@ -1369,7 +1369,7 @@ END:
  *
  *****************************************************************************/
 static u32 XFpga_WriteEncryptToPcap(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
-				XSecure_ImageInfo *ImageHdrInfo, u32 flags)
+				const XSecure_ImageInfo *ImageHdrInfo, u32 flags)
 {
 	u32 Status = XFPGA_SUCCESS;
 	XSecure_Aes Secure_Aes;
@@ -2237,7 +2237,7 @@ END:
  *
  *
  ****************************************************************************/
-static u32 XFpga_GetConfigRegPcap(XFpga *InstancePtr)
+static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 {
 	u32 Status;
 	u32 RegVal;
@@ -2351,7 +2351,7 @@ END:
  *
  * @note None.
  ****************************************************************************/
-static u32 XFpga_GetPLConfigData(XFpga *InstancePtr)
+static u32 XFpga_GetPLConfigData(const XFpga *InstancePtr)
 {
 	u32 Status;
 	UINTPTR Address = InstancePtr->ReadInfoPtr->ReadbackAddr;
