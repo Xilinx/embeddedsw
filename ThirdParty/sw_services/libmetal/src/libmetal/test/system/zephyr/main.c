@@ -90,7 +90,6 @@ void metal_test_add_functions()
 {
 	metal_test_add_alloc();
 	metal_test_add_atomic();
-	metal_test_add_irq();
 	metal_test_add_mutex();
 }
 
