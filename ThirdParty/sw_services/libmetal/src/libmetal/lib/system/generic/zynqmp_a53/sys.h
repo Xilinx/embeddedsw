@@ -25,6 +25,8 @@ extern "C" {
 
 #ifdef METAL_INTERNAL
 
+#define XLNX_MAXIRQS XSCUGIC_MAX_NUM_INTR_INPUTS
+
 static inline void sys_irq_enable(unsigned int vector)
 {
         XScuGic_EnableIntr(XPAR_SCUGIC_0_DIST_BASEADDR, vector);
