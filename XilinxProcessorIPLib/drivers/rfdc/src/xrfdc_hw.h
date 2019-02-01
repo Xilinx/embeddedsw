@@ -54,6 +54,7 @@
 * 5.0   sk     08/03/18 Fixed MISRAC warnings.
 *       sk     08/24/18 Reorganize the code to improve readability and
 *                       optimization.
+* 5.1   cog    01/29/19 Added XRFdc_SetDither() and XRFdc_GetDither() APIs.
 * </pre>
 *
 ******************************************************************************/
@@ -1491,8 +1492,10 @@ extern "C" {
  * @{
  */
 
-#define XRFDC_RX_MC_CFG0_MASK		0x0000FFFFU	/**< RX MC config0 */
-#define XRFDC_RX_MC_CFG0_CM_MASK	0x00000040U /**< Coupling mode mask */
+#define XRFDC_RX_MC_CFG0_MASK		    0x0000FFFFU	/**< RX MC config0 */
+#define XRFDC_RX_MC_CFG0_CM_MASK	    0x00000040U /**< Coupling mode mask */
+#define XRFDC_RX_MC_CFG0_IM3_DITH_MASK  0x00000020U /**< IM3 Dither Enable mode mask */
+#define XRFDC_RX_MC_CFG0_IM3_DITH_SHIFT 5U 			/**< IM3 Dither Enable mode shift */
 
 /* @} */
 
