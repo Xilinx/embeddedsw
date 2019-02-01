@@ -187,6 +187,19 @@ enum XPm_PllConfigParams {
 	PLL_PARAM_MAX,
 };
 
+/**
+ *  PM init node functions
+ */
+enum XPmInitFunctions {
+	FUNC_INIT_START,
+	FUNC_INIT_FINISH,
+	FUNC_SCAN_CLEAR,
+	FUNC_BISR,
+	FUNC_MBIST_LBIST,
+	FUNC_ME_INITREG,
+	FUNC_MBIST_CLEAR,
+};
+
 /* System shutdown macros */
 #define XPM_SHUTDOWN_TYPE_SHUTDOWN      0U
 #define XPM_SHUTDOWN_TYPE_RESET         1U
@@ -294,9 +307,10 @@ enum XPm_PllConfigParams {
 #define	PM_ADD_NODE_NAME		59U
 #define PM_ADD_REQUIREMENT		60U
 #define PM_SET_CURRENT_SUBSYSTEM		61U
+#define PM_INIT_NODE			62U
 
 #define PM_API_MIN      PM_GET_API_VERSION
-#define PM_API_MAX      PM_SET_CURRENT_SUBSYSTEM
+#define PM_API_MAX      PM_INIT_NODE
 
 
 #endif /* XILLIBPM_DEFS_H_ */
