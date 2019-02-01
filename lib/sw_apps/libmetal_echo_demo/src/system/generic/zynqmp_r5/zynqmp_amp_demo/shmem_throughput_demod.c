@@ -359,6 +359,7 @@ int shmem_throughput_demod()
 
 	/* Register IPI irq handler */
 	metal_irq_register(ipi_irq, ipi_irq_handler, ipi_dev, &ch);
+	metal_irq_enable(ipi_irq);
 	/* initialize remote_nkicked */
 	atomic_init(&ch.remote_nkicked, 1);
 	/* Enable IPI interrupt */
@@ -370,6 +371,7 @@ int shmem_throughput_demod()
 	/* disable IPI interrupt */
 	metal_io_write32(ch.ipi_io, IPI_IDR_OFFSET, IPI_MASK);
 	/* unregister IPI irq handler */
+	metal_irq_disable(ipi_irq);
 	metal_irq_unregister(ipi_irq);
 
 out:
