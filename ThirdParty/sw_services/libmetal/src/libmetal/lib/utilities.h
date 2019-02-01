@@ -113,7 +113,7 @@ metal_bitmap_next_set_bit(unsigned long *bitmap, unsigned int start,
 #define metal_bitmap_for_each_set_bit(bitmap, bit, max)			\
 	for ((bit) = metal_bitmap_next_set_bit((bitmap), 0, (max));	\
 	     (bit) < (max);						\
-	     (bit) = metal_bitmap_next_set_bit((bitmap), (bit), (max)))
+	     (bit) = metal_bitmap_next_set_bit((bitmap), (bit + 1), (max)))
 
 static inline unsigned int
 metal_bitmap_next_clear_bit(unsigned long *bitmap, unsigned int start,
@@ -130,7 +130,7 @@ metal_bitmap_next_clear_bit(unsigned long *bitmap, unsigned int start,
 #define metal_bitmap_for_each_clear_bit(bitmap, bit, max)		\
 	for ((bit) = metal_bitmap_next_clear_bit((bitmap), 0, (max));	\
 	     (bit) < (max);						\
-	     (bit) = metal_bitmap_next_clear_bit((bitmap), (bit), (max)))
+	     (bit) = metal_bitmap_next_clear_bit((bitmap), (bit + 1), (max)))
 
 static inline unsigned long metal_log2(unsigned long in)
 {
