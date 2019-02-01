@@ -28,14 +28,6 @@ static int irq_handler(int irq, void *priv)
 	return 0;
 }
 
-static int irq_handler2(int irq, void *priv)
-{
-	(void)irq;
-	(void)priv;
-
-	return 0;
-}
-
 static int irq(void)
 {
 	int rc = 0;
@@ -61,11 +53,6 @@ static int irq(void)
 	rc = metal_irq_register(tst_irq[1], irq_handler, 0, (void *)1);
 	if (rc) {
 		err_msg = "register irq 1 fail drv_id 1\n";
-		goto out;
-	}
-	rc = metal_irq_register(tst_irq[1], irq_handler2, 0, (void *)2);
-	if (rc == 0) {
-		err_msg = "expect 2nd register irq 1 fail, but succeeded\n";
 		goto out;
 	}
 
