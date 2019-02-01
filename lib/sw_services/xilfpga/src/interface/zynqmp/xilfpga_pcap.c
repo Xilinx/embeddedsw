@@ -195,7 +195,7 @@ static u32 XFpga_SelectEndianess(u8 *Buf, u32 Size, u32 *Pos);
 static u32 XFpga_SecureLoadToPl(UINTPTR BitstreamAddr,	UINTPTR KeyAddr,
 				const XSecure_ImageInfo *ImageInfo, u32 flags);
 static u32 XFpga_WriteEncryptToPcap(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
-				const XSecure_ImageInfo *ImageInfo, u32 flags);
+				const XSecure_ImageInfo *ImageHdrInfo, u32 flags);
 static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 				const XSecure_ImageInfo *ImageInfo, u32 flags);
 static u32 XFpga_SecureBitstreamOcmLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
