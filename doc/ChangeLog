@@ -48,6 +48,9 @@ Resolved MISRA-C:2012 violations in safety mode(CR#1014359)
 Clear DMA_DST_ADDR_MSB register properly
 Added idling support.
 
+sdps_v3_7:
+Add SDPS idling support
+
 spips_v3_3:
 Resolved MISRA-C:2012 violations in safety mode(CR#1016116)
 
