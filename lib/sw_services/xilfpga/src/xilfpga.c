@@ -170,7 +170,7 @@ u32 XFpga_PL_ValidateImage(XFpga_Info *PLInfoPtr)
 		PLInfoPtr->BitstreamAddr =
 			XFpgaInstance.WriteInfoPtr->BitstreamAddr;
 		PLInfoPtr->AddrPtr = XFpgaInstance.WriteInfoPtr->AddrPtr_Size;
-		memcpy(&PLInfoPtr->SecureImageInfo,
+		(void)memcpy(&PLInfoPtr->SecureImageInfo,
 			   &XFpgaInstance.PLInfo.SecureImageInfo,
 			   sizeof(PLInfoPtr->SecureImageInfo));
 	}
@@ -244,7 +244,7 @@ u32 XFpga_PL_WriteToPl(const XFpga_Info *PLInfoPtr)
 	 WriteInfo.AddrPtr_Size = PLInfoPtr->AddrPtr;
 	 WriteInfo.Flags = PLInfoPtr->Flags;
 	 XFpgaInstance.WriteInfoPtr = &WriteInfo;
-	 memcpy(&XFpgaInstance.PLInfo.SecureImageInfo,
+	 (void)memcpy(&XFpgaInstance.PLInfo.SecureImageInfo,
 			 &PLInfoPtr->SecureImageInfo,
 			 sizeof(PLInfoPtr->SecureImageInfo));
 
@@ -391,7 +391,7 @@ u32 XFpga_InterfaceStatus(void)
 	u32 Status;
 	XFpga XFpgaInstance = {0U};
 
-	XFpga_Initialize(&XFpgaInstance);
+	(void)XFpga_Initialize(&XFpgaInstance);
 	if (!XFpgaInstance.XFpga_GetInterfaceStatus) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
