@@ -37,8 +37,8 @@
 #ifndef PM_CLIENT_H
 #define PM_CLIENT_H
 
-#include <xil_exception.h>
-#include <xil_io.h>
+#include "xil_exception.h"
+#include "xil_io.h"
 #include "pm_apu.h"
 #include "pm_defs.h"
 #include "pm_common.h"
