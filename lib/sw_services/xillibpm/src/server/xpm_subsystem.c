@@ -37,7 +37,7 @@ XPm_Subsystem PmSubsystems[XPM_SUBSYSID_MAX] =
 {
 	[XPM_SUBSYSID_PMC] = {
 		.Id = XPM_SUBSYSID_PMC,
-		.State = OFFLINE,
+		.State = ONLINE,
 		.IpiMask = 0x00000002U,
 	},
 	[XPM_SUBSYSID_PSM] = {
@@ -210,6 +210,11 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 	XPm_PinNode *Pin;
 
 	if (SubsystemId > XPM_SUBSYSID_MAX) {
+		goto done;
+	}
+
+	if (XPM_SUBSYSID_PMC == SubsystemId) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
