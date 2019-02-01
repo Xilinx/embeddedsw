@@ -596,9 +596,10 @@ static u32 XFpga_PostConfigPcap(const XFpga *InstancePtr)
 	Xil_Out32(PCAP_CLK_CTRL, RegVal & ~(PCAP_CLK_EN_MASK));
 #ifdef XFPGA_SECURE_MODE
 	if (((u8 *)InstancePtr->WriteInfoPtr->AddrPtr_Size != NULL) &&
-	    (InstancePtr->PLInfo.Flags & XFPGA_ENCRYPTION_USERKEY_EN))
+	    (InstancePtr->PLInfo.Flags & XFPGA_ENCRYPTION_USERKEY_EN)) {
 		memset((u8 *)InstancePtr->WriteInfoPtr->AddrPtr_Size, 0U,
 		KEY_LEN);
+	}
 #endif
 	if ((Status == XFPGA_SUCCESS) &&
 	    (InstancePtr->PLInfo.Flags & XFPGA_SECURE_FLAGS)) {
@@ -653,8 +654,9 @@ static u32 XFpga_PcapInit(u32 flags)
 	while (PollCount) {
 		RegVal = Xil_In32(CSU_PCAP_STATUS) &
 		CSU_PCAP_STATUS_PL_INIT_MASK;
-		if (RegVal == CSU_PCAP_STATUS_PL_INIT_MASK)
+		if (RegVal == CSU_PCAP_STATUS_PL_INIT_MASK) {
 			break;
+		}
 		PollCount--;
 	}
 	if (!PollCount) {
@@ -682,8 +684,9 @@ static u32 XFpga_PcapWaitForDone(void)
 	while (PollCount) {
 		RegVal = Xil_In32(CSU_PCAP_STATUS);
 		RegVal = RegVal & CSU_PCAP_STATUS_PCAP_WR_IDLE_MASK;
-		if (RegVal == CSU_PCAP_STATUS_PCAP_WR_IDLE_MASK)
+		if (RegVal == CSU_PCAP_STATUS_PCAP_WR_IDLE_MASK) {
 			break;
+		}
 		PollCount--;
 	}
 	if (!PollCount) {
@@ -747,8 +750,9 @@ static u32 XFpga_PcapWaitForidle(void)
 	while (PollCount) {
 		RegVal = Xil_In32(CSU_PCAP_STATUS);
 		RegVal = RegVal & CSU_PCAP_STATUS_PCAP_RD_IDLE_MASK;
-		if (RegVal == CSU_PCAP_STATUS_PCAP_RD_IDLE_MASK)
+		if (RegVal == CSU_PCAP_STATUS_PCAP_RD_IDLE_MASK) {
 			break;
+		}
 		PollCount--;
 	}
 	if (!PollCount) {
@@ -779,8 +783,9 @@ static u32 XFpga_ValidateCryptoFlags(const XSecure_ImageInfo *ImageInfo, u32 fla
 	u8 IsFlagSetToDevKeyEncryption = 0U;
 
 	if (ImageInfo->PartitionHdr->PartitionAttributes &
-				XSECURE_PH_ATTR_AUTH_ENABLE)
+				XSECURE_PH_ATTR_AUTH_ENABLE) {
 		IsImageAuthenticated = 1U;
+	}
 
 	if (ImageInfo->PartitionHdr->PartitionAttributes &
 					XSECURE_PH_ATTR_ENC_ENABLE) {
@@ -1409,8 +1414,9 @@ static u32 XFpga_WriteEncryptToPcap(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 		goto END;
 	}
 	Status = XFpga_PcapWaitForDone();
-	if (Status != XFPGA_SUCCESS)
+	if (Status != XFPGA_SUCCESS) {
 		Status = XFPGA_PCAP_UPDATE_ERR(Status, 0U);
+	}
 END:
 	return Status;
 }
@@ -1926,8 +1932,9 @@ static u32 XFpga_PLWaitForDone(void)
 		/* Read PCAP Status register and check for PL_DONE bit */
 		RegVal = Xil_In32(CSU_PCAP_STATUS);
 		RegVal &= CSU_PCAP_STATUS_PL_DONE_MASK;
-		if (RegVal == CSU_PCAP_STATUS_PL_DONE_MASK)
+		if (RegVal == CSU_PCAP_STATUS_PL_DONE_MASK) {
 			break;
+		}
 		PollCount--;
 	}
 
@@ -1946,8 +1953,9 @@ static u32 XFpga_PLWaitForDone(void)
 	while (PollCount) {
 		RegVal = Xil_In32(CSU_PCAP_RESET);
 		RegVal = RegVal & CSU_PCAP_RESET_RESET_MASK;
-		if (RegVal == CSU_PCAP_RESET_RESET_MASK)
+		if (RegVal == CSU_PCAP_RESET_RESET_MASK) {
 			break;
+		}
 		PollCount--;
 	}
 END:
@@ -1970,8 +1978,9 @@ static u32 XFpga_CsuDmaInit(void)
 	XCsuDma_Config *CsuDmaConfig;
 
 	CsuDmaConfig = XCsuDma_LookupConfig(0U);
-	if (CsuDmaConfig == NULL)
+	if (CsuDmaConfig == NULL) {
 		goto END;
+	}
 
 	Status = XCsuDma_CfgInitialize(&CsuDma, CsuDmaConfig,
 			CsuDmaConfig->BaseAddress);
@@ -2163,14 +2172,18 @@ static u32 XFpga_ConvertCharToNibble(u8 InChar, u8 *Num)
 	u32 Status = XFPGA_SUCCESS;
 
 	/* Convert the char to nibble */
-	if ((InChar >= '0') && (InChar <= '9'))
+	if ((InChar >= '0') && (InChar <= '9')) {
 		*Num = InChar - '0';
-	else if ((InChar >= 'a') && (InChar <= 'f'))
+	}
+	else if ((InChar >= 'a') && (InChar <= 'f')) {
 		*Num = InChar - 'a' + 10U;
-	else if ((InChar >= 'A') && (InChar <= 'F'))
+	}
+	else if ((InChar >= 'A') && (InChar <= 'F')) {
 		*Num = InChar - 'A' + 10U;
-	else
+	}
+	else {
 		Status = XFPGA_STRING_INVALID_ERROR;
+	}
 
 	return Status;
 }
