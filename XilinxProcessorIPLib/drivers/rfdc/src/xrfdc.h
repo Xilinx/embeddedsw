@@ -192,6 +192,8 @@
 *       cog    01/29/19 Added XRFdc_SetDither() and XRFdc_GetDither() APIs.
 *       cog    01/29/19 Rename DataType for mixer input to MixerInputDataType
 *                       for readability.
+*       cog    01/29/19 Refactoring of interpolation and decimation APIs and
+*                       changed fabric rate for decimation X8 for non-high speed ADCs.
 * </pre>
 *
 ******************************************************************************/
