@@ -43,14 +43,12 @@ typedef int (*metal_irq_handler) (int irq, void *arg);
  *
  * @param[in]  irq         interrupt id
  * @param[in]  irq_handler interrupt handler
- * @param[in]  dev         metal device this irq belongs to (can be NULL).
  * @param[in]  arg         arg is the argument pointing to the data which
  *                         will be passed to the interrupt handler.
  * @return     0 for success, non-zero on failure
  */
 int metal_irq_register(int irq,
 		       metal_irq_handler irq_handler,
-		       struct metal_device *dev,
 		       void *arg);
 
 /**
@@ -61,7 +59,7 @@ int metal_irq_register(int irq,
 static inline
 void metal_irq_unregister(int irq)
 {
-	metal_irq_register(irq, 0, NULL, NULL);
+	metal_irq_register(irq, 0, NULL);
 }
 
 /**
