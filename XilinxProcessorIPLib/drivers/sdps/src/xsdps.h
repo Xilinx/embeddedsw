@@ -147,6 +147,7 @@
 *       mn     09/06/17 Resolved compilation errors with IAR toolchain
 * 3.6   mn     08/01/18 Add support for using 64Bit DMA with 32-Bit Processor
 * 3.7   mn     01/23/19 Add Manual Tuning Support for SD/eMMC
+*       mn     02/01/19 Add support for idling of SDIO
 *
 * </pre>
 *
@@ -171,6 +172,7 @@ extern "C" {
 
 #define XSDPS_CT_ERROR	0x2U	/**< Command timeout flag */
 #define MAX_TUNING_COUNT	40U		/**< Maximum Tuning count */
+#define MAX_TIMEOUT		0x1FFFFFFFU		/**< Maximum Timeout */
 
 /**************************** Type Definitions *******************************/
 
@@ -264,6 +266,7 @@ s32 XSdPs_MmcCardInitialize(XSdPs *InstancePtr);
 s32 XSdPs_CardInitialize(XSdPs *InstancePtr);
 s32 XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff);
 s32 XSdPs_Set_Mmc_ExtCsd(XSdPs *InstancePtr, u32 Arg);
+void XSdPs_Idle(XSdPs *InstancePtr);
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
 void XSdPs_Identify_UhsMode(XSdPs *InstancePtr, u8 *ReadBuff);
 void XSdPs_ddr50_tapdelay(u32 Bank, u32 DeviceId, u32 CardType);
