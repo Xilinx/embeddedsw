@@ -195,21 +195,21 @@ extern "C" {
 #define PMU_GLOBAL_ISO_TRIG		(PMU_GLOBAL_BASE + 0X320U)
 #define PMU_GLOBAL_ISO_STATUS		(PMU_GLOBAL_BASE + 0X310U)
 
-#define GPIO_DIRM_5_EMIO		0xFF0A0344
-#define GPIO_MASK_DATA_5_MSW	0xFF0A002C
+#define GPIO_DIRM_5_EMIO		0xFF0A0344U
+#define GPIO_MASK_DATA_5_MSW	0xFF0A002CU
 
 /* Register: PCAP_CLK_CTRL Address */
-#define PCAP_CLK_CTRL		0xFF5E00A4
-#define PCAP_CLK_EN_MASK	0x01000000
+#define PCAP_CLK_CTRL		0xFF5E00A4U
+#define PCAP_CLK_EN_MASK	0x01000000U
 
 /* AES KEY SRC Info */
-#define XFPGA_KEY_SRC_EFUSE_RED		0xA5C3C5A3
-#define XFPGA_KEY_SRC_BBRAM_RED		0x3A5C3C5A
-#define XFPGA_KEY_SRC_EFUSE_BLK		0xA5C3C5A5
-#define XFPGA_KEY_SRC_BH_BLACK		0xA35C7C53
-#define XFPGA_KEY_SRC_EFUSE_GRY		0xA5C3C5A7
-#define XFPGA_KEY_SRC_BH_GRY		0xA35C7CA5
-#define XFPGA_KEY_SRC_KUP		0xA3A5C3C5
+#define XFPGA_KEY_SRC_EFUSE_RED		0xA5C3C5A3U
+#define XFPGA_KEY_SRC_BBRAM_RED		0x3A5C3C5AU
+#define XFPGA_KEY_SRC_EFUSE_BLK		0xA5C3C5A5U
+#define XFPGA_KEY_SRC_BH_BLACK		0xA35C7C53U
+#define XFPGA_KEY_SRC_EFUSE_GRY		0xA5C3C5A7U
+#define XFPGA_KEY_SRC_BH_GRY		0xA35C7CA5U
+#define XFPGA_KEY_SRC_KUP		0xA3A5C3C5U
 
 /* Error Codes */
 #define XFPGA_ERROR_CSUDMA_INIT_FAIL		(0x2U)
@@ -242,34 +242,34 @@ extern "C" {
 #define XFPGA_PCAP_ERR_MASK			(0xFF00U)
 #define XFPGA_ERR_MODULE_MASK			(0xFFFF0000U)
 #define XFPGA_PCAP_UPDATE_ERR(XfpgaPcapErr, ModuleErr)		\
-		((ModuleErr << 16) & XFPGA_ERR_MODULE_MASK) + \
-		((XfpgaPcapErr << 8) & XFPGA_PCAP_ERR_MASK)
+		((ModuleErr << 16U) & XFPGA_ERR_MODULE_MASK) + \
+		((XfpgaPcapErr << 8U) & XFPGA_PCAP_ERR_MASK)
 
 #define XFPGA_STATE_MASK	0x00FF0000U
-#define XFPGA_STATE_SHIFT	16
-#define CFGREG_SRCDMA_OFFSET	0x8
-#define CFGDATA_DSTDMA_OFFSET	0x1FC
+#define XFPGA_STATE_SHIFT	16U
+#define CFGREG_SRCDMA_OFFSET	0x8U
+#define CFGDATA_DSTDMA_OFFSET	0x1FCU
 
 /* FPGA Configuration Registers Offsets */
-#define CRC		0  /* Status Register */
-#define FAR		1  /* Frame Address Register */
-#define FDRI		2  /* FDRI Register */
-#define FDRO		3  /* FDRO Register */
-#define CMD		4  /* Command Register */
-#define CTL0		5  /* Control Register 0 */
-#define MASK		6  /* MASK Register */
-#define STAT		7  /* Status Register */
-#define LOUT		8  /* LOUT Register */
-#define COR0		9  /* Configuration Options Register 0 */
-#define MFWR		10 /* MFWR Register */
-#define CBC		11 /* CBC Register */
-#define IDCODE		12 /* IDCODE Register */
-#define AXSS		13 /* AXSS Register */
-#define COR1		14 /* Configuration Options Register 1 */
-#define WBSTAR		16 /* Warm Boot Start Address Register */
-#define TIMER		17 /* Watchdog Timer Register */
-#define BOOTSTS		22 /* Boot History Status Register */
-#define CTL1		24 /* Control Register 1 */
+#define CRC		0U  /* Status Register */
+#define FAR		1U  /* Frame Address Register */
+#define FDRI		2U  /* FDRI Register */
+#define FDRO		3U  /* FDRO Register */
+#define CMD		4U  /* Command Register */
+#define CTL0		5U  /* Control Register 0 */
+#define MASK		6U  /* MASK Register */
+#define STAT		7U  /* Status Register */
+#define LOUT		8U  /* LOUT Register */
+#define COR0		9U  /* Configuration Options Register 0 */
+#define MFWR		10U /* MFWR Register */
+#define CBC		11U /* CBC Register */
+#define IDCODE		12U /* IDCODE Register */
+#define AXSS		13U /* AXSS Register */
+#define COR1		14U /* Configuration Options Register 1 */
+#define WBSTAR		16U /* Warm Boot Start Address Register */
+#define TIMER		17U /* Watchdog Timer Register */
+#define BOOTSTS		22U /* Boot History Status Register */
+#define CTL1		24U /* Control Register 1 */
 
 /**************************** Type Definitions *******************************/
 /**
