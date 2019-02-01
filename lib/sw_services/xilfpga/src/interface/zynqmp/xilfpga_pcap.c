@@ -2226,10 +2226,11 @@ static u32 XFpga_ConvertStringToHex(const u8 *Str, u32 *buf, u8 Len)
 			}
 		}
 
-		buf[index++] = ((Nibble[0] << (u8)28U )| (Nibble[1] << (u8)24U) |
+		buf[index] = ((Nibble[0] << (u8)28U )| (Nibble[1] << (u8)24U) |
 				(Nibble[2] << (u8)20U) | (Nibble[3] << (u8)16U) |
 				(Nibble[4] << (u8)12U) | (Nibble[5] << (u8)8U)|
 				(Nibble[6] << (u8)4U) | (u32)Nibble[7]);
+		index++;
 	}
 END:
 	return Status;
@@ -2277,17 +2278,25 @@ static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 	 * Configuration Registers from PL Region.
 	 */
 	CmdIndex = 2U;
-	CmdBuf[CmdIndex++] = 0xFFFFFFFFU; /* Dummy Word */
-	CmdBuf[CmdIndex++] = 0x000000BBU; /* Bus Width Sync Word */
-	CmdBuf[CmdIndex++] = 0x11220044U; /* Bus Width Detect */
-	CmdBuf[CmdIndex++] = 0xFFFFFFFFU; /* Dummy Word */
-	CmdBuf[CmdIndex++] = 0xAA995566U; /* Sync Word */
-	CmdBuf[CmdIndex++] = 0x20000000U; /* Type 1 NOOP Word 0 */
-	CmdBuf[CmdIndex++] = Xfpga_RegAddr((u8)(InstancePtr->ReadInfoPtr->ConfigReg_NumFrames),
+	CmdBuf[CmdIndex] = 0xFFFFFFFFU; /* Dummy Word */
+	CmdIndex++;
+	CmdBuf[CmdIndex] = 0x000000BBU; /* Bus Width Sync Word */
+	CmdIndex++;
+	CmdBuf[CmdIndex] = 0x11220044U; /* Bus Width Detect */
+	CmdIndex++;
+	CmdBuf[CmdIndex] = 0xFFFFFFFFU; /* Dummy Word */
+	CmdIndex++;
+	CmdBuf[CmdIndex] = 0xAA995566U; /* Sync Word */
+	CmdIndex++;
+	CmdBuf[CmdIndex] = 0x20000000U; /* Type 1 NOOP Word 0 */
+	CmdIndex++;
+	CmdBuf[CmdIndex] = Xfpga_RegAddr((u8)(InstancePtr->ReadInfoPtr->ConfigReg_NumFrames),
 					   OPCODE_READ, 0x1U);
-	CmdBuf[CmdIndex++] = 0x20000000U; /* Type 1 NOOP Word 0 */
-	CmdBuf[CmdIndex++] = 0x20000000U; /* Type 1 NOOP Word 0 */
-
+	CmdIndex++;
+	CmdBuf[CmdIndex] = 0x20000000U; /* Type 1 NOOP Word 0 */
+	CmdIndex++;
+	CmdBuf[CmdIndex] = 0x20000000U; /* Type 1 NOOP Word 0 */
+	CmdIndex++;
 	/* Take PCAP out of Reset */
 	RegVal = Xil_In32(CSU_PCAP_RESET);
 	RegVal &= (~CSU_PCAP_RESET_RESET_MASK);
@@ -2332,10 +2341,14 @@ static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 	XCsuDma_IntrClear(&CsuDma, XCSUDMA_DST_CHANNEL, XCSUDMA_IXR_DONE_MASK);
 
 	CmdIndex = 2U;
-	CmdBuf[CmdIndex++] = 0x30008001U; /* Type 1 Write 1 word to CMD */
-	CmdBuf[CmdIndex++] = 0x0000000DU; /* DESYNC command */
-	CmdBuf[CmdIndex++] = 0x20000000U; /* NOOP Word*/
-	CmdBuf[CmdIndex++] = 0x20000000U; /* NOOP Word */
+	CmdBuf[CmdIndex] = 0x30008001U; /* Type 1 Write 1 word to CMD */
+	CmdIndex++;
+	CmdBuf[CmdIndex] = 0x0000000DU; /* DESYNC command */
+	CmdIndex++;
+	CmdBuf[CmdIndex] = 0x20000000U; /* NOOP Word*/
+	CmdIndex++;
+	CmdBuf[CmdIndex] = 0x20000000U; /* NOOP Word */
+	CmdIndex++;
 
 	Status = XFpga_WriteToPcap(CmdIndex, Address + CFGREG_SRCDMA_OFFSET);
 	if (Status != XFPGA_SUCCESS) {
@@ -2413,47 +2426,67 @@ static u32 XFpga_GetPLConfigData(const XFpga *InstancePtr)
 	cmdindex = 0U;
 
 	/* Step 1 */
-	CmdBuf[cmdindex++] = 0xFFFFFFFFU; /* Dummy Word */
-	CmdBuf[cmdindex++] = 0x000000BBU; /* Bus Width Sync Word */
-	CmdBuf[cmdindex++] = 0x11220044U; /* Bus Width Detect */
-	CmdBuf[cmdindex++] = 0xFFFFFFFFU; /* Dummy Word */
-	CmdBuf[cmdindex++] = 0xAA995566U; /* Sync Word */
+	CmdBuf[cmdindex] = 0xFFFFFFFFU; /* Dummy Word */
+	cmdindex++;
+	CmdBuf[cmdindex] = 0x000000BBU; /* Bus Width Sync Word */
+	cmdindex++;
+	CmdBuf[cmdindex] = 0x11220044U; /* Bus Width Detect */
+	cmdindex++;
+	CmdBuf[cmdindex] = 0xFFFFFFFFU; /* Dummy Word */
+	cmdindex++;
+	CmdBuf[cmdindex] = 0xAA995566U; /* Sync Word */
+	cmdindex++;
 
 	/* Step 2 */
-	CmdBuf[cmdindex++] = 0x02000000U; /* Type 1 NOOP Word 0 */
-
+	CmdBuf[cmdindex] = 0x02000000U; /* Type 1 NOOP Word 0 */
+	cmdindex++;
 	/* Step 3 */         /* Type 1 Write 1 Word to CMD */
-	CmdBuf[cmdindex++] = Xfpga_RegAddr(CMD, OPCODE_WRITE, 0x1U);
-	CmdBuf[cmdindex++] = 0x0000000BU; /* SHUTDOWN Command */
-	CmdBuf[cmdindex++] = 0x02000000U; /* Type 1 NOOP Word 0 */
+	CmdBuf[cmdindex] = Xfpga_RegAddr(CMD, OPCODE_WRITE, 0x1U);
+	cmdindex++;
+	CmdBuf[cmdindex] = 0x0000000BU; /* SHUTDOWN Command */
+	cmdindex++;
+	CmdBuf[cmdindex] = 0x02000000U; /* Type 1 NOOP Word 0 */
+	cmdindex++;
 
 	/* Step 4 */         /* Type 1 Write 1 Word to CMD */
-	CmdBuf[cmdindex++] = Xfpga_RegAddr(CMD, OPCODE_WRITE, 0x1U);
-	CmdBuf[cmdindex++] = 0x00000007U; /* RCRC Command */
-	CmdBuf[cmdindex++] = 0x20000000U; /* Type 1 NOOP Word 0 */
+	CmdBuf[cmdindex] = Xfpga_RegAddr(CMD, OPCODE_WRITE, 0x1U);
+	cmdindex++;
+	CmdBuf[cmdindex] = 0x00000007U; /* RCRC Command */
+	cmdindex++;
+	CmdBuf[cmdindex] = 0x20000000U; /* Type 1 NOOP Word 0 */
+	cmdindex++;
 
 	/* Step 5 --- 5 NOOPS Words */
 	for (i = 0 ; i < (s32)5 ; i++) {
-		CmdBuf[cmdindex++] = 0x20000000U;
+		CmdBuf[cmdindex] = 0x20000000U;
+		cmdindex++;
 	}
 
 	/* Step 6 */         /* Type 1 Write 1 Word to CMD */
-	CmdBuf[cmdindex++] = Xfpga_RegAddr(CMD, OPCODE_WRITE, 0x1U);
-	CmdBuf[cmdindex++] = 0x00000004U; /* RCFG Command */
-	CmdBuf[cmdindex++] = 0x20000000U; /* Type 1 NOOP Word 0 */
+	CmdBuf[cmdindex] = Xfpga_RegAddr(CMD, OPCODE_WRITE, 0x1U);
+	cmdindex++;
+	CmdBuf[cmdindex] = 0x00000004U; /* RCFG Command */
+	cmdindex++;
+	CmdBuf[cmdindex] = 0x20000000U; /* Type 1 NOOP Word 0 */
+	cmdindex++;
 
 	/* Step 7 */         /* Type 1 Write 1 Word to FAR */
-	CmdBuf[cmdindex++] = Xfpga_RegAddr(FAR, OPCODE_WRITE, 0x1U);
-	CmdBuf[cmdindex++] = 0x00000000U; /* FAR Address = 00000000 */
+	CmdBuf[cmdindex] = Xfpga_RegAddr(FAR, OPCODE_WRITE, 0x1U);
+	cmdindex++;
+	CmdBuf[cmdindex] = 0x00000000U; /* FAR Address = 00000000 */
+	cmdindex++;
 
 	/* Step 8 */          /* Type 1 Read 0 Words from FDRO */
-	CmdBuf[cmdindex++] =  Xfpga_RegAddr(FDRO, OPCODE_READ, 0U);
+	CmdBuf[cmdindex] =  Xfpga_RegAddr(FDRO, OPCODE_READ, 0U);
+	cmdindex++;
 			      /* Type 2 Read Wordlenght Words from FDRO */
-	CmdBuf[cmdindex++] = Xfpga_Type2Pkt(OPCODE_READ, NumFrames);
+	CmdBuf[cmdindex] = Xfpga_Type2Pkt(OPCODE_READ, NumFrames);
+	cmdindex++;
 
 	/* Step 9 --- 64 NOOPS Words */
 	for (i = 0 ; i < (s32)64 ; i++) {
-		CmdBuf[cmdindex++] = 0x20000000U;
+		CmdBuf[cmdindex] = 0x20000000U;
+		cmdindex++;
 	}
 
 	XCsuDma_EnableIntr(&CsuDma, XCSUDMA_DST_CHANNEL,
@@ -2507,25 +2540,36 @@ static u32 XFpga_GetPLConfigData(const XFpga *InstancePtr)
 
 	cmdindex = 0U;
 	/* Step 11 */
-	CmdBuf[cmdindex++] = 0x20000000U; /* Type 1 NOOP Word 0 */
+	CmdBuf[cmdindex] = 0x20000000U; /* Type 1 NOOP Word 0 */
+	cmdindex++;
 
 	/* Step 12 */
-	CmdBuf[cmdindex++] = 0x30008001U; /* Type 1 Write 1 Word to CMD */
-	CmdBuf[cmdindex++] = 0x00000005U; /* START Command */
-	CmdBuf[cmdindex++] = 0x20000000U; /* Type 1 NOOP Word 0 */
+	CmdBuf[cmdindex] = 0x30008001U; /* Type 1 Write 1 Word to CMD */
+	cmdindex++;
+	CmdBuf[cmdindex] = 0x00000005U; /* START Command */
+	cmdindex++;
+	CmdBuf[cmdindex] = 0x20000000U; /* Type 1 NOOP Word 0 */
+	cmdindex++;
 
 	/* Step 13 */
-	CmdBuf[cmdindex++] = 0x30008001U; /* Type 1 Write 1 Word to CMD */
-	CmdBuf[cmdindex++] = 0x00000007U; /* RCRC Command */
-	CmdBuf[cmdindex++] = 0x20000000U; /* Type 1 NOOP Word 0 */
+	CmdBuf[cmdindex] = 0x30008001U; /* Type 1 Write 1 Word to CMD */
+	cmdindex++;
+	CmdBuf[cmdindex] = 0x00000007U; /* RCRC Command */
+	cmdindex++;
+	CmdBuf[cmdindex] = 0x20000000U; /* Type 1 NOOP Word 0 */
+	cmdindex++;
 
 	/* Step 14 */
-	CmdBuf[cmdindex++] = 0x30008001U; /* Type 1 Write 1 Word to CMD */
-	CmdBuf[cmdindex++] = 0x0000000DU; /* DESYNC Command */
+	CmdBuf[cmdindex] = 0x30008001U; /* Type 1 Write 1 Word to CMD */
+	cmdindex++;
+	CmdBuf[cmdindex] = 0x0000000DU; /* DESYNC Command */
+	cmdindex++;
 
 	/* Step 15 */
-	CmdBuf[cmdindex++] = 0x20000000U; /* Type 1 NOOP Word 0 */
-	CmdBuf[cmdindex++] = 0x20000000U; /* Type 1 NOOP Word 0 */
+	CmdBuf[cmdindex] = 0x20000000U; /* Type 1 NOOP Word 0 */
+	cmdindex++;
+	CmdBuf[cmdindex] = 0x20000000U; /* Type 1 NOOP Word 0 */
+	cmdindex++;
 
 	Status = XFpga_WriteToPcap(cmdindex, (UINTPTR)Address);
 	if (Status != XFPGA_SUCCESS) {
