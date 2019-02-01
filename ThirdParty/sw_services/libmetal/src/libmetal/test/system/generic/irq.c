@@ -35,19 +35,19 @@ static int irq(void)
 	/* Do not show LOG_ERROR or LOG_DEBUG for expected fail case */
 	metal_set_log_level(METAL_LOG_CRITICAL);
 
-	rc = metal_irq_register(1, irq_handler, 0, (void *)1);
+	rc = metal_irq_register(1, irq_handler, (void *)1);
 	if (rc) {
 		err_msg = "register irq 0 fail drv_id 1\n";
 		goto out;
 	}
-	rc = metal_irq_register(2, irq_handler, 0, (void *)1);
+	rc = metal_irq_register(2, irq_handler, (void *)1);
 	if (rc) {
 		err_msg = "register irq 1 fail drv_id 1\n";
 		goto out;
 	}
 
 	metal_irq_unregister(1);
-	rc = metal_irq_register(1, irq_handler, 0, (void *)1);
+	rc = metal_irq_register(1, irq_handler, (void *)1);
 	if (rc) {
 		err_msg = "register irq 0 after unregistering failed\n";
 		goto out;
