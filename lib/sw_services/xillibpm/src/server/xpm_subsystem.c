@@ -87,7 +87,6 @@ XPm_Subsystem PmSubsystems[XPM_SUBSYSID_MAX] =
 /*
  * Global SubsystemId which is set and is valid during XPm_CreateSubsystem()
  */
-u32 ReservedSubsystemId = INVALID_SUBSYSID;
 static u32 CurrentSubsystemId = INVALID_SUBSYSID;
 
 u32 XPmSubsystem_GetIPIMask(u32 SubsystemId)
@@ -297,32 +296,6 @@ done:
 	return Status;
 }
 
-XStatus XPmSubsystem_Reserve(u32 *SubsystemId)
-{
-	XStatus Status = XST_FAILURE;
-	XPm_Subsystem *Subsystem;
-	int i;
-
-	VERIFY(ReservedSubsystemId == INVALID_SUBSYSID);
-
-	for (i = 0; i < XPM_SUBSYSID_MAX; i++) {
-		Subsystem = &PmSubsystems[i];
-		if (Subsystem->State != OFFLINE) {
-			continue;
-		}
-		Subsystem->State = RESERVED;
-		ReservedSubsystemId = i;
-		*SubsystemId = i;
-		Status = XST_SUCCESS;
-		goto done;
-	}
-	if (XPM_SUBSYSID_MAX == i) {
-		goto done;
-	}
-done:
-	return Status;
-}
-
 XStatus XPmSubsystem_SetState(const u32 SubsystemId, const u32 State)
 {
 	XStatus Status = XST_FAILURE;
@@ -332,7 +305,6 @@ XStatus XPmSubsystem_SetState(const u32 SubsystemId, const u32 State)
 	}
 
 	PmSubsystems[SubsystemId].State = State;
-	ReservedSubsystemId = INVALID_SUBSYSID;
 	Status = XST_SUCCESS;
 
 done:
@@ -360,40 +332,48 @@ done:
 	return Status;
 }
 
-XStatus XPmSubsystem_Create(void (*const NotifyCb)(u32 SubsystemId,
-						   const u32 EventId),
-			    u32 *SubsystemId)
+XStatus XPmSubsystem_Add(u32 SubsystemId)
 {
-	XStatus Status = XST_FAILURE;
-	u32 SubsysId;
+	XStatus Status = XST_SUCCESS;
+	XPm_Subsystem *Subsystem;
+	XPm_Requirement *Reqm = NULL;
+	u32 i = 0;
 
-	Status = XPmSubsystem_Reserve(&SubsysId);
-	if (XST_FAILURE == Status) {
+	/* If default subsystem is online, no other subsystem is allowed to be created */
+	if (SubsystemId >= XPM_SUBSYSID_MAX || ONLINE == PmSubsystems[XPM_SUBSYSID_DEFAULT].State) {
+		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-#if 0	/* include when libcdo is available */
-	Status = XilCdo_ProcessCdo(SubsystemCdo);
-#else
-	Status = XST_SUCCESS;
-#endif
-	if (XST_FAILURE == Status) {
-		Status = XPmSubsystem_SetState(SubsysId, OFFLINE);
-		if (XST_SUCCESS != Status) {
+	Subsystem = &PmSubsystems[SubsystemId];
+	if (OFFLINE != Subsystem->State) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	/* Add all requirements for default subsystem */
+	if(XPM_SUBSYSID_DEFAULT == SubsystemId)
+	{
+		Reqm = (XPm_Requirement *)XPm_AllocBytes(sizeof(XPm_Requirement) * XPM_NODEIDX_DEV_MAX);
+		if (NULL == Reqm) {
+			Status = XST_BUFFER_TOO_SMALL;
 			goto done;
 		}
-		(void) XPmSubsystem_Destroy(SubsysId);
-		goto done;
+
+		for (i = 0; i < XPM_NODEIDX_DEV_MAX; i++) {
+			if(NULL != PmDevices[i]) {
+				Status = XPmRequirement_Init(&Reqm[i], Subsystem, PmDevices[i]);
+				if (XST_SUCCESS != Status)
+					goto done;
+			}
+		}
 	}
 
-	PmSubsystems[SubsysId].NotifyCb = NotifyCb;
-	Status = XPmSubsystem_SetState(SubsysId, ONLINE);
+	Status = XPmSubsystem_SetState(SubsystemId, ONLINE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
-	*SubsystemId = SubsysId;
-	Status = XST_SUCCESS;
 done:
 	return Status;
 }
