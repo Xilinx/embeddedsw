@@ -104,6 +104,7 @@
  * 4.2 Nava   16/08/18  Modified the PL data handling Logic to support
  *                      different PL programming interfaces.
  * 4.2 Nava   15/09/18  Fixed global function call-backs issue.
+ * 5.0 Div    21/01/19  Fixed misra-c required standard violations.
  * </pre>
  *
  * @note

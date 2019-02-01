@@ -70,7 +70,7 @@
  * 5.0	 Nava  10/01/19	Improve the PS-PL resets handling.
  * 5.0   Nava  10/01/19 Improve the Image validation handling logic for
  *			bootgen created Bitstream Images.
- *
+ * 5.0	 Div   21/01/19	Fixed misra-c required standard violations.
  * </pre>
  *
  * @note
@@ -180,7 +180,8 @@ static u32 XFpga_PsPlGpioResetsLow(u32 TotalResets);
 static u32 XFpga_PsPlGpioResetsHigh(u32 TotalResets);
 static u32 Xfpga_RegAddr(u8 Register, u8 OpCode, u16 Size);
 static u32 Xfpga_Type2Pkt(u8 OpCode, u32 Size);
-static u32 XFpga_ValidateCryptoFlags(const XSecure_ImageInfo *ImageInfo, u32 flags);
+static u32 XFpga_ValidateCryptoFlags(const XSecure_ImageInfo *ImageInfo,
+							u32 flags);
 static u32 XFpga_ValidateBitstreamImage(XFpga  *InstancePtr);
 static u32 XFpga_PreConfigPcap(const XFpga *InstancePtr);
 static u32 XFpga_WriteToPlPcap(XFpga *InstancePtr);
@@ -293,7 +294,8 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 
 	if ((XFPGA_SECURE_MODE_EN == 0U) &&
 		((InstancePtr->WriteInfoPtr->Flags & XFPGA_SECURE_FLAGS) != 0U)) {
-		Status = XFPGA_PCAP_UPDATE_ERR((u32)XFPGA_ERROR_SECURE_MODE_EN, (u32)0U);
+		Status = XFPGA_PCAP_UPDATE_ERR((u32)XFPGA_ERROR_SECURE_MODE_EN,
+				(u32)0U);
 		Xfpga_Printf(XFPGA_DEBUG, "Fail to load: Enable secure mode "
 			"and try Error Code: 0x%08x\r\n", Status);
 		goto END;
@@ -772,7 +774,8 @@ static u32 XFpga_PcapWaitForidle(void)
  * @return error status based on implemented functionality (SUCCESS by default)
  *
  *****************************************************************************/
-static u32 XFpga_ValidateCryptoFlags(const XSecure_ImageInfo *ImageInfo, u32 flags)
+static u32 XFpga_ValidateCryptoFlags(const XSecure_ImageInfo *ImageInfo,
+									u32 flags)
 {
 	u32 Status = XFPGA_SUCCESS;
 	u8 IsImageAuthenticated = 0U;
@@ -2095,8 +2098,9 @@ static u32 XFpga_PsPlGpioResetsLow(u32 TotalResets)
 	Xil_Out32(GPIO_DIRM_5_EMIO, RegVal);
 
 	/*De-assert the EMIO with the required Mask */
-	RegVal = ~(~(~(u32)0U << TotalResets) << ((u32)MAX_REG_BITS + (u32)1U - TotalResets))
-		& 0xFFFF0000U;
+	RegVal = ~(~(~(u32)0U << TotalResets) <<
+			((u32)MAX_REG_BITS + (u32)1U - TotalResets))
+			& 0xFFFF0000U;
 	Xil_Out32(GPIO_MASK_DATA_5_MSW, RegVal);
 	usleep(1000U);
 
@@ -2126,7 +2130,8 @@ static u32 XFpga_PsPlGpioResetsHigh(u32 TotalResets)
 	Xil_Out32(GPIO_DIRM_5_EMIO, RegVal);
 
 	/*Assert the EMIO with the required Mask */
-	MaskVal = (~(~(u32)0U << TotalResets)) << (((u32)(MAX_REG_BITS/2U) + (u32)1U - TotalResets) |
+	MaskVal = (~(~(u32)0U << TotalResets)) <<
+				(((u32)(MAX_REG_BITS/2U) + (u32)1U - TotalResets) |
 								0xFFFF0000U);
 	RegVal = MaskVal & (~(~(~(u32)0U << TotalResets) <<
 				((u32)MAX_REG_BITS + (u32)1U - TotalResets)));
@@ -2145,7 +2150,7 @@ static u32 XFpga_PsPlGpioResetsHigh(u32 TotalResets)
  * @return	Status of the PCAP interface.
  *
  *****************************************************************************/
-u32 XFpga_PcapStatus(void)
+static u32 XFpga_PcapStatus(void)
 {
 
 	return Xil_In32(CSU_PCAP_STATUS);
@@ -2290,7 +2295,8 @@ static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 	CmdIndex++;
 	CmdBuf[CmdIndex] = 0x20000000U; /* Type 1 NOOP Word 0 */
 	CmdIndex++;
-	CmdBuf[CmdIndex] = Xfpga_RegAddr((u8)(InstancePtr->ReadInfoPtr->ConfigReg_NumFrames),
+	CmdBuf[CmdIndex] =
+			Xfpga_RegAddr((u8)(InstancePtr->ReadInfoPtr->ConfigReg_NumFrames),
 					   OPCODE_READ, 0x1U);
 	CmdIndex++;
 	CmdBuf[CmdIndex] = 0x20000000U; /* Type 1 NOOP Word 0 */
