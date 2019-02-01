@@ -170,8 +170,8 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		case PM_RESET_GET_STATUS:
 			Status = XPm_GetResetState(Pload[0], ApiResponse);
 			break;
-		case PM_CREATE_SUBSYSTEM:
-			Status = XPm_CreateSubsystem((void (*)(u32, u32))Pload[1], (u32 *)Pload[2]);
+		case PM_ADD_SUBSYSTEM:
+			Status = XPm_AddSubsystem(Pload[0]);
 			break;
 		case PM_DESTROY_SUBSYSTEM:
 			Status = XPm_DestroySubsystem(SubsystemId);
@@ -312,7 +312,7 @@ enum XPmBootStatus XPm_GetBootStatus()
 
 /****************************************************************************/
 /**
- * @brief  This function validates the subsystem CDO and configures the
+ * @brief  This function configures the
  * platform resources for the new subsystem.
  *
  * @param  SubSystemCdo	Pointer to the subsystem CDO
@@ -328,13 +328,11 @@ enum XPmBootStatus XPm_GetBootStatus()
  * clean-up will be necessary
  *
  ****************************************************************************/
-XStatus XPm_CreateSubsystem(void (*const NotifyCb)(u32 SubsystemId,
-						   const u32 EventId),
-			    u32 *SubsystemId)
+XStatus XPm_AddSubsystem(u32 SubsystemId)
 {
 	XStatus Status;
 
-	Status = XPmSubsystem_Create(NotifyCb, SubsystemId);
+	Status = XPmSubsystem_Add(SubsystemId);
 
 	return Status;
 }
