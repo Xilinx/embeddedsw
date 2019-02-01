@@ -13,6 +13,7 @@
 #error "Include metal/sys.h instead of metal/freertos/@PROJECT_MACHINE@/sys.h"
 #endif
 
+#include <metal/system/@PROJECT_SYSTEM@/xlnx_common/sys.h>
 #include "xscugic.h"
 
 #ifndef __METAL_FREERTOS_ZYNQMP_R5_SYS__H__
