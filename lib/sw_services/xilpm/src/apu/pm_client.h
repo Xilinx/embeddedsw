@@ -49,8 +49,11 @@ extern "C" {
 
 #define pm_print(MSG, ...)	xil_printf("APU: "MSG,##__VA_ARGS__)
 
+<<<<<<< HEAD
 #ifdef __cplusplus
 }
 #endif
 
+=======
+>>>>>>> Xilpm: Fixed MISRA-C:2012 R.21.1, R.21.2 in APU pm_client.h
 #endif /* PM_CLIENT_H */
