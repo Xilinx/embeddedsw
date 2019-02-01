@@ -83,8 +83,8 @@ static inline void metal_bitmap_set_bit(unsigned long *bitmap, int bit)
 
 static inline int metal_bitmap_is_bit_set(unsigned long *bitmap, int bit)
 {
-	return bitmap[bit / METAL_BITS_PER_ULONG] &
-		metal_bit(bit & (METAL_BITS_PER_ULONG - 1));
+	return ((bitmap[bit / METAL_BITS_PER_ULONG] &
+		metal_bit(bit & (METAL_BITS_PER_ULONG - 1))) == 0) ? 0 : 1;
 }
 
 static inline void metal_bitmap_clear_bit(unsigned long *bitmap, int bit)
