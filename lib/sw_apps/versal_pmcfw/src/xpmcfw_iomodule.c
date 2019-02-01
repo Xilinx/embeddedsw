@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -461,6 +461,9 @@ XStatus XPmcFw_SetUpInterruptSystem()
 #ifdef XPMCFW_CPM
 	Xil_Out32(CPM_SLCR_PS_MISC_IR_ENABLE,
 				CPM_SLCR_PS_MISC_IR_ENABLE_PCIE_LOCAL_EVENT_MASK);
+	XPmcFw_RMW32(XPMCFW_PCIE_INTR_EN_REG,
+				XPMCFW_PCIE_DOORBELL_INTR_MASK,
+				XPMCFW_PCIE_DOORBELL_INTR_MASK);
 #endif
 
 	/*
