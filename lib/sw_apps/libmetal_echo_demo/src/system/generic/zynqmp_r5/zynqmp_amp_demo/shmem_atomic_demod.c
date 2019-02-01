@@ -153,7 +153,7 @@ int atomic_shmem_demod()
 	/* clear old IPI interrupt */
 	metal_io_write32(ipi_io, IPI_ISR_OFFSET, IPI_MASK);
 	/* Register IPI irq handler */
-	metal_irq_register(ipi_irq, ipi_irq_handler, ipi_dev, ipi_io);
+	metal_irq_register(ipi_irq, ipi_irq_handler, ipi_io);
 	metal_irq_enable(ipi_irq);
 	/* initialize remote_nkicked */
 	atomic_init(&remote_nkicked, 1);
