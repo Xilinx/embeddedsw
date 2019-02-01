@@ -382,7 +382,7 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 	if ((IsEncrypted) && (NoAuth)) {
 		ImageHdrDataPtr->KeySrc = Xil_In32((UINTPTR)Buffer +
 					XSECURE_KEY_SOURCE_OFFSET);
-		XSecure_MemCopy(ImageHdrDataPtr->Iv,
+		(void)XSecure_MemCopy(ImageHdrDataPtr->Iv,
 				(Buffer + XSECURE_IV_OFFSET), XSECURE_IV_SIZE);
 
 		/* Add partition header IV to boot header IV */
@@ -575,7 +575,7 @@ static u32 XFpga_PostConfigPcap(const XFpga *InstancePtr)
 
 	if (!(InstancePtr->PLInfo.Flags & XFPGA_PARTIAL_EN)) {
 		/* PS-PL reset Low */
-		XFpga_PsPlGpioResetsLow(FPGA_NUM_FABRIC_RESETS);
+		(void)XFpga_PsPlGpioResetsLow(FPGA_NUM_FABRIC_RESETS);
 		usleep(XFPGA_PS_PL_RESET_TIME_US);
 		/* Power-Up PL */
 		Status = XFpga_PowerUpPl();
@@ -587,7 +587,7 @@ static u32 XFpga_PostConfigPcap(const XFpga *InstancePtr)
 		}
 		/* PS-PL reset high*/
 		if (Status == XFPGA_SUCCESS) {
-			XFpga_PsPlGpioResetsHigh(FPGA_NUM_FABRIC_RESETS);
+			(void)XFpga_PsPlGpioResetsHigh(FPGA_NUM_FABRIC_RESETS);
 		}
 	}
 
@@ -597,7 +597,7 @@ static u32 XFpga_PostConfigPcap(const XFpga *InstancePtr)
 #ifdef XFPGA_SECURE_MODE
 	if (((u8 *)InstancePtr->WriteInfoPtr->AddrPtr_Size != NULL) &&
 	    (InstancePtr->PLInfo.Flags & XFPGA_ENCRYPTION_USERKEY_EN)) {
-		memset((u8 *)InstancePtr->WriteInfoPtr->AddrPtr_Size, 0U,
+		(void)memset((u8 *)InstancePtr->WriteInfoPtr->AddrPtr_Size, 0U,
 		KEY_LEN);
 	}
 #endif
@@ -916,11 +916,11 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 	    (flags & XFPGA_ENCRYPTION_DEVKEY_EN)) {
 		PlAesInfo.PlEncrypt.NextBlkLen = 0U;
 		PlAesInfo.Hdr = 0U;
-		memset(PlAesInfo.SecureHdr, 0U,
+		(void)memset(PlAesInfo.SecureHdr, 0U,
 		       XSECURE_SECURE_HDR_SIZE + XSECURE_SECURE_GCM_TAG_SIZE);
 		PlAesInfo.PlEncrypt.SecureAes = &Secure_Aes;
 		if (flags & XFPGA_ENCRYPTION_USERKEY_EN) {
-			XFpga_ConvertStringToHex((u8 *)(UINTPTR)(KeyAddr),
+			(void)XFpga_ConvertStringToHex((u8 *)(UINTPTR)(KeyAddr),
 						 AesKey, KEY_LEN);
 			/* Xilsecure expects Key in big endian form */
 			for (u8 i = 0U; i < ARRAY_LENGTH(AesKey); i++) {
@@ -929,14 +929,14 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 			/* Initialize the Aes driver so that it's
 			 * ready to use
 			 */
-			XSecure_AesInitialize(PlAesInfo.PlEncrypt.SecureAes,
+			(void)XSecure_AesInitialize(PlAesInfo.PlEncrypt.SecureAes,
 					      &CsuDma,
 					      XSECURE_CSU_AES_KEY_SRC_KUP,
 					      (u32 *)ImageInfo->Iv,
 					      (u32 *)AesKey);
 		} else {
 			/* Initialize the Aes driver so that it's ready to use */
-			XSecure_AesInitialize(PlAesInfo.PlEncrypt.SecureAes,
+			(void)XSecure_AesInitialize(PlAesInfo.PlEncrypt.SecureAes,
 					      &CsuDma,
 					      XSECURE_CSU_AES_KEY_SRC_DEV,
 					      (u32 *)ImageInfo->Iv, NULL);
@@ -945,7 +945,7 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 
 	for (s32 i = 0; i < (s32)TotalBitPartCount; i++) {
 		/* Copy authentication certificate to internal memory */
-		XSecure_MemCopy(AcBuf, (u8 *)AcPtr,
+		(void)XSecure_MemCopy(AcBuf, (u8 *)AcPtr,
 				XSECURE_AUTH_CERT_MIN_SIZE/(u32)XSECURE_WORD_LEN);
 		/*Verify Spk */
 		Status = XSecure_VerifySpk(AcBuf, ImageInfo->EfuseRsaenable);
@@ -988,7 +988,7 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 	if (RemaningBytes) {
 
 		/* Copy authentication certificate to internal memory */
-		XSecure_MemCopy(AcBuf, (u8 *)AcPtr,
+		(void)XSecure_MemCopy(AcBuf, (u8 *)AcPtr,
 				XSECURE_AUTH_CERT_MIN_SIZE/(u32)XSECURE_WORD_LEN);
 		/*Verify Spk */
 		Status = XSecure_VerifySpk(AcBuf, ImageInfo->EfuseRsaenable);
@@ -1071,25 +1071,25 @@ static u32 XFpga_SecureBitstreamOcmLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 			(flags & XFPGA_ENCRYPTION_DEVKEY_EN)) {
 		PlAesInfo.PlEncrypt.NextBlkLen = 0U;
 		PlAesInfo.Hdr = 0U;
-		memset(PlAesInfo.SecureHdr, 0U,
+		(void)memset(PlAesInfo.SecureHdr, 0U,
 		       XSECURE_SECURE_HDR_SIZE + XSECURE_SECURE_GCM_TAG_SIZE);
 		PlAesInfo.PlEncrypt.SecureAes = &Secure_Aes;
 		if (flags & XFPGA_ENCRYPTION_USERKEY_EN) {
-			XFpga_ConvertStringToHex((u8 *)(UINTPTR)(KeyAddr),
+			(void)XFpga_ConvertStringToHex((u8 *)(UINTPTR)(KeyAddr),
 						 AesKey, KEY_LEN);
 			/* Xilsecure expects Key in big endian form */
 			for (u8 i = 0U; i < ARRAY_LENGTH(AesKey); i++) {
 				AesKey[i] = Xil_Htonl(AesKey[i]);
 			}
 			/* Initialize the Aes driver so that it's ready to use */
-			XSecure_AesInitialize(PlAesInfo.PlEncrypt.SecureAes,
+			(void)XSecure_AesInitialize(PlAesInfo.PlEncrypt.SecureAes,
 					      &CsuDma,
 					      XSECURE_CSU_AES_KEY_SRC_KUP,
 					      (u32 *)ImageInfo->Iv,
 					      (u32 *)AesKey);
 		} else {
 			/* Initialize the Aes driver so that it's ready to use */
-			XSecure_AesInitialize(PlAesInfo.PlEncrypt.SecureAes,
+			(void)XSecure_AesInitialize(PlAesInfo.PlEncrypt.SecureAes,
 					      &CsuDma,
 					      XSECURE_CSU_AES_KEY_SRC_DEV,
 					      (u32 *)ImageInfo->Iv, NULL);
@@ -1099,7 +1099,7 @@ static u32 XFpga_SecureBitstreamOcmLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 	for (s32 i = 0; i < (s32)TotalBitPartCount; i++) {
 
 		/* Copy authentication certificate to internal memory */
-		XSecure_MemCopy(AcBuf, (u8 *)AcPtr,
+		(void)XSecure_MemCopy(AcBuf, (u8 *)AcPtr,
 				XSECURE_AUTH_CERT_MIN_SIZE/(u32)XSECURE_WORD_LEN);
 		/*Verify Spk */
 		Status = XSecure_VerifySpk(AcBuf, ImageInfo->EfuseRsaenable);
@@ -1134,7 +1134,7 @@ static u32 XFpga_SecureBitstreamOcmLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 
 	if (RemaningBytes) {
 		/* Copy authentication certificate to internal memory */
-		XSecure_MemCopy(AcBuf, (u8 *)AcPtr,
+		(void)XSecure_MemCopy(AcBuf, (u8 *)AcPtr,
 				XSECURE_AUTH_CERT_MIN_SIZE/(u32)XSECURE_WORD_LEN);
 		/*Verify Spk */
 		Status = XSecure_VerifySpk(AcBuf, ImageInfo->EfuseRsaenable);
@@ -1194,8 +1194,8 @@ static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr)
 	UINTPTR Temp_BitstreamAddr = BitstreamAddr;
 	RemaningBytes = (Size - (ChunkSize * NumChunks));
 
-	XSecure_Sha3Initialize(&Secure_Sha3, &CsuDma);
-	XSecure_Sha3Start(&Secure_Sha3);
+	(void)XSecure_Sha3Initialize(&Secure_Sha3, &CsuDma);
+	(void)XSecure_Sha3Start(&Secure_Sha3);
 	for (Count = 0U; Count < NumChunks; Count++) {
 		Status = XFpga_CopyToOcm((UINTPTR)Temp_BitstreamAddr,
 				(UINTPTR)OcmAddr, ChunkSize/WORD_LEN);
@@ -1209,7 +1209,7 @@ static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr)
 		XSecure_Sha3_ReadHash(&Secure_Sha3, Sha3Hash);
 
 		/* Copy SHA3 hash into the OCM */
-		memcpy((u32 *)(UINTPTR)OcmChunkAddr, Sha3Hash, HASH_LEN);
+		(void)memcpy((u32 *)(UINTPTR)OcmChunkAddr, Sha3Hash, HASH_LEN);
 		OcmChunkAddr = OcmChunkAddr + HASH_LEN;
 		Temp_BitstreamAddr = Temp_BitstreamAddr + ChunkSize;
 	}
@@ -1227,7 +1227,7 @@ static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr)
 				(u8 *)(UINTPTR)OcmAddr, RemaningBytes);
 		XSecure_Sha3_ReadHash(&Secure_Sha3, Sha3Hash);
 		/* Copy SHA3 hash into the OCM */
-		memcpy((u32 *)(UINTPTR)OcmChunkAddr, Sha3Hash, HASH_LEN);
+		(void)memcpy((u32 *)(UINTPTR)OcmChunkAddr, Sha3Hash, HASH_LEN);
 	}
 
 	/* Copy AC into the OCM */
@@ -1283,8 +1283,8 @@ static u32 XFpga_ReAuthPlChunksWriteToPl(XFpgaPs_PlPartition *PlAesInfo,
 	UINTPTR Temp_BitstreamAddr = BitstreamAddr;
 	RemaningBytes = (Size  - (ChunkSize * NumChunks));
 
-	XSecure_Sha3Initialize(&Secure_Sha3, &CsuDma);
-	XSecure_Sha3Start(&Secure_Sha3);
+	(void)XSecure_Sha3Initialize(&Secure_Sha3, &CsuDma);
+	(void)XSecure_Sha3Start(&Secure_Sha3);
 	for (Count = 0U; Count < NumChunks; Count++) {
 		Status = XFpga_CopyToOcm((UINTPTR)Temp_BitstreamAddr,
 					(UINTPTR)OcmAddr, ChunkSize/WORD_LEN);
@@ -1382,20 +1382,20 @@ static u32 XFpga_WriteEncryptToPcap(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 	u8 *EncSrc;
 
 	if (flags & XFPGA_ENCRYPTION_USERKEY_EN) {
-		XFpga_ConvertStringToHex((u8 *)(UINTPTR)(KeyAddr),
+		(void)XFpga_ConvertStringToHex((u8 *)(UINTPTR)(KeyAddr),
 							key, KEY_LEN);
 		/* Xilsecure expects Key in big endian form */
 		for (u8 i = 0U; i < ARRAY_LENGTH(key); i++) {
 			key[i] = Xil_Htonl(key[i]);
 		}
 		/* Initialize the Aes driver so that it's ready to use */
-		XSecure_AesInitialize(&Secure_Aes, &CsuDma,
+		(void)XSecure_AesInitialize(&Secure_Aes, &CsuDma,
 					XSECURE_CSU_AES_KEY_SRC_KUP,
 					(u32 *)ImageHdrInfo->Iv, (u32 *)key);
 	} else {
 
 		/* Initialize the Aes driver so that it's ready to use */
-		XSecure_AesInitialize(&Secure_Aes, &CsuDma,
+		(void)XSecure_AesInitialize(&Secure_Aes, &CsuDma,
 					XSECURE_CSU_AES_KEY_SRC_DEV,
 					(u32 *)ImageHdrInfo->Iv, NULL);
 	}
@@ -1554,7 +1554,7 @@ static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
 		SssAes = XSecure_SssInputAes(XSECURE_CSU_SSS_SRC_SRC_DMA);
 		SssCfg = SssAes | XSecure_SssInputPcap(XSECURE_CSU_SSS_SRC_AES);
 		XSecure_SssSetup(SssCfg);
-		memcpy((u8 *)(PartitionParams->SecureHdr
+		(void)memcpy((u8 *)(PartitionParams->SecureHdr
 				+ PartitionParams->Hdr), (u8 *)(UINTPTR)SrcAddr,
 				XFPGA_AES_TAG_SIZE - PartitionParams->Hdr);
 		Status = XFpga_DecrypSecureHdr(
@@ -1570,7 +1570,7 @@ static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
 				((u64)XFPGA_AES_TAG_SIZE - (u64)PartitionParams->Hdr);
 		}
 		PartitionParams->Hdr = 0U;
-		memset(PartitionParams->SecureHdr, 0U, XFPGA_AES_TAG_SIZE);
+		(void)memset(PartitionParams->SecureHdr, 0U, XFPGA_AES_TAG_SIZE);
 		/*
 		 * This means we are done with Secure header and Block 0
 		 * And now we can change the AES key source to KUP.
@@ -1771,7 +1771,7 @@ static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
 			if (Size <
 			 (XSECURE_SECURE_HDR_SIZE +
 				XSECURE_SECURE_GCM_TAG_SIZE)) {
-				memcpy(PartitionParams->SecureHdr,
+				(void)memcpy(PartitionParams->SecureHdr,
 						(u8 *)(UINTPTR)SrcAddr, Size);
 				PartitionParams->Hdr = (u8)Size;
 				Size = 0U;
