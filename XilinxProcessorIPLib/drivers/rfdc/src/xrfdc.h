@@ -190,6 +190,8 @@
 * 5.1   cog    01/29/19 Replace structure reference ADC checks with
 *                       function.
 *       cog    01/29/19 Added XRFdc_SetDither() and XRFdc_GetDither() APIs.
+*       cog    01/29/19 Rename DataType for mixer input to MixerInputDataType
+*                       for readability.
 * </pre>
 *
 ******************************************************************************/
@@ -361,9 +363,9 @@ typedef struct {
  * DAC block Digital DataPath Config settings.
  */
 typedef struct {
-	u32 DataType;
+	u32 MixerInputDataType;
 	u32 DataWidth;
-	u32 InterploationMode;
+	u32 InterpolationMode;
 	u32 FifoEnable;
 	u32 AdderEnable;
 	u32 MixerType;
@@ -381,7 +383,7 @@ typedef struct {
  * DAC block Digital DataPath Config settings.
  */
 typedef struct {
-	u32 DataType;
+	u32 MixerInputDataType;
 	u32 DataWidth;
 	u32 DecimationMode;
 	u32 FifoEnable;
@@ -466,7 +468,7 @@ typedef struct {
  * DAC Block Digital DataPath Structure.
  */
 typedef struct {
-	u32 DataType;
+	u32 MixerInputDataType;
 	u32 DataWidth;
 	int ConnectedIData;
 	int ConnectedQData;
@@ -494,7 +496,7 @@ typedef struct {
  * ADC Block Digital DataPath Structure.
  */
 typedef struct {
-	u32 DataType;
+	u32 MixerInputDataType;
 	u32 DataWidth;
 	u32 DecimationFactor;
 	int ConnectedIData;
@@ -1199,7 +1201,7 @@ static inline u32 XRFdc_IsHighSpeedADC(XRFdc *InstancePtr, int Tile)
 /*****************************************************************************/
 /**
 *
-* Get Data Type for ADC/DAC block.
+* Get Mixer Input Data Type for ADC/DAC block.
 *
 * @param	InstancePtr is a pointer to the XRfdc instance.
 * @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
@@ -1208,23 +1210,23 @@ static inline u32 XRFdc_IsHighSpeedADC(XRFdc *InstancePtr, int Tile)
 *			are 0-3.
 *
 * @return
-*		- Return DataType of ADC/DAC block.
+*		- Return MixerInputDataType of ADC/DAC block.
 *
 ******************************************************************************/
 static inline u32 XRFdc_GetDataType(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 								u32 Block_Id)
 {
-	u32 DataType;
+	u32 MixerInputDataType;
 
 	if (Type == XRFDC_ADC_TILE) {
-		DataType = InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
-				ADCBlock_Digital_Config[Block_Id].DataType;
+		MixerInputDataType = InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
+				ADCBlock_Digital_Config[Block_Id].MixerInputDataType;
 	} else {
-		DataType = InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].
-				DACBlock_Digital_Config[Block_Id].DataType;
+		MixerInputDataType = InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].
+				DACBlock_Digital_Config[Block_Id].MixerInputDataType;
 	}
 
-	return DataType;
+	return MixerInputDataType;
 }
 
 /*****************************************************************************/
@@ -1728,7 +1730,7 @@ u32 XRFdc_ResetNCOPhase(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 				u32 Block_Id);
 void XRFdc_DumpRegs(XRFdc *InstancePtr, u32 Type, int Tile_Id);
 u32 XRFdc_MultiBand(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-		u8 DigitalDataPathMask, u32 DataType, u32 DataConverterMask);
+		u8 DigitalDataPathMask, u32 MixerInOutDataType, u32 DataConverterMask);
 u32 XRFdc_IntrHandler(u32 Vector, void *XRFdcPtr);
 void XRFdc_IntrClr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 								u32 Block_Id, u32 IntrMask);
