@@ -10,94 +10,78 @@
  */
 
 #include <errno.h>
-#include <metal/irq.h>
+#include <metal/irq_controller.h>
 #include <metal/alloc.h>
 #include <nuttx/irq.h>
 
-/** IRQ handler descriptor structure */
-struct metal_irq_hddesc {
-	metal_irq_handler hd;     /**< irq handler */
-	void *drv_id;             /**< id to identify the driver
-	                               of the irq handler */
-};
-
-static int metal_irq_isr(int irq, void *context, void *arg);
-
-int metal_irq_register(int irq,
-		       metal_irq_handler hd,
-		       struct metal_device *dev,
-		       void *drv_id)
-{
-	struct metal_irq_hddesc *desc;
-	int ret;
-
-	if ((drv_id == NULL) || (hd == NULL))
-		return -EINVAL;
-
-	desc = metal_allocate_memory(sizeof(struct metal_irq_hddesc));
-	if (desc == NULL)
-		return -ENOMEM;
-
-	desc->hd = hd;
-	desc->drv_id = drv_id;
-
-	ret = irq_attach(irq, metal_irq_isr, desc);
-	if (ret < 0)
-		metal_free_memory(desc);
-
-	return ret;
-}
-
-int metal_irq_unregister(int irq,
-			 metal_irq_handler hd,
-			 struct metal_device *dev,
-			 void *drv_id)
-{
-	unsigned int irq_flags_save;
-
-	if (irq < 0)
-		return -EINVAL;
-
-	irq_flags_save = metal_irq_save_disable();
-	/* context == drv_id mean unregister */
-	irq_dispatch(irq, drv_id); /* fake a irq request */
-	metal_irq_restore_enable(irq_flags_save);
-
-	return 0;
-}
-
 unsigned int metal_irq_save_disable(void)
 {
-	return enter_critical_section();
+	return up_irq_save();
 }
 
 void metal_irq_restore_enable(unsigned int flags)
 {
-	leave_critical_section(flags);
+	up_irq_restore(flags);
 }
 
-void metal_irq_enable(unsigned int vector)
+/* Implement the default irq controller */
+static void metal_cntr_irq_set_enable(struct metal_irq_controller *cntr,
+				      int irq, unsigned int enable)
 {
-	up_enable_irq(vector);
+	if (irq >= 0 && irq < cntr->irq_num) {
+		if (enable == METAL_IRQ_ENABLE)
+			up_enable_irq(irq);
+		else
+			up_disable_irq(irq);
+	}
 }
 
-void metal_irq_disable(unsigned int vector)
+static int metal_cntr_irq_handler(int irq, void *context, void *data)
 {
-	up_disable_irq(vector);
-}
+	if (context != NULL)
+		return metal_irq_handle(data, irq);
 
-/**
-  * @brief       IRQ handler
- */
-static int metal_irq_isr(int irq, void *context, void *arg)
-{
-	struct metal_irq_hddesc *desc = arg;
-
-	if (context != desc->drv_id)
-		return desc->hd(irq, desc->drv_id);
-
-	/* context == drv_id mean unregister */
-	irqchain_detach(irq, metal_irq_isr, arg);
-	sched_kfree(arg);
+	/* context == NULL mean unregister */
+	irqchain_detach(irq, metal_cntr_irq_handler, data);
+	sched_kfree(data);
 	return 0;
+}
+
+static int metal_cntr_irq_attach(struct metal_irq_controller *cntr,
+				 int irq, metal_irq_handler hd, void *arg)
+{
+	if (irq < 0 || irq >= cntr->irq_num)
+		return -EINVAL;
+
+	if (hd) {
+		struct metal_irq *data;
+
+		data = metal_allocate_memory(sizeof(*data));
+		if (data == NULL)
+			return -ENOMEM;
+
+		data->hd  = hd;
+		data->arg = arg;
+
+		irq_attach(irq, metal_cntr_irq_handler, data);
+	} else {
+		unsigned int flags;
+
+		flags = metal_irq_save_disable();
+		irq_dispatch(irq, NULL); /* fake a irq request */
+		metal_irq_restore_enable(flags);
+	}
+
+	return 0;
+}
+
+int metal_cntr_irq_init(void)
+{
+	static METAL_IRQ_CONTROLLER_DECLARE(metal_cntr_irq,
+					    0, NR_IRQS,
+					    NULL,
+					    metal_cntr_irq_set_enable,
+					    metal_cntr_irq_attach,
+					    NULL)
+	return metal_irq_register_controller(&metal_cntr_irq);
 }
