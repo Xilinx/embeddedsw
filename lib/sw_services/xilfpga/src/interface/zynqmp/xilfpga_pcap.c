@@ -200,8 +200,8 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 				XSecure_ImageInfo *ImageInfo, u32 flags);
 static u32 XFpga_SecureBitstreamOcmLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 				XSecure_ImageInfo *ImageInfo, u32 flags);
-static u32 XFpga_ConvertCharToNibble(char InChar, u8 *Num);
-static u32 XFpga_ConvertStringToHex(const char *Str, u32 *buf, u8 Len);
+static u32 XFpga_ConvertCharToNibble(u8 InChar, u8 *Num);
+static u32 XFpga_ConvertStringToHex(const u8 *Str, u32 *buf, u8 Len);
 static u32 XFpga_CopyToOcm(UINTPTR Src, UINTPTR Dst, u32 Size);
 static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr);
 static u32 XFpga_ReAuthPlChunksWriteToPl(XFpgaPs_PlPartition *PlAesInfo,
@@ -915,7 +915,7 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 		       XSECURE_SECURE_HDR_SIZE + XSECURE_SECURE_GCM_TAG_SIZE);
 		PlAesInfo.PlEncrypt.SecureAes = &Secure_Aes;
 		if (flags & XFPGA_ENCRYPTION_USERKEY_EN) {
-			XFpga_ConvertStringToHex((char *)(UINTPTR)(KeyAddr),
+			XFpga_ConvertStringToHex((u8 *)(UINTPTR)(KeyAddr),
 						 AesKey, KEY_LEN);
 			/* Xilsecure expects Key in big endian form */
 			for (u8 i = 0; i < ARRAY_LENGTH(AesKey); i++) {
@@ -938,7 +938,7 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 		}
 	}
 
-	for (int i = 0; i < TotalBitPartCount; i++) {
+	for (s32 i = 0; i < TotalBitPartCount; i++) {
 		/* Copy authentication certificate to internal memory */
 		XSecure_MemCopy(AcBuf, (u8 *)AcPtr,
 				XSECURE_AUTH_CERT_MIN_SIZE/XSECURE_WORD_LEN);
@@ -1070,7 +1070,7 @@ static u32 XFpga_SecureBitstreamOcmLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 		       XSECURE_SECURE_HDR_SIZE + XSECURE_SECURE_GCM_TAG_SIZE);
 		PlAesInfo.PlEncrypt.SecureAes = &Secure_Aes;
 		if (flags & XFPGA_ENCRYPTION_USERKEY_EN) {
-			XFpga_ConvertStringToHex((char *)(UINTPTR)(KeyAddr),
+			XFpga_ConvertStringToHex((u8 *)(UINTPTR)(KeyAddr),
 						 AesKey, KEY_LEN);
 			/* Xilsecure expects Key in big endian form */
 			for (u8 i = 0; i < ARRAY_LENGTH(AesKey); i++) {
@@ -1091,7 +1091,7 @@ static u32 XFpga_SecureBitstreamOcmLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 		}
 	}
 
-	for (int i = 0; i < TotalBitPartCount; i++) {
+	for (s32 i = 0; i < TotalBitPartCount; i++) {
 
 		/* Copy authentication certificate to internal memory */
 		XSecure_MemCopy(AcBuf, (u8 *)AcPtr,
@@ -1377,7 +1377,7 @@ static u32 XFpga_WriteEncryptToPcap(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 	u8 *EncSrc;
 
 	if (flags & XFPGA_ENCRYPTION_USERKEY_EN) {
-		XFpga_ConvertStringToHex((char *)(UINTPTR)(KeyAddr),
+		XFpga_ConvertStringToHex((u8 *)(UINTPTR)(KeyAddr),
 							key, KEY_LEN);
 		/* Xilsecure expects Key in big endian form */
 		for (u8 i = 0; i < ARRAY_LENGTH(key); i++) {
@@ -2156,7 +2156,7 @@ u32 XFpga_PcapStatus(void)
  * @note	None.
  *
  *****************************************************************************/
-static u32 XFpga_ConvertCharToNibble(char InChar, u8 *Num)
+static u32 XFpga_ConvertCharToNibble(u8 InChar, u8 *Num)
 {
 	u32 Status = XFPGA_SUCCESS;
 
@@ -2192,7 +2192,7 @@ static u32 XFpga_ConvertCharToNibble(char InChar, u8 *Num)
  * @note	None.
  *
  *****************************************************************************/
-static u32 XFpga_ConvertStringToHex(const char *Str, u32 *buf, u8 Len)
+static u32 XFpga_ConvertStringToHex(const u8 *Str, u32 *buf, u8 Len)
 {
 	u32 Status = XFPGA_SUCCESS;
 	u8 ConvertedLen = 0, index = 0;
@@ -2240,7 +2240,7 @@ static u32 XFpga_GetConfigRegPcap(XFpga *InstancePtr)
 	u32 Status;
 	u32 RegVal;
 	UINTPTR Address = InstancePtr->ReadInfoPtr->ReadbackAddr;
-	unsigned int CmdIndex;
+	u32 CmdIndex;
 	u32 *CmdBuf;
 
 	CmdBuf = (void *)(UINTPTR)Address;
@@ -2355,9 +2355,9 @@ static u32 XFpga_GetPLConfigData(XFpga *InstancePtr)
 	UINTPTR Address = InstancePtr->ReadInfoPtr->ReadbackAddr;
 	u32 NumFrames = InstancePtr->ReadInfoPtr->ConfigReg_NumFrames;
 	u32 RegVal;
-	unsigned int cmdindex;
+	u32 cmdindex;
 	u32 *CmdBuf;
-	int i;
+	s32 i;
 
 	Status = XFpga_GetFirmwareState();
 
