@@ -216,6 +216,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		case PM_SET_CURRENT_SUBSYSTEM:
 			Status = XPm_SetCurrentSubsystem(Pload[0]);
 			break;
+		case PM_INIT_NODE:
+			Status = XST_SUCCESS;
+			break;
 		default:
 			Status = XST_INVALID_PARAM;
 			break;
