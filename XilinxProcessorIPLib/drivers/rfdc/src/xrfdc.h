@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017-2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xrfdc.h
-* @addtogroup rfdc_v5_0
+* @addtogroup xrfdc_v5_1
 * @{
 * @details
 *
@@ -121,7 +121,7 @@
 *              12/13/17 Add CoarseMixMode field in Mixer_Settings structure.
 *              12/15/17 Add support to switch calibration modes.
 *              12/15/17 Add support for mixer frequencies > Fs/2 and < -Fs/2.
-* 	sg     13/01/18 Added PLL and external clock switch support
+*       sg     13/01/18 Added PLL and external clock switch support
 *                       Added API to get PLL lock status.
 *                       Added API to get clock source.
 *       sk     01/18/18 Add API to get driver version.
@@ -1662,7 +1662,7 @@ RETURN_PATH:
 ******************************************************************************/
 static inline double XRFdc_GetDriverVersion(void)
 {
-	return 5.0;
+	return 5.1;
 }
 
 /************************** Function Prototypes ******************************/
