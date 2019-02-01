@@ -187,7 +187,7 @@ typedef struct XFpgatag{
 u32 XFpga_Initialize(XFpga *InstancePtr);
 #if defined(PLATFORM_ZYNQMP) || (PSU_PMU)
 u32 XFpga_PL_BitStream_Load(UINTPTR BitstreamImageAddr,
-			    UINTPTR AddrPtr, u32 flags);
+			    UINTPTR AddrPtr, u32 Flags);
 u32 XFpga_PL_Preconfig(const XFpga_Info *PLInfoPtr);
 u32 XFpga_PL_WriteToPl(const XFpga_Info *PLInfoPtr);
 u32 XFpga_PL_PostConfig(const XFpga_Info *PLInfoPtr);
