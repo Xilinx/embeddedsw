@@ -81,13 +81,13 @@ XLoader_DeviceOps DeviceOps[] =
 	XLOADER_DEVICEOPS_INIT(NULL, NULL),
 #endif
 	XLOADER_DEVICEOPS_INIT(NULL, NULL),  /* 4U */
-#ifdef  XLOADER_SD_0
-	XLOADER_DEVICEOPS_INIT(XLoader_SdInit, XLoader_SdCopy), /* eMMC0 - 5U */
+#ifdef  XLOADER_SD_1
+	XLOADER_DEVICEOPS_INIT(XLoader_SdInit, XLoader_SdCopy), /* SD1 - 5U */
 #else
 	XLOADER_DEVICEOPS_INIT(NULL, NULL),
 #endif
 #ifdef  XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT(XLoader_SdInit, XLoader_SdCopy), /* SD1 - 6U */
+	XLOADER_DEVICEOPS_INIT(XLoader_SdInit, XLoader_SdCopy), /* EMMC - 6U */
 #else
 	XLOADER_DEVICEOPS_INIT(NULL, NULL),
 #endif
@@ -98,7 +98,7 @@ XLoader_DeviceOps DeviceOps[] =
 	XLOADER_DEVICEOPS_INIT(NULL, NULL),
 #endif
 	XLOADER_DEVICEOPS_INIT(NULL, NULL), /* 9U */
-#ifdef XLOADER_SMAP
+#ifdef XLOADER_SBI
 	XLOADER_DEVICEOPS_INIT(XLoader_SbiInit, XLoader_SbiCopy), /* SMAP - 0xA */
 #else
 	XLOADER_DEVICEOPS_INIT(NULL, NULL),

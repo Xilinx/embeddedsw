@@ -172,12 +172,12 @@ static u32 XLoader_GetDrvNumSD(u32 DeviceFlags)
 	 * If design has ONLY SD0 or ONLY SD1, drive number should be "0"
 	 */
 #ifdef XPAR_XSDPS_1_DEVICE_ID
-	if ((DeviceFlags == XLOADER_PDI_SRC_SD0) ||
-		(DeviceFlags == XLOADER_PDI_SRC_EMMC))
+	if (DeviceFlags == XLOADER_PDI_SRC_SD0)
 	{
 		DeviceFlags = XLOADER_SD_DRV_NUM_0;
 	} else {
-		/* For XLOADER_SD1_BOOT_MODE or XLOADER_SD1_LS_BOOT_MODE */
+		/* For XLOADER_SD1_BOOT_MODE or XLOADER_SD1_LS_BOOT_MODE
+			or XLOADER_EMMC_BOOT_MODE */
 		DeviceFlags = XLOADER_SD_DRV_NUM_1;
 	}
 #else
@@ -278,7 +278,7 @@ XStatus XLoader_SdCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 	int Status;
 
 	FRESULT rc;	 /* Result code */
-	UINT br=Flags;
+	UINT br=0U;
 
 	rc = f_lseek(&fil, SrcAddress);
 	if (rc != FR_OK) {
