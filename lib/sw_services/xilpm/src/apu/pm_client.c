@@ -145,20 +145,25 @@ void XPm_ClientSuspend(const struct XPm_Master *const master)
 	/* Disable interrupts at processor level */
 	pm_disable_int();
 	/* Set powerdown request */
-	pwrdn_req = pm_read(master->pwrctl);
-	pwrdn_req |= master->pwrdn_mask;
-	pm_write(master->pwrctl, pwrdn_req);
+	if (NULL != master) {
+		pwrdn_req = pm_read(master->pwrctl);
+		pwrdn_req |= master->pwrdn_mask;
+		pm_write(master->pwrctl, pwrdn_req);
+	}
 }
 
 void XPm_ClientAbortSuspend(void)
 {
-	u32 pwrdn_req = pm_read(primary_master->pwrctl);
+	u32 pwrdn_req;
+	if (NULL != primary_master) {
+		pwrdn_req = pm_read(primary_master->pwrctl);
 
-	/* Clear powerdown request */
-	pwrdn_req &= ~primary_master->pwrdn_mask;
-	pm_write(primary_master->pwrctl, pwrdn_req);
-	/* Enable interrupts at processor level */
-	pm_enable_int();
+		/* Clear powerdown request */
+		pwrdn_req &= ~primary_master->pwrdn_mask;
+		pm_write(primary_master->pwrctl, pwrdn_req);
+		/* Enable interrupts at processor level */
+		pm_enable_int();
+	}
 }
 
 void XPm_ClientWakeup(const struct XPm_Master *const master)
