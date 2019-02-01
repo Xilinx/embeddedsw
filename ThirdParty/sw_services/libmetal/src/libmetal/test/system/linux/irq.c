@@ -78,7 +78,6 @@ static int irq(void)
 	metal_irq_unregister(tst_irq[0]);
 	metal_irq_unregister(tst_irq[1]);
 
-	return 0;
 out:
 	for (i = 0; i < 2; i++) {
 		close(tst_irq[i]);
