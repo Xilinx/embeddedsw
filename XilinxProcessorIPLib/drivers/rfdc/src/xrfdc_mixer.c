@@ -45,6 +45,8 @@
 *                       function.
 *       cog    01/29/19 XRFdc_SetCoarseMixer and MixerRangeCheck now need
 *                       Tile_id as a parameter.
+*       cog    01/29/19 Rename DataType to MixerInputDataType for
+*                       readability.
 * </pre>
 *
 ******************************************************************************/
@@ -164,20 +166,20 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		}
 
 		SamplingRate *= XRFDC_MILLI;
-		/* Set DataType for ADC and DAC */
+		/* Set MixerInputDataType for ADC and DAC */
 		if (Type == XRFDC_DAC_TILE) {
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 						XRFDC_DAC_ITERP_DATA_OFFSET);
 			ReadReg &= ~XRFDC_DAC_INTERP_DATA_MASK;
 			InstancePtr->DAC_Tile[Tile_Id].
-				DACBlock_Digital_Datapath[Index].DataType =
+				DACBlock_Digital_Datapath[Index].MixerInputDataType =
 					XRFDC_DATA_TYPE_REAL;
 			if ((MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2C) ||
 					(MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2R)) {
 				ReadReg |= XRFDC_DAC_INTERP_DATA_MASK;
 				InstancePtr->DAC_Tile[Tile_Id].
 					DACBlock_Digital_Datapath[Index].
-					DataType = XRFDC_DATA_TYPE_IQ;
+					MixerInputDataType = XRFDC_DATA_TYPE_IQ;
 			}
 			XRFdc_WriteReg16(InstancePtr, BaseAddr,
 					XRFDC_DAC_ITERP_DATA_OFFSET, ReadReg);
@@ -198,13 +200,13 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 			if (MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2C) {
 				InstancePtr->ADC_Tile[Tile_Id].
 					ADCBlock_Digital_Datapath[Index].
-					DataType = XRFDC_DATA_TYPE_IQ;
+					MixerInputDataType = XRFDC_DATA_TYPE_IQ;
 			}
 			if ((MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2C) ||
 					(MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2R)) {
 				InstancePtr->ADC_Tile[Tile_Id].
 					ADCBlock_Digital_Datapath[Index].
-					DataType = XRFDC_DATA_TYPE_REAL;
+					MixerInputDataType = XRFDC_DATA_TYPE_REAL;
 			}
 		}
 
