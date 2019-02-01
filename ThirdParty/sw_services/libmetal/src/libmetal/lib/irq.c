@@ -106,13 +106,11 @@ static void _metal_irq_set_enable(int irq, unsigned int state)
 
 int metal_irq_register(int irq,
 		       metal_irq_handler irq_handler,
-		       struct metal_device *dev,
 		       void *arg)
 {
 	struct metal_irq_controller *cntr;
 	struct metal_irq *irq_data;
 
-	(void)dev;
 	cntr = metal_irq_get_controller(irq);
 	if (cntr == NULL) {
 		return -EINVAL;
