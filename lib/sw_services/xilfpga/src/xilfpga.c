@@ -151,7 +151,7 @@ u32 XFpga_PL_ValidateImage(XFpga_Info *PLInfoPtr)
 		goto END;
 	}
 
-	if (!XFpgaInstance.XFpga_ValidateBitstream) {
+	if (XFpgaInstance.XFpga_ValidateBitstream == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
 			"%s Implementation not exists..\r\n", __FUNCTION__);
@@ -196,7 +196,7 @@ u32 XFpga_PL_Preconfig(const XFpga_Info *PLInfoPtr)
 		goto END;
 	}
 
-	if (!XFpgaInstance.XFpga_PreConfig) {
+	if (XFpgaInstance.XFpga_PreConfig == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
 			"%s Implementation not exists..\r\n", __FUNCTION__);
@@ -233,7 +233,7 @@ u32 XFpga_PL_WriteToPl(const XFpga_Info *PLInfoPtr)
 		 goto END;
 	 }
 
-	 if (!XFpgaInstance.XFpga_WriteToPl) {
+	 if (XFpgaInstance.XFpga_WriteToPl == NULL) {
 		 Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		 Xfpga_Printf(XFPGA_DEBUG,
 			 "%s Implementation not exists..\r\n", __FUNCTION__);
@@ -275,7 +275,7 @@ u32 XFpga_PL_PostConfig(const XFpga_Info *PLInfoPtr)
 		goto END;
 	}
 
-	if (!XFpgaInstance.XFpga_PostConfig) {
+	if (XFpgaInstance.XFpga_PostConfig == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
 			"%s Implementation not exists..\r\n", __FUNCTION__);
@@ -320,7 +320,7 @@ u32 XFpga_GetPlConfigData(const XFpga_Info *PLInfoPtr)
 		goto END;
 	}
 
-	if (!XFpgaInstance.XFpga_GetConfigData) {
+	if (XFpgaInstance.XFpga_GetConfigData == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
 			"%s Implementation not exists..\r\n", __FUNCTION__);
@@ -361,7 +361,7 @@ u32 XFpga_GetPlConfigReg(u32 ConfigReg, UINTPTR Address)
 		goto END;
 	}
 
-	if (!XFpgaInstance.XFpga_GetConfigReg) {
+	if (XFpgaInstance.XFpga_GetConfigReg == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
 			"%s Implementation not exists..\r\n", __FUNCTION__);
@@ -392,7 +392,7 @@ u32 XFpga_InterfaceStatus(void)
 	XFpga XFpgaInstance = {0U};
 
 	(void)XFpga_Initialize(&XFpgaInstance);
-	if (!XFpgaInstance.XFpga_GetInterfaceStatus) {
+	if (XFpgaInstance.XFpga_GetInterfaceStatus == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
 		"%s Implementation not exists..\r\n", __FUNCTION__);
