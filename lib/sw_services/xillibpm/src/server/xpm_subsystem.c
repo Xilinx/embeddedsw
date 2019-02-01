@@ -35,6 +35,11 @@
 
 XPm_Subsystem PmSubsystems[XPM_SUBSYSID_MAX] =
 {
+	[XPM_SUBSYSID_DEFAULT] = {
+		.Id = XPM_SUBSYSID_DEFAULT,
+		.State = OFFLINE,
+		.IpiMask = 0x00000000U,
+	},
 	[XPM_SUBSYSID_PMC] = {
 		.Id = XPM_SUBSYSID_PMC,
 		.State = ONLINE,
