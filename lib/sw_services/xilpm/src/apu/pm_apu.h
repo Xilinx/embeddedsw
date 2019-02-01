@@ -26,8 +26,8 @@
 *
 ******************************************************************************/
 
-#ifndef _PM_APU_H_
-#define _PM_APU_H_
+#ifndef PM_APU_H
+#define PM_APU_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -607,4 +607,4 @@ extern "C" {
 #endif
 
 
-#endif /* _PM_APU_H_ */
+#endif /* PM_APU_H */
