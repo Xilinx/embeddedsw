@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -72,6 +72,8 @@ extern "C" {
 #define XPMCFW_SMAP_INTR	(0x0U)
 #define XPMCFW_GPI_INTR		(0x1U)
 
+#define XPMCFW_PCIE_INTR_EN_REG		(0xE0000E14U)
+#define XPMCFW_PCIE_DOORBELL_INTR_MASK	(0x2U)
 
 /*
  * PPU1_IOMODULE_BASEADDR
