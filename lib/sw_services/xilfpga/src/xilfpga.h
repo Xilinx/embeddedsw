@@ -117,12 +117,12 @@ extern "C" {
  */
 typedef struct XFpgatag{
 	u32 (*XFpga_ValidateBitstream)(struct XFpgatag *InstancePtr);
-	u32 (*XFpga_PreConfig)(struct XFpgatag *InstancePtr);
+	u32 (*XFpga_PreConfig)(const struct XFpgatag *InstancePtr);
 	u32 (*XFpga_WriteToPl)(struct XFpgatag *InstancePtr);
-	u32 (*XFpga_PostConfig)(struct XFpgatag *InstancePtr);
+	u32 (*XFpga_PostConfig)(const struct XFpgatag *InstancePtr);
 	u32 (*XFpga_GetInterfaceStatus)(void);
-	u32 (*XFpga_GetConfigReg)(struct XFpgatag *InstancePtr);
-	u32 (*XFpga_GetConfigData)(struct XFpgatag *InstancePtr);
+	u32 (*XFpga_GetConfigReg)(const struct XFpgatag *InstancePtr);
+	u32 (*XFpga_GetConfigData)(const struct XFpgatag *InstancePtr);
 	XFpga_Info	PLInfo;
 	XFpga_Write	*WriteInfoPtr;
 	XFpga_Read	*ReadInfoPtr;
@@ -188,11 +188,11 @@ u32 XFpga_Initialize(XFpga *InstancePtr);
 #if defined(PLATFORM_ZYNQMP) || (PSU_PMU)
 u32 XFpga_PL_BitStream_Load(UINTPTR BitstreamImageAddr,
 			    UINTPTR AddrPtr, u32 flags);
-u32 XFpga_PL_Preconfig(XFpga_Info *PLInfoPtr);
-u32 XFpga_PL_WriteToPl(XFpga_Info *PLInfoPtr);
-u32 XFpga_PL_PostConfig(XFpga_Info *PLInfoPtr);
+u32 XFpga_PL_Preconfig(const XFpga_Info *PLInfoPtr);
+u32 XFpga_PL_WriteToPl(const XFpga_Info *PLInfoPtr);
+u32 XFpga_PL_PostConfig(const XFpga_Info *PLInfoPtr);
 u32 XFpga_PL_ValidateImage(XFpga_Info *PLInfoPtr);
-u32 XFpga_GetPlConfigData(XFpga_Info *PLInfoPtr);
+u32 XFpga_GetPlConfigData(const XFpga_Info *PLInfoPtr);
 u32 XFpga_GetPlConfigReg(u32 ConfigReg, UINTPTR Address);
 u32 XFpga_InterfaceStatus(void);
 #else
