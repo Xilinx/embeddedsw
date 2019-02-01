@@ -189,6 +189,7 @@
 *                       for Real input.
 * 5.1   cog    01/29/19 Replace structure reference ADC checks with
 *                       function.
+*       cog    01/29/19 Added XRFdc_SetDither() and XRFdc_GetDither() APIs.
 * </pre>
 *
 ******************************************************************************/
@@ -811,6 +812,9 @@ typedef struct {
 
 #define XRFDC_HSCOM_PWR_STATS_PLL		0xFFC0U
 #define XRFDC_HSCOM_PWR_STATS_EXTERNAL	0xF240U
+
+#define XRFDC_DITH_ENABLE 1
+#define XRFDC_DITH_DISABLE 0
 
 #define XRFDC_DISABLED 0
 #define XRFDC_ENABLED 1
@@ -1774,6 +1778,10 @@ u32 XRFdc_GetLinkCoupling(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 								u32 *ModePtr);
 u32 XRFdc_GetFabClkOutDiv(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 								u16 *FabClkDivPtr);
+u32 XRFdc_SetDither(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
+							u32 Mode);
+u32 XRFdc_GetDither(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
+							u32 *ModePtr);
 #ifndef __BAREMETAL__
 s32 XRFdc_GetDeviceNameByDeviceId(char *DevNamePtr, u16 DevId);
 #endif
