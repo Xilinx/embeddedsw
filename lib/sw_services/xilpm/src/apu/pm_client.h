@@ -43,9 +43,13 @@
 #include "pm_defs.h"
 #include "pm_common.h"
 
+<<<<<<< HEAD
 #ifdef __cplusplus
 extern "C" {
 #endif
+=======
+
+>>>>>>> Xilpm: Fixed MISRA-C:2012 R.2.5 in APU pm_client.h
 
 #define pm_print(MSG, ...)	xil_printf("APU: "MSG,##__VA_ARGS__)
 
