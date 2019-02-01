@@ -45,19 +45,19 @@ static int irq(void)
 			  __func__, i, tst_irq[i]);
 	}
 
-	rc = metal_irq_register(tst_irq[0], irq_handler, 0, (void *)1);
+	rc = metal_irq_register(tst_irq[0], irq_handler, (void *)1);
 	if (rc) {
 		err_msg = "register irq 0 fail drv_id 1\n";
 		goto out;
 	}
-	rc = metal_irq_register(tst_irq[1], irq_handler, 0, (void *)1);
+	rc = metal_irq_register(tst_irq[1], irq_handler, (void *)1);
 	if (rc) {
 		err_msg = "register irq 1 fail drv_id 1\n";
 		goto out;
 	}
 
 	metal_irq_unregister(tst_irq[0]);
-	rc = metal_irq_register(tst_irq[0], irq_handler, 0, (void *)1);
+	rc = metal_irq_register(tst_irq[0], irq_handler, (void *)1);
 	if (rc) {
 		err_msg = "register irq 0 after unregistering failed\n";
 		goto out;
