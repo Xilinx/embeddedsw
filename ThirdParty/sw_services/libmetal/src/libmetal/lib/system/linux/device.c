@@ -31,13 +31,13 @@ struct linux_driver {
 	void			(*dev_irq_ack)(struct linux_bus *lbus,
 					     struct linux_device *ldev,
 					     int irq);
-	int 			(*dev_dma_map)(struct linux_bus *lbus,
+	int			(*dev_dma_map)(struct linux_bus *lbus,
 						struct linux_device *ldev,
 						uint32_t dir,
 						struct metal_sg *sg_in,
 						int nents_in,
 						struct metal_sg *sg_out);
-	void 			(*dev_dma_unmap)(struct linux_bus *lbus,
+	void			(*dev_dma_unmap)(struct linux_bus *lbus,
 						struct linux_device *ldev,
 						uint32_t dir,
 						struct metal_sg *sg,
