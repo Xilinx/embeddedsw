@@ -155,6 +155,7 @@
  *                  Declared pointer param as const.
  * 1.9  nsk 02/01/19 Clear DMA_DST_ADDR_MSB register on 32bit machine, if the
  *		     address is of only 32bit (CR#1020031)
+ * 1.9  nsk 02/01/19 Added QSPI idling support
  *
  * </pre>
  *
@@ -388,6 +389,7 @@ u32 XQspiPsu_GetOptions(const XQspiPsu *InstancePtr);
 s32 XQspiPsu_SetReadMode(XQspiPsu *InstancePtr, u32 Mode);
 void XQspiPsu_SetWP(const XQspiPsu *InstancePtr, u8 Value);
 void XQspiPsu_WriteProtectToggle(const XQspiPsu *InstancePtr, u32 Toggle);
+void XQspiPsu_Idle(const XQspiPsu *InstancePtr);
 
 #ifdef __cplusplus
 }
