@@ -130,6 +130,8 @@
 *       sk     10/13/18 Add support to read the REFCLKDIV param from design.
 *                       Update XRFdc_SetPLLConfig() API to support range of
 *                       REF_CLK_DIV values(1 to 4).
+* 5.1   cog    01/29/19 Replace structure reference ADC checks with
+*                       function.
 * </pre>
 *
 ******************************************************************************/
@@ -934,7 +936,7 @@ u32 XRFdc_GetBlockStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	}
 
 	Block = Block_Id;
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Block_Id == XRFDC_BLK_ID1) && (Type == XRFDC_ADC_TILE)) {
 		Block_Id = XRFDC_BLK_ID2;
 	}
@@ -1178,7 +1180,7 @@ u32 XRFdc_SetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	}
 
 	Index = Block_Id;
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Type == XRFDC_ADC_TILE)) {
 		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
 		if (Block_Id == XRFDC_BLK_ID1) {
@@ -1247,7 +1249,7 @@ u32 XRFdc_SetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 			goto RETURN_PATH;
 		}
 
-		if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+		if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 				(Type == XRFDC_ADC_TILE) &&
 				((QMCSettingsPtr->EventSource == XRFDC_EVNT_SRC_SLICE) ||
 				(QMCSettingsPtr->EventSource ==
@@ -1312,8 +1314,8 @@ u32 XRFdc_SetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		if ((Type == XRFDC_ADC_TILE) &&
 			(InstancePtr->ADC_Tile[Tile_Id].
 				ADCBlock_Digital_Datapath[Index].DataType ==
-					XRFDC_DATA_TYPE_IQ) && (InstancePtr->ADC4GSPS ==
-				XRFDC_ADC_4GSPS)) {
+					XRFDC_DATA_TYPE_IQ) && (XRFdc_IsHighSpeedADC(InstancePtr,
+				Tile_Id) == 1)) {
 			Index += XRFDC_BLK_ID2;
 		} else {
 			Index += XRFDC_BLK_ID1;
@@ -1365,7 +1367,7 @@ u32 XRFdc_GetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		goto RETURN_PATH;
 	}
 
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Block_Id == XRFDC_BLK_ID1) && (Type == XRFDC_ADC_TILE) &&
 				(InstancePtr->ADC_Tile[Tile_Id].
 					ADCBlock_Digital_Datapath[Block_Id].DataType !=
@@ -1462,7 +1464,7 @@ u32 XRFdc_SetCoarseDelaySettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	}
 
 	Index = Block_Id;
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Type == XRFDC_ADC_TILE)) {
 		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
 		if (Block_Id == XRFDC_BLK_ID1) {
@@ -1500,7 +1502,7 @@ u32 XRFdc_SetCoarseDelaySettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
-		if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+		if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Type == XRFDC_ADC_TILE) &&
 			((CoarseDelaySettingsPtr->EventSource ==
 				XRFDC_EVNT_SRC_SLICE) ||
@@ -1587,7 +1589,7 @@ u32 XRFdc_GetCoarseDelaySettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		goto RETURN_PATH;
 	}
 
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Block_Id == XRFDC_BLK_ID1) && (Type == XRFDC_ADC_TILE)) {
 		Block_Id = XRFDC_BLK_ID2;
 	}
@@ -1646,7 +1648,7 @@ u32 XRFdc_UpdateEvent(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id,
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
 	Index = Block_Id;
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Type == XRFDC_ADC_TILE)) {
 		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
 		if (Block_Id == XRFDC_BLK_ID1) {
@@ -1732,8 +1734,8 @@ u32 XRFdc_UpdateEvent(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id,
 		}
 		if ((Event == XRFDC_EVENT_QMC) && (InstancePtr->ADC_Tile[Tile_Id].
 				ADCBlock_Digital_Datapath[Index].DataType ==
-				XRFDC_DATA_TYPE_IQ) && (InstancePtr->ADC4GSPS ==
-				XRFDC_ADC_4GSPS) && (Type == XRFDC_ADC_TILE)) {
+				XRFDC_DATA_TYPE_IQ) && (XRFdc_IsHighSpeedADC(InstancePtr,
+				Tile_Id) == 1) && (Type == XRFDC_ADC_TILE)) {
 			Index += XRFDC_BLK_ID2;
 		} else {
 			Index += XRFDC_BLK_ID1;
@@ -1800,7 +1802,7 @@ u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 	}
 
 	Index = Block_Id;
-	if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
+	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
 		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
 		if (Block_Id == XRFDC_BLK_ID1) {
 			Index = XRFDC_BLK_ID2;
@@ -1835,7 +1837,7 @@ u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 				XRFDC_ADC_FABRIC_RATE_OFFSET,XRFDC_ADC_FAB_RATE_WR_MASK);
 		if ((DataType == XRFDC_DECIM_2G_IQ_DATA_TYPE) ||
 				(DataType == XRFDC_DECIM_4G_DATA_TYPE) ||
-				(InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)) {
+				(XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1)) {
 			switch (DecimationFactor) {
 				case XRFDC_INTERP_DECIM_1X:
 					FabricRate = XRFDC_FAB_RATE_8;
@@ -2214,7 +2216,7 @@ u32 XRFdc_GetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 		goto RETURN_PATH;
 	}
 
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 				(Block_Id == XRFDC_BLK_ID1)) {
 		Block_Id = XRFDC_BLK_ID2;
 	}
@@ -2335,7 +2337,7 @@ u32 XRFdc_SetFabRdVldWords(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 	}
 
 	Index = Block_Id;
-	if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
+	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
 		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
 		if (Block_Id == XRFDC_BLK_ID1) {
 			Index = XRFDC_BLK_ID2;
@@ -2396,7 +2398,7 @@ u32 XRFdc_GetFabWrVldWords(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		goto RETURN_PATH;
 	}
 
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Block_Id == XRFDC_BLK_ID1) && (Type == XRFDC_ADC_TILE)) {
 		Block_Id = XRFDC_BLK_ID2;
 	}
@@ -2454,7 +2456,7 @@ u32 XRFdc_GetFabRdVldWords(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		goto RETURN_PATH;
 	}
 
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Block_Id == XRFDC_BLK_ID1) && (Type == XRFDC_ADC_TILE)) {
 		Block_Id = XRFDC_BLK_ID2;
 	}
@@ -2517,7 +2519,7 @@ u32 XRFdc_ThresholdStickyClear(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 	}
 
 	Index = Block_Id;
-	if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
+	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
 		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
 		if (Block_Id == XRFDC_BLK_ID1) {
 			Index = XRFDC_BLK_ID2;
@@ -2555,8 +2557,8 @@ u32 XRFdc_ThresholdStickyClear(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 
 		if ((InstancePtr->ADC_Tile[Tile_Id].
 				ADCBlock_Digital_Datapath[Index].DataType ==
-				XRFDC_DATA_TYPE_IQ) && (InstancePtr->ADC4GSPS ==
-				XRFDC_ADC_4GSPS)) {
+				XRFDC_DATA_TYPE_IQ) && (XRFdc_IsHighSpeedADC(InstancePtr,
+				Tile_Id) == 1)) {
 			Index += XRFDC_BLK_ID2;
 		} else {
 			Index += XRFDC_BLK_ID1;
@@ -2628,7 +2630,7 @@ u32 XRFdc_SetThresholdClrMode(XRFdc *InstancePtr, u32 Tile_Id,
 	}
 
 	Index = Block_Id;
-	if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
+	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
 		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
 		if (Block_Id == XRFDC_BLK_ID1) {
 			Index = XRFDC_BLK_ID2;
@@ -2677,8 +2679,8 @@ u32 XRFdc_SetThresholdClrMode(XRFdc *InstancePtr, u32 Tile_Id,
 		}
 		if ((InstancePtr->ADC_Tile[Tile_Id].
 				ADCBlock_Digital_Datapath[Index].DataType ==
-				XRFDC_DATA_TYPE_IQ) && (InstancePtr->ADC4GSPS ==
-				XRFDC_ADC_4GSPS)) {
+				XRFDC_DATA_TYPE_IQ) && (XRFdc_IsHighSpeedADC(InstancePtr,
+				Tile_Id) == 1)) {
 			Index += XRFDC_BLK_ID2;
 		} else {
 			Index += XRFDC_BLK_ID1;
@@ -2735,7 +2737,7 @@ u32 XRFdc_SetThresholdSettings(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 	}
 
 	Index = Block_Id;
-	if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
+	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
 		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
 		if (Block_Id == XRFDC_BLK_ID1) {
 			Index = XRFDC_BLK_ID2;
@@ -2855,8 +2857,8 @@ u32 XRFdc_SetThresholdSettings(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 		}
 		if ((InstancePtr->ADC_Tile[Tile_Id].
 				ADCBlock_Digital_Datapath[Index].DataType ==
-				XRFDC_DATA_TYPE_IQ) && (InstancePtr->ADC4GSPS ==
-				XRFDC_ADC_4GSPS)) {
+				XRFDC_DATA_TYPE_IQ) && (XRFdc_IsHighSpeedADC(InstancePtr,
+				Tile_Id) ==	1)) {
 			Index += XRFDC_BLK_ID2;
 		} else {
 			Index += XRFDC_BLK_ID1;
@@ -2909,7 +2911,7 @@ u32 XRFdc_GetThresholdSettings(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 		goto RETURN_PATH;
 	}
 
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Block_Id == XRFDC_BLK_ID1) && (InstancePtr->ADC_Tile[Tile_Id].
 					ADCBlock_Digital_Datapath[Block_Id].DataType !=
 						XRFDC_DATA_TYPE_IQ)) {
@@ -3098,7 +3100,7 @@ u32 XRFdc_ResetNCOPhase(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	}
 
 	Index = Block_Id;
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Type == XRFDC_ADC_TILE)) {
 		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
 		if (Block_Id == XRFDC_BLK_ID1) {
@@ -3147,7 +3149,7 @@ static void XRFdc_SB_C2C(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 {
 	u32 Block_Id;
 
-	if ((Type == XRFDC_ADC_TILE) && (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)) {
+	if ((Type == XRFDC_ADC_TILE) && (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1)) {
 		/* Update ConnectedIData and ConnectedQData for ADC 4GSPS */
 		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
 						ConnectedIData = BlockIndex[0U];
@@ -3239,7 +3241,7 @@ static void XRFdc_SB_R2C_C2R(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[DataPathIndex[0]].
 						ConnectedQData = -1;
 	}
-	if ((Type == XRFDC_ADC_TILE) && (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)) {
+	if ((Type == XRFDC_ADC_TILE) && (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1)) {
 		if (DataPathIndex[0] == XRFDC_BLK_ID1) {
 			DataPathIndex[0] = XRFDC_BLK_ID2;
 		}
@@ -3278,7 +3280,7 @@ static void XRFdc_MB_C2C(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		u8 NoOfDataPaths, u32 DataType, u32 Mode,
 			u32 DataPathIndex[], u32 BlockIndex[])
 {
-	if ((Type == XRFDC_ADC_TILE) && (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)) {
+	if ((Type == XRFDC_ADC_TILE) && (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1)) {
 		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0],
 				DataType, BlockIndex[0U], BlockIndex[0U]+1U);
 		XRFdc_SetSignalFlow(InstancePtr, Type, Tile_Id, Mode, DataPathIndex[0]+1U,
@@ -3408,7 +3410,7 @@ static void XRFdc_MB_R2C_C2R(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		u8 NoOfDataPaths, u32 DataType, u32 Mode,
 				u32 DataPathIndex[], u32 BlockIndex[])
 {
-	if ((Type == XRFDC_ADC_TILE) && (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)) {
+	if ((Type == XRFDC_ADC_TILE) && (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1)) {
 		/* Update ConnectedIData and ConnectedQData */
 		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[DataPathIndex[0]].
 						ConnectedIData = BlockIndex[0U];
@@ -3663,7 +3665,7 @@ u32 XRFdc_MultiBand(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		goto RETURN_PATH;
 	}
 
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 				(Type == XRFDC_ADC_TILE)) {
 		NoOfBlocks = XRFDC_BLK_ID2;
 	}
@@ -3777,10 +3779,10 @@ static void XRFdc_SetSignalFlow(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 			ReadReg |= (u16)ConnectQData;
 		}
 		if ((DataType == XRFDC_MB_DATATYPE_C2C) &&
-				(InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)) {
+				(XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1)) {
 			ReadReg |= XRFDC_SEL_CB_TO_QMC_MASK;
 		}
-		if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
+		if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
 			ReadReg |= XRFDC_SEL_CB_TO_DECI_MASK;
 		}
 
@@ -4047,7 +4049,7 @@ u32 XRFdc_SetNyquistZone(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	}
 
 	Index = Block_Id;
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Type == XRFDC_ADC_TILE)) {
 		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
 		if (Block_Id == XRFDC_BLK_ID1) {
@@ -4166,7 +4168,7 @@ u32 XRFdc_GetNyquistZone(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	}
 
 	Block = Block_Id;
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Block_Id == XRFDC_BLK_ID1) && (Type == XRFDC_ADC_TILE)) {
 		Block_Id = XRFDC_BLK_ID2;
 	}
@@ -4248,7 +4250,7 @@ u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 	}
 
 	Index = Block_Id;
-	if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
+	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
 		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
 		if (Block_Id == XRFDC_BLK_ID1) {
 			Index = XRFDC_BLK_ID2;
@@ -4280,9 +4282,9 @@ u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 		ReadReg &= ~XRFDC_TI_DCB_MODE_MASK;
 		if (CalibrationMode == XRFDC_CALIB_MODE1) {
 			if (((Index % 2U) != 0U) &&
-				(InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)) {
+				(XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1)) {
 				ReadReg |= XRFDC_TI_DCB_MODE1_4GSPS;
-			} else if (InstancePtr->ADC4GSPS != XRFDC_ADC_4GSPS) {
+			} else if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 0) {
 				ReadReg |= XRFDC_TI_DCB_MODE1_2GSPS;
 			}
 		}
@@ -4353,7 +4355,7 @@ u32 XRFdc_GetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 		goto RETURN_PATH;
 	}
 
-	if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
+	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
 		if (Block_Id == XRFDC_BLK_ID1) {
 			Block_Id = XRFDC_BLK_ID3;
 		}
@@ -4496,7 +4498,7 @@ static void XRFdc_DumpADCRegs(XRFdc *InstancePtr, int Tile_Id)
 
 	for (BlockId = XRFDC_BLK_ID0; BlockId < XRFDC_BLK_ID4; BlockId++) {
 		Block = BlockId;
-		if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
+		if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
 			if (BlockId == XRFDC_BLK_ID1) {
 				Block = XRFDC_BLK_ID0;
 			}
@@ -5337,7 +5339,7 @@ u32 XRFdc_GetLinkCoupling(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 		goto RETURN_PATH;
 	}
 
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Block_Id == XRFDC_BLK_ID1)) {
 		Block_Id = XRFDC_BLK_ID2;
 	}
