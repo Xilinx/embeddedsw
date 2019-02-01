@@ -170,7 +170,7 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 static u32 XFpga_PcapWaitForDone(void);
 static u32 XFpga_PcapWaitForidle(void);
-static u32 XFpga_WriteToPcap(u32 Size, UINTPTR BitStreamAddrLow);
+static u32 XFpga_WriteToPcap(u32 Size, UINTPTR BitstreamAddr);
 static u32 XFpga_PcapInit(u32 flags);
 static u32 XFpga_CsuDmaInit(void);
 static u32 XFpga_PLWaitForDone(void);
