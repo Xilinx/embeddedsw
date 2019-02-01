@@ -185,7 +185,7 @@ END:
  *
  * @return Codes as mentioned in xilfpga.h
  *****************************************************************************/
-u32 XFpga_PL_Preconfig(XFpga_Info *PLInfoPtr)
+u32 XFpga_PL_Preconfig(const XFpga_Info *PLInfoPtr)
 {
 	u32 Status;
 	XFpga XFpgaInstance = {0U};
@@ -221,7 +221,7 @@ END:
  *
  * @return Codes as mentioned in xilfpga.h
  *****************************************************************************/
-u32 XFpga_PL_WriteToPl(XFpga_Info *PLInfoPtr)
+u32 XFpga_PL_WriteToPl(const XFpga_Info *PLInfoPtr)
 {
 	 u32 Status;
 	 XFpga_Write WriteInfo = {0U};
@@ -263,7 +263,7 @@ END:
  *
  * @return Codes as mentioned in xilfpga.h
  *****************************************************************************/
-u32 XFpga_PL_PostConfig(XFpga_Info *PLInfoPtr)
+u32 XFpga_PL_PostConfig(const XFpga_Info *PLInfoPtr)
 {
 	u32 Status;
 	XFpga XFpgaInstance = {0U};
@@ -308,7 +308,7 @@ END:
  *	- XFPGA_OPS_NOT_IMPLEMENTED if implementation not exists.
  *
  ****************************************************************************/
-u32 XFpga_GetPlConfigData(XFpga_Info *PLInfoPtr)
+u32 XFpga_GetPlConfigData(const XFpga_Info *PLInfoPtr)
 {
 	u32 Status;
 	XFpga_Read ReadInfo = {0U};
