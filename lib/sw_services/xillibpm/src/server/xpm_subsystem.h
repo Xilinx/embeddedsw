@@ -37,6 +37,7 @@
  * Subsystem IDs
  */
 typedef enum {
+	XPM_SUBSYSID_DEFAULT,
 	XPM_SUBSYSID_PMC,
 	XPM_SUBSYSID_PSM,
 	XPM_SUBSYSID_APU,
