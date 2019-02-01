@@ -43,10 +43,7 @@
 #include "pm_defs.h"
 #include "pm_common.h"
 
-#define IPI_APU_MASK		0x00000001U
 
-#define IPI_TRIG_OFFSET		0x00000000
-#define IPI_OBS_OFFSET		0x00000004
 
 #define pm_print(MSG, ...)	xil_printf("APU: "MSG,##__VA_ARGS__)
 
