@@ -92,7 +92,11 @@ extern "C" {
 /*
  * XIL_EXCEPTION_ID_INT is defined for all Xilinx processors.
  */
+#if defined (versal) && !defined(ARMR5) && EL3
+#define XIL_EXCEPTION_ID_INT    XIL_EXCEPTION_ID_FIQ_INT
+#else
 #define XIL_EXCEPTION_ID_INT	XIL_EXCEPTION_ID_IRQ_INT
+#endif
 
 /**************************** Type Definitions ******************************/
 
