@@ -70,6 +70,12 @@ void Xil_MemCpy(void* dst, const void* src, u32 cnt)
 		s += sizeof (int);
 		cnt -= sizeof (int);
 	}
+	while (cnt >= sizeof (u16)) {
+		*(u16*)d = *(u16*)s;
+		d += sizeof (u16);
+		s += sizeof (u16);
+		cnt -= sizeof (u16);
+	}
 	while ((cnt) > 0U){
 		*d = *s;
 		d += 1U;
