@@ -149,11 +149,12 @@ int XPlmi_IpiDispatchHandler(void)
 
 	XPlmi_Printf(DEBUG_INFO, "%s: IPI processed.\n\r", __func__);
 
-	Xil_Out32(IPI_PMC_ISR, SrcCpuMask);
-
 	if (XST_SUCCESS != Status) {
 		XPlmi_Printf(DEBUG_INFO, "%s: Error: Unhandled IPI received\n\r", __func__);
 	}
+
+	Xil_Out32(IPI_PMC_ISR, SrcCpuMask);
+
 	return Status;
 }
 
