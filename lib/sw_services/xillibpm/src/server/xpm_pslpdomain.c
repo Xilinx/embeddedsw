@@ -239,7 +239,6 @@ int XPmPsLpDomain_LpdLBIST(void)
 				  PMC_ANALOG_LBIST_DONE_LPD_RPU_MASK),
 				 XPM_POLL_TIMEOUT);
 
-done:
 	return Status;
 }
 
