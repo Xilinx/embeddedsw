@@ -45,6 +45,7 @@
 *                     Remove STIG/DMA mode selection by the user, driver will
 *                     take care of operating in DMA/STIG based on command.
 *                     Added support for unaligned byte count read.
+*       sk   02/04/19 Added support for SDR+PHY and DDR+PHY modes.
 *
 * </pre>
 *
@@ -85,16 +86,17 @@ typedef void (*XOspiPsv_StatusHandler) (void *CallBackRef, u32 StatusEvent);
  * This typedef contains configuration information for a flash message.
  */
 typedef struct {
-	u8 *TxBfrPtr;
-	u8 *RxBfrPtr;
-	u32 ByteCount;
-	u32 Flags;
-	u8 Opcode;
-	u32 Addr;
-	u8 Addrsize;
-	u8 Addrvalid;
-	u8 Dummy;
-	u8 Proto;
+	u8 *TxBfrPtr;	/**< Write buffer pointer */
+	u8 *RxBfrPtr;	/**< Read buffer pointer */
+	u32 ByteCount;	/**< Number of bytes to read or write */
+	u32 Flags;		/**< Used to indicate the Msg is for TX or RX */
+	u8 Opcode;		/**< Opcode/Command */
+	u32 Addr;		/**< Device Address */
+	u8 Addrsize;	/**< Size of address in bytes */
+	u8 Addrvalid;	/**< 1 if Address is required for opcode, 0 otherwise */
+	u8 Dummy;		/**< Number of dummy cycles for opcode */
+	u8 Proto;		/**< Indicate number of Cmd-Addr-Data lines */
+	u8 IsDDROpCode;	/**< 1 if opcode is DDR command, 0 otherwise */
 } XOspiPsv_Msg;
 
 /**
@@ -120,6 +122,7 @@ typedef struct {
 	u32 RxBytes;	 /**< Number of bytes left to transfer(state) */
 	u32 IsBusy;		 /**< A transfer is in progress (state) */
 	u32 OpMode;		 /**< Operating Mode DAC or INDAC */
+	u32 SdrDdrMode;	/**< Edge mode can be SDR or DDR */
 	u8 ChipSelect;
 	XOspiPsv_Msg *Msg;
 	XOspiPsv_StatusHandler StatusHandler;
@@ -158,16 +161,17 @@ typedef struct {
 #define XOSPIPSV_MSG_FLAG_TX	0x4U
 
 #define XOSPIPSV_READ_1_1_1	0U
-#define XOSPIPSV_READ_1_1_2	1U
-#define XOSPIPSV_READ_1_1_4	2U
 #define XOSPIPSV_READ_1_1_8	3U
 #define XOSPIPSV_READ_1_8_8	4U
+#define XOSPIPSV_READ_8_8_8	5U
+#define XOSPIPSV_READ_8_0_8	6U
 
 #define XOSPIPSV_WRITE_1_1_1	0U
-#define XOSPIPSV_WRITE_1_1_2	1U
-#define XOSPIPSV_WRITE_1_1_4	2U
 #define XOSPIPSV_WRITE_1_1_8	3U
 #define XOSPIPSV_WRITE_1_8_8	4U
+#define XOSPIPSV_WRITE_8_8_8	5U
+#define XOSPIPSV_WRITE_8_0_0	6U
+#define XOSPIPSV_WRITE_8_8_0	7U
 
 #define XOSPIPSV_SELECT_FLASH_CS0	0
 #define XOSPIPSV_SELECT_FLASH_CS1	1
@@ -205,6 +209,18 @@ typedef struct {
 			((u32)XOSPIPSV_DISABLE_DAC_VALUE << \
 					(u32)XOSPIPSV_CONFIG_REG_ENB_DIR_ACC_CTLR_FLD_SHIFT) | \
 					(u32)XOSPIPSV_SPI_DISABLE_VALUE)
+#define XOSPIPSV_POLL_CNT_FLD_PHY	0x3U
+#define XOSPIPSV_POLL_CNT_FLD_NON_PHY	0x1U
+#define XOSPIPSV_MIN_PHY_FREQ	50000000
+#define XOSPIPSV_DDR_STATS_REG_DUMMY	0x8U
+
+#define XOSPIPSV_EDGE_MODE_SDR_PHY			0x0U
+#define XOSPIPSV_EDGE_MODE_SDR_NON_PHY		0x1U
+#define XOSPIPSV_EDGE_MODE_DDR_PHY			0x2U
+
+#define XOSPIPSV_REMAP_ADDR_VAL		0x40000000U
+#define XOSPIPSV_SDR_TX_RX_DLY_VAL		0x00140014U
+#define XOSPIPSV_DDR_TX_RX_DLY_VAL		0x00400040U
 
 /* Initialization and reset */
 XOspiPsv_Config *XOspiPsv_LookupConfig(u16 DeviceId);
@@ -220,6 +236,8 @@ u32 XOspiPsv_IntrTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg);
 u32 XOspiPsv_IntrHandler(XOspiPsv *InstancePtr);
 void XOspiPsv_SetStatusHandler(XOspiPsv *InstancePtr, void *CallBackRef,
 				XOspiPsv_StatusHandler FuncPointer);
+u32 XOspiPsv_SetSdrDdrMode(XOspiPsv *InstancePtr, u32 Mode);
+void XOspiPsv_ConfigureAutoPolling(XOspiPsv *InstancePtr, u32 FlashMode);
 #ifdef __cplusplus
 }
 #endif
