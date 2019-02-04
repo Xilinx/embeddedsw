@@ -1047,6 +1047,7 @@ static XStatus PowerUp_FP(void)
 {
 	XStatus Status = XST_SUCCESS;
 	u32 RegVal, PwrState;
+	u32 IsoState;
 
 	/* NOTE: As per sequence specs, global power state need to be checked.
 	 * But FPD bit in global register shows its isolation status instead of
@@ -1165,6 +1166,30 @@ static XStatus PowerUp_FP(void)
 
 		/* Enable PSM Interrupts */
 		microblaze_enable_interrupts();
+	} else {
+		/*
+		 * At POR power state of FPD is powered ON but its isolation
+		 * is enabled. So at that time we need to disable isolation
+		 * if it is enabled.
+		 */
+		IsoState = XPsmFw_Read32(PSM_LOCAL_DOMAIN_ISO_CNTRL);
+
+		/* Remove isolation if enabled. */
+		if (CHECK_BIT(IsoState,
+			      PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK)) {
+			/* Disable LP-FP isolation */
+			XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
+				     PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK,
+				     ~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK);
+		}
+
+		if (CHECK_BIT(IsoState,
+			      PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_DFX_MASK)) {
+			/* Disable LP-FP clocking group isolation */
+			XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
+				     PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_DFX_MASK,
+				     ~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_DFX_MASK);
+		}
 	}
 
 #ifdef SPP_HACK
