@@ -41,6 +41,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------.
 * 1.0   nsk  02/19/18 First release
+*       sk   02/04/19 Added support for SDR+PHY and DDR+PHY modes.
 *
 * </pre>
 *
