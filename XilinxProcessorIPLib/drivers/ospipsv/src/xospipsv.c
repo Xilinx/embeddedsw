@@ -45,6 +45,7 @@
 *                     Remove STIG/DMA mode selection by the user, driver will
 *                     take care of operating in DMA/STIG based on command.
 *                     Added support for unaligned byte count read.
+*       sk   02/04/19 Added support for SDR+PHY and DDR+PHY modes.
 *
 * </pre>
 *
@@ -151,6 +152,7 @@ u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr,
 		InstancePtr->OpMode = XOSPIPSV_IDAC_MODE;
 		InstancePtr->IsUnaligned = 0U;
 		InstancePtr->StatusHandler = StubStatusHandler;
+		InstancePtr->SdrDdrMode = XOSPIPSV_EDGE_MODE_SDR_NON_PHY;
 
 		/*
 		 * Reset the OSPIPS device to get it into its initial state. It is
@@ -158,6 +160,8 @@ u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr,
 		 * initialization is done, but before the device is started.
 		 */
 		XOspiPsv_Reset(InstancePtr);
+
+		(void)XOspiPsv_SetSdrDdrMode(InstancePtr, InstancePtr->SdrDdrMode);
 
 		InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
@@ -650,6 +654,16 @@ static inline void XOspiPsv_Setup_Dev_Write_Instr_Reg(const XOspiPsv *InstancePt
 			Dataxfer_Type = DQ0_7;
 			Addrxfer_Type = DQ0_7;
 			break;
+		case XOSPIPSV_WRITE_8_8_8:
+			Dataxfer_Type = DQ0_7;
+			Addrxfer_Type = DQ0_7;
+			Instxfer_Type = DQ0_7;
+			break;
+		case XOSPIPSV_WRITE_8_8_0:
+			Addrxfer_Type = DQ0_7;
+			Instxfer_Type = DQ0_7;
+			Dataxfer_Type = DQ0;
+			break;
 		default :
 			Dataxfer_Type = DQ0;
 			Addrxfer_Type = DQ0;
@@ -720,6 +734,16 @@ static inline void XOspiPsv_Setup_Dev_Read_Instr_Reg(const XOspiPsv *InstancePtr
 			Addrxfer_Type = DQ0_7;
 			Instxfer_Type = DQ0;
 			break;
+		case XOSPIPSV_READ_8_8_8:
+			Instxfer_Type = DQ0_7;
+			Dataxfer_Type = DQ0_7;
+			Addrxfer_Type = DQ0_7;
+			break;
+		case XOSPIPSV_READ_8_0_8:
+			Instxfer_Type = DQ0_7;
+			Dataxfer_Type = DQ0_7;
+			Addrxfer_Type = DQ0;
+			break;
 		default :
 			Instxfer_Type = DQ0;
 			Dataxfer_Type = DQ0;
@@ -744,10 +768,24 @@ static inline void XOspiPsv_Setup_Dev_Read_Instr_Reg(const XOspiPsv *InstancePtr
 		& XOSPIPSV_DEV_INSTR_RD_CONFIG_REG_INSTR_TYPE_FLD_MASK) |
 		(((u32)Msg->Opcode <<
 		(u32)XOSPIPSV_DEV_INSTR_RD_CONFIG_REG_RD_OPCODE_NON_XIP_FLD_SHIFT)
-		& XOSPIPSV_DEV_INSTR_RD_CONFIG_REG_RD_OPCODE_NON_XIP_FLD_MASK) );
-
+		& XOSPIPSV_DEV_INSTR_RD_CONFIG_REG_RD_OPCODE_NON_XIP_FLD_MASK) |
+		(((u32)Msg->IsDDROpCode <<
+		(u32)XOSPIPSV_DEV_INSTR_RD_CONFIG_REG_DDR_EN_FLD_SHIFT)
+		& XOSPIPSV_DEV_INSTR_RD_CONFIG_REG_DDR_EN_FLD_MASK));
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-			XOSPIPSV_DEV_INSTR_RD_CONFIG_REG, Regval);
+				XOSPIPSV_DEV_INSTR_RD_CONFIG_REG, Regval);
+
+	Regval = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_RD_DATA_CAPTURE_REG);
+	Regval &= ~(u32)XOSPIPSV_RD_DATA_CAPTURE_REG_DQS_ENABLE_FLD_MASK;
+	if ((Msg->IsDDROpCode != 0U) ||
+			(InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY)) {
+		Regval |= XOSPIPSV_RD_DATA_CAPTURE_REG_DQS_ENABLE_FLD_MASK;
+	}
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_RD_DATA_CAPTURE_REG, Regval);
+
+
 }
 
 /*****************************************************************************/

@@ -44,6 +44,7 @@
 *       sk   01/09/19 Updated XOspiPsv_SetOptions() API to support
 *                     DAC mode switching.
 *                     Removed Legacy/STIG mode option in OptionsTable.
+*       sk   02/04/19 Added support for SDR+PHY and DDR+PHY modes.
 *
 * </pre>
 *
@@ -61,6 +62,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static void XOspiPsv_SetDllDelay(const XOspiPsv *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -77,11 +79,9 @@ typedef struct {
 static OptionsMap OptionsTable[] = {
 	{XOSPIPSV_CLK_POL_OPTION, (XOSPIPSV_CONFIG_REG_SEL_CLK_POL_FLD_MASK)},
 	{XOSPIPSV_CLK_PHASE_OPTION, (XOSPIPSV_CONFIG_REG_SEL_CLK_PHASE_FLD_MASK)},
-	{XOSPIPSV_PHY_EN_OPTION, (XOSPIPSV_CONFIG_REG_PHY_MODE_ENABLE_FLD_MASK)},
 	{XOSPIPSV_DAC_EN_OPTION, (((u32)XOSPIPSV_CONFIG_REG_ENB_DIR_ACC_CTLR_FLD_MASK) |
 			(u32)XOSPIPSV_CONFIG_REG_ENB_AHB_ADDR_REMAP_FLD_MASK)},
 	{XOSPIPSV_IDAC_EN_OPTION, (XOSPIPSV_CONFIG_REG_ENB_DMA_IF_FLD_MASK)},
-	{XOSPIPSV_DTR_EN_OPTION, (XOSPIPSV_CONFIG_REG_ENABLE_DTR_PROTOCOL_FLD_MASK)},
 	{XOSPIPSV_CRC_EN_OPTION, (XOSPIPSV_CONFIG_REG_CRC_ENABLE_FLD_MASK)},
 	{XOSPIPSV_DB_OP_EN_OPTION, (XOSPIPSV_CONFIG_REG_DUAL_BYTE_OPCODE_EN_FLD_MASK)},
 };
@@ -248,7 +248,6 @@ u32 XOspiPsv_SetClkPrescaler(const XOspiPsv *InstancePtr, u8 Prescaler)
 	if (InstancePtr->IsBusy == TRUE) {
 		Status = (u32)XST_DEVICE_BUSY;
 	} else {
-
 		/*
 		 * Read the configuration register, mask out the relevant bits, and set
 		 * them with the shifted Value passed into the function. Write the
@@ -259,13 +258,114 @@ u32 XOspiPsv_SetClkPrescaler(const XOspiPsv *InstancePtr, u8 Prescaler)
 		ConfigReg &= (u32)(~(XOSPIPSV_CONFIG_REG_MSTR_BAUD_DIV_FLD_MASK));
 		ConfigReg |= (u32) ((u32)Prescaler & XOSPIPSV_CR_PRESC_MAXIMUM)
 						<< (u32)XOSPIPSV_CONFIG_REG_MSTR_BAUD_DIV_FLD_SHIFT;
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_CONFIG_REG,
+						ConfigReg);
 
-		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-				XOSPIPSV_CONFIG_REG, ConfigReg);
+		XOspiPsv_SetDllDelay(InstancePtr);
+
 		Status = (u32)XST_SUCCESS;
-
 	}
 
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* Configures TX and RX DLL Delay
+*
+*
+* @param	InstancePtr is a pointer to the XOspiPsv instance.
+*
+* @return
+*		- None
+*
+* @note		None.
+*
+******************************************************************************/
+static void XOspiPsv_SetDllDelay(const XOspiPsv *InstancePtr)
+{
+	if (InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_SDR_PHY) {
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_PHY_CONFIGURATION_REG, XOSPIPSV_SDR_TX_RX_DLY_VAL);
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_PHY_CONFIGURATION_REG, (XOSPIPSV_SDR_TX_RX_DLY_VAL |
+				XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESYNC_FLD_MASK));
+	} else if (InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_PHY_CONFIGURATION_REG, XOSPIPSV_DDR_TX_RX_DLY_VAL);
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_PHY_CONFIGURATION_REG, (XOSPIPSV_DDR_TX_RX_DLY_VAL |
+				XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESYNC_FLD_MASK));
+	} else {
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_PHY_CONFIGURATION_REG, 0x0U);
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_PHY_CONFIGURATION_REG,
+				XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESYNC_FLD_MASK);
+	}
+}
+
+/*****************************************************************************/
+/**
+*
+* Configures the edge mode (SDR or DDR)
+*
+*
+* @param	InstancePtr is a pointer to the XOspiPsv instance.
+* @param	Mode is Edge mode. XOSPIPSV_EDGE_MODE_* represents valid values.
+*
+* @return
+*		- XST_SUCCESS
+*		- XST_FAILURE
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XOspiPsv_SetSdrDdrMode(XOspiPsv *InstancePtr, u32 Mode)
+{
+	u32 ConfigReg;
+	u32 Status;
+	u32 ReadReg;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	if ((Mode != XOSPIPSV_EDGE_MODE_DDR_PHY) &&
+			(Mode != XOSPIPSV_EDGE_MODE_SDR_PHY) &&
+			(Mode != XOSPIPSV_EDGE_MODE_SDR_NON_PHY)) {
+		Status = XST_FAILURE;
+		goto ERROR_PATH;
+	}
+	InstancePtr->SdrDdrMode = Mode;
+
+	ConfigReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+							XOSPIPSV_CONFIG_REG);
+	ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+							XOSPIPSV_WRITE_COMPLETION_CTRL_REG);
+	ConfigReg &= ~XOSPIPSV_CONFIG_REG_ENABLE_DTR_PROTOCOL_FLD_MASK;
+	ConfigReg &= ~XOSPIPSV_CONFIG_REG_PHY_MODE_ENABLE_FLD_MASK;
+	ReadReg &= ~XOSPIPSV_WRITE_COMPLETION_CTRL_REG_POLL_COUNT_FLD_MASK;
+	ReadReg |= (XOSPIPSV_POLL_CNT_FLD_NON_PHY <<
+			XOSPIPSV_WRITE_COMPLETION_CTRL_REG_POLL_COUNT_FLD_SHIFT);
+	if ((InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) ||
+			(InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_SDR_PHY)) {
+		ConfigReg |= XOSPIPSV_CONFIG_REG_PHY_MODE_ENABLE_FLD_MASK;
+		ReadReg |= (XOSPIPSV_POLL_CNT_FLD_PHY <<
+				XOSPIPSV_WRITE_COMPLETION_CTRL_REG_POLL_COUNT_FLD_SHIFT);
+		if (InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+			ConfigReg |= XOSPIPSV_CONFIG_REG_ENABLE_DTR_PROTOCOL_FLD_MASK;
+		}
+	}
+
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_CONFIG_REG,
+								ConfigReg);
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_WRITE_COMPLETION_CTRL_REG, ReadReg);
+	XOspiPsv_SetDllDelay(InstancePtr);
+
+	Status = (u32)XST_SUCCESS;
+
+ERROR_PATH:
 	return Status;
 }
 
@@ -304,6 +404,40 @@ u32 XOspiPsv_SelectFlash(XOspiPsv *InstancePtr, u8 chip_select)
 	Status = (u32)XST_SUCCESS;
 ERROR_PATH:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* Configures how the controller will poll the device following a write
+* transfer in DAC mode.
+*
+*
+* @param	InstancePtr is a pointer to the XOspiPsv instance.
+* @param	Mode is Edge mode. XOSPIPSV_EDGE_MODE_* represents valid values.
+*
+* @return
+*		- XST_SUCCESS
+*		- XST_FAILURE
+*
+* @note		None.
+*
+******************************************************************************/
+void XOspiPsv_ConfigureAutoPolling(XOspiPsv *InstancePtr, u32 FlashMode)
+{
+	u32 ReadReg;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_POLLING_FLASH_STATUS_REG);
+	ReadReg &= ~XOSPIPSV_POLLING_FLASH_STATUS_REG_DEVICE_STATUS_NB_DUMMY_MASK;
+	if (FlashMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		ReadReg |= (XOSPIPSV_DDR_STATS_REG_DUMMY <<
+			XOSPIPSV_POLLING_FLASH_STATUS_REG_DEVICE_STATUS_NB_DUMMY_SHIFT);
+	}
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+					XOSPIPSV_POLLING_FLASH_STATUS_REG, ReadReg);
 }
 
 /** @} */
