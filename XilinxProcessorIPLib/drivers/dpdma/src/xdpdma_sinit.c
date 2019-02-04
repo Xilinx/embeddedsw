@@ -77,7 +77,7 @@ extern XDpDma_Config XDpDma_ConfigTable[XPAR_XDPDMA_NUM_INSTANCES];
 *******************************************************************************/
 XDpDma_Config *XDpDma_LookupConfig(u16 DeviceId)
 {
-	XDpDma_Config *CfgPtr;
+	XDpDma_Config *CfgPtr = NULL;
 	u32 Index;
 
 	for (Index = 0; Index < XPAR_XDPDMA_NUM_INSTANCES; Index++) {

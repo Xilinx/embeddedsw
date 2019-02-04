@@ -28,7 +28,7 @@
 /******************************************************************************/
 /**
  *
- * @file xdppsu_intr.c
+ * @file xdpdma_intr.c
  *
  * This file contains functions related to XDpPsu interrupt handling.
  *
@@ -54,6 +54,8 @@
  * This function enables the interrupts that are required.
  *
  * @param    InstancePtr is pointer to the instance of DPDMA
+ *
+ * @param    Mask is mask to XDPDMA_IEN register
  *
  * @return   None.
  *
