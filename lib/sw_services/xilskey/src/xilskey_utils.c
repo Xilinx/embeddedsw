@@ -752,7 +752,7 @@ u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len)
 
 		index = (Len/8) - 1;
 		ConvertedLen = 0;
-		while (ConvertedLen < Len) {
+		while (ConvertedLen < Len/4) {
 			/**
 			 * Convert char to nibble
 			 */
