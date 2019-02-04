@@ -61,6 +61,11 @@ static XStatus XPmPsm_WakeUp(XPm_Core *Core, u32 SetAddress,
 	/* Assert wakeup bit to Wakeup PSM */
 	PmRmw32(CRLBaseAddress + CRL_PSM_RST_MODE_OFFSET, XPM_PSM_WAKEUP_MASK, XPM_PSM_WAKEUP_MASK);
 
+	/* Wait for PSMFW to initialize */
+	Status = XPm_PollForMask(GLOBAL_CNTRL(Core->Device.Node.BaseAddress),
+				 PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK,
+				 XPM_MAX_POLL_TIMEOUT);
+
 done:
 	return Status;
 }
