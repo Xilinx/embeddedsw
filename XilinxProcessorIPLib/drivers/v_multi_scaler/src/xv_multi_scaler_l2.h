@@ -121,6 +121,14 @@ typedef enum
 } XV_MULTISCALER_MEMORY_FORMATS;
 
 typedef struct {
+	u32 Height;
+	u32 Width;
+	u32 StartX;
+	u32 StartY;
+	u8 Crop;
+} XV_multi_scaler_Crop_Window;
+
+typedef struct {
 	u32 ChannelId;
 	UINTPTR SrcImgBuf0;
 	UINTPTR SrcImgBuf1;
@@ -134,6 +142,7 @@ typedef struct {
 	u32 OutStride;
 	UINTPTR DstImgBuf0;
 	UINTPTR DstImgBuf1;
+	XV_multi_scaler_Crop_Window CropWin;
 } XV_multi_scaler_Video_Config;
 
 extern const short XV_multiscaler_fixedcoeff_taps6[XV_MULTISCALER_MAX_V_PHASES]
