@@ -376,7 +376,7 @@ proc lwip_drc {libhandle} {
 			puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
 		    }
 		    "psu_cortexr5" {
-			puts $fd "GCC_COMPILER=arm-none-eabi-gcc"
+			puts $fd "GCC_COMPILER=armr5-none-eabi-gcc"
 			#puts "Little Endian system"
 			puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
 		    }
@@ -1291,7 +1291,7 @@ proc generate_adapterconfig_makefile {libhandle} {
                 puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
             }
             "psu_cortexr5" {
-		puts $fd "GCC_COMPILER=arm-none-eabi-gcc"
+		puts $fd "GCC_COMPILER=armr5-none-eabi-gcc"
 		#puts "Little Endian system"
 		puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
             }

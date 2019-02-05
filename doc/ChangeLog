@@ -171,9 +171,6 @@ Fix microblaze_disable_dcache for 64 bit microblaze
 Added frequently used functions in common area in xil_utils.c, so that other
 modules can make use of it.
 
-standalone_v7_0:
-Includded stddef.h and stdint.h in xbasic_types.h
-
 ttcps_v3_8:
 Modified in XTtcPs_ClearInterruptStatus function to clear
 interrupt status register by reading instead of writing it.
