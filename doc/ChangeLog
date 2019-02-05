@@ -1,6 +1,6 @@
 Changes for 2019.1
 ===============================
-libmetal_v1_5:
+libmetal_v2_0:
 Sync up libmetal upstream 5774af1b8e28ea39cbf92ae131eee4f93af699b2
 CPP atomic bug fix;
 metal io region offset<->phy to support the OS which has function to do
