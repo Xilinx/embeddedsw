@@ -65,6 +65,7 @@
 * 9.6   rsp  01/11/18  Use UINTPTR for all RegBase instances CR#976392
 *       rsp  01/17/18  Use virtual address for register read/write.
 *                      In _BdRingCreate() assign VA to BdaRestart CR#976392
+* 9.9   rsp  02/05/19  Fix XAxiDma_BdRingFromHw implementation for cyclic mode.
 *
 * </pre>
 ******************************************************************************/
@@ -1301,6 +1302,12 @@ int XAxiDma_BdRingFromHw(XAxiDma_BdRing * RingPtr, int BdLimit,
 		}
 		else {
 			BdPartialCount++;
+		}
+
+		if (RingPtr->Cyclic) {
+			BdSts = BdSts & ~XAXIDMA_BD_STS_COMPLETE_MASK;
+			XAxiDma_BdWrite(CurBdPtr, XAXIDMA_BD_STS_OFFSET, BdSts);
+			XAXIDMA_CACHE_FLUSH(CurBdPtr);
 		}
 
 		/* Reached the end of the work group */
