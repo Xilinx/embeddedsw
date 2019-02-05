@@ -1,0 +1,7 @@
+xusb_dma_intr_storage.c=xusb_cp9.c,xusb_cp9.h,xusb_storage.h,xusb_types.h
+xusb_keyboard.c=xusb_cp9.c,xusb_cp9.h,xusb_keyboard.h,xusb_types.h
+xusb_microphone.c=xusb_cp9.c,xusb_cp9.h,xusb_microphone.h,xusb_types.h,data.h
+xusb_mouse.c=xusb_cp9.c,xusb_cp9.h,xusb_mouse.h,xusb_types.h
+xusb_storage.c=xusb_cp9.c,xusb_cp9.h,xusb_storage.h,xusb_types.h
+xusb_storage_polled_mode.c=xusb_cp9.c,xusb_cp9.h,xusb_storage.h,xusb_types.h
+xusb_phy_read_write.c=xusb_phy_read_write.c
