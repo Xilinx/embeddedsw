@@ -15,14 +15,12 @@
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
 #
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
+#
 #
 ###############################################################################
 
@@ -330,22 +328,12 @@ proc get_emac_periphs {processor} {
 # all components to run lwIP are available.
 #---------------------------------------------
 proc lwip_drc {libhandle} {
-	#puts "Runnning DRC for lwIP library... \n"
+	#puts "Running DRC for lwIP library... \n"
 
 	# find the list of xps_ethernetlite, xps_ll_temac, or axi_ethernet cores
 	set sw_processor [hsi::get_sw_processor]
 	set processor [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_processor]]
 	set processor_type [common::get_property IP_NAME $processor]
-
-	if {$processor_type == "psu_cortexa53"} {
-		set procdrv [hsi::get_sw_processor]
-		set compiler [get_property CONFIG.compiler $procdrv]
-
-		if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
-			error "ERROR: No support for 32 bit A53 compiler \n"
-		return
-            }
-	}
 
 	set emac_periphs_list [get_emac_periphs $processor]
 
@@ -381,7 +369,19 @@ proc lwip_drc {libhandle} {
 			#puts "Little Endian system"
 			puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
 		    }
+		    "psv_cortexr5" {
+			puts $fd "GCC_COMPILER=armr5-none-eabi-gcc"
+			#puts "Little Endian system"
+			puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
+		    }
 		    "psu_cortexa53" {
+			set procdrv [hsi::get_sw_processor]
+			set compiler [::common::get_property CONFIG.compiler $procdrv]
+			puts $fd "GCC_COMPILER=$compiler"
+			#puts "Little Endian system"
+			puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
+		    }
+		    "psv_cortexa72" {
 			puts $fd "GCC_COMPILER=aarch64-none-elf-gcc"
 			#puts "Little Endian system"
 			puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
@@ -512,7 +512,19 @@ proc generate_lwip_opts {libhandle} {
 		puts $lwipopts_fd "\#endif\n"
             }
 
+            "psv_cortexr5" {
+		puts $lwipopts_fd "\#ifndef PROCESSOR_LITTLE_ENDIAN"
+		puts $lwipopts_fd "\#define PROCESSOR_LITTLE_ENDIAN"
+		puts $lwipopts_fd "\#endif\n"
+            }
+
             "psu_cortexa53" {
+		puts $lwipopts_fd "\#ifndef PROCESSOR_LITTLE_ENDIAN"
+		puts $lwipopts_fd "\#define PROCESSOR_LITTLE_ENDIAN"
+		puts $lwipopts_fd "\#endif\n"
+            }
+
+            "psv_cortexa72" {
 		puts $lwipopts_fd "\#ifndef PROCESSOR_LITTLE_ENDIAN"
 		puts $lwipopts_fd "\#define PROCESSOR_LITTLE_ENDIAN"
 		puts $lwipopts_fd "\#endif\n"
@@ -565,7 +577,7 @@ proc generate_lwip_opts {libhandle} {
 			set default_udp_recvmbox_size	[common::get_property CONFIG.default_udp_recvmbox_size $libhandle]
 			puts $lwipopts_fd "\#define OS_IS_FREERTOS"
 			puts $lwipopts_fd "\#define DEFAULT_THREAD_PRIO $thread_prio"
-			if {$processor_type == "psu_cortexa53"} {
+			if {$processor_type == "psu_cortexa53" || $processor_type == "psv_cortexa72" } {
 				puts $lwipopts_fd "\#define TCPIP_THREAD_PRIO ($thread_prio)"
 			} else {
 			puts $lwipopts_fd "\#define TCPIP_THREAD_PRIO ($thread_prio + 1)"
@@ -728,7 +740,7 @@ proc generate_lwip_opts {libhandle} {
 		set tx_full_csum_temp [common::get_property CONFIG.tcp_ip_tx_checksum_offload $libhandle]
 		if {$tx_full_csum_temp == true} {
 			if {$checksum_txoption != 2} {
-				error "ERROR: Wrong Tx cheksum options. The selected Tx checksum does not match with the HW supported Tx csum offload option"
+				error "ERROR: Wrong Tx checksum options. The selected Tx checksum does not match with the HW supported Tx csum offload option"
 				"" "mdt_error"
 			} else {
 				set tx_full_csum [expr ![common::get_property CONFIG.tcp_ip_tx_checksum_offload $libhandle]]
@@ -740,7 +752,7 @@ proc generate_lwip_opts {libhandle} {
 		set rx_full_csum_temp [common::get_property CONFIG.tcp_ip_rx_checksum_offload $libhandle]
 		if {$rx_full_csum_temp == true} {
 			if {$checksum_rxoption != 2} {
-				error "ERROR: Wrong Rx cheksum options. The selected Rx checksum does not match with the HW supported Rx csum offload option"
+				error "ERROR: Wrong Rx checksum options. The selected Rx checksum does not match with the HW supported Rx csum offload option"
 				"" "mdt_error"
 			} else {
 				set rx_full_csum [expr ![common::get_property CONFIG.tcp_ip_rx_checksum_offload $libhandle]]
@@ -753,7 +765,7 @@ proc generate_lwip_opts {libhandle} {
 		set tx_csum_temp [common::get_property CONFIG.tcp_tx_checksum_offload $libhandle]
 		if {$tx_csum_temp == true} {
 			if {$checksum_txoption != 1} {
-				error "ERROR: Wrong Tx cheksum options. The selected Tx checksum does not match with the HW supported Tx csum offload option"
+				error "ERROR: Wrong Tx checksum options. The selected Tx checksum does not match with the HW supported Tx csum offload option"
 				"" "mdt_error"
 			} else {
 				set tx_csum [expr ![common::get_property CONFIG.tcp_tx_checksum_offload $libhandle]]
@@ -763,7 +775,7 @@ proc generate_lwip_opts {libhandle} {
 		set rx_csum_temp [common::get_property CONFIG.tcp_rx_checksum_offload $libhandle]
 		if {$rx_csum_temp == true} {
 			if {$checksum_rxoption != 1} {
-				error "ERROR: Wrong Rx cheksum options. The selected Rx checksum does not match with the HW supported Rx csum offload option"
+				error "ERROR: Wrong Rx checksum options. The selected Rx checksum does not match with the HW supported Rx csum offload option"
 				"" "mdt_error"
 			} else {
 				set rx_csum [expr ![common::get_property CONFIG.tcp_rx_checksum_offload $libhandle]]
@@ -986,7 +998,8 @@ proc update_emaclite_topology {emac processor topologyvar} {
 	set force_emaclite_on_zynq 0
 
 	if {$use_emaclite_on_zynq == 1} {
-		if {$processor_type == "ps7_cortexa9" || $processor_type == "psu_cortexr5" || $processor_type == "psu_cortexa53"} {
+		if {$processor_type == "ps7_cortexa9" || $processor_type == "psu_cortexr5" || $processor_type == "psu_cortexa53" ||
+			$processor_type == "psv_cortexr5" || $processor_type == "psv_cortexa72" } {
 			set force_emaclite_on_zynq 1
 		}
 	}
@@ -1230,6 +1243,12 @@ proc generate_adapterconfig_makefile {libhandle} {
 	if {$processor_type == "psu_cortexa53" && $use_axieth_on_zynq == 1} {
 		set force_axieth_on_zynq 1
 	}
+	if {$processor_type == "psv_cortexr5" && $use_axieth_on_zynq == 1} {
+		set force_axieth_on_zynq 1
+	}
+	if {$processor_type == "psv_cortexa72" && $use_axieth_on_zynq == 1} {
+		set force_axieth_on_zynq 1
+	}
 	if {$processor_type == "ps7_cortexa9" && $use_emaclite_on_zynq == 1} {
 		set force_emaclite_on_zynq 1
 	}
@@ -1237,6 +1256,12 @@ proc generate_adapterconfig_makefile {libhandle} {
 		set force_emaclite_on_zynq 1
 	}
 	if {$processor_type == "psu_cortexa53" && $use_emaclite_on_zynq == 1} {
+		set force_emaclite_on_zynq 1
+	}
+	if {$processor_type == "psv_cortexr5" && $use_emaclite_on_zynq == 1} {
+		set force_emaclite_on_zynq 1
+	}
+	if {$processor_type == "psv_cortexa72" && $use_emaclite_on_zynq == 1} {
 		set force_emaclite_on_zynq 1
 	}
 	foreach emac $emac_periphs_list {
@@ -1301,6 +1326,18 @@ proc generate_adapterconfig_makefile {libhandle} {
 		puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
             }
             "psu_cortexa53" {
+			set procdrv [hsi::get_sw_processor]
+			set compiler [::common::get_property CONFIG.compiler $procdrv]
+			puts $fd "GCC_COMPILER=$compiler"
+		#puts "Little Endian system"
+		puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
+            }
+            "psv_cortexr5" {
+		puts $fd "GCC_COMPILER=armr5-none-eabi-gcc"
+		#puts "Little Endian system"
+		puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
+            }
+            "psv_cortexa72" {
 		puts $fd "GCC_COMPILER=aarch64-none-elf-gcc"
 		#puts "Little Endian system"
 		puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
@@ -1371,6 +1408,12 @@ proc generate_adapterconfig_include {libhandle} {
 	if {$processor_type == "psu_cortexa53" && $use_axieth_on_zynq == 1} {
 		set force_axieth_on_zynq 1
 	}
+	if {$processor_type == "psv_cortexr5" && $use_axieth_on_zynq == 1} {
+		set force_axieth_on_zynq 1
+	}
+	if {$processor_type == "psv_cortexa72" && $use_axieth_on_zynq == 1} {
+		set force_axieth_on_zynq 1
+	}
 	if {$processor_type == "ps7_cortexa9" && $use_emaclite_on_zynq == 1} {
 		set force_emaclite_on_zynq 1
 	}
@@ -1378,6 +1421,12 @@ proc generate_adapterconfig_include {libhandle} {
 		set force_emaclite_on_zynq 1
 	}
 	if {$processor_type == "psu_cortexa53" && $use_emaclite_on_zynq == 1} {
+		set force_emaclite_on_zynq 1
+	}
+	if {$processor_type == "psv_cortexr5" && $use_emaclite_on_zynq == 1} {
+		set force_emaclite_on_zynq 1
+	}
+	if {$processor_type == "psv_cortexa72" && $use_emaclite_on_zynq == 1} {
 		set force_emaclite_on_zynq 1
 	}
 
