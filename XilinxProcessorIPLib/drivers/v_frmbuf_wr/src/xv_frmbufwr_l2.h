@@ -117,6 +117,7 @@
 * 3.00  vyc   04/04/18   Add interlaced support
 *                        Add new memory format BGR8
 *                        Add interrupt handler for ap_ready
+* 4.10  vv    02/05/19   Added new pixel formats with 12 and 16 bpc.
 * </pre>
 *
 ******************************************************************************/
@@ -431,6 +432,156 @@ typedef struct {
 ******************************************************************************/
 #define XVFrmbufWr_IsBGR8Enabled(InstancePtr) \
                                  ((InstancePtr)->FrmbufWr.Config.BGR8En)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format RGBX12 is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsRGBX12Enabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.RGBX12En)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format RGB16 is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsRGB16Enabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.RGB16En)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format YUVX12 is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsYUVX12Enabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.YUVX12En)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format YUV16 is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsYUV16Enabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.YUV16En)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format Y_UV12 is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsY_UV12Enabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.Y_UV12En)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format Y_UV16 is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsY_UV16Enabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.Y_UV16En)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format Y_UV12_420 is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsY_UV12_420Enabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.Y_UV12_420En)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format Y_UV16_420 is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsY_UV16_420Enabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.Y_UV16_420En)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format Y12 is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsY12Enabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.Y12En)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format Y16 is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsY16Enabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.Y16En)
 
 /*****************************************************************************/
 /**
