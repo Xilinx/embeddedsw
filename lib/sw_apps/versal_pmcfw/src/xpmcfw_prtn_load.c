@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017-2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -790,37 +790,24 @@ static XStatus XPmcFw_ProcessCfi (XPmcFw * PmcFwInstancePtr, u32 PrtnNum)
 
 	XPmcFw_Printf(DEBUG_INFO, "Processing CFI partition \n\r");
 
-	/* Enable Vgg Clamp in VGG Ctrl Register */
-    XPmcFw_UtilRMW(PMC_ANALOG_VGG_CTRL,
-    				PMC_ANALOG_VGG_CTRL_EN_VGG_CLAMP_MASK,
-                	PMC_ANALOG_VGG_CTRL_EN_VGG_CLAMP_MASK);
-
-	/* Check for PL PowerUp */
-	Status = XPmcFw_UtilPollForMask(PMC_GLOBAL_PL_STATUS,
-			PMC_GLOBAL_PL_STATUS_POR_PL_B_MASK, 0x10000000U);
-	if(Status != XPMCFW_SUCCESS)
+	if(PmcFwInstancePtr->PlCleaningDone == FALSE)
 	{
+		 /* Check for PL PowerUp */
+         Status = XPmcFw_UtilPollForMask(PMC_GLOBAL_PL_STATUS,
+			PMC_GLOBAL_PL_STATUS_POR_PL_B_MASK, 0x10000000U);
+        if(Status != XPMCFW_SUCCESS)
+        {
 		Status = XPMCFW_ERR_PL_NOT_PWRUP;
 		goto END;
-	}
-	/* Do the Fabric driver Initialization */
-	Status = XPmcFw_FabricInit();
-	if (XPMCFW_SUCCESS != Status)
-	{
-		goto END;
-	}
-	XPmcFw_FabricEnable();
-#ifndef XPMCFW_HOUSECLEAN_BYPASS
-	/* Check for PL clearing */
-	if(PmcFwInstancePtr->PlCleaningDone==FALSE)
-	{
-		Status = XPmcFw_FabricClean();
-		if (Status != XPMCFW_SUCCESS) {
+        }
+
+		Status = XPmcFw_PreCfgPL(PmcFwInstancePtr);
+		if(Status != XST_SUCCESS)
+		{
 			goto END;
 		}
-		PmcFwInstancePtr->PlCleaningDone = TRUE;
 	}
-#endif
+
 	/* Start the PL global sequence */
 	Status = XPmcFw_FabricPrepare();
 	if (XPMCFW_SUCCESS != Status)
