@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017-2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -54,7 +54,7 @@
 #include "xpmcfw_default.h"
 #include "xpmcfw_main.h"
 #include "xpmcfw_misc.h"
-
+#include "xpmcfw_fabric.h"
 /************************** Constant Definitions *****************************/
 #define PRTN_NAME_LEN_MAX		20U
 
@@ -102,6 +102,27 @@ XStatus XPmcFw_Initialize(XPmcFw * PmcFwInstancePtr)
 	(void )XPmcFw_InitPsUart();
 	XPmcFw_PrintPmcFwBanner();
 #endif
+
+	 /* Enable Vgg Clamp in VGG Ctrl Register */
+     XPmcFw_UtilRMW(PMC_ANALOG_VGG_CTRL,
+                       PMC_ANALOG_VGG_CTRL_EN_VGG_CLAMP_MASK,
+                       PMC_ANALOG_VGG_CTRL_EN_VGG_CLAMP_MASK);
+
+     /* Check for PL PowerUp */
+     Status = XPmcFw_UtilPollForMask(PMC_GLOBAL_PL_STATUS,
+                     PMC_GLOBAL_PL_STATUS_POR_PL_B_MASK, 0x1U);
+     if(Status == XPMCFW_SUCCESS)
+     {
+		Status = XPmcFw_PreCfgPL(PmcFwInstancePtr);
+	if (XPMCFW_SUCCESS != Status) {
+			goto END;
+        }
+	 }
+	 else
+	 {
+		/* Ignore if PL is not powered up yet */
+	 }
+
 	/* Initialize the Drivers that are required
 	 * TODO Need to check if DMA can be initialized before
 	 * so that it can be used in PMC data file
@@ -492,5 +513,47 @@ static XStatus XPmcFw_SecondaryBootInit(XPmcFw * PmcFwInstancePtr)
 	 * Initialize the Secondary Boot Device Driver
 	 */
 
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * This function is used to perform Pre Configuration operations on PL. It
+ * initializes fabric drivers and does housecleaning of PL.
+ *
+ * @param       PmcFwInstancePtr is pointer to the PmcFw Instance
+ *
+ * @param       PrtnNum is the partition number in the image to be loaded
+ *
+ * @return
+ *              - XPMCFW_SUCCESS on Success
+ *              - ErrorCode as specified in xpmcfw_err.h
+ *
+ * @note
+ *
+ *****************************************************************************/
+XStatus XPmcFw_PreCfgPL(XPmcFw* PmcFwInstancePtr)
+{
+	XStatus Status;
+
+        /* Do the Fabric driver Initialization */
+        Status = XPmcFw_FabricInit();
+        if (XPMCFW_SUCCESS != Status)
+        {
+                goto END;
+        }
+        XPmcFw_FabricEnable();
+#ifndef XPMCFW_HOUSECLEAN_BYPASS
+        /* Check for PL clearing */
+        if(PmcFwInstancePtr->PlCleaningDone==FALSE)
+        {
+                Status = XPmcFw_FabricClean();
+                if (Status != XPMCFW_SUCCESS) {
+                        goto END;
+                }
+                PmcFwInstancePtr->PlCleaningDone = TRUE;
+        }
+#endif
+END:
 	return Status;
 }
