@@ -50,11 +50,6 @@
  * LWIP_NO_STDINT_H should be defined as 1 in cc.h */
 #define LWIP_NO_STDINT_H 1
 
-/* Disable CTYPE.H for R5 */
-#ifdef ARMR5
-#define LWIP_NO_CTYPE_H 1
-#endif
-
 typedef unsigned   char    u8_t;
 typedef signed     char    s8_t;
 typedef unsigned   short   u16_t;
