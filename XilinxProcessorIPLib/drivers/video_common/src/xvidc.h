@@ -389,6 +389,16 @@ typedef enum {
 	XVIDC_CSF_MEM_BGRX8,        // [31:0] X:R:G:B 8:8:8:8
 	XVIDC_CSF_MEM_UYVY8,        // [31:0] Y:V:Y:U 8:8:8:8
 	XVIDC_CSF_MEM_BGR8,         // [23:0] R:G:B 8:8:8
+	XVIDC_CSF_MEM_RGBX12,       // [39:0] x:R:G:B 4:12:12:12
+	XVIDC_CSF_MEM_YUVX12,       // [39:0] x:V:U:Y 4:12:12:12
+	XVIDC_CSF_MEM_Y_UV12,       // [23:0] Y:Y 12:12, [23:0] V:U 12:12
+	XVIDC_CSF_MEM_Y_UV12_420,   // [23:0] Y:Y 12:12, [23:0] V:U 12:12
+	XVIDC_CSF_MEM_Y12,          // [39:0] x:Y2:Y1:Y0 4:12:12:12
+	XVIDC_CSF_MEM_RGB16,        // [47:0] R:G:B 16:16:16
+	XVIDC_CSF_MEM_YUV16,        // [47:0] V:U:Y 16:16:16
+	XVIDC_CSF_MEM_Y_UV16,       // [31:0] Y:Y 16:16, [31:0] V:U 16:16
+	XVIDC_CSF_MEM_Y_UV16_420,   // [31:0] Y:Y 16:16, [31:0] V:U 16:16
+	XVIDC_CSF_MEM_Y16,          // [47:0] Y2:Y1:Y0 16:16:16
 	XVIDC_CSF_MEM_END,          // End of memory formats
 
 	/* Streaming formats with components re-ordered */
