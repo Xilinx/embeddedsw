@@ -85,6 +85,8 @@ In tcl use unique global variables to fix bsp generation for certain designs.
 
 axidma_v9_9:
 examples- Fix use of #elif check in deriving DDR_BASE_ADDR.
+Fix XAxiDma_BdRingFromHw implementation for cyclic mode.
+In sgcyclic example wait for both tx and rx done counters.
 
 Changes for 2018.3
 ===============================
