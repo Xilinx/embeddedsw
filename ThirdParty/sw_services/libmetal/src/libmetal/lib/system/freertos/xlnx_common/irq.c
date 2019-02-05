@@ -40,7 +40,8 @@ static void metal_xlnx_irq_set_enable(struct metal_irq_controller *irq_cntr,
 /**< Xilinx common platform IRQ controller */
 static METAL_IRQ_CONTROLLER_DECLARE(xlnx_irq_cntr,
 				    0, MAX_IRQS,
-				    NULL, metal_xlnx_irq_set_enable,
+				    NULL,
+				    metal_xlnx_irq_set_enable, NULL,
 				    irqs)
 
 /**
