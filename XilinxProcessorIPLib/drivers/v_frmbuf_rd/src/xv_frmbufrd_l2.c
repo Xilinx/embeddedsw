@@ -53,6 +53,7 @@
 *			 software to flush pending transactions.IP is expecting
 *			 a hard reset, when flushing is done.(There is a flush
 *			 status bit and is asserted when the flush is done).
+* 4.10  vv    02/05/19   Added new pixel formats with 12 and 16 bpc.
 * </pre>
 *
 ******************************************************************************/
@@ -126,10 +127,10 @@ XVidC_ColorFormat RdMemory2Live(XVidC_ColorFormat MemFmt)
             StrmFmt = XVIDC_CSF_YCRCB_420;
             break;
         case XVIDC_CSF_MEM_Y8 :
-            StrmFmt = XVIDC_CSF_YCRCB_444;
+            StrmFmt = XVIDC_CSF_YONLY;
             break;
         case XVIDC_CSF_MEM_Y10 :
-            StrmFmt = XVIDC_CSF_YCRCB_444;
+            StrmFmt = XVIDC_CSF_YONLY;
             break;
         case XVIDC_CSF_MEM_BGRA8 :
             StrmFmt = XVIDC_CSF_RGBA;
@@ -143,8 +144,37 @@ XVidC_ColorFormat RdMemory2Live(XVidC_ColorFormat MemFmt)
        case XVIDC_CSF_MEM_BGR8 :
             StrmFmt = XVIDC_CSF_RGB;
             break;
-
-        default:
+       case XVIDC_CSF_MEM_RGBX12 :
+            StrmFmt = XVIDC_CSF_RGB;
+            break;
+       case XVIDC_CSF_MEM_YUVX12 :
+            StrmFmt = XVIDC_CSF_YCRCB_444;
+            break;
+       case XVIDC_CSF_MEM_Y_UV12 :
+            StrmFmt = XVIDC_CSF_YCRCB_422;
+            break;
+       case XVIDC_CSF_MEM_Y_UV12_420 :
+            StrmFmt = XVIDC_CSF_YCRCB_420;
+            break;
+       case XVIDC_CSF_MEM_Y12 :
+            StrmFmt = XVIDC_CSF_YONLY;
+            break;
+       case XVIDC_CSF_MEM_RGB16 :
+            StrmFmt = XVIDC_CSF_RGB;
+            break;
+       case XVIDC_CSF_MEM_YUV16 :
+            StrmFmt = XVIDC_CSF_YCRCB_444;
+            break;
+       case XVIDC_CSF_MEM_Y_UV16 :
+            StrmFmt = XVIDC_CSF_YCRCB_422;
+            break;
+       case XVIDC_CSF_MEM_Y_UV16_420 :
+            StrmFmt = XVIDC_CSF_YCRCB_420;
+            break;
+       case XVIDC_CSF_MEM_Y16 :
+            StrmFmt = XVIDC_CSF_YONLY;
+            break;
+       default:
             StrmFmt = (XVidC_ColorFormat)~0;
             break;
     }
@@ -494,6 +524,56 @@ int XVFrmbufRd_SetMemFormat(XV_FrmbufRd_l2 *InstancePtr,
            FmtValid = TRUE;
          }
          break;
+      case XVIDC_CSF_MEM_RGBX12 :
+         if (XVFrmbufRd_IsRGBX12Enabled(InstancePtr)) {
+           FmtValid = TRUE;
+         }
+         break;
+      case XVIDC_CSF_MEM_RGB16 :
+         if (XVFrmbufRd_IsRGB16Enabled(InstancePtr)) {
+           FmtValid = TRUE;
+         }
+         break;
+      case XVIDC_CSF_MEM_YUVX12 :
+         if (XVFrmbufRd_IsYUVX12Enabled(InstancePtr)) {
+           FmtValid = TRUE;
+         }
+         break;
+      case XVIDC_CSF_MEM_YUV16 :
+         if (XVFrmbufRd_IsYUV16Enabled(InstancePtr)) {
+           FmtValid = TRUE;
+         }
+         break;
+      case XVIDC_CSF_MEM_Y_UV12 :
+         if (XVFrmbufRd_IsY_UV12Enabled(InstancePtr)) {
+           FmtValid = TRUE;
+         }
+         break;
+      case XVIDC_CSF_MEM_Y_UV16 :
+         if (XVFrmbufRd_IsY_UV16Enabled(InstancePtr)) {
+           FmtValid = TRUE;
+         }
+         break;
+      case XVIDC_CSF_MEM_Y_UV12_420 :
+         if (XVFrmbufRd_IsY_UV12_420Enabled(InstancePtr)) {
+           FmtValid = TRUE;
+         }
+         break;
+      case XVIDC_CSF_MEM_Y_UV16_420 :
+         if (XVFrmbufRd_IsY_UV16_420Enabled(InstancePtr)) {
+           FmtValid = TRUE;
+         }
+         break;
+      case XVIDC_CSF_MEM_Y12 :
+         if (XVFrmbufRd_IsY12Enabled(InstancePtr)) {
+           FmtValid = TRUE;
+         }
+         break;
+      case XVIDC_CSF_MEM_Y16 :
+         if (XVFrmbufRd_IsY16Enabled(InstancePtr)) {
+           FmtValid = TRUE;
+         }
+         break;
 
       default :
          FmtValid = FALSE;
@@ -727,6 +807,16 @@ void XVFrmbufRd_DbgReportStatus(XV_FrmbufRd_l2 *InstancePtr)
   xil_printf("BGRX8 Enabled:              %d\r\n", InstancePtr->FrmbufRd.Config.BGRX8En);
   xil_printf("BGR8 Enabled:               %d\r\n", InstancePtr->FrmbufRd.Config.BGR8En);
   xil_printf("UYVY8 Enabled:              %d\r\n", InstancePtr->FrmbufRd.Config.UYVY8En);
+  xil_printf("RGBX12 Enabled:             %d\r\n", InstancePtr->FrmbufRd.Config.RGBX12En);
+  xil_printf("RGB16 Enabled:              %d\r\n", InstancePtr->FrmbufRd.Config.RGB16En);
+  xil_printf("YUVX12 Enabled:             %d\r\n", InstancePtr->FrmbufRd.Config.YUVX12En);
+  xil_printf("YUV16 Enabled:              %d\r\n", InstancePtr->FrmbufRd.Config.YUV16En);
+  xil_printf("Y_UV12 Enabled:             %d\r\n", InstancePtr->FrmbufRd.Config.Y_UV12En);
+  xil_printf("Y_UV16 Enabled:             %d\r\n", InstancePtr->FrmbufRd.Config.Y_UV16En);
+  xil_printf("Y_UV12_420 Enabled:         %d\r\n", InstancePtr->FrmbufRd.Config.Y_UV12_420En);
+  xil_printf("Y_UV16_420 Enabled:         %d\r\n", InstancePtr->FrmbufRd.Config.Y_UV16_420En);
+  xil_printf("Y12 Enabled:                %d\r\n", InstancePtr->FrmbufRd.Config.Y12En);
+  xil_printf("Y16 Enabled:                %d\r\n", InstancePtr->FrmbufRd.Config.Y16En);
   xil_printf("Interlaced Enabled:         %d\r\n", InstancePtr->FrmbufRd.Config.Interlaced);
 
   xil_printf("Control Reg:                0x%x\r\n", ctrl);
