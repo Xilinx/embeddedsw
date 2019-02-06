@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -52,12 +52,17 @@
 #define CFU_DISABLE_CRC8_CHECK	1U
 #define WORD_LEN	4U
 
+/* For CFU Protection */
+#define CFU_PROTECT_DISABLE	0U
+#define CFU_PROTECT_ENABLE	1U
+
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
 static u32 XFpga_PreConfigCfi(XFpga *InstancePtr);
 static u32 XFpga_Write_Fabric(XFpga *InstancePtr);
 static u32 XFpga_PostConfigCfi(XFpga *InstancePtr);
+static void XFpga_GlobSeqWriteRegCfu(XFpga *InstancePtr, u32 Mask, u32 Val);
 static void XFpga_SSSCfgDmaDma(u8 DmaType,u32 *RestoreVal);
 static void XFpga_SelectDmaBurtType(XCsuDma *DmaPtr, XCsuDma_Channel Channel,
 					u8 AxiBurstType, u32 *RestoreVal);
@@ -67,7 +72,6 @@ static u32 XFpga_FabricPrepare(XFpga_Info *DataPtr);
 static u32 XFpga_FabricStartSeq(XCfupmc *CfupmcIns);
 static u32 XFpga_FabricClean(XCframe *CframeIns);
 static u32 XFpga_CheckFabricErr(XCfupmc *CfupmcIns);
-static void XFpga_FabricEndSeq(XCfupmc *CfupmcIns);
 static u32 XFpga_ReadFabricData(XFpga *InstancePtr);
 static u32 XFpga_DmaDrvInit(XCsuDma *DmaPtr, u32 DeviceId);
 
@@ -87,6 +91,7 @@ u32 XFpga_Initialize(XFpga *InstancePtr) {
 	InstancePtr->XFpga_WriteToPl = XFpga_Write_Fabric;
 	InstancePtr->XFpga_PostConfig = XFpga_PostConfigCfi;
 	InstancePtr->XFpga_GetConfigData = XFpga_ReadFabricData;
+	InstancePtr->XFpga_GlobSeqWriteReg = XFpga_GlobSeqWriteRegCfu;
 
 	/* Do the Fabric driver Initialization */
 	Status = XFpga_FabricInit(&InstancePtr->PLInfo);
@@ -160,14 +165,37 @@ static u32 XFpga_PostConfigCfi(XFpga *InstancePtr)
 		goto END;
 	}
 
-	/* Provide delay between start and End Sequence */
-	usleep(100);
-	XFpga_FabricEndSeq(&DataPtr->CfupmcIns);
 
 END:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * This function is used control the fabric global sequence.
+ *
+ * @param InstancePtr Pointer to the XFgpa structure.
+ * @param Mask Mask of the bit field to be written.
+ * @param Val Value of bit field.
+ *
+ * @return None.
+ ******************************************************************************/
+static void XFpga_GlobSeqWriteRegCfu(XFpga *InstancePtr, u32 Mask, u32 Val)
+{
+	XCfupmc *CfupmcIns = &InstancePtr->PLInfo.CfupmcIns;
+
+	/* Remove CFU Protection */
+	XCfupmc_WriteReg(CfupmcIns->Config.BaseAddress, CFU_APB_CFU_PROTECT,
+			 CFU_PROTECT_DISABLE);
+
+	/* PL global sequence */
+	XCfupmc_MaskRegWrite(CfupmcIns, CFU_APB_CFU_FGCR, Mask, Val);
+
+	/* Enable CFU Protection */
+	XCfupmc_WriteReg(CfupmcIns->Config.BaseAddress, CFU_APB_CFU_PROTECT,
+			 CFU_PROTECT_ENABLE);
+
+}
 /******************************************************************************/
 /**
  * This function initializes the CFU driver
@@ -383,28 +411,9 @@ static u32 XFpga_FabricStartSeq(XCfupmc *CfupmcIns)
 		Status = XFPGA_CFI_UPDATE_ERR(XFPGA_ERR_CFU_SETTINGS, Status);
 		goto END;
 	}
-	/* Start the PL global sequence */
-	XCfupmc_StartGlblSeq(CfupmcIns);
 
 END:
 	return Status;
-}
-
-/*****************************************************************************/
-/**
- * This function does the fabric end global sequence
- * @param CfupmcIns Pointer to the XCfupmc structure
- *
- * @return None.
- ******************************************************************************/
-static void XFpga_FabricEndSeq(XCfupmc *CfupmcIns)
-{
-	/* Start the PL global sequence */
-	XCfupmc_EndGlblSeq(CfupmcIns);
-
-	/* Disable the global signals */
-	XCfupmc_SetGlblSigEn(CfupmcIns, (u8 )FALSE);
-
 }
 
 /*****************************************************************************/
