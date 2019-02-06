@@ -164,8 +164,8 @@ typedef enum {
  * Temperature and voltage range for PS eFUSE reading and programming
  * Temperature in Celsius('C) and Voltage(V) is in volts
  */
-#define XSK_EFUSEPS_TEMP_MIN			(-40)
-#define XSK_EFUSEPS_TEMP_MAX			(125)
+#define XSK_EFUSEPS_TEMP_MIN			(-40.0f)
+#define XSK_EFUSEPS_TEMP_MAX			(125.0f)
 #define XSK_EFUSEPS_READ_VPAUX_MIN		(1.71)
 #define XSK_EFUSEPS_READ_VPAUX_MAX		(1.98)
 #define XSK_EFUSEPS_WRITE_VPAUX_MIN	(1.71)
@@ -175,8 +175,8 @@ typedef enum {
 #define XSK_ZYNQMP_EFUSEPS_VCC_PSINTLP_MIN	(0.675)
 #define XSK_ZYNQMP_EFUSEPS_VCC_PSINTLP_MAX	(0.935)
 /* VCC AUX should be 1.8 +/-10% */
-#define XSK_ZYNQMP_EFUSEPS_VCC_AUX_MIN		(1.62)
-#define XSK_ZYNQMP_EFUSEPS_VCC_AUX_MAX		(1.98)
+#define XSK_ZYNQMP_EFUSEPS_VCC_AUX_MIN		(1.62f)
+#define XSK_ZYNQMP_EFUSEPS_VCC_AUX_MAX		(1.98f)
 
 #ifdef XSK_ZYNQ_PLATFORM
 /**
