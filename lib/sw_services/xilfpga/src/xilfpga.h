@@ -124,6 +124,7 @@ typedef struct XFpgatag{
 	u32 (*XFpga_GetInterfaceStatus)(void);
 	u32 (*XFpga_GetConfigReg)(const struct XFpgatag *InstancePtr);
 	u32 (*XFpga_GetConfigData)(const struct XFpgatag *InstancePtr);
+	void (* XFpga_GlobSeqWriteReg)(struct XFpgatag *InstancePtr, u32 Mask, u32 Val);
 	XFpga_Info	PLInfo;
 	XFpga_Write	*WriteInfoPtr;
 	XFpga_Read	*ReadInfoPtr;
@@ -210,6 +211,7 @@ u32 XFpga_PL_ValidateImage(XFpga *InstancePtr,
 u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 			  u32 ConfigReg_NumFrames);
 void XFpga_GetDmaPtr(XFpga *InstancePtr, XCsuDma *DmaPtr);
+u32 XFpga_GlobSeqWriteReg(XFpga *InstancePtr, u32 Mask, u32 Val);
 #endif
 
 #ifdef __cplusplus

@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -688,6 +688,31 @@ u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 void XFpga_GetDmaPtr(XFpga *InstancePtr, XCsuDma *DmaPtr)
 {
 	memcpy(&InstancePtr->PLInfo.PmcDmaIns, DmaPtr, sizeof(*DmaPtr));
+}
+
+/*****************************************************************************/
+/**
+ * This function is used control the fabric global sequence.
+ *
+ * @param InstancePtr Pointer to the XFgpa structure.
+ * @param Mask Mask of the bit field to be written.
+ * @param Val Value of bit field.
+ *
+ * @return Codes as mentioned in xilfpga.h.
+ ******************************************************************************/
+u32 XFpga_GlobSeqWriteReg(XFpga *InstancePtr, u32 Mask, u32 Val)
+{
+	u32 Status = XFPGA_SUCCESS;
+
+	if (!InstancePtr->XFpga_GlobSeqWriteReg) {
+		Status = XFPGA_OPS_NOT_IMPLEMENTED;
+		Xfpga_Printf(XFPGA_DEBUG,
+		"%s Implementation not exists..\r\n", __FUNCTION__);
+	} else {
+		InstancePtr->XFpga_GlobSeqWriteReg(InstancePtr, Mask, Val);
+	}
+
+	return Status;
 }
 #endif
 
