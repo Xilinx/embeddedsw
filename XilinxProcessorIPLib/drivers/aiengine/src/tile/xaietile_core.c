@@ -111,7 +111,7 @@ void XAieTile_CoreControl(XAieGbl_Tile *TileInstPtr, u8 Enable, u8 Reset)
 * @param        Status - 1 for Core_done and 0 for Disable
 *               Use macros XAIETILE_CORE_STATUS_DONE/XAIETILE_CORE_STATUS_DISABLE
 *
-* @return	0 if wait done successful and core disabled, else 1.
+* @return	The requested status if wait completes successful, or !Status.
 *
 * @note		None.
 *
@@ -120,8 +120,8 @@ u8 XAieTile_CoreWaitStatus(XAieGbl_Tile *TileInstPtr, u32 TimeOut, u32 Status)
 {
 	u64 RegAddr;
 	u32 Mask;
-	u8 Value;
-	u8 Ret = 1;
+	u32 Value;
+	u8 Ret;
 
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 
@@ -142,7 +142,9 @@ u8 XAieTile_CoreWaitStatus(XAieGbl_Tile *TileInstPtr, u32 TimeOut, u32 Status)
 	}
 
 	if (XAieGbl_MaskPoll(RegAddr, Mask, Value, TimeOut) == XAIE_SUCCESS) {
-		Ret = 0;
+		Ret = Status;
+	} else {
+		Ret = !Status;
 	}
 
 	return Ret;
