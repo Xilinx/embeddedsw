@@ -181,7 +181,7 @@ u32 XilSKey_EfusePs_XAdcInit (void)
 		goto END;
 	}
 
-	Status = XSysMonPsu_CfgInitialize(XSysmonInstPtr, ConfigPtr,
+	Status = (u32)XSysMonPsu_CfgInitialize(XSysmonInstPtr, ConfigPtr,
 			ConfigPtr->BaseAddress);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XSK_EFUSEPS_ERROR_XADC_INITIALIZE;
@@ -190,7 +190,7 @@ u32 XilSKey_EfusePs_XAdcInit (void)
 	/**
 	 * Self Test for sysmon device
 	 */
-	Status = XSysMonPsu_SelfTest(XSysmonInstPtr);
+	Status = (u32)XSysMonPsu_SelfTest(XSysmonInstPtr);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XSK_EFUSEPS_ERROR_XADC_SELF_TEST;
 		goto END;
@@ -440,22 +440,22 @@ u32 XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks(void)
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
 	XSKEfusePs_XAdc XAdcInstance;
 	XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(&XAdcInstance);
-	if ((XAdcInstance.Temp < XSK_EFUSEPS_TEMP_MIN_RAW) ||
-			((XAdcInstance.Temp > XSK_EFUSEPS_TEMP_MAX_RAW))) {
+	if ((XAdcInstance.Temp < (u32)XSK_EFUSEPS_TEMP_MIN_RAW) ||
+			((XAdcInstance.Temp > (u32)XSK_EFUSEPS_TEMP_MAX_RAW))) {
 		Status = (u32)XSK_EFUSEPS_ERROR_READ_TMEPERATURE_OUT_OF_RANGE;
 		goto END;
 	}
 	XAdcInstance.VType = XSK_EFUSEPS_VPAUX;
 	XilSKey_ZynqMP_EfusePs_ReadSysmonVol(&XAdcInstance);
-	if ((XAdcInstance.V < XSK_EFUSEPS_VPAUX_MIN_RAW) ||
-			((XAdcInstance.V > XSK_EFUSEPS_VPAUX_MAX_RAW))) {
+	if ((XAdcInstance.V < (u32)XSK_EFUSEPS_VPAUX_MIN_RAW) ||
+			((XAdcInstance.V > (u32)XSK_EFUSEPS_VPAUX_MAX_RAW))) {
 		Status = (u32)XSK_EFUSEPS_ERROR_READ_VCCPAUX_VOLTAGE_OUT_OF_RANGE;
 		goto END;
 	}
 	XAdcInstance.VType = XSK_EFUSEPS_VPINT;
 	XilSKey_ZynqMP_EfusePs_ReadSysmonVol(&XAdcInstance);
-	if ((XAdcInstance.V < XSK_EFUSEPS_VCC_PSINTLP_MIN_RAW) ||
-			((XAdcInstance.V > XSK_EFUSEPS_VCC_PSINTLP_MAX_RAW))) {
+	if ((XAdcInstance.V < (u32)XSK_EFUSEPS_VCC_PSINTLP_MIN_RAW) ||
+			((XAdcInstance.V > (u32)XSK_EFUSEPS_VCC_PSINTLP_MAX_RAW))) {
 		Status = (u32)XSK_EFUSEPS_ERROR_READ_VCCPAUX_VOLTAGE_OUT_OF_RANGE;
 		goto END;
 	}
