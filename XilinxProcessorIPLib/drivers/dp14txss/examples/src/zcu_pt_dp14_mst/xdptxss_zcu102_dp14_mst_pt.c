@@ -38,7 +38,7 @@
 *
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
-* 1.00 KI  07/13/17 Initial release.
+* 1.00 KU  02/05/19 Initial release.
 *
 * </pre>
 *
@@ -273,7 +273,7 @@ u32 DpMST_Main()
 					DpTxSsInst.UsrOpt.MstSupport = 0;
 #endif
 				    xil_printf ("DP RX set to: LineRate %x, LaneCount %x\r\n",
-				    		  XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x9C), XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0xA0));
+						  XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x9C), XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0xA0)&0x7);
 
 					pt_loop();
 					break;
@@ -341,17 +341,6 @@ u32 DpMST_PlatformInit(void)
      if (Status != XST_SUCCESS) {
              return XST_FAILURE;
      }
-
-//     XAxis_Switch_Config *ConfigPtr_AXIS_SWITCH_TX = XAxisScr_LookupConfig(XPAR_AXIS_SWITCH_1_DEVICE_ID);
-//      if (ConfigPtr_AXIS_SWITCH == NULL) {
-//              return XST_FAILURE;
-//      }
-//
-//      Status = XAxisScr_CfgInitialize(&axis_switch_tx, ConfigPtr_AXIS_SWITCH_TX, ConfigPtr_AXIS_SWITCH_TX->BaseAddress);
-//      if (Status != XST_SUCCESS) {
-//              return XST_FAILURE;
-//      }
-
 
  	rx_remap_Config = XV_axi4s_remap_LookupConfig(REMAP_RX_DEVICE_ID);
  	Status = XV_axi4s_remap_CfgInitialize(&rx_remap, rx_remap_Config,
@@ -429,17 +418,6 @@ u32 DpMST_PlatformInit(void)
 		xil_printf("DPTXSS config initialization failed.\r\n");
 		return XST_FAILURE;
 	}
-//
-//	/* Check for SST/MST support */
-//	if (DpTxSsInst.UsrOpt.MstSupport) {
-//		xil_printf("\r\nINFO:DPTXSS is MST enabled. DPTXSS can be "
-//			"switched to SST/MST\r\n\r\n");
-//	}
-//	else {
-//		xil_printf("\r\nINFO:DPTXSS is  SST enabled. DPTXSS works "
-//			"only in SST mode.\r\n\r\n");
-//	}
-
 
 	/* Obtain the device configuration
 	 * for the DisplayPort RX Subsystem */
@@ -456,17 +434,7 @@ u32 DpMST_PlatformInit(void)
 			return XST_FAILURE;
 	}
 
-	/* Check for SST/MST support */
-//	if (DpRxSsInst.UsrOpt.MstSupport) {
-//			xil_printf("INFO:DPRXSS is MST enabled. DPRXSS can be "
-//					"switched to SST/MST\n\r");
-//	} else {
-//			xil_printf("INFO:DPRXSS is SST enabled. DPRXSS works "
-//					"only in SST mode.\n\r");
-//	}
-
-	XDpRxSs_McDp6000_init(&DpRxSsInst, DpRxSsInst.IicPtr->BaseAddress);//  XPAR_IIC_0_BASEADDR);
-
+	XDpRxSs_McDp6000_init(&DpRxSsInst, DpRxSsInst.IicPtr->BaseAddress);
 
 	/* issue HPD at here to inform DP source */
 	XDp_RxInterruptDisable(DpRxSsInst.DpPtr, 0xFFF8FFFF);
@@ -690,17 +658,8 @@ void DpRxSs_NoVideoHandler(void *InstancePtr)
         XDp_RxDtgDis(DpRxSsInst.DpPtr);
         XDp_RxDtgEn(DpRxSsInst.DpPtr);
 
-        /* Reset CRC Test Counter in DP DPCD Space */
-//        XVidFrameCrc_Reset(&VidFrameCRC_rx);
-//        VidFrameCRC_rx.TEST_CRC_CNT = 0;
-//        XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-//                         XDP_RX_CRC_CONFIG,
-//                         (VidFrameCRC_rx.TEST_CRC_SUPPORTED << 5 |
-//                                         VidFrameCRC_rx.TEST_CRC_CNT));
-
         DpRxSsInst.no_video_trigger = 1;
 
-//        AudioinfoFrame.frame_count=0;
         XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
                         XDP_RX_INTERRUPT_MASK_INFO_PKT_MASK);
 }
@@ -795,14 +754,6 @@ void DpRxSs_TrainingDoneHandler(void *InstancePtr)
         DpRxSsInst.link_up_trigger = 1;
         DpRxSsInst.VBlankCount = 0;
         XDp_RxInterruptDisable(DpRxSsInst.DpPtr, XDP_RX_INTERRUPT_MASK_DOWN_REPLY_MASK);
-
-//        LaneCount = XDp_ReadReg(DpRxSsInst.Config.DpSubCore.DpConfig.BaseAddr,XDP_RX_DPCD_LANE_COUNT_SET);
-//        LineRate = DpRxSsInst.UsrOpt.LinkRate;
-//
-//        training_done_lane01 = XDp_ReadReg(DpRxSsInst.Config.DpSubCore.DpConfig.BaseAddr,XDP_RX_DPCD_LANE01_STATUS);
-//        training_done_lane23 = XDp_ReadReg(DpRxSsInst.Config.DpSubCore.DpConfig.BaseAddr,XDP_RX_DPCD_LANE23_STATUS);
-//        xil_printf("> Interrupt: Training done !!! (BW: 0x%x, Lanes: 0x%x, Status: 0x%x;0x%x).\n\r",LineRate, LaneCount, training_done_lane01,training_done_lane23);
-
 }
 
 /*****************************************************************************/
@@ -822,7 +773,7 @@ void DpRxSs_TrainingDoneHandler(void *InstancePtr)
 void DpRxSs_UnplugHandler(void *InstancePtr)
 {
         /* Disable & Enable Audio */
-	    xil_printf ("Cable unpluggeddddd\r\n");
+	    xil_printf ("Cable Unplugged !!\r\n");
 	    rx_unplugged = 1;
         appx_fs_dup = 0;
         XDpRxSs_AudioDisable(&DpRxSsInst);
@@ -1107,13 +1058,6 @@ void DpRxSs_InfoPacketHandler(void *InstancePtr)
 {
         u32 InfoFrame[9];
         int i=1;
-        u32 rx_maud = 0;
-        u32 rx_naud = 0;
-        u32 appx_fs = 0;
-        u8 i2s_invalid = 0;
-
-//        xil_printf ("Info pkt received\r\n");
-
 
         for(i = 1 ; i < 9 ; i++) {
                 InfoFrame[i] = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
@@ -1134,58 +1078,6 @@ void DpRxSs_InfoPacketHandler(void *InstancePtr)
         AudioinfoFrame.channel_allocation = (InfoFrame[2]>>24)&0xFF;
         AudioinfoFrame.level_shift = (InfoFrame[3]>>3)&0xF;
         AudioinfoFrame.downmix_inhibit = (InfoFrame[3]>>7)&0x1;
-    // check for Maud, Naud here
-//        rx_maud = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_AUDIO_MAUD);
-//        rx_naud = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_AUDIO_NAUD);
-//
-////      link_bw_rx = XDpRxSs_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-////                                              XDP_RX_DPCD_LINK_BW_SET);
-//        appx_fs = DpRxSsInst.UsrOpt.LinkRate;
-//        appx_fs = (appx_fs*270);
-//
-//        appx_fs = appx_fs * rx_maud;
-//        appx_fs = (appx_fs / rx_naud) * 100;
-//        appx_fs = (appx_fs * 1000) / 512;
-//    appx_fs = appx_fs / 1000;
-//
-//    if (appx_fs >= 31 && appx_fs <= 33) {
-//        appx_fs = 32000;
-//
-//        } else if (appx_fs >= 43 && appx_fs <= 45) {
-//                appx_fs = 44100;
-//
-//        } else if (appx_fs >= 47 && appx_fs <= 49) {
-//                appx_fs = 48000;
-//
-//        } else {
-//                        //invalid
-//                        i2s_invalid = 1;
-//        }
-//
-//    Xil_Out32 (RX_ACR_ADDR+0x20, 0x1); // 4 - ctrl loop, 0- no loop
-//    Xil_Out32 (RX_ACR_ADDR+0x50, rx_maud); // divider
-//        Xil_Out32 (RX_ACR_ADDR+0x54, rx_naud); // divider
-//        Xil_Out32 (RX_ACR_ADDR+0x70, 0x10); // divider
-//
-//        if (i2s_invalid == 0) {
-//          Xil_Out32 (RX_ACR_ADDR+0x8, 0x1);
-//        } else {
-//          Xil_Out32 (RX_ACR_ADDR+0x8, 0x0);
-//        }
-//        if ((appx_fs_dup != appx_fs) && (i2s_invalid == 0)) {
-////              xil_printf ("Appx Fs as calculated using Maud, Naud is: %d Hz\r\n",appx_fs);
-//                start_i2s_clk = 1;
-//                appx_fs_dup = appx_fs;
-////          I2cClk_Ps(link_bw_rx*4, 24576000);
-////          XI2s_Tx_SetSclkOutDiv (&I2s_tx, link_bw_rx*I2S_CLK_MULT, link_bw_rx);
-////          XI2s_Tx_Enable(&I2s_tx, 1);
-////          XI2s_Rx_SetSclkOutDiv (&I2s_rx, link_bw_rx*I2S_CLK_MULT, link_bw_rx);
-////          XI2s_Rx_Enable(&I2s_rx, 1);
-//        }
-//      appx_fs_dup = appx_fs;
-
-
-//      Print_InfoPkt();
 }
 
 
@@ -1794,6 +1686,7 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, u8 only_tx)
 
 	u8 retrain_link=0;
 	u8 NumStreams;
+	int i = 0;
 
 
 	if (!XVidC_EdidIsHeaderValid(InstancePtr->UsrHpdEventData.EdidOrg)) {
@@ -1882,14 +1775,18 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, u8 only_tx)
 			if (Status != XST_SUCCESS) {
 				  xil_printf("SS ERR:MST:Topology failed:"
 						  "%ld.\n\r", Status);
-				  return XST_FAILURE;
 			}
 
 			/* Total number of streams equivalent to number of sinks found */
 			NumStreams = DpTxSsInst.DpPtr->TxInstance.Topology.SinkTotal;
 			if (NumStreams != num_sinks) {
-				retrain_link = 1;
-				xil_printf ("Number of Sinks changed..retraining %d %d\r\n",NumStreams, num_sinks);
+				if (NumStreams > num_sinks) {
+					retrain_link = 1;
+					xil_printf ("Number of Sinks increased..retraining\r\n");
+				} else {
+					num_sinks = NumStreams;
+					xil_printf ("Number of Sinks reduced..\r\n");
+				}
 			} else {
 				retrain_link |= retrain_link;
 			}
@@ -1897,20 +1794,33 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, u8 only_tx)
 		}
 
 	if(retrain_link == 1){
-		xil_printf ("re-training the link??\r\n");
 		aud_started = 0;
 		XDpTxSs_SetLinkRate(&DpTxSsInst, bw_set);
 		XDpTxSs_SetLaneCount(&DpTxSsInst, lane_set);
-		if (only_tx == 0) {
-		Status = DpTxSubsystem_Start(&DpTxSsInst, Msa);
-		} else {
-			Status = DpTxSubsystem_Start(&DpTxSsInst, 0);
+		Status = DpTxSubsystem_Start(&DpTxSsInst, 0);
+		if (Status != XST_SUCCESS) {
+				xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: "
+						"SS Start failed!\n\r");
 		}
-//		sink_power_cycle();
-//		start_tx_after_rx (1, 1);
-//		XDpTxSs_SetLinkRate(&DpTxSsInst, bw_set);
-//		XDpTxSs_SetLaneCount(&DpTxSsInst, lane_set);
-//		XDpTxSs_Start(&DpTxSsInst);
+
+		Vpg_StreamSrcConfigure(DpTxSsInst.DpPtr, 0, 1);
+		clk_wiz_locked();
+		num_sinks = DpTxSsInst.DpPtr->TxInstance.Topology.SinkTotal;
+		Status = XDpTxSs_DsSetup(DpTxSsInst.DsPtr, 0,
+				&DpTxSsInst.DpPtr->TxInstance.MsaConfig[0]);
+
+		for (i=0;i<num_sinks;i++) {
+			if (DpTxSsInst.VtcPtr[i]) {
+				Status |= XDpTxSs_VtcSetup(DpTxSsInst.VtcPtr[i],
+				&DpTxSsInst.DpPtr->TxInstance.MsaConfig[i],
+				DpTxSsInst.UsrOpt.VtcAdjustBs);
+				if (Status != XST_SUCCESS) {
+						xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: "
+								"VTC setup failed!\n\r");
+				}
+			}
+		}
+
 	}
 
      XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_INTERRUPT_MASK, 0x0);
@@ -1960,16 +1870,15 @@ void DpTxSs_Setup(u8 *LineRate_init, u8 *LaneCount_init,
 	u8 connected;
 	// this is intentional infinite while loop
     while (!XDpTxSs_IsConnected(&DpTxSsInst)) {
-	if (connected == 0) {
-	xil_printf(
-			"Please connect a DP Monitor to start the application !!!\r\n");
-	connected = 1;
-	}
+		if (connected == 0) {
+		xil_printf(
+				"Please connect a DP Monitor to start the application !!!\r\n");
+		connected = 1;
+		}
     }
 
 	//Waking up the monitor
     sink_power_cycle();
-
 
 	//reading the first block of EDID
 	if (XDpTxSs_IsConnected(&DpTxSsInst)) {
@@ -2014,25 +1923,9 @@ void DpTxSs_Setup(u8 *LineRate_init, u8 *LaneCount_init,
 		xil_printf("Please connect a DP Monitor and try again !!!\r\n");
 		return;
 	}
-#if 1
-	int i = 0;
-	xil_printf ("Block 1\r\n");
-	for (i=0;i<128;i++) {
-		xil_printf (" %x",Edid_org[i]);
-	}
-	xil_printf ("Block 2\r\n");
-	for (i=0;i<128;i++) {
-		xil_printf (" %x",Edid1_org[i]);
-	}
-
-
-#endif
 
 	*LineRate_init &= 0xFF;
 	*LaneCount_init &= 0xF;
-//     xil_printf("System capabilities set to: LineRate %x, LaneCount %x\r\n",
-//											 *LineRate_init,*LaneCount_init);
-
 
 #if ENABLE_AUDIO
     XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, 0x0);
@@ -2210,12 +2103,23 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	// setting video pattern
 	Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr,
 				 C_VideoUserStreamPattern[pat]);
-
-
 	clk_wiz_locked();
 	xil_printf (".");
-// No longer needed to start twice
-	Status = DpTxSubsystem_Start(&DpTxSsInst, Msa);
+	//Keeping the splitter in false mode
+	Status = XDpTxSs_DsSetup(DpTxSsInst.DsPtr, 0,
+			&DpTxSsInst.DpPtr->TxInstance.MsaConfig[0]);
+
+	Status |= XDpTxSs_VtcSetup(DpTxSsInst.VtcPtr[0],
+	&DpTxSsInst.DpPtr->TxInstance.MsaConfig[0],
+	DpTxSsInst.UsrOpt.VtcAdjustBs);
+	if (Status != XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: "
+					"VTC setup failed!\n\r");
+	}
+
+
+
+//	Status = DpTxSubsystem_Start(&DpTxSsInst, Msa);
 	xil_printf (".");
 	Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
 	if (Status != (XST_SUCCESS)) {
@@ -2225,23 +2129,8 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 			return (XST_FAILURE);
 		}
 	}
-//	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-//			XDP_TX_INTERRUPT_MASK, 0x0);
-
-//	/*
-//	 * Initialize CRC
-//	 */
-//	/* Reset CRC*/
-//	XVidFrameCrc_Reset(&VidFrameCRC_tx);
-//	/* Set Pixel width in CRC engine*/
-//	XVidFrameCrc_WriteReg(VidFrameCRC_tx.Base_Addr,
-//				  VIDEO_FRAME_CRC_CONFIG,
-//				  XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-//					  XDP_TX_USER_PIXEL_WIDTH));
-
-//	start_audio_passThrough(line_rate);
 	xil_printf ("..done !\r\n");
-//	tx_started = 1;
+
 	num_sinks = DpTxSsInst.DpPtr->TxInstance.Topology.SinkTotal;
 	if (num_sinks == 0) {
 		num_sinks = 1;
@@ -2304,9 +2193,7 @@ u32 start_tx_only(u8 line_rate, u8 lane_count,user_config_struct user_config){
 	 * */
 
 	// VTC requires linkup(video clk) before setting values.
-	// This is why we need to linkup once to get proper CLK on VTC.
 	Status = DpTxSubsystem_Start(&DpTxSsInst, 0);
-
 	xil_printf (".");
 	//updates required timing values in Video Pattern Generator
 	Vpg_StreamSrcConfigure(DpTxSsInst.DpPtr, 0, 1);
@@ -2314,10 +2201,27 @@ u32 start_tx_only(u8 line_rate, u8 lane_count,user_config_struct user_config){
 	// setting video pattern
 //	Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr, C_VideoUserStreamPattern[1]);
 	xil_printf (".");
-
 	clk_wiz_locked();
 
-	Status = DpTxSubsystem_Start(&DpTxSsInst, 0);
+
+	num_sinks = DpTxSsInst.DpPtr->TxInstance.Topology.SinkTotal;
+	// Keeping splitter in False mode
+	Status = XDpTxSs_DsSetup(DpTxSsInst.DsPtr, 0,
+			&DpTxSsInst.DpPtr->TxInstance.MsaConfig[0]);
+
+	for (i=0;i<num_sinks;i++) {
+		if (DpTxSsInst.VtcPtr[i]) {
+			Status |= XDpTxSs_VtcSetup(DpTxSsInst.VtcPtr[i],
+			&DpTxSsInst.DpPtr->TxInstance.MsaConfig[i],
+			DpTxSsInst.UsrOpt.VtcAdjustBs);
+			if (Status != XST_SUCCESS) {
+					xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: "
+							"VTC setup failed!\n\r");
+			}
+		}
+	}
+
+
 	xil_printf (".");
         Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
 	if (Status != (XST_SUCCESS)) {
@@ -2329,21 +2233,8 @@ u32 start_tx_only(u8 line_rate, u8 lane_count,user_config_struct user_config){
 	}
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_INTERRUPT_MASK, 0x0);
 
-
-
-	/*
-	 * Initialize CRC
-	 */
-	/* Reset CRC*/
-//	XVidFrameCrc_Reset();
-	/* Set Pixel width in CRC engine*/
-//	XDp_WriteReg(XPAR_TX_SUBSYSTEM_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
-//			XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-//					XDP_TX_USER_PIXEL_WIDTH));
-
 	xil_printf ("..done !\r\n");
 
-	num_sinks = DpTxSsInst.DpPtr->TxInstance.Topology.SinkTotal;
 	xil_printf ("MST trained with a total %d sinks\r\n", num_sinks);
 
 		return XST_SUCCESS;
