@@ -281,7 +281,7 @@ XStatus XilPdi_ValidatePrtnHdr(XilPdi_PrtnHdr * PrtnHdr)
 
 	PrtnType = XilPdi_GetPrtnType(PrtnHdr);
 	if((PrtnType == XIH_PH_ATTRB_PRTN_TYPE_RSVD) ||
-	   (PrtnType > XIH_PH_ATTRB_PRTN_TYPE_RAW))
+	   (PrtnType > XIH_PH_ATTRB_PRTN_TYPE_CFI_GSC))
 	{
 		XilPdi_Printf("Error: Invalid partition \n\r");
 		Status = XILPDI_ERR_PRTN_TYPE;
