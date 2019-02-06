@@ -1196,7 +1196,7 @@ void XilSKey_StrCpyRange(u8 *Src, u8 *Dst, u32 From, u32 To)
  ****************************************************************************/
 u32 XilSKey_CrcCalculation(u8 *Key)
 {
-	u32 Crc = 0U;
+	u32 CrcReturn = 0U;
 	u8 Key_8[8U];
 	u8 Key_Hex[4U] = {0};
 	u32 Index;
@@ -1214,7 +1214,8 @@ u32 XilSKey_CrcCalculation(u8 *Key)
 	u32 Length = strlen((char *)Key);
 
 	if (Length > 64U) {
-		return (u32)XSK_EFUSEPL_ERROR_NOT_VALID_KEY_LENGTH;
+		CrcReturn = (u32)XSK_EFUSEPL_ERROR_NOT_VALID_KEY_LENGTH;
+		goto END;
 	}
 	if (Length < 64U) {
 		XilSKey_StrCpyRange(Key, &FullKey[64U - Length + 1U], 0U, Length);
@@ -1252,7 +1253,8 @@ u32 XilSKey_CrcCalculation(u8 *Key)
 
 		Status = XilSKey_Efuse_ConvertStringToHexBE((char *)Key_8, Key_Hex, 8U);
 		if (Status != (u32)XST_SUCCESS) {
-			return Status;
+			CrcReturn = Status;
+			goto END;
 		}
 #if defined (XSK_MICROBLAZE_ULTRA) || \
 	defined (XSK_ZYNQ_ULTRA_MP_PLATFORM)
@@ -1264,16 +1266,17 @@ u32 XilSKey_CrcCalculation(u8 *Key)
 	Key_32 = ((u32)Key_Hex[0U] << 8U) | (u32)Key_Hex[1U];
 #endif
 #ifdef XSK_MICROBLAZE_PLATFORM
-		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, (u32)Row + Index);
+		CrcReturn = XilSKey_RowCrcCalculation(CrcReturn, Key_32, (u32)Row + Index);
 #endif
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, (u32)8U - Index);
+		CrcReturn = XilSKey_RowCrcCalculation(CrcReturn, Key_32, (u32)8U - Index);
 #endif
 
 	}
 
-	return Crc;
+END:
+	return CrcReturn;
 }
 
 /****************************************************************************/
