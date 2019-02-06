@@ -54,6 +54,9 @@ Add SDPS idling support
 spips_v3_3:
 Resolved MISRA-C:2012 violations in safety mode(CR#1016116)
 
+standalone_v7_0:
+Includded stddef.h and stdint.h in xbasic_types.h
+
 ttcps_v3_8:
 Modified in XTtcPs_ClearInterruptStatus function to clear
 interrupt status register by reading instead of writing it.
