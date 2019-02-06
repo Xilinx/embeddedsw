@@ -42,6 +42,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00a adk   1/31/14  Added in bsp common folder for backward compatibility
 * 7.0   aru   01/21/19 Modified the typedef of u32,u16,u8
+* 7.0 	aru   02/06/19 Included stdint.h and stddef.h
 * </pre>
 *
 ******************************************************************************/
@@ -52,6 +53,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#include <stdint.h>
+#include <stddef.h>
 
 /** @name Legacy types
  * Deprecated legacy types.
