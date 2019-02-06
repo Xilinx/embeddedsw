@@ -38,7 +38,7 @@
 *
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
-* 1.00 KU  07/13/17 Initial release.
+* 1.00 KU  02/05/19 Initial release.
 *
 * </pre>
 *
@@ -464,8 +464,9 @@ void main_loop(){
 			hpd_pulse_con(&DpTxSsInst, 1);
 			Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
 			if (Status != XST_SUCCESS) {
-				xil_printf ("Link is bad\r\n");
+				xil_printf ("Link is bad..re initiating training\r\n");
 				sink_power_cycle();
+				tx_is_reconnected = 1;
 			}
 		}
 
@@ -898,6 +899,7 @@ void main_loop(){
 		case '4' :
 			//MSA;
 			XDpTxSs_ReportMsaInfo(&DpTxSsInst);
+//			XDpTxSs_ReportVtcInfo(&DpTxSsInst);
 			break;
 
 			/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
@@ -1070,12 +1072,6 @@ void main_loop(){
 
 			break;
 
-
-			// CRC read
-		case 'm' :
-//			XVidFrameCrc_Report();
-			break;
-
 			/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
 		case 'z' :
 			sub_help_menu ();
@@ -1132,6 +1128,7 @@ void pt_loop(){
     XAxisScr_MiPortEnable (&axis_switch, 0, 0);
     XAxisScr_RegUpdateEnable (&axis_switch);
 
+    XScuGic_Enable(&IntcInst, XINTC_DPRXSS_DP_INTERRUPT_ID);
     XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_LINK_ENABLE, 0x1);
 
       //Clearing the interrupt before starting
@@ -1139,7 +1136,7 @@ void pt_loop(){
 	XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x140);
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x144, 0xFFF);
 
-	XScuGic_Enable(&IntcInst, XINTC_DPRXSS_DP_INTERRUPT_ID);
+
 	XScuGic_Enable(&IntcInst, XINTC_DPTXSS_DP_INTERRUPT_ID);
 
 	sub_help_menu_pt ();
@@ -1234,7 +1231,6 @@ void pt_loop(){
 
 		CmdKey[0] = 0;
 		CommandKey = 0;
-
 
 		CommandKey = xil_getc(0xff);
 		Command = atoi(&CommandKey);
