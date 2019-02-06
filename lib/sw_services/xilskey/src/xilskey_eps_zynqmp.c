@@ -621,7 +621,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits_Regs(
 	 */
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
 	u32 Silicon_Ver = XGetPSVersion_Info();
-	if (Silicon_Ver > XPS_VERSION_2) {
+	if (Silicon_Ver > (u32)XPS_VERSION_2) {
 		ReadBackSecCtrlBits->RSAEnable =
 		(u16)((RegData & XSK_ZYNQMP_EFUSEPS_SEC_CTRL_RSA_EN_MASK) >>
 			XSK_ZYNQMP_EFUSEPS_SEC_CTRL_RSA_EN_SHIFT);
@@ -2535,7 +2535,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_Enable_Rsa(
 	u32 Silicon_Ver = XGetPSVersion_Info();
 
 	/* Program all 15 bits to enable RSA authentication */
-	if (Silicon_Ver > XPS_VERSION_2) {
+	if (Silicon_Ver > (u32)XPS_VERSION_2) {
 		BitStart = (u32)XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN_BIT1;
 		BitEnd = (u32)XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN_BIT15;
 	}
