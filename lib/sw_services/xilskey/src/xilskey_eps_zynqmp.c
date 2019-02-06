@@ -207,7 +207,7 @@ u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
 
 	/* Validation of requested User FUSES bits */
 	Status = XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
-			InstancePtr, UsrFuses_ToPrgm);
+			InstancePtr, &UsrFuses_ToPrgm[0]);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = (Status + (u32)XSK_EFUSEPS_ERROR_BEFORE_PROGRAMMING);
 		goto UNLOCK;
@@ -2329,7 +2329,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
 	u8 UserFuses_Read[8][32] = {{0},{0},{0},{0},{0},{0},{0},{0}};
 	u8 UserFuses_Write[8][32] = {{0},{0},{0},{0},{0},{0},{0},{0}};
 	u32 UserFuseRead;
-	XilSKey_UsrFuses *UserEFuseToPrg = ToBePrgrmd;
+	XilSKey_UsrFuses *UserEFuseToPrg;
 	u32 Status = (u32)XST_SUCCESS;
 
 	if (InstancePtr->PrgrmUser0Fuse == TRUE) {
