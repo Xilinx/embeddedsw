@@ -48,8 +48,8 @@
 * </pre>
 *
 *****************************************************************************/
-#ifndef __XSK_EPS_ZYNQMP_PUF_H__
-#define __XSK_EPS_ZYNQMP_PUF_H__
+#ifndef XSK_EPS_ZYNQMP_PUF_H
+#define XSK_EPS_ZYNQMP_PUF_H
 
 
 #ifdef __cplusplus
@@ -160,5 +160,5 @@ u32 XilSKey_Puf_Regeneration(XilSKey_Puf *InstancePtr);
 }
 #endif
 
-#endif /* __XSK_EPS_ZYNQMP_HW_H__ */
+#endif /* XSK_EPS_ZYNQMP_PUF_H */
 /*@}*/
