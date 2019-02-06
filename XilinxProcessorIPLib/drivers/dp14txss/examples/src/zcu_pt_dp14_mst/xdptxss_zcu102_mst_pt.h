@@ -65,7 +65,6 @@
 #include "xvidc_edid.h"
 #include "sleep.h"
 #include "stdlib.h"
-#include "xvidframe_crc.h"
 #include "clk_set.h"
 #include "xiicps.h"
 #include "videofmc_defs.h"
@@ -314,7 +313,6 @@ XIic_Config *ConfigPtr_IIC;     /* Pointer to configuration data */
 XScuGic IntcInst;
 XVphy VPhyInst;	/* The DPRX Subsystem instance.*/
 XTmrCtr TmrCtr; /* Timer instance.*/
-Video_CRC_Config VidFrameCRC;
 
 int tx_is_reconnected; /*This variable to keep track of the status of Tx link*/
 u8 prev_line_rate; /*This previous line rate to keep previous info to compare
