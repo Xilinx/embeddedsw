@@ -103,17 +103,24 @@ XPm_Requirement *FindReqm(XPm_Device *Device, XPm_Subsystem *Subsystem)
 u32 XPmDevice_GetSubsystemIdOfCore(XPm_Device *Device)
 {
 	XPm_Requirement *Reqm;
-	u32 Idx;
+	XPm_Subsystem *Subsystem = NULL;
+	u32 Idx, SubSystemId;
 
-	for (Idx = 0; Idx < XPM_SUBSYSID_MAX; Idx++) {
-		XPm_Subsystem *Subsystem = &PmSubsystems[Idx];
+	for (Idx = 0; Idx < XPM_NODEIDX_SUBSYS_MAX; Idx++) {
+		Subsystem = &PmSubsystems[Idx];
 		Reqm = FindReqm(Device, Subsystem);
 		if ((NULL != Reqm) && (TRUE == Reqm->Allocated)) {
 			break;
 		}
 	}
 
-	return Idx;
+	if(Idx == XPM_NODEIDX_SUBSYS_MAX) {
+		SubSystemId = INVALID_SUBSYSID;
+	} else {
+		SubSystemId = Subsystem->Id;
+	}
+
+	return SubSystemId;
 }
 
 /****************************************************************************/
@@ -599,7 +606,7 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 		Status = XST_BUFFER_TOO_SMALL;
 		goto done;
 	}
-	Status = XPmRequirement_Init(Reqm, &PmSubsystems[XPM_SUBSYSID_PMC], Device);
+	Status = XPmRequirement_Init(Reqm, &PmSubsystems[XPM_NODEIDX_SUBSYS_PMC], Device);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -809,11 +816,11 @@ XStatus XPmDevice_Request(const u32 SubsystemId,
 		goto done;
 	}
 
-	if (SubsystemId >= XPM_SUBSYSID_MAX) {
-		Status = XST_INVALID_PARAM;
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (Subsystem == NULL || Subsystem->State != ONLINE) {
+		Status = XST_FAILURE;
 		goto done;
 	}
-	Subsystem = &PmSubsystems[SubsystemId];
 
 	Status = Device->DeviceOps->Request(Device, Subsystem, Capabilities,
 					    QoS);
@@ -846,11 +853,11 @@ XStatus XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId)
 		goto done;
 	}
 
-	if (SubsystemId >= XPM_SUBSYSID_MAX) {
-		Status = XST_INVALID_PARAM;
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (Subsystem == NULL || Subsystem->State != ONLINE) {
+		Status = XST_FAILURE;
 		goto done;
 	}
-	Subsystem = &PmSubsystems[SubsystemId];
 
 	Status = Device->DeviceOps->Release(Device, Subsystem);
 
@@ -883,11 +890,11 @@ XStatus XPmDevice_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 		goto done;
 	}
 
-	if (SubsystemId >= XPM_SUBSYSID_MAX) {
-		Status = XST_INVALID_PARAM;
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (Subsystem == NULL || Subsystem->State != ONLINE) {
+		Status = XST_FAILURE;
 		goto done;
 	}
-	Subsystem = &PmSubsystems[SubsystemId];
 
 	Status = Device->DeviceOps->SetRequirement(Device, Subsystem,
 						   Capabilities, QoS);
@@ -907,11 +914,11 @@ XStatus XPmDevice_GetStatus(const u32 SubsystemId,
 	u8 ThisSubsystemCount = 0;
 	u8 OtherSubsystemCount = 0;
 
-	if (SubsystemId > XPM_SUBSYSID_MAX) {
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (Subsystem == NULL || Subsystem->State != ONLINE) {
+		Status = XST_FAILURE;
 		goto done;
 	}
-
-	Subsystem = &PmSubsystems[SubsystemId];
 
 	Device = XPmDevice_GetById(DeviceId);
 	if (NULL == Device) {
@@ -1032,7 +1039,7 @@ XStatus XPmDevice_GetPermissions(XPm_Device *Device, u32 *PermissionMask)
 	Reqm = Device->Requirements;
 	while (NULL != Reqm) {
 		if (TRUE == Reqm->Allocated) {
-			for (Idx = 0; Idx < XPM_SUBSYSID_MAX; Idx++) {
+			for (Idx = 0; Idx < XPM_NODEIDX_SUBSYS_MAX; Idx++) {
 				if (Reqm->Subsystem == &PmSubsystems[Idx]) {
 					*PermissionMask |= (1 << Idx);
 				}
