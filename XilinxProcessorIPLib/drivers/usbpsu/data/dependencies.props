@@ -1,4 +1,5 @@
 xusb_intr_example.c=xusb_class_storage.c,xusb_class_storage.h,xusb_ch9_storage.c,xusb_ch9_storage.h,xusb_ch9.c,xusb_ch9.h,xusb_wrapper.c,xusb_wrapper.h
+xusb_poll_example.c=xusb_class_storage.c,xusb_class_storage.h,xusb_ch9_storage.c,xusb_ch9_storage.h,xusb_ch9.c,xusb_ch9.h,xusb_wrapper.c,xusb_wrapper.h
 xusb_dfu_example.c=xusb_class_dfu.c,xusb_class_dfu.h,xusb_ch9_dfu.c,xusb_ch9_dfu.h,xusb_ch9.c,xusb_ch9.h,xusb_wrapper.c,xusb_wrapper.h
 xusb_freertos_composite.c=xusb_freertos_ch9_composite.c,xusb_freertos_ch9_composite.h,xusb_freertos_class_composite.c,xusb_freertos_class_composite.h,xusb_ch9.c,xusb_ch9.h,xusb_wrapper.c,xusb_wrapper.h
 xusb_composite_example.c=xusb_ch9_composite.c,xusb_ch9_composite.h,xusb_class_composite.c,xusb_class_composite.h,xusb_ch9.c,xusb_ch9.h,xusb_wrapper.c,xusb_wrapper.h
