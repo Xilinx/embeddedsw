@@ -54,6 +54,10 @@
  *	 rsp  08/17/18	Fix typos and rephrase comments.
  *	 rsp  08/17/18  Read Length register value from IP config.
  * 1.3   rsp  02/05/19  Remove snooping enable from application.
+ *       rsp  02/06/19  Programmatically select cache maintenance ops for HPC
+ *                      and non-HPC designs. In Rx remove arch64 specific dsb
+ *                      instruction by performing cache invalidate operation
+ *                      for all supported architectures.
  * </pre>
  *
  * ***************************************************************************
@@ -137,9 +141,6 @@
 #define BLOCK_SIZE_2MB 0x200000U
 
 #define TEST_START_VALUE	0xC
-#ifdef __aarch64__
-// #define HPC_DESIGN
-#endif
 
 #ifdef XPAR_INTC_0_DEVICE_ID
  #define INTC		XIntc
@@ -334,9 +335,10 @@ static int RxSetup(XMcdma *McDmaInstPtr)
 
 				/* Clear the receive buffer, so we can verify data */
 				memset((void *)RxBufferPtr, 0, MAX_PKT_LEN);
-#ifndef HPC_DESIGN
-				Xil_DCacheInvalidateRange((UINTPTR)RxBufferPtr, MAX_PKT_LEN);
-#endif
+
+				if(!McDmaInstPtr->Config.IsRxCacheCoherent)
+					Xil_DCacheInvalidateRange((UINTPTR)RxBufferPtr, MAX_PKT_LEN);
+
 				RxBufferPtr += MAX_PKT_LEN;
 				if (!Rx_Chan->Has_Rxdre) {
 					buf_align = RxBufferPtr % 64;
@@ -502,15 +504,7 @@ static int CheckData(u8 *RxPacket, int ByteCount)
 	u32 Index;
 	u8 Value;
 
-
 	Value = TEST_START_VALUE;
-
-	/* Invalidate the DestBuffer before receiving the data, in case the
-	 * Data Cache is enabled
-	 */
-#ifndef __aarch64__
-	Xil_DCacheInvalidateRange((UINTPTR)RxPacket, ByteCount);
-#endif
 
 	for(Index = 0; Index < ByteCount; Index++) {
 			if (RxPacket[Index] != Value) {
@@ -520,11 +514,6 @@ static int CheckData(u8 *RxPacket, int ByteCount)
 				return XST_FAILURE;
 				break;
 			}
-#ifndef HPC_DESIGN
-#ifdef __aarch64__
-			dsb();
-#endif
-#endif
 			Value = (Value + 1) & 0xFF;
 	}
 
@@ -558,9 +547,9 @@ static int SendPacket(XMcdma *McDmaInstPtr)
 					Value = (Value + 1) & 0xFF;
 				}
 
-#ifndef HPC_DESIGN
-				Xil_DCacheFlushRange((UINTPTR)TxPacket, MAX_PKT_LEN);
-#endif
+				if (!McDmaInstPtr->Config.IsTxCacheCoherent)
+					Xil_DCacheFlushRange((UINTPTR)TxPacket, MAX_PKT_LEN);
+
 				if (Pkts == 0) {
 					CrBits |= XMCDMA_BD_CTRL_SOF_MASK;
 				}
@@ -591,8 +580,10 @@ static void DoneHandler(void *CallBackRef, u32 Chan_id)
         XMcdma *InstancePtr = (XMcdma *)((void *)CallBackRef);
         XMcdma_ChanCtrl *Rx_Chan = 0;
         XMcdma_Bd *BdPtr1, *FreeBdPtr;
+        u8 *RxPacket;
         int ProcessedBdCount, i;
         int MaxTransferBytes;
+        int RxPacketLength;
 
         Rx_Chan = XMcdma_GetMcdmaRxChan(InstancePtr, Chan_id);
         ProcessedBdCount = XMcdma_BdChainFromHW(Rx_Chan, NUMBER_OF_BDS_TO_TRANSFER, &BdPtr1);
@@ -602,8 +593,15 @@ static void DoneHandler(void *CallBackRef, u32 Chan_id)
         MaxTransferBytes = MAX_TRANSFER_LEN(InstancePtr->Config.MaxTransferlen - 1);
 
         for (i = 0; i < ProcessedBdCount; i++) {
-                if (CheckData((void *)XMcdma_BdRead64(FreeBdPtr, XMCDMA_BD_BUFA_OFFSET),
-			      XMcDma_BdGetActualLength(FreeBdPtr, MaxTransferBytes)) != XST_SUCCESS) {
+		RxPacket = (void *)XMcdma_BdRead64(FreeBdPtr, XMCDMA_BD_BUFA_OFFSET);
+		RxPacketLength = XMcDma_BdGetActualLength(FreeBdPtr, MaxTransferBytes);
+		/* Invalidate the DestBuffer before receiving the data, in case
+		 * the data cache is enabled
+		 */
+		if (!InstancePtr->Config.IsRxCacheCoherent)
+			Xil_DCacheInvalidateRange((UINTPTR)RxPacket, RxPacketLength);
+
+                if (CheckData((void *)RxPacket, RxPacketLength) != XST_SUCCESS) {
                         xil_printf("Data check failed for the Chan %x\n\r", Chan_id);
                 }
                 FreeBdPtr = (XMcdma_Bd *) XMcdma_BdRead64(FreeBdPtr, XMCDMA_BD_NDESC_OFFSET);

@@ -55,59 +55,11 @@
  * translation_table.S.
  * .set Memory,	0x405 | (2 << 8) | (0x0).
  *
- * Please uncomment below define for HPC design so that application won't do
- * Any cache flush/invalidation.
- *
- * //#define HPC_DESIGN
- *
  * It is recomended to use HPC to make use of H/W coherency feature.
  *
  * HP design considerations:
  * The example uses un-cached memory for buffer descriptors and uses
  * Normal memory for buffers..
- *
- * A53 does not provide separate instruction for cache invalidation.
- * It supports flush (clean + invalidation). Before a DMA starts,
- * Application is expected to do a cache flush for the relevant memory.
- * Once DMA ends, the data can simply be read from memory.
- * However, there will be occasions when A53 L1 cache system can prefetch
- * Memory locations which were earlier flushed. On such scenarios there is
- * High probability that CPU reads memory from cache and DMA is still not
- * Complete for this memory. This leads lost coherency between cache and
- * Memory. Subsequent data verification(after DMA is complete) thus fails.
- *
- * It is generally an unpredictable behavior. It is highly unlikely to happen
- * For a single buffer usecase. But for multiple buffers staying in adjacent
- * Cache locations,There is a high probability that users can get into such
- * Failures.
- *
- *  The L1 prefetch is a feature of the L1 cache system for improving performance.
- *  The L1 cache has its own algorithm to prefetch. The prefetch stops when:
- *   -> the memory accesses cross a 4KB page boundary.
- *   -> a dsb or PRFM instruction is executed.
- *   -> the program execution does not hit the prefetched data lines.
- *
- * Accordingly the solution for the above problem is:
- *
- * 1) Use dsb
- *     The location of the dsb is crucial. The programmer needs to predict the
- *     Maximum probability when the L1 prefetch will happen for relevant DMA
- *     Addresses.It will be typically in the DMA done interrupt (where the
- *     Data verification happens for a buffer).The cache line size is 64 bytes.
- *     The prefetch obviously will happen in chunks of 64 bytes.
- *
- *     However, because of the unpredictability nature of the prefetch, it is
- *     Difficult to find out the exact point of dsb.To be at a safer side,
- *     The dsb can be put for every memory location fetched.
- *
- *     There will be heavy performance penalty. Every dsb clears the store
- *     Buffers. Executing dsbs very frequently will degrade the performance
- *     Significantly.
- *
- *    2) Disable Prefetch of L1 Cahe
- *       This can be done by setting the CPUACTLR_EL1 register.
- *
- *    3) Put buffers from 4k apart
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -119,6 +71,10 @@
  *       rsp  08/17/2018 Fix typos and rephrase comments.
  *	 rsp  08/17/2018 Read Length register value from IP config.
  * 1.3   rsp  02/05/2019 Remove snooping enable from application.
+ *       rsp  02/06/2019 Programmatically select cache maintenance ops for HPC
+ *                       and non-HPC designs. In Rx remove arch64 specific dsb
+ *                       instruction by performing cache invalidate operation
+ *                       for all supported architectures.
  * </pre>
  *
  * ***************************************************************************
@@ -184,10 +140,6 @@
 #define NUM_MAX_CHANNELS	16
 
 #define TEST_START_VALUE	0xC
-
-#ifdef __aarch64__
-// #define HPC_DESIGN
-#endif
 
 int TxPattern[NUM_MAX_CHANNELS + 1];
 int RxPattern[NUM_MAX_CHANNELS + 1];
@@ -369,9 +321,9 @@ static int RxSetup(XMcdma *McDmaInstPtr)
 				/* Clear the receive buffer, so we can verify data */
 				memset((void *)RxBufferPtr, 0, MAX_PKT_LEN);
 
-#ifndef HPC_DESIGN
-			Xil_DCacheInvalidateRange(RxBufferPtr, MAX_PKT_LEN);
-#endif
+				if(!McDmaInstPtr->Config.IsRxCacheCoherent)
+					Xil_DCacheInvalidateRange(RxBufferPtr, MAX_PKT_LEN);
+
 				RxBufferPtr += MAX_PKT_LEN;
 				if (!Rx_Chan->Has_Rxdre) {
 					buf_align = RxBufferPtr % 64;
@@ -501,14 +453,6 @@ static int CheckData(u8 *RxPacket, int ByteCount, u32 ChanId)
 
 	Value = TestStartValue[ChanId] + RxPattern[ChanId]++;
 
-
-	/* Invalidate the DestBuffer before receiving the data, in case the
-	 * Data Cache is enabled
-	 */
-#ifndef __aarch64__
-	Xil_DCacheInvalidateRange((UINTPTR)RxPacket, ByteCount);
-#endif
-
 	for(Index = 0; Index < ByteCount; Index++) {
 		if (RxPacket[Index] != Value) {
 			xil_printf("Data error : %x/%x\r\n",
@@ -517,11 +461,6 @@ static int CheckData(u8 *RxPacket, int ByteCount, u32 ChanId)
 			return XST_FAILURE;
 			break;
 		}
-#ifndef HPC_DESIGN
-#ifdef __aarch64__
-		dsb();
-#endif
-#endif
 		Value = (Value + 1) & 0xFF;
 	}
 
@@ -547,8 +486,10 @@ static int CheckDmaResult(XMcdma *McDmaInstPtr, u32 Chan_id)
 {
         XMcdma_ChanCtrl *Rx_Chan = 0, *Tx_Chan = 0;
         XMcdma_Bd *BdPtr1;
+        u8 *RxPacket;
         int ProcessedBdCount, i;
         int MaxTransferBytes;
+        int RxPacketLength;
 
         Tx_Chan = XMcdma_GetMcdmaTxChan(McDmaInstPtr, Chan_id);
         ProcessedBdCount = XMcdma_BdChainFromHW(Tx_Chan,
@@ -565,8 +506,15 @@ static int CheckDmaResult(XMcdma *McDmaInstPtr, u32 Chan_id)
 
         /* Check received data */
         for (i = 0; i < ProcessedBdCount; i++) {
-                if (CheckData((u8 *)XMcdma_BdRead64(BdPtr1, XMCDMA_BD_BUFA_OFFSET),
-                                          XMcDma_BdGetActualLength(BdPtr1, MaxTransferBytes), Chan_id) != XST_SUCCESS) {
+		RxPacket = (void *)XMcdma_BdRead64(BdPtr1, XMCDMA_BD_BUFA_OFFSET);
+		RxPacketLength = XMcDma_BdGetActualLength(BdPtr1, MaxTransferBytes);
+		/* Invalidate the DestBuffer before receiving the data,
+		 * in case the data cache is enabled
+		 */
+		if (!McDmaInstPtr->Config.IsRxCacheCoherent)
+			Xil_DCacheInvalidateRange((UINTPTR)RxPacket, RxPacketLength);
+
+		if (CheckData((u8 *) RxPacket, RxPacketLength, Chan_id) != XST_SUCCESS) {
                         xil_printf("Data check failed for the Chan %x\n\r", Chan_id);
                         return XST_FAILURE;
                 }
