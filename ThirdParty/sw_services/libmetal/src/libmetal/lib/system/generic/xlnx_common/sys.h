@@ -13,8 +13,6 @@
 #error "Include metal/sys.h instead of metal/generic/@PROJECT_MACHINE@/sys.h"
 #endif
 
-#include "xscugic.h"
-
 #ifndef __METAL_GENERIC_XLNX_COMMON_SYS__H__
 #define __METAL_GENERIC_XLNX_COMMON_SYS__H__
 
