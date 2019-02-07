@@ -60,7 +60,7 @@
 *		       example.
 *	vak   24/09/18 Added EnableSuperSpeed in XUsbPsu_Config for speed
 *	               negotation at the time of connection to Host
-*
+* 1.5	vak   02/06/19 Added "xusbpsu_endpoint.h" header
 * </pre>
 *
 *****************************************************************************/
@@ -81,6 +81,7 @@ extern "C" {
 #include "xil_assert.h"
 #include "xstatus.h"
 #include "xusbpsu_hw.h"
+#include "xusbpsu_endpoint.h"
 #include "xil_io.h"
 
 /*
@@ -737,6 +738,7 @@ void XUsbPsu_EventHandler(struct XUsbPsu *InstancePtr,
                 const union XUsbPsu_Event *Event);
 void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr);
 void XUsbPsu_IntrHandler(void *XUsbPsuInstancePtr);
+void XUsbPsu_Idle(struct XUsbPsu *InstancePtr);
 
 #ifdef XUSBPSU_HIBERNATION_ENABLE
 void XUsbPsu_InitHibernation(struct XUsbPsu *InstancePtr);
