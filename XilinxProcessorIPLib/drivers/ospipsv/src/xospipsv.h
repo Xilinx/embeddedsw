@@ -46,6 +46,7 @@
 *                     take care of operating in DMA/STIG based on command.
 *                     Added support for unaligned byte count read.
 *       sk   02/04/19 Added support for SDR+PHY and DDR+PHY modes.
+*       sk   02/07/19 Added OSPI Idling sequence.
 *
 * </pre>
 *
@@ -238,6 +239,7 @@ void XOspiPsv_SetStatusHandler(XOspiPsv *InstancePtr, void *CallBackRef,
 				XOspiPsv_StatusHandler FuncPointer);
 u32 XOspiPsv_SetSdrDdrMode(XOspiPsv *InstancePtr, u32 Mode);
 void XOspiPsv_ConfigureAutoPolling(XOspiPsv *InstancePtr, u32 FlashMode);
+void XOspiPsv_Idle(const XOspiPsv *InstancePtr);
 #ifdef __cplusplus
 }
 #endif
