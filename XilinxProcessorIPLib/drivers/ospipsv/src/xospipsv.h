@@ -33,7 +33,7 @@
 * @{
 * @details
 *
-* This is the header file for the implementation of OSPIPS driver.
+* This is the header file for the implementation of OSPIPSV driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -68,7 +68,7 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 /**
  * The handler data type allows the user to define a callback function to
- * handle the asynchronous processing for the OSPIPS device.  The application
+ * handle the asynchronous processing for the OSPIPSV device.  The application
  * using this driver is expected to define a handler of this type to support
  * interrupt driven mode.  The handler executes in an interrupt context, so
  * only minimal processing should be performed.
@@ -111,7 +111,7 @@ typedef struct {
 
 /**
  * The XOspiPsv driver instance data. The user is required to allocate a
- * variable of this type for every OSPIPS device in the system. A pointer
+ * variable of this type for every OSPIPSV device in the system. A pointer
  * to a variable of this type is then passed to the driver API functions.
  */
 typedef struct {

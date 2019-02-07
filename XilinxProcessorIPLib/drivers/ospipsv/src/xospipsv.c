@@ -32,7 +32,7 @@
 * @addtogroup xospipsv_v1_0
 * @{
 *
-* This file implements the functions required to use the OSPIPS hardware to
+* This file implements the functions required to use the OSPIPSV hardware to
 * perform a transfer. These are accessible to the user via XOspiPsv.h.
 *
 * <pre>
@@ -105,7 +105,7 @@ static void StubStatusHandler(void *CallBackRef, u32 StatusEvent);
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 * @param	ConfigPtr is a reference to a structure containing information
-*		about a specific OSPIPS device. This function initializes an
+*		about a specific OSPIPSV device. This function initializes an
 *		InstancePtr object for a specific device specified by the
 *		contents of Config.
 * @param	EffectiveAddr is the device base address in the virtual memory
@@ -156,7 +156,7 @@ u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr,
 		InstancePtr->SdrDdrMode = XOSPIPSV_EDGE_MODE_SDR_NON_PHY;
 
 		/*
-		 * Reset the OSPIPS device to get it into its initial state. It is
+		 * Reset the OSPIPSV device to get it into its initial state. It is
 		 * expected that device configuration will take place after this
 		 * initialization is done, but before the device is started.
 		 */
@@ -178,7 +178,7 @@ u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr,
 * This function reset the configuration register.
 *
 * The Upper layer software is responsible for re-configuring (if necessary)
-* and restarting the OSPIPS device after the reset.
+* and restarting the OSPIPSV device after the reset.
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 *
@@ -257,7 +257,7 @@ static inline void XOspiPsv_DeAssertCS(const XOspiPsv *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Disable the OSPIPS device.
+* Disable the OSPIPSV device.
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 *
@@ -281,7 +281,7 @@ static inline void XOspiPsv_Disable(const XOspiPsv *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Enable the OSPIPS device.
+* Enable the OSPIPSV device.
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 *

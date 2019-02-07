@@ -32,7 +32,7 @@
 * @file xospipsv_flash_polled_example.c
 *
 *
-* This file contains a design example using the OSPIPS driver (xospipsv)
+* This file contains a design example using the OSPIPSV driver (xospipsv)
 * The example writes to flash in IO mode and reads it back in DMA mode.
 * It runs in polled mode.
 * The hardware which this example runs on, must have an octal serial Flash
@@ -60,7 +60,7 @@
 /***************************** Include Files *********************************/
 
 #include "xparameters.h"	/* SDK generated parameters */
-#include "xospipsv.h"		/* OSPIPS device driver */
+#include "xospipsv.h"		/* OSPIPSV device driver */
 #include "xil_printf.h"
 #include "xil_cache.h"
 
@@ -119,7 +119,7 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define OSPIPS_DEVICE_ID		XPAR_XOSPIPSV_0_DEVICE_ID
+#define OSPIPSV_DEVICE_ID		XPAR_XOSPIPSV_0_DEVICE_ID
 
 /*
  * Number of flash pages to be written.
@@ -244,7 +244,7 @@ u32 MaxData = PAGE_COUNT*256;
 /*****************************************************************************/
 /**
 *
-* Main function to call the OSPIPS Flash Polled example.
+* Main function to call the OSPIPSV Flash Polled example.
 *
 * @param	None
 *
@@ -260,9 +260,9 @@ int main(void)
 	xil_printf("OSPIPSV Flash Polled Example Test\r\n");
 
 	/*
-	 * Run the OspiPs Polled example.
+	 * Run the OspiPsv Polled example.
 	 */
-	Status = OspiPsvPolledFlashExample(&OspiPsvInstance, OSPIPS_DEVICE_ID);
+	Status = OspiPsvPolledFlashExample(&OspiPsvInstance, OSPIPSV_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		xil_printf("OSPIPSV Flash Polled Ex Failed\r\n");
 		return XST_FAILURE;
@@ -298,7 +298,7 @@ int OspiPsvPolledFlashExample(XOspiPsv *OspiPsvInstancePtr, u16 OspiPsvDeviceId)
 
 
 	/*
-	 * Initialize the OSPIPS driver so that it's ready to use
+	 * Initialize the OSPIPSV driver so that it's ready to use
 	 */
 	OspiPsvConfig = XOspiPsv_LookupConfig(OspiPsvDeviceId);
 	if (NULL == OspiPsvConfig) {
@@ -315,7 +315,7 @@ int OspiPsvPolledFlashExample(XOspiPsv *OspiPsvInstancePtr, u16 OspiPsvDeviceId)
 	 */
 	XOspiPsv_SetOptions(OspiPsvInstancePtr, XOSPIPSV_IDAC_EN_OPTION);
 	/*
-	 * Set the prescaler for OSPIPS clock
+	 * Set the prescaler for OSPIPSV clock
 	 */
 	XOspiPsv_SetClkPrescaler(OspiPsvInstancePtr, XOSPIPSV_CLK_PRESCALE_12);
 
@@ -415,7 +415,7 @@ int OspiPsvPolledFlashExample(XOspiPsv *OspiPsvInstancePtr, u16 OspiPsvDeviceId)
 * The purpose of this function is to determine the number of lines used
 * for command, address and data
 *
-* @param	OspiPsvPtr is a pointer to the OSPIPS driver component to use.
+* @param	OspiPsvPtr is a pointer to the OSPIPSV driver component to use.
 * @param	Read is to tell whether a read or write
 *
 * @return	returns value to program the lines for command, address and data.
@@ -504,12 +504,12 @@ int FlashReadID(XOspiPsv *OspiPsvPtr)
 /*****************************************************************************/
 /**
 *
-* This function writes to the  serial Flash connected to the OSPIPS interface.
+* This function writes to the  serial Flash connected to the OSPIPSV interface.
 * All the data put into the buffer must be in the same page of the device with
 * page boundaries being on 256 byte boundaries. This can be used when controller
 * is in Linear mode.
 *
-* @param	OspiPsvPtr is a pointer to the OSPIPS driver component to use.
+* @param	OspiPsvPtr is a pointer to the OSPIPSV driver component to use.
 * @param	Address contains the address to write data to in the Flash.
 * @param	ByteCount contains the number of bytes to write.
 * @param	Pointer to the write buffer (which is to be transmitted)
@@ -566,12 +566,12 @@ int FlashLinearWrite(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 /*****************************************************************************/
 /**
 *
-* This function writes to the  serial Flash connected to the OSPIPS interface.
+* This function writes to the  serial Flash connected to the OSPIPSV interface.
 * All the data put into the buffer must be in the same page of the device with
 * page boundaries being on 256 byte boundaries. This can be used in IO or DMA
 * mode.
 *
-* @param	OspiPsvPtr is a pointer to the OSPIPS driver component to use.
+* @param	OspiPsvPtr is a pointer to the OSPIPSV driver component to use.
 * @param	Address contains the address to write data to in the Flash.
 * @param	ByteCount contains the number of bytes to write.
 * @param	Pointer to the write buffer (which is to be transmitted)
@@ -668,9 +668,9 @@ int FlashIoWrite(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 /**
 *
 * This function erases the sectors in the  serial Flash connected to the
-* OSPIPS interface.
+* OSPIPSV interface.
 *
-* @param	OspPsiPtr is a pointer to the OSPIPS driver component to use.
+* @param	OspiPsvPtr is a pointer to the OSPIPSV driver component to use.
 * @param	Address contains the address of the first sector which needs to
 *		be erased.
 * @param	ByteCount contains the total size to be erased.
@@ -817,7 +817,7 @@ int FlashErase(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 *
 * This function performs read. DMA is the default setting.
 *
-* @param	OspiPsvPtr is a pointer to the OSPIPS driver component to use.
+* @param	OspiPsvPtr is a pointer to the OSPIPSV driver component to use.
 * @param	Address contains the address of the first sector which needs to
 *			be erased.
 * @param	ByteCount contains the total size to be erased.
@@ -866,7 +866,7 @@ int FlashRead(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 * This functions performs a bulk erase operation when the
 * flash device has a single die. Works for both Spansion and Micron
 *
-* @param	OspiPsvPtr is a pointer to the OSPIPS driver component to use.
+* @param	OspiPsvPtr is a pointer to the OSPIPSV driver component to use.
 * @param	WritBfrPtr is the pointer to command+address to be sent
 *
 * @return	XST_SUCCESS if successful, else XST_FAILURE.
@@ -956,7 +956,7 @@ int BulkErase(XOspiPsv *OspiPsvPtr, u8 *WriteBfrPtr)
 * the flash device. This function uses the die erase command for
 * Micron 512Mbit and 1Gbit
 *
-* @param	OspiPsvPtr is a pointer to the OSPIPS driver component to use.
+* @param	OspiPsvPtr is a pointer to the OSPIPSV driver component to use.
 * @param	WritBfrPtr is the pointer to command+address to be sent
 *
 * @return	XST_SUCCESS if successful, else XST_FAILURE.
@@ -1044,7 +1044,7 @@ int DieErase(XOspiPsv *OspiPsvPtr, u8 *WriteBfrPtr)
 * As per the Micron spec, before issuing the command to enter into 4 byte addr
 * mode, a write enable command is issued.
 *
-* @param	QspiPtr is a pointer to the QSPIPSU driver component to use.
+* @param	OspiPtr is a pointer to the OSPIPSV driver component to use.
 * @param	Enable is a either 1 or 0 if 1 then enters 4 byte if 0 exits.
 *
 * @return	 - XST_SUCCESS if successful.
@@ -1161,7 +1161,7 @@ int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, int Enable)
 * This API enters the flash device into Octal DDR mode or exit from octal DDR
 * mode (switches to Extended SPI mode).
 *
-* @param	QspiPtr is a pointer to the QSPIPSU driver component to use.
+* @param	OspiPtr is a pointer to the OSPIPSV driver component to use.
 * @param	Enable is either 1 or 0 if 1 then enter octal DDR mode if 0 exits.
 *
 * @return	 - XST_SUCCESS if successful.
