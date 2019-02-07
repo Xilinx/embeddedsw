@@ -782,7 +782,7 @@ done:
 	return Device;
 }
 
-XStatus XPmDevice_Request(const u32 TargetSubsystemId,
+XStatus XPmDevice_Request(const u32 SubsystemId,
 			const u32 DeviceId,
 			const u32 Capabilities,
 			const u32 QoS)
@@ -809,11 +809,11 @@ XStatus XPmDevice_Request(const u32 TargetSubsystemId,
 		goto done;
 	}
 
-	if (TargetSubsystemId >= XPM_SUBSYSID_MAX) {
+	if (SubsystemId >= XPM_SUBSYSID_MAX) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-	Subsystem = &PmSubsystems[TargetSubsystemId];
+	Subsystem = &PmSubsystems[SubsystemId];
 
 	Status = Device->DeviceOps->Request(Device, Subsystem, Capabilities,
 					    QoS);
