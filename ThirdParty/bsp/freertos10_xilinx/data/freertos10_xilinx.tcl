@@ -304,6 +304,11 @@ proc generate {os_handle} {
 	file copy -force [file join src Source timers.c] ./src
 	file copy -force [file join src Source event_groups.c] ./src
 	file copy -force [file join src Source portable MemMang heap_4.c] ./src
+        set stream_buffer_enabled [common::get_property CONFIG.stream_buffer $os_handle]
+        set message_buffer_enabled [common::get_property CONFIG.message_buffer $os_handle]
+        if {$stream_buffer_enabled == "true" || $message_buffer_enabled == "true"} {
+		file copy -force [file join src Source stream_buffer.c] ./src
+	}
 
 	if { $proctype == "psu_cortexr5" } {
 		file copy -force [file join src Source portable GCC ARM_CR5 port.c] ./src
@@ -570,6 +575,21 @@ proc generate {os_handle} {
         } else {
                 xput_define $config_file "configUSE_NEWLIB_REENTRANT" "1"
         }
+
+	set val [common::get_property CONFIG.stream_buffer $os_handle]
+        if {$val == "false"} {
+                xput_define $config_file "configSTREAM_BUFFER" "0"
+        } else {
+                xput_define $config_file "configSTREAM_BUFFER" "1"
+        }
+
+	set val [common::get_property CONFIG.message_buffer $os_handle]
+        if {$val == "false"} {
+                xput_define $config_file "configMESSAGE_BUFFER" "0"
+        } else {
+                xput_define $config_file "configMESSAGE_BUFFER" "1"
+        }
+
 
 	xput_define $config_file "configUSE_16_BIT_TICKS"		   "0"
 	xput_define $config_file "configUSE_APPLICATION_TASK_TAG"   "0"
