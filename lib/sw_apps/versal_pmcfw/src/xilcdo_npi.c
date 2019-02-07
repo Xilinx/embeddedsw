@@ -954,11 +954,6 @@ void XilCdo_WaitForBISRDone(u32 BaseAddr)
 u32 XilCdo_ScanClear(u32 NpiParam)
 {
 	u32 Status;
-	if((NpiParam & PCSR_PRECFG_SCANCLR_MASK) == 0U)
-	{
-		Status = XST_SUCCESS;
-		goto END;
-	}
 	if(ScanClearDone == FALSE)
 	{
 		XPmcFw_UtilRMW(PMC_ANALOG_SCAN_CLEAR_TRIGGER,
@@ -973,7 +968,6 @@ u32 XilCdo_ScanClear(u32 NpiParam)
 	{
 		Status = XST_SUCCESS;
 	}
-END:
 	return Status;
 }
 
