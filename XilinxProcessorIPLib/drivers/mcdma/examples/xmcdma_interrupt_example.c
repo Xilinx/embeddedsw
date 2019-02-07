@@ -53,6 +53,7 @@
  *			Fix gcc 'pointer from integer without a cast' warning.
  *	 rsp  08/17/18	Fix typos and rephrase comments.
  *	 rsp  08/17/18  Read Length register value from IP config.
+ * 1.3   rsp  02/05/19  Remove snooping enable from application.
  * </pre>
  *
  * ***************************************************************************
@@ -211,10 +212,6 @@ int main(void)
 	XMcdma_Config *Mcdma_Config;
 
 	xil_printf("\r\n--- Entering main() --- \r\n");
-
-#ifdef HPC_DESIGN
-	Xil_Out32(0xFD6E4000,0x1);
-#endif
 
 #ifdef __aarch64__
 #if (TX_BD_SPACE_BASE < 0x100000000UL)
