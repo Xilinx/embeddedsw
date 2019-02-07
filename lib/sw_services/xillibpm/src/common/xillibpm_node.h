@@ -65,6 +65,7 @@ enum class {
 	XPM_NODECLASS_MEMIC,
 	XPM_NODECLASS_STMIC,
 	XPM_NODECLASS_DEVICE,
+	XPM_NODECLASS_SUBSYSTEM,
 
 	XPM_NODECLASS_MAX
 } XPm_NodeClass;
@@ -102,6 +103,11 @@ typedef enum {
         XPM_NODESUBCL_DEV_PERIPH,
         XPM_NODESUBCL_DEV_MEM,
 } XPm_DeviceNodeSubclass;
+
+typedef enum {
+	/* Subsystem classes */
+	XPM_NODESUBCL_SUBSYSTEM=0,
+} XPm_SubsystemSubclass;
 
 /* Node types */
 typedef enum {
@@ -150,6 +156,11 @@ typedef enum {
         XPM_NODETYPE_DEV_DDR,
         XPM_NODETYPE_DEV_PERIPH,
 } XPm_DeviceNodeType;
+
+typedef enum {
+	/* Subsystem types */
+        XPM_NODETYPE_SUBSYSTEM=0,
+} XPm_SubsystemTypes;
 
 /* All node IDs */
 typedef enum {
@@ -551,5 +562,24 @@ typedef enum {
 
 	XPM_NODEIDX_DEV_MAX
 } XPm_DeviceNodeIndex;
+
+
+/**
+ * Subsystem IDs
+ */
+typedef enum {
+	XPM_NODEIDX_SUBSYS_DEFAULT,
+	XPM_NODEIDX_SUBSYS_PMC,
+	XPM_NODEIDX_SUBSYS_PSM,
+	XPM_NODEIDX_SUBSYS_APU,
+	XPM_NODEIDX_SUBSYS_RPU0_LOCK,
+	XPM_NODEIDX_SUBSYS_RPU0_0,
+	XPM_NODEIDX_SUBSYS_RPU0_1,
+	XPM_NODEIDX_SUBSYS_DDR0,
+	XPM_NODEIDX_SUBSYS_ME,
+	XPM_NODEIDX_SUBSYS_PL,
+
+	XPM_NODEIDX_SUBSYS_MAX,
+} XPm_SubsystemId;
 
 #endif /* XILLIBPM_NODE_H_ */
