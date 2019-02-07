@@ -159,7 +159,11 @@ s32 EpBufferRecv(void *InstancePtr, u8 UsbEp,
 
 void EpSetStall(void *InstancePtr, u8 Epnum, u8 Dir)
 {
-	XUsbPsu_EpSetStall((struct XUsbPsu *)InstancePtr, Epnum, Dir);
+	if (!Epnum) {
+		XUsbPsu_Ep0StallRestart((struct XUsbPsu *)InstancePtr);
+	} else  {
+		XUsbPsu_EpSetStall((struct XUsbPsu *)InstancePtr, Epnum, Dir);
+	}
 }
 
 void SetBits(void *InstancePtr, u32 TestSel)
