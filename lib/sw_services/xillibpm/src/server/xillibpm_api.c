@@ -174,7 +174,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			Status = XPm_AddSubsystem(Pload[0]);
 			break;
 		case PM_DESTROY_SUBSYSTEM:
-			Status = XPm_DestroySubsystem(SubsystemId);
+			Status = XPm_DestroySubsystem(Pload[0]);
 			break;
 		case PM_PINCTRL_REQUEST:
 			Status = XPm_PinCtrlRequest(SubsystemId, Pload[0]);
