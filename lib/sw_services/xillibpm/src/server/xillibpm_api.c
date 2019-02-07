@@ -848,7 +848,7 @@ done:
  * be used by one subsystem, any other subsystems will now be blocked from
  * accessing this device until it is released.
  *
- * @param TargetSubsystemId	Target subsystem ID (can be the same subsystem)
+ * @param SubsystemId	Target subsystem ID (can be the same subsystem)
  * @param Device		ID of the device
  * @param Capabilities		Capability requirements (1-hot)
  * @param QoS			Quality of Service (0-100) required
@@ -860,7 +860,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_RequestDevice(const u32 TargetSubsystemId, const u32 DeviceId,
+XStatus XPm_RequestDevice(const u32 SubsystemId, const u32 DeviceId,
 			  const u32 Capabilities, const u32 QoS, const u32 Ack)
 {
 	XStatus Status;
@@ -868,7 +868,7 @@ XStatus XPm_RequestDevice(const u32 TargetSubsystemId, const u32 DeviceId,
 	/* Warning Fix */
 	(void) (Ack);
 
-	Status = XPmDevice_Request(TargetSubsystemId, DeviceId, Capabilities,
+	Status = XPmDevice_Request(SubsystemId, DeviceId, Capabilities,
 				   QoS);
 
 	return Status;
