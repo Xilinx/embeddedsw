@@ -41,7 +41,8 @@
  *	 MYK	12/01/18 Added hibernation support for device mode
  *	 vak	13/03/18 Moved the setup interrupt system calls from driver to
  *			 example.
- *
+ * 1.5	 vak	02/06/19 Modified the code to add UsbPollHandler and
+ *			 UsbEnableEvent API's
  * </pre>
  *
  *****************************************************************************/
@@ -222,6 +223,38 @@ s32 EpDisable(void *InstancePtr, u8 UsbEpNum, u8 Dir)
 void Usb_SetSpeed(void *InstancePtr, u32 Speed)
 {
 	XUsbPsu_SetSpeed((struct XUsbPsu *)InstancePtr, Speed);
+}
+
+/****************************************************************************/
+/**
+* Handler called from polled mode for handling usb events
+*
+* @param	InstancePtr is a pointer to the XUsbPsu instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+void UsbPollHandler(struct XUsbPsu *InstancePtr)
+{
+	XUsbPsu_IntrHandler(InstancePtr);
+}
+
+/****************************************************************************/
+/**
+* Enables the events specified in the mask
+*
+* @param	InstancePtr is a pointer to the XUsbPsu instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+void UsbEnableEvent(struct XUsbPsu *InstancePtr, u32 Mask)
+{
+	XUsbPsu_EnableIntr(InstancePtr, Mask);
 }
 
 /****************************************************************************/
