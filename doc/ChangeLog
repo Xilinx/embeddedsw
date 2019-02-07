@@ -44,6 +44,9 @@ Fix cache handling in RX path for GEM.
 Fix freertos echo server compilation on emaclite platform.
 Pick correct compiler for R5.
 
+ospipsv_v1_0:
+First Release.
+
 qspipsu_v1_9:
 Resolved MISRA-C:2012 violations in safety mode(CR#1014359)
 Clear DMA_DST_ADDR_MSB register properly
