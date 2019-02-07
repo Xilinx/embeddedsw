@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -47,14 +47,12 @@
  *
  * HPC design considerations:
  * ZU+ MPSOC has in-built cache coherent interconnect(CCI) to take care of
- * Coherency through HPC port.
- * Following needs to be done by the users before running the examples.
+ * Coherency through HPC port. CCI is only support at EL1 NS level.
+ * Following needs to be done by the system components before running the
+ * example-
  * 1) Snooping should be enabled in the S3 (0xFD6E4000)
  * 2) Mark the DDR memory being used for buffers as outer sharable.
- * To do that please modify baremetal bsp file translation_table.S.
- * Change
- * .set Memory,	0x405 | (3 << 8) | (0x0).
- * to
+ * translation_table.S.
  * .set Memory,	0x405 | (2 << 8) | (0x0).
  *
  * Please uncomment below define for HPC design so that application won't do
@@ -120,6 +118,7 @@
  * 1.2	 rsp  07/19/2018 Read channel count from IP config.
  *       rsp  08/17/2018 Fix typos and rephrase comments.
  *	 rsp  08/17/2018 Read Length register value from IP config.
+ * 1.3   rsp  02/05/2019 Remove snooping enable from application.
  * </pre>
  *
  * ***************************************************************************
@@ -251,10 +250,6 @@ int main(void)
 	XMcdma_Config *Mcdma_Config;
 
 	xil_printf("\r\n--- Entering main() --- \r\n");
-
-#ifdef HPC_DESIGN
-	Xil_Out32(0xFD6E4000,0x1);
-#endif
 
 #ifdef __aarch64__
 #if (TX_BD_SPACE_BASE < 0x100000000UL)
