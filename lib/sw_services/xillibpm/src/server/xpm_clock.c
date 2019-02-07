@@ -772,7 +772,7 @@ XStatus XPmClock_GetNumClocks(u32 *Resp)
 	return XST_SUCCESS;
 }
 
-XStatus XPmClock_CheckPermissions(u32 SubsystemId, u32 ClockId)
+XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId)
 {
 	XStatus Status = XST_SUCCESS;
 	XPm_ClockNode *Clk;
@@ -803,7 +803,7 @@ XStatus XPmClock_CheckPermissions(u32 SubsystemId, u32 ClockId)
 	}
 
 	/* Check permission for given subsystem */
-	if (0 == (PermissionMask & (1 << SubsystemId))) {
+	if (0 == (PermissionMask & (1 << SubsystemIdx))) {
 		Status = XST_NO_ACCESS;
 		goto done;
 	}
