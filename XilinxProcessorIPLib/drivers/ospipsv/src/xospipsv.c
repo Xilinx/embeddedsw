@@ -688,7 +688,9 @@ static inline void XOspiPsv_Setup_Dev_Write_Instr_Reg(const XOspiPsv *InstancePt
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 			XOSPIPSV_DEV_INSTR_WR_CONFIG_REG, Regval);
 
-	Regval = ((Instxfer_Type <<
+	Regval = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+						XOSPIPSV_DEV_INSTR_RD_CONFIG_REG);
+	Regval |= ((Instxfer_Type <<
 					(u32)XOSPIPSV_DEV_INSTR_RD_CONFIG_REG_INSTR_TYPE_FLD_SHIFT)
 			& XOSPIPSV_DEV_INSTR_RD_CONFIG_REG_INSTR_TYPE_FLD_MASK);
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
