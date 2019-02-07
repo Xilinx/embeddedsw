@@ -184,6 +184,6 @@ XStatus XPmClock_QueryFFParams(u32 ClockId, u32 *Resp);
 XStatus XPmClock_QueryMuxSources(u32 ClockId, u32 Index, u32 *Resp);
 XStatus XPmClock_QueryAttributes(u32 ClockId, u32 *Resp);
 XStatus XPmClock_GetNumClocks(u32 *Resp);
-XStatus XPmClock_CheckPermissions(u32 SubsystemId, u32 ClockId);
+XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId);
 
 #endif /* XPM_CLOCK_H_ */
