@@ -45,6 +45,8 @@
 *	myk   12/01/18 Added hibernation support for device mode
 * 1.4	vak   30/05/18 Removed xusb_wrapper files
 *	vak   24/09/18 Add support for connecting to host in high-speed
+* 1.5	vak   02/06/19 Add API for idling usb controller
+*
 * </pre>
 *
 *****************************************************************************/
@@ -163,6 +165,162 @@ void XUsbPsu_SetMode(struct XUsbPsu *InstancePtr, u32 Mode)
 	RegVal &= ~(XUSBPSU_GCTL_PRTCAPDIR(XUSBPSU_GCTL_PRTCAP_OTG));
 	RegVal |= XUSBPSU_GCTL_PRTCAPDIR(Mode);
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GCTL, RegVal);
+}
+
+/*****************************************************************************/
+/**
+* This function puts the controller into idle state by stopping the transfers
+* for all endpoints, stopping the usb core and clearing the event buffers.
+* buffers.
+*
+* @param	InstancePtr is a pointer to the XUsbPsu instance to be worked on.
+*
+* @return	None
+*
+******************************************************************************/
+void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	/* Stop the transfers when in peripheral mode */
+	if ((XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GSTS) &
+					XUSBPSU_GSTS_CUR_MODE) == 0U) {
+		u32 RegVal, ResIdx, Cmd;
+		u32 EpNums, CurEpNum, InEpNums, OutEpNums, PhyEpNum;
+		struct XUsbPsu_EpParams	*Params;
+		struct XUsbPsu_Ep	*Ept;
+
+		/* Read HwParams 3 for fetching the max number of eps */
+		RegVal = XUsbPsu_ReadHwParams(InstancePtr, 3U);
+
+		EpNums = XUSBPSU_NUM_EPS(RegVal);
+		InEpNums = XUSBPSU_NUM_IN_EPS(RegVal);
+		OutEpNums = EpNums - InEpNums;
+
+		/* Stop transfers for Out Endpoints */
+		for (CurEpNum = 0; CurEpNum < OutEpNums; CurEpNum++) {
+
+			PhyEpNum = XUSBPSU_PhysicalEp(CurEpNum,
+					XUSBPSU_EP_DIR_OUT);
+
+			ResIdx = XUsbPsu_EpGetTransferIndex(InstancePtr,
+					CurEpNum, XUSBPSU_EP_DIR_OUT);
+
+			Params = XUsbPsu_GetEpParams(InstancePtr);
+
+			/* Issue EndTransfer WITH CMDIOC bit set */
+			Cmd = XUSBPSU_DEPCMD_ENDTRANSFER;
+			Cmd |= XUSBPSU_DEPCMD_HIPRI_FORCERM;
+			Cmd |= XUSBPSU_DEPCMD_CMDIOC;
+			Cmd |= XUSBPSU_DEPCMD_PARAM(ResIdx);
+			(void)XUsbPsu_SendEpCmd(InstancePtr, CurEpNum,
+					XUSBPSU_EP_DIR_OUT, Cmd, Params);
+
+			Ept = &InstancePtr->eps[PhyEpNum];
+			if (Ept) {
+				Ept->ResourceIndex = 0U;
+				Ept->EpStatus &= ~XUSBPSU_EP_BUSY;
+			}
+
+			/* Wait until CMD ACT bit is cleared */
+			if (XUsbPsu_Wait_Clear_Timeout(InstancePtr,
+						XUSBPSU_DEPCMD(PhyEpNum),
+						XUSBPSU_DEPCMD_CMDACT, 500U)) {
+#ifdef XUSBPSU_DEBUG
+				xil_printf("End Transfer on Endpoint %dOUT failed\n\r", CurEpNum);
+#endif
+			}
+		}
+
+		/* Stop transfers for In Endpoints */
+		for (CurEpNum = 0; CurEpNum < InEpNums; CurEpNum++) {
+
+			PhyEpNum = XUSBPSU_PhysicalEp(CurEpNum,
+					XUSBPSU_EP_DIR_IN);
+
+			ResIdx = XUsbPsu_EpGetTransferIndex(InstancePtr,
+					CurEpNum, XUSBPSU_EP_DIR_IN);
+
+			Params = XUsbPsu_GetEpParams(InstancePtr);
+
+			/* Issue EndTransfer WITH CMDIOC bit set */
+			Cmd = XUSBPSU_DEPCMD_ENDTRANSFER;
+			Cmd |= XUSBPSU_DEPCMD_HIPRI_FORCERM;
+			Cmd |= XUSBPSU_DEPCMD_CMDIOC;
+			Cmd |= XUSBPSU_DEPCMD_PARAM(ResIdx);
+			(void)XUsbPsu_SendEpCmd(InstancePtr, CurEpNum,
+					XUSBPSU_EP_DIR_IN, Cmd, Params);
+
+			Ept = &InstancePtr->eps[PhyEpNum];
+			if (Ept) {
+				Ept->ResourceIndex = 0U;
+				Ept->EpStatus &= ~XUSBPSU_EP_BUSY;
+			}
+
+			/* Wait until CMD ACT bit is cleared */
+			if (XUsbPsu_Wait_Clear_Timeout(InstancePtr,
+						XUSBPSU_DEPCMD(PhyEpNum),
+						XUSBPSU_DEPCMD_CMDACT, 500U)) {
+#ifdef XUSBPSU_DEBUG
+				xil_printf("End Transfer on Endpoint %dIN failed\n\r", CurEpNum);
+#endif
+			}
+		}
+
+		/* Stop transfers for Out Endpoints */
+		for (CurEpNum = 0; CurEpNum < OutEpNums; CurEpNum++) {
+
+			PhyEpNum = XUSBPSU_PhysicalEp(CurEpNum,
+					XUSBPSU_EP_DIR_OUT);
+
+			RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DALEPENA);
+			RegVal &= ~XUSBPSU_DALEPENA_EP(PhyEpNum);
+			XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DALEPENA, RegVal);
+
+			Ept = &InstancePtr->eps[PhyEpNum];
+
+			if (Ept) {
+				Ept->Type = 0U;
+				Ept->EpStatus = 0U;
+				Ept->MaxSize = 0U;
+				Ept->TrbEnqueue	= 0U;
+				Ept->TrbDequeue	= 0U;
+			}
+
+		}
+
+		/* Stop transfers for In Endpoints */
+		for (CurEpNum = 0; CurEpNum < InEpNums; CurEpNum++) {
+
+			PhyEpNum = XUSBPSU_PhysicalEp(CurEpNum,
+					XUSBPSU_EP_DIR_IN);
+
+			RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DALEPENA);
+			RegVal &= ~XUSBPSU_DALEPENA_EP(PhyEpNum);
+			XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DALEPENA, RegVal);
+
+			Ept = &InstancePtr->eps[PhyEpNum];
+
+			if (Ept) {
+				Ept->Type = 0U;
+				Ept->EpStatus = 0U;
+				Ept->MaxSize = 0U;
+				Ept->TrbEnqueue	= 0U;
+				Ept->TrbDequeue	= 0U;
+			}
+
+		}
+
+		/* Stop the USB core */
+		if (XUsbPsu_Stop(InstancePtr)) {
+#ifdef XUSBPSU_DEBUG
+			xil_printf("Failed to stop USB core\r\n");
+#endif
+		}
+
+		/* Reset the Event buffers to 0 */
+		XUsbPsu_EventBuffersReset(InstancePtr);
+	}
 }
 
 /*****************************************************************************/
