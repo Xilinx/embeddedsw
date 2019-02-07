@@ -734,7 +734,6 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type,
 
        /* For shutdown type the subtype is irrelevant: shut the caller down */
         if (XPM_SHUTDOWN_TYPE_SHUTDOWN == Type) {
-		VERIFY(SubsystemId < XPM_SUBSYSID_MAX);
 		Subsystem = &PmSubsystems[SubsystemId];
 		Reqm = Subsystem->Requirements;
 		while (NULL != Reqm) {
@@ -1589,14 +1588,8 @@ XStatus XPm_PinCtrlRequest(const u32 SubsystemId, const u32 PinId)
 {
 	XStatus Status;
 
-	if (SubsystemId >= XPM_SUBSYSID_MAX) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
 	Status = XPmPin_Request(SubsystemId, PinId);
 
-done:
 	return Status;
 }
 
@@ -1617,14 +1610,8 @@ XStatus XPm_PinCtrlRelease(const u32 SubsystemId, const u32 PinId)
 {
 	XStatus Status;
 
-	if (SubsystemId >= XPM_SUBSYSID_MAX) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
 	Status = XPmPin_Release(SubsystemId, PinId);
 
-done:
 	return Status;
 }
 
@@ -1653,11 +1640,6 @@ XStatus XPm_SetPinFunction(const u32 SubsystemId,
 	/* Check if subsystem is allowed to access requested reset or not */
 	Status = XPm_IsAccessAllowed(SubsystemId, PinId);
 	if(Status != XST_SUCCESS) {
-		goto done;
-	}
-
-	if (SubsystemId >= XPM_SUBSYSID_MAX) {
-		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
@@ -1721,9 +1703,8 @@ XStatus XPm_SetPinParameter(const u32 SubsystemId, const u32 PinId,
 	XStatus Status = XST_FAILURE;
 
 	/* Todo: Add checking for whether subsystem is allowed */
-
-	if (SubsystemId >= XPM_SUBSYSID_MAX) {
-		Status = XST_INVALID_PARAM;
+	Status = XPm_IsAccessAllowed(SubsystemId, PinId);
+	if(Status != XST_SUCCESS) {
 		goto done;
 	}
 
@@ -2816,8 +2797,11 @@ XStatus XPm_AddRequirement(const u32 SubsystemId, const u32 DeviceId)
 {
 	XStatus Status = XST_INVALID_PARAM;
 	XPm_Device *Device = NULL;
+	XPm_Subsystem *Subsystem;
 
-	if (SubsystemId > XPM_SUBSYSID_MAX) {
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (Subsystem == NULL || Subsystem->State != ONLINE) {
+		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -2826,7 +2810,7 @@ XStatus XPm_AddRequirement(const u32 SubsystemId, const u32 DeviceId)
 		goto done;
 	}
 
-	Status = XPmRequirement_Add(&PmSubsystems[SubsystemId], Device);
+	Status = XPmRequirement_Add(Subsystem, Device);
 done:
 	return Status;
 }
