@@ -32,7 +32,7 @@
 * @addtogroup ospipsv_v1_0
 * @{
 *
-* This file implements funcitons to configure the OSPIPS component,
+* This file implements funcitons to configure the OSPIPSV component,
 * specifically some optional settings, clock and flash related information.
 *
 * <pre>
@@ -91,8 +91,8 @@ static OptionsMap OptionsTable[] = {
 /*****************************************************************************/
 /**
 *
-* This function sets the options for the OSPIPS device driver.The options
-* control how the device behaves relative to the OSPIPS bus. The device must be
+* This function sets the options for the OSPIPSV device driver.The options
+* control how the device behaves relative to the OSPIPSV bus. The device must be
 * idle rather than busy transferring data before setting these device options.
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
@@ -176,8 +176,8 @@ u32 XOspiPsv_SetOptions(XOspiPsv *InstancePtr, u32 Options)
 /*****************************************************************************/
 /**
 *
-* This function gets the options for the OSPIPS device. The options control how
-* the device behaves relative to the OSPIPS bus.
+* This function gets the options for the OSPIPSV device. The options control how
+* the device behaves relative to the OSPIPSV bus.
 *
 * @param	InstancePtr is a pointer to the XOspiPsv instance.
 *
@@ -202,7 +202,7 @@ u32 XOspiPsv_GetOptions(const XOspiPsv *InstancePtr)
 	/* Loop through the options table to grab options */
 	for (Index = 0U; Index < XOSPIPSV_NUM_OPTIONS; Index++) {
 		/*
-		 * Get the current options from OSPIPS configuration register.
+		 * Get the current options from OSPIPSV configuration register.
 		 */
 		ConfigReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_CONFIG_REG);
@@ -372,7 +372,7 @@ ERROR_PATH:
 /*****************************************************************************/
 /**
 *
-* This function should be used to tell the OSPIPS driver the HW flash
+* This function should be used to tell the OSPIPSV driver the HW flash
 * configuration being used. This API should be called atleast once in the
 * application. If desired, it can be called multiple times when switching
 * between communicating to different flash devices/using different configs.
