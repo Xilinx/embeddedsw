@@ -88,6 +88,10 @@ examples- Fix use of #elif check in deriving DDR_BASE_ADDR.
 Fix XAxiDma_BdRingFromHw implementation for cyclic mode.
 In sgcyclic example wait for both tx and rx done counters.
 
+usbpsu_v1_5:
+Add usb controller idiling support to usbpsu driver
+Add new example for usb polling mode
+
 Changes for 2018.3
 ===============================
 dp12_v7_0:
