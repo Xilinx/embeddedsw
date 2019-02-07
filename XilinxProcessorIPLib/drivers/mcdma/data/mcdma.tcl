@@ -38,6 +38,7 @@
 #			Added failure checks in the tcl to avoid bsp compilation
 #			errors incase stream interface is unconnected.
 # 1.2   rsp   09/07/18  Pass "hier" argument to get_cells API to support hierarchical designs.
+# 1.3   rsp   02/05/19  Enable CCI only at EL1 non-secure state.
 #
 ##############################################################################
 
@@ -69,13 +70,14 @@ proc generate_cci_params {drv_handle file_name} {
 			set is_hpcdesign 0
 			set has_signleintf [common::get_property CONFIG.c_single_interface [get_cells -hier $ip]]
 			set has_mm2s [common::get_property CONFIG.c_include_mm2s [get_cells -hier $ip]]
+			set hypervisor [common::get_property CONFIG.hypervisor_guest [hsi::get_os]]
 			if {$has_mm2s == 1} {
 				set is_hpcdesign [get_connected_if $ip "M_AXI_MM2S"]
 			}
 			if {$has_signleintf == 1} {
 				set is_hpcdesign [get_connected_if $ip "M_AXI"]
 			}
-			if { $is_hpcdesign } {
+			if { $is_hpcdesign && $hypervisor} {
 				puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "IS_MM2S_CACHE_COHERENT"] 1"
 			} else {
 				puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "IS_MM2S_CACHE_COHERENT"] 0"
@@ -88,7 +90,7 @@ proc generate_cci_params {drv_handle file_name} {
 			if {$has_signleintf == 1} {
 				set is_hpcdesign [get_connected_if $ip "M_AXI"]
 			}
-			if { $is_hpcdesign } {
+			if { $is_hpcdesign && $hypervisor} {
 				puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "IS_S2MM_CACHE_COHERENT"] 1"
 			} else {
 				puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "IS_S2MM_CACHE_COHERENT"] 0"
