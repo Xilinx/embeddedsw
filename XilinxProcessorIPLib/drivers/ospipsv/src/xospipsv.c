@@ -46,6 +46,7 @@
 *                     take care of operating in DMA/STIG based on command.
 *                     Added support for unaligned byte count read.
 *       sk   02/04/19 Added support for SDR+PHY and DDR+PHY modes.
+*       sk   02/07/19 Added OSPI Idling sequence.
 *
 * </pre>
 *
@@ -1384,6 +1385,42 @@ u32 XOspiPsv_IntrHandler(XOspiPsv *InstancePtr)
 	}
 
 	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * Stops the transfer of data to internal DST FIFO from stream interface and
+ * also stops the issuing of new write commands to memory.
+ *
+ * By calling this API, any ongoing Dma transfers will be paused and DMA will
+ * not issue AXI write commands to memory
+ *
+ * @param	InstancePtr is a pointer to the XOspiPsv instance.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ *****************************************************************************/
+void XOspiPsv_Idle(const XOspiPsv *InstancePtr)
+{
+	u32 ReadReg;
+	u32 DmaStatus;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	/* Check for OSPI enable */
+	ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_CONFIG_REG);
+	if ((ReadReg & XOSPIPSV_CONFIG_REG_ENB_SPI_FLD_MASK) != 0U) {
+		DmaStatus = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_OSPIDMA_DST_CTRL);
+		DmaStatus |= XOSPIPSV_OSPIDMA_DST_CTRL_PAUSE_STRM_MASK;
+		DmaStatus |= XOSPIPSV_OSPIDMA_DST_CTRL_PAUSE_MEM_MASK;
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_OSPIDMA_DST_CTRL, DmaStatus);
+	}
 }
 
 /*****************************************************************************/
