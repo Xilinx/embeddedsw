@@ -58,7 +58,7 @@
 
 /****************************************************************************/
 /**
- * @brief  Initialize xillibpm library
+ * @brief  Initialize xilpm library
  *
  * @param  IpiInst Pointer to IPI driver instance
  *
@@ -66,7 +66,7 @@
  * or a reason code
  *
  ****************************************************************************/
-XStatus XPmClient_InitXillibpm(XIpiPsu *IpiInst)
+XStatus XPm_InitXilpm(XIpiPsu *IpiInst)
 {
 	XStatus Status = XST_SUCCESS;
 
@@ -76,7 +76,7 @@ XStatus XPmClient_InitXillibpm(XIpiPsu *IpiInst)
 		goto done;
 	}
 
-	XPmClient_SetPrimaryProc();
+	XPm_SetPrimaryProc();
 
 	PrimaryProc->Ipi = IpiInst;
 
@@ -97,7 +97,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_GetApiVersion(u32 *Version)
+XStatus XPm_GetApiVersion(u32 *Version)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -135,8 +135,8 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_RequestDevice(const u32 DeviceId, const u32 Capabilities,
-				const u32 QoS, const u32 Ack)
+XStatus XPm_RequestNode(const u32 DeviceId, const u32 Capabilities,
+			const u32 QoS, const u32 Ack)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -169,7 +169,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_ReleaseDevice(const u32 DeviceId)
+XStatus XPm_ReleaseNode(const u32 DeviceId)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -207,7 +207,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_SetRequirement(const u32 DeviceId, const u32 Capabilities,
+XStatus XPm_SetRequirement(const u32 DeviceId, const u32 Capabilities,
 				 const u32 QoS, const u32 Ack)
 {
 	XStatus Status;
@@ -261,8 +261,8 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_GetDeviceStatus(const u32 DeviceId,
-				  XPm_DeviceStatus *const DeviceStatus)
+XStatus XPm_GetNodeStatus(const u32 DeviceId,
+			  XPm_DeviceStatus *const DeviceStatus)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -307,7 +307,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_ResetAssert(const u32 ResetId, const u32 Action)
+XStatus XPm_ResetAssert(const u32 ResetId, const u32 Action)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -342,7 +342,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_ResetGetStatus(const u32 ResetId, u32 *const State)
+XStatus XPm_ResetGetStatus(const u32 ResetId, u32 *const State)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -380,7 +380,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_PinCtrlRequest(const u32 PinId)
+XStatus XPm_PinCtrlRequest(const u32 PinId)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -412,7 +412,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_PinCtrlRelease(const u32 PinId)
+XStatus XPm_PinCtrlRelease(const u32 PinId)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -445,7 +445,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_SetPinFunction(const u32 PinId, const u32 FunctionId)
+XStatus XPm_PinCtrlSetFunction(const u32 PinId, const u32 FunctionId)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -478,7 +478,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_GetPinFunction(const u32 PinId, u32 *const FunctionId)
+XStatus XPm_PinCtrlGetFunction(const u32 PinId, u32 *const FunctionId)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -542,7 +542,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_SetPinParameter(const u32 PinId, const u32 ParamId, const u32 ParamVal)
+XStatus XPm_PinCtrlSetParameter(const u32 PinId, const u32 ParamId, const u32 ParamVal)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -603,7 +603,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_GetPinParameter(const u32 PinId, const u32 ParamId, u32 *const ParamVal)
+XStatus XPm_PinCtrlGetParameter(const u32 PinId, const u32 ParamId, u32 *const ParamVal)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -646,8 +646,8 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_DevIoctl(const u32 DeviceId, const u32 IoctlId,
-			   const u32 Arg1, const u32 Arg2, u32 *const Response)
+XStatus XPm_DevIoctl(const u32 DeviceId, const u32 IoctlId, const u32 Arg1,
+		     const u32 Arg2, u32 *const Response)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -686,7 +686,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_ClockEnable(const u32 ClockId)
+XStatus XPm_ClockEnable(const u32 ClockId)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -718,7 +718,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_ClockDisable(const u32 ClockId)
+XStatus XPm_ClockDisable(const u32 ClockId)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -752,7 +752,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_GetClockState(const u32 ClockId, u32 *const State)
+XStatus XPm_ClockGetStatus(const u32 ClockId, u32 *const State)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -791,7 +791,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_SetClockDivider(const u32 ClockId, const u32 Divider)
+XStatus XPm_ClockSetDivider(const u32 ClockId, const u32 Divider)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -824,7 +824,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_GetClockDivider(const u32 ClockId, u32 *const Divider)
+XStatus XPm_ClockGetDivider(const u32 ClockId, u32 *const Divider)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -863,7 +863,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_SetClockParent(const u32 ClockId, const u32 ParentId)
+XStatus XPm_ClockSetParent(const u32 ClockId, const u32 ParentId)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -896,7 +896,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_GetClockParent(const u32 ClockId, u32 *const ParentId)
+XStatus XPm_ClockGetParent(const u32 ClockId, u32 *const ParentId)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -947,9 +947,9 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_SetPllParameter(const u32 ClockId,
-				  const enum XPm_PllConfigParams ParamId,
-				  const u32 Value)
+XStatus XPm_PllSetParameter(const u32 ClockId,
+			    const enum XPm_PllConfigParams ParamId,
+			    const u32 Value)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -994,9 +994,9 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_GetPllParameter(const u32 ClockId,
-				  const enum XPm_PllConfigParams ParamId,
-				  u32 *const Value)
+XStatus XPm_PllGetParameter(const u32 ClockId,
+			    const enum XPm_PllConfigParams ParamId,
+			    u32 *const Value)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -1038,7 +1038,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_SetPllMode(const u32 ClockId, const u32 Value)
+XStatus XPm_PllSetMode(const u32 ClockId, const u32 Value)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -1074,7 +1074,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_GetPllMode(const u32 ClockId, u32 *const Value)
+XStatus XPm_PllGetMode(const u32 ClockId, u32 *const Value)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -1117,21 +1117,21 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_SelfSuspend(const u32 DeviceId, const u32 Latency,
-			      const u8 State, const u64 Address)
+XStatus XPm_SelfSuspend(const u32 DeviceId, const u32 Latency,
+			const u8 State, const u64 Address)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
 	struct XPm_Proc *Proc;
 
-	Proc = XpmClient_GetProcByDeviceId(DeviceId);
+	Proc = XPm_GetProcByDeviceId(DeviceId);
 	if (NULL == Proc) {
 		XPm_Dbg("ERROR: Invalid Device ID\r\n");
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	XPmClient_Suspend(Proc);
+	XPm_ClientSuspend(Proc);
 
 	PACK_PAYLOAD5(Payload, PM_SELF_SUSPEND, DeviceId, Latency, State,
 		      (u32)Address, (u32)(Address >> 32));
@@ -1168,17 +1168,17 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_RequestWakeUp(const u32 TargetDevId, const bool SetAddress,
-				const u64 Address, const u32 Ack)
+XStatus XPm_RequestWakeUp(const u32 TargetDevId, const bool SetAddress,
+			  const u64 Address, const u32 Ack)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 	u64 EncodedAddr;
 	struct XPm_Proc *Proc;
 
-	Proc = XpmClient_GetProcByDeviceId(TargetDevId);
+	Proc = XPm_GetProcByDeviceId(TargetDevId);
 
-	XPmClient_WakeUp(Proc);
+	XPm_ClientWakeUp(Proc);
 
 	/* encode set Address into 1st bit of address */
 	EncodedAddr = Address | !!SetAddress;
@@ -1209,7 +1209,7 @@ done:
  * successful.
  *
  ****************************************************************************/
-void XPmClient_SuspendFinalize(void)
+void XPm_SuspendFinalize(void)
 {
 	XStatus Status;
 
@@ -1227,7 +1227,7 @@ void XPmClient_SuspendFinalize(void)
 		}
 	} while (XST_SUCCESS != Status);
 
-	XPmClient_ClientSuspendFinalize();
+	XPm_ClientSuspendFinalize();
 }
 
 /****************************************************************************/
@@ -1245,8 +1245,8 @@ void XPmClient_SuspendFinalize(void)
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_RequestSuspend(const u32 TargetSubsystemId, const u32 Ack,
-				 const u32 Latency, const u32 State)
+XStatus XPm_RequestSuspend(const u32 TargetSubsystemId, const u32 Ack,
+			   const u32 Latency, const u32 State)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -1287,7 +1287,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_AbortSuspend(const enum XPmAbortReason Reason)
+XStatus XPm_AbortSuspend(const enum XPmAbortReason Reason)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -1310,7 +1310,7 @@ XStatus XPmClient_AbortSuspend(const enum XPmAbortReason Reason)
 	 * Do client specific abort suspend operations
 	 * (e.g. enable interrupts and clear powerdown request bit)
 	 */
-	XPmClient_ClientAbortSuspend();
+	XPm_ClientAbortSuspend();
 
 done:
 	return Status;
@@ -1332,7 +1332,7 @@ done:
  * @note   Force power down may not be requested by a PU for itself.
  *
  ****************************************************************************/
-XStatus XPmClient_ForcePowerDown(const u32 TargetDevId, const u32 Ack)
+XStatus XPm_ForcePowerDown(const u32 TargetDevId, const u32 Ack)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -1366,7 +1366,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_SystemShutdown(const u32 Type, const u32 SubType)
+XStatus XPm_SystemShutdown(const u32 Type, const u32 SubType)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -1390,7 +1390,7 @@ done:
 /**
  * @brief  This function is used by a CPU to set wakeup source
  *
- * @param  TargetSubsystemId	Subsystem ID of the target
+ * @param  TargetDeviceId	Device ID of the target
  * @param  DeviceID		Device ID used as wakeup source
  * @param  Enable		1 - Enable, 0 - Disable
  *
@@ -1400,13 +1400,13 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPmClient_SetWakeupSource(const u32 TargetSubsystemId, const u32 DeviceID,
-				  const u32 Enable)
+XStatus XPm_SetWakeupSource(const u32 TargetDeviceId, const u32 DeviceID,
+			    const u32 Enable)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD3(Payload, PM_SET_WAKEUP_SOURCE, TargetSubsystemId, DeviceID, Enable);
+	PACK_PAYLOAD3(Payload, PM_SET_WAKEUP_SOURCE, TargetDeviceId, DeviceID, Enable);
 
 	/* Send request to the target module */
 	Status = XPm_IpiSend(PrimaryProc, Payload);
@@ -1438,9 +1438,8 @@ done:
  * or a reason code
  *
  ****************************************************************************/
-
-XStatus XPmClient_Query(const u32 QueryId, const u32 Arg1, const u32 Arg2,
-			const u32 Arg3, u32 *const Data)
+XStatus XPm_Query(const u32 QueryId, const u32 Arg1, const u32 Arg2,
+		  const u32 Arg3, u32 *const Data)
 {
 
 	XStatus Status;
@@ -1483,7 +1482,7 @@ done:
  *         possible power states a resource can be put into.
  *
  ****************************************************************************/
-int XPmClient_SetMaxLatency(const u32 DeviceId, const u32 Latency)
+int XPm_SetMaxLatency(const u32 DeviceId, const u32 Latency)
 {
 	int Status;
 	u32 Payload[PAYLOAD_ARG_CNT];

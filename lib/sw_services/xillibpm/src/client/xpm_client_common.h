@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -75,11 +75,11 @@ extern char ProcName[5];
 	#define XPm_Dbg(MSG, ...)	{}
 #endif
 
-void XPmClient_SetPrimaryProc(void);
-struct XPm_Proc *XpmClient_GetProcByDeviceId(u32 DeviceId);
-void XPmClient_Suspend(const struct XPm_Proc *const Proc);
-void XPmClient_WakeUp(const struct XPm_Proc *const Proc);
-void XPmClient_ClientSuspendFinalize(void);
-void XPmClient_ClientAbortSuspend(void);
+void XPm_SetPrimaryProc(void);
+struct XPm_Proc *XPm_GetProcByDeviceId(u32 DeviceId);
+void XPm_ClientSuspend(const struct XPm_Proc *const Proc);
+void XPm_ClientWakeUp(const struct XPm_Proc *const Proc);
+void XPm_ClientSuspendFinalize(void);
+void XPm_ClientAbortSuspend(void);
 
 #endif /* XPM_CLIENT_COMMON_H_ */
