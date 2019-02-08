@@ -73,6 +73,9 @@
  * 4.2   Nava  15/09/18 Fixed global function call-backs issue.
  * 5.0   Nava  11/05/18 Added full bitstream loading support for versal Platform.
  * 5.0   Div   21/01/19 Fixed misra-c required standard violations.
+ * 5.0   Nava  06/02/19 Remove redundant API's from the interface agnostic layer
+ *                      and make the existing API's generic to support both
+ *                      ZynqMP and versal platforms.
  * </pre>
  *
  * @note
@@ -124,7 +127,8 @@ typedef struct XFpgatag{
 	u32 (*XFpga_GetInterfaceStatus)(void);
 	u32 (*XFpga_GetConfigReg)(const struct XFpgatag *InstancePtr);
 	u32 (*XFpga_GetConfigData)(const struct XFpgatag *InstancePtr);
-	void (* XFpga_GlobSeqWriteReg)(struct XFpgatag *InstancePtr, u32 Mask, u32 Val);
+	void (* XFpga_GlobSeqWriteReg)(struct XFpgatag *InstancePtr,
+				       u32 Mask, u32 Val);
 	XFpga_Info	PLInfo;
 	XFpga_Write	*WriteInfoPtr;
 	XFpga_Read	*ReadInfoPtr;
@@ -187,17 +191,6 @@ typedef struct XFpgatag{
 /** @endcond*/
 /************************** Function Prototypes ******************************/
 u32 XFpga_Initialize(XFpga *InstancePtr);
-#if defined(PLATFORM_ZYNQMP) || (PSU_PMU)
-u32 XFpga_PL_BitStream_Load(UINTPTR BitstreamImageAddr,
-			    UINTPTR AddrPtr, u32 Flags);
-u32 XFpga_PL_Preconfig(const XFpga_Info *PLInfoPtr);
-u32 XFpga_PL_WriteToPl(const XFpga_Info *PLInfoPtr);
-u32 XFpga_PL_PostConfig(const XFpga_Info *PLInfoPtr);
-u32 XFpga_PL_ValidateImage(XFpga_Info *PLInfoPtr);
-u32 XFpga_GetPlConfigData(const XFpga_Info *PLInfoPtr);
-u32 XFpga_GetPlConfigReg(u32 ConfigReg, UINTPTR Address);
-u32 XFpga_InterfaceStatus(void);
-#else
 u32 XFpga_PL_BitStream_Load(XFpga *InstancePtr,
 			    UINTPTR BitstreamImageAddr,
 			    UINTPTR AddrPtr_Size, u32 Flags);
@@ -210,8 +203,12 @@ u32 XFpga_PL_ValidateImage(XFpga *InstancePtr,
 			   UINTPTR AddrPtr_Size, u32 Flags);
 u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 			  u32 ConfigReg_NumFrames);
-void XFpga_GetDmaPtr(XFpga *InstancePtr, XCsuDma *DmaPtr);
+u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
+			 u32 ConfigReg_NumFrames);
+u32 XFpga_InterfaceStatus(XFpga *InstancePtr);
 u32 XFpga_GlobSeqWriteReg(XFpga *InstancePtr, u32 Mask, u32 Val);
+#if defined(versal)
+void XFpga_GetDmaPtr(XFpga *InstancePtr, XCsuDma *DmaPtr);
 #endif
 
 #ifdef __cplusplus
