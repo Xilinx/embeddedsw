@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -103,9 +103,9 @@ char ProcName[5] = "RPU";
 #endif
 
 /**
- *  XPmClient_SetPrimaryProc() - Set primary processor based on processor ID
+ *  XPm_SetPrimaryProc() - Set primary processor based on processor ID
  */
-void XPmClient_SetPrimaryProc(void)
+void XPm_SetPrimaryProc(void)
 {
 	u32 ProcId;
 
@@ -116,15 +116,15 @@ void XPmClient_SetPrimaryProc(void)
 	if (!(XPm_Read(XPAR_PSU_RPU_0_S_AXI_BASEADDR + RPU_GLBL_CTRL_OFFSET) &
 	      RPU_GLBL_CNTL_SLSPLIT_MASK)) {
 		ProcId = 0;
-		XPm_Dbg("Running in lock-step mode\r\n");
 		memcpy(ProcName, "RPU", sizeof("RPU"));
+		XPm_Dbg("Running in lock-step mode\r\n");
 	} else {
-		XPm_Dbg("Running in split mode\r\n");
 		if (0 == ProcId) {
 			memcpy(ProcName, "RPU0", sizeof("RPU0"));
 		} else {
 			memcpy(ProcName, "RPU1", sizeof("RPU1"));
 		}
+		XPm_Dbg("Running in split mode\r\n");
 	}
 #endif
 
@@ -132,7 +132,7 @@ void XPmClient_SetPrimaryProc(void)
 	PrimaryProc = ProcList[ProcId];
 }
 
-struct XPm_Proc *XpmClient_GetProcByDeviceId(u32 DeviceId)
+struct XPm_Proc *XPm_GetProcByDeviceId(u32 DeviceId)
 {
 	struct XPm_Proc *Proc = NULL;
 	u8 Idx;
@@ -147,7 +147,7 @@ struct XPm_Proc *XpmClient_GetProcByDeviceId(u32 DeviceId)
 	return Proc;
 }
 
-void XPmClient_Suspend(const struct XPm_Proc *const Proc)
+void XPm_ClientSuspend(const struct XPm_Proc *const Proc)
 {
 	u32 PwrDwnReg;
 
@@ -160,7 +160,7 @@ void XPmClient_Suspend(const struct XPm_Proc *const Proc)
 	XPm_Write(Proc->PwrCtrl, PwrDwnReg);
 }
 
-void XPmClient_WakeUp(const struct XPm_Proc *const Proc)
+void XPm_ClientWakeUp(const struct XPm_Proc *const Proc)
 {
 	if (NULL != Proc) {
 		u32 Val;
@@ -171,7 +171,7 @@ void XPmClient_WakeUp(const struct XPm_Proc *const Proc)
 	}
 }
 
-void XPmClient_ClientSuspendFinalize(void)
+void XPm_ClientSuspendFinalize(void)
 {
 	u32 CtrlReg;
 
@@ -193,7 +193,7 @@ void XPmClient_ClientSuspendFinalize(void)
 	XPm_Dbg("WFI exit...\n");
 }
 
-void XPmClient_ClientAbortSuspend(void)
+void XPm_ClientAbortSuspend(void)
 {
 	u32 PwrDwnReg;
 
