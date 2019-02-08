@@ -35,6 +35,7 @@ int platform_init_fs()
 	static FIL fil;		/* File object */
 	FRESULT Res;
 	TCHAR *Path = "0:/";
+	BYTE work[FF_MAX_SS];
 
 	/*
 	 * Register volume work area, initialize device
@@ -42,7 +43,7 @@ int platform_init_fs()
 	Res = f_mount(&fatfs, Path, 1);
 	if (Res != FR_OK) {
 		xil_printf("Failed to mount FAT FS. Formatting...\r\n");
-		Res = f_mkfs(Path, 1, 0);
+		Res = f_mkfs(Path, FM_SFD, 0, work, sizeof work);
 		if (Res != FR_OK) {
 			xil_printf("Failed to format FAT FS\r\n");
 			return -1;
