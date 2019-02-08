@@ -1,28 +1,8 @@
 /******************************************************************************
- *
- * Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
- *****************************************************************************/
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+
 /**
  * @file  xfpga_readback_example.c
  *
@@ -43,13 +23,13 @@
  * 4.2   Nava 16/08/18 Modified the PL data handling Logic to support
  *                     different PL programming interfaces.
  * 5.0   Nava 06/02/19 Updated the example to sync with 5.0 version API's
- *		 rama 03/04/19 Fixed IAR compiler warning
+ *       rama 03/04/19 Fixed IAR compiler warning
+ * 5.2   Nava 18/12/19 Fix for security violation in the readback path.
+ * 5.2   Nava 14/02/20 Removed unwanted header file inclusion.
  *</pre>
  ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xil_printf.h"
-#include "xfpga_config.h"
 #include "xilfpga.h"
 
 /************************** Constant Definitions *****************************/
@@ -145,7 +125,7 @@ void PrintBitStream(u32 NumFrames)
 
 	xil_printf("Bitstream contents are\r\n");
 
-	for (i = CFGDATA_DSTDMA_OFFSET/4; i < NumFrames; i+=4) {
+	for (i = 0; i < NumFrames; i+=4) {
 		xil_printf("%04x %04x %04x %04x %04x %04x %04x %04x\n\r",
 		            (readback_buffer[i] >> 16), (readback_buffer[i] & 0xFFFF),
 					(readback_buffer[i+1] >> 16), (readback_buffer[i+1] & 0xFFFF),

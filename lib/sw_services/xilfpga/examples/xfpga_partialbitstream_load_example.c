@@ -1,28 +1,8 @@
 /******************************************************************************
- *
- * Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
- ******************************************************************************/
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
@@ -46,14 +26,13 @@
  * 4.2   adk     03/08/18  Initial Release.
  * 4.2	 adk	 23/08/18  Added bitstream size define.
  * 5.0   Nava	 06/02/19  Updated the example to sync with 5.0 version API's
+ * 5.2   Nava    14/02/20  Removed unwanted header file inclusion.
+ * 5.2   Nava    27/02/20  Added support for Versal Platform.
  * </pre>
  *
  ******************************************************************************/
 
-#include "xil_printf.h"
 #include "xilfpga.h"
-#include "xfpga_config.h"
-
 /**************************** Type Definitions *******************************/
 /* Xilfpga library supports vivado generated Partial Bitstream(*.bit) and
  * bootgen generated Partial Bitstream(*.bin), Passing below definition is
@@ -64,9 +43,14 @@
  * User should replace the below definition value with the actual
  * Partial Bitstream size.
  *
- * @note: This example supports only Zynq UltraScale+ MPSoC platform.
+ * @note: This example supports only Zynq UltraScale+ MPSoC and Versal platform.
  */
-#define BITSTREAM_SIZE	0x1000000
+
+/* For Versal platform Passing the below definition is Optional */
+#define BITSTREAM_SIZE	0x1000000U /* Bin or bit or PDI image size */
+#ifdef versal
+#define PDI_LOAD        0U
+#endif
 /*****************************************************************************/
 int main(void)
 {
@@ -82,9 +66,13 @@ int main(void)
 	if (Status != XST_SUCCESS) {
 		goto done;
 	}
-
+#ifdef versal
+	Status = XFpga_PL_BitStream_Load(&XFpgaInstance, addr,
+					 BITSTREAM_SIZE, PDI_LOAD);
+#else
 	Status = XFpga_PL_BitStream_Load(&XFpgaInstance, addr,
 					 BITSTREAM_SIZE, XFPGA_PARTIAL_EN);
+#endif
 
  done:
 	if (Status == XFPGA_SUCCESS)
