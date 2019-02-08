@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2016-2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2016-2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,7 @@
  * 4.2   Nava    30/05/18  Refactor the xilfpga library to support
  *                         different PL programming Interfaces.
  * 4.2	 adk	 23/08/18  Added bitstream size define.
+ * 5.0   Nava	 06/02/19  Updated the example to sync with 5.0 version API's
  * </pre>
  *
  ******************************************************************************/
@@ -59,20 +60,30 @@
  *
  * Below definition is for typical bitstream size of zcu102 board
  * User should replace the below definition value with the actual bitstream size.
+ *
+ * @note: This example supports only Zynq UltraScale+ MPSoC platform.
  */
 #define BITSTREAM_SIZE	0x1A000000
 /*****************************************************************************/
 int main(void)
 {
 	u64 addr = XFPGA_BASE_ADDRESS;
+	XFpga XFpgaInstance = {0U};
 	s32 Status;
 
 	xil_printf("Loading Bitstream for DDR location :0x%x\n\r",
 				XFPGA_BASE_ADDRESS);
 	xil_printf("Trying to configure the PL ......\n\r");
 
-	Status = XFpga_PL_BitStream_Load(addr, BITSTREAM_SIZE, 0);
+	Status = XFpga_Initialize(&XFpgaInstance);
+	if (Status != XST_SUCCESS) {
+		goto done;
+	}
 
+	Status = XFpga_PL_BitStream_Load(&XFpgaInstance, addr,
+					 BITSTREAM_SIZE, XFPGA_FULLBIT_EN);
+
+ done:
 	if (Status == XFPGA_SUCCESS)
 		xil_printf("PL Configuration done successfully");
 	else
