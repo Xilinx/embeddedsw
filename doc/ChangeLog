@@ -96,6 +96,10 @@ Add usb controller idiling support to usbpsu driver
 Add new example for usb polling mode
 Modify xusbpsu_wrapper.c file for issuing XUsbPsu_Ep0StallRestart() for EP0
 
+mcdma_v1_3:
+In mcdma examples remove snoop enable and dependency on HPC_DESIGN macro.
+In driver tcl enable CCI only for EL1 non-secure state.
+
 Changes for 2018.3
 ===============================
 dp12_v7_0:
