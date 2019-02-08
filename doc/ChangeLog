@@ -382,6 +382,10 @@ for a 2GSPS ADC at a decimation rate of 8.
 The paramater "DataType" is now "MixerInputDataType".
 Added APIs to set and get IM3 Dither.
 
+mcdma_v1_3:
+In mcdma examples remove snoop enable and dependency on HPC_DESIGN macro.
+In driver tcl enable CCI only for EL1 non-secure state.
+
 Changes for 2018.3
 ===============================
 dp12_v7_0:
