@@ -162,7 +162,7 @@ int do_http_get(int sd, char *req, int rlen)
 	fext = get_file_extension(filename);
 
 	/* obtain file size */
-	fsize = fil.fsize;
+	fsize = f_size(&fil);
 
 	/* write the http headers */
 	hlen = generate_http_header(buf, fext, fsize);
