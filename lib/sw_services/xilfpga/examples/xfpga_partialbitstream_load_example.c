@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -47,6 +47,7 @@
  * ----- ------  -------- ------------------------------------------------------
  * 4.2   adk     03/08/18  Initial Release.
  * 4.2	 adk	 23/08/18  Added bitstream size define.
+ * 5.0   Nava	 06/02/19  Updated the example to sync with 5.0 version API's
  * </pre>
  *
  ******************************************************************************/
@@ -64,19 +65,30 @@
  * Below definition is for typical Partial Bitstream size of zcu102 board
  * User should replace the below definition value with the actual
  * Partial Bitstream size.
+ *
+ * @note: This example supports only Zynq UltraScale+ MPSoC platform.
  */
 #define BITSTREAM_SIZE	0x1000000
 /*****************************************************************************/
 int main(void)
 {
 	u64 addr = XFPGA_BASE_ADDRESS;
+	XFpga XFpgaInstance = {0U};
 	s32 Status;
 
 	xil_printf("Loading Partial Reconfiguration Bitstream from DDR location :0x%x\n\r",
 		   XFPGA_BASE_ADDRESS);
 	xil_printf("Trying to configure Partial Reconfiguration Bitstream into the PL ......\n\r");
 
-	Status = XFpga_PL_BitStream_Load(addr, BITSTREAM_SIZE, XFPGA_PARTIAL_EN);
+	Status = XFpga_Initialize(&XFpgaInstance);
+	if (Status != XST_SUCCESS) {
+		goto done;
+	}
+
+	Status = XFpga_PL_BitStream_Load(&XFpgaInstance, addr,
+					 BITSTREAM_SIZE, XFPGA_PARTIAL_EN);
+
+ done:
 	if (Status == XFPGA_SUCCESS)
 		xil_printf("Partial Reconfiguration Bitstream loaded into the PL successfully");
 	else
