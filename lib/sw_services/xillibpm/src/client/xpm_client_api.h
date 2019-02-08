@@ -32,53 +32,53 @@
 #include "xpm_client_common.h"
 #include "xillibpm_defs.h"
 
-XStatus XPmClient_InitXillibpm(XIpiPsu *IpiInst);
-XStatus XPmClient_GetApiVersion(u32 *version);
-XStatus XPmClient_RequestDevice(const u32 DeviceId, const u32 Capabilities,
-				const u32 QoS, const u32 Ack);
-XStatus XPmClient_ReleaseDevice(const u32 DeviceId);
-XStatus XPmClient_SetRequirement(const u32 DeviceId, const u32 Capabilities,
-				 const u32 QoS, const u32 Ack);
-XStatus XPmClient_GetDeviceStatus(const u32 DeviceId,
-				  XPm_DeviceStatus *const DeviceStatus);
-XStatus XPmClient_ResetAssert(const u32 ResetId, const u32 Action);
-XStatus XPmClient_ResetGetStatus(const u32 ResetId, u32 *const State);
-XStatus XPmClient_PinCtrlRequest(const u32 PinId);
-XStatus XPmClient_PinCtrlRelease(const u32 PinId);
-XStatus XPmClient_SetPinFunction(const u32 PinId, const u32 FunctionId);
-XStatus XPmClient_GetPinFunction(const u32 PinId, u32 *const FunctionId);
-XStatus XPmClient_SetPinParameter(const u32 PinId, const u32 ParamId, const u32 ParamVal);
-XStatus XPmClient_GetPinParameter(const u32 PinId, const u32 ParamId, u32 *const ParamVal);
-XStatus XPmClient_DevIoctl(const u32 DeviceId, const u32 IoctlId,
-			   const u32 Arg1, const u32 Arg2, u32 *const Response);
-XStatus XPmClient_ClockEnable(const u32 ClockId);
-XStatus XPmClient_ClockDisable(const u32 ClockId);
-XStatus XPmClient_GetClockState(const u32 ClockId, u32 *const State);
-XStatus XPmClient_SetClockDivider(const u32 ClockId, const u32 Divider);
-XStatus XPmClient_GetClockDivider(const u32 ClockId, u32 *const Divider);
-XStatus XPmClient_SetClockParent(const u32 ClockId, const u32 ParentId);
-XStatus XPmClient_GetClockParent(const u32 ClockId, u32 *const ParentId);
-XStatus XPmClient_SetPllParameter(const u32 ClockId,
-				  const enum XPm_PllConfigParams ParamId,
-				  const u32 Value);
-XStatus XPmClient_GetPllParameter(const u32 ClockId,
-				  const enum XPm_PllConfigParams ParamId,
-				  u32 *const Value);
-XStatus XPmClient_SetPllMode(const u32 ClockId, const u32 Value);
-XStatus XPmClient_GetPllMode(const u32 ClockId, u32 *const Value);
-XStatus XPmClient_SelfSuspend(const u32 DeviceId, const u32 Latency,
-			      const u8 State, const u64 Address);
-XStatus XPmClient_RequestWakeUp(const u32 TargetDevId, const bool SetAddress,
-				const u64 Address, const u32 Ack);
-void XPmClient_SuspendFinalize(void);
-XStatus XPmClient_RequestSuspend(const u32 TargetSubsystemId, const u32 Ack,
-				 const u32 Latency, const u32 State);
-XStatus XPmClient_AbortSuspend(const enum XPmAbortReason Reason);
-XStatus XPmClient_ForcePowerDown(const u32 TargetDevId, const u32 Ack);
-XStatus XPmClient_SystemShutdown(const u32 Type, const u32 SubType);
-XStatus XPmClient_SetWakeupSource(const u32 TargetSubsystemId,
-				  const u32 DeviceId, const u32 Enable);
-XStatus XPmClient_Query(const u32 QueryId, const u32 Arg1, const u32 Arg2,
-			const u32 Arg3, u32 *const Data);
-int XPmClient_SetMaxLatency(const u32 DeviceId, const u32 Latency);
+XStatus XPm_InitXilpm(XIpiPsu *IpiInst);
+XStatus XPm_GetApiVersion(u32 *version);
+XStatus XPm_RequestNode(const u32 DeviceId, const u32 Capabilities,
+			const u32 QoS, const u32 Ack);
+XStatus XPm_ReleaseNode(const u32 DeviceId);
+XStatus XPm_SetRequirement(const u32 DeviceId, const u32 Capabilities,
+			   const u32 QoS, const u32 Ack);
+XStatus XPm_GetNodeStatus(const u32 DeviceId,
+			  XPm_DeviceStatus *const DeviceStatus);
+XStatus XPm_ResetAssert(const u32 ResetId, const u32 Action);
+XStatus XPm_ResetGetStatus(const u32 ResetId, u32 *const State);
+XStatus XPm_PinCtrlRequest(const u32 PinId);
+XStatus XPm_PinCtrlRelease(const u32 PinId);
+XStatus XPm_PinCtrlSetFunction(const u32 PinId, const u32 FunctionId);
+XStatus XPm_PinCtrlGetFunction(const u32 PinId, u32 *const FunctionId);
+XStatus XPm_PinCtrlSetParameter(const u32 PinId, const u32 ParamId, const u32 ParamVal);
+XStatus XPm_PinCtrlGetParameter(const u32 PinId, const u32 ParamId, u32 *const ParamVal);
+XStatus XPm_DevIoctl(const u32 DeviceId, const u32 IoctlId, const u32 Arg1,
+		     const u32 Arg2, u32 *const Response);
+XStatus XPm_ClockEnable(const u32 ClockId);
+XStatus XPm_ClockDisable(const u32 ClockId);
+XStatus XPm_ClockGetStatus(const u32 ClockId, u32 *const State);
+XStatus XPm_ClockSetDivider(const u32 ClockId, const u32 Divider);
+XStatus XPm_ClockGetDivider(const u32 ClockId, u32 *const Divider);
+XStatus XPm_ClockSetParent(const u32 ClockId, const u32 ParentId);
+XStatus XPm_ClockGetParent(const u32 ClockId, u32 *const ParentId);
+XStatus XPm_PllSetParameter(const u32 ClockId,
+			    const enum XPm_PllConfigParams ParamId,
+			    const u32 Value);
+XStatus XPm_PllGetParameter(const u32 ClockId,
+			    const enum XPm_PllConfigParams ParamId,
+			    u32 *const Value);
+XStatus XPm_PllSetMode(const u32 ClockId, const u32 Value);
+XStatus XPm_PllGetMode(const u32 ClockId, u32 *const Value);
+XStatus XPm_SelfSuspend(const u32 DeviceId, const u32 Latency, const u8 State,
+			const u64 Address);
+XStatus XPm_RequestWakeUp(const u32 TargetDevId, const bool SetAddress,
+			  const u64 Address, const u32 Ack);
+void XPm_SuspendFinalize(void);
+XStatus XPm_RequestSuspend(const u32 TargetSubsystemId, const u32 Ack,
+			   const u32 Latency, const u32 State);
+XStatus XPm_AbortSuspend(const enum XPmAbortReason Reason);
+XStatus XPm_ForcePowerDown(const u32 TargetDevId, const u32 Ack);
+XStatus XPm_SystemShutdown(const u32 Type, const u32 SubType);
+XStatus XPm_SetWakeupSource(const u32 TargetDeviceId,
+			    const u32 DeviceId, const u32 Enable);
+XStatus XPm_Query(const u32 QueryId, const u32 Arg1, const u32 Arg2,
+		  const u32 Arg3, u32 *const Data);
+int XPm_SetMaxLatency(const u32 DeviceId, const u32 Latency);
 #endif /* _XPM_CLIENT_API_H_ */
