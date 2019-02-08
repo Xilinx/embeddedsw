@@ -592,6 +592,13 @@ proc generate {os_handle} {
                 xput_define $config_file "configMESSAGE_BUFFER" "1"
         }
 
+	set val [common::get_property CONFIG.support_static_allocation $os_handle]
+        if {$val == "false"} {
+                xput_define $config_file "configSUPPORT_STATIC_ALLOCATION" "0"
+        } else {
+                xput_define $config_file "configSUPPORT_STATIC_ALLOCATION" "1"
+        }
+
 
 	xput_define $config_file "configUSE_16_BIT_TICKS"		   "0"
 	xput_define $config_file "configUSE_APPLICATION_TASK_TAG"   "0"
