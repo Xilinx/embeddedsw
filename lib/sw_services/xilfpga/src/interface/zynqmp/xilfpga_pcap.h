@@ -105,6 +105,9 @@
  *                      different PL programming interfaces.
  * 4.2 Nava   15/09/18  Fixed global function call-backs issue.
  * 5.0 Div    21/01/19  Fixed misra-c required standard violations.
+ * 5.0  Nava 06/02/19  Remove redundant API's from the interface agnostic layer
+ *                     and make the existing API's generic to support both
+ *                     ZynqMP and versal platforms.
  * </pre>
  *
  * @note
@@ -282,23 +285,6 @@ extern "C" {
  * @ConfigReg		Configuration register value to be returned
  * @NumFrames		The number of fpga configuration frames to read
  * @XSecure_ImageInfo	Used to store the secure image data.
- * @Flags		Flags are used to specify the type of Bitstream file.
- *			* BIT(0) - Bitstream type
- *                                     * 0 - Full Bitstream
- *                                     * 1 - Partial Bitstream
- *			* BIT(1) - Authentication using DDR
- *                                     * 1 - Enable
- *                                     * 0 - Disable
- *			* BIT(2) - Authentication using OCM
- *                                     * 1 - Enable
- *                                     * 0 - Disable
- *			* BIT(3) - User-key Encryption
- *                                     * 1 - Enable
- *                                     * 0 - Disable
- *			* BIT(4) - Device-key Encryption
- *                                     * 1 - Enable
- *                                     * 0 - Disable
- *
  */
 typedef struct {
 	UINTPTR BitstreamAddr;
@@ -307,7 +293,6 @@ typedef struct {
 	u32 ConfigReg;
 	u32 NumFrames;
 	XSecure_ImageInfo SecureImageInfo;
-	u32 Flags;
 } XFpga_Info;
 
 /**

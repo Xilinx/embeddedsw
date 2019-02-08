@@ -71,6 +71,9 @@
  * 5.0   Nava  10/01/19 Improve the Image validation handling logic for
  *			bootgen created Bitstream Images.
  * 5.0	 Div   21/01/19	Fixed misra-c required standard violations.
+ * 5.0  Nava   06/02/19 Remove redundant API's from the interface agnostic layer
+ *                      and make the existing API's generic to support both
+ *                      ZynqMP and versal platforms.
  * </pre>
  *
  * @note
@@ -260,6 +263,13 @@ u32 XFpga_Initialize(XFpga *InstancePtr) {
 	InstancePtr->XFpga_GetConfigReg = XFpga_GetConfigRegPcap;
 	InstancePtr->XFpga_GetConfigData = XFpga_GetPLConfigData;
 
+	/* Initialize CSU DMA driver */
+	Status = XFpga_CsuDmaInit();
+	if (Status != XFPGA_SUCCESS) {
+		Status = XFPGA_PCAP_UPDATE_ERR(XFPGA_ERROR_CSUDMA_INIT_FAIL,
+					       Status);
+	}
+
 	return Status;
 }
 /*****************************************************************************/
@@ -298,14 +308,6 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 				(u32)0U);
 		Xfpga_Printf(XFPGA_DEBUG, "Fail to load: Enable secure mode "
 			"and try Error Code: 0x%08x\r\n", Status);
-		goto END;
-	}
-
-	/* Initialize CSU DMA driver */
-	Status = XFpga_CsuDmaInit();
-	if (Status != XFPGA_SUCCESS) {
-		Status = XFPGA_PCAP_UPDATE_ERR(XFPGA_ERROR_CSUDMA_INIT_FAIL,
-						Status);
 		goto END;
 	}
 
@@ -464,7 +466,7 @@ static u32 XFpga_PreConfigPcap(const XFpga *InstancePtr)
 	RegVal = Xil_In32(PCAP_CLK_CTRL);
 	Xil_Out32(PCAP_CLK_CTRL, RegVal | PCAP_CLK_EN_MASK);
 
-	if ((InstancePtr->PLInfo.Flags & XFPGA_PARTIAL_EN) == 0U) {
+	if ((InstancePtr->WriteInfoPtr->Flags & XFPGA_PARTIAL_EN) == 0U) {
 		/* Power-Up PL */
 		Status = XFpga_PowerUpPl();
 		if (Status != XFPGA_SUCCESS) {
@@ -486,7 +488,7 @@ static u32 XFpga_PreConfigPcap(const XFpga *InstancePtr)
 		}
 	}
 
-	Status = XFpga_PcapInit(InstancePtr->PLInfo.Flags);
+	Status = XFpga_PcapInit(InstancePtr->WriteInfoPtr->Flags);
 	if (Status != XFPGA_SUCCESS) {
 		Status = XFPGA_PCAP_UPDATE_ERR((u32)XPFGA_ERROR_PCAP_INIT, (u32)0U);
 	}
@@ -575,7 +577,7 @@ static u32 XFpga_PostConfigPcap(const XFpga *InstancePtr)
 	u32 Status = XFPGA_SUCCESS;
 	u32 RegVal;
 
-	if ((InstancePtr->PLInfo.Flags & XFPGA_PARTIAL_EN) == 0U) {
+	if ((InstancePtr->WriteInfoPtr->Flags & XFPGA_PARTIAL_EN) == 0U) {
 		/* PS-PL reset Low */
 		(void)XFpga_PsPlGpioResetsLow(FPGA_NUM_FABRIC_RESETS);
 		usleep(XFPGA_PS_PL_RESET_TIME_US);
@@ -598,13 +600,13 @@ static u32 XFpga_PostConfigPcap(const XFpga *InstancePtr)
 	Xil_Out32(PCAP_CLK_CTRL, RegVal & ~(PCAP_CLK_EN_MASK));
 #ifdef XFPGA_SECURE_MODE
 	if (((u8 *)InstancePtr->WriteInfoPtr->AddrPtr_Size != NULL) &&
-	    ((InstancePtr->PLInfo.Flags & XFPGA_ENCRYPTION_USERKEY_EN) != 0U)) {
+	    ((InstancePtr->WriteInfoPtr->Flags & XFPGA_ENCRYPTION_USERKEY_EN) != 0U)) {
 		(void)memset((u8 *)InstancePtr->WriteInfoPtr->AddrPtr_Size, 0U,
 		KEY_LEN);
 	}
 #endif
 	if ((Status == XFPGA_SUCCESS) &&
-	    ((InstancePtr->PLInfo.Flags & XFPGA_SECURE_FLAGS) != 0U)) {
+	    ((InstancePtr->WriteInfoPtr->Flags & XFPGA_SECURE_FLAGS) != 0U)) {
 		XFpga_SetFirmwareState(XFPGA_FIRMWARE_STATE_SECURE);
 	} else if (Status == XFPGA_SUCCESS) {
 		XFpga_SetFirmwareState(XFPGA_FIRMWARE_STATE_NONSECURE);
