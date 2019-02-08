@@ -81,4 +81,5 @@ XStatus XPm_SetWakeupSource(const u32 TargetDeviceId,
 XStatus XPm_Query(const u32 QueryId, const u32 Arg1, const u32 Arg2,
 		  const u32 Arg3, u32 *const Data);
 int XPm_SetMaxLatency(const u32 DeviceId, const u32 Latency);
+int XPm_InitFinalize(void);
 #endif /* _XPM_CLIENT_API_H_ */

@@ -1501,3 +1501,17 @@ int XPm_SetMaxLatency(const u32 DeviceId, const u32 Latency)
 done:
 	return Status;
 }
+
+/****************************************************************************/
+/**
+ * @brief  This function is called to notify the power management controller
+ * about the completed power management initialization.
+ *
+ * @return XST_SUCCESS if successful, otherwise an error code
+ *
+ ****************************************************************************/
+int XPm_InitFinalize(void)
+{
+	XPm_Dbg("WARNING: %s() API is not supported\r\n", __func__);
+	return XST_SUCCESS;
+}
