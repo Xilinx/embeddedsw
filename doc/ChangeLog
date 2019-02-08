@@ -44,6 +44,7 @@ Upgrade lwip to open source version 2.1.1
 Fix cache handling in RX path for GEM.
 Fix freertos echo server compilation on emaclite platform.
 Pick correct compiler for R5.
+Update lwip examples to be in sync with new xilffs.
 
 ospipsv_v1_0:
 First Release.
