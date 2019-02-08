@@ -782,10 +782,16 @@ static void PmFpgaLoad(const PmMaster *const master,
 			const u32 KeyAddr, const u32 flags)
 {
 	u32 Status;
+	XFpga XFpgaInstance = {0U};
 	UINTPTR BitStreamAddr = ((u64)AddrHigh << 32)|AddrLow;
 
-       Status = XFpga_PL_BitStream_Load(BitStreamAddr, KeyAddr, flags);
-
+	Status = XFpga_Initialize(&XFpgaInstance);
+	if (Status != XST_SUCCESS) {
+		goto done;
+	}
+    Status = XFpga_PL_BitStream_Load(&XFpgaInstance, BitStreamAddr,
+				     KeyAddr, flags);
+  done:
        IPI_RESPONSE1(master->ipiMask, Status);
 }
 
@@ -795,11 +801,19 @@ static void PmFpgaLoad(const PmMaster *const master,
  */
 static void PmFpgaGetStatus(const PmMaster *const master)
 {
-	u32 value;
+	u32 Status = XST_SUCCESS;
+	u32 Value = 0;
+	XFpga XFpgaInstance = {0U};
 
-       value = XFpga_InterfaceStatus();
+	Status = XFpga_Initialize(&XFpgaInstance);
+	if (Status != XST_SUCCESS) {
+		goto done;
+	}
 
-       IPI_RESPONSE2(master->ipiMask, XST_SUCCESS, value);
+	Value = XFpga_InterfaceStatus(&XFpgaInstance);
+
+ done:
+	IPI_RESPONSE2(master->ipiMask, Status, Value);
 }
 
 /**
@@ -821,22 +835,26 @@ static void PmFpgaRead(const PmMaster *const master,
 		       const u32 AddrHigh, u32 Readback_Type)
 {
 	u32 Status;
-	u32 Value;
-	XFpga_Info PLInfo;
+	u32 Value = 0;
+	XFpga XFpgaInstance = {0U};
 	UINTPTR Address = ((u64)AddrHigh << 32)|AddrLow;
 
-	PLInfo.ReadbackAddr = Address;
-	PLInfo.NumFrames = Reg_Numframes;
+
+	Status = XFpga_Initialize(&XFpgaInstance);
+	if (Status != XST_SUCCESS) {
+		goto done;
+	}
 
 	if (Readback_Type) {
-		Status = XFpga_GetPlConfigData(&PLInfo);
+		Status = XFpga_GetPlConfigData(&XFpgaInstance, Address, Reg_Numframes);
 		Value = CFGDATA_DSTDMA_OFFSET/4;
-		IPI_RESPONSE2(master->ipiMask, Status, Value);
 	} else {
-		Status = XFpga_GetPlConfigReg(Reg_Numframes, Address);
+		Status = XFpga_GetPlConfigReg(&XFpgaInstance, Address, Reg_Numframes);
 		Value = *(UINTPTR *)Address;
-		IPI_RESPONSE2(master->ipiMask, Status, Value);
 	}
+
+ done:
+	IPI_RESPONSE2(master->ipiMask, Status, Value);
 }
 #endif
 
