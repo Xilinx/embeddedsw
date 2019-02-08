@@ -299,8 +299,6 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 	u8 *IvPtr = (u8 *)(UINTPTR)Iv;
 	u32 BitstreamPos = 0U;
 	u32 PartHeaderOffset = 0U;
-	u32 BitstreamOffset = 0U;
-	u32 BitstreamAddress = 0U;
 
 	if ((XFPGA_SECURE_MODE_EN == 0U) &&
 		((InstancePtr->WriteInfoPtr->Flags & XFPGA_SECURE_FLAGS) != 0U)) {
@@ -312,29 +310,20 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 	}
 
 	if ((InstancePtr->WriteInfoPtr->Flags & XFPGA_SECURE_FLAGS) == 0U) {
-		PartHeaderOffset = Xil_In32(
-				InstancePtr->WriteInfoPtr->BitstreamAddr
-				+ PARTATION_HEADER_OFFSET);
-		BitstreamOffset = Xil_In32(
-				InstancePtr->WriteInfoPtr->BitstreamAddr
-				+ PartHeaderOffset
-				+ BITSTREAM_PARTATION_OFFSET);
-		BitstreamAddress = (BitstreamOffset * WORD_LEN) +
-				InstancePtr->WriteInfoPtr->BitstreamAddr;
-
-		if (memcmp((u8 *)(BitstreamAddress + SYNC_BYTE_POSITION),
-		    BootgenBinFormat, ARRAY_LENGTH(BootgenBinFormat))) {
+		if(!(memcmp((u8 *)(InstancePtr->WriteInfoPtr->BitstreamAddr +
+		   BOOTGEN_DATA_OFFSET + SYNC_BYTE_POSITION),
+		   BootgenBinFormat, ARRAY_LENGTH(BootgenBinFormat)))) {
+			BitstreamPos = BOOTGEN_DATA_OFFSET;
+		} else {
 			Status = XFpga_SelectEndianess(
 				(u8 *)InstancePtr->WriteInfoPtr->BitstreamAddr,
 				(u32)InstancePtr->WriteInfoPtr->AddrPtr_Size,
 				&BitstreamPos);
+
 			if (Status != XFPGA_SUCCESS) {
-			Status = XFPGA_PCAP_UPDATE_ERR(Status, (u32)0U);
+				Status = XFPGA_PCAP_UPDATE_ERR(Status, (u32)0U);
 			}
 			goto END;
-		} else {
-			BitstreamPos = BOOTGEN_DATA_OFFSET;
-			Status = XFPGA_SUCCESS;
 		}
 	}
 
@@ -423,19 +412,20 @@ END:
 	if ((InstancePtr->WriteInfoPtr->Flags & XFPGA_SECURE_FLAGS) == 0U) {
 		if (Status == XFPGA_SUCCESS) {
 			if (BitstreamPos == BOOTGEN_DATA_OFFSET) {
+				PartHeaderOffset = Xil_In32(
+				InstancePtr->WriteInfoPtr->BitstreamAddr
+						+ PARTATION_HEADER_OFFSET);
 				InstancePtr->WriteInfoPtr->AddrPtr_Size =
 				Xil_In32(
 				InstancePtr->WriteInfoPtr->BitstreamAddr +
 				PartHeaderOffset) * WORD_LEN;
-				InstancePtr->WriteInfoPtr->BitstreamAddr =
-							BitstreamAddress;
-
 			} else {
 				InstancePtr->WriteInfoPtr->AddrPtr_Size -=
 								BitstreamPos;
-				InstancePtr->WriteInfoPtr->BitstreamAddr +=
-								BitstreamPos;
 			}
+
+			InstancePtr->WriteInfoPtr->BitstreamAddr +=
+								BitstreamPos;
 		} else {
 			Status = XFPGA_PCAP_UPDATE_ERR(Status, 0U);
 		}
@@ -575,6 +565,7 @@ END:
 static u32 XFpga_PostConfigPcap(const XFpga *InstancePtr)
 {
 	u32 Status = XFPGA_SUCCESS;
+	u8 EndianType = 0U;
 	u32 RegVal;
 
 	if ((InstancePtr->WriteInfoPtr->Flags & XFPGA_PARTIAL_EN) == 0U) {
@@ -613,6 +604,19 @@ static u32 XFpga_PostConfigPcap(const XFpga *InstancePtr)
 	} else {
 		XFpga_SetFirmwareState(XFPGA_FIRMWARE_STATE_UNKNOWN);
 	}
+
+	RegVal = XCsuDma_ReadReg(CsuDma.Config.BaseAddress,
+				 ((u32)(XCSUDMA_CTRL_OFFSET) +
+				 ((u32)XCSUDMA_SRC_CHANNEL *
+				 (u32)(XCSUDMA_OFFSET_DIFF))));
+
+	RegVal |= (EndianType << (u32)(XCSUDMA_CTRL_ENDIAN_SHIFT)) &
+			  (u32)(XCSUDMA_CTRL_ENDIAN_MASK);
+
+	XCsuDma_WriteReg(CsuDma.Config.BaseAddress,
+			 ((u32)(XCSUDMA_CTRL_OFFSET) +
+			 ((u32)XCSUDMA_SRC_CHANNEL *
+			 (u32)(XCSUDMA_OFFSET_DIFF))), RegVal);
 
 	return Status;
 }
@@ -2722,7 +2726,7 @@ static u32 XFpga_SelectEndianess(u8 *Buf, u32 Size, u32 *Pos)
 	u8 BitHdrSize = ARRAY_LENGTH(BootgenBinFormat);
 	u32 IsBitNonAligned;
 
-	for (Index = 0U; Index < Size; Index++) {
+	for (Index = 0U; Index <= BOOTGEN_DATA_OFFSET; Index++) {
 	/* Find the First Dummy Byte */
 		if (Buf[Index] == DUMMY_BYTE) {
 			if ((memcmp(&Buf[Index + SYNC_BYTE_POSITION],
