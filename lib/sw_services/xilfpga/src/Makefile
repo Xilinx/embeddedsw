@@ -34,6 +34,11 @@ EXTRA_COMPILER_FLAGS=
 
 LIB=libxilfpga.a
 
+ifeq ($(notdir $(COMPILER)) , iccarm)
+	EXTRA_ARCHIVE_FLAGS=--create
+else
+	EXTRA_ARCHIVE_FLAGS=rc
+endif
 RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
