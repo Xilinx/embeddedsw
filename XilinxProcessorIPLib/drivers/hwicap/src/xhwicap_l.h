@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2007 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xhwicap_l.h
-* @addtogroup hwicap_v11_1
+* @addtogroup hwicap_v11_2
 * @{
 *
 * This header file contains identifiers and basic driver functions (or
