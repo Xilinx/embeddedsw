@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2003 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2003 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xhwicap_i.h
-* @addtogroup hwicap_v11_1
+* @addtogroup hwicap_v11_2
 * @{
 *
 * This head file contains internal identifiers, which are those shared
