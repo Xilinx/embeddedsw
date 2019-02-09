@@ -1,5 +1,8 @@
 Change Log for lwip
 =================================
+2019-02-09
+	* PL Ethernet requires 8 byte padding when IEEE1588 is enabled;
+	  Migrate this change from lwip202 to lwip211.
 2019-02-05
 	* Pick correct compiler for R5
 2019-01-21
