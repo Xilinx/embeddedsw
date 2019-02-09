@@ -59,6 +59,8 @@
 *                        XilSKey_ZynqMP_EfusePs_ReadSysmonTemp functions
 * 6.6   vns     06/06/18 Added doxygen tags
 * 6.7	arc	01/05/19 Fixed MISRA-C violations.
+*       vns     02/09/19 Fixed buffer overflow access in
+*                        XilSKey_Efuse_ConvertStringToHexLE()
 *
  *****************************************************************************/
 
@@ -792,7 +794,7 @@ u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len)
 
 		StrIndex = (Len/8U) - 1U;
 		ConvertedLen = 0U;
-		while (ConvertedLen < Len) {
+		while (ConvertedLen < Len/4) {
 			/**
 			 * Convert char to nibble
 			 */
