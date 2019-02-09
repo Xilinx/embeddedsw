@@ -3549,8 +3549,7 @@ static inline u8 XilSKey_EfusePl_Ultra_Check(u8 Row,
 		/**
 		 * If row = 4 then bits should be supported from 0 to 5
 		 */
-		 if (((Row == XSK_EFUSEPL_SEC_ROW_ULTRA_PLUS) ||
-				 (Row == XSK_EFUSEPL_SEC_ROW_ULTRA_PLUS)) &&
+		 if ((Row == XSK_EFUSEPL_SEC_ROW_ULTRA_PLUS) &&
 			 (Bit > XSK_EFUSEPL_SEC_ROW_END_BIT_ULTRA) &&
 			 (Page == XSK_EFUSEPL_PAGE_0_ULTRA)) {
 			ErrorCode = XSK_EFUSEPL_ERROR_WRITE_BIT_OUT_OF_RANGE;

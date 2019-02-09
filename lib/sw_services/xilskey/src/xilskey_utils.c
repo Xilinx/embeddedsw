@@ -235,11 +235,10 @@ END:
 static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 					XSKEfusePs_XAdc *XAdcInstancePtr)
 {
+	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
 	if (NULL == XAdcInstancePtr) {
 		goto END;
 	}
-
-	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
 
 	if (NULL == XSysmonInstPtr) {
 		goto END;
@@ -278,12 +277,11 @@ END:
 static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
 				XSKEfusePs_XAdc *XAdcInstancePtr)
 {
+	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
+	u8 V;
 	if (NULL == XAdcInstancePtr) {
 		goto END;
 	}
-
-	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
-	u8 V;
 
 	if (NULL == XSysmonInstPtr) {
 		goto END;

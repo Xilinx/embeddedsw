@@ -506,6 +506,9 @@ static inline u32 XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits_Regs(
 
 	u32 RegData = 0U;
 	u32 Status = (u32)XST_SUCCESS;
+#ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
+	u32 Silicon_Ver;
+#endif
 
 	if (ReadOption == 0U) {
 		RegData = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
@@ -597,7 +600,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits_Regs(
 	 *  24:25 bits for 1.0 and 2.0 silicon version
 	 */
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-	u32 Silicon_Ver = XGetPSVersion_Info();
+	Silicon_Ver = XGetPSVersion_Info();
 	if (Silicon_Ver > (u32)XPS_VERSION_2) {
 		ReadBackSecCtrlBits->RSAEnable =
 		(u16)((RegData & XSK_ZYNQMP_EFUSEPS_SEC_CTRL_RSA_EN_MASK) >>
