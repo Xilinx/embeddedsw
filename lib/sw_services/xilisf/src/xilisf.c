@@ -110,6 +110,7 @@
  *                    CR#1015808.
  * 5.13 akm  01/30/19 Fixed multiple definition error in C++ project
  *                         CR#1019773
+ *      sk   02/11/19 Added support for OSPI flash interface.
  *
  *
  * </pre>
@@ -150,7 +151,8 @@ struct AtmelDeviceGeometry {
 	(XPAR_XISF_FLASH_FAMILY == WINBOND) ||      \
 	(XPAR_XISF_FLASH_FAMILY == SPANSION)) &&    \
 	((!defined(XPAR_XISF_INTERFACE_PSQSPI)) &&  \
-	(!defined(XPAR_XISF_INTERFACE_QSPIPSU))))
+	(!defined(XPAR_XISF_INTERFACE_QSPIPSU)) && \
+	(!defined(XPAR_XISF_INTERFACE_OSPIPSV))))
 /**
  * The following structure specifies the geometry of the Intel/STM Serial Flash.
  */
@@ -169,13 +171,15 @@ struct IntelStmDeviceGeometry {
  *  (XPAR_XISF_FLASH_FAMILY == WINBOND) || \
  *  (XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
  *  ((!defined(XPAR_XISF_INTERFACE_PSQSPI)) &&  \
- *  (!defined(XPAR_XISF_INTERFACE_QSPIPSU))))
+ *  (!defined(XPAR_XISF_INTERFACE_QSPIPSU)) && \
+ *	(!defined(XPAR_XISF_INTERFACE_OSPIPSV))))
  */
 
 #if (((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
 	(XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
 	(defined(XPAR_XISF_INTERFACE_PSQSPI)	|| \
-	defined(XPAR_XISF_INTERFACE_QSPIPSU)))
+	defined(XPAR_XISF_INTERFACE_QSPIPSU) || \
+	defined(XPAR_XISF_INTERFACE_OSPIPSV)))
 /**
  * The following structure specifies the geometry of the Spansion/Micron
  * Serial Flash.
@@ -215,7 +219,8 @@ struct SpaMicWinDeviceGeometry {
  * (((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
  * (XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
  * (defined(XPAR_XISF_INTERFACE_PSQSPI)  || \
- * defined(XPAR_XISF_INTERFACE_QSPIPSU)))
+ * defined(XPAR_XISF_INTERFACE_QSPIPSU) || \
+ * defined(XPAR_XISF_INTERFACE_OSPIPSV)))
  */
 
 
@@ -237,11 +242,14 @@ static int AtmelFlashInitialize(XIsf *InstancePtr, u8 *ReadBuf);
 	(XPAR_XISF_FLASH_FAMILY == WINBOND) || \
 	(XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
 	((!defined(XPAR_XISF_INTERFACE_PSQSPI)) && \
-	(!defined(XPAR_XISF_INTERFACE_QSPIPSU))))
+	(!defined(XPAR_XISF_INTERFACE_QSPIPSU)) && \
+	(!defined(XPAR_XISF_INTERFACE_OSPIPSV))))
 static int IntelStmFlashInitialize(XIsf *InstancePtr, u8 *ReadBuf);
 #endif
 #ifdef XPAR_XISF_INTERFACE_QSPIPSU
 	XQspiPsu_Msg FlashMsg[2];
+#elif defined(XPAR_XISF_INTERFACE_OSPIPSV)
+	static XOspiPsv_Msg FlashMsg;
 #endif
 /**
  * (((XPAR_XISF_FLASH_FAMILY == INTEL) || \
@@ -250,13 +258,15 @@ static int IntelStmFlashInitialize(XIsf *InstancePtr, u8 *ReadBuf);
  * (XPAR_XISF_FLASH_FAMILY == WINBOND) || \
  * (XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
  * ((!defined(XPAR_XISF_INTERFACE_PSQSPI)) && \
- * (!defined(XPAR_XISF_INTERFACE_QSPIPSU))))
+ * (!defined(XPAR_XISF_INTERFACE_QSPIPSU)) && \
+ * (!defined(XPAR_XISF_INTERFACE_OSPIPSV))))
  */
 
 #if (((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
 	(XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
 	(defined(XPAR_XISF_INTERFACE_PSQSPI) || \
-	defined(XPAR_XISF_INTERFACE_QSPIPSU)))
+	defined(XPAR_XISF_INTERFACE_QSPIPSU) || \
+	defined(XPAR_XISF_INTERFACE_OSPIPSV)))
 static int SpaMicWinFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr);
 
 #endif
@@ -264,7 +274,8 @@ static int SpaMicWinFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr);
  * (((XPAR_XISF_FLASH_FAMILY == WINBOND) ||	\
  * (XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
  * (defined(XPAR_XISF_INTERFACE_PSQSPI)	|| \
- * defined(XPAR_XISF_INTERFACE_QSPIPSU)))
+ * defined(XPAR_XISF_INTERFACE_QSPIPSU) || \
+ * defined(XPAR_XISF_INTERFACE_OSPIPSV)))
  */
 
 /************************** Variable Definitions *****************************/
@@ -308,7 +319,8 @@ static const struct AtmelDeviceGeometry AtmelDevices[] = {
 	(XPAR_XISF_FLASH_FAMILY == WINBOND) || \
 	(XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
 	((!defined(XPAR_XISF_INTERFACE_PSQSPI)) && \
-	(!defined(XPAR_XISF_INTERFACE_QSPIPSU))))
+	(!defined(XPAR_XISF_INTERFACE_QSPIPSU)) && \
+	(!defined(XPAR_XISF_INTERFACE_OSPIPSV))))
 static const struct IntelStmDeviceGeometry IntelStmDevices[] = {
 	{XISF_MANUFACTURER_ID_INTEL, XISF_INTEL_DEV_S3316MBIT,
 	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
@@ -562,7 +574,8 @@ static const struct IntelStmDeviceGeometry IntelStmDevices[] = {
  * (XPAR_XISF_FLASH_FAMILY == WINBOND) || \
  * (XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
  * ((!defined(XPAR_XISF_INTERFACE_PSQSPI)) && \
- * (!defined(XPAR_XISF_INTERFACE_QSPIPSU))))
+ * (!defined(XPAR_XISF_INTERFACE_QSPIPSU)) && \
+ * (!defined(XPAR_XISF_INTERFACE_OSPIPSV))))
  */
 
 #if (((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
@@ -719,6 +732,21 @@ static const struct SpaMicWinDeviceGeometry SpaMicWinDevices[] = {
  * defined(XPAR_XISF_INTERFACE_QSPIPSU)))
  */
 
+#if (((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
+	(XPAR_XISF_FLASH_FAMILY == SPANSION)) &&	\
+	(defined(XPAR_XISF_INTERFACE_OSPIPSV)))
+static const struct SpaMicWinDeviceGeometry SpaMicWinDevices[] = {
+	{0x20000, XISF_NUM_OF_SECTORS512, XISF_PAGES256_PER_SECTOR, 0x40000,
+		0x4000000, XISF_MANUFACTURER_ID_MICRON_OCTAL,
+		XISF_MICRON_OCTAL_ID_BYTE2_512, 0xFFFF0000, 1}
+};
+#endif
+/**
+ * (((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
+ * (XPAR_XISF_FLASH_FAMILY == SPANSION)) &&	\
+ * (defined(XPAR_XISF_INTERFACE_OSPIPSV)))
+ */
+
 /*
  * The following variables are shared between non-interrupt processing and
  * interrupt processing such that they must be global.
@@ -785,7 +813,7 @@ int XIsf_Initialize(XIsf *InstancePtr, XIsf_Iface *SpiInstPtr, u8 SlaveSelect,
 				u8 *WritePtr)
 {
 	int Status;
-	u8 ReadBuf[XISF_INFO_READ_BYTES + XISF_INFO_EXTRA_BYTES] = {0};
+	u8 ReadBuf[XISF_INFO_READ_BYTES + XISF_INFO_EXTRA_BYTES] __attribute__ ((aligned(4))) = {0};
 
 	if (InstancePtr == NULL)
 		return (int)(XST_FAILURE);
@@ -808,6 +836,11 @@ int XIsf_Initialize(XIsf *InstancePtr, XIsf_Iface *SpiInstPtr, u8 SlaveSelect,
 	if ((!InstancePtr->RegDone) != 0)
 		(void)XIsf_SetSpiConfiguration(InstancePtr, SpiInstPtr,
 				XISF_SPI_OPTIONS, XISF_SPI_PRESCALER);
+
+#ifdef XPAR_XISF_INTERFACE_OSPIPSV
+	InstancePtr->XIsf_Iface_SetSlaveSelect(InstancePtr->SpiInstPtr,
+			InstancePtr->SpiSlaveSelect);
+#endif
 
 	/*
 	 * Get the JEDEC Device Info.
@@ -850,7 +883,8 @@ int XIsf_Initialize(XIsf *InstancePtr, XIsf_Iface *SpiInstPtr, u8 SlaveSelect,
 	(XPAR_XISF_FLASH_FAMILY == WINBOND) || \
 	(XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
 	((!defined(XPAR_XISF_INTERFACE_PSQSPI)) && \
-	(!defined(XPAR_XISF_INTERFACE_QSPIPSU))))
+	(!defined(XPAR_XISF_INTERFACE_QSPIPSU)) && \
+	(!defined(XPAR_XISF_INTERFACE_OSPIPSV))))
 
 	/*
 	 * Check for Intel/STM/Winbond/Spansion Serial Flash.
@@ -865,12 +899,14 @@ int XIsf_Initialize(XIsf *InstancePtr, XIsf_Iface *SpiInstPtr, u8 SlaveSelect,
  * (XPAR_XISF_FLASH_FAMILY == WINBOND) || \
  * (XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
  * ((!defined(XPAR_XISF_INTERFACE_PSQSPI)) && \
- * (!defined(XPAR_XISF_INTERFACE_QSPIPSU))))
+ * (!defined(XPAR_XISF_INTERFACE_QSPIPSU)) && \
+ * (!defined(XPAR_XISF_INTERFACE_OSPIPSV))))
  */
 #if (((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
 	(XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
 	(defined(XPAR_XISF_INTERFACE_PSQSPI) || \
-	defined(XPAR_XISF_INTERFACE_QSPIPSU)))
+	defined(XPAR_XISF_INTERFACE_QSPIPSU) || \
+	defined(XPAR_XISF_INTERFACE_OSPIPSV)))
 
 	Status = SpaMicWinFlashInitialize(InstancePtr, ReadBuf);
 
@@ -879,7 +915,8 @@ int XIsf_Initialize(XIsf *InstancePtr, XIsf_Iface *SpiInstPtr, u8 SlaveSelect,
  * (((XPAR_XISF_FLASH_FAMILY == WINBOND) ||	\
  * (XPAR_XISF_FLASH_FAMILY == SPANSION)) &&	\
  * (defined(XPAR_XISF_INTERFACE_PSQSPI) || \
- * defined(XPAR_XISF_INTERFACE_QSPIPSU)))
+ * defined(XPAR_XISF_INTERFACE_QSPIPSU) || \
+ * defined(XPAR_XISF_INTERFACE_OSPIPSV)))
  */
 
 	return Status;
@@ -1008,9 +1045,14 @@ int XIsf_GetStatus(XIsf *InstancePtr, u8 *ReadPtr)
 	 */
 	Mode = XIsf_GetTransferMode(InstancePtr);
 
-	if (Mode == XISF_INTERRUPT_MODE)
+	if (Mode == XISF_INTERRUPT_MODE) {
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 		InstancePtr->StatusHandler(InstancePtr,
-			XIsf_StatusEventInfo, XIsf_ByteCountInfo);
+				XIsf_StatusEventInfo, XIsf_ByteCountInfo);
+#else
+	InstancePtr->StatusHandler(InstancePtr, XIsf_StatusEventInfo);
+#endif
+	}
 
 	if (Status != (int)(XST_SUCCESS))
 		return (int)(XST_FAILURE);
@@ -1125,7 +1167,8 @@ int XIsf_GetDeviceInfo(XIsf *InstancePtr, u8 *ReadPtr)
 {
 	int Status;
 	u8 Mode;
-#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+#if (defined(XPAR_XISF_INTERFACE_QSPIPSU) || \
+		defined(XPAR_XISF_INTERFACE_OSPIPSV))
 	u8 *NULLPtr = NULL;
 #endif
 
@@ -1139,6 +1182,26 @@ int XIsf_GetDeviceInfo(XIsf *InstancePtr, u8 *ReadPtr)
 		return (int)(XST_FAILURE);
 
 #ifndef XPAR_XISF_INTERFACE_QSPIPSU
+#ifdef XPAR_XISF_INTERFACE_OSPIPSV
+	FlashMsg.Opcode = XISF_CMD_ISFINFO_READ;
+	FlashMsg.Addrsize = 0;
+	FlashMsg.Addrvalid = 0;
+	FlashMsg.TxBfrPtr = NULL;
+	FlashMsg.RxBfrPtr = ReadPtr;
+	FlashMsg.ByteCount = 6;
+	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
+	FlashMsg.Dummy = 0;
+	FlashMsg.IsDDROpCode = 0;
+	if (InstancePtr->SpiInstPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.Dummy = 8;
+		FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
+	}
+	InstancePtr->SpiInstPtr->Msg = &FlashMsg;
+	/*
+	 * Initiate the Transfer.
+	 */
+	Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, XISF_INFO_READ_BYTES);
+#else
 	/*
 	 * Prepare the Write Buffer.
 	 */
@@ -1153,6 +1216,7 @@ int XIsf_GetDeviceInfo(XIsf *InstancePtr, u8 *ReadPtr)
 	 */
 	Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr,
 				ReadPtr, XISF_INFO_READ_BYTES);
+#endif
 #else
 	InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_ISFINFO_READ;
 	FlashMsg[0].TxBfrPtr = InstancePtr->WriteBufPtr;
@@ -1178,9 +1242,14 @@ int XIsf_GetDeviceInfo(XIsf *InstancePtr, u8 *ReadPtr)
 	 */
 	Mode = XIsf_GetTransferMode(InstancePtr);
 
-	if (Mode == XISF_INTERRUPT_MODE)
+	if (Mode == XISF_INTERRUPT_MODE) {
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 		InstancePtr->StatusHandler(InstancePtr,
-			XIsf_StatusEventInfo, XIsf_ByteCountInfo);
+				XIsf_StatusEventInfo, XIsf_ByteCountInfo);
+#else
+	InstancePtr->StatusHandler(InstancePtr, XIsf_StatusEventInfo);
+#endif
+	}
 
 	if (Status != (int)(XST_SUCCESS))
 		return (int)(XST_FAILURE);
@@ -1247,12 +1316,29 @@ int XIsf_WriteEnable(XIsf *InstancePtr, u8 WriteEnable)
 	 */
 	Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, 1);
 #else
-
+#ifdef XPAR_XISF_INTERFACE_OSPIPSV
+	(void)WriteEnableBuf[BYTE1];
+	FlashMsg.Opcode = XISF_CMD_ENABLE_WRITE;
+	FlashMsg.Addrsize = 0;
+	FlashMsg.Addrvalid = 0;
+	FlashMsg.TxBfrPtr = NULL;
+	FlashMsg.RxBfrPtr = NULL;
+	FlashMsg.ByteCount = 0;
+	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+	FlashMsg.IsDDROpCode = 0;
+	FlashMsg.Proto = 0;
+	if (InstancePtr->SpiInstPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
+	}
+	InstancePtr->SpiInstPtr->Msg = &FlashMsg;
+	Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, FlashMsg.ByteCount);
+#else
 	/*
 	 * Initiate the Transfer.
 	 */
 	Status = XIsf_Transfer(InstancePtr, WriteEnableBuf, NULLPtr,
 				XISF_CMD_WRITE_ENABLE_DISABLE_BYTES);
+#endif
 #endif
 
 	/*
@@ -1260,9 +1346,14 @@ int XIsf_WriteEnable(XIsf *InstancePtr, u8 WriteEnable)
 	 */
 	Mode = XIsf_GetTransferMode(InstancePtr);
 
-	if (Mode == XISF_INTERRUPT_MODE)
+	if (Mode == XISF_INTERRUPT_MODE) {
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 		InstancePtr->StatusHandler(InstancePtr,
-			XIsf_StatusEventInfo, XIsf_ByteCountInfo);
+				XIsf_StatusEventInfo, XIsf_ByteCountInfo);
+#else
+	InstancePtr->StatusHandler(InstancePtr, XIsf_StatusEventInfo);
+#endif
+	}
 
 #endif
 /**
@@ -1382,9 +1473,14 @@ int XIsf_Ioctl(XIsf *InstancePtr, XIsf_IoctlOperation Operation)
 	 */
 	Mode = XIsf_GetTransferMode(InstancePtr);
 
-	if (Mode == XISF_INTERRUPT_MODE)
+	if (Mode == XISF_INTERRUPT_MODE) {
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 		InstancePtr->StatusHandler(InstancePtr,
-			XIsf_StatusEventInfo, XIsf_ByteCountInfo);
+				XIsf_StatusEventInfo, XIsf_ByteCountInfo);
+#else
+		InstancePtr->StatusHandler(InstancePtr, XIsf_StatusEventInfo);
+#endif
+	}
 #else
 	Status = (int)(XST_FAILURE);
 
@@ -1423,11 +1519,15 @@ int XIsf_Ioctl(XIsf *InstancePtr, XIsf_IoctlOperation Operation)
 int XIsf_Transfer(XIsf *InstancePtr, u8 *WritePtr, u8 *ReadPtr, u32 ByteCount)
 {
 	int Status = XST_SUCCESS;
-#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+#if (defined(XPAR_XISF_INTERFACE_QSPIPSU) || \
+		defined(XPAR_XISF_INTERFACE_OSPIPSV))
 	if (WritePtr != NULL || ReadPtr != NULL) {
 		WritePtr = NULL;
 		ReadPtr = NULL;
 	}
+#endif
+#ifdef XPAR_XISF_INTERFACE_OSPIPSV
+	(void)ByteCount;
 #endif
 	/*
 	 * Select the Serial Flash as a slave.
@@ -1435,7 +1535,8 @@ int XIsf_Transfer(XIsf *InstancePtr, u8 *WritePtr, u8 *ReadPtr, u32 ByteCount)
 #ifdef XPAR_XISF_INTERFACE_PSQSPI
 	Status = InstancePtr->XIsf_Iface_SetSlaveSelect(
 				InstancePtr->SpiInstPtr);
-#elif (!defined(XPAR_XISF_INTERFACE_QSPIPSU))
+#elif ((!defined(XPAR_XISF_INTERFACE_QSPIPSU)) && \
+		(!defined(XPAR_XISF_INTERFACE_OSPIPSV)))
 	Status = InstancePtr->XIsf_Iface_SetSlaveSelect(
 				InstancePtr->SpiInstPtr,
 				InstancePtr->SpiSlaveSelect);
@@ -1468,13 +1569,17 @@ int XIsf_Transfer(XIsf *InstancePtr, u8 *WritePtr, u8 *ReadPtr, u32 ByteCount)
 	if (InstancePtr->IntrMode == XISF_INTERRUPT_MODE) {
 #if defined(XPAR_XISF_INTERFACE_PSQSPI) || \
 	defined(XPAR_XISF_INTERFACE_PSSPI) || \
-	defined(XPAR_XISF_INTERFACE_QSPIPSU)
+	defined(XPAR_XISF_INTERFACE_QSPIPSU) || \
+	defined(XPAR_XISF_INTERFACE_OSPIPSV)
 		XIsf_TransferInProgress = TRUE;
 #endif
 #ifdef XPAR_XISF_INTERFACE_QSPIPSU
 		Status = InstancePtr->XIsf_Iface_Transfer(
 				InstancePtr->SpiInstPtr,
 				InstancePtr->SpiInstPtr->Msg, ByteCount);
+#elif defined(XPAR_XISF_INTERFACE_OSPIPSV)
+		Status = InstancePtr->XIsf_Iface_Transfer(
+			InstancePtr->SpiInstPtr, InstancePtr->SpiInstPtr->Msg);
 #else
 		Status = InstancePtr->XIsf_Iface_Transfer(
 				InstancePtr->SpiInstPtr,
@@ -1482,7 +1587,8 @@ int XIsf_Transfer(XIsf *InstancePtr, u8 *WritePtr, u8 *ReadPtr, u32 ByteCount)
 #endif
 #if defined(XPAR_XISF_INTERFACE_PSQSPI) || \
 	defined(XPAR_XISF_INTERFACE_PSSPI) || \
-	defined(XPAR_XISF_INTERFACE_QSPIPSU)
+	defined(XPAR_XISF_INTERFACE_QSPIPSU) || \
+	defined(XPAR_XISF_INTERFACE_OSPIPSV)
 		while (1) {
 			if (XIsf_TransferInProgress == 0)
 				break;
@@ -1493,6 +1599,9 @@ int XIsf_Transfer(XIsf *InstancePtr, u8 *WritePtr, u8 *ReadPtr, u32 ByteCount)
 		Status = InstancePtr->XIsf_Iface_PolledTransfer(
 				InstancePtr->SpiInstPtr,
 				InstancePtr->SpiInstPtr->Msg, ByteCount);
+#elif defined(XPAR_XISF_INTERFACE_OSPIPSV)
+		Status = InstancePtr->XIsf_Iface_PolledTransfer(
+			InstancePtr->SpiInstPtr, InstancePtr->SpiInstPtr->Msg);
 #else
 		Status = InstancePtr->XIsf_Iface_PolledTransfer(
 				InstancePtr->SpiInstPtr,
@@ -1543,6 +1652,12 @@ void XIsf_RegisterInterface(XIsf *InstancePtr)
 	InstancePtr->XIsf_Iface_Transfer = XQspiPs_Transfer;
 	InstancePtr->XIsf_Iface_PolledTransfer = XQspiPs_PolledTransfer;
 	InstancePtr->XIsf_Iface_SetClkPrescaler = XQspiPs_SetClkPrescaler;
+#elif XPAR_XISF_INTERFACE_OSPIPSV
+	InstancePtr->XIsf_Iface_SetOptions = XOspiPsv_SetOptions;
+	InstancePtr->XIsf_Iface_SetSlaveSelect = XOspiPsv_SelectFlash;
+	InstancePtr->XIsf_Iface_Transfer = XOspiPsv_IntrTransfer;
+	InstancePtr->XIsf_Iface_PolledTransfer = XOspiPsv_PollTransfer;
+	InstancePtr->XIsf_Iface_SetClkPrescaler = XOspiPsv_SetClkPrescaler;
 #endif
 }
 
@@ -1687,7 +1802,8 @@ static int AtmelFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
 
 #if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
 	(defined(XPAR_XISF_INTERFACE_AXISPI) || \
-	defined(XPAR_XISF_INTERFACE_QSPIPSU)))
+	defined(XPAR_XISF_INTERFACE_QSPIPSU) || \
+	defined(XPAR_XISF_INTERFACE_OSPIPSV)))
 /*****************************************************************************/
 /**
  * @brief
@@ -1711,7 +1827,10 @@ int XIsf_MicronFlashEnter4BAddMode(XIsf *InstancePtr)
 	u8 Mode;
 #ifdef XPAR_XISF_INTERFACE_QSPIPSU
 	u8 ReadStatusCmd, FSRFlag;
-	u8 FlashStatus[2] = {0};
+#endif
+#if (defined(XPAR_XISF_INTERFACE_QSPIPSU) || \
+		defined(XPAR_XISF_INTERFACE_OSPIPSV))
+	u8 FlashStatus[2] __attribute__ ((aligned(4))) = {0};
 #endif
 	u8  FlashMake;
 
@@ -1726,14 +1845,14 @@ int XIsf_MicronFlashEnter4BAddMode(XIsf *InstancePtr)
 
 	if (InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_MICRON ||
 		InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_MACRONIX ||
-		InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_ISSI) {
+		InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_ISSI ||
+		InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_MICRON_OCTAL) {
 
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
 		FlashMake = (u32)InstancePtr->ManufacturerID;
 
 		InstancePtr->WriteBufPtr[BYTE1] =
 				XISF_CMD_ENTER_4BYTE_ADDR_MODE;
-
-#ifdef XPAR_XISF_INTERFACE_QSPIPSU
 		/*
 		 * Enable write before transfer
 		 */
@@ -1802,16 +1921,78 @@ int XIsf_MicronFlashEnter4BAddMode(XIsf *InstancePtr)
 			}
 		}
 #else
+#ifdef XPAR_XISF_INTERFACE_OSPIPSV
+		(void)FlashMake;
+		/*
+		 * Enable write before transfer
+		 */
+		Status = XIsf_WriteEnable(InstancePtr, XISF_WRITE_ENABLE);
+		if (Status != (int)XST_SUCCESS)
+			return (int)XST_FAILURE;
+
+		FlashMsg.Opcode = XISF_CMD_ENTER_4BYTE_ADDR_MODE;
+		FlashMsg.Addrvalid = 0;
+		FlashMsg.Addrsize = 0;
+		FlashMsg.TxBfrPtr = NULL;
+		FlashMsg.RxBfrPtr = NULL;
+		FlashMsg.ByteCount = 0;
+		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+		FlashMsg.IsDDROpCode = 0;
+		FlashMsg.Proto = 0;
+		if (InstancePtr->SpiInstPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+			FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
+		}
+		InstancePtr->SpiInstPtr->Msg = &FlashMsg;
+		Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, FlashMsg.ByteCount);
+		if (Status != (int)XST_SUCCESS)
+			return (int)XST_FAILURE;
+
+		while (1) {
+			FlashMsg.Opcode = READ_FLAG_STATUS_CMD;
+			FlashMsg.Addrsize = 0;
+			FlashMsg.Addrvalid = 0;
+			FlashMsg.TxBfrPtr = NULL;
+			FlashMsg.RxBfrPtr = FlashStatus;
+			FlashMsg.ByteCount = 1;
+			FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
+			FlashMsg.Dummy = 0;
+			FlashMsg.IsDDROpCode = 0;
+			FlashMsg.Proto = 0;
+			if (InstancePtr->SpiInstPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+				FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
+				FlashMsg.ByteCount = 2;
+				FlashMsg.Dummy = 8;
+			}
+			InstancePtr->SpiInstPtr->Msg = &FlashMsg;
+			Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, FlashMsg.ByteCount);
+			if (Status != (int)XST_SUCCESS)
+				return (int)XST_FAILURE;
+
+			if ((FlashStatus[0] & 0x80) != 0)
+				break;
+		}
+
+#else
+		FlashMake = (u32)InstancePtr->ManufacturerID;
+
+		InstancePtr->WriteBufPtr[BYTE1] =
+				XISF_CMD_ENTER_4BYTE_ADDR_MODE;
 
 		Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr,
 				NULLPtr, XISF_CMD_4BYTE_ADDR_ENTER_EXIT_BYTES);
 #endif
+#endif
 
 		Mode = XIsf_GetTransferMode(InstancePtr);
 
-		if (Mode == XISF_INTERRUPT_MODE)
+		if (Mode == XISF_INTERRUPT_MODE) {
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 			InstancePtr->StatusHandler(InstancePtr,
-				XIsf_StatusEventInfo, XIsf_ByteCountInfo);
+					XIsf_StatusEventInfo, XIsf_ByteCountInfo);
+#else
+		InstancePtr->StatusHandler(InstancePtr, XIsf_StatusEventInfo);
+#endif
+		}
 
 		if (Status != (int)(XST_SUCCESS))
 			return (int)(XST_FAILURE);
@@ -1844,7 +2025,10 @@ int XIsf_MicronFlashExit4BAddMode(XIsf *InstancePtr)
 	u8 Mode;
 #ifdef XPAR_XISF_INTERFACE_QSPIPSU
 	u8 ReadStatusCmd, FSRFlag;
-	u8 FlashStatus[2] = {0};
+#endif
+#if (defined(XPAR_XISF_INTERFACE_QSPIPSU) || \
+		defined(XPAR_XISF_INTERFACE_OSPIPSV))
+	u8 FlashStatus[2] __attribute__ ((aligned(4))) = {0};
 #endif
 	u8 FlashMake;
 
@@ -1859,8 +2043,10 @@ int XIsf_MicronFlashExit4BAddMode(XIsf *InstancePtr)
 
 	if (InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_MICRON ||
 		InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_MACRONIX ||
-		InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_ISSI) {
+		InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_ISSI ||
+		InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_MICRON_OCTAL) {
 
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
 		FlashMake = (u32)InstancePtr->ManufacturerID;
 
 		if (InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_ISSI) {
@@ -1870,8 +2056,6 @@ int XIsf_MicronFlashExit4BAddMode(XIsf *InstancePtr)
 			InstancePtr->WriteBufPtr[BYTE1] =
 					XISF_CMD_EXIT_4BYTE_ADDR_MODE;
 		}
-
-#ifdef XPAR_XISF_INTERFACE_QSPIPSU
 		/*
 		 * Enable write before transfer
 		 */
@@ -1940,15 +2124,83 @@ int XIsf_MicronFlashExit4BAddMode(XIsf *InstancePtr)
 			}
 		}
 #else
+#ifdef XPAR_XISF_INTERFACE_OSPIPSV
+		(void)FlashMake;
+		/*
+		 * Enable write before transfer
+		 */
+		Status = XIsf_WriteEnable(InstancePtr, XISF_WRITE_ENABLE);
+		if (Status != (int)XST_SUCCESS)
+			return (int)XST_FAILURE;
+
+		FlashMsg.Opcode = XISF_CMD_EXIT_4BYTE_ADDR_MODE;
+		FlashMsg.Addrvalid = 0;
+		FlashMsg.Addrsize = 0;
+		FlashMsg.TxBfrPtr = NULL;
+		FlashMsg.RxBfrPtr = NULL;
+		FlashMsg.ByteCount = 0;
+		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+		FlashMsg.Addrsize = 3;
+		FlashMsg.IsDDROpCode = 0;
+		FlashMsg.Proto = 0;
+		if (InstancePtr->SpiInstPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+			FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
+		}
+		InstancePtr->SpiInstPtr->Msg = &FlashMsg;
+		Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, FlashMsg.ByteCount);
+		if (Status != (int)XST_SUCCESS)
+			return (int)XST_FAILURE;
+
+		while (1) {
+			FlashMsg.Opcode = READ_FLAG_STATUS_CMD;
+			FlashMsg.Addrsize = 0;
+			FlashMsg.Addrvalid = 0;
+			FlashMsg.TxBfrPtr = NULL;
+			FlashMsg.RxBfrPtr = FlashStatus;
+			FlashMsg.ByteCount = 1;
+			FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
+			FlashMsg.Dummy = 0;
+			FlashMsg.IsDDROpCode = 0;
+			FlashMsg.Proto = 0;
+			if (InstancePtr->SpiInstPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+				FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
+				FlashMsg.ByteCount = 2;
+				FlashMsg.Dummy = 8;
+			}
+			InstancePtr->SpiInstPtr->Msg = &FlashMsg;
+			Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, FlashMsg.ByteCount);
+			if (Status != (int)XST_SUCCESS)
+				return (int)XST_FAILURE;
+
+			if ((FlashStatus[0] & 0x80) != 0)
+				break;
+		}
+
+#else
+		FlashMake = (u32)InstancePtr->ManufacturerID;
+
+		if (InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_ISSI) {
+			InstancePtr->WriteBufPtr[BYTE1] =
+					XISF_CMD_EXIT_4BYTE_ADDR_MODE_ISSI;
+		} else {
+			InstancePtr->WriteBufPtr[BYTE1] =
+					XISF_CMD_EXIT_4BYTE_ADDR_MODE;
+		}
 		Status = XIsf_Transfer(InstancePtr, InstancePtr->WriteBufPtr,
 				NULLPtr, XISF_CMD_4BYTE_ADDR_ENTER_EXIT_BYTES);
+#endif
 #endif
 
 		Mode = XIsf_GetTransferMode(InstancePtr);
 
-		if (Mode == XISF_INTERRUPT_MODE)
+		if (Mode == XISF_INTERRUPT_MODE) {
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 			InstancePtr->StatusHandler(InstancePtr,
-				XIsf_StatusEventInfo, XIsf_ByteCountInfo);
+					XIsf_StatusEventInfo, XIsf_ByteCountInfo);
+#else
+		InstancePtr->StatusHandler(InstancePtr, XIsf_StatusEventInfo);
+#endif
+		}
 
 		if (Status != (int)(XST_SUCCESS))
 			return (int)(XST_FAILURE);
@@ -1960,7 +2212,8 @@ int XIsf_MicronFlashExit4BAddMode(XIsf *InstancePtr)
 /*
  * ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
  * (defined(XPAR_XISF_INTERFACE_AXISPI) || \
- * defined (XPAR_XISF_INTERFACE_QSPIPSU)))
+ * defined (XPAR_XISF_INTERFACE_QSPIPSU)|| \
+ * defined(XPAR_XISF_INTERFACE_OSPIPSV)))
  */
 
 #if (((XPAR_XISF_FLASH_FAMILY == INTEL) || \
@@ -1969,7 +2222,8 @@ int XIsf_MicronFlashExit4BAddMode(XIsf *InstancePtr)
 	(XPAR_XISF_FLASH_FAMILY == WINBOND) || \
 	(XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
 	(!defined(XPAR_XISF_INTERFACE_PSQSPI)) && \
-	(!defined(XPAR_XISF_INTERFACE_QSPIPSU)))
+	(!defined(XPAR_XISF_INTERFACE_QSPIPSU)) && \
+	(!defined(XPAR_XISF_INTERFACE_OSPIPSV)))
 /*****************************************************************************/
 /**
  *
@@ -2057,13 +2311,15 @@ static int IntelStmFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
  * (XPAR_XISF_FLASH_FAMILY == WINBOND) || \
  * (XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
  * (!defined(XPAR_XISF_INTERFACE_PSQSPI)) && \
- * (!defined(XPAR_XISF_INTERFACE_QSPIPSU)))
+ * (!defined(XPAR_XISF_INTERFACE_QSPIPSU)) && \
+ * (!defined(XPAR_XISF_INTERFACE_OSPIPSV)))
  */
 
 #if  (((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
 	(XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
 	(defined(XPAR_XISF_INTERFACE_PSQSPI) || \
-	defined(XPAR_XISF_INTERFACE_QSPIPSU)))
+	defined(XPAR_XISF_INTERFACE_QSPIPSU) || \
+	defined(XPAR_XISF_INTERFACE_OSPIPSV)))
 /*****************************************************************************/
 /**
  *
@@ -2087,11 +2343,17 @@ static int SpaMicWinFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
 {
 	unsigned int StartIndex;
 	u32 FlashMake;
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 	u8 *WriteBfrPtr = InstancePtr->WriteBufPtr;
+#endif
 	int Status;
 
-#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+#if (defined(XPAR_XISF_INTERFACE_QSPIPSU) ||\
+		defined(XPAR_XISF_INTERFACE_OSPIPSV))
 	u8 *NULLPtr = NULL;
+#endif
+
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
 	/*
 	 * Read ID
 	 */
@@ -2114,6 +2376,26 @@ static int SpaMicWinFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
 	BufferPtr[1] = BufferPtr[0];
 	BufferPtr[3] = BufferPtr[2];
 #else
+#ifdef XPAR_XISF_INTERFACE_OSPIPSV
+	FlashMsg.Opcode = XISF_CMD_ISFINFO_READ;
+	FlashMsg.Addrsize = 0;
+	FlashMsg.Addrvalid = 0;
+	FlashMsg.TxBfrPtr = NULL;
+	FlashMsg.RxBfrPtr = BufferPtr;
+	FlashMsg.ByteCount = 6;
+	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
+	FlashMsg.Dummy = 0;
+	FlashMsg.IsDDROpCode = 0;
+	if (InstancePtr->SpiInstPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.Dummy = 8;
+		FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
+	}
+	InstancePtr->SpiInstPtr->Msg = &FlashMsg;
+	/*
+	 * Initiate the Transfer.
+	 */
+	Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, XISF_INFO_READ_BYTES);
+#else
 	/*
 	 * Read ID in Auto mode.
 	 */
@@ -2125,9 +2407,17 @@ static int SpaMicWinFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
 	Status = XIsf_Transfer(InstancePtr, WriteBfrPtr, BufferPtr,
 				RD_ID_SIZE);
 #endif
+#endif
 	if (Status != (int)(XST_SUCCESS))
 		return (int)(XST_FAILURE);
 
+#ifdef XPAR_XISF_INTERFACE_OSPIPSV
+	if (BufferPtr[0] == XISF_MANUFACTURER_ID_MICRON_OCTAL) {
+		FlashMake = XISF_MANUFACTURER_ID_MICRON_OCTAL;
+		StartIndex = 0;
+		XIsf_FCTIndex = StartIndex;
+	}
+#else
 	/*
 	 * Deduce flash make
 	 */
@@ -2367,6 +2657,7 @@ static int SpaMicWinFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
 			break;
 		}
 	}
+#endif
 
 	/*
 	 * Populate the InstancePtr members with the appropriate values
@@ -2381,6 +2672,13 @@ static int SpaMicWinFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
 	InstancePtr->SectorSize = SpaMicWinDevices[XIsf_FCTIndex].SectSize;
 	InstancePtr->NumSectors = SpaMicWinDevices[XIsf_FCTIndex].NumSect;
 	InstancePtr->IsReady = TRUE;
+
+#if (XPAR_XISF_FLASH_FAMILY == SPANSION) && \
+		defined(XPAR_XISF_INTERFACE_OSPIPSV)
+	Status = XIsf_MicronFlashEnter4BAddMode(InstancePtr);
+	if (Status != (int)(XST_SUCCESS))
+		return (int)(XST_FAILURE);
+#endif
 
 #if (XPAR_XISF_FLASH_FAMILY == SPANSION) && \
 	defined(XPAR_XISF_INTERFACE_QSPIPSU)
@@ -2422,9 +2720,11 @@ static int SpaMicWinFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
  * (((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
  * (XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
  * (defined(XPAR_XISF_INTERFACE_PSQSPI) || \
- * defined (XPAR_XISF_INTERFACE_QSPIPSU)))
+ * defined (XPAR_XISF_INTERFACE_QSPIPSU) || \
+ * defined(XPAR_XISF_INTERFACE_OSPIPSV)))
  */
 
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 /*****************************************************************************/
 /**
  * This functions translates the address based on the type of interconnection.
@@ -2529,6 +2829,39 @@ u32 GetRealAddr(XIsf_Iface *QspiPtr, u32 Address)
 #endif
 	return(RealAddr);
 }
+#endif
+
+#ifdef XPAR_XISF_INTERFACE_OSPIPSV
+/*****************************************************************************/
+/**
+*
+* The purpose of this function is to determine the number of lines used
+* for command, address and data
+*
+* @param	InstancePtr is a pointer to the xilisf structure.
+* @param	Read is to tell whether a read or write
+*
+* @return	returns value to program the lines for command, address and data.
+*
+* @note		None.
+*
+*****************************************************************************/
+u32 XIsf_Get_ProtoType(XIsf *InstancePtr, int Read)
+{
+	u32 Val;
+
+	if(Read) {
+		Val = XOSPIPSV_READ_1_8_8;
+	} else {
+		if (InstancePtr->SpiInstPtr->OpMode == XOSPIPSV_IDAC_MODE) {
+			Val = XOSPIPSV_WRITE_1_1_1;
+		} else {
+			Val = XOSPIPSV_WRITE_1_1_8;
+		}
+	}
+	return Val;
+}
+#endif
 
 #ifdef XPAR_XISF_INTERFACE_PSQSPI
 /*****************************************************************************/
@@ -2654,13 +2987,16 @@ void XIsf_SetStatusHandler(XIsf *InstancePtr, XIsf_Iface *XIfaceInstancePtr,
 #elif XPAR_XISF_INTERFACE_AXISPI
 	XSpi_SetStatusHandler(XIfaceInstancePtr, XIfaceInstancePtr,
 				 (XSpi_StatusHandler) XIsf_IfaceHandler);
+#elif XPAR_XISF_INTERFACE_OSPIPSV
+	XOspiPsv_SetStatusHandler(XIfaceInstancePtr, XIfaceInstancePtr,
+				 (XOspiPsv_StatusHandler) XIsf_IfaceHandler);
 #endif
 
 	InstancePtr->StatusHandler = XilIsf_Handler;
 }
 
 
-
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 /*****************************************************************************/
 /**
  * @brief
@@ -2694,3 +3030,36 @@ void XIsf_IfaceHandler(void *CallBackRef, u32 StatusEvent,
 	XIsf_ByteCountInfo = ByteCount;
 
 }
+#else
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This API is the handler which performs processing for the QSPI driver.
+ * It is called from an interrupt context such that the amount of processing
+ * performed should be minimized.  It is called when a transfer of QSPI data
+ * completes or an error occurs.
+ *
+ * This handler provides an example of how to handle QSPI interrupts but is
+ * application specific.
+ *
+ * @param	CallBackRef	Reference passed to the handler.
+ * @param	StatusEvent	Status of the QSPI .
+ *
+ * @return	None
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
+void XIsf_IfaceHandler(void *CallBackRef, u32 StatusEvent)
+{
+
+	Xil_AssertVoid(CallBackRef != NULL);
+
+	XIsf_TransferInProgress = FALSE;
+
+	XIsf_StatusEventInfo = StatusEvent;
+
+}
+#endif
+

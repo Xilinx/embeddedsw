@@ -530,6 +530,7 @@
  *                    CR#1015808.
  * 5.13 akm	 01/30/19 Fixed multiple definition error in C++ project
  *   			  CR#1019773
+ *      sk   02/11/19 Added support for OSPI flash interface.
  *
  *
  * </pre>
@@ -554,6 +555,8 @@ extern "C" {
 #include "xqspips.h"
 #elif XPAR_XISF_INTERFACE_QSPIPSU
 #include "xqspipsu.h"
+#elif XPAR_XISF_INTERFACE_OSPIPSV
+#include "xospipsv.h"
 #endif
 
 /**
@@ -596,6 +599,8 @@ extern "C" {
 #define XISF_MANUFACTURER_ID_ISSI	0x9D	/**< ISSI device */
 #define XISF_MANUFACTURER_ID_MACRONIX	0xC2	/**< Macronix device */
 
+#define XISF_MANUFACTURER_ID_MICRON_OCTAL	0x2C	/**< Micron Octal device */
+
 #define XISF_SPANSION_ID_BYTE2_128	0x18
 #define XISF_SPANSION_ID_BYTE2_256	0x19
 #define XISF_SPANSION_ID_BYTE2_512	0x20
@@ -604,6 +609,7 @@ extern "C" {
 #define XISF_MICRON_ID_BYTE2_256	0x19
 #define XISF_MICRON_ID_BYTE2_512	0x20
 #define XISF_MICRON_ID_BYTE2_1G		0x21
+#define XISF_MICRON_OCTAL_ID_BYTE2_512	0x1A
 /*Winbond*/
 #define XISF_WINBOND_ID_BYTE2_128	0x18
 /*ISSI*/
@@ -723,6 +729,8 @@ extern "C" {
 					XQSPIPS_FORCE_SSELECT_OPTION)
 #elif XPAR_XISF_INTERFACE_QSPIPSU
 #define XISF_SPI_OPTIONS	XQSPIPSU_MANUAL_START_OPTION
+#elif XPAR_XISF_INTERFACE_OSPIPSV
+#define XISF_SPI_OPTIONS	XOSPIPSV_IDAC_EN_OPTION
 #elif XPAR_XISF_INTERFACE_PSSPI
 #define XISF_SPI_OPTIONS	(XSPIPS_MASTER_OPTION | \
 					XSPIPS_FORCE_SSELECT_OPTION)
@@ -737,6 +745,8 @@ extern "C" {
 #define XISF_SPI_PRESCALER	XQSPIPSU_CLK_PRESCALE_4
 #elif XPAR_XISF_INTERFACE_PSSPI
 #define XISF_SPI_PRESCALER	XSPIPS_CLK_PRESCALE_8
+#elif XPAR_XISF_INTERFACE_OSPIPSV
+#define XISF_SPI_PRESCALER	XOSPIPSV_CLK_PRESCALE_12
 #elif XPAR_XISF_INTERFACE_AXISPI
 #define XISF_SPI_PRESCALER	0
 #endif
@@ -747,6 +757,9 @@ extern "C" {
  */
 typedef enum {
 	XISF_WRITE,				/**< Normal write operation */
+#ifdef XPAR_XISF_INTERFACE_OSPIPSV
+	XISF_WRITE_VOLATILE_CONFIG_REG,	/**< Write volatile config Register */
+#else
 	XISF_AUTO_PAGE_WRITE,			/**< Auto rewrite the contents
 						  *  of the page
 						  */
@@ -770,11 +783,12 @@ typedef enum {
 	XISF_WRITE_STATUS_REG2,			/**< Write to the 2 byte Status
 						  * Register in W25QXX flash
 						  */
-
-#if ((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
+#if (((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
 	(XPAR_XISF_FLASH_FAMILY == STM) || \
-	(XPAR_XISF_FLASH_FAMILY == SPANSION))
+	(XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
+	(!defined(XPAR_XISF_INTERFACE_OSPIPSV)))
 	XISF_QUAD_IP_PAGE_WRITE, /**< Quad input fast page write */
+#endif
 #endif
 /**
  * ((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
@@ -798,6 +812,10 @@ typedef enum {
  * performed on the Serial Flash.
  */
 typedef enum {
+#ifdef XPAR_XISF_INTERFACE_OSPIPSV
+	XISF_OCTAL_IO_FAST_READ,
+	XISF_READ_VCR,
+#else
 	XISF_READ,			/**< Normal Read operation */
 	XISF_FAST_READ,			/**< Fast Read operation */
 	XISF_PAGE_TO_BUF_TRANS,		/**< Transfer data from Flash memory to
@@ -817,6 +835,7 @@ typedef enum {
 	XISF_QUAD_OP_FAST_READ,	/**< Quad output fast read */
 	XISF_QUAD_IO_FAST_READ,	/**< Quad input/output fast read */
 #endif
+#endif
 /**
  * ((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
  * (XPAR_XISF_FLASH_FAMILY == STM)) || \
@@ -829,10 +848,12 @@ typedef enum {
  * performed on the Serial Flash.
  */
 typedef enum {
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 	XISF_PAGE_ERASE,	/**< Page Erase operation */
 	XISF_BLOCK_ERASE,	/**< Block Erase operation */
-	XISF_SECTOR_ERASE,	/**< Sector Erase operation */
 	XISF_SUB_SECTOR_ERASE,	/**< Sub Sector Erase operation */
+#endif
+	XISF_SECTOR_ERASE,	/**< Sector Erase operation */
 	XISF_BULK_ERASE		/**< Erase an entire Flash */
 } XIsf_EraseOperation;
 
@@ -873,9 +894,15 @@ typedef XSpiPs XIsf_Iface;
 typedef XQspiPs XIsf_Iface;
 #elif XPAR_XISF_INTERFACE_QSPIPSU
 typedef XQspiPsu XIsf_Iface;
+#elif XPAR_XISF_INTERFACE_OSPIPSV
+typedef XOspiPsv XIsf_Iface;
 #endif
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 typedef void (*XIsf_StatusHandler) (void *CallBackRef, u32 StatusEvent,
 					unsigned int ByteCount);
+#else
+typedef void (*XIsf_StatusHandler) (void *CallBackRef, u32 StatusEvent);
+#endif
 
 /**
  * The following definition specifies the instance structure of the Serial
@@ -900,7 +927,8 @@ typedef struct {
 				  */
 	u16 DeviceCode;		/**< The Serial Flash Device Code */
 #if defined(XPAR_XISF_INTERFACE_PSQSPI) || \
-	defined(XPAR_XISF_INTERFACE_QSPIPSU)
+	defined(XPAR_XISF_INTERFACE_QSPIPSU) || \
+	defined(XPAR_XISF_INTERFACE_OSPIPSV)
 	u8 DeviceIDMemSize;	/**< Byte of device ID indicating the memory
 				  *   size
 				  */
@@ -921,9 +949,17 @@ typedef struct {
 	u8 IntrMode;		/**< Operating Mode flag Interrupt/Polling */
 	u8 FourByteAddrMode; /**< In four byte address mode flag */
 
+#ifdef XPAR_XISF_INTERFACE_OSPIPSV
+	u32 (*XIsf_Iface_SetOptions)
+			(XIsf_Iface *InstancePtr, u32 Options);
+#else
 	s32 (*XIsf_Iface_SetOptions)
 		(XIsf_Iface *InstancePtr, u32 Options);
-#if (!defined(XPAR_XISF_INTERFACE_PSQSPI)) && \
+#endif
+#if defined(XPAR_XISF_INTERFACE_OSPIPSV)
+	u32 (*XIsf_Iface_SetSlaveSelect)
+		(XIsf_Iface *InstancePtr, u8 ChipSelect);
+#elif (!defined(XPAR_XISF_INTERFACE_PSQSPI)) && \
 	(!defined(XPAR_XISF_INTERFACE_QSPIPSU))
 	s32 (*XIsf_Iface_SetSlaveSelect)
 		(XIsf_Iface *InstancePtr, u8 SlaveMask);
@@ -945,6 +981,11 @@ typedef struct {
 	int (*XIsf_Iface_PolledTransfer)
 		(XIsf_Iface *InstancePtr, XQspiPsu_Msg *Msg,
 			u32 NumMsg);
+#elif defined(XPAR_XISF_INTERFACE_OSPIPSV)
+	u32 (*XIsf_Iface_Transfer)
+		(XIsf_Iface *InstancePtr, XOspiPsv_Msg * Msg);
+	u32 (*XIsf_Iface_PolledTransfer)
+		(XIsf_Iface *InstancePtr, XOspiPsv_Msg *Msg);
 #else
 	s32 (*XIsf_Iface_Transfer)
 		(XIsf_Iface *InstancePtr, u8 *SendBufPtr,
@@ -953,8 +994,13 @@ typedef struct {
 		(XIsf_Iface *InstancePtr, u8 *SendBufPtr,
 			u8 *RecvBufPtr, u32 ByteCount);
 #endif
+#ifdef XPAR_XISF_INTERFACE_OSPIPSV
+	u32 (*XIsf_Iface_SetClkPrescaler)
+			(const XIsf_Iface *InstancePtr, u8 PreScaler);
+#else
 	s32 (*XIsf_Iface_SetClkPrescaler)
 		(XIsf_Iface *InstancePtr, u8 PreScaler);
+#endif
 	XIsf_StatusHandler StatusHandler;
 } XIsf;
 
@@ -1149,7 +1195,8 @@ int XIsf_Erase(XIsf *InstancePtr, XIsf_EraseOperation Operation, u32 Address);
 
 #if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
 	(defined(XPAR_XISF_INTERFACE_AXISPI) || \
-	defined(XPAR_XISF_INTERFACE_QSPIPSU)))
+	defined(XPAR_XISF_INTERFACE_QSPIPSU) || \
+	defined(XPAR_XISF_INTERFACE_OSPIPSV)))
 /*
  * Function for entering into 4 byte mode for Micron flash.
  */
@@ -1160,6 +1207,11 @@ int XIsf_MicronFlashEnter4BAddMode(XIsf *InstancePtr);
  */
 int XIsf_MicronFlashExit4BAddMode(XIsf *InstancePtr);
 #endif
+
+#ifdef XPAR_XISF_INTERFACE_OSPIPSV
+u32 XIsf_Get_ProtoType(XIsf *InstancePtr, int Read);
+#endif
+
 /*
  * Function related to Sector protection.
  */
@@ -1197,8 +1249,12 @@ void XIsf_SetStatusHandler(XIsf *InstancePtr, XIsf_Iface *XIfaceInstancePtr,
 /*
  *Interrupt Handler of XilISF Lib
  */
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 void XIsf_IfaceHandler(void *CallBackRef, u32 StatusEvent,
 		unsigned int ByteCount);
+#else
+void XIsf_IfaceHandler(void *CallBackRef, u32 StatusEvent);
+#endif
 
 #ifdef __cplusplus
 }
