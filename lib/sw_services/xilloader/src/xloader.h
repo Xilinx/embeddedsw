@@ -65,11 +65,15 @@ extern "C" {
 #include "xloader_qspi.h"
 #include "xloader_dma.h"
 #include "xpm_device.h"
+#include "xilfpga.h"
 /************************** Constant Definitions *****************************/
 #define XLOADER_SUCCESS		XST_SUCCESS
 #define XLoader_Printf		XPlmi_Printf
 #define XLOADER_32BIT_MASK	(0xFFFFFFFFU)
 #define PMC_LOCAL_BASEADDR	(0xF0000000U)
+#define XLOADER_CHUNK_MEMORY		(XPLMI_PMCRAM_BASEADDR)
+#define XLOADER_CHUNK_SIZE			(0x10000U) /** 64K */
+#define XLOADER_CFI_CHUNK_SIZE		(0x40000U) /** 256K */
 
 /* Boot Modes */
 enum XLOADER_PDI_SRC {
@@ -94,6 +98,7 @@ enum XLOADER_PDI_SRC {
                  (ModuleErr&XLOADER_ERR_MODULE_MASK))
 
 #define XLOADER_UNSUPPORTED_BOOT_MODE	(0x200U)
+#define XLOADER_ERR_PL_NOT_PWRUP		(0x2F00U)
 /**************************** Type Definitions *******************************/
 
 /**
@@ -139,6 +144,18 @@ typedef struct {
 	u32 ImageId; /**< Corresponding Image ID in the PDI */
 } XilSubsystem;
 
+/**
+ * This is XLoader instance pointer. This stores all the information
+ * required for loading partitions
+ */
+typedef struct {
+	u32 PlPoweredUp;
+	u32 PlCleaningDone;
+	u32 PlCfiPresent;
+	u32 SdTypeBootMode;
+	u32 SbiTypeBootMode;
+} XLoader;
+
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XLoader_GetBootMode()	XPlmi_In32(CRP_BOOT_MODE_USER) & \
 				CRP_BOOT_MODE_USER_BOOT_MODE_MASK
@@ -162,9 +179,12 @@ int XLoader_Init();
 int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr);
 int XLoader_LoadSubSystemPdi(XilPdi *PdiPtr);
 int XLoader_StartSubSystemPdi(XilPdi *PdiPtr);
-
+XLoader* XLoader_GetLoaderInstancePtr(void);
 /* functions defined in xloader_prtn_load.c */
 int XLoader_PrtnLoad(XilPdi* PdiPtr, u32 PrtnNum);
+/* function defined in xloader_cfi.c */
+int XLoader_CfiInit(XLoader* XLoaderPtr);
+int XLoader_ProcessCfi (XilPdi* PdiPtr, u32 PrtnNum);
 #ifdef __cplusplus
 }
 #endif

@@ -569,7 +569,6 @@ XStatus XLoader_Qspi24Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 
 	/* Set QSPI DMA in AXI FIXED / INCR mode.
 	 * Fixed mode is used for CFI loading */
-	XLoader_SetQspiDmaMode(Flags);
 
 
 	/**
@@ -929,7 +928,6 @@ XStatus XLoader_Qspi32Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 
 	/* Set QSPI DMA in AXI FIXED / INCR mode.
 	 * Fixed mode is used for CFI loading */
-	XLoader_SetQspiDmaMode(Flags);
 
 	/**
 	 * Check the read length with Qspi flash size
@@ -1080,32 +1078,5 @@ int XLoader_Qspi32Release(void)
 
 	return Status;
 }
-
-/*****************************************************************************/
-/**
- * This function is used to set the QSPI DMA destination channel AXI settings
- *
- * @param	DmaMode		Selects between AXI Fixed and Burst modes
- *
- * @return	None
- *
- *****************************************************************************/
-void XLoader_SetQspiDmaMode(u32 DmaMode)
-{
-
-	if (DmaMode == XLOADER_READ_AXI_FIXED)
-	{
-		Xil_Out32(XLOADER_QSPIDMA_DST_CTRL,
-			Xil_In32(XLOADER_QSPIDMA_DST_CTRL) |
-				XQSPIPSU_QSPIDMA_DST_CTRL_AXI_BRST_TYPE_MASK);
-	} else {
-		Xil_Out32(XLOADER_QSPIDMA_DST_CTRL,
-			Xil_In32(XLOADER_QSPIDMA_DST_CTRL) &
-				~XQSPIPSU_QSPIDMA_DST_CTRL_AXI_BRST_TYPE_MASK);
-	}
-
-}
-
-
 
 #endif /* endof XLOADER_QSPI */

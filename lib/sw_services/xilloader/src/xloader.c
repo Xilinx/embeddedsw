@@ -188,6 +188,12 @@ int XSubSys_ReStart(u32 SubsysHd)
 }
 #endif
 
+XLoader* XLoader_GetLoaderInstancePtr(void)
+{
+	static XLoader XLoaderInstance={0U, 0U, 0U, 0U, 0U};
+	return (XLoader*)&XLoaderInstance;
+}
+
 /*****************************************************************************/
 /**
  * This function initializes the loader instance and registers loader
@@ -200,13 +206,19 @@ int XSubSys_ReStart(u32 SubsysHd)
  *****************************************************************************/
 int XLoader_Init()
 {
+	int Status;
+	XLoader* XLoaderPtr = XLoader_GetLoaderInstancePtr();
 
 	/** Initializes the DMA pointers */
 	XLoader_DmaInit();
 
-	/** Register the loader commands */
-
-	return XST_SUCCESS;
+	Status = XLoader_CfiInit(XLoaderPtr);
+	if(Status != XST_SUCCESS)
+	{
+		goto END;
+	}
+END:
+	return Status;
 }
 
 /*****************************************************************************/
