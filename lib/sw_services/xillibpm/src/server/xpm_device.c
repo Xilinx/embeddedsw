@@ -198,12 +198,19 @@ static u32 IsRunning(XPm_Device *Device)
 	return Running;
 }
 
-static XStatus BringUp(XPm_Node *Node)
+XStatus XPmDevice_BringUp(XPm_Node *Node)
 {
 	u32 Status = XST_FAILURE;
 	XPm_Device *Device = (XPm_Device *)Node;
 
 	if (NULL == Device->Power) {
+		goto done;
+	}
+
+	/* Check if device is already up and running */
+	if(Node->State == XPM_DEVSTATE_RUNNING)
+	{
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
@@ -247,7 +254,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 	{
 		case XPM_DEVSTATE_UNUSED:
 			if (XPM_DEVEVENT_BRINGUP_ALL == Event) {
-				Status = BringUp(Node);
+				Status = Device->DeviceFsm->EnterState(Device, XPM_DEVSTATE_RUNNING);
 			} else if (XPM_DEVEVENT_SHUTDOWN == Event) {
 				Status = XST_SUCCESS;
 			}
@@ -318,7 +325,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 			break;
 		case XPM_DEVSTATE_RUNNING:
 			if (XPM_DEVEVENT_BRINGUP_ALL == Event) {
-				Status = BringUp(Node);
+				Status = XPmDevice_BringUp(Node);
 			} else if (XPM_DEVEVENT_BRINGUP_CLKRST == Event) {
 				Node->State = XPM_DEVSTATE_CLK_ON;
 				/* Enable all clocks */
@@ -431,8 +438,7 @@ static XStatus HandleDeviceState(XPm_Device* const Device, const u32 NextState)
 	switch (Device->Node.State) {
 	case XPM_DEVSTATE_UNUSED:
 		if (XPM_DEVSTATE_RUNNING == NextState) {
-			Status = Device->Node.HandleEvent((XPm_Node *)Device,
-							  XPM_DEVEVENT_BRINGUP_ALL);
+			Status = XPmDevice_BringUp(&Device->Node);
 		}
 		break;
 	case XPM_DEVSTATE_RUNNING:
