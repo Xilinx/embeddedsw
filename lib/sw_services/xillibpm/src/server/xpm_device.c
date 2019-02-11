@@ -649,22 +649,6 @@ done:
 	return Status;
 }
 
-XStatus XPmDevice_SetPower(XPm_Device *Device, XPm_Power *Power)
-{
-	u32 Status = XST_FAILURE;
-
-	if (NULL != Device->Power) {
-		/* Cannot set power node again */
-		goto done;
-	}
-
-	Device->Power = Power;
-
-	Status = XST_SUCCESS;
-
-done:
-	return Status;
-}
 
 XStatus XPmDevice_AddClock(XPm_Device *Device, XPm_ClockNode *Clock)
 {
