@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2012 - 2015 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2012 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -40,6 +40,7 @@
 #		      interface for Zynq. (CR 716451)
 # 5.4   sk   08/07/15 Updated to support QSPIPSU interface.
 #                     Updated to support SPIPS interface in ZynqMP.
+# 5.13	sk   02/11/19 Added OSPI interface support.
 #
 ##############################################################################
 
@@ -82,7 +83,8 @@ proc get_spi_periphs {processor} {
 			|| $periphname == "ps7_spi"
 			|| $periphname == "ps7_qspi"
 			|| $periphname == "psu_qspi"
-			|| $periphname == "psu_spi"} {
+			|| $periphname == "psu_spi"
+			|| $periphname == "psu_ospi"} {
 			lappend spi_periphs_list $periph
 			lappend spi_periphs_name_list $periphname
 		}
@@ -161,6 +163,9 @@ proc xgen_opts_file {libhandle} {
 			set ifaceselect 1
 		} elseif {$periph == "psu_qspi" && $serial_flash_interface == 3} {
 			puts $file_handle "\#define XPAR_XISF_INTERFACE_QSPIPSU	1"
+			set ifaceselect 1
+		} elseif {$periph == "psu_ospi" && $serial_flash_interface == 4} {
+			puts $file_handle "\#define XPAR_XISF_INTERFACE_OSPIPSV	1"
 			set ifaceselect 1
 		} elseif {$periph == "ps7_qspi"} {
 			set ps7qspi 1

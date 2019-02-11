@@ -221,6 +221,7 @@ extern "C" {
 #define XISF_CMD_DUAL_OP_FAST_READ_4B	0x3C /**< 4 byte Dual
 					       * output fast read
 					       */
+#define XISF_CMD_VOLATILE_CONFIG_READ		0x85	/**< Volatile config Reg Read */
 #define XISF_CMD_DUAL_IO_FAST_READ	0xBB	/**< Dual i/o fast read */
 #define XISF_CMD_DUAL_IO_FAST_READ_4B	0xBC /**< 4 byte Dual i/o fast read */
 #define XISF_CMD_QUAD_OP_FAST_READ	0x6B	/**< Quad output fast read */
@@ -229,6 +230,8 @@ extern "C" {
 					       */
 #define XISF_CMD_QUAD_IO_FAST_READ	0xEB	/**< Quad i/o fast read */
 #define XISF_CMD_QUAD_IO_FAST_READ_4B	0xEC /**< 4 byte Quad i/o fast read */
+#define XISF_CMD_OCTAL_IO_FAST_READ_4B	0xCC /**< 4 byte Octal i/o fast read */
+#define XISF_CMD_VOLATILE_CONFIG_READ		0x85	/**< Volatile config Reg Read */
 
 /**
  * Definitions of Write commands.
@@ -250,6 +253,8 @@ extern "C" {
 #define XISF_CMD_QUAD_IP_EXT_PAGE_WRITE	0x12	/**< Dual input extended fast
 						  * page write
 						  */
+#define XISF_CMD_OCTAL_WRITE_4B		0x84	/**< Octal 4-Byte write */
+#define XISF_CMD_VOLATILE_CONFIG_WRITE		0x81	/**< Volatile config Reg Write */
 
 /**
  * Definitions of Erase commands.
