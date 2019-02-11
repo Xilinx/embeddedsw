@@ -73,9 +73,12 @@ done:
 
 void XPm_RequiremntUpdate(XPm_Requirement *Reqm)
 {
-	Reqm->Curr.Capabilities = Reqm->Next.Capabilities;
-	Reqm->Curr.Latency = Reqm->Next.Latency;
-	Reqm->Curr.QoS = Reqm->Next.QoS;
+	if(Reqm)
+	{
+		Reqm->Curr.Capabilities = Reqm->Next.Capabilities;
+		Reqm->Curr.Latency = Reqm->Next.Latency;
+		Reqm->Curr.QoS = Reqm->Next.QoS;
+	}
 }
 
 void XPmRequirement_Clear(XPm_Requirement* Reqm)
