@@ -190,12 +190,6 @@ struct XPm_Device {
 	const XPm_DeviceFsm* DeviceFsm; /**< Device finite state machine */
 };
 
-typedef struct XPm_Mem {
-	XPm_Device Device; /**< Device: Base class */
-	u32 StartAddress;
-	u32 EndAddress;
-} XPm_Mem;
-
 extern XPm_Device *PmDevices[];
 
 /************************** Function Prototypes ******************************/
