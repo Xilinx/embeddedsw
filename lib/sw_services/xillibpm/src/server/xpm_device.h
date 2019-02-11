@@ -198,8 +198,6 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 		u32 BaseAddress,
 		XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset);
 
-XStatus XPmDevice_SetPower(XPm_Device *Device, XPm_Power *Power);
-
 XStatus XPmDevice_AddClock(XPm_Device *Device, XPm_ClockNode *Clock);
 
 XStatus XPmDevice_AddReset(XPm_Device *Device, XPm_ResetNode *Reset);
