@@ -65,7 +65,7 @@
 *                       device and register the device to libmetal generic bus.
 *       mus    08/18/18 Updated to remove xparameters.h dependency for linux
 *                       platform.
-* 6.0   cog    02/06/19 Updated for libmetal v1.5 and added configure PLL to
+* 6.0   cog    02/06/19 Updated for libmetal v2.0 and added configure PLL to
 *                       set clock to incompatible rate
 *
 *
