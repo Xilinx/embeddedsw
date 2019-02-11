@@ -67,6 +67,7 @@ extern "C" {
 #define XLOADER_PMCDMA_1			(0x200U)
 #define XLOADER_DMA_SRC_NONBLK	(0x2U)
 #define XLOADER_DMA_DST_NONBLK   (0x1U<<17U)
+#define XLOADER_DMA_LEN_ALIGN		(0x10U)
 /*
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
