@@ -85,6 +85,7 @@
  *****************************************************************************/
 int XLoader_SbiInit(u32 DeviceFlags)
 {
+	XLoader* XLoaderPtr = XLoader_GetLoaderInstancePtr();
 
 	if (DeviceFlags == XLOADER_PDI_SRC_SMAP)
 	{
@@ -96,7 +97,7 @@ int XLoader_SbiInit(u32 DeviceFlags)
 			       SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
 			       XLOADER_SBI_CTRL_INTERFACE_JTAG);
 	}
-
+	XLoaderPtr->SbiTypeBootMode = TRUE;
 	return XLOADER_SUCCESS;
 }
 
@@ -169,13 +170,7 @@ XStatus XLoader_SbiCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 	 */
 	(void) (SrcAddress);
 
-	if (Flags == XLOADER_READ_AXI_FIXED)
-	{
-		ReadFlags = XLOADER_DST_CH_AXI_FIXED | XLOADER_PMCDMA_1;
-	} else {
-		ReadFlags = XLOADER_PMCDMA_1;
-	}
-
+	ReadFlags = Flags | XLOADER_PMCDMA_1;
 	Status = XLoader_SbiDmaXfer(DestAddress, Length/4, ReadFlags);
 
 	return Status;
