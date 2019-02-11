@@ -75,6 +75,10 @@ extern "C" {
 #define BLEI  bealei
 #define BEQI  beaeqi
 #define BRI   breai
+#define XORI  xorli
+#define BNEI  beanei
+#define OR    orl
+#define BRALID brealid
 #else
 #define ADDIK addik
 #define ADDK  addk
@@ -99,6 +103,10 @@ extern "C" {
 #define BLEI  blei
 #define BEQI  beqi
 #define BRI   bri
+#define XORI  xori
+#define BNEI bnei
+#define OR    or
+#define BRALID bralid
 #endif
 
 #ifdef __cplusplus
