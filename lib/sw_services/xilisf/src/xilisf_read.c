@@ -64,6 +64,7 @@
  * 5.12 tjs	 06/18/18 Removed checkpatch and gcc warnings.
  * 5.13 nsk  01/22/18 Make variable declaration to XQspiPsu_Msg as global
  *                    CR#1015808.
+ *      sk   02/11/19 Added support for OSPI flash interface.
  *
  * </pre>
  *
@@ -91,7 +92,15 @@ extern int SendBankSelect(XIsf *InstancePtr, u32 BankSel);
 #endif
 #ifdef XPAR_XISF_INTERFACE_QSPIPSU
 	XQspiPsu_Msg FlashMsg[3];
+#elif (defined(XPAR_XISF_INTERFACE_OSPIPSV))
+	static XOspiPsv_Msg FlashMsg;
 #endif
+#ifdef XPAR_XISF_INTERFACE_OSPIPSV
+static int OctalReadData(XIsf *InstancePtr, u8 Command, u32 Address,
+			u8 *ReadPtr, u32 ByteCount, int NumDummyBytes);
+static int ReadVCR(XIsf *InstancePtr, u8 Command, u32 Address,
+			u8 *BufferPtr, u32 ByteCount, u8 NumDummyBytes);
+#else
 static int ReadData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr,
 		u32 ByteCount);
 static int FastReadData(XIsf *InstancePtr, u8 Command, u32 Address,
@@ -104,6 +113,7 @@ static int FastBufferRead(XIsf *InstancePtr, u8 BufferNum, u8 *ReadPtr,
 			  u32 ByteOffset, u32 NumBytes);
 static int ReadOTPData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr,
 			u32 ByteCount);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -225,8 +235,10 @@ int XIsf_Read(XIsf *InstancePtr, XIsf_ReadOperation Operation,
 	int Status = (int)(XST_FAILURE);
 	u8 Mode;
 	XIsf_ReadParam *ReadParamPtr;
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 	XIsf_FlashToBufTransferParam *FlashToBufTransferParamPtr;
 	XIsf_BufferReadParam *BufferReadParamPtr;
+#endif
 
 	if (InstancePtr == NULL)
 		return (int)(XST_FAILURE);
@@ -238,6 +250,7 @@ int XIsf_Read(XIsf *InstancePtr, XIsf_ReadOperation Operation,
 		return (int)(XST_FAILURE);
 
 	switch (Operation) {
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 	case XISF_READ:
 		ReadParamPtr = (XIsf_ReadParam *) OpParamPtr;
 		Status = ReadData(InstancePtr,
@@ -311,10 +324,11 @@ int XIsf_Read(XIsf *InstancePtr, XIsf_ReadOperation Operation,
 				ReadParamPtr->ReadPtr,
 				ReadParamPtr->NumBytes);
 		break;
-
+#endif
 #if ((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
 	(XPAR_XISF_FLASH_FAMILY == STM) || \
 	(XPAR_XISF_FLASH_FAMILY == SPANSION))
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 	case XISF_DUAL_OP_FAST_READ:
 		ReadParamPtr = (XIsf_ReadParam *)(void *) OpParamPtr;
 		Xil_AssertNonvoid(ReadParamPtr != NULL);
@@ -373,6 +387,30 @@ int XIsf_Read(XIsf *InstancePtr, XIsf_ReadOperation Operation,
 				ReadParamPtr->NumBytes,
 				ReadParamPtr->NumDummyBytes);
 		break;
+
+#else
+	case XISF_OCTAL_IO_FAST_READ:
+		ReadParamPtr = (XIsf_ReadParam *)(void *) OpParamPtr;
+		Xil_AssertNonvoid(ReadParamPtr != NULL);
+			Status = OctalReadData(InstancePtr,
+				XISF_CMD_OCTAL_IO_FAST_READ_4B,
+				ReadParamPtr->Address,
+				ReadParamPtr->ReadPtr,
+				ReadParamPtr->NumBytes,
+				ReadParamPtr->NumDummyBytes);
+		break;
+
+	case XISF_READ_VCR:
+		ReadParamPtr = (XIsf_ReadParam *)(void *) OpParamPtr;
+		Xil_AssertNonvoid(ReadParamPtr != NULL);
+			Status = ReadVCR(InstancePtr,
+				XISF_CMD_VOLATILE_CONFIG_READ,
+				ReadParamPtr->Address,
+				ReadParamPtr->ReadPtr,
+				ReadParamPtr->NumBytes,
+				ReadParamPtr->NumDummyBytes);
+		break;
+#endif
 #endif
 /**
  * ((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
@@ -389,13 +427,19 @@ int XIsf_Read(XIsf *InstancePtr, XIsf_ReadOperation Operation,
 	 */
 	Mode = XIsf_GetTransferMode(InstancePtr);
 
-	if (Mode == XISF_INTERRUPT_MODE)
+	if (Mode == XISF_INTERRUPT_MODE) {
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 		InstancePtr->StatusHandler(InstancePtr,
 				XIsf_StatusEventInfo, XIsf_ByteCountInfo);
+#else
+	InstancePtr->StatusHandler(InstancePtr, XIsf_StatusEventInfo);
+#endif
+	}
 
 	return Status;
 }
 
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 /*****************************************************************************/
 /**
  *
@@ -1279,3 +1323,106 @@ static int ReadOTPData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr,
 
 	return Status;
 }
+
+#else
+/*****************************************************************************/
+/**
+ *
+ * This function reads data from the Serial Flash at a higher speed than normal
+ * Read operation.
+ *
+ * @param	InstancePtr is a pointer to the XIsf instance.
+ * @param	Command is the fast read command used to read data from the
+ *		flash. It could be using XISF_CMD_OCTAL_IO_FAST_READ_4B.
+ * @param	Address is the starting address in the Serial Flash from where
+ *		the data is to be read.
+ * @param	ReadPtr is a pointer to the memory where the data read from
+ *		the Serial Flash is stored.
+ * @param	ByteCount is the number of bytes to be read from the Serial
+ *		Flash.
+ * @param	NumDummyBytes is the number of dummy bytes associated with the
+ *		fast read commands.
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE.
+ *
+ * @note	None
+ *
+ ******************************************************************************/
+static int OctalReadData(XIsf *InstancePtr, u8 Command, u32 Address,
+			u8 *ReadPtr, u32 ByteCount, int NumDummyBytes)
+{
+	u8 Status;
+	u8 *NULLPtr = NULL;
+
+	FlashMsg.Opcode = Command;
+	FlashMsg.Addrsize = 4;
+	FlashMsg.Addrvalid = 1;
+	FlashMsg.TxBfrPtr = NULL;
+	FlashMsg.RxBfrPtr = ReadPtr;
+	FlashMsg.ByteCount = ByteCount;
+	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
+	FlashMsg.Addr = Address;
+	FlashMsg.Proto = XIsf_Get_ProtoType(InstancePtr, 1);
+	FlashMsg.Dummy = NumDummyBytes;
+	FlashMsg.IsDDROpCode = 0;
+	if (InstancePtr->SpiInstPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.Proto = XOSPIPSV_READ_8_8_8;
+		FlashMsg.Dummy = 16;
+	}
+	InstancePtr->SpiInstPtr->Msg = &FlashMsg;
+	Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, FlashMsg.ByteCount);
+
+	return Status;
+
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function reads the volatile configuration register.
+ *
+ * @param	InstancePtr is a pointer to the XIsf instance.
+ * @param	Address is the address in the Serial Flash memory, where the
+ *		data is to be written.
+ * @param	BufferPtr is a pointer to the data to be written to Serial
+ *		Flash.
+ * @param	ByteCount is the number of bytes to be written.
+ * @param	NumDummyBytes is the number of dummy bytes associated with the
+ *		Volatile configuration Register Read.
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE.
+ *
+ * @note
+ *
+ ******************************************************************************/
+static int ReadVCR(XIsf *InstancePtr, u8 Command, u32 Address,
+			u8 *BufferPtr, u32 ByteCount, u8 NumDummyBytes)
+{
+	int Status;
+	u8 *NULLPtr = NULL;
+
+	FlashMsg.Opcode = Command;
+	FlashMsg.Addrsize = 3;
+	if (InstancePtr->FourByteAddrMode == TRUE)
+		FlashMsg.Addrsize = 4;
+	FlashMsg.Addr = Address;
+	FlashMsg.Addrvalid = 1;
+	FlashMsg.TxBfrPtr = NULL;
+	FlashMsg.RxBfrPtr = BufferPtr;
+	FlashMsg.ByteCount = ByteCount;
+	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
+	FlashMsg.Dummy = NumDummyBytes;
+	FlashMsg.IsDDROpCode = 0;
+	FlashMsg.Proto = 0;
+	if (InstancePtr->SpiInstPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		/* Read Configuration register */
+		FlashMsg.ByteCount = 2;
+		FlashMsg.Proto = XOSPIPSV_READ_8_8_8;
+		FlashMsg.Addrsize = 4;
+	}
+	InstancePtr->SpiInstPtr->Msg = &FlashMsg;
+	Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, FlashMsg.ByteCount);
+
+	return Status;
+}
+#endif
