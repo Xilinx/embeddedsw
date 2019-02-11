@@ -2103,7 +2103,7 @@ XStatus XPm_AddNodeParent(u32 *Args, u32 NumArgs)
 	NumParents = NumArgs-1;
 	Parents = &Args[1];
 
-	switch((Id >> 24)& 0xFF)
+	switch((Id >> NODE_CLASS_SHIFT) & NODE_CLASS_MASK_BITS)
 	{
 		case XPM_NODECLASS_POWER:
 			Status = XPmPower_AddParent(Id,Parents,NumParents);
