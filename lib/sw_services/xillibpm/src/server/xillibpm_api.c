@@ -35,6 +35,7 @@
 #include "xpm_pslpdomain.h"
 #include "xpm_psm.h"
 #include "xpm_periph.h"
+#include "xpm_mem.h"
 #include "xpm_apucore.h"
 #include "xpm_rpucore.h"
 #include "xpm_power.h"
@@ -2582,18 +2583,16 @@ static XStatus AddMemDevice(u32 *Args, u32 PowerId)
 	u32 Type;
 	u32 Index;
 
-	XPm_Device *Device;
+	XPm_MemDevice *Device;
 	XPm_Power *Power = PmPowers[NODEINDEX(PowerId)];;
 	u32 BaseAddr;
-	/* Uncomment when Memory init is supported */
-	/*u32 StartAddr;
-	u32 EndAddr;*/
+	u32 StartAddr;
+	u32 EndAddr;
 
 	DeviceId = Args[0];
 	BaseAddr = Args[2];
-	/* Uncomment when Memory init is supported */
-	/*StartAddr = Args[3];
-	EndAddr = Args[4];*/
+	StartAddr = Args[3];
+	EndAddr = Args[4];
 
 	Type = NODETYPE(DeviceId);
 	Index = NODEINDEX(DeviceId);
@@ -2611,15 +2610,15 @@ static XStatus AddMemDevice(u32 *Args, u32 PowerId)
 	switch (Type)
 	{
 		case XPM_NODETYPE_DEV_OCM:
-		case XPM_NODETYPE_DEV_TCM:
 		case XPM_NODETYPE_DEV_L2CACHE:
 		case XPM_NODETYPE_DEV_DDR:
-			Device = (XPm_Device *)XPm_AllocBytes(sizeof(XPm_Device));
+		case XPM_NODETYPE_DEV_TCM:
+			Device = (XPm_MemDevice *)XPm_AllocBytes(sizeof(XPm_MemDevice));
 			if (NULL == Device) {
 				Status = XST_BUFFER_TOO_SMALL;
 				goto done;
 			}
-			Status = XPmDevice_Init(Device, DeviceId, BaseAddr, Power, NULL, NULL);
+			Status = XPmMemDevice_Init(Device, DeviceId, BaseAddr, Power, NULL, NULL, StartAddr, EndAddr);
 			break;
 		default:
 			break;
