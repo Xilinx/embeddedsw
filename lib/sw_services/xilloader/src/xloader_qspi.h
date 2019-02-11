@@ -206,8 +206,6 @@ int XLoader_Qspi24Release(void );
 int XLoader_Qspi32Init(u32 DeviceFlags);
 XStatus XLoader_Qspi32Copy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 int XLoader_Qspi32Release(void );
-void XLoader_SetQspiDmaMode(u32 DmaMode);
-
 /************************** Variable Definitions *****************************/
 
 

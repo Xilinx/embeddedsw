@@ -50,6 +50,7 @@
 /***************************** Include Files *********************************/
 #include "xloader_sd.h"
 #include "xplmi_hw.h"
+#include "xloader.h"
 #if defined(XLOADER_SD_0) || defined(XLOADER_SD_1)
 #include "xplmi_util.h"
 #include "xparameters.h"
@@ -204,7 +205,8 @@ int XLoader_SdInit(u32 DeviceFlags)
 	char *boot_file = buffer;
 	u32 MultiBootOffset;
 	u32 DrvNum;
-
+	XLoader* XLoaderPtr = XLoader_GetLoaderInstancePtr();
+	XLoaderPtr->SdTypeBootMode = 1U;
 	DrvNum = XLoader_GetDrvNumSD(DeviceFlags);
 
 	/* Set logical drive number */

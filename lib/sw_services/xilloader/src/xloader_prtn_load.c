@@ -60,11 +60,8 @@
 //extern XilCdo_Prtn XilCdoPrtnInst;
 //extern XCsuDma CsuDma0;
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XLOADER_DMA_LEN_ALIGN		16U
 #define XLOADER_SUCCESS_NOT_PRTN_OWNER	(0x100U)
 #define XLOADER_NO_PSM_IMG_PARTITIONS	2U
-#define XLOADER_CHUNK_MEMORY		(XPLMI_PMCRAM_BASEADDR)
-#define XLOADER_CHUNK_SIZE		(64U*1024U) /** 64K */
 /************************** Function Prototypes ******************************/
 static int XLoader_PrtnHdrValidation(XilPdi* PdiPtr, u32 PrtnNum);
 static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnNum);
@@ -457,7 +454,11 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnNum)
 
 	/* Read Partition Type */
 	PrtnType = XilPdi_GetPrtnType(PrtnHdr);
-	if(PrtnType == XIH_PH_ATTRB_PRTN_TYPE_CDO)
+	if(PrtnType == XIH_PH_ATTRB_PRTN_TYPE_CFI)
+	{
+		Status = XLoader_ProcessCfi(PdiPtr, PrtnNum);
+	}
+	else if(PrtnType == XIH_PH_ATTRB_PRTN_TYPE_CDO)
 	{
 		Status = XLoader_ProcessCdo(PdiPtr, PrtnNum);
 	} else {
