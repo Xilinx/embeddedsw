@@ -49,7 +49,9 @@ proc FreeRTOS_drc {os_handle} {
 
 proc Check_ttc_ip {instance_name} {
 	set cortexa53cpu [hsi::get_cells -hier -filter "IP_NAME==psu_cortexa53"]
-	if {[llength $cortexa53cpu] > 0} {
+	set is_versal [hsi::get_cells -hier -filter "IP_NAME==psu_cortexa72"]
+
+	if {[llength $cortexa53cpu] > 0 || [llength $is_versal] > 0 } {
 		set ttc_ips [get_cell -hier -filter {IP_NAME== "psu_ttc"}]
 	} else {
 		set ttc_ips [get_cell -hier -filter {IP_NAME== "ps7_ttc"}]
