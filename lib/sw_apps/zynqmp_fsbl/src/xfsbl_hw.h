@@ -934,7 +934,13 @@ extern "C" {
 #endif
 #endif
 
-#define XFSBL_PS_DDR_END_ADDRESS		(0x80000000U - 1U)  //2GB of DDR
+#ifdef XFSBL_PS_DDR
+#ifdef ARMR5
+#define XFSBL_PS_DDR_END_ADDRESS		(XPAR_PSU_R5_DDR_0_S_AXI_HIGHADDR)
+#else
+#define XFSBL_PS_DDR_END_ADDRESS		(XPAR_PSU_DDR_0_S_AXI_HIGHADDR)
+#endif
+#endif
 
 #ifdef XFSBL_ENABLE_DDR_SR
 /*
