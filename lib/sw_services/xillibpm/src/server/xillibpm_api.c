@@ -1524,6 +1524,8 @@ XStatus XPm_SetResetState(const u32 SubsystemId, const u32 ResetId, const u32 Ac
 {
 	int Status = XST_SUCCESS;
 	XPm_ResetNode* Reset;
+	u32 SubClass = NODESUBCLASS(ResetId);
+	u32 SubType = NODETYPE(ResetId);
 
 	Reset = XPmReset_GetById(ResetId);
 	if (NULL == Reset) {
@@ -1531,9 +1533,25 @@ XStatus XPm_SetResetState(const u32 SubsystemId, const u32 ResetId, const u32 Ac
 		goto done;
 	}
 
+	/* Only peripheral and debug reset are allowed to control externally */
+	if (XPM_NODESUBCL_RESET_PERIPHERAL == SubClass) {
+		if (XPM_NODETYPE_RESET_PERIPHERAL != SubType) {
+			Status = XST_NO_ACCESS;
+			goto done;
+		}
+	} else if (XPM_NODESUBCL_RESET_DBG == SubClass) {
+		if (XPM_NODETYPE_RESET_DBG != SubType) {
+			Status = XST_NO_ACCESS;
+			goto done;
+		}
+	} else {
+		Status = XST_NO_ACCESS;
+		goto done;
+	}
+
 	/* Check if subsystem is allowed to access requested reset or not */
 	Status = XPm_IsAccessAllowed(SubsystemId, ResetId);
-	if (Status != XST_SUCCESS) {
+	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
