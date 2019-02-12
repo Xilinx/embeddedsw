@@ -1067,7 +1067,11 @@ XStatus XPm_Query(const u32 Qid, const u32 Arg1, const u32 Arg2,
 			Status = XPmClock_QueryFFParams(Arg1,Output);
 			break;
 		case XPM_QID_CLOCK_GET_MUXSOURCES:
-			Status = XPmClock_QueryMuxSources(Arg1,Arg2,Output);
+			if (ISPLL(Arg1)) {
+				Status = XPmClockPll_QueryMuxSources(Arg1,Arg2,Output);
+			} else {
+				Status = XPmClock_QueryMuxSources(Arg1,Arg2,Output);
+			}
 			break;
 		case XPM_QID_CLOCK_GET_ATTRIBUTES:
 			Status = XPmClock_QueryAttributes(Arg1,Output);
