@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -188,7 +188,7 @@ XStatus XPmClock_QueryName(u32 ClockId, u32 *Resp);
 XStatus XPmClock_QueryTopology(u32 ClockId, u32 Index, u32 *Resp);
 XStatus XPmClock_QueryFFParams(u32 ClockId, u32 *Resp);
 XStatus XPmClock_QueryMuxSources(u32 ClockId, u32 Index, u32 *Resp);
-XStatus XPmClock_QueryAttributes(u32 ClockId, u32 *Resp);
+XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp);
 XStatus XPmClock_GetNumClocks(u32 *Resp);
 XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId);
 
