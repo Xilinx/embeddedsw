@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -35,6 +35,9 @@
 #define END_OF_CLK				"END_OF_CLK"
 #define CLK_INIT_ENABLE_SHIFT	1U
 #define CLK_TYPE_SHIFT			2U
+#define CLK_NODETYPE_SHIFT		14U
+#define CLK_NODESUBCLASS_SHIFT		20U
+#define CLK_NODECLASS_SHIFT		26U
 #define CLK_PARENTS_PAYLOAD_LEN		12U
 #define CLK_TOPOLOGY_PAYLOAD_LEN	12U
 #define CLK_NA_PARENT			-1
@@ -734,20 +737,40 @@ done:
 	return Status;
 }
 
-XStatus XPmClock_QueryAttributes(u32 ClockId, u32 *Resp)
+XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp)
 {
 	XStatus Status = XST_SUCCESS;
 	unsigned int Attr = 0;
 	XPm_ClockNode *Clk;
 	u32 InitEnable = 0;
-	u32 ClockIndex = NODEINDEX(ClockId);
-
-	Clk = XPmClock_GetById(ClockId);
+	u32 ClockId = 0;
+	u32 Class = XPM_NODECLASS_CLOCK;
+	u32 SubClass;
+	u32 NodeType;
 
 	if (ClockIndex >= MaxClkNodes) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
+
+	if (ClockIndex < XPM_NODEIDX_CLK_PLL_MAX) {
+		SubClass = XPM_NODESUBCL_CLOCK_PLL;
+		NodeType = XPM_NODETYPE_CLOCK_PLL;
+	} else if ((ClockIndex > XPM_NODEIDX_CLK_OUT_MIN) &&
+		   (ClockIndex < XPM_NODEIDX_CLK_OUT_MAX)) {
+		SubClass = XPM_NODESUBCL_CLOCK_OUT;
+		NodeType = XPM_NODETYPE_CLOCK_OUT;
+	} else if ((ClockIndex > XPM_NODEIDX_CLK_REF_MIN) &&
+		   (ClockIndex < XPM_NODEIDX_CLK_REF_MAX)) {
+		SubClass = XPM_NODESUBCL_CLOCK_REF;
+		NodeType = XPM_NODETYPE_CLOCK_REF;
+	} else {
+		SubClass = 0;
+		NodeType = 0;
+	}
+
+	ClockId = NODEID(Class, SubClass, NodeType, ClockIndex);
+	Clk = XPmClock_GetById(ClockId);
 
 	/* Clock valid bit */
 	Attr = XPmClock_IsValid(Clk);
@@ -758,6 +781,12 @@ XStatus XPmClock_QueryAttributes(u32 ClockId, u32 *Resp)
 	if (NODESUBCLASS(ClockId) == XPM_NODESUBCL_CLOCK_REF) {
 		Attr |= 1 << CLK_TYPE_SHIFT;
 	}
+	/* Clock node type PLL, OUT or REF*/
+	Attr |= NodeType << CLK_NODETYPE_SHIFT;
+	/* Clock node subclass PLL, OUT or REF */
+	Attr |= SubClass << CLK_NODESUBCLASS_SHIFT;
+	/* Node class, i.e Clock */
+	Attr |= Class << CLK_NODECLASS_SHIFT;
 
 	*Resp = Attr;
 
