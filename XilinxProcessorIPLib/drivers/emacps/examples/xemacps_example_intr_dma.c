@@ -117,6 +117,7 @@
 * 3.5 hk    08/14/17 Dont perform data cache operations when CCI is enabled
 *                    on ZynqMP.
 * 3.8 hk    10/01/18 Fix warning for redefinition of interrupt number.
+* 3.9 hk    02/12/19 Change MDC divisor for Versal emulation.
 *
 * </pre>
 *
@@ -531,7 +532,12 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 	}
 	else
 	{
-		XEmacPs_SetMdioDivisor(EmacPsInstancePtr, MDC_DIV_224);
+		if ((Platform & PLATFORM_MASK) == PLATFORM_VERSALEMU) {
+			XEmacPs_SetMdioDivisor(EmacPsInstancePtr, MDC_DIV_8);
+		} else {
+			XEmacPs_SetMdioDivisor(EmacPsInstancePtr, MDC_DIV_224);
+		}
+
 		if ((Platform & PLATFORM_MASK) == PLATFORM_SILICON) {
 			EmacPsUtilEnterLoopback(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED_1G);
 			XEmacPs_SetOperatingSpeed(EmacPsInstancePtr,EMACPS_LOOPBACK_SPEED_1G);
