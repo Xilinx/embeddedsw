@@ -169,7 +169,7 @@ typedef enum {
 						  *  swing change interrupt
 						  *  type for DisplayPort
 						  *  core */
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 	XDPTXSS_HANDLER_HDCP_RPTR_EXCHG,	/**< Repeater Exchange
 						  *  interrupt type for
 						  *  HDCP core */
@@ -227,7 +227,7 @@ typedef struct {
 				  *  information */
 } XDpTxSs_DpSubCore;
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 /**
 * High-Bandwidth Content Protection (HDCP) Sub-core structure.
 */
@@ -271,7 +271,7 @@ typedef struct {
 	u8 NumMstStreams;	/**< The total number of MST streams supported
 				  *  by this core instance. */
 	XDpTxSs_DpSubCore DpSubCore;	/**< DisplayPort Configuration */
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 	XDpTxSs_Hdcp1xSubCore Hdcp1xSubCore;	/**< HDCP Configuration */
 	XDpTxSs_TmrCtrSubCore TmrCtrSubCore;	/**< Timer Counter
 						  *  Configuration */
@@ -326,7 +326,7 @@ typedef struct {
 #if (XPAR_XDUALSPLITTER_NUM_INSTANCES > 0)
 	XDualSplitter *DsPtr;		/**< Dual Splitter sub-core instance */
 #endif
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 	XHdcp1x *Hdcp1xPtr;		/**< HDCP sub-core instance */
 	XTmrCtr *TmrCtrPtr;		/**< Timer Counter sub-core instance */
 #endif
@@ -353,7 +353,7 @@ typedef struct {
 */
 #define XDpTxSs_MainStreamAttributes	XDp_TxMainStreamAttributes
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 #define XDpTxSs_Printf		XHdcp1x_Printf	/**< Debug printf */
 #define XDpTxSs_LogMsg		XHdcp1x_LogMsg	/**< Debug log message */
 #endif
@@ -386,7 +386,7 @@ u32 XDpTxSs_GetEdid(XDpTxSs *InstancePtr, u8 *Edid);
 u32 XDpTxSs_GetRemoteEdid(XDpTxSs *InstancePtr, u8 SinkNum, u8 *Edid);
 void XDpTxSs_SetHasRedriverInPath(XDpTxSs *InstancePtr, u8 Set);
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 /* Optional HDCP related functions */
 u32 XDpTxSs_HdcpEnable(XDpTxSs *InstancePtr);
 u32 XDpTxSs_HdcpDisable(XDpTxSs *InstancePtr);
@@ -417,7 +417,7 @@ void XDpTxSs_ReportHdcpInfo(XDpTxSs *InstancePtr);
 u32 XDpTxSs_SelfTest(XDpTxSs *InstancePtr);
 
 /* Interrupt functions in xdptxss_intr.c */
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 void XDpTxSs_HdcpIntrHandler(void *InstancePtr);
 void XDpTxSs_TmrCtrIntrHandler(void *InstancePtr);
 #endif
