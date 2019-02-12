@@ -2074,14 +2074,6 @@ XStatus XPmPin_SetPinFunction(u32 PinId, u32 FuncId)
 		goto done;
 	}
 
-	/* Check if pin is assigned to a device being used */
-	if ((NULL != Pin->PinFunc) && (0 != Pin->PinFunc->DeviceId)) {
-		if (TRUE == XPmDevice_IsAllocated(Pin->PinFunc->DeviceId, NULL)) {
-			Status = XST_DEVICE_BUSY;
-			goto done;
-		}
-	}
-
 	if (XPM_NODETYPE_LPD_MIO == NODETYPE(PinId)) {
 		PmOut32(Pin->Node.BaseAddress + PINNUM(Pin->Node.Id) * 4, PinFunc->LmioRegMask);
 	} else if (XPM_NODETYPE_PMC_MIO == NODETYPE(PinId)) {

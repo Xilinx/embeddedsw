@@ -276,33 +276,26 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 		}
 		break;
 	case XPM_NODECLASS_DEVICE:
-		Node = (XPm_Node *)XPmDevice_GetById(NodeId);
-		if (NULL == Node) {
+		Status = XPmDevice_CheckPermissions(Subsystem, NodeId);
+		if (XST_SUCCESS != Status) {
 			goto done;
-		}
-		while (NULL != Reqm) {
-			if (((XPm_Device *)Node == Reqm->Device) &&
-				(TRUE == Reqm->Allocated)) {
-					Status = XST_SUCCESS;
-					goto done;
-			}
-			Reqm = Reqm->NextDevice;
 		}
 		break;
 	case XPM_NODECLASS_STMIC:
 		Pin = XPmPin_GetById(NodeId);
 		if (NULL == Pin) {
 			goto done;
-		} else if ((XPM_PINSTATE_UNUSED == Pin->Node.State) ||
-			(0 == Pin->PinFunc->DeviceId)) {
+		}
+
+		u32 DevId = PmDevices[Pin->PinFunc->DeviceId]->Node.Id;
+		if ((XPM_PINSTATE_UNUSED == Pin->Node.State) || (0 == DevId)) {
 			Status = XST_SUCCESS;
 			goto done;
-		} else if (TRUE ==
-			XPmDevice_IsAllocated(Pin->PinFunc->DeviceId, Subsystem)) {
-			Status = XST_SUCCESS;
+		}
+
+		Status = XPmDevice_CheckPermissions(Subsystem, DevId);
+		if (XST_SUCCESS != Status) {
 			goto done;
-		} else {
-			/* Required by MISRA */
 		}
 		break;
 	default:
