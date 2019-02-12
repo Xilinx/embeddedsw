@@ -83,7 +83,7 @@ typedef struct {
 #if (XPAR_XDUALSPLITTER_NUM_INSTANCES > 0)
 	XDualSplitter DsInst;
 #endif
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 	XHdcp1x Hdcp1xInst;
 	XTmrCtr TmrCtrInst;
 #endif
@@ -98,7 +98,7 @@ static void DpTxSs_CalculateMsa(XDpTxSs *InstancePtr, u8 Stream);
 static u32 DpTxSs_CheckRxDeviceMode(XDpTxSs *InstancePtr);
 static u32 DpTxSs_SetupSubCores(XDpTxSs *InstancePtr);
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 static int DpTxSs_HdcpStartTimer(void *InstancePtr, u16 TimeoutInMs);
 static int DpTxSs_HdcpStopTimer(void *InstancePtr);
 static int DpTxSs_HdcpBusyDelay(void *InstancePtr, u16 DelayInMs);
@@ -142,7 +142,7 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 #if (XPAR_XDUALSPLITTER_NUM_INSTANCES > 0)
 	XDualSplitter_Config DualConfig;
 #endif
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 	XHdcp1x_Config Hdcp1xConfig;
 #endif
 	XDp_Config DpConfig;
@@ -227,7 +227,7 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 		}
 	}
 #endif
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 	/* Check for Timer Counter availability */
 	if (InstancePtr->TmrCtrPtr != NULL) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO: Initializing Timer "
@@ -391,7 +391,7 @@ void XDpTxSs_Reset(XDpTxSs *InstancePtr)
 	}
 #endif
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 	/* Reset HDCP interface */
 	if (InstancePtr->Hdcp1xPtr) {
 		XHdcp1x_Reset(InstancePtr->Hdcp1xPtr);
@@ -441,7 +441,7 @@ u32 XDpTxSs_Start(XDpTxSs *InstancePtr)
 		return Status;
 	}
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 	/* Set physical interface (DisplayPort) down */
 	Status = XHdcp1x_SetPhysicalState(InstancePtr->Hdcp1xPtr, 0);
 	if (Status != XST_SUCCESS) {
@@ -462,7 +462,7 @@ u32 XDpTxSs_Start(XDpTxSs *InstancePtr)
 		return Status;
 	}
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 	/* Set lane count in HDCP */
 	Status = XHdcp1x_SetLaneCount(InstancePtr->Hdcp1xPtr,
 		InstancePtr->DpPtr->TxInstance.LinkConfig.LaneCount);
@@ -562,7 +562,7 @@ u32 XDpTxSs_StartCustomMsa(XDpTxSs *InstancePtr,
 		DpTxSs_CalculateMsa(InstancePtr, Index);
 	}
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 	/* Set physical interface (DisplayPort) down */
 	Status = XHdcp1x_SetPhysicalState(InstancePtr->Hdcp1xPtr, 0);
 	if (Status != XST_SUCCESS) {
@@ -584,7 +584,7 @@ u32 XDpTxSs_StartCustomMsa(XDpTxSs *InstancePtr,
 		return Status;
 	}
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 	/* Set lane count in HDCP */
 	Status = XHdcp1x_SetLaneCount(InstancePtr->Hdcp1xPtr,
 		InstancePtr->DpPtr->TxInstance.LinkConfig.LaneCount);
@@ -643,7 +643,7 @@ void XDpTxSs_Stop(XDpTxSs *InstancePtr)
 	}
 #endif
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 	if (InstancePtr->Hdcp1xPtr) {
 		/* Disable HDCP */
 		XHdcp1x_Disable(InstancePtr->Hdcp1xPtr);
@@ -1187,7 +1187,7 @@ void XDpTxSs_SetHasRedriverInPath(XDpTxSs *InstancePtr, u8 Set)
 	XDp_TxSetHasRedriverInPath(InstancePtr->DpPtr, Set);
 }
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 /*****************************************************************************/
 /**
 *
@@ -1844,7 +1844,7 @@ static void DpTxSs_GetIncludedSubCores(XDpTxSs *InstancePtr)
 		(&DpTxSsSubCores[InstancePtr->Config.DeviceId].DsInst) : NULL);
 #endif
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 	/* Assign instance of HDCP core */
 	InstancePtr->Hdcp1xPtr =
 		((InstancePtr->Config.Hdcp1xSubCore.IsPresent) ?
