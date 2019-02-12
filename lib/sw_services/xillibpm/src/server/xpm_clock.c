@@ -542,6 +542,7 @@ XStatus XPmClock_SetDivider(XPm_OutClockNode *Clk, u32 Divider)
 {
 	u32 Status = XST_SUCCESS;
 	struct XPm_ClkTopologyNode *Ptr;
+	u32 Divider1;
 
 	Ptr = XPmClock_GetTopologyNode(Clk, TYPE_DIV1);
 	if (Ptr == NULL) {
@@ -549,12 +550,13 @@ XStatus XPmClock_SetDivider(XPm_OutClockNode *Clk, u32 Divider)
 		goto done;
 	}
 
-	if (Divider > BITMASK(Ptr->Param2.Width)) {
+	Divider1 = Divider & 0xFFFF;
+	if (Divider1 > BITMASK(Ptr->Param2.Width)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	XPm_RMW32(Ptr->Reg, BITNMASK(Ptr->Param1.Shift,Ptr->Param2.Width), Divider << Ptr->Param1.Shift);
+	XPm_RMW32(Ptr->Reg, BITNMASK(Ptr->Param1.Shift,Ptr->Param2.Width), Divider1 << Ptr->Param1.Shift);
 
 done:
 	return Status;
