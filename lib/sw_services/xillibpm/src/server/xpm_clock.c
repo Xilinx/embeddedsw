@@ -601,22 +601,26 @@ done:
 
 XStatus XPmClock_QueryName(u32 ClockId, u32 *Resp)
 {
-	XStatus Status = XST_SUCCESS;
+	u32 RetWord = 0;
 	XPm_ClockNode *Clk;
 	u32 ClockIndex = NODEINDEX(ClockId);
 
 	Clk = XPmClock_GetById(ClockId);
 
 	if (ClockIndex == MaxClkNodes) {
-		memcpy(Resp, END_OF_CLK, CLK_NAME_LEN);
+		char ClkName[] = END_OF_CLK;
+		memcpy(&RetWord, ClkName, 4);
+		memcpy(Resp, ClkName[4], CLK_NAME_LEN - 4);
 	} else if (XPmClock_IsValid(Clk) == 0) {
-		memset(Resp, 0, CLK_NAME_LEN);
+		memset(Resp, 0, CLK_NAME_LEN - 4);
 	} else if (ClockIndex < MaxClkNodes) {
-		memcpy(Resp, Clk->Name, CLK_NAME_LEN);
+		memcpy(&RetWord, Clk->Name, 4);
+		memcpy(Resp, &Clk->Name[4], CLK_NAME_LEN - 4);
 	} else {
 		memset(Resp, 0, CLK_NAME_LEN);
 	}
-	return Status;
+
+	return RetWord;
 }
 
 XStatus XPmClock_QueryTopology(u32 ClockId, u32 Index, u32 *Resp)
