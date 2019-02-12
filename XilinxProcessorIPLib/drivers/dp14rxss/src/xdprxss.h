@@ -191,7 +191,7 @@ typedef enum {
 	XDPRXSS_HANDLER_DP_CRC_TEST_EVENT,	/**< CRC test start event
 						  *  interrupt type for
 						  *  DisplayPort core */
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 	XDPRXSS_HANDLER_HDCP_RPTR_TDSA_EVENT,	/**< Repeater Trigger
 						  *  Downstream AUTH event
 						  *  interrupt type for
@@ -259,7 +259,7 @@ typedef struct {
 				  *  information */
 } XDpRxSs_IicSubCore;
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 /**
 * High-Bandwidth Content Protection (HDCP) Sub-core structure.
 */
@@ -307,11 +307,11 @@ typedef struct {
 	u8 ColorFormat;		/**< Type of color format supported by this
 				  *  core instance. */
 	XDpRxSs_DpSubCore DpSubCore;	/**< DisplayPort Configuration */
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 	XDpRxSs_Hdcp1xSubCore Hdcp1xSubCore;	/**< HDCP Configuration */
 #endif
 	XDpRxSs_IicSubCore IicSubCore;	/**< IIC Configuration */
-#if ((XPAR_XHDCP_NUM_INSTANCES > 0) && (XPAR_XTMRCTR_NUM_INSTANCES > 0))
+#if ((XPAR_DPRXSS_0_HDCP_ENABLE > 0) && (XPAR_XTMRCTR_NUM_INSTANCES > 0))
 	XDpRxSs_TmrCtrSubCore TmrCtrSubCore;	/**< Timer Counter
 						  *  Configuration */
 #endif
@@ -340,7 +340,7 @@ typedef struct {
 	/* Sub-core instances */
 	XDp *DpPtr;			/**< DisplayPort sub-core instance */
 	XIic *IicPtr;			/**< IIC sub-core instance */
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 	XHdcp1x *Hdcp1xPtr;		/**< HDCP sub-core instance */
 	XTmrCtr *TmrCtrPtr;		/**< Timer Counter sub-core instance */
 	u8 TmrCtrResetDone;		/**< Timer reset done. This is used for
@@ -494,7 +494,7 @@ typedef struct {
 #define XDpRxSs_WaitUs(InstancePtr, MicroSeconds) \
 	XDp_WaitUs((InstancePtr)->DpPtr, MicroSeconds)
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 #define XDpRxSs_Printf		XHdcp1x_Printf	/**< Debug printf */
 #define XDpRxSs_LogMsg		XHdcp1x_LogMsg	/**< Debug log message */
 #endif
@@ -516,7 +516,7 @@ u32 XDpRxSs_CheckLinkStatus(XDpRxSs *InstancePtr);
 u32 XDpRxSs_HandleDownReq(XDpRxSs *InstancePtr);
 void XDpRxSs_SetUserPixelWidth(XDpRxSs *InstancePtr, u8 UserPixelWidth);
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 /* Optional HDCP related functions */
 u32 XDpRxSs_HdcpEnable(XDpRxSs *InstancePtr);
 u32 XDpRxSs_HdcpDisable(XDpRxSs *InstancePtr);
@@ -544,7 +544,7 @@ void XDpRxSs_ReportHdcpInfo(XDpRxSs *InstancePtr);
 u32 XDpRxSs_SelfTest(XDpRxSs *InstancePtr);
 
 /* Interrupt functions in xdprxss_intr.c */
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 void XDpRxSs_HdcpIntrHandler(void *InstancePtr);
 void XDpRxSs_TmrCtrIntrHandler(void *InstancePtr);
 #endif
