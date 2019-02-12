@@ -48,6 +48,7 @@
 * 3.0   kpc  01/23/15 Removed PEEP board related code
 * 3.2	hk   09/30/15 Added support for TI PHY DP83867
 * 3.2   mus  02/20/16 Added support for microblaze.
+* 3.9   hk   02/12/19 Use selected speed in loopback mode.
 * </pre>
 *
 *****************************************************************************/
@@ -506,7 +507,7 @@ LONG EmacPsUtilTiPhyLoopback(XEmacPs * EmacPsInstancePtr,
 								u32 Speed, u32 PhyAddr)
 {
 	LONG Status;
-	u16 PhyReg0  = 0;
+	u16 PhyReg0  = 0, LoopbackSpeed = 0;
 	u16 RgmiiTuning = PHY_TI_RGMII_ZCU102;
 
 	/*
@@ -526,6 +527,7 @@ LONG EmacPsUtilTiPhyLoopback(XEmacPs * EmacPsInstancePtr,
 		EmacPsUtilErrorTrap("Error: speed not recognized ");
 		return XST_FAILURE;
 	}
+	LoopbackSpeed = PhyReg0;
 
 	Status = XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, 0, PhyReg0);
 	/*
@@ -585,7 +587,7 @@ LONG EmacPsUtilTiPhyLoopback(XEmacPs * EmacPsInstancePtr,
 	EmacpsDelay(1);
 
 	/* enable loopback */
-	PhyReg0 = PHY_REG0_1000 | PHY_REG0_LOOPBACK;
+	PhyReg0 = LoopbackSpeed | PHY_REG0_LOOPBACK;
 	Status = XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, 0, PhyReg0);
 	Status = XEmacPs_PhyRead(EmacPsInstancePtr, PhyAddr, 0, &PhyReg0);
 	if (Status != XST_SUCCESS) {
