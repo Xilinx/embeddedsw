@@ -50,7 +50,6 @@
 /***************************** Include Files *********************************/
 #include "xloader_ospi.h"
 #include "xloader.h"
-#include "xplmi_hw.h"
 
 #ifdef XLOADER_OSPI
 
@@ -63,9 +62,8 @@
 
 /**************************** Type Definitions *******************************/
 
-/***************** Macros (Inline Functions) Definitions ********************/
-#define XLOADER_OSPI_DEVICE_ID  XPAR_PSU_OSPI_0_DEVICE_ID
-#define XLOADER_OSPI_BASEADDR   XPAR_PSU_OSPI_0_BASEADDR
+/***************** Macros (Inline Functions) Definitions *********************/
+
 /************************** Function Prototypes ******************************/
 static int FlashReadID(XOspiPsv *OspiPsvPtr);
 
@@ -83,10 +81,9 @@ static u8 WriteBuffer[10] __attribute__ ((aligned(32)));
 * It then deduces the make and size of the flash and obtains the
 * connection mode to point to corresponding parameters in the flash
 * configuration table. The flash driver will function based on this and
-* it presently supports Micron and Spansion - 128, 256 and 512Mbit and
-* Winbond 128Mbit
+* it presently supports Micron 512Mb.
 *
-* @param	none
+* @param	Ospi Instance Pointer
 *
 * @return	XST_SUCCESS if read id, otherwise XST_FAILURE.
 *
@@ -141,8 +138,6 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
             goto END;
         }
 
-	FlashEnterExit4BAddMode(OspiPsvPtr);
-
 END:
 	return Status;
 }
@@ -150,7 +145,7 @@ END:
 
 /*****************************************************************************/
 /**
- * This function is used to initialize the qspi controller and driver
+ * This function is used to initialize the ospi controller and driver
  *
  * @param	None
  *
@@ -166,7 +161,7 @@ int XLoader_OspiInit(u32 DeviceFlags)
 
 
 	/**
-	 * Initialize the QSPI driver so that it's ready to use
+	 * Initialize the OSPI driver so that it's ready to use
 	 */
 	OspiConfig =  XOspiPsv_LookupConfig(XLOADER_OSPI_DEVICE_ID);
 	if (NULL == OspiConfig) {
@@ -206,7 +201,7 @@ int XLoader_OspiInit(u32 DeviceFlags)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-
+	XLoader_FlashEnterExit4BAddMode(&OspiPsvInstance, 1U);
 
 END:
 	return Status;
@@ -217,7 +212,7 @@ END:
  * This function is used to copy the data from OSPI flash to destination
  * address
  *
- * @param SrcAddr is the address of the QSPI flash where copy should
+ * @param SrcAddr is the address of the OSPI flash where copy should
  * start from
  *
  * @param DestAddr is the address of the destination where it
@@ -264,7 +259,7 @@ END:
 
 /*****************************************************************************/
 /**
- * This function is used to release the Qspi settings
+ * This function is used to release the Ospi settings
  *
  * @param	None
  *
@@ -274,7 +269,7 @@ END:
 int XLoader_OspiRelease(void)
 {
 	int Status = XLOADER_SUCCESS;
-
+	XLoader_FlashEnterExit4BAddMode(&OspiPsvInstance, 0U);
 	return Status;
 }
 
@@ -284,7 +279,7 @@ int XLoader_OspiRelease(void)
 * As per the Micron spec, before issuing the command to enter into 4 byte addr
 * mode, a write enable command is issued.
 *
-* @param        QspiPtr is a pointer to the QSPIPSU driver component to use.
+* @param        OspiPtr is a pointer to the OSPIPSV driver component to use.
 * @param        Enable is a either 1 or 0 if 1 then enters 4 byte if 0 exits.
 *
 * @return        - XST_SUCCESS if successful.
@@ -292,11 +287,20 @@ int XLoader_OspiRelease(void)
 *
 *
 ******************************************************************************/
-int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr)
+int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 {
         u32 Status;
-        u32 Command = ENTER_4B_ADDR_MODE;
+        u32 Command;
         u32 FlashStatus;
+
+	if(Enable)
+	{
+		Command = ENTER_4B_ADDR_MODE;
+	}
+	else
+	{
+		Command = EXIT_4B_ADDR_MODE;
+	}
 
         switch (OspiFlashMake) {
                 case MICRON_OCTAL_ID_BYTE0:

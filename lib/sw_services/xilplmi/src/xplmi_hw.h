@@ -142,6 +142,15 @@ extern "C" {
 #endif
 
 /**
+ * Definition for OSPI to be included
+ */
+#if (!defined(PLM_OSPI_EXCLUDE) && defined(XPAR_PSU_OSPI_0_DEVICE_ID))
+#define XLOADER_OSPI
+#define XLOADER_OSPI_DEVICE_ID  XPAR_PSU_OSPI_0_DEVICE_ID
+#define XLOADER_OSPI_BASEADDR   XPAR_PSU_OSPI_0_BASEADDR
+#endif
+
+/**
  * Definitions for SD to be included
  */
 #if (!defined(PLM_SD_EXCLUDE) && (XPAR_XSDPS_0_BASEADDR == 0xF1040000))
