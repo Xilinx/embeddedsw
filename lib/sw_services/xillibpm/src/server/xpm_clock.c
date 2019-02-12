@@ -730,21 +730,13 @@ XStatus XPmClock_QueryMuxSources(u32 ClockId, u32 Index, u32 *Resp)
 	memset(Resp, 0, CLK_PARENTS_PAYLOAD_LEN);
 
 	/* Skip parent till index */
-	for (i = 0; i < Index; i++) {
-		if (Clk->Topology.MuxSources[i] == CLK_NA_PARENT) {
-			Status = XST_SUCCESS;
-			goto done;
-		}
-	}
-
 	for (i = 0; i < 3; i++) {
-		Resp[i] = Clk->Topology.MuxSources[Index + i];
-		if (Clk->Topology.MuxSources[Index + i] == CLK_NA_PARENT) {
+		if (Clk->ClkNode.NumParents == (Index + i)) {
+			Resp[i] = 0xFFFFFFFF;
 			break;
 		}
+		Resp[i] = NODEINDEX(Clk->Topology.MuxSources[Index + i]);
 	}
-
-
 done:
 	return Status;
 }
