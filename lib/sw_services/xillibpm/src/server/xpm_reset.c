@@ -277,3 +277,31 @@ static u32 Reset_GetStatusCommon(XPm_ResetNode *Rst)
 
 	return ResetStatus;
 }
+
+int XPmReset_CheckPermissions(XPm_Subsystem *Subsystem, u32 ResetId)
+{
+	int Status = XST_FAILURE;
+	u32 DevId;
+	XPm_ResetHandle *DevHandle;
+	XPm_ResetNode *Rst = XPmReset_GetById(ResetId);
+
+	if (NULL == Rst) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	DevHandle = Rst->RstHandles;
+	while (NULL != DevHandle) {
+		DevId = DevHandle->Device->Node.Id;
+		if (XPM_DEVSTATE_RUNNING == DevHandle->Device->Node.State) {
+			Status = XPmDevice_CheckPermissions(Subsystem, DevId);
+			if (XST_SUCCESS == Status) {
+				goto done;
+			}
+		}
+		DevHandle = DevHandle->NextDevice;
+	}
+
+done:
+	return Status;
+}
