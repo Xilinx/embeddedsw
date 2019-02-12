@@ -87,7 +87,7 @@
 typedef struct {
 	XDp DpInst;
 	XIic IicInst;
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 	XHdcp1x Hdcp1xInst;
 	XTmrCtr TmrCtrInst;
 #endif
@@ -102,7 +102,7 @@ static void StubTp2Callback(void *InstancePtr);
 static void StubUnplugCallback(void *InstancePtr);
 static void StubAccessLaneSetCallback(void *InstancePtr);
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 static int DpRxSs_HdcpStartTimer(void *InstancePtr, u16 TimeoutInMs);
 static int DpRxSs_HdcpStopTimer(void *InstancePtr);
 static int DpRxSs_HdcpBusyDelay(void *InstancePtr, u16 DelayInMs);
@@ -170,7 +170,7 @@ XDpRxSs_SubCores DpRxSsSubCores[XPAR_XDPRXSS_NUM_INSTANCES];
 u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 				UINTPTR EffectiveAddr)
 {
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 	XHdcp1x_Config Hdcp1xConfig;
 #endif
 	XIic_Config IicConfig;
@@ -317,7 +317,7 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 		DpRxSs_PopulateDpRxPorts(InstancePtr);
 	}
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 	/* Check for Timer Counter availability */
 	XTmrCtr_Config *ConfigPtr;
 	if (InstancePtr->TmrCtrPtr != NULL) {
@@ -422,7 +422,7 @@ void XDpRxSs_Reset(XDpRxSs *InstancePtr)
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 	/* Reset HDCP interface */
 	if ((InstancePtr->Hdcp1xPtr) && (InstancePtr->Config.HdcpEnable)) {
 		XHdcp1x_Reset(InstancePtr->Hdcp1xPtr);
@@ -727,7 +727,7 @@ u32 XDpRxSs_HandleDownReq(XDpRxSs *InstancePtr)
 	return Status;
 }
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 /*****************************************************************************/
 /**
 *
@@ -1368,7 +1368,7 @@ static void DpRxSs_GetIncludedSubCores(XDpRxSs *InstancePtr)
 		(&DpRxSsSubCores[
 			InstancePtr->Config.DeviceId].IicInst) : NULL);
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 	/* Assign instance of HDCP core */
 	InstancePtr->Hdcp1xPtr =
 		((InstancePtr->Config.Hdcp1xSubCore.IsPresent) ?
