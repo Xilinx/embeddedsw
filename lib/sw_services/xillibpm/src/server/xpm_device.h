@@ -204,7 +204,7 @@ XStatus XPmDevice_AddReset(XPm_Device *Device, XPm_ResetNode *Reset);
 
 XStatus XPmDevice_Reset(XPm_Device *Device, const XPm_ResetActions Action);
 
-u8 XPmDevice_IsAllocated(u32 DeviceId, XPm_Subsystem *Subsystem);
+int XPmDevice_CheckPermissions(XPm_Subsystem *Subsystem, u32 DeviceId);
 
 XPm_Device *XPmDevice_GetById(const u32 DeviceId);
 
