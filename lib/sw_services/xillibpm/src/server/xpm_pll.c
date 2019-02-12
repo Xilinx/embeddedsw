@@ -28,6 +28,8 @@
 
 #include "xpm_pll.h"
 
+#define CLK_PARENTS_PAYLOAD_LEN		12U
+
 static struct XPm_PllTopology PllTopologies[] =
 {
 	{TOPOLOGY_GENERIC_PLL, PLLPARAMS, RESET_SHIFT, BYPASS_SHIFT, GEN_LOCK_SHIFT, GEN_STABLE_SHIFT },
@@ -338,6 +340,29 @@ XStatus XPmClockPll_GetParam(XPm_PllClockNode *Pll, u32 Param, u32 *Val)
 	if (XST_SUCCESS == Status) {
 		*Val = (XPm_Read32(Reg) & Mask) >> Shift;
 	}
+
+done:
+	return Status;
+}
+
+int XPmClockPll_QueryMuxSources(u32 Id, u32 Index, u32 *Resp)
+{
+	int Status = XST_SUCCESS;
+	XPm_PllClockNode *PllPtr = (XPm_PllClockNode *)XPmClock_GetById(Id);
+
+	if (PllPtr == NULL) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	memset(Resp, 0, CLK_PARENTS_PAYLOAD_LEN);
+
+	if (Index != 0) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	Resp[0] = NODEINDEX(PllPtr->ClkNode.ParentId);
+	Resp[1] = 0xFFFFFFFF;
 
 done:
 	return Status;
