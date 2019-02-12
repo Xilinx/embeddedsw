@@ -54,7 +54,8 @@ extern "C" {
 
 
 /***************************** Include Files *********************************/
-//#define XLOADER_OSPI
+#include "xplmi_hw.h"
+
 #ifdef XLOADER_OSPI
 #include "xparameters.h"	/* SDK generated parameters */
 #include "xospipsv.h"		/* OSPIPSV device driver */
@@ -92,7 +93,7 @@ extern "C" {
 #define XLOADER_ERR_OSPI_INIT                            (0x4000)
 #define XLOADER_ERR_OSPI_CFG                             (0x4100)
 #define XLOADER_ERR_UNSUPPORTED_OSPI                     (0x4200)
-#define XLOADER_ERR_UNSUPPORTED_OSPI_SIZE        	(0x4300)
+#define XLOADER_ERR_UNSUPPORTED_OSPI_SIZE        		 (0x4300)
 
 /**************************** Type Definitions *******************************/
 
@@ -103,11 +104,11 @@ extern "C" {
 int XLoader_OspiInit(u32 DeviceFlags);
 int XLoader_OspiCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 int XLoader_OspiRelease(void );
-int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr);
+int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable);
 /************************** Variable Definitions *****************************/
 
 
-#endif /* end of XLOADER_QSPI */
+#endif /* end of XLOADER_OSPI */
 
 #ifdef __cplusplus
 }
