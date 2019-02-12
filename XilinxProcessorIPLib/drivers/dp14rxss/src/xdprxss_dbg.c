@@ -92,7 +92,7 @@ void XDpRxSs_ReportCoreInfo(XDpRxSs *InstancePtr)
 	xil_printf("\n\rDisplayPort RX Subsystem info:\n\r");
 
 	/* Report all the included cores in the subsystem instance */
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 	if (InstancePtr->Hdcp1xPtr) {
 		xil_printf("High-Bandwidth Content protection (HDCP):Yes\n\r");
 	}
@@ -294,7 +294,7 @@ void XDpRxSs_ReportHdcpInfo(XDpRxSs *InstancePtr)
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 	XHdcp1x_Info(InstancePtr->Hdcp1xPtr);
 #else
 	xil_printf("HDCP is not supported in this design.\n\r");

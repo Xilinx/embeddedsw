@@ -55,7 +55,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 #include "xparameters.h"
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 #include "xhdcp1x.h"
 #include "xtmrctr.h"
 #endif
