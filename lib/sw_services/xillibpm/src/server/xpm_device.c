@@ -688,7 +688,7 @@ done:
 XStatus XPmDevice_AddReset(XPm_Device *Device, XPm_ResetNode *Reset)
 {
 	u32 Status = XST_SUCCESS;
-	XPm_ResetNodeList *CurrRstList, *RstNode;
+	XPm_ResetHandle *RstHandle;
 
 	if (NULL == Device) {
 		Status = XST_FAILURE;
@@ -699,24 +699,22 @@ XStatus XPmDevice_AddReset(XPm_Device *Device, XPm_ResetNode *Reset)
 		goto done;
 	}
 
-	RstNode = (XPm_ResetNodeList *)XPm_AllocBytes(sizeof(XPm_ResetNodeList));
-	if (NULL == RstNode) {
+	RstHandle = (XPm_ResetHandle *)XPm_AllocBytes(sizeof(XPm_ResetHandle));
+	if (NULL == RstHandle) {
 		Status = XST_BUFFER_TOO_SMALL;
 		goto done;
 	}
 
-	RstNode->Reset = Reset;
-	RstNode->NextNode = NULL;
+	RstHandle->Reset = Reset;
+	RstHandle->Device = Device;
 
-	if (NULL == Device->ResetList) {
-		Device->ResetList = RstNode;
-	} else {
-		CurrRstList = Device->ResetList;
-		while (CurrRstList->NextNode != NULL) {
-			CurrRstList = CurrRstList->NextNode;
-		}
-		CurrRstList->NextNode = RstNode;
-	}
+	/* Prepend the new handle to the device's reset handle list */
+	RstHandle->NextReset = Device->RstHandles;
+	Device->RstHandles = RstHandle;
+
+	/* Prepend the new handle to the reset's device handle list */
+	RstHandle->NextDevice = Reset->RstHandles;
+	Reset->RstHandles = RstHandle;
 
 done:
 	return Status;
@@ -725,17 +723,17 @@ done:
 XStatus XPmDevice_Reset(XPm_Device *Device, const XPm_ResetActions Action)
 {
 	u32 Status = XST_SUCCESS;
-	XPm_ResetNodeList *RstList;
+	XPm_ResetHandle *RstHandle;
 
 	if (NULL == Device) {
 		Status = XST_FAILURE;
 		goto done;
 	}
 
-	RstList = Device->ResetList;
-	while (NULL != RstList) {
-		RstList->Reset->Ops->SetState(RstList->Reset, Action);
-		RstList = RstList->NextNode;
+	RstHandle = Device->RstHandles;
+	while (NULL != RstHandle) {
+		RstHandle->Reset->Ops->SetState(RstHandle->Reset, Action);
+		RstHandle = RstHandle->NextReset;
 	}
 
 done:

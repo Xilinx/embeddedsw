@@ -57,6 +57,7 @@ typedef enum {
 }XPm_ResetActions;
 
 typedef struct XPm_ResetNode XPm_ResetNode;
+typedef struct XPm_Subsystem XPm_Subsystem;
 
 /**
  * xPmResetOps - Reset operations
@@ -68,6 +69,18 @@ typedef struct XPmResetOps {
 	u32 (*const GetState)(XPm_ResetNode *Rst);
 } XPm_ResetOps;
 
+typedef struct XPm_ResetHandle XPm_ResetHandle;
+
+/**
+ * XPm_ResetHandle - This models reset/device pair.
+ */
+struct XPm_ResetHandle {
+	XPm_ResetNode *Reset; /**< Reset used by device */
+	struct XPm_Device *Device; /**< Device which uses the reset */
+	XPm_ResetHandle *NextReset; /**< Next handle of same device */
+	XPm_ResetHandle *NextDevice; /**< Next handle of same reset */
+};
+
 /**
  * The reset class.	 This is the base class for all the reset nodes.
  */
@@ -77,6 +90,7 @@ struct XPm_ResetNode {
 	uint8_t Shift;
 	uint8_t Width;
 	XPm_ResetOps *Ops;
+	XPm_ResetHandle *RstHandles; /**< Pointer to the reset/device pairs */
 };
 
 extern XPm_ResetNode *RstNodeList[];

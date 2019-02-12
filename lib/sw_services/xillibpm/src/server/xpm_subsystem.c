@@ -225,8 +225,6 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
-	XPm_Requirement *Reqm;
-	XPm_Node *Node = NULL;
 	XPm_PinNode *Pin;
 	u32 SubSysIdx = SubsystemId & 0xFF;
 
@@ -240,7 +238,6 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 	}
 
 	Subsystem = &PmSubsystems[SubSysIdx];
-	Reqm = Subsystem->Requirements;
 
 	switch (NODECLASS(NodeId)) {
 	case XPM_NODECLASS_POWER:
@@ -258,22 +255,7 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 		}
 		break;
 	case XPM_NODECLASS_RESET:
-		Node = (XPm_Node *)XPmReset_GetById(NodeId);
-		XPm_ResetNodeList *RstList;
-		if (NULL == Node) {
-			goto done;
-		}
-		while (NULL != Reqm) {
-			RstList = Reqm->Device->ResetList;
-			while ((NULL != RstList) && (TRUE == Reqm->Allocated)) {
-				if ((XPm_ResetNode *)Node == RstList->Reset) {
-					Status = XST_SUCCESS;
-					goto done;
-				}
-				RstList = RstList->NextNode;
-			}
-			Reqm = Reqm->NextDevice;
-		}
+		Status = XST_SUCCESS;
 		break;
 	case XPM_NODECLASS_DEVICE:
 		Status = XPmDevice_CheckPermissions(Subsystem, NodeId);

@@ -146,12 +146,6 @@ struct XPm_DeviceOps {
 		/**< Release: Release the device */
 };
 
-/* Reset node list allocated to device */
-typedef struct XPm_ResetNodeList {
-	XPm_ResetNode *Reset; /**< Reset pointer for current node */
-	struct XPm_ResetNodeList *NextNode; /**< Pointer to next node in list */
-} XPm_ResetNodeList;
-
 /* Transition for a state in finite state machine */
 typedef struct {
 	const u32 Latency; /**< Transition latency in microseconds */
@@ -178,7 +172,7 @@ struct XPm_Device {
 	XPm_Node Node; /**< Node: Base class */
 	XPm_Power *Power; /**< Device power node */
 	XPm_ClockHandle *ClkHandles; /**< Head of the list of device clocks */
-	XPm_ResetNodeList *ResetList; /**< Device reset node list */
+	XPm_ResetHandle *RstHandles; /**< Head of the list device resets */
 	XPm_Requirement *Requirements;
 		/**< Head of the list of requirements for all subsystems */
 
