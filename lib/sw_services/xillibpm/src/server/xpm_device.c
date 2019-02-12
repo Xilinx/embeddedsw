@@ -742,29 +742,29 @@ done:
 	return Status;
 }
 
-u8 XPmDevice_IsAllocated(u32 DeviceId, XPm_Subsystem *Subsystem)
+int XPmDevice_CheckPermissions(XPm_Subsystem *Subsystem, u32 DeviceId)
 {
-	u8 IsAllocated = FALSE;
+	int Status = XST_FAILURE;
 	XPm_Requirement *Reqm;
-	XPm_Device *Device = PmDevices[DeviceId];
+	XPm_Device *Device = XPmDevice_GetById(DeviceId);
 
-	Reqm = Device->Requirements;
-	while (NULL != Reqm) {
-		if (NULL != Subsystem) {
-			if (Reqm->Subsystem != Subsystem) {
-				Reqm = Reqm->NextSubsystem;
-				continue;
-			}
-		}
-
-		if (TRUE == Reqm->Allocated) {
-			IsAllocated = TRUE;
-			break;
-		}
-		Reqm = Reqm->NextSubsystem;
+	if (NULL == Device) {
+		Status = XST_INVALID_PARAM;
+		goto done;
 	}
 
-	return IsAllocated;
+	Reqm = FindReqm(Device, Subsystem);
+	if (NULL == Reqm) {
+		goto done;
+	}
+
+	if (TRUE == Reqm->Allocated) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+done:
+	return Status;
 }
 
 XPm_Device *XPmDevice_GetById(const u32 DeviceId)
