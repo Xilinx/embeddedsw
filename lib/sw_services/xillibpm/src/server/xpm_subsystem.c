@@ -255,7 +255,10 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 		}
 		break;
 	case XPM_NODECLASS_RESET:
-		Status = XST_SUCCESS;
+		Status = XPmReset_CheckPermissions(Subsystem, NodeId);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 		break;
 	case XPM_NODECLASS_DEVICE:
 		Status = XPmDevice_CheckPermissions(Subsystem, NodeId);
