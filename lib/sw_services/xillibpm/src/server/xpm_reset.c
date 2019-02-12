@@ -27,6 +27,7 @@
 ******************************************************************************/
 
 #include "xpm_reset.h"
+#include "xpm_device.h"
 #include "xpm_domain_iso.h"
 
 static XStatus Reset_AssertCommon(XPm_ResetNode *Rst, const u32 Action);
