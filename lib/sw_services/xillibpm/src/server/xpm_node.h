@@ -33,6 +33,8 @@
 #include <xstatus.h>
 #include "xillibpm_node.h"
 
+#define NODE_IDLE_DONE			(0x4U)
+
 typedef struct XPm_Node XPm_Node;
 
 /**
@@ -44,6 +46,7 @@ struct XPm_Node {
 	u32 State; /**< Node state: Specific to node type */
 	u32 BaseAddress; /**< Base address: Specify to node type */
 	u32 LatencyMarg; /**< lowest latency requirement - powerup latency */
+	u8  Flags;
 	XStatus (* HandleEvent)(XPm_Node *Node, u32 Event);
 		/**< HandleEvent: Pointer to event handler */
 };
