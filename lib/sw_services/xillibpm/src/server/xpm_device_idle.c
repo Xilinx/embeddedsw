@@ -244,3 +244,65 @@ void NodeGemIdle(u16 DeviceId, u32 BaseAddress)
 	XEmacPs_WriteReg(BaseAddress, XEMACPS_NWCTRL_OFFSET, Reg);
 }
 #endif
+
+#if defined(XPAR_PSU_GDMA_0_DEVICE_ID) || defined(XPAR_PSU_ADMA_0_DEVICE_ID)
+
+#define XZDMA_CH_OFFSET		(0X10000)	/* Channel offset per DMA */
+#define XZDMA_NUM_CHANNEL	(8U)		/* Number of Channels */
+/**
+ * NodeZdmaIdle() - Custom code to idle the ZDMA (GDMA and ADMA)
+ *
+ * @DeviceId:	 Device ID of ZDMA node
+ * @BaseAddress: ZDMA base address of the first channel
+ */
+void NodeZdmaIdle(u16 DeviceId, u32 BaseAddress)
+{
+	u8 Channel = 0U;
+	u32 RegVal = 0U, LocalTimeout;
+
+	/* Warning Fix */
+	(void)(DeviceId);
+
+	/* Idle each of the 8 Channels */
+	for (Channel = 0; Channel < XZDMA_NUM_CHANNEL; Channel++) {
+		/* Disable/stop the Channel */
+		XZDma_WriteReg(BaseAddress, (XZDMA_CH_CTRL2_OFFSET),
+			       (XZDMA_CH_CTRL2_DIS_MASK));
+
+		/* Wait till transfers are not completed or halted */
+		/* TODO: not right to use max timeout. do calibrate*/
+		LocalTimeout = XPM_MAX_TIMEOUT;
+		do {
+			RegVal = XZDma_ReadReg(BaseAddress, XZDMA_CH_STS_OFFSET) & XZDMA_STS_BUSY_MASK;
+		} while (RegVal && LocalTimeout--);
+
+		/* Disable and clear all interrupts */
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_IDS_OFFSET, XZDMA_IXR_ALL_INTR_MASK);
+
+		RegVal = XZDma_ReadReg(BaseAddress, XZDMA_CH_ISR_OFFSET);
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_ISR_OFFSET,
+			       (RegVal & XZDMA_IXR_ALL_INTR_MASK));
+
+		/* Reset all the configurations */
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_CTRL0_OFFSET, XZDMA_CTRL0_RESET_VALUE);
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_CTRL1_OFFSET, XZDMA_CTRL1_RESET_VALUE);
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_DATA_ATTR_OFFSET, XZDMA_DATA_ATTR_RESET_VALUE);
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_DSCR_ATTR_OFFSET, XZDMA_DSCR_ATTR_RESET_VALUE);
+
+		/* Clears total byte transferred */
+		RegVal = XZDma_ReadReg(BaseAddress, XZDMA_CH_TOTAL_BYTE_OFFSET);
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_TOTAL_BYTE_OFFSET, RegVal);
+
+		/* Read interrupt counts to clear it on both source and destination Channels*/
+		XZDma_ReadReg(BaseAddress, XZDMA_CH_IRQ_SRC_ACCT_OFFSET);
+		XZDma_ReadReg(BaseAddress, XZDMA_CH_IRQ_DST_ACCT_OFFSET);
+
+		/* Reset the channel's coherent attributes. */
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_DSCR_ATTR_OFFSET, 0x0);
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_SRC_DSCR_WORD3_OFFSET, 0x0);
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_DST_DSCR_WORD3_OFFSET, 0x0);
+
+		BaseAddress += XZDMA_CH_OFFSET;
+	}
+}
+#endif
