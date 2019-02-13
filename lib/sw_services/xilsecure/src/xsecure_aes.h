@@ -199,6 +199,7 @@ typedef struct {
 		 */
 	u32 SizeofData; /**< Size of Data to be encrypted or decrypted */
 	u8  *Destination; /**< Destination for decrypted/encrypted data */
+	u32 TotalSizeOfData; /**< Total size of the data */
 } XSecure_Aes;
 
 /** @}
