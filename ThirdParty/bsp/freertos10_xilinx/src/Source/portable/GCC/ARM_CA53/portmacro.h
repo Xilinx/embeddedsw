@@ -61,9 +61,6 @@ typedef uint64_t UBaseType_t;
 typedef uint64_t TickType_t;
 #define portMAX_DELAY ( ( TickType_t ) 0xffffffffffffffff )
 
-/* 32-bit tick type on a 32-bit architecture, so reads of the tick count do
-not need to be guarded with a critical section. */
-#define portTICK_TYPE_IS_ATOMIC 1
 
 /*-----------------------------------------------------------*/
 
@@ -71,7 +68,6 @@ not need to be guarded with a critical section. */
 #define portSTACK_GROWTH			( -1 )
 #define portTICK_PERIOD_MS			( ( TickType_t ) 1000 / configTICK_RATE_HZ )
 #define portBYTE_ALIGNMENT			16
-#define portPOINTER_SIZE_TYPE 		uint64_t
 
 /*-----------------------------------------------------------*/
 
@@ -119,8 +115,6 @@ extern void vPortInstallFreeRTOSVectorTable( void );
 interrupts that have a priority below configMAX_API_CALL_INTERRUPT_PRIORITY. */
 #define portENTER_CRITICAL()		vPortEnterCritical();
 #define portEXIT_CRITICAL()			vPortExitCritical();
-#define portSET_INTERRUPT_MASK_FROM_ISR()		uxPortSetInterruptMask()
-#define portCLEAR_INTERRUPT_MASK_FROM_ISR(x)	vPortClearInterruptMask(x)
 
 /*-----------------------------------------------------------*/
 

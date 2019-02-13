@@ -721,6 +721,28 @@ proc generate {os_handle} {
 	puts $config_file "#define INCLUDE_eTaskGetState                1"
 	puts $config_file "#define INCLUDE_xTimerPendFunctionCall       1"
 	puts $config_file "#define INCLUDE_pcTaskGetTaskName            1"
+	set flag_mb64 ""
+	if {$proctype == "microblaze"} {
+		set sw_proc_handle [hsi::get_sw_processor]
+		set periph [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle]]
+		set data_size [common::get_property CONFIG.C_DATA_SIZE $periph]
+		if {[string compare -nocase "64" $data_size] == 0 } {
+			set flag_mb64 "1"
+		}
+         }
+
+	if { $proctype == "psu_cortexa53" || $flag_mb64 == "1" } {
+		puts $config_file "#define portPOINTER_SIZE_TYPE	uint64_t"
+	} else {
+		puts $config_file "#define portPOINTER_SIZE_TYPE	uint32_t"
+	}
+	if { $proctype == "psu_cortexa53" || $proctype == "microblaze" || $proctype == "ps7_cortexa9"} {
+		puts $config_file "#define portTICK_TYPE_IS_ATOMIC 1"
+        } else {
+		puts $config_file "#define portTICK_TYPE_IS_ATOMIC 0"
+        }
+	puts $config_file "#define configMESSAGE_BUFFER_LENGTH_TYPE uint32_t"
+	puts $config_file "#define configSTACK_DEPTH_TYPE uint32_t"
 
 	############################################################################
 	## Add constants specific to the psu_cortexr5
@@ -865,6 +887,8 @@ proc generate {os_handle} {
 		puts $config_file "#define portGET_RUN_TIME_COUNTER_VALUE()\n"
 		puts $config_file "#define configCOMMAND_INT_MAX_OUTPUT_SIZE 2096\n"
 		puts $config_file "#define recmuCONTROLLING_TASK_PRIORITY ( configMAX_PRIORITIES - 2 )\n"
+		puts $config_file "#define portSET_INTERRUPT_MASK_FROM_ISR()	ulPortSetInterruptMask()"
+		puts $config_file "#define portCLEAR_INTERRUPT_MASK_FROM_ISR(x)	vPortClearInterruptMask(x)"
 
 		set max_api_call_interrupt_priority [common::get_property CONFIG.max_api_call_interrupt_priority $os_handle]
 		xput_define $config_file "configMAX_API_CALL_INTERRUPT_PRIORITY"   "($max_api_call_interrupt_priority)"
@@ -1024,6 +1048,8 @@ proc generate {os_handle} {
 		puts $config_file "#define fabs( x ) __builtin_fabs( x )\n"
 		set max_api_call_interrupt_priority [common::get_property CONFIG.max_api_call_interrupt_priority $os_handle]
 		xput_define $config_file "configMAX_API_CALL_INTERRUPT_PRIORITY"   "($max_api_call_interrupt_priority)"
+		puts $config_file "#define portSET_INTERRUPT_MASK_FROM_ISR()	uxPortSetInterruptMask()"
+		puts $config_file "#define portCLEAR_INTERRUPT_MASK_FROM_ISR(x)	vPortClearInterruptMask(x)"
 
 		set val [common::get_property CONFIG.use_port_optimized_task_selection $os_handle]
 		if {$val == "false"} {
@@ -1151,6 +1177,8 @@ proc generate {os_handle} {
 		puts $config_file "#define configSETUP_TICK_INTERRUPT() FreeRTOS_SetupTickInterrupt()\n"
 		puts $config_file "void FreeRTOS_ClearTickInterrupt( void );"
 		puts $config_file "#define configCLEAR_TICK_INTERRUPT()	FreeRTOS_ClearTickInterrupt()\n"
+		puts $config_file "#define portSET_INTERRUPT_MASK_FROM_ISR()	ulPortSetInterruptMask()"
+		puts $config_file "#define portCLEAR_INTERRUPT_MASK_FROM_ISR(x)	vPortClearInterruptMask(x)"
 	}
 	# end of if $proctype == "ps7_cortexa9"
 
@@ -1168,6 +1196,7 @@ proc generate {os_handle} {
 		puts $config_file "#ifndef __ASSEMBLER__"
 		puts $config_file "void vApplicationAssert( const char *pcFile, uint32_t ulLine );"
 		puts $config_file "#endif"
+
 	}
 	# end of if $proctype == "microblaze"
 
