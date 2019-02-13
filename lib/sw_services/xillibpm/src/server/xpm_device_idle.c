@@ -30,6 +30,14 @@
 #include "xpm_common.h"
 
 static XPmDevice_SoftResetInfo DeviceRstData[] = {
+#ifdef XPAR_PSU_OSPI_0_DEVICE_ID
+	{
+		.DeviceId = XPM_DEVID_OSPI,
+		.SoftRst = NULL,
+		.IdleHook = NodeOspiIdle,
+		.IdleHookArgs = XPAR_PSU_OSPI_0_DEVICE_ID,
+	},
+#endif
 #ifdef XPAR_PSU_QSPI_0_DEVICE_ID
 	{
 		.DeviceId = XPM_DEVID_QSPI,
@@ -64,6 +72,39 @@ void NodeQspiIdle(u16 DeviceId, u32 BaseAddress)
 	}
 
 	XQspiPsu_Idle(&QspiInst);
+
+done:
+	return;
+}
+#endif
+
+#if defined(XPAR_PSU_OSPI_0_DEVICE_ID)
+/**
+ * NodeQspiIdle() - Idle the OSPI node
+ *
+ * @DeviceId:	 Device ID of OSPI node
+ * @BaseAddress: OSPI base address
+ */
+void NodeOspiIdle(u16 DeviceId, u32 BaseAddress)
+{
+	int Status;
+	XOspiPsv_Config *ConfigPtr;
+	XOspiPsv OspiInst;
+
+	/* Warning Fix */
+	(void)(BaseAddress)
+
+	ConfigPtr = XOspiPsv_LookupConfig(DeviceId);
+	if (NULL == ConfigPtr) {
+		goto done;
+	}
+
+	Status = XOspiPsv_CfgInitialize(&OspiInst, ConfigPtr);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	XOspiPsv_Idle(&OspiInst);
 
 done:
 	return;

@@ -45,6 +45,11 @@ typedef struct XPmDevice_SoftResetInfo {
 void NodeQspiIdle(u16 DeviceId, u32 BaseAddress);
 #endif
 
+#if defined(XPAR_PSU_OSPI_0_DEVICE_ID)
+#include <xospipsv.h>
+void NodeOspiIdle(u16 DeviceId, u32 BaseAddress);
+#endif
+
 void XPmDevice_SoftResetIdle(XPm_Device *Device, const u32 IdleReq);
 
 #endif /* XPM_DEVICE_IDLE_H_ */
