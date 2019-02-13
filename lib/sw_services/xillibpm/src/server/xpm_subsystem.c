@@ -31,6 +31,7 @@
 #include "xpm_pll.h"
 #include "xpm_reset.h"
 #include "xpm_device.h"
+#include "xpm_device_idle.h"
 #include "xpm_pin.h"
 
 XPm_Subsystem PmSubsystems[XPM_NODEIDX_SUBSYS_MAX] =
@@ -137,13 +138,37 @@ XStatus XPmSubsystem_ForceDownCleanup(u32 SubsystemId)
         return Status;
 }
 
-XStatus XPmSubsystem_Idle(u32 SubsystemId)
+int XPmSubsystem_Idle(u32 SubsystemId)
 {
-	XStatus Status = XST_SUCCESS;
-	u32 SubSysIdx = SubsystemId & 0xFF;
+	int Status = XST_SUCCESS;
+	XPm_Subsystem *Subsystem;
+	XPm_Requirement *Reqm;
+	XPm_Device *Device;
 
-	VERIFY(SubSysIdx < XPM_NODEIDX_SUBSYS_MAX);
-	/* TBD: Add diling support */
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		Status = XST_FAILURE;
+                goto done;
+	}
+
+	Reqm = Subsystem->Requirements;
+	while (NULL != Reqm) {
+		Device = Reqm->Device;
+		u32 Usage = XPmDevice_GetUsageStatus(Subsystem, Device);
+
+		/* Check if device is requested and its clock is active */
+		if ((TRUE == Reqm->Allocated) &&
+		    (0 == (Device->Node.Flags & NODE_IDLE_DONE)) &&
+		    (XST_SUCCESS == XPmDevice_IsClockActive(Device)) &&
+		    (PM_USAGE_CURRENT_SUBSYSTEM == Usage)) {
+			XPmDevice_SoftResetIdle(Device, DEVICE_IDLE_REQ);
+			Device->Node.Flags |= NODE_IDLE_DONE;
+		}
+
+		Reqm = Reqm->NextDevice;
+	}
+
+done:
         return Status;
 }
 

@@ -401,6 +401,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 		case XPM_DEVSTATE_PWR_OFF:
 			if (XPM_DEVEVENT_TIMER == Event) {
 				Status = XST_SUCCESS;
+				Device->Node.Flags &= ~NODE_IDLE_DONE;
 				if (Device->WfPwrUseCnt == Device->Power->UseCount) {
 					if (Device->WfDealloc) {
 						Device->PendingReqm->Allocated = 0;
@@ -1368,4 +1369,42 @@ int XPmDevice_GetUsageStatus(XPm_Subsystem *Subsystem, XPm_Device *Device)
 	}
 
 	return UsageStatus;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Check if any clock for a given device is active
+ * @param  Device      Device whose clocks need to be checked
+ *
+ * @return XST_SUCCESS if any one clock for given device is active
+ *         XST_FAILURE if all clocks for given device are inactive
+ *
+ ****************************************************************************/
+int XPmDevice_IsClockActive(XPm_Device *Device)
+{
+	int Status = XST_FAILURE;
+	XPm_ClockHandle *ClkHandle = Device->ClkHandles;
+	XPm_OutClockNode *Clk;
+	u32 Enable;
+
+	while (NULL != ClkHandle) {
+		if ((NULL != ClkHandle->Clock) &&
+		    (ISOUTCLK(ClkHandle->Clock->Node.Id))) {
+			Clk = (XPm_OutClockNode *)ClkHandle->Clock;
+			Status = XPmClock_GetClockData(Clk, TYPE_GATE, &Enable);
+			if (XST_SUCCESS == Status) {
+				if (1U == Enable) {
+					Status = XST_SUCCESS;
+					goto done;
+				}
+			} else {
+				PmErr("Clock 0x%x model\r\n",
+						ClkHandle->Clock->Node.Id);
+			}
+		}
+		ClkHandle = ClkHandle->NextClock;
+	}
+
+done:
+	return Status;
 }
