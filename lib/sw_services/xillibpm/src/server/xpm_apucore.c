@@ -51,8 +51,16 @@ static XStatus XPmApuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	AddrLow = (u32) (Address & 0xfffffffeULL);
 	AddrHigh = (u32) (Address >> 32ULL);
 
-	PmOut32(ApuCore->Core.Device.Node.BaseAddress + APU_DUAL_RVBARADDR0L_OFFSET, AddrLow);
-	PmOut32(ApuCore->Core.Device.Node.BaseAddress + APU_DUAL_RVBARADDR0H_OFFSET, AddrHigh);
+	if (XPM_NODEIDX_DEV_ACPU_0 == NODEINDEX(ApuCore->Core.Device.Node.Id)) {
+		PmOut32(ApuCore->Core.Device.Node.BaseAddress + APU_DUAL_RVBARADDR0L_OFFSET, AddrLow);
+		PmOut32(ApuCore->Core.Device.Node.BaseAddress + APU_DUAL_RVBARADDR0H_OFFSET, AddrHigh);
+	} else if (XPM_NODEIDX_DEV_ACPU_1 == NODEINDEX(ApuCore->Core.Device.Node.Id)) {
+		PmOut32(ApuCore->Core.Device.Node.BaseAddress + APU_DUAL_RVBARADDR1L_OFFSET, AddrLow);
+		PmOut32(ApuCore->Core.Device.Node.BaseAddress + APU_DUAL_RVBARADDR1H_OFFSET, AddrHigh);
+	} else {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
 
 	if (XPM_DEVSTATE_RUNNING != Core->Device.Node.State) {
 		Status = XPmCore_WakeUp(Core);
