@@ -65,6 +65,11 @@ void NodeUsbIdle(u16 DeviceId, u32 BaseAddress);
 void NodeGemIdle(u16 DeviceId, u32 BaseAddress);
 #endif
 
+#if defined(XPAR_PSU_GDMA_0_DEVICE_ID) || defined(XPAR_PSU_ADMA_0_DEVICE_ID)
+#include <xzdma_hw.h>
+void NodeZdmaIdle(u16 DeviceId, u32 BaseAddress);
+#endif
+
 void XPmDevice_SoftResetIdle(XPm_Device *Device, const u32 IdleReq);
 
 #endif /* XPM_DEVICE_IDLE_H_ */
