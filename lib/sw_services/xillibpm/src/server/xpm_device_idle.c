@@ -306,3 +306,33 @@ void NodeZdmaIdle(u16 DeviceId, u32 BaseAddress)
 	}
 }
 #endif
+
+void XPmDevice_SoftResetIdle(XPm_Device *Device, const u32 IdleReq)
+{
+	u32 Idx;
+	XPmDevice_SoftResetInfo *RstInfo = NULL;
+
+	for (Idx = 0; Idx < ARRAY_SIZE(DeviceRstData); Idx++) {
+		if (Device->Node.Id == DeviceRstData[Idx].DeviceId) {
+			RstInfo = &DeviceRstData[Idx];
+			break;
+		}
+	}
+
+	if (NULL == RstInfo) {
+		return;
+	}
+
+	if (DEVICE_IDLE_REQ == IdleReq) {
+		if (RstInfo->IdleHook) {
+			RstInfo->IdleHook(RstInfo->IdleHookArgs,
+					  Device->Node.BaseAddress);
+		}
+
+		if (RstInfo->SoftRst) {
+			RstInfo->SoftRst(Device->Node.BaseAddress);
+		}
+	}
+
+	/* Perform the device reset using its reset lines and its reset actions */
+}
