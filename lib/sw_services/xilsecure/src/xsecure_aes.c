@@ -288,6 +288,9 @@ void XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, const u8 *Data, u32 Size
 		/* Wait for AES encryption completion.*/
 		XSecure_AesWaitForDone(InstancePtr);
 
+		XSecure_WriteReg(InstancePtr->BaseAddress,
+			XSECURE_CSU_AES_RESET_OFFSET, XSECURE_CSU_AES_RESET);
+
 	}
 	/* Update the size of instance */
 	InstancePtr->SizeofData = InstancePtr->SizeofData - Size;
@@ -435,6 +438,7 @@ void XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 
 	InstancePtr->GcmTagAddr = (u32 *)GcmTagAddr;
 	InstancePtr->SizeofData = Size;
+	InstancePtr->TotalSizeOfData = Size;
 	InstancePtr->Destination = DecData;
 
 }
@@ -534,10 +538,13 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 					XSECURE_CSU_AES_STS_OFFSET) &
 					XSECURE_CSU_AES_STS_GCM_TAG_OK;
 
+		XSecure_WriteReg(InstancePtr->BaseAddress,
+			XSECURE_CSU_AES_RESET_OFFSET, XSECURE_CSU_AES_RESET);
+
 		if (GcmStatus == 0U) {
 			/* Zeroize the decrypted data*/
 			GcmStatus = XSecure_Zeroize(InstancePtr->Destination,
-							InstancePtr->SizeofData);
+							InstancePtr->TotalSizeOfData);
 			if (GcmStatus != (u32)XST_SUCCESS) {
 				goto END;
 			}
@@ -1248,7 +1255,7 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 					== XSECURE_CSU_AES_CHUNKING_DISABLED)));
 
 	u32 SssCfg;
-	volatile u32 Status = XST_SUCCESS;
+	volatile u32 Status = XST_FAILURE;
 	u32 CurrentImgLen = 0x0U;
 	u32 NextBlkLen = 0x0U;
 	u32 PrevBlkLen = 0x0U;
@@ -1262,6 +1269,7 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 	u32 SssAes;
 	XCsuDma_Configure ConfigurValues = {0};
 	u32 KeyClearStatus;
+	u32 DecryptStatus;
 
 	/* Configure the SSS for AES. */
 	SssAes = XSecure_SssInputAes(XSECURE_CSU_SSS_SRC_SRC_DMA);
@@ -1412,22 +1420,25 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 	}while(1);
 
 ENDF:
-	XSecure_AesReset(InstancePtr);
-	if ((Status == (u32)XSECURE_CSU_AES_GCM_TAG_MISMATCH) &&
+	if ((Status != (u32)XST_SUCCESS) &&
 		(Dst != (u8*)XSECURE_DESTINATION_PCAP_ADDR)) {
+		DecryptStatus = Status;
 		/* Zeroize the decrypted data*/
 		Status = (u32)XSecure_Zeroize(Dst,ImageLen);
 		if (Status != (u32)XST_SUCCESS) {
 			Status = (u32)XSECURE_CSU_AES_ZEROIZATION_ERROR;
 		}
 		else {
-			Status = (u32)XSECURE_CSU_AES_GCM_TAG_MISMATCH;
+			Status = DecryptStatus;
 		}
 	}
 	KeyClearStatus = XSecure_AesKeyZero(InstancePtr);
 	if (KeyClearStatus != (u32)XST_SUCCESS) {
 		Status = Status | KeyClearStatus;
 	}
+
+	XSecure_WriteReg(InstancePtr->BaseAddress,
+			XSECURE_CSU_AES_RESET_OFFSET, XSECURE_CSU_AES_RESET);
 
 	return (s32)Status;
 }
