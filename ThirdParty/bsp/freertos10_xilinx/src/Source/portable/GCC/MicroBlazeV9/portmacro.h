@@ -72,9 +72,6 @@ typedef long BaseType_t;
 	typedef uint32_t TickType_t;
 	#define portMAX_DELAY ( TickType_t ) 0xffffffffUL
 
-	/* 32-bit tick type on a 32-bit architecture, so reads of the tick count do
-	not need to be guarded with a critical section. */
-	#define portTICK_TYPE_IS_ATOMIC 1
 #endif
 /*-----------------------------------------------------------*/
 
@@ -153,7 +150,6 @@ extern volatile uint32_t ulTaskSwitchRequested;
 /* Hardware specifics. */
 #ifdef __arch64__
 #define portBYTE_ALIGNMENT          8
-#define portPOINTER_SIZE_TYPE      uint64_t
 #else
 #define portBYTE_ALIGNMENT			4
 #endif
