@@ -715,6 +715,31 @@ proc generate {os_handle} {
 	} else {
 		xput_define $config_file "configNUM_THREAD_LOCAL_STORAGE_POINTERS"  $val
 	}
+	set val [common::get_property CONFIG.generate_runtime_stats $os_handle]
+	if {$val == 1} {
+		puts $config_file "#define configGENERATE_RUN_TIME_STATS 1\n"
+		if { $proctype == "microblaze" } {
+			puts $config_file "#ifndef __ASSEMBLER__\n"
+		}
+		puts $config_file "void xCONFIGURE_TIMER_FOR_RUN_TIME_STATS(void);\n"
+		if { $proctype == "microblaze" } {
+			puts $config_file "#endif\n"
+		}
+		puts $config_file "#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS() xCONFIGURE_TIMER_FOR_RUN_TIME_STATS()\n"
+		if { $proctype == "microblaze" } {
+			puts $config_file "#ifndef __ASSEMBLER__\n"
+		}
+		puts $config_file "uint32_t xGET_RUN_TIME_COUNTER_VALUE(void);\n"
+		if { $proctype == "microblaze" } {
+			puts $config_file "#endif\n"
+		}
+		puts $config_file "#define portGET_RUN_TIME_COUNTER_VALUE() xGET_RUN_TIME_COUNTER_VALUE()\n"
+
+	} else {
+		puts $config_file "#define configGENERATE_RUN_TIME_STATS 0\n"
+		puts $config_file "#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS()\n"
+		puts $config_file "#define portGET_RUN_TIME_COUNTER_VALUE()\n"
+	}
 
 	puts $config_file "#define configUSE_TICKLESS_IDLE	0"
 	puts $config_file "#define configTASK_RETURN_ADDRESS    NULL"
@@ -889,9 +914,6 @@ proc generate {os_handle} {
 		puts $config_file "#define configSETUP_TICK_INTERRUPT() FreeRTOS_SetupTickInterrupt()\n"
 		puts $config_file "void FreeRTOS_ClearTickInterrupt( void );"
 		puts $config_file "#define configCLEAR_TICK_INTERRUPT()	FreeRTOS_ClearTickInterrupt()\n"
-		puts $config_file "#define configGENERATE_RUN_TIME_STATS 0\n"
-		puts $config_file "#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS()\n"
-		puts $config_file "#define portGET_RUN_TIME_COUNTER_VALUE()\n"
 		puts $config_file "#define configCOMMAND_INT_MAX_OUTPUT_SIZE 2096\n"
 		puts $config_file "#define recmuCONTROLLING_TASK_PRIORITY ( configMAX_PRIORITIES - 2 )\n"
 		puts $config_file "#define portSET_INTERRUPT_MASK_FROM_ISR()	ulPortSetInterruptMask()"
@@ -1047,9 +1069,6 @@ proc generate {os_handle} {
 		puts $config_file "#define configSETUP_TICK_INTERRUPT() FreeRTOS_SetupTickInterrupt()\n"
 		puts $config_file "void FreeRTOS_ClearTickInterrupt( void );"
 		puts $config_file "#define configCLEAR_TICK_INTERRUPT()	FreeRTOS_ClearTickInterrupt()\n"
-		puts $config_file "#define configGENERATE_RUN_TIME_STATS 0\n"
-		puts $config_file "#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS()\n"
-		puts $config_file "#define portGET_RUN_TIME_COUNTER_VALUE()\n"
 		puts $config_file "#define configCOMMAND_INT_MAX_OUTPUT_SIZE 2096\n"
 		puts $config_file "#define recmuCONTROLLING_TASK_PRIORITY ( configMAX_PRIORITIES - 2 )\n"
 		puts $config_file "#define fabs( x ) __builtin_fabs( x )\n"
