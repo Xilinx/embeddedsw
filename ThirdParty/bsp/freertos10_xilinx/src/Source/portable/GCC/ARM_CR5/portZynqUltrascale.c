@@ -101,7 +101,16 @@ XScuGic_Config *pxInterruptControllerConfig;
 		}
 	}
 	XTtcPs_SetOptions( &xTimerInstance, XTTCPS_OPTION_INTERVAL_MODE | XTTCPS_OPTION_WAVE_DISABLE );
+	/*
+	 * The Xilinx implementation of generating run time task stats uses the same timer used for generating
+	 * FreeRTOS ticks. In case user decides to generate run time stats the timer time out interval is changed
+	 * as "configured tick rate * 10". The multiplying factor of 10 is hard coded for Xilinx FreeRTOS ports.
+	 */
+#if (configGENERATE_RUN_TIME_STATS == 1)
+	XTtcPs_CalcIntervalFromFreq( &xTimerInstance, configTICK_RATE_HZ*10, &usInterval, &ucPrescaler );
+#else
 	XTtcPs_CalcIntervalFromFreq( &xTimerInstance, configTICK_RATE_HZ, &usInterval, &ucPrescaler );
+#endif
 	XTtcPs_SetInterval( &xTimerInstance, usInterval );
 	XTtcPs_SetPrescaler( &xTimerInstance, ucPrescaler );
 	/* Enable the interrupt for timer. */
