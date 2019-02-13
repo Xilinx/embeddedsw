@@ -29,6 +29,8 @@
 #include "xpm_device_idle.h"
 #include "xpm_common.h"
 
+#define XPM_MAX_TIMEOUT 		(0x1FFFFFFF)
+
 static XPmDevice_SoftResetInfo DeviceRstData[] = {
 #ifdef XPAR_XUSBPSU_0_DEVICE_ID
 	{
@@ -36,6 +38,22 @@ static XPmDevice_SoftResetInfo DeviceRstData[] = {
 		.SoftRst = NULL,
 		.IdleHook = NodeUsbIdle,
 		.IdleHookArgs = XPAR_XUSBPSU_0_DEVICE_ID,
+	},
+#endif
+#ifdef XPAR_PSU_ETHERNET_0_DEVICE_ID
+	{
+		.DeviceId = XPM_DEVID_GEM_0,
+		.SoftRst = NULL,
+		.IdleHook = NodeGemIdle,
+		.IdleHookArgs = XPAR_PSU_ETHERNET_0_DEVICE_ID,
+	},
+#endif
+#ifdef XPAR_PSU_ETHERNET_1_DEVICE_ID
+	{
+		.DeviceId = XPM_DEVID_GEM_1,
+		.SoftRst = NULL,
+		.IdleHook = NodeGemIdle,
+		.IdleHookArgs = XPAR_PSU_ETHERNET_1_DEVICE_ID,
 	},
 #endif
 #ifdef XPAR_PSU_OSPI_0_DEVICE_ID
@@ -189,5 +207,40 @@ void NodeUsbIdle(u16 DeviceId, u32 BaseAddress)
 	}
 
 	XUsbPsu_Idle(&UsbInst);
+}
+#endif
+
+#if defined(XPAR_PSU_ETHERNET_0_DEVICE_ID) || defined(XPAR_PSU_ETHERNET_1_DEVICE_ID)
+/**
+ * NodeGemIdle() - Custom code to idle the GEM
+ *
+ * @DeviceId:	 Device ID of GEM node
+ * @BaseAddress: GEM base address
+ */
+void NodeGemIdle(u16 DeviceId, u32 BaseAddress)
+{
+	u32 Reg;
+	u32 Timeout = XPM_MAX_TIMEOUT;
+
+	/* Warning Fix */
+	(void)(DeviceId);
+
+	/* Make sure MDIO is in IDLE state */
+	do {
+		Reg = XEmacPs_ReadReg(BaseAddress, XEMACPS_NWSR_OFFSET);
+	} while ((!(Reg & XEMACPS_NWSR_MDIOIDLE_MASK)) && --Timeout);
+
+	if (Timeout == 0) {
+		PmWarn("gem not idle\r\n");
+	}
+
+	/* Stop all transactions of the Ethernet and disable all interrupts */
+	XEmacPs_WriteReg(BaseAddress, XEMACPS_IDR_OFFSET, XEMACPS_IXR_ALL_MASK);
+
+	/* Disable the receiver & transmitter */
+	Reg = XEmacPs_ReadReg(BaseAddress, XEMACPS_NWCTRL_OFFSET);
+	Reg &= (u32)(~XEMACPS_NWCTRL_RXEN_MASK);
+	Reg &= (u32)(~XEMACPS_NWCTRL_TXEN_MASK);
+	XEmacPs_WriteReg(BaseAddress, XEMACPS_NWCTRL_OFFSET, Reg);
 }
 #endif

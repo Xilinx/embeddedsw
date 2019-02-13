@@ -60,6 +60,11 @@ void NodeSdioIdle(u16 DeviceId, u32 BaseAddress);
 void NodeUsbIdle(u16 DeviceId, u32 BaseAddress);
 #endif
 
+#if defined(XPAR_PSU_ETHERNET_0_DEVICE_ID) || defined(XPAR_PSU_ETHERNET_1_DEVICE_ID)
+#include <xemacps_hw.h>
+void NodeGemIdle(u16 DeviceId, u32 BaseAddress);
+#endif
+
 void XPmDevice_SoftResetIdle(XPm_Device *Device, const u32 IdleReq);
 
 #endif /* XPM_DEVICE_IDLE_H_ */
