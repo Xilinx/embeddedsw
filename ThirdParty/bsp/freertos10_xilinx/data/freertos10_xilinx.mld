@@ -75,6 +75,7 @@ BEGIN CATEGORY kernel_features
 	PARAM name = use_stats_formatting_functions, type = bool, default = true, desc = "Set to 1 to include the vTaskList() and vTaskGetRunTimeStats() functions, which format run-time data into human readable text.";
 	PARAM name = num_thread_local_storage_pointers, type = int, default = 0, desc ="Sets the number of pointers each task has to store thread local values.";
         PARAM name = use_task_fpu_support, type = int, default = 1, desc ="Set to 1 to create tasks without FPU context, set to 2 to have tasks with FPU context by default.";
+        PARAM name = generate_runtime_stats, type = int, default = 0, desc ="Set to 1 generate runtime stats for tasks.";
 END CATEGORY
 
 BEGIN CATEGORY hook_functions
