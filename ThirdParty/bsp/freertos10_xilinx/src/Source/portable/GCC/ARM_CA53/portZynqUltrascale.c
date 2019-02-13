@@ -119,11 +119,8 @@ XScuGic_Config *pxInterruptControllerConfig;
 
 void FreeRTOS_ClearTickInterrupt( void )
 {
-volatile uint32_t ulInterruptStatus;
 
-	/* Read the interrupt status, then write it back to clear the interrupt. */
-	ulInterruptStatus = XTtcPs_GetInterruptStatus( &xTimerInstance );
-	XTtcPs_ClearInterruptStatus( &xTimerInstance, ulInterruptStatus );
+	XTtcPs_ClearInterruptStatus( &xTimerInstance, XTtcPs_GetInterruptStatus( &xTimerInstance ) );
 	__asm volatile( "DSB SY" );
 	__asm volatile( "ISB SY" );
 }
