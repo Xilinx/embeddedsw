@@ -67,6 +67,12 @@ enum XPmCapability {
 	PM_CAP_WAKEUP = 0x4U, /**< Enabled as a wake-up source */
 };
 
+/* Usage status, returned by PmGetNodeStatus */
+enum XPmDeviceUsage {
+	PM_USAGE_CURRENT_SUBSYSTEM = 0x1U,
+	PM_USAGE_OTHER_SUBSYSTEM   = 0x2U,
+};
+
 /**
  * XPm_DeviceStatus - struct containing device status information
  */
