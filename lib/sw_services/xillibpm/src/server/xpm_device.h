@@ -103,6 +103,9 @@
 #define DEFINE_DEV_TRANS(T)	.Trans = (T), \
 				.TransCnt = ARRAY_SIZE(T)
 
+#define DEVICE_NO_IDLE_REQ	(0U)
+#define DEVICE_IDLE_REQ		(1U)
+
 /* Device states */
 typedef enum {
 	XPM_DEVSTATE_UNUSED,
@@ -228,6 +231,6 @@ XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState);
 XStatus XPmDevice_UpdateStatus(XPm_Device *Device);
 XStatus XPmDevice_BringUp(XPm_Node *Node);
 int XPmDevice_GetUsageStatus(XPm_Subsystem *Subsystem, XPm_Device *Device);
-
+int XPmDevice_IsClockActive(XPm_Device *Device);
 /** @} */
 #endif /* XPM_DEVICE_H_ */
