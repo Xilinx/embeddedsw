@@ -360,6 +360,11 @@ void XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 		}
 	}
 
+	/* Reset SHA3 engine. */
+	XSecure_WriteReg(InstancePtr->BaseAddress,
+			XSECURE_CSU_SHA3_RESET_OFFSET,
+			XSECURE_CSU_SHA3_RESET_RESET);
+
 }
 
 /*****************************************************************************/
