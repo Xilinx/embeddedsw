@@ -101,7 +101,7 @@ extern "C" {
 
 #define NO_OF_TRB_PER_EP		2
 
-#ifdef PLATFORM_ZYNQMP
+#if defined (PLATFORM_ZYNQMP) || defined (versal)
 #define ALIGNMENT_CACHELINE		__attribute__ ((aligned(64)))
 #else
 #define ALIGNMENT_CACHELINE		__attribute__ ((aligned(32)))
