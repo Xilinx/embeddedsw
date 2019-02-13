@@ -92,7 +92,7 @@ static u32 CurrentSubsystemId = INVALID_SUBSYSID;
 u32 XPmSubsystem_GetIPIMask(u32 SubsystemId)
 {
 	XPm_Subsystem *Subsystem;
-	u32 SubSysIdx = SubsystemId & 0xFF;
+	u32 SubSysIdx = NODEINDEX(SubsystemId);
 
 	VERIFY(SubSysIdx < XPM_NODEIDX_SUBSYS_MAX);
 	Subsystem = &PmSubsystems[SubSysIdx];
@@ -121,7 +121,7 @@ XStatus XPmSubsystem_ForceDownCleanup(u32 SubsystemId)
 {
 	XStatus Status;
 	XPm_Subsystem *Subsystem;
-	u32 SubSysIdx = SubsystemId & 0xFF;
+	u32 SubSysIdx = NODEINDEX(SubsystemId);
 
 	VERIFY(SubSysIdx < XPM_NODEIDX_SUBSYS_MAX);
 	Subsystem = &PmSubsystems[SubSysIdx];
@@ -150,7 +150,7 @@ XStatus XPmSubsystem_Idle(u32 SubsystemId)
 XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId)
 {
 	XStatus Status = XST_SUCCESS;
-	u32 SubSysIdx = SubsystemId & 0xFF;
+	u32 SubSysIdx = NODEINDEX(SubsystemId);
 
 	if (SubSysIdx > XPM_NODEIDX_SUBSYS_MAX) {
 		Status = XST_FAILURE;
@@ -204,7 +204,7 @@ done:
 XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId)
 {
 	XStatus Status = XST_SUCCESS;
-	u32 SubSysIdx = SubsystemId & 0xFF;
+	u32 SubSysIdx = NODEINDEX(SubsystemId);
 
 	if (SubSysIdx > XPM_NODEIDX_SUBSYS_MAX) {
 		Status = XST_FAILURE;
@@ -226,7 +226,7 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
 	XPm_PinNode *Pin;
-	u32 SubSysIdx = SubsystemId & 0xFF;
+	u32 SubSysIdx = NODEINDEX(SubsystemId);
 
 	if (SubsystemId == XPM_SUBSYSID_PMC) {
 		Status = XST_SUCCESS;
@@ -294,7 +294,7 @@ done:
 XStatus XPmSubsystem_SetState(const u32 SubsystemId, const u32 State)
 {
 	XStatus Status = XST_FAILURE;
-	u32 SubSysIdx = SubsystemId & 0xFF;
+	u32 SubSysIdx = NODEINDEX(SubsystemId);
 
 	if ((State >= MAX_STATE) || (SubSysIdx >= XPM_NODEIDX_SUBSYS_MAX)) {
 		goto done;
@@ -381,7 +381,7 @@ XStatus XPmSubsystem_IsAllProcDwn(u32 SubsystemId)
 	XPm_Requirement *Reqm;
 	XPm_Device *Device;
 	u32 SubClass;
-	u32 SubSysIdx = SubsystemId & 0xFF;
+	u32 SubSysIdx = NODEINDEX(SubsystemId);
 
 	if (SubSysIdx >= XPM_NODEIDX_SUBSYS_MAX) {
 		goto done;
