@@ -42,6 +42,7 @@
  * 1.1	vak  30/11/16  Addded DFU support
  * 1.4   BK  12/01/18  Renamed the file and added changes to have a common
  *		       example for all USB IPs.
+ * 1.5	vak  13/02/19  Added support for versal
  *
  * </pre>
  *
@@ -131,7 +132,7 @@ static void Usb_StdDevReq(struct Usb_DevData *InstancePtr,
 			      SetupPacket *SetupData)
 {
 #ifdef __ICCARM__
-#ifdef PLATFORM_ZYNQMP
+#if defined (PLATFORM_ZYNQMP) || defined (versal)
 #pragma data_alignment = 64
 #else
 #pragma data_alignment = 32

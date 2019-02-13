@@ -43,6 +43,7 @@
  *                     examples.
  * 1.4   BK  12/01/18  Renamed the file and added changes to have a common
  *		       example for all USB IPs.
+ * 1.5	  vak 13/02/19  Added support for versal
  *
  * </pre>
  *
@@ -69,7 +70,7 @@ extern u8 VirtFlash[];
  * Pre-manufactured response to the SCSI Inquiry command.
  */
 #if __ICCARM__
-#ifdef PLATFORM_ZYNQMP
+#if defined (PLATFORM_ZYNQMP) || defined (versal)
 #pragma data_alignment = 64
 #else
 #pragma data_alignment = 32

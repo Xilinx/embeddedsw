@@ -43,6 +43,9 @@
  *			 example.
  * 1.5	 vak	02/06/19 Modified the code to add UsbPollHandler and
  *			 UsbEnableEvent API's
+ *	 vak	02/07/19 Modified the code to issue XUsbPsu_Ep0StallRestart()
+ *			 for Endpoint Zero
+ *
  * </pre>
  *
  *****************************************************************************/
