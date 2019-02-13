@@ -227,6 +227,7 @@ int XPmDevice_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
 XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState);
 XStatus XPmDevice_UpdateStatus(XPm_Device *Device);
 XStatus XPmDevice_BringUp(XPm_Node *Node);
+int XPmDevice_GetUsageStatus(XPm_Subsystem *Subsystem, XPm_Device *Device);
 
 /** @} */
 #endif /* XPM_DEVICE_H_ */
