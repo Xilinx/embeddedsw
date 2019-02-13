@@ -900,8 +900,6 @@ XStatus XPmDevice_GetStatus(const u32 SubsystemId,
 	XPm_Subsystem *Subsystem;
 	XPm_Device *Device;
 	XPm_Requirement *Reqm;
-	u8 ThisSubsystemCount = 0;
-	u8 OtherSubsystemCount = 0;
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (Subsystem == NULL || Subsystem->State != ONLINE) {
@@ -922,31 +920,12 @@ XStatus XPmDevice_GetStatus(const u32 SubsystemId,
 	}
 	DeviceStatus->Status = Device->Power->Node.State;
 
-	Reqm = Device->Requirements;
-	while (NULL != Reqm) {
-		if ((Subsystem == Reqm->Subsystem) &&
-			(TRUE == Reqm->Allocated)) {
-			ThisSubsystemCount++;
-			DeviceStatus->Requirement = Reqm->Curr.Capabilities;
-		} else if (TRUE == Reqm->Allocated) {
-			OtherSubsystemCount++;
-		} else {
-			/* MISRA Requirement? */
-		}
-		Reqm = Reqm->NextSubsystem;
+	Reqm = FindReqm(Device, Subsystem);
+	if (NULL != Reqm) {
+		DeviceStatus->Requirement = Reqm->Curr.Capabilities;
 	}
 
-	if ((0 == ThisSubsystemCount) && (0 == OtherSubsystemCount)) {
-		DeviceStatus->Usage = 0;
-	} else if ((1 == ThisSubsystemCount) && (0 == OtherSubsystemCount)) {
-		DeviceStatus->Usage = 1;
-	} else if ((0 == ThisSubsystemCount) && (0 != OtherSubsystemCount)) {
-		DeviceStatus->Usage = 2;
-	} else if ((0 != ThisSubsystemCount) && (0 != OtherSubsystemCount)) {
-		DeviceStatus->Usage = 3;
-	} else {
-		/* XXX - xil_assert() - should not get here */
-	}
+	DeviceStatus->Usage = XPmDevice_GetUsageStatus(Subsystem, Device);
 
 	Status = XST_SUCCESS;
 done:
@@ -1355,4 +1334,38 @@ XStatus XPmDevice_UpdateStatus(XPm_Device *Device)
 
 done:
 	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Get the current usage status for a given device.
+ * @param  Subsystem   Subsystem for whcih usage status is in query
+ * @slave  Device      Device for which usage status need to be calculated
+ *
+ * @return  Usage status:
+ *          - 0: No subsystem is currently using the device
+ *          - 1: Only requesting subsystem is currently using the device
+ *          - 2: Only other subsystems are currently using the device
+ *          - 3: Both the current and at least one other subsystem is currently
+ *               using the device
+ *
+ ****************************************************************************/
+int XPmDevice_GetUsageStatus(XPm_Subsystem *Subsystem, XPm_Device *Device)
+{
+	int UsageStatus = 0;
+	XPm_Requirement *Reqm = Device->Requirements;
+
+	while (NULL != Reqm) {
+		if (TRUE == Reqm->Allocated) {
+			/* This subsystem is currently using this device */
+			if (Subsystem == Reqm->Subsystem) {
+				UsageStatus |= PM_USAGE_CURRENT_SUBSYSTEM;
+			} else {
+				UsageStatus |= PM_USAGE_OTHER_SUBSYSTEM;
+			}
+		}
+		Reqm = Reqm->NextSubsystem;
+	}
+
+	return UsageStatus;
 }
