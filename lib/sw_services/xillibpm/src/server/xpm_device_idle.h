@@ -50,6 +50,11 @@ void NodeQspiIdle(u16 DeviceId, u32 BaseAddress);
 void NodeOspiIdle(u16 DeviceId, u32 BaseAddress);
 #endif
 
+#if defined(XPAR_PSU_SD_0_DEVICE_ID) || defined(XPAR_PSU_SD_1_DEVICE_ID)
+#include <xsdps.h>
+void NodeSdioIdle(u16 DeviceId, u32 BaseAddress);
+#endif
+
 void XPmDevice_SoftResetIdle(XPm_Device *Device, const u32 IdleReq);
 
 #endif /* XPM_DEVICE_IDLE_H_ */
