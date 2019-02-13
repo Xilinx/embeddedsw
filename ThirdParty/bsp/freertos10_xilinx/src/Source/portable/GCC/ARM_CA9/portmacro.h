@@ -61,10 +61,6 @@ typedef unsigned long UBaseType_t;
 typedef uint32_t TickType_t;
 #define portMAX_DELAY ( TickType_t ) 0xffffffffUL
 
-/* 32-bit tick type on a 32-bit architecture, so reads of the tick count do
-not need to be guarded with a critical section. */
-#define portTICK_TYPE_IS_ATOMIC 1
-
 /*-----------------------------------------------------------*/
 
 /* Hardware specifics. */
@@ -107,8 +103,6 @@ interrupts that have a priority below configMAX_API_CALL_INTERRUPT_PRIORITY. */
 #define portEXIT_CRITICAL()			vPortExitCritical();
 #define portDISABLE_INTERRUPTS()	ulPortSetInterruptMask()
 #define portENABLE_INTERRUPTS()		vPortClearInterruptMask( 0 )
-#define portSET_INTERRUPT_MASK_FROM_ISR()		ulPortSetInterruptMask()
-#define portCLEAR_INTERRUPT_MASK_FROM_ISR(x)	vPortClearInterruptMask(x)
 
 /*-----------------------------------------------------------*/
 
