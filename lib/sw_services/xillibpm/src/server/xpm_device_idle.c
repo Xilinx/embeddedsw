@@ -30,6 +30,14 @@
 #include "xpm_common.h"
 
 static XPmDevice_SoftResetInfo DeviceRstData[] = {
+#ifdef XPAR_XUSBPSU_0_DEVICE_ID
+	{
+		.DeviceId = XPM_DEVID_USB_0,
+		.SoftRst = NULL,
+		.IdleHook = NodeUsbIdle,
+		.IdleHookArgs = XPAR_XUSBPSU_0_DEVICE_ID,
+	},
+#endif
 #ifdef XPAR_PSU_OSPI_0_DEVICE_ID
 	{
 		.DeviceId = XPM_DEVID_OSPI,
@@ -154,5 +162,32 @@ void NodeSdioIdle(u16 DeviceId, u32 BaseAddress)
 
 done:
 	return;
+}
+#endif
+
+#if defined(XPAR_XUSBPSU_0_DEVICE_ID)
+/**
+ * NodeUsbIdle() - Idle the USB node
+ *
+ * @DeviceId:	 Device ID of USB node
+ * @BaseAddress: USB base address
+ */
+void NodeUsbIdle(u16 DeviceId, u32 BaseAddress)
+{
+	int Status;
+	XUsbPsu_Config *ConfigPtr;
+	XUsbPsu UsbInst;
+
+	ConfigPtr = XUsbPsu_LookupConfig(DeviceId);
+	if (NULL == ConfigPtr) {
+		goto done;
+	}
+
+	Status = XUsbPsu_CfgInitialize(&UsbInst, ConfigPtr, BaseAddress);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	XUsbPsu_Idle(&UsbInst);
 }
 #endif
