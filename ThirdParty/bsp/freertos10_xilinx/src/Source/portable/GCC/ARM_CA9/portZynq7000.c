@@ -96,8 +96,16 @@ const uint8_t ucRisingEdge = 3;
 	/* Ensure there is no prescale. */
 	XScuTimer_SetPrescaler( &xTimer, 0 );
 
-	/* Load the timer counter register. */
+	/* Load the timer counter register.
+	 * The Xilinx implementation of generating run time task stats uses the same timer used for generating
+	 * FreeRTOS ticks. In case user decides to generate run time stats the timer time out interval is changed
+	 * as "configured tick rate * 10". The multiplying factor of 10 is hard coded for Xilinx FreeRTOS ports.
+	 */
+#if (configGENERATE_RUN_TIME_STATS == 1)
+	XScuTimer_LoadTimer( &xTimer, XSCUTIMER_CLOCK_HZ / (configTICK_RATE_HZ * 10) );
+#else
 	XScuTimer_LoadTimer( &xTimer, XSCUTIMER_CLOCK_HZ / configTICK_RATE_HZ );
+#endif
 
 	/* Start the timer counter and then wait for it to timeout a number of
 	times. */
