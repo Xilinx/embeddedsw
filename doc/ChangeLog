@@ -87,6 +87,7 @@ Fixed compiler warning.
 xilffs_v4_1:
 Add additional LFN options in mld.
 Add support to enable use of CHMOD functionality.
+Change the argument type to int for length of string.
 
 xilflash_v4_6:
 Fixed compilation errors for application with xilflash(CR#1018603)
