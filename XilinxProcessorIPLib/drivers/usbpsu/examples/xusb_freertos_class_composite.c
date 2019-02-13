@@ -39,6 +39,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   rb   28/03/18 First release
+ * 1.5   vak  13/02/19 Added support for versal
  *
  *</pre>
  *****************************************************************************/
@@ -69,7 +70,7 @@ static inline void Usb_DfuWaitForReset(struct dfu_if *DFU)
 
 /************************** Variable Definitions *****************************/
 #ifdef __ICCARM__
-#ifdef PLATFORM_ZYNQMP
+#if defined (PLATFORM_ZYNQMP) || defined (versal)
 #pragma data_alignment = 64
 #else
 #pragma data_alignment = 32
@@ -90,7 +91,7 @@ static u8 BufferPtrTemp[1024];
 
 /* Pre-manufactured response to the SCSI Inquiry command. */
 #ifdef __ICCARM__
-#ifdef PLATFORM_ZYNQMP
+#if defined (PLATFORM_ZYNQMP) || defined (versal)
 #pragma data_alignment = 64
 #else
 #pragma data_alignment = 32
@@ -438,7 +439,7 @@ static void Usb_AudioClassReq(struct Usb_DevData *InstancePtr, SetupPacket *Setu
 	u8 Error = 0;
 
 #ifdef __ICCARM__
-#ifdef PLATFORM_ZYNQMP
+#if defined (PLATFORM_ZYNQMP) || defined (versal)
 #pragma data_alignment = 64
 #else
 #pragma data_alignment = 32
@@ -686,7 +687,7 @@ static void Usb_DfuClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupD
 	s32 result = -1;
 
 #ifdef __ICCARM__
-#ifdef PLATFORM_ZYNQMP
+#if defined (PLATFORM_ZYNQMP) || defined (versal)
 #pragma data_alignment = 64
 #else
 #pragma data_alignment = 32

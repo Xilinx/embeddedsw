@@ -51,6 +51,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   rb   22/03/18 First release
+ * 1.5   vak  13/02/19 Added support for versal
  *
  * </pre>
  *
@@ -87,7 +88,7 @@ struct Usb_DevData UsbInstance;
 
 /* Buffer for virtual flash disk space. */
 #ifdef __ICCARM__
-#ifdef PLATFORM_ZYNQMP
+#if defined (PLATFORM_ZYNQMP) || defined (versal)
 #pragma data_alignment = 64
 #else
 #pragma data_alignment = 32
