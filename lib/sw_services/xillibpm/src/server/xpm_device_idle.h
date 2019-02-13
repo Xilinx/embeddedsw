@@ -55,6 +55,11 @@ void NodeOspiIdle(u16 DeviceId, u32 BaseAddress);
 void NodeSdioIdle(u16 DeviceId, u32 BaseAddress);
 #endif
 
+#if defined(XPAR_XUSBPSU_0_DEVICE_ID)
+#include <xusbpsu.h>
+void NodeUsbIdle(u16 DeviceId, u32 BaseAddress);
+#endif
+
 void XPmDevice_SoftResetIdle(XPm_Device *Device, const u32 IdleReq);
 
 #endif /* XPM_DEVICE_IDLE_H_ */
