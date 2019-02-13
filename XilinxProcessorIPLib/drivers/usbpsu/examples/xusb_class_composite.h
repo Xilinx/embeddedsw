@@ -39,6 +39,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   rb   05/03/18 First release
+ * 1.5   vak  13/02/19 Added support for versal
  *
  * </pre>
  *
@@ -345,7 +346,7 @@ struct storage_if {
 	u32	bytesleft;
 	u8	phase;
 #ifdef __ICCARM__
-#ifdef PLATFORM_ZYNQMP
+#if defined (PLATFORM_ZYNQMP) || defined (versal)
 #pragma data_alignment = 64
 #else
 #pragma data_alignment = 32

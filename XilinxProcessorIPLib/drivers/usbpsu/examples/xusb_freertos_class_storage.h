@@ -225,7 +225,7 @@ struct storage_dev {
 	u32			bytesleft;
 	u8			phase;
 #ifdef __ICCARM__
-#ifdef PLATFORM_ZYNQMP
+#if defined (PLATFORM_ZYNQMP) || defined (versal)
 #pragma data_alignment = 64
 #else
 #pragma data_alignment = 32

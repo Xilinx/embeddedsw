@@ -39,6 +39,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   rb   22/03/18 First release
+ * 1.5   vak  13/02/19 Added support for versal
  *
  * </pre>
  *
@@ -64,7 +65,7 @@ TaskHandle_t xMainTask;
 
 /* Pre-manufactured response to the SCSI Inquiry command */
 #ifdef __ICCARM__
-#ifdef PLATFORM_ZYNQMP
+#if defined (PLATFORM_ZYNQMP) || defined (versal)
 #pragma data_alignment = 64
 #else
 #pragma data_alignment = 32
@@ -102,7 +103,7 @@ const static SCSI_INQUIRY scsiInquiry[] ALIGNMENT_CACHELINE = {
 };
 
 #ifdef __ICCARM__
-#ifdef PLATFORM_ZYNQMP
+#if defined (PLATFORM_ZYNQMP) || defined (versal)
 #pragma data_alignment = 64
 #else
 #pragma data_alignment = 32
