@@ -46,6 +46,22 @@ static XPmDevice_SoftResetInfo DeviceRstData[] = {
 		.IdleHookArgs = XPAR_PSU_QSPI_0_DEVICE_ID,
 	},
 #endif
+#ifdef XPAR_PSU_SD_0_DEVICE_ID
+	{
+		.DeviceId = XPM_DEVID_SDIO_0,
+		.SoftRst = NULL,
+		.IdleHook = NodeSdioIdle,
+		.IdleHookArgs = XPAR_PSU_SD_0_DEVICE_ID,
+	},
+#endif
+#ifdef XPAR_PSU_SD_1_DEVICE_ID
+	{
+		.DeviceId = XPM_DEVID_SDIO_1,
+		.SoftRst = NULL,
+		.IdleHook = NodeSdioIdle,
+		.IdleHookArgs = XPAR_PSU_SD_1_DEVICE_ID,
+	},
+#endif
 };
 
 #if defined(XPAR_PSU_QSPI_0_DEVICE_ID)
@@ -105,6 +121,36 @@ void NodeOspiIdle(u16 DeviceId, u32 BaseAddress)
 	}
 
 	XOspiPsv_Idle(&OspiInst);
+
+done:
+	return;
+}
+#endif
+
+#if defined(XPAR_PSU_SD_0_DEVICE_ID) || defined(XPAR_PSU_SD_1_DEVICE_ID)
+/**
+ * NodeSdioIdle() - Idle the SDIO node
+ *
+ * @DeviceId:	 Device ID of SDIO node
+ * @BaseAddress: SDIO base address
+ */
+void NodeSdioIdle(u16 DeviceId, u32 BaseAddress)
+{
+	int Status;
+	XSdPs_Config *ConfigPtr;
+	XSdPs SdioInst;
+
+	ConfigPtr = XSdPs_LookupConfig(DeviceId);
+	if (NULL == ConfigPtr) {
+		goto done;
+	}
+
+	Status = XSdPs_CfgInitialize(&SdioInst, ConfigPtr, BaseAddress);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	XSdPs_Idle(&SdioInst);
 
 done:
 	return;
