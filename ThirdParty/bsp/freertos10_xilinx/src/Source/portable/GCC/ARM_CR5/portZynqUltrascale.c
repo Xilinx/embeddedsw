@@ -123,10 +123,8 @@ XScuGic_Config *pxInterruptControllerConfig;
 
 void FreeRTOS_ClearTickInterrupt( void )
 {
-uint32_t ulStatusEvent;
 
-	ulStatusEvent = XTtcPs_GetInterruptStatus( &xTimerInstance );
-	XTtcPs_ClearInterruptStatus( &xTimerInstance, ulStatusEvent );
+	XTtcPs_ClearInterruptStatus( &xTimerInstance, XTtcPs_GetInterruptStatus( &xTimerInstance ) );
 }
 /*-----------------------------------------------------------*/
 
