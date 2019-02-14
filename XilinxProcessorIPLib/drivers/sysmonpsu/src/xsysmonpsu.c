@@ -1287,14 +1287,14 @@ s32 XSysMonPsu_SetSeqChEnables(XSysMonPsu *InstancePtr, u64 ChEnableMask,
 	 * Registers.
 	 */
 	XSysmonPsu_WriteReg(EffectiveBaseAddress + XSYSMONPSU_SEQ_CH0_OFFSET,
-			 (ChEnableMask & XSYSMONPSU_SEQ_CH0_VALID_MASK));
+			 (u32)(ChEnableMask & XSYSMONPSU_SEQ_CH0_VALID_MASK));
 
 	XSysmonPsu_WriteReg(EffectiveBaseAddress + XSYSMONPSU_SEQ_CH1_OFFSET,
-			 (ChEnableMask >> XSM_SEQ_CH_SHIFT) &
+			 (u32)(ChEnableMask >> XSM_SEQ_CH_SHIFT) &
 			 XSYSMONPSU_SEQ_CH1_VALID_MASK);
 
 	XSysmonPsu_WriteReg(EffectiveBaseAddress + XSYSMONPSU_SEQ_CH2_OFFSET,
-				 (ChEnableMask >> XSM_SEQ_CH2_SHIFT) &
+				 (u32)(ChEnableMask >> XSM_SEQ_CH2_SHIFT) &
 			 XSYSMONPSU_SEQ_CH2_VALID_MASK);
 
 	Status = (s32)XST_SUCCESS;
@@ -1408,16 +1408,16 @@ s32 XSysMonPsu_SetSeqAvgEnables(XSysMonPsu *InstancePtr, u64 AvgEnableChMask,
 		 */
 		XSysmonPsu_WriteReg(EffectiveBaseAddress +
 				XSYSMONPSU_SEQ_AVERAGE0_OFFSET,
-				(AvgEnableChMask & XSYSMONPSU_SEQ_AVERAGE0_MASK));
+				(u32)(AvgEnableChMask & XSYSMONPSU_SEQ_AVERAGE0_MASK));
 
 		XSysmonPsu_WriteReg(EffectiveBaseAddress +
 				XSYSMONPSU_SEQ_AVERAGE1_OFFSET,
-				 (AvgEnableChMask >> XSM_SEQ_CH_SHIFT) &
+				 (u32)(AvgEnableChMask >> XSM_SEQ_CH_SHIFT) &
 				 XSYSMONPSU_SEQ_AVERAGE1_MASK);
 
 		XSysmonPsu_WriteReg(EffectiveBaseAddress +
 				XSYSMONPSU_SEQ_AVERAGE2_OFFSET,
-				 (AvgEnableChMask >> XSM_SEQ_CH2_SHIFT) &
+				 (u32)(AvgEnableChMask >> XSM_SEQ_CH2_SHIFT) &
 				 XSYSMONPSU_SEQ_AVERAGE2_MASK);
 
 		Status = (s32)XST_SUCCESS;
@@ -1535,16 +1535,16 @@ s32 XSysMonPsu_SetSeqInputMode(XSysMonPsu *InstancePtr, u64 InputModeChMask,
 	 */
 	XSysmonPsu_WriteReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_INPUT_MDE0_OFFSET,
-			 (InputModeChMask & XSYSMONPSU_SEQ_INPUT_MDE0_MASK));
+			 (u32)(InputModeChMask & XSYSMONPSU_SEQ_INPUT_MDE0_MASK));
 
 	XSysmonPsu_WriteReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_INPUT_MDE1_OFFSET,
-			 (InputModeChMask >> XSM_SEQ_CH_SHIFT) &
+			 (u32)(InputModeChMask >> XSM_SEQ_CH_SHIFT) &
 			 XSYSMONPSU_SEQ_INPUT_MDE1_MASK);
 
 	XSysmonPsu_WriteReg(EffectiveBaseAddress +
 		XSYSMONPSU_SEQ_INPUT_MDE2_OFFSET,
-		 (InputModeChMask >> XSM_SEQ_CH2_SHIFT) &
+		(u32)(InputModeChMask >> XSM_SEQ_CH2_SHIFT) &
 		 XSYSMONPSU_SEQ_INPUT_MDE2_MASK);
 
 	Status = (s32)XST_SUCCESS;
@@ -1662,13 +1662,14 @@ s32 XSysMonPsu_SetSeqAcqTime(XSysMonPsu *InstancePtr, u64 AcqCyclesChMask,
 	 * ADC Channel Acquisition Time Sequencer Registers.
 	 */
 	XSysmonPsu_WriteReg(EffectiveBaseAddress + XSYSMONPSU_SEQ_ACQ0_OFFSET,
-			 (AcqCyclesChMask & XSYSMONPSU_SEQ_ACQ0_MASK));
+			 (u32)(AcqCyclesChMask & XSYSMONPSU_SEQ_ACQ0_MASK));
 
 	XSysmonPsu_WriteReg(EffectiveBaseAddress + XSYSMONPSU_SEQ_ACQ1_OFFSET,
-			 (AcqCyclesChMask >> XSM_SEQ_CH_SHIFT) & XSYSMONPSU_SEQ_ACQ1_MASK);
+			 (u32)(AcqCyclesChMask >> XSM_SEQ_CH_SHIFT) &
+					XSYSMONPSU_SEQ_ACQ1_MASK);
 
 	XSysmonPsu_WriteReg(EffectiveBaseAddress + XSYSMONPSU_SEQ_ACQ2_OFFSET,
-			(AcqCyclesChMask >> XSM_SEQ_CH2_SHIFT) &
+			(u32)(AcqCyclesChMask >> XSM_SEQ_CH2_SHIFT) &
 					XSYSMONPSU_SEQ_ACQ2_MASK);
 
 	Status = (s32)XST_SUCCESS;
