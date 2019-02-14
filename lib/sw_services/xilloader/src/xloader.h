@@ -63,7 +63,7 @@ extern "C" {
 #include "xloader_sd.h"
 #include "xloader_sbi.h"
 #include "xloader_qspi.h"
-#include "xloader_dma.h"
+#include "xplmi_dma.h"
 #include "xpm_device.h"
 #include "xilfpga.h"
 /************************** Constant Definitions *****************************/
@@ -74,6 +74,7 @@ extern "C" {
 #define XLOADER_CHUNK_MEMORY		(XPLMI_PMCRAM_BASEADDR)
 #define XLOADER_CHUNK_SIZE			(0x10000U) /** 64K */
 #define XLOADER_CFI_CHUNK_SIZE		(0x40000U) /** 256K */
+#define XLOADER_DMA_LEN_ALIGN           (0x10U)
 
 /* Boot Modes */
 enum XLOADER_PDI_SRC {
