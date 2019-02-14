@@ -179,7 +179,7 @@ int XMcdma_UpdateChanTDesc(XMcdma_ChanCtrl *Chan)
 
 /*****************************************************************************/
 /**
-* Using a memory segment allocated by the caller, This fundtion creates and
+* Using a memory segment allocated by the caller, This function creates and
 * setup the BD Chain for the MCDMA Channel.
 *
 * @param	Chan is the MCDMA Channel to be worked on..
@@ -283,7 +283,7 @@ u32 XMcDma_ChanBdCreate(XMcdma_ChanCtrl *Chan, UINTPTR Addr, u32 Count)
 * @return
 *		- XST_SUCCESS if initialization was successful
 *		- XST_FAILURE if the BdStartAddress or requested bdlen
-*		  doesn't match for the driver requirments.
+*		  doesn't match for the driver requirements.
 *
 *****************************************************************************/
 u32 XMcDma_ChanSubmit(XMcdma_ChanCtrl *Chan, UINTPTR BufAddr, u32 len)
@@ -293,7 +293,7 @@ u32 XMcDma_ChanSubmit(XMcdma_ChanCtrl *Chan, UINTPTR BufAddr, u32 len)
 	u32 i;
 	u32 Bdlen = len;
 
-	/* Calculate the Number of BD's required for transfering user
+	/* Calculate the Number of BD's required for transferring user
 	 * requested Data */
 	if (len > Chan->MaxTransferLen) {
 		BdCount = (len + (Chan->MaxTransferLen - 1)) / Chan->MaxTransferLen;
@@ -650,7 +650,7 @@ u32 XMcDma_BdGetAppWord(XMcdma_Bd* BdPtr, int Offset, int *Valid)
 * Set interrupt coalescing parameters for a particular channel.
 *
 * @param	Chan is the MCDMA Channel to be worked on..
-* @param	IrqCoalesce is the Irq Thresold value valid ranges are 1 to 255
+* @param	IrqCoalesce is the Irq Threshold value valid ranges are 1 to 255
 * @param	IrqDelay is the Irq Delay value valid ranges are 1 to 255
 *
 * @return
