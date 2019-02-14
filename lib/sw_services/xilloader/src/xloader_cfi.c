@@ -54,6 +54,7 @@
 #include "xplmi_util.h"
 #include "xplmi_hw.h"
 /************************** Constant Definitions *****************************/
+#define XLOADER_CFU_STREAM2_ADDR		(0xF1F80000U)
 
 /**************************** Type Definitions *******************************/
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -191,7 +192,8 @@ static int XLoader_LoadFabricData (XLoader* XLoaderPtr, XilPdi* PdiPtr, u32 Prtn
 		}
 		else
 		{
-			Status = PdiPtr->DeviceCopy(SrcAddr, (u64 )CFU_STREAM2_ADDR, ChunkSize, 0U);
+			Status = PdiPtr->DeviceCopy(SrcAddr,
+				(u64 )XLOADER_CFU_STREAM2_ADDR, ChunkSize, 0U);
 			if(Status != XST_SUCCESS)
 			{
 				goto END;
