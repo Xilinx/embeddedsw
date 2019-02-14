@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017-2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2017-2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -51,7 +51,6 @@
 #include "xloader.h"
 #include "xplmi_generic.h"
 #include "xplmi_util.h"
-#include "xloader_dma.h"
 #include "xloader_sbi.h"
 #include "xplmi_hw.h"
 
@@ -170,7 +169,7 @@ XStatus XLoader_SbiCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 	 */
 	(void) (SrcAddress);
 
-	ReadFlags = Flags | XLOADER_PMCDMA_1;
+	ReadFlags = Flags | XPLMI_PMCDMA_1;
 	Status = XLoader_SbiDmaXfer(DestAddress, Length/4, ReadFlags);
 
 	return Status;
