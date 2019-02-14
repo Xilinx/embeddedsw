@@ -51,6 +51,7 @@
 /***************************** Include Files *********************************/
 #include <xil_assert.h>
 #include "xplmi_cmd.h"
+#include "xplmi_debug.h"
 #include "xplmi_modules.h"
 
 /************************** Constant Definitions *****************************/
@@ -81,6 +82,7 @@ int XPlmi_CmdExecute(XPlmi_Cmd * Cmd)
 	const XPlmi_ModuleCmd * ModuleCmd = NULL;
 	int Status;
 
+	XPlmi_Printf(DEBUG_INFO, "CMD Execute \n\r");
 	/** Assign Module */
 	if (ModuleId < XPLMI_MAX_MODULES)
 	{
@@ -107,6 +109,9 @@ int XPlmi_CmdExecute(XPlmi_Cmd * Cmd)
 		goto END;
 	}
 
+	XPlmi_Printf(DEBUG_INFO, "CMD 0x%0x, Len 0x%0x, PayloadLen 0x%0x \n\r",
+		     Cmd->CmdId, Cmd->Len, Cmd->PayloadLen);
+
 	/** Run the command handler */
 	Status = ModuleCmd->Handler(Cmd);
 	if (Status != XST_SUCCESS)
@@ -116,6 +121,8 @@ int XPlmi_CmdExecute(XPlmi_Cmd * Cmd)
 
 	/** Increment the processed length and it can be used during resume */
 	Cmd->ProcessedLen += Cmd->PayloadLen;
+	/** Assign the same handler for Resume */
+	Cmd->ResumeHandler = ModuleCmd->Handler;
 END:
 	return Status;
 }
@@ -133,12 +140,17 @@ int XPlmi_CmdResume(XPlmi_Cmd * Cmd)
 {
 	int Status;
 
+	XPlmi_Printf(DEBUG_INFO, "CMD Resume \n\r");
 	Xil_AssertNonvoid(Cmd->ResumeHandler != NULL);
 	Status = Cmd->ResumeHandler(Cmd);
-	if (Status != XST_SUCCESS) {
-		Xil_AssertNonvoid(Cmd->ResumeHandler != NULL);
-	} else {
-		Cmd->ResumeHandler = NULL;
+	if (Status != XST_SUCCESS)
+	{
+		goto END;
 	}
+
+	/** Increment the processed length and it can be used during resume */
+	Cmd->ProcessedLen += Cmd->PayloadLen;
+
+END:
 	return Status;
 }

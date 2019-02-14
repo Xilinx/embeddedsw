@@ -107,21 +107,25 @@ static u32 XPlmi_CmdSize(u32 *Buf, u32 Len)
  *****************************************************************************/
 static void XPlmi_SetupCmd(XPlmi_Cmd * Cmd, u32 *Buf, u32 BufLen)
 {
+	u32 HdrLen = 1U;
+
 	Cmd->CmdId = Buf[0];
 	Cmd->IpiMask = 0;
 	Cmd->Len = (Cmd->CmdId >> 16) & 255;
 	Cmd->Payload = Buf + 1;
+	Cmd->ProcessedLen = 0U;
 	if (Cmd->Len == 255) {
+		HdrLen = 2U;
 		Cmd->Len = Buf[1];
 		Cmd->Payload = Buf + 2;
 	}
 
 	/** assign the available payloadlen in the buffer */
-	if (Cmd->Len > BufLen)
+	if (Cmd->Len > (BufLen-HdrLen))
 	{
-		Cmd->PayloadLen =  BufLen;
+		Cmd->PayloadLen =  BufLen-HdrLen;
 	} else {
-		Cmd->PayloadLen =  Cmd->Len;
+		Cmd->PayloadLen = Cmd->Len;
 	}
 }
 
@@ -139,10 +143,12 @@ int XPlmi_CdoVerifyHeader(XPlmiCdo *CdoPtr)
 	u32 CheckSum=0U;
 	u32 *CdoHdr=CdoPtr->BufPtr;
 	u32 Index;
-	XStatus Status;
+	int Status;
 
 	if (CdoHdr[1] != XPLMI_CDO_HDR_IDN_WRD)
 	{
+		XPlmi_Printf(DEBUG_GENERAL,
+				"CDO Header Identification Failed\n\r");
 		Status = XST_FAILURE;
 		goto END;
 	}
@@ -198,6 +204,153 @@ void XPlmi_InitCdo(XPlmiCdo *CdoPtr)
 
 /*****************************************************************************/
 /**
+ * @brief This function will copy the remaining to tempbuf based on the
+ * command size
+ *
+ * @param CdoPtr Pointer to the CDO structure
+ * @param BufPtr Pointer to the buffer
+ * @param Size Pointer to the Size of the data copied to tempbuf
+ *
+ * @return XST_SUCCESS in case of success
+ *
+ *****************************************************************************/
+int XPlmi_CdoCopyCmd(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 *Size)
+{
+	/** Copy the remaining cmd data */
+	if (CdoPtr->CopiedCmdLen == 1U) {
+		/**
+		 * To know the size, we need 2nd argument if
+		 * length is greater than 255.
+		 * Copy the 2nd argument to tempbuf to get the
+		 * size correctly
+		 */
+		CdoPtr->TempCmdBuf[1] = BufPtr[0];
+		CdoPtr->CopiedCmdLen++;
+	}
+
+	/** if size is greater than tempbuf, copy only tempbuf size */
+	*Size = XPlmi_CmdSize(CdoPtr->TempCmdBuf, CdoPtr->CopiedCmdLen);
+	if (*Size > XPLMI_CMD_LEN_TEMPBUF) {
+		*Size = XPLMI_CMD_LEN_TEMPBUF;
+	}
+	memcpy(CdoPtr->TempCmdBuf + CdoPtr->CopiedCmdLen,
+	       BufPtr, (*Size - CdoPtr->CopiedCmdLen)*4U);
+
+	CdoPtr->CopiedCmdLen = 0U;
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ * @brief This function will update the command pointer and resume the
+ * command from previous state
+ *
+ * @param CdoPtr Pointer to the CDO structure
+ * @param BufPtr Pointer to the buffer
+ * @param BufLen Len of the buffer
+ * @param Size Pointer to the Size consumed by the command execution
+ *
+ * @return XST_SUCCESS in case of success
+ *
+ *****************************************************************************/
+int XPlmi_CdoCmdResume(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Size)
+{
+	XPlmi_Cmd *CmdPtr = &CdoPtr->Cmd;
+	int Status;
+
+	/** Update the Payload buffer and length */
+	if (CmdPtr->Len > (CmdPtr->ProcessedLen + BufLen))
+	{
+		CmdPtr->PayloadLen = BufLen;
+	} else {
+		CmdPtr->PayloadLen = CmdPtr->Len - CmdPtr->ProcessedLen;
+		CdoPtr->CmdState = 0U;
+	}
+	CmdPtr->Payload = BufPtr;
+	*Size = CmdPtr->PayloadLen;
+	Status = XPlmi_CmdResume(CmdPtr);
+	if (Status != XST_SUCCESS)
+	{
+		XPlmi_Printf(DEBUG_GENERAL,
+			     "CMD Resume failed \n\r");
+		goto END;
+	}
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief This function copies gets the prepares the CMD pointer and
+ * executes it
+ *
+ * @param CdoPtr Pointer to the CDO structure
+ * @param BufPtr Pointer to the buffer
+ * @param BufLen Len of the buffer
+ * @param Size Pointer to the Size consumed by the command execution
+ *
+ * @return XST_SUCCESS in case of success
+ *
+ *****************************************************************************/
+int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Size)
+{
+	XPlmi_Cmd *CmdPtr = &CdoPtr->Cmd;
+	int Status;
+
+	/**
+	 * Break if CMD says END of commands,
+	 * irrespective of the CDO length
+	 */
+	if (BufPtr[0] == XPLMI_CMD_END)
+	{
+		XPlmi_Printf(DEBUG_INFO,
+			     "CMD END detected \n\r");
+		CdoPtr->CmdEndDetected = TRUE;
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	*Size = XPlmi_CmdSize(BufPtr, BufLen);
+	CmdPtr->Len = *Size;
+
+	/**
+	 * Check if Cmd payload is less than buffer size,
+	 * then copy to temparary buffer
+	 */
+	if ((*Size > BufLen) && (BufLen < XPLMI_CMD_LEN_TEMPBUF))
+	{
+		/** Copy Cmd to temparary buffer */
+		memcpy(CdoPtr->TempCmdBuf, BufPtr, BufLen*4);
+		CdoPtr->CopiedCmdLen = BufLen;
+		*Size = BufLen;
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	/**
+	 * if size is greater than tempbuf, execute partially
+	 * and resume the cmd in next iteration
+	 */
+	if (*Size > BufLen) {
+		*Size = BufLen;
+		CdoPtr->CmdState = XPLMI_CMD_STATE_RESUME;
+	}
+
+	/** Execute the command */
+	XPlmi_SetupCmd(CmdPtr, BufPtr, *Size);
+	Status = XPlmi_CmdExecute(CmdPtr);
+	if (Status != XST_SUCCESS)
+	{
+		XPlmi_Printf(DEBUG_GENERAL,
+			     "CMD Execute failed \n\r");
+		goto END;
+	}
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
  * @brief This function process the CDO file
  *
  * @param CdoPtr Pointer to the CDO structure
@@ -208,9 +361,8 @@ void XPlmi_InitCdo(XPlmiCdo *CdoPtr)
 int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 {
 	int Status = XST_SUCCESS;
-	XPlmi_Cmd Cmd = CdoPtr->Cmd;
 	u32 Size = 0U;
-	u32 CopiedCmdLen = 0U;
+	u32 CopiedCmdLen = CdoPtr->CopiedCmdLen;
 	u32 *BufPtr = CdoPtr->BufPtr;
 	u32 BufLen = CdoPtr->BufLen;
 
@@ -230,7 +382,12 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 		CdoPtr->BufLen -= XPLMI_CDO_HDR_LEN;
 	}
 
-	/** Check if BufLen is greater than CdoLen */
+	/**
+	 * Check if BufLen is greater than CdoLen
+	 * This is required if more buffer is copied than CDO len.
+	 * Mainly for PLM CDO where BufLen is not present and is
+	 * given as Max PRAM len.
+	 */
 	if ((BufLen + CdoPtr->ProcessedCdoLen) > (CdoPtr->CdoLen))
 	{
 		BufLen = CdoPtr->CdoLen - CdoPtr->ProcessedCdoLen;
@@ -245,36 +402,20 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 		goto END;
 	}
 
+	XPlmi_Printf(DEBUG_INFO,
+		    "Processing CDO, Chunk Len 0x%08x\n\r", BufLen);
 	/**
 	 * Check if cmd data is copied
 	 * partially during the last iteration
 	 */
-	if (CdoPtr->CopiedCmdLen != 0)
+	if (CopiedCmdLen != 0)
 	{
-		CopiedCmdLen = CdoPtr->CopiedCmdLen;
-		/** Copy the remaining cmd data */
-		if (CopiedCmdLen == 1U) {
-			/**
-			 * To know the size, we need 2nd argument if
-			 * length is greater than 255.
-			 * Copy the 2nd argument to tempbuf to get the
-			 * size correctly
-			 */
-			CdoPtr->TempCmdBuf[1] = BufPtr[0];
-			CdoPtr->CopiedCmdLen++;
+		Status = XPlmi_CdoCopyCmd(CdoPtr, BufPtr, &Size);
+		if (Status != XST_SUCCESS) {
+			goto END;
 		}
-
-		/** if size is greater than tempbuf, copy only tempbuf size */
-		Size = XPlmi_CmdSize(CdoPtr->TempCmdBuf, CopiedCmdLen);
-		if (Size > XPLMI_CMD_LEN_TEMPBUF) {
-			Size = XPLMI_CMD_LEN_TEMPBUF;
-		}
-		memcpy(CdoPtr->TempCmdBuf + CdoPtr->CopiedCmdLen,
-		       BufPtr, Size - CdoPtr->CopiedCmdLen);
-
 		BufPtr = CdoPtr->TempCmdBuf;
 		BufLen = Size;
-		CdoPtr->CopiedCmdLen = 0U;
 	}
 
 	/** Execute the commands in the Cdo Buffer */
@@ -283,60 +424,20 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 		/** Check if cmd has to be resumed */
 		if (CdoPtr->CmdState == XPLMI_CMD_STATE_RESUME)
 		{
-			/** Update the Payload buffer and length */
-			Cmd.PayloadLen = BufLen;
-			Cmd.Payload = BufPtr;
-			Status = XPlmi_CmdResume(&Cmd);
-			if (Status != XST_SUCCESS)
-			{
-				goto END;
-			}
-			CdoPtr->CmdState = 0U;
+			Status =
+			   XPlmi_CdoCmdResume(CdoPtr, BufPtr, BufLen, &Size);
 		} else {
-			/**
-			 * Break if CMD says END of commands,
-			 * irrespective of the CDO length
-			 */
-			if (BufPtr[0] == XPLMI_CMD_END)
-			{
-				XPlmi_Printf(DEBUG_DETAILED,
-					"CMD END detected \n\r");
-				CdoPtr->CmdEndDetected = TRUE;
-				Status = XST_SUCCESS;
-				break;
-			}
-
-			Size = XPlmi_CmdSize(BufPtr, BufLen);
-			Cmd.Len = Size;
-
-			/**
-			 * Check if Cmd payload is less than buffer size,
-			 * then copy to temparary buffer
-			 */
-			if ((Size > BufLen) && (BufLen < XPLMI_CMD_LEN_TEMPBUF))
-			{
-				/** Copy Cmd to temparary buffer */
-				memcpy(CdoPtr->TempCmdBuf, BufPtr, BufLen);
-				CdoPtr->CopiedCmdLen = BufLen;
-				break;
-			}
-
-			/**
-			 * if size is greater than tempbuf, execute partially
-			 * and resume the cmd in next iteration
-			 */
-			if (Size > BufLen) {
-				Size = XPLMI_CMD_LEN_TEMPBUF;
-				CdoPtr->CmdState = XPLMI_CMD_STATE_RESUME;
-			}
-
-			/** Execute the command */
-			XPlmi_SetupCmd(&Cmd, BufPtr, Size);
-			Status = XPlmi_CmdExecute(&Cmd);
-			if (Status != XST_SUCCESS)
-			{
-				break;
-			}
+			Status =
+			   XPlmi_CdoCmdExecute(CdoPtr, BufPtr, BufLen, &Size);
+		}
+		/**
+		 * if command end is detected, or in case of any error,
+		 * exit the loop
+		 */
+		if ((Status != XST_SUCCESS) ||
+		    (CdoPtr->CmdEndDetected == TRUE))
+		{
+			goto END;
 		}
 
 		/** Update the parameters for next iteration */
