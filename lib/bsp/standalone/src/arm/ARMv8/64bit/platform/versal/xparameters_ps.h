@@ -44,6 +44,8 @@
 * 7.00 	mus     01/11/18 First release
 *       mn      03/26/18 Change Interrupt IDs for versal
 *       mn      03/26/18 Update SLCR base address
+*	 ap	02/14/19 Add Interrupt Id for usbpsu controller
+*
 * </pre>
 *
 * @note
@@ -134,7 +136,6 @@ extern "C" {
 #define XPAR_XCCI_FPD_INTR 		XPS_FPD_CCI_INT_ID
 #define XPAR_XSMMU_FPD_INTR 		XPS_FPD_SMMU_INT_ID
 #define XPAR_XUSBPS_0_INTR		XPS_USB3_0_ENDPT_INT_ID
-#define XPAR_XUSBPS_1_INTR		XPS_USB3_1_ENDPT_INT_ID
 #define	XPAR_XRTCPSU_ALARM_INTR 	XPS_RTC_ALARM_INT_ID
 #define	XPAR_XRTCPSU_SECONDS_INTR	XPS_RTC_SEC_INT_ID
 #define XPAR_XSYSMONPSU_INTR		XPS_AMS_INT_ID
@@ -192,6 +193,7 @@ extern "C" {
 #define XPS_UART1_INT_ID		(19U + 32U)
 #define XPS_CAN0_INT_ID			(20U + 32U)
 #define XPS_CAN1_INT_ID			(21U + 32U)
+#define XPS_USB3_0_ENDPT_INT_ID		(22U + 32U)
 #define XPS_RTC_ALARM_INT_ID 		(142U + 32U)
 #define XPS_RTC_SEC_INT_ID	 	(143U + 32U)
 #define XPS_TTC0_0_INT_ID		(37U + 32U)
