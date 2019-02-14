@@ -77,7 +77,7 @@
 #include "xv_mix_l2.h"
 
 /************************** Constant Definitions *****************************/
-#define XVMIX_MASK_ENABLE_ALL_LAYERS    (0x0FFFF)
+#define XVMIX_MASK_ENABLE_ALL_LAYERS    (0xFFFFFFFF)
 #define XVMIX_MASK_DISABLE_ALL_LAYERS   (0)
 #define XVMIX_REG_OFFSET                (0x100)
 #define XVMIX_MIN_STRM_WIDTH            (64u)
@@ -1101,7 +1101,7 @@ int XVMix_GetLayerColorFormat(XV_Mix_l2 *InstancePtr,
 #endif
       if (LayerId == XVMIX_LAYER_MASTER) {
           *Cfmt = (XVidC_ColorFormat)MixPtr->Config.ColorFormat;
-      } else { //Layer 1-8
+      } else { //Layer 1-16
           *Cfmt = (XVidC_ColorFormat)(MixPtr->Config.LayerColorFmt[LayerId-1]);
       }
       Status = XST_SUCCESS;
