@@ -170,7 +170,7 @@ XStatus XLoader_SbiCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 	(void) (SrcAddress);
 
 	ReadFlags = Flags | XPLMI_PMCDMA_1;
-	Status = XLoader_SbiDmaXfer(DestAddress, Length/4, ReadFlags);
+	Status = XPlmi_SbiDmaXfer(DestAddress, Length/4, ReadFlags);
 
 	return Status;
 }

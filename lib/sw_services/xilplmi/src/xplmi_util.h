@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017-2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2017-2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -97,6 +97,8 @@ void XPlmi_UtilRMW(u32 RegAddr, u32 Mask, u32 Value);
  */
 int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutCount);
 
+int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInMs);
+
 /**
  * Poll for a set of bits to be cleared (represented by Mask)
  * or until we TimeOut
@@ -105,6 +107,10 @@ int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutCount);
  * @param Mask is the bit mask to poll for in the register value
  * @param TimeOutCount is the value to count down before return failure
  */
+
+
+int XPlmi_UtilPoll64(u64 Addr, u32 Mask, u32 ExpectedValue, u32 TimeOutInMs);
+
 int XPlmi_UtilPollForZero(u32 RegAddr, u32 Mask, u32 TimeOutCount);
 
 /**
