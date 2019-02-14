@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -55,9 +55,10 @@
 *                    Gcm-Tag mismatch
 * 3.2   ka  04/04/18 Added support for Sha3_Update, if the payload is not
 *        	     4 bytes aligned.
-*	ka  08/03/18 Added XSecure_Aes Api's to encrypt or decrypt data-blobs.
-*	ka  10/25/18 Added support to clear user key after use.
-* 4.0	arc 18/12/18 Fixed MISRA-C violations.
+*       ka  08/03/18 Added XSecure_Aes Api's to encrypt or decrypt data-blobs.
+*       ka  10/25/18 Added support to clear user key after use.
+* 4.0   arc 18/12/18 Fixed MISRA-C violations.
+*       arc 12/02/19 Added support for validate image format.
 *
 * </pre>
 *
@@ -930,6 +931,16 @@ u32 XSecure_AuthenticationHeaders(u8 *StartAddr, XSecure_ImageInfo *ImageInfo)
 	u32 SizeofImgHdr;
 	u32 PhOffset;
 	u8 *IvPtr = (u8 *)(UINTPTR)Iv;
+	u8 BootgenBinFormat[] = {0x66, 0x55, 0x99, 0xAA,
+				 0x58, 0x4E, 0x4C, 0x58};/* Sync Word */
+
+	/* validate the  image */
+	if((memcmp((StartAddr + XSECURE_IMAGE_SYNC_WORD_OFFSET),
+				BootgenBinFormat,
+				XSECURE_ARRAY_LENGTH(BootgenBinFormat)))){
+		Status = XSECURE_INVALID_IMAGE_ERROR;
+		goto END;
+	}
 
 	/* Pointer IV available */
 	ImageInfo->Iv = Iv;
