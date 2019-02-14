@@ -253,8 +253,8 @@ static int XPlmi_MaskPoll64(XPlmi_Cmd * Cmd)
 	u32 TimeOutInMs = Cmd->Payload[4U];
 
 	XPlmi_Printf(DEBUG_DETAILED,
-		"%s, Addr: 0x%0x,  Mask 0x%0x, ExpVal: 0x%0x, Timeout: %d\n\r",
-		__func__, (u32)Addr, Mask, ExpectedValue, TimeOutInMs);
+	    "%s, Addr: 0x%0x%08x,  Mask 0x%0x, ExpVal: 0x%0x, Timeout: %d\n\r",
+	    __func__, (u32)(Addr>>32), (u32)Addr, Mask, ExpectedValue, TimeOutInMs);
 
 	Status = XPlmi_UtilPoll64(Addr, Mask, ExpectedValue, TimeOutInMs);
 	if (Status != XST_SUCCESS)
@@ -285,8 +285,8 @@ static int XPlmi_MaskWrite64(XPlmi_Cmd * Cmd)
 	u32 ReadVal;
 
 	XPlmi_Printf(DEBUG_DETAILED,
-		"%s, Addr: 0x%0x,  Mask 0x%0x, Val: 0x%0x\n\r",
-		__func__, (u32)Addr, Mask, Value);
+		"%s, Addr: 0x%0x%08x,  Mask 0x%0x, Val: 0x%0x\n\r",
+		__func__, (u32)(Addr>>32), (u32)Addr, Mask, Value);
 
 	/**
 	 * Read the Register value
@@ -317,8 +317,8 @@ static int XPlmi_Write64(XPlmi_Cmd * Cmd)
 	u32 Value = Cmd->Payload[2U];
 
 	XPlmi_Printf(DEBUG_DETAILED,
-		"%s, Addr: 0x%0x,  Val: 0x%0x\n\r",
-		__func__, Addr, Value);
+		"%s, Addr: 0x%0x%08x,  Val: 0x%0x\n\r",
+		__func__, (u32)(Addr>>32), (u32)Addr, Value);
 
 	XPlmi_Out64(Addr, Value);
 
