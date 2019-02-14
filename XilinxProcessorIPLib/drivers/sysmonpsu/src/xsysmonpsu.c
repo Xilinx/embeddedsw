@@ -111,7 +111,7 @@ s32 XSysMonPsu_CfgInitialize(XSysMonPsu *InstancePtr, XSysMonPsu_Config *ConfigP
 			  u32 EffectiveAddr)
 {
 	u32 PsSysmonControlStatus;
-	u32 IntrStatus;
+	u64 IntrStatus;
 
 	/* Assert the input arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -203,7 +203,7 @@ void XSysMonPsu_Reset(XSysMonPsu *InstancePtr)
 			XSYSMONPSU_VP_VN_OFFSET, XSYSMONPSU_VP_VN_MASK);
 
 	/* Check for PL is under reset or not */
-	IsPlReset = (XSysmonPsu_ReadReg(XSYSMONPSU_CSU_BASEADDR + PCAP_STATUS_OFFSET) &
+	IsPlReset = (u8)(XSysmonPsu_ReadReg(XSYSMONPSU_CSU_BASEADDR + PCAP_STATUS_OFFSET) &
 						PL_CFG_RESET_MASK) >> PL_CFG_RESET_SHIFT;
 	if (IsPlReset != 0U) {
 		/* RESET the PL SYSMON */
