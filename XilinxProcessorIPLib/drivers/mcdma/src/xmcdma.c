@@ -246,11 +246,11 @@ void XMcDma_Reset(XMcdma *InstancePtr)
 
 /*****************************************************************************/
 /**
- * This function sets the awcache field of the SG interface
+ * This function sets the AWCACHE field of the SG interface
  * With the user specified value
  *
  * @param	InstancePtr is the driver instance we are working on
- * @param	Value is the awcache value to be written.
+ * @param	Value is the AWCACHE value to be written.
  *
  * @return	None
  *
@@ -277,11 +277,11 @@ void XMcdma_SetSGAWCache(XMcdma *InstancePtr, u8 Value)
 
 /*****************************************************************************/
 /**
- * This function sets the arcache field of the SG inteface
+ * This function sets the ARCACHE field of the SG interface
  * With the user specified value
  *
  * @param	InstancePtr is the driver instance we are working on
- * @param	Value is the arcache value to be written.
+ * @param	Value is the ARCACHE value to be written.
  *
  * @return	None
  *
@@ -451,7 +451,7 @@ u32 XMcdma_ChanHwStop(XMcdma_ChanCtrl *Chan)
 /*****************************************************************************/
 /**
 *
-* Enables a particuarl channel.
+* Enables a particular channel.
 *
 * @param	Chan is the Channel instance to be worked on
 *

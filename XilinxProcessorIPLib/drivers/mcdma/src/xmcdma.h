@@ -56,7 +56,7 @@
 * XMcDma_CfgInitialize() API.
 *
 * <b> Interrupts </b>
-* In single interrupt mulitple channels case driver provides interrupt
+* In single interrupt multiple channels case driver provides interrupt
 * handler XMcdma_TxIntrHandler and XMcdma_IntrHandler for mm2s and s2mm
 * side respectively for handling the interrupt from the MCDMA core.
 * The users of this driver have to register this handler with the interrupt
@@ -205,8 +205,8 @@ typedef enum {
 typedef struct {
 	UINTPTR ChanBase;
 	u32 Chan_id;		/* Channel Number */
-	u32 MaxTransferLen;	/* Maximum tranfser lenght */
-	u32 len;		/* Total size of bd's lenght in chan */
+	u32 MaxTransferLen;	/* Maximum transfer length */
+	u32 len;		/* Total size of bd's length in channel */
 	u32 IsRxChan;
 	u32 ext_addr;
 	u32 Has_Txdre;
@@ -507,10 +507,10 @@ typedef struct {
 
 /*****************************************************************************/
 /**
- * This function sets the arcache field with the user specified value
+ * This function sets the ARCACHE field with the user specified value
  *
  * @param	InstancePtr is the driver instance we are working on
- * @param	Value is the arcache value to be written.
+ * @param	Value is the ARCACHE value to be written.
  *
  * @return	None
  *
@@ -524,10 +524,10 @@ typedef struct {
 
 /*****************************************************************************/
 /**
- * This function sets the awcache field with the user specified value
+ * This function sets the AWCACHE field with the user specified value
  *
  * @param	InstancePtr is the driver instance we are working on
- * @param	Value is the awcache value to be written.
+ * @param	Value is the AWCACHE value to be written.
  *
  * @return	None
  *
@@ -628,7 +628,7 @@ void XMcDma_DumpBd(XMcdma_Bd* BdPtr);
 
 int XMcDma_BdSetAppWord(XMcdma_Bd* BdPtr, int Offset, u32 Word);
 
-/* Gloabal OR'ed Single interrupt */
+/* Global OR'ed Single interrupt */
 void XMcdma_IntrHandler(void *Instance);
 void XMcdma_TxIntrHandler(void *Instance);
 s32 XMcdma_SetCallBack(XMcdma *InstancePtr, XMcdma_Handler HandlerType,

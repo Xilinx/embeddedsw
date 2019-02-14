@@ -38,9 +38,9 @@
  *
  * H/W Requirements:
  * In order to test this example at the h/w level AXI MCDMA MM2S should
- * connect with the S2MM.
+ * be connected to the S2MM channel.
  *
- * System level Considerations for Zynq UltraScale+ designs:
+ * System level considerations for Zynq UltraScale+ designs:
  * On ZU+ MPSOC for PL IP's 3 different ports are available HP, HPC and ACP.
  *
  * The explanation below talks about HPC and HP port.
@@ -51,11 +51,11 @@
  * Following needs to be done by the system components before running the
  * example-
  * 1) Snooping should be enabled in the S3 (0xFD6E4000)
- * 2) Mark the DDR memory being used for buffers as outer sharable.
+ * 2) Mark the DDR memory being used for buffers as outer-shareable.
  * translation_table.S.
  * .set Memory,	0x405 | (2 << 8) | (0x0).
  *
- * It is recomended to use HPC to make use of H/W coherency feature.
+ * It is recommended to use HPC to make use of H/W coherency feature.
  *
  * HP design considerations:
  * The example uses un-cached memory for buffer descriptors and uses
@@ -360,7 +360,7 @@ static int RxSetup(XMcdma *McDmaInstPtr)
 * This function sets up the TX channel of a DMA engine to be ready for packet
 * transmission
 *
-* @param	AxiDmaInstPtr is the instance pointer to the DMA engine.
+* @param	McDmaInstPtr is the instance pointer to the AXI MCDMA engine.
 *
 * @return	XST_SUCCESS if the setup is successful, XST_FAILURE otherwise.
 *
@@ -437,7 +437,9 @@ static int TxSetup(XMcdma *McDmaInstPtr)
 *
 * This function checks data buffer after the DMA transfer is finished.
 *
-* @param	None
+* @param	RxPacket is the pointer to Rx packet.
+* @param	ByteCount is the length of Rx packet.
+* @param	ChanId is the MCDMA channel id to be worked on.
 *
 * @return	- XST_SUCCESS if validation is successful
 *		- XST_FAILURE if validation is failure.
@@ -474,7 +476,8 @@ static int CheckData(u8 *RxPacket, int ByteCount, u32 ChanId)
 * This function waits until the DMA transaction is finished, checks data,
 * and cleans up.
 *
-* @param	None
+* @param	McDmaInstPtr is the instance pointer to the AXI MCDMA engine.
+* @Chan_id	ChanId is the MCDMA channel id to be worked on.
 *
 * @return	- XST_SUCCESS if DMA transfer is successful and data is correct,
 *		- XST_FAILURE if fails.
