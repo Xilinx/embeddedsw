@@ -50,15 +50,14 @@
 
 /***************************** Include Files *********************************/
 #include "xloader.h"
-#include "xloader_dma.h"
+#include "xplmi_dma.h"
 #include "xplmi_debug.h"
 #include "xplmi_cdo.h"
 #include "xillibpm_api.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
-//extern XilCdo_Prtn XilCdoPrtnInst;
-//extern XCsuDma CsuDma0;
+
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XLOADER_SUCCESS_NOT_PRTN_OWNER	(0x100U)
 #define XLOADER_NO_PSM_IMG_PARTITIONS	2U
@@ -387,7 +386,6 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
                 Len = Len - (Len%XLOADER_DMA_LEN_ALIGN) +
                         XLOADER_DMA_LEN_ALIGN;
         }
-
 
 	/**
 	 * Initialize the Cdo Pointer and
