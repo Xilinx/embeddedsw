@@ -117,6 +117,8 @@ Updated usbpsu.tcl to fix the logic for generating SUPER_SPEED paramter
 mcdma_v1_3:
 In mcdma examples remove snoop enable and dependency on HPC_DESIGN macro.
 In driver tcl enable CCI only for EL1 non-secure state.
+Create channel submit variant to program additional BD fields.
+Add HasRxLength field in config and channel structure.
 
 Changes for 2018.3.1
 ===============================
