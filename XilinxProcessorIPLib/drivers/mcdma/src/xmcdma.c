@@ -42,6 +42,7 @@
 * 1.0    adk    18/07/17 Initial version.
 * 1.1    rsp    20/02/18 Fix unused variable warning.
 *                        Remove TimeOut variable.CR-979061
+* 1.3    rsp    14/02/19 Populate HasRxLength value from config.
 *
 ******************************************************************************/
 
@@ -152,6 +153,7 @@ s32 XMcDma_Initialize(XMcdma *InstancePtr, XMcdma_Config *CfgPtr)
 	InstancePtr->Config.HasS2MM = CfgPtr->HasS2MM;
 	InstancePtr->Config.MaxTransferlen = CfgPtr->MaxTransferlen;
 	InstancePtr->Config.HasStsCntrlStrm = CfgPtr->HasStsCntrlStrm;
+	InstancePtr->Config.HasRxLength = CfgPtr->HasRxLength;
 	InstancePtr->Config.IsTxCacheCoherent = CfgPtr->IsTxCacheCoherent;
 	InstancePtr->Config.IsRxCacheCoherent = CfgPtr->IsRxCacheCoherent;
 
@@ -183,6 +185,7 @@ s32 XMcDma_Initialize(XMcdma *InstancePtr, XMcdma_Config *CfgPtr)
 							XMCDMA_RX_OFFSET;
 			InstancePtr->Rx_Chan[i].Has_Rxdre = CfgPtr->HasS2MMDRE;
 			InstancePtr->Rx_Chan[i].HasStsCntrlStrm = CfgPtr->HasStsCntrlStrm;
+			InstancePtr->Rx_Chan[i].HasRxLength = CfgPtr->HasRxLength;
 			InstancePtr->Rx_Chan[i].RxDataWidth =
 				((unsigned int)CfgPtr->S2MMDataWidth >> 3);
 			InstancePtr->Rx_Chan[i].Chan_id = i;
