@@ -139,6 +139,8 @@
 *                        XMcDma_BdSetAppWord().
 * 1.2   mus     11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
 * 1.3   rsp     02/12/19 Add HasRxLength field in config and channel structure.
+* 1.3   rsp     02/11/19 Add top level submit XMcDma_Chan_Sideband_Submit() API
+*                        to program BD control and sideband information.
 ******************************************************************************/
 #ifndef XMCDMA_H_
 #define XMCDMA_H_
@@ -621,6 +623,8 @@ int XMcdma_UpdateChanCDesc(XMcdma_ChanCtrl *Chan);
 int XMcdma_UpdateChanTDesc(XMcdma_ChanCtrl *Chan);
 u32 XMcDma_ChanBdCreate(XMcdma_ChanCtrl *Chan, UINTPTR Addr, u32 Count);
 u32 XMcDma_ChanSubmit(XMcdma_ChanCtrl *Chan, UINTPTR BufAddr, u32 len);
+u32 XMcDma_Chan_Sideband_Submit(XMcdma_ChanCtrl *ChanPtr, UINTPTR BufAddr,
+				u32 Len, u32 *AppPtr, u16 Tuser, u16 Tid);
 u32 XMcDma_ChanToHw(XMcdma_ChanCtrl *Chan);
 int XMcdma_BdChainFromHW(XMcdma_ChanCtrl *Chan, u32 BdLimit,
 			 XMcdma_Bd **BdSetPtr);
