@@ -149,7 +149,7 @@ int XPlmi_CdoVerifyHeader(XPlmiCdo *CdoPtr)
 	{
 		XPlmi_Printf(DEBUG_GENERAL,
 				"CDO Header Identification Failed\n\r");
-		Status = XST_FAILURE;
+		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_CDO_HDR_ID, 0x0);
 		goto END;
 	}
 
@@ -165,7 +165,7 @@ int XPlmi_CdoVerifyHeader(XPlmiCdo *CdoPtr)
 	{
 		XPlmi_Printf(DEBUG_GENERAL,
 				"Config Object Checksum Failed\n\r");
-		Status = XST_FAILURE;
+		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_CDO_CHECKSUM, 0x0);
 		goto END;
 	}else{
 		Status = XST_SUCCESS;

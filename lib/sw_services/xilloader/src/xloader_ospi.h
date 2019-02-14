@@ -59,6 +59,7 @@ extern "C" {
 #ifdef XLOADER_OSPI
 #include "xparameters.h"	/* SDK generated parameters */
 #include "xospipsv.h"		/* OSPIPSV device driver */
+#include "xplmi_status.h"	/* PLMI error codes */
 
 /************************** Constant Definitions *****************************/
 
@@ -87,13 +88,6 @@ extern "C" {
  */
 #define	MICRON_OCTAL_ID_BYTE0	0x2C
 #define MICRON_OCTAL_ID_BYTE2_512	0x1A
-
-
-/* Error Codes */
-#define XLOADER_ERR_OSPI_INIT                            (0x4000)
-#define XLOADER_ERR_OSPI_CFG                             (0x4100)
-#define XLOADER_ERR_UNSUPPORTED_OSPI                     (0x4200)
-#define XLOADER_ERR_UNSUPPORTED_OSPI_SIZE        		 (0x4300)
 
 /**************************** Type Definitions *******************************/
 

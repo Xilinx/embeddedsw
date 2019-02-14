@@ -97,6 +97,10 @@ static int XPlmi_MaskPoll(XPlmi_Cmd * Cmd)
 		__func__, Addr, Mask, ExpectedValue, TimeOutInMs);
 
 	Status = XPlmi_UtilPoll(Addr, Mask, ExpectedValue, TimeOutInMs);
+	if (Status != XST_SUCCESS)
+	{
+		Status = XPLMI_ERR_MASKPOLL;
+	}
 	return Status;
 }
 
@@ -253,6 +257,10 @@ static int XPlmi_MaskPoll64(XPlmi_Cmd * Cmd)
 		__func__, (u32)Addr, Mask, ExpectedValue, TimeOutInMs);
 
 	Status = XPlmi_UtilPoll64(Addr, Mask, ExpectedValue, TimeOutInMs);
+	if (Status != XST_SUCCESS)
+	{
+		Status = XPLMI_ERR_MASKPOLL64;
+	}
 	return Status;
 }
 

@@ -75,15 +75,17 @@
 void XPlm_ExceptionInit(void )
 {
 	u32 Index;
+	int Status;
 	Xil_ExceptionInit();
 
 	/* Register exception handlers */
 	for (Index = XIL_EXCEPTION_ID_FIRST;
 	     Index <= XIL_EXCEPTION_ID_LAST; Index++)
 	{
+		Status = XPLMI_UPDATE_STATUS(XPLM_ERR_EXCEPTION, Index);
 		Xil_ExceptionRegisterHandler(Index,
 			     (Xil_ExceptionHandler)XPlm_ExceptionHandler,
-			     (void *)XPLM_ERR_EXCEPTION);
+			     (void *)Status);
 	}
 
 	microblaze_enable_exceptions();
@@ -107,7 +109,7 @@ void XPlm_ExceptionHandler(u32 Status)
 		      mfmsr(), mfear(), mfedr(), mfesr(),
 		      mfgpr(r14), mfgpr(r15), mfgpr(r16), mfgpr(r17));
 
-	XPlm_ErrMgr(Status);
+	XPlmi_ErrMgr(Status);
 
 	/* Just in case if it returns */
 	while(1);

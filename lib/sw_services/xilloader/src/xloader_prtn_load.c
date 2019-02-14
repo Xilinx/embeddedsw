@@ -182,14 +182,14 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 		((PrtnHdr->DataWordOfst) * XIH_PRTN_WORD_LEN);
 	DestAddr = PrtnHdr->DstnLoadAddr;
 
-		/* For Non-secure image */
-		Len = (PrtnHdr->UnEncDataWordLen) * XIH_PRTN_WORD_LEN;
-		/* Make Length 16byte aligned
-		 * TODO remove this after partition len is made
-		 * 16byte aligned by bootgen*/
-		if (Len%XLOADER_DMA_LEN_ALIGN != 0U) {
-			Len = Len + XLOADER_DMA_LEN_ALIGN - (Len%XLOADER_DMA_LEN_ALIGN);
-		}
+	/* For Non-secure image */
+	Len = (PrtnHdr->UnEncDataWordLen) * XIH_PRTN_WORD_LEN;
+	/* Make Length 16byte aligned
+	 * TODO remove this after partition len is made
+	 * 16byte aligned by bootgen*/
+	if (Len%XLOADER_DMA_LEN_ALIGN != 0U) {
+		Len = Len + XLOADER_DMA_LEN_ALIGN - (Len%XLOADER_DMA_LEN_ALIGN);
+	}
 
 
 	/**

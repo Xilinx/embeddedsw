@@ -60,6 +60,7 @@ extern "C" {
 #include "xplmi_config.h"
 #include "xparameters.h"
 #include "xil_io.h"
+#include "pmc_global.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -111,7 +112,12 @@ extern "C" {
 #define XPlmi_Out64(Addr, Data)		swea(Addr, Data)
 
 
-#define PMC_TAP_VERSION				(0xF11A0004U)
+/**
+ * Definitions required from pmc_tap.h
+ */
+#define PMC_TAP_BASEADDR      0XF11A0000
+#define PMC_TAP_IDCODE    ( ( PMC_TAP_BASEADDR ) + 0X00000000 )
+#define PMC_TAP_VERSION    ( ( PMC_TAP_BASEADDR ) + 0X00000004 )
 #define PMC_TAP_VERSION_PLATFORM_VERSION_SHIFT   28
 #define PMC_TAP_VERSION_PLATFORM_VERSION_MASK    0XF0000000
 #define PMC_TAP_VERSION_PLATFORM_SHIFT   24
@@ -177,12 +183,8 @@ extern "C" {
 #define CRP_BASEADDR      0XF1260000
 #define CRP_BOOT_MODE_USER    ( ( CRP_BASEADDR ) + 0X00000200 )
 #define CRP_BOOT_MODE_USER_BOOT_MODE_MASK    0X0000000F
-
-/**
- * Definitions required from pmc_global.h
- */
-#define PMC_GLOBAL_BASEADDR      0XF1110000
-#define PMC_GLOBAL_PMC_SSS_CFG    ( ( PMC_GLOBAL_BASEADDR ) + 0X00000500 )
+#define CRP_BOOT_MODE_POR    ( ( CRP_BASEADDR ) + 0X00000204 )
+#define CRP_RESET_REASON    ( ( CRP_BASEADDR ) + 0X00000220 )
 
 /**
  * Definitions required from slave_boot.h
