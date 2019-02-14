@@ -125,8 +125,8 @@ s32 XSysMonPsu_CfgInitialize(XSysMonPsu *InstancePtr, XSysMonPsu_Config *ConfigP
 	/* Set all handlers to stub values, let user configure this data later. */
 	InstancePtr->Handler = (XSysMonPsu_Handler)XSysMonPsu_StubHandler;
 
-	XSysMonPsu_UpdateAdcClkDivisor(InstancePtr, XSYSMON_PS);
-	XSysMonPsu_UpdateAdcClkDivisor(InstancePtr, XSYSMON_PL);
+	(void)XSysMonPsu_UpdateAdcClkDivisor(InstancePtr, XSYSMON_PS);
+	(void)XSysMonPsu_UpdateAdcClkDivisor(InstancePtr, XSYSMON_PL);
 
 	/* Reset the device such that it is in a known state. */
 	XSysMonPsu_Reset(InstancePtr);
