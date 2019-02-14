@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -60,6 +60,7 @@ extern "C" {
 #include "xil_io.h"
 #include "xil_assert.h"
 #include "xplmi_modules.h"
+#include "xplmi_dma.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_ERR_MASK_TIMEOUT				(0x1U)
