@@ -78,24 +78,24 @@
 *****************************************************************************/
 void XSysMonPsu_IntrEnable(XSysMonPsu *InstancePtr, u64 Mask)
 {
-	u32 RegValue;
+	u64 RegValue;
 
 	/* Assert the arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Enable the specified interrupts in the AMS Interrupt Enable Register. */
-	RegValue = XSysmonPsu_ReadReg(InstancePtr->Config.BaseAddress +
+	RegValue = (u64)XSysmonPsu_ReadReg(InstancePtr->Config.BaseAddress +
 					XSYSMONPSU_IER_0_OFFSET);
-	RegValue |= (u32)(Mask & (u64)XSYSMONPSU_IXR_0_MASK);
+	RegValue |= (Mask & XSYSMONPSU_IXR_0_MASK);
 	XSysmonPsu_WriteReg(InstancePtr->Config.BaseAddress + XSYSMONPSU_IER_0_OFFSET,
-			  RegValue);
+			  (u32)RegValue);
 
-	RegValue = XSysmonPsu_ReadReg(InstancePtr->Config.BaseAddress +
+	RegValue = (u64)XSysmonPsu_ReadReg(InstancePtr->Config.BaseAddress +
 					XSYSMONPSU_IER_1_OFFSET);
-	RegValue |= (u32)((Mask >> XSYSMONPSU_IXR_1_SHIFT) & XSYSMONPSU_IXR_1_MASK);
+	RegValue |= ((Mask >> XSYSMONPSU_IXR_1_SHIFT) & XSYSMONPSU_IXR_1_MASK);
 	XSysmonPsu_WriteReg(InstancePtr->Config.BaseAddress + XSYSMONPSU_IER_1_OFFSET,
-			  RegValue);
+			  (u32)RegValue);
 }
 
 /****************************************************************************/
@@ -117,24 +117,24 @@ void XSysMonPsu_IntrEnable(XSysMonPsu *InstancePtr, u64 Mask)
 *****************************************************************************/
 void XSysMonPsu_IntrDisable(XSysMonPsu *InstancePtr, u64 Mask)
 {
-	u32 RegValue;
+	u64 RegValue;
 
 	/* Assert the arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Disable the specified interrupts in the AMS Interrupt Disable Register. */
-	RegValue = XSysmonPsu_ReadReg(InstancePtr->Config.BaseAddress +
+	RegValue = (u64)XSysmonPsu_ReadReg(InstancePtr->Config.BaseAddress +
 					XSYSMONPSU_IDR_0_OFFSET);
-	RegValue |= (u32)(Mask & (u64)XSYSMONPSU_IXR_0_MASK);
+	RegValue |= (Mask & (u64)XSYSMONPSU_IXR_0_MASK);
 	XSysmonPsu_WriteReg(InstancePtr->Config.BaseAddress + XSYSMONPSU_IDR_0_OFFSET,
-			  RegValue);
+			  (u32)RegValue);
 
-	RegValue = XSysmonPsu_ReadReg(InstancePtr->Config.BaseAddress +
+	RegValue = (u64)XSysmonPsu_ReadReg(InstancePtr->Config.BaseAddress +
 					XSYSMONPSU_IDR_1_OFFSET);
-	RegValue |= (u32)((Mask >> XSYSMONPSU_IXR_1_SHIFT) & XSYSMONPSU_IXR_1_MASK);
+	RegValue |= ((Mask >> XSYSMONPSU_IXR_1_SHIFT) & XSYSMONPSU_IXR_1_MASK);
 	XSysmonPsu_WriteReg(InstancePtr->Config.BaseAddress + XSYSMONPSU_IDR_1_OFFSET,
-			  RegValue);
+			  (u32)RegValue);
 }
 
 /****************************************************************************/
@@ -223,24 +223,24 @@ u64 XSysMonPsu_IntrGetStatus(XSysMonPsu *InstancePtr)
 *****************************************************************************/
 void XSysMonPsu_IntrClear(XSysMonPsu *InstancePtr, u64 Mask)
 {
-	u32 RegValue;
+	u64 RegValue;
 
 	/* Assert the arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Clear the specified interrupts in the Interrupt Status register. */
-	RegValue = XSysmonPsu_ReadReg(InstancePtr->Config.BaseAddress +
+	RegValue = (u64)XSysmonPsu_ReadReg(InstancePtr->Config.BaseAddress +
 					XSYSMONPSU_ISR_0_OFFSET);
-	RegValue &= (u32)(Mask & (u64)XSYSMONPSU_IXR_0_MASK);
+	RegValue &= (Mask & (u64)XSYSMONPSU_IXR_0_MASK);
 	XSysmonPsu_WriteReg(InstancePtr->Config.BaseAddress + XSYSMONPSU_ISR_0_OFFSET,
-			  RegValue);
+			  (u32)RegValue);
 
-	RegValue = XSysmonPsu_ReadReg(InstancePtr->Config.BaseAddress +
+	RegValue = (u64)XSysmonPsu_ReadReg(InstancePtr->Config.BaseAddress +
 					XSYSMONPSU_ISR_1_OFFSET);
-	RegValue &= (u32)((Mask >> XSYSMONPSU_IXR_1_SHIFT) & XSYSMONPSU_IXR_1_MASK);
+	RegValue &= ((Mask >> XSYSMONPSU_IXR_1_SHIFT) & XSYSMONPSU_IXR_1_MASK);
 	XSysmonPsu_WriteReg(InstancePtr->Config.BaseAddress + XSYSMONPSU_ISR_1_OFFSET,
-			  RegValue);
+			  (u32)RegValue);
 }
 
 
