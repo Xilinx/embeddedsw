@@ -1176,12 +1176,29 @@ u8 XSysMonPsu_GetAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 	return (u8) (Divisor >> XSYSMONPSU_CFG_REG2_CLK_DVDR_SHIFT);
 }
 
+/****************************************************************************/
+/**
+*
+* The function update the ADCCLK divisor to the Configuration Register 2.
+*
+* @param	InstancePtr is a pointer to the XSysMon instance.
+* @param	SysmonBlk is the value that tells whether it is for PS Sysmon
+*       block or PL Sysmon block register region.
+*
+* @return	The divisor update  the Configuration Register 2.
+*
+* @note		The ADCCLK is an internal clock used by the ADC and is
+*		synchronized to the DCLK clock. The ADCCLK is equal to DCLK
+*		divided by the user selection in the Configuration Register 2.
+*
+*****************************************************************************/
 u8 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
 	u16 Divisor;
 	u32 EffectiveBaseAddress;
 	u32 RegValue;
 	u32 InputFreq;
+	u32 Count = 0U;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1198,7 +1215,7 @@ u8 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 							XSYSMONPSU_CFG_REG2_OFFSET);
 	Divisor = Divisor >> XSYSMONPSU_CFG_REG2_CLK_DVDR_SHIFT;
 
-	while (1) {
+	while (Count < XSM_POLL_TIMEOUT) {
 		if (Divisor == 0U) {
 			if ((SysmonBlk == XSYSMON_PS) &&
 			((InputFreq/8U) >= 1U) && ((InputFreq/8U) <= 26U)) {
@@ -1214,6 +1231,7 @@ u8 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 		} else {
 			Divisor += 1U;
 		}
+		Count += 1U;
 	}
 
 	/*
