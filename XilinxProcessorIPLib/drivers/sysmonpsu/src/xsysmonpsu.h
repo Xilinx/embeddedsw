@@ -365,6 +365,7 @@ extern "C" {
 #define XSM_CFR_ALM_OT_MASK		0x0001 /**< Over Temperature Alarm */
 
 /*@}*/
+#define XSM_POLL_TIMEOUT		0XFFFFFFFFU
 
 /**************************** Type Definitions *******************************/
 
