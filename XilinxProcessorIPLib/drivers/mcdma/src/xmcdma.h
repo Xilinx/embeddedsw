@@ -137,7 +137,8 @@
 *			 driver tcl file.
 * 1.2   mj      05/03/18 Exported APIs XMcdma_BdChainFree() and
 *                        XMcDma_BdSetAppWord().
-* 1.2   mus    11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
+* 1.2   mus     11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
+* 1.3   rsp     02/12/19 Add HasRxLength field in config and channel structure.
 ******************************************************************************/
 #ifndef XMCDMA_H_
 #define XMCDMA_H_
@@ -214,6 +215,7 @@ typedef struct {
 	u32 TxDataWidth;
 	u32 RxDataWidth;
 	u32 HasStsCntrlStrm;
+	int HasRxLength;
 	volatile int ChanState;
 
 	UINTPTR FirstBdAddr;
@@ -260,6 +262,7 @@ typedef struct {
 	int S2MMDataWidth;
 	u32 MaxTransferlen;
 	int HasStsCntrlStrm;
+	int HasRxLength;
 	u8 IsTxCacheCoherent; /**< Describes whether Cache Coherent or not */
 	u8 IsRxCacheCoherent; /**< Describes whether Cache Coherent or not */
 } XMcdma_Config;
