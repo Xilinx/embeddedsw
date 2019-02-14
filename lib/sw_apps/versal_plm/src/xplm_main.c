@@ -116,6 +116,12 @@ int XPlm_Init()
 {
 	int Status;
 
+	/**
+	 * Reset the wakeup signal set by ROM
+	 * Otherwise MB will always wakeup, irrespective of the sleep state
+	 */
+	XPlmi_PpuWakeUpDis();
+
 	/* Initialize the processor, enable exceptions */
 	Status = XPlm_InitProc();
 	if (Status != XST_SUCCESS)
