@@ -1201,17 +1201,17 @@ u8 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 	while (1) {
 		if (Divisor == 0U) {
 			if ((SysmonBlk == XSYSMON_PS) &&
-			(InputFreq/8 >= 1) && (InputFreq/8 <= 26)) {
+			(InputFreq/8U >= 1U) && (InputFreq/8U <= 26U)) {
 				break;
 			} else if ((SysmonBlk == XSYSMON_PL) &&
-			(InputFreq/2 >= 1) && (InputFreq/2 <= 26)) {
+			(InputFreq/2U >= 1U) && (InputFreq/2U <= 26U)) {
 				break;
 			}
-		} else if ((InputFreq/Divisor >= 1) &&
-				(InputFreq/Divisor <= 26)) {
+		} else if ((InputFreq/Divisor >= 1U) &&
+				(InputFreq/Divisor <= 26U)) {
 			break;
 		} else {
-			Divisor += 1;
+			Divisor += 1U;
 		}
 	}
 
