@@ -66,6 +66,9 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XPlmi_PpuWakeUpDis()	XPlmi_Out32(PMC_GLOBAL_PPU_1_RST_MODE, \
+				    XPlmi_In32(PMC_GLOBAL_PPU_1_RST_MODE) & \
+					~PMC_GLOBAL_PPU_1_RST_MODE_WAKEUP_MASK)
 /************************** Function Prototypes ******************************/
 int XPlmi_Init(void );
 
