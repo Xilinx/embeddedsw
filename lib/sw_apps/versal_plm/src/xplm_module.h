@@ -58,10 +58,7 @@ extern "C" {
 #include "xplm_default.h"
 #include "xplm_pm.h"
 #include "xplm_loader.h"
-#include "xplm_proc.h"
-#include "xplm_task.h"
-#include "xplmi_generic.h"
-#include "xplmi_ipi.h"
+#include "xplmi.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -70,9 +67,9 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-int XPlm_GenericInit();
-int XPlm_ModuleInit(struct metal_event *event, void *arg);
-int XPlm_LpdModuleInit(struct metal_event *event, void *arg);
+int XPlm_PlmiInit();
+int XPlm_ModuleInit(void *arg);
+int XPlm_LpdModuleInit(void *arg);
 
 /************************** Variable Definitions *****************************/
 

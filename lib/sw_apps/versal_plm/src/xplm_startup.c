@@ -61,35 +61,32 @@
 
 /************************** Function Prototypes ******************************/
 int XPlm_StaticNpiInit();
-int XPlm_NpiInit(struct metal_event *event, void *arg);
+int XPlm_NpiInit(void *arg);
 
 /************************** Variable Definitions *****************************/
-#define XPLM_METAL_EVENT_DEFINE(Func, Arg, Prio) \
+#define XPLM_TASK_DEFINE(Func, Arg, Prio) \
 	{ \
-		.state = METAL_EVENT_IDLE, \
-		.hd = { \
-			.func = Func, \
-			.arg = Arg, \
-		}, \
-		.priority = Prio, \
-		.node = { \
+		.Priority = Prio, \
+		.Delay = 0, \
+		.TaskNode = { \
 			.prev = NULL, \
 			.next = NULL, \
 		}, \
+		.Handler = Func, \
+		.PrivData = Arg, \
 	}
 
 /**
  * Start up tasks of the PLM.
  * Current they point to the loading of the Boot PDI.
- * TODO need to static NPI initialization for SPP
  */
-struct metal_event StartUpTaskList[] =
+struct XPlmi_TaskNode StartUpTaskList[] =
 {
-	XPLM_METAL_EVENT_DEFINE(XPlm_ModuleInit, 0U, XPLM_TASK_PRIORITY_0),
-	XPLM_METAL_EVENT_DEFINE(XPlm_ProcessPlmCdo, 0U, XPLM_TASK_PRIORITY_0),
-	XPLM_METAL_EVENT_DEFINE(XPlm_LpdModuleInit, 0U, XPLM_TASK_PRIORITY_0),
-	XPLM_METAL_EVENT_DEFINE(XPlm_NpiInit, 0U, XPLM_TASK_PRIORITY_0),
-	XPLM_METAL_EVENT_DEFINE(XPlm_LoadBootPdi, 0U, XPLM_TASK_PRIORITY_0)
+	XPLM_TASK_DEFINE(XPlm_ModuleInit, 0U, XPLM_TASK_PRIORITY_0),
+	XPLM_TASK_DEFINE(XPlm_ProcessPlmCdo, 0U, XPLM_TASK_PRIORITY_0),
+	XPLM_TASK_DEFINE(XPlm_LpdModuleInit, 0U, XPLM_TASK_PRIORITY_0),
+	XPLM_TASK_DEFINE(XPlm_NpiInit, 0U, XPLM_TASK_PRIORITY_0),
+	XPLM_TASK_DEFINE(XPlm_LoadBootPdi, 0U, XPLM_TASK_PRIORITY_0)
 };
 
 /*****************************************************************************/
@@ -98,22 +95,20 @@ struct metal_event StartUpTaskList[] =
  * @brief Static NPI configuration is added for SPP to initialize NoC and
  * DDR
  *
- * @param	event pointer corresponding to Npi Init
+ * @param	pointer corresponding to Npi Init
  *
- * @return	Status as defined in event.h
+ * @return	XST_SUCCESS
  *
  *****************************************************************************/
-int XPlm_NpiInit(struct metal_event *event, void *arg)
+int XPlm_NpiInit(void *arg)
 {
 	int Status;
 
 	XPlmi_Printf(DEBUG_INFO, "Static NPI Initialiation\n\r");
-	XPlm_StaticNpiInit();
+	Status = XPlm_StaticNpiInit();
 
-	Status = METAL_EVENT_HANDLED;
 	return Status;
 }
-
 
 /*****************************************************************************/
 /**
@@ -129,12 +124,24 @@ int XPlm_NpiInit(struct metal_event *event, void *arg)
 int XPlm_AddStartUpTasks(void)
 {
 	u32 Index;
+	XPlmi_TaskNode *Task;
+	int Status;
 
-	for (Index = 0; Index < sizeof StartUpTaskList / sizeof *StartUpTaskList;
-			Index++)
+	for (Index = 0;
+	     Index < sizeof StartUpTaskList / sizeof *StartUpTaskList;
+		Index++)
 	{
-		metal_event_enable(&StartUpTaskList[Index]);
+		Task = XPlmi_TaskCreate(StartUpTaskList[Index].Priority,
+					StartUpTaskList[Index].Handler,
+					StartUpTaskList[Index].PrivData);
+		if (Task == NULL)
+		{
+			Status = XST_FAILURE;
+			goto END;
+		}
+		XPlmi_TaskTriggerNow(Task);
 	}
-
-	return XST_SUCCESS;
+	Status = XST_SUCCESS;
+END:
+	return Status;
 }

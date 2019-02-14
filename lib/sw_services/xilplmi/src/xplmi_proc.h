@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -31,16 +31,16 @@
 /*****************************************************************************/
 /**
 *
-* @file xplm_main.h
+* @file xplmi_proc.h
 *
-* This is the main header file which contains definitions for the PLM.
+* This file contains declarations for PROC C file in PLM.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kc   07/12/2018 Initial release
+* 1.00  kc   02/07/2019 Initial release
 *
 * </pre>
 *
@@ -48,42 +48,48 @@
 *
 ******************************************************************************/
 
-#ifndef XPLM_MAIN_H
-#define XPLM_MAIN_H
+#ifndef XPLMI_PROC_H
+#define XPLMI_PROC_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/***************************** Include Files *********************************/
-#include "xplm_default.h"
-#include "xplm_module.h"
-#include "xplm_proc.h"
-#include "xplm_startup.h"
+#include "xiomodule.h"
+#include "xil_exception.h"
+#include "xplmi_gic_interrupts.h"
+#include "xplmi_util.h"
 
 /************************** Constant Definitions *****************************/
+#define IOMODULE_DEVICE_ID XPAR_IOMODULE_0_DEVICE_ID
+#define MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK	(0x2U)
+#define XPLMI_PIT1_RESET_VALUE		(0xFFFFFFFDU)
+#define XPLMI_PIT2_RESET_VALUE		(0xFFFFFFFEU)
+#define XPLMI_PIT1			(0U)
+#define XPLMI_PIT2			(1U)
 
+#define XPLMI_ERR_IOMOD_INIT			(0x20000)
+#define XPLMI_ERR_IOMOD_START			(0x30000)
+#define XPLMI_ERR_IOMOD_CONNECT			(0x40000)
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
-/* SDK release version */
-#define SDK_RELEASE_YEAR	"2019"
-#define SDK_RELEASE_QUARTER	"1"
-
 /************************** Function Prototypes ******************************/
+int XPlmi_StartTimer();
+int XPlmi_InitProc();
+int XPlmi_InitIOModule();
+void XPlmi_IntrHandler(void *CallbackRef);
+u64 XPlmi_GetTimerValue(void );
+int XPlmi_SetUpInterruptSystem();
+void XPlmi_MeasurePerfTime(u64 tCur);
 
-/* Functions defined in xplm_main.c */
-int XPlm_Init();
-void XPlm_PrintPlmBanner(void);
-int XPlm_InitUart();
-void XPlm_ErrMgr(int ErrorStatus);
-
-/************************** Variable Definitions *****************************/
-
+/* Handler Table Structure */
+struct HandlerTable {
+	XInterruptHandler Handler;
+};
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  /* XPLM_MAIN_H */
+#endif  /* XPLMI_PROC_H */
