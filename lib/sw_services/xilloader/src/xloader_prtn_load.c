@@ -368,8 +368,12 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 	u32 ChunkLen;
 	XPlmiCdo Cdo = {0};
 	XilPdi_PrtnHdr * PrtnHdr;
+
+	XPlmi_Printf(DEBUG_INFO, "Processing CDO partition \n\r");
+
 	/* Assign the partition header to local variable */
 	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
+
 	/**
 	 * Call process CDO in xilplmi
 	 */
@@ -401,7 +405,7 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 	while (Len > 0U)
 	{
 		/** Update the len for last chunk */
-		if (Len < XLOADER_CHUNK_SIZE)
+		if (Len < ChunkLen)
 		{
 			ChunkLen = Len;
 		}
@@ -409,7 +413,7 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 		/** Copy the data to PRAM buffer */
 		PdiPtr->DeviceCopy(SrcAddr, XLOADER_CHUNK_MEMORY, ChunkLen, 0U);
 		Cdo.BufPtr = (u32 *)XLOADER_CHUNK_MEMORY;
-		Cdo.BufLen = ChunkLen;
+		Cdo.BufLen = ChunkLen/4U;
 
 		/** Process the chunk */
 		Status = XPlmi_ProcessCdo(&Cdo);
