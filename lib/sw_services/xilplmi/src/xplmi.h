@@ -1,6 +1,5 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -11,6 +10,10 @@
 *
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
+*
+* Use of the Software is limited solely to applications:
+* (a) running on a Xilinx device, or
+* (b) that interact with a Xilinx device through a bus or interconnect.
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -23,22 +26,21 @@
 * Except as contained in this notice, the name of the Xilinx shall not be used
 * in advertising or otherwise to promote the sale, use or other dealings in
 * this Software without prior written authorization from Xilinx.
-*
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xplm_gic_interrupts.h
+* @file xplmi.h
 *
-* This is the header file for xplm_gic_interrupts.c
+* This file contains declarations PLMI module.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  mg   10/08/2018 Initial release
+* 1.00  kc   02/07/2019 Initial release
 *
 * </pre>
 *
@@ -46,53 +48,29 @@
 *
 ******************************************************************************/
 
-#ifndef XPLM_GIC_INTERRUPTS_H
-#define XPLM_GIC_INTERRUPTS_H
+#ifndef XPLMI_H
+#define XPLMI_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/***************************** Include Files *********************************/
-#include "xplm_default.h"
-#include "xplmi_ipi.h"
+#include "xplmi_gic_interrupts.h"
+#include "xplmi_proc.h"
+#include "xplmi_generic.h"
+#include "xplmi_util.h"
+#include "xplmi_task.h"
 
 /************************** Constant Definitions *****************************/
-#define XPLM_GICP_IRQ_STATUS				0xF11400A0
-#define XPLM_GICP0_IRQ_STATUS				0xF1140000
-#define XPLM_GICP_SOURCE_COUNT				0x5
-#define XPLM_NO_OF_BITS_IN_REG				32U
-
-#define XPLM_GICP0_IPI_INTR_MASK			0x8000000
-
-#define XPLM_GICP0_INDEX			0x0
-#define XPLM_GICP1_INDEX			0x1
-#define XPLM_GICP2_INDEX			0x2
-#define XPLM_GICP3_INDEX			0x3
-#define XPLM_GICP4_INDEX			0x4
-
-#define XPLM_IPI_INDEX				27U
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
 /************************** Function Prototypes ******************************/
-
-/* Functions defined in xplm_main.c */
-void XPlm_GicIntrHandler(void *CallbackRef);
-
-/* Handler Table Structure */
-typedef int (*Function_t)(void);
-struct GicIntrHandlerTable {
-	u32 Mask;
-	Function_t GicHandler;
-};
-
-/************************** Variable Definitions *****************************/
+int XPlmi_Init(void );
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  /* XPLM_GIC_INTERRUPTS_H */
+#endif  /* XPLMI_H */
