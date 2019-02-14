@@ -174,14 +174,16 @@ static int XLoader_LoadFabricData (XLoader* XLoaderPtr, XilPdi* PdiPtr, u32 Prtn
 		 * copy from flash to PMC RAM, then PMC RAM to CFU for SD boot mode*/
 		if(XLoaderPtr->SdTypeBootMode == TRUE)
 		{
-			Status = PdiPtr->DeviceCopy(SrcAddr, XLOADER_CHUNK_MEMORY, ChunkSize, XLOADER_DST_CH_AXI_FIXED);
+			Status = PdiPtr->DeviceCopy(SrcAddr,
+				XLOADER_CHUNK_MEMORY, ChunkSize,
+				XPLMI_DST_CH_AXI_FIXED);
 			if(Status != XST_SUCCESS)
 			{
 				goto END;
 			}
 
-			Status = XLoader_DmaXfr((u64 )XLOADER_CHUNK_MEMORY, (u64 )CFU_STREAM_ADDR,
-				ChunkSize/4U, XLOADER_PMCDMA_0 | XLOADER_DST_CH_AXI_FIXED);
+			Status = XPlmi_DmaXfr((u64 )XLOADER_CHUNK_MEMORY, (u64 )CFU_STREAM_ADDR,
+				ChunkSize/4U, XPLMI_PMCDMA_0 | XPLMI_DST_CH_AXI_FIXED);
 			if (XST_SUCCESS != Status)
 			{
 				goto END;

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017-2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2017-2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -49,8 +49,10 @@
 
 /***************************** Include Files *********************************/
 #include "xplmi_util.h"
+#include "xplmi_hw.h"
 #include "xplmi_debug.h"
 /************************** Constant Definitions *****************************/
+#define XPLMI_TIME_OUT_DEFAULT	(1000*10000U)
 
 /**************************** Type Definitions *******************************/
 
@@ -126,6 +128,98 @@ void XPlmi_UtilWait(u32 TimeOutCount)
 		TimeOut--;
 	}
 }
+
+/*****************************************************************************/
+/**
+ * @param	Addr 32 bit address
+ * @param	Mask is the bit field to be updated
+ * @param	Value is value to be updated
+ * @param       TimeOutCount is delay time in ms
+ *
+ * @return      None
+ *
+ ******************************************************************************/
+int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInMs)
+{
+	u32 l_RegValue;
+	u32 TimeOut = TimeOutInMs*10000; //TBD: remove multiplication
+
+	/**
+	 * if timeout value is zero, max time out value is taken
+	 */
+	if (TimeOut == 0U)
+	{
+		TimeOut = XPLMI_TIME_OUT_DEFAULT;
+	}
+
+	/**
+	 * Read the Register value
+	 */
+	l_RegValue = Xil_In32(RegAddr);
+
+	/**
+	 * Loop while the MAsk is not set or we timeout
+	 */
+	while(((l_RegValue & Mask) != ExpectedValue) && (TimeOut > 0U)){
+		/**
+		 * Latch up the Register value again
+		 */
+		l_RegValue = Xil_In32(RegAddr);
+		/**
+		 * Decrement the TimeOut Count
+		 */
+		TimeOut--;
+	}
+
+	return ((TimeOut == 0U) ? XST_FAILURE : XST_SUCCESS);
+}
+
+/*****************************************************************************/
+/**
+ * @param	Addr 64 bit address
+ * @param	Mask is the bit field to be polled
+ * @param	Expected Value is value to be polled
+ * @param       TimeOutCount is delay time in ms
+ *
+ * @return      None
+ *
+ ******************************************************************************/
+int XPlmi_UtilPoll64(u64 Addr, u32 Mask, u32 ExpectedValue, u32 TimeOutInMs)
+{
+	u32 ReadValue;
+	u32 TimeOut = TimeOutInMs*10000; //TBD: remove multiplication
+
+	/**
+	 * if timeout value is zero, max time out value is taken
+	 */
+	if (TimeOut == 0U)
+	{
+		TimeOut = XPLMI_TIME_OUT_DEFAULT;
+	}
+
+	/**
+	 * Read the Register value
+	 */
+	ReadValue = Xil_In64(Addr);
+
+	/**
+	 * Loop while the Mask is not set or we timeout
+	 */
+	while(((ReadValue & Mask) != ExpectedValue) && (TimeOut > 0U)){
+		/**
+		 * Latch up the value again
+		 */
+		ReadValue = Xil_In64(Addr);
+
+		/**
+		 * Decrement the TimeOut Count
+		 */
+		TimeOut--;
+	}
+
+	return ((TimeOut == 0U) ? XST_FAILURE : XST_SUCCESS);
+}
+
 /*****************************************************************************/
 /**
  * @param	HighAddr is higher 32-bits of 64-bit address
@@ -177,7 +271,7 @@ int XPlmi_UtilPollForMask64(u32 HighAddr, u32 LowAddr, u32 Mask,
  *
  * @return      None
  *
- *******************************************************************************/
+ ******************************************************************************/
 void XPlmi_UtilRMW64(u32 HighAddr, u32 LowAddr, u32 Mask, u32 Value)
 {
 	u64 Addr = (((u64)HighAddr << 32) | LowAddr);
@@ -197,7 +291,7 @@ void XPlmi_UtilRMW64(u32 HighAddr, u32 LowAddr, u32 Mask, u32 Value)
  *
  * @return      None
  *
- *******************************************************************************/
+ ******************************************************************************/
 void XPlmi_UtilWrite64(u32 HighAddr, u32 LowAddr, u32 Value)
 {
 	u64 Addr = (((u64)HighAddr << 32U) | LowAddr);
@@ -212,7 +306,7 @@ void XPlmi_UtilWrite64(u32 HighAddr, u32 LowAddr, u32 Value)
  *
  * @return      None
  *
- *******************************************************************************/
+ ******************************************************************************/
 void XPlmi_Write64(u32 HighAddr, u32 LowAddr, u32 Value)
 {
 	u64 Addr = (((u64)HighAddr << 32U) | LowAddr);

@@ -82,7 +82,7 @@ int XPlmi_CmdExecute(XPlmi_Cmd * Cmd)
 	const XPlmi_ModuleCmd * ModuleCmd = NULL;
 	int Status;
 
-	XPlmi_Printf(DEBUG_INFO, "CMD Execute \n\r");
+	XPlmi_Printf(DEBUG_DETAILED, "CMD Execute \n\r");
 	/** Assign Module */
 	if (ModuleId < XPLMI_MAX_MODULES)
 	{
@@ -109,7 +109,7 @@ int XPlmi_CmdExecute(XPlmi_Cmd * Cmd)
 		goto END;
 	}
 
-	XPlmi_Printf(DEBUG_INFO, "CMD 0x%0x, Len 0x%0x, PayloadLen 0x%0x \n\r",
+	XPlmi_Printf(DEBUG_DETAILED, "CMD 0x%0x, Len 0x%0x, PayloadLen 0x%0x \n\r",
 		     Cmd->CmdId, Cmd->Len, Cmd->PayloadLen);
 
 	/** Run the command handler */
@@ -140,7 +140,7 @@ int XPlmi_CmdResume(XPlmi_Cmd * Cmd)
 {
 	int Status;
 
-	XPlmi_Printf(DEBUG_INFO, "CMD Resume \n\r");
+	XPlmi_Printf(DEBUG_DETAILED, "CMD Resume \n\r");
 	Xil_AssertNonvoid(Cmd->ResumeHandler != NULL);
 	Status = Cmd->ResumeHandler(Cmd);
 	if (Status != XST_SUCCESS)

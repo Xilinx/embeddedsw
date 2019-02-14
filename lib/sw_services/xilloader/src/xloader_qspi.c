@@ -48,7 +48,7 @@
 ******************************************************************************/
 /***************************** Include Files *********************************/
 #include "xloader_qspi.h"
-#include "xloader_dma.h"
+#include "xplmi_dma.h"
 #include "xloader.h"
 #include "xplmi_hw.h"
 
