@@ -279,8 +279,8 @@ int XPlmi_SbiDmaXfer(u64 DestAddr, u32 Len, u32 Flags)
 {
 	int Status;
 
-	XPlmi_Printf(DEBUG_INFO, "SBI to Dma Xfer Dest 0x%0x, Len 0x%0x: ",
-			(u32)DestAddr, Len);
+	XPlmi_Printf(DEBUG_INFO, "SBI to Dma Xfer Dest 0x%0x%08x, Len 0x%0x: ",
+			(u32)(DestAddr>>32), (u32)DestAddr, Len);
 
 	/* Configure the secure stream switch */
 	XPlmi_SSSCfgSbiDma(Flags);
@@ -304,8 +304,8 @@ int XPlmi_DmaSbiXfer(u64 SrcAddr, u32 Len, u32 Flags)
 {
 	int Status;
 
-	XPlmi_Printf(DEBUG_INFO, "Dma to SBI Xfer Src 0x%0x, Len 0x%0x: ",
-			(u32)SrcAddr, Len);
+	XPlmi_Printf(DEBUG_INFO, "Dma to SBI Xfer Src 0x%0x%08x, Len 0x%0x: ",
+			(u32)(SrcAddr>>32), (u32)SrcAddr, Len);
 
 	/* Configure the secure stream switch */
 	XPlmi_SSSCfgDmaSbi(Flags);
@@ -392,8 +392,10 @@ int XPlmi_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
 	u32 EnLast=0U;
 	XCsuDma *DmaPtr;
 
-	XPlmi_Printf(DEBUG_INFO, "DMA Xfer Src 0x%llx, Dest 0x%llx, Len 0x%0x,"
-		"Flags 0x%0x: ", (u32)SrcAddr, (u32)DestAddr, Len, Flags);
+	XPlmi_Printf(DEBUG_INFO, "DMA Xfer Src 0x%0x%08x, Dest 0x%0x%08x, "
+		     "Len 0x%0x, Flags 0x%0x: ",
+		     (u32)(SrcAddr>>32), (u32)SrcAddr, (u32)(DestAddr>>32),
+		     (u32)DestAddr, Len, Flags);
 
 	/* Select DMA pointer */
 	if ((Flags & XPLMI_PMCDMA_0) == XPLMI_PMCDMA_0) {
