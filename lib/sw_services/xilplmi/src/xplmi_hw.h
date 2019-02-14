@@ -187,6 +187,16 @@ extern "C" {
 #define CRP_RESET_REASON    ( ( CRP_BASEADDR ) + 0X00000220 )
 
 /**
+ * PMC_ANALOG Base Address
+ */
+#define PMC_ANALOG_BASEADDR      0XF1160000
+/**
+ * Register: PMC_ANALOG_VGG_CTRL
+ */
+#define PMC_ANALOG_VGG_CTRL    ( ( PMC_ANALOG_BASEADDR ) + 0X0000000C )
+#define PMC_ANALOG_VGG_CTRL_EN_VGG_CLAMP_MASK    0X00000001
+
+/**
  * Definitions required from slave_boot.h
  */
 #define SLAVE_BOOT_BASEADDR      0XF1220000
