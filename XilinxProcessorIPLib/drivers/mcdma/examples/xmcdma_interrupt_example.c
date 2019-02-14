@@ -37,8 +37,8 @@
  * Per packet transfers.
  *
  * H/W Requirements:
- * In order to test this example at the h/w level AXI MCDMA MM2S should
- * connect with the S2MM.
+ * In order to test this example at the design level AXI MCDMA MM2S should
+ * be connected with the S2MM channel.
  *
  * System level Considerations for Zynq UltraScale+ designs:
  * Please refer xmcdma_polled_example.c file.
@@ -399,7 +399,7 @@ static int RxSetup(XMcdma *McDmaInstPtr)
 * This function sets up the TX channel of a DMA engine to be ready for packet
 * transmission
 *
-* @param	AxiDmaInstPtr is the instance pointer to the DMA engine.
+* @param	McDmaInstPtr is the instance pointer to the AXI MCDMA engine.
 *
 * @return	XST_SUCCESS if the setup is successful, XST_FAILURE otherwise.
 *
@@ -491,7 +491,8 @@ static int TxSetup(XMcdma *McDmaInstPtr)
 *
 * This function checks data buffer after the DMA transfer is finished.
 *
-* @param	None
+* @param	RxPacket is the pointer to Rx packet.
+* @param	ByteCount is the length of RX packet.
 *
 * @return	- XST_SUCCESS if validation is successful
 *		- XST_FAILURE if validation is failure.
@@ -643,12 +644,13 @@ static void TxErrorHandler(void *CallBackRef, u32 Chan_id, u32 Mask)
 * DMA, it assumes INTC component exists in the hardware system.
 *
 * @param	IntcInstancePtr is a pointer to the instance of the INTC.
-* @param	Chan is the MCDMA Channel instance to be worked on.
+* @param	McDmaInstPtr is a pointer to the instance of the MCDMA.
 * @param	InrId is the MCDMA Channel Interrupt Id.
+* @param	Direction is the MCDMA Channel S2MM or MM2S path.
 *
 * @return
 *		- XST_SUCCESS if successful,
-*		- XST_FAILURE.if not succesful
+*		- XST_FAILURE.if not successful
 *
 * @note		None.
 *
