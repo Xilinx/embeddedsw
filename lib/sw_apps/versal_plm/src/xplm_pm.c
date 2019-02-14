@@ -102,7 +102,13 @@ int XPlm_PmInit()
 	 * variables, events
 	 */
 	Status = XPm_Init(XPlm_PmRequestCb);
+	if (Status != XST_SUCCESS)
+	{
+		Status = XPLMI_UPDATE_STATUS(XPLM_ERR_PM_MOD, Status);
+		goto END;
+	}
 
+END:
 	return Status;
 }
 

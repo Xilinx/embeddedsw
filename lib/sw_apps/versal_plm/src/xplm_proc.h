@@ -59,6 +59,7 @@ extern "C" {
 #include "xplm_default.h"
 #include "xil_exception.h"
 #include "xplmi_proc.h"
+#include "xplmi_status.h"
 
 /************************** Constant Definitions *****************************/
 

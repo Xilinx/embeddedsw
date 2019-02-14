@@ -136,7 +136,7 @@ int XPlm_AddStartUpTasks(void)
 					StartUpTaskList[Index].PrivData);
 		if (Task == NULL)
 		{
-			Status = XST_FAILURE;
+			Status = XPLMI_UPDATE_STATUS(XPLM_ERR_TASK_CREATE, 0x0);
 			goto END;
 		}
 		XPlmi_TaskTriggerNow(Task);

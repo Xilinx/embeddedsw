@@ -157,6 +157,7 @@ int XPlm_LpdModuleInit(void *arg)
 		Status = LpdModuleList[Index]();
 		if (Status != XPLM_SUCCESS)
 		{
+			Status = XPLMI_UPDATE_STATUS(XPLM_ERR_LPD_MOD, Status);
 			goto END;
 		}
 	}

@@ -76,12 +76,6 @@
 #define PMC_GLOBAL_PMC_MULTI_BOOT_VALUE_WIDTH   32
 #define PMC_GLOBAL_PMC_MULTI_BOOT_VALUE_MASK    0XFFFFFFFF
 
- /*Error Codes */
-#define XLOADER_ERR_SD_INIT                              (0x1B00)
-#define XLOADER_ERR_SD_F_OPEN                            (0x1C00)
-#define XLOADER_ERR_SD_F_LSEEK                           (0x1D00)
-#define XLOADER_ERR_SD_F_READ                            (0x1E00)
-
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -221,7 +215,7 @@ int XLoader_SdInit(u32 DeviceFlags)
 	XLoader_Printf(DEBUG_INFO,"SD: rc= %.8x\n\r", rc);
 
 	if (rc != FR_OK) {
-		Status = XLOADER_ERR_SD_INIT;
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SD_INIT, rc);
 		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_SD_INIT\n\r");
 		goto END;
 	}
@@ -242,14 +236,14 @@ int XLoader_SdInit(u32 DeviceFlags)
 		if (rc!=FR_OK) {
 			XLoader_Printf(DEBUG_INFO,
 					"SD: Unable to open file %s: %d\n", boot_file, rc);
-			Status = XLOADER_ERR_SD_F_OPEN;
+			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SD_F_OPEN, rc);
 			XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_SD_F_OPEN\n\r");
 			goto END;
 		}
 	}
 	else
 	{
-		Status = XLOADER_ERR_SD_F_OPEN;
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SD_F_OPEN, 0x0);
 	}
 
 	Status = XLOADER_SUCCESS;
@@ -286,7 +280,7 @@ XStatus XLoader_SdCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 	if (rc != FR_OK) {
 		XLoader_Printf(DEBUG_INFO,
 				"SD: Unable to seek to %x\n", SrcAddress);
-		Status = XLOADER_ERR_SD_F_LSEEK;
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SD_F_LSEEK, rc);
 		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_SD_F_LSEEK\n\r");
 		goto END;
 	}
@@ -296,7 +290,7 @@ XStatus XLoader_SdCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 	if (rc != FR_OK) {
 		XLoader_Printf(DEBUG_GENERAL,
 				"SD: f_read returned %d\r\n", rc);
-		Status = XLOADER_ERR_SD_F_READ;
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SD_F_READ, rc);
 		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_SD_F_READ\n\r");
 		goto END;
 	}

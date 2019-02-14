@@ -266,12 +266,14 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	Status = XilPdi_ReadBootHdr(&PdiPtr->MetaHdr);
 	if(Status != XST_SUCCESS)
 	{
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_BOOTHDR, Status);
 		goto END;
 	}
 
 	Status = XilPdi_ReadAndValidateImgHdrTbl(&PdiPtr->MetaHdr);
 	if(Status != XST_SUCCESS)
 	{
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMGHDR_TBL, Status);
 		goto END;
 	}
 
@@ -286,6 +288,7 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 		Status = XilPdi_ReadAndVerifyImgHdr(&(PdiPtr->MetaHdr));
 		if (XST_SUCCESS != Status)
 		{
+			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMGHDR, Status);
 			goto END;
 		}
 	}
@@ -294,6 +297,7 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	Status = XilPdi_ReadAndVerifyPrtnHdr(&PdiPtr->MetaHdr);
 	if(Status != XST_SUCCESS)
 	{
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_PRTNHDR, Status);
 		goto END;
 	}
 END:
@@ -367,6 +371,12 @@ int XLoader_StartSubSystemPdi(XilPdi *PdiPtr)
 				    " Request APU wakeup\r\n");
 				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC,
 					XPM_DEVID_ACPU_0, 1, HandoffAddr, 0);
+				if (Status != XST_SUCCESS)
+				{
+					Status = XPLMI_UPDATE_STATUS(
+						XLOADER_ERR_WAKEUP_A72, Status);
+					goto END;
+				}
                         }break;
                         case XIH_PH_ATTRB_DSTN_CPU_R5_0:
 			{
@@ -377,6 +387,12 @@ int XLoader_StartSubSystemPdi(XilPdi *PdiPtr)
 					     XPM_RPU_MODE_SPLIT, 0, 0);
 				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0, 1,
 							   HandoffAddr, 0);
+				if (Status != XST_SUCCESS)
+				{
+					Status = XPLMI_UPDATE_STATUS(
+						XLOADER_ERR_WAKEUP_R5_0, Status);
+					goto END;
+				}
 			}break;
                         case XIH_PH_ATTRB_DSTN_CPU_R5_1:
 			{
@@ -387,6 +403,12 @@ int XLoader_StartSubSystemPdi(XilPdi *PdiPtr)
 					     XPM_RPU_MODE_SPLIT, 0, 0);
 				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC, XPM_DEVID_R50_1, 1,
 							   HandoffAddr, 0);
+				if (Status != XST_SUCCESS)
+				{
+					Status = XPLMI_UPDATE_STATUS(
+						XLOADER_ERR_WAKEUP_R5_1, Status);
+					goto END;
+				}
 			}break;
                         case XIH_PH_ATTRB_DSTN_CPU_R5_L:
 			{
@@ -397,6 +419,12 @@ int XLoader_StartSubSystemPdi(XilPdi *PdiPtr)
 					     XPM_RPU_MODE_LOCKSTEP, 0, 0);
 				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0, 1,
 							   HandoffAddr, 0);
+				if (Status != XST_SUCCESS)
+				{
+					Status = XPLMI_UPDATE_STATUS(
+						XLOADER_ERR_WAKEUP_R5_L, Status);
+					goto END;
+				}
 			}break;
                         default:
                         {
@@ -404,7 +432,9 @@ int XLoader_StartSubSystemPdi(XilPdi *PdiPtr)
                 }
 
         }
-        Status = XLOADER_SUCCESS;
+
+	Status = XLOADER_SUCCESS;
+END:
 	return Status;
 }
 
