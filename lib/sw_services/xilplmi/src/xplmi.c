@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -31,16 +31,16 @@
 /*****************************************************************************/
 /**
 *
-* @file xplm_main.h
+* @file xplmi.c
 *
-* This is the main header file which contains definitions for the PLM.
+* This file contains the PLMI module register functions.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kc   07/12/2018 Initial release
+* 1.00  kc   02/07/2019 Initial release
 *
 * </pre>
 *
@@ -48,42 +48,35 @@
 *
 ******************************************************************************/
 
-#ifndef XPLM_MAIN_H
-#define XPLM_MAIN_H
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /***************************** Include Files *********************************/
-#include "xplm_default.h"
-#include "xplm_module.h"
-#include "xplm_proc.h"
-#include "xplm_startup.h"
+#include "xplmi.h"
 
 /************************** Constant Definitions *****************************/
-
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-/* SDK release version */
-#define SDK_RELEASE_YEAR	"2019"
-#define SDK_RELEASE_QUARTER	"1"
-
 /************************** Function Prototypes ******************************/
-
-/* Functions defined in xplm_main.c */
-int XPlm_Init();
-void XPlm_PrintPlmBanner(void);
-int XPlm_InitUart();
-void XPlm_ErrMgr(int ErrorStatus);
 
 /************************** Variable Definitions *****************************/
 
+/******************************************************************************/
+/**
+* @brief This function  will initialize the PLMI module.
+* @param    None
+* @return   None.
+****************************************************************************/
+int XPlmi_Init(void )
+{
+	int Status;
 
-#ifdef __cplusplus
+	Status = XPlmi_SetUpInterruptSystem();
+	if (Status != XST_SUCCESS)
+	{
+		goto END;
+	}
+
+	XPlmi_GenericInit();
+END:
+	return Status;
 }
-#endif
-
-#endif  /* XPLM_MAIN_H */
