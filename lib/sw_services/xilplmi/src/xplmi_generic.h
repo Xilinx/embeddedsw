@@ -63,7 +63,10 @@ extern "C" {
 #include "xplmi_dma.h"
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_ERR_MASK_TIMEOUT				(0x1U)
+enum {
+	XPLMI_ERR_MASKPOLL = 0x10,
+	XPLMI_ERR_MASKPOLL64,
+};
 
 /**************************** Type Definitions *******************************/
 

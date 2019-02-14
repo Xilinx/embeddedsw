@@ -178,7 +178,8 @@ int XPlmi_StartTimer()
 	 */
 	Status = XIOModule_Initialize(&IOModule, IOMODULE_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
-		Status = XPLMI_ERR_IOMOD_INIT;
+		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_IOMOD_INIT,
+					     Status);
 		goto END;
 	}
 
@@ -188,7 +189,8 @@ int XPlmi_StartTimer()
 	//Status = XIOModule_SelfTest(&IOModule);
 	Status = XIOModule_Start(&IOModule);
 	if (Status != XST_SUCCESS) {
-		Status = XPLMI_ERR_IOMOD_START;
+		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_IOMOD_START,
+					     Status);
 		goto END;
 	}
 
@@ -268,7 +270,8 @@ int XPlmi_SetUpInterruptSystem()
 				   (void *)IntrNum);
 		if (Status != XST_SUCCESS)
 		{
-			Status = XPLMI_ERR_IOMOD_CONNECT;
+			Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_IOMOD_CONNECT,
+						     Status);
 			goto END;
 		}
 	}

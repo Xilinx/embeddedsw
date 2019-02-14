@@ -77,7 +77,6 @@ extern "C" {
 int XPlm_Init();
 void XPlm_PrintPlmBanner(void);
 int XPlm_InitUart();
-void XPlm_ErrMgr(int ErrorStatus);
 
 /************************** Variable Definitions *****************************/
 

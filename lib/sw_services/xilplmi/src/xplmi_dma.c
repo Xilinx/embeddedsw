@@ -52,13 +52,11 @@
 #include "xplmi_debug.h"
 #include "xplmi_generic.h"
 #include "xplmi_util.h"
+#include "xplmi_status.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XPLMI_ERR_DMA_LOOKUP                           (0x2200)
-#define XPLMI_ERR_DMA_CFG                              (0x2300)
-#define XPLMI_ERR_DMA_SELFTEST                         (0x2400)
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
@@ -88,13 +86,13 @@ int XPlmi_DmaDrvInit(XCsuDma *DmaPtr, u32 DeviceId)
 	 */
 	Config = XCsuDma_LookupConfig((u16)DeviceId);
 	if (NULL == Config) {
-		Status = XPLMI_ERR_DMA_LOOKUP;
+		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_DMA_LOOKUP, 0x0);
 		goto END;
 	}
 
 	Status = XCsuDma_CfgInitialize(DmaPtr, Config, Config->BaseAddress);
 	if (Status != XST_SUCCESS) {
-		Status = XPLMI_ERR_DMA_CFG;
+		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_DMA_CFG, Status);
 		goto END;
 	}
 
@@ -103,7 +101,7 @@ int XPlmi_DmaDrvInit(XCsuDma *DmaPtr, u32 DeviceId)
 	 */
 	Status = XCsuDma_SelfTest(DmaPtr);
 	if (Status != XST_SUCCESS) {
-		Status = XPLMI_ERR_DMA_SELFTEST;
+		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_DMA_SELFTEST, Status);
 		goto END;
 	}
 

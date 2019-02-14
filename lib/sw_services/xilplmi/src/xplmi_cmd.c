@@ -88,16 +88,17 @@ int XPlmi_CmdExecute(XPlmi_Cmd * Cmd)
 	{
 		Module = Modules[ModuleId];
 	}
+
 	if (Module == NULL)
 	{
-		Status = XST_FAILURE;
+		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_MODULE_MAX, 0x0);
 		goto END;
 	}
 
 	/** Check if it is within the commands registered */
 	if (ApiId >= Module->CmdCnt)
 	{
-		Status = XST_FAILURE;
+		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_CMD_APIID, 0x0);
 		goto END;
 	}
 
@@ -105,7 +106,7 @@ int XPlmi_CmdExecute(XPlmi_Cmd * Cmd)
 	ModuleCmd = &Module->CmdAry[ApiId];
 	if (ModuleCmd->Handler == NULL)
 	{
-		Status = XST_FAILURE;
+		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_CMD_HANDLER_NULL, 0x0);
 		goto END;
 	}
 
@@ -116,6 +117,7 @@ int XPlmi_CmdExecute(XPlmi_Cmd * Cmd)
 	Status = ModuleCmd->Handler(Cmd);
 	if (Status != XST_SUCCESS)
 	{
+		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_CMD_HANDLER, Status);
 		goto END;
 	}
 
@@ -145,6 +147,7 @@ int XPlmi_CmdResume(XPlmi_Cmd * Cmd)
 	Status = Cmd->ResumeHandler(Cmd);
 	if (Status != XST_SUCCESS)
 	{
+		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_RESUME_HANDLER, Status);
 		goto END;
 	}
 
