@@ -40,7 +40,9 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 *  1.0  adk  18/07/17 Initial Version.
-* 1.2   mus    11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
+*  1.2  mus  11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
+*  1.3  rsp  02/11/19 Add top level submit XMcDma_Chan_Sideband_Submit() API
+*                     to program BD control and sideband information.
 ******************************************************************************/
 
 #include "xmcdma.h"
@@ -301,7 +303,7 @@ u32 XMcDma_ChanSubmit(XMcdma_ChanCtrl *Chan, UINTPTR BufAddr, u32 len)
 	}
 
 	if (BdCount > Chan->BdCnt) {
-		xil_printf("for transfering len bytes required Bd's is %x\n\r", BdCount);
+		xil_printf("for transferring len bytes required Bd's is %x\n\r", BdCount);
 		xil_printf("User requested only this %x many Bd's\n\r", Chan->BdCnt);
 
 		return XST_FAILURE;
@@ -329,6 +331,89 @@ u32 XMcDma_ChanSubmit(XMcdma_ChanCtrl *Chan, UINTPTR BufAddr, u32 len)
 	Chan->BdRestart = BdCurPtr;
 	Chan->BdPendingCnt += BdCount;
 	Chan->BdCnt -= BdCount;
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+* This function populates the BD Chain with the required buffer address, length
+* APP(user application), TUSER and TID fields.
+*
+* User can submit multiple buffers/buffer descriptors by calling this function
+* multiple times
+*
+* @param	ChanPtr is the MCDMA Channel to be worked on..
+* @param	BufAddr is the buffer address to which data should send/recv.
+* @param	Len is the Amount of data user requested to send/recv.
+* @param	AppPtr is the point to APP fields.
+* @param	Tuser is the  value presented on the beat that has TLAST.
+* @param	Tid is the value value presented on the beat that has TLAST.
+*
+* @return
+*		- XST_SUCCESS if initialization was successful
+*		- XST_FAILURE if the BdStartAddress or requested bdlen
+*		  doesn't match for the driver requirements.
+*
+*****************************************************************************/
+u32 XMcDma_Chan_Sideband_Submit(XMcdma_ChanCtrl *ChanPtr, UINTPTR BufAddr,
+				u32 Len, u32 *AppPtr, u16 Tuser, u16 Tid)
+{
+	u32 BdCount = 1;
+	XMcdma_Bd *BdCurPtr = ChanPtr->BdRestart;
+	u32 i;
+	u32 k;
+	u32 Bdlen = Len;
+
+	/* Calculate the Number of BD's required for transferring user
+	 * requested Data */
+	if (Len > ChanPtr->MaxTransferLen) {
+		BdCount = (Len + (ChanPtr->MaxTransferLen - 1)) /
+			   ChanPtr->MaxTransferLen;
+		Bdlen = ChanPtr->MaxTransferLen;
+	}
+
+	if (BdCount > ChanPtr->BdCnt) {
+		xil_printf("for transferring len bytes required Bd's is %x\n\r", BdCount);
+		xil_printf("User requested only this %x many Bd's\n\r", ChanPtr->BdCnt);
+
+		return XST_FAILURE;
+	}
+
+	for (i = 0; i < BdCount; i++) {
+		XMcdma_BdClear(BdCurPtr);
+
+		XMcdma_BdSetBufAddr(BdCurPtr, BufAddr);
+
+		if (Len < ChanPtr->MaxTransferLen) {
+			Bdlen = Len;
+		}
+
+		XMcdma_BdWrite(BdCurPtr, XMCDMA_BD_CTRL_OFFSET, Bdlen);
+
+		/* Program BD sideband and app fields */
+		XMcDma_BdSetCtrlSideBand(BdCurPtr, Tid, Tuser);
+
+		if (!ChanPtr->IsRxChan || ChanPtr->HasRxLength) {
+			for (k = 0; k <= XMCDMA_LAST_APPWORD; k++) {
+				XMcdma_BdWrite(BdCurPtr,
+					       XMCDMA_BD_USR0_OFFSET +
+					       (k * 4), AppPtr[k]);
+			}
+		}
+
+		ChanPtr->BdTail = BdCurPtr;
+		XMCDMA_CACHE_FLUSH((UINTPTR)(BdCurPtr));
+		BdCurPtr = (XMcdma_Bd *)XMcdma_BdChainNextBd(ChanPtr, BdCurPtr);
+		BufAddr += Bdlen;
+		Len -= Bdlen;
+	}
+
+	XMCDMA_CACHE_FLUSH((UINTPTR)(BdCurPtr));
+	DATA_SYNC;
+	ChanPtr->BdRestart = BdCurPtr;
+	ChanPtr->BdPendingCnt += BdCount;
+	ChanPtr->BdCnt -= BdCount;
 
 	return XST_SUCCESS;
 }
