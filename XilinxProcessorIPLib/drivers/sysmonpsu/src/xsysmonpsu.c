@@ -1342,9 +1342,9 @@ u64 XSysMonPsu_GetSeqChEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 	 * Read the channel enable bits for all the channels from the ADC
 	 * Channel Selection Register.
 	 */
-	RegVal = XSysmonPsu_ReadReg(EffectiveBaseAddress +
+	RegVal = (u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_CH0_OFFSET) & XSYSMONPSU_SEQ_CH0_VALID_MASK;
-	RegVal |= (XSysmonPsu_ReadReg(EffectiveBaseAddress +
+	RegVal |= ((u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_CH1_OFFSET) & XSYSMONPSU_SEQ_CH1_VALID_MASK) <<
 					XSM_SEQ_CH_SHIFT;
 	RegVal |= (u64)(XSysmonPsu_ReadReg(EffectiveBaseAddress +
@@ -1464,9 +1464,9 @@ u64 XSysMonPsu_GetSeqAvgEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 	 * Read the averaging enable status for all the channels from the
 	 * ADC Channel Averaging Enables Sequencer Registers.
 	 */
-	RegVal = XSysmonPsu_ReadReg(EffectiveBaseAddress +
+	RegVal = (u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_AVERAGE0_OFFSET) & XSYSMONPSU_SEQ_AVERAGE0_MASK;
-	RegVal |= (XSysmonPsu_ReadReg(EffectiveBaseAddress +
+	RegVal |= ((u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_AVERAGE1_OFFSET) & XSYSMONPSU_SEQ_AVERAGE1_MASK) <<
 			XSM_SEQ_CH_SHIFT;
 	RegVal |= (u64)(XSysmonPsu_ReadReg(EffectiveBaseAddress +
@@ -1591,9 +1591,9 @@ u64 XSysMonPsu_GetSeqInputMode(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 	 *  Get the input mode for all the channels from the ADC Channel
 	 * Analog-Input Mode Sequencer Registers.
 	 */
-	InputMode = XSysmonPsu_ReadReg(EffectiveBaseAddress +
+	InputMode = (u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_INPUT_MDE0_OFFSET) & XSYSMONPSU_SEQ_INPUT_MDE0_MASK;
-	InputMode |= (XSysmonPsu_ReadReg(EffectiveBaseAddress +
+	InputMode |= ((u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_INPUT_MDE1_OFFSET) & XSYSMONPSU_SEQ_INPUT_MDE1_MASK) <<
 				XSM_SEQ_CH_SHIFT;
 	InputMode |= (u64)(XSysmonPsu_ReadReg(EffectiveBaseAddress +
@@ -1715,9 +1715,9 @@ u64 XSysMonPsu_GetSeqAcqTime(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 	 * Get the Acquisition cycles for the specified channels from the ADC
 	 * Channel Acquisition Time Sequencer Registers.
 	 */
-	RegValAcq = XSysmonPsu_ReadReg(EffectiveBaseAddress +
+	RegValAcq = (u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 					XSYSMONPSU_SEQ_ACQ0_OFFSET) & XSYSMONPSU_SEQ_ACQ0_MASK;
-	RegValAcq |= (XSysmonPsu_ReadReg(EffectiveBaseAddress +
+	RegValAcq |= ((u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 					XSYSMONPSU_SEQ_ACQ1_OFFSET) & XSYSMONPSU_SEQ_ACQ1_MASK) <<
 					XSM_SEQ_CH_SHIFT;
 	RegValAcq |= (u64)(XSysmonPsu_ReadReg(EffectiveBaseAddress +
