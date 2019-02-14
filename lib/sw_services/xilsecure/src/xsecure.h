@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -48,7 +48,8 @@
 *       ka   04/18/18 Added support for Zeroization of the memory in case of
 *                     Gcm-Tag mismatch
 * 3.2   ka   08/03/18 Added XSecure_Aes Api's to encrypt or decrypt data-blobs.
-* 4.0	arc  18/12/18 Fixed MISRA-C violation.
+* 4.0   arc  18/12/18 Fixed MISRA-C violation.
+*       arc  12/02/19 Added support for validate image format.
 * </pre>
 *
 * @note
@@ -139,6 +140,7 @@
 					| XSECURE_CSU_AES_ZEROIZATION_ERROR)
 						/**< 0x24*/
 
+#define XSECURE_INVALID_IMAGE_ERROR    0x25U
 #define XSECURE_AUTH_NOT_ENABLED 	0xFFU
 
 #define XSECURE_PPK_ERR			0x100U
@@ -240,6 +242,7 @@
 
 #define XSECURE_PH_OFFSET		(0x8U)
 #define XSECURE_AC_IMAGE_HDR_OFFSET	(0x10U)
+#define XSECURE_IMAGE_SYNC_WORD_OFFSET  (0x20U)
 
 #define XSECURE_PH_IV_MASK		(0xFFU)
 
