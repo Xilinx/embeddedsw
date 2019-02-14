@@ -1947,10 +1947,7 @@ static u8 ValidatePinFunc(XPm_PinNode *Pin, XPm_PinFunc *PinFunc)
 XStatus XPmPin_Init(XPm_PinNode *Pin, u32 PinId, u32 BaseAddress)
 {
 	XStatus Status = XST_SUCCESS;
-	u32 RegPu, RegPd;
-	u32 PinIdx, BitMask;
-	u32 BaseAddr;
-	u32 TriState;
+	u32 PinIdx;
 
 	if ((XPM_NODETYPE_LPD_MIO != NODETYPE(PinId)) &&
 	    (XPM_NODETYPE_PMC_MIO != NODETYPE(PinId))) {
@@ -1977,28 +1974,9 @@ XStatus XPmPin_Init(XPm_PinNode *Pin, u32 PinId, u32 BaseAddress)
 		Pin->Bank = (PinIdx - PINS_PER_BANK - 1) / PINS_PER_BANK;
 	}
 
-	BaseAddr = Pin->Node.BaseAddress + ((Pin->Bank) * (BNK_OFFSET));
-	BitMask = 1 << PINNUM(Pin->Node.Id);
-	PmIn32((BaseAddr + EN_WK_PU), RegPu);
-	PmIn32((BaseAddr + EN_WK_PD), RegPd);
-	PmIn32((Pin->Node.BaseAddress + TRI_STATE + ((Pin->Bank) * 4)), TriState);
-
-	if (BitMask == (RegPu & BitMask)) {
-		Pin->BiasStatus = PINCTRL_BIAS_ENABLE;
-		Pin->PullCtrl = PINCTRL_BIAS_PULL_UP;
-	} else if (BitMask == (RegPd & BitMask)) {
-		Pin->BiasStatus = PINCTRL_BIAS_ENABLE;
-		Pin->PullCtrl = PINCTRL_BIAS_PULL_DOWN;
-	} else {
-		Pin->BiasStatus = PINCTRL_BIAS_DISABLE;
-		Pin->PullCtrl = PINCTRL_BIAS_PULL_DOWN;
-	}
-
-	if (BitMask == (TriState & BitMask)) {
-		Pin->TriState = PINCTRL_TRI_STATE_ENABLE;
-	} else {
-		Pin->TriState = PINCTRL_TRI_STATE_DISABLE;
-	}
+	Pin->BiasStatus = PINCTRL_BIAS_ENABLE;
+	Pin->PullCtrl = PINCTRL_BIAS_PULL_UP;
+	Pin->TriState = PINCTRL_TRI_STATE_ENABLE;
 
 	PmMioPins[PinIdx] = Pin;
 	PmNumPins++;
