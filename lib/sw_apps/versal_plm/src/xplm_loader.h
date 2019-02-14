@@ -55,7 +55,6 @@ extern "C" {
 #endif
 /***************************** Include Files *********************************/
 #include "xplm_default.h"
-#include "xplm_task.h"
 #include "xloader.h"
 /************************** Constant Definitions *****************************/
 
@@ -68,7 +67,7 @@ extern "C" {
 /************************** Variable Definitions *****************************/
 
 int XPlm_LoaderInit();
-int XPlm_LoadBootPdi(struct metal_event *event, void *arg);
+int XPlm_LoadBootPdi(void *arg);
 
 
 #ifdef __cplusplus

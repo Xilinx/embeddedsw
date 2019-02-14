@@ -81,26 +81,52 @@ int main(void )
 	XPlm_InitUart();
 #endif
 
-	/** Initialize the timers, enable exceptions */
-	Status = XPlm_InitProc();
+	/** Initialize the processor, tasks lists */
+	Status = XPlm_Init();
 	if (Status != XST_SUCCESS)
 	{
 		XPlm_ErrMgr(Status);
 	}
 
 	/** Initialize the start up events */
-	Status = XPlm_TaskInit();
+	Status = XPlm_AddStartUpTasks();
 	if (Status != XST_SUCCESS)
 	{
 		XPlm_ErrMgr(Status);
 	}
 
 	/** Run the handlers in task loop based on the priority */
-	XPlm_TaskDispatchLoop();
+	XPlmi_TaskDispatchLoop();
 
 	/** should never reach here */
 	while(1);
 	return XPLM_FAILURE;
+}
+
+/*****************************************************************************/
+/**
+ * @brief This function processor and task structures
+ *
+ * @param	None
+ *
+ * @return	XST_SUCCESS
+ *
+ *****************************************************************************/
+int XPlm_Init()
+{
+	int Status;
+
+	/* Initialize the processor, enable exceptions */
+	Status = XPlm_InitProc();
+	if (Status != XST_SUCCESS)
+	{
+		goto END;
+	}
+
+	/* Initialize the tasks lists */
+	XPlmi_TaskInit();
+END:
+	return Status;
 }
 
 /*****************************************************************************/

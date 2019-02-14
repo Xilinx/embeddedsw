@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xplm_gic_interrupts.c
+* @file xplmi_gic_interrupts.c
 *
 * This file is to handle the GIC interrupts
 *
@@ -47,7 +47,8 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xplm_gic_interrupts.h"
+#include "xplmi_gic_interrupts.h"
+#include "xplmi_hw.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -58,9 +59,9 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-static struct GicIntrHandlerTable g_GicPInterruptTable[XPLM_GICP_SOURCE_COUNT][XPLM_NO_OF_BITS_IN_REG] = {
+static struct GicIntrHandlerTable g_GicPInterruptTable[XPLMI_GICP_SOURCE_COUNT][XPLMI_NO_OF_BITS_IN_REG] = {
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
-		[XPLM_GICP0_INDEX][XPLM_IPI_INDEX] = {XPLM_GICP0_IPI_INTR_MASK, XPlmi_IpiDispatchHandler},
+		[XPLMI_GICP0_INDEX][XPLMI_IPI_INDEX] = {XPLMI_GICP0_IPI_INTR_MASK, XPlmi_IpiDispatchHandler},
 #endif
 };
 
@@ -73,7 +74,7 @@ static struct GicIntrHandlerTable g_GicPInterruptTable[XPLM_GICP_SOURCE_COUNT][X
  * @return	void
  *
  *****************************************************************************/
-void XPlm_GicIntrHandler(void *CallbackRef)
+void XPlmi_GicIntrHandler(void *CallbackRef)
 {
 	u32 GicPIntrStatus;
 	u32 GicPNIntrStatus;
@@ -86,28 +87,28 @@ void XPlm_GicIntrHandler(void *CallbackRef)
 	XPlmi_Printf(DEBUG_GENERAL,
 	      "Received GIC Interrupt: 0x%0x\n\r", (u32) CallbackRef);
 
-	GicPIntrStatus = Xil_In32(XPLM_GICP_IRQ_STATUS);
+	GicPIntrStatus = XPlmi_In32(XPLMI_GICP_IRQ_STATUS);
 	XPlmi_Printf(DEBUG_GENERAL, "GicPIntrStatus: 0x%x\r\n", GicPIntrStatus);
 
-	for (GicIndex = 0U; GicIndex < XPLM_GICP_SOURCE_COUNT; GicIndex++) {
+	for (GicIndex = 0U; GicIndex < XPLMI_GICP_SOURCE_COUNT; GicIndex++) {
 
 		if (GicPIntrStatus & (1 << GicIndex)) {
 
-			GicPNIntrStatus = Xil_In32(XPLM_GICP0_IRQ_STATUS + (GicIndex*0x14));
+			GicPNIntrStatus = XPlmi_In32(XPLMI_GICP0_IRQ_STATUS + (GicIndex*0x14));
 			XPlmi_Printf(DEBUG_GENERAL, "GicP%d Intr Status: 0x%x\r\n",
 					GicIndex, GicPNIntrStatus);
 
-			for (GicPIndex = 0U; GicPIndex < XPLM_NO_OF_BITS_IN_REG; GicPIndex++) {
+			for (GicPIndex = 0U; GicPIndex < XPLMI_NO_OF_BITS_IN_REG; GicPIndex++) {
 
 				if (GicPNIntrStatus & g_GicPInterruptTable[GicIndex][GicPIndex].Mask) {
 
 					g_GicPInterruptTable[GicIndex][GicPIndex].GicHandler();
-					Xil_Out32((XPLM_GICP0_IRQ_STATUS + (GicIndex*0x14)),
+					XPlmi_Out32((XPLMI_GICP0_IRQ_STATUS + (GicIndex*0x14)),
 							g_GicPInterruptTable[GicIndex][GicPIndex].Mask);
 
 				}
 			}
-			Xil_Out32(XPLM_GICP_IRQ_STATUS, (GicPIntrStatus & (1 << GicIndex)));
+			XPlmi_Out32(XPLMI_GICP_IRQ_STATUS, (GicPIntrStatus & (1 << GicIndex)));
 		}
 	}
 
