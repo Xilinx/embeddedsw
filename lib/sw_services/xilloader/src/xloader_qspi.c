@@ -571,8 +571,10 @@ XStatus XLoader_Qspi24Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	u32 BankMask;
 	int Status;
 
-	XLoader_Printf(DEBUG_INFO,"QSPI Reading Src 0x%0lx, Dest 0x%0lx, Length 0x%0lx, Flags 0x%0x\r\n",
-			SrcAddr, (u32)DestAddr, Length, Flags);
+	XLoader_Printf(DEBUG_INFO, "QSPI Reading Src 0x%08x, Dest 0x%0x%08x, "
+		       "Length 0x%0lx, Flags 0x%0x\r\n",
+			SrcAddr, (u32)(DestAddr>>32), (u32)DestAddr,
+		       Length, Flags);
 
 	/* Set QSPI DMA in AXI FIXED / INCR mode.
 	 * Fixed mode is used for CFI loading */
@@ -658,8 +660,9 @@ XStatus XLoader_Qspi24Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 
 		//XLoader_Printf(DEBUG_INFO,".");
 		XLoader_Printf(DEBUG_DETAILED,
-			"QSPI Read Src 0x%0lx, Dest %0lx, Length %0lx\r\n",
-					QspiAddr, (u32)DestAddr, TransferBytes);
+			"QSPI Read Src 0x%08x, Dest 0x%0x%08x, Length %0lx\r\n",
+					QspiAddr, (u32)(DestAddr>>32),
+					(u32)DestAddr, TransferBytes);
 
 		/**
 		 * Setup the read command with the specified address
@@ -936,8 +939,10 @@ XStatus XLoader_Qspi32Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	u32 TransferBytes;
 	u32 DiscardByteCnt;
 
-	XLoader_Printf(DEBUG_INFO,"QSPI Reading Src 0x%0lx, Dest 0x%0lx, Length 0x%0lx, Flags 0x%0x\r\n",
-			SrcAddr, (u32 )DestAddr, Length, Flags);
+	XLoader_Printf(DEBUG_INFO, "QSPI Reading Src 0x%08x, Dest 0x%0x%08x, "
+		       "Length 0x%0lx, Flags 0x%0x\r\n",
+			SrcAddr, (u32)(DestAddr>>32), (u32)DestAddr,
+		       Length, Flags);
 
 	/* Set QSPI DMA in AXI FIXED / INCR mode.
 	 * Fixed mode is used for CFI loading */

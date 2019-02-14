@@ -232,10 +232,10 @@ int XLoader_OspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	
 	int Status;
 
-	XLoader_Printf(DEBUG_INFO,"OSPI Reading Src 0x%0x, Dest 0x%0x,"
-		"Length 0x%0x, Flags 0x%0x\r\n", SrcAddr, (u32)(DestAddr&(0XFFFFFFFFU)), 
-		Length, Flags);
-			
+	XLoader_Printf(DEBUG_INFO, "OSPI Reading Src 0x%0x, Dest 0x%0x%08x, "
+		"Length 0x%0x, Flags 0x%0x\r\n", SrcAddr, (u32)(DestAddr>>32),
+		(u32)(DestAddr), Length, Flags);
+
 	/*
 	 * Read ID
 	 */
