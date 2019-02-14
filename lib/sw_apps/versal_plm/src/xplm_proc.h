@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -57,37 +57,18 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xplm_default.h"
-#include "xiomodule.h"
 #include "xil_exception.h"
-#include "xplm_gic_interrupts.h"
-#include "xplmi_util.h"
-#include "pmc_global.h"
+#include "xplmi_proc.h"
 
 /************************** Constant Definitions *****************************/
-#define IOMODULE_DEVICE_ID XPAR_IOMODULE_0_DEVICE_ID
-#define MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK	(0x2U)
-#define XPLM_PIT1_RESET_VALUE		(0xFFFFFFFDU)
-#define XPLM_PIT2_RESET_VALUE		(0xFFFFFFFEU)
-#define XPLM_PIT1			(0U)
-#define XPLM_PIT2			(1U)
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /************************** Function Prototypes ******************************/
 int XPlm_InitProc();
-int XPlm_InitIOModule();
-void XPlm_IntrHandler(void *CallbackRef);
-u64 XPlm_GetTimerValue(void );
-int XPlm_SetUpInterruptSystem();
-void XPlm_MeasurePerfTime(u64 tCur);
 void XPlm_ExceptionInit(void);
 void XPlm_ExceptionHandler(u32 Status);
-
-/* Handler Table Structure */
-struct HandlerTable {
-	XInterruptHandler Handler;
-};
 
 #ifdef __cplusplus
 }

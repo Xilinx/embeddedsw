@@ -59,6 +59,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
 #include "xparameters.h"
+#include "xil_io.h"
 
 /************************** Constant Definitions *****************************/
 

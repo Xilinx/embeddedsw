@@ -87,7 +87,7 @@ int XPlm_LoaderInit()
 * @return	None
 *
 *****************************************************************************/
-int XPlm_LoadBootPdi(struct metal_event *event, void *arg)
+int XPlm_LoadBootPdi(void *arg)
 {
 	int Status;
 	u32 BootMode;
@@ -106,6 +106,7 @@ int XPlm_LoadBootPdi(struct metal_event *event, void *arg)
 	if ((BootMode == XLOADER_PDI_SRC_JTAG) &&
 	    (!XLoader_IsJtagSbiMode()))
 	{
+		Status = XST_SUCCESS;
 		goto END;
 	}
 
@@ -131,12 +132,5 @@ int XPlm_LoadBootPdi(struct metal_event *event, void *arg)
 
 	XPlmi_Printf(DEBUG_INFO, "PDI Load: Done\n\r");
 END:
-	/**
-	 * TODO: Proper error reporting should be added to the code
-	 */
-	/**
-	 * Irrespective of the Status, as EVENT
-	 * is completed, metal event handled is returned
-	 */
-	return METAL_EVENT_HANDLED;
+	return Status;
 }

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -73,9 +73,6 @@ extern "C" {
 #define XPLM_FAILURE					(XST_FAILURE)
 
 #define XPLM_ERR_EXCEPTION				(0x10000)
-#define XPLM_ERR_IOMOD_INIT				(0x20000)
-#define XPLM_ERR_IOMOD_START				(0x30000)
-#define XPLM_ERR_IOMOD_CONNECT			(0x40000)
 
 #define XPLM_ERR_MASK				(0xFFFF0000U)
 #define XPLM_ERR_MODULE_MASK			(0xFFFFU)

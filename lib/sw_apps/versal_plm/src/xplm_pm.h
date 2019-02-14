@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -56,7 +56,6 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xplm_default.h"
-#include "xplm_task.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -68,7 +67,7 @@ extern "C" {
 /************************** Variable Definitions *****************************/
 
 int XPlm_PmInit();
-int XPlm_ProcessPlmCdo(struct metal_event *event, void *arg);
+int XPlm_ProcessPlmCdo(void *arg);
 
 #ifdef __cplusplus
 }

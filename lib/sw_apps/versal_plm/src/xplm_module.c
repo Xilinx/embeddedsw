@@ -70,8 +70,7 @@ typedef int (*ModuleInit)(void);
  */
 static ModuleInit ModuleList[] =
 {
-	XPlm_SetUpInterruptSystem,
-	XPlm_GenericInit,
+	XPlm_PlmiInit,
 	XPlm_PmInit,
 	XPlm_LoaderInit,
 };
@@ -92,7 +91,7 @@ static ModuleInit LpdModuleList[] =
 
 /*****************************************************************************/
 /**
- * @brief This function call the initialization routine to register the
+ * @brief This function initializes the PLMI module and registers the
  * general commands of the CDO.
  *
  * @param	None
@@ -100,10 +99,11 @@ static ModuleInit LpdModuleList[] =
  * @return	Status as defined in xplm_status.h
  *
  *****************************************************************************/
-int XPlm_GenericInit(void )
+int XPlm_PlmiInit(void )
 {
-	XPlmi_GenericInit();
-	return XPLM_SUCCESS;
+	int Status;
+	Status = XPlmi_Init();
+	return Status;
 }
 
 /*****************************************************************************/
@@ -117,7 +117,7 @@ int XPlm_GenericInit(void )
  * @return	Status as defined in xplm_status.h
  *
  *****************************************************************************/
-int XPlm_ModuleInit(struct metal_event *event, void *arg)
+int XPlm_ModuleInit(void *arg)
 {
 	u32 Index;
 	int Status;
@@ -132,14 +132,7 @@ int XPlm_ModuleInit(struct metal_event *event, void *arg)
 	}
 
 END:
-	/**
-	 * TODO: Proper error reporting should be added to the code
-	 */
-	/**
-	 * Irrespective of the Status, as EVENT
-	 * is completed, metal event handled is returned
-	 */
-	return METAL_EVENT_HANDLED;
+	return Status;
 }
 
 /*****************************************************************************/
@@ -153,7 +146,7 @@ END:
  * @return	Status as defined in xplm_status.h
  *
  *****************************************************************************/
-int XPlm_LpdModuleInit(struct metal_event *event, void *arg)
+int XPlm_LpdModuleInit(void *arg)
 {
 	u32 Index;
 	int Status;
@@ -169,12 +162,5 @@ int XPlm_LpdModuleInit(struct metal_event *event, void *arg)
 	}
 
 END:
-	/**
-	 * TODO: Proper error reporting should be added to the code
-	 */
-	/**
-	 * Irrespective of the Status, as EVENT
-	 * is completed, metal event handled is returned
-	 */
-	return METAL_EVENT_HANDLED;
+	return Status;
 }
