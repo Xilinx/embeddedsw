@@ -64,6 +64,7 @@ extern "C" {
 #define XPLMI_CMD_MODULE_ID_MASK		(0xFF00U)
 #define XPLMI_CMD_LEN_MASK			(0xFF0000U)
 #define XPLMI_CMD_RESP_SIZE			(4U)
+#define XPLMI_CMD_RESUME_DATALEN			(8U)
 
 /**************************** Type Definitions *******************************/
 typedef struct XPlmi_Cmd XPlmi_Cmd;
@@ -78,7 +79,7 @@ struct XPlmi_Cmd {
 	u32 *Payload;
 	u32 Response[XPLMI_CMD_RESP_SIZE];
 	int (*ResumeHandler)(XPlmi_Cmd * CmdPtr);
-	void *ResumeData;
+	u32 ResumeData[XPLMI_CMD_RESUME_DATALEN];
 };
 
 /***************** Macros (Inline Functions) Definitions *********************/
