@@ -58,6 +58,7 @@ extern "C" {
 #include "xil_types.h"
 #include "xplmi_cmd.h"
 #include "xplmi_debug.h"
+#include "xplmi_status.h"
 
 /************************** Constant Definitions *****************************/
 /** CDO Header definitions */

@@ -85,14 +85,14 @@ int main(void )
 	Status = XPlm_Init();
 	if (Status != XST_SUCCESS)
 	{
-		XPlm_ErrMgr(Status);
+		XPlmi_ErrMgr(Status);
 	}
 
 	/** Initialize the start up events */
 	Status = XPlm_AddStartUpTasks();
 	if (Status != XST_SUCCESS)
 	{
-		XPlm_ErrMgr(Status);
+		XPlmi_ErrMgr(Status);
 	}
 
 	/** Run the handlers in task loop based on the priority */
@@ -234,24 +234,4 @@ void XPlm_PrintPlmBanner(void )
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
                  "****************************************\n\r");
 }
-
-/*****************************************************************************/
-/**
- * This function is called in PLM error cases.
- *
- * @param ErrorStatus is the error code which is written to the
- *		  error status register
- *
- * @return none
- *
- *****************************************************************************/
-void XPlm_ErrMgr(int ErrorStatus)
-{
-	/* Print the PMCFW error */
-	XPlmi_Printf(DEBUG_GENERAL, "PLM Error Status: 0x%08lx\n\r",
-		ErrorStatus);
-
-	while(1);
-}
-
 

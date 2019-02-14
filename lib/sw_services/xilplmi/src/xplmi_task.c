@@ -186,13 +186,15 @@ void XPlmi_TaskDispatchLoop(void )
 			/** if no pending tasks are present, go to sleep */
 			if (metal_list_is_empty(&TaskQueue[Index]))
 			{
-				XPlmi_Printf(DEBUG_DETAILED, "No pending tasks in"
-					     " Priority%d Queue\n\r", Index);
+				XPlmi_Printf(DEBUG_DETAILED,
+				     "No pending tasks in Priority%d Queue\n\r",
+				     Index);
 				continue;
 			} else {
 				/** Get the task */
 				Node = TaskQueue[Index].next;
-				Task = metal_container_of(Node, XPlmi_TaskNode, TaskNode);
+				Task = metal_container_of(Node,
+					XPlmi_TaskNode, TaskNode);
 				break;
 			}
 		}
@@ -205,19 +207,24 @@ void XPlmi_TaskDispatchLoop(void )
 			Status = Task->Handler(Task->PrivData);
 			XPlmi_MeasurePerfTime(TaskStartTime);
 			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Task Time \n\r");
-			if (Status != XST_SUCCESS)
+			if (Status != XPLMI_TASK_INPROGRESS)
+			{
+				/** delete the task that is handled */
+				XPlmi_TaskDelete(Task);
+			}
+			if ((Status != XST_SUCCESS) &&
+			    (Status != XPLMI_TASK_INPROGRESS))
 			{
 				/** TODO Call the error manager */
-				while(1);
+				XPlmi_ErrMgr(Status);
 			}
-			/** delete the task that is handled */
-			XPlmi_TaskDelete(Task);
 			continue;
 		}
 		/**
 		 * Goto sleep when all queues are empty
 		 */
-		XPlmi_Printf(DEBUG_INFO, "No pending tasks..Going to sleep\n\r");
+		XPlmi_Printf(DEBUG_INFO,
+			"No pending tasks..Going to sleep\n\r");
 		mb_sleep();
 	}
 }
