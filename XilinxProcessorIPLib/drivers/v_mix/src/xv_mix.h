@@ -39,7 +39,7 @@ typedef uint16_t u16;
 typedef uint32_t u32;
 #else
 
-#define XV_MIX_MAX_MEMORY_LAYERS    (8)
+#define XV_MIX_MAX_MEMORY_LAYERS    (16)
 /**
 * This typedef contains Alpha feature enable flag per memory layer
 */
@@ -52,6 +52,14 @@ typedef struct {
   u8  Layer6AlphaEn;     /**< Layer Alpha support indicator flag  */
   u8  Layer7AlphaEn;     /**< Layer Alpha support indicator flag  */
   u8  Layer8AlphaEn;     /**< Layer Alpha support indicator flag  */
+  u8  Layer9AlphaEn;     /**< Layer Alpha support indicator flag  */
+  u8  Layer10AlphaEn;     /**< Layer Alpha support indicator flag  */
+  u8  Layer11AlphaEn;     /**< Layer Alpha support indicator flag  */
+  u8  Layer12AlphaEn;     /**< Layer Alpha support indicator flag  */
+  u8  Layer13AlphaEn;     /**< Layer Alpha support indicator flag  */
+  u8  Layer14AlphaEn;     /**< Layer Alpha support indicator flag  */
+  u8  Layer15AlphaEn;     /**< Layer Alpha support indicator flag  */
+  u8  Layer16AlphaEn;     /**< Layer Alpha support indicator flag  */
 }XVMix_AlphaFlag;
 
 /**
@@ -66,6 +74,14 @@ typedef struct {
   u8  Layer6ScalingEn;  /**< Layer scaling support indicator flag  */
   u8  Layer7ScalingEn;  /**< Layer scaling support indicator flag  */
   u8  Layer8ScalingEn;  /**< Layer scaling support indicator flag  */
+  u8  Layer9ScalingEn;  /**< Layer scaling support indicator flag  */
+  u8  Layer10ScalingEn;  /**< Layer scaling support indicator flag  */
+  u8  Layer11ScalingEn;  /**< Layer scaling support indicator flag  */
+  u8  Layer12ScalingEn;  /**< Layer scaling support indicator flag  */
+  u8  Layer13ScalingEn;  /**< Layer scaling support indicator flag  */
+  u8  Layer14ScalingEn;  /**< Layer scaling support indicator flag  */
+  u8  Layer15ScalingEn;  /**< Layer scaling support indicator flag  */
+  u8  Layer16ScalingEn;  /**< Layer scaling support indicator flag  */
 }XVMix_ScaleFlag;
 
 /**
@@ -80,6 +96,14 @@ typedef struct {
   u8  Layer6IntfType;  /**< Layer Interface type (Memory/Stream)  */
   u8  Layer7IntfType;  /**< Layer Interface type (Memory/Stream)  */
   u8  Layer8IntfType;  /**< Layer Interface type (Memory/Stream)  */
+  u8  Layer9IntfType;  /**< Layer Interface type (Memory/Stream)  */
+  u8  Layer10IntfType;  /**< Layer Interface type (Memory/Stream)  */
+  u8  Layer11IntfType;  /**< Layer Interface type (Memory/Stream)  */
+  u8  Layer12IntfType;  /**< Layer Interface type (Memory/Stream)  */
+  u8  Layer13IntfType;  /**< Layer Interface type (Memory/Stream)  */
+  u8  Layer14IntfType;  /**< Layer Interface type (Memory/Stream)  */
+  u8  Layer15IntfType;  /**< Layer Interface type (Memory/Stream)  */
+  u8  Layer16IntfType;  /**< Layer Interface type (Memory/Stream)  */
 }XVMix_LayerIntfType;
 
 /**
@@ -94,6 +118,14 @@ typedef struct {
   u8  Layer6ColorFmt;  /**< Layer Video Color Format  */
   u8  Layer7ColorFmt;  /**< Layer Video Color Format  */
   u8  Layer8ColorFmt;  /**< Layer Video Color Format  */
+  u8  Layer9ColorFmt;  /**< Layer Video Color Format  */
+  u8  Layer10ColorFmt;  /**< Layer Video Color Format  */
+  u8  Layer11ColorFmt;  /**< Layer Video Color Format  */
+  u8  Layer12ColorFmt;  /**< Layer Video Color Format  */
+  u8  Layer13ColorFmt;  /**< Layer Video Color Format  */
+  u8  Layer14ColorFmt;  /**< Layer Video Color Format  */
+  u8  Layer15ColorFmt;  /**< Layer Video Color Format  */
+  u8  Layer16ColorFmt;  /**< Layer Video Color Format  */
 }XVMix_LayerColorFormat;
 
 /**
@@ -108,6 +140,14 @@ typedef struct {
   u16 Layer6MaxWidth;    /**< Layer maximum column width  */
   u16 Layer7MaxWidth;    /**< Layer maximum column width  */
   u16 Layer8MaxWidth;    /**< Layer maximum column width  */
+  u16 Layer9MaxWidth;    /**< Layer maximum column width  */
+  u16 Layer10MaxWidth;    /**< Layer maximum column width  */
+  u16 Layer11MaxWidth;    /**< Layer maximum column width  */
+  u16 Layer12MaxWidth;    /**< Layer maximum column width  */
+  u16 Layer13MaxWidth;    /**< Layer maximum column width  */
+  u16 Layer14MaxWidth;    /**< Layer maximum column width  */
+  u16 Layer15MaxWidth;    /**< Layer maximum column width  */
+  u16 Layer16MaxWidth;    /**< Layer maximum column width  */
 }XVMix_LayerMaxWidth;
 
 /**
@@ -369,6 +409,7 @@ void XV_mix_Set_HwReg_layer7_buf1_V(XV_mix *InstancePtr, u64 Data);
 u64 XV_mix_Get_HwReg_layer7_buf1_V(XV_mix *InstancePtr);
 void XV_mix_Set_HwReg_layer7_buf2_V(XV_mix *InstancePtr, u64 Data);
 u64 XV_mix_Get_HwReg_layer7_buf2_V(XV_mix *InstancePtr);
+
 void XV_mix_Set_HwReg_layerAlpha_8(XV_mix *InstancePtr, u32 Data);
 u32 XV_mix_Get_HwReg_layerAlpha_8(XV_mix *InstancePtr);
 void XV_mix_Set_HwReg_layerStartX_8(XV_mix *InstancePtr, u32 Data);
@@ -389,6 +430,175 @@ void XV_mix_Set_HwReg_layer8_buf1_V(XV_mix *InstancePtr, u64 Data);
 u64 XV_mix_Get_HwReg_layer8_buf1_V(XV_mix *InstancePtr);
 void XV_mix_Set_HwReg_layer8_buf2_V(XV_mix *InstancePtr, u64 Data);
 u64 XV_mix_Get_HwReg_layer8_buf2_V(XV_mix *InstancePtr);
+
+void XV_mix_Set_HwReg_layerAlpha_9(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerAlpha_9(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStartX_9(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStartX_9(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStartY_9(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStartY_9(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerWidth_9(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerWidth_9(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStride_9(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStride_9(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerHeight_9(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerHeight_9(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerScaleFactor_9(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerScaleFactor_9(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerVideoFormat_9(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerVideoFormat_9(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layer9_buf1_V(XV_mix *InstancePtr, u64 Data);
+u64 XV_mix_Get_HwReg_layer9_buf1_V(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layer9_buf2_V(XV_mix *InstancePtr, u64 Data);
+u64 XV_mix_Get_HwReg_layer9_buf2_V(XV_mix *InstancePtr);
+
+void XV_mix_Set_HwReg_layerAlpha_10(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerAlpha_10(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStartX_10(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStartX_10(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStartY_10(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStartY_10(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerWidth_10(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerWidth_10(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStride_10(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStride_10(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerHeight_10(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerHeight_10(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerScaleFactor_10(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerScaleFactor_10(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerVideoFormat_10(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerVideoFormat_10(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layer10_buf1_V(XV_mix *InstancePtr, u64 Data);
+u64 XV_mix_Get_HwReg_layer10_buf1_V(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layer10_buf2_V(XV_mix *InstancePtr, u64 Data);
+u64 XV_mix_Get_HwReg_layer10_buf2_V(XV_mix *InstancePtr);
+
+void XV_mix_Set_HwReg_layerAlpha_11(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerAlpha_11(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStartX_11(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStartX_11(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStartY_11(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStartY_11(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerWidth_11(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerWidth_11(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStride_11(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStride_11(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerHeight_11(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerHeight_11(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerScaleFactor_11(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerScaleFactor_11(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerVideoFormat_11(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerVideoFormat_11(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layer11_buf1_V(XV_mix *InstancePtr, u64 Data);
+u64 XV_mix_Get_HwReg_layer11_buf1_V(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layer11_buf2_V(XV_mix *InstancePtr, u64 Data);
+u64 XV_mix_Get_HwReg_layer11_buf2_V(XV_mix *InstancePtr);
+
+void XV_mix_Set_HwReg_layerAlpha_12(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerAlpha_12(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStartX_12(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStartX_12(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStartY_12(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStartY_12(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerWidth_12(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerWidth_12(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStride_12(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStride_12(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerHeight_12(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerHeight_12(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerScaleFactor_12(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerScaleFactor_12(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerVideoFormat_12(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerVideoFormat_12(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layer12_buf1_V(XV_mix *InstancePtr, u64 Data);
+u64 XV_mix_Get_HwReg_layer12_buf1_V(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layer12_buf2_V(XV_mix *InstancePtr, u64 Data);
+u64 XV_mix_Get_HwReg_layer12_buf2_V(XV_mix *InstancePtr);
+
+void XV_mix_Set_HwReg_layerAlpha_13(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerAlpha_13(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStartX_13(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStartX_13(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStartY_13(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStartY_13(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerWidth_13(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerWidth_13(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStride_13(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStride_13(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerHeight_13(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerHeight_13(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerScaleFactor_13(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerScaleFactor_13(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerVideoFormat_13(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerVideoFormat_13(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layer13_buf1_V(XV_mix *InstancePtr, u64 Data);
+u64 XV_mix_Get_HwReg_layer13_buf1_V(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layer13_buf2_V(XV_mix *InstancePtr, u64 Data);
+u64 XV_mix_Get_HwReg_layer13_buf2_V(XV_mix *InstancePtr);
+
+void XV_mix_Set_HwReg_layerAlpha_14(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerAlpha_14(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStartX_14(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStartX_14(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStartY_14(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStartY_14(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerWidth_14(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerWidth_14(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStride_14(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStride_14(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerHeight_14(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerHeight_14(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerScaleFactor_14(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerScaleFactor_14(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerVideoFormat_14(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerVideoFormat_14(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layer14_buf1_V(XV_mix *InstancePtr, u64 Data);
+u64 XV_mix_Get_HwReg_layer14_buf1_V(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layer14_buf2_V(XV_mix *InstancePtr, u64 Data);
+u64 XV_mix_Get_HwReg_layer14_buf2_V(XV_mix *InstancePtr);
+
+void XV_mix_Set_HwReg_layerAlpha_15(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerAlpha_15(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStartX_15(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStartX_15(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStartY_15(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStartY_15(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerWidth_15(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerWidth_15(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStride_15(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStride_15(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerHeight_15(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerHeight_15(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerScaleFactor_15(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerScaleFactor_15(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerVideoFormat_15(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerVideoFormat_15(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layer15_buf1_V(XV_mix *InstancePtr, u64 Data);
+u64 XV_mix_Get_HwReg_layer15_buf1_V(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layer15_buf2_V(XV_mix *InstancePtr, u64 Data);
+u64 XV_mix_Get_HwReg_layer15_buf2_V(XV_mix *InstancePtr);
+
+void XV_mix_Set_HwReg_layerAlpha_16(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerAlpha_16(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStartX_16(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStartX_16(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStartY_16(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStartY_16(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerWidth_16(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerWidth_16(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStride_16(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStride_16(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerHeight_16(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerHeight_16(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerScaleFactor_16(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerScaleFactor_16(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerVideoFormat_16(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerVideoFormat_16(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layer16_buf1_V(XV_mix *InstancePtr, u64 Data);
+u64 XV_mix_Get_HwReg_layer16_buf1_V(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layer16_buf2_V(XV_mix *InstancePtr, u64 Data);
+u64 XV_mix_Get_HwReg_layer16_buf2_V(XV_mix *InstancePtr);
+
 void XV_mix_Set_HwReg_reserve(XV_mix *InstancePtr, u32 Data);
 u32 XV_mix_Get_HwReg_reserve(XV_mix *InstancePtr);
 void XV_mix_Set_HwReg_logoStartX(XV_mix *InstancePtr, u32 Data);
