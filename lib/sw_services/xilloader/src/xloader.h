@@ -57,7 +57,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xilpdi.h"
 #include "xplmi_hw.h"
-#include <xstatus.h>
+#include "xplmi_status.h"
 #include "xplmi_debug.h"
 #include "xloader_ospi.h"
 #include "xloader_sd.h"
@@ -91,15 +91,6 @@ enum XLOADER_PDI_SRC {
 	XLOADER_PDI_SRC_SBI_JTAG = (0x10U)
 };
 
-/* Error Codes */
-#define XLOADER_ERR_MASK                         (0xFF00U)
-#define XLOADER_ERR_MODULE_MASK                  (0xFFU)
-#define XLOADER_UPDATE_ERR(XLoaderErr, ModuleErr)          \
-                ((XLoaderErr&XLOADER_ERR_MASK) + \
-                 (ModuleErr&XLOADER_ERR_MODULE_MASK))
-
-#define XLOADER_UNSUPPORTED_BOOT_MODE	(0x200U)
-#define XLOADER_ERR_PL_NOT_PWRUP		(0x2F00U)
 /**************************** Type Definitions *******************************/
 
 /**

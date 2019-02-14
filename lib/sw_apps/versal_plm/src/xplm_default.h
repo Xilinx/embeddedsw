@@ -67,11 +67,9 @@ extern "C" {
 #include "xplmi_config.h"
 #include "xplmi_hw.h"
 #include "xplmi_task.h"
+#include "xplmi_status.h"
 
 /* library headers */
-
-/* PLM Hdrs */
-#include "xplm_status.h"
 
 /************************** Constant Definitions *****************************/
 

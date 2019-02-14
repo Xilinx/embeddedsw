@@ -116,7 +116,7 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
          * Deduce flash make
          */
        	if (ReadBuffer[0] != MICRON_OCTAL_ID_BYTE0) {
-                Status = XLOADER_ERR_UNSUPPORTED_OSPI;
+                Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_UNSUPPORTED_OSPI, 0x0);
                 XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_UNSUPPORTED_OSPI\r\n");
                 goto END;
         }
@@ -133,7 +133,7 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 	if(ReadBuffer[2] == MICRON_OCTAL_ID_BYTE2_512) {
 		OspiFlashSize = FLASH_SIZE_512M;
 	} else {
-            Status = XLOADER_ERR_UNSUPPORTED_OSPI_SIZE;
+            Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_UNSUPPORTED_OSPI_SIZE, 0x0);
             XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_UNSUPPORTED_OSPI_SIZE\r\n");
             goto END;
         }
@@ -165,14 +165,14 @@ int XLoader_OspiInit(u32 DeviceFlags)
 	 */
 	OspiConfig =  XOspiPsv_LookupConfig(XLOADER_OSPI_DEVICE_ID);
 	if (NULL == OspiConfig) {
-		Status = XLOADER_ERR_OSPI_INIT;
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_OSPI_INIT, 0x0);
 		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_OSPI_INIT\r\n");
 		goto END;
 	}
 
 	Status =  XOspiPsv_CfgInitialize(OspiPsvInstancePtr, OspiConfig);
 	if (Status != XLOADER_SUCCESS) {
-		Status = XLOADER_ERR_OSPI_CFG;
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_OSPI_CFG, Status);
 		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_OSPI_CFG\r\n");
 		goto END;
 	}
@@ -189,6 +189,7 @@ int XLoader_OspiInit(u32 DeviceFlags)
 	XOspiPsv_SetClkPrescaler(OspiPsvInstancePtr, XOSPIPSV_CLK_PRESCALE_15);
 	Status = XOspiPsv_SelectFlash(OspiPsvInstancePtr, XOSPIPSV_SELECT_FLASH_CS0);
 	if (Status != XST_SUCCESS)
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_OSPI_SEL_FLASH, Status);
 		goto END;
 	/*
 	 * Read flash ID and obtain all flash related information
@@ -199,6 +200,7 @@ int XLoader_OspiInit(u32 DeviceFlags)
 
 	Status = FlashReadID(OspiPsvInstancePtr);
 	if (Status != XST_SUCCESS) {
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_OSPI_READID, Status);
 		goto END;
 	}
 	XLoader_FlashEnterExit4BAddMode(&OspiPsvInstance, 1U);
@@ -250,6 +252,7 @@ int XLoader_OspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	
 	Status = XOspiPsv_PollTransfer(&OspiPsvInstance, &FlashMsg);
 	if (Status != XST_SUCCESS) {
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_OSPI_READ, Status);
 		goto END;
 	}
 
@@ -313,8 +316,11 @@ int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
                         FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
 
                         Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
-                        if (Status != XST_SUCCESS)
-                                return XST_FAILURE;
+                        if (Status != XST_SUCCESS) {
+				Status = XPLMI_UPDATE_STATUS(
+					XLOADER_ERR_OSPI_4BMODE, Status);
+                                return Status;
+			}
                         break;
 
                 default:
@@ -328,9 +334,11 @@ int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
         FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
         FlashMsg.Addrsize = 3;
 
-        Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
-        if (Status != XST_SUCCESS)
-                return XST_FAILURE;
+	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
+	if (Status != XST_SUCCESS) {
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_OSPI_4BMODE, Status);
+		return Status;
+	}
 
         while (1) {
                 FlashMsg.Opcode = StatusCmd;
@@ -342,8 +350,10 @@ int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
                 FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
 
                 Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
-                if (Status != XST_SUCCESS)
-                        return XST_FAILURE;
+		if (Status != XST_SUCCESS) {
+			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_OSPI_4BMODE, Status);
+			return Status;
+		}
 
                 if ((FlashStatus & 0x80) != 0)
                         break;
@@ -360,8 +370,10 @@ int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
                 FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
 
                 Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
-                if (Status != XST_SUCCESS)
-                        return XST_FAILURE;
+		if (Status != XST_SUCCESS) {
+			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_OSPI_4BMODE, Status);
+			return Status;
+		}
                 break;
 
                 default:

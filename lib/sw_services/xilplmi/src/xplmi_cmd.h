@@ -57,7 +57,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include <xil_assert.h>
 #include "xil_types.h"
-#include "xstatus.h"
+#include "xplmi_status.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_CMD_API_ID_MASK			(0xFFU)

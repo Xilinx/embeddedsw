@@ -55,6 +55,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xplmi_hw.h"
+#include "xplmi_status.h"
 #ifdef XLOADER_QSPI
 #include "xqspipsu.h"
 #include "xplmi_debug.h"
@@ -183,16 +184,6 @@ extern "C" {
 
 /* TODO change to QSPI driver API */
 #define XLOADER_QSPIDMA_DST_CTRL	(0xF103080CU)
-
-/* Error codes */
-#define XLOADER_ERR_QSPI_READ_ID                         (0x1000)
-#define XLOADER_ERR_UNSUPPORTED_QSPI                     (0x1100)
-#define XLOADER_ERR_QSPI_INIT                            (0x1200)
-#define XLOADER_ERR_QSPI_LENGTH                          (0x1300)
-#define XLOADER_ERR_QSPI_READ                            (0x1400)
-#define XLOADER_ERR_QSPI_CONNECTION                      (0x1500)
-#define XLOADER_ERR_QSPI_MANUAL_START                    (0x1600)
-#define XLOADER_ERR_QSPI_PRESCALER_CLK                   (0x1700)
 
 /**************************** Type Definitions *******************************/
 

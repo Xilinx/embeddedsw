@@ -56,7 +56,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xplmi_hw.h"
-#include "xstatus.h"
+#include "xplmi_status.h"
 #if defined(XLOADER_SD_0) || defined(XLOADER_SD_1)
 #include "xplmi_debug.h"
 /************************** Constant Definitions *****************************/

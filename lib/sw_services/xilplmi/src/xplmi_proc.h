@@ -59,6 +59,7 @@ extern "C" {
 #include "xil_exception.h"
 #include "xplmi_gic_interrupts.h"
 #include "xplmi_util.h"
+#include "xplmi_status.h"
 
 /************************** Constant Definitions *****************************/
 #define IOMODULE_DEVICE_ID XPAR_IOMODULE_0_DEVICE_ID
@@ -68,9 +69,6 @@ extern "C" {
 #define XPLMI_PIT1			(0U)
 #define XPLMI_PIT2			(1U)
 
-#define XPLMI_ERR_IOMOD_INIT			(0x20000)
-#define XPLMI_ERR_IOMOD_START			(0x30000)
-#define XPLMI_ERR_IOMOD_CONNECT			(0x40000)
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
