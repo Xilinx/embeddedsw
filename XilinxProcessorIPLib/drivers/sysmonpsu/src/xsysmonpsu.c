@@ -1199,7 +1199,7 @@ u8 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 	Divisor = Divisor >> XSYSMONPSU_CFG_REG2_CLK_DVDR_SHIFT;
 
 	while (1) {
-		if (!Divisor) {
+		if (Divisor == 0U) {
 			if ((SysmonBlk == XSYSMON_PS) &&
 			(InputFreq/8 >= 1) && (InputFreq/8 <= 26)) {
 				break;
