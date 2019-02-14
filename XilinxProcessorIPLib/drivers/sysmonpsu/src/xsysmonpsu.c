@@ -1347,7 +1347,7 @@ u64 XSysMonPsu_GetSeqChEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 	RegVal |= ((u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_CH1_OFFSET) & XSYSMONPSU_SEQ_CH1_VALID_MASK) <<
 					XSM_SEQ_CH_SHIFT;
-	RegVal |= (u64)(XSysmonPsu_ReadReg(EffectiveBaseAddress +
+	RegVal |= ((u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_CH2_OFFSET) &
 			XSYSMONPSU_SEQ_CH2_VALID_MASK) << XSM_SEQ_CH2_SHIFT;
 
@@ -1469,7 +1469,7 @@ u64 XSysMonPsu_GetSeqAvgEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 	RegVal |= ((u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_AVERAGE1_OFFSET) & XSYSMONPSU_SEQ_AVERAGE1_MASK) <<
 			XSM_SEQ_CH_SHIFT;
-	RegVal |= (u64)(XSysmonPsu_ReadReg(EffectiveBaseAddress +
+	RegVal |= ((u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_AVERAGE2_OFFSET) &
 			XSYSMONPSU_SEQ_AVERAGE2_MASK) << XSM_SEQ_CH2_SHIFT;
 
@@ -1596,7 +1596,7 @@ u64 XSysMonPsu_GetSeqInputMode(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 	InputMode |= ((u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_INPUT_MDE1_OFFSET) & XSYSMONPSU_SEQ_INPUT_MDE1_MASK) <<
 				XSM_SEQ_CH_SHIFT;
-	InputMode |= (u64)(XSysmonPsu_ReadReg(EffectiveBaseAddress +
+	InputMode |= ((u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_INPUT_MDE2_OFFSET) &
 			XSYSMONPSU_SEQ_INPUT_MDE2_MASK) << XSM_SEQ_CH2_SHIFT;
 
@@ -1720,7 +1720,7 @@ u64 XSysMonPsu_GetSeqAcqTime(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 	RegValAcq |= ((u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 					XSYSMONPSU_SEQ_ACQ1_OFFSET) & XSYSMONPSU_SEQ_ACQ1_MASK) <<
 					XSM_SEQ_CH_SHIFT;
-	RegValAcq |= (u64)(XSysmonPsu_ReadReg(EffectiveBaseAddress +
+	RegValAcq |= ((u64)XSysmonPsu_ReadReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_ACQ2_OFFSET) &
 			XSYSMONPSU_SEQ_ACQ2_MASK) << XSM_SEQ_CH2_SHIFT;
 
