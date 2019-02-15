@@ -57,6 +57,7 @@
 #include "xpmcfw_misc.h"
 #include "xilcdo.h"
 #include "xsecure.h"
+#include "xilcdo_npi.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -1050,6 +1051,16 @@ static XStatus XPmcFw_ProcessPrtn (XPmcFw * PmcFwInstancePtr, u32 PrtnNum)
 	{
 		Status = XPmcFw_ProcessCfi(PmcFwInstancePtr, PrtnNum);
 	}
+	else if(PrtnType == XIH_PH_ATTRB_PRTN_TYPE_CFI_GSC)
+        {
+			XilCdo_EnableCFUWrite();
+			XilCdo_SetGSCWE();
+			XilCdo_DisableCFUWrite();
+            Status = XPmcFw_ProcessCfi(PmcFwInstancePtr, PrtnNum);
+			XilCdo_EnableCFUWrite();
+			XilCdo_ClearGSCWE();
+			XilCdo_DisableCFUWrite();
+        }
 	else if(PrtnType == XIH_PH_ATTRB_PRTN_TYPE_CDO)
 	{
 		Status = XPmcFw_ProcessCdo(PmcFwInstancePtr, PrtnNum);
