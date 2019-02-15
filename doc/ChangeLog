@@ -105,6 +105,8 @@ xilisf_v5_13:
 Declare XQspiPsu_Msg instance as global.
 Fixed multiple definition error in C++ project.
 Added support for OSPI flash interface.
+Added support for SST26WF016B flash.
+Used 3Byte Sector erase and write commands for QSPI Micron flashes.
 
 xxvethernet_v1_2:
 In tcl use unique global variables to fix bsp generation for certain designs.
