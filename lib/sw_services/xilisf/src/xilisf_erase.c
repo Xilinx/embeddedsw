@@ -68,6 +68,8 @@
  * 5.13 nsk  01/22/18 Make variable declaration to XQspiPsu_Msg as global
  *                    CR#1015808.
  *      sk   02/11/19 Added support for OSPI flash interface.
+ *      sk   02/15/19 4B Sector erase command is not supported by all QSPI
+ *                    Micron flashes hence used used 3B sector erase command.
  *
  * </pre>
  *
@@ -98,7 +100,7 @@ static int PageErase(XIsf *InstancePtr, u32 Address);
 static int BlockErase(XIsf *InstancePtr, u32 Address);
 #endif
 #ifdef	XPAR_XISF_INTERFACE_QSPIPSU
-	XQspiPsu_Msg FlashMsg[2];
+	static XQspiPsu_Msg FlashMsg[2];
 #endif
 #if ((XPAR_XISF_FLASH_FAMILY != WINBOND) && (XPAR_XISF_FLASH_FAMILY != SST))
 static int SubSectorErase(XIsf *InstancePtr, u32 Address);
@@ -665,8 +667,7 @@ static int SectorErase(XIsf *InstancePtr, u32 Address)
 	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
 	if (InstancePtr->FourByteAddrMode == TRUE) {
 		if (InstancePtr->ManufacturerID ==
-				XISF_MANUFACTURER_ID_SPANSION ||
-		    InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_MICRON)
+				XISF_MANUFACTURER_ID_SPANSION)
 			InstancePtr->WriteBufPtr[BYTE1] =
 					XISF_CMD_4BYTE_SECTOR_ERASE;
 		else
