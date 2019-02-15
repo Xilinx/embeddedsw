@@ -533,6 +533,8 @@
  *      sk   02/11/19 Added support for OSPI flash interface.
  * 5.13	akm  02/26/19 Added support for ISSI serial NOR Flash Devices.
  * 		       PR# 11442
+ *      sk   02/28/19 Added support for SST26WF016B flash.
+ *
  *
  * </pre>
  *

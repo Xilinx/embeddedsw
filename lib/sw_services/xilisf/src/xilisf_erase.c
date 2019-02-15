@@ -100,7 +100,9 @@ static int BlockErase(XIsf *InstancePtr, u32 Address);
 #ifdef	XPAR_XISF_INTERFACE_QSPIPSU
 	XQspiPsu_Msg FlashMsg[2];
 #endif
+#if ((XPAR_XISF_FLASH_FAMILY != WINBOND) && (XPAR_XISF_FLASH_FAMILY != SST))
 static int SubSectorErase(XIsf *InstancePtr, u32 Address);
+#endif
 #endif
 #ifdef XPAR_XISF_INTERFACE_OSPIPSV
 	static XOspiPsv_Msg FlashMsg;
@@ -180,9 +182,11 @@ int XIsf_Erase(XIsf *InstancePtr, XIsf_EraseOperation Operation, u32 Address)
 #endif
 		break;
 
+#if ((XPAR_XISF_FLASH_FAMILY != WINBOND) && (XPAR_XISF_FLASH_FAMILY != SST))
 	case XISF_SUB_SECTOR_ERASE:
 			Status = SubSectorErase(InstancePtr, Address);
 			break;
+#endif
 #endif
 
 	case XISF_SECTOR_ERASE:
@@ -309,6 +313,7 @@ static int BlockErase(XIsf *InstancePtr, u32 Address)
 }
 #endif /* ((XPAR_XISF_FLASH_FAMILY==ATMEL)||(XPAR_XISF_FLASH_FAMILY==INTEL)) */
 
+#if ((XPAR_XISF_FLASH_FAMILY != WINBOND) && (XPAR_XISF_FLASH_FAMILY != SST))
 /*****************************************************************************/
 /**
  *
@@ -561,6 +566,7 @@ static int SubSectorErase(XIsf *InstancePtr, u32 Address)
 	return Status;
 }
 #endif
+#endif
 /*****************************************************************************/
 /**
  *
@@ -591,14 +597,18 @@ static int SectorErase(XIsf *InstancePtr, u32 Address)
 #endif
 	u8 *NULLPtr = NULL;
 #if ((!defined(XPAR_XISF_INTERFACE_QSPIPSU)) && \
-		(!defined(XPAR_XISF_INTERFACE_OSPIPSV)))
+		(!defined(XPAR_XISF_INTERFACE_OSPIPSV)) && \
+		(!defined(XPAR_XISF_INTERFACE_PSSPI)))
 	u8 FlagStatus[2] = {0};
 	u8 ReadStatusCmdBuf[] = { READ_STATUS_CMD, 0 };
 	u8 ReadFlagSRCmd[] = {READ_FLAG_STATUS_CMD, 0};
 #endif
+#if (!defined(XPAR_XISF_INTERFACE_PSSPI))
 	u8 FlashStatus[2] __attribute__ ((aligned(4))) = {0};
+#endif
 #if ((!defined(XPAR_XISF_INTERFACE_PSQSPI)) && \
-		(!defined(XPAR_XISF_INTERFACE_OSPIPSV)))
+		(!defined(XPAR_XISF_INTERFACE_OSPIPSV))&& \
+		(!defined(XPAR_XISF_INTERFACE_PSSPI)))
 	u8 FSRFlag, ReadStatusCmd;
 #endif
 

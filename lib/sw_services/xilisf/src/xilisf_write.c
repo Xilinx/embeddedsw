@@ -475,15 +475,21 @@ static int WriteData(XIsf *InstancePtr, u8 Command, u32 Address,
 #ifndef XPAR_XISF_INTERFACE_OSPIPSV
 	u32 RealAddr;
 #endif
+#if	defined(XPAR_XISF_INTERFACE_PSSPI)
+	u32 Index;
+#endif
 	int Status;
 #if ((!defined(XPAR_XISF_INTERFACE_QSPIPSU)) && \
-		(!defined(XPAR_XISF_INTERFACE_OSPIPSV)))
+		(!defined(XPAR_XISF_INTERFACE_OSPIPSV)) && \
+		(!defined(XPAR_XISF_INTERFACE_PSSPI)))
 	u8 FlagStatus[2] = {0};
 #endif
 #ifdef XPAR_XISF_INTERFACE_OSPIPSV
 	u32 Bytestowrite;
 #endif
+#if	(!defined(XPAR_XISF_INTERFACE_PSSPI))
 	u8 FlashStatus[2] __attribute__ ((aligned(4))) = {0};
+#endif
 	u8 *NULLPtr = NULL;
 	u8 *LocalBufPtr = BufferPtr;
 #ifdef	XPAR_XISF_INTERFACE_QSPIPSU
@@ -495,7 +501,8 @@ static int WriteData(XIsf *InstancePtr, u8 Command, u32 Address,
 	u32 FlashMake = InstancePtr->ManufacturerID;
 #endif
 #if ((!defined(XPAR_XISF_INTERFACE_QSPIPSU)) && \
-		(!defined(XPAR_XISF_INTERFACE_OSPIPSV)))
+		(!defined(XPAR_XISF_INTERFACE_OSPIPSV)) && \
+		(!defined(XPAR_XISF_INTERFACE_PSSPI)))
 	u8 ReadStatusCmdBuf[] = { READ_STATUS_CMD, 0 };
 	u8 ReadFlagSRCmd[] = {READ_FLAG_STATUS_CMD, 0};
 #endif
