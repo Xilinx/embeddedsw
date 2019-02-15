@@ -1151,10 +1151,17 @@ void pt_loop(){
 
 		if(hpd_pulse_con_event == 1 && DpRxSsInst.link_up_trigger == 1 && tx_is_up == 1){
 			hpd_pulse_con_event = 0;
-			hpd_pulse_con(&DpTxSsInst, 0);
+//			hpd_pulse_con(&DpTxSsInst, 0);
 			Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
 			if (Status != XST_SUCCESS) {
-				start_tx_after_rx (strm_start, 0);
+				tx_is_up = 0;
+				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+						XDP_TX_INTERRUPT_MASK, 0xFFF);
+
+				DpTxSubsystem_Start(&DpTxSsInst, Msa);
+				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+						XDP_TX_INTERRUPT_MASK, 0x0);
+				tx_is_up = 1;
 			}
 		} else {
 			hpd_pulse_con_event = 0;
@@ -1542,7 +1549,7 @@ void start_tx_after_rx(u8 stream_id, u8 only_tx) {
                     Msa[0].Vtm.Timing.VActive,
                     Msa[0].Vtm.FrameRate,0);
 
-    frameBuffer_start_wr(VmId_1, Msa, 0); //, msa_offset-1);
+    frameBuffer_start_wr(Msa, 0); //, msa_offset-1);
 
 
     XDpRxSs_AudioDisable(&DpRxSsInst);
@@ -1641,7 +1648,7 @@ XVphy_BufgGtReset(&VPhyInst, XVPHY_DIR_TX,(FALSE));
 //frameBuffer_stop(Msa);
 set_vphy(max_cap_org);
 start_tx(max_cap_org, DpRxSsInst.UsrOpt.LaneCount, user_config, Msa);
-frameBuffer_start_rd(VmId, Msa, 0);
+frameBuffer_start_rd(Msa, 0);
 XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 		XDP_TX_INTERRUPT_MASK, 0x0);
 tx_is_up = 1;

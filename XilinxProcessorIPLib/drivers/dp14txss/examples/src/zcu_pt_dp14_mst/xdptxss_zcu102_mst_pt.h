@@ -281,14 +281,9 @@ int IDT_8T49N24x_SetClock(u32 I2CBaseAddress, u8 I2CSlaveAddress, int FIn, int F
 int IDT_8T49N24x_Init(u32 I2CBaseAddress, u8 I2CSlaveAddress);
 int TI_LMK03318_PowerDown(u32 I2CBaseAddress, u8 I2CSlaveAddress);
 
-void frameBuffer_start_wr(XVidC_VideoMode VmId,
-                XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
+void frameBuffer_start_wr(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
 
-//void frameBuffer_start(XVidC_VideoMode VmId,
-//              XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
-
-void frameBuffer_start_rd(XVidC_VideoMode VmId,
-                XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
+void frameBuffer_start_rd(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
 void remap_start_wr(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
 void remap_start_rd(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
 

@@ -2310,7 +2310,7 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 
 	memcpy(Edid_org, InstancePtr->UsrHpdEventData.EdidOrg, 128);
 
-	xil_printf ("Inside hpd_con...\r\n");
+//	xil_printf ("Inside hpd_con...\r\n");
 	tx_is_reconnected--;
 
 	if (XVidC_EdidIsHeaderValid(Edid_org)) {
@@ -3583,8 +3583,8 @@ VideoFormats ColorFormats[NUM_TEST_FORMATS] =
 };
 
 
-void frameBuffer_start_wr(XVidC_VideoMode VmId,
-		XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K) {
+void frameBuffer_start_wr(XDpTxSs_MainStreamAttributes Msa[4],
+		u8 downshift4K) {
 
 	XVidC_ColorFormat Cfmt;
 	XVidC_VideoTiming const *TimingPtr;
@@ -3619,7 +3619,6 @@ void frameBuffer_start_wr(XVidC_VideoMode VmId,
                             XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
                     Cfmt = ColorFormats[4].MemFormat;
                     VidStream.ColorFormatId = ColorFormats[4].StreamFormat;
-                    xil_printf ("444 10 write\r\n");
             } else {
                     Cfmt = ColorFormats[3].MemFormat;
                     VidStream.ColorFormatId = ColorFormats[3].StreamFormat;
@@ -3642,24 +3641,11 @@ void frameBuffer_start_wr(XVidC_VideoMode VmId,
 					&VidStream);
 	ConfigFrmbuf_wr(stride, Cfmt, &VidStream);
 
-
-
-//	// Tx side may change due to sink monitor capability
-//	if(downshift4K == 1){ // if sink is 4K monitor,
-//		VidStream.VmId = VmId; // This will be set as 4K60
-//		TimingPtr = XVidC_GetTimingInfo(VidStream.VmId);
-//		VidStream.Timing = *TimingPtr;
-//		VidStream.FrameRate = XVidC_GetFrameRate(VidStream.VmId);
-//	}
-//
-//	ConfigFrmbuf_rd(stride, Cfmt, &VidStream);
-
-
 }
 
 
-void frameBuffer_start_rd(XVidC_VideoMode VmId,
-		XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K) {
+void frameBuffer_start_rd(XDpTxSs_MainStreamAttributes Msa[4],
+		u8 downshift4K) {
 
 	XVidC_ColorFormat Cfmt;
 	XVidC_VideoTiming const *TimingPtr;
@@ -3693,7 +3679,7 @@ void frameBuffer_start_rd(XVidC_VideoMode VmId,
                             XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
                     Cfmt = ColorFormats[4].MemFormat;
                     VidStream.ColorFormatId = ColorFormats[4].StreamFormat;
-                    xil_printf ("444 10 write\r\n");
+
             } else {
                     Cfmt = ColorFormats[3].MemFormat;
                     VidStream.ColorFormatId = ColorFormats[3].StreamFormat;
@@ -3720,12 +3706,12 @@ void frameBuffer_start_rd(XVidC_VideoMode VmId,
 
 
 	// Tx side may change due to sink monitor capability
-	if(downshift4K == 1){ // if sink is 4K monitor,
-		VidStream.VmId = VmId; // This will be set as 4K60
-		TimingPtr = XVidC_GetTimingInfo(VidStream.VmId);
-		VidStream.Timing = *TimingPtr;
-		VidStream.FrameRate = XVidC_GetFrameRate(VidStream.VmId);
-	}
+//	if(downshift4K == 1){ // if sink is 4K monitor,
+//		VidStream.VmId = VmId; // This will be set as 4K60
+//		TimingPtr = XVidC_GetTimingInfo(VidStream.VmId);
+//		VidStream.Timing = *TimingPtr;
+//		VidStream.FrameRate = XVidC_GetFrameRate(VidStream.VmId);
+//	}
 
 	ConfigFrmbuf_rd(stride, Cfmt, &VidStream);
 
