@@ -113,6 +113,7 @@
  *      sk   02/11/19 Added support for OSPI flash interface.
  * 5.13	akm  02/26/19 Added support for ISSI serial NOR Flash Devices.
  * 	         	   PR# 11442
+ *      sk   02/28/19 Added support for SST26WF016B flash.
  *
  *
  * </pre>
@@ -484,6 +485,10 @@ static const struct IntelStmDeviceGeometry IntelStmDevices[] = {
 	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
 	 XISF_NUM_OF_SECTORS256},
 
+	 {XISF_MANUFACTURER_ID_SST, XISF_SST_DEV_SST26WF016B,
+	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
+	 XISF_NUM_OF_SECTORS512},
+
 	{XISF_MANUFACTURER_ID_MICRON, XISF_MIC_DEV_N25Q256_3V0,
 	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
 	 XISF_NUM_OF_SECTORS512},
@@ -788,7 +793,9 @@ static const struct SpaMicWinDeviceGeometry SpaMicWinDevices[] = {
  * interrupt processing such that they must be global.
  */
 volatile unsigned int XIsf_TransferInProgress;
+#if	(!defined(XPAR_XISF_INTERFACE_PSSPI))
 static u32 XIsf_FCTIndex;
+#endif
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
@@ -2283,6 +2290,11 @@ static int IntelStmFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
 	u32 Index;
 	u8 NumOfDevices;
 	u8 ManufacturerID;
+#if (XPAR_XISF_FLASH_FAMILY == SST)
+	int Status;
+	u8 *NULLPtr = NULL;
+	u8 UnlkBlkProt[1] = { GLOBAL_BLK_PROT_UNLK };
+#endif
 
 	ManufacturerID = BufferPtr[BYTE2];
 
@@ -2328,6 +2340,16 @@ static int IntelStmFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
 				IntelStmDevices[Index].NumOfSectors;
 
 			InstancePtr->IsReady = TRUE;
+#if (XPAR_XISF_FLASH_FAMILY == SST)
+			Status = XIsf_WriteEnable(InstancePtr, XISF_WRITE_ENABLE);
+			if (Status != (int)XST_SUCCESS)
+				return (int)XST_FAILURE;
+
+			Status = XIsf_Transfer(InstancePtr, UnlkBlkProt, NULLPtr,
+							sizeof(UnlkBlkProt));
+			if (Status != (int)XST_SUCCESS)
+				return (int)XST_FAILURE;
+#endif
 		}
 	}
 
@@ -2808,8 +2830,13 @@ static int SpaMicWinFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
  ******************************************************************************/
 u32 GetRealAddr(XIsf_Iface *QspiPtr, u32 Address)
 {
-#ifndef XPAR_XISF_INTERFACE_QSPIPSU
+#if (!defined(XPAR_XISF_INTERFACE_QSPIPSU)) && \
+		(!defined(XPAR_XISF_INTERFACE_PSSPI))
 	u32 LqspiCr;
+#endif
+
+#if	(defined(XPAR_XISF_INTERFACE_PSSPI))
+	(void)QspiPtr;
 #endif
 	u32 RealAddr = {0};
 #if defined(XPAR_XISF_INTERFACE_PSQSPI) || \
