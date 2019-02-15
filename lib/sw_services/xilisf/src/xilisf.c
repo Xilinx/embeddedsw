@@ -250,7 +250,7 @@ static int AtmelFlashInitialize(XIsf *InstancePtr, u8 *ReadBuf);
 static int IntelStmFlashInitialize(XIsf *InstancePtr, u8 *ReadBuf);
 #endif
 #ifdef XPAR_XISF_INTERFACE_QSPIPSU
-	XQspiPsu_Msg FlashMsg[2];
+	static XQspiPsu_Msg FlashMsg[2];
 #elif defined(XPAR_XISF_INTERFACE_OSPIPSV)
 	static XOspiPsv_Msg FlashMsg;
 #endif
@@ -2779,22 +2779,23 @@ static int SpaMicWinFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
 				XISF_QSPIPS_CONNECTION_MODE_PARALLEL) {
 			InstancePtr->XIsf_Iface_SetSlaveSelect(
 					InstancePtr->SpiInstPtr,
-					XQSPIPSU_SELECT_FLASH_CS_UPPER,
-					XQSPIPSU_SELECT_FLASH_BUS_UPPER);
+					XQSPIPSU_SELECT_FLASH_CS_BOTH,
+					XQSPIPSU_SELECT_FLASH_BUS_BOTH);
 			Status = XIsf_MicronFlashEnter4BAddMode(InstancePtr);
-		}
-		InstancePtr->XIsf_Iface_SetSlaveSelect(
-				InstancePtr->SpiInstPtr,
-					XQSPIPSU_SELECT_FLASH_CS_LOWER,
-					XQSPIPSU_SELECT_FLASH_BUS_LOWER);
-		Status = XIsf_MicronFlashEnter4BAddMode(InstancePtr);
-		if (InstancePtr->SpiInstPtr->Config.ConnectionMode ==
-				XISF_QSPIPS_CONNECTION_MODE_STACKED) {
+		} else {
 			InstancePtr->XIsf_Iface_SetSlaveSelect(
 					InstancePtr->SpiInstPtr,
-					XQSPIPSU_SELECT_FLASH_CS_UPPER,
-					XQSPIPSU_SELECT_FLASH_BUS_LOWER);
+						XQSPIPSU_SELECT_FLASH_CS_LOWER,
+						XQSPIPSU_SELECT_FLASH_BUS_LOWER);
 			Status = XIsf_MicronFlashEnter4BAddMode(InstancePtr);
+			if (InstancePtr->SpiInstPtr->Config.ConnectionMode ==
+					XISF_QSPIPS_CONNECTION_MODE_STACKED) {
+				InstancePtr->XIsf_Iface_SetSlaveSelect(
+						InstancePtr->SpiInstPtr,
+						XQSPIPSU_SELECT_FLASH_CS_UPPER,
+						XQSPIPSU_SELECT_FLASH_BUS_LOWER);
+				Status = XIsf_MicronFlashEnter4BAddMode(InstancePtr);
+			}
 		}
 		if (Status != (int)(XST_SUCCESS))
 			return (int)(XST_FAILURE);
