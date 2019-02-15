@@ -534,6 +534,8 @@
  * 5.13	akm  02/26/19 Added support for ISSI serial NOR Flash Devices.
  * 		       PR# 11442
  *      sk   02/28/19 Added support for SST26WF016B flash.
+ *      sk   02/28/19 Used 3B Sector erase and write commands for QSPI Micron
+ *                    flashes.
  *
  *
  * </pre>

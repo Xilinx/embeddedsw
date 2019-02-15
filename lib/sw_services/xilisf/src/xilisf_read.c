@@ -91,7 +91,7 @@
 extern int SendBankSelect(XIsf *InstancePtr, u32 BankSel);
 #endif
 #ifdef XPAR_XISF_INTERFACE_QSPIPSU
-	XQspiPsu_Msg FlashMsg[3];
+	static XQspiPsu_Msg FlashMsg[3];
 #elif (defined(XPAR_XISF_INTERFACE_OSPIPSV))
 	static XOspiPsv_Msg FlashMsg;
 #endif

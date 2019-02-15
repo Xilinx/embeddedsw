@@ -61,6 +61,8 @@
  * 5.12 tjs	 06/18/18 Removed checkpatch and gcc warnings.
  * 5.13 nsk  01/22/18 Make variable declaration to XQspiPsu_Msg as global
  *                    CR#1015808.
+ *      sk   02/15/19 4B write command is not supported by all QSPI Micron
+ *                    flashes hence used used 3B write command.
  *
  * </pre>
  *
@@ -84,7 +86,7 @@
 extern int SendBankSelect(XIsf *InstancePtr, u32 BankSel);
 #endif
 #ifdef XPAR_XISF_INTERFACE_QSPIPSU
-	XQspiPsu_Msg FlashMsg[2];
+	static XQspiPsu_Msg FlashMsg[2];
 #elif defined(XPAR_XISF_INTERFACE_OSPIPSV)
 	static XOspiPsv_Msg FlashMsg;
 #endif
@@ -286,6 +288,10 @@ int XIsf_Write(XIsf *InstancePtr, XIsf_WriteOperation Operation,
 				Command = XISF_CMD_OCTAL_WRITE_4B;
 			}
 #endif
+			if (InstancePtr->ManufacturerID ==
+					 XISF_MANUFACTURER_ID_MICRON) {
+				Command = XISF_CMD_PAGEPROG_WRITE;
+			}
 			Status = WriteData(InstancePtr,
 				Command,
 				WriteParamPtr->Address,
