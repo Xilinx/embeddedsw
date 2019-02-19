@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015-2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -45,8 +45,11 @@
 
 #define PM_ARRAY_SIZE(x)	(sizeof(x) / sizeof(x[0]))
 
-#define PAYLOAD_ARG_CNT		6U	/* 1 for API ID + 5 for API arguments */
-#define RESPONSE_ARG_CNT	4U	/* 1 for status + 3 for values */
+/* 1 for API ID + 5 for API arguments + 1 for Reserved + 1 for CRC */
+#define PAYLOAD_ARG_CNT		8U
+
+/* 1 for status + 3 for values + 3 for Reserved + 1 for CRC */
+#define RESPONSE_ARG_CNT	8U
 
 #define PM_IPI_TIMEOUT		(~0)
 
@@ -70,6 +73,8 @@ struct XPm_Master *pm_get_master_by_node(const enum XPmNodeId nid);
 #define APU_1_PWRCTL_CPUPWRDWNREQ_MASK	0x00000002U
 #define APU_2_PWRCTL_CPUPWRDWNREQ_MASK	0x00000004U
 #define APU_3_PWRCTL_CPUPWRDWNREQ_MASK	0x00000008U
+
+#define IPI_W0_TO_W6_SIZE		28U
 #define IPI_RPU_MASK			0x00000100U
 
 #define UNDEFINED_CPUID		(~0U)
