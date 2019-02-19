@@ -81,7 +81,7 @@ extern "C" {
  * 	- ENABLE_WDT : Enables WDT based restart functionality for PMU
  * 	- ENABLE_STL : Enables STL Module
  * 	- ENABLE_RTC_TEST : Enables RTC Event Handler Test Module
- * 	- ENABLE_SAFETY : Enables CRC calculation for IPI messages
+ * 	- ENABLE_IPI_CRC_VAL : Enables CRC calculation for IPI messages
  * 	- ENABLE_FPGA_LOAD : Enables FPGA bit stream loading feature
  * 	- ENABLE_SECURE : Enables security features
  * 	- XPU_INTR_DEBUG_PRINT_ENABLE : Enables debug for XMPU/XPPU functionality
@@ -124,7 +124,7 @@ extern "C" {
 #define	ENABLE_WDT_VAL					(0U)
 #define	ENABLE_STL_VAL					(0U)
 #define	ENABLE_RTC_TEST_VAL				(0U)
-#define	ENABLE_SAFETY_VAL				(0U)
+#define	ENABLE_IPI_CRC_VAL				(0U)
 #define	ENABLE_FPGA_LOAD_VAL			(1U)
 #define	ENABLE_SECURE_VAL				(1U)
 #define ENABLE_EFUSE_ACCESS				(0U)
@@ -195,8 +195,8 @@ extern "C" {
 #if ENABLE_SECURE_VAL
 #define ENABLE_SECURE
 #endif
-#if ENABLE_SAFETY_VAL
-#define ENABLE_SAFETY
+#if ENABLE_IPI_CRC_VAL
+#define ENABLE_IPI_CRC
 #endif
 
 #if XPU_INTR_DEBUG_PRINT_ENABLE_VAL
