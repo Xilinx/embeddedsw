@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -24,9 +24,10 @@
 * this Software without prior written authorization from Xilinx.
 ******************************************************************************/
 
+#include "xpfw_config.h"
 #include "xpfw_crc.h"
 
-#ifdef ENABLE_SAFETY
+#ifdef ENABLE_IPI_CRC
 /*****************************************************************************/
 /**
 *
@@ -74,4 +75,4 @@ u32 XPfw_CalculateCRC(u32 BufAddr, u32 BufSize)
 	}
 	return Crc;
 }
-#endif /* ENABLE_SAFETY */
+#endif /* ENABLE_IPI_CRC */
