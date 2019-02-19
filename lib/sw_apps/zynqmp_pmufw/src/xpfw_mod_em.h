@@ -45,6 +45,9 @@ extern "C" {
 #define REMOVE_EM_ACTION		0x02U
 #define SEND_ERRORS_OCCURRED	0x03U
 
+/* EM error codes */
+#define PERMISSION_DENIED		0xFU
+
 extern u32 ErrorLog[EM_ERROR_LOG_MAX];
 void ModEmInit(void);
 void RpuLsHandler(u8 ErrorId);

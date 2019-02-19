@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,7 @@ static void EmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask, c
 {
 	u32 RetVal = XST_FAILURE;
 	u8 ErrorId = 0U;
+	u32 Buf[XPFW_IPI_MAX_MSG_LEN] = {0};
 
 	if (IpiNum > 0U) {
 		XPfw_Printf(DEBUG_ERROR,"EM: EM handles only IPI on PMU-0\r\n");
@@ -50,35 +51,50 @@ static void EmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask, c
 		switch (Payload[EM_MOD_API_ID_OFFSET] & EM_API_ID_MASK) {
 		case SET_EM_ACTION:
 			ErrorId = (u8)Payload[EM_ERROR_ID_OFFSET];
-			RetVal = (u32)XPfw_EmSetAction(ErrorId, (u8)Payload[EM_ERROR_ACTION_OFFSET],
-					ErrorTable[ErrorId].Handler);
 
+			if ((SrcMask & ErrorTable[ErrorId].ChngPerm) == SrcMask) {
+				RetVal = (u32)XPfw_EmSetAction(ErrorId, (u8)Payload[EM_ERROR_ACTION_OFFSET],
+						ErrorTable[ErrorId].Handler);
+			} else {
+				RetVal = PERMISSION_DENIED;
+			}
 			if (RetVal != (u32)XST_SUCCESS) {
 				XPfw_Printf(DEBUG_DETAILED, "Warning: EmIpiHandler: Failed "
-						"to set action \r\n");
+						"to set action. Please check permissions \r\n");
 			}
-			XPfw_IpiWriteResponse(ModPtr, SrcMask, &RetVal, 1U);
+			Buf[0] = RetVal;
+			(void)XPfw_IpiWriteResponse(ModPtr, SrcMask, &Buf[0], 1);
 			break;
 
 		case REMOVE_EM_ACTION:
-			RetVal = (u32)XPfw_EmDisable((u8)Payload[EM_ERROR_ID_OFFSET]);
+			ErrorId = (u8)Payload[EM_ERROR_ID_OFFSET];
+
+			if ((SrcMask & ErrorTable[ErrorId].ChngPerm) == SrcMask) {
+				RetVal = (u32)XPfw_EmDisable(ErrorId);
+			} else {
+				RetVal = PERMISSION_DENIED;
+			}
 
 			if (RetVal != (u32)XST_SUCCESS) {
 				XPfw_Printf(DEBUG_DETAILED,"Warning: EmIpiHandler: Failed"
-						" to remove action\r\n");
+						" to remove action. Please check permissions\r\n");
 			}
-			XPfw_IpiWriteResponse(ModPtr, SrcMask, &RetVal, 1U);
+			Buf[0] = RetVal;
+			(void)XPfw_IpiWriteResponse(ModPtr, SrcMask, &Buf[0], 1);
 			break;
 
 		case SEND_ERRORS_OCCURRED:
 			ErrorLog[PMU_BRAM_CE_LOG_OFFSET] = XPfw_Read32(PMU_LMB_BRAM_CE_CNT_REG);
-
-			XPfw_IpiWriteResponse(ModPtr, SrcMask, ErrorLog, EM_ERROR_LOG_MAX);
+			for(ErrorId = 0U; ErrorId < EM_ERROR_LOG_MAX; ErrorId++) {
+				Buf[ErrorId] = ErrorLog[ErrorId];
+			}
+			(void)XPfw_IpiWriteResponse(ModPtr, SrcMask, &Buf[0], EM_ERROR_LOG_MAX);
 			break;
 
 		default:
 			XPfw_Printf(DEBUG_ERROR,"EM: Unsupported API ID received\r\n");
-			XPfw_IpiWriteResponse(ModPtr, SrcMask, &RetVal, 1U);
+			Buf[0] = XST_FAILURE;
+			(void)XPfw_IpiWriteResponse(ModPtr, SrcMask, &Buf[0], 1);
 			break;
 		}
 	}
