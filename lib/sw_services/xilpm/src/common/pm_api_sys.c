@@ -46,6 +46,7 @@
  * @{
  */
 #define PACK_PAYLOAD(pl, arg0, arg1, arg2, arg3, arg4, arg5, rsvd)		\
+<<<<<<< HEAD
 	pl[0] = (u32)(arg0);						\
 	pl[1] = (u32)(arg1);						\
 	pl[2] = (u32)(arg2);						\
@@ -67,6 +68,29 @@
 	PACK_PAYLOAD(pl, (api_id), (arg1), (arg2), (arg3), (arg4), 0U, 0U)
 #define PACK_PAYLOAD5(pl, api_id, arg1, arg2, arg3, arg4, arg5) \
 	PACK_PAYLOAD(pl, (api_id), (arg1), (arg2), (arg3), (arg4), (arg5), 0U)
+=======
+	pl[0] = (u32)arg0;						\
+	pl[1] = (u32)arg1;						\
+	pl[2] = (u32)arg2;						\
+	pl[3] = (u32)arg3;						\
+	pl[4] = (u32)arg4;						\
+	pl[5] = (u32)arg5;						\
+	pl[6] = (u32)rsvd;						\
+	pm_dbg("%s(%x, %x, %x, %x, %x, %x)\n", __func__, arg1, arg2, arg3, arg4, arg5, rsvd);
+
+#define PACK_PAYLOAD0(pl, api_id) \
+	PACK_PAYLOAD(pl, api_id, 0, 0, 0, 0, 0, 0)
+#define PACK_PAYLOAD1(pl, api_id, arg1) \
+	PACK_PAYLOAD(pl, api_id, arg1, 0, 0, 0, 0, 0)
+#define PACK_PAYLOAD2(pl, api_id, arg1, arg2) \
+	PACK_PAYLOAD(pl, api_id, arg1, arg2, 0, 0, 0, 0)
+#define PACK_PAYLOAD3(pl, api_id, arg1, arg2, arg3) \
+	PACK_PAYLOAD(pl, api_id, arg1, arg2, arg3, 0, 0, 0)
+#define PACK_PAYLOAD4(pl, api_id, arg1, arg2, arg3, arg4) \
+	PACK_PAYLOAD(pl, api_id, arg1, arg2, arg3, arg4, 0, 0)
+#define PACK_PAYLOAD5(pl, api_id, arg1, arg2, arg3, arg4, arg5) \
+	PACK_PAYLOAD(pl, api_id, arg1, arg2, arg3, arg4, arg5, 0)
+>>>>>>> sw_services: xilpm: Add checksum support for IPI data
 /**@}*/
 
 /****************************************************************************/
@@ -307,6 +331,19 @@ static XStatus pm_ipi_buff_read32(struct XPm_Master *const master,
 		pm_dbg("%s xilpm: ERROR reading from PMU's IPI response buffer\n", __func__);
 		goto done;
 	}
+
+#ifdef ENABLE_IPI_CRC
+	/*
+	 * Note : The last word response[7] in IPI Msg is reserved for CRC.
+	 * Compute the CRC and compare.
+	 * This is only for safety applications.
+	 */
+	if (response[7] != XPm_CalculateCRC((UINTPTR)response, IPI_W0_TO_W6_SIZE)) {
+		pm_dbg("%s: xilpm: ERROR IPI buffer CRC mismatch\n", __func__);
+		status = XST_FAILURE;
+		goto done;
+	}
+#endif
 
 #ifdef ENABLE_IPI_CRC
 	/*

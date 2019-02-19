@@ -56,6 +56,12 @@ extern "C" {
 
 /* 1 for API ID + 5 for API arguments + 1 for Reserved + 1 for CRC */
 #define PAYLOAD_ARG_CNT		8U
+<<<<<<< HEAD
+=======
+
+/* 1 for status + 3 for values + 3 for Reserved + 1 for CRC */
+#define RESPONSE_ARG_CNT	8U
+>>>>>>> sw_services: xilpm: Add checksum support for IPI data
 
 /* 1 for status + 3 for values + 3 for Reserved + 1 for CRC */
 #define RESPONSE_ARG_CNT	8U
