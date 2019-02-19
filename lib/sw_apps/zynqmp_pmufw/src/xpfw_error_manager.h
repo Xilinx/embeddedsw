@@ -81,6 +81,9 @@ extern "C" {
 #define EM_ACTION_PSERR  4U
 #define EM_ACTION_MAX    5U
 
+/* EM action change permissions */
+#define EM_ACTION_CHANGE_PERM_NONE	0U
+
 
 /* Pointer to Error Handler Function */
 typedef void (*XPfw_ErrorHandler_t) (u8 ErrorId);
@@ -142,6 +145,7 @@ struct XPfw_Error_t {
 	XPfw_ErrorHandler_t Handler;
 	const u8 Type;
 	u8 Action;
+	u32 ChngPerm;
 };
 
 extern struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX];
