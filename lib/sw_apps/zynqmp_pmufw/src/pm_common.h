@@ -106,31 +106,31 @@ typedef struct PmNode PmNode;
 /* Macros for IPI responses (return values and callbacks) */
 #define IPI_RESPONSE1(mask, arg0)				\
 {	\
-	u32 _ipi_resp_data[] = {(arg0)};	\
+	u32 _ipi_resp_data[XPFW_IPI_MAX_MSG_LEN] = {(arg0), 0U, 0U, 0U, 0U, 0U, 0U, 0U};	\
 	XPfw_IpiWriteResponse(PmModPtr, (mask), &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
 }
 
 #define IPI_RESPONSE2(mask, arg0, arg1)				\
 {	\
-	u32 _ipi_resp_data[] = {(arg0), (arg1)};	\
+	u32 _ipi_resp_data[XPFW_IPI_MAX_MSG_LEN] = {(arg0), (arg1), 0U, 0U, 0U, 0U, 0U, 0U};	\
 	XPfw_IpiWriteResponse(PmModPtr, (mask), &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
 }
 
 #define IPI_RESPONSE3(mask, arg0, arg1, arg2)			\
 {	\
-	u32 _ipi_resp_data[] = {(arg0), (arg1), (arg2)};	\
+	u32 _ipi_resp_data[XPFW_IPI_MAX_MSG_LEN] = {(arg0), (arg1), (arg2), 0U, 0U, 0U, 0U, 0U};	\
 	XPfw_IpiWriteResponse(PmModPtr, (mask), &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
 }
 
 #define IPI_RESPONSE4(mask, arg0, arg1, arg2, arg3)		\
 {	\
-	u32 _ipi_resp_data[] = {(arg0), (arg1), (arg2), (arg3)};	\
+	u32 _ipi_resp_data[XPFW_IPI_MAX_MSG_LEN] = {(arg0), (arg1), (arg2), (arg3),0U, 0U, 0U, 0U};	\
 	XPfw_IpiWriteResponse(PmModPtr, (mask), &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
 }
 
 #define IPI_RESPONSE5(mask, arg0, arg1, arg2, arg3, arg4)	\
 {	\
-	u32 _ipi_resp_data[] = {(arg0), (arg1), (arg2), (arg3), (arg4)};	\
+	u32 ipi_resp_data[XPFW_IPI_MAX_MSG_LEN] = {(arg0), (arg1), (arg2), (arg3), (arg4), 0U, 0U, 0U};	\
 	XPfw_IpiWriteResponse(PmModPtr, (mask), &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
 }
 

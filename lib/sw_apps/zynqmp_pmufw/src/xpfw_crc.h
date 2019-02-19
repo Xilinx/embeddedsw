@@ -34,11 +34,11 @@ extern "C" {
 
 #include "xpfw_default.h"
 
-#ifdef ENABLE_SAFETY
+#ifdef ENABLE_IPI_CRC
 
 u32 XPfw_CalculateCRC(u32 BufAddr, u32 BufSize);
 
-#endif /* ENABLE_SAFETY */
+#endif /* ENABLE_IPI_CRC */
 
 #ifdef __cplusplus
 }
