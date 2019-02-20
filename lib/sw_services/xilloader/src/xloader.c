@@ -499,6 +499,35 @@ END:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * This function is used to restart the image in PDI. This function will take
+ * ImageId as an input and based on the subsystem info available, it will read
+ * the image partitions, loads them and hand-off to the required CPUs as part
+ * of the image load.
+ *
+ * @param ImageId Id of the image present in PDI
+ *
+ * @return	returns XLOADER_SUCCESS on success
+ *****************************************************************************/
+int XLoader_RestartImage(u32 ImageId)
+{
+	u32 Status;
+
+	Status = XLoader_LoadImage(SubSystemInfo.PdiPtr, ImageId);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XLoader_StartImage(SubSystemInfo.PdiPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+END:
+	return Status;
+}
+
 #if 0
 /*****************************************************************************/
 /**
