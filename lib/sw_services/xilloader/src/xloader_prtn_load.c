@@ -83,33 +83,38 @@ static void XLoader_UpdateHandoffParam(XilPdi* PdiPtr, u32 PrtnNum);
  *			returns XST_SUCCESS on success
  *
  *****************************************************************************/
-int XLoader_PrtnLoad(XilPdi* PdiPtr, u32 PrtnNum)
+int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum)
 {
 	int Status;
+	u32 PrtnIndex;
 
-	/* Load and validate the partition */
+	/* Validate and load the image partitions */
 
-	/* Prtn Hdr Validation */
-	Status = XLoader_PrtnHdrValidation(PdiPtr, PrtnNum);
+	for (PrtnIndex = 0; PrtnIndex < PdiPtr->MetaHdr.ImgHdr[ImgNum].NoOfPrtns; PrtnIndex++)
+	{
+		/* Prtn Hdr Validation */
+		Status = XLoader_PrtnHdrValidation(PdiPtr, PrtnNum);
 
-	/* PLM is not partition owner and skip this partition */
-	if (Status == XLOADER_SUCCESS_NOT_PRTN_OWNER)
-	{
-		Status = XST_SUCCESS;
-		goto END;
-	} else if (XST_SUCCESS != Status)
-	{
-		goto END;
-	} else
-	{
-		/* For MISRA C compliance */
-	}
+		/* PLM is not partition owner and skip this partition */
+		if (Status == XLOADER_SUCCESS_NOT_PRTN_OWNER)
+		{
+			Status = XST_SUCCESS;
+			goto END;
+		} else if (XST_SUCCESS != Status)
+		{
+			goto END;
+		} else
+		{
+			/* For MISRA C compliance */
+		}
 
-	/* Process Partition */
-	Status = XLoader_ProcessPrtn(PdiPtr, PrtnNum);
-	if (XST_SUCCESS != Status)
-	{
-		goto END;
+		/* Process Partition */
+		Status = XLoader_ProcessPrtn(PdiPtr, PrtnNum);
+		if (XST_SUCCESS != Status)
+		{
+			goto END;
+		}
+		PrtnNum++;
 	}
 
 END:

@@ -118,13 +118,7 @@ int XPlm_LoadBootPdi(void *arg)
 		goto END;
 	}
 
-        Status = XLoader_LoadSubSystemPdi(PdiPtr);
-	if (Status != XST_SUCCESS)
-	{
-		goto END;
-	}
-
-        Status = XLoader_StartSubSystemPdi(PdiPtr);
+    Status = XLoader_LoadAndStartSubSystemPdi(PdiPtr);
 	if (Status != XST_SUCCESS)
 	{
 		goto END;
