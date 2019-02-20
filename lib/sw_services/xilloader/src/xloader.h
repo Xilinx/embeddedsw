@@ -182,6 +182,8 @@ int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr);
 int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId);
 int XLoader_StartImage(XilPdi *PdiPtr);
 XLoader* XLoader_GetLoaderInstancePtr(void);
+int XLoader_RestartImage(u32 ImageId);
+
 /* functions defined in xloader_prtn_load.c */
 int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum);
 /* function defined in xloader_cfi.c */
