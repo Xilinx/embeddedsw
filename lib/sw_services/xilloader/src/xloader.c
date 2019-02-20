@@ -278,21 +278,14 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	}
 
 	/*
-	 * In SMAP or JTAG bootmode, next data that comes is Image headers
-	 * read the image headers
+	 * Read and verify image headers
 	 */
-	if ((PdiSrc == XLOADER_PDI_SRC_SMAP) ||
-		(PdiSrc == XLOADER_PDI_SRC_JTAG))
+	Status = XilPdi_ReadAndVerifyImgHdr(&(PdiPtr->MetaHdr));
+	if (XST_SUCCESS != Status)
 	{
-		/* Read image Hdrs */
-		Status = XilPdi_ReadAndVerifyImgHdr(&(PdiPtr->MetaHdr));
-		if (XST_SUCCESS != Status)
-		{
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMGHDR, Status);
-			goto END;
-		}
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMGHDR, Status);
+		goto END;
 	}
-
 
 	Status = XilPdi_ReadAndVerifyPrtnHdr(&PdiPtr->MetaHdr);
 	if(Status != XST_SUCCESS)
