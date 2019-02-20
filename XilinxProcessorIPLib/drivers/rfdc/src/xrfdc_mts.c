@@ -29,7 +29,7 @@
 /**
 *
 * @file xrfdc_mts.c
-* @addtogroup xrfdc_v5_1
+* @addtogroup xrfdc_v6_0
 * @{
 *
 * Contains the multi tile sync functions of the XRFdc driver.
@@ -52,6 +52,8 @@
 *                       optimization.
 * 5.1   cog    01/29/19 Replace structure reference ADC checks with
 *                       function.
+* 6.0   cog    02/17/19 Added XRFdc_GetMTSEnable API.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -1255,5 +1257,52 @@ u32 XRFdc_MultiConverter_Sync(XRFdc *InstancePtr, u32 Type,
 
 	return Status;
 }
+/*****************************************************************************/
+/**
+*
+* This is the top level API which will be used to check if Multi-tile
+* is enabled.
+*
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC.
+* @param	Tile_Id indicates Tile number (0-3).
+* @param	EnablePtr to be filled with the enable state.
+*
+* @return
+* 		- XRFDC_SUCCESS if successful.
+*		- XRFDC_SUCCESS if error occurs.
+*
+* @note		None
+*
+******************************************************************************/
+u32 XRFdc_GetMTSEnable(XRFdc *InstancePtr, u32 Type,u32 Tile_Id, u32 *EnablePtr)
+{
+	u32 RegData;
+	u32 BaseAddr;
+	u32 Status;
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(EnablePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
+	Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Tile_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR,
+			  "\n Requested Tile not "
+			  "available in %s\r\n",
+			  __func__);
+		goto RETURN_PATH;
+	}
+
+	BaseAddr = XRFDC_DRP_BASE(Type, Tile_Id) - XRFDC_TILE_DRP_OFFSET;
+	RegData  = XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_MTS_DLY_ALIGNER);
+	if (RegData == 0) {
+		*EnablePtr = 0;
+	} else {
+		*EnablePtr = 1;
+	}
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
 /** @} */

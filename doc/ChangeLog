@@ -1,5 +1,16 @@
 Changes for 2019.1
 ===============================
+rfdc_v6_0:
+New interpolaton & decimation modes (IP dependent).
+New Image Reject Filter (IP dependent).
+New DAC modes (IP dependent).
+Second Nyquist zone inerse sinc filter (IP dependent).
+Support for alternative DAC bondout (IP dependent).
+New ADC signal detector (IP dependent).
+New calibration override APIs (IP dependent).
+Extended coarse delay (IP dependent).
+New clock distribution network with integer clock division(IP dependent).
+
 libmetal_v2_0:
 Sync up libmetal upstream 5774af1b8e28ea39cbf92ae131eee4f93af699b2
 CPP atomic bug fix;
@@ -105,6 +116,17 @@ Updated usbpsu.tcl to fix the logic for generating SUPER_SPEED paramter
 mcdma_v1_3:
 In mcdma examples remove snoop enable and dependency on HPC_DESIGN macro.
 In driver tcl enable CCI only for EL1 non-secure state.
+
+Changes for 2018.3.1
+===============================
+rfdc_v5_1:
+Now get maximum FS from IP.
+Determinig ADC Type now on a per-tile basis.
+The wrong fabric rate was being used for a 2GSPS ADC at a
+decimation rate of 8.The wrong fabric rate was being used
+for a 2GSPS ADC at a decimation rate of 8.
+The paramater "DataType" is now "MixerInputDataType".
+Added APIs to set and get IM3 Dither.
 
 Changes for 2018.3
 ===============================
