@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xrfdc_clock.c
-* @addtogroup xrfdc_v7_0
+* @addtogroup rfdc_v8_0
 * @{
 *
 * Contains the interface functions of the Mixer Settings in XRFdc driver.
@@ -57,6 +37,13 @@
 *       cog    10/02/19 Moved new external clock output divider functionallity from
 *                       the clock distribution to XRFdc_DynamicPLLConfig() API.
 *       cog    10/02/19 Refactor of XRFdc_GetClkDistribution() API.
+* 7.1   cog    12/20/19 Metal log messages are now more descriptive.
+*       cog    01/08/20 Changed clocking checks to allow ADC distribution to all
+*                       ADC tiles.
+*       cog    01/29/20 Fixed metal log typos.
+* 8.0   cog    02/10/20 Updated addtogroup.
+*       cog    03/20/20 Updated PowerState masks for Gen3.
+*       cog    04/06/20 Fix GCC warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -108,27 +95,31 @@ static u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, X
 	u16 DistCtrlReg;
 	u16 PLLRefDivReg;
 	u32 TileIndex;
+	u32 PowerStateMaskReg;
 
 	TileIndex = (Type == XRFDC_DAC_TILE) ? (XRFDC_CLK_DST_TILE_228 - Tile_Id) : (XRFDC_CLK_DST_TILE_224 - Tile_Id);
 	Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Tile_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_INFO, "\n Requested Tile (%s%u) not available - Skipping in %s\r\n",
+		metal_log(METAL_LOG_INFO, "\n Requested Tile (%s %u) not available - Skipping in %s\r\n",
 			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		Status = XRFDC_SUCCESS;
 		goto RETURN_PATH;
 	}
 	if (SettingsPtr->DistributedClock > XRFDC_DIST_OUT_OUTDIV) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid Parameter Value for Distribution Out in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Parameter Value for Distribution Out (%u) for %s %u in %s\r\n",
+			  SettingsPtr->DistributedClock, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
 	if (SettingsPtr->PLLEnable > XRFDC_ENABLED) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid Parameter Value for PLLEnable in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Parameter Value for PLLEnable (%u) for %s %u %s\r\n",
+			  SettingsPtr->PLLEnable, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
 	if ((SettingsPtr->SourceTile != TileIndex) && (SettingsPtr->DistributedClock != XRFDC_DIST_OUT_NONE)) {
-		metal_log(METAL_LOG_ERROR, "\n Cannot Redistribute Clock in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Cannot Redistribute Clock in (%s %u is not a source tile)%s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -140,7 +131,8 @@ static u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, X
 						SettingsPtr->PLLSettings.RefClkFreq,
 						SettingsPtr->PLLSettings.SampleRate);
 		if (Status != XRFDC_SUCCESS) {
-			metal_log(METAL_LOG_ERROR, "\n Could not set up PLL in %s\r\n", __func__);
+			metal_log(METAL_LOG_ERROR, "\n Could not set up PLL for %s %u %s\r\n",
+				  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 			goto RETURN_PATH;
 		}
 	} else {
@@ -149,7 +141,8 @@ static u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, X
 						SettingsPtr->PLLSettings.RefClkFreq,
 						SettingsPtr->PLLSettings.SampleRate);
 		if (Status != XRFDC_SUCCESS) {
-			metal_log(METAL_LOG_ERROR, "\n Could not set up external clocking in %s\r\n", __func__);
+			metal_log(METAL_LOG_ERROR, "\n Could not set up external clocking for %s %u %s\r\n",
+				  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 			goto RETURN_PATH;
 		}
 	}
@@ -173,6 +166,15 @@ static u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, X
 					*/
 					NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_T1_SRC_LOCAL;
 					DistCtrlReg |= XRFDC_DIST_CTRL_CLK_T1_SRC_LOCAL;
+					PowerStateMaskReg = XRFDC_HSCOM_PWR_STATS_DIST_EXT_SRC;
+				} else {
+					/*
+					T1 from Self
+					No PLL
+					Use PLL Output Divider
+					Do Not Distribute
+					*/
+					PowerStateMaskReg = XRFDC_HSCOM_PWR_STATS_DIST_EXT_DIV_SRC;
 				}
 			} else {
 				/*
@@ -182,6 +184,7 @@ static u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, X
 				Do Not Distribute
 				*/
 				NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_REC_PLL;
+				PowerStateMaskReg = XRFDC_HSCOM_PWR_STATS_RX_PLL;
 			}
 		} else {
 			if (SettingsPtr->PLLEnable == XRFDC_DISABLED) {
@@ -198,6 +201,7 @@ static u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, X
 					NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_T1_SRC_DIST;
 					DistCtrlReg |= XRFDC_DIST_CTRL_TO_T1;
 					DistCtrlReg |= XRFDC_DIST_CTRL_DIST_SRC_LOCAL;
+					PowerStateMaskReg = XRFDC_HSCOM_PWR_STATS_DIST_EXT_SRC;
 				} else if (SettingsPtr->DistributedClock == XRFDC_DIST_OUT_RX) {
 					/*
 					RX Back From Distribution
@@ -208,6 +212,7 @@ static u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, X
 					NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_INPUT_DIST;
 					DistCtrlReg |= XRFDC_DIST_CTRL_TO_PLL_DIV;
 					DistCtrlReg |= XRFDC_DIST_CTRL_DIST_SRC_LOCAL;
+					PowerStateMaskReg = XRFDC_HSCOM_PWR_STATS_DIST_EXT_DIV_SRC;
 				} else {
 					/*
 					PLL Output Divider Back From Distribution
@@ -220,6 +225,7 @@ static u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, X
 					NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_INPUT_DIST;
 					DistCtrlReg |= XRFDC_DIST_CTRL_TO_PLL_DIV;
 					DistCtrlReg |= XRFDC_DIST_CTRL_DIST_SRC_PLL;
+					PowerStateMaskReg = XRFDC_HSCOM_PWR_STATS_DIST_EXT_DIV_SRC;
 				}
 
 			} else {
@@ -234,12 +240,14 @@ static u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, X
 					PLLRefDivReg |= XRFDC_PLLREFDIV_INPUT_DIST;
 					DistCtrlReg |= XRFDC_DIST_CTRL_TO_PLL_DIV;
 					DistCtrlReg |= XRFDC_DIST_CTRL_DIST_SRC_LOCAL;
+					PowerStateMaskReg = XRFDC_HSCOM_PWR_STATS_RX_PLL;
 				} else {
 					NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_T1_SRC_DIST;
 					NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_REC_PLL;
 					PLLRefDivReg |= XRFDC_PLLOPDIV_INPUT_DIST_LOCAL;
 					DistCtrlReg |= XRFDC_DIST_CTRL_TO_T1;
 					DistCtrlReg |= XRFDC_DIST_CTRL_DIST_SRC_PLL;
+					PowerStateMaskReg = XRFDC_HSCOM_PWR_STATS_RX_PLL;
 				}
 			}
 		}
@@ -255,6 +263,7 @@ static u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, X
 				*/
 				NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_INPUT_DIST;
 				DistCtrlReg |= XRFDC_DIST_CTRL_TO_PLL_DIV;
+				PowerStateMaskReg = XRFDC_HSCOM_PWR_STATS_DIST_EXT_DIV;
 			} else {
 				/*
 				Source From Distribution
@@ -264,6 +273,8 @@ static u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, X
 				*/
 				NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_T1_SRC_DIST;
 				DistCtrlReg |= XRFDC_DIST_CTRL_TO_T1;
+				PowerStateMaskReg = ((Type == XRFDC_ADC_TILE) ? XRFDC_HSCOM_PWR_STATS_DIST_EXT_DIV :
+										XRFDC_HSCOM_PWR_STATS_DIST_EXT);
 			}
 		} else {
 			/*
@@ -274,6 +285,7 @@ static u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, X
 			*/
 			PLLRefDivReg |= XRFDC_PLLREFDIV_INPUT_DIST;
 			DistCtrlReg |= XRFDC_DIST_CTRL_TO_PLL_DIV;
+			PowerStateMaskReg = XRFDC_HSCOM_PWR_STATS_DIST_PLL;
 		}
 	}
 
@@ -287,6 +299,7 @@ static u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, X
 	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_HSCOM_CLK_DSTR_OFFSET, XRFDC_HSCOM_CLK_DSTR_MASK_ALT, DistCtrlReg);
 	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CLK_NETWORK_CTRL1, XRFDC_HSCOM_NETWORK_CTRL1_MASK, NetworkCtrlReg);
 	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_PLL_REFDIV, XRFDC_PLL_REFDIV_MASK, PLLRefDivReg);
+	XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET, PowerStateMaskReg);
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
 	return Status;
@@ -334,20 +347,18 @@ static u32 XRFdc_CheckClkDistValid(XRFdc *InstancePtr, XRFdc_Distribution_Settin
 		}
 		if (*Source < LowBoundary) {
 			Status = XRFDC_FAILURE; /*SW: no hopovers*/
-			metal_log(METAL_LOG_ERROR, "\n Invalid Configuration Hopping Over Not Allowed in %s\r\n",
-				  __func__);
+			metal_log(METAL_LOG_ERROR, "\n Hopping Over Tiles Not Allowed in %s\r\n", __func__);
 			goto RETURN_PATH;
 		}
 		if (Sources[*Source] != *Source) { /*SW: check source is a distributer*/
 			Status = XRFDC_FAILURE;
-			metal_log(METAL_LOG_ERROR,
-				  "\n Invalid Source Sourcing from Tile that is not Distributing in %s\r\n", __func__);
+			metal_log(METAL_LOG_ERROR, "\n Sourcing from Tile that is not Distributing in %s\r\n",
+				  __func__);
 			goto RETURN_PATH;
 		}
 		if ((CurrentTile < XRFDC_CLK_DST_TILE_227) &&
 		    (*Source > XRFDC_CLK_DST_TILE_228)) { /*Cut between ADC0 MUX8 && DAC3 STH*/
-			metal_log(METAL_LOG_ERROR, "\n Invalid Configuration DAC Cannot Source from ADC in %s\r\n",
-				  __func__);
+			metal_log(METAL_LOG_ERROR, "\n DAC Cannot Source from ADC in %s\r\n", __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
@@ -361,15 +372,13 @@ static u32 XRFdc_CheckClkDistValid(XRFdc *InstancePtr, XRFdc_Distribution_Settin
 							XRFDC_HSCOM_ADDR,
 						XRFDC_HSCOM_EFUSE_2_OFFSET);
 		}
-		/*if PKG <2*/
-
 		if ((DistributionSettingsPtr->DAC[0].SourceTile != DistributionSettingsPtr->DAC[1].SourceTile) ||
 		    (DistributionSettingsPtr->DAC[0].SourceTile != DistributionSettingsPtr->DAC[2].SourceTile) ||
 		    (DistributionSettingsPtr->DAC[0].SourceTile != DistributionSettingsPtr->DAC[3].SourceTile) ||
-		    (DistributionSettingsPtr->DAC[0].SourceTile != DistributionSettingsPtr->ADC[0].SourceTile) ||
-		    (DistributionSettingsPtr->DAC[0].SourceTile != DistributionSettingsPtr->ADC[1].SourceTile) ||
-		    (DistributionSettingsPtr->DAC[0].SourceTile != DistributionSettingsPtr->ADC[2].SourceTile) ||
 		    (DistributionSettingsPtr->DAC[0].SourceTile != DistributionSettingsPtr->ADC[3].SourceTile) ||
+		    (DistributionSettingsPtr->DAC[0].SourceTile != DistributionSettingsPtr->ADC[2].SourceTile) ||
+		    (DistributionSettingsPtr->DAC[0].SourceTile != DistributionSettingsPtr->ADC[1].SourceTile) ||
+		    (DistributionSettingsPtr->DAC[0].SourceTile != DistributionSettingsPtr->ADC[0].SourceTile) ||
 		    (DistributionSettingsPtr->DAC[0].PLLEnable != XRFDC_ENABLED) ||
 		    (DistributionSettingsPtr->DAC[1].PLLEnable != XRFDC_ENABLED) ||
 		    (DistributionSettingsPtr->DAC[2].PLLEnable != XRFDC_ENABLED) ||
@@ -377,42 +386,13 @@ static u32 XRFdc_CheckClkDistValid(XRFdc *InstancePtr, XRFdc_Distribution_Settin
 		    (DistributionSettingsPtr->ADC[0].PLLEnable != XRFDC_ENABLED) ||
 		    (DistributionSettingsPtr->ADC[1].PLLEnable != XRFDC_ENABLED) ||
 		    (DistributionSettingsPtr->ADC[2].PLLEnable != XRFDC_ENABLED) ||
-		    (DistributionSettingsPtr->ADC[3].PLLEnable != XRFDC_ENABLED) ||
-		    1) { /*special case that is allowed.*/
+		    (DistributionSettingsPtr->ADC[3].PLLEnable != XRFDC_ENABLED)) { /*special case that is allowed.*/
 
-			/*if PKG <2*/
 			if (EFuse & XRFDC_PREMIUMCTRL_CLKDIST) {
 				if ((CurrentTile > XRFDC_CLK_DST_TILE_226) &&
-				    (*Source != CurrentTile)) { /*E: no dist past adc1*/
+				    (*Source < XRFDC_CLK_DST_TILE_227)) { /*E: no dist past adc2*/
 					Status = XRFDC_FAILURE;
-					metal_log(METAL_LOG_ERROR,
-						  "\n Invalid Configuration - Licensing - Not Premium in %s\r\n",
-						  __func__);
-					goto RETURN_PATH;
-				}
-			}
-			/*if PKG <1*/
-			if ((EFuse & XRFDC_EXPORTCTRL_CLKDIST) == XRFDC_EXPORTCTRL_CLKDIST) {
-				if ((CurrentTile > XRFDC_CLK_DST_TILE_228) &&
-				    (*Source != CurrentTile)) { /*E: No ADC Dist*/
-					Status = XRFDC_FAILURE;
-					metal_log(METAL_LOG_ERROR, "\n Invalid Configuration - Licensing in %s\r\n",
-						  __func__);
-					goto RETURN_PATH;
-				}
-				if ((CurrentTile == XRFDC_CLK_DST_TILE_228) &&
-				    (*Source != XRFDC_CLK_DST_TILE_229)) { /*E: DAC0 must source from DAC1*/
-					Status = XRFDC_FAILURE;
-					metal_log(METAL_LOG_ERROR,
-						  "\n Invalid Configuration - Licensing in - Export Control %s\r\n",
-						  __func__);
-					goto RETURN_PATH;
-				}
-				if ((CurrentTile == XRFDC_CLK_DST_TILE_230) &&
-				    (*Source != XRFDC_CLK_DST_TILE_231)) { /*E: DAC2 must source from DAC3*/
-					Status = XRFDC_FAILURE;
-					metal_log(METAL_LOG_ERROR, "\n Invalid Configuration - Licensing in %s\r\n",
-						  __func__);
+					metal_log(METAL_LOG_ERROR, "\n Invalid Configuration in %s\r\n", __func__);
 					goto RETURN_PATH;
 				}
 			}
@@ -524,8 +504,8 @@ static u32 XRFdc_StartUpDist(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 
 	/*DAC0 Must reach state 4 in Startup FSM*/
 	for (i = 0; i < 4; i++) {
-		XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_DAC_TILE, i), 8, 0x1f, 0xFF);
-		XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, i), 8, 0x1f, 0xFF);
+		XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_DAC_TILE, i), 8, 0x10f, 0x10F);
+		XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, i), 8, 0x10f, 0x10F);
 		XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_DAC_TILE, i), 4, 0x1, 1);
 		XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, i), 4, 0x1, 1);
 	}
@@ -1107,7 +1087,8 @@ u32 XRFdc_GetClockSource(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 *ClockSo
 
 	Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Tile_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested tile not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested tile (%s %u) not available in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -1161,14 +1142,15 @@ u32 XRFdc_GetPLLLockStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 *LockS
 	 * Get Tile clock source information
 	 */
 	if (XRFdc_GetClockSource(InstancePtr, Type, Tile_Id, &ClkSrc) != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Get clock source request Tile %d failed in %s\r\n", Tile_Id, __func__);
+		metal_log(METAL_LOG_ERROR, "\n Get clock source request %s %u failed in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
 
 	if (ClkSrc == XRFDC_EXTERNAL_CLK) {
-		metal_log(METAL_LOG_DEBUG, "\n Requested Tile %d uses external clock source in %s\r\n", Tile_Id,
-			  __func__);
+		metal_log(METAL_LOG_DEBUG, "\n %s %u uses external clock source in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		*LockStatusPtr = XRFDC_PLL_LOCKED;
 	} else {
 		if (Type == XRFDC_ADC_TILE) {
@@ -1257,7 +1239,10 @@ static u32 XRFdc_SetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double 
 				 * IP currently supporting 1 to 4 divider values. This
 				 * error condition might change in future based on IP update.
 				 */
-			metal_log(METAL_LOG_ERROR, "\n Unsupported Reference clock Divider value in %s\r\n", __func__);
+			metal_log(METAL_LOG_ERROR,
+				  "\n Unsupported Reference clock Divider value (%u) for %s %u in %s\r\n",
+				  (ReadReg & XRFDC_REFCLK_DIV_MASK), (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id,
+				  __func__);
 			return XRFDC_FAILURE;
 		}
 	}
@@ -1573,7 +1558,8 @@ u32 XRFdc_GetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_PLL_Sett
 
 	Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Tile_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested tile not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested tile (%s %u) not available in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -1634,8 +1620,10 @@ u32 XRFdc_GetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_PLL_Sett
 					 * IP currently supporting 1 to 4 divider values. This
 					 * error condition might change in future based on IP update.
 					 */
-				metal_log(METAL_LOG_ERROR, "\n Unsupported Reference clock Divider value in %s\r\n",
-					  __func__);
+				metal_log(METAL_LOG_ERROR,
+					  "\n Unsupported Reference clock Divider value (%u) for %s %u in %s\r\n",
+					  (ReadReg & XRFDC_REFCLK_DIV_MASK), (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC",
+					  Tile_Id, __func__);
 				Status = XRFDC_FAILURE;
 				goto RETURN_PATH;
 			}
@@ -1662,7 +1650,8 @@ u32 XRFdc_GetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_PLL_Sett
 			OutputDivider = ((ReadReg & XRFDC_PLL_DIVIDER0_VALUE_MASK) + 2) << 1;
 			break;
 		default:
-			metal_log(METAL_LOG_ERROR, "\n Unsupported Output clock Divider value in %s\r\n", __func__);
+			metal_log(METAL_LOG_ERROR, "\n Unsupported Output clock Divider value (%u) for %s %u in %s\r\n",
+				  DivideMode, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 			break;
@@ -1709,7 +1698,7 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 	u32 ClkSrc = 0U;
 	u32 Status;
 	u32 BaseAddr;
-	u32 PLLEnable = 0x0;
+	u32 PLLEnable = 0x0U;
 	u32 InitialPowerUpState;
 	double MaxSampleRate;
 	double MinSampleRate;
@@ -1718,19 +1707,22 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 	u32 PLLFS;
 	u32 DivideMode;
 	u32 DivideValue;
+	u32 NetCtrlReg = 0x0U;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
 	if ((Source != XRFDC_INTERNAL_PLL_CLK) && (Source != XRFDC_EXTERNAL_CLK)) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid Source value in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Source value (%u) for %s %u in %s\r\n", Source,
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
 
 	Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Tile_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested tile not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested tile (%s %u) not available in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -1751,7 +1743,8 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 		goto RETURN_PATH;
 	}
 	if ((SamplingRate < MinSampleRate) || (SamplingRate > MaxSampleRate)) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid sampling rate value in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid sampling rate value (%lf) for %s %u in %s\r\n", SamplingRate,
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -1762,8 +1755,9 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 		if ((RefClkFreq < XRFDC_REFFREQ_MIN) || (RefClkFreq > XRFDC_REFFREQ_MAX)) {
 			metal_log(
 				METAL_LOG_ERROR,
-				"\n Input reference clock frequency does not respect the specifications for internal PLL usage. Please use a different frequency or bypass the internal PLL in %s\r\n",
-				__func__);
+				"\n Input reference clock frequency (%lf MHz) does not respect the specifications for internal PLL usage. Please use a different frequency (%lf - %lf MHz) or bypass the internal PLL for %s %u in %s\r\n",
+				RefClkFreq, XRFDC_REFFREQ_MIN, XRFDC_REFFREQ_MAX,
+				(Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
@@ -1775,8 +1769,8 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 	XRFdc_WriteReg(InstancePtr, BaseAddr, XRFDC_PLL_FS, PLLFS);
 	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 		if ((Source != XRFDC_INTERNAL_PLL_CLK) && (ClkSrc != XRFDC_INTERNAL_PLL_CLK)) {
-			metal_log(METAL_LOG_DEBUG, "\n Requested Tile %d uses external clock source in %s\r\n", Tile_Id,
-				  __func__);
+			metal_log(METAL_LOG_DEBUG, "\n Requested tile (%s %u) uses external clock source in %s\r\n",
+				  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 			if (Type == XRFDC_ADC_TILE) {
 				InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate = (double)(SamplingRate / 1000);
 				InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.RefClkFreq = RefClkFreq;
@@ -1811,6 +1805,11 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 			goto RETURN_PATH;
 		}
 	}
+
+	if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
+		NetCtrlReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_CLK_NETWORK_CTRL1);
+	}
+
 	if (Source == XRFDC_INTERNAL_PLL_CLK) {
 		PLLEnable = 0x1;
 		/*
@@ -1823,15 +1822,25 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 		if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_PLL_DIVIDER0, XRFDC_PLL_DIVIDER0_BYP_PLL_MASK,
 					XRFDC_DISABLED);
+			if ((NetCtrlReg & XRFDC_CLK_NETWORK_CTRL1_REGS_MASK) != XRFDC_DISABLED) {
+				XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET,
+						 XRFDC_HSCOM_PWR_STATS_RX_PLL);
+			} else {
+				XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET,
+						 XRFDC_HSCOM_PWR_STATS_DIST_PLL);
+			}
+		} else {
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CLK_NETWORK_CTRL1,
+					XRFDC_CLK_NETWORK_CTRL1_USE_PLL_MASK, XRFDC_CLK_NETWORK_CTRL1_USE_PLL_MASK);
+			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET,
+					 XRFDC_HSCOM_PWR_STATS_PLL);
 		}
-		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CLK_NETWORK_CTRL1, XRFDC_CLK_NETWORK_CTRL1_USE_PLL_MASK,
-				XRFDC_CLK_NETWORK_CTRL1_USE_PLL_MASK);
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET, XRFDC_HSCOM_PWR_STATS_PLL);
 	} else {
 		if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
 			OpDiv = PLLFreq / PLLFS;
 			if ((OpDiv == 0) || ((OpDiv > 3) && (OpDiv % 2))) {
-				metal_log(METAL_LOG_ERROR, "\n No valid output divisor available in %s\r\n", __func__);
+				metal_log(METAL_LOG_ERROR, "\n No valid output divisor available for %s %u in %s\r\n",
+					  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 				Status = XRFDC_FAILURE;
 				goto RETURN_PATH;
 			}
@@ -1849,18 +1858,36 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 				DivideMode = XRFDC_PLL_OUTDIV_MODE_N;
 				DivideValue = ((OpDiv - 4U) >> 1);
 			}
+			if (OpDiv == 1) {
+				if ((NetCtrlReg & XRFDC_CLK_NETWORK_CTRL1_REGS_MASK) != XRFDC_DISABLED) {
+					XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET,
+							 XRFDC_HSCOM_PWR_STATS_DIST_EXT_SRC);
+				} else {
+					XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET,
+							 XRFDC_HSCOM_PWR_STATS_DIST_EXT);
+				}
 
+			} else {
+				if ((NetCtrlReg & XRFDC_CLK_NETWORK_CTRL1_REGS_MASK) != XRFDC_DISABLED) {
+					XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET,
+							 XRFDC_HSCOM_PWR_STATS_DIST_EXT_DIV_SRC);
+				} else {
+					XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET,
+							 XRFDC_HSCOM_PWR_STATS_DIST_EXT_DIV);
+				}
+			}
 			XRFdc_ClrSetReg(InstancePtr, XRFDC_DRP_BASE(Type, Tile_Id) + XRFDC_HSCOM_ADDR,
 					XRFDC_PLL_DIVIDER0, (XRFDC_PLL_DIVIDER0_ALT_MASK | XRFDC_PLL_DIVIDER0_MASK),
 					((DivideMode << XRFDC_PLL_DIVIDER0_SHIFT) | DivideValue |
 					 XRFDC_PLL_DIVIDER0_BYP_PLL_MASK));
 		} else {
 			OpDiv = 0; /*keep backwards compatibility */
+			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET,
+					 XRFDC_HSCOM_PWR_STATS_EXTERNAL);
 		}
 
 		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CLK_NETWORK_CTRL1, XRFDC_CLK_NETWORK_CTRL1_USE_PLL_MASK,
-				0x0);
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET, XRFDC_HSCOM_PWR_STATS_EXTERNAL);
+				XRFDC_DISABLED);
 		SamplingRate /= XRFDC_MILLI;
 
 		if (Type == XRFDC_ADC_TILE) {

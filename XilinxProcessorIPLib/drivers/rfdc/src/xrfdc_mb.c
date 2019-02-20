@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xrfdc_mb.c
-* @addtogroup xrfdc_v7_0
+* @addtogroup rfdc_v8_0
 * @{
 *
 * Contains the interface functions of the Mixer Settings in XRFdc driver.
@@ -41,6 +21,10 @@
 * 6.0   cog    02/17/18 Initial release/handle alternate bound out.
 * 7.0   cog    05/13/19 Formatting changes.
 *       cog    08/02/19 Formatting changes.
+* 7.1   cog    12/20/19 Metal log messages are now more descriptive.
+*       cog    01/29/20 Fixed metal log typos.
+* 8.0   cog    02/10/20 Updated addtogroup.
+*       cog    03/20/20 Clock enables for new bondout.
 *
 * </pre>
 *
@@ -498,7 +482,8 @@ static u32 XRFdc_UpdateMBConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 No
 		*ModePtr = XRFDC_MULTIBAND_MODE_4X;
 		MultibandConfig = XRFDC_MB_MODE_4X;
 	} else {
-		metal_log(METAL_LOG_ERROR, "\n Invalid DigitalDataPathMask value in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Number of Datapaths (%u) for %s %u in %s\r\n", NoOfDataPaths,
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -552,20 +537,23 @@ u32 XRFdc_MultiBand(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 DigitalDataPat
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
 	if ((DigitalDataPathMask == 0U) || (DigitalDataPathMask > 0xFU)) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid DigitalDataPathMask value in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid DigitalDataPathMask value (0x%x) for %s %u in %s\r\n",
+			  DigitalDataPathMask, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
 
 	if ((DataConverterMask == 0U) || (DataConverterMask > 0xFU)) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid DataConverterMask value in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid DataConverterMask value (0x%x) for %s %u in %s\r\n",
+			  DataConverterMask, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
 
 	if ((MixerInOutDataType != XRFDC_MB_DATATYPE_C2C) && (MixerInOutDataType != XRFDC_MB_DATATYPE_R2C) &&
 	    (MixerInOutDataType != XRFDC_MB_DATATYPE_C2R)) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid MixerInOutDataType value in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid MixerInOutDataType value (%u) for %s %u in %s\r\n",
+			  MixerInOutDataType, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -580,7 +568,8 @@ u32 XRFdc_MultiBand(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 DigitalDataPat
 			NoOfDataConverters += 1U;
 			Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 			if (Status != XRFDC_SUCCESS) {
-				metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+				metal_log(METAL_LOG_ERROR, "\n %s %u block %u not available in %s\r\n",
+					  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 				goto RETURN_PATH;
 			}
 		}
@@ -589,8 +578,8 @@ u32 XRFdc_MultiBand(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 DigitalDataPat
 			NoOfDataPaths += 1U;
 			Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 			if (Status != XRFDC_SUCCESS) {
-				metal_log(METAL_LOG_ERROR, "\n Requested block digital path not enabled in %s\r\n",
-					  __func__);
+				metal_log(METAL_LOG_ERROR, "\n %s %u digital path %u not enabled in %s\r\n",
+					  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 				goto RETURN_PATH;
 			}
 		}
@@ -604,10 +593,14 @@ u32 XRFdc_MultiBand(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 DigitalDataPat
 				XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK, XRFDC_ENABLED << XRFDC_ALT_BOND_SHIFT);
 		XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID2),
 				XRFDC_DAC_MB_CFG_OFFSET, XRFDC_ALT_BOND_MASK, XRFDC_ENABLED << XRFDC_ALT_BOND_SHIFT);
+		XRFdc_ClrSetReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, XRFDC_BLK_ID1),
+				XRFDC_CLK_EN_OFFSET, XRFDC_ALT_BOND_CLKDP_MASK,
+				XRFDC_ENABLED << XRFDC_ALT_BOND_CLKDP_SHIFT);
 	}
 
 	if (BlockIndex[0] != DataPathIndex[0]) {
-		metal_log(METAL_LOG_ERROR, "\n Not a valid MB/SB combination in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Not a valid MB/SB combination for %s %u block %u in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
