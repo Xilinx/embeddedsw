@@ -127,13 +127,23 @@ typedef struct {
 } XilPdi;
 
 /**
- * This is Subsystem instance pointer. This stores all the information
- * required for Subsystem
+ * This stores all the information required for Subsystem
  */
 typedef struct {
 	u32 SubsystemId; /**< Corresponding subsystem ID */
-	XilPdi *PdiPtr; /**< PDI source for that Subsystem */
 	u32 ImageId; /**< Corresponding Image ID in the PDI */
+	u32 ImageNum; /**< Corresponding Image Number in the PDI */
+	u32 PrtnNum; /**< Corresponding Partition Number in the PDI */
+} XilSubsysInfo;
+
+/**
+ * This is a subsystem instance pointer. This stores all the information
+ * required for subsystem along with subsystem count
+ */
+typedef struct {
+	XilSubsysInfo SubsystemLut[10]; /**< Subsystem lookup table */
+	XilPdi *PdiPtr; /**< PDI source for that Subsystem */
+	u32 Count; /**< Subsystem count */
 } XilSubsystem;
 
 /**
@@ -163,17 +173,17 @@ int XSubSys_Init(u32 * CdoBuf);
 int XSubSys_LoadPdi(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr);
 int XSubSys_CopyPdi(u32 PdiSrc, u64 SrcAddr, u64 DestAddr, u32 PdiLen);
 int XSubSys_ReStart(u32 SubsysHd);
-int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId);
 int XLoader_StartImage(XilPdi *PdiPtr, u32 ImageId);
 #endif
 
 int XLoader_Init();
 int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr);
-int XLoader_LoadSubSystemPdi(XilPdi *PdiPtr);
-int XLoader_StartSubSystemPdi(XilPdi *PdiPtr);
+int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr);
+int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId);
+int XLoader_StartImage(XilPdi *PdiPtr);
 XLoader* XLoader_GetLoaderInstancePtr(void);
 /* functions defined in xloader_prtn_load.c */
-int XLoader_PrtnLoad(XilPdi* PdiPtr, u32 PrtnNum);
+int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum);
 /* function defined in xloader_cfi.c */
 int XLoader_CfiInit(XLoader* XLoaderPtr);
 int XLoader_ProcessCfi (XilPdi* PdiPtr, u32 PrtnNum);

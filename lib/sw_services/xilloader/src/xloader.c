@@ -57,6 +57,8 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
+XilSubsystem SubSystemInfo;
+
 /*****************************************************************************/
 #define XLOADER_DEVICEOPS_INIT(DevInit, DevCopy)	\
 	{ \
@@ -299,14 +301,15 @@ END:
 
 /*****************************************************************************/
 /**
- * This function is used to load the PDI image. It reads meta header and start
- * loading the images as present in the PDI
+ * This function is used to load and start the PDI image. It reads meta header,
+ * loads the images as present in the PDI and starts based on hand-off
+ * information present in PDI
  *
  * @param PdiPtr Pdi instance pointer
  *
  * @return	returns XLOADER_SUCCESS on success
  *****************************************************************************/
-int XLoader_LoadSubSystemPdi(XilPdi *PdiPtr)
+int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 {
 
 	/**
@@ -320,13 +323,23 @@ int XLoader_LoadSubSystemPdi(XilPdi *PdiPtr)
 	 *   3. Load partitions to respective memories
 	 */
 	int Status;
-	for(u32 PrtnNum=1U;
-	    PrtnNum < PdiPtr->MetaHdr.ImgHdrTable.NoOfPrtns; ++PrtnNum)
+	u32 ImgNum;
+
+	for (ImgNum = 1U; ImgNum < PdiPtr->MetaHdr.ImgHdrTable.NoOfImgs; ++ImgNum)
 	{
-		Status = XLoader_PrtnLoad(PdiPtr, PrtnNum);
-		if(Status != XST_SUCCESS)
-		goto END;
+		Status = XLoader_LoadImage(PdiPtr, 0xFFFFFFFFU);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		Status = XLoader_StartImage(PdiPtr);
+		XPlmi_Printf(DEBUG_INFO, "PDI start status: 0x%x\n\r", Status);
+		if (Status != XST_SUCCESS)
+		{
+			goto END;
+		}
 	}
+	SubSystemInfo.PdiPtr = PdiPtr;
 	Status = XST_SUCCESS;
 END:
 	return Status;
@@ -340,46 +353,48 @@ END:
  *
  * @return	returns XLOADER_SUCCESS on success
  *****************************************************************************/
-int XLoader_StartSubSystemPdi(XilPdi *PdiPtr)
+int XLoader_StartImage(XilPdi *PdiPtr)
 {
 	int Status;
-        u32 Index;
-        u32 CpuId;
-        u64 HandoffAddr;
+    u32 Index;
+    u32 CpuId;
+    u64 HandoffAddr;
 
-	XLoader_Printf(DEBUG_INFO, "XLoader_StartSubSystemPdi enter\r\n");
-        /* Handoff to the cpus */
-        for (Index=0U;Index<PdiPtr->NoOfHandoffCpus;Index++)
-        {
-                CpuId = PdiPtr->HandoffParam[Index].CpuSettings
-                        & XIH_PH_ATTRB_DSTN_CPU_MASK;
-                HandoffAddr = PdiPtr->HandoffParam[Index].HandoffAddr;
+	XLoader_Printf(DEBUG_INFO, "XLoader_StartImage enter\r\n");
+    /* Handoff to the cpus */
+	for (Index = 0U; Index < PdiPtr->NoOfHandoffCpus; Index++)
+    {
+		CpuId = PdiPtr->HandoffParam[Index].CpuSettings
+				& XIH_PH_ATTRB_DSTN_CPU_MASK;
+		HandoffAddr = PdiPtr->HandoffParam[Index].HandoffAddr;
 
-                switch (CpuId)
-                {
-                        case XIH_PH_ATTRB_DSTN_CPU_A72_0:
-                        case XIH_PH_ATTRB_DSTN_CPU_A72_1:
-                        {
+		switch (CpuId)
+		{
+			case XIH_PH_ATTRB_DSTN_CPU_A72_0:
+			case XIH_PH_ATTRB_DSTN_CPU_A72_1:
+			{
 				XLoader_Printf(DEBUG_INFO,
-				    " Request APU wakeup\r\n");
+						" Request APU wakeup\r\n");
 				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC,
-					XPM_DEVID_ACPU_0, 1, HandoffAddr, 0);
+						XPM_DEVID_ACPU_0, 1, HandoffAddr, 0);
 				if (Status != XST_SUCCESS)
 				{
 					Status = XPLMI_UPDATE_STATUS(
 						XLOADER_ERR_WAKEUP_A72, Status);
 					goto END;
 				}
-                        }break;
-                        case XIH_PH_ATTRB_DSTN_CPU_R5_0:
+
+			}break;
+
+			case XIH_PH_ATTRB_DSTN_CPU_R5_0:
 			{
 				XLoader_Printf(DEBUG_INFO,
-					    "Request RPU 0 wakeup\r\n");
+						"Request RPU 0 wakeup\r\n");
 				XPm_DevIoctl(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0,
-					     IOCTL_SET_RPU_OPER_MODE,
-					     XPM_RPU_MODE_SPLIT, 0, 0);
-				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0, 1,
-							   HandoffAddr, 0);
+						IOCTL_SET_RPU_OPER_MODE,
+						XPM_RPU_MODE_SPLIT, 0, 0);
+				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0,
+						1, HandoffAddr, 0);
 				if (Status != XST_SUCCESS)
 				{
 					Status = XPLMI_UPDATE_STATUS(
@@ -387,15 +402,16 @@ int XLoader_StartSubSystemPdi(XilPdi *PdiPtr)
 					goto END;
 				}
 			}break;
-                        case XIH_PH_ATTRB_DSTN_CPU_R5_1:
+
+			case XIH_PH_ATTRB_DSTN_CPU_R5_1:
 			{
 				XLoader_Printf(DEBUG_INFO,
-					    "Request RPU 1 wakeup\r\n");
+						"Request RPU 1 wakeup\r\n");
 				XPm_DevIoctl(XPM_SUBSYSID_PMC, XPM_DEVID_R50_1,
-					     IOCTL_SET_RPU_OPER_MODE,
-					     XPM_RPU_MODE_SPLIT, 0, 0);
-				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC, XPM_DEVID_R50_1, 1,
-							   HandoffAddr, 0);
+						IOCTL_SET_RPU_OPER_MODE,
+						XPM_RPU_MODE_SPLIT, 0, 0);
+				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC, XPM_DEVID_R50_1,
+						1, HandoffAddr, 0);
 				if (Status != XST_SUCCESS)
 				{
 					Status = XPLMI_UPDATE_STATUS(
@@ -403,15 +419,16 @@ int XLoader_StartSubSystemPdi(XilPdi *PdiPtr)
 					goto END;
 				}
 			}break;
-                        case XIH_PH_ATTRB_DSTN_CPU_R5_L:
+
+			case XIH_PH_ATTRB_DSTN_CPU_R5_L:
 			{
 				XLoader_Printf(DEBUG_INFO,
-					    "Request RPU wakeup\r\n");
+						"Request RPU wakeup\r\n");
 				XPm_DevIoctl(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0,
-					     IOCTL_SET_RPU_OPER_MODE,
-					     XPM_RPU_MODE_LOCKSTEP, 0, 0);
-				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0, 1,
-							   HandoffAddr, 0);
+						IOCTL_SET_RPU_OPER_MODE,
+						XPM_RPU_MODE_LOCKSTEP, 0, 0);
+				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0,
+						1, HandoffAddr, 0);
 				if (Status != XST_SUCCESS)
 				{
 					Status = XPLMI_UPDATE_STATUS(
@@ -419,19 +436,22 @@ int XLoader_StartSubSystemPdi(XilPdi *PdiPtr)
 					goto END;
 				}
 			}break;
-                        default:
-                        {
-                        }break;
-                }
 
-        }
+			default:
+			{
+			}break;
+		}
+    }
 
-	Status = XLOADER_SUCCESS;
+	/*
+	 * Make Number of handoff CPUs to zero
+	 */
+	PdiPtr->NoOfHandoffCpus = 0x0U;
+    Status = XLOADER_SUCCESS;
 END:
 	return Status;
 }
 
-#if 0
 /*****************************************************************************/
 /**
  * This function is used load a image in PDI. PDI can have multiple images
@@ -445,11 +465,41 @@ END:
  *****************************************************************************/
 int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId)
 {
+	u32 Index;
+	static u32 ImgNum = 1U;
+	static u32 PrtnNum = 1U;
+	u32 Status;
 
+	if (0xFFFFFFFFU != ImageId)
+	{
+		for (Index = 0U; Index < SubSystemInfo.Count; Index ++) {
+			if (ImageId == SubSystemInfo.SubsystemLut[Index].SubsystemId) {
+				ImgNum = SubSystemInfo.SubsystemLut[Index].ImageNum;
+				PrtnNum = SubSystemInfo.SubsystemLut[Index].PrtnNum;
+				break;
+			}
+		}
+		if (Index == SubSystemInfo.Count) {
+			Status = XST_FAILURE;
+			goto END;
+		}
+	} else
+	{
+		SubSystemInfo.SubsystemLut[SubSystemInfo.Count].SubsystemId =
+				PdiPtr->MetaHdr.ImgHdr[ImgNum].ImgID;
+		SubSystemInfo.SubsystemLut[SubSystemInfo.Count].ImageNum = ImgNum;
+		SubSystemInfo.SubsystemLut[SubSystemInfo.Count++].PrtnNum = PrtnNum;
+	}
 
-	return XLOADER_SUCCESS;
+	Status = XLoader_LoadImagePrtns(PdiPtr, ImgNum, PrtnNum);
+	PrtnNum += PdiPtr->MetaHdr.ImgHdr[ImgNum].NoOfPrtns;
+	ImgNum++;
+
+END:
+	return Status;
 }
 
+#if 0
 /*****************************************************************************/
 /**
  * This function is used to start the PDI image. For processor, reset is
