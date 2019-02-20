@@ -86,6 +86,7 @@ extern "C" {
 #define XIH_FIELD_LEN			(4U)
 #define XIH_PFW_LEN_FIELD_LEN		(4U)
 #define XIH_IHT_LEN			(64U)
+#define XIH_IH_LEN			(64U)
 #define XIH_PH_LEN			(64U)
 #define XIH_PRTN_WORD_LEN		(0x4U)
 #define XIH_PRTN_ALIGN_LEN		(64U)
@@ -285,8 +286,14 @@ typedef struct {
  * It contains all the information of Image header in order.
  */
 typedef struct {
-	u32 Rsvd[15]; /**< Reserved */
-	u32 Checksum; /**< checksum of the partition header */
+	u32 FirstPrtnHdr; /**< First parition header in the image */
+	u32 NoOfPrtns; /**< Number of partitions in the image */
+	u32 Rsvd1; /**< Reserved */
+	u32 ImgAttr; /**< Image Attributes */
+	u32 ImgName[4]; /**< Image Name */
+	u32 ImgID; /**< Image ID */
+	u32 Rsvd[6]; /**< Reserved */
+	u32 Checksum; /**< checksum of the image header */
 } XilPdi_ImgHdr __attribute__ ((aligned(16)));
 
 /**
