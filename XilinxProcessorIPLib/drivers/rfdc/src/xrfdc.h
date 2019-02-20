@@ -211,6 +211,12 @@
 *       cog    02/17/19 Added XRFdc_DisableCoefficientsOverride(), XRFdc_SetCalCoefficients
 *                       and XRFdc_GetCalCoefficients APIs.
 *       cog    02/19/19 New definitions for clock detection.
+* 6.0   cog    02/20/19	Added handling for new ADC common mode over/under
+*                       voltage interrupts.
+*       cog    02/20/19	XRFdc_GetIntrStatus now populates a pointer with the
+*                       status and returns an error code.
+*       cog	   02/20/19	XRFdc_IntrClr, XRFdc_IntrDisable and XRFdc_IntrEnable
+*                       now return error codes.
 *
 * </pre>
 *
@@ -1978,13 +1984,13 @@ void XRFdc_DumpRegs(XRFdc *InstancePtr, u32 Type, int Tile_Id);
 u32 XRFdc_MultiBand(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		u8 DigitalDataPathMask, u32 MixerInOutDataType, u32 DataConverterMask);
 u32 XRFdc_IntrHandler(u32 Vector, void *XRFdcPtr);
-void XRFdc_IntrClr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
+u32 XRFdc_IntrClr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 								u32 Block_Id, u32 IntrMask);
 u32 XRFdc_GetIntrStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-								u32 Block_Id);
-void XRFdc_IntrDisable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
+								u32 Block_Id, u32 *IntrStsPtr);
+u32 XRFdc_IntrDisable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 								u32 Block_Id, u32 IntrMask);
-void XRFdc_IntrEnable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
+u32 XRFdc_IntrEnable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 								u32 Block_Id, u32 IntrMask);
 u32 XRFdc_SetThresholdClrMode(XRFdc *InstancePtr, u32 Tile_Id,
 			u32 Block_Id, u32 ThresholdToUpdate, u32 ClrMode);
