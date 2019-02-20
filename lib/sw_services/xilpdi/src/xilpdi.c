@@ -440,9 +440,10 @@ XStatus XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr * MetaHdrPtr)
 {
 	XStatus Status;
 	u32 NoOfImgs;
+	u32 ImgIndex;
 	u32 ImgHdrAddr;
 
-	/* Update the first partition address */
+	/* Update the first image header address */
 	ImgHdrAddr = (MetaHdrPtr->ImgHdrTable.ImgHdrAddr)
 			* XIH_PRTN_WORD_LEN;
 	NoOfImgs = MetaHdrPtr->ImgHdrTable.NoOfImgs;
@@ -450,16 +451,31 @@ XStatus XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr * MetaHdrPtr)
 	XilPdi_Printf("Reading %u Image Headers \n\r", NoOfImgs);
 
 	/**
-	 * Read the Img header table of 64 bytes
-	 * and update the image header table structure
+	 * Read the Img headers of 64 bytes
+	 * and update the image header structure for all images
 	 */
-	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
-			ImgHdrAddr, (u64 )(UINTPTR) &(MetaHdrPtr->ImgHdr[0]),
-			XIH_PH_LEN*NoOfImgs, 0x0U);
-	if (XST_SUCCESS != Status)
+	for (ImgIndex=0U; ImgIndex<NoOfImgs; ImgIndex++)
 	{
-		XilPdi_Printf("Device Copy Failed \n\r");
-		goto END;
+		Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
+				ImgHdrAddr, (u64 )(UINTPTR) &(MetaHdrPtr->ImgHdr[ImgIndex]),
+				XIH_IH_LEN, 0x0U);
+		if (XST_SUCCESS != Status)
+		{
+			XilPdi_Printf("Device Copy Failed \n\r");
+			goto END;
+		}
+
+		Status = XilPdi_ValidateChecksum(
+		       (u32 *)&MetaHdrPtr->ImgHdr[ImgIndex], XIH_IH_LEN/4U);
+		if (XST_SUCCESS != Status)
+		{
+			XilPdi_Printf("Image %u Checksum Failed \n\r",
+					ImgIndex);
+			goto END;
+		}
+
+		/* Update the next image header present address */
+		ImgHdrAddr += XIH_IH_LEN;
 	}
 
 END:
