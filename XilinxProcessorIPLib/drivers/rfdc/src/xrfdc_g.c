@@ -30,7 +30,7 @@
 /**
 *
 * @file xrfdc_g.c
-* @addtogroup xrfdc_v5_1
+* @addtogroup rfdc_v6_0
 * @{
 *
 * This file contains a configuration table that specifies the configuration of
@@ -72,7 +72,7 @@ XRFdc_Config XRFdc_ConfigTable[XPAR_XRFDC_NUM_INSTANCES] =
 		XPAR_USP_RF_DATA_CONVERTER_0_SYSREF_MASTER,
 		XPAR_USP_RF_DATA_CONVERTER_0_SYSREF_SOURCE,
 		XPAR_USP_RF_DATA_CONVERTER_0_SYSREF_SOURCE,
-		XPAR_USP_RF_DATA_CONVERTER_0_IP_TYPE
+		XPAR_USP_RF_DATA_CONVERTER_0_IP_TYPE,
 		{
 			{
 				XPAR_USP_RF_DATA_CONVERTER_0_DAC0_ENABLE,

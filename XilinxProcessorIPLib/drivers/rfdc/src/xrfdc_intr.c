@@ -29,7 +29,7 @@
 /**
 *
 * @file xrfdc_intr.c
-* @addtogroup xrfdc_v5_1
+* @addtogroup rfdc_v6_0
 * @{
 *
 * This file contains functions related to RFdc interrupt handling.
@@ -603,7 +603,7 @@ u32 XRFdc_IntrHandler(u32 Vector, void *XRFdcPtr)
 			Block_Id = XRFDC_BLK_ID1;
 		} else if ((ReadReg & XRFDC_EN_INTR_SLICE2_MASK) != 0U) {
 			Block_Id = XRFDC_BLK_ID2;
-		} else if ((ReadReg & XRFDC_EN_INTR_SLICE3_MASK) != 0U){
+		} else if ((ReadReg & XRFDC_EN_INTR_SLICE3_MASK) != 0U) {
 			Block_Id = XRFDC_BLK_ID3;
 		} else {
 			metal_log(METAL_LOG_DEBUG, "\n Invalid ADC Block_Id \r\n");
