@@ -69,6 +69,7 @@
 *       cog    02/17/19 New Masks and offsets for XRFdc_DisableCoefficientsOverride(),
 *                       XRFdc_SetCalCoefficients and XRFdc_GetCalCoefficients APIs.
 *       cog    02/19/19 New Masks and offsets for clock detection register.
+*       cog    02/20/19 New Masks for ADC common mode over/under voltage interrupts.
 *
 *</pre>
 *
@@ -1989,6 +1990,8 @@ extern "C" {
 								interrupt mask */
 #define XRFDC_INTR_FIFO_OVR_MASK	0x00008000U	/**< FIFO OF mask */
 #define XRFDC_INTR_DAT_OVR_MASK		0x00004000U	/**< Data OF mask */
+#define XRFDC_INTR_CMODE_OVR_MASK	0x00040000U /**< Common mode OV mask */
+#define XRFDC_INTR_CMODE_UNDR_MASK	0x00080000U /**< Common mode UV mask */
 /* @} */
 
 /** @name Multiband config register
