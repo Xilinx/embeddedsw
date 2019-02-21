@@ -45,6 +45,10 @@
 * 5.0   sk     09/05/18 Rename XRFdc_MTS_RMW_DRP as XRFdc_ClrSetReg.
 * 5 0   mus    08/18/18 Updated to remove xparameters.h dependency for linux
 *                       platform.
+* 6.0   cog    02/21/19 Removed unnecessary register writes.
+*              02/21/19 Set frequency and sample rate to appropriate values
+*                       for MTS.
+*              02/21/19 Set metal log level to DEBUG.
 *
 * </pre>
 *
@@ -158,7 +162,7 @@ int RFdcMTS_Example(u16 RFdcDeviceId)
 		printf("ERROR: Failed to run metal initialization\n");
 		return XRFDC_FAILURE;
 	}
-
+	metal_set_log_level(METAL_LOG_DEBUG);
     ConfigPtr = XRFdc_LookupConfig(RFdcDeviceId);
     if (ConfigPtr == NULL) {
 		return XRFDC_FAILURE;
@@ -169,6 +173,30 @@ int RFdcMTS_Example(u16 RFdcDeviceId)
         printf("RFdc Init Failure\n\r");
     }
 
+#ifdef XPS_BOARD_ZCU111
+    /*Setting Frequency & Sample Rate to Appropriate Values for MTS*/
+    printf("Configuring Clock Frequency and Sampling Rate\n");
+    status = XRFdc_DynamicPLLConfig(RFdcInstPtr, XRFDC_DAC_TILE, 0, XRFDC_EXTERNAL_CLK, 122.88,3932.16);
+	if (status != XRFDC_SUCCESS) {
+		printf("ERROR: Could not configure PLL For DAC 0");
+		return XRFDC_FAILURE;
+	}
+	status = XRFdc_DynamicPLLConfig(RFdcInstPtr, XRFDC_DAC_TILE, 1, XRFDC_EXTERNAL_CLK, 122.88,3932.16);
+	if (status != XRFDC_SUCCESS) {
+		printf("ERROR: Could not configure PLL For DAC 1");
+		return XRFDC_FAILURE;
+	}
+	status = XRFdc_DynamicPLLConfig(RFdcInstPtr, XRFDC_ADC_TILE, 0, XRFDC_EXTERNAL_CLK, 122.88,3932.16);
+	if (status != XRFDC_SUCCESS) {
+		printf("ERROR: Could not configure PLL For ADC 0");
+		return XRFDC_FAILURE;
+	}
+	status = XRFdc_DynamicPLLConfig(RFdcInstPtr, XRFDC_ADC_TILE, 2, XRFDC_EXTERNAL_CLK, 122.88,3932.16);
+	if (status != XRFDC_SUCCESS) {
+		printf("ERROR: Could not configure PLL For ADC 2");
+		return XRFDC_FAILURE;
+	}
+#endif
 #ifndef __BAREMETAL__
 	status = XRFdc_GetDeviceNameByDeviceId(DeviceName, RFDC_DEVICE_ID);
 	if (status < 0) {
@@ -204,18 +232,18 @@ int RFdcMTS_Example(u16 RFdcDeviceId)
     /* Run MTS for the ADC & DAC */
     printf("\n=== Run DAC Sync ===\n");
 
-    XRFdc_ClrSetReg(RFdcInstPtr, XRFDC_ADC_TILE_DRP_ADDR(1) + XRFDC_HSCOM_ADDR,  0xB0, 0x0F, 0x01);
-    XRFdc_ClrSetReg(RFdcInstPtr, XRFDC_ADC_TILE_DRP_ADDR(3) + XRFDC_HSCOM_ADDR,  0xB0, 0x0F, 0x01);
-
     /* Initialize DAC MTS Settings */
     XRFdc_MultiConverter_Init (&DAC_Sync_Config, 0, 0);
     DAC_Sync_Config.Tiles = 0x3;	/* Sync DAC tiles 0 and 1 */
 
     status_dac = XRFdc_MultiConverter_Sync(RFdcInstPtr, XRFDC_DAC_TILE,
 					&DAC_Sync_Config);
-    if(status_dac == XRFDC_MTS_OK)
+    if(status_dac == XRFDC_MTS_OK){
 	printf("INFO : DAC Multi-Tile-Sync completed successfully\n");
-
+    }else{
+	printf("ERROR : DAC Multi-Tile-Sync did not complete successfully. Error code is %u \n",status_dac);
+	return status_dac;
+    }
 
     printf("\n=== Run ADC Sync ===\n");
 
@@ -225,9 +253,12 @@ int RFdcMTS_Example(u16 RFdcDeviceId)
 
     status_adc = XRFdc_MultiConverter_Sync(RFdcInstPtr, XRFDC_ADC_TILE,
 					&ADC_Sync_Config);
-    if(status_adc == XRFDC_MTS_OK)
+    if(status_adc == XRFDC_MTS_OK){
 	printf("INFO : ADC Multi-Tile-Sync completed successfully\n");
-
+    }else{
+		printf("ERROR : ADC Multi-Tile-Sync did not complete successfully. Error code is %u \n",status_adc);
+		return status_adc;
+    }
 
     /*
      * Report Overall Latency in T1 (Sample Clocks) and
@@ -251,5 +282,5 @@ int RFdcMTS_Example(u16 RFdcDeviceId)
          }
      }
 
-    return 0;
+    return XRFDC_MTS_OK;
 }
