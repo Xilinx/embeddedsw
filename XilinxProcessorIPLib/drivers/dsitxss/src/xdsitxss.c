@@ -75,7 +75,7 @@ typedef struct {
 
 /**************************** Variable Definitions ***********************************/
 
-XDsiTxSs_SubCores DsiTxSsSubCores; /**< Define Driver instance of all sub-core
+XDsiTxSs_SubCores DsiTxSsSubCores[XPAR_XDSITXSS_NUM_INSTANCES]; /**< Define Driver instance of all sub-core
 					included in the design */
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -472,10 +472,10 @@ static void XDsiTxSs_GetIncludedSubCores(XDsiTxSs *DsiTxSsPtr)
 	Xil_AssertVoid(DsiTxSsPtr != NULL);
 
 	DsiTxSsPtr->DsiPtr = ((DsiTxSsPtr->Config.DsiInfo.IsPresent) ?
-				(&DsiTxSsSubCores.DsiInst) : NULL);
+				(&DsiTxSsSubCores[DsiTxSsPtr->Config.DeviceId].DsiInst) : NULL);
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	DsiTxSsPtr->DphyPtr = ((DsiTxSsPtr->Config.DphyInfo.IsPresent) ?
-				(&DsiTxSsSubCores.DphyInst) : NULL);
+				(&DsiTxSsSubCores[DsiTxSsPtr->Config.DeviceId].DphyInst) : NULL);
 #endif
 }
 
