@@ -349,6 +349,7 @@ u32 XDphy_GetClkLaneStatus(XDphy *InstancePtr);
 u32 XDphy_GetClkLaneMode(XDphy *InstancePtr);
 u32 XDphy_GetDataLaneStatus(XDphy *InstancePtr, u8 DataLane);
 u16 XDphy_GetPacketCount(XDphy *InstancePtr, u8 DataLane);
+u8 XDphy_GetDLCalibStatus(XDphy *InstancePtr, u8 DataLane);
 u32 XDphy_GetDataLaneMode(XDphy *InstancePtr, u8 DataLane);
 void XDphy_Activate(XDphy *InstancePtr, u8 Flag);
 u8 XDphy_GetRegIntfcPresent(XDphy *InstancePtr);

@@ -210,6 +210,8 @@ extern "C" {
  * @{
  */
 #define XDPHY_DLXSTATUS_REG_PACKETCOUNT_MASK 0xFFFF0000 /**< Packet Count */
+#define XDPHY_DLXSTATUS_REG_CALIB_STATUS_MASK 0x00000100 /**< Calib status */
+#define XDPHY_DLXSTATUS_REG_CALIB_COMPLETE_MASK 0x00000080 /**< Calib complete */
 #define XDPHY_DLXSTATUS_REG_STOP_MASK 0x00000040 /**< Stop State on data lane */
 #define XDPHY_DLXSTATUS_REG_ESCABRT_MASK 0x00000020 /**< Set on Data Lane Esc
 						      *  timeout occurs */
@@ -227,9 +229,13 @@ extern "C" {
 					XDPHY_DLXSTATUS_REG_INITDONE_MASK |\
 					XDPHY_DLXSTATUS_REG_HSABRT_MASK |\
 					XDPHY_DLXSTATUS_REG_ESCABRT_MASK |\
-					XDPHY_DLXSTATUS_REG_STOP_MASK)
+					XDPHY_DLXSTATUS_REG_STOP_MASK |\
+					XDPHY_DLXSTATUS_REG_CALIB_STATUS_MASK |\
+					XDPHY_DLXSTATUS_REG_CALIB_COMPLETE_MASK)
 
 #define XDPHY_DLXSTATUS_REG_PACKCOUNT_OFFSET 16 /**<Bit offset packet count*/
+#define XDPHY_DLXSTATUS_REG_CALIB_STATUS_OFFSET 8 /**<Bit offset calib status*/
+#define XDPHY_DLXSTATUS_REG_CALIB_COMPLETE_OFFSET 7 /**<Bit offset Calib complete*/
 #define XDPHY_DLXSTATUS_REG_STOP_OFFSET 6 /**< Bit offset for Stop State */
 #define XDPHY_DLXSTATUS_REG_ESCABRT_OFFSET 5 /**< Bit offset for Escape Abort */
 #define XDPHY_DLXSTATUS_REG_HSABRT_OFFSET 4 /**< Bit offset for High Speed
@@ -251,6 +257,7 @@ extern "C" {
 #define XDPHY_HSSETTLE_REG_TIMEOUT_OFFSET 0 /**< Bit offset for HS_SETTLE */
 /*@}*/
 
+#define DL_LANE_OFFSET	4
 
 /**************************** Type Definitions *******************************/
 
