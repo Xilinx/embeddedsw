@@ -161,7 +161,7 @@ int XV_DeintWaitForIdle(XV_Deint_l2 *InstancePtr)
 *
 ******************************************************************************/
 void XV_DeintSetFieldBuffers(XV_Deint_l2   *InstancePtr,
-                              u32  memAddr,
+                              u64  memAddr,
                               XVidC_ColorFormat cformat)
 {
   Xil_AssertVoid(InstancePtr != NULL);
