@@ -612,6 +612,46 @@ u32 XDphy_GetDataLaneStatus(XDphy *InstancePtr, u8 DataLane)
 
 /****************************************************************************/
 /**
+* This is used to get Data Lane Calibration status
+*
+* @param	InstancePtr is the XDphy instance to operate on.
+* @param	DataLane for which the calib status is sought for.
+*
+* @return	XST_SUCCESS - Calibration Complete, Calibration packet received
+* 		XST_NO_DATA - Calibration Complete, Calibration packet is not received
+* 		XST_FAILURE - Calibration failed
+*
+* @note		None.
+*****************************************************************************/
+u8 XDphy_GetDLCalibStatus(XDphy *InstancePtr, u8 DataLane)
+{
+	u32 Data;
+	u8 ret;
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Config.IsRegisterPresent != 0);
+	Xil_AssertNonvoid(DataLane < InstancePtr->Config.MaxLanesPresent);
+
+	Data = XDphy_ReadReg(InstancePtr->Config.BaseAddr,
+				(XDPHY_DL0STATUS_REG_OFFSET + (DL_LANE_OFFSET * DataLane)));
+
+	if (Data & XDPHY_DLXSTATUS_REG_CALIB_COMPLETE_MASK) {
+		if (Data & XDPHY_DLXSTATUS_REG_CALIB_STATUS_MASK)
+			ret = XST_FAILURE;
+		else
+			ret = XST_SUCCESS;
+	} else {
+		if (Data & XDPHY_DLXSTATUS_REG_CALIB_STATUS_MASK)
+			ret = XST_FAILURE;
+		else
+			ret = XST_NO_DATA;
+	}
+
+	return ret;
+}
+
+/****************************************************************************/
+/**
 * This is used to get specfic Lane mode information about a Data Lane.
 *
 * @param	InstancePtr is the XDphy instance to operate on.
