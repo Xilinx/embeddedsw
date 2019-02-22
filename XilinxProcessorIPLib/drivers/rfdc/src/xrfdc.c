@@ -153,6 +153,7 @@
 *       cog    02/17/19	Added XRFdc_SetSignalDetector() and XRFdc_GetSignalDetector() APIs.
 *       cog    02/17/19 Added XRFdc_DisableCoefficientsOverride(), XRFdc_SetCalCoefficients
 *                       and XRFdc_GetCalCoefficients APIs.
+*       cog    02/21/19 Added XRFdc_SetCalFreeze() and XRFdc_GetCalFreeze() APIs
 *
 * </pre>
 *
@@ -4962,6 +4963,133 @@ u32 XRFdc_GetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 			  __func__);
 		goto RETURN_PATH;
 	}
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+/*****************************************************************************/
+/**
+*
+* This function is used to set calibration freeze settings.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Tile_Id indicates Tile number (0-3).
+* @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
+* @param	CalFreezePtr pointer to the settings to be applied.
+*
+* @return
+*       - XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if error occurs.
+*
+* @note		Only for ADC blocks
+*
+******************************************************************************/
+u32 XRFdc_SetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Cal_Freeze_Settings *CalFreezePtr)
+{
+	u32 BaseAddr;
+	u32 Status;
+	u32 Index;
+	u32 NoOfBlocks;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(CalFreezePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	if (CalFreezePtr->FreezeCalibration > XRFDC_CAL_FREEZE_CALIB){
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR, "\n Invalid FreezeCalibration "
+			"option in %s\r\n",
+			__func__);
+		goto RETURN_PATH;
+	}
+
+	if (CalFreezePtr->DisableFreezePin > XRFDC_CAL_FRZ_PIN_DISABLE){
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR, "\n Invalid DisableFreezePin "
+				  "option in %s\r\n",
+				  __func__);
+		goto RETURN_PATH;
+	}
+
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Requested block not "
+								"available in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+
+	BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
+
+	Index = Block_Id;
+	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
+		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
+		if (Block_Id == XRFDC_BLK_ID1) {
+			Index = XRFDC_BLK_ID2;
+			NoOfBlocks = XRFDC_NUM_OF_BLKS4;
+		}
+	} else {
+		NoOfBlocks = Block_Id + 1U;
+	}
+
+	for (; Index < NoOfBlocks; Index++) {
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CONV_CAL_STGS(Index),
+						XRFDC_CAL_FREEZE_PIN_MASK, CalFreezePtr->DisableFreezePin <<
+						XRFDC_CAL_FREEZE_PIN_SHIFT);
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CONV_CAL_STGS(Index),
+						XRFDC_CAL_FREEZE_CAL_MASK, CalFreezePtr->FreezeCalibration <<
+						XRFDC_CAL_FREEZE_CAL_SHIFT);
+	}
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+/*****************************************************************************/
+/**
+*
+* This function is used to get calibration freeze settings and status.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Tile_Id indicates Tile number (0-3).
+* @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
+* @param	CalFreezePtr pointer to be filled the settings/status.
+*
+* @return
+*       - XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if error occurs.
+*
+* @note		Only for ADC blocks
+*
+******************************************************************************/
+u32 XRFdc_GetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Cal_Freeze_Settings *CalFreezePtr)
+{
+	u32 BaseAddr;
+	u32 Status;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(CalFreezePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Requested block not "
+								"available in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+
+	BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
+
+	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
+		if (Block_Id == XRFDC_BLK_ID1) {
+			Block_Id = XRFDC_BLK_ID2;
+		}
+	}
+	CalFreezePtr->CalFrozen = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CONV_CAL_STGS(Block_Id),
+												XRFDC_CAL_FREEZE_STS_MASK) >> XRFDC_CAL_FREEZE_STS_SHIFT;
+	CalFreezePtr->DisableFreezePin = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CONV_CAL_STGS(Block_Id),
+												XRFDC_CAL_FREEZE_PIN_MASK) >> XRFDC_CAL_FREEZE_PIN_SHIFT;
+	CalFreezePtr->FreezeCalibration = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CONV_CAL_STGS(Block_Id),
+												XRFDC_CAL_FREEZE_CAL_MASK) >> XRFDC_CAL_FREEZE_CAL_SHIFT;
+
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
 	return Status;
