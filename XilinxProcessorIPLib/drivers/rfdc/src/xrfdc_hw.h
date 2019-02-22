@@ -70,6 +70,8 @@
 *                       XRFdc_SetCalCoefficients and XRFdc_GetCalCoefficients APIs.
 *       cog    02/19/19 New Masks and offsets for clock detection register.
 *       cog    02/20/19 New Masks for ADC common mode over/under voltage interrupts.
+*       cog    02/21/19 New Masks and offsets for XRFdc_SetCalFreeze() and
+*                       XRFdc_GetCalFreeze() APIs.
 *
 *</pre>
 *
@@ -363,6 +365,7 @@ extern "C" {
 #define XRFDC_INTR_ENABLE				0x204U	/**< Intr enable register */
 #define XRFDC_CONV_INTR_STS(X)			(0x208U + (X * 0x08U))
 #define XRFDC_CONV_INTR_EN(X)			(0x20CU + (X * 0x08U))
+#define XRFDC_CONV_CAL_STGS(X)			(0x234U + (X * 0x04U))
 #define XRFDC_PLL_FREQ					0x300U	/**< PLL output frequency (before divider) register */
 #define XRFDC_PLL_FS					0x304U	/**< Sampling rate register */
 #define XRFDC_FIFO_ENABLE				0x230U	/**< FIFO Enable and Disable */
@@ -433,6 +436,21 @@ extern "C" {
 #define XRFDC_CAL_GCB_EN_SHIFT	7U /**< gain coeff shift*/
 #define XRFDC_CAL_TSCB_EN_SHIFT	15U /**< time skew coeff shift*/
 
+/* @} */
+/** @name Calibration Coefficients - Calibration coefficients and disable registers
+ *
+ * This register contains bits for calibration coefficients
+ * for ADC.
+ * @{
+ */
+
+#define XRFDC_CAL_FREEZE_CAL_MASK	0x1U /**< Calibration freeze enable mask*/
+#define XRFDC_CAL_FREEZE_STS_MASK	0x2U /**< Calibration freeze status mask*/
+#define XRFDC_CAL_FREEZE_PIN_MASK	0x4U /**< Calibration freeze pin disable mask*/
+
+#define XRFDC_CAL_FREEZE_CAL_SHIFT	0U /**< Calibration freeze enable shift*/
+#define XRFDC_CAL_FREEZE_STS_SHIFT	1U /**< Calibration freeze status shift*/
+#define XRFDC_CAL_FREEZE_PIN_SHIFT	2U /**< Calibration freeze pin disable shift*/
 
 /* @} */
 
