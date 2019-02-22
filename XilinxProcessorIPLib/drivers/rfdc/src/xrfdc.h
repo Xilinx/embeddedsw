@@ -217,6 +217,7 @@
 *                       status and returns an error code.
 *       cog	   02/20/19	XRFdc_IntrClr, XRFdc_IntrDisable and XRFdc_IntrEnable
 *                       now return error codes.
+*       cog    02/21/19 Added XRFdc_SetCalFreeze() and XRFdc_GetCalFreeze() APIs
 *
 * </pre>
 *
@@ -398,6 +399,15 @@ typedef struct {
 	u32 Coeff6;
 	u32 Coeff7;
 } XRFdc_Calibration_Coefficients;
+
+/**
+ * RFSoC Calibration freeze settings struct
+ */
+typedef struct {
+	u32 CalFrozen; /*Status indicates calibration freeze state*/
+	u32 DisableFreezePin; /*Disable the calibration freeze pin*/
+	u32 FreezeCalibration; /*Setter for freezing*/
+} XRFdc_Cal_Freeze_Settings;
 
 /**
  * RFSoC Tile status.
@@ -1039,6 +1049,11 @@ typedef struct {
 #define XRFDC_CLOCK_DETECT_CLK		0x1U
 #define XRFDC_CLOCK_DETECT_DIST		0x2U
 #define XRFDC_CLOCK_DETECT_BOTH		0x3U
+
+#define XRFDC_CAL_UNFREEZE_CALIB	0U
+#define XRFDC_CAL_FREEZE_CALIB		1U
+#define XRFDC_CAL_FRZ_PIN_ENABLE	0U
+#define XRFDC_CAL_FRZ_PIN_DISABLE	1U
 /*****************************************************************************/
 /**
 *
@@ -2067,6 +2082,10 @@ u32 XRFdc_SetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32
 								Block_Id, u32 CalibrationBlock, XRFdc_Calibration_Coefficients *CoeffPtr);
 u32 XRFdc_GetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32
 								Block_Id, u32 CalibrationBlock, XRFdc_Calibration_Coefficients *CoeffPtr);
+u32 XRFdc_SetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
+								XRFdc_Cal_Freeze_Settings *CalFreezePtr);
+u32 XRFdc_GetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
+								XRFdc_Cal_Freeze_Settings *CalFreezePtr);
 #ifndef __BAREMETAL__
 s32 XRFdc_GetDeviceNameByDeviceId(char *DevNamePtr, u16 DevId);
 #endif
