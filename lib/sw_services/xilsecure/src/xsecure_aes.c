@@ -205,6 +205,10 @@ void XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 
 	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
 
+	/* Acknowledge the transfer has completed */
+	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+				XCSUDMA_IXR_DONE_MASK);
+
 	/* Configure the CSU DMA Tx/Rx.*/
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
 			(UINTPTR)EncData,
