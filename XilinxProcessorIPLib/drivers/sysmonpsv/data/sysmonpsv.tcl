@@ -31,7 +31,9 @@
 #
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
-# 1.0   aad  30/01/18 First release
+# 1.0   aad  30/01/19 First release
+# 	aad  25/02/19 Fix XSysMonPsv_Supply list enum when no supplies
+# 		      are configured
 #
 ##############################################################################
 
@@ -152,7 +154,12 @@ proc generate_canonical_xpars {drv_handle file_name drv_string args} {
                 if {[string compare -nocase $local_value ""] != 0} {
 			set final_value "#define XPAR_XSYSMONPSV_0_${local_value}\t${id_value}"
 			puts $file_handle $final_value
+		} elseif {[string compare -nocase $local_value ""] == 0} {
+			if {$index == 0} {
+				puts $file_handle "#define XPAR_XSYSMONPSV_0_NO_MEAS\t255"
+			}
 		}
+
 	    }
     }
 
@@ -229,6 +236,10 @@ proc generate_sysmon_supplies {drv_handle file_name drv_string} {
 		 set local_value [common::get_property CONFIG.$measid $periph]
                 if {[string compare -nocase $local_value ""] != 0} {
 		 puts -nonewline $config_file [format "%s\t%s,\n" $comma $local_value]
+		} elseif {[string compare -nocase $local_value ""] == 0} {
+			if {$index == 0} {
+				puts $config_file "\tNO_SUPPLIES_CONFIGURED = XPAR_XSYSMONPSV_0_NO_MEAS,"
+			}
 		}
 	    }
     }
