@@ -14,10 +14,10 @@ INCLUDES=-I./. -I${INCLUDEDIR}
 
 OUTS = *.o
 
-INCLUDEFILES=*.h ./dp/*.h ./iic/*.h ./hdcp1x/*.h
-LIBSOURCES=*.c ./dp/*.c ./iic/*.c ./hdcp1x/*.c
+INCLUDEFILES=*.h ./dp/*.h ./iic/*.h ./hdcp1x/*.h ./hdcp22/*.h
+LIBSOURCES=*.c ./dp/*.c ./iic/*.c ./hdcp1x/*.c ./hdcp22/*.c
 
-OBJECTS = $(addsuffix .o, $(basename ./dp/xdprxss_dprx.c ./iic/xdprxss_iic.c ./hdcp1x/xdprxss_hdcp1x.c $(wildcard *.c)))
+OBJECTS = $(addsuffix .o, $(basename ./dp/xdprxss_dprx.c ./iic/xdprxss_iic.c ./hdcp1x/xdprxss_hdcp1x.c ./hdcp22/xdprxss_hdcp22.c $(wildcard *.c)))
 
 libs: banner xdprxss_libs clean
 
