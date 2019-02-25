@@ -54,6 +54,7 @@
  *                     DrvHpdEventHandler and DrvHpdPulseHandler
  * 6.0   tu   09/08/17 Added three interrupt handler that addresses callback
  *                     function of application
+ * 6.0   jb   02/19/19 Added HDCP22 interrupts.
  * </pre>
  *
 *******************************************************************************/
@@ -540,6 +541,58 @@ int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
 		Status = XST_SUCCESS;
 		break;
 
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+	case XDP_RX_HANDLER_HDCP22_AKE_INIT:
+		InstancePtr->RxInstance.IntrHdcp22AkeInitWrHandler =
+			CallbackFunc;
+		InstancePtr->RxInstance.IntrHdcp22AkeInitWrCallbackRef =
+			CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+	case XDP_RX_HANDLER_HDCP22_AKE_NO_STORED_KM:
+		InstancePtr->RxInstance.IntrHdcp22AkeNoStoredKmWrHandler =
+			CallbackFunc;
+		InstancePtr->RxInstance.IntrHdcp22AkeNoStoredKmWrCallbackRef =
+			CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+	case XDP_RX_HANDLER_HDCP22_AKE_STORED_KM:
+		InstancePtr->RxInstance.IntrHdcp22AkeStoredWrHandler =
+			CallbackFunc;
+		InstancePtr->RxInstance.IntrHdcp22AkeStoredWrCallbackRef =
+			CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+	case XDP_RX_HANDLER_HDCP22_LC_INIT:
+		InstancePtr->RxInstance.IntrHdcp22LcInitWrHandler =
+			CallbackFunc;
+		InstancePtr->RxInstance.IntrHdcp22LcInitWrCallbackRef =
+			CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+	case XDP_RX_HANDLER_HDCP22_SKE_SEND_EKS:
+		InstancePtr->RxInstance.IntrHdcp22SkeSendEksWrHandler =
+			CallbackFunc;
+		InstancePtr->RxInstance.IntrHdcp22SkeSendEksWrCallbackRef =
+			CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+	case XDP_RX_HANDLER_HDCP22_HPRIME_READ_DONE:
+		InstancePtr->RxInstance.IntrHdcp22HprimeReadDoneHandler =
+			CallbackFunc;
+		InstancePtr->RxInstance.IntrHdcp22HprimeReadDoneCallbackRef =
+			CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+	case XDP_RX_HANDLER_HDCP22_PAIRING_READ_DONE:
+		InstancePtr->RxInstance.IntrHdcp22PairingReadDoneHandler =
+			CallbackFunc;
+		InstancePtr->RxInstance.IntrHdcp22PairingReadDoneCallbackRef =
+			CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+#endif
+
 	case XDP_RX_HANDLER_UNPLUG:
 		InstancePtr->RxInstance.IntrUnplugHandler = CallbackFunc;
 		InstancePtr->RxInstance.IntrUnplugCallbackRef = CallbackRef;
@@ -692,6 +745,9 @@ static void XDp_TxInterruptHandler(XDp *InstancePtr)
 static void XDp_RxInterruptHandler(XDp *InstancePtr)
 {
 	u32 IntrStatus;
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+	u32 IntrStatusHdcp22;
+#endif
 
 	/* Determine what kind of interrupts have occurred.
 	 * Note: XDP_RX_INTERRUPT_CAUSE is a RC (read-clear) register. */
@@ -700,6 +756,13 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 	/* Mask out required interrupts. */
 	IntrStatus &= ~XDp_ReadReg(InstancePtr->Config.BaseAddr,
 							XDP_RX_INTERRUPT_MASK);
+
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+	/* Determine what kind of interrupts have occurred.
+	 * Note: XDP_RX_INTERRUPT_CAUSE_2 is a RC (read-clear) register. */
+	IntrStatusHdcp22 = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+			XDP_RX_INTERRUPT_CAUSE_2);
+#endif
 
 	/* Training pattern 1 has started. */
 	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_TP1_MASK) &&
@@ -882,6 +945,78 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 		InstancePtr->RxInstance.IntrHdcpBinfoRdHandler(
 			InstancePtr->RxInstance.IntrHdcpBinfoRdCallbackRef);
 	}
+
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+	/* A write to the HDCP22 Ake_Init MSB register has been performed. */
+	if ((IntrStatusHdcp22 & XDP_RX_INTERRUPT_MASK_HDCP22_AKE_INIT_MASK) &&
+			InstancePtr->RxInstance.IntrHdcp22AkeInitWrHandler) {
+		InstancePtr->RxInstance.IntrHdcp22AkeInitWrHandler(
+				InstancePtr->RxInstance.
+				IntrHdcp22AkeInitWrCallbackRef);
+	}
+
+	/* A write to the HDCP22 Ake_No_Stored_Km
+	 * MSB register has been performed.*/
+	if ((IntrStatusHdcp22 &
+			XDP_RX_INTERRUPT_MASK_HDCP22_AKE_NO_STORED_KM_MASK)
+			&& InstancePtr->RxInstance.
+			IntrHdcp22AkeNoStoredKmWrHandler) {
+		InstancePtr->RxInstance.IntrHdcp22AkeNoStoredKmWrHandler(
+			InstancePtr->
+			RxInstance.IntrHdcp22AkeNoStoredKmWrCallbackRef);
+	}
+
+	/* A write to the HDCP22 Ake_Stored_Km
+	 * MSB register has been performed. */
+	if ((IntrStatusHdcp22 &
+			XDP_RX_INTERRUPT_MASK_HDCP22_AKE_STORED_KM_MASK) &&
+			InstancePtr->RxInstance.IntrHdcp22AkeStoredWrHandler) {
+		InstancePtr->RxInstance.IntrHdcp22AkeStoredWrHandler(
+				InstancePtr->RxInstance.
+				IntrHdcp22AkeStoredWrCallbackRef);
+	}
+
+	/* A write to the HDCP22 LC_Init
+	 * MSB register has been performed. */
+	if ((IntrStatusHdcp22 &
+			XDP_RX_INTERRUPT_MASK_HDCP22_LC_INIT_MASK) &&
+			InstancePtr->RxInstance.IntrHdcp22LcInitWrHandler) {
+		InstancePtr->RxInstance.IntrHdcp22LcInitWrHandler(
+				InstancePtr->RxInstance.
+				IntrHdcp22LcInitWrCallbackRef);
+	}
+
+	/* A write to the HDCP22 Ske_Send_Eks
+	 * MSB register has been performed. */
+	if ((IntrStatusHdcp22 &
+			XDP_RX_INTERRUPT_MASK_HDCP22_SKE_SEND_EKS_MASK) &&
+			InstancePtr->RxInstance.IntrHdcp22SkeSendEksWrHandler) {
+		InstancePtr->RxInstance.IntrHdcp22SkeSendEksWrHandler(
+				InstancePtr->RxInstance.
+				IntrHdcp22SkeSendEksWrCallbackRef);
+	}
+
+	/* HDCP22 H' read done*/
+	if ((IntrStatusHdcp22 &
+			XDP_RX_INTERRUPT_MASK_HDCP22_HPRIME_READ_MASK) &&
+			InstancePtr->RxInstance.
+			IntrHdcp22HprimeReadDoneHandler) {
+		InstancePtr->RxInstance.IntrHdcp22HprimeReadDoneHandler(
+				InstancePtr->RxInstance.
+				IntrHdcp22HprimeReadDoneCallbackRef);
+	}
+
+	/* HDCP22 Pairing Info read Done*/
+	if ((IntrStatusHdcp22 &
+			XDP_RX_INTERRUPT_MASK_HDCP22_PAIRING_INFO_READ_MASK)
+			&& InstancePtr->RxInstance.
+			IntrHdcp22PairingReadDoneHandler) {
+		InstancePtr->RxInstance.IntrHdcp22PairingReadDoneHandler(
+				InstancePtr->RxInstance.
+				IntrHdcp22PairingReadDoneCallbackRef);
+	}
+
+#endif /*XPAR_XHDCP22_RX_NUM_INSTANCES*/
 
 	/* An unplug event has occurred. */
 	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_UNPLUG_MASK) &&
