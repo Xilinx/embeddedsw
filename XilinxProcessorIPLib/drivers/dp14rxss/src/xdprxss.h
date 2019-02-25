@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xdprxss.h
-* @addtogroup dprxss_v4_2
+* @addtogroup dprxss_v6_0
 * @{
 * @details
 *
@@ -108,6 +86,7 @@
 *                   generation.
 * 4.1  tu  09/08/17 Added three driver side interrupt handler for Video,
 *                   NoVideo and PowerChange events
+* 4.1  jb  02/19/19 Added support for HDCP22.
 * </pre>
 *
 ******************************************************************************/
@@ -129,12 +108,24 @@ extern "C" {
 #include "xdprxss_dprx.h"
 #include "xdprxss_iic.h"
 #include "xdprxss_hdcp1x.h"
-#include "xdprxss_mcdp6000.h"
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+#include "xdprxss_hdcp22.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
 
 /**************************** Type Definitions *******************************/
+/**
+* These constants specify the HDCP protection schemes
+*/
+typedef enum
+{
+  XDPRXSS_HDCP_NONE,       /**< No content protection */
+  XDPRXSS_HDCP_14,         /**< HDCP 1.4 */
+  XDPRXSS_HDCP_22,         /**< HDCP 2.2 */
+  XDPRXSS_HDCP_BOTH        /**< Both HDCP 1.4 and 2.2 */
+} XDpRxSs_HdcpProtocol;
 
 /**
 * These constants specify different types of handler and used to differentiate
@@ -199,6 +190,18 @@ typedef enum {
 	XDPRXSS_HANDLER_HDCP_AUTHENTICATED,	/**< HDCP Authentication
 						  *  completion interrupt type for  HDCP core */
 #endif
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+	XDPRXSS_HANDLER_HDCP22_AUTHENTICATED,	/**< Handler for HDCP22
+						  authenticated event */
+	XDPRXSS_HANDLER_HDCP22_UNAUTHENTICATED,	/**< Handler for HDCP22
+						  authenticated event */
+	XDPRXSS_HANDLER_HDCP22_AUTHENTICATION_REQUEST, /**< Handler for HDCP
+							 authentication request
+							 event */
+	XDPRXSS_HANDLER_HDCP22_ENCRYPTION_UPDATE, /**< Handler for HDCP
+						    encryption status update
+						    event */
+#endif
 	XDPRXSS_HANDLER_UNPLUG_EVENT,		/**< Unplug event type for
 						  *  DisplayPort RX
 						  *  Subsystem */
@@ -223,9 +226,21 @@ typedef enum {
 	XDPRXSS_HANDLER_ACCESS_LINK_QUAL_EVENT,    /**< Drv Access link qual
 						  *  interrupt type for
 						  *  DisplayPort core */
-	XDPRXSS_HANDLER_ACCESS_ERROR_COUNTER_EVENT   /**< Drv Access error counter
-						  *  interrupt type for
-						  *  DisplayPort core */
+	XDPRXSS_HANDLER_ACCESS_ERROR_COUNTER_EVENT,  /**< Drv Access error
+						      *	counter interrupt type
+						      *	for DisplayPort core */
+	XDPRXSS_HANDLER_DP_VBLANK_STREAM_2_EVENT,    /**< Vertical blanking
+						      *	event for stream 2
+						      *	interrupt type for
+						      *	DisplayPort core */
+	XDPRXSS_HANDLER_DP_VBLANK_STREAM_3_EVENT,    /**< Vertical blanking
+						      *	event for stream 3
+						      *	interrupt type for
+						      *	DisplayPort core */
+	XDPRXSS_HANDLER_DP_VBLANK_STREAM_4_EVENT     /**< Vertical blanking
+						      *	event for stream 4
+						      *	interrupt type for
+						      *	DisplayPort core */
 } XDpRxSs_HandlerType;
 
 /**
@@ -255,8 +270,10 @@ typedef struct {
 typedef struct {
 	u16 IsPresent;		/**< Flag to hold the presence of DisplayPort
 				  *  Receiver core. */
+#ifdef XPAR_XIIC_NUM_INSTANCES
 	XIic_Config IicConfig;	/**< IIC core configuration
 				  *  information */
+#endif
 } XDpRxSs_IicSubCore;
 
 #if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
@@ -268,15 +285,18 @@ typedef struct {
 	XHdcp1x_Config Hdcp1xConfig;	/**< HDCP core configuration
 					  *  information */
 } XDpRxSs_Hdcp1xSubCore;
+#endif
 
+#if (((XPAR_DPRXSS_0_HDCP_ENABLE > 0)  || (XPAR_XHDCP22_RX_NUM_INSTANCES > 0))\
+		&& (XPAR_XTMRCTR_NUM_INSTANCES > 0))
 /**
-* Timer Counter Sub-core structure.
-*/
+ * Timer Counter Sub-core structure.
+ */
 typedef struct {
 	u16 IsPresent;		/**< Flag to hold the presence of Timer
-				  *  Counter core */
+				 *  Counter core */
 	XTmrCtr_Config TmrCtrConfig;	/**< Timer Counter core
-					  * configuration information */
+					 * configuration information */
 } XDpRxSs_TmrCtrSubCore;
 #endif
 
@@ -298,6 +318,8 @@ typedef struct {
 				  *  Subsystem core */
 	u8 HdcpEnable;		/**< This Subsystem core supports digital
 				  *  content protection. */
+	u8 Hdcp22Enable;	/**< This Subsystem core supports digital
+				  content protection(HDCP22). */
 	u8 MaxLaneCount;	/**< The maximum lane count supported by this
 				  *  core instance. */
 	u8 MstSupport;		/**< Multi-stream transport (MST) mode is
@@ -306,12 +328,18 @@ typedef struct {
 				  *  by this core instance. */
 	u8 ColorFormat;		/**< Type of color format supported by this
 				  *  core instance. */
+	u8 IncludeAxiIic;  	/** < axi i2c support > */
+
 	XDpRxSs_DpSubCore DpSubCore;	/**< DisplayPort Configuration */
 #if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 	XDpRxSs_Hdcp1xSubCore Hdcp1xSubCore;	/**< HDCP Configuration */
 #endif
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+	XDpRxSs_Hdcp22SubCore Hdcp22SubCore;
+#endif
 	XDpRxSs_IicSubCore IicSubCore;	/**< IIC Configuration */
-#if ((XPAR_DPRXSS_0_HDCP_ENABLE > 0) && (XPAR_XTMRCTR_NUM_INSTANCES > 0))
+#if (((XPAR_DPRXSS_0_HDCP_ENABLE > 0)  || (XPAR_XHDCP22_RX_NUM_INSTANCES > 0))\
+		&& (XPAR_XTMRCTR_NUM_INSTANCES > 0))
 	XDpRxSs_TmrCtrSubCore TmrCtrSubCore;	/**< Timer Counter
 						  *  Configuration */
 #endif
@@ -339,9 +367,18 @@ typedef struct {
 					  *  initialized */
 	/* Sub-core instances */
 	XDp *DpPtr;			/**< DisplayPort sub-core instance */
+#ifdef XPAR_XIIC_NUM_INSTANCES
 	XIic *IicPtr;			/**< IIC sub-core instance */
+#endif
+#ifdef XPAR_XIICPS_NUM_INSTANCES
+	XIicPs *IicPsPtr;		/**< PS i2c core instance */
+#endif
 #if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 	XHdcp1x *Hdcp1xPtr;		/**< HDCP sub-core instance */
+#endif
+#if (((XPAR_DPRXSS_0_HDCP_ENABLE > 0) || \
+	(XPAR_XHDCP22_RX_NUM_INSTANCES > 0)) \
+		&& (XPAR_XTMRCTR_NUM_INSTANCES > 0))
 	XTmrCtr *TmrCtrPtr;		/**< Timer Counter sub-core instance */
 	u8 TmrCtrResetDone;		/**< Timer reset done. This is used for
 					  *  MacBook which authenticates just
@@ -349,6 +386,10 @@ typedef struct {
 					  *  ensures that system does not do
 					  *  anything until this variable set
 					  *  to one.*/
+#endif
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+	XHdcp22_Rx  *Hdcp22Ptr;           /**< handle to HDCP22 sub-core driver
+					    instance */
 #endif
 
 	/* Callback */
@@ -389,6 +430,17 @@ typedef struct {
 	u8 prevLaneCounts;
 	u8 link_up_trigger;
 	u8 no_video_trigger;
+	XDpRxSs_HdcpProtocol HdcpProtocol; /**< HDCP protocol selected */
+#if ((XPAR_DPRXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_RX_NUM_INSTANCES > 0))
+	u8 HdcpIsReady;			/**< HDCP ready flag */
+#endif
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+	XDpRxSs_Hdcp22EventQueue Hdcp22EventQueue; /**< HDCP22 event queue */
+	u8 *Hdcp22Lc128Ptr;		/**< Pointer to HDCP 2.2 LC128 */
+	u8 *Hdcp22PrivateKeyPtr;	/**< Pointer to HDCP 2.2 Private key */
+#endif
+	u8 *EdidDataPtr[XDP_MAX_NPORTS];/**< Pointer to EDID Data */
+	u16 EdidSize[XDP_MAX_NPORTS];	/**< Size of EDID Data */
 } XDpRxSs;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -477,6 +529,39 @@ typedef struct {
 #define XDpRxSs_AudioReset(InstancePtr) \
 	XDp_RxAudioReset((InstancePtr)->DpPtr)
 
+
+/*****************************************************************************/
+/**
+ * This function macro enables MST audio on a given stream on the main link.
+ *
+ * @param      InstancePtr is a pointer to the XDpRxSs core instance.
+ * @param      Stream Id to be enabled audio
+ *
+ * @return     None.
+ *
+ * @note       C-style signature:
+ *             void XDpRxSs_Mst_AudioEnable(XDpRxSs *InstancePtr, u8 StreamId)
+ *
+ *******************************************************************************/
+#define XDpRxSs_Mst_AudioEnable(InstancePtr, StreamId) \
+        XDp_Rx_Mst_AudioEn((InstancePtr)->DpPtr, StreamId)
+
+/*****************************************************************************/
+/**
+ *
+ * This function macro disables audio on a given stream on the main link.
+ *
+ * @param        InstancePtr is a pointer to the XDpRxSs core instance.
+ *
+ * @return       None.
+ *
+ * @note         C-style signature:
+ *               void XDpRxSs_Mst_AudioDisable(XDpRxSs *InstancePtr)
+ *
+ ******************************************************************************/
+#define XDpRxSs_Mst_AudioDisable(InstancePtr) \
+	XDp_RxAudioDis((InstancePtr)->DpPtr)
+
 /******************************************************************************/
 /**
 *
@@ -516,20 +601,25 @@ u32 XDpRxSs_CheckLinkStatus(XDpRxSs *InstancePtr);
 u32 XDpRxSs_HandleDownReq(XDpRxSs *InstancePtr);
 void XDpRxSs_SetUserPixelWidth(XDpRxSs *InstancePtr, u8 UserPixelWidth);
 
-#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+int XDpRxSs_HdcpSetProtocol(XDpRxSs *InstancePtr,
+		XDpRxSs_HdcpProtocol Protocol);
 /* Optional HDCP related functions */
 u32 XDpRxSs_HdcpEnable(XDpRxSs *InstancePtr);
 u32 XDpRxSs_HdcpDisable(XDpRxSs *InstancePtr);
+u32 XDpRxSs_SetLane(XDpRxSs *InstancePtr, u32 Lane);
+void XDpRxSs_StartTimer(XDpRxSs *InstancePtr);
+void XDpRxSs_StopTimer(XDpRxSs *InstancePtr);
+#endif
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
+/* Optional HDCP related functions */
 u32 XDpRxSs_Poll(XDpRxSs *InstancePtr);
 u32 XDpRxSs_SetPhysicalState(XDpRxSs *InstancePtr, u32 PhyState);
-u32 XDpRxSs_SetLane(XDpRxSs *InstancePtr, u32 Lane);
 u32 XDpRxSs_Authenticate(XDpRxSs *InstancePtr);
 u32 XDpRxSs_IsAuthenticated(XDpRxSs *InstancePtr);
 u64 XDpRxSs_GetEncryption(XDpRxSs *InstancePtr);
 void XDpRxSs_SetDebugPrintf(XDpRxSs *InstancePtr, XDpRxSs_Printf PrintfFunc);
 void XDpRxSs_SetDebugLogMsg(XDpRxSs *InstancePtr, XDpRxSs_LogMsg LogFunc);
-void XDpRxSs_StartTimer(XDpRxSs *InstancePtr);
-void XDpRxSs_StopTimer(XDpRxSs *InstancePtr);
 u32 XDpRxSs_DownstreamReady(XDpRxSs *InstancePtr);
 void XDpRxSs_HandleTimeout(XDpRxSs *InstancePtr);
 #endif
@@ -546,6 +636,8 @@ u32 XDpRxSs_SelfTest(XDpRxSs *InstancePtr);
 /* Interrupt functions in xdprxss_intr.c */
 #if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 void XDpRxSs_HdcpIntrHandler(void *InstancePtr);
+#endif
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
 void XDpRxSs_TmrCtrIntrHandler(void *InstancePtr);
 #endif
 void XDpRxSs_DpIntrHandler(void *InstancePtr);
@@ -559,7 +651,13 @@ void XDpRxSs_DrvNoVideoHandler(void *InstancePtr);
 void XDpRxSs_DrvVideoHandler(void *InstancePtr);
 void XDpRxSs_DrvPowerChangeHandler(void *InstancePtr);
 
-void XDpRxSs_McDp6000_init(void *InstancePtr, u32 I2CAddress);
+void XDpRxSs_McDp6000_init(void *InstancePtr);
+
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+void XDpRxSs_Hdcp22LicFailHandler(void *InstancePtr);
+void XDpRxSs_Hdcp22SetKey(XDpRxSs *InstancePtr,
+		XDpRxSs_Hdcp22KeyType KeyType, u8 *KeyPtr);
+#endif
 /************************** Variable Declarations ****************************/
 
 

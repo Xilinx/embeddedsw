@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xdprxss_dbg.c
-* @addtogroup dprxss_v4_2
+* @addtogroup dprxss_v6_0
 * @{
 *
 * This file contains functions to report debug information of DisplayPort RX
@@ -53,7 +31,6 @@
 /***************************** Include Files *********************************/
 
 #include "xdprxss.h"
-#include "xdprxss_dp159.h"
 #include "xdebug.h"
 
 /************************** Constant Definitions *****************************/
@@ -96,6 +73,10 @@ void XDpRxSs_ReportCoreInfo(XDpRxSs *InstancePtr)
 	if (InstancePtr->Hdcp1xPtr) {
 		xil_printf("High-Bandwidth Content protection (HDCP):Yes\n\r");
 	}
+#endif
+#if (((XPAR_DPRXSS_0_HDCP_ENABLE > 0) || \
+	(XPAR_XHDCP22_RX_NUM_INSTANCES > 0)) \
+		&& (XPAR_XTMRCTR_NUM_INSTANCES > 0))
 	if (InstancePtr->TmrCtrPtr) {
 		xil_printf("Timer Counter(0):Yes\n\r");
 	}
@@ -104,11 +85,19 @@ void XDpRxSs_ReportCoreInfo(XDpRxSs *InstancePtr)
 	if (InstancePtr->DpPtr) {
 		xil_printf("DisplayPort Receiver(DPRX):Yes\n\r");
 	}
-
-	if (InstancePtr->IicPtr) {
+#ifdef XPAR_XIIC_NUM_INSTANCES
+	if (InstancePtr->Config.IncludeAxiIic && InstancePtr->IicPtr) {
 		xil_printf("IIC:Yes\n\r");
 	}
-
+	else
+#endif
+	{
+#ifdef XPAR_XIICPS_NUM_INSTANCES
+		if (InstancePtr->IicPsPtr) {
+			xil_printf("PS IIC:Yes\n\r");
+		}
+#endif
+	}
 	xil_printf("Audio enabled:%s\n\r",
 			InstancePtr->Config.SecondaryChEn? "Yes": "No");
 	xil_printf("Max supported audio channels:%d\n\r",
@@ -254,27 +243,6 @@ void XDpRxSs_ReportMsaInfo(XDpRxSs *InstancePtr)
 		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_VBID));
 
 	xil_printf("\n\r");
-}
-
-/*****************************************************************************/
-/**
-*
-* This function prints the bit error encountered in DP159.
-*
-* @param	InstancePtr is a pointer to the XDpRxSs core instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void XDpRxSs_ReportDp159BitErrCount(XDpRxSs *InstancePtr)
-{
-	/* Verify argument. */
-	Xil_AssertVoid(InstancePtr != NULL);
-
-	/* Print bit error count */
-	XDpRxSs_Dp159BitErrCount(InstancePtr->IicPtr);
 }
 
 /*****************************************************************************/

@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xdprxss_selftest.c
-* @addtogroup dprxss_v4_2
+* @addtogroup dprxss_v6_0
 * @{
 *
 * This file contains self test function for the DisplayPort Receiver
@@ -95,7 +73,7 @@ u32 XDpRxSs_SelfTest(XDpRxSs *InstancePtr)
 	if (InstancePtr->DpPtr) {
 		Status = XDp_SelfTest(InstancePtr->DpPtr);
 		if (Status != XST_SUCCESS) {
-			xdbg_printf(XDBG_DEBUG_GENERAL,"ERR::DP Self test "
+			xdbg_printf(XDBG_DEBUG_GENERAL, "ERR::DP Self test "
 				"failed\n\r");
 			return XST_FAILURE;
 		}
@@ -105,12 +83,16 @@ u32 XDpRxSs_SelfTest(XDpRxSs *InstancePtr)
 	if ((InstancePtr->Hdcp1xPtr) && (InstancePtr->Config.HdcpEnable)) {
 		Status = XHdcp1x_SelfTest(InstancePtr->Hdcp1xPtr);
 		if (Status != XST_SUCCESS) {
-			xdbg_printf(XDBG_DEBUG_GENERAL,"ERR::HDCP Self test "
+			xdbg_printf(XDBG_DEBUG_GENERAL, "ERR::HDCP Self test "
 				"failed\r\n");
 			return XST_FAILURE;
 		}
 	}
+#endif
 
+#if (((XPAR_DPRXSS_0_HDCP_ENABLE > 0) || \
+	(XPAR_XHDCP22_RX_NUM_INSTANCES > 0)) \
+		&& (XPAR_XTMRCTR_NUM_INSTANCES > 0))
 	if (InstancePtr->TmrCtrPtr) {
 		Status = XTmrCtr_SelfTest(InstancePtr->TmrCtrPtr, 0);
 		if (Status != XST_SUCCESS) {
@@ -121,16 +103,30 @@ u32 XDpRxSs_SelfTest(XDpRxSs *InstancePtr)
 	}
 #endif
 
+#ifdef XPAR_XIIC_NUM_INSTANCES
 	/* Check IIC availability */
-	if (InstancePtr->IicPtr) {
+	if (InstancePtr->Config.IncludeAxiIic && InstancePtr->IicPtr) {
 		Status = (u32)XIic_SelfTest(InstancePtr->IicPtr);
-		if (Status != XST_SUCCESS) {
-			xdbg_printf(XDBG_DEBUG_GENERAL,"ERR::IIC Self test "
-				"failed\n\r");
-			return XST_FAILURE;
-		}
+			if (Status != XST_SUCCESS) {
+				xdbg_printf(XDBG_DEBUG_GENERAL,
+					"ERR::IIC Self test failed\n\r");
+				return XST_FAILURE;
+			}
 	}
-
+	else
+#endif
+	{
+#ifdef XPAR_XIICPS_NUM_INSTANCES
+		if (InstancePtr->IicPsPtr) {
+			Status = (u32)XIicPs_SelfTest(InstancePtr->IicPsPtr);
+			if (Status != XST_SUCCESS) {
+				xdbg_printf(XDBG_DEBUG_GENERAL,
+					"ERR::PS IIC Self test failed\n\r");
+				return XST_FAILURE;
+			}
+		}
+#endif
+	}
 	return XST_SUCCESS;
 }
 /** @} */

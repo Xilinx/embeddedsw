@@ -1,28 +1,6 @@
 ##############################################################################
-#
-# Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-# IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-#
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
+# Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+# SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
 # Ver  Who Date     Changes
@@ -34,9 +12,9 @@
 ###############################################################################
 
 proc generate {drv_handle} {
-	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XDpRxSs" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "AUDIO_ENABLE" "AUDIO_CHANNELS" "BITS_PER_COLOR" "HDCP_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS" "COLOR_FORMAT" "SIM_MODE"
-	hier_ip_define_config_file $drv_handle "xdprxss_g.c" "XDpRxSs" "DEVICE_ID" "C_BASEADDR" "AUDIO_ENABLE" "AUDIO_CHANNELS" "BITS_PER_COLOR" "HDCP_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS" "COLOR_FORMAT"
-	::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "DpRxSs" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "AUDIO_ENABLE" "AUDIO_CHANNELS" "BITS_PER_COLOR" "HDCP_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS" "COLOR_FORMAT" "SIM_MODE"
+	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XDpRxSs" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "AUDIO_ENABLE" "AUDIO_CHANNELS" "BITS_PER_COLOR" "HDCP_ENABLE" "HDCP22_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS" "COLOR_FORMAT" "SIM_MODE" "INCLUDE_AXI_IIC" "LINK_RATE"
+	hier_ip_define_config_file $drv_handle "xdprxss_g.c" "XDpRxSs" "DEVICE_ID" "C_BASEADDR" "AUDIO_ENABLE" "AUDIO_CHANNELS" "BITS_PER_COLOR" "HDCP_ENABLE" "HDCP22_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS" "COLOR_FORMAT" "INCLUDE_AXI_IIC"
+	::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "DpRxSs" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "AUDIO_ENABLE" "AUDIO_CHANNELS" "BITS_PER_COLOR" "HDCP_ENABLE" "HDCP22_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS" "COLOR_FORMAT" "SIM_MODE" "INCLUDE_AXI_IIC" "LINK_RATE"
 }
 
 ##
@@ -55,6 +33,7 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 	set sub_core_params(axi_iic) "BASEADDR TEN_BIT_ADR GPO_WIDTH"
 	set sub_core_params(hdcp) "BASEADDR S_AXI_FREQUENCY IS_RX IS_HDMI"
 	set sub_core_params(axi_timer) "BASEADDR CLOCK_FREQ_HZ"
+	set sub_core_params(hdcp22_rx_dp) "BASEADDR"
 	set total_subcores [array size sub_core_params]
 
 	set filename [file join "src" $file_name]

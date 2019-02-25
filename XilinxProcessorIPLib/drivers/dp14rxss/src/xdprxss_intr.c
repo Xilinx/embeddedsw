@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xdprxss_intr.c
-* @addtogroup dprxss_v4_2
+* @addtogroup dprxss_v6_0
 * @{
 *
 * This file contains interrupt related functions of Xilinx DisplayPort RX
@@ -48,6 +26,7 @@
 * 4.0  aad 12/01/16 Added HDCP Authentication interrupt handler
 * 4.1  tu  09/06/17 Added three driver side interrupt handler for Video,
 *                   NoVideo and PowerChange event
+* 4.1  jb  02/19/19 Added support for HDCP22.
 * </pre>
 *
 ******************************************************************************/
@@ -55,7 +34,6 @@
 /***************************** Include Files *********************************/
 
 #include "xdprxss.h"
-#include "xdprxss_dp159.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -133,7 +111,40 @@ void XDpRxSs_HdcpIntrHandler(void *InstancePtr)
 	/* HDCP Cipher interrupt handler */
 	XHdcp1x_CipherIntrHandler(XDpRxSsPtr->Hdcp1xPtr);
 }
+#endif
 
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+/*****************************************************************************/
+/**
+ * This function is the interrupt handler for HDCP22 LIC failure.
+ *
+ * The application is responsible for connecting this function to the interrupt
+ * system.
+ *
+ * @param	InstancePtr is a pointer to the XDpRxSs core instance that
+ * 			just interrupted.
+ *
+ * @return None.
+ *
+ * @note   None.
+ ******************************************************************************/
+void XDpRxSs_Hdcp22LicFailHandler(void *InstancePtr)
+{
+	XDpRxSs *XDpRxSsPtr = (XDpRxSs *)InstancePtr;
+
+	Xil_AssertVoid(InstancePtr);
+
+	if (XDpRxSsPtr->Hdcp22Ptr) {
+		if (XDpRxSsPtr->HdcpProtocol == XDPRXSS_HDCP_22) {
+			XHdcp22Rx_SetLinkError(XDpRxSsPtr->Hdcp22Ptr);
+		}
+	}
+}
+#endif
+
+#if (((XPAR_DPRXSS_0_HDCP_ENABLE > 0) || \
+	(XPAR_XHDCP22_RX_NUM_INSTANCES > 0)) \
+		&& (XPAR_XTMRCTR_NUM_INSTANCES > 0))
 /*****************************************************************************/
 /**
 *
@@ -247,13 +258,6 @@ void XDpRxSs_DrvPowerChangeHandler(void *InstancePtr)
        if (Rdata == PowerDownMode) {
                XDp_RxInterruptDisable(XDpRxSsPtr->DpPtr,
                                XDP_RX_INTERRUPT_MASK_UNPLUG_MASK);
-               if (XDpRxSsPtr->DpPtr->Config.DpProtocol != 
-						XDP_PROTOCOL_DP_1_4) {
-                       XDpRxSs_Dp159Config(XDpRxSsPtr->IicPtr,
-					   XDPRXSS_DP159_CT_UNPLUG,
-					   XDpRxSsPtr->UsrOpt.LinkRate,
-					   XDpRxSsPtr->UsrOpt.LaneCount);
-               }
        }
 }
 
@@ -354,6 +358,27 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 		case XDPRXSS_HANDLER_DP_VBLANK_EVENT:
 			XDp_RxSetCallback(InstancePtr->DpPtr,
 					XDP_RX_HANDLER_VBLANK,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_HANDLER_DP_VBLANK_STREAM_2_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_VBLANK_STREAM_2,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_HANDLER_DP_VBLANK_STREAM_3_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_VBLANK_STREAM_3,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_HANDLER_DP_VBLANK_STREAM_4_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_VBLANK_STREAM_4,
 					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
@@ -462,6 +487,55 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 				XHDCP1X_HANDLER_AUTHENTICATED,
 					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
+			break;
+#endif
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+		case XDPRXSS_HANDLER_HDCP22_AUTHENTICATED:
+			if (InstancePtr->Hdcp22Ptr) {
+				XHdcp22Rx_SetCallback(InstancePtr->Hdcp22Ptr,
+					XHDCP22_RX_HANDLER_AUTHENTICATED,
+					(void *)(XHdcp22_Rx_RunHandler)CallbackFunc,
+					(void *)CallbackRef);
+				Status = XST_SUCCESS;
+			} else {
+				Status = XST_FAILURE;
+			}
+			break;
+
+		case XDPRXSS_HANDLER_HDCP22_UNAUTHENTICATED:
+			if (InstancePtr->Hdcp22Ptr) {
+				XHdcp22Rx_SetCallback(InstancePtr->Hdcp22Ptr,
+					XHDCP22_RX_HANDLER_UNAUTHENTICATED,
+					(void *)(XHdcp22_Rx_RunHandler)CallbackFunc,
+					(void *)CallbackRef);
+				Status = XST_SUCCESS;
+			} else {
+				Status = XST_FAILURE;
+			}
+			break;
+
+		case XDPRXSS_HANDLER_HDCP22_AUTHENTICATION_REQUEST:
+			if (InstancePtr->Hdcp22Ptr) {
+				XHdcp22Rx_SetCallback(InstancePtr->Hdcp22Ptr,
+					XHDCP22_RX_HANDLER_AUTHENTICATION_REQUEST,
+					(void *)(XHdcp22_Rx_RunHandler)CallbackFunc,
+					(void *)CallbackRef);
+				Status = XST_SUCCESS;
+			} else {
+				Status = XST_FAILURE;
+			}
+			break;
+
+		case XDPRXSS_HANDLER_HDCP22_ENCRYPTION_UPDATE:
+			if (InstancePtr->Hdcp22Ptr) {
+				XHdcp22Rx_SetCallback(InstancePtr->Hdcp22Ptr,
+					XHDCP22_RX_HANDLER_ENCRYPTION_UPDATE,
+					(void *)(XHdcp22_Rx_RunHandler)CallbackFunc,
+					(void *)CallbackRef);
+				Status = XST_SUCCESS;
+			} else {
+				Status = XST_FAILURE;
+			}
 			break;
 #endif
 
