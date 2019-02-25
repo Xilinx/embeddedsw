@@ -1,28 +1,8 @@
 /*******************************************************************************
- *
- * Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
@@ -664,14 +644,14 @@ void XHdmiphy1_SetGtLineRateCfg(XHdmiphy1 *InstancePtr, u8 QuadId,
 
     /* Determine PLL type. */
     PllType = XHdmiphy1_GetPllType(InstancePtr, 0, Dir,
-			XHDMIPHY1_CHANNEL_ID_CH1);
+    			XHDMIPHY1_CHANNEL_ID_CH1);
 
     /* Extract Line Rate Config Value */
     if (PllType == XHDMIPHY1_PLL_TYPE_LCPLL) {
-	LRCfgVal = InstancePtr->Quads[QuadId].Lcpll.LineRateCfg;
+    	LRCfgVal = InstancePtr->Quads[QuadId].Lcpll.LineRateCfg;
     }
     else { /* RPLL */
-	LRCfgVal = InstancePtr->Quads[QuadId].Rpll.LineRateCfg;
+    	LRCfgVal = InstancePtr->Quads[QuadId].Rpll.LineRateCfg;
     }
 
 	if (Dir == XHDMIPHY1_DIR_TX) {
@@ -810,6 +790,45 @@ void XHdmiphy1_SetGpi(XHdmiphy1 *InstancePtr, u8 QuadId,
 	/* Write GPI Register*/
 	XHdmiphy1_WriteReg(InstancePtr->Config.BaseAddr,
 			XHDMIPHY1_GT_DBG_GPI_REG, RegVal);
+}
+
+/*****************************************************************************/
+/**
+* This function will get the GPI ports value from the GT Wizard
+*
+* @param	InstancePtr is a pointer to the XHdmiphy1 core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to operate on.
+* @param	Dir is an indicator for TX or RX.
+*
+* @return	Value.
+*
+* @note		None.
+*
+******************************************************************************/
+u8 XHdmiphy1_GetGpo(XHdmiphy1 *InstancePtr, u8 QuadId,
+		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir)
+{
+	u32 RegVal;
+
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+	ChId = ChId;
+
+    /* Read GPI Register*/
+	RegVal = XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr,
+				XHDMIPHY1_GT_DBG_GPO_REG);
+
+	if (Dir == XHDMIPHY1_DIR_TX) {
+		return ((RegVal &
+					XHDMIPHY1_TX_GPO_MASK_ALL(InstancePtr->Config.TxChannels))
+						>> XHDMIPHY1_TX_GPO_SHIFT);
+	}
+	else {
+		return ((RegVal &
+					XHDMIPHY1_RX_GPO_MASK_ALL(InstancePtr->Config.RxChannels))
+						>> XHDMIPHY1_RX_GPO_SHIFT);
+	}
 }
 
 /*****************************************************************************/
@@ -1075,7 +1094,7 @@ void XHdmiphy1_MmcmSetClkinsel(XHdmiphy1 *InstancePtr, u8 QuadId,
 
 	RegVal = XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr, RegOffsetCtrl);
 
-	if (Sel == MMCM_CLKINSEL_CLKIN2) {
+	if (Sel == XHDMIPHY1_MMCM_CLKINSEL_CLKIN2) {
 		RegVal &= ~XHDMIPHY1_MMCM_USRCLK_CTRL_CLKINSEL_MASK;
 	}
 	else {
@@ -1603,7 +1622,7 @@ u8 XHdmiphy1_GetRefClkSourcesCount(XHdmiphy1 *InstancePtr)
                             InstancePtr->Config.RxFrlRefClkSel : 99;
 
 	/* Initialize Unique RefClk holder */
-	for (u8 i=0; i<RefClkNumMax; i++) {
+	for (i=0; i<RefClkNumMax; i++) {
 		RefClkSelTemp[i] = 99;
 	}
 

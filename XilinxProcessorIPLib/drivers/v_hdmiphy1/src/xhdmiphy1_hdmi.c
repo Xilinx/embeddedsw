@@ -1,28 +1,8 @@
 /*******************************************************************************
- *
- * Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
@@ -238,16 +218,16 @@ u32 XHdmiphy1_Hdmi_CfgInitialize(XHdmiphy1 *InstancePtr, u8 QuadId,
 	/* Set to DFE */
 	XHdmiphy1_SetRxLpm(InstancePtr, QuadId, XHDMIPHY1_CHANNEL_ID_CHA,
             XHDMIPHY1_DIR_RX, 0);
-#else
-	/* Set to LPM */
-	XHdmiphy1_SetRxLpm(InstancePtr, QuadId, XHDMIPHY1_CHANNEL_ID_CHA,
-            XHDMIPHY1_DIR_RX, 1);
 #endif
 
 	XHdmiphy1_Ch2Ids(InstancePtr, XHDMIPHY1_CHANNEL_ID_CHA, &Id0, &Id1);
 	for (Id = Id0; Id <= Id1; Id++) {
 		XHdmiphy1_SetTxVoltageSwing(InstancePtr, QuadId,
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
 			(XHdmiphy1_ChannelId)Id, 0xB);
+#else
+			(XHdmiphy1_ChannelId)Id, 0x1F);
+#endif
 		XHdmiphy1_SetTxPreEmphasis(InstancePtr, QuadId,
             (XHdmiphy1_ChannelId)Id, 0x4);
 		XHdmiphy1_SetTxPostCursor(InstancePtr, QuadId,
@@ -799,6 +779,10 @@ u32 XHdmiphy1_DruGetRefClkFreqHz(XHdmiphy1 *InstancePtr)
 		if (DruFreqHz > XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK_MIN &&
 				DruFreqHz < XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK_MAX){
 			return XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK;
+		}
+		if (DruFreqHz > XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK1_MIN &&
+				DruFreqHz < XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK1_MAX){
+			return XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK1;
 		}
 		if (DruFreqHz > XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK2_MIN &&
 				DruFreqHz < XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK2_MAX){
@@ -2019,17 +2003,16 @@ u32 XHdmiphy1_SetHdmiTxParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 	if (Status == (XST_SUCCESS)) {
 		/* HDMI 2.1 */
 		if (InstancePtr->TxHdmi21Cfg.IsEnabled) {
-			InstancePtr->Quads[QuadId].TxMmcm.ClkFbOutMult = 3;
-			InstancePtr->Quads[QuadId].TxMmcm.DivClkDivide = 1;
-			InstancePtr->Quads[QuadId].TxMmcm.ClkOut0Div = 3;
-			InstancePtr->Quads[QuadId].TxMmcm.ClkOut1Div = 3;
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE3)
-			/* Set FRL Video Clock to 300 MHz for GTHE3 devices */
-			InstancePtr->Quads[QuadId].TxMmcm.ClkOut2Div = 4;
-#else
-			/* Set FRL Video Clock to 400 MHz for GTHE4 & GTYE4 devices */
-			InstancePtr->Quads[QuadId].TxMmcm.ClkOut2Div = 3;
-#endif
+			InstancePtr->Quads[QuadId].TxMmcm.ClkFbOutMult =
+				XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT;
+			InstancePtr->Quads[QuadId].TxMmcm.DivClkDivide =
+				XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK;
+			InstancePtr->Quads[QuadId].TxMmcm.ClkOut0Div =
+				XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV;
+			InstancePtr->Quads[QuadId].TxMmcm.ClkOut1Div =
+				XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV;
+			InstancePtr->Quads[QuadId].TxMmcm.ClkOut2Div =
+				XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV;
 			return Status;
 		}
 
@@ -2226,7 +2209,8 @@ u32 XHdmiphy1_Hdmi20Config(XHdmiphy1 *InstancePtr, u8 QuadId,
 		InstancePtr->RxHdmi21Cfg.IsEnabled = FALSE;
 	}
 
-	XHdmiphy1_MmcmSetClkinsel(InstancePtr, QuadId, Dir, MMCM_CLKINSEL_CLKIN1);
+	XHdmiphy1_MmcmSetClkinsel(InstancePtr, QuadId, Dir,
+			XHDMIPHY1_MMCM_CLKINSEL_CLKIN1);
 
 	/* Disable Clock Detector Interrupts */
 	if (Dir == XHDMIPHY1_DIR_TX) {
@@ -2352,10 +2336,10 @@ u32 XHdmiphy1_Hdmi21Config(XHdmiphy1 *InstancePtr, u8 QuadId,
 		if (InstancePtr->Config.TxRefClkSel ==
 				InstancePtr->Config.TxFrlRefClkSel) {
 			XHdmiphy1_MmcmSetClkinsel(InstancePtr, QuadId, Dir,
-					MMCM_CLKINSEL_CLKIN1);
+					XHDMIPHY1_MMCM_CLKINSEL_CLKIN1);
 		} else {
 			XHdmiphy1_MmcmSetClkinsel(InstancePtr, QuadId, Dir,
-					MMCM_CLKINSEL_CLKIN2);
+					XHDMIPHY1_MMCM_CLKINSEL_CLKIN2);
 		}
 		if (InstancePtr->Config.TxRefClkSel !=
 				InstancePtr->Config.TxFrlRefClkSel) {
@@ -2368,17 +2352,17 @@ u32 XHdmiphy1_Hdmi21Config(XHdmiphy1 *InstancePtr, u8 QuadId,
 		InstancePtr->RxHdmi21Cfg.IsEnabled = TRUE;
 
 		/* Set MMCM dividers for FRL mode */
-		InstancePtr->Quads[QuadId].RxMmcm.ClkFbOutMult = 3;
-		InstancePtr->Quads[QuadId].RxMmcm.DivClkDivide = 1;
-		InstancePtr->Quads[QuadId].RxMmcm.ClkOut0Div = 3;
-		InstancePtr->Quads[QuadId].RxMmcm.ClkOut1Div = 3;
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE3)
-		/* Set FRL Video Clock to 300 MHz for GTHE3 devices */
-		InstancePtr->Quads[QuadId].RxMmcm.ClkOut2Div = 4;
-#else
-		/* Set FRL Video Clock to 400 MHz for GTHE4 & GTYE4 devices */
-		InstancePtr->Quads[QuadId].RxMmcm.ClkOut2Div = 3;
-#endif
+		InstancePtr->Quads[QuadId].RxMmcm.ClkFbOutMult =
+			XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT;
+		InstancePtr->Quads[QuadId].RxMmcm.DivClkDivide =
+			XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK;
+		InstancePtr->Quads[QuadId].RxMmcm.ClkOut0Div =
+			XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV;
+		InstancePtr->Quads[QuadId].RxMmcm.ClkOut1Div =
+			XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV;
+		InstancePtr->Quads[QuadId].RxMmcm.ClkOut2Div =
+			XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV;
+
 		/* Mask the MMCM Lock */
 		XHdmiphy1_MmcmLockedMaskEnable(InstancePtr, 0, Dir, TRUE);
 
@@ -2386,7 +2370,7 @@ u32 XHdmiphy1_Hdmi21Config(XHdmiphy1 *InstancePtr, u8 QuadId,
 				InstancePtr->Config.RxFrlRefClkSel) {
 			/* Set MMCM CLKINSEL to CLK2 */
 			XHdmiphy1_MmcmSetClkinsel(InstancePtr, QuadId, Dir,
-					MMCM_CLKINSEL_CLKIN2);
+					XHDMIPHY1_MMCM_CLKINSEL_CLKIN2);
 
 			/* Start RX MMCM. */
 			XHdmiphy1_MmcmStart(InstancePtr, 0, XHDMIPHY1_DIR_RX);

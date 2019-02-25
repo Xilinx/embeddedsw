@@ -1,28 +1,8 @@
 /*******************************************************************************
- *
- * Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
@@ -206,106 +186,7 @@ u32 XHdmiphy1_HdmiLcpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 		}
 
 	}
-#if 0
-	/* Check for DRU mode */
-	if ((Dir == XHDMIPHY1_DIR_RX) &&
-		(InstancePtr->HdmiRxDruIsEnabled)) {
-		InstancePtr->Quads[0].Lcpll.LineRateCfg = 1;
-	}
-	/* Check for HDMI 1.4/2.0 GT LineRate Config */
-	else if (!IsHdmi21) {
-		/* HDMI 1.4 */
-		if (!TmdsClockRatio) {
-			if ((120000000 <= (*RefClkPtr)) &&
-					((*RefClkPtr) <= 125000000)) {
-				InstancePtr->Quads[0].Lcpll.LineRateCfg = 2;
-			}
-			else if ((125000000 <= (*RefClkPtr)) &&
-						((*RefClkPtr) <= 156250000)) {
-				InstancePtr->Quads[0].Lcpll.LineRateCfg = 3;
-			}
-			else if ((156250000 <= (*RefClkPtr)) &&
-						((*RefClkPtr) <= 175000000)) {
-				InstancePtr->Quads[0].Lcpll.LineRateCfg = 4;
-			}
-			else if ((175000000 <= (*RefClkPtr)) &&
-						((*RefClkPtr) <= 190630000)) {
-				InstancePtr->Quads[0].Lcpll.LineRateCfg = 5;
-			}
-			else if ((190630000 <= (*RefClkPtr)) &&
-						((*RefClkPtr) <= 204690000)) {
-				InstancePtr->Quads[0].Lcpll.LineRateCfg = 6;
-			}
-			else if ((204690000 <= (*RefClkPtr)) &&
-						((*RefClkPtr) <= 250000000)) {
-				InstancePtr->Quads[0].Lcpll.LineRateCfg = 7;
-			}
-			else if ((250000000 <= (*RefClkPtr)) &&
-						((*RefClkPtr) <= 312500000)) {
-				InstancePtr->Quads[0].Lcpll.LineRateCfg = 8;
-			}
-			else if ((312500000 <= (*RefClkPtr)) &&
-						((*RefClkPtr) <= 350000000)) {
-				InstancePtr->Quads[0].Lcpll.LineRateCfg = 9;
-			}
-			/* For x3 Oversampling */
-			/*else if ((350000000 <= (*RefClkPtr)) &&
-						((*RefClkPtr) <= 381260000)) {
-				InstancePtr->Quads[0].Lcpll.LineRateCfg = 10;
-			} */
-			else{
-				Status = XST_FAILURE;
-			}
-		}
-		/* HDMI 2.0 */
-		else {
-			if ((78130000 <= (*RefClkPtr)) &&
-					((*RefClkPtr) <= 87500000)) {
-				InstancePtr->Quads[0].Lcpll.LineRateCfg = 10;
-			}
-			else if ((87500000 <= (*RefClkPtr)) &&
-						((*RefClkPtr) <= 95310000)) {
-				InstancePtr->Quads[0].Lcpll.LineRateCfg = 11;
-			}
-			else if ((95310000 <= (*RefClkPtr)) &&
-						((*RefClkPtr) <= 102340000)) {
-				InstancePtr->Quads[0].Lcpll.LineRateCfg = 12;
-			}
-			else if ((102340000 <= (*RefClkPtr)) &&
-						((*RefClkPtr) <= 125000000)) {
-				InstancePtr->Quads[0].Lcpll.LineRateCfg = 13;
-			}
-			else if ((125000000 <= (*RefClkPtr)) &&
-						((*RefClkPtr) <= 156250000)) {
-				InstancePtr->Quads[0].Lcpll.LineRateCfg = 14;
-			}
-			else{
-				Status = XST_FAILURE;
-			}
-		}
-	}
-	/* Check for HDMI 2.1 GT LineRate Config */
-	else if (IsHdmi21) {
-		if (LineRate == 3000000000) {
-			InstancePtr->Quads[0].Lcpll.LineRateCfg = 15;
-		}
-		else if (LineRate == 6000000000) {
-			InstancePtr->Quads[0].Lcpll.LineRateCfg = 16;
-		}
-		else if (LineRate == 8000000000) {
-			InstancePtr->Quads[0].Lcpll.LineRateCfg = 17;
-		}
-		else if (LineRate == 10000000000) {
-			InstancePtr->Quads[0].Lcpll.LineRateCfg = 18;
-		}
-		else if (LineRate == 12000000000) {
-			InstancePtr->Quads[0].Lcpll.LineRateCfg = 19;
-		}
-		else {
-			Status = XST_FAILURE;
-		}
-	}
-#else
+
 	/* Check for DRU mode */
 	if ((Dir == XHDMIPHY1_DIR_RX) &&
 		(InstancePtr->HdmiRxDruIsEnabled)) {
@@ -320,7 +201,8 @@ u32 XHdmiphy1_HdmiLcpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 				InstancePtr->Quads[0].Lcpll.LineRateCfg = 1;
 			}
 			else if ((204687500 <= (*RefClkPtr)) &&
-						((*RefClkPtr) <= 297010000)) {
+						/* 297 MHz + 0.5% + 10 KHz error */
+						((*RefClkPtr) <= 298500000)) {
 				InstancePtr->Quads[0].Lcpll.LineRateCfg = 2;
 			}
 			else{
@@ -329,12 +211,12 @@ u32 XHdmiphy1_HdmiLcpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 		}
 		/* HDMI 2.0 */
 		else {
-			if ((84990000 <= (*RefClkPtr)) &&
+			if ((84570000 <= (*RefClkPtr)) &&
 						((*RefClkPtr) <= 102343750)) {
 				InstancePtr->Quads[0].Lcpll.LineRateCfg = 3;
 			}
 			else if ((102343750 <= (*RefClkPtr)) &&
-						((*RefClkPtr) <= 148510000)) {
+						((*RefClkPtr) <= 149500000)) {
 				InstancePtr->Quads[0].Lcpll.LineRateCfg = 4;
 			}
 			else{
@@ -363,7 +245,7 @@ u32 XHdmiphy1_HdmiLcpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 			Status = XST_FAILURE;
 		}
 	}
-#endif
+
 	/* Update Line Rate Value */
 	XHdmiphy1_CfgLineRate(InstancePtr, QuadId,
 			/* LCPLL is CMN0 */
@@ -488,87 +370,7 @@ u32 XHdmiphy1_HdmiRpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 		}
 
 	}
-#if 0
-	/* Check for DRU mode */
-	if ((Dir == XHDMIPHY1_DIR_RX) &&
-		(InstancePtr->HdmiRxDruIsEnabled)) {
-		InstancePtr->Quads[0].Rpll.LineRateCfg = 1;
-	}
-	/* Check for HDMI 1.4/2.0 GT LineRate Config */
-	else if (!IsHdmi21) {
-		/* HDMI 1.4 */
-		if (!TmdsClockRatio) {
-			if ((120000000 <= (*RefClkPtr)) &&
-					((*RefClkPtr) <= 129000000)) {
-				InstancePtr->Quads[0].Rpll.LineRateCfg = 2;
-			}
-			else if ((129000000 <= (*RefClkPtr)) &&
-						((*RefClkPtr) <= 163000000)) {
-				InstancePtr->Quads[0].Rpll.LineRateCfg = 3;
-			}
-			else if ((163000000 <= (*RefClkPtr)) &&
-						((*RefClkPtr) <= 200000000)) {
-				InstancePtr->Quads[0].Rpll.LineRateCfg = 4;
-			}
-			else if ((200000000 <= (*RefClkPtr)) &&
-						((*RefClkPtr) <= 258000000)) {
-				InstancePtr->Quads[0].Rpll.LineRateCfg = 5;
-			}
-			else if ((258000000 <= (*RefClkPtr)) &&
-						((*RefClkPtr) <= 325000000)) {
-				InstancePtr->Quads[0].Rpll.LineRateCfg = 6;
-			}
-			else if ((325000000 <= (*RefClkPtr)) &&
-						((*RefClkPtr) <= 340000000)) {
-			/* For x3 Oversampling */
-			/*			((*RefClkPtr) <= 400000000)) {*/
-				InstancePtr->Quads[0].Rpll.LineRateCfg = 7;
-			}
-			else{
-				Status = XST_FAILURE;
-			}
-		}
-		/* HDMI 2.0 */
-		else {
-			if ((85000000 <= (*RefClkPtr)) &&
-					((*RefClkPtr) <= 100000000)) {
-				InstancePtr->Quads[0].Rpll.LineRateCfg = 8;
-			}
-			else if ((100000000 <= (*RefClkPtr)) &&
-						((*RefClkPtr) <= 129000000)) {
-				InstancePtr->Quads[0].Rpll.LineRateCfg = 9;
-			}
-			else if ((129000000 <= (*RefClkPtr)) &&
-						((*RefClkPtr) <= 148500000)) {
-				InstancePtr->Quads[0].Rpll.LineRateCfg = 10;
-			}
-			else{
-				Status = XST_FAILURE;
-			}
-		}
-	}
-	/* Check for HDMI 2.1 GT LineRate Config */
-	else if (IsHdmi21) {
-		if (LineRate == 3000000000) {
-			InstancePtr->Quads[0].Rpll.LineRateCfg = 11;
-		}
-		else if (LineRate == 6000000000) {
-			InstancePtr->Quads[0].Rpll.LineRateCfg = 12;
-		}
-		else if (LineRate == 8000000000) {
-			InstancePtr->Quads[0].Rpll.LineRateCfg = 13;
-		}
-		else if (LineRate == 10000000000) {
-			InstancePtr->Quads[0].Rpll.LineRateCfg = 14;
-		}
-		else if (LineRate == 12000000000) {
-			InstancePtr->Quads[0].Rpll.LineRateCfg = 15;
-		}
-		else {
-			Status = XST_FAILURE;
-		}
-	}
-#else
+
 	/* Check for DRU mode */
 	if ((Dir == XHDMIPHY1_DIR_RX) &&
 		(InstancePtr->HdmiRxDruIsEnabled)) {
@@ -583,7 +385,8 @@ u32 XHdmiphy1_HdmiRpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 				InstancePtr->Quads[0].Rpll.LineRateCfg = 1;
 			}
 			else if ((200000000 <= (*RefClkPtr)) &&
-						((*RefClkPtr) <= 297010000)) {
+						/* 297 MHz + 0.5% + 10 KHz error */
+						((*RefClkPtr) <= 298500000)) {
 				InstancePtr->Quads[0].Rpll.LineRateCfg = 2;
 			}
 			else{
@@ -592,12 +395,12 @@ u32 XHdmiphy1_HdmiRpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 		}
 		/* HDMI 2.0 */
 		else {
-			if ((84990000 <= (*RefClkPtr)) &&
+			if ((84570000 <= (*RefClkPtr)) &&
 						((*RefClkPtr) <= 100000000)) {
 				InstancePtr->Quads[0].Rpll.LineRateCfg = 3;
 			}
 			else if ((100000000 <= (*RefClkPtr)) &&
-						((*RefClkPtr) <= 148510000)) {
+						((*RefClkPtr) <= 149500000)) {
 				InstancePtr->Quads[0].Rpll.LineRateCfg = 4;
 			}
 			else{
@@ -626,7 +429,7 @@ u32 XHdmiphy1_HdmiRpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 			Status = XST_FAILURE;
 		}
 	}
-#endif
+
 	/* Update Line Rate Value */
 	XHdmiphy1_CfgLineRate(InstancePtr, QuadId,
 			/* RPLL is CMN1 */
@@ -671,12 +474,12 @@ u32 XHdmiphy1_HdmiTxPllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHDMIPHY1_CHANNEL_ID_CH1);
 
     if (PllType == XHDMIPHY1_PLL_TYPE_LCPLL) {
-	Status = XHdmiphy1_HdmiLcpllParam(InstancePtr, 0, ChId,
-				XHDMIPHY1_DIR_TX);
+    	Status = XHdmiphy1_HdmiLcpllParam(InstancePtr, 0, ChId,
+    				XHDMIPHY1_DIR_TX);
     }
     else { /* RPLL */
-	Status = XHdmiphy1_HdmiRpllParam(InstancePtr, 0, ChId,
-				XHDMIPHY1_DIR_TX);
+    	Status = XHdmiphy1_HdmiRpllParam(InstancePtr, 0, ChId,
+    				XHDMIPHY1_DIR_TX);
     }
 
     return Status;
@@ -712,12 +515,12 @@ u32 XHdmiphy1_HdmiRxPllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHDMIPHY1_CHANNEL_ID_CH1);
 
     if (PllType == XHDMIPHY1_PLL_TYPE_LCPLL) {
-	Status = XHdmiphy1_HdmiLcpllParam(InstancePtr, 0, ChId,
-				XHDMIPHY1_DIR_RX);
+    	Status = XHdmiphy1_HdmiLcpllParam(InstancePtr, 0, ChId,
+    				XHDMIPHY1_DIR_RX);
     }
     else { /* RPLL */
-	Status = XHdmiphy1_HdmiRpllParam(InstancePtr, 0, ChId,
-				XHDMIPHY1_DIR_RX);
+    	Status = XHdmiphy1_HdmiRpllParam(InstancePtr, 0, ChId,
+    				XHDMIPHY1_DIR_RX);
     }
 
 	return Status;

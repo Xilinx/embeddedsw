@@ -1,28 +1,8 @@
 /*******************************************************************************
- *
- * Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
@@ -743,16 +723,14 @@ void XHdmiphy1_SetTxVoltageSwing(XHdmiphy1 *InstancePtr, u8 QuadId,
 	RegVal |= ((Vs & 0xF) << XHDMIPHY1_TX_DRIVER_TXDIFFCTRL_SHIFT(ChId));
 	XHdmiphy1_WriteReg(InstancePtr->Config.BaseAddr, RegOffset, RegVal);
 
-	if (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYE4) {
-		RegVal = XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr,
-					XHDMIPHY1_TX_DRIVER_EXT_REG);
-		MaskVal = XHDMIPHY1_TX_DRIVER_EXT_TXDIFFCTRL_MASK(ChId);
-		RegVal &= ~MaskVal;
-		RegVal |= ((Vs && 0x10) <<
-					XHDMIPHY1_TX_DRIVER_EXT_TXDIFFCTRL_SHIFT(ChId));
-		XHdmiphy1_WriteReg(InstancePtr->Config.BaseAddr,
-				XHDMIPHY1_TX_DRIVER_EXT_REG, RegVal);
-	}
+	RegVal = XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr,
+				XHDMIPHY1_TX_DRIVER_EXT_REG);
+	MaskVal = XHDMIPHY1_TX_DRIVER_EXT_TXDIFFCTRL_MASK(ChId);
+	RegVal &= ~MaskVal;
+	RegVal |= ((Vs && 0x10) <<
+			XHDMIPHY1_TX_DRIVER_EXT_TXDIFFCTRL_SHIFT(ChId));
+	XHdmiphy1_WriteReg(InstancePtr->Config.BaseAddr,
+			XHDMIPHY1_TX_DRIVER_EXT_REG, RegVal);
 }
 
 /*****************************************************************************/
@@ -1366,11 +1344,11 @@ void XHdmiphy1_RegisterDebug(XHdmiphy1 *InstancePtr)
 	}
 
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE3)
-	MaxDrpAddr = 0x015F;
+	MaxDrpAddr = 0x00CF;
 #elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
-	MaxDrpAddr = 0x025F;
+	MaxDrpAddr = 0x0125;
 #elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
-	MaxDrpAddr = 0x028C;
+	MaxDrpAddr = 0x0135;
 #endif
 	/* Get Max number of channels in HDMIPHY */
 	MaxChannels = (InstancePtr->Config.RxChannels >

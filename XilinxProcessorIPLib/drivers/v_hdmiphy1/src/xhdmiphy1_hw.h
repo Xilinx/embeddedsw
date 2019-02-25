@@ -1,28 +1,8 @@
 /*******************************************************************************
- *
- * Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
@@ -44,7 +24,7 @@
  * 1.0   gm   10/12/18 Initial release.
  * </pre>
  *
- * @addtogroup xhdmiphy1_v1_0
+ * @addtogroup xhdmiphy1_v2_0
  * @{
 *******************************************************************************/
 
@@ -423,8 +403,14 @@ extern "C" {
 /* 0x06C: GPO */
 #define XHDMIPHY1_TX_GPO_MASK(Ch) \
         (0x01 << (Ch - 1))
+#define XHDMIPHY1_TX_GPO_MASK_ALL(NCh) \
+		((NCh == 3) ? 0x7 : 0xF)
+#define XHDMIPHY1_TX_GPO_SHIFT 0
 #define XHDMIPHY1_RX_GPO_MASK(Ch) \
         (0x10 << (Ch - 1))
+#define XHDMIPHY1_RX_GPO_MASK_ALL(NCh) \
+		((NCh == 3) ? 0x70 : 0xF0)
+#define XHDMIPHY1_RX_GPO_SHIFT 4
 /* 0x070: TX_CONTROL */
 #define XHDMIPHY1_TX_CONTROL_TX8B10BEN_MASK(Ch) \
         (0x01 << (8 * (Ch - 1)))

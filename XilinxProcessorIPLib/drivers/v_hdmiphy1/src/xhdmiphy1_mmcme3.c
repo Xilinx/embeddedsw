@@ -1,28 +1,8 @@
 /*******************************************************************************
- *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
@@ -96,7 +76,7 @@ u32 XHdmiphy1_Mmcme3DividerEncoding(XHdmiphy1_MmcmDivType DivType, u8 Div)
 
         ClkReg1 = LoTime & 0x3F;
         ClkReg1 |= (HiTime & 0x3F) << 6;
-        ClkReg1 |= (DivType == MMCM_DIVCLK_DIVIDE) ? 0x0000 : 0x1000;
+        ClkReg1 |= (DivType == XHDMIPHY1_MMCM_DIVCLK_DIVIDE) ? 0x0000 : 0x1000;
 
         ClkReg2 = (Div % 2) ? 0x00800000 : 0x00000000;
     }
@@ -409,7 +389,7 @@ u32 XHdmiphy1_MmcmWriteParameters(XHdmiphy1 *InstancePtr, u8 QuadId,
 	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x27, 0xFFFF);
 
 	/* Write CLKFBOUT Reg1 & Reg2 Values */
-	DrpVal32 = XHdmiphy1_Mmcme3DividerEncoding(MMCM_CLKFBOUT_MULT_F,
+	DrpVal32 = XHdmiphy1_Mmcme3DividerEncoding(XHDMIPHY1_MMCM_CLKFBOUT_MULT_F,
 						MmcmParams->ClkFbOutMult);
 	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x14,
 						(u16)(DrpVal32 & 0xFFFF));
@@ -417,13 +397,13 @@ u32 XHdmiphy1_MmcmWriteParameters(XHdmiphy1 *InstancePtr, u8 QuadId,
 						(u16)((DrpVal32 >> 16) & 0xFFFF));
 
 	/* Write DIVCLK_DIVIDE Value */
-	DrpVal32 = XHdmiphy1_Mmcme3DividerEncoding(MMCM_DIVCLK_DIVIDE,
+	DrpVal32 = XHdmiphy1_Mmcme3DividerEncoding(XHDMIPHY1_MMCM_DIVCLK_DIVIDE,
 						MmcmParams->DivClkDivide) ;
 	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x16,
 						(u16)(DrpVal32 & 0xFFFF));
 
 	/* Write CLKOUT0 Reg1 & Reg2 Values */
-	DrpVal32 = XHdmiphy1_Mmcme3DividerEncoding(MMCM_CLKOUT_DIVIDE,
+	DrpVal32 = XHdmiphy1_Mmcme3DividerEncoding(XHDMIPHY1_MMCM_CLKOUT_DIVIDE,
 						MmcmParams->ClkOut0Div);
 	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x08,
 						(u16)(DrpVal32 & 0xFFFF));
@@ -431,7 +411,7 @@ u32 XHdmiphy1_MmcmWriteParameters(XHdmiphy1 *InstancePtr, u8 QuadId,
 						(u16)((DrpVal32 >> 16) & 0xFFFF));
 
 	/* Write CLKOUT1 Reg1 & Reg2 Values */
-	DrpVal32 = XHdmiphy1_Mmcme3DividerEncoding(MMCM_CLKOUT_DIVIDE,
+	DrpVal32 = XHdmiphy1_Mmcme3DividerEncoding(XHDMIPHY1_MMCM_CLKOUT_DIVIDE,
 						MmcmParams->ClkOut1Div);
 	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x0A,
 						(u16)(DrpVal32 & 0xFFFF));
@@ -439,7 +419,7 @@ u32 XHdmiphy1_MmcmWriteParameters(XHdmiphy1 *InstancePtr, u8 QuadId,
 						(u16)((DrpVal32 >> 16) & 0xFFFF));
 
 	/* Write CLKOUT2 Reg1 & Reg2 Values */
-	DrpVal32 = XHdmiphy1_Mmcme3DividerEncoding(MMCM_CLKOUT_DIVIDE,
+	DrpVal32 = XHdmiphy1_Mmcme3DividerEncoding(XHDMIPHY1_MMCM_CLKOUT_DIVIDE,
 						MmcmParams->ClkOut2Div);
 	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x0C,
 						(u16)(DrpVal32 & 0xFFFF));

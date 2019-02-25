@@ -1,28 +1,8 @@
 /*******************************************************************************
- *
- * Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
@@ -43,7 +23,7 @@
  * 1.0   gm   10/12/18 Initial release.
  * </pre>
  *
- * @addtogroup xhdmiphy1_v1_0
+ * @addtogroup xhdmiphy1_v2_0
  * @{
 *******************************************************************************/
 #include "xparameters.h"
@@ -62,6 +42,9 @@ extern "C" {
 #define XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK          200000000LL
 #define XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK_MIN      199990000LL
 #define XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK_MAX      200010000LL
+#define XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK1         125000000LL
+#define XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK1_MIN     124990000LL
+#define XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK1_MAX     125010000LL
 #define XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK2         400000000LL
 #define XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK2_MIN     399990000LL
 #define XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK2_MAX     400010000LL
@@ -128,6 +111,32 @@ extern "C" {
 #define XHDMIPHY1_HDMI_GTHE3_RX_MMCM_SCALE       1
 #define XHDMIPHY1_HDMI_GTHE3_RX_MMCM_FVCO_MIN    600000000U
 #define XHDMIPHY1_HDMI_GTHE3_RX_MMCM_FVCO_MAX    1200000000U
+
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE3)
+#define XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT		3
+#define XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK		1
+#define XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV	3
+#define XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV	3
+#define XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV	4
+#elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
+#define XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT		3
+#define XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK		1
+#define XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV	3
+#define XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV	3
+#define XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV	3
+#elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)
+#define XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT		6
+#define XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK		1
+#define XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV	6
+#define XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV	6
+#define XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV	6
+#else
+#define XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT		3
+#define XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK		1
+#define XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV	3
+#define XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV	3
+#define XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV	3
+#endif
 
 #define XHDMIPHY1_HDMI21_FRL_REFCLK              400000000U
 

@@ -1,33 +1,13 @@
 /*******************************************************************************
- *
- * Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
  * @file xhdmiphy1.h
- * @addtogroup xhdmiphy1_v1_0
+ * @addtogroup xhdmiphy1_v2_0
  * @{
  * @details
  * This is main header file of the Xilinx HDMI PHY Controller driver
@@ -288,8 +268,8 @@ typedef enum {
 /* This typedef enumerates the possible states a transceiver can be in. */
 typedef enum {
     XHDMIPHY1_GT_STATE_IDLE,     /**< Idle state. */
-    XHDMIPHY1_GT_STATE_LOCK,     /**< Lock state. */
 	XHDMIPHY1_GT_STATE_GPO_RE,   /**< GPO RE state. */
+    XHDMIPHY1_GT_STATE_LOCK,     /**< Lock state. */
     XHDMIPHY1_GT_STATE_RESET,    /**< Reset state. */
     XHDMIPHY1_GT_STATE_ALIGN,    /**< Align state. */
     XHDMIPHY1_GT_STATE_READY,    /**< Ready state. */
@@ -370,15 +350,15 @@ typedef enum {
 
 /* This typedef enumerates the different MMCM Dividers */
 typedef enum {
-  MMCM_CLKFBOUT_MULT_F, /* M */
-  MMCM_DIVCLK_DIVIDE,   /* D */
-  MMCM_CLKOUT_DIVIDE    /* On */
+    XHDMIPHY1_MMCM_CLKFBOUT_MULT_F, /* M */
+    XHDMIPHY1_MMCM_DIVCLK_DIVIDE,   /* D */
+    XHDMIPHY1_MMCM_CLKOUT_DIVIDE    /* On */
 } XHdmiphy1_MmcmDivType;
 
 /* This typedef enumerates the different MMCM CLKINSEL */
 typedef enum {
-    MMCM_CLKINSEL_CLKIN1 = 1,
-    MMCM_CLKINSEL_CLKIN2 = 0,
+	XHDMIPHY1_MMCM_CLKINSEL_CLKIN1 = 1,
+	XHDMIPHY1_MMCM_CLKINSEL_CLKIN2 = 0,
 } XHdmiphy1_MmcmClkinsel;
 
 /* This typedef enumerates the Linerate to TMDS Clock ratio
@@ -624,12 +604,12 @@ typedef struct {
             XHdmiphy1_Channel Ch3;
             XHdmiphy1_Channel Ch4;
             union {
-		XHdmiphy1_Channel Cmn0;
-		XHdmiphy1_Channel Lcpll;
+            	XHdmiphy1_Channel Cmn0;
+            	XHdmiphy1_Channel Lcpll;
             };
             union {
-		XHdmiphy1_Channel Cmn1;
-		XHdmiphy1_Channel Rpll;
+            	XHdmiphy1_Channel Cmn1;
+            	XHdmiphy1_Channel Rpll;
             };
         };
         XHdmiphy1_Channel Plls[6];
