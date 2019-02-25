@@ -53,6 +53,7 @@
  * 5.2	 aad  01/21/17 Added training timeout disable for RX MST mode for
  *		       soft-disconnect to work.
  * 6.0	 tu   05/14/17 Added AUX defer to 6
+ * 6.0   jb   02/19/19 Added HDCP22 functions.
  * </pre>
  *
 *******************************************************************************/
@@ -3668,4 +3669,58 @@ static u32 XDp_WaitPhyReady(XDp *InstancePtr, u32 Mask)
 
 	return XST_SUCCESS;
 }
+
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+/******************************************************************************/
+/**
+ * This function raises the CP_IRQ interrupt to the Upstream device.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @return	None
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_GenerateCpIrq(XDp *InstancePtr) {
+
+	XDp_WriteReg(InstancePtr->Config.BaseAddr,
+			XDP_RX_HPD_INTERRUPT, 0x00);
+	XDp_WriteReg(InstancePtr->Config.BaseAddr,
+			XDP_RX_DEVICE_SERVICE_IRQ,
+			XDP_RX_DEVICE_SERVICE_IRQ_CP_IRQ_MASK);
+}
+
+/******************************************************************************/
+/**
+ * This function is to enable or disable giving AUX_DEFFERs for
+ * HDCP22 DPCD offsets.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @retun	None
+ *
+ * @note	This function will enable or disable AUX_DEFFERS
+ * 			for below DPCD offsets
+ * 			0x6900B to 0x6921F
+ * 			0x692C0 to 0x692D0
+ * 			0x692E0 to 0x692EF.
+ *
+*******************************************************************************/
+void XDp_EnableDisableHdcp22AuxDeffers(XDp *InstancePtr, u8 EnableDisable)
+{
+	u32 Regval;
+
+	/* programming AUX defer*/
+	Regval = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+			XDP_RX_AUX_CLK_DIVIDER);
+	if (EnableDisable)
+		Regval |= (1 << XDP_RX_AUX_DEFER_SHIFT);
+	else
+		Regval &= ~(1 << XDP_RX_AUX_DEFER_SHIFT);
+
+	XDp_WriteReg(InstancePtr->Config.BaseAddr,
+			XDP_RX_AUX_CLK_DIVIDER, Regval);
+}
+#endif
 /** @} */

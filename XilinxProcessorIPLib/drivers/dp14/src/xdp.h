@@ -372,6 +372,16 @@
  *                     DrvHpdEventHandler and DrvHpdPulseHandler
  * 6.0   tu   09/08/17 Added three interrupt handler that addresses callback
  *                     function of driver
+ * 6.0   jb   02/19/19 Added Intr*Handler and Intr*CallbackRef interrupt-related
+ *                     members to XDp_Rx structure for:
+ *                     		Hdcp22AkeInitWr, Hdcp22AkeNoStoredKmWr,
+ *                     		Hdcp22AkeStoredWr, Hdcp22LcInitWr,
+ *                     		Hdcp22SkeSendEksWr, Hdcp22LinkIntegrityFail,
+ *                     		Hdcp22HprimeReadDone, Hdcp22PairingReadDone
+ *                     	Added new HDCP22 functions:
+ *                     		XDp_GenerateCpIrq,
+ *                     		XDp_EnableDisableHdcp22AuxDeffers
+ *
  * </pre>
  *
 *******************************************************************************/
@@ -444,6 +454,15 @@ typedef enum {
 	XDP_RX_HANDLER_DRV_PWRSTATE,
 	XDP_RX_HANDLER_DRV_NOVIDEO,
 	XDP_RX_HANDLER_DRV_VIDEO,
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+	XDP_RX_HANDLER_HDCP22_AKE_INIT,
+	XDP_RX_HANDLER_HDCP22_AKE_NO_STORED_KM,
+	XDP_RX_HANDLER_HDCP22_AKE_STORED_KM,
+	XDP_RX_HANDLER_HDCP22_LC_INIT,
+	XDP_RX_HANDLER_HDCP22_SKE_SEND_EKS,
+	XDP_RX_HANDLER_HDCP22_HPRIME_READ_DONE,
+	XDP_RX_HANDLER_HDCP22_PAIRING_READ_DONE,
+#endif
 	XDP_RX_NUM_HANDLERS
 } Dp_Rx_HandlerType;
 
@@ -1141,6 +1160,75 @@ typedef struct {
 							passed to the HDCP
 							Binfo register read
 							callback function. */
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+	XDp_IntrHandler IntrHdcp22AkeInitWrHandler;	/**< Callback function
+							  for HDCP22 Ake_Init
+							  register write
+							  interrupts. */
+	void *IntrHdcp22AkeInitWrCallbackRef;	/**< A pointer to the user data
+						  passed to the HDCP22
+						  Ake_Init register write
+						  callback function. */
+	XDp_IntrHandler IntrHdcp22AkeNoStoredKmWrHandler;/**< Callback function
+							   for HDCP22
+							   Ake_No_Stored_Km
+							   register write
+							   interrupts. */
+	void *IntrHdcp22AkeNoStoredKmWrCallbackRef;	/**< A pointer to the
+							  user data passed to
+							  the HDCP22
+							  Ake_No_Stored_Km
+							  register write
+							  callback function. */
+	XDp_IntrHandler IntrHdcp22AkeStoredWrHandler;	/**< Callback function
+							  for HDCP22
+							  Ake_Stored_Km
+							  register write
+							  interrupts. */
+	void *IntrHdcp22AkeStoredWrCallbackRef;	/**< A pointer to the user data
+						  passed to the HDCP22
+						  Ake_Stored register write
+						  callback function. */
+	XDp_IntrHandler IntrHdcp22LcInitWrHandler;	/**< Callback function
+							  for HDCP22 Lc_Init
+							  register write
+							  interrupts. */
+	void *IntrHdcp22LcInitWrCallbackRef;	/**< A pointer to the user data
+						  passed to the HDCP22
+						  Lc_Init register write
+						  callback function. */
+	XDp_IntrHandler IntrHdcp22SkeSendEksWrHandler;	/**< Callback function
+							  for HDCP22
+							  Ske_Send_Eks register
+							  write interrupts. */
+	void *IntrHdcp22SkeSendEksWrCallbackRef;	/**< A pointer to the
+							  user data passed to
+							  the HDCP22
+							  Ske_Send_Eks
+							  register write
+							  callback function. */
+	XDp_IntrHandler IntrHdcp22HprimeReadDoneHandler;	/**< Callback
+								  function for
+								  HDCP22 H'
+								  Read Done
+								  interrupts. */
+	void *IntrHdcp22HprimeReadDoneCallbackRef;	/**< A pointer to the
+							  user data passed to
+							  the HDCP22
+							  HprimeReadDone
+							  callback function. */
+	XDp_IntrHandler IntrHdcp22PairingReadDoneHandler;	/**< Callback
+								  function for
+								  HDCP22 Pairing
+								  Info read Done
+								  interrupts. */
+	void *IntrHdcp22PairingReadDoneCallbackRef;	/**< A pointer to the
+							  user data passed to
+							  the HDCP22
+							  PairingReadDone
+							  callback function. */
+#endif
+
 	XDp_IntrHandler IntrUnplugHandler;	/**< Callback function for
 							unplug interrupts. */
 	void *IntrUnplugCallbackRef;		/**< A pointer to the user data
@@ -1434,6 +1522,11 @@ XVidC_ColorFormat XDp_RxGetColorComponent(XDp *InstancePtr, u8 Stream);
 void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream);
 void XDp_RxAllocatePayloadStream(XDp *InstancePtr);
 #endif /* XPAR_XDPRXSS_NUM_INSTANCES */
+
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+void XDp_GenerateCpIrq(XDp *InstancePtr);
+void XDp_EnableDisableHdcp22AuxDeffers(XDp *InstancePtr, u8 EnableDisable);
+#endif
 
 /******************* Macros (Inline Functions) Definitions ********************/
 
