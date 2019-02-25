@@ -108,6 +108,7 @@
 *                   generation.
 * 4.1  tu  09/08/17 Added three driver side interrupt handler for Video,
 *                   NoVideo and PowerChange events
+* 4.1  jb  02/19/19 Added support for HDCP22.
 * </pre>
 *
 ******************************************************************************/
@@ -130,11 +131,24 @@ extern "C" {
 #include "xdprxss_iic.h"
 #include "xdprxss_hdcp1x.h"
 #include "xdprxss_mcdp6000.h"
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+#include "xdprxss_hdcp22.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
 
 /**************************** Type Definitions *******************************/
+/**
+* These constants specify the HDCP protection schemes
+*/
+typedef enum
+{
+  XDPRXSS_HDCP_NONE,       /**< No content protection */
+  XDPRXSS_HDCP_14,         /**< HDCP 1.4 */
+  XDPRXSS_HDCP_22,         /**< HDCP 2.2 */
+  XDPRXSS_HDCP_BOTH        /**< Both HDCP 1.4 and 2.2 */
+} XDpRxSs_HdcpProtocol;
 
 /**
 * These constants specify different types of handler and used to differentiate
@@ -198,6 +212,18 @@ typedef enum {
 						  *  HDCP core */
 	XDPRXSS_HANDLER_HDCP_AUTHENTICATED,	/**< HDCP Authentication
 						  *  completion interrupt type for  HDCP core */
+#endif
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+	XDPRXSS_HANDLER_HDCP22_AUTHENTICATED,	/**< Handler for HDCP22
+						  authenticated event */
+	XDPRXSS_HANDLER_HDCP22_UNAUTHENTICATED,	/**< Handler for HDCP22
+						  authenticated event */
+	XDPRXSS_HANDLER_HDCP22_AUTHENTICATION_REQUEST, /**< Handler for HDCP
+							 authentication request
+							 event */
+	XDPRXSS_HANDLER_HDCP22_ENCRYPTION_UPDATE, /**< Handler for HDCP
+						    encryption status update
+						    event */
 #endif
 	XDPRXSS_HANDLER_UNPLUG_EVENT,		/**< Unplug event type for
 						  *  DisplayPort RX
@@ -268,15 +294,18 @@ typedef struct {
 	XHdcp1x_Config Hdcp1xConfig;	/**< HDCP core configuration
 					  *  information */
 } XDpRxSs_Hdcp1xSubCore;
+#endif
 
+#if (((XPAR_DPRXSS_0_HDCP_ENABLE > 0)  || (XPAR_XHDCP22_RX_NUM_INSTANCES > 0))\
+		&& (XPAR_XTMRCTR_NUM_INSTANCES > 0))
 /**
-* Timer Counter Sub-core structure.
-*/
+ * Timer Counter Sub-core structure.
+ */
 typedef struct {
 	u16 IsPresent;		/**< Flag to hold the presence of Timer
-				  *  Counter core */
+				 *  Counter core */
 	XTmrCtr_Config TmrCtrConfig;	/**< Timer Counter core
-					  * configuration information */
+					 * configuration information */
 } XDpRxSs_TmrCtrSubCore;
 #endif
 
@@ -298,6 +327,8 @@ typedef struct {
 				  *  Subsystem core */
 	u8 HdcpEnable;		/**< This Subsystem core supports digital
 				  *  content protection. */
+	u8 Hdcp22Enable;	/**< This Subsystem core supports digital
+				  content protection(HDCP22). */
 	u8 MaxLaneCount;	/**< The maximum lane count supported by this
 				  *  core instance. */
 	u8 MstSupport;		/**< Multi-stream transport (MST) mode is
@@ -310,8 +341,12 @@ typedef struct {
 #if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 	XDpRxSs_Hdcp1xSubCore Hdcp1xSubCore;	/**< HDCP Configuration */
 #endif
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+	XDpRxSs_Hdcp22SubCore Hdcp22SubCore;
+#endif
 	XDpRxSs_IicSubCore IicSubCore;	/**< IIC Configuration */
-#if ((XPAR_DPRXSS_0_HDCP_ENABLE > 0) && (XPAR_XTMRCTR_NUM_INSTANCES > 0))
+#if (((XPAR_DPRXSS_0_HDCP_ENABLE > 0)  || (XPAR_XHDCP22_RX_NUM_INSTANCES > 0))\
+		&& (XPAR_XTMRCTR_NUM_INSTANCES > 0))
 	XDpRxSs_TmrCtrSubCore TmrCtrSubCore;	/**< Timer Counter
 						  *  Configuration */
 #endif
@@ -342,6 +377,10 @@ typedef struct {
 	XIic *IicPtr;			/**< IIC sub-core instance */
 #if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 	XHdcp1x *Hdcp1xPtr;		/**< HDCP sub-core instance */
+#endif
+#if (((XPAR_DPRXSS_0_HDCP_ENABLE > 0) || \
+	(XPAR_XHDCP22_RX_NUM_INSTANCES > 0)) \
+		&& (XPAR_XTMRCTR_NUM_INSTANCES > 0))
 	XTmrCtr *TmrCtrPtr;		/**< Timer Counter sub-core instance */
 	u8 TmrCtrResetDone;		/**< Timer reset done. This is used for
 					  *  MacBook which authenticates just
@@ -349,6 +388,10 @@ typedef struct {
 					  *  ensures that system does not do
 					  *  anything until this variable set
 					  *  to one.*/
+#endif
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+	XHdcp22_Rx  *Hdcp22Ptr;           /**< handle to HDCP22 sub-core driver
+					    instance */
 #endif
 
 	/* Callback */
@@ -389,6 +432,15 @@ typedef struct {
 	u8 prevLaneCounts;
 	u8 link_up_trigger;
 	u8 no_video_trigger;
+	XDpRxSs_HdcpProtocol HdcpProtocol; /**< HDCP protocol selected */
+#if ((XPAR_DPRXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_RX_NUM_INSTANCES > 0))
+	u8 HdcpIsReady;			/**< HDCP ready flag */
+#endif
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+	XV_DpRxSs_Hdcp22EventQueue Hdcp22EventQueue; /**< HDCP22 event queue */
+	u8 *Hdcp22Lc128Ptr;		/**< Pointer to HDCP 2.2 LC128 */
+	u8 *Hdcp22PrivateKeyPtr;	/**< Pointer to HDCP 2.2 Private key */
+#endif
 } XDpRxSs;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -546,6 +598,8 @@ u32 XDpRxSs_SelfTest(XDpRxSs *InstancePtr);
 /* Interrupt functions in xdprxss_intr.c */
 #if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 void XDpRxSs_HdcpIntrHandler(void *InstancePtr);
+#endif
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
 void XDpRxSs_TmrCtrIntrHandler(void *InstancePtr);
 #endif
 void XDpRxSs_DpIntrHandler(void *InstancePtr);
@@ -560,6 +614,11 @@ void XDpRxSs_DrvVideoHandler(void *InstancePtr);
 void XDpRxSs_DrvPowerChangeHandler(void *InstancePtr);
 
 void XDpRxSs_McDp6000_init(void *InstancePtr, u32 I2CAddress);
+
+#if ((XPAR_DPRXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_RX_NUM_INSTANCES > 0))
+int XV_DpRxSs_HdcpSetProtocol(XDpRxSs *InstancePtr,
+		XDpRxSs_HdcpProtocol Protocol);
+#endif
 /************************** Variable Declarations ****************************/
 
 

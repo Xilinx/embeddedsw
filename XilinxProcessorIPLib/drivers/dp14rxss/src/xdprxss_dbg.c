@@ -96,6 +96,10 @@ void XDpRxSs_ReportCoreInfo(XDpRxSs *InstancePtr)
 	if (InstancePtr->Hdcp1xPtr) {
 		xil_printf("High-Bandwidth Content protection (HDCP):Yes\n\r");
 	}
+#endif
+#if (((XPAR_DPRXSS_0_HDCP_ENABLE > 0) || \
+	(XPAR_XHDCP22_RX_NUM_INSTANCES > 0)) \
+		&& (XPAR_XTMRCTR_NUM_INSTANCES > 0))
 	if (InstancePtr->TmrCtrPtr) {
 		xil_printf("Timer Counter(0):Yes\n\r");
 	}
