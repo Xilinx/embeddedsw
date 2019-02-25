@@ -629,11 +629,11 @@ int main(void)
 	 */
 	Status = QspiPsuPolledFlashExample(&QspiPsuInstance, QSPIPSU_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Generic Flash Polled 64 bit dma r5 Ex Failed\r\n");
+		xil_printf("Generic Flash Polled 64 bit dma r5 Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
-	xil_printf("Generic Flash Polled 64 bit dma r5 Ex Successful\r\n");
+	xil_printf("Successfully ran Generic Flash Polled 64 bit dma r5 Example\r\n");
 	return XST_SUCCESS;
 }
 
