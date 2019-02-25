@@ -22,6 +22,8 @@
  *            dd/mm/yy
  * ----- ---- -------- -----------------------------------------------
  * 1.0   gm   10/12/18 Initial release.
+ * 1.1   ku   17/05/20 Adding uniquification to avoid clash with vphy
+ * 1.1   ku   27/07/20 Removed GTHE3 related code
  * </pre>
  *
 *******************************************************************************/
@@ -79,12 +81,10 @@ void XHdmiphy1_CfgInitialize(XHdmiphy1 *InstancePtr,
 	InstancePtr->Config = *ConfigPtr;
 	InstancePtr->Config.BaseAddr = EffectiveAddr;
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE3)
-	InstancePtr->GtAdaptor = &Gthe3Config;
-#elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
-	InstancePtr->GtAdaptor = &Gthe4Config;
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
+	InstancePtr->GtAdaptor = &XHdmiphy1_Gthe4Config;
 #elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
-	InstancePtr->GtAdaptor = &Gtye4Config;
+	InstancePtr->GtAdaptor = &XHdmiphy1_Gtye4Config;
 #elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)
 	InstancePtr->GtAdaptor = &Gtye5Config;
 #endif
@@ -173,13 +173,13 @@ u32 XHdmiphy1_PllInitialize(XHdmiphy1 *InstancePtr, u8 QuadId,
     XHdmiphy1_CfgPllRefClkSel(InstancePtr, QuadId,
             XHDMIPHY1_CHANNEL_ID_CHA, CpllRefClkSel);
 	XHdmiphy1_CfgSysClkDataSel(InstancePtr, QuadId, XHDMIPHY1_DIR_TX,
-			Pll2SysClkData(TxPllSelect));
+			XHdmiphy1_Pll2SysClkData(TxPllSelect));
 	XHdmiphy1_CfgSysClkDataSel(InstancePtr, QuadId, XHDMIPHY1_DIR_RX,
-			Pll2SysClkData(RxPllSelect));
+			XHdmiphy1_Pll2SysClkData(RxPllSelect));
 	XHdmiphy1_CfgSysClkOutSel(InstancePtr, QuadId, XHDMIPHY1_DIR_TX,
-			Pll2SysClkOut(TxPllSelect));
+			XHdmiphy1_Pll2SysClkOut(TxPllSelect));
 	XHdmiphy1_CfgSysClkOutSel(InstancePtr, QuadId, XHDMIPHY1_DIR_RX,
-			Pll2SysClkOut(RxPllSelect));
+			XHdmiphy1_Pll2SysClkOut(RxPllSelect));
 
 	/* Write configuration to hardware at once. */
 	XHdmiphy1_WriteCfgRefClkSelReg(InstancePtr, QuadId);
@@ -1321,9 +1321,7 @@ void XHdmiphy1_RegisterDebug(XHdmiphy1 *InstancePtr)
 	}
 
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE3)
-	MaxDrpAddr = 0x00B0;
-#elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
 	MaxDrpAddr = 0x00B0;
 #elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
 	MaxDrpAddr = 0x00B0;
@@ -1343,9 +1341,7 @@ void XHdmiphy1_RegisterDebug(XHdmiphy1 *InstancePtr)
 		xil_printf("No QPLL in this HDMIPHY Instance\r\n");
 	}
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE3)
-	MaxDrpAddr = 0x00CF;
-#elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
 	MaxDrpAddr = 0x0125;
 #elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
 	MaxDrpAddr = 0x0135;

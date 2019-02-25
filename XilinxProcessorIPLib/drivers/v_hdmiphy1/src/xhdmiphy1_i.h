@@ -23,9 +23,10 @@
  *            dd/mm/yy
  * ----- ---- -------- -----------------------------------------------
  * 1.0   gm   10/12/18 Initial release.
+ * 1.1   ku   17/05/20 Adding uniquification to avoid clash with vphy
  * </pre>
  *
- * @addtogroup xhdmiphy1_v2_0
+ * @addtogroup xhdmiphy1_v2_1
  * @{
 *******************************************************************************/
 
@@ -55,8 +56,8 @@ void XHdmiphy1_Ch2Ids(XHdmiphy1 *InstancePtr, XHdmiphy1_ChannelId ChId,
 u32 XHdmiphy1_DirReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir);
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
-XHdmiphy1_SysClkDataSelType Pll2SysClkData(XHdmiphy1_PllType PllSelect);
-XHdmiphy1_SysClkOutSelType Pll2SysClkOut(XHdmiphy1_PllType PllSelect);
+XHdmiphy1_SysClkDataSelType XHdmiphy1_Pll2SysClkData(XHdmiphy1_PllType PllSelect);
+XHdmiphy1_SysClkOutSelType XHdmiphy1_Pll2SysClkOut(XHdmiphy1_PllType PllSelect);
 u32 XHdmiphy1_PllCalculator(XHdmiphy1 *InstancePtr, u8 QuadId,
 		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir,
 		u32 PllClkInFreqHz);

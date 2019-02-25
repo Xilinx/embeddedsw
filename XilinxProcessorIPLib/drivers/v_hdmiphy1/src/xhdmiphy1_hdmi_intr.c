@@ -610,9 +610,8 @@ void XHdmiphy1_HdmiGtTxResetDoneLockHandler(XHdmiphy1 *InstancePtr)
     }
 
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
-    if ((InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE3) ||
-            (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE4) ||
-            (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYE4)) {
+    if ((InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE4) ||
+        (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYE4)) {
         XHdmiphy1_TxAlignReset(InstancePtr, XHDMIPHY1_CHANNEL_ID_CHA, TRUE);
         XHdmiphy1_TxAlignReset(InstancePtr, XHDMIPHY1_CHANNEL_ID_CHA, FALSE);
     }
@@ -919,8 +918,7 @@ void XHdmiphy1_HdmiTxTimerTimeoutHandler(XHdmiphy1 *InstancePtr)
     XHdmiphy1_ClkReconfig(InstancePtr, 0, ChId);
     XHdmiphy1_OutDivReconfig(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
             XHDMIPHY1_DIR_TX);
-    if ((InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE3) ||
-        (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE4) ||
+    if ((InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE4) ||
         (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYE4)) {
         XHdmiphy1_SetBufgGtDiv(InstancePtr, XHDMIPHY1_DIR_TX,
                 (PllType == XHDMIPHY1_PLL_TYPE_CPLL) ?
@@ -941,8 +939,7 @@ void XHdmiphy1_HdmiTxTimerTimeoutHandler(XHdmiphy1 *InstancePtr)
     XHdmiphy1_ResetGtPll(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
             XHDMIPHY1_DIR_TX, FALSE);
 
-    if ((InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE3) ||
-        (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE4) ||
+    if ((InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE4) ||
         (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYE4)) {
         /* Clear GT alignment. */
         XHdmiphy1_TxAlignStart(InstancePtr, ChId, FALSE);
@@ -1077,6 +1074,13 @@ void XHdmiphy1_HdmiRxTimerTimeoutHandler(XHdmiphy1 *InstancePtr)
     /* De-assert RX PLL reset. */
     XHdmiphy1_ResetGtPll(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
             XHDMIPHY1_DIR_RX, FALSE);
+
+    for (Id = Id0; Id <= Id1; Id++) {
+            InstancePtr->Quads[0].Plls[XHDMIPHY1_CH2IDX(Id)].RxState =
+			XHDMIPHY1_GT_STATE_LOCK;
+    }
+
+
 #else
 	XHdmiphy1_Ch2Ids(InstancePtr, XHDMIPHY1_CHANNEL_ID_CHA, &Id0, &Id1);
     for (Id = Id0; Id <= Id1; Id++) {

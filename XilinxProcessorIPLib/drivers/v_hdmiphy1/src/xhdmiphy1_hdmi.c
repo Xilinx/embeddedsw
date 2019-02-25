@@ -20,6 +20,8 @@
  *            dd/mm/yy
  * ----- ---- -------- -----------------------------------------------
  * 1.0   gm   10/12/18 Initial release.
+ * 1.1   ku   24/07/20 Program MMCM params based on max line rate
+ *                     configured in IP GUI
  * </pre>
  *
 *******************************************************************************/
@@ -57,7 +59,8 @@ static const XHdmiphy1_GtHdmiChars *GetGtHdmiPtr(XHdmiphy1 *InstancePtr);
 static void XHdmiphy1_HdmiSetSystemClockSelection(XHdmiphy1 *InstancePtr,
                 u8 QuadId);
 #endif
-
+static void XHdmiphy1_MmcmParam(XHdmiphy1 *InstancePtr, u8 QuadId,
+		XHdmiphy1_DirectionType Dir);
 /**************************** Function Definitions ****************************/
 
 /******************************************************************************/
@@ -183,8 +186,7 @@ u32 XHdmiphy1_Hdmi_CfgInitialize(XHdmiphy1 *InstancePtr, u8 QuadId,
 		InstancePtr->HdmiIsQpllPresent = FALSE;
 	}
 
-	if ((InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE3) ||
-	    (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE4) ||
+	if ((InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE4) ||
 	    (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYE4)) {
 		XHdmiphy1_SetBufgGtDiv(InstancePtr, XHDMIPHY1_DIR_TX, 1);
 		XHdmiphy1_SetBufgGtDiv(InstancePtr, XHDMIPHY1_DIR_RX, 1);
@@ -745,17 +747,7 @@ u32 XHdmiphy1_DruGetRefClkFreqHz(XHdmiphy1 *InstancePtr)
 	/* Verify argument. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	if (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE3) {
-		if (DruFreqHz > XHDMIPHY1_HDMI_GTHE3_DRU_REFCLK_MIN &&
-				DruFreqHz < XHDMIPHY1_HDMI_GTHE3_DRU_REFCLK_MAX){
-			return XHDMIPHY1_HDMI_GTHE3_DRU_REFCLK;
-		}
-		else if (DruFreqHz > XHDMIPHY1_HDMI_GTHE3_DRU_REFCLK2_MIN &&
-				DruFreqHz < XHDMIPHY1_HDMI_GTHE3_DRU_REFCLK2_MAX){
-			return XHDMIPHY1_HDMI_GTHE3_DRU_REFCLK2;
-		}
-	}
-	else if (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE4) {
+	if (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE4) {
 		if (DruFreqHz > XHDMIPHY1_HDMI_GTHE4_DRU_REFCLK_MIN &&
 				DruFreqHz < XHDMIPHY1_HDMI_GTHE4_DRU_REFCLK_MAX){
 			return XHDMIPHY1_HDMI_GTHE4_DRU_REFCLK;
@@ -1440,23 +1432,7 @@ u32 XHdmiphy1_HdmiQpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 		RefClkPtr = &InstancePtr->HdmiTxRefClkHz;
 	}
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE3)
-	/* Determine which QPLL to use. */
-	if (((102343750 <= QpllRefClk) && (QpllRefClk <= 122500000)) ||
-		((204687500 <= QpllRefClk) && (QpllRefClk <= 245000000)) ||
-		((409375000 <= QpllRefClk) && (QpllRefClk <= 490000000))) {
-		SysClkDataSel = XHDMIPHY1_SYSCLKSELDATA_TYPE_QPLL1_OUTCLK;
-		SysClkOutSel = XHDMIPHY1_SYSCLKSELOUT_TYPE_QPLL1_REFCLK;
-		ActiveCmnId = XHDMIPHY1_CHANNEL_ID_CMN1;
-		QpllClkMin = (u32) XHDMIPHY1_HDMI_GTHE3_QPLL1_REFCLK_MIN;
-	}
-	else {
-		SysClkDataSel = XHDMIPHY1_SYSCLKSELDATA_TYPE_QPLL0_OUTCLK;
-		SysClkOutSel = XHDMIPHY1_SYSCLKSELOUT_TYPE_QPLL0_REFCLK;
-		ActiveCmnId = XHDMIPHY1_CHANNEL_ID_CMN0;
-		QpllClkMin = (u32) XHDMIPHY1_HDMI_GTHE3_QPLL0_REFCLK_MIN;
-	}
-#elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
 	/* Determine which QPLL to use. */
 	if (((102343750 <= QpllRefClk) && (QpllRefClk <= 122500000)) ||
 		((204687500 <= QpllRefClk) && (QpllRefClk <= 245000000)) ||
@@ -1936,6 +1912,122 @@ u32 XHdmiphy1_HdmiCpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 
 /*****************************************************************************/
 /**
+* This function sets the MMCM programming values based on Max Rate
+*
+* @param	InstancePtr is a pointer to the Hdmiphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	Dir is an indicator for RX or TX.
+*
+* @return       None
+*
+* @note         Based on the MAX Rate set in the GUI, the MMCM values are
+*               selected.
+*               3  -> Max Rate selected in GUI is 3G
+*               6  -> Max Rate selected in GUI is 6G
+*               8  -> Max Rate selected in GUI is 8G
+*               10 -> Max Rate selected in GUI is 10G
+*               12 -> Max Rate selected in GUI in 12G
+*
+******************************************************************************/
+static void XHdmiphy1_MmcmParam(XHdmiphy1 *InstancePtr, u8 QuadId,
+		XHdmiphy1_DirectionType Dir)
+{
+	u8 MaxRate;
+	u8 NumChannels;
+	XHdmiphy1_Mmcm *MmcmPtr;
+
+	if (Dir == XHDMIPHY1_DIR_RX) {
+		MmcmPtr = &InstancePtr->Quads[QuadId].RxMmcm;
+		MaxRate = InstancePtr->Config.RxMaxRate;
+		NumChannels = InstancePtr->Config.RxChannels;
+	}
+	else {
+		MmcmPtr = &InstancePtr->Quads[QuadId].TxMmcm;
+		MaxRate = InstancePtr->Config.TxMaxRate;
+		NumChannels = InstancePtr->Config.TxChannels;
+	}
+
+	switch (MaxRate) {
+	case 3:
+		MmcmPtr->ClkFbOutMult =
+			XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT3x3;
+		MmcmPtr->DivClkDivide =
+			XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK3x3;
+		MmcmPtr->ClkOut0Div =
+			XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV3x3;
+		MmcmPtr->ClkOut1Div =
+			XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV3x3;
+		MmcmPtr->ClkOut2Div =
+			XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV3x3;
+		break;
+	case 6:
+		if (NumChannels == 3) {
+			MmcmPtr->ClkFbOutMult =
+				XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT6x3;
+			MmcmPtr->DivClkDivide =
+				XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK6x3;
+			MmcmPtr->ClkOut0Div =
+				XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV6x3;
+			MmcmPtr->ClkOut1Div =
+				XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV6x3;
+			MmcmPtr->ClkOut2Div =
+				XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV6x3;
+		} else {
+			MmcmPtr->ClkFbOutMult =
+				XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT6;
+			MmcmPtr->DivClkDivide =
+				XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK6;
+			MmcmPtr->ClkOut0Div =
+				XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV6;
+			MmcmPtr->ClkOut1Div =
+				XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV6;
+			MmcmPtr->ClkOut2Div =
+				XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV6;
+		}
+		break;
+	case 8:
+		MmcmPtr->ClkFbOutMult =
+			XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT8;
+		MmcmPtr->DivClkDivide =
+			XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK8;
+		MmcmPtr->ClkOut0Div =
+			XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV8;
+		MmcmPtr->ClkOut1Div =
+			XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV8;
+		MmcmPtr->ClkOut2Div =
+			XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV8;
+		break;
+	case 10:
+		MmcmPtr->ClkFbOutMult =
+			XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT10;
+		MmcmPtr->DivClkDivide =
+			XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK10;
+		MmcmPtr->ClkOut0Div =
+			XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV10;
+		MmcmPtr->ClkOut1Div =
+			XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV10;
+		MmcmPtr->ClkOut2Div =
+			XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV10;
+		break;
+	case 12:
+		MmcmPtr->ClkFbOutMult =
+			XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT;
+		MmcmPtr->DivClkDivide =
+			XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK;
+		MmcmPtr->ClkOut0Div =
+			XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV;
+		MmcmPtr->ClkOut1Div =
+			XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV;
+		MmcmPtr->ClkOut2Div =
+			XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV;
+		break;
+	default:
+		break;
+	}
+}
+
+/*****************************************************************************/
+/**
 * This function update/set the HDMI TX parameter.
 *
 * @param	InstancePtr is a pointer to the Hdmiphy core instance.
@@ -2003,16 +2095,7 @@ u32 XHdmiphy1_SetHdmiTxParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 	if (Status == (XST_SUCCESS)) {
 		/* HDMI 2.1 */
 		if (InstancePtr->TxHdmi21Cfg.IsEnabled) {
-			InstancePtr->Quads[QuadId].TxMmcm.ClkFbOutMult =
-				XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT;
-			InstancePtr->Quads[QuadId].TxMmcm.DivClkDivide =
-				XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK;
-			InstancePtr->Quads[QuadId].TxMmcm.ClkOut0Div =
-				XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV;
-			InstancePtr->Quads[QuadId].TxMmcm.ClkOut1Div =
-				XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV;
-			InstancePtr->Quads[QuadId].TxMmcm.ClkOut2Div =
-				XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV;
+			XHdmiphy1_MmcmParam(InstancePtr, QuadId, XHDMIPHY1_DIR_TX);
 			return Status;
 		}
 
@@ -2034,7 +2117,6 @@ u32 XHdmiphy1_SetHdmiTxParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 	else {
 		Status = (XST_FAILURE);
 	}
-
 	return Status;
 }
 
@@ -2352,16 +2434,7 @@ u32 XHdmiphy1_Hdmi21Config(XHdmiphy1 *InstancePtr, u8 QuadId,
 		InstancePtr->RxHdmi21Cfg.IsEnabled = TRUE;
 
 		/* Set MMCM dividers for FRL mode */
-		InstancePtr->Quads[QuadId].RxMmcm.ClkFbOutMult =
-			XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT;
-		InstancePtr->Quads[QuadId].RxMmcm.DivClkDivide =
-			XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK;
-		InstancePtr->Quads[QuadId].RxMmcm.ClkOut0Div =
-			XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV;
-		InstancePtr->Quads[QuadId].RxMmcm.ClkOut1Div =
-			XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV;
-		InstancePtr->Quads[QuadId].RxMmcm.ClkOut2Div =
-			XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV;
+		XHdmiphy1_MmcmParam(InstancePtr, QuadId, XHDMIPHY1_DIR_RX);
 
 		/* Mask the MMCM Lock */
 		XHdmiphy1_MmcmLockedMaskEnable(InstancePtr, 0, Dir, TRUE);
@@ -2708,21 +2781,7 @@ void XHdmiphy1_HdmiDebugInfo(XHdmiphy1 *InstancePtr, u8 QuadId,
 	}
 }
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE3)
-static const XHdmiphy1_GtHdmiChars Gthe3HdmiChars = {
-	.DruLineRate = XHDMIPHY1_HDMI_GTHE3_DRU_LRATE,
-	.PllScale = XHDMIPHY1_HDMI_GTHE3_PLL_SCALE,
-	.Qpll0RefClkMin = XHDMIPHY1_HDMI_GTHE3_QPLL0_REFCLK_MIN,
-	.Qpll1RefClkMin = XHDMIPHY1_HDMI_GTHE3_QPLL1_REFCLK_MIN,
-	.CpllRefClkMin = XHDMIPHY1_HDMI_GTHE3_CPLL_REFCLK_MIN,
-	.TxMmcmScale = XHDMIPHY1_HDMI_GTHE3_TX_MMCM_SCALE,
-	.TxMmcmFvcoMin = XHDMIPHY1_HDMI_GTHE3_TX_MMCM_FVCO_MIN,
-	.TxMmcmFvcoMax = XHDMIPHY1_HDMI_GTHE3_TX_MMCM_FVCO_MAX,
-	.RxMmcmScale = XHDMIPHY1_HDMI_GTHE3_RX_MMCM_SCALE,
-	.RxMmcmFvcoMin = XHDMIPHY1_HDMI_GTHE3_RX_MMCM_FVCO_MIN,
-	.RxMmcmFvcoMax = XHDMIPHY1_HDMI_GTHE3_RX_MMCM_FVCO_MAX,
-};
-#elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
 static const XHdmiphy1_GtHdmiChars Gthe4HdmiChars = {
 	.DruLineRate = XHDMIPHY1_HDMI_GTHE4_DRU_LRATE,
 	.PllScale = XHDMIPHY1_HDMI_GTHE4_PLL_SCALE,
@@ -2786,9 +2845,7 @@ static const XHdmiphy1_GtHdmiChars *GetGtHdmiPtr(XHdmiphy1 *InstancePtr)
 	/* Suppress Warning Messages */
 	InstancePtr = InstancePtr;
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE3)
-	return &Gthe3HdmiChars;
-#elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
 	return &Gthe4HdmiChars;
 #elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
 	return &Gtye4HdmiChars;

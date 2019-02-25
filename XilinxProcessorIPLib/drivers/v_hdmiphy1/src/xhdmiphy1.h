@@ -7,7 +7,7 @@
 /**
  *
  * @file xhdmiphy1.h
- * @addtogroup xhdmiphy1_v2_0
+ * @addtogroup xhdmiphy1_v2_1
  * @{
  * @details
  * This is main header file of the Xilinx HDMI PHY Controller driver
@@ -67,7 +67,6 @@ extern "C" {
 
 /******************* Macros (Inline Functions) Definitions ********************/
 
-#define XHDMIPHY1_GTHE3 4
 #define XHDMIPHY1_GTHE4 5
 #define XHDMIPHY1_GTYE4 6
 #define XHDMIPHY1_GTYE5 7
@@ -76,7 +75,6 @@ extern "C" {
 
 /* This typedef enumerates the different GT types available. */
 typedef enum {
-    XHDMIPHY1_GT_TYPE_GTHE3 = 4,
     XHDMIPHY1_GT_TYPE_GTHE4 = 5,
     XHDMIPHY1_GT_TYPE_GTYE4 = 6,
     XHDMIPHY1_GT_TYPE_GTYE5 = 7,
@@ -682,6 +680,8 @@ typedef struct {
     u32 AxiLiteClkFreq;     /**< AXI Lite Clock Frequency in Hz */
     u32 DrpClkFreq;         /**< DRP Clock Frequency in Hz */
     u8  UseGtAsTxTmdsClk;   /**< Use 4th GT channel as TX TMDS clock */
+    u8  RxMaxRate;          /**< Max rate of RX */
+    u8  TxMaxRate;          /**< Max rate of TX */
 } XHdmiphy1_Config;
 
 /* Forward declaration. */

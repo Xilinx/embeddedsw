@@ -21,6 +21,9 @@
  *            dd/mm/yy
  * ----- ---- -------- -----------------------------------------------
  * 1.0   gm   10/12/18 Initial release.
+ * 1.1   ku   17/05/20 Adding uniquification to avoid clash with vphy
+ * 1.1   ku   23/05/20 Corrected XHdmiphy1_Ch2Ids to set correct value
+ *                     for Id1
  * </pre>
  *
 *******************************************************************************/
@@ -65,7 +68,12 @@ void XHdmiphy1_Ch2Ids(XHdmiphy1 *InstancePtr, XHdmiphy1_ChannelId ChId,
 		*Id0 = XHDMIPHY1_CHANNEL_ID_CH1;
 		if ((XHdmiphy1_IsHDMI(InstancePtr, XHDMIPHY1_DIR_TX)) ||
 			(XHdmiphy1_IsHDMI(InstancePtr, XHDMIPHY1_DIR_RX))) {
-			if (InstancePtr->Config.UseGtAsTxTmdsClk == TRUE) {
+			if ((InstancePtr->Config.TxProtocol == XHDMIPHY1_PROTOCOL_HDMI21) ||
+					(InstancePtr->Config.RxProtocol == XHDMIPHY1_PROTOCOL_HDMI21)) {
+				*Id1 = XHDMIPHY1_CHANNEL_ID_CH4;
+			}
+			else if ((InstancePtr->Config.TxProtocol == XHDMIPHY1_PROTOCOL_HDMI) &&
+					(InstancePtr->Config.UseGtAsTxTmdsClk == TRUE)){
 				*Id1 = XHDMIPHY1_CHANNEL_ID_CH4;
 			}
 			else {
@@ -94,8 +102,7 @@ void XHdmiphy1_Ch2Ids(XHdmiphy1 *InstancePtr, XHdmiphy1_ChannelId ChId,
 	}
 	else if (ChId == XHDMIPHY1_CHANNEL_ID_CMNA) {
 		*Id0 = XHDMIPHY1_CHANNEL_ID_CMN0;
-		if ((InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE3) ||
-		    (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE4) ||
+		if ((InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE4) ||
 		    (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYE4)) {
 			*Id1 = XHDMIPHY1_CHANNEL_ID_CMN1;
 		}
@@ -183,8 +190,7 @@ u32 XHdmiphy1_WriteCfgRefClkSelReg(XHdmiphy1 *InstancePtr, u8 QuadId)
 	/* - CPLL. */
 	RegVal &= ~XHDMIPHY1_REF_CLK_SEL_CPLL_MASK;
 	RegVal |= (ChPtr->CpllRefClkSel << XHDMIPHY1_REF_CLK_SEL_CPLL_SHIFT);
-	if ((GtType == XHDMIPHY1_GT_TYPE_GTHE3) ||
-            (GtType == XHDMIPHY1_GT_TYPE_GTHE4) ||
+	if ((GtType == XHDMIPHY1_GT_TYPE_GTHE4) ||
             (GtType == XHDMIPHY1_GT_TYPE_GTYE4)) {
 		/* - QPLL1. */
 		RegVal &= ~XHDMIPHY1_REF_CLK_SEL_QPLL1_MASK;
@@ -1380,7 +1386,7 @@ u32 XHdmiphy1_ClkReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
 * @note		None.
 *
 ******************************************************************************/
-XHdmiphy1_SysClkDataSelType Pll2SysClkData(XHdmiphy1_PllType PllSelect)
+XHdmiphy1_SysClkDataSelType XHdmiphy1_Pll2SysClkData(XHdmiphy1_PllType PllSelect)
 {
 	return	(PllSelect == XHDMIPHY1_PLL_TYPE_CPLL) ?
 			XHDMIPHY1_SYSCLKSELDATA_TYPE_CPLL_OUTCLK :
@@ -1404,7 +1410,7 @@ XHdmiphy1_SysClkDataSelType Pll2SysClkData(XHdmiphy1_PllType PllSelect)
 * @note		None.
 *
 ******************************************************************************/
-XHdmiphy1_SysClkOutSelType Pll2SysClkOut(XHdmiphy1_PllType PllSelect)
+XHdmiphy1_SysClkOutSelType XHdmiphy1_Pll2SysClkOut(XHdmiphy1_PllType PllSelect)
 {
 	return	(PllSelect == XHDMIPHY1_PLL_TYPE_CPLL) ?
 			XHDMIPHY1_SYSCLKSELOUT_TYPE_CPLL_REFCLK :
