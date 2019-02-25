@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -761,7 +761,9 @@ XIntc_Config *XIntc_LookupConfig(u16 DeviceId)
 * @param	Id contains the ID of the interrupt source and should be in the
 *		range of 0 to XPAR_INTC_MAX_NUM_INTR_INPUTS - 1 with 0 being
 *		the highest priority interrupt.
-* @param	Handler to the handler for that interrupt.
+* @param	Handler for specified interrupt id. It must be declared with
+*           "fast_interrupt" attribute.
+*           e.g. static void MyHandler(void) __attribute__ ((fast_interrupt));
 *
 * @return
 *		- XST_SUCCESS
