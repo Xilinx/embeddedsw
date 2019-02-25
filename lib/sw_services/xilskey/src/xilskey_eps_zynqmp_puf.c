@@ -675,9 +675,6 @@ u32 XilSKey_Puf_Regeneration(XilSKey_Puf *InstancePtr)
 	XilSKey_WriteReg(XSK_ZYNQMP_CSU_BASEADDR,
 		XSK_ZYNQMP_CSU_PUF_CFG0, XSK_ZYNQMP_PUF_CFG0_INIT_VAL);
 
-	XilSKey_WriteReg(XSK_ZYNQMP_CSU_BASEADDR,
-			XSK_ZYNQMP_CSU_PUF_CFG1, XSK_ZYNQMP_PUF_CFG1_INIT_VAL_4K);
-
 	/* Configure the PUF shutter Value */
 	XilSKey_WriteReg(XSK_ZYNQMP_CSU_BASEADDR, XSK_ZYNQMP_CSU_PUF_SHUT,
 				XSK_ZYNQMP_PUF_SHUTTER_VALUE);
@@ -686,9 +683,7 @@ u32 XilSKey_Puf_Regeneration(XilSKey_Puf *InstancePtr)
 		XSK_ZYNQMP_PUF_REGENERATION);
 
 	/* Wait till the data word ready */
-        PufStatus = XilSKey_ReadReg(XSK_ZYNQMP_CSU_BASEADDR,
-                                XSK_ZYNQMP_CSU_PUF_STATUS);
-	usleep(500000);
+	usleep(3000);
 
 	PufStatus = XilSKey_ReadReg(XSK_ZYNQMP_CSU_BASEADDR,
 					XSK_ZYNQMP_CSU_ISR);
