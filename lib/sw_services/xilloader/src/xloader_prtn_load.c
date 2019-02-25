@@ -54,6 +54,7 @@
 #include "xplmi_debug.h"
 #include "xplmi_cdo.h"
 #include "xillibpm_api.h"
+#include "xplmi_util.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -68,6 +69,7 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum);
 static int XLoader_PrtnValidation(XilPdi* PdiPtr, u32 PrtnNum);
 static int XLoader_CheckHandoffCpu (XilPdi* PdiPtr, u32 DstnCpu);
 static void XLoader_UpdateHandoffParam(XilPdi* PdiPtr, u32 PrtnNum);
+static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len);
 
 /************************** Variable Definitions *****************************/
 
@@ -177,8 +179,10 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 	int Status;
 	u32 SrcAddr;
 	u64 DestAddr;
+	u32 DstnCpu;
 	u32 Len;
 	XilPdi_PrtnHdr * PrtnHdr;
+	u32 RpuBaseOfst;
 
 	/* Assign the partition header to local variable */
 	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
@@ -196,7 +200,6 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 		Len = Len + XLOADER_DMA_LEN_ALIGN - (Len%XLOADER_DMA_LEN_ALIGN);
 	}
 
-
 	/**
 	 * Requirements:
 	 *
@@ -211,6 +214,31 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 	 * R5 should be taken out of reset before loading
 	 * R5 TCM should be ECC initialized
 	 */
+
+	DstnCpu = XilPdi_GetDstnCpu(PrtnHdr);
+
+	/* Check if R5 App memory is TCM, Copy to global TCM memory MAP */
+	if ( (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) ||
+			(DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) ||
+			(DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L) )
+	{
+
+		if (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) {
+			RpuBaseOfst = XLOADER_CRX_RPU_1_BASE_OFFSET;
+		} else {
+			RpuBaseOfst = 0x0U;
+		}
+
+		/* Halt the CPU */
+		XPlmi_UtilRMW(RPU_RPU_0_CFG + RpuBaseOfst,
+				RPU_RPU_0_CFG_NCPUHALT_MASK, 0x0U);
+
+		Status = XLoader_GetLoadAddr(DstnCpu, &DestAddr, Len);
+		if (XST_SUCCESS != Status) {
+			goto END;
+		}
+	}
+
 	Status = PdiPtr->MetaHdr.DeviceCopy(SrcAddr, DestAddr, Len, 0x0U);
 	if (XST_SUCCESS != Status)
 	{
@@ -491,3 +519,65 @@ END:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * This function updates the load address based on the destination CPU
+ *
+ * @param	DstnCpu is destination CPU
+ *
+ * @param	LoadAddrPtr is the destination load address pointer
+ *
+ * @param	Len is the length of the partition
+ *
+ * @return	returns XST_FAILURE on any error
+ *			returns XST_SUCCESS on success
+ *
+ *****************************************************************************/
+static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len)
+{
+	int Status;
+	u64 Address;
+
+	Address = *LoadAddrPtr;
+
+	if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) &&
+			((Address < (XLOADER_R5_TCM_START_ADDRESS + XLOADER_R5_TCM_BANK_LENGTH)) ||
+			((Address >= XLOADER_R5_BTCM_START_ADDRESS) &&
+			(Address < (XLOADER_R5_BTCM_START_ADDRESS + XLOADER_R5_TCM_BANK_LENGTH))))) {
+		if (Len > XLOADER_R5_TCM_BANK_LENGTH) {
+			Status = XST_FAILURE;
+			goto END;
+		}
+
+		Address += XLOADER_R5_0_TCMA_BASE_ADDR;
+	} else if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) &&
+			((Address < (XLOADER_R5_TCM_START_ADDRESS + XLOADER_R5_TCM_BANK_LENGTH)) ||
+			((Address >= XLOADER_R5_BTCM_START_ADDRESS) &&
+			(Address < (XLOADER_R5_BTCM_START_ADDRESS + XLOADER_R5_TCM_BANK_LENGTH))))) {
+		if (Len > XLOADER_R5_TCM_BANK_LENGTH) {
+			Status = XST_FAILURE;
+			goto END;
+		}
+
+		Address += XLOADER_R5_1_TCMA_BASE_ADDR;
+	} else if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L) &&
+			(Address < (XLOADER_R5_TCM_BANK_LENGTH * 4))) {
+		if (Len > (XLOADER_R5_TCM_BANK_LENGTH * 4)) {
+			Status = XST_FAILURE;
+			goto END;
+		}
+
+		Address += XLOADER_R5_0_TCMA_BASE_ADDR;
+	} else {
+		Status = XST_SUCCESS;
+	}
+
+	/*
+	 * Update the load address
+	 */
+	*LoadAddrPtr = Address;
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
