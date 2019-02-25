@@ -1,35 +1,13 @@
 /*******************************************************************************
- *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
  * @file xdp_intr.c
- * @addtogroup dp_v7_0
+ * @addtogroup dp_v7_3
  * @{
  *
  * This file contains functions related to XDp interrupt handling.
@@ -54,6 +32,7 @@
  *                     DrvHpdEventHandler and DrvHpdPulseHandler
  * 6.0   tu   09/08/17 Added three interrupt handler that addresses callback
  *                     function of application
+ * 6.0   jb   02/19/19 Added HDCP22 interrupts.
  * </pre>
  *
 *******************************************************************************/
@@ -397,8 +376,26 @@ int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
 		break;
 
 	case XDP_RX_HANDLER_VBLANK:
-		InstancePtr->RxInstance.IntrVBlankHandler = CallbackFunc;
-		InstancePtr->RxInstance.IntrVBlankCallbackRef = CallbackRef;
+		InstancePtr->RxInstance.IntrVBlankHandler[0] = CallbackFunc;
+		InstancePtr->RxInstance.IntrVBlankCallbackRef[0] = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_VBLANK_STREAM_2:
+		InstancePtr->RxInstance.IntrVBlankHandler[1] = CallbackFunc;
+		InstancePtr->RxInstance.IntrVBlankCallbackRef[1] = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_VBLANK_STREAM_3:
+		InstancePtr->RxInstance.IntrVBlankHandler[2] = CallbackFunc;
+		InstancePtr->RxInstance.IntrVBlankCallbackRef[2] = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_VBLANK_STREAM_4:
+		InstancePtr->RxInstance.IntrVBlankHandler[3] = CallbackFunc;
+		InstancePtr->RxInstance.IntrVBlankCallbackRef[3] = CallbackRef;
 		Status = XST_SUCCESS;
 		break;
 
@@ -539,6 +536,65 @@ int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
 		InstancePtr->RxInstance.IntrHdcpBinfoRdCallbackRef = CallbackRef;
 		Status = XST_SUCCESS;
 		break;
+
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+	case XDP_RX_HANDLER_HDCP22_AKE_INIT:
+		InstancePtr->RxInstance.IntrHdcp22AkeInitWrHandler =
+			CallbackFunc;
+		InstancePtr->RxInstance.IntrHdcp22AkeInitWrCallbackRef =
+			CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+	case XDP_RX_HANDLER_HDCP22_AKE_NO_STORED_KM:
+		InstancePtr->RxInstance.IntrHdcp22AkeNoStoredKmWrHandler =
+			CallbackFunc;
+		InstancePtr->RxInstance.IntrHdcp22AkeNoStoredKmWrCallbackRef =
+			CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+	case XDP_RX_HANDLER_HDCP22_AKE_STORED_KM:
+		InstancePtr->RxInstance.IntrHdcp22AkeStoredWrHandler =
+			CallbackFunc;
+		InstancePtr->RxInstance.IntrHdcp22AkeStoredWrCallbackRef =
+			CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+	case XDP_RX_HANDLER_HDCP22_LC_INIT:
+		InstancePtr->RxInstance.IntrHdcp22LcInitWrHandler =
+			CallbackFunc;
+		InstancePtr->RxInstance.IntrHdcp22LcInitWrCallbackRef =
+			CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+	case XDP_RX_HANDLER_HDCP22_SKE_SEND_EKS:
+		InstancePtr->RxInstance.IntrHdcp22SkeSendEksWrHandler =
+			CallbackFunc;
+		InstancePtr->RxInstance.IntrHdcp22SkeSendEksWrCallbackRef =
+			CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+	case XDP_RX_HANDLER_HDCP22_HPRIME_READ_DONE:
+		InstancePtr->RxInstance.IntrHdcp22HprimeReadDoneHandler =
+			CallbackFunc;
+		InstancePtr->RxInstance.IntrHdcp22HprimeReadDoneCallbackRef =
+			CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+	case XDP_RX_HANDLER_HDCP22_PAIRING_READ_DONE:
+		InstancePtr->RxInstance.IntrHdcp22PairingReadDoneHandler =
+			CallbackFunc;
+		InstancePtr->RxInstance.IntrHdcp22PairingReadDoneCallbackRef =
+			CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+	case XDP_RX_HANDLER_HDCP22_STREAM_TYPE:
+		InstancePtr->RxInstance.IntrHdcp22StreamTypeWrHandler =
+			CallbackFunc;
+		InstancePtr->RxInstance.IntrHdcp22StreamTypeWrCallbackRef =
+			CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+#endif
 
 	case XDP_RX_HANDLER_UNPLUG:
 		InstancePtr->RxInstance.IntrUnplugHandler = CallbackFunc;
@@ -692,6 +748,9 @@ static void XDp_TxInterruptHandler(XDp *InstancePtr)
 static void XDp_RxInterruptHandler(XDp *InstancePtr)
 {
 	u32 IntrStatus;
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+	u32 IntrStatusHdcp22;
+#endif
 
 	/* Determine what kind of interrupts have occurred.
 	 * Note: XDP_RX_INTERRUPT_CAUSE is a RC (read-clear) register. */
@@ -700,6 +759,13 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 	/* Mask out required interrupts. */
 	IntrStatus &= ~XDp_ReadReg(InstancePtr->Config.BaseAddr,
 							XDP_RX_INTERRUPT_MASK);
+
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+	/* Determine what kind of interrupts have occurred.
+	 * Note: XDP_RX_INTERRUPT_CAUSE_2 is a RC (read-clear) register. */
+	IntrStatusHdcp22 = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+			XDP_RX_INTERRUPT_CAUSE_2);
+#endif
 
 	/* Training pattern 1 has started. */
 	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_TP1_MASK) &&
@@ -744,9 +810,9 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 	/* The VerticalBlanking_Flag in the VB-ID field of the received stream
 	 * indicates the start of the vertical blanking interval. */
 	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_VBLANK_MASK) &&
-			InstancePtr->RxInstance.IntrVBlankHandler) {
-		InstancePtr->RxInstance.IntrVBlankHandler(
-			InstancePtr->RxInstance.IntrVBlankCallbackRef);
+			InstancePtr->RxInstance.IntrVBlankHandler[0]) {
+		InstancePtr->RxInstance.IntrVBlankHandler[0](
+			InstancePtr->RxInstance.IntrVBlankCallbackRef[0]);
 	}
 	/* The receiver has detected the no-video flags in the VB-ID field after
 	 * active video has been received. */
@@ -883,6 +949,87 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 			InstancePtr->RxInstance.IntrHdcpBinfoRdCallbackRef);
 	}
 
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+	/* A write to the HDCP22 Ake_Init MSB register has been performed. */
+	if ((IntrStatusHdcp22 & XDP_RX_INTERRUPT_MASK_HDCP22_AKE_INIT_MASK) &&
+			InstancePtr->RxInstance.IntrHdcp22AkeInitWrHandler) {
+		InstancePtr->RxInstance.IntrHdcp22AkeInitWrHandler(
+				InstancePtr->RxInstance.
+				IntrHdcp22AkeInitWrCallbackRef);
+	}
+
+	/* A write to the HDCP22 Ake_No_Stored_Km
+	 * MSB register has been performed.*/
+	if ((IntrStatusHdcp22 &
+			XDP_RX_INTERRUPT_MASK_HDCP22_AKE_NO_STORED_KM_MASK)
+			&& InstancePtr->RxInstance.
+			IntrHdcp22AkeNoStoredKmWrHandler) {
+		InstancePtr->RxInstance.IntrHdcp22AkeNoStoredKmWrHandler(
+			InstancePtr->
+			RxInstance.IntrHdcp22AkeNoStoredKmWrCallbackRef);
+	}
+
+	/* A write to the HDCP22 Ake_Stored_Km
+	 * MSB register has been performed. */
+	if ((IntrStatusHdcp22 &
+			XDP_RX_INTERRUPT_MASK_HDCP22_AKE_STORED_KM_MASK) &&
+			InstancePtr->RxInstance.IntrHdcp22AkeStoredWrHandler) {
+		InstancePtr->RxInstance.IntrHdcp22AkeStoredWrHandler(
+				InstancePtr->RxInstance.
+				IntrHdcp22AkeStoredWrCallbackRef);
+	}
+
+	/* A write to the HDCP22 LC_Init
+	 * MSB register has been performed. */
+	if ((IntrStatusHdcp22 &
+			XDP_RX_INTERRUPT_MASK_HDCP22_LC_INIT_MASK) &&
+			InstancePtr->RxInstance.IntrHdcp22LcInitWrHandler) {
+		InstancePtr->RxInstance.IntrHdcp22LcInitWrHandler(
+				InstancePtr->RxInstance.
+				IntrHdcp22LcInitWrCallbackRef);
+	}
+
+	/* A write to the HDCP22 Ske_Send_Eks
+	 * MSB register has been performed. */
+	if ((IntrStatusHdcp22 &
+			XDP_RX_INTERRUPT_MASK_HDCP22_SKE_SEND_EKS_MASK) &&
+			InstancePtr->RxInstance.IntrHdcp22SkeSendEksWrHandler) {
+		InstancePtr->RxInstance.IntrHdcp22SkeSendEksWrHandler(
+				InstancePtr->RxInstance.
+				IntrHdcp22SkeSendEksWrCallbackRef);
+	}
+
+	/* HDCP22 H' read done*/
+	if ((IntrStatusHdcp22 &
+			XDP_RX_INTERRUPT_MASK_HDCP22_HPRIME_READ_MASK) &&
+			InstancePtr->RxInstance.
+			IntrHdcp22HprimeReadDoneHandler) {
+		InstancePtr->RxInstance.IntrHdcp22HprimeReadDoneHandler(
+				InstancePtr->RxInstance.
+				IntrHdcp22HprimeReadDoneCallbackRef);
+	}
+
+	/* HDCP22 Pairing Info read Done*/
+	if ((IntrStatusHdcp22 &
+			XDP_RX_INTERRUPT_MASK_HDCP22_PAIRING_INFO_READ_MASK)
+			&& InstancePtr->RxInstance.
+			IntrHdcp22PairingReadDoneHandler) {
+		InstancePtr->RxInstance.IntrHdcp22PairingReadDoneHandler(
+				InstancePtr->RxInstance.
+				IntrHdcp22PairingReadDoneCallbackRef);
+	}
+
+	/* A write to the HDCP22 TYPE register has been performed. */
+	if ((IntrStatusHdcp22 &
+			XDP_RX_INTERRUPT_MASK_HDCP22_STREAM_TYPE_MASK)
+			&& InstancePtr->RxInstance.
+			IntrHdcp22StreamTypeWrHandler) {
+		InstancePtr->RxInstance.IntrHdcp22StreamTypeWrHandler(
+				InstancePtr->RxInstance.
+				IntrHdcp22StreamTypeWrCallbackRef);
+	}
+#endif /*XPAR_XHDCP22_RX_NUM_INSTANCES*/
+
 	/* An unplug event has occurred. */
 	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_UNPLUG_MASK) &&
 			InstancePtr->RxInstance.IntrUnplugHandler) {
@@ -901,6 +1048,42 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 		/* Mask out required interrupts. */
 		IntrStatus1 &= ~XDp_ReadReg(InstancePtr->Config.BaseAddr,
 					    XDP_RX_INTERRUPT_MASK_1);
+
+		/* The VerticalBlanking_Flag in the VB-ID field of the received
+		 * stream 2 indicates the start of the vertical blanking
+		 * interval. */
+		if ((IntrStatus1 &
+			XDP_RX_INTERRUPT_MASK_1_VBLANK_STREAM234_MASK(
+				XDP_RX_STREAM_ID2)) &&
+			InstancePtr->RxInstance.IntrVBlankHandler[1]) {
+			InstancePtr->RxInstance.IntrVBlankHandler[1](
+					InstancePtr->RxInstance.
+					IntrVBlankCallbackRef[1]);
+		}
+
+		/* The VerticalBlanking_Flag in the VB-ID field of the received
+		 * stream 3 indicates the start of the vertical blanking
+		 * interval. */
+		if ((IntrStatus1 &
+			XDP_RX_INTERRUPT_MASK_1_VBLANK_STREAM234_MASK(
+				XDP_RX_STREAM_ID3)) &&
+			InstancePtr->RxInstance.IntrVBlankHandler[2]) {
+			InstancePtr->RxInstance.IntrVBlankHandler[2](
+					InstancePtr->RxInstance.
+					IntrVBlankCallbackRef[2]);
+		}
+
+		/* The VerticalBlanking_Flag in the VB-ID field of the received
+		 * stream 4 indicates the start of the vertical blanking
+		 * interval. */
+		if ((IntrStatus1 &
+			XDP_RX_INTERRUPT_MASK_1_VBLANK_STREAM234_MASK(
+				XDP_RX_STREAM_ID4)) &&
+			InstancePtr->RxInstance.IntrVBlankHandler[3]) {
+			InstancePtr->RxInstance.IntrVBlankHandler[3](
+					InstancePtr->RxInstance.
+					IntrVBlankCallbackRef[3]);
+		}
 
 		/* Training pattern 4 has started. */
 		if ((IntrStatus1 & XDP_RX_INTERRUPT_MASK_TP4_MASK) &&

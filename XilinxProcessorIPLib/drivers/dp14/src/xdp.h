@@ -1,35 +1,13 @@
 /*******************************************************************************
- *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
  * @file xdp.h
- * @addtogroup dp_v7_0
+ * @addtogroup dp_v7_3
  * @{
  * @details
  *
@@ -372,6 +350,16 @@
  *                     DrvHpdEventHandler and DrvHpdPulseHandler
  * 6.0   tu   09/08/17 Added three interrupt handler that addresses callback
  *                     function of driver
+ * 6.0   jb   02/19/19 Added Intr*Handler and Intr*CallbackRef interrupt-related
+ *                     members to XDp_Rx structure for:
+ *                     		Hdcp22AkeInitWr, Hdcp22AkeNoStoredKmWr,
+ *                     		Hdcp22AkeStoredWr, Hdcp22LcInitWr,
+ *                     		Hdcp22SkeSendEksWr, Hdcp22LinkIntegrityFail,
+ *                     		Hdcp22HprimeReadDone, Hdcp22PairingReadDone
+ *                     	Added new HDCP22 functions:
+ *                     		XDp_GenerateCpIrq,
+ *                     		XDp_EnableDisableHdcp22AuxDeffers
+ *
  * </pre>
  *
 *******************************************************************************/
@@ -444,6 +432,19 @@ typedef enum {
 	XDP_RX_HANDLER_DRV_PWRSTATE,
 	XDP_RX_HANDLER_DRV_NOVIDEO,
 	XDP_RX_HANDLER_DRV_VIDEO,
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+	XDP_RX_HANDLER_HDCP22_AKE_INIT,
+	XDP_RX_HANDLER_HDCP22_AKE_NO_STORED_KM,
+	XDP_RX_HANDLER_HDCP22_AKE_STORED_KM,
+	XDP_RX_HANDLER_HDCP22_LC_INIT,
+	XDP_RX_HANDLER_HDCP22_SKE_SEND_EKS,
+	XDP_RX_HANDLER_HDCP22_HPRIME_READ_DONE,
+	XDP_RX_HANDLER_HDCP22_PAIRING_READ_DONE,
+	XDP_RX_HANDLER_HDCP22_STREAM_TYPE,
+#endif
+	XDP_RX_HANDLER_VBLANK_STREAM_2,
+	XDP_RX_HANDLER_VBLANK_STREAM_3,
+	XDP_RX_HANDLER_VBLANK_STREAM_4,
 	XDP_RX_NUM_HANDLERS
 } Dp_Rx_HandlerType;
 
@@ -685,6 +686,24 @@ typedef struct {
 } XDp_TxTopology;
 
 /**
+ * This typedef describes Audio InfoFrame packet.
+ */
+typedef struct
+{
+	u16 info_length;
+	u8 type;
+	u8 version;
+	u8 length;
+	u8 audio_coding_type;
+	u8 audio_channel_count;
+	u8 sampling_frequency;
+	u8 sample_size;
+	u8 level_shift;
+	u8 downmix_inhibit;
+	u8 channel_allocation;
+} XDp_TxAudioInfoFrame;
+
+/**
  * This typedef describes a port that is connected to a DisplayPort branch
  * device. This structure is used when the driver is operating in multi-stream
  * transport (MST) mode.
@@ -754,7 +773,7 @@ typedef struct {
 						address in order to set a read
 						offset or set the segment
 						pointer. */
-	u8 ReadNumBytes;		/**< The total number of available data
+	u16 ReadNumBytes;		/**< The total number of available data
 						bytes at this I2C address. */
 	u8 *ReadData;			/**< The data available at the specified
 						I2C address. User-defined by
@@ -981,13 +1000,16 @@ typedef struct {
 	void *IntrNoVideoCallbackRef;		/**< A pointer to the user data
 							passed to the no video
 							callback function. */
-	XDp_IntrHandler IntrVBlankHandler;	/**< Callback function for
-							vertical blanking
-							interrupts. */
-	void *IntrVBlankCallbackRef;		/**< A pointer to the user data
-							passed to the vertical
-							blanking callback
-							function. */
+	XDp_IntrHandler IntrVBlankHandler[XDP_RX_STREAM_ID4];	/**< Array of
+							callback functions
+							for vertical blanking
+							interrupts for all
+							streams*/
+	void *IntrVBlankCallbackRef[XDP_RX_STREAM_ID4];	/**< An array of pointer
+							  to the user data
+							  passed to the vertical
+							  blanking callback
+							  functions. */
 	XDp_IntrHandler IntrTrainingLostHandler;/**< Callback function for
 							training lost
 							interrupts. */
@@ -1141,6 +1163,84 @@ typedef struct {
 							passed to the HDCP
 							Binfo register read
 							callback function. */
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+	XDp_IntrHandler IntrHdcp22AkeInitWrHandler;	/**< Callback function
+							  for HDCP22 Ake_Init
+							  register write
+							  interrupts. */
+	void *IntrHdcp22AkeInitWrCallbackRef;	/**< A pointer to the user data
+						  passed to the HDCP22
+						  Ake_Init register write
+						  callback function. */
+	XDp_IntrHandler IntrHdcp22AkeNoStoredKmWrHandler;/**< Callback function
+							   for HDCP22
+							   Ake_No_Stored_Km
+							   register write
+							   interrupts. */
+	void *IntrHdcp22AkeNoStoredKmWrCallbackRef;	/**< A pointer to the
+							  user data passed to
+							  the HDCP22
+							  Ake_No_Stored_Km
+							  register write
+							  callback function. */
+	XDp_IntrHandler IntrHdcp22AkeStoredWrHandler;	/**< Callback function
+							  for HDCP22
+							  Ake_Stored_Km
+							  register write
+							  interrupts. */
+	void *IntrHdcp22AkeStoredWrCallbackRef;	/**< A pointer to the user data
+						  passed to the HDCP22
+						  Ake_Stored register write
+						  callback function. */
+	XDp_IntrHandler IntrHdcp22LcInitWrHandler;	/**< Callback function
+							  for HDCP22 Lc_Init
+							  register write
+							  interrupts. */
+	void *IntrHdcp22LcInitWrCallbackRef;	/**< A pointer to the user data
+						  passed to the HDCP22
+						  Lc_Init register write
+						  callback function. */
+	XDp_IntrHandler IntrHdcp22SkeSendEksWrHandler;	/**< Callback function
+							  for HDCP22
+							  Ske_Send_Eks register
+							  write interrupts. */
+	void *IntrHdcp22SkeSendEksWrCallbackRef;	/**< A pointer to the
+							  user data passed to
+							  the HDCP22
+							  Ske_Send_Eks
+							  register write
+							  callback function. */
+	XDp_IntrHandler IntrHdcp22HprimeReadDoneHandler;	/**< Callback
+								  function for
+								  HDCP22 H'
+								  Read Done
+								  interrupts. */
+	void *IntrHdcp22HprimeReadDoneCallbackRef;	/**< A pointer to the
+							  user data passed to
+							  the HDCP22
+							  HprimeReadDone
+							  callback function. */
+	XDp_IntrHandler IntrHdcp22PairingReadDoneHandler;	/**< Callback
+								  function for
+								  HDCP22 Pairing
+								  Info read Done
+								  interrupts. */
+	void *IntrHdcp22PairingReadDoneCallbackRef;	/**< A pointer to the
+							  user data passed to
+							  the HDCP22
+							  PairingReadDone
+							  callback function. */
+	XDp_IntrHandler IntrHdcp22StreamTypeWrHandler;	/**< Callback function
+							  for HDCP22 stream
+							  Type write
+							  interrupts. */
+	void *IntrHdcp22StreamTypeWrCallbackRef;	/**< A pointer to the
+							  user data passed to
+							  the HDCP22
+							  stream Type write
+							  callback function. */
+#endif
+
 	XDp_IntrHandler IntrUnplugHandler;	/**< Callback function for
 							unplug interrupts. */
 	void *IntrUnplugCallbackRef;		/**< A pointer to the user data
@@ -1281,6 +1381,7 @@ u8 XDp_IsLinkRateValid(XDp *InstancePtr, u8 LinkRate);
 /* xdp.c: Audio functions. */
 void XDp_RxAudioEn(XDp *InstancePtr);
 void XDp_RxAudioDis(XDp *InstancePtr);
+void XDp_Rx_Mst_AudioEn(XDp *InstancePtr, u8 StreamId);
 void XDp_RxAudioReset(XDp *InstancePtr);
 void XDp_RxVSCEn(XDp *InstancePtr);
 void XDp_RxVSCDis(XDp *InstancePtr);
@@ -1325,6 +1426,10 @@ void XDp_TxMstCfgModeDisable(XDp *InstancePtr);
 u32 XDp_TxMstCapable(XDp *InstancePtr);
 u32 XDp_TxMstEnable(XDp *InstancePtr);
 u32 XDp_TxMstDisable(XDp *InstancePtr);
+void XDp_TxAudioDis(XDp *InstancePtr);
+void XDp_Tx_Mst_AudioEn(XDp *InstancePtr, u8 StreamId);
+void XDp_TxSendAudioInfoFrame(XDp *InstancePtr,
+		XDp_TxAudioInfoFrame *xilInfoFrame);
 
 /* xdp_mst.c: Multi-stream transport (MST) functions for enabling or disabling
  * MST streams and selecting their associated target sinks. */
@@ -1393,7 +1498,7 @@ u32 XDp_RxHandleDownReq(XDp *InstancePtr);
 XDp_RxIicMapEntry *XDp_RxGetIicMapEntry(XDp *InstancePtr, u8 PortNum,
 								u8 IicAddress);
 u32 XDp_RxSetIicMapEntry(XDp *InstancePtr, u8 PortNum, u8 IicAddress,
-						u8 ReadNumBytes, u8 *ReadData);
+						u16 ReadNumBytes, u8 *ReadData);
 void XDp_RxSetDpcdMap(XDp *InstancePtr, u8 PortNum, u32 StartAddr, u32 NumBytes,
 								u8 *DpcdMap);
 void XDp_RxMstExposePort(XDp *InstancePtr, u8 PortNum, u8 Expose);
@@ -1434,6 +1539,15 @@ XVidC_ColorFormat XDp_RxGetColorComponent(XDp *InstancePtr, u8 Stream);
 void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream);
 void XDp_RxAllocatePayloadStream(XDp *InstancePtr);
 #endif /* XPAR_XDPRXSS_NUM_INSTANCES */
+
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+void XDp_GenerateCpIrq(XDp *InstancePtr);
+void XDp_EnableDisableHdcp22AuxDeffers(XDp *InstancePtr, u8 EnableDisable);
+#endif
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+void XDp_TxHdcp22Enable(XDp *InstancePtr);
+void XDp_TxHdcp22Disable(XDp *InstancePtr);
+#endif
 
 /******************* Macros (Inline Functions) Definitions ********************/
 
