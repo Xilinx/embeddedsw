@@ -91,6 +91,16 @@ extern "C" {
 #define XLOADER_R5_BTCM_START_ADDRESS	(0x20000U)
 #define XLOADER_R5_TCM_BANK_LENGTH		(0x10000U)
 
+/*
+ * APU related macros
+ */
+#define XLOADER_FPD_APU_CONFIG_0		0xFD5C0020U
+
+#define XLOADER_FPD_APU_CONFIG_0_AA64N32_MASK_CPU0	0x1U
+#define XLOADER_FPD_APU_CONFIG_0_AA64N32_MASK_CPU1	0x2U
+#define XLOADER_FPD_APU_CONFIG_0_VINITHI_MASK_CPU0	0x100U
+#define XLOADER_FPD_APU_CONFIG_0_VINITHI_MASK_CPU1	0x200U
+
 /* Boot Modes */
 enum XLOADER_PDI_SRC {
 	XLOADER_PDI_SRC_JTAG = (0x0U),
@@ -198,6 +208,7 @@ int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId);
 int XLoader_StartImage(XilPdi *PdiPtr);
 XLoader* XLoader_GetLoaderInstancePtr(void);
 int XLoader_RestartImage(u32 ImageId);
+void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi);
 
 /* functions defined in xloader_prtn_load.c */
 int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum);
