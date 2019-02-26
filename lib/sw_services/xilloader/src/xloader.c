@@ -446,6 +446,14 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				}
 			}break;
 
+			case XIH_PH_ATTRB_DSTN_CPU_PSM:
+			{
+				XLoader_Printf(DEBUG_INFO,
+						" Request PSM wakeup \r\n");
+				XPm_RequestWakeUp(XPM_SUBSYSID_PMC,
+						XPM_DEVID_PSM, 0, 0, 0);
+			}break;
+
 			default:
 			{
 			}break;
