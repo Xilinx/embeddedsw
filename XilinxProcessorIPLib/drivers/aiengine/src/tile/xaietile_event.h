@@ -470,8 +470,8 @@ u8 XAieTileCore_EventTraceEventWriteId(XAieGbl_Tile *TileInstPtr, u8 Event, u8 I
 u8 XAieTileCore_EventTraceControl(XAieGbl_Tile *TileInstPtr, u8 Mode, u8 StartEvent, u8 StopEvent, u8 Id, u8 Packet);
 u8 XAieTileCore_EventGenerate(XAieGbl_Tile *TileInstPtr, u8 Event);
 u8 XAieTileCore_EventBroadcast(XAieGbl_Tile *TileInstPtr, u8 BroadcastId, u8 Event);
-u8 XAieTileCore_EventBroadcastBlockSet(XAieGbl_Tile *TileInstPtr, u8 Dir, u8 Mask);
-u8 XAieTileCore_EventBroadcastBlockClear(XAieGbl_Tile *TileInstPtr, u8 Dir, u8 Mask);
+u8 XAieTileCore_EventBroadcastBlockSet(XAieGbl_Tile *TileInstPtr, u8 Dir, u16 Mask);
+u8 XAieTileCore_EventBroadcastBlockClear(XAieGbl_Tile *TileInstPtr, u8 Dir, u16 Mask);
 u32 XAieTileCore_EventBroadcastBlockValue(XAieGbl_Tile *TileInstPtr, u8 Dir);
 u8 XAieTileCore_EventPCEvent(XAieGbl_Tile *TileInstPtr, u8 PCEvent, u16 PCAddr, u8 Valid);
 u32 XAieTile_CoreEventBroadcastGet(XAieGbl_Tile *TileInstPtr, u8 BroadcastId);

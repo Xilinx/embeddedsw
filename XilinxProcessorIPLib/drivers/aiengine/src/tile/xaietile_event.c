@@ -242,7 +242,7 @@ u8 XAieTilePl_EventBroadcastBlockClear(XAieGbl_Tile *TileInstPtr, u8 Dir, u8 Swi
 * @note		None.
 *
 *******************************************************************************/
-u8 XAieTileCore_EventBroadcastBlockClear(XAieGbl_Tile *TileInstPtr, u8 Dir, u8 Mask)
+u8 XAieTileCore_EventBroadcastBlockClear(XAieGbl_Tile *TileInstPtr, u8 Dir, u16 Mask)
 {
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
@@ -338,7 +338,7 @@ u8 XAieTilePl_EventBroadcastBlockSet(XAieGbl_Tile *TileInstPtr, u8 Dir, u8 Switc
 * @note		None.
 *
 *******************************************************************************/
-u8 XAieTileCore_EventBroadcastBlockSet(XAieGbl_Tile *TileInstPtr, u8 Dir, u8 Mask)
+u8 XAieTileCore_EventBroadcastBlockSet(XAieGbl_Tile *TileInstPtr, u8 Dir, u16 Mask)
 {
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
