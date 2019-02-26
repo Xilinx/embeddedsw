@@ -54,6 +54,7 @@
  *		       soft-disconnect to work.
  * 6.0	 tu   05/14/17 Added AUX defer to 6
  * 6.0   jb   02/19/19 Added HDCP22 functions.
+ *            02/21/19 Added returning AUX defers for HDCP22 DPCD offsets
  * </pre>
  *
 *******************************************************************************/
@@ -80,6 +81,11 @@
 #define XDP_AUX_MAX_TIMEOUT_COUNT 50
 /* Error out if checking for a connected device times out more than 50 times. */
 #define XDP_IS_CONNECTED_MAX_TIMEOUT_COUNT 50
+
+/*Hdcp22 DPCD port lower address*/
+#define XDP_HDCP22_DPCD_LOWER_OFFSET	0x69000
+/*Hdcp22 DPCD port higher address*/
+#define XDP_HDCP22_DPCD_HIGHER_OFFSET	0x69558
 
 /****************************** Type Definitions ******************************/
 
@@ -3367,6 +3373,11 @@ static u32 XDp_TxAuxRequest(XDp *InstancePtr, XDp_AuxTransaction *Request)
 		if (Status == XST_SEND_ERROR) {
 			/* The request was deferred. */
 			DeferCount++;
+			if (Request->CmdCode == XDP_TX_AUX_CMD_READ) {
+				if ((Request->Address >= XDP_HDCP22_DPCD_LOWER_OFFSET) &&
+						(Request->Address <= XDP_HDCP22_DPCD_HIGHER_OFFSET))
+					return Status;
+			}
 		}
 		else if (Status == XST_ERROR_COUNT_MAX) {
 			/* Waiting for a reply timed out. */
