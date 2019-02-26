@@ -473,6 +473,8 @@ u8 XAieTileCore_EventBroadcastBlockClear(XAieGbl_Tile *TileInstPtr, u8 Dir, u8 M
 u32 XAieTileCore_EventBroadcastBlockValue(XAieGbl_Tile *TileInstPtr, u8 Dir);
 u8 XAieTileCore_EventPCEvent(XAieGbl_Tile *TileInstPtr, u8 PCEvent, u16 PCAddr, u8 Valid);
 u32 XAieTile_CoreEventBroadcastGet(XAieGbl_Tile *TileInstPtr, u8 BroadcastId);
+u32 XAieTile_CoreEventStatusGet(XAieGbl_Tile *TileInstPtr, u8 Event);
+void XAieTile_CoreEventStatusClear(XAieGbl_Tile *TileInstPtr, u8 Event, u32 Mask);
 
 /*
  * PL module
@@ -486,6 +488,8 @@ u8 XAieTilePl_EventBroadcastBlockSet(XAieGbl_Tile *TileInstPtr, u8 Dir, u8 Switc
 u8 XAieTilePl_EventBroadcastBlockClear(XAieGbl_Tile *TileInstPtr, u8 Dir, u8 SwitchAB, u16 Mask);
 u32 XAieTilePl_EventBroadcastBlockValue(XAieGbl_Tile *TileInstPtr, u8 Dir, u8 SwitchAB);
 u32 XAieTile_PlEventBroadcastGet(XAieGbl_Tile *TileInstPtr, u8 BroadcastId);
+u32 XAieTile_PlEventStatusGet(XAieGbl_Tile *TileInstPtr, u8 Event);
+void XAieTile_PlEventStatusClear(XAieGbl_Tile *TileInstPtr, u8 Event, u32 Mask);
 
 /*
  * Memory module
@@ -499,6 +503,9 @@ u8 XAieTileMem_EventBroadcastBlockSet(XAieGbl_Tile *TileInstPtr, u8 Dir, u16 Mas
 u8 XAieTileMem_EventBroadcastBlockClear(XAieGbl_Tile *TileInstPtr, u8 Dir, u16 Mask);
 u32 XAieTileMem_EventBroadcastBlockValue(XAieGbl_Tile *TileInstPtr, u8 Dir);
 u32 XAieTile_MemEventBroadcastGet(XAieGbl_Tile *TileInstPtr, u8 BroadcastId);
+u32 XAieTile_MemEventStatusGet(XAieGbl_Tile *TileInstPtr, u8 Event);
+void XAieTile_MemEventStatusClear(XAieGbl_Tile *TileInstPtr, u8 Event, u32 Mask);
+
 
 #endif		/* end of protection macro */
 
