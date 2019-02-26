@@ -66,6 +66,8 @@
  *					  flash.CR#1004264
  * 5.12 tjs  06/18/18 Removed warnings reported by checkpatch.
  * 5.12 tjs  06/18/18 Added support for low density ISSI flash parts. PR#9237
+ * 5.13	akm  02/26/19 Added support for ISSI serial NOR Flash Devices.
+ *			   PR# 11442
  * </pre>
  *
  ******************************************************************************/
@@ -172,8 +174,12 @@ extern "C" {
 #define XISF_ISSI_DEV_IS25LP032D	0x6016	/**< Device ID for IS25LP032D */
 #define XISF_ISSI_DEV_IS25WP064A	0x7017	/**< Device ID for IS25WP064A */
 #define XISF_ISSI_DEV_IS25LP064A	0x6017	/**< Device ID for IS25LP064A */
+#define	XISF_ISSI_DEV_IS25LP128F	0x6018	/**< Device ID for IS25LP128F */
+#define	XISF_ISSI_DEV_IS25WP128F	0x7018	/**< Device ID for IS25LP128F */
 #define XISF_ISSI_DEV_IS25WP256D	0x7019	/**< Device ID for IS25WP256D */
 #define XISF_ISSI_DEV_IS25LP256D	0x6019	/**< Device ID for IS25WP256D */
+#define	XISF_ISSI_DEV_IS25LP512M	0x601a	/**< Device ID for IS25LP512M */
+#define	XISF_ISSI_DEV_IS25WP512M	0x701a	/**< Device ID for IS25WP512M */
 
 /**
  * The following definitions specify the Device Id for the different
