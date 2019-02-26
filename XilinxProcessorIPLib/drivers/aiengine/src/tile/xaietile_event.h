@@ -41,6 +41,7 @@
 * 1.0   Hyun    10/02/2018  Initial creation
 * 1.1   Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.2   Hyun    12/13/2018  Added the core PC event API
+* 1.4   Jubaer  02/14/2019  Add Broadcast Get API
 * </pre>
 *
 ******************************************************************************/
@@ -471,6 +472,7 @@ u8 XAieTileCore_EventBroadcastBlockSet(XAieGbl_Tile *TileInstPtr, u8 Dir, u8 Mas
 u8 XAieTileCore_EventBroadcastBlockClear(XAieGbl_Tile *TileInstPtr, u8 Dir, u8 Mask);
 u32 XAieTileCore_EventBroadcastBlockValue(XAieGbl_Tile *TileInstPtr, u8 Dir);
 u8 XAieTileCore_EventPCEvent(XAieGbl_Tile *TileInstPtr, u8 PCEvent, u16 PCAddr, u8 Valid);
+u32 XAieTile_CoreEventBroadcastGet(XAieGbl_Tile *TileInstPtr, u8 BroadcastId);
 
 /*
  * PL module
@@ -483,6 +485,7 @@ u8 XAieTilePl_EventBroadcast(XAieGbl_Tile *TileInstPtr, u8 BroadcastId, u8 Event
 u8 XAieTilePl_EventBroadcastBlockSet(XAieGbl_Tile *TileInstPtr, u8 Dir, u8 SwitchAB, u16 Mask);
 u8 XAieTilePl_EventBroadcastBlockClear(XAieGbl_Tile *TileInstPtr, u8 Dir, u8 SwitchAB, u16 Mask);
 u32 XAieTilePl_EventBroadcastBlockValue(XAieGbl_Tile *TileInstPtr, u8 Dir, u8 SwitchAB);
+u32 XAieTile_PlEventBroadcastGet(XAieGbl_Tile *TileInstPtr, u8 BroadcastId);
 
 /*
  * Memory module
@@ -495,6 +498,7 @@ u8 XAieTileMem_EventBroadcast(XAieGbl_Tile *TileInstPtr, u8 BroadcastId, u8 Even
 u8 XAieTileMem_EventBroadcastBlockSet(XAieGbl_Tile *TileInstPtr, u8 Dir, u16 Mask);
 u8 XAieTileMem_EventBroadcastBlockClear(XAieGbl_Tile *TileInstPtr, u8 Dir, u16 Mask);
 u32 XAieTileMem_EventBroadcastBlockValue(XAieGbl_Tile *TileInstPtr, u8 Dir);
+u32 XAieTile_MemEventBroadcastGet(XAieGbl_Tile *TileInstPtr, u8 BroadcastId);
 
 #endif		/* end of protection macro */
 
