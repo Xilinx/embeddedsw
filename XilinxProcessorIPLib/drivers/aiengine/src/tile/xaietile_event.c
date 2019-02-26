@@ -68,6 +68,7 @@ extern XAieGbl_RegEventBroadcastValue EventBroadcastValue[];
 extern XAieGbl_RegTraceCtrls TraceCtrl[];
 extern XAieGbl_RegTraceEvent TraceEvent[];
 extern XAieGbl_RegCorePCEvent CorePCEvents[];
+extern XAieGbl_Config XAieGbl_ConfigTable[];
 
 /************************** Function Definitions *****************************/
 
@@ -1253,6 +1254,240 @@ void XAieTile_CoreEventStatusClear(XAieGbl_Tile *TileInstPtr, u8 Event,
 
 	XAieGbl_Write32(TileInstPtr->TileAddr + XAIEGBL_CORE_EVTSTA0 +
 			(Event / XAIEGBL_CORE_EVTSTA0WID) * 0x4U, Mask);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API sets the event to the given broadcast ID for given
+* Core module Column
+*
+* @param	TileInstPtr - Pointer to the Tile instance. This has to be
+*		the shim tile of the corresponding column.
+* @param	BroadcastId - Broadcast ID. 0 to 15.
+* @param	Event - Event ID. One of XAIETILE_EVENT_CORE_*
+*
+* @return	XAIE_SUCCESS on success
+*
+* @note		Failure indicates partial column configuration.
+*
+*******************************************************************************/
+u8 XAieGbl_CoreEventBroadcastColumn(XAieGbl_Tile *TileInstPtr, u8 BroadcastId,
+				    u8 Event)
+{
+	u16 NumRows = XAieGbl_ConfigTable->NumRows;
+	u16 ColumnId = TileInstPtr->ColId;
+	u16 RowIdx;
+	XAieGbl_Tile *TilePtr;
+	u8 status;
+
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(TileInstPtr->RowId == 0);
+
+	for (RowIdx = 1; RowIdx <= NumRows; RowIdx++) {
+		TilePtr = (XAieGbl_Tile *)((u64)TileInstPtr +
+			  (RowIdx * sizeof(XAieGbl_Tile)));
+
+		status = XAieTileCore_EventBroadcast(TilePtr, BroadcastId,
+						     Event);
+		if (status != XAIE_SUCCESS) {
+			return status;
+		}
+	}
+	return XAIE_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API sets the event to the given broadcast ID for memory module
+* for given Column
+*
+* @param	TileInstPtr - Pointer to the Tile instance. This has to be
+*		the shim tile of the corresponding column.
+* @param	BroadcastId - Broadcast ID. 0 to 15.
+* @param	Event - Event ID. One of XAIETILE_EVENT_CORE_*
+*
+* @return	XAIE_SUCCESS on success
+*
+* @note		Failure indicates partial column configuration.
+*
+*******************************************************************************/
+u8 XAieGbl_MemEventBroadcastColumn(XAieGbl_Tile *TileInstPtr, u8 BroadcastId,
+				   u8 Event)
+{
+	u16 NumRows = XAieGbl_ConfigTable->NumRows;
+	u16 ColumnId = TileInstPtr->ColId;
+	u16 RowIdx;
+	XAieGbl_Tile *TilePtr;
+	u8 status;
+
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(TileInstPtr->RowId == 0);
+
+	for (RowIdx = 1; RowIdx <= NumRows; RowIdx++) {
+		TilePtr = (XAieGbl_Tile *)((u64)TileInstPtr +
+			  (RowIdx * sizeof(XAieGbl_Tile)));
+
+		status = XAieTileMem_EventBroadcast(TilePtr, BroadcastId,
+						    Event);
+		if (status != XAIE_SUCCESS) {
+			return status;
+		}
+	}
+	return XAIE_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API clears the current event broadcast block value for Core module
+* for given Column
+*
+* @param	TileInstPtr - Pointer to the Tile instance. This has to be
+*		the shim tile of the corresponding column.
+* @param	Dir - Direction. Should be one of
+*		XAIETILE_EVENT_BLOCK_SOUTH, XAIETILE_EVENT_BLOCK_WEST,
+*		XAIETILE_EVENT_BLOCK_NORTH, or XAIETILE_EVENT_BLOCK_EAST.
+* @param	Mask - Mask with bits to clear
+*
+* @return	XAIE_SUCCESS on success
+*
+* @note		Failure indicates partial column configuration.
+*
+*******************************************************************************/
+u8 XAieGbl_CoreEventBroadcastBlockClearColumn(XAieGbl_Tile *TileInstPtr, u8 Dir,
+					      u16 Mask)
+{
+	u16 NumRows = XAieGbl_ConfigTable->NumRows;
+	u16 ColumnId = TileInstPtr->ColId;
+	u16 RowIdx;
+	XAieGbl_Tile *TilePtr;
+	u8 status;
+
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(TileInstPtr->RowId == 0);
+
+	for (RowIdx = 1; RowIdx <= NumRows; RowIdx++) {
+		TilePtr = (XAieGbl_Tile *)((u64)TileInstPtr +
+			  (RowIdx * sizeof(XAieGbl_Tile)));
+
+		status = XAieTileCore_EventBroadcastBlockClear(TilePtr, Dir,
+							       Mask);
+		if (status != XAIE_SUCCESS) {
+			return status;
+		}
+	}
+	return XAIE_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API clears the current event broadcast block value for memory module
+* for given Column
+*
+* @param	TileInstPtr - Pointer to the Tile instance. This has to be
+*		the shim tile of the corresponding column.
+* @param	Dir - Direction. Should be one of
+*		XAIETILE_EVENT_BLOCK_SOUTH, XAIETILE_EVENT_BLOCK_WEST,
+*		XAIETILE_EVENT_BLOCK_NORTH, or XAIETILE_EVENT_BLOCK_EAST.
+* @param	Mask - Mask with bits to clear
+*
+* @return	XAIE_SUCCESS on success
+*
+* @note		Failure indicates partial column configuration.
+*
+*******************************************************************************/
+u8 XAieGbl_MemEventBroadcastBlockClearColumn(XAieGbl_Tile *TileInstPtr, u8 Dir,
+					     u16 Mask)
+{
+	u16 NumRows = XAieGbl_ConfigTable->NumRows;
+	u16 ColumnId = TileInstPtr->ColId;
+	u16 RowIdx;
+	XAieGbl_Tile *TilePtr;
+	u8 status;
+
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(TileInstPtr->RowId == 0);
+
+	for (RowIdx = 1; RowIdx <= NumRows; RowIdx++) {
+
+		TilePtr = (XAieGbl_Tile *)((u64)TileInstPtr +
+			  (RowIdx * sizeof(XAieGbl_Tile)));
+
+		status = XAieTileMem_EventBroadcastBlockClear(TilePtr, Dir,
+							      Mask);
+		if (status != XAIE_SUCCESS) {
+			return status;
+		}
+	}
+	return XAIE_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API set all signals blocks in the given Column.
+*
+* @param	TileInstPtr - Pointer to the Tile instance. This has to be
+*		the shim tile of the corresponding column.
+*
+* @return	XAIE_SUCCESS on success
+*
+* @note		Failure indicates partial column configuration.
+*
+*******************************************************************************/
+u8 XAieGbl_Column_EventBroadcastBlockAll(XAieGbl_Tile *TileInstPtr)
+{
+	u16 NumRows = XAieGbl_ConfigTable->NumRows;
+	u16 ColumnId = TileInstPtr->ColId;
+	u16 RowIdx;
+	XAieGbl_Tile *TilePtr;
+	u8 Dir;
+	u8 status;
+
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(TileInstPtr->RowId == 0);
+
+	/* Set block for AI Tile */
+	for (Dir = 0; Dir < 4; Dir++) {
+		for (RowIdx = 1; RowIdx <= NumRows; RowIdx++) {
+
+			TilePtr = (XAieGbl_Tile *)((u64)TileInstPtr +
+				(RowIdx * sizeof(XAieGbl_Tile)));
+
+			status = XAieTileCore_EventBroadcastBlockSet(TilePtr,
+					Dir, XAIETILE_EVENT_BLOCK_ALL_MASK);
+			if (status != XAIE_SUCCESS) {
+				return status;
+			}
+
+			status = XAieTileMem_EventBroadcastBlockSet(TilePtr,
+					Dir, XAIETILE_EVENT_BLOCK_ALL_MASK);
+			if (status != XAIE_SUCCESS) {
+				return status;
+			}
+		}
+	}
+
+	/* Shim Tile */
+	TilePtr = (XAieGbl_Tile *)(u64)TileInstPtr;
+
+	for (Dir = 0; Dir < 4; Dir++) {
+		XAieTilePl_EventBroadcastBlockSet(TilePtr, Dir,
+					XAIETILE_EVENT_BLOCK_SWITCHA,
+					XAIETILE_EVENT_BLOCK_ALL_MASK);
+		XAieTilePl_EventBroadcastBlockSet(TilePtr, Dir,
+					XAIETILE_EVENT_BLOCK_SWITCHB,
+					XAIETILE_EVENT_BLOCK_ALL_MASK);
+	}
+	return XAIE_SUCCESS;
 }
 
 /** @} */

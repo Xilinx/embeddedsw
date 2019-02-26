@@ -60,6 +60,8 @@
 #define XAIETILE_EVENT_BLOCK_NORTH			2U
 #define XAIETILE_EVENT_BLOCK_EAST			3U
 
+#define XAIETILE_EVENT_BLOCK_ALL_MASK			0xFFFFU
+
 #define XAIETILE_EVENT_BLOCK_SWITCHA			0U
 #define XAIETILE_EVENT_BLOCK_SWITCHB			1U
 
@@ -506,6 +508,22 @@ u32 XAieTile_MemEventBroadcastGet(XAieGbl_Tile *TileInstPtr, u8 BroadcastId);
 u32 XAieTile_MemEventStatusGet(XAieGbl_Tile *TileInstPtr, u8 Event);
 void XAieTile_MemEventStatusClear(XAieGbl_Tile *TileInstPtr, u8 Event, u32 Mask);
 
+/*
+ * Core module Column
+ */
+u8 XAieGbl_CoreEventBroadcastColumn(XAieGbl_Tile *TileInstPtr, u8 BroadcastId, u8 Event);
+u8 XAieGbl_CoreEventBroadcastBlockClearColumn(XAieGbl_Tile *TileInstPtr, u8 Dir, u16 Mask);
+
+/*
+ * Memory module Column
+ */
+u8 XAieGbl_MemEventBroadcastColumn(XAieGbl_Tile *TileInstPtr, u8 BroadcastId, u8 Event);
+u8 XAieGbl_MemEventBroadcastBlockClearColumn(XAieGbl_Tile *TileInstPtr, u8 Dir, u16 Mask);
+
+/*
+ * Block all
+ */
+u8 XAieGbl_Column_EventBroadcastBlockAll(XAieGbl_Tile *TileInstPtr);
 
 #endif		/* end of protection macro */
 
