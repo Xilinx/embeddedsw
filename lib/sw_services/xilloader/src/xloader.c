@@ -359,6 +359,8 @@ int XLoader_StartImage(XilPdi *PdiPtr)
     u32 Index;
     u32 CpuId;
     u64 HandoffAddr;
+    u32 ExecState;
+    u32 VInitHi;
 
 	XLoader_Printf(DEBUG_INFO, "XLoader_StartImage enter\r\n");
     /* Handoff to the cpus */
@@ -368,11 +370,18 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				& XIH_PH_ATTRB_DSTN_CPU_MASK;
 		HandoffAddr = PdiPtr->HandoffParam[Index].HandoffAddr;
 
+		ExecState = PdiPtr->HandoffParam[Index].CpuSettings &
+				XIH_PH_ATTRB_A72_EXEC_ST_MASK;
+		VInitHi = PdiPtr->HandoffParam[Index].CpuSettings &
+				XIH_PH_ATTRB_HIVEC_MASK;
+
 		switch (CpuId)
 		{
 			case XIH_PH_ATTRB_DSTN_CPU_A72_0:
 			case XIH_PH_ATTRB_DSTN_CPU_A72_1:
 			{
+				/* APU Core configuration */
+				XLoader_A72Config(CpuId, ExecState, VInitHi);
 				XLoader_Printf(DEBUG_INFO,
 						" Request APU wakeup\r\n");
 				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC,
@@ -450,6 +459,65 @@ int XLoader_StartImage(XilPdi *PdiPtr)
     Status = XLOADER_SUCCESS;
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to perform Aarch state and vector location for APU
+ *
+ * @param CpuId CPU ID
+ * @param ExecState CPU execution state
+ * @param VinitHi VinitHi configuration for CPU
+ *
+ * @return	None
+ *****************************************************************************/
+void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi)
+{
+	u32 RegVal;
+
+	RegVal = Xil_In32(XLOADER_FPD_APU_CONFIG_0);
+
+	switch(CpuId)
+	{
+		case XIH_PH_ATTRB_DSTN_CPU_A72_0:
+		{
+			/* Set Aarch state 64 Vs 32 bit and vection location for 32 bit */
+			if (ExecState == XIH_PH_ATTRB_A72_EXEC_ST_AA64) {
+				RegVal |=  XLOADER_FPD_APU_CONFIG_0_AA64N32_MASK_CPU0;
+			} else {
+				RegVal &= ~(XLOADER_FPD_APU_CONFIG_0_AA64N32_MASK_CPU0);
+
+				if (VInitHi == XIH_PH_ATTRB_HIVEC_MASK) {
+					RegVal |=  XLOADER_FPD_APU_CONFIG_0_VINITHI_MASK_CPU0;
+				} else {
+					RegVal &= ~(XLOADER_FPD_APU_CONFIG_0_VINITHI_MASK_CPU0);
+				}
+			}
+		}break;
+
+		case XIH_PH_ATTRB_DSTN_CPU_A72_1:
+		{
+			/* Set Aarch state 64 Vs 32 bit and vection location for 32 bit */
+			if (ExecState == XIH_PH_ATTRB_A72_EXEC_ST_AA64) {
+				RegVal |=  XLOADER_FPD_APU_CONFIG_0_AA64N32_MASK_CPU1;
+			} else {
+				RegVal &= ~(XLOADER_FPD_APU_CONFIG_0_AA64N32_MASK_CPU1);
+
+				if (VInitHi == XIH_PH_ATTRB_HIVEC_MASK) {
+					RegVal |=  XLOADER_FPD_APU_CONFIG_0_VINITHI_MASK_CPU1;
+				} else {
+					RegVal &= ~(XLOADER_FPD_APU_CONFIG_0_VINITHI_MASK_CPU1);
+				}
+			}
+		}break;
+
+		default:
+		{
+		}break;
+	}
+
+	/* Update the APU configuration */
+	Xil_Out32(XLOADER_FPD_APU_CONFIG_0, RegVal);
 }
 
 /*****************************************************************************/
