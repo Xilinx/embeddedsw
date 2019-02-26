@@ -61,7 +61,6 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XLOADER_SUCCESS_NOT_PRTN_OWNER	(0x100U)
-#define XLOADER_NO_PSM_IMG_PARTITIONS	2U
 /************************** Function Prototypes ******************************/
 static int XLoader_PrtnHdrValidation(XilPdi* PdiPtr, u32 PrtnNum);
 static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnNum);
@@ -292,14 +291,13 @@ static void XLoader_UpdateHandoffParam(XilPdi* PdiPtr, u32 PrtnNum)
 	u32 DstnCpu;
 	u32 CpuNo;
 	XilPdi_PrtnHdr * PrtnHdr;
-	static unsigned int PsmImgPrtnCount = 0;
 
 	/* Assign the partition header to local variable */
 	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
 	DstnCpu = XilPdi_GetDstnCpu(PrtnHdr);
 
 	if ((DstnCpu > XIH_PH_ATTRB_DSTN_CPU_NONE) &&
-	    (DstnCpu < XIH_PH_ATTRB_DSTN_CPU_PSM))
+	    (DstnCpu <= XIH_PH_ATTRB_DSTN_CPU_PSM))
 	{
 		CpuNo = PdiPtr->NoOfHandoffCpus;
 		if (XLoader_CheckHandoffCpu(PdiPtr, DstnCpu) == XST_SUCCESS)
@@ -312,24 +310,6 @@ static void XLoader_UpdateHandoffParam(XilPdi* PdiPtr, u32 PrtnNum)
 			PdiPtr->HandoffParam[CpuNo].HandoffAddr =
 					PrtnHdr->DstnExecutionAddr;
 			PdiPtr->NoOfHandoffCpus += 1U;
-		}
-	}
-
-	/**
-	 * If CPU is PSM, release it immediatetly
-	 */
-	if (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_PSM)
-	{
-		PsmImgPrtnCount++;
-		/* TODO: No of PSM partitions are hard coded for now, later it
-			needs to be fixed*/
-		if(PsmImgPrtnCount == XLOADER_NO_PSM_IMG_PARTITIONS)
-		{
-			XLoader_Printf(DEBUG_INFO,
-			" Request PSM wakeup \r\n");
-			XPm_RequestWakeUp(XPM_SUBSYSID_PMC,
-			XPM_DEVID_PSM, 0, 0, 0);
-			PsmImgPrtnCount = 0;
 		}
 	}
 
