@@ -111,6 +111,8 @@
  * 5.13 akm  01/30/19 Fixed multiple definition error in C++ project
  *                         CR#1019773
  *      sk   02/11/19 Added support for OSPI flash interface.
+ * 5.13	akm  02/26/19 Added support for ISSI serial NOR Flash Devices.
+ * 	         	   PR# 11442
  *
  *
  * </pre>
@@ -546,6 +548,14 @@ static const struct IntelStmDeviceGeometry IntelStmDevices[] = {
 	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
 	 XISF_NUM_OF_SECTORS128},
 
+	 {XISF_MANUFACTURER_ID_ISSI, XISF_ISSI_DEV_IS25LP128F,
+	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
+	 XISF_NUM_OF_SECTORS256},
+
+	 {XISF_MANUFACTURER_ID_ISSI, XISF_ISSI_DEV_IS25WP128F,
+	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
+	 XISF_NUM_OF_SECTORS256},
+
 	 {XISF_MANUFACTURER_ID_ISSI, XISF_ISSI_DEV_IS25WP256D,
 	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
 	 XISF_NUM_OF_SECTORS512},
@@ -553,6 +563,14 @@ static const struct IntelStmDeviceGeometry IntelStmDevices[] = {
 	 {XISF_MANUFACTURER_ID_ISSI, XISF_ISSI_DEV_IS25LP256D,
 	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
 	 XISF_NUM_OF_SECTORS512},
+
+	 {XISF_MANUFACTURER_ID_ISSI, XISF_ISSI_DEV_IS25LP512M,
+	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
+	 XISF_NUM_OF_SECTORS1024},
+
+	 {XISF_MANUFACTURER_ID_ISSI, XISF_ISSI_DEV_IS25WP512M,
+	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
+	 XISF_NUM_OF_SECTORS1024},
 
 	 {XISF_MANUFACTURER_ID_MACRONIX, XISF_MACRONIX_DEV_MX66U1G45G,
 	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
@@ -695,6 +713,15 @@ static const struct SpaMicWinDeviceGeometry SpaMicWinDevices[] = {
 	{0x20000, XISF_NUM_OF_SECTORS128, XISF_PAGES512_PER_SECTOR, 0x8000,
 		0x800000, XISF_MANUFACTURER_ID_ISSI,
 		XISF_ISSI_ID_BYTE2_64, 0xFFFF0000, 1},
+	{0x10000, XISF_NUM_OF_SECTORS256, XISF_PAGES256_PER_SECTOR, 0x10000,
+		0x1000000, XISF_MANUFACTURER_ID_ISSI,
+		XISF_ISSI_ID_BYTE2_128, 0xFFFF0000, 1},
+	{0x10000, XISF_NUM_OF_SECTORS512, XISF_PAGES256_PER_SECTOR, 0x20000,
+		0x1000000, XISF_MANUFACTURER_ID_ISSI,
+		XISF_ISSI_ID_BYTE2_128, 0xFFFF0000, 1},
+	{0x20000, XISF_NUM_OF_SECTORS256, XISF_PAGES512_PER_SECTOR, 0x10000,
+		0x1000000, XISF_MANUFACTURER_ID_ISSI,
+		XISF_ISSI_ID_BYTE2_128, 0xFFFE0000, 1},
 	{0x10000, XISF_NUM_OF_SECTORS512, XISF_PAGES256_PER_SECTOR, 0x20000,
 		0x2000000, XISF_MANUFACTURER_ID_ISSI,
 		XISF_ISSI_ID_BYTE2_256, 0xFFFF0000, 1},
@@ -704,6 +731,15 @@ static const struct SpaMicWinDeviceGeometry SpaMicWinDevices[] = {
 	{0x20000, XISF_NUM_OF_SECTORS512, XISF_PAGES512_PER_SECTOR, 0x20000,
 		0x2000000, XISF_MANUFACTURER_ID_ISSI,
 		XISF_ISSI_ID_BYTE2_256, 0xFFFF0000, 1},
+	{0x10000, XISF_NUM_OF_SECTORS1024, XISF_PAGES256_PER_SECTOR, 0x40000,
+		0x4000000, XISF_MANUFACTURER_ID_ISSI,
+		XISF_ISSI_ID_BYTE2_512, 0xFFFF0000, 2},
+	{0x10000, XISF_NUM_OF_SECTORS2048, XISF_PAGES256_PER_SECTOR, 0x80000,
+		0x4000000, XISF_MANUFACTURER_ID_ISSI,
+		XISF_ISSI_ID_BYTE2_512, 0xFFFF0000, 2},
+	{0x20000, XISF_NUM_OF_SECTORS1024, XISF_PAGES512_PER_SECTOR, 0x40000,
+		0x4000000, XISF_MANUFACTURER_ID_ISSI,
+		XISF_ISSI_ID_BYTE2_512, 0xFFFE0000, 2},
 	/* Macronix*/
 	{0x10000, XISF_NUM_OF_SECTORS2048, XISF_PAGES256_PER_SECTOR, 0x80000,
 		0x8000000, XISF_MANUFACTURER_ID_MACRONIX,
@@ -2560,7 +2596,22 @@ static int SpaMicWinFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
 				XIsf_FCTIndex = 0;
 				break;
 			}
-		} else if (BufferPtr[3] == XISF_ISSI_ID_BYTE2_256) {
+		} else if (BufferPtr[3] == XISF_ISSI_ID_BYTE2_128) {
+                        switch (InstancePtr->SpiInstPtr->Config.ConnectionMode) {
+                        case XISF_QSPIPS_CONNECTION_MODE_SINGLE:
+                                XIsf_FCTIndex = FLASH_CFG_TBL_SINGLE_128_ISSI;
+                                break;
+                        case XISF_QSPIPS_CONNECTION_MODE_PARALLEL:
+                                XIsf_FCTIndex = FLASH_CFG_TBL_PARALLEL_128_ISSI;
+                                break;
+                        case XISF_QSPIPS_CONNECTION_MODE_STACKED:
+                                XIsf_FCTIndex = FLASH_CFG_TBL_STACKED_128_ISSI;
+                                break;
+                        default:
+                                XIsf_FCTIndex = 0;
+                                break;
+                        }
+                } else if (BufferPtr[3] == XISF_ISSI_ID_BYTE2_256) {
 			switch (InstancePtr->SpiInstPtr->Config.ConnectionMode) {
 			case XISF_QSPIPS_CONNECTION_MODE_SINGLE:
 				XIsf_FCTIndex = FLASH_CFG_TBL_SINGLE_256_ISSI;
@@ -2575,7 +2626,22 @@ static int SpaMicWinFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
 				XIsf_FCTIndex = 0;
 				break;
 			}
-		} else {
+		} else if (BufferPtr[3] == XISF_ISSI_ID_BYTE2_512) {
+                        switch (InstancePtr->SpiInstPtr->Config.ConnectionMode) {
+                        case XISF_QSPIPS_CONNECTION_MODE_SINGLE:
+                                XIsf_FCTIndex = FLASH_CFG_TBL_SINGLE_512_ISSI;
+                                break;
+                        case XISF_QSPIPS_CONNECTION_MODE_PARALLEL:
+                                XIsf_FCTIndex = FLASH_CFG_TBL_PARALLEL_512_ISSI;
+                                break;
+                        case XISF_QSPIPS_CONNECTION_MODE_STACKED:
+                                XIsf_FCTIndex = FLASH_CFG_TBL_STACKED_512_ISSI;
+                                break;
+                        default:
+                                XIsf_FCTIndex = 0;
+                                break;
+                        }
+                } else {
 			XIsf_FCTIndex = 0;
 		}
 	}
