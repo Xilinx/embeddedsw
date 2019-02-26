@@ -55,7 +55,7 @@ BEGIN LIBRARY xilffs
   PARAM name = use_strfunc, desc = "Enables the string functions (valid values 0 to 2).", type = int, default = 0;
   PARAM name = set_fs_rpath, desc = "Configures relative path feature (valid values 0 to 2).", type = int, default = 0;
   PARAM name = word_access, desc = "Enables word access for misaligned memory access platform", type = bool, default = true;
-  PARAM name = use_chmod, desc = "Enables use of CHMOD functionality for changing attributes", type = bool, default = false;
+  PARAM name = use_chmod, desc = "Enables use of CHMOD functionality for changing attributes (valid only with read_only set to false)", type = bool, default = false;
 
   BEGIN CATEGORY ramfs_options
     PARAM name = ramfs_size, desc = "RAM FS size", type = int, default = 3145728;
