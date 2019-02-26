@@ -1119,4 +1119,140 @@ u32 XAieTile_CoreEventBroadcastGet(XAieGbl_Tile *TileInstPtr, u8 BroadcastId)
 			     XAIEGBL_CORE_EVTBRDCAST0_EVT_MASK);
 }
 
+/*****************************************************************************/
+/**
+*
+* This API returns the event status correspond to the Memory module event
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	Event - Event ID. One of XAIETILE_EVENT_CORE_*
+*
+* @return	Current event status
+*
+* @note		None.
+*
+*******************************************************************************/
+u32 XAieTile_MemEventStatusGet(XAieGbl_Tile *TileInstPtr, u8 Event)
+{
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+
+	return XAieGbl_Read32(TileInstPtr->TileAddr + XAIEGBL_MEM_EVTSTA0 +
+			      (Event / XAIEGBL_MEM_EVTSTA0WID) * 0x4U);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API returns the event status correspond to the PL module event
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	Event - Event ID. One of XAIETILE_EVENT_CORE_*
+*
+* @return	Current event status
+*
+* @note		None.
+*
+*******************************************************************************/
+u32 XAieTile_PlEventStatusGet(XAieGbl_Tile *TileInstPtr, u8 Event)
+{
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
+
+	return XAieGbl_Read32(TileInstPtr->TileAddr + XAIEGBL_PL_EVTSTA0 +
+			      (Event / XAIEGBL_PL_EVTSTA0WID) * 0x4U);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API returns the event status correspond to the Core Module event
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	Event - Event ID. One of XAIETILE_EVENT_CORE_*
+*
+* @return	Current event status
+*
+* @note		None.
+*
+*******************************************************************************/
+u32 XAieTile_CoreEventStatusGet(XAieGbl_Tile *TileInstPtr, u8 Event)
+{
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+
+	return XAieGbl_Read32(TileInstPtr->TileAddr + XAIEGBL_CORE_EVTSTA0 +
+			      (Event / XAIEGBL_CORE_EVTSTA0WID) * 0x4U);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API clears the event status correspond to the Memory module event
+*
+* @param        TileInstPtr - Pointer to the Tile instance.
+* @param	Event - Event ID. One of XAIETILE_EVENT_CORE_*
+* @param        Mask - value with to clear the bits.
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void XAieTile_MemEventStatusClear(XAieGbl_Tile *TileInstPtr, u8 Event, u32 Mask)
+{
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+
+	XAieGbl_Write32(TileInstPtr->TileAddr + XAIEGBL_MEM_EVTSTA0 +
+			(Event / XAIEGBL_MEM_EVTSTA0WID) * 0x4U, Mask);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API clears the event status correspond to the PL module event
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	Event - Event ID. One of XAIETILE_EVENT_CORE_*
+* @param	Mask - Bits to clear.
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void XAieTile_PlEventStatusClear(XAieGbl_Tile *TileInstPtr, u8 Event, u32 Mask)
+{
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
+
+	XAieGbl_Write32(TileInstPtr->TileAddr + XAIEGBL_PL_EVTSTA0 +
+			(Event / XAIEGBL_PL_EVTSTA0WID) * 0x4U, Mask);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API clears the event status correspond to the Core Module event
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	Event - Event ID. One of XAIETILE_EVENT_CORE_*
+* @param	Mask - Bits to clear.
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void XAieTile_CoreEventStatusClear(XAieGbl_Tile *TileInstPtr, u8 Event,
+				   u32 Mask)
+{
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+
+	XAieGbl_Write32(TileInstPtr->TileAddr + XAIEGBL_CORE_EVTSTA0 +
+			(Event / XAIEGBL_CORE_EVTSTA0WID) * 0x4U, Mask);
+}
+
 /** @} */
