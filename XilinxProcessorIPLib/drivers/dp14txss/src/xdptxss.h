@@ -118,6 +118,8 @@
 *                   DrvHpdEventHandler and DrvHpdPulseHandler
 *                   Added HPD user data stucture XDpTxSs_UsrHpdPulseData
 *                   and XDpTxSs_UsrHpdEventData
+* 5.0  jb  02/21/19 Added HDCP22 support.
+* 					Made the Timer counter available for both HDCP1x and 22.
 * </pre>
 *
 ******************************************************************************/
@@ -142,6 +144,9 @@ extern "C" {
 #include "xdptxss_dualsplitter.h"
 #include "xdptxss_hdcp1x.h"
 #include "xdptxss_vtc.h"
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+#include "xdptxss_hdcp22.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -174,6 +179,14 @@ typedef enum {
 						  *  interrupt type for
 						  *  HDCP core */
 #endif
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+	XDPTXSS_HANDLER_HDCP22_AUTHENTICATED, /**< Handler for
+					       * HDCP22 unauthenticated
+					       * event */
+	XDPTXSS_HANDLER_HDCP22_UNAUTHENTICATED, /**< Handler for
+						 * HDCP22 unauthenticated
+						 * event */
+#endif
 	XDPTXSS_HANDLER_DP_SET_MSA,		/**< Set MSA immediate change
 						  *  change interrupt type for
 						  *  DisplayPort core */
@@ -184,6 +197,26 @@ typedef enum {
 						  *  interrupt type for
 						  *  DisplayPort core */
 } XDpTxSs_HandlerType;
+
+/**
+* These constants specify the HDCP protection schemes
+*/
+typedef enum
+{
+    XDPTXSS_HDCP_NONE,   /**< No content protection */
+    XDPTXSS_HDCP_1X,     /**< HDCP 1X */
+    XDPTXSS_HDCP_22,     /**< HDCP 2.2 */
+    XDPTXSS_HDCP_BOTH    /**< Both HDCP 1.4 and 2.2 */
+} XDpTxSs_HdcpProtocol;
+
+/**
+* These constants specify HDCP repeater content stream management type
+*/
+typedef enum
+{
+    XDPTXSS_HDCP_STREAMTYPE_0, /**< HDCP Stream Type 0 */
+    XDPTXSS_HDCP_STREAMTYPE_1  /**< HDCP Stream Type 1 */
+} XDpTxSs_HdcpContentStreamType;
 
 /**
 * User input structure
@@ -236,7 +269,8 @@ typedef struct {
 	XHdcp1x_Config Hdcp1xConfig;	/**< HDCP core configuration
 					  *  information */
 } XDpTxSs_Hdcp1xSubCore;
-
+#endif
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 /**
 * Timer Counter Sub-core structure.
 */
@@ -264,6 +298,8 @@ typedef struct {
 				  *  Subsystem core */
 	u8 HdcpEnable;		/**< This Subsystem core supports digital
 				  *  content protection. */
+	u8 Hdcp22Enable;		/**< This Subsystem core supports digital
+					  *  content protection(HDCP22). */
 	u8 MaxLaneCount;	/**< The maximum lane count supported by this
 				  *  core instance. */
 	u8 MstSupport;		/**< Multi-stream transport (MST) mode is
@@ -273,9 +309,13 @@ typedef struct {
 	XDpTxSs_DpSubCore DpSubCore;	/**< DisplayPort Configuration */
 #if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 	XDpTxSs_Hdcp1xSubCore Hdcp1xSubCore;	/**< HDCP Configuration */
+#endif
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+	XDpTxSs_Hdcp22SubCore Hdcp22SubCore;	/**< HDCP22 Configuration */
+#endif
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 	XDpTxSs_TmrCtrSubCore TmrCtrSubCore;	/**< Timer Counter
 						  *  Configuration */
-
 #endif
 #if (XPAR_XDUALSPLITTER_NUM_INSTANCES > 0)
 	XDpTxSs_DsSubCore DsSubCore;	/**< Dual Splitter Configuration */
@@ -328,7 +368,13 @@ typedef struct {
 #endif
 #if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 	XHdcp1x *Hdcp1xPtr;		/**< HDCP sub-core instance */
+#endif
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 	XTmrCtr *TmrCtrPtr;		/**< Timer Counter sub-core instance */
+#endif
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+	XHdcp22_Tx  *Hdcp22Ptr;		/**< handle to sub-core driver
+					  instance */
 #endif
 	XDp *DpPtr;			/**< DisplayPort sub-core instance */
 	XVtc *VtcPtr[XDPTXSS_NUM_STREAMS];/**< Maximum number of VTC sub-core
@@ -339,6 +385,16 @@ typedef struct {
 	XDpTxSs_UsrHpdEventData UsrHpdEventData; /**< User HPD Event data*/
 	u8 link_up_trigger;
 	u8 no_video_trigger;
+	XDpTxSs_HdcpProtocol    HdcpProtocol;    /**< HDCP protocol selected */
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+	u32 HdcpIsReady;     /**< HDCP ready flag */
+	XDpTxSs_HdcpProtocol HdcpCapability;  /**< HDCP protocol desired */
+#endif
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+	XDpTxSs_HdcpEventQueue HdcpEventQueue; /**< HDCP22 event queue */
+	u8 *Hdcp22Lc128Ptr;			/**< Pointer to HDCP 2.2 LC128*/
+	u8 *Hdcp22SrmPtr;			/**< Pointer to HDCP 2.2 SRM */
+#endif
 } XDpTxSs;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -356,6 +412,11 @@ typedef struct {
 #if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 #define XDpTxSs_Printf		XHdcp1x_Printf	/**< Debug printf */
 #define XDpTxSs_LogMsg		XHdcp1x_LogMsg	/**< Debug log message */
+#endif
+
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+#define XDpTxSs_HdcpIsReady(InstancePtr) \
+	(InstancePtr)->HdcpIsReady
 #endif
 
 /************************** Function Prototypes ******************************/
@@ -405,6 +466,15 @@ u32 XDpTxSs_ReadDownstream(XDpTxSs *InstancePtr);
 void XDpTxSs_HandleTimeout(XDpTxSs *InstancePtr);
 #endif
 
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+int XDpTxSs_HdcpSetCapability(XDpTxSs *InstancePtr,
+		XDpTxSs_HdcpProtocol Protocol);
+int XDpTxSs_HdcpEnable(XDpTxSs *InstancePtr);
+int XDpTxSs_HdcpSetProtocol(XDpTxSs *InstancePtr,
+		XDpTxSs_HdcpProtocol Protocol);
+int XDpTxSs_HdcpReset(XDpTxSs *InstancePtr);
+#endif
+
 void XDpTxSs_ReportCoreInfo(XDpTxSs *InstancePtr);
 void XDpTxSs_ReportLinkInfo(XDpTxSs *InstancePtr);
 void XDpTxSs_ReportMsaInfo(XDpTxSs *InstancePtr);
@@ -419,6 +489,8 @@ u32 XDpTxSs_SelfTest(XDpTxSs *InstancePtr);
 /* Interrupt functions in xdptxss_intr.c */
 #if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 void XDpTxSs_HdcpIntrHandler(void *InstancePtr);
+#endif
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 void XDpTxSs_TmrCtrIntrHandler(void *InstancePtr);
 #endif
 void XDpTxSs_DpIntrHandler(void *InstancePtr);

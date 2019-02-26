@@ -32,6 +32,6 @@ BEGIN driver dp14txss
 	OPTION driver_state = ACTIVE;
 	OPTION depends = (dual_splitter_v1_0 vtc_v7_2);
 	OPTION copyfiles = all;
-	OPTION VERSION = 6.1;
+	OPTION VERSION = 6.2;
 	OPTION NAME = dp14txss;
 END driver

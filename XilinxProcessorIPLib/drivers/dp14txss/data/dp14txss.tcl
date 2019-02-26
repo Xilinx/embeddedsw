@@ -34,9 +34,9 @@
 ###############################################################################
 
 proc generate {drv_handle} {
-	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XDpTxSs" "NUM_INSTANCES" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "AUDIO_ENABLE" "BITS_PER_COLOR" "HDCP_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS" "SIM_MODE"
-	hier_ip_define_config_file $drv_handle "xdptxss_g.c" "XDpTxSs" "DEVICE_ID" "C_BASEADDR" "AUDIO_ENABLE" "BITS_PER_COLOR" "HDCP_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS"
-	::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "DpTxSs" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "AUDIO_ENABLE" "BITS_PER_COLOR" "HDCP_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS" "SIM_MODE"
+	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XDpTxSs" "NUM_INSTANCES" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "AUDIO_ENABLE" "BITS_PER_COLOR" "HDCP_ENABLE" "HDCP22_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS" "SIM_MODE"
+	hier_ip_define_config_file $drv_handle "xdptxss_g.c" "XDpTxSs" "DEVICE_ID" "C_BASEADDR" "AUDIO_ENABLE" "BITS_PER_COLOR" "HDCP_ENABLE" "HDCP22_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS"
+	::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "DpTxSs" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "AUDIO_ENABLE" "BITS_PER_COLOR" "HDCP_ENABLE" "HDCP22_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS" "SIM_MODE"
 }
 
 # This procedure creates parameters XPAR_* of each sub-cores in xdptxss_g.c file.
@@ -53,6 +53,7 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 	set sub_core_params(v_dual_splitter) "BASEADDR ACTIVE_COLS ACTIVE_ROWS MAX_SEGMENTS AXIS_VIDEO_MAX_TDATA_WIDTH AXIS_VIDEO_MAX_ITDATASMPLS_PER_CLK AXIS_VIDEO_MAX_OTDATASMPLS_PER_CLK MAX_OVRLAP MAX_SMPL_WIDTH HAS_AXI4_LITE HAS_IRQ"
 	set sub_core_params(hdcp) "BASEADDR S_AXI_FREQUENCY IS_RX IS_HDMI"
 	set sub_core_params(axi_timer) "BASEADDR CLOCK_FREQ_HZ"
+	set sub_core_params(hdcp22_tx_dp) "BASEADDR"
 
 	set filename [file join "src" $file_name]
 	set config_file [open $filename w]
@@ -168,7 +169,7 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 						}
 
 						puts $config_file "\n\t\t\t\t\}"
-					} else {
+					} elseif {($ip_name ne "hdcp22_cipher_dp") && ($ip_name ne "hdcp22_rng")} {
 						set comma ",\n"
 						puts $config_file "\t\t\{"
 						puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_name_present]]
