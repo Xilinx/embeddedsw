@@ -42,6 +42,7 @@
 * 1.1   Hyun    10/10/2018  Use the mask write API
 * 1.2   Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.3   Hyun    12/13/2018  Add the core event API
+* 1.4   Jubaer  02/14/2019  Add get Event Broadcast API
 * </pre>
 *
 ******************************************************************************/
@@ -1026,3 +1027,96 @@ u8 XAieTileCore_EventPCEvent(XAieGbl_Tile *TileInstPtr, u8 PCEvent, u16 PCAddr,
 
 	return XAIE_SUCCESS;
 }
+
+/*****************************************************************************/
+/**
+*
+* This API gets the event to the given broadcast ID for memory module
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	BroadcastId - Broadcast ID. 0 to 15.
+*
+* @return	Event - Event ID. One of XAIETILE_EVENT_MEM_*
+*
+* @note		None.
+*
+*******************************************************************************/
+u32 XAieTile_MemEventBroadcastGet(XAieGbl_Tile *TileInstPtr, u8 BroadcastId)
+{
+	u32 RegVal;
+
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(BroadcastId < 16);
+
+	RegVal = XAieGbl_Read32(TileInstPtr->TileAddr +
+				EventBroadcast[XAIETILE_EVENT_MODULE_MEM].RegOff
+				+ BroadcastId * 0x4U);
+
+	return XAie_GetField(RegVal, XAIEGBL_MEM_EVTBRDCAST0_EVT_LSB,
+			     XAIEGBL_MEM_EVTBRDCAST0_EVT_MASK);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API gets the event to the given broadcast ID for PL module
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	BroadcastId - Broadcast ID. 0 to 15.
+*
+* @return	Event - Event ID. One of XAIETILE_EVENT_PL_*
+*
+* @note		None.
+*
+*******************************************************************************/
+u32 XAieTile_PlEventBroadcastGet(XAieGbl_Tile *TileInstPtr, u8 BroadcastId)
+{
+	u32 RegVal;
+
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	/*
+	 * NOC / PL is actually not tile type. If any of those is set,
+	 * treat as Shim which always has a PL module
+	 */
+	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(BroadcastId < 16);
+
+	RegVal = XAieGbl_Read32(TileInstPtr->TileAddr +
+				EventBroadcast[XAIETILE_EVENT_MODULE_PL].RegOff
+				+ BroadcastId * 0x4U);
+
+	return XAie_GetField(RegVal, XAIEGBL_CORE_EVTBRDCAST0_EVT_LSB,
+			     XAIEGBL_CORE_EVTBRDCAST0_EVT_MASK);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API gets the event to the given broadcast ID for Core module
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	BroadcastId - Broadcast ID. 0 to 15.
+*
+* @return	Event - Event ID. One of XAIETILE_EVENT_CORE_*
+*
+* @note		None.
+*
+*******************************************************************************/
+u32 XAieTile_CoreEventBroadcastGet(XAieGbl_Tile *TileInstPtr, u8 BroadcastId)
+{
+	u32 RegVal;
+
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(BroadcastId < 16);
+
+	RegVal = XAieGbl_Read32(TileInstPtr->TileAddr +
+			EventBroadcast[XAIETILE_EVENT_MODULE_CORE].RegOff +
+			BroadcastId * 0x4U);
+
+	return XAie_GetField(RegVal, XAIEGBL_CORE_EVTBRDCAST0_EVT_LSB,
+			     XAIEGBL_CORE_EVTBRDCAST0_EVT_MASK);
+}
+
+/** @} */
