@@ -108,6 +108,7 @@
  * 5.0  Nava 06/02/19  Remove redundant API's from the interface agnostic layer
  *                     and make the existing API's generic to support both
  *                     ZynqMP and versal platforms.
+ * 5.0 Nava  26/02/19  Fix for power-up PL issue with pmufw.
  * </pre>
  *
  * @note
@@ -128,7 +129,7 @@ extern "C" {
 #include "xilfpga.h"
 /************************** Constant Definitions *****************************/
 
-#define PL_DONE_POLL_COUNT  30000U
+#define PL_DONE_POLL_COUNT  300000U
 #define PL_RESET_PERIOD_IN_US  1U
 
 
