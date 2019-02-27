@@ -62,8 +62,6 @@ extern "C" {
 #include "xpsmfw_ipi_manager.h"
 
 int XPsmFw_Init();
-int XPsmFw_FPD_MBISR();
-int XPsmFw_ScanClear(u32 ScanClearAddr);
 
 #ifdef __cplusplus
 }
