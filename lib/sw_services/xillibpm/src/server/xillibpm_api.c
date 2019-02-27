@@ -218,7 +218,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			Status = XPm_SetCurrentSubsystem(Pload[0]);
 			break;
 		case PM_INIT_NODE:
-			Status = XST_SUCCESS;
+			Status = XPm_InitNode(Pload[0], Pload[1]);
 			break;
 		default:
 			Status = XST_INVALID_PARAM;
@@ -371,6 +371,53 @@ XStatus XPm_SetCurrentSubsystem(u32 SubsystemId)
 
 	Status = XPmSubsystem_SetCurrent(SubsystemId);
 
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function allows to initialize the node.
+ *
+ * @param  NodeId	Supported power domain nodes only
+ * @param  Function	Function id
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   none
+ *
+ ****************************************************************************/
+XStatus XPm_InitNode(u32 NodeId, u32 Function)
+{
+	XStatus Status = XST_SUCCESS;
+	XPm_PowerDomain *PwrDomainNode;
+
+	if ((XPM_NODECLASS_POWER != NODECLASS(NodeId)) ||
+	    (XPM_NODESUBCL_POWER_DOMAIN != NODESUBCLASS(NodeId)) ||
+	    (XPM_NODEIDX_POWER_MAX <= NODEINDEX(NodeId))) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	PwrDomainNode = (XPm_PowerDomain *)PmPowers[NODEINDEX(NodeId)];
+	if (NULL == PwrDomainNode) {
+		Status = XST_FAILURE;
+                goto done;
+	}
+
+	switch (NODEINDEX(NodeId)) {
+	case XPM_NODEIDX_POWER_LPD:
+	case XPM_NODEIDX_POWER_FPD:
+	case XPM_NODEIDX_POWER_NOC:
+	case XPM_NODEIDX_POWER_PLD:
+		Status = XPmPowerDomain_InitDomain(PwrDomainNode, Function);
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+	}
+
+done:
 	return Status;
 }
 
@@ -2402,7 +2449,7 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 				goto done;
 			}
 			Status = XPmPowerDomain_Init((XPm_PowerDomain *)PowerDomain,
-				PowerId, BitMask, PowerParent);
+				PowerId, BitMask, PowerParent, NULL);
 			break;
 		case XPM_NODETYPE_POWER_DOMAIN_PS_LOW:
 			PsLpDomain =

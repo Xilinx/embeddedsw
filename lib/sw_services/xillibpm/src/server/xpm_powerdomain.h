@@ -37,14 +37,25 @@ typedef struct XPm_PowerDomain XPm_PowerDomain;
  * The power domain node class.  This is the base class for all the power domain
  * classes.
  */
+struct XPm_PowerDomainOps {
+	XStatus (*PreHouseClean)();
+	XStatus (*PostHouseClean)();
+	XStatus (*ScanClear)();
+	XStatus (*Mbist)();
+	XStatus (*Lbist)();
+	XStatus (*Bisr)();
+};
+
 struct XPm_PowerDomain {
 	XPm_Power Power; /**< Power: Power node base class */
 	XPm_Power *Children; /**< List of children power nodes */
+	struct XPm_PowerDomainOps *DomainOps; /**< house cleaning operations */
 };
 
 /************************** Function Prototypes ******************************/
-XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain,
-	u32 Id, u32 BaseAddress, XPm_Power *Parent);
+XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
+			    u32 BaseAddress, XPm_Power *Parent,
+			    struct XPm_PowerDomainOps *Ops);
 XStatus XPm_PowerUpLPD();
 XStatus XPm_PowerDwnLPD();
 XStatus XPm_PowerUpPLD();
@@ -55,6 +66,7 @@ XStatus XPm_PowerUpCPM();
 XStatus XPm_PowerDwnCPM();
 XStatus XPm_PowerUpNoC();
 XStatus XPm_PowerDwnNoC();
+XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function);
 
 /** @} */
 #endif /* XPM_POWERDOMAIN_H_ */
