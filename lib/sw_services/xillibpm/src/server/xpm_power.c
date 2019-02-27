@@ -30,29 +30,6 @@
 #include "xpm_powerdomain.h"
 #include "xpm_psm.h"
 
-const char *PmPowerStates[] = {
-	"OFF",
-	"ON",
-	"STANDBY",
-	"PWR_UP_PARENT",
-	"PWR_DOWN_PARENT",
-	"PWR_UP_SELF",
-	"PWR_DOWN_SELF",
-	"LBIST",
-	"SCAN_CLEAR",
-	"BISR",
-	"MIST",
-};
-
-const char *PmPowerEvents[] = {
-	"PWR_UP",
-	"PARENT_UP_DONE",
-	"SELF_UP_DONE",
-	"PWR_DOWN",
-	"SELF_DOWN_DONE",
-	"PARENT_DOWN_DONE",
-	"TIMER",
-};
 
 XPm_Power *PmPowers[XPM_NODEIDX_POWER_MAX];
 u32 PmNumPowers;
@@ -269,8 +246,6 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 			}
 			break;
 		default:
-			PmWarn("Wrong state (%s) for event (%s)\n",
-				PmPowerStates[Node->State], PmPowerEvents[Event]);
 			break;
 	}
 
@@ -291,7 +266,7 @@ XStatus XPmPower_Init(XPm_Power *Power,
 	}
 
 	XPmNode_Init(&Power->Node,
-		Id, (u32)XPM_POWER_STATE_STANDBY, BaseAddress);
+		Id, (u32)XPM_POWER_STATE_OFF, BaseAddress);
 
 	Power->Parent = Parent;
 	Power->NextPeer = NULL;

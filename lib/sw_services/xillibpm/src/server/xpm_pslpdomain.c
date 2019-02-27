@@ -164,15 +164,13 @@ static XStatus HandlePsLpDomainEvent(XPm_Node *Node, u32 Event)
 	return Status;
 }
 
-XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd,
-	u32 Id, u32 BaseAddress, XPm_Power *Parent)
+XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
+			   XPm_Power *Parent)
 {
-	XPmPowerDomain_Init(&PsLpd->Domain,
-		Id, BaseAddress, Parent);
+	XPmPowerDomain_Init(&PsLpd->Domain, Id, BaseAddress, Parent, NULL);
 
 	HandlePowerEvent = PsLpd->Domain.Power.Node.HandleEvent;
-	PsLpd->Domain.Power.Node.HandleEvent =
-		HandlePsLpDomainEvent;
+	PsLpd->Domain.Power.Node.HandleEvent = HandlePsLpDomainEvent;
 
 	return XST_SUCCESS;
 }
