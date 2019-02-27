@@ -39,6 +39,7 @@
 
 #define PSM_API_DIRECT_PWR_DWN			(1U)
 #define PSM_API_DIRECT_PWR_UP			(2U)
+#define PSM_API_FPD_HOUSECLEAN			(3U)
 
 void XPm_PsmModuleInit(void);
 XStatus XPm_PwrDwnEvent(const u32 DeviceId);
