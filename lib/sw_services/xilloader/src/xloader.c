@@ -378,18 +378,34 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 		switch (CpuId)
 		{
 			case XIH_PH_ATTRB_DSTN_CPU_A72_0:
+			 {
+                                /* APU Core configuration */
+                                XLoader_A72Config(CpuId, ExecState, VInitHi);
+                                XLoader_Printf(DEBUG_INFO,
+                                                " Request APU0 wakeup\r\n");
+                                Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC,
+                                                XPM_DEVID_ACPU_0, 1, HandoffAddr, 0);
+                                if (Status != XST_SUCCESS)
+                                {
+                                        Status = XPLMI_UPDATE_STATUS(
+                                                XLOADER_ERR_WAKEUP_A72_0, Status);
+                                        goto END;
+                                }
+
+                        }break;
+
 			case XIH_PH_ATTRB_DSTN_CPU_A72_1:
 			{
 				/* APU Core configuration */
 				XLoader_A72Config(CpuId, ExecState, VInitHi);
 				XLoader_Printf(DEBUG_INFO,
-						" Request APU wakeup\r\n");
+						" Request APU1 wakeup\r\n");
 				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC,
-						XPM_DEVID_ACPU_0, 1, HandoffAddr, 0);
+						XPM_DEVID_ACPU_1, 1, HandoffAddr, 0);
 				if (Status != XST_SUCCESS)
 				{
 					Status = XPLMI_UPDATE_STATUS(
-						XLOADER_ERR_WAKEUP_A72, Status);
+						XLOADER_ERR_WAKEUP_A72_1, Status);
 					goto END;
 				}
 
