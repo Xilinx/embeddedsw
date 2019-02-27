@@ -58,6 +58,8 @@
 #include "xpsmfw_iomodule.h"
 #include "psm_global.h"
 
+#define XPAR_PSU_PSM_IOMODULE_0_DEVICE_ID 0U
+
 int main(void)
 {
 	int Status = XST_FAILURE;
