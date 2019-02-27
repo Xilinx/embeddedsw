@@ -56,7 +56,7 @@ struct XPm_PowerDomain {
 XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 			    u32 BaseAddress, XPm_Power *Parent,
 			    struct XPm_PowerDomainOps *Ops);
-XStatus XPm_PowerUpLPD();
+XStatus XPm_PowerUpLPD(XPm_Node *Node);
 XStatus XPm_PowerDwnLPD();
 XStatus XPm_PowerUpPLD();
 XStatus XPm_PowerDwnPLD();

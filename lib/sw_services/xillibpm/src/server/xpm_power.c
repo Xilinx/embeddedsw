@@ -62,7 +62,7 @@ static XStatus SendPowerUpReq(XPm_Node *Node)
 		PmInfo("Request to power up domain %x\r\n",Node->Id);
 		switch (NODEINDEX(Node->Id)) {
 		case XPM_NODEIDX_POWER_LPD:
-			Status = XPm_PowerUpLPD();
+			Status = XPm_PowerUpLPD(Node);
 			break;
 		case XPM_NODEIDX_POWER_FPD:
 			Status = XPmPsm_SendPowerUpReq(Node->BaseAddress);
