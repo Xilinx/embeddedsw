@@ -44,54 +44,21 @@ XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 	return XST_SUCCESS;
 }
 
-XStatus XPm_PowerUpLPD()
+XStatus XPm_PowerUpLPD(XPm_Node *Node)
 {
 	XStatus Status = XST_SUCCESS;
 
-	/* TODO: Check for other power domain status before removing isolation */
-
-	/* Remove PS_PL isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_LPD_PL_TEST);
-	if (Status != XST_SUCCESS)
+	if (XPM_POWER_STATE_ON == Node->State) {
 		goto done;
+	} else {
+		/* TODO: Right now it is expected that CDO will trigger init node
+		 * commands to power up LPD so here LPD status shoul always be ON.
+		 * Later support can be added to power up and house clean LPD
+		 * here to make it optional for CDO
+		 */
+		Status = XST_FAILURE;
+	}
 
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_LPD_PL);
-	if (Status != XST_SUCCESS)
-		goto done;
-
-	/* Remove PS_CPM domains isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_LPD_CPM_DFX);
-	if (Status != XST_SUCCESS)
-		goto done;
-
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_LPD_CPM);
-	if (Status != XST_SUCCESS)
-		goto done;
-
-	/* Remove FP-SOC isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_FPD_SOC);
-	if (Status != XST_SUCCESS)
-		goto done;
-
-	/* Remove LP-SoC isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_LPD_SOC);
-	if (Status != XST_SUCCESS)
-		goto done;
-
-	/* Remove PS_PMC domains isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_PMC_LPD_DFX);
-	if (Status != XST_SUCCESS)
-		goto done;
-
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_PMC_LPD);
-	if (Status != XST_SUCCESS)
-		goto done;
-
-	/*
-	 * Release POR for PS-LPD
-	 */
-	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PS_POR),
-				     PM_RESET_ACTION_RELEASE);
 done:
 	return Status;
 }

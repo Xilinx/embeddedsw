@@ -164,10 +164,6 @@ struct XPm_PsLpDomain {
 /************************** Function Prototypes ******************************/
 XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd,
 	u32 Id, u32 BaseAddress, XPm_Power *Parent);
-int XPmPsLpDomain_ScanClearLpd(void);
-int XPmPsLpDomain_LpdLBIST(void);
-int XPmPsLpDomain_LpdBISR(void);
-int XPmPsLpDomain_LpdMBIST(void);
 
 /** @} */
 #endif /* XPM_PSLPDOMAIN_H_ */
