@@ -85,6 +85,20 @@
 
 #define PSM_API_DIRECT_PWR_DWN	(1U)
 #define PSM_API_DIRECT_PWR_UP	(2U)
+#define PSM_API_FPD_HOUSECLEAN	(3U)
+
+/**
+ *  PM init node functions
+ */
+enum XPmInitFunctions {
+	FUNC_INIT_START,
+	FUNC_INIT_FINISH,
+	FUNC_SCAN_CLEAR,
+	FUNC_BISR,
+	FUNC_MBIST_LBIST,
+	FUNC_ME_INITREG,
+	FUNC_MBIST_CLEAR,
+};
 
 XStatus XPsmFw_PowerDownEvent(u32 DevId);
 XStatus XPsmFw_WakeEvent(u32 DevId);

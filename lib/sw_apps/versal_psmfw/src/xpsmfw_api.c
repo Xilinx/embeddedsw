@@ -43,6 +43,50 @@
 #define PACK_PAYLOAD1(Payload, ApiId, Arg1)	\
 	PACK_PAYLOAD(Payload, HEADER(1, ApiId), Arg1)
 
+static XStatus XPsmFw_FpHouseClean(u32 FunctionId)
+{
+	XStatus Status = XST_SUCCESS;
+
+	switch (FunctionId) {
+	case FUNC_INIT_START:
+		Status = XPsmFw_FpdPreHouseClean();
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		break;
+	case FUNC_INIT_FINISH:
+		Status = XPsmFw_FpdPostHouseClean();
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		break;
+	case FUNC_SCAN_CLEAR:
+		Status = XPsmFw_FpdScanClear();
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		break;
+	case FUNC_BISR:
+		Status = XPsmFw_FpdMbisr();
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		break;
+	case FUNC_MBIST_CLEAR:
+		Status = XPsmFw_FpdMbistClear();
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+	}
+
+done:
+	return Status;
+}
+
 /****************************************************************************/
 /**
  * @brief	Process IPI commands
@@ -58,14 +102,16 @@ XStatus XPsmFw_ProcessIpi(u32 *Payload)
 {
 	XStatus Status = XST_FAILURE;
 	u32 ApiId = Payload[0];
-	u32 DeviceId = Payload[1];
 
 	switch (ApiId) {
 		case PSM_API_DIRECT_PWR_DWN:
-			Status = XPsmFw_DirectPwrDwn(DeviceId);
+			Status = XPsmFw_DirectPwrDwn(Payload[1]);
 			break;
 		case PSM_API_DIRECT_PWR_UP:
-			Status = XPsmFw_DirectPwrUp(DeviceId);
+			Status = XPsmFw_DirectPwrUp(Payload[1]);
+			break;
+		case PSM_API_FPD_HOUSECLEAN:
+			Status = XPsmFw_FpHouseClean(Payload[1]);
 			break;
 		default:
 			Status = XST_INVALID_PARAM;
