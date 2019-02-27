@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -391,6 +391,11 @@ static void PmAbortSuspend(const PmMaster *const master,
 	if (NULL == proc) {
 		PmLog(PM_ERRNO_INVALID_NODE, node, master->name);
 		status = XST_PM_INVALID_NODE;
+		goto done;
+	}
+
+	if ((reason < ABORT_REASON_MIN) || (reason > ABORT_REASON_MAX)) {
+		status = XST_INVALID_PARAM;
 		goto done;
 	}
 
