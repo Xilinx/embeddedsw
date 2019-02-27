@@ -74,6 +74,7 @@
  * 5.0  Nava   06/02/19 Remove redundant API's from the interface agnostic layer
  *                      and make the existing API's generic to support both
  *                      ZynqMP and versal platforms.
+ * 5.0  Nava  26/02/19  Fix for power-up PL issue with pmufw.
  * </pre>
  *
  * @note
@@ -2026,6 +2027,7 @@ static u32 XFpga_PowerUpPl(void)
 		RegVal = Xil_In32(PMU_GLOBAL_PWRUP_STATUS) &
 					PMU_GLOBAL_PWR_PL_MASK;
 		PollCount--;
+		usleep(1);
 	} while ((RegVal != 0U) && (PollCount != 0U));
 
 	if (PollCount == 0U) {
