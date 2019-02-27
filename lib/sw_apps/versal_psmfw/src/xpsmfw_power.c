@@ -299,10 +299,10 @@ enum XPsmFWPwrUpDwnType {
 };
 
 /* NOTE: SPP doesn't emulate BISR/BIST */
-#ifdef SPP_HACK
-static int XPsmFw_ACPU_BISR(const u32 MbistBitMask)
+static int XPsmFw_ACPUBisr(const u32 MbistBitMask)
 {
 	int Status = XST_SUCCESS;
+#ifdef SPP_HACK
 	u32 ErrorCnt = 0;
 
 	/* Applying bISR trigger */
@@ -334,9 +334,230 @@ static int XPsmFw_ACPU_BISR(const u32 MbistBitMask)
 	XPsmFw_UtilWait(20);
 
 done:
+#endif // SPP_HACK
 	return Status;
 }
-#endif // SPP_HACK
+
+int XPsmFw_FpdMbisr()
+{
+	int Status = XST_SUCCESS;
+#ifdef SPP_HACK
+	XPsmFw_UtilRMW(PSM_LOCAL_MBISR_CNTRL, PSM_LOCAL_MBISR_ENABLE_FPD,
+		       (~PSM_LOCAL_MBISR_ENABLE_FPD));
+	XPsmFw_UtilRMW(PSM_LOCAL_MBISR_CNTRL, PSM_LOCAL_MBISR_TRG_FPD,
+		       PSM_LOCAL_MBISR_TRG_FPD);
+	XPsmFw_UtilRMW(PSM_LOCAL_MBISR_CNTRL, PSM_LOCAL_MBISR_ENABLE_FPD,
+		       PSM_LOCAL_MBISR_ENABLE_FPD);
+
+	Status = XPsmFw_UtilPollForMask(PSM_LOCAL_MBISR_STATUS,
+					PSM_LOCAL_MBISR_DONE_STATUS, 0x10000U);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = XPsmFw_UtilPollForMask(PSM_LOCAL_MBISR_STATUS,
+					PSM_LOCAL_MBISR_PASS_STATUS, 0x10000U);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+done:
+#endif
+	return Status;
+}
+
+int XPsmFw_FpdScanClear()
+{
+	int Status = XST_SUCCESS;
+#ifdef SPP_HACK
+	/* Trigger scan clear */
+	XPsmFw_UtilRMW(PSM_LOCAL_SCAN_CLEAR_FPD, PSM_LOCAL_SCAN_CLEAR_TRIGGER,
+		       PSM_LOCAL_SCAN_CLEAR_TRIGGER);
+
+	Status = XPsmFw_UtilPollForMask(PSM_LOCAL_SCAN_CLEAR_FPD,
+					PSM_LOCAL_SCAN_CLEAR_DONE_STATUS,
+					0x10000U);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = XPsmFw_UtilPollForMask(PSM_LOCAL_SCAN_CLEAR_FPD,
+					PSM_LOCAL_SCAN_CLEAR_PASS_STATUS,
+					0x10000U);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+done:
+#endif
+	return Status;
+}
+
+int XPsmFw_FpdMbistClear()
+{
+	int Status = XST_SUCCESS;
+#ifdef SPP_HACK
+	XPsmFw_UtilRMW(PSM_LOCAL_MBIST_RST, PSM_LOCAL_MBIST_RST_FPD_MASK,
+		       PSM_LOCAL_MBIST_RST_FPD_MASK);
+
+	XPsmFw_UtilRMW(PSM_LOCAL_MBIST_SETUP, PSM_LOCAL_MBIST_SETUP_FPD_MASK,
+		       PSM_LOCAL_MBIST_SETUP_FPD_MASK);
+
+	XPsmFw_UtilRMW(PSM_LOCAL_MBIST_PG_EN, PSM_LOCAL_MBIST_PG_EN_FPD_MASK,
+		       PSM_LOCAL_MBIST_PG_EN_FPD_MASK);
+
+	Status = XPsmFw_UtilPollForMask(PSM_LOCAL_MBIST_DONE,
+					PSM_LOCAL_MBIST_DONE_FPD_MASK,
+					0x10000U);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	if (PSM_LOCAL_MBIST_GOOD_FPD_MASK !=
+	    (XPsmFw_Read32(PSM_LOCAL_MBIST_GOOD) &
+	     PSM_LOCAL_MBIST_GOOD_FPD_MASK)) {
+		Status = XST_FAILURE;
+	}
+
+done:
+#endif
+	return Status;
+}
+
+int XPsmFw_FpdPreHouseClean()
+{
+	int Status = XST_SUCCESS;
+	u32 RegVal, PwrState;
+
+	/* NOTE: As per sequence specs, global power state need to be checked.
+	 * But FPD bit in global register shows its isolation status instead of
+	 * power status. So keeping check of local reg instead of global reg.
+	 */
+	/* Check if FPD is already powered up */
+	RegVal = XPsmFw_Read32(PSM_LOCAL_PWR_STATE);
+	if (!CHECK_BIT(RegVal, PSM_LOCAL_PWR_STATE_FP_MASK)) {
+
+		/* TODO: Disable PSM interrupts */
+
+		/*
+		 * Capture the current Power State
+		 * Power up all ACPU Cores and reflect their PWR_STATE
+		 */
+		PwrState = XPsmFw_Read32(PSM_LOCAL_PWR_STATE);
+
+		/*
+		 * Power up ACPUx power islands.
+		 * Remove physical isolation.
+		 */
+		XPsmFw_Write32(PSM_LOCAL_ACPU0_PWR_CNTRL, 0x0000000F);
+		XPsmFw_Write32(PSM_LOCAL_ACPU1_PWR_CNTRL, 0x0000000F);
+
+		/* Update PWR_STATE register to reflect that all 4 ACPUs are powerd up */
+		XPsmFw_Write32(PSM_LOCAL_PWR_STATE,
+			       (PwrState | PSM_LOCAL_PWR_STATE_ACPU0_MASK |
+			       PSM_LOCAL_PWR_STATE_ACPU1_MASK));
+
+		/* TODO: Request PMC to power up VCCINT_FP rail and wait for the acknowledgement.*/
+
+		/* Enable alarm associated with VCCINT_FP */
+		XPsmFw_Write32(PSM_GLOBAL_REG_PWR_CTRL_IRQ_EN,
+			       PSM_GLOBAL_REG_PWR_CTRL_IRQ_EN_FPD_SUPPLY_MASK);
+
+		/* Assert FPD reset */
+		XPsmFw_RMW32(CRL_RST_FPD,
+			     CRL_RST_FPD_SRST_MASK,
+			     CRL_RST_FPD_SRST_MASK);
+
+		/* Disable LP-FP clocking group isolation */
+		XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
+			     PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_DFX_MASK,
+			     ~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_DFX_MASK);
+
+		/* Wait until reset is propogated in FPD */
+		XPsmFw_UtilWait(XPSMFW_PWRON_RST_FPD_WAIT_TIME);
+	}
+
+	return Status;
+}
+
+int XPsmFw_FpdPostHouseClean()
+{
+	int Status = XST_SUCCESS;
+	u32 RegVal, PwrState, IsoState;
+
+	/* Check if FPD is already powered up */
+	PwrState = XPsmFw_Read32(PSM_LOCAL_PWR_STATE);
+	if (!CHECK_BIT(PwrState, PSM_LOCAL_PWR_STATE_FP_MASK)) {
+		/* Check the Saved PWR_STATE in Stage 3 and power off any ACPU cores that were off */
+		if ((PwrState & PSM_GLOBAL_REG_PWR_STATE_ACPU0_MASK)) {
+			XPsmFw_Write32(PSM_LOCAL_ACPU0_PWR_CNTRL,
+				       PSM_LOCAL_ACPU0_PWR_CNTRL_ISOLATION_MASK);
+		}
+		if ((PwrState & PSM_GLOBAL_REG_PWR_STATE_ACPU1_MASK)) {
+			XPsmFw_Write32(PSM_LOCAL_ACPU1_PWR_CNTRL,
+				       PSM_LOCAL_ACPU1_PWR_CNTRL_ISOLATION_MASK);
+		}
+
+		/* Update the PWR_STATE to reflect the ACPU cores that were powered off */
+		XPsmFw_Write32(PSM_LOCAL_PWR_STATE, PwrState);
+
+		/* Disable Remaining LP-FP isolation */
+		XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
+				PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK,
+				~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK);
+
+		/* Disable FP-PL isolation if PL is on */
+		RegVal = XPsmFw_Read32(PMC_GLOBAL_PWR_SUPPLY_STATUS);
+		if (CHECK_BIT(RegVal, PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_PL_MASK)) {
+			XPsmFw_RMW32(PMC_GLOBAL_DOMAIN_ISO_CNTRL,
+				     PMC_GLOBAL_DOMAIN_ISO_CNTRL_FPD_PL_MASK,
+				     ~PMC_GLOBAL_DOMAIN_ISO_CNTRL_FPD_PL_MASK);
+
+			XPsmFw_RMW32(PMC_GLOBAL_DOMAIN_ISO_CNTRL,
+				     PMC_GLOBAL_DOMAIN_ISO_CNTRL_FPD_PL_TEST_MASK,
+				     ~PMC_GLOBAL_DOMAIN_ISO_CNTRL_FPD_PL_TEST_MASK);
+		}
+
+		/* Release FPD reset */
+		XPsmFw_RMW32(CRL_RST_FPD, CRL_RST_FPD_SRST_MASK,
+			     ~CRL_RST_FPD_SRST_MASK);
+
+		/* Mark FPD as powered ON */
+		XPsmFw_RMW32(PSM_LOCAL_PWR_STATE, PSM_LOCAL_PWR_STATE_FP_MASK,
+			     PSM_LOCAL_PWR_STATE_FP_MASK);
+
+		/* Clear Request Status bit in the REQ_PWRUP_STATUS register */
+		/* This is already handled by common handler so no need to handle here */
+
+		/* TODO: Enable PSM Interrupts */
+	} else {
+		/*
+		 * At POR power state of FPD is powered ON but its isolation
+		 * is enabled. So at that time we need to disable isolation
+		 * if it is enabled.
+		 */
+		IsoState = XPsmFw_Read32(PSM_LOCAL_DOMAIN_ISO_CNTRL);
+
+		/* Remove isolation if enabled. */
+		if (CHECK_BIT(IsoState,
+			      PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK)) {
+			/* Disable LP-FP isolation */
+			XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
+				     PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK,
+				     ~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK);
+		}
+
+		if (CHECK_BIT(IsoState,
+			      PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_DFX_MASK)) {
+			/* Disable LP-FP clocking group isolation */
+			XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
+				     PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_DFX_MASK,
+				     ~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_DFX_MASK);
+		}
+	}
+
+	return Status;
+}
 
 static XStatus XPsmFwIslandPwrUp(struct XPsmFwPwrCtrl_t *Args)
 {
@@ -383,14 +604,13 @@ static XStatus XPsmFwACPUxPwrUp(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDw
 	XPsmFw_RMW32(Args->PwrCtrlAddr, PSM_LOCAL_PWR_CTRL_ISO_MASK, ~PSM_LOCAL_PWR_CTRL_ISO_MASK);
 
 	/* NOTE: SPP doesn't emulate BISR/BIST */
-#ifdef SPP_HACK
+
 	/* Run BISR on ACPUx */
 	/* TODO: Call BISR sequence based on value of status register */
-	Status = XPsmFw_ACPU_BISR(Args->MbistBitMask);
+	Status = XPsmFw_ACPUBisr(Args->MbistBitMask);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
-#endif // SPP_HACK
 
 	/* Mask and clear ACPUx requested power-up interrupt request */
 	/* This is already handled by common handler so no need to handle here */
@@ -1046,153 +1266,37 @@ static XStatus PowerUp_GEM1(void)
 static XStatus PowerUp_FP(void)
 {
 	XStatus Status = XST_SUCCESS;
-	u32 RegVal, PwrState;
-	u32 IsoState;
 
-	/* NOTE: As per sequence specs, global power state need to be checked.
-	 * But FPD bit in global register shows its isolation status instead of
-	 * power status. So keeping check of local reg instead of global reg.
-	 */
-	/* Check if FPD is already powered up */
-	RegVal = XPsmFw_Read32(PSM_LOCAL_PWR_STATE);
-	if (!CHECK_BIT(RegVal, PSM_LOCAL_PWR_STATE_FP_MASK)) {
-
-		/* Disable PSM interrupts */
-		microblaze_disable_interrupts();
-
-		/*
-		 * Capture the current Power State
-		 * Power up all ACPU Cores and reflect their PWR_STATE
-		 */
-		PwrState = XPsmFw_Read32(PSM_LOCAL_PWR_STATE);
-
-		/*
-		 * Power up ACPUx power islands.
-		 * Remove physical isolation.
-		 */
-		XPsmFw_Write32(PSM_LOCAL_ACPU0_PWR_CNTRL, 0x0000000F);
-		XPsmFw_Write32(PSM_LOCAL_ACPU1_PWR_CNTRL, 0x0000000F);
-
-		/* Update PWR_STATE register to reflect that all 4 ACPUs are powerd up */
-		XPsmFw_Write32(PSM_LOCAL_PWR_STATE,
-			       (PwrState | PSM_LOCAL_PWR_STATE_ACPU0_MASK |
-			       PSM_LOCAL_PWR_STATE_ACPU1_MASK));
-
-		/* TODO: Request PMC to power up VCCINT_FP rail and wait for the acknowledgement.*/
-
-		/* Enable alarm associated with VCCINT_FP */
-		XPsmFw_Write32(PSM_GLOBAL_REG_PWR_CTRL_IRQ_EN,
-			       PSM_GLOBAL_REG_PWR_CTRL_IRQ_EN_FPD_SUPPLY_MASK);
-
-		/* Assert FPD reset */
-		XPsmFw_RMW32(CRL_RST_FPD,
-			     CRL_RST_FPD_SRST_MASK,
-			     CRL_RST_FPD_SRST_MASK);
-
-		/* Disable LP-FP clocking group isolation */
-		XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
-			     PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_DFX_MASK,
-			     ~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_DFX_MASK);
-
-		/* Wait until reset is propogated in FPD */
-		XPsmFw_UtilWait(XPSMFW_PWRON_RST_FPD_WAIT_TIME);
-
-		/* NOTE: SPP doesn't emulate BISR/BIST */
 #ifdef SPP_HACK
-		/* Run Scan Clear on FPD */
-		Status = XPsmFw_ScanClear(PSM_LOCAL_SCAN_CLEAR_FPD);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-
-		/* Run BISR on FPD */
-		Status = XPsmFw_FPD_MBISR();
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-
-		/* Run BISR on ACPU0 */
-		Status = XPsmFw_ACPU_BISR(PSM_GLOBAL_ACPU0_MBIST_BIT_MASK);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-
-		/* Run BISR on ACPU1 */
-		Status = XPsmFw_ACPU_BISR(PSM_GLOBAL_ACPU1_MBIST_BIT_MASK);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-#endif // SPP_HACK
-
-		/* Check the Saved PWR_STATE in Stage 3 and power off any ACPU cores that were off */
-		if ((PwrState & PSM_GLOBAL_REG_PWR_STATE_ACPU0_MASK))
-			XPsmFw_Write32(PSM_LOCAL_ACPU0_PWR_CNTRL,
-				       PSM_LOCAL_ACPU0_PWR_CNTRL_ISOLATION_MASK);
-		if ((PwrState & PSM_GLOBAL_REG_PWR_STATE_ACPU1_MASK))
-			XPsmFw_Write32(PSM_LOCAL_ACPU1_PWR_CNTRL,
-				       PSM_LOCAL_ACPU1_PWR_CNTRL_ISOLATION_MASK);
-
-		/* Update the PWR_STATE to reflect the ACPU cores that were powered off */
-		XPsmFw_Write32(PSM_LOCAL_PWR_STATE, PwrState);
-
-		/* Disable Remaining LP-FP isolation */
-		XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
-			     PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK,
-			     ~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK);
-
-		/* Disable FP-PL isolation if PL is on */
-		RegVal = XPsmFw_Read32(PMC_GLOBAL_PWR_SUPPLY_STATUS);
-		if (CHECK_BIT(RegVal, PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_PL_MASK)) {
-			XPsmFw_RMW32(PMC_GLOBAL_DOMAIN_ISO_CNTRL,
-				     PMC_GLOBAL_DOMAIN_ISO_CNTRL_FPD_PL_MASK,
-				     ~PMC_GLOBAL_DOMAIN_ISO_CNTRL_FPD_PL_MASK);
-
-			XPsmFw_RMW32(PMC_GLOBAL_DOMAIN_ISO_CNTRL,
-				     PMC_GLOBAL_DOMAIN_ISO_CNTRL_FPD_PL_TEST_MASK,
-				     ~PMC_GLOBAL_DOMAIN_ISO_CNTRL_FPD_PL_TEST_MASK);
-		}
-
-		/* Release FPD reset */
-		XPsmFw_RMW32(CRL_RST_FPD,
-			     CRL_RST_FPD_SRST_MASK,
-			     ~CRL_RST_FPD_SRST_MASK);
-
-		/* Mark FPD as powered ON */
-		XPsmFw_RMW32(PSM_LOCAL_PWR_STATE, PSM_LOCAL_PWR_STATE_FP_MASK,
-			     PSM_LOCAL_PWR_STATE_FP_MASK);
-
-		/* Clear Request Status bit in the REQ_PWRUP_STATUS register */
-		/* This is already handled by common handler so no need to handle here */
-
-		/* Enable PSM Interrupts */
-		microblaze_enable_interrupts();
-	} else {
-		/*
-		 * At POR power state of FPD is powered ON but its isolation
-		 * is enabled. So at that time we need to disable isolation
-		 * if it is enabled.
-		 */
-		IsoState = XPsmFw_Read32(PSM_LOCAL_DOMAIN_ISO_CNTRL);
-
-		/* Remove isolation if enabled. */
-		if (CHECK_BIT(IsoState,
-			      PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK)) {
-			/* Disable LP-FP isolation */
-			XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
-				     PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK,
-				     ~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK);
-		}
-
-		if (CHECK_BIT(IsoState,
-			      PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_DFX_MASK)) {
-			/* Disable LP-FP clocking group isolation */
-			XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
-				     PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_DFX_MASK,
-				     ~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_DFX_MASK);
-		}
+	/* Run pre house cleaning on FPD */
+	Status = XPsmFw_FpdPreHouseClean();
+	if (XST_SUCCESS != Status) {
+		goto done;
 	}
 
-#ifdef SPP_HACK
+	/* Run Scan Clear on FPD */
+	Status = XPsmFw_FpdScanClear();
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Run BISR on FPD */
+	Status = XPsmFw_FpdMbisr();
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Run MbistClear on FPD */
+	Status = XPsmFw_FpdMbistClear();
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Run post house cleaning on FPD */
+	Status = XPsmFw_FpdPostHouseClean();
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 done:
 #endif // SPP_HACK
 	return Status;
