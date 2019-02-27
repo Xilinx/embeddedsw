@@ -45,6 +45,16 @@ struct XPm_PowerDomain {
 /************************** Function Prototypes ******************************/
 XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain,
 	u32 Id, u32 BaseAddress, XPm_Power *Parent);
+XStatus XPm_PowerUpLPD();
+XStatus XPm_PowerDwnLPD();
+XStatus XPm_PowerUpPLD();
+XStatus XPm_PowerDwnPLD();
+XStatus XPm_PowerUpME();
+XStatus XPm_PowerDwnME();
+XStatus XPm_PowerUpCPM();
+XStatus XPm_PowerDwnCPM();
+XStatus XPm_PowerUpNoC();
+XStatus XPm_PowerDwnNoC();
 
 /** @} */
 #endif /* XPM_POWERDOMAIN_H_ */
