@@ -257,7 +257,7 @@ XStatus XPmReset_AssertbyId(u32 ResetId, const u32 Action)
 	XStatus Status;
 	XPm_ResetNode *Rst = XPmReset_GetById(ResetId);
 
-	if (!Rst) {
+	if (Rst) {
 		Status = Rst->Ops->SetState(Rst, Action);
 	} else {
 		Status = XST_FAILURE;
