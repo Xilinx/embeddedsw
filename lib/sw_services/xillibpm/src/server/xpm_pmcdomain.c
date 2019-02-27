@@ -54,8 +54,6 @@ static XStatus HandlePmcDomainEvent(XPm_Node *Node, u32 Event)
 			}
 			break;
 		default:
-			PmWarn("Wrong state (%s) for event (%s)\n",
-				PmPowerStates[Node->State], PmPowerEvents[Event]);
 			break;
 	}
 
@@ -64,7 +62,7 @@ static XStatus HandlePmcDomainEvent(XPm_Node *Node, u32 Event)
 
 XStatus XPmPmcDomain_Init(XPm_PmcDomain *PmcDomain, u32 Id)
 {
-	XPmPowerDomain_Init(&PmcDomain->Domain, Id, 0x00000000, NULL);
+	XPmPowerDomain_Init(&PmcDomain->Domain, Id, 0x00000000, NULL, NULL);
 
 	PmcDomain->Domain.Power.Node.State = XPM_POWER_STATE_ON;
 	PmcDomain->Domain.Power.UseCount = 1;

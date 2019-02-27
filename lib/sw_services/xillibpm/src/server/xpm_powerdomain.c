@@ -25,20 +25,21 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
-
-#include "xpm_common.h"
+#include "xillibpm_defs.h"
 #include "xpm_domain_iso.h"
+#include "xpm_common.h"
 #include "xpm_node.h"
 #include "xpm_powerdomain.h"
 #include "xpm_reset.h"
 
-XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain,
-	u32 Id, u32 BaseAddress, XPm_Power *Parent)
+XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
+			    u32 BaseAddress, XPm_Power *Parent,
+			    struct XPm_PowerDomainOps *Ops)
 {
-	XPmPower_Init(&PowerDomain->Power,
-		Id, BaseAddress, Parent);
+	XPmPower_Init(&PowerDomain->Power, Id, BaseAddress, Parent);
 
 	PowerDomain->Children = NULL;
+	PowerDomain->DomainOps = Ops;
 
 	return XST_SUCCESS;
 }
@@ -465,6 +466,100 @@ XStatus XPm_PowerDwnNoC()
 				     PM_RESET_ACTION_ASSERT);
 
 	/* TODO: Send PMC_I2C command to turn off NoC power rail */
+
+done:
+	return Status;
+}
+
+
+XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function)
+{
+	XStatus Status = XST_SUCCESS;
+	struct XPm_PowerDomainOps *Ops = PwrDomain->DomainOps;
+
+	if (XPM_POWER_STATE_ON == PwrDomain->Power.Node.State) {
+		goto done;
+	}
+
+	switch (Function) {
+	case FUNC_INIT_START:
+		if (XPM_POWER_STATE_OFF != PwrDomain->Power.Node.State) {
+			Status = XST_FAILURE;
+			goto done;
+		}
+		if (Ops && Ops->PreHouseClean) {
+			Status = Ops->PreHouseClean();
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+		PwrDomain->Power.Node.State = XPM_POWER_STATE_INITIALIZING;
+		break;
+	case FUNC_INIT_FINISH:
+		if (XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+			Status = XST_FAILURE;
+			goto done;
+		}
+		if (Ops && Ops->PostHouseClean) {
+			Status = Ops->PostHouseClean();
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+		PwrDomain->Power.Node.State = XPM_POWER_STATE_ON;
+		break;
+	case FUNC_SCAN_CLEAR:
+		if (XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+			Status = XST_FAILURE;
+			goto done;
+		}
+		if (Ops && Ops->ScanClear) {
+			Status = Ops->ScanClear();
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+		break;
+	case FUNC_BISR:
+		if (XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+			Status = XST_FAILURE;
+			goto done;
+		}
+		if (Ops && Ops->Bisr) {
+			Status = Ops->Bisr();
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+		break;
+	case FUNC_MBIST_LBIST:
+		if (XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+			Status = XST_FAILURE;
+			goto done;
+		}
+		if (Ops && Ops->Lbist) {
+			Status = Ops->Lbist();
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+		break;
+	case FUNC_MBIST_CLEAR:
+		if (XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+			Status = XST_FAILURE;
+			goto done;
+		}
+		if (Ops && Ops->Mbist) {
+			Status = Ops->Mbist();
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+	}
 
 done:
 	return Status;
