@@ -109,6 +109,8 @@
  *                     and make the existing API's generic to support both
  *                     ZynqMP and versal platforms.
  * 5.0 Nava  26/02/19  Fix for power-up PL issue with pmufw.
+ * 5.0 Nava  26/02/19  Update the data handling logic to avoid the code
+ *                     duplication
  * </pre>
  *
  * @note
@@ -279,25 +281,16 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 /**
  * Structure to store the PL Image details.
- * @BitstreamAddr	Linear memory Bitstream image base address.
- * @AddrPtr		Aes key address which is used for Decryption.
- * @ReadbackAddr	Address is the DMA buffer address to store the
- * 			readback data.
- * @ConfigReg		Configuration register value to be returned
- * @NumFrames		The number of fpga configuration frames to read
+ *
  * @XSecure_ImageInfo	Used to store the secure image data.
  */
 typedef struct {
-	UINTPTR BitstreamAddr;
-	UINTPTR	AddrPtr;
-	UINTPTR ReadbackAddr;
-	u32 ConfigReg;
-	u32 NumFrames;
 	XSecure_ImageInfo SecureImageInfo;
 } XFpga_Info;
 
 /**
  * Structure to store the PL Write Image details.
+ *
  * @BitstreamAddr	Bitstream image base address.
  * @AddrPtr_Size	Aes key address which is used for Decryption (or)
  *			In none Secure Bitstream used it is used store size
@@ -328,6 +321,7 @@ typedef struct {
 
 /**
  * Structure to store the PL Image details.
+ *
  * @ReadbackAddr	Address which is used to store the PL readback data.
  * @ConfigReg		Configuration register value to be returned (or)
  * 			The number of Fpga configuration frames to read

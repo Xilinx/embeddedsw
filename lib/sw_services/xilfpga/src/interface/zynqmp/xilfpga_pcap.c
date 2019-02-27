@@ -75,6 +75,8 @@
  *                      and make the existing API's generic to support both
  *                      ZynqMP and versal platforms.
  * 5.0  Nava  26/02/19  Fix for power-up PL issue with pmufw.
+ * 5.0  Nava  26/02/19  Update the data handling logic to avoid the code
+ *                      duplication
  * </pre>
  *
  * @note
@@ -302,7 +304,7 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 	u32 PartHeaderOffset = 0U;
 
 	if ((XFPGA_SECURE_MODE_EN == 0U) &&
-		((InstancePtr->WriteInfoPtr->Flags & XFPGA_SECURE_FLAGS) != 0U)) {
+		((InstancePtr->WriteInfo.Flags & XFPGA_SECURE_FLAGS) != 0U)) {
 		Status = XFPGA_PCAP_UPDATE_ERR((u32)XFPGA_ERROR_SECURE_MODE_EN,
 				(u32)0U);
 		Xfpga_Printf(XFPGA_DEBUG, "Fail to load: Enable secure mode "
@@ -310,15 +312,15 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 		goto END;
 	}
 
-	if ((InstancePtr->WriteInfoPtr->Flags & XFPGA_SECURE_FLAGS) == 0U) {
-		if(!(memcmp((u8 *)(InstancePtr->WriteInfoPtr->BitstreamAddr +
+	if ((InstancePtr->WriteInfo.Flags & XFPGA_SECURE_FLAGS) == 0U) {
+		if(!(memcmp((u8 *)(InstancePtr->WriteInfo.BitstreamAddr +
 		   BOOTGEN_DATA_OFFSET + SYNC_BYTE_POSITION),
 		   BootgenBinFormat, ARRAY_LENGTH(BootgenBinFormat)))) {
 			BitstreamPos = BOOTGEN_DATA_OFFSET;
 		} else {
 			Status = XFpga_SelectEndianess(
-				(u8 *)InstancePtr->WriteInfoPtr->BitstreamAddr,
-				(u32)InstancePtr->WriteInfoPtr->AddrPtr_Size,
+				(u8 *)InstancePtr->WriteInfo.BitstreamAddr,
+				(u32)InstancePtr->WriteInfo.AddrPtr_Size,
 				&BitstreamPos);
 
 			if (Status != XFPGA_SUCCESS) {
@@ -329,7 +331,7 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 	}
 
 	Status = XSecure_AuthenticationHeaders(
-				(u8 *)InstancePtr->WriteInfoPtr->BitstreamAddr,
+				(u8 *)InstancePtr->WriteInfo.BitstreamAddr,
 				ImageHdrDataPtr);
 	if (Status != XFPGA_SUCCESS) {
 		if (Status == XSECURE_AUTH_NOT_ENABLED) {
@@ -347,7 +349,7 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 	if (NoAuth != 0x00U) {
 		XSecure_PartitionHeader *Ph =
 				(XSecure_PartitionHeader *)(UINTPTR)
-				(InstancePtr->WriteInfoPtr->BitstreamAddr +
+				(InstancePtr->WriteInfo.BitstreamAddr +
 				Xil_In32((UINTPTR)Buffer +
 				XSECURE_PH_TABLE_OFFSET));
 		ImageHdrDataPtr->PartitionHdr = Ph;
@@ -401,7 +403,7 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 
 	/* Validate the User Flags for the Image Crypto operation */
 	Status = XFpga_ValidateCryptoFlags(ImageHdrDataPtr,
-					   InstancePtr->WriteInfoPtr->Flags);
+					   InstancePtr->WriteInfo.Flags);
 	if (Status != XFPGA_SUCCESS) {
 		Status = XFPGA_PCAP_UPDATE_ERR((u32)XFPGA_ERROR_CRYPTO_FLAGS, (u32)0U);
 		Xfpga_Printf(XFPGA_DEBUG,
@@ -410,23 +412,23 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 	}
 
 END:
-	if ((InstancePtr->WriteInfoPtr->Flags & XFPGA_SECURE_FLAGS) == 0U) {
+	if ((InstancePtr->WriteInfo.Flags & XFPGA_SECURE_FLAGS) == 0U) {
 		if (Status == XFPGA_SUCCESS) {
 			if (BitstreamPos == BOOTGEN_DATA_OFFSET) {
 				PartHeaderOffset = Xil_In32(
-				InstancePtr->WriteInfoPtr->BitstreamAddr
+				InstancePtr->WriteInfo.BitstreamAddr
 						+ PARTATION_HEADER_OFFSET);
-				InstancePtr->WriteInfoPtr->AddrPtr_Size =
+				InstancePtr->WriteInfo.AddrPtr_Size =
 				Xil_In32(
-				InstancePtr->WriteInfoPtr->BitstreamAddr +
+				InstancePtr->WriteInfo.BitstreamAddr +
 				PartHeaderOffset) * WORD_LEN;
 			} else {
-				InstancePtr->WriteInfoPtr->AddrPtr_Size -=
+				InstancePtr->WriteInfo.AddrPtr_Size -=
 								BitstreamPos;
 			}
 
-			InstancePtr->WriteInfoPtr->BitstreamAddr +=
-								BitstreamPos;
+			InstancePtr->WriteInfo.BitstreamAddr += BitstreamPos;
+
 		} else {
 			Status = XFPGA_PCAP_UPDATE_ERR(Status, 0U);
 		}
@@ -457,7 +459,7 @@ static u32 XFpga_PreConfigPcap(const XFpga *InstancePtr)
 	RegVal = Xil_In32(PCAP_CLK_CTRL);
 	Xil_Out32(PCAP_CLK_CTRL, RegVal | PCAP_CLK_EN_MASK);
 
-	if ((InstancePtr->WriteInfoPtr->Flags & XFPGA_PARTIAL_EN) == 0U) {
+	if ((InstancePtr->WriteInfo.Flags & XFPGA_PARTIAL_EN) == 0U) {
 		/* Power-Up PL */
 		Status = XFpga_PowerUpPl();
 		if (Status != XFPGA_SUCCESS) {
@@ -479,7 +481,7 @@ static u32 XFpga_PreConfigPcap(const XFpga *InstancePtr)
 		}
 	}
 
-	Status = XFpga_PcapInit(InstancePtr->WriteInfoPtr->Flags);
+	Status = XFpga_PcapInit(InstancePtr->WriteInfo.Flags);
 	if (Status != XFPGA_SUCCESS) {
 		Status = XFPGA_PCAP_UPDATE_ERR((u32)XPFGA_ERROR_PCAP_INIT, (u32)0U);
 	}
@@ -504,13 +506,13 @@ static u32 XFpga_WriteToPlPcap(XFpga *InstancePtr)
 	XSecure_ImageInfo *ImageInfo = &InstancePtr->PLInfo.SecureImageInfo;
 	u32 BitstreamSize;
 
-	if ((InstancePtr->WriteInfoPtr->Flags & XFPGA_SECURE_FLAGS) != 0U)
+	if ((InstancePtr->WriteInfo.Flags & XFPGA_SECURE_FLAGS) != 0U)
 #ifdef XFPGA_SECURE_MODE
 	{
 		Status = XFpga_SecureLoadToPl(
-			 InstancePtr->WriteInfoPtr->BitstreamAddr,
-			 InstancePtr->WriteInfoPtr->AddrPtr_Size,
-			 ImageInfo, InstancePtr->WriteInfoPtr->Flags);
+			 InstancePtr->WriteInfo.BitstreamAddr,
+			 InstancePtr->WriteInfo.AddrPtr_Size,
+			 ImageInfo, InstancePtr->WriteInfo.Flags);
 		if (Status != XFPGA_SUCCESS) {
 			/* Clear the PL house */
 			Xil_Out32(CSU_PCAP_PROG, 0x0U);
@@ -527,9 +529,9 @@ static u32 XFpga_WriteToPlPcap(XFpga *InstancePtr)
 	}
 #endif
 	else {
-		BitstreamSize = (u32)InstancePtr->WriteInfoPtr->AddrPtr_Size;
+		BitstreamSize = (u32)InstancePtr->WriteInfo.AddrPtr_Size;
 		Status = XFpga_WriteToPcap(BitstreamSize/WORD_LEN,
-				InstancePtr->WriteInfoPtr->BitstreamAddr);
+				InstancePtr->WriteInfo.BitstreamAddr);
 		if (Status != XFPGA_SUCCESS) {
 			Status = XFPGA_PCAP_UPDATE_ERR(
 					(u32)XFPGA_ERROR_BITSTREAM_LOAD_FAIL, (u32)0U);
@@ -569,7 +571,7 @@ static u32 XFpga_PostConfigPcap(const XFpga *InstancePtr)
 	u8 EndianType = 0U;
 	u32 RegVal;
 
-	if ((InstancePtr->WriteInfoPtr->Flags & XFPGA_PARTIAL_EN) == 0U) {
+	if ((InstancePtr->WriteInfo.Flags & XFPGA_PARTIAL_EN) == 0U) {
 		/* PS-PL reset Low */
 		(void)XFpga_PsPlGpioResetsLow(FPGA_NUM_FABRIC_RESETS);
 		usleep(XFPGA_PS_PL_RESET_TIME_US);
@@ -591,14 +593,14 @@ static u32 XFpga_PostConfigPcap(const XFpga *InstancePtr)
 	RegVal = Xil_In32(PCAP_CLK_CTRL);
 	Xil_Out32(PCAP_CLK_CTRL, RegVal & ~(PCAP_CLK_EN_MASK));
 #ifdef XFPGA_SECURE_MODE
-	if (((u8 *)InstancePtr->WriteInfoPtr->AddrPtr_Size != NULL) &&
-	    ((InstancePtr->WriteInfoPtr->Flags & XFPGA_ENCRYPTION_USERKEY_EN) != 0U)) {
-		(void)memset((u8 *)InstancePtr->WriteInfoPtr->AddrPtr_Size, 0U,
+	if (((u8 *)InstancePtr->WriteInfo.AddrPtr_Size != NULL) &&
+	    ((InstancePtr->WriteInfo.Flags & XFPGA_ENCRYPTION_USERKEY_EN) != 0U)) {
+		(void)memset((u8 *)InstancePtr->WriteInfo.AddrPtr_Size, 0U,
 		KEY_LEN);
 	}
 #endif
 	if ((Status == XFPGA_SUCCESS) &&
-	    ((InstancePtr->WriteInfoPtr->Flags & XFPGA_SECURE_FLAGS) != 0U)) {
+	    ((InstancePtr->WriteInfo.Flags & XFPGA_SECURE_FLAGS) != 0U)) {
 		XFpga_SetFirmwareState(XFPGA_FIRMWARE_STATE_SECURE);
 	} else if (Status == XFPGA_SUCCESS) {
 		XFpga_SetFirmwareState(XFPGA_FIRMWARE_STATE_NONSECURE);
@@ -2268,7 +2270,7 @@ static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 {
 	u32 Status;
 	u32 RegVal;
-	UINTPTR Address = InstancePtr->ReadInfoPtr->ReadbackAddr;
+	UINTPTR Address = InstancePtr->ReadInfo.ReadbackAddr;
 	u32 CmdIndex;
 	u32 *CmdBuf;
 
@@ -2304,7 +2306,7 @@ static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 	CmdBuf[CmdIndex] = 0x20000000U; /* Type 1 NOOP Word 0 */
 	CmdIndex++;
 	CmdBuf[CmdIndex] =
-			Xfpga_RegAddr((u8)(InstancePtr->ReadInfoPtr->ConfigReg_NumFrames),
+			Xfpga_RegAddr((u8)(InstancePtr->ReadInfo.ConfigReg_NumFrames),
 					   OPCODE_READ, 0x1U);
 	CmdIndex++;
 	CmdBuf[CmdIndex] = 0x20000000U; /* Type 1 NOOP Word 0 */
@@ -2394,8 +2396,8 @@ END:
 static u32 XFpga_GetPLConfigData(const XFpga *InstancePtr)
 {
 	u32 Status;
-	UINTPTR Address = InstancePtr->ReadInfoPtr->ReadbackAddr;
-	u32 NumFrames = InstancePtr->ReadInfoPtr->ConfigReg_NumFrames;
+	UINTPTR Address = InstancePtr->ReadInfo.ReadbackAddr;
+	u32 NumFrames = InstancePtr->ReadInfo.ConfigReg_NumFrames;
 	u32 RegVal;
 	u32 cmdindex;
 	u32 *CmdBuf;
