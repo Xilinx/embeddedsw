@@ -48,6 +48,8 @@
  * 5.0  Nava 06/02/19  Remove redundant API's from the interface agnostic layer
  *                     and make the existing API's generic to support both
  *                     ZynqMP and versal platforms.
+ * 5.0 Nava  26/02/19  Update the data handling logic to avoid the code
+ *		       duplication
  *</pre>
  *
  *@note
@@ -58,6 +60,7 @@
 
 /************************** Variable Definitions *****************************/
 
+#if !defined(versal)
 /*****************************************************************************/
 /**The API is used to load the bitstream file into the PL region.
  *
@@ -117,9 +120,9 @@ u32 XFpga_PL_BitStream_Load(XFpga *InstancePtr,
 
 	/* write count bytes of configuration data into the PL */
 	Status = XFpga_PL_Write(InstancePtr,
-				InstancePtr->WriteInfoPtr->BitstreamAddr,
-				InstancePtr->WriteInfoPtr->AddrPtr_Size,
-				InstancePtr->WriteInfoPtr->Flags);
+				InstancePtr->WriteInfo.BitstreamAddr,
+				InstancePtr->WriteInfo.AddrPtr_Size,
+				InstancePtr->WriteInfo.Flags);
 	if (Status != XFPGA_SUCCESS) {
 		goto END;
 	}
@@ -129,6 +132,7 @@ u32 XFpga_PL_BitStream_Load(XFpga *InstancePtr,
 END:
 	return Status;
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -166,15 +170,12 @@ u32 XFpga_PL_ValidateImage(XFpga *InstancePtr,
 			   UINTPTR AddrPtr_Size, u32 Flags)
 {
 	u32 Status;
-	XFpga_Write WriteInfo = {0U};
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	WriteInfo.BitstreamAddr = BitstreamImageAddr;
-	WriteInfo.AddrPtr_Size = AddrPtr_Size;
-	WriteInfo.Flags = Flags;
-
-	InstancePtr->WriteInfoPtr = &WriteInfo;
+	InstancePtr->WriteInfo.BitstreamAddr = BitstreamImageAddr;
+	InstancePtr->WriteInfo.AddrPtr_Size = AddrPtr_Size;
+	InstancePtr->WriteInfo.Flags = Flags;
 
 	if (!InstancePtr->XFpga_ValidateBitstream) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
@@ -252,15 +253,12 @@ u32 XFpga_PL_Write(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
 		   UINTPTR AddrPtr_Size, u32 Flags)
 {
 	 u32 Status;
-	 XFpga_Write WriteInfo = {0U};
 
 	 Xil_AssertNonvoid(InstancePtr != NULL);
 
-	 WriteInfo.BitstreamAddr = BitstreamImageAddr;
-	 WriteInfo.AddrPtr_Size = AddrPtr_Size;
-	 WriteInfo.Flags = Flags;
-
-	 InstancePtr->WriteInfoPtr = &WriteInfo;
+	 InstancePtr->WriteInfo.BitstreamAddr = BitstreamImageAddr;
+	 InstancePtr->WriteInfo.AddrPtr_Size = AddrPtr_Size;
+	 InstancePtr->WriteInfo.Flags = Flags;
 
 	if (!InstancePtr->XFpga_WriteToPl) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
@@ -326,14 +324,11 @@ u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 			  u32 ConfigReg_NumFrames)
 {
 	u32 Status;
-	XFpga_Read ReadInfo = {0U};
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	ReadInfo.ReadbackAddr = ReadbackAddr;
-	ReadInfo.ConfigReg_NumFrames = ConfigReg_NumFrames;
-
-	InstancePtr->ReadInfoPtr = &ReadInfo;
+	InstancePtr->ReadInfo.ReadbackAddr = ReadbackAddr;
+	InstancePtr->ReadInfo.ConfigReg_NumFrames = ConfigReg_NumFrames;
 
 	if (!InstancePtr->XFpga_GetConfigData) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
@@ -366,14 +361,11 @@ u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 						 u32 ConfigReg_NumFrames)
 {
 	u32 Status;
-	XFpga_Read ReadInfo = {0U};
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	ReadInfo.ReadbackAddr = ReadbackAddr;
-	ReadInfo.ConfigReg_NumFrames = ConfigReg_NumFrames;
-
-	InstancePtr->ReadInfoPtr = &ReadInfo;
+	InstancePtr->ReadInfo.ReadbackAddr = ReadbackAddr;
+	InstancePtr->ReadInfo.ConfigReg_NumFrames = ConfigReg_NumFrames;
 
 	if (!InstancePtr->XFpga_GetConfigData) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;

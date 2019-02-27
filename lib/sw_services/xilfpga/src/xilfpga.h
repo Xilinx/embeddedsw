@@ -76,6 +76,8 @@
  * 5.0   Nava  06/02/19 Remove redundant API's from the interface agnostic layer
  *                      and make the existing API's generic to support both
  *                      ZynqMP and versal platforms.
+ * 5.0  Nava  26/02/19  Update the data handling logic to avoid the code
+ *                      duplication
  * </pre>
  *
  * @note
@@ -116,8 +118,10 @@ extern "C" {
  *				register
  * @XFpga_GetConfigData:	Provides the FPGA readback data.
  * @PLInfo:			Which is used to store the secure image data.
- * @WriteInfoPtr:		Pointer to XFpga_Write structure.
- * @XFpga_Read:  		Pointer to XFpga_Read structure.
+ * @WriteInfo:	XFpga_Write structure which is used to store the PL Write
+ *              Image details.
+ * @ReadInfo:  	XFpga_Read structure which is used to store the PL Image
+ *              readback details
  */
 typedef struct XFpgatag{
 	u32 (*XFpga_ValidateBitstream)(struct XFpgatag *InstancePtr);
@@ -130,8 +134,8 @@ typedef struct XFpgatag{
 	void (* XFpga_GlobSeqWriteReg)(struct XFpgatag *InstancePtr,
 				       u32 Mask, u32 Val);
 	XFpga_Info	PLInfo;
-	XFpga_Write	*WriteInfoPtr;
-	XFpga_Read	*ReadInfoPtr;
+	XFpga_Write	WriteInfo;
+	XFpga_Read	ReadInfo;
 }XFpga;
 /************************** Variable Definitions *****************************/
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -191,9 +195,11 @@ typedef struct XFpgatag{
 /** @endcond*/
 /************************** Function Prototypes ******************************/
 u32 XFpga_Initialize(XFpga *InstancePtr);
+#if !defined(versal)
 u32 XFpga_PL_BitStream_Load(XFpga *InstancePtr,
 			    UINTPTR BitstreamImageAddr,
 			    UINTPTR AddrPtr_Size, u32 Flags);
+#endif
 u32 XFpga_PL_Preconfig(XFpga *InstancePtr);
 u32 XFpga_PL_Write(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
 		   UINTPTR AddrPtr_Size, u32 Flags);
