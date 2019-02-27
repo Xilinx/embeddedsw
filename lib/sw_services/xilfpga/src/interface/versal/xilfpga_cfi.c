@@ -129,11 +129,10 @@ static u32 XFpga_Write_Fabric(XFpga *InstancePtr)
 	u32 BitstreamSize;
 	XFpga_Info *DataPtr = &InstancePtr->PLInfo;
 
-	Xil_AssertNonvoid(InstancePtr->WriteInfoPtr != NULL);
 	Xil_AssertNonvoid(&DataPtr->PmcDmaIns != NULL);
 
-	BitstreamAddr = InstancePtr->WriteInfoPtr->BitstreamAddr;
-	BitstreamSize = (u32)InstancePtr->WriteInfoPtr->AddrPtr_Size;
+	BitstreamAddr = InstancePtr->WriteInfo.BitstreamAddr;
+	BitstreamSize = (u32)InstancePtr->WriteInfo.AddrPtr_Size;
 
 
 	Status = XFpga_DmaXfr(&DataPtr->PmcDmaIns, BitstreamAddr,
@@ -542,10 +541,9 @@ static u32 XFpga_ReadFabricData(XFpga *InstancePtr)
 	XFpga_Info *DataPtr = &InstancePtr->PLInfo;
 
 	Xil_AssertNonvoid(&DataPtr->PmcDmaIns != NULL);
-	Xil_AssertNonvoid(InstancePtr->ReadInfoPtr != NULL);
 
-	CfiReadPtr = (u32 *)InstancePtr->ReadInfoPtr->ReadbackAddr;
-	CfiLen = InstancePtr->ReadInfoPtr->ConfigReg_NumFrames;
+	CfiReadPtr = (u32 *)InstancePtr->ReadInfo.ReadbackAddr;
+	CfiLen = InstancePtr->ReadInfo.ConfigReg_NumFrames;
 
 	memset(CfiReadPtr, 0, CfiLen*4);
 	XCframe_SetReadParam(&DataPtr->CframeIns, XCFRAME_FRAME_0, CfiLen);
