@@ -45,6 +45,7 @@ extern "C" {
 struct rpmsg_endpoint;
 struct rpmsg_device;
 
+/* Returns positive value on success or negative error value on failure */
 typedef int (*rpmsg_ept_cb)(struct rpmsg_endpoint *ept, void *data,
 			    size_t len, uint32_t src, void *priv);
 typedef void (*rpmsg_ns_unbind_cb)(struct rpmsg_endpoint *ept);
