@@ -95,6 +95,11 @@ Fixed compilation errors for application with xilflash(CR#1018603)
 xilfpga_v5_0:
 Optimize the delays in the PS-PL resets path.
 Optimize the execution time for Image validation.
+Remove redundant API's from the interface agnostic layer and make the
+existing API's generic.
+Optimize the bitstream validation logic for Non-secure bitstream Images.
+Fixed PL power-up issue with pmufw.
+Updated the data handling logic to avoid the code duplication.
 
 xilisf_v5_13:
 Declare XQspiPsu_Msg instance as global.
