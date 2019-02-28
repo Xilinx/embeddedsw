@@ -53,7 +53,7 @@
 #include "xstatus.h"
 
 /**************************** Constant Definitions ****************************/
-const XAVBuf_VideoAttribute XAVBuf_SupportedFormats[XAVBUF_NUM_SUPPORTED];
+extern const XAVBuf_VideoAttribute XAVBuf_SupportedFormats[XAVBUF_NUM_SUPPORTED];
 
 /******************************************************************************/
 /**
