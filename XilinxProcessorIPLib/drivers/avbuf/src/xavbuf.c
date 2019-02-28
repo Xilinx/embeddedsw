@@ -667,10 +667,10 @@ void XAVBuf_SoftReset(XAVBuf *InstancePtr)
 XAVBuf_VideoAttribute *XAVBuf_GetLiveVideoAttribute(XAVBuf_VideoFormat Format)
 {
 	u8 Index = 0;
-	XAVBuf_VideoAttribute *VideoAttribute;
 	Xil_AssertNonvoid((Format >= RGB_6BPC) |  (Format <= YOnly_12BPC));
 
 	for (Index = RGB_6BPC; Index <= YOnly_12BPC; Index++) {
+		XAVBuf_VideoAttribute *VideoAttribute;
 		VideoAttribute = (XAVBuf_VideoAttribute *)
 					&XAVBuf_SupportedFormats[Index];
 		if (Format == VideoAttribute->VideoFormat)
@@ -694,9 +694,9 @@ XAVBuf_VideoAttribute *XAVBuf_GetLiveVideoAttribute(XAVBuf_VideoFormat Format)
 XAVBuf_VideoAttribute *XAVBuf_GetNLiveVideoAttribute(XAVBuf_VideoFormat Format)
 {
 	u8 Index = 0;
-	XAVBuf_VideoAttribute *VideoAttribute;
 
 	for (Index = CbY0CrY1; Index <= YV16Ci2_420_10BPC; Index++) {
+		XAVBuf_VideoAttribute *VideoAttribute;
 		VideoAttribute = (XAVBuf_VideoAttribute *)
 					&XAVBuf_SupportedFormats[Index];
 		if (Format == VideoAttribute->VideoFormat)
@@ -720,11 +720,11 @@ XAVBuf_VideoAttribute *XAVBuf_GetNLiveVideoAttribute(XAVBuf_VideoFormat Format)
 XAVBuf_VideoAttribute *XAVBuf_GetNLGraphicsAttribute(XAVBuf_VideoFormat Format)
 {
 	u32 Index = 0;
-	XAVBuf_VideoAttribute *VideoAttribute;
 
 	Xil_AssertNonvoid((Format >= RGBA8888) | (Format <= YOnly));
 
 	for (Index = RGBA8888; Index <= YOnly; Index++) {
+		XAVBuf_VideoAttribute *VideoAttribute;
 		VideoAttribute = (XAVBuf_VideoAttribute *)
 					&XAVBuf_SupportedFormats[Index];
 		if (Format == VideoAttribute->VideoFormat)
@@ -929,9 +929,7 @@ void XAVBuf_AudioSoftReset(XAVBuf *InstancePtr)
 	RegVal |= XAVBUF_AUD_SOFT_RST_AUD_SRST_MASK;
 	XAVBuf_WriteReg(InstancePtr->Config.BaseAddr, XAVBUF_AUD_SOFT_RST,
 			RegVal);
-	RegVal &= ~XAVBUF_AUD_SOFT_RST_AUD_SRST_MASK;
 	XAVBuf_WriteReg(InstancePtr->Config.BaseAddr, XAVBUF_AUD_SOFT_RST, 0);
-
 }
 
 /******************************************************************************/
