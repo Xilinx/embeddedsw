@@ -4,25 +4,37 @@ CP=cp
 COMPILER_FLAGS=
 EXTRA_COMPILER_FLAGS=
 LIB=libxil.a
-LEVEL=0
+
+CC_FLAGS = $(COMPILER_FLAGS)
+ECC_FLAGS = $(EXTRA_COMPILER_FLAGS)
 
 RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
 
-INCLUDEFILES=*.h
-LIBSOURCES=*.c
-
 OUTS = *.o
-OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
-libs:
-	echo "Compiling intc"
-	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(LIBSOURCES)
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} $(OBJECTS)
-	make clean
 
-include:
-	${CP} $(INCLUDEFILES) $(INCLUDEDIR)
+LIBSOURCES:=*.c
+INCLUDEFILES:=*.h
+
+OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
+
+libs: banner xintc_libs clean
+
+%.o: %.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<
+
+banner:
+	echo "Compiling intc"
+
+xintc_libs: ${OBJECTS}
+	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS}
+
+.PHONY: include
+include: xintc_includes
+
+xintc_includes:
+	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
 	rm -rf ${OBJECTS}

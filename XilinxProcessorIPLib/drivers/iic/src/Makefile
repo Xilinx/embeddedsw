@@ -5,23 +5,36 @@ COMPILER_FLAGS=
 EXTRA_COMPILER_FLAGS=
 LIB=libxil.a
 
+CC_FLAGS = $(COMPILER_FLAGS)
+ECC_FLAGS = $(EXTRA_COMPILER_FLAGS)
+
 RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
 
-INCLUDEFILES=xiic.h xiic_l.h
-LIBSOURCES=*.c
 OUTS = *.o
+
+LIBSOURCES:=*.c
+INCLUDEFILES:=*.h
+
 OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 
-libs:
-	echo "Compiling iic"
-	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(LIBSOURCES)
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} $(OBJECTS)
-	make clean
+libs: banner xiic_libs clean
 
-include:
-	 ${CP} ${INCLUDEFILES} ${INCLUDEDIR}
+%.o: %.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<
+
+banner:
+	echo "Compiling iic"
+
+xiic_libs: ${OBJECTS}
+	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS}
+
+.PHONY: include
+include: xiic_includes
+
+xiic_includes:
+	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
 	rm -rf ${OBJECTS}

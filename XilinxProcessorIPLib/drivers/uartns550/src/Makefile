@@ -10,8 +10,7 @@ INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
 
 INCLUDEFILES=xuartns550.h xuartns550_l.h
-LIBSOURCES=*.c
-OUTS = *.o
+LIBSOURCES=$(wildcard *.c)
 OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 
 libs:
