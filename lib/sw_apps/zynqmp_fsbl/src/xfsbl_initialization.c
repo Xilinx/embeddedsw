@@ -749,20 +749,21 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 		goto END;
 	}
 
-#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)
+#ifdef XFSBL_PS_DDR
+#ifdef XPAR_DYNAMIC_DDR_ENABLED
 	/*
-	 * This function is used only for ZCU102 and ZCU106 boards. The DDR part
-	 * (MTA8ATF51264HZ) on these boards have changed to a newer DDR part
-	 * (MTA4ATF51264HZ) which has different configuration used than the
-	 * earlier one.
-	 * This function will reinitialize the DDR if it detects the DDR used is
-	 * newer part (MTA4ATF51264HZ).
+	 * This function is used for all the ZynqMP boards.
+	 * This function initialize the DDR by fetching the SPD data from
+	 * EEPROM. This function will determine the type of the DDR and decode
+	 * the SPD structure accordingly. The SPD data is used to calculate the
+	 * register values of DDR controller and DDR PHY.
 	 */
 	Status = XFsbl_DdrInit();
 	if (XFSBL_SUCCESS != Status) {
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_DDR_INIT_FAILED\n\r");
 		goto END;
 	}
+#endif
 #endif
 
 #ifdef XFSBL_PERF
