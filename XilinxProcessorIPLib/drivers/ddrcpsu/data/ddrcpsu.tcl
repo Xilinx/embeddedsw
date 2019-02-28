@@ -76,6 +76,104 @@ proc get_ddr_config_info {drv_handle file_name} {
 			}
 		}
 	}
+	set ips [::hsi::utils::get_common_driver_ips $drv_handle]
+	foreach ip $ips {
+		set avail_param [list_property [get_cells -hier $ip]]
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_DYNAMIC_DDR_CONFIG_ENABLED"] >= 0} {
+			set ddr_dyn [get_property CONFIG.C_DDRC_DYNAMIC_DDR_CONFIG_ENABLED [get_cells -hier $ip]]
+			if {$ddr_dyn == 1} {
+				puts $file_handle "#define XPAR_DYNAMIC_DDR_ENABLED"
+			}
+		}
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_ECC"] >= 0} {
+			set ecc_enable [get_property CONFIG.C_DDRC_ECC [get_cells -hier $ip]]
+			puts $file_handle "#define XPAR_PSU_DDRC_0_DDR_ECC $ecc_enable"
+		}
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_MEMORY_TYPE"] >= 0} {
+			set mem_type [get_property CONFIG.C_DDRC_MEMORY_TYPE [get_cells -hier $ip]]
+			puts $file_handle "#define XPAR_PSU_DDRC_0_DDR_MEMORY_TYPE $mem_type"
+		}
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_MEMORY_ADDRESS_MAP"] >= 0} {
+			set addr_map [get_property CONFIG.C_DDRC_MEMORY_ADDRESS_MAP [get_cells -hier $ip]]
+			puts $file_handle "#define XPAR_PSU_DDRC_0_DDR_MEMORY_ADDRESS_MAP $addr_map"
+		}
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_DATA_MASK_AND_DBI"] >= 0} {
+			set dm_dbi [get_property CONFIG.C_DDRC_DATA_MASK_AND_DBI [get_cells -hier $ip]]
+			puts $file_handle "#define XPAR_PSU_DDRC_0_DDR_DATA_MASK_AND_DBI $dm_dbi"
+		}
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_ADDRESS_MIRRORING"] >= 0} {
+			set addr_mirr [get_property CONFIG.C_DDRC_ADDRESS_MIRRORING [get_cells -hier $ip]]
+			puts $file_handle "#define XPAR_PSU_DDRC_0_DDR_ADDRESS_MIRRORING $addr_mirr"
+		}
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_2ND_CLOCK"] >= 0} {
+			set clock2 [get_property CONFIG.C_DDRC_2ND_CLOCK [get_cells -hier $ip]]
+			puts $file_handle "#define XPAR_PSU_DDRC_0_DDR_2ND_CLOCK $clock2"
+		}
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_PARITY"] >= 0} {
+			set parity [get_property CONFIG.C_DDRC_PARITY [get_cells -hier $ip]]
+			if {$parity == 1} {
+				puts $file_handle "#define XPAR_PSU_DDRC_0_DDR_PARITY 1"
+			} else {
+				puts $file_handle "#define XPAR_PSU_DDRC_0_DDR_PARITY 0"
+			}
+		}
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_POWER_DOWN_ENABLE"] >= 0} {
+			set pwr_dwn [get_property CONFIG.C_DDRC_POWER_DOWN_ENABLE [get_cells -hier $ip]]
+			if {$pwr_dwn == 1} {
+				puts $file_handle "#define XPAR_PSU_DDRC_0_DDR_POWER_DOWN_ENABLE 1"
+			} else {
+				puts $file_handle "#define XPAR_PSU_DDRC_0_DDR_POWER_DOWN_ENABLE 0"
+			}
+		}
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_CLOCK_STOP"] >= 0} {
+			set clk_stop [get_property CONFIG.C_DDRC_CLOCK_STOP [get_cells -hier $ip]]
+			if {$clk_stop == 1} {
+				puts $file_handle "#define XPAR_PSU_DDRC_0_CLOCK_STOP 1"
+			} else {
+				puts $file_handle "#define XPAR_PSU_DDRC_0_CLOCK_STOP 0"
+			}
+		}
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_LOW_POWER_AUTO_SELF_REFRESH"] >= 0} {
+			set lpasf [get_property CONFIG.C_DDRC_LOW_POWER_AUTO_SELF_REFRESH [get_cells -hier $ip]]
+			if {$lpasf == 1} {
+				puts $file_handle "#define XPAR_PSU_DDRC_0_DDR_LOW_POWER_AUTO_SELF_REFRESH 1"
+			} else {
+				puts $file_handle "#define XPAR_PSU_DDRC_0_DDR_LOW_POWER_AUTO_SELF_REFRESH 0"
+			}
+		}
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_TEMP_CONTROLLED_REFRESH"] >= 0} {
+			set temp_ref [get_property CONFIG.C_DDRC_TEMP_CONTROLLED_REFRESH [get_cells -hier $ip]]
+			if {$temp_ref == 1} {
+				puts $file_handle "#define XPAR_PSU_DDRC_0_DDR_TEMP_CONTROLLED_REFRESH 1"
+			} else {
+				puts $file_handle "#define XPAR_PSU_DDRC_0_DDR_TEMP_CONTROLLED_REFRESH 0"
+			}
+		}
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_MAX_OPERATING_TEMPARATURE"] >= 0} {
+			set max_temp [get_property CONFIG.C_DDRC_MAX_OPERATING_TEMPARATURE [get_cells -hier $ip]]
+			if {$max_temp == 1} {
+				puts $file_handle "#define XPAR_PSU_DDRC_0_DDR_MAX_OPERATING_TEMPARATURE 1"
+			} else {
+				puts $file_handle "#define XPAR_PSU_DDRC_0_DDR_MAX_OPERATING_TEMPARATURE 0"
+			}
+		}
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_FINE_GRANULARITY_REFRESH_MODE"] >= 0} {
+			set fgrm [get_property CONFIG.C_DDRC_FINE_GRANULARITY_REFRESH_MODE [get_cells -hier $ip]]
+			if {$fgrm >= 1} {
+				puts $file_handle "#define XPAR_PSU_DDRC_0_DDR_FINE_GRANULARITY_REFRESH_MODE $fgrm"
+			} else {
+				puts $file_handle "#define XPAR_PSU_DDRC_0_DDR_FINE_GRANULARITY_REFRESH_MODE 0"
+			}
+		}
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_SELF_REFRESH_ABORT"] >= 0} {
+			set ref_abort [get_property CONFIG.C_DDRC_SELF_REFRESH_ABORT [get_cells -hier $ip]]
+			if {$ref_abort == 1} {
+				puts $file_handle "#define XPAR_PSU_DDRC_0_DDR_SELF_REFRESH_ABORT 1"
+			} else {
+				puts $file_handle "#define XPAR_PSU_DDRC_0_DDR_SELF_REFRESH_ABORT 0"
+			}
+		}
+	}
 	close $file_handle
 }
 
@@ -109,6 +207,99 @@ proc get_ddr_config_info_canonical {drv_handle file_name} {
 				} else {
 					puts $file_handle "#define XPAR_DDRCPSU_0_BRC_MAPPING 1"
 				}
+			}
+		}
+	}
+
+	set ips [::hsi::utils::get_common_driver_ips $drv_handle]
+	foreach ip $ips {
+		set avail_param [list_property [get_cells -hier $ip]]
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_ECC"] >= 0} {
+			set ecc_enable [get_property CONFIG.C_DDRC_ECC [get_cells -hier $ip]]
+			puts $file_handle "#define XPAR_DDRCPSU_0_DDR_ECC $ecc_enable"
+		}
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_MEMORY_TYPE"] >= 0} {
+			set mem_type [get_property CONFIG.C_DDRC_MEMORY_TYPE [get_cells -hier $ip]]
+			puts $file_handle "#define XPAR_DDRCPSU_0_DDR_MEMORY_TYPE $mem_type"
+		}
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_MEMORY_ADDRESS_MAP"] >= 0} {
+			set addr_map [get_property CONFIG.C_DDRC_MEMORY_ADDRESS_MAP [get_cells -hier $ip]]
+			puts $file_handle "#define XPAR_DDRCPSU_0_DDR_MEMORY_ADDRESS_MAP $addr_map"
+		}
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_DATA_MASK_AND_DBI"] >= 0} {
+			set dm_dbi [get_property CONFIG.C_DDRC_DATA_MASK_AND_DBI [get_cells -hier $ip]]
+			puts $file_handle "#define XPAR_DDRCPSU_0_DDR_DATA_MASK_AND_DBI $dm_dbi"
+		}
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_ADDRESS_MIRRORING"] >= 0} {
+			set addr_mirr [get_property CONFIG.C_DDRC_ADDRESS_MIRRORING [get_cells -hier $ip]]
+			puts $file_handle "#define XPAR_DDRCPSU_0_DDR_ADDRESS_MIRRORING $addr_mirr"
+		}
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_2ND_CLOCK"] >= 0} {
+			set clock2 [get_property CONFIG.C_DDRC_2ND_CLOCK [get_cells -hier $ip]]
+			puts $file_handle "#define XPAR_DDRCPSU_0_DDR_2ND_CLOCK $clock2"
+		}
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_PARITY"] >= 0} {
+			set parity [get_property CONFIG.C_DDRC_PARITY [get_cells -hier $ip]]
+			if {$parity == 1} {
+				puts $file_handle "#define XPAR_DDRCPSU_0_DDR_PARITY 1"
+			} else {
+				puts $file_handle "#define XPAR_DDRCPSU_0_DDR_PARITY 0"
+			}
+		}
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_POWER_DOWN_ENABLE"] >= 0} {
+			set pwr_dwn [get_property CONFIG.C_DDRC_POWER_DOWN_ENABLE [get_cells -hier $ip]]
+			if {$pwr_dwn == 1} {
+				puts $file_handle "#define XPAR_DDRCPSU_0_DDR_POWER_DOWN_ENABLE 1"
+			} else {
+				puts $file_handle "#define XPAR_DDRCPSU_0_DDR_POWER_DOWN_ENABLE 0"
+			}
+		}
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_CLOCK_STOP"] >= 0} {
+			set clk_stop [get_property CONFIG.C_DDRC_CLOCK_STOP [get_cells -hier $ip]]
+			if {$clk_stop == 1} {
+				puts $file_handle "#define XPAR_DDRCPSU_0_CLOCK_STOP 1"
+			} else {
+				puts $file_handle "#define XPAR_DDRCPSU_0_CLOCK_STOP 0"
+			}
+		}
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_LOW_POWER_AUTO_SELF_REFRESH"] >= 0} {
+			set lpasf [get_property CONFIG.C_DDRC_LOW_POWER_AUTO_SELF_REFRESH [get_cells -hier $ip]]
+			if {$lpasf == 1} {
+				puts $file_handle "#define XPAR_DDRCPSU_0_DDR_LOW_POWER_AUTO_SELF_REFRESH 1"
+			} else {
+				puts $file_handle "#define XPAR_DDRCPSU_0_DDR_LOW_POWER_AUTO_SELF_REFRESH 0"
+			}
+		}
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_TEMP_CONTROLLED_REFRESH"] >= 0} {
+			set temp_ref [get_property CONFIG.C_DDRC_TEMP_CONTROLLED_REFRESH [get_cells -hier $ip]]
+			if {$temp_ref == 1} {
+				puts $file_handle "#define XPAR_DDRCPSU_0_DDR_TEMP_CONTROLLED_REFRESH 1"
+			} else {
+				puts $file_handle "#define XPAR_DDRCPSU_0_DDR_TEMP_CONTROLLED_REFRESH 0"
+			}
+		}
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_MAX_OPERATING_TEMPARATURE"] >= 0} {
+			set max_temp [get_property CONFIG.C_DDRC_MAX_OPERATING_TEMPARATURE [get_cells -hier $ip]]
+			if {$max_temp == 1} {
+				puts $file_handle "#define XPAR_DDRCPSU_0_DDR_MAX_OPERATING_TEMPARATURE 1"
+			} else {
+				puts $file_handle "#define XPAR_DDRCPSU_0_DDR_MAX_OPERATING_TEMPARATURE 0"
+			}
+		}
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_FINE_GRANULARITY_REFRESH_MODE"] >= 0} {
+			set fgrm [get_property CONFIG.C_DDRC_FINE_GRANULARITY_REFRESH_MODE [get_cells -hier $ip]]
+			if {$fgrm >= 1} {
+				puts $file_handle "#define XPAR_DDRCPSU_0_DDR_FINE_GRANULARITY_REFRESH_MODE $fgrm"
+			} else {
+				puts $file_handle "#define XPAR_DDRCPSU_0_DDR_FINE_GRANULARITY_REFRESH_MODE 0"
+			}
+		}
+		if {[lsearch -nocase $avail_param "CONFIG.C_DDRC_SELF_REFRESH_ABORT"] >= 0} {
+			set ref_abort [get_property CONFIG.C_DDRC_SELF_REFRESH_ABORT [get_cells -hier $ip]]
+			if {$ref_abort == 1} {
+				puts $file_handle "#define XPAR_DDRCPSU_0_DDR_SELF_REFRESH_ABORT 1"
+			} else {
+				puts $file_handle "#define XPAR_DDRCPSU_0_DDR_SELF_REFRESH_ABORT 0"
 			}
 		}
 	}
