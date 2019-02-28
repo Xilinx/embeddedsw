@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 19 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -57,6 +57,7 @@
 *                     we are using IV from authenticated header(copied to
 *                     internal memory), using same way for non authenticated
 *                     case as well.
+*       mus  02/26/19 Added support for armclang compiler.
 *
 * </pre>
 *
@@ -127,7 +128,11 @@ static void XFsbl_SetR5ExcepVectorLoVec(void);
 u32 Iv[XIH_BH_IV_LENGTH / 4U] = { 0 };
 u8 AuthBuffer[XFSBL_AUTH_BUFFER_SIZE]__attribute__ ((aligned (4))) = {0};
 #ifdef XFSBL_BS
+#ifdef __clang__
+u8 HashsOfChunks[HASH_BUFFER_SIZE] __attribute__((section (".bss.bitstream_buffer")));
+#else
 u8 HashsOfChunks[HASH_BUFFER_SIZE] __attribute__((section (".bitstream_buffer")));
+#endif
 #endif
 #endif
 
