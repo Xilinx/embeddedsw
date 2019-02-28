@@ -60,7 +60,8 @@ proc secure_drc {libhandle} {
 		file delete -force ./src/xsecure_sha2_a53_64b.a
 		file delete -force ./src/xsecure_sha2_r5_freertos.a
 		file rename -force ./src/xsecure_sha2_a53_32b.a ./src/libxilsecure.a
-	} elseif {[string compare -nocase $compiler "aarch64-none-elf-gcc"] == 0} {
+	} elseif {[string compare -nocase $compiler "aarch64-none-elf-gcc"] == 0
+		   || [string compare -nocase $compiler "armclang"] == 0} {
 		file delete -force ./src/xsecure_sha2_pmu.a
 		file delete -force ./src/xsecure_sha2_r5.a
 		file delete -force ./src/xsecure_sha2_a53_32b.a
