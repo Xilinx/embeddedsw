@@ -870,9 +870,14 @@ u32 XSecure_MemCopy(void * DestPtr, void * SrcPtr, u32 Size)
  *****************************************************************************/
 u32 XSecure_VerifySpk(u8 *AcPtr, u32 EfuseRsaenable)
 {
-	u32 Status;
+	u32 Status = XST_FAILURE;
+	u32 IsRsaenabled = XSecure_IsRsaEnabled();
 
-	if (EfuseRsaenable != 0x00U) {
+	/* Check the cache value with the value passed */
+	if (IsRsaenabled != EfuseRsaenable) {
+		goto END;
+	}
+	if (IsRsaenabled != 0x00U) {
 		/* Verify SPK with verified PPK */
 		Status = XSecure_SpkAuthentication(&CsuDma, AcPtr, EfusePpk);
 		if (Status != (u32)XST_SUCCESS) {
@@ -1241,6 +1246,9 @@ u32 XSecure_SecureImage(u32 AddrHigh, u32 AddrLow,
 	}
 	if (ImageHdrInfo.KeySrc == XSECURE_KEY_SRC_KUP) {
 		if (KupKey != 0x00) {
+			/* Linux or U-boot stores Key in the form of String
+			 * So this conversion is required here.
+			 */
 			(void)XSecure_ConvertStringToHex((char *)(UINTPTR)KupKey,
 					Key, XSECURE_KEY_STR_LEN);
 			/* XilSecure expects Key in big endian form */
