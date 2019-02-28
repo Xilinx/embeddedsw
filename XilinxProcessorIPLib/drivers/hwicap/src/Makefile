@@ -19,7 +19,7 @@ INCLUDEFILES=*.h
 libs:
 	echo "Compiling hwicap"
 	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(LIBSOURCES)
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OUTS}
+	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} $(OBJECTS)
 #	make clean
 
 include:
