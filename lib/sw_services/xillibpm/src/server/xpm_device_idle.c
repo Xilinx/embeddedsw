@@ -134,7 +134,7 @@ void NodeOspiIdle(u16 DeviceId, u32 BaseAddress)
 	XOspiPsv OspiInst;
 
 	/* Warning Fix */
-	(void)(BaseAddress)
+	(void)(BaseAddress);
 
 	ConfigPtr = XOspiPsv_LookupConfig(DeviceId);
 	if (NULL == ConfigPtr) {
