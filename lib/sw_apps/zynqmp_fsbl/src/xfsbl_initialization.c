@@ -58,6 +58,7 @@
 *                     from boot header local buffer, copying IV to global
 *                     variable for using during decryption of partition.
 * 5.0   mn   07/06/18 Add DDR initialization support for new DDR DIMM part
+*       mus  02/26/19 Added support for armclang compiler
 * </pre>
 *
 * @note
@@ -117,13 +118,24 @@ void XFsbl_RegisterHandlers(void);
 /************************** Variable Definitions *****************************/
 extern XFsblPs FsblInstance;
 
+#ifdef __clang__
+extern u8 Image$$DATA_SECTION$$Base;
+extern u8 Image$$DATA_SECTION$$Limit;
+extern u8 Image$$DUP_DATA_SECTION$$Base;
+#else
 extern  u8 __data_start;
 extern  u8 __data_end;
 extern  u8 __dup_data_start;
+#endif
 
 #ifndef XFSBL_BS
+#ifdef __clang__
+u8 ReadBuffer[XFSBL_SIZE_IMAGE_HDR]
+	__attribute__((section (".bss.bitstream_buffer")));
+#else
 u8 ReadBuffer[XFSBL_SIZE_IMAGE_HDR]
 		__attribute__((section (".bitstream_buffer")));
+#endif
 #else
 extern u8 ReadBuffer[READ_BUFFER_SIZE];
 #endif
@@ -149,8 +161,18 @@ extern u32 Iv[XIH_BH_IV_LENGTH / 4U];
 void XFsbl_SaveData(void)
 {
 	const u8 *MemPtr;
+  #ifdef __clang__
+      u8 *ContextMemPtr = (u8 *)&Image$$DATA_SECTION$$Base;
+  #else
     u8 *ContextMemPtr = (u8 *)&__dup_data_start;
+  #endif
+
+  #ifdef __clang__
+    for (MemPtr = &Image$$DATA_SECTION$$Base;
+	 MemPtr < &Image$$DATA_SECTION$$Limit; MemPtr++, ContextMemPtr++) {
+  #else
     for (MemPtr = &__data_start; MemPtr < &__data_end; MemPtr++, ContextMemPtr++) {
+  #endif
 	*ContextMemPtr = *MemPtr;
     }
 }
@@ -170,8 +192,18 @@ void XFsbl_SaveData(void)
 void XFsbl_RestoreData(void)
 {
 	u8 *MemPtr;
+#ifdef __clang__
+      u8 *ContextMemPtr = (u8 *)&Image$$DATA_SECTION$$Base;
+#else
     u8 *ContextMemPtr = (u8 *)&__dup_data_start;
+#endif
+
+#ifdef __clang__
+    for (MemPtr = &Image$$DATA_SECTION$$Base;
+	 MemPtr < &Image$$DATA_SECTION$$Limit; MemPtr++, ContextMemPtr++) {
+#else
     for (MemPtr = &__data_start; MemPtr < &__data_end; MemPtr++, ContextMemPtr++) {
+#endif
 	*MemPtr = *ContextMemPtr;
     }
 }
