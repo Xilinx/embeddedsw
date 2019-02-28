@@ -83,7 +83,7 @@ typedef struct XPm_DeviceStatus {
 } XPm_DeviceStatus;
 
 /* Requirement limits */
-#define XPM_MAX_CAPABILITY	(PM_CAP_ACCESS | PM_CAP_CONTEXT)
+#define XPM_MAX_CAPABILITY	(PM_CAP_ACCESS | PM_CAP_CONTEXT | PM_CAP_WAKEUP)
 #define XPM_MAX_LATENCY		(0xFFFFU)
 #define XPM_MAX_QOS			(100)
 #define XPM_MIN_CAPABILITY	(0)

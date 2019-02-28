@@ -34,10 +34,27 @@
 
 static const u32 XPmTcmDeviceStates[] = {
 	[XPM_DEVSTATE_UNUSED] = XPM_MIN_CAPABILITY,
-	[XPM_DEVSTATE_RUNNING] = XPM_MAX_CAPABILITY,
+	[XPM_DEVSTATE_RUNNING] = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 };
 
 static const XPm_StateTran XPmTcmDevTransitions[] = {
+	{
+		.FromState = XPM_DEVSTATE_RUNNING,
+		.ToState = XPM_DEVSTATE_UNUSED,
+		.Latency = XPM_DEF_LATENCY,
+	}, {
+		.FromState = XPM_DEVSTATE_UNUSED,
+		.ToState = XPM_DEVSTATE_RUNNING,
+		.Latency = XPM_DEF_LATENCY,
+	},
+};
+
+static const u32 XPmMemDeviceStates[] = {
+	[XPM_DEVSTATE_UNUSED] = XPM_MIN_CAPABILITY,
+	[XPM_DEVSTATE_RUNNING] = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+};
+
+static const XPm_StateTran XPmMemDevTransitions[] = {
 	{
 		.FromState = XPM_DEVSTATE_RUNNING,
 		.ToState = XPM_DEVSTATE_UNUSED,
@@ -132,6 +149,36 @@ static const XPm_DeviceFsm XPmTcmDeviceFsm = {
 	.EnterState = HandleTcmDeviceState,
 };
 
+static XStatus HandleMemDeviceState(XPm_Device* const Device, const u32 NextState)
+{
+	XStatus Status = XST_SUCCESS;
+
+	switch (Device->Node.State) {
+	case XPM_DEVSTATE_UNUSED:
+		if (XPM_DEVSTATE_RUNNING == NextState) {
+			Status = XPmDevice_BringUp(&Device->Node);
+		}
+		break;
+	case XPM_DEVSTATE_RUNNING:
+		if (XPM_DEVSTATE_UNUSED == NextState) {
+			Status = Device->Node.HandleEvent((XPm_Node *)Device,
+							  XPM_DEVEVENT_SHUTDOWN);
+		}
+		break;
+	default:
+		Status = XST_FAILURE;
+		break;
+	}
+
+	return Status;
+}
+
+static const XPm_DeviceFsm XPmMemDeviceFsm = {
+	DEFINE_DEV_STATES(XPmMemDeviceStates),
+	DEFINE_DEV_TRANS(XPmMemDevTransitions),
+	.EnterState = HandleMemDeviceState,
+};
+
 XStatus XPmMemDevice_Init(XPm_MemDevice *MemDevice,
 		u32 Id,
 		u32 BaseAddress,
@@ -152,6 +199,8 @@ XStatus XPmMemDevice_Init(XPm_MemDevice *MemDevice,
 
 	if (XPM_NODETYPE_DEV_TCM == Type) {
 		MemDevice->Device.DeviceFsm = &XPmTcmDeviceFsm;
+	} else {
+		MemDevice->Device.DeviceFsm = &XPmMemDeviceFsm;
 	}
 
 done:
