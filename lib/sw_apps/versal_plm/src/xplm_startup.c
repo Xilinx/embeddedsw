@@ -60,8 +60,6 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-int XPlm_StaticNpiInit();
-int XPlm_NpiInit(void *arg);
 
 /************************** Variable Definitions *****************************/
 #define XPLM_TASK_DEFINE(Func, Arg, Prio) \
@@ -85,30 +83,10 @@ struct XPlmi_TaskNode StartUpTaskList[] =
 	XPLM_TASK_DEFINE(XPlm_ModuleInit, 0U, XPLM_TASK_PRIORITY_0),
 	XPLM_TASK_DEFINE(XPlm_ProcessPlmCdo, 0U, XPLM_TASK_PRIORITY_0),
 	XPLM_TASK_DEFINE(XPlm_LpdModuleInit, 0U, XPLM_TASK_PRIORITY_0),
-	XPLM_TASK_DEFINE(XPlm_NpiInit, 0U, XPLM_TASK_PRIORITY_0),
 	XPLM_TASK_DEFINE(XPlm_LoadBootPdi, 0U, XPLM_TASK_PRIORITY_0)
 };
 
 /*****************************************************************************/
-/*****************************************************************************/
-/**
- * @brief Static NPI configuration is added for SPP to initialize NoC and
- * DDR
- *
- * @param	pointer corresponding to Npi Init
- *
- * @return	XST_SUCCESS
- *
- *****************************************************************************/
-int XPlm_NpiInit(void *arg)
-{
-	int Status;
-
-	XPlmi_Printf(DEBUG_INFO, "Static NPI Initialiation\n\r");
-	Status = XPlm_StaticNpiInit();
-
-	return Status;
-}
 
 /*****************************************************************************/
 /**
