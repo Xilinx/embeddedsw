@@ -1,3 +1,4 @@
+DRIVER_LIB_VERSION = 1.0
 COMPILER=
 ARCHIVER=
 CP=cp
@@ -8,33 +9,31 @@ LIB=libxil.a
 CC_FLAGS = $(COMPILER_FLAGS)
 ECC_FLAGS = $(EXTRA_COMPILER_FLAGS)
 
-RELEASEDIR=../../../lib
-INCLUDEDIR=../../../include
-INCLUDES=-I./. -I${INCLUDEDIR}
+RELEASEDIR=../../../lib/
+INCLUDEDIR=../../../include/
+INCLUDES=-I./. -I$(INCLUDEDIR)
 
-OUTS = *.o
+SRCFILES:=$(wildcard *.c)
 
-LIBSOURCES:=*.c
-INCLUDEFILES:=*.h
+OBJECTS = $(addprefix $(RELEASEDIR), $(addsuffix .o, $(basename $(wildcard *.c))))
 
-OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
+libs: $(OBJECTS)
 
-libs: banner xrfdc_libs clean
+DEPFILES := $(SRCFILES:%.c=$(RELEASEDIR)%.d)
 
-%.o: %.c
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -D __BAREMETAL__ -o $@ $<
+include $(wildcard $(DEPFILES))
 
-banner:
-	echo "Compiling rfdc"
+include $(wildcard ../../../../dep.mk)
 
-xrfdc_libs: ${OBJECTS}
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS}
+$(RELEASEDIR)%.o: %.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) -D__BAREMETAL__ $(INCLUDES) $(DEPENDENCY_FLAGS) $< -o $@
 
 .PHONY: include
-include: xrfdc_includes
+include: $(addprefix $(INCLUDEDIR),$(wildcard *.h))
 
-xrfdc_includes:
-	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
+$(INCLUDEDIR)%.h: %.h
+	$(CP) $< $@
 
 clean:
 	rm -rf ${OBJECTS}
+	rm -rf $(DEPFILES)

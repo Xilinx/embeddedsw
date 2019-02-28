@@ -1,3 +1,4 @@
+DRIVER_LIB_VERSION = 1.0
 COMPILER=
 ARCHIVER=
 CP=cp
@@ -8,31 +9,31 @@ LIB=libxil.a
 CC_FLAGS = $(COMPILER_FLAGS)
 ECC_FLAGS = $(EXTRA_COMPILER_FLAGS)
 
-RELEASEDIR=../../../lib
-INCLUDEDIR=../../../include
-INCLUDES=-I./. -I${INCLUDEDIR}
+RELEASEDIR=../../../lib/
+INCLUDEDIR=../../../include/
+INCLUDES=-I./. -I$(INCLUDEDIR)
 
+SRCFILES:=$(wildcard *.c)
 
-INCLUDEFILES:=*.h
+OBJECTS = $(addprefix $(RELEASEDIR), $(addsuffix .o, $(basename $(wildcard *.c))))
 
-OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
+libs: $(OBJECTS)
 
-libs: banner xgpio_libs clean
+DEPFILES := $(SRCFILES:%.c=$(RELEASEDIR)%.d)
 
-%.o: %.c
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<
+include $(wildcard $(DEPFILES))
 
-banner:
-	echo "Compiling gpio"
+include $(wildcard ../../../../dep.mk)
 
-xgpio_libs: ${OBJECTS}
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS}
+$(RELEASEDIR)%.o: %.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) $< -o $@
 
 .PHONY: include
-include: xgpio_includes
+include: $(addprefix $(INCLUDEDIR),$(wildcard *.h))
 
-xgpio_includes:
-	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
+$(INCLUDEDIR)%.h: %.h
+	$(CP) $< $@
 
 clean:
 	rm -rf ${OBJECTS}
+	rm -rf $(DEPFILES)
