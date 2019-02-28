@@ -18,8 +18,14 @@
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   mn   07/06/18 Add DDR initialization support for new DDR DIMM part
- *       mn   07/30/18 Define some DDR registers addresses if not defined
+ *       mn   07/18/18 Move iicps.h inclusion under ZCU102 and ZCU106 macro
+ *                     checks
  * 2.0   mn   02/28/19 Add Dynamic DDR initialization support for all DDR DIMMs
+ *       mn   03/12/19 Select EEPROM Lower Page for reading SPD data
+ *       mn   09/03/19 Fix coverity warnings
+ * 3.0   bsv  11/12/19 Added support for ZCU216 board
+ *       mn   12/24/19 Enable Address Mirroring based on SPD data
+ *       bsv  02/05/20 Added support for ZCU208 board
  *
  * </pre>
  *
