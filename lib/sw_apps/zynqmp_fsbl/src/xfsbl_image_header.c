@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 19 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -49,6 +49,7 @@
 *                     Updated destination CPU for PMUFW.
 * 3.0   vns  03/07/18 All the partitions should be encrypted when ENC_ONLY
 *                     eFUSE bit is set, if not encrypted FSBL throw an error.
+*       mus  02/26/19 Added support for armclang compiler
 * </pre>
 *
 * @note
@@ -137,8 +138,14 @@ static void XFsbl_SetATFHandoffParameters(
 
 /************************** Variable Definitions *****************************/
 /* Store this data structure at a fixed location for ATF to pick */
+#ifdef __clang__
+static XFsblPs_ATFHandoffParams ATFHandoffParams
+			__attribute__((section (".bss.handoff_params")));
+#else
 static XFsblPs_ATFHandoffParams ATFHandoffParams
 			__attribute__((section (".handoff_params")));
+#endif
+
 #ifdef XFSBL_SECURE
 extern u8 *ImageHdr;
 #endif

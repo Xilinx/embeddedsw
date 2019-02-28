@@ -39,6 +39,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   11/13/13 Initial release
+*       mus  02/26/19 Added support for armclang compiler
 *
 * </pre>
 *
@@ -55,6 +56,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+#if ! defined (__clang__)
 .globl XFsbl_Exit
 
 /************************** Variable Definitions *****************************/
@@ -148,3 +150,49 @@ XFsbl_StartApp:
 	bx	lr;
 #endif
 .end
+#else
+
+	EXPORT XFsbl_Exit
+	AREA |.exit|, CODE
+XFsbl_Exit
+
+
+	mov x30, x0 ; move the destination address into x30 register
+
+	tlbi ALLE3   ; invalidate All E3 translation tables
+	ic IALLU   ; invalidate I Cache All to PoU, Inner Shareable
+
+	dsb sy
+	isb 			; make sure it completes
+
+	mrs x5, SCTLR_EL3	; Read control register
+	mov x6, #0x1005		; D, I , M bits disable
+	bic     x5, x5, x6 	; Disable MMU, L1 and L2 I/D cache
+	msr     SCTLR_EL3, x5
+
+	isb
+
+	cmp x1, #0  		; exit to wfe
+	beq XFsbl_Loop
+
+	cmp x1, #1   ; x1 is 1 - exit in aarch64
+	beq XFsbl_StartApp
+
+	;x1 is 2 - exit in aarch32
+
+	mov x2, #2   ; request for warm reset and aarch32
+	dsb sy
+	isb
+	msr RMR_EL3,x2 ; write to reset management register
+	isb
+
+
+XFsbl_Loop
+	wfe				;wait for event
+	b XFsbl_Loop
+
+
+XFsbl_StartApp
+	br 	x30        ; branch to
+	END
+#endif

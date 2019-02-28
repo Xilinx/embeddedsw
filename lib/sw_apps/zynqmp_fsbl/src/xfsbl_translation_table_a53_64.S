@@ -50,6 +50,7 @@
 * None.
 *
 ******************************************************************************/
+#if ! defined (__clang__)
 #include "xparameters.h"
 
 	.globl  MMUTableL0
@@ -226,3 +227,293 @@ MMUTableL2:
 .8byte  SECT + Memory		/*2MB OCM/TCM*/
 
 .end
+
+#else
+
+#include "xparameters.h"
+
+	EXPORT MMUTableL0
+	EXPORT MMUTableL1
+	EXPORT MMUTableL2
+
+   GBLA abscnt
+   GBLA count
+   GBLA sect
+
+; Fault
+Reserved EQU 0
+
+Memory EQU 0x405:OR:(3:SHL:8):OR:0x0 ; Normal writeback write allocate inner shared read write
+
+Device EQU 0x409:OR:(1:SHL:53):OR:(1:SHL:54):OR:0x0 ; Strongly ordered read write non executable
+
+ AREA |.mmu_tbl0|, CODE, ALIGN=12
+
+MMUTableL0
+
+   DCQU MMUTableL1+0x3 ; 0x0000_0000 - 0x7F_FFFF_FFFF
+   DCQU MMUTableL1+0x1000+0x3 ; 0x80_0000_0000 - 0xFF_FFFF_FFFF
+
+ AREA |.mmu_tbl1|, CODE, ALIGN=12
+
+MMUTableL1
+
+;
+; 0x4000_0000 - 0xFFFF_FFFF
+; 1GB DDR, 1GB PL, 2GB other devices n memory
+;
+count SETA 0
+   WHILE count<0x4
+   DCQU MMUTableL2+count*0x1000+0x3
+count SETA count+1
+   WEND
+
+Fixlocl1 EQU 0x100000000
+abscnt SETA 0
+
+;
+; 0x0001_0000_0000 - 0x0003_FFFF_FFFF
+; 12GB Reserved
+;
+count SETA 0
+   WHILE count<0xc
+   DCQU Fixlocl1+abscnt*0x40000000+Reserved
+count SETA count+1
+abscnt SETA abscnt+1
+   WEND
+
+;
+; 0x0004_0000_0000 - 0x0007_FFFF_FFFF
+; 8GB PL, 8GB PCIe
+;
+count SETA 0
+   WHILE count<0x10
+   DCQU Fixlocl1+abscnt*0x40000000+Device
+count SETA count+1
+abscnt SETA abscnt+1
+   WEND
+
+
+DDR_1_START EQU 0x800000000
+DDR_1_END EQU 0x87FFFFFFF
+DDR_1_SIZE EQU (DDR_1_END - DDR_1_START + 1)
+
+
+
+DDR_1_REG EQU DDR_1_SIZE / 0x40000000
+
+
+
+
+
+UNDEF_1_REG EQU (0x20 - DDR_1_REG)
+
+; DDR based on size in hdf
+count SETA 0
+   WHILE count<DDR_1_REG
+   DCQU Fixlocl1+abscnt*0x40000000+Reserved
+count SETA count+1
+abscnt SETA abscnt+1
+   WEND
+
+; Reserved for region where ddr is absent
+count SETA 0
+   WHILE count<UNDEF_1_REG
+   DCQU Fixlocl1+abscnt*0x40000000+Reserved
+count SETA count+1
+abscnt SETA abscnt+1
+   WEND
+
+;
+; 0x0010_0000_0000 - 0x007F_FFFF_FFFF
+; 448 GB PL
+;
+count SETA 0
+   WHILE count<0x1C0
+   DCQU Fixlocl1 + abscnt * 0x40000000 + Device
+count SETA count+1
+abscnt SETA abscnt+1
+   WEND
+
+;
+; 0x0080_0000_0000 - 0x00BF_FFFF_FFFF
+; 256GB PCIe
+;
+count SETA 0
+   WHILE count<0x100
+   DCQU Fixlocl1+abscnt*0x40000000+Device
+count SETA count+1
+abscnt SETA abscnt+1
+   WEND
+
+;
+; 0x00C0_0000_0000 - 0x00FF_FFFF_FFFF
+; 256GB Reserved
+;
+count SETA 0
+   WHILE count<0x100
+   DCQU Fixlocl1+abscnt*0x40000000+Reserved
+count SETA count+1
+abscnt SETA abscnt+1
+   WEND
+
+ AREA |.mmu_tbl2|, CODE, ALIGN=12
+
+MMUTableL2
+
+abscnt SETA 0
+
+
+DDR_0_START EQU 0x00000000
+DDR_0_END EQU 0x7FFFFFFF
+DDR_0_SIZE EQU (DDR_0_END - DDR_0_START + 1)
+
+
+
+DDR_0_REG EQU DDR_0_SIZE / 0x200000
+
+
+
+
+
+UNDEF_0_REG EQU (0x400 - DDR_0_REG)
+
+; DDR based on size in hdf
+count SETA 0
+   WHILE count<DDR_0_REG
+   DCQU abscnt*0x200000+Reserved        ; this region marked as Memory after DDR init
+count SETA count+1
+abscnt SETA abscnt+1
+   WEND
+
+; Reserved for region where ddr is absent
+count SETA 0
+   WHILE count<UNDEF_0_REG
+   DCQU abscnt*0x200000+Reserved
+count SETA count+1
+abscnt SETA abscnt+1
+   WEND
+
+;
+; 0x8000_0000 - 0xBFFF_FFFF
+; 1GB lower PL
+;
+count SETA 0
+   WHILE count<0x0200
+   DCQU abscnt*0x200000+Device
+count SETA count+1
+abscnt SETA abscnt+1
+   WEND
+
+;
+; 0xC000_0000 - 0xDFFF_FFFF
+; 512MB QSPI
+;
+count SETA 0
+   WHILE count<0x0100
+   DCQU abscnt*0x200000+Device
+count SETA count+1
+abscnt SETA abscnt+1
+   WEND
+
+;
+; 0xE000_0000 - 0xEFFF_FFFF
+; 256MB lower PCIe
+;
+count SETA 0
+   WHILE count<0x080
+   DCQU abscnt*0x200000+Device
+count SETA count+1
+abscnt SETA abscnt+1
+   WEND
+;
+; 0xF000_0000 - 0xF7FF_FFFF
+; 128MB Reserved
+;
+count SETA 0
+   WHILE count<0x040
+   DCQU abscnt*0x200000+Reserved
+count SETA count+1
+abscnt SETA abscnt+1
+   WEND
+
+;
+; 0xF800_0000 - 0xF8FF_FFFF
+; 16MB Coresight
+;
+count SETA 0
+   WHILE count<0x8
+   DCQU abscnt*0x200000+Device
+count SETA count+1
+abscnt SETA abscnt+1
+   WEND
+
+;
+; 1MB RPU LLP is marked for 2MB region as the minimum block size in translation
+; table is 2MB and adjacent 63MB reserved region is converted to 62MB
+;
+
+;
+; 0xF900_0000 - 0xF91F_FFFF
+; 2MB RPU low latency port
+;
+count SETA 0
+   WHILE count<0x1
+   DCQU abscnt*0x200000+Device
+count SETA count+1
+abscnt SETA abscnt+1
+   WEND
+
+;
+; 0xF920_0000 - 0xFCFF_FFFF
+; 62MB Reserved
+;
+count SETA 0
+   WHILE count<0x1f
+   DCQU abscnt*0x200000+Reserved
+count SETA count+1
+abscnt SETA abscnt+1
+   WEND
+
+;
+; 0xFD00_0000 - 0xFDFF_FFFF
+; 16MB FPS
+;
+count SETA 0
+   WHILE count<0x8
+   DCQU abscnt*0x200000+Device
+count SETA count+1
+abscnt SETA abscnt+1
+   WEND
+
+;
+; 0xFE00_0000 - 0xFFBF_FFFF
+; 28MB LPS
+;
+count SETA 0
+   WHILE count<0xE
+   DCQU abscnt*0x200000+Device
+count SETA count+1
+abscnt SETA abscnt+1
+   WEND
+
+;
+; 0xFFC0_0000 - 0xFFDF_FFFF
+; 2MB PMU/CSU
+;
+   DCQU abscnt*0x200000+Device
+
+abscnt SETA abscnt+1
+
+;
+; 0xFFE0_0000 - 0xFFFF_FFFF
+; 2MB OCM/TCM
+;
+   DCQU abscnt*0x200000+Memory
+
+    END
+
+;
+; @} End of "addtogroup a53_64_boot_code"
+;
+#endif
