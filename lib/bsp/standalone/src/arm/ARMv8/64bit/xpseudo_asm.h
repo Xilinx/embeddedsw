@@ -62,7 +62,11 @@ extern "C" {
 #endif
 
 #include "xreg_cortexa53.h"
+#ifdef __clang__
+#include "xpseudo_asm_armclang.h"
+#else
 #include "xpseudo_asm_gcc.h"
+#endif
 
 #ifdef __cplusplus
 }
