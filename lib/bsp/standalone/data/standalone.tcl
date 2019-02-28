@@ -202,7 +202,8 @@ proc generate {os_handle} {
             file delete -force "./src/gcc"
             file delete -force "./src/iccarm"
         }
-        if {[string compare -nocase $compiler "armcc"] != 0 && [string compare -nocase $compiler "iccarm"] != 0} {
+        if {[string compare -nocase $compiler "armcc"] != 0 && [string compare -nocase $compiler "iccarm"] != 0
+	    &&  [string compare -nocase $compiler "armclang"] != 0} {
             set commonccdir "./src/arm/common/gcc"
             foreach entry [glob -nocomplain [file join $commonccdir *]] {
 	         file copy -force $entry "./src/"
@@ -308,10 +309,20 @@ proc generate {os_handle} {
 		set cortexa53srcdir1 "./src/arm/ARMv8/32bit"
 		set platformsrcdir "./src/arm/ARMv8/32bit/platform/ZynqMP"
 	    } else {
-	        set ccdir "./src/arm/ARMv8/64bit/gcc"
+	      if {[string compare -nocase $compiler "armclang"] == 0} {
+                       set ccdir "./src/arm/ARMv8/64bit/armclang"
+               } else {
+                       set ccdir "./src/arm/ARMv8/64bit/gcc"
+               }
+
 	        set cortexa53srcdir1 "./src/arm/ARMv8/64bit"
 		if { $proctype == "psu_cortexa53" }  {
-		    set platformsrcdir "./src/arm/ARMv8/64bit/platform/ZynqMP"
+		    file copy -force [file join $cortexa53srcdir1 platform ZynqMP xparameters_ps.h] ./src
+		    if {[string compare -nocase $compiler "armclang"] == 0} {
+		        set platformsrcdir "./src/arm/ARMv8/64bit/platform/ZynqMP/armclang"
+		    } else {
+			set platformsrcdir "./src/arm/ARMv8/64bit/platform/ZynqMP/gcc"
+		    }
 		 } else {
 		    set platformsrcdir "./src/arm/ARMv8/64bit/platform/versal"
 		 }
@@ -337,6 +348,7 @@ proc generate {os_handle} {
 	    file delete -force $platformsrcdir     
 	    file copy -force $includedir "./src/"
             file delete -force "./src/gcc"
+	    file delete -force "./src/armclang"
             file delete -force "./src/profile"
 	    file delete -force "./src/xpvxenconsole"
             if { $enable_sw_profile == "true" } {
