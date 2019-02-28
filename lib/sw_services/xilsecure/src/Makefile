@@ -51,6 +51,12 @@ INCLUDEFILES=$(SECURE_DIR)/xsecure_sha.h \
 		$(SECURE_DIR)/xsecure_sha2.h \
 		$(SECURE_DIR)/xsecure.h
 
+ifeq ($(notdir $(COMPILER)) , armclang)
+      EXTRA_ARCHIVE_FLAGS=-rc
+else
+       EXTRA_ARCHIVE_FLAGS=rc
+endif
+
 libs: libxilsecure.a
 
 libxilsecure.a: print_msg_secure $(SECURE_OBJS)
