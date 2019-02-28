@@ -59,7 +59,7 @@ standalone_libs: $(LIBSOURCES)
 	echo "Compiling standalone"
 	$(CC) $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $(filter-out _exit.c, $^)
 	$(CC) $(CC_FLAGS) $(ECC_FLAGS_NO_FLTO) $(INCLUDES) _exit.c
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OUTS}
+	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS} ${ASSEMBLY_OBJECTS}
 
 .PHONY: include
 include: standalone_includes

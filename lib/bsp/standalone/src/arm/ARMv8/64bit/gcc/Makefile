@@ -57,7 +57,7 @@ standalone_libs: $(LIBSOURCES)
 	echo "Compiling standalone ARMv8 64 bit"
 	$(CC) $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $(filter-out _exit.c, $^)
 	$(CC) $(CC_FLAGS) $(ECC_FLAGS_NO_FLTO) $(INCLUDES) _exit.c
-	$(AR) -r ${RELEASEDIR}/${LIB} ${OUTS}
+	$(AR) -r ${RELEASEDIR}/${LIB} ${OBJECTS} ${ASSEMBLY_OBJECTS}
 
 .PHONY: include
 include: standalone_includes
