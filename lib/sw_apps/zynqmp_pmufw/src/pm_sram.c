@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -95,9 +95,9 @@ static const PmStateTran pmSramTransitions[] = {
  *
  * @return      Status of performing transition action
  */
-static int PmSramFsmHandler(PmSlave* const slave, const PmStateId nextState)
+static s32 PmSramFsmHandler(PmSlave* const slave, const PmStateId nextState)
 {
-	int status = XST_PM_INTERNAL;
+	s32 status = XST_PM_INTERNAL;
 	PmSlaveSram* sram = (PmSlaveSram*)slave->node.derived;
 
 	switch (slave->node.currState) {
@@ -153,9 +153,9 @@ static int PmSramFsmHandler(PmSlave* const slave, const PmStateId nextState)
  *
  * @return	Status of performing transition action
  */
-static int PmTcmFsmHandler(PmSlave* const slave, const PmStateId nextState)
+static s32 PmTcmFsmHandler(PmSlave* const slave, const PmStateId nextState)
 {
-	int status;
+	s32 status;
 	PmSlaveTcm* tcm = (PmSlaveTcm*)slave->node.derived;
 
 	if (PM_SRAM_STATE_ON == nextState) {
@@ -211,9 +211,9 @@ static void PmTcm1EccInit(const PmSlaveTcm* const tcm)
  * PmSlaveTcmInit() - Initialize the TCM slave
  * @slave	TCM slave node
  */
-static int PmSlaveTcmInit(PmSlave* const slave)
+static s32 PmSlaveTcmInit(PmSlave* const slave)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	PmSlaveTcm* tcm = (PmSlaveTcm*)slave->node.derived;
 
 	if (PM_SRAM_STATE_ON == slave->node.currState) {
@@ -227,7 +227,7 @@ static int PmSlaveTcmInit(PmSlave* const slave)
  * PmSlaveTcmForceDown() - Force down the TCM slave
  * @slave	TCM slave node
  */
-static int PmSlaveTcmForceDown(PmSlave* const slave)
+static s32 PmSlaveTcmForceDown(PmSlave* const slave)
 {
 	PmSlaveTcm* tcm = (PmSlaveTcm*)slave->node.derived;
 
