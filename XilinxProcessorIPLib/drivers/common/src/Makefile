@@ -17,7 +17,7 @@ INCLUDEFILES=xbasic_types.h xenv.h xenv_none.h xenv_standalone.h xenv_vxworks.h 
 libs:
 	echo "Compiling common"
 	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(LIBSOURCES)
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OUTS} 
+	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} $(OBJECTS)
 	make clean
 
 include: 
