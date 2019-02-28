@@ -913,13 +913,7 @@ XStatus XPmDevice_GetStatus(const u32 SubsystemId,
 		goto done;
 	}
 
-	/*
-	 * Return the power state of the device.
-	 */
-	 if (NULL == Device->Power) {
-		goto done;
-	}
-	DeviceStatus->Status = Device->Power->Node.State;
+	DeviceStatus->Status = Device->Node.State;
 
 	Reqm = FindReqm(Device, Subsystem);
 	if (NULL != Reqm) {
