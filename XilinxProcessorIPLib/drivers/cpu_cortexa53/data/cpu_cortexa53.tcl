@@ -41,6 +41,7 @@
 # 1.5   mus  09/18/17 Updated to check each extra compiler flag individually
 #                     for Cortexa53 32 mode BSP.This change allows users to
 #                     modify default flag value.It fixes CR#984945.
+# 1.6   mus  01/30/18 Updated to support armclang compiler
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -103,16 +104,63 @@ proc xdefine_cortexa53_params {drvhandle} {
 	      set extra_flags $temp_flag
               common::set_property -name {EXTRA_COMPILER_FLAGS} -value $extra_flags -objects [hsi::get_sw_processor]
          }
+    } elseif {[string compare -nocase $compiler "armclang"] == 0} {
+	set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
+	set extra_flags ""
+	set temp_flag $extra_flags
+	if {[string compare -nocase $temp_flag "-mfpu=fp-armv8 -g -Wall -Wextra -march=armv8-a --target=aarch64-arm-none-eabi "] != 0} {
+	      set flagindex [string first {-mfpu=} $temp_flag 0]
+              if { $flagindex == -1 } {
+	           set temp_flag "$temp_flag -mfpu=fp-armv8"
+	      }
+
+	      set flagindex [string first {-g} $temp_flag 0]
+	      if { $flagindex == -1 } {
+		    set temp_flag "$temp_flag -g"
+	      }
+
+	      set flagindex [string first {-Wall} $temp_flag 0]
+	      if { $flagindex == -1 } {
+		   set temp_flag "$temp_flag -Wall"
+	      }
+
+	      set flagindex [string first {-Wextra} $temp_flag 0]
+	      if { $flagindex == -1 } {
+		   set temp_flag "$temp_flag -Wextra"
+	      }
+
+	      set flagindex [string first {-march=} $temp_flag 0]
+	      if { $flagindex == -1 } {
+		   set temp_flag "$temp_flag -march=armv8-a"
+	      }
+
+              set flagindex [string first {--target=} $temp_flag 0]
+	      if { $flagindex == -1 } {
+		   set temp_flag "$temp_flag --target=aarch64-arm-none-eabi"
+	      }
+
+	      set extra_flags $temp_flag
+              common::set_property -name {EXTRA_COMPILER_FLAGS} -value $extra_flags -objects [hsi::get_sw_processor]
+         }
     }
+
 
     #Append LTO flag in EXTRA_COMPILER_FLAGS for zynqmp_fsbl_bsp
     set is_zynqmp_fsbl_bsp [common::get_property CONFIG.ZYNQMP_FSBL_BSP [hsi::get_os]]
     if {$is_zynqmp_fsbl_bsp == true} {
 		set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
-		#Append LTO flag in EXTRA_COMPILER_FLAGS if not exist previoulsy.
-		if {[string first "-flto" $extra_flags] == -1 } {
-			append extra_flags " -Os -flto -ffat-lto-objects"
-			common::set_property -name {EXTRA_COMPILER_FLAGS} -value $extra_flags -objects [hsi::get_sw_processor]
+		if {[string compare -nocase $compiler "armclang"] == 0} {
+		    #Append -Oz in EXTRA_COMPILER_FLAGS if not exist previoulsy.
+		    if {[string first "-Oz" $extra_flags] == -1 } {
+			    append extra_flags " -Oz"
+			    common::set_property -name {EXTRA_COMPILER_FLAGS} -value $extra_flags -objects [hsi::get_sw_processor]
+		     }
+		} else {
+		    #Append LTO flag in EXTRA_COMPILER_FLAGS if not exist previoulsy.
+		    if {[string first "-flto" $extra_flags] == -1 } {
+			    append extra_flags " -Os -flto -ffat-lto-objects"
+			    common::set_property -name {EXTRA_COMPILER_FLAGS} -value $extra_flags -objects [hsi::get_sw_processor]
+		     }
 		}
     }
 
