@@ -362,7 +362,7 @@ void XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 	/* Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(DecData != NULL);
-	Xil_AssertVoid(Size != 0x00U);
+	Xil_AssertVoid((Size/4 != 0x00U) && (Size%4 == 0x00U));
 	Xil_AssertVoid(GcmTagAddr != NULL);
 
 	/* Configure the SSS for AES. */
