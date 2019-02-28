@@ -29,6 +29,7 @@
 #include "xillibpm_api.h"
 #include "xillibpm_defs.h"
 #include "xillibpm_psm_api.h"
+#include "xpm_pldomain.h"
 #include "xpm_pll.h"
 #include "xpm_powerdomain.h"
 #include "xpm_pmcdomain.h"
@@ -1077,7 +1078,17 @@ XStatus XPm_GetDeviceStatus(const u32 SubsystemId,
 {
 	XStatus Status = XST_FAILURE;
 
-	Status = XPmDevice_GetStatus(SubsystemId, DeviceId, DeviceStatus);
+
+	switch(NODECLASS(DeviceId)) {
+	case XPM_NODECLASS_DEVICE:
+		Status = XPmDevice_GetStatus(SubsystemId, DeviceId, DeviceStatus);
+		break;
+	case XPM_NODECLASS_POWER:
+		Status = XPmPower_GetStatus(SubsystemId, DeviceId, DeviceStatus);
+		break;
+	default:
+		Status = XST_FAILURE;
+	}
 
 	return Status;
 }
@@ -2381,6 +2392,7 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 	XPm_PsFpDomain *PsFpDomain;
 	XPm_PmcDomain *PmcDomain;
 	XPm_PsLpDomain *PsLpDomain;
+	XPm_PlDomain *PlDomain;
 
 	if (NumArgs < 3) {
 		Status = XST_INVALID_PARAM;
@@ -2461,6 +2473,14 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 			}
 			Status = XPmPsLpDomain_Init(PsLpDomain,
 				PowerId, BitMask, PowerParent);
+			break;
+		case XPM_NODETYPE_POWER_DOMAIN_PL:
+			PlDomain = (XPm_PlDomain *)XPm_AllocBytes(sizeof(XPm_PlDomain));
+			if (NULL == PlDomain) {
+				Status = XST_BUFFER_TOO_SMALL;
+				goto done;
+			}
+			Status = XPmPlDomain_Init((XPm_PlDomain *)PlDomain, PowerId);
 			break;
 		default:
 			Status = XST_INVALID_PARAM;
