@@ -252,6 +252,24 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 	return Status;
 }
 
+XStatus XPmPower_GetStatus(const u32 SubsystemId, const u32 DeviceId, XPm_DeviceStatus *const DeviceStatus)
+{
+	XStatus Status = XST_SUCCESS;
+	XPm_Power *Power;
+
+	Power = GetPowerNode(DeviceId);
+	if (NULL == Power) {
+		goto done;
+	}
+
+	DeviceStatus->Status = Power->Node.State;
+	DeviceStatus->Usage = 0;
+	DeviceStatus->Requirement = 0;
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
 XStatus XPmPower_Init(XPm_Power *Power,
 	u32 Id, u32 BaseAddress, XPm_Power *Parent)
 {
