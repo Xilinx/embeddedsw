@@ -349,10 +349,19 @@ static int XAVBuf_ConfigureVideo(XAVBuf *InstancePtr, u8 VideoSrc)
 				XAVBUF_V_BLEND_LAYER0_CONTROL_RGB_MODE_SHIFT;
 			RegConfig |= 1 <<
 				XAVBUF_V_BLEND_LAYER0_CONTROL_BYPASS_SHIFT;
+			ScalingOffset = XAVBUF_BUF_VID_COMP0_SCALE_FACTOR;
+			CSCOffset = XAVBUF_V_BLEND_IN1CSC_COEFF0;
+			Video = InstancePtr->AVMode.NonLiveVideo;
+			ScalingFactors = Video->SF;
 			XAVBuf_WriteReg(InstancePtr->Config.BaseAddr,
 					XAVBUF_V_BLEND_LAYER0_CONTROL,
 					RegConfig);
-			break;
+			/* Setting the scaling factors */
+			XAVBuf_SetScalingFactors(InstancePtr, ScalingOffset,
+						 ScalingFactors);
+			/* Colorspace conversion */
+			XAVBuf_InConvertToRGB(InstancePtr, CSCOffset, Video);
+			return XST_SUCCESS;
 		default:
 			return XST_FAILURE;
 	}
