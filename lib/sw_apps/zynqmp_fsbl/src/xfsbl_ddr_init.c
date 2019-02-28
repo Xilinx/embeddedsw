@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
  ******************************************************************************/
 
@@ -410,7 +408,7 @@ u32 XFsbl_ComputeDdr4Params(u8 *SpdData, struct DdrcInitData *DdrDataPtr)
 {
 	struct Ddr4SpdEeprom *Ddr4SpdData = (struct Ddr4SpdEeprom *)SpdData;
 	XFsbl_DimmParams *PDimmPtr = &DdrDataPtr->PDimm;
-	u32 Status;
+	u32 Status = XFSBL_FAILURE;
 
 	memset(PDimmPtr->Mpart, 0U, sizeof(PDimmPtr->Mpart));
 	if ((Ddr4SpdData->InfoSizeCrc & 0xFU) > 2U)
@@ -445,7 +443,7 @@ u32 XFsbl_ComputeDdr4Params(u8 *SpdData, struct DdrcInitData *DdrDataPtr)
 			break;
 
 		default:
-			Status = XFSBL_FAILURE;
+			/* Do nothing as Status is initialized to XFSBL_FAILURE */
 			goto END;
 	}
 
@@ -531,7 +529,7 @@ u32 XFsbl_ComputeDdr3Params(u8 *SpdData, struct DdrcInitData *DdrDataPtr)
 
 	u32 MtbPs;
 	u32 Ftb10thPs;
-	u32 Status;
+	u32 Status = XFSBL_FAILURE;
 
 	memset(PDimmPtr->Mpart, 0U, sizeof(PDimmPtr->Mpart));
 	if ((Ddr3SpdData->InfoSizeCrc & 0xFU) > 1U)
@@ -572,7 +570,7 @@ u32 XFsbl_ComputeDdr3Params(u8 *SpdData, struct DdrcInitData *DdrDataPtr)
 			break;
 
 		default:
-			Status = XFSBL_FAILURE;
+			/* Do nothing as Status is initialized to XFSBL_FAILURE */
 			goto END;
 	}
 
@@ -725,7 +723,8 @@ u32 XFsbl_ComputeLpDdrParams(u8 *SpdData, struct DdrcInitData *DdrDataPtr)
 	return XFSBL_SUCCESS;
 }
 
-#if !(defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106))
+#if !(defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106) \
+		|| defined(XPS_BOARD_ZCU111))
 /*****************************************************************************/
 /**
  * This function computes DIMM parameters based upon the SPD information.
@@ -739,20 +738,25 @@ u32 XFsbl_ComputeLpDdrParams(u8 *SpdData, struct DdrcInitData *DdrDataPtr)
 static u32 XFsbl_DdrComputeDimmParameters(u8 *SpdData,
 		struct DdrcInitData *DdrDataPtr)
 {
+	u32 Status = XFSBL_FAILURE;
+
 	switch (SpdData[2U]) {
 	case SPD_MEMTYPE_DDR4:
-		XFsbl_ComputeDdr4Params(SpdData, DdrDataPtr);
+		Status = XFsbl_ComputeDdr4Params(SpdData, DdrDataPtr);
 		break;
 	case SPD_MEMTYPE_DDR3:
-		XFsbl_ComputeDdr3Params(SpdData, DdrDataPtr);
+		Status = XFsbl_ComputeDdr3Params(SpdData, DdrDataPtr);
 		break;
 	case SPD_MEMTYPE_LPDDR3:
 	case SPD_MEMTYPE_LPDDR4:
-		XFsbl_ComputeLpDdrParams(SpdData, DdrDataPtr);
+		Status = XFsbl_ComputeLpDdrParams(SpdData, DdrDataPtr);
+		break;
+	default:
+		/* Do nothing as Status is initialized to XFSBL_FAILURE */
 		break;
 	}
 
-	return XFSBL_SUCCESS;
+	return Status;
 }
 #endif
 
@@ -818,7 +822,7 @@ static void XFsbl_DdrCalcHifAddrVideo(struct DdrcInitData *DdrDataPtr,
 		u32 *HifAddr, u32 VideoBuf)
 {
 	XFsbl_DimmParams *PDimmPtr = &DdrDataPtr->PDimm;
-	u32 Position;
+	u32 Position=0U;
 	u32 Index;
 	u32 BufWidth;
 	u32 RemainingRow;
@@ -1892,7 +1896,8 @@ static u32 XFsbl_DdrcCalcDdr4RegVal(XFsbl_DimmParams *PDimmPtr, u32 *DdrCfg)
 	return XFSBL_SUCCESS;
 }
 
-#if !(defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106))
+#if !(defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106) \
+		|| defined(XPS_BOARD_ZCU111))
 /*****************************************************************************/
 /**
  * This function calculates the DDRC register values for DDR3
@@ -2962,7 +2967,8 @@ static void XFsbl_DdrcRegsWrite(XFsbl_DimmParams *PDimmPtr, u32 *DdrCfg)
 	Xil_Out32(XFSBL_DDRC_BASE_ADDR + 0x2190U, Val);
 }
 
-#if !(defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106))
+#if !(defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106) \
+		|| defined(XPS_BOARD_ZCU111))
 /*****************************************************************************/
 /**
  * This function calculates and writes DDR controller registers
@@ -3431,7 +3437,8 @@ static u32 XFsbl_PhyCalcDdr4RegVal(XFsbl_DimmParams *PDimmPtr, u32 *PhyCfg)
 	return XFSBL_SUCCESS;
 }
 
-#if !(defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106))
+#if !(defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106) \
+		|| defined(XPS_BOARD_ZCU111))
 /*****************************************************************************/
 /**
  * This function calculates the PHY register values for DDR3
@@ -5189,7 +5196,8 @@ static void XFsbl_PhyRegsWrite(XFsbl_DimmParams *PDimmPtr, u32 *PhyCfg)
 	Xil_Out32(XFSBL_DDRPHY_BASE_ADDR + 0xF18U, Val);
 }
 
-#if !(defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106))
+#if !(defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106) \
+		|| defined(XPS_BOARD_ZCU111))
 /*****************************************************************************/
 /**
  * This function calculates and writes the DDR-PHY registers
@@ -5261,7 +5269,7 @@ END:
  *****************************************************************************/
 static void XFsbl_RdbiWrkAround(XFsbl_DimmParams *PDimmPtr)
 {
-	u32 CalByte[9U];
+	u32 CalByte[9U]={0U};
 	u32 DqRbd[9U][8U];
 	u32 Index;
 	u32 Index1;
@@ -5760,15 +5768,18 @@ static u32 XFsbl_DdrcPhyTraining(struct DdrcInitData *DdrDataPtr)
 	u32 PollVal = 0U;
 	u32 CurTRefPrd;
 	u32 RegVal = 0U;
-	u32 PllRetry = 10U;
+	u32 PllRetry = 100U;
 	u32 PllLocked = 0U;
 	u32 Puad;
+	u32 Status = XFSBL_FAILURE;
 
 	ActiveRanks = Xil_In32(XFSBL_DDRC_BASE_ADDR + 0x0000U);
 
 	while ((PllRetry > 0U) && (!PllLocked)) {
-		Xil_Out32(DDR_PHY_PIR_OFFSET, 0x00040010U);
-		Xil_Out32(DDR_PHY_PIR_OFFSET, 0x00040011U);
+		if ((PllRetry % 10U) == 0U) {
+			Xil_Out32(DDR_PHY_PIR_OFFSET, 0x00040010U);
+			Xil_Out32(DDR_PHY_PIR_OFFSET, 0x00040011U);
+		}
 
 		while ((Xil_In32(DDR_PHY_PGSR0_OFFSET) & 0x1U) != 1U);
 
@@ -5789,6 +5800,12 @@ static u32 XFsbl_DdrcPhyTraining(struct DdrcInitData *DdrDataPtr)
 	}
 
 	Xil_Out32(DDR_PHY_GPR1_OFFSET, Xil_In32(DDR_PHY_GPR1_OFFSET) | (PllRetry << 16U));
+
+	if (PllLocked == 0U) {
+		XFsbl_Printf(DEBUG_INFO,"DDR-PHY Training failed\n\r");
+		/* Do nothing as Status is initialized to XFSBL_FAILURE */
+		goto END;
+	}
 
 	RegVal = ((PDimmPtr->RDimm ? 0x1U : 0x0U) << 19U) | (0x1U << 18U) | 0x73U;
 
@@ -6278,7 +6295,10 @@ static u32 XFsbl_DdrcPhyTraining(struct DdrcInitData *DdrDataPtr)
 				DDR_PHY_DQSDR0_DFTDTEN_SHIFT, 1U);
 	}
 
-	return XFSBL_SUCCESS;
+	Status = XFSBL_SUCCESS;
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -6501,7 +6521,8 @@ static void XFsbl_InitilizeDdrParams(struct DdrcInitData *DdrDataPtr)
 
 }
 
-#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)
+#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106) \
+		|| defined(XPS_BOARD_ZCU111)
 /*****************************************************************************/
 /**
  * This function calculates and writes DDR controller registers
@@ -6634,7 +6655,7 @@ static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	Status = Xil_poll_timeout(Xil_In32, IicInstance.Config.BaseAddress +
+	Status = XFsbl_PollTimeout(IicInstance.Config.BaseAddress +
 			XIICPS_SR_OFFSET, Regval, (Regval & XIICPS_SR_BA_MASK) == 0x0U,
 			XFSBL_IIC_BUS_TIMEOUT);
 	if (Status != XST_SUCCESS) {
@@ -6655,7 +6676,7 @@ static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	Status = Xil_poll_timeout(Xil_In32, IicInstance.Config.BaseAddress +
+	Status = XFsbl_PollTimeout(IicInstance.Config.BaseAddress +
 			XIICPS_SR_OFFSET, Regval, (Regval &
 				XIICPS_SR_BA_MASK) == 0x0U,
 			XFSBL_IIC_BUS_TIMEOUT);
@@ -6675,7 +6696,7 @@ static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	Status = Xil_poll_timeout(Xil_In32, IicInstance.Config.BaseAddress +
+	Status = XFsbl_PollTimeout(IicInstance.Config.BaseAddress +
 			XIICPS_SR_OFFSET, Regval, (Regval &
 				XIICPS_SR_BA_MASK) == 0x0U,
 			XFSBL_IIC_BUS_TIMEOUT);
@@ -6697,7 +6718,7 @@ static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	Status = Xil_poll_timeout(Xil_In32, IicInstance.Config.BaseAddress +
+	Status = XFsbl_PollTimeout(IicInstance.Config.BaseAddress +
 			XIICPS_SR_OFFSET, Regval, (Regval &
 				XIICPS_SR_BA_MASK) == 0x0U,
 			XFSBL_IIC_BUS_TIMEOUT);
@@ -6719,7 +6740,7 @@ static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 	/*
 	 * Wait until bus is idle.
 	 */
-	Status = Xil_poll_timeout(Xil_In32, IicInstance.Config.BaseAddress +
+	Status = XFsbl_PollTimeout(IicInstance.Config.BaseAddress +
 			XIICPS_SR_OFFSET, Regval, (Regval &
 				XIICPS_SR_BA_MASK) == 0x0U,
 			XFSBL_IIC_BUS_TIMEOUT);
@@ -6740,7 +6761,7 @@ static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	Status = Xil_poll_timeout(Xil_In32, IicInstance.Config.BaseAddress +
+	Status = XFsbl_PollTimeout(IicInstance.Config.BaseAddress +
 			XIICPS_SR_OFFSET, Regval, (Regval &
 				XIICPS_SR_BA_MASK) == 0x0U,
 			XFSBL_IIC_BUS_TIMEOUT);
@@ -6762,7 +6783,7 @@ static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	Status = Xil_poll_timeout(Xil_In32, IicInstance.Config.BaseAddress +
+	Status = XFsbl_PollTimeout(IicInstance.Config.BaseAddress +
 			XIICPS_SR_OFFSET, Regval, (Regval &
 				XIICPS_SR_BA_MASK) == 0x0U,
 			XFSBL_IIC_BUS_TIMEOUT);
@@ -6784,7 +6805,7 @@ static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 	/*
 	 * Wait until bus is idle.
 	 */
-	Status = Xil_poll_timeout(Xil_In32, IicInstance.Config.BaseAddress +
+	Status = XFsbl_PollTimeout(IicInstance.Config.BaseAddress +
 			XIICPS_SR_OFFSET, Regval, (Regval &
 				XIICPS_SR_BA_MASK) == 0x0U,
 			XFSBL_IIC_BUS_TIMEOUT);
@@ -6814,8 +6835,8 @@ u32 XFsbl_DdrInit(void)
 {
 	u32 Status;
 	u8 SpdData[512U];
-#if !(defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)) \
-	|| defined(XFSBL_ENABLE_DDR_SR)
+#if !(defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106) \
+	|| defined(XPS_BOARD_ZCU111)) || defined(XFSBL_ENABLE_DDR_SR)
 	u32 RegVal;
 #endif
 
@@ -6832,8 +6853,9 @@ u32 XFsbl_DdrInit(void)
 		goto END;
 	}
 
-#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)
-	/* ZCU102 and ZCU106 Boards have support only for DDR4
+#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106) \
+		|| defined(XPS_BOARD_ZCU111)
+	/* ZCU102, ZCU106 and ZCU111 Boards have support only for DDR4
 	 * DIMMs. Skip checking for DDR type for these boards.
 	 */
 	Status = XFsbl_Ddr4Init(SpdData, &DdrData);
@@ -6843,7 +6865,10 @@ u32 XFsbl_DdrInit(void)
 	}
 #else
 	/* Determine the DIMM parameters to be used for register writes */
-	XFsbl_DdrComputeDimmParameters(SpdData, &DdrData);
+	Status = XFsbl_DdrComputeDimmParameters(SpdData, &DdrData);
+	if (Status != XFSBL_SUCCESS) {
+		goto END;
+	}
 
 	/* Initialize the Parameters with their default values */
 	XFsbl_InitilizeDdrParams(&DdrData);
