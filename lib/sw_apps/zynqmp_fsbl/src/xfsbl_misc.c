@@ -247,6 +247,46 @@ void* XFsbl_MemCpy(void * DestPtr, const void * SrcPtr, u32 Len)
 
 /*****************************************************************************/
 /**
+ * This function returns the next integer Value of the current float Value
+ *
+ * @param	Num is the float number
+ *
+ * @return	returns the next Integer Value
+ *
+ *****************************************************************************/
+s32 XFsbl_Ceil(float Num)
+{
+	s32 Inum = (s32)Num;
+
+	if (Num != (float)Inum) {
+		Inum += 1U;
+	}
+
+	return Inum;
+}
+
+/*****************************************************************************/
+/**
+ * This function returns the base integer Value of the current float Value
+ *
+ * @param	Num is the float number
+ *
+ * @return	returns the base Integer Value
+ *
+ *****************************************************************************/
+s32 XFsbl_Round(float Num)
+{
+	s32 Inum = (s32)Num;
+
+	if (Num >= ((float)Inum + 0.50)) {
+		Inum += 1U;
+	}
+
+	return Inum;
+}
+
+/*****************************************************************************/
+/**
  *
  *
  *
