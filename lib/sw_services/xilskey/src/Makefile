@@ -36,7 +36,11 @@ LIB= libxilskey.a
 ifeq ($(notdir $(COMPILER)) , armcc)
 EXTRA_ARCHIVE_FLAGS=--create
 else
-EXTRA_ARCHIVE_FLAGS=rc
+ifeq ($(notdir $(COMPILER)) , armclang)
+      EXTRA_ARCHIVE_FLAGS=-rc
+else
+       EXTRA_ARCHIVE_FLAGS=rc
+endif
 endif
 
 RELEASEDIR=../../../lib
