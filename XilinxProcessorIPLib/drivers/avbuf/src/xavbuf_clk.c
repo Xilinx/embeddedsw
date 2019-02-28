@@ -332,7 +332,7 @@ static void XAVBuf_ReadModifyWriteReg(u32 BaseAddress, u32 RegOffset, u32 Mask,
 *******************************************************************************/
 static int  XAVBuf_ConfigurePll(XAVBuf_Pll *PllInstancePtr)
 {
-	u64 BaseAddress = PllInstancePtr->BaseAddress;
+	u32 BaseAddress = PllInstancePtr->BaseAddress;
 	u64 timer = 0;
 	u32 RegPll = 0;
 	u8 Pll = PllInstancePtr->Pll;
@@ -419,7 +419,7 @@ static int  XAVBuf_ConfigurePll(XAVBuf_Pll *PllInstancePtr)
  *
 *******************************************************************************/
 static void  XAVBuf_ConfigureExtDivider(XAVBuf_Pll *PllInstancePtr,
-					u64 BaseAddress, u32 Offset)
+					u32 BaseAddress, u32 Offset)
 {
 	XAVBuf_ReadModifyWriteReg(BaseAddress, Offset,
 		XAVBUF_VIDEO_REF_CTRL_CLKACT_MASK,
