@@ -30,7 +30,7 @@
 /**
 *
 * @file xcsudma.c
-* @addtogroup csudma_v1_5
+* @addtogroup csudma_v1_4
 * @{
 *
 * This file contains the implementation of the interface functions for CSU_DMA
@@ -44,7 +44,7 @@
 * 1.0   vnsld   22/10/14 First release
 * 1.1   adk     10/05/16 Fixed CR#951040 race condition in the recv path when
 *                        source and destination points to the same buffer.
-* 1.5	Nava	1/10/19	 Added PSU_PMU processor check to skip the Flushing
+* 1.4	Nava	1/10/19	 Added PSU_PMU processor check to skip the Flushing
 *			 cache memory and Invalidating cache memory API's for
 *			 PMU Microblaze platform.
 * </pre>

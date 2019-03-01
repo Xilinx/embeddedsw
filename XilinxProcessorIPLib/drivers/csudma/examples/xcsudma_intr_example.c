@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014-2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -46,7 +46,7 @@
 * ----- ------  -------- -----------------------------------------------------
 * 1.0   vnsld  22/10/14 First release
 * 1.2   adk    11/22/17 Added peripheral test app support.
-* 2.0   adk     04/12/17 Added support for PMC DMA.
+* 1.4   adk     04/12/17 Added support for PMC DMA.
 * 	adk    11/01/18 Declared static array rather than hard code memory for
 *			buffers.
 *	adk    18/01/18 Remove unnecessary column in XIntc_Connect() API.
