@@ -230,7 +230,7 @@ int XilSKey_Bbram_Program(XilSKey_Bbram *InstancePtr);
 
 /* Functions to program AES key and function to zeroise AES key */
 u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey);
-void XilSKey_ZynqMp_Bbram_Zeroise(void);
+u32 XilSKey_ZynqMp_Bbram_Zeroise(void);
 /**@}*/
 
 #ifdef __cplusplus
