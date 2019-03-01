@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015- 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015- 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xrtcpsu_intr.c
-* @addtogroup rtcpsu_v1_6
+* @addtogroup rtcpsu_v1_7
 * @{
 *
 * This file contains functions related to RTC interrupt handling.
@@ -155,7 +155,7 @@ void XRtcPsu_SetHandler(XRtcPsu *InstancePtr, XRtcPsu_Handler FuncPtr,
 	Xil_AssertVoid(FuncPtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	InstancePtr->Handler = (XRtcPsu_Handler)FuncPtr;
+	InstancePtr->Handler = FuncPtr;
 	InstancePtr->CallBackRef = CallBackRef;
 }
 
