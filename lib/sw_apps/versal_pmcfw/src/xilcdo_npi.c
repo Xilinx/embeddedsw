@@ -53,6 +53,8 @@
 #include "xilcdo_npi.h"
 #include "xpmcfw_util.h"
 #include "xpmcfw_hw.h"
+#include "xilcdo.h"
+#include "xpmcfw_main.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -959,8 +961,7 @@ u32 XilCdo_ScanClear(u32 NpiParam)
 		XPmcFw_UtilRMW(PMC_ANALOG_SCAN_CLEAR_TRIGGER,
 				PMC_ANALOG_SCAN_CLEAR_TRIGGER_NOC_MASK,
 				PMC_ANALOG_SCAN_CLEAR_TRIGGER_NOC_MASK);
-
-		XilCdo_WaitForScanClearDone();
+		usleep(200);
 		ScanClearDone = TRUE;
 		Status = XilCdo_CheckScanClearPass();
 	}
@@ -977,26 +978,15 @@ u32 XilCdo_CheckScanClearPass(void)
 	if(Platform != PMC_TAP_VERSION_SPP)
 	{
 		/* Check for Scan Clear success */
-		Status = ((Xil_In32(PMC_ANALOG_SCAN_CLEAR_DONE)
-				& PMC_ANALOG_SCAN_CLEAR_PASS_PMC_MASK)
-				!= PMC_ANALOG_SCAN_CLEAR_PASS_PMC_MASK);
+		Status = ((Xil_In32(PMC_GLOBAL_PMC_ERR1_STATUS)
+					& PMC_GLOBAL_PMC_ERR1_STATUS_NOC_TYPE1_NCR_MASK)
+					!= PMC_GLOBAL_PMC_ERR1_STATUS_NOC_TYPE1_NCR_MASK);
 	}
 	else
 	{
 		Status = XST_SUCCESS;
 	}
 	return Status;
-}
-
-void XilCdo_WaitForScanClearDone(void)
-{
-	if(Platform != PMC_TAP_VERSION_SPP)
-	{
-		/* Wait for Scan Clear to complete */
-		while((Xil_In32(PMC_ANALOG_SCAN_CLEAR_DONE)
-			& PMC_ANALOG_SCAN_CLEAR_DONE_PMC_MASK)
-			!= PMC_ANALOG_SCAN_CLEAR_DONE_PMC_MASK);
-	}
 }
 
 u32 XilCdo_ScanClearME(u32 BaseAddr)
