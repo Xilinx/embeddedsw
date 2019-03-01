@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   12/21/2017 Initial release
+* 2.00  bsv  03/01/2019 Added error handling APIs
 *
 * </pre>
 *
@@ -177,7 +178,9 @@ void XCfupmc_StartGlblSeq(XCfupmc *InstancePtr);
 void XCfupmc_EndGlblSeq(XCfupmc *InstancePtr);
 void XCfupmc_Reset(XCfupmc *InstancePtr);
 void XCfupmc_WaitForStreamDone(XCfupmc *InstancePtr);
-
+void XCfupmc_CfuErrHandler(XCfupmc *InstancePtr);
+void XCfupmc_CfiErrHandler(XCfupmc *InstancePtr);
+void XCfupmc_ExtErrorHandler(XCfupmc *InstancePtr);
 #ifdef __cplusplus
 }
 #endif

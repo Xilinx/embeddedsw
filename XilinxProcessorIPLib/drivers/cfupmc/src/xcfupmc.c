@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017-2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   12/21/2017 Initial release
+* 2.00  bsv	 03/01/2019	Added error handling APIs
 *
 * </pre>
 *
@@ -53,7 +54,7 @@
 
 /***************************** Include Files *********************************/
 #include "xcfupmc.h"
-
+#include "sleep.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -480,4 +481,80 @@ void XCfupmc_WaitForStreamDone(XCfupmc *InstancePtr)
 	while ((XCfupmc_ReadStatus() &
 	       CFU_APB_CFU_STATUS_CFU_STREAM_BUSY_MASK) ==
 	       CFU_APB_CFU_STATUS_CFU_STREAM_BUSY_MASK);
+}
+
+/*****************************************************************************/
+/**
+ * This function handles CFU errors
+ *
+ * @param	InstancePtr is a pointer to the XCfupmc instance.
+ *
+ * @return	None
+ *
+ ******************************************************************************/
+void XCfupmc_CfuErrHandler(XCfupmc *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XCfupmc_Reset(InstancePtr);
+	XCfupmc_ClearIsr(InstancePtr, (CFU_APB_CFU_ISR_CRC8_ERROR_MASK |
+					CFU_APB_CFU_ISR_CRC32_ERROR_MASK));
+}
+
+/*****************************************************************************/
+/**
+ * This function handles CFI errors
+ *
+ * @param	InstancePtr is a pointer to the XCfupmc instance.
+ *
+ * @return	None
+ *
+ ******************************************************************************/
+void XCfupmc_CfiErrHandler(XCfupmc *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XCfupmc_Reset(InstancePtr);
+	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
+						CFU_APB_CFU_CTL_SEU_GO_MASK, 0U);
+	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
+						CFU_APB_CFU_CTL_DECOMPRESS_MASK, 0U);
+	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
+						CFU_APB_CFU_CTL_IGNORE_CFI_ERROR_MASK,
+						CFU_APB_CFU_CTL_IGNORE_CFI_ERROR_MASK);
+	XCfupmc_ClearIsr(InstancePtr, (CFU_APB_CFU_ISR_CFI_ROW_ERROR_MASK |
+			CFU_APB_CFU_ISR_BAD_CFI_PACKET_MASK));
+	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
+							CFU_APB_CFU_CTL_IGNORE_CFI_ERROR_MASK,0U);
+}
+
+/****************************************?*************************************/
+/**
+* This function is called when bitstream transfer is aborted by user
+*
+* @param   InstancePtr is a pointer to the XCfupmc instance.
+*
+* @return  None
+*
+*****************************************?*************************************/
+void XCfupmc_ExtErrorHandler(XCfupmc *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
+			CFU_APB_CFU_CTL_CFRAME_DISABLE_MASK,
+			CFU_APB_CFU_CTL_CFRAME_DISABLE_MASK);
+	usleep(10);
+	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
+			CFU_APB_CFU_CTL_CFRAME_DISABLE_MASK, 0U);
+	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
+			CFU_APB_CFU_CTL_SEU_GO_MASK, 0U);
+	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
+			CFU_APB_CFU_CTL_DECOMPRESS_MASK, 0U);
+	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
+			CFU_APB_CFU_CTL_CFI_LOCAL_RESET_MASK,
+			CFU_APB_CFU_CTL_CFI_LOCAL_RESET_MASK);
+	usleep(10);
+	XCfupmc_MaskRegWrite(InstancePtr, CFU_APB_CFU_CTL,
+			CFU_APB_CFU_CTL_CFI_LOCAL_RESET_MASK, 0U);
 }
