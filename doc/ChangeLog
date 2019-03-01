@@ -433,12 +433,13 @@ Resetps_v1_2
 Fixed compilation warnings in resetps driver
 Fixed Doxygen reported warnings
 
-rtcpsu_v1_6
+rtcpsu_v1_7
 Modified logic to get the last day of month correctly.(CR#1004282)
 Removed Checkpatch warnings.
 Resolved cppcheck and doxygen warnings.
 Resolved MISRA-C mandatory violations.(CR#1007752)
 Fixed compilation warnings.
+Added Versal support & Fixed MISRA-C violations.
 
 usbpsu_v1_4
 Fixed the errors which occur when tested with IAR compiler
