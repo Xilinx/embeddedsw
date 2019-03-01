@@ -727,6 +727,7 @@ typedef enum {
 						* programming reserved bits. */
 	XSK_EFUSEPS_ERROR_ADDR_ACCESS = 0x00E0U, /**< 0x00E0<br>Error in
 							* accessing requested address. */
+	XSK_EFUSEPS_ERROR_READ_NOT_DONE = 0x00F0U,/**< 0x00F0<br>Read not done */
 	/**
 	 * XSKEfuse_Write/Read()common error codes
 	 */
@@ -948,9 +949,12 @@ typedef enum {
 	XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG = 0xC000U,		/**< 0xC000<br>
 							  *  programming of key
 							  *  is failed. */
-	XSK_ZYNQMP_BBRAMPS_ERROR_IN_ZEROISE = 0xE700U      /** <0xE700<br>
+	XSK_ZYNQMP_BBRAMPS_ERROR_IN_ZEROISE = 0xE700U,      /** <0xE700<br>
 							   *  zeroize bbram is
 							   *	failed. */
+	XSK_ZYNQMP_BBRAMPS_ERROR_IN_WRITE_CRC = 0xE800U    /* ** <0xE800<br>
+							    * error write CRC
+							    * value. */
 }XskZynqMp_Ps_Bbram_ErrorCodes;
  /** @} */
 /** @cond xilskey_internal
