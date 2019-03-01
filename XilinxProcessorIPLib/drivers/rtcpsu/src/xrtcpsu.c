@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
  *
  * @file xrtcpsu.c
- * @addtogroup rtcpsu_v1_6
+ * @addtogroup rtcpsu_v1_7
  * @{
  *
  * Functions in this file are the minimum required functions for the XRtcPsu
@@ -399,7 +399,9 @@ u32 XRtcPsu_DateTimeToSec(XRtcPsu_DT *dt)
 		dt->Year -= 2000U;
 
 	for (i = 1U; i < dt->Month; i++)
+        {
 		dt->Day += (u32)DaysInMonth[i-1];
+        }
 	if ((dt->Month > 2U) && ((dt->Year % 4U) == 0U))
 		dt->Day++;
 
