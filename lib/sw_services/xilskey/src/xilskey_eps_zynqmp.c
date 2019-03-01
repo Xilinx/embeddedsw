@@ -1070,6 +1070,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
 	u32 ReadValue;
 	u32 EfusePsType = (u32)EfuseType;
 	u32 Status = (u32)XST_SUCCESS;
+	u32 TimeOut = 0U;
 
 	WriteValue = ((EfusePsType << (u32)XSK_ZYNQMP_EFUSEPS_RD_ADDR_SHIFT) &
 					(u32)XSK_ZYNQMP_EFUSEPS_RD_ADDR_MASK) |
@@ -1078,18 +1079,23 @@ u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
 	XilSKey_WriteReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 		XSK_ZYNQMP_EFUSEPS_RD_ADDR_OFFSET, WriteValue);
 
-	/* Check for read completion */
-	ReadValue = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
+	while (TimeOut < XSK_POLL_TIMEOUT) {
+		/* Check for read completion */
+		ReadValue = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 					XSK_ZYNQMP_EFUSEPS_ISR_OFFSET) &
 				(XSK_ZYNQMP_EFUSEPS_ISR_RD_ERR_MASK |
 				XSK_ZYNQMP_EFUSEPS_ISR_RD_DONE_MASK);
-	while (ReadValue == 0x00U) {
-		ReadValue =
-		XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
-				XSK_ZYNQMP_EFUSEPS_ISR_OFFSET) &
-			(XSK_ZYNQMP_EFUSEPS_ISR_RD_ERR_MASK |
-				XSK_ZYNQMP_EFUSEPS_ISR_RD_DONE_MASK);
+		if (ReadValue != 0x00U) {
+			break;
+		}
+		TimeOut = TimeOut + 1U;
 	}
+
+	if ((ReadValue & XSK_ZYNQMP_EFUSEPS_ISR_RD_DONE_MASK) == 0U) {
+		Status = (u32)XSK_EFUSEPS_ERROR_READ_NOT_DONE;
+		goto END;
+	}
+
 	if ((ReadValue & XSK_ZYNQMP_EFUSEPS_ISR_RD_ERR_MASK) != 0U) {
 		Status = (u32)XSK_EFUSEPS_ERROR_READ;
 		goto END;
@@ -1854,6 +1860,7 @@ u32 XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc(u32 CrcValue)
 
 	u32 Status = (u32)XST_SUCCESS;
 	u32 ReadReg;
+	u32 TimeOut = 0U;
 
 	/* Check the unlock status */
 	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
@@ -1875,11 +1882,20 @@ u32 XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc(u32 CrcValue)
 		XSK_ZYNQMP_EFUSEPS_AES_CRC_OFFSET,
 		(CrcValue & XSK_ZYNQMP_EFUSEPS_AES_CRC_VAL_MASK));
 
-	/* Poll for CRC Done bit */
-	ReadReg = XilSKey_ZynqMp_EfusePs_Status();
-
-	while ((ReadReg & XSK_ZYNQMP_EFUSEPS_STS_AES_CRC_DONE_MASK) == 0x00U) {
+	while (TimeOut < XSK_POLL_TIMEOUT) {
+		/* Poll for CRC Done bit */
 		ReadReg = XilSKey_ZynqMp_EfusePs_Status();
+		if ((ReadReg & XSK_ZYNQMP_EFUSEPS_STS_AES_CRC_DONE_MASK) !=
+								0x00U) {
+			break;
+		}
+		TimeOut = TimeOut + 1U;
+	}
+
+	if ((ReadReg & XSK_ZYNQMP_EFUSEPS_STS_AES_CRC_DONE_MASK) ==
+								0x00U) {
+		Status = (u32)XST_FAILURE;
+		goto END;
 	}
 
 	if ((ReadReg & XSK_ZYNQMP_EFUSEPS_STS_AES_CRC_PASS_MASK) == 0x00U) {
