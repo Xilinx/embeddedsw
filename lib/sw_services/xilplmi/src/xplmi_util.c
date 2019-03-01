@@ -200,7 +200,7 @@ int XPlmi_UtilPoll64(u64 Addr, u32 Mask, u32 ExpectedValue, u32 TimeOutInMs)
 	/**
 	 * Read the Register value
 	 */
-	ReadValue = Xil_In64(Addr);
+	ReadValue = XPlmi_In64(Addr);
 
 	/**
 	 * Loop while the Mask is not set or we timeout
@@ -209,7 +209,7 @@ int XPlmi_UtilPoll64(u64 Addr, u32 Mask, u32 ExpectedValue, u32 TimeOutInMs)
 		/**
 		 * Latch up the value again
 		 */
-		ReadValue = Xil_In64(Addr);
+		ReadValue = XPlmi_In64(Addr);
 
 		/**
 		 * Decrement the TimeOut Count
