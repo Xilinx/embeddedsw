@@ -1267,7 +1267,6 @@ static XStatus PowerUp_FP(void)
 {
 	XStatus Status = XST_SUCCESS;
 
-#ifdef SPP_HACK
 	/* Run pre house cleaning on FPD */
 	Status = XPsmFw_FpdPreHouseClean();
 	if (XST_SUCCESS != Status) {
@@ -1297,8 +1296,8 @@ static XStatus PowerUp_FP(void)
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
+
 done:
-#endif // SPP_HACK
 	return Status;
 }
 
