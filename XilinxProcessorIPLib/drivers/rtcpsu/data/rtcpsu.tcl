@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,7 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 1.0   kvn   4/21/15 First release
-#
+# 1.7   sne   2/27/19 Added support for Versal
 ##############################################################################
 
 #uses "xillib.tcl"
