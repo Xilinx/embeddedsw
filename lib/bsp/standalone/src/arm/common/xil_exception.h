@@ -49,6 +49,9 @@
 * 6.0   mus      27/07/16 Consolidated file for a53,a9 and r5 processors
 * 6.7   mna      26/04/18 Add API Xil_GetExceptionRegisterHandler.
 * 6.7   asa      18/05/18 Update signature of API Xil_GetExceptionRegisterHandler.
+* 7.0   mus      01/03/19 Tweak Xil_ExceptionEnableMask and
+*                         Xil_ExceptionDisableMask macros to support legacy
+*                         examples for Cortexa72 EL3 exception level.
 * </pre>
 *
 ******************************************************************************/
@@ -120,7 +123,15 @@ typedef void (*Xil_InterruptHandler)(void *data);
 *			C-Style signature: void Xil_ExceptionEnableMask(Mask)
 *
 ******************************************************************************/
-#if defined (__GNUC__) || defined (__ICCARM__)
+#if defined (versal) && !defined(ARMR5) && EL3
+/*
+ * Cortexa72 processor in versal is coupled with GIC-500, and GIC-500 supports
+ * only FIQ at EL3. Hence, tweaking this macro to always enable FIQ
+ * ignoring argument passed by user.
+ */
+#define Xil_ExceptionEnableMask(Mask)	\
+		mtcpsr(mfcpsr() & ~ ((XIL_EXCEPTION_FIQ) & XIL_EXCEPTION_ALL))
+#elif defined (__GNUC__) || defined (__ICCARM__)
 #define Xil_ExceptionEnableMask(Mask)	\
 		mtcpsr(mfcpsr() & ~ ((Mask) & XIL_EXCEPTION_ALL))
 #else
@@ -159,7 +170,15 @@ typedef void (*Xil_InterruptHandler)(void *data);
 *			C-Style signature: Xil_ExceptionDisableMask(Mask)
 *
 ******************************************************************************/
-#if defined (__GNUC__) || defined (__ICCARM__)
+#if defined (versal) && !defined(ARMR5) && EL3
+/*
+ * Cortexa72 processor in versal is coupled with GIC-500, and GIC-500 supports
+ * only FIQ at EL3. Hence, tweaking this macro to always disable FIQ
+ * ignoring argument passed by user.
+ */
+#define Xil_ExceptionDisableMask(Mask)	\
+		mtcpsr(mfcpsr() | ((XIL_EXCEPTION_FIQ) & XIL_EXCEPTION_ALL))
+#elif defined (__GNUC__) || defined (__ICCARM__)
 #define Xil_ExceptionDisableMask(Mask)	\
 		mtcpsr(mfcpsr() | ((Mask) & XIL_EXCEPTION_ALL))
 #else
