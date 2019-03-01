@@ -43,6 +43,13 @@
 * 1.3   vak    04/25/16 Changed the XRtcPsu_InterruptHandler() for updating RTC
 *                       read and write time logic(cr#948833).
 * 1.6   aru    08/17/18 Resolved MISRA-C mandatory violations.(CR#1007752)
+* 1.7   sne    03/01/19 Added Versal support.
+* 1.7   sne    03/01/19 Fixed violations according to MISRAC-2012 standards
+*                       modified the code such as
+*                       No brackets to loop body,Declared the poiner param
+*                       as Pointer to const,No brackets to then/else,
+*                       Literal value requires a U suffix,Casting operation to a pointer
+*                       Array has no bounds specified,Logical conjunctions need brackets.
 * </pre>
 *
 ******************************************************************************/
