@@ -37,8 +37,7 @@ static XStatus HandlePlDomainEvent(XPm_Node *Node, u32 Event)
 	u32 Status = XST_FAILURE;
 	XPm_Power *Power = (XPm_Power *)Node;
 
-	PmDbg("State=%s, Event=%s\n\r",
-		PmPowerStates[Node->State], PmPowerEvents[Event]);
+	PmDbg("State=%d, Event=%d\n\r", Node->State, Event);
 
 	switch (Node->State)
 	{
@@ -67,8 +66,8 @@ static XStatus HandlePlDomainEvent(XPm_Node *Node, u32 Event)
 			}
 			break;
 		default:
-			PmWarn("Wrong state (%s) for event (%s)\n",
-				PmPowerStates[Node->State], PmPowerEvents[Event]);
+			PmWarn("Wrong state %d for event %d\n",
+			       Node->State, Event);
 			break;
 	}
 
@@ -77,7 +76,7 @@ static XStatus HandlePlDomainEvent(XPm_Node *Node, u32 Event)
 
 XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id)
 {
-	XPmPowerDomain_Init(&PlDomain->Domain, Id, 0x00000000, NULL);
+	XPmPowerDomain_Init(&PlDomain->Domain, Id, 0x00000000, NULL, NULL);
 
 	PlDomain->Domain.Power.Node.State = XPM_POWER_STATE_OFF;
 	PlDomain->Domain.Power.UseCount = 1;
