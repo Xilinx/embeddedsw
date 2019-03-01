@@ -42,6 +42,7 @@
 * 1.1   Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.2   Hyun    12/13/2018  Added the core PC event API
 * 1.4   Jubaer  02/14/2019  Add Broadcast Get API
+* 1.5   Jubaer  02/26/2019  Add group Event API
 * </pre>
 *
 ******************************************************************************/
@@ -73,6 +74,44 @@
 #define XAIETILE_EVENT_CORE_PC_EVENT1			0x1U
 #define XAIETILE_EVENT_CORE_PC_EVENT2			0x2U
 #define XAIETILE_EVENT_CORE_PC_EVENT3			0x3U
+
+/*
+ * Core Group Event ID
+ */
+#define XAIETILE_GROUP_EVENT_CORE_0			0x0U
+#define XAIETILE_GROUP_EVENT_CORE_PC			0x1U
+#define XAIETILE_GROUP_EVENT_CORE_CORE_STALL			0x2U
+#define XAIETILE_GROUP_EVENT_CORE_CORE_PROGRAM_FLOW			0x3U
+#define XAIETILE_GROUP_EVENT_CORE_ERROR0			0x4U
+#define XAIETILE_GROUP_EVENT_CORE_ERROR1			0x5U
+#define XAIETILE_GROUP_EVENT_CORE_STREAM_SWITCH			0x6U
+#define XAIETILE_GROUP_EVENT_CORE_BROADCAST			0x7U
+#define XAIETILE_GROUP_EVENT_CORE_USER_EVENT			0x8U
+
+/*
+ * Memory Group Event ID
+ */
+#define XAIETILE_GROUP_EVENT_MEM_0			0x0U
+#define XAIETILE_GROUP_EVENT_MEM_WATCH_POINT			0x1U
+#define XAIETILE_GROUP_EVENT_MEM_DMA			0x2U
+#define XAIETILE_GROUP_EVENT_MEM_LOCK			0x3U
+#define XAIETILE_GROUP_EVENT_MEM_MEMORY_CONFLICT			0x4U
+#define XAIETILE_GROUP_EVENT_MEM_ERROR			0x5U
+#define XAIETILE_GROUP_EVENT_MEM_BROADCAST			0x6U
+#define XAIETILE_GROUP_EVENT_MEM_USER			0x7U
+
+/*
+ * PL Group Event ID
+ */
+#define XAIETILE_GROUP_EVENT_PL_0			0x0U
+#define XAIETILE_GROUP_EVENT_PL_DMA_ACTIVITY			0x1U
+#define XAIETILE_GROUP_EVENT_PL_LOCK			0x2U
+#define XAIETILE_GROUP_EVENT_PL_ERRORS			0x3U
+#define XAIETILE_GROUP_EVENT_PL_STREAM_SWITCH			0x4U
+#define XAIETILE_GROUP_EVENT_PL_BROADCAST			0x5U
+#define XAIETILE_GROUP_EVENT_PL_USER			0x6U
+
+#define XAIETILE_GROUP_EVENT_LSB			0x0U
 
 /*
  * Core module events
@@ -477,6 +516,8 @@ u8 XAieTileCore_EventPCEvent(XAieGbl_Tile *TileInstPtr, u8 PCEvent, u16 PCAddr, 
 u32 XAieTile_CoreEventBroadcastGet(XAieGbl_Tile *TileInstPtr, u8 BroadcastId);
 u32 XAieTile_CoreEventStatusGet(XAieGbl_Tile *TileInstPtr, u8 Event);
 void XAieTile_CoreEventStatusClear(XAieGbl_Tile *TileInstPtr, u8 Event, u32 Mask);
+u32 XAieTile_CoreGroupEventGet(XAieGbl_Tile *TileInstPtr, u8 groupId);
+void XAieTile_CoreGroupEventSet(XAieGbl_Tile *TileInstPtr, u8 groupId, u32 Mask);
 
 /*
  * PL module
@@ -492,6 +533,8 @@ u32 XAieTilePl_EventBroadcastBlockValue(XAieGbl_Tile *TileInstPtr, u8 Dir, u8 Sw
 u32 XAieTile_PlEventBroadcastGet(XAieGbl_Tile *TileInstPtr, u8 BroadcastId);
 u32 XAieTile_PlEventStatusGet(XAieGbl_Tile *TileInstPtr, u8 Event);
 void XAieTile_PlEventStatusClear(XAieGbl_Tile *TileInstPtr, u8 Event, u32 Mask);
+u32 XAieTile_PlGroupEventGet(XAieGbl_Tile *TileInstPtr, u8 groupId);
+void XAieTile_PlGroupEventSet(XAieGbl_Tile *TileInstPtr, u8 groupId, u32 Mask);
 
 /*
  * Memory module
@@ -507,6 +550,8 @@ u32 XAieTileMem_EventBroadcastBlockValue(XAieGbl_Tile *TileInstPtr, u8 Dir);
 u32 XAieTile_MemEventBroadcastGet(XAieGbl_Tile *TileInstPtr, u8 BroadcastId);
 u32 XAieTile_MemEventStatusGet(XAieGbl_Tile *TileInstPtr, u8 Event);
 void XAieTile_MemEventStatusClear(XAieGbl_Tile *TileInstPtr, u8 Event, u32 Mask);
+u32 XAieTile_MemGroupEventGet(XAieGbl_Tile *TileInstPtr, u8 groupId);
+void XAieTile_MemGroupEventSet(XAieGbl_Tile *TileInstPtr, u8 groupId, u32 Mask);
 
 /*
  * Core module Column
