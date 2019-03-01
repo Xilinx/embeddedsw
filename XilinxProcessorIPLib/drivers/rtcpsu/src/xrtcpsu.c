@@ -157,8 +157,8 @@ s32 XRtcPsu_CfgInitialize(XRtcPsu *InstancePtr, XRtcPsu_Config *ConfigPtr,
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
 	/* Clear TimeUpdated and CurrTimeUpdated */
-	InstancePtr->TimeUpdated = 0;
-	InstancePtr->CurrTimeUpdated = 0;
+	InstancePtr->TimeUpdated = (u32)0U;
+	InstancePtr->CurrTimeUpdated = (u32)0U;
 
 	Status = XST_SUCCESS;
 	return Status;
@@ -212,14 +212,14 @@ void XRtcPsu_SetTime(XRtcPsu *InstancePtr, u32 Time)
 	/* clear the RTC secs interrupt from status register */
 	XRtcPsu_WriteReg(InstancePtr->RtcConfig.BaseAddr + XRTC_INT_STS_OFFSET,
 						XRTC_INT_STS_SECS_MASK);
-	InstancePtr->CurrTimeUpdated = 0;
+	InstancePtr->CurrTimeUpdated = (u32)0U;
 	/* Update the flag before setting the time */
-	InstancePtr->TimeUpdated = 1;
+	InstancePtr->TimeUpdated = (u32)1U;
 	/* Since RTC takes 1 sec to update the time into current
 	 * time register, write
 	 * load time + 1sec into the set time register.
 	 */
-	XRtcPsu_WriteSetTime(InstancePtr, Time + 1);
+	XRtcPsu_WriteSetTime(InstancePtr, Time + (u32)1U);
 }
 
 /****************************************************************************/
