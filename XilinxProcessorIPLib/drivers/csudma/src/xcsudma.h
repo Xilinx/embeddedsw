@@ -84,7 +84,7 @@
 * to build and link only those parts of the driver that are necessary.
 *
 * @file xcsudma.h
-* @addtogroup csudma_v1_5
+* @addtogroup csudma_v1_4
 * @{
 * @details
 *
@@ -106,7 +106,7 @@
 *       ms      04/10/17 Modified filename tag in xcsudma_selftest_example.c to
 *                        include the file in doxygen examples.
 * 1.2   adk     11/22/17 Added peripheral test app support for CSUDMA driver.
-* 2.0   adk     04/12/17 Added support for PMC DMA.
+* 1.4   adk     04/12/17 Added support for PMC DMA.
 *       adk     09/03/18 Added new API XCsuDma_64BitTransfer() useful for 64-bit
 *                        dma transfers through PMU processor(CR#996201).
 *       adk     25/06/18 Move CRP and PMC Global address defines to
