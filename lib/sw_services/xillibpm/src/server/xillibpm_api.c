@@ -43,6 +43,7 @@
 #include "xpm_power.h"
 #include "xpm_pin.h"
 #include "xplmi_modules.h"
+#include "xpm_aie.h"
 
 void (* PmRequestCb)(u32 SubsystemId, const u32 EventId, u32 *Payload);
 
@@ -412,6 +413,7 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function)
 	case XPM_NODEIDX_POWER_FPD:
 	case XPM_NODEIDX_POWER_NOC:
 	case XPM_NODEIDX_POWER_PLD:
+	case XPM_NODEIDX_POWER_ME:
 		Status = XPmPowerDomain_InitDomain(PwrDomainNode, Function);
 		break;
 	default:
@@ -2394,6 +2396,7 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 	XPm_PmcDomain *PmcDomain;
 	XPm_PsLpDomain *PsLpDomain;
 	XPm_PlDomain *PlDomain;
+	XPm_AieDomain *AieDomain;
 
 	if (NumArgs < 3) {
 		Status = XST_INVALID_PARAM;
@@ -2482,6 +2485,14 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 				goto done;
 			}
 			Status = XPmPlDomain_Init((XPm_PlDomain *)PlDomain, PowerId);
+			break;
+		case XPM_NODETYPE_POWER_DOMAIN_ME:
+			AieDomain = (XPm_AieDomain *)XPm_AllocBytes(sizeof(XPm_AieDomain));
+			if (NULL == AieDomain) {
+				Status = XST_BUFFER_TOO_SMALL;
+				goto done;
+			}
+			Status = XPmAieDomain_Init(AieDomain, PowerId, BitMask, PowerParent);
 			break;
 		default:
 			Status = XST_INVALID_PARAM;
