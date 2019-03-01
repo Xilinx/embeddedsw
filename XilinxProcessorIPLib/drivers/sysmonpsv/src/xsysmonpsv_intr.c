@@ -29,7 +29,7 @@
 /**
 *
 * @file xsysmonpsv_intr.c
-* @addtogroup sysmonpsv_v10
+* @addtogroup sysmonpsv_v1_0
 *
 * Functions in this file are the minimum required functions for the XSysMonPsv
 * driver. See xsysmonpsv.h for a detailed description of the driver.
@@ -222,5 +222,48 @@ void XSysMonPsv_IntrClear(XSysMonPsv *InstancePtr, u32 Mask)
 			    XSYSMONPSV_ISR_OFFSET, Mask);
 }
 
+
+/****************************************************************************/
+/**
+*
+* This function sets a supply as a source new data interrupt.
+*
+* @param	InstancePtr is a pointer to the XSysMonPsv instance.
+* @param	Supply is an enum from the XSysMonPsv_Supply
+* @param	Mask is a 32 bit Mask for NEW_DATA_n fields in the interrupt
+*		registers
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+void XSysMonPsv_SetNewDataIntSrc(XSysMonPsv *InstancePtr,
+				XSysMonPsv_Supply Supply, u32 Mask)
+{
+	u32 Reg, Val, Shift, Index;
+
+	/* Assert the arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(Mask & XSYSMONPSV_INTR_NEW_DATA_MASK);
+
+	Reg = XSysMonPsv_ReadReg(InstancePtr->Config.BaseAddress +
+				 XSYSMONPSV_NEW_DATA_INT_SRC);
+	Val = (Mask & XSYSMONPSV_INTR_NEW_DATA_MASK) >>
+		XSYSMONPSV_INTR_NEW_DATA_SHIFT;
+
+	for(Index = 0; Index < 4; Index++) {
+		Val = Val >> 1;
+
+		if(Val == 0)
+			break;
+	}
+
+	Shift = XSYSMONPSV_NEW_DATA_INT_SRC_ADDR_ID1_SHIFT * Index;
+	Val = InstancePtr->Config.Supply_List[Supply];
+	Reg |= Val << Shift;
+
+	XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress +
+			    XSYSMONPSV_NEW_DATA_INT_SRC, Reg);
+}
 
 /** @} */
