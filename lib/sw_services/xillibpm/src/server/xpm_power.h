@@ -29,6 +29,7 @@
 #ifndef XPM_POWER_H_
 #define XPM_POWER_H_
 
+#include "xillibpm_defs.h"
 #include "xpm_node.h"
 
 typedef enum {
@@ -78,6 +79,7 @@ extern XPm_Power *PmPowers[];
 XStatus XPmPower_Init(XPm_Power *Power,
 	u32 Id, u32 BaseAddress, XPm_Power *Parent);
 XStatus XPmPower_AddParent(u32 Id, u32 *Parents, u32 NumParents);
+XStatus XPmPower_GetStatus(const u32 SubsystemId, const u32 DeviceId, XPm_DeviceStatus *const DeviceStatus);
 
 /** @} */
 #endif /* XPM_POWER_H_ */
