@@ -162,6 +162,9 @@ u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
 	u32 SpkId;
 	u8 Column;
 
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
 	/* Unlock the controller */
 	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 
@@ -475,6 +478,9 @@ u32 XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits(
 {
 	u32 Status;
 
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(ReadBackSecCtrlBits != NULL);
+
 	if (ReadOption == 0U) {
 		Status = XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits_Regs(
 					ReadBackSecCtrlBits, ReadOption);
@@ -702,6 +708,9 @@ static inline u32 XilSKey_ZynqMp_EfusePsWrite_Checks(
 {
 	u32 RowOffset;
 	u32 Status;
+
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/**
 	 * Check the temperature and voltage(VCC_AUX and VCC_PINT_LP)
@@ -1332,6 +1341,9 @@ static inline u32 XilSKey_ZynqMp_EfusePs_Write_SecCtrl(
 
 	u32 Status;
 
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
 	/* Programming Secure and control bits of eFuse */
 	Status = XilSKey_ZynqMp_EfusePs_Write_SecCtrlBits(InstancePtr);
 	if (Status != (u32)XST_SUCCESS) {
@@ -1369,6 +1381,9 @@ static inline u32 XilSKey_ZynqMp_EfusePs_Write_SecCtrlBits(
 	u32 Row;
 	u32 RowDataVal;
 	u8 DataInBits[XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW] = {0};
+
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	Row = XSK_ZYNQMP_EFUSEPS_SEC_CTRL_ROW;
 
@@ -1649,6 +1664,9 @@ static inline u32 XilSKey_ZynqMp_EfusePs_Write_UsrCtrlBits(
 	u8 DataInBits[XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW] = {0};
 	u32 RowDataVal;
 
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
 	if ((InstancePtr->PrgrmgSecCtrlBits.UserWrLk0 != 0x00U) ||
 		(InstancePtr->PrgrmgSecCtrlBits.UserWrLk1 != 0x00U) ||
 		(InstancePtr->PrgrmgSecCtrlBits.UserWrLk2 != 0x00U) ||
@@ -1899,6 +1917,9 @@ u32 XilSKey_ZynqMp_EfusePs_ReadUserFuse(u32 *UseFusePtr, u8 UserFuse_Num,
 	u32 Status = (u32)XST_SUCCESS;
 	XskEfusePs_Type EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
 
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(UseFusePtr != NULL);
+
 	if (ReadOption ==  0U) {
 		*UseFusePtr = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 				(XSK_ZYNQMP_EFUSEPS_USER_0_OFFSET
@@ -1964,6 +1985,9 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPpk0Hash(u32 *Ppk0Hash, u8 ReadOption)
 	s32 RegNum;
 	u32 DataRead;
 	s32 Reg = (s32)(XSK_ZYNQMP_EFUSEPS_PPK_HASH_REG_NUM - 1U);
+
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(Ppk0Hash != NULL);
 
 	if (ReadOption == 0U) {
 		for (RegNum = Reg; RegNum >= (s32)0; RegNum--) {
@@ -2039,6 +2063,9 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPpk1Hash(u32 *Ppk1Hash, u8 ReadOption)
 	u32 DataRead;
 	s32 Reg = (s32)(XSK_ZYNQMP_EFUSEPS_PPK_HASH_REG_NUM - 1U);
 
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(Ppk1Hash != NULL);
+
 	if (ReadOption == 0U) {
 		for (RegNum = Reg; RegNum >= (s32)0; RegNum--) {
 			DataRead = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
@@ -2107,6 +2134,9 @@ u32 XilSKey_ZynqMp_EfusePs_ReadSpkId(u32 *SpkId, u8 ReadOption)
 	u32 Status = (u32)XST_SUCCESS;
 	XskEfusePs_Type EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
 
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(SpkId != NULL);
+
 	if (ReadOption == 0U) {
 		*SpkId = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 				XSK_ZYNQMP_EFUSEPS_SPK_ID_OFFSET);
@@ -2156,6 +2186,9 @@ UNLOCK:
 void XilSKey_ZynqMp_EfusePs_ReadDna(u32 *DnaRead)
 {
 	u32 *DnaPtr = DnaRead;
+
+	/* Assert validates the input arguments */
+	Xil_AssertVoid(DnaRead != NULL);
 
 	*DnaPtr = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 				XSK_ZYNQMP_EFUSEPS_DNA_0_OFFSET);
@@ -2221,6 +2254,9 @@ static inline u32 XilSKey_ZynqMp_EfusePs_CheckZeros_BfrPrgrmg(
 					XilSKey_ZynqMpEPs *InstancePtr)
 {
 	u32 Status = (u32)XST_SUCCESS;
+
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Check for AES key with All zeros */
 	if (InstancePtr->PrgrmAesKey == TRUE) {
