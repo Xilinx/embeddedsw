@@ -47,6 +47,11 @@
 *                        zeroization occurs without latency.
 * 6.6   vns     06/06/18 Added doxygen tags
 * 6.7	arc     01/05/19 Fixed MISRA-C violations.
+*       arc     25/02/19 Added asserts for pointer parameter for NULL
+*                        verification
+*                        Added Timeouts and status info for the functions
+*                        XilSKey_ZynqMp_Bbram_Program
+*                        XilSKey_ZynqMp_Bbram_Zeroise
 * </pre>
 *
 ******************************************************************************/

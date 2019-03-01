@@ -64,6 +64,8 @@
 *       vns   09/18/18 Added APIs to support eFUSE programming from linux
 *       vns   10/11/18 Added support to re-program non-zero SPKID
 * 6.7	arc   01/05/19 Fixed MISRA-C violations.
+*       arc   25/02/19 Added NULL checks and validations for input params
+*                      and add timeouts and status info
 *
 * </pre>
 *
