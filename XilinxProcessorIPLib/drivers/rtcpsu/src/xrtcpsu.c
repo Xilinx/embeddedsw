@@ -248,7 +248,7 @@ u32 XRtcPsu_GetCurrentTime(XRtcPsu *InstancePtr)
 		Status = XRtcPsu_ReadReg(InstancePtr->RtcConfig.BaseAddr +
 			XRTC_INT_STS_OFFSET);
 		if ((InstancePtr->TimeUpdated == (u32)1) &&
-			(Status & XRTC_INT_STS_SECS_MASK) == (u32)0) {
+			((Status & XRTC_INT_STS_SECS_MASK) == (u32)0)) {
 			/* Give the previous written time */
 			CurrTime = XRtcPsu_GetLastSetTime(InstancePtr) - 1;
 		} else {
