@@ -792,9 +792,14 @@ u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len)
 			goto END;
 		}
 
+		if(Len != (strlen(Str)*4U)) {
+			Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+			goto END;
+		}
+
 		StrIndex = (Len/8U) - 1U;
 		ConvertedLen = 0U;
-		while (ConvertedLen < Len/4) {
+		while (ConvertedLen < (Len/4U)) {
 			/**
 			 * Convert char to nibble
 			 */
