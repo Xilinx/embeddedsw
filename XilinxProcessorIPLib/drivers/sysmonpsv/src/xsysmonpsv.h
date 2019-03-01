@@ -224,6 +224,21 @@ typedef struct {
 /****************************************************************************/
 /**
 *
+* This macro returns the XSYSMONPSV_NEW_ALARMn_MASK for a configured supply.
+*
+* @param	Supply is a type enum of supply enabled
+*
+* @return	A 32 bit mask to be used for configuring interrupts
+*
+* @note		None
+*
+*****************************************************************************/
+#define XSysMonPsv_GetAlarmMask(InstancePtr, Supply)		\
+	Mask = 1 << (InstancePtr->Supply_List[Supply]/32)
+
+/****************************************************************************/
+/**
+*
 * This macro converts System Monitor Raw Data to Voltage(volts) for VpVn
 * supply.
 *
