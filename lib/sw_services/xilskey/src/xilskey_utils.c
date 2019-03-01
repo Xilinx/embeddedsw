@@ -903,6 +903,11 @@ void XilSKey_Efuse_ConvertBitsToBytes(const u8 * Bits, u8 * Bytes, u32 Len)
 	u8 Data;
 	u32 Index, BitIndex = 0U, ByteIndex = 0U;
 	u32 BytLen = Len;
+
+	/* Assert validates the input arguments */
+	Xil_AssertVoid(Bits != NULL);
+	Xil_AssertVoid(Bytes != NULL);
+
 	/**
 	 * Make sure the bytes array is 0'ed first.
 	 */
@@ -959,6 +964,10 @@ void XilSKey_EfusePs_ConvertBytesToBits(const u8 * Bytes, u8 * Bits , u32 Len)
 	u8 Tmp;
 	u32 Index, BitIndex = 0U, ByteIndex = 0U;
 	u32 BytLen = Len;
+
+	/* Assert validates the input arguments */
+	Xil_AssertVoid(Bytes != NULL);
+	Xil_AssertVoid(Bits != NULL);
 
 	/**
 	 * Make sure the bits array is 0 first.
