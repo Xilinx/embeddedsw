@@ -139,6 +139,7 @@ proc generate {os_handle} {
 	       file copy -force $entry [file join ".." "${standalone_version}" "src"]
 	       file delete -force "../${standalone_version}/src/gcc"
 	       file delete -force "../${standalone_version}/src/iccarm"
+	       file delete -force "../${standalone_version}/src/armclang"
 	     }
 	     set commonccdir "../${standalone_version}/src/arm/common/gcc"
 	     foreach entry [glob -nocomplain [file join $commonccdir *]] {
@@ -214,12 +215,16 @@ proc generate {os_handle} {
 				foreach entry [glob -nocomplain [file join $arma5364gccdir *]] {
 					file copy -force $entry [file join ".." "${standalone_version}" "src"]
 				}
-                                set platformsrcdir "../${standalone_version}/src/arm/ARMv8/64bit/platform/ZynqMP"
+
+				file copy -force [file join $arma5364srcdir platform ZynqMP xparameters_ps.h] ./src
+                                set platformsrcdir "../${standalone_version}/src/arm/ARMv8/64bit/platform/ZynqMP/gcc"
 		                foreach entry [glob -nocomplain [file join $platformsrcdir *]] {
                                     file copy -force $entry [file join ".." "${standalone_version}" "src"]
 		                }
 				file copy -force $includedir "../${standalone_version}/src/"
 				file delete -force "../${standalone_version}/src/gcc"
+				file delete -force "../${standalone_version}/src/armclang"
+				file delete -force "../${standalone_version}/src/platform"
 				file delete -force "../${standalone_version}/src/profile"
 				if { $enable_sw_profile == "true" } {
 					error "ERROR: Profiling is not supported for A53"
