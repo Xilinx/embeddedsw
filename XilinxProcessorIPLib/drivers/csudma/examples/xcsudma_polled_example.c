@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -42,7 +42,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- -----------------------------------------------------
 * 1.0   vnsld   22/10/14 First release
-* 2.0   adk     04/12/17 Added support for PMC DMA.
+* 1.4   adk     04/12/17 Added support for PMC DMA.
 * </pre>
 *
 ******************************************************************************/

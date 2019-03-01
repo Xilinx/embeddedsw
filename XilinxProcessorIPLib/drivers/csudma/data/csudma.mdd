@@ -32,7 +32,7 @@ BEGIN driver canps
   OPTION supported_peripherals = (psu_csudma psu_pmcdma);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.5;
+  OPTION VERSION = 1.4;
   OPTION NAME = csudma;
 
 END driver
