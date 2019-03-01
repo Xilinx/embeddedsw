@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xrtcpsu_sinit.c
-* @addtogroup rtcpsu_v1_6
+* @addtogroup rtcpsu_v1_7
 * @{
 *
 * This file contains the implementation of the XRtcPsu driver's static
@@ -64,7 +64,7 @@
 
 /************************** Variable Definitions *****************************/
 
-extern XRtcPsu_Config XRtcPsu_ConfigTable[];
+extern XRtcPsu_Config XRtcPsu_ConfigTable[XPAR_XRTCPSU_NUM_INSTANCES];
 
 /*****************************************************************************/
 /**
