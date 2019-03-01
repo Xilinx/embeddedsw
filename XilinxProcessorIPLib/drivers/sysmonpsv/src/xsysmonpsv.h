@@ -326,6 +326,8 @@ void XSysMonPsv_IntrDisable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum);
 u32 XSysMonPsv_IntrGetEnabled(XSysMonPsv *InstancePtr, u8 IntrNum);
 u32 XSysMonPsv_IntrGetStatus(XSysMonPsv *InstancePtr);
 void XSysMonPsv_IntrClear(XSysMonPsv *InstancePtr, u32 Mask);
+void XSysMonPsv_SetNewDataIntSrc(XSysMonPsv *InstancePtr,
+				XSysMonPsv_Supply Supply, u32 Mask);
 
 /* Functions in xsysmonpsv_selftest.c */
 s32 XSysMonPsv_SelfTest(XSysMonPsv *InstancePtr);
