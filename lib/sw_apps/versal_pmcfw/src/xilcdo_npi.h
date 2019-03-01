@@ -310,7 +310,6 @@ void XilCdo_SetMBISTTrigger(u32 BaseAddr);
 u32 XilCdo_CheckMBISTPass(u32 BaseAddr);
 void XilCdo_WaitForMBISTDone(u32 BaseAddr);
 u32 XilCdo_CheckScanClearPass(void);
-void XilCdo_WaitForScanClearDone(void);
 u32 XilCdo_ScanClear(u32 NpiParam);
 u32 XilCdo_CheckScanClearMEPass(u32 BaseAddr);
 void XilCdo_WaitForScanClearMEDone(u32 BaseAddr);
