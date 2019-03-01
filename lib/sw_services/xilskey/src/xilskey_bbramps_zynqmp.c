@@ -97,6 +97,9 @@ u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey)
 	u32 StatusRead;
 	u32 Offset;
 
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(AesKey != NULL);
+
 	/* Calculate CRC of AES */
 	AesCrc = XilSKey_ZynqMp_Bbram_CrcCalc(AesKey);
 
