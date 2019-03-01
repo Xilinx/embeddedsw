@@ -687,8 +687,13 @@ u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
 		goto END;
 	}
 
+	if(Len != (strlen(Str)*4U)) {
+		Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+		goto END;
+	}
+
 	ConvertedLen = 0U;
-	while (ConvertedLen < Len) {
+	while (ConvertedLen < (Len/4U)) {
 		/**
 		 * Convert char to nibble
 		 */
@@ -1258,7 +1263,7 @@ u32 XilSKey_CrcCalculation(u8 *Key)
 							((((Index) * 8U) + 8U) - 1U));
 #endif
 
-		Status = XilSKey_Efuse_ConvertStringToHexBE((char *)Key_8, Key_Hex, 8U);
+		Status = XilSKey_Efuse_ConvertStringToHexBE((char *)Key_8, Key_Hex, 32U);
 		if (Status != (u32)XST_SUCCESS) {
 			CrcReturn = Status;
 			goto END;
