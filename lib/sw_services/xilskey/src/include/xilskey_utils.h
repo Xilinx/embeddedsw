@@ -405,6 +405,7 @@ typedef enum {
  */
 #define XSK_EFUSEPL_RSA_KEY_HASH_SIZE_IN_BYTES			(48U)
 
+#define XSK_POLL_TIMEOUT	0xFFFFFFFFU
 
 /************************** Variable Definitions ****************************/
 /**
@@ -944,9 +945,12 @@ typedef enum {
 							  *  programming is done
 							  *  but CRC
 							  *  check is failed. */
-	XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG = 0xC000U		/**< 0xC000<br>
+	XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG = 0xC000U,		/**< 0xC000<br>
 							  *  programming of key
 							  *  is failed. */
+	XSK_ZYNQMP_BBRAMPS_ERROR_IN_ZEROISE = 0xE700U      /** <0xE700<br>
+							   *  zeroize bbram is
+							   *	failed. */
 }XskZynqMp_Ps_Bbram_ErrorCodes;
  /** @} */
 /** @cond xilskey_internal

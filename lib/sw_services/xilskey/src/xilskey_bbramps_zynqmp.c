@@ -153,11 +153,12 @@ END:
 * @note		BBRAM key will be zeroized.
 *
 ******************************************************************************/
-void XilSKey_ZynqMp_Bbram_Zeroise(void)
+u32 XilSKey_ZynqMp_Bbram_Zeroise(void)
 {
 
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u32 Offset;
+	u32 Timeout = 0U;
 
 	/*
 	 * If we are not in programming mode for zeroizing immediately
@@ -182,15 +183,20 @@ void XilSKey_ZynqMp_Bbram_Zeroise(void)
 	XilSKey_WriteReg(XSK_ZYNQMP_BBRAM_BASEADDR, XSK_ZYNQMP_BBRAM_CTRL_OFFSET,
 				XSK_ZYNQMP_BBRAM_CTRL_ZEROIZE_MASK);
 
-	/* Read the status register */
-	Status = XilSKey_ReadReg(XSK_ZYNQMP_BBRAM_BASEADDR,
-				XSK_ZYNQMP_BBRAM_STS_OFFSET);
-
 	/* Wait for zeroize complete bit to get set */
-	while ((Status & (u32)XSK_ZYNQMP_BBRAM_STS_ZEROIZED_MASK) == 0x00U) {
+	while (Timeout < XSK_POLL_TIMEOUT) {
+		/* Read the status register */
 		Status = XilSKey_ReadReg(XSK_ZYNQMP_BBRAM_BASEADDR,
 						XSK_ZYNQMP_BBRAM_STS_OFFSET);
+
+		if((Status & (u32)XSK_ZYNQMP_BBRAM_STS_ZEROIZED_MASK) != 0x00U) {
+			Status = (u32)XST_SUCCESS;
+			goto END;
+		}
+		Timeout = Timeout + 1U;
 	}
+END:
+	return Status;
 
 }
 
@@ -212,14 +218,18 @@ static inline u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void)
 {
 
 	u32 StatusRead;
-	u32 Status = (u32)XST_SUCCESS;
+	u32 Status;
 
 	/*
 	 * Always issue a zeroize command (since we may
 	 * already be in programming mode and it may
 	 * hang waiting for zeroize complete bit)
 	 */
-	XilSKey_ZynqMp_Bbram_Zeroise();
+	Status = XilSKey_ZynqMp_Bbram_Zeroise();
+	if(Status != (u32)XST_SUCCESS) {
+		Status = (u32)XSK_ZYNQMP_BBRAMPS_ERROR_IN_ZEROISE;
+		goto END;
+	}
 
 	/* Enter programming mode */
 	XilSKey_WriteReg(XSK_ZYNQMP_BBRAM_BASEADDR,
