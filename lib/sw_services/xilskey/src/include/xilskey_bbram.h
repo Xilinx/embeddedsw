@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -51,6 +51,8 @@
 *                        Zynq instance, as they are not actually programming
 *                        any bit They already exists in Zynq eFUSE PL instances
 * 6.6   vns     06/06/18 Added doxygen tags
+* 6.7   arc     25/02/19 Changed void XilSKey_ZynqMp_Bbram_Zeroise(void)
+*                        prototype to u32 XilSKey_ZynqMp_Bbram_Zeroise(void)
 *
 ****************************************************************************/
 #ifndef XILSKEY_BBRAM_H

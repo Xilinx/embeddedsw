@@ -67,6 +67,10 @@
 *       vns     10/11/18 Added new error code for SPKID bit revert request
 *                        XSK_EFUSEPS_ERROR_SPKID_BIT_CANT_REVERT
 * 6.7   arc     01/05/19 Fixed MISRA-C violations.
+*       arc     25/02/19 Added Timeout Macro and new error code for
+*                        bbram zeroisation and error in write CRC
+*                        XSK_ZYNQMP_BBRAMPS_ERROR_IN_ZEROISE
+*                        XSK_ZYNQMP_BBRAMPS_ERROR_IN_WRITE_CRC
 *
  *****************************************************************************/
 

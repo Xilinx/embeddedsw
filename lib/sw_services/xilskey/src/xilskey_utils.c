@@ -58,9 +58,14 @@
 *                        XilSKey_ZynqMP_EfusePs_ReadSysmonVol and
 *                        XilSKey_ZynqMP_EfusePs_ReadSysmonTemp functions
 * 6.6   vns     06/06/18 Added doxygen tags
-* 6.7	arc	01/05/19 Fixed MISRA-C violations.
+* 6.7   arc     01/05/19 Fixed MISRA-C violations.
 *       vns     02/09/19 Fixed buffer overflow access in
 *                        XilSKey_Efuse_ConvertStringToHexLE()
+*       arc     25/02/19 Added asserts for pointer parameter for NULL
+*                        verification
+*                        Fixed Length parameter as length in bits for
+*                        XilSKey_Efuse_ConvertStringToHexBE and added length
+*                        validations
 *
  *****************************************************************************/
 
@@ -1364,7 +1369,7 @@ u32 XilSKey_Efuse_ReverseHex(u32 Input)
 
 	while (Index < 32U) {
 		Index = Index + 1U;
-		Bit = Input & 1U;
+		Bit = InputVar & 1U;
 		InputVar = InputVar >> 1U;
 		Rev = Rev ^ Bit;
 		if (Index < 32U) {
