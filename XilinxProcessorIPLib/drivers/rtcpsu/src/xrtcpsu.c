@@ -270,7 +270,9 @@ u32 XRtcPsu_GetCurrentTime(XRtcPsu *InstancePtr)
 		} else {
 			/* Clear TimeUpdated */
 			if (InstancePtr->TimeUpdated == (u32)1)
+                        {
 				InstancePtr->TimeUpdated = (u32)0;
+                        }
 			/* RTC time got updated */
 			CurrTime = XRtcPsu_ReadCurrentTime(InstancePtr);
 		}
@@ -343,17 +345,25 @@ void XRtcPsu_SecToDateTime(u32 Seconds, XRtcPsu_DT *dt)
 	TempDays = CurrentTime / 24U;
 
 	if (TempDays == 0U)
+        {
 		TempDays = 1U;
+        }
 	dt->WeekDay = TempDays % 7U;
 
 	for (dt->Year = 0U; dt->Year <= 99U; ++(dt->Year)) {
 		if ((dt->Year % 4U) == 0U)
+                {
 			Leap = 1U;
+                }
 		else
+                {
 			Leap = 0U;
+                }
 
 		if (TempDays <= (365U + Leap))
+                {
 			break;
+                }
 
 		TempDays -= (365U + Leap);
 	}
@@ -361,10 +371,13 @@ void XRtcPsu_SecToDateTime(u32 Seconds, XRtcPsu_DT *dt)
 	for (dt->Month = 1U; dt->Month >= 1U; ++(dt->Month)) {
 		DaysPerMonth = DaysInMonth[dt->Month - 1];
 		if ((Leap == 1U) && (dt->Month == 2U))
+                {
 			DaysPerMonth++;
-
+                }
 		if (TempDays <= DaysPerMonth)
+                {
 			break;
+                }
 
 		TempDays -= DaysPerMonth;
 	}
@@ -396,15 +409,18 @@ u32 XRtcPsu_DateTimeToSec(XRtcPsu_DT *dt)
 	Xil_AssertNonvoid(dt != NULL);
 
 	if (dt->Year >= 2000U)
+        {
 		dt->Year -= 2000U;
+        }
 
 	for (i = 1U; i < dt->Month; i++)
         {
 		dt->Day += (u32)DaysInMonth[i-1];
         }
 	if ((dt->Month > 2U) && ((dt->Year % 4U) == 0U))
+        {
 		dt->Day++;
-
+        }
 	Days = dt->Day + (365U * dt->Year) + ((dt->Year + 3U) / 4U);
 	Seconds = (((((Days * 24U) + dt->Hour) * 60U) + dt->Min) * 60U)
 							+ dt->Sec;
