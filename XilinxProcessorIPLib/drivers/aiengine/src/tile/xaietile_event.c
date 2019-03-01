@@ -43,6 +43,7 @@
 * 1.2   Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.3   Hyun    12/13/2018  Add the core event API
 * 1.4   Jubaer  02/14/2019  Add get Event Broadcast API
+* 1.5   Jubaer  02/26/2019  Add group Event API
 * </pre>
 *
 ******************************************************************************/
@@ -69,6 +70,7 @@ extern XAieGbl_RegTraceCtrls TraceCtrl[];
 extern XAieGbl_RegTraceEvent TraceEvent[];
 extern XAieGbl_RegCorePCEvent CorePCEvents[];
 extern XAieGbl_Config XAieGbl_ConfigTable[];
+extern XAieGbl_GroupEvents GroupEvents[];
 
 /************************** Function Definitions *****************************/
 
@@ -1488,6 +1490,174 @@ u8 XAieGbl_Column_EventBroadcastBlockAll(XAieGbl_Tile *TileInstPtr)
 					XAIETILE_EVENT_BLOCK_ALL_MASK);
 	}
 	return XAIE_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API is used to read the Group Event register of the corresponding group.
+*
+* @param	TileInstPtr - Pointer to the Tile instance. This has to be
+*		the shim tile of the corresponding column.
+* @param	groupId - Group Event ID for Memory. This will be One of
+*			  XAIETILE_GROUP_EVENT_MEM_*
+*
+* @return	current value of the Grour Event register
+*
+* @note		None.
+*
+*******************************************************************************/
+u32 XAieTile_MemGroupEventGet(XAieGbl_Tile *TileInstPtr, u8 groupId)
+{
+	u32 RegVal;
+
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(groupId <= 8);
+
+	RegVal = XAieGbl_Read32(TileInstPtr->TileAddr +
+				XAIEGBL_MEM_EVTGRP0ENA + groupId * 0x4U);
+
+	return XAie_GetField(RegVal, XAIETILE_GROUP_EVENT_LSB,
+			GroupEvents[XAIETILE_EVENT_MODULE_MEM].Mask[groupId]);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API is used to read the Group Event register of the corresponding group.
+*
+* @param	TileInstPtr - Pointer to the Tile instance. This has to be
+*		the shim tile of the corresponding column.
+* @param	groupId - Group Event ID for PL. This will be one of
+*			  XAIETILE_GROUP_EVENT_PL_*
+*
+* @return	current value of the Grour Event register
+*
+* @note		None.
+*
+*******************************************************************************/
+u32 XAieTile_PlGroupEventGet(XAieGbl_Tile *TileInstPtr, u8 groupId)
+{
+	u32 RegVal;
+
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(groupId <= 7);
+
+	RegVal = XAieGbl_Read32(TileInstPtr->TileAddr +
+				XAIEGBL_PL_EVTGRP0ENA + groupId * 0x4U);
+
+	return XAie_GetField(RegVal, XAIETILE_GROUP_EVENT_LSB,
+			GroupEvents[XAIETILE_EVENT_MODULE_PL].Mask[groupId]);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API is used to read the Group Event register of the corresponding group.
+*
+* @param	TileInstPtr - Pointer to the Tile instance. This has to be
+*		the shim tile of the corresponding column.
+* @param	groupId - Group Event ID for Core. This will be one of
+*			  XAIETILE_GROUP_EVENT_CORE_*
+*
+* @return	current value of the Grour Event register
+*
+* @note		None.
+*
+*******************************************************************************/
+u32 XAieTile_CoreGroupEventGet(XAieGbl_Tile *TileInstPtr, u8 groupId)
+{
+	u32 RegVal;
+
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(groupId <= 9);
+
+	RegVal = XAieGbl_Read32(TileInstPtr->TileAddr +
+				XAIEGBL_CORE_EVTGRP0ENA + groupId * 0x4U);
+
+	return XAie_GetField(RegVal, XAIETILE_GROUP_EVENT_LSB,
+			GroupEvents[XAIETILE_EVENT_MODULE_CORE].Mask[groupId]);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API is used to set the Group Event register of the corresponding group.
+*
+* @param	TileInstPtr - Pointer to the Tile instance. This has to be
+*		the shim tile of the corresponding column.
+* @param	groupId - Group Event ID for Memory. This will be one of
+*			  XAIETILE_GROUP_EVENT_MEM_*
+* @param	Mask - 32 bit value to mask.
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void XAieTile_MemGroupEventSet(XAieGbl_Tile *TileInstPtr, u8 groupId, u32 Mask)
+{
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(groupId <= 8);
+
+	XAieGbl_Write32(TileInstPtr->TileAddr + XAIEGBL_MEM_EVTGRP0ENA +
+			groupId * 0x4U, Mask);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API is used to set the Group Event register of the corresponding group.
+*
+* @param	TileInstPtr - Pointer to the Tile instance. This has to be
+*		the shim tile of the corresponding column.
+* @param	groupId - Group Event ID for PL. This will be one of
+*			  XAIETILE_GROUP_EVENT_PL_*
+* @param	Mask - 32 bit value to mask.
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void XAieTile_PlGroupEventSet(XAieGbl_Tile *TileInstPtr, u8 groupId, u32 Mask)
+{
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(groupId <= 7);
+
+	XAieGbl_Write32(TileInstPtr->TileAddr + XAIEGBL_PL_EVTGRP0ENA +
+			groupId * 0x4U, Mask);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API is used to set the Group Event register of the corresponding group.
+*
+* @param	TileInstPtr - Pointer to the Tile instance. This has to be
+*		the shim tile of the corresponding column.
+* @param	groupId - Group Event ID for Core. This will be one of
+*			  XAIETILE_GROUP_EVENT_CORE_*
+* @param	Mask - 32 bit value to mask.
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void XAieTile_CoreGroupEventSet(XAieGbl_Tile *TileInstPtr, u8 groupId, u32 Mask)
+{
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(groupId <= 9);
+
+	XAieGbl_Write32(TileInstPtr->TileAddr + XAIEGBL_CORE_EVTGRP0ENA +
+			groupId * 0x4U, Mask);
 }
 
 /** @} */
