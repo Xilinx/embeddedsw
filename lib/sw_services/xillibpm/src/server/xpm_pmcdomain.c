@@ -37,8 +37,7 @@ static XStatus HandlePmcDomainEvent(XPm_Node *Node, u32 Event)
 	u32 Status = XST_FAILURE;
 	XPm_Power *Power = (XPm_Power *)Node;
 
-	PmDbg("State=%s, Event=%s\n\r",
-		PmPowerStates[Node->State], PmPowerEvents[Event]);
+	PmDbg("State=%d, Event=%d\n\r", Node->State, Event);
 
 	switch (Node->State)
 	{
