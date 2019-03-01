@@ -1935,6 +1935,8 @@ u32 XilSKey_ZynqMp_EfusePs_ReadUserFuse(u32 *UseFusePtr, u8 UserFuse_Num,
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(UseFusePtr != NULL);
+	Xil_AssertNonvoid(UserFuse_Num <= (XSK_ZYNQMP_EFUSEPS_USR_FUSE_REG_NUM
+						- 1U));
 
 	if (ReadOption ==  0U) {
 		*UseFusePtr = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
