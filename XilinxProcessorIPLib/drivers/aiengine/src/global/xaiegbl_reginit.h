@@ -48,6 +48,7 @@
 * 1.6  Hyun    10/12/2018  Added the column reset register
 * 1.7  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.6  Hyun    12/13/2018  Added the core PC event registers
+* 1.9  Jubaer  02/26/2019  Added the Group Event registers
 * </pre>
 *
 ******************************************************************************/
@@ -472,6 +473,13 @@ typedef struct {
 	XAieGbl_RegFldAttr PCAddr;               /**< PC address */
 	XAieGbl_RegFldAttr Valid;                /**< Valid bit */
 } XAieGbl_RegCorePCEvent;
+
+/**
+ * This typedef contains the mask attributes for Group Events
+ */
+typedef struct {
+	u32 Mask[9U];  /* Mask Bits*/
+} XAieGbl_GroupEvents;
 
 /**************************** Macro Definitions *****************************/
 
