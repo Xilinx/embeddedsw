@@ -96,6 +96,7 @@ u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey)
 	u32 *KeyPtr = AesKey;
 	u32 StatusRead;
 	u32 Offset;
+	u32 TimeOut = 0U;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(AesKey != NULL);
@@ -121,14 +122,21 @@ u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey)
 	XilSKey_WriteReg(XSK_ZYNQMP_BBRAM_BASEADDR,
 			XSK_ZYNQMP_BBRAM_AES_CRC_OFFSET, AesCrc);
 
-	/* Check for CRC done */
-	StatusRead = XilSKey_ReadReg(XSK_ZYNQMP_BBRAM_BASEADDR,
+	while (TimeOut < XSK_POLL_TIMEOUT) {
+		/* Check for CRC done */
+		StatusRead = XilSKey_ReadReg(XSK_ZYNQMP_BBRAM_BASEADDR,
 					XSK_ZYNQMP_BBRAM_STS_OFFSET);
-	while ((StatusRead & (u32)XSK_ZYNQMP_BBRAM_STS_AES_CRC_DONE_MASK)
+		if ((StatusRead & (u32)XSK_ZYNQMP_BBRAM_STS_AES_CRC_DONE_MASK)
+							!= 0x00U) {
+			break;
+		}
+		TimeOut = TimeOut + 1U;
+	}
+
+	if ((StatusRead & (u32)XSK_ZYNQMP_BBRAM_STS_AES_CRC_DONE_MASK)
 							== 0x00U) {
-		StatusRead =
-			XilSKey_ReadReg(XSK_ZYNQMP_BBRAM_BASEADDR,
-					XSK_ZYNQMP_BBRAM_STS_OFFSET);
+		Status = XSK_ZYNQMP_BBRAMPS_ERROR_IN_WRITE_CRC;
+		goto END;
 	}
 
 	if ((StatusRead & XSK_ZYNQMP_BBRAM_STS_AES_CRC_PASS_MASK) !=
@@ -219,6 +227,7 @@ static inline u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void)
 
 	u32 StatusRead;
 	u32 Status;
+	u32 TimeOut = 0U;
 
 	/*
 	 * Always issue a zeroize command (since we may
@@ -235,15 +244,22 @@ static inline u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void)
 	XilSKey_WriteReg(XSK_ZYNQMP_BBRAM_BASEADDR,
 	XSK_ZYNQMP_BBRAM_PGM_MODE_OFFSET,XSK_ZYNQMP_BBRAM_PGM_MODE_SET_VAL);
 
-	/* check for zeroized */
-	StatusRead = XilSKey_ReadReg(XSK_ZYNQMP_BBRAM_BASEADDR,
-				XSK_ZYNQMP_BBRAM_STS_OFFSET);
+	while (TimeOut < XSK_POLL_TIMEOUT) {
+		/* check for zeroized */
+		StatusRead = XilSKey_ReadReg(XSK_ZYNQMP_BBRAM_BASEADDR,
+					XSK_ZYNQMP_BBRAM_STS_OFFSET);
 
-	while ((StatusRead & (u32)XSK_ZYNQMP_BBRAM_STS_ZEROIZED_MASK) ==
+		if ((StatusRead & (u32)XSK_ZYNQMP_BBRAM_STS_ZEROIZED_MASK) !=
 							0x00U) {
-		StatusRead =
-		XilSKey_ReadReg(XSK_ZYNQMP_BBRAM_BASEADDR,
-				XSK_ZYNQMP_BBRAM_STS_OFFSET);
+			break;
+		}
+		TimeOut = TimeOut + 1U;
+	}
+
+	if ((StatusRead & (u32)XSK_ZYNQMP_BBRAM_STS_ZEROIZED_MASK) ==
+							0x00U) {
+		Status = (u32)XSK_ZYNQMP_BBRAMPS_ERROR_IN_ZEROISE;
+		goto END;
 	}
 
 	StatusRead =
