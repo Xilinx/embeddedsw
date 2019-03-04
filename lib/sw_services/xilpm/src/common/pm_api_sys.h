@@ -206,7 +206,7 @@ XStatus XPm_GetOpCharacteristic(const enum XPmNodeId node,
 
 /* Direct-Control API functions */
 XStatus XPm_ResetAssert(const enum XPmReset reset,
-			const enum XPmResetAction assert);
+			const enum XPmResetAction resetaction);
 
 XStatus XPm_ResetGetStatus(const enum XPmReset reset, u32 *status);
 
