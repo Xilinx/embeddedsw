@@ -152,28 +152,28 @@ static u32 GetMaxCapabilities(const XPm_Device* const Device)
  * @brief  This function checks device capability
  *
  * @param Device	Device for capability check
- * @param Subsystem	Subsystem for which device capability needs to check
  * @param Caps		Capability
  *
- * @return XST_SUCCESS if desired Caps is available in Device for Subsystem
+ * @return XST_SUCCESS if desired Caps is available in Device
  *
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_CheckCapabilities(XPm_Device *Device, XPm_Subsystem *Subsystem,
-			      u32 Caps)
+XStatus XPm_CheckCapabilities(XPm_Device *Device, u32 Caps)
 {
+	u32 Idx;
 	u32 Status = XST_FAILURE;
-	XPm_Requirement *Reqm = NULL;
 
-	Reqm = Device->Requirements;
-	while (NULL != Reqm) {
-		if ((Reqm->Subsystem == Subsystem) &&
-		    ((Reqm->Curr.Capabilities & Caps) == Caps)) {
-				Status = XST_SUCCESS;
-				goto done;
+	if (NULL == Device->DeviceFsm) {
+		goto done;
+	}
+
+	for (Idx = 0U; Idx < Device->DeviceFsm->StatesCnt; Idx++) {
+		/* Find the first state that contains all capabilities */
+		if ((Caps & Device->DeviceFsm->States[Idx]) == Caps) {
+			Status = XST_SUCCESS;
+			break;
 		}
-		Reqm = Reqm->NextSubsystem;
 	}
 
 done:
