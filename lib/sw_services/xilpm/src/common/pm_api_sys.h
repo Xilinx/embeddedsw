@@ -146,8 +146,6 @@ typedef struct XPm_Notifier {
 	XPm_Notifier* next;
 } XPm_Notifier;
 
-/* Notifier Flags */
-#define XILPM_NOTIFIER_FLAG_WAKE	BIT(0) /* wake up PU for notification */
 
 /**
  * XPm_NodeStatus - struct containing node status information
