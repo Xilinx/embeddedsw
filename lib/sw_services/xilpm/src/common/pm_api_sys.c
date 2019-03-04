@@ -1265,7 +1265,7 @@ XStatus XPm_RegisterNotifier(XPm_Notifier* const notifier)
 	XStatus ret = XST_FAILURE;
 	u32 payload[PAYLOAD_ARG_CNT];
 
-	if (!notifier) {
+	if (NULL == notifier) {
 		pm_dbg("%s ERROR: NULL notifier pointer\n", __func__);
 		ret = (XStatus)XST_INVALID_PARAM;
 		goto done;
@@ -1314,7 +1314,7 @@ XStatus XPm_UnregisterNotifier(XPm_Notifier* const notifier)
 	XStatus ret;
 	u32 payload[PAYLOAD_ARG_CNT];
 
-	if (!notifier) {
+	if (NULL == notifier) {
 		pm_dbg("%s ERROR: NULL notifier pointer\n", __func__);
 		ret = (XStatus)XST_INVALID_PARAM;
 		goto done;
@@ -1584,18 +1584,18 @@ XStatus XPm_ClockSetDivider(const enum XPmClock clock, const u32 divider)
 	u32 div1 = 0U;
 
 	mapping = XPm_MapDivider(clock, divider, &div0, &div1);
-	if (!mapping) {
+	if (0U == mapping) {
 		goto done;
 	}
 
-	if (mapping & (1 << PM_CLOCK_DIV0_ID)) {
+	if (0U != (mapping & (1 << PM_CLOCK_DIV0_ID))) {
 		status = XPm_ClockSetOneDivider(clock, div0, PM_CLOCK_DIV0_ID);
 		if (XST_SUCCESS != status) {
 			goto done;
 		}
 	}
 
-	if (mapping & (1 << PM_CLOCK_DIV1_ID)) {
+	if (0U != (mapping & (1 << PM_CLOCK_DIV1_ID))) {
 		status = XPm_ClockSetOneDivider(clock, div1, PM_CLOCK_DIV1_ID);
 	}
 
@@ -1649,17 +1649,16 @@ done:
  ****************************************************************************/
 XStatus XPm_ClockGetDivider(const enum XPmClock clock, u32 *const divider)
 {
-	XStatus status;
+	XStatus status = XST_INVALID_PARAM;
 	u8 type = XPm_GetClockDivType(clock);
 	u32 div;
 
-	status = XST_INVALID_PARAM;
-	if (!divider || !type) {
+	if ((NULL == divider) || (0U == type)) {
 		goto done;
 	}
 
 	*divider = 1U;
-	if (type & (1 << PM_CLOCK_DIV0_ID)) {
+	if (0U != (type & (1 << PM_CLOCK_DIV0_ID))) {
 		status = XPm_ClockGetOneDivider(clock, &div, PM_CLOCK_DIV0_ID);
 		if (XST_SUCCESS != status) {
 			goto done;
@@ -1667,7 +1666,7 @@ XStatus XPm_ClockGetDivider(const enum XPmClock clock, u32 *const divider)
 		*divider *= div;
 	}
 
-	if (type & (1 << PM_CLOCK_DIV1_ID)) {
+	if (0U != (type & (1 << PM_CLOCK_DIV1_ID))) {
 		status = XPm_ClockGetOneDivider(clock, &div, PM_CLOCK_DIV1_ID);
 		if (XST_SUCCESS != status) {
 			goto done;
