@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015-2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -171,7 +171,7 @@ void XPm_AcknowledgeCb(const enum XPmNodeId node,
 		       const u32 oppoint);
 
 void XPm_NotifyCb(const enum XPmNodeId node,
-		  const u32 event,
+		const enum XPmNotifyEvent event,
 		  const u32 oppoint);
 
 /* API functions for managing PM Slaves */
