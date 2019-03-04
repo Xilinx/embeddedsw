@@ -84,18 +84,18 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
 	/*
 	 * Indicate Interrupt received
 	 */
-	XPlmi_Printf(DEBUG_GENERAL,
+	XPlmi_Printf(DEBUG_DETAILED,
 	      "Received GIC Interrupt: 0x%0x\n\r", (u32) CallbackRef);
 
 	GicPIntrStatus = XPlmi_In32(XPLMI_GICP_IRQ_STATUS);
-	XPlmi_Printf(DEBUG_GENERAL, "GicPIntrStatus: 0x%x\r\n", GicPIntrStatus);
+	XPlmi_Printf(DEBUG_DETAILED, "GicPIntrStatus: 0x%x\r\n", GicPIntrStatus);
 
 	for (GicIndex = 0U; GicIndex < XPLMI_GICP_SOURCE_COUNT; GicIndex++) {
 
 		if (GicPIntrStatus & (1 << GicIndex)) {
 
 			GicPNIntrStatus = XPlmi_In32(XPLMI_GICP0_IRQ_STATUS + (GicIndex*0x14));
-			XPlmi_Printf(DEBUG_GENERAL, "GicP%d Intr Status: 0x%x\r\n",
+			XPlmi_Printf(DEBUG_DETAILED, "GicP%d Intr Status: 0x%x\r\n",
 					GicIndex, GicPNIntrStatus);
 
 			for (GicPIndex = 0U; GicPIndex < XPLMI_NO_OF_BITS_IN_REG; GicPIndex++) {
