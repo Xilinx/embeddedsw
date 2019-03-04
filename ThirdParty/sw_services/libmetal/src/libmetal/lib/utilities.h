@@ -78,7 +78,6 @@ extern "C" {
 
 static inline void metal_bitmap_set_bit(unsigned long *bitmap, int bit)
 {
-	bitmap = __builtin_assume_aligned(bitmap, sizeof(unsigned long));
 	bitmap[bit / METAL_BITS_PER_ULONG] |=
 		metal_bit(bit & (METAL_BITS_PER_ULONG - 1));
 }
@@ -91,7 +90,6 @@ static inline int metal_bitmap_is_bit_set(unsigned long *bitmap, int bit)
 
 static inline void metal_bitmap_clear_bit(unsigned long *bitmap, int bit)
 {
-	bitmap = __builtin_assume_aligned(bitmap, sizeof(unsigned long));
 	bitmap[bit / METAL_BITS_PER_ULONG] &=
 		~metal_bit(bit & (METAL_BITS_PER_ULONG - 1));
 }
