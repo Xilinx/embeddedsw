@@ -98,10 +98,12 @@ XStatus XPm_NotifierRemove(XPm_Notifier* const notifier)
 	curr = notifierList;
 	while (curr != NULL) {
 		if (notifier == curr) {
-			if (prev != NULL)
+			if (prev != NULL) {
 				prev->next = curr->next;
-			else
+			}
+			else {
 				notifierList = curr->next;
+			}
 
 			status = XST_SUCCESS;
 			break;
@@ -145,8 +147,9 @@ void XPm_NotifierProcessEvent(const enum XPmNodeId node,
 		    (event == notifier->event)) {
 			notifier->oppoint = oppoint;
 			notifier->received++;
-			if (notifier->callback != NULL)
+			if (notifier->callback != NULL) {
 				notifier->callback(notifier);
+			}
 			/*
 			 * Don't break here, there could be multiple pairs of
 			 * (node, event) with different notifiers
