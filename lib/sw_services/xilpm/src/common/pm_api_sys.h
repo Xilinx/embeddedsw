@@ -57,22 +57,22 @@ void XPm_SuspendFinalize(void);
 enum XPmBootStatus XPm_GetBootStatus(void);
 
 /* System-level API function declarations */
-XStatus XPm_RequestSuspend(const enum XPmNodeId node,
+XStatus XPm_RequestSuspend(const enum XPmNodeId target,
 			   const enum XPmRequestAck ack,
 			   const u32 latency,
 			   const u8 state);
 
-XStatus XPm_SelfSuspend(const enum XPmNodeId node,
+XStatus XPm_SelfSuspend(const enum XPmNodeId nid,
 			const u32 latency,
 			const u8 state,
 			const u64 address);
 
-XStatus XPm_ForcePowerDown(const enum XPmNodeId node,
+XStatus XPm_ForcePowerDown(const enum XPmNodeId target,
 			   const enum XPmRequestAck ack);
 
 XStatus XPm_AbortSuspend(const enum XPmAbortReason reason);
 
-XStatus XPm_RequestWakeUp(const enum XPmNodeId node,
+XStatus XPm_RequestWakeUp(const enum XPmNodeId target,
 			  const bool setAddress,
 			  const u64 address,
 			  const enum XPmRequestAck ack);
@@ -180,7 +180,7 @@ XStatus XPm_RequestNode(const enum XPmNodeId node,
 			const u32 qos,
 			const enum XPmRequestAck ack);
 XStatus XPm_ReleaseNode(const enum XPmNodeId node);
-XStatus XPm_SetRequirement(const enum XPmNodeId node,
+XStatus XPm_SetRequirement(const enum XPmNodeId nid,
 			   const u32 capabilities,
 			   const u32 qos,
 			   const enum XPmRequestAck ack);
