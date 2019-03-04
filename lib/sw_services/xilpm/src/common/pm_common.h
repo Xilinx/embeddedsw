@@ -47,10 +47,15 @@
 #ifdef DEBUG_MODE
 #include "xil_printf.h"
 #endif
+<<<<<<< HEAD
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+=======
+
+
+>>>>>>> Xilpm: Fixed MISRA-C:2012 R.17.3 in pm_common.h
 
 #define PM_ARRAY_SIZE(x)	(sizeof(x) / sizeof(x[0]))
 
