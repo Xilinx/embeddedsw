@@ -1168,14 +1168,14 @@ done:
  *
  ****************************************************************************/
 XStatus XPm_ResetAssert(const enum XPmReset reset,
-			const enum XPmResetAction assert)
+			const enum XPmResetAction resetaction)
 {
 	XStatus ret = XST_FAILURE;
 	u32 payload[PAYLOAD_ARG_CNT];
 
 	if (NULL != primary_master) {
 		/* Send request to the PMU */
-		PACK_PAYLOAD2(payload, PM_RESET_ASSERT, reset, assert);
+		PACK_PAYLOAD2(payload, PM_RESET_ASSERT, reset, resetaction);
 		ret = pm_ipi_send(primary_master, payload);
 
 		if (XST_SUCCESS != ret) {
