@@ -28,3 +28,4 @@ int metal_generic_dev_sys_open(struct metal_device *dev)
 
 	return 0;
 }
+

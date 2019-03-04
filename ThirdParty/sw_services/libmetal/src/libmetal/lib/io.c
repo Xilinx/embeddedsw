@@ -138,3 +138,4 @@ int metal_io_block_set(struct metal_io_region *io, unsigned long offset,
 	}
 	return retlen;
 }
+

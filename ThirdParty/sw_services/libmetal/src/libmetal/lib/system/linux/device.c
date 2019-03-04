@@ -660,3 +660,4 @@ int metal_linux_get_device_property(struct metal_device *device,
 
 	return status < 0 ? -errno : 0;
 }
+
