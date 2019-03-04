@@ -30,10 +30,10 @@ static XPm_Notifier* notifierList = NULL;
  ****************************************************************************/
 XStatus XPm_NotifierAdd(XPm_Notifier* const notifier)
 {
-	XStatus status = XST_FAILURE;
+	XStatus status = (XStatus)XST_FAILURE;
 
 	if (NULL == notifier) {
-		status = XST_INVALID_PARAM;
+		status = (XStatus)XST_INVALID_PARAM;
 		goto done;
 	}
 
@@ -43,7 +43,7 @@ XStatus XPm_NotifierAdd(XPm_Notifier* const notifier)
 	notifier->next = notifierList;
 	notifierList = notifier;
 
-	status = XST_SUCCESS;
+	status = (XStatus)XST_SUCCESS;
 
 done:
 	return status;
@@ -64,12 +64,12 @@ done:
  ****************************************************************************/
 XStatus XPm_NotifierRemove(XPm_Notifier* const notifier)
 {
-	XStatus status = XST_FAILURE;
+	XStatus status = (XStatus)XST_FAILURE;
 	XPm_Notifier* curr;
 	XPm_Notifier* prev = NULL;
 
 	if (NULL == notifier) {
-		status = XST_INVALID_PARAM;
+		status = (XStatus)XST_INVALID_PARAM;
 		goto done;
 	}
 
@@ -83,7 +83,7 @@ XStatus XPm_NotifierRemove(XPm_Notifier* const notifier)
 				notifierList = curr->next;
 			}
 
-			status = XST_SUCCESS;
+			status = (XStatus)XST_SUCCESS;
 			break;
 		}
 		prev = curr;
