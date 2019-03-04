@@ -95,6 +95,9 @@
 #define PMF_SHUTDOWN_SUBTYPE_SYSTEM	2U
 /**@}*/
 
+#define PM_CLOCK_DIV0_ID	0U
+#define PM_CLOCK_DIV1_ID	1U
+
 /**
  *  APIs for Miscellaneous functions, suspending of PUs, managing PM slaves and Direct control.
  */
@@ -692,11 +695,6 @@ enum XPmClock {
 	PM_CLOCK_EXT_MIO75,
 	PM_CLOCK_EXT_MIO76,
 	PM_CLOCK_EXT_MIO77,
-};
-
-enum XPmClockDivId {
-	PM_CLOCK_DIV0_ID,
-	PM_CLOCK_DIV1_ID,
 };
 
 enum XPmPllParam {
