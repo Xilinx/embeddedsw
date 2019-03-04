@@ -626,7 +626,7 @@ XStatus XPmClock_QueryName(u32 ClockId, u32 *Resp)
 	if (ClockIndex == MaxClkNodes) {
 		char ClkName[] = END_OF_CLK;
 		memcpy(&RetWord, ClkName, 4);
-		memcpy(Resp, ClkName[4], CLK_NAME_LEN - 4);
+		memcpy(Resp, &ClkName[4], CLK_NAME_LEN - 4);
 	} else if (XPmClock_IsValid(Clk) == 0) {
 		memset(Resp, 0, CLK_NAME_LEN - 4);
 	} else if (ClockIndex < MaxClkNodes) {
