@@ -465,6 +465,7 @@ XStatus XPm_SetConfiguration(const u32 address)
 		/* Send request to the PMU */
 		PACK_PAYLOAD1(payload, PM_SET_CONFIGURATION, address);
 		status = pm_ipi_send(primary_master, payload);
+<<<<<<< HEAD
 
 		if (XST_SUCCESS != status) {
 			goto done;
@@ -481,6 +482,16 @@ XStatus XPm_SetConfiguration(const u32 address)
 
 	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
+=======
+
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+
+		/* Wait for PMU to finish handling request */
+		status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	}
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
 
 done:
 	return status;
@@ -511,6 +522,7 @@ XStatus XPm_InitFinalize(void)
 		if (XST_SUCCESS != status) {
 			goto done;
 		}
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 		/* Wait for PMU to finish handling request */
@@ -521,8 +533,12 @@ XStatus XPm_InitFinalize(void)
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
+=======
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
 
-	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+		/* Wait for PMU to finish handling request */
+		status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	}
 
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
 done:
@@ -563,6 +579,7 @@ XStatus XPm_RequestSuspend(const enum XPmNodeId target,
 		/* Send request to the PMU */
 		PACK_PAYLOAD4(payload, PM_REQUEST_SUSPEND, target, ack, latency, state);
 		ret = pm_ipi_send(primary_master, payload);
+<<<<<<< HEAD
 
 		if ((XST_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack)) {
 			ret = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
@@ -573,6 +590,12 @@ XStatus XPm_RequestSuspend(const enum XPmNodeId target,
 =======
 	if ((XST_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack)) {
 		ret = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+=======
+
+		if ((XST_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack)) {
+			ret = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+		}
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
 	}
 
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
@@ -615,11 +638,15 @@ XStatus XPm_RequestWakeUp(const enum XPmNodeId target,
 	encodedAddress = address | !!setAddress;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
 	if (NULL != primary_master) {
 		/* Send request to the PMU */
 		PACK_PAYLOAD4(payload, PM_REQUEST_WAKEUP, target, (u32)encodedAddress,
 				 (u32)(encodedAddress >> 32), ack);
 		ret = pm_ipi_send(primary_master, payload);
+<<<<<<< HEAD
 
 		if ((XST_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack)) {
 			ret = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
@@ -630,12 +657,18 @@ XStatus XPm_RequestWakeUp(const enum XPmNodeId target,
 	PACK_PAYLOAD4(payload, PM_REQUEST_WAKEUP, target, (u32)encodedAddress,
 		     (u32)(encodedAddress >> 32), ack);
 	ret = pm_ipi_send(primary_master, payload);
+=======
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
 
-	if ((XST_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack)) {
-		ret = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+		if ((XST_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack)) {
+			ret = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+		}
 	}
+<<<<<<< HEAD
 
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
+=======
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
 	return ret;
 
 }
@@ -668,6 +701,7 @@ XStatus XPm_ForcePowerDown(const enum XPmNodeId target,
 		ret = pm_ipi_send(primary_master, payload);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if ((XST_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack)) {
 			ret = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
 		}
@@ -678,6 +712,12 @@ XStatus XPm_ForcePowerDown(const enum XPmNodeId target,
 	}
 
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
+=======
+		if ((XST_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack)) {
+			ret = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+		}
+	}
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
 	return ret;
 }
 
@@ -858,6 +898,7 @@ XStatus XPm_RequestNode(const enum XPmNodeId node,
 		ret = pm_ipi_send(primary_master, payload);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if ((XST_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack)) {
 			ret = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
 		}
@@ -868,6 +909,12 @@ XStatus XPm_RequestNode(const enum XPmNodeId node,
 	}
 
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
+=======
+		if ((XST_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack)) {
+			ret = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+		}
+	}
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
 	return ret;
 }
 
@@ -899,6 +946,7 @@ XStatus XPm_SetRequirement(const enum XPmNodeId nid,
 	u32 payload[PAYLOAD_ARG_CNT];
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if (NULL != primary_master) {
 		PACK_PAYLOAD4(payload, PM_SET_REQUIREMENT, nid, capabilities, qos, ack);
 		ret = pm_ipi_send(primary_master, payload);
@@ -913,6 +961,16 @@ XStatus XPm_SetRequirement(const enum XPmNodeId nid,
 	}
 
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
+=======
+	if (NULL != primary_master) {
+		PACK_PAYLOAD4(payload, PM_SET_REQUIREMENT, nid, capabilities, qos, ack);
+		ret = pm_ipi_send(primary_master, payload);
+
+		if ((XST_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack)) {
+			ret = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+		}
+	}
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
 	return ret;
 }
 
@@ -1128,6 +1186,7 @@ XStatus XPm_GetApiVersion(u32 *version)
 		/* Send request to the PMU */
 		PACK_PAYLOAD0(payload, PM_GET_API_VERSION);
 		ret = pm_ipi_send(primary_master, payload);
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 		if (XST_SUCCESS != ret) {
@@ -1141,11 +1200,20 @@ XStatus XPm_GetApiVersion(u32 *version)
 	if (XST_SUCCESS != ret) {
 		goto done;
 	}
+=======
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
 
-	/* Return result from IPI return buffer */
-	ret = pm_ipi_buff_read32(primary_master, version, NULL, NULL);
+		if (XST_SUCCESS != ret) {
+			goto done;
+		}
 
+<<<<<<< HEAD
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
+=======
+		/* Return result from IPI return buffer */
+		ret = pm_ipi_buff_read32(primary_master, version, NULL, NULL);
+	}
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
 done:
 	return ret;
 }
@@ -1199,6 +1267,7 @@ XStatus XPm_GetNodeStatus(const enum XPmNodeId node,
 		ret = pm_ipi_send(primary_master, payload);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if (XST_SUCCESS != ret) {
 			goto done;
 		}
@@ -1218,6 +1287,17 @@ XStatus XPm_GetNodeStatus(const enum XPmNodeId node,
 				  &nodestatus->requirements,
 				  &nodestatus->usage);
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
+=======
+		if (XST_SUCCESS != ret) {
+			goto done;
+		}
+
+		/* Return result from IPI return buffer */
+		ret = pm_ipi_buff_read32(primary_master, &nodestatus->status,
+					  &nodestatus->requirements,
+					  &nodestatus->usage);
+	}
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
 done:
 	return ret;
 }
@@ -1251,6 +1331,7 @@ XStatus XPm_GetOpCharacteristic(const enum XPmNodeId node,
 		/* Send request to the PMU */
 		PACK_PAYLOAD2(payload, PM_GET_OP_CHARACTERISTIC, node, type);
 		ret = pm_ipi_send(primary_master, payload);
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 		if (XST_SUCCESS != ret) {
@@ -1268,6 +1349,16 @@ XStatus XPm_GetOpCharacteristic(const enum XPmNodeId node,
 	/* Return result from IPI return buffer */
 	ret = pm_ipi_buff_read32(primary_master, result, NULL, NULL);
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
+=======
+
+		if (XST_SUCCESS != ret) {
+			goto done;
+		}
+
+	/* Return result from IPI return buffer */
+		ret = pm_ipi_buff_read32(primary_master, result, NULL, NULL);
+	}
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
 
 done:
 	return ret;
@@ -1294,6 +1385,7 @@ XStatus XPm_ResetAssert(const enum XPmReset reset,
 			const enum XPmResetAction resetaction)
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	XStatus ret = XST_FAILURE;
 	u32 payload[PAYLOAD_ARG_CNT];
 
@@ -1311,19 +1403,28 @@ XStatus XPm_ResetAssert(const enum XPmReset reset,
 	}
 =======
 	XStatus ret;
+=======
+	XStatus ret = XST_FAILURE;
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
 	u32 payload[PAYLOAD_ARG_CNT];
 
-	/* Send request to the PMU */
-	PACK_PAYLOAD2(payload, PM_RESET_ASSERT, reset, assert);
-	ret = pm_ipi_send(primary_master, payload);
+	if (NULL != primary_master) {
+		/* Send request to the PMU */
+		PACK_PAYLOAD2(payload, PM_RESET_ASSERT, reset, assert);
+		ret = pm_ipi_send(primary_master, payload);
 
-	if (XST_SUCCESS != ret) {
-		goto done;
-	}
+		if (XST_SUCCESS != ret) {
+			goto done;
+		}
 
 	/* Return result from IPI return buffer */
+<<<<<<< HEAD
 	ret = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
+=======
+		ret = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	}
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
 
 done:
 	return ret;
@@ -1354,6 +1455,7 @@ XStatus XPm_ResetGetStatus(const enum XPmReset reset, u32 *status)
 		ret = pm_ipi_send(primary_master, payload);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if (XST_SUCCESS != ret) {
 			goto done;
 		}
@@ -1369,6 +1471,15 @@ XStatus XPm_ResetGetStatus(const enum XPmReset reset, u32 *status)
 	/* Return result from IPI return buffer */
 	ret = pm_ipi_buff_read32(primary_master, status, NULL, NULL);
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
+=======
+		if (XST_SUCCESS != ret) {
+			goto done;
+		}
+
+	/* Return result from IPI return buffer */
+		ret = pm_ipi_buff_read32(primary_master, status, NULL, NULL);
+	}
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
 
 done:
 	return ret;
@@ -1429,6 +1540,7 @@ XStatus XPm_RegisterNotifier(XPm_Notifier* const notifier)
 		PACK_PAYLOAD4(payload, PM_REGISTER_NOTIFIER, notifier->node,
 				  notifier->event, notifier->flags, 1);
 		ret = pm_ipi_send(primary_master, payload);
+<<<<<<< HEAD
 
 		if (XST_SUCCESS != ret) {
 			goto done;
@@ -1455,9 +1567,22 @@ XStatus XPm_RegisterNotifier(XPm_Notifier* const notifier)
 	if (XST_SUCCESS != ret) {
 		goto done;
 	}
+=======
 
-	/* Add notifier in the list only if PMU has it registered */
-	ret = XPm_NotifierAdd(notifier);
+		if (XST_SUCCESS != ret) {
+			goto done;
+		}
+
+		ret = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+
+		if (XST_SUCCESS != ret) {
+			goto done;
+		}
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
+
+		/* Add notifier in the list only if PMU has it registered */
+		ret = XPm_NotifierAdd(notifier);
+	}
 
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
 done:
@@ -1504,6 +1629,9 @@ XStatus XPm_UnregisterNotifier(XPm_Notifier* const notifier)
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
 	if (NULL != primary_master) {
 		/* Send request to the PMU */
 		PACK_PAYLOAD4(payload, PM_REGISTER_NOTIFIER, notifier->node,
@@ -1512,6 +1640,7 @@ XStatus XPm_UnregisterNotifier(XPm_Notifier* const notifier)
 		if (XST_SUCCESS != ret) {
 			goto done;
 		}
+<<<<<<< HEAD
 
 		ret = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
 	}
@@ -1527,8 +1656,14 @@ XStatus XPm_UnregisterNotifier(XPm_Notifier* const notifier)
 	if (XST_SUCCESS != ret) {
 		goto done;
 	}
+=======
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
 
-	ret = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+		ret = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	}
+	else {
+		ret = XST_FAILURE;
+	}
 
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
 done:
@@ -1566,6 +1701,7 @@ XStatus XPm_MmioWrite(const u32 address, const u32 mask, const u32 value)
 		status = pm_ipi_send(primary_master, payload);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if (XST_SUCCESS != status) {
 			goto done;
 		}
@@ -1581,6 +1717,15 @@ XStatus XPm_MmioWrite(const u32 address, const u32 mask, const u32 value)
 	/* Return result from IPI return buffer */
 	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
+=======
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+
+	/* Return result from IPI return buffer */
+		status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	}
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
 
 done:
 	return status;
@@ -1611,6 +1756,7 @@ XStatus XPm_MmioRead(const u32 address, u32 *const value)
 		/* Send request to the PMU */
 		PACK_PAYLOAD1(payload, PM_MMIO_READ, address);
 		status = pm_ipi_send(primary_master, payload);
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 		if (XST_SUCCESS != status) {
@@ -1628,6 +1774,16 @@ XStatus XPm_MmioRead(const u32 address, u32 *const value)
 	/* Return result from IPI return buffer */
 	status = pm_ipi_buff_read32(primary_master, value, NULL, NULL);
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
+=======
+
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+
+	/* Return result from IPI return buffer */
+		status = pm_ipi_buff_read32(primary_master, value, NULL, NULL);
+	}
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
 
 done:
 	return status;
@@ -1653,6 +1809,7 @@ XStatus XPm_ClockEnable(const enum XPmClock clock)
 		/* Send request to the PMU */
 		PACK_PAYLOAD1(payload, PM_CLOCK_ENABLE, clock);
 		status = pm_ipi_send(primary_master, payload);
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 		if (XST_SUCCESS != status) {
@@ -1667,9 +1824,16 @@ XStatus XPm_ClockEnable(const enum XPmClock clock)
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
+=======
 
-	/* Return result from IPI return buffer */
-	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
+
+		/* Return result from IPI return buffer */
+		status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	}
 
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
 done:
@@ -1696,6 +1860,7 @@ XStatus XPm_ClockDisable(const enum XPmClock clock)
 		/* Send request to the PMU */
 		PACK_PAYLOAD1(payload, PM_CLOCK_DISABLE, clock);
 		status = pm_ipi_send(primary_master, payload);
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 		if (XST_SUCCESS != status) {
@@ -1710,9 +1875,16 @@ XStatus XPm_ClockDisable(const enum XPmClock clock)
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
+=======
 
-	/* Return result from IPI return buffer */
-	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
+
+		/* Return result from IPI return buffer */
+		status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	}
 
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
 done:
@@ -1738,6 +1910,7 @@ XStatus XPm_ClockGetStatus(const enum XPmClock clock, u32 *const status)
 		/* Send request to the PMU */
 		PACK_PAYLOAD1(payload, PM_CLOCK_GETSTATE, clock);
 		ret = pm_ipi_send(primary_master, payload);
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 		if (XST_SUCCESS != ret) {
@@ -1752,9 +1925,16 @@ XStatus XPm_ClockGetStatus(const enum XPmClock clock, u32 *const status)
 	if (XST_SUCCESS != ret) {
 		goto done;
 	}
+=======
 
-	/* Return result from IPI return buffer */
-	ret = pm_ipi_buff_read32(primary_master, status, NULL, NULL);
+		if (XST_SUCCESS != ret) {
+			goto done;
+		}
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
+
+		/* Return result from IPI return buffer */
+		ret = pm_ipi_buff_read32(primary_master, status, NULL, NULL);
+	}
 
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
 done:
@@ -1782,6 +1962,9 @@ static XStatus XPm_ClockSetOneDivider(const enum XPmClock clock,
 	u32 payload[PAYLOAD_ARG_CNT];
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
 	if (NULL != primary_master) {
 		/* Send request to the PMU */
 		PACK_PAYLOAD3(payload, PM_CLOCK_SETDIVIDER, clock, divId, divider);
@@ -1789,6 +1972,7 @@ static XStatus XPm_ClockSetOneDivider(const enum XPmClock clock,
 		if (XST_SUCCESS != status) {
 			goto done;
 		}
+<<<<<<< HEAD
 
 		/* Return result from IPI return buffer */
 		status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
@@ -1801,9 +1985,12 @@ static XStatus XPm_ClockSetOneDivider(const enum XPmClock clock,
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
+=======
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
 
-	/* Return result from IPI return buffer */
-	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+		/* Return result from IPI return buffer */
+		status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	}
 
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
 done:
@@ -2065,6 +2252,7 @@ XStatus XPm_PllSetParameter(const enum XPmNodeId node,
 		/* Send request to the PMU */
 		PACK_PAYLOAD3(payload, PM_PLL_SET_PARAMETER, node, parameter, value);
 		status = pm_ipi_send(primary_master, payload);
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 		if (XST_SUCCESS != status) {
@@ -2079,9 +2267,16 @@ XStatus XPm_PllSetParameter(const enum XPmNodeId node,
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
+=======
 
-	/* Return result from IPI return buffer */
-	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
+
+		/* Return result from IPI return buffer */
+		status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	}
 
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
 done:
@@ -2112,6 +2307,7 @@ XStatus XPm_PllGetParameter(const enum XPmNodeId node,
 		status = pm_ipi_send(primary_master, payload);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if (XST_SUCCESS != status) {
 			goto done;
 		}
@@ -2124,9 +2320,15 @@ XStatus XPm_PllGetParameter(const enum XPmNodeId node,
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
+=======
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
 
-	/* Return result from IPI return buffer */
-	status = pm_ipi_buff_read32(primary_master, value, NULL, NULL);
+		/* Return result from IPI return buffer */
+		status = pm_ipi_buff_read32(primary_master, value, NULL, NULL);
+	}
 
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
 done:
@@ -2156,6 +2358,7 @@ XStatus XPm_PllSetMode(const enum XPmNodeId node, const enum XPmPllMode mode)
 		status = pm_ipi_send(primary_master, payload);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if (XST_SUCCESS != status) {
 			goto done;
 		}
@@ -2168,9 +2371,15 @@ XStatus XPm_PllSetMode(const enum XPmNodeId node, const enum XPmPllMode mode)
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
+=======
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
 
-	/* Return result from IPI return buffer */
-	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+		/* Return result from IPI return buffer */
+		status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	}
 
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
 done:
@@ -2196,6 +2405,7 @@ XStatus XPm_PllGetMode(const enum XPmNodeId node, enum XPmPllMode* const mode)
 		/* Send request to the PMU */
 		PACK_PAYLOAD1(payload, PM_PLL_GET_MODE, node);
 		status = pm_ipi_send(primary_master, payload);
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 		if (XST_SUCCESS != status) {
@@ -2210,9 +2420,16 @@ XStatus XPm_PllGetMode(const enum XPmNodeId node, enum XPmPllMode* const mode)
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
+=======
 
-	/* Return result from IPI return buffer */
-	status = pm_ipi_buff_read32(primary_master, (void*)mode, NULL, NULL);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
+
+		/* Return result from IPI return buffer */
+		status = pm_ipi_buff_read32(primary_master, (void*)mode, NULL, NULL);
+	}
 
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
 done:
@@ -2238,6 +2455,7 @@ static XStatus XPm_PinCtrlAction(const u32 pin, const enum XPmApiId api)
 		/* Send request to the PMU */
 		PACK_PAYLOAD1(payload, api, pin);
 		status = pm_ipi_send(primary_master, payload);
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 		if (XST_SUCCESS != status) {
@@ -2252,9 +2470,16 @@ static XStatus XPm_PinCtrlAction(const u32 pin, const enum XPmApiId api)
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
+=======
 
-	/* Return result from IPI return buffer */
-	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
+
+		/* Return result from IPI return buffer */
+		status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	}
 
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
 done:
@@ -2310,6 +2535,7 @@ XStatus XPm_PinCtrlSetFunction(const u32 pin, const enum XPmPinFn fn)
 		/* Send request to the PMU */
 		PACK_PAYLOAD2(payload, PM_PINCTRL_SET_FUNCTION, pin, fn);
 		status = pm_ipi_send(primary_master, payload);
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 		if (XST_SUCCESS != status) {
@@ -2324,9 +2550,16 @@ XStatus XPm_PinCtrlSetFunction(const u32 pin, const enum XPmPinFn fn)
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
+=======
 
-	/* Return result from IPI return buffer */
-	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
+
+		/* Return result from IPI return buffer */
+		status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	}
 
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
 done:
@@ -2354,6 +2587,7 @@ XStatus XPm_PinCtrlGetFunction(const u32 pin, enum XPmPinFn* const fn)
 		status = pm_ipi_send(primary_master, payload);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if (XST_SUCCESS != status) {
 			goto done;
 		}
@@ -2366,9 +2600,15 @@ XStatus XPm_PinCtrlGetFunction(const u32 pin, enum XPmPinFn* const fn)
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
+=======
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
 
-	/* Return result from IPI return buffer */
-	status = pm_ipi_buff_read32(primary_master, (void*)fn, NULL, NULL);
+		/* Return result from IPI return buffer */
+		status = pm_ipi_buff_read32(primary_master, (void*)fn, NULL, NULL);
+	}
 
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
 done:
@@ -2401,6 +2641,7 @@ XStatus XPm_PinCtrlSetParameter(const u32 pin,
 		status = pm_ipi_send(primary_master, payload);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if (XST_SUCCESS != status) {
 			goto done;
 		}
@@ -2413,9 +2654,15 @@ XStatus XPm_PinCtrlSetParameter(const u32 pin,
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
+=======
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
 
-	/* Return result from IPI return buffer */
-	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+		/* Return result from IPI return buffer */
+		status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	}
 
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
 done:
@@ -2444,6 +2691,7 @@ XStatus XPm_PinCtrlGetParameter(const u32 pin,
 		/* Send request to the PMU */
 		PACK_PAYLOAD2(payload, PM_PINCTRL_CONFIG_PARAM_GET, pin, param);
 		status = pm_ipi_send(primary_master, payload);
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 		if (XST_SUCCESS != status) {
@@ -2458,9 +2706,16 @@ XStatus XPm_PinCtrlGetParameter(const u32 pin,
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
+=======
 
-	/* Return result from IPI return buffer */
-	status = pm_ipi_buff_read32(primary_master, value, NULL, NULL);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+>>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_api_sys.c
+
+		/* Return result from IPI return buffer */
+		status = pm_ipi_buff_read32(primary_master, value, NULL, NULL);
+	}
 
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
 done:
