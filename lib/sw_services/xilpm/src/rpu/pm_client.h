@@ -57,6 +57,7 @@ const char* XPm_GetMasterName(void);
 =======
 >>>>>>> Xilpm: Fixed MISRA-C:2012 R.15.5 in pm_client.c
 
+<<<<<<< HEAD
 #define pm_print(MSG, ...)	xil_printf("%s: "MSG, \
 										XPm_GetMasterName(), ##__VA_ARGS__)
 
@@ -78,4 +79,6 @@ const char* XPm_GetMasterName(void);
 
 =======
 >>>>>>> Xilpm: Fixes MISRA-C:2012 R.21.1, R.21.2 in pm_client.h
+=======
+>>>>>>> Xilpm: Support for IAR compier
 #endif /* PM_CLIENT_H */

@@ -207,6 +207,7 @@ void XPm_ClientSuspendFinalize(void)
 	ctrlReg = mfcp(XREG_CP15_SYS_CONTROL);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 #elif defined (__ICCARM__)
 	mfcp(XREG_CP15_SYS_CONTROL, ctrlReg);
 #endif
@@ -215,6 +216,11 @@ void XPm_ClientSuspendFinalize(void)
 	if ((XREG_CP15_CONTROL_C_BIT & ctrlReg) != 0U)
 >>>>>>> Xilpm: Fixes MISRA-C:R.10.1, R.14.4 pm_client.c
 =======
+=======
+#elif defined (__ICCARM__)
+	mfcp(XREG_CP15_SYS_CONTROL, ctrlReg);
+#endif
+>>>>>>> Xilpm: Support for IAR compier
 	if ((XREG_CP15_CONTROL_C_BIT & ctrlReg) != 0U) {
 >>>>>>> Xilpm: Fixes MISRA-C:2012 R.15.6 in pm_client.c
 		Xil_DCacheFlush();
@@ -297,5 +303,5 @@ void XPm_ClientSetPrimaryMaster(void)
 	} else {
 		primary_master = pm_masters_all[master_id];
 	}
-	pm_print("Running in %s mode\n", lockstep ? "Lock-Step" : "Split");
+	pm_dbg("Running in %s mode\n", lockstep ? "Lock-Step" : "Split");
 }

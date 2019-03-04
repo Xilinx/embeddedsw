@@ -339,6 +339,7 @@ static XStatus pm_ipi_buff_read32(struct XPm_Master *const master,
 
 	if (status != XST_SUCCESS) {
 		pm_dbg("%s xilpm: ERROR reading from PMU's IPI response buffer\n", __func__);
+<<<<<<< HEAD
 		goto done;
 	}
 
@@ -351,6 +352,8 @@ static XStatus pm_ipi_buff_read32(struct XPm_Master *const master,
 	if (response[7] != XPm_CalculateCRC((UINTPTR)response, IPI_W0_TO_W6_SIZE)) {
 		pm_dbg("%s: xilpm: ERROR IPI buffer CRC mismatch\n", __func__);
 		status = XST_FAILURE;
+=======
+>>>>>>> Xilpm: Support for IAR compier
 		goto done;
 	}
 #endif
