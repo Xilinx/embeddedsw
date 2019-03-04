@@ -1528,10 +1528,14 @@ XStatus XPm_RegisterNotifier(XPm_Notifier* const notifier)
 	if (NULL == notifier) {
 		pm_dbg("%s ERROR: NULL notifier pointer\n", __func__);
 <<<<<<< HEAD
+<<<<<<< HEAD
 		ret = (XStatus)XST_INVALID_PARAM;
 =======
 		ret = XST_INVALID_PARAM;
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
+=======
+		ret = (XStatus)XST_INVALID_PARAM;
+>>>>>>> Xilpm: Fixes MISRA-C:2012 R.10.3, R.10.4 in pm_api_sys.c
 		goto done;
 	}
 
@@ -1611,10 +1615,14 @@ XStatus XPm_UnregisterNotifier(XPm_Notifier* const notifier)
 	if (NULL == notifier) {
 		pm_dbg("%s ERROR: NULL notifier pointer\n", __func__);
 <<<<<<< HEAD
+<<<<<<< HEAD
 		ret = (XStatus)XST_INVALID_PARAM;
 =======
 		ret = XST_INVALID_PARAM;
 >>>>>>> Xilpm: This patch fixes MISRA-R15.5 in pm_api_sys.c
+=======
+		ret = (XStatus)XST_INVALID_PARAM;
+>>>>>>> Xilpm: Fixes MISRA-C:2012 R.10.3, R.10.4 in pm_api_sys.c
 		goto done;
 	}
 
