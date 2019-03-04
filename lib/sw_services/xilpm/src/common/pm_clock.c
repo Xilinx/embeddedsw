@@ -43,7 +43,6 @@
 #define PM_CLOCK_HAS_DIV0(clk)	(0U != ((clk)->type & PM_CLOCK_TYPE_DIV0))
 #define PM_CLOCK_HAS_DIV1(clk)	(0U != ((clk)->type & PM_CLOCK_TYPE_DIV1))
 
-typedef struct XPmClockModel XPmClockModel;
 
 /**
  * Pair of multiplexer select value and selected clock input
@@ -76,7 +75,7 @@ typedef struct {
 /**
  * Clock model
  */
-typedef struct XPmClockModel {
+typedef struct XPmClkModel {
 	/** Clock ID*/
 	const enum XPmClock id;
 	/** Pointer to the mux model*/
@@ -84,7 +83,7 @@ typedef struct XPmClockModel {
 	/** Type specifying the available divisors*/
 	const u8 type;
 	/** Next clock in the list*/
-	const XPmClockModel* const next;
+	const struct XPmClkModel* const next;
 } XPmClockModel;
 
 /******************************************************************************/
