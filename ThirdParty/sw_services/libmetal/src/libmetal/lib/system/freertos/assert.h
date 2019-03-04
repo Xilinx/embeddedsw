@@ -24,3 +24,4 @@
 #define metal_sys_assert(cond) assert(cond)
 
 #endif /* __METAL_FREERTOS_ASSERT__H__ */
+

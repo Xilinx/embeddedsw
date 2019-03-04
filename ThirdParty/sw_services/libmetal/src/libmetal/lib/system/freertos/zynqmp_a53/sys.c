@@ -88,7 +88,7 @@ void *metal_machine_io_mem_map(void *va, metal_phys_addr_t pa,
 		Xil_SetTlbAttributes(ttb_addr, flags);
 
 #if defined (__aarch64__)
-		/* recalculate if we started below 4GB and going above in 64bit mode */
+		/* recalculate if we started below 4GB and going above in 64bit mode */ 
 		if ( ttb_addr >= 4*GB ) {
 			ttb_size = 1*GB;
 		}

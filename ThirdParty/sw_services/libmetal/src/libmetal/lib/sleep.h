@@ -41,3 +41,4 @@ static inline int metal_sleep_usec(unsigned int usec)
 #endif
 
 #endif /* __METAL_SLEEP__H__ */
+

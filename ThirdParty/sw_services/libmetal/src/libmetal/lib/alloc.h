@@ -31,7 +31,7 @@ static inline void *metal_allocate_memory(unsigned int size);
 /**
  * @brief      free the memory previously allocated
  *
- * @param[in]  ptr       pointer to memory
+ * @param[in]  ptr       pointer to memory 
  */
 static inline void metal_free_memory(void *ptr);
 

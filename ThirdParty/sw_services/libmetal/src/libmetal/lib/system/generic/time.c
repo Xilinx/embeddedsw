@@ -16,3 +16,4 @@ unsigned long long metal_get_timestamp(void)
 	/* TODO: Implement timestamp for generic system */
 	return 0;
 }
+
