@@ -37,11 +37,18 @@
 #ifndef PM_COMMON_H
 #define PM_COMMON_H
 
-#include <xipipsu.h>
-#include "pm_defs.h"
 #include "xparameters.h"
+#include "xil_io.h"
+#include "xil_exception.h"
+#include "xil_types.h"
+#include "xstatus.h"
+#include "xipipsu.h"
+#include "pm_defs.h"
+#ifdef DEBUG_MODE
+#include "xil_printf.h"
+#endif
 
-#define DEBUG_MODE
+
 
 #define PM_ARRAY_SIZE(x)	(sizeof(x) / sizeof(x[0]))
 
