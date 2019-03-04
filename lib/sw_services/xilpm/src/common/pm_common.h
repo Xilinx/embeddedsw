@@ -34,8 +34,8 @@
  * PU Power Management. This file should be common for all PU's.
  *****************************************************************************/
 
-#ifndef _PM_COMMON_H_
-#define _PM_COMMON_H_
+#ifndef PM_COMMON_H
+#define PM_COMMON_H
 
 #include <xipipsu.h>
 #include "pm_defs.h"
@@ -110,4 +110,4 @@ void XPm_ClientSetPrimaryMaster(void);
 extern const enum XPmNodeId subsystem_node;
 extern struct XPm_Master *primary_master;
 
-#endif /* _PM_COMMON_H_ */
+#endif /* PM_COMMON_H */
