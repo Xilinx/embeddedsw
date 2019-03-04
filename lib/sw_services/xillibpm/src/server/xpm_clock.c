@@ -136,7 +136,8 @@ static uint32_t ClkInvalidList[] = {
 };
 
 static XStatus XPmClock_Init(XPm_ClockNode *Clk, u32 Id, u32 ControlReg,
-			     u8 TopologyType, u8 NumCustomNodes, u8 NumParents)
+			     u8 TopologyType, u8 NumCustomNodes, u8 NumParents,
+			     u32 PowerDomainId)
 {
 	int Status = XST_SUCCESS;
 	u32 Subclass = NODESUBCLASS(Id);
@@ -167,18 +168,25 @@ static XStatus XPmClock_Init(XPm_ClockNode *Clk, u32 Id, u32 ControlReg,
 			OutClkPtr->Topology.NumNodes = ClkTopologies[TopologyType-TOPOLOGY_GENERIC_MUX_DIV].NumNodes;
 			OutClkPtr->Topology.Nodes = ClkTopologies[TopologyType-TOPOLOGY_GENERIC_MUX_DIV].Nodes;
 		}
-		//TBD: Not using PowerDomainId for now
 	} else {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
+
+	if ((XPM_NODECLASS_POWER != NODECLASS(PowerDomainId)) ||
+	    (XPM_NODESUBCL_POWER_DOMAIN != NODESUBCLASS(PowerDomainId))) {
+		Clk->PwrDomain = NULL;
+		goto done;
+	}
+
+	Clk->PwrDomain = PmPowers[NODEINDEX(PowerDomainId)];
 
 done:
 	return Status;
 }
 
 XStatus XPmClock_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
-			 u8 NumCustomNodes, u8 NumParents)
+			 u8 NumCustomNodes, u8 NumParents, u32 PowerDomainId)
 {
 	int Status = XST_SUCCESS;
 	u32 Subclass = NODESUBCLASS(Id);
@@ -211,7 +219,7 @@ XStatus XPmClock_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 	}
 
 	Status = XPmClock_Init(Clk, Id, ControlReg, TopologyType,
-			       NumCustomNodes, NumParents);
+			       NumCustomNodes, NumParents, PowerDomainId);
 
 	if (XST_SUCCESS == Status) {
 		ClkNodeList[ClockIndex] = Clk;

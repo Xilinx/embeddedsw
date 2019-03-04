@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -142,7 +142,8 @@ struct XPm_PllClockNode {
 #define PLL_FRAC_CFG_ENABLED_MASK	(0x80000000U)
 
 /************************** Function Prototypes ******************************/
-XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType, u16 *Offsets);
+XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
+			    u16 *Offsets, u32 PowerDomainId);
 XStatus XPmClockPll_AddParent(u32 Id, u32 *Parents, u32 NumParents);
 XStatus XPmClockPll_Request(u32 PllId);
 XStatus XPmClockPll_Release(u32 PllId);
