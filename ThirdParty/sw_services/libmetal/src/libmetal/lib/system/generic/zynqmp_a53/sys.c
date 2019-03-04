@@ -39,7 +39,7 @@ unsigned int sys_irq_save_disable(void)
 
 void metal_machine_cache_flush(void *addr, unsigned int len)
 {
-	if (!addr & !len)
+	if (!addr && !len)
 		Xil_DCacheFlush();
 	else
 		Xil_DCacheFlushRange((intptr_t)addr, len);
@@ -47,7 +47,7 @@ void metal_machine_cache_flush(void *addr, unsigned int len)
 
 void metal_machine_cache_invalidate(void *addr, unsigned int len)
 {
-	if (!addr & !len)
+	if (!addr && !len)
 		Xil_DCacheInvalidate();
 	else
 		Xil_DCacheInvalidateRange((intptr_t)addr, len);
@@ -88,7 +88,7 @@ void *metal_machine_io_mem_map(void *va, metal_phys_addr_t pa,
 		Xil_SetTlbAttributes(ttb_addr, flags);
 
 #if defined (__aarch64__)
-		/* recalculate if we started below 4GB and going above in 64bit mode */
+		/* recalculate if we started below 4GB and going above in 64bit mode */ 
 		if ( ttb_addr >= 4*GB ) {
 			ttb_size = 1*GB;
 		}

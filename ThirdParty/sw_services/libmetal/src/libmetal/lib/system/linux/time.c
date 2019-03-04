@@ -31,3 +31,4 @@ unsigned long long metal_get_timestamp(void)
 	}
 	return t;
 }
+

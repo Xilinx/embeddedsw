@@ -43,8 +43,9 @@ static int metal_shmem_try_map(struct metal_page_size *ps, int fd, size_t size,
 
 	error = metal_map(fd, 0, size, 1, ps->mmap_flags, &mem);
 	if (error) {
-		metal_log(METAL_LOG_ERROR, "failed to mmap shmem - %s\n",
-			  strerror(-error));
+		metal_log(METAL_LOG_WARNING,
+			  "failed to mmap shmem %ld,0x%x - %s\n",
+			  size, ps->mmap_flags, strerror(-error));
 		return error;
 	}
 

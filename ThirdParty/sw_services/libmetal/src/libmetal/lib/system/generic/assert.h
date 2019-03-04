@@ -25,3 +25,4 @@
 #define metal_sys_assert(cond) assert(cond)
 
 #endif /* __METAL_GENERIC_ASSERT__H__ */
+

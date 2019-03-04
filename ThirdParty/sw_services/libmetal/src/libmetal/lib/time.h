@@ -38,3 +38,4 @@ unsigned long long metal_get_timestamp(void);
 #endif
 
 #endif /* __METAL_TIME__H__ */
+
