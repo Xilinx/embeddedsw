@@ -328,12 +328,15 @@ static XStatus pm_ipi_buff_read32(struct XPm_Master *const master,
 	 * buf-2: value2
 	 * buf-3: value3
 	 */
-	if (NULL != value1)
+	if (NULL != value1) {
 		*value1 = response[1];
-	if (NULL != value2)
+	}
+	if (NULL != value2) {
 		*value2 = response[2];
-	if (NULL != value3)
+	}
+	if (NULL != value3) {
 		*value3 = response[3];
+	}
 
 	status = response[0];
 done:
@@ -631,13 +634,15 @@ XStatus XPm_AbortSuspend(const enum XPmAbortReason reason)
 	/* Send request to the PMU */
 	PACK_PAYLOAD2(payload, PM_ABORT_SUSPEND, reason, primary_master->node_id);
 	status = pm_ipi_send(primary_master, payload);
-	if (XST_SUCCESS != status)
+	if (XST_SUCCESS != status) {
 		goto done;
+	}
 
 	/* Check the response from PMU */
 	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
-	if (XST_SUCCESS != status)
+	if (XST_SUCCESS != status) {
 		goto done;
+	}
 
 	/*
 	 * Do client specific abort suspend operations
