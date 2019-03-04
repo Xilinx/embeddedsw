@@ -98,7 +98,11 @@ XStatus XPm_NotifierRemove(XPm_Notifier* const notifier)
 	curr = notifierList;
 	while (curr != NULL) {
 		if (notifier == curr) {
+<<<<<<< HEAD
 			if (prev != NULL) {
+=======
+			if (prev != NULL)
+>>>>>>> Xilpm: Fixed MISRA-C:2012 R.10.1, R.14.4 in pm_callback.c
 				prev->next = curr->next;
 			}
 			else {
@@ -143,15 +147,23 @@ void XPm_NotifierProcessEvent(const enum XPmNodeId node,
 		notifier = NULL;
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 	while (notifier != NULL) {
 =======
 	while (notifier) {
 >>>>>>> Xilpm: Fixed MISRA-C:2012 D.4.1 in pm_callback.c
+=======
+	while (notifier != NULL) {
+>>>>>>> Xilpm: Fixed MISRA-C:2012 R.10.1, R.14.4 in pm_callback.c
 		if ((node == notifier->node) &&
 		    (event == notifier->event)) {
 			notifier->oppoint = oppoint;
 			notifier->received++;
+<<<<<<< HEAD
 			if (notifier->callback != NULL) {
+=======
+			if (notifier->callback != NULL)
+>>>>>>> Xilpm: Fixed MISRA-C:2012 R.10.1, R.14.4 in pm_callback.c
 				notifier->callback(notifier);
 			}
 			/*
