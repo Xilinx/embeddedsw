@@ -2040,14 +2040,22 @@ XStatus XPm_ClockSetDivider(const enum XPmClock clock, const u32 divider)
 		goto done;
 	}
 
+<<<<<<< HEAD
 	if (0U != (mapping & (1U << PM_CLOCK_DIV0_ID))) {
+=======
+	if (0U != (mapping & (1 << PM_CLOCK_DIV0_ID))) {
+>>>>>>> Xilpm: Fixes MISRA-C:2012 R.10.1, R.14.4 in pm_api_sys.c
 		status = XPm_ClockSetOneDivider(clock, div0, PM_CLOCK_DIV0_ID);
 		if (XST_SUCCESS != status) {
 			goto done;
 		}
 	}
 
+<<<<<<< HEAD
 	if (0U != (mapping & (1U << PM_CLOCK_DIV1_ID))) {
+=======
+	if (0U != (mapping & (1 << PM_CLOCK_DIV1_ID))) {
+>>>>>>> Xilpm: Fixes MISRA-C:2012 R.10.1, R.14.4 in pm_api_sys.c
 		status = XPm_ClockSetOneDivider(clock, div1, PM_CLOCK_DIV1_ID);
 	}
 
@@ -2106,16 +2114,24 @@ XStatus XPm_ClockGetDivider(const enum XPmClock clock, u32 *const divider)
 	u32 div;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if ((NULL == divider) || (0U == type)) {
 =======
 	status = XST_INVALID_PARAM;
 	if (!divider || !type) {
 >>>>>>> Xilpm: Fixes MISRA-C:2012 R.9.1 in pm_api_sys.c
+=======
+	if ((NULL == divider) || (0U == type)) {
+>>>>>>> Xilpm: Fixes MISRA-C:2012 R.10.1, R.14.4 in pm_api_sys.c
 		goto done;
 	}
 
 	*divider = 1U;
+<<<<<<< HEAD
 	if (0U != (type & (1U << PM_CLOCK_DIV0_ID))) {
+=======
+	if (0U != (type & (1 << PM_CLOCK_DIV0_ID))) {
+>>>>>>> Xilpm: Fixes MISRA-C:2012 R.10.1, R.14.4 in pm_api_sys.c
 		status = XPm_ClockGetOneDivider(clock, &div, PM_CLOCK_DIV0_ID);
 		if (XST_SUCCESS != status) {
 			goto done;
@@ -2123,7 +2139,11 @@ XStatus XPm_ClockGetDivider(const enum XPmClock clock, u32 *const divider)
 		*divider *= div;
 	}
 
+<<<<<<< HEAD
 	if (0U != (type & (1U << PM_CLOCK_DIV1_ID))) {
+=======
+	if (0U != (type & (1 << PM_CLOCK_DIV1_ID))) {
+>>>>>>> Xilpm: Fixes MISRA-C:2012 R.10.1, R.14.4 in pm_api_sys.c
 		status = XPm_ClockGetOneDivider(clock, &div, PM_CLOCK_DIV1_ID);
 		if (XST_SUCCESS != status) {
 			goto done;
