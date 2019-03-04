@@ -46,7 +46,4 @@
 
 const char* XPm_GetMasterName(void);
 
-#define pm_print(MSG, ...)	xil_printf("%s: "MSG, \
-					   XPm_GetMasterName(), ##__VA_ARGS__)
-
 #endif /* PM_CLIENT_H */
