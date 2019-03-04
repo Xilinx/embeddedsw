@@ -131,8 +131,15 @@ void XPm_NotifierProcessEvent(const enum XPmNodeId node,
 			      const enum XPmNotifyEvent event,
 			      const u32 oppoint)
 {
-	XPm_Notifier* notifier = notifierList;
+	XPm_Notifier* notifier;
 
+	/* Validate the notifier list */
+	if (NULL != notifierList) {
+		notifier = notifierList;
+	}
+	else {
+		notifier = NULL;
+	}
 	while (notifier) {
 		if ((node == notifier->node) &&
 		    (event == notifier->event)) {
