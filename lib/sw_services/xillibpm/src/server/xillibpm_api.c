@@ -887,7 +887,7 @@ XStatus XPm_SetWakeupSource(const u32 SubsystemId, const u32 TargetNodeId,
 	}
 
 	/* Check whether the device has wake-up capability */
-	Status = XPm_CheckCapabilities(&Periph->Device, Subsystem, PM_CAP_WAKEUP);
+	Status = XPm_CheckCapabilities(&Periph->Device, PM_CAP_WAKEUP);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
