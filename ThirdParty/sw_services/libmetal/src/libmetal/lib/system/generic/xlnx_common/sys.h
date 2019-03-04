@@ -26,9 +26,9 @@ extern "C" {
  * Xilinx interrupt ISR can be registered to the Xilinx embeddedsw
  * IRQ controller driver.
  *
- * @param[in] vector interrupt vector
+ * @param[in] arg input argument, interrupt vector id.
  */
-void metal_xlnx_irq_isr(unsigned int vector);
+void metal_xlnx_irq_isr(void *arg);
 
 /**
  * @brief	metal_xlnx_irq_int

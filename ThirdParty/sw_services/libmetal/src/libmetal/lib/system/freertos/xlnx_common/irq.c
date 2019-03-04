@@ -47,8 +47,11 @@ static METAL_IRQ_CONTROLLER_DECLARE(xlnx_irq_cntr,
 /**
  * @brief default handler
  */
-void metal_xlnx_irq_isr(unsigned int vector)
+void metal_xlnx_irq_isr(void *arg)
 {
+	unsigned int vector;
+
+	vector = (uintptr_t)arg;
 	if (vector >= MAX_IRQS) {
 		return;
 	}
