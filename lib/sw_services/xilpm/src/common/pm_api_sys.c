@@ -287,7 +287,7 @@ done:
 static XStatus pm_ipi_buff_read32(struct XPm_Master *const master,
 				  u32 *value1, u32 *value2, u32 *value3)
 {
-	u32 response[RESPONSE_ARG_CNT];
+	u32 response[RESPONSE_ARG_CNT] = {0U};
 	XStatus status;
 
 	/* Wait until current IPI interrupt is handled by PMU */
@@ -1580,7 +1580,8 @@ XStatus XPm_ClockSetDivider(const enum XPmClock clock, const u32 divider)
 {
 	XStatus status = XST_INVALID_PARAM;
 	u8 mapping = XPm_GetClockDivType(clock);
-	u32 div0, div1;
+	u32 div0 = 0U;
+	u32 div1 = 0U;
 
 	mapping = XPm_MapDivider(clock, divider, &div0, &div1);
 	if (!mapping) {
@@ -1652,8 +1653,8 @@ XStatus XPm_ClockGetDivider(const enum XPmClock clock, u32 *const divider)
 	u8 type = XPm_GetClockDivType(clock);
 	u32 div;
 
+	status = XST_INVALID_PARAM;
 	if (!divider || !type) {
-		status = XST_INVALID_PARAM;
 		goto done;
 	}
 
@@ -1696,7 +1697,7 @@ XStatus XPm_ClockSetParent(const enum XPmClock clock,
 {
 	XStatus status = XST_FAILURE;
 	u32 payload[PAYLOAD_ARG_CNT];
-	u32 select;
+	u32 select = 0U;
 
 	status = XPm_GetSelectByClockParent(clock, parent, &select);
 	if (XST_SUCCESS != status) {
@@ -1735,7 +1736,7 @@ XStatus XPm_ClockGetParent(const enum XPmClock clock,
 {
 	XStatus status = XST_FAILURE;
 	u32 payload[PAYLOAD_ARG_CNT];
-	u32 select;
+	u32 select = 0U;
 
 	if (NULL != primary_master) {
 		/* Send request to the PMU */
