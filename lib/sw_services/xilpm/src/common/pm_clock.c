@@ -972,7 +972,7 @@ static const XPmClockModel* XPm_GetClockById(const enum XPmClock id)
 {
 	const XPmClockModel* clk = head;
 
-	while (clk) {
+	while (clk != NULL) {
 		if (clk->id == id) {
 			break;
 		}
@@ -1004,11 +1004,11 @@ XStatus XPm_GetClockParentBySelect(const enum XPmClock clockId,
 	XStatus status = XST_INVALID_PARAM;
 	u32 i;
 
-	if (!clk || !clk->mux) {
+	if ((NULL == clk) || (NULL == clk->mux)) {
 		goto done;
 	}
 
-	if (!clk->mux->inputs) {
+	if (NULL == clk->mux->inputs) {
 		/* MIO mux */
 		if (select <= 0x4DU) {
 			*parentId = PM_CLOCK_EXT_MIO0 + select;
@@ -1052,11 +1052,11 @@ XStatus XPm_GetSelectByClockParent(const enum XPmClock clockId,
 	XStatus status = XST_INVALID_PARAM;
 	u32 i;
 
-	if (!clk || !clk->mux) {
+	if ((NULL == clk) || (NULL == clk->mux)) {
 		goto done;
 	}
 
-	if (!clk->mux->inputs) {
+	if (NULL == clk->mux->inputs) {
 		/* MIO mux */
 		u32 mioSel = parentId - PM_CLOCK_EXT_MIO0;
 		if (mioSel <= 0x4DU) {
@@ -1096,7 +1096,7 @@ u8 XPm_GetClockDivType(const enum XPmClock clock)
 	const XPmClockModel* const clk = XPm_GetClockById(clock);
 	u8 divs = 0U;
 
-	if (!clk) {
+	if (NULL == clk) {
 		goto done;
 	}
 	divs = clk->type;
@@ -1131,7 +1131,7 @@ u8 XPm_MapDivider(const enum XPmClock clock,
 	u32 d0, d1 = 0U;
 	u8 mapped = 0U;
 
-	if (!clk || !div0 || !div1) {
+	if ((NULL == clk) || (NULL == div0) || (NULL == div1)) {
 		goto done;
 	}
 
@@ -1141,7 +1141,7 @@ u8 XPm_MapDivider(const enum XPmClock clock,
 	}
 
 	/* Check if given div value is out of range */
-	if ((!PM_CLOCK_HAS_DIV1(clk) && div > PM_DIV_WIDTH) ||
+	if (((!PM_CLOCK_HAS_DIV1(clk)) && (div > PM_DIV_WIDTH)) ||
 	    (div > PM_2xDIV_WIDTH)) {
 		goto done;
 	}
@@ -1164,7 +1164,7 @@ u8 XPm_MapDivider(const enum XPmClock clock,
 		}
 	}
 	/* Check if div is prime number > width (d1 would not be assigned) */
-	if (!d1) {
+	if (0U == d1) {
 		goto done;
 	}
 
