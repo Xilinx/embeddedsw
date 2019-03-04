@@ -52,9 +52,9 @@
 
 XStatus XPm_InitXilpm(XIpiPsu *IpiInst);
 
-void XPm_SuspendFinalize();
+void XPm_SuspendFinalize(void);
 
-enum XPmBootStatus XPm_GetBootStatus();
+enum XPmBootStatus XPm_GetBootStatus(void);
 
 /* System-level API function declarations */
 XStatus XPm_RequestSuspend(const enum XPmNodeId node,
@@ -85,7 +85,7 @@ XStatus XPm_SystemShutdown(u32 type, u32 subtype);
 
 XStatus XPm_SetConfiguration(const u32 address);
 
-XStatus XPm_InitFinalize();
+XStatus XPm_InitFinalize(void);
 
 /* Callback API function */
 /*
