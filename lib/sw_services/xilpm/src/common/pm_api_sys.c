@@ -1542,7 +1542,7 @@ done:
  ****************************************************************************/
 static XStatus XPm_ClockSetOneDivider(const enum XPmClock clock,
 				      const u32 divider,
-				      const enum XPmClockDivId divId)
+				      const u32 divId)
 {
 	XStatus status = XST_FAILURE;
 	u32 payload[PAYLOAD_ARG_CNT];
@@ -1614,7 +1614,7 @@ done:
  ****************************************************************************/
 static XStatus XPm_ClockGetOneDivider(const enum XPmClock clock,
 				      u32 *const divider,
-				      const enum XPmClockDivId divId)
+				      const u32 divId)
 {
 	XStatus status = XST_FAILURE;
 	u32 payload[PAYLOAD_ARG_CNT];
