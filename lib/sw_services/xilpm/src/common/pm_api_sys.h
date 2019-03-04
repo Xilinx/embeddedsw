@@ -41,8 +41,8 @@
  * @{
  *****************************************************************************/
 
-#ifndef _PM_API_SYS_H_
-#define _PM_API_SYS_H_
+#ifndef PM_API_SYS_H
+#define PM_API_SYS_H
 
 #include <xil_types.h>
 #include <xstatus.h>
@@ -256,4 +256,4 @@ XStatus XPm_PinCtrlGetParameter(const u32 pin,
 				u32* const value);
 
 /** @} */
-#endif /* _PM_API_SYS_H_ */
+#endif /* PM_API_SYS_H */
