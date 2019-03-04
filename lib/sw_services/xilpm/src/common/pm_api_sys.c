@@ -1410,7 +1410,7 @@ XStatus XPm_ResetAssert(const enum XPmReset reset,
 
 	if (NULL != primary_master) {
 		/* Send request to the PMU */
-		PACK_PAYLOAD2(payload, PM_RESET_ASSERT, reset, assert);
+		PACK_PAYLOAD2(payload, PM_RESET_ASSERT, reset, resetaction);
 		ret = pm_ipi_send(primary_master, payload);
 
 		if (XST_SUCCESS != ret) {
