@@ -47,6 +47,9 @@
  */
 #define PACK_PAYLOAD(pl, arg0, arg1, arg2, arg3, arg4, arg5, rsvd)		\
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Xilpm: Fixes MISRA-C:2012 R.20.7 in pm_api_sys.c
 	pl[0] = (u32)(arg0);						\
 	pl[1] = (u32)(arg1);						\
 	pl[2] = (u32)(arg2);						\
@@ -55,6 +58,7 @@
 	pl[5] = (u32)(arg5);						\
 	pl[6] = (u32)(rsvd);						\
 	pm_dbg("%s(%x, %x, %x, %x, %x, %x)\n", (__func__), (arg1), (arg2), (arg3), (arg4), (arg5), (rsvd));
+<<<<<<< HEAD
 
 #define PACK_PAYLOAD0(pl, api_id) \
 	PACK_PAYLOAD(pl, (api_id), 0U, 0U, 0U, 0U, 0U, 0U)
@@ -77,20 +81,26 @@
 	pl[5] = (u32)arg5;						\
 	pl[6] = (u32)rsvd;						\
 	pm_dbg("%s(%x, %x, %x, %x, %x, %x)\n", __func__, arg1, arg2, arg3, arg4, arg5, rsvd);
+=======
+>>>>>>> Xilpm: Fixes MISRA-C:2012 R.20.7 in pm_api_sys.c
 
 #define PACK_PAYLOAD0(pl, api_id) \
-	PACK_PAYLOAD(pl, api_id, 0, 0, 0, 0, 0, 0)
+	PACK_PAYLOAD(pl, (api_id), 0U, 0U, 0U, 0U, 0U, 0U)
 #define PACK_PAYLOAD1(pl, api_id, arg1) \
-	PACK_PAYLOAD(pl, api_id, arg1, 0, 0, 0, 0, 0)
+	PACK_PAYLOAD(pl, (api_id), (arg1), 0U, 0U, 0U, 0U, 0U)
 #define PACK_PAYLOAD2(pl, api_id, arg1, arg2) \
-	PACK_PAYLOAD(pl, api_id, arg1, arg2, 0, 0, 0, 0)
+	PACK_PAYLOAD(pl, (api_id), (arg1), (arg2), 0U, 0U, 0U, 0U)
 #define PACK_PAYLOAD3(pl, api_id, arg1, arg2, arg3) \
-	PACK_PAYLOAD(pl, api_id, arg1, arg2, arg3, 0, 0, 0)
+	PACK_PAYLOAD(pl, (api_id), (arg1), (arg2), (arg3), 0U, 0U, 0U)
 #define PACK_PAYLOAD4(pl, api_id, arg1, arg2, arg3, arg4) \
-	PACK_PAYLOAD(pl, api_id, arg1, arg2, arg3, arg4, 0, 0)
+	PACK_PAYLOAD(pl, (api_id), (arg1), (arg2), (arg3), (arg4), 0U, 0U)
 #define PACK_PAYLOAD5(pl, api_id, arg1, arg2, arg3, arg4, arg5) \
+<<<<<<< HEAD
 	PACK_PAYLOAD(pl, api_id, arg1, arg2, arg3, arg4, arg5, 0)
 >>>>>>> sw_services: xilpm: Add checksum support for IPI data
+=======
+	PACK_PAYLOAD(pl, (api_id), (arg1), (arg2), (arg3), (arg4), (arg5), 0U)
+>>>>>>> Xilpm: Fixes MISRA-C:2012 R.20.7 in pm_api_sys.c
 /**@}*/
 
 /****************************************************************************/
