@@ -17,20 +17,21 @@
 #define __METAL_FREERTOS_MUTEX__H__
 
 #include <metal/atomic.h>
+#include <stdlib.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 typedef struct {
-    atomic_int v;
+	atomic_int v;
 } metal_mutex_t;
 
 /*
  * METAL_MUTEX_INIT - used for initializing an mutex elmenet in a static struct
  * or global
  */
-#define METAL_MUTEX_INIT(m) { ATOMIC_VAR_INIT(0) }
+#define METAL_MUTEX_INIT(m)		{ ATOMIC_VAR_INIT(0) }
 /*
  * METAL_MUTEX_DEFINE - used for defining and initializing a global or
  * static singleton mutex
@@ -39,34 +40,34 @@ typedef struct {
 
 static inline void __metal_mutex_init(metal_mutex_t *mutex)
 {
-    atomic_store(&mutex->v, 0);
+	atomic_store(&mutex->v, 0);
 }
 
 static inline void __metal_mutex_deinit(metal_mutex_t *mutex)
 {
-    (void)mutex;
+	(void)mutex;
 }
 
 static inline int __metal_mutex_try_acquire(metal_mutex_t *mutex)
 {
-    return 1 - atomic_flag_test_and_set(&mutex->v);
+	return 1 - atomic_flag_test_and_set(&mutex->v);
 }
 
 static inline void __metal_mutex_acquire(metal_mutex_t *mutex)
 {
-    while (atomic_flag_test_and_set(&mutex->v)) {
-        ;
-    }
+	while (atomic_flag_test_and_set(&mutex->v)) {
+		;
+	}
 }
 
 static inline void __metal_mutex_release(metal_mutex_t *mutex)
 {
-    atomic_flag_clear(&mutex->v);
+	atomic_flag_clear(&mutex->v);
 }
 
 static inline int __metal_mutex_is_acquired(metal_mutex_t *mutex)
 {
-    return atomic_load(&mutex->v);
+	return atomic_load(&mutex->v);
 }
 
 #ifdef __cplusplus
