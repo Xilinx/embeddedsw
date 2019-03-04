@@ -338,7 +338,7 @@ static XStatus pm_ipi_buff_read32(struct XPm_Master *const master,
 		*value3 = response[3];
 	}
 
-	status = response[0];
+	status = (XStatus)response[0];
 done:
 	return status;
 }
@@ -485,8 +485,7 @@ done:
  * node as argument and specify the reason.
  *
  * @param  target  Node ID of the PU node to be suspended
- * @param  ack     Requested acknowledge type. REQUEST_ACK_BLOCKING is not
- * supported.
+ * @param  ack     Requested acknowledge type
  * @param  latency Maximum wake-up latency requirement in us(micro sec)
  * @param  state   Instead of specifying a maximum latency, a PU can
  * also explicitly request a certain power state.
@@ -1268,7 +1267,7 @@ XStatus XPm_RegisterNotifier(XPm_Notifier* const notifier)
 
 	if (!notifier) {
 		pm_dbg("%s ERROR: NULL notifier pointer\n", __func__);
-		ret = XST_INVALID_PARAM;
+		ret = (XStatus)XST_INVALID_PARAM;
 		goto done;
 	}
 
@@ -1317,7 +1316,7 @@ XStatus XPm_UnregisterNotifier(XPm_Notifier* const notifier)
 
 	if (!notifier) {
 		pm_dbg("%s ERROR: NULL notifier pointer\n", __func__);
-		ret = XST_INVALID_PARAM;
+		ret = (XStatus)XST_INVALID_PARAM;
 		goto done;
 	}
 
@@ -1775,7 +1774,7 @@ XStatus XPm_ClockSetRate(const enum XPmClock clock, const u32 rate)
 {
 	pm_dbg("%s(%u, %u) not supported\n", __func__, clock, rate);
 
-	return XST_NO_FEATURE;
+	return (XStatus)XST_NO_FEATURE;
 }
 
 /****************************************************************************/
@@ -1792,7 +1791,7 @@ XStatus XPm_ClockGetRate(const enum XPmClock clock, u32 *const rate)
 {
 	pm_dbg("%s(%u, %u) not supported\n", __func__, clock, rate);
 
-	return XST_NO_FEATURE;
+	return (XStatus)XST_NO_FEATURE;
 }
 
 /****************************************************************************/
