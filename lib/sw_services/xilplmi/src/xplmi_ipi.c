@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -184,7 +184,7 @@ int XPlmi_IpiWrite(u32 DestCpuMask, u32 *MsgPtr, u32 MsgLen, u32 Type)
 				Type);
 	}
 
-	XPlmi_Printf(DEBUG_INFO, "%s: IPI write status: 0x%x\r\n", __func__, Status);
+	XPlmi_Printf(DEBUG_DETAILED, "%s: IPI write status: 0x%x\r\n", __func__, Status);
 
 	return Status;
 }
@@ -214,7 +214,7 @@ int XPlmi_IpiRead(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen, u32 Type)
 		Status = XIpiPsu_ReadMessage(IpiInstPtr, SrcCpuMask, MsgPtr, MsgLen,
 				Type);
 	}
-	XPlmi_Printf(DEBUG_INFO, "%s: IPI read status: 0x%x\r\n", __func__, Status);
+	XPlmi_Printf(DEBUG_DETAILED, "%s: IPI read status: 0x%x\r\n", __func__, Status);
 
 	return Status;
 }
