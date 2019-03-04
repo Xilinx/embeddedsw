@@ -35,8 +35,8 @@
 #include "pm_clock.h"
 #include "pm_common.h"
 
-#define PM_CLOCK_TYPE_DIV0	(1 << PM_CLOCK_DIV0_ID)	/* bits 13:8 */
-#define PM_CLOCK_TYPE_DIV1	(1 << PM_CLOCK_DIV1_ID)	/* bits 21:16 */
+#define PM_CLOCK_TYPE_DIV0	(1U << PM_CLOCK_DIV0_ID)	/* bits 13:8 */
+#define PM_CLOCK_TYPE_DIV1	(1U << PM_CLOCK_DIV1_ID)	/* bits 21:16 */
 #define PM_DIV_WIDTH		0x3FU
 #define PM_2xDIV_WIDTH		(PM_DIV_WIDTH * PM_DIV_WIDTH)
 
@@ -528,7 +528,7 @@ static XPmClockMux fpdWdtMux = {
 	.inputs = fpdWdtSel2ClkIn,
 	.size = PM_ARRAY_SIZE(fpdWdtSel2ClkIn),
 	.bits = 1U,
-	.shift = 0,
+	.shift = 0U,
 };
 
 /******************************************************************************/
@@ -1150,13 +1150,13 @@ u8 XPm_MapDivider(const enum XPmClock clock,
 		*div0 = div;
 		mapped = PM_CLOCK_TYPE_DIV0;
 		if (PM_CLOCK_HAS_DIV1(clk)) {
-			*div1 = 1;
+			*div1 = 1U;
 			mapped |= PM_CLOCK_TYPE_DIV1;
 		}
 		goto done;
 	}
 	/* Divider has to be configured using both DIV0 and DIV1 */
-	for (d0 = 2; d0 <= PM_DIV_WIDTH/2 + 1; d0++) {
+	for (d0 = 2U; d0 <= ((PM_DIV_WIDTH/2U) + 1U); d0++) {
 		if (0U == (div % d0)) {
 			d1 = div / d0;
 			break;
