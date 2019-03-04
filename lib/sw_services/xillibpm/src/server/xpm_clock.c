@@ -826,6 +826,12 @@ XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId)
 		goto done;
 	}
 
+	/* Check for power domain of clock */
+	if ((NULL != Clk->PwrDomain) &&
+	    (XPM_POWER_STATE_ON != Clk->PwrDomain->Node.State)) {
+		Status = XST_FAILURE;
+	}
+
 	if (ISPLL(ClockId)) {
 		/* Plls are shared so all subsystems are allowed to access it */
 		goto done;
