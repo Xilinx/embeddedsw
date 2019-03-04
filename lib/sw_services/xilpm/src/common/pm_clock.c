@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015-2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -1010,7 +1010,8 @@ XStatus XPm_GetClockParentBySelect(const enum XPmClock clockId,
 	if (NULL == clk->mux->inputs) {
 		/* MIO mux */
 		if (select <= 0x4DU) {
-			*parentId = PM_CLOCK_EXT_MIO0 + select;
+			*parentId = PM_CLOCK_EXT_MIO0;
+			*parentId += select;
 			status = XST_SUCCESS;
 		}
 		/* else select parameter is invalid (out of scope) */
