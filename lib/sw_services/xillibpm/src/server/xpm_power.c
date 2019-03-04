@@ -257,6 +257,9 @@ XStatus XPmPower_GetStatus(const u32 SubsystemId, const u32 DeviceId, XPm_Device
 	XStatus Status = XST_SUCCESS;
 	XPm_Power *Power;
 
+	/* Warning Fix */
+	(void)SubsystemId;
+
 	Power = GetPowerNode(DeviceId);
 	if (NULL == Power) {
 		goto done;
