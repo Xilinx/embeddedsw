@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -36,7 +36,8 @@ static struct XPm_PllTopology PllTopologies[] =
 	{TOPOLOGY_NOC_PLL, PLLPARAMS, RESET_SHIFT, BYPASS_SHIFT, NPLL_LOCK_SHIFT, NPLL_STABLE_SHIFT },
 };
 
-XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType, u16 *Offsets)
+XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
+			    u16 *Offsets, u32 PowerDomainId)
 {
 	int Status = XST_SUCCESS;
 	u32 ClockIndex = NODEINDEX(Id);
@@ -67,6 +68,14 @@ XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType, u16 *Offset
 	PllClkPtr->FracConfigReg = ControlReg + Offsets[2];
 
 	ClkNodeList[ClockIndex] = (XPm_ClockNode *)PllClkPtr;
+
+	if ((XPM_NODECLASS_POWER != NODECLASS(PowerDomainId)) ||
+	    (XPM_NODESUBCL_POWER_DOMAIN != NODESUBCLASS(PowerDomainId))) {
+		PllClkPtr->ClkNode.PwrDomain = NULL;
+		goto done;
+	}
+
+	PllClkPtr->ClkNode.PwrDomain = PmPowers[NODEINDEX(PowerDomainId)];
 
 done:
 	return Status;

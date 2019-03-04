@@ -31,6 +31,7 @@
 
 #include "xpm_common.h"
 #include "xpm_node.h"
+#include "xpm_power.h"
 
 #define	XPM_NODEIDX_CLK_OUT_MIN	XPM_NODEIDX_CLK_PLL_MAX
 #define	XPM_NODEIDX_CLK_OUT_MAX	XPM_NODEIDX_CLK_OUTCLK_MAX
@@ -99,6 +100,7 @@ struct XPm_ClockNode {
 	u32 ParentId;
 	XPm_ClockHandle *ClkHandles; /**< Pointer to the clock/device pairs */
 	u32 UseCount;
+	XPm_Power *PwrDomain;
 };
 
 /**
@@ -172,7 +174,7 @@ extern u32 PmNumClocks;
 
 /************************** Function Prototypes ******************************/
 XStatus XPmClock_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
-			 u8 NumCustomNodes, u8 NumParents);
+			 u8 NumCustomNodes, u8 NumParents, u32 PowerDomainId);
 XStatus XPmClock_AddClkName(u32 Id, char *Name);
 XStatus XPmClock_AddSubNode(u32 Id, u32 Type, u32 ControlReg, u8 Param1, u8 Param2, u32 Flags);
 XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u32 NumParents);
