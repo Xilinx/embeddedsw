@@ -58,7 +58,7 @@
 /* 1 for status + 3 for values + 3 for Reserved + 1 for CRC */
 #define RESPONSE_ARG_CNT	8U
 
-#define PM_IPI_TIMEOUT		(~0)
+#define PM_IPI_TIMEOUT		(~0U)
 
 #define IPI_PMU_PM_INT_MASK	XPAR_XIPIPS_TARGET_PSU_PMU_0_CH0_MASK
 
