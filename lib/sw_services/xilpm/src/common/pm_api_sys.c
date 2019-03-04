@@ -2041,10 +2041,14 @@ XStatus XPm_ClockSetDivider(const enum XPmClock clock, const u32 divider)
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if (0U != (mapping & (1U << PM_CLOCK_DIV0_ID))) {
 =======
 	if (0U != (mapping & (1 << PM_CLOCK_DIV0_ID))) {
 >>>>>>> Xilpm: Fixes MISRA-C:2012 R.10.1, R.14.4 in pm_api_sys.c
+=======
+	if (0U != (mapping & (1U << PM_CLOCK_DIV0_ID))) {
+>>>>>>> Xilpm: Fixes MISRA-C: R.7.2, R.10.3, R.10.4 in pm_api_sys.c
 		status = XPm_ClockSetOneDivider(clock, div0, PM_CLOCK_DIV0_ID);
 		if (XST_SUCCESS != status) {
 			goto done;
@@ -2052,10 +2056,14 @@ XStatus XPm_ClockSetDivider(const enum XPmClock clock, const u32 divider)
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if (0U != (mapping & (1U << PM_CLOCK_DIV1_ID))) {
 =======
 	if (0U != (mapping & (1 << PM_CLOCK_DIV1_ID))) {
 >>>>>>> Xilpm: Fixes MISRA-C:2012 R.10.1, R.14.4 in pm_api_sys.c
+=======
+	if (0U != (mapping & (1U << PM_CLOCK_DIV1_ID))) {
+>>>>>>> Xilpm: Fixes MISRA-C: R.7.2, R.10.3, R.10.4 in pm_api_sys.c
 		status = XPm_ClockSetOneDivider(clock, div1, PM_CLOCK_DIV1_ID);
 	}
 
@@ -2128,10 +2136,14 @@ XStatus XPm_ClockGetDivider(const enum XPmClock clock, u32 *const divider)
 
 	*divider = 1U;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if (0U != (type & (1U << PM_CLOCK_DIV0_ID))) {
 =======
 	if (0U != (type & (1 << PM_CLOCK_DIV0_ID))) {
 >>>>>>> Xilpm: Fixes MISRA-C:2012 R.10.1, R.14.4 in pm_api_sys.c
+=======
+	if (0U != (type & (1U << PM_CLOCK_DIV0_ID))) {
+>>>>>>> Xilpm: Fixes MISRA-C: R.7.2, R.10.3, R.10.4 in pm_api_sys.c
 		status = XPm_ClockGetOneDivider(clock, &div, PM_CLOCK_DIV0_ID);
 		if (XST_SUCCESS != status) {
 			goto done;
@@ -2140,10 +2152,14 @@ XStatus XPm_ClockGetDivider(const enum XPmClock clock, u32 *const divider)
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if (0U != (type & (1U << PM_CLOCK_DIV1_ID))) {
 =======
 	if (0U != (type & (1 << PM_CLOCK_DIV1_ID))) {
 >>>>>>> Xilpm: Fixes MISRA-C:2012 R.10.1, R.14.4 in pm_api_sys.c
+=======
+	if (0U != (type & (1U << PM_CLOCK_DIV1_ID))) {
+>>>>>>> Xilpm: Fixes MISRA-C: R.7.2, R.10.3, R.10.4 in pm_api_sys.c
 		status = XPm_ClockGetOneDivider(clock, &div, PM_CLOCK_DIV1_ID);
 		if (XST_SUCCESS != status) {
 			goto done;
