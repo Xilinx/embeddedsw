@@ -392,7 +392,7 @@ XStatus XPm_SelfSuspend(const enum XPmNodeId nid,
 
 	/* Send request to the PMU */
 	PACK_PAYLOAD5(payload, PM_SELF_SUSPEND, nid, latency, state, (u32)address,
-		     (u32)(address >> 32));
+		     (u32)(address >> 32U));
 	ret = pm_ipi_send(master, payload);
 	if (XST_SUCCESS != ret) {
 		goto done;
@@ -1588,14 +1588,14 @@ XStatus XPm_ClockSetDivider(const enum XPmClock clock, const u32 divider)
 		goto done;
 	}
 
-	if (0U != (mapping & (1 << PM_CLOCK_DIV0_ID))) {
+	if (0U != (mapping & (1U << PM_CLOCK_DIV0_ID))) {
 		status = XPm_ClockSetOneDivider(clock, div0, PM_CLOCK_DIV0_ID);
 		if (XST_SUCCESS != status) {
 			goto done;
 		}
 	}
 
-	if (0U != (mapping & (1 << PM_CLOCK_DIV1_ID))) {
+	if (0U != (mapping & (1U << PM_CLOCK_DIV1_ID))) {
 		status = XPm_ClockSetOneDivider(clock, div1, PM_CLOCK_DIV1_ID);
 	}
 
@@ -1658,7 +1658,7 @@ XStatus XPm_ClockGetDivider(const enum XPmClock clock, u32 *const divider)
 	}
 
 	*divider = 1U;
-	if (0U != (type & (1 << PM_CLOCK_DIV0_ID))) {
+	if (0U != (type & (1U << PM_CLOCK_DIV0_ID))) {
 		status = XPm_ClockGetOneDivider(clock, &div, PM_CLOCK_DIV0_ID);
 		if (XST_SUCCESS != status) {
 			goto done;
@@ -1666,7 +1666,7 @@ XStatus XPm_ClockGetDivider(const enum XPmClock clock, u32 *const divider)
 		*divider *= div;
 	}
 
-	if (0U != (type & (1 << PM_CLOCK_DIV1_ID))) {
+	if (0U != (type & (1U << PM_CLOCK_DIV1_ID))) {
 		status = XPm_ClockGetOneDivider(clock, &div, PM_CLOCK_DIV1_ID);
 		if (XST_SUCCESS != status) {
 			goto done;
