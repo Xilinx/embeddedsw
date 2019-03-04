@@ -114,6 +114,7 @@ done:
 enum XPmBootStatus XPm_GetBootStatus(void)
 {
 	u32 pwrdn_req;
+	enum XPmBootStatus ret;
 
 	XPm_ClientSetPrimaryMaster();
 
@@ -121,10 +122,15 @@ enum XPmBootStatus XPm_GetBootStatus(void)
 	if (0 != (pwrdn_req & primary_master->pwrdn_mask)) {
 		pwrdn_req &= ~primary_master->pwrdn_mask;
 		pm_write(primary_master->pwrctl, pwrdn_req);
-		return PM_RESUME;
+		ret = PM_RESUME;
+		goto done;
 	} else {
-		return PM_INITIAL_BOOT;
+		ret = PM_INITIAL_BOOT;
+		goto done;
 	}
+
+done:
+	return ret;
 }
 
 /****************************************************************************/
@@ -363,7 +369,8 @@ XStatus XPm_SelfSuspend(const enum XPmNodeId nid,
 		if (subsystem_node == nid) {
 			master = primary_master;
 		} else {
-			return XST_INVALID_PARAM;
+			ret = (XStatus)XST_INVALID_PARAM;
+			goto done;
 		}
 	}
 	/*
@@ -376,10 +383,14 @@ XStatus XPm_SelfSuspend(const enum XPmNodeId nid,
 	PACK_PAYLOAD5(payload, PM_SELF_SUSPEND, nid, latency, state, (u32)address,
 		     (u32)(address >> 32));
 	ret = pm_ipi_send(master, payload);
-	if (XST_SUCCESS != ret)
-		return ret;
+	if (XST_SUCCESS != ret) {
+		goto done;
+	}
 	/* Wait for PMU to finish handling request */
-	return pm_ipi_buff_read32(master, NULL, NULL, NULL);
+	ret = pm_ipi_buff_read32(master, NULL, NULL, NULL);
+
+done:
+	return ret;
 }
 
 /****************************************************************************/
@@ -406,10 +417,14 @@ XStatus XPm_SetConfiguration(const u32 address)
 	PACK_PAYLOAD1(payload, PM_SET_CONFIGURATION, address);
 	status = pm_ipi_send(primary_master, payload);
 
-	if (XST_SUCCESS != status)
-		return status;
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
 
-	return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+
+done:
+	return status;
 }
 
 /****************************************************************************/
@@ -433,10 +448,14 @@ XStatus XPm_InitFinalize(void)
 	PACK_PAYLOAD0(payload, PM_INIT_FINALIZE);
 	status = pm_ipi_send(primary_master, payload);
 
-	if (XST_SUCCESS != status)
-		return status;
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
 
-	return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+
+done:
+	return status;
 }
 
 /****************************************************************************/
@@ -474,10 +493,11 @@ XStatus XPm_RequestSuspend(const enum XPmNodeId target,
 	PACK_PAYLOAD4(payload, PM_REQUEST_SUSPEND, target, ack, latency, state);
 	ret = pm_ipi_send(primary_master, payload);
 
-	if ((XST_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack))
-		return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
-	else
-		return ret;
+	if ((XST_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack)) {
+		ret = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	}
+
+	return ret;
 }
 
 /****************************************************************************/
@@ -520,10 +540,12 @@ XStatus XPm_RequestWakeUp(const enum XPmNodeId target,
 		     (u32)(encodedAddress >> 32), ack);
 	ret = pm_ipi_send(primary_master, payload);
 
-	if ((XST_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack))
-		return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
-	else
-		return ret;
+	if ((XST_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack)) {
+		ret = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	}
+
+	return ret;
+
 }
 
 /****************************************************************************/
@@ -552,10 +574,11 @@ XStatus XPm_ForcePowerDown(const enum XPmNodeId target,
 	PACK_PAYLOAD2(payload, PM_FORCE_POWERDOWN, target, ack);
 	ret = pm_ipi_send(primary_master, payload);
 
-	if ((XST_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack))
-		return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
-	else
-		return ret;
+	if ((XST_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack)) {
+		ret = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	}
+
+	return ret;
 }
 
 /****************************************************************************/
@@ -720,10 +743,11 @@ XStatus XPm_RequestNode(const enum XPmNodeId node,
 	PACK_PAYLOAD4(payload, PM_REQUEST_NODE, node, capabilities, qos, ack);
 	ret = pm_ipi_send(primary_master, payload);
 
-	if ((XST_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack))
-		return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
-	else
-		return ret;
+	if ((XST_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack)) {
+		ret = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	}
+
+	return ret;
 }
 
 /****************************************************************************/
@@ -755,10 +779,11 @@ XStatus XPm_SetRequirement(const enum XPmNodeId nid,
 	PACK_PAYLOAD4(payload, PM_SET_REQUIREMENT, nid, capabilities, qos, ack);
 	ret = pm_ipi_send(primary_master, payload);
 
-	if ((XST_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack))
-		return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
-	else
-		return ret;
+	if ((XST_SUCCESS == ret) && (REQUEST_ACK_BLOCKING == ack)) {
+		ret = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	}
+
+	return ret;
 }
 
 /****************************************************************************/
@@ -967,11 +992,15 @@ XStatus XPm_GetApiVersion(u32 *version)
 	PACK_PAYLOAD0(payload, PM_GET_API_VERSION);
 	ret = pm_ipi_send(primary_master, payload);
 
-	if (XST_SUCCESS != ret)
-		return ret;
+	if (XST_SUCCESS != ret) {
+		goto done;
+	}
 
 	/* Return result from IPI return buffer */
-	return pm_ipi_buff_read32(primary_master, version, NULL, NULL);
+	ret = pm_ipi_buff_read32(primary_master, version, NULL, NULL);
+
+done:
+	return ret;
 }
 
 /****************************************************************************/
@@ -1021,13 +1050,16 @@ XStatus XPm_GetNodeStatus(const enum XPmNodeId node,
 	PACK_PAYLOAD1(payload, PM_GET_NODE_STATUS, node);
 	ret = pm_ipi_send(primary_master, payload);
 
-	if (XST_SUCCESS != ret)
-		return ret;
+	if (XST_SUCCESS != ret) {
+		goto done;
+	}
 
 	/* Return result from IPI return buffer */
-	return pm_ipi_buff_read32(primary_master, &nodestatus->status,
+	ret = pm_ipi_buff_read32(primary_master, &nodestatus->status,
 				  &nodestatus->requirements,
 				  &nodestatus->usage);
+done:
+	return ret;
 }
 
 /****************************************************************************/
@@ -1059,11 +1091,15 @@ XStatus XPm_GetOpCharacteristic(const enum XPmNodeId node,
 	PACK_PAYLOAD2(payload, PM_GET_OP_CHARACTERISTIC, node, type);
 	ret = pm_ipi_send(primary_master, payload);
 
-	if (XST_SUCCESS != ret)
-		return ret;
+	if (XST_SUCCESS != ret) {
+		goto done;
+	}
 
 	/* Return result from IPI return buffer */
-	return pm_ipi_buff_read32(primary_master, result, NULL, NULL);
+	ret = pm_ipi_buff_read32(primary_master, result, NULL, NULL);
+
+done:
+	return ret;
 }
 
 /****************************************************************************/
@@ -1086,18 +1122,22 @@ XStatus XPm_GetOpCharacteristic(const enum XPmNodeId node,
 XStatus XPm_ResetAssert(const enum XPmReset reset,
 			const enum XPmResetAction assert)
 {
-       XStatus ret;
-       u32 payload[PAYLOAD_ARG_CNT];
+	XStatus ret;
+	u32 payload[PAYLOAD_ARG_CNT];
 
-       /* Send request to the PMU */
-       PACK_PAYLOAD2(payload, PM_RESET_ASSERT, reset, assert);
-       ret = pm_ipi_send(primary_master, payload);
+	/* Send request to the PMU */
+	PACK_PAYLOAD2(payload, PM_RESET_ASSERT, reset, assert);
+	ret = pm_ipi_send(primary_master, payload);
 
-       if (XST_SUCCESS != ret)
-               return ret;
+	if (XST_SUCCESS != ret) {
+		goto done;
+	}
 
-       /* Return result from IPI return buffer */
-       return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	/* Return result from IPI return buffer */
+	ret = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+
+done:
+	return ret;
 }
 
 /****************************************************************************/
@@ -1123,11 +1163,15 @@ XStatus XPm_ResetGetStatus(const enum XPmReset reset, u32 *status)
 	PACK_PAYLOAD1(payload, PM_RESET_GET_STATUS, reset);
 	ret = pm_ipi_send(primary_master, payload);
 
-	if (XST_SUCCESS != ret)
-		return ret;
+	if (XST_SUCCESS != ret) {
+		goto done;
+	}
 
 	/* Return result from IPI return buffer */
-	return pm_ipi_buff_read32(primary_master, status, NULL, NULL);
+	ret = pm_ipi_buff_read32(primary_master, status, NULL, NULL);
+
+done:
+	return ret;
 }
 
 /****************************************************************************/
@@ -1172,7 +1216,8 @@ XStatus XPm_RegisterNotifier(XPm_Notifier* const notifier)
 
 	if (!notifier) {
 		pm_dbg("%s ERROR: NULL notifier pointer\n", __func__);
-		return XST_INVALID_PARAM;
+		ret = XST_INVALID_PARAM;
+		goto done;
 	}
 
 	/* Send request to the PMU */
@@ -1180,16 +1225,21 @@ XStatus XPm_RegisterNotifier(XPm_Notifier* const notifier)
 		      notifier->event, notifier->flags, 1);
 	ret = pm_ipi_send(primary_master, payload);
 
-	if (XST_SUCCESS != ret)
-		return ret;
+	if (XST_SUCCESS != ret) {
+		goto done;
+	}
 
 	ret = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
 
-	if (XST_SUCCESS != ret)
-		return ret;
+	if (XST_SUCCESS != ret) {
+		goto done;
+	}
 
 	/* Add notifier in the list only if PMU has it registered */
-	return XPm_NotifierAdd(notifier);
+	ret = XPm_NotifierAdd(notifier);
+
+done:
+	return ret;
 }
 
 /****************************************************************************/
@@ -1213,7 +1263,8 @@ XStatus XPm_UnregisterNotifier(XPm_Notifier* const notifier)
 
 	if (!notifier) {
 		pm_dbg("%s ERROR: NULL notifier pointer\n", __func__);
-		return XST_INVALID_PARAM;
+		ret = XST_INVALID_PARAM;
+		goto done;
 	}
 
 	/*
@@ -1222,15 +1273,22 @@ XStatus XPm_UnregisterNotifier(XPm_Notifier* const notifier)
 	 * registered either.
 	 */
 	ret = XPm_NotifierRemove(notifier);
-	if (XST_SUCCESS != ret)
-		return ret;
+	if (XST_SUCCESS != ret) {
+		goto done;
+	}
 
 	/* Send request to the PMU */
 	PACK_PAYLOAD4(payload, PM_REGISTER_NOTIFIER, notifier->node,
 		      notifier->event, 0, 0);
 	ret = pm_ipi_send(primary_master, payload);
+	if (XST_SUCCESS != ret) {
+		goto done;
+	}
 
-	return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	ret = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+
+done:
+	return ret;
 }
 
 /* Direct Control API Functions */
@@ -1262,11 +1320,15 @@ XStatus XPm_MmioWrite(const u32 address, const u32 mask, const u32 value)
 	PACK_PAYLOAD3(payload, PM_MMIO_WRITE, address, mask, value);
 	status = pm_ipi_send(primary_master, payload);
 
-	if (XST_SUCCESS != status)
-		return status;
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
 
 	/* Return result from IPI return buffer */
-	return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+
+done:
+	return status;
 }
 
 /****************************************************************************/
@@ -1294,11 +1356,15 @@ XStatus XPm_MmioRead(const u32 address, u32 *const value)
 	PACK_PAYLOAD1(payload, PM_MMIO_READ, address);
 	status = pm_ipi_send(primary_master, payload);
 
-	if (XST_SUCCESS != status)
-		return status;
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
 
 	/* Return result from IPI return buffer */
-	return pm_ipi_buff_read32(primary_master, value, NULL, NULL);
+	status = pm_ipi_buff_read32(primary_master, value, NULL, NULL);
+
+done:
+	return status;
 }
 
 /****************************************************************************/
@@ -1322,11 +1388,14 @@ XStatus XPm_ClockEnable(const enum XPmClock clock)
 	status = pm_ipi_send(primary_master, payload);
 
 	if (XST_SUCCESS != status) {
-		return status;
+		goto done;
 	}
 
 	/* Return result from IPI return buffer */
-	return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+
+done:
+	return status;
 }
 
 /****************************************************************************/
@@ -1350,11 +1419,14 @@ XStatus XPm_ClockDisable(const enum XPmClock clock)
 	status = pm_ipi_send(primary_master, payload);
 
 	if (XST_SUCCESS != status) {
-		return status;
+		goto done;
 	}
 
 	/* Return result from IPI return buffer */
-	return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+
+done:
+	return status;
 }
 
 /****************************************************************************/
@@ -1377,11 +1449,14 @@ XStatus XPm_ClockGetStatus(const enum XPmClock clock, u32 *const status)
 	ret = pm_ipi_send(primary_master, payload);
 
 	if (XST_SUCCESS != ret) {
-		return ret;
+		goto done;
 	}
 
 	/* Return result from IPI return buffer */
-	return pm_ipi_buff_read32(primary_master, status, NULL, NULL);
+	ret = pm_ipi_buff_read32(primary_master, status, NULL, NULL);
+
+done:
+	return ret;
 }
 
 /****************************************************************************/
@@ -1408,11 +1483,14 @@ static XStatus XPm_ClockSetOneDivider(const enum XPmClock clock,
 	PACK_PAYLOAD3(payload, PM_CLOCK_SETDIVIDER, clock, divId, divider);
 	status = pm_ipi_send(primary_master, payload);
 	if (XST_SUCCESS != status) {
-		return status;
+		goto done;
 	}
 
 	/* Return result from IPI return buffer */
-	return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+
+done:
+	return status;
 }
 
 /****************************************************************************/
@@ -1665,11 +1743,14 @@ XStatus XPm_PllSetParameter(const enum XPmNodeId node,
 	status = pm_ipi_send(primary_master, payload);
 
 	if (XST_SUCCESS != status) {
-		return status;
+		goto done;
 	}
 
 	/* Return result from IPI return buffer */
-	return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+
+done:
+	return status;
 }
 
 /****************************************************************************/
@@ -1695,11 +1776,14 @@ XStatus XPm_PllGetParameter(const enum XPmNodeId node,
 	status = pm_ipi_send(primary_master, payload);
 
 	if (XST_SUCCESS != status) {
-		return status;
+		goto done;
 	}
 
 	/* Return result from IPI return buffer */
-	return pm_ipi_buff_read32(primary_master, value, NULL, NULL);
+	status = pm_ipi_buff_read32(primary_master, value, NULL, NULL);
+
+done:
+	return status;
 }
 
 /****************************************************************************/
@@ -1724,11 +1808,14 @@ XStatus XPm_PllSetMode(const enum XPmNodeId node, const enum XPmPllMode mode)
 	status = pm_ipi_send(primary_master, payload);
 
 	if (XST_SUCCESS != status) {
-		return status;
+		goto done;
 	}
 
 	/* Return result from IPI return buffer */
-	return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+
+done:
+	return status;
 }
 
 /****************************************************************************/
@@ -1751,11 +1838,14 @@ XStatus XPm_PllGetMode(const enum XPmNodeId node, enum XPmPllMode* const mode)
 	status = pm_ipi_send(primary_master, payload);
 
 	if (XST_SUCCESS != status) {
-		return status;
+		goto done;
 	}
 
 	/* Return result from IPI return buffer */
-	return pm_ipi_buff_read32(primary_master, (void*)mode, NULL, NULL);
+	status = pm_ipi_buff_read32(primary_master, (void*)mode, NULL, NULL);
+
+done:
+	return status;
 }
 
 /****************************************************************************/
@@ -1778,11 +1868,14 @@ static XStatus XPm_PinCtrlAction(const u32 pin, const enum XPmApiId api)
 	status = pm_ipi_send(primary_master, payload);
 
 	if (XST_SUCCESS != status) {
-		return status;
+		goto done;
 	}
 
 	/* Return result from IPI return buffer */
-	return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+
+done:
+	return status;
 }
 
 /****************************************************************************/
@@ -1835,11 +1928,14 @@ XStatus XPm_PinCtrlSetFunction(const u32 pin, const enum XPmPinFn fn)
 	status = pm_ipi_send(primary_master, payload);
 
 	if (XST_SUCCESS != status) {
-		return status;
+		goto done;
 	}
 
 	/* Return result from IPI return buffer */
-	return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+
+done:
+	return status;
 }
 
 /****************************************************************************/
@@ -1862,11 +1958,14 @@ XStatus XPm_PinCtrlGetFunction(const u32 pin, enum XPmPinFn* const fn)
 	status = pm_ipi_send(primary_master, payload);
 
 	if (XST_SUCCESS != status) {
-		return status;
+		goto done;
 	}
 
 	/* Return result from IPI return buffer */
-	return pm_ipi_buff_read32(primary_master, (void*)fn, NULL, NULL);
+	status = pm_ipi_buff_read32(primary_master, (void*)fn, NULL, NULL);
+
+done:
+	return status;
 }
 
 /****************************************************************************/
@@ -1894,11 +1993,14 @@ XStatus XPm_PinCtrlSetParameter(const u32 pin,
 	status = pm_ipi_send(primary_master, payload);
 
 	if (XST_SUCCESS != status) {
-		return status;
+		goto done;
 	}
 
 	/* Return result from IPI return buffer */
-	return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+
+done:
+	return status;
 }
 
 /****************************************************************************/
@@ -1924,10 +2026,13 @@ XStatus XPm_PinCtrlGetParameter(const u32 pin,
 	status = pm_ipi_send(primary_master, payload);
 
 	if (XST_SUCCESS != status) {
-		return status;
+		goto done;
 	}
 
 	/* Return result from IPI return buffer */
-	return pm_ipi_buff_read32(primary_master, value, NULL, NULL);
+	status = pm_ipi_buff_read32(primary_master, value, NULL, NULL);
+
+done:
+	return status;
 }
  /** @} */
