@@ -33,6 +33,7 @@
 #include "xpm_device.h"
 #include "xpm_device_idle.h"
 #include "xpm_pin.h"
+#include "xpm_rpucore.h"
 
 XPm_Subsystem PmSubsystems[XPM_NODEIDX_SUBSYS_MAX] =
 {
@@ -103,11 +104,23 @@ u32 XPmSubsystem_GetIPIMask(u32 SubsystemId)
 u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask)
 {
 	u32 SubSysIdx;
+	u32 RpuBootMode;
 
 	for (SubSysIdx = 0; SubSysIdx < XPM_NODEIDX_SUBSYS_MAX; SubSysIdx++)
 	{
 		if (PmSubsystems[SubSysIdx].IpiMask == IpiMask) {
 			break;
+		}
+	}
+
+	if ((XPM_NODEIDX_SUBSYS_RPU0_LOCK == SubSysIdx) ||
+	    (XPM_NODEIDX_SUBSYS_RPU0_0 == SubSysIdx)) {
+		XPm_RpuGetOperMode(XPM_DEVID_R50_0, &RpuBootMode);
+
+		if (XPM_RPU_MODE_SPLIT == RpuBootMode) {
+			SubSysIdx = XPM_NODEIDX_SUBSYS_RPU0_0;
+		} else {
+			SubSysIdx = XPM_NODEIDX_SUBSYS_RPU0_LOCK;
 		}
 	}
 
