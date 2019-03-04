@@ -2095,7 +2095,12 @@ XStatus XPm_ClockGetDivider(const enum XPmClock clock, u32 *const divider)
 	u8 type = XPm_GetClockDivType(clock);
 	u32 div;
 
+<<<<<<< HEAD
 	if ((NULL == divider) || (0U == type)) {
+=======
+	status = XST_INVALID_PARAM;
+	if (!divider || !type) {
+>>>>>>> Xilpm: Fixes MISRA-C:2012 R.9.1 in pm_api_sys.c
 		goto done;
 	}
 
