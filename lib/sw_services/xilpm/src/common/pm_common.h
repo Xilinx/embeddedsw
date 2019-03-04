@@ -68,9 +68,12 @@ extern "C" {
 #define RESPONSE_ARG_CNT	8U
 >>>>>>> sw_services: xilpm: Add checksum support for IPI data
 
+<<<<<<< HEAD
 /* 1 for status + 3 for values + 3 for Reserved + 1 for CRC */
 #define RESPONSE_ARG_CNT	8U
 
+=======
+>>>>>>> Xilpm: FIxed MISRA-C: R.7.2, R.10.3, R.10.4 in pm_common.h
 #define PM_IPI_TIMEOUT		(~0U)
 
 #define IPI_PMU_PM_INT_MASK	XPAR_XIPIPS_TARGET_PSU_PMU_0_CH0_MASK
