@@ -109,20 +109,18 @@ struct pm_acknowledge {
 	u32 opp;					/**< Operating point of node in question */
 };
 
-/* Forward declaration to enable self reference in struct definition */
-typedef struct XPm_Notifier XPm_Notifier;
 
 /**
  * XPm_Notifier - Notifier structure registered with a callback by app
  */
-typedef struct XPm_Notifier {
+typedef struct XPm_Ntfier {
 	/**
 	 *  Custom callback handler to be called when the notification is
 	 *  received. The custom handler would execute from interrupt
 	 *  context, it shall return quickly and must not block! (enables
 	 *  event-driven notifications)
 	 */
-	void (*const callback)(XPm_Notifier* const notifier);
+	void (*const callback)(struct XPm_Ntfier* const notifier);
 	enum XPmNodeId node; /**< Node argument (the node to receive notifications about) */
 	enum XPmNotifyEvent event;	/**< Event argument (the event type to receive notifications about) */
 	u32 flags;	/**< Flags */
@@ -143,14 +141,14 @@ typedef struct XPm_Notifier {
 	 *  while the notifier is registered. User shall not ever modify
 	 *  this value.
 	 */
-	XPm_Notifier* next;
+	struct XPm_Ntfier* next;
 } XPm_Notifier;
 
 
 /**
  * XPm_NodeStatus - struct containing node status information
  */
-typedef struct XPm_NodeStatus {
+typedef struct XPm_NdStatus {
 	u32 status;			/**< Node power state */
 	u32 requirements;	/**< Current requirements asserted on the node (slaves only) */
 	u32 usage;			/**< Usage information (which master is currently using the slave) */
