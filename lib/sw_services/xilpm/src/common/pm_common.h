@@ -122,8 +122,11 @@ void XPm_ClientSetPrimaryMaster(void);
 extern const enum XPmNodeId subsystem_node;
 extern struct XPm_Master *primary_master;
 
+<<<<<<< HEAD
 #ifdef __cplusplus
 }
 #endif
 
+=======
+>>>>>>> Xilpm: Fixed MISRA-C:2012 R.21.1, R.21.2 in pm_common.h
 #endif /* PM_COMMON_H */
