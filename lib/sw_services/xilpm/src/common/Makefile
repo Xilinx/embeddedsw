@@ -5,6 +5,11 @@ COMPILER_FLAGS=
 EXTRA_COMPILER_FLAGS=
 LIB=libxilpm.a
 
+ifeq ($(notdir $(COMPILER)) , iccarm)
+	EXTRA_ARCHIVE_FLAGS=--create
+else
+	EXTRA_ARCHIVE_FLAGS=rc
+endif
 CC_FLAGS = $(COMPILER_FLAGS)
 ECC_FLAGS = $(EXTRA_COMPILER_FLAGS)
 
@@ -28,7 +33,7 @@ banner:
 	echo "Compiling xilpm library"
 
 xilpm_libs: ${OBJECTS}
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS}
+	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${OBJECTS}
 include:
 	echo "Include files for this library have already been copied."
 clean:

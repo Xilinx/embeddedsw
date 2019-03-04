@@ -93,12 +93,9 @@ struct XPm_Master *pm_get_master_by_node(const enum XPmNodeId nid);
 
 /* Conditional debugging prints */
 #ifdef DEBUG_MODE
-	#define pm_dbg(MSG, ...) \
-		do { \
-			pm_print(MSG,##__VA_ARGS__); \
-		} while (0)
+#define pm_dbg xil_printf
 #else
-	#define pm_dbg(MSG, ...)	{}
+	#define pm_dbg(...)	{}
 #endif
 
 #ifndef bool

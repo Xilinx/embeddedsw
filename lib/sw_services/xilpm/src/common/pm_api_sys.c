@@ -164,8 +164,8 @@ void XPm_SuspendFinalize(void)
 					    IPI_PMU_PM_INT_MASK,
 					    PM_IPI_TIMEOUT);
 		if (status != XST_SUCCESS) {
-			pm_dbg("ERROR timed out while waiting for PMU to"
-			       " finish processing previous PM-API call\n");
+			pm_dbg("%s: ERROR timed out while waiting for PMU to"
+			       " finish processing previous PM-API call\n", __func__);
 		}
 	} while (XST_SUCCESS != status);
 
@@ -260,7 +260,7 @@ static XStatus pm_ipi_send(struct XPm_Master *const master,
 				      payload, PAYLOAD_ARG_CNT,
 				      XIPIPSU_BUF_TYPE_MSG);
 	if (status != XST_SUCCESS) {
-		pm_dbg("xilpm: ERROR writing to IPI request buffer\n");
+		pm_dbg("%s: xilpm: ERROR writing to IPI request buffer\n", __func__);
 		goto done;
 	}
 
@@ -304,7 +304,7 @@ static XStatus pm_ipi_buff_read32(struct XPm_Master *const master,
 				     XIPIPSU_BUF_TYPE_RESP);
 
 	if (status != XST_SUCCESS) {
-		pm_dbg("xilpm: ERROR reading from PMU's IPI response buffer\n");
+		pm_dbg("%s xilpm: ERROR reading from PMU's IPI response buffer\n", __func__);
 		goto done;
 	}
 
@@ -939,7 +939,7 @@ void XPm_InitSuspendCb(const enum XPmSuspendReason reason,
 		       const u32 timeout)
 {
 	if (true == pm_susp.received) {
-		pm_dbg("WARNING: dropping unhandled init suspend request!\n");
+		pm_dbg("%s: WARNING: dropping unhandled init suspend request!\n", __func__);
 		pm_dbg("Dropped %s (%d, %d, %d, %d)\n", __func__, pm_susp.reason,
 			pm_susp.latency, pm_susp.state, pm_susp.timeout);
 	}
@@ -974,7 +974,7 @@ void XPm_AcknowledgeCb(const enum XPmNodeId node,
 		       const u32 oppoint)
 {
 	if (true == pm_ack.received) {
-		pm_dbg("WARNING: dropping unhandled acknowledge!\n");
+		pm_dbg("%s: WARNING: dropping unhandled acknowledge!\n", __func__);
 		pm_dbg("Dropped %s (%d, %d, %d)\n", __func__, pm_ack.node,
 			pm_ack.status, pm_ack.opp);
 	}

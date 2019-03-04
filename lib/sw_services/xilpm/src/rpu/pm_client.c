@@ -179,19 +179,26 @@ void XPm_ClientSuspendFinalize(void)
 	 * Unconditionally disable fault log.
 	 * BSP enables it once the processor resumes.
 	 */
-	pm_dbg("Disabling RPU Lock-Step Fault Log...\n");
+	pm_dbg("%s: Disabling RPU Lock-Step Fault Log...\n", __func__);
 	pm_write(PM_CLIENT_RPU_ERR_INJ,
 			pm_read(PM_CLIENT_RPU_ERR_INJ) & ~PM_CLIENT_RPU_FAULT_LOG_EN_MASK);
-
+#if defined (__GNUC__)
 	/* Flush data cache if the cache is enabled */
 	ctrlReg = mfcp(XREG_CP15_SYS_CONTROL);
+#elif defined (__ICCARM__)
+	mfcp(XREG_CP15_SYS_CONTROL, ctrlReg);
+#endif
 	if ((XREG_CP15_CONTROL_C_BIT & ctrlReg) != 0U) {
 		Xil_DCacheFlush();
 	}
 
-	pm_dbg("Going to WFI...\n");
+	pm_dbg("%s: Going to WFI...\n", __func__);
+#if defined (__GNUC__)
 	__asm__("wfi");
-	pm_dbg("WFI exit...\n");
+#elif defined (__ICCARM__)
+	__asm("wfi");
+#endif
+	pm_dbg("%s: WFI exit...\n", __func__);
 }
 
 /**
@@ -241,7 +248,12 @@ void XPm_ClientSetPrimaryMaster(void)
 	u32 master_id;
 	bool lockstep;
 
+#if defined (__GNUC__)
 	master_id = mfcp(XREG_CP15_MULTI_PROC_AFFINITY) & PM_CLIENT_AFL0_MASK;
+#elif defined (__ICCARM__)
+	mfcp(XREG_CP15_MULTI_PROC_AFFINITY, master_id);
+	master_id &= PM_CLIENT_AFL0_MASK;
+#endif
 	lockstep = !(pm_read(RPU_RPU_GLBL_CNTL) &
 		     (u32)RPU_RPU_GLBL_CNTL_SLSPLIT_MASK);
 	if (lockstep) {
@@ -249,5 +261,5 @@ void XPm_ClientSetPrimaryMaster(void)
 	} else {
 		primary_master = pm_masters_all[master_id];
 	}
-	pm_print("Running in %s mode\n", lockstep ? "Lock-Step" : "Split");
+	pm_dbg("Running in %s mode\n", lockstep ? "Lock-Step" : "Split");
 }
