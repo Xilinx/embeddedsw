@@ -142,7 +142,11 @@ void XPm_NotifierProcessEvent(const enum XPmNodeId node,
 	else {
 		notifier = NULL;
 	}
+<<<<<<< HEAD
 	while (notifier != NULL) {
+=======
+	while (notifier) {
+>>>>>>> Xilpm: Fixed MISRA-C:2012 D.4.1 in pm_callback.c
 		if ((node == notifier->node) &&
 		    (event == notifier->event)) {
 			notifier->oppoint = oppoint;
