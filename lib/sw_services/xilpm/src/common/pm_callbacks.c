@@ -54,12 +54,12 @@ XStatus XPm_NotifierAdd(XPm_Notifier* const notifier)
 {
 	XStatus status;
 
-	if (!notifier) {
+	if (NULL == notifier) {
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	notifier->received = 0;
+	notifier->received = 0U;
 
 	/* New notifiers are added at the front of list */
 	notifier->next = notifierList;
@@ -90,15 +90,15 @@ XStatus XPm_NotifierRemove(XPm_Notifier* const notifier)
 	XPm_Notifier* curr;
 	XPm_Notifier* prev = NULL;
 
-	if (!notifier) {
+	if (NULL == notifier) {
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
 
 	curr = notifierList;
-	while (curr) {
+	while (curr != NULL) {
 		if (notifier == curr) {
-			if (prev)
+			if (prev != NULL)
 				prev->next = curr->next;
 			else
 				notifierList = curr->next;
@@ -140,12 +140,12 @@ void XPm_NotifierProcessEvent(const enum XPmNodeId node,
 	else {
 		notifier = NULL;
 	}
-	while (notifier) {
+	while (notifier != NULL) {
 		if ((node == notifier->node) &&
 		    (event == notifier->event)) {
 			notifier->oppoint = oppoint;
 			notifier->received++;
-			if (notifier->callback)
+			if (notifier->callback != NULL)
 				notifier->callback(notifier);
 			/*
 			 * Don't break here, there could be multiple pairs of
