@@ -1003,7 +1003,7 @@ void XPm_AcknowledgeCb(const enum XPmNodeId node,
  *
  ****************************************************************************/
 void XPm_NotifyCb(const enum XPmNodeId node,
-		  const u32 event,
+		const enum XPmNotifyEvent event,
 		  const u32 oppoint)
 {
 	pm_dbg("%s (%d, %d, %d)\n", __func__, node, event, oppoint);
