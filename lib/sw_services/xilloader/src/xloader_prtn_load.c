@@ -409,6 +409,8 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 	 * check CDO header contents
 	 */
 	XPlmi_InitCdo(&Cdo);
+	Cdo.ImgId = PdiPtr->CurImgId;
+	Cdo.PrtnId = PdiPtr->CurPrtnId;
 
 	/**
 	 * Process CDO in chunks.
@@ -466,6 +468,9 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnNum)
 
 	/* Assign the partition header to local variable */
 	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
+
+	/* Update current Processing partition ID */
+	PdiPtr->CurPrtnId = PrtnHdr->PrtnId;
 
 	/* Read Partition Type */
 	PrtnType = XilPdi_GetPrtnType(PrtnHdr);
