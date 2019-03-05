@@ -46,6 +46,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0 sd   01/20/19  First release
+*     sd   03/05/19  Fix the counter check
 * </pre>
 *
 *****************************************************************************/
@@ -336,7 +337,7 @@ s32 XpsvPmon_RequestCounter(XpsvPmon *InstancePtr,u32 Domain, u32 *CounterNum)
 	Xil_AssertNonvoid(CounterNum != NULL);
 
 	/* Unrequested give the 0th counter */
-	if ( InstancePtr->RequestedCounters[Domain] = 0xFF )
+	if ( InstancePtr->RequestedCounters[Domain] == 0xFF )
 		InstancePtr->RequestedCounters[Domain] = 0U;
 
 	if (InstancePtr->RequestedCounters[Domain] > XPMONPSV_MAX_COUNTERS) {
