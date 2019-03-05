@@ -29,7 +29,7 @@
 /**
 *
 * @file xspips.c
-* @addtogroup spips_v3_3
+* @addtogroup spips_v3_2
 * @{
 *
 * Contains implements the interface functions of the XSpiPs driver.
@@ -66,9 +66,9 @@
 * 			This change is to tackle CR#910231.
 * 3.1	tjs    04/12/18 InputClockHz parameter copied in instance for use in
 * 						application. CR#998910
-* 4.0   tjs    11/23/17 Added a check for A72 and R5 processor to
+* 3.1   tjs    11/23/18 Added a check for A72 and R5 processor to
 *                       avoid changes made for the workaround DT#842463.
-* 3.3	aru    01/20/19 Fixes violations according to MISRAC-2012
+* 3.2	aru    01/20/19 Fixes violations according to MISRAC-2012
 *                       in safety mode and done changes such as
 *                       Declared the pointer param as Pointer to const,
 *			added goto statements.

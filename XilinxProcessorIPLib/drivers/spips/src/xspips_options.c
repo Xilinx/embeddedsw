@@ -29,7 +29,7 @@
 /**
 *
 * @file xspips_options.c
-* @addtogroup spips_v3_3
+* @addtogroup spips_v3_2
 * @{
 *
 * Contains functions for the configuration of the XSpiPs driver.
@@ -47,7 +47,7 @@
 * 1.05a hk 	   26/04/13 Added disable and enable in XSpiPs_SetOptions when
 *				CPOL/CPHA bits are set/reset. Fix for CR#707669.
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
-* 3.3   aru    01/20/19 Fixes violations according to MISRAC-2012
+* 3.2   aru    01/20/19 Fixes violations according to MISRAC-2012
 *                       in safety mode and done changes such as
 *                       Declared the pointer param as Pointer to const
 * </pre>
