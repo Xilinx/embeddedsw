@@ -36,7 +36,7 @@ BEGIN driver xdmapcie
  OPTION supported_peripherals = (xdma );
  OPTION driver_state = ACTIVE;
  OPTION copyfiles = all;
- OPTION VERSION = 3.1;
+ OPTION VERSION = 1.0;
  OPTION NAME = xdmapcie;
 
 END driver
