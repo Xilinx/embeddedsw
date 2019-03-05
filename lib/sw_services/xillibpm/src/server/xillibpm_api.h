@@ -180,6 +180,7 @@ XStatus XPm_RequestSuspend(const u32 SubsystemId, const u32 TargetSubsystemId,
 XStatus XPm_AddRequirement(const u32 SubsystemId, const u32 DeviceId);
 XStatus XPm_SetCurrentSubsystem(u32 SubsystemId);
 XStatus XPm_InitNode(u32 NodeId, u32 Function);
+int XPm_FeatureCheck(const u32 ApiId, u32 *const Version);
 
 /** @} */
 #endif /* XILLIBPM_API_H_ */
