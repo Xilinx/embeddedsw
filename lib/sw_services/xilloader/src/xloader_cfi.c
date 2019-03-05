@@ -77,7 +77,7 @@ static XFpga XFpgaInstance;
 int XLoader_CfiInit(XLoader* XLoaderPtr)
 {
 	int Status;
-	volatile u32 RegVal;
+	u32 RegVal;
 
 	/* Enable Vgg Clamp in VGG Ctrl Register */
 	XPlmi_UtilRMW(PMC_ANALOG_VGG_CTRL,
@@ -87,7 +87,7 @@ int XLoader_CfiInit(XLoader* XLoaderPtr)
 	RegVal = Xil_In32(PMC_GLOBAL_PL_STATUS);
 	if((RegVal & PMC_GLOBAL_PL_STATUS_POR_PL_B_MASK) == FALSE)
 	{
-		Status = XST_SUCCESS;
+		Status = XST_FAILURE;
 		goto END;
 	}
 
@@ -228,33 +228,12 @@ int XLoader_ProcessCfi (XilPdi* PdiPtr, u32 PrtnNum)
 	int Status;
 	XLoader* XLoaderPtr = XLoader_GetLoaderInstancePtr();
 
-	XLoader_Printf(DEBUG_INFO, "Processing CFI partition %0x\n\r",XLoaderPtr->PlPoweredUp );
-	if(XLoaderPtr->PlPoweredUp == FALSE)
-	{
-		/** Check for PL power up */
-		Status = XPlmi_UtilPollForMask(PMC_GLOBAL_PL_STATUS,
-					PMC_GLOBAL_PL_STATUS_POR_PL_B_MASK, 0x10000000U);
-		if(Status != XST_SUCCESS)
-		{
-			goto END;
-		}
-		XLoaderPtr->PlPoweredUp = TRUE;
+	XLoader_Printf(DEBUG_INFO, "Processing CFI partition\n\r");
 
-		/** Register the loader commands */
-		Status = XFpga_Initialize(&XFpgaInstance);
-		if(Status != XST_SUCCESS)
-		{
-			goto END;
-		}
-	}
-
-	if(XLoaderPtr->PlCleaningDone == FALSE)
+	Status = XLoader_CfiInit(XLoaderPtr);
+	if(Status != XST_SUCCESS)
 	{
-		Status = XFpga_PL_Preconfig(&XFpgaInstance);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		XLoaderPtr->PlCleaningDone = TRUE;
+		goto END;
 	}
 
 	Status = XLoader_LoadFabricData (XLoaderPtr, PdiPtr, PrtnNum);
@@ -272,18 +251,4 @@ int XLoader_ProcessCfi (XilPdi* PdiPtr, u32 PrtnNum)
 	XLoaderPtr->PlCfiPresent = TRUE;
 END:
 	return Status;
-}
-
-int XLoader_ReadFabricData(u32* Addr, u32 Len)
-{
-	XFpga_GetPlConfigData(&XFpgaInstance, Addr, Len);
-
-	for(u32 i=0;i<Len;++i)
-	{
-		if(i%4==0)
-			xil_printf("\n\r");
-		xil_printf("%08x", *(Addr+i));
-	}
-
-	return XST_SUCCESS;
 }

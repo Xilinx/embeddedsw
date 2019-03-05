@@ -208,19 +208,10 @@ XLoader* XLoader_GetLoaderInstancePtr(void)
  *****************************************************************************/
 int XLoader_Init()
 {
-	int Status;
-	XLoader* XLoaderPtr = XLoader_GetLoaderInstancePtr();
 
 	/** Initializes the DMA pointers */
 	XPlmi_DmaInit();
-
-	Status = XLoader_CfiInit(XLoaderPtr);
-	if(Status != XST_SUCCESS)
-	{
-		goto END;
-	}
-END:
-	return Status;
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
