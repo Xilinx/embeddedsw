@@ -574,6 +574,7 @@ int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId)
 		SubSystemInfo.SubsystemLut[SubSystemInfo.Count++].PrtnNum = PrtnNum;
 	}
 
+	PdiPtr->CurImgId = PdiPtr->MetaHdr.ImgHdr[ImgNum].ImgID;
 	Status = XLoader_LoadImagePrtns(PdiPtr, ImgNum, PrtnNum);
 	PrtnNum += PdiPtr->MetaHdr.ImgHdr[ImgNum].NoOfPrtns;
 	ImgNum++;
