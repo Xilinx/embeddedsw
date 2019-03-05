@@ -223,6 +223,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		case PM_INIT_NODE:
 			Status = XPm_InitNode(Pload[0], Pload[1]);
 			break;
+		case PM_FEATURE_CHECK:
+			Status = XPm_FeatureCheck(Pload[0], ApiResponse);
+			break;
 		default:
 			Status = XST_INVALID_PARAM;
 			break;
@@ -2901,6 +2904,83 @@ XStatus XPm_AddRequirement(const u32 SubsystemId, const u32 DeviceId)
 	}
 
 	Status = XPmRequirement_Add(Subsystem, Device);
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function returns supported version of the given API.
+ *
+ * @param  ApiId	API ID to check
+ * @param  Version	Supported version number
+ *
+ * @return XST_SUCCESS if successful else XST_NO_FEATURE.
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+int XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
+{
+	int Status = XST_SUCCESS;
+
+	if (NULL == Version) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	switch (ApiId) {
+	case PM_GET_API_VERSION:
+	case PM_GET_DEVICE_STATUS:
+	case PM_REQUEST_SUSPEND:
+	case PM_SELF_SUSPEND:
+	case PM_FORCE_POWERDOWN:
+	case PM_ABORT_SUSPEND:
+	case PM_REQUEST_WAKEUP:
+	case PM_SET_WAKEUP_SOURCE:
+	case PM_SYSTEM_SHUTDOWN:
+	case PM_REQUEST_DEVICE:
+	case PM_RELEASE_DEVICE:
+	case PM_SET_REQUIREMENT:
+	case PM_SET_MAX_LATENCY:
+	case PM_RESET_ASSERT:
+	case PM_RESET_GET_STATUS:
+	case PM_PINCTRL_REQUEST:
+	case PM_PINCTRL_RELEASE:
+	case PM_PINCTRL_GET_FUNCTION:
+	case PM_PINCTRL_SET_FUNCTION:
+	case PM_PINCTRL_CONFIG_PARAM_GET:
+	case PM_PINCTRL_CONFIG_PARAM_SET:
+	case PM_IOCTL:
+	case PM_QUERY_DATA:
+	case PM_CLOCK_ENABLE:
+	case PM_CLOCK_DISABLE:
+	case PM_CLOCK_GETSTATE:
+	case PM_CLOCK_SETDIVIDER:
+	case PM_CLOCK_GETDIVIDER:
+	case PM_CLOCK_SETPARENT:
+	case PM_CLOCK_GETPARENT:
+	case PM_PLL_SET_PARAMETER:
+	case PM_PLL_GET_PARAMETER:
+	case PM_PLL_SET_MODE:
+	case PM_PLL_GET_MODE:
+	case PM_ADD_SUBSYSTEM:
+	case PM_DESTROY_SUBSYSTEM:
+	case PM_DESCRIBE_NODES:
+	case PM_ADD_NODE:
+	case PM_ADD_NODE_PARENT:
+	case PM_ADD_NODE_NAME:
+	case PM_ADD_REQUIREMENT:
+	case PM_SET_CURRENT_SUBSYSTEM:
+	case PM_INIT_NODE:
+	case PM_FEATURE_CHECK:
+		*Version = XST_API_BASE_VERSION;
+		break;
+	default:
+		*Version = 0U;
+		Status = XST_NO_FEATURE;
+	}
+
 done:
 	return Status;
 }
