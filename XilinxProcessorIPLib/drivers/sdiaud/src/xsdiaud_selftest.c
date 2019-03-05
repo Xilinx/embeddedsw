@@ -121,6 +121,49 @@
 	(XSDIAUD_GUI_PARAM_REG_OFFSET))	\
 	& XSDIAUD_GUI_CHAN_MASK) >> XSDIAUD_GUI_CHAN_SHIFT)
 
+#define ARRAY_SIZE(x)	(sizeof(x) / sizeof(x[0]))
+#define XSDIAUD_DEFAULT_VALUE	0
+#define XSDIAUD_VALID_CH_CNT	0xFFFFFFFF
+#define XSDIAUD_CH_STS_REG_CNT	6
+/*
+ * Default register values after reset
+ */
+
+typedef struct {
+	u32 RegOffset;
+	u32 DefaultVal;
+}XSdiAud_RegMap;
+
+static XSdiAud_RegMap XSdiAud_Embed_RegMap[] = {
+		{XSDIAUD_INT_EN_REG_OFFSET, XSDIAUD_DEFAULT_VALUE},
+		{XSDIAUD_INT_STS_REG_OFFSET, XSDIAUD_DEFAULT_VALUE},
+		{XSDIAUD_EMB_VID_CNTRL_REG_OFFSET, XSDIAUD_DEFAULT_VALUE},
+		{XSDIAUD_AUD_CNTRL_REG_OFFSET, XSDIAUD_DEFAULT_VALUE},
+		{XSDIAUD_VALID_CH_REG_OFFSET, XSDIAUD_VALID_CH_CNT},
+		{XSDIAUD_MUTE_CH_REG_OFFSET, XSDIAUD_DEFAULT_VALUE},
+		{XSDIAUD_ACT_GRP_PRES_REG_OFFSET, XSDIAUD_DEFAULT_VALUE},
+		{XSDIAUD_ACT_CH_STAT_REG_OFFSET, XSDIAUD_DEFAULT_VALUE},
+		{XSDIAUD_SR_STAT_REG_OFFSET, XSDIAUD_DEFAULT_VALUE},
+		{XSDIAUD_ASX_STAT_REG_OFFSET, XSDIAUD_DEFAULT_VALUE},
+};
+
+static XSdiAud_RegMap XSdiAud_Extract_RegMap[] = {
+		{XSDIAUD_INT_EN_REG_OFFSET, XSDIAUD_DEFAULT_VALUE},
+		{XSDIAUD_INT_STS_REG_OFFSET, XSDIAUD_DEFAULT_VALUE},
+		{XSDIAUD_AUD_CNTRL_REG_OFFSET, XSDIAUD_DEFAULT_VALUE},
+		{XSDIAUD_VALID_CH_REG_OFFSET, XSDIAUD_VALID_CH_CNT},
+		{XSDIAUD_MUTE_CH_REG_OFFSET, XSDIAUD_DEFAULT_VALUE},
+		{XSDIAUD_ACT_GRP_PRES_REG_OFFSET, XSDIAUD_DEFAULT_VALUE},
+		{XSDIAUD_EXT_FIFO_OVFLW_ST_REG_OFFSET, XSDIAUD_DEFAULT_VALUE},
+		{XSDIAUD_ACT_CH_STAT_REG_OFFSET, XSDIAUD_DEFAULT_VALUE},
+		{XSDIAUD_SR_STAT_REG_OFFSET, XSDIAUD_DEFAULT_VALUE},
+		{XSDIAUD_ASX_STAT_REG_OFFSET, XSDIAUD_DEFAULT_VALUE},
+};
+
+
+#define XSDIAUD_EMBREG_CNT	ARRAY_SIZE(XSdiAud_Embed_RegMap)
+#define XSDIAUD_EXTREG_CNT	ARRAY_SIZE(XSdiAud_Extract_RegMap)
+
 /*****************************************************************************/
 /**
  *
@@ -139,7 +182,9 @@
 int XSdiAud_SelfTest(XSdiAud *InstancePtr)
 {
 	int Status = XST_SUCCESS;
-	u32 SdiAud_IsEmbed, SdiAud_NumCh, SdiAud_SdiStd;
+	u32 SdiAud_IsEmbed, SdiAud_NumCh, SdiAud_SdiStd, Data, i, reg, count;
+	XSdiAud_RegMap *XSdiAud_Core_RegMap;
+
 	/* verify argument. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	/* Read the SDI Audio Module control register to know the
@@ -203,10 +248,48 @@ int XSdiAud_SelfTest(XSdiAud *InstancePtr)
 	}
 
 	if (SdiAud_NumCh != InstancePtr->Config.MaxNumChannels) {
-
-	xil_printf("Core configuration (%d) doesn't match GUI value (%d).\r\n",
+		xil_printf("Core configuration (%d) doesn't match GUI value (%d).\r\n",
 			SdiAud_NumCh, InstancePtr->Config.MaxNumChannels);
 		return XST_FAILURE;
+	}
+
+	/*
+	 * Reset the core, so that default values can be tested.
+	 */
+	XSdiAud_CoreReset(InstancePtr, TRUE);
+	XSdiAud_CoreReset(InstancePtr, FALSE);
+	XSdiAud_ConfigReset(InstancePtr);
+
+	if (InstancePtr->Config.IsEmbed) {
+		XSdiAud_Core_RegMap = XSdiAud_Embed_RegMap;
+		count = XSDIAUD_EMBREG_CNT;
+	} else {
+		XSdiAud_Core_RegMap = XSdiAud_Extract_RegMap;
+		count = XSDIAUD_EXTREG_CNT;
+	}
+
+	for (i = 0; i < count; i++)
+	{
+		Data = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress,
+				XSdiAud_Core_RegMap[i].RegOffset);
+		if (Data != XSdiAud_Core_RegMap[i].DefaultVal) {
+			xil_printf("register doesn't hold reset value");
+			return XST_FAILURE;
+		}
+	}
+
+	/*
+	 * verify channel status registers to be zero
+	 */
+	reg = XSDIAUD_EXT_CH_STAT0_REG_OFFSET;
+	for (i = 0; i < XSDIAUD_CH_STS_REG_CNT; i++)
+	{
+		Data = XSdiAud_ReadReg(InstancePtr->Config.BaseAddress, reg);
+		if (Data) {
+			xil_printf("channel status register doesn't hold reset value");
+			return XST_FAILURE;
+		}
+		reg += 0x4;
 	}
 
 	return Status;
