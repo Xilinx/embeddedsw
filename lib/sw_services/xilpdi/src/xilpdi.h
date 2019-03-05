@@ -314,7 +314,7 @@ typedef struct {
 	u32 PrtnAttrb; /**< partition attributes */
 	u32 SectionCount; /**< section count */
 	u32 ChecksumWordOfst; /**< address to checksum when enabled */
-	u32 Rsvd_x30; /**< Reserved */
+	u32 PrtnId; /**< Partition ID */
 	u32 AuthCertificateOfst;
 		/**< address to the authentication certificate when enabled */
 	u32 Rsvd_x38; /**< Reserved */
