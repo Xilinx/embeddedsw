@@ -100,6 +100,7 @@ existing API's generic.
 Optimize the bitstream validation logic for Non-secure bitstream Images.
 Fixed PL power-up issue with pmufw.
 Updated the data handling logic to avoid the code duplication.
+Fixed PS-PL resets handling issues.
 
 xilisf_v5_13:
 Declare XQspiPsu_Msg instance as global.
