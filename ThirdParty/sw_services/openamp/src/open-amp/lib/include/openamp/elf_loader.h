@@ -132,7 +132,7 @@ typedef struct {
 #define     ELFOSABI_NONE   0
 
 /* ELF32 program header */
-typedef struct elf32_phdr{
+typedef struct elf32_phdr {
 	Elf32_Word p_type;
 	Elf32_Off p_offset;
 	Elf32_Addr p_vaddr;
@@ -232,13 +232,11 @@ typedef struct {
 typedef struct {
 	Elf32_Addr r_offset;
 	Elf32_Word r_info;
-
 } Elf32_Rel;
 
 typedef struct {
 	Elf64_Addr r_offset;
 	Elf64_Xword r_info;
-
 } Elf64_Rel;
 
 /* Relocation entry with addend */
@@ -246,7 +244,6 @@ typedef struct {
 	Elf32_Addr r_offset;
 	Elf32_Word r_info;
 	Elf32_Sword r_addend;
-
 } Elf32_Rela;
 
 typedef struct elf64_rela {
@@ -269,13 +266,12 @@ typedef struct {
 	unsigned char st_info;
 	unsigned char st_other;
 	Elf32_Half st_shndx;
-
 } Elf32_Sym;
 
 typedef struct elf64_sym {
 	Elf64_Word st_name;
-	unsigned char	st_info;
-	unsigned char	st_other;
+	unsigned char st_info;
+	unsigned char st_other;
 	Elf64_Half st_shndx;
 	Elf64_Addr st_value;
 	Elf64_Xword st_size;
@@ -290,7 +286,7 @@ typedef struct elf64_sym {
 /* ELF decoding information */
 struct elf32_info {
 	Elf32_Ehdr ehdr;
-	unsigned int load_state;
+	int load_state;
 	Elf32_Phdr *phdrs;
 	Elf32_Shdr *shdrs;
 	void *shstrtab;
@@ -298,7 +294,7 @@ struct elf32_info {
 
 struct elf64_info {
 	Elf64_Ehdr ehdr;
-	unsigned int load_state;
+	int load_state;
 	Elf64_Phdr *phdrs;
 	Elf64_Shdr *shdrs;
 	void *shstrtab;

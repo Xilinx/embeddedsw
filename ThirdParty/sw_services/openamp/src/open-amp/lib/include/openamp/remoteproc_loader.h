@@ -38,8 +38,8 @@ extern "C" {
 /* Remoteproc loader any address */
 #define RPROC_LOAD_ANYADDR ((metal_phys_addr_t)-1)
 
-/* Remoteproc loader Exectuable Image Parsing States */
-/* Remoteproc loader parser intial state */
+/* Remoteproc loader Executable Image Parsing States */
+/* Remoteproc loader parser initial state */
 #define RPROC_LOADER_NOT_READY      0x0UL
 /* Remoteproc loader ready to load, even it can be not finish parsing */
 #define RPROC_LOADER_READY_TO_LOAD  0x10000UL
@@ -74,7 +74,7 @@ struct image_store_ops {
 };
 
 /**
- * struct loader_ops - loader oeprations
+ * struct loader_ops - loader operations
  * @load_header: define how to get the executable headers
  * @load_data: define how to load the target data
  * @locate_rsc_table: define how to get the resource table target address,

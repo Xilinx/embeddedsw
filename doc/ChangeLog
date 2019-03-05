@@ -1070,7 +1070,7 @@ libmetal_demo:
 - Update to work with updated libmetal lib
 
 openamp_v1.5:
-- Sync openamp OSS project with upstream
+- Sync openamp OSS project with upstream 83f2b72
 
 openamp_rpc_demo:
 openamp_matrix_multiply_demo:

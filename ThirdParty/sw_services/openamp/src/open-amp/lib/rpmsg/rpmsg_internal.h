@@ -15,9 +15,12 @@ extern "C" {
 #endif
 
 #ifdef RPMSG_DEBUG
+#include <metal/log.h>
+
 #define RPMSG_ASSERT(_exp, _msg) do { \
 		if (!(_exp)) { \
-			openamp_print("FATAL: %s - _msg", __func__); \
+			metal_log(METAL_LOG_EMERGENCY, \
+				  "FATAL: %s - "_msg, __func__); \
 			while (1) { \
 				; \
 			} \
@@ -56,14 +59,14 @@ enum rpmsg_ns_flags {
  *
  * Every message sent(/received) on the rpmsg bus begins with this header.
  */
-OPENAMP_PACKED_BEGIN
+METAL_PACKED_BEGIN
 struct rpmsg_hdr {
 	uint32_t src;
 	uint32_t dst;
 	uint32_t reserved;
 	uint16_t len;
 	uint16_t flags;
-} OPENAMP_PACKED_END;
+} METAL_PACKED_END;
 
 /**
  * struct rpmsg_ns_msg - dynamic name service announcement message
@@ -77,20 +80,20 @@ struct rpmsg_hdr {
  * or ->remove() handler of the appropriate rpmsg driver will be invoked
  * (if/as-soon-as one is registered).
  */
-OPENAMP_PACKED_BEGIN
+METAL_PACKED_BEGIN
 struct rpmsg_ns_msg {
 	char name[RPMSG_NAME_SIZE];
 	uint32_t addr;
 	uint32_t flags;
-} OPENAMP_PACKED_END;
+} METAL_PACKED_END;
 
 int rpmsg_send_ns_message(struct rpmsg_endpoint *ept, unsigned long flags);
 
 struct rpmsg_endpoint *rpmsg_get_endpoint(struct rpmsg_device *rvdev,
 					  const char *name, uint32_t addr,
 					  uint32_t dest_addr);
-int rpmsg_register_endpoint(struct rpmsg_device *rdev,
-			    struct rpmsg_endpoint *ept);
+void rpmsg_register_endpoint(struct rpmsg_device *rdev,
+			     struct rpmsg_endpoint *ept);
 
 static inline struct rpmsg_endpoint *
 rpmsg_get_ept_from_addr(struct rpmsg_device *rdev, uint32_t addr)

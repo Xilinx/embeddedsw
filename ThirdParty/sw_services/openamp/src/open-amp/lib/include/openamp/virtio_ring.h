@@ -18,7 +18,7 @@ extern "C" {
 /* This marks a buffer as write-only (otherwise read-only). */
 #define VRING_DESC_F_WRITE      2
 /* This means the buffer contains a list of buffer descriptors. */
-#define VRING_DESC_F_INDIRECT	4
+#define VRING_DESC_F_INDIRECT   4
 
 /* The Host uses this in used->flags to advise the Guest: don't kick me
  * when you add a buffer.  It's unreliable, so it's simply an
@@ -53,8 +53,11 @@ struct vring_avail {
 
 /* uint32_t is used here for ids for padding reasons. */
 struct vring_used_elem {
-	/* Index of start of used descriptor chain. */
-	uint32_t id;
+	union {
+		uint16_t event;
+		/* Index of start of used descriptor chain. */
+		uint32_t id;
+	};
 	/* Total length of the descriptor chain which was written to. */
 	uint32_t len;
 };
@@ -104,7 +107,7 @@ struct vring {
  * versa. They are at the end for backwards compatibility.
  */
 #define vring_used_event(vr)	((vr)->avail->ring[(vr)->num])
-#define vring_avail_event(vr)	((vr)->used->ring[(vr)->num].id & 0xFFFF)
+#define vring_avail_event(vr)	((vr)->used->ring[(vr)->num].event)
 
 static inline int vring_size(unsigned int num, unsigned long align)
 {
@@ -127,7 +130,8 @@ vring_init(struct vring *vr, unsigned int num, uint8_t *p, unsigned long align)
 	vr->desc = (struct vring_desc *)p;
 	vr->avail = (struct vring_avail *)(p + num * sizeof(struct vring_desc));
 	vr->used = (struct vring_used *)
-	    (((unsigned long)&vr->avail->ring[num] + align - 1) & ~(align - 1));
+	    (((unsigned long)&vr->avail->ring[num] + sizeof(uint16_t) +
+	      align - 1) & ~(align - 1));
 }
 
 /*
