@@ -29,7 +29,7 @@
 /**
 *
 * @file xspips_hw.c
-* @addtogroup spips_v3_3
+* @addtogroup spips_v3_2
 * @{
 *
 * Contains the reset and post boot rom state initialization.
@@ -44,7 +44,7 @@
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.02  raw    11/23/15 Updated XSpiPs_ResetHw() to read all RXFIFO
 * 			entries. This change is to tackle CR#910231.
-* 4.0   tjs    11/23/17 Added a check for A72 and R5 processor to
+* 3.1   tjs    11/23/18 Added a check for A72 and R5 processor to
 *                       avoid changes made for the workaround DT#842463.
 * </pre>
 *
