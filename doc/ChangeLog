@@ -1076,6 +1076,7 @@ openamp_rpc_demo:
 openamp_matrix_multiply_demo:
 openamp_echo_test:
 - Update to work with updated openamp and libmetal libs
+- Use different shared memory based on RPU id.
 
 v_hdmirxss_v5_0:
 Updated version from 4.0 to 5.0
