@@ -146,8 +146,7 @@
 *                       information.
 *       mn     09/06/17 Resolved compilation errors with IAR toolchain
 * 3.6   mn     08/01/18 Add support for using 64Bit DMA with 32-Bit Processor
-* 3.7   mn     01/23/19 Add Manual Tuning Support for SD/eMMC
-*       mn     02/01/19 Add support for idling of SDIO
+* 3.7   mn     02/01/19 Add support for idling of SDIO
 *
 * </pre>
 *
@@ -239,9 +238,6 @@ typedef struct {
 	XSdPs_Adma2Descriptor Adma2_DescrTbl[32] __attribute__ ((aligned(32)));
 #endif
 	u64 Dma64BitAddr;	/**< 64 Bit DMA Address */
-#ifdef USE_MANUAL_TUNING
-	u8 PatternData[128];
-#endif
 } XSdPs;
 
 /***************** Macros (Inline Functions) Definitions *********************/
