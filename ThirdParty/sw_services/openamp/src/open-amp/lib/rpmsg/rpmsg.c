@@ -9,7 +9,6 @@
 
 #include <openamp/rpmsg.h>
 #include <metal/alloc.h>
-#include <metal/utilities.h>
 
 #include "rpmsg_internal.h"
 
@@ -165,10 +164,10 @@ struct rpmsg_endpoint *rpmsg_get_endpoint(struct rpmsg_device *rdev,
 					      sizeof(ept->name));
 		if (!name || !name_match)
 			continue;
-		/* destination address is known, equal to ept remote address*/
+		/* destination address is known, equal to ept remote address */
 		if (dest_addr != RPMSG_ADDR_ANY && ept->dest_addr == dest_addr)
 			return ept;
-		/* ept is registered but not associated to remote ept*/
+		/* ept is registered but not associated to remote ept */
 		if (addr == RPMSG_ADDR_ANY && ept->dest_addr == RPMSG_ADDR_ANY)
 			return ept;
 	}
@@ -190,20 +189,18 @@ static void rpmsg_unregister_endpoint(struct rpmsg_endpoint *ept)
 	metal_list_del(&ept->node);
 }
 
-int rpmsg_register_endpoint(struct rpmsg_device *rdev,
-			    struct rpmsg_endpoint *ept)
+void rpmsg_register_endpoint(struct rpmsg_device *rdev,
+			     struct rpmsg_endpoint *ept)
 {
 	ept->rdev = rdev;
-
 	metal_list_add_tail(&rdev->endpoints, &ept->node);
-	return RPMSG_SUCCESS;
 }
 
 int rpmsg_create_ept(struct rpmsg_endpoint *ept, struct rpmsg_device *rdev,
 		     const char *name, uint32_t src, uint32_t dest,
 		     rpmsg_ept_cb cb, rpmsg_ns_unbind_cb unbind_cb)
 {
-	int status;
+	int status = RPMSG_SUCCESS;
 	uint32_t addr = src;
 
 	if (!ept)
@@ -228,12 +225,9 @@ int rpmsg_create_ept(struct rpmsg_endpoint *ept, struct rpmsg_device *rdev,
 	}
 
 	rpmsg_init_ept(ept, name, addr, dest, cb, unbind_cb);
+	rpmsg_register_endpoint(rdev, ept);
 
-	status = rpmsg_register_endpoint(rdev, ept);
-	if (status < 0)
-		rpmsg_release_address(rdev->bitmap, RPMSG_ADDR_BMP_SIZE, addr);
-
-	if (!status  && ept->dest_addr == RPMSG_ADDR_ANY) {
+	if (rdev->support_ns && ept->dest_addr == RPMSG_ADDR_ANY) {
 		/* Send NS announcement to remote processor */
 		metal_mutex_release(&rdev->lock);
 		status = rpmsg_send_ns_message(ept, RPMSG_NS_CREATE);
@@ -263,7 +257,7 @@ void rpmsg_destroy_ept(struct rpmsg_endpoint *ept)
 		return;
 
 	rdev = ept->rdev;
-	if (ept->addr != RPMSG_NS_EPT_ADDR)
+	if (ept->name[0] && rdev->support_ns && ept->addr != RPMSG_NS_EPT_ADDR)
 		(void)rpmsg_send_ns_message(ept, RPMSG_NS_DESTROY);
 	metal_mutex_acquire(&rdev->lock);
 	rpmsg_unregister_endpoint(ept);
