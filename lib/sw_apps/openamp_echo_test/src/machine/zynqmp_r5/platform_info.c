@@ -40,7 +40,11 @@
 #define NORM_SHARED_NCACHE	0x0000000CU /* Non cacheable shareable */
 #define	PRIV_RW_USER_RW		(0x00000003U<<8U) /* Full Access */
 
+#if XPAR_CPU_ID == 0
 #define SHARED_MEM_PA  0x3ED40000UL
+#else
+#define SHARED_MEM_PA  0x3EF40000UL
+#endif /* XPAR_CPU_ID */
 #define SHARED_MEM_SIZE 0x100000UL
 #define SHARED_BUF_OFFSET 0x8000UL
 
