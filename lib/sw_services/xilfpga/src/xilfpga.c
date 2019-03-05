@@ -417,7 +417,7 @@ void XFpga_GetDmaPtr(XFpga *InstancePtr, XCsuDma *DmaPtr)
 {
 	memcpy(&InstancePtr->PLInfo.PmcDmaIns, DmaPtr, sizeof(*DmaPtr));
 }
-#endif
+
 
 /*****************************************************************************/
 /**
@@ -431,7 +431,7 @@ void XFpga_GetDmaPtr(XFpga *InstancePtr, XCsuDma *DmaPtr)
  ******************************************************************************/
 u32 XFpga_GlobSeqWriteReg(XFpga *InstancePtr, u32 Mask, u32 Val)
 {
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status;
 
 	if (!InstancePtr->XFpga_GlobSeqWriteReg) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
@@ -439,8 +439,9 @@ u32 XFpga_GlobSeqWriteReg(XFpga *InstancePtr, u32 Mask, u32 Val)
 		"%s Implementation not exists..\r\n", __FUNCTION__);
 	} else {
 		InstancePtr->XFpga_GlobSeqWriteReg(InstancePtr, Mask, Val);
+		Status = XFPGA_SUCCESS;
 	}
 
 	return Status;
 }
-
+#endif

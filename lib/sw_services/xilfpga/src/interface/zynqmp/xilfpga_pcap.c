@@ -251,8 +251,9 @@ static const u8 BootgenBinFormat[] = {
  * @return error status based on implemented functionality (SUCCESS by default)
  ******************************************************************************/
 u32 XFpga_Initialize(XFpga *InstancePtr) {
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status;
 
+	memset(InstancePtr, 0, sizeof(*InstancePtr));
 	InstancePtr->XFpga_ValidateBitstream = XFpga_ValidateBitstreamImage;
 	InstancePtr->XFpga_PreConfig = XFpga_PreConfigPcap;
 	InstancePtr->XFpga_WriteToPl = XFpga_WriteToPlPcap;
@@ -288,7 +289,7 @@ u32 XFpga_Initialize(XFpga *InstancePtr) {
  *****************************************************************************/
 static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 {
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status = XFPGA_FAILURE;
 	XSecure_ImageInfo *ImageHdrDataPtr =
 			&InstancePtr->PLInfo.SecureImageInfo;
 	u32 EncOnly;
@@ -447,7 +448,7 @@ END:
  *****************************************************************************/
 static u32 XFpga_PreConfigPcap(const XFpga *InstancePtr)
 {
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status = XFPGA_FAILURE;
 	u32 RegVal;
 
 	/* Enable the PCAP clk */
@@ -497,7 +498,7 @@ END:
  *****************************************************************************/
 static u32 XFpga_WriteToPlPcap(XFpga *InstancePtr)
 {
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status = XFPGA_FAILURE;
 	XSecure_ImageInfo *ImageInfo = &InstancePtr->PLInfo.SecureImageInfo;
 	u32 BitstreamSize;
 
@@ -562,7 +563,7 @@ END:
  *****************************************************************************/
 static u32 XFpga_PostConfigPcap(const XFpga *InstancePtr)
 {
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status;
 	u8 EndianType = 0U;
 	u32 RegVal;
 
@@ -582,6 +583,8 @@ static u32 XFpga_PostConfigPcap(const XFpga *InstancePtr)
 		if (Status == XFPGA_SUCCESS) {
 			XFpga_PsPlGpioResetsHigh();
 		}
+	} else {
+		Status = XFPGA_SUCCESS;
 	}
 
 	/* Disable the PCAP clk */
@@ -632,7 +635,7 @@ static u32 XFpga_PcapInit(u32 flags)
 {
 	u32 RegVal;
 	u32 PollCount;
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status;
 
 
 	/* Take PCAP out of Reset */
@@ -667,6 +670,8 @@ static u32 XFpga_PcapInit(u32 flags)
 	}
 	if (PollCount == 0U) {
 		Status = XFPGA_FAILURE;
+	} else {
+		Status = XFPGA_SUCCESS;
 	}
 
 	return Status;
@@ -684,7 +689,7 @@ static u32 XFpga_PcapWaitForDone(void)
 {
 	u32 RegVal = 0U;
 	u32 PollCount;
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status;
 
 	PollCount = (u32)(PL_DONE_POLL_COUNT);
 	while (PollCount != 0U) {
@@ -697,6 +702,8 @@ static u32 XFpga_PcapWaitForDone(void)
 	}
 	if (PollCount == 0U) {
 		Status = XFPGA_ERROR_CSU_PCAP_TRANSFER;
+	} else {
+		Status = XFPGA_SUCCESS;
 	}
 
 	return Status;
@@ -750,7 +757,7 @@ static u32 XFpga_PcapWaitForidle(void)
 {
 	u32 RegVal = 0U;
 	u32 PollCount;
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status;
 
 	PollCount = (u32)(PL_DONE_POLL_COUNT);
 	while (PollCount != 0U) {
@@ -763,6 +770,8 @@ static u32 XFpga_PcapWaitForidle(void)
 	}
 	if (PollCount == 0U) {
 		Status = XFPGA_FAILURE;
+	} else {
+		Status = XFPGA_SUCCESS;
 	}
 
 	return Status;
@@ -781,7 +790,7 @@ static u32 XFpga_PcapWaitForidle(void)
 static u32 XFpga_ValidateCryptoFlags(const XSecure_ImageInfo *ImageInfo,
 									u32 flags)
 {
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status;
 	u8 IsImageAuthenticated = 0U;
 	u8 IsImageUserKeyEncrypted = 0U;
 	u8 IsImageDevKeyEncrypted = 0U;
@@ -896,7 +905,7 @@ return Status;
 static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 					const XSecure_ImageInfo *ImageInfo, u32 flags)
 {
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status = XFPGA_FAILURE;
 	XFpgaPs_PlPartition PlAesInfo = {0U};
 	XSecure_Aes Secure_Aes;
 	u32 PartationLen;
@@ -1051,7 +1060,7 @@ END:
 static u32 XFpga_SecureBitstreamOcmLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 				const XSecure_ImageInfo *ImageInfo, u32 flags)
 {
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status = XFPGA_FAILURE;
 	XFpgaPs_PlPartition PlAesInfo = {0U};
 	XSecure_Aes Secure_Aes;
 	u32 PartationLen;
@@ -1278,7 +1287,7 @@ static u32 XFpga_ReAuthPlChunksWriteToPl(XFpgaPs_PlPartition *PlAesInfo,
 					 UINTPTR BitstreamAddr,
 					 u32 Size, u32 flags)
 {
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status;
 	XSecure_Sha3 Secure_Sha3;
 	u64 OcmAddr = OCM_PL_ADDR;
 	u32 NumChunks = NUM_OF_PL_CHUNKS(Size);
@@ -1383,7 +1392,7 @@ END:
 static u32 XFpga_WriteEncryptToPcap(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 				const XSecure_ImageInfo *ImageHdrInfo, u32 flags)
 {
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status = XFPGA_FAILURE;
 	XSecure_Aes Secure_Aes;
 	u32 key[XSECURE_KEY_LEN] = {0U};
 	u8 *EncSrc;
@@ -1487,7 +1496,7 @@ END:
 static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
 		u64 ChunkAdrs, u32 ChunkSize)
 {
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status = XFPGA_FAILURE;
 	UINTPTR SrcAddr = (u64)ChunkAdrs;
 	u32 Size = ChunkSize;
 	u64 NextBlkAddr = 0U;
@@ -1601,7 +1610,6 @@ static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
 		}
 	} else {
 		Status = XFpga_DecrptPl(PartitionParams, SrcAddr, Size);
-		goto END;
 	}
 END:
 	return Status;
@@ -1626,7 +1634,6 @@ END:
  ******************************************************************************/
 static u32 XFpga_DecrptSetUpNextBlk(XFpgaPs_PlPartition *PartitionParams)
 {
-	u32 Status = XFPGA_SUCCESS;
 	u32 SssAes;
 	u32 SssCfg;
 
@@ -1661,7 +1668,7 @@ static u32 XFpga_DecrptSetUpNextBlk(XFpgaPs_PlPartition *PartitionParams)
 					XSECURE_CSU_AES_KUP_WR_OFFSET, 0x0U);
 
 
-	return Status;
+	return XFPGA_SUCCESS;
 
 }
 
@@ -1715,7 +1722,7 @@ static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
 {
 
 	u32 Size = ChunkSize;
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status = XFPGA_FAILURE;
 	u64 SrcAddr = (u64)ChunkAdrs;
 	XCsuDma_Configure ConfigurValues = {0U};
 	UINTPTR NextBlkAddr = 0U;
@@ -1864,7 +1871,7 @@ static u32 XFpga_DecrypSecureHdr(XSecure_Aes *InstancePtr, u64 SrcAddr)
 {
 	XCsuDma_Configure ConfigurValues = {0U};
 	u32 GcmStatus;
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status = XFPGA_FAILURE;
 
 	XCsuDma_GetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 							&ConfigurValues);
@@ -1911,6 +1918,8 @@ static u32 XFpga_DecrypSecureHdr(XSecure_Aes *InstancePtr, u64 SrcAddr)
 	if (GcmStatus == 0U) {
 		Xfpga_Printf(XFPGA_DEBUG, "GCM TAG NOT Matched\r\n");
 		Status = XFPGA_FAILURE;
+	} else {
+		Status = XFPGA_SUCCESS;
 	}
 
 	return Status;
@@ -1930,7 +1939,7 @@ static u32 XFpga_DecrypSecureHdr(XSecure_Aes *InstancePtr, u64 SrcAddr)
  *****************************************************************************/
 static u32 XFpga_PLWaitForDone(void)
 {
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status;
 	u32 PollCount;
 	u32 RegVal = 0U;
 
@@ -1945,7 +1954,7 @@ static u32 XFpga_PLWaitForDone(void)
 		PollCount--;
 	}
 
-	if (RegVal != CSU_PCAP_STATUS_PL_DONE_MASK) {
+	if (PollCount == 0U) {
 		Status = XFPGA_ERROR_PCAP_PL_DONE;
 		goto END;
 	}
@@ -1965,6 +1974,13 @@ static u32 XFpga_PLWaitForDone(void)
 		}
 		PollCount--;
 	}
+
+	if (PollCount == 0U) {
+		Status = XFPGA_FAILURE;
+	} else {
+		Status = XFPGA_SUCCESS;
+	}
+
 END:
 	return Status;
 }
@@ -1981,7 +1997,7 @@ END:
  *****************************************************************************/
 static u32 XFpga_CsuDmaInit(void)
 {
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status = XFPGA_FAILURE;
 	XCsuDma_Config *CsuDmaConfig;
 
 	CsuDmaConfig = XCsuDma_LookupConfig(0U);
@@ -2160,17 +2176,20 @@ static u32 XFpga_PcapStatus(void)
  *****************************************************************************/
 static u32 XFpga_ConvertCharToNibble(u8 InChar, u8 *Num)
 {
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status;
 
 	/* Convert the char to nibble */
 	if ((InChar >= (u8)'0') && (InChar <= (u8)'9')) {
 		*Num = InChar - (u8)'0';
+		Status = XFPGA_SUCCESS;
 	}
 	else if ((InChar >= (u8)'a') && (InChar <= (u8)'f')) {
 		*Num = InChar - (u8)'a' + 10U;
+		Status = XFPGA_SUCCESS;
 	}
 	else if ((InChar >= (u8)'A') && (InChar <= (u8)'F')) {
 		*Num = InChar - (u8)'A' + 10U;
+		Status = XFPGA_SUCCESS;
 	}
 	else {
 		Status = XFPGA_STRING_INVALID_ERROR;
@@ -2200,7 +2219,7 @@ static u32 XFpga_ConvertCharToNibble(u8 InChar, u8 *Num)
  *****************************************************************************/
 static u32 XFpga_ConvertStringToHex(const u8 *Str, u32 *buf, u8 Len)
 {
-	u32 Status = XFPGA_SUCCESS;
+	u32 Status = XFPGA_FAILURE;
 	u8 ConvertedLen = 0U, index = 0U;
 	u8 Nibble[MAX_NIBBLES] = {0U};
 

@@ -212,8 +212,8 @@ u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 			 u32 ConfigReg_NumFrames);
 u32 XFpga_InterfaceStatus(XFpga *InstancePtr);
-u32 XFpga_GlobSeqWriteReg(XFpga *InstancePtr, u32 Mask, u32 Val);
 #if defined(versal)
+u32 XFpga_GlobSeqWriteReg(XFpga *InstancePtr, u32 Mask, u32 Val);
 void XFpga_GetDmaPtr(XFpga *InstancePtr, XCsuDma *DmaPtr);
 #endif
 
