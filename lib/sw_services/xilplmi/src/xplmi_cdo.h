@@ -89,6 +89,8 @@ typedef struct {
 	u32 CmdEndDetected;	/**< Flag to detect end of commands */
 	u32 Cdo1stChunk;	/**< This is used for first time to validate
 				CDO header*/
+	u32 ImgId;		/** Info about which Image this belongs to */
+	u32 PrtnId;		/** Info about which partition this belongs to*/
 } XPlmiCdo;
 /***************** Macros (Inline Functions) Definitions *********************/
 
