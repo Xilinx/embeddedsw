@@ -94,8 +94,7 @@
 *       mn     08/14/18 Resolve compilation warnings for ARMCC toolchain
 *       mn     10/01/18 Change Expected Response for CMD3 to R1 for MMC
 *       mus    11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
-* 3.7   mn     01/23/19 Add Manual Tuning Support for SD/eMMC
-*       mn     02/01/19 Add support for idling of SDIO
+* 3.7   mn     02/01/19 Add support for idling of SDIO
 * </pre>
 *
 ******************************************************************************/
@@ -677,15 +676,6 @@ s32 XSdPs_CardInitialize(XSdPs *InstancePtr)
 			}
 		}
 
-#ifdef USE_MANUAL_TUNING
-		memset(InstancePtr->PatternData, 0, sizeof(InstancePtr->PatternData));
-		Status = XSdPs_Get_Status(InstancePtr, InstancePtr->PatternData);
-		if (Status != XST_SUCCESS) {
-			Status = XST_FAILURE;
-			goto RETURN_PATH;
-		}
-#endif
-
 		/* Get speed supported by device */
 		Status = XSdPs_Get_BusSpeed(InstancePtr, ReadBuff);
 		if (Status != XST_SUCCESS) {
@@ -846,11 +836,6 @@ s32 XSdPs_CardInitialize(XSdPs *InstancePtr)
 			Status = XST_FAILURE;
 			goto RETURN_PATH;
 		}
-
-#ifdef USE_MANUAL_TUNING
-		memcpy((void *)InstancePtr->PatternData, (void *)ExtCsd,
-				sizeof (InstancePtr->PatternData));
-#endif
 
 		InstancePtr->SectorCount = ((u32)ExtCsd[EXT_CSD_SEC_COUNT_BYTE4]) << 24;
 		InstancePtr->SectorCount |= (u32)ExtCsd[EXT_CSD_SEC_COUNT_BYTE3] << 16;
