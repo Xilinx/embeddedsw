@@ -29,7 +29,7 @@
 /**
 *
 * @file xspips.h
-* @addtogroup spips_v3_3
+* @addtogroup spips_v3_2
 * @{
 * @details
 *
@@ -248,7 +248,7 @@
 *                       files to include them in doxygen examples.
 * 3.1	tjs    04/12/18 InputClockHz parameter copied in instance for use in
 * 						application. CR#998910
-* 3.3   aru    01/20/19 Fixes violations according to MISRAC-2012
+* 3.2   aru    01/20/19 Fixes violations according to MISRAC-2012
 *                       in safety mode and done changes such as
 *                       Declared the pointer param as Pointer to const.
 * </pre>
