@@ -124,7 +124,7 @@ int main(void)
  *****************************************************************************/
 int SdiAud_SelfTestExample(u16 DeviceId)
 {
-	int Status, XSdiAud_TstLoop;
+	int Status;
 	/*
 	 * Initialize the SdiAud driver so that it's ready to use
 	 * Look up the configuration in the config table, then initialize it.
@@ -133,23 +133,7 @@ int SdiAud_SelfTestExample(u16 DeviceId)
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
 
-	XSdiAud_CoreReset(&SdiAud0, TRUE);
-	XSdiAud_CoreReset(&SdiAud0, FALSE);
-	XSdiAud_ConfigReset(&SdiAud0);
 
-	for (XSdiAud_TstLoop = 0; XSdiAud_TstLoop < XSDIAUD_NUM_REG; XSdiAud_TstLoop++) {
-
-	Status = XSdiAud_ReadReg(SdiAud0.Config.BaseAddress, (XSDIAUD_INT_EN_REG_OFFSET + (4 * XSdiAud_TstLoop)));
-
-	if ((SdiAud0.Config.IsEmbed == TRUE) && (XSdiAud_TstLoop == XSDIAUD_ACR) && (Status == TRUE))
-		Status = XST_SUCCESS;
-
-    if (Status != XST_SUCCESS)
-		return XST_FAILURE;
-	}
-
-	Status = XST_SUCCESS;
-
-	return Status;
+	return XST_SUCCESS;
 }
 /** @} */
