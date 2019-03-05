@@ -12,6 +12,6 @@
 #include <openamp/rpmsg_virtio.h>
 #include <openamp/remoteproc.h>
 #include <openamp/remoteproc_virtio.h>
-#include <errno.h>
+
 
 #endif				/* OPEN_AMP_H_ */
