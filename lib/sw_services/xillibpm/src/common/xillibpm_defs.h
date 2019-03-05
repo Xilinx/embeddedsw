@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -241,6 +241,9 @@ enum XPmInitFunctions {
 #define XPM_DLL_RESET_RELEASE		(1U)
 #define XPM_DLL_RESET_PULSE		(2U)
 
+/* PM API versions */
+#define XST_API_BASE_VERSION		(1U)
+
 /* PM API ids */
 #define PM_GET_API_VERSION              1U
 #define PM_SET_CONFIGURATION            2U
@@ -314,9 +317,10 @@ enum XPmInitFunctions {
 #define PM_ADD_REQUIREMENT		60U
 #define PM_SET_CURRENT_SUBSYSTEM		61U
 #define PM_INIT_NODE			62U
+#define PM_FEATURE_CHECK		63U
 
 #define PM_API_MIN      PM_GET_API_VERSION
-#define PM_API_MAX      PM_INIT_NODE
+#define PM_API_MAX      PM_FEATURE_CHECK
 
 
 #endif /* XILLIBPM_DEFS_H_ */
