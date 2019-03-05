@@ -196,6 +196,8 @@ void XPlmi_InitCdo(XPlmiCdo *CdoPtr)
 	CdoPtr->BufLen = 0U;
 	CdoPtr->CdoLen = 0U;
 	CdoPtr->ProcessedCdoLen = 0U;
+	CdoPtr->ImgId = 0U;
+	CdoPtr->PrtnId = 0U;
 
 	/** Initialize the CDO buffer user params */
 	CdoPtr->CmdEndDetected = FALSE;
@@ -266,6 +268,10 @@ int XPlmi_CdoCmdResume(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Size)
 		CmdPtr->PayloadLen = CmdPtr->Len - CmdPtr->ProcessedLen;
 		CdoPtr->CmdState = 0U;
 	}
+
+	/** Copy the image id to cmd subsytem ID */
+	CmdPtr->SubsystemId = CdoPtr->ImgId;
+
 	CmdPtr->Payload = BufPtr;
 	*Size = CmdPtr->PayloadLen;
 	Status = XPlmi_CmdResume(CmdPtr);
@@ -335,6 +341,9 @@ int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Size)
 		*Size = BufLen;
 		CdoPtr->CmdState = XPLMI_CMD_STATE_RESUME;
 	}
+
+	/** Copy the image id to cmd subsytem ID */
+	CmdPtr->SubsystemId = CdoPtr->ImgId;
 
 	/** Execute the command */
 	XPlmi_SetupCmd(CmdPtr, BufPtr, *Size);
