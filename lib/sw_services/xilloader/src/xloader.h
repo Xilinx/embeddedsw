@@ -149,6 +149,8 @@ typedef struct {
 	u32 NoOfHandoffCpus; /**< Number of CPU's loader will handoff to */
         XLoader_HandoffParam HandoffParam[10];
 	u32 EccStatus;
+	u32 CurImgId; /**< Current Processing image ID */
+	u32 CurPrtnId; /**< Current Processing Partition ID */
 } XilPdi;
 
 /**
