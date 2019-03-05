@@ -43,6 +43,17 @@ if (WITH_APPS)
   endif (WITH_PROXY)
 endif (WITH_APPS)
 
+option (WITH_VIRTIO_MASTER "Build with virtio master enabled" ON)
+option (WITH_VIRTIO_SLAVE "Build with virtio slave enabled" ON)
+
+if (NOT WITH_VIRTIO_MASTER)
+  add_definitions(-DVIRTIO_SLAVE_ONLY)
+endif (NOT WITH_VIRTIO_MASTER)
+
+if (NOT WITH_VIRTIO_SLAVE)
+  add_definitions(-DVIRTIO_MASTER_ONLY)
+endif (NOT WITH_VIRTIO_SLAVE)
+
 # Set the complication flags
 set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
 
