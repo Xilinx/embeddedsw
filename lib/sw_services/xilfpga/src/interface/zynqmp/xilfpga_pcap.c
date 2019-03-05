@@ -77,6 +77,8 @@
  * 5.0  Nava  26/02/19  Fix for power-up PL issue with pmufw.
  * 5.0  Nava  26/02/19  Update the data handling logic to avoid the code
  *                      duplication
+ * 5.0  Nava  28/02/19  Handling all the 4 PS-PL resets irrespective of the
+ *                      design configuration.
  * </pre>
  *
  * @note
@@ -92,13 +94,6 @@
 #define XPBR_SERV_EXT_TBL_MAX		256U
 #endif
 
-#ifdef XPAR_NUM_FABRIC_RESETS
-#define FPGA_NUM_FABRIC_RESETS	XPAR_NUM_FABRIC_RESETS
-#else
-#define FPGA_NUM_FABRIC_RESETS	1U
-#endif
-
-#define MAX_REG_BITS	31U
 #define WORD_LEN			4U	/* Bytes */
 #ifdef XFPGA_SECURE_MODE
 #define KEY_LEN				64U	/* Bytes */
@@ -182,8 +177,8 @@ static u32 XFpga_CsuDmaInit(void);
 static u32 XFpga_PLWaitForDone(void);
 static u32 XFpga_PowerUpPl(void);
 static u32 XFpga_IsolationRestore(void);
-static u32 XFpga_PsPlGpioResetsLow(u32 TotalResets);
-static u32 XFpga_PsPlGpioResetsHigh(u32 TotalResets);
+void XFpga_PsPlGpioResetsLow(void);
+void XFpga_PsPlGpioResetsHigh(void);
 static u32 Xfpga_RegAddr(u8 Register, u8 OpCode, u16 Size);
 static u32 Xfpga_Type2Pkt(u8 OpCode, u32 Size);
 static u32 XFpga_ValidateCryptoFlags(const XSecure_ImageInfo *ImageInfo,
@@ -573,7 +568,7 @@ static u32 XFpga_PostConfigPcap(const XFpga *InstancePtr)
 
 	if ((InstancePtr->WriteInfo.Flags & XFPGA_PARTIAL_EN) == 0U) {
 		/* PS-PL reset Low */
-		(void)XFpga_PsPlGpioResetsLow(FPGA_NUM_FABRIC_RESETS);
+		XFpga_PsPlGpioResetsLow();
 		usleep(XFPGA_PS_PL_RESET_TIME_US);
 		/* Power-Up PL */
 		Status = XFpga_PowerUpPl();
@@ -585,7 +580,7 @@ static u32 XFpga_PostConfigPcap(const XFpga *InstancePtr)
 		}
 		/* PS-PL reset high*/
 		if (Status == XFPGA_SUCCESS) {
-			(void)XFpga_PsPlGpioResetsHigh(FPGA_NUM_FABRIC_RESETS);
+			XFpga_PsPlGpioResetsHigh();
 		}
 	}
 
@@ -2090,65 +2085,46 @@ static u32 XFpga_IsolationRestore(void)
 /*
  * This function is used to start reset of the PL from PS EMIO pins
  *
- * @param	TotalResets
+ * @param	None.
  *
- * @return	XFSBL_SUCCESS (for now always returns this)
+ * @return	None.
  *
  * @note	None.
  *
  ****************************************************************************/
-static u32 XFpga_PsPlGpioResetsLow(u32 TotalResets)
+void XFpga_PsPlGpioResetsLow(void)
 {
-	u32 Status = XFPGA_SUCCESS;
 	u32 RegVal = 0U;
 
 	/* Set EMIO Direction */
-	RegVal = (Xil_In32(GPIO_DIRM_5_EMIO) |
-		(~(~(u32)0U << TotalResets) << ((u32)MAX_REG_BITS + (u32)1U - TotalResets)));
+	RegVal = Xil_In32(GPIO_DIRM_5_EMIO) | GPIO_PS_PL_DIRM_MASK;
 	Xil_Out32(GPIO_DIRM_5_EMIO, RegVal);
 
 	/*De-assert the EMIO with the required Mask */
-	RegVal = ~(~(~(u32)0U << TotalResets) <<
-			((u32)MAX_REG_BITS + (u32)1U - TotalResets))
-			& 0xFFFF0000U;
-	Xil_Out32(GPIO_MASK_DATA_5_MSW, RegVal);
-	usleep(1000U);
-
-	return Status;
+	Xil_Out32(GPIO_MASK_DATA_5_MSW, GPIO_LOW_DATA_MSW_VAL);
 }
 
 /***************************************************************************/
 /*
  * This function is used to release reset of the PL from PS EMIO pins
  *
- * @param	TotalResets
+ * @param	None.
  *
- * @return	XFSBL_SUCCESS (for now always returns this)
+ * @return	None.
  *
  * @note		None.
  *
  ***************************************************************************/
-static u32 XFpga_PsPlGpioResetsHigh(u32 TotalResets)
+void XFpga_PsPlGpioResetsHigh(void)
 {
-	u32 Status = XFPGA_SUCCESS;
 	u32 RegVal = 0U;
-	u32 MaskVal;
 
 	/* Set EMIO Direction */
-	RegVal = (Xil_In32(GPIO_DIRM_5_EMIO) |
-		(~(~(u32)0U << TotalResets) << ((u32)MAX_REG_BITS + (u32)1U - TotalResets)));
+	RegVal = Xil_In32(GPIO_DIRM_5_EMIO) | GPIO_PS_PL_DIRM_MASK;
 	Xil_Out32(GPIO_DIRM_5_EMIO, RegVal);
 
 	/*Assert the EMIO with the required Mask */
-	MaskVal = (~(~(u32)0U << TotalResets)) <<
-				(((u32)(MAX_REG_BITS/2U) + (u32)1U - TotalResets) |
-								0xFFFF0000U);
-	RegVal = MaskVal & (~(~(~(u32)0U << TotalResets) <<
-				((u32)MAX_REG_BITS + (u32)1U - TotalResets)));
-	Xil_Out32(GPIO_MASK_DATA_5_MSW, RegVal);
-	usleep(1000U);
-
-	return Status;
+	Xil_Out32(GPIO_MASK_DATA_5_MSW, GPIO_HIGH_DATA_MSW_VAL);
 }
 
 

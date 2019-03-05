@@ -111,6 +111,8 @@
  * 5.0 Nava  26/02/19  Fix for power-up PL issue with pmufw.
  * 5.0 Nava  26/02/19  Update the data handling logic to avoid the code
  *                     duplication
+ * 5.0 Nava  28/02/19  Handling all the 4 PS-PL resets irrespective of the
+ *                     design configuration.
  * </pre>
  *
  * @note
@@ -204,6 +206,9 @@ extern "C" {
 
 #define GPIO_DIRM_5_EMIO		0xFF0A0344U
 #define GPIO_MASK_DATA_5_MSW	0xFF0A002CU
+#define GPIO_PS_PL_DIRM_MASK	0xF0000000U
+#define GPIO_LOW_DATA_MSW_VAL	0x0FFF0000U
+#define GPIO_HIGH_DATA_MSW_VAL	0x0FFFF000U
 
 /* Register: PCAP_CLK_CTRL Address */
 #define PCAP_CLK_CTRL		0xFF5E00A4U
