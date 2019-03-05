@@ -52,6 +52,7 @@
 #include "xplm_pm.h"
 #include "xplm_main.h"
 #include "xillibpm_api.h"
+#include "xillibpm_node.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -143,6 +144,8 @@ int XPlm_ProcessPlmCdo(void *arg)
 
 	/** Process the PLM CDO */
 	XPlmi_InitCdo(&Cdo);
+	Cdo.ImgId = XPM_NODEIDX_SUBSYS_PMC;
+	Cdo.PrtnId = 0U;
 	Cdo.BufPtr = (u32 *)XPLMI_PMCRAM_BASEADDR;
 	Cdo.BufLen = XPLMI_PMCRAM_LEN;
 	Status = XPlmi_ProcessCdo(&Cdo);
