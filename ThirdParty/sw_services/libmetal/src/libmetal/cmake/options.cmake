@@ -52,7 +52,7 @@ option (WITH_DEFAULT_LOGGER "Build with default logger" ON)
 
 option (WITH_DOC "Build with documentation" ON)
 
-set (PROJECT_EC_FLAGS "-Wall -Werror -Wextra" CACHE STRING "")
+set_property (GLOBAL PROPERTY "PROJECT_EC_FLAGS" -Wall -Werror -Wextra)
 
 check_include_files(xintc.h HAS_XINTC)
 if (HAS_XINTC STREQUAL "1")
