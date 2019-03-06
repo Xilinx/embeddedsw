@@ -118,6 +118,7 @@
 *                    on ZynqMP.
 * 3.8 hk    10/01/18 Fix warning for redefinition of interrupt number.
 * 3.9 hk    02/12/19 Change MDC divisor for Versal emulation.
+*           03/06/19 Fix BD space assignment and its memory attributes.
 *
 * </pre>
 *
@@ -212,9 +213,19 @@ EthernetFrame RxFrame;		/* Receive buffer */
 /*
  * Buffer descriptors are allocated in uncached memory. The memory is made
  * uncached by setting the attributes appropriately in the MMU table.
+ * The minimum region for which attribute settings take effect is 2MB for
+ * arm 64 variants(A53) and 1MB for the rest (R5 and A9). Hence the same
+ * is allocated, even if not used fully by this example, to make sure none
+ * of the adjacent global memory is affected.
  */
-#define RX_BD_LIST_START_ADDRESS	0x0FF00000
-#define TX_BD_LIST_START_ADDRESS	0x0FF70000
+#if defined __aarch64__
+u8 bd_space[0x200000] __attribute__ ((aligned (0x200000)));
+#else
+u8 bd_space[0x100000] __attribute__ ((aligned (0x100000)));
+#endif
+
+u8 *RxBdSpacePtr;
+u8 *TxBdSpacePtr;
 
 #define FIRST_FRAGMENT_SIZE 64
 
@@ -409,6 +420,37 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 		return XST_FAILURE;
 	}
 
+	/* Gem IP version on Zynq-7000 */
+	if (GemVersion == 2)
+	{
+		/*
+		 * The BDs need to be allocated in uncached memory. Hence the 1 MB
+		 * address range that starts at "bd_space" is made uncached.
+		 */
+#if !defined(__MICROBLAZE__) && !defined(ARMR5)
+		Xil_SetTlbAttributes(bd_space, DEVICE_MEMORY);
+#else
+		Xil_DCacheDisable();
+#endif
+
+	}
+
+	if (GemVersion > 2) {
+
+#if defined (ARMR5)
+		Xil_SetTlbAttributes((u32)bd_space, STRONG_ORDERD_SHARED |
+					PRIV_RW_USER_RW);
+#endif
+#if defined __aarch64__
+		Xil_SetTlbAttributes((u64)bd_space, NORM_NONCACHE |
+					INNER_SHAREABLE);
+#endif
+	}
+
+	/* Allocate Rx and Tx BD space each */
+	RxBdSpacePtr = (UINTPTR)&(bd_space[0]);
+	TxBdSpacePtr = (UINTPTR)&(bd_space[0x10000]);
+
 	/*
 	 * Setup RxBD space.
 	 *
@@ -428,8 +470,8 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 	 */
 	Status = XEmacPs_BdRingCreate(&(XEmacPs_GetRxRing
 				       (EmacPsInstancePtr)),
-				       (UINTPTR) RX_BD_LIST_START_ADDRESS,
-				       (UINTPTR)RX_BD_LIST_START_ADDRESS,
+				       (UINTPTR) RxBdSpacePtr,
+				       (UINTPTR) RxBdSpacePtr,
 				       XEMACPS_BD_ALIGNMENT,
 				       RXBD_CNT);
 	if (Status != XST_SUCCESS) {
@@ -444,20 +486,6 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 		EmacPsUtilErrorTrap
 			("Error setting up RxBD space, BdRingClone");
 		return XST_FAILURE;
-	}
-
-	if (GemVersion == 2)
-	{
-		/*
-		 * The BDs need to be allocated in uncached memory. Hence the 1 MB
-		 * address range that starts at address 0xFF00000 is made uncached.
-		 */
-#ifndef __MICROBLAZE__
-		Xil_SetTlbAttributes(0x0FF00000, 0xc02);
-#else
-		Xil_DCacheDisable();
-#endif
-
 	}
 
 	/*
@@ -478,8 +506,8 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 	 */
 	Status = XEmacPs_BdRingCreate(&(XEmacPs_GetTxRing
 				       (EmacPsInstancePtr)),
-				       (UINTPTR) TX_BD_LIST_START_ADDRESS,
-				       (UINTPTR) TX_BD_LIST_START_ADDRESS,
+				       (UINTPTR) TxBdSpacePtr,
+				       (UINTPTR) TxBdSpacePtr,
 				       XEMACPS_BD_ALIGNMENT,
 				       TXBD_CNT);
 	if (Status != XST_SUCCESS) {
@@ -913,8 +941,8 @@ static LONG EmacPsResetDevice(XEmacPs * EmacPsInstancePtr)
 	 */
 	Status = XEmacPs_BdRingCreate(&(XEmacPs_GetRxRing
 				      (EmacPsInstancePtr)),
-				      (UINTPTR) RX_BD_LIST_START_ADDRESS,
-				      (UINTPTR) RX_BD_LIST_START_ADDRESS,
+				      (UINTPTR) RxBdSpacePtr,
+				      (UINTPTR) RxBdSpacePtr,
 				      XEMACPS_BD_ALIGNMENT,
 				      RXBD_CNT);
 	if (Status != XST_SUCCESS) {
@@ -950,8 +978,8 @@ static LONG EmacPsResetDevice(XEmacPs * EmacPsInstancePtr)
 	 */
 	Status = XEmacPs_BdRingCreate(&(XEmacPs_GetTxRing
 				      (EmacPsInstancePtr)),
-				      (UINTPTR) TX_BD_LIST_START_ADDRESS,
-				      (UINTPTR) TX_BD_LIST_START_ADDRESS,
+				      (UINTPTR) TxBdSpacePtr,
+				      (UINTPTR) TxBdSpacePtr,
 				      XEMACPS_BD_ALIGNMENT,
 				      TXBD_CNT);
 	if (Status != XST_SUCCESS) {
@@ -1207,7 +1235,7 @@ static void XEmacPsRecvHandler(void *Callback)
 	}
 	if (GemVersion > 2) {
 		if (EmacPsInstancePtr->Config.IsCacheCoherent == 0) {
-			Xil_DCacheInvalidateRange((UINTPTR)RX_BD_LIST_START_ADDRESS, 64);
+			Xil_DCacheInvalidateRange((UINTPTR)RxBdSpacePtr, 64);
 		}
 	}
 }
