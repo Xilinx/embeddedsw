@@ -38,7 +38,7 @@
  * Ver   Who  Date        Changes
  * ---- ---- -------- -------------------------------------------------------
  * 5.0  Nava 11/05/18  Added full bitstream loading support for versal Platform.
- *
+ * 5.1  bsv  03/06/19  Added error recovery mechanism
  * </pre>
  *
  * @note
@@ -559,11 +559,10 @@ static u32 XFpga_ReadFabricData(XFpga *InstancePtr)
  * This function checks for Fabric errors after loading
  * @param CfupmcIns Pointer to the XCfupmc structure
  *
- * @return Codes as mentioned in xilfpga_cfi.h
+ * @return Success or Error codes
  ******************************************************************************/
 static u32 XFpga_CheckFabricErr(XCfupmc *CfupmcIns)
 {
-	u32 Status;
 	u32 ErrStatus;
 	u32 ErrMask;
 
@@ -574,26 +573,27 @@ static u32 XFpga_CheckFabricErr(XCfupmc *CfupmcIns)
 		CFU_APB_CFU_ISR_BAD_CFI_PACKET_MASK |
 		CFU_APB_CFU_ISR_AXI_ALIGN_ERROR_MASK |
 		CFU_APB_CFU_ISR_CFI_ROW_ERROR_MASK |
-		CFU_APB_CFU_IMR_CRC32_ERROR_MASK |
-		CFU_APB_CFU_IMR_CRC8_ERROR_MASK;
+		CFU_APB_CFU_ISR_CRC32_ERROR_MASK |
+		CFU_APB_CFU_ISR_CRC8_ERROR_MASK |
+		CFU_APB_CFU_ISR_SEU_ENDOFCALIB_MASK;
 
 	ErrStatus = XCfupmc_ReadIsr(CfupmcIns) & ErrMask;
-	if ((ErrStatus & ErrMask) != 0U)
+	if ((ErrStatus & (CFU_APB_CFU_ISR_CRC8_ERROR_MASK |
+					CFU_APB_CFU_ISR_CRC32_ERROR_MASK)) != 0U)
 	{
 		Xfpga_Printf(XFPGA_DEBUG, "Bitstream loading failed ISR: 0x%08x\n\r",
 							ErrStatus);
-		/**
-		 * In case of error, reset the CFU and Cframe and Clear the ISR
-		 * so that CFU and Cframe can be recovered
-		 */
-		Status = XFPGA_ERR_CFI_LOAD;
-		XCfupmc_Reset(CfupmcIns);
-		XCfupmc_ClearIsr(CfupmcIns, ErrMask);
-	} else {
-		Status = XFPGA_CFI_SUCCESS;
+		XCfupmc_CfuErrHandler(CfupmcIns);
 	}
-
-	return Status;
+	else if((ErrStatus & (CFU_APB_CFU_ISR_CFI_ROW_ERROR_MASK |
+						CFU_APB_CFU_ISR_BAD_CFI_PACKET_MASK)) != 0U)
+	{
+		XCfupmc_CfiErrHandler(CfupmcIns);
+	}
+	else {
+		/** do nothing */
+	}
+	return ErrStatus;
 }
 
 /*****************************************************************************/
@@ -649,7 +649,7 @@ static void XFpga_SelectDmaBurtType(XCsuDma *DmaPtr,
 {
 	u32 RegVal;
 
-	Xil_AssertNonvoid((Channel == (XCSUDMA_SRC_CHANNEL)) ||
+	Xil_AssertVoid((Channel == (XCSUDMA_SRC_CHANNEL)) ||
 		       (Channel == (XCSUDMA_DST_CHANNEL)));
 
 	if(Channel == XCSUDMA_SRC_CHANNEL) {
