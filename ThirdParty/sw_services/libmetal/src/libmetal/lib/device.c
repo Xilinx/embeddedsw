@@ -126,13 +126,16 @@ int metal_generic_dev_dma_map(struct metal_bus *bus,
 	(void)device;
 	int i;
 
-	if (sg_out != sg_in)
+	if (sg_in == NULL) {
+		return -EINVAL;
+	}
+	if (sg_out != NULL && sg_out != sg_in)
 		memcpy(sg_out, sg_in, nents_in*(sizeof(struct metal_sg)));
 	for (i = 0; i < nents_in; i++) {
 		if (dir == METAL_DMA_DEV_W) {
-			metal_cache_flush(sg_out[i].virt, sg_out[i].len);
+			metal_cache_flush(sg_in[i].virt, sg_in[i].len);
 		}
-		metal_cache_invalidate(sg_out[i].virt, sg_out[i].len);
+		metal_cache_invalidate(sg_in[i].virt, sg_in[i].len);
 	}
 
 	return nents_in;
@@ -149,6 +152,9 @@ void metal_generic_dev_dma_unmap(struct metal_bus *bus,
 	(void)dir;
 	int i;
 
+	if (sg == NULL) {
+		return;
+	}
 	for (i = 0; i < nents; i++) {
 		metal_cache_invalidate(sg[i].virt, sg[i].len);
 	}
