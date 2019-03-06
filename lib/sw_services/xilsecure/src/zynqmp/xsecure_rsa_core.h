@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -35,6 +15,9 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 4.0   vns  03/09/19 Initial release
+* 4.1   kpt  01/07/20 Added Macros for all the Magic Numbers
+*                     in xsecure_rsa_core.c
+* 4.2   kpt  03/26/20 Added Error code XSECURE_RSA_ZEROIZE_ERROR
 *
 * </pre>
 *
@@ -53,10 +36,17 @@ extern "C" {
 #define XSECURE_RSA_DATA_VALUE_ERROR	0x2U /**< for RSA private decryption
 						* data should be lesser than
 						* modulus */
+#define XSECURE_RSA_ZEROIZE_ERROR		0x80U /**< for RSA zeroization Error*/
 
 #define XSECURE_HASH_TYPE_SHA3		(48U) /**< SHA-3 hash size */
 #define XSECURE_HASH_TYPE_SHA2		(32U) /**< SHA-2 hash size */
 #define XSECURE_FSBL_SIG_SIZE		(512U)/**< FSBL signature size */
+#define XSECURE_RSA_MAX_BUFF		(6U)  /**< RSA RAM Write Buffers */
+#define XSECURE_RSA_MAX_RD_WR_CNT	(22U) /**< No of writes or reads to RSA RAM Buffers */
+#define XSECURE_RSA_BYTE_MASK		(0XFFU) /**< RSA BYTE MASK */
+#define XSECURE_RSA_BYTE_SHIFT		(8U)    /**< RSA BYTE */
+#define XSECURE_RSA_HWORD_SHIFT		(16U)   /**< RSA HWORD */
+#define XSECURE_RSA_SWORD_SHIFT		(24U)   /**< RSA SWORD */
 
 /* Key size in bytes */
 #define XSECURE_RSA_512_KEY_SIZE	(512U/8U) /**< RSA 512 key size */
@@ -168,6 +158,9 @@ u32 XSecure_RsaCfgInitialize(XSecure_Rsa *InstancePtr);
 /* ZynqMP specific RSA core encryption/decryption function */
 u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 		u8 *Result, u8 EncDecFlag, u32 Size);
+
+/* ZynqMP specific function for selection of PKCS padding */
+u8* XSecure_RsaGetTPadding();
 
 #ifdef __cplusplus
 }
