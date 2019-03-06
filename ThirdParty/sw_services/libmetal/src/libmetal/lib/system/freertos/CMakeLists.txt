@@ -14,7 +14,6 @@ collect (PROJECT_LIB_SOURCES device.c)
 collect (PROJECT_LIB_SOURCES init.c)
 collect (PROJECT_LIB_SOURCES io.c)
 collect (PROJECT_LIB_SOURCES irq.c)
-collect (PROJECT_LIB_SOURCES shmem.c)
 collect (PROJECT_LIB_SOURCES time.c)
 
 if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_MACHINE})
