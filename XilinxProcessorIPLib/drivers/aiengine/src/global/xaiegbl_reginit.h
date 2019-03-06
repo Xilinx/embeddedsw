@@ -481,6 +481,18 @@ typedef struct {
 	u32 Mask[9U];  /* Mask Bits*/
 } XAieGbl_GroupEvents;
 
+typedef struct {
+	u32 Lsb[4U];		/**< Bit position of the register bit-field in the 32-bit value */
+	u32 Mask[4U];		/**< Bit mask of the register bit-field in the 32-bit value */
+
+} XAieGbl_ComboEventInput;
+
+typedef struct {
+	u32 Lsb[3U];		/**< Bit position of the register bit-field in the 32-bit value */
+	u32 Mask[3U];		/**< Bit mask of the register bit-field in the 32-bit value */
+
+} XAieGbl_ComboEventControl;
+
 /**************************** Macro Definitions *****************************/
 
 /**************************** Function prototypes ***************************/
