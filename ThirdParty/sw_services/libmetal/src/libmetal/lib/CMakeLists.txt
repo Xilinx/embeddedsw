@@ -64,6 +64,8 @@ if (WITH_DEFAULT_LOGGER)
   add_definitions (-DDEFAULT_LOGGER_ON)
 endif (WITH_DEFAULT_LOGGER)
 
+get_property (_ec_flags GLOBAL PROPERTY "PROJECT_EC_FLAGS")
+
 if (WITH_ZEPHYR)
   zephyr_library_named(metal)
   add_dependencies(metal offsets_h)
@@ -76,10 +78,7 @@ else (WITH_ZEPHYR)
     add_library (${_lib} SHARED ${_sources})
     target_link_libraries (${_lib} ${_deps})
     install (TARGETS ${_lib} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
-    if (PROJECT_EC_FLAGS)
-      string(REPLACE " " ";" _ec_flgs ${PROJECT_EC_FLAGS})
-      target_compile_options (${_lib} PUBLIC ${_ec_flgs})
-    endif (PROJECT_EC_FLAGS)
+    target_compile_options (${_lib} PUBLIC ${_ec_flags})
     set_target_properties (${_lib} PROPERTIES
       OUTPUT_NAME       "${PROJECT_NAME}"
       VERSION           "${PROJECT_VER}"
@@ -92,10 +91,7 @@ else (WITH_ZEPHYR)
     set (_lib ${PROJECT_NAME}-static)
     add_library (${_lib} STATIC ${_sources})
     install (TARGETS ${_lib} ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
-    if (PROJECT_EC_FLAGS)
-      string(REPLACE " " ";" _ec_flgs ${PROJECT_EC_FLAGS})
-      target_compile_options (${_lib} PUBLIC ${_ec_flgs})
-    endif (PROJECT_EC_FLAGS)
+    target_compile_options (${_lib} PUBLIC ${_ec_flags})
     set_target_properties (${_lib} PROPERTIES
       OUTPUT_NAME       "${PROJECT_NAME}"
     )
