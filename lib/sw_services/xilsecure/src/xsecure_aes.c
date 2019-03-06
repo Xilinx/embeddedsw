@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -57,6 +57,7 @@
 *                    Added XSecure_AesKeyZero() call in XSecure_AesDecrypt()
 *                    API to clear keys.
 * 4.0   arc 18/12/18 Fixed MISRA-C violations.
+*       arc 06/03/19 Added asserts to validate input params
 *
 * </pre>
 *
@@ -105,6 +106,12 @@ s32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CsuDmaPtr != NULL);
+	Xil_AssertNonvoid(IvPtr != NULL);
+	Xil_AssertNonvoid((KeySel == XSECURE_CSU_AES_KEY_SRC_KUP) ||
+			(KeySel == XSECURE_CSU_AES_KEY_SRC_DEV));
+	if (KeySel == XSECURE_CSU_AES_KEY_SRC_KUP) {
+		Xil_AssertNonvoid(KeyPtr != NULL);
+	}
 
 	InstancePtr->BaseAddress = XSECURE_CSU_AES_BASE;
 	InstancePtr->CsuDmaPtr = CsuDmaPtr;
@@ -1251,13 +1258,6 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 			u32 Length)
 {
-	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	/* Chunking is only for bitstream partitions */
-	Xil_AssertNonvoid(((Dst == (u8*)XSECURE_DESTINATION_PCAP_ADDR)
-				|| (InstancePtr->IsChunkingEnabled
-					== XSECURE_CSU_AES_CHUNKING_DISABLED)));
-
 	u32 SssCfg;
 	volatile u32 Status = XST_FAILURE;
 	u32 CurrentImgLen = 0x0U;
@@ -1274,6 +1274,15 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 	XCsuDma_Configure ConfigurValues = {0};
 	u32 KeyClearStatus;
 	u32 DecryptStatus;
+
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Src != NULL);
+	Xil_AssertNonvoid(Length != 0U);
+	/* Chunking is only for bitstream partitions */
+	Xil_AssertNonvoid(((Dst == (u8*)XSECURE_DESTINATION_PCAP_ADDR)
+				|| (InstancePtr->IsChunkingEnabled
+					== XSECURE_CSU_AES_CHUNKING_DISABLED)));
 
 	/* Configure the SSS for AES. */
 	SssAes = XSecure_SssInputAes(XSECURE_CSU_SSS_SRC_SRC_DMA);
