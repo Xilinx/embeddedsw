@@ -204,6 +204,7 @@ enum XPmInitFunctions {
 	FUNC_LBIST,
 	FUNC_ME_INITREG,
 	FUNC_MBIST_CLEAR,
+	FUNC_HOUSECLEAN_PL,
 };
 
 /* System shutdown macros */

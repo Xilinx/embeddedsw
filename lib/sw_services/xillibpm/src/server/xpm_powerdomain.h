@@ -33,6 +33,8 @@
 
 typedef struct XPm_PowerDomain XPm_PowerDomain;
 
+#define XPM_POLL_TIMEOUT			(0X1000000U)
+
 /**
  * The power domain node class.  This is the base class for all the power domain
  * classes.
