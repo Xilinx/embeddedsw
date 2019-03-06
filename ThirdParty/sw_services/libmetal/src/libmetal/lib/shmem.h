@@ -123,10 +123,8 @@ metal_shm_attach(struct metal_generic_shmem *shmem,
  *
  * @param[in]	shmem Shared memory to assign to the device
  * @param[in]	dev Device the shared memory is detached to.
- *
- * @return 0 for success, negative value for failure.
  */
-int metal_shm_detach(struct metal_generic_shmem *shmem,
+void metal_shm_detach(struct metal_generic_shmem *shmem,
 		     struct metal_device *dev);
 
 /**
