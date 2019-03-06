@@ -33,6 +33,13 @@ cache memory API's for PMU Microblaze platform.
 emaclite_v4_4:
 Fix poll example failure on microblaze platform.
 
+emacps_v3_9:
+Add support for RX watermark
+Update example for versal emulation
+Use selected speed in loopback mode
+Fix MDC divisor for versal emulation
+Fix BD memory allocation and its attributes
+
 freertos10_xilinx_v1_3:
 Declared attribute of vApplicationAssert() as weak in
 portZynqUltrascale.c for A53. It fixes CR#1014562
