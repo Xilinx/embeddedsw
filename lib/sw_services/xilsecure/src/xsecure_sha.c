@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -50,6 +50,7 @@
 *                     	now size of input can be of any size.
 *                     	not limitted to 512MB.
 * 4.0	arc  18/12/18 Fixed MISRA-C violations.
+*       arc  06/03/19 Added asserts to validate input params.
 *
 * </pre>
 *
@@ -244,6 +245,7 @@ void XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	/* Asserts validate the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Size > (u32)0x00U);
+	Xil_AssertVoid(Data != NULL);
 
 	InstancePtr->Sha3Len += Size;
 	DataSize = Size;
@@ -389,6 +391,7 @@ void XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In, const u32 Size,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Size > (u32)0x00U);
 	Xil_AssertVoid(Out != NULL);
+	Xil_AssertVoid(In != NULL);
 
 	XSecure_Sha3Start(InstancePtr);
 	XSecure_Sha3Update(InstancePtr, In, Size);
@@ -415,6 +418,9 @@ void XSecure_Sha3_ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash)
 	u32 Index;
 	u32 RegVal;
 	u32 *HashPtr = (u32 *)Hash;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(Hash != NULL);
 
 	for (Index=0U; Index < 12U; Index++)
 	{
