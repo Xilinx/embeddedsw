@@ -35,6 +35,7 @@
 #include "xpm_pmcdomain.h"
 #include "xpm_pslpdomain.h"
 #include "xpm_psfpdomain.h"
+#include "xpm_npdomain.h"
 #include "xpm_psm.h"
 #include "xpm_periph.h"
 #include "xpm_mem.h"
@@ -2400,6 +2401,7 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 	XPm_PsFpDomain *PsFpDomain;
 	XPm_PmcDomain *PmcDomain;
 	XPm_PsLpDomain *PsLpDomain;
+	XPm_NpDomain *NpDomain;
 	XPm_PlDomain *PlDomain;
 	XPm_AieDomain *AieDomain;
 
@@ -2482,6 +2484,15 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 			}
 			Status = XPmPsLpDomain_Init(PsLpDomain,
 				PowerId, BitMask, PowerParent);
+			break;
+		case XPM_NODETYPE_POWER_DOMAIN_NOC:
+			NpDomain = (XPm_NpDomain *)XPm_AllocBytes(sizeof(XPm_NpDomain));
+			if (NULL == NpDomain) {
+				Status = XST_BUFFER_TOO_SMALL;
+				goto done;
+			}
+			Status = XPmNpDomain_Init(NpDomain, PowerId, 0x00000000,
+						  PowerParent);
 			break;
 		case XPM_NODETYPE_POWER_DOMAIN_PL:
 			PlDomain = (XPm_PlDomain *)XPm_AllocBytes(sizeof(XPm_PlDomain));
