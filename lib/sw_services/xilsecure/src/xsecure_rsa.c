@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -53,6 +53,7 @@
 *                     data to be decrypted should always be lesser than modulus
 * 4.0 	arc  18/12/18 Fixed MISRA-C violations.
 *       vns  21/12/18 Added RSA key zeroization after RSA operation
+*       arc  06/03/18 Added input validations
 *
 * </pre>
 *
@@ -352,12 +353,13 @@ static void XSecure_RsaPutData(XSecure_Rsa *InstancePtr)
  ******************************************************************************/
 s32 XSecure_RsaDecrypt(XSecure_Rsa *InstancePtr, u8 *EncText, u8 *Result)
 {
+	volatile u32 Status;
+	s32 ErrorCode = XST_SUCCESS;
+
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Result != NULL);
-
-	volatile u32 Status;
-	s32 ErrorCode = XST_SUCCESS;
+	Xil_AssertNonvoid(EncText != NULL);
 
 	InstancePtr->EncDec = XSECURE_RSA_SIGN_ENC;
 
@@ -429,15 +431,15 @@ END:
  ******************************************************************************/
 u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 {
-	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(Signature != NULL);
-	Xil_AssertNonvoid(Hash != NULL);
-
 	u8 * Tpadding = (u8 *)XNULL;
 	u32 Pad = XSECURE_FSBL_SIG_SIZE - 3U - 19U - HashLen;
 	u8 * PadPtr = Signature;
 	u32 sign_index;
-	u32 Status = XST_SUCCESS;
+	u32 Status = (u32)XST_SUCCESS;
+
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(Signature != NULL);
+	Xil_AssertNonvoid(Hash != NULL);
 
 	/* If Silicon version is not 1.0 then use the latest NIST approved SHA-3
 	 * id for padding
@@ -448,9 +450,14 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 		{
 			Tpadding = (u8 *)XSecure_Silicon2_TPadSha3;
 		}
-		else
+		else if (XSECURE_HASH_TYPE_SHA2 == HashLen)
 		{
 			Tpadding = (u8 *)XSecure_Silicon1_TPadSha2;
+		}
+		else
+		{
+			Status = (u32)XST_FAILURE;
+			goto ENDF;
 		}
 	}
 	else
@@ -459,9 +466,14 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 		{
 			Tpadding = (u8 *)XSecure_Silicon1_TPadSha3;
 		}
-		else
+		else if (XSECURE_HASH_TYPE_SHA2 == HashLen)
 		{
 			Tpadding = (u8 *)XSecure_Silicon1_TPadSha2;
+		}
+		else
+		{
+			Status = (u32)XST_FAILURE;
+			goto ENDF;
 		}
 	}
 
