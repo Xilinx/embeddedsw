@@ -15,6 +15,7 @@ collect (PROJECT_LIB_SOURCES init.c)
 collect (PROJECT_LIB_SOURCES irq.c)
 collect (PROJECT_LIB_SOURCES shmem.c)
 collect (PROJECT_LIB_SOURCES shmem-provider-shm.c)
+collect (PROJECT_LIB_SOURCES shmem-dma.c)
 collect (PROJECT_LIB_SOURCES time.c)
 collect (PROJECT_LIB_SOURCES utilities.c)
 
