@@ -213,8 +213,6 @@
 *	Default value is TRUE.
 *	TRUE XSK_EFUSEPS_PPK0_SHA3_HASH should be of string length 96 it specifies
 *	that PPK0 is used to program SHA3 hash.
-*	FALSE XSK_EFUSEPS_PPK0_SHA3_HASH  should be of string length 64 it specifies
-*	that PPK0 is used to program SHA2 hash.
 *
 *	#define		XSK_EFUSEPS_PPK0_HASH
 *	"00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
@@ -225,8 +223,6 @@
 *	string and will not burn PPK0 hash.
 *	Note that,for writing the PPK0 hash, XSK_EFUSEPS_WRITE_PPK0_SHA3_HASH
 *	should have TRUE value.
-*	While writing SHA2 hash, length should be 64 characters long
-*	XSK_EFUSEPS_PPK0_IS_SHA3 macro has to be made FALSE.
 *	While writing SHA3 hash, length should be 96 characters long and
 *	XSK_EFUSEPS_PPK0_IS_SHA3 macro should be made TRUE
 *
@@ -234,8 +230,6 @@
 *	Default value is FALSE.
 *	TRUE XSK_EFUSEPS_PPK1_SHA3_HASH should be of string length 96 it specifies
 *	that PPK1 is used to program SHA3 hash.
-*	FALSE XSK_EFUSEPS_PPK1_SHA3_HASH  should be of string length 64 it specifies
-*	that PPK1 is used to program SHA2 hash.
 *
 *	#define		XSK_EFUSEPS_PPK1_HASH
 *	"0000000000000000000000000000000000000000000000000000000000000000"
@@ -441,15 +435,15 @@ extern "C" {
 
 /**
  * Following defines should be given in the form of hex string.
- * The length of AES_KEY string must be 64, PPK hash should be 96/64 based on
- * SHA3/SHA2 selction and and for USER_FUSES, SPK ID  must be 32.
+ * The length of AES_KEY string must be 64, PPK hash should be 96 for
+ * SHA3 selction and and for USER_FUSES, SPK ID  must be 32.
  */
 #define XSK_EFUSEPS_AES_KEY		"0000000000000000000000000000000000000000000000000000000000000000"
 
 #define XSK_EFUSEPS_PPK0_IS_SHA3	TRUE
 #define XSK_EFUSEPS_PPK0_HASH	"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
 
-#define XSK_EFUSEPS_PPK1_IS_SHA3	FALSE
+#define XSK_EFUSEPS_PPK1_IS_SHA3	TRUE
 #define XSK_EFUSEPS_PPK1_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
 #define XSK_EFUSEPS_SPK_ID		"00000000"
 
