@@ -48,7 +48,6 @@ INCLUDEFILES=$(SECURE_DIR)/xsecure_sha.h \
 		$(SECURE_DIR)/xsecure_aes.h \
 		$(SECURE_DIR)/xsecure_rsa.h \
 		$(SECURE_DIR)/xsecure_hw.h \
-		$(SECURE_DIR)/xsecure_sha2.h \
 		$(SECURE_DIR)/xsecure.h
 
 ifeq ($(notdir $(COMPILER)) , armclang)
@@ -60,7 +59,6 @@ endif
 libs: libxilsecure.a
 
 libxilsecure.a: print_msg_secure $(SECURE_OBJS)
-	cp $(SECURE_DIR)/$(LIB) $(RELEASEDIR)
 	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${SECURE_OBJS}
 
 print_msg_secure:
