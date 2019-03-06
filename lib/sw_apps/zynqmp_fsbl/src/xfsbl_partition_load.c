@@ -1366,9 +1366,9 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			if ((FsblInstancePtr->BootHdrAttributes &
 					XIH_BH_IMAGE_ATTRB_SHA2_MASK) ==
 					XIH_BH_IMAGE_ATTRB_SHA2_MASK) {
-				PlParams.PlAuth.AuthType = XFSBL_HASH_TYPE_SHA2;
-				PlParams.PlAuth.NoOfHashs =
-					HASH_BUFFER_SIZE/XFSBL_HASH_TYPE_SHA2;
+				Status = XFSBL_ERROR_SHA2_NOT_SUPPORTED;
+				XFsbl_Printf(DEBUG_INFO,"SHA2 is not supported\r\n");
+				goto END;
 			}
 			else {
 				PlParams.PlAuth.AuthType = XFSBL_HASH_TYPE_SHA3;
