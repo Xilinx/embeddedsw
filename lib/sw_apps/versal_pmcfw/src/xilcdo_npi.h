@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -215,6 +215,11 @@ extern "C" {
 #define XILCDO_REG_BUSY_MASK					(0x1U)
 #define XILCDO_REG_PEND_BURST_OFFSET			(0x264U)
 #define XILCDO_REG_PEND_BURST_OFFSET_MASK		(0x3FFFU)
+
+/** DDRMC_UB CLOCK GATE Register */
+#define XILCDO_DDRMC_UB_CLKGATE_OFFSET			(0x24CU)
+#define XILCDO_DDRMC_UB_BISR_EN_MASK			(0x40U)
+#define XILCDO_DDRMC_UB_ILA_EN_MASK				(0x20U)
 /**************************** Type Definitions *******************************/
 
 /************************** Structure Declarations ***************************/
@@ -325,6 +330,10 @@ void XilCdo_SetOD_MBIST_ASYNC_RESET(u32 BaseAddr);
 void XilCdo_ClearOD_BIST_SETUP(u32 BaseAddr);
 void XilCdo_ClearODisableNPP(u32 BaseAddr);
 void XilCdo_ClearODisableAXI(u32 BaseAddr);
+void XilCdo_EnableBISR(u32 BaseAddr);
+void XilCdo_DisableBISR(u32 BaseAddr);
+void XilCdo_EnableILA(u32 BaseAddr);
+void XilCdo_DisableILA(u32 BaseAddr);
 XStatus XilCdo_NpiPreCfg_GTY(u32 BaseAddr, u32 NpiParam);
 XStatus XilCdo_NpiPreCfg_DDRMC(u32 BaseAddr, u32 NpiParam);
 XStatus XilCdo_NpiPreCfg_ME(u32 BaseAddr, u32 NpiParam);
