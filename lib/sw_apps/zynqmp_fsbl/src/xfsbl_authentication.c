@@ -116,11 +116,6 @@ u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen)
 	u32 UserFuseAddr;
 	u32 UserFuseVal;
 
-#ifdef XFSBL_SHA2
-	sha2_context ShaCtxObj;
-	ShaCtx = &ShaCtxObj;
-#endif
-
 	/* Re-initialize CSU DMA. This is a workaround and need to be removed */
 	Status = XFsbl_CsuDmaInit();
 	if (XFSBL_SUCCESS != Status) {
@@ -291,26 +286,10 @@ static u32 XFsbl_PartitionSignVer(const XFsblPs *FsblInstancePtr, u64 PartitionO
 	u32 HashDataLen;
 	void * ShaCtx = (void * )NULL;
 	u8 XFsbl_RsaSha3Array[512] = {0};
-	u32 HashLen;
+	u32 HashLen = XFSBL_HASH_TYPE_SHA3;
 	s32 SStatus;
 
-#ifdef XFSBL_SHA2
-	sha2_context ShaCtxObj;
-	ShaCtx = &ShaCtxObj;
-#endif
-
 	XFsbl_Printf(DEBUG_INFO, "Doing Partition Sign verification\r\n");
-
-	/* Get the Sha type to be used from boot header attributes */
-	if ((FsblInstancePtr->BootHdrAttributes &
-			XIH_BH_IMAGE_ATTRB_SHA2_MASK) ==
-			XIH_BH_IMAGE_ATTRB_SHA2_MASK) {
-		HashLen = XFSBL_HASH_TYPE_SHA2;
-	}
-	else
-	{
-		HashLen = XFSBL_HASH_TYPE_SHA3;
-	}
 
 	/**
 	 * total partition length to be hashed except the AC
@@ -434,18 +413,7 @@ u32 XFsbl_Authentication(const XFsblPs * FsblInstancePtr, u64 PartitionOffset,
 				u32 PartitionNum)
 {
         u32 Status;
-        u32 HashLen;
-
-	/* Get the Sha type to be used from boot header attributes */
-	if ((FsblInstancePtr->BootHdrAttributes &
-			XIH_BH_IMAGE_ATTRB_SHA2_MASK) ==
-			XIH_BH_IMAGE_ATTRB_SHA2_MASK) {
-		HashLen = XFSBL_HASH_TYPE_SHA2;
-	}
-	else
-	{
-		HashLen = XFSBL_HASH_TYPE_SHA3;
-	}
+        u32 HashLen = XFSBL_HASH_TYPE_SHA3;
 
 	XFsbl_Printf(DEBUG_INFO,
 		"Auth: Partition Offset %0x, PartitionLen %0x,"
@@ -481,7 +449,7 @@ END:
  * @param      Ctx - SHA Ctx Pointer
  * @param      PartitionOffset - Start Offset
  * @param      PatitionLen - Data Len for SHA calculation
- * @param      HashLen - SHA3/SHA2
+ * @param      HashLen - SHA3
  * @param      ParitionHash - Pointer to store hash
  *
  * @return     XFSBL_SUCCESS - In case of Success
@@ -720,7 +688,7 @@ u32 XFsbl_BhAuthentication(const XFsblPs * FsblInstancePtr, u8 *Data,
 					u64 AcOffset, u8 IsEfuseRsa)
 {
 	u32 Status = XST_SUCCESS;
-	u32 HashLen;
+	u32 HashLen = XFSBL_HASH_TYPE_SHA3;
 	void * ShaCtx = (void * )NULL;
 	u32 SizeofBH;
 	u8 BhHash[XFSBL_HASH_TYPE_SHA3] __attribute__ ((aligned (4)))={0};
@@ -729,20 +697,6 @@ u32 XFsbl_BhAuthentication(const XFsblPs * FsblInstancePtr, u8 *Data,
 	u32 SpkExp;
 	u8 XFsbl_RsaSha3Array[512] = {0};
 	u8 * AcPtr = (u8*) (PTRSIZE) AcOffset;
-
-#ifdef XFSBL_SHA2
-	sha2_context ShaCtxObj;
-	ShaCtx = &ShaCtxObj;
-#endif
-	/* Get the Sha type to be used from boot header attributes */
-	if ((FsblInstancePtr->BootHdrAttributes &
-				XIH_BH_IMAGE_ATTRB_SHA2_MASK) ==
-				XIH_BH_IMAGE_ATTRB_SHA2_MASK) {
-			HashLen = XFSBL_HASH_TYPE_SHA2;
-	}
-	else{
-		HashLen = XFSBL_HASH_TYPE_SHA3;
-	}
 
 	/* Size of Boot header */
 	if ((FsblInstancePtr->BootHdrAttributes &

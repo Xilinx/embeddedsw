@@ -69,12 +69,8 @@ extern "C" {
 #endif
 #include "xcsudma.h"
 #include "xparameters.h"
-#ifdef XFSBL_SHA2
-#include "xsecure_sha2.h"
-#endif
 /***************************** Type defines *********************************/
 #define XFSBL_HASH_TYPE_SHA3					(48U)
-#define XFSBL_HASH_TYPE_SHA2					(32U)
 
 #define XFSBL_SPK_SIZE						(512U+512U+64U)
 #define XFSBL_PPK_SIZE						(u32)(XFSBL_SPK_SIZE)

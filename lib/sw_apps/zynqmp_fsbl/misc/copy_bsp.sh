@@ -96,10 +96,6 @@ if [ $PROC == "a53" ]; then
 		#Copy xilpm src for apu
 		cp $SERVICES_DIR/xilpm/src/apu/* $BSP_DIR/libsrc/xilpm/src/
 		cp $SERVICES_DIR/xilpm/src/apu/*.h $BSP_DIR/include/
-		#replace compiler specific archive with libxilsecure.a
-		rm $BSP_DIR/libsrc/xilsecure/src/xsecure_sha2_r5.a
-		rm $BSP_DIR/libsrc/xilsecure/src/xsecure_sha2_a53_32b.a
-		mv $BSP_DIR/libsrc/xilsecure/src/xsecure_sha2_a53_64b.a $BSP_DIR/libsrc/xilsecure/src/libxilsecure.a
 
 	elif [ $A53_STATE == "32" ]; then
 		cp -f $STANDALONE_DIR/arm/cortexa53/32bit/*.c $BSP_DIR/libsrc/standalone/src/
@@ -111,10 +107,6 @@ if [ $PROC == "a53" ]; then
 		#Copy xilpm src for apu
 		cp -rf $SERVICES_DIR/xilpm/src/apu/* $BSP_DIR/libsrc/xilpm/src/
 		cp -rf $SERVICES_DIR/xilpm/src/apu/*.h $BSP_DIR/include/
-		#replace compiler specific archive with libxilsecure.a
-		rm $BSP_DIR/libsrc/xilsecure/src/xsecure_sha2_r5.a
-		rm $BSP_DIR/libsrc/xilsecure/src/xsecure_sha2_a53_64b.a
-		mv $BSP_DIR/libsrc/xilsecure/src/xsecure_sha2_a53_32b.a $BSP_DIR/libsrc/xilsecure/src/libxilsecure.a
 	fi
 		cp -rf $STANDALONE_DIR/arm/cortexa53/includes_ps $BSP_DIR/libsrc/standalone/src/
 		cp -rf $STANDALONE_DIR/arm/cortexa53/includes_ps/* $BSP_DIR/include/
@@ -136,10 +128,6 @@ elif [ $PROC == "r5" ]; then
 	cp -rf $STANDALONE_DIR/arm/cortexa53/includes_ps $BSP_DIR/libsrc/standalone/src/
 	cp -f $STANDALONE_DIR/arm/cortexa53/includes_ps/* $BSP_DIR/include/
 
-	#replace compiler specific archive with libxilsecure.a
-	rm $BSP_DIR/libsrc/xilsecure/src/xsecure_sha2_a53_32b.a
-	rm $BSP_DIR/libsrc/xilsecure/src/xsecure_sha2_a53_64b.a
-	mv $BSP_DIR/libsrc/xilsecure/src/xsecure_sha2_r5.a $BSP_DIR/libsrc/xilsecure/src/libxilsecure.a
 fi
 
 # copy the bsp drivers

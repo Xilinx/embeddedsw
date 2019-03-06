@@ -875,14 +875,6 @@ extern "C" {
 #define XFSBL_EARLY_HANDOFF
 #endif
 
-/**
- * Definition for SHA2 to be included
- */
-#if !defined(FSBL_SHA2_EXCLUDE)
-#warning "SHA2 support will be deprecated soon please use SHA3"
-#define XFSBL_SHA2
-#endif
-
 #if !defined(FSBL_PERF_EXCLUDE) && (!defined(ARMR5) || (defined(ARMR5) && defined(SLEEP_TIMER_BASEADDR)))
 #define XFSBL_PERF
 #endif
