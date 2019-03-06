@@ -499,7 +499,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function)
 			}
 		}
 		break;
-	case FUNC_MBIST_LBIST:
+	case FUNC_LBIST:
 		if (XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
 			Status = XST_FAILURE;
 			goto done;
