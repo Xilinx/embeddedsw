@@ -12,6 +12,7 @@ Extended coarse delay (IP dependent).
 New clock distribution network with integer clock division(IP dependent).
 
 libmetal_v2_0:
+Updated shared memory APIs to decouple from shmem allocation implementation
 Sync up libmetal upstream 5774af1b8e28ea39cbf92ae131eee4f93af699b2
 CPP atomic bug fix;
 metal io region offset<->phy to support the OS which has function to do
