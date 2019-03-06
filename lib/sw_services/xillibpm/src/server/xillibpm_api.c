@@ -65,7 +65,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	u32 SetAddress;
 	u64 Address;
 
-	PmInfo("Processing Cmd %x\n\r", Cmd->CmdId);
+	PmInfo("Processing Cmd %x for Image %x\n\r", Cmd->CmdId, Cmd->SubsystemId);
 
 	if((Cmd->CmdId & 0xFF) != PM_SET_CURRENT_SUBSYSTEM) {
 		if(Cmd->IpiMask == 0) {
@@ -221,7 +221,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			Status = XPm_SetCurrentSubsystem(Pload[0]);
 			break;
 		case PM_INIT_NODE:
-			Status = XPm_InitNode(Pload[0], Pload[1]);
+			Status = XPm_InitNode(Pload[0], Pload[1], &Pload[2], Len-2);
 			break;
 		case PM_FEATURE_CHECK:
 			Status = XPm_FeatureCheck(Pload[0], ApiResponse);
@@ -386,6 +386,8 @@ XStatus XPm_SetCurrentSubsystem(u32 SubsystemId)
  *
  * @param  NodeId	Supported power domain nodes only
  * @param  Function	Function id
+ * @param  Args		Arguments speicifc to function
+ * @param  NumArgs  Number of arguments
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -393,7 +395,7 @@ XStatus XPm_SetCurrentSubsystem(u32 SubsystemId)
  * @note   none
  *
  ****************************************************************************/
-XStatus XPm_InitNode(u32 NodeId, u32 Function)
+XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_SUCCESS;
 	XPm_PowerDomain *PwrDomainNode;
@@ -417,7 +419,7 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function)
 	case XPM_NODEIDX_POWER_NOC:
 	case XPM_NODEIDX_POWER_PLD:
 	case XPM_NODEIDX_POWER_ME:
-		Status = XPmPowerDomain_InitDomain(PwrDomainNode, Function);
+		Status = XPmPowerDomain_InitDomain(PwrDomainNode, Function, Args, NumArgs);
 		break;
 	default:
 		Status = XST_INVALID_PARAM;

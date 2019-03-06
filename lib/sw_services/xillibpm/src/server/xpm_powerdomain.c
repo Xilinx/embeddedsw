@@ -439,7 +439,8 @@ done:
 }
 
 
-XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function)
+XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
+				  u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_SUCCESS;
 	struct XPm_PowerDomainOps *Ops = PwrDomain->DomainOps;
@@ -455,7 +456,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function)
 			goto done;
 		}
 		if (Ops && Ops->PreHouseClean) {
-			Status = Ops->PreHouseClean();
+			Status = Ops->PreHouseClean(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
@@ -468,7 +469,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function)
 			goto done;
 		}
 		if (Ops && Ops->PostHouseClean) {
-			Status = Ops->PostHouseClean();
+			Status = Ops->PostHouseClean(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
@@ -481,7 +482,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function)
 			goto done;
 		}
 		if (Ops && Ops->ScanClear) {
-			Status = Ops->ScanClear();
+			Status = Ops->ScanClear(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
@@ -493,7 +494,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function)
 			goto done;
 		}
 		if (Ops && Ops->Bisr) {
-			Status = Ops->Bisr();
+			Status = Ops->Bisr(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
@@ -505,7 +506,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function)
 			goto done;
 		}
 		if (Ops && Ops->Lbist) {
-			Status = Ops->Lbist();
+			Status = Ops->Lbist(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
@@ -517,7 +518,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function)
 			goto done;
 		}
 		if (Ops && Ops->Mbist) {
-			Status = Ops->Mbist();
+			Status = Ops->Mbist(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
