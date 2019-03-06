@@ -31,6 +31,7 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 1.0  adk   12/02/19 Initial Release
+#      adk   06/03/19 Updated supported peripheral option with A72 and PMC.
 #
 ##############################################################################
 
@@ -40,7 +41,7 @@ BEGIN LIBRARY xilmbox
   OPTION drc = mbox_drc;
   OPTION copyfiles = all;
   OPTION REQUIRES_OS = (standalone);
-  OPTION SUPPORTED_PERIPHERALS = (psu_cortexa53 psu_cortexr5 psu_pmu);
+  OPTION SUPPORTED_PERIPHERALS = (psu_cortexa72 psu_cortexa53 psu_cortexr5 psu_pmu psu_pmc);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilmbox,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx IPI Mailbox Library";
   OPTION VERSION = 1.0;
