@@ -52,43 +52,6 @@ proc secure_drc {libhandle} {
 				error "ERROR: XilSecure library is supported only for PMU, CortexA53 and CortexR5 processors.";
 				return;
 	}
-
-	#Copying .a file based on compiler
-	if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
-		file delete -force ./src/xsecure_sha2_pmu.a
-		file delete -force ./src/xsecure_sha2_r5.a
-		file delete -force ./src/xsecure_sha2_a53_64b.a
-		file delete -force ./src/xsecure_sha2_r5_freertos.a
-		file rename -force ./src/xsecure_sha2_a53_32b.a ./src/libxilsecure.a
-	} elseif {[string compare -nocase $compiler "aarch64-none-elf-gcc"] == 0
-		   || [string compare -nocase $compiler "armclang"] == 0} {
-		file delete -force ./src/xsecure_sha2_pmu.a
-		file delete -force ./src/xsecure_sha2_r5.a
-		file delete -force ./src/xsecure_sha2_a53_32b.a
-		file delete -force ./src/xsecure_sha2_r5_freertos.a
-		file rename -force ./src/xsecure_sha2_a53_64b.a ./src/libxilsecure.a
-	} elseif {[string compare -nocase $compiler "armr5-none-eabi-gcc"] == 0 &&
-		      [string compare -nocase $os_type "standalone"] == 0} {
-		file delete -force ./src/xsecure_sha2_pmu.a
-		file delete -force ./src/xsecure_sha2_a53_32b.a
-		file delete -force ./src/xsecure_sha2_a53_64b.a
-		file delete -force ./src/xsecure_sha2_r5_freertos.a
-		file rename -force ./src/xsecure_sha2_r5.a ./src/libxilsecure.a
-	} elseif {[string compare -nocase $compiler "armr5-none-eabi-gcc"] == 0 &&
-			 [string compare -nocase $os_type "freertos10_xilinx"] == 0} {
-		file delete -force ./src/xsecure_sha2_pmu.a
-		file delete -force ./src/xsecure_sha2_a53_32b.a
-		file delete -force ./src/xsecure_sha2_a53_64b.a
-		file delete -force ./src/xsecure_sha2_r5.a
-		file rename -force ./src/xsecure_sha2_r5_freertos.a ./src/libxilsecure.a
-	} elseif {[string compare -nocase $compiler "mb-gcc"] == 0} {
-		file delete -force ./src/xsecure_sha2_r5.a
-		file delete -force ./src/xsecure_sha2_a53_32b.a
-		file delete -force ./src/xsecure_sha2_a53_64b.a
-		file delete -force ./src/xsecure_sha2_r5_freertos.a
-		file rename -force ./src/xsecure_sha2_pmu.a ./src/libxilsecure.a
-	}
-
 }
 
 proc generate {libhandle} {
