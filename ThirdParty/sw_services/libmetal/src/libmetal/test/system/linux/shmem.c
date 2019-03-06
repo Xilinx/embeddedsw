@@ -1,37 +1,14 @@
 /*
  * Copyright (c) 2015, Xilinx Inc. and Contributors. All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. Neither the name of Xilinx nor the names of its contributors may be used
- *    to endorse or promote products derived from this software without
- *    specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * SPDX-License-Identifier: BSD-3-Clause
  */
 
 #include "metal-test.h"
 #include <metal/log.h>
 #include <metal/mutex.h>
 #include <metal/shmem.h>
+#include <metal/scatterlist.h>
 #include <metal/sys.h>
 #include <metal/atomic.h>
 
@@ -44,20 +21,28 @@ static void *shmem_child(void *arg)
 	const char *name = arg;
 	struct {
 		metal_mutex_t	mutex;
-		int			counter;
+		int		counter;
 	} *virt;
+	struct metal_generic_shmem *shm;
 	struct metal_io_region *io;
+	struct metal_scatter_list *sg;
 	unsigned long phys;
 	size_t size = 2 * 1024 * 1024;
 	int error;
 
-	error = metal_shmem_open(name, size, &io);
+	error = metal_shmem_open(name, size, 0, &shm);
 	if (error) {
 		metal_log(METAL_LOG_ERROR, "Failed shmem_open: %d.\n", error);
 		atomic_fetch_add(&nb_err, 1);
 		return NULL;
 	}
-
+	sg = metal_shmem_mmap(shm, size);
+	if (sg == NULL) {
+		metal_log(METAL_LOG_ERROR, "Failed to shmem_mmap %s, %s.\n",
+			  shm->name, name);
+		return NULL;
+	}
+	(void)metal_scatterlist_get_ios(sg, &io);
 	virt = metal_io_virt(io, 0);
 	phys = metal_io_phys(io, 0);
 	if (phys != METAL_BAD_OFFSET) {
@@ -72,11 +57,13 @@ static void *shmem_child(void *arg)
 	}
 
 	metal_io_finish(io);
+	metal_shmem_munmap(shm, sg);
+	metal_shmem_close(shm);
 	return NULL;
 }
 
 static int shmem(void)
 {
-	return atomic_load(&nb_err) || metal_run(shmem_threads, shmem_child, "/foo");
+	return atomic_load(&nb_err) || metal_run(shmem_threads, shmem_child, "linux_shm/foo");
 }
 METAL_ADD_TEST(shmem);
