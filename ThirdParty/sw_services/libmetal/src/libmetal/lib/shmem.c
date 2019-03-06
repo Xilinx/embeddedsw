@@ -276,17 +276,87 @@ void metal_shmem_munmap(struct metal_generic_shmem *shmem,
 		return;
 	}
 
+	metal_mutex_acquire(&shmem->lock);
 	metal_list_for_each(&shmem->refs, node) {
 		ref = metal_container_of(node,
 					 struct metal_shm_ref, node);
 		if (&ref->sg == sg) {
+			metal_mutex_release(&shmem->lock);
 			if (shmem->ops->munmap) {
 				shmem->ops->munmap(shmem, sg);
+			}
+			metal_shm_remove_ref(shmem, ref);
+			return;
+		}
+	}
+	metal_mutex_release(&shmem->lock);
+}
+
+struct metal_scatter_list *
+metal_shm_attach(struct metal_generic_shmem *shmem,
+		 struct metal_device *dev,
+		 unsigned int direction)
+{
+	struct metal_shm_ref *ref;
+	struct metal_bus *bus;
+	int ret;
+
+	if (shmem == NULL || dev == NULL) {
+		return NULL;
+	}
+
+	ref = metal_allocate_memory(sizeof(*ref));
+	if (ref == NULL) {
+		metal_log(METAL_LOG_ERROR,
+			  "Failed to allocate memory for ref for shm attachment.\n");
+		metal_free_memory(ref);
+		return NULL;
+	}
+	ref->dev = dev;
+	bus = dev->bus;
+	if (bus && bus->ops.dev_shm_attach) {
+		ret = bus->ops.dev_shm_attach(bus, shmem, dev, direction, ref);
+		if (ret < 0) {
+			metal_log(METAL_LOG_ERROR,
+				  "Failed to attach shmem %s to dev %s.\n",
+				  shmem->name, dev->name);
+			metal_free_memory(ref);
+			return NULL;
+		}
+	} else {
+		memcpy(&ref->sg, &shmem->sg, sizeof(ref->sg));
+	}
+	metal_shm_add_ref(shmem, ref);
+	return &ref->sg;
+}
+
+void metal_shm_detach(struct metal_generic_shmem *shmem,
+		     struct metal_device *dev)
+{
+	struct metal_shm_ref *ref;
+	struct metal_list *node;
+
+	if (shmem == NULL) {
+		return;
+	}
+
+	metal_mutex_acquire(&shmem->lock);
+	metal_list_for_each(&shmem->refs, node) {
+		ref = metal_container_of(node,
+					 struct metal_shm_ref, node);
+		if (ref->dev == dev) {
+			struct metal_bus *bus;
+
+			metal_mutex_release(&shmem->lock);
+			bus = dev->bus;
+			if (bus->ops.dev_shm_detach) {
+				bus->ops.dev_shm_detach(bus, shmem, dev, ref);
 			}
 			metal_shm_remove_ref(shmem, ref);
 			break;
 		}
 	}
+	metal_mutex_release(&shmem->lock);
 }
 
 int metal_shm_sync_for_device(struct metal_generic_shmem *shmem,
