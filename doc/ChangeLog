@@ -130,6 +130,10 @@ In driver tcl enable CCI only for EL1 non-secure state.
 Create channel submit variant to program additional BD fields.
 Add HasRxLength field in config and channel structure.
 
+xilmbox_v1_0:
+Initial Release.
+Updated mld supported peripheral option with A72 and PMC.
+
 Changes for 2018.3.1
 ===============================
 rfdc_v5_1:
