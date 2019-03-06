@@ -163,5 +163,7 @@ struct metal_bus metal_weak metal_generic_bus = {
 		.dev_irq_ack = NULL,
 		.dev_dma_map = metal_generic_dev_dma_map,
 		.dev_dma_unmap = metal_generic_dev_dma_unmap,
+		.dev_shm_attach = NULL,
+		.dev_shm_detach = NULL,
 	},
 };
