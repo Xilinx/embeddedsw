@@ -1071,6 +1071,32 @@ void XilCdo_NocSysRst(void)
 					CRP_RST_NONPS_SYS_RST_3_MASK, 0U);
 }
 
+void XilCdo_EnableBISR(u32 BaseAddr)
+{
+	XPmcFw_UtilRMW(BaseAddr + XILCDO_DDRMC_UB_CLKGATE_OFFSET,
+					XILCDO_DDRMC_UB_BISR_EN_MASK,
+					XILCDO_DDRMC_UB_BISR_EN_MASK);
+}
+
+void XilCdo_DisableBISR(u32 BaseAddr)
+{
+        XPmcFw_UtilRMW(BaseAddr + XILCDO_DDRMC_UB_CLKGATE_OFFSET,
+                                    XILCDO_DDRMC_UB_BISR_EN_MASK, 0U);
+}
+
+void XilCdo_EnableILA(u32 BaseAddr)
+{
+        XPmcFw_UtilRMW(BaseAddr + XILCDO_DDRMC_UB_CLKGATE_OFFSET,
+                                        XILCDO_DDRMC_UB_ILA_EN_MASK,
+                                        XILCDO_DDRMC_UB_ILA_EN_MASK);
+}
+
+void XilCdo_DisableILA(u32 BaseAddr)
+{
+        XPmcFw_UtilRMW(BaseAddr + XILCDO_DDRMC_UB_CLKGATE_OFFSET,
+				XILCDO_DDRMC_UB_ILA_EN_MASK, 0U);
+}
+
 u32 XilCdo_ChkMEPwrSupply(u32 BaseAddr)
 {
 	u32 Status;
@@ -2775,8 +2801,11 @@ XStatus XilCdo_NpiPreCfg_DDRMC(u32 BaseAddr, u32 NpiParam)
 	XilCdo_ClearLockState(BaseAddr);
 #if XPMCFW_BISR_ENABLED
 	//to do : Load efuse data into BISR cache
+	XilCdo_EnableBISR(BaseAddr);
 	XilCdo_SetBISRTrigger(BaseAddr);
+	XilCdo_DisableBISR(BaseAddr);
 #endif
+	XilCdo_EnableILA(BaseAddr);
 
 	if((NpiParam & XILCDO_NPI_MEMCLR_MASK) == XILCDO_NPI_MEMCLR_MASK)
 	{
@@ -2792,6 +2821,9 @@ XStatus XilCdo_NpiPreCfg_DDRMC(u32 BaseAddr, u32 NpiParam)
 	{
 		Status = XST_SUCCESS;
 	}
+
+	XilCdo_DisableILA(BaseAddr);
+
 /** Workaround for EDT-990664 */
 //	XilCdo_SetHoldState(BaseAddr);
 	XilCdo_ClearUBInitState(BaseAddr);
