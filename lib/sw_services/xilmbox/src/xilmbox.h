@@ -59,6 +59,8 @@
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   adk  14/02/19    Initial Release
+ *       adk  06/03/19    In the mld file updated supported peripheral option
+ *			  with A72 and PMC.
  *</pre>
  *
  *@note
