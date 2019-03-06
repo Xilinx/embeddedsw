@@ -44,6 +44,7 @@
 * 1.3   Hyun    12/13/2018  Add the core event API
 * 1.4   Jubaer  02/14/2019  Add get Event Broadcast API
 * 1.5   Jubaer  02/26/2019  Add group Event API
+* 1.6   Jubaer  03/01/2019  Add Combo Event API
 * </pre>
 *
 ******************************************************************************/
@@ -71,6 +72,8 @@ extern XAieGbl_RegTraceEvent TraceEvent[];
 extern XAieGbl_RegCorePCEvent CorePCEvents[];
 extern XAieGbl_Config XAieGbl_ConfigTable[];
 extern XAieGbl_GroupEvents GroupEvents[];
+extern XAieGbl_ComboEventInput ComboEventInput[];
+extern XAieGbl_ComboEventControl ComboEventControl[];
 
 /************************** Function Definitions *****************************/
 
@@ -1658,6 +1661,735 @@ void XAieTile_CoreGroupEventSet(XAieGbl_Tile *TileInstPtr, u8 groupId, u32 Mask)
 
 	XAieGbl_Write32(TileInstPtr->TileAddr + XAIEGBL_CORE_EVTGRP0ENA +
 			groupId * 0x4U, Mask);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API returns the event values of the Memory Combo Event inputs. Bit map:
+* eventD (30 : 24), eventC (22 : 16), eventB (14 : 8), eventA (6 : 0).
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+*
+* @return	Current value of memory combo event inputs register
+*
+* @note		None.
+*
+*******************************************************************************/
+u32 XAieTile_MemComboEventInputGet32(XAieGbl_Tile *TileInstPtr)
+{
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+
+	return XAieGbl_Read32(TileInstPtr->TileAddr + XAIEGBL_MEM_COMEVTINP);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API returns the event values of the PL Combo Event inputs. Bit map:
+* eventD (30 : 24), eventC (22 : 16), eventB (14 : 8), eventA (6 : 0).
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+*
+* @return	Current value of PL combo event inputs register
+*
+* @note		None.
+*
+*******************************************************************************/
+u32 XAieTile_PlComboEventInputGet32(XAieGbl_Tile *TileInstPtr)
+{
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
+
+	return XAieGbl_Read32(TileInstPtr->TileAddr + XAIEGBL_PL_COMEVTINP);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API returns the event values of the Core Combo Event inputs. Bit map:
+* eventD (30 : 24), eventC (22 : 16), eventB (14 : 8), eventA (6 : 0).
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+*
+* @return	Current value of core combo event inputs register
+*
+* @note		None.
+*
+*******************************************************************************/
+u32 XAieTile_CoreComboEventInputGet32(XAieGbl_Tile *TileInstPtr)
+{
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+
+	return XAieGbl_Read32(TileInstPtr->TileAddr + XAIEGBL_CORE_COMEVTINP);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API sets the event values of the Memory Combo Event inputs. Bit map:
+* eventD (30 : 24), eventC (22 : 16), eventB (14 : 8), eventA (6 : 0).
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	Event - 32 bit combination of Event numbers.
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void XAieTile_MemComboEventInputSet32(XAieGbl_Tile *TileInstPtr, u32 Event)
+{
+	XAie_AssertVoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertVoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+
+	XAieGbl_Write32(TileInstPtr->TileAddr + XAIEGBL_MEM_COMEVTINP,
+			Event & XAIEGBL_MEM_COMEVTINPMSK);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API sets the event values of the PL Combo Event inputs. Bit map:
+* eventD (30 : 24), eventC (22 : 16), eventB (14 : 8), eventA (6 : 0).
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	Event - 32 bit combination of Event numbers.
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void XAieTile_PlComboEventInputSet32(XAieGbl_Tile *TileInstPtr, u32 Event)
+{
+	XAie_AssertVoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertVoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
+
+	XAieGbl_Write32(TileInstPtr->TileAddr + XAIEGBL_PL_COMEVTINP,
+			Event & XAIEGBL_PL_COMEVTINPMSK);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API sets the event values of the Core Combo Event inputs. Bit map:
+* eventD (30 : 24), eventC (22 : 16), eventB (14 : 8), eventA (6 : 0).
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	Event - 32 bit combination of Event numbers.
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void XAieTile_CoreComboEventInputSet32(XAieGbl_Tile *TileInstPtr, u32 Event)
+{
+	XAie_AssertVoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertVoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+
+	XAieGbl_Write32(TileInstPtr->TileAddr + XAIEGBL_CORE_COMEVTINP,
+			Event & (XAIEGBL_CORE_COMEVTINP_EVTD_MASK |
+				 XAIEGBL_CORE_COMEVTINP_EVTC_MASK |
+				 XAIEGBL_CORE_COMEVTINP_EVTB_MASK |
+				 XAIEGBL_CORE_COMEVTINP_EVTA_MASK));
+}
+
+/*****************************************************************************/
+/**
+*
+* This API returns the event values of the Memory Combo Event Control. Bit map:
+* combo2 (17 : 16), combo1 (9 : 8), combo0 (1 : 0).
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+*
+* @return	Current value of memory combo event control register
+*
+* @note		None.
+*
+*******************************************************************************/
+u32 XAieTile_MemComboEventControlGet32(XAieGbl_Tile *TileInstPtr)
+{
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+
+	return XAieGbl_Read32(TileInstPtr->TileAddr + XAIEGBL_MEM_COMEVTCTRL);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API returns the event values of the PL Combo Event Control. Bit map:
+* combo2 (17 : 16), combo1 (9 : 8), combo0 (1 : 0).
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+*
+* @return	Current value of PL combo event control register
+*
+* @note		None.
+*
+*******************************************************************************/
+u32 XAieTile_PlComboEventControlGet32(XAieGbl_Tile *TileInstPtr)
+{
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
+
+	return XAieGbl_Read32(TileInstPtr->TileAddr + XAIEGBL_PL_COMEVTCTRL);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API returns the event values of the Core Combo Event Control. Bit map:
+* combo2 (17 : 16), combo1 (9 : 8), combo0 (1 : 0).
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+*
+* @return	Current value of core combo event control register
+*
+* @note		None.
+*
+*******************************************************************************/
+u32 XAieTile_CoreComboEventControlGet32(XAieGbl_Tile *TileInstPtr)
+{
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+
+	return XAieGbl_Read32(TileInstPtr->TileAddr + XAIEGBL_CORE_COMEVTCTRL);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API sets the event values of the Memory Combo Event Control. Bit map:
+* combo2 (17 : 16), combo1 (9 : 8), combo0 (1 : 0).
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	Combo - Combination of event combo.
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void XAieTile_MemComboEventControlSet32(XAieGbl_Tile *TileInstPtr, u32 Combo)
+{
+	XAie_AssertVoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertVoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+
+	XAieGbl_Write32(TileInstPtr->TileAddr + XAIEGBL_MEM_COMEVTCTRL,
+			Combo & XAIEGBL_MEM_COMEVTCTRLMSK);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API sets the event values of the PL Combo Event Control. Bit map:
+* combo2 (17 : 16), combo1 (9 : 8), combo0 (1 : 0).
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	Combo - Combination of event combo.
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void XAieTile_PlComboEventControlSet32(XAieGbl_Tile *TileInstPtr, u32 Combo)
+{
+	XAie_AssertVoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertVoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
+
+	XAieGbl_Write32(TileInstPtr->TileAddr + XAIEGBL_PL_COMEVTCTRL,
+			Combo & XAIEGBL_PL_COMEVTCTRLMSK);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API sets the event values of the Core Combo Event Control. Bit map:
+* combo2 (17 : 16), combo1 (9 : 8), combo0 (1 : 0).
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	Combo - Combination of event combo.
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void XAieTile_CoreComboEventControlSet32(XAieGbl_Tile *TileInstPtr, u32 Combo)
+{
+	XAie_AssertVoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertVoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+
+	XAieGbl_Write32(TileInstPtr->TileAddr + XAIEGBL_CORE_COMEVTCTRL,
+			Combo & (XAIEGBL_CORE_COMEVTCTRL_COM2_MASK |
+				 XAIEGBL_CORE_COMEVTCTRL_COM1_MASK |
+				 XAIEGBL_CORE_COMEVTCTRL_COM0_MASK));
+}
+
+/*****************************************************************************/
+/**
+*
+* This API sets the values of the memory Combo Event inputs. Bit map:
+* eventD (30 : 24), eventC (22 : 16), eventB (14 : 8), eventA (6 : 0).
+* To keep an entry unaltered pass 8 bit value.
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	eventA - Event Number. One of XAIETILE_EVENT_MEM_*
+* @param	eventB - Event Number. One of XAIETILE_EVENT_MEM_*
+* @param	eventC - Event Number. One of XAIETILE_EVENT_MEM_*
+* @param	eventD - Event Number. One of XAIETILE_EVENT_MEM_*
+*
+* @return	None.
+*
+* @note		Values greater than 0x7F is ignored.
+*
+*******************************************************************************/
+void XAieTile_MemComboEventInputSet(XAieGbl_Tile *TileInstPtr, u8 eventA,
+				    u8 eventB, u8 eventC, u8 eventD)
+{
+	u32 RegVal, EventSet;
+	u32 Mask = 0;
+
+	XAie_AssertVoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertVoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+
+	if (eventD <= 0x7F) {
+		Mask |= XAIEGBL_MEM_COMEVTINP_EVTD_MASK;
+	}
+	if (eventC <= 0x7F) {
+		Mask |= XAIEGBL_MEM_COMEVTINP_EVTC_MASK;
+	}
+	if (eventB <= 0x7F) {
+		Mask |= XAIEGBL_MEM_COMEVTINP_EVTB_MASK;
+	}
+	if (eventA <= 0x7F) {
+		Mask |= XAIEGBL_MEM_COMEVTINP_EVTA_MASK;
+	}
+
+	EventSet = XAIEGBL_MEM_VALUE_COMEVTINP(eventD, eventC, eventB, eventA);
+	RegVal = XAieGbl_Read32(TileInstPtr->TileAddr +
+				XAIEGBL_MEM_COMEVTINP) & (~Mask);
+
+	XAieGbl_Write32(TileInstPtr->TileAddr + XAIEGBL_MEM_COMEVTINP,
+			(RegVal | (EventSet & Mask)));
+}
+
+/*****************************************************************************/
+/**
+*
+* This API sets the values of the PL Combo Event inputs. Bit map:
+* eventD (30 : 24), eventC (22 : 16), eventB (14 : 8), eventA (6 : 0).
+* To keep an entry unaltered pass 8 bit value.
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	eventA - Event Number. One of XAIETILE_EVENT_PL_*
+* @param	eventB - Event Number. One of XAIETILE_EVENT_PL_*
+* @param	eventC - Event Number. One of XAIETILE_EVENT_PL_*
+* @param	eventD - Event Number. One of XAIETILE_EVENT_PL_*
+*
+* @return	None.
+*
+* @note		Values greater than 0x7F is ignored.
+*
+*******************************************************************************/
+void XAieTile_PlComboEventInputSet(XAieGbl_Tile *TileInstPtr, u8 eventA,
+				   u8 eventB, u8 eventC, u8 eventD)
+{
+	u32 RegVal, EventSet;
+	u32 Mask = 0;
+
+	XAie_AssertVoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertVoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
+
+	if (eventD <= 0x7F) {
+		Mask |= XAIEGBL_PL_COMEVTINP_EVTD_MASK;
+	}
+	if (eventC <= 0x7F) {
+		Mask |= XAIEGBL_PL_COMEVTINP_EVTC_MASK;
+	}
+	if (eventB <= 0x7F) {
+		Mask |= XAIEGBL_PL_COMEVTINP_EVTB_MASK;
+	}
+	if (eventA <= 0x7F) {
+		Mask |= XAIEGBL_PL_COMEVTINP_EVTA_MASK;
+	}
+
+	EventSet = XAIEGBL_PL_VALUE_COMEVTINP(eventD, eventC, eventB, eventA);
+	RegVal = XAieGbl_Read32(TileInstPtr->TileAddr +
+				XAIEGBL_PL_COMEVTINP) & (~Mask);
+
+	XAieGbl_Write32(TileInstPtr->TileAddr + XAIEGBL_PL_COMEVTINP,
+			(RegVal | (EventSet & Mask)));
+}
+
+/*****************************************************************************/
+/**
+*
+* This API sets the values of the Core Combo Event inputs. Bit map:
+* eventD (30 : 24), eventC (22 : 16), eventB (14 : 8), eventA (6 : 0).
+* To keep an entry unaltered pass 8 bit value.
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	eventA - Event Number. One of XAIETILE_EVENT_CORE_*
+* @param	eventB - Event Number. One of XAIETILE_EVENT_CORE_*
+* @param	eventC - Event Number. One of XAIETILE_EVENT_CORE_*
+* @param	eventD - Event Number. One of XAIETILE_EVENT_CORE_*
+*
+* @return	None.
+*
+* @note		Values greater than 0x7F is ignored.
+*
+*******************************************************************************/
+void XAieTile_CoreComboEventInputSet(XAieGbl_Tile *TileInstPtr, u8 eventA,
+				     u8 eventB, u8 eventC, u8 eventD)
+{
+	u32 RegVal, EventSet;
+	u32 Mask = 0;
+
+	XAie_AssertVoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertVoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+
+	if (eventD <= 0x7F) {
+		Mask |= XAIEGBL_CORE_COMEVTINP_EVTD_MASK;
+	}
+	if (eventC <= 0x7F) {
+		Mask |= XAIEGBL_CORE_COMEVTINP_EVTC_MASK;
+	}
+	if (eventB <= 0x7F) {
+		Mask |= XAIEGBL_CORE_COMEVTINP_EVTB_MASK;
+	}
+	if (eventA <= 0x7F) {
+		Mask |= XAIEGBL_CORE_COMEVTINP_EVTA_MASK;
+	}
+
+	EventSet = XAIEGBL_CORE_VALUE_COMEVTINP(eventD, eventC, eventB, eventA);
+	RegVal = XAieGbl_Read32(TileInstPtr->TileAddr +
+				XAIEGBL_CORE_COMEVTINP) & (~Mask);
+
+	XAieGbl_Write32(TileInstPtr->TileAddr + XAIEGBL_CORE_COMEVTINP,
+			(RegVal | (EventSet & Mask)));
+}
+
+/*****************************************************************************/
+/**
+*
+* This API sets the values of the Memory Combo Event inputs. Bit map:
+* eventD (30 : 24), eventC (22 : 16), eventB (14 : 8), eventA (6 : 0).
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	eventIdx - Event Index. One of
+		XAIETILE_COMBO_EVENT_A, XAIETILE_COMBO_EVENT_B,
+		XAIETILE_COMBO_EVENT_C, XAIETILE_COMBO_EVENT_D.
+*
+* @return	Event Number.
+*
+* @note		None.
+*
+*******************************************************************************/
+u8  XAieTile_MemComboEventInputGet(XAieGbl_Tile *TileInstPtr, u8 eventIdx)
+{
+	u32 RegVal;
+
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(eventIdx <= 3);
+
+	RegVal = XAieGbl_Read32(TileInstPtr->TileAddr + XAIEGBL_MEM_COMEVTINP);
+
+	return XAie_GetField(RegVal,
+		ComboEventInput[XAIETILE_EVENT_MODULE_MEM].Lsb[eventIdx],
+		ComboEventInput[XAIETILE_EVENT_MODULE_MEM].Mask[eventIdx]);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API sets the values of the PL Combo Event inputs. Bit map:
+* eventD (30 : 24), eventC (22 : 16), eventB (14 : 8), eventA (6 : 0).
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	eventIdx - Event Index. One of
+		XAIETILE_COMBO_EVENT_A, XAIETILE_COMBO_EVENT_B,
+		XAIETILE_COMBO_EVENT_C, XAIETILE_COMBO_EVENT_D.
+*
+* @return	Event Number.
+*
+* @note		None.
+*
+*******************************************************************************/
+u8  XAieTile_PlComboEventInputGet(XAieGbl_Tile *TileInstPtr, u8 eventIdx)
+{
+	u32 RegVal;
+
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(eventIdx <= 3);
+
+	RegVal = XAieGbl_Read32(TileInstPtr->TileAddr + XAIEGBL_PL_COMEVTINP);
+
+	return XAie_GetField(RegVal,
+		ComboEventInput[XAIETILE_EVENT_MODULE_PL].Lsb[eventIdx],
+		ComboEventInput[XAIETILE_EVENT_MODULE_PL].Mask[eventIdx]);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API sets the values of the Core Combo Event inputs. Bit map:
+* eventD (30 : 24), eventC (22 : 16), eventB (14 : 8), eventA (6 : 0).
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	eventIdx - Event Index. One of
+		XAIETILE_COMBO_EVENT_A, XAIETILE_COMBO_EVENT_B,
+		XAIETILE_COMBO_EVENT_C, XAIETILE_COMBO_EVENT_D.
+*
+* @return	Event Number.
+*
+* @note		None.
+*
+*******************************************************************************/
+u8  XAieTile_CoreComboEventInputGet(XAieGbl_Tile *TileInstPtr, u8 eventIdx)
+{
+	u32 RegVal;
+
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(eventIdx <= 3);
+
+	RegVal = XAieGbl_Read32(TileInstPtr->TileAddr + XAIEGBL_CORE_COMEVTINP);
+
+	return XAie_GetField(RegVal,
+		ComboEventInput[XAIETILE_EVENT_MODULE_CORE].Lsb[eventIdx],
+		ComboEventInput[XAIETILE_EVENT_MODULE_CORE].Mask[eventIdx]);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API sets the values of the memory Combo Event control. Bit map:
+* combo2 (17 : 16), combo1 (9 : 8), combo0 (1 : 0).
+* To keep an entry unaltered pass value greater than 3.
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	combo0 - control value for combo0.
+* @param	combo1 - control value for combo1.
+* @param	combo2 - control value for combo2.
+*
+* @return	None.
+*
+* @note		Values greater than 0x3 will be ignored.
+*
+*******************************************************************************/
+void XAieTile_MemComboEventControlSet(XAieGbl_Tile *TileInstPtr, u8 combo0,
+				      u8 combo1, u8 combo2)
+{
+	u32 RegVal, EventSet;
+	u32 Mask = 0;
+
+	XAie_AssertVoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertVoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+
+	if (combo0 <= 0x3) {
+		Mask |= XAIEGBL_MEM_COMEVTCTRL_COM0_MASK;
+	}
+	if (combo1 <= 0x3) {
+		Mask |= XAIEGBL_MEM_COMEVTCTRL_COM1_MASK;
+	}
+	if (combo2 <= 0x3) {
+		Mask |= XAIEGBL_MEM_COMEVTCTRL_COM2_MASK;
+	}
+
+	EventSet = XAIEGBL_MEM_VALUE_COMEVTCTRL(combo2, combo1, combo0);
+	RegVal = XAieGbl_Read32(TileInstPtr->TileAddr +
+				XAIEGBL_MEM_COMEVTCTRL) & (~Mask);
+
+	XAieGbl_Write32(TileInstPtr->TileAddr + XAIEGBL_MEM_COMEVTCTRL,
+			(RegVal | (EventSet & Mask)));
+}
+
+/*****************************************************************************/
+/**
+*
+* This API sets the values of the PL Combo Event control. Bit map:
+* combo2 (17 : 16), combo1 (9 : 8), combo0 (1 : 0).
+* To keep an entry unaltered pass value greater than 3.
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	combo0 - control value for combo0.
+* @param	combo1 - control value for combo1.
+* @param	combo2 - control value for combo2.
+*
+* @return	None.
+*
+* @note		Values greater than 0x3 will be ignored.
+*
+*******************************************************************************/
+void XAieTile_PlComboEventControlSet(XAieGbl_Tile *TileInstPtr, u8 combo0,
+				      u8 combo1, u8 combo2)
+{
+	u32 RegVal, EventSet;
+	u32 Mask = 0;
+
+	XAie_AssertVoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertVoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
+
+	if (combo0 <= 0x3) {
+		Mask |= XAIEGBL_PL_COMEVTCTRL_COM0_MASK;
+	}
+	if (combo1 <= 0x3) {
+		Mask |= XAIEGBL_PL_COMEVTCTRL_COM1_MASK;
+	}
+	if (combo2 <= 0x3) {
+		Mask |= XAIEGBL_PL_COMEVTCTRL_COM2_MASK;
+	}
+
+	EventSet = XAIEGBL_PL_VALUE_COMEVTCTRL(combo2, combo1, combo0);
+	RegVal = XAieGbl_Read32(TileInstPtr->TileAddr +
+				XAIEGBL_PL_COMEVTCTRL) & (~Mask);
+
+	XAieGbl_Write32(TileInstPtr->TileAddr + XAIEGBL_PL_COMEVTCTRL,
+			(RegVal | (EventSet & Mask)));
+}
+
+/*****************************************************************************/
+/**
+*
+* This API sets the values of the Core Combo Event control. Bit map:
+* combo2 (17 : 16), combo1 (9 : 8), combo0 (1 : 0).
+* To keep an entry unaltered pass value greater than 3.
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	combo0 - control value for combo0.
+* @param	combo1 - control value for combo1.
+* @param	combo2 - control value for combo2.
+*
+* @return	None.
+*
+* @note		Values greater than 0x3 will be ignored.
+*
+*******************************************************************************/
+void XAieTile_CoreComboEventControlSet(XAieGbl_Tile *TileInstPtr, u8 combo0,
+				      u8 combo1, u8 combo2)
+{
+	u32 RegVal, EventSet;
+	u32 Mask = 0;
+
+	XAie_AssertVoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertVoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+
+	if (combo0 <= 0x3) {
+		Mask |= XAIEGBL_CORE_COMEVTCTRL_COM0_MASK;
+	}
+	if (combo1 <= 0x3) {
+		Mask |= XAIEGBL_CORE_COMEVTCTRL_COM1_MASK;
+	}
+	if (combo2 <= 0x3) {
+		Mask |= XAIEGBL_CORE_COMEVTCTRL_COM2_MASK;
+	}
+
+	EventSet = XAIEGBL_CORE_VALUE_COMEVTCTRL(combo2, combo1, combo0);
+	RegVal = XAieGbl_Read32(TileInstPtr->TileAddr +
+				XAIEGBL_CORE_COMEVTCTRL) & (~Mask);
+
+	XAieGbl_Write32(TileInstPtr->TileAddr + XAIEGBL_CORE_COMEVTCTRL,
+			(RegVal | (EventSet & Mask)));
+}
+
+/*****************************************************************************/
+/**
+*
+* This API returns the values of the memory Combo Event control. Bit map:
+* combo2 (17 : 16), combo1 (9 : 8), combo0 (1 : 0).
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	comboIdx - Combo index. One of
+*		XAIETILE_COMBO_0, XAIETILE_COMBO_1, XAIETILE_COMBO_2.
+*
+* @return	Curent Value of combo control for comboIdx
+*
+* @note		None.
+*
+*******************************************************************************/
+u8 XAieTile_MemComboEventControlGet(XAieGbl_Tile *TileInstPtr, u8 comboIdx)
+{
+	u32 RegVal;
+
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(comboIdx <= 2);
+
+	RegVal = XAieGbl_Read32(TileInstPtr->TileAddr + XAIEGBL_MEM_COMEVTCTRL);
+
+	return XAie_GetField(RegVal,
+		ComboEventControl[XAIETILE_EVENT_MODULE_MEM].Lsb[comboIdx],
+		ComboEventControl[XAIETILE_EVENT_MODULE_MEM].Mask[comboIdx]);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API returns the values of the PL Combo Event control. Bit map:
+* combo2 (17 : 16), combo1 (9 : 8), combo0 (1 : 0).
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	comboIdx - Combo index. One of
+*		XAIETILE_COMBO_0, XAIETILE_COMBO_1, XAIETILE_COMBO_2.
+*
+* @return	Curent Value of combo control for comboIdx
+*
+* @note		None.
+*
+*******************************************************************************/
+u8 XAieTile_PlComboEventControlGet(XAieGbl_Tile *TileInstPtr, u8 comboIdx)
+{
+	u32 RegVal;
+
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(comboIdx <= 2);
+
+	RegVal = XAieGbl_Read32(TileInstPtr->TileAddr + XAIEGBL_PL_COMEVTCTRL);
+
+	return XAie_GetField(RegVal,
+		ComboEventControl[XAIETILE_EVENT_MODULE_PL].Lsb[comboIdx],
+		ComboEventControl[XAIETILE_EVENT_MODULE_PL].Mask[comboIdx]);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API returns the values of the Core Combo Event control. Bit map:
+* combo2 (17 : 16), combo1 (9 : 8), combo0 (1 : 0).
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	comboIdx - Combo index. One of
+*		XAIETILE_COMBO_0, XAIETILE_COMBO_1, XAIETILE_COMBO_2.
+*
+* @return	Curent Value of combo control for comboIdx
+*
+* @note		None.
+*
+*******************************************************************************/
+u8 XAieTile_CoreComboEventControlGet(XAieGbl_Tile *TileInstPtr, u8 comboIdx)
+{
+	u32 RegVal;
+
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(comboIdx <= 2);
+
+	RegVal = XAieGbl_Read32(TileInstPtr->TileAddr +
+				XAIEGBL_CORE_COMEVTCTRL);
+
+	return XAie_GetField(RegVal,
+		ComboEventControl[XAIETILE_EVENT_MODULE_CORE].Lsb[comboIdx],
+		ComboEventControl[XAIETILE_EVENT_MODULE_CORE].Mask[comboIdx]);
 }
 
 /** @} */

@@ -43,6 +43,7 @@
 * 1.2   Hyun    12/13/2018  Added the core PC event API
 * 1.4   Jubaer  02/14/2019  Add Broadcast Get API
 * 1.5   Jubaer  02/26/2019  Add group Event API
+* 1.6   Jubaer  03/01/2019  Add Combo Event API
 * </pre>
 *
 ******************************************************************************/
@@ -112,6 +113,18 @@
 #define XAIETILE_GROUP_EVENT_PL_USER			0x6U
 
 #define XAIETILE_GROUP_EVENT_LSB			0x0U
+
+/*
+ * Combo Events
+ */
+#define XAIETILE_COMBO_EVENT_A			0x0U
+#define XAIETILE_COMBO_EVENT_B			0x1U
+#define XAIETILE_COMBO_EVENT_C			0x2U
+#define XAIETILE_COMBO_EVENT_D			0x3U
+
+#define XAIETILE_COMBO_0			0x0U
+#define XAIETILE_COMBO_1			0x1U
+#define XAIETILE_COMBO_2			0x2U
 
 /*
  * Core module events
@@ -519,6 +532,15 @@ void XAieTile_CoreEventStatusClear(XAieGbl_Tile *TileInstPtr, u8 Event, u32 Mask
 u32 XAieTile_CoreGroupEventGet(XAieGbl_Tile *TileInstPtr, u8 groupId);
 void XAieTile_CoreGroupEventSet(XAieGbl_Tile *TileInstPtr, u8 groupId, u32 Mask);
 
+void XAieTile_CoreComboEventInputSet32(XAieGbl_Tile *TileInstPtr, u32 Event);
+u32 XAieTile_CoreComboEventInputGet32(XAieGbl_Tile *TileInstPtr);
+void XAieTile_CoreComboEventControlSet32(XAieGbl_Tile *TileInstPtr, u32 Combo);
+u32 XAieTile_CoreComboEventControlGet32(XAieGbl_Tile *TileInstPtr);
+void XAieTile_CoreComboEventInputSet(XAieGbl_Tile *TileInstPtr, u8 eventA, u8 eventB, u8 eventC, u8 eventD);
+u8 XAieTile_CoreComboEventInputGet(XAieGbl_Tile *TileInstPtr, u8 eventIdx);
+void XAieTile_CoreComboEventControlSet(XAieGbl_Tile *TileInstPtr, u8 combo0, u8 combo1, u8 combo2);
+u8 XAieTile_CoreComboEventControlGet(XAieGbl_Tile *TileInstPtr, u8 comboIdx);
+
 /*
  * PL module
  */
@@ -536,6 +558,15 @@ void XAieTile_PlEventStatusClear(XAieGbl_Tile *TileInstPtr, u8 Event, u32 Mask);
 u32 XAieTile_PlGroupEventGet(XAieGbl_Tile *TileInstPtr, u8 groupId);
 void XAieTile_PlGroupEventSet(XAieGbl_Tile *TileInstPtr, u8 groupId, u32 Mask);
 
+void XAieTile_PlComboEventInputSet32(XAieGbl_Tile *TileInstPtr, u32 Event);
+u32 XAieTile_PlComboEventInputGet32(XAieGbl_Tile *TileInstPtr);
+void XAieTile_PlComboEventControlSet32(XAieGbl_Tile *TileInstPtr, u32 Combo);
+u32 XAieTile_PlComboEventControlGet32(XAieGbl_Tile *TileInstPtr);
+void XAieTile_PlComboEventInputSet(XAieGbl_Tile *TileInstPtr, u8 eventA, u8 eventB, u8 eventC, u8 eventD);
+u8 XAieTile_PlComboEventInputGet(XAieGbl_Tile *TileInstPtr, u8 eventIdx);
+void XAieTile_PlComboEventControlSet(XAieGbl_Tile *TileInstPtr, u8 combo0, u8 combo1, u8 combo2);
+u8 XAieTile_PlComboEventControlGet(XAieGbl_Tile *TileInstPtr, u8 comboIdx);
+
 /*
  * Memory module
  */
@@ -552,6 +583,15 @@ u32 XAieTile_MemEventStatusGet(XAieGbl_Tile *TileInstPtr, u8 Event);
 void XAieTile_MemEventStatusClear(XAieGbl_Tile *TileInstPtr, u8 Event, u32 Mask);
 u32 XAieTile_MemGroupEventGet(XAieGbl_Tile *TileInstPtr, u8 groupId);
 void XAieTile_MemGroupEventSet(XAieGbl_Tile *TileInstPtr, u8 groupId, u32 Mask);
+
+void XAieTile_MemComboEventInputSet32(XAieGbl_Tile *TileInstPtt, u32 Event);
+u32 XAieTile_MemComboEventInputGet32(XAieGbl_Tile *TileInstPtr);
+void XAieTile_MemComboEventControlSet32(XAieGbl_Tile *TileInstPtr, u32 Combo);
+u32 XAieTile_MemComboEventControlGet32(XAieGbl_Tile *TileInstPtr);
+void XAieTile_MemComboEventInputSet(XAieGbl_Tile *TileInstPtr, u8 eventA, u8 eventB, u8 eventC, u8 eventD);
+u8 XAieTile_MemComboEventInputGet(XAieGbl_Tile *TileInstPtr, u8 eventIdx);
+void XAieTile_MemComboEventControlSet(XAieGbl_Tile *TileInstPtr, u8 combo0, u8 combo1, u8 combo2);
+u8 XAieTile_MemComboEventControlGet(XAieGbl_Tile *TileInstPtr, u8 comboIdx);
 
 /*
  * Core module Column
