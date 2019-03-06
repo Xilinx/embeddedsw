@@ -1003,26 +1003,6 @@ PmSlave pmSlaveSata_g = {
 	.flags = 0U,
 };
 
-PmSlave pmSlaveGpu_g = {
-	.node = {
-		.derived = &pmSlaveGpu_g,
-		.nodeId = NODE_GPU,
-		.class = &pmNodeClassSlave_g,
-		.parent = &pmPowerDomainFpd_g.power,
-		.clocks = NULL,
-		.currState = PM_GENERIC_SLAVE_STATE_RUNNING,
-		.latencyMarg = MAX_LATENCY,
-		.flags = 0U,
-		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
-		DEFINE_NODE_NAME("gpu"),
-	},
-	.class = NULL,
-	.reqs = NULL,
-	.wake = NULL,
-	.slvFsm = &pmGenericSlaveFsm,
-	.flags = 0U,
-};
-
 PmSlave pmSlavePcie_g = {
 	.node = {
 		.derived = &pmSlavePcie_g,
