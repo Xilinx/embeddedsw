@@ -29,10 +29,13 @@
 #include "xpm_common.h"
 #include "xpm_psfpdomain.h"
 
-static XStatus FpdPreHouseclean()
+static XStatus FpdPreHouseclean(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
+
+	(void)Args;
+	(void)NumOfArgs;
 
 	Payload[0] = PSM_API_FPD_HOUSECLEAN;
 	Payload[1] = FUNC_INIT_START;
@@ -48,10 +51,13 @@ done:
 	return Status;
 }
 
-static XStatus FpdPostHouseclean()
+static XStatus FpdPostHouseclean(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
+
+	(void)Args;
+	(void)NumOfArgs;
 
 	Payload[0] = PSM_API_FPD_HOUSECLEAN;
 	Payload[1] = FUNC_INIT_FINISH;
@@ -67,10 +73,13 @@ done:
 	return Status;
 }
 
-static XStatus FpdScanClear()
+static XStatus FpdScanClear(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
+
+	(void)Args;
+	(void)NumOfArgs;
 
 	Payload[0] = PSM_API_FPD_HOUSECLEAN;
 	Payload[1] = FUNC_SCAN_CLEAR;
@@ -86,10 +95,13 @@ done:
 	return Status;
 }
 
-static XStatus FpdBisr()
+static XStatus FpdBisr(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
+
+	(void)Args;
+	(void)NumOfArgs;
 
 	Payload[0] = PSM_API_FPD_HOUSECLEAN;
 	Payload[1] = FUNC_BISR;
@@ -105,10 +117,13 @@ done:
 	return Status;
 }
 
-static XStatus FpdMbistClear()
+static XStatus FpdMbistClear(u32 *Args, u32 NumOfArgs)
 {
         XStatus Status = XST_SUCCESS;
         u32 Payload[PAYLOAD_ARG_CNT] = {0};
+
+	(void)Args;
+	(void)NumOfArgs;
 
         Payload[0] = PSM_API_FPD_HOUSECLEAN;
         Payload[1] = FUNC_MBIST_CLEAR;

@@ -31,9 +31,13 @@
 #include "xpm_domain_iso.h"
 #include "xpm_reset.h"
 
-static XStatus LpdPreHouseclean()
+static XStatus LpdPreHouseclean(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
+
+	(void)Args;
+	(void)NumOfArgs;
+
 //#ifdef SPP_HACK
 	/* TODO: Check vccint_pslp first to make sure power is on */
 
@@ -84,9 +88,12 @@ done:
 	return Status;
 }
 
-static XStatus LpdPostHouseclean()
+static XStatus LpdPostHouseclean(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
+
+	(void)Args;
+	(void)NumOfArgs;
 
 	return Status;
 }
@@ -98,9 +105,13 @@ static XStatus LpdPostHouseclean()
  * @return XST_SUCCESS if successful else XST_FAILURE
  *
  ****************************************************************************/
-static XStatus LpdScanClear()
+static XStatus LpdScanClear(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
+
+	(void)Args;
+	(void)NumOfArgs;
+
 #ifdef SPP_HACK
 	/* Trigger Scan clear on LPD/LPD_IOU */
 	PmRmw32(PMC_ANALOG_SCAN_CLEAR_TRIGGER,
@@ -136,9 +147,13 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE
  *
  ****************************************************************************/
-static XStatus LpdLbist()
+static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
+
+	(void)Args;
+	(void)NumOfArgs;
+
 #ifdef SPP_HACK
 	/* Trigger LBIST on LPD */
 	PmRmw32(PMC_ANALOG_LBIST_ENABLE,
@@ -162,9 +177,12 @@ static XStatus LpdLbist()
  * @return XST_SUCCESS if successful else XST_FAILURE
  *
  ****************************************************************************/
-static XStatus LpdBisr()
+static XStatus LpdBisr(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
+
+	(void)Args;
+	(void)NumOfArgs;
 
 #ifdef SPP_HACK
 	PmRmw32(LPD_SLCR_BISR_CACHE_CTRL_0, LPD_SLCR_BISR_TRIGGER_MASK,
@@ -196,9 +214,13 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE
  *
  ****************************************************************************/
-static XStatus LpdMbist()
+static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
+
+	(void)Args;
+	(void)NumOfArgs;
+
 #ifdef SPP_HACK
 	u32 RegValue;
 
