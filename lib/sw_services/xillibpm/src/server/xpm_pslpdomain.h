@@ -151,8 +151,6 @@
 #define LPD_SLCR_BISR_PASS_0_MASK		(0X0000002U)
 #define LPD_SLCR_BISR_DONE_0_MASK		(0X0000001U)
 
-#define XPM_POLL_TIMEOUT			(0X1000000U)
-
 typedef struct XPm_PsLpDomain XPm_PsLpDomain;
 
 /**
