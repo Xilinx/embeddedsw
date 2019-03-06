@@ -182,7 +182,6 @@ extern "C" {
 						* modulus */
 
 #define XSECURE_HASH_TYPE_SHA3		(48U) /**< SHA-3 hash size */
-#define XSECURE_HASH_TYPE_SHA2		(32U)/**< SHA-2 hash size */
 #define XSECURE_FSBL_SIG_SIZE		(512U) /**< FSBL signature size */
 
 #define XSECURE_RSA_SIGN_ENC		0U

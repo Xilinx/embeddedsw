@@ -71,11 +71,6 @@ static const u8 XSecure_Silicon1_TPadSha3[] = {0x30U, 0x41U, 0x30U, 0x0DU,
 			0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U,
 			0x02U, 0x02U, 0x05U, 0x00U, 0x04U, 0x30U };
 
-/* PKCS padding scheme for SHA-2 */
-static const u8 XSecure_Silicon1_TPadSha2[] = {0x30U, 0x31U, 0x30U, 0x0DU,
-			0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U,
-			0x02U, 0x01U, 0x05U, 0x00U, 0x04U, 0x20U };
-
 /* PKCS padding for SHA-3 in 2.0 Silicon and onwards */
 static const u8 XSecure_Silicon2_TPadSha3[] = {0x30U, 0x41U, 0x30U, 0x0DU,
 			0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U,
@@ -423,7 +418,6 @@ END:
  *		calculated on the data to be authenticated.
  * @param	HashLen		Length of Hash used.
  *		- For SHA3 it should be 48 bytes
- *		- For SHA2 it should be 32 bytes
  *
  * @return	XST_SUCCESS if decryption was successful.
  *
@@ -450,10 +444,6 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 		{
 			Tpadding = (u8 *)XSecure_Silicon2_TPadSha3;
 		}
-		else if (XSECURE_HASH_TYPE_SHA2 == HashLen)
-		{
-			Tpadding = (u8 *)XSecure_Silicon1_TPadSha2;
-		}
 		else
 		{
 			Status = (u32)XST_FAILURE;
@@ -465,10 +455,6 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 		if(XSECURE_HASH_TYPE_SHA3 == HashLen)
 		{
 			Tpadding = (u8 *)XSecure_Silicon1_TPadSha3;
-		}
-		else if (XSECURE_HASH_TYPE_SHA2 == HashLen)
-		{
-			Tpadding = (u8 *)XSecure_Silicon1_TPadSha2;
 		}
 		else
 		{
