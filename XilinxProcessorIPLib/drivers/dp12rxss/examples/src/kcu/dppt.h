@@ -46,7 +46,7 @@
 #define DPAPP_H_
 
 #include <stdio.h>
-#include "xbasic_types.h"
+//#include "xbasic_types.h"
 #include "xil_types.h"
 #include "xparameters.h"
 #include "xil_cache.h"
@@ -112,11 +112,11 @@ typedef unsigned int    UINT32;
 			XPAR_INTC_0_DPTXSS_0_DPTXSS_DP_IRQ_VEC_ID
 #else
 #define XINTC_DPTXSS_DP_INTERRUPT_ID  	\
-			XPAR_INTC_0_DPTXSS_0_VEC_ID
+			XPAR_INTC_0_DP12TXSS_0_VEC_ID
 #endif
 
 #define XINTC_DPRXSS_DP_INTERRUPT_ID  	\
-			XPAR_INTC_0_DPRXSS_0_DPRXSS_DP_IRQ_VEC_ID
+			XPAR_INTC_0_DP12RXSS_0_DPRXSS_DP_IRQ_VEC_ID
 #define XINTC_DPRXSS_IIC_INTERRUPT_ID  	\
 			XPAR_INTC_0_DPRXSS_0_DPRXSS_IIC_IRQ_VEC_ID
 #define XDPRXSS_DEVICE_ID		      	XPAR_DPRXSS_0_DEVICE_ID

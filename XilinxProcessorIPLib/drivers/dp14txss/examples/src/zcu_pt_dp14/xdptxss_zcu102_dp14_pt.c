@@ -2301,7 +2301,7 @@ int Dppt_DetectResolution(void *InstancePtr,
 	if (DpRxSsInst.link_up_trigger == 1) {
 		xil_printf(
 			"*** Resolution: "
-				"%lu x %lu @ %luHz, BPC = %lu, PPC = %d, Color = %s ***\r\r",
+				"%lu x %lu @ %luHz, BPC = %lu, PPC = %d, Color = %s ***\r\n",
 			DpHres, DpVres,recv_frame_clk_int,bpc,(int)DpRxSsInst.UsrOpt.LaneCount, color
 		);
 	}
