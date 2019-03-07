@@ -219,12 +219,24 @@ extern "C" {
 #define DEBUG_MODE
 #endif
 
+#ifdef XPAR_PSU_DDRC_0_DEVICE_ID
 #if ENABLE_POS_VAL
 #define ENABLE_POS
 #endif
+#else
+#ifdef ENABLE_POS
+#error "Error: POS feature is not supported in DDR less design"
+#endif
+#endif
 
+#ifdef XPAR_PSU_DDRC_0_DEVICE_ID
 #if ENABLE_DDR_SR_WR_VAL
 #define ENABLE_DDR_SR_WR
+#endif
+#else
+#ifdef ENABLE_DDR_SR_WR
+#error "Error: DDR_SR_WR feature is not supported in DDR less design"
+#endif
 #endif
 
 #if DISABLE_CLK_PERMS_VAL
