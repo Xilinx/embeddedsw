@@ -51,7 +51,7 @@ extern "C" {
 //         others  - reserved
 // 0x034 : reserved
 // 0x400 ~
-// 0x7ff : Memory 'HwReg_vfltCoeff' (384 * 16b)
+// 0x7ff : Memory 'HwReg_vfltCoeff' (512 * 16b)
 //         Word n : bit [15: 0] - HwReg_vfltCoeff[2n]
 //                  bit [31:16] - HwReg_vfltCoeff[2n+1]
 // (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
@@ -73,7 +73,7 @@ extern "C" {
 #define XV_VSCALER_CTRL_ADDR_HWREG_VFLTCOEFF_BASE 0x800
 #define XV_VSCALER_CTRL_ADDR_HWREG_VFLTCOEFF_HIGH 0xbff
 #define XV_VSCALER_CTRL_WIDTH_HWREG_VFLTCOEFF     16
-#define XV_VSCALER_CTRL_DEPTH_HWREG_VFLTCOEFF     384
+#define XV_VSCALER_CTRL_DEPTH_HWREG_VFLTCOEFF     512
 
 #ifdef __cplusplus
 }
