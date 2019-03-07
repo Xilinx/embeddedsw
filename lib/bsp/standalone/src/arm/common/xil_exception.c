@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -47,6 +47,9 @@
 * 6.7   mna      26/04/18 Add an API to obtain a corresponding
 *                         Xil_ExceptionHandler entry from XExc_VectorTable.
 * 6.7  asa       18/05/18 Fix bugs in the API Xil_GetExceptionRegisterHandler.
+* 7.0  mus       07/03/19 Tweak Xil_ExceptionRegisterHandler and
+*                         Xil_GetExceptionRegisterHandler to support legacy
+*                         examples for Cortexa72 EL3 exception level.
 *
 * </pre>
 *
@@ -171,6 +174,14 @@ void Xil_ExceptionRegisterHandler(u32 Exception_id,
 				    Xil_ExceptionHandler Handler,
 				    void *Data)
 {
+#if defined (versal) && !defined(ARMR5) && EL3
+/*
+ * Cortexa72 processor in versal is coupled with GIC-500, and GIC-500 supports
+ * only FIQ at EL3. Hence, tweaking this API to always act on FIQ,
+ * ignoring argument passed by user.
+ */
+	Exception_id = XIL_EXCEPTION_ID_FIQ_INT;
+#endif
 	XExc_VectorTable[Exception_id].Handler = Handler;
 	XExc_VectorTable[Exception_id].Data = Data;
 }
@@ -196,6 +207,15 @@ void Xil_GetExceptionRegisterHandler(u32 Exception_id,
 					Xil_ExceptionHandler *Handler,
 					void **Data)
 {
+#if defined (versal) && !defined(ARMR5) && EL3
+/*
+ * Cortexa72 processor in versal is coupled with GIC-500, and GIC-500 supports
+ * only FIQ at EL3. Hence, tweaking this API to always act on FIQ,
+ * ignoring argument passed by user.
+ */
+	Exception_id = XIL_EXCEPTION_ID_FIQ_INT;
+#endif
+
 	*Handler = XExc_VectorTable[Exception_id].Handler;
 	*Data = XExc_VectorTable[Exception_id].Data;
 }
