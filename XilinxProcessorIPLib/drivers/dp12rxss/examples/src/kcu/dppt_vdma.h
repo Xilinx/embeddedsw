@@ -43,7 +43,7 @@
 ******************************************************************************/
 
 #include <stdio.h>
-#include "xbasic_types.h"
+//#include "xbasic_types.h"
 #include "xil_types.h"
 #include "xparameters.h"
 #include "xaxivdma.h"
