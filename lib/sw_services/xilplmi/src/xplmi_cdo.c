@@ -228,6 +228,7 @@ int XPlmi_CdoCopyCmd(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 *Size)
 		 */
 		CdoPtr->TempCmdBuf[1] = BufPtr[0];
 		CdoPtr->CopiedCmdLen++;
+		BufPtr++;
 	}
 
 	/** if size is greater than tempbuf, copy only tempbuf size */
@@ -400,6 +401,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 	if ((BufLen + CdoPtr->ProcessedCdoLen) > (CdoPtr->CdoLen))
 	{
 		BufLen = CdoPtr->CdoLen - CdoPtr->ProcessedCdoLen;
+		CdoPtr->BufLen = BufLen;
 	}
 
 	/**
