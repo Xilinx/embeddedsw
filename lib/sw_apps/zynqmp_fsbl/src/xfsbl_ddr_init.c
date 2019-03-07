@@ -6059,7 +6059,7 @@ static u32 XFsbl_DdrcPhyTraining(struct DdrcInitData *DdrDataPtr)
 
 		RegVal = Xil_In32(XFSBL_DDRPHY_BASE_ADDR + 0x200U);
 		RegVal &= ~(0xFU << 28U);
-		if (((Xil_In32(XFSBL_DDRPHY_BASE_ADDR + 0x528U) >> 27U) & 0x1U) == 0x11U) {
+		if (((Xil_In32(XFSBL_DDRPHY_BASE_ADDR + 0x528U) >> 27U) & 0x1U) == 0x1U) {
 			RegVal |= (0x1U << 28U);
 		}
 		Xil_Out32(XFSBL_DDRPHY_BASE_ADDR + 0x200U, RegVal);
