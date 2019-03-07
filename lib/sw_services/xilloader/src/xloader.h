@@ -101,6 +101,17 @@ extern "C" {
 #define XLOADER_FPD_APU_CONFIG_0_VINITHI_MASK_CPU0	0x100U
 #define XLOADER_FPD_APU_CONFIG_0_VINITHI_MASK_CPU1	0x200U
 
+/*
+ * Subsystem related macros
+ */
+#define XLOADER_MAX_SUBSYSTEMS	10U
+
+/*
+ * PDI type macros
+ */
+#define XLOADER_PDI_TYPE_FULL			0x1U
+#define XLOADER_PDI_TYPE_PARTIAL		0x2U
+
 /* Boot Modes */
 enum XLOADER_PDI_SRC {
 	XLOADER_PDI_SRC_JTAG = (0x0U),
@@ -151,6 +162,8 @@ typedef struct {
 	u32 EccStatus;
 	u32 CurImgId; /**< Current Processing image ID */
 	u32 CurPrtnId; /**< Current Processing Partition ID */
+	u32 ImageNum; /**< Image number in the PDI */
+	u32 PrtnNum; /**< Partition number in the PDI */
 } XilPdi;
 
 /**
@@ -168,7 +181,7 @@ typedef struct {
  * required for subsystem along with subsystem count
  */
 typedef struct {
-	XilSubsysInfo SubsystemLut[10]; /**< Subsystem lookup table */
+	XilSubsysInfo SubsystemLut[XLOADER_MAX_SUBSYSTEMS]; /**< Subsystem lookup table */
 	XilPdi *PdiPtr; /**< PDI source for that Subsystem */
 	u32 Count; /**< Subsystem count */
 } XilSubsystem;

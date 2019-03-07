@@ -57,7 +57,7 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-XilSubsystem SubSystemInfo;
+XilSubsystem SubSystemInfo = {0};
 
 /*****************************************************************************/
 #define XLOADER_DEVICEOPS_INIT(DevInit, DevCopy)	\
@@ -236,7 +236,6 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	 */
 	PdiPtr->PdiSrc = PdiSrc;
 	PdiPtr->PdiAddr = PdiAddr;
-	PdiPtr->PdiType = 1;
 
 	if(DeviceOps[PdiSrc].Init==NULL)
 	{
@@ -256,11 +255,18 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	/**
 	 * Read meta header from PDI source
 	 */
-	Status = XilPdi_ReadBootHdr(&PdiPtr->MetaHdr);
-	if(Status != XST_SUCCESS)
-	{
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_BOOTHDR, Status);
-		goto END;
+	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
+		Status = XilPdi_ReadBootHdr(&PdiPtr->MetaHdr);
+		if(Status != XST_SUCCESS)
+		{
+			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_BOOTHDR, Status);
+			goto END;
+		}
+		PdiPtr->ImageNum = 1U;
+		PdiPtr->PrtnNum = 1U;
+	} else {
+		PdiPtr->ImageNum = 0U;
+		PdiPtr->PrtnNum = 0U;
 	}
 
 	Status = XilPdi_ReadAndValidateImgHdrTbl(&PdiPtr->MetaHdr);
@@ -314,9 +320,9 @@ int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 	 *   3. Load partitions to respective memories
 	 */
 	int Status;
-	u32 ImgNum;
 
-	for (ImgNum = 1U; ImgNum < PdiPtr->MetaHdr.ImgHdrTable.NoOfImgs; ++ImgNum)
+	for ( ;PdiPtr->ImageNum < PdiPtr->MetaHdr.ImgHdrTable.NoOfImgs;
+			++PdiPtr->ImageNum)
 	{
 		Status = XLoader_LoadImage(PdiPtr, 0xFFFFFFFFU);
 		if (Status != XST_SUCCESS) {
@@ -330,7 +336,9 @@ int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 			goto END;
 		}
 	}
-	SubSystemInfo.PdiPtr = PdiPtr;
+	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
+		SubSystemInfo.PdiPtr = PdiPtr;
+	}
 	Status = XST_SUCCESS;
 END:
 	return Status;
@@ -549,35 +557,44 @@ void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi)
 int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId)
 {
 	u32 Index;
-	static u32 ImgNum = 1U;
-	static u32 PrtnNum = 1U;
-	u32 Status;
+	int Status;
 
 	if (0xFFFFFFFFU != ImageId)
 	{
+		/*
+		 * Get subsystem information from the info stored during boot
+		 */
 		for (Index = 0U; Index < SubSystemInfo.Count; Index ++) {
 			if (ImageId == SubSystemInfo.SubsystemLut[Index].SubsystemId) {
-				ImgNum = SubSystemInfo.SubsystemLut[Index].ImageNum;
-				PrtnNum = SubSystemInfo.SubsystemLut[Index].PrtnNum;
+				PdiPtr->ImageNum = SubSystemInfo.SubsystemLut[Index].ImageNum;
+				PdiPtr->PrtnNum = SubSystemInfo.SubsystemLut[Index].PrtnNum;
 				break;
 			}
 		}
 		if (Index == SubSystemInfo.Count) {
-			Status = XST_FAILURE;
+			Status = XLOADER_ERR_IMG_ID_NOT_FOUND;
 			goto END;
 		}
 	} else
 	{
-		SubSystemInfo.SubsystemLut[SubSystemInfo.Count].SubsystemId =
-				PdiPtr->MetaHdr.ImgHdr[ImgNum].ImgID;
-		SubSystemInfo.SubsystemLut[SubSystemInfo.Count].ImageNum = ImgNum;
-		SubSystemInfo.SubsystemLut[SubSystemInfo.Count++].PrtnNum = PrtnNum;
+		/*
+		 * Update subsystem info only for FULL PDI type and subsystem count is
+		 * less than max subsystems supported.
+		 */
+		if ((PdiPtr->PdiType != XLOADER_PDI_TYPE_PARTIAL) &&
+				(SubSystemInfo.Count < XLOADER_MAX_SUBSYSTEMS)) {
+			SubSystemInfo.SubsystemLut[SubSystemInfo.Count].SubsystemId =
+					PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
+			SubSystemInfo.SubsystemLut[SubSystemInfo.Count].ImageNum =
+					PdiPtr->ImageNum;
+			SubSystemInfo.SubsystemLut[SubSystemInfo.Count++].PrtnNum =
+					PdiPtr->PrtnNum;
+		}
 	}
 
-	PdiPtr->CurImgId = PdiPtr->MetaHdr.ImgHdr[ImgNum].ImgID;
-	Status = XLoader_LoadImagePrtns(PdiPtr, ImgNum, PrtnNum);
-	PrtnNum += PdiPtr->MetaHdr.ImgHdr[ImgNum].NoOfPrtns;
-	ImgNum++;
+	PdiPtr->CurImgId = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
+	Status = XLoader_LoadImagePrtns(PdiPtr, PdiPtr->ImageNum, PdiPtr->PrtnNum);
+	PdiPtr->PrtnNum += PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].NoOfPrtns;
 
 END:
 	return Status;
