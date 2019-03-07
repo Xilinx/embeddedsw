@@ -64,8 +64,8 @@ int printf(const char *format, ...);
 
 #define xdbg_stmnt(x)  x
 
-#define xdbg_printf(type, ...) \
-			(((type) & xdbg_current_types) ? printf (__VA_ARGS__) : 0)
+//#define xdbg_printf(type, ...) \
+//			(((type) & xdbg_current_types) ? printf (__VA_ARGS__) : 0)
 
 
 #else /* defined(DEBUG) && !defined(NDEBUG) */
