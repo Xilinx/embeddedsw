@@ -106,6 +106,14 @@ u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask)
 	u32 SubSysIdx;
 	u32 RpuBootMode;
 
+	/* If default subsystem is active, return default subsystem id
+	  as it doesnt have ipi channel mapped to it.*/
+	/* TODO: remove this when ipi channel is requested through CDO
+	and assigned to susbystemid */
+	if (ONLINE == PmSubsystems[XPM_NODEIDX_SUBSYS_DEFAULT].State) {
+		return PmSubsystems[XPM_NODEIDX_SUBSYS_DEFAULT].Id;
+	}
+
 	for (SubSysIdx = 0; SubSysIdx < XPM_NODEIDX_SUBSYS_MAX; SubSysIdx++)
 	{
 		if (PmSubsystems[SubSysIdx].IpiMask == IpiMask) {

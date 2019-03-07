@@ -66,15 +66,18 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	u32 SetAddress;
 	u64 Address;
 
-	PmInfo("Processing Cmd %x for Image %x\n\r", Cmd->CmdId, Cmd->SubsystemId);
+	PmInfo("Processing Cmd %x\r\n", Cmd->CmdId);
 
 	if((Cmd->CmdId & 0xFF) != PM_SET_CURRENT_SUBSYSTEM) {
 		if(Cmd->IpiMask == 0) {
 			SubsystemId = XPmSubsystem_GetCurrent();
+			PmDbg("CDO command SubsystemId %x\n\r", SubsystemId);
 		} else {
 			SubsystemId = XPmSubsystem_GetSubSysIdByIpiMask(Cmd->IpiMask);
+			PmDbg("IPI command SubsystemId %x\n\r", SubsystemId);
 		}
 		if(SubsystemId == INVALID_SUBSYSID) {
+			PmInfo("Failure: Invalid SubsystemId\n\r");
 			Status = XST_FAILURE;
 			goto done;
 		}
