@@ -140,6 +140,8 @@ enum {
 	XLOADER_ERR_SD_F_OPEN,
 	XLOADER_ERR_SD_F_LSEEK,
 	XLOADER_ERR_SD_F_READ,
+
+	XLOADER_ERR_IMG_ID_NOT_FOUND,
 };
 
 /**************************** Type Definitions *******************************/
