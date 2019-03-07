@@ -444,27 +444,34 @@ XStatus XPmcFw_CheckFabricErr()
 	XCfupmc_WaitForStreamDone(&CfupmcIns);
 
 	ErrMask = CFU_APB_CFU_ISR_DECOMP_ERROR_MASK |
-			CFU_APB_CFU_ISR_BAD_CFI_PACKET_MASK |
-			CFU_APB_CFU_ISR_AXI_ALIGN_ERROR_MASK |
-			CFU_APB_CFU_ISR_CFI_ROW_ERROR_MASK |
-			CFU_APB_CFU_IMR_CRC32_ERROR_MASK |
-			CFU_APB_CFU_IMR_CRC8_ERROR_MASK;
+		CFU_APB_CFU_ISR_BAD_CFI_PACKET_MASK |
+		CFU_APB_CFU_ISR_AXI_ALIGN_ERROR_MASK |
+		CFU_APB_CFU_ISR_CFI_ROW_ERROR_MASK |
+		CFU_APB_CFU_ISR_CRC32_ERROR_MASK |
+		CFU_APB_CFU_ISR_CRC8_ERROR_MASK |
+		CFU_APB_CFU_ISR_SEU_ENDOFCALIB_MASK;
 
 	ErrStatus = XCfupmc_ReadIsr(&CfupmcIns) & ErrMask;
-	if ((ErrStatus & ErrMask) != 0U)
+	Status = ErrStatus;
+	if(Status == XST_SUCCESS)
 	{
-		XPmcFw_Printf(DEBUG_INFO,
-			"Bitstream loading failed ISR: %08x\n\r", ErrStatus);
-		/**
-		 * In case of error, reset the CFU and Cframe and Clear the ISR
-		 * so that CFU and Cframe can be recovered
-		 */
-		Status = XPMCFW_ERR_CFI_LOAD;
-		XCfupmc_Reset(&CfupmcIns);
-		XCfupmc_ClearIsr(&CfupmcIns, ErrMask);
-	} else {
-		Status = XPMCFW_SUCCESS;
+		goto END;
 	}
-
+	if ((ErrStatus & (CFU_APB_CFU_ISR_CRC8_ERROR_MASK |
+					CFU_APB_CFU_ISR_CRC32_ERROR_MASK)) != 0U)
+	{
+		XPmcFw_Printf(DEBUG_INFO, "Bitstream loading failed ISR: 0x%08x\n\r",
+							ErrStatus);
+		XCfupmc_CfuErrHandler(&CfupmcIns);
+	}
+	else if((ErrStatus & (CFU_APB_CFU_ISR_CFI_ROW_ERROR_MASK |
+						CFU_APB_CFU_ISR_BAD_CFI_PACKET_MASK)) != 0U)
+	{
+		XCfupmc_CfiErrHandler(&CfupmcIns);
+	}
+	else {
+		/** do nothing */
+	}
+END:
 	return Status;
 }
