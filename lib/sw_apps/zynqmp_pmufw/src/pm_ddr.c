@@ -364,9 +364,6 @@
 #define ADDR_HI(ADDR)	((u32)((u64)(ADDR) >> 32U))
 #define ADDR_LO(ADDR)	((u32)((u64)(ADDR) & 0x00000000FFFFFFFFULL))
 
-/* If it is required to enable drift */
-static u8 drift_enable_req __attribute__((__section__(".srdata")));
-
 /* DDR states */
 static const u32 pmDdrStates[PM_DDR_STATE_MAX] = {
 	[PM_DDR_STATE_OFF] = 0U,
@@ -395,6 +392,10 @@ static const PmStateTran pmDdrTransitions[] = {
 		.latency = PM_DEFAULT_LATENCY,
 	},
 };
+
+#ifdef XPAR_PSU_DDRC_0_DEVICE_ID
+/* If it is required to enable drift */
+static u8 drift_enable_req __attribute__((__section__(".srdata")));
 
 static PmRegisterContext ctx_ddrc[] __attribute__((__section__(".srdata"))) = {
 	{ .addr = DDRC_MSTR, },
@@ -1993,13 +1994,52 @@ done:
 	return status;
 }
 
+#ifdef ENABLE_POS
+/**
+ * PmDdrPowerOffSuspendResume() - Take DDR out of self refresh after resume from
+ * 				  Power Off Suspend
+ *
+ * @return      XST_SUCCESS if DDR is resumed, failure code otherwise
+ */
+s32 PmDdrPowerOffSuspendResume()
+{
+	s32 status = XST_SUCCESS;
+
+	PmClockRestoreDdr();
+
+	status = PmDdrFsmHandler(&pmSlaveDdr_g, PM_DDR_STATE_ON);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+	pmSlaveDdr_g.node.flags = NODE_LOCKED_CLOCK_FLAG |
+					NODE_LOCKED_POWER_FLAG;
+
+done:
+	return status;
+}
+#endif
+
+#endif
+
+void ddr_io_prepare(void)
+{
+#ifdef XPAR_PSU_DDRC_0_DEVICE_ID
+	ddr_power_down_io();
+	ddr_io_retention_set(true);
+#endif
+}
+
 /* DDR FSM */
 static const PmSlaveFsm pmSlaveDdrFsm = {
 	.states = pmDdrStates,
 	.statesCnt = PM_DDR_STATE_MAX,
 	.trans = pmDdrTransitions,
 	.transCnt = ARRAY_SIZE(pmDdrTransitions),
+#ifdef XPAR_PSU_DDRC_0_DEVICE_ID
 	.enterState = PmDdrFsmHandler,
+#else
+	.enterState = NULL,
+#endif
 };
 
 static u32 PmDdrPowerConsumptions[] = {
@@ -2027,36 +2067,4 @@ PmSlave pmSlaveDdr_g __attribute__((__section__(".srdata"))) = {
 	.slvFsm = &pmSlaveDdrFsm,
 	.flags = 0U,
 };
-
-void ddr_io_prepare(void)
-{
-	ddr_power_down_io();
-	ddr_io_retention_set(true);
-}
-
-#ifdef ENABLE_POS
-/**
- * PmDdrPowerOffSuspendResume() - Take DDR out of self refresh after resume from
- * 				  Power Off Suspend
- *
- * @return      XST_SUCCESS if DDR is resumed, failure code otherwise
- */
-s32 PmDdrPowerOffSuspendResume()
-{
-	s32 status;
-
-	PmClockRestoreDdr();
-
-	status = PmDdrFsmHandler(&pmSlaveDdr_g, PM_DDR_STATE_ON);
-	if (XST_SUCCESS != status) {
-		goto done;
-	}
-	pmSlaveDdr_g.node.flags = NODE_LOCKED_CLOCK_FLAG |
-					NODE_LOCKED_POWER_FLAG;
-
-done:
-	return status;
-}
-#endif
-
 #endif
