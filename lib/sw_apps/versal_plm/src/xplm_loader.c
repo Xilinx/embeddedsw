@@ -112,6 +112,7 @@ int XPlm_LoadBootPdi(void *arg)
 
 	XPlmi_Printf(DEBUG_INFO, "PDI Load: Started\n\r");
 
+	PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL;
 	Status = XLoader_PdiInit(PdiPtr, BootMode, 0U);
 	if (Status != XST_SUCCESS)
 	{
