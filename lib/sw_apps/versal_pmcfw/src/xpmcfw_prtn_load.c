@@ -63,6 +63,7 @@
 /**************************** Type Definitions *******************************/
 extern XilCdo_Prtn XilCdoPrtnInst;
 extern XCsuDma CsuDma0;
+u32 PlCfiPresent = FALSE;
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
@@ -830,7 +831,7 @@ static XStatus XPmcFw_ProcessCfi (XPmcFw * PmcFwInstancePtr, u32 PrtnNum)
 		goto END;
 	}
 
-	PmcFwInstancePtr->PlCfiPresent = TRUE;
+	PlCfiPresent = TRUE;
 
 END:
 	return Status;
@@ -1053,13 +1054,32 @@ static XStatus XPmcFw_ProcessPrtn (XPmcFw * PmcFwInstancePtr, u32 PrtnNum)
 	}
 	else if(PrtnType == XIH_PH_ATTRB_PRTN_TYPE_CFI_GSC)
         {
-			XilCdo_EnableCFUWrite();
-			XilCdo_SetGSCWE();
-			XilCdo_DisableCFUWrite();
-            Status = XPmcFw_ProcessCfi(PmcFwInstancePtr, PrtnNum);
-			XilCdo_EnableCFUWrite();
-			XilCdo_ClearGSCWE();
-			XilCdo_DisableCFUWrite();
+		if (PlCfiPresent == TRUE)
+                {
+			XilCdo_SetGlobalSignals();
+                        XilCdo_AssertGlobalSignals();
+		}
+
+		XilCdo_EnableCFUWrite();
+		XilCdo_SetGSCWE();
+		XilCdo_DisableCFUWrite();
+		Status = XPmcFw_ProcessCfi(PmcFwInstancePtr, PrtnNum);
+		XilCdo_EnableCFUWrite();
+		XilCdo_ClearGSCWE();
+		XilCdo_DisableCFUWrite();
+		PlCfiPresent = 0U;
+        }
+	else if(PrtnType == XIH_PH_ATTRB_PRTN_TYPE_CFI_GSC_UNMASK)
+        {
+                XilCdo_EnableCFUWrite();
+                XilCdo_SetGSCWE();
+                XilCdo_DisableCFUWrite();
+		Status = XPmcFw_ProcessCfi(PmcFwInstancePtr, PrtnNum);
+                XilCdo_EnableCFUWrite();
+                XilCdo_ClearGSCWE();
+                XilCdo_DisableCFUWrite();
+                XilCdo_ClearGlobalSignals();
+		PlCfiPresent = 0U;
         }
 	else if(PrtnType == XIH_PH_ATTRB_PRTN_TYPE_CDO)
 	{
@@ -1105,6 +1125,6 @@ static void XilNpi_Trace(u32 Len)
     u32 Addr_offset;
 
 	for (Addr_offset = (u32)0; Addr_offset < Len; Addr_offset += 4)
-		xil_printf("%08x\n",(*(u32 *)(XPMCFW_PMCRAM_BASEADDR + Addr_offset)));
+		XPmcFw_Printf(DEBUG_INFO,"%08x\n",(*(u32 *)(XPMCFW_PMCRAM_BASEADDR + Addr_offset)));
 }
 #endif
