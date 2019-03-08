@@ -47,6 +47,8 @@
 * 1.4	Nava	1/10/19	 Added PSU_PMU processor check to skip the Flushing
 *			 cache memory and Invalidating cache memory API's for
 *			 PMU Microblaze platform.
+*		Rama	02/26/19 Fixed IAR issue by changing
+*						 "XCsuDma_WaitForDoneTimeout" to function
 * </pre>
 *
 ******************************************************************************/
@@ -578,6 +580,49 @@ void XCsuDma_ClearCheckSum(XCsuDma *InstancePtr)
 		(u32)(XCSUDMA_CRC_OFFSET), (u32)(XCSUDMA_CRC_RESET_MASK));
 }
 
+/*****************************************************************************/
+/**
+* This function will poll for completion of data transfer periodically until
+* DMA done bit set or till the timeout occurs.
+*
+* @param	InstancePtr is a pointer to XCsuDma instance to be worked on.
+* @param	Channel represents the type of channel either it is Source or
+*		Destination.
+*		Source channel      - XCSUDMA_SRC_CHANNEL
+*		Destination Channel - XCSUDMA_DST_CHANNEL
+*
+* @return	XST_SUCCESS - Incase of Success
+*		XST_FAILURE - Incase of Timeout.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XCsuDma_WaitForDoneTimeout(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
+{
+	volatile u32 Regval;
+	u32 Timeout = XCSUDMA_DONE_TIMEOUT_VAL;
+	u32 status;
+	u32 Addr;
+	u32 TimeoutFlag = (u32)XST_FAILURE;
+
+	Addr = InstancePtr->Config.BaseAddress +
+			(u32)XCSUDMA_I_STS_OFFSET +
+			 ((u32)Channel * (u32)XCSUDMA_OFFSET_DIFF);
+
+	while(Timeout != 0U) {
+		Regval = Xil_In32(Addr);
+		status = Regval;
+		if ((status & XCSUDMA_IXR_DONE_MASK) == XCSUDMA_IXR_DONE_MASK) {
+			TimeoutFlag = (u32)XST_SUCCESS;
+			goto done;
+		}
+		usleep(100U);
+		Timeout--;
+	}
+
+done:
+	return TimeoutFlag;
+}
 /*****************************************************************************/
 /**
 * This function cofigures all the values of CSU_DMA's Channels with the values
