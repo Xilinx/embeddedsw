@@ -3,7 +3,6 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 /*****************************************************************************/
 /**
 *
@@ -17,8 +16,25 @@
 * Ver   Who  Date        Changes
 * ====  ==== ======== ======================================================-
 * 1.00  kc   02/12/2019 Initial release
-* 1.01  ma   05/02/2020 Remove SRST error action for PSM errors as it is
+* 1.01  kc   08/01/2019 Added error management framework
+*       ma   08/01/2019 Added LPD init code
+*       sn   08/03/2019 Added code to wait until over-temperature condition
+*						gets resolved before restart
+*       bsv  08/29/2019 Added Multiboot and Fallback support
+*       scs  08/29/2019 Added support for Extended IDCODE checks
+* 1.02  ma   05/02/2020 Remove SRST error action for PSM errors as it is
 *                       de-featured
+*       ma   02/28/2020 Error actions related changes
+*       bsv  04/04/2020 Code clean up
+* 1.03  bsv  07/07/2020 Made functions used in single transaltion unit as
+*						static
+*       kc   08/11/2020 Added disabling and clearing of error which has actions
+*                       selected as subsystem shutdown or restart or custom.
+*                       They have to be re-enabled again using SetAction
+*                       command.
+*       bsv  09/21/2020 Set clock source to IRO before SRST for ES1 silicon
+*       bm   10/14/2020 Code clean up
+*       td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -30,8 +46,10 @@
 #include "xplmi_err.h"
 #include "xplmi.h"
 #include "xplmi_sysmon.h"
+#include "xplmi_hw.h"
 
 /************************** Constant Definitions *****************************/
+#define XPLMI_SYSMON_CLK_SRC_IRO_VAL	(0U)
 
 /**************************** Type Definitions *******************************/
 
@@ -39,26 +57,34 @@
 
 /************************** Function Prototypes ******************************/
 s32 (* PmSystemShutdown)(u32 SubsystemId, const u32 Type, const u32 SubType);
+static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 ErrorIndex);
+static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 ErrorMask);
+static void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 ErrorMask);
+static void XPlmi_EmClearError(u32 ErrorNodeId, u32 ErrorMask);
+static void XPlmi_SoftResetHandler(void);
+static void XPlmi_SysmonClkSetIro(void);
+static void XPlmi_PORHandler(void);
+static void XPlmi_DumpRegisters(void);
 
 /************************** Variable Definitions *****************************/
-u32 EmSubsystemId = 0U;
+static u32 EmSubsystemId = 0U;
 
 /*****************************************************************************/
 /**
  * @brief	This function is called in PLM error cases.
  *
- * @param	ErrorStatus is the error code written to the error status register
+ * @param	ErrStatus is the error code written to the FW_ERR register
  *
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_ErrMgr(int Status)
+void XPlmi_ErrMgr(int ErrStatus)
 {
 	u32 RegVal;
 
 	/* Print the PLM error */
-	XPlmi_Printf(DEBUG_GENERAL, "PLM Error Status: 0x%08lx\n\r", Status);
-	XPlmi_Out32(PMC_GLOBAL_PMC_FW_ERR, Status);
+	XPlmi_Printf(DEBUG_GENERAL, "PLM Error Status: 0x%08lx\n\r", ErrStatus);
+	XPlmi_Out32(PMC_GLOBAL_PMC_FW_ERR, (u32)ErrStatus);
 
 	/*
 	 * Fallback if boot PDI is not done
@@ -75,22 +101,18 @@ void XPlmi_ErrMgr(int Status)
 			CRP_BOOT_MODE_USER_BOOT_MODE_MASK) == 0U)
 #endif
 		{
-			while(1U);
+			while (TRUE) {
+				;
+			}
 		}
 
+#ifndef PLM_DEBUG_MODE
 		/* Update Multiboot register */
 		RegVal = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
-		XPlmi_Out32(PMC_GLOBAL_PMC_MULTI_BOOT, ++RegVal);
+		XPlmi_Out32(PMC_GLOBAL_PMC_MULTI_BOOT, RegVal + 1U);
 
-		/* Make sure every thing completes */
-		DATA_SYNC;
-		INST_SYNC;
-
-		RegVal = XPlmi_In32(CRP_RST_PS);
-		XPlmi_Out32(CRP_RST_PS, RegVal |
-			CRP_RST_PS_PMC_SRST_MASK);
-
-		while(1U);
+		XPlmi_SoftResetHandler();
+#endif
 	}
 }
 
@@ -98,7 +120,7 @@ void XPlmi_ErrMgr(int Status)
  * Structure to define error action type and handler if error to be handled
  * by PLM
  */
-struct XPlmi_Error_t ErrorTable[] = {
+static struct XPlmi_Error_t ErrorTable[XPLMI_NODEIDX_ERROR_PSMERR2_MAX] = {
 	[XPLMI_NODEIDX_ERROR_BOOT_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_BOOT_NCR] =
@@ -132,9 +154,9 @@ struct XPlmi_Error_t ErrorTable[] = {
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_MMCM] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_ME_CR] =
+	[XPLMI_NODEIDX_ERROR_AIE_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
-	[XPLMI_NODEIDX_ERROR_ME_NCR] =
+	[XPLMI_NODEIDX_ERROR_AIE_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_DDRMC_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
@@ -336,39 +358,56 @@ struct XPlmi_Error_t ErrorTable[] = {
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 };
 
+/*****************************************************************************/
+/**
+ * @brief	This function triggers Power on Reset
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static void XPlmi_PORHandler(void) {
+	u32 RegVal;
+
+	XPlmi_SysmonClkSetIro();
+	RegVal = XPlmi_In32(CRP_RST_PS);
+	XPlmi_Out32(CRP_RST_PS, RegVal | CRP_RST_PS_PMC_POR_MASK);
+	while(TRUE) {
+		;
+	}
+}
+
 /****************************************************************************/
 /**
 * @brief    This function handles the PSM error routed to PLM.
 *
 * @param    ErrorNodeId is the node ID for the error event
-* @param    ErrorMask is the error received
+* @param    ErrorIndex is the index of the error received
 *
 * @return   None
 *
 ****************************************************************************/
-void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 ErrorIndex)
+static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 ErrorIndex)
 {
-	u32 RegVal;
-
 	switch (ErrorTable[ErrorIndex].Action) {
 	case XPLMI_EM_ACTION_POR:
-		RegVal = XPlmi_In32(CRP_RST_PS);
-		XPlmi_Out32(CRP_RST_PS, RegVal | CRP_RST_PS_PMC_POR_MASK);
-		while(1U);
+		XPlmi_PORHandler();
 		break;
 	case XPLMI_EM_ACTION_SRST:
-		RegVal = XPlmi_In32(CRP_RST_PS);
-		XPlmi_Out32(CRP_RST_PS, RegVal | CRP_RST_PS_PMC_SRST_MASK);
-		while(1U);
+		XPlmi_SoftResetHandler();
 		break;
 	case XPLMI_EM_ACTION_CUSTOM:
 	case XPLMI_EM_ACTION_SUBSYS_SHUTDN:
 	case XPLMI_EM_ACTION_SUBSYS_RESTART:
+		(void)XPlmi_EmDisable(ErrorNodeId, ErrorIndex);
 		if (ErrorTable[ErrorIndex].Handler != NULL) {
 			ErrorTable[ErrorIndex].Handler(ErrorNodeId, ErrorIndex);
 		}
+		XPlmi_EmClearError(ErrorNodeId, ErrorIndex);
 		break;
 	default:
+		XPlmi_EmClearError(ErrorNodeId, ErrorIndex);
 		XPlmi_Printf(DEBUG_GENERAL, "Invalid Error Action "
 				"for PSM errors. Error ID: 0x%x\r\n", ErrorIndex);
 		break;
@@ -385,7 +424,7 @@ void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 ErrorIndex)
 * @return   None
 *
 ****************************************************************************/
-void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 ErrorMask)
+static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 ErrorMask)
 {
 	u32 Err1Status;
 	u32 Err2Status;
@@ -398,38 +437,24 @@ void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 ErrorMask)
 	Err2Status = XPlmi_In32(PSM_GLOBAL_REG_PSM_ERR2_STATUS);
 
 	if (Err1Status != 0U) {
-		for (Index = XPLMI_NODEIDX_ERROR_PS_SW_CR;
+		for (Index = (u32)XPLMI_NODEIDX_ERROR_PS_SW_CR;
 				Index < XPLMI_NODEIDX_ERROR_PSMERR1_MAX; Index++) {
-			if ((Err1Status & (1U << (Index - XPLMI_NODEIDX_ERROR_PS_SW_CR)))
+			if (((Err1Status & ((u32)1U << (Index - (u32)XPLMI_NODEIDX_ERROR_PS_SW_CR))) != (u32)FALSE)
 				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)
 				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_ERROUT)) {
-				XPlmi_HandlePsmError(XPLMI_EVENT_ERROR_PSM_ERR1, Index);
-
-				/* Do not clear error status for register notifier
-				 * error action
-				 */
-				if (XPLMI_EM_ACTION_CUSTOM != ErrorTable[Index].Action) {
-					XPlmi_Out32(PSM_GLOBAL_REG_PSM_ERR1_STATUS,
-						(1U << (Index - XPLMI_NODEIDX_ERROR_PS_SW_CR)));
-				}
+				XPlmi_HandlePsmError(
+					XPLMI_EVENT_ERROR_PSM_ERR1, Index);
 			}
 		}
 	}
 	if (Err2Status != 0U) {
-		for (Index = XPLMI_NODEIDX_ERROR_LPD_SWDT;
+		for (Index = (u32)XPLMI_NODEIDX_ERROR_LPD_SWDT;
 				Index < XPLMI_NODEIDX_ERROR_PSMERR2_MAX; Index++) {
-			if ((Err2Status & (1U << (Index - XPLMI_NODEIDX_ERROR_LPD_SWDT)))
+			if (((Err2Status & ((u32)1U << (Index - (u32)XPLMI_NODEIDX_ERROR_LPD_SWDT))) != (u32)FALSE)
 				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)
 				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_ERROUT)) {
-				XPlmi_HandlePsmError(XPLMI_EVENT_ERROR_PSM_ERR2, Index);
-
-				/* Do not clear error status for register notifier
-				 * error action
-				 */
-				if (XPLMI_EM_ACTION_CUSTOM != ErrorTable[Index].Action) {
-					XPlmi_Out32(PSM_GLOBAL_REG_PSM_ERR2_STATUS,
-					(1U << (Index - XPLMI_NODEIDX_ERROR_LPD_SWDT)));
-				}
+				XPlmi_HandlePsmError(
+					XPLMI_EVENT_ERROR_PSM_ERR2, Index);
 			}
 		}
 	}
@@ -446,7 +471,7 @@ void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 ErrorMask)
 * @return   None
 *
 ****************************************************************************/
-void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 ErrorMask)
+static void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 ErrorMask)
 {
 	int Status = XST_FAILURE;
 	u32 ActionId;
@@ -493,47 +518,55 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 	u32 Err2Status;
 	u32 Index;
 
+	(void)CallbackRef;
+
 	Err1Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS);
 	Err2Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
 
 	XPlmi_Printf(DEBUG_GENERAL,
-			"Received Error Interrupt: 0x%0x\n\r", (u32) CallbackRef);
+		"PMC EAM Interrupt: ERR1: 0x%0x, ERR2: 0x%0x\n\r",
+			Err1Status, Err2Status);
+	/*
+	 * Interrupt is selected as response for Custom, subsystem shutdown
+	 * and subsystem restart actions. For these actions, error will be
+	 * disabled. Agent should clear the source and enable the error again
+	 * using SetAction. In SetAction, error will be cleared and enabled.
+	 * For subsystem cases, during subsystem restart, error will be enabled
+	 * again.
+	 */
 
 	if (Err1Status != 0U) {
-		for (Index = XPLMI_NODEIDX_ERROR_BOOT_CR;
+		for (Index = (u32)XPLMI_NODEIDX_ERROR_BOOT_CR;
 				Index < XPLMI_NODEIDX_ERROR_PMCERR1_MAX; Index++) {
-			if ((Err1Status & (1U << Index)) &&
+			if (((Err1Status & ((u32)1U << Index)) != (u32)FALSE) &&
 				(ErrorTable[Index].Handler != NULL) &&
 				(ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
-				ErrorTable[Index].Handler(XPLMI_EVENT_ERROR_PMC_ERR1, Index);
-
-				/* Do not clear error status for register notifier
-				* error action
-				*/
-				if ((XPLMI_EM_ACTION_CUSTOM != ErrorTable[Index].Action) ||
-					(Index == XPLMI_NODEIDX_ERROR_PMC_PSM_NCR)) {
-					XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS, (1U << Index));
+				/* PSM errors are handled in PsmErrHandler */
+				if (Index != (u32)XPLMI_NODEIDX_ERROR_PMC_PSM_NCR) {
+					(void)XPlmi_EmDisable(XPLMI_EVENT_ERROR_PMC_ERR1,
+							Index);
 				}
+				ErrorTable[Index].Handler(
+					XPLMI_EVENT_ERROR_PMC_ERR1, Index);
+				XPlmi_EmClearError(XPLMI_EVENT_ERROR_PMC_ERR1,
+					Index);
 			}
 		}
 	}
 
 	if (Err2Status != 0U) {
-		for (Index = XPLMI_NODEIDX_ERROR_PMCAPB;
+		for (Index = (u32)XPLMI_NODEIDX_ERROR_PMCAPB;
 				Index < XPLMI_NODEIDX_ERROR_PMCERR2_MAX; Index++) {
-			if ((Err2Status &
-				(1U << (Index - XPLMI_NODEIDX_ERROR_PMCERR1_MAX)))
+			if (((Err2Status &
+				((u32)1U << (Index - XPLMI_NODEIDX_ERROR_PMCERR1_MAX))) != (u32)FALSE)
 				&& (ErrorTable[Index].Handler != NULL) &&
 				(ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
-				ErrorTable[Index].Handler(XPLMI_EVENT_ERROR_PMC_ERR2, Index);
-
-				/* Do not clear error status for register notifier
-				 * error action
-				 */
-				if (XPLMI_EM_ACTION_CUSTOM != ErrorTable[Index].Action) {
-					XPlmi_Out32(PMC_GLOBAL_PMC_ERR2_STATUS,
-						(1U << (Index - XPLMI_NODEIDX_ERROR_PMCERR1_MAX)));
-				}
+				(void)XPlmi_EmDisable(XPLMI_EVENT_ERROR_PMC_ERR2,
+						      Index);
+				ErrorTable[Index].Handler(
+					XPLMI_EVENT_ERROR_PMC_ERR2, Index);
+				XPlmi_EmClearError(XPLMI_EVENT_ERROR_PMC_ERR2,
+					Index);
 			}
 		}
 	}
@@ -549,7 +582,7 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_EmClearError(u32 ErrorNodeId, u32 ErrorMask)
+static void XPlmi_EmClearError(u32 ErrorNodeId, u32 ErrorMask)
 {
 	u32 RegMask = XPlmi_ErrRegMask(ErrorMask);
 
@@ -573,7 +606,7 @@ void XPlmi_EmClearError(u32 ErrorNodeId, u32 ErrorMask)
 	default:
 		/* Invalid Error Type */
 		XPlmi_Printf(DEBUG_GENERAL,
-				"Invalid ErrType for Error: 0x%0x\n\r", ErrorMask);
+			"Invalid ErrType for Error: 0x%0x\n\r", ErrorMask);
 		break;
 	}
 }
@@ -936,7 +969,7 @@ int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMask, u8 ActionId,
 		/* Invalid Action Id */
 		Status = XPLMI_INVALID_ERROR_ACTION;
 		XPlmi_Printf(DEBUG_GENERAL,
-		"Invalid ActionId for Error: 0x%0x\n\r", ErrorMask);
+			"Invalid ActionId for Error: 0x%0x\n\r", ErrorMask);
 		break;
 	}
 
@@ -955,8 +988,7 @@ END:
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_EmInit(s32 (* SystemShutdown)(u32 SubsystemId,
-		const u32 Type, const u32 SubType))
+void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown)
 {
 	u32 Index;
 
@@ -979,27 +1011,29 @@ void XPlmi_EmInit(s32 (* SystemShutdown)(u32 SubsystemId,
 	PmSystemShutdown = SystemShutdown;
 
 	/* Set the default actions as defined in the Error table */
-	for (Index = XPLMI_NODEIDX_ERROR_BOOT_CR;
+	for (Index = (u32)XPLMI_NODEIDX_ERROR_BOOT_CR;
 		Index < XPLMI_NODEIDX_ERROR_PMCERR1_MAX; Index++) {
-		if ((ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) &&
-			(XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR1, Index,
-			ErrorTable[Index].Action,
-			ErrorTable[Index].Handler) != XST_SUCCESS)) {
-			XPlmi_Printf(DEBUG_GENERAL,
-				"Warning: XPlmi_EmInit: Failed to "
-				"set action for PMC ERR1: %u\r\n", Index)
+		if (ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) {
+			if (XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR1, Index,
+						ErrorTable[Index].Action,
+						ErrorTable[Index].Handler) != XST_SUCCESS) {
+				XPlmi_Printf(DEBUG_GENERAL,
+						"Warning: XPlmi_EmInit: Failed to "
+						"set action for PMC ERR1: %u\r\n", Index);
+			}
 		}
 	}
 
-	for (Index = XPLMI_NODEIDX_ERROR_PMCAPB;
+	for (Index = (u32)XPLMI_NODEIDX_ERROR_PMCAPB;
 		Index < XPLMI_NODEIDX_ERROR_PMCERR2_MAX; Index++) {
-		if ((ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) &&
-			(XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR2, Index,
-			ErrorTable[Index].Action,
-			ErrorTable[Index].Handler) != XST_SUCCESS)) {
-			XPlmi_Printf(DEBUG_GENERAL,
-				"Warning: XPlmi_EmInit: Failed to "
-				"set action for PMC ERR2: %u\r\n", Index)
+		if (ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) {
+			if (XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR2, Index,
+						ErrorTable[Index].Action,
+						ErrorTable[Index].Handler) != XST_SUCCESS) {
+				XPlmi_Printf(DEBUG_GENERAL,
+						"Warning: XPlmi_EmInit: Failed to "
+						"set action for PMC ERR2: %u\r\n", Index);
+			}
 		}
 	}
 }
@@ -1029,27 +1063,29 @@ int XPlmi_PsEmInit(void)
 	XPlmi_Out32(PSM_GLOBAL_REG_PSM_ERR2_STATUS, MASK32_ALL_HIGH);
 
 	/* Set the default actions as defined in the Error table */
-	for (Index = XPLMI_NODEIDX_ERROR_PS_SW_CR;
+	for (Index = (u32)XPLMI_NODEIDX_ERROR_PS_SW_CR;
 		Index < XPLMI_NODEIDX_ERROR_PSMERR1_MAX; Index++) {
-		if ((ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) &&
-			(XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PSM_ERR1, Index,
-			ErrorTable[Index].Action,
-			ErrorTable[Index].Handler) != XST_SUCCESS)) {
-			XPlmi_Printf(DEBUG_GENERAL,
-				"Warning: XPlmi_PsEmInit: Failed to "
-				"set action for PSM ERR1: %u\r\n", Index)
+		if (ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) {
+			if (XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PSM_ERR1, Index,
+						ErrorTable[Index].Action,
+						ErrorTable[Index].Handler) != XST_SUCCESS) {
+				XPlmi_Printf(DEBUG_GENERAL,
+						"Warning: XPlmi_PsEmInit: Failed to "
+						"set action for PSM ERR1: %u\r\n", Index);
+			}
 		}
 	}
 
-	for (Index = XPLMI_NODEIDX_ERROR_LPD_SWDT;
+	for (Index = (u32)XPLMI_NODEIDX_ERROR_LPD_SWDT;
 		Index < XPLMI_NODEIDX_ERROR_PSMERR2_MAX; Index++) {
-		if ((ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) &&
-			(XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PSM_ERR2, Index,
-			ErrorTable[Index].Action,
-			ErrorTable[Index].Handler) != XST_SUCCESS)) {
-			XPlmi_Printf(DEBUG_GENERAL,
-				"Warning: XPlmi_PsEmInit: Failed to "
-				"set action for PSM ERR2: %u\r\n", Index)
+		if (ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) {
+			if (XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PSM_ERR2, Index,
+						ErrorTable[Index].Action,
+						ErrorTable[Index].Handler) != XST_SUCCESS) {
+				XPlmi_Printf(DEBUG_GENERAL,
+						"Warning: XPlmi_PsEmInit: Failed to "
+						"set action for PSM ERR2: %u\r\n", Index);
+			}
 		}
 	}
 	Status = XST_SUCCESS;
@@ -1066,7 +1102,7 @@ int XPlmi_PsEmInit(void)
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_DumpRegisters()
+static void XPlmi_DumpRegisters(void)
 {
 	XPlmi_Printf(DEBUG_GENERAL, "====Register Dump============\n\r");
 
@@ -1108,4 +1144,59 @@ void XPlmi_DumpRegisters()
 		XPlmi_In32(PMC_GLOBAL_GICP_PMC_IRQ_STATUS));
 
 	XPlmi_Printf(DEBUG_GENERAL, "====Register Dump============\n\r");
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sets clock source to IRO for ES1 silicon and resets
+ * the device.
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static void XPlmi_SoftResetHandler(void)
+{
+	XPlmi_SysmonClkSetIro();
+	/* Make sure every thing completes */
+	DATA_SYNC;
+	INST_SYNC;
+	XPlmi_Out32(CRP_RST_PS, CRP_RST_PS_PMC_SRST_MASK);
+	while (TRUE) {
+		;
+	}
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sets the sysmon clock to IRO for ES1 silicon
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static void XPlmi_SysmonClkSetIro(void) {
+	u32 SiliconVal = XPlmi_In32(PMC_TAP_VERSION) &
+			PMC_TAP_VERSION_PMC_VERSION_MASK;
+
+	if (SiliconVal == XPLMI_SILICON_ES1_VAL) {
+		XPlmi_UtilRMW(CRP_SYSMON_REF_CTRL, CRP_SYSMON_REF_CTRL_SRCSEL_MASK,
+			XPLMI_SYSMON_CLK_SRC_IRO_VAL);
+	}
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sets EmSubsystemId
+ *
+ * @param	Id pointer to set the EmSubsystemId
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void XPlmi_SetEmSubsystemId(u32 *Id)
+{
+	EmSubsystemId = *Id;
 }

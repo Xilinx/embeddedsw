@@ -3,7 +3,6 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 /*****************************************************************************/
 /**
 *
@@ -17,6 +16,13 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   08/20/2018 Initial release
+* 1.01  ma   08/24/2019 Added code to force bootmode to SBI
+*                       for slave SLRs
+* 1.02  ana  02/29/2020 Implemented KAT support for crypto engines
+*       kc   03/23/2020 Minor code cleanup
+* 1.03  kc   06/12/2020 Added IPI mask to PDI CDO commands to get
+*                       subsystem information
+*       bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -36,7 +42,6 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-XilPdi PdiInstance;
 
 /*****************************************************************************/
 /**
@@ -48,11 +53,12 @@ XilPdi PdiInstance;
 * @return	None
 *
 *****************************************************************************/
-int XPlm_LoaderInit()
+int XPlm_LoaderInit(void)
 {
 	int Status =  XST_FAILURE;
 
 	Status = XLoader_Init();
+
 	return Status;
 }
 
@@ -68,9 +74,10 @@ int XPlm_LoaderInit()
 int XPlm_LoadBootPdi(void *Arg)
 {
 	int Status = XST_FAILURE;
-	u32 BootMode;
+	PdiSrc_t BootMode;
 	u32 CryptoKat;
-	XilPdi* PdiPtr;
+	XilPdi *PdiPtr;
+	static XilPdi PdiInstance;
 
 	(void )Arg;
 	XPlmi_Printf(DEBUG_PRINT_PERF, "PLM Initialization Time \n\r");
@@ -94,8 +101,7 @@ int XPlm_LoadBootPdi(void *Arg)
 	 * no PDI gets loaded
 	 */
 	if ((BootMode == XLOADER_PDI_SRC_JTAG) &&
-	    (!XLoader_IsJtagSbiMode()))
-	{
+	    (XLoader_IsJtagSbiMode() == (u8)FALSE)) {
 		Status = XST_SUCCESS;
 		goto END;
 	}
@@ -111,6 +117,7 @@ int XPlm_LoadBootPdi(void *Arg)
 	XPlmi_Printf(DEBUG_GENERAL, "***********Boot PDI Load: Started***********\n\r");
 
 	PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL;
+	PdiPtr->IpiMask = 0U;
 	Status = XLoader_LoadPdi(PdiPtr, BootMode, 0U);
 	if (Status != XST_SUCCESS) {
 		goto ERR_END;
@@ -126,7 +133,11 @@ END:
 	 * This is used to identify PLM has completed boot PDI
 	 */
 	XPlmi_SetBootPdiDone();
-	XLoader_ClearIntrSbiDataRdy();
+	Status = XLoader_ClearIntrSbiDataRdy();
+	if (Status != XST_SUCCESS) {
+		goto ERR_END;
+	}
+
 	/**
 	 * Enable the SBI RDY interrupt to get the next PDI
 	 */

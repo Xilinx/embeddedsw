@@ -16,10 +16,65 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   07/25/2018 Initial release
-* 1.01  ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
+*       tp   04/05/2019 Added API to reload a particular image
+*       kc   04/09/2019 Added support for PCIe secondary boot mode and
+*						partial PDI load
+*       bsv  06/11/2019 Added TCM power up code to Xilloader to fix issue in
+*						R5-1 split mode functionality
+*       bsv  06/17/2019 Added support for CFI and CFU error handling
+*       bsv  06/26/2019 Added secondary boot support
+*       kc   07/16/2019 Added code to print execution time
+*       rv   07/29/2019 Added code to request boot source before subsystem restart
+*       vnsl 07/30/2019 Added APIs to load secure headers
+*       scs  08/29/2019 Added API to validate extended ID Code
+*       bsv  08/30/2019 Added fallback and multiboot support in PLM
+*       kc   09/05/2019 Added code to use PMCDMA0 and PMCDMA1 in parallel
+*       kc   09/13/2019 SBI reset is removed for SMAP boot mode to ensure smap
+*						bus width value remains unchanged
+* 1.01  bsv  10/31/2019 Added USB secondary boot mode support
+*       kc   12/02/2019 Added performance time stamps
+*       ma   12/12/2019 Added support for passing hand off parameters to ATF
+*       bsv  12/30/2019 Added SMAP secondary boot mode support
+*       ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
 *                       time and print
-*       har  02/18/2020 Removed code to return error codes for security related
+*       bsv  02/12/2020 Added support for SD/eMMC raw boot mode
+*       bsv  02/23/2020 Added multi partition support for SD/eMMC FS boot modes
+*       bsv  02/25/2020 Added macros to handle u32 return values from drivers
+*       vnsl 02/26/2020 Added boot header reading call during partial PDI
+*       kc   02/27/2020 Added SEM support for partial reconfiguration
+*       bsv  02/28/2020 Added support for delay handoff
+*       har  02/28/2020 Removed code to return error codes for security related
 *                       errors
+*       vnsl 03/01/2020 Added PUF KEK decrypt support
+*       bsv  03/14/2020 Added eMMC0 FS and raw boot mode support
+*       bsv  04/09/2020 Code clean up
+* 1.02	ana  06/04/2020 Updated PlmkatStatus and Kekstatus variables from
+*						initial boot pdi to partial pdi structure variables
+*       bsv  06/22/2020 Cfi error handler should only be called for PL image
+*       bsv  07/01/2020 Added DevRelease to DevOps
+*       kc   07/28/2020 PLM mode is set to configuration during PDI load
+*       bsv  07/29/2020 Added support for delay load attribute
+*       bsv  08/06/2020 Code clean up
+*       bsv  08/10/2020 Added subsystem restart support from DDR
+*       har  08/11/2020 Added task to scheduler for checking Authenticated JTAG
+*                       interrupt status
+*       bsv  08/16/2020 Reinitialized Status variable to XST_FAILURE for
+*                       security reasons
+*       td   08/19/2020 Fixed MISRA C violations Rule 10.3
+*       bm   08/19/2020 Added logic to store ImageInfo
+*       bsv  08/21/2020 Added XSECURE_TEMPORAL_CHECK macro to add
+*                       redundancy in security critical functions
+*       bm   09/07/2020 Clear PMC RAM chunk after loading PDIs and reloading images
+*       bm   09/21/2020 Added ImageInfo related code and added compatibility
+*                       check required for DFx
+*       bm   09/24/2020 Added FuncID to RestartImage
+*       bsv  09/30/2020 Enable parallel DMA for SBI related boot modes
+*       bsv  10/09/2020 Add subsystem restart support for SD raw boot modes
+*       bsv  10/13/2020 Code clean up
+*       kpt  10/19/2020 Renamed XLoader_UpdateKekRdKeyStatus to
+*                       XLoader_UpdateKekSrc
+*       td	 10/19/2020 MISRA C Fixes
+*
 * </pre>
 *
 * @note
@@ -27,135 +82,171 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xplmi_hw.h"
 #include "xloader.h"
+#include "xloader_qspi.h"
+#include "xloader_sbi.h"
+#include "xloader_sd.h"
+#include "xloader_usb.h"
+#include "xloader_ddr.h"
+#include "xloader_ospi.h"
+#include "xpm_device.h"
 #include "xpm_api.h"
+#include "xpm_subsystem.h"
 #include "xpm_nodeid.h"
 #include "xloader_secure.h"
 #ifdef XPLM_SEM
 #include "xilsem.h"
 #endif
 #include "xplmi_err.h"
+#include "xplmi_event_logging.h"
+#include "xplmi_wdt.h"
 
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XLOADER_IMAGE_INFO_TBL_MAX_NUM	(XPLMI_IMAGE_INFO_TBL_BUFFER_LEN / \
+						sizeof(XLoader_ImageInfo))
 
 /************************** Function Prototypes ******************************/
+static int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr);
+static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal);
+static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr);
+static int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr);
+static void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi);
+static int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl);
+static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr);
+static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo);
+static int XLoader_GetChildRelation(u32 ChildImgID, u32 ParentImgID, u32 *IsChild);
+static int XLoader_InvalidateChildImgInfo(u32 ParentImgID, u32 *ChangeCount);
+static int XLoader_LoadImage(XilPdi *PdiPtr);
+static int XLoader_ReloadImage(u32 ImageId, u32 *FuncID);
+static int XLoader_StartImage(XilPdi *PdiPtr);
 
 /************************** Variable Definitions *****************************/
-XilSubsystem SubSystemInfo = {0U};
 XilPdi SubsystemPdiIns = {0U};
-XilPdi_ATFHandoffParams ATFHandoffParams = {0U};
+static XilPdi_ATFHandoffParams ATFHandoffParams = {0};
 XilPdi* BootPdiPtr = NULL;
 
 /*****************************************************************************/
-#define XLOADER_DEVICEOPS_INIT(DevSrc, DevInit, DevCopy)\
-	{ \
-		.Name = DevSrc, \
-		.DeviceBaseAddr = 0U, \
-		.Init = DevInit, \
-		.Copy = DevCopy, \
-	}
-
-const XLoader_DeviceOps DeviceOps[] =
+static const XLoader_DeviceOps DeviceOps[] =
 {
-	XLOADER_DEVICEOPS_INIT("JTAG", XLoader_SbiInit, XLoader_SbiCopy),  /* JTAG - 0U */
+	{"JTAG", 0U, XLoader_SbiInit, XLoader_SbiCopy, NULL},  /* JTAG - 0U */
 #ifdef XLOADER_QSPI
-	XLOADER_DEVICEOPS_INIT("QSPI24", XLoader_QspiInit, XLoader_QspiCopy), /* QSPI24 - 1U */
-	XLOADER_DEVICEOPS_INIT("QSPI32", XLoader_QspiInit, XLoader_QspiCopy), /* QSPI32- 2U */
+	{"QSPI24", 0U, XLoader_QspiInit, XLoader_QspiCopy, NULL}, /* QSPI24 - 1U */
+	{"QSPI32", 0U, XLoader_QspiInit, XLoader_QspiCopy, NULL}, /* QSPI32- 2U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	{NULL, 0U, NULL, NULL, NULL},
+	{NULL, 0U, NULL, NULL, NULL},
 #endif
 #ifdef XLOADER_SD_0
-	XLOADER_DEVICEOPS_INIT("SD0", XLoader_SdInit, XLoader_SdCopy), /* SD0 - 3U*/
+	{"SD0", 0U, XLoader_SdInit, XLoader_SdCopy,
+		XLoader_SdRelease}, /* SD0 - 3U*/
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	{NULL, 0U, NULL, NULL, NULL},
 #endif
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),  /* 4U */
+	{NULL, 0U, NULL, NULL, NULL},  /* 4U */
 #ifdef XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT("SD1", XLoader_SdInit, XLoader_SdCopy), /* SD1 - 5U */
+	{"SD1", 0U, XLoader_SdInit, XLoader_SdCopy,
+		XLoader_SdRelease}, /* SD1 - 5U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	{NULL, 0U, NULL, NULL, NULL},
 #endif
 #ifdef XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT("EMMC", XLoader_SdInit, XLoader_SdCopy), /* EMMC - 6U */
+	{"EMMC", 0U, XLoader_SdInit, XLoader_SdCopy,
+		XLoader_SdRelease}, /* EMMC - 6U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	{NULL, 0U, NULL, NULL, NULL},
 #endif
 #ifdef XLOADER_USB
-	XLOADER_DEVICEOPS_INIT("USB", XLoader_UsbInit, XLoader_UsbCopy), /* USB - 7U */
+	{"USB", 0U, XLoader_UsbInit, XLoader_UsbCopy, NULL}, /* USB - 7U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	{NULL, 0U, NULL, NULL, NULL},
 #endif
 #ifdef XLOADER_OSPI
-	XLOADER_DEVICEOPS_INIT("OSPI", XLoader_OspiInit, XLoader_OspiCopy), /* OSPI - 8U */
+	{"OSPI", 0U, XLoader_OspiInit, XLoader_OspiCopy, NULL}, /* OSPI - 8U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	{NULL, 0U, NULL, NULL, NULL},
 #endif
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL), /* 9U */
+	{NULL, 0U, NULL, NULL, NULL}, /* 9U */
 #ifdef XLOADER_SBI
-	XLOADER_DEVICEOPS_INIT("SMAP", XLoader_SbiInit, XLoader_SbiCopy), /* SMAP - 0xA */
+	{"SMAP", 0U, XLoader_SbiInit, XLoader_SbiCopy, NULL}, /* SMAP - 0xA */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	{NULL, 0U, NULL, NULL, NULL},
 #endif
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL), /* 0xBU */
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL), /* 0xCU */
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL), /* 0xDU */
+	{NULL, 0U, NULL, NULL, NULL}, /* 0xBU */
+	{NULL, 0U, NULL, NULL, NULL}, /* 0xCU */
+	{NULL, 0U, NULL, NULL, NULL}, /* 0xDU */
 #ifdef XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT("SD1_LS", XLoader_SdInit, XLoader_SdCopy), /* SD1 LS - 0xEU */
+	{"SD1_LS", 0U, XLoader_SdInit, XLoader_SdCopy,
+		XLoader_SdRelease}, /* SD1 LS - 0xEU */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	{NULL, 0U, NULL, NULL, NULL},
 #endif
-	XLOADER_DEVICEOPS_INIT("DDR", XLoader_DdrInit, XLoader_DdrCopy), /* DDR - 0xF */
+	{"DDR", 0U, XLoader_DdrInit, XLoader_DdrCopy, NULL}, /* DDR - 0xF */
 #ifdef XLOADER_SBI
-	XLOADER_DEVICEOPS_INIT("SBI", XLoader_SbiInit, XLoader_SbiCopy), /* SBI - 0x10 */
+	{"SBI", 0U, XLoader_SbiInit, XLoader_SbiCopy, NULL}, /* SBI - 0x10 */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	{NULL, 0U, NULL, NULL, NULL},
 #endif
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL), /* PCIE - 0x11U */
+	{NULL, 0U, NULL, NULL, NULL}, /* PCIE - 0x11U */
 #ifdef XLOADER_SD_0
-	XLOADER_DEVICEOPS_INIT("SD0_RAW", XLoader_RawInit, XLoader_RawCopy), /* SD0_RAW - 0x12U */
+	{"SD0_RAW", 0U, XLoader_RawInit, XLoader_RawCopy,
+		XLoader_RawRelease}, /* SD0_RAW - 0x12U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	{NULL, 0U, NULL, NULL, NULL},
 #endif
 #ifdef XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT("SD1_RAW", XLoader_RawInit, XLoader_RawCopy), /* SD1_RAW - 0x13U */
+	{"SD1_RAW", 0U, XLoader_RawInit, XLoader_RawCopy,
+		XLoader_RawRelease}, /* SD1_RAW - 0x13U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	{NULL, 0U, NULL, NULL, NULL},
 #endif
 #ifdef XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT("EMMC_RAW", XLoader_RawInit, XLoader_RawCopy), /* EMMC_RAW - 0x14U */
+	{"EMMC_RAW", 0U, XLoader_RawInit, XLoader_RawCopy,
+		XLoader_RawRelease}, /* EMMC_RAW - 0x14U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	{NULL, 0U, NULL, NULL, NULL},
 #endif
 #ifdef XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT("SD1_LS_RAW", XLoader_RawInit, XLoader_RawCopy), /* SD1_LS_RAW - 0x15U */
+	{"SD1_LS_RAW", 0U, XLoader_RawInit, XLoader_RawCopy,
+		XLoader_RawRelease}, /* SD1_LS_RAW - 0x15U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	{NULL, 0U, NULL, NULL, NULL},
 #endif
 #ifdef XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT("EMMC_RAW_BP1", XLoader_RawInit, XLoader_RawCopy), /* EMMC_RAW - 0x16U */
+	{"EMMC_RAW_BP1", 0U, XLoader_RawInit, XLoader_RawCopy,
+		XLoader_RawRelease}, /* EMMC_RAW_BP1 - 0x16U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	{NULL, 0U, NULL, NULL, NULL},
 #endif
 #ifdef XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT("EMMC_RAW_BP2", XLoader_RawInit, XLoader_RawCopy), /* EMMC_RAW - 0x17U */
+	{"EMMC_RAW_BP2", 0U, XLoader_RawInit, XLoader_RawCopy,
+		XLoader_RawRelease}, /* EMMC_RAW_BP2 - 0x17U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	{NULL, 0U, NULL, NULL, NULL},
 #endif
 #ifdef XLOADER_SD_0
-	XLOADER_DEVICEOPS_INIT("EMMC0", XLoader_SdInit, XLoader_SdCopy), /* EMMC0 - 0x18U */
+	{"EMMC0", 0U, XLoader_SdInit, XLoader_SdCopy,
+		XLoader_SdRelease}, /* EMMC0 - 0x18U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	{NULL, 0U, NULL, NULL, NULL},
 #endif
 #ifdef XLOADER_SD_0
-	XLOADER_DEVICEOPS_INIT("EMMC0_RAW", XLoader_RawInit, XLoader_RawCopy), /* EMMC0_RAW - 0x19U */
+	{"EMMC0_RAW", 0U, XLoader_RawInit, XLoader_RawCopy,
+		XLoader_RawRelease}, /* EMMC0_RAW - 0x19U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	{NULL, 0U, NULL, NULL, NULL},
 #endif
+};
+
+/* Image Info Table */
+static XLoader_ImageInfoTbl ImageInfoTbl = {
+	.TblPtr = (XLoader_ImageInfo *)XPLMI_IMAGE_INFO_TBL_BUFFER_ADDR,
+	.Count = 0U,
+	.IsBufferFull = FALSE,
 };
 
 /*****************************************************************************/
@@ -168,7 +259,7 @@ const XLoader_DeviceOps DeviceOps[] =
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_Init()
+int XLoader_Init(void)
 {
 	int Status = XST_FAILURE;
 
@@ -192,6 +283,12 @@ int XLoader_Init()
 		goto END;
 	}
 
+	/* Adding task to the scheduler to handle Authenticated JTAG message */
+	Status = XLoader_AddAuthJtagToScheduler();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 END:
 	return Status;
 }
@@ -208,13 +305,14 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
+static int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 RegVal = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
 	u64 PdiInitTime = XPlmi_GetTimerValue();
 	XPlmi_PerfTime PerfTime = {0U};
-	u32 DeviceFlags = PdiSrc & XLOADER_PDISRC_FLAGS_MASK;
+	u32 UPdiSrc = (u32)PdiSrc;
+	u32 DeviceFlags = UPdiSrc & XLOADER_PDISRC_FLAGS_MASK;
 	u32 SdRawBootVal;
 
 	/*
@@ -235,19 +333,19 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 		(u32)((UINTPTR) &ATFHandoffParams));
 
 	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
-		if ((DeviceFlags == XLOADER_PDI_SRC_SD0)
-		|| (DeviceFlags == XLOADER_PDI_SRC_SD1)
-		|| (DeviceFlags == XLOADER_PDI_SRC_SD1_LS)
-		|| (DeviceFlags == XLOADER_PDI_SRC_EMMC)) {
+		if (((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_SD0)
+		|| ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_SD1)
+		|| ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_SD1_LS)
+		|| ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_EMMC)) {
 			SdRawBootVal = RegVal & XLOADER_SD_RAWBOOT_MASK;
 			if (SdRawBootVal == XLOADER_SD_RAWBOOT_VAL) {
-				if (DeviceFlags == XLOADER_PDI_SRC_SD0) {
+				if ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_SD0) {
 					PdiSrc = XLOADER_PDI_SRC_SD0_RAW;
 				}
-				else if (DeviceFlags == XLOADER_PDI_SRC_SD1) {
+				else if ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_SD1) {
 					PdiSrc = XLOADER_PDI_SRC_SD1_RAW;
 				}
-				else if (DeviceFlags == XLOADER_PDI_SRC_SD1_LS) {
+				else if ((PdiSrc_t)DeviceFlags == XLOADER_PDI_SRC_SD1_LS) {
 					PdiSrc = XLOADER_PDI_SRC_SD1_LS_RAW;
 				}
 				else {
@@ -264,16 +362,18 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 				/* For MISRA-C compliance */
 			}
 			PdiPtr->PdiSrc = PdiSrc;
-			DeviceFlags = PdiSrc & XLOADER_PDISRC_FLAGS_MASK;
+			UPdiSrc = (u32)PdiSrc;
+			DeviceFlags = UPdiSrc & XLOADER_PDISRC_FLAGS_MASK;
 		}
 		RegVal &= ~(XLOADER_SD_RAWBOOT_MASK);
 	}
 
-	if (DeviceOps[DeviceFlags].Init == NULL) {
+	if ((DeviceFlags >= XPLMI_ARRAY_SIZE(DeviceOps)) ||
+		(DeviceOps[DeviceFlags].Init == NULL)) {
 		XPlmi_Printf(DEBUG_GENERAL, "Unsupported Boot Mode:"
 					"Source:0x%x\n\r", DeviceFlags);
-		Status = XPLMI_UPDATE_STATUS(XLOADER_UNSUPPORTED_BOOT_MODE,
-					0x0U);
+		Status = XPlmi_UpdateStatus(XLOADER_UNSUPPORTED_BOOT_MODE,
+					0);
 		goto END;
 	}
 
@@ -297,18 +397,20 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	PdiPtr->DeviceCopy = DeviceOps[DeviceFlags].Copy;
 	PdiPtr->MetaHdr.DeviceCopy = PdiPtr->DeviceCopy;
 
+	Status = XST_FAILURE;
 	Status = XLoader_ReadAndValidateHdrs(PdiPtr, RegVal);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-END:
 	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
 		BootPdiPtr = PdiPtr;
 	}
+
+END:
 	XPlmi_MeasurePerfTime(PdiInitTime, &PerfTime);
 	XPlmi_Printf(DEBUG_PRINT_PERF,
-		"%u.%u ms: PDI initialization time\n\r",
+		"%u.%06u ms: PDI initialization time\n\r",
 		(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
 	return Status;
 }
@@ -323,10 +425,10 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
+static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 {
-	int Status = XST_FAILURE;
-	XLoader_SecureParms SecureParam = {0U};
+	volatile int Status = XST_FAILURE;
+	XLoader_SecureParams SecureParams = {0U};
 
 	/*
 	 * Read meta header from PDI source
@@ -346,23 +448,23 @@ int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 			(PdiPtr->PdiSrc == XLOADER_PDI_SRC_EMMC_RAW_BP2)) {
 
 			PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr + \
-				(RegVal * XLOADER_IMAGE_SEARCH_OFFSET);
+				((u64)RegVal * XLOADER_IMAGE_SEARCH_OFFSET);
+#ifdef XLOADER_QSPI
 			if ((PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI24) || \
 				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI32)) {
-#ifdef XLOADER_QSPI
 				Status = XLoader_QspiGetBusWidth(
 					PdiPtr->MetaHdr.FlashOfstAddr);
 				if (Status != XST_SUCCESS) {
 					goto END;
 				}
-#endif
 			}
+#endif
 		}
 		else {
 			PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr;
 		}
-		/* Update KEK red key availablity status */
-		XLoader_UpdateKekRdKeyStatus(PdiPtr);
+		/* Update KEK red key availability status */
+		XLoader_UpdateKekSrc(PdiPtr);
 	}
 	else {
 		PdiPtr->ImageNum = 0U;
@@ -370,41 +472,53 @@ int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 		PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr;
 		/* Read Boot header */
 		XilPdi_ReadBootHdr(&PdiPtr->MetaHdr);
-		memset(&(PdiPtr->MetaHdr.BootHdr.BootHdrFwRsvd.MetaHdrOfst),
-			0U, sizeof(XilPdi_BootHdrFwRsvd));
+		Status = XPlmi_MemSetBytes(&(PdiPtr->MetaHdr.BootHdr.BootHdrFwRsvd.MetaHdrOfst),
+			sizeof(XilPdi_BootHdrFwRsvd), 0U, sizeof(XilPdi_BootHdrFwRsvd));
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, (int)XLOADER_ERR_MEMSET_BOOT_HDR_FW_RSVD);
+			goto END;
+		}
+		PdiPtr->PlmKatStatus |= BootPdiPtr->PlmKatStatus;
+		PdiPtr->KekStatus |= BootPdiPtr->KekStatus;
 	}
 
 	/* Read image header */
 	Status = XilPdi_ReadImgHdrTbl(&PdiPtr->MetaHdr);
 	if (Status != XST_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMGHDR_TBL, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR_TBL, Status);
 		goto END;
 	}
 
-	SecureParam.PdiPtr = PdiPtr;
-	if (XLoader_IsAuthEnabled(PdiPtr) == TRUE) {
-		SecureParam.IsAuthenticated = TRUE;
-		SecureParam.SecureEn = TRUE;
-	}
-
-	if (XLoader_IsEncEnabled(PdiPtr) == TRUE) {
-		SecureParam.IsEncrypted = TRUE;
-		SecureParam.SecureEn = TRUE;
+	SecureParams.PdiPtr = PdiPtr;
+	SecureParams.IsAuthenticated =
+		XilPdi_IsAuthEnabled(&PdiPtr->MetaHdr.ImgHdrTbl);
+	SecureParams.IsAuthenticatedTmp =
+		XilPdi_IsAuthEnabled(&PdiPtr->MetaHdr.ImgHdrTbl);
+	SecureParams.IsEncrypted =
+		XilPdi_IsEncEnabled(&PdiPtr->MetaHdr.ImgHdrTbl);
+	SecureParams.IsEncryptedTmp =
+		XilPdi_IsEncEnabled(&PdiPtr->MetaHdr.ImgHdrTbl);
+	if ((SecureParams.IsEncrypted == (u8)TRUE) ||
+		(SecureParams.IsEncryptedTmp == (u8)TRUE) ||
+		(SecureParams.IsAuthenticated == (u8)TRUE) ||
+		(SecureParams.IsAuthenticatedTmp == (u8)TRUE)) {
+		SecureParams.SecureEn = (u8)TRUE;
+		SecureParams.SecureEnTmp = (u8)TRUE;
 	}
 
 	/* Validates if authentication/encryption is compulsory */
-	Status = XLoader_SecureValidations(&SecureParam);
+	Status = XST_FAILURE;
+	Status = XLoader_SecureValidations(&SecureParams);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO,"Failed at secure validations\n\r");
 		goto END;
 	}
 
 	/* Authentication of IHT */
-	if (SecureParam.IsAuthenticated == TRUE) {
-		Status = XLoader_ImgHdrTblAuth(&SecureParam);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
+	if ((SecureParams.IsAuthenticated == (u8)TRUE) ||
+		(SecureParams.IsAuthenticatedTmp == (u8)TRUE)) {
+		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_ImgHdrTblAuth,
+			&SecureParams);
 	}
 
 	/*
@@ -414,7 +528,7 @@ int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "Image Header Table Validation "
 					"failed\n\r");
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMGHDR_TBL, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR_TBL, Status);
 		goto END;
 	}
 
@@ -423,7 +537,7 @@ int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 		Status = XLoader_IdCodeCheck(&(PdiPtr->MetaHdr.ImgHdrTbl));
 		if (XST_SUCCESS != Status) {
 			XPlmi_Printf(DEBUG_GENERAL, "IDCODE Checks failed\n\r");
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_GEN_IDCODE,
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_GEN_IDCODE,
 						Status);
 			goto END;
 		}
@@ -432,25 +546,25 @@ int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal)
 	/*
 	 * Read and verify image headers and partition headers
 	 */
-	if (SecureParam.SecureEn != TRUE) {
+	if (SecureParams.SecureEn != (u8)TRUE) {
 		PdiPtr->MetaHdr.Flag = XILPDI_METAHDR_RD_HDRS_FROM_DEVICE;
 		Status = XilPdi_ReadAndVerifyImgHdr(&(PdiPtr->MetaHdr));
 		if (XST_SUCCESS != Status) {
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMGHDR, Status);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR, Status);
 			goto END;
 		}
 
 		Status = XilPdi_ReadAndVerifyPrtnHdr(&PdiPtr->MetaHdr);
 		if (Status != XST_SUCCESS) {
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_PRTNHDR, Status);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTNHDR, Status);
 			goto END;
 		}
 	}
 	else {
-		Status = XLoader_ReadAndVerifySecureHdrs(&SecureParam,
+		Status = XLoader_ReadAndVerifySecureHdrs(&SecureParams,
 					&(PdiPtr->MetaHdr));
 		if (Status != XST_SUCCESS) {
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SECURE_METAHDR,
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_SECURE_METAHDR,
 						Status);
 			goto END;
 		}
@@ -471,9 +585,10 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
+static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 {
 	int Status = XST_FAILURE;
+	int SStatus = XST_FAILURE;
 	u32 NoOfDelayedHandoffCpus = 0U;
 	u32 DelayHandoffImageNum[XLOADER_MAX_HANDOFF_CPUS] = {0U};
 	u32 DelayHandoffPrtnNum[XLOADER_MAX_HANDOFF_CPUS] = {0U};
@@ -481,6 +596,11 @@ int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 	u32 ImageNum;
 	u32 PrtnNum;
 	u32 PrtnIndex;
+	u32 UPdiSrc = (u32)(PdiPtr->PdiSrc);
+	u32 DeviceFlags = UPdiSrc & XLOADER_PDISRC_FLAGS_MASK;
+	u8 DdrRequested = (u8)FALSE;
+	u32 Pm_CapAccess = (u32)PM_CAP_ACCESS;
+	u32 Pm_CapContext = (u32)PM_CAP_CONTEXT;
 
 	/*
 	 * From the meta header present in PDI pointer, read the subsystem
@@ -492,31 +612,47 @@ int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 	 *      CDO commands to Xilpm, and other components
 	 *   3. Load partitions to respective memories
 	 */
-	for ( ;PdiPtr->ImageNum < PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs;
-			++PdiPtr->ImageNum)
-	{
+	for ( ; PdiPtr->ImageNum < PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs;
+			++PdiPtr->ImageNum) {
 		if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
-			PdiPtr->CopyToMem = XilPdi_GetCopyToMemory
-				(&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum]) >>
+			PdiPtr->CopyToMem = XilPdi_GetCopyToMemory(
+				&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum]) >>
 				XILPDI_IH_ATTRIB_COPY_MEMORY_SHIFT;
+
+			if (PdiPtr->CopyToMem == (u8)TRUE) {
+				if (DdrRequested == (u8)FALSE) {
+					Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_DDR_0,
+						Pm_CapAccess | Pm_CapContext, XPM_DEF_QOS, 0U);
+					if (Status != XST_SUCCESS) {
+						Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_DDR_0, 0);
+						goto END;
+					}
+					DdrRequested = (u8)TRUE;
+				}
+				PdiPtr->CopyToMemAddr =
+						PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].CopyToMemoryAddr;
+			}
 		}
 		else {
-			PdiPtr->CopyToMem = FALSE;
+			PdiPtr->CopyToMem = (u8)FALSE;
 		}
+
 		PdiPtr->DelayHandoff = XilPdi_GetDelayHandoff(
 			&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum]) >>
 			XILPDI_IH_ATTRIB_DELAY_HANDOFF_SHIFT;
-		if ((PdiPtr->CopyToMem == TRUE) &&
-				(PdiPtr->DelayHandoff == TRUE)) {
-			Status = XPLMI_UPDATE_STATUS(
-					XLOADER_ERR_DELAY_ATTRB, 0U);
-			goto END;
-		}
+		PdiPtr->DelayLoad = XilPdi_GetDelayLoad(
+			&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum]) >>
+			XILPDI_IH_ATTRIB_DELAY_LOAD_SHIFT;
 
-		if (PdiPtr->DelayHandoff == TRUE) {
+		if (PdiPtr->DelayHandoff == (u8)TRUE) {
+			if (PdiPtr->DelayLoad == (u8)TRUE) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_DELAY_ATTRB, 0);
+				goto END;
+			}
+
 			if (NoOfDelayedHandoffCpus == XLOADER_MAX_HANDOFF_CPUS) {
-				Status = XPLMI_UPDATE_STATUS(
-						XLOADER_ERR_NUM_HANDOFF_CPUS, 0U);
+				Status = XPlmi_UpdateStatus(
+						XLOADER_ERR_NUM_HANDOFF_CPUS, 0);
 				goto END;
 			}
 			DelayHandoffImageNum[NoOfDelayedHandoffCpus] =
@@ -526,15 +662,23 @@ int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 			NoOfDelayedHandoffCpus += 1U;
 		}
 
-		Status = XLoader_LoadImage(PdiPtr, 0xFFFFFFFFU);
-		/* Check for Cfi errors */
-		XLoader_CframeErrorHandler();
+		Status = XLoader_LoadImage(PdiPtr);
 		if (Status != XST_SUCCESS) {
+			/* Check for Cfi errors */
+			if (NODESUBCLASS(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID)
+					== (u32)XPM_NODESUBCL_DEV_PL) {
+				/*
+				 * To preserve the PDI error, ignoring the
+				 * Error returned by XLoader_CframeErrorHandler
+				 */
+				(void)XLoader_CframeErrorHandler(
+				PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
+			}
 			goto END;
 		}
 
-		if ((PdiPtr->CopyToMem == TRUE) ||
-			(PdiPtr->DelayHandoff == TRUE)) {
+		if ((PdiPtr->DelayLoad == (u8)TRUE) ||
+			(PdiPtr->DelayHandoff == (u8)TRUE)) {
 			continue;
 		}
 
@@ -548,14 +692,15 @@ int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 	for ( ; Index < NoOfDelayedHandoffCpus; ++Index) {
 		ImageNum = DelayHandoffImageNum[Index];
 		PrtnNum = DelayHandoffPrtnNum[Index];
-
-		for (PrtnIndex = 0U; PrtnIndex <
-			PdiPtr->MetaHdr.ImgHdr[ImageNum].NoOfPrtns; PrtnIndex++) {
-			Status = XLoader_UpdateHandoffParam(PdiPtr,
-					PrtnNum + PrtnIndex);
+		PdiPtr->PrtnNum = PrtnNum;
+		for (PrtnIndex = 0U;
+			PrtnIndex < PdiPtr->MetaHdr.ImgHdr[ImageNum].NoOfPrtns;
+			PrtnIndex++) {
+			Status = XLoader_UpdateHandoffParam(PdiPtr);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
+			PdiPtr->PrtnNum++;
 		}
 
 		Status = XLoader_StartImage(PdiPtr);
@@ -563,9 +708,25 @@ int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 			goto END;
 		}
 	}
+
 	Status = XST_SUCCESS;
 
 END:
+	if (DeviceOps[DeviceFlags].Release != NULL) {
+		SStatus = DeviceOps[DeviceFlags].Release();
+		if (Status == XST_SUCCESS) {
+			Status = SStatus;
+		}
+	}
+
+#ifndef PLM_DEBUG_MODE
+	SStatus = XPlmi_MemSet(XPLMI_PMCRAM_CHUNK_MEMORY, XPLMI_DATA_INIT_PZM,
+			XLOADER_CHUNK_SIZE / XPLMI_WORD_LEN);
+	if (Status == XST_SUCCESS) {
+		Status = SStatus;
+	}
+#endif
+
 	return Status;
 }
 
@@ -578,7 +739,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
+static int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 {
 	int Status = XST_FAILURE;
 
@@ -586,9 +747,7 @@ int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
-		SubSystemInfo.PdiPtr = PdiPtr;
-	}
+
 	Status = XLoader_LoadAndStartSecPdi(PdiPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -612,27 +771,17 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_LoadPdi(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
+int XLoader_LoadPdi(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 {
 	int Status = XST_FAILURE;
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
-#if defined(XPLM_SEM) && defined(XSEM_CFRSCAN_EN)
-	/* Stop the SEM scan before PDI load */
-	if (PdiPtr->PdiType != XLOADER_PDI_TYPE_FULL) {
-		Status = XSem_CfrStopScan();
-		if (Status != XST_SUCCESS) {
-			Status = XPLMI_UPDATE_STATUS(
-				XLOADER_ERR_SEM_STOP_SCAN, Status);
-			goto END;
-		}
-	}
-#endif
-	Status = XLoader_PdiInit(PdiPtr, PdiSrc, PdiAddr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	XPlmi_SetPlmMode(XPLMI_MODE_CONFIGURATION);
+
+	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PdiInit, PdiPtr,
+			PdiSrc, PdiAddr);
+
 	PdiSrc = PdiPtr->PdiSrc;
 	Status = XLoader_LoadAndStartSubSystemPdi(PdiPtr);
 	if (Status != XST_SUCCESS) {
@@ -645,19 +794,7 @@ END:
 			(PdiSrc == XLOADER_PDI_SRC_SBI)) {
 		XLoader_SbiRecovery();
 	}
-
-#if defined(XPLM_SEM) && defined(XSEM_CFRSCAN_EN)
-	/* Restart the SEM SCAN */
-	if (PdiPtr->PdiType != XLOADER_PDI_TYPE_FULL) {
-		Status = XSem_CfrInit();
-		if (Status != XST_SUCCESS) {
-			Status = XPLMI_UPDATE_STATUS(
-				XLOADER_ERR_SEM_CFR_INIT, Status);
-			goto END1;
-		}
-	}
-END1:
-#endif
+	XPlmi_SetPlmMode(XPLMI_MODE_OPERATIONAL);
 	return Status;
 }
 
@@ -670,7 +807,7 @@ END1:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_StartImage(XilPdi *PdiPtr)
+static int XLoader_StartImage(XilPdi *PdiPtr)
 {
 	int Status = XST_FAILURE;
 	u32 Index;
@@ -700,7 +837,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC,
 					PM_DEV_ACPU_0, 1U, HandoffAddr, 0U);
 				if (Status != XST_SUCCESS) {
-					Status = XPLMI_UPDATE_STATUS(
+					Status = XPlmi_UpdateStatus(
 						XLOADER_ERR_WAKEUP_A72_0, Status);
 					goto END;
 				}
@@ -713,7 +850,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC,
 					PM_DEV_ACPU_1, 1U, HandoffAddr, 0U);
 				if (Status != XST_SUCCESS) {
-					Status = XPLMI_UPDATE_STATUS(
+					Status = XPlmi_UpdateStatus(
 						XLOADER_ERR_WAKEUP_A72_1, Status);
 					goto END;
 				}
@@ -724,7 +861,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC,
 					PM_DEV_RPU0_0, 1U, HandoffAddr, 0U);
 				if (Status != XST_SUCCESS) {
-					Status = XPLMI_UPDATE_STATUS(
+					Status = XPlmi_UpdateStatus(
 						XLOADER_ERR_WAKEUP_R5_0, Status);
 					goto END;
 				}
@@ -735,7 +872,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC,
 					PM_DEV_RPU0_1, 1U, HandoffAddr, 0U);
 				if (Status != XST_SUCCESS) {
-					Status = XPLMI_UPDATE_STATUS(
+					Status = XPlmi_UpdateStatus(
 						XLOADER_ERR_WAKEUP_R5_1, Status);
 					goto END;
 				}
@@ -746,7 +883,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC,
 					PM_DEV_RPU0_0, 1U, HandoffAddr, 0U);
 				if (Status != XST_SUCCESS) {
-					Status = XPLMI_UPDATE_STATUS(
+					Status = XPlmi_UpdateStatus(
 						XLOADER_ERR_WAKEUP_R5_L, Status);
 					goto END;
 				}
@@ -756,24 +893,25 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC,
 						PM_DEV_PSM_PROC, 0U, 0U, 0U);
 				if (Status != XST_SUCCESS) {
-					Status = XPLMI_UPDATE_STATUS(
+					Status = XPlmi_UpdateStatus(
 						XLOADER_ERR_WAKEUP_PSM, Status);
 					goto END;
 				}
 				break;
 
 			default:
+				Status = XST_SUCCESS;
 				break;
 		}
 	}
 
+	Status = XST_SUCCESS;
+
+END:
 	/*
 	 * Make Number of handoff CPUs to zero
 	 */
 	PdiPtr->NoOfHandoffCpus = 0x0U;
-	Status = XST_SUCCESS;
-
-END:
 	return Status;
 }
 
@@ -788,7 +926,7 @@ END:
  * @return	None
  *
  *****************************************************************************/
-void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi)
+static void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi)
 {
 	u32 RegVal;
 
@@ -845,91 +983,214 @@ void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi)
 
 /*****************************************************************************/
 /**
- * @brief	This function is used load a image in PDI. PDI can have multiple
- * images present in it. This can be used to load a single image like PL, APU, RPU.
- * This will load all the partitions that are present in that image.
+ * @brief	This function checks if the given ImgID is a child of Parent ImgID
  *
- * @param	PdiPtr is Pdi instance pointer
- * @param	ImageId is Id of the image present in PDI
+ * @param	ChildImgID is the current ImgID whose relation is to be checked
+ * @param	ParentImgID is the ImgID with which the hierarchical ImgIDs are
+ * compared in order to get the correct parent-child relationship
+ * @param	IsChild is the pointer to the Relation that has to be
+ *		returned, TRUE if it is a Child, else FALSE
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId)
+static int XLoader_GetChildRelation(u32 ChildImgID, u32 ParentImgID, u32 *IsChild)
 {
 	int Status = XST_FAILURE;
+	u32 TempImgID;
+	u32 DummyArg = 0U;
+	u32 TempParentImgID;
+
+	TempImgID = ChildImgID;
+	while (TRUE) {
+		Status = XPm_Query((u32)XPM_QID_PLD_GET_PARENT,
+				TempImgID, DummyArg, DummyArg,
+				&TempParentImgID);
+		if (Status != XST_SUCCESS) {
+			Status = XLOADER_ERR_PARENT_QUERY_RELATION_CHECK;
+			goto END;
+		}
+
+		if (TempParentImgID == 0U) {
+			*IsChild = (u32)FALSE;
+			break;
+		}
+
+		if (TempParentImgID == ParentImgID) {
+			*IsChild = (u32)TRUE;
+			break;
+		}
+		TempImgID = TempParentImgID;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function invalidates the child image info entries
+ * corresponding to the parent image id in the ImageInfo Table
+ *
+ * @param	ParentImgID whose corresponding child image info entries are
+ * invalidated
+ * @param	Pointer to ChangeCount that has to be modified
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XLoader_InvalidateChildImgInfo(u32 ParentImgID, u32 *ChangeCount)
+{
+	int Status = XST_FAILURE;
+	u32 TempCount = 0;
+	u32 IsChild;
 	u32 Index;
 
-	if (0xFFFFFFFFU != ImageId) {
-		/*
-		 * Get subsystem information from the info stored during boot
-		 */
-		for (Index = 0U; Index < SubSystemInfo.Count; Index++) {
-			if (ImageId ==
-				SubSystemInfo.SubsystemLut[Index].SubsystemId) {
-				PdiPtr->ImageNum =
-					SubSystemInfo.SubsystemLut[Index].ImageNum;
-				PdiPtr->PrtnNum =
-					SubSystemInfo.SubsystemLut[Index].PrtnNum;
-				break;
+	for (Index = 0U; Index < XLOADER_IMAGE_INFO_TBL_MAX_NUM; Index++) {
+		if (TempCount >= ImageInfoTbl.Count) {
+			break;
+		}
+		if (NODESUBCLASS(ImageInfoTbl.TblPtr[Index].ImgID) !=
+			(u32)XPM_NODESUBCL_DEV_PL) {
+			continue;
+		}
+		Status = XLoader_GetChildRelation(
+				ImageInfoTbl.TblPtr[Index].ImgID,
+				ParentImgID, &IsChild);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		if (IsChild == (u32)TRUE) {
+			ImageInfoTbl.TblPtr[Index].ImgID = XLOADER_INVALID_IMG_ID;
+			ImageInfoTbl.Count--;
+			(*ChangeCount)++;
+			if (ImageInfoTbl.IsBufferFull == (u8)TRUE) {
+				ImageInfoTbl.IsBufferFull = (u8)FALSE;
 			}
 		}
-		if (Index == SubSystemInfo.Count) {
-			Status = XLOADER_ERR_IMG_ID_NOT_FOUND;
+		else if (ImageInfoTbl.TblPtr[Index].ImgID != XLOADER_INVALID_IMG_ID) {
+			TempCount++;
+		}
+		else {
+			/* For MISRA-C */
+		}
+	}
+	Status = XST_SUCCESS;
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function returns the ImageInfoEntry by checking if an entry
+ * exists for that particular ImgId in the ImgInfoTbl
+ *
+ * @param	ImgId of the the entry that has to be stored
+ *
+ * @return	Address of ImageInfo Entry in the table
+ *
+ *****************************************************************************/
+XLoader_ImageInfo* XLoader_GetImageInfoEntry(u32 ImgID)
+{
+	XLoader_ImageInfo *ImageEntry = NULL;
+	u32 Index;
+	u32 EmptyImgIndex = (u32)XLOADER_IMG_INDEX_NOT_FOUND;
+	u32 TempCount = 0U;
+
+	/* Check for a existing valid image entry matching given ImgID */
+	for (Index = 0U; Index < XLOADER_IMAGE_INFO_TBL_MAX_NUM; Index++) {
+		if (TempCount < ImageInfoTbl.Count) {
+			TempCount++;
+			if ((ImageInfoTbl.TblPtr[Index].ImgID == ImgID) &&
+				(ImageInfoTbl.TblPtr[Index].ImgID !=
+				XLOADER_INVALID_IMG_ID)) {
+				ImageEntry = &ImageInfoTbl.TblPtr[Index];
+				goto END;
+			}
+			else if ((ImageInfoTbl.TblPtr[Index].ImgID ==
+				XLOADER_INVALID_IMG_ID) && (EmptyImgIndex ==
+				(u32)XLOADER_IMG_INDEX_NOT_FOUND)) {
+				EmptyImgIndex = Index;
+			}
+			else {
+				/* For MISRA-C */
+			}
+		}
+	}
+
+	/* If no valid image entry is found above, return empty entry */
+	if ((Index == XLOADER_IMAGE_INFO_TBL_MAX_NUM) && (ImageInfoTbl.Count <
+		XLOADER_IMAGE_INFO_TBL_MAX_NUM)) {
+		if (EmptyImgIndex == (u32)XLOADER_IMG_INDEX_NOT_FOUND) {
+			EmptyImgIndex = ImageInfoTbl.Count;
+		}
+		ImageEntry = &ImageInfoTbl.TblPtr[EmptyImgIndex];
+		ImageEntry->ImgID = XLOADER_INVALID_IMG_ID;
+	}
+
+END:
+	return ImageEntry;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function stores the ImageInfo to Image Info Table
+ *
+ * @param	Pointer to ImageInfo that has to be written.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XLoader_StoreImageInfo(XLoader_ImageInfo *ImageInfo)
+{
+	int Status = XST_FAILURE;
+	XLoader_ImageInfo *ImageEntry;
+	u32 ChangeCount;
+	u32 RtCfgLen;
+
+	/* Read ChangeCount */
+	ChangeCount = ((XPlmi_In32(XPLMI_RTCFG_IMGINFOTBL_LEN_ADDR) &
+			XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_MASK)
+			>> XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_SHIFT);
+
+	if (NODESUBCLASS(ImageInfo->ImgID) == (u32)XPM_NODESUBCL_DEV_PL) {
+		Status = XLoader_InvalidateChildImgInfo(ImageInfo->ImgID,
+				&ChangeCount);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(
+					XLOADER_ERR_INVALIDATE_CHILD_IMG, Status);
 			goto END;
 		}
 	}
-	else {
-		/*
-		 * Update subsystem info only for FULL PDI type and subsystem count is
-		 * less than max subsystems supported.
-		 */
-		if ((PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) &&
-			(SubSystemInfo.Count < XLOADER_MAX_SUBSYSTEMS)) {
-			SubSystemInfo.SubsystemLut[SubSystemInfo.Count].SubsystemId =
-				PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
-			SubSystemInfo.SubsystemLut[SubSystemInfo.Count].ImageNum =
-				PdiPtr->ImageNum;
-			SubSystemInfo.SubsystemLut[SubSystemInfo.Count++].PrtnNum =
-				PdiPtr->PrtnNum;
-		}
-	}
-	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_RESTORE) {
-		for (Index = 0U; Index < PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs;
-			++Index) {
-			if (PdiPtr->MetaHdr.ImgHdr[Index].ImgID == ImageId) {
-				PdiPtr->ImageNum = Index;
-				break;
-			}
-		}
 
-		if (Index == PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs) {
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMG_ID_NOT_FOUND,
-				0U);
-			goto END;
-		}
-	}
-
-	PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName[3] = 0U;
-	XPlmi_Printf(DEBUG_INFO, "------------------------------------\r\n");
-	XPlmi_Printf(DEBUG_GENERAL,
-			"+++++++Loading Image No: 0x%0x, Name: %s, Id: 0x%08x\n\r",
-			PdiPtr->ImageNum,
-			(char *)PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName,
-			PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
-
-	PdiPtr->CurImgId = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
-	/* Update current subsystem ID for EM */
-	EmSubsystemId = PdiPtr->CurImgId;
-	Status = XLoader_LoadImagePrtns(PdiPtr, PdiPtr->ImageNum,
-				PdiPtr->PrtnNum);
-	if (Status != XST_SUCCESS) {
+	ImageEntry = XLoader_GetImageInfoEntry(ImageInfo->ImgID);
+	if (ImageEntry == NULL) {
+		ImageInfoTbl.IsBufferFull = (u8)TRUE;
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMAGE_INFO_TBL_OVERFLOW, 0);
 		goto END;
 	}
-	PdiPtr->PrtnNum += PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].NoOfPrtns;
 
-	/* Log the image load to the Trace Log buffer */
-	XPlmi_TraceLog3(XPLMI_TRACE_LOG_LOAD_IMAGE, PdiPtr->CurImgId);
+	if (ImageEntry->ImgID == XLOADER_INVALID_IMG_ID) {
+		ImageInfoTbl.Count++;
+	}
+	ChangeCount++;
+	Status = Xil_SecureMemCpy(ImageEntry, sizeof(XLoader_ImageInfo), ImageInfo,
+			sizeof(XLoader_ImageInfo));
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_MEMCPY_IMAGE_INFO, Status);
+		goto END;
+	}
+
+	/* Update ChangeCount and number of entries in the RunTime config register */
+	RtCfgLen = (ImageInfoTbl.Count & XPLMI_RTCFG_IMGINFOTBL_NUM_ENTRIES_MASK);
+	RtCfgLen |= ((ChangeCount << XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_SHIFT) &
+				XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_MASK);
+	XPlmi_Out32(XPLMI_RTCFG_IMGINFOTBL_LEN_ADDR, RtCfgLen);
+
+	Status = XST_SUCCESS;
 
 END:
 	return Status;
@@ -937,46 +1198,238 @@ END:
 
 /*****************************************************************************/
 /**
- * This function is used to restart the image in PDI. This function will take
- * ImageId as an input and based on the subsystem info available, it will read
- * the image partitions, loads them and hand-off to the required CPUs as part
- * of the image load.
+ * @brief	This function loads the ImageInfo table to the given memory address
  *
- * @param ImageId Id of the image present in PDI
+ * @param	64 bit Destination Address
+ * @param	Max Size of Buffer present at Destination Address
+ * @param	NumEntries that are loaded from the Image Info Table
  *
- * @return	returns XST_SUCCESS on success
+ * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_RestartImage(u32 ImageId)
+int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries)
+{
+	int Status = XST_FAILURE;
+	u32 Len = ImageInfoTbl.Count;
+	u32 MaxLen = MaxSize / sizeof(XLoader_ImageInfo);
+	u32 Count = 0U;
+	u32 Index = 0U;
+	u32 SrcAddr = XPLMI_IMAGE_INFO_TBL_BUFFER_ADDR;
+	XLoader_ImageInfo *ImageInfo;
+
+	if (Len > MaxLen) {
+		Len = MaxLen;
+	}
+
+	while (Count < Len) {
+		if (Index >= XLOADER_IMAGE_INFO_TBL_MAX_NUM) {
+			break;
+		}
+		ImageInfo = (XLoader_ImageInfo *)SrcAddr;
+		if (ImageInfo->ImgID != XLOADER_INVALID_IMG_ID) {
+			Status = XPlmi_DmaXfr((u64)SrcAddr, DestAddr,
+					sizeof(XLoader_ImageInfo) / XPLMI_WORD_LEN,
+					XPLMI_PMCDMA_0);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+			Count++;
+			DestAddr += sizeof(XLoader_ImageInfo);
+		}
+		Index++;
+		SrcAddr += sizeof(XLoader_ImageInfo);
+	}
+
+	if (ImageInfoTbl.IsBufferFull == (u8)TRUE) {
+		Status = XLOADER_ERR_IMAGE_INFO_TBL_FULL;
+		XPlmi_Printf(DEBUG_INFO, "Image Info Table Overflowed\r\n");
+	}
+	*NumEntries = Len;
+
+END:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+* @brief	This function validates the UIDs in Image Header
+*
+* @param	ImageInfo is pointer to the image info in image
+*
+* @return	XST_SUCCESS on success and error code on failure
+*
+*****************************************************************************/
+static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo)
+{
+	int Status = XST_FAILURE;
+	XPm_DeviceStatus DeviceStatus;
+	XLoader_ImageInfo *ParentImageInfo;
+	u32 DummyArg = 0U;
+	u32 ParentImgID;
+
+	if ((ImageInfo->ImgID != XLOADER_INVALID_IMG_ID) &&
+		(ImageInfo->UID != XLOADER_INVALID_UID) &&
+		(NODESUBCLASS(ImageInfo->ImgID) == (u32)XPM_NODESUBCL_DEV_PL)) {
+		Status = XPmDevice_GetStatus(PM_SUBSYS_PMC, ImageInfo->ImgID,
+				&DeviceStatus);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_DEV_NOT_DEFINED,
+					Status);
+			goto END;
+		}
+
+		if (ImageInfo->PUID != XLOADER_INVALID_UID) {
+			Status = XPm_Query((u32)XPM_QID_PLD_GET_PARENT,
+					ImageInfo->ImgID, DummyArg, DummyArg,
+					&ParentImgID);
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(
+					XLOADER_ERR_PARENT_QUERY_VERIFY, Status);
+				goto END;
+			}
+
+			if (ParentImgID == XLOADER_INVALID_IMG_ID) {
+				Status = XPlmi_UpdateStatus(
+					XLOADER_ERR_INVALID_PARENT_IMG_ID, 0);
+				goto END;
+			}
+
+			ParentImageInfo = XLoader_GetImageInfoEntry(ParentImgID);
+			if (ParentImageInfo == NULL) {
+				Status = XPlmi_UpdateStatus(
+					XLOADER_ERR_NO_VALID_PARENT_IMG_ENTRY, 0);
+				goto END;
+			}
+
+			if (ParentImageInfo->UID != ImageInfo->PUID) {
+				Status = XPlmi_UpdateStatus(
+					XLOADER_ERR_INCOMPATIBLE_CHILD_IMAGE, 0);
+				XPlmi_Printf(DEBUG_GENERAL, "Image is not "
+					"compatible with Parent Image\r\n");
+				goto END;
+			}
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used load a image in PDI. PDI can have multiple
+ * images present in it. This can be used to load a single image like PL, APU, RPU.
+ * This will load all the partitions that are present in that image.
+ *
+ * @param	PdiPtr is Pdi instance pointer
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XLoader_LoadImage(XilPdi *PdiPtr)
+{
+	int Status = XST_FAILURE;
+	XLoader_ImageInfo ImageInfo;
+
+#if defined(XPLM_SEM) && defined(XSEM_CFRSCAN_EN)
+	/* Stop the SEM scan before PL load */
+	if ((PdiPtr->PdiType != XLOADER_PDI_TYPE_FULL) &&
+		(NODESUBCLASS(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID)
+		== (u32)XPM_NODESUBCL_DEV_PL)) {
+		Status = XSem_CfrStopScan();
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(
+				XLOADER_ERR_SEM_STOP_SCAN, Status);
+			goto END;
+		}
+	}
+#endif
+
+	ImageInfo.ImgID = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
+	ImageInfo.UID = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].UID;
+	ImageInfo.PUID = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].PUID;
+	ImageInfo.FuncID = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].FuncID;
+
+	Status = XLoader_VerifyImgInfo(&ImageInfo);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	/* Configure preallocs for subsystem */
+	if (NODECLASS(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID)
+			== (u32)XPM_NODECLASS_SUBSYSTEM) {
+		Status = XPmSubsystem_Configure(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(
+				XLOADER_ERR_CONFIG_SUBSYSTEM, Status);
+			goto END;
+		}
+	}
+
+	PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName[3U] = 0U;
+	PdiPtr->CurImgId = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
+	/* Update current subsystem ID for EM */
+	XPlmi_SetEmSubsystemId(&PdiPtr->CurImgId);
+	Status = XLoader_LoadImagePrtns(PdiPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if ((PdiPtr->DelayLoad == (u8)FALSE) &&
+		(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID !=
+		XLOADER_INVALID_IMG_ID)) {
+		Status = XLoader_StoreImageInfo(&ImageInfo);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+	/* Log the image load to the Trace Log buffer */
+	XPlmi_TraceLog3(XPLMI_TRACE_LOG_LOAD_IMAGE, PdiPtr->CurImgId);
+
+#if defined(XPLM_SEM) && defined(XSEM_CFRSCAN_EN)
+	/* Resume the SEM scan after PL load */
+	if ((PdiPtr->PdiType != XLOADER_PDI_TYPE_FULL) &&
+		(NODESUBCLASS(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID)
+		== (u32)XPM_NODESUBCL_DEV_PL)) {
+		Status = XSem_CfrInit();
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_SEM_CFR_INIT, Status);
+			goto END;
+		}
+	}
+#endif
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to restart the image in PDI. This function
+ * will take ImageId as an input and based on the subsystem info available, it
+ * will read the image partitions, loads them and hand-off to the required CPUs
+ * as part of the image load.
+ *
+ * @param	ImageId Id of the image present in PDI
+ * @param	FuncID is verified with the FuncID present in PDI
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XLoader_RestartImage(u32 ImageId, u32 *FuncID)
 {
 	int Status = XST_FAILURE;
 
-#if defined(XPLM_SEM) && defined(XSEM_CFRSCAN_EN)
-	/** Stop the SEM scan before Image load */
-	Status = XSem_CfrStopScan();
-	if (Status != XST_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SEM_STOP_SCAN, Status);
-		goto END;
-	}
-#endif
-	Status = XLoader_ReloadImage(ImageId);
+	Status = XLoader_ReloadImage(ImageId, FuncID);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XLoader_StartImage(SubSystemInfo.PdiPtr);
+	Status = XLoader_StartImage(BootPdiPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-
-#if defined(XPLM_SEM) && defined(XSEM_CFRSCAN_EN)
-	/* Restart the SEM SCAN */
-	Status = XSem_CfrInit();
-	if (Status != XST_SUCCESS) {
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SEM_CFR_INIT, Status);
-		goto END;
-	}
-#endif
 
 END:
 	return Status;
@@ -988,88 +1441,188 @@ END:
  * take ImageId as an input and based on the subsystem info available, it will
  * read the image partitions and loads them.
  *
- * @param ImageId Id of the image present in PDI
+ * @param	ImageId Id of the image present in PDI
+ * @param	FuncID is verified with the FuncID present in PDI
  *
- * @return      returns XST_SUCCESS on success
+ * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_ReloadImage(u32 ImageId)
+static int XLoader_ReloadImage(u32 ImageId, u32 *FuncID)
 {
 	int Status = XST_FAILURE;
-	u32 DeviceFlags = SubSystemInfo.PdiPtr->PdiSrc &
-				XLOADER_PDISRC_FLAGS_MASK;
+	int SStatus = XST_FAILURE;
+	XilPdi* PdiPtr = BootPdiPtr;
+	PdiSrc_t PdiSrc = PdiPtr->PdiSrc;
+	u32 UPdiSrc = (u32)(PdiPtr->PdiSrc);
+	u32 DeviceFlags = UPdiSrc & XLOADER_PDISRC_FLAGS_MASK;
+	u32 PrtnNum = 0U;
+	u32 Index = 0U;
+	u32 Pm_CapAccess = (u32)PM_CAP_ACCESS;
+
+	for (Index = 0U; Index < PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs;
+		++Index) {
+		if (PdiPtr->MetaHdr.ImgHdr[Index].ImgID == ImageId) {
+			PdiPtr->ImageNum = Index;
+			PdiPtr->PrtnNum = PrtnNum;
+			break;
+		}
+		PrtnNum += PdiPtr->MetaHdr.ImgHdr[Index].NoOfPrtns;
+	}
+	if (Index == PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMG_ID_NOT_FOUND, 0);
+		goto END;
+	}
+
+	if (FuncID != NULL) {
+		if (PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].FuncID != *FuncID) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_FUNCTION_ID_MISMATCH, 0);
+			goto END;
+		}
+	}
+
+	PdiPtr->CopyToMem = XilPdi_GetCopyToMemory(
+		&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum]) >>
+		XILPDI_IH_ATTRIB_COPY_MEMORY_SHIFT;
+	if (PdiPtr->CopyToMem == (u8)TRUE) {
+		PdiPtr->PdiSrc = XLOADER_PDI_SRC_DDR;
+		UPdiSrc = (u32)(PdiPtr->PdiSrc);
+		DeviceFlags = UPdiSrc & XLOADER_PDISRC_FLAGS_MASK;
+		PdiPtr->PdiType = XLOADER_PDI_TYPE_RESTORE;
+		PdiPtr->CopyToMem = (u8)FALSE;
+		PdiPtr->CopyToMemAddr =
+				PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].CopyToMemoryAddr;
+	}
+	PdiPtr->DelayHandoff = (u16)FALSE;
+	PdiPtr->DelayLoad = (u8)FALSE;
 
 	/*
 	 * This is for libpm to do the clock settings reqired for boot device
 	 * to resume post suspension.
 	 */
-	switch(DeviceFlags)
+	switch((PdiSrc_t)DeviceFlags)
 	{
 		case XLOADER_PDI_SRC_QSPI24:
 		case XLOADER_PDI_SRC_QSPI32:
-			XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_QSPI,
-				PM_CAP_ACCESS, XPM_DEF_QOS, 0U);
+			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_QSPI,
+				Pm_CapAccess, XPM_DEF_QOS, 0U);
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_QSPI, 0);
+				goto END;
+			}
 			break;
 		case XLOADER_PDI_SRC_SD0:
-			XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_0,
-				PM_CAP_ACCESS, XPM_DEF_QOS, 0U);
+		case XLOADER_PDI_SRC_SD0_RAW:
+			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_0,
+				Pm_CapAccess, XPM_DEF_QOS, 0U);
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_SDIO_0, 0);
+				goto END;
+			}
 			break;
 		case XLOADER_PDI_SRC_SD1:
 		case XLOADER_PDI_SRC_EMMC:
 		case XLOADER_PDI_SRC_SD1_LS:
-			XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_1,
-				PM_CAP_ACCESS, XPM_DEF_QOS, 0U);
+		case XLOADER_PDI_SRC_SD1_RAW:
+		case XLOADER_PDI_SRC_EMMC_RAW:
+		case XLOADER_PDI_SRC_EMMC_RAW_BP1:
+		case XLOADER_PDI_SRC_EMMC_RAW_BP2:
+		case XLOADER_PDI_SRC_SD1_LS_RAW:
+			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_1,
+				Pm_CapAccess, XPM_DEF_QOS, 0U);
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_SDIO_1, 0);
+				goto END;
+			}
 			break;
 		case XLOADER_PDI_SRC_USB:
-			XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_USB_0,
-				PM_CAP_ACCESS, XPM_DEF_QOS, 0U);
+			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_USB_0,
+				Pm_CapAccess, XPM_DEF_QOS, 0U);
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_USB_0, 0);
+				goto END;
+			}
 			break;
 		case XLOADER_PDI_SRC_OSPI:
-			XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_OSPI,
-				PM_CAP_ACCESS, XPM_DEF_QOS, 0U);
+			Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_OSPI,
+				Pm_CapAccess, XPM_DEF_QOS, 0U);
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_OSPI, 0);
+				goto END;
+			}
 			break;
 		default:
+			Status = XST_SUCCESS;
 			break;
 	}
 
 	if (DeviceOps[DeviceFlags].Init != NULL) {
-		Status = DeviceOps[DeviceFlags].Init(
-				SubSystemInfo.PdiPtr->PdiSrc);
+		Status = DeviceOps[DeviceFlags].Init(PdiPtr->PdiSrc);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 	}
 
-	Status = XLoader_LoadImage(SubSystemInfo.PdiPtr, ImageId);
+	PdiPtr->DeviceCopy = DeviceOps[DeviceFlags].Copy;
+	PdiPtr->MetaHdr.DeviceCopy = DeviceOps[DeviceFlags].Copy;
+
+	Status = XLoader_LoadImage(PdiPtr);
+	if (DeviceOps[DeviceFlags].Release != NULL) {
+		SStatus = DeviceOps[DeviceFlags].Release();
+		if (Status == XST_SUCCESS) {
+			Status = SStatus;
+		}
+	}
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	switch(DeviceFlags)
+END:
+	switch((PdiSrc_t)DeviceFlags)
 	{
 		case XLOADER_PDI_SRC_QSPI24:
 		case XLOADER_PDI_SRC_QSPI32:
-			XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_QSPI);
+			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_QSPI);
 			break;
 		case XLOADER_PDI_SRC_SD0:
-			XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_0);
+		case XLOADER_PDI_SRC_SD0_RAW:
+			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_0);
 			break;
 		case XLOADER_PDI_SRC_SD1:
 		case XLOADER_PDI_SRC_EMMC:
 		case XLOADER_PDI_SRC_SD1_LS:
-			XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_1);
+		case XLOADER_PDI_SRC_SD1_RAW:
+		case XLOADER_PDI_SRC_EMMC_RAW:
+		case XLOADER_PDI_SRC_EMMC_RAW_BP1:
+		case XLOADER_PDI_SRC_EMMC_RAW_BP2:
+		case XLOADER_PDI_SRC_SD1_LS_RAW:
+			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_1);
 			break;
 		case XLOADER_PDI_SRC_USB:
-			XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_USB_0);
+			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_USB_0);
 			break;
 		case XLOADER_PDI_SRC_OSPI:
-			XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_OSPI);
+			SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_OSPI);
 			break;
 		default:
+			SStatus = XST_SUCCESS;
 			break;
 	}
+	if ((Status == XST_SUCCESS) && (SStatus != XST_SUCCESS)) {
+		Status = SStatus;
+	}
 
-END:
+	XPlmi_SetPlmMode(XPLMI_MODE_OPERATIONAL);
+	PdiPtr->PdiSrc = PdiSrc;
+	PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL;
+
+#ifndef PLM_DEBUG_MODE
+	SStatus = XPlmi_MemSet(XPLMI_PMCRAM_CHUNK_MEMORY, XPLMI_DATA_INIT_PZM,
+			XLOADER_CHUNK_SIZE / XPLMI_WORD_LEN);
+	if ((Status == XST_SUCCESS) && (SStatus != XST_SUCCESS)) {
+		Status = SStatus;
+	}
+#endif
+
 	return Status;
 }
 
@@ -1083,7 +1636,7 @@ END:
 * @return	XST_SUCCESS on success and error code on failure
 *
 *****************************************************************************/
-int XLoader_IdCodeCheck(XilPdi_ImgHdrTbl * ImgHdrTbl)
+static int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 {
 	int Status = XST_FAILURE;
 	XLoader_IdCodeInfo IdCodeInfo;
@@ -1097,10 +1650,10 @@ int XLoader_IdCodeCheck(XilPdi_ImgHdrTbl * ImgHdrTbl)
 
 	/* Determine and fetch the Extended IDCODE (out of two) for checks */
 	if (0U == IdCodeInfo.ExtIdCodeRd) {
-		IdCodeInfo.IsExtIdCodeZero = TRUE;
+		IdCodeInfo.IsExtIdCodeZero = (u8)TRUE;
 	}
 	else {
-		IdCodeInfo.IsExtIdCodeZero = FALSE;
+		IdCodeInfo.IsExtIdCodeZero = (u8)FALSE;
 
 		if ((IdCodeInfo.ExtIdCodeRd &
 			EFUSE_CACHE_IP_DISABLE_0_EID_SEL_MASK) == 0U) {
@@ -1118,44 +1671,45 @@ int XLoader_IdCodeCheck(XilPdi_ImgHdrTbl * ImgHdrTbl)
 	/* Check if VC1902 ES1 */
 	if ((IdCodeInfo.IdCodeRd & PMC_TAP_IDCODE_SIREV_DVCD_MASK) ==
 			PMC_TAP_IDCODE_ES1_VC1902) {
-		IdCodeInfo.IsVC1902Es1 = TRUE;
+		IdCodeInfo.IsVC1902Es1 = (u8)TRUE;
 	}
 	else {
-		IdCodeInfo.IsVC1902Es1 = FALSE;
+		IdCodeInfo.IsVC1902Es1 = (u8)FALSE;
 	}
 
 	/* Check if a subset of checks to be bypassed */
 	if (0x1U == (ImgHdrTbl->Attr & XIH_IHT_ATTR_BYPS_MASK)) {
-		IdCodeInfo.BypassChkIHT = TRUE;
+		IdCodeInfo.BypassChkIHT = (u8)TRUE;
 	}
 	else {
-		IdCodeInfo.BypassChkIHT = FALSE;
+		IdCodeInfo.BypassChkIHT = (u8)FALSE;
 	}
 
 	/*
-	*  EXT_IDCODE
-	*  [26:14]is0?  VC1902-ES1?  BYPASS?  Checks done
-	*  --------------------------------------------------------------------
-	*  Y            Y            Y        Check IDCODE[27:0] (skip Si Rev chk)
-	*  Y		Y            N        Check IDCODE[31:0]
-	*  Y		N            X        Invalid combination (Error out)
-	*  N		X            Y        Check IDCODE[27:0] (skip Si Rev chk), check ext_idcode
-	*  N		X            N        Check IDCODE[31:0], check ext_idcode
-	*  --------------------------------------------------------------------
-	*/
+	 *  EXT_IDCODE
+	 *  [26:14]is 0?  VC1902-ES1?  BYPASS?  Checks done
+	 *  --------------------------------------------------------------------
+	 *  		Y				Y		Y	Check IDCODE[27:0] (skip Si Rev chk)
+	 *  		Y				Y		N	Check IDCODE[31:0]
+	 *  		Y				N		X	Invalid combination (Error out)
+	 *  		N				X		Y	Check IDCODE[27:0] (skip Si Rev chk),
+	 *										check ext_idcode
+	 *  		N				X		N	Check IDCODE[31:0], check ext_idcode
+	 *  --------------------------------------------------------------------
+	 */
 
 	/*
 	 * Error out for the invalid combination of Extended IDCODE - Device.
 	 * Assumption is that only VC1902-ES1 device can have Extended IDCODE value 0
 	 */
-	if ((IdCodeInfo.IsExtIdCodeZero == TRUE) &&
-			(IdCodeInfo.IsVC1902Es1 == FALSE)) {
+	if ((IdCodeInfo.IsExtIdCodeZero == (u8)TRUE) &&
+			(IdCodeInfo.IsVC1902Es1 == (u8)FALSE)) {
 		Status = XLOADER_ERR_EXT_ID_SI;
 		goto END;
 	}
 	else {
 		/* Do not check Si revision if bypass configured */
-		if (TRUE == IdCodeInfo.BypassChkIHT) {
+		if ((u8)TRUE == IdCodeInfo.BypassChkIHT) {
 			IdCodeInfo.IdCodeIHT &= ~PMC_TAP_IDCODE_SI_REV_MASK;
 			IdCodeInfo.IdCodeRd &= ~PMC_TAP_IDCODE_SI_REV_MASK;
 		}
@@ -1167,7 +1721,7 @@ int XLoader_IdCodeCheck(XilPdi_ImgHdrTbl * ImgHdrTbl)
 		}
 
 		/* Do the actual Extended IDCODE check */
-		if (FALSE == IdCodeInfo.IsExtIdCodeZero) {
+		if ((u8)FALSE == IdCodeInfo.IsExtIdCodeZero) {
 			if (IdCodeInfo.ExtIdCodeIHT != IdCodeInfo.ExtIdCodeRd) {
 				Status = XLOADER_ERR_EXT_IDCODE;
 				goto END;
@@ -1188,45 +1742,45 @@ END:
 * header. A pointer to the structure containing these parameters is stored in
 * the PMC_GLOBAL.GLOBAL_GEN_STORAGE4 register, which ATF reads.
 *
-* @param	PartitionHeader is pointer to Partition header details
+* @param	PrtnHdr is pointer to Partition header details
 *
 * @return	None
 *
 *****************************************************************************/
-void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PartitionHeader)
+void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
 {
-	u32 PartitionAttributes;
-	u32 PartitionFlags = 0U;
+	u32 PrtnAttrbs;
+	u32 PrtnFlags = 0U;
 	u32 LoopCount = 0U;
 
-	PartitionAttributes = PartitionHeader->PrtnAttrb;
+	PrtnAttrbs = PrtnHdr->PrtnAttrb;
 
-	PartitionFlags =
-		(((PartitionAttributes & XIH_PH_ATTRB_A72_EXEC_ST_MASK)
+	PrtnFlags =
+		(((PrtnAttrbs & XIH_PH_ATTRB_A72_EXEC_ST_MASK)
 				>> XIH_ATTRB_A72_EXEC_ST_SHIFT_DIFF) |
-		((PartitionAttributes & XIH_PH_ATTRB_ENDIAN_MASK)
+		((PrtnAttrbs & XIH_PH_ATTRB_ENDIAN_MASK)
 				>> XIH_ATTRB_ENDIAN_SHIFT_DIFF) |
-		((PartitionAttributes & XIH_PH_ATTRB_TZ_SECURE_MASK)
+		((PrtnAttrbs & XIH_PH_ATTRB_TZ_SECURE_MASK)
 				<< XIH_ATTRB_TR_SECURE_SHIFT_DIFF) |
-		((PartitionAttributes & XIH_PH_ATTRB_TARGET_EL_MASK)
+		((PrtnAttrbs & XIH_PH_ATTRB_TARGET_EL_MASK)
 				<< XIH_ATTRB_TARGET_EL_SHIFT_DIFF));
 
 	/* Update CPU number based on destination CPU */
-	if ((PartitionAttributes & XIH_PH_ATTRB_DSTN_CPU_MASK)
+	if ((PrtnAttrbs & XIH_PH_ATTRB_DSTN_CPU_MASK)
 			== XIH_PH_ATTRB_DSTN_CPU_A72_0) {
-		PartitionFlags |= XIH_PRTN_FLAGS_DSTN_CPU_A72_0;
+		PrtnFlags |= XIH_PRTN_FLAGS_DSTN_CPU_A72_0;
 	}
-	else if ((PartitionAttributes & XIH_PH_ATTRB_DSTN_CPU_MASK)
+	else if ((PrtnAttrbs & XIH_PH_ATTRB_DSTN_CPU_MASK)
 			== XIH_PH_ATTRB_DSTN_CPU_A72_1) {
-		PartitionFlags |= XIH_PRTN_FLAGS_DSTN_CPU_A72_1;
+		PrtnFlags |= XIH_PRTN_FLAGS_DSTN_CPU_A72_1;
 	}
-	else if ((PartitionAttributes & XIH_PH_ATTRB_DSTN_CPU_MASK)
+	else if ((PrtnAttrbs & XIH_PH_ATTRB_DSTN_CPU_MASK)
 			== XIH_PH_ATTRB_DSTN_CPU_NONE) {
 		/*
 		 * This is required for u-boot handoff to work
 		 * when BOOTGEN_SUBSYSTEM_PDI is set to 0 in bootgen
 		 */
-		PartitionFlags &= (~(XIH_ATTRB_EL_MASK) | XIH_PRTN_FLAGS_EL_2)
+		PrtnFlags &= (~(XIH_ATTRB_EL_MASK) | XIH_PRTN_FLAGS_EL_2)
 					| XIH_PRTN_FLAGS_DSTN_CPU_A72_0;
 	}
 	else {
@@ -1241,11 +1795,11 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PartitionHeader)
 		ATFHandoffParams.MagicValue[3U] = 'X';
 	}
 	else {
-		for (;LoopCount < ATFHandoffParams.NumEntries; LoopCount++) {
-			if (ATFHandoffParams.Entry[LoopCount].PartitionFlags ==
-					PartitionFlags) {
+		for (; LoopCount < ATFHandoffParams.NumEntries; LoopCount++) {
+			if (ATFHandoffParams.Entry[LoopCount].PrtnFlags ==
+					PrtnFlags) {
 				ATFHandoffParams.Entry[LoopCount].EntryPoint =
-					PartitionHeader->DstnExecutionAddr;
+					PrtnHdr->DstnExecutionAddr;
 				break;
 			}
 		}
@@ -1255,8 +1809,8 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PartitionHeader)
 		(ATFHandoffParams.NumEntries == LoopCount)) {
 		ATFHandoffParams.NumEntries += 1U;
 		ATFHandoffParams.Entry[LoopCount].EntryPoint =
-				PartitionHeader->DstnExecutionAddr;
-		ATFHandoffParams.Entry[LoopCount].PartitionFlags = PartitionFlags;
+				PrtnHdr->DstnExecutionAddr;
+		ATFHandoffParams.Entry[LoopCount].PrtnFlags = PrtnFlags;
 	}
 }
 
@@ -1269,13 +1823,16 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PartitionHeader)
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
+static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 {
 	int Status = XST_FAILURE;
-	u32 PdiSrc;
+	PdiSrc_t PdiSrc;
 	u32 PdiAddr;
 	u32 SecBootMode = XilPdi_GetSBD(&(PdiPtr->MetaHdr.ImgHdrTbl)) >>
 				XIH_IHT_ATTR_SBD_SHIFT;
+#if defined(XLOADER_SD_0) || defined(XLOADER_SD_1)
+	u32 UPdiSrc;
+#endif
 
 	if ((SecBootMode == XIH_IHT_ATTR_SBD_SAME) ||
 		((PdiPtr->SlrType != XLOADER_SSIT_MASTER_SLR) &&
@@ -1286,7 +1843,7 @@ int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 		XPlmi_Printf(DEBUG_INFO, "+++Configuring Secondary Boot "
 				"Device\n\r");
 		if (SecBootMode == XIH_IHT_ATTR_SBD_PCIE) {
-			Status = XLoader_SbiInit(XLOADER_PDI_SRC_PCIE);
+			Status = XLoader_SbiInit((u32)XLOADER_PDI_SRC_PCIE);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
@@ -1295,112 +1852,135 @@ int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 			{
 				case XIH_IHT_ATTR_SBD_QSPI32:
 					PdiSrc = XLOADER_PDI_SRC_QSPI32;
-					PdiAddr =
-					PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr;
+					PdiAddr = PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr;
+					Status = XST_SUCCESS;
 					break;
 				case XIH_IHT_ATTR_SBD_QSPI24:
 					PdiSrc = XLOADER_PDI_SRC_QSPI24;
-					PdiAddr =
-					PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr;
+					PdiAddr = PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr;
+					Status = XST_SUCCESS;
 					break;
 				case XIH_IHT_ATTR_SBD_SD_0:
 				#ifdef XLOADER_SD_0
-					PdiSrc = XLOADER_PDI_SRC_SD0 |
+					UPdiSrc = (u32)XLOADER_PDI_SRC_SD0 |
 						XLOADER_SD_SBD_ADDR_SET_MASK |
 						(PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr
 						<< XLOADER_SD_SBD_ADDR_SHIFT);
+					PdiSrc = (PdiSrc_t)UPdiSrc;
 				#else
 					PdiSrc = XLOADER_PDI_SRC_SD0;
 				#endif
 					PdiAddr = 0U;
+					Status = XST_SUCCESS;
 					break;
 				case XIH_IHT_ATTR_SBD_SD_1:
 				#ifdef XLOADER_SD_1
-					PdiSrc = XLOADER_PDI_SRC_SD1 |
+					UPdiSrc = (u32)XLOADER_PDI_SRC_SD1 |
 						XLOADER_SD_SBD_ADDR_SET_MASK |
 						(PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr
 						<< XLOADER_SD_SBD_ADDR_SHIFT);
+					PdiSrc = (PdiSrc_t)UPdiSrc;
 				#else
 					PdiSrc = XLOADER_PDI_SRC_SD1;
 				#endif
 					PdiAddr = 0U;
+					Status = XST_SUCCESS;
 					break;
 				case XIH_IHT_ATTR_SBD_SD_LS:
 				#ifdef XLOADER_SD_1
-					PdiSrc = XLOADER_PDI_SRC_SD1_LS |
+					UPdiSrc = (u32)XLOADER_PDI_SRC_SD1_LS |
 						XLOADER_SD_SBD_ADDR_SET_MASK |
 						(PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr
 						<< XLOADER_SD_SBD_ADDR_SHIFT);
+					PdiSrc = (PdiSrc_t)UPdiSrc;
 				#else
 					PdiSrc = XLOADER_PDI_SRC_SD1_LS;
 				#endif
 					PdiAddr = 0U;
+					Status = XST_SUCCESS;
 					break;
 				case XIH_IHT_ATTR_SBD_EMMC:
 				#ifdef XLOADER_SD_1
-					PdiSrc = XLOADER_PDI_SRC_EMMC |
+					UPdiSrc = (u32)XLOADER_PDI_SRC_EMMC |
 						XLOADER_SD_SBD_ADDR_SET_MASK |
 						(PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr
 						<< XLOADER_SD_SBD_ADDR_SHIFT);
+					PdiSrc = (PdiSrc_t)UPdiSrc;
 				#else
 					PdiSrc = XLOADER_PDI_SRC_EMMC;
 				#endif
 					PdiAddr = 0U;
+					Status = XST_SUCCESS;
 					break;
 				case XIH_IHT_ATTR_SBD_OSPI:
 					PdiSrc = XLOADER_PDI_SRC_OSPI;
 					PdiAddr = PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr;
+					Status = XST_SUCCESS;
 					break;
 				case XIH_IHT_ATTR_SBD_USB:
 					PdiSrc = XLOADER_PDI_SRC_USB;
 					PdiAddr = 0U;
+					Status = XST_SUCCESS;
 					break;
 				case XIH_IHT_ATTR_SBD_SMAP:
 					PdiSrc = XLOADER_PDI_SRC_SMAP;
 					PdiAddr = 0U;
+					Status = XST_SUCCESS;
 					break;
 				case XIH_IHT_ATTR_SBD_SD_0_RAW:
 					PdiSrc = XLOADER_PDI_SRC_SD0_RAW;
 					PdiAddr = PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr;
+					Status = XST_SUCCESS;
 					break;
 				case XIH_IHT_ATTR_SBD_SD_1_RAW:
 					PdiSrc = XLOADER_PDI_SRC_SD1_RAW;
 					PdiAddr = PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr;
+					Status = XST_SUCCESS;
 					break;
 				case XIH_IHT_ATTR_SBD_EMMC_RAW:
 					PdiSrc = XLOADER_PDI_SRC_EMMC_RAW;
 					PdiAddr = PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr;
+					Status = XST_SUCCESS;
 					break;
 				case XIH_IHT_ATTR_SBD_SD_LS_RAW:
 					PdiSrc = XLOADER_PDI_SRC_SD1_LS_RAW;
 					PdiAddr = PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr;
+					Status = XST_SUCCESS;
 					break;
 				case XIH_IHT_ATTR_SBD_EMMC_0:
 				#ifdef XLOADER_SD_0
-					PdiSrc = XLOADER_PDI_SRC_EMMC0 |
+					UPdiSrc = (u32)XLOADER_PDI_SRC_EMMC0 |
 						XLOADER_SD_SBD_ADDR_SET_MASK |
 						(PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr
 						 << XLOADER_SD_SBD_ADDR_SHIFT);
+					PdiSrc = (PdiSrc_t)UPdiSrc;
 				#else
 					PdiSrc = XLOADER_PDI_SRC_EMMC0;
 				#endif
 					PdiAddr = 0U;
+					Status = XST_SUCCESS;
 					break;
 				case XIH_IHT_ATTR_SBD_EMMC_0_RAW:
 					PdiSrc = XLOADER_PDI_SRC_EMMC0_RAW;
 					PdiAddr = PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr;
+					Status = XST_SUCCESS;
 					break;
 				default:
-					Status =
-					XLOADER_ERR_UNSUPPORTED_SEC_BOOT_MODE;
+					Status = XST_FAILURE;
 					break;
 			}
 
-			if (Status == XLOADER_ERR_UNSUPPORTED_SEC_BOOT_MODE) {
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(
+					XLOADER_ERR_UNSUPPORTED_SEC_BOOT_MODE, 0);
 				goto END;
 			}
 
-			memset(PdiPtr, 0U, sizeof(XilPdi));
+			Status = XPlmi_MemSetBytes(PdiPtr, sizeof(XilPdi), 0U, sizeof(XilPdi));
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, (int)XLOADER_ERR_MEMSET_PDIPTR);
+				goto END;
+			}
 			PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
 			Status = XLoader_PdiInit(PdiPtr, PdiSrc, PdiAddr);
 			if (Status != XST_SUCCESS) {

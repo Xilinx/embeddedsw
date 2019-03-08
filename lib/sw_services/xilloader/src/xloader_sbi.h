@@ -15,7 +15,15 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kc   02/21/2017 Initial release
+* 1.00  kc   09/21/2017 Initial release
+* 1.01  kc   04/09/2019 Added support for PCIe secondary boot mode and
+*						 partial PDI load
+*       kc   05/21/2019 Updated error code for partial PDI load
+* 1.02  bsv  04/09/2020 Code clean up
+* 1.03  bsv  07/07/2020 Remove unused functions
+*       skd  07/14/2020 XLoader_SbiCopy prototype changed
+*       bsv  10/13/2020 Code clean up
+*
 * </pre>
 *
 * @note
@@ -30,11 +38,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xplmi_hw.h"
-#include "xplmi_dma.h"
-#include "xplmi_status.h"
 #ifdef XLOADER_SBI
-#include "xplmi_debug.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -44,7 +48,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XLoader_SbiInit(u32 DeviceFlags);
-int XLoader_SbiCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+int XLoader_SbiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags);
 
 /************************** Variable Definitions *****************************/
 

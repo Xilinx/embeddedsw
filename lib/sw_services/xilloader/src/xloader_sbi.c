@@ -15,8 +15,19 @@
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
-* ----- ---- -------- -------------------------------------------------------
+* ----- ---- --------   -------------------------------------------------------
 * 1.00  kc   09/21/2017 Initial release
+* 1.01  kc   04/09/2019 Added support for PCIe secondary boot mode and
+*						 partial PDI load
+*       kc   05/21/2019 Updated error code for partial PDI load
+* 1.02  bsv  04/09/2020 Code clean up
+* 1.03  bsv  07/07/2020 Remove unused functions
+*       skd  07/14/2020 XLoader_SbiCopy prototype changed
+*       kc   08/10/2020 Added release of SBI reset in SbiInit
+*       td   08/19/2020 Fixed MISRA C violations Rule 10.3
+*       bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP and PCIE
+*                       boot modes
+*       bsv  10/13/2020 Code clean up
 *
 * </pre>
 *
@@ -25,11 +36,12 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xplmi_hw.h"
 #include "xloader.h"
 #include "xplmi_generic.h"
 #include "xplmi_util.h"
 #include "xloader_sbi.h"
-#include "xplmi_hw.h"
+#include "xplmi_dma.h"
 
 #if defined(XLOADER_SBI)
 /************************** Constant Definitions *****************************/
@@ -41,7 +53,6 @@
 #define XLOADER_SBI_CTRL_INTERFACE_SMAP                  (0x0U)
 #define XLOADER_SBI_CTRL_INTERFACE_JTAG                  (0x4U)
 #define XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE             (0x8U)
-#define XLOADER_SBI_CTRL_ENABLE                          (0x1U)
 
 /************************** Function Prototypes ******************************/
 
@@ -61,7 +72,11 @@ int XLoader_SbiInit(u32 DeviceFlags)
 {
 	int Status = XST_FAILURE;
 
-	switch (DeviceFlags) {
+	/* Release reset of SBI */
+	XPlmi_UtilRMW(CRP_RST_SBI,
+	       CRP_RST_SBI_RESET_MASK, ~CRP_RST_SBI_RESET_MASK);
+
+	switch ((PdiSrc_t)DeviceFlags) {
 		case XLOADER_PDI_SRC_SMAP:
 			XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
 			       SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
@@ -84,6 +99,7 @@ int XLoader_SbiInit(u32 DeviceFlags)
 			Status = XST_SUCCESS;
 			break;
 		default:
+			Status = XST_FAILURE;
 			break;
 	}
 	if (Status != XST_SUCCESS) {
@@ -95,7 +111,7 @@ int XLoader_SbiInit(u32 DeviceFlags)
 	 * error cases and PCIe boot modes.
 	 */
 	XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL, SLAVE_BOOT_SBI_CTRL_ENABLE_MASK,
-		     SLAVE_BOOT_SBI_CTRL_ENABLE_MASK);
+		SLAVE_BOOT_SBI_CTRL_ENABLE_MASK);
 
 END:
 	return Status;
@@ -103,54 +119,12 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function is used to initialize the SBI with user inputs.
- *
- * @param	CtrlInterface is interface value for configuring SBI
- *
- * @return	None
- *
- *****************************************************************************/
-void XLoader_SbiConfig(u32 CtrlInterface)
-{
-	XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
-		SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK, CtrlInterface);
-	XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
-		SLAVE_BOOT_SBI_CTRL_ENABLE_MASK, XLOADER_SBI_CTRL_ENABLE);
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function is used to initialize the SBI for Slave SLRs.
- *
- * @param	SlrBaseAddr is the base address of slave device
- *
- * @return	None
- *
- *****************************************************************************/
-void XLoader_SlaveSbiConfig(u64 SlrBaseAddr)
-{
-	u64 SbiCtrlAddr = ((u64)SlrBaseAddr +((u64)(SLAVE_BOOT_SBI_CTRL -
-				PMC_LOCAL_BASEADDR)));
-
-	XPlmi_UtilRMW64((SbiCtrlAddr >> 32U),
-			(SbiCtrlAddr & XLOADER_32BIT_MASK),
-			SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
-			XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE);
-
-	XPlmi_UtilRMW64((SbiCtrlAddr >> 32U),
-			(SbiCtrlAddr & XLOADER_32BIT_MASK),
-			SLAVE_BOOT_SBI_CTRL_ENABLE_MASK,
-			XLOADER_SBI_CTRL_ENABLE);
-}
-
-/*****************************************************************************/
-/**
  * @brief	This function is used to copy the data from SMAP/JTAG to
  * destination address through SBI interface.
  *
- * @param	SrcAddress is unused and is only passed for compatibility
+ * @param	SrcAddr is unused and is only passed for compatibility
  *		with the copy functions of other boot modes
- * @param	DestAddress is the address of the destination to which the data
+ * @param	DestAddr is the address of the destination to which the data
  *		should be copied to
  * @param	Length is number of bytes to be copied
  * @param	Flags indicate parameters for DMA transfer
@@ -158,14 +132,26 @@ void XLoader_SlaveSbiConfig(u64 SlrBaseAddr)
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_SbiCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
+int XLoader_SbiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 {
 	int Status = XST_FAILURE;
 	u32 ReadFlags;
-	(void) (SrcAddress);
+	(void) (SrcAddr);
 
-	ReadFlags = Flags | XPLMI_PMCDMA_1;
-	Status = XPlmi_SbiDmaXfer(DestAddress, Length / XPLMI_WORD_LEN,
+	ReadFlags = Flags & XPLMI_DEVICE_COPY_STATE_MASK;
+	/* Just wait for the Data to be copied */
+	if (ReadFlags == XPLMI_DEVICE_COPY_STATE_WAIT_DONE) {
+		Status = XPlmi_WaitForNonBlkDestDma(XPLMI_PMCDMA_1);
+		goto END;
+	}
+
+	/* Update the flags for NON blocking DMA call */
+	if (ReadFlags == XPLMI_DEVICE_COPY_STATE_INITIATE) {
+		ReadFlags = XPLMI_DMA_DST_NONBLK;
+	}
+	Flags = Flags & (~(XPLMI_DEVICE_COPY_STATE_MASK));
+	ReadFlags |= (Flags | XPLMI_PMCDMA_1);
+	Status = XPlmi_SbiDmaXfer(DestAddr, Length / XPLMI_WORD_LEN,
 		ReadFlags);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -190,7 +176,7 @@ void XLoader_SbiRecovery(void)
 
 	SbiCtrl = XPlmi_In32(SLAVE_BOOT_SBI_CTRL);
 	/* Reset DMA1, SBI */
-	XPlmi_Out32(CRP_RST_SBI, 0x1U);
+	XPlmi_Out32(CRP_RST_SBI, CRP_RST_SBI_RESET_MASK);
 	XPlmi_UtilRMW(CRP_RST_PDMA, CRP_RST_PDMA_RESET1_MASK,
 		      CRP_RST_PDMA_RESET1_MASK);
 	usleep(10U);

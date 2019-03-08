@@ -15,8 +15,19 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kc   02/21/2018 Initial release
-* 1.01  bsv  09/15/2019 Added Read Config and Write Config registers
+* 1.00  bsv  08/23/2018 Initial release
+* 1.01  bsv  09/10/2019 Added support to set OSPI to DDR mode
+*       ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
+*                       time and print
+*       bsv  02/04/2020 Reset qspi instance in init functions for LPD off
+*						suspend and resume to work
+*       bsv  04/09/2020 Code clean up of Xilloader
+* 1.02  bsv  27/06/2020 Add dual stacked mode support
+*       bsv  07/08/2020 APIs specific to this file made static
+*       skd  07/14/2020 XLoader_OspiCopy prototype changed
+*       skd  08/21/2020 Added GIGADEVICE and ISSI flash ID macros
+*       bsv  10/13/2020 Code clean up
+*
 * </pre>
 *
 * @note
@@ -30,23 +41,13 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xplmi_hw.h"
-
 #ifdef XLOADER_OSPI
-#include "xparameters.h"	/* SDK generated parameters */
-#include "xospipsv.h"		/* OSPIPSV device driver */
-#include "xplmi_status.h"	/* PLMI error codes */
 
 /************************** Constant Definitions *****************************/
 /*
  * Flash connection type as defined in Vivado
  */
-#define FLASH_SIZE_16MB				(0x1000000U)
 #define MICRON_ID				(0x20U)
-#define FLASH_SIZE_ID_512M			(0x20U)
-#define FLASH_SIZE_512M				(0x4000000U)
-#define FLASH_SIZE_1G				(0x8000000U)
-#define FLASH_SIZE_2G                   	(0x10000000U)
 #define READ_CMD_OCTAL_4B    			(0x7CU)
 #define READ_ID					(0x9FU)
 #define MICRON_INDEX_START			(0x0U)
@@ -66,7 +67,9 @@ extern "C" {
  * Byte 2 is second byte of Device ID describes flash size:
  * 512Mbit : 0x1A
  */
-#define	MICRON_OCTAL_ID_BYTE0		(0x2CU)
+#define	MICRON_OCTAL_ID_BYTE0		  (0x2CU)
+#define GIGADEVICE_OCTAL_ID_BYTE0     (0xC8U)
+#define ISSI_OCTAL_ID_BYTE0           (0x9DU)
 #define MICRON_OCTAL_ID_BYTE2_512	(0x1AU)
 #define MICRON_OCTAL_ID_BYTE2_1G	(0x1BU)
 #define MICRON_OCTAL_ID_BYTE2_2G	(0x1CU)
@@ -91,13 +94,11 @@ extern "C" {
 #define XLOADER_OSPI_READ_CFG_REG_CMD_BYTE_CNT		(2U)
 #define XLOADER_WRITE_CFG_REG_VAL		(0xE7U)
 #define XLOADER_WRITE_CFG_REG_VAL		(0xE7U)
+#define XLOADER_OSPI_WRITE_DONE_MASK	(0x80U)
 
 /************************** Function Prototypes ******************************/
 int XLoader_OspiInit(u32 DeviceFlags);
-int XLoader_OspiCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
-int XLoader_OspiRelease(void);
-int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable);
-int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr);
+int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 
 /************************** Variable Definitions *****************************/
 

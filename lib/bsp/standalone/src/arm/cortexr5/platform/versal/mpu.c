@@ -1,34 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 * @file mpu.c
@@ -41,6 +15,12 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
 * 7.00 	mus  02/20/14 First release
+* 7.00  mus  03/16/19 Updated MPU region to mark DDR regions as
+*                     memory, based on the DDR size in hdf
+* 7.01  nis  09/02/19 Map AIE region if AIE instance is defined
+* 7.3   asa  09/25/20 Make changes to update the global array
+*                     Mpu_Config for the static regions created
+*                     during boot up.
 * </pre>
 *
 * @note
@@ -103,11 +83,13 @@ static const struct {
 void Init_MPU(void) __attribute__((__section__(".boot")));
 static void Xil_SetAttribute(u32 addr, u32 reg_size,s32 reg_num, u32 attrib) __attribute__((__section__(".boot")));
 static void Xil_DisableMPURegions(void) __attribute__((__section__(".boot")));
+extern XMpu_Config Mpu_Config __attribute__((section(".boot")));
 #elif defined (__ICCARM__)
 #pragma default_function_attributes = @ ".boot"
 void Init_MPU(void);
 static void Xil_SetAttribute(u32 addr, u32 reg_size,s32 reg_num, u32 attrib);
 static void Xil_DisableMPURegions(void);
+extern XMpu_Config Mpu_Config;
 #endif
 /*****************************************************************************
 *
@@ -121,6 +103,14 @@ static void Xil_DisableMPURegions(void);
 *
 *
 ******************************************************************************/
+static inline void Update_MpuConfig_Array(u32 Addr,u32 RegSize,u32 RegNum,
+																u32 Attrib)
+{
+	Mpu_Config[RegNum].RegionStatus = MPU_REG_ENABLED;
+	Mpu_Config[RegNum].BaseAddress = Addr;
+	Mpu_Config[RegNum].Size = RegSize;
+	Mpu_Config[RegNum].Attribute = Attrib;
+}
 
 void Init_MPU(void)
 {
@@ -133,9 +123,9 @@ void Init_MPU(void)
 	Xil_DisableMPURegions();
 
 	Addr = 0x00000000U;
-#ifdef	XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR
+#ifdef	XPAR_AXI_NOC_DDR_LOW_0_BASEADDR
 	/* If the DDR is present, configure region as per DDR size */
-	size = (XPAR_PSU_R5_DDR_0_S_AXI_HIGHADDR - XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR) + 1;
+	size = (XPAR_AXI_NOC_DDR_LOW_0_HIGHADDR - XPAR_AXI_NOC_DDR_LOW_0_BASEADDR) + 1;
 	if (size < 0x80000000) {
 		/* Lookup the size.  */
 		for (i = 0; i < sizeof region_size / sizeof region_size[0]; i++) {
@@ -145,8 +135,13 @@ void Init_MPU(void)
 			}
 		}
 	} else {
+#ifdef XPAR_AIE_NUM_INSTANCES
+		/* If AIE is mapped, DDR space is reduced to 1GB */
+		RegSize = REGION_1G;
+#else
 		/* if the DDR size is > 2GB, truncate it to 2GB */
 		RegSize = REGION_2G;
+#endif
 	}
 #else
 	/* For DDRless system, configure region for TCM */
@@ -155,6 +150,7 @@ void Init_MPU(void)
 
 	Attrib = NORM_NSHARED_WB_WA | PRIV_RW_USER_RW;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
 	/*
@@ -170,6 +166,7 @@ void Init_MPU(void)
 	RegSize = REGION_1G;
 	Attrib = STRONG_ORDERD_SHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
 	/* 512M of device memory from 0xC0000000 to 0xDFFFFFFF for QSPI */
@@ -177,6 +174,7 @@ void Init_MPU(void)
 	RegSize = REGION_512M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
 	/* 256M of device memory from 0xE0000000 to 0xEFFFFFFF for PCIe Low */
@@ -184,12 +182,14 @@ void Init_MPU(void)
 	RegSize = REGION_256M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
 	/* 128M of device memory from 0xF0000000 to 0xF7FFFFFF for PMC */
 	Addr = 0xF0000000U;
 	RegSize = REGION_128M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
@@ -198,6 +198,7 @@ void Init_MPU(void)
 	RegSize = REGION_16M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
 	/* 1M of device memory from 0xF9000000 to 0xF90FFFFF for RPU_A53_GIC */
@@ -205,6 +206,7 @@ void Init_MPU(void)
 	RegSize = REGION_1M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
 	/* 16M of device memory from 0xFD000000 to 0xFDFFFFFF for FPS slaves */
@@ -212,6 +214,7 @@ void Init_MPU(void)
 	RegSize = REGION_16M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
 	/* 16M of device memory from 0xFE000000 to 0xFEFFFFFF for Upper LPS slaves */
@@ -219,6 +222,7 @@ void Init_MPU(void)
 	RegSize = REGION_16M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
 	/*
@@ -229,13 +233,32 @@ void Init_MPU(void)
 	RegSize = REGION_16M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
+
+	/**
+	 * 1G of remapped adddress space from 0x40000000 to 0x7FFFFFFF for AIE.
+	 * The number of allocated MPU regions would be 12, 4 being free for
+	 * the user.
+	 * TODO: The value assigned to Addr must be parsed from XSA if the
+	 * remap address is part of it (currently we are not sure if that's
+	 * the case).
+	 */
+#ifdef XPAR_AIE_NUM_INSTANCES
+	Addr = 0x40000000U;
+	RegSize = REGION_1G;
+	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW  ;
+	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
+	RegNum++;
+#endif
 
 	/* 256K of OCM RAM from 0xFFFC0000 to 0xFFFFFFFF marked as normal memory */
 	Addr = 0xFFFC0000U;
 	RegSize = REGION_256K;
 	Attrib = NORM_NSHARED_WB_WA| PRIV_RW_USER_RW  ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 
 	/* A total of 11 MPU regions are allocated with another 5 being free for users */
 
