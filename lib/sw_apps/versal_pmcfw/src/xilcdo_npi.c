@@ -2619,7 +2619,9 @@ XStatus XilCdo_NpiWrite(u32 CmdArgs[10U])
 
 	if(SrcAddr >= XILCDO_PMCRAM_ENDADDR)
 	{
-		SrcAddr = XPMCFW_PMCRAM_BASEADDR;
+		SrcAddr %= XILCDO_MAX_PARTITION_LENGTH;
+		SrcAddr += XPMCFW_PMCRAM_BASEADDR;
+		XilCdo_CopyCdoBuf();
 	}
 	/** Unlock the address space */
 	XilCdo_ClearLockState(DestAddr & ~(0xFFFFU));
@@ -2680,6 +2682,60 @@ XStatus XilCdo_NpiWrite(u32 CmdArgs[10U])
 	
 	/** Lock the address space */
 	XilCdo_SetLockState(DestAddr & ~(0xFFFFU));
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @param	Npi Src Address
+ *
+ * @param   Destination Address
+ *
+ * @param	Len is number of words to be read
+ *
+ * @return	returns success or the error codes described in xilcdo.h
+ *
+ ******************************************************************************/
+XStatus XilCdo_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
+{
+	u64 RegVal;
+	u32 Count = 0U;
+	XStatus Status;
+	u32 Offset;
+	u32 ProcWords=0U;
+
+	/** For NPI READ command, the source address needs to be
+	 * 16 byte aligned. Use XPmcFw_Out64 till the destination address
+	 *becomes 16 byte aligned. */
+	while((ProcWords<Len)&&(((SrcAddr+Count)&(0xFU)) != 0U))
+	{
+		RegVal = XPmcFw_In64(SrcAddr + Count);
+		XPmcFw_Out64(DestAddr + (ProcWords<<2U), RegVal);
+		Count+=4U;
+		++ProcWords;
+	}
+
+	Status = XilCdo_DmaTransfer((u64)(SrcAddr+Count),
+		(u64)(DestAddr+(ProcWords<<2U)), (Len - ProcWords)&(~(0x3U)));
+	if(Status != XST_SUCCESS)
+	{
+		goto END;
+	}
+
+	/** For NPI_READ command, Offset variable should
+	 *  be updated with the unaligned bytes. */
+	ProcWords = ProcWords + ((Len - ProcWords)&(~(0x3U)));
+	Offset = (ProcWords<<2U);
+
+	while(ProcWords < Len)
+	{
+		RegVal = XPmcFw_In64(SrcAddr + Offset);
+		XPmcFw_Out64(DestAddr + Offset, RegVal);
+		Offset += 4U;
+		ProcWords++;
+	}
+
 END:
 	return Status;
 }

@@ -72,6 +72,9 @@ extern "C" {
 #define XPMCFW_PMCDMA_1			(0x200U)
 #define XPMCFW_DMA_SRC_NONBLK	(0x2U)
 #define XPMCFW_DMA_DST_NONBLK   (0x1U<<17U)
+#define XPMCFW_DMA_SRC_NPI		(0x4U)
+#define XPMCFW_DMA_DST_TYPE_SHIFT	(18U)
+#define XPMCFW_DMA_DST_TYPE_MASK	(0x3U<<18U)
 /*
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
@@ -119,7 +122,7 @@ XStatus XPmcFw_DmaSbiXfer(u64 SrcAddr, u32 Len, u32 Flags);
 XStatus XPmcFw_EccInit(u64 Addr, u32 Len);
 u32 XPmcFw_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
 		XCsuDma** DmaPtrAddr);
-void XPmcFw_WaitForNonBlkDma(void);
+void XPmcFw_WaitForNonBlkSrcDma(void);
 #ifdef __cplusplus
 }
 #endif
