@@ -348,6 +348,7 @@ XStatus XilCdo_NpiSeq(u32 CmdArgs[10U]);
 XStatus XilCdo_NpiShutDown(u32 CmdArgs[10U]);
 XStatus XilCdo_StoreNpiParams(u32 CmdArgs[10U]);
 XStatus XilCdo_RunPendingNpiSeq(void);
+XStatus XilCdo_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len);
 XStatus XilCdo_CheckDeskew(u32 BaseAddr);
 void XilCdo_CheckCalibration(u32 BaseAddr);
 void XilCdo_EnableCFUWrite(void);

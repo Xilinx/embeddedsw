@@ -49,6 +49,8 @@
 #include "xilcdo.h"
 #include "xpmcfw_misc.h"
 #include "xilcdo_npi.h"
+#include "xcfupmc.h"
+#include "xpmcfw_main.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -57,7 +59,7 @@
 /************************** Function Prototypes ******************************/
 /************************** Variable Definitions *****************************/
 XilCdo_Prtn XilCdoPrtnInst; /** Instance to copy CDO partition to buffer */
-u32 BlkDma = 0U; /** BlkDma denotes whether Dma0/Dma1 is used as blocking Dma*/
+extern XCsuDma_Configure DmaCtrl;
 /*****************************************************************************/
 /**
  * @param	CmdArgs is pointer to configuration data
@@ -368,6 +370,12 @@ XStatus XilCdo_ProcessCmd(u32 Cmd, u32 *CmdData, u32 *ArgNum)
 				XilCdo_CmdHdlr =  XilCdo_NpiPreCfg;
 			}
 			break;
+		case CMD_CFI_READBK:
+			{
+				*ArgNum = CMD_CFI_READBK_ARGS;
+				XilCdo_CmdHdlr =  XilCdo_CfiReadBk;
+			}
+			break;
 		default:
 			{
 				Status = XILCDO_ERR_CMD;
@@ -662,8 +670,7 @@ XStatus XilCdo_DmaXfer(u32 CmdArgs[10U])
 	u32 Flags = CmdArgs[DMA_XFER_FLAGS_INDEX];
 	u64 SrcAddr = (SrcAddrHigh<<32U) | SrcAddrLow;
 	u64 DestAddr = (DestAddrHigh<<32U) | DestAddrLow;
-	u32 DmaFlags = Flags;
-	u32 RegVal;
+	u32 DstType = (Flags & XPMCFW_DMA_DST_TYPE_MASK) >> XPMCFW_DMA_DST_TYPE_SHIFT;
 
 	if(SrcAddr == 0L)
 	{
@@ -681,30 +688,22 @@ XStatus XilCdo_DmaXfer(u32 CmdArgs[10U])
 	}
 
 	CmdArgs[9U] += CMD_DMA_XFER_ARGS;
-	if((Flags & XPMCFW_DMA_DST_NONBLK) || (Flags & XPMCFW_DMA_SRC_NONBLK))
+
+	if(DstType == READBK_INTF_TYPE_SBI)
 	{
-		if(BlkDma == 0U)
-		{
-			DmaFlags |= XPMCFW_PMCDMA_0;
-			DmaFlags &= ~XPMCFW_PMCDMA_1;
-			BlkDma = 1U;
-		}
-		else
-		{
-			DmaFlags |= XPMCFW_PMCDMA_1;
-			DmaFlags &= ~XPMCFW_PMCDMA_0;
-			BlkDma = 0U;
-		}
+		XPmcFw_UtilRMW(SLAVE_BOOT_SBI_CTRL,
+			SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
+                XPMCFW_SBI_CTRL_INTERFACE_JTAG);
 	}
-	else if(BlkDma == 0U)
+	else if(DstType == READBK_INTF_TYPE_SMAP)
 	{
-		DmaFlags |= XPMCFW_PMCDMA_0;
-		DmaFlags &= ~XPMCFW_PMCDMA_1;
+		XPmcFw_UtilRMW(SLAVE_BOOT_SBI_CTRL,
+		SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
+		XPMCFW_SBI_CTRL_INTERFACE_SMAP);
 	}
 	else
 	{
-		DmaFlags |= XPMCFW_PMCDMA_1;
-		DmaFlags &= ~XPMCFW_PMCDMA_0;
+			/** Do Nothing */
 	}
 
 	if(DestAddr == XILCDO_SMAP_DEST_ADDR)
@@ -713,51 +712,22 @@ XStatus XilCdo_DmaXfer(u32 CmdArgs[10U])
 			SLAVE_BOOT_SBI_MODE_SELECT_MASK,
 			SLAVE_BOOT_SBI_MODE_SELECT_MASK);
 
-		Status = XPmcFw_DmaSbiXfer(SrcAddr, Len, DmaFlags);
+		Status = XPmcFw_DmaSbiXfer(SrcAddr, Len, XPMCFW_PMCDMA_1);
+		XPmcFw_UtilRMW(SLAVE_BOOT_SBI_MODE, SLAVE_BOOT_SBI_MODE_SELECT_MASK,0U);
+	}
+	else if((Flags & XPMCFW_DMA_SRC_NPI) == XPMCFW_DMA_SRC_NPI)
+	{
+		XilCdo_NpiRead(SrcAddr,DestAddr,Len);
 	}
 	else
 	{
-		Status = XPmcFw_DmaXfr(SrcAddr, DestAddr, Len, DmaFlags);
+		Status = XPmcFw_DmaXfr(SrcAddr, DestAddr, Len, XPMCFW_PMCDMA_0);
 	}
 
 	if(Status != XST_SUCCESS)
     {
-	goto END;
+		goto END;
     }
-
-	if(!((Flags & XPMCFW_DMA_DST_NONBLK) || (Flags & XPMCFW_DMA_SRC_NONBLK)))
-	{
-		XPmcFw_WaitForNonBlkDma();
-        if((Xil_In32(SLAVE_BOOT_SBI_MODE) & SLAVE_BOOT_SBI_MODE_SELECT_MASK)==0U)
-		{
-			goto END;
-		}
-		while(1)
-        {
-		RegVal = Xil_In32(SLAVE_BOOT_SBI_STATUS);
-            if(((RegVal & SLAVE_BOOT_SBI_STATUS_CMN_BUF_SPACE_MASK)
-													>>3U)==0x200U)
-            {
-		/** Do Nothing */
-            }
-            else
-            {
-		continue;
-            }
-
-            if(((RegVal & SLAVE_BOOT_SBI_STATUS_SMAP_DOUT_FIFO_SPACE_MASK)
-															>>20U)==0x8U)
-            {
-		break;
-            }
-            else
-            {
-		continue;
-            }
-        }
-		XPmcFw_UtilRMW(SLAVE_BOOT_SBI_MODE,
-			SLAVE_BOOT_SBI_MODE_SELECT_MASK, 0U);
-	}
 END:
 	return Status;
 }
@@ -816,5 +786,111 @@ XStatus XilCdo_CopyCdoBuf(void)
 		XilCdoPrtnInst.Offset, (u32)XilCdoPrtnInst.CdoBuf, CurLen, 0U);
 	XilCdoPrtnInst.Offset += CurLen;
 END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @param	CmdArgs is pointer to the arguments data
+ *
+ *
+ * @return	returns the error codes described in xpmcfw_err.h
+ *
+ ******************************************************************************/
+XStatus XilCdo_CfiReadBk(u32 CmdArgs[10U])
+{
+	XStatus Status;
+	u32 SrcType = CmdArgs[CFI_READBK_SRC_TYPE_INDEX];
+	u64 DestAddrHigh;
+	u32 DestAddrLow;
+	u32 Len = CmdArgs[CFI_READBK_READ_LEN_INDEX];
+	u64 SrcAddr = CFU_FDRO_ADDR;
+	u64 DestAddr;
+	u32 RegVal;
+	DmaCtrl.MaxOutCmds = 1U;
+	if(SrcType == READBK_INTF_TYPE_DDR)
+	{
+		DestAddrHigh = CmdArgs[CFI_READBK_DST_ADDR_HIGH_INDEX];
+		DestAddrLow =  CmdArgs[CFI_READBK_DST_ADDR_LOW_INDEX];
+		DestAddr = (DestAddrHigh<<32U) | DestAddrLow;
+
+		Status = XPmcFw_DmaXfr(CFU_FDRO_ADDR, DestAddr, Len,
+			XPMCFW_PMCDMA_1 | XPMCFW_SRC_CH_AXI_FIXED |
+						XPMCFW_DMA_SRC_NONBLK);
+	}
+	else
+	{
+		if(SrcType == READBK_INTF_TYPE_SBI)
+		{
+			XPmcFw_UtilRMW(SLAVE_BOOT_SBI_CTRL,
+                               SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
+                               XPMCFW_SBI_CTRL_INTERFACE_JTAG);
+		}
+		else if(SrcType == READBK_INTF_TYPE_SMAP)
+		{
+			XPmcFw_UtilRMW(SLAVE_BOOT_SBI_CTRL,
+                               SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
+                               XPMCFW_SBI_CTRL_INTERFACE_SMAP);
+		}
+		else
+		{
+			/** Do Nothing */
+		}
+
+		XPmcFw_UtilRMW(SLAVE_BOOT_SBI_MODE,
+			SLAVE_BOOT_SBI_MODE_SELECT_MASK,
+			SLAVE_BOOT_SBI_MODE_SELECT_MASK);
+
+		Status = XPmcFw_DmaSbiXfer(CFU_FDRO_ADDR, Len, XPMCFW_PMCDMA_1
+			 | XPMCFW_SRC_CH_AXI_FIXED | XPMCFW_DMA_SRC_NONBLK);
+	}
+
+	if(Status != XST_SUCCESS)
+	{
+		goto END;
+	}
+	DmaCtrl.MaxOutCmds = 8U;
+	SrcAddr = CmdArgs[9U];
+	if(SrcAddr == XILCDO_PMCRAM_ENDADDR)
+	{
+		SrcAddr = XPMCFW_PMCRAM_BASEADDR;
+	}
+	CmdArgs[9U] = CMD_CFI_READBK_ARGS + CFI_READBK_WRITE_LEN;
+
+
+	Status = XPmcFw_DmaXfr(SrcAddr, (u64)CFU_STREAM_ADDR,
+			CFI_READBK_WRITE_LEN, XPMCFW_PMCDMA_0 );
+
+	XPmcFw_WaitForNonBlkSrcDma();
+	if(SrcType == READBK_INTF_TYPE_DDR)
+	{
+		goto END;
+	}
+
+	while(1)
+	{
+		RegVal = Xil_In32(SLAVE_BOOT_SBI_STATUS);
+		if(((RegVal & SLAVE_BOOT_SBI_STATUS_CMN_BUF_SPACE_MASK)
+							>>3U)==0x200U)
+		{
+			/** Do Nothing */
+		}
+		else
+		{
+			continue;
+		}
+
+		if(((RegVal & SLAVE_BOOT_SBI_STATUS_SMAP_DOUT_FIFO_SPACE_MASK)
+								>>20U)==0x8U)
+		{
+			break;
+		}
+		else
+		{
+			continue;
+		}
+	}
+END:
+	XPmcFw_UtilRMW(SLAVE_BOOT_SBI_MODE, SLAVE_BOOT_SBI_MODE_SELECT_MASK, 0U);
 	return Status;
 }
