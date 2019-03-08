@@ -45,7 +45,7 @@
 #ifndef XDEBUG  /* prevent circular inclusions */
 #define XDEBUG  /* by using protection macros */
 
-#define DEBUG 1
+//#define DEBUG 1
 
 #if defined(DEBUG) && !defined(NDEBUG)
 
@@ -64,8 +64,8 @@ int printf(const char *format, ...);
 
 #define xdbg_stmnt(x)  x
 
-//#define xdbg_printf(type, ...) \
-//			(((type) & xdbg_current_types) ? printf (__VA_ARGS__) : 0)
+#define xdbg_printf(type, ...) \
+			(((type) & xdbg_current_types) ? printf (__VA_ARGS__) : 0)
 
 
 #else /* defined(DEBUG) && !defined(NDEBUG) */

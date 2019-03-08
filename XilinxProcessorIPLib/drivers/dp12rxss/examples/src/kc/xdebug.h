@@ -45,7 +45,7 @@
 #ifndef XDEBUG  /* prevent circular inclusions */
 #define XDEBUG  /* by using protection macros */
 
-#define DEBUG 1
+//#define DEBUG 1
 
 #if defined(DEBUG) && !defined(NDEBUG)
 
