@@ -493,6 +493,14 @@ typedef struct {
 
 } XAieGbl_ComboEventControl;
 
+/**
+ * This typedef contains the attributes for Shim reset register.
+ */
+typedef struct {
+	u32 RegOff;			/**< Reset offset */
+	XAieGbl_RegFldAttr Reset;	/**< Reset register */
+} XAieGbl_RegShimReset;
+
 /**************************** Macro Definitions *****************************/
 
 /**************************** Function prototypes ***************************/

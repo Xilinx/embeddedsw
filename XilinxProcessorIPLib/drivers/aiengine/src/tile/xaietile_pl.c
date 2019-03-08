@@ -39,6 +39,7 @@
 * Ver   Who       Date        Changes
 * ----- ------  -------- -----------------------------------------------------
 * 1.0  Jubaer  01/29/2019  Initial creation
+* 1.1  Jubaer  03/07/2019  Add Shim Reset Enable
 * </pre>
 *
 ******************************************************************************/
@@ -53,6 +54,8 @@
 /***************************** Macro Definitions *****************************/
 
 /************************** Variable Definitions *****************************/
+
+extern XAieGbl_RegShimReset ShimReset;
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
@@ -383,6 +386,31 @@ void XAieTile_PlIntcL1BlockNorthClr(XAieGbl_Tile *TileInstPtr, u32 Mask,
 		XAieGbl_Write32(TileInstPtr->TileAddr +
 				XAIEGBL_PL_INTCON1STLEVBLKNORINBCLR, Mask);
 	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This API enable / disable the shim reset to given time
+*
+* @param	TileInstPtr - Pointer to the Shim tile instance.
+* @param	Reset - 1 for enable. 0 for disable.
+*
+* @return	XAIE_SUCCESS on success
+*
+* @note		None.
+*
+*******************************************************************************/
+u8 XAieTile_PlShimResetEnable(XAieGbl_Tile *TileInstPtr, u8 Reset)
+{
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(Reset <= 1);
+
+	XAieGbl_Write32(TileInstPtr->TileAddr + ShimReset.RegOff, Reset &
+			XAIEGBL_PL_AIESHIRSTENA_RST_MASK);
+
+	return XAIE_SUCCESS;
 }
 
 /** @} */
