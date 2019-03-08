@@ -114,6 +114,8 @@
 *	adk	08/08/18 Added new API XCsuDma_WaitForDoneTimeout() useful for
 *			 polling dma transfer done.
 *	adk     28/08/18 Fixed misra-c required standard violations..
+*       Rama	02/26/19 Fixed IAR issue by changing
+*						 "XCsuDma_WaitForDoneTimeout" to function
 * </pre>
 *
 ******************************************************************************/
@@ -133,6 +135,7 @@ extern "C" {
 #include "xil_assert.h"
 #include "xstatus.h"
 #include "xil_cache.h"
+#include "sleep.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -237,37 +240,6 @@ typedef enum {
 			((u32)(Channel) * (u32)(XCSUDMA_OFFSET_DIFF)))) & \
 		(u32)(XCSUDMA_IXR_DONE_MASK)) != (XCSUDMA_IXR_DONE_MASK))
 
-/*****************************************************************************/
-/**
-* This function will poll for completion of data transfer periodically until
-* DMA done bit set or till the timeout occurs.
-*
-* @param	InstancePtr is a pointer to XCsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
-*		Destination.
-*		Source channel      - XCSUDMA_SRC_CHANNEL
-*		Destination Channel - XCSUDMA_DST_CHANNEL
-*
-* @return	XST_SUCCESS - Incase of Success
-*		XST_FAILURE - Incase of Timeout.
-*
-* @note.
-*		C-style signature:
-*		int XCsuDma_WaitForDoneTimeout(XCsuDma *InstancePtr,
-*					       XCsuDma_Channel Channel)
-*
-******************************************************************************/
-#define XCsuDma_WaitForDoneTimeout(InstancePtr, Channel) \
-({	\
-	u32 Regval; \
-	int Timeout; \
-	Timeout = Xil_poll_timeout(XCsuDma_In32,(((InstancePtr)->Config.BaseAddress)+ \
-			 ((u32)(XCSUDMA_I_STS_OFFSET) + \
-			 ((u32)(Channel) * (u32)(XCSUDMA_OFFSET_DIFF)))), Regval, \
-			 ((Regval & XCSUDMA_IXR_DONE_MASK) == XCSUDMA_IXR_DONE_MASK), \
-			 XCSUDMA_DONE_TIMEOUT_VAL); \
-	(Timeout == -1) ? XST_FAILURE : XST_SUCCESS; \
-})
 
 /*****************************************************************************/
 /**
@@ -473,6 +445,7 @@ void XCsuDma_ClearDoneCount(XCsuDma *InstancePtr, XCsuDma_Channel Channel);
 
 void XCsuDma_SetSafetyCheck(XCsuDma *InstancePtr, u32 Value);
 u32 XCsuDma_GetSafetyCheck(XCsuDma *InstancePtr);
+u32 XCsuDma_WaitForDoneTimeout(XCsuDma *InstancePtr, XCsuDma_Channel Channel);
 
 /* Interrupt related APIs */
 u32 XCsuDma_IntrGetStatus(XCsuDma *InstancePtr, XCsuDma_Channel Channel);
