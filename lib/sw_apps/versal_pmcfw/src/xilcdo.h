@@ -92,13 +92,16 @@ typedef struct {
 #define DMA_WRITE_SRCADDR_INDEX	0x3U
 #define NPI_WRITE_ATTRB_INDEX	0x1U
 #define NPI_WRITE_LEN_INDEX		0x2U
-#define NPI_WRITE_SRCADDR_INDEX	0x3U
 #define DMA_XFER_SRCADDR_HIGH_INDEX 0x0U
 #define DMA_XFER_SRCADDR_LOW_INDEX  0x1U
 #define DMA_XFER_DESTADDR_HIGH_INDEX  0x2U
 #define DMA_XFER_DESTADDR_LOW_INDEX   0x3U
 #define DMA_XFER_LEN_INDEX		 0x4U
 #define DMA_XFER_FLAGS_INDEX	 0x5U
+#define CFI_READBK_SRC_TYPE_INDEX		0x0U
+#define CFI_READBK_DST_ADDR_HIGH_INDEX	0x1U
+#define CFI_READBK_DST_ADDR_LOW_INDEX	0x2U
+#define CFI_READBK_READ_LEN_INDEX		0x3U
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
@@ -142,7 +145,12 @@ typedef struct {
 #define CMD_NPI_PRECFG_ARGS	(0x2U)
 #define CMD_NPI_SHUTDN_ARGS	(0x2U)
 #define CMD_CFI_SEQ_ARGS	(0x1U)
+#define CMD_CFI_READBK_ARGS	(0x4U)
 #define CMD_DMA_XFER_ARGS	(0x6U)
+#define CFI_READBK_WRITE_LEN 	(0x10U)
+#define READBK_INTF_TYPE_SMAP	(0x0U)
+#define READBK_INTF_TYPE_SBI	(0x1U)
+#define READBK_INTF_TYPE_DDR	(0x2U)
 
 /* NPI Commands */
 #define CMD_NPI_SEQ		(0x201U)
@@ -152,6 +160,7 @@ typedef struct {
 
 /* CFI Commands */
 #define CMD_CFI_SETCRC32	(0x301U)
+#define CMD_CFI_READBK		(0x302U)
 
 /* Error Codes */
 #define XILCDO_ERR_HDR_CHKSUM	(0x1U)
@@ -167,6 +176,7 @@ XStatus XilCdo_DmaWrite(u32 CmdArgs[10U]);
 XStatus XilCdo_DmaXfer(u32 CmdArgs[10U]);
 XStatus XilCdo_DmaTransfer(u64 SrcAddr, u64 DestAddr, u32 Len);
 XStatus XilCdo_NpiPreCfg(u32 CmdArgs[10U]);
+XStatus XilCdo_CfiReadBk(u32 CmdArgs[10U]);
 #ifdef __cplusplus
 }
 #endif
