@@ -57,6 +57,8 @@
 *                  in safety mode and modified the code such as
 *                  Added Xil_MemCpy inplace of memcpy,Declared the pointer param
 *                  as Pointer to const, declared XQspi_Set_TapDelay() as static.
+* 1.9 akm 03/08/19 Set recommended clock and data tap delay values for 40MHZ,
+*		   100MHZ and 150MHZ frequencies(CR#1023187)
 *
 * </pre>
 *
@@ -397,39 +399,17 @@ static s32 XQspi_Set_TapDelay(const XQspiPsu * InstancePtr,u32 TapdelayBypass,
 ******************************************************************************/
 static s32 XQspipsu_Calculate_Tapdelay(const XQspiPsu *InstancePtr, u8 Prescaler)
 {
-	u32 FreqDiv, Divider, Tapdelay, LBkModeReg, delayReg;
+	u32 FreqDiv, Divider;
+	u32 Tapdelay = 0;
+	u32 LBkModeReg = 0;
+	u32 delayReg = 0;
 	s32 Status;
 
 	Divider = (1U << (Prescaler+1U));
 
 	FreqDiv = (InstancePtr->Config.InputClockHz)/Divider;
-#if EL1_NONSECURE && defined (__aarch64__) && !defined (versal)
-	Tapdelay = IOU_TAPDLY_RESET_STATE;
-#elif defined (versal)
-	Tapdelay = XQspiPsu_ReadReg(XQSPIPS_BASEADDR,
-					IOU_TAPDLY_BYPASS_OFFSET);
-#else
-	Tapdelay = XQspiPsu_ReadReg(XPS_SYS_CTRL_BASEADDR,
-					IOU_TAPDLY_BYPASS_OFFSET);
-#endif
-	Tapdelay = Tapdelay & (~IOU_TAPDLY_BYPASS_LQSPI_RX_MASK);
 
-	LBkModeReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
-			XQSPIPSU_LPBK_DLY_ADJ_OFFSET);
-
-	LBkModeReg = ((LBkModeReg &
-			(~(XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_MASK))) &
-			(LBkModeReg & (~(XQSPIPSU_LPBK_DLY_ADJ_DLY1_MASK))) &
-			(LBkModeReg & (~(XQSPIPSU_LPBK_DLY_ADJ_DLY0_MASK))));
-
-	delayReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
-			XQSPIPSU_DATA_DLY_ADJ_OFFSET);
-
-	delayReg = (delayReg &
-			(~(XQSPIPSU_DATA_DLY_ADJ_USE_DATA_DLY_MASK))) &
-			(delayReg & (~( XQSPIPSU_DATA_DLY_ADJ_DLY_MASK)));
-
-	if(FreqDiv < XQSPIPSU_FREQ_40MHZ){
+	if(FreqDiv <= XQSPIPSU_FREQ_40MHZ){
 		Tapdelay = Tapdelay |
 				(TAPDLY_BYPASS_VALVE_40MHZ << IOU_TAPDLY_BYPASS_LQSPI_RX_SHIFT);
 	} else if (FreqDiv <= XQSPIPSU_FREQ_100MHZ) {
@@ -441,8 +421,7 @@ static s32 XQspipsu_Calculate_Tapdelay(const XQspiPsu *InstancePtr, u8 Prescaler
 				(DATA_DLY_ADJ_DLY  << XQSPIPSU_DATA_DLY_ADJ_DLY_SHIFT);
 	} else if (FreqDiv <= XQSPIPSU_FREQ_150MHZ) {
 		LBkModeReg = LBkModeReg |
-				(USE_DLY_LPBK  <<  XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_SHIFT ) |
-				(LPBK_DLY_ADJ_DLY0  << XQSPIPSU_LPBK_DLY_ADJ_DLY0_SHIFT);
+				(USE_DLY_LPBK  <<  XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_SHIFT );
 	} else {
 		Status = XST_FAILURE;
 		goto END;

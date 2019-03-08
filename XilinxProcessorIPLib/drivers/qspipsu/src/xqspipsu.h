@@ -157,6 +157,9 @@
  *		     address is of only 32bit (CR#1020031)
  * 1.9  nsk 02/01/19 Added QSPI idling support
  *
+ * 1.9 akm 03/08/19 Set recommended clock and data tap delay values for 40MHZ,
+ *                  100MHZ and 150MHZ frequencies(CR#1023187)
+ *
  * </pre>
  *
  ******************************************************************************/
