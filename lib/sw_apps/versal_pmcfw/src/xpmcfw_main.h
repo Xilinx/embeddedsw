@@ -82,7 +82,6 @@ typedef struct {
 	u32 SecondaryBootDevice; /**< Secondary boot device in image header*/
 	XPmcFw_DeviceOps DeviceOps; /**< Device operations for bootmodes */
 	u32 ResetReason; /**< Reset reason */
-	u32 PlCfiPresent; /**< PL data presence */
 	u32 PlCleaningDone;
 	u32 NoOfHandoffCpus; /**< Number of CPU's PMCFW will handoff to */
 	XPmcFw_HandoffParam HandoffParam[10];
@@ -95,7 +94,7 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /* SDK release version */
-#define PMCFW_RELEASE_VERSION	"8.3"
+#define PMCFW_RELEASE_VERSION	"8.4"
 #define SDK_RELEASE_YEAR	"2019"
 #define SDK_RELEASE_QUARTER	"1"
 

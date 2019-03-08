@@ -63,7 +63,7 @@
 static XStatus XPmcFw_HandoffCpus(XPmcFw * PmcFwInstancePtr);
 
 /************************** Variable Definitions *****************************/
-extern u32 NpiFabricEnabled;
+extern u32 PlCfiPresent;
 /*****************************************************************************/
 /**
  * This function starts the whole system
@@ -86,21 +86,15 @@ XStatus XPmcFw_Handoff (XPmcFw * PmcFwInstancePtr)
 	goto END;
     }
 
-	if ((PmcFwInstancePtr->PlCfiPresent == TRUE) || (NpiFabricEnabled == 1U))
-	{
-		XilCdo_SetGlobalSignals();
-	}
-
-	XilCdo_RunPendingNpiSeq();
 	/* Hook before handoff */
 	Status = XPmcFw_HookBeforeHandoff();
 	if (XPMCFW_SUCCESS != Status) {
 		goto END;
 	}
-
-	/* PL Global Sequence END if only cfi or npi bit stream is loaded */
-	if ((PmcFwInstancePtr->PlCfiPresent == TRUE) || (NpiFabricEnabled == 1U))
+	/* PL Global Sequence END if only cfi bit stream is loaded */
+	if (PlCfiPresent == TRUE)
 	{
+		XilCdo_SetGlobalSignals();
 		XilCdo_AssertGlobalSignals();
 #if 0
 	/* Enable Readback */
