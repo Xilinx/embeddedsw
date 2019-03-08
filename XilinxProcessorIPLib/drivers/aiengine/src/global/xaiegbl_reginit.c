@@ -5299,6 +5299,12 @@ XAieGbl_ComboEventControl ComboEventControl[] =
 	},
 };
 
+XAieGbl_RegShimReset ShimReset =
+{
+	XAIEGBL_PL_AIESHIRSTENA,
+	{XAIEGBL_PL_AIESHIRSTENA_RST_LSB, XAIEGBL_PL_AIESHIRSTENA_RST_MASK},
+};
+
 /************************** Function Definitions ******************************/
 
 /** @} */
