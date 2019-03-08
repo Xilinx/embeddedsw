@@ -1,26 +1,8 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -53,88 +35,81 @@ extern "C" {
 #ifdef XLOADER_QSPI
 #include "xqspipsu.h"
 #include "xplmi_debug.h"
-/************************** Constant Definitions *****************************/
 
+/************************** Constant Definitions *****************************/
 /*
  * The following constants define the commands which may be sent to the FLASH
  * device.
  */
-#define READ_ID_CMD				(0x9FU)
-#define FAST_READ_CMD_24BIT		(0x0BU)
-#define	DUAL_READ_CMD_24BIT		(0x3BU)
-#define QUAD_READ_CMD_24BIT		(0x6BU)
-#define FAST_READ_CMD_32BIT		(0x0CU)
-#define DUAL_READ_CMD_32BIT		(0x3CU)
-#define QUAD_READ_CMD_32BIT		(0x6CU)
+#define XLOADER_READ_ID_CMD			(0x9FU)
+#define XLOADER_FAST_READ_CMD_24BIT		(0x0BU)
+#define	XLOADER_DUAL_READ_CMD_24BIT		(0x3BU)
+#define XLOADER_QUAD_READ_CMD_24BIT		(0x6BU)
+#define XLOADER_FAST_READ_CMD_32BIT		(0x0CU)
+#define XLOADER_DUAL_READ_CMD_32BIT		(0x3CU)
+#define XLOADER_QUAD_READ_CMD_32BIT		(0x6CU)
 
-
-#define WRITE_ENABLE_CMD	(0x06U)
-#define BANK_REG_RD_CMD		(0x16U)
-#define BANK_REG_WR_CMD		(0x17U)
+#define XLOADER_WRITE_ENABLE_CMD	(0x06U)
+#define XLOADER_BANK_REG_RD_CMD		(0x16U)
+#define XLOADER_BANK_REG_WR_CMD		(0x17U)
 /* Bank register is called Extended Addr Reg in Micron */
-#define EXTADD_REG_RD_CMD	(0xC8U)
-#define EXTADD_REG_WR_CMD	(0xC5U)
+#define XLOADER_EXTADD_REG_RD_CMD	(0xC8U)
+#define XLOADER_EXTADD_REG_WR_CMD	(0xC5U)
 
-#define COMMAND_OFST		(0U) /* FLASH instruction */
-#define ADDR_1_OFST	(1U) /* MSB byte of address to read or write */
-#define ADDR_2_OFST	(2U) /* Middle byte of address to read or write */
-#define ADDR_3_OFST	(3U) /* Middle byte of address to read or write */
-#define ADDR_4_OFST	(4U) /* LSB byte of address to read or write */
-#define DATA_OFST			(4U) /* Start of Data for Read/Write */
-#define DUMMY_OFST		(4U) /* Dummy byte offset for fast, dual and quad
+#define XLOADER_COMMAND_OFST	(0U) /* FLASH instruction */
+#define XLOADER_ADDR_1_OFST	(1U) /* MSB byte of address to read or write */
+#define XLOADER_ADDR_2_OFST	(2U) /* Middle byte of address to read or write */
+#define XLOADER_ADDR_3_OFST	(3U) /* Middle byte of address to read or write */
+#define XLOADER_ADDR_4_OFST	(4U) /* LSB byte of address to read or write */
+#define XLOADER_DATA_OFST	(4U) /* Start of Data for Read/Write */
+#define XLOADER_DUMMY_OFST	(4U) /* Dummy byte offset for fast, dual and quad
 				     reads */
-#define DUMMY_SIZE			(1U) /* Number of dummy bytes for fast, dual and
+#define XLOADER_DUMMY_SIZE	(1U) /* Number of dummy bytes for fast, dual and
 				     quad reads */
-#define DUMMY_CLOCKS		8 /* Number of dummy bytes for fast, dual and
+#define XLOADER_DUMMY_CLOCKS	(8U) /* Number of dummy bytes for fast, dual and
 				     quad reads */
-#define RD_ID_SIZE			(4U) /* Read ID command + 3 bytes ID response */
-#define BANK_SEL_SIZE		(2U) /* BRWR or EARWR command + 1 byte bank value */
-#define WRITE_ENABLE_CMD_SIZE	(1U) /* WE command */
+#define XLOADER_RD_ID_SIZE	(4U) /* Read ID command + 3 bytes ID response */
+#define XLOADER_BANK_SEL_SIZE	(2U) /* BRWR or EARWR command + 1 byte bank value */
+#define XLOADER_WRITE_ENABLE_CMD_SIZE	(1U) /* WE command */
+
 /*
  * The following constants specify the extra bytes which are sent to the
  * FLASH on the QSPI interface, that are not data, but control information
  * which includes the command and address
  */
-#define OVERHEAD_SIZE		(4U)
+#define XLOADER_OVERHEAD_SIZE	(4U)
 
 /*
  * Max limit of single DMA transfer is 512MB
  */
-#define DMA_DATA_TRAN_SIZE		(0x20000000U)
+#define XLOADER_DMA_DATA_TRAN_SIZE	(0x20000000U)
 
 /*
  * The following defines are for dual flash interface.
  */
-#define LQSPI_CR_FAST_QUAD_READ		(0x0000006BU) /* Fast Quad Read output */
-#define LQSPI_CR_1_DUMMY_BYTE		(0x00000100U) /* 1 Dummy Byte between
+#define XLOADER_LQSPI_CR_FAST_QUAD_READ		(0x0000006BU) /* Fast Quad Read output */
+#define XLOADER_LQSPI_CR_1_DUMMY_BYTE		(0x00000100U) /* 1 Dummy Byte between
 						     address and return data */
 
-#define SINGLE_QSPI_IO_CONFIG_QUAD_READ	(LQSPI_CR_1_DUMMY_BYTE | \
-					 LQSPI_CR_FAST_QUAD_READ)
+#define XLOADER_SINGLE_QSPI_IO_CONFIG_QUAD_READ	(LQSPI_CR_1_DUMMY_BYTE | \
+	LQSPI_CR_FAST_QUAD_READ)
 
-#define DUAL_QSPI_PARALLEL_IO_CONFIG_QUAD_READ	\
-					(XQSPIPS_LQSPI_CR_TWO_MEM_MASK | \
-					 XQspiPsu_LQSPI_CR_SEP_BUS_MASK | \
-					 LQSPI_CR_1_DUMMY_BYTE | \
-					 LQSPI_CR_FAST_QUAD_READ)
+#define XLOADER_DUAL_QSPI_PARALLEL_IO_CONFIG_QUAD_READ	\
+	(XQSPIPS_LQSPI_CR_TWO_MEM_MASK | XQspiPsu_LQSPI_CR_SEP_BUS_MASK | \
+	LQSPI_CR_1_DUMMY_BYTE | LQSPI_CR_FAST_QUAD_READ)
 
+#define XLOADER_DUAL_QSPI_STACK_IO_CONFIG_READ	(XQSPIPS_LQSPI_CR_TWO_MEM_MASK \
+	| LQSPI_CR_1_DUMMY_BYTE | LQSPI_CR_FAST_QUAD_READ)
 
-#define DUAL_QSPI_STACK_IO_CONFIG_READ	(XQSPIPS_LQSPI_CR_TWO_MEM_MASK | \
-					 LQSPI_CR_1_DUMMY_BYTE | \
-					 LQSPI_CR_FAST_QUAD_READ)
-
-/**
- * Flash connection type as defined in PCW
+/*
+ * Flash connection type as defined in Vivado
  */
-#define FLASH_SIZE_16MB			(0x1000000U)
-#define BANKSIZE			(FLASH_SIZE_16MB)
-#define SINGLEBANKSIZE			BANKSIZE
-
+#define XLOADER_FLASH_SIZE_16MB			(0x1000000U)
+#define XLOADER_BANKSIZE			(XLOADER_FLASH_SIZE_16MB)
 /*
  * Bank mask
  */
-#define BANKMASK			(0xFFFFFFFFU & ~(BANKSIZE - 1))
-#define SINGLEBANKMASK			BANKMASK
+#define XLOADER_BANKMASK		(0xFFFFFFFFU & ~(XLOADER_BANKSIZE - 1U))
 
 /*
  * Identification of Flash
@@ -149,34 +124,33 @@ extern "C" {
  * Byte 2 is second byte of Device ID describes flash size:
  * 128Mbit : 0x18; 256Mbit : 0x19; 512Mbit : 0x20
  */
+#define XLOADER_MICRON_ID		(0x20U)
+#define XLOADER_SPANSION_ID		(0x01U)
+#define XLOADER_WINBOND_ID		(0xEFU)
+#define XLOADER_MACRONIX_ID		(0xC2U)
+#define XLOADER_ISSI_ID			(0x9DU)
 
-#define MICRON_ID		(0x20U)
-#define SPANSION_ID		(0x01U)
-#define WINBOND_ID		(0xEFU)
-#define MACRONIX_ID		(0xC2U)
-#define ISSI_ID			(0x9DU)
-
-#define FLASH_SIZE_ID_64M		(0x17U)
-#define FLASH_SIZE_ID_128M		(0x18U)
-#define FLASH_SIZE_ID_256M		(0x19U)
-#define FLASH_SIZE_ID_512M		(0x20U)
-#define FLASH_SIZE_ID_1G		(0x21U)
-#define FLASH_SIZE_ID_2G		(0x22U)
+#define XLOADER_FLASH_SIZE_ID_64M		(0x17U)
+#define XLOADER_FLASH_SIZE_ID_128M		(0x18U)
+#define XLOADER_FLASH_SIZE_ID_256M		(0x19U)
+#define XLOADER_FLASH_SIZE_ID_512M		(0x20U)
+#define XLOADER_FLASH_SIZE_ID_1G		(0x21U)
+#define XLOADER_FLASH_SIZE_ID_2G		(0x22U)
 /* Macronix size constants are different for 512M and 1G */
-#define MACRONIX_FLASH_SIZE_ID_512M		(0x1AU)
-#define MACRONIX_FLASH_SIZE_ID_1G		(0x1BU)
-#define MACRONIX_FALSH_1_8_V_SIZE_ID_512M       (0x3AU)
-#define MACRONIX_FALSH_1_8_V_SIZE_ID_1G         (0x3BU)
-#define MACRONIX_FALSH_1_8_V_SIZE_ID_2G		(0x3CU)
+#define XLOADER_MACRONIX_FLASH_SIZE_ID_512M		(0x1AU)
+#define XLOADER_MACRONIX_FLASH_SIZE_ID_1G		(0x1BU)
+#define XLOADER_MACRONIX_FALSH_1_8_V_SIZE_ID_512M       (0x3AU)
+#define XLOADER_MACRONIX_FALSH_1_8_V_SIZE_ID_1G         (0x3BU)
+#define XLOADER_MACRONIX_FALSH_1_8_V_SIZE_ID_2G		(0x3CU)
 /*
  * Size in bytes
  */
-#define FLASH_SIZE_64M			(0x0800000U)
-#define FLASH_SIZE_128M			(0x1000000U)
-#define FLASH_SIZE_256M			(0x2000000U)
-#define FLASH_SIZE_512M			(0x4000000U)
-#define FLASH_SIZE_1G			(0x8000000U)
-#define FLASH_SIZE_2G			(0x10000000U)
+#define XLOADER_FLASH_SIZE_64M			(0x0800000U)
+#define XLOADER_FLASH_SIZE_128M			(0x1000000U)
+#define XLOADER_FLASH_SIZE_256M			(0x2000000U)
+#define XLOADER_FLASH_SIZE_512M			(0x4000000U)
+#define XLOADER_FLASH_SIZE_1G			(0x8000000U)
+#define XLOADER_FLASH_SIZE_2G			(0x10000000U)
 
 /* TODO change to QSPI driver API */
 #define XLOADER_QSPIDMA_DST_CTRL	(0xF103080CU)
@@ -189,23 +163,26 @@ extern "C" {
 #define XLOADER_QSPI_BUSWIDTH_TWO		(1U)
 #define XLOADER_QSPI_BUSWIDTH_FOUR		(2U)
 
+#define XLOADER_READ_ID_CMD_TX_BYTE_CNT		(1U)
+#define XLOADER_READ_ID_CMD_RX_BYTE_CNT		(4U)
+#define XLOADER_QSPI24_COPY_DISCARD_BYTE_CNT	(4U)
+#define XLOADER_QSPI32_COPY_DISCARD_BYTE_CNT	(5U)
+#define XLOADER_QSPI_WRITE_ENABLE_CMD_BYTE_CNT	(1U)
+#define XLOADER_EXTADD_REG_WR_CMD_BYTE_CNT	(2U)
+#define XLOADER_EXTADD_REG_RD_CMD_BYTE_CNT	(1U)
+#define XLOADER_BANK_REG_WR_CMD_BYTE_CNT	(2U)
+#define XLOADER_BANK_REG_RD_CMD_BYTE_CNT	(1U)
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-
-int XLoader_Qspi24Init(u32 DeviceFlags);
-XStatus XLoader_Qspi24Copy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
-int XLoader_Qspi24Release(void );
-int XLoader_Qspi32Init(u32 DeviceFlags);
-XStatus XLoader_Qspi32Copy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
-int XLoader_Qspi32Release(void );
-int XLoader_Qspi24GetBusWidth(u32 ImageOffsetAddress);
-int XLoader_Qspi32GetBusWidth(u32 ImageOffsetAddress);
+int XLoader_QspiInit(u32 DeviceFlags);
+int XLoader_QspiCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+int XLoader_QspiGetBusWidth(u32 ImageOffsetAddress);
 
 /************************** Variable Definitions *****************************/
-
 
 #endif /* end of XLOADER_QSPI */
 

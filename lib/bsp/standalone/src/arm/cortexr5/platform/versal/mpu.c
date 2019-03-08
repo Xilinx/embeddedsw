@@ -1,34 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 * @file mpu.c
@@ -41,6 +15,9 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
 * 7.00 	mus  02/20/14 First release
+* 7.00  mus  03/16/19 Updated MPU region to mark DDR regions as
+*                     memory, based on the DDR size in hdf
+* 7.01  nis  09/02/19 Map AIE region if AIE instance is defined
 * </pre>
 *
 * @note
@@ -133,9 +110,9 @@ void Init_MPU(void)
 	Xil_DisableMPURegions();
 
 	Addr = 0x00000000U;
-#ifdef	XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR
+#ifdef	XPAR_AXI_NOC_DDR_LOW_0_BASEADDR
 	/* If the DDR is present, configure region as per DDR size */
-	size = (XPAR_PSU_R5_DDR_0_S_AXI_HIGHADDR - XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR) + 1;
+	size = (XPAR_AXI_NOC_DDR_LOW_0_HIGHADDR - XPAR_AXI_NOC_DDR_LOW_0_BASEADDR) + 1;
 	if (size < 0x80000000) {
 		/* Lookup the size.  */
 		for (i = 0; i < sizeof region_size / sizeof region_size[0]; i++) {
@@ -145,8 +122,13 @@ void Init_MPU(void)
 			}
 		}
 	} else {
+#ifdef XPAR_AIE_NUM_INSTANCES
+		/* If AIE is mapped, DDR space is reduced to 1GB */
+		RegSize = REGION_1G;
+#else
 		/* if the DDR size is > 2GB, truncate it to 2GB */
 		RegSize = REGION_2G;
+#endif
 	}
 #else
 	/* For DDRless system, configure region for TCM */
@@ -230,6 +212,22 @@ void Init_MPU(void)
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
+
+	/**
+	 * 1G of remapped adddress space from 0x40000000 to 0x7FFFFFFF for AIE.
+	 * The number of allocated MPU regions would be 12, 4 being free for
+	 * the user.
+	 * TODO: The value assigned to Addr must be parsed from XSA if the
+	 * remap address is part of it (currently we are not sure if that's
+	 * the case).
+	 */
+#ifdef XPAR_AIE_NUM_INSTANCES
+	Addr = 0x40000000U;
+	RegSize = REGION_1G;
+	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW  ;
+	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	RegNum++;
+#endif
 
 	/* 256K of OCM RAM from 0xFFFC0000 to 0xFFFFFFFF marked as normal memory */
 	Addr = 0xFFFC0000U;

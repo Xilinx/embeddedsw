@@ -1,26 +1,8 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -44,50 +26,53 @@
 /***************************** Include Files *********************************/
 #include "xloader.h"
 #include "xplmi_util.h"
+
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
+
 /***************** Macros (Inline Functions) Definitions *********************/
+
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-XCframe XLoader_CframeIns={0}; /* CFRAME Driver Instance */
-XCfupmc XLoader_CfuIns={0}; /* CFU Driver Instance */
-
+XCframe XLoader_CframeIns = {0U}; /** CFRAME Driver Instance */
+XCfupmc XLoader_CfuIns = {0U}; /** CFU Driver Instance */
 
 /*****************************************************************************/
 
 /*****************************************************************************/
 /**
- * This function initializes the Cframe driver
+ * @brief	This function initializes the Cframe driver.
  *
- * @param None
+ * @param 	None
  *
- * @return	Codes as mentioned in xplmi_status.h
+ * @return	XST_SUCCESS on success and error code on failure
+ *
  ******************************************************************************/
-int XLoader_CframeInit()
+int XLoader_CframeInit(void)
 {
 	int Status = XST_FAILURE;
 	XCframe_Config *Config;
 
-	if(XLoader_CframeIns.IsReady)
-	{
+	if (XLoader_CframeIns.IsReady) {
 		Status = XST_SUCCESS;
 		goto END;
 	}
-	/*
+
+	/**
 	 * Initialize the Cframe driver so that it's ready to use
 	 * look up the configuration in the config table,
 	 * then initialize it.
 	 */
 	Config = XCframe_LookupConfig((u16)XPAR_XCFRAME_0_DEVICE_ID);
 	if (NULL == Config) {
-		Status = XLOADER_ERR_CFRAME_LOOKUP;
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_CFRAME_LOOKUP, Status);
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_CFRAME_LOOKUP, 0U);
 		goto END;
 	}
 
-	Status = XCframe_CfgInitialize(&XLoader_CframeIns, Config, Config->BaseAddress);
+	Status = XCframe_CfgInitialize(&XLoader_CframeIns, Config,
+				Config->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_CFRAME_CFG, Status);
 		goto END;
@@ -99,27 +84,26 @@ END:
 
 /*****************************************************************************/
 /**
- * This function is used to check the CFU ISR and PMC_ERR1 and PMC_ERR2 status
- * registers to check for any errors in PL and call corresponding error
+ * @brief This function is used to check the CFU ISR and PMC_ERR1 and PMC_ERR2
+ * status registers to check for any errors in PL and call corresponding error
  * recovery functions if needed.
  *
- * @param 		none
+ * @param 	None
  *
- * @return      none
+ * @return      None
+ *
  *****************************************************************************/
-void XLoader_CfiErrorHandler(void)
+void XLoader_CframeErrorHandler(void)
 {
 	u32 RegVal = XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS) &
 					PMC_GLOBAL_PMC_ERR1_STATUS_CFRAME_MASK;
 
-	if(RegVal == 0U)
-	{
+	if (RegVal == 0U) {
 		RegVal = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS) &
 					PMC_GLOBAL_PMC_ERR2_STATUS_CFI_MASK;
 	}
 
-	if(RegVal)
-	{
+	if (RegVal != 0U) {
 		XCfupmc_CfiErrHandler(&XLoader_CfuIns);
 		XCframe_ClearCframeErr(&XLoader_CframeIns);
 		XCfupmc_ClearIgnoreCfiErr(&XLoader_CfuIns);
@@ -137,6 +121,6 @@ void XLoader_CfiErrorHandler(void)
 	/** CFU error checking and handling */
 	XCfupmc_CfuErrHandler(&XLoader_CfuIns);
 	XPlmi_UtilRMW(PMC_GLOBAL_PMC_ERR1_STATUS,
-				PMC_GLOBAL_PMC_ERR1_STATUS_CFU_MASK,
-				PMC_GLOBAL_PMC_ERR1_STATUS_CFU_MASK);
+			PMC_GLOBAL_PMC_ERR1_STATUS_CFU_MASK,
+			PMC_GLOBAL_PMC_ERR1_STATUS_CFU_MASK);
 }
