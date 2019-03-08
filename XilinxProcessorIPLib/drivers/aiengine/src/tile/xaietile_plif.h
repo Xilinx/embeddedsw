@@ -41,6 +41,7 @@
 * 1.0  Naresh  03/14/2018  Initial creation
 * 1.1  Naresh  07/11/2018  Updated copyright info
 * 1.2  Nishad  12/05/2018  Renamed ME attributes to AIE
+* 1.3  Jubaer  03/07/2019  Add pl if downsizer disable API
 * </pre>
 *
 ******************************************************************************/
@@ -67,6 +68,7 @@
 /************************** Function Prototypes  *****************************/
 void XAieTile_PlIntfStrmWidCfg(XAieGbl_Tile *TileInstPtr, u8 MeToPl, u8 StreamId, u8 Width);
 void XAieTile_PlIntfDownszrEnable(XAieGbl_Tile *TileInstPtr, u8 StreamId);
+void XAieTile_PlIntfDownszrDisable(XAieGbl_Tile *TileInstPtr, u8 StreamId);
 void XAieTile_PlIntfDownszrSetBypass(XAieGbl_Tile *TileInstPtr, u8 StreamId, u8 Enable);
 
 #endif		/* end of protection macro */
