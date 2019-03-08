@@ -30,6 +30,7 @@ Fix incorrect setting of data phase buad rate prescaler
 csudma_v1_4:
 Adds PSU_PMU processor check to skip the Flushing cache memory and Invalidating
 cache memory API's for PMU Microblaze platform.
+Add support for versal IP name.
 
 emaclite_v4_4:
 Fix poll example failure on microblaze platform.
