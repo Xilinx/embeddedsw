@@ -29,7 +29,7 @@ OPTION psf_version = 2.1;
 
 BEGIN driver canps
 
-  OPTION supported_peripherals = (psu_csudma psu_pmcdma);
+  OPTION supported_peripherals = (psu_csudma psu_pmcdma psv_pmcdma);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
   OPTION VERSION = 1.4;

@@ -57,10 +57,10 @@ proc generate_dmatype_param {drv_handle file_name} {
 	foreach ip $ips {
 		set iptype [common::get_property IP_NAME [get_cells -hier $ip]]
                 set canonical_name [string toupper [format "XPAR_%s_DMATYPE" $ip]]
-		if {$iptype == "psu_pmcdma"} {
-			if {$ip == "psu_pmcdma_0"} {
+		if {$iptype == "psu_pmcdma" || $iptype == "psv_pmcdma"} {
+			if {$ip == "psu_pmcdma_0" || $ip == "psv_pmcdma_0" } {
 				puts $file_handle "#define $canonical_name 1"
-			} elseif {$ip == "psu_pmcdma_1"} {
+			} elseif {$ip == "psu_pmcdma_1" || $ip == "psv_pmcdma_1"} {
 				puts $file_handle "#define $canonical_name 2"
 			}
 		} else {
