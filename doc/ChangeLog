@@ -143,6 +143,9 @@ xilmbox_v1_0:
 Initial Release.
 Updated mld supported peripheral option with A72 and PMC.
 
+zdma_v1_7:
+Add support for versal IP name.
+
 Changes for 2018.3.1
 ===============================
 rfdc_v5_1:
