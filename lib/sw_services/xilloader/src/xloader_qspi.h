@@ -14,14 +14,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 ******************************************************************************/
 /*****************************************************************************/
 /**
@@ -167,7 +165,9 @@ extern "C" {
 /* Macronix size constants are different for 512M and 1G */
 #define MACRONIX_FLASH_SIZE_ID_512M		(0x1AU)
 #define MACRONIX_FLASH_SIZE_ID_1G		(0x1BU)
-
+#define MACRONIX_FALSH_1_8_V_SIZE_ID_512M       (0x3AU)
+#define MACRONIX_FALSH_1_8_V_SIZE_ID_1G         (0x3BU)
+#define MACRONIX_FALSH_1_8_V_SIZE_ID_2G		(0x3CU)
 /*
  * Size in bytes
  */
@@ -181,6 +181,14 @@ extern "C" {
 /* TODO change to QSPI driver API */
 #define XLOADER_QSPIDMA_DST_CTRL	(0xF103080CU)
 
+/*Qspi width detection macros*/
+#define XLOADER_QSPI_BUSWIDTH_DETECT_VALUE	(0xAA995566U)
+#define XLOADER_QSPI_BUSWIDTH_PDI_OFFSET	(0x10U)
+#define XLOADER_QSPI_BUSWIDTH_LENGTH		(0x10U)
+#define XLOADER_QSPI_BUSWIDTH_ONE		(0U)
+#define XLOADER_QSPI_BUSWIDTH_TWO		(1U)
+#define XLOADER_QSPI_BUSWIDTH_FOUR		(2U)
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -193,6 +201,9 @@ int XLoader_Qspi24Release(void );
 int XLoader_Qspi32Init(u32 DeviceFlags);
 XStatus XLoader_Qspi32Copy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 int XLoader_Qspi32Release(void );
+int XLoader_Qspi24GetBusWidth(u32 ImageOffsetAddress);
+int XLoader_Qspi32GetBusWidth(u32 ImageOffsetAddress);
+
 /************************** Variable Definitions *****************************/
 
 

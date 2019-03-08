@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
 *******************************************************************************/
 /******************************************************************************/
@@ -85,18 +83,37 @@ u32 XHdmiphy1_Mmcme5DividerEncoding(XHdmiphy1_MmcmDivType DivType, u16 Div)
 	u32 ClkReg1;
     u32 ClkReg2;
     u8 HiTime, LoTime;
+    u16 Divide = Div;
 
-	HiTime = Div / 2;
+    if (DivType == MMCM_CLKOUT_DIVIDE) {
+	/* Div is an odd number */
+		if (Div % 2) {
+		Divide = (Div / 2);
+		}
+		/* Div is an even number */
+		else {
+		Divide = (Div / 2) + (Div % 2);
+		}
+    }
+
+	HiTime = Divide / 2;
 	LoTime = HiTime;
 
 	ClkReg2 = LoTime & 0xFF;
 	ClkReg2 |= (HiTime & 0xFF) << 8;
 
 	if (DivType == MMCM_CLKFBOUT_MULT_F) {
-		ClkReg1 = (Div % 2) ? 0x00000700 : 0x00000600;
+		ClkReg1 = (Divide % 2) ? 0x00001700 : 0x00001600;
 	}
 	else {
-		ClkReg1 = (Div % 2) ? 0x00000300 : 0x00000200;
+		/* Div is an odd number */
+		if (Div % 2) {
+			ClkReg1 = (Divide % 2) ? 0x0000BB00 : 0x0000BA00;
+		}
+		/* Div is an even number */
+		else {
+			ClkReg1 = (Divide % 2) ? 0x00001B00 : 0x00001A00;
+		}
 	}
 
     DrpEnc = (ClkReg2 << 16) | ClkReg1;
@@ -507,6 +524,7 @@ u32 XHdmiphy1_MmcmWriteParameters(XHdmiphy1 *InstancePtr, u8 QuadId,
 {
 	u8 ChId;
 	u32 DrpVal32;
+	u16 DrpRdVal;
 	XHdmiphy1_Mmcm *MmcmParams;
 
     ChId = (Dir == XHDMIPHY1_DIR_TX) ?
@@ -522,7 +540,6 @@ u32 XHdmiphy1_MmcmWriteParameters(XHdmiphy1 *InstancePtr, u8 QuadId,
 		return XST_FAILURE;
 	}
 
-
 	/* Write CLKFBOUT_1 & CLKFBOUT_2 Values */
 	DrpVal32 = XHdmiphy1_Mmcme5DividerEncoding(MMCM_CLKFBOUT_MULT_F,
 						MmcmParams->ClkFbOutMult);
@@ -537,8 +554,9 @@ u32 XHdmiphy1_MmcmWriteParameters(XHdmiphy1 *InstancePtr, u8 QuadId,
 	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x21,
 						(u16)((DrpVal32 >> 16) & 0xFFFF));
 	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x20,
-						(((MmcmParams->DivClkDivide % 2) ?
-								0x0400 : 0x0000)));
+						((MmcmParams->DivClkDivide == 0) ? 0x0000 :
+								((MmcmParams->DivClkDivide % 2) ?
+                                    0x0400 : 0x0000)));
 
 	/* Write CLKOUT0_1 & CLKOUT0_2 Values */
 	DrpVal32 = XHdmiphy1_Mmcme5DividerEncoding(MMCM_CLKOUT_DIVIDE,
@@ -567,20 +585,31 @@ u32 XHdmiphy1_MmcmWriteParameters(XHdmiphy1 *InstancePtr, u8 QuadId,
 	/* Write CP & RES Values */
 	DrpVal32 = XHdmiphy1_Mmcme5CpResEncoding(MmcmParams->ClkFbOutMult);
 	/* CP */
+	DrpRdVal = XHdmiphy1_DrpRd(InstancePtr, QuadId, ChId, 0x1E, &DrpRdVal);
+	DrpRdVal &= ~(0xF);
+
 	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x1E,
-						(u16)(DrpVal32 & 0xFFFF));
+						(u16)((DrpVal32 & 0xF) | DrpRdVal));
+
 	/* RES */
+	DrpRdVal = XHdmiphy1_DrpRd(InstancePtr, QuadId, ChId, 0x2A, &DrpRdVal);
+	DrpRdVal &= ~(0x1E);
 	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x2A,
-						(u16)((DrpVal32 >> 16) & 0xFFFF));
+						(u16)(((DrpVal32 >> 15) & 0x1E) | DrpRdVal));
 
 	/* Write Lock Reg1 & Reg2 Values */
 	DrpVal32 = XHdmiphy1_Mmcme5LockReg1Reg2Encoding(MmcmParams->ClkFbOutMult);
 	/* LOCK_1 */
+	DrpRdVal = XHdmiphy1_DrpRd(InstancePtr, QuadId, ChId, 0x27, &DrpRdVal);
+	DrpRdVal &= ~(0x8000);
 	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x27,
-						(u16)(DrpVal32 & 0xFFFF));
+						(u16)((DrpVal32 & 0x7FFF) | DrpRdVal));
+
 	/* LOCK_2 */
+	DrpRdVal = XHdmiphy1_DrpRd(InstancePtr, QuadId, ChId, 0x28, &DrpRdVal);
+	DrpRdVal &= ~(0x8000);
 	XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x28,
-						(u16)((DrpVal32 >> 16) & 0xFFFF));
+						(u16)(((DrpVal32 >> 16) & 0x7FFF) | DrpRdVal));
 
 	return XST_SUCCESS;
 }

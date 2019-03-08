@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
 *******************************************************************************/
 /******************************************************************************/
@@ -52,6 +50,10 @@
 #ifndef XHDMIPHY1_GT_H_
 /* Prevent circular inclusions by using protection macros. */
 #define XHDMIPHY1_GT_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /******************************* Include Files ********************************/
 
@@ -125,6 +127,10 @@ extern const XHdmiphy1_GtConfig Gthe4Config;
 extern const XHdmiphy1_GtConfig Gtye4Config;
 #elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)
 extern const XHdmiphy1_GtConfig Gtye5Config;
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif /* XHDMIPHY1_GT_H_ */

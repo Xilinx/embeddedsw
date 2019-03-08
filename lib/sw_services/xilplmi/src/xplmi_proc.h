@@ -14,14 +14,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 ******************************************************************************/
 
 /*****************************************************************************/
@@ -60,15 +58,50 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 #define IOMODULE_DEVICE_ID XPAR_IOMODULE_0_DEVICE_ID
 #define MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK	(0x2U)
-#define XPLMI_PIT1_RESET_VALUE		(0xFFFFFFFDU)
+#define XPLMI_PIT1_RESET_VALUE		(0xFFFFFFFEU)
 #define XPLMI_PIT2_RESET_VALUE		(0xFFFFFFFEU)
 #define XPLMI_PIT1			(0U)
 #define XPLMI_PIT2			(1U)
+#define XPLMI_PIT3			(2U)
+#define XPLMI_IOMODULE_PMC_PIT3_IRQ			(0x5)
+
 
 /**************************** Type Definitions *******************************/
+/**
+ * PMC IOmodule interrupts
+ */
+enum {
+	XPLMI_IOMODULE_PMC_GIC_IRQ=16U,
+	XPLMI_IOMODULE_PPU1_MB_RAM,
+	XPLMI_IOMODULE_ERR_IRQ,
+	XPLMI_IOMODULE_RESERVED_19,
+	XPLMI_IOMODULE_CFRAME_SEU,
+	XPLMI_IOMODULE_RESERVED_21,
+	XPLMI_IOMODULE_PMC_GPI,
+	XPLMI_IOMODULE_PL_IRQ,
+	XPLMI_IOMODULE_SSIT_IRQ_2,
+	XPLMI_IOMODULE_SSIT_IRQ_1,
+	XPLMI_IOMODULE_SSIT_IRQ_0,
+	XPLMI_IOMODULE_PWRDN_REQ,
+	XPLMI_IOMODULE_PWRUP_REQ,
+	XPLMI_IOMODULE_SRST_REQ,
+	XPLMI_IOMODULE_ISO_REQ,
+	XPLMI_IOMODULE_WAKEUP_REQ,
+	XPLMI_IOMODULE_MASK=0xFFU,
+};
+
+/**
+ * External interrupt mapping
+ */
+enum {
+	XPLMI_CFRAME_SEU = 0U,
+	XPLMI_IPI_IRQ,
+	XPLMI_SBI_DATA_RDY,
+};
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /************************** Function Prototypes ******************************/
+void XPlmi_InitPitTimer(u8 Timer, u32 ResetValue);
 int XPlmi_StartTimer();
 int XPlmi_InitProc();
 int XPlmi_InitIOModule();
@@ -76,6 +109,11 @@ void XPlmi_IntrHandler(void *CallbackRef);
 u64 XPlmi_GetTimerValue(void );
 int XPlmi_SetUpInterruptSystem();
 void XPlmi_MeasurePerfTime(u64 tCur);
+void XPlmi_PlmIntrEnable(u32 IntrId);
+void XPlmi_PlmIntrDisable(u32 IntrId);
+void XPlmi_RegisterHandler(u32 IntrId, Function_t Handler, void * Data);
+void XPlmi_PrintRomTime();
+void XPlmi_PrintPlmTimeStamp();
 
 /* Handler Table Structure */
 struct HandlerTable {

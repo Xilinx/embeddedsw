@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
 *******************************************************************************/
 /******************************************************************************/
@@ -742,8 +740,19 @@ void XHdmiphy1_SetTxVoltageSwing(XHdmiphy1 *InstancePtr, u8 QuadId,
 
 	MaskVal = XHDMIPHY1_TX_DRIVER_TXDIFFCTRL_MASK(ChId);
 	RegVal &= ~MaskVal;
-	RegVal |= (Vs << XHDMIPHY1_TX_DRIVER_TXDIFFCTRL_SHIFT(ChId));
+	RegVal |= ((Vs & 0xF) << XHDMIPHY1_TX_DRIVER_TXDIFFCTRL_SHIFT(ChId));
 	XHdmiphy1_WriteReg(InstancePtr->Config.BaseAddr, RegOffset, RegVal);
+
+	if (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYE4) {
+		RegVal = XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr,
+					XHDMIPHY1_TX_DRIVER_EXT_REG);
+		MaskVal = XHDMIPHY1_TX_DRIVER_EXT_TXDIFFCTRL_MASK(ChId);
+		RegVal &= ~MaskVal;
+		RegVal |= ((Vs && 0x10) <<
+					XHDMIPHY1_TX_DRIVER_EXT_TXDIFFCTRL_SHIFT(ChId));
+		XHdmiphy1_WriteReg(InstancePtr->Config.BaseAddr,
+				XHDMIPHY1_TX_DRIVER_EXT_REG, RegVal);
+	}
 }
 
 /*****************************************************************************/
@@ -995,23 +1004,21 @@ void XHdmiphy1_MmcmStart(XHdmiphy1 *InstancePtr, u8 QuadId,
 
 	if (Dir == XHDMIPHY1_DIR_RX) {
 		MmcmPtr= &InstancePtr->Quads[QuadId].RxMmcm;
-		//TODO: MAGS Remove once confirm that VCLK is from MMCM
-//		if (InstancePtr->RxHdmi21Cfg.IsEnabled == TRUE) {
-//			return;
-//		}
 	}
 	else {
 		MmcmPtr= &InstancePtr->Quads[QuadId].TxMmcm;
-		//TODO: MAGS Remove once confirm that VCLK is from MMCM
-//		if (InstancePtr->TxHdmi21Cfg.IsEnabled == TRUE) {
-//			return;
-//		}
 	}
 
 	/* Check values if valid */
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
 	if (!((MmcmPtr->ClkOut0Div > 0) && (MmcmPtr->ClkOut0Div <= 128) &&
 		  (MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 128) &&
 		  (MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 128))) {
+#else
+	if (!((MmcmPtr->ClkOut0Div > 0) && (MmcmPtr->ClkOut0Div <= 432) &&
+		  (MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 432) &&
+		  (MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 432))) {
+#endif
 		return;
 	}
 
@@ -1028,7 +1035,8 @@ void XHdmiphy1_MmcmStart(XHdmiphy1 *InstancePtr, u8 QuadId,
 	XHdmiphy1_MmcmLockedMaskEnable(InstancePtr, 0, Dir, FALSE);
 
 	XHdmiphy1_LogWrite(InstancePtr, (Dir == XHDMIPHY1_DIR_TX) ?
-		XHDMIPHY1_LOG_EVT_TXPLL_RECONFIG : XHDMIPHY1_LOG_EVT_RXPLL_RECONFIG, 1);
+		XHDMIPHY1_LOG_EVT_TXPLL_RECONFIG :
+		XHDMIPHY1_LOG_EVT_RXPLL_RECONFIG, 1);
 }
 
 /*****************************************************************************/
@@ -1046,16 +1054,19 @@ void XHdmiphy1_MmcmStart(XHdmiphy1 *InstancePtr, u8 QuadId,
 void XHdmiphy1_IBufDsEnable(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_DirectionType Dir, u8 Enable)
 {
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
 	XHdmiphy1_PllRefClkSelType *TypePtr, *DruTypePtr, DruTypeDummy;
+	DruTypeDummy = XHDMIPHY1_PLL_REFCLKSEL_TYPE_GTGREFCLK;
+	DruTypePtr = &DruTypeDummy;
+#endif
 	u32 RegAddr = XHDMIPHY1_IBUFDS_GTXX_CTRL_REG;
 	u32 RegVal;
 	u32 MaskVal = 0;
-	DruTypeDummy = XHDMIPHY1_PLL_REFCLKSEL_TYPE_GTGREFCLK;
-	DruTypePtr = &DruTypeDummy;
 
 	/* Suppress Warning Messages */
 	QuadId = QuadId;
 
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
 	if (Dir == XHDMIPHY1_DIR_TX) {
 		TypePtr = &InstancePtr->Config.TxRefClkSel;
 	}
@@ -1077,6 +1088,7 @@ void XHdmiphy1_IBufDsEnable(XHdmiphy1 *InstancePtr, u8 QuadId,
 		MaskVal = XHDMIPHY1_IBUFDS_GTXX_CTRL_GTREFCLK1_CEB_MASK;
 	}
 	else {
+#endif
 		if (Dir == XHDMIPHY1_DIR_TX) {
 			RegAddr = XHDMIPHY1_MISC_TXUSRCLK_REG;
 		}
@@ -1084,16 +1096,27 @@ void XHdmiphy1_IBufDsEnable(XHdmiphy1 *InstancePtr, u8 QuadId,
 			RegAddr = XHDMIPHY1_MISC_RXUSRCLK_REG;
 		}
 		MaskVal = XHDMIPHY1_MISC_XXUSRCLK_REFCLK_CEB_MASK;
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
 	}
+#endif
 
 	RegVal = XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr, RegAddr);
 
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
 	if (Enable) {
 		RegVal &= ~MaskVal;
 	}
 	else {
 		RegVal |= MaskVal;
 	}
+#else
+	if (Enable) {
+		RegVal |= MaskVal;
+	}
+	else {
+		RegVal &= ~MaskVal;
+	}
+#endif
 	XHdmiphy1_WriteReg(InstancePtr->Config.BaseAddr, RegAddr, RegVal);
 }
 

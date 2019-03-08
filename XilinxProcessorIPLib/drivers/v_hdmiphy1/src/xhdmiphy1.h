@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
 *******************************************************************************/
 /******************************************************************************/
@@ -70,6 +68,10 @@
 #ifndef XHDMIPHY1_H_
 /* Prevent circular inclusions by using protection macros. */
 #define XHDMIPHY1_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #if !defined(XV_CONFIG_LOG_HDMIPHY1_DISABLE) && \
     !defined(XV_CONFIG_LOG_DISABLE_ALL)
@@ -343,6 +345,8 @@ typedef enum {
     XHDMIPHY1_LOG_EVT_TX_FREQ,       /**< Log event TX frequency. */
     XHDMIPHY1_LOG_EVT_RX_FREQ,       /**< Log event RX frequency. */
     XHDMIPHY1_LOG_EVT_DRU_EN,        /**< Log event DRU enable/disable. */
+	XHDMIPHY1_LOG_EVT_TXGPO_RE,     /**< Log event TX GPO Rising Edge. */
+	XHDMIPHY1_LOG_EVT_RXGPO_RE,     /**< Log event RX GPO Rising Edge. */
     XHDMIPHY1_LOG_EVT_FRL_RECONFIG,  /**< Log event FRL TX Reconfig. */
     XHDMIPHY1_LOG_EVT_TMDS_RECONFIG, /**< Log event TMDS TX Reconfig. */
     XHDMIPHY1_LOG_EVT_1PPC_ERR,      /**< Log event 1 PPC Error. */
@@ -359,6 +363,7 @@ typedef enum {
     XHDMIPHY1_LOG_EVT_NO_QPLL_ERR,   /**< Log event QPLL not present. */
     XHDMIPHY1_LOG_EVT_DRU_CLK_ERR,   /**< Log event DRU clk wrong freq. */
     XHDMIPHY1_LOG_EVT_USRCLK_ERR,    /**< Log event usrclk > 297 MHz. */
+    XHDMIPHY1_LOG_EVT_SPDGRDE_ERR,   /**< Log event Speed Grade -1 error. */
     XHDMIPHY1_LOG_EVT_DUMMY,         /**< Dummy Event should be last */
 } XHdmiphy1_LogEvent;
 #endif
@@ -1024,6 +1029,10 @@ void XHdmiphy1_RegisterDebug(XHdmiphy1 *InstancePtr);
 #define XHdmiphy1_IsRxUsingRpll(InstancePtr, QuadId, ChId) \
         (XHDMIPHY1_PLL_TYPE_RPLL == \
         XHdmiphy1_GetPllType(InstancePtr, QuadId, XHDMIPHY1_DIR_RX, ChId))
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif /* XHDMIPHY1_H_ */

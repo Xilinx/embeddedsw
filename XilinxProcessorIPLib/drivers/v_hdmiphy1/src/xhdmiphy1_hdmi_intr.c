@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
 *******************************************************************************/
 /******************************************************************************/
@@ -219,6 +217,8 @@ void XHdmiphy1_HdmiTxGpoRisingEdgeHandler(XHdmiphy1 *InstancePtr)
 {
     u8 Id, Id0, Id1;
 
+    XHdmiphy1_LogWrite(InstancePtr, XHDMIPHY1_LOG_EVT_TXGPO_RE, 1);
+
     /* De-assert GPI port. */
     XHdmiphy1_SetGpi(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
             XHDMIPHY1_DIR_TX, FALSE);
@@ -226,7 +226,7 @@ void XHdmiphy1_HdmiTxGpoRisingEdgeHandler(XHdmiphy1 *InstancePtr)
     /* Start TX MMCM. */
     XHdmiphy1_MmcmStart(InstancePtr, 0, XHDMIPHY1_DIR_TX);
 
-    /* Configure TXRATE Port */
+	/* Configure TXRATE Port */
     XHdmiphy1_DirReconfig(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
         XHDMIPHY1_DIR_TX);
 
@@ -251,6 +251,8 @@ void XHdmiphy1_HdmiTxGpoRisingEdgeHandler(XHdmiphy1 *InstancePtr)
 void XHdmiphy1_HdmiRxGpoRisingEdgeHandler(XHdmiphy1 *InstancePtr)
 {
     u8 Id, Id0, Id1;
+
+    XHdmiphy1_LogWrite(InstancePtr, XHDMIPHY1_LOG_EVT_RXGPO_RE, 1);
 
     /* De-assert GPI port. */
     XHdmiphy1_SetGpi(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
@@ -565,8 +567,30 @@ void XHdmiphy1_HdmiGtTxAlignDoneLockHandler(XHdmiphy1 *InstancePtr)
 void XHdmiphy1_HdmiGtTxResetDoneLockHandler(XHdmiphy1 *InstancePtr)
 {
     u8 Id, Id0, Id1;
+	XHdmiphy1_PllType PllType;
+    XHdmiphy1_ChannelId ChId;
 
     XHdmiphy1_LogWrite(InstancePtr, XHDMIPHY1_LOG_EVT_TX_RST_DONE, 0);
+
+    /* Determine PLL type. */
+    PllType = XHdmiphy1_GetPllType(InstancePtr, 0, XHDMIPHY1_DIR_TX,
+                       XHDMIPHY1_CHANNEL_ID_CH1);
+    /* Determine which channel(s) to operate on. */
+    ChId = XHdmiphy1_GetRcfgChId(InstancePtr, 0, XHDMIPHY1_DIR_TX,
+                PllType);
+
+    /* Set TX TMDS Clock Pattern Generator */
+    if ((InstancePtr->Config.UseGtAsTxTmdsClk == TRUE) &&
+         ((InstancePtr->TxHdmi21Cfg.IsEnabled == 0) ||
+         (InstancePtr->TxHdmi21Cfg.IsEnabled == 1 &&
+                InstancePtr->TxHdmi21Cfg.NChannels == 3))) {
+         XHdmiphy1_PatgenSetRatio(InstancePtr, 0,
+                       (u64)((XHdmiphy1_GetLineRateHz(InstancePtr,
+                                    0, ChId)) / 1000000));
+         XHdmiphy1_PatgenEnable(InstancePtr, 0, TRUE);
+    } else {
+         XHdmiphy1_PatgenEnable(InstancePtr, 0, FALSE);
+    }
 
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
     if ((InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE3) ||
@@ -586,6 +610,15 @@ void XHdmiphy1_HdmiGtTxResetDoneLockHandler(XHdmiphy1 *InstancePtr)
             XHDMIPHY1_GT_STATE_ALIGN;
     }
 #else
+    /* Unmask RESET DONE */
+    if ((XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr, 0x120) & 0x200) != 0) {
+
+	/* Deassert TX LNKRDY MASK */
+	XHdmiphy1_WriteReg(InstancePtr->Config.BaseAddr, XHDMIPHY1_TX_INIT_REG,
+			(XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr,
+					XHDMIPHY1_TX_INIT_REG) & ~0x10101010));
+    }
+
     XHdmiphy1_Ch2Ids(InstancePtr, XHDMIPHY1_CHANNEL_ID_CHA, &Id0, &Id1);
     for (Id = Id0; Id <= Id1; Id++) {
         InstancePtr->Quads[0].Plls[XHDMIPHY1_CH2IDX(Id)].TxState =
@@ -621,6 +654,12 @@ void XHdmiphy1_HdmiGtRxResetDoneLockHandler(XHdmiphy1 *InstancePtr)
         InstancePtr->Quads[0].Plls[XHDMIPHY1_CH2IDX(Id)].RxState =
             XHDMIPHY1_GT_STATE_READY;
     }
+
+    /* Unmask RESET DONE */
+	/* Deassert RX LNKRDY MASK */
+	XHdmiphy1_WriteReg(InstancePtr->Config.BaseAddr, XHDMIPHY1_RX_INIT_REG,
+			(XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr,
+					XHDMIPHY1_RX_INIT_REG) & ~0x10101010));
 
     /* If DRU is use/d, release its reset. */
     if (InstancePtr->HdmiRxDruIsEnabled) {
@@ -658,21 +697,36 @@ void XHdmiphy1_HdmiTxClkDetFreqChangeHandler(XHdmiphy1 *InstancePtr)
     }
     XHdmiphy1_LogWrite(InstancePtr, XHDMIPHY1_LOG_EVT_TX_FREQ, 0);
 
-    /* Determine PLL type. */
+	/* Set TX TMDS Clock Pattern Generator */
+	if ((InstancePtr->Config.UseGtAsTxTmdsClk == TRUE) &&
+		((InstancePtr->TxHdmi21Cfg.IsEnabled == 0) ||
+		 (InstancePtr->TxHdmi21Cfg.IsEnabled == 1 &&
+			InstancePtr->TxHdmi21Cfg.NChannels == 3))) {
+		XHdmiphy1_PatgenEnable(InstancePtr, 0, FALSE);
+	}
+
+	/* Determine PLL type. */
     PllType = XHdmiphy1_GetPllType(InstancePtr, 0, XHDMIPHY1_DIR_TX,
             XHDMIPHY1_CHANNEL_ID_CH1);
 
-    /* If the TX frequency has changed, the PLL is always disabled. */
+	/* If the TX frequency has changed, the PLL is always disabled. */
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
     XHdmiphy1_PowerDownGtPll(InstancePtr, 0,
         (PllType == XHDMIPHY1_PLL_TYPE_CPLL) ?
         XHDMIPHY1_CHANNEL_ID_CHA : XHDMIPHY1_CHANNEL_ID_CMNA, TRUE);
+
+    XHdmiphy1_ResetGtPll(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
+            XHDMIPHY1_DIR_TX, TRUE);
 #else
 	/* Suppress Warning Messages */
     PllType = PllType;
+
+    /* Mask RESET DONE */
+	/* Deassert TX LNKRDY MASK */
+	XHdmiphy1_WriteReg(InstancePtr->Config.BaseAddr, XHDMIPHY1_TX_INIT_REG,
+			(XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr,
+					XHDMIPHY1_TX_INIT_REG) | 0x10101010));
 #endif
-    XHdmiphy1_ResetGtPll(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
-            XHDMIPHY1_DIR_TX, TRUE);
     /* Mask the MMCM Lock */
     XHdmiphy1_MmcmLockedMaskEnable(InstancePtr, 0, XHDMIPHY1_DIR_TX, TRUE);
 
@@ -724,7 +778,10 @@ void XHdmiphy1_HdmiRxClkDetFreqChangeHandler(XHdmiphy1 *InstancePtr)
     u8 Id, Id0, Id1;
 
     if (InstancePtr->RxHdmi21Cfg.IsEnabled) {
-        return;
+        if (InstancePtr->Config.RxRefClkSel !=
+                InstancePtr->Config.RxFrlRefClkSel) {
+            return;
+        }
     }
 
     XHdmiphy1_LogWrite(InstancePtr, XHDMIPHY1_LOG_EVT_RX_FREQ, 0);
@@ -735,8 +792,11 @@ void XHdmiphy1_HdmiRxClkDetFreqChangeHandler(XHdmiphy1 *InstancePtr)
             XHDMIPHY1_GT_STATE_IDLE;
     }
 
-    /* Mask the MMCM Lock */
-    XHdmiphy1_MmcmLockedMaskEnable(InstancePtr, 0, XHDMIPHY1_DIR_RX, TRUE);
+    if (!InstancePtr->RxHdmi21Cfg.IsEnabled) {
+        /* Mask the MMCM Lock */
+        XHdmiphy1_MmcmLockedMaskEnable(InstancePtr, 0, XHDMIPHY1_DIR_RX,
+			TRUE);
+    }
 
     /* Determine PLL type and RX reference clock selection. */
     PllType = XHdmiphy1_GetPllType(InstancePtr, 0, XHDMIPHY1_DIR_RX,
@@ -751,19 +811,31 @@ void XHdmiphy1_HdmiRxClkDetFreqChangeHandler(XHdmiphy1 *InstancePtr)
     RxRefClkHz = RxRefClkHz * 10000;
 
     /* Store RX reference clock. */
-    InstancePtr->HdmiRxRefClkHz = RxRefClkHz;
+    if (InstancePtr->RxHdmi21Cfg.IsEnabled) {
+        InstancePtr->HdmiRxRefClkHz = XHDMIPHY1_HDMI21_FRL_REFCLK;
+    }
+    else {
+        InstancePtr->HdmiRxRefClkHz = RxRefClkHz;
+    }
 
     /* If the RX frequency has changed, the PLL is always disabled. */
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
     XHdmiphy1_PowerDownGtPll(InstancePtr, 0,
         (PllType == XHDMIPHY1_PLL_TYPE_CPLL) ?
         XHDMIPHY1_CHANNEL_ID_CHA : XHDMIPHY1_CHANNEL_ID_CMNA, TRUE);
+
+    XHdmiphy1_ResetGtPll(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
+        XHDMIPHY1_DIR_RX, TRUE);
 #else
 	/* Suppress Warning Messages */
     PllType = PllType;
+
+    /* Mask RESET DONE */
+	XHdmiphy1_WriteReg(InstancePtr->Config.BaseAddr, XHDMIPHY1_RX_INIT_REG,
+			(XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr,
+					XHDMIPHY1_RX_INIT_REG) | 0x10101010));
+
 #endif
-    XHdmiphy1_ResetGtPll(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
-        XHDMIPHY1_DIR_RX, TRUE);
 
     /* If DRU is present, disable it and assert reset. */
     if (InstancePtr->Config.DruIsPresent) {
@@ -804,6 +876,8 @@ void XHdmiphy1_HdmiTxTimerTimeoutHandler(XHdmiphy1 *InstancePtr)
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
     XHdmiphy1_ChannelId ChId;
     XHdmiphy1_PllType PllType;
+#else
+	u8 CfgValComp;
 #endif
     u8 Id, Id0, Id1;
 
@@ -869,9 +943,18 @@ void XHdmiphy1_HdmiTxTimerTimeoutHandler(XHdmiphy1 *InstancePtr)
             XHDMIPHY1_GT_STATE_LOCK;
     }
 #else
-    /* Assert GPI port. */
-    XHdmiphy1_SetGpi(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
-            XHDMIPHY1_DIR_TX, TRUE);
+	/* Compare the current and next CFG values */
+	CfgValComp = XHdmiphy1_CheckLineRateCfg(InstancePtr, 0,
+					XHDMIPHY1_CHANNEL_ID_CH1, XHDMIPHY1_DIR_TX);
+
+	if (!CfgValComp) {
+		/* Assert GPI port. */
+		XHdmiphy1_SetGpi(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
+				XHDMIPHY1_DIR_TX, TRUE);
+	}
+	else {
+		XHdmiphy1_HdmiTxGpoRisingEdgeHandler(InstancePtr);
+	}
 
     XHdmiphy1_Ch2Ids(InstancePtr, XHDMIPHY1_CHANNEL_ID_CHA, &Id0, &Id1);
     for (Id = Id0; Id <= Id1; Id++) {
@@ -898,9 +981,22 @@ void XHdmiphy1_HdmiRxTimerTimeoutHandler(XHdmiphy1 *InstancePtr)
     XHdmiphy1_PllType PllType;
     u32 Status;
     u8 Id, Id0, Id1;
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)
+	u8 CfgValComp;
+#endif
 
     if (!InstancePtr->RxHdmi21Cfg.IsEnabled) {
         XHdmiphy1_LogWrite(InstancePtr, XHDMIPHY1_LOG_EVT_RX_TMR, 1);
+    } else {
+		if (InstancePtr->Config.RxRefClkSel ==
+				InstancePtr->Config.RxFrlRefClkSel) {
+			/* Set MMCM CLKINSEL to CLK1 */
+			XHdmiphy1_MmcmSetClkinsel(InstancePtr, 0, XHDMIPHY1_DIR_RX,
+					MMCM_CLKINSEL_CLKIN1);
+
+			/* Start RX MMCM. */
+			XHdmiphy1_MmcmStart(InstancePtr, 0, XHDMIPHY1_DIR_RX);
+		}
     }
 
     /* Determine PLL type. */
@@ -971,11 +1067,20 @@ void XHdmiphy1_HdmiRxTimerTimeoutHandler(XHdmiphy1 *InstancePtr)
     XHdmiphy1_ResetGtPll(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
             XHDMIPHY1_DIR_RX, FALSE);
 #else
-    /* Assert GPI port. */
-    XHdmiphy1_SetGpi(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
-            XHDMIPHY1_DIR_RX, TRUE);
+	/* Compare the current and next CFG values */
+	CfgValComp = XHdmiphy1_CheckLineRateCfg(InstancePtr, 0,
+					XHDMIPHY1_CHANNEL_ID_CH1, XHDMIPHY1_DIR_RX);
 
-    XHdmiphy1_Ch2Ids(InstancePtr, XHDMIPHY1_CHANNEL_ID_CHA, &Id0, &Id1);
+	if (!CfgValComp) {
+		/* Assert GPI port. */
+		XHdmiphy1_SetGpi(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
+				XHDMIPHY1_DIR_RX, TRUE);
+	}
+	else {
+		XHdmiphy1_HdmiRxGpoRisingEdgeHandler(InstancePtr);
+	}
+
+	XHdmiphy1_Ch2Ids(InstancePtr, XHDMIPHY1_CHANNEL_ID_CHA, &Id0, &Id1);
     for (Id = Id0; Id <= Id1; Id++) {
         InstancePtr->Quads[0].Plls[XHDMIPHY1_CH2IDX(Id)].RxState =
             XHDMIPHY1_GT_STATE_GPO_RE;
@@ -996,8 +1101,15 @@ void XHdmiphy1_HdmiRxTimerTimeoutHandler(XHdmiphy1 *InstancePtr)
 ******************************************************************************/
 void XHdmiphy1_HdmiTxMmcmLockHandler(XHdmiphy1 *InstancePtr)
 {
-
     XHdmiphy1_LogWrite(InstancePtr, XHDMIPHY1_LOG_EVT_TXPLL_LOCK, 1);
+
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)
+    /* Unmask RESET DONE */
+	/* Deassert TX LNKRDY MASK */
+	XHdmiphy1_WriteReg(InstancePtr->Config.BaseAddr, XHDMIPHY1_TX_INIT_REG,
+			(XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr,
+					XHDMIPHY1_TX_INIT_REG) & ~0x10101010));
+#endif
 
 }
 
@@ -1038,10 +1150,17 @@ void XHdmiphy1_HdmiGtHandler(XHdmiphy1 *InstancePtr)
     XHdmiphy1_GtState *TxStatePtr;
     XHdmiphy1_GtState *RxStatePtr;
 
-    EventMask = XHDMIPHY1_INTR_QPLL0_LOCK_MASK | XHDMIPHY1_INTR_CPLL_LOCK_MASK |
-        XHDMIPHY1_INTR_QPLL1_LOCK_MASK | XHDMIPHY1_INTR_TXRESETDONE_MASK |
-        XHDMIPHY1_INTR_TXALIGNDONE_MASK | XHDMIPHY1_INTR_RXRESETDONE_MASK |
-        XHDMIPHY1_INTR_TXMMCMUSRCLK_LOCK_MASK |
+    EventMask =
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+	XHDMIPHY1_INTR_QPLL0_LOCK_MASK | XHDMIPHY1_INTR_CPLL_LOCK_MASK |
+		XHDMIPHY1_INTR_QPLL1_LOCK_MASK |
+		XHDMIPHY1_INTR_TXALIGNDONE_MASK |
+#else
+		XHDMIPHY1_INTR_LCPLL_LOCK_MASK | XHDMIPHY1_INTR_RPLL_LOCK_MASK |
+        XHDMIPHY1_INTR_TXGPO_RE_MASK | XHDMIPHY1_INTR_RXGPO_RE_MASK |
+#endif
+		XHDMIPHY1_INTR_TXRESETDONE_MASK | XHDMIPHY1_INTR_RXRESETDONE_MASK |
+		XHDMIPHY1_INTR_TXMMCMUSRCLK_LOCK_MASK |
         XHDMIPHY1_INTR_RXMMCMUSRCLK_LOCK_MASK;
 
     u8 QuadId = 0;
@@ -1070,11 +1189,23 @@ void XHdmiphy1_HdmiGtHandler(XHdmiphy1 *InstancePtr)
     if (Event & XHDMIPHY1_INTR_CPLL_LOCK_MASK) {
         XHdmiphy1_HdmiCpllLockHandler(InstancePtr);
     }
+    if ((Event & XHDMIPHY1_INTR_TXRESETDONE_MASK)
+            && (*TxStatePtr == XHDMIPHY1_GT_STATE_RESET)) {
+        XHdmiphy1_HdmiGtTxResetDoneLockHandler(InstancePtr);
+    }
+    if ((Event & XHDMIPHY1_INTR_TXALIGNDONE_MASK)
+            && (*TxStatePtr == XHDMIPHY1_GT_STATE_ALIGN)) {
+        XHdmiphy1_HdmiGtTxAlignDoneLockHandler(InstancePtr);
+    }
+    if ((Event & XHDMIPHY1_INTR_RXRESETDONE_MASK)
+            && (*RxStatePtr == XHDMIPHY1_GT_STATE_RESET)) {
+        XHdmiphy1_HdmiGtRxResetDoneLockHandler(InstancePtr);
+    }
 #else
-    if (Event & XHDMIPHY1_INTR_HANDLER_TYPE_TX_GPO_RISING_EDGE) {
+    if (Event & XHDMIPHY1_INTR_TXGPO_RE_MASK) {
         XHdmiphy1_HdmiTxGpoRisingEdgeHandler(InstancePtr);
     }
-    if (Event & XHDMIPHY1_INTR_HANDLER_TYPE_RX_GPO_RISING_EDGE) {
+    if (Event & XHDMIPHY1_INTR_RXGPO_RE_MASK) {
 	XHdmiphy1_HdmiRxGpoRisingEdgeHandler(InstancePtr);
     }
     if (Event & XHDMIPHY1_INTR_LCPLL_LOCK_MASK) {
@@ -1083,21 +1214,17 @@ void XHdmiphy1_HdmiGtHandler(XHdmiphy1 *InstancePtr)
     if (Event & XHDMIPHY1_INTR_RPLL_LOCK_MASK) {
         XHdmiphy1_HdmiRpllLockHandler(InstancePtr);
     }
-#endif
-    if ((Event & XHDMIPHY1_INTR_TXRESETDONE_MASK)
-            && (*TxStatePtr == XHDMIPHY1_GT_STATE_RESET)) {
+    if (Event & XHDMIPHY1_INTR_TXRESETDONE_MASK) {
         XHdmiphy1_HdmiGtTxResetDoneLockHandler(InstancePtr);
     }
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
-    if ((Event & XHDMIPHY1_INTR_TXALIGNDONE_MASK)
-            && (*TxStatePtr == XHDMIPHY1_GT_STATE_ALIGN)) {
-        XHdmiphy1_HdmiGtTxAlignDoneLockHandler(InstancePtr);
-    }
-#endif
-    if ((Event & XHDMIPHY1_INTR_RXRESETDONE_MASK)
-            && (*RxStatePtr == XHDMIPHY1_GT_STATE_RESET)) {
+    if (Event & XHDMIPHY1_INTR_RXRESETDONE_MASK) {
         XHdmiphy1_HdmiGtRxResetDoneLockHandler(InstancePtr);
     }
+
+	/* Suppress Warning Messages */
+    TxStatePtr = TxStatePtr;
+    RxStatePtr = RxStatePtr;
+#endif
 
     /* Clear event flags by writing to Interrupt Status register */
     XHdmiphy1_WriteReg(InstancePtr->Config.BaseAddr, XHDMIPHY1_INTR_STS_REG,

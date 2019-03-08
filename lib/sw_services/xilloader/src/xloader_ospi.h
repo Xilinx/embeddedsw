@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018 - 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -14,14 +14,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 ******************************************************************************/
 /*****************************************************************************/
 /**
@@ -35,7 +33,8 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kc   02/21/2017 Initial release
+* 1.00  kc   02/21/2018 Initial release
+* 1.01  bsv  09/15/2019 Added Read Config and Write Config registers
 * </pre>
 *
 * @note
@@ -66,14 +65,18 @@ extern "C" {
 #define MICRON_ID				(0x20U)
 #define FLASH_SIZE_ID_512M			(0x20U)
 #define FLASH_SIZE_512M				(0x4000000U)
+#define FLASH_SIZE_1G				(0x8000000U)
+#define FLASH_SIZE_2G                   	(0x10000000U)
 #define READ_CMD_OCTAL_4B    			(0x7CU)
 #define READ_ID					(0x9FU)
 #define MICRON_INDEX_START			(0x0U)
 #define WRITE_DISABLE_CMD			(0x4U)
-#define WRITE_ENABLE_CMD			(0x6U)
-#define ENTER_4B_ADDR_MODE      0xB7
-#define EXIT_4B_ADDR_MODE       0xE9
-#define READ_FLAG_STATUS_CMD	0X70
+#define OSPI_WRITE_ENABLE_CMD		(0x6U)
+#define ENTER_4B_ADDR_MODE      	(0xB7U)
+#define EXIT_4B_ADDR_MODE       	(0xE9U)
+#define READ_FLAG_STATUS_CMD		(0x70U)
+#define WRITE_CONFIG_REG			(0x81U)
+#define READ_CONFIG_REG				(0x85U)
 /*
  * Identification of Flash
  * Micron:
@@ -82,9 +85,10 @@ extern "C" {
  * Byte 2 is second byte of Device ID describes flash size:
  * 512Mbit : 0x1A
  */
-#define	MICRON_OCTAL_ID_BYTE0	0x2C
-#define MICRON_OCTAL_ID_BYTE2_512	0x1A
-
+#define	MICRON_OCTAL_ID_BYTE0		(0x2CU)
+#define MICRON_OCTAL_ID_BYTE2_512	(0x1AU)
+#define MICRON_OCTAL_ID_BYTE2_1G	(0x1BU)
+#define MICRON_OCTAL_ID_BYTE2_2G	(0x1CU)
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -92,9 +96,10 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 
 int XLoader_OspiInit(u32 DeviceFlags);
-int XLoader_OspiCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+XStatus XLoader_OspiCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 int XLoader_OspiRelease(void );
 int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable);
+int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr);
 /************************** Variable Definitions *****************************/
 
 

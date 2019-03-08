@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -15,14 +15,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
+ *
  *
 *******************************************************************************/
 /******************************************************************************/
@@ -661,7 +659,7 @@ void XHdmiphy1_SetGtLineRateCfg(XHdmiphy1 *InstancePtr, u8 QuadId,
 	u32 MaskVal;
 	u32 ShiftVal;
 	u32 RegOffset;
-	u32 LRCfgVal;
+	u16 LRCfgVal;
 	XHdmiphy1_PllType PllType;
 
     /* Determine PLL type. */
@@ -703,6 +701,63 @@ void XHdmiphy1_SetGtLineRateCfg(XHdmiphy1 *InstancePtr, u8 QuadId,
 	RegVal &= ~MaskVal;
 	RegVal |= (LRCfgVal << ShiftVal);
 	XHdmiphy1_WriteReg(InstancePtr->Config.BaseAddr, RegOffset, RegVal);
+}
+
+/*****************************************************************************/
+/**
+* This function will get the TXRATE or RXRATE port to select the GT Wizard
+* configuration
+*
+* @param	InstancePtr is a pointer to the XHdmiphy1 core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to operate on.
+* @param	Dir is an indicator for TX or RX.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+u16 XHdmiphy1_GetGtLineRateCfg(XHdmiphy1 *InstancePtr, u8 QuadId,
+		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir)
+{
+	u32 RegVal;
+	u32 MaskVal;
+	u32 ShiftVal;
+	u32 RegOffset;
+	u16 LRCfgVal;
+
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+
+	if (Dir == XHDMIPHY1_DIR_TX) {
+		if ((ChId == XHDMIPHY1_CHANNEL_ID_CH1) ||
+			(ChId == XHDMIPHY1_CHANNEL_ID_CH2)) {
+			RegOffset = XHDMIPHY1_TX_RATE_CH12_REG;
+		}
+		else {
+			RegOffset = XHDMIPHY1_TX_RATE_CH34_REG;
+		}
+		MaskVal = XHDMIPHY1_TX_RATE_MASK(ChId);
+		ShiftVal = XHDMIPHY1_TX_RATE_SHIFT(ChId);
+	}
+	else{
+		if ((ChId == XHDMIPHY1_CHANNEL_ID_CH1) ||
+			(ChId == XHDMIPHY1_CHANNEL_ID_CH2)) {
+			RegOffset = XHDMIPHY1_RX_RATE_CH12_REG;
+		}
+		else {
+			RegOffset = XHDMIPHY1_RX_RATE_CH34_REG;
+		}
+		MaskVal = XHDMIPHY1_RX_RATE_MASK(ChId);
+		ShiftVal = XHDMIPHY1_RX_RATE_SHIFT(ChId);
+	}
+
+	RegVal = XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr, RegOffset);
+	RegVal &= MaskVal;
+	LRCfgVal = (u16)(RegVal >> ShiftVal);
+
+	return LRCfgVal;
 }
 
 /*****************************************************************************/
@@ -755,6 +810,107 @@ void XHdmiphy1_SetGpi(XHdmiphy1 *InstancePtr, u8 QuadId,
 	/* Write GPI Register*/
 	XHdmiphy1_WriteReg(InstancePtr->Config.BaseAddr,
 			XHDMIPHY1_GT_DBG_GPI_REG, RegVal);
+}
+
+/*****************************************************************************/
+/**
+* This function will set the (TX|RX) MSTRESET port of the GT
+*
+* @param	InstancePtr is a pointer to the XHdmiphy1 core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to operate on.
+* @param	Dir is an indicator for TX or RX.
+* @param	Reset Set=TRUE; Clear=FALSE
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XHdmiphy1_GtMstReset(XHdmiphy1 *InstancePtr, u8 QuadId,
+		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir, u8 Reset)
+{
+	u32 RegOffsetCtrl;
+	u32 RegVal;
+	u32 MaskVal = 0;
+	u8 Id, Id0, Id1;
+
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+
+	XHdmiphy1_Ch2Ids(InstancePtr, ChId, &Id0, &Id1);
+	for (Id = Id0; Id <= Id1; Id++) {
+		MaskVal |=  XHDMIPHY1_TXRX_MSTRESET_MASK(Id);
+	}
+
+	if (Dir == XHDMIPHY1_DIR_TX) {
+		RegOffsetCtrl = XHDMIPHY1_TX_INIT_REG;
+	}
+	else {
+		RegOffsetCtrl = XHDMIPHY1_RX_INIT_REG;
+	}
+
+	/* Read TX|RX INIT Register*/
+	RegVal = XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr,
+				RegOffsetCtrl);
+
+	/* Construct Register Value */
+	if (Reset) {
+		RegVal |= MaskVal;
+	}
+	else {
+		RegVal &= ~MaskVal;
+	}
+
+	/* Write TX|RX INIT Register*/
+	XHdmiphy1_WriteReg(InstancePtr->Config.BaseAddr,
+			RegOffsetCtrl, RegVal);
+}
+
+/*****************************************************************************/
+/**
+* This function will will check the current CFG setting and compare
+* it with the next CFG value
+*
+* @param	InstancePtr is a pointer to the XHdmiphy1 core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to operate on.
+* @param	Dir is an indicator for TX or RX.
+* @param	Reset Set=TRUE; Clear=FALSE
+*
+* @return	TRUE if Current and Next CFG are the same
+*           FALSE if Current and Next CFG are different
+*
+* @note		None.
+*
+******************************************************************************/
+u8 XHdmiphy1_CheckLineRateCfg(XHdmiphy1 *InstancePtr, u8 QuadId,
+		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir)
+{
+	u16 CurrCfgVal, LRCfgVal;
+	XHdmiphy1_PllType PllType;
+
+    /* Determine PLL type. */
+    PllType = XHdmiphy1_GetPllType(InstancePtr, 0, Dir,
+			XHDMIPHY1_CHANNEL_ID_CH1);
+
+    /* Extract Line Rate Config Value */
+    if (PllType == XHDMIPHY1_PLL_TYPE_LCPLL) {
+	LRCfgVal = InstancePtr->Quads[QuadId].Lcpll.LineRateCfg;
+    }
+    else { /* RPLL */
+	LRCfgVal = InstancePtr->Quads[QuadId].Rpll.LineRateCfg;
+    }
+
+    /* Get current line rate configuration value */
+	CurrCfgVal = XHdmiphy1_GetGtLineRateCfg(InstancePtr, QuadId, ChId, Dir);
+
+	if (CurrCfgVal != LRCfgVal) {
+		return FALSE;
+	}
+	else {
+		return TRUE;
+	}
 }
 #endif
 

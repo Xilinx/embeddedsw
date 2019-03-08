@@ -14,14 +14,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 ******************************************************************************/
 
 /*****************************************************************************/
@@ -29,7 +27,7 @@
 *
 * @file xplm_loader.c
 *
-* This file contains the wrapper functions for platfrom loader
+* This file contains the wrapper functions for platform loader
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -88,12 +86,23 @@ int XPlm_LoadBootPdi(void *arg)
 	int Status;
 	u32 BootMode;
 
+	XPlmi_PrintPlmTimeStamp();
+	XPlmi_Printf(DEBUG_PRINT_PERF, "PLM Initialization Time \n\r");
+
 	/**
 	 * 1. Read Boot mode register and multiboot offset register
 	 * 2. Load subsystem present in PDI
 	 */
 	XilPdi* PdiPtr = &PdiInstance;
-	BootMode = XLoader_GetBootMode();
+	PdiPtr->SlrType = XPlmi_In32(PMC_TAP_SLR_TYPE) &
+					PMC_TAP_SLR_TYPE_VAL_MASK;
+
+	if ((PdiPtr->SlrType == XLOADER_SSIT_MASTER_SLR) ||
+		(PdiPtr->SlrType == XLOADER_SSIT_MONOLITIC)) {
+		BootMode = XLoader_GetBootMode();
+	} else {
+		BootMode = XLOADER_PDI_SRC_SBI;
+	}
 
 	/**
 	 * In case of JTAG boot mode and jtag mode is not SBI,
@@ -106,22 +115,33 @@ int XPlm_LoadBootPdi(void *arg)
 		goto END;
 	}
 
-	XPlmi_Printf(DEBUG_INFO, "PDI Load: Started\n\r");
+	XPlmi_Printf(DEBUG_GENERAL, "***********Boot PDI Load: Started***********\n\r");
 
 	PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL;
-	Status = XLoader_PdiInit(PdiPtr, BootMode, 0U);
+	Status = XLoader_LoadPdi(PdiPtr, BootMode, 0U);
 	if (Status != XST_SUCCESS)
 	{
-		goto END;
+		goto ERR_END;
 	}
 
-    Status = XLoader_LoadAndStartSubSystemPdi(PdiPtr);
-	if (Status != XST_SUCCESS)
-	{
-		goto END;
-	}
+	XPlmi_Printf(DEBUG_GENERAL, "***********Boot PDI Load: Done*************\n\r");
 
-	XPlmi_Printf(DEBUG_INFO, "PDI Load: Done\n\r");
+	/** Print ROM time and PLM time stamp */
+	XPlmi_PrintRomTime();
+	XPlmi_PrintPlmTimeStamp();
+	XPlmi_Printf(DEBUG_PRINT_PERF, "Total PLM Boot Time \n\r");
 END:
+	/**
+	 * This is used to identify PLM has completed boot PDI
+	 */
+	XPlmi_SetBootPdiDone();
+
+	XLoader_ClearIntrSbiDataRdy();
+	/**
+	 * Enable the SBI RDY interrupt to get the next PDI
+	 */
+	XPlmi_PlmIntrEnable(XPLMI_SBI_DATA_RDY);
+
+ERR_END:
 	return Status;
 }

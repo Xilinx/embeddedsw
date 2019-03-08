@@ -14,14 +14,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 ******************************************************************************/
 
 /*****************************************************************************/
@@ -59,7 +57,6 @@
 #define XLOADER_NUM_DIGITS_IN_FILE_NAME 	4
 #define XLOADER_SD_DRV_NUM_0				0
 #define XLOADER_SD_DRV_NUM_1				1
-#define XLOADER_MULTIBOOT_OFFSET_MASK    	(0x001FFFFF)
 
 /**
  * PMC_GLOBAL Base Address
@@ -189,13 +186,13 @@ static u32 XLoader_GetDrvNumSD(u32 DeviceFlags)
  *****************************************************************************/
 int XLoader_SdInit(u32 DeviceFlags)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	FRESULT rc;
-	char buffer[32];
+	char buffer[32]={0};
 	char *boot_file = buffer;
 	u32 MultiBootOffset;
 	u32 DrvNum;
-	DrvNum = XLoader_GetDrvNumSD(DeviceFlags);
+	DrvNum = XLoader_GetDrvNumSD(DeviceFlags & XLOADER_PDISRC_FLAGS_MASK);
 
 	/* Set logical drive number */
 	/* Register volume work area, initialize device */
@@ -217,15 +214,22 @@ int XLoader_SdInit(u32 DeviceFlags)
 	/**
 	 * Read the Multiboot Register
 	 */
-	MultiBootOffset = Xil_In32(PMC_GLOBAL_PMC_MULTI_BOOT) & 
-						XLOADER_MULTIBOOT_OFFSET_MASK;
+	if((DeviceFlags & XLOADER_SBD_ADDR_SET_MASK) == XLOADER_SBD_ADDR_SET_MASK)
+	{
+		MultiBootOffset = (DeviceFlags >> XLOADER_SBD_ADDR_SHIFT);
+	}
+	else
+	{
+		MultiBootOffset = Xil_In32(PMC_GLOBAL_PMC_MULTI_BOOT) &
+							XLOADER_MULTIBOOT_OFFSET_MASK;
+	}
 
 	/**
 	 * Create boot image name
 	 */
 	XLoader_MakeSdFileName(boot_file, MultiBootOffset, DrvNum);
 
-	if(boot_file!=NULL) {
+	if(boot_file[0]!=0) {
 		rc = f_open(&fil, boot_file, (BYTE)FA_READ);
 		if (rc!=FR_OK) {
 			XLoader_Printf(DEBUG_INFO,
@@ -238,6 +242,7 @@ int XLoader_SdInit(u32 DeviceFlags)
 	else
 	{
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SD_F_OPEN, 0x0);
+		goto END;
 	}
 
 	Status = XLOADER_SUCCESS;
@@ -265,7 +270,7 @@ int XLoader_SdInit(u32 DeviceFlags)
  *****************************************************************************/
 XStatus XLoader_SdCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	FRESULT rc;	 /* Result code */
 	(void) Flags;

@@ -14,14 +14,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 ******************************************************************************/
 
 /*****************************************************************************/
@@ -65,8 +63,22 @@ extern "C" {
 #define XPlmi_PpuWakeUpDis()	XPlmi_Out32(PMC_GLOBAL_PPU_1_RST_MODE, \
 				    XPlmi_In32(PMC_GLOBAL_PPU_1_RST_MODE) & \
 					~PMC_GLOBAL_PPU_1_RST_MODE_WAKEUP_MASK)
+
+/**
+ * Using FW_IS_PRESENT to indicate Boot PDI loading is completed
+ */
+#define XPlmi_SetBootPdiDone()	XPlmi_UtilRMW(PMC_GLOBAL_GLOBAL_CNTRL, \
+				   PMC_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK, \
+				   PMC_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK)
+
+#define XPlmi_IsLoadBootPdiDone() (((XPlmi_In32(PMC_GLOBAL_GLOBAL_CNTRL) & \
+				PMC_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK) == \
+				PMC_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK) ? \
+					(TRUE) : (FALSE))
+
 /************************** Function Prototypes ******************************/
 int XPlmi_Init(void );
+void XPlmi_LpdInit(void);
 
 #ifdef __cplusplus
 }

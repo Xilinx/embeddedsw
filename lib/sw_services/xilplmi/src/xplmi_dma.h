@@ -14,14 +14,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 ******************************************************************************/
 /*****************************************************************************/
 /**
@@ -52,7 +50,6 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xcsudma.h"
-#include "xplmi_hw.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -61,9 +58,11 @@ extern "C" {
 #define XPLMI_DMA_SRC_NONBLK		(0x1U<<1U)
 #define XPLMI_DST_CH_AXI_FIXED		(0x1U<<16U)
 #define XPLMI_DMA_DST_NONBLK		(0x1U<<17U)
-#define XPLMI_PMCDMA_0			(0x100U)
-#define XPLMI_PMCDMA_1			(0x200U)
-
+#define XPLMI_PMCDMA_0				(0x100U)
+#define XPLMI_PMCDMA_1				(0x200U)
+#define XPLMI_DMA_SRC_NPI			(0x4U)
+#define XPLMI_DMA_DST_TYPE_SHIFT	(18U)
+#define XPLMI_DMA_DST_TYPE_MASK		(0x3U<<18U)
 #define XPLMI_READ_AXI_FIXED		(0x1U)
 
 /*
@@ -98,21 +97,30 @@ extern "C" {
 #define XPLMI_SSS_DMA1_DMA1			(0x00000090U)
 #define XPLMI_SSS_DMA1_AES			(0x00000070U)
 #define XPLMI_SSS_DMA1_SBI			(0x000000E0U)
+#define XPLMI_SSS_DMA1_PZM			(0x00000040U)
 
 #define XPLMI_SSS_DMA0_DMA0			(0x0000000DU)
 #define XPLMI_SSS_DMA0_AES			(0x00000006U)
 #define XPLMI_SSS_DMA0_SBI			(0x0000000BU)
+#define XPLMI_SSS_DMA0_PZM			(0x00000003U)
+
+#define XPLMI_DATA_INIT_PZM			(0xDEADBEEFU)
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
 int XPlmi_DmaInit();
+XCsuDma *XPlmi_GetDmaInstance(u32 DeviceId);
 int XPlmi_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags);
 int XPlmi_SbiDmaXfer(u64 DestAddr, u32 Len, u32 Flags);
 int XPlmi_DmaSbiXfer(u64 SrcAddr, u32 Len, u32 Flags);
 int XPlmi_EccInit(u64 Addr, u32 Len);
+int XPlmi_InitNVerifyMem(u64 Addr, u32 Len);
 int XPlmi_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
 		XCsuDma** DmaPtrAddr);
+void XPlmi_WaitForNonBlkSrcDma(void);
+void XPlmi_WaitForNonBlkDma(void);
+void XPlmi_SetMaxOutCmds(u32 Val);
 #ifdef __cplusplus
 }
 #endif

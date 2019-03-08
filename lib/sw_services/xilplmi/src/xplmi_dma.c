@@ -14,14 +14,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 ******************************************************************************/
 /*****************************************************************************/
 /**
@@ -49,6 +47,7 @@
 #include "xplmi_generic.h"
 #include "xplmi_util.h"
 #include "xplmi_status.h"
+#include "xplmi_hw.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -131,6 +130,37 @@ END:
 
 /*****************************************************************************/
 /**
+ * This function returns DMA instance.
+ *
+ * @param	DeviceId	PMC DMA's device ID
+ *
+ * @return	PMC DMA instance pointer.
+ *****************************************************************************/
+XCsuDma *XPlmi_GetDmaInstance(u32 DeviceId)
+{
+	XCsuDma *CsuDmaPtr;
+
+	if (DeviceId == CSUDMA_0_DEVICE_ID) {
+		if (CsuDma0.IsReady == 0x00) {
+			CsuDmaPtr = NULL;
+		}
+		CsuDmaPtr = &CsuDma0;
+	}
+	else if (DeviceId == CSUDMA_1_DEVICE_ID) {
+		if (CsuDma1.IsReady == 0x00) {
+			CsuDmaPtr = NULL;
+		}
+		CsuDmaPtr = &CsuDma1;
+	}
+	else {
+		CsuDmaPtr = NULL;
+	}
+
+	return CsuDmaPtr;
+}
+
+/*****************************************************************************/
+/**
  * This function is used set SSS configuration for DMA to DMA
  *
  * @param Flags Flags to select PMC DMA
@@ -185,6 +215,30 @@ void XPlmi_SSSCfgSbiDma(u32 Flags)
 
 /*****************************************************************************/
 /**
+ * This function is used set SSS configuration for DMA to PZM
+ *
+ * @param Flags Flags to select PMC DMA
+ * @return  none
+ *****************************************************************************/
+void XPlmi_SSSCfgDmaPzm(u32 Flags)
+{
+
+	XPlmi_Printf(DEBUG_DETAILED, "SSS config for DMA0/1 to PZM\n\r");
+
+	/* it is DMA0/1 to DMA0/1 configuration */
+	if ((Flags & XPLMI_PMCDMA_0) == XPLMI_PMCDMA_0) {
+		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
+				XPLMI_SSSCFG_DMA0_MASK,
+				XPLMI_SSS_DMA0_PZM);
+	} else if ((Flags & XPLMI_PMCDMA_1) == XPLMI_PMCDMA_1) {
+		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
+				XPLMI_SSSCFG_DMA1_MASK,
+				XPLMI_SSS_DMA1_PZM);
+	}
+}
+
+/*****************************************************************************/
+/**
  * This function is used set SSS configuration for DMA to SBI transfer
  *
  * @param Flags Flags to select PMC DMA
@@ -199,10 +253,16 @@ void XPlmi_SSSCfgDmaSbi(u32 Flags)
 		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
 				XPLMI_SSSCFG_SBI_MASK,
 				XPLMI_SSS_SBI_DMA0);
+		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
+                                XPLMI_SSSCFG_DMA0_MASK,
+                                XPLMI_SSS_DMA0_SBI);
 	} else if ((Flags & XPLMI_PMCDMA_1) == XPLMI_PMCDMA_1) {
 		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
 				XPLMI_SSSCFG_SBI_MASK,
 				XPLMI_SSS_SBI_DMA1);
+		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
+                                XPLMI_SSSCFG_DMA1_MASK,
+                                XPLMI_SSS_DMA1_SBI);
 	}
 }
 
@@ -243,6 +303,12 @@ int XPlmi_DmaChXfer(u64 Addr, u32 Len, XCsuDma_Channel Channel, u32 Flags)
 	XCsuDma_64BitTransfer(DmaPtr, Channel , Addr & 0xFFFFFFFFU,
 							Addr >> 32, Len, 0U);
 
+	if((Flags & XPLMI_DMA_SRC_NONBLK) != 0U)
+	{
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
 	XCsuDma_WaitForDone(DmaPtr, Channel);
 
 	/* To acknowledge the transfer has completed */
@@ -259,9 +325,43 @@ int XPlmi_DmaChXfer(u64 Addr, u32 Len, XCsuDma_Channel Channel, u32 Flags)
 	}
 
 	Status = XST_SUCCESS;
+END:
 	return Status;
 }
 
+void XPlmi_WaitForNonBlkDma(void)
+{
+	XCsuDma_SetConfig(&CsuDma1, XCSUDMA_SRC_CHANNEL, &DmaCtrl);
+	XCsuDma_WaitForDone(&CsuDma1, XCSUDMA_DST_CHANNEL);
+	XCsuDma_WaitForDone(&CsuDma1, XCSUDMA_SRC_CHANNEL);
+
+	/* To acknowledge the transfer has completed */
+	XCsuDma_IntrClear(&CsuDma1, XCSUDMA_SRC_CHANNEL,
+					XCSUDMA_IXR_DONE_MASK);
+	XCsuDma_IntrClear(&CsuDma1, XCSUDMA_DST_CHANNEL,
+                                        XCSUDMA_IXR_DONE_MASK);
+
+	DmaCtrl.AxiBurstType=0U;
+	XCsuDma_SetConfig(&CsuDma1, XCSUDMA_SRC_CHANNEL, &DmaCtrl);
+	XCsuDma_SetConfig(&CsuDma1, XCSUDMA_DST_CHANNEL, &DmaCtrl);
+
+	return;
+}
+
+void XPlmi_WaitForNonBlkSrcDma(void)
+{
+	XCsuDma_SetConfig(&CsuDma1, XCSUDMA_SRC_CHANNEL, &DmaCtrl);
+        XCsuDma_WaitForDone(&CsuDma1, XCSUDMA_SRC_CHANNEL);
+
+        /* To acknowledge the transfer has completed */
+        XCsuDma_IntrClear(&CsuDma1, XCSUDMA_SRC_CHANNEL,
+                                        XCSUDMA_IXR_DONE_MASK);
+
+        DmaCtrl.AxiBurstType=0U;
+        XCsuDma_SetConfig(&CsuDma1, XCSUDMA_SRC_CHANNEL, &DmaCtrl);
+
+	return;
+}
 /*****************************************************************************/
 /**
  * This function is used to transfer the data from SBI to DMA
@@ -334,6 +434,10 @@ int XPlmi_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 	{
 		XCsuDma_WaitForDone(DmaPtr, XCSUDMA_SRC_CHANNEL);
 	}
+	else
+	{
+		goto END;
+	}
 	if((Flags & XPLMI_DMA_DST_NONBLK) == FALSE)
 	{
 		XCsuDma_WaitForDone(DmaPtr, XCSUDMA_DST_CHANNEL);
@@ -368,6 +472,7 @@ int XPlmi_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 		XPlmi_Printf(DEBUG_INFO, "DMA Xfer completed \n\r");
 	}
 	Status = XST_SUCCESS;
+END:
 	return Status;
 }
 
@@ -402,6 +507,8 @@ int XPlmi_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
 		DmaPtr = &CsuDma1;
 	}
 
+	XPlmi_PrintArray(DEBUG_DETAILED, SrcAddr, Len, "DMA Xfer Data");
+
 	/* Configure the secure stream switch */
 	XPlmi_SSSCfgDmaDma(Flags);
 
@@ -432,18 +539,62 @@ int XPlmi_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
 /**
  * This function is used to ECC initialize the memory
  *
- * @param Addr Memory address to be initialzed
+ * @param Addr Memory address to be initialized
  * @param Len Length of the area to be initialized in bytes
  * @return
  *****************************************************************************/
 int XPlmi_EccInit(u64 Addr, u32 Len)
 {
-#if 0
-	u32 SrcAddr[4] __attribute__ ((aligned(16))) = {0U};
-	return XPlmi_DmaXfr((u64 ) &SrcAddr, Addr, Len/4,
-			    XPLMI_SRC_CH_AXI_FIXED);
-#else
-	memset((u8 *)Addr, 0U, Len);
-	return 0;
-#endif
+	XPlmi_Printf(DEBUG_INFO, "PZM to Dma Xfer Dest 0x%0x%08x, Len 0x%0x: ",
+			(u32)(Addr>>32), (u32)Addr, Len/4);
+
+	/* Configure the secure stream switch */
+	XPlmi_SSSCfgDmaPzm(XPLMI_PMCDMA_0);
+
+	/* Configure PZM length in 128bit */
+	XPlmi_Out32(PMC_GLOBAL_PRAM_ZEROIZE_SIZE, Len/16U);
+
+	/* Receive the data from destination channel */
+	return XPlmi_DmaChXfer(Addr, Len/4U, XCSUDMA_DST_CHANNEL, XPLMI_PMCDMA_0);
+}
+
+/*****************************************************************************/
+/**
+ * This function initializes the memory using PZM and verifies by reading back
+ * initialized memory.
+ *
+ * @param	Addr Memory address to be initialized
+ * @param	Len Length of the area to be initialized in bytes
+ *
+ * @return	Failure on comparison failure.
+ *		Success on sucessful buffer clear.
+ *
+ *****************************************************************************/
+int XPlmi_InitNVerifyMem(u64 Addr, u32 Len)
+{
+	u32 Status;
+	u32 *MemPtr = (u32 *)(UINTPTR)Addr;
+	u32 NoWords = Len/4U;
+	u32 Index;
+
+	/* Initialize the data */
+	Status = XPlmi_EccInit(Addr, Len);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Read and verify the initialized data */
+	for (Index = 0; Index < NoWords; Index++) {
+		if (MemPtr[Index] != XPLMI_DATA_INIT_PZM) {
+			Status = XST_FAILURE;
+			goto END;
+		}
+	}
+END:
+	return Status;
+}
+
+void XPlmi_SetMaxOutCmds(u32 Val)
+{
+	DmaCtrl.MaxOutCmds = Val;
 }

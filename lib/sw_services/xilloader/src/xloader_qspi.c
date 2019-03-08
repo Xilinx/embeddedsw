@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -14,14 +14,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 ******************************************************************************/
 /*****************************************************************************/
 /**
@@ -36,7 +34,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   02/21/2018 Initial release
-*
+*       har  08/28/2018 Fixed MISRA C violations
 * </pre>
 *
 * @note
@@ -158,14 +156,17 @@ static int FlashReadID(XQspiPsu *QspiPsuPtr)
 		QspiFlashSize = FLASH_SIZE_256M;
 		XLoader_Printf(DEBUG_INFO, "256M Bits\r\n");
 	} else if ((ReadBuffer[2] == FLASH_SIZE_ID_512M)
-			|| (ReadBuffer[2] == MACRONIX_FLASH_SIZE_ID_512M)) {
+			|| (ReadBuffer[2] == MACRONIX_FLASH_SIZE_ID_512M)
+			|| (ReadBuffer[2] == MACRONIX_FALSH_1_8_V_SIZE_ID_512M)){
 		QspiFlashSize = FLASH_SIZE_512M;
 		XLoader_Printf(DEBUG_INFO, "512M Bits\r\n");
 	} else if ((ReadBuffer[2] == FLASH_SIZE_ID_1G)
-			|| (ReadBuffer[2] == MACRONIX_FLASH_SIZE_ID_1G)) {
+			|| (ReadBuffer[2] == MACRONIX_FLASH_SIZE_ID_1G)
+			|| (ReadBuffer[2] == MACRONIX_FALSH_1_8_V_SIZE_ID_1G)){
 		QspiFlashSize = FLASH_SIZE_1G;
 		XLoader_Printf(DEBUG_INFO, "1G Bits\r\n");
-	} else if ((ReadBuffer[2] == FLASH_SIZE_ID_2G)) {
+	} else if ((ReadBuffer[2] == FLASH_SIZE_ID_2G)
+			|| (ReadBuffer[2] == MACRONIX_FALSH_1_8_V_SIZE_ID_2G)){
 		QspiFlashSize = FLASH_SIZE_2G;
 		XLoader_Printf(DEBUG_INFO, "2G Bits\r\n");
 	}else {
@@ -200,7 +201,6 @@ int XLoader_Qspi24Init(u32 DeviceFlags)
 	XQspiPsu_Config *QspiConfig;
 	int Status;
 	u32 QspiMode;
-
 	/**
 	 * This parameter is required as per the prototype
 	 */
@@ -280,24 +280,95 @@ int XLoader_Qspi24Init(u32 DeviceFlags)
 
 	}
 
+	switch ((u32)XPAR_XQSPIPSU_0_QSPI_BUS_WIDTH) {
+
+		case XLOADER_QSPI_BUSWIDTH_ONE:
+		{
+			ReadCommand = FAST_READ_CMD_24BIT;
+		} break;
+
+		case XLOADER_QSPI_BUSWIDTH_TWO:
+		{
+			ReadCommand = DUAL_READ_CMD_24BIT;
+		} break;
+
+		case XLOADER_QSPI_BUSWIDTH_FOUR:
+		{
+			ReadCommand = QUAD_READ_CMD_24BIT;
+		}break;
+		default:
+		{
+			Status = XPLMI_UPDATE_STATUS(
+				XLOADER_ERR_QSPI_CONNECTION, Status);
+			XLoader_Printf(DEBUG_GENERAL,
+					"XLOADER_ERR_QSPI_CONNECTION\r\n");
+			goto END;
+		} break;
+	}
+
 	/* Read Flash ID and extract Manufacture and Size information */
 	Status = FlashReadID(&QspiPsuInstance);
 	if (Status != XLOADER_SUCCESS) {
 		goto END;
 	}
 
-	/*  TODO add code for 1x, 2x and 4x */
-	if(IssiIdFlag==1U) {
-		ReadCommand = DUAL_READ_CMD_24BIT;
-	} else {
-		ReadCommand = QUAD_READ_CMD_24BIT;
-	}
-
 	/* TODO add code: For a Stacked connection, read second Flash ID */
-	QspiMode=(XPAR_XQSPIPSU_0_QSPI_MODE);
-	if ((QspiMode ==(XQSPIPSU_CONNECTION_MODE_PARALLEL)) ||
-		(QspiMode ==(XQSPIPSU_CONNECTION_MODE_STACKED) )) {
-		QspiFlashSize = 2 * QspiFlashSize;
+        QspiMode=(XPAR_XQSPIPSU_0_QSPI_MODE);
+        if ((QspiMode ==(XQSPIPSU_CONNECTION_MODE_PARALLEL)) ||
+                (QspiMode ==(XQSPIPSU_CONNECTION_MODE_STACKED) )) {
+                QspiFlashSize = 2 * QspiFlashSize;
+        }
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to initialize the qspi controller and driver
+ *
+ * @param       Image Offset Address
+ *
+ * @return      Success or error code
+ *
+ *****************************************************************************/
+int XLoader_Qspi24GetBusWidth(u32 ImageOffsetAddress)
+{
+	int Status = XST_FAILURE;
+	u32 QspiWidthBuffer[4]={0};
+	/*Qspi width detection for 1x,2x and 4x*/
+	ReadCommand = QUAD_READ_CMD_24BIT;
+	Status=XLoader_Qspi24Copy((ImageOffsetAddress+XLOADER_QSPI_BUSWIDTH_PDI_OFFSET),
+		(u64)(UINTPTR)(&QspiWidthBuffer),XLOADER_QSPI_BUSWIDTH_LENGTH,0x00U);
+
+	if((Status == XLOADER_SUCCESS) &&
+		(QspiWidthBuffer[0] == XLOADER_QSPI_BUSWIDTH_DETECT_VALUE)){
+			XLoader_Printf(DEBUG_INFO,"\n\rConnectionType: 24BIT QUAD\n\r");
+	}else
+	{
+		ReadCommand = DUAL_READ_CMD_24BIT;
+		Status=XLoader_Qspi24Copy((ImageOffsetAddress+XLOADER_QSPI_BUSWIDTH_PDI_OFFSET),
+			(u64)(UINTPTR)(&QspiWidthBuffer),XLOADER_QSPI_BUSWIDTH_LENGTH,0x00U);
+		if((Status == XLOADER_SUCCESS) &&
+			(QspiWidthBuffer[0] == XLOADER_QSPI_BUSWIDTH_DETECT_VALUE)){
+				XLoader_Printf(DEBUG_INFO,"\n\rConnectionType: 24BIT DUAL\n\r");
+		}else
+		{
+			ReadCommand = FAST_READ_CMD_24BIT;
+			Status=XLoader_Qspi24Copy((ImageOffsetAddress+XLOADER_QSPI_BUSWIDTH_PDI_OFFSET),
+				(u64)(UINTPTR)(&QspiWidthBuffer),XLOADER_QSPI_BUSWIDTH_LENGTH,0x00U);
+			if((Status == XLOADER_SUCCESS) &&
+				(QspiWidthBuffer[0] == XLOADER_QSPI_BUSWIDTH_DETECT_VALUE)){
+					XLoader_Printf(DEBUG_INFO,
+						"\n\rConnectionType: 24BIT SINGLE\n\r");
+			}else
+			{
+				Status = XPLMI_UPDATE_STATUS(
+						XLOADER_ERR_QSPI_CONNECTION, Status);
+				XLoader_Printf(DEBUG_GENERAL,
+						"XLOADER_ERR_QSPI_CONNECTION\r\n");
+				goto END;
+			}
+		}
 	}
 
 END:
@@ -673,7 +744,7 @@ XStatus XLoader_Qspi24Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		DiscardByteCnt = 4;
 
 		FlashMsg[0].TxBfrPtr = WriteBuffer;
-		FlashMsg[0].RxBfrPtr = NULL;
+		FlashMsg[0].RxBfrPtr = (u8 *)NULL;
 		FlashMsg[0].ByteCount = DiscardByteCnt;
 		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
@@ -700,8 +771,8 @@ XStatus XLoader_Qspi24Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 				FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_QUADSPI;
 			}
 
-			FlashMsg[1].TxBfrPtr = NULL;
-			FlashMsg[1].RxBfrPtr = NULL;
+			FlashMsg[1].TxBfrPtr = (u8 *)NULL;
+			FlashMsg[1].RxBfrPtr = (u8 *)NULL;
 			FlashMsg[1].ByteCount = DUMMY_CLOCKS;
 			FlashMsg[1].Flags = 0U;
 		}
@@ -718,9 +789,9 @@ XStatus XLoader_Qspi24Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 			FlashMsg[2].BusWidth = XQSPIPSU_SELECT_MODE_QUADSPI;
 		}
 
-		FlashMsg[2].TxBfrPtr = NULL;
+		FlashMsg[2].TxBfrPtr = (u8 *)NULL;
 		FlashMsg[2].RxAddr64bit = DestAddr;
-		FlashMsg[2].RxBfrPtr = (u8 *)DestAddr;
+		FlashMsg[2].Xfer64bit = 1;
 
 		FlashMsg[2].ByteCount = TransferBytes;
 		FlashMsg[2].Flags = XQSPIPSU_MSG_FLAG_RX;
@@ -881,7 +952,6 @@ int XLoader_Qspi32Init(u32 DeviceFlags)
 				Status = XPLMI_UPDATE_STATUS(
 						XLOADER_ERR_QSPI_CONNECTION,
 						0x0);
-				Status = XLOADER_ERR_QSPI_CONNECTION;
 				XLoader_Printf(DEBUG_GENERAL,
 				      "XLOADER_ERR_QSPI_CONNECTION\r\n");
 				goto END;
@@ -889,9 +959,31 @@ int XLoader_Qspi32Init(u32 DeviceFlags)
 
 	}
 
+	switch ((u32)XPAR_XQSPIPSU_0_QSPI_BUS_WIDTH) {
 
-	/* add code for 1x, 2x and 4x */
-	ReadCommand = QUAD_READ_CMD_32BIT;
+		case XLOADER_QSPI_BUSWIDTH_ONE:
+		{
+			ReadCommand = FAST_READ_CMD_32BIT;
+		} break;
+
+		case XLOADER_QSPI_BUSWIDTH_TWO:
+		{
+			ReadCommand = DUAL_READ_CMD_32BIT;
+		} break;
+
+		case XLOADER_QSPI_BUSWIDTH_FOUR:
+		{
+			ReadCommand = QUAD_READ_CMD_32BIT;
+		}break;
+		default:
+		{
+			Status = XPLMI_UPDATE_STATUS(
+				XLOADER_ERR_QSPI_CONNECTION, Status);
+			XLoader_Printf(DEBUG_GENERAL,
+					"XLOADER_ERR_QSPI_CONNECTION\r\n");
+			goto END;
+		} break;
+	}
 
 	/* Read Flash ID and extract Manufacture and Size information */
 	Status = FlashReadID(&QspiPsuInstance);
@@ -900,10 +992,64 @@ int XLoader_Qspi32Init(u32 DeviceFlags)
 	}
 
 	/* add code: For a Stacked connection, read second Flash ID */
-	QspiMode = XPAR_XQSPIPSU_0_QSPI_MODE;
-	if ((QspiMode == (s32)(XQSPIPSU_CONNECTION_MODE_PARALLEL)) ||
-	    (QspiMode == (s32)(XQSPIPSU_CONNECTION_MODE_STACKED)) ) {
-		QspiFlashSize = 2 * QspiFlashSize;
+        QspiMode = XPAR_XQSPIPSU_0_QSPI_MODE;
+        if ((QspiMode == (s32)(XQSPIPSU_CONNECTION_MODE_PARALLEL)) ||
+            (QspiMode == (s32)(XQSPIPSU_CONNECTION_MODE_STACKED)) ) {
+                QspiFlashSize = 2 * QspiFlashSize;
+        }
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to initialize the qspi controller and driver
+ *
+ * @param       Image Offset Address
+ *
+ * @return      Success or error code
+ *
+ *****************************************************************************/
+int XLoader_Qspi32GetBusWidth(u32 ImageOffsetAddress)
+{
+	int Status = XST_FAILURE;
+	u32 QspiWidthBuffer[4]={0};
+
+	/*Detect connection type for 1x,2x and 4x*/
+	ReadCommand = QUAD_READ_CMD_32BIT;
+	Status=XLoader_Qspi32Copy((ImageOffsetAddress+XLOADER_QSPI_BUSWIDTH_PDI_OFFSET),
+		(u64)(UINTPTR)(&QspiWidthBuffer),XLOADER_QSPI_BUSWIDTH_LENGTH,0x00U);
+
+	if((Status == XLOADER_SUCCESS) &&
+		(QspiWidthBuffer[0] == XLOADER_QSPI_BUSWIDTH_DETECT_VALUE)){
+			XLoader_Printf(DEBUG_INFO,"\n\rConnectionType: 32BIT QUAD\n\r");
+	}else
+	{
+		ReadCommand = DUAL_READ_CMD_32BIT;
+		Status=XLoader_Qspi32Copy((ImageOffsetAddress+XLOADER_QSPI_BUSWIDTH_PDI_OFFSET),
+			(u64)(UINTPTR)(&QspiWidthBuffer),XLOADER_QSPI_BUSWIDTH_LENGTH,0x00U);
+
+		if((Status == XLOADER_SUCCESS) &&
+			(QspiWidthBuffer[0] == XLOADER_QSPI_BUSWIDTH_DETECT_VALUE)){
+				XLoader_Printf(DEBUG_INFO,"\n\rConnectionType: 32BIT DUAL\n\r");
+		}else
+		{
+			ReadCommand = FAST_READ_CMD_32BIT;
+			Status=XLoader_Qspi32Copy((ImageOffsetAddress+XLOADER_QSPI_BUSWIDTH_PDI_OFFSET),
+				(u64)(UINTPTR)(&QspiWidthBuffer),XLOADER_QSPI_BUSWIDTH_LENGTH,0x00U);
+
+			if((Status == XLOADER_SUCCESS) &&
+				(QspiWidthBuffer[0] == XLOADER_QSPI_BUSWIDTH_DETECT_VALUE)){
+					XLoader_Printf(DEBUG_INFO,"\n\rConnectionType: 32BIT SINGLE\n\r");
+			}else
+			{
+				Status = XPLMI_UPDATE_STATUS(
+						XLOADER_ERR_QSPI_CONNECTION, Status);
+				XLoader_Printf(DEBUG_GENERAL,
+						"XLOADER_ERR_QSPI_CONNECTION\r\n");
+				goto END;
+			}
+		}
 	}
 
 END:
@@ -920,6 +1066,7 @@ END:
  *
  * @param DestAddr is the address of the destination where it
  * should copy to
+ *
  *
  * @param Length Length of the bytes to be copied
  *
@@ -1042,8 +1189,8 @@ XStatus XLoader_Qspi32Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		}
 
 		FlashMsg[2].TxBfrPtr = NULL;
-        FlashMsg[2].RxAddr64bit = DestAddr;
-        FlashMsg[2].RxBfrPtr = (u8 *)DestAddr;
+		FlashMsg[2].RxAddr64bit = DestAddr;
+		FlashMsg[2].Xfer64bit = 1;
 
 		FlashMsg[2].ByteCount = TransferBytes;
 		FlashMsg[2].Flags = XQSPIPSU_MSG_FLAG_RX;

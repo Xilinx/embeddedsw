@@ -14,14 +14,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 ******************************************************************************/
 
 /*****************************************************************************/
@@ -46,9 +44,12 @@
 
 /***************************** Include Files *********************************/
 #include "xplmi.h"
+#include "xplmi_err.h"
+#include "xplmi_sysmon.h"
 
 /************************** Constant Definitions *****************************/
 /**************************** Type Definitions *******************************/
+typedef int (*XPlmiInit)(void);
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -75,4 +76,49 @@ int XPlmi_Init(void )
 	XPlmi_GenericInit();
 END:
 	return Status;
+}
+
+/**
+ * It contains all the PS LPD init functions to be run for every module that
+ * is present as a part of PLM.
+ */
+XPlmiInit LpdInitList[] = {
+#ifdef DEBUG_UART_PS
+	XPlmi_InitUart,
+#endif
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+	XPlmi_IpiInit,
+#endif
+	XPlmi_SysMonInit,
+	XPlmi_PsEmInit,
+};
+
+/*****************************************************************************/
+/**
+ * @brief This function calls all the PS LPD init functions of all the different
+ * modules. As a part of init functions, modules can register the
+ * command handlers, interrupt handlers with the interface layer.
+ *
+ * @param	None
+ *
+ * @return	Status as defined in xplm_status.h
+ *
+ *****************************************************************************/
+void XPlmi_LpdInit(void)
+{
+	u32 Index;
+	int Status;
+
+	for (Index = 0; Index <
+	     sizeof(LpdInitList) / sizeof(*LpdInitList); Index++) {
+		Status = LpdInitList[Index]();
+		if (Status != XST_SUCCESS) {
+			Status = XPLMI_UPDATE_STATUS(XPLM_ERR_LPD_MOD, Status);
+			break;
+		}
+	}
+
+	if (XST_SUCCESS == Status) {
+		LpdInitialized |= LPD_INITIALIZED;
+	}
 }

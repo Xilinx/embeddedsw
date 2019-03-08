@@ -14,14 +14,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 ******************************************************************************/
 
 /*****************************************************************************/
@@ -46,17 +44,31 @@
 
 /***************************** Include Files *********************************/
 #include "xplmi_proc.h"
+#include "xplmi_hw.h"
+#include "xplmi_scheduler.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_MB_MSR_BIP_MASK		(0x8U)
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XPLMI_MAP_PLMID(Lvl0, Lvl1, Lvl2)	\
+	(Lvl0<<0U | Lvl1<<8U | Lvl2<<16U)
 
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
+static int PmcIroFreq; /* Frequency of the PMC IRO */
 static XIOModule IOModule; /* Instance of the IO Module */
+static u32 PlmIntrMap [] = {
+	[XPLMI_IPI_IRQ] = XPLMI_MAP_PLMID(XPLMI_IOMODULE_PMC_GIC_IRQ,
+					  XPLMI_PMC_GIC_IRQ_GICP0,
+					  XPLMI_GICP0_SRC27),
+	[XPLMI_SBI_DATA_RDY] = XPLMI_MAP_PLMID(XPLMI_IOMODULE_PMC_GIC_IRQ,
+					  XPLMI_PMC_GIC_IRQ_GICP4,
+					  XPLMI_GICP4_SRC8),
+};
+
 /*****************************************************************************/
 /**
 * It initializes the Programmable Interval Timer
@@ -76,7 +88,10 @@ void XPlmi_InitPitTimer(u8 Timer, u32 ResetValue)
 		XIOModule_Timer_SetOptions(&IOModule, Timer,
 				   XTC_AUTO_RELOAD_OPTION);
 	}
-
+    if (XPLMI_PIT3 == Timer) {
+		XIOModule_Timer_SetOptions(&IOModule, Timer,
+				   XTC_AUTO_RELOAD_OPTION);
+	}
 	/*
 	 * Set a reset value for the Programmable Interval Timers such that
 	 * they will expire earlier than letting them roll over from 0, the
@@ -129,6 +144,36 @@ u64 XPlmi_GetTimerValue(void )
 
 /*****************************************************************************/
 /**
+ * This function prints the total time taken between two points for
+ * performance measurement.
+ *
+ * @param Start time
+ * @param End time
+ *
+ * @return none
+ *****************************************************************************/
+void XPlmi_PrintTime(u64 tCur, u64 tEnd)
+{
+	u64 tDiff = 0;
+	u64 tPerfNs;
+	u64 tPerfMs = 0;
+	u64 tPerfMsFrac = 0;
+
+	tDiff = tCur - tEnd;
+
+	/* Convert tPerf into nanoseconds */
+	tPerfNs = ((double)tDiff / (double)PmcIroFreq) * 1e9;
+
+	tPerfMs = tPerfNs / 1e6;
+	tPerfMsFrac = tPerfNs % (u64)1e6;
+
+	/* Print the whole (in ms.) and fractional part */
+	XPlmi_Printf(DEBUG_PRINT_PERF, "%d.%06d ms.",
+			(u32)tPerfMs, (u32)tPerfMsFrac);
+}
+
+/*****************************************************************************/
+/**
  * This function measures the total time taken between two points for
  * performance measurement.
  *
@@ -139,23 +184,72 @@ u64 XPlmi_GetTimerValue(void )
 void XPlmi_MeasurePerfTime(u64 tCur)
 {
 	u64 tEnd = 0;
-	u64 tDiff = 0;
-	u64 tPerfNs;
-	u64 tPerfMs = 0;
-	u64 tPerfMsFrac = 0;
 
 	tEnd = XPlmi_GetTimerValue();
-	tDiff = tCur - tEnd;
+	XPlmi_PrintTime(tCur, tEnd);
+}
 
-	/* Convert tPerf into nanoseconds */
-	tPerfNs = ((double)tDiff / (double)XPAR_CPU_CORE_CLOCK_FREQ_HZ) * 1e9;
+/*****************************************************************************/
+/**
+ * This function prints the ROM time.
+ *
+ * @param none
+ *
+ * @return none
+ *****************************************************************************/
+void XPlmi_PrintRomTime()
+{
+	u64 PmcRomTime;
 
-	tPerfMs = tPerfNs / 1e6;
-	tPerfMsFrac = tPerfNs % (u64)1e6;
+	/** Get PMC ROM time */
+	PmcRomTime = (u64)((XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE0)) |
+		   (((u64)XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE1)) << 32U));
 
-	/* Print the whole (in ms.) and fractional part */
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%d.%06d ms.",
-			(u32)tPerfMs, (u32)tPerfMsFrac);
+	/* Print time stamp of PLM */
+	XPlmi_PrintTime((u64) ((((u64)XPLMI_PIT1_RESET_VALUE) << 32U) |
+			       XPLMI_PIT2_RESET_VALUE), PmcRomTime);
+	XPlmi_Printf(DEBUG_PRINT_PERF, ": ROM Time\n\r");
+}
+
+/*****************************************************************************/
+/**
+ * This function prints the PLM time stamp.
+ *
+ * @param none
+ *
+ * @return none
+ *****************************************************************************/
+void XPlmi_PrintPlmTimeStamp()
+{
+	/* Print time stamp of PLM */
+	XPlmi_Printf(DEBUG_PRINT_PERF, "[");
+	XPlmi_MeasurePerfTime((u64) (((u64)(XPLMI_PIT1_RESET_VALUE) << 32U) |
+				    XPLMI_PIT2_RESET_VALUE));
+	XPlmi_Printf(DEBUG_PRINT_PERF, "] ");
+}
+
+/*****************************************************************************/
+/**
+* @brief It sets the PMC IRO frequency
+* @param none
+* @return none
+*****************************************************************************/
+static void XPlmi_SetPmcIroFreq()
+{
+	u32 Trim5;
+	u32 Trim7;
+
+	Trim5 = XPlmi_In32(EFUSE_CACHE_ANLG_TRIM_5);
+	Trim7 = XPlmi_In32(EFUSE_CACHE_ANLG_TRIM_7);
+
+	/* Set the Frequency */
+	if (((Trim5 & EFUSE_TRIM_LP_MASK) != 0) ||
+	    ((Trim7 & EFUSE_TRIM_LP_MASK) != 0))
+	{
+		PmcIroFreq = 320 * 1000 * 1000; // 320MHz
+	} else {
+		PmcIroFreq = 130 * 1000 * 1000; // 130MHz
+	}
 }
 
 /*****************************************************************************/
@@ -167,7 +261,7 @@ void XPlmi_MeasurePerfTime(u64 tCur)
 int XPlmi_StartTimer()
 {
 	int Status;
-
+    int Pit3ResetValue;
 	/*
 	 * Initialize the IO Module so that it's ready to use,
 	 * specify the device ID that is generated in xparameters.h
@@ -190,16 +284,24 @@ int XPlmi_StartTimer()
 		goto END;
 	}
 
+	XPlmi_SetPmcIroFreq();
+	if (PmcIroFreq == 320 * 1000 * 1000)
+		{
+			Pit3ResetValue = 32000000U;
+		}
+	else
+		{
+			Pit3ResetValue = 13000000U;
+		}
+     XPlmi_SchedulerInit();
 	/** Initialize and start the timer
 	 *  Use PIT1 and PIT2 in prescalor mode
 	 */
 	/* Setting for Prescaler mode */
-	Xil_Out32(IOModule.BaseAddress + XGO_OUT_OFFSET,
-			   MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK);
-	XPlmi_InitPitTimer((u8)XPLMI_PIT2,
-			    XPLMI_PIT2_RESET_VALUE);
-	XPlmi_InitPitTimer((u8)XPLMI_PIT1,
-			    XPLMI_PIT1_RESET_VALUE);
+	Xil_Out32(IOModule.BaseAddress + XGO_OUT_OFFSET, MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK);
+	XPlmi_InitPitTimer((u8)XPLMI_PIT2, XPLMI_PIT2_RESET_VALUE);
+	XPlmi_InitPitTimer((u8)XPLMI_PIT1, XPLMI_PIT1_RESET_VALUE);
+	XPlmi_InitPitTimer((u8)XPLMI_PIT3, Pit3ResetValue);
 END:
 	return Status;
 }
@@ -211,7 +313,7 @@ static struct HandlerTable g_TopLevelInterruptTable[] = {
 	{XPlmi_IntrHandler},
 	{XPlmi_IntrHandler},
 	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler},
+	{XPlmi_SchedulerHandler},
 	{XPlmi_IntrHandler},
 	{XPlmi_IntrHandler},
 	{XPlmi_IntrHandler},
@@ -259,7 +361,8 @@ int XPlmi_SetUpInterruptSystem()
 	 * for the device occurs, the device driver handler performs the specific
 	 * interrupt processing for the device
 	 */
-	for (IntrNum = 0U; IntrNum < XPAR_IOMODULE_INTC_MAX_INTR_SIZE; IntrNum++)
+	for (IntrNum = XIN_IOMODULE_EXTERNAL_INTERRUPT_INTR;
+	     IntrNum < XPAR_IOMODULE_INTC_MAX_INTR_SIZE; IntrNum++)
 	{
 		Status = XIOModule_Connect(&IOModule, IntrNum,
 		   (XInterruptHandler) g_TopLevelInterruptTable[IntrNum].Handler,
@@ -271,42 +374,48 @@ int XPlmi_SetUpInterruptSystem()
 			goto END;
 		}
 	}
+	IntrNum = 0x5;
+	Status = XIOModule_Connect(&IOModule, IntrNum,
+			   (XInterruptHandler) g_TopLevelInterruptTable[IntrNum].Handler,
+					   (void *)IntrNum);
+			if (Status != XST_SUCCESS)
+			{
+				Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_IOMOD_CONNECT,
+								 Status);
+				goto END;
+			}
 
-	/*
+	/**
 	 * Enable interrupts for the device and then cause interrupts so the
 	 * handlers will be called.
 	 */
+#if 0
 	for (IntrNum = XIN_IOMODULE_EXTERNAL_INTERRUPT_INTR;
 		IntrNum< XPAR_IOMODULE_INTC_MAX_INTR_SIZE; IntrNum++)
 	{
 		XIOModule_Enable(&IOModule, IntrNum);
 	}
+#endif
+	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PMC_GIC_IRQ);
+	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PPU1_MB_RAM);
+	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_ERR_IRQ);
+	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_CFRAME_SEU);
+	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PMC_GPI);
+	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PMC_PIT3_IRQ);
 
-	/*
+	/**
 	 * Register the IO module interrupt handler with the exception table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
 	     (Xil_ExceptionHandler)XIOModule_DeviceInterruptHandler,
 		     (void*) IOMODULE_DEVICE_ID);
 
-	/*
-	 * Enable IPI interrupts
-	 * FIXME: DO it elsewhere
-	 */
-	XPlmi_UtilRMW(PMC_GLOBAL_GICP_PMC_IRQ_ENABLE,
-			PMC_GLOBAL_GICP_PMC_IRQ_ENABLE_SRC0_MASK,
-			PMC_GLOBAL_GICP_PMC_IRQ_ENABLE_SRC0_MASK);
-
-	XPlmi_UtilRMW(PMC_GLOBAL_GICP0_IRQ_ENABLE,
-			PMC_GLOBAL_GICP0_IRQ_ENABLE_SRC27_MASK,
-			PMC_GLOBAL_GICP0_IRQ_ENABLE_SRC27_MASK);
-
-	/*
+	/**
 	 * Enable interrupts
 	 */
 	microblaze_enable_interrupts();
 
-	/*
+	/**
 	 * Clear Break In Progress to get interrupts
 	 */
 	mtmsr(mfmsr() & (~XPLMI_MB_MSR_BIP_MASK));
@@ -314,17 +423,94 @@ END:
 	return Status;
 }
 
-/******************************************************************************/
+/****************************************************************************/
 /**
-* This function is an interrupt handler for the device.
+* @brief    This function is default interrupt handler for the device.
 * @param    CallbackRef is presently the interrupt number that is received
 * @return   None.
 ****************************************************************************/
 void XPlmi_IntrHandler(void *CallbackRef)
 {
-	/*
+	/**
 	 * Indicate Interrupt received
 	 */
 	XPlmi_Printf(DEBUG_GENERAL,
 	      "Received Interrupt: 0x%0x\n\r", (u32) CallbackRef);
+}
+
+/****************************************************************************/
+/**
+* @brief    This function will enable the interrupt.
+* @param    IntrId Interrupt ID as specified in the xplmi_proc.h
+* @return   None.
+****************************************************************************/
+void XPlmi_PlmIntrEnable(u32 IntrId)
+{
+	u32 PlmIntrId;
+	u32 IoModIntrNum;
+
+	PlmIntrId = PlmIntrMap[IntrId];
+	IoModIntrNum = PlmIntrId & XPLMI_IOMODULE_MASK;
+
+	switch (IoModIntrNum)
+	{
+		case XPLMI_IOMODULE_PMC_GIC_IRQ:
+			XPlmi_GicIntrEnable(PlmIntrId);
+			break;
+
+		default:
+			break;
+	}
+}
+
+/****************************************************************************/
+/**
+* @brief    This function will disable the interrupt.
+* @param    IntrId Interrupt ID as specified in the xplmi_proc.h
+* @return   None.
+****************************************************************************/
+void XPlmi_PlmIntrDisable(u32 IntrId)
+{
+	u32 PlmIntrId;
+	u32 IoModIntrNum;
+
+	PlmIntrId = PlmIntrMap[IntrId];
+	IoModIntrNum = PlmIntrId & XPLMI_IOMODULE_MASK;
+
+	switch (IoModIntrNum)
+	{
+		case XPLMI_IOMODULE_PMC_GIC_IRQ:
+			XPlmi_GicIntrDisable(PlmIntrId);
+			break;
+
+		default:
+			break;
+	}
+}
+
+/****************************************************************************/
+/**
+* @brief    This function will register the handler and enable the interrupt.
+* @param    IntrId Interrupt ID as specified in the xplmi_proc.h
+* @param    Handler Handler to the registered for the interrupt
+* @param    Data Data to be passed to handler
+* @return   None.
+****************************************************************************/
+void XPlmi_RegisterHandler(u32 IntrId, Function_t Handler, void * Data)
+{
+	u32 PlmIntrId;
+	u32 IoModIntrNum;
+
+	PlmIntrId = PlmIntrMap[IntrId];
+	IoModIntrNum = PlmIntrId & XPLMI_IOMODULE_MASK;
+
+	switch (IoModIntrNum)
+	{
+		case XPLMI_IOMODULE_PMC_GIC_IRQ:
+			XPlmi_GicRegisterHandler(PlmIntrId, Handler, Data);
+			break;
+
+		default:
+			break;
+	}
 }
