@@ -76,6 +76,8 @@ static XSecure_Rsa Secure_Rsa;
 static XSecure_Sha3 Sha3Instance;
 
 XCsuDma CsuDma = {0U};
+u32 XsecureIv[XSECURE_IV_LEN];
+u32 XsecureKey[XSECURE_KEY_LEN];
 
 /************************** Function Prototypes ******************************/
 
@@ -229,22 +231,22 @@ static u32 XSecure_Decrypt(u32 WrSize, u32 SrcAddrHigh, u32 SrcAddrLow)
 	Size = WrSize * XSECURE_WORD_LEN;
 	WrAddr = ((u64)SrcAddrHigh << 32) | (u64)SrcAddrLow;
 	(void)XSecure_ConvertStringToHex((char *)((char *)(UINTPTR)WrAddr + Size),
-					Key, XSECURE_KEY_STR_LEN);
+					XsecureKey, XSECURE_KEY_STR_LEN);
 	(void)XSecure_ConvertStringToHex(
 		(char *)((char *)(UINTPTR)WrAddr + XSECURE_KEY_STR_LEN + Size),
-				Iv, XSECURE_IV_STR_LEN);
+				XsecureIv, XSECURE_IV_STR_LEN);
 
 	/* Xilsecure expects Key in big endian form */
-	for (Index = 0U; Index < XSECURE_ARRAY_LENGTH(Key); Index++) {
-		Key[Index] = Xil_Htonl(Key[Index]);
+	for (Index = 0U; Index < XSECURE_ARRAY_LENGTH(XsecureKey); Index++) {
+		XsecureKey[Index] = Xil_Htonl(XsecureKey[Index]);
 	}
-	for (Index = 0U; Index < XSECURE_ARRAY_LENGTH(Iv); Index++) {
-		Iv[Index] = Xil_Htonl(Iv[Index]);
+	for (Index = 0U; Index < XSECURE_ARRAY_LENGTH(XsecureIv); Index++) {
+		XsecureIv[Index] = Xil_Htonl(XsecureIv[Index]);
 	}
 
 	/* Initialize the Aes driver so that it's ready to use */
 	(void)XSecure_AesInitialize(&SecureAes, &CsuDma, XSECURE_CSU_AES_KEY_SRC_KUP,
-			                           Iv, Key);
+			                           XsecureIv, XsecureKey);
 	Status = (u32)XSecure_AesDecrypt(&SecureAes,
 				(u8 *)(UINTPTR)WrAddr,
 			(u8 *)(UINTPTR)WrAddr, Size - (u32)XSECURE_GCM_TAG_LEN);
@@ -448,23 +450,23 @@ static u32 XSecure_InitAes(u32 AddrHigh, u32 AddrLow)
 		goto END;
 	}
 	for (Index = 0U; Index < XSECURE_IV_LEN; Index++) {
-		Iv[Index] = *IvPtr;
+		XsecureIv[Index] = *IvPtr;
 		IvPtr++;
 	}
 	/* Initialize the Aes driver so that it's ready to use */
 	if (AesParams->KeySrc == XSECURE_AES_KUP_KEY) {
 		for (Index = 0U; Index < XSECURE_KEY_LEN; Index++) {
-			Key[Index] = *KeyPtr;
+			XsecureKey[Index] = *KeyPtr;
 			KeyPtr++;
 		}
 		(void)XSecure_AesInitialize(&SecureAes, &CsuDma,
 				XSECURE_CSU_AES_KEY_SRC_KUP,
-				Iv, Key);
+				XsecureIv, XsecureKey);
 	}
 	else {
 		(void)XSecure_AesInitialize(&SecureAes, &CsuDma,
 				XSECURE_CSU_AES_KEY_SRC_DEV,
-				Iv, NULL);
+				XsecureIv, NULL);
 	}
 END:
 	return Status;
@@ -930,7 +932,7 @@ u32 XSecure_AuthenticationHeaders(u8 *StartAddr, XSecure_ImageInfo *ImageInfo)
 	u32 SizeofBH;
 	u32 SizeofImgHdr;
 	u32 PhOffset;
-	u8 *IvPtr = (u8 *)(UINTPTR)Iv;
+	u8 *IvPtr = (u8 *)(UINTPTR)XsecureIv;
 	u8 BootgenBinFormat[] = {0x66, 0x55, 0x99, 0xAA,
 				 0x58, 0x4E, 0x4C, 0x58};/* Sync Word */
 
@@ -943,7 +945,7 @@ u32 XSecure_AuthenticationHeaders(u8 *StartAddr, XSecure_ImageInfo *ImageInfo)
 	}
 
 	/* Pointer IV available */
-	ImageInfo->Iv = Iv;
+	ImageInfo->Iv = XsecureIv;
 
 	(void)memset(Buffer, 0, XSECURE_BUFFER_SIZE);
 	(void)memset(AcBuf, 0, XSECURE_AUTH_CERT_MIN_SIZE);
@@ -1120,7 +1122,7 @@ u32 XSecure_SecureImage(u32 AddrHigh, u32 AddrLow,
 	u8 NoAuth = 0;
 	u32 EncOnly;
 	u8 IsEncrypted;
-	u8 *IvPtr = (u8 *)(UINTPTR)Iv;
+	u8 *IvPtr = (u8 *)(UINTPTR)XsecureIv;
 	u8 *EncSrc;
 	u8 *DecDst;
 	u8 Index;
@@ -1261,11 +1263,11 @@ u32 XSecure_SecureImage(u32 AddrHigh, u32 AddrLow,
 			 * So this conversion is required here.
 			 */
 			(void)XSecure_ConvertStringToHex((char *)(UINTPTR)KupKey,
-					Key, XSECURE_KEY_STR_LEN);
+					XsecureKey, XSECURE_KEY_STR_LEN);
 			/* XilSecure expects Key in big endian form */
-			for (Index = 0U; Index < XSECURE_ARRAY_LENGTH(Key);
+			for (Index = 0U; Index < XSECURE_ARRAY_LENGTH(XsecureKey);
 							Index++) {
-				Key[Index] = Xil_Htonl(Key[Index]);
+				XsecureKey[Index] = Xil_Htonl(XsecureKey[Index]);
 			}
 		}
 		else {
@@ -1284,7 +1286,7 @@ u32 XSecure_SecureImage(u32 AddrHigh, u32 AddrLow,
 	if (ImageHdrInfo.KeySrc == XSECURE_KEY_SRC_KUP) {
 		(void)XSecure_AesInitialize(&SecureAes, &CsuDma,
 				XSECURE_CSU_AES_KEY_SRC_KUP,
-				(u32 *)ImageHdrInfo.Iv, Key);
+				(u32 *)ImageHdrInfo.Iv, XsecureKey);
 	}
 	else {
 		(void)XSecure_AesInitialize(&SecureAes, &CsuDma,
