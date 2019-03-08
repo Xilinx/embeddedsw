@@ -104,6 +104,7 @@ extern "C" {
 #define XILCDO_NPI_BLK_ME_NPI                           (0x1BU)
 #define XILCDO_NPI_BLK_PLL_PHY							(0x1CU)
 #define XILCDO_NPI_BLK_NOC_NIR							(0x1DU)
+#define XILCDO_NPI_BLK_DDRMC_NOC						(0x1EU)
 #define XILCDO_TOTAL_NPI_BLKS                           (0x20U)
 
 /**
@@ -137,6 +138,7 @@ extern "C" {
 #define XILCDO_NPI_BLK_AMS_SAT_MAXCOUNT			(0x30U)
 #define XILCDO_NPI_BLK_AMS_ROOT_MAXCOUNT		(0x10U)
 #define XILCDO_NPI_BLK_ME_NPI_MAXCOUNT			(0x10U)
+#define XILCDO_NPI_BLK_DDRMC_NOC_MAXCOUNT		(0x4U)
 #define XILCDO_TOTAL_NPI_BLKS					(0x20U)
 #define XILCDO_NPI_BLK_XPLL_START_ADDR 			(0xF6099000U)
 /*
@@ -220,6 +222,9 @@ extern "C" {
 #define XILCDO_DDRMC_UB_CLKGATE_OFFSET			(0x24CU)
 #define XILCDO_DDRMC_UB_BISR_EN_MASK			(0x40U)
 #define XILCDO_DDRMC_UB_ILA_EN_MASK				(0x20U)
+/** DDRMC_NOC Register */
+#define XILCDO_DDRMC_NOC_CLK_MUX_OFFSET			(0x758U)
+#define XILCDO_DDRMC_CLK_SRC_SELMASK			(0x1U)
 /**************************** Type Definitions *******************************/
 
 /************************** Structure Declarations ***************************/
@@ -254,6 +259,7 @@ typedef struct
 	u32 XILCDO_NPI_BLK_AMS_SAT_BaseAddr[XILCDO_NPI_BLK_AMS_SAT_MAXCOUNT];
 	u32 XILCDO_NPI_BLK_AMS_ROOT_BaseAddr[XILCDO_NPI_BLK_AMS_ROOT_MAXCOUNT];
 	u32 XILCDO_NPI_BLK_ME_NPI_BaseAddr[XILCDO_NPI_BLK_ME_NPI_MAXCOUNT];
+	u32 XILCDO_NPI_BLK_DDRMC_NOC_BaseAddr[XILCDO_NPI_BLK_DDRMC_NOC_MAXCOUNT];
 	u32 XILCDO_NPI_BLK_VREF_NpiParam[XILCDO_NPI_BLK_VREF_MAXCOUNT];
 	u32 XILCDO_NPI_BLK_XPIO_NpiParam[XILCDO_NPI_BLK_XPIO_MAXCOUNT];
 	u32 XILCDO_NPI_BLK_XPIO_IOMISC_NpiParam[XILCDO_NPI_BLK_XPIO_IOMISC_MAXCOUNT];
@@ -334,6 +340,7 @@ void XilCdo_EnableBISR(u32 BaseAddr);
 void XilCdo_DisableBISR(u32 BaseAddr);
 void XilCdo_EnableILA(u32 BaseAddr);
 void XilCdo_DisableILA(u32 BaseAddr);
+void XilCdo_ResetClkMux(u32 BaseAddr);
 XStatus XilCdo_NpiPreCfg_GTY(u32 BaseAddr, u32 NpiParam);
 XStatus XilCdo_NpiPreCfg_DDRMC(u32 BaseAddr, u32 NpiParam);
 XStatus XilCdo_NpiPreCfg_ME(u32 BaseAddr, u32 NpiParam);
