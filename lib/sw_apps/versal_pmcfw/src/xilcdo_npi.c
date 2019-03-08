@@ -1188,6 +1188,11 @@ void XilCdo_ClearPRFreeze(u32 BaseAddr)
 	XilCdo_WritePcsrCtrlReg(BaseAddr, PCSR_MASK_PR_FREEZE_MASK, 0U);
 }
 
+void XilCdo_ResetClkMux(u32 BaseAddr)
+{
+	XPmcFw_UtilRMW(BaseAddr + XILCDO_DDRMC_NOC_CLK_MUX_OFFSET,
+					XILCDO_DDRMC_CLK_SRC_SELMASK, 0U);
+}
 /*****************************************************************************/
 /**
  * This function does the required NPI startup sequence for the block
@@ -1433,6 +1438,12 @@ XStatus XilCdo_StoreNpiParams(u32 CmdArgs[10U])
 			{
 				XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NIR_BaseAddr = BaseAddr;
 				XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]++;
+			}
+			break;
+		case XILCDO_NPI_BLK_DDRMC_NOC:
+			{
+				XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_NOC_BaseAddr
+					[XilCdoNpiSeqInstPtr->BaseAddrCnt[BlockType]++] = BaseAddr;
 			}
 			break;
 		default:
@@ -3411,6 +3422,15 @@ void XilCdo_ShutNocModules(void)
 	{
 		XilCdo_SetGateReg(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_NOC_NCRB_BaseAddr[Count]);
 	}
+
+	/** Set DDR Noc clock MUX reg to Noc/2 mode */
+	for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_DDRMC_NOC]; ++Count)
+        {
+		XilCdo_ClearLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_NOC_BaseAddr[Count]);
+                XilCdo_ResetClkMux(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_NOC_BaseAddr[Count]);
+		XilCdo_SetLockState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_DDRMC_NOC_BaseAddr[Count]);
+        }
+
 }
 
 void XilCdo_ShutGTModules(void)
