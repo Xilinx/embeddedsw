@@ -295,7 +295,7 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 	u32 EncOnly;
 	u8 IsEncrypted = 0U;
 	u8 NoAuth = 0U;
-	u8 *IvPtr = (u8 *)(UINTPTR)Iv;
+	u8 *IvPtr = (u8 *)(UINTPTR)XsecureIv;
 	u32 BitstreamPos = 0U;
 	u32 PartHeaderOffset = 0U;
 
