@@ -193,6 +193,48 @@ u32 XV_tpg_Get_bckgndId(XV_tpg *InstancePtr) {
 
 /*****************************************************************************/
 /**
+ * * This function sets motion enable for color bar pattern
+ * *
+ * * @param  InstancePtr is a pointer to core instance to be worked upon
+ * * @param  Data is a variable to set the motion enable
+ * *
+ * * @return  None
+ * *
+ * ******************************************************************************/
+void XV_tpg_Set_motionEn(XV_tpg *InstancePtr, u32 Data) {
+    u32 Pattern;
+
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Pattern = XV_tpg_Get_bckgndId(InstancePtr);
+    if (Pattern == XTPG_BKGND_COLOR_BARS)
+	    XV_tpg_WriteReg(InstancePtr->Config.BaseAddress,
+			    XV_TPG_CTRL_ADDR_BCK_MOTION_EN_DATA, Data);
+}
+
+/*****************************************************************************/
+/**
+ * * This function gets status of motion enable for color bar pattern
+ * *
+ * * @param  InstancePtr is a pointer to core instance to be worked upon
+ * *
+ * * @return  status of the motion enable for color bar pattern
+ * *
+ * ******************************************************************************/
+u32 XV_tpg_Get_motionEnStatus(XV_tpg *InstancePtr) {
+    u32 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_tpg_ReadReg(InstancePtr->Config.BaseAddress,
+			  XV_TPG_CTRL_ADDR_BCK_MOTION_EN_DATA) &
+			  (XV_TPG_CTRL_ADDR_MOTION_EN_MASK);
+    return Data;
+}
+/*****************************************************************************/
+/**
  * * This function sets the overlay id
  * *
  * * @param  InstancePtr is a pointer to core instance to be worked upon
