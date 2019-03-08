@@ -42,6 +42,7 @@
 * 1.1  Naresh  07/11/2018  Updated copyright info
 * 1.2  Hyun    10/10/2018  Use the mask write API
 * 1.3  Nishad  12/05/2018  Renamed ME attributes to AIE
+* 1.4  Jubaer  03/07/2019  Add PL if downsizer disable API
 * </pre>
 *
 ******************************************************************************/
@@ -178,6 +179,37 @@ void XAieTile_PlIntfDownszrEnable(XAieGbl_Tile *TileInstPtr, u8 StreamId)
 
 	/* Enable the selected stream in the PL2ME/downsizer config */
 	FldVal = XAie_SetField(1U, DwszEn.En[StreamId].Lsb,
+			DwszEn.En[StreamId].Mask);
+
+	XAieGbl_MaskWrite32(RegAddr, DwszEn.En[StreamId].Mask, FldVal);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API is used to disable the selected stream in the PL2ME interface.
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	StreamId - Stream index value, ranging from 0-7.
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void XAieTile_PlIntfDownszrDisable(XAieGbl_Tile *TileInstPtr, u8 StreamId)
+{
+	u64 RegAddr;
+	u32 FldVal;
+
+	XAie_AssertVoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertVoid(StreamId < XAIEGBL_TILE_PLIF_PL2AIE_MAX_STRMS);
+	XAie_AssertVoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
+
+	RegAddr = TileInstPtr->TileAddr + DwszEn.RegOff;
+
+	/* Disable the selected stream in the PL2ME/downsizer config */
+	FldVal = XAie_SetField(0U, DwszEn.En[StreamId].Lsb,
 			DwszEn.En[StreamId].Mask);
 
 	XAieGbl_MaskWrite32(RegAddr, DwszEn.En[StreamId].Mask, FldVal);
