@@ -246,16 +246,6 @@ XStatus XPmcFw_DmaChXfer(u64 Addr, u32 Len, XCsuDma_Channel Channel, u32 Flags)
 		((Flags&XPMCFW_SRC_CH_AXI_FIXED) == XPMCFW_SRC_CH_AXI_FIXED)) )
 	{
 		DmaCtrl.AxiBurstType=1U;
-		if((Channel == XCSUDMA_SRC_CHANNEL) &&
-			(Flags & XPMCFW_DMA_SRC_NONBLK) != 0U)
-		{
-			DmaCtrl.MaxOutCmds=1U;
-		}
-		else
-		{
-			DmaCtrl.MaxOutCmds=8U;
-		}
-
 		XCsuDma_SetConfig(DmaPtr, Channel, &DmaCtrl);
 	}
 
@@ -265,8 +255,6 @@ XStatus XPmcFw_DmaChXfer(u64 Addr, u32 Len, XCsuDma_Channel Channel, u32 Flags)
 	if((Flags & XPMCFW_DMA_SRC_NONBLK) != 0U)
 	{
 		NonBlkDmaPtr = DmaPtr;
-		NonBlkChannel = Channel;
-		NonBlkFlags = Flags;
 		Status = XST_SUCCESS;
 		goto END;
 	}
@@ -291,27 +279,31 @@ END:
 	return Status;
 }
 
-void XPmcFw_WaitForNonBlkDma(void)
+void XPmcFw_WaitForNonBlkSrcDma(void)
 {
-	XPmcFw_UtilRMW(PMC_DMA0_PMCDMA_SRC_CTRL2,
-		PMC_DMA0_PMCDMA_SRC_CTRL2_MAX_OUTS_CMDS_MASK, 8U);
+	XPmcFw_UtilRMW(PMC_DMA1_PMCDMA_SRC_CTRL2,
+		PMC_DMA1_PMCDMA_SRC_CTRL2_MAX_OUTS_CMDS_MASK, 8U);
 
-	XCsuDma_WaitForDone(NonBlkDmaPtr, NonBlkChannel);
+	if(NonBlkDmaPtr == NULL)
+	{
+		goto END;
+	}
+	XCsuDma_WaitForDone(NonBlkDmaPtr, XCSUDMA_SRC_CHANNEL);
+	XCsuDma_WaitForDone(NonBlkDmaPtr, XCSUDMA_DST_CHANNEL);
 
-    /* To acknowledge the transfer has completed */
-    XCsuDma_IntrClear(NonBlkDmaPtr, NonBlkChannel, XCSUDMA_IXR_DONE_MASK);
+	/* To acknowledge the transfer has completed */
+	XCsuDma_IntrClear(NonBlkDmaPtr, XCSUDMA_SRC_CHANNEL,
+					XCSUDMA_IXR_DONE_MASK);
+	XCsuDma_IntrClear(NonBlkDmaPtr, XCSUDMA_DST_CHANNEL,
+                                        XCSUDMA_IXR_DONE_MASK);
 
-    /* Revert the setting of PMC_DMA in AXI FIXED mode */
-    if (((NonBlkChannel == XCSUDMA_DST_CHANNEL) &&
-	((NonBlkFlags&XPMCFW_DST_CH_AXI_FIXED) == XPMCFW_DST_CH_AXI_FIXED)) ||
-        ((NonBlkChannel == XCSUDMA_SRC_CHANNEL) &&
-        ((NonBlkFlags&XPMCFW_SRC_CH_AXI_FIXED) == XPMCFW_SRC_CH_AXI_FIXED)) )
-        {
-                DmaCtrl.AxiBurstType=0U;
-				DmaCtrl.MaxOutCmds=8U;
-                XCsuDma_SetConfig(NonBlkDmaPtr, NonBlkChannel, &DmaCtrl);
-        }
+	DmaCtrl.AxiBurstType=0U;
+	XCsuDma_SetConfig(NonBlkDmaPtr, XCSUDMA_SRC_CHANNEL, &DmaCtrl);
+	XCsuDma_SetConfig(NonBlkDmaPtr, XCSUDMA_DST_CHANNEL, &DmaCtrl);
+	NonBlkDmaPtr = NULL;
 
+END:
+	return;
 }
 /*****************************************************************************/
 /**
@@ -388,8 +380,7 @@ XStatus XPmcFw_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 	else
 	{
 		NonBlkDmaPtr = DmaPtr;
-		NonBlkChannel = XCSUDMA_SRC_CHANNEL;
-		NonBlkFlags = Flags;
+		goto END;
 	}
 	if((Flags & XPMCFW_DMA_DST_NONBLK) == FALSE)
 	{
@@ -411,14 +402,12 @@ XStatus XPmcFw_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 		((Flags&XPMCFW_SRC_CH_AXI_FIXED) == XPMCFW_SRC_CH_AXI_FIXED))
 	{
 		DmaCtrl.AxiBurstType=0U;
-		DmaCtrl.MaxOutCmds=8U;
 		XCsuDma_SetConfig(DmaPtr, XCSUDMA_SRC_CHANNEL, &DmaCtrl);
 	}
 	if (((Flags & XPMCFW_DMA_DST_NONBLK) == FALSE) &&
 		((Flags&XPMCFW_DST_CH_AXI_FIXED) == XPMCFW_DST_CH_AXI_FIXED))
 	{
 		DmaCtrl.AxiBurstType=0U;
-		DmaCtrl.MaxOutCmds=8U;
 		XCsuDma_SetConfig(DmaPtr, XCSUDMA_DST_CHANNEL, &DmaCtrl);
 	}
 
@@ -427,6 +416,7 @@ XStatus XPmcFw_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 		XPmcFw_Printf(DEBUG_INFO, "DMA Xfer completed \n\r");
 	}
 	Status = XST_SUCCESS;
+END:
 	return Status;
 }
 
@@ -447,8 +437,9 @@ u32 XPmcFw_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
 	u32 EnLast=0U;
 	XCsuDma *DmaPtr;
 
-	XPmcFw_Printf(DEBUG_INFO, "DMA Xfer Src 0x%llx, Dest 0x%llx, Len 0x%0x,"
-		"Flags 0x%0x: ", SrcAddr, DestAddr, Len, Flags);
+	XPmcFw_Printf(DEBUG_INFO, "DMA Xfer Src 0x%0x, Dest 0x%0x, Len 0x%0x,"
+		"Flags 0x%0x: ", (u32)(SrcAddr & 0xFFFFFFFFU), (u32)(DestAddr &
+		 0xFFFFFFFFU), Len, Flags);
 
 	/* Select DMA pointer */
 	if ((Flags & XPMCFW_PMCDMA_0) == XPMCFW_PMCDMA_0) {
@@ -466,14 +457,6 @@ u32 XPmcFw_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
 	if ((Flags&XPMCFW_SRC_CH_AXI_FIXED) == XPMCFW_SRC_CH_AXI_FIXED)
 	{
 		DmaCtrl.AxiBurstType=1U;
-		if((Flags & XPMCFW_DMA_SRC_NONBLK)==FALSE)
-		{
-			DmaCtrl.MaxOutCmds=8U;
-		}
-		else
-		{
-			DmaCtrl.MaxOutCmds=1U;
-		}
 		XCsuDma_SetConfig(DmaPtr, XCSUDMA_SRC_CHANNEL, &DmaCtrl);
 	}
 	/* Setting CSU_DMA in AXI Burst mode */
