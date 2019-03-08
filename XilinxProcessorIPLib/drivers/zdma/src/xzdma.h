@@ -130,6 +130,7 @@
 *			 errors in the driver(CR#1006353).
 *		19/07/18 Fixed cppcheck warning in the driver.
 * 1.6   aru     08/18/18 Resolved MISRA-C mandatory violations.
+* 1.7	adk	08/03/19 Added support for versal IP.
 * </pre>
 *
 ******************************************************************************/
