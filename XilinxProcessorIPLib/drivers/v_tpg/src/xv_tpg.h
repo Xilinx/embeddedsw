@@ -143,6 +143,8 @@ void XV_tpg_Set_width(XV_tpg *InstancePtr, u32 Data);
 u32 XV_tpg_Get_width(XV_tpg *InstancePtr);
 void XV_tpg_Set_bckgndId(XV_tpg *InstancePtr, u32 Data);
 u32 XV_tpg_Get_bckgndId(XV_tpg *InstancePtr);
+void XV_tpg_Set_motionEn(XV_tpg *InstancePtr, u32 Data);
+u32 XV_tpg_Get_motionEnStatus(XV_tpg *InstancePtr);
 void XV_tpg_Set_ovrlayId(XV_tpg *InstancePtr, u32 Data);
 u32 XV_tpg_Get_ovrlayId(XV_tpg *InstancePtr);
 void XV_tpg_Set_maskId(XV_tpg *InstancePtr, u32 Data);
