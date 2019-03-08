@@ -56,6 +56,7 @@
 /**************************** Type Definitions *******************************/
 extern XilCdo_Prtn XilCdoPrtnInst;
 extern u32 Platform;
+extern u32 PlCfiPresent;
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
@@ -66,7 +67,6 @@ XILCDO_NPI_SEQ* XilCdoNpiSeqInstPtr = NULL;
 XILCDO_NPI_SEQ XilCdoNpiSeqInstance;
 u32 ScanClearDone;
 u32 NpiCmd = 0U;
-u32 NpiFabricEnabled = 0U;
 u32 NocSysRstReq = 0U;
 /*****************************************************************************/
 /**
@@ -186,18 +186,8 @@ void XilCdo_ClearGlobalSignals(void)
 	u32 RegVal = Xil_In32(CFU_APB_CFU_FGCR);
 
 	XilCdo_EnableCFUWrite();
-	XilCdo_SetGSCWE();
 	XilCdo_ClearEOS();
 	XilCdo_ClearGWE();
-
-	Xil_Out32(CFU_APB_CFU_MASK, CFU_APB_CFU_FGCR_GRESTORE_MASK);
-	RegVal &= ~CFU_APB_CFU_FGCR_GRESTORE_MASK;
-	Xil_Out32(CFU_APB_CFU_FGCR, RegVal);
-
-
-	RegVal |= CFU_APB_CFU_FGCR_GRESTORE_MASK;
-	Xil_Out32(CFU_APB_CFU_MASK,CFU_APB_CFU_FGCR_GRESTORE_MASK);
-	Xil_Out32(CFU_APB_CFU_FGCR, RegVal);
 
 	RegVal &= ~CFU_APB_CFU_FGCR_GTS_CFG_B_MASK;
 	Xil_Out32(CFU_APB_CFU_MASK, CFU_APB_CFU_FGCR_GTS_CFG_B_MASK);
@@ -1453,11 +1443,6 @@ XStatus XilCdo_StoreNpiParams(u32 CmdArgs[10U])
 			}
 	}
 
-	if((NpiParam & XILCDO_NPI_FABRICEN_MASK) == XILCDO_NPI_FABRICEN_MASK)
-	{
-		NpiFabricEnabled = 1U;
-	}
-
 	Status = XST_SUCCESS;
 END:
 	return Status;
@@ -1489,6 +1474,11 @@ XStatus XilCdo_RunPendingNpiSeq(void)
 
 	if(NpiCmd == CMD_NPI_SEQ)
 	{
+		if (PlCfiPresent == 1U)
+		{
+			XilCdo_SetGlobalSignals();
+		}
+
 		XPmcFw_Printf(DEBUG_DETAILED,"\n Running all pending Startup/PR sequences \n\r");
 		for(Count =0; Count < XilCdoNpiSeqInstPtr->BaseAddrCnt[XILCDO_NPI_BLK_GT]; ++Count)
 		{
@@ -1509,6 +1499,12 @@ XStatus XilCdo_RunPendingNpiSeq(void)
 		XilCdo_ProcAMSModules();
 		XilCdo_ProcGTModules();
 		XilCdo_ProcNocModules();
+
+		if(PlCfiPresent == 1U)
+		{
+			XilCdo_AssertGlobalSignals();
+			PlCfiPresent = 0U;
+		}
 	}
 	else if(NpiCmd == CMD_NPI_SHUTDN)
 	{
@@ -1517,11 +1513,6 @@ XStatus XilCdo_RunPendingNpiSeq(void)
 		XilCdo_ShutGTModules();
 		XilCdo_ShutMMCM_CLK();
 		XilCdo_ShutIOModules();
-		if(NpiFabricEnabled == 1U)
-		{
-			XilCdo_ClearGlobalSignals();
-		}
-		NpiFabricEnabled = 0U;
 	}
 	else
 	{
@@ -2272,7 +2263,7 @@ void XilCdo_ProcMMCM_CLK(void)
 		XilCdo_ClearHoldState(XilCdoNpiSeqInstPtr->XILCDO_NPI_BLK_CLK_GT_BaseAddr[Count]);
 	}
 
-	if(NpiFabricEnabled == 1U)
+	if(PlCfiPresent == 1U)
 	{
 		XilCdo_SetGWE();
 	}
