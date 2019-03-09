@@ -56,6 +56,7 @@ ipipsu_v2_5:
 Make IPI driver common for both ZynqMP and Versal platforms.
 Add extern c macro.
 Fix the ipis without buffer.
+Add versal IP name support.
 
 llfifo_v5_3:
 Fix poll and interrupt examples receive programming sequence.
