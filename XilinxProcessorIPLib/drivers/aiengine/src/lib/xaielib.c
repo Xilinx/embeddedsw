@@ -98,6 +98,13 @@
 #define XAIELIB_SHIM_MEM_ALIGN		16
 
 /************************** Variable Definitions *****************************/
+typedef struct XAieLib_MemInst
+{
+	u64 Size;	/**< Size */
+	u64 Vaddr;	/**< Virtual address */
+	u64 Paddr;	/**< Device / physical address */
+	void *Platform;	/**< Platform specific data */
+} XAieLib_MemInst;
 
 /************************** Function Definitions *****************************/
 
@@ -285,6 +292,7 @@ void XAieLib_MemFinish(XAieLib_MemInst *XAieLib_MemInstPtr)
 {
 #ifdef __AIESIM__
 #elif defined __AIEBAREMTL__
+	free((void *)XAieLib_MemInstPtr->Vaddr);
 	free(XAieLib_MemInstPtr);
 #else
 	XAieIO_Mem *MemInstPtr = (XAieIO_Mem *)XAieLib_MemInstPtr;
@@ -311,7 +319,20 @@ XAieLib_MemInst *XAieLib_MemInit(u8 idx)
 #ifdef __AIESIM__
 	return 0;
 #elif defined __AIEBAREMTL__
-	return malloc(XAIELIB_BAREMTL_DEF_MEM_SIZE);
+	XAieLib_MemInst *XAieLib_MemInstPtr;
+
+	XAieLib_MemInstPtr = malloc(sizeof(*XAieLib_MemInstPtr));
+	if (!XAieLib_MemInstPtr)
+		return NULL;
+	XAieLib_MemInstPtr->Vaddr = (u64)malloc(XAIELIB_BAREMTL_DEF_MEM_SIZE);
+	if (!XAieLib_MemInstPtr->Vaddr) {
+		free(XAieLib_MemInstPtr);
+		return NULL;
+	}
+	XAieLib_MemInstPtr->Paddr = XAieLib_MemInstPtr->Vaddr;
+	XAieLib_MemInstPtr->Size = XAIELIB_BAREMTL_DEF_MEM_SIZE;
+
+	return XAieLib_MemInstPtr;
 #else
 	return (XAieLib_MemInst *)XAieIO_MemInit(idx);
 #endif
@@ -334,8 +355,8 @@ u64 XAieLib_MemGetSize(XAieLib_MemInst *XAieLib_MemInstPtr)
 #ifdef __AIESIM__
 	return 0;
 #elif defined __AIEBAREMTL__
-	return XAIELIB_BAREMTL_DEF_MEM_SIZE -
-		((u64)XAieLib_MemInstPtr % XAIELIB_SHIM_MEM_ALIGN);
+	return XAieLib_MemInstPtr->Size -
+		((u64)XAieLib_MemInstPtr->Vaddr % XAIELIB_SHIM_MEM_ALIGN);
 #else
 	XAieIO_Mem *MemInstPtr = (XAieIO_Mem *)XAieLib_MemInstPtr;
 	return XAieIO_MemGetSize(MemInstPtr);
@@ -361,7 +382,7 @@ u64 XAieLib_MemGetVaddr(XAieLib_MemInst *XAieLib_MemInstPtr)
 #ifdef __AIESIM__
 	return 0;
 #elif defined __AIEBAREMTL__
-	return ((u64)XAieLib_MemInstPtr + XAIELIB_SHIM_MEM_ALIGN - 1) &
+	return ((u64)XAieLib_MemInstPtr->Vaddr + XAIELIB_SHIM_MEM_ALIGN - 1) &
 		~(XAIELIB_SHIM_MEM_ALIGN - 1);
 #else
 	XAieIO_Mem *MemInstPtr = (XAieIO_Mem *)XAieLib_MemInstPtr;
@@ -387,7 +408,7 @@ u64 XAieLib_MemGetPaddr(XAieLib_MemInst *XAieLib_MemInstPtr)
 #ifdef __AIESIM__
 	return 0;
 #elif defined __AIEBAREMTL__
-	return ((u64)XAieLib_MemInstPtr + XAIELIB_SHIM_MEM_ALIGN - 1) &
+	return ((u64)XAieLib_MemInstPtr->Vaddr + XAIELIB_SHIM_MEM_ALIGN - 1) &
 		~(XAIELIB_SHIM_MEM_ALIGN - 1);
 #else
 	XAieIO_Mem *MemInstPtr = (XAieIO_Mem *)XAieLib_MemInstPtr;
