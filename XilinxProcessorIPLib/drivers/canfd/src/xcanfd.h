@@ -259,6 +259,8 @@ exclusion
 *		      prescalar value properly in xcanfd_config.c CR# 1016013
 * 2.1	nsk  03/09/19 Updated XCanFd_GetDlc2len(), for CAN frames, to handle
 *		      number of data bytes greater than 8. CR# 1022045
+* 2.1	nsk  03/09/19 Fix for TrrMask to not to get written when using
+		      XCanFd_Addto_Queue(). CR# 1022093
 *
 * </pre>
 *
