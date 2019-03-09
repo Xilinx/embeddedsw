@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015-2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -317,7 +317,8 @@ static int SendFrame(XCanFd *InstancePtr)
 	* Get the number of bytes to transmit so that we can buffer with those
 	* many bytes
 	*/
-	NofBytes = XCanFd_GetDlc2len(TxFrame[1] & XCANFD_DLCR_DLC_MASK);
+	NofBytes = XCanFd_GetDlc2len(TxFrame[1] & XCANFD_DLCR_DLC_MASK,
+			EDL_CANFD);
 
 	/*
 	 * Now fill in the data field with known values so we can verify them
@@ -374,7 +375,8 @@ static int RecvFrame(XCanFd *InstancePtr)
 	}
 
 	/* Get Dlc value */
-	Dlc = XCanFd_GetDlc2len(RxFrame[1] & XCANFD_DLCR_DLC_MASK);
+	Dlc = XCanFd_GetDlc2len(RxFrame[1] & XCANFD_DLCR_DLC_MASK,
+		EDL_CANFD);
 
 	/* Verify Identifier and Data Length Code */
 	if (RxFrame[0] != XCanFd_CreateIdValue(TEST_MESSAGE_ID, 0, 0, 0, 0)) {

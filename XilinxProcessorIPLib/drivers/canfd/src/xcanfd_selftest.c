@@ -182,7 +182,8 @@ int XCanFd_SelfTest(XCanFd *InstancePtr)
 	TxFrame[0] = XCanFd_CreateIdValue(TEST_MESSAGE_ID, 0, 0, 0, 0);
 	TxFrame[1] = XCanFd_Create_CanFD_Dlc_BrsValue(TEST_CANFD_DLC);
 
-	Dlc = XCanFd_GetDlc2len(TxFrame[1] & XCANFD_DLCR_DLC_MASK);
+	Dlc = XCanFd_GetDlc2len(TxFrame[1] & XCANFD_DLCR_DLC_MASK,
+		EDL_CANFD);
 	FramePtr = (u8 *) (&TxFrame[2]);
 
 	for (Index = 0; Index < Dlc; Index++) {
@@ -225,7 +226,8 @@ int XCanFd_SelfTest(XCanFd *InstancePtr)
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
-	Dlc = XCanFd_GetDlc2len(RxFrame[1] & XCANFD_DLCR_DLC_MASK);
+	Dlc = XCanFd_GetDlc2len(RxFrame[1] & XCANFD_DLCR_DLC_MASK,
+		EDL_CANFD);
 
 	/* Verify Identifier and Data Length Code. */
 	if (RxFrame[0] != XCanFd_CreateIdValue(TEST_MESSAGE_ID, 0, 0, 0, 0)) {
