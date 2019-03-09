@@ -46,6 +46,11 @@ proc check_emac_hw {} {
                 return;
     }
 
+    set temacs [hsi::get_cells -hier -filter { ip_name == "psv_ethernet" }];
+        if { [llength $temacs] != 0 } {
+                return;
+    }
+
     error "This application requires an Ethernet MAC IP instance in the hardware."
 }
 
@@ -215,6 +220,12 @@ proc generate_emac_config {fp} {
     }
 
     set temacs [hsi::get_cells -hier -filter { ip_name == "psu_ethernet" }];
+        if { [llength $temacs] > 0 } {
+                puts $fp "#define PLATFORM_EMAC_BASEADDR XPAR_XEMACPS_0_BASEADDR";
+                return;
+    }
+
+    set temacs [hsi::get_cells -hier -filter { ip_name == "psv_ethernet" }];
         if { [llength $temacs] > 0 } {
                 puts $fp "#define PLATFORM_EMAC_BASEADDR XPAR_XEMACPS_0_BASEADDR";
                 return;
