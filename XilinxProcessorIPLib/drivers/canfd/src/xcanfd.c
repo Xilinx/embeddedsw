@@ -71,6 +71,9 @@
 *		      CR# 1018379
 * 2.1	nsk  03/09/19 For CAN frames, DLC should always 8, even data bytes
 *		      are greater than 8. CR# 1022045.
+* 2.1	nsk  03/09/19 Fix for TrrMask to not to get written when using
+		      XCanFd_Addto_Queue(), to send more than 32 buffers.
+		      CR# 1022093
 *
 * </pre>
 ******************************************************************************/
@@ -591,6 +594,10 @@ int XCanFd_Addto_Queue(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 			XCANFD_TRR_OFFSET);
 
 	TrrVal = XCanFd_GetFreeBuffer(InstancePtr);
+	if (InstancePtr->MultiBuffTrr == TRR_MASK_INIT_VAL) {
+		return XST_FIFO_NO_ROOM;
+	}
+
 	if(InstancePtr->GlobalTrrMask == 0)
 		InstancePtr->GlobalTrrMask = TRR_MASK_INIT_VAL;
 	MaskValue = (~TrrVal) & InstancePtr->GlobalTrrMask ;
