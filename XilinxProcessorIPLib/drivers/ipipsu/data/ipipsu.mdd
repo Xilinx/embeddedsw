@@ -29,7 +29,7 @@ OPTION psf_version = 2.1;
 
 BEGIN driver ipipsu
 
-  OPTION supported_peripherals = (psu_ipi);
+  OPTION supported_peripherals = (psu_ipi psv_ipi);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
   OPTION VERSION = 2.5;
