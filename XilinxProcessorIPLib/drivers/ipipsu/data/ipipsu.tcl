@@ -35,6 +35,7 @@
 # 2.3  ms   04/11/17  Modified tcl file to add U suffix for all macros
 #                     of ipipsu in xparameters.h
 # 2.5  sd   04/01/19  Added support for the the no buffer ipi
+#      sd   09/03/19  Add support for versal ip name
 ##############################################################################
 
 #uses "xillib.tcl"
@@ -92,7 +93,7 @@ proc ipi_generate_config {drv_handle file_name iszynqmp} {
 	set hw_proc_handle [::hsi::get_cells -hier [common::get_property hw_instance $sw_proc_handle]]
 
 	# List of all IPIs on SoC
-	set ipi_list [get_cells -hier -filter { IP_NAME == "psu_ipi" }]
+	set ipi_list [get_cells -hier -filter { IP_NAME == "psu_ipi" || IP_NAME == "psv_ipi" }]
 	
 	# List of IPIs owned by this processor
 
@@ -160,7 +161,7 @@ proc ipi_generate_params {file_name iszynqmp} {
 	set file_handle [::hsi::utils::open_include_file $file_name]
 
 	# List of all IPIs on SoC
-	set ipi_list [get_cells -hier -filter { IP_NAME == "psu_ipi" }]
+	set ipi_list [get_cells -hier -filter { IP_NAME == "psu_ipi" || IP_NAME == "psv_ipi" }]
 
 	#List of all processors on SoC
 	set proc_list [get_cells -hier -filter { IP_TYPE == "PROCESSOR" }]
