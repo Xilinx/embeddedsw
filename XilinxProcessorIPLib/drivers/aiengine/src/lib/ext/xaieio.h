@@ -90,6 +90,13 @@ typedef struct XAieIO_Mem XAieIO_Mem;
 
 void XAieIO_MemFinish(XAieIO_Mem *IO_MemInstPtr);
 XAieIO_Mem *XAieIO_MemInit(uint8 idx);
+void XAieIO_MemDetach(XAieIO_Mem *IO_MemInstPtr);
+XAieIO_Mem *XAieIO_MemAttach(uint64_t Vaddr, uint64_t Paddr, uint64_t Size, uint64_t MemHandle);
+void XAieIO_MemFree(XAieIO_Mem *IO_MemInstPtr);
+XAieIO_Mem *XAieIO_MemAllocate(uint64_t Size, uint32 Attr);
+
+uint8 XAieIO_MemSyncForCPU(XAieIO_Mem *IO_MemInstPtr);
+uint8 XAieIO_MemSyncForDev(XAieIO_Mem *IO_MemInstPtr);
 
 uint64_t XAieIO_MemGetSize(XAieIO_Mem *IO_MemInstPtr);
 uint64_t XAieIO_MemGetVaddr(XAieIO_Mem *IO_MemInstPtr);
