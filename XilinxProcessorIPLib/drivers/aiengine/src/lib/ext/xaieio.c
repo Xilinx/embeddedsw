@@ -72,7 +72,15 @@
 #include <metal/device.h>
 #include <metal/io.h>
 
+#include <metal/list.h>
+#include <metal/mutex.h>
+#include <metal/shmem.h>
+#include <metal/shmem-provider.h>
+#include <metal/utilities.h>
+
 /***************************** Macro Definitions *****************************/
+#define SHM_NUM_ULONG	8					/**< number of ulong for bitmap */
+#define SHM_MAX_IDS	(sizeof(unsigned long) * SHM_NUM_ULONG)	/**< max number of IDs = 64 * 16 = 512 */
 
 /************************** Variable Definitions *****************************/
 typedef struct
@@ -81,12 +89,16 @@ typedef struct
 	struct metal_device *device;	/**< libmetal device */
 	struct metal_io_region *io;	/**< libmetal io region */
 	u64 io_base;			/**< libmetal io region base */
+	unsigned long shm_ids[SHM_NUM_ULONG];	/**< bitmap for shm name space */
 } XAieIO;
 
 typedef struct XAieIO_Mem
 {
 	struct metal_io_region *io;	/**< libmetal io region */
 	u64 io_base;			/**< libmetal io region base */
+	struct metal_generic_shmem *shm;/**< attached metal shm memory */
+	struct metal_scatter_list *sg;	/**< shm sg list */
+	unsigned int id;		/**< shm id. only for allocated one */
 } XAieIO_Mem;
 
 static XAieIO IOInst;
@@ -310,11 +322,246 @@ XAieIO_Mem *XAieIO_MemInit(u8 idx)
 	io = metal_device_io_region(IOInst.device, 1 + idx);
 	if (!io)
 		return NULL;
+
 	IO_MemInstPtr = metal_allocate_memory(sizeof(*IO_MemInstPtr));
 	IO_MemInstPtr->io = io;
 	IO_MemInstPtr->io_base = metal_io_phys(io, 0);
+	/* Set NULL to differentiate this memory */
+	IO_MemInstPtr->shm = NULL;
 
 	return IO_MemInstPtr;
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the IO memory function to detach the memory from device
+*
+* @param	IO_MemInstPtr: IO Memory instance pointer.
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void XAieIO_MemDetach(XAieIO_Mem *IO_MemInstPtr)
+{
+	metal_shm_detach(IO_MemInstPtr->shm, IOInst.device);
+	metal_free_memory(IO_MemInstPtr->shm);
+	metal_free_memory(IO_MemInstPtr);
+	XAieIO_Finish();
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the IO memory function to attach the external memory to device
+*
+* @param	Vaddr: Optional. Vaddr of the memory
+* @param	Paddr: Optional. Paddr of the memory
+* @param	Size: Required. Size of the memory
+* @param	MemHandle: Required. Handle of the memory. For linux, dmabuf fd
+*
+* @return	Pointer to the attached IO memory instance.
+*
+* @note		None.
+*
+*******************************************************************************/
+XAieIO_Mem *XAieIO_MemAttach(uint64_t Vaddr, uint64_t Paddr, uint64_t Size,
+		uint64_t MemHandle)
+{
+	XAieIO_Mem *IO_MemInstPtr;
+
+	XAieIO_Init();
+
+	IO_MemInstPtr = metal_allocate_memory(sizeof(*IO_MemInstPtr));
+	if (!IO_MemInstPtr) {
+		goto io_finish;
+	}
+
+	IO_MemInstPtr->shm = metal_allocate_memory(sizeof(*IO_MemInstPtr->shm));
+	if (!IO_MemInstPtr->shm) {
+		goto free_mem_inst;
+	}
+	metal_list_init(&IO_MemInstPtr->shm->refs);
+	metal_mutex_init(&IO_MemInstPtr->shm->lock);
+
+	/*
+	 * FIXME: dummy allocate to retreive the dmabuf ops. This can be
+	 * removed if libemtal allows to attach the dmabuf ops to shm object
+	 * allocated outside.
+	 */
+	IO_MemInstPtr->shm->provider = metal_shmem_get_provider("ion.reserved");
+	IO_MemInstPtr->shm->provider->alloc(IO_MemInstPtr->shm->provider,
+			IO_MemInstPtr->shm, 1);
+	IO_MemInstPtr->shm->provider->free(IO_MemInstPtr->shm->provider,
+			IO_MemInstPtr->shm);
+
+	/* Expect the dmabuf fd as a handle*/
+	IO_MemInstPtr->shm->id = MemHandle;
+	IO_MemInstPtr->shm->size = Size;
+	IO_MemInstPtr->sg = metal_shm_attach(IO_MemInstPtr->shm, IOInst.device,
+			METAL_SHM_DIR_DEV_RW);
+	if (!IO_MemInstPtr->sg) {
+		goto free_shm;
+	}
+
+	/* This can be cross-checked if it matches as given argument */
+	IO_MemInstPtr->io_base = metal_io_phys(IO_MemInstPtr->sg->ios, 0);
+	IO_MemInstPtr->io = IO_MemInstPtr->sg->ios;
+
+	return IO_MemInstPtr;
+
+free_shm:
+	metal_free_memory(IO_MemInstPtr->shm);
+free_mem_inst:
+	metal_free_memory(IO_MemInstPtr);
+io_finish:
+	XAieIO_Finish();
+	return NULL;
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the IO memory function to free the memory
+*
+* @param	IO_MemInstPtr: IO Memory instance pointer.
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void XAieIO_MemFree(XAieIO_Mem *IO_MemInstPtr)
+{
+	metal_bitmap_clear_bit(IOInst.shm_ids, IO_MemInstPtr->id);
+	metal_shm_detach(IO_MemInstPtr->shm, IOInst.device);
+	metal_shmem_close(IO_MemInstPtr->shm);
+	metal_free_memory(IO_MemInstPtr);
+	XAieIO_Finish();
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the IO memory function to allocate a memory
+*
+* @param	Size: Size of the memory
+* @param	Attr: Any of XAIELIB_MEM_ATTR_*
+*
+* @return	Pointer to the allocated IO memory instance.
+*
+* @note		None.
+*
+*******************************************************************************/
+XAieIO_Mem *XAieIO_MemAllocate(uint64_t Size, u32 Attr)
+{
+	XAieIO_Mem *IO_MemInstPtr;
+	char shm_name[32];
+	unsigned int id, flag = 0;
+	int ret;
+
+	id = metal_bitmap_next_clear_bit(IOInst.shm_ids, 0, SHM_MAX_IDS);
+	if (id >= SHM_MAX_IDS) {
+		goto err_out;
+	}
+
+	XAieIO_Init();
+
+	IO_MemInstPtr = metal_allocate_memory(sizeof(*IO_MemInstPtr));
+	if (!IO_MemInstPtr) {
+		goto io_finish;
+	}
+
+	/* The name, ion.reserved, and snprintf() are linux specific */
+	snprintf(shm_name, sizeof(shm_name), "ion.reserved/shm%d", id);
+	if (!(Attr & XAIELIB_MEM_ATTR_CACHE)) {
+		flag = METAL_SHM_NOTCACHED;
+	}
+	ret = metal_shmem_open(shm_name, Size, flag, &IO_MemInstPtr->shm);
+	if (ret) {
+		goto free_mem_inst;
+	}
+
+	IO_MemInstPtr->sg = metal_shm_attach(IO_MemInstPtr->shm, IOInst.device,
+			METAL_SHM_DIR_DEV_RW);
+	if (!IO_MemInstPtr->sg) {
+		goto shm_close;
+	}
+
+	IO_MemInstPtr->io = IO_MemInstPtr->sg->ios;
+	IO_MemInstPtr->io_base = metal_io_phys(IO_MemInstPtr->sg->ios, 0);
+	IO_MemInstPtr->id = id;
+	metal_bitmap_set_bit(IOInst.shm_ids, id);
+
+	return IO_MemInstPtr;
+
+shm_close:
+	metal_shmem_close(IO_MemInstPtr->shm);
+free_mem_inst:
+	metal_free_memory(IO_MemInstPtr);
+io_finish:
+	XAieIO_Finish();
+err_out:
+	return NULL;
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the IO memory function to sync the memory for CPU
+*
+* @param	IO_MemInstPtr: IO Memory instance pointer.
+*
+* @return	None.
+*
+* @note		This only works with imported or allocated memory. This doesn't
+* do anything with memory from the own memory pool, ex XAieIO_MemInit().
+*
+*******************************************************************************/
+u8 XAieIO_MemSyncForCPU(XAieIO_Mem *IO_MemInstPtr)
+{
+	int ret;
+
+	if (!IO_MemInstPtr->shm) {
+		return XAIELIB_SUCCESS;
+	}
+
+	ret = metal_shm_sync_for_cpu(IO_MemInstPtr->shm, METAL_SHM_DIR_DEV_RW);
+	if (ret) {
+		return XAIELIB_FAILURE;
+	}
+	return XAIELIB_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the IO memory function to sync the memory for device
+*
+* @param	IO_MemInstPtr: IO Memory instance pointer.
+*
+* @return	None.
+*
+* @note		This only works with imported or allocated memory. This doesn't
+* do anything with memory from the own memory pool, ex XAieIO_MemInit().
+*
+*******************************************************************************/
+u8 XAieIO_MemSyncForDev(XAieIO_Mem *IO_MemInstPtr)
+{
+	int ret;
+
+	if (!IO_MemInstPtr->shm) {
+		return XAIELIB_SUCCESS;
+	}
+
+	ret = metal_shm_sync_for_device(IO_MemInstPtr->shm, IOInst.device,
+			METAL_SHM_DIR_DEV_RW);
+	if (ret) {
+		return XAIELIB_FAILURE;
+	}
+	return XAIELIB_SUCCESS;
 }
 
 /*****************************************************************************/
