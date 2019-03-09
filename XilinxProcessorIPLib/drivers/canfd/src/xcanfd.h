@@ -257,6 +257,8 @@ exclusion
 *		      xcanfd.c CR# 1018379
 * 2.1   nsk  01/22/19 Fixed XCanFd_SetFBaudPrescalar(), which is not setting
 *		      prescalar value properly in xcanfd_config.c CR# 1016013
+* 2.1	nsk  03/09/19 Updated XCanFd_GetDlc2len(), for CAN frames, to handle
+*		      number of data bytes greater than 8. CR# 1022045
 *
 * </pre>
 *
@@ -1047,7 +1049,7 @@ void XCanFd_AcceptFilterGet(XCanFd *InstancePtr, u32 FilterIndex,
 						u32 *MaskValue, u32 *IdValue);
 XCanFd_Config *XCanFd_LookupConfig(u16 DeviceId);
 XCanFd_Config *XCanFd_GetConfig(unsigned int InstanceIndex);
-int XCanFd_GetDlc2len(u32 Dlc);
+int XCanFd_GetDlc2len(u32 Dlc, u32 Edl);
 u8 XCanFd_GetLen2Dlc(int len);
 u32 XCanFd_GetFreeBuffer(XCanFd *InstancePtr);
 int XCanFd_Send_Queue(XCanFd *InstancePtr);
