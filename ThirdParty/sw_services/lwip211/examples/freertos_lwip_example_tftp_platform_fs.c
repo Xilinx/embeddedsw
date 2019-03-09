@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 - 2019 Xilinx, Inc.
+ * Copyright (C) 2017 - 2020 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -40,7 +40,7 @@ int platform_init_fs()
 	Res = f_mount(&fatfs, Path, 1);
 	if (Res != FR_OK) {
 		xil_printf("Volume is not FAT formatted; formatting FAT\r\n");
-		Res = f_mkfs(Path, FM_SFD, 0, work, sizeof work);
+		Res = f_mkfs(Path, FM_ANY, 0, work, sizeof work);
 		if (Res != FR_OK) {
 			xil_printf("Unable to format FATfs\r\n");
 			return -1;
