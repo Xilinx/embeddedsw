@@ -261,6 +261,8 @@ exclusion
 *		      number of data bytes greater than 8. CR# 1022045
 * 2.1	nsk  03/09/19 Fix for TrrMask to not to get written when using
 		      XCanFd_Addto_Queue(). CR# 1022093
+* 2.1	nsk  03/09/19 Added support for PS CANFD, PL CANFD 1.0 and PL CANFD 2.0
+*		      CR# 1021963
 *
 * </pre>
 *

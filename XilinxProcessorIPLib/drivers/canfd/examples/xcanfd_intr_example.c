@@ -64,6 +64,7 @@
 *		ask    09/12/18 Added timeout, and Code to handle Timestamp Counter
 *                              Overflow Interrupt. Made logic generic for both
 *                                              scugic and intc vectors.
+* 2.1	nsk  03/09/19 Fix build error in example
 *
 * </pre>
 *
@@ -99,7 +100,11 @@
  #define CAN_INTR_VEC_ID	XPAR_INTC_0_CANFD_0_VEC_ID
 #else
  #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
- #define CAN_INTR_VEC_ID	XPAR_FABRIC_CANFD_0_VEC_ID
+ #ifdef XPAR_CANFD_ISPS
+  #define CAN_INTR_VEC_ID	XPAR_XCANPS_0_INTR
+ #else
+  #define CAN_INTR_VEC_ID	XPAR_FABRIC_CANFD_0_VEC_ID
+ #endif
 #endif /* XPAR_INTC_0_DEVICE_ID */
 
 /* Maximum CAN frame length in Bytes */
