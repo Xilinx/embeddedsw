@@ -67,6 +67,7 @@ Fix freertos echo server compilation on emaclite platform.
 Pick correct compiler for R5.
 Update lwip examples to be in sync with new xilffs.
 Add IEEE1588 byte padding for PL Ethernet.
+Add support for versal IP name.
 
 ospipsv_v1_0:
 First Release.
