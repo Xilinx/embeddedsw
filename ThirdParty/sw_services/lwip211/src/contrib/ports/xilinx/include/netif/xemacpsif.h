@@ -52,12 +52,15 @@ extern "C" {
 #include "xpseudo_asm.h"
 #include "xil_cache.h"
 #include "xil_printf.h"
-#include "xuartps.h"
 #include "xscugic.h"
 #include "xemacps.h"		/* defines XEmacPs API */
 
 #include "netif/xpqueue.h"
 #include "xlwipconfig.h"
+
+#if EL1_NONSECURE
+#include "xil_smc.h"
+#endif
 
 #define ZYNQ_EMACPS_0_BASEADDR 0xE000B000
 #define ZYNQ_EMACPS_1_BASEADDR 0xE000C000
@@ -77,11 +80,23 @@ extern "C" {
 #define CRL_APB_GEM_DIV1_MASK	0x003F0000
 #define CRL_APB_GEM_DIV1_SHIFT	16
 
+#define VERSAL_EMACPS_0_BASEADDR 0xFF0C0000
+#define VERSAL_EMACPS_1_BASEADDR 0xFF0D0000
+
+#define VERSAL_CRL_GEM0_REF_CTRL	0xFF5E0118
+#define VERSAL_CRL_GEM1_REF_CTRL	0xFF5E011C
+
+#define VERSAL_CRL_GEM_DIV_MASK		0x0003FF00
+#define VERSAL_CRL_APB_GEM_DIV_SHIFT	8
+
 #if defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (__MICROBLAZE__)
 #if defined (USE_JUMBO_FRAMES)
 #define ZYNQMP_USE_JUMBO
 #endif
 #endif
+
+#define GEM_VERSION_ZYNQMP	7
+#define GEM_VERSION_VERSAL	0x107
 
 #define MAX_FRAME_SIZE_JUMBO (XEMACPS_MTU_JUMBO + XEMACPS_HDR_SIZE + XEMACPS_TRL_SIZE)
 

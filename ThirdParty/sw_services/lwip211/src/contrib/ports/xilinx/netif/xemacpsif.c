@@ -47,7 +47,6 @@
 #include "netif/xadapter.h"
 #include "netif/xpqueue.h"
 #include "xparameters.h"
-#include "xuartps.h"
 #include "xscugic.h"
 #include "xemacps.h"
 
@@ -345,6 +344,16 @@ static err_t low_level_init(struct netif *netif)
 	/* obtain config of this emac */
 	mac_config = (XEmacPs_Config *)xemacps_lookup_config((unsigned)(UINTPTR)netif->state);
 
+#if EL1_NONSECURE
+	/* Request device to indicate that this library is using it */
+	if (mac_config->BaseAddress == VERSAL_EMACPS_0_BASEADDR) {
+		Xil_Smc(PM_REQUEST_DEVICE_SMC_FID, DEV_GEM_0, 1, 0, 100, 1, 0, 0);
+	}
+	if (mac_config->BaseAddress == VERSAL_EMACPS_0_BASEADDR) {
+		Xil_Smc(PM_REQUEST_DEVICE_SMC_FID, DEV_GEM_1, 1, 0, 100, 1, 0, 0);
+	}
+#endif
+
 	status = XEmacPs_CfgInitialize(&xemacpsif->emacps, mac_config,
 						mac_config->BaseAddress);
 	if (status != XST_SUCCESS) {
@@ -522,7 +531,7 @@ static err_t xemacpsif_mld6_mac_filter_update (struct netif *netif, ip_addr_t *g
 			xemacpsif_mld6_mac_hash_update(netif, ip_addr, action);
 
 			LWIP_DEBUGF(NETIF_DEBUG,
-					("%s: Muticast MAC address successfully added.\r\n", __func__));
+					("%s: Multicast MAC address successfully added.\r\n", __func__));
 
 			return ERR_OK;
 		}
@@ -633,7 +642,7 @@ static err_t xemacpsif_mac_filter_update (struct netif *netif, ip_addr_t *group,
 			xemacpsif_mac_hash_update(netif, ip_addr, action);
 
 			LWIP_DEBUGF(NETIF_DEBUG,
-					("%s: Muticast MAC address successfully added.\r\n", __func__));
+					("%s: Multicast MAC address successfully added.\r\n", __func__));
 
 			return ERR_OK;
 		}

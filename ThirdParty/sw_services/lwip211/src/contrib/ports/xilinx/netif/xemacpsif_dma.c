@@ -726,7 +726,7 @@ XStatus init_dma(struct xemac_s *xemac)
 	{
 		/*
 		 * This version of GEM supports priority queuing and the current
-		 * dirver is using tx priority queue 1 and normal rx queue for
+		 * driver is using tx priority queue 1 and normal rx queue for
 		 * packet transmit and receive. The below code ensure that the
 		 * other queue pointers are parked to known state for avoiding
 		 * the controller to malfunction by fetching the descriptors
