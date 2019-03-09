@@ -341,6 +341,175 @@ XAieLib_MemInst *XAieLib_MemInit(u8 idx)
 /*****************************************************************************/
 /**
 *
+* This is the memory function to detach the memory from device
+*
+* @param	XAieLib_MemInstPtr: Memory instance pointer.
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void XAieLib_MemDetach(XAieLib_MemInst *XAieLib_MemInstPtr)
+{
+#ifdef __AIESIM__
+#elif defined __AIEBAREMTL__
+	/* In baremetal expect the handle to be the paddr / vaddr */
+	free(XAieLib_MemInstPtr);
+#else
+	XAieIO_MemDetach((XAieIO_Mem *)XAieLib_MemInstPtr);
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the memory function to attach the external memory to device
+*
+* @param	Vaddr: Vaddr of the memory
+* @param	Paddr: Paddr of the memory
+* @param	Size: Size of the memory
+* @param	MemHandle: Handle of the memory. For linux, dmabuf fd
+*
+* @return	Pointer to the attached memory instance.
+*
+* @note		Some arguments are not required for some backend platforms.
+* This is determined by platform implementation.
+*
+*******************************************************************************/
+XAieLib_MemInst *XAieLib_MemAttach(u64 Vaddr, u64 Paddr, u64 Size, u64 MemHandle)
+{
+#ifdef __AIESIM__
+	return 0;
+#elif defined __AIEBAREMTL__
+	XAieLib_MemInst *XAieLib_MemInstPtr;
+
+	XAieLib_MemInstPtr = malloc(sizeof(*XAieLib_MemInstPtr));
+	if (!XAieLib_MemInstPtr)
+		return NULL;
+	/* In baremetal, the handle doesn't exist */
+	XAieLib_MemInstPtr->Vaddr = Vaddr;
+	XAieLib_MemInstPtr->Paddr = Paddr;
+	XAieLib_MemInstPtr->Size = Size;
+
+	return XAieLib_MemInstPtr;
+#else
+	return (XAieLib_MemInst *)XAieIO_MemAttach(Vaddr, Paddr, Size, MemHandle);
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the memory function to free the memory
+*
+* @param	XAieLib_MemInstPtr: IO Memory instance pointer.
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void XAieLib_MemFree(XAieLib_MemInst *XAieLib_MemInstPtr)
+{
+#ifdef __AIESIM__
+#elif defined __AIEBAREMTL__
+	free((void *)XAieLib_MemInstPtr->Vaddr);
+	free(XAieLib_MemInstPtr);
+#else
+	XAieIO_MemFree((XAieIO_Mem *)XAieLib_MemInstPtr);
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the memory function to allocate a memory
+*
+* @param	Size: Size of the memory
+* @param	Attr: Any of XAIELIB_MEM_ATTR_*
+*
+* @return	Pointer to the allocated IO memory instance.
+*
+* @note		None.
+*
+*******************************************************************************/
+XAieLib_MemInst *XAieLib_MemAllocate(u64 Size, u32 Attr)
+{
+#ifdef __AIESIM__
+	return 0;
+#elif defined __AIEBAREMTL__
+	XAieLib_MemInst *XAieLib_MemInstPtr;
+
+	XAieLib_MemInstPtr = malloc(sizeof(*XAieLib_MemInstPtr));
+	if (!XAieLib_MemInstPtr)
+		return NULL;
+	XAieLib_MemInstPtr->Vaddr = (u64)malloc(Size);
+	XAieLib_MemInstPtr->Paddr = XAieLib_MemInstPtr->Vaddr;
+	XAieLib_MemInstPtr->Size = Size;
+	/*
+	 * 'Attr' is not handled at the moment. So it's always cached, and
+	 * the sync or accessor function takes care of it.
+	 */
+
+	return XAieLib_MemInstPtr;
+#else
+	return (XAieLib_MemInst *)XAieIO_MemAllocate(Size, Attr);
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the memory function to sync the memory for CPU
+*
+* @param	XAieLib_MemInstPtr: IO Memory instance pointer.
+*
+* @return	XAIELIB_SUCCESS if successful.
+*
+* @note		None.
+*
+*******************************************************************************/
+u8 XAieLib_MemSyncForCPU(XAieLib_MemInst *XAieLib_MemInstPtr)
+{
+#ifdef __AIESIM__
+	return 0;
+#elif defined __AIEBAREMTL__
+	Xil_DCacheInvalidateRange(XAieLib_MemInstPtr->Vaddr, XAieLib_MemInstPtr->Size);
+	return 0;
+#else
+	return XAieIO_MemSyncForCPU((XAieIO_Mem *)XAieLib_MemInstPtr);
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the memory function to sync the memory for device
+*
+* @param	XAieLib_MemInstPtr: IO Memory instance pointer.
+*
+* @return	XAIELIB_SUCCESS if successful.
+*
+* @note		None.
+*
+*******************************************************************************/
+u8 XAieLib_MemSyncForDev(XAieLib_MemInst *XAieLib_MemInstPtr)
+{
+#ifdef __AIESIM__
+	return 0;
+#elif defined __AIEBAREMTL__
+	Xil_DCacheFlushRange(XAieLib_MemInstPtr->Vaddr, XAieLib_MemInstPtr->Size);
+	return 0;
+#else
+	return XAieIO_MemSyncForDev((XAieIO_Mem *)XAieLib_MemInstPtr);
+#endif
+
+}
+
+/*****************************************************************************/
+/**
+*
 * This is the memory function to return the size of the memory instance
 *
 * @param	XAieLib_MemInstPtr: Memory instance pointer.

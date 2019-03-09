@@ -87,6 +87,12 @@
 #define XAieGbl_MemInst                  XAieLib_MemInst
 #define XAieGbl_MemInit                  XAieLib_MemInit
 #define XAieGbl_MemFinish                XAieLib_MemFinish
+#define XAieGbl_MemAttach                XAieLib_MemAttach
+#define XAieGbl_MemDetach                XAieLib_MemDetach
+#define XAieGbl_MemAllocate              XAieLib_MemAllocate
+#define XAieGbl_MemFree                  XAieLib_MemFree
+#define XAieGbl_MemSyncForCPU            XAieLib_MemSyncForCPU
+#define XAieGbl_MemSyncForDev            XAieLib_MemSyncForDev
 #define XAieGbl_MemGetSize               XAieLib_MemGetSize
 #define XAieGbl_MemGetVaddr              XAieLib_MemGetVaddr
 #define XAieGbl_MemGetPaddr              XAieLib_MemGetPaddr

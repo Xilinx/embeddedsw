@@ -70,6 +70,9 @@ typedef unsigned long int		u64;
 #define XAIELIB_CMDIO_COMMAND_SETSTACK	0U
 #define XAIELIB_CMDIO_COMMAND_LOADSYM	1U
 
+/* Enable cache for memory mapping */
+#define XAIELIB_MEM_ATTR_CACHE		0x1U
+
 /************************** Variable Definitions *****************************/
 
 /************************** Function Prototypes  *****************************/
@@ -106,6 +109,13 @@ typedef struct XAieLib_MemInst XAieLib_MemInst;
 
 void XAieLib_MemFinish(XAieLib_MemInst *XAieLib_MemInstPtr);
 XAieLib_MemInst *XAieLib_MemInit(u8 idx);
+void XAieLib_MemDetach(XAieLib_MemInst *XAieLib_MemInstPtr);
+XAieLib_MemInst *XAieLib_MemAttach(u64 Vaddr, u64 Paddr, u64 Size, u64 MemHandle);
+void XAieLib_MemFree(XAieLib_MemInst *XAieLib_MemInstPtr);
+XAieLib_MemInst *XAieLib_MemAllocate(u64 Size, u32 Attr);
+u8 XAieLib_MemSyncForCPU(XAieLib_MemInst *XAieLib_MemInstPtr);
+u8 XAieLib_MemSyncForDev(XAieLib_MemInst *XAieLib_MemInstPtr);
+
 u64 XAieLib_MemGetSize(XAieLib_MemInst *XAieLib_MemInstPtr);
 u64 XAieLib_MemGetVaddr(XAieLib_MemInst *XAieLib_MemInstPtr);
 u64 XAieLib_MemGetPaddr(XAieLib_MemInst *XAieLib_MemInstPtr);
