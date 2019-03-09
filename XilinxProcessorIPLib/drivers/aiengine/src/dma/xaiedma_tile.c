@@ -85,10 +85,12 @@ u32 XAieDma_TileInitialize(XAieGbl_Tile *TileInstPtr, XAieDma_Tile *DmaInstPtr)
 	XAie_AssertNonvoid(DmaInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
 
+#ifndef XAIE_WRKARND_CRVO1692
         if(DmaInstPtr->IsReady == XAIE_COMPONENT_IS_READY) {
                 /* DMA already initialized */
                 return XAIE_SUCCESS;
         }
+#endif
 
 	/* Get the BD base address */
 	DmaInstPtr->BaseAddress = TileInstPtr->TileAddr;
