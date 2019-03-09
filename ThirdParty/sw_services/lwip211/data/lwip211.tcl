@@ -286,7 +286,8 @@ proc get_emac_periphs {processor} {
 			|| $periphname == "axi_ethernet_buffer"
 			|| $periphname == "axi_ethernetlite"
 			|| $periphname == "ps7_ethernet"
-			|| $periphname == "psu_ethernet"} {
+			|| $periphname == "psu_ethernet"
+			|| $periphname == "psv_ethernet"} {
 			lappend emac_periphs_list $periph
 		} elseif {$periphname == "xps_ll_temac"} {
 			set emac0_enabled "0"
@@ -393,7 +394,7 @@ proc lwip_drc {libhandle} {
 
 		set cpuname [common::get_property NAME $processor]
 		error "ERROR: No Ethernet MAC cores are addressable from processor $cpuname. \
-			lwIP requires atleast one EMAC (xps_ethernetlite | xps_ll_temac | axi_ethernet | axi_ethernet_buffer | axi_ethernetlite | ps7_ethernet | psu_ethernet ) core \
+			lwIP requires atleast one EMAC (xps_ethernetlite | xps_ll_temac | axi_ethernet | axi_ethernet_buffer | axi_ethernetlite | ps7_ethernet | psu_ethernet | psv_ethernet ) core \
 			with its interrupt pin connected to the interrupt controller.\n" "" "MDT_ERROR"
 		return
 	} else {
@@ -1102,9 +1103,9 @@ proc update_ps_ethernet_topology {emac processor topologyvar} {
 		set topology(scugic_emac_intr) "0x36"
 	} elseif {$ethernet_instance == "ps7_ethernet_1" || $ethernet_instance == "ps7_enet1"} {
 		set topology(scugic_emac_intr) "0x4D"
-	} elseif {$ethernet_instance == "psu_ethernet_0"} {
+	} elseif {$ethernet_instance == "psu_ethernet_0" || $ethernet_instance == "psv_ethernet_0"} {
 		set topology(scugic_emac_intr) "XPAR_XEMACPS_0_INTR"
-	} elseif {$ethernet_instance == "psu_ethernet_1"} {
+	} elseif {$ethernet_instance == "psu_ethernet_1" || $ethernet_instance == "psv_ethernet_1"} {
 		set topology(scugic_emac_intr) "XPAR_XEMACPS_1_INTR"
 	} elseif {$ethernet_instance == "psu_ethernet_2"} {
 		set topology(scugic_emac_intr) "XPAR_XEMACPS_2_INTR"
@@ -1186,6 +1187,10 @@ proc generate_topology {libhandle} {
 			update_ps_ethernet_topology $emac $processor topology
 			generate_topology_per_emac $tfd topology
 			incr topology_size 1
+		} elseif {$iptype == "psv_ethernet"} {
+			update_ps_ethernet_topology $emac $processor topology
+			generate_topology_per_emac $tfd topology
+			incr topology_size 1
 		}
 	}
 
@@ -1251,7 +1256,7 @@ proc generate_adapterconfig_makefile {libhandle} {
 			} else {
 				set have_axi_ethernet_dma 1
 			}
-		} elseif {$iptype == "ps7_ethernet" || $iptype == "psu_ethernet" } {
+		} elseif {$iptype == "ps7_ethernet" || $iptype == "psu_ethernet" || $iptype == "psv_ethernet" } {
 			set have_ps_ethernet 1
 		}
 	}
@@ -1397,7 +1402,7 @@ proc generate_adapterconfig_include {libhandle} {
 			set have_1588_enabled [is_property_set $enable_1588]
 
 			set have_axi_ethernet 1
-		} elseif {$iptype == "ps7_ethernet" || $iptype == "psu_ethernet"} {
+		} elseif {$iptype == "ps7_ethernet" || $iptype == "psu_ethernet" || $iptype == "psv_ethernet"} {
 			set have_ps_ethernet 1
 		}
 	}
