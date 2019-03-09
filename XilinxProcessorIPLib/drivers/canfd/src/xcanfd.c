@@ -69,6 +69,8 @@
 *		ask  08/08/18 Fixed Cppcheck warnings.
 * 2.1   nsk  01/22/19 Pass correct fifo number to XCanFd_SeqRecv_logic()
 *		      CR# 1018379
+* 2.1	nsk  03/09/19 For CAN frames, DLC should always 8, even data bytes
+*		      are greater than 8. CR# 1022045.
 *
 * </pre>
 ******************************************************************************/
@@ -503,7 +505,8 @@ int XCanFd_Send(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 
 			/* CAN FD Frames. */
 			Dlc = XCanFd_GetDlc2len(FramePtr[1] &
-				XCANFD_DLCR_DLC_MASK);
+				XCANFD_DLCR_DLC_MASK,
+				(CanEDL & XCANFD_DLCR_EDL_MASK));
 			/* Write Data to Data Register */
 
 			for (Len = 0;Len < Dlc;Len += 4) {
@@ -520,7 +523,8 @@ int XCanFd_Send(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 
 			/* Legacy CAN Frames */
 			Dlc = XCanFd_GetDlc2len(FramePtr[1] &
-				XCANFD_DLCR_DLC_MASK);
+				XCANFD_DLCR_DLC_MASK,
+				(CanEDL & XCANFD_DLCR_EDL_MASK));
 			for (Len = 0;Len < Dlc;Len += 4) {
 				OutValue = Xil_EndianSwap32(
 						FramePtr[2+DwIndex]);
@@ -612,7 +616,8 @@ int XCanFd_Addto_Queue(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 		CanEDL = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_TXDLC_OFFSET(FreeTxBuffer));
 
-		Dlc = XCanFd_GetDlc2len(FramePtr[1] & XCANFD_DLCR_DLC_MASK);
+		Dlc = XCanFd_GetDlc2len(FramePtr[1] & XCANFD_DLCR_DLC_MASK,
+			(CanEDL & XCANFD_DLCR_EDL_MASK));
 
 		if (CanEDL & XCANFD_DLCR_EDL_MASK) {
 
@@ -835,7 +840,8 @@ u32 XCanFd_Recv_Mailbox(XCanFd *InstancePtr, u32 *FramePtr)
 					XCANFD_RXDLC_OFFSET(RxBufferIndex));
 
 		Dlc = XCanFd_GetDlc2len(FramePtr[1] &
-			XCANFD_DLCR_DLC_MASK);
+			XCANFD_DLCR_DLC_MASK,
+			(CanEDL & XCANFD_DLCR_EDL_MASK));
 		/* A CanFD Frame is received */
 
 		if (CanEDL & XCANFD_DLCR_EDL_MASK) {
@@ -1330,6 +1336,7 @@ static void StubHandler(void)
 * DLC Field value in DLC Register.
 *
 * @param	Dlc Field in Data Length Code Register.
+* @param	Edl/Fdf Field in DLC register.
 *
 *
 * @return	Total Number of Bytes stored in each Buffer.
@@ -1337,10 +1344,14 @@ static void StubHandler(void)
 * @note		Refer CAN FD Spec about DLC.
 *
 ******************************************************************************/
-int XCanFd_GetDlc2len(u32 Dlc)
+int XCanFd_GetDlc2len(u32 Dlc, u32 Edl)
 {
 
 	u32 NofBytes=0;
+
+	if ((Edl == 0U) && ((Dlc >> XCANFD_DLCR_DLC_SHIFT) > 8)) {
+		Dlc = XCANFD_DLC8;
+	}
 
 	switch(Dlc) {
 
@@ -1788,7 +1799,8 @@ static u32 XCanFd_SeqRecv_logic(XCanFd *InstancePtr, u32 ReadIndex, u32 FsrVal, 
 				InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_FIFO_1_RXDLC_OFFSET(ReadIndex));
 	}
-		Dlc = XCanFd_GetDlc2len(FramePtr[1] & XCANFD_DLCR_DLC_MASK);
+		Dlc = XCanFd_GetDlc2len(FramePtr[1] & XCANFD_DLCR_DLC_MASK,
+				(CanEDL & XCANFD_DLCR_EDL_MASK));
 
 		if (CanEDL & XCANFD_DLCR_EDL_MASK) {
 

@@ -892,6 +892,8 @@ Mask/Acceptance Filter ID)
 #define MAX_BUFFER_INDEX    32
 #define MIN_FILTER_INDEX        0
 #define MAX_FILTER_INDEX        32
+#define EDL_CANFD		1
+#define EDL_CAN			0
 /* @} */
 
 /**************************** Type Definitions *******************************/
