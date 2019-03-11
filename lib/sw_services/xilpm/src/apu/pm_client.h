@@ -43,8 +43,14 @@
 #include "pm_defs.h"
 #include "pm_common.h"
 
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #define pm_print(MSG, ...)	xil_printf("APU: "MSG,##__VA_ARGS__)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* PM_CLIENT_H */
