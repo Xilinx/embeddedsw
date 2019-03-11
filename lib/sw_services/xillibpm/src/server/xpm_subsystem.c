@@ -486,3 +486,55 @@ XStatus XPmSubsystem_Destroy(u32 SubsystemId)
 done:
 	return Status;
 }
+
+XStatus XPmSubsystem_Restart(u32 SubsystemId)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Subsystem *Subsystem;
+	XPm_Requirement *Reqm;
+	XPm_Device *Device;
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		goto done;
+	}
+
+	Reqm = Subsystem->Requirements;
+	while (NULL != Reqm) {
+		if (TRUE == Reqm->Allocated) {
+			Device = Reqm->Device;
+			if ((XPM_NODETYPE_DEV_CORE_APU == NODETYPE(Device->Node.Id)) ||
+			    (XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(Device->Node.Id))) {
+				Status = XPmDevice_Reset(Device, PM_RESET_ACTION_ASSERT);
+				if (XST_SUCCESS != Status) {
+					goto done;
+				}
+			} else {
+				/*
+				 * In case the application has not released its
+				 * devices prior to restart request, it is
+				 * released here.  In case of default subsystem, don't
+				 * release the console.  TODO - need to understand
+				 * why releasing TCM0_A causes failure.
+				 */
+				if ((XPM_NODEIDX_DEV_UART_0 != NODEINDEX(Device->Node.Id)) &&
+				    (XPM_NODEIDX_DEV_TCM_0_A != NODEINDEX(Device->Node.Id))) {
+					Status = XPm_ReleaseDevice(SubsystemId, Device->Node.Id);
+					if (XST_SUCCESS != Status) {
+						goto done;
+					}
+				}
+			}
+		}
+		Reqm = Reqm->NextDevice;
+	}
+
+	/* Idle the subsystem */
+	Status = XPmSubsystem_Idle(SubsystemId);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+done:
+	return Status;
+}

@@ -1090,6 +1090,7 @@ static XStatus XPsmFwMemPwrDown(struct XPsmFwMemPwrCtrl_t *Args)
 	/* Disable power state for selected bank */
 	XPsmFw_RMW32(Args->PwrCtrlAddr, Args->PwrCtrlMask, ~Args->PwrCtrlMask);
 
+#ifdef SPP_HACK
 	/* Poll for power status to clear */
 	Status = XPsmFw_UtilPollForZero(Args->PwrStatusAddr, Args->PwrStatusMask, Args->PwrStateAckTimeout);
 	if (XST_SUCCESS != Status) {
@@ -1097,6 +1098,7 @@ static XStatus XPsmFwMemPwrDown(struct XPsmFwMemPwrCtrl_t *Args)
 	}
 
 done:
+#endif // SPP_HACK
 	return Status;
 }
 
