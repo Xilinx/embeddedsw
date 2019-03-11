@@ -31,6 +31,10 @@
 
 #include <xscugic.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 
 extern XScuGic GicInst;
@@ -39,4 +43,9 @@ s32 GicSetupInterruptSystem(u32 IntId,
 		void *PeriphInstPtr, Xil_ExceptionHandler Handler);
 
 s32 GicInit();
+
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* _GIC_SETUP_H_ */

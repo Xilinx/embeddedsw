@@ -38,6 +38,10 @@
 #ifndef PM_DEFS_H_
 #define PM_DEFS_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /** @name PM Version Number macros
  *
  * @{
@@ -784,6 +788,10 @@ enum XPmPinParam {
 	PINCTRL_CONFIG_DRIVE_STRENGTH,
 	PINCTRL_CONFIG_VOLTAGE_STATUS,
 };
+
+#ifdef __cplusplus
+}
+#endif
 
  /** @} */
 #endif /* PM_DEFS_H_ */

@@ -31,6 +31,14 @@
 
 #include "xil_types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern const u32 XPm_ConfigObject[];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _PM_CFG_OBJ_H_ */

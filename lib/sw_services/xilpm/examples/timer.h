@@ -36,6 +36,10 @@
 #ifndef _TIMER_H_
 #define _TIMER_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define TTC0_0_DEVICE_ID	XPAR_XTTCPS_0_DEVICE_ID
 #define COUNT_PER_SEC		(XPAR_XTTCPS_0_CLOCK_HZ / 65535)
 #define TTC_INT_ID0		XPAR_XTTCPS_0_INTR
@@ -47,5 +51,9 @@ s32 TimerInit(u32 timeout);
 s32 TimerConfigure(u32 timer_period);
 
 extern volatile u32 TickCount;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _TIMER_H_ */
