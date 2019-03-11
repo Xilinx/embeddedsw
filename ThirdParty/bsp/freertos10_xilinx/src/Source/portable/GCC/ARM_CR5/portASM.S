@@ -72,7 +72,6 @@
 	/* Save the floating point context, if any. */
 	FMRXNE  R1,  FPSCR
 	VPUSHNE {D0-D15}
-	/*VPUSHNE	{D16-D31}*/
 	PUSHNE	{R1}
 
 	/* Save ulPortTaskHasFPUContext itself. */
@@ -103,7 +102,6 @@
 
 	/* Restore the floating point context, if any. */
 	POPNE 	{R0}
-	/*VPOPNE	{D16-D31}*/
 	VPOPNE	{D0-D15}
 	VMSRNE  FPSCR, R0
 
