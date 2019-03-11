@@ -33,6 +33,10 @@
 #include "xstatus.h"
 #include "xillibpm_defs.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define XIpiPsu	u32
 #define MAX_BASEADDR_LEN	3
 
@@ -181,6 +185,10 @@ XStatus XPm_AddRequirement(const u32 SubsystemId, const u32 DeviceId);
 XStatus XPm_SetCurrentSubsystem(u32 SubsystemId);
 XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs);
 int XPm_FeatureCheck(const u32 ApiId, u32 *const Version);
+
+#ifdef __cplusplus
+}
+#endif
 
 /** @} */
 #endif /* XILLIBPM_API_H_ */

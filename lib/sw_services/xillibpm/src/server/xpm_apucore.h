@@ -31,6 +31,10 @@
 
 #include "xpm_core.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define XPM_ACPU_0_CPUPWRDWNREQ_MASK  BIT(0)
 #define XPM_ACPU_1_CPUPWRDWNREQ_MASK  BIT(1)
 #define XPM_ACPU_0_PWR_CTRL_MASK	BIT(0)
@@ -51,6 +55,10 @@ XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,
 	u32 Ipi,
 	u32 *BaseAddress,
 	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset);
+
+#ifdef __cplusplus
+}
+#endif
 
 /** @} */
 #endif /* XPM_APUCORE_H_ */

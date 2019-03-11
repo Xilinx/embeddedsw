@@ -34,6 +34,10 @@
 
 #include "xplmi_debug.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* Hack: These will increase code size.  Define them as needed. */
 #define xSELF_TEST
 #define xSELF_TEST_DEVICE_REQUEST
@@ -119,5 +123,9 @@ void XPm_Wait(u32 TimeOutCount);
  * Poll for mask for a period represented by TimeOut
  */
 XStatus XPm_PollForMask(u32 RegAddress, u32 Mask, u32 TimeOutCount);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XPM_COMMON_H_ */

@@ -32,6 +32,10 @@
 #include "xpm_clock.h"
 #include "xillibpm_defs.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * The PLL class.  This is the class to represent pll nodes.
  */
@@ -155,6 +159,10 @@ XStatus XPmClockPll_Reset(XPm_PllClockNode *Pll, uint8_t Flags);
 XStatus XPmClockPll_SetParam(XPm_PllClockNode *Pll, u32 Param,u32 Value);
 XStatus XPmClockPll_GetParam(XPm_PllClockNode *Pll, u32 Param,u32 *Val);
 int XPmClockPll_QueryMuxSources(u32 Id, u32 Index, u32 *Resp);
+
+#ifdef __cplusplus
+}
+#endif
 
 /** @} */
 #endif /* XPM_PLL_H_ */

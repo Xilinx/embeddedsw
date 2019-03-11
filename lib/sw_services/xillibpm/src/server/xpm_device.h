@@ -35,6 +35,9 @@
 #include "xpm_reset.h"
 #include "xpm_requirement.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* Processor core device IDs */
 #define APU_DEVID(IDX)		NODEID(XPM_NODECLASS_DEVICE, \
@@ -237,5 +240,10 @@ XStatus XPmDevice_UpdateStatus(XPm_Device *Device);
 XStatus XPmDevice_BringUp(XPm_Node *Node);
 int XPmDevice_GetUsageStatus(XPm_Subsystem *Subsystem, XPm_Device *Device);
 int XPmDevice_IsClockActive(XPm_Device *Device);
+
+#ifdef __cplusplus
+}
+#endif
+
 /** @} */
 #endif /* XPM_DEVICE_H_ */

@@ -34,6 +34,10 @@
 #include "xpm_device.h"
 #include "xillibpm_api.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* IOU_SLCR register related macros */
 #define BITS_IN_REG			(32)
 #define PINS_PER_BANK			(26)
@@ -91,6 +95,10 @@ XStatus XPmPin_GetPinGroups(u32 PinId, u32 Index, u16 *Groups);
 XStatus XPmPin_CheckPerms(const u32 SubsystemId, const u32 PinId);
 XStatus XPmPin_Release(const u32 SubsystemId, const u32 PinId);
 XStatus XPmPin_Request(const u32 SubsystemId, const u32 PinId);
+
+#ifdef __cplusplus
+}
+#endif
 
 /** @} */
 #endif /* XPM_PIN_H_ */

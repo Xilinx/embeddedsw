@@ -31,6 +31,10 @@
 
 #include "xil_types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*
  * Version number is a 32bit value, like:
  * (PM_VERSION_MAJOR << 16) | PM_VERSION_MINOR
@@ -327,5 +331,8 @@ enum XPmInitFunctions {
 #define PM_API_MIN      PM_GET_API_VERSION
 #define PM_API_MAX      PM_FEATURE_CHECK
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XILLIBPM_DEFS_H_ */

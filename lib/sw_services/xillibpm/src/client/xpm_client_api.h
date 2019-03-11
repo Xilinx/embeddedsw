@@ -32,6 +32,10 @@
 #include "xpm_client_common.h"
 #include "xillibpm_defs.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 XStatus XPm_InitXilpm(XIpiPsu *IpiInst);
 XStatus XPm_GetApiVersion(u32 *version);
 XStatus XPm_RequestNode(const u32 DeviceId, const u32 Capabilities,
@@ -82,4 +86,9 @@ XStatus XPm_Query(const u32 QueryId, const u32 Arg1, const u32 Arg2,
 		  const u32 Arg3, u32 *const Data);
 int XPm_SetMaxLatency(const u32 DeviceId, const u32 Latency);
 int XPm_InitFinalize(void);
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif /* _XPM_CLIENT_API_H_ */

@@ -32,6 +32,10 @@
 #include "xillibpm_api.h"
 #include "xpm_device.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define MAX_CORE_REGS 3
 
 typedef struct XPm_Core XPm_Core;
@@ -62,6 +66,10 @@ XStatus XPmCore_Init(XPm_Core *Core, u32 Id, u32 *BaseAddress,
 	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset, u8 IpiCh, struct XPm_CoreOps *Ops);
 XStatus XPmCore_PwrDwn(XPm_Core *Core, u32 RegOffset);
 XStatus XPmCore_WakeUp(XPm_Core *Core);
+
+#ifdef __cplusplus
+}
+#endif
 
 /** @} */
 #endif /* XPM_CORE_H_ */

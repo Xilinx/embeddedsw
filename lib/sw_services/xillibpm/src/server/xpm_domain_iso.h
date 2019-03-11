@@ -31,6 +31,10 @@
 
 #include "xpm_common.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 enum XPmDomainIso {
 	XPM_DOMAIN_ISO_FPD_PL_TEST,
 	XPM_DOMAIN_ISO_FPD_PL,
@@ -56,5 +60,9 @@ enum XPmDomainIso {
 
 XStatus XPm_DomainIsoEnable(enum XPmDomainIso IsoId);
 XStatus XPm_DomainIsoDisable(enum XPmDomainIso IsoId);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XPM_DOMAIN_ISO_H */

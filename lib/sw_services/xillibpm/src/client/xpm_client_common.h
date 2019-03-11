@@ -36,6 +36,10 @@
 #include <xipipsu.h>
 #include "xparameters.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define DEBUG_MODE
 
 #ifndef bool
@@ -81,5 +85,9 @@ void XPm_ClientSuspend(const struct XPm_Proc *const Proc);
 void XPm_ClientWakeUp(const struct XPm_Proc *const Proc);
 void XPm_ClientSuspendFinalize(void);
 void XPm_ClientAbortSuspend(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XPM_CLIENT_COMMON_H_ */

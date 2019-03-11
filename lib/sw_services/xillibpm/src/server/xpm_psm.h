@@ -31,6 +31,10 @@
 
 #include "xpm_core.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* PSM Global Registers */
 #define PSM_GLOBAL_CNTRL				(0x00000000)
 #define PSM_GLOBAL_PWR_STATE			(0x00000100)
@@ -72,6 +76,10 @@ XStatus XPmPsm_SendPowerUpReq(u32 BitMask);
 XStatus XPmPsm_SendPowerDownReq(u32 BitMask);
 u32 XPmPsm_FwIsPresent(void);
 void XPmPsm_RegWrite(const u32 Offset, const u32 Value);
+
+#ifdef __cplusplus
+}
+#endif
 
 /** @} */
 #endif /* XPM_PSM_H_ */

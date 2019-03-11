@@ -29,6 +29,10 @@
 #ifndef XILLIBPM_NODE_H_
 #define XILLIBPM_NODE_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define NODE_CLASS_SHIFT	26U
 #define NODE_SUBCLASS_SHIFT	20U
 #define NODE_TYPE_SHIFT		14U
@@ -589,5 +593,9 @@ typedef enum {
 
 	XPM_NODEIDX_SUBSYS_MAX,
 } XPm_SubsystemId;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XILLIBPM_NODE_H_ */

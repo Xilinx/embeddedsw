@@ -33,6 +33,10 @@
 #include "xpm_node.h"
 #include "xpm_power.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define	XPM_NODEIDX_CLK_OUT_MIN	XPM_NODEIDX_CLK_PLL_MAX
 #define	XPM_NODEIDX_CLK_OUT_MAX	XPM_NODEIDX_CLK_OUTCLK_MAX
 #define XPM_NODEIDX_CLK_REF_MIN	XPM_NODEIDX_CLK_OUTCLK_MAX
@@ -193,5 +197,9 @@ XStatus XPmClock_QueryMuxSources(u32 ClockId, u32 Index, u32 *Resp);
 XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp);
 XStatus XPmClock_GetNumClocks(u32 *Resp);
 XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XPM_CLOCK_H_ */

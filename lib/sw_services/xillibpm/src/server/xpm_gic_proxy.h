@@ -31,6 +31,10 @@
 
 #include "xpm_periph.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * GicProxyGroup - Properties of a GIC Proxy group
  * @SetMask	When GIC Proxy is Enabled, Enable the interrupts whose masks
@@ -65,4 +69,7 @@ extern XPm_GicProxy_t XPm_GicProxy;
 
 XStatus XPmGicProxy_WakeEventSet(XPm_Periph *Periph, u8 Enable);
 
+#ifdef __cplusplus
+}
+#endif
 #endif /*XPM_GIC_H_*/

@@ -32,6 +32,10 @@
 #include "xpm_node.h"
 #include "xpm_common.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define MAX_RESET_PARENTS	3
 
 /* All reset types */
@@ -111,5 +115,9 @@ XStatus XPmReset_AddNode(u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetTyp
 XPm_ResetNode* XPmReset_GetById(u32 ResetId);
 XStatus XPmReset_AssertbyId(u32 ResetId, const u32 Action);
 int XPmReset_CheckPermissions(XPm_Subsystem *Subsystem, u32 ResetId);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XPM_RESET_H_ */

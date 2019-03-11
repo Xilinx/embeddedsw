@@ -39,6 +39,10 @@
 #ifndef XPM_REGS_H
 #define XPM_REGS_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * PMC_IOU_SLCR Base Address
  */
@@ -224,5 +228,9 @@
 #define GIC_PROXY_IRQ_STATUS_OFFSET	0x0U
 #define GIC_PROXY_IRQ_ENABLE_OFFSET	0x8U
 #define GIC_PROXY_IRQ_DISABLE_OFFSET	0xCU
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XPM_REGS_H */

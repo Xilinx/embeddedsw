@@ -31,6 +31,10 @@
 
 #include "xpm_client_common.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define PAYLOAD_ARG_CNT			(6U)	/* 1 for API ID + 5 for API arguments */
 #define RESPONSE_ARG_CNT		(4U)	/* 1 for status + 3 for values */
 
@@ -41,5 +45,9 @@
 XStatus XPm_IpiSend(struct XPm_Proc *const Proc, u32 *Payload);
 XStatus Xpm_IpiReadBuff32(struct XPm_Proc *const Proc, u32 *Val1,
 			  u32 *Val2, u32 *Val3);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _XPM_CLIENT_IPI_H_ */

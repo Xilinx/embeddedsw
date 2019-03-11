@@ -31,6 +31,10 @@
 
 #include "xpm_powerdomain.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * PMC_ANALOG Base Address
  */
@@ -163,6 +167,10 @@ struct XPm_PsLpDomain {
 /************************** Function Prototypes ******************************/
 XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd,
 	u32 Id, u32 BaseAddress, XPm_Power *Parent);
+
+#ifdef __cplusplus
+}
+#endif
 
 /** @} */
 #endif /* XPM_PSLPDOMAIN_H_ */

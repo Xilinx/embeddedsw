@@ -31,6 +31,10 @@
 
 #include "xpm_powerdomain.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct XPm_PmcDomain XPm_PmcDomain;
 
 /**
@@ -42,6 +46,10 @@ struct XPm_PmcDomain {
 
 /************************** Function Prototypes ******************************/
 XStatus XPmPmcDomain_Init(XPm_PmcDomain *PmcDomain, u32 Id);
+
+#ifdef __cplusplus
+}
+#endif
 
 /** @} */
 #endif /* XPM_PMCDOMAIN_H_ */
