@@ -208,8 +208,12 @@ enum XPmInitFunctions {
 };
 
 /* System shutdown macros */
-#define XPM_SHUTDOWN_TYPE_SHUTDOWN      0U
-#define XPM_SHUTDOWN_TYPE_RESET         1U
+#define XPM_SHUTDOWN_TYPE_SHUTDOWN	0U
+#define XPM_SHUTDOWN_TYPE_RESET		1U
+
+#define XPM_SHUTDOWN_SUBTYPE_RST_SUBSYSTEM	0U
+#define XPM_SHUTDOWN_SUBTYPE_RST_PS_ONLY	1U
+#define XPM_SHUTDOWN_SUBTYPE_RST_SYSTEM		2U
 
 /* RPU operation mode */
 #define XPM_RPU_MODE_LOCKSTEP	0U
