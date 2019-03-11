@@ -39,8 +39,8 @@ OPTION NAME = standalone;
 
 PARAM name = zynqmp_fsbl_bsp, type = bool, default = false, desc = "Disable or Enable Optimization for FSBL's BSP. ZynqMP FSBL will set this to true";
 
-PARAM name = stdin, desc = "stdin peripheral", type = peripheral_instance, requires_interface = stdin, default=none, range = (ps7_uart, psu_uart, psu_sbsauart, ps7_coresight_comp, psu_coresight_0, iomodule, axi_uartlite, axi_uart16550, mdm, pmc_ppu1_mdm);
-PARAM name = stdout, desc = "stdout peripheral", type = peripheral_instance, requires_interface = stdout, default=none, range = (ps7_uart, psu_uart, psu_sbsauart, ps7_coresight_comp, psu_coresight_0, iomodule, axi_uartlite, axi_uart16550, mdm, pmc_ppu1_mdm);
+PARAM name = stdin, desc = "stdin peripheral", type = peripheral_instance, requires_interface = stdin, default=none, range = (ps7_uart, psu_uart, psu_sbsauart,psv_sbsauart, ps7_coresight_comp, psu_coresight_0, psv_coresight_0, iomodule, axi_uartlite, axi_uart16550, mdm, pmc_ppu1_mdm);
+PARAM name = stdout, desc = "stdout peripheral", type = peripheral_instance, requires_interface = stdout, default=none, range = (ps7_uart, psu_uart, psu_sbsauart, psv_sbsauart, ps7_coresight_comp, psu_coresight_0, psv_coresight_0, iomodule, axi_uartlite, axi_uart16550, mdm, pmc_ppu1_mdm);
 
 BEGIN CATEGORY sw_intrusive_profiling
     PARAM name = enable_sw_intrusive_profiling, type = bool, default = false, desc = "Enable S/W Intrusive Profiling on Hardware Targets", permit = user;
@@ -54,7 +54,7 @@ END CATEGORY
 
 PARAM name = hypervisor_guest, type = bool, default = false, desc = "Enable hypervisor guest support for A53 64bit EL1 Non-Secure. If hypervisor_guest is not selected, BSP will be built for EL3.", permit = user;
 
-PARAM name = sleep_timer, type = peripheral_instance, range = (ps7_ttc,psu_ttc,ps7_globaltimer,psu_iou_scntr,psu_iou_scntrs,axi_timer), default=none, desc = "This parameter is used to select specific timer for sleep functionality", permit = user;
+PARAM name = sleep_timer, type = peripheral_instance, range = (ps7_ttc,psu_ttc,ps7_globaltimer,psu_iou_scntr,psu_iou_scntrs,axi_timer,psv_ttc,psv_iou_scntr,psv_iou_scntrs), default=none, desc = "This parameter is used to select specific timer for sleep functionality", permit = user;
 
 PARAM name = ttc_select_cntr, type = enum, default = 2, values = ("0" = 0, "1" = 1, "2" = 2), desc = "Selects the counter to be used in the repective module. Allowed range is 0-2", permit = user;
 
