@@ -156,7 +156,9 @@ proc generate_sgmii_params {drv_handle file_name} {
 		     [string compare -nocase $ipname "psu_ethernet_0"] == 0 ||
 		     [string compare -nocase $ipname "psu_ethernet_1"] == 0 ||
 		     [string compare -nocase $ipname "psu_ethernet_2"] == 0 ||
-		     [string compare -nocase $ipname "psu_ethernet_3"] == 0 } {
+		     [string compare -nocase $ipname "psu_ethernet_3"] == 0 ||
+		     [string compare -nocase $ipname "psv_ethernet_0"] == 0 ||
+		     [string compare -nocase $ipname "psv_ethernet_1"] == 0 } {
 			# The below function call to get phy address works only with PL PCS PMA IP versions
 			# before 2016.3. For all subsequent versions, the phy address is exported as 0 in
 			# xparameters but will be scanned and obtained in upper layers.
