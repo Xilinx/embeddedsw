@@ -84,7 +84,10 @@ proc get_spi_periphs {processor} {
 			|| $periphname == "ps7_qspi"
 			|| $periphname == "psu_qspi"
 			|| $periphname == "psu_spi"
-			|| $periphname == "psu_ospi"} {
+			|| $periphname == "psu_ospi"
+			|| $periphname == "psv_pmc_qspi"
+			|| $periphname == "psv_spi"
+			|| $periphname == "psv_pmc_ospi"} {
 			lappend spi_periphs_list $periph
 			lappend spi_periphs_name_list $periphname
 		}
@@ -153,7 +156,7 @@ proc xgen_opts_file {libhandle} {
 				puts $file_handle "\#define XPAR_XISF_INTERFACE_AXISPI	1"
 				set ifaceselect 1
 			}
-		} elseif {($periph == "ps7_spi" || $periph == "psu_spi") &&
+		} elseif {($periph == "ps7_spi" || $periph == "psu_spi" || $periph == "psv_spi") &&
 			$serial_flash_interface == 2} {
 			puts $file_handle "\#define XPAR_XISF_INTERFACE_PSSPI	1"
 			set ifaceselect 1
@@ -164,7 +167,13 @@ proc xgen_opts_file {libhandle} {
 		} elseif {$periph == "psu_qspi" && $serial_flash_interface == 3} {
 			puts $file_handle "\#define XPAR_XISF_INTERFACE_QSPIPSU	1"
 			set ifaceselect 1
+		} elseif {$periph == "psv_pmc_qspi" && $serial_flash_interface == 3} {
+			puts $file_handle "\#define XPAR_XISF_INTERFACE_QSPIPSU	1"
+			set ifaceselect 1
 		} elseif {$periph == "psu_ospi" && $serial_flash_interface == 4} {
+			puts $file_handle "\#define XPAR_XISF_INTERFACE_OSPIPSV	1"
+			set ifaceselect 1
+		} elseif {$periph == "psv_pmc_ospi" && $serial_flash_interface == 4} {
 			puts $file_handle "\#define XPAR_XISF_INTERFACE_OSPIPSV	1"
 			set ifaceselect 1
 		} elseif {$periph == "ps7_qspi"} {
