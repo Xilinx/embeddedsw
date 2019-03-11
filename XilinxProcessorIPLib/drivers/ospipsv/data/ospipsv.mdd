@@ -29,7 +29,7 @@ OPTION psf_version = 2.1;
 
 BEGIN driver ospipsv
 
-  OPTION supported_peripherals = (psu_ospi);
+  OPTION supported_peripherals = (psu_ospi psv_pmc_ospi);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
   OPTION VERSION = 1.0;
