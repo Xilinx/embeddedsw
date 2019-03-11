@@ -191,7 +191,7 @@ proc generate {os_handle} {
     foreach entry [glob -nocomplain [file join $commonsrcdir *]] {
         file copy -force $entry "./src"
     }
-    if { $proctype == "psu_cortexa53" || $proctype == "psu_cortexa72" || $proctype == "ps7_cortexa9" || $proctype == "psu_cortexr5" } {
+    if { $proctype == "psu_cortexa53" || $proctype == "psu_cortexa72" || $proctype == "ps7_cortexa9" || $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" || $proctype == "psv_cortexa72"} {
         set compiler [common::get_property CONFIG.compiler $procdrv]
         foreach entry [glob -nocomplain [file join $armcommonsrcdir *]] {
             file copy -force $entry "./src"
@@ -213,7 +213,7 @@ proc generate {os_handle} {
 
     }
    
-    set cortexa72proc [hsi::get_cells -hier -filter "IP_NAME==psu_cortexa72"]
+    set cortexa72proc [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexa72" || IP_NAME=="psv_cortexa72"}]
 
 
 
@@ -228,7 +228,9 @@ proc generate {os_handle} {
             set need_config_file "true"
             set mb_exceptions [mb_has_exceptions $hw_proc_handle]
         }
-	"psu_pmc" {
+	"psu_pmc" -
+	"psv_pmc"
+	{
 	    foreach entry [glob -nocomplain [file join $mbsrcdir *]] {
                 # Copy over only files that are not related to exception handling. All such files have exception in their names
                 file copy -force $entry "./src/"
@@ -236,7 +238,9 @@ proc generate {os_handle} {
             set need_config_file "true"
             set mb_exceptions [mb_has_exceptions $hw_proc_handle]
         }
-	"psu_psm" {
+	"psu_psm" -
+	"psv_psm"
+	{
 	    foreach entry [glob -nocomplain [file join $mbsrcdir *]] {
                 # Copy over only files that are not related to exception handling. All such files have exception in their names
                 file copy -force $entry "./src/"
@@ -296,6 +300,7 @@ proc generate {os_handle} {
 
         }
         "psu_cortexa53" -
+	"psv_cortexa72" -
 	"psu_cortexa72"
 	{
             set procdrv [hsi::get_sw_processor]
@@ -379,7 +384,9 @@ proc generate {os_handle} {
             xdefine_fabric_reset $file_handle
             close $file_handle
         }  
-        "psu_cortexr5"  {
+        "psu_cortexr5" -
+	"psv_cortexr5"
+	{
 	    set procdrv [hsi::get_sw_processor]
 	    set includedir "./src/arm/ARMv8/includes_ps"
 	    if {[string compare -nocase $compiler "iccarm"] == 0} {
@@ -491,12 +498,12 @@ proc generate {os_handle} {
     # Write the Config.make file
     set makeconfig [open "./src/config.make" w]
 #    print_generated_header_tcl $makeconfig "Configuration parameters for Standalone Makefile"
-    if { $proctype == "microblaze" || $proctype == "psu_pmu" || $proctype == "psu_psm" || $proctype == "psu_pmc" } {
+    if { $proctype == "microblaze" || $proctype == "psu_pmu" || $proctype == "psu_psm" || $proctype == "psu_pmc" || $proctype == "psv_psm" || $proctype == "psv_pmc" } {
         puts $makeconfig "LIBSOURCES = *.c *.S"
         puts $makeconfig "PROFILE_ARCH_OBJS = profile_mcount_mb.o"
-    } elseif { $proctype == "psu_cortexr5" } {
+    } elseif { $proctype == "psu_cortexr5" ||  $proctype == "psv_cortexr5" } {
 	puts $makeconfig "LIBSOURCES = *.c *.S"
-    } elseif { $proctype == "psu_cortexa53" || $proctype == "psu_cortexa72" }  {
+    } elseif { $proctype == "psu_cortexa53" || $proctype == "psu_cortexa72" || $proctype == "psv_cortexa72"}  {
             puts $makeconfig "LIBSOURCES = *.c *.S"
     } elseif { $proctype == "ps7_cortexa9" } {
         if {[string compare -nocase $compiler "armcc"] == 0} {
@@ -601,7 +608,7 @@ proc generate {os_handle} {
 			puts $bspcfg_fh "#define HYP_GUEST 0"
 		}
 	}
-    } elseif { $proctype == "psu_cortexa72" } {
+    } elseif { $proctype == "psu_cortexa72" || $proctype == "psv_cortexa72"} {
                 set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
                 set flagindex [string first {-DARMA72_EL3} $extra_flags 0]
                 if { $flagindex == -1 } {
@@ -779,19 +786,23 @@ proc xcreate_cmake_toolchain_file {os_handle is_versal} {
 proc xsleep_timer_config {proctype os_handle file_handle} {
 
     set sleep_timer [common::get_property CONFIG.sleep_timer $os_handle ]
-	if { $sleep_timer == "ps7_globaltimer_0" || $sleep_timer == "psu_iou_scntr" || $sleep_timer == "psu_iou_scntrs" } {
-		if { $proctype == "psu_cortexr5" } {
+	if { $sleep_timer == "ps7_globaltimer_0" || $sleep_timer == "psu_iou_scntr" || $sleep_timer == "psu_iou_scntrs" || $sleep_timer == "psv_iou_scntr" || $sleep_timer == "psv_iou_scntrs"} {
+		if { $proctype == "psu_cortexr5" ||  $proctype == "psv_cortexr5"} {
 			error "ERROR: $proctype does not support $sleep_timer "
 		}
     } elseif { $sleep_timer == "none" } {
-		if { $proctype == "psu_cortexr5" } {
+		if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" } {
 			set periphs [hsi::get_cells -hier]
 			foreach periph $periphs {
 				if {[string compare -nocase "psu_ttc_3" $periph] == 0} {
 					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSU_TTC_9_BASEADDR"
 					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSU_TTC_9_TTC_CLK_FREQ_HZ"
 					puts $file_handle "#define XSLEEP_TTC_INSTANCE 3"
-			    }
+				} elseif {[string compare -nocase "psv_ttc_3" $periph] == 0} {
+					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSV_TTC_9_BASEADDR"
+					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSV_TTC_9_TTC_CLK_FREQ_HZ"
+					puts $file_handle "#define XSLEEP_TTC_INSTANCE 3"
+				}
 			}
 		}
 		puts $file_handle "#define XSLEEP_TIMER_IS_DEFAULT_TIMER"
@@ -814,6 +825,9 @@ proc xsleep_timer_config {proctype os_handle file_handle} {
 		} elseif { $proctype == "psu_cortexa53" || $proctype == "psu_cortexr5" || $proctype == "psu_cortexa72" } {
 			puts $file_handle "#define SLEEP_TIMER_BASEADDR [format "XPAR_PSU_TTC_%d_BASEADDR" [ expr 3 * $module + $timer ] ] "
 			puts $file_handle "#define SLEEP_TIMER_FREQUENCY [format "XPAR_PSU_TTC_%d_TTC_CLK_FREQ_HZ" [ expr 3 * $module + $timer ] ] "
+		} elseif {$proctype == "psv_cortexr5" || $proctype == "psv_cortexa72"} {
+			puts $file_handle "#define SLEEP_TIMER_BASEADDR [format "XPAR_PSV_TTC_%d_BASEADDR" [ expr 3 * $module + $timer ] ] "
+			puts $file_handle "#define SLEEP_TIMER_FREQUENCY [format "XPAR_PSV_TTC_%d_TTC_CLK_FREQ_HZ" [ expr 3 * $module + $timer ] ] "
 		}
 	}
 	return
