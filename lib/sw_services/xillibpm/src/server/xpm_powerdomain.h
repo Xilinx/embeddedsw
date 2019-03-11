@@ -31,6 +31,10 @@
 
 #include "xpm_power.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct XPm_PowerDomain XPm_PowerDomain;
 
 #define XPM_POLL_TIMEOUT			(0X1000000U)
@@ -71,6 +75,10 @@ XStatus XPm_PowerUpNoC();
 XStatus XPm_PowerDwnNoC();
 XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				  u32 *Args, u32 NumArgs);
+
+#ifdef __cplusplus
+}
+#endif
 
 /** @} */
 #endif /* XPM_POWERDOMAIN_H_ */

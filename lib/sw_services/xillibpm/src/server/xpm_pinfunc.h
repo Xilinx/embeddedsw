@@ -31,6 +31,10 @@
 
 #include "xpm_device.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define FUNC_NAME_SIZE		(18)		/* Function name string size */
 #define MAX_GROUPS_PER_RES	(6)		/* Max No. of groups per query response */
 #define INVALID_FUNC_ID 	(0xFFFFU)
@@ -660,6 +664,10 @@ XStatus XPmPinFunc_GetNumFuncs(u32 *NumFuncs);
 XStatus XPmPinFunc_GetFuncName(u32 FuncId, char *FuncName);
 XStatus XPmPinFunc_GetNumFuncGroups(u32 FuncId, u32 *NumGroups);
 XStatus XPmPinFunc_GetFuncGroups(u32 FuncId, u32 Index, u16 *Groups);
+
+#ifdef __cplusplus
+}
+#endif
 
 /** @} */
 #endif /* XPM_PINFUNC_H_ */

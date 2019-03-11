@@ -31,6 +31,10 @@
 
 #include "xpm_core.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define XPM_PROC_RPU_HIVEC_ADDR		0xFFFC0000U
 #define XPM_RPU_NCPUHALT_MASK		BIT(0)
 #define XPM_RPU_VINITHI_MASK		BIT(2)
@@ -62,5 +66,10 @@ void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode);
 XStatus XPm_RpuBootAddrConfig(const u32 DeviceId, const u32 BootAddr);
 XStatus XPm_RpuTcmCombConfig(const u32 DeviceId, const u32 Config);
 XStatus XPmRpuCore_Halt(XPm_Device *Device);
+
+#ifdef __cplusplus
+}
+#endif
+
 /** @} */
 #endif /* XPM_RPUCORE_H_ */
