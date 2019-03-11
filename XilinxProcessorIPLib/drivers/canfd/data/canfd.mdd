@@ -41,7 +41,7 @@ OPTION psf_version = 2.1;
 
 BEGIN driver canfd
 
-  OPTION supported_peripherals = (canfd psu_canfd);
+  OPTION supported_peripherals = (canfd psu_canfd psv_canfd);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
   OPTION VERSION = 2.1;
