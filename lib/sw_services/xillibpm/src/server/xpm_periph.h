@@ -31,6 +31,9 @@
 
 #include "xpm_device.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 typedef struct XPm_Periph XPm_Periph;
 
@@ -54,6 +57,10 @@ XStatus XPmPeriph_Init(XPm_Periph *Periph, u32 Id, u32 BaseAddress,
 		       XPm_Power *Power, XPm_ClockNode *Clock,
 		       XPm_ResetNode *Reset, u32 GicProxyMask,
 		       u32 GicProxyGroup);
+
+#ifdef __cplusplus
+}
+#endif
 
 /** @} */
 #endif /* XPM_PERIPH_H_ */

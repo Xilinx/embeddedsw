@@ -32,6 +32,10 @@
 #include "xillibpm_defs.h"
 #include "xpm_node.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef enum {
 	/* Default FSM states */
 	XPM_POWER_STATE_OFF = 0,
@@ -80,6 +84,10 @@ XStatus XPmPower_Init(XPm_Power *Power,
 	u32 Id, u32 BaseAddress, XPm_Power *Parent);
 XStatus XPmPower_AddParent(u32 Id, u32 *Parents, u32 NumParents);
 XStatus XPmPower_GetStatus(const u32 SubsystemId, const u32 DeviceId, XPm_DeviceStatus *const DeviceStatus);
+
+#ifdef __cplusplus
+}
+#endif
 
 /** @} */
 #endif /* XPM_POWER_H_ */

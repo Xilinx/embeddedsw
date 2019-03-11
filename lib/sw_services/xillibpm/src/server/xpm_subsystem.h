@@ -31,6 +31,10 @@
 
 #include "xpm_requirement.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define	INVALID_SUBSYSID	-1U
 #define SUBSYSTEMCLASS_MASK \
 	((XPM_NODECLASS_SUBSYSTEM & NODE_CLASS_MASK_BITS) << NODE_CLASS_SHIFT)
@@ -96,5 +100,9 @@ XPm_Subsystem * XPmSubsystem_GetById(u32 SubsystemId);
 XStatus XPmSubsystem_SetCurrent(u32 SubsystemId);
 u32 XPmSubsystem_GetCurrent(void);
 XStatus XPmSubsystem_Restart(u32 SubsystemId);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XPM_SUBSYSTEM_H_ */

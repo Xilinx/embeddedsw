@@ -32,6 +32,10 @@
 #include "xpm_device.h"
 #include "xpm_subsystem.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct XPm_ReqmInfo XPm_ReqmInfo;
 
 /**
@@ -74,5 +78,10 @@ void XPm_RequiremntUpdate(XPm_Requirement *Reqm);
 XStatus XPmRequirement_Release(XPm_Requirement *Reqm, XPm_ReleaseScope Scope);
 void XPmRequirement_Clear(XPm_Requirement* Reqm);
 XStatus XPmRequirement_UpdateScheduled(XPm_Subsystem *Subsystem, u32 Swap);
+
+#ifdef __cplusplus
+}
+#endif
+
 /** @} */
 #endif /* XPM_REQUIREMENT_H_ */
