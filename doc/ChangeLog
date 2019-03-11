@@ -138,6 +138,8 @@ Add new example for usb polling mode
 Modify xusbpsu_wrapper.c file for issuing XUsbPsu_Ep0StallRestart() for EP0
 Updated usbpsu.tcl to fix the logic for generating SUPER_SPEED paramter
 Add versal platform support to usbpsu driver
+Add support for versal usb IP name
+Update copyright year for usbpsu files
 
 mcdma_v1_3:
 In mcdma examples remove snoop enable and dependency on HPC_DESIGN macro.
