@@ -428,7 +428,7 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 		 * address range that starts at "bd_space" is made uncached.
 		 */
 #if !defined(__MICROBLAZE__) && !defined(ARMR5)
-		Xil_SetTlbAttributes(bd_space, DEVICE_MEMORY);
+		Xil_SetTlbAttributes((INTPTR)bd_space, DEVICE_MEMORY);
 #else
 		Xil_DCacheDisable();
 #endif
@@ -438,18 +438,18 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 	if (GemVersion > 2) {
 
 #if defined (ARMR5)
-		Xil_SetTlbAttributes((u32)bd_space, STRONG_ORDERD_SHARED |
+		Xil_SetTlbAttributes((INTPTR)bd_space, STRONG_ORDERD_SHARED |
 					PRIV_RW_USER_RW);
 #endif
 #if defined __aarch64__
-		Xil_SetTlbAttributes((u64)bd_space, NORM_NONCACHE |
+		Xil_SetTlbAttributes((UINTPTR)bd_space, NORM_NONCACHE |
 					INNER_SHAREABLE);
 #endif
 	}
 
 	/* Allocate Rx and Tx BD space each */
-	RxBdSpacePtr = (UINTPTR)&(bd_space[0]);
-	TxBdSpacePtr = (UINTPTR)&(bd_space[0x10000]);
+	RxBdSpacePtr = &(bd_space[0]);
+	TxBdSpacePtr = &(bd_space[0x10000]);
 
 	/*
 	 * Setup RxBD space.
