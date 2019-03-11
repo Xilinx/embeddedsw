@@ -272,7 +272,11 @@ XStatus XPmClockPll_SetParam(XPm_PllClockNode *Pll, u32 Param, u32 Value)
 
 	/* Allow config change only if PLL is in reset mode */
 	if (Pll->ClkNode.Node.State != PM_PLL_STATE_RESET) {
-		Status = XST_FAILURE;
+		/*
+		 * TODO - revisit it to allow subsystem CDO
+		 * re-parsing which re-sets PLL parameters.
+		 */
+		PmInfo("Warning: Setting PLL paramter while not in reset state.\r\n");
 		goto done;
 	}
 
