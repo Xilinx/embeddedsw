@@ -10,7 +10,7 @@ BEGIN driver ospipsv
   OPTION supported_peripherals = (psv_pmc_ospi);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.2;
+  OPTION VERSION = 1.3;
   OPTION NAME = ospipsv;
 
 END driver
