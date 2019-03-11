@@ -68,7 +68,7 @@ proc swapp_is_supported_hw {} {
 		error "ERROR: FreeRTOS is not supported for 32bit A53"
 	}
     }
-    if { $proc_type != "psu_cortexr5" && $proc_type != "ps7_cortexa9" && $proc_type != "psu_cortexa53" && $proc_type != "microblaze" } {
+    if { $proc_type != "psu_cortexr5" && $proc_type != "psv_cortexr5" && $proc_type != "ps7_cortexa9" && $proc_type != "psu_cortexa53" && $proc_type != "microblaze" } {
                 error "This application is supported only for CortexR5/CortexA9/CortexA53/MicroBlaze processors.";
     }
 
@@ -93,7 +93,7 @@ proc swapp_get_linker_constraints {} {
 }
 
 proc swapp_get_supported_processors {} {
-    return "psu_cortexr5 ps7_cortexa9 psu_cortexa53 microblaze";
+    return "psu_cortexr5 psv_cortexr5 ps7_cortexa9 psu_cortexa53 microblaze";
 }
 
 proc swapp_get_supported_os {} {
