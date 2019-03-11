@@ -44,11 +44,17 @@
 #include "pm_common.h"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #ifdef __cplusplus
 extern "C" {
 #endif
 =======
 >>>>>>> Xilpm: Fixes MISRA-C:2012 R.2.5 in pm_client.h
+=======
+#ifdef __cplusplus
+extern "C" {
+#endif
+>>>>>>> xilpm: Extern C added to header files
 
 const char* XPm_GetMasterName(void);
 <<<<<<< HEAD
@@ -57,6 +63,7 @@ const char* XPm_GetMasterName(void);
 =======
 >>>>>>> Xilpm: Fixed MISRA-C:2012 R.15.5 in pm_client.c
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 #define pm_print(MSG, ...)	xil_printf("%s: "MSG, \
 										XPm_GetMasterName(), ##__VA_ARGS__)
@@ -73,12 +80,17 @@ const char* XPm_GetMasterName(void);
 
 
 
+=======
+>>>>>>> xilpm: Extern C added to header files
 #ifdef __cplusplus
 }
 #endif
 
+<<<<<<< HEAD
 =======
 >>>>>>> Xilpm: Fixes MISRA-C:2012 R.21.1, R.21.2 in pm_client.h
 =======
 >>>>>>> Xilpm: Support for IAR compier
+=======
+>>>>>>> xilpm: Extern C added to header files
 #endif /* PM_CLIENT_H */

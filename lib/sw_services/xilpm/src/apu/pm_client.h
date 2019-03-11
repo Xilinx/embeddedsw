@@ -44,6 +44,7 @@
 #include "pm_common.h"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -54,10 +55,21 @@ extern "C" {
 #define pm_print(MSG, ...)	xil_printf("APU: "MSG,##__VA_ARGS__)
 
 <<<<<<< HEAD
+=======
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#define pm_print(MSG, ...)	xil_printf("APU: "MSG,##__VA_ARGS__)
+
+>>>>>>> xilpm: Extern C added to header files
 #ifdef __cplusplus
 }
 #endif
 
+<<<<<<< HEAD
 =======
 >>>>>>> Xilpm: Fixed MISRA-C:2012 R.21.1, R.21.2 in APU pm_client.h
+=======
+>>>>>>> xilpm: Extern C added to header files
 #endif /* PM_CLIENT_H */

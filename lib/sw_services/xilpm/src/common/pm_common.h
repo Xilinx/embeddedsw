@@ -54,8 +54,14 @@ extern "C" {
 #endif
 =======
 
+<<<<<<< HEAD
 
 >>>>>>> Xilpm: Fixed MISRA-C:2012 R.17.3 in pm_common.h
+=======
+#ifdef __cplusplus
+extern "C" {
+#endif
+>>>>>>> xilpm: Extern C added to header files
 
 #define PM_ARRAY_SIZE(x)	(sizeof(x) / sizeof(x[0]))
 
@@ -131,10 +137,16 @@ extern const enum XPmNodeId subsystem_node;
 extern struct XPm_Master *primary_master;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> xilpm: Extern C added to header files
 #ifdef __cplusplus
 }
 #endif
 
+<<<<<<< HEAD
 =======
 >>>>>>> Xilpm: Fixed MISRA-C:2012 R.21.1, R.21.2 in pm_common.h
+=======
+>>>>>>> xilpm: Extern C added to header files
 #endif /* PM_COMMON_H */
