@@ -1186,10 +1186,17 @@ u32 XilSKey_Timer_Intialise(void)
 void XilSKey_StrCpyRange(u8 *Src, u8 *Dst, u32 From, u32 To)
 {
 	u32 Index, J = 0U;
+	u32 SrcLength = strlen((char *)Src);
+
+	if (To >= SrcLength) {
+		goto END;
+	}
+
 	for (Index = From; Index <= To; Index++) {
 		Dst[J] = Src[Index];
 		J = J + 1U;
 	}
+END:
 	Dst[J] = '\0';
 
 }
@@ -1223,7 +1230,7 @@ void XilSKey_StrCpyRange(u8 *Src, u8 *Dst, u32 From, u32 To)
 u32 XilSKey_CrcCalculation(u8 *Key)
 {
 	u32 CrcReturn = 0U;
-	u8 Key_8[8U];
+	u8 Key_8[9U];
 	u8 Key_Hex[4U] = {0};
 	u32 Index;
 	u8 MaxIndex = 8U;
@@ -1236,7 +1243,7 @@ u32 XilSKey_CrcCalculation(u8 *Key)
 #ifdef XSK_MICROBLAZE_PLATFORM
 	u8 Row = 0U;
 #endif
-	u8 FullKey[64U] = {0U};
+	u8 FullKey[65U] = {0U};
 	u32 Length = strlen((char *)Key);
 
 	if (Length > 64U) {
@@ -1244,11 +1251,11 @@ u32 XilSKey_CrcCalculation(u8 *Key)
 		goto END;
 	}
 	if (Length < 64U) {
-		XilSKey_StrCpyRange(Key, &FullKey[64U - Length + 1U], 0U, Length);
+		XilSKey_StrCpyRange(Key, &FullKey[64U - Length + 1U], 0U, Length-1);
 
 	}
 	else {
-		XilSKey_StrCpyRange(Key, FullKey, 0U, Length);
+		XilSKey_StrCpyRange(Key, FullKey, 0U, Length-1);
 	}
 #ifdef XSK_MICROBLAZE_ULTRA_PLUS
 	MaxIndex = 16U;
