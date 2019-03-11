@@ -285,6 +285,7 @@ Remove duplicate code in xemacps_bd.h
 Fixed PTP interrupt masks and cleaned up comments.
 Fix warning in example for redefinition of interrupt number.
 Added 64 bit DMA addresses support for Microblaze-X
+Add support for Versal IP name.
 
 gpiops_v3_4:
 Resolved cppcheck warnings.(CR#1006331)
