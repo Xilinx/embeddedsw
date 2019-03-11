@@ -48,7 +48,9 @@
 #include "xil_printf.h"
 #endif
 
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #define PM_ARRAY_SIZE(x)	(sizeof(x) / sizeof(x[0]))
 
@@ -113,5 +115,9 @@ void XPm_ClientSetPrimaryMaster(void);
 /* Do not modify below this line */
 extern const enum XPmNodeId subsystem_node;
 extern struct XPm_Master *primary_master;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* PM_COMMON_H */
