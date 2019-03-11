@@ -324,7 +324,7 @@ proc generate {drv_handle} {
 	append compiler_flags " -mxl-pattern-compare"
     }
 
-    if {[string compare "psu_pmu" $proctype] == 0 || [string compare "psu_pmc" $proctype] == 0 || [string compare "psu_psm" $proctype] == 0} {
+    if {[string compare "psu_pmu" $proctype] == 0 || [string compare "psu_pmc" $proctype] == 0 || [string compare "psu_psm" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0 || [string compare "psv_psm" $proctype] == 0} {
 	set multiply [common::get_property CONFIG.C_USE_HW_MUL $periph]
 	if {[string compare -nocase "0" $multiply] == 0 } {
 		append compiler_flags " -mxl-soft-mul"
@@ -385,7 +385,7 @@ proc generate {drv_handle} {
 	# If the processor is PMU Microblaze, then generate required params and return
 	# We dont need the Parameters being generated after this code block
 	#------------------------------------------------------------------------------
-	if {[string compare "psu_pmu" $proctype] == 0 || [string compare "psu_pmc" $proctype] == 0 || [string compare "psu_psm" $proctype] == 0} {
+	if {[string compare "psu_pmu" $proctype] == 0 || [string compare "psu_pmc" $proctype] == 0 || [string compare "psu_psm" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0 || [string compare "psv_psm" $proctype] == 0} {
 
 		# Generate the Parameters
 		set file_handle [::hsi::utils::open_include_file "xparameters.h"]
@@ -400,10 +400,10 @@ proc generate {drv_handle} {
 		if {[string compare "psu_pmu" $proctype] == 0 } {
 			puts $file_handle "/* Definitions for PMU Microblaze */"
 		}
-		if {[string compare "psu_pmc" $proctype] == 0 } {
+		if {[string compare "psu_pmc" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0} {
 			puts $file_handle "/* Definitions for PMC Microblaze */"
 		}
-                if {[string compare "psu_psm" $proctype] == 0 } {
+                if {[string compare "psu_psm" $proctype] == 0 || [string compare "psv_psm" $proctype] == 0} {
                         puts $file_handle "/* Definitions for PSM Microblaze */"
                 }
 		set params ""
