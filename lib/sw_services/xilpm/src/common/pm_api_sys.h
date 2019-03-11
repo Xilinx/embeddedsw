@@ -50,6 +50,10 @@
 #include "pm_defs.h"
 #include "pm_common.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 XStatus XPm_InitXilpm(XIpiPsu *IpiInst);
 
 void XPm_SuspendFinalize(void);
@@ -250,6 +254,10 @@ XStatus XPm_PinCtrlSetParameter(const u32 pin,
 XStatus XPm_PinCtrlGetParameter(const u32 pin,
 				const enum XPmPinParam param,
 				u32* const value);
+
+#ifdef __cplusplus
+}
+#endif
 
 /** @} */
 #endif /* PM_API_SYS_H */

@@ -43,7 +43,14 @@
 #include "pm_defs.h"
 #include "pm_common.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 const char* XPm_GetMasterName(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* PM_CLIENT_H */
