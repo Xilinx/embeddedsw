@@ -33,6 +33,10 @@
 #include <xstatus.h>
 #include "xillibpm_node.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define NODE_IDLE_DONE			(0x4U)
 
 typedef struct XPm_Node XPm_Node;
@@ -54,6 +58,10 @@ struct XPm_Node {
 /************************** Function Prototypes ******************************/
 XStatus XPmNode_Init(XPm_Node *Node,
 		u32 Id, u32 State, u32 BaseAddress);
+
+#ifdef __cplusplus
+}
+#endif
 
 /** @} */
 #endif /* XPM_NODE_H_ */
