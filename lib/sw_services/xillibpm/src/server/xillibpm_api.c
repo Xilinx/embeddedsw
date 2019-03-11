@@ -46,6 +46,8 @@
 #include "xplmi_modules.h"
 #include "xpm_aie.h"
 
+extern int XLoader_RestartImage(u32 SubsystemId);
+
 void (* PmRequestCb)(u32 SubsystemId, const u32 EventId, u32 *Payload);
 
 static XPlmi_ModuleCmd XPlmi_PmCmds[PM_API_MAX+1];
@@ -793,8 +795,7 @@ done:
  * the request has been received.
  *
  ****************************************************************************/
-XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type,
-                             const u32 SubType)
+XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType)
 {
         XStatus Status = XST_SUCCESS;
 	XPm_Subsystem *Subsystem;
@@ -802,22 +803,29 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type,
 	XPm_Device *Device;
 	XPm_Core *Core = NULL;
 
-	/* Warning Fix */
-	(void) (SubType);
+	if ((XPM_SHUTDOWN_TYPE_SHUTDOWN != Type) &&
+	    (XPM_SHUTDOWN_TYPE_RESET != Type)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
 
-       /* For shutdown type the subtype is irrelevant: shut the caller down */
-        if (XPM_SHUTDOWN_TYPE_SHUTDOWN == Type) {
-		Subsystem = &PmSubsystems[SubsystemId];
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* For shutdown type the subtype is irrelevant: shut the caller down */
+	if (XPM_SHUTDOWN_TYPE_SHUTDOWN == Type) {
 		Reqm = Subsystem->Requirements;
 		while (NULL != Reqm) {
 			if (TRUE == Reqm->Allocated) {
 				Device = Reqm->Device;
 				if (XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Device->Node.Id)) {
 					Core = (XPm_Core *)XPmDevice_GetById(Device->Node.Id);
-					if(Core->CoreOps->PowerDown)
-					{
+					if (Core->CoreOps->PowerDown) {
 						Status = Core->CoreOps->PowerDown(Core);
-						if(XST_SUCCESS != Status) {
+						if (XST_SUCCESS != Status) {
 							goto done;
 						}
 					}
@@ -825,22 +833,42 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type,
 			}
 			Reqm = Reqm->NextDevice;
 		}
-        } else {
-                Status = XST_INVALID_PARAM;
-                goto done;
-        }
+		/* Idle the subsystem */
+		Status = XPmSubsystem_Idle(SubsystemId);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		Status = XPmSubsystem_ForceDownCleanup(SubsystemId);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 
-	/* Idle the subsystem */
-	Status = XPmSubsystem_Idle(SubsystemId);
-	if(XST_SUCCESS != Status) {
+		XPmSubsystem_SetState(SubsystemId, OFFLINE);
 		goto done;
 	}
-	Status = XPmSubsystem_ForceDownCleanup(SubsystemId);
-	if(XST_SUCCESS != Status) {
-		goto done;
+
+	VERIFY(XPM_SHUTDOWN_TYPE_RESET == Type);
+
+	switch (SubType) {
+	case XPM_SHUTDOWN_SUBTYPE_RST_SUBSYSTEM:
+		Status = XPmSubsystem_Restart(SubsystemId);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		Status = XLoader_RestartImage(SubsystemId);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		break;
+	case XPM_SHUTDOWN_SUBTYPE_RST_PS_ONLY:
+	case XPM_SHUTDOWN_SUBTYPE_RST_SYSTEM:
+		/* TODO */
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
 	}
 
-	XPmSubsystem_SetState(SubsystemId, OFFLINE);
 done:
         return Status;
 }

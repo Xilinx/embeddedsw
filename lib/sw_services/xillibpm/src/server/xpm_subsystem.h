@@ -95,5 +95,6 @@ int XPmSubsystem_Idle(u32 SubsystemId);
 XPm_Subsystem * XPmSubsystem_GetById(u32 SubsystemId);
 XStatus XPmSubsystem_SetCurrent(u32 SubsystemId);
 u32 XPmSubsystem_GetCurrent(void);
+XStatus XPmSubsystem_Restart(u32 SubsystemId);
 
 #endif /* XPM_SUBSYSTEM_H_ */
