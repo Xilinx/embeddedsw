@@ -1,6 +1,8 @@
 /*
  * FreeRTOS Kernel V10.1.1
- * Copyright (C) 2018 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * Copyright (C) 2018-2019 Amazon.com, Inc. or its affiliates.
+ * Copyright (C) 2019 Xilinx, Inc.
+ * All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -166,11 +168,14 @@ void vPortEnableInterrupt( uint8_t ucInterruptID );
  * file, which is itself part of the BSP project.
  */
 void vPortDisableInterrupt( uint8_t ucInterruptID );
-
+#if (configUSE_TASK_FPU_SUPPORT != 2)
 /* Any task that uses the floating point unit MUST call vPortTaskUsesFPU()
 before any floating point instructions are executed. */
 void vPortTaskUsesFPU( void );
 #define portTASK_USES_FLOATING_POINT() vPortTaskUsesFPU()
+#else
+#define portTASK_USES_FLOATING_POINT()
+#endif
 
 #define portLOWEST_INTERRUPT_PRIORITY ( ( ( uint32_t ) configUNIQUE_INTERRUPT_PRIORITIES ) - 1UL )
 #define portLOWEST_USABLE_INTERRUPT_PRIORITY ( portLOWEST_INTERRUPT_PRIORITY - 1UL )
