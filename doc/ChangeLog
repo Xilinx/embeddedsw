@@ -1291,6 +1291,10 @@ Fixed MISRA-C suggested violations.
 Added support for Versal.
 Removed platform specific example and added that support in default file.
 
+cpu_cortexr5_v1_5:
+Create a new version of cortex r5 CPU driver to add support for hard
+float.
+
 Changes for 2018.3.1
 ===============================
 rfdc_v5_1:
