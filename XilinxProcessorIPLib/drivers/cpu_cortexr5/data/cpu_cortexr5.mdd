@@ -31,7 +31,7 @@ BEGIN driver cpu_cortexr5
 
 OPTION copyfiles = all;
 OPTION driver_state = ACTIVE;
-OPTION supported_peripherals = (psu_cortexr5);
+OPTION supported_peripherals = (psu_cortexr5 psv_cortexr5);
 OPTION default_os = "standalone_v5_0";
 OPTION VERSION = 1.4;
 OPTION NAME = cpu_cortexr5;
