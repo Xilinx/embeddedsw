@@ -33,6 +33,8 @@
 extern "C" {
 #endif
 
+#include "xparameters.h"
+
 /************* User Configurable Options ***************/
 
 /* PMUFW print levels */
