@@ -31,7 +31,7 @@ BEGIN driver cpu_cortexa72
 
 OPTION copyfiles = all;
 OPTION driver_state = ACTIVE;
-OPTION supported_peripherals = (psu_cortexa72)
+OPTION supported_peripherals = (psu_cortexa72 psv_cortexa72)
 OPTION default_os = "standalone_v5_0";
 OPTION VERSION = 1.0;
 OPTION NAME = cpu_cortexa72;
