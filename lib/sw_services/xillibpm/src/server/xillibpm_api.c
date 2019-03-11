@@ -71,12 +71,15 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	PmInfo("Processing Cmd %x\r\n", Cmd->CmdId);
 
 	if((Cmd->CmdId & 0xFF) != PM_SET_CURRENT_SUBSYSTEM) {
-		if(Cmd->IpiMask == 0) {
-			SubsystemId = XPmSubsystem_GetCurrent();
-			PmDbg("CDO command SubsystemId %x\n\r", SubsystemId);
-		} else {
+		SubsystemId = XPmSubsystem_GetCurrent();
+		if(SubsystemId != INVALID_SUBSYSID) {
+                        PmDbg("Using current subsystemId: %x\n\r", SubsystemId);
+                } else if(Cmd->IpiMask == 0 && Cmd->SubsystemId) {
+			SubsystemId = Cmd->SubsystemId;
+                        PmDbg("Using subsystemId passed by PLM: %x\n\r", SubsystemId);
+		} else if(Cmd->IpiMask) {
 			SubsystemId = XPmSubsystem_GetSubSysIdByIpiMask(Cmd->IpiMask);
-			PmDbg("IPI command SubsystemId %x\n\r", SubsystemId);
+			PmDbg("Using subsystemId mapped to Ipi: %x\n\r", SubsystemId);
 		}
 		if(SubsystemId == INVALID_SUBSYSID) {
 			PmInfo("Failure: Invalid SubsystemId\n\r");
