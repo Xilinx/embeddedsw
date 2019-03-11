@@ -99,8 +99,9 @@ extern "C" {
 #define XILCDO_NPI_BLK_AMS_ROOT                         (0x1AU)
 #define XILCDO_NPI_BLK_ME_NPI                           (0x1BU)
 #define XILCDO_NPI_BLK_PLL_PHY							(0x1CU)
-#define XILCDO_NPI_BLK_NOC_NIR							(0x1DU)
-#define XILCDO_NPI_BLK_DDRMC_NOC						(0x1EU)
+#define XILCDO_NPI_BLK_DDRMC_MAIN						(0x1DU)
+#define XILCDO_NPI_BLK_NOC_NIR							(0x1EU)
+#define XILCDO_NPI_BLK_DDRMC_NOC						(0x1FU)
 #define XILCDO_TOTAL_NPI_BLKS                           (0x20U)
 
 /**
