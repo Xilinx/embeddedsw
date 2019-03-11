@@ -437,12 +437,14 @@ XSCUGIC_RDIST_OFFSET), (RegOffset)))
 * @note        None.
 *
 *****************************************************************************/
+#if defined (__aarch64__)
 #if EL1_NONSECURE
 #define XScuGic_Enable_Group1_Interrupts() \
 		mtcp (S3_0_C12_C12_7, 0x1 | mfcp(S3_0_C12_C12_7) );
 #else
 #define XScuGic_Enable_Group1_Interrupts() \
 		mtcp (S3_6_C12_C12_7, 0x1 | mfcp(S3_6_C12_C12_7) );
+#endif
 #endif
 /****************************************************************************/
 /**
@@ -505,10 +507,12 @@ XSCUGIC_RDIST_OFFSET), (RegOffset)))
 * @note        None.
 *
 *****************************************************************************/
+#if defined (__aarch64__)
 #if EL3
 #define XScuGic_get_IntID()  mfcp(S3_0_C12_C8_0)
 #else
 #define XScuGic_get_IntID()  mfcp(S3_0_C12_C12_0)
+#endif
 #endif
 /****************************************************************************/
 /**
@@ -521,10 +525,12 @@ XSCUGIC_RDIST_OFFSET), (RegOffset)))
 * @note        None.
 *
 *****************************************************************************/
+#if  defined (__aarch64__)
 #if EL3
 #define XScuGic_ack_Int(val)   mtcp(S3_0_C12_C8_1,val)
 #else
 #define XScuGic_ack_Int(val)   mtcp(S3_0_C12_C12_1,val)
+#endif
 #endif
 /****************************************************************************/
 /**
