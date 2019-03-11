@@ -69,7 +69,7 @@ proc get_ffs_periphs {processor} {
 		set periphname [common::get_property IP_NAME $periph]
 		# Checks if SD instance is present
 		# This can be expanded to add more instances.
-		if {$periphname == "ps7_sdio" || $periphname == "psu_sd"} {
+		if {$periphname == "ps7_sdio" || $periphname == "psu_sd" || $periphname == "psv_pmc_sd"} {
 			lappend ffs_periphs_list $periph
 			lappend ffs_periphs_name_list $periphname
 		}
@@ -151,7 +151,7 @@ proc xgen_opts_file {libhandle} {
 	global ffs_periphs_name_list
 	foreach periph $ffs_periphs_name_list {
 
-		if {$periph == "ps7_sdio" || $periph == "psu_sd"} {
+		if {$periph == "ps7_sdio" || $periph == "psu_sd" || $periph == "psv_pmc_sd"} {
 			if {$fs_interface == 1} {
 				puts $file_handle "\#define FILE_SYSTEM_INTERFACE_SD"
 				break
