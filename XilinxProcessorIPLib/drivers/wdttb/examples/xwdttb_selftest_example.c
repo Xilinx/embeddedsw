@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2016 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2002 - 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -47,6 +47,7 @@
 *                     Calling XWdtTb_LookupConfig and XWdtTb_CfgInitialize
 *                     functions instead of XWdtTb_Initialize for
 *                     initialization.
+* 4.4   sne  02/12/19 Added support for Versal
 * </pre>
 *
 *****************************************************************************/
@@ -162,7 +163,10 @@ int WdtTbSelfTestExample(u16 DeviceId)
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-
+#ifdef versal
+	/*Enable Window Watchdog Feature */
+	WatchdogTimebase.EnableWinMode=1;
+#endif
 	/*
 	 * Perform a self-test to ensure that the hardware was built
 	 * correctly
