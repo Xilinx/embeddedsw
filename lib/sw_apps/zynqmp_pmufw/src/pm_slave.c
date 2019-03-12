@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -623,13 +623,18 @@ static void PmSlaveClearConfig(PmNode* const slaveNode)
 static s32 PmSlaveGetWakeUpLatency(const PmNode* const node, u32* const lat)
 {
 	PmSlave* const slave = (PmSlave*)node->derived;
-	PmNode* const powerNode = &node->parent->node;
+	PmNode* powerNode;
 	s32 status = XST_SUCCESS;
 	u32 latency;
 
 	*lat = PmGetLatencyFromState(slave, slave->node.currState);
 
+	if (NULL == node->parent) {
+		status = XST_NO_FEATURE;
+		goto done;
+	}
 
+	powerNode = &node->parent->node;
 	if (NULL == powerNode->class->getWakeUpLatency) {
 		status = XST_NO_FEATURE;
 		goto done;
