@@ -74,6 +74,8 @@
 * 1.12  EB   09-04-2018 Fixed messages printing issue
 * 3.03  YB   08-14-2018 Updating the Hdcp Menu to remove Repeater options if
 *                       'ENABLE_HDCP_REPEATER' macro is not selected.
+* 3.04  mmo  08-03-2019 Updating the global variable "EdidHdmi20_t" during
+*                               EDID parsing through menu.
 * </pre>
 *
 ******************************************************************************/
@@ -175,7 +177,6 @@ extern void UpdateFrameRate(XVphy *VphyPtr, XV_HdmiTxSs *pHdmiTxSs, XVidC_FrameR
 extern void XV_HdmiTxSs_ShowEdid(XV_HdmiTxSs *InstancePtr);
 extern void CloneTxEdid(void);
 extern void XV_ConfigTpg(XV_tpg *InstancePtr);
-XV_VidC_EdidCntrlParam EdidCtrlParam;
 #endif
 
 /************************* Variable Definitions *****************************/
@@ -1327,7 +1328,7 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			/* Only Parse the EDID when the Read EDID success */
 			if (Status == XST_SUCCESS) {
 				XV_VidC_parse_edid((u8*)&Buffer,
-									&EdidCtrlParam,
+									&EdidHdmi20_t.EdidCtrlParam,
 									XVIDC_VERBOSE_ENABLE);
 			} else {
 				xil_printf(ANSI_COLOR_YELLOW "EDID parsing has failed.\r\n"
