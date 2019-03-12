@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2001 - 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2001 - 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -76,6 +76,8 @@
 *            01/30/18 Added doxygen tags
 * 4.4   aru  11/15/18 Replaced "Xil_AssertVoid" as "Xil_AssertNonvoid"
 *                     in XWdtTb_ProgramWDTWidth().
+* 4.4   sne  02/28/19 Added Static functions for Window WDT feature:
+*                     XWdtTb_EnableTiWdt,XWdtTb_DisableTiWdt.
 * </pre>
 *
 ******************************************************************************/
@@ -97,6 +99,8 @@
 
 static void XWdtTb_EnableWinWdt(XWdtTb *InstancePtr);
 static s32 XWdtTb_DisableWinWdt(XWdtTb *InstancePtr);
+static void XWdtTb_EnableTiWdt(XWdtTb *InstancePtr);
+static s32 XWdtTb_DisableTiWdt(XWdtTb *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -237,7 +241,6 @@ End:
 ******************************************************************************/
 void XWdtTb_Start(XWdtTb *InstancePtr)
 {
-	u32 ControlStatusRegister0;
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -249,34 +252,8 @@ void XWdtTb_Start(XWdtTb *InstancePtr)
 		XWdtTb_EnableWinWdt(InstancePtr);
 	}
 	else {
-		/*
-		 * Read the current contents of TCSR0 so that subsequent writes
-		 * to the register won't destroy any other bits
-		 */
-		ControlStatusRegister0 =
-			XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
-				XWT_TWCSR0_OFFSET);
-		/*
-		 * Clear the bit that indicates the reason for the last
-		 * system reset, WRS and the WDS bit, if set, by writing
-		 * 1's to TCSR0
-		 */
-		ControlStatusRegister0 |= ((u32)XWT_CSR0_WRS_MASK |
-			(u32)XWT_CSR0_WDS_MASK);
-
-		/* Indicate that the device is started before we enable it */
-		InstancePtr->IsStarted = XIL_COMPONENT_IS_STARTED;
-
-		/*
-		 * Set the registers to enable the watchdog timer, both enable
-		 * bits in TCSR0 and TCSR1 need to be set to enable it
-		 */
-		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,
-			XWT_TWCSR0_OFFSET, (ControlStatusRegister0 |
-				(u32)XWT_CSR0_EWDT1_MASK));
-
-		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,
-			XWT_TWCSR1_OFFSET, XWT_CSRX_EWDT2_MASK);
+                /* Enable Timebase Watchdog Timer */
+                XWdtTb_EnableTiWdt(InstancePtr);
 	}
 }
 
@@ -307,7 +284,6 @@ void XWdtTb_Start(XWdtTb *InstancePtr)
 ******************************************************************************/
 s32 XWdtTb_Stop(XWdtTb *InstancePtr)
 {
-	u32 ControlStatusRegister0;
 	s32 Status;
 
 	/* Verify arguments. */
@@ -320,50 +296,9 @@ s32 XWdtTb_Stop(XWdtTb *InstancePtr)
 		Status = XWdtTb_DisableWinWdt(InstancePtr);
 	}
 	else {
-
-		/*
-		 * Check if the disable of the watchdog timer is possible by
-		 * writing a 0 to TCSR1 to clear the 2nd enable. If the Enable
-		 * does not clear in TCSR0, the watchdog cannot be disabled.
-		 * Return a NO_FEATURE to indicate this.
-		 */
-		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,
-			XWT_TWCSR1_OFFSET, (u32)0);
-
-		/*
-		 * Read the contents of TCSR0 so that the writes to the
-		 * register that follow are not destructive to other bits and
-		 * to check if the second enable was set to zero.
-		 */
-		ControlStatusRegister0 =
-			XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
-				XWT_TWCSR0_OFFSET);
-
-		/*
-		 * If the second enable was not set to zero, the feature is not
-		 * allowed in the hardware. Return with NO_FEATURE status
-		 */
-		if ((ControlStatusRegister0 & XWT_CSRX_EWDT2_MASK) != (u32)0) {
-			Status = XST_NO_FEATURE;
-			goto End;
-		}
-
-		/*
-		 * Disable the watchdog timer by performing 2 writes, 1st to
-		 * TCSR0 to clear the enable 1 and then to TCSR1 to clear the
-		 * 2nd enable.
-		 */
-		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,
-			XWT_TWCSR0_OFFSET, (ControlStatusRegister0 &
-				~((u32)XWT_CSR0_EWDT1_MASK)));
-
-		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,
-			XWT_TWCSR1_OFFSET, 0);
-
-		InstancePtr->IsStarted = (u32)0;
-		Status = XST_SUCCESS;
+                /* Disable Timebase Watchdog timer */
+                Status = XWdtTb_DisableTiWdt(InstancePtr);
 	}
-End:
 	return Status;
 }
 
@@ -1237,5 +1172,100 @@ u32 XWdtTb_ProgramWDTWidth(XWdtTb *InstancePtr, u32 width)
 	}
 	else
 		return XST_FAILURE;
+}
+/*****************************************************************************/
+/**
+*
+* This function enables Timebase Watchdog Timer feature.
+*
+* @param        InstancePtr is a pointer to the XWdtTb instance to be
+*               worked on.
+*
+* @return       None.
+*
+* @note         This will Start the Timebase Watchdog timer.
+*
+******************************************************************************/
+static void XWdtTb_EnableTiWdt(XWdtTb *InstancePtr)
+{
+	u32 ControlStatusRegister0;
+	/*
+	 * Read the current contents of TCSR0 so that subsequent writes
+	 * to the register won't destroy any other bits
+         */
+	ControlStatusRegister0 =
+			XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,XWT_TWCSR0_OFFSET);
+	/*
+	 * Clear the bit that indicates the reason for the last
+	 * system reset, WRS and the WDS bit, if set, by writing
+	 * 1's to TCSR0
+	 */
+	ControlStatusRegister0 |= ((u32)XWT_CSR0_WRS_MASK |(u32)XWT_CSR0_WDS_MASK);
+
+	/* Indicate that the device is started before we enable it */
+	InstancePtr->IsStarted = XIL_COMPONENT_IS_STARTED;
+	/*
+	 * Set the registers to enable the watchdog timer, both enable
+	 * bits in TCSR0 and TCSR1 need to be set to enable it
+	 */
+	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,
+			XWT_TWCSR0_OFFSET, (ControlStatusRegister0 |(u32)XWT_CSR0_EWDT1_MASK));
+	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,
+			XWT_TWCSR1_OFFSET, XWT_CSRX_EWDT2_MASK);
+}
+/*****************************************************************************/
+/**
+*
+* This function Disable Timebase Watchdog Timer feature.
+*
+* @param        InstancePtr is a pointer to the XWdtTb instance to be
+*               worked on.
+*
+* @return
+*               - XST_SUCESS, if  Timebase  WDT feature is disabled.
+*               - XST_FAILURE, if Timebase  WDT feature is not disabled.
+*
+* @note         This will Disable Timebase Watchdog Timer.
+*
+******************************************************************************/
+static s32 XWdtTb_DisableTiWdt(XWdtTb *InstancePtr)
+{
+	u32 ControlStatusRegister0;
+	s32 Status;
+	/*
+         * Check if the disable of the watchdog timer is possible by
+         * writing a 0 to TCSR1 to clear the 2nd enable. If the Enable
+         * does not clear in TCSR0, the watchdog cannot be disabled.
+         * Return a NO_FEATURE to indicate this.
+        */
+	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_TWCSR1_OFFSET, (u32)0U);
+	/*
+     * Read the contents of TCSR0 so that the writes to the
+     * register that follow are not destructive to other bits and
+     * to check if the second enable was set to zero.
+     */
+	ControlStatusRegister0 =
+			XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,XWT_TWCSR0_OFFSET);
+	/*
+	 * If the second enable was not set to zero, the feature is not
+     * allowed in the hardware. Return with NO_FEATURE status
+     */
+	if ((ControlStatusRegister0 & XWT_CSRX_EWDT2_MASK) != (u32)0U) {
+		Status = XST_NO_FEATURE;
+		goto End;
+	}
+	/*
+     * Disable the watchdog timer by performing 2 writes, 1st to
+     * TCSR0 to clear the enable 1 and then to TCSR1 to clear the
+     * 2nd enable.
+     */
+	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,
+			XWT_TWCSR0_OFFSET, (ControlStatusRegister0 &~((u32)XWT_CSR0_EWDT1_MASK)));
+	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,
+			XWT_TWCSR1_OFFSET, 0U);
+	InstancePtr->IsStarted = (u32)0U;
+	Status = XST_SUCCESS;
+	End:
+	return Status;
 }
 /** @} */
