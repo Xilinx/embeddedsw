@@ -203,6 +203,7 @@ static int XLoader_LoadFabricData (XLoader* XLoaderPtr, XilPdi* PdiPtr, u32 Prtn
 		RemLen -= ChunkSize;
 		SrcAddr += ChunkSize;
 	}
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }
