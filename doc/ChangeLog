@@ -70,6 +70,8 @@ Pick correct compiler for R5.
 Update lwip examples to be in sync with new xilffs.
 Add IEEE1588 byte padding for PL Ethernet.
 Add support for versal IP name.
+Fix GCC warnings in emaclite adapter source.
+Fix xemacliteif_input() for freertos multi-packet scenario.
 
 ospipsv_v1_0:
 First Release.
