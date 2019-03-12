@@ -1829,7 +1829,7 @@ void XV_HdmiTxSs_ShowEdid(XV_HdmiTxSs *InstancePtr)
       // Check if read was successful
       if (Status == (XST_SUCCESS)) {
         XVidC_EdidGetManName(&Buffer[0], (char *) EdidManName);
-        xil_printf("\r\nMFG name : %S\r\n", EdidManName);
+        xil_printf("\r\nMFG name : %s\r\n", EdidManName);
 
 		ExtensionFlag = Buffer[126];
 		ExtensionFlag = ExtensionFlag >> 1;
