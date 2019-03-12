@@ -160,7 +160,7 @@ typedef struct {
 
 /* CFI Commands */
 #define CMD_CFI_SETCRC32	(0x301U)
-#define CMD_CFI_READBK		(0x302U)
+#define CMD_CFI_READBK		(0x309U)
 
 /* Error Codes */
 #define XILCDO_ERR_HDR_CHKSUM	(0x1U)
