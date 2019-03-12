@@ -111,6 +111,17 @@
 *                       'ENABLE_HDCP_REPEATER' macro.
 *       EB     09/21/18 Added new API ToggleHdmiRxHpd and SetHdmiRxHpd
 *                       Updated CloneTxEdid API
+* 3.04  EB     03/01/19 Fixed an issue where TX's color space is not up-to-date
+*                              in pass-through mode
+*                       Fixed an issue where SCDC is not cleared when HPD is
+*                              toggled
+*                       Fixed an issue where TX stream doesn't come up when
+*                              hotplug is performed on HDMI 2.0 resolution in
+*                              loopback mode
+*       EB     03/08/19 Fixed an issue where loading of default EDID doesn't
+*                              toggle HPD
+*       mmo    03/08/19 Added "IsStreamUpHDCP" to enable the HDCP
+*                              Authentication on the first VSYNC of TX
 * </pre>
 *
 ******************************************************************************/
@@ -125,7 +136,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 /* These macro values need to changed whenever there is a change in version */
 #define APP_MAJ_VERSION 5
-#define APP_MIN_VERSION 2
+#define APP_MIN_VERSION 3
 
 /**************************** Type Definitions *******************************/
 
@@ -233,6 +244,9 @@ u8                 TxRestartColorbar = (FALSE);
 /* TX Stream Up Status Flag, Avoiding Race condition */
 u8                 IsStreamUp = (FALSE);
 u64                TxLineRate = 0;
+#ifdef USE_HDCP
+u8                 IsStreamUpHDCP = (FALSE);
+#endif
 /* Sink Ready: Become true when the EDID parsing is completed
  * upon cable connect */
 u8                 SinkReady = (FALSE);
@@ -563,10 +577,12 @@ void SendInfoframe(XV_HdmiTxSs *HdmiTxSsPtr)
 	XHdmiC_AVI_InfoFrame *AviInfoFramePtr;
 	XHdmiC_AudioInfoFrame *AudioInfoFramePtr;
 	XHdmiC_VSIF *VSIFPtr;
+	XVidC_VideoStream *HdmiTxSsVidStreamPtr;
 
 	AviInfoFramePtr = XV_HdmiTxSs_GetAviInfoframe(HdmiTxSsPtr);
 	AudioInfoFramePtr = XV_HdmiTxSs_GetAudioInfoframe(HdmiTxSsPtr);
 	VSIFPtr = XV_HdmiTxSs_GetVSIF(HdmiTxSsPtr);
+	HdmiTxSsVidStreamPtr = XV_HdmiTxSs_GetVideoStream(&HdmiTxSs);
 	Status = (XST_FAILURE);
 
 	if (!IsPassThrough) {
@@ -612,6 +628,44 @@ void SendInfoframe(XV_HdmiTxSs *HdmiTxSsPtr)
 				XV_HdmiC_ParseAVIInfoFrame
 						(&AuxFifo[AuxFifoStartIndex],
 						 AviInfoFramePtr);
+
+				if (IsPassThrough && AviInfoFramePtr->ColorSpace !=
+						XV_HdmiC_XVidC_To_IfColorformat(HdmiTxSsVidStreamPtr->ColorFormatId)) {
+
+					/* The color space decoded from the RX's InfoFrame
+					 * indicates a color space change. Proceed to update the
+					 * TX stream color space to the new value.
+					 */
+					switch (AviInfoFramePtr->ColorSpace) {
+						case XHDMIC_COLORSPACE_RGB :
+							HdmiTxSsVidStreamPtr->ColorFormatId =
+									XVIDC_CSF_RGB;
+							break;
+
+						case XHDMIC_COLORSPACE_YUV422 :
+							HdmiTxSsVidStreamPtr->ColorFormatId =
+									XVIDC_CSF_YCRCB_422;
+							break;
+
+						case XHDMIC_COLORSPACE_YUV444 :
+							HdmiTxSsVidStreamPtr->ColorFormatId =
+									XVIDC_CSF_YCRCB_444;
+							break;
+
+						case XHDMIC_COLORSPACE_YUV420 :
+							HdmiTxSsVidStreamPtr->ColorFormatId =
+									XVIDC_CSF_YCRCB_420;
+							break;
+
+						default:
+							break;
+					}
+
+					xil_printf(ANSI_COLOR_YELLOW "TX Color space changed to %s"
+						ANSI_COLOR_RESET "\r\n",
+						XVidC_GetColorFormatStr(HdmiTxSsVidStreamPtr->ColorFormatId));
+
+				}
 
 				/* Modify the TX's InfoFrame here before
 				 * sending out
@@ -1088,13 +1142,12 @@ void TxConnectCallback(void *CallbackRef) {
 			/* Restart Stream */
 			StartTxAfterRxFlag = (TRUE);
 		}
-		else { /* No stable RX Stream available, Only TX Cable Connect,
-				* Hence TX-Only mode or Color bar
+		else { /* Operate in TX Only Colorbar mode when the
+				* the system is in loopback mode or when RX
+				* is not connected during PassThrough mode
 				*/
-#if(LOOPBACK_MODE_EN != 1)
 			TxRestartColorbar = (TRUE);
 			TxBusy = (FALSE);
-#endif
 		}
 
 		XVphy_IBufDsEnable(&Vphy, 0, XVPHY_DIR_TX, (TRUE));
@@ -1215,13 +1268,13 @@ void ToggleHdmiRxHpd(XVphy *VphyPtr, XV_HdmiRxSs *HdmiRxSsPtr) {
 ******************************************************************************/
 void SetHdmiRxHpd(XVphy *VphyPtr, XV_HdmiRxSs *HdmiRxSsPtr, u8 Hpd) {
 	if (Hpd == TRUE) {
-		XV_HdmiRxSs_SetHpd(HdmiRxSsPtr, Hpd);
+		XV_HdmiRxSs_Start(HdmiRxSsPtr);
 		XVphy_IBufDsEnable(VphyPtr, 0, XVPHY_DIR_RX, (TRUE));
 	} else {
 		XVphy_MmcmPowerDown(VphyPtr, 0, XVPHY_DIR_RX, FALSE);
 		XVphy_Clkout1OBufTdsEnable(VphyPtr, XVPHY_DIR_RX, (FALSE));
 		XVphy_IBufDsEnable(VphyPtr, 0, XVPHY_DIR_RX, (FALSE));
-		XV_HdmiRxSs_SetHpd(HdmiRxSsPtr, Hpd);
+		XV_HdmiRxSs_Stop(HdmiRxSsPtr);
 	}
 }
 
@@ -1435,6 +1488,28 @@ void VphyProcessError(void) {
 *
 ******************************************************************************/
 void TxVsCallback(void *CallbackRef) {
+#ifdef USE_HDCP
+	if (IsStreamUpHDCP == TRUE) {
+#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+		/* During Bonded Mode, push for authentication during
+		 * StartAfterTX API
+		 */
+		if ((!(XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)))
+				|| !StartTxAfterRxFlag) {
+#endif
+#endif
+			/* Call HDCP stream-up callback */
+			XHdcp_StreamUpCallback(&HdcpRepeater);
+#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+	}
+#endif
+#endif
+		IsStreamUpHDCP = FALSE;
+	}
+#endif
+
 	/* When the TX stream is confirmed to have started, start accepting
 	 * Aux from RxAuxCallback
 	 */
@@ -1893,6 +1968,9 @@ void TxStreamUpCallback(void *CallbackRef) {
 	XHdmiC_AVI_InfoFrame  *AVIInfoFramePtr;
 #endif
 	IsStreamUp = TRUE;
+#ifdef USE_HDCP
+	IsStreamUpHDCP = TRUE;
+#endif
 
 	XV_HdmiTxSs *HdmiTxSsPtr = (XV_HdmiTxSs *)CallbackRef;
 	XVphy_PllType TxPllType;
@@ -2075,25 +2153,6 @@ void TxStreamUpCallback(void *CallbackRef) {
 #endif
 
 	ReportStreamMode(HdmiTxSsPtr, IsPassThrough);
-
-#ifdef USE_HDCP
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
-	/* During Bonded Mode, push for authentication during
-	 * StartAfterTX API
-	 */
-	if ((!(XVphy_IsBonded(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)))
-			|| !StartTxAfterRxFlag) {
-#endif
-#endif
-		/* Call HDCP stream-up callback */
-		XHdcp_StreamUpCallback(&HdcpRepeater);
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
-	}
-#endif
-#endif
-#endif
 
 #ifdef VIDEO_FRAME_CRC_EN
 	/* Reset Video Frame CRC */
