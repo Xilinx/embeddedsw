@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2001 - 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2001 - 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -158,6 +158,14 @@
 *            01/30/18 Added doxygen tags
 * 4.4   aru  11/15/18 Replaced "Xil_AssertVoid" as "Xil_AssertNonvoid"
 *                     in XWdtTb_ProgramWDTWidth().
+* 4.4   sne  03/01/19 Fixed violations according to MISRAC-2012 standards
+*                     modified the code for below violations,
+*                     No brackets to then/else,
+*                     Literal value requires a U suffix,Function return
+*                     type inconsistent,Logical conjunctions need brackets,
+*                     Declared the poiner param as Pointer to const,
+*                     Procedure has more than one exit point.
+*
 * </pre>
 *
 ******************************************************************************/

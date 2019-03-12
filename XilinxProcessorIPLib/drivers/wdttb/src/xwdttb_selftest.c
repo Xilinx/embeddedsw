@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2002 - 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xwdttb_selftest.c
-* @addtogroup wdttb_v4_3
+* @addtogroup wdttb_v4_4
 * @{
 *
 * Contains diagnostic self-test functions for the XWdtTb component.
@@ -51,6 +51,14 @@
 * 4.0   sha  01/29/16 Added following macros for Window WDT feature:
 *                     XWT_FW_COUNT, XWT_SW_COUNT.
 * 4.3   srm  01/30/18 Added doxygen tags
+* 4.4   sne  03/01/19 Fixed violations according to MISRAC-2012 standards
+*                     modified the code for below violations,
+*                     No brackets to then/else,
+*                     Literal value requires a U suffix,Function return
+*                     type inconsistent,Logical conjunctions need brackets,
+*                     Declared the poiner param as Pointer to const,
+*                     Procedure has more than one exit point.
+*
 * </pre>
 *
 ******************************************************************************/

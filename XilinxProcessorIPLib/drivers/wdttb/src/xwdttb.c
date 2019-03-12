@@ -78,6 +78,13 @@
 *                     in XWdtTb_ProgramWDTWidth().
 * 4.4   sne  02/28/19 Added Static functions for Window WDT feature:
 *                     XWdtTb_EnableTiWdt,XWdtTb_DisableTiWdt.
+* 4.4   sne  03/01/19 Fixed violations according to MISRAC-2012 standards
+*                     modified the code for below violations,
+*                     No brackets to then/else,
+*                     Literal value requires a U suffix,Function return
+*                     type inconsistent,Logical conjunctions need brackets,
+*                     Declared the poiner param as Pointer to const,
+*                     Procedure has more than one exit point.
 * </pre>
 *
 ******************************************************************************/
