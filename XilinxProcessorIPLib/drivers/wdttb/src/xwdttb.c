@@ -1164,7 +1164,7 @@ u32 XWdtTb_ProgramWDTWidth(XWdtTb *InstancePtr, u32 width)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	if((InstancePtr->Config.EnableWinWdt == (u32)0) && (width>=8U && width<=31U))
+	if((InstancePtr->Config.EnableWinWdt == (u32)0) && ((width>=8U) && (width<=31U)))
 	{
 		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_MWR_OFFSET, width);
 
