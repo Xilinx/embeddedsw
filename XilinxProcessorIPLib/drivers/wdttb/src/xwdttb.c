@@ -128,7 +128,7 @@ static s32 XWdtTb_DisableTiWdt(XWdtTb *InstancePtr);
 * @note		None.
 *
 ******************************************************************************/
-s32 XWdtTb_CfgInitialize(XWdtTb *InstancePtr, XWdtTb_Config *CfgPtr,
+s32 XWdtTb_CfgInitialize(XWdtTb *InstancePtr, const XWdtTb_Config *CfgPtr,
 				u32 EffectiveAddr)
 {
 	s32 Status;
@@ -322,7 +322,7 @@ s32 XWdtTb_Stop(XWdtTb *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-u32 XWdtTb_IsWdtExpired(XWdtTb *InstancePtr)
+u32 XWdtTb_IsWdtExpired(const XWdtTb *InstancePtr)
 {
 	u32 ControlStatusRegister0;
 	u32 Mask;
@@ -375,7 +375,7 @@ u32 XWdtTb_IsWdtExpired(XWdtTb *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-void XWdtTb_RestartWdt(XWdtTb *InstancePtr)
+void XWdtTb_RestartWdt(const XWdtTb *InstancePtr)
 {
 	u32 ControlStatusRegister0;
 
@@ -429,7 +429,7 @@ void XWdtTb_RestartWdt(XWdtTb *InstancePtr)
 *		WDT is enabled, it can only be disabled by applying reset.
 *
 ******************************************************************************/
-void XWdtTb_AlwaysEnable(XWdtTb *InstancePtr)
+void XWdtTb_AlwaysEnable(const XWdtTb *InstancePtr)
 {
 	u32 RegValue;
 
@@ -460,7 +460,7 @@ void XWdtTb_AlwaysEnable(XWdtTb *InstancePtr)
 *		by writing 111. Writing any other pattern has no effect.
 *
 ******************************************************************************/
-void XWdtTb_ClearLastEvent(XWdtTb *InstancePtr)
+void XWdtTb_ClearLastEvent(const XWdtTb *InstancePtr)
 {
 	u32 RegValue;
 	u32 SecWindow;
@@ -501,7 +501,7 @@ void XWdtTb_ClearLastEvent(XWdtTb *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-void XWdtTb_ClearResetPending(XWdtTb *InstancePtr)
+void XWdtTb_ClearResetPending(const XWdtTb *InstancePtr)
 {
 	u32 RegValue;
 
@@ -531,7 +531,7 @@ void XWdtTb_ClearResetPending(XWdtTb *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-void XWdtTb_IntrClear(XWdtTb *InstancePtr)
+void XWdtTb_IntrClear(const XWdtTb *InstancePtr)
 {
 	u32 RegValue;
 	u32 SecWindow;
@@ -579,7 +579,7 @@ void XWdtTb_IntrClear(XWdtTb *InstancePtr)
 *		- This function must be used along with XWdtTb_SetByteSegment.
 *
 ******************************************************************************/
-void XWdtTb_SetByteCount(XWdtTb *InstancePtr, u32 ByteCount)
+void XWdtTb_SetByteCount(const XWdtTb *InstancePtr, u32 ByteCount)
 {
 	u32 RegValue;
 	u32 Count;
@@ -615,7 +615,7 @@ void XWdtTb_SetByteCount(XWdtTb *InstancePtr, u32 ByteCount)
 * @note		None.
 *
 ******************************************************************************/
-u32 XWdtTb_GetByteCount(XWdtTb *InstancePtr)
+u32 XWdtTb_GetByteCount(const XWdtTb *InstancePtr)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -648,7 +648,7 @@ u32 XWdtTb_GetByteCount(XWdtTb *InstancePtr)
 *		- This function must be used along with XWdtTb_SetByteCount.
 *
 ******************************************************************************/
-void XWdtTb_SetByteSegment(XWdtTb *InstancePtr, u32 ByteSegment)
+void XWdtTb_SetByteSegment(const XWdtTb *InstancePtr, u32 ByteSegment)
 {
 	u32 SegmentNum;
 	u32 RegValue;
@@ -688,7 +688,7 @@ void XWdtTb_SetByteSegment(XWdtTb *InstancePtr, u32 ByteSegment)
 * @note		None.
 *
 ******************************************************************************/
-u32 XWdtTb_GetByteSegment(XWdtTb *InstancePtr)
+u32 XWdtTb_GetByteSegment(const XWdtTb *InstancePtr)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -718,7 +718,7 @@ u32 XWdtTb_GetByteSegment(XWdtTb *InstancePtr)
 *		any mode w/ or w/o other options.
 *
 ******************************************************************************/
-void XWdtTb_EnableSst(XWdtTb *InstancePtr)
+void XWdtTb_EnableSst(const XWdtTb *InstancePtr)
 {
 	u32 RegValue;
 
@@ -749,7 +749,7 @@ void XWdtTb_EnableSst(XWdtTb *InstancePtr)
 *		after Window WDT stop/disable.
 *
 ******************************************************************************/
-void XWdtTb_DisableSst(XWdtTb *InstancePtr)
+void XWdtTb_DisableSst(const XWdtTb *InstancePtr)
 {
 	u32 RegValue;
 
@@ -787,7 +787,7 @@ void XWdtTb_DisableSst(XWdtTb *InstancePtr)
 *		after SST count delay when SST is enabled.
 *
 ******************************************************************************/
-void XWdtTb_EnablePsm(XWdtTb *InstancePtr)
+void XWdtTb_EnablePsm(const XWdtTb *InstancePtr)
 {
 	u32 RegValue;
 
@@ -818,7 +818,7 @@ void XWdtTb_EnablePsm(XWdtTb *InstancePtr)
 *		after Window WDT stop/disable.
 *
 ******************************************************************************/
-void XWdtTb_DisablePsm(XWdtTb *InstancePtr)
+void XWdtTb_DisablePsm(const XWdtTb *InstancePtr)
 {
 	u32 RegValue;
 
@@ -922,7 +922,7 @@ void XWdtTb_DisableFailCounter(XWdtTb *InstancePtr)
 *		after Window WDT stop/disable.
 *
 ******************************************************************************/
-void XWdtTb_EnableExtraProtection(XWdtTb *InstancePtr)
+void XWdtTb_EnableExtraProtection(const XWdtTb *InstancePtr)
 {
 	u32 RegValue;
 
@@ -953,7 +953,7 @@ void XWdtTb_EnableExtraProtection(XWdtTb *InstancePtr)
 *		after Window WDT stop/disable.
 *
 ******************************************************************************/
-void XWdtTb_DisableExtraProtection(XWdtTb *InstancePtr)
+void XWdtTb_DisableExtraProtection(const XWdtTb *InstancePtr)
 {
 	u32 RegValue;
 
@@ -995,7 +995,7 @@ void XWdtTb_DisableExtraProtection(XWdtTb *InstancePtr)
 *		WEN bit irrespective of WDP settings.
 *
 ******************************************************************************/
-void XWdtTb_SetWindowCount(XWdtTb *InstancePtr, u32 FirstWinCount,
+void XWdtTb_SetWindowCount(const XWdtTb *InstancePtr, u32 FirstWinCount,
 				u32 SecondWinCount)
 {
 	/* Verify arguments. */
@@ -1159,7 +1159,7 @@ static s32 XWdtTb_DisableWinWdt(XWdtTb *InstancePtr)
 *		  value returns failure.
 *
 ******************************************************************************/
-u32 XWdtTb_ProgramWDTWidth(XWdtTb *InstancePtr, u32 width)
+u32 XWdtTb_ProgramWDTWidth(const XWdtTb *InstancePtr, u32 width)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
