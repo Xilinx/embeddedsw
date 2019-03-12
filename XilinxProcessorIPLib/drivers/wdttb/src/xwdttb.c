@@ -1168,11 +1168,11 @@ u32 XWdtTb_ProgramWDTWidth(XWdtTb *InstancePtr, u32 width)
 	{
 		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_MWR_OFFSET, width);
 
-		return XST_SUCCESS;
+		return (u32)XST_SUCCESS;
 	}
 	else
         {
-		return XST_FAILURE;
+		return (u32)XST_FAILURE;
         }
 }
 /*****************************************************************************/
