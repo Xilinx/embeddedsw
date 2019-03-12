@@ -1266,12 +1266,14 @@ static void DDR_reinit(bool ddrss_is_reset)
 			if (XST_SUCCESS != status) {
 				continue;
 			}
+#if XPAR_PSU_DDRC_0_HAS_ECC
 			status = XPfw_UtilPollForMask(DDRPHY_DXGSR0(8U),
 						      DDRPHY_DXGSR0_DPLOCK,
 						      PM_DDR_POLL_PERIOD);
 			if (XST_SUCCESS != status) {
 				continue;
 			}
+#endif
 		} while (XST_SUCCESS != status);
 
 		status = XPfw_UtilPollForZero(DDRPHY_PGSR(0U),
