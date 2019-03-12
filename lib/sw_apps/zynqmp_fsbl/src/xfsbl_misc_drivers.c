@@ -86,7 +86,6 @@
 #define IPI_DEVICE_ID			XPAR_XIPIPSU_0_DEVICE_ID
 #define IPI_PMU_PM_INT_MASK		XPAR_XIPIPS_TARGET_PSU_PMU_0_CH0_MASK
 #define PM_INIT				21U
-#define PM_IPI_TIMEOUT			(~0)
 #endif
 #define PM_INIT_COMPLETED_KEY		0x5A5A5A5AU
 /************************** Function Prototypes ******************************/
