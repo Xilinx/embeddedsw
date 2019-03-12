@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2011 - 2016 Xilinx, Inc. All rights reserved.
+# Copyright (C) 2011 - 2019 Xilinx, Inc. All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -34,6 +34,7 @@
 #                          legacy and window WDT.
 # 4.2      ms     04/18/17 Modified tcl file to add suffix U for all macros
 #                          definitions of wdttb in xparameters.h
+# 4.4      sne    03/04/19 Added versal support.
 ###############################################################################
 
 #uses "xillib.tcl"
@@ -45,11 +46,19 @@ set periph_ninstances		0
 # Main generate function - called by the tool
 # -----------------------------------------------------------------------------
 proc generate {drv_handle} {
+set ip_name [get_property IP_NAME [get_cells $drv_handle]]
+if {$ip_name == "psu_wwdt" || $ip_name == "psv_wwdt"} {
+     xdefine_zynq_include_file $drv_handle "xparameters.h" "XWdtTb" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_WDT_CLK_FREQ_HZ"
+
+    xdefine_zynq_config_file $drv_handle "xwdttb_g.c" "XWdtTb" "DEVICE_ID" "C_S_AXI_BASEADDR"
+
+    xdefine_zynq_canonical_xpars $drv_handle "xparameters.h" "WdtTb" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_WDT_CLK_FREQ_HZ"
+} else {
 
 	xdefine_wdttb_include_file $drv_handle "xparameters.h" "XWdtTb"
 	xdefine_wdttb_config_file "xwdttb_g.c" "XWdtTb"
 }
-
+}
 proc init_periph_config_struct { deviceid } {
 	global periph_config_params_wdt
 	set periph_config_params_wdt($deviceid) [list]
