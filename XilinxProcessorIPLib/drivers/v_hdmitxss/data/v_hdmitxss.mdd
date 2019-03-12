@@ -33,7 +33,7 @@ BEGIN driver v_hdmitxss
   OPTION supported_peripherals = (v_hdmi_tx_ss);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 5.2;
+  OPTION VERSION = 5.3;
   OPTION DEPENDS = (v_hdmitx vtc v_hdmi_common);
   OPTION NAME = v_hdmitxss;
 
