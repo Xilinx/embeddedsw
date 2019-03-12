@@ -33,6 +33,6 @@ BEGIN driver v_hdmirx
   OPTION driver_state = ACTIVE;
   OPTION DEPENDS = (video_common v_hdmi_common);
   OPTION copyfiles = all;
-  OPTION VERSION = 2.2;
+  OPTION VERSION = 2.3;
   OPTION NAME = v_hdmirx;
 END driver
