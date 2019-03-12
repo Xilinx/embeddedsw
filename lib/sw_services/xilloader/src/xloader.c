@@ -292,6 +292,12 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_PRTNHDR, Status);
 		goto END;
 	}
+
+	/**
+	 * Mark PDI loading is started.
+	 * Marking PDI start only after verification of header
+	 */
+	XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_STARTED);
 END:
 	return Status;
 }
@@ -339,6 +345,9 @@ int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
 		SubSystemInfo.PdiPtr = PdiPtr;
 	}
+
+	/** Mark PDI loading is completed */
+	XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_COMPLETE);
 	Status = XST_SUCCESS;
 END:
 	return Status;
