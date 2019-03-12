@@ -58,7 +58,7 @@
 *                     type inconsistent,Logical conjunctions need brackets,
 *                     Declared the poiner param as Pointer to const,
 *                     Procedure has more than one exit point.
-*
+* 4.4   sne  03/04/19 Added Support for Versal.
 * </pre>
 *
 ******************************************************************************/
@@ -68,11 +68,12 @@
 #include "xwdttb.h"
 
 /************************** Constant Definitions *****************************/
-
 #define XWT_MAX_SELFTEST_LOOP_COUNT	0x00010000U
 #define XWT_FW_COUNT			0x0U
 #define XWT_SW_COUNT			0x10000U
-
+#define XWT_GWCVR0_COUNT                0x00001000U
+#define XWT_GWCVR1_COUNT                0x00001000U
+#define XWT_GWOR_COUNT                  0x00001000U
 /**************************** Type Definitions *******************************/
 
 
@@ -111,7 +112,9 @@
 ******************************************************************************/
 s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
 {
+#ifndef versal
 	u32 LoopCount;
+#endif
 	u32 TbrValue1;
 	u32 TbrValue2;
 	s32 Status;
@@ -124,7 +127,7 @@ s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Check whether Window WDT is enabled */
-	if (InstancePtr->Config.EnableWinWdt == (u32)1) {
+	if (InstancePtr->EnableWinMode == (u32)1) {
 		/* Configure first window with zero count */
 		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_FWR_OFFSET,
 			XWT_FW_COUNT);
@@ -136,6 +139,14 @@ s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
 		/* Enable Window WDT */
 		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_ESR_OFFSET,
 			XWT_ESR_WEN_MASK);
+                TbrValue2 = (XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,XWT_ESR_OFFSET)& XWT_ESR_WEN_MASK);
+                if (TbrValue2 == (u32)1U) {
+                        Status = XST_SUCCESS;
+                }
+                else {
+                        Status = XST_FAILURE;
+                        goto End;
+                }
 
 		/* Set writable mode */
 		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_MWR_OFFSET,
@@ -169,6 +180,37 @@ s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
 		}
 	}
 	else {
+#ifdef versal
+                /*Set Generic Watchdog Compare Value Register 0 */
+                XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_GWCVR0_OFFSET,XWT_GWCVR0_COUNT);
+                /*Set Generic Watchdog Compare Value Register 1 */
+                XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_GWCVR1_OFFSET,XWT_GWCVR1_COUNT);
+                /* Write General Watchdog offset register for Generating interrupt */
+                XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_GWOR_OFFSET,XWT_GWOR_COUNT);
+                /*Enable GWEN bit for starting General Watchdog timer */
+                XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_GWCSR_OFFSET,XWT_GWCSR_GWEN_MASK);
+                TbrValue1 = (XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,XWT_GWCSR_OFFSET)& XWT_GWCSR_GWEN_MASK);
+                if (TbrValue1 == (u32)1) {
+                        Status =XST_SUCCESS;
+                }
+                else
+                {
+                        Status = XST_FAILURE;
+                        goto End;
+                }
+                /* Write General WDT Refresh register to restart the timer */
+                XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_GWRR_OFFSET,1U);
+                /* Disable GWEN Register */
+                XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_GWCSR_OFFSET,(~XWT_GWCSR_GWEN_MASK));
+                TbrValue2 = (XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,XWT_GWCSR_OFFSET)& XWT_GWCSR_GWEN_MASK);
+                if (TbrValue2 == (u32)0U) {
+                        Status =XST_SUCCESS;
+                }
+                else {
+                        Status = XST_FAILURE;
+                }
+#else
+
 		/*
 		 * Read the timebase register twice to start the test
 		 */
@@ -199,8 +241,9 @@ s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
 		else {
 			Status = XST_WDTTB_TIMER_FAILED;
 		}
+#endif
 	}
-
+End:
 	return Status;
 }
 /** @} */
