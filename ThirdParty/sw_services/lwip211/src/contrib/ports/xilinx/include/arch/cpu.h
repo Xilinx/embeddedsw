@@ -37,10 +37,12 @@
 
 #include "lwipopts.h"
 
+#ifndef BYTE_ORDER
 #ifdef PROCESSOR_LITTLE_ENDIAN
 #define BYTE_ORDER LITTLE_ENDIAN
 #else
 #define BYTE_ORDER BIG_ENDIAN
+#endif
 #endif
 
 #endif /* __ARCH_CPU_H__ */
