@@ -62,6 +62,8 @@
  *                     Updated XVPHY_QPLL0_MAX to 16375000000LL
  * 1.8   gm   05/09/18 Enable IPS only when XVphy_GetRefClkSourcesCount
  *                       returns more than 1.
+ * 1.9   gm   14/05/18 Added QPLLx_FBDIV=25 & 30 as per observation from the
+ *                       GT Wizard
  * </pre>
  *
 *******************************************************************************/
@@ -140,8 +142,8 @@ const u8 Gthe3CpllDivsN2[]	= {1, 2, 3, 4, 5, 8, 0};
 const u8 Gthe3CpllDivsD[]	= {1, 2, 4, 8, 0};
 
 const u8 Gthe3QpllDivsM[]	= {4, 3, 2, 1, 0};
-const u8 Gthe3QpllDivsN1[]	= {16, 20, 32, 40, 60, 64, 66, 75, 80, 84, 90,
-					96, 100, 112, 120, 125, 150, 160, 0};
+const u8 Gthe3QpllDivsN1[]	= {16, 20, 25, 30, 32, 40, 60, 64, 66, 75, 80, 84,
+					90, 96, 100, 112, 120, 125, 150, 160, 0};
 const u8 Gthe3QpllDivsN2[]	= {1, 0};
 const u8 Gthe3QpllDivsD[]	= {16, 8, 4, 2, 1, 0};
 
@@ -218,7 +220,7 @@ u32 XVphy_Gthe3CfgSetCdr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 			ChPtr->PllParams.Cdr[2] = 0x0721;
 		}
 	}
-	else if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
+	else if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX)) {
 		/* RxOutDiv = 1  => Cdr[2] = 0x07E4
 		 * RxOutDiv = 2  => Cdr[2] = 0x07D4
 		 * RxOutDiv = 4  => Cdr[2] = 0x07C4
@@ -464,11 +466,13 @@ u32 XVphy_Gthe3ClkCmnReconfig(XVphy *InstancePtr, u8 QuadId,
 	Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
 		(CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x18 : 0x98, DrpVal);
 
-	if ((InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) ||
-		(InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI)) {
+	if ((XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX)) ||
+		(XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX))) {
 		/* QPLLx_LPF */
 		switch (InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(CmnId)].
 				PllParams.NFbDiv) {
+		case 25:
+		case 30:
 		case 40:
 			DrpVal = 0x3FF;
 			break;
@@ -551,7 +555,7 @@ u32 XVphy_Gthe3RxChReconfig(XVphy *InstancePtr, u8 QuadId,
 			XVPHY_DRP_RXCDR_CFG(CfgIndex), DrpVal);
 	}
 
-	if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
+	if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX)) {
 		Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId, 0x66, &DrpVal);
 		DrpVal &= ~(0x3);
 		WriteVal = (Xvphy_DrpEncodeIntDataWidth(ChPtr->RxIntDataWidth) & 0x3);
@@ -594,10 +598,29 @@ u32 XVphy_Gthe3TxChReconfig(XVphy *InstancePtr, u8 QuadId,
 	u16 DrpVal;
 	u16 WriteVal;
     u32 Status = XST_SUCCESS;
+	XVphy_PllType TxPllType;
 
 	ChPtr = &InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(ChId)];
 
-	if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) {
+	if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX)) {
+		/* Determine PLL type. */
+		TxPllType = XVphy_GetPllType(InstancePtr, QuadId, XVPHY_DIR_TX,
+			XVPHY_CHANNEL_ID_CH1);
+
+		/* Set TX_PROGDIV_CFG to 20/4 */
+		if ((TxPllType == XVPHY_PLL_TYPE_QPLL) ||
+			(TxPllType == XVPHY_PLL_TYPE_QPLL0) ||
+			(TxPllType == XVPHY_PLL_TYPE_QPLL1)) {
+			if (InstancePtr->Quads[QuadId].
+					Plls[XVPHY_CH2IDX(ChId)].TxOutDiv != 16) {
+				/* TX_PROGDIV_CFG = 20 */
+				XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x3E, 57762);
+			} else {
+				/* TX_PROGDIV_CFG = 40 */
+				XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x3E, 57766);
+			}
+		}
+
 		/* TX_INT_DATAWIDTH */
 		Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId, 0x85, &DrpVal);
 		DrpVal &= ~(0x3 << 10);
@@ -643,7 +666,7 @@ u32 XVphy_Gthe3TxPllRefClkDiv1Reconfig(XVphy *InstancePtr, u8 QuadId,
 	XVphy_Channel *PllPtr = &InstancePtr->Quads[QuadId].
                     Plls[XVPHY_CH2IDX(ChId)];
 
-	if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) {
+	if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX)) {
 		TxRefClkHz = InstancePtr->HdmiTxRefClkHz;
 	}
 	else {
@@ -684,7 +707,7 @@ u32 XVphy_Gthe3RxPllRefClkDiv1Reconfig(XVphy *InstancePtr, u8 QuadId,
 	XVphy_Channel *PllPtr = &InstancePtr->Quads[QuadId].
                     Plls[XVPHY_CH2IDX(ChId)];
 
-	if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
+	if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX)) {
 		RxRefClkHz = InstancePtr->HdmiRxRefClkHz;
 	}
 	else {
