@@ -478,6 +478,7 @@ XStatus XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr * MetaHdrPtr)
 		ImgHdrAddr += XIH_IH_LEN;
 	}
 
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }
@@ -540,6 +541,7 @@ XStatus XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr * MetaHdrPtr)
 			* XIH_PRTN_WORD_LEN;
 	}
 
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }
