@@ -38,4 +38,17 @@ This example shows the usage of the driver with window feature for
 interrupt mode.
 
 For details, see xwdttb_winwdt_intr_example.c.
+
+@section ex7 xwdttb_gwdt_example.c
+Contains an example on how to use the XWdttb driver directly.
+This example shows the usage of the driver with Generic WDT feature.
+
+For details, see xwdttb_gwdt_example.c.
+
+@section ex8 xwdttb_gwdt_selftest_example.c
+Contains an example on how to use the XWdttb driver directly.
+This example performs the basic selftest using the driver.
+
+For details, see xwdttb_gwdt_selftest_example.c.
+
 */

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2016 - 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 4.0   sha  02/04/16 First release.
+* 4.4   sne  03/04/19 Added support for Versal.
 * </pre>
 *
 *****************************************************************************/
@@ -67,7 +68,7 @@
  */
 #define WDTTB_EN_SST		0
 #define WDTTB_EN_PSM		0
-#define WDTTB_EN_FC		0
+#define WDTTB_EN_FC             0
 #define WDTTB_EN_WDP		0
 
 /*
@@ -86,11 +87,14 @@
  */
 #define WDTTB_FW_COUNT		31		/**< Number of clock cycles for
 						  *  first window */
-#define WDTTB_SW_COUNT		1000000000	/**< Number of clock cycles for
+#define WDTTB_SW_COUNT		0x01110000	/**< Number of clock cycles for
 						  *  second window */
 #define WDTTB_BYTE_COUNT	154		/**< Selected byte count */
 #define WDTTB_BYTE_SEGMENT	2		/**< Byte segment selected */
-
+#ifdef versal
+#define WDTTB_SST_COUNT     0x00001000      /**< Number of clock cycles for
+                                                      Second sequence Timer */
+#endif
 /**************************** Type Definitions *******************************/
 
 
@@ -188,7 +192,9 @@ int WinWdtTbExample(u16 DeviceId)
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-
+#ifdef versal
+        WatchdogTimebase.EnableWinMode=1; /*Enable Window Watchdog Feature */
+#endif
 	/*
 	 * Perform a self-test to ensure that the hardware was built
 	 * correctly
@@ -209,7 +215,11 @@ int WinWdtTbExample(u16 DeviceId)
 	/* Configure first and second window */
 	XWdtTb_SetWindowCount(&WatchdogTimebase, WDTTB_FW_COUNT,
 		WDTTB_SW_COUNT);
-
+#ifdef versal
+#if (WDTTB_EN_SST)
+        XWdtTb_SetSSTWindow(&WatchdogTimebase, WDTTB_SST_COUNT);
+#endif
+#endif
 	/* Set interrupt position */
 	XWdtTb_SetByteCount(&WatchdogTimebase, WDTTB_BYTE_COUNT);
 	XWdtTb_SetByteSegment(&WatchdogTimebase, WDTTB_BYTE_SEGMENT);
@@ -301,6 +311,9 @@ int WinWdtTbExample(u16 DeviceId)
 		 * passed.
 		 */
 		if(Count == 2) {
+#if (!WDTTB_EN_SST && !WDTTB_EN_FC && !WDTTB_EN_PSM &&!WDTTB_EN_WDP)
+                XWdtTb_Stop(&WatchdogTimebase);
+#endif
 			break;
 		}
 	}
