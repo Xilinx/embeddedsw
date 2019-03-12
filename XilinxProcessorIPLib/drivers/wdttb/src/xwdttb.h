@@ -231,7 +231,7 @@ typedef struct {
 * @note		None.
 *
 ******************************************************************************/
-static inline u32 XWdtTb_GetTbValue(XWdtTb *InstancePtr)
+static inline u32 XWdtTb_GetTbValue(const XWdtTb *InstancePtr)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -261,7 +261,7 @@ static inline u32 XWdtTb_GetTbValue(XWdtTb *InstancePtr)
 *		are ignored and does not lead to good or bad event generation.
 *
 ******************************************************************************/
-static inline void XWdtTb_SetRegSpaceAccessMode(XWdtTb *InstancePtr,
+static inline void XWdtTb_SetRegSpaceAccessMode(const XWdtTb *InstancePtr,
 						u32 AccessMode)
 {
 	/* Verify arguments. */
@@ -289,7 +289,7 @@ static inline void XWdtTb_SetRegSpaceAccessMode(XWdtTb *InstancePtr,
 * @note		None.
 *
 ******************************************************************************/
-static inline u32 XWdtTb_GetRegSpaceAccessMode(XWdtTb *InstancePtr)
+static inline u32 XWdtTb_GetRegSpaceAccessMode(const XWdtTb *InstancePtr)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -316,7 +316,7 @@ static inline u32 XWdtTb_GetRegSpaceAccessMode(XWdtTb *InstancePtr)
 *		reset was caused by a watchdog timeout.
 *
 ******************************************************************************/
-static inline u32 XWdtTb_GetLastEvent(XWdtTb *InstancePtr)
+static inline u32 XWdtTb_GetLastEvent(const XWdtTb *InstancePtr)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -345,7 +345,7 @@ static inline u32 XWdtTb_GetLastEvent(XWdtTb *InstancePtr)
 *		- When fail counter is disabled, bad event leads to reset.
 *
 ******************************************************************************/
-static inline u32 XWdtTb_GetFailCounter(XWdtTb *InstancePtr)
+static inline u32 XWdtTb_GetFailCounter(const XWdtTb *InstancePtr)
 {
 
 	/* Verify arguments. */
@@ -373,7 +373,7 @@ static inline u32 XWdtTb_GetFailCounter(XWdtTb *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static inline u32 XWdtTb_IsResetPending(XWdtTb *InstancePtr)
+static inline u32 XWdtTb_IsResetPending(const XWdtTb *InstancePtr)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -402,7 +402,7 @@ static inline u32 XWdtTb_IsResetPending(XWdtTb *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static inline u32 XWdtTb_GetIntrStatus(XWdtTb *InstancePtr)
+static inline u32 XWdtTb_GetIntrStatus(const XWdtTb *InstancePtr)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -429,7 +429,7 @@ static inline u32 XWdtTb_GetIntrStatus(XWdtTb *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static inline u32 XWdtTb_IsWrongCfg(XWdtTb *InstancePtr)
+static inline u32 XWdtTb_IsWrongCfg(const XWdtTb *InstancePtr)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -445,7 +445,7 @@ static inline u32 XWdtTb_IsWrongCfg(XWdtTb *InstancePtr)
 /*
  * Required functions in xwdttb.c
  */
- s32 XWdtTb_CfgInitialize(XWdtTb *InstancePtr, XWdtTb_Config *CfgPtr,
+ s32 XWdtTb_CfgInitialize(XWdtTb *InstancePtr, const XWdtTb_Config *CfgPtr,
 				u32 EffectiveAddr);
 
 s32 XWdtTb_Initialize(XWdtTb *InstancePtr, u16 DeviceId);
@@ -454,39 +454,40 @@ void XWdtTb_Start(XWdtTb *InstancePtr);
 
 s32 XWdtTb_Stop(XWdtTb *InstancePtr);
 
-u32 XWdtTb_IsWdtExpired(XWdtTb *InstancePtr);
+u32 XWdtTb_IsWdtExpired(const XWdtTb *InstancePtr);
 
-void XWdtTb_RestartWdt(XWdtTb *InstancePtr);
+
+void XWdtTb_RestartWdt(const XWdtTb *InstancePtr);
 
 XWdtTb_Config *XWdtTb_LookupConfig(u16 DeviceId);
 
 /* Window WDT functions implemented in xwdttb.c */
-void XWdtTb_AlwaysEnable(XWdtTb *InstancePtr);
-void XWdtTb_ClearLastEvent(XWdtTb *InstancePtr);
-void XWdtTb_ClearResetPending(XWdtTb *InstancePtr);
-void XWdtTb_IntrClear(XWdtTb *InstancePtr);
+void XWdtTb_AlwaysEnable(const XWdtTb *InstancePtr);
+void XWdtTb_ClearLastEvent(const XWdtTb *InstancePtr);
+void XWdtTb_ClearResetPending(const XWdtTb *InstancePtr);
+void XWdtTb_IntrClear(const XWdtTb *InstancePtr);
 
-void XWdtTb_SetByteCount(XWdtTb *InstancePtr, u32 ByteCount);
-u32 XWdtTb_GetByteCount(XWdtTb *InstancePtr);
-void XWdtTb_SetByteSegment(XWdtTb *InstancePtr, u32 ByteSegment);
-u32 XWdtTb_GetByteSegment(XWdtTb *InstancePtr);
-void XWdtTb_EnableSst(XWdtTb *InstancePtr);
-void XWdtTb_DisableSst(XWdtTb *InstancePtr);
-void XWdtTb_EnablePsm(XWdtTb *InstancePtr);
-void XWdtTb_DisablePsm(XWdtTb *InstancePtr);
+void XWdtTb_SetByteCount(const XWdtTb *InstancePtr, u32 ByteCount);
+u32 XWdtTb_GetByteCount(const XWdtTb *InstancePtr);
+void XWdtTb_SetByteSegment(const XWdtTb *InstancePtr, u32 ByteSegment);
+u32 XWdtTb_GetByteSegment(const XWdtTb *InstancePtr);
+void XWdtTb_EnableSst(const XWdtTb *InstancePtr);
+void XWdtTb_DisableSst(const XWdtTb *InstancePtr);
+void XWdtTb_EnablePsm(const XWdtTb *InstancePtr);
+void XWdtTb_DisablePsm(const XWdtTb *InstancePtr);
 void XWdtTb_EnableFailCounter(XWdtTb *InstancePtr);
 void XWdtTb_DisableFailCounter(XWdtTb *InstancePtr);
-void XWdtTb_EnableExtraProtection(XWdtTb *InstancePtr);
-void XWdtTb_DisableExtraProtection(XWdtTb *InstancePtr);
+void XWdtTb_EnableExtraProtection(const XWdtTb *InstancePtr);
+void XWdtTb_DisableExtraProtection(const XWdtTb *InstancePtr);
 
-void XWdtTb_SetWindowCount(XWdtTb *InstancePtr, u32 FirstWinCount,
+void XWdtTb_SetWindowCount(const XWdtTb *InstancePtr, u32 FirstWinCount,
 				u32 SecondWinCount);
-u32 XWdtTb_ProgramWDTWidth(XWdtTb *InstancePtr, u32 width);
+u32 XWdtTb_ProgramWDTWidth(const XWdtTb *InstancePtr, u32 width);
 
 /*
  * Self-test functions in xwdttb_selftest.c
  */
-s32 XWdtTb_SelfTest(XWdtTb *InstancePtr);
+s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr);
 
 #ifdef __cplusplus
 }

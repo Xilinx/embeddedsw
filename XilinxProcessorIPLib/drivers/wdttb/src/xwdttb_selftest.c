@@ -101,7 +101,7 @@
 * @note		None.
 *
 ******************************************************************************/
-s32 XWdtTb_SelfTest(XWdtTb *InstancePtr)
+s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
 {
 	u32 LoopCount;
 	u32 TbrValue1;
