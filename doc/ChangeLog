@@ -97,6 +97,8 @@ interrupt status register by reading instead of writing it.
 
 wdttb_v4_4:
 Fixed compiler warning.
+Fixed MISRA-C violations.
+Added Versal support.
 
 xilffs_v4_1:
 Add additional LFN options in mld.
