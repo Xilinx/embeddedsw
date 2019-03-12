@@ -111,6 +111,17 @@
 *                       'ENABLE_HDCP_REPEATER' macro.
 *       EB     09/21/18 Added new API ToggleHdmiRxHpd and SetHdmiRxHpd
 *                       Updated CloneTxEdid API
+* 3.04  EB     03/01/19 Fixed an issue where TX's color space is not up-to-date
+*                              in pass-through mode
+*                       Fixed an issue where SCDC is not cleared when HPD is
+*                              toggled
+*                       Fixed an issue where TX stream doesn't come up when
+*                              hotplug is performed on HDMI 2.0 resolution in
+*                              loopback mode
+*       EB     03/08/19 Fixed an issue where loading of default EDID doesn't
+*                              toggle HPD
+*       mmo    03/08/19 Added "IsStreamUpHDCP" to enable the HDCP
+*                              Authentication on the first VSYNC of TX
 * </pre>
 *
 ******************************************************************************/
@@ -125,7 +136,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 /* These macro values need to changed whenever there is a change in version */
 #define APP_MAJ_VERSION 5
-#define APP_MIN_VERSION 2
+#define APP_MIN_VERSION 3
 
 /**************************** Type Definitions *******************************/
 
@@ -550,13 +561,13 @@ void ToggleHdmiRxHpd(XVphy *VphyPtr, XV_HdmiRxSs *HdmiRxSsPtr) {
 ******************************************************************************/
 void SetHdmiRxHpd(XVphy *VphyPtr, XV_HdmiRxSs *HdmiRxSsPtr, u8 Hpd) {
 	if (Hpd == TRUE) {
-		XV_HdmiRxSs_SetHpd(HdmiRxSsPtr, Hpd);
+		XV_HdmiRxSs_Start(HdmiRxSsPtr);
 		XVphy_IBufDsEnable(VphyPtr, 0, XVPHY_DIR_RX, (TRUE));
 	} else {
 		XVphy_MmcmPowerDown(VphyPtr, 0, XVPHY_DIR_RX, FALSE);
 		XVphy_Clkout1OBufTdsEnable(VphyPtr, XVPHY_DIR_RX, (FALSE));
 		XVphy_IBufDsEnable(VphyPtr, 0, XVPHY_DIR_RX, (FALSE));
-		XV_HdmiRxSs_SetHpd(HdmiRxSsPtr, Hpd);
+		XV_HdmiRxSs_Stop(HdmiRxSsPtr);
 	}
 }
 
