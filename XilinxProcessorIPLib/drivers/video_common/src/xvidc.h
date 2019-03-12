@@ -72,6 +72,7 @@
  *       jsr  02/22/18 Added XVIDC_CSF_YCBCR_420 color space format
  *       vyc  04/04/18 Added BGR8 memory format
  * 4.5   jsr  07/03/18 Added XVIDC_VM_720x486_60_I video format
+ * 4.5   yas  03/08/19 Added support for frame rates 144HZ and 240HZ
  * </pre>
  *
 *******************************************************************************/
@@ -322,7 +323,9 @@ typedef enum {
 	XVIDC_FR_96HZ = 96,
 	XVIDC_FR_100HZ = 100,
 	XVIDC_FR_120HZ = 120,
-	XVIDC_FR_NUM_SUPPORTED = 18,
+	XVIDC_FR_144HZ = 144,
+	XVIDC_FR_240HZ = 240,
+	XVIDC_FR_NUM_SUPPORTED = 20,
 	XVIDC_FR_UNKNOWN
 } XVidC_FrameRate;
 
