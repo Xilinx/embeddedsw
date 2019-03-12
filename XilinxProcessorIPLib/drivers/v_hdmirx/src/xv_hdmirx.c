@@ -62,6 +62,8 @@
 *                          XV_HdmiRx_GetTime10Ms, XV_HdmiRx_GetTime16Ms
 *                          XV_HdmiRx_GetTime200Ms
 *                       Added TMDS Clock Ratio callback support
+* 2.30  EB     05/03/19 Updated the description of the API
+*                          XV_HdmiRx_GetLinkStatus
 * </pre>
 *
 ******************************************************************************/
@@ -667,9 +669,6 @@ int XV_HdmiRx_SetHpd(XV_HdmiRx *InstancePtr, u8 SetClr)
 *       - 0 = Link error counter for channel 0.
 *       - 1 = Link error counter for channel 1.
 *       - 2 = Link error counter for channel 2.
-*       - 3 = Link phase.
-*       - 4 = Link delay.
-*       - 5 = Link line length
 *
 * @return   Link status of the HDMI RX core link.
 *
