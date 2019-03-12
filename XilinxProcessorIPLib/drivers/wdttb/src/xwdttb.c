@@ -1161,6 +1161,7 @@ static s32 XWdtTb_DisableWinWdt(XWdtTb *InstancePtr)
 ******************************************************************************/
 u32 XWdtTb_ProgramWDTWidth(const XWdtTb *InstancePtr, u32 width)
 {
+        u32 Mask;
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -1168,12 +1169,13 @@ u32 XWdtTb_ProgramWDTWidth(const XWdtTb *InstancePtr, u32 width)
 	{
 		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_MWR_OFFSET, width);
 
-		return (u32)XST_SUCCESS;
+		 Mask =(u32)XST_SUCCESS;
 	}
 	else
         {
-		return (u32)XST_FAILURE;
+		 Mask =(u32)XST_FAILURE;
         }
+        return Mask;
 }
 /*****************************************************************************/
 /**
