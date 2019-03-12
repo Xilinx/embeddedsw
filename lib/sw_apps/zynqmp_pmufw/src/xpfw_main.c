@@ -29,6 +29,7 @@
 #include "xil_io.h"
 #include "xstatus.h"
 #include "xil_types.h"
+#include "xil_assert.h"
 
 #include "xpfw_version.h"
 #include "xpfw_default.h"
@@ -42,6 +43,12 @@
 #include "pm_hooks.h"
 #endif
 
+void Assert_CallBack(const char8 *File, s32 Line)
+{
+	XPfw_Printf(DEBUG_PRINT_ALWAYS, "Assert occurred from file %s "
+			"at line %d\r\n", File, Line);
+}
+
 XStatus XPfw_Main(void)
 {
 	XStatus Status;
@@ -53,6 +60,9 @@ XStatus XPfw_Main(void)
 	/* Print ROM version */
 	xpbr_version = XPfw_Read32(PBR_VERSION_REG);
 	XPfw_PrintPBRVersion(xpbr_version);
+
+	/* Register callback handler for assert conditions */
+	Xil_AssertSetCallback(Assert_CallBack);
 
 	/* Initialize the FW Core Object */
 	Status = XPfw_CoreInit(0U);
