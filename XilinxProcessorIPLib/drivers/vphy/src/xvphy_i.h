@@ -51,6 +51,8 @@
  * 1.8   gm   23/07/18 Moved APIs XVphy_SetTxVoltageSwing and
  *                       XVphy_SetTxPreEmphasis to xvphy.c/h
  *            05/09/18 Added XVphy_GetRefClkSourcesCount API
+ * 1.9   gm   11/04/18 Added XVphy_IsHDMI API
+ *                           Moved XVphy_SetRxLpm to xvphy.c/.h
  * </pre>
  *
  * @addtogroup xvphy_v1_7
@@ -82,10 +84,6 @@ XVphy_SysClkOutSelType Pll2SysClkOut(XVphy_PllType PllSelect);
 u32 XVphy_PllCalculator(XVphy *InstancePtr, u8 QuadId,
 		XVphy_ChannelId ChId, XVphy_DirectionType Dir,
 		u32 PllClkInFreqHz);
-
-/* xvphy.c: Voltage swing and preemphasis. */
-void XVphy_SetRxLpm(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
-		XVphy_DirectionType Dir, u8 Enable);
 
 /* xvphy.c: Channel configuration functions - setters. */
 u32 XVphy_WriteCfgRefClkSelReg(XVphy *InstancePtr, u8 QuadId);
@@ -143,6 +141,10 @@ void XVphy_CfgErrIntr(XVphy *InstancePtr, XVphy_ErrType ErrIrq, u8 Set);
 u64 XVphy_GetPllVcoFreqHz(XVphy *InstancePtr, u8 QuadId,
 		XVphy_ChannelId ChId, XVphy_DirectionType Dir);
 u8 XVphy_GetRefClkSourcesCount(XVphy *InstancePtr);
+
+u8 XVphy_IsHDMI(XVphy *InstancePtr, XVphy_DirectionType Dir);
+void XVphy_HdmiTxTimerTimeoutHandler(XVphy *InstancePtr);
+void XVphy_HdmiRxTimerTimeoutHandler(XVphy *InstancePtr);
 
 void XVphy_ErrorHandler(XVphy *InstancePtr);
 #if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
