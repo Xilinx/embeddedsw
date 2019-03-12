@@ -84,6 +84,8 @@
  *                     Removed XVphy_DruSetGain API
  * 1.8   gm   05/14/18 Fixed a bug in XVphy_HdmiQpllParam where linerate is
  *                        obtained from CH1 instead of QPLL0/1
+ * 1.9   gm   14/05/18 Added new API XVphy_PatgenEnable
+ *                     Added TX and RX MMCM lock event logging
  *
  * </pre>
  *
@@ -228,9 +230,9 @@ u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr,
 
 	/* Indicate of QPLL is present in design */
 	if ((XVphy_IsTxUsingQpll(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CH1) &&
-			(InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI)) ||
+			(XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX))) ||
 		(XVphy_IsRxUsingQpll(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CH1) &&
-			(InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI))) {
+			(XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX)))) {
 		InstancePtr->HdmiIsQpllPresent = TRUE;
 	} else {
 		InstancePtr->HdmiIsQpllPresent = FALSE;
@@ -261,10 +263,10 @@ u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr,
 	}
 	XVphy_MmcmReset(InstancePtr, QuadId, XVPHY_DIR_TX, TRUE);
 	XVphy_MmcmReset(InstancePtr, QuadId, XVPHY_DIR_RX, TRUE);
-	if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) {
+	if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX)) {
 		XVphy_IBufDsEnable(InstancePtr, QuadId, XVPHY_DIR_TX, (FALSE));
 	}
-	if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
+	if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX)) {
 		XVphy_IBufDsEnable(InstancePtr, QuadId, XVPHY_DIR_RX, (FALSE));
 	}
 
@@ -431,9 +433,9 @@ u32 XVphy_Hdmi_CfgInitialize(XVphy *InstancePtr, u8 QuadId,
 
 	/* Indicate of QPLL is present in design */
 	if ((XVphy_IsTxUsingQpll(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CH1) &&
-			(InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI)) ||
+			(XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX))) ||
 		(XVphy_IsRxUsingQpll(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CH1) &&
-			(InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI))) {
+			(XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX)))) {
 		InstancePtr->HdmiIsQpllPresent = TRUE;
 	} else {
 		InstancePtr->HdmiIsQpllPresent = FALSE;
@@ -464,10 +466,10 @@ u32 XVphy_Hdmi_CfgInitialize(XVphy *InstancePtr, u8 QuadId,
 	}
 	XVphy_MmcmReset(InstancePtr, QuadId, XVPHY_DIR_TX, TRUE);
 	XVphy_MmcmReset(InstancePtr, QuadId, XVPHY_DIR_RX, TRUE);
-	if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) {
+	if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX)) {
 		XVphy_IBufDsEnable(InstancePtr, QuadId, XVPHY_DIR_TX, (FALSE));
 	}
-	if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
+	if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX)) {
 		XVphy_IBufDsEnable(InstancePtr, QuadId, XVPHY_DIR_RX, (FALSE));
 	}
 
@@ -514,14 +516,14 @@ u32 XVphy_Hdmi_CfgInitialize(XVphy *InstancePtr, u8 QuadId,
 			XVPHY_INTR_HANDLER_TYPE_TX_CLKDET_FREQ_CHANGE);
 	XVphy_IntrEnable(InstancePtr,
 			XVPHY_INTR_HANDLER_TYPE_RX_CLKDET_FREQ_CHANGE);
-#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
 	XVphy_IntrEnable(InstancePtr,
 			XVPHY_INTR_HANDLER_TYPE_TX_MMCM_LOCK_CHANGE);
-#endif
 	XVphy_IntrEnable(InstancePtr,
 			XVPHY_INTR_HANDLER_TYPE_TX_TMR_TIMEOUT);
 	XVphy_IntrEnable(InstancePtr,
 			XVPHY_INTR_HANDLER_TYPE_RX_TMR_TIMEOUT);
+	XVphy_IntrEnable(InstancePtr,
+			XVPHY_INTR_HANDLER_TYPE_RX_MMCM_LOCK_CHANGE);
 	XVphy_ClkDetEnable(InstancePtr, TRUE);
 
 	/* Set the flag to indicate the driver is. */
@@ -1904,6 +1906,9 @@ u32 XVphy_HdmiQpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 				/* Set TX TMDS Clock Pattern Generator */
 				if (InstancePtr->Config.UseGtAsTxTmdsClk == TRUE) {
 					XVphy_PatgenSetRatio(InstancePtr, 0, TxLineRate);
+					XVphy_PatgenEnable(InstancePtr, 0, TRUE);
+				} else {
+					XVphy_PatgenEnable(InstancePtr, 0, FALSE);
 				}
 
 				/* Update reference clock only when the
@@ -2187,6 +2192,9 @@ u32 XVphy_HdmiCpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 				/* Set TX TMDS Clock Pattern Generator */
 				if (InstancePtr->Config.UseGtAsTxTmdsClk == TRUE) {
 					XVphy_PatgenSetRatio(InstancePtr, 0, TxLineRate);
+					XVphy_PatgenEnable(InstancePtr, 0, TRUE);
+				} else {
+					XVphy_PatgenEnable(InstancePtr, 0, FALSE);
 				}
 
 				(*RefClkPtr) = (*RefClkPtr) * SRValue;
@@ -2403,6 +2411,39 @@ u32 XVphy_SetHdmiRxParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 
 /*****************************************************************************/
 /**
+* This function enables or disables the Pattern Generator for the GT Channel 4
+* when it isused to generate the TX TMDS Clock.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	Enable TRUE/FALSE
+*
+* @return	None.
+*
+******************************************************************************/
+void XVphy_PatgenEnable(XVphy *InstancePtr, u8 QuadId, u8 Enable)
+{
+	u32 RegVal;
+
+	/* Suppress Warning Messages */
+    QuadId = QuadId;
+
+	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr,
+							XVPHY_PATGEN_CTRL_REG);
+
+	if (Enable) {
+		RegVal |= XVPHY_PATGEN_CTRL_ENABLE_MASK;
+	}
+	else {
+		RegVal &= ~XVPHY_PATGEN_CTRL_ENABLE_MASK;
+	}
+
+	XVphy_WriteReg(InstancePtr->Config.BaseAddr,
+						XVPHY_PATGEN_CTRL_REG, RegVal);
+}
+
+/*****************************************************************************/
+/**
 * This function sets the Pattern Generator for the GT Channel 4 when it is
 * used to generate the TX TMDS Clock.
 *
@@ -2472,7 +2513,7 @@ void XVphy_HdmiDebugInfo(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 	}
 #endif
 
-	if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) {
+	if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX)) {
 		if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2) {
 #if ((XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3) || \
 	 (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4) || \
@@ -2514,7 +2555,7 @@ void XVphy_HdmiDebugInfo(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 		}
 	}
 
-	if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
+	if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX)) {
 		if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2) {
 			xil_printf("RX: PLL%d\r\n", (TxUsesPll0 ? 1 : 0));
 		}
@@ -2551,7 +2592,7 @@ void XVphy_HdmiDebugInfo(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 		}
 	}
 
-	if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) {
+	if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX)) {
 		xil_printf("TX state: ");
 		switch (InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(ChId)].TxState) {
 		case (XVPHY_GT_STATE_IDLE):
@@ -2589,7 +2630,7 @@ void XVphy_HdmiDebugInfo(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 		}
 	}
 
-	if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
+	if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX)) {
 		xil_printf("RX state: ");
 		switch (InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(ChId)].RxState) {
 		case (XVPHY_GT_STATE_IDLE):
@@ -2636,9 +2677,9 @@ void XVphy_HdmiDebugInfo(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 	xil_printf("\r\n");
 	if (InstancePtr->Config.XcvrType != XVPHY_GT_TYPE_GTPE2) {
 		if ((XVphy_IsTxUsingQpll(InstancePtr, QuadId, ChId) &&
-				(InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI)) ||
+				(XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX))) ||
 			(XVphy_IsRxUsingQpll(InstancePtr, QuadId, ChId) &&
-				(InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI))) {
+				(XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX)))) {
 #if ((XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3) || \
 	 (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4) || \
 	 (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTYE4))
@@ -2656,9 +2697,9 @@ void XVphy_HdmiDebugInfo(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 		}
 
 		if ((XVphy_IsTxUsingCpll(InstancePtr, QuadId, ChId) &&
-				(InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI)) ||
+				(XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX))) ||
 			(XVphy_IsRxUsingCpll(InstancePtr, QuadId, ChId) &&
-				(InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI))) {
+				(XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX)))) {
 			xil_printf("CPLL settings\r\n");
 			xil_printf("-------------\r\n");
 			xil_printf("M : %d - N1 : %d - N2 : %d - D : %d\r\n",
@@ -2671,10 +2712,10 @@ void XVphy_HdmiDebugInfo(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 	else {
 		if (((ChPtr->TxDataRefClkSel ==
 					XVPHY_SYSCLKSELDATA_TYPE_PLL0_OUTCLK) &&
-				(InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI)) ||
+				(XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX))) ||
 			((ChPtr->RxDataRefClkSel ==
 					XVPHY_SYSCLKSELDATA_TYPE_PLL0_OUTCLK) &&
-				(InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI))) {
+				(XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX)))) {
 			CmnId = XVPHY_CHANNEL_ID_CMN0;
 			xil_printf("PLL0 settings\r\n");
 			xil_printf("-------------\r\n");
@@ -2691,10 +2732,10 @@ void XVphy_HdmiDebugInfo(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 
 		if (((ChPtr->TxDataRefClkSel ==
 					XVPHY_SYSCLKSELDATA_TYPE_PLL1_OUTCLK) &&
-				(InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI)) ||
+				(XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX))) ||
 			((ChPtr->RxDataRefClkSel ==
 					XVPHY_SYSCLKSELDATA_TYPE_PLL1_OUTCLK) &&
-				(InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI))) {
+				(XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX)))) {
 			CmnId = XVPHY_CHANNEL_ID_CMN1;
 			xil_printf("PLL1 settings\r\n");
 			xil_printf("-------------\r\n");
@@ -2710,7 +2751,7 @@ void XVphy_HdmiDebugInfo(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 		}
 	}
 
-	if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
+	if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX)) {
 		xil_printf("RX MMCM settings\r\n");
 		xil_printf("-------------\r\n");
 		xil_printf("Mult : %d - Div : %d - Clk0Div : %d - Clk1Div : %d - "
@@ -2723,7 +2764,7 @@ void XVphy_HdmiDebugInfo(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 		xil_printf("\r\n");
 	}
 
-	if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) {
+	if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX)) {
 		xil_printf("TX MMCM settings\r\n");
 		xil_printf("-------------\r\n");
 		xil_printf("Mult : %d - Div : %d - Clk0Div : %d - Clk1Div : %d - "
@@ -2737,7 +2778,7 @@ void XVphy_HdmiDebugInfo(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 	}
 
 	if ((InstancePtr->Config.DruIsPresent) &&
-		(InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI))	{
+		(XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX)))	{
 		xil_printf("DRU Settings\r\n");
 		xil_printf("-------------\r\n");
 		RegValue = XVphy_DruGetVersion(InstancePtr);

@@ -49,6 +49,7 @@
  * 1.8   gm   23/07/18 Moved APIs XVphy_SetTxVoltageSwing and
  *                       XVphy_SetTxPreEmphasis to xvphy.c/h
  *            05/09/18 Added XVphy_GetRefClkSourcesCount API
+ * 1.9   gm   11/04/18 Added XVphy_IsHDMI API
  * </pre>
  *
 *******************************************************************************/
@@ -66,51 +67,6 @@
 
 
 /**************************** Function Definitions ****************************/
-
-/*****************************************************************************/
-/**
-* This function will enable or disable the LPM logic in the Video PHY core.
-*
-* @param	InstancePtr is a pointer to the XVphy core instance.
-* @param	QuadId is the GT quad ID to operate on.
-* @param	ChId is the channel ID to operate on.
-* @param	Dir is an indicator for TX or RX.
-* @param	Enable will enable (if 1) or disable (if 0) the LPM logic.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void XVphy_SetRxLpm(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
-		XVphy_DirectionType Dir, u8 Enable)
-{
-	u32 RegVal;
-	u32 MaskVal;
-
-	/* Suppress Warning Messages */
-	QuadId = QuadId;
-	Dir = Dir;
-
-	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr,
-							XVPHY_RX_EQ_CDR_REG);
-
-	if (ChId == XVPHY_CHANNEL_ID_CHA) {
-		MaskVal = XVPHY_RX_CONTROL_RXLPMEN_ALL_MASK;
-	}
-	else {
-		MaskVal = XVPHY_RX_CONTROL_RXLPMEN_MASK(ChId);
-	}
-
-	if (Enable) {
-		RegVal |= MaskVal;
-	}
-	else {
-		RegVal &= ~MaskVal;
-	}
-	XVphy_WriteReg(InstancePtr->Config.BaseAddr, XVPHY_RX_EQ_CDR_REG,
-									RegVal);
-}
 
 /*****************************************************************************/
 /**
@@ -469,11 +425,11 @@ u32 XVphy_IsPllLocked(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 		RxPllType = XVphy_GetPllType(InstancePtr, 0, XVPHY_DIR_RX,
 				XVPHY_CHANNEL_ID_CH1);
 		if (RxPllType == XVPHY_PLL_TYPE_CPLL &&
-				InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
+				XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX)) {
 			MaskVal = XVPHY_PLL_LOCK_STATUS_CPLL_HDMI_MASK;
 		}
 		else if (TxPllType == XVPHY_PLL_TYPE_CPLL &&
-				InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) {
+				XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX)) {
 			MaskVal = XVPHY_PLL_LOCK_STATUS_CPLL_HDMI_MASK;
 		}
 		else {
@@ -962,8 +918,8 @@ u32 XVphy_ClkReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 											(XVphy_ChannelId)Id);
 		}
 		else if (XVPHY_ISCMN(ChId)) {
-			if (((InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) ||
-				(InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI)) &&
+			if (((XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX)) ||
+				(XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX))) &&
 			    (InstancePtr->HdmiIsQpllPresent == FALSE)) {
 				XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_NO_QPLL_ERR, 1);
 				XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_NO_QPLL, 1);
@@ -1020,8 +976,8 @@ void XVphy_Ch2Ids(XVphy *InstancePtr, XVphy_ChannelId ChId,
 
 	if (ChId == XVPHY_CHANNEL_ID_CHA) {
 		*Id0 = XVPHY_CHANNEL_ID_CH1;
-		if ((InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) ||
-			(InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI)) {
+		if ((XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX)) ||
+			(XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX))) {
 			if (InstancePtr->Config.UseGtAsTxTmdsClk == TRUE) {
 				*Id1 = XVPHY_CHANNEL_ID_CH4;
 			}
@@ -1243,7 +1199,7 @@ u64 XVphy_GetPllVcoFreqHz(XVphy *InstancePtr, u8 QuadId,
                     Plls[XVPHY_CH2IDX(ChId)];
 
 	if (Dir == XVPHY_DIR_TX) {
-		if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) {
+		if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX)) {
 			PllRefClkHz = InstancePtr->HdmiTxRefClkHz;
 		}
 		else {
@@ -1252,7 +1208,7 @@ u64 XVphy_GetPllVcoFreqHz(XVphy *InstancePtr, u8 QuadId,
 		}
 	}
 	else {
-		if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
+		if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX)) {
 #if defined (XPAR_XV_HDMITX_0_DEVICE_ID) || defined (XPAR_XV_HDMIRX_0_DEVICE_ID)
 			if (InstancePtr->HdmiRxDruIsEnabled) {
 				PllRefClkHz = XVphy_DruGetRefClkFreqHz(InstancePtr);
@@ -1270,7 +1226,7 @@ u64 XVphy_GetPllVcoFreqHz(XVphy *InstancePtr, u8 QuadId,
 		}
 	}
 
-	PllxVcoRateHz = (PllRefClkHz *
+	PllxVcoRateHz = (u64)(PllRefClkHz *
 				InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(ChId)].
 								PllParams.N1FbDiv *
 				InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(ChId)].
@@ -1496,6 +1452,33 @@ u32 XVphy_TxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 	return InstancePtr->GtAdaptor->TxChReconfig(InstancePtr, QuadId, ChId);
 }
 #endif
+
+/*****************************************************************************/
+/**
+* This function checks if Instance is HDMI 2.0 or HDMI 2.1
+*
+* @param	InstancePtr is a pointer to the VPHY instance.
+* @param	Dir is an indicator for RX or TX.
+*
+* @return	TRUE if HDMI 2.0 or 2.1 else FALSE.
+*
+* @note		None.
+*
+******************************************************************************/
+u8 XVphy_IsHDMI(XVphy *InstancePtr, XVphy_DirectionType Dir)
+{
+	if (Dir == XVPHY_DIR_TX) {
+		if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) {
+			return TRUE;
+		}
+	} else { /* Dir == XVPHY_DIR_RX */
+		if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
 
 /*****************************************************************************/
 /**

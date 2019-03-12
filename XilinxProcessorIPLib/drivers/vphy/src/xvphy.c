@@ -77,6 +77,8 @@
  *            23/07/18 Added APIs XVphy_SetTxVoltageSwing and
  *                       XVphy_SetTxPreEmphasis from xvphy_i.c/h
  *                     Added XVphy_SetTxPostCursor API
+ * 1.9   gm   14/05/18 Added XVphy_SetRxLpm from xvphy_i.c/.h
+ *
  * </pre>
  *
 *******************************************************************************/
@@ -1074,6 +1076,51 @@ void XVphy_SetTxPostCursor(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 
 /*****************************************************************************/
 /**
+* This function will enable or disable the LPM logic in the Video PHY core.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to operate on.
+* @param	Dir is an indicator for TX or RX.
+* @param	Enable will enable (if 1) or disable (if 0) the LPM logic.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XVphy_SetRxLpm(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
+		XVphy_DirectionType Dir, u8 Enable)
+{
+	u32 RegVal;
+	u32 MaskVal;
+
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+	Dir = Dir;
+
+	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr,
+							XVPHY_RX_EQ_CDR_REG);
+
+	if (ChId == XVPHY_CHANNEL_ID_CHA) {
+		MaskVal = XVPHY_RX_CONTROL_RXLPMEN_ALL_MASK;
+	}
+	else {
+		MaskVal = XVPHY_RX_CONTROL_RXLPMEN_MASK(ChId);
+	}
+
+	if (Enable) {
+		RegVal |= MaskVal;
+	}
+	else {
+		RegVal &= ~MaskVal;
+	}
+	XVphy_WriteReg(InstancePtr->Config.BaseAddr, XVPHY_RX_EQ_CDR_REG,
+									RegVal);
+}
+
+/*****************************************************************************/
+/**
 * This function will initiate a write DRP transaction. It is a wrapper around
 * XVphy_DrpAccess.
 *
@@ -1214,8 +1261,8 @@ void XVphy_MmcmStart(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir)
 #endif
 #if defined (XPAR_XV_HDMITX_0_DEVICE_ID) || defined (XPAR_XV_HDMIRX_0_DEVICE_ID)
 #if defined (XPAR_XDP_0_DEVICE_ID)
-	} else if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI ||
-			   InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
+	} else if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX) ||
+			   XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX)) {
 #endif
 	XVphy_Mmcm *MmcmPtr;
 

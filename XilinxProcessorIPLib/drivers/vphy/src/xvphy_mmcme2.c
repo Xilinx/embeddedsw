@@ -422,7 +422,7 @@ u32 XVphy_MmcmWriteParameters(XVphy *InstancePtr, u8 QuadId,
 	XVphy_Mmcm *MmcmParams;
 	u8 TxIsPlle2 = FALSE;
 
-	if ((InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) &&
+	if ((XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX)) &&
             (Dir == XVPHY_DIR_TX)) {
         TxIsPlle2 = TRUE;
     }
