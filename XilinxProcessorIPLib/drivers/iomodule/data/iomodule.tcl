@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2011 - 2018 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2011 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -472,7 +472,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
     #
     # Now redefine the Interrupt ID constants
     #
-     if {[string compare "psu_pmc_iomodule_0" $drv_handle] != 0 && [string compare "psu_psm_iomodule_0" $drv_handle] != 0} {
+     if {[string compare "psu_pmc_iomodule_0" $drv_handle] != 0 && [string compare "psu_psm_iomodule_0" $drv_handle] != 0 && [string compare "psv_pmc_iomodule_0" $drv_handle] != 0 && [string compare "psv_psm_iomodule_0" $drv_handle] != 0} {
 	     xredefine_iomodule $drv_handle $file_handle
     }
 
