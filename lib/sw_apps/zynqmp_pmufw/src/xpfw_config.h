@@ -124,6 +124,7 @@ extern "C" {
 #define	ENABLE_ESCALATION_VAL			(0U)
 #define CHECK_HEALTHY_BOOT_VAL			(0U)
 #define	ENABLE_WDT_VAL					(0U)
+#define ENABLE_CUSTOM_MOD_VAL			(0U)
 #define	ENABLE_STL_VAL					(0U)
 #define	ENABLE_RTC_TEST_VAL				(0U)
 #define	ENABLE_IPI_CRC_VAL				(0U)
@@ -181,6 +182,10 @@ extern "C" {
 
 #if ENABLE_WDT_VAL
 #define ENABLE_WDT
+#endif
+
+#if ENABLE_CUSTOM_MOD_VAL
+#define ENABLE_CUSTOM_MOD
 #endif
 
 #if ENABLE_STL_VAL
