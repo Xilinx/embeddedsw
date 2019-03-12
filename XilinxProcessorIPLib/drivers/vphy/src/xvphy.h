@@ -97,6 +97,7 @@
  *            23/07/18 Added APIs XVphy_SetTxVoltageSwing and
  *                       XVphy_SetTxPreEmphasis from xvphy_i.c/h
  *                     Added XVphy_SetTxPostCursor API
+ * 1.9   gm   14/05/18 Added XVphy_SetRxLpm from xvphy_i.c/.h
  * </pre>
  *
 *******************************************************************************/
@@ -882,6 +883,8 @@ void XVphy_SetTxPreEmphasis(XVphy *InstancePtr, u8 QuadId,
         XVphy_ChannelId ChId, u8 Pe);
 void XVphy_SetTxPostCursor(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		u8 Pc);
+void XVphy_SetRxLpm(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
+		XVphy_DirectionType Dir, u8 Enable);
 
 /* xvphy.c: GT/MMCM DRP access. */
 u32 XVphy_DrpWr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
