@@ -1171,7 +1171,9 @@ u32 XWdtTb_ProgramWDTWidth(XWdtTb *InstancePtr, u32 width)
 		return XST_SUCCESS;
 	}
 	else
+        {
 		return XST_FAILURE;
+        }
 }
 /*****************************************************************************/
 /**
