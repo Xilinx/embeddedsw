@@ -1,5 +1,9 @@
 Change Log for lwip
 =================================
+2019-03-12
+	* Fix BYTE_ORDER redefined warnings in lwip arch/cpu.h.
+	* Fix warnings in emaclite adapter source.
+	* Fix xemacliteif_input() for freertos multi-packet scenario.
 2019-02-09
 	* PL Ethernet requires 8 byte padding when IEEE1588 is enabled;
 	  Migrate this change from lwip202 to lwip211.
