@@ -47,6 +47,7 @@
  *       mn   07/18/18 Move iicps.h inclusion under ZCU102 and ZCU106 macro
  *                     checks
  * 2.0   mn   02/28/19 Add Dynamic DDR initialization support for all DDR DIMMs
+ *       mn   03/12/19 Select EEPROM Lower Page for reading SPD data
  * </pre>
  *
  * @note
@@ -185,8 +186,10 @@
 #define XFSBL_MUX_ADDR			0x75U
 /* SODIMM Slave Address */
 #define XFSBL_SODIMM_SLAVE_ADDR		0x51U
-/* SODIMM Control Address */
-#define XFSBL_SODIMM_CONTROL_ADDR	0x37U
+/* SODIMM Control Address Low */
+#define XFSBL_SODIMM_CONTROL_ADDR_LOW	0x36U
+/* SODIMM Control Address High */
+#define XFSBL_SODIMM_CONTROL_ADDR_HIGH	0x37U
 /* IIC Bus Idle Timeout */
 #define XFSBL_IIC_BUS_TIMEOUT		1000000U
 
@@ -6661,6 +6664,25 @@ static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 		goto END;
 	}
 
+	/*
+	 * Set SODIMM control address to enable access to lower
+	 * EEPROM page (0U to 255U Bytes).
+	 * 0x00U - Enable Read of Lower Page from EEPROM
+	 */
+	TxArray = 0x00U;
+	XIicPs_MasterSendPolled(&IicInstance, &TxArray, 1U,
+			XFSBL_SODIMM_CONTROL_ADDR_LOW);
+	/*
+	 * Wait until bus is idle to start another transfer.
+	 */
+	Status = Xil_poll_timeout(Xil_In32, IicInstance.Config.BaseAddress +
+			XIICPS_SR_OFFSET, Regval, (Regval &
+				XIICPS_SR_BA_MASK) == 0x0U,
+			XFSBL_IIC_BUS_TIMEOUT);
+	if (Status != XST_SUCCESS) {
+		UStatus = XFSBL_FAILURE;
+		goto END;
+	}
 
 	/*
 	 * Configure SODIMM Slave address to select starting address of the
@@ -6714,7 +6736,7 @@ static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 	 */
 	TxArray = 0x01U;
 	XIicPs_MasterSendPolled(&IicInstance, &TxArray, 1U,
-			XFSBL_SODIMM_CONTROL_ADDR);
+			XFSBL_SODIMM_CONTROL_ADDR_HIGH);
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
