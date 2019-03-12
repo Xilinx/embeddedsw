@@ -537,6 +537,7 @@ static int SendBankSelect(u32 BankSel)
 	}
 
 	/* Winbond can be added here */
+	Status = XLOADER_SUCCESS;
 END:
 	return Status;
 }
