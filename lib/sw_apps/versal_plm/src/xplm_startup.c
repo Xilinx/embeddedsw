@@ -81,9 +81,12 @@
 struct XPlmi_TaskNode StartUpTaskList[] =
 {
 	XPLM_TASK_DEFINE(XPlm_ModuleInit, 0U, XPLM_TASK_PRIORITY_0),
+	XPLM_TASK_DEFINE(XPlm_HookBeforePlmCdo, 0U, XPLM_TASK_PRIORITY_0),
 	XPLM_TASK_DEFINE(XPlm_ProcessPlmCdo, 0U, XPLM_TASK_PRIORITY_0),
 	XPLM_TASK_DEFINE(XPlm_LpdModuleInit, 0U, XPLM_TASK_PRIORITY_0),
-	XPLM_TASK_DEFINE(XPlm_LoadBootPdi, 0U, XPLM_TASK_PRIORITY_0)
+	XPLM_TASK_DEFINE(XPlm_HookAfterPlmCdo, 0U, XPLM_TASK_PRIORITY_0),
+	XPLM_TASK_DEFINE(XPlm_LoadBootPdi, 0U, XPLM_TASK_PRIORITY_0),
+	XPLM_TASK_DEFINE(XPlm_HookAfterBootPdi, 0U, XPLM_TASK_PRIORITY_0)
 };
 
 /*****************************************************************************/
