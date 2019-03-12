@@ -108,6 +108,12 @@ extern "C" {
 #define XLOADER_PDI_TYPE_FULL			0x1U
 #define XLOADER_PDI_TYPE_PARTIAL		0x2U
 
+/*
+ * PDI Loading status
+ */
+#define XLOADER_PDI_LOAD_COMPLETE		(0x1U)
+#define XLOADER_PDI_LOAD_STARTED		(0x0U)
+
 /* Boot Modes */
 enum XLOADER_PDI_SRC {
 	XLOADER_PDI_SRC_JTAG = (0x0U),
