@@ -62,6 +62,7 @@ extern "C" {
 enum {
 	XPLMI_ERR_MASKPOLL = 0x10,
 	XPLMI_ERR_MASKPOLL64,
+	XPLMI_ERR_CMD_NOT_SUPPORTED,
 };
 
 /**************************** Type Definitions *******************************/

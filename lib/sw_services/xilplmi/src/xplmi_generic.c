@@ -380,6 +380,120 @@ END:
 
 /*****************************************************************************/
 /**
+ * @brief This function provides INIT_SEQ command execution
+ *  Command payload parameters are
+ *	* DATA
+ *
+ * @param Pointer to the command structure
+ *
+ * @return Returns the Status
+ *****************************************************************************/
+static int XPlmi_InitSeq(XPlmi_Cmd * Cmd)
+{
+	/** for MISRA C */
+	(void )Cmd;
+
+	return XPLMI_ERR_CMD_NOT_SUPPORTED;
+}
+
+/*****************************************************************************/
+/**
+ * @brief This function provides CFI READ command execution
+ *  Command payload parameters are
+ *	* Params - SMPA/JTAG/DDR
+ *	* High Dest Addr
+ *	* Low Dest Addr
+ *	* Read Length (Length of words to set to value)
+ *	* DATA (CFU READ Packets)
+ *
+ * @param Pointer to the command structure
+ *
+ * @return Returns the Status
+ *****************************************************************************/
+static int XPlmi_CfiRead(XPlmi_Cmd * Cmd)
+{
+	/** for MISRA C */
+	(void )Cmd;
+
+	return XPLMI_ERR_CMD_NOT_SUPPORTED;
+}
+
+/*****************************************************************************/
+/**
+ * @brief This function provides SET command execution
+ *  Command payload parameters are
+ *	* High Dest Addr
+ *	* Low Dest Addr
+ *	* Length (Length of words to set to value)
+ *	* Value
+ *
+ * @param Pointer to the command structure
+ *
+ * @return Returns the Status
+ *****************************************************************************/
+static int XPlmi_Set(XPlmi_Cmd * Cmd)
+{
+	/** for MISRA C */
+	(void )Cmd;
+
+	return XPLMI_ERR_CMD_NOT_SUPPORTED;
+}
+
+/*****************************************************************************/
+/**
+ * @brief This function provides DMA key hole write command execution
+ *  Command payload parameters are
+ *	* High Dest Addr
+ *	* Low Dest Addr
+ *	* Keyhole Size
+ *	* DATA...
+ *
+ * @param Pointer to the command structure
+ *
+ * @return Returns the Status of DMA Xfer API
+ *****************************************************************************/
+static int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd)
+{
+	int Status;
+	u64 DestAddr;
+	u64 SrcAddr;
+	u32 Len = Cmd->PayloadLen;
+	u32 Flags;
+
+	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
+
+	if (Cmd->ProcessedLen == 0U)
+	{
+		/** store the destination address in resume data */
+		Cmd->ResumeData[0U] = Cmd->Payload[0U];
+		Cmd->ResumeData[1U] = Cmd->Payload[1U];
+		SrcAddr = (u64 )(UINTPTR) &Cmd->Payload[3U];
+		Len -= 3U;
+	} else {
+		SrcAddr = (u64 )(UINTPTR) &Cmd->Payload[0U];
+	}
+
+	DestAddr = (u64) Cmd->ResumeData[0U];
+	DestAddr = ((u64 )Cmd->ResumeData[1U] |
+			(DestAddr<<32U));
+
+	/** Set DMA flags to DMA0 and FIXED */
+	Flags = XPLMI_PMCDMA_0 | XPLMI_DST_CH_AXI_FIXED;
+
+	Status = XPlmi_DmaXfr(SrcAddr, DestAddr, Len, Flags);
+	if(Status != XST_SUCCESS)
+	{
+		XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
+		goto END;
+	}
+
+END:
+	return Status;
+}
+
+
+/*****************************************************************************/
+/**
  * @brief contains the array of PLM generic commands
  *
  *****************************************************************************/
@@ -394,7 +508,11 @@ static XPlmi_ModuleCmd XPlmi_GenericCmds[] =
 	XPLMI_MODULE_COMMAND(XPlmi_MaskPoll64),
 	XPLMI_MODULE_COMMAND(XPlmi_MaskWrite64),
 	XPLMI_MODULE_COMMAND(XPlmi_Write64),
-	XPLMI_MODULE_COMMAND(XPlmi_DmaXfer)
+	XPLMI_MODULE_COMMAND(XPlmi_DmaXfer),
+	XPLMI_MODULE_COMMAND(XPlmi_InitSeq),
+	XPLMI_MODULE_COMMAND(XPlmi_CfiRead),
+	XPLMI_MODULE_COMMAND(XPlmi_Set),
+	XPLMI_MODULE_COMMAND(XPlmi_DmaWriteKeyHole),
 };
 
 /*****************************************************************************/
