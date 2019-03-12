@@ -117,7 +117,7 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum)
 		}
 		PrtnNum++;
 	}
-
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }
@@ -441,6 +441,7 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 		SrcAddr += ChunkLen;
 		Len -= ChunkLen;
 	}
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }
