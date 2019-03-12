@@ -125,7 +125,7 @@
 
 /* Forward declarations. */
 static err_t xemacliteif_output(struct netif *netif, struct pbuf *p,
-		ip_addr_t *ipaddr);
+		const ip_addr_t *ipaddr);
 unsigned get_IEEE_phy_speed_emaclite(XEmacLite *xemaclitep);
 unsigned configure_IEEE_phy_speed_emaclite(XEmacLite *xemaclitep, unsigned speed);
 
@@ -399,7 +399,7 @@ low_level_input(struct netif *netif)
 
 err_t
 xemacliteif_output(struct netif *netif, struct pbuf *p,
-		ip_addr_t *ipaddr)
+		const ip_addr_t *ipaddr)
 {
 	/* resolve hardware address, then send (or queue) packet */
 	return etharp_output(netif, p, ipaddr);
@@ -765,8 +765,6 @@ unsigned get_IEEE_phy_speed_emaclite(XEmacLite *xemaclitep)
 unsigned configure_IEEE_phy_speed_emaclite(XEmacLite *xemaclitep, unsigned speed)
 {
 	u16 control;
-	u16 status;
-	u16 phylinkspeed;
 	u32 phy_addr = detect_phy_emaclite(xemaclitep);
 
 	XEmacLite_PhyRead(xemaclitep, phy_addr,
