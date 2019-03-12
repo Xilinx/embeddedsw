@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -27,34 +27,25 @@
 /*****************************************************************************/
 /**
 *
-* @file xplm_startup.h
+* @file xplm_hooks.c
 *
-* This file contains the headers for startup code of PLM.
+* This file contains the hook functions for the user
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
-* ====  ==== ======== ======================================================-
-* 1.00  kc   08/28/2018 Initial release
+* ----- ---- -------- -------------------------------------------------------
+* 1.00  kc   03/08/2019 Initial release
 *
 * </pre>
 *
 * @note
 *
 ******************************************************************************/
-#ifndef XPLM_STARTUP_H
-#define XPLM_STARTUP_H
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 /***************************** Include Files *********************************/
-#include "xplm_default.h"
 #include "xplm_hooks.h"
-#include "xplmi_task.h"
-
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -62,14 +53,50 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-int XPlm_AddStartUpTasks(void);
 
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
+/**
+* @brief This function will be called before processing the PLM CDO. Before
+* this only PMC module initialization is done. Most of the HW state will be
+* as POR.Please note that PS LPD UART is not intialized by this time
+*
+* @param	None
+* @return	XST_SUCCESS on success, any other value for error
+*
+*****************************************************************************/
+int XPlm_HookBeforePlmCdo()
+{
 
-#ifdef __cplusplus
+	return XST_SUCCESS;
 }
-#endif
 
-#endif  /* XPLM_STARTUP_H */
+/*****************************************************************************/
+/**
+* @brief This function will be called after processing the PLM CDO. All the
+* PMC and LPD configuration(optional) will be completed by this time.
+*
+* @param	None
+* @return	XST_SUCCESS on success, any other value for error
+*
+*****************************************************************************/
+int XPlm_HookAfterPlmCdo()
+{
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+* @brief This function will be called after loading the boot PDI.
+*
+* @param	None
+* @return	XST_SUCCESS on success, any other value for error
+*
+*****************************************************************************/
+int XPlm_HookAfterBootPdi()
+{
+
+	return XST_SUCCESS;
+}

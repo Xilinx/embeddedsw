@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -27,34 +27,30 @@
 /*****************************************************************************/
 /**
 *
-* @file xplm_startup.h
+* @file xplm_hooks.h
 *
-* This file contains the headers for startup code of PLM.
+* This file contains the declarations for the hooks provided in PLM
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
-* ====  ==== ======== ======================================================-
-* 1.00  kc   08/28/2018 Initial release
+* ----- ---- -------- -------------------------------------------------------
+* 1.00  kc   03/08/2019 Initial release
 *
 * </pre>
 *
 * @note
 *
 ******************************************************************************/
-#ifndef XPLM_STARTUP_H
-#define XPLM_STARTUP_H
+#ifndef XPLM_HOOK_H
+#define XPLM_HOOK_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
 /***************************** Include Files *********************************/
 #include "xplm_default.h"
-#include "xplm_hooks.h"
-#include "xplmi_task.h"
-
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -62,14 +58,15 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-int XPlm_AddStartUpTasks(void);
 
 /************************** Variable Definitions *****************************/
 
-/*****************************************************************************/
+int XPlm_HookBeforePlmCdo();
+int XPlm_HookAfterPlmCdo();
+int XPlm_HookAfterBootPdi();
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  /* XPLM_STARTUP_H */
+#endif  /* XPLM_HOOK_H */
