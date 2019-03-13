@@ -44,11 +44,7 @@ OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 SECURE_SRCS := $(wildcard *.c)
 SECURE_OBJS = $(addprefix $(SECURE_DIR)/, $(SECURE_SRCS:%.c=%.o))
 
-INCLUDEFILES=$(SECURE_DIR)/xsecure_sha.h \
-		$(SECURE_DIR)/xsecure_aes.h \
-		$(SECURE_DIR)/xsecure_rsa.h \
-		$(SECURE_DIR)/xsecure_hw.h \
-		$(SECURE_DIR)/xsecure.h
+INCLUDEFILES := $(wildcard *.h)
 
 ifeq ($(notdir $(COMPILER)) , armclang)
       EXTRA_ARCHIVE_FLAGS=-rc
