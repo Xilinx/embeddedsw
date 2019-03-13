@@ -700,7 +700,7 @@ void PmResetGetStatus(const PmMaster *const master, const u32 reset)
 		goto done;
 	}
 
-	resetStatus = PmResetGetStatusInt(resetPtr);
+	status = PmResetGetStatusInt(resetPtr, &resetStatus);
 
 done:
 	IPI_RESPONSE2(master->ipiMask, status, resetStatus);
