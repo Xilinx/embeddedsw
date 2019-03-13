@@ -108,6 +108,12 @@
 #define XHDMIPHY1_CPLL_CAL_PERIOD_REG    0x068
 #define XHDMIPHY1_CPLL_CAL_TOL_REG       0x06C
 /* @} */
+/** @name HDMIPHY core registers: GT Debug INTF registers.
+  * @{
+  */
+#define XHDMIPHY1_GT_DBG_GPI_REG         0x068
+#define XHDMIPHY1_GT_DBG_GPO_REG         0x06C
+/* @} */
 
 /** @name HDMIPHY core registers: Transmitter function registers.
   * @{
@@ -205,8 +211,8 @@
                             details. */
 #define XHDMIPHY1_VERSION_CORE_VER_REV_MASK \
                 0x0000F000  /**< Core version revision. */
-#define XHDMIPHY1_VERSION_CORE_VER_REV_SHIFT 12 /**< Shift bits for core version
-                            revision. */
+#define XHDMIPHY1_VERSION_CORE_VER_REV_SHIFT 12 /**< Shift bits for core
+                            version revision. */
 #define XHDMIPHY1_VERSION_CORE_VER_MNR_MASK \
                 0x00FF0000  /**< Core minor version. */
 #define XHDMIPHY1_VERSION_CORE_VER_MNR_SHIFT 16  /**< Shift bits for core minor
@@ -388,6 +394,16 @@
 #define XHDMIPHY1_CPLL_CAL_PERIOD_MASK      0x3FFFF
 /* 0x06C: CPLL CAL TOLERANCE */
 #define XHDMIPHY1_CPLL_CAL_TOL_MASK         0x3FFFF
+/* 0x068: GPI */
+#define XHDMIPHY1_TX_GPI_MASK(Ch) \
+        (0x01 << (Ch - 1))
+#define XHDMIPHY1_RX_GPI_MASK(Ch) \
+        (0x10 << (Ch - 1))
+/* 0x06C: GPO */
+#define XHDMIPHY1_TX_GPO_MASK(Ch) \
+        (0x01 << (Ch - 1))
+#define XHDMIPHY1_RX_GPO_MASK(Ch) \
+        (0x10 << (Ch - 1))
 /* 0x070: TX_CONTROL */
 #define XHDMIPHY1_TX_CONTROL_TX8B10BEN_MASK(Ch) \
         (0x01 << (8 * (Ch - 1)))
@@ -540,6 +556,8 @@
 #define XHDMIPHY1_INTR_RXCLKDETFREQCHANGE_MASK   0x00000080
 #define XHDMIPHY1_INTR_TXMMCMUSRCLK_LOCK_MASK    0x00000200
 #define XHDMIPHY1_INTR_RXMMCMUSRCLK_LOCK_MASK    0x00000400
+#define XHDMIPHY1_INTR_TXGPO_RE_MASK             0x00000800
+#define XHDMIPHY1_INTR_RXGPO_RE_MASK             0x00001000
 #define XHDMIPHY1_INTR_TXTMRTIMEOUT_MASK     0x40000000
 #define XHDMIPHY1_INTR_RXTMRTIMEOUT_MASK     0x80000000
 #define XHDMIPHY1_INTR_QPLL_LOCK_MASK        XHDMIPHY1_INTR_QPLL0_LOCK_MASK

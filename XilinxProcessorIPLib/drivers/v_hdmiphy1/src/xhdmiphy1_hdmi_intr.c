@@ -168,6 +168,13 @@ void XHdmiphy1_HdmiIntrHandlerCallbackInit(XHdmiphy1 *InstancePtr)
     XHdmiphy1_SetIntrHandler(InstancePtr,
             XHDMIPHY1_INTR_HANDLER_TYPE_RPLL_LOCK,
             (XHdmiphy1_IntrHandler)XHdmiphy1_HdmiGtHandler, InstancePtr);
+    XHdmiphy1_SetIntrHandler(InstancePtr,
+		XHDMIPHY1_INTR_HANDLER_TYPE_TX_GPO_RISING_EDGE,
+            (XHdmiphy1_IntrHandler)XHdmiphy1_HdmiGtHandler, InstancePtr);
+
+    XHdmiphy1_SetIntrHandler(InstancePtr,
+		XHDMIPHY1_INTR_HANDLER_TYPE_RX_GPO_RISING_EDGE,
+            (XHdmiphy1_IntrHandler)XHdmiphy1_HdmiGtHandler, InstancePtr);
 #endif
 
     XHdmiphy1_SetIntrHandler(InstancePtr,
@@ -197,6 +204,69 @@ void XHdmiphy1_HdmiIntrHandlerCallbackInit(XHdmiphy1 *InstancePtr)
 }
 
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)
+/*****************************************************************************/
+/**
+* This function is the handler for events triggered by TX GPO Rising Edge.
+*
+* @param    InstancePtr is a pointer to the HDMIPHY instance.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+void XHdmiphy1_HdmiTxGpoRisingEdgeHandler(XHdmiphy1 *InstancePtr)
+{
+    u8 Id, Id0, Id1;
+
+    /* De-assert GPI port. */
+    XHdmiphy1_SetGpi(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
+            XHDMIPHY1_DIR_TX, FALSE);
+
+    /* Start TX MMCM. */
+    XHdmiphy1_MmcmStart(InstancePtr, 0, XHDMIPHY1_DIR_TX);
+
+    /* Configure TXRATE Port */
+    XHdmiphy1_DirReconfig(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
+        XHDMIPHY1_DIR_TX);
+
+    XHdmiphy1_Ch2Ids(InstancePtr, XHDMIPHY1_CHANNEL_ID_CHA, &Id0, &Id1);
+    for (Id = Id0; Id <= Id1; Id++) {
+        InstancePtr->Quads[0].Plls[XHDMIPHY1_CH2IDX(Id)].TxState =
+            XHDMIPHY1_GT_STATE_LOCK;
+    }
+}
+
+/*****************************************************************************/
+/**
+* This function is the handler for events triggered by RX GPO Rising Edge.
+*
+* @param    InstancePtr is a pointer to the HDMIPHY instance.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+void XHdmiphy1_HdmiRxGpoRisingEdgeHandler(XHdmiphy1 *InstancePtr)
+{
+    u8 Id, Id0, Id1;
+
+    /* De-assert GPI port. */
+    XHdmiphy1_SetGpi(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
+            XHDMIPHY1_DIR_RX, FALSE);
+
+    /* Configure RXRATE Port */
+    XHdmiphy1_DirReconfig(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
+        XHDMIPHY1_DIR_RX);
+
+    XHdmiphy1_Ch2Ids(InstancePtr, XHDMIPHY1_CHANNEL_ID_CHA, &Id0, &Id1);
+    for (Id = Id0; Id <= Id1; Id++) {
+        InstancePtr->Quads[0].Plls[XHDMIPHY1_CH2IDX(Id)].RxState =
+            XHDMIPHY1_GT_STATE_LOCK;
+    }
+}
+
 /*****************************************************************************/
 /**
 * This function is the handler for events triggered by LCPLL lock done.
@@ -670,7 +740,8 @@ void XHdmiphy1_HdmiRxClkDetFreqChangeHandler(XHdmiphy1 *InstancePtr)
             XHDMIPHY1_CHANNEL_ID_CH1);
 
     /* Fetch New RX Reference Clock Frequency */
-    RxRefClkHz = XHdmiphy1_ClkDetGetRefClkFreqHz(InstancePtr, XHDMIPHY1_DIR_RX);
+    RxRefClkHz = XHdmiphy1_ClkDetGetRefClkFreqHz(InstancePtr,
+                    XHDMIPHY1_DIR_RX);
 
     /* Round input frequency to 10 kHz. */
     RxRefClkHz = (RxRefClkHz+5000) / 10000;
@@ -732,6 +803,7 @@ void XHdmiphy1_HdmiTxTimerTimeoutHandler(XHdmiphy1 *InstancePtr)
         XHdmiphy1_LogWrite(InstancePtr, XHDMIPHY1_LOG_EVT_TX_TMR, 1);
     }
 
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
     /* Determine PLL type. */
     PllType = XHdmiphy1_GetPllType(InstancePtr, 0, XHDMIPHY1_DIR_TX,
             XHDMIPHY1_CHANNEL_ID_CH1);
@@ -741,7 +813,6 @@ void XHdmiphy1_HdmiTxTimerTimeoutHandler(XHdmiphy1 *InstancePtr)
     /* Start TX MMCM. */
     XHdmiphy1_MmcmStart(InstancePtr, 0, XHDMIPHY1_DIR_TX);
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
     /* Enable PLL. */
     XHdmiphy1_PowerDownGtPll(InstancePtr, 0,
         (PllType == XHDMIPHY1_PLL_TYPE_CPLL) ?
@@ -765,11 +836,10 @@ void XHdmiphy1_HdmiTxTimerTimeoutHandler(XHdmiphy1 *InstancePtr)
                         InstancePtr->Quads[0].Plls[0].TxOutDiv :
                         InstancePtr->Quads[0].Plls[0].TxOutDiv / 2);
     }
-#endif
+
     XHdmiphy1_DirReconfig(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
         XHDMIPHY1_DIR_TX);
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
     /* Assert PLL reset. */
     XHdmiphy1_ResetGtPll(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
             XHDMIPHY1_DIR_TX, TRUE);
@@ -784,13 +854,23 @@ void XHdmiphy1_HdmiTxTimerTimeoutHandler(XHdmiphy1 *InstancePtr)
         /* Clear GT alignment. */
         XHdmiphy1_TxAlignStart(InstancePtr, ChId, FALSE);
     }
-#endif
 
     XHdmiphy1_Ch2Ids(InstancePtr, XHDMIPHY1_CHANNEL_ID_CHA, &Id0, &Id1);
     for (Id = Id0; Id <= Id1; Id++) {
         InstancePtr->Quads[0].Plls[XHDMIPHY1_CH2IDX(Id)].TxState =
             XHDMIPHY1_GT_STATE_LOCK;
     }
+#else
+    /* Assert GPI port. */
+    XHdmiphy1_SetGpi(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
+            XHDMIPHY1_DIR_TX, TRUE);
+
+    XHdmiphy1_Ch2Ids(InstancePtr, XHDMIPHY1_CHANNEL_ID_CHA, &Id0, &Id1);
+    for (Id = Id0; Id <= Id1; Id++) {
+        InstancePtr->Quads[0].Plls[XHDMIPHY1_CH2IDX(Id)].TxState =
+            XHDMIPHY1_GT_STATE_GPO_RE;
+    }
+#endif
 }
 
 /*****************************************************************************/
@@ -871,12 +951,10 @@ void XHdmiphy1_HdmiRxTimerTimeoutHandler(XHdmiphy1 *InstancePtr)
     XHdmiphy1_ClkReconfig(InstancePtr, 0, ChId);
     XHdmiphy1_OutDivReconfig(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
             XHDMIPHY1_DIR_RX);
-#endif
 
     XHdmiphy1_DirReconfig(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
         XHDMIPHY1_DIR_RX);
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
     /* Assert RX PLL reset. */
     XHdmiphy1_ResetGtPll(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
         XHDMIPHY1_DIR_RX, TRUE);
@@ -884,12 +962,17 @@ void XHdmiphy1_HdmiRxTimerTimeoutHandler(XHdmiphy1 *InstancePtr)
     /* De-assert RX PLL reset. */
     XHdmiphy1_ResetGtPll(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
             XHDMIPHY1_DIR_RX, FALSE);
-#endif
+#else
+    /* Assert GPI port. */
+    XHdmiphy1_SetGpi(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
+            XHDMIPHY1_DIR_RX, TRUE);
 
+    XHdmiphy1_Ch2Ids(InstancePtr, XHDMIPHY1_CHANNEL_ID_CHA, &Id0, &Id1);
     for (Id = Id0; Id <= Id1; Id++) {
         InstancePtr->Quads[0].Plls[XHDMIPHY1_CH2IDX(Id)].RxState =
-            XHDMIPHY1_GT_STATE_LOCK;
+            XHDMIPHY1_GT_STATE_GPO_RE;
     }
+#endif
 }
 
 /*****************************************************************************/
@@ -980,6 +1063,12 @@ void XHdmiphy1_HdmiGtHandler(XHdmiphy1 *InstancePtr)
         XHdmiphy1_HdmiCpllLockHandler(InstancePtr);
     }
 #else
+    if (Event & XHDMIPHY1_INTR_HANDLER_TYPE_TX_GPO_RISING_EDGE) {
+        XHdmiphy1_HdmiTxGpoRisingEdgeHandler(InstancePtr);
+    }
+    if (Event & XHDMIPHY1_INTR_HANDLER_TYPE_RX_GPO_RISING_EDGE) {
+	XHdmiphy1_HdmiRxGpoRisingEdgeHandler(InstancePtr);
+    }
     if (Event & XHDMIPHY1_INTR_LCPLL_LOCK_MASK) {
         XHdmiphy1_HdmiLcpllLockHandler(InstancePtr);
     }

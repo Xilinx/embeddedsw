@@ -104,7 +104,8 @@ void XHdmiphy1_LogReset(XHdmiphy1 *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-void XHdmiphy1_LogWrite(XHdmiphy1 *InstancePtr, XHdmiphy1_LogEvent Evt, u8 Data)
+void XHdmiphy1_LogWrite(XHdmiphy1 *InstancePtr, XHdmiphy1_LogEvent Evt,
+        u8 Data)
 {
 	u64 TimeUnit = 0;
 

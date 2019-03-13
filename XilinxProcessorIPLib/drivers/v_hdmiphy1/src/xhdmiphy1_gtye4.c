@@ -179,7 +179,8 @@ u32 XHdmiphy1_Gtye4CfgSetCdr(XHdmiphy1 *InstancePtr, u8 QuadId,
     u64 LineRateHz;
 
     /* Set CDR values only for CPLLs. */
-    if ((ChId < XHDMIPHY1_CHANNEL_ID_CH1) || (ChId > XHDMIPHY1_CHANNEL_ID_CH4)) {
+    if ((ChId < XHDMIPHY1_CHANNEL_ID_CH1) ||
+        (ChId > XHDMIPHY1_CHANNEL_ID_CH4)) {
         return XST_FAILURE;
     }
 
@@ -280,7 +281,7 @@ u32 XHdmiphy1_Gtye4OutDivChReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
         DrpVal &= ~0x07;
         /* Set RX_OUT_DIV. */
         WriteVal = (XHdmiphy1_DToDrpEncoding(InstancePtr, QuadId, ChId,
-                XHDMIPHY1_DIR_RX) & 0x7);
+                        XHDMIPHY1_DIR_RX) & 0x7);
         DrpVal |= WriteVal;
         /* Write new DRP register value for RX dividers. */
         Status |= XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x63, DrpVal);
@@ -291,7 +292,7 @@ u32 XHdmiphy1_Gtye4OutDivChReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
         DrpVal &= ~0x700;
         /* Set TX_OUT_DIV. */
         WriteVal = (XHdmiphy1_DToDrpEncoding(InstancePtr, QuadId, ChId,
-                XHDMIPHY1_DIR_TX) & 0x7);
+                        XHDMIPHY1_DIR_TX) & 0x7);
         DrpVal |= (WriteVal << 8);
         /* Write new DRP register value for RX dividers. */
         Status |= XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x7C, DrpVal);
@@ -348,7 +349,7 @@ u32 XHdmiphy1_Gtye4ClkChReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
     /* Configure CPLL Calibration Registers */
     XHdmiphy1_CfgCpllCalPeriodandTol(InstancePtr, QuadId, ChId,
             (XHdmiphy1_IsTxUsingCpll(InstancePtr, QuadId, ChId) ?
-                                XHDMIPHY1_DIR_TX : XHDMIPHY1_DIR_RX),
+                XHDMIPHY1_DIR_TX : XHDMIPHY1_DIR_RX),
             InstancePtr->Config.DrpClkFreq);
 
     return Status;
@@ -383,7 +384,7 @@ u32 XHdmiphy1_Gtye4ClkCmnReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
 
     /* Obtain current DRP register value for QPLLx_FBDIV. */
     Status |= XHdmiphy1_DrpRd(InstancePtr, QuadId, XHDMIPHY1_CHANNEL_ID_CMN,
-            (CmnId == XHDMIPHY1_CHANNEL_ID_CMN0) ? 0x14 : 0x94, &DrpVal);
+                (CmnId == XHDMIPHY1_CHANNEL_ID_CMN0) ? 0x14 : 0x94, &DrpVal);
     /* Mask out QPLLx_FBDIV. */
     DrpVal &= ~(0xFF);
     /* Set QPLLx_FBDIV. */
@@ -391,11 +392,11 @@ u32 XHdmiphy1_Gtye4ClkCmnReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
     DrpVal |= WriteVal;
     /* Write new DRP register value for QPLLx_FBDIV. */
     Status |= XHdmiphy1_DrpWr(InstancePtr, QuadId, XHDMIPHY1_CHANNEL_ID_CMN,
-            (CmnId == XHDMIPHY1_CHANNEL_ID_CMN0) ? 0x14 : 0x94, DrpVal);
+                (CmnId == XHDMIPHY1_CHANNEL_ID_CMN0) ? 0x14 : 0x94, DrpVal);
 
     /* Obtain current DRP register value for QPLLx_REFCLK_DIV. */
     Status |= XHdmiphy1_DrpRd(InstancePtr, QuadId, XHDMIPHY1_CHANNEL_ID_CMN,
-            (CmnId == XHDMIPHY1_CHANNEL_ID_CMN0) ? 0x18 : 0x98, &DrpVal);
+                (CmnId == XHDMIPHY1_CHANNEL_ID_CMN0) ? 0x18 : 0x98, &DrpVal);
     /* Mask out QPLLx_REFCLK_DIV. */
     DrpVal &= ~(0xF80);
     /* Disable Intelligent Reference Clock Selection */
@@ -407,13 +408,13 @@ u32 XHdmiphy1_Gtye4ClkCmnReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
     DrpVal |= (WriteVal << 7);
     /* Write new DRP register value for QPLLx_REFCLK_DIV. */
     Status |= XHdmiphy1_DrpWr(InstancePtr, QuadId, XHDMIPHY1_CHANNEL_ID_CMN,
-            (CmnId == XHDMIPHY1_CHANNEL_ID_CMN0) ? 0x18 : 0x98, DrpVal);
+                (CmnId == XHDMIPHY1_CHANNEL_ID_CMN0) ? 0x18 : 0x98, DrpVal);
 
     if ((XHdmiphy1_IsHDMI(InstancePtr, XHDMIPHY1_DIR_TX)) ||
         (XHdmiphy1_IsHDMI(InstancePtr, XHDMIPHY1_DIR_RX))) {
 
         QpllxVcoRateMHz = XHdmiphy1_GetPllVcoFreqHz(InstancePtr, QuadId, CmnId,
-                XHdmiphy1_IsTxUsingQpll(InstancePtr, QuadId, CmnId) ?
+                        XHdmiphy1_IsTxUsingQpll(InstancePtr, QuadId, CmnId) ?
                         XHDMIPHY1_DIR_TX : XHDMIPHY1_DIR_RX) / 1000000;
         QpllxClkOutMHz = QpllxVcoRateMHz / 2;
 
@@ -437,8 +438,10 @@ u32 XHdmiphy1_Gtye4ClkCmnReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
             DrpVal = 0x0400;
         }
         /* Write new DRP register value for PPFx_CFG. */
-        Status |= XHdmiphy1_DrpWr(InstancePtr, QuadId, XHDMIPHY1_CHANNEL_ID_CMN,
-            (CmnId == XHDMIPHY1_CHANNEL_ID_CMN0) ? 0x0D : 0x8D, DrpVal);
+        Status |= XHdmiphy1_DrpWr(InstancePtr, QuadId,
+                    XHDMIPHY1_CHANNEL_ID_CMN,
+                    (CmnId == XHDMIPHY1_CHANNEL_ID_CMN0) ? 0x0D : 0x8D,
+                    DrpVal);
 
         /* QPLLx_CFG2 & QPLLx_CFG3*/
         QpllxFbdiv = InstancePtr->Quads[QuadId].Plls[XHDMIPHY1_CH2IDX(CmnId)].
@@ -567,14 +570,20 @@ u32 XHdmiphy1_Gtye4ClkCmnReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
             }
         }
         /* Write new DRP register value for QPLLx_CFG2. */
-        Status |= XHdmiphy1_DrpWr(InstancePtr, QuadId, XHDMIPHY1_CHANNEL_ID_CMN,
-            (CmnId == XHDMIPHY1_CHANNEL_ID_CMN0) ? 0x11 : 0x91, QPLLx_CFG23);
+        Status |= XHdmiphy1_DrpWr(InstancePtr, QuadId,
+                    XHDMIPHY1_CHANNEL_ID_CMN,
+                    (CmnId == XHDMIPHY1_CHANNEL_ID_CMN0) ? 0x11 : 0x91,
+                    QPLLx_CFG23);
         /* Write new DRP register value for QPLLx_CFG3. */
-        Status |= XHdmiphy1_DrpWr(InstancePtr, QuadId, XHDMIPHY1_CHANNEL_ID_CMN,
-            (CmnId == XHDMIPHY1_CHANNEL_ID_CMN0) ? 0x1B : 0x9B, QPLLx_CFG23);
+        Status |= XHdmiphy1_DrpWr(InstancePtr, QuadId,
+                    XHDMIPHY1_CHANNEL_ID_CMN,
+                    (CmnId == XHDMIPHY1_CHANNEL_ID_CMN0) ? 0x1B : 0x9B,
+                    QPLLx_CFG23);
         /* Write new DRP register value for QPLLx_LPF. */
-        Status |= XHdmiphy1_DrpWr(InstancePtr, QuadId, XHDMIPHY1_CHANNEL_ID_CMN,
-            (CmnId == XHDMIPHY1_CHANNEL_ID_CMN0) ? 0x19 : 0x99, QPLLx_LPF);
+        Status |= XHdmiphy1_DrpWr(InstancePtr, QuadId,
+                    XHDMIPHY1_CHANNEL_ID_CMN,
+                    (CmnId == XHDMIPHY1_CHANNEL_ID_CMN0) ? 0x19 : 0x99,
+                    QPLLx_LPF);
 
         /* QPLLx_CFG4 */
         if (QpllxClkOutMHz >= 14000) {
@@ -593,8 +602,10 @@ u32 XHdmiphy1_Gtye4ClkCmnReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
             DrpVal = 0x0001;
         }
         /* Write new DRP register value for QPLLx_CFG4. */
-        Status |= XHdmiphy1_DrpWr(InstancePtr, QuadId, XHDMIPHY1_CHANNEL_ID_CMN,
-            (CmnId == XHDMIPHY1_CHANNEL_ID_CMN0) ? 0x30 : 0xB0, DrpVal);
+        Status |= XHdmiphy1_DrpWr(InstancePtr, QuadId,
+                    XHDMIPHY1_CHANNEL_ID_CMN,
+                    (CmnId == XHDMIPHY1_CHANNEL_ID_CMN0) ? 0x30 : 0xB0,
+                    DrpVal);
     }
 
     return Status;
@@ -639,10 +650,10 @@ u32 XHdmiphy1_Gtye4RxChReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
             continue;
         }
         Status |= XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId,
-                XHDMIPHY1_DRP_RXCDR_CFG(CfgIndex), DrpVal);
+                    XHDMIPHY1_DRP_RXCDR_CFG(CfgIndex), DrpVal);
         if (CfgIndex == 2) {
             Status |= XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId,
-                    XHDMIPHY1_DRP_RXCDR_CFG_GEN3(CfgIndex), DrpVal);
+                        XHDMIPHY1_DRP_RXCDR_CFG_GEN3(CfgIndex), DrpVal);
         /* RXCDR_CFG2_GEN2 */
         Status |= XHdmiphy1_DrpRd(InstancePtr, QuadId, ChId, 0x135, &DrpVal);
         DrpVal &= ~(0x3FF);
@@ -688,8 +699,8 @@ u32 XHdmiphy1_Gtye4RxChReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
                 break;
         }
 
-        PllxVcoRateMHz = XHdmiphy1_GetPllVcoFreqHz(InstancePtr, QuadId, ChIdPll,
-                XHDMIPHY1_DIR_RX) / 1000000;
+        PllxVcoRateMHz = XHdmiphy1_GetPllVcoFreqHz(InstancePtr, QuadId,
+                            ChIdPll, XHDMIPHY1_DIR_RX) / 1000000;
         PllxClkOutMHz = PllxVcoRateMHz / PllxClkOutDiv;
 
         /* CH_HSPMUX_RX */
@@ -758,7 +769,8 @@ u32 XHdmiphy1_Gtye4RxChReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
 
     }
 
-    Status |= XHdmiphy1_Gtye4RxPllRefClkDiv1Reconfig(InstancePtr, QuadId, ChId);
+    Status |= XHdmiphy1_Gtye4RxPllRefClkDiv1Reconfig(InstancePtr, QuadId,
+                ChId);
 
     return Status;
 }
@@ -799,7 +811,8 @@ u32 XHdmiphy1_Gtye4TxChReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
     }
 
     /* Determine PLL type. */
-    PllType = XHdmiphy1_GetPllType(InstancePtr, QuadId, XHDMIPHY1_DIR_TX, ChId);
+    PllType = XHdmiphy1_GetPllType(InstancePtr, QuadId, XHDMIPHY1_DIR_TX,
+                ChId);
     /* Determine which channel(s) to operate on. */
     switch (PllType) {
         case XHDMIPHY1_PLL_TYPE_QPLL:
@@ -850,8 +863,8 @@ u32 XHdmiphy1_Gtye4TxChReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
         DrpVal |= WriteVal;
         Status |= XHdmiphy1_DrpWr(InstancePtr, QuadId, ChId, 0x7A, DrpVal);
 
-        PllxVcoRateMHz = XHdmiphy1_GetPllVcoFreqHz(InstancePtr, QuadId, ChIdPll,
-                XHDMIPHY1_DIR_TX) / 1000000;
+        PllxVcoRateMHz = XHdmiphy1_GetPllVcoFreqHz(InstancePtr, QuadId,
+                            ChIdPll, XHDMIPHY1_DIR_TX) / 1000000;
         PllxClkOutMHz = PllxVcoRateMHz / PllxClkOutDiv;
 
         /* TXPH_CFG */
@@ -1101,17 +1114,17 @@ static u16 XHdmiphy1_NToDrpEncoding(XHdmiphy1 *InstancePtr, u8 QuadId,
     if ((ChId == XHDMIPHY1_CHANNEL_ID_CMN0) ||
             (ChId == XHDMIPHY1_CHANNEL_ID_CMN1)) {
         NFbDiv = InstancePtr->Quads[QuadId].Plls[XHDMIPHY1_CH2IDX(ChId)].
-                PllParams.NFbDiv;
+                    PllParams.NFbDiv;
         DrpEncode = XHdmiphy1_DrpEncodeQpllN(NFbDiv);
     }
     else if (NId == 1) {
         NFbDiv = InstancePtr->Quads[QuadId].Plls[XHDMIPHY1_CH2IDX(ChId)].
-                PllParams.N1FbDiv;
+                    PllParams.N1FbDiv;
         DrpEncode = XHdmiphy1_DrpEncodeCpllN1(NFbDiv);
     }
     else {
         NFbDiv = InstancePtr->Quads[QuadId].Plls[XHDMIPHY1_CH2IDX(ChId)].
-                PllParams.N2FbDiv;
+                    PllParams.N2FbDiv;
         DrpEncode = XHdmiphy1_DrpEncodeQpllMCpllMN2(NFbDiv);
     }
 
@@ -1348,7 +1361,7 @@ static u16 XHdmiphy1_DrpEncodeClk25(u32 RefClkFreqHz)
     u32 RefClkFreqMHz = RefClkFreqHz / 1000000;
 
     DrpEncode = ((RefClkFreqMHz / 25) +
-            (((RefClkFreqMHz % 25) > 0) ? 1 : 0)) - 1;
+                    (((RefClkFreqMHz % 25) > 0) ? 1 : 0)) - 1;
 
     return (DrpEncode & 0x1F);
 }
