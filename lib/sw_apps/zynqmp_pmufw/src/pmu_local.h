@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015-2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -287,6 +287,35 @@ extern "C" {
 #define PMU_LOCAL_GPI3_ENABLE_PL_GPI_SHIFT   0
 #define PMU_LOCAL_GPI3_ENABLE_PL_GPI_WIDTH   32
 #define PMU_LOCAL_GPI3_ENABLE_PL_GPI_MASK    ((u32)0XFFFFFFFFU)
+
+/**
+ * Register: PMU_LOCAL_PMU_SERV_ERR
+ */
+#define PMU_LOCAL_PMU_SERV_ERR    ( ( PMU_LOCAL_BASEADDR ) + ((u32)0X0000033CU) )
+
+#define PMU_LOCAL_PMU_SERV_ERR_FWERR3_SHIFT   31
+#define PMU_LOCAL_PMU_SERV_ERR_FWERR3_WIDTH   1
+#define PMU_LOCAL_PMU_SERV_ERR_FWERR3_MASK    ((u32)0X80000000U)
+
+#define PMU_LOCAL_PMU_SERV_ERR_FWERR2_SHIFT   30
+#define PMU_LOCAL_PMU_SERV_ERR_FWERR2_WIDTH   1
+#define PMU_LOCAL_PMU_SERV_ERR_FWERR2_MASK    ((u32)0X40000000U)
+
+#define PMU_LOCAL_PMU_SERV_ERR_FWERR1_SHIFT   29
+#define PMU_LOCAL_PMU_SERV_ERR_FWERR1_WIDTH   1
+#define PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK    ((u32)0X20000000U)
+
+#define PMU_LOCAL_PMU_SERV_ERR_FWERR0_SHIFT   28
+#define PMU_LOCAL_PMU_SERV_ERR_FWERR0_WIDTH   1
+#define PMU_LOCAL_PMU_SERV_ERR_FWERR0_MASK    ((u32)0X10000000U)
+
+#define PMU_LOCAL_PMU_SERV_ERR_SERVERR_FLAG_SHIFT   23
+#define PMU_LOCAL_PMU_SERV_ERR_SERVERR_FLAG_WIDTH   1
+#define PMU_LOCAL_PMU_SERV_ERR_SERVERR_FLAG_MASK    ((u32)0X00800000U)
+
+#define PMU_LOCAL_PMU_SERV_ERR_SERVERR_DATA_SHIFT   0
+#define PMU_LOCAL_PMU_SERV_ERR_SERVERR_DATA_WIDTH   20
+#define PMU_LOCAL_PMU_SERV_ERR_SERVERR_DATA_MASK    ((u32)0X000FFFFFU)
 
 #ifdef __cplusplus
 }
