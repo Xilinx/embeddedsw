@@ -834,9 +834,10 @@ END:
 u32 XSecure_MemCopy(void * DestPtr, void * SrcPtr, u32 Size)
 {
 
-	XSecure_SssSetup(XSecure_SssInputDstDma
-			(XSECURE_CSU_SSS_SRC_SRC_DMA));
+	XSecure_Sss SssInstance;
 
+	XSecure_SssInitialize(&SssInstance);
+	XSecure_SssDmaLoopBack(&SssInstance, CsuDma.Config.DeviceId);
 
 	/* Data transfer in loop back mode */
 	XCsuDma_Transfer(&CsuDma, XCSUDMA_DST_CHANNEL,
