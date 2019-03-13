@@ -888,8 +888,8 @@ void XHdmiphy1_SetRxLpm(XHdmiphy1 *InstancePtr, u8 QuadId,
 * @note		None.
 *
 ******************************************************************************/
-u32 XHdmiphy1_DrpWr(XHdmiphy1 *InstancePtr, u8 QuadId, XHdmiphy1_ChannelId ChId,
-		u16 Addr, u16 Val)
+u32 XHdmiphy1_DrpWr(XHdmiphy1 *InstancePtr, u8 QuadId,
+        XHdmiphy1_ChannelId ChId, u16 Addr, u16 Val)
 {
 	return XHdmiphy1_DrpAccess(InstancePtr, QuadId, ChId,
 			XHDMIPHY1_DIR_TX, /* Write. */
@@ -915,8 +915,8 @@ u32 XHdmiphy1_DrpWr(XHdmiphy1 *InstancePtr, u8 QuadId, XHdmiphy1_ChannelId ChId,
 * @note		None.
 *
 ******************************************************************************/
-u16 XHdmiphy1_DrpRd(XHdmiphy1 *InstancePtr, u8 QuadId, XHdmiphy1_ChannelId ChId,
-        u16 Addr, u16 *RetVal)
+u16 XHdmiphy1_DrpRd(XHdmiphy1 *InstancePtr, u8 QuadId,
+        XHdmiphy1_ChannelId ChId, u16 Addr, u16 *RetVal)
 {
 	u32 Status;
 	u16 Val;
@@ -1231,7 +1231,7 @@ static u32 XHdmiphy1_DrpAccess(XHdmiphy1 *InstancePtr, u8 QuadId,
 	return XST_SUCCESS;
 }
 
-/******************************************************************************/
+/*****************************************************************************/
 /**
 * This function installs a callback function for the HDMIPHY error conditions
 *
@@ -1249,7 +1249,7 @@ static u32 XHdmiphy1_DrpAccess(XHdmiphy1 *InstancePtr, u8 QuadId,
 * 			Sample Function Call:
 * 				CallbackFunc(CallbackRef, XHdmiphy1_ErrType);
 *
-*******************************************************************************/
+******************************************************************************/
 void XHdmiphy1_SetErrorCallback(XHdmiphy1 *InstancePtr,
 		void *CallbackFunc, void *CallbackRef)
 {

@@ -34,9 +34,9 @@
  *
  * @file xhdmiphy1_mmcme5.c
  *
- * Contains a minimal set of functions for the XHdmiphy1 driver that allow access
- * to all of the Video PHY core's functionality. See xhdmiphy1.h for a detailed
- * description of the driver.
+ * Contains a minimal set of functions for the XHdmiphy1 driver that allow
+ * access to all of the Video PHY core's functionality. See xhdmiphy1.h for a
+ * detailed description of the driver.
  *
  * @note	None.
  *

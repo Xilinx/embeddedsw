@@ -68,4 +68,3 @@ XHdmiphy1_Config XHdmiphy1_ConfigTable[XPAR_XHDMIPHY1_NUM_INSTANCES] =
 		XPAR_V_HDMI_PHY_USE_GT_CH4_HDMI
 	}
 };
-

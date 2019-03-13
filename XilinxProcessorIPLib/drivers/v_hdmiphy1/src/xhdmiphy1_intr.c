@@ -138,6 +138,8 @@ void XHdmiphy1_SetIntrHandler(XHdmiphy1 *InstancePtr,
 #else
 		(HandlerType == XHDMIPHY1_INTR_HANDLER_TYPE_LCPLL_LOCK) ||
 		(HandlerType == XHDMIPHY1_INTR_HANDLER_TYPE_RPLL_LOCK) ||
+		(HandlerType == XHDMIPHY1_INTR_HANDLER_TYPE_TX_GPO_RISING_EDGE) ||
+		(HandlerType == XHDMIPHY1_INTR_HANDLER_TYPE_RX_GPO_RISING_EDGE) ||
 #endif
 		(HandlerType ==
 			XHDMIPHY1_INTR_HANDLER_TYPE_TX_CLKDET_FREQ_CHANGE) ||
@@ -177,6 +179,14 @@ void XHdmiphy1_SetIntrHandler(XHdmiphy1 *InstancePtr,
 		InstancePtr->IntrQpll1LockCallbackRef = CallbackRef;
 		break;
 #else
+	case XHDMIPHY1_INTR_HANDLER_TYPE_TX_GPO_RISING_EDGE:
+		InstancePtr->IntrTxGpoRisingEdgeHandler = CallbackFunc;
+		InstancePtr->IntrTxGpoRisingEdgeCallbackRef = CallbackRef;
+		break;
+	case XHDMIPHY1_INTR_HANDLER_TYPE_RX_GPO_RISING_EDGE:
+		InstancePtr->IntrRxGpoRisingEdgeHandler = CallbackFunc;
+		InstancePtr->IntrRxGpoRisingEdgeCallbackRef = CallbackRef;
+		break;
 	case XHDMIPHY1_INTR_HANDLER_TYPE_LCPLL_LOCK:
 		InstancePtr->IntrLcpllLockHandler = CallbackFunc;
 		InstancePtr->IntrLcpllLockCallbackRef = CallbackRef;
