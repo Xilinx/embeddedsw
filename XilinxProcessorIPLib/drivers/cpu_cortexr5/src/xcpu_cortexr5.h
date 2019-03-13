@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xcpu_cortexr5.h
-* @addtogroup cpu_cortexr5_v1_4
+* @addtogroup cpu_cortexr5_v1_5
 * @{
 * @details
 *
@@ -40,5 +40,7 @@
 * ----- ---- -------- ---------------------------------------------------------
 * 1.4   ms   04/18/17 Modified tcl file to add suffix U for XPAR_CPU_ID
 *                     parameter of cpu_cortexr5 in xparameters.h
+* 1.5   asa  03/01/19 Updated to add had float support for R5 freertos
+*                     bsp.
 ******************************************************************************/
 /** @} */
