@@ -69,8 +69,4 @@ const char* XPm_GetMasterName(void);
 }
 #endif
 
-#ifdef __cplusplus
-}
-#endif
-
 #endif /* PM_CLIENT_H */
