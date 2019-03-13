@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2004 - 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2004 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -30,6 +30,9 @@
 # Ver      Who    Date     Changes
 # -------- ------ -------- ------------------------------------
 # 3.0      adk    12/10/13 Updated as per the New Tcl API's
+# 4.6      mus    03/13/19 Updated to support scenario where AXI TIMER is
+#                          interrupting ARM processor through more than
+#                          one interrupt pin. Fix for CR#1024699
 ##############################################################################
 ## @BEGIN_CHANGELOG EDK_I
 ##
@@ -119,6 +122,7 @@ proc gen_testfunc_call {swproj mhsinst} {
     }
 
     set iftmrintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
+    set proc [common::get_property IP_NAME [hsi::get_cells -hier [hsi::get_sw_processor]]]
     set ipname [common::get_property NAME  $mhsinst]
     set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
     set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
@@ -131,11 +135,10 @@ proc gen_testfunc_call {swproj mhsinst} {
     if {$iftmrintr == 1} {
        set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells -hier $ipname]  -filter "TYPE==INTERRUPT"]
        set intcname [::hsi::utils::get_connected_intr_cntrl $ipname  $intr_pin_name]
-        if {[llength $intcname] > 1} {
+        if {$proc == "microblaze" && [llength $intcname] > 1} {
               set intcname [lindex $intcname 1]
         }
        set intcvar intc
-       set proc [common::get_property IP_NAME [hsi::get_cells -hier [hsi::get_sw_processor]]]
     }
     
     set testfunc_call ""
@@ -200,7 +203,11 @@ proc gen_testfunc_call {swproj mhsinst} {
 	} then {
 		set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
 	} else {
-		set intr_id "XPAR_FABRIC_${ipname}_${intr_pin_name}_INTR"
+		if {[llength $intcname] > 2} {
+			set intr_id "XPAR_FABRIC_${ipname}_${intr_pin_name}0_INTR"
+		} else {
+			set intr_id "XPAR_FABRIC_${ipname}_${intr_pin_name}_INTR"
+		}
 	}
 	set intr_id [string toupper $intr_id]
 	
