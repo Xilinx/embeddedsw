@@ -719,7 +719,7 @@ proc xcreate_cmake_toolchain_file {os_handle is_versal} {
 	} elseif { "${proc_type}" == "ps7_cortexa9" } {
 		puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"cortexa9\" CACHE STRING \"\")"
 		puts $fd "set (MACHINE \"Zynq\")"
-	} elseif { "${proc_type}" == "microblaze" || "${proc_type}" == "psu_pmc" || "${proc_type}" == "psu_psm" || "${proc_type}" == "psu_pmu"} {
+	} elseif { "${proc_type}" == "microblaze" || "${proc_type}" == "psu_pmc" || "${proc_type}" == "psu_psm" || "${proc_type}" == "psv_pmc" || "${proc_type}" == "psv_psm" || "${proc_type}" == "psu_pmu"} {
 		puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"microblaze\" CACHE STRING \"\")"
 		puts $fd "set (MACHINE \"microblaze_generic\")"
 		set c_flags "${c_flags}  -mlittle-endian"
