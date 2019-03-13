@@ -102,7 +102,7 @@ static int rpmsg_set_address(unsigned long *bitmap, int size, int addr)
  * @param src     - source address of channel
  * @param dst     - destination address of channel
  * @param data    - data to transmit
- * @param size    - size of data
+ * @param len     - size of data
  * @param wait    - boolean, wait or not for buffer to become
  *                  available
  *
@@ -110,7 +110,7 @@ static int rpmsg_set_address(unsigned long *bitmap, int size, int addr)
  *
  */
 int rpmsg_send_offchannel_raw(struct rpmsg_endpoint *ept, uint32_t src,
-			      uint32_t dst, const void *data, int size,
+			      uint32_t dst, const void *data, int len,
 			      int wait)
 {
 	struct rpmsg_device *rdev;
@@ -122,7 +122,7 @@ int rpmsg_send_offchannel_raw(struct rpmsg_endpoint *ept, uint32_t src,
 
 	if (rdev->ops.send_offchannel_raw)
 		return rdev->ops.send_offchannel_raw(rdev, src, dst, data,
-						      size, wait);
+						     len, wait);
 
 	return RPMSG_ERR_PARAM;
 }

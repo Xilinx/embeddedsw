@@ -87,7 +87,7 @@ struct rpmsg_endpoint {
 struct rpmsg_device_ops {
 	int (*send_offchannel_raw)(struct rpmsg_device *rdev,
 				   uint32_t src, uint32_t dst,
-				   const void *data, int size, int wait);
+				   const void *data, int len, int wait);
 };
 
 /**
@@ -126,7 +126,7 @@ struct rpmsg_device {
  * Returns number of bytes it has sent or negative error value on failure.
  */
 int rpmsg_send_offchannel_raw(struct rpmsg_endpoint *ept, uint32_t src,
-			      uint32_t dst, const void *data, int size,
+			      uint32_t dst, const void *data, int len,
 			      int wait);
 
 /**
