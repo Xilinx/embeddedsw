@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xtmrctr.h
-* @addtogroup tmrctr_v4_5
+* @addtogroup tmrctr_v4_6
 * @{
 * @details
 *
@@ -158,6 +158,9 @@
 *                     is used to configure PWM to operate for specific period
 *                     and high time. XTmrCtr_PwmEnable and XTmrCtr_PwmDisable
 *                     are used to enable/disable the PWM output.
+* 4.6   mus  03/13/19 tmrctr_tapp tcl is updated to support scenario where
+*                     AXI TIMER is interrupting ARM processor through more
+*                     than one interrupt pin. Fix for CR#1024699
 * </pre>
 *
 ******************************************************************************/
