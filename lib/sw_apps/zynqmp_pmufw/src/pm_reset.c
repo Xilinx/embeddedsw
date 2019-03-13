@@ -120,6 +120,7 @@ typedef struct PmResetGpioBankIOs {
 	PmReset rst;
 	const u32 rstMaskDataReg;
 	const u32 rstDirectionReg;
+	const u32 rstReadDataReg;
 	const bool isMaskDataLsw;
 	const u32 rstLine;
 } PmResetGpioBankIOs;
@@ -289,6 +290,24 @@ static u32 PmResetPulseRom(const PmReset *const rstPtr)
 }
 
 /**
+ * PmResetGetStatusGpioBankIOs() - Get reset status handler for GPIO bank
+ * @rstPtr	Pointer to the reset whose status should be returned
+ *
+ * @return	Current reset status (0 - released, 1 - asserted)
+ */
+static u32 PmResetGetStatusGpioBankIOs(const PmReset* const rstPtr)
+{
+	const PmResetGpioBankIOs *rstGpioPtr = (PmResetGpioBankIOs*)rstPtr->derived;
+	u32 RegShift = MAX_REG_BITS/2 + rstGpioPtr->rstLine;
+	u32 RegVal = 0;
+
+	/* Read the MIO/EMIO data register */
+	RegVal = Xil_In32(rstGpioPtr->rstReadDataReg);
+
+	return ((RegVal >> RegShift) & 1U);
+}
+
+/**
  * PmResetPulseGpioBankIOs() - Pulse handler for PmResetGpioBankIOs class
  * @rstPtr	Pointer to the reset that needs to be toggled
  *
@@ -429,7 +448,7 @@ static const PmResetOps pmResetOpsPl = {
 
 static const PmResetOps pmResetOpsGpioBankIO = {
 	.assert = NULL,
-	.getStatus = NULL,
+	.getStatus = PmResetGetStatusGpioBankIOs,
 	.pulse = PmResetPulseGpioBankIOs,
 };
 
@@ -1635,6 +1654,7 @@ static PmResetGpioBankIOs pmResetGpio5EMIO92 = {
 	},
 	.rstMaskDataReg = GPIO_MASK_DATA_5_MSW_REG,
 	.rstDirectionReg = GPIO_DIRM_5,
+	.rstReadDataReg = GPIO_DATA_5_RO_REG,
 	.isMaskDataLsw = false,
 	.rstLine = GPIO5_EMIO92_MSW_DATA_BIT,
 };
@@ -1647,6 +1667,7 @@ static PmResetGpioBankIOs pmResetGpio5EMIO93 = {
 	},
 	.rstMaskDataReg = GPIO_MASK_DATA_5_MSW_REG,
 	.rstDirectionReg = GPIO_DIRM_5,
+	.rstReadDataReg = GPIO_DATA_5_RO_REG,
 	.isMaskDataLsw = false,
 	.rstLine = GPIO5_EMIO93_MSW_DATA_BIT,
 };
@@ -1659,6 +1680,7 @@ static PmResetGpioBankIOs pmResetGpio5EMIO94 = {
 	},
 	.rstMaskDataReg = GPIO_MASK_DATA_5_MSW_REG,
 	.rstDirectionReg = GPIO_DIRM_5,
+	.rstReadDataReg = GPIO_DATA_5_RO_REG,
 	.isMaskDataLsw = false,
 	.rstLine = GPIO5_EMIO94_MSW_DATA_BIT,
 };
@@ -1671,6 +1693,7 @@ static PmResetGpioBankIOs pmResetGpio5EMIO95 = {
 	},
 	.rstMaskDataReg = GPIO_MASK_DATA_5_MSW_REG,
 	.rstDirectionReg = GPIO_DIRM_5,
+	.rstReadDataReg = GPIO_DATA_5_RO_REG,
 	.isMaskDataLsw = false,
 	.rstLine = GPIO5_EMIO95_MSW_DATA_BIT,
 };
