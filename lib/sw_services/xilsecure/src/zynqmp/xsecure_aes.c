@@ -56,8 +56,9 @@
 *       vns 02/19/18 Modified XSecure_AesKeyZero() to clear KUP and AES key
 *                    Added XSecure_AesKeyZero() call in XSecure_AesDecrypt()
 *                    API to clear keys.
-* 4.0   arc 18/12/18 Fixed MISRA-C violations.
-*       arc 06/03/19 Added asserts to validate input params
+* 4.0   arc 12/18/18 Fixed MISRA-C violations.
+*       arc 03/06/19 Added asserts to validate input params
+*       vns 03/13/19 As part of refactoring modified SSS configurations
 *
 * </pre>
 *
@@ -120,6 +121,8 @@ s32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
 	InstancePtr->Key = KeyPtr;
 	InstancePtr->IsChunkingEnabled = XSECURE_CSU_AES_CHUNKING_DISABLED;
 
+	XSecure_SssInitialize(&(InstancePtr->SssInstance));
+
 	return XST_SUCCESS;
 }
 
@@ -144,9 +147,6 @@ s32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
  ******************************************************************************/
 void XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 {
-	u32 SssCfg;
-	u32 SssDma;
-	u32 SssAes;
 	u32 Count;
 	u32 Value;
 	u32 Addr;
@@ -158,10 +158,8 @@ void XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 	Xil_AssertVoid(Size != (u32)0x0);
 
 	/* Configure the SSS for AES.*/
-	SssDma = XSecure_SssInputDstDma(XSECURE_CSU_SSS_SRC_AES);
-	SssAes = XSecure_SssInputAes(XSECURE_CSU_SSS_SRC_SRC_DMA);
-	SssCfg = SssDma |SssAes ;
-	XSecure_SssSetup(SssCfg);
+	XSecure_SssAes(&(InstancePtr->SssInstance), XSECURE_SSS_DMA0,
+						XSECURE_SSS_DMA0);
 
 	/* Clear AES contents by reseting it. */
 	XSecure_AesReset(InstancePtr);
@@ -299,9 +297,6 @@ void XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, const u8 *Data, u32 Size
 		/* Wait for AES encryption completion.*/
 		XSecure_AesWaitForDone(InstancePtr);
 
-		XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_CSU_AES_RESET_OFFSET, XSECURE_CSU_AES_RESET);
-
 	}
 	/* Update the size of instance */
 	InstancePtr->SizeofData = InstancePtr->SizeofData - Size;
@@ -358,9 +353,6 @@ void XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 void XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 		u32 Size, u8 *GcmTagAddr)
 {
-
-	u32 SssCfg;
-	u32 SssAes;
 	XCsuDma_Configure ConfigurValues = {0};
 	u32 Count;
 	u32 Value;
@@ -373,17 +365,14 @@ void XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 	Xil_AssertVoid(GcmTagAddr != NULL);
 
 	/* Configure the SSS for AES. */
-	SssAes = XSecure_SssInputAes(XSECURE_CSU_SSS_SRC_SRC_DMA);
-
 	if (DecData == (u8*)XSECURE_DESTINATION_PCAP_ADDR) {
-		SssCfg = SssAes |
-			XSecure_SssInputPcap(XSECURE_CSU_SSS_SRC_AES);
+		XSecure_SssAes(&(InstancePtr->SssInstance), XSECURE_SSS_DMA0,
+				XSECURE_SSS_PCAP);
 	}
 	else {
-		SssCfg = SssAes |
-			XSecure_SssInputDstDma(XSECURE_CSU_SSS_SRC_AES);
+		XSecure_SssAes(&(InstancePtr->SssInstance), XSECURE_SSS_DMA0,
+							XSECURE_SSS_DMA0);
 	}
-	XSecure_SssSetup(SssCfg);
 
 	/* Clear AES contents by reseting it. */
 	XSecure_AesReset(InstancePtr);
@@ -548,9 +537,6 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 		GcmStatus = XSecure_ReadReg(InstancePtr->BaseAddress,
 					XSECURE_CSU_AES_STS_OFFSET) &
 					XSECURE_CSU_AES_STS_GCM_TAG_OK;
-
-		XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_CSU_AES_RESET_OFFSET, XSECURE_CSU_AES_RESET);
 
 		if (GcmStatus == 0U) {
 			/* Zeroize the decrypted data*/
@@ -779,11 +765,8 @@ void XSecure_AesReset(XSecure_Aes *InstancePtr)
 	/* Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_CSU_AES_RESET_OFFSET, XSECURE_CSU_AES_RESET);
-
-	XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_CSU_AES_RESET_OFFSET, 0x0U);
+	XSecure_ReleaseReset(InstancePtr->BaseAddress,
+			XSECURE_CSU_AES_RESET_OFFSET);
 }
 
 /*****************************************************************************/
@@ -1258,7 +1241,6 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 			u32 Length)
 {
-	u32 SssCfg;
 	volatile u32 Status = XST_FAILURE;
 	u32 CurrentImgLen = 0x0U;
 	u32 NextBlkLen = 0x0U;
@@ -1268,9 +1250,6 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 	u8 *GcmTagAddr;
 	u32 BlockCnt = 0x0U;
 	u32 ImageLen = 0x0U;
-	u32 SssPcap;
-	u32 SssDma;
-	u32 SssAes;
 	XCsuDma_Configure ConfigurValues = {0};
 	u32 KeyClearStatus;
 	u32 DecryptStatus;
@@ -1285,20 +1264,16 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 					== XSECURE_CSU_AES_CHUNKING_DISABLED)));
 
 	/* Configure the SSS for AES. */
-	SssAes = XSecure_SssInputAes(XSECURE_CSU_SSS_SRC_SRC_DMA);
-
 	if (Dst == (u8*)XSECURE_DESTINATION_PCAP_ADDR)
 	{
-		SssPcap = XSecure_SssInputPcap(XSECURE_CSU_SSS_SRC_AES);
-		SssCfg =  SssPcap|SssAes;
+		XSecure_SssAes(&(InstancePtr->SssInstance), XSECURE_SSS_DMA0,
+								XSECURE_SSS_PCAP);
 	}
 	else
 	{
-		SssDma = XSecure_SssInputDstDma(XSECURE_CSU_SSS_SRC_AES);
-		SssCfg = SssDma|SssAes ;
+		XSecure_SssAes(&(InstancePtr->SssInstance), XSECURE_SSS_DMA0,
+								XSECURE_SSS_DMA0);
 	}
-
-	XSecure_SssSetup(SssCfg);
 
 	/* Configure AES for Decryption */
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_AES_CFG_OFFSET,
@@ -1449,9 +1424,6 @@ ENDF:
 	if (KeyClearStatus != (u32)XST_SUCCESS) {
 		Status = Status | KeyClearStatus;
 	}
-
-	XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_CSU_AES_RESET_OFFSET, XSECURE_CSU_AES_RESET);
 
 	return (s32)Status;
 }

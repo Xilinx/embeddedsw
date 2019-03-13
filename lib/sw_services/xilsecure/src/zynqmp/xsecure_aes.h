@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -93,10 +93,11 @@
 
 /************************** Include Files ***********************************/
 
-#include "xsecure_hw.h"
 #include "xcsudma.h"
 #include "xstatus.h"
 #include "xil_io.h"
+#include "xsecure_aes_hw.h"
+#include "xsecure_utils.h"
 
 /************************** Constant Definitions ****************************/
 /** @cond xsecure_internal
@@ -200,6 +201,7 @@ typedef struct {
 	u32 SizeofData; /**< Size of Data to be encrypted or decrypted */
 	u8  *Destination; /**< Destination for decrypted/encrypted data */
 	u32 TotalSizeOfData; /**< Total size of the data */
+	XSecure_Sss SssInstance;
 } XSecure_Aes;
 
 /** @}
