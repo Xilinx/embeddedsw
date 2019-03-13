@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -92,26 +92,45 @@ extern void *_vector_table;
 	/* Use TCM for saving context */
 	#define CONTEXT_MEM_BASE	0x8000U
 #endif
-
+#if defined (__GNUC__)
 /* The below sections will be saved during suspend */
 extern u8 __data_start;
 extern u8 __bss_start__;
 extern u8 __data_end;
 extern u8 __bss_end__;
-
+#elif defined (__ICCARM__)
+#pragma section=".bss"
+#pragma section=".data"
+#endif
 /**
  * SaveContext() - called to save context of bss and data sections in OCM
  */
 static void SaveContext(void)
 {
 	u8 *MemPtr;
+	u8 *StartAddr;
+	u8 *EndAddr;
 	u8 *ContextMemPtr = (u8 *)CONTEXT_MEM_BASE;
 
-	for (MemPtr = &__data_start; MemPtr < &__data_end; MemPtr++, ContextMemPtr++) {
+#if defined (__GNUC__)
+	StartAddr = &__data_start;
+	EndAddr = &__data_end;
+#elif defined (__ICCARM__)
+	StartAddr = __section_begin(".data");
+	EndAddr = __section_end(".data");
+#endif
+	for (MemPtr = StartAddr; MemPtr < EndAddr; MemPtr++, ContextMemPtr++) {
 		*ContextMemPtr = *MemPtr;
 	}
 
-	for (MemPtr = &__bss_start__; MemPtr < &__bss_end__; MemPtr++, ContextMemPtr++) {
+#if defined (__GNUC__)
+	StartAddr = &__bss_start__;
+	EndAddr = &__bss_end__;
+#elif defined (__ICCARM__)
+	StartAddr = __section_begin(".bss");
+	EndAddr = __section_end(".bss");
+#endif
+	for (MemPtr = StartAddr; MemPtr < EndAddr; MemPtr++, ContextMemPtr++) {
 		*ContextMemPtr = *MemPtr;
 	}
 
@@ -124,13 +143,29 @@ static void SaveContext(void)
 static void RestoreContext(void)
 {
 	u8 *MemPtr;
+	u8 *StartAddr;
+	u8 *EndAddr;
 	u8 *ContextMemPtr = (u8 *)CONTEXT_MEM_BASE;
 
-	for (MemPtr = &__data_start; MemPtr < &__data_end; MemPtr++, ContextMemPtr++) {
+#if defined (__GNUC__)
+	StartAddr = &__data_start;
+	EndAddr = &__data_end;
+#elif defined (__ICCARM__)
+	StartAddr = __section_begin(".data");
+	EndAddr = __section_end(".data");
+#endif
+	for (MemPtr = StartAddr; MemPtr < EndAddr; MemPtr++, ContextMemPtr++) {
 		*MemPtr = *ContextMemPtr;
 	}
 
-	for (MemPtr = &__bss_start__; MemPtr < &__bss_end__; MemPtr++, ContextMemPtr++) {
+#if defined (__GNUC__)
+	StartAddr = &__bss_start__;
+	EndAddr = &__bss_end__;
+#elif defined (__ICCARM__)
+	StartAddr = __section_begin(".bss");
+	EndAddr = __section_end(".bss");
+#endif
+	for (MemPtr = StartAddr; MemPtr < EndAddr; MemPtr++, ContextMemPtr++) {
 		*MemPtr = *ContextMemPtr;
 	}
 
