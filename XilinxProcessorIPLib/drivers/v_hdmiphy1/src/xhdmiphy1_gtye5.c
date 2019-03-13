@@ -74,11 +74,11 @@ u32 XHdmiphy1_Gtye5TxChReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
 
 
 const XHdmiphy1_GtConfig Gtye5Config = {
-//    .CfgSetCdr = XHdmiphy1_Gtye4CfgSetCdr,
-//    .CheckPllOpRange = XHdmiphy1_Gtye4CheckPllOpRange,
-//    .OutDivChReconfig = XHdmiphy1_Gtye4OutDivChReconfig,
-//    .ClkChReconfig = XHdmiphy1_Gtye4ClkChReconfig,
-//    .ClkCmnReconfig = XHdmiphy1_Gtye4ClkCmnReconfig,
+/*  .CfgSetCdr = XHdmiphy1_Gtye4CfgSetCdr,
+    .CheckPllOpRange = XHdmiphy1_Gtye4CheckPllOpRange,
+    .OutDivChReconfig = XHdmiphy1_Gtye4OutDivChReconfig,
+    .ClkChReconfig = XHdmiphy1_Gtye4ClkChReconfig,
+    .ClkCmnReconfig = XHdmiphy1_Gtye4ClkCmnReconfig, */
     .RxChReconfig = XHdmiphy1_Gtye5RxChReconfig,
     .TxChReconfig = XHdmiphy1_Gtye5TxChReconfig,
 
@@ -245,11 +245,11 @@ u32 XHdmiphy1_HdmiLcpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 						((*RefClkPtr) <= 350000000)) {
 				InstancePtr->Quads[0].Lcpll.LineRateCfg = 9;
 			}
-//			/* For x3 Oversampling */
-//			else if ((350000000 <= (*RefClkPtr)) &&
-//						((*RefClkPtr) <= 381260000)) {
-//				InstancePtr->Quads[0].Lcpll.LineRateCfg = 10;
-//			}
+			/* For x3 Oversampling */
+			/*else if ((350000000 <= (*RefClkPtr)) &&
+						((*RefClkPtr) <= 381260000)) {
+				InstancePtr->Quads[0].Lcpll.LineRateCfg = 10;
+			} */
 			else{
 				Status = XST_FAILURE;
 			}

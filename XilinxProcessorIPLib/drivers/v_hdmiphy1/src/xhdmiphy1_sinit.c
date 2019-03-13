@@ -69,7 +69,7 @@ extern XHdmiphy1_Config XHdmiphy1_ConfigTable[XPAR_XHDMIPHY1_NUM_INSTANCES];
 /******************************************************************************/
 /**
  * This function looks for the device configuration based on the unique device
- * ID. The table XHdmiphy1_ConfigTable[] contains the configuration information 
+ * ID. The table XHdmiphy1_ConfigTable[] contains the configuration information
  * for each device in the system.
  *
  * @param	DeviceId is the unique device ID of the device being looked up.

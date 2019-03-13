@@ -159,6 +159,10 @@ u32 XHdmiphy1_Hdmi_CfgInitialize(XHdmiphy1 *InstancePtr, u8 QuadId,
 			XHDMIPHY1_INTR_HANDLER_TYPE_LCPLL_LOCK);
 	XHdmiphy1_IntrDisable(InstancePtr,
 			XHDMIPHY1_INTR_HANDLER_TYPE_RPLL_LOCK);
+	XHdmiphy1_IntrDisable(InstancePtr,
+			XHDMIPHY1_INTR_HANDLER_TYPE_TX_GPO_RISING_EDGE);
+	XHdmiphy1_IntrDisable(InstancePtr,
+			XHDMIPHY1_INTR_HANDLER_TYPE_RX_GPO_RISING_EDGE);
 #endif
 	XHdmiphy1_IntrDisable(InstancePtr,
 			XHDMIPHY1_INTR_HANDLER_TYPE_TX_CLKDET_FREQ_CHANGE);
@@ -239,12 +243,11 @@ u32 XHdmiphy1_Hdmi_CfgInitialize(XHdmiphy1 *InstancePtr, u8 QuadId,
 	XHdmiphy1_Ch2Ids(InstancePtr, XHDMIPHY1_CHANNEL_ID_CHA, &Id0, &Id1);
 	for (Id = Id0; Id <= Id1; Id++) {
 		XHdmiphy1_SetTxVoltageSwing(InstancePtr, QuadId,
-				(XHdmiphy1_ChannelId)Id,
-            0xB);
-		XHdmiphy1_SetTxPreEmphasis(InstancePtr, QuadId, (XHdmiphy1_ChannelId)Id,
-            0x4);
-		XHdmiphy1_SetTxPostCursor(InstancePtr, QuadId, (XHdmiphy1_ChannelId)Id,
-            0x4);
+			(XHdmiphy1_ChannelId)Id, 0xB);
+		XHdmiphy1_SetTxPreEmphasis(InstancePtr, QuadId,
+            (XHdmiphy1_ChannelId)Id, 0x4);
+		XHdmiphy1_SetTxPostCursor(InstancePtr, QuadId,
+            (XHdmiphy1_ChannelId)Id, 0x4);
 	}
 
 	/* Clear Interrupt Register */
@@ -270,6 +273,10 @@ u32 XHdmiphy1_Hdmi_CfgInitialize(XHdmiphy1 *InstancePtr, u8 QuadId,
 			XHDMIPHY1_INTR_HANDLER_TYPE_LCPLL_LOCK);
 	XHdmiphy1_IntrEnable(InstancePtr,
 			XHDMIPHY1_INTR_HANDLER_TYPE_RPLL_LOCK);
+	XHdmiphy1_IntrEnable(InstancePtr,
+			XHDMIPHY1_INTR_HANDLER_TYPE_TX_GPO_RISING_EDGE);
+	XHdmiphy1_IntrEnable(InstancePtr,
+			XHDMIPHY1_INTR_HANDLER_TYPE_RX_GPO_RISING_EDGE);
 #endif
 	XHdmiphy1_IntrEnable(InstancePtr,
 			XHDMIPHY1_INTR_HANDLER_TYPE_TX_CLKDET_FREQ_CHANGE);
@@ -1392,9 +1399,12 @@ u32 XHdmiphy1_HdmiQpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 	/* Suppress Warning Messages */
 	ChId = ChId;
 
-	XHdmiphy1_SysClkDataSelType SysClkDataSel = (XHdmiphy1_SysClkDataSelType) 0;
-	XHdmiphy1_SysClkOutSelType SysClkOutSel = (XHdmiphy1_SysClkOutSelType) 0;
-	XHdmiphy1_ChannelId ActiveCmnId = XHDMIPHY1_CHANNEL_ID_CMN0;
+	XHdmiphy1_SysClkDataSelType SysClkDataSel =
+        XHdmiphy1_SysClkDataSelType) 0;
+	XHdmiphy1_SysClkOutSelType SysClkOutSel =
+        (XHdmiphy1_SysClkOutSelType) 0;
+	XHdmiphy1_ChannelId ActiveCmnId =
+        XHDMIPHY1_CHANNEL_ID_CMN0;
 
 	u32 QpllRefClk;
 	u32 QpllClkMin = 0;
@@ -1557,8 +1567,8 @@ u32 XHdmiphy1_HdmiQpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 
 		if (InstancePtr->TxHdmi21Cfg.IsEnabled == 0) {
 			/* Update TX line rates. */
-			XHdmiphy1_CfgLineRate(InstancePtr, QuadId, XHDMIPHY1_CHANNEL_ID_CMNA,
-					(u64)((*RefClkPtr) * 10));
+			XHdmiphy1_CfgLineRate(InstancePtr, QuadId,
+                XHDMIPHY1_CHANNEL_ID_CMNA, (u64)((*RefClkPtr) * 10));
 			TxLineRate = (*RefClkPtr) / 100000;;
 
 			/* Check if the linerate is above the 340 Mcsc. */
@@ -2016,12 +2026,12 @@ u32 XHdmiphy1_SetHdmiTxParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 		 * colordepth to 8 bits. */
 		if (ColorFormat == XVIDC_CSF_YCRCB_422) {
 			Status = XHdmiphy1_HdmiCfgCalcMmcmParam(InstancePtr, QuadId,
-				ChId, XHDMIPHY1_DIR_TX, Ppc, XVIDC_BPC_8);
+                        ChId, XHDMIPHY1_DIR_TX, Ppc, XVIDC_BPC_8);
 		}
 		/* Other colorspaces. */
 		else {
 			Status = XHdmiphy1_HdmiCfgCalcMmcmParam(InstancePtr, QuadId,
-				ChId, XHDMIPHY1_DIR_TX, Ppc, Bpc);
+                        ChId, XHDMIPHY1_DIR_TX, Ppc, Bpc);
 		}
 	}
 	else {
@@ -2060,11 +2070,11 @@ u32 XHdmiphy1_SetHdmiRxParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
 	if (XHdmiphy1_IsRxUsingCpll(InstancePtr, QuadId, ChId)) {
 		Status = XHdmiphy1_HdmiCpllParam(InstancePtr, QuadId, ChId,
-				XHDMIPHY1_DIR_RX);
+                    XHDMIPHY1_DIR_RX);
 	}
 	else {
         Status = XHdmiphy1_HdmiQpllParam(InstancePtr, QuadId, ChId,
-				XHDMIPHY1_DIR_RX);
+                    XHDMIPHY1_DIR_RX);
 		/* Update SysClk and PLL Clk registers immediately */
 		XHdmiphy1_WriteCfgRefClkSelReg(InstancePtr, QuadId);
 	}
@@ -2075,7 +2085,7 @@ u32 XHdmiphy1_SetHdmiRxParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 	if (InstancePtr->HdmiRxDruIsEnabled) {
 		/* Determine PLL type. */
 		PllType = XHdmiphy1_GetPllType(InstancePtr, 0, XHDMIPHY1_DIR_RX,
-				XHDMIPHY1_CHANNEL_ID_CH1);
+                    XHDMIPHY1_CHANNEL_ID_CH1);
 		/* Update the ChId */
 		ChanId = XHdmiphy1_GetRcfgChId(InstancePtr, 0,
                     XHDMIPHY1_DIR_RX, PllType);
@@ -2134,7 +2144,8 @@ void XHdmiphy1_PatgenEnable(XHdmiphy1 *InstancePtr, u8 QuadId, u8 Enable)
 * @return	None.
 *
 ******************************************************************************/
-void XHdmiphy1_PatgenSetRatio(XHdmiphy1 *InstancePtr, u8 QuadId, u64 TxLineRate)
+void XHdmiphy1_PatgenSetRatio(XHdmiphy1 *InstancePtr, u8 QuadId,
+        u64 TxLineRate)
 {
 	u32 RegVal;
 
@@ -2142,11 +2153,12 @@ void XHdmiphy1_PatgenSetRatio(XHdmiphy1 *InstancePtr, u8 QuadId, u64 TxLineRate)
     QuadId = QuadId;
 
 	RegVal = (XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr,
-							XHDMIPHY1_PATGEN_CTRL_REG)
+				XHDMIPHY1_PATGEN_CTRL_REG)
 				& ~XHDMIPHY1_PATGEN_CTRL_RATIO_MASK);
 
 	if ((TxLineRate >= 3400) && (InstancePtr->HdmiTxSampleRate == 1)) {
-		RegVal |= XHDMIPHY1_Patgen_Ratio_40 & XHDMIPHY1_PATGEN_CTRL_RATIO_MASK;
+		RegVal |= XHDMIPHY1_Patgen_Ratio_40 &
+                        XHDMIPHY1_PATGEN_CTRL_RATIO_MASK;
 	}
 	else {
 		RegVal |= InstancePtr->HdmiTxSampleRate &
@@ -2531,6 +2543,9 @@ void XHdmiphy1_HdmiDebugInfo(XHdmiphy1 *InstancePtr, u8 QuadId,
 		case (XHDMIPHY1_GT_STATE_IDLE):
 			xil_printf("idle\r\n");
 			break;
+		case (XHDMIPHY1_GT_STATE_GPO_RE):
+			xil_printf("GPO Assert\r\n");
+			break;
 		case (XHDMIPHY1_GT_STATE_LOCK):
 			if (XHdmiphy1_IsTxUsingLcpll(InstancePtr, QuadId, ChId)) {
 				xil_printf("LCPLL lock\r\n");
@@ -2560,6 +2575,9 @@ void XHdmiphy1_HdmiDebugInfo(XHdmiphy1 *InstancePtr, u8 QuadId,
                     Plls[XHDMIPHY1_CH2IDX(ChId)].RxState) {
 		case (XHDMIPHY1_GT_STATE_IDLE):
 			xil_printf("idle\r\n");
+			break;
+		case (XHDMIPHY1_GT_STATE_GPO_RE):
+			xil_printf("GPO Assert\r\n");
 			break;
 		case (XHDMIPHY1_GT_STATE_LOCK):
 			if (XHdmiphy1_IsRxUsingLcpll(InstancePtr, QuadId, ChId)) {

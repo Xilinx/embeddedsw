@@ -66,68 +66,6 @@
  * </pre>
  *
 *******************************************************************************/
-#define XPAR_FABRIC_V_HDMI_PHY_IRQ_INTR 121U
-#define XPAR_FABRIC_V_HDMIPHY1_0_VEC_ID XPAR_FABRIC_V_HDMI_PHY_IRQ_INTR
-
-/******************************************************************/
-
-/* Definitions for driver V_HDMIPHY1 */
-#define XPAR_XHDMIPHY1_NUM_INSTANCES 1
-
-/* Definitions for peripheral V_HDMI_PHY */
-#define XPAR_V_HDMI_PHY_DEVICE_ID 0
-#define XPAR_V_HDMI_PHY_BASEADDR 0x80060000
-#define XPAR_V_HDMI_PHY_TRANSCEIVER_STR "GTYE5"
-#define XPAR_V_HDMI_PHY_TRANSCEIVER 7
-#define XPAR_V_HDMI_PHY_TX_NO_OF_CHANNELS 4
-#define XPAR_V_HDMI_PHY_RX_NO_OF_CHANNELS 4
-#define XPAR_V_HDMI_PHY_TX_PROTOCOL 2
-#define XPAR_V_HDMI_PHY_RX_PROTOCOL 2
-#define XPAR_V_HDMI_PHY_TX_REFCLK_SEL 4
-#define XPAR_V_HDMI_PHY_RX_REFCLK_SEL 0
-#define XPAR_V_HDMI_PHY_TX_FRL_REFCLK_SEL 1
-#define XPAR_V_HDMI_PHY_RX_FRL_REFCLK_SEL 1
-#define XPAR_V_HDMI_PHY_TX_PLL_SELECTION 7
-#define XPAR_V_HDMI_PHY_RX_PLL_SELECTION 8
-#define XPAR_V_HDMI_PHY_NIDRU 1
-#define XPAR_V_HDMI_PHY_NIDRU_REFCLK_SEL 1
-#define XPAR_V_HDMI_PHY_INPUT_PIXELS_PER_CLOCK 4
-#define XPAR_V_HDMI_PHY_TX_BUFFER_BYPASS 1
-#define XPAR_V_HDMI_PHY_HDMI_FAST_SWITCH 1
-#define XPAR_V_HDMI_PHY_TRANSCEIVER_WIDTH 4
-#define XPAR_V_HDMI_PHY_ERR_IRQ_EN 0
-#define XPAR_V_HDMI_PHY_AXI_LITE_FREQ_HZ 99990005
-#define XPAR_V_HDMI_PHY_DRPCLK_FREQ 99990005
-#define XPAR_V_HDMI_PHY_USE_GT_CH4_HDMI 1
-
-
-/******************************************************************/
-
-/* Canonical definitions for peripheral V_HDMI_PHY */
-#define XPAR_HDMIPHY1_0_DEVICE_ID XPAR_V_HDMI_PHY_DEVICE_ID
-#define XPAR_HDMIPHY1_0_BASEADDR 0x80060000
-#define XPAR_HDMIPHY1_0_TRANSCEIVER_STR "GTYE5"
-#define XPAR_HDMIPHY1_0_TRANSCEIVER 7
-#define XPAR_HDMIPHY1_0_TX_NO_OF_CHANNELS 4
-#define XPAR_HDMIPHY1_0_RX_NO_OF_CHANNELS 4
-#define XPAR_HDMIPHY1_0_TX_PROTOCOL 2
-#define XPAR_HDMIPHY1_0_RX_PROTOCOL 2
-#define XPAR_HDMIPHY1_0_TX_REFCLK_SEL 4
-#define XPAR_HDMIPHY1_0_RX_REFCLK_SEL 0
-#define XPAR_HDMIPHY1_0_TX_FRL_REFCLK_SEL 1
-#define XPAR_HDMIPHY1_0_RX_FRL_REFCLK_SEL 1
-#define XPAR_HDMIPHY1_0_TX_PLL_SELECTION 7
-#define XPAR_HDMIPHY1_0_RX_PLL_SELECTION 8
-#define XPAR_HDMIPHY1_0_NIDRU 1
-#define XPAR_HDMIPHY1_0_NIDRU_REFCLK_SEL 1
-#define XPAR_HDMIPHY1_0_INPUT_PIXELS_PER_CLOCK 4
-#define XPAR_HDMIPHY1_0_TX_BUFFER_BYPASS 1
-#define XPAR_HDMIPHY1_0_HDMI_FAST_SWITCH 1
-#define XPAR_HDMIPHY1_0_TRANSCEIVER_WIDTH 4
-#define XPAR_HDMIPHY1_0_ERR_IRQ_EN 0
-#define XPAR_HDMIPHY1_0_AXI_LITE_FREQ_HZ 99990005
-#define XPAR_HDMIPHY1_0_DRPCLK_FREQ 99990005
-#define XPAR_HDMIPHY1_0_USE_GT_CH4_HDMI 1
 
 #ifndef XHDMIPHY1_H_
 /* Prevent circular inclusions by using protection macros. */
@@ -213,6 +151,12 @@ typedef enum {
         XHDMIPHY1_INTR_TXMMCMUSRCLK_LOCK_MASK,
     XHDMIPHY1_INTR_HANDLER_TYPE_RX_MMCM_LOCK_CHANGE =
         XHDMIPHY1_INTR_RXMMCMUSRCLK_LOCK_MASK,
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)
+    XHDMIPHY1_INTR_HANDLER_TYPE_TX_GPO_RISING_EDGE =
+	XHDMIPHY1_INTR_TXGPO_RE_MASK,
+	XHDMIPHY1_INTR_HANDLER_TYPE_RX_GPO_RISING_EDGE =
+	XHDMIPHY1_INTR_RXGPO_RE_MASK,
+#endif
     XHDMIPHY1_INTR_HANDLER_TYPE_TX_TMR_TIMEOUT =
         XHDMIPHY1_INTR_TXTMRTIMEOUT_MASK,
     XHDMIPHY1_INTR_HANDLER_TYPE_RX_TMR_TIMEOUT =
@@ -343,6 +287,7 @@ typedef enum {
 typedef enum {
     XHDMIPHY1_GT_STATE_IDLE,     /**< Idle state. */
     XHDMIPHY1_GT_STATE_LOCK,     /**< Lock state. */
+	XHDMIPHY1_GT_STATE_GPO_RE,   /**< GPO RE state. */
     XHDMIPHY1_GT_STATE_RESET,    /**< Reset state. */
     XHDMIPHY1_GT_STATE_ALIGN,    /**< Align state. */
     XHDMIPHY1_GT_STATE_READY,    /**< Ready state. */
@@ -402,18 +347,18 @@ typedef enum {
     XHDMIPHY1_LOG_EVT_TMDS_RECONFIG, /**< Log event TMDS TX Reconfig. */
     XHDMIPHY1_LOG_EVT_1PPC_ERR,      /**< Log event 1 PPC Error. */
     XHDMIPHY1_LOG_EVT_PPC_MSMTCH_ERR,/**< Log event PPC MismatchError. */
-    XHDMIPHY1_LOG_EVT_VDCLK_HIGH_ERR,/**< Log evt VidClk more than 148.5 MHz. */
-    XHDMIPHY1_LOG_EVT_NO_DRU,        /**< Log event Vid not supported no DRU. */
+    XHDMIPHY1_LOG_EVT_VDCLK_HIGH_ERR,/**< Log evt VidClk > 148.5 MHz. */
+    XHDMIPHY1_LOG_EVT_NO_DRU,        /**< Log evt Vid not supported no DRU. */
     XHDMIPHY1_LOG_EVT_GT_QPLL_CFG_ERR,/**< Log event QPLL Config not found. */
-    XHDMIPHY1_LOG_EVT_GT_CPLL_CFG_ERR,/**< Log event LCPLL Config not found. */
-    XHDMIPHY1_LOG_EVT_GT_LCPLL_CFG_ERR,/**< Log event RPLL Config not found. */
+    XHDMIPHY1_LOG_EVT_GT_CPLL_CFG_ERR,/**< Log evt LCPLL Config not found. */
+    XHDMIPHY1_LOG_EVT_GT_LCPLL_CFG_ERR,/**< Log evt RPLL Config not found. */
     XHDMIPHY1_LOG_EVT_GT_RPLL_CFG_ERR,/**< Log event QPLL Config not found. */
-    XHDMIPHY1_LOG_EVT_VD_NOT_SPRTD_ERR,/**< Log evt Vid format not supported. */
+    XHDMIPHY1_LOG_EVT_VD_NOT_SPRTD_ERR,/**< Log evt Vid fmt not supported. */
     XHDMIPHY1_LOG_EVT_MMCM_ERR,      /**< Log event MMCM Config not found. */
     XHDMIPHY1_LOG_EVT_HDMI20_ERR,    /**< Log event HDMI2.0 not supported. */
     XHDMIPHY1_LOG_EVT_NO_QPLL_ERR,   /**< Log event QPLL not present. */
     XHDMIPHY1_LOG_EVT_DRU_CLK_ERR,   /**< Log event DRU clk wrong freq. */
-    XHDMIPHY1_LOG_EVT_USRCLK_ERR,    /**< Log event usrclk more than 297 MHz. */
+    XHDMIPHY1_LOG_EVT_USRCLK_ERR,    /**< Log event usrclk > 297 MHz. */
     XHDMIPHY1_LOG_EVT_DUMMY,         /**< Dummy Event should be last */
 } XHdmiphy1_LogEvent;
 #endif
@@ -472,10 +417,10 @@ typedef void (*XHdmiphy1_IntrHandler)(void *InstancePtr);
 /**
  * Callback type which represents a custom timer wait handler. This is only
  * used for Microblaze since it doesn't have a native sleep function. To avoid
- * dependency on a hardware timer, the default wait functionality is implemented
- * using loop iterations; this isn't too accurate. If a custom timer handler is
- * used, the user may implement their own wait implementation using a hardware
- * timer (see example/) for better accuracy.
+ * dependency on a hardware timer, the default wait functionality is
+ * implemented using loop iterations; this isn't too accurate. If a custom
+ * timer handler is used, the user may implement their own wait implementation
+ * using a hardware timer (see example/) for better accuracy.
  *
  * @param   InstancePtr is a pointer to the XHdmiphy1 instance.
  * @param   MicroSeconds is the number of microseconds to be passed to the
@@ -739,14 +684,14 @@ typedef struct {
     XHdmiphy1_SysClkDataSelType TxSysPllClkSel; /**< TX SYSCLK selection. */
     XHdmiphy1_SysClkDataSelType RxSysPllClkSel; /**< RX SYSCLK selectino. */
     u8 DruIsPresent;        /**< A data recovery unit (DRU) exists
-                        in the design .*/
+                                 in the design .*/
     XHdmiphy1_PllRefClkSelType DruRefClkSel; /**< DRU REFCLK selection. */
     XVidC_PixelsPerClock Ppc;   /**< Number of input pixels per
-                         clock. */
+                                     clock. */
     u8 TxBufferBypass;      /**< TX Buffer Bypass is enabled in the
-                        design. */
+                                 design. */
     u8  HdmiFastSwitch;     /**< HDMI fast switching is enabled in the
-                        design. */
+                                 design. */
     u8  TransceiverWidth;   /**< Transceiver Width seeting in the design */
     u32 ErrIrq;             /**< Error IRQ is enalbed in design */
     u32 AxiLiteClkFreq;     /**< AXI Lite Clock Frequency in Hz */
@@ -781,17 +726,17 @@ typedef struct {
     XHdmiphy1_Hdmi21Cfg TxHdmi21Cfg; /**< TX HDMI Config */
     XHdmiphy1_Hdmi21Cfg RxHdmi21Cfg; /**< TX HDMI Config */
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
-    XHdmiphy1_IntrHandler IntrCpllLockHandler;   /**< Callback function for CPLL
+    XHdmiphy1_IntrHandler IntrCpllLockHandler; /**< Callback function for CPLL
                             lock interrupts. */
     void *IntrCpllLockCallbackRef;      /**< A pointer to the user data
                             passed to the CPLL lock
                             callback function. */
-    XHdmiphy1_IntrHandler IntrQpllLockHandler;   /**< Callback function for QPLL
+    XHdmiphy1_IntrHandler IntrQpllLockHandler; /**< Callback function for QPLL
                             lock interrupts. */
     void *IntrQpllLockCallbackRef;      /**< A pointer to the user data
                             passed to the QPLL lock
                             callback function. */
-    XHdmiphy1_IntrHandler IntrQpll1LockHandler;  /**< Callback function for QPLL
+    XHdmiphy1_IntrHandler IntrQpll1LockHandler; /**< Callback function for QPLL
                             lock interrupts. */
     void *IntrQpll1LockCallbackRef;     /**< A pointer to the user data
                             passed to the QPLL lock
@@ -804,15 +749,23 @@ typedef struct {
                             done lock callback
                             function. */
 #else
-    XHdmiphy1_IntrHandler IntrLcpllLockHandler;   /**< Callback function for LCPLL
-                            lock interrupts. */
+    XHdmiphy1_IntrHandler IntrLcpllLockHandler; /**< Callback function for
+                            LCPLL lock interrupts. */
     void *IntrLcpllLockCallbackRef;      /**< A pointer to the user data
-                            passed to the LCPLL lock
-                            callback function. */
-    XHdmiphy1_IntrHandler IntrRpllLockHandler;   /**< Callback function for RPLL
-                            lock interrupts. */
+                            passed to the LCPLL lock callback function. */
+    XHdmiphy1_IntrHandler IntrRpllLockHandler;   /**< Callback function for
+                            RPLL lock interrupts. */
     void *IntrRpllLockCallbackRef;      /**< A pointer to the user data
-                            passed to the QPLL lock
+                            passed to the RPLL lock callback function. */
+    XHdmiphy1_IntrHandler IntrTxGpoRisingEdgeHandler;   /**< Callback function
+						for TX GPO [3:0] Rising Edge. */
+    void *IntrTxGpoRisingEdgeCallbackRef;      /**< A pointer to the user data
+                            passed to the TX GPO [3:0] Rising Edge
+                            callback function. */
+    XHdmiphy1_IntrHandler IntrRxGpoRisingEdgeHandler;   /**< Callback function
+						for RX GPO [7:4] Rising Edge. */
+    void *IntrRxGpoRisingEdgeCallbackRef;      /**< A pointer to the user data
+                            passed to the RX GPO [7:4] Rising Edge
                             callback function. */
 #endif
     XHdmiphy1_IntrHandler IntrTxResetDoneHandler; /**< Callback function for TX
@@ -859,20 +812,17 @@ typedef struct {
     void *IntrRxMmcmLockCallbackRef; /**< A pointer to the user data
                             passed to the RX MMCM lock
                             callback function. */
-    XHdmiphy1_IntrHandler IntrTxTmrTimeoutHandler; /**< Callback function for TX
-                            timer timeout
-                            interrupts. */
+    XHdmiphy1_IntrHandler IntrTxTmrTimeoutHandler; /**< Callback function for
+                            TX timer timeout interrupts. */
     void *IntrTxTmrTimeoutCallbackRef;  /**< A pointer to the user data
                             passed to the TX timer
                             timeout callback
                             function. */
-    XHdmiphy1_IntrHandler IntrRxTmrTimeoutHandler; /**< Callback function for RX
-                            timer timeout
-                            interrupts. */
+    XHdmiphy1_IntrHandler IntrRxTmrTimeoutHandler; /**< Callback function for
+                            RX timer timeout interrupts. */
     void *IntrRxTmrTimeoutCallbackRef;  /**< A pointer to the user data
-                            passed to the RX timer
-                            timeout callback
-                            function. */
+                            passed to the RX timer timeout
+                            callback function. */
         /* Error Condition callbacks. */
     XHdmiphy1_ErrorCallback ErrorCallback; /**< Callback for Error Condition.*/
     void *ErrorRef;         /**< To be passed to the Error condition
@@ -955,10 +905,10 @@ void XHdmiphy1_SetRxLpm(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir, u8 Enable);
 
 /* xhdmiphy1.c: GT/MMCM DRP access. */
-u32 XHdmiphy1_DrpWr(XHdmiphy1 *InstancePtr, u8 QuadId, XHdmiphy1_ChannelId ChId,
-        u16 Addr, u16 Val);
-u16 XHdmiphy1_DrpRd(XHdmiphy1 *InstancePtr, u8 QuadId, XHdmiphy1_ChannelId ChId,
-        u16 Addr, u16 *RetVal);
+u32 XHdmiphy1_DrpWr(XHdmiphy1 *InstancePtr, u8 QuadId,
+        XHdmiphy1_ChannelId ChId, u16 Addr, u16 Val);
+u16 XHdmiphy1_DrpRd(XHdmiphy1 *InstancePtr, u8 QuadId,
+        XHdmiphy1_ChannelId ChId, u16 Addr, u16 *RetVal);
 void XHdmiphy1_MmcmPowerDown(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_DirectionType Dir, u8 Hold);
 void XHdmiphy1_MmcmStart(XHdmiphy1 *InstancePtr, u8 QuadId,
@@ -1036,7 +986,7 @@ void XHdmiphy1_RegisterDebug(XHdmiphy1 *InstancePtr);
 #define XHDMIPHY1_ISCH(Id)       (((Id) == XHDMIPHY1_CHANNEL_ID_CHA) || \
 	((XHDMIPHY1_CHANNEL_ID_CH1 <= (Id)) && ((Id) <= XHDMIPHY1_CHANNEL_ID_CH4)))
 #define XHDMIPHY1_ISCMN(Id)      (((Id) == XHDMIPHY1_CHANNEL_ID_CMNA) || \
-   ((XHDMIPHY1_CHANNEL_ID_CMN0 <= (Id)) && ((Id) <= XHDMIPHY1_CHANNEL_ID_CMN1)))
+  ((XHDMIPHY1_CHANNEL_ID_CMN0 <= (Id)) && ((Id) <= XHDMIPHY1_CHANNEL_ID_CMN1)))
 #define XHDMIPHY1_ISTXMMCM(Id)   ((Id) == XHDMIPHY1_CHANNEL_ID_TXMMCM)
 #define XHDMIPHY1_ISRXMMCM(Id)   ((Id) == XHDMIPHY1_CHANNEL_ID_RXMMCM)
 
