@@ -1400,7 +1400,7 @@ u32 XHdmiphy1_HdmiQpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 	ChId = ChId;
 
 	XHdmiphy1_SysClkDataSelType SysClkDataSel =
-        XHdmiphy1_SysClkDataSelType) 0;
+        (XHdmiphy1_SysClkDataSelType) 0;
 	XHdmiphy1_SysClkOutSelType SysClkOutSel =
         (XHdmiphy1_SysClkOutSelType) 0;
 	XHdmiphy1_ChannelId ActiveCmnId =
