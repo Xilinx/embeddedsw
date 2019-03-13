@@ -164,9 +164,15 @@ static void PmKillBoardPower(void)
 	u32 reg = XPfw_Read32(PMU_LOCAL_GPO1_READ);
 	u32 mask = PMU_IOMODULE_GPO1_MIO_0_MASK << BOARD_SHUTDOWN_PIN;
 	u32 value = BOARD_SHUTDOWN_PIN_STATE << BOARD_SHUTDOWN_PIN;
+	u32 mioPinOffset;
+
+	mioPinOffset = IOU_SLCR_MIO_PIN_34_OFFSET + (BOARD_SHUTDOWN_PIN - 2U)*4;
 
 	reg = (reg & (~mask)) | (mask & value);
 	XPfw_Write32(PMU_IOMODULE_GPO1, reg);
+	/* Configure board shutdown pin to be controlled by the PMU */
+	XPfw_RMW32((IOU_SLCR_BASE + mioPinOffset),
+			0x000000FEU, 0x00000008U);
 }
 #endif
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2016 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -53,11 +53,6 @@ static s32 PmConfigGpoSectionHandler(u32* const addr);
 /*********************************************************************
  * Macros
  ********************************************************************/
-
-#define IOU_SLCR_MIO_PIN_34_OFFSET	0x00000088
-#define IOU_SLCR_MIO_PIN_35_OFFSET	0x0000008C
-#define IOU_SLCR_MIO_PIN_36_OFFSET	0x00000090
-#define IOU_SLCR_MIO_PIN_37_OFFSET	0x00000094
 
 #define PM_CONFIG_GPO_2_ENABLE_MASK	BIT(10U)
 #define PM_CONFIG_GPO_3_ENABLE_MASK	BIT(11U)
@@ -484,25 +479,33 @@ static s32 PmConfigGpoSectionHandler(u32* const addr)
 	reg |= (gpoState & PM_CONFIG_GPO_MASK);
 	XPfw_Write32(PMU_IOMODULE_GPO1, reg);
 
+#ifdef CONNECT_PMU_GPO_2
 	if (gpoState & PM_CONFIG_GPO_2_ENABLE_MASK) {
 		XPfw_RMW32((IOU_SLCR_BASE + IOU_SLCR_MIO_PIN_34_OFFSET),
 				0x000000FEU, 0x00000008U);
 	}
+#endif
 
+#ifdef CONNECT_PMU_GPO_3
 	if (gpoState & PM_CONFIG_GPO_3_ENABLE_MASK) {
 		XPfw_RMW32((IOU_SLCR_BASE + IOU_SLCR_MIO_PIN_35_OFFSET),
 				0x000000FEU, 0x00000008U);
 	}
+#endif
 
+#ifdef CONNECT_PMU_GPO_4
 	if (gpoState & PM_CONFIG_GPO_4_ENABLE_MASK) {
 		XPfw_RMW32((IOU_SLCR_BASE + IOU_SLCR_MIO_PIN_36_OFFSET),
 				0x000000FEU, 0x00000008U);
 	}
+#endif
 
+#ifdef CONNECT_PMU_GPO_5
 	if (gpoState & PM_CONFIG_GPO_5_ENABLE_MASK) {
 		XPfw_RMW32((IOU_SLCR_BASE + IOU_SLCR_MIO_PIN_37_OFFSET),
 				0x000000FEU, 0x00000008U);
 	}
+#endif
 
 	return XST_SUCCESS;
 }
