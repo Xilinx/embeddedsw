@@ -606,6 +606,7 @@ int remoteproc_load(struct remoteproc *rproc, const char *path,
 			}
 			rproc->rsc_table = rsc_table;
 			rproc->rsc_len = rsc_size;
+			rproc->rsc_io = io;
 		} else {
 			metal_log(METAL_LOG_WARNING,
 				  "load: not able to update rsc table.\r\n");
