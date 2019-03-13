@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xiicps_master.c
-* @addtogroup iicps_v3_8
+* @addtogroup iicps_v3_9
 * @{
 *
 * Handles master mode transfers.
@@ -62,6 +62,7 @@
 * 3.6   ask 09/03/18 In XIicPs_MasterRecvPolled, set transfer size register
 * 		     before slave address. Fix for CR996440.
 * 3.8   sd 09/06/18  Enable the Timeout interrupt
+* 3.9   sg 03/09/19  Added arbitration lost support in polled transfer
 * </pre>
 *
 ******************************************************************************/
@@ -142,10 +143,12 @@ void XIicPs_MasterSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 	XIicPs_EnableInterrupts(BaseAddr,
 		(u32)XIICPS_IXR_NACK_MASK | (u32)XIICPS_IXR_COMP_MASK |
 		(u32)XIICPS_IXR_ARB_LOST_MASK | (u32)XIICPS_IXR_TO_MASK);
+
 	/*
 	 * Do the address transfer to notify the slave.
 	 */
 	XIicPs_WriteReg(BaseAddr, XIICPS_ADDR_OFFSET, (u32)SlaveAddr);
+
 
 	/* Clear the Hold bit in ZYNQ if receive byte count is less than
 	 * the FIFO depth to get the completion interrupt properly.
@@ -239,6 +242,8 @@ void XIicPs_MasterRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 * This function initiates a polled mode send in master mode.
 *
 * It sends data to the FIFO and waits for the slave to pick them up.
+* If master fails to send data due arbitration lost, will stop transfer
+* and with arbitration lost status
 * If slave fails to remove data from FIFO, the send fails with
 * time out.
 *
@@ -250,6 +255,7 @@ void XIicPs_MasterRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 * @return
 *		- XST_SUCCESS if everything went well.
 *		- XST_FAILURE if timed out.
+*		- XST_IIC_ARB_LOST if arbitration lost
 *
 * @note		This send routine is for polled mode transfer only.
 *
@@ -261,6 +267,7 @@ s32 XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	u32 StatusReg;
 	u32 BaseAddr;
 	u32 Intrs;
+	s32 Status;
 	_Bool Value;
 
 	/*
@@ -343,7 +350,7 @@ s32 XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 		 * If there is an error, tell the caller.
 		 */
 		if ((IntrStatusReg & Intrs) != 0U) {
-			return (s32)XST_FAILURE;
+			break;
 		}
 	}
 
@@ -353,7 +360,17 @@ s32 XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 						(~XIICPS_CR_HOLD_MASK));
 	}
 
-	return (s32)XST_SUCCESS;
+	if ((IntrStatusReg & Intrs) != 0U) {
+		if (IntrStatusReg & XIICPS_IXR_ARB_LOST_MASK) {
+			Status = (s32) XST_IIC_ARB_LOST;
+		} else {
+			Status = (s32)XST_FAILURE;
+		}
+	} else {
+			Status = (s32)XST_SUCCESS;
+	}
+
+	return Status;
 }
 
 /*****************************************************************************/
@@ -362,6 +379,8 @@ s32 XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 *
 * It repeatedly sets the transfer size register so the slave can
 * send data to us. It polls the data register for data to come in.
+* If master fails to read data due arbitration lost, will return
+* with arbitration lost status.
 * If slave fails to send us data, it fails with time out.
 *
 * @param	InstancePtr is a pointer to the XIicPs instance.
@@ -372,6 +391,7 @@ s32 XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 * @return
 *		- XST_SUCCESS if everything went well.
 *		- XST_FAILURE if timed out.
+*		- XST_IIC_ARB_LOST if arbitration lost
 *
 * @note		This receive routine is for polled mode transfer only.
 *
@@ -538,11 +558,15 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 				XIicPs_ReadReg(BaseAddr,XIICPS_CR_OFFSET) &
 						(~XIICPS_CR_HOLD_MASK));
 	}
-	if ((IntrStatusReg & Intrs) != 0x0U) {
-		Result = (s32)XST_FAILURE;
-	}
-	else {
-		Result =  (s32)XST_SUCCESS;
+
+	if ((IntrStatusReg & Intrs) != 0U) {
+		if (IntrStatusReg & XIICPS_IXR_ARB_LOST_MASK) {
+			Result = (s32) XST_IIC_ARB_LOST;
+		} else {
+			Result = (s32)XST_FAILURE;
+		}
+	} else {
+		Result = (s32)XST_SUCCESS;
 	}
 
 	return Result;
