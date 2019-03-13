@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -34,6 +34,7 @@
 # 3.00  vns  30/07/15 Added macro in xparameters.h based on the
 #                     processor
 # 6.4   vns  02/27/18 Added support for virtex and virtex ultrascale plus
+# 6.7	psl  03/12/19 Disabled compilation of code not required for zynqmp
 ##############################################################################
 
 #---------------------------------------------
@@ -87,7 +88,7 @@ proc xgen_opts_file {libhandle} {
 		}
 	}
 
-	if {$proc_type == "psu_pmu"} {
+	if {$proc_type == "psu_pmu" || $proc_type == "psu_cortexa53" || $proc_type == "psu_cortexr5"} {
 		file delete -force ./src/xilskey_epl.c
 		file delete -force ./src/xilskey_eps.c
 		file delete -force ./src/xilskey_epshw.h
@@ -98,11 +99,15 @@ proc xgen_opts_file {libhandle} {
 		file delete -force ./src/xilskey_jslib.h
 		file delete -force ./src/xilskey_jtag.h
 		file delete -force ./src/xilskey_bbram.c
-		file delete -force ./src/xilskey_bbramps_zynqmp.c
-		file delete -force ./src/include/xilskey_bbram.h
 		file delete -force ./src/include/xilskey_epl.h
 		file delete -force ./src/include/xilskey_eps.h
         }
+
+	if {$proc_type == "psu_pmu"} {
+		file delete -force ./src/xilskey_bbramps_zynqmp.c
+                file delete -force ./src/include/xilskey_bbram.h
+	}
+
 	puts $file_handle ""
 	close $file_handle
 
