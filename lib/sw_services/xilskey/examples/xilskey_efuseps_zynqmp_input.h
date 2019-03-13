@@ -208,6 +208,8 @@
 *	string and will not burn AES Key.
 *	Note that,for writing the AES Key, XSK_EFUSEPS_WRITE_AES_KEY should
 *	have TRUE value.
+*	NOTE: This AES key is only red key or gray key. To program black key to eFuse,
+* 	please use xilskey_puf_registeration application and refer
 *
 *	#define XSK_EFUSEPS_PPK0_IS_SHA3	TRUE
 *	Default value is TRUE.
