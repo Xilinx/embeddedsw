@@ -47,6 +47,9 @@ void Assert_CallBack(const char8 *File, s32 Line)
 {
 	XPfw_Printf(DEBUG_PRINT_ALWAYS, "Assert occurred from file %s "
 			"at line %d\r\n", File, Line);
+	/* Trigger FW Error0 */
+	XPfw_RMW32(PMU_LOCAL_PMU_SERV_ERR, PMU_LOCAL_PMU_SERV_ERR_FWERR0_MASK,
+			PMU_LOCAL_PMU_SERV_ERR_FWERR0_MASK);
 }
 
 XStatus XPfw_Main(void)
@@ -61,7 +64,11 @@ XStatus XPfw_Main(void)
 	xpbr_version = XPfw_Read32(PBR_VERSION_REG);
 	XPfw_PrintPBRVersion(xpbr_version);
 
-	/* Register callback handler for assert conditions */
+	/*
+	 * Clear previous FW error and register callback handler
+	 * for assert conditions
+	 */
+	Xil_Out32(PMU_LOCAL_PMU_SERV_ERR, MASK32_ALL_LOW);
 	Xil_AssertSetCallback(Assert_CallBack);
 
 	/* Initialize the FW Core Object */
