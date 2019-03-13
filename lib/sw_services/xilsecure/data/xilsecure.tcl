@@ -47,11 +47,28 @@ proc secure_drc {libhandle} {
 	set compiler [common::get_property CONFIG.compiler $proc_instance]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 	set os_type [hsi::get_os];
+	set common "src/common/"
+	set zynqmp "src/zynqmp/"
+	set versal "src/versal/"
 
 	if { $proc_type != "psu_cortexa53" && $proc_type != "psu_cortexr5" && $proc_type != "psu_pmu" } {
 				error "ERROR: XilSecure library is supported only for PMU, CortexA53 and CortexR5 processors.";
 				return;
 	}
+
+	foreach entry [glob -nocomplain [file join $common *]] {
+			file copy -force $entry "./src"
+	}
+	file delete -force $common
+
+	if {$proc_type == "psu_cortexa53" || $proc_type == "psu_cortexr5" || $proc_type == "psu_pmu"} {
+			foreach entry [glob -nocomplain [file join $zynqmp *]] {
+				file copy -force $entry "./src"
+			}
+			file delete -force $zynqmp
+			file delete -force $versal
+	}
+
 }
 
 proc generate {libhandle} {
