@@ -1423,6 +1423,10 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 				"XFSBL_ERROR_BITSTREAM_AUTHENTICATION\r\n");
 				/* Reset PL */
 				XFsbl_Out32(CSU_PCAP_PROG, 0x0);
+				if(IsEncryptionEnabled == TRUE) {
+					usleep(PL_RESET_PERIOD_IN_US);
+					Xil_Out32(CSU_PCAP_PROG, CSU_PCAP_PROG_PCFG_PROG_B_MASK);
+				}
 				goto END;
 			}
 #endif
@@ -1540,8 +1544,10 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 				Status = XFSBL_ERROR_BITSTREAM_DECRYPTION_FAIL;
 				XFsbl_Printf(DEBUG_GENERAL,
 				"XFSBL_ERROR_BITSTREAM_DECRYPTION_FAIL\r\n");
-				/* Reset PL */
+				/* Reset PL and PL zeroization */
 				XFsbl_Out32(CSU_PCAP_PROG, 0x0);
+				usleep(PL_RESET_PERIOD_IN_US);
+				Xil_Out32(CSU_PCAP_PROG, CSU_PCAP_PROG_PCFG_PROG_B_MASK);
 				goto END;
 			} else {
 				XFsbl_Printf(DEBUG_GENERAL,
