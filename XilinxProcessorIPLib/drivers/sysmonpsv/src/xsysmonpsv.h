@@ -129,6 +129,7 @@ extern "C" {
 
 #include "xil_types.h"
 #include "xstatus.h"
+#include "xsysmonpsv_hw.h"
 #include "xsysmonpsv_supplylist.h"
 /************************** Constant Definitions *****************************/
 #define XSYSMONPSV_MAX_SUPPLIES		185
@@ -239,60 +240,59 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro converts System Monitor Raw Data to Voltage(volts) for VpVn
-* supply.
+* This function converts raw AdcData into Voltage value.
 *
 * @param	AdcData is the System Monitor ADC Raw Data.
 *
 * @return	The Voltage in volts.
 *
-* @note		C-Style signature:
-*		float XSysMonPsv_RawToVoltage(u32 AdcData)
+* @note		None.
 *
 *****************************************************************************/
-#define XSysMonPsv_RawToVoltage(AdcData) \
-{	\
-	int Mantissa, Scale, Format, Exponent	\
-						\
-	Mantissa = AdcData & XSYSMONPSV_SUPPLY_MANTISSA_MASK;	\
-	Exponent = (AdcData & XSYSMONPSV_SUPPLY_MODE_MASK) >>	\
-		XSYSMONPSV_SUPPLY_MODE_SHIFT;			\
-	Format = (AdcData & XSYSMONPSV_SUPPLY_FMT_MASK) >>	\
-	       XSYSMONPSV_SUPPLY_FMT_SHIFT;			\
-						\
-	/* Calculate the exponent		\
-	 * 2^(16-Exponent)			\
-	 */					\
-	Scale = (1 << (XSYSMONPSV_EXPONENT_RANGE_16 - Exponent));	\
-	if(Format & (Mantissa  >> XSYSMONPSV_SUPPLY_MANTISSA_SIGN)) {	\
-		((float)Mantissa/(float)Scale) - 1;		\
-	}					\
-	else {					\
-		(float)Mantissa/(float)Scale;	\
-	}					\
-}						\
+static inline float XSysMonPsv_RawToVoltage(u32 AdcData)
+{
+	int Mantissa, Scale, Format, Exponent;
+
+	Mantissa = AdcData & XSYSMONPSV_SUPPLY_MANTISSA_MASK;
+	Exponent = (AdcData & XSYSMONPSV_SUPPLY_MODE_MASK) >>
+		XSYSMONPSV_SUPPLY_MODE_SHIFT;
+	Format = (AdcData & XSYSMONPSV_SUPPLY_FMT_MASK) >>
+	       XSYSMONPSV_SUPPLY_FMT_SHIFT;
+
+	/* Calculate the exponent
+	 * 2^(16-Exponent)
+	 */
+	Scale = (1 << (XSYSMONPSV_EXPONENT_RANGE_16 - Exponent));
+	if(Format & (Mantissa  >> XSYSMONPSV_SUPPLY_MANTISSA_SIGN)) {
+		return	((float)Mantissa/(float)Scale) - 1;
+	}
+	else {
+		return (float)Mantissa/(float)Scale;
+	}
+}
 /****************************************************************************/
 /**
 *
-* This macro converts Q8.7 signed temperature to float.
+* This function converts the fixed point to degree celsius
 *
 * @param	Q8.7 representation of temperature value.
 *
 * @return	The Temperature in degree celsisus
 *
-* @note		C-Style signature:
-*		float XSysMonPsv_FixedtoFloat(u32 FixedQFmt)
+* @note		None.
 *
 *****************************************************************************/
-#define XSysMonPsv_FixedToFloat(FixedQFmt) \
-{	\
-	if(FixedQFmt >> XSYSMONPSV_QFMT_SIGN) {				\
-		(float)(~(FixedQFmt) + 1) /				\
-		((float)(1 << XSYSMONPSV_QFMT_FRACTION)) * (-1.0) \
-	}								\
-	else								\
-		(float)FixedQFmt / (float)(1 << XSYSMONPSV_QFMT_FRACTION) \
-}	\
+static inline float XSysMonPsv_FixedToFloat(u32 FixedQFmt)
+{
+	if(FixedQFmt >> XSYSMONPSV_QFMT_SIGN) {
+		return (float)(~(FixedQFmt) + 1) /
+			((float)(1 << XSYSMONPSV_QFMT_FRACTION)) * (-1.0);
+	}
+	else {
+		return	(float)FixedQFmt /
+			(float)(1 << XSYSMONPSV_QFMT_FRACTION);
+	}
+}
 
 /************************** Function Prototypes ******************************/
 
