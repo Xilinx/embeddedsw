@@ -146,6 +146,11 @@ extern "C" {
 #define	BOARD_SHUTDOWN_PIN_VAL			(0U)
 #define	BOARD_SHUTDOWN_PIN_STATE_VAL	(0U)
 
+#define CONNECT_PMU_GPO_2_VAL			(1U)
+#define CONNECT_PMU_GPO_3_VAL			(1U)
+#define CONNECT_PMU_GPO_4_VAL			(1U)
+#define CONNECT_PMU_GPO_5_VAL			(1U)
+
 #define SECURE_ACCESS_VAL		(0U)
 
 #if ENABLE_PM_VAL
@@ -283,6 +288,22 @@ extern "C" {
 
 #ifdef ENABLE_POS
 #define ENABLE_POS_QSPI
+#endif
+
+#if CONNECT_PMU_GPO_2_VAL
+#define CONNECT_PMU_GPO_2
+#endif
+
+#if CONNECT_PMU_GPO_3_VAL
+#define CONNECT_PMU_GPO_3
+#endif
+
+#if CONNECT_PMU_GPO_4_VAL
+#define CONNECT_PMU_GPO_4
+#endif
+
+#if CONNECT_PMU_GPO_5_VAL
+#define CONNECT_PMU_GPO_5
 #endif
 
 #ifdef __cplusplus
