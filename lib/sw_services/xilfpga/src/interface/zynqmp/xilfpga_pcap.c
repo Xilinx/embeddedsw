@@ -79,6 +79,7 @@
  *                      duplication
  * 5.0  Nava  28/02/19  Handling all the 4 PS-PL resets irrespective of the
  *                      design configuration.
+ * 5.0  vns   12/03/19  Modified secure stream switch related functions.
  * </pre>
  *
  * @note
@@ -157,6 +158,7 @@ typedef struct {
 	XFpgaPs_PlEncryption PlEncrypt;	/* Encryption parameters */
 	u8 SecureHdr[XSECURE_SECURE_HDR_SIZE + XSECURE_SECURE_GCM_TAG_SIZE];
 	u8 Hdr;
+	XSecure_Sss SssInstance;
 } XFpgaPs_PlPartition;
 #endif
 
@@ -1500,8 +1502,8 @@ static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
 	UINTPTR SrcAddr = (u64)ChunkAdrs;
 	u32 Size = ChunkSize;
 	u64 NextBlkAddr = 0U;
-	u32 SssAes;
-	u32 SssCfg;
+
+	XSecure_SssInitialize(&PartitionParams->SssInstance);
 
 	/* If this is the first block to be decrypted it is the secure header */
 	if (PartitionParams->PlEncrypt.NextBlkLen == 0x00U) {
@@ -1567,9 +1569,8 @@ static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
 	 */
 	else  if (PartitionParams->Hdr != 0x00U) {
 		/* Configure AES engine */
-		SssAes = XSecure_SssInputAes(XSECURE_CSU_SSS_SRC_SRC_DMA);
-		SssCfg = SssAes | XSecure_SssInputPcap(XSECURE_CSU_SSS_SRC_AES);
-		XSecure_SssSetup(SssCfg);
+		XSecure_SssAes(&PartitionParams->SssInstance, XSECURE_SSS_DMA0, XSECURE_SSS_PCAP);
+
 		(void)memcpy((u8 *)(PartitionParams->SecureHdr
 				+ PartitionParams->Hdr), (u8 *)(UINTPTR)SrcAddr,
 				XFPGA_AES_TAG_SIZE - PartitionParams->Hdr);
@@ -1634,8 +1635,6 @@ END:
  ******************************************************************************/
 static u32 XFpga_DecrptSetUpNextBlk(XFpgaPs_PlPartition *PartitionParams)
 {
-	u32 SssAes;
-	u32 SssCfg;
 
 	/* Length of next block */
 	PartitionParams->PlEncrypt.NextBlkLen =
@@ -1647,9 +1646,7 @@ static u32 XFpga_DecrptSetUpNextBlk(XFpgaPs_PlPartition *PartitionParams)
 			(UINTPTR)XSECURE_CSU_AES_IV_0_OFFSET);
 
 	/* Configure the SSS for AES. */
-	SssAes = XSecure_SssInputAes(XSECURE_CSU_SSS_SRC_SRC_DMA);
-	SssCfg = SssAes | XSecure_SssInputPcap(XSECURE_CSU_SSS_SRC_AES);
-	XSecure_SssSetup(SssCfg);
+	XSecure_SssAes(&PartitionParams->SssInstance, XSECURE_SSS_DMA0, XSECURE_SSS_PCAP);
 
 	/* Start the message. */
 	XSecure_WriteReg(PartitionParams->PlEncrypt.SecureAes->BaseAddress,
@@ -1726,8 +1723,6 @@ static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
 	u64 SrcAddr = (u64)ChunkAdrs;
 	XCsuDma_Configure ConfigurValues = {0U};
 	UINTPTR NextBlkAddr = 0U;
-	u32 SssAes;
-	u32 SssCfg;
 
 	do {
 
@@ -1740,10 +1735,8 @@ static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
 			PartitionParams->PlEncrypt.SecureAes->CsuDmaPtr,
 				XCSUDMA_SRC_CHANNEL, &ConfigurValues);
 
-		/* Configure AES engine */
-		SssAes = XSecure_SssInputAes(XSECURE_CSU_SSS_SRC_SRC_DMA);
-		SssCfg = SssAes | XSecure_SssInputPcap(XSECURE_CSU_SSS_SRC_AES);
-		XSecure_SssSetup(SssCfg);
+		/* Configure SSS for AES engine */
+		XSecure_SssAes(&PartitionParams->SssInstance, XSECURE_SSS_DMA0, XSECURE_SSS_PCAP);
 
 		/* Send whole chunk of data to AES */
 		if ((Size <=
@@ -1799,9 +1792,7 @@ static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
 		}
 
 		/* Configure AES engine */
-		SssAes = XSecure_SssInputAes(XSECURE_CSU_SSS_SRC_SRC_DMA);
-		SssCfg = SssAes | XSecure_SssInputPcap(XSECURE_CSU_SSS_SRC_AES);
-		XSecure_SssSetup(SssCfg);
+		XSecure_SssAes(&PartitionParams->SssInstance, XSECURE_SSS_DMA0, XSECURE_SSS_PCAP);
 
 		XCsuDma_GetConfig(
 			PartitionParams->PlEncrypt.SecureAes->CsuDmaPtr,
