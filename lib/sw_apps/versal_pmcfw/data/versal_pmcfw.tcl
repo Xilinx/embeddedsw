@@ -1,6 +1,6 @@
 #/******************************************************************************
 #*
-#* Copyright (C) 2017-2018 Xilinx, Inc.  All rights reserved.
+#* Copyright (C) 2017-2019 Xilinx, Inc.  All rights reserved.
 #*
 #* Permission is hereby granted, free of charge, to any person obtaining a copy
 #* of this software and associated documentation files (the "Software"), to deal
@@ -81,7 +81,7 @@ proc swapp_is_supported_hw {} {
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 
-	if {($proc_type != "psu_pmc")} {
+	if {($proc_type != "psu_pmc") && ($proc_type != "psv_pmc")} {
 		error "This application is supported only for PMC Microblaze processor.";
 	}
 
@@ -111,7 +111,7 @@ proc swapp_get_linker_constraints {} {
 }
 
 proc swapp_get_supported_processors {} {
-	return "psu_pmc";
+	return "psu_pmc psv_pmc";
 }
 
 proc swapp_get_supported_os {} {
