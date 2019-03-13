@@ -126,7 +126,7 @@ int XPlm_ModuleInit(void *arg)
 			goto END;
 		}
 	}
-
+	Status = XPLM_SUCCESS;
 END:
 	return Status;
 }
@@ -157,7 +157,7 @@ int XPlm_LpdModuleInit(void *arg)
 			goto END;
 		}
 	}
-
+	Status = XPLM_SUCCESS;
 END:
 	return Status;
 }
