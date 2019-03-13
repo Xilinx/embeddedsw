@@ -63,6 +63,10 @@
 *       vns     03/07/18 Removed PPK verification for bitstream partition
 *                        as APIs are modified to verify SPK with already
 *                        verified PPK
+* 4.0   vns     03/12/19 Modified function call XSecure_RsaDecrypt to
+*                        XSecure_RsaPublicEncrypt, as XSecure_RsaDecrypt is
+*                        deprecated, also calls to secure stream switch
+*                        are modified
 *
 * </pre>
 *
@@ -552,7 +556,8 @@ static u32 XFsbl_PlSignVer(XFsblPs_PlPartition *PartitionParams,
 	}
 	/* Decrypt Partition Signature. */
 	if(XFSBL_SUCCESS !=
-		XSecure_RsaDecrypt(&SecureRsa, AcPtr, XFsbl_RsaSha3Array)) {
+		XSecure_RsaPublicEncrypt(&SecureRsa, AcPtr,
+				XSECURE_RSA_4096_KEY_SIZE, XFsbl_RsaSha3Array)) {
 		XFsbl_Printf(DEBUG_INFO, "XFsbl_SpkVer: "
 			"XFSBL_ERROR_PART_RSA_DECRYPT at PL verification\r\n");
 		Status = XFSBL_ERROR_PART_RSA_DECRYPT;
@@ -743,8 +748,6 @@ static u32 XFsbl_DecrptSetUpNextBlk(XFsblPs_PlPartition *PartitionParams,
 		UINTPTR ChunkAdrs, u32 ChunkSize)
 {
 	u32 Status = XFSBL_SUCCESS;
-	u32 SssAes;
-	u32 SssCfg;
 
 	/* Length of next block */
 	PartitionParams->PlEncrypt.NextBlkLen =
@@ -756,9 +759,8 @@ static u32 XFsbl_DecrptSetUpNextBlk(XFsblPs_PlPartition *PartitionParams,
 			(UINTPTR)XSECURE_CSU_AES_IV_0_OFFSET);
 
 	/* Configure the SSS for AES. */
-	SssAes = XSecure_SssInputAes(XSECURE_CSU_SSS_SRC_SRC_DMA);
-	SssCfg = SssAes | XSecure_SssInputPcap(XSECURE_CSU_SSS_SRC_AES);
-	XSecure_SssSetup(SssCfg);
+	XSecure_SssAes(&PartitionParams->SssInstance, XSECURE_SSS_DMA0,
+					XSECURE_SSS_PCAP);
 
 	/* Start the message. */
 	XSecure_WriteReg(PartitionParams->PlEncrypt.SecureAes->BaseAddress,
@@ -806,8 +808,6 @@ static u32 XFsbl_DecrptPl(XFsblPs_PlPartition *PartitionParams,
 	u64 SrcAddr = (u64)ChunkAdrs;
 	XCsuDma_Configure ConfigurValues = {0};
 	UINTPTR NextBlkAddr = 0;
-	u32 SssAes;
-	u32 SssCfg;
 
 	do {
 
@@ -821,9 +821,8 @@ static u32 XFsbl_DecrptPl(XFsblPs_PlPartition *PartitionParams,
 				XCSUDMA_SRC_CHANNEL, &ConfigurValues);
 
 		/* Configure AES engine */
-		SssAes = XSecure_SssInputAes(XSECURE_CSU_SSS_SRC_SRC_DMA);
-		SssCfg = SssAes | XSecure_SssInputPcap(XSECURE_CSU_SSS_SRC_AES);
-		XSecure_SssSetup(SssCfg);
+		XSecure_SssAes(&PartitionParams->SssInstance, XSECURE_SSS_DMA0,
+					XSECURE_SSS_PCAP);
 
 		/* Send whole chunk of data to AES */
 		if ((Size <=
@@ -951,8 +950,8 @@ static u32 XFsbl_DecrptPlChunks(XFsblPs_PlPartition *PartitionParams,
 	UINTPTR SrcAddr = (u64)ChunkAdrs;
 	u32 Size = ChunkSize;
 	u64 NextBlkAddr = 0;
-	u32 SssAes;
-	u32 SssCfg;
+
+	XSecure_SssInitialize(&(PartitionParams->SssInstance));
 
 	/* If this is the first block to be decrypted it is the secure header */
 	if (PartitionParams->PlEncrypt.NextBlkLen == 0x00) {
@@ -1024,9 +1023,8 @@ static u32 XFsbl_DecrptPlChunks(XFsblPs_PlPartition *PartitionParams,
 	else  if (PartitionParams->Hdr != 0x00) {
 
 		/* Configure AES engine */
-		SssAes = XSecure_SssInputAes(XSECURE_CSU_SSS_SRC_SRC_DMA);
-		SssCfg = SssAes | XSecure_SssInputPcap(XSECURE_CSU_SSS_SRC_AES);
-		XSecure_SssSetup(SssCfg);
+		XSecure_SssAes(&PartitionParams->SssInstance, XSECURE_SSS_DMA0,
+					XSECURE_SSS_PCAP);
 
 		XFsbl_CopyData(PartitionParams,
 		(u8 *)(PartitionParams->SecureHdr + PartitionParams->Hdr),
