@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -62,6 +62,7 @@
 * 2.2   vns  07/06/17 Added doxygen tags
 * 3.0   vns  01/23/18 Added NIST SHA3 support.
 * 4.0   arc  18/12/18 Fixed MISRA-C violations.
+*       vns  03/12/19 Modified as part of XilSecure code re-arch.
 *
 * </pre>
 *
@@ -77,7 +78,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xsecure_hw.h"
+#include "xsecure_sha_hw.h"
 #include "xcsudma.h"
 #include "xil_assert.h"
 
@@ -121,7 +122,9 @@ typedef struct {
 	u32 Sha3Len; /**< SHA3 Input Length */
 	XSecure_Sha3PadType Sha3PadType; /** Selection for Sha3 */
 	u32 PartialLen;
+	u32 IsLastUpdate;
 	u8 PartialData[XSECURE_SHA3_BLOCK_LEN];
+	XSecure_Sss SssInstance;
 } XSecure_Sha3;
 /**
 @}
@@ -140,10 +143,16 @@ void XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash);
 /* Complete SHA digest calculation */
 void XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In,
 						const u32 Size, u8 *Out);
+
 void XSecure_Sha3_ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash);
+
 s32 XSecure_Sha3PadSelection(XSecure_Sha3 *InstancePtr,
 		XSecure_Sha3PadType Sha3PadType);
+
 void XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr);
+
+s32 XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr);
+
 #ifdef __cplusplus
 extern "C" }
 #endif
