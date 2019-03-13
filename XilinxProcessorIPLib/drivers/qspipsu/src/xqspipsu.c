@@ -80,6 +80,8 @@
  * 1.9  nsk 02/01/19 Clear DMA_DST_ADDR_MSB register on 32bit machine, if the
  *		     address is of only 32bit (CR#1020031)
  * 1.9  nsk 02/01/19 Added QSPI idling support.
+ * 1.9  rama 03/13/19 Fixed MISRA violations related to UR data anamoly,
+ *					  expression is not a boolean
  * </pre>
  *
  ******************************************************************************/
@@ -231,7 +233,7 @@ void XQspiPsu_Idle(const XQspiPsu *InstancePtr)
 	/* Check for QSPI enable */
 	RegEn = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
 			XQSPIPSU_EN_OFFSET);
-	if (RegEn & XQSPIPSU_EN_MASK) {
+	if ((RegEn & XQSPIPSU_EN_MASK) != 0U) {
 		DmaStatus = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
 				XQSPIPSU_QSPIDMA_DST_CTRL_OFFSET);
 		DmaStatus |= XQSPIPSU_QSPIDMA_DST_CTRL_PAUSE_STRM_MASK;
@@ -1213,7 +1215,7 @@ static inline void XQspiPsu_FillTxFifo(XQspiPsu *InstancePtr,
 					XQspiPsu_Msg *Msg, s32 Size)
 {
 	s32 Count = 0;
-	u32 Data;
+	u32 Data = 0U;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
