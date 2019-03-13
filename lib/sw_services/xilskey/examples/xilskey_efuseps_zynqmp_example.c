@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 19 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -62,6 +62,8 @@
 * 6.4   vns      02/19/18 Removed XilSKey_ZynqMp_EfusePs_CacheLoad() call as
 *                         now library is been updated to reload cache after
 *                         successful programming of the requested efuse bits.
+* 6.7	psl      03/13/19 Added XSK_EFUSEPS_CHECK_AES_KEY_CRC, to check for
+* 						  AES key CRC if TRUE.
 * </pre>
 *
 ******************************************************************************/
@@ -176,14 +178,16 @@ int main()
 	}
 
 	/* CRC check for programmed AES key */
-	AesCrc = XilSKey_CrcCalculation((u8 *)XSK_EFUSEPS_AES_KEY);
-	PsStatus = XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc(AesCrc);
-	if (PsStatus != XST_SUCCESS) {
-		xil_printf("\r\nAES CRC checK is failed\n\r");
-		goto EFUSE_ERROR;
-	}
-	else {
-		xil_printf("\r\nAES CRC checK is passed\n\r");
+	if (XSK_EFUSEPS_CHECK_AES_KEY_CRC == TRUE) {
+		AesCrc = XilSKey_CrcCalculation((u8 *)XSK_EFUSEPS_AES_KEY);
+		PsStatus = XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc(AesCrc);
+		if (PsStatus != XST_SUCCESS) {
+			xil_printf("\r\nAES CRC checK is failed\n\r");
+			goto EFUSE_ERROR;
+		}
+		else {
+			xil_printf("\r\nAES CRC checK is passed\n\r");
+		}
 	}
 
 	/* Reading control and secure bits of eFuse */
