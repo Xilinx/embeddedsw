@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xiicps.h
-* @addtogroup iicps_v3_8
+* @addtogroup iicps_v3_9
 * @{
 * @details
 *
@@ -185,6 +185,8 @@
 * 3.7   ask  04/17/18 Updated the Eeprom scanning mechanism
 *                     as per the other examples (CR#997545)
 * 3.8   ask  08/01/18   Fix for Cppcheck and Doxygen warnings
+* 3.8   sd 09/06/18  Enable the Timeout interrupt
+* 3.9   sg 03/09/19  Added arbitration lost support in polled transfer
 *
 * </pre>
 *
