@@ -267,7 +267,7 @@ static int _rpmsg_virtio_get_buffer_size(struct rpmsg_virtio_device *rvdev)
  * @param src     - source address of channel
  * @param dst     - destination address of channel
  * @param data    - data to transmit
- * @param size    - size of data
+ * @param len     - size of data
  * @param wait    - boolean, wait or not for buffer to become
  *                  available
  *
@@ -277,7 +277,7 @@ static int _rpmsg_virtio_get_buffer_size(struct rpmsg_virtio_device *rvdev)
 static int rpmsg_virtio_send_offchannel_raw(struct rpmsg_device *rdev,
 					    uint32_t src, uint32_t dst,
 					    const void *data,
-					    int size, int wait)
+					    int len, int wait)
 {
 	struct rpmsg_virtio_device *rvdev;
 	struct rpmsg_hdr rp_hdr;
@@ -308,7 +308,7 @@ static int rpmsg_virtio_send_offchannel_raw(struct rpmsg_device *rdev,
 		/* Lock the device to enable exclusive access to virtqueues */
 		metal_mutex_acquire(&rdev->lock);
 		avail_size = _rpmsg_virtio_get_buffer_size(rvdev);
-		if (avail_size && size > avail_size) {
+		if (avail_size && len > avail_size) {
 			metal_mutex_release(&rdev->lock);
 			return RPMSG_ERR_BUFF_SIZE;
 		}
@@ -328,7 +328,7 @@ static int rpmsg_virtio_send_offchannel_raw(struct rpmsg_device *rdev,
 	/* Initialize RPMSG header. */
 	rp_hdr.dst = dst;
 	rp_hdr.src = src;
-	rp_hdr.len = size;
+	rp_hdr.len = len;
 	rp_hdr.reserved = 0;
 
 	/* Copy data to rpmsg buffer. */
@@ -340,8 +340,8 @@ static int rpmsg_virtio_send_offchannel_raw(struct rpmsg_device *rdev,
 	status = metal_io_block_write(io,
 				      metal_io_virt_to_offset(io,
 						RPMSG_LOCATE_DATA(buffer)),
-				      data, size);
-	RPMSG_ASSERT(status == size, "failed to write buffer\r\n");
+				      data, len);
+	RPMSG_ASSERT(status == len, "failed to write buffer\r\n");
 	metal_mutex_acquire(&rdev->lock);
 
 	/* Enqueue buffer on virtqueue. */
@@ -352,7 +352,7 @@ static int rpmsg_virtio_send_offchannel_raw(struct rpmsg_device *rdev,
 
 	metal_mutex_release(&rdev->lock);
 
-	return size;
+	return len;
 }
 
 /**
