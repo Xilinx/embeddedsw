@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -132,6 +132,11 @@ void PmHookPowerDownLpd(void)
 	reg = XPfw_Read32(PMU_LOCAL_GPO1_READ);
 	reg &= ~PMU_IOMODULE_GPO1_MIO_2_MASK;
 	XPfw_Write32(PMU_IOMODULE_GPO1, reg);
+#ifndef CONNECT_PMU_GPO_2
+	/* Configure MIO34 to be controlled by the PMU */
+	XPfw_RMW32((IOU_SLCR_BASE + IOU_SLCR_MIO_PIN_34_OFFSET),
+			0x000000FEU, 0x00000008U);
+#endif
 }
 
 #ifdef ENABLE_DDR_SR_WR
