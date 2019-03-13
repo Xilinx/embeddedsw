@@ -80,6 +80,9 @@ hwicap_v11_2:
 Updated the Number of words per frame as mention in the ug570.
 Removed .o referenced function prototypes from the header file.
 
+iicps_v3_9:
+Added arbitration lost support in polled transfer
+
 ipipsu_v2_5:
 Make IPI driver common for both ZynqMP and Versal platforms.
 Add extern c macro.
