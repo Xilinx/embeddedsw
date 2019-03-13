@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 18 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 19 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -44,6 +44,9 @@
 * 2.2   vns    07/06/16 Added doxygen tags
 * 3.0   vns    01/23/18 Added SHA3 keccak padding selection as this
 *                       example illustrates FSBL partition authentication
+* 4.0   vns    03/12/19 Modified function call XSecure_RsaDecrypt to
+*                       XSecure_RsaPublicEncrypt, as XSecure_RsaDecrypt is
+*                       deprecated.
 *
 * </pre>
 ******************************************************************************/
@@ -254,8 +257,8 @@ u32 SecureRsaExample(void)
 	/*
 	 * Decrypt Boot Image Signature.
 	 */
-	if(XST_SUCCESS != XSecure_RsaDecrypt(&Secure_Rsa, AcPtr,
-						XSecure_RsaSha3Array))
+	if(XST_SUCCESS != XSecure_RsaPublicEncrypt(&Secure_Rsa, AcPtr,
+			XSECURE_RSA_4096_KEY_SIZE, XSecure_RsaSha3Array))
 	{
 		ErrorCode = XSECURE_IMAGE_VERIF_ERROR;
 		goto ENDF;
