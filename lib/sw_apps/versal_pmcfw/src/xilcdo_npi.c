@@ -966,7 +966,7 @@ u32 XilCdo_CheckScanClearPass(void)
 		/* Check for Scan Clear success */
 		Status = ((Xil_In32(PMC_GLOBAL_PMC_ERR1_STATUS)
 					& PMC_GLOBAL_PMC_ERR1_STATUS_NOC_TYPE1_NCR_MASK)
-					!= PMC_GLOBAL_PMC_ERR1_STATUS_NOC_TYPE1_NCR_MASK);
+					== PMC_GLOBAL_PMC_ERR1_STATUS_NOC_TYPE1_NCR_MASK);
 	}
 	else
 	{
