@@ -50,7 +50,7 @@ typedef struct PmMaster PmMaster;
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-u32 PmResetGetStatusInt(const PmReset* const resetPtr);
+u32 PmResetGetStatusInt(const PmReset* const resetPtr, u32 *status);
 
 s32 PmResetDoAssert(const PmReset *reset, u32 action);
 s32 PmResetAssertInt(u32 reset, u32 action);

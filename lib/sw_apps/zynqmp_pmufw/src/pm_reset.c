@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -1920,9 +1920,16 @@ err:
 	return status;
 }
 
-inline u32 PmResetGetStatusInt(const PmReset* const resetPtr)
+inline u32 PmResetGetStatusInt(const PmReset* const resetPtr, u32 *status)
 {
-	return resetPtr->ops->getStatus(resetPtr);
+	int ret = XST_NO_FEATURE;
+
+	if (resetPtr->ops->getStatus) {
+		*status = resetPtr->ops->getStatus(resetPtr);
+		ret = XST_SUCCESS;
+	}
+
+	return ret;
 }
 
 /**
