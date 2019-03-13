@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 19 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -53,6 +53,9 @@
 *                     Modified XFsbl_ReadPpkHashSpkID to XFsbl_ReadPpkHash
 *                     as SPK ID reading and verification moved to XFsbl_SpkVer.
 * 5.0   ka   04/10/18 Added support for user-efuse revocation
+* 6.0   vns  03/12/19 Modified function call XSecure_RsaDecrypt to
+*                     XSecure_RsaPublicEncrypt, as XSecure_RsaDecrypt is
+*                     deprecated.
 *
 * </pre>
 *
@@ -183,8 +186,9 @@ u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen)
 		goto END;
 	}
 	/* Decrypt SPK Signature */
-	if(XFSBL_SUCCESS != XSecure_RsaDecrypt(&SecureRsa,
-		AcPtr + XFSBL_AUTH_CERT_SPK_SIG_OFFSET, XFsbl_RsaSha3Array))
+	if(XFSBL_SUCCESS != XSecure_RsaPublicEncrypt(&SecureRsa,
+		AcPtr + XFSBL_AUTH_CERT_SPK_SIG_OFFSET,
+		XSECURE_RSA_4096_KEY_SIZE, XFsbl_RsaSha3Array))
 	{
 		XFsbl_Printf(DEBUG_GENERAL,
 			"XFsbl_SpkVer: XFSBL_ERROR_SPK_RSA_DECRYPT\r\n");
@@ -374,7 +378,8 @@ static u32 XFsbl_PartitionSignVer(const XFsblPs *FsblInstancePtr, u64 PartitionO
 	}
 	/* Decrypt Partition Signature. */
 	if(XFSBL_SUCCESS !=
-		XSecure_RsaDecrypt(&SecureRsa, AcPtr, XFsbl_RsaSha3Array))
+		XSecure_RsaPublicEncrypt(&SecureRsa, AcPtr, XSECURE_RSA_4096_KEY_SIZE,
+				XFsbl_RsaSha3Array))
 	{
 		XFsbl_Printf(DEBUG_GENERAL,
 			"XFsbl_SpkVer: XFSBL_ERROR_PART_RSA_DECRYPT\r\n");
@@ -785,7 +790,8 @@ u32 XFsbl_BhAuthentication(const XFsblPs * FsblInstancePtr, u8 *Data,
 	}
 	/* Decrypt SPK Signature */
 	if(XFSBL_SUCCESS !=
-		XSecure_RsaDecrypt(&SecureRsa, AcPtr, XFsbl_RsaSha3Array))
+		XSecure_RsaPublicEncrypt(&SecureRsa, AcPtr, XSECURE_RSA_4096_KEY_SIZE,
+				XFsbl_RsaSha3Array))
 	{
 		XFsbl_Printf(DEBUG_GENERAL,"XFsbl_BhAuthentication:"
 				" XFSBL_ERROR_BH_RSA_DECRYPT\r\n");
