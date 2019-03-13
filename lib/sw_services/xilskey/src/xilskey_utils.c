@@ -66,6 +66,8 @@
 *                        Fixed Length parameter as length in bits for
 *                        XilSKey_Efuse_ConvertStringToHexBE and added length
 *                        validations
+*       arc     03/13/19 Added assert to validate lengths in
+*                        XilSKey_Efuse_ValidateKey()
 *
  *****************************************************************************/
 
@@ -1022,6 +1024,14 @@ u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
 {
 	u32 i;
 	u32 Status = (u32)XSK_EFUSEPL_ERROR_NONE;
+
+	Xil_AssertNonvoid(Key != NULL);
+	Xil_AssertNonvoid((Len == XSK_STRING_SIZE_2) ||
+			  (Len == XSK_STRING_SIZE_6) ||
+			  (Len == XSK_STRING_SIZE_8) ||
+			  (Len == XSK_STRING_SIZE_64) ||
+			  (Len == XSK_STRING_SIZE_96));
+
 	/**
 	* Make sure passed key is not NULL
 	*/

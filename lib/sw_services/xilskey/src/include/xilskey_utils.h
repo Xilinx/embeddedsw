@@ -411,6 +411,12 @@ typedef enum {
 
 #define XSK_POLL_TIMEOUT	0xFFFFFFFFU
 
+#define XSK_STRING_SIZE_2		(2U)
+#define XSK_STRING_SIZE_6		(6U)
+#define XSK_STRING_SIZE_8 		(8U)
+#define XSK_STRING_SIZE_64		(64U)
+#define XSK_STRING_SIZE_96		(96U)
+
 /************************** Variable Definitions ****************************/
 /**
  * 	XADC Structure
