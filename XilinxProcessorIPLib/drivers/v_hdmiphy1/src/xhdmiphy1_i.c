@@ -705,7 +705,54 @@ void XHdmiphy1_SetGtLineRateCfg(XHdmiphy1 *InstancePtr, u8 QuadId,
 	XHdmiphy1_WriteReg(InstancePtr->Config.BaseAddr, RegOffset, RegVal);
 }
 
+/*****************************************************************************/
+/**
+* This function will set the GPI ports to the GT Wizard
+*
+* @param	InstancePtr is a pointer to the XHdmiphy1 core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to operate on.
+* @param	Dir is an indicator for TX or RX.
+* @param	Set Set=TRUE; Clear=FALSE
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XHdmiphy1_SetGpi(XHdmiphy1 *InstancePtr, u8 QuadId,
+		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir, u8 Set)
+{
+	u32 RegVal;
+	u32 MaskVal = 0;
+	u8 Id, Id0, Id1;
 
+	/* Read GPI Register*/
+	RegVal = XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr,
+				XHDMIPHY1_GT_DBG_GPI_REG);
+
+	XHdmiphy1_Ch2Ids(InstancePtr, ChId, &Id0, &Id1);
+	for (Id = Id0; Id <= Id1; Id++) {
+		if (Dir == XHDMIPHY1_DIR_TX) {
+			MaskVal |=  XHDMIPHY1_TX_GPI_MASK(Id);
+		}
+		else {
+			MaskVal |=  XHDMIPHY1_RX_GPI_MASK(Id);
+		}
+	}
+
+	/* Construct Register Value */
+	if (Set) {
+		RegVal |= MaskVal;
+	}
+	else {
+		RegVal &= ~MaskVal;
+	}
+
+	/* Write GPI Register*/
+	XHdmiphy1_WriteReg(InstancePtr->Config.BaseAddr,
+			XHDMIPHY1_GT_DBG_GPI_REG, RegVal);
+}
 #endif
 
 /*****************************************************************************/
@@ -893,8 +940,8 @@ void XHdmiphy1_MmcmSetClkinsel(XHdmiphy1 *InstancePtr, u8 QuadId,
 * @return	None.
 *
 ******************************************************************************/
-void XHdmiphy1_SetBufgGtDiv(XHdmiphy1 *InstancePtr, XHdmiphy1_DirectionType Dir,
-        u8 Div)
+void XHdmiphy1_SetBufgGtDiv(XHdmiphy1 *InstancePtr,
+        XHdmiphy1_DirectionType Dir, u8 Div)
 {
 	u32 RegVal;
 	u32 RegOffset;
@@ -1377,22 +1424,24 @@ u8 XHdmiphy1_GetRefClkSourcesCount(XHdmiphy1 *InstancePtr)
 	u8 i, j, Match;
 
 	/* TxRefClkSel */
-	RefClkSel[0] = (InstancePtr->Config.TxProtocol != XHDMIPHY1_PROTOCOL_NONE) ?
-					InstancePtr->Config.TxRefClkSel : 99;
+	RefClkSel[0] = (InstancePtr->Config.TxProtocol !=
+                        XHDMIPHY1_PROTOCOL_NONE) ?
+                            InstancePtr->Config.TxRefClkSel : 99;
 	/* RxRefClkSel */
-	RefClkSel[1] = (InstancePtr->Config.RxProtocol != XHDMIPHY1_PROTOCOL_NONE) ?
-					InstancePtr->Config.RxRefClkSel : 99;
+	RefClkSel[1] = (InstancePtr->Config.RxProtocol !=
+                        XHDMIPHY1_PROTOCOL_NONE) ?
+                            InstancePtr->Config.RxRefClkSel : 99;
 	/* DruRefClkSel */
 	RefClkSel[2] = (InstancePtr->Config.DruIsPresent) ?
-					InstancePtr->Config.DruRefClkSel : 99;
+                            InstancePtr->Config.DruRefClkSel : 99;
 	/* TxFrlRefClkSel */
 	RefClkSel[3] = (InstancePtr->Config.TxProtocol ==
                         XHDMIPHY1_PROTOCOL_HDMI21) ?
-					InstancePtr->Config.TxFrlRefClkSel : 99;
+                            InstancePtr->Config.TxFrlRefClkSel : 99;
 	/* RxFrlRefClkSel */
 	RefClkSel[4] = (InstancePtr->Config.RxProtocol ==
                         XHDMIPHY1_PROTOCOL_HDMI21) ?
-					InstancePtr->Config.RxFrlRefClkSel : 99;
+                            InstancePtr->Config.RxFrlRefClkSel : 99;
 
 	/* Initialize Unique RefClk holder */
 	for (u8 i=0; i<RefClkNumMax; i++) {

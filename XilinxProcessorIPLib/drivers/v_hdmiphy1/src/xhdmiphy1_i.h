@@ -121,6 +121,8 @@ u32 XHdmiphy1_CfgCpllCalPeriodandTol(XHdmiphy1 *InstancePtr, u8 QuadId,
 #else
 void XHdmiphy1_SetGtLineRateCfg(XHdmiphy1 *InstancePtr, u8 QuadId,
 		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir);
+void XHdmiphy1_SetGpi(XHdmiphy1 *InstancePtr, u8 QuadId,
+		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir, u8 Set);
 #endif
 
 /* xhdmiphy1.c: GT/MMCM DRP access. */
@@ -135,8 +137,8 @@ u8 XHdmiphy1_MmcmLocked(XHdmiphy1 *InstancePtr, u8 QuadId,
 void XHdmiphy1_MmcmSetClkinsel(XHdmiphy1 *InstancePtr, u8 QuadId,
 		XHdmiphy1_DirectionType Dir, XHdmiphy1_MmcmClkinsel Sel);
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
-void XHdmiphy1_SetBufgGtDiv(XHdmiphy1 *InstancePtr, XHdmiphy1_DirectionType Dir,
-        u8 Div);
+void XHdmiphy1_SetBufgGtDiv(XHdmiphy1 *InstancePtr,
+        XHdmiphy1_DirectionType Dir, u8 Div);
 /* xhdmiphy1.c Miscellaneous control. */
 u32 XHdmiphy1_PowerDownGtPll(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId, u8 Hold);
