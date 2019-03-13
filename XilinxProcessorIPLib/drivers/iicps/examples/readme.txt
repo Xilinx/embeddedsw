@@ -65,4 +65,18 @@ This example shows the usage of the iic device as master to check
 slave's availability.
 
 For details, see xiicps_slave_monitor_example.c.
+
+@section ex10 xiicps_intr_multi_master_example.c.
+Contains an example on how to use the XIicps driver directly.
+This example shows the usage of the iic device as multimaster in
+interrupt-driven mode.
+
+For details, see xiicps_intr_multi_master_example.c.
+
+@section ex11 xiicps_polled_multi_master_example.c.
+Contains an example on how to use the XIicps driver directly.
+This example shows the usage of the iic device in polled mode
+as multimaster.
+
+For details, see xiicps_polled_multi_master_example.c.
 */
