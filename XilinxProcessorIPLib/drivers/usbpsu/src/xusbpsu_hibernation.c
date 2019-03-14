@@ -40,6 +40,8 @@
 * Ver    Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   Mayank 12/01/18 First release
+* 1.5   VAK    14/03/19 Enable hibernation related functions only when
+*                       XUSBPSU_HIBERNATION_ENABLE is defined
 *
 * </pre>
 *
@@ -50,6 +52,8 @@
 #include "xusbpsu.h"
 #include "xusbpsu_hw.h"
 #include "xusbpsu_endpoint.h"
+
+#ifdef XUSBPSU_HIBERNATION_ENABLE
 
 /************************** Constant Definitions *****************************/
 
@@ -681,4 +685,6 @@ void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr)
 
 	xil_printf("We are back from hibernation!\r\n");
 }
+
+#endif /* XUSBPSU_HIBERNATION_ENABLE */
 /** @} */
