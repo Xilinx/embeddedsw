@@ -1,5 +1,32 @@
 Changes for 2019.1
 ===============================
+v_hdmiphy1_v1_0:
+Initial Release.
+
+v_hdmirx_v_2_3:
+Updated the description of the API XV_HdmiRx_GetLinkStatus.
+
+v_hdmitx_v_2_3:
+No functional changes, upversioned to align with v_hdmirx_v2_3.
+
+v_hdmirxss_v_5_3:
+Fixed an issue in pass-through application where TX's stream color space is not set according to RX's decoded InfoFrame color space.
+Clears SCDC registers when HPD is toggled in applications.
+Fixed an issue where TX stream doesn't come up when RX hotplug is performed on HDMI 2.0 resolution when LOOPBACK_MODE_EN is set to 1 in the applications.
+Toggles HDP after loading the default EDID.
+Starts HDCP Authentication on the first TX VSYNC in PassThrough applications.
+
+v_hdmitxss_v_5_3:
+Fixed an issue in pass-through application where TX's stream color space is not set according to RX's decoded InfoFrame color space.
+Clears SCDC registers when HPD is toggled in applications.
+Fixed an issue where TX stream doesn't come up when RX hotplug is performed on HDMI 2.0 resolution when LOOPBACK_MODE_EN is set to 1 in the applications.
+Toggles HDP after loading the default EDID.
+Starts HDCP Authentication on the first TX VSYNC in the applications.
+
+vphy_v1_9:
+Moved the RXLPM setting from vphy_i.c/h to vphy.c/h.
+Added RXCDR_CFG3 configuration in GTYE4 DP.
+
 rfdc_v6_0:
 New interpolaton & decimation modes (IP dependent).
 New Image Reject Filter (IP dependent).
