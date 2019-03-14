@@ -1527,6 +1527,10 @@ void XDp_RxAllocatePayloadStream(XDp *InstancePtr);
 void XDp_GenerateCpIrq(XDp *InstancePtr);
 void XDp_EnableDisableHdcp22AuxDeffers(XDp *InstancePtr, u8 EnableDisable);
 #endif
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+void XDp_TxHdcp22Enable(XDp *InstancePtr);
+void XDp_TxHdcp22Disable(XDp *InstancePtr);
+#endif
 
 /******************* Macros (Inline Functions) Definitions ********************/
 
