@@ -305,6 +305,13 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 	}
 
 	/**
+	 * Place AES and SHA engines in reset
+	 */
+	XFsbl_Out32(CSU_AES_RESET, CSU_AES_RESET_RESET_MASK);
+
+	XFsbl_Out32(CSU_SHA_RESET, CSU_SHA_RESET_RESET_MASK);
+
+	/**
 	 * Print the FSBL banner
 	 */
 	XFsbl_PrintFsblBanner();
