@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -128,6 +128,11 @@ static PmPllParam pllParams[] = {
  */
 static void PmPllBypassAndReset(PmPll* const pll)
 {
+#ifdef ENABLE_EM
+	/* Disable PS error interrupt for PLL lock */
+	XPfw_Write32(PMU_GLOBAL_ERROR_SIG_DIS_2, pll->errmask);
+#endif
+
 	/* Bypass PLL before putting it into the reset */
 	XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET, PM_PLL_CTRL_BYPASS_MASK,
 		   PM_PLL_CTRL_BYPASS_MASK);
@@ -154,6 +159,11 @@ static s32 PmPllLock(const PmPll* const pll)
 	/* Poll status register for the lock */
 	status = XPfw_UtilPollForMask(pll->statusAddr, 1 << pll->lockShift,
 				      PM_PLL_LOCK_TIMEOUT);
+
+#ifdef ENABLE_EM
+	/* Enable PS error interrupt for PLL lock */
+	XPfw_Write32(PMU_GLOBAL_ERROR_SIG_EN_2, pll->errmask);
+#endif
 
 	return status;
 }
@@ -421,6 +431,9 @@ PmPll pmApll_g = {
 	.perms = 0U,
 	.lockShift = CRF_APB_PLL_STATUS_APLL_LOCK_SHIFT,
 	.flags = 0U,
+#ifdef ENABLE_EM
+	.errmask = PMU_GLOBAL_ERROR_SIG_2_APLL_MASK,
+#endif
 };
 
 PmPll pmVpll_g = {
@@ -442,6 +455,9 @@ PmPll pmVpll_g = {
 	.perms = 0U,
 	.lockShift = CRF_APB_PLL_STATUS_VPLL_LOCK_SHIFT,
 	.flags = 0U,
+#ifdef ENABLE_EM
+	.errmask = PMU_GLOBAL_ERROR_SIG_2_VPLL_MASK,
+#endif
 };
 
 PmPll pmDpll_g __attribute__((__section__(".srdata"))) = {
@@ -463,6 +479,9 @@ PmPll pmDpll_g __attribute__((__section__(".srdata"))) = {
 	.perms = 0U,
 	.lockShift = CRF_APB_PLL_STATUS_DPLL_LOCK_SHIFT,
 	.flags = 0U,
+#ifdef ENABLE_EM
+	.errmask = PMU_GLOBAL_ERROR_SIG_2_DPLL_MASK,
+#endif
 };
 
 PmPll pmRpll_g = {
@@ -484,6 +503,9 @@ PmPll pmRpll_g = {
 	.perms = 0U,
 	.lockShift = CRL_APB_PLL_STATUS_RPLL_LOCK_SHIFT,
 	.flags = 0U,
+#ifdef ENABLE_EM
+	.errmask = PMU_GLOBAL_ERROR_SIG_2_RPLL_MASK,
+#endif
 };
 
 PmPll pmIOpll_g = {
@@ -505,6 +527,9 @@ PmPll pmIOpll_g = {
 	.perms = 0U,
 	.lockShift = CRL_APB_PLL_STATUS_IOPLL_LOCK_SHIFT,
 	.flags = 0U,
+#ifdef ENABLE_EM
+	.errmask = PMU_GLOBAL_ERROR_SIG_2_IOPLL_MASK,
+#endif
 };
 
 /**
