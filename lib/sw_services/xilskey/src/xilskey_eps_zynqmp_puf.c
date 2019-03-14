@@ -621,6 +621,8 @@ u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 		xPuf_printf(Debug,
 			"API: Overflow warning\r\n");
 		Status = (u32)XSK_EFUSEPS_ERROR_PUF_DATA_OVERFLOW;
+
+		goto ENDF;
 	}
 	/* Capture CHASH & AUX */
 	InstancePtr->Chash = InstancePtr->SyndromeData[Index - 1];
