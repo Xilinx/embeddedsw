@@ -57,7 +57,7 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-#define XV_DPRXSS_HDCP22_MAX_QUEUE_SIZE 16
+#define XDPRXSS_HDCP22_MAX_QUEUE_SIZE 16
 
 /**************************** Type Definitions *******************************/
 /**
@@ -66,7 +66,7 @@ extern "C" {
 typedef struct {
 	u16 DeviceId;   /**< Device ID of the sub-core */
 	UINTPTR AbsAddr; /**< Absolute Base Address of the Sub-cores*/
-} XHdcp22_Config;
+} XDpRxSs_Hdcp22_Config;
 
 /**
  * Sub-Core Configuration Table
@@ -75,7 +75,7 @@ typedef struct
 {
 	u16 IsPresent;  /**< Flag to indicate if sub-core is present in
 			  the design*/
-	XHdcp22_Config Hdcp22Config;	/**< HDCP22 core configuration */
+	XDpRxSs_Hdcp22_Config Hdcp22Config; /**< HDCP22 core configuration */
 } XDpRxSs_Hdcp22SubCore;
 
 /**
@@ -83,18 +83,27 @@ typedef struct
 */
 typedef enum
 {
-	XV_DPRXSS_HDCP22_NO_EVT,
-	XV_DPRXSS_HDCP22_CONNECT_EVT,
-	XV_DPRXSS_HDCP22_DISCONNECT_EVT,
-	XV_DPRXSS_HDCP22_INVALID_EVT
-} XV_DpRxSs_Hdcp22Event;
+	XDPRXSS_HDCP22_NO_EVT,
+	XDPRXSS_HDCP22_CONNECT_EVT,
+	XDPRXSS_HDCP22_DISCONNECT_EVT,
+	XDPRXSS_HDCP22_INVALID_EVT
+} XDpRxSs_Hdcp22Event;
+
+/**
+ * These constants specify the HDCP key types
+ */
+typedef enum
+{
+	XDPRXSS_KEY_HDCP22_LC128,     /**< HDCP 2.2 LC128 */
+	XDPRXSS_KEY_HDCP22_PRIVATE,   /**< HDCP 2.2 Private */
+} XDpRxSs_Hdcp22KeyType;
 
 typedef struct
 {
-	XV_DpRxSs_Hdcp22Event Queue[XV_DPRXSS_HDCP22_MAX_QUEUE_SIZE]; /**< Data */
+	XDpRxSs_Hdcp22Event Queue[XDPRXSS_HDCP22_MAX_QUEUE_SIZE]; /**< Data */
 	u8                    Tail;      /**< Tail pointer */
 	u8                    Head;      /**< Head pointer */
-} XV_DpRxSs_Hdcp22EventQueue;
+} XDpRxSs_Hdcp22EventQueue;
 
 /* The order of the enums in this should be as same as
  * Xhdcp22_Rx_DpcdFlag in xhdcp22_rx_i.h*/
@@ -114,13 +123,13 @@ typedef enum {
 							  Flag*/
 	XDPRX_HDCP22_RX_DPCD_FLAG_PAIRING_INFO_READ_DONE,/**< Pairing info
 							   Read done Flag*/
-} XV_DpRxSs_Hdcp22DpcdEvents;
+} XDpRxSs_Hdcp22DpcdEvents;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-int XV_DpRxSs_SubcoreInitHdcp22(void *InstancePtr);
-void XV_DpRxSs_Hdcp22Poll(void *Instance);
+int XDpRxSs_SubcoreInitHdcp22(void *InstancePtr);
+void XDpRxSs_Hdcp22Poll(void *Instance);
 
 /************************** Variable Declarations ****************************/
 

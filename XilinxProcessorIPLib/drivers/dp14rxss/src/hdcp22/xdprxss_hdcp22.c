@@ -191,30 +191,6 @@ static void XHdcp22_PortDpRxProcessSkeSendEks(void *RefPtr)
 
 /*****************************************************************************/
 /**
-* This function is called when the DP-RX link error has occurred.
-*
-* @param RefPtr is a callback reference to the DPRXSS instance.
-*
-* @return None.
-*
-* @note   None.
-******************************************************************************/
-static void XHdcp22_PortDpRxProcessLinkIntegrityFail(void *RefPtr)
-{
-	XDpRxSs *InstancePtr = (XDpRxSs *)RefPtr;
-
-	Xil_AssertVoid(RefPtr);
-
-	/* HDCP 2.2 */
-	if (InstancePtr->Hdcp22Ptr) {
-		if (InstancePtr->HdcpProtocol == XDPRXSS_HDCP_22) {
-			XHdcp22Rx_SetLinkError(InstancePtr->Hdcp22Ptr);
-		}
-	}
-}
-
-/*****************************************************************************/
-/**
 * This function is called when the DP-RX HDCP22 Hprime Read complete
 * interrupt has occurred.
 *
@@ -480,7 +456,7 @@ static void XHdcp22_DpRx_AuxDefferSetClrHandler(void *InstancePtr, u8 SetClr)
 * @note   None.
 *
 ******************************************************************************/
-static void XV_DpRxSs_Hdcp22ClearEvents(XDpRxSs *InstancePtr)
+static void XDpRxSs_Hdcp22ClearEvents(XDpRxSs *InstancePtr)
 {
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr);
@@ -497,14 +473,14 @@ static void XV_DpRxSs_Hdcp22ClearEvents(XDpRxSs *InstancePtr)
 * @param InstancePtr is a pointer to the XDpRxSs instance.
 *
 * @return When the queue is filled, the next event is returned.
-*         When the queue is empty, XV_DPRXSS_HDCP22_NO_EVT is returned.
+*         When the queue is empty, XDPRXSS_HDCP22_NO_EVT is returned.
 *
 * @note   None.
 *
 ******************************************************************************/
-static XV_DpRxSs_Hdcp22Event XV_DpRxSs_Hdcp22GetEvent(XDpRxSs *InstancePtr)
+static XDpRxSs_Hdcp22Event XDpRxSs_Hdcp22GetEvent(XDpRxSs *InstancePtr)
 {
-	XV_DpRxSs_Hdcp22Event Event;
+	XDpRxSs_Hdcp22Event Event;
 
 	/* Verify argument. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -512,7 +488,7 @@ static XV_DpRxSs_Hdcp22Event XV_DpRxSs_Hdcp22GetEvent(XDpRxSs *InstancePtr)
 	/* Check if there are any events in the queue */
 	if (InstancePtr->Hdcp22EventQueue.Tail ==
 			InstancePtr->Hdcp22EventQueue.Head) {
-		return XV_DPRXSS_HDCP22_NO_EVT;
+		return XDPRXSS_HDCP22_NO_EVT;
 	}
 
 	Event = InstancePtr->Hdcp22EventQueue.Queue[InstancePtr->
@@ -520,7 +496,7 @@ static XV_DpRxSs_Hdcp22Event XV_DpRxSs_Hdcp22GetEvent(XDpRxSs *InstancePtr)
 
 	/* Update tail pointer */
 	if (InstancePtr->Hdcp22EventQueue.Tail ==
-			(XV_DPRXSS_HDCP22_MAX_QUEUE_SIZE - 1)) {
+			(XDPRXSS_HDCP22_MAX_QUEUE_SIZE - 1)) {
 		InstancePtr->Hdcp22EventQueue.Tail = 0;
 	}
 	else {
@@ -542,20 +518,20 @@ static XV_DpRxSs_Hdcp22Event XV_DpRxSs_Hdcp22GetEvent(XDpRxSs *InstancePtr)
 * @note   None.
 *
 ******************************************************************************/
-static void XV_DpRxSs_Hdcp22ProcessEvents(XDpRxSs *InstancePtr)
+static void XDpRxSs_Hdcp22ProcessEvents(XDpRxSs *InstancePtr)
 {
-	XV_DpRxSs_Hdcp22Event Event;
+	XDpRxSs_Hdcp22Event Event;
 
 	/* Verify argument */
 	Xil_AssertVoid(InstancePtr);
 
-	Event = XV_DpRxSs_Hdcp22GetEvent(InstancePtr);
+	Event = XDpRxSs_Hdcp22GetEvent(InstancePtr);
 
 	switch (Event) {
 
 		/* Connect */
-		case XV_DPRXSS_HDCP22_CONNECT_EVT :
-			XV_DpRxSs_HdcpSetProtocol(InstancePtr,
+		case XDPRXSS_HDCP22_CONNECT_EVT :
+			XDpRxSs_HdcpSetProtocol(InstancePtr,
 					InstancePtr->HdcpProtocol);
 			break;
 
@@ -573,7 +549,7 @@ static void XV_DpRxSs_Hdcp22ProcessEvents(XDpRxSs *InstancePtr)
 * @return XST_SUCCESS/XST_FAILURE
 *
 ******************************************************************************/
-int XV_DpRxSs_SubcoreInitHdcp22(void *InstancePtr)
+int XDpRxSs_SubcoreInitHdcp22(void *InstancePtr)
 {
 	int Status;
 	XHdcp22_Rx_Config *ConfigPtr;
@@ -686,7 +662,7 @@ int XV_DpRxSs_SubcoreInitHdcp22(void *InstancePtr)
 					DpRxSsPtr->Hdcp22PrivateKeyPtr+562);
 
 			/*Clear the HDCP22 event queue */
-			XV_DpRxSs_Hdcp22ClearEvents(DpRxSsPtr);
+			XDpRxSs_Hdcp22ClearEvents(DpRxSsPtr);
 		} else {
 			xdbg_printf(XDBG_DEBUG_GENERAL,
 				"DPRXSS ERR:: HDCP22 keys have not loaded\n\r");
@@ -709,7 +685,7 @@ int XV_DpRxSs_SubcoreInitHdcp22(void *InstancePtr)
 * @note   None.
 *
 ******************************************************************************/
-void XV_DpRxSs_Hdcp22Poll(void *Instance)
+void XDpRxSs_Hdcp22Poll(void *Instance)
 {
 	/* Verify argument. */
 	Xil_AssertVoid(Instance);
@@ -720,7 +696,7 @@ void XV_DpRxSs_Hdcp22Poll(void *Instance)
 	if (InstancePtr->HdcpIsReady) {
 
 		/* Process any pending events from the RX event queue */
-		XV_DpRxSs_Hdcp22ProcessEvents(InstancePtr);
+		XDpRxSs_Hdcp22ProcessEvents(InstancePtr);
 
 		/* HDCP 2.2 */
 		if (InstancePtr->Hdcp22Ptr) {

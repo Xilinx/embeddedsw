@@ -136,6 +136,35 @@ void XDpRxSs_HdcpIntrHandler(void *InstancePtr)
 }
 #endif
 
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+/*****************************************************************************/
+/**
+ * This function is the interrupt handler for HDCP22 LIC failure.
+ *
+ * The application is responsible for connecting this function to the interrupt
+ * system.
+ *
+ * @param	InstancePtr is a pointer to the XDpRxSs core instance that
+ * 			just interrupted.
+ *
+ * @return None.
+ *
+ * @note   None.
+ ******************************************************************************/
+void XDpRxSs_Hdcp22LicFailHandler(void *InstancePtr)
+{
+	XDpRxSs *XDpRxSsPtr = (XDpRxSs *)InstancePtr;
+
+	Xil_AssertVoid(InstancePtr);
+
+	if (XDpRxSsPtr->Hdcp22Ptr) {
+		if (XDpRxSsPtr->HdcpProtocol == XDPRXSS_HDCP_22) {
+			XHdcp22Rx_SetLinkError(XDpRxSsPtr->Hdcp22Ptr);
+		}
+	}
+}
+#endif
+
 #if (((XPAR_DPRXSS_0_HDCP_ENABLE > 0) || \
 	(XPAR_XHDCP22_RX_NUM_INSTANCES > 0)) \
 		&& (XPAR_XTMRCTR_NUM_INSTANCES > 0))
