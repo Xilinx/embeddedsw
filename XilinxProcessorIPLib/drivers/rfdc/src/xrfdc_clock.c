@@ -41,6 +41,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 6.0   cog    02/17/19 Initial release.
+*       cog    03/12/19 Invert clock detection bits to support IP change.
 * </pre>
 *
 ******************************************************************************/
@@ -623,7 +624,7 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 		Distribution->MinDelay = MIN(Distribution->MinDelay, (*Delays[Distribution->DistributionSource]));
 
 		/* setup clk detect register */
-		ClkDetectReg = ~(XRFDC_CLOCK_DETECT_CLK <<
+		ClkDetectReg = (XRFDC_CLOCK_DETECT_CLK <<
 			((XRFDC_CLK_DST_ADC3 - Distribution->DistributionSource) << 1));
 
 		if ((Distribution->DistributionSource) < XRFDC_CLK_DST_ADC0) { /*DAC*/
@@ -655,10 +656,10 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 			      XRFDC_CLK_DISTR_MUX9_SRC_INT;
 
 			/* setup clk detect register */
-			ClkDetectReg = ~(XRFDC_CLOCK_DETECT_BOTH <<
+			ClkDetectReg = (XRFDC_CLOCK_DETECT_BOTH <<
 				((XRFDC_CLK_DST_ADC3 - Distribution->DistributionSource) << 1));
 			for (ClkDetItr = DelayLeft - 1; ClkDetItr > 0; ClkDetItr--) {
-				ClkDetectReg &= ~(XRFDC_CLOCK_DETECT_DIST <<
+				ClkDetectReg |= (XRFDC_CLOCK_DETECT_DIST <<
 					((XRFDC_CLK_DST_ADC3 - (Distribution->DistributionSource - ClkDetItr)) << 1));
 			}
 
@@ -701,10 +702,10 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 			FeedBackForInputLeft = !FeedBackForInputLeft;
 
 			/* setup clk detect register */
-			ClkDetectReg = ~(XRFDC_CLOCK_DETECT_BOTH <<
+			ClkDetectReg = (XRFDC_CLOCK_DETECT_BOTH <<
 				((XRFDC_CLK_DST_ADC3 - Distribution->DistributionSource) << 1));
 			for (ClkDetItr = Delay - 1; ClkDetItr > 0; ClkDetItr--) {
-				ClkDetectReg &= ~(XRFDC_CLOCK_DETECT_DIST <<
+				ClkDetectReg |= (XRFDC_CLOCK_DETECT_DIST <<
 					((XRFDC_CLK_DST_ADC3 - (Distribution->DistributionSource - ClkDetItr)) << 1));
 			}
 
@@ -739,10 +740,10 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 			Distribution->MinDelay = MIN(Distribution->MinDelay, (*Delays[Distribution->UpperBound]));
 
 			/* setup clk detect register */
-			ClkDetectReg = ~(XRFDC_CLOCK_DETECT_BOTH <<
+			ClkDetectReg = (XRFDC_CLOCK_DETECT_BOTH <<
 				((XRFDC_CLK_DST_ADC3 - Distribution->DistributionSource) << 1));
 			for (ClkDetItr = DelayRight - 1; ClkDetItr > 0; ClkDetItr--) {
-				ClkDetectReg &= ~(XRFDC_CLOCK_DETECT_DIST <<
+				ClkDetectReg |= (XRFDC_CLOCK_DETECT_DIST <<
 					((XRFDC_CLK_DST_ADC3 - (Distribution->DistributionSource + ClkDetItr)) << 1));
 			}
 
@@ -787,10 +788,10 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 			       XRFDC_CLK_DISTR_MUX8_SRC_NTH | XRFDC_CLK_DISTR_MUX9_SRC_NTH;
 
 			/* setup clk detect register */
-			ClkDetectReg = ~(XRFDC_CLOCK_DETECT_BOTH <<
+			ClkDetectReg = (XRFDC_CLOCK_DETECT_BOTH <<
 				((XRFDC_CLK_DST_ADC3 - Distribution->DistributionSource) << 1));
 			for (ClkDetItr = Delay - 1; ClkDetItr > 0; ClkDetItr--) {
-				ClkDetectReg &= ~(XRFDC_CLOCK_DETECT_DIST <<
+				ClkDetectReg |= (XRFDC_CLOCK_DETECT_DIST <<
 					((XRFDC_CLK_DST_ADC3 - (Distribution->DistributionSource + ClkDetItr)) << 1));
 			}
 
