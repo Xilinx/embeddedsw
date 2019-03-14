@@ -383,6 +383,12 @@
 #define XDP_TX_HDCP_ENABLE		0x400	/**< Enables HDCP core. */
 /* @} */
 
+/** @name DPTX core registers: HDCP22.
+ * @{
+ */
+#define XDP_TX_HDCP22_ENABLE	0x404	/**< Enables HDCP22 core. */
+/* @} */
+
 /** @name DPTX core registers: Main stream attributes for MST STREAM2, 3, and 4.
   * @{
   */
@@ -882,7 +888,10 @@
 #define XDP_TX_HDCP_ENABLE_BYPASS_DISABLE_MASK \
 				0x0001		/**< Disables bypass of the
 							HDCP core. */
-
+/* 0x404: XDP_TX_HDCP22_ENABLE */
+#define XDP_TX_HDCP22_ENABLE_BYPASS_DISABLE_MASK \
+	1		/**< Disables bypass of the
+			  HDCP22 core. */
 /* @} */
 
 /** @name DPTX status registers: Lanes done with Clock Recovery.
