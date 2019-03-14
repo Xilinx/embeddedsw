@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -3899,6 +3899,12 @@ extern "C" {
 #define PMU_GLOBAL_ERROR_SIG_DIS_2_TO_SHIFT   0
 #define PMU_GLOBAL_ERROR_SIG_DIS_2_TO_WIDTH   2
 #define PMU_GLOBAL_ERROR_SIG_DIS_2_TO_MASK    ((u32)0X00000003U)
+
+#define PMU_GLOBAL_ERROR_SIG_2_IOPLL_MASK	((u32)0x00000100U)
+#define PMU_GLOBAL_ERROR_SIG_2_RPLL_MASK	((u32)0x00000200U)
+#define PMU_GLOBAL_ERROR_SIG_2_APLL_MASK	((u32)0x00000400U)
+#define PMU_GLOBAL_ERROR_SIG_2_DPLL_MASK	((u32)0x00000800U)
+#define PMU_GLOBAL_ERROR_SIG_2_VPLL_MASK	((u32)0x00001000U)
 
 /**
  * Register: PMU_GLOBAL_ERROR_EN_1
