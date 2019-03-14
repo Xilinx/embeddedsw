@@ -447,16 +447,23 @@ u32 XDpTxSs_GetEdid(XDpTxSs *InstancePtr, u8 *Edid);
 u32 XDpTxSs_GetRemoteEdid(XDpTxSs *InstancePtr, u8 SinkNum, u8 *Edid);
 void XDpTxSs_SetHasRedriverInPath(XDpTxSs *InstancePtr, u8 Set);
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 /* Optional HDCP related functions */
 u32 XDpTxSs_HdcpEnable(XDpTxSs *InstancePtr);
 u32 XDpTxSs_HdcpDisable(XDpTxSs *InstancePtr);
+int XDpTxSs_HdcpSetCapability(XDpTxSs *InstancePtr,
+		XDpTxSs_HdcpProtocol Protocol);
+int XDpTxSs_HdcpReset(XDpTxSs *InstancePtr);
+int XDpTxSs_HdcpSetProtocol(XDpTxSs *InstancePtr,
+		XDpTxSs_HdcpProtocol Protocol);
+u32 XDpTxSs_EnableEncryption(XDpTxSs *InstancePtr, u64 StreamMap);
+u32 XDpTxSs_DisableEncryption(XDpTxSs *InstancePtr, u64 StreamMap);
+#endif
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 u32 XDpTxSs_Poll(XDpTxSs *InstancePtr);
 u32 XDpTxSs_IsHdcpCapable(XDpTxSs *InstancePtr);
 u32 XDpTxSs_Authenticate(XDpTxSs *InstancePtr);
 u32 XDpTxSs_IsAuthenticated(XDpTxSs *InstancePtr);
-u32 XDpTxSs_EnableEncryption(XDpTxSs *InstancePtr, u64 StreamMap);
-u32 XDpTxSs_DisableEncryption(XDpTxSs *InstancePtr, u64 StreamMap);
 u64 XDpTxSs_GetEncryption(XDpTxSs *InstancePtr);
 u32 XDpTxSs_SetPhysicalState(XDpTxSs *InstancePtr, u32 PhyState);
 u32 XDpTxSs_SetLane(XDpTxSs *InstancePtr, u32 Lane);
@@ -464,15 +471,6 @@ void XDpTxSs_SetDebugPrintf(XDpTxSs *InstancePtr, XDpTxSs_Printf PrintfFunc);
 void XDpTxSs_SetDebugLogMsg(XDpTxSs *InstancePtr, XDpTxSs_LogMsg LogFunc);
 u32 XDpTxSs_ReadDownstream(XDpTxSs *InstancePtr);
 void XDpTxSs_HandleTimeout(XDpTxSs *InstancePtr);
-#endif
-
-#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
-int XDpTxSs_HdcpSetCapability(XDpTxSs *InstancePtr,
-		XDpTxSs_HdcpProtocol Protocol);
-int XDpTxSs_HdcpEnable(XDpTxSs *InstancePtr);
-int XDpTxSs_HdcpSetProtocol(XDpTxSs *InstancePtr,
-		XDpTxSs_HdcpProtocol Protocol);
-int XDpTxSs_HdcpReset(XDpTxSs *InstancePtr);
 #endif
 
 void XDpTxSs_ReportCoreInfo(XDpTxSs *InstancePtr);
@@ -492,6 +490,11 @@ void XDpTxSs_HdcpIntrHandler(void *InstancePtr);
 #endif
 #if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 void XDpTxSs_TmrCtrIntrHandler(void *InstancePtr);
+#endif
+
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+void XDpTxSs_Hdcp22SetKey(XDpTxSs *InstancePtr,
+		XDpTxSs_Hdcp22KeyType KeyType, u8 *KeyPtr);
 #endif
 void XDpTxSs_DpIntrHandler(void *InstancePtr);
 u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
