@@ -437,7 +437,7 @@ typedef struct {
 	u8 HdcpIsReady;			/**< HDCP ready flag */
 #endif
 #if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
-	XV_DpRxSs_Hdcp22EventQueue Hdcp22EventQueue; /**< HDCP22 event queue */
+	XDpRxSs_Hdcp22EventQueue Hdcp22EventQueue; /**< HDCP22 event queue */
 	u8 *Hdcp22Lc128Ptr;		/**< Pointer to HDCP 2.2 LC128 */
 	u8 *Hdcp22PrivateKeyPtr;	/**< Pointer to HDCP 2.2 Private key */
 #endif
@@ -568,13 +568,18 @@ u32 XDpRxSs_CheckLinkStatus(XDpRxSs *InstancePtr);
 u32 XDpRxSs_HandleDownReq(XDpRxSs *InstancePtr);
 void XDpRxSs_SetUserPixelWidth(XDpRxSs *InstancePtr, u8 UserPixelWidth);
 
-#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+int XDpRxSs_HdcpSetProtocol(XDpRxSs *InstancePtr,
+		XDpRxSs_HdcpProtocol Protocol);
 /* Optional HDCP related functions */
 u32 XDpRxSs_HdcpEnable(XDpRxSs *InstancePtr);
 u32 XDpRxSs_HdcpDisable(XDpRxSs *InstancePtr);
+u32 XDpRxSs_SetLane(XDpRxSs *InstancePtr, u32 Lane);
+#endif
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
+/* Optional HDCP related functions */
 u32 XDpRxSs_Poll(XDpRxSs *InstancePtr);
 u32 XDpRxSs_SetPhysicalState(XDpRxSs *InstancePtr, u32 PhyState);
-u32 XDpRxSs_SetLane(XDpRxSs *InstancePtr, u32 Lane);
 u32 XDpRxSs_Authenticate(XDpRxSs *InstancePtr);
 u32 XDpRxSs_IsAuthenticated(XDpRxSs *InstancePtr);
 u64 XDpRxSs_GetEncryption(XDpRxSs *InstancePtr);
@@ -615,9 +620,10 @@ void XDpRxSs_DrvPowerChangeHandler(void *InstancePtr);
 
 void XDpRxSs_McDp6000_init(void *InstancePtr, u32 I2CAddress);
 
-#if ((XPAR_DPRXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_RX_NUM_INSTANCES > 0))
-int XV_DpRxSs_HdcpSetProtocol(XDpRxSs *InstancePtr,
-		XDpRxSs_HdcpProtocol Protocol);
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+void XDpRxSs_Hdcp22LicFailHandler(void *InstancePtr);
+void XDpRxSs_Hdcp22SetKey(XDpRxSs *InstancePtr,
+		XDpRxSs_Hdcp22KeyType KeyType, u8 *KeyPtr);
 #endif
 /************************** Variable Declarations ****************************/
 
