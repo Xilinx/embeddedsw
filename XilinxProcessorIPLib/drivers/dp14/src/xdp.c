@@ -1680,6 +1680,7 @@ void XDp_RxDtgDis(XDp *InstancePtr)
  *		- XDP_RX_LINK_BW_SET_162GBPS = 0x06 (for a 1.62 Gbps data rate)
  *		- XDP_RX_LINK_BW_SET_270GBPS = 0x0A (for a 2.70 Gbps data rate)
  *		- XDP_RX_LINK_BW_SET_540GBPS = 0x14 (for a 5.40 Gbps data rate)
+ *		- XDP_RX_LINK_BW_SET_810GBPS = 0x1E (for a 8.10 Gbps data rate)
  *
  * @return	None.
  *
@@ -1697,8 +1698,17 @@ void XDp_RxSetLinkRate(XDp *InstancePtr, u8 LinkRate)
 	InstancePtr->RxInstance.LinkConfig.LinkRate = LinkRate;
 
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x1);
-	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_LINK_BW_SET,
-								LinkRate);
+	if (LinkRate > XDP_LINK_BW_SET_540GBPS){
+                XDp_WriteReg(InstancePtr->Config.BaseAddr,
+				XDP_RX_OVER_LINK_BW_SET, XDP_LINK_BW_SET_540GBPS);
+                XDp_WriteReg(InstancePtr->Config.BaseAddr,
+				XDP_RX_EXT_OVER_LINK_BW_SET, LinkRate);
+        } else {
+                XDp_WriteReg(InstancePtr->Config.BaseAddr,
+				XDP_RX_OVER_LINK_BW_SET, LinkRate);
+                XDp_WriteReg(InstancePtr->Config.BaseAddr,
+				XDP_RX_EXT_OVER_LINK_BW_SET, LinkRate);
+        }
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x0);
 }
 
