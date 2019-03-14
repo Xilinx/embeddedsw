@@ -354,77 +354,6 @@ int XDpTxSs_SubcoreInitHdcp22(void *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function enables encryption for the active HDCP protocol.
-*
-* @param InstancePtr is a pointer to the XDpTxSs instance.
-*
-* @return
-*  - XST_SUCCESS if action was successful
-*  - XST_FAILURE if action was not successful
-*
-* @note   None.
-*
-******************************************************************************/
-int XDpTxSs_Hdcp22EnableEncryption(void *Instance)
-{
-	XDpTxSs *InstancePtr = (XDpTxSs *)Instance;
-
-	/* Verify argument. */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-
-	if (InstancePtr->Hdcp22Ptr) {
-		return XHdcp22Tx_EnableEncryption(InstancePtr->Hdcp22Ptr);
-	}
-
-	return XST_FAILURE;
-}
-
-/*****************************************************************************/
-/**
-*
-* This function disables encryption for HDCP protocol.
-*
-* @param InstancePtr is a pointer to the XDpTxSs instance.
-*
-* @return
-*  - XST_SUCCESS if action was successful
-*  - XST_FAILURE if action was not successful
-*
-* @note   None.
-*
-******************************************************************************/
-int XDpTxSs_HdcpDisableEncryption(void *Instance)
-{
-	int Status = XST_SUCCESS;
-	XDpTxSs *InstancePtr = (XDpTxSs *)Instance;
-
-	/* Verify argument. */
-	Xil_AssertNonvoid(Instance != NULL);
-
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
-	if (InstancePtr->Hdcp1xPtr) {
-		Status = XHdcp1x_DisableEncryption(InstancePtr->Hdcp1xPtr,
-				0x1);
-
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-	}
-#endif
-	if (InstancePtr->Hdcp22Ptr) {
-		Status = XHdcp22Tx_DisableEncryption(InstancePtr->Hdcp22Ptr);
-
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-	}
-
-	return Status;
-}
-
-/*****************************************************************************/
-/**
-*
 * This function is to poll the HDCP22 Tx core.
 *
 * @param InstancePtr is a pointer to the XDpTxSs instance.
@@ -565,7 +494,8 @@ int XDpTxSs_HdcpAuthRequest(void *Instance)
 	Xil_AssertNonvoid(Instance != NULL);
 
 	/* Always disable encryption */
-	if (XDpTxSs_HdcpDisableEncryption(InstancePtr) != XST_SUCCESS) {
+	Status = XDpTxSs_DisableEncryption(InstancePtr, 0x01);
+	if (Status != XST_SUCCESS) {
 		XDpTxSs_HdcpSetProtocol(InstancePtr, XDPTXSS_HDCP_NONE);
 		return XST_FAILURE;
 	}
@@ -581,11 +511,12 @@ int XDpTxSs_HdcpAuthRequest(void *Instance)
 			Status = XDpTxSs_HdcpSetProtocol(InstancePtr,
 					XDPTXSS_HDCP_22);
 
+			Status |= XDpTxSs_HdcpEnable(InstancePtr);
+
 			/* Set lane count in HDCP */
 			XHdcp22_TxSetLaneCount(InstancePtr->Hdcp22Ptr,
 					InstancePtr->DpPtr->TxInstance.
 					LinkConfig.LaneCount);
-
 			Status |= XHdcp22Tx_Authenticate(
 					InstancePtr->Hdcp22Ptr);
 		} else {
@@ -606,15 +537,8 @@ int XDpTxSs_HdcpAuthRequest(void *Instance)
 
 			Status = XDpTxSs_HdcpSetProtocol(InstancePtr,
 					XDPTXSS_HDCP_1X);
-
-			/* Set lane count in HDCP */
-			Status = XHdcp1x_SetLaneCount(InstancePtr->Hdcp1xPtr,
-					InstancePtr->DpPtr->TxInstance.
-					LinkConfig.LaneCount);
-
-			/* Set physical interface (DisplayPort) up */
-			Status = XHdcp1x_SetPhysicalState(
-					InstancePtr->Hdcp1xPtr, 1);
+			Status |= XDpTxSs_HdcpEnable(InstancePtr);
+			Status |= XHdcp1x_Authenticate(InstancePtr->Hdcp1xPtr);
 		}
 		else {
 			Status = XST_FAILURE;

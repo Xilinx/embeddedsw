@@ -69,7 +69,7 @@ extern "C" {
 typedef struct {
 	u16 DeviceId;   /**< Device ID of the sub-core */
 	UINTPTR AbsAddr; /**< Absolute Base Address of the Sub-cores*/
-} XHdcp22_Config;
+} XDpTxSs_Hdcp22_Config;
 
 /**
  * Sub-Core Configuration Table
@@ -78,7 +78,7 @@ typedef struct
 {
 	u16 IsPresent;  /**< Flag to indicate if sub-core is present
 			  in the design*/
-	XHdcp22_Config Hdcp22Config;	/**< HDCP22 core configuration */
+	XDpTxSs_Hdcp22_Config Hdcp22Config; /**< HDCP22 core configuration */
 } XDpTxSs_Hdcp22SubCore;
 
 /**
@@ -100,14 +100,22 @@ typedef struct
 	u8	Head;      /**< Head pointer */
 } XDpTxSs_HdcpEventQueue;
 
+/**
+ * These constants specify the HDCP key types
+ */
+typedef enum
+{
+	XDPTXSS_KEY_HDCP22_LC128,	/**< HDCP 2.2 LC128 */
+	XDPTXSS_KEY_HDCP22_SRM,		/**< HDCP 2.2 SRM */
+	XDPTXSS_KEY_INVALID		/**< Invalid Key */
+} XDpTxSs_Hdcp22KeyType;
+
 /************************** Variable Declarations ****************************/
 
 
 /************************** Function Prototypes ******************************/
 int XDpTxSs_SubcoreInitHdcp22(void *InstancePtr);
-int XDpTxSs_Hdcp22EnableEncryption(void *InstancePtr);
 int XDpTxSs_HdcpAuthRequest(void *Instance);
-int XDpTxSs_HdcpDisableEncryption(void *Instance);
 int XDpTxSs_HdcpPoll(void *Instance);
 int XDpTxSs_HdcpPushEvent(void *Instance, XDpTxSs_HdcpEvent Event);
 u8 XDpTxSs_IsSinkHdcp22Capable(void *Instance);
