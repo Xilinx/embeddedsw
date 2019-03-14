@@ -1079,6 +1079,9 @@
 							field in the DPCD with
 							what is stored in
 							XDP_RX_GUID[0-3]. */
+#define XDP_RX_EXT_OVER_LINK_BW_SET	0x7F0   /**< Used to override the main
+                                                        link bandwidth setting
+                                                        in the DPCD. */
 /* @} */
 
 /** @name DPRX core registers: Core ID.
