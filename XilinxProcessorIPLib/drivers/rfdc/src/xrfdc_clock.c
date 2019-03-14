@@ -42,6 +42,8 @@
 * ----- ---    -------- -----------------------------------------------
 * 6.0   cog    02/17/19 Initial release.
 *       cog    03/12/19 Invert clock detection bits to support IP change.
+*       cog    03/12/19 Fix bug where incorrect FS, RefClk and were output
+*						vivider were being returned.
 * </pre>
 *
 ******************************************************************************/
@@ -1460,49 +1462,58 @@ u32 XRFdc_GetPLLConfig(XRFdc *InstancePtr, u32 Type,
 	u32 RefClkDivider;
 	u32 Enabled;
 	u8 DivideMode;
+	u32 PLLFreq;
+	u32 PLLFS;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(PLLSettings != NULL);
+
+	Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Tile_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Requested tile not "
+								"available in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
 
 	BaseAddr = XRFDC_CTRL_STS_BASE(Type, Tile_Id);
-	ReadReg = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_PLL_FREQ,0xFFFF);
-	RefClkFreq = (double)ReadReg/1000;
+	PLLFreq = XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_PLL_FREQ);
 
-	ReadReg = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_PLL_FS,0xFFFF);
-	SampleRate = (double)ReadReg/1000;
-	if (ReadReg == 0) {
+	RefClkFreq = ((double)PLLFreq)/1000;
+	PLLFS = XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_PLL_FS);
+	SampleRate = ((double)PLLFS)/1000000;
+	if (PLLFS == 0) {
 		/*This code is here to support the old IPs.*/
 		if (Type == XRFDC_ADC_TILE) {
-			if (InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].NumSlices == 0) {/*if older generation IP IP*/
-				PLLSettings->Enabled =
-						InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.Enabled;
-				PLLSettings->FeedbackDivider =
-						InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.FeedbackDivider;
-				PLLSettings->OutputDivider =
-						InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.OutputDivider;
-				PLLSettings->RefClkDivider =
-						InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.RefClkDivider;
-				PLLSettings->RefClkFreq =
-						InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.RefClkFreq;
-				PLLSettings->SampleRate =
-						InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate;
-				Status = XRFDC_SUCCESS;
-				goto RETURN_PATH;
-			}
+			PLLSettings->Enabled =
+					InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.Enabled;
+			PLLSettings->FeedbackDivider =
+					InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.FeedbackDivider;
+			PLLSettings->OutputDivider =
+					InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.OutputDivider;
+			PLLSettings->RefClkDivider =
+					InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.RefClkDivider;
+			PLLSettings->RefClkFreq =
+					InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.RefClkFreq;
+			PLLSettings->SampleRate =
+					InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate;
+			Status = XRFDC_SUCCESS;
+			goto RETURN_PATH;
 		} else {
-			if (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].NumSlices == 0) {/*if older generation IP IP*/
-				PLLSettings->Enabled =
-						InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.Enabled;
-				PLLSettings->FeedbackDivider =
-						InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.FeedbackDivider;
-				PLLSettings->OutputDivider =
-						InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.OutputDivider;
-				PLLSettings->RefClkDivider =
-						InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.RefClkDivider;
-				PLLSettings->RefClkFreq =
-						InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.RefClkFreq;
-				PLLSettings->SampleRate =
-						InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate;
-				Status = XRFDC_SUCCESS;
-				goto RETURN_PATH;
-			}
+			PLLSettings->Enabled =
+					InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.Enabled;
+			PLLSettings->FeedbackDivider =
+					InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.FeedbackDivider;
+			PLLSettings->OutputDivider =
+					InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.OutputDivider;
+			PLLSettings->RefClkDivider =
+					InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.RefClkDivider;
+			PLLSettings->RefClkFreq =
+					InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.RefClkFreq;
+			PLLSettings->SampleRate =
+					InstancePtr->DAC_Tile[Tile_Id].PLL_Settings.SampleRate;
+			Status = XRFDC_SUCCESS;
+			goto RETURN_PATH;
 		}
 	} else {
 		if (Type == XRFDC_ADC_TILE) {
@@ -1510,7 +1521,10 @@ u32 XRFdc_GetPLLConfig(XRFdc *InstancePtr, u32 Type,
 		} else {
 			BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id);
 		}
-		FeedbackDivider = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_PLL_FPDIV, 0x000F) + 2;
+
+		BaseAddr += XRFDC_HSCOM_ADDR;
+
+		FeedbackDivider = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_PLL_FPDIV, 0x00FF) + 2;
 
 		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_PLL_REFDIV);
 		if (ReadReg & XRFDC_REFCLK_DIV_1_MASK) {
@@ -1554,7 +1568,7 @@ u32 XRFdc_GetPLLConfig(XRFdc *InstancePtr, u32 Type,
 				OutputDivider = 3;
 				break;
 			case XRFDC_PLL_OUTDIV_MODE_N:
-				OutputDivider = ((ReadReg & XRFDC_PLL_DIVIDER0_VALUE_MASK) + 1) << 1;
+				OutputDivider = ((ReadReg & XRFDC_PLL_DIVIDER0_VALUE_MASK) + 2) << 1;
 				break;
 			default:
 				metal_log(METAL_LOG_ERROR,  "\n Unsupported Output "
@@ -1563,7 +1577,6 @@ u32 XRFdc_GetPLLConfig(XRFdc *InstancePtr, u32 Type,
 					goto RETURN_PATH;
 				break;
 		}
-
 		PLLSettings->Enabled = Enabled;
 		PLLSettings->FeedbackDivider = FeedbackDivider;
 		PLLSettings->OutputDivider = OutputDivider;
@@ -1574,6 +1587,7 @@ u32 XRFdc_GetPLLConfig(XRFdc *InstancePtr, u32 Type,
 
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
+
 	return Status;
 }
 
@@ -1610,6 +1624,8 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	u32 InitialPowerUpState;
 	double MaxSampleRate;
 	double MinSampleRate;
+	u32 PLLFreq;
+	u32 PLLFS;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
@@ -1654,6 +1670,25 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		goto RETURN_PATH;
 	}
 
+	BaseAddr = XRFDC_CTRL_STS_BASE(Type, Tile_Id);
+
+	if (Source == XRFDC_INTERNAL_PLL_CLK) {
+		if ((RefClkFreq < XRFDC_REFFREQ_MIN) ||
+				(RefClkFreq > XRFDC_REFFREQ_MAX)) {
+			metal_log(METAL_LOG_ERROR,  "\n Input reference clock "
+					"frequency does not respect the specifications "
+					"for internal PLL usage. Please use a different "
+					"frequency or bypass the internal PLL", __func__);
+			Status = XRFDC_FAILURE;
+			goto RETURN_PATH;
+		}
+	}
+
+	PLLFreq = (u32)(RefClkFreq*1000);
+	PLLFS = (u32)(SamplingRate*1000);
+	XRFdc_WriteReg(InstancePtr, BaseAddr, XRFDC_PLL_FREQ, PLLFreq);
+	XRFdc_WriteReg(InstancePtr, BaseAddr, XRFDC_PLL_FS, PLLFS);
+
 	if ((Source != XRFDC_INTERNAL_PLL_CLK) &&
 			(ClkSrc != XRFDC_INTERNAL_PLL_CLK)) {
 		metal_log(METAL_LOG_DEBUG,  "\n Requested Tile %d "
@@ -1669,18 +1704,6 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		}
 		Status = XRFDC_SUCCESS;
 		goto RETURN_PATH;
-	}
-
-	if (Source == XRFDC_INTERNAL_PLL_CLK) {
-		if ((RefClkFreq < XRFDC_REFFREQ_MIN) ||
-				(RefClkFreq > XRFDC_REFFREQ_MAX)) {
-			metal_log(METAL_LOG_ERROR,  "\n Input reference clock "
-					"frequency does not respect the specifications "
-					"for internal PLL usage. Please use a different "
-					"frequency or bypass the internal PLL", __func__);
-			Status = XRFDC_FAILURE;
-			goto RETURN_PATH;
-		}
 	}
 
 	if (Type == XRFDC_ADC_TILE) {
