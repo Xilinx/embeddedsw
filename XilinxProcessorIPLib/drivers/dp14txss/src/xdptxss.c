@@ -113,7 +113,7 @@ static u32 DpTxSs_ConvertUsToTicks(u32 TimeoutInUs, u32 ClkFreq);
 static void DpTxSs_TimerCallback(void *InstancePtr, u8 TmrCtrNumber);
 #endif
 
-#if ((XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0))
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 static void DpTxSs_TimeOutCallback(void *InstancePtr, u8 TmrCtrNumber);
 #endif
 
@@ -336,32 +336,32 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 	}
 #endif
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
-	/* Default value */
-	InstancePtr->HdcpIsReady = FALSE;
-	XDpTxSs_HdcpSetCapability(InstancePtr, XDPTXSS_HDCP_BOTH);
-#endif
-
 #if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) && (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 	/* HDCP is ready when both HDCP cores are instantiated and both keys
 	 * are loaded */
 	if (InstancePtr->Hdcp1xPtr &&
 			InstancePtr->Hdcp22Ptr &&
 			InstancePtr->Hdcp22Lc128Ptr &&
-			InstancePtr->Hdcp22SrmPtr)
+			InstancePtr->Hdcp22SrmPtr) {
 		InstancePtr->HdcpIsReady = TRUE;
+		XDpTxSs_HdcpSetCapability(InstancePtr, XDPTXSS_HDCP_BOTH);
+	}
 #elif (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 	/* HDCP is ready when only the HDCP 1.4 core is instantiated
 	 * and the key is loaded */
-	if (InstancePtr->Hdcp1xPtr)
+	if (InstancePtr->Hdcp1xPtr) {
 		InstancePtr->HdcpIsReady = TRUE;
+		XDpTxSs_HdcpSetCapability(InstancePtr, XDPTXSS_HDCP_1X);
+	}
 #elif (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 	/* HDCP is ready when only the HDCP 2.2 core is instantiated
 	 * and the key is loaded */
 	if (InstancePtr->Hdcp22Ptr &&
 			InstancePtr->Hdcp22Lc128Ptr &&
-			InstancePtr->Hdcp22SrmPtr)
+			InstancePtr->Hdcp22SrmPtr) {
 		InstancePtr->HdcpIsReady = TRUE;
+		XDpTxSs_HdcpSetCapability(InstancePtr, XDPTXSS_HDCP_22);
+	}
 #endif
 
 	/* Initialize VTC equal to number of streams */
@@ -562,10 +562,6 @@ u32 XDpTxSs_Start(XDpTxSs *InstancePtr)
 			"state machine.\n\r");
 		return Status;
 	}
-#endif
-#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
-	/*Push Authenticate event to start HDCP the authentication*/
-	XDpTxSs_HdcpPushEvent(InstancePtr, XDPTXSS_HDCP_AUTHENTICATE_EVT);
 #endif
 	/* Align video mode being set in DisplayPort */
 	InstancePtr->UsrOpt.VmId =
@@ -1258,11 +1254,14 @@ void XDpTxSs_SetHasRedriverInPath(XDpTxSs *InstancePtr, u8 Set)
 	XDp_TxSetHasRedriverInPath(InstancePtr->DpPtr, Set);
 }
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 /*****************************************************************************/
 /**
 *
 * This function enables High-Bandwidth Content Protection (HDCP) interface.
+* This function ensures that the HDCP protocols are mutually exclusive such that
+* either HDCP 1.4 or HDCP 2.2 is enabled and active at any given time.
+* When the protocol is set to None, both HDCP protocols are disabled.
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
 *
@@ -1275,16 +1274,98 @@ void XDpTxSs_SetHasRedriverInPath(XDpTxSs *InstancePtr, u8 Set)
 ******************************************************************************/
 u32 XDpTxSs_HdcpEnable(XDpTxSs *InstancePtr)
 {
-	u32 Status;
+	u32 Status1 = XST_SUCCESS, Status2 = XST_SUCCESS;
 
 	/* Verify arguments.*/
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
+	Xil_AssertNonvoid(InstancePtr);
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable);
+#endif
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+	Xil_AssertNonvoid(InstancePtr->Config.Hdcp22Enable);
+#endif
 
-	/* Enable HDCP interface */
-	Status = XHdcp1x_Enable(InstancePtr->Hdcp1xPtr);
+	switch (InstancePtr->HdcpProtocol) {
 
-	return Status;
+		/* Disable HDCP 1.4 and HDCP 2.2 */
+		case XDPTXSS_HDCP_NONE :
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+			if (InstancePtr->Hdcp1xPtr) {
+				Status1 = XHdcp1x_Disable(
+						InstancePtr->Hdcp1xPtr);
+				/* This is needed to ensure that the previous
+				 * command is executed.*/
+				XHdcp1x_Poll(InstancePtr->Hdcp1xPtr);
+			}
+#endif
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+			if (InstancePtr->Hdcp22Ptr) {
+				XDp_TxHdcp22Disable(InstancePtr->DpPtr);
+				Status2 = XHdcp22Tx_Disable(
+						InstancePtr->Hdcp22Ptr);
+			}
+#endif
+			break;
+
+			/* Enable HDCP 1.4 and disable HDCP 2.2 */
+		case XDPTXSS_HDCP_1X :
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+			if (InstancePtr->Hdcp1xPtr) {
+				Status1 = XHdcp1x_Enable(
+						InstancePtr->Hdcp1xPtr);
+				/* This is needed to ensure that the previous
+				 * command is executed */
+				XHdcp1x_Poll(InstancePtr->Hdcp1xPtr);
+			}
+			else {
+				Status1 = XST_FAILURE;
+			}
+#else
+			Status1 = XST_FAILURE;
+#endif
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+			if (InstancePtr->Hdcp22Ptr) {
+				XDp_TxHdcp22Disable(InstancePtr->DpPtr);
+
+				Status2 = XHdcp22Tx_Disable(
+						InstancePtr->Hdcp22Ptr);
+			}
+#endif
+			break;
+
+			/* Enable HDCP 2.2 and disable HDCP 1.4 */
+		case XDPTXSS_HDCP_22 :
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+			if (InstancePtr->Hdcp1xPtr) {
+				Status1 = XHdcp1x_Disable(
+						InstancePtr->Hdcp1xPtr);
+				/* This is needed to ensure that the previous
+				 * command is executed */
+				XHdcp1x_Poll(InstancePtr->Hdcp1xPtr);
+			}
+#endif
+#ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
+			if (InstancePtr->Hdcp22Ptr) {
+				/*Enable HDCP22 in DP TX*/
+				XDp_TxHdcp22Enable(InstancePtr->DpPtr);
+
+				Status2 = XHdcp22Tx_Enable(
+						InstancePtr->Hdcp22Ptr);
+			}
+			else
+				Status2 = XST_FAILURE;
+#else
+			Status2 = XST_FAILURE;
+#endif
+			break;
+
+		default :
+			return XST_FAILURE;
+	}
+
+	return (Status1 == XST_SUCCESS &&
+			Status2 == XST_SUCCESS) ?
+		XST_SUCCESS : XST_FAILURE;
 }
 
 /*****************************************************************************/
@@ -1307,14 +1388,14 @@ u32 XDpTxSs_HdcpDisable(XDpTxSs *InstancePtr)
 
 	/* Verify arguments.*/
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
 
-	/* Enable HDCP interface */
-	Status = XHdcp1x_Disable(InstancePtr->Hdcp1xPtr);
+	Status = XDpTxSs_HdcpReset(InstancePtr);
 
 	return Status;
 }
+#endif
 
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 /*****************************************************************************/
 /**
 *
@@ -1430,7 +1511,9 @@ u32 XDpTxSs_IsAuthenticated(XDpTxSs *InstancePtr)
 
 	return Authenticate;
 }
+#endif
 
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 /*****************************************************************************/
 /**
 *
@@ -1449,14 +1532,34 @@ u32 XDpTxSs_IsAuthenticated(XDpTxSs *InstancePtr)
 ******************************************************************************/
 u32 XDpTxSs_EnableEncryption(XDpTxSs *InstancePtr, u64 StreamMap)
 {
-	u32 Status;
+	u32 Status = XST_SUCCESS;
 
 	/* Verify arguments.*/
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
+	Xil_AssertNonvoid(InstancePtr);
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable);
+#endif
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+	Xil_AssertNonvoid(InstancePtr->Config.Hdcp22Enable);
+#endif
 
-	/* Enable encryption on stream(s) */
-	Status = XHdcp1x_EnableEncryption(InstancePtr->Hdcp1xPtr, StreamMap);
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+	if (InstancePtr->Hdcp1xPtr) {
+		/* Enable encryption on stream(s) */
+		Status = XHdcp1x_EnableEncryption(InstancePtr->Hdcp1xPtr,
+				StreamMap);
+
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+	}
+#endif
+
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+	if (InstancePtr->Hdcp22Ptr)
+		Status = XHdcp22Tx_EnableEncryption(InstancePtr->Hdcp22Ptr);
+#endif
+
 
 	return Status;
 }
@@ -1479,18 +1582,38 @@ u32 XDpTxSs_EnableEncryption(XDpTxSs *InstancePtr, u64 StreamMap)
 ******************************************************************************/
 u32 XDpTxSs_DisableEncryption(XDpTxSs *InstancePtr, u64 StreamMap)
 {
-	u32 Status;
+	u32 Status = XST_SUCCESS;
 
 	/* Verify arguments.*/
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
+	Xil_AssertNonvoid(InstancePtr);
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable);
+#endif
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+	Xil_AssertNonvoid(InstancePtr->Config.Hdcp22Enable);
+#endif
 
-	/* Disable encryption on stream(s) */
-	Status = XHdcp1x_DisableEncryption(InstancePtr->Hdcp1xPtr, StreamMap);
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+	if (InstancePtr->Hdcp1xPtr) {
+		/* Disable encryption on stream(s) */
+		Status = XHdcp1x_DisableEncryption(InstancePtr->Hdcp1xPtr,
+				StreamMap);
+
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+	}
+#endif
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+	if (InstancePtr->Hdcp22Ptr)
+		Status = XHdcp22Tx_DisableEncryption(InstancePtr->Hdcp22Ptr);
+#endif
 
 	return Status;
 }
+#endif
 
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 /*****************************************************************************/
 /**
 *
@@ -2265,7 +2388,7 @@ int XDpTxSs_HdcpReset(XDpTxSs *InstancePtr)
 #endif
 
 	/* Set defaults */
-	XDpTxSs_HdcpDisableEncryption(InstancePtr);
+	XDpTxSs_DisableEncryption(InstancePtr, 1);
 
 	return Status;
 }
@@ -2328,18 +2451,11 @@ int XDpTxSs_HdcpSetProtocol(XDpTxSs *InstancePtr,
 
 	int Status;
 
-	// Set protocol
+	/* Set protocol */
 	InstancePtr->HdcpProtocol = Protocol;
 
-	// Reset Hdcp22 protocol
+	/* Reset Hdcp protocol */
 	Status = XDpTxSs_HdcpReset(InstancePtr);
-	if (Status != XST_SUCCESS) {
-		InstancePtr->HdcpProtocol = XDPTXSS_HDCP_NONE;
-		return XST_FAILURE;
-	}
-
-	// Enable the requested protocol
-	Status = XDpTxSs_HdcpEnable(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		InstancePtr->HdcpProtocol = XDPTXSS_HDCP_NONE;
 		return XST_FAILURE;
@@ -2348,107 +2464,7 @@ int XDpTxSs_HdcpSetProtocol(XDpTxSs *InstancePtr,
 	return XST_SUCCESS;
 }
 
-/*****************************************************************************/
-/**
-*
-* This function enables the requested HDCP protocol. This function
-* ensures that the HDCP protocols are mutually exclusive such that
-* either HDCP 1.4 or HDCP 2.2 is enabled and active at any given time.
-* When the protocol is set to None, both HDCP protocols are disabled.
-*
-* @param InstancePtr is a pointer to the XDpTxSs instance.
-*
-* @return
-*  - XST_SUCCESS if action was successful
-*  - XST_FAILURE if action was not successful
-*
-* @note   None.
-*
-******************************************************************************/
-int XDpTxSs_HdcpEnable(XDpTxSs *InstancePtr)
-{
-	/* Verify argument. */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-
-	int Status1 = XST_SUCCESS;
-	int Status2 = XST_SUCCESS;
-
-	switch (InstancePtr->HdcpProtocol) {
-
-		/* Disable HDCP 1.4 and HDCP 2.2 */
-		case XDPTXSS_HDCP_NONE :
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
-			if (InstancePtr->Hdcp1xPtr) {
-				Status1 = XHdcp1x_Disable(
-						InstancePtr->Hdcp1xPtr);
-				/* This is needed to ensure that the previous
-				 * command is executed.*/
-				XHdcp1x_Poll(InstancePtr->Hdcp1xPtr);
-			}
-#endif
 #if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
-			if (InstancePtr->Hdcp22Ptr) {
-				Status2 = XHdcp22Tx_Disable(
-						InstancePtr->Hdcp22Ptr);
-			}
-#endif
-			break;
-
-			/* Enable HDCP 1.4 and disable HDCP 2.2 */
-		case XDPTXSS_HDCP_1X :
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
-			if (InstancePtr->Hdcp1xPtr) {
-				Status1 = XHdcp1x_Enable(
-						InstancePtr->Hdcp1xPtr);
-				/* This is needed to ensure that the previous
-				 * command is executed */
-				XHdcp1x_Poll(InstancePtr->Hdcp1xPtr);
-			}
-			else {
-				Status1 = XST_FAILURE;
-			}
-#else
-			Status1 = XST_FAILURE;
-#endif
-#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
-			if (InstancePtr->Hdcp22Ptr) {
-				Status2 = XHdcp22Tx_Disable(
-						InstancePtr->Hdcp22Ptr);
-			}
-#endif
-			break;
-
-			/* Enable HDCP 2.2 and disable HDCP 1.4 */
-		case XDPTXSS_HDCP_22 :
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
-			if (InstancePtr->Hdcp1xPtr) {
-				Status1 = XHdcp1x_Disable(
-						InstancePtr->Hdcp1xPtr);
-				/* This is needed to ensure that the previous
-				 * command is executed */
-				XHdcp1x_Poll(InstancePtr->Hdcp1xPtr);
-			}
-#endif
-#ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
-			if (InstancePtr->Hdcp22Ptr)
-				Status2 = XHdcp22Tx_Enable(
-						InstancePtr->Hdcp22Ptr);
-			else
-				Status2 = XST_FAILURE;
-#else
-			Status2 = XST_FAILURE;
-#endif
-			break;
-
-		default :
-			return XST_FAILURE;
-	}
-
-	return (Status1 == XST_SUCCESS &&
-			Status2 == XST_SUCCESS) ?
-		XST_SUCCESS : XST_FAILURE;
-}
-
 /*****************************************************************************/
 /**
 *
@@ -2475,6 +2491,43 @@ static void DpTxSs_TimeOutCallback(void *InstancePtr, u8 TmrCtrNumber)
 	/*Call HDCP22 Timer handler*/
 	XHdcp22Tx_TimerHandler((void *)XDpTxSsPtr->Hdcp22Ptr, TmrCtrNumber);
 }
+
+/*****************************************************************************/
+/**
+ *
+ * This function sets pointers to the HDCP 2.2 keys.
+ *
+ * @param InstancePtr is a pointer to the XDpTxSs instance.
+ * @param KeyType is the type of the key that is being set.
+ * @param KeyPtr is the pointer to the key buffer
+ *
+ * @return None.
+ *
+ * @note   None.
+ *
+ ******************************************************************************/
+void XDpTxSs_Hdcp22SetKey(XDpTxSs *InstancePtr,
+		XDpTxSs_Hdcp22KeyType KeyType, u8 *KeyPtr)
+{
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr);
+	Xil_AssertVoid((KeyType == XDPTXSS_KEY_HDCP22_LC128) ||
+			(KeyType == XDPTXSS_KEY_HDCP22_SRM))
+
+	switch (KeyType) {
+		/* HDCP 2.2 LC128 */
+		case XDPTXSS_KEY_HDCP22_LC128:
+			InstancePtr->Hdcp22Lc128Ptr = KeyPtr;
+			break;
+		/* HDCP 2.2 Private key */
+		case XDPTXSS_KEY_HDCP22_SRM:
+			InstancePtr->Hdcp22SrmPtr = KeyPtr;
+			break;
+		default :
+			break;
+	}
+}
+#endif
 
 #endif
 /** @} */
