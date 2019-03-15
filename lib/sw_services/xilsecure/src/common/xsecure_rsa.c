@@ -129,6 +129,7 @@ s32 XSecure_RsaInitialize(XSecure_Rsa *InstancePtr, u8 *Mod, u8 *ModExt,
 	InstancePtr->ModExt = ModExt;
 	InstancePtr->ModExpo = ModExpo;
 	InstancePtr->SizeInWords = XSECURE_RSA_4096_SIZE_WORDS;
+	InstancePtr->RsaState = XSECURE_RSA_INITIALIZED;
 
 END:
 	return Status;
@@ -286,6 +287,7 @@ s32 XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 	Xil_AssertNonvoid(Result != NULL);
 	Xil_AssertNonvoid(Input != NULL);
 	Xil_AssertNonvoid(Size != 0x00U);
+	Xil_AssertNonvoid(InstancePtr->RsaState == XSECURE_RSA_INITIALIZED);
 
 	ErrorCode = XSecure_RsaOperation(InstancePtr, Input, Result,
 					XSECURE_RSA_SIGN_ENC, Size);
@@ -323,26 +325,31 @@ s32 XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 s32 XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 				u8 *Result)
 {
-	s32 ErrorCode;
+	s32 Status = XSECURE_RSA_DATA_VALUE_ERROR;
+	u32 idx;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Result != NULL);
 	Xil_AssertNonvoid(Input != NULL);
 	Xil_AssertNonvoid(Size != 0x00U);
+	Xil_AssertNonvoid(InstancePtr->RsaState == XSECURE_RSA_INITIALIZED);
 
 	/*
 	 * Input data should always be smaller than modulus
 	 * here we are checking only MSB byte
 	 */
-	if (*(InstancePtr->Mod) < *Input) {
-		ErrorCode = (s32)XSECURE_RSA_DATA_VALUE_ERROR;
-		goto END;
+	for (idx = 0; idx < Size; idx++) {
+		if ((*(u8 *)(InstancePtr->Mod + idx)) > (*(u8 *)(Input + idx))) {
+			Status = XSecure_RsaOperation(InstancePtr, Input, Result,
+						XSECURE_RSA_SIGN_DEC, Size);
+			break;
+		}
+
+		if ((*(u8 *)(InstancePtr->Mod + idx)) < (*(u8 *)(Input + idx))) {
+			break;
+		}
 	}
 
-	ErrorCode = XSecure_RsaOperation(InstancePtr, Input, Result,
-			XSECURE_RSA_SIGN_DEC, Size);
-END:
-	return ErrorCode;
-
+	return Status;
 }
