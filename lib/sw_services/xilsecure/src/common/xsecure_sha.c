@@ -111,6 +111,8 @@ s32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XCsuDma* CsuDmaPtr)
 
 	XSecure_SssInitialize(&(InstancePtr->SssInstance));
 
+	InstancePtr->Sha3State = XSECURE_SHA3_INITIALIZED;
+
 	return XST_SUCCESS;
 }
 
@@ -139,6 +141,8 @@ s32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XCsuDma* CsuDmaPtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid((Sha3PadType == XSECURE_CSU_NIST_SHA3)
 			|| (Sha3PadType == XSECURE_CSU_KECCAK_SHA3));
+	Xil_AssertNonvoid((InstancePtr->Sha3State == XSECURE_SHA3_INITIALIZED) ||
+					(InstancePtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED));
 
 	/* If operation is in between can't be modified */
 	if (InstancePtr->Sha3Len != 0x00U) {
@@ -228,6 +232,7 @@ void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
 {
 	/* Asserts validate the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->Sha3State == XSECURE_SHA3_INITIALIZED);
 
 	InstancePtr->Sha3Len = 0U;
 	InstancePtr->PartialLen = 0U;
@@ -241,6 +246,7 @@ void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_CSU_SHA3_START_OFFSET,
 			XSECURE_CSU_SHA3_START_START);
+	InstancePtr->Sha3State = XSECURE_SHA3_ENGINE_STARTED;
 }
 
 /*****************************************************************************/
@@ -265,7 +271,7 @@ void XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	/* Asserts validate the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Size > (u32)0x00U);
-	Xil_AssertVoid(Data != NULL);
+	Xil_AssertVoid(InstancePtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED);
 
 	InstancePtr->Sha3Len += Size;
 	DataSize = Size;
@@ -335,6 +341,7 @@ void XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 	/* Asserts validate the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Hash != NULL);
+	Xil_AssertVoid(InstancePtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED);
 
 	PartialLen = InstancePtr->Sha3Len % XSECURE_SHA3_BLOCK_LEN;
 
@@ -381,6 +388,8 @@ void XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 	/* Set SHA under reset */
 	XSecure_SetReset(InstancePtr->BaseAddress,
 					XSECURE_CSU_SHA3_RESET_OFFSET);
+
+	InstancePtr->Sha3State = XSECURE_SHA3_INITIALIZED;
 
 }
 
