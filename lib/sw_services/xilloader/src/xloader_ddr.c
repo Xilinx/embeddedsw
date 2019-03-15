@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -27,70 +27,96 @@
 /*****************************************************************************/
 /**
 *
-* @file xplmi_modules.h
+* @file xloader_ddr.c
 *
-* This is the header file which contains definitions for the modules
+* This is the file which contains DDR init and copy functions
+* related code for the platfrom loader.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kc   08/20/2018 Initial release
+* 1.00  kc   03/12/2019 Initial release
 *
 * </pre>
 *
 * @note
 *
 ******************************************************************************/
-
-#ifndef XPLMI_MODULES_H
-#define XPLMI_MODULES_H
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /***************************** Include Files *********************************/
-#include "xplmi_cmd.h"
+#include "xloader.h"
+#include "xplmi_util.h"
+#include "xloader_ddr.h"
+#include "xplmi_hw.h"
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_MAX_MODULES				(10U)
 
-/* TODO add enum for declaring module ids */
-#define XPLMI_MODULE_GENERIC_ID			(1U)
-#define XPLMI_MODULE_XILPM_ID				(2U)
-#define XPLMI_MODULE_SEM_ID				(3U)
-#define XPLMI_MODULE_XILFPGA_ID			(4U)
-#define XPLMI_MODULE_XILSECURE_ID			(5U)
-#define XPLMI_MODULE_XILPSM_ID				(6U)
-#define XPLMI_MODULE_LOADER_ID				(7U)
-
-#define XPLMI_MODULE_COMMAND(FUNC)		{ (FUNC) }
 
 /**************************** Type Definitions *******************************/
-typedef struct {
-	int (*Handler)(XPlmi_Cmd *Cmd);
-} XPlmi_ModuleCmd;
-
-typedef struct {
-	u32 Id;
-	XPlmi_ModuleCmd * CmdAry;
-	u32 CmdCnt;
-} XPlmi_Module;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-void XPlmi_ModuleRegister(XPlmi_Module * Module);
+
 
 /************************** Variable Definitions *****************************/
-extern XPlmi_Module * Modules[XPLMI_MAX_MODULES];
 
 /*****************************************************************************/
+/**
+ * This function is used to initialize for DDR init. Nothing is required in
+ * this. DDR must be already initialized by this time.
+ *
+ * @param	DeviceFlags Loader init prototype requires flags.
+ *
+ * @return	SUCCESS
+ *
+ *****************************************************************************/
+int XLoader_DdrInit(u32 DeviceFlags)
+{
+	(void)DeviceFlags;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+	return XLOADER_SUCCESS;
+}
 
-#endif /* XPLMI_MODULES_H */
+/*****************************************************************************/
+/**
+ * This function is used to copy the data from DDR to destination
+ * address
+ *
+ * @param SrcAddress
+ *
+ * @param DestAddress is the address of the destination where it
+ * should copy to
+ *
+ * @param Length Length of the bytes to be copied
+ *
+ * @return
+ *		- XLOADER_SUCCESS for successful copy
+ *		- errors as mentioned in xplmi_status.h
+ *
+ *****************************************************************************/
+XStatus XLoader_DdrCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
+{
+	int Status;
+
+	Flags = XPLMI_PMCDMA_0;
+	Status = XPlmi_DmaXfr((u64)SrcAddress, DestAddress, Length/4, Flags);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to release the sd settings
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+int XLoader_DdrRelease(void )
+{
+
+	return XLOADER_SUCCESS;
+}
