@@ -60,6 +60,8 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
+extern u32 _stack;
+extern u32 _stack_end;
 
 /*****************************************************************************/
 /**
@@ -87,6 +89,10 @@ void XPlm_ExceptionInit(void )
 			     (Xil_ExceptionHandler)XPlm_ExceptionHandler,
 			     (void *)Status);
 	}
+
+	/** Write stack high and low register for stack protection */
+	mtslr(&_stack_end);
+	mtshr(&_stack);
 
 	microblaze_enable_exceptions();
 }
