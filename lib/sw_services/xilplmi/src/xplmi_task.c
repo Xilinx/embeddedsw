@@ -78,7 +78,7 @@ static XPlmi_TaskNode Tasks[XPLMI_TASK_MAX];
 XPlmi_TaskNode * XPlmi_TaskCreate(u32 Priority,
 	int (*Handler)(void * PrivData), void * PrivData)
 {
-    XPlmi_TaskNode * Task;
+    XPlmi_TaskNode * Task=NULL;
     u32 Index;
     /** Assign free task node */
     for (Index = 0; Index < XPLMI_TASK_MAX; Index++) {
@@ -88,6 +88,9 @@ XPlmi_TaskNode * XPlmi_TaskCreate(u32 Priority,
     if (Index >= XPLMI_TASK_MAX) {
 	XPlmi_Printf(DEBUG_GENERAL, "Task create failed \n\r");
 	Task = NULL;
+	goto END;
+    }
+    if (Task == NULL) {
 	goto END;
     }
     Task->Priority = Priority;
