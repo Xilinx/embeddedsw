@@ -17,6 +17,7 @@
  *
  **************************************************************************/
 
+#include <errno.h>
 #include <openamp/remoteproc.h>
 #include <openamp/rpmsg_virtio.h>
 #include <metal/atomic.h>
