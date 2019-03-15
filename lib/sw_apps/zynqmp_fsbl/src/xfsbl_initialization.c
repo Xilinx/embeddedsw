@@ -59,6 +59,7 @@
 *                     variable for using during decryption of partition.
 * 5.0   mn   07/06/18 Add DDR initialization support for new DDR DIMM part
 *       mus  02/26/19 Added support for armclang compiler
+*       vns  03/14/19 Setting AES and SHA hardware engines into reset.
 * </pre>
 *
 * @note
@@ -267,6 +268,12 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 #ifdef XFSBL_ENABLE_DDR_SR
 	u32 RegValue;
 #endif
+
+	/**
+	 * Place AES and SHA engines in reset
+	 */
+	XFsbl_Out32(CSU_AES_RESET, CSU_AES_RESET_RESET_MASK);
+	XFsbl_Out32(CSU_SHA_RESET, CSU_SHA_RESET_RESET_MASK);
 
 	FsblInstancePtr->ResetReason = XFsbl_GetResetReason();
 

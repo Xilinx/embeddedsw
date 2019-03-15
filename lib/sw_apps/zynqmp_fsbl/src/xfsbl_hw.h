@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 19 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -45,6 +45,7 @@
 * 4.0   vns  02/02/18 Added warning message to notify SHA2 support
 *                     deprecation in future releases.
 *       vns  03/07/18 Added ENC_ONLY mask
+* 4.0   vns  03/14/19 Added AES reset offset and Mask values.
 *
 * </pre>
 *
@@ -87,6 +88,12 @@ extern "C" {
 #define CSU_CSU_SSS_CFG_PCAP_SSS_MASK    0X0000000FU
 #define CSU_CSU_SSS_CFG_PCAP_SSS_SHIFT   0U
 #define CSU_CSU_SSS_CFG_DMA_SSS_SHIFT	 1U
+
+/**
+ * Register: CSU AES RESET
+ */
+#define CSU_AES_RESET	( ( CSU_BASEADDR ) + 0X00001010U )
+#define CSU_AES_RESET_RESET_MASK	0X00000001U
 
 /**
  * Register: CSU_PCAP_STATUS
