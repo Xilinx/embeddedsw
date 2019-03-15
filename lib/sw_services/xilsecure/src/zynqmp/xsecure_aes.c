@@ -120,6 +120,7 @@ s32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
 	InstancePtr->Iv = IvPtr;
 	InstancePtr->Key = KeyPtr;
 	InstancePtr->IsChunkingEnabled = XSECURE_CSU_AES_CHUNKING_DISABLED;
+	InstancePtr->AesState = XSECURE_AES_INITIALIZED;
 
 	XSecure_SssInitialize(&(InstancePtr->SssInstance));
 
@@ -156,6 +157,7 @@ void XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(EncData != NULL);
 	Xil_AssertVoid(Size != (u32)0x0);
+	Xil_AssertVoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
 
 	/* Configure the SSS for AES.*/
 	XSecure_SssAes(&(InstancePtr->SssInstance), XSECURE_SSS_DMA0,
@@ -221,6 +223,7 @@ void XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 
 	/* Update the size of data */
 	InstancePtr->SizeofData = Size;
+	InstancePtr->AesState = XSECURE_AES_ENCRYPT_INITIALIZED;
 
 }
 
@@ -257,6 +260,7 @@ void XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, const u8 *Data, u32 Size
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Data != NULL);
 	Xil_AssertVoid(Size <= InstancePtr->SizeofData);
+	Xil_AssertVoid(InstancePtr->AesState == XSECURE_AES_ENCRYPT_INITIALIZED);
 
 	if (Size == InstancePtr->SizeofData) {
 		IsFinal = TRUE;
@@ -363,6 +367,7 @@ void XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 	Xil_AssertVoid(DecData != NULL);
 	Xil_AssertVoid((Size/4 != 0x00U) && (Size%4 == 0x00U));
 	Xil_AssertVoid(GcmTagAddr != NULL);
+	Xil_AssertVoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
 
 	/* Configure the SSS for AES. */
 	if (DecData == (u8*)XSECURE_DESTINATION_PCAP_ADDR) {
@@ -440,7 +445,7 @@ void XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 	InstancePtr->SizeofData = Size;
 	InstancePtr->TotalSizeOfData = Size;
 	InstancePtr->Destination = DecData;
-
+	InstancePtr->AesState = XSECURE_AES_DECRYPT_INITIALIZED;
 }
 
 /*****************************************************************************/
@@ -475,6 +480,7 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(EncData != NULL);
 	Xil_AssertNonvoid(Size <= InstancePtr->SizeofData);
+	Xil_AssertNonvoid(InstancePtr->AesState == XSECURE_AES_DECRYPT_INITIALIZED);
 
 	/* Check if this is final update */
 	if (InstancePtr->SizeofData == Size) {
@@ -971,6 +977,7 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Tag != NULL);
+	Xil_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
 
 	volatile s32 Status = XST_SUCCESS;
 
@@ -1256,12 +1263,12 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(Src != NULL);
 	Xil_AssertNonvoid(Length != 0U);
 	/* Chunking is only for bitstream partitions */
 	Xil_AssertNonvoid(((Dst == (u8*)XSECURE_DESTINATION_PCAP_ADDR)
 				|| (InstancePtr->IsChunkingEnabled
 					== XSECURE_CSU_AES_CHUNKING_DISABLED)));
+	Xil_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
 
 	/* Configure the SSS for AES. */
 	if (Dst == (u8*)XSECURE_DESTINATION_PCAP_ADDR)
