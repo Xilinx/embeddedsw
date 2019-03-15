@@ -105,10 +105,11 @@ XLoader_DeviceOps DeviceOps[] =
 	XLOADER_DEVICEOPS_INIT(NULL, NULL), /* 0xCU */
 	XLOADER_DEVICEOPS_INIT(NULL, NULL), /* 0xDU */
 #ifdef XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT(XLoader_SdInit, XLoader_SdCopy) /* SD1 LS - 0xEU */
+	XLOADER_DEVICEOPS_INIT(XLoader_SdInit, XLoader_SdCopy), /* SD1 LS - 0xEU */
 #else
 	XLOADER_DEVICEOPS_INIT(NULL, NULL),
 #endif
+	XLOADER_DEVICEOPS_INIT(XLoader_DdrInit, XLoader_DdrCopy), /* DDR - 0xF */
 };
 
 #if 0
@@ -204,9 +205,9 @@ XLoader* XLoader_GetLoaderInstancePtr(void)
  *****************************************************************************/
 int XLoader_Init()
 {
-
 	/** Initializes the DMA pointers */
 	XPlmi_DmaInit();
+	XLoader_CmdsInit();
 	return XST_SUCCESS;
 }
 
@@ -247,7 +248,7 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 
 	PdiPtr->DeviceCopy =  DeviceOps[PdiSrc].Copy;
 	PdiPtr->MetaHdr.DeviceCopy = PdiPtr->DeviceCopy;
-	PdiPtr->MetaHdr.FlashOfstAddr = 0U;
+	PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr;
 	/**
 	 * Read meta header from PDI source
 	 */
