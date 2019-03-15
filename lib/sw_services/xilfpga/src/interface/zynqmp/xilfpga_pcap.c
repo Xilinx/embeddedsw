@@ -1044,6 +1044,11 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 		}
 	}
 END:
+	if (((flags & XFPGA_ENCRYPTION_USERKEY_EN)!= 0U) ||
+		((flags & XFPGA_ENCRYPTION_DEVKEY_EN) != 0U)) {
+		XSecure_SetReset(PlAesInfo.PlEncrypt.SecureAes->BaseAddress,
+					XSECURE_CSU_AES_RESET_OFFSET);
+	}
 	return Status;
 }
 
@@ -1182,6 +1187,11 @@ static u32 XFpga_SecureBitstreamOcmLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 
 	}
 END:
+	if (((flags & XFPGA_ENCRYPTION_USERKEY_EN)!= 0U) ||
+                ((flags & XFPGA_ENCRYPTION_DEVKEY_EN) != 0U)) {
+                XSecure_SetReset(PlAesInfo.PlEncrypt.SecureAes->BaseAddress,
+                                        XSECURE_CSU_AES_RESET_OFFSET);
+        }
 	return Status;
 }
 
