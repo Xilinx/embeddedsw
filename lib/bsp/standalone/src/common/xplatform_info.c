@@ -48,6 +48,8 @@
 *       mus  08/17/17 Add EL1 NS mode support for
 *                     XGet_Zynq_UltraMp_Platform_info and XGetPSVersion_Info
 *                     APIs.
+* 7.0	aru 03/15/19  Check for versal before aarch64 and armr5
+*		      in XGetPlatform_Info()
 * </pre>
 *
 ******************************************************************************/
@@ -84,13 +86,12 @@
 ******************************************************************************/
 u32 XGetPlatform_Info()
 {
-
-#if defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU)
+#if defined (versal)
+	return XPLAT_versal;
+#elif defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU)
 	return XPLAT_ZYNQ_ULTRA_MP;
 #elif (__microblaze__)
 	return XPLAT_MICROBLAZE;
-#elif defined (versal)
-	return XPLAT_versal;
 #else
 	return XPLAT_ZYNQ;
 #endif
