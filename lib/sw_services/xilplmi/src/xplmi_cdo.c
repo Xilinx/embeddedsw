@@ -275,7 +275,8 @@ int XPlmi_CdoCmdResume(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Size)
 	if (Status != XST_SUCCESS)
 	{
 		XPlmi_Printf(DEBUG_GENERAL,
-			     "CMD Resume failed \n\r");
+		    "CMD: 0x%0x Resume failed, Processed Cdo Length 0x%0x\n\r",
+		     CmdPtr->CmdId, CdoPtr->ProcessedCdoLen);
 		goto END;
 	}
 END:
@@ -348,7 +349,8 @@ int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Size)
 	if (Status != XST_SUCCESS)
 	{
 		XPlmi_Printf(DEBUG_GENERAL,
-			     "CMD Execute failed \n\r");
+		    "CMD: 0x%0x execute failed, Processed Cdo Length 0x%0x\n\r",
+		     CmdPtr->CmdId, CdoPtr->ProcessedCdoLen);
 		goto END;
 	}
 END:
