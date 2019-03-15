@@ -18,6 +18,7 @@
  *
  **************************************************************************/
 
+#include <errno.h>
 #include <metal/atomic.h>
 #include <metal/assert.h>
 #include <metal/device.h>
