@@ -137,6 +137,10 @@ extern "C" {
 #define CAP_PRESENT						(1)
 #define CAP_NOT_PRESENT					(0)
 
+/* PCIe mode */
+#define XPCIEPSU_MODE_ENDPOINT		0X0
+#define XPCIEPSU_MODE_ROOTCOMPLEX	0X1
+
 /* Print log macros */
 #define XPciePsu_Print(MSG, ...)	xil_printf("pcie_psu: "MSG,##__VA_ARGS__)
 #define XPciePsu_Error(MSG, ...)	xil_printf("pcie_psu: "MSG,##__VA_ARGS__)
