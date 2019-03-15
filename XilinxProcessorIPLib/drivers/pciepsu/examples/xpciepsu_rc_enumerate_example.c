@@ -65,7 +65,7 @@
 #include "stdio.h"
 #include "xil_printf.h"
 #include "xparameters.h" /* Defines for XPAR constants */
-
+#include "xpciepsu_common.h"
 /**************************** Constant Definitions ****************************/
 
 /****************************** Type Definitions ******************************/
@@ -138,6 +138,11 @@ int PcieInitRootComplex(XPciePsu *PciePsuPtr, u16 DeviceId)
 	ConfigPtr = XPciePsu_LookupConfig(DeviceId);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
 
+	if(ConfigPtr->PcieMode == XPCIEPSU_MODE_ENDPOINT) {
+		xil_printf("Failed to initialize... PCIE PSU is configured"
+							" as endpoint\r\n");
+		return XST_FAILURE;
+	}
 	Status = XPciePsu_CfgInitialize(PciePsuPtr, ConfigPtr,
 					ConfigPtr->BrigReg);
 
