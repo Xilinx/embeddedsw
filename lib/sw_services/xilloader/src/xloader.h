@@ -63,6 +63,7 @@ extern "C" {
 #include "xloader_sd.h"
 #include "xloader_sbi.h"
 #include "xloader_qspi.h"
+#include "xloader_ddr.h"
 #include "xplmi_dma.h"
 #include "xpm_device.h"
 #include "xilfpga.h"
@@ -236,6 +237,9 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum);
 /* function defined in xloader_cfi.c */
 int XLoader_CfiInit(XLoader* XLoaderPtr);
 int XLoader_ProcessCfi (XilPdi* PdiPtr, u32 PrtnNum);
+
+/** Functions defined in xloader_cmds.c */
+void XLoader_CmdsInit(void);
 #ifdef __cplusplus
 }
 #endif
