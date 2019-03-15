@@ -389,6 +389,8 @@ u32 XSecure_RsaCore(u32 SrcAddrHigh, u32 SrcAddrLow, u32 SrcSize,
 	u8 *Exponent = (u8 *)(UINTPTR)(WrAddr + SrcSize
 						+ SrcSize);
 
+	Xil_AssertNonvoid(SrcSize != 0x0U);
+
 	Status = (u32)XSecure_RsaInitialize(&Secure_Rsa, Modulus, NULL, Exponent);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
@@ -835,6 +837,8 @@ u32 XSecure_MemCopy(void * DestPtr, void * SrcPtr, u32 Size)
 {
 
 	XSecure_Sss SssInstance;
+
+	Xil_AssertNonvoid(Size != 0x0U);
 
 	XSecure_SssInitialize(&SssInstance);
 	XSecure_SssDmaLoopBack(&SssInstance, CsuDma.Config.DeviceId);
