@@ -247,7 +247,7 @@ static const void (*XV_MS_Set_OutStride[XV_MAX_OUTS])(XV_multi_scaler
 	XV_multi_scaler_Set_HwReg_OutStride_6,
 	XV_multi_scaler_Set_HwReg_OutStride_7};
 static const void (*XV_MS_Set_SrcImgBuf0[XV_MAX_OUTS])(XV_multi_scaler
-	*InstancePtr, u32 Data) = { XV_multi_scaler_Set_HwReg_srcImgBuf0_0_V,
+	*InstancePtr, u64 Data) = { XV_multi_scaler_Set_HwReg_srcImgBuf0_0_V,
 	XV_multi_scaler_Set_HwReg_srcImgBuf0_1_V,
 	XV_multi_scaler_Set_HwReg_srcImgBuf0_2_V,
 	XV_multi_scaler_Set_HwReg_srcImgBuf0_3_V,
@@ -256,7 +256,7 @@ static const void (*XV_MS_Set_SrcImgBuf0[XV_MAX_OUTS])(XV_multi_scaler
 	XV_multi_scaler_Set_HwReg_srcImgBuf0_6_V,
 	XV_multi_scaler_Set_HwReg_srcImgBuf0_7_V};
 static const void (*XV_MS_Set_SrcImgBuf1[XV_MAX_OUTS])(XV_multi_scaler
-	*InstancePtr, u32 Data) = { XV_multi_scaler_Set_HwReg_srcImgBuf1_0_V,
+	*InstancePtr, u64 Data) = { XV_multi_scaler_Set_HwReg_srcImgBuf1_0_V,
 	XV_multi_scaler_Set_HwReg_srcImgBuf1_1_V,
 	XV_multi_scaler_Set_HwReg_srcImgBuf1_2_V,
 	XV_multi_scaler_Set_HwReg_srcImgBuf1_3_V,
@@ -265,7 +265,7 @@ static const void (*XV_MS_Set_SrcImgBuf1[XV_MAX_OUTS])(XV_multi_scaler
 	XV_multi_scaler_Set_HwReg_srcImgBuf1_6_V,
 	XV_multi_scaler_Set_HwReg_srcImgBuf1_7_V};
 static const void (*XV_MS_Set_DstImgBuf0[XV_MAX_OUTS])(XV_multi_scaler
-	*InstancePtr, u32 Data) = { XV_multi_scaler_Set_HwReg_dstImgBuf0_0_V,
+	*InstancePtr, u64 Data) = { XV_multi_scaler_Set_HwReg_dstImgBuf0_0_V,
 	XV_multi_scaler_Set_HwReg_dstImgBuf0_1_V,
 	XV_multi_scaler_Set_HwReg_dstImgBuf0_2_V,
 	XV_multi_scaler_Set_HwReg_dstImgBuf0_3_V,
@@ -274,7 +274,7 @@ static const void (*XV_MS_Set_DstImgBuf0[XV_MAX_OUTS])(XV_multi_scaler
 	XV_multi_scaler_Set_HwReg_dstImgBuf0_6_V,
 	XV_multi_scaler_Set_HwReg_dstImgBuf0_7_V};
 static const void (*XV_MS_Set_DstImgBuf1[XV_MAX_OUTS])(XV_multi_scaler
-	*InstancePtr, u32 Data) = { XV_multi_scaler_Set_HwReg_dstImgBuf1_0_V,
+	*InstancePtr, u64 Data) = { XV_multi_scaler_Set_HwReg_dstImgBuf1_0_V,
 	XV_multi_scaler_Set_HwReg_dstImgBuf1_1_V,
 	XV_multi_scaler_Set_HwReg_dstImgBuf1_2_V,
 	XV_multi_scaler_Set_HwReg_dstImgBuf1_3_V,
