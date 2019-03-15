@@ -111,6 +111,13 @@ typedef enum {
 	XSECURE_CSU_KECCAK_SHA3 /**< Keccak sha3 */
 }XSecure_Sha3PadType;
 
+/* Sha3 driver states */
+typedef enum {
+	XSECURE_SHA3_UNINITIALIZED = 0,
+	XSECURE_SHA3_INITIALIZED,
+	XSECURE_SHA3_ENGINE_STARTED
+} XSecure_Sha3State;
+
 /**
  * The SHA-3 driver instance data structure. A pointer to an instance data
  * structure is passed around by functions to refer to a specific driver
@@ -125,6 +132,7 @@ typedef struct {
 	u32 IsLastUpdate;
 	u8 PartialData[XSECURE_SHA3_BLOCK_LEN];
 	XSecure_Sss SssInstance;
+	XSecure_Sha3State Sha3State;
 } XSecure_Sha3;
 /**
 @}
