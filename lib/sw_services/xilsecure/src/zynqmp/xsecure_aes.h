@@ -175,6 +175,14 @@
 
 /************************** Type Definitions ********************************/
 
+typedef enum {
+	XSECURE_AES_UNINITIALIZED,
+	XSECURE_AES_INITIALIZED,
+	XSECURE_AES_ENCRYPT_INITIALIZED,
+	XSECURE_AES_DECRYPT_INITIALIZED
+} XSecure_AesState;
+
+
 /**
  * The AES-GCM driver instance data structure. A pointer to an instance data
  * structure is passed around by functions to refer to a specific driver
@@ -202,6 +210,7 @@ typedef struct {
 	u8  *Destination; /**< Destination for decrypted/encrypted data */
 	u32 TotalSizeOfData; /**< Total size of the data */
 	XSecure_Sss SssInstance;
+	XSecure_AesState AesState; /**< Current Aes State  */
 } XSecure_Aes;
 
 /** @}
