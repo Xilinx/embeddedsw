@@ -140,6 +140,11 @@ extern "C" {
 #define XSECURE_CSU_RSA_STATUS_PROG_CNT	(0xF8U) /**< Progress Counter */
 /* @}*/
 
+typedef enum {
+	XSECURE_RSA_UNINITIALIZED = 0,
+	XSECURE_RSA_INITIALIZED
+} XSecure_RsaState;
+
 /***************************** Type Definitions ******************************/
 /**
  * The RSA driver instance data structure. A pointer to an instance data
@@ -154,6 +159,7 @@ typedef struct {
 	u8* ModExpo; /**< Exponent */
 	u8 EncDec; /**< 0 for signature verification and 1 for generation */
 	u32 SizeInWords;/** RSA key size in words */
+	XSecure_RsaState RsaState;
 } XSecure_Rsa;
 
 /***************************** Function Prototypes ***************************/
