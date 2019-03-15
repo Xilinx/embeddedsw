@@ -41,7 +41,7 @@ proc generate {drv_handle} {
     ::hsi::utils::define_zynq_include_file $drv_handle "xparameters.h" "XPciePsu" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR"
     xdefine_pciemode $drv_handle "xparameters.h" "psu_pcie" "C_PCIE_MODE"
 
-    ::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "XPciePsu" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR"
+    ::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "XPciePsu" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_PCIE_MODE"
 
     xdefine_config_file $drv_handle "xpciepsu_g.c" "XPciePsu" "C_S_AXI_BASEADDR"
 
@@ -114,6 +114,9 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
         puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
 
         set arg_name [get_parameter $periphs "psu_pcie_high1" "C_S_AXI_HIGHADDR"]
+        puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
+
+        set arg_name [get_parameter $periphs "psu_pcie_dma" "C_S_AXI_BASEADDR"]
         puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
 
         set arg_name [get_parameter $periphs "psu_pcie" "C_PCIE_MODE"]
