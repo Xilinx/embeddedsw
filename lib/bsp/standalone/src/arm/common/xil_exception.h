@@ -63,6 +63,7 @@
 
 #include "xil_types.h"
 #include "xpseudo_asm.h"
+#include "bspconfig.h"
 
 #ifdef __cplusplus
 extern "C" {
