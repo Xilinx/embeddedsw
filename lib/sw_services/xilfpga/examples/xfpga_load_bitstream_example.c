@@ -44,6 +44,8 @@
  *                         different PL programming Interfaces.
  * 4.2	 adk	 23/08/18  Added bitstream size define.
  * 5.0   Nava	 06/02/19  Updated the example to sync with 5.0 version API's
+ * 5.0	 Nava 	 16/03/19  Typical bitstram size of zcu102 board is 26MB.So
+ *			   updated the bitstream size macro value for the same.
  * </pre>
  *
  ******************************************************************************/
@@ -63,7 +65,7 @@
  *
  * @note: This example supports only Zynq UltraScale+ MPSoC platform.
  */
-#define BITSTREAM_SIZE	0x1A000000
+#define BITSTREAM_SIZE	0x1A00000
 /*****************************************************************************/
 int main(void)
 {
