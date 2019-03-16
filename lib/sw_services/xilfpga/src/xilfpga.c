@@ -63,6 +63,11 @@
 #if !defined(versal)
 /*****************************************************************************/
 /**The API is used to load the bitstream file into the PL region.
+ * It supports vivado generated Bitstream(*.bit, *.bin) and bootgen
+ * generated Bitstream(*.bin) loading, Passing valid Bitstream size
+ * (AddrPtr_Size) info is mandatory for vivado * generated Bitstream,
+ * For bootgen generated Bitstreams it will take Bitstream size from
+ * the Bitstream Header.
  *
  *@param InstancePtr Pointer to the XFgpa structure.
  *
