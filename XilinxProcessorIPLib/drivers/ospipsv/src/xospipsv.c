@@ -902,6 +902,7 @@ static inline void XOspiPsv_Dma_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 		XOspiPsv_Config_Dma(InstancePtr,Msg);
 		XOspiPsv_Config_IndirectAhb(InstancePtr,Msg);
 		XOspiPsv_Exec_Dma(InstancePtr);
+		Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
 		if (InstancePtr->IsUnaligned != 0U) {
 			InstancePtr->RecvBufferPtr += Msg->ByteCount;
 			Msg->Addr += Msg->ByteCount;
@@ -915,6 +916,7 @@ static inline void XOspiPsv_Dma_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 		XOspiPsv_Config_Dma(InstancePtr,Msg);
 		XOspiPsv_Config_IndirectAhb(InstancePtr,Msg);
 		XOspiPsv_Exec_Dma(InstancePtr);
+		Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
 		Xil_MemCpy(InstancePtr->RecvBufferPtr, InstancePtr->UnalignReadBuffer,
 				InstancePtr->RxBytes);
 		InstancePtr->IsUnaligned = 0U;
@@ -1227,10 +1229,10 @@ u32 XOspiPsv_IntrTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 				XOSPIPSV_OSPIDMA_DST_I_EN, XOSPIPSV_OSPIDMA_DST_I_EN_DONE_MASK);
 
 			if (Msg->ByteCount >= (u32)4) {
-				Msg->ByteCount -= (Msg->ByteCount % 4U);
 				if ((Msg->ByteCount % 4U) != 0U) {
 					InstancePtr->IsUnaligned = 1U;
 				}
+				Msg->ByteCount -= (Msg->ByteCount % 4U);
 			} else {
 				Msg->ByteCount = 4;
 				Msg->RxBfrPtr = InstancePtr->UnalignReadBuffer;
@@ -1311,6 +1313,7 @@ u32 XOspiPsv_IntrHandler(XOspiPsv *InstancePtr)
 			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG,
 				(XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG_IND_OPS_DONE_STATUS_FLD_MASK));
+			Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
 			/* Clear the ISR */
 			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_OSPIDMA_DST_I_STS, XOSPIPSV_OSPIDMA_DST_I_EN_DONE_MASK);
