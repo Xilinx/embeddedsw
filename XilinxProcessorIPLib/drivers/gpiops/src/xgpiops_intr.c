@@ -660,7 +660,7 @@ void XGpioPs_SetCallbackHandler(XGpioPs *InstancePtr, void *CallBackRef,
 	Xil_AssertVoid(FuncPointer != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	InstancePtr->Handler = (XGpioPs_Handler)FuncPointer;
+	InstancePtr->Handler = FuncPointer;
 	InstancePtr->CallBackRef = CallBackRef;
 }
 
