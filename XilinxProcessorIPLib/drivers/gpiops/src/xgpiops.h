@@ -108,6 +108,7 @@
 *                     Use of mixed mode arithmetic,Declared the poiner param
 *                     as Pointer to const,Casting operation to a pointer,
 *                     Literal value requires a U suffix.
+* 3.5   sne  03/14/19 Added Versal support.
 * </pre>
 *
 ******************************************************************************/
@@ -212,6 +213,7 @@ typedef struct {
 	u32 Platform;			/**< Platform data */
 	u32 MaxPinNum;			/**< Max pins in the GPIO device */
 	u8 MaxBanks;			/**< Max banks in a GPIO device */
+        u32 PmcGpio;                    /**< Flag for accessing PS GPIO for versal*/
 } XGpioPs;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -229,7 +231,11 @@ void XGpioPs_SetDirection(const XGpioPs *InstancePtr, u8 Bank, u32 Direction);
 u32 XGpioPs_GetDirection(const XGpioPs *InstancePtr, u8 Bank);
 void XGpioPs_SetOutputEnable(const XGpioPs *InstancePtr, u8 Bank, u32 OpEnable);
 u32 XGpioPs_GetOutputEnable(const XGpioPs *InstancePtr, u8 Bank);
-void XGpioPs_GetBankPin(u8 PinNumber,	u8 *BankNumber, u8 *PinNumberInBank);
+#ifdef versal
+void XGpioPs_GetBankPin(const XGpioPs *InstancePtr,u8 PinNumber,u8 *BankNumber, u8 *PinNumberInBank);
+#else
+void XGpioPs_GetBankPin(u8 PinNumber,u8 *BankNumber, u8 *PinNumberInBank);
+#endif
 
 /* Pin APIs in xgpiops.c */
 u32 XGpioPs_ReadPin(const XGpioPs *InstancePtr, u32 Pin);
@@ -269,7 +275,6 @@ void XGpioPs_IntrClearPin(const XGpioPs *InstancePtr, u32 Pin);
 
 /* Functions in xgpiops_sinit.c */
 XGpioPs_Config *XGpioPs_LookupConfig(u16 DeviceId);
-
 #ifdef __cplusplus
 }
 #endif
