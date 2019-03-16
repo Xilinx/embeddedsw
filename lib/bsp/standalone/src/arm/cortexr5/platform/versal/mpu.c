@@ -37,6 +37,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
 * 7.00 	mus  02/20/14 First release
+* 7.00  mus  03/16/19 Updated MPU region to mark DDR regions as
+*                     memory, based on the DDR size in hdf
 * </pre>
 *
 * @note
@@ -129,9 +131,9 @@ void Init_MPU(void)
 	Xil_DisableMPURegions();
 
 	Addr = 0x00000000U;
-#ifdef	XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR
+#ifdef	XPAR_AXI_NOC_DDR_LOW_0_BASEADDR
 	/* If the DDR is present, configure region as per DDR size */
-	size = (XPAR_PSU_R5_DDR_0_S_AXI_HIGHADDR - XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR) + 1;
+	size = (XPAR_AXI_NOC_DDR_LOW_0_HIGHADDR - XPAR_AXI_NOC_DDR_LOW_0_BASEADDR) + 1;
 	if (size < 0x80000000) {
 		/* Lookup the size.  */
 		for (i = 0; i < sizeof region_size / sizeof region_size[0]; i++) {
