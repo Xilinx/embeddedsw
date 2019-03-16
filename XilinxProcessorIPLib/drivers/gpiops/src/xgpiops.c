@@ -139,7 +139,7 @@ s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, const XGpioPs_Config *ConfigPtr,
 	 * By default, interrupts are not masked in GPIO. Disable
 	 * interrupts for all pins in all the 4 banks.
 	 */
-	for (i=0;i<InstancePtr->MaxBanks;i++) {
+	for (i=(u8)0U;i<InstancePtr->MaxBanks;i++) {
 		XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
 					  ((u32)(i) * XGPIOPS_REG_MASK_OFFSET) +
 					  XGPIOPS_INTDIS_OFFSET, 0xFFFFFFFFU);
