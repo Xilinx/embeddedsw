@@ -186,9 +186,6 @@ proc generate {os_handle} {
 
 				#Tweak DDR addresses for versal, to be removed once proper addresses added by PCW
 				if {[llength $is_versal] > 0} {
-					puts $file_handle "#define XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR 0x00100000"
-					puts $file_handle "#define XPAR_PSU_R5_DDR_0_S_AXI_HIGHADDR 0x7FFFFFFF"
-					puts $file_handle ""
 					set platformsrcdir "../${standalone_version}/src/arm/cortexr5/platform/versal"
 				} else {
 				        set platformsrcdir "../${standalone_version}/src/arm/cortexr5/platform/ZynqMP"
