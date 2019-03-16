@@ -450,6 +450,10 @@ s32 XSdPs_Get_BusSpeed(XSdPs *InstancePtr, u8 *ReadBuff)
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_TC_MASK);
 
+	if (InstancePtr->Config.IsCacheCoherent == 0U) {
+		Xil_DCacheInvalidateRange((INTPTR)ReadBuff, 64U);
+	}
+
 	Status = XST_SUCCESS;
 
 	RETURN_PATH:
@@ -533,6 +537,10 @@ s32 XSdPs_Get_Status(XSdPs *InstancePtr, u8 *SdStatReg)
 	/* Write to clear bit */
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_TC_MASK);
+
+	if (InstancePtr->Config.IsCacheCoherent == 0U) {
+		Xil_DCacheInvalidateRange((INTPTR)SdStatReg, 64U);
+	}
 
 	Status = XST_SUCCESS;
 
@@ -969,6 +977,10 @@ s32 XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff)
 	/* Write to clear bit */
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_TC_MASK);
+
+	if (InstancePtr->Config.IsCacheCoherent == 0U) {
+		Xil_DCacheInvalidateRange((INTPTR)ReadBuff, 512U);
+	}
 
 	Status = XST_SUCCESS;
 
