@@ -710,7 +710,7 @@ static int OspiSetupIntrSystem(XScuGic *IntcInstancePtr,
 	 * Connect the interrupt controller interrupt handler to the hardware
 	 * interrupt handling logic in the processor.
 	 */
-	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_FIQ_INT,
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
 				(Xil_ExceptionHandler)XScuGic_InterruptHandler,
 				IntcInstancePtr);
 
