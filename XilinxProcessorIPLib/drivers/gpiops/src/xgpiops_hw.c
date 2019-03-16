@@ -82,7 +82,7 @@ void XGpioPs_ResetHw(u32 BaseAddress)
 	u32 Platform,MaxBanks;
 
 	Platform = XGetPlatform_Info();
-	if (Platform == XPLAT_ZYNQ_ULTRA_MP) {
+	if (Platform == (u32)XPLAT_ZYNQ_ULTRA_MP) {
 		MaxBanks = (u32)6;
 	} else {
 		MaxBanks = (u32)4;
@@ -150,7 +150,7 @@ void XGpioPs_ResetHw(u32 BaseAddress)
 			(((u32)3 * XGPIOPS_REG_MASK_OFFSET) + XGPIOPS_INTTYPE_OFFSET),
 			XGPIOPS_INTTYPE_BANK3_RESET);
 
-	if (Platform == XPLAT_ZYNQ_ULTRA_MP) {
+	if (Platform == (u32)XPLAT_ZYNQ_ULTRA_MP) {
 		/* Bank 4 Int type */
 		XGpioPs_WriteReg(BaseAddress,
 				(((u32)4 * XGPIOPS_REG_MASK_OFFSET) + XGPIOPS_INTTYPE_OFFSET),

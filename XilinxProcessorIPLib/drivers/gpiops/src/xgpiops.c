@@ -111,7 +111,7 @@ s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, const XGpioPs_Config *ConfigPtr,
 	InstancePtr->Platform = XGetPlatform_Info();
 
 	/* Initialize the Bank data based on platform */
-	if (InstancePtr->Platform == XPLAT_ZYNQ_ULTRA_MP) {
+	if (InstancePtr->Platform == (u32)XPLAT_ZYNQ_ULTRA_MP) {
 		/*
 		 *	Max pins in the ZynqMP GPIO device
 		 *	0 - 25,  Bank 0
@@ -582,7 +582,7 @@ void XGpioPs_GetBankPin(u8 PinNumber, u8 *BankNumber, u8 *PinNumberInBank)
 	u32 XGpioPsPinTable[6] = {0};
 	u32 Platform = XGetPlatform_Info();
 
-	if (Platform == XPLAT_ZYNQ_ULTRA_MP) {
+	if (Platform == (u32)XPLAT_ZYNQ_ULTRA_MP) {
 		/*
 		 * This structure defines the mapping of the pin numbers to the banks when
 		 * the driver APIs are used for working on the individual pins.
