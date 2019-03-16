@@ -234,6 +234,9 @@ static void XPmcFw_GicIrqHandler(void)
 					RegVal&(0x1U<<PMC_GLOBAL_GICP4_IRQ_STATUS_SRC8_SHIFT));
 			Xil_Out32(PMC_GLOBAL_GICP_PMC_IRQ_STATUS,
 					(0x1U<<PMC_GLOBAL_GICP_PMC_IRQ_STATUS_SRC0_SHIFT));
+			XPmcFw_RMW32(SLAVE_BOOT_SBI_IRQ_STATUS,
+                                SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK,
+                                SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK);
 #ifdef XPMCFW_SBI
 			PmcFwInstance.MetaHdr.DeviceCopy = XPmcFw_SbiCopy;
 			PmcFwInstance.DeviceOps.Copy = XPmcFw_SbiCopy;
@@ -440,6 +443,13 @@ XStatus XPmcFw_SetUpInterruptSystem()
 	XPmcFw_RMW32(PMC_GLOBAL_GICP4_IRQ_ENABLE,
                                 PMC_GLOBAL_GICP0_IRQ_ENABLE_SRC8_MASK,
                                 PMC_GLOBAL_GICP0_IRQ_ENABLE_SRC8_MASK);
+	XPmcFw_RMW32(SLAVE_BOOT_SBI_IRQ_STATUS,
+                                SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK,
+                                SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK);
+	XPmcFw_RMW32(SLAVE_BOOT_SBI_IRQ_ENABLE,
+                                SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK,
+                                SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK);
+
 	/*
          * TODO: Enable PR mask in the respective module
          */
