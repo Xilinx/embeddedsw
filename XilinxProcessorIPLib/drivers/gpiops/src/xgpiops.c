@@ -55,6 +55,7 @@
 *                     Use of mixed mode arithmetic,Declared the poiner param
 *                     as Pointer to const,Casting operation to a pointer,
 *                     Literal value requires a U suffix.
+* 3.5   sne  03/13/19 Added Versal support.
 * </pre>
 *
 ******************************************************************************/
@@ -64,7 +65,6 @@
 #include "xgpiops.h"
 
 /************************** Constant Definitions *****************************/
-
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -127,7 +127,31 @@ s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, const XGpioPs_Config *ConfigPtr,
 		 */
 		InstancePtr->MaxPinNum = (u32)174;
 		InstancePtr->MaxBanks = (u8)6;
-	} else {
+	}
+        else if (InstancePtr->Platform == (u32)XPLAT_versal)
+        {
+                if(InstancePtr->PmcGpio == (u32)FALSE)
+                {
+                        /* Max pins in the PS_GPIO devices
+                         *  0 -25, Bank 0
+                         *  26-57, Bank 3
+                         */
+                        InstancePtr->MaxPinNum = (u32)58;
+                        InstancePtr->MaxBanks = (u8)4;
+                }
+                else
+                {
+                        /* Max pins in the PMC_GPIO devices
+                         * 0  - 25,Bank 0
+                         * 26 - 51,Bank 1
+                         * 52 - 83,Bank 3
+                         * 84 - 115, Bank 4
+                         */
+                        InstancePtr->MaxPinNum = (u32)116;
+                        InstancePtr->MaxBanks = (u8)5;
+                }
+        }
+        else {
 		/*
 		 *	Max pins in the GPIO device
 		 *	0 - 31,  Bank 0
@@ -144,9 +168,35 @@ s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, const XGpioPs_Config *ConfigPtr,
 	 * interrupts for all pins in all the 4 banks.
 	 */
 	for (i=(u8)0U;i<InstancePtr->MaxBanks;i++) {
+                if (InstancePtr->Platform == XPLAT_versal){
+                        if(InstancePtr->PmcGpio == (u32)FALSE)
+                        {
+                                if((i== (u8)XGPIOPS_ONE)||(i== (u8)XGPIOPS_TWO))
+                                {
+                                        continue;
+                                }
+                                XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
+                                                ((u32)(i) * XGPIOPS_REG_MASK_OFFSET) +
+                                                XGPIOPS_INTDIS_OFFSET, 0xFFFFFFFFU);
+                        }
+                        else
+                        {
+                                if(i==(u32)XGPIOPS_TWO)
+                                {
+                                        continue;
+                                }
+                                XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
+                                                ((u32)(i) * XGPIOPS_REG_MASK_OFFSET) +
+                                                XGPIOPS_INTDIS_OFFSET, 0xFFFFFFFFU);
+
+                       }
+                }
+                else
+                {
 		XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
 					  ((u32)(i) * XGPIOPS_REG_MASK_OFFSET) +
 					  XGPIOPS_INTDIS_OFFSET, 0xFFFFFFFFU);
+                }
 	}
 
 	/* Indicate the component is now ready to use. */
@@ -174,7 +224,14 @@ u32 XGpioPs_Read(const XGpioPs *InstancePtr, u8 Bank)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(Bank < InstancePtr->MaxBanks);
+        Xil_AssertNonvoid(Bank < InstancePtr->MaxBanks);
+#ifdef versal
+        if(InstancePtr->PmcGpio == TRUE) {
+                Xil_AssertNonvoid(Bank != XGPIOPS_TWO);
+        } else {
+                Xil_AssertNonvoid((Bank !=XGPIOPS_ONE) && (Bank !=XGPIOPS_TWO));
+        }
+#endif
 
 	return XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
 				 ((u32)(Bank) * XGPIOPS_DATA_BANK_OFFSET) +
@@ -207,8 +264,11 @@ u32 XGpioPs_ReadPin(const XGpioPs *InstancePtr, u32 Pin)
 	Xil_AssertNonvoid(Pin < InstancePtr->MaxPinNum);
 
 	/* Get the Bank number and Pin number within the bank. */
+#ifdef versal
+	XGpioPs_GetBankPin(InstancePtr,(u8)Pin, &Bank, &PinNumber);
+#else
 	XGpioPs_GetBankPin((u8)Pin, &Bank, &PinNumber);
-
+#endif
 	return (XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
 				 ((u32)(Bank) * XGPIOPS_DATA_BANK_OFFSET) +
 				 XGPIOPS_DATA_RO_OFFSET) >> (u32)PinNumber) & (u32)1;
@@ -235,7 +295,14 @@ void XGpioPs_Write(const XGpioPs *InstancePtr, u8 Bank, u32 Data)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(Bank < InstancePtr->MaxBanks);
+        Xil_AssertVoid(Bank < InstancePtr->MaxBanks);
+#ifdef versal
+        if(InstancePtr->PmcGpio == TRUE) {
+                Xil_AssertVoid(Bank != XGPIOPS_TWO);
+        } else {
+                Xil_AssertVoid((Bank !=XGPIOPS_ONE) && (Bank !=XGPIOPS_TWO));
+        }
+#endif
 
 	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
 			  ((u32)(Bank) * XGPIOPS_DATA_BANK_OFFSET) +
@@ -272,7 +339,11 @@ void XGpioPs_WritePin(const XGpioPs *InstancePtr, u32 Pin, u32 Data)
 	Xil_AssertVoid(Pin < InstancePtr->MaxPinNum);
 
 	/* Get the Bank number and Pin number within the bank. */
+#ifdef versal
+	XGpioPs_GetBankPin(InstancePtr,(u8)Pin, &Bank, &PinNumber);
+#else
 	XGpioPs_GetBankPin((u8)Pin, &Bank, &PinNumber);
+#endif
 
 	if (PinNumber > 15U) {
 		/* There are only 16 data bits in bit maskable register. */
@@ -291,6 +362,7 @@ void XGpioPs_WritePin(const XGpioPs *InstancePtr, u32 Pin, u32 Data)
 	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
 			  ((u32)(Bank) * XGPIOPS_DATA_MASK_OFFSET) +
 			  RegOffset, Value);
+
 }
 
 
@@ -318,7 +390,14 @@ void XGpioPs_SetDirection(const XGpioPs *InstancePtr, u8 Bank, u32 Direction)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(Bank < InstancePtr->MaxBanks);
+        Xil_AssertVoid(Bank < InstancePtr->MaxBanks);
+#ifdef versal
+        if(InstancePtr->PmcGpio == TRUE) {
+                Xil_AssertVoid(Bank != XGPIOPS_TWO);
+        } else {
+                Xil_AssertVoid((Bank !=XGPIOPS_ONE) && (Bank !=XGPIOPS_TWO));
+        }
+#endif
 
 	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
 			  ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
@@ -351,8 +430,11 @@ void XGpioPs_SetDirectionPin(const XGpioPs *InstancePtr, u32 Pin, u32 Direction)
 	Xil_AssertVoid(Direction <= (u32)1);
 
 	/* Get the Bank number and Pin number within the bank. */
+#ifdef versal
+	XGpioPs_GetBankPin(InstancePtr,(u8)Pin, &Bank, &PinNumber);
+#else
 	XGpioPs_GetBankPin((u8)Pin, &Bank, &PinNumber);
-
+#endif
 	DirModeReg = XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
 				      ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
 				      XGPIOPS_DIRM_OFFSET);
@@ -387,7 +469,14 @@ u32 XGpioPs_GetDirection(const XGpioPs *InstancePtr, u8 Bank)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(Bank < InstancePtr->MaxBanks);
+        Xil_AssertNonvoid(Bank < InstancePtr->MaxBanks);
+#ifdef versal
+        if(InstancePtr->PmcGpio == TRUE) {
+                Xil_AssertNonvoid(Bank != XGPIOPS_TWO);
+        } else {
+                Xil_AssertNonvoid((Bank !=XGPIOPS_ONE) && (Bank !=XGPIOPS_TWO));
+        }
+#endif
 
 	return XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
 				((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
@@ -421,7 +510,11 @@ u32 XGpioPs_GetDirectionPin(const XGpioPs *InstancePtr, u32 Pin)
 	Xil_AssertNonvoid(Pin < InstancePtr->MaxPinNum);
 
 	/* Get the Bank number and Pin number within the bank. */
+#ifdef versal
+	XGpioPs_GetBankPin(InstancePtr,(u8)Pin, &Bank, &PinNumber);
+#else
 	XGpioPs_GetBankPin((u8)Pin, &Bank, &PinNumber);
+#endif
 
 	return (XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
 				 ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
@@ -451,7 +544,14 @@ void XGpioPs_SetOutputEnable(const XGpioPs *InstancePtr, u8 Bank, u32 OpEnable)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(Bank < InstancePtr->MaxBanks);
+        Xil_AssertVoid(Bank < InstancePtr->MaxBanks);
+#ifdef versal
+        if(InstancePtr->PmcGpio == TRUE) {
+                Xil_AssertVoid(Bank != XGPIOPS_TWO);
+        } else {
+                Xil_AssertVoid((Bank !=XGPIOPS_ONE) && (Bank !=XGPIOPS_TWO));
+        }
+#endif
 
 	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
 			  ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
@@ -488,7 +588,11 @@ void XGpioPs_SetOutputEnablePin(const XGpioPs *InstancePtr, u32 Pin, u32 OpEnabl
 	Xil_AssertVoid(OpEnable <= (u32)1);
 
 	/* Get the Bank number and Pin number within the bank. */
+#ifdef versal
+	XGpioPs_GetBankPin(InstancePtr,(u8)Pin, &Bank, &PinNumber);
+#else
 	XGpioPs_GetBankPin((u8)Pin, &Bank, &PinNumber);
+#endif
 
 	OpEnableReg = XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
 				       ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
@@ -524,7 +628,14 @@ u32 XGpioPs_GetOutputEnable(const XGpioPs *InstancePtr, u8 Bank)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(Bank < InstancePtr->MaxBanks);
+        Xil_AssertNonvoid(Bank < InstancePtr->MaxBanks);
+#ifdef versal
+        if(InstancePtr->PmcGpio == TRUE) {
+                Xil_AssertNonvoid(Bank != XGPIOPS_TWO);
+        } else {
+                Xil_AssertNonvoid((Bank !=XGPIOPS_ONE) && (Bank !=XGPIOPS_TWO));
+        }
+#endif
 
 	return XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
 				((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
@@ -558,7 +669,11 @@ u32 XGpioPs_GetOutputEnablePin(const XGpioPs *InstancePtr, u32 Pin)
 	Xil_AssertNonvoid(Pin < InstancePtr->MaxPinNum);
 
 	/* Get the Bank number and Pin number within the bank. */
+#ifdef versal
+	XGpioPs_GetBankPin(InstancePtr,(u8)Pin, &Bank, &PinNumber);
+#else
 	XGpioPs_GetBankPin((u8)Pin, &Bank, &PinNumber);
+#endif
 
 	return (XGpioPs_ReadReg(InstancePtr->GpioConfig.BaseAddr,
 				 ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
@@ -581,9 +696,16 @@ u32 XGpioPs_GetOutputEnablePin(const XGpioPs *InstancePtr, u32 Pin)
 * @note		None.
 *
 *****************************************************************************/
+#ifdef versal
+void XGpioPs_GetBankPin(const XGpioPs *InstancePtr,u8 PinNumber, u8 *BankNumber, u8 *PinNumberInBank)
+#else
 void XGpioPs_GetBankPin(u8 PinNumber, u8 *BankNumber, u8 *PinNumberInBank)
+#endif
 {
 	u32 XGpioPsPinTable[6] = {0};
+#ifdef versal
+        u8 i=(u8)0;
+#endif
 	u32 Platform = XGetPlatform_Info();
 
 	if (Platform == (u32)XPLAT_ZYNQ_ULTRA_MP) {
@@ -600,20 +722,73 @@ void XGpioPs_GetBankPin(u8 PinNumber, u8 *BankNumber, u8 *PinNumberInBank)
 		XGpioPsPinTable[5] = (u32)173; /* 142 - 173 Bank 5 */
 
 		*BankNumber = 0U;
-		while (*BankNumber < 6U) {
+		while (*BankNumber < XGPIOPS_SIX) {
 			if (PinNumber <= XGpioPsPinTable[*BankNumber]) {
 				break;
 			}
 			(*BankNumber)++;
 		}
-	} else {
+	}
+#ifdef versal
+        else if(Platform == XPLAT_versal)
+        {
+                if(InstancePtr->PmcGpio == (u32)(FALSE))
+                {
+                        XGpioPsPinTable[0] = (u32)25; /* 0 - 25, Bank 0 */
+                        XGpioPsPinTable[1] = (u32)57; /* 26 - 57, Bank 3 */
+                        *BankNumber =0U;
+                        if(PinNumber <= XGpioPsPinTable[*BankNumber])
+                        {
+                                *BankNumber = (u8)XGPIOPS_ZERO;
+                        }
+                        else
+                        {
+                                *BankNumber = (u8)XGPIOPS_THREE;
+                        }
+
+                }
+                else
+                {
+                        XGpioPsPinTable[0] = (u32)25; /* 0 - 25, Bank 0 */
+                        XGpioPsPinTable[1] = (u32)51; /* 26 - 51, Bank 1 */
+                        XGpioPsPinTable[2] = (u32)83; /* 52 - 83, Bank 3 */
+                        XGpioPsPinTable[3] = (u32)115; /*84 - 115, Bank 4 */
+
+                        *BankNumber =0U;
+                        while(i < XGPIOPS_FOUR)
+                        {
+                                if(i <= (u8)XGPIOPS_ONE)
+                                {
+                                        if (PinNumber <= XGpioPsPinTable[i])
+                                        {
+                                                *BankNumber = (u8)i;
+                                                break;
+                                        }
+                                        i++;
+                                }
+                                else
+                                {
+                                        if (PinNumber <= XGpioPsPinTable[i])
+                                        {
+                                                *BankNumber = (u8)i+1U;
+                                                break;
+                                        }
+                                        i++;
+                                }
+
+                        }
+                }
+
+        }
+#endif
+        else {
 		XGpioPsPinTable[0] = (u32)31; /* 0 - 31, Bank 0 */
 		XGpioPsPinTable[1] = (u32)53; /* 32 - 53, Bank 1 */
 		XGpioPsPinTable[2] = (u32)85; /* 54 - 85, Bank 2 */
 		XGpioPsPinTable[3] = (u32)117; /* 86 - 117 Bank 3 */
 
 		*BankNumber = 0U;
-		while (*BankNumber < 4U) {
+		while (*BankNumber < XGPIOPS_FOUR) {
 			if (PinNumber <= XGpioPsPinTable[*BankNumber]) {
 				break;
 			}
@@ -622,9 +797,34 @@ void XGpioPs_GetBankPin(u8 PinNumber, u8 *BankNumber, u8 *PinNumberInBank)
 	}
 	if (*BankNumber == (u8)0) {
 		*PinNumberInBank = PinNumber;
-	} else {
+	}
+
+#ifdef versal
+        else if(Platform == XPLAT_versal)
+        {
+                if(InstancePtr->PmcGpio == (u32)(FALSE))
+                {
+                        *PinNumberInBank = (u8)((u32)PinNumber - (XGpioPsPinTable[0] + (u32)1));
+                }
+                else {
+                        if((*BankNumber ==(u8)XGPIOPS_THREE) || (*BankNumber ==(u8)XGPIOPS_FOUR))
+                        {
+                                *PinNumberInBank = (u8)((u32)PinNumber %
+                                                (XGpioPsPinTable[*BankNumber - (u8)XGPIOPS_TWO] + (u32)1));
+                        }
+                        else
+                        {
+                                *PinNumberInBank = (u8)((u32)PinNumber %
+                                                (XGpioPsPinTable[*BankNumber - (u8)1] + (u32)1));
+                        }
+               }
+
+        }
+#endif
+
+        else {
 		*PinNumberInBank = (u8)((u32)PinNumber %
 					(XGpioPsPinTable[*BankNumber - (u8)1] + (u32)1));
-	}
+        }
 }
 /** @} */
