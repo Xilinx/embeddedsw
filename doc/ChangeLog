@@ -116,6 +116,7 @@ Set recommended clock and data tap delay values for 40MHZ,
 sdps_v3_7:
 Add SDPS idling support
 Added support for versal SD IP name
+Add support for Cache Invalidation after the DMA is complete
 
 spips_v3_2:
 Resolved MISRA-C:2012 violations in safety mode(CR#1016116)
