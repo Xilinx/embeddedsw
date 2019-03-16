@@ -14,7 +14,14 @@ For details, see xgpiops_intr_example.c.
 @section ex2 xgpiops_polled_example.c
 Contains an example on how to use the XGpiops driver directly.
 This example provides the usage of APIs for reading/writing to the
+individual pins.Same example we are using in versal for execution of
+pmc gpio.
+
+@section ex3 xgpiops_polled_ps_example.c
+Contains an example on how to use the XGpiops driver in versal ps gpio.
+This example provides the usage of APIs for reading/writing to the
 individual pins.
+
 
 For details, see xgpiops_polled_example.c.
 */
