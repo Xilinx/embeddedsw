@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xgpiops_hw.c
-* @addtogroup gpiops_v3_4
+* @addtogroup gpiops_v3_5
 * @{
 *
 * This file contains low level GPIO functions.
@@ -42,7 +42,11 @@
 * 1.02a hk   08/22/13 First Release
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.1	kvn  04/13/15 Add support for Zynq Ultrascale+ MP. CR# 856980.
-*
+* 3.5   sne  03/01/19 Fixes violations according to MISRAC-2012
+*                     in saftey mode and modified the code such as
+*                     Use of mixed mode arithmetic,Declared the poiner param
+*                     as Pointer to const,Casting operation to a pointer,
+*                     Literal value requires a U suffix.
 * </pre>
 *
 ******************************************************************************/
