@@ -508,9 +508,11 @@ Fix warning in example for redefinition of interrupt number.
 Added 64 bit DMA addresses support for Microblaze-X
 Add support for Versal IP name.
 
-gpiops_v3_4:
+gpiops_v3_5:
 Resolved cppcheck warnings.(CR#1006331)
 Resolved MISRA-C mandatory violations.(CR#1007751)
+Fixed MISRA-C suggested violations.
+Added support for Versal.
 
 sdps_v3_6
 Fixed Cppcheck, Doxygen and gcc warnings (CR#1006375)
