@@ -366,10 +366,6 @@ proc generate {os_handle} {
             puts $file_handle ""
             puts $file_handle "#include \"xparameters_ps.h\""
             puts $file_handle ""
-	    if {[llength $cortexa72proc] > 0} { 
-	    	puts $file_handle "#define XPAR_PSU_DDR_0_S_AXI_BASEADDR 0x00000000"
-            	puts $file_handle "#define XPAR_PSU_DDR_0_S_AXI_HIGHADDR 0x7FFFFFFF"
-	    }
             # If board name is valid, define corresponding symbol in xparameters
             if { [string length $boardname] != 0 } {
                 set fields [split $boardname ":"]
@@ -422,9 +418,6 @@ proc generate {os_handle} {
 	    puts $file_handle "#include \"xparameters_ps.h\""
 	    puts $file_handle ""
 	    if {[llength $cortexa72proc] > 0} { 
-            	puts $file_handle "#define XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR 0x00100000"
-            	puts $file_handle "#define XPAR_PSU_R5_DDR_0_S_AXI_HIGHADDR 0x7FFFFFFF"
-            	puts $file_handle ""
 		set platformsrcdir "./src/arm/cortexr5/platform/versal"
 	    } else {
 	        set platformsrcdir "./src/arm/cortexr5/platform/ZynqMP"
