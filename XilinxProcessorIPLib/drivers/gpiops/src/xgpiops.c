@@ -92,7 +92,7 @@ extern void StubHandler(void *CallBackRef, u32 Bank, u32 Status);
 * @note		None.
 *
 ******************************************************************************/
-s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, XGpioPs_Config *ConfigPtr,
+s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, const XGpioPs_Config *ConfigPtr,
 				u32 EffectiveAddr)
 {
 	s32 Status = XST_SUCCESS;
@@ -166,7 +166,7 @@ s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, XGpioPs_Config *ConfigPtr,
 *		of specified bank.
 *
 *****************************************************************************/
-u32 XGpioPs_Read(XGpioPs *InstancePtr, u8 Bank)
+u32 XGpioPs_Read(const XGpioPs *InstancePtr, u8 Bank)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -193,7 +193,7 @@ u32 XGpioPs_Read(XGpioPs *InstancePtr, u8 Bank)
 *		GPIO pin.
 *
 *****************************************************************************/
-u32 XGpioPs_ReadPin(XGpioPs *InstancePtr, u32 Pin)
+u32 XGpioPs_ReadPin(const XGpioPs *InstancePtr, u32 Pin)
 {
 	u8 Bank;
 	u8 PinNumber;
@@ -227,7 +227,7 @@ u32 XGpioPs_ReadPin(XGpioPs *InstancePtr, u32 Pin)
 *		the bank. The previous state of the pins is not maintained.
 *
 *****************************************************************************/
-void XGpioPs_Write(XGpioPs *InstancePtr, u8 Bank, u32 Data)
+void XGpioPs_Write(const XGpioPs *InstancePtr, u8 Bank, u32 Data)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -255,7 +255,7 @@ void XGpioPs_Write(XGpioPs *InstancePtr, u8 Bank, u32 Data)
 *		is maintained.
 *
 *****************************************************************************/
-void XGpioPs_WritePin(XGpioPs *InstancePtr, u32 Pin, u32 Data)
+void XGpioPs_WritePin(const XGpioPs *InstancePtr, u32 Pin, u32 Data)
 {
 	u32 RegOffset;
 	u32 Value;
@@ -310,7 +310,7 @@ void XGpioPs_WritePin(XGpioPs *InstancePtr, u32 Pin, u32 Data)
 *		not maintained.
 *
 *****************************************************************************/
-void XGpioPs_SetDirection(XGpioPs *InstancePtr, u8 Bank, u32 Direction)
+void XGpioPs_SetDirection(const XGpioPs *InstancePtr, u8 Bank, u32 Direction)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -335,7 +335,7 @@ void XGpioPs_SetDirection(XGpioPs *InstancePtr, u8 Bank, u32 Direction)
 * @return	None.
 *
 *****************************************************************************/
-void XGpioPs_SetDirectionPin(XGpioPs *InstancePtr, u32 Pin, u32 Direction)
+void XGpioPs_SetDirectionPin(const XGpioPs *InstancePtr, u32 Pin, u32 Direction)
 {
 	u8 Bank;
 	u8 PinNumber;
@@ -379,7 +379,7 @@ void XGpioPs_SetDirectionPin(XGpioPs *InstancePtr, u32 Pin, u32 Direction)
 * @note		None.
 *
 *****************************************************************************/
-u32 XGpioPs_GetDirection(XGpioPs *InstancePtr, u8 Bank)
+u32 XGpioPs_GetDirection(const XGpioPs *InstancePtr, u8 Bank)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -407,7 +407,7 @@ u32 XGpioPs_GetDirection(XGpioPs *InstancePtr, u8 Bank)
 * @note		None.
 *
 *****************************************************************************/
-u32 XGpioPs_GetDirectionPin(XGpioPs *InstancePtr, u32 Pin)
+u32 XGpioPs_GetDirectionPin(const XGpioPs *InstancePtr, u32 Pin)
 {
 	u8 Bank;
 	u8 PinNumber;
@@ -443,7 +443,7 @@ u32 XGpioPs_GetDirectionPin(XGpioPs *InstancePtr, u32 Pin)
 *		Enables is not maintained.
 *
 *****************************************************************************/
-void XGpioPs_SetOutputEnable(XGpioPs *InstancePtr, u8 Bank, u32 OpEnable)
+void XGpioPs_SetOutputEnable(const XGpioPs *InstancePtr, u8 Bank, u32 OpEnable)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -472,7 +472,7 @@ void XGpioPs_SetOutputEnable(XGpioPs *InstancePtr, u8 Bank, u32 OpEnable)
 * @note		None.
 *
 *****************************************************************************/
-void XGpioPs_SetOutputEnablePin(XGpioPs *InstancePtr, u32 Pin, u32 OpEnable)
+void XGpioPs_SetOutputEnablePin(const XGpioPs *InstancePtr, u32 Pin, u32 OpEnable)
 {
 	u8 Bank;
 	u8 PinNumber;
@@ -516,7 +516,7 @@ void XGpioPs_SetOutputEnablePin(XGpioPs *InstancePtr, u32 Pin, u32 OpEnable)
 * @note		None.
 *
 *****************************************************************************/
-u32 XGpioPs_GetOutputEnable(XGpioPs *InstancePtr, u8 Bank)
+u32 XGpioPs_GetOutputEnable(const XGpioPs *InstancePtr, u8 Bank)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -544,7 +544,7 @@ u32 XGpioPs_GetOutputEnable(XGpioPs *InstancePtr, u8 Bank)
 * @note		None.
 *
 *****************************************************************************/
-u32 XGpioPs_GetOutputEnablePin(XGpioPs *InstancePtr, u32 Pin)
+u32 XGpioPs_GetOutputEnablePin(const XGpioPs *InstancePtr, u32 Pin)
 {
 	u8 Bank;
 	u8 PinNumber;

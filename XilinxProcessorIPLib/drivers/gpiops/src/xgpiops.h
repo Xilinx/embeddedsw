@@ -215,53 +215,53 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 
 /* Functions in xgpiops.c */
-s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, XGpioPs_Config *ConfigPtr,
+s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, const XGpioPs_Config *ConfigPtr,
 			   u32 EffectiveAddr);
 
 /* Bank APIs in xgpiops.c */
-u32 XGpioPs_Read(XGpioPs *InstancePtr, u8 Bank);
-void XGpioPs_Write(XGpioPs *InstancePtr, u8 Bank, u32 Data);
-void XGpioPs_SetDirection(XGpioPs *InstancePtr, u8 Bank, u32 Direction);
-u32 XGpioPs_GetDirection(XGpioPs *InstancePtr, u8 Bank);
-void XGpioPs_SetOutputEnable(XGpioPs *InstancePtr, u8 Bank, u32 OpEnable);
-u32 XGpioPs_GetOutputEnable(XGpioPs *InstancePtr, u8 Bank);
+u32 XGpioPs_Read(const XGpioPs *InstancePtr, u8 Bank);
+void XGpioPs_Write(const XGpioPs *InstancePtr, u8 Bank, u32 Data);
+void XGpioPs_SetDirection(const XGpioPs *InstancePtr, u8 Bank, u32 Direction);
+u32 XGpioPs_GetDirection(const XGpioPs *InstancePtr, u8 Bank);
+void XGpioPs_SetOutputEnable(const XGpioPs *InstancePtr, u8 Bank, u32 OpEnable);
+u32 XGpioPs_GetOutputEnable(const XGpioPs *InstancePtr, u8 Bank);
 void XGpioPs_GetBankPin(u8 PinNumber,	u8 *BankNumber, u8 *PinNumberInBank);
 
 /* Pin APIs in xgpiops.c */
-u32 XGpioPs_ReadPin(XGpioPs *InstancePtr, u32 Pin);
-void XGpioPs_WritePin(XGpioPs *InstancePtr, u32 Pin, u32 Data);
-void XGpioPs_SetDirectionPin(XGpioPs *InstancePtr, u32 Pin, u32 Direction);
-u32 XGpioPs_GetDirectionPin(XGpioPs *InstancePtr, u32 Pin);
-void XGpioPs_SetOutputEnablePin(XGpioPs *InstancePtr, u32 Pin, u32 OpEnable);
-u32 XGpioPs_GetOutputEnablePin(XGpioPs *InstancePtr, u32 Pin);
+u32 XGpioPs_ReadPin(const XGpioPs *InstancePtr, u32 Pin);
+void XGpioPs_WritePin(const XGpioPs *InstancePtr, u32 Pin, u32 Data);
+void XGpioPs_SetDirectionPin(const XGpioPs *InstancePtr, u32 Pin, u32 Direction);
+u32 XGpioPs_GetDirectionPin(const XGpioPs *InstancePtr, u32 Pin);
+void XGpioPs_SetOutputEnablePin(const XGpioPs *InstancePtr, u32 Pin, u32 OpEnable);
+u32 XGpioPs_GetOutputEnablePin(const XGpioPs *InstancePtr, u32 Pin);
 
 /* Diagnostic functions in xgpiops_selftest.c */
-s32 XGpioPs_SelfTest(XGpioPs *InstancePtr);
+s32 XGpioPs_SelfTest(const XGpioPs *InstancePtr);
 
 /* Functions in xgpiops_intr.c */
 /* Bank APIs in xgpiops_intr.c */
-void XGpioPs_IntrEnable(XGpioPs *InstancePtr, u8 Bank, u32 Mask);
-void XGpioPs_IntrDisable(XGpioPs *InstancePtr, u8 Bank, u32 Mask);
-u32 XGpioPs_IntrGetEnabled(XGpioPs *InstancePtr, u8 Bank);
-u32 XGpioPs_IntrGetStatus(XGpioPs *InstancePtr, u8 Bank);
-void XGpioPs_IntrClear(XGpioPs *InstancePtr, u8 Bank, u32 Mask);
-void XGpioPs_SetIntrType(XGpioPs *InstancePtr, u8 Bank, u32 IntrType,
+void XGpioPs_IntrEnable(const XGpioPs *InstancePtr, u8 Bank, u32 Mask);
+void XGpioPs_IntrDisable(const XGpioPs *InstancePtr, u8 Bank, u32 Mask);
+u32 XGpioPs_IntrGetEnabled(const XGpioPs *InstancePtr, u8 Bank);
+u32 XGpioPs_IntrGetStatus(const XGpioPs *InstancePtr, u8 Bank);
+void XGpioPs_IntrClear(const XGpioPs *InstancePtr, u8 Bank, u32 Mask);
+void XGpioPs_SetIntrType(const XGpioPs *InstancePtr, u8 Bank, u32 IntrType,
 			  u32 IntrPolarity, u32 IntrOnAny);
-void XGpioPs_GetIntrType(XGpioPs *InstancePtr, u8 Bank, u32 *IntrType,
+void XGpioPs_GetIntrType(const XGpioPs *InstancePtr, u8 Bank, u32 *IntrType,
 			  u32 *IntrPolarity, u32 *IntrOnAny);
 void XGpioPs_SetCallbackHandler(XGpioPs *InstancePtr, void *CallBackRef,
 			     XGpioPs_Handler FuncPointer);
-void XGpioPs_IntrHandler(XGpioPs *InstancePtr);
+void XGpioPs_IntrHandler(const XGpioPs *InstancePtr);
 
 /* Pin APIs in xgpiops_intr.c */
-void XGpioPs_SetIntrTypePin(XGpioPs *InstancePtr, u32 Pin, u8 IrqType);
-u8 XGpioPs_GetIntrTypePin(XGpioPs *InstancePtr, u32 Pin);
+void XGpioPs_SetIntrTypePin(const XGpioPs *InstancePtr, u32 Pin, u8 IrqType);
+u8 XGpioPs_GetIntrTypePin(const XGpioPs *InstancePtr, u32 Pin);
 
-void XGpioPs_IntrEnablePin(XGpioPs *InstancePtr, u32 Pin);
-void XGpioPs_IntrDisablePin(XGpioPs *InstancePtr, u32 Pin);
-u32 XGpioPs_IntrGetEnabledPin(XGpioPs *InstancePtr, u32 Pin);
-u32 XGpioPs_IntrGetStatusPin(XGpioPs *InstancePtr, u32 Pin);
-void XGpioPs_IntrClearPin(XGpioPs *InstancePtr, u32 Pin);
+void XGpioPs_IntrEnablePin(const XGpioPs *InstancePtr, u32 Pin);
+void XGpioPs_IntrDisablePin(const XGpioPs *InstancePtr, u32 Pin);
+u32 XGpioPs_IntrGetEnabledPin(const XGpioPs *InstancePtr, u32 Pin);
+u32 XGpioPs_IntrGetStatusPin(const XGpioPs *InstancePtr, u32 Pin);
+void XGpioPs_IntrClearPin(const XGpioPs *InstancePtr, u32 Pin);
 
 /* Functions in xgpiops_sinit.c */
 XGpioPs_Config *XGpioPs_LookupConfig(u16 DeviceId);
