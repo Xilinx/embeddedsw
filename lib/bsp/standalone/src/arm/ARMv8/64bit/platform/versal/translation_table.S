@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018 - 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -93,6 +93,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
 * 7.00  mus  05/21/14 Initial version
+* 7.00  mus  03/16/19 Updated translation table to mark DDR regions as
+*                     memory, based on the DDR size in hdf
 *
 *
 ******************************************************************************/
@@ -159,9 +161,9 @@ MMUTableL1:
 .set SECT, SECT + 0x40000000
 .endr
 
-#ifdef XPAR_PSU_DDR_1_S_AXI_BASEADDR
-.set DDR_1_START, XPAR_PSU_DDR_1_S_AXI_BASEADDR
-.set DDR_1_END, XPAR_PSU_DDR_1_S_AXI_HIGHADDR
+#ifdef XPAR_AXI_NOC_DDR_LOW_1_BASEADDR
+.set DDR_1_START, XPAR_AXI_NOC_DDR_LOW_1_BASEADDR
+.set DDR_1_END, XPAR_AXI_NOC_DDR_LOW_1_HIGHADDR
 .set DDR_1_SIZE, (DDR_1_END - DDR_1_START)+1
 .if DDR_1_SIZE > 0x800000000
 /* If DDR size is larger than 32GB, truncate to 32GB */
@@ -200,14 +202,58 @@ MMUTableL1:
 .set SECT, SECT + 0x40000000
 .endr
 
-.rept	0x100			/* 0xC0_0000_0000 - 0xFF_FFFF_FFFF */
-.8byte	SECT + Memory		/* 256GB DDR */
+#ifdef XPAR_AXI_NOC_DDR_LOW_2_BASEADDR
+.set DDR_2_START, XPAR_AXI_NOC_DDR_LOW_2_BASEADDR
+.set DDR_2_END, XPAR_AXI_NOC_DDR_LOW_2_HIGHADDR
+.set DDR_2_SIZE, (DDR_2_END - DDR_2_START)+1
+.if DDR_2_SIZE > 0x4000000000
+/* If DDR size is larger than 256 GB, truncate to 256GB */
+.set DDR_2_REG, 0x100
+.else
+.set DDR_2_REG, DDR_2_SIZE/0x40000000
+.endif
+#else
+.set DDR_2_REG, 0
+#warning "There's no DDR_LOW_2 in the HW design. MMU translation table marks 256 GB DDR address space as undefined"
+#endif
+
+.set UNDEF_2_REG, 0x100 - DDR_2_REG
+
+.rept	DDR_2_REG		/*  DDR based on size in hdf 0xC0_0000_0000 - 0xFF_FFFF_FFFF */
+.8byte	SECT + Memory		/* Maximum DDR region size - 256GB */
 .set SECT, SECT + 0x40000000
 .endr
 
-.rept	0x2de			/* 0x100_0000_0000 - 0x1B7_7FFF_FFFF */
-.8byte	SECT + Memory		/* 734GB DDR */
+.rept	UNDEF_2_REG		/* reserved for region where ddr is absent */
+.8byte	SECT + reserved
+.set	SECT, SECT+0x40000000
+.endr
+
+#ifdef XPAR_AXI_NOC_DDR_LOW_3_BASEADDR
+.set DDR_3_START, XPAR_AXI_NOC_DDR_LOW_3_BASEADDR
+.set DDR_3_END, XPAR_AXI_NOC_DDR_LOW_3_HIGHADDR
+.set DDR_3_SIZE, (DDR_3_END - DDR_3_START)+1
+.if DDR_3_SIZE > 0xB780000000
+/* If DDR size is larger than 734 GB, truncate to 734GB */
+.set DDR_3_REG, 0x2de
+.else
+.set DDR_3_REG, DDR_3_SIZE/0x40000000
+.endif
+#else
+.set DDR_3_REG, 0
+#warning "There's no DDR_LOW_3 in the HW design. MMU translation table marks 734 GB DDR address space as undefined"
+#endif
+
+.set UNDEF_3_REG, 0x2de - DDR_3_REG
+
+.rept	DDR_3_REG		/* DDR based on size in hdf 0x100_0000_0000 - 0x1B7_7FFF_FFFF */
+.8byte	SECT + Memory		/* Maximum DDR region size - 734GB DDR */
 .set SECT, SECT + 0x40000000
+.endr
+
+.rept	UNDEF_3_REG		/* reserved for region where ddr is absent */
+.8byte	SECT + reserved
+.set	SECT, SECT+0x40000000
 .endr
 
 .rept	0x122			/* 0x1B7_8000_0000 - 0x1FF_FFFF_FFFF */
@@ -251,9 +297,9 @@ MMUTableL2:
 
 .set SECT, 0
 
-#ifdef XPAR_PSU_DDR_0_S_AXI_BASEADDR
-.set DDR_0_START, XPAR_PSU_DDR_0_S_AXI_BASEADDR
-.set DDR_0_END, XPAR_PSU_DDR_0_S_AXI_HIGHADDR
+#ifdef XPAR_AXI_NOC_DDR_LOW_0_BASEADDR
+.set DDR_0_START, XPAR_AXI_NOC_DDR_LOW_0_BASEADDR
+.set DDR_0_END, XPAR_AXI_NOC_DDR_LOW_0_HIGHADDR
 .set DDR_0_SIZE, (DDR_0_END - DDR_0_START)+1
 .if DDR_0_SIZE > 0x80000000
 /* If DDR size is larger than 2GB, truncate to 2GB */
