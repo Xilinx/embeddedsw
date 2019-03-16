@@ -28,7 +28,7 @@
 *******************************************************************************/
 /*****************************************************************************/
 /**
-* @file xgpiops_polled_example.c
+* @file xgpiops_polled_ps_example.c
 *
 * This file contains an example for using GPIO hardware and driver. This
 * example provides the usage of APIs for reading/writing to the individual pins.
@@ -72,7 +72,7 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define GPIO_DEVICE_ID  	XPAR_XGPIOPS_0_DEVICE_ID
+#define GPIO_DEVICE_ID  	XPAR_XGPIOPS_1_DEVICE_ID
 
 /*
  * The following constant is used to wait after an LED is turned on to make
@@ -132,7 +132,7 @@ int main(void)
 	}
 
 	printf("Data read from GPIO Input is  0x%x \n\r", (int)InputData);
-	printf("Successfully ran GPIO Polled Mode Example Test\r\n");
+	printf("Successfully ran GPIO Polled Mode PS Example Test\r\n");
 	return XST_SUCCESS;
 }
 
@@ -173,17 +173,13 @@ int GpioPolledExample(u16 DeviceId, u32 *DataRead)
 			break;
 
                 case XPLAT_versal:
-			Input_Pin = 14;
-			Output_Pin = 88;
+			Input_Pin = 50;
+			Output_Pin = 55;
                         break;
 		}
 
 	/* Initialize the GPIO driver. */
 	ConfigPtr = XGpioPs_LookupConfig(GPIO_DEVICE_ID);
-#ifdef versal
-        /* Accessing PMC GPIO by setting 1 value*/
-        Gpio.PmcGpio=1;
-#endif
 	Status = XGpioPs_CfgInitialize(&Gpio, ConfigPtr,
 					ConfigPtr->BaseAddr);
 	if (Status != XST_SUCCESS) {
