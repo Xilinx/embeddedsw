@@ -1,7 +1,6 @@
-
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -30,7 +29,7 @@
 /**
 *
 * @file xgpiops.h
-* @addtogroup gpiops_v3_4
+* @addtogroup gpiops_v3_5
 * @{
 * @details
 *
@@ -104,6 +103,11 @@
 *                     example, configured Interrupt pin to input pin for
 *                     proper functioning of interrupt example.
 * 3.4   aru  08/17/18 Resolved MISRA-C mandatory violations. CR# 1007751
+* 3.5   sne  03/01/19 Fixes violations according to MISRAC-2012
+*                     in saftey mode and modified the code such as
+*                     Use of mixed mode arithmetic,Declared the poiner param
+*                     as Pointer to const,Casting operation to a pointer,
+*                     Literal value requires a U suffix.
 * </pre>
 *
 ******************************************************************************/
