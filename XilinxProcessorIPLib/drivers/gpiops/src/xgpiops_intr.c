@@ -65,7 +65,7 @@
 
 /************************** Function Prototypes ******************************/
 
-void StubHandler(void *CallBackRef, u32 Bank, u32 Status);
+void StubHandler(const void *CallBackRef, u32 Bank, u32 Status);
 
 /****************************************************************************/
 /**
@@ -85,7 +85,7 @@ void StubHandler(void *CallBackRef, u32 Bank, u32 Status);
 * @note		None.
 *
 *****************************************************************************/
-void XGpioPs_IntrEnable(XGpioPs *InstancePtr, u8 Bank, u32 Mask)
+void XGpioPs_IntrEnable(const XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -110,7 +110,7 @@ void XGpioPs_IntrEnable(XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 * @note		None.
 *
 *****************************************************************************/
-void XGpioPs_IntrEnablePin(XGpioPs *InstancePtr, u32 Pin)
+void XGpioPs_IntrEnablePin(const XGpioPs *InstancePtr, u32 Pin)
 {
 	u8 Bank;
 	u8 PinNumber;
@@ -147,7 +147,7 @@ void XGpioPs_IntrEnablePin(XGpioPs *InstancePtr, u32 Pin)
 * @note		None.
 *
 *****************************************************************************/
-void XGpioPs_IntrDisable(XGpioPs *InstancePtr, u8 Bank, u32 Mask)
+void XGpioPs_IntrDisable(const XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -172,7 +172,7 @@ void XGpioPs_IntrDisable(XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 * @note		None.
 *
 *****************************************************************************/
-void XGpioPs_IntrDisablePin(XGpioPs *InstancePtr, u32 Pin)
+void XGpioPs_IntrDisablePin(const XGpioPs *InstancePtr, u32 Pin)
 {
 	u8 Bank;
 	u8 PinNumber;
@@ -208,7 +208,7 @@ void XGpioPs_IntrDisablePin(XGpioPs *InstancePtr, u32 Pin)
 * @note		None.
 *
 *****************************************************************************/
-u32 XGpioPs_IntrGetEnabled(XGpioPs *InstancePtr, u8 Bank)
+u32 XGpioPs_IntrGetEnabled(const XGpioPs *InstancePtr, u8 Bank)
 {
 	u32 IntrMask;
 
@@ -239,7 +239,7 @@ u32 XGpioPs_IntrGetEnabled(XGpioPs *InstancePtr, u8 Bank)
 * @note		None.
 *
 *****************************************************************************/
-u32 XGpioPs_IntrGetEnabledPin(XGpioPs *InstancePtr, u32 Pin)
+u32 XGpioPs_IntrGetEnabledPin(const XGpioPs *InstancePtr, u32 Pin)
 {
 	u8 Bank;
 	u8 PinNumber;
@@ -273,7 +273,7 @@ u32 XGpioPs_IntrGetEnabledPin(XGpioPs *InstancePtr, u32 Pin)
 * @note		None.
 *
 *****************************************************************************/
-u32 XGpioPs_IntrGetStatus(XGpioPs *InstancePtr, u8 Bank)
+u32 XGpioPs_IntrGetStatus(const XGpioPs *InstancePtr, u8 Bank)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -301,7 +301,7 @@ u32 XGpioPs_IntrGetStatus(XGpioPs *InstancePtr, u8 Bank)
 * @note		None.
 *
 *****************************************************************************/
-u32 XGpioPs_IntrGetStatusPin(XGpioPs *InstancePtr, u32 Pin)
+u32 XGpioPs_IntrGetStatusPin(const XGpioPs *InstancePtr, u32 Pin)
 {
 	u8 Bank;
 	u8 PinNumber;
@@ -338,7 +338,7 @@ u32 XGpioPs_IntrGetStatusPin(XGpioPs *InstancePtr, u32 Pin)
 * @note		None.
 *
 *****************************************************************************/
-void XGpioPs_IntrClear(XGpioPs *InstancePtr, u8 Bank, u32 Mask)
+void XGpioPs_IntrClear(const XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -363,7 +363,7 @@ void XGpioPs_IntrClear(XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 * @note		None.
 *
 *****************************************************************************/
-void XGpioPs_IntrClearPin(XGpioPs *InstancePtr, u32 Pin)
+void XGpioPs_IntrClearPin(const XGpioPs *InstancePtr, u32 Pin)
 {
 	u8 Bank;
 	u8 PinNumber;
@@ -415,7 +415,7 @@ void XGpioPs_IntrClearPin(XGpioPs *InstancePtr, u32 Pin)
 *		function XGpioPs_SetPinIntrType().
 *
 *****************************************************************************/
-void XGpioPs_SetIntrType(XGpioPs *InstancePtr, u8 Bank, u32 IntrType,
+void XGpioPs_SetIntrType(const XGpioPs *InstancePtr, u8 Bank, u32 IntrType,
 			  u32 IntrPolarity, u32 IntrOnAny)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -459,7 +459,7 @@ void XGpioPs_SetIntrType(XGpioPs *InstancePtr, u8 Bank, u32 IntrType,
 * @note		None.
 *
 *****************************************************************************/
-void XGpioPs_GetIntrType(XGpioPs *InstancePtr, u8 Bank, u32 *IntrType,
+void XGpioPs_GetIntrType(const XGpioPs *InstancePtr, u8 Bank, u32 *IntrType,
 			  u32 *IntrPolarity, u32 *IntrOnAny)
 
 {
@@ -496,7 +496,7 @@ void XGpioPs_GetIntrType(XGpioPs *InstancePtr, u8 Bank, u32 *IntrType,
 * @note		None.
 *
 *****************************************************************************/
-void XGpioPs_SetIntrTypePin(XGpioPs *InstancePtr, u32 Pin, u8 IrqType)
+void XGpioPs_SetIntrTypePin(const XGpioPs *InstancePtr, u32 Pin, u8 IrqType)
 {
 	u32 IntrTypeReg;
 	u32 IntrPolReg;
@@ -580,7 +580,7 @@ void XGpioPs_SetIntrTypePin(XGpioPs *InstancePtr, u32 Pin, u8 IrqType)
 *		returned by this function.
 *
 *****************************************************************************/
-u8 XGpioPs_GetIntrTypePin(XGpioPs *InstancePtr, u32 Pin)
+u8 XGpioPs_GetIntrTypePin(const XGpioPs *InstancePtr, u32 Pin)
 {
 	u32 IntrType;
 	u32 IntrPol;
@@ -681,7 +681,7 @@ void XGpioPs_SetCallbackHandler(XGpioPs *InstancePtr, void *CallBackRef,
 *		such that the user must provide this processing.
 *
 ******************************************************************************/
-void XGpioPs_IntrHandler(XGpioPs *InstancePtr)
+void XGpioPs_IntrHandler(const XGpioPs *InstancePtr)
 {
 	u8 Bank;
 	u32 IntrStatus;
@@ -695,7 +695,7 @@ void XGpioPs_IntrHandler(XGpioPs *InstancePtr)
 		if (IntrStatus != (u32)0) {
 			IntrEnabled = XGpioPs_IntrGetEnabled(InstancePtr,
 							      Bank);
-			XGpioPs_IntrClear((XGpioPs *)InstancePtr, Bank,
+			XGpioPs_IntrClear(InstancePtr, Bank,
 							(IntrStatus & IntrEnabled));
 			InstancePtr->Handler(InstancePtr->
 					     CallBackRef, Bank,
@@ -719,9 +719,9 @@ void XGpioPs_IntrHandler(XGpioPs *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-void StubHandler(void *CallBackRef, u32 Bank, u32 Status)
+void StubHandler(const void *CallBackRef, u32 Bank, u32 Status)
 {
-	(void) CallBackRef;
+	(const void) CallBackRef;
 	(void) Bank;
 	(void) Status;
 

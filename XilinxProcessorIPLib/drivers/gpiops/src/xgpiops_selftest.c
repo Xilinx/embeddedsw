@@ -77,7 +77,7 @@
 *
 *
 ******************************************************************************/
-s32 XGpioPs_SelfTest(XGpioPs *InstancePtr)
+s32 XGpioPs_SelfTest(const XGpioPs *InstancePtr)
 {
 	s32 Status = XST_SUCCESS;
 	u32 IntrEnabled;
