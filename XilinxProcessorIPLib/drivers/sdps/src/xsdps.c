@@ -742,7 +742,7 @@ s32 XSdPs_CardInitialize(XSdPs *InstancePtr)
 			InstancePtr->Switch1v8 = 1U;
 		}
 
-#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
 		if (InstancePtr->Switch1v8 != 0U) {
 
 			/* Identify the UHS mode supported by card */
@@ -766,7 +766,7 @@ s32 XSdPs_CardInitialize(XSdPs *InstancePtr)
 				if (((ReadBuff[13] & HIGH_SPEED_SUPPORT) != 0U) &&
 						(InstancePtr->BusWidth >= XSDPS_4_BIT_WIDTH)) {
 					InstancePtr->Mode = XSDPS_HIGH_SPEED_MODE;
-#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
 					InstancePtr->Config_TapDelay = XSdPs_hsd_sdr25_tapdelay;
 #endif
 					Status = XSdPs_Change_BusSpeed(InstancePtr);
@@ -776,7 +776,7 @@ s32 XSdPs_CardInitialize(XSdPs *InstancePtr)
 					}
 				}
 			}
-#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
 		}
 #endif
 
@@ -848,7 +848,7 @@ s32 XSdPs_CardInitialize(XSdPs *InstancePtr)
 				EXT_CSD_DEVICE_TYPE_SDR_1V2_HS200)) != 0U) &&
 				(InstancePtr->BusWidth >= XSDPS_4_BIT_WIDTH)) {
 			InstancePtr->Mode = XSDPS_HS200_MODE;
-#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
 			InstancePtr->Config_TapDelay = XSdPs_sdr104_hs200_tapdelay;
 #endif
 		} else if (((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
@@ -856,14 +856,14 @@ s32 XSdPs_CardInitialize(XSdPs *InstancePtr)
 				EXT_CSD_DEVICE_TYPE_DDR_1V2_HIGH_SPEED)) != 0U) &&
 				(InstancePtr->BusWidth >= XSDPS_4_BIT_WIDTH)) {
 			InstancePtr->Mode = XSDPS_DDR52_MODE;
-#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
 			InstancePtr->Config_TapDelay = XSdPs_ddr50_tapdelay;
 #endif
 		} else if (((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
 				EXT_CSD_DEVICE_TYPE_HIGH_SPEED) != 0U) &&
 				(InstancePtr->BusWidth >= XSDPS_4_BIT_WIDTH)) {
 			InstancePtr->Mode = XSDPS_HIGH_SPEED_MODE;
-#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
 			InstancePtr->Config_TapDelay = XSdPs_hsd_sdr25_tapdelay;
 #endif
 		} else

@@ -1026,7 +1026,7 @@ extern "C" {
 #define XSDPS_WIDTH_4		4U
 
 
-#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
 #define SD0_ITAPDLY_SEL_MASK		0x000000FFU
 #define SD0_OTAPDLY_SEL_MASK		0x0000003FU
 #define SD1_ITAPDLY_SEL_MASK		0x00FF0000U
@@ -1067,6 +1067,10 @@ extern "C" {
 #define SD1_OTAPDLYSEL_SD_HSD		0x00050000U
 #define SD1_OTAPDLYSEL_EMMC_HSD		0x00060000U
 
+#endif
+
+#ifdef __MICROBLAZE__
+#define XPS_SYS_CTRL_BASEADDR	0xFF180000U
 #endif
 
 /**************************** Type Definitions *******************************/
