@@ -723,6 +723,7 @@ void XHdcp22Rx_SetHdcp22OverProtocol(XHdcp22_Rx *InstancePtr,
 void XHdcp22_timer_attach(XHdcp22_Rx *InstancePtr, XTmrCtr *TmrCtrPtr);
 void XHdcp22Rx_TimerHandler(void *CallbackRef, u8 TmrCntNumber);
 void XHdcp22_RxSetLaneCount(XHdcp22_Rx *InstancePtr, u8 LaneCount);
+u32 XHdcp22_RxSetRxCaps(XHdcp22_Rx *InstancePtr, u8 enable);
 /* Functions for loading authentication constants */
 void XHdcp22Rx_LoadLc128(XHdcp22_Rx *InstancePtr, const u8 *Lc128Ptr);
 void XHdcp22Rx_LoadPublicCert(XHdcp22_Rx *InstancePtr, const u8 *PublicCertPtr);
