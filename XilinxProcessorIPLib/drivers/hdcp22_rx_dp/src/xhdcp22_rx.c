@@ -4724,4 +4724,38 @@ void XHdcp22_RxSetLaneCount(XHdcp22_Rx *InstancePtr, u8 LaneCount)
 	XHdcp22Cipher_SetLanecount(&InstancePtr->CipherInst, LaneCount);
 }
 
+/*****************************************************************************/
+/**
+ * This function sets the Rx_Caps in DPCD.
+ *
+ * @param	InstancePtr is the receiver instance.
+ * @param	Enable is to set or clear Rx_Caps.
+ *
+ * @return	XST_SUCCESS or XST_FAILURE.
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
+u32 XHdcp22_RxSetRxCaps(XHdcp22_Rx *InstancePtr, u8 enable)
+{
+	u8 rx_caps[RX_CAPS_SIZE] = {0};
+	u8 numwritten = 0;
+	void *callbackref = InstancePtr->Handles.RxDpAuxWriteCallbackRef;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	if (enable)
+		memcpy(rx_caps, InstancePtr->RxCaps, RX_CAPS_SIZE);
+
+	/* Write Rx_Caps */
+	numwritten = InstancePtr->Handles.RxDpAuxWriteCallback(callbackref,
+			RX_CAPS_OFFSET, rx_caps, RX_CAPS_SIZE);
+
+	if (numwritten != RX_CAPS_SIZE)
+		return XST_FAILURE;
+
+	return XST_SUCCESS;
+}
+
 /** @} */
