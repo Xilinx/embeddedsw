@@ -31,6 +31,7 @@
 #include "xpm_domain_iso.h"
 #include "xpm_regs.h"
 #include "xpm_reset.h"
+#include "xpm_bisr.h"
 #include "xparameters.h"
 
 XCframe CframeIns={0}; /* CFRAME Driver Instance */
@@ -224,11 +225,6 @@ static void PldApplyTrim(u32 TrimType)
         }
 }
 
-static void PldBramUramRepair()
-{
-
-}
-
 static XStatus PldCframeInit()
 {
         XStatus Status;
@@ -295,7 +291,14 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 	PldApplyTrim(XPM_PL_TRIM_URAM);
 
 	/* BRAM/URAM repair */
-	PldBramUramRepair();
+	Status = XPmBisr_Repair(BRAM_TAG_ID);
+	if (XST_SUCCESS != Status) {
+                goto done;
+        }
+	Status = XPmBisr_Repair(URAM_TAG_ID);
+	if (XST_SUCCESS != Status) {
+                goto done;
+        }
 
 	/* HCLEAN type 0,1,2 */
 	XCframe_WriteCmd(&CframeIns, XCFRAME_FRAME_BCAST,
@@ -314,11 +317,29 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 	/* CRAM TRIM */
 	PldApplyTrim(XPM_PL_TRIM_CRAM);
 
-	/* Todo BISR REPAIR - Add when supported in XilSkey */
-	//XilSKey_GetFirstBisrRecord
-	//XilSKey_GetNextBisrRecord
+	/* HB BISR REPAIR */
+	Status = XPmBisr_Repair(DCMAC_TAG_ID);
+	if (XST_SUCCESS != Status) {
+                goto done;
+        }
+	Status = XPmBisr_Repair(ILKN_TAG_ID);
+	if (XST_SUCCESS != Status) {
+                goto done;
+        }
+	Status = XPmBisr_Repair(MRMAC_TAG_ID);
+	if (XST_SUCCESS != Status) {
+                goto done;
+        }
+	Status = XPmBisr_Repair(SDFEC_TAG_ID);
+	if (XST_SUCCESS != Status) {
+                goto done;
+        }
 
 	/* LAGUNA REPAIR - not needed for now */
+
+	/* There is no status for Bisr done in hard ip. But we must ensure
+	 * BISR is complete before scan clear */
+	 /*TBD - Wait for how long?? Wei to confirm with DFT guys */
 
 	/* Fake read */
 	/* each register is 128 bits long so issue 4 reads */
