@@ -30,6 +30,7 @@
 #include "xpm_pslpdomain.h"
 #include "xpm_domain_iso.h"
 #include "xpm_reset.h"
+#include "xpm_bisr.h"
 
 static XStatus LpdPreHouseclean(u32 *Args, u32 NumOfArgs)
 {
@@ -198,26 +199,8 @@ static XStatus LpdBisr(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-#ifdef SPP_HACK
-	PmRmw32(LPD_SLCR_BISR_CACHE_CTRL_0, LPD_SLCR_BISR_TRIGGER_MASK,
-		LPD_SLCR_BISR_TRIGGER_MASK);
+	Status = XPmBisr_Repair(LPD_TAG_ID);
 
-	Status = XPm_PollForMask(LPD_SLCR_BISR_CACHE_STATUS,
-				 (LPD_SLCR_BISR_DONE_GLOBAL_MASK |
-				  LPD_SLCR_BISR_DONE_1_MASK |
-				  LPD_SLCR_BISR_DONE_0_MASK),
-				 XPM_POLL_TIMEOUT);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Status = XPm_PollForMask(LPD_SLCR_BISR_CACHE_STATUS,
-				 (LPD_SLCR_BISR_PASS_GLOBAL_MASK |
-				  LPD_SLCR_BISR_PASS_1_MASK |
-				  LPD_SLCR_BISR_PASS_0_MASK),
-				 XPM_POLL_TIMEOUT);
-done:
-#endif
 	return Status;
 }
 
