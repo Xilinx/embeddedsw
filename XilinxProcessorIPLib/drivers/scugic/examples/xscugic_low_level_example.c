@@ -242,7 +242,7 @@ void SetupInterruptSystem(void)
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
 			(Xil_ExceptionHandler) LowInterruptHandler,
-			CPU_BASEADDR);
+			(void *)CPU_BASEADDR);
 
 	/*
 	 * Enable interrupts in the ARM
