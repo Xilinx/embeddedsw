@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -138,7 +138,13 @@ static const PmAccessRegion pmAccessTable[] = {
 	/* IOU SLCR Registers required for Linux */
 	{
 		.startAddr = IOU_SLCR_BASE,
-		.endAddr = IOU_SLCR_BASE + 0x524,
+		.endAddr = IOU_SLCR_BASE + 0x2FFU,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK),
+	},
+
+	{
+		.startAddr = IOU_SLCR_BASE + 0x304U,
+		.endAddr = IOU_SLCR_BASE + 0x524U,
 		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK),
 	},
 
