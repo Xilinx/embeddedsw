@@ -1118,7 +1118,7 @@ proc generate {os_handle} {
 		}
 		if { [llength $ttc_ips] != 0 } {
 			foreach ttc_ip $ttc_ips {
-			if { $ttc_ip == "psu_ttc_0 || $ttc_ip == "psv_ttc_0"} {
+			if { $ttc_ip == "psu_ttc_0" || $ttc_ip == "psv_ttc_0"} {
 				set val [common::get_property CONFIG.PSU_TTC0_Select $os_handle]
 				if {$val == "true"} {
 					set have_tick_timer 1
