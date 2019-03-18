@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -73,6 +73,8 @@
 *       vns     07/28/16 Modified Bbram_ProgramKey_Ultra API to program control
 *                        word based on user inputs.
 * 6.4   vns     02/27/18 Added support for virtex and virtex ultrascale plus
+* 6.7   psl     03/18/19 Modified code to mask most significant nibble which
+*                        represents production version for ultrascale plus.
 * </pre>
 *
 *
@@ -1367,7 +1369,7 @@ int JtagServerInit(XilSKey_EPl *InstancePtr)
 			break;
 		}
 		if ((tap_codes[i] == KINTEX_ULTRAPLUS_DAP_ID) ||
-			(tap_codes[i] == VIRTEX_ULTRAPLUS_DAP_ID)) {
+			((tap_codes[i] & 0x0FFFFFFF) == VIRTEX_ULTRAPLUS_DAP_ID)) {
 			InstancePtr->FpgaFlag = XSK_FPGA_SERIES_ULTRA_PLUS;
 			break;
 		}
@@ -1491,7 +1493,7 @@ int JtagServerInitBbram(XilSKey_Bbram *InstancePtr)
 			break;
 		}
 		if ((tap_codes[i] == KINTEX_ULTRAPLUS_DAP_ID) ||
-			(tap_codes[i] == VIRTEX_ULTRAPLUS_DAP_ID)) {
+			((tap_codes[i] & 0x0FFFFFFF)== VIRTEX_ULTRAPLUS_DAP_ID)) {
 			InstancePtr->FpgaFlag = XSK_FPGA_SERIES_ULTRA_PLUS;
 			break;
 		}
