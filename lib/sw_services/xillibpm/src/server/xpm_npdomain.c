@@ -34,6 +34,7 @@
 #include "xpm_pslpdomain.h"
 #include "xpm_regs.h"
 #include "xpm_reset.h"
+#include "xpm_bisr.h"
 
 static XStatus NpdPreHouseclean(u32 *Args, u32 NumOfArgs)
 {
@@ -190,8 +191,8 @@ static XStatus NpdBisr(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	//XilSKey_GetFirstBisrRecord
-	//XilSKey_GetNextBisrRecord
+	Status = XPmBisr_Repair(DDRMC_TAG_ID);
+
 	return Status;
 }
 
