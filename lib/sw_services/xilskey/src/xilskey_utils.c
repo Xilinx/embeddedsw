@@ -68,6 +68,7 @@
 *                        validations
 *       arc     03/13/19 Added assert to validate lengths in
 *                        XilSKey_Efuse_ValidateKey()
+*       arc     03/15/19 Modified initial default status value as XST_FAILURE
 *
  *****************************************************************************/
 
@@ -123,7 +124,7 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 
 u32 XilSKey_EfusePs_XAdcInit (void)
 {
-	u32 Status = (u32)XST_SUCCESS;
+	u32 Status = (u32)XST_FAILURE;
 #ifdef XSK_ZYNQ_PLATFORM
 	XAdcPs_Config *ConfigPtr;
 	XAdcPs *XAdcInstPtr = &XAdcInst;
@@ -167,7 +168,6 @@ u32 XilSKey_EfusePs_XAdcInit (void)
 	Status = (u32)XST_SUCCESS;
 #endif
 #ifdef XSK_MICROBLAZE_PLATFORM
-	Status = (u32)XST_FAILURE;
 	goto END;
 #endif
 
@@ -440,7 +440,7 @@ END:
 ****************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks(void)
 {
-	u32 Status = (u32)XST_SUCCESS;
+	u32 Status = (u32)XST_FAILURE;
 	/**
 	 * Check the temperature and voltage(VCC_AUX and VCC_PINT_LP)
 	 */
@@ -466,6 +466,7 @@ u32 XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks(void)
 		Status = (u32)XSK_EFUSEPS_ERROR_READ_VCCPAUX_VOLTAGE_OUT_OF_RANGE;
 		goto END;
 	}
+	Status = (u32)XST_SUCCESS;
 END:
 #endif
 	return Status;
@@ -669,7 +670,7 @@ u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
 {
 	u32 ConvertedLen;
 	u8 LowerNibble = 0U, UpperNibble = 0U;
-	u32 Status = (u32)XST_SUCCESS;
+	u32 Status = (u32)XST_FAILURE;
 
 	/**
 	 * Check the parameters
@@ -737,6 +738,7 @@ u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
 				Str[ConvertedLen],Str[ConvertedLen+1],Buf[ConvertedLen/2]);
 		ConvertedLen += 2U;
 	}
+	Status = (u32)XST_SUCCESS;
 END:
 	return Status;
 }
@@ -779,7 +781,7 @@ u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len)
 	u32 ConvertedLen;
 		u8 LowerNibble = 0U, UpperNibble = 0U;
 		u32 StrIndex;
-		u32 Status = (u32)XST_SUCCESS;
+		u32 Status = (u32)XST_FAILURE;
 
 		/**
 		 * Check the parameters
@@ -847,6 +849,7 @@ u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len)
 			 */
 			ConvertedLen += 2U;
 		}
+	Status = (u32)XST_SUCCESS;
 END:
 	return Status;
 }
@@ -1083,7 +1086,7 @@ u32 XilSKey_Efuse_IsValidChar(const char *c)
 {
 	char ValidChars[] = "0123456789abcdefABCDEF";
 	char *RetVal;
-	u32 Status = (u32)XST_SUCCESS;
+	u32 Status = (u32)XST_FAILURE;
 
 	if(c == NULL) {
 		Status = (u32)XST_FAILURE;
@@ -1091,13 +1094,8 @@ u32 XilSKey_Efuse_IsValidChar(const char *c)
 	}
 
 	RetVal = strchr(ValidChars, (int)*c);
-	if(RetVal == NULL) {
-		Status = (u32)XST_FAILURE;
-		goto END;
-	}
-	else {
+	if(RetVal != NULL) {
 		Status = (u32)XST_SUCCESS;
-		goto END;
 	}
 END:
 	return Status;
@@ -1259,11 +1257,11 @@ u32 XilSKey_CrcCalculation(u8 *Key)
 		goto END;
 	}
 	if (Length < 64U) {
-		XilSKey_StrCpyRange(Key, &FullKey[64U - Length + 1U], 0U, Length-1);
+		XilSKey_StrCpyRange(Key, &FullKey[64U - Length + 1U], 0U, Length-1U);
 
 	}
 	else {
-		XilSKey_StrCpyRange(Key, FullKey, 0U, Length-1);
+		XilSKey_StrCpyRange(Key, FullKey, 0U, Length-1U);
 	}
 #ifdef XSK_MICROBLAZE_ULTRA_PLUS
 	MaxIndex = 16U;

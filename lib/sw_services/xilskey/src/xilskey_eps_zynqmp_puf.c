@@ -42,6 +42,7 @@
 * 6.2   vns  02/18/17 Added masking for PUF auxilary read.
 * 6.6   vns  06/06/18 Added doxygen tags
 * 6.7	arc  01/05/19 Fixed MISRA-C violations.
+*       arc  03/15/19 Modified initial default status value as XST_FAILURE
 * </pre>
 *
 *****************************************************************************/
@@ -105,7 +106,7 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufHelprData(XilSKey_Puf *InstancePtr)
 	u32 *TempPtr = InstancePtr->EfuseSynData;
 	XskEfusePs_Type EfuseType;
 	u8 DataInBits[32];
-	u32 Status = (u32)XST_SUCCESS;
+	u32 Status;
 
 	/* Unlock the controller */
 	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
@@ -360,7 +361,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPufChash(u32 *Address, u8 ReadOption)
 {
 
 	u32 Data;
-	u32 Status = (u32)XST_SUCCESS;
+	u32 Status = (u32)XST_FAILURE;
 	u32 *ChashPtr = (u32 *)Address;
 
 	if (ReadOption == XSK_EFUSEPS_READ_FROM_EFUSE) {
@@ -389,6 +390,7 @@ END:
 	else {
 		Data = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 				XSK_ZYNQMP_EFUSEPS_PUF_CHASH_OFFSET);
+		Status = (u32)XST_SUCCESS;
 	}
 
 	*ChashPtr = Data;
@@ -495,7 +497,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPufAux(u32 *Address, u8 ReadOption)
 {
 
 	u32 Data;
-	u32 Status = (u32)XST_SUCCESS;
+	u32 Status = (u32)XST_FAILURE;
 	u32 *AuxPtr = (u32 *)Address;
 
 	if (ReadOption == XSK_EFUSEPS_READ_FROM_EFUSE) {
@@ -527,6 +529,7 @@ END:
 		Data = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 			XSK_ZYNQMP_EFUSEPS_PUF_MISC_OFFSET) &
 			XSK_ZYNQMP_EFUSEPS_PUF_MISC_AUX_MASK;
+		Status = (u32)XST_SUCCESS;
 	}
 
 	*AuxPtr = Data;
@@ -709,7 +712,6 @@ END:
  ******************************************************************************/
 u32 XilSKey_Puf_Debug2(XilSKey_Puf *InstancePtr)
 {
-	u32 Status=XST_SUCCESS;
 	u32 PufStatus;
 	u32 Index;
 	u32 Debug = XSK_PUF_DEBUG_GENERAL;
@@ -747,7 +749,7 @@ u32 XilSKey_Puf_Debug2(XilSKey_Puf *InstancePtr)
 	}
 	xPuf_printf(Debug,"API: PUF Debug 2 completed\r\n");
 
-	return Status;
+	return (u32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -886,7 +888,7 @@ u32 XilSKey_Read_Puf_EfusePs_SecureBits(
 		XilSKey_Puf_Secure *SecureBitsRead, u8 ReadOption)
 {
 
-	u32 Status = XST_SUCCESS;
+	u32 Status;
 
 	if (ReadOption == XSK_EFUSEPS_READ_FROM_CACHE) {
 		Status = XilSKey_Read_Puf_EfusePs_SecureBits_Regs(
@@ -935,11 +937,12 @@ static inline u32 XilSKey_Read_Puf_EfusePs_SecureBits_Regs(
 {
 
 	u32 RegData = 0U;
-	u32 Status = (u32)XST_SUCCESS;
+	u32 Status;
 
 	if (ReadOption == XSK_EFUSEPS_READ_FROM_CACHE) {
 		RegData = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 				XSK_ZYNQMP_EFUSEPS_PUF_MISC_OFFSET);
+		Status = (u32)XST_SUCCESS;
 	}
 	else {
 		Status = XilSKey_ZynqMp_EfusePs_ReadRow(
@@ -988,7 +991,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_PufRowWrite(u8 Row,
 {
 
 	u8 Column;
-	u32 Status = (u32)XST_SUCCESS;
+	u32 Status = (u32)XST_FAILURE;
 
 	for (Column = 0U; Column < XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW;
 						Column++) {
@@ -1000,6 +1003,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_PufRowWrite(u8 Row,
 			}
 		}
 	}
+	Status = (u32)XST_SUCCESS;
 END:
 	return Status;
 
