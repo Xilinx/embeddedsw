@@ -35,6 +35,7 @@
 #include "xparameters.h"
 
 XCframe CframeIns={0}; /* CFRAME Driver Instance */
+XCfupmc CfupmcIns={0}; /* CFU Driver Instance */
 
 u32 GtyBaseAddressList[11] = {
 	GTY_NPI_SLAVE_0_BASEADDDRESS,
@@ -50,96 +51,61 @@ u32 GtyBaseAddressList[11] = {
 	GTY_NPI_SLAVE_10_BASEADDDRESS,
 };
 
-static XStatus PldPreHouseclean(u32 *Args, u32 NumOfArgs)
-{
-	XStatus Status = XST_SUCCESS;
 
-	(void)Args;
-	(void)NumOfArgs;
-
-	/* TODO: Proceed only if vccint, vccaux, vccint_ram is 1 */
-
-	/*TODO: Check NoC power state before disabling Isolation */
-
-	/* Remove PL-NoC isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_PL_SOC);
-	if (XST_SUCCESS != Status)
-		goto done;
-
-	/*TODO: Check FPD and LPD  power state before disabling Isolation */
-
-	/* Remove FPD-PL isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_FPD_PL);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_FPD_PL_TEST);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Remove LPD-PL isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_LPD_PL);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_LPD_PL_TEST);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Remove PL-PMC isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_PMC_PL);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_PMC_PL_TEST);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_PMC_PL_CFRAME);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Remove isolation from VCCINT to VCCINT_RAM*/
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_VCCRAM_SOC);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_VCCAUX_SOC);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_VCCAUX_VCCRAM);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Remove POR for PL */
-	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PL_POR),
-				     PM_RESET_ACTION_RELEASE);
-done:
-	return Status;
-}
 
 static XStatus PldPostHouseclean(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
+	u32 ErrStatus;
+	u32 ErrMask;
 
 	(void)Args;
 	(void)NumOfArgs;
 
+	 /* Wait for stream busy */
+        XCfupmc_WaitForStreamDone(&CfupmcIns);
+
+        ErrMask = CFU_APB_CFU_ISR_DECOMP_ERROR_MASK |
+                CFU_APB_CFU_ISR_BAD_CFI_PACKET_MASK |
+                CFU_APB_CFU_ISR_AXI_ALIGN_ERROR_MASK |
+                CFU_APB_CFU_ISR_CFI_ROW_ERROR_MASK |
+                CFU_APB_CFU_ISR_CRC32_ERROR_MASK |
+                CFU_APB_CFU_ISR_CRC8_ERROR_MASK;
+
+        ErrStatus = XCfupmc_ReadIsr(CfupmcIns) & ErrMask;
+        if ((ErrStatus & (CFU_APB_CFU_ISR_CRC8_ERROR_MASK |
+                                        CFU_APB_CFU_ISR_CRC32_ERROR_MASK)) != 0U)
+        {
+                Status = XST_FAILURE;
+		goto done;
+        }
+        else if((ErrStatus & (CFU_APB_CFU_ISR_CFI_ROW_ERROR_MASK |
+                                                CFU_APB_CFU_ISR_BAD_CFI_PACKET_MASK)) != 0U)
+        {
+                Status = XST_FAILURE;
+		goto done;
+        }
+        else {
+                /** do nothing */
+        }
+
+	/*wait for stream status */
+        Status = XCfupmc_WaitForStreamBusy(&CfupmcIns);
+        if (XST_SUCCESS != Status)
+        {
+                goto done;
+        }
+
+        /* Set CFU settings */
+        Status = XCfupmc_CheckParam(&CfupmcIns);
+        if (XST_SUCCESS != Status)
+        {
+                goto done;
+        }
+done:
 	return Status;
 }
 
-#ifdef SPP_HACK
 
 static XStatus PldGtyMbist(u32 BaseAddress)
 {
@@ -205,6 +171,43 @@ static void PldApplyTrim(u32 TrimType)
         }
 }
 
+XStatus PldCfuInit()
+{
+	XStatus Status;
+	XCfupmc_Config *Config;
+
+	if(CfupmcIns.IsReady)
+	{
+		Status = XST_SUCCESS;
+		goto done;
+	}
+	/*
+	 * Initialize the CFU driver so that it's ready to use
+	 * look up the configuration in the config table,
+	 * then initialize it.
+	 */
+	Config = XCfupmc_LookupConfig((u16)XPAR_XCFUPMC_0_DEVICE_ID);
+	if (NULL == Config) {
+                Status = XST_FAILURE;
+		goto done;
+	}
+
+	Status = XCfupmc_CfgInitialize(&CfupmcIns, Config, Config->BaseAddress);
+	if (Status != XST_SUCCESS) {
+		goto done;
+	}
+
+	/*
+	 * Performs the self-test to check hardware build.
+	 */
+	Status = XCfupmc_SelfTest(&CfupmcIns);
+	if (Status != XST_SUCCESS) {
+		goto done;
+	}
+
+done:
+	return Status;
+}
 static XStatus PldCframeInit()
 {
         XStatus Status;
@@ -322,7 +325,111 @@ done:
 	return Status;
 }
 
-#endif
+
+static XStatus PldPreHouseclean(u32 *Args, u32 NumOfArgs)
+{
+	XStatus Status = XST_SUCCESS;
+
+	(void)Args;
+	(void)NumOfArgs;
+
+	/* TODO: Proceed only if vccint, vccaux, vccint_ram is 1 */
+
+	/*TODO: Check NoC power state before disabling Isolation */
+
+	/* Enable Vgg Clamp in VGG Ctrl Register */
+        PmRmw32(PMC_ANALOG_VGG_CTRL,
+                       PMC_ANALOG_VGG_CTRL_EN_VGG_CLAMP_MASK,
+                       PMC_ANALOG_VGG_CTRL_EN_VGG_CLAMP_MASK);
+
+        /* Check for PL PowerUp */
+        Status = XPm_PollForMask(PMC_GLOBAL_PL_STATUS,
+                     PMC_GLOBAL_PL_STATUS_POR_PL_B_MASK, 0x1U);
+        if(XST_SUCCESS != Status)
+        {
+		goto done;
+        }
+
+	/* Remove PL-NoC isolation */
+	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_PL_SOC);
+	if (XST_SUCCESS != Status)
+		goto done;
+
+	/*TODO: Check FPD and LPD  power state before disabling Isolation */
+
+	/* Remove FPD-PL isolation */
+	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_FPD_PL);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_FPD_PL_TEST);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Remove LPD-PL isolation */
+	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_LPD_PL);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_LPD_PL_TEST);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Remove PL-PMC isolation */
+	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_PMC_PL);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_PMC_PL_TEST);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_PMC_PL_CFRAME);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Remove isolation from VCCINT to VCCINT_RAM*/
+	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_VCCRAM_SOC);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_VCCAUX_SOC);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_VCCAUX_VCCRAM);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Remove POR for PL */
+	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PL_POR),
+				     PM_RESET_ACTION_RELEASE);
+	Status = PldCfuInit();
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = PldCframeInit();
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Enable the global signals */
+	XCfupmc_SetGlblSigEn(&CframeIns, (u8 )TRUE);
+
+done:
+	return Status;
+}
 
 static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 {
@@ -331,13 +438,7 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-#ifdef SPP_HACK
 	u32 Value = 0, i = 0;
-
-	Status = PldCframeInit();
-	 if (XST_SUCCESS != Status) {
-                goto done;
-        }
 
 	/* Enable ROWON */
 	XCframe_WriteCmd(&CframeIns, XCFRAME_FRAME_BCAST,
@@ -365,10 +466,12 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
                                 XCFRAME_CMD_REG_HCLEAN);
 
 	 /* Poll for house clean completion */
-	PmIn32(CFU_APB_CFU_STATUS, Value);
-        while ((Value & CFU_APB_CFU_STATUS_HC_COMPLETE_MASK) !=
+
+	while ((Xil_In32(CFU_APB_CFU_STATUS) &
+                        CFU_APB_CFU_STATUS_HC_COMPLETE_MASK) !=
                                 CFU_APB_CFU_STATUS_HC_COMPLETE_MASK);
-        while ((Value & CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK) ==
+        while ((Xil_In32(CFU_APB_CFU_STATUS) &
+                        CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK) ==
                                 CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK);
 
 	/* VGG TRIM */
@@ -394,7 +497,7 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 	if (XST_SUCCESS != Status) {
                 goto done;
         }
-
+#ifdef SPP_HACK
 	/* LAGUNA REPAIR - not needed for now */
 
 	/* There is no status for Bisr done in hard ip. But we must ensure
@@ -437,8 +540,15 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 	if (XST_SUCCESS != Status) {
                 goto done;
         }
-done:
 #endif
+	XCfupmc_GlblSeqInit(&CfupmcIns);
+
+        /* Set CFU settings */
+        CfupmcIns.Crc8Dis=1U;
+        //CfupmcIns.DeCompress=1U;
+        XCfupmc_SetParam(&CfupmcIns);
+
+done:
 	return Status;
 }
 
