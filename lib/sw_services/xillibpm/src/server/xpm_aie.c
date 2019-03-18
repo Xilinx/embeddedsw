@@ -29,6 +29,7 @@
 #include "xpm_common.h"
 #include "xpm_aie.h"
 #include "xpm_regs.h"
+#include "xpm_bisr.h"
 
 #define ME_PCSR_KEY 0xF9E8D7C6U
 #define AIE_POLL_TIMEOUT 0X1000000U
@@ -139,8 +140,19 @@ static XStatus AieBisr()
 {
 	XStatus Status = XST_SUCCESS;
 
-	/* TODO: Copy BISR vectors from EFUSE to AIE BISR CACHE*/
-	/* TODO: Trigger and wait for BISR to complete */
+	Status = XPmBisr_Repair(MEA_TAG_ID);
+	if (XST_SUCCESS != Status) {
+                goto done;
+        }
+	Status = XPmBisr_Repair(MEB_TAG_ID);
+	if (XST_SUCCESS != Status) {
+                goto done;
+        }
+	Status = XPmBisr_Repair(MEC_TAG_ID);
+	if (XST_SUCCESS != Status) {
+                goto done;
+        }
+done:
 	return Status;
 }
 

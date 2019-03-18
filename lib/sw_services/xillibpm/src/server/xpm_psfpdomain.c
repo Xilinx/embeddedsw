@@ -28,6 +28,7 @@
 
 #include "xpm_common.h"
 #include "xpm_psfpdomain.h"
+#include "xpm_bisr.h"
 
 static XStatus FpdPreHouseclean(u32 *Args, u32 NumOfArgs)
 {
@@ -103,17 +104,10 @@ static XStatus FpdBisr(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	Payload[0] = PSM_API_FPD_HOUSECLEAN;
-	Payload[1] = FUNC_BISR;
+	/* Bisr is handled by FPD_SLCR registers only so no
+	 * need to involve PSM */
+	Status = XPmBisr_Repair(FPD_TAG_ID);
 
-	Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Status = XPm_IpiReadStatus(PSM_IPI_INT_MASK);
-
-done:
 	return Status;
 }
 
