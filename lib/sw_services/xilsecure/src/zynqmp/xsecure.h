@@ -50,6 +50,7 @@
 * 3.2   ka   08/03/18 Added XSecure_Aes Api's to encrypt or decrypt data-blobs.
 * 4.0   arc  18/12/18 Fixed MISRA-C violation.
 *       arc  12/02/19 Added support for validate image format.
+*       rama 18/03/19 Fixed IAR compiler errors and warnings
 * </pre>
 *
 * @note
@@ -313,13 +314,24 @@ typedef struct {
 }XSecure_ImageInfo;
 
 /************************** Variable Definitions *****************************/
-u8 EfusePpk[XSECURE_PPK_SIZE]__attribute__ ((aligned (32)));
+#if defined (__GNUC__)
+extern u8 EfusePpk[XSECURE_PPK_SIZE]__attribute__ ((aligned (32)));
 			/**< eFUSE verified PPK */
-u8 AcBuf[XSECURE_AUTH_CERT_MIN_SIZE]__attribute__ ((aligned (32)));
+extern u8 AcBuf[XSECURE_AUTH_CERT_MIN_SIZE]__attribute__ ((aligned (32)));
 			/**< Buffer to store authentication certificate */
-u8 Buffer[XSECURE_BUFFER_SIZE] __attribute__ ((aligned (32)));
+extern u8 Buffer[XSECURE_BUFFER_SIZE] __attribute__ ((aligned (32)));
 			/**< Buffer to store */
-
+#elif defined (__ICCARM__)
+#pragma data_alignment = 32
+extern u8 EfusePpk[XSECURE_PPK_SIZE];
+			/**< eFUSE verified PPK */
+#pragma data_alignment = 32
+extern u8 AcBuf[XSECURE_AUTH_CERT_MIN_SIZE];
+			/**< Buffer to store authentication certificate */
+#pragma data_alignment = 32
+extern u8 Buffer[XSECURE_BUFFER_SIZE];
+			/**< Buffer to store */
+#endif
 extern u32 XsecureIv[XSECURE_IV_LEN];
 extern u32 XsecureKey[XSECURE_KEY_LEN];
 /***************** Macros (Inline Functions) Definitions *********************/
