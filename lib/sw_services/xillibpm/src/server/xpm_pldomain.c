@@ -140,29 +140,11 @@ static XStatus PldPostHouseclean(u32 *Args, u32 NumOfArgs)
 }
 
 #ifdef SPP_HACK
-static XStatus PldGtyBisr( )
-{
-	XStatus Status = XST_SUCCESS;
-
-	/* Todo BISR - Add when supported in XilSkey */
-
-	return Status;
-}
-
-static XStatus PldCpmBisr( )
-{
-	XStatus Status = XST_SUCCESS;
-
-	/* Todo BISR - Add when supported in XilSkey */
-
-	return Status;
-}
 
 static XStatus PldGtyMbist(u32 BaseAddress)
 {
 	XStatus Status = XST_SUCCESS;
 
-	PmOut32(BaseAddress + GTY_PCSR_LOCK_OFFSET, 0);
 	PmOut32(BaseAddress + GTY_PCSR_MASK_OFFSET, GTY_PCSR_MEM_CLEAR_TRIGGER_MASK);
 	PmOut32(BaseAddress + GTY_PCSR_CONTROL_OFFSET, GTY_PCSR_MEM_CLEAR_TRIGGER_MASK);
 	Status = XPm_PollForMask(BaseAddress + GTY_PCSR_STATUS_OFFSET, GTY_PCSR_STATUS_MEM_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
@@ -173,8 +155,6 @@ static XStatus PldGtyMbist(u32 BaseAddress)
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
-
-	PmOut32(BaseAddress + GTY_PCSR_LOCK_OFFSET, 1);
 done:
 	return Status;
 }
@@ -260,6 +240,86 @@ static XStatus PldCframeInit()
 
 done:
         return Status;
+}
+
+static XStatus GtyHouseClean()
+{
+	XStatus Status = XST_SUCCESS;
+	int i;
+
+	for (i=0; i<sizeof(GtyBaseAddressList)/sizeof(GtyBaseAddressList[0]); i++) {
+		PmOut32(GtyBaseAddressList[i] + GTY_PCSR_LOCK_OFFSET, 0);
+		/* Deassert INITCTRL */
+		PmOut32(GtyBaseAddressList[i] + GTY_PCSR_MASK_OFFSET, GTY_PCSR_INITCTRL_MASK);
+		PmOut32(GtyBaseAddressList[i] + GTY_PCSR_CONTROL_OFFSET, 0);
+		PmOut32(GtyBaseAddressList[i] + GTY_PCSR_LOCK_OFFSET, 1);
+	}
+
+	/* Bisr repair - Bisr should be triggered only for Addresses for wich repair
+	 * data is found and so not calling in loop. Trigger is handled in below routine
+	 * */
+	Status = XPmBisr_Repair(GTY_TAG_ID);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	for (i=0; i<sizeof(GtyBaseAddressList)/sizeof(GtyBaseAddressList[0]); i++) {
+		PmOut32(GtyBaseAddressList[i] + GTY_PCSR_LOCK_OFFSET, 0);
+		/* Mbist */
+		Status = PldGtyMbist(GtyBaseAddressList[i]);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		PmOut32(GtyBaseAddressList[i] + GTY_PCSR_LOCK_OFFSET, 1);
+	}
+done:
+	return Status;
+}
+
+static XStatus CpmHouseClean()
+{
+	XStatus Status = XST_SUCCESS;
+
+	/* Unlock PCSR */
+	PmOut32(CPM_PCSR_LOCK, 0);
+
+	/* Run scan clear on CPM */
+	PmOut32(CPM_PCSR_MASK, CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK);
+	PmOut32(CPM_PCSR_PCR, CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK);
+	Status = XPm_PollForMask(CPM_PCSR_PSR, CPM_PCSR_PSR_SCAN_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+	Status = XPm_PollForMask(CPM_PCSR_PSR, CPM_PCSR_PSR_SCAN_CLEAR_PASS_MASK, XPM_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Bisr */
+	Status = XPmBisr_Repair(CPM_TAG_ID);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Mbist */
+	PmOut32(CPM_PCSR_MASK, CPM_PCSR_PCR_MEM_CLEAR_TRIGGER_MASK);
+	PmOut32(CPM_PCSR_PCR, CPM_PCSR_PCR_MEM_CLEAR_TRIGGER_MASK);
+
+	/* Poll for status */
+	Status = XPm_PollForMask(CPM_PCSR_PSR, CPM_PCSR_PSR_MEM_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+	Status = XPm_PollForMask(CPM_PCSR_PSR, CPM_PCSR_PSR_MEM_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Lock PCSR */
+	PmOut32(CPM_PCSR_LOCK, 1);
+
+done:
+	return Status;
 }
 
 #endif
@@ -366,37 +426,17 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 	PmOut32(CFU_APB_CFU_MASK, CFU_APB_CFU_FGCR_INIT_COMPLETE_MASK);
 	PmOut32(CFU_APB_CFU_FGCR, CFU_APB_CFU_FGCR_INIT_COMPLETE_MASK);
 
-	/* Run scan clear on CPM */
-	PmOut32(CPM_PCSR_LOCK, 0);
-	PmOut32(CPM_PCSR_MASK, CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK);
-	PmOut32(CPM_PCSR_PCR, CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK);
-	Status = XPm_PollForMask(CPM_PCSR_PSR, CPM_PCSR_PSR_SCAN_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
+	/*House clean GTY*/
+	Status = GtyHouseClean();
 	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-	Status = XPm_PollForMask(CPM_PCSR_PSR, CPM_PCSR_PSR_SCAN_CLEAR_PASS_MASK, XPM_POLL_TIMEOUT);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-	PmOut32(CPM_PCSR_LOCK, 1);
+                goto done;
+        }
 
-	/* Run BISR on GTY, CPM */
-	Status = PldGtyBisr();
+	/*House clean CPM*/
+	Status = CpmHouseClean();
 	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-	Status = PldCpmBisr();
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Run MBIST on GTY */
-	for (i=0; i<sizeof(GtyBaseAddressList)/sizeof(GtyBaseAddressList[0]); i++) {
-		Status = PldGtyMbist(GtyBaseAddressList[i]);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-	}
+                goto done;
+        }
 done:
 #endif
 	return Status;
