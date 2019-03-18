@@ -447,6 +447,25 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 	/* HCLEANR type 3,4,5,6 */
 	XCframe_WriteCmd(&CframeIns, XCFRAME_FRAME_BCAST,
                         XCFRAME_CMD_REG_HCLEANR);
+
+	/* HB BISR REPAIR */
+        Status = XPmBisr_Repair(DCMAC_TAG_ID);
+        if (XST_SUCCESS != Status) {
+                goto done;
+        }
+        Status = XPmBisr_Repair(ILKN_TAG_ID);
+        if (XST_SUCCESS != Status) {
+                goto done;
+        }
+        Status = XPmBisr_Repair(MRMAC_TAG_ID);
+        if (XST_SUCCESS != Status) {
+                goto done;
+        }
+        Status = XPmBisr_Repair(SDFEC_TAG_ID);
+        if (XST_SUCCESS != Status) {
+                goto done;
+        }
+
 	/* BRAM/URAM TRIM */
 	PldApplyTrim(XPM_PL_TRIM_BRAM);
 	PldApplyTrim(XPM_PL_TRIM_URAM);
@@ -480,23 +499,6 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 	/* CRAM TRIM */
 	PldApplyTrim(XPM_PL_TRIM_CRAM);
 
-	/* HB BISR REPAIR */
-	Status = XPmBisr_Repair(DCMAC_TAG_ID);
-	if (XST_SUCCESS != Status) {
-                goto done;
-        }
-	Status = XPmBisr_Repair(ILKN_TAG_ID);
-	if (XST_SUCCESS != Status) {
-                goto done;
-        }
-	Status = XPmBisr_Repair(MRMAC_TAG_ID);
-	if (XST_SUCCESS != Status) {
-                goto done;
-        }
-	Status = XPmBisr_Repair(SDFEC_TAG_ID);
-	if (XST_SUCCESS != Status) {
-                goto done;
-        }
 #ifdef SPP_HACK
 	/* LAGUNA REPAIR - not needed for now */
 
