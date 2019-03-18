@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -132,28 +132,6 @@ extern "C" {
 #define PMC_ANALOG_LBIST_DONE			( ( PMC_ANALOG_BASEADDR ) + 0X00020210U )
 #define PMC_ANALOG_LBIST_DONE_LPD_RPU_MASK	0X00000002U
 #define PMC_ANALOG_LBIST_DONE_LPD_MASK		0X00000001U
-
-/**
- * LPD_SLCR base address
- */
-#define LPD_SLCR_BASEADDR			(0xFF410000U)
-
-/**
- * Register: LPD_SLCR_BISR_CACHE_CTRL_0
- */
-#define LPD_SLCR_BISR_CACHE_CTRL_0		( ( LPD_SLCR_BASEADDR ) + 0x00000100U )
-#define LPD_SLCR_BISR_TRIGGER_MASK		0X00000001U
-
-/**
- * Register: LPD_SLCR_BISR_CACHE_STATUS
- */
-#define LPD_SLCR_BISR_CACHE_STATUS		( ( LPD_SLCR_BASEADDR ) + 0x00000108U )
-#define LPD_SLCR_BISR_PASS_GLOBAL_MASK		(0X8000000U)
-#define LPD_SLCR_BISR_DONE_GLOBAL_MASK		(0X4000000U)
-#define LPD_SLCR_BISR_PASS_1_MASK		(0X0000008U)
-#define LPD_SLCR_BISR_DONE_1_MASK		(0X0000004U)
-#define LPD_SLCR_BISR_PASS_0_MASK		(0X0000002U)
-#define LPD_SLCR_BISR_DONE_0_MASK		(0X0000001U)
 
 typedef struct XPm_PsLpDomain XPm_PsLpDomain;
 
