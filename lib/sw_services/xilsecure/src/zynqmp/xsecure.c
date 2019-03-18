@@ -59,6 +59,7 @@
 *       ka  10/25/18 Added support to clear user key after use.
 * 4.0   arc 18/12/18 Fixed MISRA-C violations.
 *       arc 12/02/19 Added support for validate image format.
+*       rama 18/03/19 Fixed IAR compiler errors and warnings
 *
 * </pre>
 *
@@ -76,6 +77,24 @@ static XSecure_Rsa Secure_Rsa;
 static XSecure_Sha3 Sha3Instance;
 
 XCsuDma CsuDma = {0U};
+#if defined (__GNUC__)
+u8 EfusePpk[XSECURE_PPK_SIZE]__attribute__ ((aligned (32)));
+			/**< eFUSE verified PPK */
+u8 AcBuf[XSECURE_AUTH_CERT_MIN_SIZE]__attribute__ ((aligned (32)));
+			/**< Buffer to store authentication certificate */
+u8 Buffer[XSECURE_BUFFER_SIZE] __attribute__ ((aligned (32)));
+			/**< Buffer to store */
+#elif defined (__ICCARM__)
+#pragma data_alignment = 32
+u8 EfusePpk[XSECURE_PPK_SIZE];
+			/**< eFUSE verified PPK */
+#pragma data_alignment = 32
+u8 AcBuf[XSECURE_AUTH_CERT_MIN_SIZE];
+			/**< Buffer to store authentication certificate */
+#pragma data_alignment = 32
+u8 Buffer[XSECURE_BUFFER_SIZE];
+			/**< Buffer to store */
+#endif
 u32 XsecureIv[XSECURE_IV_LEN];
 u32 XsecureKey[XSECURE_KEY_LEN];
 
@@ -938,6 +957,7 @@ u32 XSecure_AuthenticationHeaders(u8 *StartAddr, XSecure_ImageInfo *ImageInfo)
 	u32 SizeofImgHdr;
 	u32 PhOffset;
 	u8 *IvPtr = (u8 *)(UINTPTR)XsecureIv;
+	XSecure_PartitionHeader *Ph;
 	u8 BootgenBinFormat[] = {0x66, 0x55, 0x99, 0xAA,
 				 0x58, 0x4E, 0x4C, 0x58};/* Sync Word */
 
@@ -1076,7 +1096,7 @@ u32 XSecure_AuthenticationHeaders(u8 *StartAddr, XSecure_ImageInfo *ImageInfo)
 	PhOffset = Xil_In32((UINTPTR)(Buffer + XSECURE_PH_OFFSET));
 
 	/* Partition header offset is w.r.t to image start address */
-	XSecure_PartitionHeader *Ph = (XSecure_PartitionHeader *)((UINTPTR)
+	Ph = (XSecure_PartitionHeader *)((UINTPTR)
 		(Buffer + ((PhOffset * XSECURE_WORD_LEN) - ImgHdrToffset)));
 
 	if (Ph->NextPartitionOffset != 0x00U) {

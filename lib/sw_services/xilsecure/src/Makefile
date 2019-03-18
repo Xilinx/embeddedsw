@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2013 - 2015 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -32,8 +32,6 @@ CP=cp
 COMPILER_FLAGS =
 LIB=libxilsecure.a
 
-EXTRA_ARCHIVE_FLAGS=rc
-
 RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
@@ -46,10 +44,14 @@ SECURE_OBJS = $(addprefix $(SECURE_DIR)/, $(SECURE_SRCS:%.c=%.o))
 
 INCLUDEFILES := $(wildcard *.h)
 
+ifeq ($(notdir $(COMPILER)) , iccarm)
+	EXTRA_ARCHIVE_FLAGS=--create
+else
 ifeq ($(notdir $(COMPILER)) , armclang)
       EXTRA_ARCHIVE_FLAGS=-rc
 else
        EXTRA_ARCHIVE_FLAGS=rc
+endif
 endif
 
 libs: libxilsecure.a
