@@ -322,10 +322,10 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 
 	/* Fake read */
 	/* each register is 128 bits long so issue 4 reads */
-	PmIn32(CFRAME_REG_BASEADDR + 0, Value);
-	PmIn32(CFRAME_REG_BASEADDR + 4, Value);
-	PmIn32(CFRAME_REG_BASEADDR + 8, Value);
-	PmIn32(CFRAME_REG_BASEADDR + 12, Value);
+	PmIn32(CFRAME0_REG_BASEADDR + 0, Value);
+	PmIn32(CFRAME0_REG_BASEADDR + 4, Value);
+	PmIn32(CFRAME0_REG_BASEADDR + 8, Value);
+	PmIn32(CFRAME0_REG_BASEADDR + 12, Value);
 
 	/* PL scan clear / MBIST */
 	PmOut32(CFU_APB_CFU_MASK, CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
