@@ -152,15 +152,23 @@ static XStatus NpdMbist(u32 *AddressList, u32 NumOfAddress)
 	u32 RegValue;
 	int i;
 
+	/* Deassert PCSR Lock*/
 	for(i=0; i<NumOfAddress; i++)
 	{
-		PmRmw32(AddressList[i] + PSCR_CONTROL_OFFSET, PSCR_CONTROL_MEM_CLEAR_TRIGGER_MASK,
-			PSCR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
+		PmOut32(AddressList[i] + NPI_PSCR_LOCK_OFFSET, 0);
+	}
+
+	/* TBD: Enable ILA clock for DDR blocks*/
+
+	for(i=0; i<NumOfAddress; i++)
+	{
+		PmOut32(AddressList[i] + NPI_PSCR_MASK_OFFSET, NPI_PSCR_CONTROL_MEM_CLEAR_TRIGGER_MASK)
+		PmOut32(AddressList[i] + NPI_PSCR_CONTROL_OFFSET, NPI_PSCR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
 	}
 	for(i=0; i<NumOfAddress; i++)
 	{
-		Status = XPm_PollForMask(AddressList[i] + PSCR_STATUS_OFFSET,
-				 PSCR_STATUS_MEM_CLEAR_DONE_MASK,
+		Status = XPm_PollForMask(AddressList[i] + NPI_PSCR_STATUS_OFFSET,
+				 NPI_PSCR_STATUS_MEM_CLEAR_DONE_MASK,
 				 XPM_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
 			goto done;
@@ -169,12 +177,20 @@ static XStatus NpdMbist(u32 *AddressList, u32 NumOfAddress)
 
 	for(i=0; i<NumOfAddress; i++)
 	{
-		PmIn32(AddressList[i] + PSCR_STATUS_OFFSET, RegValue);
-		if (PSCR_STATUS_MEM_CLEAR_PASS_MASK !=
-		    (RegValue & PSCR_STATUS_MEM_CLEAR_PASS_MASK)) {
+		PmIn32(AddressList[i] + NPI_PSCR_STATUS_OFFSET, RegValue);
+		if (NPI_PSCR_STATUS_MEM_CLEAR_PASS_MASK !=
+		    (RegValue & NPI_PSCR_STATUS_MEM_CLEAR_PASS_MASK)) {
 			Status = XST_FAILURE;
 			goto done;
 		}
+	}
+
+	/* TBD: Disable ILA clock for DDR blocks*/
+
+	/* Assert PCSR Lock*/
+	for(i=0; i<NumOfAddress; i++)
+	{
+		PmOut32(AddressList[i] + NPI_PSCR_LOCK_OFFSET, 1);
 	}
 done:
 #else
