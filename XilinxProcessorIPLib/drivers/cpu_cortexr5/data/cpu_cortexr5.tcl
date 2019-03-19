@@ -37,6 +37,8 @@
 # 1.4   srm  02/21/18 Updated freertos to 10.0
 # 1.5   asa  03/01/19 Updated to add hard float support for R5 FreeRTOS
 #                     BSP.
+# 1.5   mus  03/19/19 Updated to add hard float support for IAR R5
+#                     BSP.
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -108,12 +110,14 @@ proc xdefine_cortexr5_params {drvhandle} {
     set extra_flags [::common::get_property VALUE [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ] ]
     if {[string compare -nocase $compiler_name "iccarm"] == 0} {
 	set temp_flag $extra_flags
-	if {[string compare -nocase $temp_flag "--debug -DARMR5"] != 0} {
+	if {[string compare -nocase $temp_flag "--debug -DARMR5 --fpu=VFPv3_D16"] != 0} {
 		regsub -- {-g -DARMR5 -Wall -Wextra} $temp_flag "" temp_flag
 		regsub -- {--debug} $temp_flag "" temp_flag
 		regsub -- {-mfloat-abi=hard} $temp_flag "" temp_flag
                 regsub -- {-mfpu=vfpv3-d16} $temp_flag "" temp_flag
-		set extra_flags "--debug -DARMR5 $temp_flag"
+		regsub -- {--fpu=VFPv3_D16} $temp_flag "" temp_flag
+		regsub -- {-DARMR5} $temp_flag "" temp_flag
+		set extra_flags "--debug -DARMR5 --fpu=VFPv3_D16 $temp_flag"
 		common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
 	}
 
