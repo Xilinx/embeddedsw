@@ -62,47 +62,7 @@ static XStatus PldPostHouseclean(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	 /* Wait for stream busy */
-        XCfupmc_WaitForStreamDone(&CfupmcIns);
-
-        ErrMask = CFU_APB_CFU_ISR_DECOMP_ERROR_MASK |
-                CFU_APB_CFU_ISR_BAD_CFI_PACKET_MASK |
-                CFU_APB_CFU_ISR_AXI_ALIGN_ERROR_MASK |
-                CFU_APB_CFU_ISR_CFI_ROW_ERROR_MASK |
-                CFU_APB_CFU_ISR_CRC32_ERROR_MASK |
-                CFU_APB_CFU_ISR_CRC8_ERROR_MASK;
-
-        ErrStatus = XCfupmc_ReadIsr(CfupmcIns) & ErrMask;
-        if ((ErrStatus & (CFU_APB_CFU_ISR_CRC8_ERROR_MASK |
-                                        CFU_APB_CFU_ISR_CRC32_ERROR_MASK)) != 0U)
-        {
-                Status = XST_FAILURE;
-		goto done;
-        }
-        else if((ErrStatus & (CFU_APB_CFU_ISR_CFI_ROW_ERROR_MASK |
-                                                CFU_APB_CFU_ISR_BAD_CFI_PACKET_MASK)) != 0U)
-        {
-                Status = XST_FAILURE;
-		goto done;
-        }
-        else {
-                /** do nothing */
-        }
-
-	/*wait for stream status */
-        Status = XCfupmc_WaitForStreamBusy(&CfupmcIns);
-        if (XST_SUCCESS != Status)
-        {
-                goto done;
-        }
-
-        /* Set CFU settings */
-        Status = XCfupmc_CheckParam(&CfupmcIns);
-        if (XST_SUCCESS != Status)
-        {
-                goto done;
-        }
-done:
+	XCfupmc_GlblSeqInit(&CfupmcIns);
 	return Status;
 }
 
@@ -440,6 +400,10 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 
 	u32 Value = 0, i = 0;
 
+#ifdef PLPD_HOUSECLEAN_BYPASS
+	return XST_SUCCESS;
+#endif
+
 	/* Enable ROWON */
 	XCframe_WriteCmd(&CframeIns, XCFRAME_FRAME_BCAST,
                         XCFRAME_CMD_REG_ROWON);
@@ -543,12 +507,6 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
                 goto done;
         }
 #endif
-	XCfupmc_GlblSeqInit(&CfupmcIns);
-
-        /* Set CFU settings */
-        CfupmcIns.Crc8Dis=1U;
-        //CfupmcIns.DeCompress=1U;
-        XCfupmc_SetParam(&CfupmcIns);
 
 done:
 	return Status;
