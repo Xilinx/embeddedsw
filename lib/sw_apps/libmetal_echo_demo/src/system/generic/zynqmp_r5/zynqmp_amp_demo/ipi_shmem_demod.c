@@ -142,8 +142,6 @@ static int ipi_shmem_echod(struct metal_io_region *ipi_io,
 		ret = -ENOMEM;
 		goto out;
 	}
-	/* Clear shared memory */
-	metal_io_block_set(shm_io, 0, 0, metal_io_region_size(shm_io));
 
 	/* Set tx/rx buffer address offset */
 	tx_avail_offset = SHM_DESC_OFFSET_TX + SHM_DESC_AVAIL_OFFSET;
