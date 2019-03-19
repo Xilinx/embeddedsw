@@ -100,10 +100,10 @@
 #define SIZE		0x100		/**< Size of the data to be
 					  *  transfered */
 #if defined(__ICCARM__)
-    #pragma data_alignment = 64
+	#pragma data_alignment = 64
 	u32 DstBuf[SIZE]; /**< Destination buffer */
+	#pragma data_alignment = 64
 	u32 SrcBuf[SIZE]; /**< Source buffer */
-	#pragma data_alignment = 4
 #else
 u32 DstBuf[SIZE] __attribute__ ((aligned (64)));	/**< Destination buffer */
 u32 SrcBuf[SIZE] __attribute__ ((aligned (64)));	/**< Source buffer */
