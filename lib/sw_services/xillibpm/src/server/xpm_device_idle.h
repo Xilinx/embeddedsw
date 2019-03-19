@@ -33,6 +33,10 @@
 #include "xillibpm_node.h"
 #include "xpm_device.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct XPmDevice_SoftResetInfo {
 	u32 DeviceId;
 	void (*SoftRst)(u32);	/**< Individual IP soft reset function */
@@ -71,5 +75,9 @@ void NodeZdmaIdle(u16 DeviceId, u32 BaseAddress);
 #endif
 
 void XPmDevice_SoftResetIdle(XPm_Device *Device, const u32 IdleReq);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XPM_DEVICE_IDLE_H_ */

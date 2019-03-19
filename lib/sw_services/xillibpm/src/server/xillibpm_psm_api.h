@@ -32,6 +32,10 @@
 #include "xil_types.h"
 #include "xstatus.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define PM_PWR_DWN_EVENT			(1U)
 #define PM_WAKE_UP_EVENT			(2U)
 #define PSM_API_MIN				PM_PWR_DWN_EVENT
@@ -47,4 +51,8 @@ XStatus XPm_WakeUpEvent(const u32 DeviceId);
 XStatus XPm_DirectPwrUp(const u32 DeviceId);
 XStatus XPm_DirectPwrDwn(const u32 DeviceId);
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* XILLIBPM_PSM_API_H_ */

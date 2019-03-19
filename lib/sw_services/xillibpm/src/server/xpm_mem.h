@@ -29,6 +29,10 @@
 #ifndef XPM_MEM_H_
 #define XPM_MEM_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct XPm_MemDevice XPm_MemDevice;
 
 typedef struct XPm_MemDevice {
@@ -43,6 +47,10 @@ XStatus XPmMemDevice_Init(XPm_MemDevice *MemDevice,
 		u32 BaseAddress,
 		XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset, u32 MemStartAddress,
 		       u32 MemEndAddress);
+
+#ifdef __cplusplus
+}
+#endif
 
 /** @} */
 #endif /* XPM_MEM_H_ */
