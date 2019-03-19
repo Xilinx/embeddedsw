@@ -390,6 +390,7 @@ static void XPmcFw_InitializeVar(void )
 	PmcFwInstance.NoOfHandoffCpus=0U;
 	PmcFwInstance.Status=XPMCFW_FAILURE;
 	PmcFwInstance.PlCleaningDone=FALSE;
+	PmcFwInstance.PartialPdi=FALSE;
 }
 
 /*****************************************************************************/
