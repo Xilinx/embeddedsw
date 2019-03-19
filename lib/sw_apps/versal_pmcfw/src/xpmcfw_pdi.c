@@ -152,7 +152,7 @@ XStatus XPmcFw_PdiLoad(XPmcFw* PmcFwInstancePtr)
 	XStatus Status;
 	u32 PrtnNum;
 	Offset = 0U;
-
+	PmcFwInstancePtr->PartialPdi = TRUE;
 	XPMCFW_DBG_WRITE(0x7U);
 	/* Update the Image Hdr structure */
 
