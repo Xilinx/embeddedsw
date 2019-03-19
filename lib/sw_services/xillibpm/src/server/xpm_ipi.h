@@ -31,6 +31,10 @@
 
 #include "xpm_common.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define PAYLOAD_ARG_CNT			(8U)
 #define RESPONSE_ARG_CNT		(8U)
 
@@ -44,5 +48,9 @@
 
 XStatus XPm_IpiSend(u32 IpiMask, u32 *Payload);
 XStatus XPm_IpiReadStatus(u32 IpiMask);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XPM_IPI_H_ */

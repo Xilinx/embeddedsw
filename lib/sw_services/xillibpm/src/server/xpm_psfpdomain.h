@@ -34,6 +34,10 @@
 #include "xillibpm_psm_api.h"
 #include "xpm_ipi.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * The PS Full power domain node class.
  */
@@ -44,6 +48,10 @@ typedef struct XPm_PsFpDomain {
 /************************** Function Prototypes ******************************/
 XStatus XPmPsFpDomain_Init(XPm_PsFpDomain *PsFpd, u32 Id, u32 BaseAddress,
 			   XPm_Power *Parent);
+
+#ifdef __cplusplus
+}
+#endif
 
 /** @} */
 #endif /* XPM_PSFPDOMAIN_H_ */
