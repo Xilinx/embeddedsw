@@ -34,11 +34,6 @@ EXTRA_COMPILER_FLAGS=
 
 LIB=libxilfpga.a
 
-ifeq ($(notdir $(COMPILER)) , iccarm)
-	EXTRA_ARCHIVE_FLAGS=--create
-else
-	EXTRA_ARCHIVE_FLAGS=rc
-endif
 RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
@@ -54,10 +49,14 @@ INCLUDEFILES=$(xilfpga_DIR)/$(wildcard *.h)
 
 libs: libxilfpga.a
 
+ifeq ($(notdir $(COMPILER)) , iccarm)
+    EXTRA_ARCHIVE_FLAGS=--create
+else
 ifeq ($(notdir $(COMPILER)) , armclang)
       EXTRA_ARCHIVE_FLAGS=-rc
 else
        EXTRA_ARCHIVE_FLAGS=rc
+endif
 endif
 
 libxilfpga.a: print_msg_xilfpga $(xilfpga_OBJS)
