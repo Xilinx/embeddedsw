@@ -87,7 +87,7 @@ XStatus XPmcFw_FabricClean();
 XStatus XPmcFw_BisrLaguna();
 XStatus XPmcFw_ReadFabricData(u32 *CfiReadPtr, u32 CfiLen);
 XStatus XPmcFw_CheckFabricErr();
-
+void XPmcFw_FabricGlblSeqInit();
 #ifdef __cplusplus
 }
 #endif

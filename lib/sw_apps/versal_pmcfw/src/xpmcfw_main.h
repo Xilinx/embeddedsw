@@ -92,6 +92,7 @@ typedef struct {
 	u32 EccStatus; /**< ECC status of TCM and DDR. Indicates whether ECC
 				is done or not */
 	u32 SlrType;
+	u32 PartialPdi;
 } XPmcFw;
 
 
