@@ -46,6 +46,8 @@
 * 6.8  mus   09/20/18 Clear VINITHI field in RPU_0_CFG/RPU_1_CFG
 *		      registers to initialize CortexR5 core with LOVEC
 *		      on reset. It fixes CR#1010656.
+* 7.0  mus   03/19/19  Disable FPU only in case of softp, otherwise enable it by
+*		      default. CR#1021638
 ;
 ;  </pre>
 ;
@@ -197,8 +199,10 @@ OKToRun
 	vmov	d14,r1,r1
 	vmov	d15,r1,r1
 
- ; restore previous value for fpu access
+#ifdef __SOFTFP__
+ ; Disable FPU by restoring previous value for FPU access
 	vmsr	FPEXC,r3
+#endif
 
  ; Disable MPU and caches
         mrc     p15, 0, r0, c1, c0, 0       	 ; Read CP15 Control Register

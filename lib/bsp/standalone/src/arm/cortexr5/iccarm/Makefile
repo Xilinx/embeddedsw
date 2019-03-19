@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2011 - 2015 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2011 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -39,7 +39,6 @@ LIB=libxil.a
 
 CC_FLAGS = $(COMPILER_FLAGS)
 ECC_FLAGS = $(EXTRA_COMPILER_FLAGS)
-ECC_FLAGS	+= --fpu=VFPv3
 
 RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
@@ -59,7 +58,7 @@ libs: banner $(LIBS) clean
 #	rm -f boot.S
 
 %.o: %.s
-	${AS} --cpu Cortex-R5 --fpu VFPv3 $(INCLUDES) -o $@ $<
+	${AS} --cpu Cortex-R5 --fpu VFPv3_D16 $(INCLUDES) -o $@ $<
 
 %.o: %.c
 	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<
