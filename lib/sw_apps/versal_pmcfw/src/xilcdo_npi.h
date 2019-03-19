@@ -74,7 +74,6 @@ extern "C" {
 /**
  * Block Type values
  */
-#define XILCDO_NPI_BLK_DDRMC_MAIN                       (0x0U)
 #define XILCDO_NPI_BLK_VREF                    		(0x1U)
 #define XILCDO_NPI_BLK_XPIO                             (0x2U)
 #define XILCDO_NPI_BLK_XPIO_IOMISC                      (0x3U)

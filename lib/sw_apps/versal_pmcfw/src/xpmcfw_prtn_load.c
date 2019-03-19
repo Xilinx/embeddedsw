@@ -810,6 +810,11 @@ static XStatus XPmcFw_ProcessCfi (XPmcFw * PmcFwInstancePtr, u32 PrtnNum)
 		}
 	}
 
+	if(PmcFwInstancePtr->PartialPdi == FALSE)
+	{
+		XPmcFw_FabricGlblSeqInit();
+	}
+
 	/* Start the PL global sequence */
 	Status = XPmcFw_FabricPrepare();
 	if (XPMCFW_SUCCESS != Status)

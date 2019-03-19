@@ -187,6 +187,18 @@ END:
 
 /*****************************************************************************/
 /**
+ * * This function initializes the global sequencing
+ * *
+ * * @return      None
+ *******************************************************************************/
+
+void XPmcFw_FabricGlblSeqInit()
+{
+	XCfupmc_GlblSeqInit(&CfupmcIns);
+}
+
+/*****************************************************************************/
+/**
  * This function initializes the CFU to load the CFI data
  *
  * @return	Codes as mentioned in xpmcfw_err.h
@@ -194,8 +206,6 @@ END:
 XStatus XPmcFw_FabricPrepare()
 {
 	XStatus Status;
-
-	XCfupmc_GlblSeqInit(&CfupmcIns);
 
 	/* Set CFU settings */
 	CfupmcIns.Crc8Dis=1U;
