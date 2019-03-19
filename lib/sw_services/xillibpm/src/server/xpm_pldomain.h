@@ -33,6 +33,10 @@
 #include "xcframe.h"
 #include "xcfupmc.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct XPm_PlDomain XPm_PlDomain;
 
 /**
@@ -52,5 +56,8 @@ typedef struct XPm_PlDomain {
 XStatus XPmPlDomain_Init(XPm_PlDomain *Pld, u32 Id, u32 BaseAddress,
 			 XPm_Power *Parent);
 
+#ifdef __cplusplus
+}
+#endif
 /** @} */
 #endif /* XPM_PLDOMAIN_H_ */
