@@ -60,11 +60,14 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#ifndef XCORESIGHTPSDCC_H                /* prevent circular inclusions */
+#define XCORESIGHTPSDCC_H                /* by using protection macros */
 #ifndef __MICROBLAZE__
 #include <xil_types.h>
 
 void XCoresightPs_DccSendByte(u32 BaseAddress, u8 Data);
 
 u8 XCoresightPs_DccRecvByte(u32 BaseAddress);
+#endif
 #endif
 /** @} */

@@ -62,6 +62,7 @@
 
 #include "xil_types.h"
 #include "xpseudo_asm.h"
+#include "xcoresightpsdcc.h"
 
 #ifdef __ICCARM__
 #define INLINE
@@ -132,7 +133,7 @@ u8 XCoresightPs_DccRecvByte(u32 BaseAddress)
 	(void) BaseAddress;
 
 	while (!(XCoresightPs_DccGetStatus() & XCORESIGHTPS_DCC_STATUS_RX))
-		{dsb();}
+        {dsb();}
 
 #ifdef __aarch64__
 	asm volatile ("mrs %0, dbgdtrrx_el0" : "=r" (Data));
