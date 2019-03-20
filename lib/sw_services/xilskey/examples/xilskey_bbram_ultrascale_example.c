@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -81,7 +81,7 @@
 * 5.0   vns     09/01/16 First Release.
 * 6.0   vns     07/28/16 Updated example to allow counting configuration
 *                        feature and to program Obfuscated key.
-*
+* 6.7   psl     03/20/19 Added BBRAM key write support for SSIT devices.
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -100,7 +100,21 @@
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/**
+ * SLR Definitions
+ */
+#define XSK_BBRAM_SLR1	0U
+#define	XSK_BBRAM_SLR2	1U
+#define	XSK_BBRAM_SLR3	2U
+#define XSK_BBRAM_SLR4	3U
 
+/**
+ * Number of SLR present in target
+ */
+#define XSK_BBRAM_TARGET_SLR_NUM1 1U
+#define XSK_BBRAM_TARGET_SLR_NUM2 2U
+#define XSK_BBRAM_TARGET_SLR_NUM3 3U
+#define XSK_BBRAM_TARGET_SLR_NUM4 4U
 
 /************************** Variable Definitions *****************************/
 
@@ -109,6 +123,8 @@ XilSKey_Bbram InstancePtr;
 /************************** Function Prototypes ******************************/
 
 int XilSKey_Bbram_InitData(XilSKey_Bbram *BbramInstancePtr);
+int XilSKey_Bbram_ProgramSLR(XilSKey_Bbram *BbramInstancePtr);
+void Bbram_Close_Ultra(void);
 
 /*****************************************************************************/
 
@@ -118,18 +134,235 @@ int main()
 
 	Status = XilSKey_Bbram_InitData(&InstancePtr);
 	if(Status != XST_SUCCESS) {
-		xil_printf("Ultrascale BBRAM Example failed \r\n");
+		xil_printf("App: Initialization failed \r\n");
 		return XST_FAILURE;
 	}
 
-	Status = XilSKey_Bbram_Program(&InstancePtr);
+	/**
+	 * Verify the SLR requested to program against target
+	 * validity
+	 */
+	switch(InstancePtr.NumSlr)
+	{
+
+		case XSK_BBRAM_TARGET_SLR_NUM1:
+			if(((XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR2 == TRUE) ||
+					(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR3 == TRUE) ||
+					(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR4 == TRUE) ||
+					(XSK_BBRAM_PGM_AES_KEY_SLR2 == TRUE) ||
+					(XSK_BBRAM_PGM_AES_KEY_SLR3 == TRUE) ||
+					(XSK_BBRAM_PGM_AES_KEY_SLR4 == TRUE)) && (InstancePtr.NumSlr == 1U))
+			{
+				xil_printf("App: Only %d SLR(s) present in the target"
+						",example failed\r\n",
+						InstancePtr.NumSlr);
+				xil_printf("App:Disable input for SLR2/SLR3/SLR4 \r\n");
+				Status = (u32)XST_FAILURE;
+			}
+			break;
+		case XSK_BBRAM_TARGET_SLR_NUM2:
+			if(((XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR3 == TRUE) ||
+					(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR4 == TRUE) ||
+					(XSK_BBRAM_PGM_AES_KEY_SLR3 == TRUE) ||
+					(XSK_BBRAM_PGM_AES_KEY_SLR4 == TRUE)) && (InstancePtr.NumSlr == 2U))
+			{
+				xil_printf("App: Only %d SLR(s) present in the target"
+						",example failed\r\n",
+						InstancePtr.NumSlr);
+				xil_printf("App:Disable input for SLR3/SLR4 \r\n");
+				Status = (u32)XST_FAILURE;
+			}
+			break;
+		case XSK_BBRAM_TARGET_SLR_NUM3:
+			if(((XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR4 == TRUE) ||
+					(XSK_BBRAM_PGM_AES_KEY_SLR4 == TRUE)) && (InstancePtr.NumSlr == 3U)) {
+				xil_printf("App: Only %d SLR(s) present in the target"
+						",example failed\r\n",
+						InstancePtr.NumSlr);
+				xil_printf("App:Disable input for SLR4\r\n");
+				Status = (u32)XST_FAILURE;
+			}
+			break;
+		case XSK_BBRAM_TARGET_SLR_NUM4:
+			xil_printf("App: SLR Count verification passed\r\n");
+			Status = (u32)XST_SUCCESS;
+			break;
+		default:
+			xil_printf("App: SLR Count not matched for the device\r\n");
+			Status = (u32)XST_FAILURE;
+			break;
+	}
+
+	if(Status != (u32)XST_SUCCESS)
+	{
+		return XST_FAILURE;
+	}
+
+	/*************************************************************************/
+
+	if(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR1_MONO == TRUE)
+	{
+		/*
+		 * Convert key given in xilskey_input.h and
+		 * assign it to the variable in instance.
+		 */
+		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_OBFUSCATED_KEY_SLR1,
+					&(InstancePtr.AESKey[0]),
+					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
+	}
+	else
+	{
+		/*
+		 * Convert key given in xilskey_input.h and
+		 * assign it to the variable in instance.
+		 */
+		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_AES_KEY_SLR1,
+					&(InstancePtr.AESKey[0]),
+					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
+	}
+
+
+	if((XSK_BBRAM_PGM_AES_KEY_SLR1_OR_MONO == TRUE) ||
+			(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR1_MONO == TRUE))
+	{
+		InstancePtr.CurSlr = XSK_BBRAM_SLR1;
+		Status = XilSKey_Bbram_ProgramSLR(&InstancePtr);
+		if(Status != XST_SUCCESS)
+		{
+			return XST_FAILURE;
+		}
+	}
+
+	/*************************************************************************/
+	if(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR2 == TRUE)
+	{
+		/*
+		 * Convert key given in xilskey_input.h and
+		 * assign it to the variable in instance.
+		 */
+		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_OBFUSCATED_KEY_SLR2,
+					&(InstancePtr.AESKey[0]),
+					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
+	}
+	else
+	{
+		/*
+		 * Convert key given in xilskey_input.h and
+		 * assign it to the variable in instance.
+		 */
+		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_AES_KEY_SLR2,
+					&(InstancePtr.AESKey[0]),
+					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
+	}
+
+	if((XSK_BBRAM_PGM_AES_KEY_SLR2 	== TRUE) ||
+			(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR2 == TRUE))
+	{
+		InstancePtr.CurSlr = XSK_BBRAM_SLR2;
+		Status = XilSKey_Bbram_ProgramSLR(&InstancePtr);
+		if(Status != XST_SUCCESS)
+		{
+			return XST_FAILURE;
+		}
+	}
+	/*************************************************************************/
+	if(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR3 == TRUE)
+	{
+		/*
+		 * Convert key given in xilskey_input.h and
+		 * assign it to the variable in instance.
+		 */
+		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_OBFUSCATED_KEY_SLR3,
+					&(InstancePtr.AESKey[0]),
+					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
+	}
+	else
+	{
+		/*
+		 * Convert key given in xilskey_input.h and
+		 * assign it to the variable in instance.
+		 */
+		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_AES_KEY_SLR3,
+					&(InstancePtr.AESKey[0]),
+					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
+	}
+
+	if((XSK_BBRAM_PGM_AES_KEY_SLR3 	== TRUE) ||
+			(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR3 == TRUE))
+	{
+		InstancePtr.CurSlr = XSK_BBRAM_SLR3;
+		Status = XilSKey_Bbram_ProgramSLR(&InstancePtr);
+		if(Status != XST_SUCCESS)
+		{
+			return XST_FAILURE;
+		}
+	}
+	/*************************************************************************/
+	if(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR4 == TRUE)
+	{
+		/*
+		 * Convert key given in xilskey_input.h and
+		 * assign it to the variable in instance.
+		 */
+		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_OBFUSCATED_KEY_SLR4,
+					&(InstancePtr.AESKey[0]),
+					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
+	}
+	else
+	{
+		/*
+		 * Convert key given in xilskey_input.h and
+		 * assign it to the variable in instance.
+		 */
+		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_AES_KEY_SLR4,
+					&(InstancePtr.AESKey[0]),
+					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
+	}
+
+	if((XSK_BBRAM_PGM_AES_KEY_SLR4== TRUE) ||
+			(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR4 == TRUE))
+	{
+		InstancePtr.CurSlr = XSK_BBRAM_SLR4;
+		Status = XilSKey_Bbram_ProgramSLR(&InstancePtr);
+		if(Status != XST_SUCCESS)
+		{
+			return XST_FAILURE;
+		}
+	}
+
+	Bbram_Close_Ultra();
+
+	return XST_SUCCESS;
+
+}
+/*****************************************************************************/
+/**
+*  Function to program the key for specific SLR
+*
+*
+* @param	SLR number
+*
+* @return
+* 		- XST_SUCCESS - In case of Success
+*		- XST_FAILURE - If initialization fails
+*
+* @note		None.
+*
+******************************************************************************/
+int XilSKey_Bbram_ProgramSLR(XilSKey_Bbram *BbramInstancePtr)
+{
+	u32 Status;
+
+	xil_printf("******** Processing SLR %d ********\r\n",
+			(BbramInstancePtr->CurSlr + 1));
+	Status = XilSKey_Bbram_Program(BbramInstancePtr);
 	if(Status != XST_SUCCESS) {
-		xil_printf("Ultrascale BBRAM Example failed \r\n");
+		xil_printf("Ultrascale BBRAM key write failed for SLR%d\r\n",
+				(BbramInstancePtr->CurSlr + 1U));
 		return XST_FAILURE;
 	}
-
 	xil_printf("Successfully programmed and verified Ultrascale"
-							" BBRAM key \r\n");
+						" BBRAM key for SLR%d\r\n", (BbramInstancePtr->CurSlr + 1U));
 	return XST_SUCCESS;
 
 }
@@ -160,16 +393,20 @@ int XilSKey_Bbram_InitData(XilSKey_Bbram *BbramInstancePtr)
 	BbramInstancePtr->GpioInputCh = XSK_BBRAM_GPIO_INPUT_CH;
 	BbramInstancePtr->GpioOutPutCh = XSK_BBRAM_GPIO_OUTPUT_CH;
 
-	if (XSK_BBRAM_PGM_OBFUSCATED_KEY == TRUE) {
-		BbramInstancePtr->IsKeyObfuscated =
-					XSK_BBRAM_PGM_OBFUSCATED_KEY;
-		/*
-		 * Convert key given in xilskey_input.h and
-		 * assign it to the variable in instance.
-		 */
-		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_OBFUSCATED_KEY,
-					&(BbramInstancePtr->AESKey[0]),
-					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
+
+	if(XilSKey_Bbram_JTAGServerInit(&InstancePtr) != XST_SUCCESS) {
+		xil_printf("JTAG Sever Init failed \r\n");
+		return XST_FAILURE;
+	}
+
+
+	if((XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR1_MONO 	== TRUE) ||
+		(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR2		== TRUE) ||
+		(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR3		== TRUE) ||
+		(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR4		== TRUE))
+	{
+		BbramInstancePtr->IsKeyObfuscated = TRUE;
+
 		if (XSK_BBRAM_DPA_PROTECT_ENABLE == TRUE) {
 			xil_printf("WARNING: DPA_PROTECT is not supported "
 				"for Obfucated key, DPA count and mode "
@@ -180,13 +417,7 @@ int XilSKey_Bbram_InitData(XilSKey_Bbram *BbramInstancePtr)
 		BbramInstancePtr->Dpa_Mode = XSK_BBRAM_INVALID_CONFIGURATIONS;
 	}
 	else {
-		/*
-		 * Convert key given in xilskey_input.h and
-		 * assign it to the variable in instance.
-		 */
-		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_AES_KEY,
-					&(BbramInstancePtr->AESKey[0]),
-					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
+
 #if (XSK_BBRAM_DPA_PROTECT_ENABLE == TRUE)
 		if (XSK_BBRAM_DPA_COUNT == 0) {
 			xil_printf("ERROR: To enable DPA protection "
