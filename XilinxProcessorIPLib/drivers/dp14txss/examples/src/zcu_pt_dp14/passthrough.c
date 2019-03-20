@@ -296,9 +296,6 @@ void DpPt_Main(void){
 
 			switch(UserInput){
 			case '1':
-				// This is relevant only when the DP source is DP1.2
-				// A DP1.4 source relies on extended capabiltiy bit to decide
-				// on the link rate
 				DpPt_LaneLinkRateHelpMenu();
 				exit = 0;
 				while (exit == 0) {
