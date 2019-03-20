@@ -83,6 +83,7 @@
 * 3.1   ka   03/16/18 Added Zeroization of Aes Decrypted data in case of
 *                    GCM_TAG_MISMATCH
 * 4.0   arc  18/12/18 Fixed MISRA-C violations.
+*       arc  03/20/19 Changed prototype of the functions void to u32
 * </pre>
 * @endcond
 *
@@ -223,7 +224,7 @@ s32  XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
 				u32 KeySel, u32* IvPtr,  u32* KeyPtr);
 
 /* Decryption of data */
-void XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
+u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 		u32 Size, u8 * GcmTagAddr);
 s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size);
 
@@ -235,20 +236,20 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 				u32 Length);
 
 /* Encryption */
-void XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size);
-void XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, const u8 *Data,
+u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size);
+u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, const u8 *Data,
 							u32 Size);
-void XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
+u32 XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 				u32 Len);
 
 /* Reset */
 void XSecure_AesReset(XSecure_Aes  *InstancePtr);
 
-void XSecure_AesWaitForDone(XSecure_Aes *InstancePtr);
+u32 XSecure_AesWaitForDone(XSecure_Aes *InstancePtr);
 
 /** @cond xsecure_internal
 @{ */
-void XSecure_AesKeySelNLoad(XSecure_Aes *InstancePtr);
+u32 XSecure_AesKeySelNLoad(XSecure_Aes *InstancePtr);
 s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 			const u8 *Src, const u8 *Tag, u32 Len, u32 Flag);
 /* Enable/Disable chunking */
