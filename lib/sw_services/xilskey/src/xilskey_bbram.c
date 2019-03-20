@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -45,13 +45,14 @@
 *                        programming and calculation of ECC for 28 bits
 *                        of control word.
 * 6.6   vns     06/06/18 Added doxygen tags
-*
+* 6.7   psl     03/20/19 Added BBRAM key write support for SSIT devices.
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "xparameters.h"
 #include "xil_types.h"
 #include "xilskey_utils.h"
 #include "xilskey_bbram.h"
+#include "xilskey_jscmd.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -146,7 +147,29 @@ static inline void XilSKey_Bbram_Framing_Ctrl_Word_Ultra(
 /* To frame control word's ECC */
 static inline u32 XilSKey_Calc_Ecc_Bbram_ultra(u32 ControlWord);
 static inline u8 XilSKey_Calc_Row_Ecc_Bbram_Ultra(u8 *Value, u8 *Mask);
+
+/*JTAG Tap Instance*/
+extern XilSKey_JtagSlr XilSKeyJtag;
 /***************************************************************************/
+
+int XilSKey_Bbram_JTAGServerInit(XilSKey_Bbram *InstancePtr)
+{
+	/* Get timer values */
+	XilSKey_Timer_Intialise();
+	/*
+	 * Initialize and start the timer
+	 */
+	XilSKey_Efuse_StartTimer();
+	/*
+	 * JTAG server initialization
+	 */
+	if(JtagServerInitBbram(InstancePtr) != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	return XST_SUCCESS;
+
+}
 /****************************************************************************/
 /**
 *
@@ -174,19 +197,6 @@ int XilSKey_Bbram_Program(XilSKey_Bbram *InstancePtr)
 		return XST_FAILURE;
 	}
 
-	/* Get timer values */
-	XilSKey_Timer_Intialise();
-	/*
-	 * Initialize and start the timer
-	 */
-	XilSKey_Efuse_StartTimer();
-
-	/*
-	 * JTAG server initialization
-	 */
-	if(JtagServerInitBbram(InstancePtr) != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
 	if (InstancePtr->FpgaFlag == XSK_FPGA_SERIES_ZYNQ) {
 		Status = XilSKey_Bbram_Program_Zynq(InstancePtr);
 		if(Status != XST_SUCCESS) {
@@ -223,6 +233,7 @@ static inline int XilSKey_Bbram_Program_Zynq(XilSKey_Bbram *InstancePtr)
 {
 	int Status = XST_SUCCESS;
 
+	InstancePtr->CurSlr = 0;
 	/*
 	 * BBRAM Algorithm initialization
 	 */
@@ -274,6 +285,8 @@ static inline int XilSKey_Bbram_Program_Zynq(XilSKey_Bbram *InstancePtr)
 static inline int XilSKey_Bbram_Program_Ultra(XilSKey_Bbram *InstancePtr)
 {
 	int Status = XST_SUCCESS;
+
+	XilSKeyJtag.CurSlr = InstancePtr->CurSlr;
 
 	/* Formation of control word */
 	XilSKey_Bbram_Framing_Ctrl_Word_Ultra(InstancePtr);

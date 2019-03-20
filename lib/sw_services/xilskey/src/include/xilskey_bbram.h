@@ -53,7 +53,7 @@
 * 6.6   vns     06/06/18 Added doxygen tags
 * 6.7   arc     25/02/19 Changed void XilSKey_ZynqMp_Bbram_Zeroise(void)
 *                        prototype to u32 XilSKey_ZynqMp_Bbram_Zeroise(void)
-*
+*       psl     03/20/19 Added BBRAM key write support for SSIT devices.
 ****************************************************************************/
 #ifndef XILSKEY_BBRAM_H
 #define XILSKEY_BBRAM_H
@@ -124,6 +124,10 @@ typedef struct {
 	XSKEfusePl_Fpga FpgaFlag;
 
 	u32 Crc; /* Crc of AES key and control word of Ultrascale BBRAM */
+    /* Number of SLRs to iterate through */
+    u32 NumSlr;
+    /* Current SLR to iterate through */
+    u32 CurSlr;
 
 }XilSKey_Bbram;
 /************************** Constant Definitions *****************************/
@@ -225,6 +229,7 @@ typedef struct {
  * Function for BBRAM program and verify algorithm
  */
 int XilSKey_Bbram_Program(XilSKey_Bbram *InstancePtr);
+int XilSKey_Bbram_JTAGServerInit(XilSKey_Bbram *InstancePtr);
 /**@}*/
 
 /** @addtogroup xilskey_zynqMP zynqmp bbram
