@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -63,7 +63,7 @@
 * 6.4   vns     02/27/18 Added support for programming secure bit 6 -
 *                        enable obfuscation feature for eFUSE AES key
 * 6.6   vns     06/06/18 Added doxygen tags
-*
+* 6.7   psl     03/20/19 Added eFuse key write support for SSIT devices.
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "xparameters.h"
@@ -345,7 +345,7 @@ static u8 RsaDataInBytes[XSK_EFUSEPL_RSA_HASH_SIZE_ULTRA];
 static u8 CtrlBitsUltra[XSK_EFUSEPL_ARRAY_MAX_ROW];
 static u8 User128BitData[XSK_EFUSEPL_ARRAY_FUSE_128BIT_USER_SIZE];
 XSKEfusePl_Fpga	PlFpgaFlag;		/**< For Storing Fpga series */
-
+extern XilSKey_JtagSlr XilSKeyJtag;
 /************************** Function Prototypes *****************************/
 /**
  * PL eFUSE interface functions
@@ -436,6 +436,87 @@ extern void JtagRead_Ultrascale(u8 Row, u32 *RowData, u8 MarginOption,
 extern void JtagRead_Status_Ultrascale(u32 *Rowdata);
 extern u32 JtagAES_Check_Ultrascale(u32 *Crc, u8 MarginOption);
 /***************************************************************************/
+
+/****************************************************************************/
+/**
+*	Initializes PL eFUSE with input data given
+*
+*
+* @param	InstancePtr - Input data to be written to PL eFUSE
+*
+* @return
+*
+*	- XST_FAILURE - In case of failure
+*	- XST_SUCCESS - In case of Success
+*
+*
+* @note		Updates the global variable ErrorCode with error code(if any).
+*
+*****************************************************************************/
+u32 XilSKey_EfusePl_SystemInit(XilSKey_EPl *InstancePtr)
+{
+
+	ErrorCode = XSK_EFUSEPL_ERROR_NONE;
+
+
+	if(NULL == InstancePtr)	{
+		return XSK_EFUSEPL_ERROR_PL_STRUCT_NULL;
+	}
+
+	if(!(InstancePtr->SystemInitDone))
+	{
+
+#ifdef XSK_ARM_PLATFORM
+		u32 RefClk;
+		u32 Status;
+		RefClk = XilSKey_Timer_Intialise();
+		/**
+		 * Return error if the reference clock frequency is not in
+		 * between 20 & 60MHz
+		 */
+		if((RefClk < XSK_EFUSEPL_MIN_REF_CLK_FREQ) ||
+				(RefClk > XSK_EFUSEPL_MAX_REF_CLK_FREQ)) {
+			return XSK_EFUSEPL_ERROR_INVALID_REF_CLK;
+		}
+		/**
+		 * Initialize the system ,
+		 * which means initialize the timer, xadc, and jtag
+		 * server using the passed info.
+		 */
+
+		XilSKey_Efuse_StartTimer();
+
+		Status = XilSKey_EfusePs_XAdcInit();
+		if(Status != XST_SUCCESS) {
+			ErrorCode = Status;
+			return (XSK_EFUSEPL_ERROR_XADC + ErrorCode);
+			}
+#else
+		if (XilSKey_Timer_Intialise() == XST_FAILURE) {
+			return (XSK_EFUSEPL_ERROR_TIMER_INTIALISE_ULTRA);
+		}
+#endif
+		/**
+		 * Start using the Jtag server to read the JTAG ID and
+		 * compare with the stored ID, if it not matches return with
+		 * unique error code.
+		 * By reading the Jtag ID we will be sure that the JTAG related
+		 * stuff is working as expected.
+		 */
+		if(JtagServerInit(InstancePtr) != XST_SUCCESS) {
+			return XSK_EFUSEPL_ERROR_JTAG_SERVER_INIT;
+		}
+
+		InstancePtr->SystemInitDone = 1;
+		PlFpgaFlag = InstancePtr->FpgaFlag;
+	}
+
+	/**
+	 * If everything is ok then return PASS.
+	 */
+	return XST_SUCCESS;
+}
+
 /****************************************************************************/
 /**
 *
@@ -507,14 +588,10 @@ u32 XilSKey_EfusePl_Program(XilSKey_EPl *InstancePtr)
 		 * By reading the Jtag ID we will be sure that the JTAG related
 		 * stuff is working as expected.
 		 */
-		if(JtagServerInit(InstancePtr) != XST_SUCCESS) {
-			return XSK_EFUSEPL_ERROR_JTAG_SERVER_INIT;
-		}
 
 		InstancePtr->SystemInitDone = 1;
 		PlFpgaFlag = InstancePtr->FpgaFlag;
 	}
-
 	if (PlFpgaFlag == XSK_FPGA_SERIES_ZYNQ) {
 
 		Status = XilSKey_EfusePl_Program_Zynq(InstancePtr);
@@ -1282,14 +1359,11 @@ u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits)
 		}
 #endif
 
-		if(JtagServerInit(InstancePtr) != XST_SUCCESS) {
-			return XSK_EFUSEPL_ERROR_JTAG_SERVER_INIT;
-		}
 
 		InstancePtr->SystemInitDone = 1;
 		PlFpgaFlag = InstancePtr->FpgaFlag;
 	}
-
+	XilSKeyJtag.CurSlr = InstancePtr->CurSlr;
 #ifdef XSK_ZYNQ_PLATFORM
 
 	/**
@@ -2316,6 +2390,8 @@ u32 XilSKey_EfusePl_Program_Zynq(XilSKey_EPl *InstancePtr)
 	u32 Row = 0;
 	u32 Index = 0;
 
+	/* Initialize current SLR */
+	InstancePtr->CurSlr = 0;
 	/**
 	 *	Read the FUSE_CNTL register bits [5:2], and if any of them is found to
 	 *	be set to 1 then we can not write to the eFUSE, so return with unique
@@ -2509,6 +2585,8 @@ static inline u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr)
 	u32 Status;
 	u8 User32Data[XSK_EFUSEPL_ARRAY_FUSE_USER_KEY_SIZE];
 	u8 User128Data[XSK_EFUSEPL_ARRAY_FUSE_128BIT_USER_SIZE];
+
+	XilSKeyJtag.CurSlr = InstancePtr->CurSlr;
 
 	Status = XilSKey_EfusePl_Program_Checks(InstancePtr);
 	if (Status != XST_SUCCESS) {
