@@ -1339,18 +1339,9 @@ u32 XSecure_SecureImage(u32 AddrHigh, u32 AddrLow,
 				XSECURE_WORD_LEN));
 
 	if (Status != (u32)XST_SUCCESS) {
-		if (Status == (u32)XSECURE_CSU_AES_GCM_TAG_MISMATCH) {
-			Status = XSECURE_AES_GCM_TAG_NOT_MATCH;
-		}
-		else if (Status == (u32)XSECURE_CSU_AES_ZEROIZATION_ERROR) {
-			Status = XSECURE_AES_ZEROIZATION_ERR;
-		}
-		else
-		{
-			Status = XSECURE_CSU_AES_DEVICE_COPY_ERROR;
-		}
 		Status = XSECURE_PARTITION_FAIL |
-				XSECURE_AES_DECRYPTION_FAILURE | Status;
+				XSECURE_AES_DECRYPTION_FAILURE |
+				XSECURE_AES_ERROR | Status;
 		Addr->AddrHigh = 0x00U;
 		Addr->AddrLow = 0x00U;
 	}

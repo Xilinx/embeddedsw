@@ -1421,7 +1421,8 @@ ENDF:
 		/* Zeroize the decrypted data*/
 		Status = (u32)XSecure_Zeroize(Dst,ImageLen);
 		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)XSECURE_CSU_AES_ZEROIZATION_ERROR;
+			Status = (u32)XSECURE_CSU_AES_ZEROIZATION_ERROR |
+					DecryptStatus;
 		}
 		else {
 			Status = DecryptStatus;
