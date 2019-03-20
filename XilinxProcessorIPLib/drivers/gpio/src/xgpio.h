@@ -185,6 +185,7 @@ void XGpio_DiscreteWrite(XGpio *InstancePtr, unsigned Channel, u32 Mask);
  */
 void XGpio_DiscreteSet(XGpio *InstancePtr, unsigned Channel, u32 Mask);
 void XGpio_DiscreteClear(XGpio *InstancePtr, unsigned Channel, u32 Mask);
+void XGpio_DiscreteToggle(XGpio *InstancePtr, unsigned Channel, u32 Mask);
 
 /*
  * API Functions implemented in xgpio_selftest.c
