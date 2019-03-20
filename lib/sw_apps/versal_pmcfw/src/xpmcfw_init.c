@@ -549,6 +549,8 @@ XStatus XPmcFw_PreCfgPL(XPmcFw* PmcFwInstancePtr)
                 }
                 PmcFwInstancePtr->PlCleaningDone = TRUE;
         }
+#else
+	PmcFwInstancePtr->PlCleaningDone = TRUE;
 #endif
 END:
 	return Status;
