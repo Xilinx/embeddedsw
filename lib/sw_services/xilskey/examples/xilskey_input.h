@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -203,6 +203,17 @@
 *
 *	User configurable parameters for PL eFUSE for Kintex Ultrascale
 *	-----------------------------------------------------------------------
+*	#define XSK_EFUSEPL_PGM_SLR1	FALSE
+*	#define XSK_EFUSEPL_PGM_SLR2	FALSE
+*	#define XSK_EFUSEPL_PGM_SLR3	FALSE
+*	#define XSK_EFUSEPL_PGM_SLR4	FALSE
+*	TRUE will select particular SLR(1/2/3/4) to program:
+*	- AES Keys(256bits/SLR)
+*	- User Fuse bits (32bits/SLR)
+*	- User Keys (128bits/SLR)
+*	- RSA Public Key HASH (384bits/SLR)
+*	FALSE will disable programming.
+*
 *	#define	XSK_EFUSEPL_DISABLE_AES_KEY_READ	FALSE
 *	TRUE will permanently disables the write to FUSE_AES and
 *	check CRC for AES key by programming control bit of FUSE.
@@ -351,39 +362,74 @@
 *	XilSKey_EPl instance parameter User128BitReadBack
 *	FALSE 128 bit USER key read will not be performed.
 *
-*	#define 	XSK_EFUSEPL_AES_KEY
+*	#define XSK_EFUSEPL_AES_KEY
+*	"0000000000000000000000000000000000000000000000000000000000000000"
+*	#define	XSK_EFUSEPL_AES_KEY_SLR2
+*	"0000000000000000000000000000000000000000000000000000000000000000"
+*	#define	XSK_EFUSEPL_AES_KEY_SLR3
+*	"0000000000000000000000000000000000000000000000000000000000000000"
+*	#define	XSK_EFUSEPL_AES_KEY_SLR4
 *	"0000000000000000000000000000000000000000000000000000000000000000"
 *	The value mentioned in this will be converted to hex buffer and written
 *	into the PL eFUSE array when write API used. This value should be the
 *	PPK(Primary Public Key) hash given in string format. It should be 64
 *	characters long, valid characters are 0-9,a-f,A-F. Any other character
 *	is considered as invalid string and will not burn AES Key. Note that,
-*	for writing the AES Key, XSK_EFUSEPL_PROGRAM_AES_KEY_ULTRA should
-*	have TRUE value.
+*	for writing the AES Key, XSK_EFUSEPL_PROGRAM_AES_KEY_ULTRA for
+*	particular SLR(1/2/3/4)should have TRUE value.
 *
-*	#define 	XSK_EFUSEPL_USER_KEY	"00000000"
+*	#define XSK_EFUSEPL_USER_KEY			"00000000"
+*	#define	XSK_EFUSEPL_USER_KEY_SLR2		"00000000"
+*	#define	XSK_EFUSEPL_USER_KEY_SLR3		"00000000"
+*	#define	XSK_EFUSEPL_USER_KEY_SLR4		"00000000"
 *	The value mentioned in this will be converted to hex buffer and written
 *	into the PL eFUSE array when write API used. This value should be the
 *	User Key given in string format. It should be 8 characters long, valid
 *	characters are 0-9,a-f,A-F. Any other character is considered as invalid
 *	string and will not burn User Key. Note that, for writing the User Key,
-*	XSK_EFUSEPL_PROGRAM_USER_KEY_ULTRA should have TRUE value.
+*	XSK_EFUSEPL_PROGRAM_USER_KEY_ULTRA for particular SLR(1/2/3/4)should
+*	have TRUE value.
 *
 *	#define XSK_EFUSEPL_RSA_KEY_HASH_VALUE
 *		"0000000000000000000000000000000000000000000000 \
+*		00000000000000000000000000000000000000000000000000"
+*	#define	XSK_EFUSEPL_RSA_KEY_HASH_VALUE_SLR2
+*		"0000000000000000000000000000000000000000000000  \
+*		00000000000000000000000000000000000000000000000000"
+*	#define	XSK_EFUSEPL_RSA_KEY_HASH_VALUE_SLR3
+*		"0000000000000000000000000000000000000000000000  \
+*		00000000000000000000000000000000000000000000000000"
+*	#define	XSK_EFUSEPL_RSA_KEY_HASH_VALUE_SLR4
+*		"0000000000000000000000000000000000000000000000  \
 *		00000000000000000000000000000000000000000000000000"
 *	The value mentioned in this will be converted to hex buffer and written
 *	into the PL eFUSE array when write API used. This value should be the
 *	RSA Key hash given in string format. It should be 96 characters long,
 *	valid characters are 0-9,a-f,A-F. Any other character is considered as
 *	invalid string and will not burn RSA hash value. Note that, for writing
-*	the RSA hash, XSK_EFUSEPL_PROGRAM_RSA_HASH_ULTRA should have TRUE value.
+*	the RSA hash, XSK_EFUSEPL_PROGRAM_RSA_HASH_ULTRA for particular SLR(1/2/3/4)
+*	should have TRUE value.
 *
 *	#define XSK_EFUSEPL_USER_KEY_128BIT_0	"00000000"
 *	#define XSK_EFUSEPL_USER_KEY_128BIT_1	"00000000"
 *	#define XSK_EFUSEPL_USER_KEY_128BIT_2	"00000000"
 *	#define XSK_EFUSEPL_USER_KEY_128BIT_3	"00000000"
-*	The above four macros are meant for providing 128 bit User key,
+*
+*	#define XSK_EFUSEPL_USER_KEY_128BIT_0_SLR2	"00000000"
+*	#define XSK_EFUSEPL_USER_KEY_128BIT_1_SLR2	"00000000"
+*	#define XSK_EFUSEPL_USER_KEY_128BIT_2_SLR2	"00000000"
+*	#define XSK_EFUSEPL_USER_KEY_128BIT_3_SLR2	"00000000"
+*
+*	#define XSK_EFUSEPL_USER_KEY_128BIT_0_SLR3	"00000000"
+*	#define XSK_EFUSEPL_USER_KEY_128BIT_1_SLR3	"00000000"
+*	#define XSK_EFUSEPL_USER_KEY_128BIT_2_SLR3	"00000000"
+*	#define XSK_EFUSEPL_USER_KEY_128BIT_3_SLR3	"00000000"
+*
+*	#define XSK_EFUSEPL_USER_KEY_128BIT_0_SLR4	"00000000"
+*	#define XSK_EFUSEPL_USER_KEY_128BIT_1_SLR4	"00000000"
+*	#define XSK_EFUSEPL_USER_KEY_128BIT_2_SLR4	"00000000"
+*	#define XSK_EFUSEPL_USER_KEY_128BIT_3_SLR4	"00000000"
+*	The above four macros are meant for providing 128 bit User key for SLR(1/2/3/4),
 *	XSK_EFUSEPL_USER_KEY_128BIT_0 holds 31:0 bits,
 *	XSK_EFUSEPL_USER_KEY_128BIT_1 holds 63:32 bits,
 *	XSK_EFUSEPL_USER_KEY_128BIT_2 holds 95:64 bits and
@@ -436,7 +482,7 @@
 *                        XSK_EFUSEPL_DISABLE_JTAG_CHAIN)
 * 6.4   vns     02/27/18 Added support for programming secure bit -
 *                        enable obfuscation feature for eFUSE AES key
-*
+* 6.7   psl     03/20/19 Added eFuse key write support for SSIT devices.
 * </pre>
 *
 *
@@ -558,6 +604,19 @@ extern "C" {
  * ---------------------------------------------
  */
 #else
+
+/*	Select the SLR(s) to write
+ *	All the control information cannot be independently selected
+ *	with following exceptions
+ *	- AES Keys(256bits/SLR)
+ *	- User Fuse bits (32bits/SLR)
+ *	- User Keys (128bits/SLR)
+ *	- RSA Public Key HASH (384bits/SLR)
+ **/
+#define XSK_EFUSEPL_PGM_SLR1	FALSE
+#define XSK_EFUSEPL_PGM_SLR2	FALSE
+#define XSK_EFUSEPL_PGM_SLR3	FALSE
+#define XSK_EFUSEPL_PGM_SLR4	FALSE
 
 /* Definition of CRC of all zeros AES key */
 #ifdef XSK_MICROBLAZE_ULTRA_PLUS
@@ -710,24 +769,48 @@ extern "C" {
  * Following defines should be given in the form of hex string.
  * The length of AES_KEY string must me 64 and for 32 bit USER_KEY must be 8.
  */
-#define	XSK_EFUSEPL_AES_KEY		"0000000000000000000000000000000000000000000000000000000000000000"
-#define	XSK_EFUSEPL_USER_KEY		"00000000"
+#define	XSK_EFUSEPL_AES_KEY				"0000000000000000000000000000000000000000000000000000000000000000"
+#define	XSK_EFUSEPL_AES_KEY_SLR2		"0000000000000000000000000000000000000000000000000000000000000000"
+#define	XSK_EFUSEPL_AES_KEY_SLR3		"0000000000000000000000000000000000000000000000000000000000000000"
+#define	XSK_EFUSEPL_AES_KEY_SLR4		"0000000000000000000000000000000000000000000000000000000000000000"
 
+#define	XSK_EFUSEPL_USER_KEY			"00000000"
+#define	XSK_EFUSEPL_USER_KEY_SLR2		"00000000"
+#define	XSK_EFUSEPL_USER_KEY_SLR3		"00000000"
+#define	XSK_EFUSEPL_USER_KEY_SLR4		"00000000"
 /**
  * Following defines should be given only for Ultrascale the length of
  * RSA string must be 96
  */
-#define	XSK_EFUSEPL_RSA_KEY_HASH_VALUE	"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+#define	XSK_EFUSEPL_RSA_KEY_HASH_VALUE		"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+#define	XSK_EFUSEPL_RSA_KEY_HASH_VALUE_SLR2	"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+#define	XSK_EFUSEPL_RSA_KEY_HASH_VALUE_SLR3	"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+#define	XSK_EFUSEPL_RSA_KEY_HASH_VALUE_SLR4	"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
 /**
  * Following define should be given only for Ultrascale the total length of
  * User 128-bit register is 128bit, to make it easier 128 bit register is broken
  * into four 32 bit, single bit programming is also available.
  *
  */
-#define XSK_EFUSEPL_USER_KEY_128BIT_0	"00000000"	/* 31:0 */
-#define XSK_EFUSEPL_USER_KEY_128BIT_1	"00000000"	/* 63:32 */
-#define XSK_EFUSEPL_USER_KEY_128BIT_2	"00000000"	/* 95:64 */
-#define XSK_EFUSEPL_USER_KEY_128BIT_3	"00000000"	/* 127:96 */
+#define XSK_EFUSEPL_USER_KEY_128BIT_0		"00000000"	/* 31:0 */
+#define XSK_EFUSEPL_USER_KEY_128BIT_1		"00000000"	/* 63:32 */
+#define XSK_EFUSEPL_USER_KEY_128BIT_2		"00000000"	/* 95:64 */
+#define XSK_EFUSEPL_USER_KEY_128BIT_3		"00000000"	/* 127:96 */
+
+#define XSK_EFUSEPL_USER_KEY_128BIT_0_SLR2	"00000000"	/* 31:0 */
+#define XSK_EFUSEPL_USER_KEY_128BIT_1_SLR2	"00000000"	/* 63:32 */
+#define XSK_EFUSEPL_USER_KEY_128BIT_2_SLR2	"00000000"	/* 95:64 */
+#define XSK_EFUSEPL_USER_KEY_128BIT_3_SLR2	"00000000"	/* 127:96 */
+
+#define XSK_EFUSEPL_USER_KEY_128BIT_0_SLR3	"00000000"	/* 31:0 */
+#define XSK_EFUSEPL_USER_KEY_128BIT_1_SLR3	"00000000"	/* 63:32 */
+#define XSK_EFUSEPL_USER_KEY_128BIT_2_SLR3	"00000000"	/* 95:64 */
+#define XSK_EFUSEPL_USER_KEY_128BIT_3_SLR3	"00000000"	/* 127:96 */
+
+#define XSK_EFUSEPL_USER_KEY_128BIT_0_SLR4	"00000000"	/* 31:0 */
+#define XSK_EFUSEPL_USER_KEY_128BIT_1_SLR4	"00000000"	/* 63:32 */
+#define XSK_EFUSEPL_USER_KEY_128BIT_2_SLR4	"00000000"	/* 95:64 */
+#define XSK_EFUSEPL_USER_KEY_128BIT_3_SLR4	"00000000"	/* 127:96 */
 
 /**
  * Following define is CRC value of expected AES key
