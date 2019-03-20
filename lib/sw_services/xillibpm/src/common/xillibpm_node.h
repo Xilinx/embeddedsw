@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -571,6 +571,22 @@ typedef enum {
 	XPM_NODEIDX_DEV_PL_1,
 	XPM_NODEIDX_DEV_PL_2,
 	XPM_NODEIDX_DEV_PL_3,
+	XPM_NODEIDX_DEV_RTC,
+	XPM_NODEIDX_DEV_ADMA_0,
+	XPM_NODEIDX_DEV_ADMA_1,
+	XPM_NODEIDX_DEV_ADMA_2,
+	XPM_NODEIDX_DEV_ADMA_3,
+	XPM_NODEIDX_DEV_ADMA_4,
+	XPM_NODEIDX_DEV_ADMA_5,
+	XPM_NODEIDX_DEV_ADMA_6,
+	XPM_NODEIDX_DEV_ADMA_7,
+	XPM_NODEIDX_DEV_IPI_0,
+	XPM_NODEIDX_DEV_IPI_1,
+	XPM_NODEIDX_DEV_IPI_2,
+	XPM_NODEIDX_DEV_IPI_3,
+	XPM_NODEIDX_DEV_IPI_4,
+	XPM_NODEIDX_DEV_IPI_5,
+	XPM_NODEIDX_DEV_IPI_6,
 
 	XPM_NODEIDX_DEV_MAX
 } XPm_DeviceNodeIndex;
