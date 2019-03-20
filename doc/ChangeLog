@@ -201,6 +201,9 @@ float.
 coresightps_dcc_v1_5:
 Fixed MISRA C Mandatory Violations CR#1025101.
 
+xilmfs_v2_3:
+Deprecate the XilMFS Library
+
 Changes for 2018.3.1
 ===============================
 rfdc_v5_1:
