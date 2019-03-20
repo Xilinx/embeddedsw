@@ -56,7 +56,7 @@
 *       vns     03/09/18 Added correct status bit positions to Ultrascale plus
 * 6.6   vns     06/06/18 Added doxygen tags
 * 6.7   arc     01/05/19 Fixed MISRA-C violations.
-*
+*       psl     03/20/19 Added eFuse key write support for SSIT devices.
 ****************************************************************************/
 #ifndef XILSKEY_EPL_H
 #define XILSKEY_EPL_H
@@ -138,6 +138,15 @@ typedef enum {
 /***************** Macros (Inline Functions) Definitions ********************/
 
 /************************** Variable Definitions ****************************/
+typedef struct {
+    /* Number of SLRs to iterate through */
+    u32 NumSlr;
+    /* Current SLR to iterate through */
+    u32 CurSlr;
+    /* Device IR length */
+    u32 IrLen;
+}XilSKey_JtagSlr;
+
 /**
  * XSK_EfusePl is the PL eFUSE driver instance. Using this
  * structure, user can define the eFUSE bits to be
@@ -382,14 +391,19 @@ typedef struct {
 	/* Stores Fpga series of Efuse */
 	XSKEfusePl_Fpga FpgaFlag;
 	/* CRC of AES key to verify programmed AES key */
-        u32 CrcToVerify; /* Only for Ultrascale */
-
+    u32 CrcToVerify; /* Only for Ultrascale */
+    /* Number of SLRs to iterate through */
+    u32 NumSlr;
+    /* Current SLR to iterate through */
+    u32 CurSlr;
 
 }XilSKey_EPl;
 /** @}
 @endcond */
 /************************** Function Prototypes *****************************/
 /************************** Constant Definitions *****************************/
+
+u32 XilSKey_EfusePl_SystemInit(XilSKey_EPl *InstancePtr);
 
 u32 XilSKey_EfusePl_Program(XilSKey_EPl *PlInstancePtr);
 
