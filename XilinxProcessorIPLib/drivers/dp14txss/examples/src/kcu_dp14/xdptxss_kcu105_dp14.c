@@ -631,29 +631,14 @@ int main(void)
 			XDP_RX_AUDIO_CONTROL, 0x0);
 #endif
 
-#if !OVERRIDE_540G
 	XDpRxSs_SetLinkRate(&DpRxSsInst, LineRate_init);
 	XDpRxSs_SetLaneCount(&DpRxSsInst, LaneCount_init);
-#else
-	XDpRxSs_SetLinkRate(&DpRxSsInst, XDP_DPCD_LINK_BW_SET_540GBPS);
-	XDpRxSs_SetLaneCount(&DpRxSsInst, LaneCount_init);
-#endif
 	XDpRxSs_Start(&DpRxSsInst);
 //	/* Programming AUX defer to 6. */
 //	tmp_rd = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x4);
 //	tmp_rd |= tmp_rd | 0x06000000;
 //	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x4, tmp_rd);
 
-#if OVERRIDE_540G
-	// Disabling the extended capability so that RX never trains more than
-	// 5.4G
-	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x1);
-	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_OVER_TP_SET,
-		(XDP_DPCD_TRAIN_AUX_RD_INT_16MS <<
-		 XDP_RX_OVER_TP_SET_TRAINING_AUX_RD_INTERVAL_SHIFT) |
-		0x0000);
-	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x0);
-#endif
 
 	/* Setting RX link to disabled state. This is to ensure
 	 * that Source gets enough time to authenticate and do the 
