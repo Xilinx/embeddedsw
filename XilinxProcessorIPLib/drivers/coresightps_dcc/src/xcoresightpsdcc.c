@@ -60,8 +60,8 @@
 #warning "The driver is supported only for ARM architecture"
 #else
 
-#include <xil_types.h>
-#include <xpseudo_asm.h>
+#include "xil_types.h"
+#include "xpseudo_asm.h"
 
 #ifdef __ICCARM__
 #define INLINE
