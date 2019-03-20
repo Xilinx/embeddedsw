@@ -198,6 +198,9 @@ cpu_cortexr5_v1_5:
 Create a new version of cortex r5 CPU driver to add support for hard
 float.
 
+coresightps_dcc_v1_5:
+Fixed MISRA C Mandatory Violations CR#1025101.
+
 Changes for 2018.3.1
 ===============================
 rfdc_v5_1:
