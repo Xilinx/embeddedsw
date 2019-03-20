@@ -52,6 +52,7 @@
 * 4.0	arc  12/18/18 Fixed MISRA-C violations.
 *       arc  03/06/19 Added asserts to validate input params.
 *       vns  03/12/19 Modified as part of XilSecure code re-arch.
+*       arc  03/20/19 Added time outs and status info for API's.
 *
 * </pre>
 *
@@ -135,7 +136,7 @@ s32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XCsuDma* CsuDmaPtr)
  s32 XSecure_Sha3PadSelection(XSecure_Sha3 *InstancePtr,
 		 XSecure_Sha3PadType Sha3PadType)
 {
-	s32 Status = XST_SUCCESS;
+	s32 Status;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -150,6 +151,7 @@ s32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XCsuDma* CsuDmaPtr)
 		goto END;
 	}
 	InstancePtr->Sha3PadType = Sha3PadType;
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }
@@ -304,19 +306,27 @@ void XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
  *
  *
  ******************************************************************************/
-void XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr)
+u32 XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr)
 {
+	volatile u32 RegStatus;
+	u32 Status = (u32)XST_FAILURE;
+	u32 TimeOut = XSECURE_SHA_TIMEOUT_MAX;
+
 	/* Asserts validate the input arguments */
-	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	volatile u32 Status;
-
-	do
-	{
-		Status = XSecure_ReadReg(InstancePtr->BaseAddress,
+	while (TimeOut != 0U) {
+		RegStatus = XSecure_ReadReg(InstancePtr->BaseAddress,
 					XSECURE_CSU_SHA3_DONE_OFFSET);
-	} while (XSECURE_CSU_SHA3_DONE_DONE !=
-			((u32)Status & XSECURE_CSU_SHA3_DONE_DONE));
+		if (XSECURE_CSU_SHA3_DONE_DONE ==
+				((u32)RegStatus & XSECURE_CSU_SHA3_DONE_DONE)) {
+			Status = (u32)XST_SUCCESS;
+			goto END;
+		}
+		TimeOut = TimeOut - 1U;
+	}
+END:
+	return Status;
 }
 
 
@@ -334,14 +344,15 @@ void XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr)
  *
  *
  *****************************************************************************/
-void XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
+u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 {
 	u32 PartialLen;
+	u32 Status;
 
 	/* Asserts validate the input arguments */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(Hash != NULL);
-	Xil_AssertVoid(InstancePtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED);
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Hash != NULL);
+	Xil_AssertNonvoid(InstancePtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED);
 
 	PartialLen = InstancePtr->Sha3Len % XSECURE_SHA3_BLOCK_LEN;
 
@@ -377,20 +388,23 @@ void XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 						XCSUDMA_IXR_DONE_MASK);
 
 	/* Check the SHA3 DONE bit. */
-	XSecure_Sha3WaitForDone(InstancePtr);
+	Status = XSecure_Sha3WaitForDone(InstancePtr);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
 
 	/* If requested, read out the Hash in reverse order.  */
 	if (Hash != NULL)
 	{
 		XSecure_Sha3_ReadHash(InstancePtr, Hash);
 	}
-
+END:
 	/* Set SHA under reset */
 	XSecure_SetReset(InstancePtr->BaseAddress,
 					XSECURE_CSU_SHA3_RESET_OFFSET);
 
 	InstancePtr->Sha3State = XSECURE_SHA3_INITIALIZED;
-
+	return Status;
 }
 
 /*****************************************************************************/
@@ -408,18 +422,22 @@ void XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
  *
  *
  ******************************************************************************/
-void XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In, const u32 Size,
+u32 XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In, const u32 Size,
 								u8 *Out)
 {
+	u32 Status;
+
 	/* Asserts validate the input arguments */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(Size > (u32)0x00U);
-	Xil_AssertVoid(Out != NULL);
-	Xil_AssertVoid(In != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Size > (u32)0x00U);
+	Xil_AssertNonvoid(Out != NULL);
+	Xil_AssertNonvoid(In != NULL);
 
 	XSecure_Sha3Start(InstancePtr);
 	XSecure_Sha3Update(InstancePtr, In, Size);
-	XSecure_Sha3Finish(InstancePtr, Out);
+	Status = XSecure_Sha3Finish(InstancePtr, Out);
+
+	return Status;
 }
 
 /*****************************************************************************/
