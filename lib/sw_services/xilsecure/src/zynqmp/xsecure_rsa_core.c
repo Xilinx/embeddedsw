@@ -39,6 +39,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 4.0   vns  03/12/19 Initial Release.
+*       arc  03/20/19 modified default status value to XST_FAILURE
+*                     for XSecure_RsaSignVerification()
 *
 * </pre>
 *

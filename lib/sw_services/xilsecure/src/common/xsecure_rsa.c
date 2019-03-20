@@ -159,7 +159,7 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 	u32 Pad = XSECURE_FSBL_SIG_SIZE - 3U - 19U - HashLen;
 	u8 * PadPtr = Signature;
 	u32 sign_index;
-	u32 Status = (u32)XST_SUCCESS;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(Signature != NULL);
@@ -176,7 +176,6 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 		}
 		else
 		{
-			Status = (u32)XST_FAILURE;
 			goto ENDF;
 		}
 	}
@@ -188,7 +187,6 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 		}
 		else
 		{
-			Status = (u32)XST_FAILURE;
 			goto ENDF;
 		}
 	}
@@ -201,14 +199,12 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 
 	if (0x00U != *PadPtr)
 	{
-		Status = XST_FAILURE;
 		goto ENDF;
 	}
 	PadPtr++;
 
 	if (0x01U != *PadPtr)
 	{
-		Status = XST_FAILURE;
 		goto ENDF;
 	}
 	PadPtr++;
@@ -217,7 +213,6 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 	{
 		if (0xFFU != *PadPtr)
 		{
-			Status = XST_FAILURE;
 			goto ENDF;
 		}
 		PadPtr++;
@@ -225,7 +220,6 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 
 	if (0x00U != *PadPtr)
 	{
-		Status = XST_FAILURE;
 		goto ENDF;
 	}
 	PadPtr++;
@@ -234,7 +228,6 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 	{
 		if (*PadPtr != Tpadding[sign_index])
 		{
-			Status = XST_FAILURE;
 			goto ENDF;
 		}
 		PadPtr++;
@@ -244,12 +237,11 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 	{
 		if (*PadPtr != Hash[sign_index])
 		{
-			Status = XST_FAILURE;
 			goto ENDF;
 		}
 		PadPtr++;
 	}
-
+	Status = (u32)XST_SUCCESS;
 ENDF:
 	return Status;
 }
