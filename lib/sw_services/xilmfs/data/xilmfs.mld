@@ -35,6 +35,7 @@ BEGIN LIBRARY xilmfs
  OPTION REQUIRES_OS = (standalone xilkernel freertos10_xilinx);
  OPTION VERSION = 2.3;
   OPTION NAME = xilmfs;
+ OPTION library_state = "deprecated";
 
  PARAM name = numbytes, desc = "Number of Bytes", type = int, default = 100000, drc = drc_numbytes ; 
  PARAM name = base_address, desc = "Base Address", type = int, default = 0x10000, drc = drc_base_address ; 
