@@ -60,6 +60,7 @@
 * 4.0   arc 18/12/18 Fixed MISRA-C violations.
 *       arc 12/02/19 Added support for validate image format.
 *       rama 18/03/19 Fixed IAR compiler errors and warnings
+*       arc 03/20/19 Reading the return value of the functions to validate
 *
 * </pre>
 *
@@ -364,7 +365,8 @@ u32 XSecure_Sha3Hash(u32 SrcAddrHigh, u32 SrcAddrLow, u32 SrcSize, u32 Flags)
 						SrcSize);
 		break;
 	case XSECURE_SHA3_FINAL:
-		XSecure_Sha3Finish(&Sha3Instance, (u8 *)(UINTPTR)SrcAddr);
+		Status = XSecure_Sha3Finish(&Sha3Instance,
+						(u8 *)(UINTPTR)SrcAddr);
 		break;
 	default:
 		Status = XSECURE_INVALID_FLAG;
@@ -575,7 +577,7 @@ static u32 XSecure_EncryptData(u32 AddrHigh, u32 AddrLow)
 	SrcAddr = AesParams->Src;
 	DstAddr = AesParams->Dst;
 
-	XSecure_AesEncryptData(&SecureAes,
+	Status = XSecure_AesEncryptData(&SecureAes,
 			(u8 *)(UINTPTR)DstAddr,
 			(u8 *)(UINTPTR)SrcAddr,
 			(u32)AesParams->Size);
@@ -812,7 +814,10 @@ static inline u32 XSecure_BhdrAuthentication(XCsuDma *CsuDmaInstPtr,
 	/* Calculate Hash on Data to be authenticated */
 	XSecure_Sha3Start(&SecureSha3);
 	XSecure_Sha3Update(&SecureSha3, Data, Size);
-	XSecure_Sha3Finish(&SecureSha3, Hash);
+	Status = XSecure_Sha3Finish(&SecureSha3, Hash);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
 
 	AcPtr += ((u32)XSECURE_RSA_AC_ALIGN + (u32)XSECURE_PPK_SIZE);
 	KeyInst.Modulus = AcPtr;
@@ -875,7 +880,7 @@ u32 XSecure_MemCopy(void * DestPtr, void * SrcPtr, u32 Size)
 	XCsuDma_IntrClear(&CsuDma, XCSUDMA_SRC_CHANNEL, XCSUDMA_IXR_DONE_MASK);
 	XCsuDma_IntrClear(&CsuDma, XCSUDMA_DST_CHANNEL, XCSUDMA_IXR_DONE_MASK);
 
-	return XST_SUCCESS;
+	return (u32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -1450,8 +1455,11 @@ u32 XSecure_PpkVerify(XCsuDma *CsuDmaInstPtr, u8 *AuthCert)
 		Status = XSECURE_SHA3_PADSELECT_ERR;
 		goto END;
 	}
-	XSecure_Sha3Digest(&Sha3Inst, AuthCert + XSECURE_AC_PPK_OFFSET,
+	Status = XSecure_Sha3Digest(&Sha3Inst, AuthCert + XSECURE_AC_PPK_OFFSET,
 					XSECURE_KEY_SIZE, (u8 *)Hash);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Check selected is PPK revoked */
 	if (PpkSel == 0x0U) {
@@ -1555,7 +1563,10 @@ u32 XSecure_SpkAuthentication(XCsuDma *CsuDmaInstPtr, u8 *AuthCert, u8 *Ppk)
 	/* Calculate SPK + Auth header Hash */
 	XSecure_Sha3Update(&Sha3Instance, (u8 *)AcPtr, XSECURE_SPK_SIZE);
 
-	XSecure_Sha3Finish(&Sha3Instance, (u8 *)SpkHash);
+	Status = XSecure_Sha3Finish(&Sha3Instance, (u8 *)SpkHash);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Set SPK Signature pointer */
 	AcPtr += XSECURE_SPK_SIZE;
