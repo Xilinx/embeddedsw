@@ -550,10 +550,7 @@ u32 DpRxSs_Main(u16 DeviceId)
 	}
 	/*Megachips Retimer Initialization*/
 	XDpRxSs_McDp6000_init(&DpRxSsInst, DpRxSsInst.IicPtr->BaseAddress); //XPAR_IIC_0_BASEADDR);
-	/* Set Link rate and lane count to maximum */
-	// Setting Max capability as 5.4G, A D1.4 source would read the
-	// extended cap and train for 8.1G
-	XDpRxSs_SetLinkRate(&DpRxSsInst, 0x14) ;//DPRXSS_LINK_RATE);
+	XDpRxSs_SetLinkRate(&DpRxSsInst, DPRXSS_LINK_RATE);
 	XDpRxSs_SetLaneCount(&DpRxSsInst, DPRXSS_LANE_COUNT);
 	/* Start DPRX Subsystem set */
 	Status = XDpRxSs_Start(&DpRxSsInst);
