@@ -63,6 +63,8 @@
 * 3.0   vns  01/23/18 Added NIST SHA3 support.
 * 4.0   arc  18/12/18 Fixed MISRA-C violations.
 *       vns  03/12/19 Modified as part of XilSecure code re-arch.
+        arc  03/20/19 Changed prototype of the functions return type
+                      as void to u32.
 *
 * </pre>
 *
@@ -102,6 +104,7 @@ extern "C" {
 
 #define XSECURE_CSU_DMA_MAX_TRANSFER	(0x1ffffffcU) /** < CSU DMA Max Transfer
 							rate in bytes*/
+#define XSECURE_SHA_TIMEOUT_MAX         (0x1FFFFU)
 
 /***************************** Type Definitions******************************/
 
@@ -146,10 +149,10 @@ void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr);
 /* Data Transfer */
 void XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
 						const u32 Size);
-void XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash);
+u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash);
 
 /* Complete SHA digest calculation */
-void XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In,
+u32 XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In,
 						const u32 Size, u8 *Out);
 
 void XSecure_Sha3_ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash);
@@ -157,7 +160,7 @@ void XSecure_Sha3_ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash);
 s32 XSecure_Sha3PadSelection(XSecure_Sha3 *InstancePtr,
 		XSecure_Sha3PadType Sha3PadType);
 
-void XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr);
+u32 XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr);
 
 s32 XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr);
 
