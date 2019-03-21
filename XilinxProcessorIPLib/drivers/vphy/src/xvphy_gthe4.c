@@ -819,21 +819,6 @@ u32 XVphy_Gthe4TxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 	if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX)) {
 
 		ChPtr = &InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(ChId)];
-
-		/* Set TX_PROGDIV_CFG to 20/40 */
-		if ((PllType == XVPHY_PLL_TYPE_QPLL) ||
-			(PllType == XVPHY_PLL_TYPE_QPLL0) ||
-			(PllType == XVPHY_PLL_TYPE_QPLL1)) {
-			if (InstancePtr->Quads[QuadId].
-					Plls[XVPHY_CH2IDX(ChId)].TxOutDiv != 16) {
-				/* TX_PROGDIV_CFG = 20 */
-				XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x3E, 57442);
-			} else {
-				/* TX_PROGDIV_CFG = 40 */
-				XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x3E, 57415);
-			}
-		}
-
 		/* TX_INT_DATAWIDTH */
 		Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId, 0x85, &DrpVal);
 		DrpVal &= ~(0x3 << 10);

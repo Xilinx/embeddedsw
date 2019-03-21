@@ -98,6 +98,7 @@
  *                       XVphy_SetTxPreEmphasis from xvphy_i.c/h
  *                     Added XVphy_SetTxPostCursor API
  * 1.9   gm   14/05/18 Added XVphy_SetRxLpm from xvphy_i.c/.h
+ *                     Removed deprecated XVphy_HdmiInitialize API
  * </pre>
  *
 *******************************************************************************/
@@ -940,8 +941,6 @@ u32 XVphy_DpInitialize(XVphy *InstancePtr, XVphy_Config *CfgPtr, u8 QuadId,
 		XVphy_PllRefClkSelType QpllRefClkSel,
 		XVphy_PllType TxPllSelect, XVphy_PllType RxPllSelect,
 		u8 LinkRate);
-u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr,
-		u32 SystemFrequency) __attribute__ ((deprecated));
 u32 XVphy_Hdmi_CfgInitialize(XVphy *InstancePtr, u8 QuadId,
         XVphy_Config *CfgPtr);
 u32 XVphy_SetHdmiTxParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
