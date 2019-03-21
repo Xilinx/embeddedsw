@@ -68,6 +68,7 @@ Update example for versal emulation
 Use selected speed in loopback mode
 Fix MDC divisor for versal emulation
 Fix BD memory allocation and its attributes
+Fix alignment pragmas for IAR compiler.
 
 freertos10_xilinx_v1_3:
 Declared attribute of vApplicationAssert() as weak in
