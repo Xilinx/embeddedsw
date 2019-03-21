@@ -213,6 +213,7 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 					(u8)CurEpNum, (u8)XUSBPSU_EP_DIR_OUT);
 
 			Params = XUsbPsu_GetEpParams(InstancePtr);
+			Xil_AssertVoid(Params != NULL);
 
 			/* Issue EndTransfer WITH CMDIOC bit set */
 			Cmd = XUSBPSU_DEPCMD_ENDTRANSFER;
@@ -248,6 +249,7 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 					(u8)CurEpNum, (u8)XUSBPSU_EP_DIR_IN);
 
 			Params = XUsbPsu_GetEpParams(InstancePtr);
+			Xil_AssertVoid(Params != NULL);
 
 			/* Issue EndTransfer WITH CMDIOC bit set */
 			Cmd = XUSBPSU_DEPCMD_ENDTRANSFER;
@@ -393,6 +395,7 @@ void XUsbPsu_EventBuffersSetup(struct XUsbPsu *InstancePtr)
 	struct XUsbPsu_EvtBuffer *Evt;
 
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->EventBuffer != NULL);
 
 	Evt = &InstancePtr->Evt;
 	Evt->BuffAddr = (void *)InstancePtr->EventBuffer;
