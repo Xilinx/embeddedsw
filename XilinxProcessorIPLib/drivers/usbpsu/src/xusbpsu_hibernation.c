@@ -589,7 +589,7 @@ void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr)
 {
 	u32 RegVal, link_state;
 	u32 retries;
-	u8 enter_hiber;
+	u8 enter_hiber = (u8)0U;
 
 	RegVal = XUsbPsu_ReadLpdReg(RST_LPD_TOP);
 	if (InstancePtr->ConfigPtr->DeviceId == (u16)XPAR_XUSBPSU_0_DEVICE_ID) {
