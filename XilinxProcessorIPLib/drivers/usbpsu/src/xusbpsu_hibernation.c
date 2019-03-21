@@ -127,8 +127,9 @@ static void save_regs(struct XUsbPsu *InstancePtr)
 {
 	u32 i;
 
-	for (i = 0U; i < NUM_OF_NONSTICKY_REGS; i++)
+	for (i = 0U; i < NUM_OF_NONSTICKY_REGS; i++) {
 		saved_regs[i] = XUsbPsu_ReadReg(InstancePtr, save_reg_addr[i]);
+	}
 }
 
 /*****************************************************************************/
@@ -147,8 +148,9 @@ static void restore_regs(struct XUsbPsu *InstancePtr)
 {
 	u32 i;
 
-	for (i = 0U; i < NUM_OF_NONSTICKY_REGS; i++)
+	for (i = 0U; i < NUM_OF_NONSTICKY_REGS; i++) {
 		XUsbPsu_WriteReg(InstancePtr, save_reg_addr[i], saved_regs[i]);
+	}
 }
 
 /*****************************************************************************/
