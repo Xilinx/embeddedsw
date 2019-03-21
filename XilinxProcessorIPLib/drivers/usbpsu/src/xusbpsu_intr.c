@@ -538,8 +538,10 @@ void XUsbPsu_IntrHandler(void *XUsbPsuInstancePtr)
 	u32 RegVal;
 
 	InstancePtr = (struct XUsbPsu  *)XUsbPsuInstancePtr;
+	Xil_AssertVoid(InstancePtr != NULL);
 
 	Evt = &InstancePtr->Evt;
+	Xil_AssertVoid(Evt != NULL);
 
 	Count = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0U));
 	Count &= XUSBPSU_GEVNTCOUNT_MASK;
