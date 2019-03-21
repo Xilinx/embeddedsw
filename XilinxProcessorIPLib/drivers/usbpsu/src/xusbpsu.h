@@ -582,9 +582,9 @@ union XUsbPsu_Event {
 
 #else
 #define roundup(x, y) (                                 \
-        (((x) + (u32)((typeof(y))y - 1U)) / \
-			(u32)((typeof(y))y)) * \
-				(u32)((typeof(y))y)               \
+        (((x) + (u32)((typeof(y))(y) - 1U)) / \
+			(u32)((typeof(y))(y))) * \
+				(u32)((typeof(y))(y))               \
 )
 #endif
 #define DECLARE_DEV_DESC(Instance, desc)			\
