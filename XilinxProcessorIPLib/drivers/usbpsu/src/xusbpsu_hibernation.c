@@ -240,7 +240,7 @@ void XUsbPsu_InitHibernation(struct XUsbPsu *InstancePtr)
 	InstancePtr->IsHibernated = 0;
 
 	memset(ScratchBuf, 0, sizeof(ScratchBuf));
-	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0) {
+	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheFlushRange((INTPTR)ScratchBuf, XUSBPSU_HIBER_SCRATCHBUF_SIZE);
 	}
 
@@ -360,7 +360,7 @@ void Xusbpsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 	XUsbPsu_WriteVendorReg(XIL_REQ_PWR_STATE, XIL_REQ_PWR_STATE_D3);
 
 	/* wait till current state is changed to D3 */
-        retries = XUSBPSU_PWR_STATE_RETRIES;
+        retries = (s32)XUSBPSU_PWR_STATE_RETRIES;
         do {
 		RegVal = XUsbPsu_ReadVendorReg(XIL_CUR_PWR_STATE);
                 if ((RegVal & XIL_CUR_PWR_STATE_BITMASK) == XIL_CUR_PWR_STATE_D3) {
@@ -378,7 +378,7 @@ void Xusbpsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 
 	RegVal = XUsbPsu_ReadLpdReg(RST_LPD_TOP);
 	if (InstancePtr->ConfigPtr->DeviceId == XPAR_XUSBPSU_0_DEVICE_ID) {
-		XUsbPsu_WriteLpdReg(RST_LPD_TOP, RegVal | USB0_CORE_RST);
+		XUsbPsu_WriteLpdReg(RST_LPD_TOP, RegVal | (u32)USB0_CORE_RST);
 	}
 
 	InstancePtr->IsHibernated = 1;
@@ -428,7 +428,7 @@ static s32 XUsbPsu_RestartEp(struct XUsbPsu *InstancePtr, u8 EpNum)
 
 	TrbPtr->Ctrl |= XUSBPSU_TRB_CTRL_HWO;
 
-	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0) {
+	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheFlushRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
 		Xil_DCacheInvalidateRange((INTPTR)Ept->BufferPtr, Ept->RequestedBytes);
 	}
@@ -583,18 +583,18 @@ void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr)
 {
 	u32 RegVal, link_state;
 	s32 retries;
-	char enter_hiber;
+	u8 enter_hiber;
 
 	RegVal = XUsbPsu_ReadLpdReg(RST_LPD_TOP);
-	if (InstancePtr->ConfigPtr->DeviceId == XPAR_XUSBPSU_0_DEVICE_ID) {
-		XUsbPsu_WriteLpdReg(RST_LPD_TOP, RegVal & ~USB0_CORE_RST);
+	if (InstancePtr->ConfigPtr->DeviceId == (u16)XPAR_XUSBPSU_0_DEVICE_ID) {
+		XUsbPsu_WriteLpdReg(RST_LPD_TOP, (u32)(RegVal & ~(u32)USB0_CORE_RST));
 	}
 
 	/* change power state to D0 */
 	XUsbPsu_WriteVendorReg(XIL_REQ_PWR_STATE, XIL_REQ_PWR_STATE_D0);
 
 	/* wait till current state is changed to D0 */
-        retries = XUSBPSU_PWR_STATE_RETRIES;
+        retries = (s32)XUSBPSU_PWR_STATE_RETRIES;
         do {
 		RegVal = XUsbPsu_ReadVendorReg(XIL_CUR_PWR_STATE);
                 if ((RegVal & XIL_CUR_PWR_STATE_BITMASK) == XIL_CUR_PWR_STATE_D0) {
@@ -674,11 +674,11 @@ void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr)
 		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
 		RegVal &= ~XUSBPSU_DCTL_KEEP_CONNECT;
 		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
-		enter_hiber = 1;
+		enter_hiber = (u8)1U;
 		break;
 	case XUSBPSU_LINK_STATE_U3:
 		/* enter hibernation again */
-		enter_hiber = 1;
+		enter_hiber = (u8)1U;
 		break;
 	default:
 		if (XUsbPsu_SetLinkState(InstancePtr, XUSBPSU_LINK_STATE_RECOV)) {
@@ -695,7 +695,7 @@ void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr)
 
 	InstancePtr->IsHibernated = 0;
 
-	if (enter_hiber)  {
+	if (enter_hiber == (u8)1U)  {
 		Xusbpsu_HibernationIntr(InstancePtr);
 		return;
 	}
