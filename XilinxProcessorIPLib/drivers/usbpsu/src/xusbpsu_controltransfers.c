@@ -185,8 +185,9 @@ void XUsbPsu_Ep0DataDone(struct XUsbPsu *InstancePtr,
 	Ept = &InstancePtr->eps[Epnum];
 	TrbPtr = &InstancePtr->Ep0_Trb;
 
-	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0)
+	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0) {
 		Xil_DCacheInvalidateRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
+	}
 
 	Status = XUSBPSU_TRB_SIZE_TRBSTS(TrbPtr->Size);
 	if (Status == XUSBPSU_TRBSTS_SETUP_PENDING) {
@@ -210,8 +211,9 @@ void XUsbPsu_Ep0DataDone(struct XUsbPsu *InstancePtr,
 
 	if (Dir == XUSBPSU_EP_DIR_OUT) {
 		/* Invalidate Cache */
-		if (InstancePtr->ConfigPtr->IsCacheCoherent == 0)
+		if (InstancePtr->ConfigPtr->IsCacheCoherent == 0) {
 			Xil_DCacheInvalidateRange((INTPTR)Ept->BufferPtr, Ept->BytesTxed);
+		}
 	}
 
 	if (Ept->Handler != NULL) {
@@ -251,8 +253,9 @@ void XUsbPsu_Ep0StatusDone(struct XUsbPsu *InstancePtr,
 			return;
 		}
 	}
-	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0)
+	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0) {
 		Xil_DCacheInvalidateRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
+	}
 
 	(void)XUsbPsu_RecvSetup(InstancePtr);
 }

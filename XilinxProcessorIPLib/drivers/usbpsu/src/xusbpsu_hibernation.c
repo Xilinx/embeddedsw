@@ -179,8 +179,9 @@ s32 XUsbPsu_SendGadgetGenericCmd(struct XUsbPsu *InstancePtr, u32 cmd,
 	do {
 		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DGCMD);
 		if (!(RegVal & XUSBPSU_DGCMD_CMDACT)) {
-			if (XUSBPSU_DGCMD_STATUS(RegVal))
+			if (XUSBPSU_DGCMD_STATUS(RegVal)) {
 				return XST_REGISTER_ERROR;
+			}
 			return 0;
 		}
 	} while (--retry);
@@ -239,8 +240,9 @@ void XUsbPsu_InitHibernation(struct XUsbPsu *InstancePtr)
 	InstancePtr->IsHibernated = 0;
 
 	memset(ScratchBuf, 0, sizeof(ScratchBuf));
-	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0)
+	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0) {
 		Xil_DCacheFlushRange((INTPTR)ScratchBuf, XUSBPSU_HIBER_SCRATCHBUF_SIZE);
+	}
 
 	XUsbPsu_SetupScratchpad(InstancePtr);
 
@@ -295,11 +297,13 @@ void Xusbpsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 		struct XUsbPsu_Ep *Ept;
 
 		Ept = &InstancePtr->eps[EpNum];
-		if (!Ept)
+		if (!Ept) {
 			continue;
+		}
 
-		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED))
+		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED)) {
 			continue;
+		}
 
 		/* save srsource index for later use */
 		XUsbPsu_StopTransfer(InstancePtr, Ept->UsbEpNum,
@@ -359,8 +363,9 @@ void Xusbpsu_HibernationIntr(struct XUsbPsu *InstancePtr)
         retries = XUSBPSU_PWR_STATE_RETRIES;
         do {
 		RegVal = XUsbPsu_ReadVendorReg(XIL_CUR_PWR_STATE);
-                if ((RegVal & XIL_CUR_PWR_STATE_BITMASK) == XIL_CUR_PWR_STATE_D3)
+                if ((RegVal & XIL_CUR_PWR_STATE_BITMASK) == XIL_CUR_PWR_STATE_D3) {
                         break;
+                }
 
                 XUsbSleep(XUSBPSU_TIMEOUT);
         } while (--retries);
@@ -372,8 +377,9 @@ void Xusbpsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 	XUsbSleep(XUSBPSU_TIMEOUT);
 
 	RegVal = XUsbPsu_ReadLpdReg(RST_LPD_TOP);
-	if (InstancePtr->ConfigPtr->DeviceId == XPAR_XUSBPSU_0_DEVICE_ID)
+	if (InstancePtr->ConfigPtr->DeviceId == XPAR_XUSBPSU_0_DEVICE_ID) {
 		XUsbPsu_WriteLpdReg(RST_LPD_TOP, RegVal | USB0_CORE_RST);
+	}
 
 	InstancePtr->IsHibernated = 1;
 	xil_printf("Hibernated!\r\n");
@@ -408,8 +414,9 @@ static s32 XUsbPsu_RestartEp(struct XUsbPsu *InstancePtr, u8 EpNum)
 	Ept = &InstancePtr->eps[EpNum];
 
 	/* check if we need to restart transfer */
-	if (!Ept->ResourceIndex && Ept->PhyEpNum)
+	if (!Ept->ResourceIndex && Ept->PhyEpNum) {
 		return XST_SUCCESS;
+	}
 
 	if (Ept->UsbEpNum) {
 		TrbPtr = &Ept->EpTrb[Ept->TrbDequeue];
@@ -433,8 +440,9 @@ static s32 XUsbPsu_RestartEp(struct XUsbPsu *InstancePtr, u8 EpNum)
 
 	Ret = XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
 			Cmd, Params);
-	if (Ret)
+	if (Ret) {
 		return XST_FAILURE;
+	}
 
 	Ept->EpStatus |= XUSBPSU_EP_BUSY;
 	Ept->ResourceIndex = (u8)XUsbPsu_EpGetTransferIndex(InstancePtr,
@@ -464,11 +472,13 @@ static s32 XUsbPsu_RestoreEp0(struct XUsbPsu *InstancePtr)
         for (EpNum = 0; EpNum < 2; EpNum++) {
 		Ept = &InstancePtr->eps[EpNum];
 
-		if (!Ept)
+		if (!Ept) {
 			continue;
+		}
 
-		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED))
+		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED)) {
 			continue;
+		}
 
 		Ret = XUsbPsu_EpEnable(InstancePtr, Ept->UsbEpNum,
 				Ept->Direction, Ept->MaxSize, Ept->Type, TRUE);
@@ -514,11 +524,13 @@ static s32 XUsbPsu_RestoreEps(struct XUsbPsu *InstancePtr)
 	for (EpNum = 2; EpNum < XUSBPSU_ENDPOINTS_NUM; EpNum++) {
 		Ept = &InstancePtr->eps[EpNum];
 
-		if (!Ept)
+		if (!Ept) {
 			continue;
+		}
 
-		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED))
+		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED)) {
 			continue;
+		}
 
 		Ret = XUsbPsu_EpEnable(InstancePtr, Ept->UsbEpNum,
 				Ept->Direction, Ept->MaxSize, Ept->Type, TRUE);
@@ -532,11 +544,13 @@ static s32 XUsbPsu_RestoreEps(struct XUsbPsu *InstancePtr)
 	for (EpNum = 2; EpNum < XUSBPSU_ENDPOINTS_NUM; EpNum++) {
 		Ept = &InstancePtr->eps[EpNum];
 
-		if (!Ept)
+		if (!Ept) {
 			continue;
+		}
 
-		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED))
+		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED)) {
 			continue;
+		}
 
 		if (Ept->EpStatus & XUSBPSU_EP_STALL) {
 			XUsbPsu_EpSetStall(InstancePtr, Ept->UsbEpNum, Ept->Direction);
@@ -572,8 +586,9 @@ void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr)
 	char enter_hiber;
 
 	RegVal = XUsbPsu_ReadLpdReg(RST_LPD_TOP);
-	if (InstancePtr->ConfigPtr->DeviceId == XPAR_XUSBPSU_0_DEVICE_ID)
+	if (InstancePtr->ConfigPtr->DeviceId == XPAR_XUSBPSU_0_DEVICE_ID) {
 		XUsbPsu_WriteLpdReg(RST_LPD_TOP, RegVal & ~USB0_CORE_RST);
+	}
 
 	/* change power state to D0 */
 	XUsbPsu_WriteVendorReg(XIL_REQ_PWR_STATE, XIL_REQ_PWR_STATE_D0);
@@ -582,8 +597,9 @@ void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr)
         retries = XUSBPSU_PWR_STATE_RETRIES;
         do {
 		RegVal = XUsbPsu_ReadVendorReg(XIL_CUR_PWR_STATE);
-                if ((RegVal & XIL_CUR_PWR_STATE_BITMASK) == XIL_CUR_PWR_STATE_D0)
+                if ((RegVal & XIL_CUR_PWR_STATE_BITMASK) == XIL_CUR_PWR_STATE_D0) {
                         break;
+                }
 
                 XUsbSleep(XUSBPSU_TIMEOUT);
         } while (--retries);
@@ -613,8 +629,9 @@ void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr)
 	XUsbPsu_EventBuffersSetup(InstancePtr);
 
 	/* nothing to do when in OTG host mode */
-	if (XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GSTS) & XUSBPSU_GSTS_CUR_MODE)
+	if (XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GSTS) & XUSBPSU_GSTS_CUR_MODE) {
 		return;
+	}
 
 	if (XUsbPsu_RestoreEp0(InstancePtr)) {
 		xil_printf("Failed to restore EP0\r\n");
