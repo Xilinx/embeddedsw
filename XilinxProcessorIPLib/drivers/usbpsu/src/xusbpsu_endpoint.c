@@ -721,6 +721,9 @@ s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 				| XUSBPSU_TRB_CTRL_LST);
 
 		break;
+	default:
+		/* Do Nothing. Added for making MISRA-C complaint */
+		break;
 	}
 
 	TrbPtr->Ctrl |= (XUSBPSU_TRB_CTRL_HWO
@@ -875,6 +878,9 @@ s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
 		TrbPtr->Ctrl = (XUSBPSU_TRBCTL_NORMAL
 				| XUSBPSU_TRB_CTRL_LST);
 
+		break;
+	default:
+		/* Do Nothing. Added for making MISRA-C complaint */
 		break;
 	}
 
