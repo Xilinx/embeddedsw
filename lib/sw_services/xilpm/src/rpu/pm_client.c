@@ -303,5 +303,5 @@ void XPm_ClientSetPrimaryMaster(void)
 	} else {
 		primary_master = pm_masters_all[master_id];
 	}
-	pm_dbg("Running in %s mode\n", lockstep ? "Lock-Step" : "Split");
+	pm_print("Running in %s mode\n", lockstep ? "Lock-Step" : "Split");
 }

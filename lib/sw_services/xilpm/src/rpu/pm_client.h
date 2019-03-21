@@ -58,6 +58,7 @@ extern "C" {
 
 const char* XPm_GetMasterName(void);
 <<<<<<< HEAD
+<<<<<<< HEAD
 #ifdef DEBUG_MODE
 #if defined (__GNUC__)
 =======
@@ -69,6 +70,14 @@ const char* XPm_GetMasterName(void);
 										XPm_GetMasterName(), ##__VA_ARGS__)
 
 <<<<<<< HEAD
+=======
+#ifdef DEBUG_MODE
+#if defined (__GNUC__)
+
+#define pm_print(MSG, ...)	xil_printf("%s: "MSG, \
+										XPm_GetMasterName(), ##__VA_ARGS__)
+
+>>>>>>> xilpm: Restored pm_print macro with debug mode protection
 #elif defined (__ICCARM__)
 
 #define pm_print	xil_printf
