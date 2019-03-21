@@ -178,7 +178,7 @@ s32 XUsbPsu_SendGadgetGenericCmd(struct XUsbPsu *InstancePtr, u32 cmd,
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DGCMDPAR, param);
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DGCMD, cmd | XUSBPSU_DGCMD_CMDACT);
 
-	do {
+	while (retry > 0U) {
 		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DGCMD);
 		if ((RegVal & XUSBPSU_DGCMD_CMDACT) == (u32)0U) {
 			if (XUSBPSU_DGCMD_STATUS(RegVal) != (u32)0U) {
@@ -188,7 +188,7 @@ s32 XUsbPsu_SendGadgetGenericCmd(struct XUsbPsu *InstancePtr, u32 cmd,
 		}
 
 		retry = retry - 1U;
-	} while (retry > 0U);
+	}
 
 	return (s32)XST_FAILURE;
 }
@@ -365,7 +365,8 @@ void Xusbpsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 
 	/* wait till current state is changed to D3 */
         retries = (u32)XUSBPSU_PWR_STATE_RETRIES;
-        do {
+
+        while (retries > 0U) {
 		RegVal = XUsbPsu_ReadVendorReg(XIL_CUR_PWR_STATE);
                 if ((RegVal & XIL_CUR_PWR_STATE_BITMASK) == XIL_CUR_PWR_STATE_D3) {
                         break;
@@ -373,7 +374,7 @@ void Xusbpsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 
                 XUsbSleep(XUSBPSU_TIMEOUT);
                 retries = retries - 1U;
-        } while (retries > 0U);
+        }
 
 	if (retries == 0U) {
 		xil_printf("Failed to change power state to D3\r\n");
@@ -600,7 +601,8 @@ void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr)
 
 	/* wait till current state is changed to D0 */
         retries = (u32)XUSBPSU_PWR_STATE_RETRIES;
-        do {
+
+	while (retries > 0U) {
 		RegVal = XUsbPsu_ReadVendorReg(XIL_CUR_PWR_STATE);
                 if ((RegVal & XIL_CUR_PWR_STATE_BITMASK) == XIL_CUR_PWR_STATE_D0) {
                         break;
@@ -608,7 +610,7 @@ void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr)
 
                 XUsbSleep(XUSBPSU_TIMEOUT);
                 retries = retries - 1U;
-        } while (retries > 0U);
+        }
 
 	if (retries == 0U) {
 		xil_printf("Failed to change power state to D0\r\n");
