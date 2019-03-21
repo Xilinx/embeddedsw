@@ -195,6 +195,7 @@ Updated mld supported peripheral option with A72 and PMC.
 zdma_v1_7:
 Add support for versal IP name.
 Update writeonly mode example to support versal IP.
+Fix alignment pragmas for IAR compiler.
 
 cpu_cortexr5_v1_5:
 Create a new version of cortex r5 CPU driver to add support for hard
