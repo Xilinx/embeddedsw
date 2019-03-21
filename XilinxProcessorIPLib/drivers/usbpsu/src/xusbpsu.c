@@ -210,7 +210,7 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 					XUSBPSU_EP_DIR_OUT);
 
 			ResIdx = XUsbPsu_EpGetTransferIndex(InstancePtr,
-					CurEpNum, XUSBPSU_EP_DIR_OUT);
+					(u8)CurEpNum, (u8)XUSBPSU_EP_DIR_OUT);
 
 			Params = XUsbPsu_GetEpParams(InstancePtr);
 
@@ -219,8 +219,8 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 			Cmd |= XUSBPSU_DEPCMD_HIPRI_FORCERM;
 			Cmd |= XUSBPSU_DEPCMD_CMDIOC;
 			Cmd |= XUSBPSU_DEPCMD_PARAM(ResIdx);
-			(void)XUsbPsu_SendEpCmd(InstancePtr, CurEpNum,
-					XUSBPSU_EP_DIR_OUT, Cmd, Params);
+			(void)XUsbPsu_SendEpCmd(InstancePtr, (u8)CurEpNum,
+					(u8)XUSBPSU_EP_DIR_OUT, Cmd, Params);
 
 			Ept = &InstancePtr->eps[PhyEpNum];
 			if (Ept != NULL) {
@@ -245,7 +245,7 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 					XUSBPSU_EP_DIR_IN);
 
 			ResIdx = XUsbPsu_EpGetTransferIndex(InstancePtr,
-					CurEpNum, XUSBPSU_EP_DIR_IN);
+					(u8)CurEpNum, (u8)XUSBPSU_EP_DIR_IN);
 
 			Params = XUsbPsu_GetEpParams(InstancePtr);
 
@@ -254,8 +254,8 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 			Cmd |= XUSBPSU_DEPCMD_HIPRI_FORCERM;
 			Cmd |= XUSBPSU_DEPCMD_CMDIOC;
 			Cmd |= XUSBPSU_DEPCMD_PARAM(ResIdx);
-			(void)XUsbPsu_SendEpCmd(InstancePtr, CurEpNum,
-					XUSBPSU_EP_DIR_IN, Cmd, Params);
+			(void)XUsbPsu_SendEpCmd(InstancePtr, (u8)CurEpNum,
+					(u8)XUSBPSU_EP_DIR_IN, Cmd, Params);
 
 			Ept = &InstancePtr->eps[PhyEpNum];
 			if (Ept != NULL) {
