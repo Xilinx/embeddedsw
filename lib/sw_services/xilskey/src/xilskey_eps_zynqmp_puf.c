@@ -43,6 +43,8 @@
 * 6.6   vns  06/06/18 Added doxygen tags
 * 6.7	arc  01/05/19 Fixed MISRA-C violations.
 *       arc  03/15/19 Modified initial default status value as XST_FAILURE
+*       mmd  03/17/19 Handled buffer underflow issue and added timeouts during
+*                     syndrome data reading
 * </pre>
 *
 *****************************************************************************/
@@ -53,9 +55,13 @@
 #include "xilskey_eps_zynqmp_hw.h"
 #include "sleep.h"
 /************************** Constant Definitions *****************************/
-
+#define XILSKEY_PUF_STATUS_SYN_WRD_RDY_TIMEOUT	(500000U)
 
 /**************************** Type Definitions ******************************/
+typedef enum {
+	XSK_EFUSEPS_PUF_REGISTRATION_STARTED,
+	XSK_EFUSEPS_PUF_REGISTRATION_COMPLETE
+} XilsKey_PufRegistrationState;
 
 
 /***************** Macros (Inline Functions) Definitions ********************/
@@ -553,10 +559,13 @@ END:
  *****************************************************************************/
 u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
+	s8 Timeout;
 	u32 PufStatus;
 	u32 Index = 0U;
 	u32 Debug = XSK_PUF_DEBUG_GENERAL;
+	u32 MaxSyndromeSizeInWords = XSK_ZYNQMP_PUF_SYN_DATA_LEN_IN_BYTES;
+	XilsKey_PufRegistrationState RegistrationStatus;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -579,6 +588,7 @@ u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 	if (InstancePtr->RegistrationMode == XSK_ZYNQMP_PUF_MODE4K) {
 		XilSKey_WriteReg(XSK_ZYNQMP_CSU_BASEADDR,
 		XSK_ZYNQMP_CSU_PUF_CFG1, XSK_ZYNQMP_PUF_CFG1_INIT_VAL_4K);
+		MaxSyndromeSizeInWords = XSK_ZYNQMP_MAX_RAW_4K_PUF_SYN_LEN;
 	}
 	else {
 		Status = (u32)XSK_EFUSEPS_ERROR_PUF_INVALID_REG_MODE;
@@ -598,47 +608,65 @@ u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 	XilSKey_WriteReg(XSK_ZYNQMP_CSU_BASEADDR, XSK_ZYNQMP_CSU_PUF_CMD,
 				XSK_ZYNQMP_PUF_REGISTRATION);
 
-	 /* Wait till the data word ready */
-	PufStatus = XilSKey_ReadReg(XSK_ZYNQMP_CSU_BASEADDR,
-				XSK_ZYNQMP_CSU_PUF_STATUS);
-	while((PufStatus & XSK_ZYNQMP_CSU_PUF_STATUS_KEY_RDY_MASK) !=
-			XSK_ZYNQMP_CSU_PUF_STATUS_KEY_RDY_MASK) {
-		PufStatus = XilSKey_ReadReg(XSK_ZYNQMP_CSU_BASEADDR,
-						XSK_ZYNQMP_CSU_PUF_STATUS);
-		while ((PufStatus
-			& XSK_ZYNQMP_CSU_PUF_STATUS_SYN_WRD_RDY_MASK) !=
-				XSK_ZYNQMP_CSU_PUF_STATUS_SYN_WRD_RDY_MASK) {
-			PufStatus = XilSKey_ReadReg(XSK_ZYNQMP_CSU_BASEADDR,
-						XSK_ZYNQMP_CSU_PUF_STATUS);
+	RegistrationStatus = XSK_EFUSEPS_PUF_REGISTRATION_STARTED;
+	do {
+		Timeout = Xil_poll_timeout(Xil_In32,
+		                XSK_ZYNQMP_CSU_BASEADDR + XSK_ZYNQMP_CSU_PUF_STATUS,
+		                PufStatus,
+		                PufStatus & XSK_ZYNQMP_CSU_PUF_STATUS_SYN_WRD_RDY_MASK,
+		                XILSKEY_PUF_STATUS_SYN_WRD_RDY_TIMEOUT);
+
+		if (Timeout != 0U) {
+			Status = (u32)XSK_EFUSEPS_ERROR_PUF_TIMEOUT;
+			break;
 		}
 
-		InstancePtr->SyndromeData[Index] = XilSKey_ReadReg(
-			XSK_ZYNQMP_CSU_BASEADDR, XSK_ZYNQMP_CSU_PUF_WORD);
+		if (PufStatus & XSK_ZYNQMP_CSU_PUF_STATUS_OVERFLOW_MASK) {
+			xPuf_printf(Debug, "API: Overflow warning\r\n");
+			Status = (u32)XSK_EFUSEPS_ERROR_PUF_DATA_OVERFLOW;
+			break;
+		}
+
+		InstancePtr->SyndromeData[Index] =
+		    XilSKey_ReadReg(XSK_ZYNQMP_CSU_BASEADDR,XSK_ZYNQMP_CSU_PUF_WORD);
+
+		if ((PufStatus & XSK_ZYNQMP_CSU_PUF_STATUS_KEY_RDY_MASK) ==
+		    XSK_ZYNQMP_CSU_PUF_STATUS_KEY_RDY_MASK) {
+			if (Index < MaxSyndromeSizeInWords) {
+				xPuf_printf(Debug,
+				    "API: Underflow warning (Syndrome Data Length = %d)\r\n",
+				    Index);
+				Status = (u32)XSK_EFUSEPS_ERROR_PUF_DATA_UNDERFLOW;
+				break;
+			}
+			RegistrationStatus = XSK_EFUSEPS_PUF_REGISTRATION_COMPLETE;
+
+			/* Capture CHASH & AUX */
+			InstancePtr->Chash = InstancePtr->SyndromeData[Index - 1U];
+			InstancePtr->Aux = ((PufStatus &
+			        XSK_ZYNQMP_CSU_PUF_STATUS_AUX_MASK) >> 4U);
+
+			/* Also move the CHASH & AUX into array */
+			InstancePtr->SyndromeData[XSK_ZYNQMP_PUF_SYN_LEN - 2U] =
+			        InstancePtr->Chash;
+			InstancePtr->SyndromeData[XSK_ZYNQMP_PUF_SYN_LEN - 1U] =
+			        ((PufStatus & XSK_ZYNQMP_CSU_PUF_STATUS_AUX_MASK) << 4U);
+
+			Status = (u32)XST_SUCCESS;
+			xPuf_printf(Debug,"API: PUF Helper Data Generated!!!\r\n");
+			break;
+		}
+
 		Index++;
-	}
-	/**
-	 * Need to verify the overflow error to make sure that data
-	 * read is valid
-	 */
-	if ((PufStatus & XSK_ZYNQMP_CSU_PUF_STATUS_OVERFLOW_MASK) != 0U) {
-		xPuf_printf(Debug,
-			"API: Overflow warning\r\n");
-		Status = (u32)XSK_EFUSEPS_ERROR_PUF_DATA_OVERFLOW;
+		if (Index > MaxSyndromeSizeInWords)
+		{
+			xPuf_printf(Debug, "API: Overflow warning\r\n");
+			Status = (u32)XSK_EFUSEPS_ERROR_PUF_DATA_OVERFLOW;
+			break;
+		}
 
-		goto ENDF;
-	}
-	/* Capture CHASH & AUX */
-	InstancePtr->Chash = InstancePtr->SyndromeData[Index - 1];
-	InstancePtr->Aux = ((PufStatus &
-		XSK_ZYNQMP_CSU_PUF_STATUS_AUX_MASK) >> 4U);
+	} while (RegistrationStatus != XSK_EFUSEPS_PUF_REGISTRATION_COMPLETE);
 
-	/* Also move the CHASH & AUX into array */
-	InstancePtr->SyndromeData[XSK_ZYNQMP_PUF_SYN_LEN - 2] =
-						InstancePtr->Chash;
-	InstancePtr->SyndromeData[XSK_ZYNQMP_PUF_SYN_LEN - 1] =
-	((PufStatus & XSK_ZYNQMP_CSU_PUF_STATUS_AUX_MASK) << 4U);
-
-	xPuf_printf(Debug,"API: PUF Helper Data Generated!!!\r\n");
 ENDF:
 	return Status;
 }
