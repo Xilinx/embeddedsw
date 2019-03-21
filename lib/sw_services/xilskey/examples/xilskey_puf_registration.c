@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2016 - 17 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2016 - 19 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -47,6 +47,7 @@
  * 6.2   vns  02/18/17 Modified Encrypt API call due to change in Xilsecure
  *            03/10/17 Added Support for programming and reading PUF reserved
  *                     bit
+ * 6.7   mmd  03/17/19 Ignored PUF data on overflow
  * </pre>
  *
  * @note
@@ -146,6 +147,7 @@ int main() {
 		xPuf_printf(XPUF_DEBUG_GENERAL,
 		"App:PUF Registration completed with an overflow:0x%08x\r\n",
 								Status);
+		goto ENDF;
 	}
 	else if ((Status != XST_SUCCESS)) {
 		xPuf_printf(XPUF_DEBUG_GENERAL,

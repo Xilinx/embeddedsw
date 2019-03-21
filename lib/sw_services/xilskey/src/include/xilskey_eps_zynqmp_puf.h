@@ -45,6 +45,7 @@
 * 6.1   vns  17/10/16 First release.
 * 6.6   vns  06/06/18 Added doxygen tags
 * 6.7	arc  01/05/19 Fixed MISRA-C violations.
+*       mmd  03/17/19 Added PUF syndrome data length in bytes for 4K mode
 * </pre>
 *
 *****************************************************************************/
@@ -73,6 +74,9 @@ extern "C" {
 
 #define		XSK_ZYNQMP_PUF_MODE4K			(0U)
 #define		XSK_ZYNQMP_PUF_SYN_LEN			(386)
+
+#define		XSK_ZYNQMP_MAX_RAW_4K_PUF_SYN_LEN	(140U)
+						/* In bytes */
 
 #define		XSK_ZYNQMP_PUF_REGISTRATION		(1U)
 #define 	XSK_ZYNQMP_PUF_REGENERATION		(4U)
