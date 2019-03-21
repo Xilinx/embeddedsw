@@ -119,6 +119,7 @@
 * 3.8 hk    10/01/18 Fix warning for redefinition of interrupt number.
 * 3.9 hk    02/12/19 Change MDC divisor for Versal emulation.
 *           03/06/19 Fix BD space assignment and its memory attributes.
+*           03/20/19 Fix alignment pragmas for IAR compiler.
 *
 * </pre>
 *
@@ -199,8 +200,15 @@
 
 /*************************** Variable Definitions ***************************/
 
+#ifdef __ICCARM__
+#pragma data_alignment = 64
+EthernetFrame TxFrame;		/* Transmit buffer */
+#pragma data_alignment = 64
+EthernetFrame RxFrame;		/* Receive buffer */
+#else
 EthernetFrame TxFrame;		/* Transmit buffer */
 EthernetFrame RxFrame;		/* Receive buffer */
+#endif
 
 /*
  * Buffer descriptors are allocated in uncached memory. The memory is made
@@ -218,10 +226,20 @@ EthernetFrame RxFrame;		/* Receive buffer */
  * is allocated, even if not used fully by this example, to make sure none
  * of the adjacent global memory is affected.
  */
+#ifdef __ICCARM__
+#if defined __aarch64__
+#pragma data_alignment = 0x200000
+u8 bd_space[0x200000];
+#else
+#pragma data_alignment = 0x100000
+u8 bd_space[0x100000];
+#endif
+#else
 #if defined __aarch64__
 u8 bd_space[0x200000] __attribute__ ((aligned (0x200000)));
 #else
 u8 bd_space[0x100000] __attribute__ ((aligned (0x100000)));
+#endif
 #endif
 
 u8 *RxBdSpacePtr;
@@ -245,8 +263,8 @@ static INTC IntcInstance;
 #ifdef __ICCARM__
 #pragma data_alignment = 64
 XEmacPs_Bd BdTxTerminate;
+#pragma data_alignment = 64
 XEmacPs_Bd BdRxTerminate;
-#pragma data_alignment = 4
 #else
 XEmacPs_Bd BdTxTerminate __attribute__ ((aligned(64)));
 

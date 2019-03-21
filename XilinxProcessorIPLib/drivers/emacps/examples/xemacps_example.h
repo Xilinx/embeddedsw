@@ -51,6 +51,7 @@
 * 3.2   mus  02//16 Added support support to INTC controller
 * 3.3   kpc  12/09/16 Fixed issue when -O2 is enabled
 * 3.9   hk   01/23/19 Update versal emulation specific fixes.
+*            03/20/19 Fix alignment pragmas for IAR compiler.
 * </pre>
 *
 *****************************************************************************/
@@ -107,9 +108,7 @@
  * specific to the GNU compiler
  */
 #ifdef __ICCARM__
-#pragma data_alignment = 64
 typedef char EthernetFrame[XEMACPS_MAX_VLAN_FRAME_SIZE_JUMBO];
-#pragma data_alignment = 4
 #else
 typedef char EthernetFrame[XEMACPS_MAX_VLAN_FRAME_SIZE_JUMBO]
 	__attribute__ ((aligned(64)));
