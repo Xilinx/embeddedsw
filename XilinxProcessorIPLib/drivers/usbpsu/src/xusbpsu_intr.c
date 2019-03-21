@@ -537,7 +537,7 @@ void XUsbPsu_IntrHandler(void *XUsbPsuInstancePtr)
 	u32 Count;
 	u32 RegVal;
 
-	InstancePtr = XUsbPsuInstancePtr;
+	InstancePtr = (struct XUsbPsu  *)XUsbPsuInstancePtr;
 
 	Evt = &InstancePtr->Evt;
 
