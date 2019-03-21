@@ -156,10 +156,10 @@ s32 XUsbPsu_SendEpCmd(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 
 	if (XUsbPsu_Wait_Clear_Timeout(InstancePtr, XUSBPSU_DEPCMD(PhyEpNum),
 			XUSBPSU_DEPCMD_CMDACT, 500U) == (s32)XST_FAILURE) {
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 	}
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -214,7 +214,7 @@ s32 XUsbPsu_StartEpConfig(struct XUsbPsu *InstancePtr, u32 UsbEpNum, u8 Dir)
 								 Cmd, Params);
 	}
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -487,16 +487,16 @@ s32 XUsbPsu_EnableControlEp(struct XUsbPsu *InstancePtr, u16 Size)
 	RetVal = XUsbPsu_EpEnable(InstancePtr, 0U, XUSBPSU_EP_DIR_OUT, Size,
 				XUSBPSU_ENDPOINT_XFER_CONTROL, FALSE);
 	if (RetVal != 0U) {
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 	}
 
 	RetVal = XUsbPsu_EpEnable(InstancePtr, 0U, XUSBPSU_EP_DIR_IN, Size,
 				XUSBPSU_ENDPOINT_XFER_CONTROL, FALSE);
 	if (RetVal != 0U) {
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 	}
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -685,7 +685,7 @@ s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 	Ept = &InstancePtr->eps[PhyEpNum];
 
 	if (Ept->Direction != XUSBPSU_EP_DIR_IN) {
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 	}
 
 	Ept->RequestedBytes = BufferLen;
@@ -777,7 +777,7 @@ s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 	RetVal = XUsbPsu_SendEpCmd(InstancePtr, UsbEp, Ept->Direction,
 								cmd, Params);
 	if (RetVal != XST_SUCCESS) {
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 	}
 
 	if ((Ept->EpStatus & XUSBPSU_EP_BUSY) == (u32)0U) {
@@ -829,7 +829,7 @@ s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
 	Ept = &InstancePtr->eps[PhyEpNum];
 
 	if (Ept->Direction != XUSBPSU_EP_DIR_OUT) {
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 	}
 
 	Ept->RequestedBytes = Length;
@@ -933,7 +933,7 @@ s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
 	RetVal = XUsbPsu_SendEpCmd(InstancePtr, UsbEp, Ept->Direction,
 								cmd, Params);
 	if (RetVal != XST_SUCCESS) {
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 	}
 
 	if ((Ept->EpStatus & XUSBPSU_EP_BUSY) == (u32)0U) {
@@ -944,7 +944,7 @@ s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
 		Ept->EpStatus |= XUSBPSU_EP_BUSY;
 	}
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /****************************************************************************/
