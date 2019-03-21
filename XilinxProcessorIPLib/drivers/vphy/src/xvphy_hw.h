@@ -47,7 +47,6 @@
  * 1.5   gm   02/05/17 Added CPLL CAL reg and corresponding masks
  * 1.6   gm   06/08/17 Added TX and RX MMCM lock Masks
  * 1.7   gm   13/09/17 Added GTYE4 support
- * 1.9   gm   14/05/18 Added XVPHY_PATGEN_CTRL_ENABLE constants
  * </pre>
  *
  * @addtogroup xvphy_v1_7
@@ -596,8 +595,6 @@
 #define XVPHY_DRU_GAIN_G2_MASK		0x1F0000
 #define XVPHY_DRU_GAIN_G2_SHIFT		16
 /* 0x340 TMDS PATGEN */
-#define XVPHY_PATGEN_CTRL_ENABLE_MASK		0x80000000
-#define XVPHY_PATGEN_CTRL_ENABLE_SHIFT		31
 #define XVPHY_PATGEN_CTRL_RATIO_MASK		0x7
 #define XVPHY_PATGEN_CTRL_RATIO_SHIFT		0
 /* @} */
