@@ -180,6 +180,7 @@ Add support for versal usb IP name
 Update copyright year for usbpsu files
 Updated index.html and readme.txt files in the usbpsu examples
 Enable hibernation API's only when XUSBPSU_HIBERNATION_ENABLE is defined
+Fixed MISRA-C mandatory violations
 
 mcdma_v1_3:
 In mcdma examples remove snoop enable and dependency on HPC_DESIGN macro.
