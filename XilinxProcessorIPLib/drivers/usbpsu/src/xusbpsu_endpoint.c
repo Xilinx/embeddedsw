@@ -1043,7 +1043,7 @@ void XUsbPsu_SetEpHandler(struct XUsbPsu *InstancePtr, u8 Epnum,
 
 	PhyEpNum = XUSBPSU_PhysicalEp(Epnum, Dir);
 	Ept = &InstancePtr->eps[PhyEpNum];
-	Ept->Handler = Handler;
+	Ept->Handler = (void (*)(void *, u32, u32))Handler;
 }
 
 /****************************************************************************/
@@ -1150,7 +1150,7 @@ void XUsbPsu_EpXferComplete(struct XUsbPsu *InstancePtr,
 		}
 	}
 
-	if (Ept->Handler != NULL) {
+	if (Ept->Handler) {
 		Ept->Handler(InstancePtr->AppData, Ept->RequestedBytes, Ept->BytesTxed);
 	}
 }
@@ -1185,7 +1185,7 @@ void XUsbPsu_EpXferNotReady(struct XUsbPsu *InstancePtr,
 		Mask = ~(u32)((u32)1U << (Ept->Interval - 1U));
 		CurUf = Event->Parameters & Mask;
 		Ept->CurUf = CurUf + (Ept->Interval * 4);
-		if (Ept->Handler != NULL) {
+		if (Ept->Handler) {
 			Ept->Handler(InstancePtr->AppData, 0, 0);
 		}
 	}
