@@ -489,7 +489,7 @@ void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr)
 
 	Evt = &InstancePtr->Evt;
 
-	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0) {
+	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheInvalidateRange((INTPTR)Evt->BuffAddr,
                               (u32)XUSBPSU_EVENT_BUFFERS_SIZE);
 	}
