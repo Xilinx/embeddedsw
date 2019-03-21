@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -48,6 +48,22 @@ extern "C" {
 #endif
 
 const char* XPm_GetMasterName(void);
+#ifdef DEBUG_MODE
+#if defined (__GNUC__)
+
+#define pm_print(MSG, ...)	xil_printf("%s: "MSG, \
+										XPm_GetMasterName(), ##__VA_ARGS__)
+
+#elif defined (__ICCARM__)
+
+#define pm_print	xil_printf
+
+#endif
+#else
+#define pm_print(...)	{}
+#endif
+
+
 
 #ifdef __cplusplus
 }
