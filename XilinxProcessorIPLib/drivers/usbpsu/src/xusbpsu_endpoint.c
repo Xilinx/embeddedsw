@@ -1190,7 +1190,7 @@ void XUsbPsu_EpXferNotReady(struct XUsbPsu *InstancePtr,
 	if (Ept->Type == XUSBPSU_ENDPOINT_XFER_ISOC) {
 		Mask = ~(u32)((u32)1U << (Ept->Interval - 1U));
 		CurUf = Event->Parameters & Mask;
-		Ept->CurUf = CurUf + (Ept->Interval * 4U);
+		Ept->CurUf = (u16)(CurUf + (Ept->Interval * 4U));
 		if (Ept->Handler) {
 			Ept->Handler(InstancePtr->AppData, 0U, 0U);
 		}
