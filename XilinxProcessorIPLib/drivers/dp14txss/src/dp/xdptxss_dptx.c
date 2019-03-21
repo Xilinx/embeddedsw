@@ -253,18 +253,6 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Using "
 				"user set resolution.\n\r");
 
-			/* Check whether VidMode ID is supported */
-			Status = XVidC_EdidIsVideoTimingSupported(Edid,
-			(XVidC_VideoTimingMode *)XVidC_GetVideoModeData(
-				VidMode));
-			if (Status != XST_SUCCESS) {
-				xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:"
-				"MST:%s is not supported.\n\rSetting to "
-				"640x480 resolution."
-				"\n\r", XVidC_GetVideoModeStr(VidMode));
-				VidMode = XVIDC_VM_640x480_60_P;
-			}
-
 			if ((InstancePtr->TxInstance.Topology.SinkTotal ==
 				4) && (VidMode == XVIDC_VM_UHD2_60_P)){
 				VidMode = XVIDC_VM_1080_60_P;
