@@ -411,8 +411,9 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 		TrbLink->Ctrl |= XUSBPSU_TRB_CTRL_HWO;
 
 		/* flush the link trb */
-		if (InstancePtr->ConfigPtr->IsCacheCoherent == 0)
+		if (InstancePtr->ConfigPtr->IsCacheCoherent == 0) {
 			Xil_DCacheFlushRange((INTPTR)TrbLink, sizeof(struct XUsbPsu_Trb));
+		}
 	}
 
 	return XST_SUCCESS;
@@ -447,8 +448,9 @@ s32 XUsbPsu_EpDisable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 	Ept = &InstancePtr->eps[PhyEpNum];
 
 	/* make sure HW endpoint isn't stalled */
-	if (Ept->EpStatus & XUSBPSU_EP_STALL)
+	if (Ept->EpStatus & XUSBPSU_EP_STALL) {
 		XUsbPsu_EpClearStall(InstancePtr, Ept->UsbEpNum, Ept->Direction);
+	}
 
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DALEPENA);
 	RegVal &= ~XUSBPSU_DALEPENA_EP(PhyEpNum);
@@ -577,8 +579,10 @@ void XUsbPsu_StopTransfer(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
 	Cmd |= XUSBPSU_DEPCMD_PARAM(Ept->ResourceIndex);
 	(void)XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
 							Cmd, Params);
-	if (Force)
+	if (Force) {
 		Ept->ResourceIndex = 0U;
+	}
+
 	Ept->EpStatus &= ~XUSBPSU_EP_BUSY;
 	XUsbSleep(100U);
 }
@@ -692,8 +696,10 @@ s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 	Xil_AssertNonvoid(TrbPtr != NULL);
 
 	Ept->TrbEnqueue++;
-	if (Ept->TrbEnqueue == NO_OF_TRB_PER_EP)
+	if (Ept->TrbEnqueue == NO_OF_TRB_PER_EP) {
 		Ept->TrbEnqueue = 0;
+	}
+
 	TrbPtr->BufferPtrLow  = (UINTPTR)BufferPtr;
 	TrbPtr->BufferPtrHigh  = ((UINTPTR)BufferPtr >> 16) >> 16;
 	TrbPtr->Size = BufferLen & XUSBPSU_TRB_SIZE_MASK;
@@ -742,8 +748,10 @@ s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 			Xil_AssertNonvoid(TrbTempNext != NULL);
 
 			Ept->TrbEnqueue++;
-			if (Ept->TrbEnqueue == NO_OF_TRB_PER_EP)
+			if (Ept->TrbEnqueue == NO_OF_TRB_PER_EP) {
 				Ept->TrbEnqueue = 0;
+			}
+
 			TrbTempNext->BufferPtrLow  = (UINTPTR)BufferPtr;
 			TrbTempNext->BufferPtrHigh  = ((UINTPTR)BufferPtr >> 16) >> 16;
 			TrbTempNext->Size = BufferLen & XUSBPSU_TRB_SIZE_MASK;
@@ -843,8 +851,9 @@ s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
 	Xil_AssertNonvoid(TrbPtr != NULL);
 
 	Ept->TrbEnqueue++;
-	if (Ept->TrbEnqueue == NO_OF_TRB_PER_EP)
+	if (Ept->TrbEnqueue == NO_OF_TRB_PER_EP) {
 		Ept->TrbEnqueue = 0;
+	}
 
 	TrbPtr->BufferPtrLow  = (UINTPTR)BufferPtr;
 	TrbPtr->BufferPtrHigh = ((UINTPTR)BufferPtr >> 16) >> 16;
@@ -895,8 +904,10 @@ s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
 			Xil_AssertNonvoid(TrbTempNext != NULL);
 
 			Ept->TrbEnqueue++;
-			if (Ept->TrbEnqueue == NO_OF_TRB_PER_EP)
+			if (Ept->TrbEnqueue == NO_OF_TRB_PER_EP) {
 				Ept->TrbEnqueue = 0;
+			}
+
 			TrbTempNext->BufferPtrLow  = (UINTPTR)BufferPtr;
 			TrbTempNext->BufferPtrHigh  = ((UINTPTR)BufferPtr >> 16) >> 16;
 			TrbTempNext->Size = Length & XUSBPSU_TRB_SIZE_MASK;
@@ -1096,11 +1107,13 @@ void XUsbPsu_EpXferComplete(struct XUsbPsu *InstancePtr,
 	Xil_AssertVoid(TrbPtr != NULL);
 
 	Ept->TrbDequeue++;
-	if (Ept->TrbDequeue == NO_OF_TRB_PER_EP)
+	if (Ept->TrbDequeue == NO_OF_TRB_PER_EP) {
 		Ept->TrbDequeue = 0;
+	}
 
-	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0)
+	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0) {
 		Xil_DCacheInvalidateRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
+	}
 
 	if (Event->Endpoint_Event == XUSBPSU_DEPEVT_XFERCOMPLETE) {
 		Ept->EpStatus &= ~(XUSBPSU_EP_BUSY);
@@ -1132,8 +1145,9 @@ void XUsbPsu_EpXferComplete(struct XUsbPsu *InstancePtr,
 
 	if (Dir == XUSBPSU_EP_DIR_OUT) {
 		/* Invalidate Cache */
-		if (InstancePtr->ConfigPtr->IsCacheCoherent == 0)
+		if (InstancePtr->ConfigPtr->IsCacheCoherent == 0) {
 			Xil_DCacheInvalidateRange((INTPTR)Ept->BufferPtr, Ept->BytesTxed);
+		}
 	}
 
 	if (Ept->Handler != NULL) {
