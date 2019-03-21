@@ -186,7 +186,9 @@ s32 XUsbPsu_SendGadgetGenericCmd(struct XUsbPsu *InstancePtr, u32 cmd,
 			}
 			return (s32)XST_SUCCESS;
 		}
-	} while (--retry);
+
+		retry = retry - 1U;
+	} while (retry > 0U);
 
 	return (s32)XST_FAILURE;
 }
@@ -274,7 +276,7 @@ void Xusbpsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 {
 	u8 EpNum;
 	u32 RegVal;
-	s32 retries;
+	u32 retries;
 	XusbPsuLinkState LinkState;
 
 	/* sanity check */
@@ -362,7 +364,7 @@ void Xusbpsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 	XUsbPsu_WriteVendorReg(XIL_REQ_PWR_STATE, XIL_REQ_PWR_STATE_D3);
 
 	/* wait till current state is changed to D3 */
-        retries = (s32)XUSBPSU_PWR_STATE_RETRIES;
+        retries = (u32)XUSBPSU_PWR_STATE_RETRIES;
         do {
 		RegVal = XUsbPsu_ReadVendorReg(XIL_CUR_PWR_STATE);
                 if ((RegVal & XIL_CUR_PWR_STATE_BITMASK) == XIL_CUR_PWR_STATE_D3) {
@@ -370,9 +372,10 @@ void Xusbpsu_HibernationIntr(struct XUsbPsu *InstancePtr)
                 }
 
                 XUsbSleep(XUSBPSU_TIMEOUT);
-        } while (--retries);
+                retries = retries - 1U;
+        } while (retries > 0U);
 
-	if (retries < 0) {
+	if (retries == 0U) {
 		xil_printf("Failed to change power state to D3\r\n");
 		return;
 	}
@@ -584,7 +587,7 @@ static s32 XUsbPsu_RestoreEps(struct XUsbPsu *InstancePtr)
 void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr)
 {
 	u32 RegVal, link_state;
-	s32 retries;
+	u32 retries;
 	u8 enter_hiber;
 
 	RegVal = XUsbPsu_ReadLpdReg(RST_LPD_TOP);
@@ -596,7 +599,7 @@ void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr)
 	XUsbPsu_WriteVendorReg(XIL_REQ_PWR_STATE, XIL_REQ_PWR_STATE_D0);
 
 	/* wait till current state is changed to D0 */
-        retries = (s32)XUSBPSU_PWR_STATE_RETRIES;
+        retries = (u32)XUSBPSU_PWR_STATE_RETRIES;
         do {
 		RegVal = XUsbPsu_ReadVendorReg(XIL_CUR_PWR_STATE);
                 if ((RegVal & XIL_CUR_PWR_STATE_BITMASK) == XIL_CUR_PWR_STATE_D0) {
@@ -604,9 +607,10 @@ void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr)
                 }
 
                 XUsbSleep(XUSBPSU_TIMEOUT);
-        } while (--retries);
+                retries = retries - 1U;
+        } while (retries > 0U);
 
-	if (retries < 0) {
+	if (retries == 0U) {
 		xil_printf("Failed to change power state to D0\r\n");
 		return;
 	}
