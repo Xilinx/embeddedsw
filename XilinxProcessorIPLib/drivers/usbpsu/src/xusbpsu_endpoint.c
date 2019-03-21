@@ -374,21 +374,21 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 	if (((Ept->EpStatus & XUSBPSU_EP_ENABLED) == 0U)
 			|| (InstancePtr->IsHibernated == TRUE)) {
 		Ret = XUsbPsu_StartEpConfig(InstancePtr, UsbEpNum, Dir);
-		if (Ret != 0U) {
+		if (Ret == XST_FAILURE) {
 			return Ret;
 		}
 	}
 
 	Ret = XUsbPsu_SetEpConfig(InstancePtr, UsbEpNum, Dir, Maxsize,
 					Type, Restore);
-	if (Ret != 0U) {
+	if (Ret == XST_FAILURE) {
 		return Ret;
 	}
 
 	if (((Ept->EpStatus & XUSBPSU_EP_ENABLED) == 0U)
 			|| (InstancePtr->IsHibernated == TRUE)) {
 		Ret = XUsbPsu_SetXferResource(InstancePtr, UsbEpNum, Dir);
-		if (Ret != 0U) {
+		if (Ret == XST_FAILURE) {
 			return Ret;
 		}
 
@@ -486,13 +486,13 @@ s32 XUsbPsu_EnableControlEp(struct XUsbPsu *InstancePtr, u16 Size)
 
 	RetVal = XUsbPsu_EpEnable(InstancePtr, 0U, XUSBPSU_EP_DIR_OUT, Size,
 				XUSBPSU_ENDPOINT_XFER_CONTROL, FALSE);
-	if (RetVal != 0U) {
+	if (RetVal == XST_FAILURE) {
 		return (s32)XST_FAILURE;
 	}
 
 	RetVal = XUsbPsu_EpEnable(InstancePtr, 0U, XUSBPSU_EP_DIR_IN, Size,
 				XUSBPSU_ENDPOINT_XFER_CONTROL, FALSE);
-	if (RetVal != 0U) {
+	if (RetVal == XST_FAILURE) {
 		return (s32)XST_FAILURE;
 	}
 
