@@ -400,9 +400,16 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 
 		/* Following code is only applicable for ISO XFER */
 		TrbStHw = &Ept->EpTrb[0U];
+		if (TrbStHw == NULL) {
+			return XST_FAILURE;
+		}
 
 		/* Link TRB. The HWO bit is never reset */
 		TrbLink = &Ept->EpTrb[NO_OF_TRB_PER_EP];
+		if (TrbLink == NULL) {
+			return XST_FAILURE;
+		}
+
 		memset(TrbLink, 0x00U, sizeof(struct XUsbPsu_Trb));
 
 		TrbLink->BufferPtrLow = (UINTPTR)TrbStHw;
@@ -601,7 +608,11 @@ void XUsbPsu_StopTransfer(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
 ****************************************************************************/
 void XUsbPsu_SaveEndpointState(struct XUsbPsu *InstancePtr, struct XUsbPsu_Ep *Ept)
 {
+	Xil_AssertVoid(InstancePtr != NULL);
+
        struct XUsbPsu_EpParams *Params = XUsbPsu_GetEpParams(InstancePtr);
+	Xil_AssertVoid(Params != NULL);
+
        XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
                        XUSBPSU_DEPCMD_GETEPSTATE, Params);
        Ept->EpSavedState = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DEPCMDPAR2(Ept->PhyEpNum));
