@@ -176,11 +176,13 @@ static void XUsbPsu_stop_active_transfers(struct XUsbPsu *InstancePtr)
 		struct XUsbPsu_Ep *Ept;
 
 		Ept = &InstancePtr->eps[Epnum];
-		if (!Ept)
+		if (!Ept) {
 			continue;
+		}
 
-		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED))
+		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED)) {
 			continue;
+		}
 
 		XUsbPsu_StopTransfer(InstancePtr, Ept->UsbEpNum,
 				Ept->Direction, TRUE);
@@ -206,14 +208,17 @@ static void XUsbPsu_clear_stall_all_ep(struct XUsbPsu *InstancePtr)
 		struct XUsbPsu_Ep *Ept;
 
 		Ept = &InstancePtr->eps[Epnum];
-		if (!Ept)
+		if (!Ept) {
 			continue;
+		}
 
-		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED))
+		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED)) {
 			continue;
+		}
 
-		if (!(Ept->EpStatus & XUSBPSU_EP_STALL))
+		if (!(Ept->EpStatus & XUSBPSU_EP_STALL)) {
 			continue;
+		}
 
 		XUsbPsu_EpClearStall(InstancePtr, Ept->UsbEpNum, Ept->Direction);
 	}
@@ -398,8 +403,9 @@ void XUsbPsu_DevInterrupt(struct XUsbPsu *InstancePtr,
 
 		case XUSBPSU_DEVICE_EVENT_HIBER_REQ:
 #ifdef XUSBPSU_HIBERNATION_ENABLE
-			if (InstancePtr->HasHibernation)
+			if (InstancePtr->HasHibernation) {
 				Xusbpsu_HibernationIntr(InstancePtr);
+			}
 #endif
 			break;
 
@@ -497,8 +503,9 @@ void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr)
 		XUsbPsu_EventHandler(InstancePtr, &Event);
 
 		/* don't process anymore events if core is hibernated */
-		if (InstancePtr->IsHibernated)
+		if (InstancePtr->IsHibernated) {
 			return;
+		}
 
 		Evt->Offset = (Evt->Offset + 4U) % XUSBPSU_EVENT_BUFFERS_SIZE;
 		Evt->Count -= 4;
