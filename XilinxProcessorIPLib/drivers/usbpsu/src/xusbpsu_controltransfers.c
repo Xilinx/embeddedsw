@@ -216,7 +216,7 @@ void XUsbPsu_Ep0DataDone(struct XUsbPsu *InstancePtr,
 		}
 	}
 
-	if (Ept->Handler != NULL) {
+	if (Ept->Handler) {
 		Ept->Handler(InstancePtr->AppData, Ept->RequestedBytes, Ept->BytesTxed);
 	}
 }
