@@ -51,6 +51,7 @@
 *			 buffers are configured on OCM memory(CR#990806).
 *		18/01/18 Remove unnecessary column in XIntc_Connect() API.
 *		01/02/18 Added support for error handling.
+* 1.7   adk    21/03/19  Fix alignment pragmas in the example for IAR compiler.
 * </pre>
 *
 ******************************************************************************/
@@ -116,8 +117,8 @@ static INTC Intc;	/**< XIntc Instance */
 #if defined(__ICCARM__)
     #pragma data_alignment = 64
 	u8 DstBuf[SIZE]; /**< Destination buffer */
+    #pragma data_alignment = 64
 	u8 SrcBuf[SIZE]; /**< Source buffer */
-	#pragma data_alignment = 4
 #else
 u8 DstBuf[SIZE] __attribute__ ((aligned (64)));	/**< Destination buffer */
 u8 SrcBuf[SIZE] __attribute__ ((aligned (64)));	/**< Source buffer */
