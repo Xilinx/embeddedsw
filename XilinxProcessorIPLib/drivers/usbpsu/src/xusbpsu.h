@@ -99,7 +99,7 @@ extern "C" {
 
 /************************** Constant Definitions ****************************/
 
-#define NO_OF_TRB_PER_EP		2
+#define NO_OF_TRB_PER_EP		2U
 
 #if defined (PLATFORM_ZYNQMP) || defined (versal)
 #define ALIGNMENT_CACHELINE		__attribute__ ((aligned(64)))
@@ -128,16 +128,16 @@ extern "C" {
 #define	XUSBPSU_TEST_PACKET						4U
 #define	XUSBPSU_TEST_FORCE_ENABLE				5U
 
-#define XUSBPSU_NUM_TRBS				8
+#define XUSBPSU_NUM_TRBS				8U
 
-#define XUSBPSU_EVENT_PENDING		(0x00000001U << 0)
+#define XUSBPSU_EVENT_PENDING		(0x00000001U << 0U)
 
-#define XUSBPSU_EP_ENABLED			(0x00000001U << 0)
-#define XUSBPSU_EP_STALL			(0x00000001U << 1)
-#define XUSBPSU_EP_WEDGE			(0x00000001U << 2)
-#define XUSBPSU_EP_BUSY				((u32)0x00000001U << 4)
-#define XUSBPSU_EP_PENDING_REQUEST	(0x00000001U << 5)
-#define XUSBPSU_EP_MISSED_ISOC		(0x00000001U << 6)
+#define XUSBPSU_EP_ENABLED			(0x00000001U << 0U)
+#define XUSBPSU_EP_STALL			(0x00000001U << 1U)
+#define XUSBPSU_EP_WEDGE			(0x00000001U << 2U)
+#define XUSBPSU_EP_BUSY				((u32)0x00000001U << 4U)
+#define XUSBPSU_EP_PENDING_REQUEST	(0x00000001U << 5U)
+#define XUSBPSU_EP_MISSED_ISOC		(0x00000001U << 6U)
 
 #define	XUSBPSU_GHWPARAMS0				0U
 #define	XUSBPSU_GHWPARAMS1				1U
@@ -149,22 +149,22 @@ extern "C" {
 #define	XUSBPSU_GHWPARAMS7				7U
 
 /* HWPARAMS0 */
-#define XUSBPSU_MODE(n)					((n) & 0x7)
-#define XUSBPSU_MDWIDTH(n)				(((n) & 0xff00) >> 8)
+#define XUSBPSU_MODE(n)					((n) & 0x7U)
+#define XUSBPSU_MDWIDTH(n)				(((n) & 0xFF00) >> 8U)
 
 /* HWPARAMS1 */
-#define XUSBPSU_NUM_INT(n)				(((n) & (0x3f << 15)) >> 15)
+#define XUSBPSU_NUM_INT(n)				(((n) & (0x3F << 15U)) >> 15U)
 
 /* HWPARAMS3 */
-#define XUSBPSU_NUM_IN_EPS_MASK		((u32)0x0000001fU << (u32)18)
-#define XUSBPSU_NUM_EPS_MASK		((u32)0x0000003fU << (u32)12)
+#define XUSBPSU_NUM_IN_EPS_MASK		((u32)0x0000001FU << (u32)18U)
+#define XUSBPSU_NUM_EPS_MASK		((u32)0x0000003FU << (u32)12U)
 #define XUSBPSU_NUM_EPS(p)			(((u32)(p) &		\
 									(XUSBPSU_NUM_EPS_MASK)) >> (u32)12)
 #define XUSBPSU_NUM_IN_EPS(p)		(((u32)(p) &		\
 									(XUSBPSU_NUM_IN_EPS_MASK)) >> (u32)18)
 
 /* HWPARAMS7 */
-#define XUSBPSU_RAM1_DEPTH(n)			((n) & 0xffff)
+#define XUSBPSU_RAM1_DEPTH(n)			((n) & 0xFFFFU)
 
 #define XUSBPSU_DEPEVT_XFERCOMPLETE		0x01U
 #define XUSBPSU_DEPEVT_XFERINPROGRESS	0x02U
@@ -173,13 +173,13 @@ extern "C" {
 #define XUSBPSU_DEPEVT_EPCMDCMPLT		0x07U
 
 /* Within XferNotReady */
-#define DEPEVT_STATUS_TRANSFER_ACTIVE	(1 << 3)
+#define DEPEVT_STATUS_TRANSFER_ACTIVE	(1U << 3U)
 
 /* Within XferComplete */
-#define DEPEVT_STATUS_BUSERR			(1 << 0)
-#define DEPEVT_STATUS_SHORT				(1 << 1)
-#define DEPEVT_STATUS_IOC				(1 << 2)
-#define DEPEVT_STATUS_LST				(1 << 3)
+#define DEPEVT_STATUS_BUSERR			(1U << 0U)
+#define DEPEVT_STATUS_SHORT				(1U << 1U)
+#define DEPEVT_STATUS_IOC				(1U << 2U)
+#define DEPEVT_STATUS_LST				(1U << 3U)
 
 /* Stream event only */
 #define DEPEVT_STREAMEVT_FOUND		1U
@@ -188,8 +188,8 @@ extern "C" {
 /* Control-only Status */
 #define DEPEVT_STATUS_CONTROL_DATA				1U
 #define DEPEVT_STATUS_CONTROL_STATUS			2U
-#define DEPEVT_STATUS_CONTROL_DATA_INVALTRB		9
-#define DEPEVT_STATUS_CONTROL_STATUS_INVALTRB	0xA
+#define DEPEVT_STATUS_CONTROL_DATA_INVALTRB		9U
+#define DEPEVT_STATUS_CONTROL_STATUS_INVALTRB	0xAU
 
 #define XUSBPSU_ENDPOINTS_NUM			12U
 
@@ -278,7 +278,7 @@ typedef enum {
 /*
  * return Physical EP number as dwc3 mapping
  */
-#define XUSBPSU_PhysicalEp(epnum, direction)	(((epnum) << 1 ) | (direction))
+#define XUSBPSU_PhysicalEp(epnum, direction)	(((epnum) << 1U ) | (direction))
 
 /**************************** Type Definitions ******************************/
 
@@ -349,10 +349,10 @@ struct XUsbPsu_Ep {
 						 */
 #if defined (__ICCARM__)
     #pragma data_alignment = 64
-	struct XUsbPsu_Trb	EpTrb[NO_OF_TRB_PER_EP + 1]; /**< One extra Trb is for Link Trb */
+	struct XUsbPsu_Trb	EpTrb[NO_OF_TRB_PER_EP + 1U]; /**< One extra Trb is for Link Trb */
 	#pragma data_alignment = 4
 #else
-	struct XUsbPsu_Trb	EpTrb[NO_OF_TRB_PER_EP + 1] ALIGNMENT_CACHELINE;/**< TRB used by endpoint */
+	struct XUsbPsu_Trb	EpTrb[NO_OF_TRB_PER_EP + 1U] ALIGNMENT_CACHELINE;/**< TRB used by endpoint */
 #endif
 	u32	EpStatus;		/**< Flags to represent Endpoint status */
 	u32	EpSavedState;	/**< Endpoint status saved at the time of hibernation */
@@ -572,17 +572,17 @@ union XUsbPsu_Event {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #if defined (__ICCARM__)
-#define IS_ALIGNED(x, a)	(((x) & ((u32)(a) - 1)) == 0U)
+#define IS_ALIGNED(x, a)	(((x) & ((u32)(a) - 1U)) == 0U)
 #else
-#define IS_ALIGNED(x, a)	(((x) & ((typeof(x))(a) - 1)) == 0U)
+#define IS_ALIGNED(x, a)	(((x) & ((typeof(x))(a) - 1U)) == 0U)
 #endif
 
 #if defined (__ICCARM__)
-#define roundup(x, y) (((((x) + (u32)(y - 1)) / (u32)y) * (u32)y))
+#define roundup(x, y) (((((x) + (u32)(y - 1U)) / (u32)y) * (u32)y))
 
 #else
 #define roundup(x, y) (                                 \
-        (((x) + (u32)((typeof(y))y - 1)) / \
+        (((x) + (u32)((typeof(y))y - 1U)) / \
 			(u32)((typeof(y))y)) * \
 				(u32)((typeof(y))y)               \
 )
