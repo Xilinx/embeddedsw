@@ -49,7 +49,6 @@
  * 1.6   gm   03/07/17 Added XVPHY_HDMI_GTXE2_DRU_LRATE_Q/CPLL definitions
  *                     Corrected FVCO range for MMCME4
  * 1.7   gm   13/09/17 Removed XVphy_DruSetGain API
- * 1.9   gm   14/05/18 Added XVphy_PatgenEnable API declaration
  * </pre>
  *
  * @addtogroup xvphy_v1_7
@@ -178,7 +177,6 @@ u64 XVphy_DruCalcCenterFreqHz(XVphy *InstancePtr, u8 QuadId,
 		XVphy_ChannelId ChId);
 void XVphy_HdmiGtDruModeEnable(XVphy *InstancePtr, u8 Enable);
 void XVphy_PatgenSetRatio(XVphy *InstancePtr, u8 QuadId, u64 TxLineRate);
-void XVphy_PatgenEnable(XVphy *InstancePtr, u8 QuadId, u8 Enable);
 void XVphy_HdmiIntrHandlerCallbackInit(XVphy *InstancePtr);
 
 #endif /* XVPHY_HDMI_H_ */

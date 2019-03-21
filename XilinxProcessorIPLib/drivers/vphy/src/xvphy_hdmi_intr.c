@@ -916,11 +916,9 @@ void XVphy_HdmiTxTimerTimeoutHandler(XVphy *InstancePtr)
 	    (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE4) ||
         (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTYE4)) {
 		XVphy_SetBufgGtDiv(InstancePtr, XVPHY_DIR_TX,
-				(PllType == XVPHY_PLL_TYPE_CPLL) ?
-				InstancePtr->Quads[0].Plls[0].TxOutDiv :
-				(InstancePtr->Quads[0].Plls[0].TxOutDiv != 16) ?
-						InstancePtr->Quads[0].Plls[0].TxOutDiv :
-						InstancePtr->Quads[0].Plls[0].TxOutDiv / 2);
+			(PllType == XVPHY_PLL_TYPE_CPLL) ?
+			InstancePtr->Quads[0].Plls[0].TxOutDiv :
+			InstancePtr->Quads[0].Plls[0].TxOutDiv / 2);
 	}
 	XVphy_DirReconfig(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_TX);
 
