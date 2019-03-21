@@ -850,7 +850,7 @@ s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
 	TrbPtr = &Ept->EpTrb[Ept->TrbEnqueue];
 	Xil_AssertNonvoid(TrbPtr != NULL);
 
-	Ept->TrbEnqueue++;
+	Ept->TrbEnqueue += 1U;
 	if (Ept->TrbEnqueue == NO_OF_TRB_PER_EP) {
 		Ept->TrbEnqueue = 0U;
 	}
