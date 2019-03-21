@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -35,6 +35,7 @@
 # 2.0   vns 11/28/16  Added support for PMU
 # 2.0   srm 02/16/18 Updated to pick up latest freertos port 10.0
 # 3.1   vns 04/13/18 Added user configurable macro secure environment
+# 4.0   vns 03/20/19 Added support for versal
 ##############################################################################
 
 #---------------------------------------------
@@ -51,11 +52,6 @@ proc secure_drc {libhandle} {
 	set zynqmp "src/zynqmp/"
 	set versal "src/versal/"
 
-	if { $proc_type != "psu_cortexa53" && $proc_type != "psu_cortexr5" && $proc_type != "psu_pmu" } {
-				error "ERROR: XilSecure library is supported only for PMU, CortexA53 and CortexR5 processors.";
-				return;
-	}
-
 	foreach entry [glob -nocomplain [file join $common *]] {
 			file copy -force $entry "./src"
 	}
@@ -67,6 +63,15 @@ proc secure_drc {libhandle} {
 			}
 			file delete -force $zynqmp
 			file delete -force $versal
+	} elseif {$proc_type == "psu_pmc" || $proc_type == "psu_cortexa72" || $proc_type == "psu_pmc" || $proc_type == "psu_cortexa72" || $proc_type == "psv_pmc" || $proc_type == "psv_cortexa72"} {
+			foreach entry [glob -nocomplain [file join $versal *]] {
+				file copy -force $entry "./src"
+			}
+			file delete -force $zynqmp
+			file delete -force $versal
+	} else {
+		error "ERROR: XilSecure library is supported only for PMU, CortexA53 and CortexR5 processors.";
+		return;
 	}
 
 }
