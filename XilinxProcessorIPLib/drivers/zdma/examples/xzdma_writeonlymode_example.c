@@ -49,6 +49,7 @@
 *			 compiler.
 * 1.7   adk    18/03/19  Update the example data verification check to support
 *			 versal adma IP.
+* 1.7   adk    21/03/19  Fix alignment pragmas in the example for IAR compiler.
 * </pre>
 *
 ******************************************************************************/
@@ -91,7 +92,6 @@ u32 SrcBuf[4];		/**< Source buffer */
 #if defined(__ICCARM__)
     #pragma data_alignment = 64
 	u32 DstBuf[300]; /**< Destination buffer */
-	#pragma data_alignment = 4
 #else
 u32 DstBuf[300] __attribute__ ((aligned (64))); /**< Destination buffer */
 #endif

@@ -45,6 +45,7 @@
 * 1.3   mus    08/14/17  Do not perform cache operations if CCI is enabled
 * 1.4   adk    11/02/17  Updated example to fix compilation errors for IAR
 *			 compiler.
+* 1.7   adk    21/03/19  Fix data alignment in the example for IAR compiler.
 * </pre>
 *
 ******************************************************************************/
@@ -85,11 +86,14 @@ XScuGic Intc;		/**< XIntc Instance */
 #if defined(__ICCARM__)
     #pragma data_alignment = 64
 	u32 DstBuf[256];   /**< Destination buffer */
+    #pragma data_alignment = 64
 	u32 SrcBuf[256];   /**< Source buffer */
+    #pragma data_alignment = 64
 	u32 Dst1Buf[400];  /**< Destination buffer */
+    #pragma data_alignment = 64
 	u32 Src1Buf[400];  /**< Source buffer */
+    #pragma data_alignment = 64
 	u32 AlloMem[200];  /**< memory allocated for descriptors */
-	#pragma data_alignment = 4
 #else
 u32 DstBuf[256] __attribute__ ((aligned (64)));	/**< Destination buffer */
 u32 SrcBuf[256] __attribute__ ((aligned (64)));	/**< Source buffer */
