@@ -180,13 +180,13 @@ s32 XUsbPsu_SendGadgetGenericCmd(struct XUsbPsu *InstancePtr, u32 cmd,
 		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DGCMD);
 		if ((RegVal & XUSBPSU_DGCMD_CMDACT) == (u32)0U) {
 			if (XUSBPSU_DGCMD_STATUS(RegVal) != (u32)0U) {
-				return XST_REGISTER_ERROR;
+				return (s32)XST_REGISTER_ERROR;
 			}
-			return 0U;
+			return (s32)XST_SUCCESS;
 		}
 	} while (--retry);
 
-	return XST_FAILURE;
+	return (s32)XST_FAILURE;
 }
 
 /*****************************************************************************/
@@ -441,14 +441,14 @@ static s32 XUsbPsu_RestartEp(struct XUsbPsu *InstancePtr, u8 EpNum)
 	Ret = XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
 			Cmd, Params);
 	if (Ret == XST_FAILURE) {
-		return XST_FAILURE;
+		return (s32)XST_FAILURE;
 	}
 
 	Ept->EpStatus |= XUSBPSU_EP_BUSY;
 	Ept->ResourceIndex = (u8)XUsbPsu_EpGetTransferIndex(InstancePtr,
 			Ept->UsbEpNum, Ept->Direction);
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -485,7 +485,7 @@ static s32 XUsbPsu_RestoreEp0(struct XUsbPsu *InstancePtr)
 		if (Ret == XST_FAILURE) {
 			xil_printf("Failed to enable EP %d on wakeup: %d\r\n",
 					EpNum, Ret);
-			return XST_FAILURE;
+			return (s32)XST_FAILURE;
 		}
 
 		if ((Ept->EpStatus & XUSBPSU_EP_STALL) != (u32)0U) {
@@ -495,12 +495,12 @@ static s32 XUsbPsu_RestoreEp0(struct XUsbPsu *InstancePtr)
 			if (Ret == XST_FAILURE) {
 				xil_printf("Failed to restart EP %d on wakeup: %d\r\n",
 						EpNum, Ret);
-				return XST_FAILURE;
+				return (s32)XST_FAILURE;
 			}
 		}
         }
 
-        return XST_SUCCESS;
+        return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -537,7 +537,7 @@ static s32 XUsbPsu_RestoreEps(struct XUsbPsu *InstancePtr)
 		if (Ret == XST_FAILURE) {
 			xil_printf("Failed to enable EP %d on wakeup: %d\r\n",
 					EpNum, Ret);
-			return XST_FAILURE;
+			return (s32)XST_FAILURE;
 		}
 	}
 
@@ -559,12 +559,12 @@ static s32 XUsbPsu_RestoreEps(struct XUsbPsu *InstancePtr)
 			if (Ret == XST_FAILURE) {
 				xil_printf("Failed to restart EP %d on wakeup: %d\r\n",
 						EpNum, Ret);
-				return XST_FAILURE;
+				return (s32)XST_FAILURE;
 			}
 		}
         }
 
-        return XST_SUCCESS;
+        return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
