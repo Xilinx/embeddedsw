@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -261,5 +261,5 @@ void XPm_ClientSetPrimaryMaster(void)
 	} else {
 		primary_master = pm_masters_all[master_id];
 	}
-	pm_dbg("Running in %s mode\n", lockstep ? "Lock-Step" : "Split");
+	pm_print("Running in %s mode\n", lockstep ? "Lock-Step" : "Split");
 }
