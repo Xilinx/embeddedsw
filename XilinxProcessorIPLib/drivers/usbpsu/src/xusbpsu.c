@@ -915,7 +915,7 @@ s32 XUsbPsu_SetU1SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep)
 
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_PORTMSC_30);
 	RegVal &= ~XUSBPSU_PORTMSC_30_U1_TIMEOUT_MASK;
-	RegVal |= (Sleep << XUSBPSU_PORTMSC_30_U1_TIMEOUT_SHIFT);
+	RegVal |= (u32)(Sleep << XUSBPSU_PORTMSC_30_U1_TIMEOUT_SHIFT);
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_PORTMSC_30, RegVal);
 
 	return (s32)XST_SUCCESS;
@@ -941,7 +941,7 @@ s32 XUsbPsu_SetU2SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep)
 
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_PORTMSC_30);
 	RegVal &= ~XUSBPSU_PORTMSC_30_U2_TIMEOUT_MASK;
-	RegVal |= (Sleep << XUSBPSU_PORTMSC_30_U2_TIMEOUT_SHIFT);
+	RegVal |= (u32)(Sleep << XUSBPSU_PORTMSC_30_U2_TIMEOUT_SHIFT);
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_PORTMSC_30, RegVal);
 
 	return (s32)XST_SUCCESS;
