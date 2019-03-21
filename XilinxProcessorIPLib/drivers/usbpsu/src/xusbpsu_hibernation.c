@@ -178,8 +178,8 @@ s32 XUsbPsu_SendGadgetGenericCmd(struct XUsbPsu *InstancePtr, u32 cmd,
 
 	do {
 		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DGCMD);
-		if (!(RegVal & XUSBPSU_DGCMD_CMDACT)) {
-			if (XUSBPSU_DGCMD_STATUS(RegVal)) {
+		if ((RegVal & XUSBPSU_DGCMD_CMDACT) == (u32)0U) {
+			if (XUSBPSU_DGCMD_STATUS(RegVal) != (u32)0U) {
 				return XST_REGISTER_ERROR;
 			}
 			return 0U;
@@ -206,14 +206,14 @@ s32 XUsbPsu_SetupScratchpad(struct XUsbPsu *InstancePtr)
 	s32 Ret;
 	Ret = XUsbPsu_SendGadgetGenericCmd(InstancePtr,
 		XUSBPSU_DGCMD_SET_SCRATCHPAD_ADDR_LO, (UINTPTR)ScratchBuf & 0xFFFFFFFFU);
-	if (Ret) {
+	if (Ret == XST_FAILURE) {
 		xil_printf("Failed to set scratchpad low addr: %d\n", Ret);
 		return Ret;
 	}
 
 	Ret = XUsbPsu_SendGadgetGenericCmd(InstancePtr,
 		XUSBPSU_DGCMD_SET_SCRATCHPAD_ADDR_HI, ((UINTPTR)ScratchBuf >> 16U) >> 16U);
-	if (Ret) {
+	if (Ret == XST_FAILURE) {
 		xil_printf("Failed to set scratchpad high addr: %d\n", Ret);
 		return Ret;
 	}
@@ -297,11 +297,11 @@ void Xusbpsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 		struct XUsbPsu_Ep *Ept;
 
 		Ept = &InstancePtr->eps[EpNum];
-		if (!Ept) {
+		if (Ept == NULL) {
 			continue;
 		}
 
-		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED)) {
+		if ((Ept->EpStatus & XUSBPSU_EP_ENABLED) == (u32)0U) {
 			continue;
 		}
 
@@ -321,7 +321,7 @@ void Xusbpsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 	InstancePtr->Evt.Count = 0U;
 	InstancePtr->Evt.Flags &= ~XUSBPSU_EVENT_PENDING;
 
-	if (XUsbPsu_Stop(InstancePtr)) {
+	if (XUsbPsu_Stop(InstancePtr) == XST_FAILURE) {
 		xil_printf("Failed to stop USB core\r\n");
 		return;
 	}
@@ -414,11 +414,11 @@ static s32 XUsbPsu_RestartEp(struct XUsbPsu *InstancePtr, u8 EpNum)
 	Ept = &InstancePtr->eps[EpNum];
 
 	/* check if we need to restart transfer */
-	if (!Ept->ResourceIndex && Ept->PhyEpNum) {
+	if ((Ept->ResourceIndex == (u32)0U) && (Ept->PhyEpNum != (u32)0U)) {
 		return XST_SUCCESS;
 	}
 
-	if (Ept->UsbEpNum) {
+	if (Ept->UsbEpNum != (u32)0U) {
 		TrbPtr = &Ept->EpTrb[Ept->TrbDequeue];
 	} else {
 		TrbPtr = &InstancePtr->Ep0_Trb;
@@ -440,7 +440,7 @@ static s32 XUsbPsu_RestartEp(struct XUsbPsu *InstancePtr, u8 EpNum)
 
 	Ret = XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
 			Cmd, Params);
-	if (Ret) {
+	if (Ret == XST_FAILURE) {
 		return XST_FAILURE;
 	}
 
@@ -472,27 +472,27 @@ static s32 XUsbPsu_RestoreEp0(struct XUsbPsu *InstancePtr)
         for (EpNum = 0U; EpNum < 2U; EpNum++) {
 		Ept = &InstancePtr->eps[EpNum];
 
-		if (!Ept) {
+		if (Ept == NULL) {
 			continue;
 		}
 
-		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED)) {
+		if ((Ept->EpStatus & XUSBPSU_EP_ENABLED) == (u32)0U) {
 			continue;
 		}
 
 		Ret = XUsbPsu_EpEnable(InstancePtr, Ept->UsbEpNum,
 				Ept->Direction, Ept->MaxSize, Ept->Type, TRUE);
-		if (Ret) {
+		if (Ret == XST_FAILURE) {
 			xil_printf("Failed to enable EP %d on wakeup: %d\r\n",
 					EpNum, Ret);
 			return XST_FAILURE;
 		}
 
-		if (Ept->EpStatus & XUSBPSU_EP_STALL) {
+		if ((Ept->EpStatus & XUSBPSU_EP_STALL) != (u32)0U) {
 			XUsbPsu_Ep0StallRestart(InstancePtr);
 		} else {
 			Ret = XUsbPsu_RestartEp(InstancePtr, Ept->PhyEpNum);
-			if (Ret) {
+			if (Ret == XST_FAILURE) {
 				xil_printf("Failed to restart EP %d on wakeup: %d\r\n",
 						EpNum, Ret);
 				return XST_FAILURE;
@@ -524,17 +524,17 @@ static s32 XUsbPsu_RestoreEps(struct XUsbPsu *InstancePtr)
 	for (EpNum = 2U; EpNum < XUSBPSU_ENDPOINTS_NUM; EpNum++) {
 		Ept = &InstancePtr->eps[EpNum];
 
-		if (!Ept) {
+		if (Ept == NULL) {
 			continue;
 		}
 
-		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED)) {
+		if ((Ept->EpStatus & XUSBPSU_EP_ENABLED) == (u32)0U) {
 			continue;
 		}
 
 		Ret = XUsbPsu_EpEnable(InstancePtr, Ept->UsbEpNum,
 				Ept->Direction, Ept->MaxSize, Ept->Type, TRUE);
-		if (Ret) {
+		if (Ret == XST_FAILURE) {
 			xil_printf("Failed to enable EP %d on wakeup: %d\r\n",
 					EpNum, Ret);
 			return XST_FAILURE;
@@ -544,19 +544,19 @@ static s32 XUsbPsu_RestoreEps(struct XUsbPsu *InstancePtr)
 	for (EpNum = 2U; EpNum < XUSBPSU_ENDPOINTS_NUM; EpNum++) {
 		Ept = &InstancePtr->eps[EpNum];
 
-		if (!Ept) {
+		if (Ept == NULL) {
 			continue;
 		}
 
-		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED)) {
+		if ((Ept->EpStatus & XUSBPSU_EP_ENABLED) == (u32)0U) {
 			continue;
 		}
 
-		if (Ept->EpStatus & XUSBPSU_EP_STALL) {
+		if ((Ept->EpStatus & XUSBPSU_EP_STALL) != (u32)0U) {
 			XUsbPsu_EpSetStall(InstancePtr, Ept->UsbEpNum, Ept->Direction);
 		} else {
 			Ret = XUsbPsu_RestartEp(InstancePtr, Ept->PhyEpNum);
-			if (Ret) {
+			if (Ret == XST_FAILURE) {
 				xil_printf("Failed to restart EP %d on wakeup: %d\r\n",
 						EpNum, Ret);
 				return XST_FAILURE;
@@ -629,17 +629,17 @@ void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr)
 	XUsbPsu_EventBuffersSetup(InstancePtr);
 
 	/* nothing to do when in OTG host mode */
-	if (XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GSTS) & XUSBPSU_GSTS_CUR_MODE) {
+	if ((XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GSTS) & XUSBPSU_GSTS_CUR_MODE) != (u32)0U) {
 		return;
 	}
 
-	if (XUsbPsu_RestoreEp0(InstancePtr)) {
+	if (XUsbPsu_RestoreEp0(InstancePtr) == XST_FAILURE) {
 		xil_printf("Failed to restore EP0\r\n");
 		return;
 	}
 
 	/* start controller */
-	if (XUsbPsu_Start(InstancePtr)) {
+	if (XUsbPsu_Start(InstancePtr) == XST_FAILURE) {
 		xil_printf("Failed to start core on wakeup\r\n");
 		return;
 	}
@@ -665,7 +665,7 @@ void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr)
 		RegVal &= ~XUSBPSU_DCFG_DEVADDR_MASK;
 		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DSTS, RegVal);
 
-		if (XUsbPsu_SetLinkState(InstancePtr, XUSBPSU_LINK_STATE_RECOV)) {
+		if (XUsbPsu_SetLinkState(InstancePtr, XUSBPSU_LINK_STATE_RECOV) == XST_FAILURE) {
 			xil_printf("Failed to put link in Recovery\r\n");
 			return;
 		}
@@ -681,14 +681,14 @@ void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr)
 		enter_hiber = (u8)1U;
 		break;
 	default:
-		if (XUsbPsu_SetLinkState(InstancePtr, XUSBPSU_LINK_STATE_RECOV)) {
+		if (XUsbPsu_SetLinkState(InstancePtr, XUSBPSU_LINK_STATE_RECOV) == XST_FAILURE) {
 			xil_printf("Failed to put link in Recovery\r\n");
 			return;
 		}
 		break;
 	};
 
-	if (XUsbPsu_RestoreEps(InstancePtr)) {
+	if (XUsbPsu_RestoreEps(InstancePtr) == XST_FAILURE) {
 		xil_printf("Failed to restore EPs\r\n");
 		return;
 	}

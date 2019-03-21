@@ -217,7 +217,7 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 					XUSBPSU_EP_DIR_OUT, Cmd, Params);
 
 			Ept = &InstancePtr->eps[PhyEpNum];
-			if (Ept) {
+			if (Ept != NULL) {
 				Ept->ResourceIndex = 0U;
 				Ept->EpStatus &= ~XUSBPSU_EP_BUSY;
 			}
@@ -225,7 +225,7 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 			/* Wait until CMD ACT bit is cleared */
 			if (XUsbPsu_Wait_Clear_Timeout(InstancePtr,
 						XUSBPSU_DEPCMD(PhyEpNum),
-						XUSBPSU_DEPCMD_CMDACT, 500U)) {
+						XUSBPSU_DEPCMD_CMDACT, 500U) == XST_FAILURE) {
 #ifdef XUSBPSU_DEBUG
 				xil_printf("End Transfer on Endpoint %dOUT failed\n\r", CurEpNum);
 #endif
@@ -252,7 +252,7 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 					XUSBPSU_EP_DIR_IN, Cmd, Params);
 
 			Ept = &InstancePtr->eps[PhyEpNum];
-			if (Ept) {
+			if (Ept != NULL) {
 				Ept->ResourceIndex = 0U;
 				Ept->EpStatus &= ~XUSBPSU_EP_BUSY;
 			}
@@ -260,7 +260,7 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 			/* Wait until CMD ACT bit is cleared */
 			if (XUsbPsu_Wait_Clear_Timeout(InstancePtr,
 						XUSBPSU_DEPCMD(PhyEpNum),
-						XUSBPSU_DEPCMD_CMDACT, 500U)) {
+						XUSBPSU_DEPCMD_CMDACT, 500U) == XST_FAILURE) {
 #ifdef XUSBPSU_DEBUG
 				xil_printf("End Transfer on Endpoint %dIN failed\n\r", CurEpNum);
 #endif
@@ -279,7 +279,7 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 
 			Ept = &InstancePtr->eps[PhyEpNum];
 
-			if (Ept) {
+			if (Ept != NULL) {
 				Ept->Type = 0U;
 				Ept->EpStatus = 0U;
 				Ept->MaxSize = 0U;
@@ -301,7 +301,7 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 
 			Ept = &InstancePtr->eps[PhyEpNum];
 
-			if (Ept) {
+			if (Ept != NULL) {
 				Ept->Type = 0U;
 				Ept->EpStatus = 0U;
 				Ept->MaxSize = 0U;
@@ -312,7 +312,7 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 		}
 
 		/* Stop the USB core */
-		if (XUsbPsu_Stop(InstancePtr)) {
+		if (XUsbPsu_Stop(InstancePtr) == XST_FAILURE) {
 #ifdef XUSBPSU_DEBUG
 			xil_printf("Failed to stop USB core\r\n");
 #endif
@@ -507,7 +507,7 @@ s32 XUsbPsu_CoreInit(struct XUsbPsu *InstancePtr)
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GCTL, RegVal);
 
 #ifdef XUSBPSU_HIBERNATION_ENABLE
-	if (InstancePtr->HasHibernation) {
+	if (InstancePtr->HasHibernation == TRUE) {
 		XUsbPsu_InitHibernation(InstancePtr);
 	}
 #endif
@@ -644,7 +644,7 @@ s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
 	/*
 	 * Set connection speed based on EnableSuperSpeed parameter
 	 */
-	Speed = (ConfigPtr->EnableSuperSpeed) ?
+	Speed = (ConfigPtr->EnableSuperSpeed == TRUE) ?
 			XUSBPSU_DCFG_SUPERSPEED : XUSBPSU_DCFG_HIGHSPEED;
 
 	/*
@@ -879,7 +879,7 @@ s32 XUsbPsu_SetDeviceAddress(struct XUsbPsu *InstancePtr, u16 Addr)
 	RegVal |= XUSBPSU_DCFG_DEVADDR(Addr);
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCFG, RegVal);
 
-	if (Addr) {
+	if (Addr > 0U) {
 		InstancePtr->AppData->State = XUSBPSU_STATE_ADDRESS;
 	}
 	else {

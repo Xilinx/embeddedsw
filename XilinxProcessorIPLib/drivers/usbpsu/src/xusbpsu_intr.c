@@ -142,9 +142,9 @@ void XUsbPsu_DisconnectIntr(struct XUsbPsu *InstancePtr)
 	/* In USB 2.0, to avoid hibernation interrupt at the time of connection
 	 * clear KEEP_CONNECT bit.
 	 */
-	if (InstancePtr->HasHibernation) {
+	if (InstancePtr->HasHibernation == TRUE) {
 		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
-		if (RegVal & XUSBPSU_DCTL_KEEP_CONNECT) {
+		if ((RegVal & XUSBPSU_DCTL_KEEP_CONNECT) != (u32)0U) {
 			RegVal &= ~XUSBPSU_DCTL_KEEP_CONNECT;
 			XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
 		}
@@ -176,11 +176,11 @@ static void XUsbPsu_stop_active_transfers(struct XUsbPsu *InstancePtr)
 		struct XUsbPsu_Ep *Ept;
 
 		Ept = &InstancePtr->eps[Epnum];
-		if (!Ept) {
+		if (Ept == NULL) {
 			continue;
 		}
 
-		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED)) {
+		if ((Ept->EpStatus & XUSBPSU_EP_ENABLED) == (u32)0U) {
 			continue;
 		}
 
@@ -208,15 +208,15 @@ static void XUsbPsu_clear_stall_all_ep(struct XUsbPsu *InstancePtr)
 		struct XUsbPsu_Ep *Ept;
 
 		Ept = &InstancePtr->eps[Epnum];
-		if (!Ept) {
+		if (Ept == NULL) {
 			continue;
 		}
 
-		if (!(Ept->EpStatus & XUSBPSU_EP_ENABLED)) {
+		if ((Ept->EpStatus & XUSBPSU_EP_ENABLED) == (u32)0U) {
 			continue;
 		}
 
-		if (!(Ept->EpStatus & XUSBPSU_EP_STALL)) {
+		if ((Ept->EpStatus & XUSBPSU_EP_STALL) == (u32)0U) {
 			continue;
 		}
 
@@ -341,9 +341,9 @@ void XUsbPsu_ConnDoneIntr(struct XUsbPsu *InstancePtr)
 	/* In USB 2.0, to avoid hibernation interrupt at the time of connection
 	 * clear KEEP_CONNECT bit.
 	 */
-	if (InstancePtr->HasHibernation) {
+	if (InstancePtr->HasHibernation == TRUE) {
 		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
-		if (!(RegVal & XUSBPSU_DCTL_KEEP_CONNECT)) {
+		if ((RegVal & XUSBPSU_DCTL_KEEP_CONNECT) == (u32)0U) {
 			RegVal |= XUSBPSU_DCTL_KEEP_CONNECT;
 			XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
 		}
@@ -403,7 +403,7 @@ void XUsbPsu_DevInterrupt(struct XUsbPsu *InstancePtr,
 
 		case XUSBPSU_DEVICE_EVENT_HIBER_REQ:
 #ifdef XUSBPSU_HIBERNATION_ENABLE
-			if (InstancePtr->HasHibernation) {
+			if (InstancePtr->HasHibernation == TRUE) {
 				Xusbpsu_HibernationIntr(InstancePtr);
 			}
 #endif
@@ -503,7 +503,7 @@ void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr)
 		XUsbPsu_EventHandler(InstancePtr, &Event);
 
 		/* don't process anymore events if core is hibernated */
-		if (InstancePtr->IsHibernated) {
+		if (InstancePtr->IsHibernated == TRUE) {
 			return;
 		}
 

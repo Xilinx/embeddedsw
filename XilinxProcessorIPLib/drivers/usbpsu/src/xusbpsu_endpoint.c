@@ -266,7 +266,7 @@ s32 XUsbPsu_SetEpConfig(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 	Params->Param1 = XUSBPSU_DEPCFG_XFER_COMPLETE_EN
 		| XUSBPSU_DEPCFG_XFER_NOT_READY_EN;
 
-	if (Restore) {
+	if (Restore == TRUE) {
 		Params->Param0 |= XUSBPSU_DEPCFG_ACTION_RESTORE;
 		Params->Param2 = Ept->EpSavedState;
 	}
@@ -366,13 +366,13 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 	Ept->MaxSize	= Maxsize;
 	Ept->PhyEpNum	= (u8)PhyEpNum;
 	Ept->CurUf	= 0U;
-	if (!InstancePtr->IsHibernated) {
+	if (InstancePtr->IsHibernated == FALSE) {
 		Ept->TrbEnqueue	= 0U;
 		Ept->TrbDequeue	= 0U;
 	}
 
 	if (((Ept->EpStatus & XUSBPSU_EP_ENABLED) == 0U)
-			|| (InstancePtr->IsHibernated)) {
+			|| (InstancePtr->IsHibernated == TRUE)) {
 		Ret = XUsbPsu_StartEpConfig(InstancePtr, UsbEpNum, Dir);
 		if (Ret != 0U) {
 			return Ret;
@@ -386,7 +386,7 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 	}
 
 	if (((Ept->EpStatus & XUSBPSU_EP_ENABLED) == 0U)
-			|| (InstancePtr->IsHibernated)) {
+			|| (InstancePtr->IsHibernated == TRUE)) {
 		Ret = XUsbPsu_SetXferResource(InstancePtr, UsbEpNum, Dir);
 		if (Ret != 0U) {
 			return Ret;
@@ -448,7 +448,7 @@ s32 XUsbPsu_EpDisable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 	Ept = &InstancePtr->eps[PhyEpNum];
 
 	/* make sure HW endpoint isn't stalled */
-	if (Ept->EpStatus & XUSBPSU_EP_STALL) {
+	if ((Ept->EpStatus & XUSBPSU_EP_STALL) != (u32)0U) {
 		XUsbPsu_EpClearStall(InstancePtr, Ept->UsbEpNum, Ept->Direction);
 	}
 
@@ -574,12 +574,12 @@ void XUsbPsu_StopTransfer(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
 	 * - Wait 100us
 	 */
 	Cmd = XUSBPSU_DEPCMD_ENDTRANSFER;
-	Cmd |= Force ? XUSBPSU_DEPCMD_HIPRI_FORCERM : 0U;
+	Cmd |= (Force == TRUE) ? XUSBPSU_DEPCMD_HIPRI_FORCERM : 0U;
 	Cmd |= XUSBPSU_DEPCMD_CMDIOC;
 	Cmd |= XUSBPSU_DEPCMD_PARAM(Ept->ResourceIndex);
 	(void)XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
 							Cmd, Params);
-	if (Force) {
+	if (Force == TRUE) {
 		Ept->ResourceIndex = 0U;
 	}
 
@@ -737,7 +737,7 @@ s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 	Params->Param0 = 0U;
 	Params->Param1 = (UINTPTR)TrbPtr;
 
-	if (Ept->EpStatus & XUSBPSU_EP_BUSY) {
+	if ((Ept->EpStatus & XUSBPSU_EP_BUSY) != (u32)0U) {
 		cmd = XUSBPSU_DEPCMD_UPDATETRANSFER;
 		cmd |= XUSBPSU_DEPCMD_PARAM(Ept->ResourceIndex);
 	} else {
@@ -780,7 +780,7 @@ s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 		return XST_FAILURE;
 	}
 
-	if (!(Ept->EpStatus & XUSBPSU_EP_BUSY)) {
+	if ((Ept->EpStatus & XUSBPSU_EP_BUSY) == (u32)0U) {
 		Ept->ResourceIndex = (u8)XUsbPsu_EpGetTransferIndex(InstancePtr,
 				Ept->UsbEpNum,
 				Ept->Direction);
@@ -893,7 +893,7 @@ s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
 	Params->Param0 = 0U;
 	Params->Param1 = (UINTPTR)TrbPtr;
 
-	if (Ept->EpStatus & XUSBPSU_EP_BUSY) {
+	if ((Ept->EpStatus & XUSBPSU_EP_BUSY) != (u32)0U) {
 		cmd = XUSBPSU_DEPCMD_UPDATETRANSFER;
 		cmd |= XUSBPSU_DEPCMD_PARAM(Ept->ResourceIndex);
 	} else {
@@ -936,7 +936,7 @@ s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
 		return XST_FAILURE;
 	}
 
-	if (!(Ept->EpStatus & XUSBPSU_EP_BUSY)) {
+	if ((Ept->EpStatus & XUSBPSU_EP_BUSY) == (u32)0U) {
 		Ept->ResourceIndex = (u8)XUsbPsu_EpGetTransferIndex(InstancePtr,
 				Ept->UsbEpNum,
 				Ept->Direction);
