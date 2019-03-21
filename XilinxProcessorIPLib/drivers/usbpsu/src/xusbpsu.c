@@ -89,17 +89,20 @@ s32 XUsbPsu_Wait_Clear_Timeout(struct XUsbPsu *InstancePtr, u32 Offset,
 	u32 RegVal;
 	u32 LocalTimeout = Timeout;
 
-	do {
+	while (LocalTimeout > 0U) {
 		RegVal = XUsbPsu_ReadReg(InstancePtr, Offset);
 		if ((RegVal & BitMask) == 0U) {
 			break;
 		}
-		LocalTimeout--;
-		if (LocalTimeout == 0U) {
-			return (s32)XST_FAILURE;
-		}
+
+		LocalTimeout = LocalTimeout - 1U;
+
 		XUsbSleep(1U);
-	} while (1U);
+	}
+
+	if (LocalTimeout == 0U) {
+		return (s32)XST_FAILURE;
+	}
 
 	return (s32)XST_SUCCESS;
 }
@@ -124,17 +127,20 @@ s32 XUsbPsu_Wait_Set_Timeout(struct XUsbPsu *InstancePtr, u32 Offset,
 	u32 RegVal;
 	u32 LocalTimeout = Timeout;
 
-	do {
+	while (LocalTimeout > 0U) {
 		RegVal = XUsbPsu_ReadReg(InstancePtr, Offset);
 		if ((RegVal & BitMask) != 0U) {
 			break;
 		}
-		LocalTimeout--;
-		if (LocalTimeout == 0U) {
-			return (s32)XST_FAILURE;
-		}
+
+		LocalTimeout = LocalTimeout - 1U;
+
 		XUsbSleep(1U);
-	} while (1U);
+	}
+
+	if (LocalTimeout == 0U) {
+		return (s32)XST_FAILURE;
+	}
 
 	return (s32)XST_SUCCESS;
 }
