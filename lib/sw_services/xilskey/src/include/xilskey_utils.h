@@ -71,6 +71,7 @@
 *                        bbram zeroisation and error in write CRC
 *                        XSK_ZYNQMP_BBRAMPS_ERROR_IN_ZEROISE
 *                        XSK_ZYNQMP_BBRAMPS_ERROR_IN_WRITE_CRC
+*       mmd     03/17/19 Added timeout and PUF underflow error
 *
  *****************************************************************************/
 
@@ -926,6 +927,10 @@ typedef enum {
 	XSK_EFUSEPS_ERROR_SPKID_BIT_CANT_REVERT = 0xE600U,/**< 0xE600<br>
 					*  Already programmed SPKID bit
 					*  cannot be reverted */
+	XSK_EFUSEPS_ERROR_PUF_DATA_UNDERFLOW = 0xE700U,/**< 0xE700<br>Error
+					*  when an under flow occurs. */
+	XSK_EFUSEPS_ERROR_PUF_TIMEOUT = 0xE800U,/**< 0xE800<br>Error
+					*  when an PUF generation timedout. */
 	XSK_EFUSEPS_ERROR_CMPLTD_EFUSE_PRGRM_WITH_ERR = 0x10000U,/**< 0x10000<br>
 					*  eFUSE programming is completed with
 					*  temp and vol read errors. */
