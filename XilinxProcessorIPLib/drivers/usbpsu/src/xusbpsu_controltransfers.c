@@ -85,7 +85,7 @@ s32 XUsbPsu_RecvSetup(struct XUsbPsu *InstancePtr)
 	Xil_AssertNonvoid(Params != NULL);
 
 	/* Setup packet always on EP0 */
-	Ept = &InstancePtr->eps[0];
+	Ept = &InstancePtr->eps[0U];
 	if ((Ept->EpStatus & XUSBPSU_EP_BUSY) != 0U) {
 		return (s32)XST_FAILURE;
 	}
@@ -93,7 +93,7 @@ s32 XUsbPsu_RecvSetup(struct XUsbPsu *InstancePtr)
 	TrbPtr = &InstancePtr->Ep0_Trb;
 
 	TrbPtr->BufferPtrLow = (UINTPTR)&InstancePtr->SetupData;
-	TrbPtr->BufferPtrHigh = ((UINTPTR)&InstancePtr->SetupData >> 16) >> 16;
+	TrbPtr->BufferPtrHigh = ((UINTPTR)&InstancePtr->SetupData >> 16U) >> 16U;
 	TrbPtr->Size = 8U;
 	TrbPtr->Ctrl = XUSBPSU_TRBCTL_CONTROL_SETUP;
 
@@ -143,13 +143,13 @@ void XUsbPsu_Ep0StallRestart(struct XUsbPsu *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	/* reinitialize physical ep1 */
-	Ept = &InstancePtr->eps[1];
+	Ept = &InstancePtr->eps[1U];
 	Ept->EpStatus = XUSBPSU_EP_ENABLED;
 
 	/* stall is always issued on EP0 */
 	XUsbPsu_EpSetStall(InstancePtr, 0U, XUSBPSU_EP_DIR_OUT);
 
-	Ept = &InstancePtr->eps[0];
+	Ept = &InstancePtr->eps[0U];
 	Ept->EpStatus = XUSBPSU_EP_ENABLED;
 	InstancePtr->Ep0State = XUSBPSU_EP0_SETUP_PHASE;
 	(void)XUsbPsu_RecvSetup(InstancePtr);
@@ -361,7 +361,7 @@ s32 XUsbPsu_Ep0StartStatus(struct XUsbPsu *InstancePtr,
 	TrbPtr = &InstancePtr->Ep0_Trb;
 	/* we use same TrbPtr for setup packet */
 	TrbPtr->BufferPtrLow = (UINTPTR)&InstancePtr->SetupData;
-	TrbPtr->BufferPtrHigh = ((UINTPTR)&InstancePtr->SetupData >> 16) >> 16;
+	TrbPtr->BufferPtrHigh = ((UINTPTR)&InstancePtr->SetupData >> 16U) >> 16U;
 	TrbPtr->Size = 0U;
 	TrbPtr->Ctrl = Type;
 
@@ -546,7 +546,7 @@ s32 XUsbPsu_Ep0Send(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 BufferLen)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(BufferPtr != NULL);
 
-	Ept = &InstancePtr->eps[1];
+	Ept = &InstancePtr->eps[1U];
 	Params = XUsbPsu_GetEpParams(InstancePtr);
 	Xil_AssertNonvoid(Params != NULL);
 
@@ -561,7 +561,7 @@ s32 XUsbPsu_Ep0Send(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 BufferLen)
 	TrbPtr = &InstancePtr->Ep0_Trb;
 
 	TrbPtr->BufferPtrLow  = (UINTPTR)BufferPtr;
-	TrbPtr->BufferPtrHigh  = ((UINTPTR)BufferPtr >> 16) >> 16;
+	TrbPtr->BufferPtrHigh  = ((UINTPTR)BufferPtr >> 16U) >> 16U;
 	TrbPtr->Size = BufferLen;
 	TrbPtr->Ctrl = XUSBPSU_TRBCTL_CONTROL_DATA;
 
@@ -617,7 +617,7 @@ s32 XUsbPsu_Ep0Recv(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 Length)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(BufferPtr != NULL);
 
-	Ept = &InstancePtr->eps[0];
+	Ept = &InstancePtr->eps[0U];
 	Params = XUsbPsu_GetEpParams(InstancePtr);
 	Xil_AssertNonvoid(Params != NULL);
 
@@ -644,7 +644,7 @@ s32 XUsbPsu_Ep0Recv(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 Length)
 	TrbPtr = &InstancePtr->Ep0_Trb;
 
 	TrbPtr->BufferPtrLow = (UINTPTR)BufferPtr;
-	TrbPtr->BufferPtrHigh = ((UINTPTR)BufferPtr >> 16) >> 16;
+	TrbPtr->BufferPtrHigh = ((UINTPTR)BufferPtr >> 16U) >> 16U;
 	TrbPtr->Size = Size;
 	TrbPtr->Ctrl = XUSBPSU_TRBCTL_CONTROL_DATA;
 

@@ -91,7 +91,7 @@ void XUsbPsu_EpInterrupt(struct XUsbPsu *InstancePtr,
 		return;
 	}
 
-	if ((Epnum == (u32)0) || (Epnum == (u32)1)) {
+	if ((Epnum == (u32)0U) || (Epnum == (u32)1U)) {
 		XUsbPsu_Ep0Intr(InstancePtr, Event);
 		return;
 	}
@@ -172,7 +172,7 @@ static void XUsbPsu_stop_active_transfers(struct XUsbPsu *InstancePtr)
 {
 	u32 Epnum;
 
-	for (Epnum = 2; Epnum < XUSBPSU_ENDPOINTS_NUM; Epnum++) {
+	for (Epnum = 2U; Epnum < XUSBPSU_ENDPOINTS_NUM; Epnum++) {
 		struct XUsbPsu_Ep *Ept;
 
 		Ept = &InstancePtr->eps[Epnum];
@@ -204,7 +204,7 @@ static void XUsbPsu_clear_stall_all_ep(struct XUsbPsu *InstancePtr)
 {
 	u32 Epnum;
 
-	for (Epnum = 1; Epnum < XUSBPSU_ENDPOINTS_NUM; Epnum++) {
+	for (Epnum = 1U; Epnum < XUSBPSU_ENDPOINTS_NUM; Epnum++) {
 		struct XUsbPsu_Ep *Ept;
 
 		Ept = &InstancePtr->eps[Epnum];
@@ -484,7 +484,7 @@ void XUsbPsu_EventHandler(struct XUsbPsu *InstancePtr,
 void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr)
 {
 	struct XUsbPsu_EvtBuffer *Evt;
-	union XUsbPsu_Event Event = {0};
+	union XUsbPsu_Event Event = {0U};
 	u32 RegVal;
 
 	Evt = &InstancePtr->Evt;
@@ -494,7 +494,7 @@ void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr)
                               (u32)XUSBPSU_EVENT_BUFFERS_SIZE);
 	}
 
-	while (Evt->Count > 0) {
+	while (Evt->Count > 0U) {
 		Event.Raw = *(UINTPTR *)((UINTPTR)Evt->BuffAddr + Evt->Offset);
 
 		/*
@@ -508,17 +508,17 @@ void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr)
 		}
 
 		Evt->Offset = (Evt->Offset + 4U) % XUSBPSU_EVENT_BUFFERS_SIZE;
-		Evt->Count -= 4;
+		Evt->Count -= 4U;
 		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0), 4U);
 	}
 
-	Evt->Count = 0;
+	Evt->Count = 0U;
 	Evt->Flags &= ~XUSBPSU_EVENT_PENDING;
 
 	/* Unmask event interrupt */
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GEVNTSIZ(0));
+	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GEVNTSIZ(0U));
 	RegVal &= ~XUSBPSU_GEVNTSIZ_INTMASK;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTSIZ(0), RegVal);
+	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTSIZ(0U), RegVal);
 }
 
 /****************************************************************************/
@@ -541,7 +541,7 @@ void XUsbPsu_IntrHandler(void *XUsbPsuInstancePtr)
 
 	Evt = &InstancePtr->Evt;
 
-	Count = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0));
+	Count = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0U));
 	Count &= XUSBPSU_GEVNTCOUNT_MASK;
 	/*
 	 * As per data book software should only process Events if Event count
@@ -555,9 +555,9 @@ void XUsbPsu_IntrHandler(void *XUsbPsuInstancePtr)
 	Evt->Flags |= XUSBPSU_EVENT_PENDING;
 
 	/* Mask event interrupt */
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GEVNTSIZ(0));
+	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GEVNTSIZ(0U));
 	RegVal |= XUSBPSU_GEVNTSIZ_INTMASK;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTSIZ(0), RegVal);
+	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTSIZ(0U), RegVal);
 
 	/* Processes events in an Event Buffer */
 	XUsbPsu_EventBufferHandler(InstancePtr);
