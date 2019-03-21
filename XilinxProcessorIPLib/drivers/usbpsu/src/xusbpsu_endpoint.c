@@ -1133,7 +1133,7 @@ void XUsbPsu_EpXferComplete(struct XUsbPsu *InstancePtr,
 	} else {
 		if (Dir == XUSBPSU_EP_DIR_IN) {
 			Ept->BytesTxed = Ept->RequestedBytes - Length;
-		} else if (Dir == XUSBPSU_EP_DIR_OUT) {
+		} else {
 			if (Ept->UnalignedTx == 1U) {
 				Ept->BytesTxed = (u32)roundup(Ept->RequestedBytes,
 											  (u16)Ept->MaxSize);
