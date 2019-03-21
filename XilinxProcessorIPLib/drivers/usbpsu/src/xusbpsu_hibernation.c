@@ -57,7 +57,7 @@
 
 /************************** Constant Definitions *****************************/
 
-#define NUM_OF_NONSTICKY_REGS    		27
+#define NUM_OF_NONSTICKY_REGS    		27U
 
 #define XUSBPSU_HIBER_SCRATCHBUF_SIZE           4096U
 
@@ -89,25 +89,25 @@ static u32 save_reg_addr[] = {
         XUSBPSU_GCTL,
         XUSBPSU_GTXTHRCFG,
         XUSBPSU_GRXTHRCFG,
-        XUSBPSU_GTXFIFOSIZ(0),
-        XUSBPSU_GTXFIFOSIZ(1),
-        XUSBPSU_GTXFIFOSIZ(2),
-        XUSBPSU_GTXFIFOSIZ(3),
-        XUSBPSU_GTXFIFOSIZ(4),
-        XUSBPSU_GTXFIFOSIZ(5),
-        XUSBPSU_GTXFIFOSIZ(6),
-        XUSBPSU_GTXFIFOSIZ(7),
-        XUSBPSU_GTXFIFOSIZ(8),
-        XUSBPSU_GTXFIFOSIZ(9),
-        XUSBPSU_GTXFIFOSIZ(10),
-        XUSBPSU_GTXFIFOSIZ(11),
-        XUSBPSU_GTXFIFOSIZ(12),
-        XUSBPSU_GTXFIFOSIZ(13),
-        XUSBPSU_GTXFIFOSIZ(14),
-        XUSBPSU_GTXFIFOSIZ(15),
-        XUSBPSU_GRXFIFOSIZ(0),
-        XUSBPSU_GUSB3PIPECTL(0),
-        XUSBPSU_GUSB2PHYCFG(0),
+        XUSBPSU_GTXFIFOSIZ(0U),
+        XUSBPSU_GTXFIFOSIZ(1U),
+        XUSBPSU_GTXFIFOSIZ(2U),
+        XUSBPSU_GTXFIFOSIZ(3U),
+        XUSBPSU_GTXFIFOSIZ(4U),
+        XUSBPSU_GTXFIFOSIZ(5U),
+        XUSBPSU_GTXFIFOSIZ(6U),
+        XUSBPSU_GTXFIFOSIZ(7U),
+        XUSBPSU_GTXFIFOSIZ(8U),
+        XUSBPSU_GTXFIFOSIZ(9U),
+        XUSBPSU_GTXFIFOSIZ(10U),
+        XUSBPSU_GTXFIFOSIZ(11U),
+        XUSBPSU_GTXFIFOSIZ(12U),
+        XUSBPSU_GTXFIFOSIZ(13U),
+        XUSBPSU_GTXFIFOSIZ(14U),
+        XUSBPSU_GTXFIFOSIZ(15U),
+        XUSBPSU_GRXFIFOSIZ(0U),
+        XUSBPSU_GUSB3PIPECTL(0U),
+        XUSBPSU_GUSB2PHYCFG(0U),
 };
 static u32 saved_regs[NUM_OF_NONSTICKY_REGS];
 
@@ -127,7 +127,7 @@ static void save_regs(struct XUsbPsu *InstancePtr)
 {
 	u32 i;
 
-	for (i = 0; i < NUM_OF_NONSTICKY_REGS; i++)
+	for (i = 0U; i < NUM_OF_NONSTICKY_REGS; i++)
 		saved_regs[i] = XUsbPsu_ReadReg(InstancePtr, save_reg_addr[i]);
 }
 
@@ -147,7 +147,7 @@ static void restore_regs(struct XUsbPsu *InstancePtr)
 {
 	u32 i;
 
-	for (i = 0; i < NUM_OF_NONSTICKY_REGS; i++)
+	for (i = 0U; i < NUM_OF_NONSTICKY_REGS; i++)
 		XUsbPsu_WriteReg(InstancePtr, save_reg_addr[i], saved_regs[i]);
 }
 
@@ -172,7 +172,7 @@ static void restore_regs(struct XUsbPsu *InstancePtr)
 s32 XUsbPsu_SendGadgetGenericCmd(struct XUsbPsu *InstancePtr, u32 cmd,
 			u32 param)
 {
-	u32		RegVal, retry = 500;
+	u32		RegVal, retry = 500U;
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DGCMDPAR, param);
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DGCMD, cmd | XUSBPSU_DGCMD_CMDACT);
 
@@ -182,7 +182,7 @@ s32 XUsbPsu_SendGadgetGenericCmd(struct XUsbPsu *InstancePtr, u32 cmd,
 			if (XUSBPSU_DGCMD_STATUS(RegVal)) {
 				return XST_REGISTER_ERROR;
 			}
-			return 0;
+			return 0U;
 		}
 	} while (--retry);
 
@@ -205,14 +205,14 @@ s32 XUsbPsu_SetupScratchpad(struct XUsbPsu *InstancePtr)
 {
 	s32 Ret;
 	Ret = XUsbPsu_SendGadgetGenericCmd(InstancePtr,
-		XUSBPSU_DGCMD_SET_SCRATCHPAD_ADDR_LO, (UINTPTR)ScratchBuf & 0xffffffff);
+		XUSBPSU_DGCMD_SET_SCRATCHPAD_ADDR_LO, (UINTPTR)ScratchBuf & 0xFFFFFFFFU);
 	if (Ret) {
 		xil_printf("Failed to set scratchpad low addr: %d\n", Ret);
 		return Ret;
 	}
 
 	Ret = XUsbPsu_SendGadgetGenericCmd(InstancePtr,
-		XUSBPSU_DGCMD_SET_SCRATCHPAD_ADDR_HI, ((UINTPTR)ScratchBuf >> 16) >> 16);
+		XUSBPSU_DGCMD_SET_SCRATCHPAD_ADDR_HI, ((UINTPTR)ScratchBuf >> 16U) >> 16U);
 	if (Ret) {
 		xil_printf("Failed to set scratchpad high addr: %d\n", Ret);
 		return Ret;
@@ -237,9 +237,9 @@ void XUsbPsu_InitHibernation(struct XUsbPsu *InstancePtr)
 {
 	u32		RegVal;
 
-	InstancePtr->IsHibernated = 0;
+	InstancePtr->IsHibernated = 0U;
 
-	memset(ScratchBuf, 0, sizeof(ScratchBuf));
+	memset(ScratchBuf, 0U, sizeof(ScratchBuf));
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheFlushRange((INTPTR)ScratchBuf, XUSBPSU_HIBER_SCRATCHBUF_SIZE);
 	}
@@ -247,13 +247,13 @@ void XUsbPsu_InitHibernation(struct XUsbPsu *InstancePtr)
 	XUsbPsu_SetupScratchpad(InstancePtr);
 
 	/* enable PHY suspend */
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GUSB2PHYCFG(0));
+	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GUSB2PHYCFG(0U));
 	RegVal |= XUSBPSU_GUSB2PHYCFG_SUSPHY;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GUSB2PHYCFG(0), RegVal);
+	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GUSB2PHYCFG(0U), RegVal);
 
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GUSB3PIPECTL(0));
+	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GUSB3PIPECTL(0U));
 	RegVal |= XUSBPSU_GUSB3PIPECTL_SUSPHY;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GUSB3PIPECTL(0), RegVal);
+	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GUSB3PIPECTL(0U), RegVal);
 }
 
 /*****************************************************************************/
@@ -287,13 +287,13 @@ void Xusbpsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 	};
 
 	if (InstancePtr->Ep0State == XUSBPSU_EP0_SETUP_PHASE) {
-		XUsbPsu_StopTransfer(InstancePtr, 0, XUSBPSU_EP_DIR_OUT, TRUE);
+		XUsbPsu_StopTransfer(InstancePtr, 0U, XUSBPSU_EP_DIR_OUT, TRUE);
 		XUsbPsu_RecvSetup(InstancePtr);
 	}
 
 	/* stop active transfers for all endpoints including control
 	 * endpoints force rm bit should be 0 when we do this */
-	for (EpNum = 0; EpNum < XUSBPSU_ENDPOINTS_NUM; EpNum++) {
+	for (EpNum = 0U; EpNum < XUSBPSU_ENDPOINTS_NUM; EpNum++) {
 		struct XUsbPsu_Ep *Ept;
 
 		Ept = &InstancePtr->eps[EpNum];
@@ -316,9 +316,9 @@ void Xusbpsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 	 * ack events, don't process them; h/w decrements the count by the value
 	 * written
 	 */
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0));
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0), RegVal);
-	InstancePtr->Evt.Count = 0;
+	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0U));
+	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0U), RegVal);
+	InstancePtr->Evt.Count = 0U;
 	InstancePtr->Evt.Flags &= ~XUSBPSU_EVENT_PENDING;
 
 	if (XUsbPsu_Stop(InstancePtr)) {
@@ -381,7 +381,7 @@ void Xusbpsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 		XUsbPsu_WriteLpdReg(RST_LPD_TOP, RegVal | (u32)USB0_CORE_RST);
 	}
 
-	InstancePtr->IsHibernated = 1;
+	InstancePtr->IsHibernated = 1U;
 	xil_printf("Hibernated!\r\n");
 }
 
@@ -469,7 +469,7 @@ static s32 XUsbPsu_RestoreEp0(struct XUsbPsu *InstancePtr)
         s32 Ret;
         u8 EpNum;
 
-        for (EpNum = 0; EpNum < 2; EpNum++) {
+        for (EpNum = 0U; EpNum < 2U; EpNum++) {
 		Ept = &InstancePtr->eps[EpNum];
 
 		if (!Ept) {
@@ -521,7 +521,7 @@ static s32 XUsbPsu_RestoreEps(struct XUsbPsu *InstancePtr)
 	s32 Ret;
 	u8 EpNum;
 
-	for (EpNum = 2; EpNum < XUSBPSU_ENDPOINTS_NUM; EpNum++) {
+	for (EpNum = 2U; EpNum < XUSBPSU_ENDPOINTS_NUM; EpNum++) {
 		Ept = &InstancePtr->eps[EpNum];
 
 		if (!Ept) {
@@ -541,7 +541,7 @@ static s32 XUsbPsu_RestoreEps(struct XUsbPsu *InstancePtr)
 		}
 	}
 
-	for (EpNum = 2; EpNum < XUSBPSU_ENDPOINTS_NUM; EpNum++) {
+	for (EpNum = 2U; EpNum < XUSBPSU_ENDPOINTS_NUM; EpNum++) {
 		Ept = &InstancePtr->eps[EpNum];
 
 		if (!Ept) {
@@ -655,7 +655,7 @@ void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr)
 	 * there can be suprious wakeup events , so wait for some time and check
 	 * the link state
 	 */
-	XUsbSleep(XUSBPSU_TIMEOUT * 10);
+	XUsbSleep(XUSBPSU_TIMEOUT * 10U);
 
 	link_state = XUsbPsu_GetLinkState(InstancePtr);
 
@@ -693,7 +693,7 @@ void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr)
 		return;
 	}
 
-	InstancePtr->IsHibernated = 0;
+	InstancePtr->IsHibernated = 0U;
 
 	if (enter_hiber == (u8)1U)  {
 		Xusbpsu_HibernationIntr(InstancePtr);

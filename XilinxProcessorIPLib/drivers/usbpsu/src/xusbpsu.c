@@ -99,7 +99,7 @@ s32 XUsbPsu_Wait_Clear_Timeout(struct XUsbPsu *InstancePtr, u32 Offset,
 			return XST_FAILURE;
 		}
 		XUsbSleep(1U);
-	} while (1);
+	} while (1U);
 
 	return XST_SUCCESS;
 }
@@ -134,7 +134,7 @@ s32 XUsbPsu_Wait_Set_Timeout(struct XUsbPsu *InstancePtr, u32 Offset,
 			return XST_FAILURE;
 		}
 		XUsbSleep(1U);
-	} while (1);
+	} while (1U);
 
 	return XST_SUCCESS;
 }
@@ -198,7 +198,7 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 		OutEpNums = EpNums - InEpNums;
 
 		/* Stop transfers for Out Endpoints */
-		for (CurEpNum = 0; CurEpNum < OutEpNums; CurEpNum++) {
+		for (CurEpNum = 0U; CurEpNum < OutEpNums; CurEpNum++) {
 
 			PhyEpNum = XUSBPSU_PhysicalEp(CurEpNum,
 					XUSBPSU_EP_DIR_OUT);
@@ -233,7 +233,7 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 		}
 
 		/* Stop transfers for In Endpoints */
-		for (CurEpNum = 0; CurEpNum < InEpNums; CurEpNum++) {
+		for (CurEpNum = 0U; CurEpNum < InEpNums; CurEpNum++) {
 
 			PhyEpNum = XUSBPSU_PhysicalEp(CurEpNum,
 					XUSBPSU_EP_DIR_IN);
@@ -268,7 +268,7 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 		}
 
 		/* Stop transfers for Out Endpoints */
-		for (CurEpNum = 0; CurEpNum < OutEpNums; CurEpNum++) {
+		for (CurEpNum = 0U; CurEpNum < OutEpNums; CurEpNum++) {
 
 			PhyEpNum = XUSBPSU_PhysicalEp(CurEpNum,
 					XUSBPSU_EP_DIR_OUT);
@@ -290,7 +290,7 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 		}
 
 		/* Stop transfers for In Endpoints */
-		for (CurEpNum = 0; CurEpNum < InEpNums; CurEpNum++) {
+		for (CurEpNum = 0U; CurEpNum < InEpNums; CurEpNum++) {
 
 			PhyEpNum = XUSBPSU_PhysicalEp(CurEpNum,
 					XUSBPSU_EP_DIR_IN);
@@ -344,26 +344,26 @@ void XUsbPsu_PhyReset(struct XUsbPsu *InstancePtr)
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GCTL, RegVal);
 
 	/* Assert USB3 PHY reset */
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GUSB3PIPECTL(0));
+	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GUSB3PIPECTL(0U));
 	RegVal |= XUSBPSU_GUSB3PIPECTL_PHYSOFTRST;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GUSB3PIPECTL(0), RegVal);
+	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GUSB3PIPECTL(0U), RegVal);
 
 	/* Assert USB2 PHY reset */
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GUSB2PHYCFG(0));
+	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GUSB2PHYCFG(0U));
 	RegVal |= XUSBPSU_GUSB2PHYCFG_PHYSOFTRST;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GUSB2PHYCFG(0), RegVal);
+	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GUSB2PHYCFG(0U), RegVal);
 
 	XUsbSleep(XUSBPSU_PHY_TIMEOUT);
 
 	/* Clear USB3 PHY reset */
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GUSB3PIPECTL(0));
+	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GUSB3PIPECTL(0U));
 	RegVal &= ~XUSBPSU_GUSB3PIPECTL_PHYSOFTRST;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GUSB3PIPECTL(0), RegVal);
+	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GUSB3PIPECTL(0U), RegVal);
 
 	/* Clear USB2 PHY reset */
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GUSB2PHYCFG(0));
+	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GUSB2PHYCFG(0U));
 	RegVal &= ~XUSBPSU_GUSB2PHYCFG_PHYSOFTRST;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GUSB2PHYCFG(0), RegVal);
+	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GUSB2PHYCFG(0U), RegVal);
 
 	XUsbSleep(XUSBPSU_PHY_TIMEOUT);
 
@@ -390,15 +390,15 @@ void XUsbPsu_EventBuffersSetup(struct XUsbPsu *InstancePtr)
 
 	Evt = &InstancePtr->Evt;
 	Evt->BuffAddr = (void *)InstancePtr->EventBuffer;
-	Evt->Offset = 0;
+	Evt->Offset = 0U;
 
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTADRLO(0),
+	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTADRLO(0U),
 			(UINTPTR)InstancePtr->EventBuffer);
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTADRHI(0),
+	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTADRHI(0U),
 			((UINTPTR)(InstancePtr->EventBuffer) >> 16U) >> 16U);
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTSIZ(0),
+	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTSIZ(0U),
 			XUSBPSU_GEVNTSIZ_SIZE(sizeof(InstancePtr->EventBuffer)));
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0), 0);
+	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0U), 0U);
 }
 
 /*****************************************************************************/
@@ -448,7 +448,7 @@ u32 XUsbPsu_ReadHwParams(struct XUsbPsu *InstancePtr, u8 RegIndex)
 	Xil_AssertNonvoid(RegIndex <= (u8)XUSBPSU_GHWPARAMS7);
 
 	RegVal = XUsbPsu_ReadReg(InstancePtr, ((u32)XUSBPSU_GHWPARAMS0_OFFSET +
-							((u32)RegIndex * (u32)4)));
+							((u32)RegIndex * (u32)4U)));
 	return RegVal;
 }
 
@@ -495,7 +495,7 @@ s32 XUsbPsu_CoreInit(struct XUsbPsu *InstancePtr)
 			/* enable hibernation here */
 #ifdef XUSBPSU_HIBERNATION_ENABLE
 			RegVal |= XUSBPSU_GCTL_GBLHIBERNATIONEN;
-			InstancePtr->HasHibernation = 1;
+			InstancePtr->HasHibernation = 1U;
 #endif
 			break;
 
