@@ -179,7 +179,7 @@ u32 XilSKey_EfusePs_XAdcInit (void)
 	 * specify the Device ID that is
 	 * generated in xparameters.h
 	 */
-	XSysmonDevId = XSYSMON_DEVICE_ID;
+	XSysmonDevId = (u16)XSYSMON_DEVICE_ID;
 
 	/**
 	 * Initialize the XAdc driver.
