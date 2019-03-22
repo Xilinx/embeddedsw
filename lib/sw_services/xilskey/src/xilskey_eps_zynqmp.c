@@ -67,7 +67,7 @@
 *       arc   25/02/19 Added NULL checks and validations for input params
 *                      and add timeouts and status info
 *       arc   03/15/19 Modified initial default status value as XST_FAILURE
-*
+* 6.7   psl   03/21/19 Fixed MISRA-C violation.
 * </pre>
 *
 *****************************************************************************/
@@ -1048,7 +1048,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
 								u32 *RowData)
 {
 	u32 WriteValue;
-	u32 ReadValue;
+	u32 ReadValue = 0U;
 	u32 EfusePsType = (u32)EfuseType;
 	u32 Status = (u32)XST_FAILURE;
 	u32 TimeOut = 0U;
@@ -1843,7 +1843,7 @@ u32 XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc(u32 CrcValue)
 {
 
 	u32 Status;
-	u32 ReadReg;
+	u32 ReadReg = 0U;
 	u32 TimeOut = 0U;
 
 	/* Check the unlock status */
