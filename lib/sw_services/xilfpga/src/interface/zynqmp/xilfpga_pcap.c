@@ -80,6 +80,10 @@
  * 5.0  Nava  28/02/19  Handling all the 4 PS-PL resets irrespective of the
  *                      design configuration.
  * 5.0  vns   12/03/19  Modified secure stream switch related functions.
+ * 5.0  Nava  19/03/19 In the current implementation, the SecureIv variable
+ *                     is sharing between xilfpga and Xilsecure libraries.
+ *                     To avoid data sharing conflicts removed SecureIV
+ *                     shared variable dependency.
  * </pre>
  *
  * @note
@@ -294,10 +298,6 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 	u32 Status = XFPGA_FAILURE;
 	XSecure_ImageInfo *ImageHdrDataPtr =
 			&InstancePtr->PLInfo.SecureImageInfo;
-	u32 EncOnly;
-	u8 IsEncrypted = 0U;
-	u8 NoAuth = 0U;
-	u8 *IvPtr = (u8 *)(UINTPTR)XsecureIv;
 	u32 BitstreamPos = 0U;
 	u32 PartHeaderOffset = 0U;
 
@@ -323,8 +323,10 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 
 			if (Status != XFPGA_SUCCESS) {
 				Status = XFPGA_PCAP_UPDATE_ERR(Status, (u32)0U);
+				goto END;
+			} else {
+				goto UPDATE;
 			}
-			goto END;
 		}
 	}
 
@@ -332,69 +334,8 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 				(u8 *)InstancePtr->WriteInfo.BitstreamAddr,
 				ImageHdrDataPtr);
 	if (Status != XFPGA_SUCCESS) {
-		if (Status == XSECURE_AUTH_NOT_ENABLED) {
-		/* Here Buffer still contains Boot header */
-			NoAuth = 1U;
-		}
-	}
-
-	/* Error other than XSECURE_AUTH_NOT_ENABLED error will be an error */
-	if ((Status != XFPGA_SUCCESS) && (NoAuth == 0x00U)) {
-		Status = XFPGA_PCAP_UPDATE_ERR(XFPGA_ERROR_HDR_AUTH, Status);
-		goto END;
-	}
-
-	if (NoAuth != 0x00U) {
-		XSecure_PartitionHeader *Ph =
-				(XSecure_PartitionHeader *)(UINTPTR)
-				(InstancePtr->WriteInfo.BitstreamAddr +
-				Xil_In32((UINTPTR)Buffer +
-				XSECURE_PH_TABLE_OFFSET));
-		ImageHdrDataPtr->PartitionHdr = Ph;
-		if ((ImageHdrDataPtr->PartitionHdr->PartitionAttributes &
-				XSECURE_PH_ATTR_AUTH_ENABLE) != 0x00U) {
-			Status = XFPGA_PCAP_UPDATE_ERR(
-					(u32)XFPGA_HDR_NOAUTH_PART_AUTH, (u32)0U);
-			goto END;
-		}
-	}
-	if ((ImageHdrDataPtr->PartitionHdr->PartitionAttributes &
-				XSECURE_PH_ATTR_ENC_ENABLE) != 0U) {
-		IsEncrypted = 1U;
-	}
-
-	EncOnly = XSecure_IsEncOnlyEnabled();
-	if (EncOnly != 0U) {
-
-		if (IsEncrypted == 0U) {
-			Status = XFPGA_PCAP_UPDATE_ERR(
-					(u32)XFPGA_ENC_ISCOMPULSORY, (u32)0U);
-			goto END;
-		}
-	}
-
-	if ((IsEncrypted != 0U) && (NoAuth != 0U)) {
-		ImageHdrDataPtr->KeySrc = Xil_In32((UINTPTR)Buffer +
-					XSECURE_KEY_SOURCE_OFFSET);
-		(void)XSecure_MemCopy(ImageHdrDataPtr->Iv,
-				(Buffer + XSECURE_IV_OFFSET), XSECURE_IV_SIZE);
-
-		/* Add partition header IV to boot header IV */
-		*(IvPtr + XSECURE_IV_LEN) = (*(IvPtr + XSECURE_IV_LEN)) +
-		 (ImageHdrDataPtr->PartitionHdr->Iv & XSECURE_PH_IV_MASK);
-	}
-
-	/*
-	 * When authentication exists and requesting
-	 * for device key other than eFUSE and KUP key
-	 * when ENC_ONLY bit is blown
-	 */
-	if (EncOnly != 0U) {
-		if ((ImageHdrDataPtr->KeySrc == XSECURE_KEY_SRC_BBRAM) ||
-			(ImageHdrDataPtr->KeySrc == XSECURE_KEY_SRC_GREY_BH) ||
-			(ImageHdrDataPtr->KeySrc == XSECURE_KEY_SRC_BLACK_BH)) {
-			Status = XFPGA_PCAP_UPDATE_ERR(
-						(u32)XFPGA_DEC_WRONG_KEY_SOURCE, (u32)0U);
+		if (Status != XSECURE_AUTH_NOT_ENABLED) {
+			Status = XFPGA_PCAP_UPDATE_ERR(XFPGA_ERROR_HDR_AUTH, Status);
 			goto END;
 		}
 	}
@@ -407,9 +348,10 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 		Xfpga_Printf(XFPGA_DEBUG,
 		"Crypto flags not matched with Image crypto operation "
 		"with Error Code:0x%08x\r\n", Status);
+		goto END;
 	}
 
-END:
+UPDATE:
 	if ((InstancePtr->WriteInfo.Flags & XFPGA_SECURE_FLAGS) == 0U) {
 		if (Status == XFPGA_SUCCESS) {
 			if (BitstreamPos == BOOTGEN_DATA_OFFSET) {
@@ -431,7 +373,7 @@ END:
 			Status = XFPGA_PCAP_UPDATE_ERR(Status, 0U);
 		}
 	}
-
+END:
 	return Status;
 
 }
