@@ -107,9 +107,6 @@ u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey)
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(AesKey != NULL);
 
-	/* Calculate CRC of AES */
-	AesCrc = XilSKey_ZynqMp_Bbram_CrcCalc(AesKey);
-
 	/* Set in programming mode */
 	Status = XilSKey_ZynqMp_Bbram_PrgrmEn();
 	if (Status != (u32)XST_SUCCESS) {
@@ -124,6 +121,9 @@ u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey)
 		KeyPtr++;
 		Offset = Offset + 4U;
 	}
+
+	/* Calculate CRC of AES */
+	AesCrc = XilSKey_ZynqMp_Bbram_CrcCalc(AesKey);
 
 	XilSKey_WriteReg(XSK_ZYNQMP_BBRAM_BASEADDR,
 			XSK_ZYNQMP_BBRAM_AES_CRC_OFFSET, AesCrc);
