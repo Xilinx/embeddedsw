@@ -61,7 +61,10 @@
 *       arc 12/02/19 Added support for validate image format.
 *       rama 18/03/19 Fixed IAR compiler errors and warnings
 *       arc 03/20/19 Reading the return value of the functions to validate
-*
+* 4.0  Nava 19/03/19 In the current implementation, the SecureIv variable
+*                    is sharing between xilfpga and Xilsecure libraries.
+*                    To avoid data sharing conflicts removed SecureIV
+*                    shared variable dependency.
 * </pre>
 *
 * @note
@@ -961,7 +964,9 @@ u32 XSecure_AuthenticationHeaders(u8 *StartAddr, XSecure_ImageInfo *ImageInfo)
 	u32 SizeofBH;
 	u32 SizeofImgHdr;
 	u32 PhOffset;
-	u8 *IvPtr = (u8 *)(UINTPTR)XsecureIv;
+	u8 NoAuth = 0U;
+	u8 IsEncrypted = 0U;
+	u8 EncOnly = 0U;
 	XSecure_PartitionHeader *Ph;
 	u8 BootgenBinFormat[] = {0x66, 0x55, 0x99, 0xAA,
 				 0x58, 0x4E, 0x4C, 0x58};/* Sync Word */
@@ -997,7 +1002,8 @@ u32 XSecure_AuthenticationHeaders(u8 *StartAddr, XSecure_ImageInfo *ImageInfo)
 			goto END;
 		}
 		Status = XSECURE_AUTH_NOT_ENABLED;
-		goto END;
+		NoAuth = 1U;
+		goto UPDATE;
 	}
 
 	/* Copy Image header authentication certificate to local memory */
@@ -1097,23 +1103,67 @@ u32 XSecure_AuthenticationHeaders(u8 *StartAddr, XSecure_ImageInfo *ImageInfo)
 		goto END;
 	}
 
-	/* Partition header */
-	PhOffset = Xil_In32((UINTPTR)(Buffer + XSECURE_PH_OFFSET));
+UPDATE:
+	if (NoAuth != 0U) {
+		Ph = (XSecure_PartitionHeader *)(UINTPTR)
+				(StartAddr + Xil_In32((UINTPTR)Buffer +
+						XSECURE_PH_TABLE_OFFSET));
+		/* Copy boot header parameters */
+		ImageInfo->KeySrc = Xil_In32((UINTPTR)(Buffer +
+					XSECURE_KEY_SOURCE_OFFSET));
+		/* Copy secure header IV */
+		if (ImageInfo->KeySrc != 0x00U) {
+			(void)XSecure_MemCopy(ImageInfo->Iv,
+						(Buffer + XSECURE_IV_OFFSET),
+						XSECURE_IV_SIZE);
+		}
+	} else {
+		/* Partition header */
+		PhOffset = Xil_In32((UINTPTR)(Buffer + XSECURE_PH_OFFSET));
+		/* Partition header offset is w.r.t to image start address */
+		Ph = (XSecure_PartitionHeader *)((UINTPTR)
+				(Buffer + ((PhOffset * XSECURE_WORD_LEN)
+				- ImgHdrToffset)));
+	}
 
-	/* Partition header offset is w.r.t to image start address */
-	Ph = (XSecure_PartitionHeader *)((UINTPTR)
-		(Buffer + ((PhOffset * XSECURE_WORD_LEN) - ImgHdrToffset)));
+	ImageInfo->PartitionHdr = Ph;
+
+	if ((ImageInfo->PartitionHdr->PartitionAttributes &
+		XSECURE_PH_ATTR_ENC_ENABLE) != 0U) {
+		IsEncrypted = 1U;
+	}
+
+	EncOnly = XSecure_IsEncOnlyEnabled();
+	if ((EncOnly != 0U) && (IsEncrypted == 0U)) {
+		Status = XSECURE_ENC_ISCOMPULSORY;
+		goto END;
+	}
+
+	/*
+	 * When authentication exists and requesting
+	 * for device key other than eFUSE and KUP key
+	 * when ENC_ONLY bit is blown
+	 */
+
+	if (EncOnly != 0U) {
+		if ((ImageInfo->KeySrc == XSECURE_KEY_SRC_BBRAM) ||
+			(ImageInfo->KeySrc == XSECURE_KEY_SRC_GREY_BH) ||
+			(ImageInfo->KeySrc == XSECURE_KEY_SRC_BLACK_BH)) {
+			Status = XSECURE_DEC_WRONG_KEY_SOURCE;
+			goto END;
+		}
+	 }
 
 	if (Ph->NextPartitionOffset != 0x00U) {
 		Status = XSECURE_IMAGE_WITH_MUL_PARTITIONS;
 		goto END;
 	}
-	ImageInfo->PartitionHdr = Ph;
 
 	/* Add partition header IV to boot header IV */
-	if (ImageInfo->KeySrc != 0x00U) {
-		*(IvPtr + XSECURE_IV_LEN) = (*(IvPtr + XSECURE_IV_LEN)) +
-						(Ph->Iv & XSECURE_PH_IV_MASK);
+	 if (ImageInfo->KeySrc != 0x00U) {
+		 *(ImageInfo->Iv + XSECURE_IV_LEN) =
+			 (*(ImageInfo->Iv + XSECURE_IV_LEN)) +
+			 (ImageInfo->PartitionHdr->Iv & XSECURE_PH_IV_MASK);
 	}
 
 END:
