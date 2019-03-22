@@ -141,7 +141,7 @@ u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey)
 
 	if ((StatusRead & (u32)XSK_ZYNQMP_BBRAM_STS_AES_CRC_DONE_MASK)
 							== 0x00U) {
-		Status = XSK_ZYNQMP_BBRAMPS_ERROR_IN_WRITE_CRC;
+		Status = (u32)XSK_ZYNQMP_BBRAMPS_ERROR_IN_WRITE_CRC;
 		goto END;
 	}
 

@@ -69,7 +69,7 @@
 *       arc     03/13/19 Added assert to validate lengths in
 *                        XilSKey_Efuse_ValidateKey()
 *       arc     03/15/19 Modified initial default status value as XST_FAILURE
-*
+* 6.7   psl     03/21/19 Fixed MISRA-C violation.
  *****************************************************************************/
 
 /***************************** Include Files ********************************/
@@ -1203,7 +1203,7 @@ void XilSKey_StrCpyRange(u8 *Src, u8 *Dst, u32 From, u32 To)
 		J = J + 1U;
 	}
 END:
-	Dst[J] = '\0';
+	Dst[J] = (u8)'\0';
 
 }
 
