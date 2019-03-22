@@ -72,7 +72,7 @@
 *                        XSK_ZYNQMP_BBRAMPS_ERROR_IN_ZEROISE
 *                        XSK_ZYNQMP_BBRAMPS_ERROR_IN_WRITE_CRC
 *       mmd     03/17/19 Added timeout and PUF underflow error
-*
+*       psl     03/19/19 FIxed MISRA-C violation
  *****************************************************************************/
 
 #ifndef XILSKEY_UTILS_H
@@ -326,7 +326,7 @@ typedef enum {
 #endif
 #ifdef STDOUT_BASEADDRESS
 #define xeFUSE_printf(type,...) \
-		if (((type) & xeFUSE_dbg_current_types))  {xil_printf (__VA_ARGS__); }
+		if (((type) & xeFUSE_dbg_current_types) != 0)  {xil_printf (__VA_ARGS__); }
 #else
 #define xeFUSE_printf(type, ...)
 #endif
