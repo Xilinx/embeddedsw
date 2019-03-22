@@ -52,6 +52,7 @@
 *                        Added Timeouts and status info for the functions
 *                        XilSKey_ZynqMp_Bbram_Program
 *                        XilSKey_ZynqMp_Bbram_Zeroise
+* 6.7   psl     03/21/19 Fixed MISRA-C violation.
 * </pre>
 *
 ******************************************************************************/
@@ -99,7 +100,7 @@ u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey)
 	u32 Status;
 	u32 AesCrc;
 	u32 *KeyPtr = AesKey;
-	u32 StatusRead;
+	u32 StatusRead = 0U;
 	u32 Offset;
 	u32 TimeOut = 0U;
 
@@ -230,7 +231,7 @@ END:
 static inline u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void)
 {
 
-	u32 StatusRead;
+	u32 StatusRead = 0U;
 	u32 Status;
 	u32 TimeOut = 0U;
 
