@@ -514,7 +514,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits_Regs(
 	if (ReadOption == 0U) {
 		RegData = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 				XSK_ZYNQMP_EFUSEPS_MISC_USER_CTRL_OFFSET);
-		Status = XST_SUCCESS;
+		Status = (u32)XST_SUCCESS;
 	}
 	else {
 		Status = XilSKey_ZynqMp_EfusePs_ReadRow(
