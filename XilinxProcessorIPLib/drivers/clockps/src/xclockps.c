@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -41,6 +41,8 @@
 * ----- ------ -------- ---------------------------------------------
 * 1.00  cjp    02/09/18 First release
 * 1.00  sd     07/26/18 Fix coverity warnings
+* 1.1	aru    03/20/19 Fix IAR isssue by changing "XCLOCK_ABS_DIFF" to a
+*			function named "XClock_Absolute_Difference".
 * </pre>
 *
 ******************************************************************************/
@@ -53,6 +55,7 @@
 
 /************************** Function Prototypes ******************************/
 static void XClock_SetupClockModules(void);
+static inline u32 XClock_Absolute_Difference(XClockRate Rate, XClockRate CurrRate);
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /* Assign structure elements for input clocks */
@@ -295,7 +298,7 @@ static XStatus XClock_FetchClockInfo(XClock_OutputClks ClockId,
 		if (NULL != XClock_NodeFetchIdx[Idx]) {
 			Status = XClock_NodeFetchIdx[Idx](ClockId, NodeIdx);
 			if (XST_SUCCESS == Status) {
-				*NodeType = Idx;
+				*NodeType = (XClock_Types)Idx;
 				return Status;
 			}
 		}
@@ -560,7 +563,8 @@ static XStatus XClock_ConfigPlls(u8 *PllIdx, XClockRate ParRate,
 		return Status;
 	}
 
-	if (XCLOCK_ABS_DIFF(Rate, CurrRate) > XCLOCK_ABS_DIFF(Rate, *SetRate)) {
+	if (XClock_Absolute_Difference(Rate, CurrRate) >
+			XClock_Absolute_Difference(Rate, *SetRate)) {
 		Status = XClock_NodeSetRate[XCLOCK_TYPE_PLL](*PllIdx, ParRate,
 							Rate, SetRate, 0);
 		if (XST_SUCCESS != Status) {
@@ -626,7 +630,7 @@ void XClock_UpdateTopologyRates(XClock_Types MatchType, u8 MatchIdx)
 	for (Idx = 0; Idx < MAX_OP; Idx++) {
 		/* Fetch output clock information */
 		if (XST_SUCCESS !=
-			XClock_FetchClockInfo(Idx, &ClockType, &ClockIdx)) {
+			XClock_FetchClockInfo((XClock_OutputClks)Idx, &ClockType, &ClockIdx)) {
 			return;
 		}
 
@@ -1003,5 +1007,28 @@ XStatus XClock_DisableClock(XClock_OutputClks ClockId)
 
 	return Status;
 }
+/*****************************************************************************/
+/*
+*
+* This function returns the absolute difference of 2 values.
+*
+* @param	variable of XClockRate type
+*
+* @param        variable of XClockRate type
+*
+* @return	difference between the two variables
+*
+* @note		None.
+*
+******************************************************************************/
+static inline u32 XClock_Absolute_Difference(XClockRate Rate, XClockRate CurrRate) {
+		u32 AbsDiff;
+		if (Rate < CurrRate) {
+			AbsDiff = (u32)(CurrRate - Rate);
+		} else {
+			AbsDiff = (u32)(Rate - CurrRate);
+		}
+		return AbsDiff;
+	}
 
 /** @} */
