@@ -113,6 +113,9 @@
  *                     duplication
  * 5.0 Nava  28/02/19  Handling all the 4 PS-PL resets irrespective of the
  *                     design configuration.
+ * 5.0 Nava  21/03/19  Added Address alingment check. As CSUDMA expects word
+ *		       aligned address. In case user passes an unaligned
+ *		       address return error.
  * </pre>
  *
  * @note
@@ -249,6 +252,7 @@ extern "C" {
 #define XFPGA_ERROR_CSU_PCAP_TRANSFER		(0x18U)
 #define XFPGA_ERROR_PLSTATE_UNKNOWN		(0x19U)
 #define XFPGA_ERROR_BITSTREAM_FORMAT		(0x1AU)
+#define XFPGA_ERROR_UNALIGN_ADDR		(0x1BU)
 
 /* PCAP Error Update Macro */
 #define XFPGA_PCAP_ERR_MASK			(0xFF00U)
