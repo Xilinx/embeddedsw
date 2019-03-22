@@ -92,8 +92,8 @@ XTmrCtr XTmrCtrInst;
 #endif
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-XSysMonPsu XSysmonInst; /* Sysmon PSU instance */
-u16 XSysmonDevId; /* Sysmon PSU device ID */
+static XSysMonPsu XSysmonInst; /* Sysmon PSU instance */
+static u16 XSysmonDevId; /* Sysmon PSU device ID */
 #endif
 
 u32 TimerTicksfor100ns; /**< Global Variable to store ticks/100ns*/

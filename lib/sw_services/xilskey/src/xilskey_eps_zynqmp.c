@@ -94,7 +94,7 @@ typedef struct {
 
 
 /************************** Variable Definitions ****************************/
-u8 Init_Done;
+static u8 Init_Done;
 
 /************************** Function Prototypes *****************************/
 
