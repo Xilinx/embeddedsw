@@ -1988,17 +1988,18 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPpk0Hash(u32 *Ppk0Hash, u8 ReadOption)
 	s32 RegNum;
 	u32 DataRead;
 	s32 Reg = (s32)(XSK_ZYNQMP_EFUSEPS_PPK_HASH_REG_NUM - 1U);
+	u32 * Ppk0hashPtr = Ppk0Hash;
 
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(Ppk0Hash != NULL);
+	Xil_AssertNonvoid(Ppk0hashPtr != NULL);
 
 	if (ReadOption == 0U) {
 		for (RegNum = Reg; RegNum >= (s32)0; RegNum--) {
 			DataRead = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 				XSK_ZYNQMP_EFUSEPS_PPK0_0_OFFSET
 						+ ((u32)RegNum * 4U));
-			XilSKey_EfusePs_ConvertBytesBeToLe((u8 *)&DataRead, (u8 *)Ppk0Hash, 8);
-			Ppk0Hash++;
+			XilSKey_EfusePs_ConvertBytesBeToLe((u8 *)&DataRead, (u8 *)Ppk0hashPtr, 8);
+			Ppk0hashPtr++;
 		}
 		Status = (u32)XST_SUCCESS;
 	}
@@ -2025,11 +2026,11 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPpk0Hash(u32 *Ppk0Hash, u8 ReadOption)
 								Row--) {
 			Status = XilSKey_ZynqMp_EfusePs_ReadRow((u8)Row,
 						EfuseType, &DataRead);
-			XilSKey_EfusePs_ConvertBytesBeToLe((u8 *)&DataRead, (u8 *)Ppk0Hash, 8);
+			XilSKey_EfusePs_ConvertBytesBeToLe((u8 *)&DataRead, (u8 *)Ppk0hashPtr, 8);
 			if (Status != (u32)XST_SUCCESS) {
 				goto UNLOCK;
 			}
-			Ppk0Hash++;
+			Ppk0hashPtr++;
 		}
 
 UNLOCK:
@@ -2066,17 +2067,18 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPpk1Hash(u32 *Ppk1Hash, u8 ReadOption)
 	s32 RegNum;
 	u32 DataRead;
 	s32 Reg = (s32)(XSK_ZYNQMP_EFUSEPS_PPK_HASH_REG_NUM - 1U);
+	u32 * Ppk1hashPtr = Ppk1Hash;
 
 	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(Ppk1Hash != NULL);
+	Xil_AssertNonvoid(Ppk1hashPtr != NULL);
 
 	if (ReadOption == 0U) {
 		for (RegNum = Reg; RegNum >= (s32)0; RegNum--) {
 			DataRead = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 					XSK_ZYNQMP_EFUSEPS_PPK1_0_OFFSET
 							+ ((u32)RegNum * 4U));
-			XilSKey_EfusePs_ConvertBytesBeToLe((u8 *)&DataRead, (u8 *)Ppk1Hash, 8U);
-			Ppk1Hash++;
+			XilSKey_EfusePs_ConvertBytesBeToLe((u8 *)&DataRead, (u8 *)Ppk1hashPtr, 8U);
+			Ppk1hashPtr++;
 		}
 		Status = (u32)XST_SUCCESS;
 	}
@@ -2105,8 +2107,8 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPpk1Hash(u32 *Ppk1Hash, u8 ReadOption)
 			if (Status != (u32)XST_SUCCESS) {
 				goto UNLOCK;
 			}
-			XilSKey_EfusePs_ConvertBytesBeToLe((u8 *)&DataRead, (u8 *)Ppk1Hash, 8);
-			Ppk1Hash++;
+			XilSKey_EfusePs_ConvertBytesBeToLe((u8 *)&DataRead, (u8 *)Ppk1hashPtr, 8);
+			Ppk1hashPtr++;
 		}
 
 UNLOCK:
