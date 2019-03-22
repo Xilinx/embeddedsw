@@ -154,6 +154,9 @@ Optimize the bitstream validation logic for Non-secure bitstream Images.
 Fixed PL power-up issue with pmufw.
 Updated the data handling logic to avoid the code duplication.
 Fixed PS-PL resets handling issues.
+Removed SecureIV shared variable dependency and updated the secure Iv
+handling logic.
+Added CSUDMA address alignment check.
 
 xilisf_v5_13:
 Declare XQspiPsu_Msg instance as global.
