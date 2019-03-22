@@ -84,6 +84,9 @@
  *                     is sharing between xilfpga and Xilsecure libraries.
  *                     To avoid data sharing conflicts removed SecureIV
  *                     shared variable dependency.
+ * 5.0 Nava  21/03/19  Added Address alingment check. As CSUDMA expects word
+ *                     aligned address. In case user passes an unaligned
+ *                     address return error.
  * </pre>
  *
  * @note
@@ -133,6 +136,7 @@
 #define DUMMY_BYTE			(0xFFU)
 #define SYNC_BYTE_POSITION		64U
 #define BOOTGEN_DATA_OFFSET		0x2800U
+#define XFPGA_ADDR_WORD_ALIGN_MASK	(0x3U)
 
 #define XFPGA_AES_TAG_SIZE	(XSECURE_SECURE_HDR_SIZE + \
 		XSECURE_SECURE_GCM_TAG_SIZE) /* AES block decryption tag size */
@@ -300,6 +304,13 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 			&InstancePtr->PLInfo.SecureImageInfo;
 	u32 BitstreamPos = 0U;
 	u32 PartHeaderOffset = 0U;
+
+	if ((InstancePtr->WriteInfo.BitstreamAddr &
+		XFPGA_ADDR_WORD_ALIGN_MASK) !=0U) {
+		/* If the Address is not Word aligned return failure */
+		Status = XFPGA_ERROR_UNALIGN_ADDR;
+		goto END;
+	}
 
 	if ((XFPGA_SECURE_MODE_EN == 0U) &&
 		((InstancePtr->WriteInfo.Flags & XFPGA_SECURE_FLAGS) != 0U)) {
