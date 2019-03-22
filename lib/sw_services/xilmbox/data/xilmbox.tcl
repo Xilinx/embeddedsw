@@ -31,6 +31,7 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 1.0  adk   12/02/19 Initial Release
+# 1.0  adk   22/03/19 Add versal GIC IP name in interrupt controller check
 ##############################################################################
 
 #---------------------------------------------
@@ -44,7 +45,7 @@ proc mbox_drc {libhandle} {
 	if {$proc_type == "microblaze"} {
 		error "ERROR: This library is not supported for the selected processor"
 	}
-        set gic [hsi::get_cells -hier -filter {IP_NAME=="psu_scugic" || IP_NAME=="psu_acpu_gic" || IP_NAME=="psu_rcpu_gic"}]
+        set gic [hsi::get_cells -hier -filter {IP_NAME=="psu_scugic" || IP_NAME=="psu_acpu_gic" || IP_NAME=="psu_rcpu_gic" || IP_NAME=="psv_scugic" || IP_NAME=="psv_acpu_gic" || IP_NAME=="psv_rcpu_gic"}]
 	if {[llength $gic] == 0} {
 		error "ERROR: This library is requires a scugic instance in the design"
 	}
