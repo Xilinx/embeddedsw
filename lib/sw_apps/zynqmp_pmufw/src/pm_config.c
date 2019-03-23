@@ -237,7 +237,7 @@ static s32 PmConfigSlaveSectionHandler(u32* const addr)
 		PmSlave* slave;
 
 		nodeId = PmConfigReadNext(addr);
-		slave = PmNodeGetSlave(nodeId);
+		slave = (PmSlave*)PmNodeGetSlave(nodeId);
 		if (NULL == slave) {
 			PmErr("Unknown slave #%lu\r\n", nodeId);
 			status = XST_FAILURE;
@@ -279,7 +279,7 @@ static s32 PmConfigPreallocForMaster(const PmMaster* const master,
 
 		/* Get slave by node ID */
 		nodeId = PmConfigReadNext(addr);
-		slave = PmNodeGetSlave(nodeId);
+		slave = (PmSlave*)PmNodeGetSlave(nodeId);
 		if (NULL == slave) {
 			PmErr("Unknown slave #%lu\r\n", nodeId);
 			status = XST_FAILURE;
@@ -367,7 +367,7 @@ static s32 PmConfigPowerSectionHandler(u32* const addr)
 
 		powerId = PmConfigReadNext(addr);
 
-		power = PmNodeGetPower(powerId);
+		power = (PmPower*)PmNodeGetPower(powerId);
 		if (NULL == power) {
 			PmErr("Unknown power #%lu\r\n", powerId);
 			status = XST_FAILURE;
@@ -454,7 +454,7 @@ static void PmConfigHeaderHandler(u32* const addr)
 	remWords = PmConfigReadNext(addr);
 
 	/* If there is words in header, get number of sections in object */
-	if (remWords > 0) {
+	if (remWords > 0U) {
 		pmConfig.secNumber = PmConfigReadNext(addr);
 		remWords--;
 	}
@@ -480,28 +480,28 @@ static s32 PmConfigGpoSectionHandler(u32* const addr)
 	XPfw_Write32(PMU_IOMODULE_GPO1, reg);
 
 #ifdef CONNECT_PMU_GPO_2
-	if (gpoState & PM_CONFIG_GPO_2_ENABLE_MASK) {
+	if ((gpoState & PM_CONFIG_GPO_2_ENABLE_MASK) != 0U) {
 		XPfw_RMW32((IOU_SLCR_BASE + IOU_SLCR_MIO_PIN_34_OFFSET),
 				0x000000FEU, 0x00000008U);
 	}
 #endif
 
 #ifdef CONNECT_PMU_GPO_3
-	if (gpoState & PM_CONFIG_GPO_3_ENABLE_MASK) {
+	if ((gpoState & PM_CONFIG_GPO_3_ENABLE_MASK) != 0U) {
 		XPfw_RMW32((IOU_SLCR_BASE + IOU_SLCR_MIO_PIN_35_OFFSET),
 				0x000000FEU, 0x00000008U);
 	}
 #endif
 
 #ifdef CONNECT_PMU_GPO_4
-	if (gpoState & PM_CONFIG_GPO_4_ENABLE_MASK) {
+	if ((gpoState & PM_CONFIG_GPO_4_ENABLE_MASK) != 0U) {
 		XPfw_RMW32((IOU_SLCR_BASE + IOU_SLCR_MIO_PIN_36_OFFSET),
 				0x000000FEU, 0x00000008U);
 	}
 #endif
 
 #ifdef CONNECT_PMU_GPO_5
-	if (gpoState & PM_CONFIG_GPO_5_ENABLE_MASK) {
+	if ((gpoState & PM_CONFIG_GPO_5_ENABLE_MASK) != 0U) {
 		XPfw_RMW32((IOU_SLCR_BASE + IOU_SLCR_MIO_PIN_37_OFFSET),
 				0x000000FEU, 0x00000008U);
 	}
@@ -558,10 +558,10 @@ static PmConfigSection* PmConfigGetSectionById(const u32 sid)
 static void PmConfigPllPermsWorkaround(void)
 {
 	PmMaster* apu = PmMasterGetPlaceholder(NODE_APU);
-	PmSlave* dp = PmNodeGetSlave(NODE_DP);
+	PmSlave* dp = (PmSlave*)PmNodeGetSlave(NODE_DP);
 	PmRequirement* req;
 
-	if (NULL == apu || NULL == dp) {
+	if ((NULL == apu) || (NULL == dp)) {
 		goto done;
 	}
 
