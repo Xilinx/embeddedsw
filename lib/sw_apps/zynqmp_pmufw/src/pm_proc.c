@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -63,16 +63,16 @@
 #define PM_PROC_RPU_HIVEC_ADDR  0xFFFF0000U
 
 /* Power consumptions for the APU for specific states */
-#define DEFAULT_APU_POWER_ACTIVE	200
-#define DEFAULT_APU_POWER_SUSPENDING	100
-#define DEFAULT_APU_POWER_SLEEP		0
-#define DEFAULT_APU_POWER_OFF		0
+#define DEFAULT_APU_POWER_ACTIVE	200U
+#define DEFAULT_APU_POWER_SUSPENDING	100U
+#define DEFAULT_APU_POWER_SLEEP		0U
+#define DEFAULT_APU_POWER_OFF		0U
 
 /* Power consumptions for the RPU for specific states */
-#define DEFAULT_RPU_POWER_ACTIVE	200
-#define DEFAULT_RPU_POWER_SUSPENDING	100
-#define DEFAULT_RPU_POWER_SLEEP		0
-#define DEFAULT_RPU_POWER_OFF		0
+#define DEFAULT_RPU_POWER_ACTIVE	200U
+#define DEFAULT_RPU_POWER_SUSPENDING	100U
+#define DEFAULT_RPU_POWER_SLEEP		0U
+#define DEFAULT_RPU_POWER_OFF		0U
 
 /**
  * PmProcHasResumeAddr() - Check whether the processor has the resume address
@@ -80,7 +80,7 @@
  */
 bool PmProcHasResumeAddr(const PmProc* const proc)
 {
-	return 0ULL != (proc->resumeAddress & 1ULL);
+	return (0ULL != (proc->resumeAddress & 1ULL));
 }
 
 /**
@@ -108,7 +108,7 @@ static s32 RPUSaveResumeAddr(PmProc* const proc, const u64 address)
 		goto done;
 	}
 	/* Set bit0 to mark address as valid */
-	proc->resumeAddress = address | 1ULL;
+	proc->resumeAddress = address | (u64)1ULL;
 done:
 	return status;
 }
@@ -123,7 +123,7 @@ done:
 static s32 APUSaveResumeAddr(PmProc* const proc, const u64 address)
 {
 	/* Set bit0 to mark address as valid */
-	proc->resumeAddress = address | 1ULL;
+	proc->resumeAddress = address | (u64)1ULL;
 	return XST_SUCCESS;
 }
 
@@ -374,7 +374,7 @@ static s32 PmProcWake(PmProc* const proc)
 		}
 	}
 	if (NULL != proc->node.clocks) {
-		PmClockRequest(&proc->node);
+		(void)PmClockRequest(&proc->node);
 	}
 
 	proc->restoreResumeAddr(proc);
@@ -538,7 +538,7 @@ static s32 PmProcTrSuspendToSleep(PmProc* const proc)
 		status = PmMasterFsm(proc->master, PM_MASTER_EVENT_SLEEP);
 
 		/* If suspended, remember which processor to wake-up first */
-		if (true == PmMasterIsSuspended(proc->master)) {
+		if (true == (u8)PmMasterIsSuspended(proc->master)) {
 			proc->master->wakeProc = proc;
 		}
 	}
@@ -628,7 +628,7 @@ s32 PmProcFsm(PmProc* const proc, const PmProcEvent event)
 		} else {
 			status = XST_SUCCESS;
 		}
-		if (true == PmIsRequestedToSuspend(proc->master)) {
+		if (true == (u8)PmIsRequestedToSuspend(proc->master)) {
 			status = PmMasterSuspendAck(proc->master,
 						    XST_PM_ABORT_SUSPEND);
 		}
@@ -679,7 +679,7 @@ PmProc* PmProcGetByWakeMask(const u32 wake)
 	u32 i;
 
 	for (i = 0U; i < pmNodeClassProc_g.bucketSize; i++) {
-		PmProc* proc = pmNodeClassProc_g.bucket[i]->derived;
+		PmProc* proc = (PmProc*)pmNodeClassProc_g.bucket[i]->derived;
 
 		if (0U != (proc->mask & wake)) {
 			found = proc;
@@ -730,7 +730,7 @@ static s32 PmProcGetWakeUpLatency(const PmNode* const node, u32* const lat)
 	PmProc* const proc = (PmProc*)node->derived;
 	PmNode* const powerNode = &node->parent->node;
 	s32 status = XST_SUCCESS;
-	u32 latency;
+	u32 latency = 0U;
 
 	*lat = 0U;
 	if (PM_PROC_STATE_ACTIVE == node->currState) {
@@ -786,10 +786,10 @@ void PmForceDownUnusableRpuCores(void)
 	 * If RPU core is not used then bit of PMU_GLOBAL_GLOBAL_GEN_STORAGE4
 	 * for that core is cleared. So check that bit and force down that core.
 	 */
-	if (!(value & RPU0_STATUS_MASK)) {
+	if (0U == (value & RPU0_STATUS_MASK)) {
 		PmProcForceDown(&pmProcRpu0_g.node);
 	}
-	if (!(value & RPU1_STATUS_MASK)) {
+	if (0U == (value & RPU1_STATUS_MASK)) {
 		mode = XPfw_Read32(RPU_RPU_GLBL_CNTL);
 
 		/* For RPU lockstep mode RPU_1 is assumed to be always down */
@@ -918,20 +918,20 @@ PmProc pmProcApu0_g = {
 		DEFINE_PM_POWER_INFO(PmProcPowerAPU_X),
 		DEFINE_NODE_NAME("apu0"),
 	},
-	.master = NULL,
-	.mask = PMU_IOMODULE_GPI2_ACPU_0_SLEEP_MASK,
-	.resumeCfg = APU_RVBARADDR0L,
 	.resumeAddress = 0ULL,
+	.master = NULL,
 	.saveResumeAddr = APUSaveResumeAddr,
 	.restoreResumeAddr = APURestoreResumeAddr,
-	.pwrDnReqAddr = APU_PWRCTL,
-	.pwrDnReqMask = 0x1U,
 	.init = NULL,
 	.sleep = PmProcApu0Sleep,
 	.wake = PmProcApu0Wake,
+	.resumeCfg = APU_RVBARADDR0L,
+	.pwrDnReqAddr = APU_PWRCTL,
+	.pwrDnReqMask = 0x1U,
 	.latencyReq = MAX_LATENCY,
 	.pwrDnLatency = PM_POWER_ISLAND_LATENCY,
 	.pwrUpLatency = PM_POWER_ISLAND_LATENCY,
+	.mask = PMU_IOMODULE_GPI2_ACPU_0_SLEEP_MASK,
 };
 
 PmProc pmProcApu1_g = {
@@ -947,20 +947,20 @@ PmProc pmProcApu1_g = {
 		DEFINE_PM_POWER_INFO(PmProcPowerAPU_X),
 		DEFINE_NODE_NAME("apu1"),
 	},
-	.master = NULL,
-	.mask = PMU_IOMODULE_GPI2_ACPU_1_SLEEP_MASK,
-	.resumeCfg = APU_RVBARADDR1L,
 	.resumeAddress = 0ULL,
+	.master = NULL,
 	.saveResumeAddr = APUSaveResumeAddr,
 	.restoreResumeAddr = APURestoreResumeAddr,
-	.pwrDnReqAddr = APU_PWRCTL,
-	.pwrDnReqMask = 0x2U,
 	.init = NULL,
 	.sleep = PmProcApu1Sleep,
 	.wake = PmProcApu1Wake,
+	.resumeCfg = APU_RVBARADDR1L,
+	.pwrDnReqAddr = APU_PWRCTL,
+	.pwrDnReqMask = 0x2U,
 	.latencyReq = MAX_LATENCY,
 	.pwrDnLatency = PM_POWER_ISLAND_LATENCY,
 	.pwrUpLatency = PM_POWER_ISLAND_LATENCY,
+	.mask = PMU_IOMODULE_GPI2_ACPU_1_SLEEP_MASK,
 };
 
 PmProc pmProcApu2_g = {
@@ -976,20 +976,20 @@ PmProc pmProcApu2_g = {
 		DEFINE_PM_POWER_INFO(PmProcPowerAPU_X),
 		DEFINE_NODE_NAME("apu2"),
 	},
-	.master = NULL,
-	.mask = PMU_IOMODULE_GPI2_ACPU_2_SLEEP_MASK,
-	.resumeCfg = APU_RVBARADDR2L,
 	.resumeAddress = 0ULL,
+	.master = NULL,
 	.saveResumeAddr = APUSaveResumeAddr,
 	.restoreResumeAddr = APURestoreResumeAddr,
-	.pwrDnReqAddr = APU_PWRCTL,
-	.pwrDnReqMask = 0x4U,
 	.init = NULL,
 	.sleep = PmProcApu2Sleep,
 	.wake = PmProcApu2Wake,
+	.resumeCfg = APU_RVBARADDR2L,
+	.pwrDnReqAddr = APU_PWRCTL,
+	.pwrDnReqMask = 0x4U,
 	.latencyReq = MAX_LATENCY,
 	.pwrDnLatency = PM_POWER_ISLAND_LATENCY,
 	.pwrUpLatency = PM_POWER_ISLAND_LATENCY,
+	.mask = PMU_IOMODULE_GPI2_ACPU_2_SLEEP_MASK,
 };
 
 PmProc pmProcApu3_g = {
@@ -1005,20 +1005,20 @@ PmProc pmProcApu3_g = {
 		DEFINE_PM_POWER_INFO(PmProcPowerAPU_X),
 		DEFINE_NODE_NAME("apu3"),
 	},
-	.master = NULL,
-	.mask = PMU_IOMODULE_GPI2_ACPU_3_SLEEP_MASK,
-	.resumeCfg = APU_RVBARADDR3L,
 	.resumeAddress = 0ULL,
+	.master = NULL,
 	.saveResumeAddr = APUSaveResumeAddr,
 	.restoreResumeAddr = APURestoreResumeAddr,
-	.pwrDnReqAddr = APU_PWRCTL,
-	.pwrDnReqMask = 0x8U,
 	.init = NULL,
 	.sleep = PmProcApu3Sleep,
 	.wake = PmProcApu3Wake,
+	.resumeCfg = APU_RVBARADDR3L,
+	.pwrDnReqAddr = APU_PWRCTL,
+	.pwrDnReqMask = 0x8U,
 	.latencyReq = MAX_LATENCY,
 	.pwrDnLatency = PM_POWER_ISLAND_LATENCY,
 	.pwrUpLatency = PM_POWER_ISLAND_LATENCY,
+	.mask = PMU_IOMODULE_GPI2_ACPU_3_SLEEP_MASK,
 };
 
 /* Rpu processors */
@@ -1035,20 +1035,20 @@ PmProc pmProcRpu0_g = {
 		DEFINE_PM_POWER_INFO(PmProcPowerRPU_X),
 		DEFINE_NODE_NAME("rpu0"),
 	},
-	.master = NULL,
-	.mask = PMU_IOMODULE_GPI2_R5_0_SLEEP_MASK,
-	.resumeCfg = RPU_RPU_0_CFG,
 	.resumeAddress = 0ULL,
+	.master = NULL,
 	.saveResumeAddr = RPUSaveResumeAddr,
 	.restoreResumeAddr = RPURestoreResumeAddr,
-	.pwrDnReqAddr = RPU_RPU_0_PWRDWN,
-	.pwrDnReqMask = RPU_RPU_0_PWRDWN_EN_MASK,
 	.init = NULL,
 	.sleep = PmProcRpu0Sleep,
 	.wake = PmProcRpu0Wake,
+	.resumeCfg = RPU_RPU_0_CFG,
+	.pwrDnReqAddr = RPU_RPU_0_PWRDWN,
+	.pwrDnReqMask = RPU_RPU_0_PWRDWN_EN_MASK,
 	.latencyReq = MAX_LATENCY,
-	.pwrDnLatency = 0,
-	.pwrUpLatency = 0,
+	.pwrDnLatency = 0U,
+	.pwrUpLatency = 0U,
+	.mask = PMU_IOMODULE_GPI2_R5_0_SLEEP_MASK,
 };
 
 PmProc pmProcRpu1_g = {
@@ -1064,20 +1064,20 @@ PmProc pmProcRpu1_g = {
 		DEFINE_PM_POWER_INFO(PmProcPowerRPU_X),
 		DEFINE_NODE_NAME("rpu1"),
 	},
-	.master = NULL,
-	.mask = PMU_IOMODULE_GPI2_R5_1_SLEEP_MASK,
-	.resumeCfg = RPU_RPU_1_CFG,
 	.resumeAddress = 0ULL,
+	.master = NULL,
 	.saveResumeAddr = RPUSaveResumeAddr,
 	.restoreResumeAddr = RPURestoreResumeAddr,
-	.pwrDnReqAddr = RPU_RPU_1_PWRDWN,
-	.pwrDnReqMask = RPU_RPU_1_PWRDWN_EN_MASK,
 	.init = PmProcRpu1Init,
 	.sleep = PmProcRpu1Sleep,
 	.wake = PmProcRpu1Wake,
+	.resumeCfg = RPU_RPU_1_CFG,
+	.pwrDnReqAddr = RPU_RPU_1_PWRDWN,
+	.pwrDnReqMask = RPU_RPU_1_PWRDWN_EN_MASK,
 	.latencyReq = MAX_LATENCY,
-	.pwrDnLatency = 0,
-	.pwrUpLatency = 0,
+	.pwrDnLatency = 0U,
+	.pwrUpLatency = 0U,
+	.mask = PMU_IOMODULE_GPI2_R5_1_SLEEP_MASK,
 };
 
 /* Collection of processor nodes */
@@ -1091,8 +1091,6 @@ static PmNode* pmNodeProcBucket[] = {
 };
 
 PmNodeClass pmNodeClassProc_g = {
-	DEFINE_NODE_BUCKET(pmNodeProcBucket),
-	.id = NODE_CLASS_PROC,
 	.clearConfig = PmProcClearConfig,
 	.construct = PmProcConstruct,
 	.getWakeUpLatency = PmProcGetWakeUpLatency,
@@ -1101,6 +1099,8 @@ PmNodeClass pmNodeClassProc_g = {
 	.init = PmProcInit,
 	.isUsable = PmProcIsUsable,
 	.getPerms = PmProcGetPerms,
+	DEFINE_NODE_BUCKET(pmNodeProcBucket),
+	.id = NODE_CLASS_PROC,
 };
 
 #endif
