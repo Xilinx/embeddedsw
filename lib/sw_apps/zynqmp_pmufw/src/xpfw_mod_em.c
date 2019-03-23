@@ -43,7 +43,7 @@ static void EmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask, c
 {
 	u32 RetVal = XST_FAILURE;
 	u8 ErrorId = 0U;
-	u32 Buf[XPFW_IPI_MAX_MSG_LEN] = {0};
+	u32 Buf[XPFW_IPI_MAX_MSG_LEN] = {0U};
 
 	if (IpiNum > 0U) {
 		XPfw_Printf(DEBUG_ERROR,"EM: EM handles only IPI on PMU-0\r\n");
@@ -63,7 +63,7 @@ static void EmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask, c
 						"to set action. Please check permissions \r\n");
 			}
 			Buf[0] = RetVal;
-			(void)XPfw_IpiWriteResponse(ModPtr, SrcMask, &Buf[0], 1);
+			(void)XPfw_IpiWriteResponse(ModPtr, SrcMask, &Buf[0], 1U);
 			break;
 
 		case REMOVE_EM_ACTION:
@@ -80,7 +80,7 @@ static void EmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask, c
 						" to remove action. Please check permissions\r\n");
 			}
 			Buf[0] = RetVal;
-			(void)XPfw_IpiWriteResponse(ModPtr, SrcMask, &Buf[0], 1);
+			(void)XPfw_IpiWriteResponse(ModPtr, SrcMask, &Buf[0], 1U);
 			break;
 
 		case SEND_ERRORS_OCCURRED:
@@ -94,7 +94,7 @@ static void EmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask, c
 		default:
 			XPfw_Printf(DEBUG_ERROR,"EM: Unsupported API ID received\r\n");
 			Buf[0] = XST_FAILURE;
-			(void)XPfw_IpiWriteResponse(ModPtr, SrcMask, &Buf[0], 1);
+			(void)XPfw_IpiWriteResponse(ModPtr, SrcMask, &Buf[0], 1U);
 			break;
 		}
 	}
@@ -160,13 +160,13 @@ static void CheckFsblCompletion(void)
 		XPfw_Write32(PMU_GLOBAL_ERROR_STATUS_2, PMU_GLOBAL_ERROR_STATUS_2_PLL_LOCK_MASK);
 
 		/* Set PS Error Out action for PLL lock errors */
-		XPfw_EmSetAction(EM_ERR_ID_PLL_LOCK, EM_ACTION_PSERR, NULL);
+		(void)XPfw_EmSetAction(EM_ERR_ID_PLL_LOCK, EM_ACTION_PSERR, NULL);
 
 		/* If ENABLE_RECOVERY is defined, PMU need to call this function and
 		 * set FPD WDT error action to APU only restart after FSBL execution
 		 * is completed
 		 */
-		XPfw_EmSetAction(EM_ERR_ID_FPD_SWDT, FPD_WDT_EM_ACTION,
+		(void)XPfw_EmSetAction(EM_ERR_ID_FPD_SWDT, FPD_WDT_EM_ACTION,
 				ErrorTable[EM_ERR_ID_FPD_SWDT].Handler);
 		if (XPfw_RecoveryInit() == (u32)XST_SUCCESS) {
 			/* This is to enable FPD WDT and enable recovery mechanism when
@@ -178,7 +178,7 @@ static void CheckFsblCompletion(void)
 		 * Once FSBL execution is completed, PMU need to enable the LPD WDT
 		 * error and set the error action as FSBL disables while exiting.
 		 */
-		XPfw_EmSetAction(EM_ERR_ID_LPD_SWDT, EM_ACTION_SRST,
+		(void)XPfw_EmSetAction(EM_ERR_ID_LPD_SWDT, EM_ACTION_SRST,
 				ErrorTable[EM_ERR_ID_LPD_SWDT].Handler);
 
 		Status = XPfw_CoreRemoveTask(EmModPtr, (u32)CHECK_FSBL_COMPLETION,
@@ -208,7 +208,7 @@ static void EmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData,
 	for (ErrId = 1U; ErrId < EM_ERR_ID_MAX; ErrId++)
 	{
 		if (ErrorTable[ErrId].Action != EM_ACTION_NONE) {
-			XPfw_EmSetAction((u8)ErrId, ErrorTable[ErrId].Action,
+			(void)XPfw_EmSetAction((u8)ErrId, ErrorTable[ErrId].Action,
 					ErrorTable[ErrId].Handler);
 		}
 	}
