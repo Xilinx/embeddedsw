@@ -39,8 +39,8 @@ extern "C" {
 #include "pm_master.h"
 #include "pm_slave.h"
 
-#define PM_SUSPEND_TYPE_REGULAR		0
-#define PM_SUSPEND_TYPE_POWER_OFF	1
+#define PM_SUSPEND_TYPE_REGULAR		0U
+#define PM_SUSPEND_TYPE_POWER_OFF	1U
 
 /*********************************************************************
  * Function declarations
