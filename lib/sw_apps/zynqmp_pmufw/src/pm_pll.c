@@ -60,8 +60,8 @@
 #define PM_PLL_LOCKING_TIME	1U
 
 /* PLL flags */
-#define PM_PLL_REQUESTED	(1 << 0U)
-#define PM_PLL_CONTEXT_SAVED	(1 << 1U)
+#define PM_PLL_REQUESTED	(1U << 0U)
+#define PM_PLL_CONTEXT_SAVED	(1U << 1U)
 
 typedef struct PmPllParam {
 	u8 regOffset;
@@ -157,7 +157,7 @@ static s32 PmPllLock(const PmPll* const pll)
 	XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET, PM_PLL_CTRL_RESET_MASK,
 		   ~PM_PLL_CTRL_RESET_MASK);
 	/* Poll status register for the lock */
-	status = XPfw_UtilPollForMask(pll->statusAddr, 1 << pll->lockShift,
+	status = XPfw_UtilPollForMask(pll->statusAddr, 1U << pll->lockShift,
 				      PM_PLL_LOCK_TIMEOUT);
 
 #ifdef ENABLE_EM
@@ -292,7 +292,7 @@ static s32 PmPllGetWakeUpLatency(const PmNode* const node, u32* const lat)
 	s32 status = XST_SUCCESS;
 	PmPll* pll = (PmPll*)node->derived;
 	PmNode* const powerNode = &node->parent->node;
-	u32 latency;
+	u32 latency = 0U;
 
 	*lat = 0U;
 	if (PM_PLL_STATE_LOCKED == pll->node.currState) {
@@ -663,7 +663,7 @@ s32 PmPllSetModeInt(PmPll* const pll, const u32 mode)
 	XPfw_RMW32(pll->addr + PM_PLL_FRAC_OFFSET, PLL_FRAC_CFG_ENABLED_MASK,
 		   val);
 
-	PmPllLock(pll);
+	(void)PmPllLock(pll);
 
 	/* Deassert bypass if the PLL has locked */
 	if (XST_SUCCESS == status) {
