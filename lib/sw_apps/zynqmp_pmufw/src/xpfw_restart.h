@@ -40,9 +40,9 @@ extern "C" {
 #define FSBL_IMAGE_HASH_ADDR			(XPAR_MICROBLAZE_DDR_RESERVE_SA + 0xC0000U)
 #define FSBL_IMAGE_HASH_VERIFY_ADDR		(XPAR_MICROBLAZE_DDR_RESERVE_SA + 0xD0000U)
 #define FSBL_LOAD_ADDR					0xFFFC0000U
-#define FSBL_IMAGE_SIZE					(170*1024)
+#define FSBL_IMAGE_SIZE					(170U*1024U)
 
-int XPfw_RecoveryInit(void);
+s32 XPfw_RecoveryInit(void);
 void XPfw_RecoveryHandler(u8 ErrorId);
 void XPfw_RecoveryAck(PmMaster *Master);
 
