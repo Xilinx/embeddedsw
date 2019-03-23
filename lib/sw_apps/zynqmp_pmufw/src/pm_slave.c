@@ -474,7 +474,7 @@ u32 PmSlaveGetUsersMask(const PmSlave* const slave)
 u32 PmSlaveGetUsageStatus(const PmSlave* const slave,
 			  const PmMaster* const master)
 {
-	u32 usageStatus = 0;
+	u32 usageStatus = 0U;
 	const PmRequirement* req = slave->reqs;
 
 	while (NULL != req) {
@@ -503,7 +503,7 @@ u32 PmSlaveGetUsageStatus(const PmSlave* const slave,
 u32 PmSlaveGetRequirements(const PmSlave* const slave,
 			   const PmMaster* const master)
 {
-	u32 currReq = 0;
+	u32 currReq = 0U;
 	PmRequirement* masterReq = PmRequirementGet(master, slave);
 
 	if (NULL == masterReq) {
@@ -625,7 +625,7 @@ static s32 PmSlaveGetWakeUpLatency(const PmNode* const node, u32* const lat)
 	PmSlave* const slave = (PmSlave*)node->derived;
 	PmNode* powerNode;
 	s32 status = XST_SUCCESS;
-	u32 latency;
+	u32 latency = 0U;
 
 	*lat = PmGetLatencyFromState(slave, slave->node.currState);
 
@@ -838,7 +838,7 @@ void PmResetSlaveStates(void)
 
 	for (i = 0U; i < ARRAY_SIZE(pmNodeSlaveBucket); i++) {
 		slave = (PmSlave*)pmNodeSlaveBucket[i]->derived;
-		PmSlaveChangeState(slave, slave->slvFsm->statesCnt - 1);
+		(void)PmSlaveChangeState(slave, slave->slvFsm->statesCnt - 1U);
 	}
 }
 
