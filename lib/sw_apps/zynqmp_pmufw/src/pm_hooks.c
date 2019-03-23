@@ -142,7 +142,7 @@ void PmHookPowerDownLpd(void)
 #ifdef ENABLE_DDR_SR_WR
 void PmHookSystemStart(void)
 {
-	if (Xil_In32(XPFW_DDR_STATUS_REGISTER_OFFSET) & DDR_STATUS_FLAG_MASK) {
+	if ((Xil_In32(XPFW_DDR_STATUS_REGISTER_OFFSET) & DDR_STATUS_FLAG_MASK) != 0U) {
 		PmDdrExitSr();
 	}
 }
@@ -180,7 +180,7 @@ u32 PmHookGetBootType(void)
 
 	/* Read state of MIO26 pin which is used to detect boot type */
 	bootType = XPfw_Read32(GPIO_DATA_1_RO) & 1U;
-	bootType += 1;
+	bootType += 1U;
 
 	/* Assert GPIO reset */
 	XPfw_RMW32(CRL_APB_RST_LPD_IOU2, CRL_APB_RST_LPD_IOU2_GPIO_RESET_MASK,
