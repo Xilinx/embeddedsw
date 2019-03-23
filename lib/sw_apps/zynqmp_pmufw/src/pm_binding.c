@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -101,9 +101,9 @@ void XPfw_PmInit(void)
  *            the master which initiated communication through IPI.
  *
  */
-int XPfw_PmIpiHandler(const u32 IsrMask, const u32* Payload, u8 Len)
+s32 XPfw_PmIpiHandler(const u32 IsrMask, const u32* Payload, u8 Len)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	PmMaster* master = PmGetMasterByIpiMask(IsrMask);
 
 	if ((NULL == Payload) || (NULL == master) || (Len < PAYLOAD_ELEM_CNT)) {
@@ -130,9 +130,9 @@ done:
  * @note    Call from GPI2 interrupt routine to process sleep request. Must not
  *          clear GPI2 interrupt before this function returns.
  */
-int XPfw_PmWfiHandler(const u32 srcMask)
+s32 XPfw_PmWfiHandler(const u32 srcMask)
 {
-	int status;
+	s32 status;
 	PmProc *proc = PmGetProcByWfiStatus(srcMask);
 
 	if (NULL == proc) {
@@ -163,12 +163,12 @@ done:
  *          processor whose GIC wake bit is set in srcMask). If the wake is the
  *          FPD GIC Proxy interrupt, the APU needs to be woken up.
  */
-int XPfw_PmWakeHandler(const u32 srcMask)
+s32 XPfw_PmWakeHandler(const u32 srcMask)
 {
-	int status = XST_INVALID_PARAM;
+	s32 status = XST_INVALID_PARAM;
 
-#if defined(PMU_MIO_INPUT_PIN) && (PMU_MIO_INPUT_PIN >= 0) \
-				&& (PMU_MIO_INPUT_PIN <= 5)
+#if defined(PMU_MIO_INPUT_PIN) && (PMU_MIO_INPUT_PIN >= 0U) \
+				&& (PMU_MIO_INPUT_PIN <= 5U)
 	if ((PMU_IOMODULE_GPI1_MIO_WAKE_0_MASK << PMU_MIO_INPUT_PIN) == srcMask) {
 		PmShutdownInterruptHandler();
 		return XST_SUCCESS;
