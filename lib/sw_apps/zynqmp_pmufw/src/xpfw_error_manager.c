@@ -28,7 +28,7 @@
 #include "xpfw_xpu.h"
 #include "xpfw_ipi_manager.h"
 
-u32 ErrorLog[EM_ERROR_LOG_MAX] = {0};
+u32 ErrorLog[EM_ERROR_LOG_MAX] = {0U};
 
 /*
  * Structure to define error action type and handler if action type
@@ -512,9 +512,9 @@ Done:
 s32 XPfw_EmProcessError(u8 ErrorType)
 {
 	s32 Status;
-	u32 ErrRegVal;
+	u32 ErrRegVal = 0U;
 	u8 Index;
-	u32 RegAddress;
+	u32 RegAddress = 0U;
 
 	switch (ErrorType) {
 	case EM_ERR_TYPE_1:
