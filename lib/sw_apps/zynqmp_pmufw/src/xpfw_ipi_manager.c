@@ -208,7 +208,7 @@ Done:
 s32 XPfw_IpiReadResponse(const XPfw_Module_t *ModPtr, u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen)
  {
 	s32 Status = XST_FAILURE;
-	u32 MsgHeader;
+	u32 MsgHeader = 0U;
 
 	if ((ModPtr == NULL) || (MsgPtr == NULL)) {
 		Status = XST_FAILURE;
