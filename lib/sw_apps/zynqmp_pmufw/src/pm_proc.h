@@ -89,8 +89,8 @@ typedef u8 PmProcEvent;
 /* Triggered when PMU receives wake interrupt targeted to the processor */
 #define PM_PROC_EVENT_WAKE          5U
 
-#define RPU0_STATUS_MASK		BIT(1)
-#define RPU1_STATUS_MASK		BIT(2)
+#define RPU0_STATUS_MASK		BIT(1U)
+#define RPU1_STATUS_MASK		BIT(2U)
 
 /*********************************************************************
  * Structure definitions
