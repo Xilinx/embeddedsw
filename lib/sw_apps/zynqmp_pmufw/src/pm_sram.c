@@ -55,10 +55,10 @@
 #define DEFAULT_SRAM_POWER_OFF		0U
 
 /* SRAM state transition latency values */
-#define PM_SRAM_ON_TO_RET_LATENCY	3
-#define PM_SRAM_RET_TO_ON_LATENCY	130
-#define PM_SRAM_ON_TO_OFF_LATENCY	3
-#define PM_SRAM_OFF_TO_ON_LATENCY	3100
+#define PM_SRAM_ON_TO_RET_LATENCY	3U
+#define PM_SRAM_RET_TO_ON_LATENCY	130U
+#define PM_SRAM_ON_TO_OFF_LATENCY	3U
+#define PM_SRAM_OFF_TO_ON_LATENCY	3100U
 
 /* Sram states */
 static const u32 pmSramStates[PM_SRAM_STATE_MAX] = {
@@ -70,21 +70,21 @@ static const u32 pmSramStates[PM_SRAM_STATE_MAX] = {
 /* Sram transition table (from which to which state sram can transit) */
 static const PmStateTran pmSramTransitions[] = {
 	{
+		.latency = PM_SRAM_ON_TO_RET_LATENCY,
 		.fromState = PM_SRAM_STATE_ON,
 		.toState = PM_SRAM_STATE_RET,
-		.latency = PM_SRAM_ON_TO_RET_LATENCY,
 	}, {
+		.latency = PM_SRAM_RET_TO_ON_LATENCY,
 		.fromState = PM_SRAM_STATE_RET,
 		.toState = PM_SRAM_STATE_ON,
-		.latency = PM_SRAM_RET_TO_ON_LATENCY,
 	}, {
+		.latency = PM_SRAM_ON_TO_OFF_LATENCY,
 		.fromState = PM_SRAM_STATE_ON,
 		.toState = PM_SRAM_STATE_OFF,
-		.latency = PM_SRAM_ON_TO_OFF_LATENCY,
 	}, {
+		.latency = PM_SRAM_OFF_TO_ON_LATENCY,
 		.fromState = PM_SRAM_STATE_OFF,
 		.toState = PM_SRAM_STATE_ON,
-		.latency = PM_SRAM_OFF_TO_ON_LATENCY,
 	},
 };
 
@@ -189,7 +189,7 @@ done:
  */
 static void PmTcm0EccInit(const PmSlaveTcm* const tcm)
 {
-	(void)memset((void*)tcm->base, 0U, tcm->size);
+	(void)memset((u32 *)tcm->base, 0U, tcm->size);
 }
 
 /**
@@ -204,7 +204,7 @@ static void PmTcm1EccInit(const PmSlaveTcm* const tcm)
 	if (0U != (ctrl & RPU_RPU_GLBL_CNTL_TCM_COMB_MASK)) {
 		base -= 0x80000U;
 	}
-	(void)memset((void*)base, 0U, tcm->size);
+	(void)memset((u32 *)base, 0U, tcm->size);
 }
 
 /**
@@ -272,7 +272,7 @@ static u32 PmSramPowers[] = {
  */
 static u32 PmL2PwrDn(void)
 {
-	int status;
+	s32 status;
 
 	/* Now call PMU-ROM function to power down L2 RAM */
 	status = XpbrPwrDnL2Bank0Handler();
@@ -540,9 +540,9 @@ PmSlaveTcm pmSlaveTcm1B_g = {
 		.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
 		.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_TCM1B_MASK,
 	},
+	.eccInit = PmTcm1EccInit,
 	.size = 0x10000U,
 	.base = 0xffeb0000U,
-	.eccInit = PmTcm1EccInit,
 	.id = PM_TCM_1B_BANK_ID,
 };
 
