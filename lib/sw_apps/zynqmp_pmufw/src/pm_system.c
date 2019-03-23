@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -633,10 +633,10 @@ static void PmSystemSaveContext(void)
 	for (i = 0U; i < ARRAY_SIZE(pmSystemMemory); i++) {
 		start = pmSystemMemory[i].startAddr;
 		size = pmSystemMemory[i].endAddr - start + 1U;
-		memcpy((void*)address, (void*)start, size);
+		(void)memcpy((void*)address, (void*)start, size);
 		address += size;
-		if (address % 4) {
-			address += 4 - (address % 4);
+		if ((address % 4U) != 0U) {
+			address += 4U - (address % 4U);
 		}
 	}
 
@@ -649,10 +649,10 @@ static void PmSystemSaveContext(void)
 			/* Check TCM configuration */
 			reg = XPfw_Read32(RPU_RPU_GLBL_CNTL);
 			reg &= RPU_RPU_GLBL_CNTL_TCM_COMB_MASK;
-			if (reg != 0U && start >= TCM_1A_START_ADDR) {
+			if ((reg != 0U) && (start >= TCM_1A_START_ADDR)) {
 				start -= TCM_BANK_OFFSET;
 			}
-			memcpy((void*)address, (void*)start, size);
+			(void)memcpy((void*)address, (void*)start, size);
 			address += size;
 		}
 	}
@@ -661,7 +661,7 @@ static void PmSystemSaveContext(void)
 /**
  * PmSystemPosHaltRpu() - Halt RPU0 and RPU1 cores in order to access TCMs
  */
-static void PmSystemPosHaltRpu()
+static void PmSystemPosHaltRpu(void)
 {
 	/* Halt RPU0 */
 	XPfw_RMW32(CRL_APB_RST_LPD_TOP,CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK,
@@ -694,10 +694,10 @@ static void PmSystemRestoreContext(void)
 	for (i = 0U; i < ARRAY_SIZE(pmSystemMemory); i++) {
 		start = pmSystemMemory[i].startAddr;
 		size = pmSystemMemory[i].endAddr - start + 1U;
-		memcpy((void*)start, (void*)address, size);
+		(void)memcpy((void*)start, (void*)address, size);
 		address += size;
-		if (address % 4) {
-			address += 4 - (address % 4);
+		if ((address % 4U) != 0U) {
+			address += 4U - (address % 4U);
 		}
 	}
 
@@ -777,7 +777,7 @@ static void PmSystemTcmSetSave(u32 baseAddress, u32 save)
  * PmSystemCheckTcm() - Mark TCM memory regions that needs to be saved/restored
  * 			during Power Off Suspend
  */
-static void PmSystemCheckTcm()
+static void PmSystemCheckTcm(void)
 {
 	u32 i;
 
