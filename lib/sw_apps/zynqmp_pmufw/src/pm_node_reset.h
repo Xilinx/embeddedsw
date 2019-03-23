@@ -39,8 +39,8 @@ extern "C" {
 /*
  * Idle request macro
  */
-#define NODE_NO_IDLE_REQ	0
-#define NODE_IDLE_REQ		1
+#define NODE_NO_IDLE_REQ	0U
+#define NODE_IDLE_REQ		1U
 
 /*
  * Idle and reset the node
