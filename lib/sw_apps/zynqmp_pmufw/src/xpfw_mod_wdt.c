@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -32,6 +32,7 @@
 #include "xpfw_mod_wdt.h"
 
 #ifdef ENABLE_WDT
+#include "xwdtps.h"
 
 /* Check if PMU has access to CSU WDT (psu_csu_wdt) */
 #ifdef XPAR_PSU_CSU_WDT_DEVICE_ID
@@ -56,7 +57,7 @@ static XWdtPs *WdtInstPtr = &WdtInst;
 #define XPFW_WDT_CRV_SHIFT 12U
 #define XPFW_WDT_PRESCALER 8U
 
-#define XPFW_WDT_CLK_PER_MSEC ((XPAR_PSU_CSU_WDT_WDT_CLK_FREQ_HZ) / (XPFW_WDT_PRESCALER * 1000))
+#define XPFW_WDT_CLK_PER_MSEC ((XPAR_PSU_CSU_WDT_WDT_CLK_FREQ_HZ) / (XPFW_WDT_PRESCALER * 1000U))
 #define XPFW_WDT_COUNTER_VAL ((XPFW_WDT_EXPIRE_TIME) * (XPFW_WDT_CLK_PER_MSEC))
 
 const XPfw_Module_t *WdtModPtr;
