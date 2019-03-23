@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -67,7 +67,7 @@
 			LPD_SLCR_ISO_AIBAXI_ACK_RPUS1_MASK )
 
 #ifdef ENABLE_DDR_SR_WR
-static void XPfw_PrepareDDRForWR()
+static void XPfw_PrepareDDRForWR(void)
 {
 	/* Reset RPU if it is still running */
 	XPfw_AibEnable(XPFW_AIB_RPU0_TO_LPD);
@@ -79,7 +79,7 @@ static void XPfw_PrepareDDRForWR()
 		   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK);
 
 	/* Put DDR in self refresh mode */
-	PmDdrEnterSr();
+	(void)PmDdrEnterSr();
 }
 #endif
 
