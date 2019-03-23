@@ -51,8 +51,8 @@
 #define PM_REQUESTED_SUSPEND        0x1U
 #define TO_ACK_CB(ack, status) (REQUEST_ACK_NON_BLOCKING == (ack))
 
-#define DEFINE_PM_PROCS(c)	.procs = (c), \
-				.procsCnt = ARRAY_SIZE(c)
+#define DEFINE_PM_PROCS(c)	.procs = ((c)), \
+				.procsCnt = ARRAY_SIZE((c))
 
 #if defined(PM_LOG_LEVEL) && (PM_LOG_LEVEL > 0)
 #define DEFINE_MASTER_NAME(n)	.name = n
@@ -148,7 +148,7 @@ static u32 PmMasterRpuRemapAddr(const u32 address)
 {
 	u32 remapAddr = address;
 
-	if (address < 4U * pmSlaveTcm0A_g.size) {
+	if (address < (4U * pmSlaveTcm0A_g.size)) {
 		remapAddr += pmSlaveTcm0A_g.base;
 	}
 
@@ -168,8 +168,8 @@ static u32 PmMasterRpu0RemapAddr(const u32 address)
 	if (address < pmSlaveTcm0A_g.size) {
 		remapAddr += pmSlaveTcm0A_g.base;
 	} else {
-		if ((address >= 2U * pmSlaveTcm0A_g.size) &&
-		    (address < 2U * pmSlaveTcm0A_g.size + pmSlaveTcm0B_g.size)) {
+		if ((address >= (2U * pmSlaveTcm0A_g.size)) &&
+		    (address < ((2U * pmSlaveTcm0A_g.size) + pmSlaveTcm0B_g.size))) {
 			remapAddr += pmSlaveTcm0B_g.base;
 		}
 	}
@@ -190,8 +190,8 @@ static u32 PmMasterRpu1RemapAddr(const u32 address)
 	if (address < pmSlaveTcm1A_g.size) {
 		remapAddr += pmSlaveTcm1A_g.base;
 	} else {
-		if ((address >= 2U * pmSlaveTcm1A_g.size) &&
-		    (address < 2U * pmSlaveTcm1A_g.size + pmSlaveTcm1B_g.size)) {
+		if ((address >= (2U * pmSlaveTcm1A_g.size)) &&
+		    (address < ((2U * pmSlaveTcm1A_g.size) + pmSlaveTcm1B_g.size))) {
 			remapAddr += pmSlaveTcm1B_g.base;
 		}
 	}
@@ -615,7 +615,7 @@ bool PmIsRequestedToSuspend(const PmMaster* const master)
  *		- XST_FAILURE otherwise - this function didn't suppose to be
  *		  called
  */
-s32 PmMasterSuspendAck(PmMaster* const mst, const int response)
+s32 PmMasterSuspendAck(PmMaster* const mst, const s32 response)
 {
 	s32 status = XST_SUCCESS;
 
@@ -707,7 +707,7 @@ s32 PmWakeMasterBySlave(const PmSlave * const slave)
 	while (mst) {
 		PmRequirement *masterReq = PmRequirementGet(mst, slave);
 
-		if (masterReq->info & PM_MASTER_WAKEUP_REQ_MASK) {
+		if ((masterReq->info & PM_MASTER_WAKEUP_REQ_MASK) != 0U) {
 			status = PmMasterWake(mst);
 			if (status != XST_SUCCESS) {
 				finalStatus = XST_FAILURE;
@@ -1132,7 +1132,7 @@ done:
  */
 s32 PmMasterReleaseAll(void)
 {
-	s32 status;
+	s32 status = 0;
 	PmMaster* mst = pmMasterHead;
 
 	while (NULL != mst) {
