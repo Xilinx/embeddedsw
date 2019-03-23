@@ -325,17 +325,19 @@ void XPlmi_Write64(u32 HighAddr, u32 LowAddr, u32 Value)
 * @note
 *
 *****************************************************************************/
-void XPlmi_PrintArray (u32 DebugType, const u8 Buf[], u32 Len, const char *Str)
+void XPlmi_PrintArray (u32 DebugType, const u64 BufAddr, u32 Len, const char *Str)
 {
 	u32 Index;
 
 	if ((DebugType & XPlmiDbgCurrentTypes) != 0U)
 	{
-		XPlmi_Printf(DebugType, "%s START\r\n", Str);
+		XPlmi_Printf(DebugType, "%s START from Addr: 0x%0x%08x, Len:0x%0x\r\n",
+		    Str, (u32)(BufAddr>>32), (u32)BufAddr, Len);
 		for (Index=0U;Index<Len;Index++)
 		{
-			XPlmi_Printf(DebugType, "%02lx ", Buf[Index]);
-			if (((Index+1U)%16U) == 0U){
+			XPlmi_Printf(DEBUG_INFO, "0x%08x ",
+				    XPlmi_In64(BufAddr+(Index*4)));
+			if (((Index+1U)%4U) == 0U){
 				XPlmi_Printf(DebugType, "\r\n");
 			}
 		}
