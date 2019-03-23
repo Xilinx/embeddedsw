@@ -30,7 +30,7 @@ XCsuDma CsuDma;          /* Instance of the Csu_Dma Device */
 
 XStatus PmDmaInit(void)
 {
-	int Status = XST_SUCCESS;
+	s32 Status = XST_SUCCESS;
 	XCsuDma_Config *Config;
 
 	/*
@@ -69,7 +69,7 @@ void PmSetCsuDmaLoopbackMode(void)
 	 * Setting CSU_DMA in loop back mode.
 	 */
 	Xil_Out32(XCSU_BASEADDRESS + CSU_SSS_CONFIG_OFFSET,
-		((Xil_In32(XCSU_BASEADDRESS + CSU_SSS_CONFIG_OFFSET) & 0xF0000) |
+		((Xil_In32(XCSU_BASEADDRESS + CSU_SSS_CONFIG_OFFSET) & 0xF0000U) |
 		  CSUDMA_LOOPBACK_CFG));
 }
 
