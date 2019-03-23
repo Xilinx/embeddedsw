@@ -47,7 +47,7 @@ extern "C" {
  * with DDR in self refresh mode, PMU must wait until DDR controller have been
  * initialized by the FSBL before it can bring the DDR out of self refresh mode.
  */
-#define DDRC_INIT_FLAG_MASK		BIT(4)
+#define DDRC_INIT_FLAG_MASK		BIT(4U)
 /*
  * DDR self refresh mode indication flag mask
  *
@@ -55,7 +55,7 @@ extern "C" {
  * by PMU to signal FSBL in order to skip over DDR phy and ECC initialization
  * at boot time.
  */
-#define DDR_STATUS_FLAG_MASK		BIT(3)
+#define DDR_STATUS_FLAG_MASK		BIT(3U)
 #endif
 
 #define POS_DDR_REQS_SIZE	1U
