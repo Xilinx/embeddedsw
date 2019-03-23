@@ -206,7 +206,7 @@ bool PmCanRequestSuspend(const PmMaster* const reqMaster,
 			 const PmMaster* const respMaster);
 bool PmIsRequestedToSuspend(const PmMaster* const master);
 
-s32 PmMasterSuspendAck(PmMaster* const mst, const int response);
+s32 PmMasterSuspendAck(PmMaster* const mst, const s32 response);
 
 PmMaster* PmMasterGetPlaceholder(const PmNodeId nodeId);
 
