@@ -983,7 +983,11 @@ static void PmSecureImage(const PmMaster *const master,
 
 	Status = XSecure_SecureImage(SrcAddrHigh, SrcAddrLow, KupAddrHigh, KupAddrLow, &Addr);
 
-	IPI_RESPONSE4(master->ipiMask, XST_SUCCESS, Status, Addr.AddrHigh, Addr.AddrLow);
+	if (Status != 0x0U) {
+		 PmErr("Failed image loading  with error : %x\r\n", Status);
+	}
+
+	IPI_RESPONSE3(master->ipiMask, Status, Addr.AddrHigh, Addr.AddrLow);
 }
 #endif
 
