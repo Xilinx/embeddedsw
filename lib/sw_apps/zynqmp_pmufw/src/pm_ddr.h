@@ -49,7 +49,7 @@ extern PmSlave pmSlaveDdr_g;
  * Function declarations
  ********************************************************************/
 void ddr_io_prepare(void);
-s32 PmDdrPowerOffSuspendResume();
+s32 PmDdrPowerOffSuspendResume(void);
 #ifdef ENABLE_DDR_SR_WR
 s32 PmDdrEnterSr(void);
 void PmDdrExitSr(void);
