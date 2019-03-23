@@ -75,7 +75,7 @@ void PmClockConstructList(void);
 void PmClockRestore(PmNode* const node);
 void PmClockSave(PmNode* const node);
 PmClock* PmClockGetById(const u32 clockId);
-void PmClockRestoreDdr();
+void PmClockRestoreDdr(void);
 
 
 #ifdef __cplusplus

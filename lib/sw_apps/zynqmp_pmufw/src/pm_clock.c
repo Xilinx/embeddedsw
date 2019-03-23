@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2016 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,7 +25,7 @@
  */
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
-
+#include "pm_common.h"
 #include "pm_clock.h"
 #include "pm_power.h"
 #include "pm_usb.h"
@@ -52,12 +52,12 @@
 
 #define FPD_SLCR_WDT_CLK_SEL		(FPD_SLCR_BASEADDR + 0x100U)
 
-#define PM_CLOCK_TYPE_DIV0	(1 << 1)	/* bits 13:8 */
-#define PM_CLOCK_TYPE_DIV1	(1 << 2)	/* bits 21:16 */
-#define PM_CLOCK_TYPE_GATE24	(1 << 3)	/* bit 24 */
-#define PM_CLOCK_TYPE_GATE25	(1 << 4)	/* bit 25 */
-#define PM_CLOCK_TYPE_GATE26	(1 << 5)	/* bit 26 */
-#define PM_CLOCK_TYPE_SYSTEM	(1 << 6)	/* system level clock */
+#define PM_CLOCK_TYPE_DIV0	(1U << 1U)	/* bits 13:8 */
+#define PM_CLOCK_TYPE_DIV1	(1U << 2U)	/* bits 21:16 */
+#define PM_CLOCK_TYPE_GATE24	(1U << 3U)	/* bit 24 */
+#define PM_CLOCK_TYPE_GATE25	(1U << 4U)	/* bit 25 */
+#define PM_CLOCK_TYPE_GATE26	(1U << 5U)	/* bit 26 */
+#define PM_CLOCK_TYPE_SYSTEM	(1U << 6U)	/* system level clock */
 
 #define PM_CLOCK_TYPE_GATES    (PM_CLOCK_TYPE_GATE24 | \
 				PM_CLOCK_TYPE_GATE25 | \
@@ -216,7 +216,7 @@ static void PmClockRequestInt(PmClock* const clock)
 	PmClock* clk = clock;
 
 	while (NULL != clk) {
-		if (clk->class && clk->class->request) {
+		if ((clk->class != NULL) && (clk->class->request != NULL)) {
 			clk = clk->class->request(clk);
 		} else {
 			clk = NULL;
@@ -237,7 +237,7 @@ static void PmClockReleaseInt(PmClock* const clock)
 	PmClock* clk = clock;
 
 	while (NULL != clk) {
-		if (clk->class && clk->class->release) {
+		if ((clk->class != NULL) && (clk->class->release != NULL)) {
 			clk = clk->class->release(clk);
 		} else {
 			clk = NULL;
@@ -312,7 +312,7 @@ static PmClockPll pmClockApll = {
 		.id = PM_CLOCK_APLL,
 	},
 	.pll = &pmApll_g,
-	.useCount = 0,
+	.useCount = 0U,
 };
 
 static PmClockPll pmClockDpll = {
@@ -322,7 +322,7 @@ static PmClockPll pmClockDpll = {
 		.id = PM_CLOCK_DPLL,
 	},
 	.pll = &pmDpll_g,
-	.useCount = 0,
+	.useCount = 0U,
 };
 
 static PmClockPll pmClockVpll = {
@@ -332,7 +332,7 @@ static PmClockPll pmClockVpll = {
 		.id = PM_CLOCK_VPLL,
 	},
 	.pll = &pmVpll_g,
-	.useCount = 0,
+	.useCount = 0U,
 };
 
 static PmClockPll pmClockRpll = {
@@ -342,7 +342,7 @@ static PmClockPll pmClockRpll = {
 		.id = PM_CLOCK_RPLL,
 	},
 	.pll = &pmRpll_g,
-	.useCount = 0,
+	.useCount = 0U,
 };
 
 static PmClockPll pmClockIOpll = {
@@ -352,7 +352,7 @@ static PmClockPll pmClockIOpll = {
 		.id = PM_CLOCK_IOPLL,
 	},
 	.pll = &pmIOpll_g,
-	.useCount = 0,
+	.useCount = 0U,
 };
 
 /******************************************************************************/
@@ -527,13 +527,13 @@ static s32 PmClockGateGetShift(const PmClockGen* const clk, u8* const shift)
 
 	switch (clk->type & PM_CLOCK_TYPE_GATES) {
 	case PM_CLOCK_TYPE_GATE24:
-		*shift = 24;
+		*shift = 24U;
 		break;
 	case PM_CLOCK_TYPE_GATE25:
-		*shift = 25;
+		*shift = 25U;
 		break;
 	case PM_CLOCK_TYPE_GATE26:
-		*shift = 26;
+		*shift = 26U;
 		break;
 	default:
 		status = XST_NO_FEATURE;
@@ -554,12 +554,12 @@ static s32 PmClockGateGetShift(const PmClockGen* const clk, u8* const shift)
  */
 static s32 PmClockGenSetGateState(PmClock* const clock, const u8 enable)
 {
-	u8 shift;
+	u8 shift = 0x0U;
 	PmClockGen* clk = (PmClockGen*)clock->derived;
 	s32 status = PmClockGateGetShift(clk, &shift);
 
 	if (XST_SUCCESS == status) {
-		XPfw_RMW32(clk->ctrlAddr, 1 << shift, enable << shift);
+		XPfw_RMW32(clk->ctrlAddr, 1U << shift, enable << shift);
 	}
 
 	return status;
@@ -576,7 +576,7 @@ static s32 PmClockGenSetGateState(PmClock* const clock, const u8 enable)
  */
 static s32 PmClockGenGetGateState(PmClock* const clock, u8* const enable)
 {
-	u8 shift;
+	u8 shift = 0x0U;
 	PmClockGen* clk = (PmClockGen*)clock->derived;
 	s32 status = PmClockGateGetShift(clk, &shift);
 
@@ -829,8 +829,8 @@ static u32 PmClockCrossDomGetPerms(const PmClock* const clock)
 	u32 permissions = 0U;
 
 	/* Inherit permissions from PLL output clock (parent) */
-	if (NULL != clk->parent->base.class &&
-	    NULL != clk->parent->base.class->getPerms) {
+	if ((NULL != clk->parent->base.class) &&
+	    (NULL != clk->parent->base.class->getPerms)) {
 		permissions =
 		clk->parent->base.class->getPerms(&clk->parent->base);
 	}
@@ -2419,7 +2419,7 @@ static PmClockMux fpdWdtMux = {
 	.inputs = fpdWdtSel2ClkIn,
 	.size = ARRAY_SIZE(fpdWdtSel2ClkIn),
 	.bits = 1U,
-	.shift = 0,
+	.shift = 0U,
 };
 static PmClockGen pmClockFpdWdt = {
 	.base = {
@@ -2652,8 +2652,8 @@ void PmClockInit(void)
 	for (i = 0U; i < ARRAY_SIZE(pmClocks); i++) {
 		PmClock* clk = pmClocks[i];
 
-		if (NULL != clk->class && NULL != clk->class->ctrl &&
-		    NULL != clk->class->ctrl->initParent) {
+		if ((NULL != clk->class) && (NULL != clk->class->ctrl) &&
+		    (NULL != clk->class->ctrl->initParent)) {
 			clk->class->ctrl->initParent(clk);
 		}
 	}
@@ -2677,7 +2677,7 @@ s32 PmClockIsActive(PmNode* const node)
 		if ((NULL != clk->class) &&
 		    (NULL != clk->class->ctrl) &&
 		    (NULL != clk->class->ctrl->getGate)) {
-			u8 enable;
+			u8 enable = 0U;
 			s32 ret = clk->class->ctrl->getGate(clk, &enable);
 
 			if (XST_SUCCESS == ret) {
@@ -2815,7 +2815,7 @@ static s32 PmClockCheckForCtrl(const PmClock* const clock)
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
-	if (NULL == clock->class || NULL == clock->class->ctrl) {
+	if ((NULL == clock->class) || (NULL == clock->class->ctrl)) {
 		status = XST_NO_FEATURE;
 		goto done;
 	}
@@ -2837,7 +2837,7 @@ s32 PmClockMuxSetParent(PmClock* const clock, const u32 select)
 {
 	s32 status = PmClockCheckForCtrl(clock);
 
-	if (XST_SUCCESS != status || NULL == clock->class->ctrl->setParent) {
+	if ((XST_SUCCESS != status) || (NULL == clock->class->ctrl->setParent)) {
 		status = XST_NO_FEATURE;
 		goto done;
 	}
@@ -2858,7 +2858,7 @@ s32 PmClockMuxGetParent(PmClock* const clock, u32 *const select)
 {
 	s32 status = PmClockCheckForCtrl(clock);
 
-	if (XST_SUCCESS != status || NULL == clock->class->ctrl->getParent) {
+	if ((XST_SUCCESS != status) || (NULL == clock->class->ctrl->getParent)) {
 		status = XST_NO_FEATURE;
 		goto done;
 	}
@@ -2880,7 +2880,7 @@ s32 PmClockGateSetState(PmClock* const clock, const u8 enable)
 {
 	s32 status = PmClockCheckForCtrl(clock);
 
-	if (XST_SUCCESS != status || NULL == clock->class->ctrl->setGate) {
+	if ((XST_SUCCESS != status) || (NULL == clock->class->ctrl->setGate)) {
 		status = XST_NO_FEATURE;
 		goto done;
 	}
@@ -2918,7 +2918,7 @@ s32 PmClockGateGetState(PmClock* const clock, u8* const enable)
 {
 	s32 status = PmClockCheckForCtrl(clock);
 
-	if (XST_SUCCESS != status || NULL == clock->class->ctrl->getGate) {
+	if ((XST_SUCCESS != status) || (NULL == clock->class->ctrl->getGate)) {
 		status = XST_NO_FEATURE;
 		goto done;
 	}
@@ -2942,7 +2942,7 @@ s32 PmClockDividerSetVal(PmClock* const clock, const u32 divId, const u32 val)
 {
 	s32 status = PmClockCheckForCtrl(clock);
 
-	if (XST_SUCCESS != status || NULL == clock->class->ctrl->setDivider) {
+	if ((XST_SUCCESS != status) || (NULL == clock->class->ctrl->setDivider)) {
 		status = XST_NO_FEATURE;
 		goto done;
 	}
@@ -2966,7 +2966,7 @@ s32 PmClockDividerGetVal(PmClock* const clock, const u32 divId, u32* const val)
 {
 	s32 status = PmClockCheckForCtrl(clock);
 
-	if (XST_SUCCESS != status || NULL == clock->class->ctrl->getDivider) {
+	if ((XST_SUCCESS != status) || (NULL == clock->class->ctrl->getDivider)) {
 		status = XST_NO_FEATURE;
 		goto done;
 	}
@@ -2989,8 +2989,8 @@ s32 PmClockCheckPermission(const PmClock* const clock, const u32 ipiMask)
 	s32 status = XST_SUCCESS;
 	u32 perms;
 
-	if (NULL == clock || NULL == clock->class ||
-	    NULL == clock->class->getPerms) {
+	if ((NULL == clock) || (NULL == clock->class) ||
+	    (NULL == clock->class->getPerms)) {
 		status = XST_PM_NO_ACCESS;
 		goto done;
 	}
@@ -2999,7 +2999,7 @@ s32 PmClockCheckPermission(const PmClock* const clock, const u32 ipiMask)
 	 * Access is not allowed if master is not permissible or the resource
 	 * is shared (multiple masters are permissible)
 	 */
-	if (0U == (perms & ipiMask) || __builtin_popcount(perms) > 1) {
+	if ((0U == (perms & ipiMask)) ||( __builtin_popcount(perms) > 1)) {
 		status = XST_PM_NO_ACCESS;
 		goto done;
 	}
@@ -3012,7 +3012,7 @@ done:
 /**
  * PmClockRestoreDdr() - Restore state of clocks related to DDR node
  */
-void PmClockRestoreDdr()
+void PmClockRestoreDdr(void)
 {
 	u32 i;
 
