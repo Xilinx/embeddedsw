@@ -91,8 +91,9 @@ XStatus XPfw_Main(void)
 	}
 
 #ifdef ENABLE_DDR_SR_WR
-	if (PM_SUSPEND_TYPE_POWER_OFF != PmSystemSuspendType())
+	if (PM_SUSPEND_TYPE_POWER_OFF != PmSystemSuspendType()) {
 		PmHookSystemStart();
+	}
 #endif
 
 	/* Restore system state in case of resume from Power Off Suspend */
