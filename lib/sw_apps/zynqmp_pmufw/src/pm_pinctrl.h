@@ -31,15 +31,15 @@
 extern "C" {
 #endif
 
-int PmPinCtrlRequestInt(const u32 ipiMask, const u32 pinId);
-int PmPinCtrlReleaseInt(const u32 ipiMask, const u32 pinId);
-int PmPinCtrlGetFunctionInt(const u32 pinId, u32* const fnId);
-int PmPinCtrlSetFunctionInt(const PmMaster* const master, const u32 pinId,
+s32 PmPinCtrlRequestInt(const u32 ipiMask, const u32 pinId);
+s32 PmPinCtrlReleaseInt(const u32 ipiMask, const u32 pinId);
+s32 PmPinCtrlGetFunctionInt(const u32 pinId, u32* const fnId);
+s32 PmPinCtrlSetFunctionInt(const PmMaster* const master, const u32 pinId,
 			    const u32 fnId);
-int PmPinCtrlCheckPerms(const u32 ipiMask, const u32 pinId);
+s32 PmPinCtrlCheckPerms(const u32 ipiMask, const u32 pinId);
 
-int PmPinCtrlGetParam(const u32 pinId, const u32 paramId, u32* const value);
-int PmPinCtrlSetParam(const u32 pinId, const u32 paramId, const u32 value);
+s32 PmPinCtrlGetParam(const u32 pinId, const u32 paramId, u32* const value);
+s32 PmPinCtrlSetParam(const u32 pinId, const u32 paramId, const u32 value);
 
 #ifdef __cplusplus
 }
