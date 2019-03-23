@@ -58,13 +58,13 @@ void XPfw_PmInit(void);
 XPfw_PmIpiStatus XPfw_PmCheckIpiRequest(const u32 isrVal, const u32* apiId);
 
 /* Call from IPI interrupt routine to handle PM API request */
-int XPfw_PmIpiHandler(const u32 IsrMask, const u32* Payload, u8 Len);
+s32 XPfw_PmIpiHandler(const u32 IsrMask, const u32* Payload, u8 Len);
 
 /* Call from GPI2 interrupt routine to handle processor sleep request */
-int XPfw_PmWfiHandler(const u32 srcMask);
+s32 XPfw_PmWfiHandler(const u32 srcMask);
 
 /* Call from GPI1 interrupt routine to handle wake request */
-int XPfw_PmWakeHandler(const u32 srcMask);
+s32 XPfw_PmWakeHandler(const u32 srcMask);
 
 /* Call from DAP event handlers to inform PM about the FPD power state change */
 void XPfw_DapFpdWakeEvent(void);
