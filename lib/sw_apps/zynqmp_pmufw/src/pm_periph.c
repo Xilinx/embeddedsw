@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -58,8 +58,8 @@ static u32 pmSlaveAonPowers[] = {
 #define PM_GENERIC_SLAVE_STATE_RUNNING	1U
 
 /* Generic slaves state transition latency values */
-#define PM_GENERIC_SLAVE_UNUSED_TO_RUNNING_LATENCY	304
-#define PM_GENERIC_SLAVE_RUNNING_TO_UNUSED_LATENCY	6
+#define PM_GENERIC_SLAVE_UNUSED_TO_RUNNING_LATENCY	304U
+#define PM_GENERIC_SLAVE_RUNNING_TO_UNUSED_LATENCY	6U
 static const u32 pmGenericSlaveStates[] = {
 	[PM_GENERIC_SLAVE_STATE_UNUSED] = 0U,
 	[PM_GENERIC_SLAVE_STATE_RUNNING] = PM_CAP_CONTEXT | PM_CAP_WAKEUP |
@@ -538,12 +538,12 @@ PmSlave pmSlaveCan1_g = {
 /* Size required by Ethernet in word of OCM */
 #define ETH_OCM_REQ_SIZE		6
 /* OCM address used for receive queue pointer */
-#define RECV_Q_OCM_ADDR			0xFFFFFF80
+#define RECV_Q_OCM_ADDR			0xFFFFFF80U
 
-#define ETH_RECV_ENABLE_MASK		0x4
-#define ETH_RECV_Q_PTR_OFFSET		0x018
-#define ETH_RECV_Q1_PTR_OFFSET		0x480
-#define ETH_RECV_HIGH_PTR_OFFSET	0x4D4
+#define ETH_RECV_ENABLE_MASK		0x4U
+#define ETH_RECV_Q_PTR_OFFSET		0x018U
+#define ETH_RECV_Q1_PTR_OFFSET		0x480U
+#define ETH_RECV_HIGH_PTR_OFFSET	0x4D4U
 
 static u32 ocmData[ETH_OCM_REQ_SIZE];
 static bool ocmStored;
@@ -557,12 +557,12 @@ static bool ocmStored;
 static void PmWakeEventEthConfig(PmWakeEvent* const wake, const u32 ipiMask,
 				 const u32 enable)
 {
-	int i;
+	s32 i;
 	PmRequirement* req = PmRequirementGetNoMaster(&pmSlaveOcm3_g.slv);
 	PmWakeEventEth* ethWake = (PmWakeEventEth*)wake->derived;
 
 	/* Return if ethernet base address is not available */
-	if (!ethWake->baseAddr) {
+	if (0U == ethWake->baseAddr) {
 		return;
 	}
 
@@ -596,7 +596,7 @@ static void PmWakeEventEthConfig(PmWakeEvent* const wake, const u32 ipiMask,
 			   ETH_RECV_ENABLE_MASK);
 
 		/* Change OCM Bank3 requirement to default */
-		PmRequirementUpdate(req, req->defaultReq);
+		(void)PmRequirementUpdate(req, req->defaultReq);
 		ethWake->wakeEnabled = false;
 	}
 }
@@ -610,20 +610,20 @@ static void PmWakeEventEthConfig(PmWakeEvent* const wake, const u32 ipiMask,
 static void PmWakeEventEthSet(PmWakeEvent* const wake, const u32 ipiMask,
 			      const u32 enable)
 {
-	int i;
+	s32 i;
 	PmRequirement* req = PmRequirementGetNoMaster(&pmSlaveOcm3_g.slv);
 	PmWakeEventEth* ethWake = (PmWakeEventEth*)wake->derived;
 
 	/* Return if ethernet base address is not available */
-	if (!ethWake->baseAddr) {
+	if (0U == ethWake->baseAddr) {
 		return;
 	}
 
-	if (enable) {
+	if (enable != 0U) {
 		/* Keep OCM Bank3 ON while suspend */
-		PmRequirementUpdate(req, PM_CAP_ACCESS);
+		(void)PmRequirementUpdate(req, PM_CAP_ACCESS);
 
-		if (!ocmStored) {
+		if (0U == ocmStored) {
 			/*
 			 * Store OCM Bank-3's memory which is going to be used
 			 * as receive pointer
@@ -648,19 +648,19 @@ static void PmWakeEventEthSet(PmWakeEvent* const wake, const u32 ipiMask,
 			   ~ETH_RECV_ENABLE_MASK);
 
 		/* Prepare OCM memory to use as receive queue */
-		XPfw_Write32(RECV_Q_OCM_ADDR, 0x3);
-		XPfw_Write32(RECV_Q_OCM_ADDR + 0x4, 0x0);
-		XPfw_Write32(RECV_Q_OCM_ADDR + 0x8, 0x0);
-		XPfw_Write32(RECV_Q_OCM_ADDR + 0xC, 0x0);
-		XPfw_Write32(RECV_Q_OCM_ADDR + 0x10, 0x0);
-		XPfw_Write32(RECV_Q_OCM_ADDR + 0x14, 0x0);
+		XPfw_Write32(RECV_Q_OCM_ADDR, 0x3U);
+		XPfw_Write32(RECV_Q_OCM_ADDR + 0x4U, 0x0U);
+		XPfw_Write32(RECV_Q_OCM_ADDR + 0x8U, 0x0U);
+		XPfw_Write32(RECV_Q_OCM_ADDR + 0xCU, 0x0U);
+		XPfw_Write32(RECV_Q_OCM_ADDR + 0x10U, 0x0U);
+		XPfw_Write32(RECV_Q_OCM_ADDR + 0x14U, 0x0U);
 
 		/* Change receive queue pointer to OCM address */
 		XPfw_Write32(ethWake->baseAddr + ETH_RECV_Q_PTR_OFFSET,
 			     RECV_Q_OCM_ADDR);
 		XPfw_Write32(ethWake->baseAddr + ETH_RECV_Q1_PTR_OFFSET,
 			     RECV_Q_OCM_ADDR);
-		XPfw_Write32(ethWake->baseAddr + ETH_RECV_HIGH_PTR_OFFSET, 0);
+		XPfw_Write32(ethWake->baseAddr + ETH_RECV_HIGH_PTR_OFFSET, 0U);
 
 		/* Enable GEM Rx in network control register */
 		XPfw_RMW32(ethWake->baseAddr, ETH_RECV_ENABLE_MASK,
