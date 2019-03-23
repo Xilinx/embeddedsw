@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -57,35 +57,35 @@
  * The following constants define the commands which may be sent to the Flash
  * device.
  */
-#define WRITE_STATUS_CMD	0x01
-#define WRITE_CMD		0x02
-#define READ_CMD		0x03
-#define WRITE_DISABLE_CMD	0x04
-#define READ_STATUS_CMD		0x05
-#define WRITE_ENABLE_CMD	0x06
-#define FAST_READ_CMD		0x0B
-#define DUAL_READ_CMD		0x3B
-#define QUAD_READ_CMD		0x6B
-#define BULK_ERASE_CMD		0xC7
-#define	SEC_ERASE_CMD		0xD8
-#define READ_ID			0x9F
-#define READ_CONFIG_CMD		0x35
-#define WRITE_CONFIG_CMD	0x01
+#define WRITE_STATUS_CMD	0x01U
+#define WRITE_CMD		0x02U
+#define READ_CMD		0x03U
+#define WRITE_DISABLE_CMD	0x04U
+#define READ_STATUS_CMD		0x05U
+#define WRITE_ENABLE_CMD	0x06U
+#define FAST_READ_CMD		0x0BU
+#define DUAL_READ_CMD		0x3BU
+#define QUAD_READ_CMD		0x6BU
+#define BULK_ERASE_CMD		0xC7U
+#define	SEC_ERASE_CMD		0xD8U
+#define READ_ID			0x9FU
+#define READ_CONFIG_CMD		0x35U
+#define WRITE_CONFIG_CMD	0x01U
 
-#define WRITE_CMD_4B		0x12
-#define READ_CMD_4B		0x13
-#define FAST_READ_CMD_4B	0x0C
-#define DUAL_READ_CMD_4B	0x3C
-#define QUAD_READ_CMD_4B	0x6C
-#define	SEC_ERASE_CMD_4B	0xDC
+#define WRITE_CMD_4B		0x12U
+#define READ_CMD_4B		0x13U
+#define FAST_READ_CMD_4B	0x0CU
+#define DUAL_READ_CMD_4B	0x3CU
+#define QUAD_READ_CMD_4B	0x6CU
+#define	SEC_ERASE_CMD_4B	0xDCU
 
-#define BANK_REG_RD		0x16
-#define BANK_REG_WR		0x17
+#define BANK_REG_RD		0x16U
+#define BANK_REG_WR		0x17U
 /* Bank register is called Extended Address Register in Micron */
-#define EXTADD_REG_RD		0xC8
-#define EXTADD_REG_WR		0xC5
-#define	DIE_ERASE_CMD		0xC4
-#define READ_FLAG_STATUS_CMD	0x70
+#define EXTADD_REG_RD		0xC8U
+#define EXTADD_REG_WR		0xC5U
+#define	DIE_ERASE_CMD		0xC4U
+#define READ_FLAG_STATUS_CMD	0x70U
 
 /*
  * The following constants define the offsets within a FlashBuffer data
@@ -101,7 +101,7 @@
 #define ADDRESS_4_OFFSET	4 /* LSB byte of address to read or write when
 				     4 byte address */
 
-#define DUMMY_CLOCKS		8 /* Number of dummy bytes for fast, dual and
+#define DUMMY_CLOCKS		8U /* Number of dummy bytes for fast, dual and
 				     quad reads */
 
 /*
@@ -114,15 +114,15 @@
 /*
  * Max page size to initialize write and read buffer
  */
-#define MAX_PAGE_SIZE 	512
-#define SECT_SIZE	0x10000
-#define SECT_MASK	0xFFFF0000
-#define FLASH_SIZE	0x4000000
+#define MAX_PAGE_SIZE 	512U
+#define SECT_SIZE	0x10000U
+#define SECT_MASK	0xFFFF0000U
+#define FLASH_SIZE	0x4000000U
 
 /*
  * Flash address to which data is to be written.
  */
-#define TEST_ADDRESS		0x000000
+#define TEST_ADDRESS		0x000000U
 #define WRITE_ADDR		TEST_ADDRESS
 #define READ_ADDR		TEST_ADDRESS
 
@@ -163,27 +163,29 @@ s32 PmQspiWrite(u8 *WriteBufrPtr, u32 ByteCount)
 {
 	s32 Status = XST_SUCCESS;
 	u32 length = ByteCount;
-	u32 page = 0;
+	u32 page = 0U;
 
-	FlashErase(&QspiPsuInstance, WRITE_ADDR, ByteCount, CmdBfr);
+	Status = FlashErase(&QspiPsuInstance, WRITE_ADDR, ByteCount, CmdBfr);
+	if(Status != XST_FAILURE) {
 
-	while (length > 0) {
-		if (length < MAX_PAGE_SIZE) {
-			Status = FlashWrite(&QspiPsuInstance,
-					page * MAX_PAGE_SIZE + WRITE_ADDR,
-					length,
-					WRITE_CMD_4B,
-					WriteBufrPtr + page * MAX_PAGE_SIZE);
-			length = 0;
-		} else {
-			Status = FlashWrite(&QspiPsuInstance,
-					page * MAX_PAGE_SIZE + WRITE_ADDR,
-					MAX_PAGE_SIZE,
-					WRITE_CMD_4B,
-					WriteBufrPtr + page * MAX_PAGE_SIZE);
-			length -= MAX_PAGE_SIZE;
+		while (length > 0U) {
+			if (length < MAX_PAGE_SIZE) {
+				Status = FlashWrite(&QspiPsuInstance,
+						(page * MAX_PAGE_SIZE) + WRITE_ADDR,
+						length,
+						WRITE_CMD_4B,
+						WriteBufrPtr + (page * MAX_PAGE_SIZE));
+				length = 0U;
+			} else {
+				Status = FlashWrite(&QspiPsuInstance,
+						(page * MAX_PAGE_SIZE) + WRITE_ADDR,
+						MAX_PAGE_SIZE,
+						WRITE_CMD_4B,
+						WriteBufrPtr + (page * MAX_PAGE_SIZE));
+				length -= MAX_PAGE_SIZE;
+			}
+			page++;
 		}
-		page++;
 	}
 
 	return Status;
@@ -276,7 +278,7 @@ s32 FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 {
 	u8 WriteEnableCmd;
 	u8 ReadStatusCmd;
-	u8 FlashStatus[2];
+	u8 FlashStatus[2] = {0U};
 	u8 WriteCmd[5];
 	u32 RealAddr;
 	s32 Status;
@@ -299,16 +301,16 @@ s32 FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 	FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 	FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
-	Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 1);
+	Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 1U);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 	WriteCmd[COMMAND_OFFSET] = Command;
-	WriteCmd[ADDRESS_1_OFFSET] = (u8)((RealAddr & 0xFF000000) >> 24);
-	WriteCmd[ADDRESS_2_OFFSET] = (u8)((RealAddr & 0xFF0000) >> 16);
-	WriteCmd[ADDRESS_3_OFFSET] = (u8)((RealAddr & 0xFF00) >> 8);
-	WriteCmd[ADDRESS_4_OFFSET] = (u8)(RealAddr & 0xFF);
+	WriteCmd[ADDRESS_1_OFFSET] = (u8)((RealAddr & 0xFF000000U) >> 24U);
+	WriteCmd[ADDRESS_2_OFFSET] = (u8)((RealAddr & 0xFF0000U) >> 16U);
+	WriteCmd[ADDRESS_3_OFFSET] = (u8)((RealAddr & 0xFF00U) >> 8U);
+	WriteCmd[ADDRESS_4_OFFSET] = (u8)(RealAddr & 0xFFU);
 
 	FlashMsg[0].TxBfrPtr = WriteCmd;
 	FlashMsg[0].RxBfrPtr = NULL;
@@ -326,7 +328,7 @@ s32 FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 		FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
 	}
 
-	Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 2);
+	Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 2U);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -339,13 +341,13 @@ s32 FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 		ReadStatusCmd = READ_FLAG_STATUS_CMD;
 		FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
 		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].ByteCount = 1;
+		FlashMsg[0].ByteCount = 1U;
 		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
 		FlashMsg[1].TxBfrPtr = NULL;
 		FlashMsg[1].RxBfrPtr = FlashStatus;
-		FlashMsg[1].ByteCount = 2;
+		FlashMsg[1].ByteCount = 2U;
 		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
 		if (QspiPsuPtr->Config.ConnectionMode ==
@@ -353,7 +355,7 @@ s32 FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 			FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
 		}
 
-		Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 2);
+		Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 2U);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
@@ -363,7 +365,7 @@ s32 FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 			FlashStatus[1] &= FlashStatus[0];
 		}
 
-		if ((FlashStatus[1] & 0x80) == 0x80) {
+		if ((FlashStatus[1] & 0x80U) == 0x80U) {
 			break;
 		}
 	}
@@ -403,14 +405,14 @@ s32 FlashRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 	RealAddr = GetRealAddr(QspiPsuPtr, Address);
 
 	WriteBfrPtr[COMMAND_OFFSET] = Command;
-	WriteBfrPtr[ADDRESS_1_OFFSET] = (u8)((RealAddr & 0xFF000000) >> 24);
-	WriteBfrPtr[ADDRESS_2_OFFSET] = (u8)((RealAddr & 0xFF0000) >> 16);
-	WriteBfrPtr[ADDRESS_3_OFFSET] = (u8)((RealAddr & 0xFF00) >> 8);
-	WriteBfrPtr[ADDRESS_4_OFFSET] = (u8)(RealAddr & 0xFF);
+	WriteBfrPtr[ADDRESS_1_OFFSET] = (u8)((RealAddr & 0xFF000000U) >> 24U);
+	WriteBfrPtr[ADDRESS_2_OFFSET] = (u8)((RealAddr & 0xFF0000U) >> 16U);
+	WriteBfrPtr[ADDRESS_3_OFFSET] = (u8)((RealAddr & 0xFF00U) >> 8U);
+	WriteBfrPtr[ADDRESS_4_OFFSET] = (u8)(RealAddr & 0xFFU);
 
 	FlashMsg[0].TxBfrPtr = WriteBfrPtr;
 	FlashMsg[0].RxBfrPtr = NULL;
-	FlashMsg[0].ByteCount = 5;
+	FlashMsg[0].ByteCount = 5U;
 	FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 	FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
@@ -423,7 +425,7 @@ s32 FlashRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 	FlashMsg[1].TxBfrPtr = NULL;
 	FlashMsg[1].RxBfrPtr = NULL;
 	FlashMsg[1].ByteCount = DUMMY_CLOCKS;
-	FlashMsg[1].Flags = 0;
+	FlashMsg[1].Flags = 0U;
 
 	FlashMsg[2].BusWidth = XQSPIPSU_SELECT_MODE_QUADSPI;
 	FlashMsg[2].TxBfrPtr = NULL;
@@ -435,7 +437,7 @@ s32 FlashRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 		FlashMsg[2].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
 	}
 
-	Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 3);
+	Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 3U);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -476,7 +478,7 @@ s32 FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 	/*
 	 * Calculate no. of sectors to erase based on byte count
 	 */
-	NumSect = ByteCount/(SECT_SIZE) + 1;
+	NumSect = (ByteCount/(SECT_SIZE)) + 1U;
 
 	/*
 	 * If ByteCount to k sectors, but the address range spans from
@@ -487,7 +489,7 @@ s32 FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 		NumSect++;
 	}
 
-	for (Sector = 0; Sector < NumSect; Sector++) {
+	for (Sector = 0U; Sector < NumSect; Sector++) {
 		/*
 		 * Translate address based on type of connection
 		 * If stacked assert the slave select based on address
@@ -501,30 +503,30 @@ s32 FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 		 */
 		FlashMsg[0].TxBfrPtr = &WriteEnableCmd;
 		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].ByteCount = 1;
+		FlashMsg[0].ByteCount = 1U;
 		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
-		Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 1);
+		Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 1U);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
 
 		WriteBfrPtr[COMMAND_OFFSET] = SEC_ERASE_CMD_4B;
-		WriteBfrPtr[ADDRESS_1_OFFSET] = (u8)((RealAddr & 0xFF000000)
-								>> 24);
-		WriteBfrPtr[ADDRESS_2_OFFSET] = (u8)((RealAddr & 0xFF0000)
-								>> 16);
-		WriteBfrPtr[ADDRESS_3_OFFSET] = (u8)((RealAddr & 0xFF00) >> 8);
-		WriteBfrPtr[ADDRESS_4_OFFSET] = (u8)(RealAddr & 0xFF);
-		FlashMsg[0].ByteCount = 5;
+		WriteBfrPtr[ADDRESS_1_OFFSET] = (u8)((RealAddr & 0xFF000000U)
+								>> 24U);
+		WriteBfrPtr[ADDRESS_2_OFFSET] = (u8)((RealAddr & 0xFF0000U)
+								>> 16U);
+		WriteBfrPtr[ADDRESS_3_OFFSET] = (u8)((RealAddr & 0xFF00U) >> 8U);
+		WriteBfrPtr[ADDRESS_4_OFFSET] = (u8)(RealAddr & 0xFFU);
+		FlashMsg[0].ByteCount = 5U;
 
 		FlashMsg[0].TxBfrPtr = WriteBfrPtr;
 		FlashMsg[0].RxBfrPtr = NULL;
 		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
-		Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 1);
+		Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 1U);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
@@ -536,13 +538,13 @@ s32 FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 			ReadStatusCmd = READ_FLAG_STATUS_CMD;
 			FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
 			FlashMsg[0].RxBfrPtr = NULL;
-			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].ByteCount = 1U;
 			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
 			FlashMsg[1].TxBfrPtr = NULL;
 			FlashMsg[1].RxBfrPtr = FlashStatus;
-			FlashMsg[1].ByteCount = 2;
+			FlashMsg[1].ByteCount = 2U;
 			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 			FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
 			if (QspiPsuPtr->Config.ConnectionMode ==
@@ -551,7 +553,7 @@ s32 FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 			}
 
 			Status = XQspiPsu_PolledTransfer(QspiPsuPtr,
-							 FlashMsg, 2);
+							 FlashMsg, 2U);
 			if (Status != XST_SUCCESS) {
 				return XST_FAILURE;
 			}
@@ -561,7 +563,7 @@ s32 FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 				FlashStatus[1] &= FlashStatus[0];
 			}
 
-			if ((FlashStatus[1] & 0x80) != 0) {
+			if ((FlashStatus[1] & 0x80U) != 0U) {
 				break;
 			}
 		}
@@ -599,7 +601,7 @@ u32 GetRealAddr(XQspiPsu *QspiPsuPtr, u32 Address)
 		break;
 	case XQSPIPSU_CONNECTION_MODE_STACKED:
 		/* Select lower or upper Flash based on sector address */
-		if (Address & FLASH_SIZE) {
+		if ((Address & FLASH_SIZE) != 0U) {
 			XQspiPsu_SelectFlash(QspiPsuPtr,
 				XQSPIPSU_SELECT_FLASH_CS_UPPER,
 				XQSPIPSU_SELECT_FLASH_BUS_LOWER);
@@ -618,10 +620,10 @@ u32 GetRealAddr(XQspiPsu *QspiPsuPtr, u32 Address)
 		XQspiPsu_SelectFlash(QspiPsuPtr,
 			XQSPIPSU_SELECT_FLASH_CS_BOTH,
 			XQSPIPSU_SELECT_FLASH_BUS_BOTH);
-		RealAddr = Address / 2;
+		RealAddr = Address / 2U;
 		break;
 	default:
-		RealAddr = 0x0; /* Assign default value */
+		RealAddr = 0x0U; /* Assign default value */
 	break;
 	}
 
