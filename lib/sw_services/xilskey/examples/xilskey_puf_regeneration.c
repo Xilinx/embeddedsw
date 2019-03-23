@@ -38,7 +38,8 @@
  *
  * Ver   Who   Date     Changes
  * ----- ---  -------- -------------------------------------------------------
- * 6.7   ka   01/9/19 First release.
+ * 6.7   ka   01/09/19 First release.
+ *       vns  03/21/19 Updated XilSKey_Efuse_ConvertStringToHexBE with bits
  *
  * </pre>
  *
@@ -77,15 +78,15 @@
 #ifdef	XSK_ZYNQ_ULTRA_MP_PLATFORM
 #define XSK_CSUDMA_DEVICE_ID					XPAR_XCSUDMA_0_DEVICE_ID
 #endif
-#define XSK_IV_LENGTH						(24)
-#define XSK_ZYNQMP_PUF_KEY_IV_LEN_IN_BYTES			(12)
+#define XSK_IV_LENGTH_IN_BITS					(96)
 #define XSK_PUF_DEVICE_KEY					(1U)
 #define XSK_GCM_TAG_LEN						(16U)
 #define XPUF_DEBUG_GENERAL					(1U)
 
 /* Calculate input data length */
-#define XSK_DATA_LEN						(sizeof(XSK_INPUT_DATA)-1)
-#define XSK_DATA_LEN_IN_BYTES					(XSK_DATA_LEN/2)
+#define XSK_DATA_LEN				(sizeof(XSK_INPUT_DATA)-1)
+#define XSK_DATA_LEN_IN_BYTES			(XSK_DATA_LEN/2)
+#define XSK_DATA_LEN_IN_BITS			(XSK_DATA_LEN_IN_BYTES * 8)
 
 /************************** Type Definitions **********************************/
 
@@ -204,7 +205,7 @@ u32 XilSKey_Puf_Encrypt_data()
 	 */
 	Status = XilSKey_Efuse_ConvertStringToHexBE(
 				(const char *)(XSK_PUF_KEY_IV),
-				&PufIV[0], XSK_IV_LENGTH);
+				&PufIV[0], XSK_IV_LENGTH_IN_BITS);
 
 	if (Status != XST_SUCCESS) {
 		Status = XPUF_STRING_INVALID_ERROR;
@@ -223,7 +224,7 @@ u32 XilSKey_Puf_Encrypt_data()
 
 	Status = XilSKey_Efuse_ConvertStringToHexBE(
 			(const char *)(XSK_INPUT_DATA),
-			&EncInput[0], XSK_DATA_LEN);
+			&EncInput[0], XSK_DATA_LEN_IN_BITS);
 	if (Status != XST_SUCCESS) {
 		Status = XPUF_STRING_INVALID_ERROR;
 		xPuf_printf(XPUF_DEBUG_GENERAL,
