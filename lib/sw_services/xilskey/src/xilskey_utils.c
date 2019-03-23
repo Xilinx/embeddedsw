@@ -70,6 +70,7 @@
 *                        XilSKey_Efuse_ValidateKey()
 *       arc     03/15/19 Modified initial default status value as XST_FAILURE
 * 6.7   psl     03/21/19 Fixed MISRA-C violation.
+*       vns     03/23/19 Fixed CRC calculation for Ultra plus
  *****************************************************************************/
 
 /***************************** Include Files ********************************/
@@ -1292,19 +1293,26 @@ u32 XilSKey_CrcCalculation(u8 *Key)
 							((((Index) * 8U) + 8U) - 1U));
 #endif
 
-		Status = XilSKey_Efuse_ConvertStringToHexBE((char *)Key_8, Key_Hex, 32U);
+#if defined (XSK_MICROBLAZE_ULTRA) || \
+	defined (XSK_ZYNQ_ULTRA_MP_PLATFORM)
+		Status = XilSKey_Efuse_ConvertStringToHexBE((char *)Key_8,
+							 Key_Hex, 32U);
 		if (Status != (u32)XST_SUCCESS) {
 			CrcReturn = Status;
 			goto END;
 		}
-#if defined (XSK_MICROBLAZE_ULTRA) || \
-	defined (XSK_ZYNQ_ULTRA_MP_PLATFORM)
 		Key_32 = (((u32)Key_Hex[0U] << 24U) | ((u32)Key_Hex[1U] << 16U) |
 				((u32)Key_Hex[2U] << 8U) | ((u32)Key_Hex[3U]));
 #endif
 #ifdef	XSK_MICROBLAZE_ULTRA_PLUS
-	Key_32 = 0x00U;
-	Key_32 = ((u32)Key_Hex[0U] << 8U) | (u32)Key_Hex[1U];
+		Status = XilSKey_Efuse_ConvertStringToHexBE((char *)Key_8,
+							Key_Hex, 16U);
+		if (Status != (u32)XST_SUCCESS) {
+			CrcReturn = Status;
+			goto END;
+		}
+		Key_32 = 0x00U;
+		Key_32 = ((u32)Key_Hex[0U] << 8U) | (u32)Key_Hex[1U];
 #endif
 #ifdef XSK_MICROBLAZE_PLATFORM
 		CrcReturn = XilSKey_RowCrcCalculation(CrcReturn, Key_32, (u32)Row + Index);
