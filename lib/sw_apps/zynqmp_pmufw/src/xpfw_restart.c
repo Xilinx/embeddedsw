@@ -42,7 +42,7 @@ static XSecure_Sha3 Sha3Instance;
 #ifdef ENABLE_RECOVERY
 
 #define XPFW_RESTART_SCOPE_REG		PMU_GLOBAL_GLOBAL_GEN_STORAGE4
-#define XPFW_RESTART_SCOPE_SHIFT	(3)
+#define XPFW_RESTART_SCOPE_SHIFT	(3U)
 #define XPFW_RESTART_SCOPE_MASK		(0x3U << XPFW_RESTART_SCOPE_SHIFT)
 
 #ifdef CHECK_HEALTHY_BOOT
@@ -84,8 +84,8 @@ static XSecure_Sha3 Sha3Instance;
 
 #define WDT_CLK_PER_SEC ((XPAR_PSU_WDT_1_WDT_CLK_FREQ_HZ) / (WDT_PRESCALER))
 
-#define TTC_PRESCALER			15
-#define TTC_COUNT_PER_SEC		(XPAR_XTTCPS_0_TTC_CLK_FREQ_HZ / 65535)
+#define TTC_PRESCALER			15U
+#define TTC_COUNT_PER_SEC		(XPAR_XTTCPS_0_TTC_CLK_FREQ_HZ / 65535U)
 #define TTC_DEFAULT_NOTIFY_TIMEOUT_SEC	0U
 
 /* FPD WDT driver instance used within this file */
@@ -235,7 +235,7 @@ u32 XPfw_GetBootHealthStatus(void)
  */
 void XPfw_ClearBootHealthStatus(void)
 {
-	XPfw_RMW32(XPFW_BOOT_HEALTH_STS, XPFW_BOOT_HEALTH_GOOD, 0);
+	XPfw_RMW32(XPFW_BOOT_HEALTH_STS, XPFW_BOOT_HEALTH_GOOD, 0U);
 }
 
 #endif
@@ -295,7 +295,7 @@ static void XPfw_RestartSystemLevel(void)
  *
  * @return XST_SUCCESS in case of success else proper error code
  */
-static int Xpfw_TTCInit(u16 TtcDeviceId, XTtcPs *TtcInstancePtr)
+static s32 Xpfw_TTCInit(u16 TtcDeviceId, XTtcPs *TtcInstancePtr)
 {
 	XTtcPs_Config *timerConfig;
 	s32 Status = XST_FAILURE;
@@ -321,7 +321,7 @@ static int Xpfw_TTCInit(u16 TtcDeviceId, XTtcPs *TtcInstancePtr)
  * @return XST_SUCCESS if all Restart Trackers were initialized
  *         successfully
  */
-int XPfw_RecoveryInit(void)
+s32 XPfw_RecoveryInit(void)
 {
 	s32 Status = XST_FAILURE;
 	u32 RstIdx;
@@ -373,7 +373,7 @@ void XPfw_RecoveryHandler(u8 ErrorId)
 {
 	u32 RstIdx;
 #ifdef CHECK_HEALTHY_BOOT
-	u32 DoSubSystemRestart = 0;
+	u32 DoSubSystemRestart = 0U;
 
 	if(XPfw_GetBootHealthStatus())
 	{
@@ -406,7 +406,7 @@ void XPfw_RecoveryHandler(u8 ErrorId)
 				#ifdef ENABLE_ESCALATION
 					XPfw_RestartSystemLevel();
 				#else
-					PmMasterRestart(RstTrackerList[RstIdx].Master);
+					(void)PmMasterRestart(RstTrackerList[RstIdx].Master);
 				#endif /* ENABLE_ESCALATION */
 			}
 		}
@@ -445,7 +445,7 @@ void XPfw_RecoveryAck(PmMaster *Master) { }
 
 void XPfw_RecoveryHandler(u8 ErrorId) { }
 
-int XPfw_RecoveryInit(void)
+s32 XPfw_RecoveryInit(void)
 {
 	/* Recovery is not enabled. So return a failure code */
 	return XST_FAILURE;
@@ -489,7 +489,7 @@ s32 XPfw_StoreFsblToDDR(void)
 	/* Check if FSBL is running on A53 and store it to DDR */
 	if ((XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5) & FSBL_IS_RUNNING_ON_A53)
 			== FSBL_IS_RUNNING_ON_A53) {
-		memcpy((u32 *)FSBL_STORE_ADDR, (u32 *)FSBL_LOAD_ADDR,
+		(void)memcpy((u32 *)FSBL_STORE_ADDR, (u32 *)FSBL_LOAD_ADDR,
 				FSBL_IMAGE_SIZE);
 
 		XSecure_Sha3Digest(&Sha3Instance, (u8 *)FSBL_STORE_ADDR,
@@ -526,7 +526,7 @@ s32 XPfw_RestoreFsblToOCM(void)
 	XSecure_Sha3Digest(&Sha3Instance, (u8 *)FSBL_STORE_ADDR,
 				FSBL_IMAGE_SIZE, (u8 *)FSBL_IMAGE_HASH_VERIFY_ADDR);
 
-	for (Index = 0; Index < 12; Index++) {
+	for (Index = 0U; Index < 12U; Index++) {
 		if (HashExpected[Index] != HashCalculated[Index]) {
 			Status = XST_FAILURE;
 			break;
@@ -536,7 +536,7 @@ s32 XPfw_RestoreFsblToOCM(void)
 	}
 
 	if (XST_SUCCESS == Status) {
-		memcpy((u32 *)FSBL_LOAD_ADDR, (u32 *)FSBL_STORE_ADDR,
+		(void)memcpy((u32 *)FSBL_LOAD_ADDR, (u32 *)FSBL_STORE_ADDR,
 				FSBL_IMAGE_SIZE);
 		XPfw_Printf(DEBUG_DETAILED, "FSBL image hash checksum matched\r\n");
 	} else {
