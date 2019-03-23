@@ -38,7 +38,7 @@
 #include "rsa.h"
 #include "rsa_core.h"
 
-#define WRITE_PERM_SHIFT	16
+#define WRITE_PERM_SHIFT	16U
 #define MMIO_ACCESS_RO(m)	(m)
 #define MMIO_ACCESS_RW(m)	((m) | ((m) << WRITE_PERM_SHIFT))
 #define MMIO_ACCESS_WO(m)	((m) << WRITE_PERM_SHIFT)
@@ -64,24 +64,24 @@ typedef struct PmAccessRegion {
 static const PmAccessRegion pmAccessTable[] = {
 	/* Module clock controller full power domain (CRF_APB) */
 	{
-		.startAddr = CRF_APB_BASEADDR + 0x20,
-		.endAddr = CRF_APB_BASEADDR + 0x63,
+		.startAddr = CRF_APB_BASEADDR + 0x20U,
+		.endAddr = CRF_APB_BASEADDR + 0x63U,
 		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
 					 IPI_PMU_0_IER_RPU_0_MASK |
 					 IPI_PMU_0_IER_RPU_1_MASK),
 	},
 
 	{
-		.startAddr = CRF_APB_BASEADDR + 0x70,
-		.endAddr = CRF_APB_BASEADDR + 0x7b,
+		.startAddr = CRF_APB_BASEADDR + 0x70U,
+		.endAddr = CRF_APB_BASEADDR + 0x7bU,
 		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
 					 IPI_PMU_0_IER_RPU_0_MASK |
 					 IPI_PMU_0_IER_RPU_1_MASK),
 	},
 
 	{
-		.startAddr = CRF_APB_BASEADDR + 0x84,
-		.endAddr = CRF_APB_BASEADDR + 0xbf,
+		.startAddr = CRF_APB_BASEADDR + 0x84U,
+		.endAddr = CRF_APB_BASEADDR + 0xbfU,
 		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
 					 IPI_PMU_0_IER_RPU_0_MASK |
 					 IPI_PMU_0_IER_RPU_1_MASK),
@@ -89,31 +89,31 @@ static const PmAccessRegion pmAccessTable[] = {
 
 	/* Module clock controller low power domain (CRL_APB) */
 	{
-		.startAddr = CRL_APB_BASEADDR + 0x20,
-		.endAddr = CRL_APB_BASEADDR + 0x73,
+		.startAddr = CRL_APB_BASEADDR + 0x20U,
+		.endAddr = CRL_APB_BASEADDR + 0x73U,
 		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
 					 IPI_PMU_0_IER_RPU_0_MASK |
 					 IPI_PMU_0_IER_RPU_1_MASK),
 	},
 	{
-		.startAddr = CRL_APB_BASEADDR + 0x7C,
-		.endAddr = CRL_APB_BASEADDR + 0x8C,
-		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
-					 IPI_PMU_0_IER_RPU_0_MASK |
-					 IPI_PMU_0_IER_RPU_1_MASK),
-	},
-
-	{
-		.startAddr = CRL_APB_BASEADDR + 0xa4,
-		.endAddr = CRL_APB_BASEADDR + 0xa7,
+		.startAddr = CRL_APB_BASEADDR + 0x7CU,
+		.endAddr = CRL_APB_BASEADDR + 0x8CU,
 		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
 					 IPI_PMU_0_IER_RPU_0_MASK |
 					 IPI_PMU_0_IER_RPU_1_MASK),
 	},
 
 	{
-		.startAddr = CRL_APB_BASEADDR + 0xb4,
-		.endAddr = CRL_APB_BASEADDR + 0x12b,
+		.startAddr = CRL_APB_BASEADDR + 0xa4U,
+		.endAddr = CRL_APB_BASEADDR + 0xa7U,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
+					 IPI_PMU_0_IER_RPU_0_MASK |
+					 IPI_PMU_0_IER_RPU_1_MASK),
+	},
+
+	{
+		.startAddr = CRL_APB_BASEADDR + 0xb4U,
+		.endAddr = CRL_APB_BASEADDR + 0x12bU,
 		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
 					 IPI_PMU_0_IER_RPU_0_MASK |
 					 IPI_PMU_0_IER_RPU_1_MASK),
@@ -151,7 +151,7 @@ static const PmAccessRegion pmAccessTable[] = {
 	/* RO access to CRL_APB required for Linux CCF */
 	{
 		.startAddr = CRL_APB_BASEADDR,
-		.endAddr = CRL_APB_BASEADDR + 0x288,
+		.endAddr = CRL_APB_BASEADDR + 0x288U,
 		.access = MMIO_ACCESS_RO(IPI_PMU_0_IER_APU_MASK |
 					 IPI_PMU_0_IER_RPU_0_MASK |
 					 IPI_PMU_0_IER_RPU_1_MASK),
@@ -160,7 +160,7 @@ static const PmAccessRegion pmAccessTable[] = {
 	/* RO access to CRF_APB required for Linux CCF */
 	{
 		.startAddr = CRF_APB_BASEADDR,
-		.endAddr = CRF_APB_BASEADDR + 0x108,
+		.endAddr = CRF_APB_BASEADDR + 0x108U,
 		.access = MMIO_ACCESS_RO(IPI_PMU_0_IER_APU_MASK |
 					 IPI_PMU_0_IER_RPU_0_MASK |
 					 IPI_PMU_0_IER_RPU_1_MASK),
@@ -168,8 +168,8 @@ static const PmAccessRegion pmAccessTable[] = {
 
 	/* Boot pin control register */
 	{
-		.startAddr = CRL_APB_BASEADDR + 0x250,
-		.endAddr = CRL_APB_BASEADDR + 0x250,
+		.startAddr = CRL_APB_BASEADDR + 0x250U,
+		.endAddr = CRL_APB_BASEADDR + 0x250U,
 		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
 					 IPI_PMU_0_IER_RPU_0_MASK |
 					 IPI_PMU_0_IER_RPU_1_MASK),
@@ -187,8 +187,8 @@ static const PmAccessRegion pmAccessTable[] = {
 #ifdef XPAR_VCU_0_BASEADDR
 	/* VCU SLCR register */
 	{
-		.startAddr = XPAR_VCU_0_BASEADDR + 0x40024,
-		.endAddr = XPAR_VCU_0_BASEADDR + 0x40060,
+		.startAddr = XPAR_VCU_0_BASEADDR + 0x40024U,
+		.endAddr = XPAR_VCU_0_BASEADDR + 0x40060U,
 		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
 					 IPI_PMU_0_IER_RPU_0_MASK |
 					 IPI_PMU_0_IER_RPU_1_MASK),
@@ -197,15 +197,15 @@ static const PmAccessRegion pmAccessTable[] = {
 
 	/* Software controlled FPD resets register */
 	{
-		.startAddr = CRF_APB_BASEADDR + 0x100,
-		.endAddr = CRF_APB_BASEADDR + 0x100,
+		.startAddr = CRF_APB_BASEADDR + 0x100U,
+		.endAddr = CRF_APB_BASEADDR + 0x100U,
 		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK),
 	},
 
 	/* Software controlled LPD resets register */
 	{
-		.startAddr = CRL_APB_BASEADDR + 0x23c,
-		.endAddr = CRL_APB_BASEADDR +0x23c,
+		.startAddr = CRL_APB_BASEADDR + 0x23cU,
+		.endAddr = CRL_APB_BASEADDR +0x23cU,
 		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK),
 	},
 
