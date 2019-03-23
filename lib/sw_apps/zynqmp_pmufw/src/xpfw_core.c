@@ -170,7 +170,7 @@ XStatus XPfw_CoreDispatchIpi(u32 IpiNum, u32 SrcMask)
 			/* Dispatch based on IPI ID (MSB 16 bits of Word-0) of the module */
 			for (Idx = 0U; Idx < CorePtr->ModCount; Idx++) {
 				/* If API ID matches and IpiHandler is set */
-				if ( (CorePtr->ModList[Idx].IpiId == (Payload[0] >> 16)) &&
+				if ( (CorePtr->ModList[Idx].IpiId == (Payload[0] >> 16U)) &&
 					(CorePtr->ModList[Idx].IpiHandler != NULL)) {
 					/* Call the module's IPI handler */
 					CorePtr->ModList[Idx].IpiHandler(&CorePtr->ModList[Idx],
