@@ -402,6 +402,8 @@ int XPlmi_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
 		DmaPtr = &CsuDma1;
 	}
 
+	XPlmi_PrintArray(DEBUG_DETAILED, SrcAddr, Len, "DMA Xfer Data");
+
 	/* Configure the secure stream switch */
 	XPlmi_SSSCfgDmaDma(Flags);
 

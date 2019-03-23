@@ -146,7 +146,7 @@ void XPlmi_UtilRMW64(u32 HighAddr, u32 LowAddr, u32 Mask, u32 Value);
  */
 void XPlmi_UtilWait(u32 TimeOutCount);
 
-void XPlmi_PrintArray (u32 DebugType, const u8 Buf[], u32 Len, const char *Str);
+void XPlmi_PrintArray (u32 DebugType, const u64 BufAddr, u32 Len, const char *Str);
 char *XPlmi_Strcpy(char *DestPtr, const char *SrcPtr);
 char * XPlmi_Strcat(char* Str1Ptr, const char* Str2Ptr);
 s32 XPlmi_Strcmp( const char* Str1Ptr, const char* Str2Ptr);
