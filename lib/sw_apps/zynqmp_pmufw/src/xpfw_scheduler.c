@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -212,7 +212,7 @@ done:
 XStatus XPfw_SchedulerRemoveTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId, u32 MilliSeconds, XPfw_Callback_t CallbackFn)
 {
 	u32 Idx;
-	u32 TaskCount = 0;
+	u32 TaskCount = 0U;
 
 	/*Find the Task Index */
 	for (Idx = 0U; Idx < XPFW_SCHED_MAX_TASK; Idx++) {
