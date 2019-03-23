@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -41,31 +41,31 @@
 #define IPI_REQUEST1(mask, arg0)				\
 {	\
 	u32 _ipi_req_data[] = {(arg0)};	\
-	XPfw_IpiWriteMessage(PmModPtr, (mask), &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
+	(void)XPfw_IpiWriteMessage(PmModPtr, (mask), &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
 }
 
 #define IPI_REQUEST2(mask, arg0, arg1)				\
 {	\
 	u32 _ipi_req_data[] = {(arg0), (arg1)};	\
-	XPfw_IpiWriteMessage(PmModPtr, (mask), &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
+	(void)XPfw_IpiWriteMessage(PmModPtr, (mask), &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
 }
 
 #define IPI_REQUEST3(mask, arg0, arg1, arg2)			\
 {	\
 	u32 _ipi_req_data[] = {(arg0), (arg1), (arg2)};	\
-	XPfw_IpiWriteMessage(PmModPtr, (mask), &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
+	(void)XPfw_IpiWriteMessage(PmModPtr, (mask), &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
 }
 
 #define IPI_REQUEST4(mask, arg0, arg1, arg2, arg3)		\
 {	\
 	u32 _ipi_req_data[] = {(arg0), (arg1), (arg2), (arg3)};	\
-	XPfw_IpiWriteMessage(PmModPtr, (mask), &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
+	(void)XPfw_IpiWriteMessage(PmModPtr, (mask), &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
 }
 
 #define IPI_REQUEST5(mask, arg0, arg1, arg2, arg3, arg4)	\
 {	\
 	u32 _ipi_req_data[] = {(arg0), (arg1), (arg2), (arg3), (arg4)};	\
-	XPfw_IpiWriteMessage(PmModPtr, (mask), &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
+	(void)XPfw_IpiWriteMessage(PmModPtr, (mask), &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
 }
 /**
  * PmAcknowledgeCb() - sends acknowledge via callback
@@ -82,7 +82,7 @@ void PmAcknowledgeCb(const PmMaster* const master, const PmNodeId nodeId,
 {
 	IPI_REQUEST4(master->ipiMask, PM_ACKNOWLEDGE_CB, nodeId, status,
 		     oppoint);
-	XPfw_IpiTrigger( master->ipiMask);
+	(void)XPfw_IpiTrigger( master->ipiMask);
 }
 
 /**
@@ -96,7 +96,7 @@ void PmNotifyCb(const PmMaster* const master, const PmNodeId nodeId,
 		const u32 event, const u32 oppoint)
 {
 	IPI_REQUEST4(master->ipiMask, PM_NOTIFY_CB, nodeId, event, oppoint);
-	XPfw_IpiTrigger( master->ipiMask);
+	(void)XPfw_IpiTrigger( master->ipiMask);
 }
 
 /**
@@ -115,7 +115,7 @@ void PmInitSuspendCb(const PmMaster* const master, const u32 reason,
 
 	IPI_REQUEST5(master->ipiMask, PM_INIT_SUSPEND_CB, reason, latency,
 		     state, timeout);
-	XPfw_IpiTrigger( master->ipiMask);
+	(void)XPfw_IpiTrigger( master->ipiMask);
 }
 
 #endif
