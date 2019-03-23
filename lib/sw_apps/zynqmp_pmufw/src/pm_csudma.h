@@ -42,9 +42,9 @@ extern "C" {
 /* CSU DMA device Id */
 #define CSUDMA_DEVICE_ID	XPAR_XCSUDMA_0_DEVICE_ID
 /* CSU SSS_CFG Offset */
-#define CSU_SSS_CONFIG_OFFSET	0x00000008
+#define CSU_SSS_CONFIG_OFFSET	0x00000008U
 /* LOOP BACK configuration macro */
-#define CSUDMA_LOOPBACK_CFG	0x00000050
+#define CSUDMA_LOOPBACK_CFG	0x00000050U
 
 extern XCsuDma CsuDma;          /* Instance of the Csu_Dma Device */
 
