@@ -106,7 +106,6 @@ extern "C" {
 
 #define PM_GET_CHIPID			24U
 
-#define PM_SECURE_RSA_AES		25U
 #define PM_SECURE_SHA			26U
 #define PM_SECURE_RSA			27U
 
