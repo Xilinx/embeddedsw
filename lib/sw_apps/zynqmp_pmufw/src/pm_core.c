@@ -871,33 +871,6 @@ static void PmFpgaRead(const PmMaster *const master,
 
 #ifdef ENABLE_SECURE
 /**
- * PmSecureRsaAes() - Load secure image.
- * This function loads the secure images back to memory, it supports
- * loading of authenticated, encrypted or both encrypted and
- * authenticated images back to memory.
- *
- * AddrHigh: Higher 32-bit Linear memory space from where CSUDMA
- *         will read the data
- *
- * AddrLow: Lower 32-bit Linear memory space from where CSUDMA
- *         will read the data
- *
- * WrSize: Number of 32bit words that the DMA should write
- *
- * @return  error status based on implemented functionality(SUCCESS by default)
- */
-static void PmSecureRsaAes(const PmMaster *const master,
-			const u32 AddrHigh, const u32 AddrLow,
-			const u32 size, const u32 flags)
-{
-	u32 Status;
-
-	Status = XSecure_RsaAes(AddrHigh, AddrLow, size, flags);
-
-	IPI_RESPONSE1(master->ipiMask, Status);
-}
-
-/**
  * PmSecureSha() - To calculate the SHA3 hash on the provided data.
  *
  * @SrcAddrHigh: Higher 32-bit Linear memory space from where data
@@ -1966,9 +1939,6 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 		PmGetChipid(master);
 		break;
 #ifdef ENABLE_SECURE
-	case PM_SECURE_RSA_AES:
-		PmSecureRsaAes(master, pload[1], pload[2], pload[3], pload[4]);
-		break;
 	case PM_SECURE_SHA:
 		PmSecureSha(master, pload[1], pload[2], pload[3], pload[4]);
 		break;
