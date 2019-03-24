@@ -53,6 +53,7 @@
 *       arc  03/06/19 Added asserts to validate input params.
 *       vns  03/12/19 Modified as part of XilSecure code re-arch.
 *       arc  03/20/19 Added time outs and status info for API's.
+*       mmd  03/15/19 Refactored the code.
 *
 * </pre>
 *
@@ -63,6 +64,15 @@
 /***************************** Include Files *********************************/
 #include "xsecure_sha.h"
 /************************** Constant Definitions *****************************/
+#define XSECURE_CSU_SHA3_HASH_LENGTH_IN_BITS	(384U)
+#define XSECURE_CSU_SHA3_HASH_LENGTH_IN_WORDS	\
+									(XSECURE_CSU_SHA3_HASH_LENGTH_IN_BITS / 32U)
+
+/* Keccak and Nist padding masks */
+#define XSECURE_CSU_SHA3_START_KECCAK_PADDING_MASK    (0x01U)
+#define XSECURE_CSU_SHA3_END_KECCAK_PADDING_MASK      (0x80U)
+#define XSECURE_CSU_SHA3_START_NIST_PADDING_MASK      (0x06U)
+#define XSECURE_CSU_SHA3_END_NIST_PADDING_MASK        (0x80U)
 
 /**************************** Type Definitions *******************************/
 
@@ -74,7 +84,11 @@ static void XSecure_Sha3DmaTransfer(XSecure_Sha3 *InstancePtr, const u8 *Data,
 						const u32 Size, u8 IsLast);
 static void XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 					const u32 Size, u8 IsLastUpdate);
-static void XSecure_Sha3Padd(XSecure_Sha3 *InstancePtr, u8 *Dst, u32 MsgLen);
+static void XSecure_Sha3KeccakPadd(XSecure_Sha3 *InstancePtr, u8 *Dst,
+					u32 MsgLen);
+static void XSecure_Sha3NistPadd(XSecure_Sha3 *InstancePtr, u8 *Dst,
+					u32 MsgLen);
+
 /************************** Variable Definitions *****************************/
 
 /************************** Function Definitions *****************************/
@@ -187,14 +201,16 @@ s32 XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr)
  * @return	None
  *
  ******************************************************************************/
-static void XSecure_Sha3Padd(XSecure_Sha3 *InstancePtr, u8 *Dst, u32 MsgLen)
+static void XSecure_Sha3KeccakPadd(XSecure_Sha3 *InstancePtr, u8 *Dst,
+		u32 MsgLen)
 {
 	/* Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(MsgLen != 0);
 
 	(void)memset(Dst, 0, MsgLen);
-	Dst[0] = 0x1U;
-	Dst[MsgLen -1U] |= 0x80U;
+	Dst[0] = XSECURE_CSU_SHA3_START_KECCAK_PADDING_MASK;
+	Dst[MsgLen -1U] |= XSECURE_CSU_SHA3_END_KECCAK_PADDING_MASK;
 }
 
 /*****************************************************************************/
@@ -210,14 +226,15 @@ static void XSecure_Sha3Padd(XSecure_Sha3 *InstancePtr, u8 *Dst, u32 MsgLen)
  * @note	None
  *
  ******************************************************************************/
-static void XSecure_NistSha3Padd(XSecure_Sha3 *InstancePtr, u8 *Dst, u32 MsgLen)
+static void XSecure_Sha3NistPadd(XSecure_Sha3 *InstancePtr, u8 *Dst, u32 MsgLen)
 {
 	/* Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(MsgLen != 0);
 
 	(void)memset(Dst, 0, MsgLen);
-	Dst[0] =  0x6;
-	Dst[MsgLen -1U] |= 0x80U;
+	Dst[0] =  XSECURE_CSU_SHA3_START_NIST_PADDING_MASK;;
+	Dst[MsgLen -1U] |= XSECURE_CSU_SHA3_END_NIST_PADDING_MASK;
 }
 /*****************************************************************************/
 /**
@@ -360,12 +377,12 @@ u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 		(XSECURE_SHA3_BLOCK_LEN - PartialLen);
 
 	if (InstancePtr->Sha3PadType == XSECURE_CSU_NIST_SHA3) {
-		XSecure_NistSha3Padd(InstancePtr,
+		XSecure_Sha3NistPadd(InstancePtr,
 			&InstancePtr->PartialData[InstancePtr->PartialLen],
 								PartialLen);
 	}
 	 else {
-		 XSecure_Sha3Padd(InstancePtr,
+		 XSecure_Sha3KeccakPadd(InstancePtr,
 			&InstancePtr->PartialData[InstancePtr->PartialLen],
 								PartialLen);
 	 }
@@ -464,11 +481,11 @@ void XSecure_Sha3_ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Hash != NULL);
 
-	for (Index=0U; Index < 12U; Index++)
+	for (Index = 0U; Index < XSECURE_CSU_SHA3_HASH_LENGTH_IN_WORDS; Index++)
 	{
 		RegVal = XSecure_ReadReg(InstancePtr->BaseAddress,
 			XSECURE_CSU_SHA3_DIGEST_0_OFFSET + (Index * 4U));
-		HashPtr[11U - Index] = RegVal;
+		HashPtr[XSECURE_CSU_SHA3_HASH_LENGTH_IN_WORDS - Index - 1] = RegVal;
 	}
 }
 /*****************************************************************************/
