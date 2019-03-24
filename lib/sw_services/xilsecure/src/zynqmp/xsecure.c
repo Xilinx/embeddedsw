@@ -65,6 +65,7 @@
 *                    is sharing between xilfpga and Xilsecure libraries.
 *                    To avoid data sharing conflicts removed SecureIV
 *                    shared variable dependency.
+*       mmd 03/15/19 Refactored the code
 * </pre>
 *
 * @note
@@ -102,7 +103,22 @@ u8 Buffer[XSECURE_BUFFER_SIZE];
 u32 XsecureIv[XSECURE_IV_LEN];
 u32 XsecureKey[XSECURE_KEY_LEN];
 
+/**************************** Type Definitions *******************************/
+typedef struct {
+	XCsuDma *CsuDmaInstPtr;
+	u8 *Data;
+	u32 Size;
+	u8 *AuthCertPtr;
+	u32 SignatureOffset;
+	u8 PaddingType;
+	u8 AuthIncludingCert;
+} XSecure_AuthParam;
+
 /************************** Function Prototypes ******************************/
+static u32 XSecure_BhdrValidation(XSecure_ImageInfo *ImageInfo);
+static u32 XSecure_DecryptPartition(XSecure_ImageInfo *ImageHdrInfo,
+			u8 *SrcAddr, u8 *KupKey, XSecure_DataAddr *Addr);
+static inline u32 XSecure_DataAuthentication(XSecure_AuthParam *AuthParam);
 
 /************************** Function Definitions *****************************/
 
@@ -203,19 +219,19 @@ static u32 XSecure_ConvertStringToHex(char *Str, u32 *Buf, u8 Len)
 	u8 Nibble[XSECURE_MAX_NIBBLES] = {0U};
 	u8 NibbleNum;
 
+	Xil_AssertNonvoid((Len > 0) && (Len % 8 == 0));
+
 	while (ConvertedLen < Len) {
 		/* Convert char to nibble */
-		for (NibbleNum = 0U;
-		NibbleNum < XSECURE_ARRAY_LENGTH(Nibble); NibbleNum++) {
-			Status = XSecure_ConvertCharToNibble(
-				Str[ConvertedLen], &Nibble[NibbleNum]);
-				ConvertedLen = ConvertedLen + 1U;
-
+		for (NibbleNum = 0U; NibbleNum < XSECURE_MAX_NIBBLES; NibbleNum++) {
+			Status = XSecure_ConvertCharToNibble(Str[ConvertedLen],
+												&Nibble[NibbleNum]);
 			if (Status != (u32)XST_SUCCESS) {
 				/* Error converting char to nibble */
 				Status =  XSECURE_STRING_INVALID_ERROR;
 				goto END;
 			}
+			ConvertedLen = ConvertedLen + 1U;
 		}
 
 		Buf[Index] = (((u32)Nibble[0] << 28) | ((u32)Nibble[1] << 24) |
@@ -225,100 +241,6 @@ static u32 XSecure_ConvertStringToHex(char *Str, u32 *Buf, u8 Len)
 		Index = Index + 1U;
 	}
 
-END:
-	return Status;
-}
-
-
-/*****************************************************************************/
-/** This is the function to decrypt the encrypted data and load back to memory
- *
- * @param	WrSize: Number of bytes that the encrypted image contains
- *
- * @param       WrAddrHigh: Higher 32-bit Linear memory space from where CSUDMA
- *              will read the data
- *
- * @param       WrAddrLow: Lower 32-bit Linear memory space from where CSUDMA
- *              will read the data
- *
- * @return	None
- *
- *****************************************************************************/
-static u32 XSecure_Decrypt(u32 WrSize, u32 SrcAddrHigh, u32 SrcAddrLow)
-{
-	u32 Status;
-	u64 WrAddr;
-	u8 Index;
-	u32 Size;
-
-	Size = WrSize * XSECURE_WORD_LEN;
-	WrAddr = ((u64)SrcAddrHigh << 32) | (u64)SrcAddrLow;
-	(void)XSecure_ConvertStringToHex((char *)((char *)(UINTPTR)WrAddr + Size),
-					XsecureKey, XSECURE_KEY_STR_LEN);
-	(void)XSecure_ConvertStringToHex(
-		(char *)((char *)(UINTPTR)WrAddr + XSECURE_KEY_STR_LEN + Size),
-				XsecureIv, XSECURE_IV_STR_LEN);
-
-	/* Xilsecure expects Key in big endian form */
-	for (Index = 0U; Index < XSECURE_ARRAY_LENGTH(XsecureKey); Index++) {
-		XsecureKey[Index] = Xil_Htonl(XsecureKey[Index]);
-	}
-	for (Index = 0U; Index < XSECURE_ARRAY_LENGTH(XsecureIv); Index++) {
-		XsecureIv[Index] = Xil_Htonl(XsecureIv[Index]);
-	}
-
-	/* Initialize the Aes driver so that it's ready to use */
-	(void)XSecure_AesInitialize(&SecureAes, &CsuDma, XSECURE_CSU_AES_KEY_SRC_KUP,
-			                           XsecureIv, XsecureKey);
-	Status = (u32)XSecure_AesDecrypt(&SecureAes,
-				(u8 *)(UINTPTR)WrAddr,
-			(u8 *)(UINTPTR)WrAddr, Size - (u32)XSECURE_GCM_TAG_LEN);
-
-	return Status;
-}
-
-/*****************************************************************************/
-/** This is the function to authenticate or decrypt or both for secure images
-  * based on flags
- *
- * @param	WrSize: Number of bytes that the secure image contains
- *
- * @param       SrcAddrHigh: Higher 32-bit Linear memory space from where CSUDMA
- *              will read the data
- *
- * @param       SrcAddrLow: Lower 32-bit Linear memory space from where CSUDMA
- *              will read the data
- * @param	flags:
- *		 1 - Decrypt the image.
- *		 0 - Authenticate the image.
- *		 0 - Authenticated and decrypt the image.
- * NOTE -
- *  The current implementation supports only decryption of images
- *
- * @return	error or success based on implementation in secure libraries
- *
- *****************************************************************************/
-u32 XSecure_RsaAes(u32 SrcAddrHigh, u32 SrcAddrLow, u32 WrSize, u32 Flags)
-{
-	u32 Status;
-
-	switch (Flags & XSECURE_MASK) {
-	case XSECURE_AES:
-		Status = XSecure_CsuDmaInit();
-		if (Status != (u32)XST_SUCCESS) {
-			Status =  XSECURE_ERROR_CSUDMA_INIT_FAIL;
-			goto END;
-		}
-		Status = XSecure_Decrypt(WrSize, SrcAddrHigh, SrcAddrLow);
-		break;
-	case XSECURE_RSA:
-
-	case XSECURE_RSA_AES:
-
-	default:
-		Status = XSECURE_INVALID_FLAG;
-		break;
-	}
 END:
 	return Status;
 }
@@ -725,11 +647,7 @@ u32 XSecure_PartitionAuthentication(XCsuDma *CsuDmaInstPtr, u8 *Data,
 				u32 Size, u8 *AuthCertPtr)
 {
 	u32 Status;
-	XSecure_Sha3 SecureSha3 = {0U};
-	u8 Hash[XSECURE_HASH_TYPE_SHA3] = {0U};
-	u8 *Signature = (AuthCertPtr + XSECURE_AUTH_CERT_PARTSIG_OFFSET);
-	XSecure_RsaKey KeyInst;
-	u8 *AcPtr = AuthCertPtr;
+	XSecure_AuthParam AuthParam;
 
 	/* Assert conditions */
 	Xil_AssertNonvoid(CsuDmaInstPtr != NULL);
@@ -737,31 +655,15 @@ u32 XSecure_PartitionAuthentication(XCsuDma *CsuDmaInstPtr, u8 *Data,
 	Xil_AssertNonvoid(Size != 0x00U);
 	Xil_AssertNonvoid(AuthCertPtr != NULL);
 
-	/* Initialize Sha and RSA instances */
-	Status = (u32)XSecure_Sha3Initialize(&SecureSha3, CsuDmaInstPtr);
-	if (Status != (u32)XST_SUCCESS) {
-		Status = XSECURE_SHA3_INIT_FAIL;
-		goto END;
-	}
+	AuthParam.CsuDmaInstPtr = CsuDmaInstPtr;
+	AuthParam.Data = Data;
+	AuthParam.Size = Size;
+	AuthParam.AuthCertPtr = AuthCertPtr;
+	AuthParam.SignatureOffset = XSECURE_AUTH_CERT_PARTSIG_OFFSET;
+	AuthParam.PaddingType = XSECURE_CSU_NIST_SHA3;
+	AuthParam.AuthIncludingCert = 1U;
 
-	/* Calculate Hash on Data to be authenticated */
-	XSecure_Sha3Start(&SecureSha3);
-	XSecure_Sha3Update(&SecureSha3, Data, Size);
-	XSecure_Sha3Update(&SecureSha3, AuthCertPtr,
-		(XSECURE_AUTH_CERT_MIN_SIZE - XSECURE_PARTITION_SIG_SIZE));
-	XSecure_Sha3Finish(&SecureSha3, Hash);
-
-	AcPtr += ((u32)XSECURE_RSA_AC_ALIGN + (u32)XSECURE_PPK_SIZE);
-	KeyInst.Modulus = AcPtr;
-
-	AcPtr += XSECURE_SPK_MOD_SIZE;
-	KeyInst.Exponentiation = AcPtr;
-
-	AcPtr += XSECURE_SPK_MOD_EXT_SIZE;
-	KeyInst.Exponent = AcPtr;
-
-	Status = XSecure_DataAuth(Signature, &KeyInst, Hash);
-END:
+	Status = XSecure_DataAuthentication(&AuthParam);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = Status | (u32)XSECURE_AUTH_FAILURE;
 	}
@@ -789,11 +691,7 @@ static inline u32 XSecure_BhdrAuthentication(XCsuDma *CsuDmaInstPtr,
 {
 
 	u32 Status;
-	XSecure_Sha3 SecureSha3 = {0U};
-	u8 Hash[XSECURE_HASH_TYPE_SHA3] = {0U};
-	u8 *Signature = (AuthCertPtr + XSECURE_AUTH_CERT_BHDRSIG_OFFSET);
-	XSecure_RsaKey KeyInst;
-	u8 *AcPtr = AuthCertPtr;
+	XSecure_AuthParam AuthParam;
 
 	/* Assert conditions */
 	Xil_AssertNonvoid(CsuDmaInstPtr != NULL);
@@ -801,43 +699,15 @@ static inline u32 XSecure_BhdrAuthentication(XCsuDma *CsuDmaInstPtr,
 	Xil_AssertNonvoid(Size != 0x00U);
 	Xil_AssertNonvoid(AuthCertPtr != NULL);
 
-	/* Initialize Sha and RSA instances */
-	Status = (u32)XSecure_Sha3Initialize(&SecureSha3, CsuDmaInstPtr);
-	if (Status != (u32)XST_SUCCESS) {
-		Status = XSECURE_SHA3_INIT_FAIL;
-		goto END;
-	}
+	AuthParam.CsuDmaInstPtr = CsuDmaInstPtr;
+	AuthParam.Data = Data;
+	AuthParam.Size = Size;
+	AuthParam.AuthCertPtr = AuthCertPtr;
+	AuthParam.SignatureOffset = XSECURE_AUTH_CERT_BHDRSIG_OFFSET;
+	AuthParam.PaddingType = XSECURE_CSU_KECCAK_SHA3;
+	AuthParam.AuthIncludingCert = 0U;
 
-	Status = (u32)XSecure_Sha3PadSelection(&SecureSha3,
-					XSECURE_CSU_KECCAK_SHA3);
-	if (Status != (u32)XST_SUCCESS) {
-		Status = XSECURE_SHA3_PADSELECT_ERR;
-		goto END;
-	}
-	/* Calculate Hash on Data to be authenticated */
-	XSecure_Sha3Start(&SecureSha3);
-	XSecure_Sha3Update(&SecureSha3, Data, Size);
-	Status = XSecure_Sha3Finish(&SecureSha3, Hash);
-	if (Status != (u32)XST_SUCCESS) {
-		goto END;
-	}
-
-	AcPtr += ((u32)XSECURE_RSA_AC_ALIGN + (u32)XSECURE_PPK_SIZE);
-	KeyInst.Modulus = AcPtr;
-
-	AcPtr += XSECURE_SPK_MOD_SIZE;
-	KeyInst.Exponentiation = AcPtr;
-
-	AcPtr += XSECURE_SPK_MOD_EXT_SIZE;
-	KeyInst.Exponent = AcPtr;
-
-
-	Status = XSecure_DataAuth(Signature, &KeyInst, Hash);
-	if (Status != (u32)XST_SUCCESS) {
-		goto END;
-	}
-
-END:
+	Status = XSecure_DataAuthentication(&AuthParam);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = XSECURE_BOOT_HDR_FAIL | Status;
 	}
@@ -957,11 +827,9 @@ END:
  *****************************************************************************/
 u32 XSecure_AuthenticationHeaders(u8 *StartAddr, XSecure_ImageInfo *ImageInfo)
 {
-	u32 ImgAttributes;
 	u32 Status;
 	u32 ImgHdrToffset;
 	u32 AuthCertOffset;
-	u32 SizeofBH;
 	u32 SizeofImgHdr;
 	u32 PhOffset;
 	u8 NoAuth = 0U;
@@ -1010,61 +878,7 @@ u32 XSecure_AuthenticationHeaders(u8 *StartAddr, XSecure_ImageInfo *ImageInfo)
 	(void)XSecure_MemCopy(AcBuf, (u8 *)(StartAddr + AuthCertOffset),
 			XSECURE_AUTH_CERT_MIN_SIZE/XSECURE_WORD_LEN);
 
-	ImgAttributes = Xil_In32((UINTPTR)(Buffer +
-				XSECURE_IMAGE_ATTR_OFFSET));
-
-	if ((ImgAttributes & XSECURE_IMG_ATTR_BHDR_MASK) != 0x00U) {
-		ImageInfo->BhdrAuth = XSECURE_ENABLED;
-	}
-
-	/* If PUF helper data exists in boot header */
-	if ((ImgAttributes & XSECURE_IMG_ATTR_PUFHD_MASK) != 0x00U) {
-		SizeofBH = XSECURE_BOOT_HDR_MAX_SIZE;
-	}
-	else {
-		SizeofBH = (u32)XSECURE_BOOT_HDR_MIN_SIZE;
-	}
-
-	/* Authenticate keys */
-	if (ImageInfo->EfuseRsaenable != 0x00U) {
-		if (ImageInfo->BhdrAuth != 0x00U) {
-			Status = XSECURE_BHDR_AUTH_NOT_ALLOWED;
-			goto END;
-		}
-	}
-	if (ImageInfo->EfuseRsaenable == 0x00U) {
-		if (ImageInfo->BhdrAuth == 0x00U) {
-			Status = XSECURE_ONLY_BHDR_AUTH_ALLOWED;
-			goto END;
-		}
-	}
-
-	if (ImageInfo->EfuseRsaenable != 0x0U) {
-		/* Verify PPK hash with eFUSE */
-		Status = XSecure_PpkVerify(&CsuDma, AcBuf);
-		if (Status != (u32)XST_SUCCESS) {
-			goto END;
-		}
-		/* Copy PPK to global variable for future use */
-		(void)XSecure_MemCopy(EfusePpk, AcBuf + XSECURE_AC_PPK_OFFSET,
-				XSECURE_PPK_SIZE/XSECURE_WORD_LEN);
-	}
-	/* SPK authentication */
-	Status = XSecure_SpkAuthentication(&CsuDma, AcBuf, NULL);
-	if (Status != (u32)XST_SUCCESS) {
-		Status = Status | (u32)XSECURE_BOOT_HDR_FAIL;
-		goto END;
-	}
-	if (ImageInfo->EfuseRsaenable != 0x00U) {
-		/* SPK revocation check */
-		Status = XSecure_SpkRevokeCheck(AcBuf);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = Status | (u32)XSECURE_BOOT_HDR_FAIL;
-			goto END;
-		}
-	}
-	/* Authenticated boot header */
-	Status = XSecure_BhdrAuthentication(&CsuDma, Buffer, SizeofBH, AcBuf);
+	Status = XSecure_BhdrValidation(ImageInfo);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
@@ -1184,6 +998,7 @@ END:
  *		partition non-bitstream image.
  * @param	KupAddrHigh	Higher 32-bit linear memory space of KUP key.
  * @param	KupAddrLow	Ligher 32-bit linear memory space of KUP key.
+ * @param	Addr		Location of the secure image loaded after validation.
  *
  * @return	Returns Status
  * 		- XST_SUCCESS on success
@@ -1203,9 +1018,6 @@ u32 XSecure_SecureImage(u32 AddrHigh, u32 AddrLow,
 	u32 EncOnly;
 	u8 IsEncrypted;
 	u8 *IvPtr = (u8 *)(UINTPTR)XsecureIv;
-	u8 *EncSrc;
-	u8 *DecDst;
-	u8 Index;
 	u32 Offset;
 
 	/* Address provided is null */
@@ -1337,73 +1149,8 @@ u32 XSecure_SecureImage(u32 AddrHigh, u32 AddrLow,
 			goto END;
 		}
 	}
-	if (ImageHdrInfo.KeySrc == XSECURE_KEY_SRC_KUP) {
-		if (KupKey != 0x00) {
-			/* Linux or U-boot stores Key in the form of String
-			 * So this conversion is required here.
-			 */
-			(void)XSecure_ConvertStringToHex((char *)(UINTPTR)KupKey,
-					XsecureKey, XSECURE_KEY_STR_LEN);
-			/* XilSecure expects Key in big endian form */
-			for (Index = 0U; Index < XSECURE_ARRAY_LENGTH(XsecureKey);
-							Index++) {
-				XsecureKey[Index] = Xil_Htonl(XsecureKey[Index]);
-			}
-		}
-		else {
-			Status = XSECURE_KUP_KEY_NOT_PROVIDED;
-			goto END;
-		}
-	 }
-	else {
-		if (KupKey != 0x00) {
-			Status = XSECURE_KUP_KEY_NOT_REQUIRED;
-			goto END;
-		}
-	}
 
-	/* Initialize the AES driver so that it's ready to use */
-	if (ImageHdrInfo.KeySrc == XSECURE_KEY_SRC_KUP) {
-		(void)XSecure_AesInitialize(&SecureAes, &CsuDma,
-				XSECURE_CSU_AES_KEY_SRC_KUP,
-				(u32 *)ImageHdrInfo.Iv, XsecureKey);
-	}
-	else {
-		(void)XSecure_AesInitialize(&SecureAes, &CsuDma,
-					XSECURE_CSU_AES_KEY_SRC_DEV,
-					(u32 *)ImageHdrInfo.Iv, NULL);
-	}
-	if (ImageHdrInfo.PartitionHdr->DestinationLoadAddress == 0x00U) {
-		EncSrc = (u8 *)(UINTPTR)(SrcAddr +
-				(ImageHdrInfo.PartitionHdr->DataWordOffset *
-					XSECURE_WORD_LEN));
-		DecDst = (u8 *)(UINTPTR)(SrcAddr +
-				(ImageHdrInfo.PartitionHdr->DataWordOffset *
-					XSECURE_WORD_LEN));
-	}
-	else {
-		EncSrc = (u8 *)(UINTPTR)(SrcAddr +
-				(ImageHdrInfo.PartitionHdr->DataWordOffset *
-					XSECURE_WORD_LEN));
-		DecDst = (u8 *)(UINTPTR)
-			(ImageHdrInfo.PartitionHdr->DestinationLoadAddress);
-	}
-	Status = (u32)XSecure_AesDecrypt(&SecureAes,
-				DecDst, EncSrc,
-		(ImageHdrInfo.PartitionHdr->UnEncryptedDataWordLength *
-				XSECURE_WORD_LEN));
-
-	if (Status != (u32)XST_SUCCESS) {
-		Status = XSECURE_PARTITION_FAIL |
-				XSECURE_AES_DECRYPTION_FAILURE |
-				XSECURE_AES_ERROR | Status;
-		Addr->AddrHigh = 0x00U;
-		Addr->AddrLow = 0x00U;
-	}
-	else {
-		Addr->AddrHigh = (u32)((u64)(UINTPTR)(DecDst) >> 32);
-		Addr->AddrLow = (u32)(UINTPTR)(DecDst);
-	}
+	Status = XSecure_DecryptPartition(&ImageHdrInfo, SrcAddr, KupKey, Addr);
 
 END:
 	if (KupKey != 0x00) {
@@ -1710,5 +1457,251 @@ u32 XSecure_SpkRevokeCheck(u8 *AuthCert)
 		Status = XSECURE_INVALID_EFUSE_SELECT;
 	}
 
+	return Status;
+}
+
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This function validates boot header.
+ *
+ * @param		ImageInfo	Pointer to XSecure_ImageInfo structure.
+ *
+ * @return	Returns Status
+ * 		- XST_SUCCESS on successful verification.
+ * 		- Error code on failure.
+ *
+ *****************************************************************************/
+static u32 XSecure_BhdrValidation(XSecure_ImageInfo *ImageInfo)
+{
+	u32 Status;
+	u32 ImgAttributes;
+	u32 SizeofBH;
+
+	ImgAttributes = Xil_In32((UINTPTR)(Buffer +
+				XSECURE_IMAGE_ATTR_OFFSET));
+
+	if ((ImgAttributes & XSECURE_IMG_ATTR_BHDR_MASK) != 0x00U) {
+		ImageInfo->BhdrAuth = XSECURE_ENABLED;
+	}
+
+	/* If PUF helper data exists in boot header */
+	if ((ImgAttributes & XSECURE_IMG_ATTR_PUFHD_MASK) != 0x00U) {
+		SizeofBH = XSECURE_BOOT_HDR_MAX_SIZE;
+	}
+	else {
+		SizeofBH = (u32)XSECURE_BOOT_HDR_MIN_SIZE;
+	}
+
+	/* Authenticate keys */
+	if (ImageInfo->EfuseRsaenable != 0x00U) {
+		if (ImageInfo->BhdrAuth != 0x00U) {
+			Status = XSECURE_BHDR_AUTH_NOT_ALLOWED;
+			goto END;
+		}
+	}
+	else {
+		if (ImageInfo->BhdrAuth == 0x00U) {
+			Status = XSECURE_ONLY_BHDR_AUTH_ALLOWED;
+			goto END;
+		}
+	}
+
+	if (ImageInfo->EfuseRsaenable != 0x0U) {
+		/* Verify PPK hash with eFUSE */
+		Status = XSecure_PpkVerify(&CsuDma, AcBuf);
+		if (Status != (u32)XST_SUCCESS) {
+			goto END;
+		}
+		/* Copy PPK to global variable for future use */
+		(void)XSecure_MemCopy(EfusePpk, AcBuf + XSECURE_AC_PPK_OFFSET,
+				XSECURE_PPK_SIZE/XSECURE_WORD_LEN);
+	}
+	/* SPK authentication */
+	Status = XSecure_SpkAuthentication(&CsuDma, AcBuf, NULL);
+	if (Status != (u32)XST_SUCCESS) {
+		Status = Status | (u32)XSECURE_BOOT_HDR_FAIL;
+		goto END;
+	}
+	if (ImageInfo->EfuseRsaenable != 0x00U) {
+		/* SPK revocation check */
+		Status = XSecure_SpkRevokeCheck(AcBuf);
+		if (Status != (u32)XST_SUCCESS) {
+			Status = Status | (u32)XSECURE_BOOT_HDR_FAIL;
+			goto END;
+		}
+	}
+	/* Authenticated boot header */
+	Status = XSecure_BhdrAuthentication(&CsuDma, Buffer, SizeofBH, AcBuf);
+
+END:
+	return Status;
+}
+
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This function decrypts the image partition.
+ *
+ * @param	ImageHdrInfo	Pointer to XSecure_ImageInfo structure
+ * @param	SrcAddr			Pointer to single partition non-bitstream image
+ * @param	KupKey			Pointer to User Key
+ * @param	Addr			Location of the secure image loaded after validation
+ *
+ * @return	Returns Status
+ * 		- XST_SUCCESS on successful verification.
+ * 		- Error code on failure.
+ *
+ *****************************************************************************/
+static u32 XSecure_DecryptPartition(XSecure_ImageInfo *ImageHdrInfo,
+	u8 *SrcAddr, u8 *KupKey,	XSecure_DataAddr *Addr)
+{
+	u32 Status = XST_FAILURE;
+	u32 Index;
+	u8 *EncSrc;
+	u8 *DecDst;
+
+	if (ImageHdrInfo->KeySrc == XSECURE_KEY_SRC_KUP) {
+		if (KupKey != 0x00) {
+			/* Linux or U-boot stores Key in the form of String
+			 * So this conversion is required here.
+			 */
+			Status = XSecure_ConvertStringToHex((char *)(UINTPTR)KupKey,
+			                                   XsecureKey, XSECURE_KEY_STR_LEN);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+
+			/* XilSecure expects Key in big endian form */
+			for (Index = 0U; Index < XSECURE_ARRAY_LENGTH(XsecureKey);
+							Index++) {
+				XsecureKey[Index] = Xil_Htonl(XsecureKey[Index]);
+			}
+		}
+		else {
+			Status = XSECURE_KUP_KEY_NOT_PROVIDED;
+			goto END;
+		}
+	 }
+	else {
+		if (KupKey != 0x00) {
+			Status = XSECURE_KUP_KEY_NOT_REQUIRED;
+			goto END;
+		}
+	}
+
+	/* Initialize the AES driver so that it's ready to use */
+	if (ImageHdrInfo->KeySrc == XSECURE_KEY_SRC_KUP) {
+		(void)XSecure_AesInitialize(&SecureAes, &CsuDma,
+				XSECURE_CSU_AES_KEY_SRC_KUP,
+				(u32 *)ImageHdrInfo->Iv, XsecureKey);
+	}
+	else {
+		(void)XSecure_AesInitialize(&SecureAes, &CsuDma,
+					XSECURE_CSU_AES_KEY_SRC_DEV,
+					(u32 *)ImageHdrInfo->Iv, NULL);
+	}
+
+	if (ImageHdrInfo->PartitionHdr->DestinationLoadAddress == 0x00U) {
+		EncSrc = (u8 *)(UINTPTR)(SrcAddr +
+				(ImageHdrInfo->PartitionHdr->DataWordOffset *
+					XSECURE_WORD_LEN));
+		DecDst = (u8 *)(UINTPTR)(SrcAddr +
+				(ImageHdrInfo->PartitionHdr->DataWordOffset *
+					XSECURE_WORD_LEN));
+	}
+	else {
+		EncSrc = (u8 *)(UINTPTR)(SrcAddr +
+				(ImageHdrInfo->PartitionHdr->DataWordOffset *
+					XSECURE_WORD_LEN));
+		DecDst = (u8 *)(UINTPTR)
+			(ImageHdrInfo->PartitionHdr->DestinationLoadAddress);
+	}
+
+	Status = (u32)XSecure_AesDecrypt(&SecureAes,
+				DecDst, EncSrc,
+		(ImageHdrInfo->PartitionHdr->UnEncryptedDataWordLength *
+				XSECURE_WORD_LEN));
+
+	if (Status != (u32)XST_SUCCESS) {
+		Status = XSECURE_PARTITION_FAIL |
+				XSECURE_AES_DECRYPTION_FAILURE |
+				XSECURE_AES_ERROR | Status;
+		Addr->AddrHigh = 0x00U;
+		Addr->AddrLow = 0x00U;
+	}
+	else {
+		Addr->AddrHigh = (u32)((u64)(UINTPTR)(DecDst) >> 32);
+		Addr->AddrLow = (u32)(UINTPTR)(DecDst);
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This function performs authentication of a given data.
+ *
+ * @param	AuthParam	Pointer to auhentication parameter structure.
+ *
+ * @return	Returns Status
+ * 		- XST_SUCCESS on success
+ * 		- XST_FAILURE on failure
+ *
+ *****************************************************************************/
+static inline u32 XSecure_DataAuthentication(XSecure_AuthParam *AuthParam)
+{
+	u32 Status;
+	XSecure_Sha3 SecureSha3 = {0U};
+	u8 Hash[XSECURE_HASH_TYPE_SHA3] = {0U};
+	u8 *Signature = (AuthParam->AuthCertPtr + AuthParam->SignatureOffset);
+	XSecure_RsaKey KeyInst;
+	u8 *AcPtr = AuthParam->AuthCertPtr;
+
+	/* Initialize Sha and RSA instances */
+	Status = (u32)XSecure_Sha3Initialize(&SecureSha3, AuthParam->CsuDmaInstPtr);
+	if (Status != (u32)XST_SUCCESS) {
+		Status = XSECURE_SHA3_INIT_FAIL;
+		goto END;
+	}
+
+	if (XSECURE_CSU_KECCAK_SHA3 == AuthParam->PaddingType) {
+		Status = (u32)XSecure_Sha3PadSelection(&SecureSha3,
+		                                      XSECURE_CSU_KECCAK_SHA3);
+		if (Status != (u32)XST_SUCCESS) {
+			Status = XSECURE_SHA3_PADSELECT_ERR;
+			goto END;
+		}
+	}
+
+	/* Calculate Hash on Data to be authenticated */
+	XSecure_Sha3Start(&SecureSha3);
+	XSecure_Sha3Update(&SecureSha3, AuthParam->Data, AuthParam->Size);
+	if (1U == AuthParam->AuthIncludingCert) {
+		XSecure_Sha3Update(&SecureSha3, AuthParam->AuthCertPtr,
+					(XSECURE_AUTH_CERT_MIN_SIZE - XSECURE_PARTITION_SIG_SIZE));
+	}
+
+	Status = XSecure_Sha3Finish(&SecureSha3, Hash);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
+
+	AcPtr += ((u32)XSECURE_RSA_AC_ALIGN + (u32)XSECURE_PPK_SIZE);
+	KeyInst.Modulus = AcPtr;
+
+	AcPtr += XSECURE_SPK_MOD_SIZE;
+	KeyInst.Exponentiation = AcPtr;
+
+	AcPtr += XSECURE_SPK_MOD_EXT_SIZE;
+	KeyInst.Exponent = AcPtr;
+
+	Status = XSecure_DataAuth(Signature, &KeyInst, Hash);
+
+END:
 	return Status;
 }
