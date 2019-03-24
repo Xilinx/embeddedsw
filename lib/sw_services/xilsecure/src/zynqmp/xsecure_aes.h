@@ -84,6 +84,7 @@
 *                    GCM_TAG_MISMATCH
 * 4.0   arc  18/12/18 Fixed MISRA-C violations.
 *       arc  03/20/19 Changed prototype of the functions void to u32
+*       mmd  03/15/19 Defined AES Key Clear value
 * </pre>
 * @endcond
 *
@@ -173,6 +174,13 @@
 #define XSECURE_DESTINATION_PCAP_ADDR    (0XFFFFFFFFU)
 
 #define XSECURE_AES_TIMEOUT_MAX		(0x1FFFFU)
+
+#define XSECURE_AES_DISABLE_KEY_CLEAR_OP	(0x00)
+					/**< Value for Disabling AES Key Clear operation */
+
+/**< AES Block types for decryption */
+#define XSECURE_CSU_AES_BLK_TYPE_SECURE_HEADER	(0U)
+#define XSECURE_CSU_AES_BLK_TYPE_DATA_BLOCK		(1U)
 
 /************************** Type Definitions ********************************/
 

@@ -41,6 +41,7 @@
 * 4.0   vns  03/12/19 Initial Release.
 *       arc  03/20/19 modified default status value to XST_FAILURE
 *                     for XSecure_RsaSignVerification()
+*       mmd  03/15/19 Refactored the code
 *
 * </pre>
 *
@@ -283,7 +284,10 @@ static void XSecure_RsaGetData(XSecure_Rsa *InstancePtr, u32 *RdData)
 	/* Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	/* Each of this loop will write 192 bits of data */
+	/** Total bits to be read 4096
+	 * Each iteration of this loop reads 32 * 6 = 192 bits
+	 * Therfore, for 4096, total iterations required = 4096/192 = 21.33 = 22
+	 */
 	for (DataOffset = 0U; DataOffset < 22U; DataOffset++)
 	{
 		XSecure_WriteReg(InstancePtr->BaseAddress,
@@ -378,7 +382,10 @@ static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(WrData != NULL);
 
-	/** Each of this loop will write 192 bits of data*/
+	/** Total bits to be written 4096 (RSA Key size)
+	 * Each iteration of this loop writes 32 * 6 = 192 bits
+	 * Therfore, for 4096, total iteration required = 4096/192 = 21.33 = 22
+	 */
 	for (DataOffset = 0U; DataOffset < 22U; DataOffset++)
 	{
 		for (Index = 0U; Index < 6U; Index++)
@@ -388,35 +395,26 @@ static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
 			* Exponent size is only 4 bytes
 			* and rest of the data needs to be 0
 			*/
+			Data = 0U;
 			if((XSECURE_CSU_RSA_RAM_EXPO == RamOffset) &&
-				(InstancePtr->EncDec == XSECURE_RSA_SIGN_ENC))
+			   (InstancePtr->EncDec == XSECURE_RSA_SIGN_ENC))
 			{
-				if(0U == TmpIndex )
+				if(0U == TmpIndex)
 				{
 					Data = Xil_Htonl(*WrData);
-				}
-				else
-				{
-					Data = 0x0U;
 				}
 			}
 			else
 			{
-				if(TmpIndex >= InstancePtr->SizeInWords)
+				if(TmpIndex < InstancePtr->SizeInWords)
 				{
-					Data = 0x0U;
-				}
-				else
-				{
-				/**
-				* The RSA data in Image is in Big Endian.
-				* So reverse it before putting in RSA memory,
-				* becasue RSA h/w expects it in Little endian.
-				*/
-
-					Data = Xil_Htonl(WrData[
-						(InstancePtr->SizeInWords - 1) -
-							TmpIndex]);
+					/**
+					* The RSA data in Image is in Big Endian.
+					* So reverse it before putting in RSA memory,
+					* becasue RSA h/w expects it in Little endian.
+					*/
+					Data = Xil_Htonl(
+					        WrData[(InstancePtr->SizeInWords - 1) - TmpIndex]);
 				}
 			}
 			XSecure_WriteReg(InstancePtr->BaseAddress,

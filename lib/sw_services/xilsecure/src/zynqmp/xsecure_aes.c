@@ -60,6 +60,7 @@
 *       arc 03/06/19 Added asserts to validate input params
 *       vns 03/13/19 As part of refactoring modified SSS configurations
 *       arc 03/20/19 Added time outs and status info for API's.
+*       mmd 03/15/19 Refactored the code.
 *
 * </pre>
 *
@@ -75,6 +76,11 @@
 
 /* Aes Decrypt zeroization in case of Gcm Tag Mismatch*/
 static u32 XSecure_Zeroize(u8 *DataPtr,u32 Length);
+
+
+/* Configure byte swapping in DMA */
+static void XSecure_AesCsuDmaConfigureEndiannes(XCsuDma *InstancePtr,
+		XCsuDma_Channel Channel,u8 EndianType);
 
 /************************** Function Definitions *****************************/
 
@@ -152,7 +158,6 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 	u32 Count;
 	u32 Value;
 	u32 Addr;
-	XCsuDma_Configure ConfigurValues = {0};
 	u32 Status;
 
 	/* Assert validates the input arguments */
@@ -172,13 +177,7 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_CSU_AES_KEY_CLR_OFFSET, (u32)0x0U);
 
-	if(InstancePtr->KeySel == XSECURE_CSU_AES_KEY_SRC_DEV) {
-		Status = XSecure_AesKeySelNLoad(InstancePtr);
-		if (Status != (u32)XST_SUCCESS) {
-			goto END;
-		}
-	}
-	else {
+	if(InstancePtr->KeySel != XSECURE_CSU_AES_KEY_SRC_DEV) {
 		for(Count = 0U; Count < 8U; Count++) {
 			/* Helion AES block expects the key in big-endian. */
 			Value = Xil_Htonl(InstancePtr->Key[Count]);
@@ -187,10 +186,10 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 					+ (Count * 4U);
 			XSecure_Out32(Addr, Value);
 		}
-		Status = XSecure_AesKeySelNLoad(InstancePtr);
-		if (Status != (u32)XST_SUCCESS) {
-			goto END;
-		}
+	}
+	Status = XSecure_AesKeySelNLoad(InstancePtr);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
 	}
 
 	/* Configure the AES for Encryption.*/
@@ -201,18 +200,12 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 		XSECURE_CSU_AES_START_MSG_OFFSET, XSECURE_CSU_AES_START_MSG);
 
 	/* Enable CSU DMA Src channel for byte swapping.*/
-	XCsuDma_GetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-					&ConfigurValues);
-	ConfigurValues.EndianType = 1U;
-	XCsuDma_SetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-					&ConfigurValues);
+	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
+	                                 XCSUDMA_SRC_CHANNEL, 1U);
 
 	/* Enable CSU DMA Dst channel for byte swapping.*/
-	XCsuDma_GetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
-			&ConfigurValues);
-	ConfigurValues.EndianType = 1U;
-	XCsuDma_SetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
-			&ConfigurValues);
+	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
+	                                 XCSUDMA_DST_CHANNEL, 1U);
 
 	/* Push IV into the AES engine.*/
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
@@ -261,8 +254,6 @@ END:
  ******************************************************************************/
 u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, const u8 *Data, u32 Size)
 {
-
-	XCsuDma_Configure ConfigurValues = {0};
 	u8 IsFinal = FALSE;
 	u32 Status = (u32)XST_FAILURE;
 
@@ -295,18 +286,12 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, const u8 *Data, u32 Size)
 		XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
 						XCSUDMA_IXR_DONE_MASK);
 		/* Disble CSU DMA Dst channel for byte swapping. */
-		XCsuDma_GetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
-				&ConfigurValues);
-		ConfigurValues.EndianType = 0U;
-		XCsuDma_SetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
-				&ConfigurValues);
+		XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
+		                                 XCSUDMA_DST_CHANNEL, 0U);
 
 		/* Disable CSU DMA Src channel for byte swapping. */
-		XCsuDma_GetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-							&ConfigurValues);
-		ConfigurValues.EndianType = 0U;
-		XCsuDma_SetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-							&ConfigurValues);
+		XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
+		                                 XCSUDMA_SRC_CHANNEL, 0U);
 
 		/* Wait for AES encryption completion.*/
 		Status = XSecure_AesWaitForDone(InstancePtr);
@@ -381,7 +366,6 @@ END:
 u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 		u32 Size, u8 *GcmTagAddr)
 {
-	XCsuDma_Configure ConfigurValues = {0};
 	u32 Count;
 	u32 Value;
 	u32 Addr;
@@ -415,13 +399,7 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_CSU_AES_KEY_CLR_OFFSET, (u32)0x0U);
 
-	if (InstancePtr->KeySel == XSECURE_CSU_AES_KEY_SRC_DEV) {
-		Status = XSecure_AesKeySelNLoad(InstancePtr);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-	}
-	else {
+	if (InstancePtr->KeySel != XSECURE_CSU_AES_KEY_SRC_DEV) {
 		for (Count = 0U; Count < 8U; Count++) {
 			/* Helion AES block expects the key in big-endian. */
 			Value = Xil_Htonl(InstancePtr->Key[Count]);
@@ -430,28 +408,20 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 					+ (Count * 4U);
 			XSecure_Out32(Addr, Value);
 		}
-		Status = XSecure_AesKeySelNLoad(InstancePtr);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
+	}
+
+	Status = XSecure_AesKeySelNLoad(InstancePtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
 	}
 
 	/* Enable CSU DMA Src channel for byte swapping.*/
-	XCsuDma_GetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-						&ConfigurValues);
-	ConfigurValues.EndianType = 1U;
-	XCsuDma_SetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-				&ConfigurValues);
+	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
+	                                 XCSUDMA_SRC_CHANNEL, 1U);
 
 	if (DecData != (u8*)XSECURE_DESTINATION_PCAP_ADDR) {
-		XCsuDma_GetConfig(InstancePtr->CsuDmaPtr,
-					XCSUDMA_DST_CHANNEL,
-					&ConfigurValues);
-		ConfigurValues.EndianType = 1U;
-
-		XCsuDma_SetConfig(InstancePtr->CsuDmaPtr,
-					XCSUDMA_DST_CHANNEL,
-					&ConfigurValues);
+		XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
+	                                     XCSUDMA_DST_CHANNEL, 1U);
 		/* Configure the CSU DMA Tx/Rx for the incoming Block */
 		XCsuDma_Transfer(InstancePtr->CsuDmaPtr,
 					XCSUDMA_DST_CHANNEL,
@@ -506,7 +476,6 @@ END:
 s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 {
 	u32 GcmStatus = (u32)XST_FAILURE;
-	XCsuDma_Configure ConfigurValues = {0};
 	u8 IsFinalUpdate = FALSE;
 
 	/* Assert validates the input arguments */
@@ -553,20 +522,14 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 		}
 
 		/* Disable CSU DMA Src channel for byte swapping. */
-		XCsuDma_GetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-						&ConfigurValues);
-		ConfigurValues.EndianType = 0U;
-		XCsuDma_SetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-						&ConfigurValues);
+		XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
+		                                 XCSUDMA_SRC_CHANNEL, 0U);
 
 		if (InstancePtr->Destination !=
 				(u8 *)XSECURE_DESTINATION_PCAP_ADDR) {
 			/* Disable CSU DMA Dst channel for byte swapping. */
-			XCsuDma_GetConfig(InstancePtr->CsuDmaPtr,
-				XCSUDMA_DST_CHANNEL, &ConfigurValues);
-			ConfigurValues.EndianType = 0U;
-			XCsuDma_SetConfig(InstancePtr->CsuDmaPtr,
-				XCSUDMA_DST_CHANNEL, &ConfigurValues);
+			XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
+			                                 XCSUDMA_DST_CHANNEL, 0U);
 		}
 
 		/* Wait for AES Decryption completion. */
@@ -1022,12 +985,13 @@ END:
  * This function handles decryption using the AES engine.
  *
  * @param	InstancePtr Pointer to the XSecure_Aes instance.
- * @param	Dst 	Pointer to location where encrypted data will be written
- * @param	Src 	Pointer to input data for encryption.
+ * @param	Dst 	Pointer to location where decrypted data will be written
+ * @param	Src 	Pointer to encrypted input data
  * @param	Tag 	Pointer to the GCM tag used for authentication
  * @param	Len 	Length of the output data expected after decryption.
  * @param	Flag 	Denotes whether the block is Secure header or data block
- *
+ *					0 : Secure Header
+ *					1 : Data Block / image
  * @return	returns XST_SUCCESS if GCM tag matching was successful
  *
  *
@@ -1061,17 +1025,10 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 				XCSUDMA_IXR_DONE_MASK);
 
 	/* Enable CSU DMA Src channel for byte swapping.*/
-	XCsuDma_Configure ConfigurValues = {0};
+	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
+	                                 XCSUDMA_SRC_CHANNEL, 1U);
 
-	XCsuDma_GetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-						&ConfigurValues);
-
-	ConfigurValues.EndianType = 1U;
-
-	XCsuDma_SetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-				&ConfigurValues);
-
-	if(Flag != 0U)
+	if(Flag != XSECURE_CSU_AES_BLK_TYPE_SECURE_HEADER)
 	{
 		/*
 		 * This means we are decrypting Block of the boot image.
@@ -1080,14 +1037,9 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 
 		if (Dst != (u8*)XSECURE_DESTINATION_PCAP_ADDR)
 		{
-			XCsuDma_GetConfig(InstancePtr->CsuDmaPtr,
-						XCSUDMA_DST_CHANNEL,
-						&ConfigurValues);
-			ConfigurValues.EndianType = 1U;
+			XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
+			                                 XCSUDMA_DST_CHANNEL, 1U);
 
-			XCsuDma_SetConfig(InstancePtr->CsuDmaPtr,
-						XCSUDMA_DST_CHANNEL,
-						&ConfigurValues);
 			/* Configure the CSU DMA Tx/Rx for the incoming Block. */
 			XCsuDma_Transfer(InstancePtr->CsuDmaPtr,
 						XCSUDMA_DST_CHANNEL,
@@ -1112,16 +1064,8 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 							XCSUDMA_IXR_DONE_MASK);
 
 				/* Disble CSU DMA Dst channel for byte swapping */
-
-				XCsuDma_GetConfig(InstancePtr->CsuDmaPtr,
-							XCSUDMA_DST_CHANNEL,
-							&ConfigurValues);
-
-				ConfigurValues.EndianType = 0U;
-
-				XCsuDma_SetConfig(InstancePtr->CsuDmaPtr,
-							XCSUDMA_DST_CHANNEL,
-							&ConfigurValues);
+				XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
+												 XCSUDMA_DST_CHANNEL, 0U);
 			}
 			else
 			{
@@ -1147,27 +1091,15 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 			/* update address to point to incoming secure header */
 			StartAddrByte += Len;
 		}
-
-		/*
-		 * Configure AES engine to push decrypted Key and IV in the
-		 * block to the CSU KEY and IV registers.
-		 */
-		XSecure_WriteReg(InstancePtr->BaseAddress,
-				XSECURE_CSU_AES_KUP_WR_OFFSET,
-				XSECURE_CSU_AES_IV_WR | XSECURE_CSU_AES_KUP_WR);
-
 	}
-	else
-	{
-		/*
-		 * This means we are decrypting the Secure header.
-		 * Configure AES engine to push decrypted IV in the Secure
-		 * header to the CSU IV register.
-		 */
-		XSecure_WriteReg(InstancePtr->BaseAddress,
-				XSECURE_CSU_AES_KUP_WR_OFFSET,
-				XSECURE_CSU_AES_IV_WR | XSECURE_CSU_AES_KUP_WR);
-	}
+
+	/*
+	 * Configure AES engine to push decrypted Key and IV in the
+	 * block to the CSU KEY and IV registers.
+	 */
+	XSecure_WriteReg(InstancePtr->BaseAddress,
+			XSECURE_CSU_AES_KUP_WR_OFFSET,
+			XSECURE_CSU_AES_IV_WR | XSECURE_CSU_AES_KUP_WR);
 
 	/* Push the Secure header/footer for decrypting next blocks KEY and IV. */
 	if (InstancePtr->IsChunkingEnabled == XSECURE_CSU_AES_CHUNKING_ENABLED)
@@ -1229,13 +1161,8 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 						XCSUDMA_IXR_DONE_MASK);
 
 	/* Disable CSU DMA Src channel for byte swapping. */
-
-	XCsuDma_GetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-							&ConfigurValues);
-	ConfigurValues.EndianType = 0U;
-
-	XCsuDma_SetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-							&ConfigurValues);
+	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
+	                                 XCSUDMA_SRC_CHANNEL, 0U);
 
 	/* Wait for AES Decryption completion. */
 	Status = XSecure_AesWaitForDone(InstancePtr);
@@ -1319,9 +1246,8 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 	u8 *DestAddr= 0x0U;
 	u8 *SrcAddr = 0x0U;
 	u8 *GcmTagAddr;
-	u32 BlockCnt = 0x0U;
+	u32 BlockType;
 	u32 ImageLen = 0x0U;
-	XCsuDma_Configure ConfigurValues = {0};
 	u32 KeyClearStatus;
 	u32 DecryptStatus;
 
@@ -1361,16 +1287,10 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 
 	/* Clear AES_KEY_CLEAR bits to avoid clearing of key */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_CSU_AES_KEY_CLR_OFFSET, (u32)0x0U);
+			XSECURE_CSU_AES_KEY_CLR_OFFSET,
+			(u32)XSECURE_AES_DISABLE_KEY_CLEAR_OP);
 
-	if(InstancePtr->KeySel == XSECURE_CSU_AES_KEY_SRC_DEV)
-	{
-		Status = XSecure_AesKeySelNLoad(InstancePtr);
-		if (Status != (u32)XST_SUCCESS) {
-			goto ENDF;
-		}
-	}
-	else
+	if(InstancePtr->KeySel != XSECURE_CSU_AES_KEY_SRC_DEV)
 	{
 		u32 Count, Value;
 		u32 Addr;
@@ -1385,30 +1305,29 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 
 			XSecure_Out32(Addr, Value);
 		}
-		Status = XSecure_AesKeySelNLoad(InstancePtr);
-		if (Status != (u32)XST_SUCCESS) {
-			goto ENDF;
-		}
 	}
 
+	Status = XSecure_AesKeySelNLoad(InstancePtr);
+	if (Status != (u32)XST_SUCCESS) {
+		goto ENDF;
+	}
+
+	/* Enable CSU DMA Src channel for byte swapping.*/
+	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
+									 XCSUDMA_SRC_CHANNEL, 1U);
+
+	/* First block is always secure header */
+	BlockType = XSECURE_CSU_AES_BLK_TYPE_SECURE_HEADER;
 	do
 	{
 		PrevBlkLen = NextBlkLen;
-		if (BlockCnt == 0U) {
-			/* Enable CSU DMA Src channel for byte swapping.*/
-			XCsuDma_GetConfig(InstancePtr->CsuDmaPtr,
-				XCSUDMA_SRC_CHANNEL, &ConfigurValues);
-			ConfigurValues.EndianType = 1U;
-			XCsuDma_SetConfig(InstancePtr->CsuDmaPtr,
-				XCSUDMA_SRC_CHANNEL, &ConfigurValues);
-		}
 
 		/* Start decryption of Secure-Header/Block/Footer. */
 
 		Status = (u32)XSecure_AesDecryptBlk(InstancePtr, DestAddr,
 						(const u8 *)SrcAddr,
 						((const u8 *)GcmTagAddr),
-						NextBlkLen, BlockCnt);
+						NextBlkLen, BlockType);
 
 		/* If decryption failed then return error. */
 		if(Status != (u32)XST_SUCCESS)
@@ -1436,26 +1355,26 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 				 * then return error.
 				 */
 				Status = (u32)XSECURE_CSU_AES_IMAGE_LEN_MISMATCH;
-				goto ENDF;
 			}
-			else
-			{
-				goto ENDF;
-			}
+
+			goto ENDF;
 		}
-		else
+
+		/*
+		 * If this is not the last block then check
+		 * if the current image > size in the header
+		 * then return error.
+		 */
+		if(CurrentImgLen > ImageLen)
 		{
-			/*
-			 * If this is not the last block then check
-			 * if the current image > size in the header
-			 * then return error.
-			 */
-			if(CurrentImgLen > ImageLen)
-			{
-				Status = (u32)XSECURE_CSU_AES_IMAGE_LEN_MISMATCH;
-				goto ENDF;
-			}
+			Status = (u32)XSECURE_CSU_AES_IMAGE_LEN_MISMATCH;
+			goto ENDF;
 		}
+
+		/* After secure header, rest of the blocks are  data blocks
+		 *  (image blocks)
+		 */
+		BlockType = XSECURE_CSU_AES_BLK_TYPE_DATA_BLOCK;
 
 		/*
 		 * Update DestAddr and SrcAddr for next Block decryption.
@@ -1465,6 +1384,7 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 			DestAddr += PrevBlkLen;
 		}
 		SrcAddr = (GcmTagAddr + XSECURE_SECURE_GCM_TAG_SIZE);
+
 		/*
 		 * We are done with Secure header to decrypt the Block 0
 		 * we can change the AES key source to KUP.
@@ -1482,10 +1402,7 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 		/* Update the GcmTagAddr to get GCM-TAG for next block. */
 		GcmTagAddr = SrcAddr + NextBlkLen + XSECURE_SECURE_HDR_SIZE;
 
-		/* Update block count. */
-		BlockCnt++;
-
-	}while(1);
+	} while(1);
 
 ENDF:
 	if ((Status != (u32)XST_SUCCESS) &&
@@ -1507,4 +1424,33 @@ ENDF:
 	}
 
 	return (s32)Status;
+}
+
+/******************************************************************************/
+/**
+ *
+ * @brief
+ * This is a helper function to enable/disable byte swapping feature of CSU DMA
+ *
+ * @param	InstancePtr 	Pointer to the XCsuDma instance.
+ * @param	Channel 		Channel Type - XCSUDMA_SRC_CHANNEL
+ *                                         XCSUDMA_DST_CHANNEL
+ * @param	EndianType 		1 : Enable Byte Swapping
+ *                          0 : Disable Byte Swapping
+ *
+ * @return
+ *
+ ******************************************************************************/
+static void XSecure_AesCsuDmaConfigureEndiannes(XCsuDma *InstancePtr,
+		XCsuDma_Channel Channel,
+		u8 EndianType)
+{
+	XCsuDma_Configure ConfigValues = {0};
+
+	/* Assert validates the input arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XCsuDma_GetConfig(InstancePtr, Channel, &ConfigValues);
+	ConfigValues.EndianType = EndianType;
+	XCsuDma_SetConfig(InstancePtr, Channel, &ConfigValues);
 }
