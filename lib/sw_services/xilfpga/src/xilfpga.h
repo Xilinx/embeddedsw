@@ -78,6 +78,9 @@
  *                      ZynqMP and versal platforms.
  * 5.0  Nava  26/02/19  Update the data handling logic to avoid the code
  *                      duplication
+ * 5.0  Nava  22/03/19  Added new API's to support the state machine mechanism
+ *                      for bitstream loading to meet the safety requirements
+ *                      with PMUFW.
  * </pre>
  *
  * @note
@@ -125,10 +128,11 @@ extern "C" {
  */
 typedef struct XFpgatag{
 	u32 (*XFpga_ValidateBitstream)(struct XFpgatag *InstancePtr);
-	u32 (*XFpga_PreConfig)(const struct XFpgatag *InstancePtr);
+	u32 (*XFpga_PreConfig)(struct XFpgatag *InstancePtr);
 	u32 (*XFpga_WriteToPl)(struct XFpgatag *InstancePtr);
-	u32 (*XFpga_PostConfig)(const struct XFpgatag *InstancePtr);
+	u32 (*XFpga_PostConfig)(struct XFpgatag *InstancePtr);
 	u32 (*XFpga_GetInterfaceStatus)(void);
+	u32 (*XFpga_GetConfigStatus)(struct XFpgatag *InstancePtr);
 	u32 (*XFpga_GetConfigReg)(const struct XFpgatag *InstancePtr);
 	u32 (*XFpga_GetConfigData)(const struct XFpgatag *InstancePtr);
 	void (* XFpga_GlobSeqWriteReg)(struct XFpgatag *InstancePtr,
@@ -146,6 +150,7 @@ typedef struct XFpgatag{
 #define XFPGA_WRITE_BITSTREAM_ERROR	(0x4U)
 #define XFPGA_POST_CONFIG_ERROR		(0x5U)
 #define XFPGA_OPS_NOT_IMPLEMENTED	(0x6U)
+#define XFPGA_INPROGRESS			(0x7U)
 
 #define XFPGA_FULLBIT_EN			(0x00000000U)
 #define XFPGA_PARTIAL_EN			(0x00000001U)
@@ -154,6 +159,17 @@ typedef struct XFpgatag{
 #define XFPGA_ENCRYPTION_USERKEY_EN		(0x00000008U)
 #define XFPGA_ENCRYPTION_DEVKEY_EN		(0x00000010U)
 #define XFPGA_ONLY_BIN_EN			(0x00000020U)
+
+#define XFPGA_CONFIG_INIT			(0x0U)
+#define XFPGA_VALIDATE_INIT			(0x1U)
+#define XFPGA_PRE_CONFIG			(0x2U)
+#define XFPGA_WRITE_INIT			(0x3U)
+#define	XFPGA_POST_CONFIG			(0x4U)
+#define	XFPGA_CONFIG_COMPLETE		(0x5U)
+
+#define XFPGA_CONFIG_INPROG			(0x0U)
+#define XFPGA_CONFIG_DONE			(0x80000000U)
+#define XFPGA_CONFIG_MASK			(0x07FFFFFFU)
 
 #define XFPGA_SECURE_FLAGS	(				\
 				XFPGA_AUTHENTICATION_DDR_EN	\
@@ -199,6 +215,8 @@ u32 XFpga_Initialize(XFpga *InstancePtr);
 u32 XFpga_PL_BitStream_Load(XFpga *InstancePtr,
 			    UINTPTR BitstreamImageAddr,
 			    UINTPTR AddrPtr_Size, u32 Flags);
+u32 XFpga_PL_Config(XFpga *InstancePtr);
+u32 XFpga_ConfigStatus(XFpga *InstancePtr);
 #endif
 u32 XFpga_PL_Preconfig(XFpga *InstancePtr);
 u32 XFpga_PL_Write(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,

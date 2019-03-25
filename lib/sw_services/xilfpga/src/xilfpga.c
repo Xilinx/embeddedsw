@@ -50,6 +50,9 @@
  *                     ZynqMP and versal platforms.
  * 5.0 Nava  26/02/19  Update the data handling logic to avoid the code
  *		       duplication
+ * 5.0 Nava  22/03/19  Added new API's to support the state machine mechanism
+ *                     for bitstream loading to meet the safety requirements
+ *                     with PMUFW.
  *</pre>
  *
  *@note
@@ -134,7 +137,81 @@ u32 XFpga_PL_BitStream_Load(XFpga *InstancePtr,
 
 	/* set FPGA to operating state after writing */
 	Status = XFpga_PL_PostConfig(InstancePtr);
+
 END:
+	return Status;
+}
+/*****************************************************************************/
+/**The API is used to configure the PL in stages based on user provided info.
+ *
+ *@param InstancePtr Pointer to the XFgpa structure.
+ *
+ *@return
+ *	- XFPGA_SUCCESS on success
+ *	- Error code on failure.
+ *	- XFPGA_PRE_CONFIG_ERROR.
+ *	- XFPGA_WRITE_BITSTREAM_ERROR.
+ *	- XFPGA_POST_CONFIG_ERROR.
+ *
+ *****************************************************************************/
+u32 XFpga_PL_Config(XFpga *InstancePtr)
+{
+	u32 Status = XFPGA_FAILURE;
+
+	switch (InstancePtr->PLInfo.State) {
+
+	case XFPGA_PRE_CONFIG:
+		/* Prepare the FPGA to receive configuration Data */
+		Status = XFpga_PL_Preconfig(InstancePtr);
+		break;
+
+	case XFPGA_WRITE_INIT:
+		/* write count bytes of configuration data into the PL */
+		Status = XFpga_PL_Write(InstancePtr,
+					InstancePtr->WriteInfo.BitstreamAddr,
+					InstancePtr->WriteInfo.AddrPtr_Size,
+					InstancePtr->WriteInfo.Flags);
+		break;
+
+	case XFPGA_POST_CONFIG:
+		/* set FPGA to operating state after writing */
+		Status = XFpga_PL_PostConfig(InstancePtr);
+		break;
+
+	case XFPGA_CONFIG_COMPLETE:
+		Status = XFpga_ConfigStatus(InstancePtr);
+		break;
+
+	default:
+			Xfpga_Printf(XFPGA_DEBUG, "Invalid Option\r\n");
+			Status = XFPGA_FAILURE;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/** This function provides the PL Configuration status.
+ *
+ * @param InstancePtr Pointer to the XFgpa structure
+ *
+ * @return Status of the PL Configuration.
+ *
+ *****************************************************************************/
+u32 XFpga_ConfigStatus(XFpga *InstancePtr)
+{
+	u32 Status;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	if (InstancePtr->XFpga_GetConfigStatus == NULL) {
+		Status = XFPGA_OPS_NOT_IMPLEMENTED;
+		Xfpga_Printf(XFPGA_DEBUG,
+		"%s Implementation not exists..\r\n", __FUNCTION__);
+	} else {
+		Status = InstancePtr->XFpga_GetConfigStatus(InstancePtr);
+	}
+
 	return Status;
 }
 #endif
