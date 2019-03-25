@@ -1970,8 +1970,7 @@ u32 XRFdc_GetCoarseDelaySettings(XRFdc *InstancePtr, u32 Type,
 				u32 Tile_Id, u32 Block_Id,
 				XRFdc_CoarseDelay_Settings *CoarseDelaySettingsPtr);
 u32 XRFdc_SetCoarseDelaySettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-				u32 Block_Id,
-				XRFdc_CoarseDelay_Settings *CoarseDelaySettingsPtr);
+						u32 Block_Id, XRFdc_CoarseDelay_Settings *CoarseDelaySettingsPtr);
 u32 XRFdc_GetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id,
 				u32 Block_Id, u32 *InterpolationFactorPtr);
 u32 XRFdc_GetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id,
@@ -2007,9 +2006,9 @@ u32 XRFdc_GetIntrStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 u32 XRFdc_IntrDisable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 								u32 Block_Id, u32 IntrMask);
 u32 XRFdc_IntrEnable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-								u32 Block_Id, u32 IntrMask);
+				u32 Block_Id, u32 IntrMask);
 u32 XRFdc_SetThresholdClrMode(XRFdc *InstancePtr, u32 Tile_Id,
-			u32 Block_Id, u32 ThresholdToUpdate, u32 ClrMode);
+				u32 Block_Id, u32 ThresholdToUpdate, u32 ClrMode);
 u32 XRFdc_ThresholdStickyClear(XRFdc *InstancePtr, u32 Tile_Id,
 					u32 Block_Id, u32 ThresholdToUpdate);
 void XRFdc_SetStatusHandler(XRFdc *InstancePtr, void *CallBackRef,
@@ -2018,75 +2017,66 @@ u32 XRFdc_SetupFIFO(XRFdc *InstancePtr, u32 Type, int Tile_Id, u8 Enable);
 u32 XRFdc_GetFIFOStatus(XRFdc *InstancePtr, u32 Type,
 				u32 Tile_Id, u8 *EnablePtr);
 u32 XRFdc_SetNyquistZone(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-								u32 Block_Id, u32 NyquistZone);
+						u32 Block_Id, u32 NyquistZone);
 u32 XRFdc_GetNyquistZone(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-								u32 Block_Id, u32 *NyquistZonePtr);
+						u32 Block_Id, u32 *NyquistZonePtr);
 u32 XRFdc_GetOutputCurr(XRFdc *InstancePtr, u32 Tile_Id,
-								u32 Block_Id, u32 *OutputCurrPtr);
+						u32 Block_Id, u32 *OutputCurrPtr);
 u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 						u32 DecimationFactor);
 u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 						u32 InterpolationFactor);
 u32 XRFdc_SetFabClkOutDiv(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-								u16 FabClkDiv);
+				u16 FabClkDiv);
 u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
-						u8 CalibrationMode);
+				u8 CalibrationMode);
 u32 XRFdc_GetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
-						u8 *CalibrationModePtr);
+				u8 *CalibrationModePtr);
 u32 XRFdc_GetClockSource(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-								u32 *ClockSourcePtr);
+				u32 *ClockSourcePtr);
 u32 XRFdc_GetPLLLockStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-							u32 *LockStatusPtr);
+				u32 *LockStatusPtr);
 u32 XRFdc_GetPLLConfig(XRFdc *InstancePtr, u32 Type,
 					u32 Tile_Id, XRFdc_PLL_Settings *PLLSettings);
 u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-		u8 Source, double RefClkFreq, double SamplingRate);
-u32 XRFdc_SetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
-								u16 Mode);
+				u8 Source, double RefClkFreq, double SamplingRate);
+u32 XRFdc_SetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u16 Mode);
 u32 XRFdc_GetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
-								u16 *ModePtr);
+				u16 *ModePtr);
 u32 XRFdc_GetLinkCoupling(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
-								u32 *ModePtr);
+				u32 *ModePtr);
 u32 XRFdc_GetFabClkOutDiv(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-								u16 *FabClkDivPtr);
-u32 XRFdc_SetDither(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
-							u32 Mode);
-u32 XRFdc_GetDither(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
-							u32 *ModePtr);
-u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr,
-									XRFdc_Distribution_Settings
-									*DistributionSettingsPtr);
-u32 XRFdc_GetClkDistribution(XRFdc *InstancePtr,
-									XRFdc_Distribution_Settings
-									*DistributionSettingsPtr);
+				u16 *FabClkDivPtr);
+u32 XRFdc_SetDither(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mode);
+u32 XRFdc_GetDither(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *ModePtr);
+u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings
+				*DistributionSettingsPtr);
+u32 XRFdc_GetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings
+				*DistributionSettingsPtr);
 u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-									XRFdc_Tile_Clock_Settings *SettingsPtr);
-u32 XRFdc_SetOutputDivisionFactor(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-									u8 DivisionFactorPtr);
-u32 XRFdc_GetOutputDivisionFactor(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
-									u8 *DivisionFactorPtr);
+						XRFdc_Tile_Clock_Settings *SettingsPtr);
 u32 XRFdc_SetDACMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
-						u32 Mode);
+					u32 Mode);
 u32 XRFdc_GetDACMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
-						u32 *ModePtr);
+				u32 *ModePtr);
 u32 XRFdc_SetIMRPassMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
-						u32 Mode);
+				u32 Mode);
 u32 XRFdc_GetIMRPassMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
-						u32 *ModePtr);
+					u32 *ModePtr);
 u32 XRFdc_SetSignalDetector(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
-							XRFdc_Signal_Detector_Settings *SettingsPtr);
+					XRFdc_Signal_Detector_Settings *SettingsPtr);
 u32 XRFdc_GetSignalDetector(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
-							XRFdc_Signal_Detector_Settings *SettingsPtr);
+					XRFdc_Signal_Detector_Settings *SettingsPtr);
 u32 XRFdc_DisableCoefficientsOverride(XRFdc *InstancePtr, u32 Tile_Id, u32
-										Block_Id, u32 CalibrationBlock);
-u32 XRFdc_SetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32
-								Block_Id, u32 CalibrationBlock, XRFdc_Calibration_Coefficients *CoeffPtr);
-u32 XRFdc_GetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32
-								Block_Id, u32 CalibrationBlock, XRFdc_Calibration_Coefficients *CoeffPtr);
+						Block_Id, u32 CalibrationBlock);
+u32 XRFdc_SetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
+					u32 CalibrationBlock, XRFdc_Calibration_Coefficients *CoeffPtr);
+u32 XRFdc_GetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
+					u32 CalibrationBlock, XRFdc_Calibration_Coefficients *CoeffPtr);
 u32 XRFdc_SetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
-								XRFdc_Cal_Freeze_Settings *CalFreezePtr);
+					XRFdc_Cal_Freeze_Settings *CalFreezePtr);
 u32 XRFdc_GetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
-								XRFdc_Cal_Freeze_Settings *CalFreezePtr);
+					XRFdc_Cal_Freeze_Settings *CalFreezePtr);
 #ifndef __BAREMETAL__
 s32 XRFdc_GetDeviceNameByDeviceId(char *DevNamePtr, u16 DevId);
 #endif
