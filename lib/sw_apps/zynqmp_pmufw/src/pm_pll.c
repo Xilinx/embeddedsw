@@ -129,8 +129,22 @@ static PmPllParam pllParams[] = {
 static void PmPllBypassAndReset(PmPll* const pll)
 {
 #ifdef ENABLE_EM
-	/* Disable PS error interrupt for PLL lock */
-	XPfw_Write32(PMU_GLOBAL_ERROR_SIG_DIS_2, pll->errmask);
+	u32 pllErrMask = 1 << pll->errShift;
+	pll->errValue = 0;
+	/* Store PLL lock error interrupt masks before disabling it */
+	pll->errValue |= (~XPfw_Read32(PMU_GLOBAL_ERROR_INT_MASK_2) &
+			   pllErrMask) >> pll->errShift;
+	pll->errValue |= ((~XPfw_Read32(PMU_GLOBAL_ERROR_POR_MASK_2) &
+			   pllErrMask) >> pll->errShift) << 1;
+	pll->errValue |= ((~XPfw_Read32(PMU_GLOBAL_ERROR_SRST_MASK_2) &
+			   pllErrMask) >> pll->errShift) << 2;
+	pll->errValue |= ((~XPfw_Read32(PMU_GLOBAL_ERROR_SIG_MASK_2) &
+			   pllErrMask) >> pll->errShift) << 3;
+	/* Disable PLL lock error interrupts before powering down PLL */
+	XPfw_Write32(PMU_GLOBAL_ERROR_INT_DIS_2, pllErrMask);
+	XPfw_Write32(PMU_GLOBAL_ERROR_POR_DIS_2, pllErrMask);
+	XPfw_Write32(PMU_GLOBAL_ERROR_SRST_DIS_2, pllErrMask);
+	XPfw_Write32(PMU_GLOBAL_ERROR_SIG_DIS_2, pllErrMask);
 #endif
 
 	/* Bypass PLL before putting it into the reset */
@@ -161,8 +175,15 @@ static s32 PmPllLock(const PmPll* const pll)
 				      PM_PLL_LOCK_TIMEOUT);
 
 #ifdef ENABLE_EM
-	/* Enable PS error interrupt for PLL lock */
-	XPfw_Write32(PMU_GLOBAL_ERROR_SIG_EN_2, pll->errmask);
+	/* Restore PLL lock error interrupts once PLL is locked */
+	XPfw_Write32(PMU_GLOBAL_ERROR_INT_EN_2,
+		     ((pll->errValue & 1U) << pll->errShift));
+	XPfw_Write32(PMU_GLOBAL_ERROR_POR_EN_2,
+		     (((pll->errValue >> 1) & 1U) << pll->errShift));
+	XPfw_Write32(PMU_GLOBAL_ERROR_SRST_EN_2,
+		     (((pll->errValue >> 2) & 1U) << pll->errShift));
+	XPfw_Write32(PMU_GLOBAL_ERROR_SIG_EN_2,
+		     (((pll->errValue >> 3) & 1U) << pll->errShift));
 #endif
 
 	return status;
@@ -432,7 +453,8 @@ PmPll pmApll_g = {
 	.lockShift = CRF_APB_PLL_STATUS_APLL_LOCK_SHIFT,
 	.flags = 0U,
 #ifdef ENABLE_EM
-	.errmask = PMU_GLOBAL_ERROR_SIG_2_APLL_MASK,
+	.errShift = PMU_GLOBAL_ERROR_SIG_2_APLL_SHIFT,
+	.errValue = 0,
 #endif
 };
 
@@ -456,7 +478,8 @@ PmPll pmVpll_g = {
 	.lockShift = CRF_APB_PLL_STATUS_VPLL_LOCK_SHIFT,
 	.flags = 0U,
 #ifdef ENABLE_EM
-	.errmask = PMU_GLOBAL_ERROR_SIG_2_VPLL_MASK,
+	.errShift = PMU_GLOBAL_ERROR_SIG_2_VPLL_SHIFT,
+	.errValue = 0,
 #endif
 };
 
@@ -480,7 +503,8 @@ PmPll pmDpll_g __attribute__((__section__(".srdata"))) = {
 	.lockShift = CRF_APB_PLL_STATUS_DPLL_LOCK_SHIFT,
 	.flags = 0U,
 #ifdef ENABLE_EM
-	.errmask = PMU_GLOBAL_ERROR_SIG_2_DPLL_MASK,
+	.errShift = PMU_GLOBAL_ERROR_SIG_2_DPLL_SHIFT,
+	.errValue = 0,
 #endif
 };
 
@@ -504,7 +528,8 @@ PmPll pmRpll_g = {
 	.lockShift = CRL_APB_PLL_STATUS_RPLL_LOCK_SHIFT,
 	.flags = 0U,
 #ifdef ENABLE_EM
-	.errmask = PMU_GLOBAL_ERROR_SIG_2_RPLL_MASK,
+	.errShift = PMU_GLOBAL_ERROR_SIG_2_RPLL_SHIFT,
+	.errValue = 0,
 #endif
 };
 
@@ -528,7 +553,8 @@ PmPll pmIOpll_g = {
 	.lockShift = CRL_APB_PLL_STATUS_IOPLL_LOCK_SHIFT,
 	.flags = 0U,
 #ifdef ENABLE_EM
-	.errmask = PMU_GLOBAL_ERROR_SIG_2_IOPLL_MASK,
+	.errShift = PMU_GLOBAL_ERROR_SIG_2_IOPLL_SHIFT,
+	.errValue = 0,
 #endif
 };
 
