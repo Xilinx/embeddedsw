@@ -55,6 +55,8 @@
 *                       status and returns an error code.
 *       cog	   02/20/19	XRFdc_IntrClr, XRFdc_IntrDisable and XRFdc_IntrEnable
 *                       now return error codes.
+*       cog    03/25/19 The new common mode over/under voltage interrupts mask
+*                       bits were clashing with other interrupt bits.
 * </pre>
 *
 ******************************************************************************/
@@ -154,11 +156,13 @@ u32 XRFdc_IntrEnable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 				ReadReg |=
 				(XRFDC_ADC_DAT_OVR_MASK >> XRFDC_ADC_DAT_FIFO_OVR_SHIFT);
 			}
-			if ((IntrMask & XRFDC_INTR_CMODE_OVR_MASK) != 0U) {
-				ReadReg |= XRFDC_INTR_CMODE_OVR_MASK;
+			if ((IntrMask & XRFDC_ADC_CMODE_OVR_MASK) != 0U) {
+				ReadReg |=
+				(XRFDC_ADC_CMODE_OVR_MASK >> XRFDC_ADC_CMODE_SHIFT);
 			}
-			if ((IntrMask & XRFDC_INTR_CMODE_UNDR_MASK) != 0U) {
-				ReadReg |= XRFDC_INTR_CMODE_UNDR_MASK;
+			if ((IntrMask & XRFDC_ADC_CMODE_UNDR_MASK) != 0U) {
+				ReadReg |=
+				(XRFDC_ADC_CMODE_UNDR_MASK >> XRFDC_ADC_CMODE_SHIFT);
 			}
 
 			XRFdc_WriteReg(InstancePtr, BaseAddr,
@@ -289,11 +293,13 @@ u32 XRFdc_IntrDisable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 				ReadReg &=
 				~(XRFDC_ADC_DAT_OVR_MASK >> XRFDC_ADC_DAT_FIFO_OVR_SHIFT);
 			}
-			if ((IntrMask & XRFDC_INTR_CMODE_OVR_MASK) != 0U) {
-				ReadReg &= ~XRFDC_INTR_CMODE_OVR_MASK;
+			if ((IntrMask & XRFDC_ADC_CMODE_OVR_MASK) != 0U) {
+				ReadReg &=
+				~(XRFDC_ADC_CMODE_OVR_MASK >> XRFDC_ADC_CMODE_SHIFT);
 			}
-			if ((IntrMask & XRFDC_INTR_CMODE_UNDR_MASK) != 0U) {
-				ReadReg &= ~XRFDC_INTR_CMODE_UNDR_MASK;
+			if ((IntrMask & XRFDC_ADC_CMODE_UNDR_MASK) != 0U) {
+				ReadReg &=
+				~(XRFDC_ADC_CMODE_UNDR_MASK >> XRFDC_ADC_CMODE_SHIFT);
 			}
 
 			XRFdc_WriteReg(InstancePtr, BaseAddr,
@@ -410,8 +416,10 @@ u32 XRFdc_GetIntrStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 				XRFDC_ADC_DAT_FIFO_OVR_SHIFT);
 
 		/* Check for Common Mode Over/Under Voltage */
-		*IntrStsPtr |= (ReadReg & XRFDC_INTR_CMODE_OVR_MASK);
-		*IntrStsPtr |= (ReadReg & XRFDC_INTR_CMODE_UNDR_MASK);
+		*IntrStsPtr |= ((ReadReg & XRFDC_INTR_CMODE_OVR_MASK) <<
+				XRFDC_ADC_CMODE_SHIFT);
+		*IntrStsPtr |= ((ReadReg & XRFDC_INTR_CMODE_UNDR_MASK) <<
+				XRFDC_ADC_CMODE_SHIFT);
 
 		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
@@ -444,7 +452,7 @@ u32 XRFdc_GetIntrStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	}
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
-	return *IntrStsPtr;
+	return Status;
 }
 
 /****************************************************************************/
@@ -516,17 +524,16 @@ u32 XRFdc_IntrClr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 				XRFDC_CONV_INTR_STS(Block_Id), (IntrMask &
 				XRFDC_ADC_DAT_OVR_MASK) >> XRFDC_ADC_DAT_FIFO_OVR_SHIFT);
 		}
-		if ((IntrMask & XRFDC_INTR_CMODE_OVR_MASK) != 0U) {
+		if ((IntrMask & XRFDC_ADC_CMODE_OVR_MASK) != 0U) {
 			XRFdc_WriteReg(InstancePtr, BaseAddr,
 				XRFDC_CONV_INTR_STS(Block_Id), (IntrMask &
-				XRFDC_INTR_CMODE_OVR_MASK));
+				XRFDC_ADC_CMODE_OVR_MASK) >> XRFDC_ADC_CMODE_SHIFT);
 		}
-		if ((IntrMask & XRFDC_INTR_CMODE_UNDR_MASK) != 0U) {
+		if ((IntrMask & XRFDC_ADC_CMODE_UNDR_MASK) != 0U) {
 			XRFdc_WriteReg(InstancePtr, BaseAddr,
 				XRFDC_CONV_INTR_STS(Block_Id), (IntrMask &
-				XRFDC_INTR_CMODE_UNDR_MASK));
+				XRFDC_ADC_CMODE_UNDR_MASK) >> XRFDC_ADC_CMODE_SHIFT);
 		}
-
 		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 		/* Check for FIFO interface interrupts */
@@ -538,8 +545,8 @@ u32 XRFdc_IntrClr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		/* Check for SUBADC interrupts */
 		if ((IntrMask & XRFDC_SUBADC_IXR_DCDR_MASK) != 0U) {
 			XRFdc_WriteReg16(InstancePtr, BaseAddr,
-				XRFDC_ADC_DEC_ISR_OFFSET, (u16)(IntrMask &
-				XRFDC_SUBADC_IXR_DCDR_MASK) >> XRFDC_ADC_SUBADC_DCDR_SHIFT);
+				XRFDC_ADC_DEC_ISR_OFFSET, (u16)((IntrMask &
+				XRFDC_SUBADC_IXR_DCDR_MASK) >> XRFDC_ADC_SUBADC_DCDR_SHIFT));
 		}
 		/* Check for DataPath interrupts */
 		if ((IntrMask & XRFDC_ADC_IXR_DATAPATH_MASK) != 0U) {
@@ -591,7 +598,7 @@ RETURN_PATH:
 u32 XRFdc_IntrHandler(u32 Vector, void *XRFdcPtr)
 {
 	XRFdc *InstancePtr = (XRFdc *)XRFdcPtr;
-	u32 Intrsts;
+	u32 Intrsts = 0x0U;
 	u32 Tile_Id = XRFDC_TILE_ID4;
 	u32 Block_Id = XRFDC_BLK_ID4;
 	u32 ReadReg;
@@ -669,12 +676,12 @@ u32 XRFdc_IntrHandler(u32 Vector, void *XRFdcPtr)
 			IntrMask |= Intrsts & XRFDC_ADC_DAT_OVR_MASK;
 			metal_log(METAL_LOG_DEBUG, "\n ADC DATA OF interrupt \r\n");
 		}
-		if ((Intrsts & XRFDC_INTR_CMODE_OVR_MASK) != 0U) {
-			IntrMask |= XRFDC_INTR_CMODE_OVR_MASK;
+		if ((Intrsts & XRFDC_ADC_CMODE_OVR_MASK) != 0U) {
+			IntrMask |= XRFDC_ADC_CMODE_OVR_MASK;
 			metal_log(METAL_LOG_DEBUG, "\n ADC CMODE OV interrupt \r\n");
 		}
-		if ((Intrsts & XRFDC_INTR_CMODE_UNDR_MASK) != 0U) {
-			IntrMask |= XRFDC_INTR_CMODE_UNDR_MASK;
+		if ((Intrsts & XRFDC_ADC_CMODE_UNDR_MASK) != 0U) {
+			IntrMask |= XRFDC_ADC_CMODE_UNDR_MASK;
 			metal_log(METAL_LOG_DEBUG, "\n ADC CMODE UV interrupt \r\n");
 		}
 		if ((Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
