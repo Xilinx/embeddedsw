@@ -441,6 +441,8 @@ typedef struct {
 	u8 *Hdcp22Lc128Ptr;		/**< Pointer to HDCP 2.2 LC128 */
 	u8 *Hdcp22PrivateKeyPtr;	/**< Pointer to HDCP 2.2 Private key */
 #endif
+	u8 *EdidDataPtr;		/**< Pointer to EDID Data */
+	u16 EdidSize;			/**< Size of EDID Data */
 } XDpRxSs;
 
 /***************** Macros (Inline Functions) Definitions *********************/
