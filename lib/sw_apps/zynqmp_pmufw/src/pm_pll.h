@@ -83,6 +83,7 @@ typedef struct PmPllContext {
  * @lockShift	Shift of the lock status bit in status register
  * @flags	PLL flags
  * @errmask	PMU GLOBAL error mask to disable and enable error interrupt
+ * @errValue	PMU GLOBAL error value
  */
 typedef struct PmPll {
 	PmNode node;
@@ -93,7 +94,8 @@ typedef struct PmPll {
 	const u8 lockShift;
 	u8 flags;
 #ifdef ENABLE_EM
-	u32 errmask;
+	u32 errShift;
+	u32 errValue;
 #endif
 } PmPll;
 
