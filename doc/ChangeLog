@@ -37,6 +37,10 @@ New ADC signal detector (IP dependent).
 New calibration override APIs (IP dependent).
 Extended coarse delay (IP dependent).
 New clock distribution network with integer clock division(IP dependent).
+New Common mode over/under interrupts (IP dependent)
+Interrupt APIs now return standard error codes (exempt XRFdc_IntrHandeler
+and XRFdc_SetStatusHandler).
+XRFdc_DynamicPLLConfig now only restarts a tile if it was on previously.
 
 libmetal_v2_0:
 Updated shared memory APIs to decouple from shmem allocation implementation

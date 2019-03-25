@@ -72,6 +72,8 @@
 *       cog    02/20/19 New Masks for ADC common mode over/under voltage interrupts.
 *       cog    02/21/19 New Masks and offsets for XRFdc_SetCalFreeze() and
 *                       XRFdc_GetCalFreeze() APIs.
+*       cog    03/25/19 The new common mode over/under voltage interrupts mask
+*                       bits were clashing with other interrupt bits.
 *
 *</pre>
 *
@@ -2177,6 +2179,8 @@ extern "C" {
 #define XRFDC_SUBADC3_IXR_DCDR_UF_MASK 		0x00800000U
 #define XRFDC_ADC_OVR_VOLTAGE_MASK			0x04000000U
 #define XRFDC_ADC_OVR_RANGE_MASK			0x08000000U
+#define XRFDC_ADC_CMODE_OVR_MASK			0x10000000U
+#define XRFDC_ADC_CMODE_UNDR_MASK			0x20000000U
 #define XRFDC_ADC_DAT_OVR_MASK				0x40000000U
 #define XRFDC_ADC_FIFO_OVR_MASK				0x80000000U
 #define XRFDC_DAC_MC_CFG2_OPCSCAS_MASK		0x0000F8F8U
@@ -2189,7 +2193,8 @@ extern "C" {
 #define XRFDC_ADC_OVR_VOL_RANGE_SHIFT		24U
 #define XRFDC_ADC_DAT_FIFO_OVR_SHIFT		16U
 #define XRFDC_ADC_SUBADC_DCDR_SHIFT			16U
-#define XRFDC_DATA_PATH_SHIFT			4U
+#define XRFDC_DATA_PATH_SHIFT				4U
+#define XRFDC_ADC_CMODE_SHIFT				10U
 
 #define XRFDC_DAC_TILE_DRP_ADDR(X)			(0x6000U + (X * 0x4000U))
 #define XRFDC_DAC_TILE_CTRL_STATS_ADDR(X)	(0x4000U + (X * 0x4000U))
