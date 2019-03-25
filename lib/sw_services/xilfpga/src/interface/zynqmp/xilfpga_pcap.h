@@ -116,6 +116,9 @@
  * 5.0 Nava  21/03/19  Added Address alingment check. As CSUDMA expects word
  *		       aligned address. In case user passes an unaligned
  *		       address return error.
+ * 5.0 Nava  22/03/19  Added new API's to support the state machine mechanism
+ *                     for bitstream loading to meet the safety requirements
+ *                     with PMUFW.
  * </pre>
  *
  * @note
@@ -288,13 +291,47 @@ extern "C" {
 #define CTL1		24U /* Control Register 1 */
 
 /**************************** Type Definitions *******************************/
+ typedef struct {
+	XSecure_Aes *SecureAes;	/* AES initialized structure */
+	u32 NextBlkLen;		/* Not required for user, used
+				 * for storing next block size
+				 */
+ } XFpgaPs_PlEncryption;
+
+ typedef struct {
+	XFpgaPs_PlEncryption PlEncrypt;	/* Encryption parameters */
+	u8 SecureHdr[XSECURE_SECURE_HDR_SIZE + XSECURE_SECURE_GCM_TAG_SIZE];
+	u8 Hdr;
+	XSecure_Sss SssInstance;
+ } XFpgaPs_PlPartition;
+
 /**
  * Structure to store the PL Image details.
  *
  * @XSecure_ImageInfo	Used to store the secure image data.
+ * @PlAesInfo used to store the encrypted image data.
+ * @Secure_Aes The AES-GCM driver instance data structure
+ * @TotalBitPartCount Used to store the number of Authenticated partitions info.
+ * @SecureOcmState Used to Preserve the initialization states for the OCM
+ *                 use cases.
+ * @ConfigStatus Used to preserve the software PL configuration status
+ * @State Used to Preserve the software state machine.
+ * @RemaningBytes used to preserve the remaining byte to process Authenticated
+ *                bitstream Images.
+ * @AcPtr Used to Access the authenticate certificate buffer address
+ * @BitAddr Used to Access the Bitstream buffer Address.
  */
 typedef struct {
 	XSecure_ImageInfo SecureImageInfo;
+	XFpgaPs_PlPartition PlAesInfo;
+	XSecure_Aes Secure_Aes;
+	s32 TotalBitPartCount;
+	s32 SecureOcmState;
+	s32 ConfigStatus;
+	s32 State;
+	u32 RemaningBytes;
+	UINTPTR AcPtr;
+	UINTPTR BitAddr;
 } XFpga_Info;
 
 /**
