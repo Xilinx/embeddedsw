@@ -1,35 +1,13 @@
 /*******************************************************************************
- *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
- * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Except as contained in this notice, the name of the Xilinx shall not be used
- * in advertising or otherwise to promote the sale, use or other dealings in
- * this Software without prior written authorization from Xilinx.
- *
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /******************************************************************************/
 /**
  *
  * @file xdp_spm.c
- * @addtogroup dp_v7_0
+ * @addtogroup dp_v7_3
  * @{
  *
  * This file contains the stream policy maker functions for the XDp driver.
@@ -161,20 +139,26 @@ void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 		/* Check for Dp1.4 or Dp1.2/1.1 */
 		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
 			if ((MsaConfig->PixelClockHz > 540000000) &&
-			    (LinkConfig->LaneCount == XDP_TX_LANE_COUNT_SET_4)) {
+			    (LinkConfig->LaneCount == XDP_TX_LANE_COUNT_SET_4) &&
+				(XPAR_XDP_0_QUAD_PIXEL_ENABLE == 1)) {
 				MsaConfig->UserPixelWidth = 4;
 			} else if ((MsaConfig->PixelClockHz > 270000000) &&
-				   (LinkConfig->LaneCount != XDP_TX_LANE_COUNT_SET_1)) {
+				   (LinkConfig->LaneCount != XDP_TX_LANE_COUNT_SET_1) &&
+				   ((XPAR_XDP_0_DUAL_PIXEL_ENABLE == 1) ||
+				    (XPAR_XDP_0_QUAD_PIXEL_ENABLE == 1))) {
 				MsaConfig->UserPixelWidth = 2;
 			} else {
 				MsaConfig->UserPixelWidth = 1;
 			}
 		} else {
 			if ((MsaConfig->PixelClockHz > 300000000) &&
-			    (LinkConfig->LaneCount == XDP_TX_LANE_COUNT_SET_4)) {
+			    (LinkConfig->LaneCount == XDP_TX_LANE_COUNT_SET_4) &&
+			    (XPAR_XDP_0_QUAD_PIXEL_ENABLE ==1)) {
 				MsaConfig->UserPixelWidth = 4;
 			} else if ((MsaConfig->PixelClockHz > 75000000) &&
-				   (LinkConfig->LaneCount != XDP_TX_LANE_COUNT_SET_1)) {
+				   (LinkConfig->LaneCount != XDP_TX_LANE_COUNT_SET_1) &&
+					((XPAR_XDP_0_DUAL_PIXEL_ENABLE == 1) ||
+					 (XPAR_XDP_0_QUAD_PIXEL_ENABLE ==1))) {
 				MsaConfig->UserPixelWidth = 2;
 			} else {
 				MsaConfig->UserPixelWidth = 1;
@@ -1186,7 +1170,7 @@ void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream)
 	 * RB2 Video bandwidth : Set Line Reset Disable for Load >95%*/
 	RegVal = XDp_ReadReg(BaseAddr, XDP_RX_LINE_RESET_DISABLE);
 	if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
-		if((StreamLoad>80) && (HBlank == 80)) {
+		if ((StreamLoad > 80) || (HBlank == 80) || (HBlank == 60)) {
 			RegVal |= XDP_RX_LINE_RESET_DISABLE_MASK(Stream);
 		} else {
 			RegVal &= ~XDP_RX_LINE_RESET_DISABLE_MASK(Stream);
@@ -1348,7 +1332,8 @@ static void XDp_TxSetLineReset(XDp *InstancePtr, u8 Stream,
 
 	/* CVT spec. states HBlank is either 80 or 160 for reduced blanking. */
 	RegVal = XDp_ReadReg(ConfigPtr->BaseAddr, XDP_TX_LINE_RESET_DISABLE);
-	if ((HBlank < HReducedBlank) && ((HBlank == 80) || (HBlank == 160))) {
+	if ((HBlank < HReducedBlank) &&
+			((HBlank == 60) || (HBlank == 80) || (HBlank == 160))) {
 		RegVal |= XDP_TX_LINE_RESET_DISABLE_MASK(Stream);
 	}
 	else {
