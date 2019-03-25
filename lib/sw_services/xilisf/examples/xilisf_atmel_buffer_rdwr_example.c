@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -128,6 +128,8 @@ static int SetupInterruptSystem(XSpi *SpiPtr);
 
 void SpiHandler(void *CallBackRef, u32 StatusEvent, u16 ByteCount);
 
+static int IsfAtmelFlashExample(void);
+
 /************************** Variable Definitions *****************************/
 
 /*
@@ -172,7 +174,36 @@ u8 WriteBuffer[ISF_PAGE_SIZE]; 				   /* Write buffer */
 /*****************************************************************************/
 /**
 *
-* Main function to execute the Atmel Serial Flash Buffer Read/Write example.
+* Main function to call the Atmel Serial Flash example.
+*
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+*
+* @note		None
+*
+******************************************************************************/
+int main(void)
+{
+	int Status;
+
+	xil_printf("Atmel Serial Flash Buffer Read/Write Interrupt example\r\n");
+
+	/*
+	 * Run the Atmel flash example.
+	 */
+	Status = IsfAtmelFlashExample();
+	if (Status != XST_SUCCESS) {
+		xil_printf("Atmel Serial Flash Buffer Read/Write example Failed\r\n");
+		return XST_FAILURE;
+	}
+
+	xil_printf("Successfully ran Atmel Serial Flash Buffer Read/Write example\r\n");
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* Function to execute the Atmel Serial Flash Buffer Read/Write example.
 *
 * @param	None
 *
@@ -181,7 +212,7 @@ u8 WriteBuffer[ISF_PAGE_SIZE]; 				   /* Write buffer */
 * @note		None
 *
 ******************************************************************************/
-int main(void)
+static int IsfAtmelFlashExample(void)
 {
 	int Status;
 	u16 Index;

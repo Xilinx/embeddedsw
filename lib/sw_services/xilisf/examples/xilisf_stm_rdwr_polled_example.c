@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -103,6 +103,7 @@
 
 /************************** Function Prototypes ******************************/
 
+static int IsfFlashPolledExample(void);
 static int IsfWaitForFlashNotBusy(void);
 
 /************************** Variable Definitions *****************************/
@@ -146,7 +147,36 @@ u8 WriteBuffer[ISF_PAGE_SIZE];				  /* Write buffer */
 /*****************************************************************************/
 /**
 *
-* Main function to execute the STM Serial Flash Read/Write polled example.
+* Main function to call the STM Flash example.
+*
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+*
+* @note		None
+*
+******************************************************************************/
+int main(void)
+{
+	int Status;
+
+	xil_printf("STM Read Write example\r\n");
+
+	/*
+	 * Run the STM flash example.
+	 */
+	Status = IsfFlashPolledExample();
+	if (Status != XST_SUCCESS) {
+		xil_printf("STM Read Write example Failed\r\n");
+		return XST_FAILURE;
+	}
+
+	xil_printf("Successfully ran STM Read Write example\r\n");
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* Function to execute the STM Serial Flash Read/Write polled example.
 *
 * @param	None
 *
@@ -155,7 +185,7 @@ u8 WriteBuffer[ISF_PAGE_SIZE];				  /* Write buffer */
 * @note		None
 *
 ******************************************************************************/
-int main()
+static int IsfFlashPolledExample(void)
 {
 	int Status;
 	u32 Index;
