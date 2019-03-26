@@ -135,6 +135,7 @@ Fix data alignment on IAR compiler
 
 spips_v3_2:
 Resolved MISRA-C:2012 violations in safety mode(CR#1016116)
+Added versal support
 
 standalone_v7_0:
 Includded stddef.h and stdint.h in xbasic_types.h
