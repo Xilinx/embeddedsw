@@ -32,6 +32,6 @@ BEGIN driver video_common
 	OPTION supported_peripherals = ();
 	OPTION driver_state = ACTIVE;
 	OPTION copyfiles = all;
-	OPTION VERSION = 4.5;
+	OPTION VERSION = 4.6;
 	OPTION NAME = video_common;
 END driver
