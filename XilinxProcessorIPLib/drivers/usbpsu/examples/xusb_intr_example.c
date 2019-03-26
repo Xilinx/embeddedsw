@@ -78,7 +78,6 @@
 #pragma data_alignment = 32
 #endif
 u8 Buffer[MEMORY_SIZE];
-#pragma data_alignment = 4
 #else
 u8 Buffer[MEMORY_SIZE] ALIGNMENT_CACHELINE;
 #endif
@@ -126,13 +125,19 @@ XScuGic	InterruptController;	/* Interrupt controller instance */
 #ifdef __ICCARM__
 #if defined (PLATFORM_ZYNQMP) || defined (versal)
 #pragma data_alignment = 64
+u8 VirtFlash[VFLASH_SIZE];
+#pragma data_alignment = 64
+USB_CBW CBW;
+#pragma data_alignment = 64
+USB_CSW CSW;
 #else
 #pragma data_alignment = 32
-#endif
 u8 VirtFlash[VFLASH_SIZE];
+#pragma data_alignment = 32
 USB_CBW CBW;
+#pragma data_alignment = 32
 USB_CSW CSW;
-#pragma data_alignment = 4
+#endif
 #else
 u8 VirtFlash[VFLASH_SIZE] ALIGNMENT_CACHELINE;
 USB_CBW CBW ALIGNMENT_CACHELINE;

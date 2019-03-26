@@ -40,6 +40,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   rb   22/02/18 First release
  * 1.5   vak  13/02/19 Added support for versal
+ * 1.5   vak  03/25/19 Fixed incorrect data_alignment pragma directive for IAR
  *
  *</pre>
  ******************************************************************************/
@@ -421,7 +422,6 @@ static void Usb_AudioClassReq(struct Usb_DevData *InstancePtr, SetupPacket *Setu
 #pragma data_alignment = 32
 #endif
 	static u8 Reply[USB_REQ_REPLY_LEN];
-#pragma data_alignment = 4
 #else
 	static u8 Reply[USB_REQ_REPLY_LEN] ALIGNMENT_CACHELINE;
 #endif
@@ -667,7 +667,6 @@ static void Usb_DfuClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupD
 #pragma data_alignment = 32
 #endif
 	static u8 DFUReply[6];
-#pragma data_alignment = 4
 #else
 	static u8 DFUReply[6] ALIGNMENT_CACHELINE;
 #endif

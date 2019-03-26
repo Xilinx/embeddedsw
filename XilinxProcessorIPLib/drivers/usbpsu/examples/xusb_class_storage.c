@@ -44,6 +44,7 @@
  * 1.4   BK  12/01/18  Renamed the file and added changes to have a common
  *		       example for all USB IPs.
  * 1.5	  vak 13/02/19  Added support for versal
+ * 1.5    vak 03/25/19 Fixed incorrect data_alignment pragma directive for IAR
  *
  * </pre>
  *
@@ -124,10 +125,6 @@ extern u8	*VirtFlashWritePointer;
 static u8 txBuffer[128];
 #else
 static u8 txBuffer[128] ALIGNMENT_CACHELINE;
-#endif
-
-#ifdef __ICCARM__
-#pragma data_alignment = 4
 #endif
 
 /*****************************************************************************/
