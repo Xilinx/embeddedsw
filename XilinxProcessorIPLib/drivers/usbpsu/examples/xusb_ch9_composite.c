@@ -39,6 +39,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   rb   05/03/18 First release
+ * 1.5   vak  03/25/19 Fixed incorrect data_alignment pragma directive for IAR
  *
  *</pre>
  ******************************************************************************/
@@ -1170,10 +1171,6 @@ DFU_USB_CONFIG __attribute__ ((aligned(16))) DFUconfig2 = {
 	}
 };
 
-#ifdef __ICCARM__
-#pragma data_alignment = 4
-#endif
-
 USB_STD_HID_DESC hid_desc = {
 	.bLength		=	sizeof(USB_STD_HID_DESC),
 	.bDescriptorType	=	USB_TYPE_HID_DESC,
@@ -1481,10 +1478,6 @@ u32 Usb_Ch9SetupBosDescReply(u8 *BufPtr, u32 BufLen)
 		0x00}				/* Disable LPM for USB 3.0 */
 #endif
 	};
-
-#ifdef __ICCARM__
-#pragma data_alignment = 4
-#endif
 
 	/* Check buffer pointer is OK and buffer is big enough. */
 	if (!BufPtr)
