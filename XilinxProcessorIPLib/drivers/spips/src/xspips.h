@@ -251,6 +251,7 @@
 * 3.2   aru    01/20/19 Fixes violations according to MISRAC-2012
 *                       in safety mode and done changes such as
 *                       Declared the pointer param as Pointer to const.
+* 3.2   nsk    03/26/19 Add support for versal - CR #1025583.
 * </pre>
 *
 ******************************************************************************/
