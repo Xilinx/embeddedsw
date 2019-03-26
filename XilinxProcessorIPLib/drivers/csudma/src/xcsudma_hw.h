@@ -62,23 +62,23 @@ extern "C" {
 /** @name Registers offsets
  * @{
  */
-#define XCSUDMA_ADDR_OFFSET	0x000	/**< Address Register Offset */
-#define XCSUDMA_SIZE_OFFSET	0x004	/**< Size Register Offset */
-#define XCSUDMA_STS_OFFSET	0x008	/**< Status Register Offset */
-#define XCSUDMA_CTRL_OFFSET	0x00C	/**< Control Register Offset */
-#define XCSUDMA_CRC_OFFSET	0x010	/**< CheckSum Register Offset */
-#define XCSUDMA_I_STS_OFFSET	0x014	/**< Interrupt Status Register
+#define XCSUDMA_ADDR_OFFSET	0x000U	/**< Address Register Offset */
+#define XCSUDMA_SIZE_OFFSET	0x004U	/**< Size Register Offset */
+#define XCSUDMA_STS_OFFSET	0x008U	/**< Status Register Offset */
+#define XCSUDMA_CTRL_OFFSET	0x00CU	/**< Control Register Offset */
+#define XCSUDMA_CRC_OFFSET	0x010U	/**< CheckSum Register Offset */
+#define XCSUDMA_I_STS_OFFSET	0x014U	/**< Interrupt Status Register
 					  *  Offset */
-#define XCSUDMA_I_EN_OFFSET	0x018	/**< Interrupt Enable Register
+#define XCSUDMA_I_EN_OFFSET	0x018U	/**< Interrupt Enable Register
 					  *  Offset */
-#define XCSUDMA_I_DIS_OFFSET	0x01C	/**< Interrupt Disable Register
+#define XCSUDMA_I_DIS_OFFSET	0x01CU	/**< Interrupt Disable Register
 					  *  Offset */
-#define XCSUDMA_I_MASK_OFFSET	0x020	/**< Interrupt Mask Register Offset */
-#define XCSUDMA_CTRL2_OFFSET	0x024	/**< Interrupt Control Register 2
+#define XCSUDMA_I_MASK_OFFSET	0x020U	/**< Interrupt Mask Register Offset */
+#define XCSUDMA_CTRL2_OFFSET	0x024U	/**< Interrupt Control Register 2
 					  *  Offset */
 #define XCSUDMA_ADDR_MSB_OFFSET	0x028U	/**< Address's MSB Register Offset */
-#define XCSUDMA_SAFETY_CHK_OFFSET 0xFF8	/**< Safety Check Field Offset */
-#define XCSUDMA_FUTURE_ECO_OFFSET 0xFFC	/**< Future potential ECO Offset */
+#define XCSUDMA_SAFETY_CHK_OFFSET 0xFF8U /**< Safety Check Field Offset */
+#define XCSUDMA_FUTURE_ECO_OFFSET 0xFFCU /**< Future potential ECO Offset */
 /*@}*/
 
 /** @name CSU Base address and CSU_DMA reset offset

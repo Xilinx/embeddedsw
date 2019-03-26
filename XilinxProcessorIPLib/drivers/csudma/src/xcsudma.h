@@ -116,6 +116,7 @@
 *	adk     28/08/18 Fixed misra-c required standard violations..
 *       Rama	02/26/19 Fixed IAR issue by changing
 *						 "XCsuDma_WaitForDoneTimeout" to function
+*       arc     03/26/19 Fixed MISRA-C violations.
 * </pre>
 *
 ******************************************************************************/
@@ -166,9 +167,9 @@ typedef enum {
  */
 #define XCSUDMA_SIZE_MAX 0x07FFFFFFU	/**< Maximum allowed no of words */
 
-#define XCSUDMA_DMATYPEIS_CSUDMA 	0
-#define XCSUDMA_DMATYPEIS_PMCDMA0	1
-#define XCSUDMA_DMATYPEIS_PMCDMA1	2
+#define XCSUDMA_DMATYPEIS_CSUDMA 	0U
+#define XCSUDMA_DMATYPEIS_PMCDMA0	1U
+#define XCSUDMA_DMATYPEIS_PMCDMA1	2U
 
 /*@}*/
 

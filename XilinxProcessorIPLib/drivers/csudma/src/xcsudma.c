@@ -49,6 +49,7 @@
 *			 PMU Microblaze platform.
 *		Rama	02/26/19 Fixed IAR issue by changing
 *						 "XCsuDma_WaitForDoneTimeout" to function
+*       arc     03/26/19 Fixed MISRA-C violations.
 * </pre>
 *
 ******************************************************************************/
