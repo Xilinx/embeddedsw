@@ -76,7 +76,7 @@ extern "C" {
 #define XCSUDMA_I_MASK_OFFSET	0x020	/**< Interrupt Mask Register Offset */
 #define XCSUDMA_CTRL2_OFFSET	0x024	/**< Interrupt Control Register 2
 					  *  Offset */
-#define XCSUDMA_ADDR_MSB_OFFSET	0x028	/**< Address's MSB Register Offset */
+#define XCSUDMA_ADDR_MSB_OFFSET	0x028U	/**< Address's MSB Register Offset */
 #define XCSUDMA_SAFETY_CHK_OFFSET 0xFF8	/**< Safety Check Field Offset */
 #define XCSUDMA_FUTURE_ECO_OFFSET 0xFFC	/**< Future potential ECO Offset */
 /*@}*/
