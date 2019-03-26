@@ -100,7 +100,7 @@ s32 XCsuDma_CfgInitialize(XCsuDma *InstancePtr, XCsuDma_Config *CfgPtr,
 						sizeof(XCsuDma_Config));
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 
-	if (InstancePtr->Config.DmaType == XCSUDMA_DMATYPEIS_CSUDMA) {
+	if (InstancePtr->Config.DmaType == (u8)XCSUDMA_DMATYPEIS_CSUDMA) {
 		/* Reset CSUDMA */
 		XCsuDma_Reset();
 	}
