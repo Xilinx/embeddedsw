@@ -51,6 +51,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   rb   26/03/18 First release
+ * 1.5   vak  03/25/19 Fixed incorrect data_alignment pragma directive for IAR
  *
  * </pre>
  *
@@ -80,7 +81,6 @@ struct Usb_DevData UsbInstance;
 #ifdef __ICCARM__
 #pragma data_alignment = 32
 u8 Buffer[MEMORY_SIZE];
-#pragma data_alignment = 4
 #else
 u8 Buffer[MEMORY_SIZE] ALIGNMENT_CACHELINE;
 #endif

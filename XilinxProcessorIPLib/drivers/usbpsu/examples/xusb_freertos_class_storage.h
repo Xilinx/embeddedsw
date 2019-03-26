@@ -38,6 +38,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   rb   22/03/18 First release
+ * 1.5   vak  03/25/19 Fixed incorrect data_alignment pragma directive for IAR
  *
  * </pre>
  *
@@ -227,12 +228,15 @@ struct storage_dev {
 #ifdef __ICCARM__
 #if defined (PLATFORM_ZYNQMP) || defined (versal)
 #pragma data_alignment = 64
+	USB_CBW cbw;
+#pragma data_alignment = 64
+	USB_CSW csw;
 #else
 #pragma data_alignment = 32
-#endif
 	USB_CBW cbw;
+#pragma data_alignment = 32
 	USB_CSW csw;
-#pragma data_alignment = 4
+#endif
 #else
 	USB_CBW cbw		ALIGNMENT_CACHELINE;
 	USB_CSW csw		ALIGNMENT_CACHELINE;

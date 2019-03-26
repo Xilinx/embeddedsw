@@ -40,6 +40,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   rb   22/03/18 First release
  * 1.5   vak  13/02/19 Added support for versal
+ * 1.5   vak  03/25/19 Fixed incorrect data_alignment pragma directive for IAR
  *
  * </pre>
  *
@@ -105,14 +106,19 @@ const static SCSI_INQUIRY scsiInquiry[] ALIGNMENT_CACHELINE = {
 #ifdef __ICCARM__
 #if defined (PLATFORM_ZYNQMP) || defined (versal)
 #pragma data_alignment = 64
-#else
-#pragma data_alignment = 32
-#endif
 static u8 MaxLUN = 0;
 
+#pragma data_alignment = 64
 /* Local transmit buffer for simple replies. */
 static u8 txBuffer[128];
-#pragma data_alignment = 4
+#else
+#pragma data_alignment = 32
+static u8 MaxLUN = 0;
+
+#pragma data_alignment = 32
+/* Local transmit buffer for simple replies. */
+static u8 txBuffer[128];
+#endif
 #else
 static u8 MaxLUN ALIGNMENT_CACHELINE = 0;
 

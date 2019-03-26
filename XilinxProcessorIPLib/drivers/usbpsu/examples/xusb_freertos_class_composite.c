@@ -40,6 +40,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   rb   28/03/18 First release
  * 1.5   vak  13/02/19 Added support for versal
+ * 1.5   vak  03/25/19 Fixed incorrect data_alignment pragma directive for IAR
  *
  *</pre>
  *****************************************************************************/
@@ -72,15 +73,25 @@ static inline void Usb_DfuWaitForReset(struct dfu_if *DFU)
 #ifdef __ICCARM__
 #if defined (PLATFORM_ZYNQMP) || defined (versal)
 #pragma data_alignment = 64
+static u8 txBuffer[128];
+#pragma data_alignment = 64
+static u8 MaxLUN = 0;
+#pragma data_alignment = 64
+static u8 ClassData[10];
+#pragma data_alignment = 64
+static u8 BufferPtrTemp[1024];
+u8 DetachCounter = 0;
 #else
 #pragma data_alignment = 32
-#endif
-u8 DetachCounter = 0;
 static u8 txBuffer[128];
+#pragma data_alignment = 32
 static u8 MaxLUN = 0;
+#pragma data_alignment = 32
 static u8 ClassData[10];
+#pragma data_alignment = 32
 static u8 BufferPtrTemp[1024];
-#pragma data_alignment = 4
+u8 DetachCounter = 0;
+#endif
 #else
 u8 DetachCounter = 0;
 static u8 txBuffer[128] ALIGNMENT_CACHELINE;
@@ -127,10 +138,6 @@ const static SCSI_INQUIRY scsiInquiry[] ALIGNMENT_CACHELINE = {
 		{"1.00"}		/* Revision:   must be  4 characters long. */
 	}
 };
-
-#ifdef __ICCARM__
-#pragma data_alignment = 4
-#endif
 
 /*****************************************************************************/
 /**
@@ -445,7 +452,6 @@ static void Usb_AudioClassReq(struct Usb_DevData *InstancePtr, SetupPacket *Setu
 #pragma data_alignment = 32
 #endif
 	static u8 Reply[USB_REQ_REPLY_LEN];
-#pragma data_alignment = 4
 #else
 	static u8 Reply[USB_REQ_REPLY_LEN] ALIGNMENT_CACHELINE;
 #endif
