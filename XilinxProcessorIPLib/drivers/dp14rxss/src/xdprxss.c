@@ -461,9 +461,6 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 				"protocol\n\r");
 			return XST_FAILURE;
 		}
-
-		/*Enable Rx HDCP*/
-		XDpRxSs_HdcpEnable(InstancePtr);
 	}
 #elif (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 	/*HDCP1x*/
@@ -474,9 +471,6 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 
 		/* Set default HDCP content protection scheme */
 		XDpRxSs_HdcpSetProtocol(InstancePtr, XDPRXSS_HDCP_14);
-
-		/*Enable Rx HDCP*/
-		XDpRxSs_HdcpEnable(InstancePtr);
 	}
 #elif (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
 	/*HDCP22*/
@@ -487,9 +481,6 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 
 		/* Set default HDCP content protection scheme */
 		XDpRxSs_HdcpSetProtocol(InstancePtr, XDPRXSS_HDCP_22);
-
-		/*Enable Rx HDCP*/
-		XDpRxSs_HdcpEnable(InstancePtr);
 	}
 #endif
 
