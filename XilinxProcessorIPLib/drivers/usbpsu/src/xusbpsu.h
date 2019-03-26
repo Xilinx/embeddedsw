@@ -61,6 +61,8 @@
 *	vak   24/09/18 Added EnableSuperSpeed in XUsbPsu_Config for speed
 *	               negotation at the time of connection to Host
 * 1.5	vak   02/06/19 Added "xusbpsu_endpoint.h" header
+* 1.5	vak   03/25/19 Fixed incorrect data_alignment pragma directive for IAR
+*
 * </pre>
 *
 *****************************************************************************/
@@ -350,7 +352,6 @@ struct XUsbPsu_Ep {
 #if defined (__ICCARM__)
     #pragma data_alignment = 64
 	struct XUsbPsu_Trb	EpTrb[NO_OF_TRB_PER_EP + 1U]; /**< One extra Trb is for Link Trb */
-	#pragma data_alignment = 4
 #else
 	struct XUsbPsu_Trb	EpTrb[NO_OF_TRB_PER_EP + 1U] ALIGNMENT_CACHELINE;/**< TRB used by endpoint */
 #endif
@@ -403,8 +404,8 @@ struct XUsbPsu {
 #if defined (__ICCARM__)
     #pragma data_alignment = 64
 	SetupPacket SetupData;
+    #pragma data_alignment = 64
 	struct XUsbPsu_Trb Ep0_Trb;
-	#pragma data_alignment = 4
 #else
 	SetupPacket SetupData ALIGNMENT_CACHELINE;
 					/**< Setup Packet buffer */
@@ -427,7 +428,6 @@ struct XUsbPsu {
 #if defined(__ICCARM__)
     #pragma data_alignment = XUSBPSU_EVENT_BUFFERS_SIZE
 	u8 EventBuffer[XUSBPSU_EVENT_BUFFERS_SIZE];
-	#pragma data_alignment = 4
 #else
 	u8 EventBuffer[XUSBPSU_EVENT_BUFFERS_SIZE]
 						__attribute__((aligned(XUSBPSU_EVENT_BUFFERS_SIZE)));

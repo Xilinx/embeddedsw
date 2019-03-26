@@ -43,6 +43,7 @@
  * 1.4   BK  12/01/18  Renamed the file and added changes to have a common
  *		       example for all USB IPs.
  * 1.5	vak  13/02/19  Added support for versal
+ * 1.5  vak  03/25/19  Fixed incorrect data_alignment pragma directive for IAR
  *
  * </pre>
  *
@@ -134,12 +135,15 @@ static void Usb_StdDevReq(struct Usb_DevData *InstancePtr,
 #ifdef __ICCARM__
 #if defined (PLATFORM_ZYNQMP) || defined (versal)
 #pragma data_alignment = 64
+	static u8 Reply[USB_REQ_REPLY_LEN];
+#pragma data_alignment = 64
+	static u8 TmpBuffer[10];
 #else
 #pragma data_alignment = 32
-#endif
 	static u8 Reply[USB_REQ_REPLY_LEN];
+#pragma data_alignment = 32
 	static u8 TmpBuffer[10];
-#pragma data_alignment = 4
+#endif
 #else
 	static u8 Reply[USB_REQ_REPLY_LEN] ALIGNMENT_CACHELINE;
 	static u8 TmpBuffer[10] ALIGNMENT_CACHELINE;
