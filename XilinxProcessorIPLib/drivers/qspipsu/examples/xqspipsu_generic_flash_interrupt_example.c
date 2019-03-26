@@ -80,6 +80,8 @@
 * 1.8	tjs 16/07/18 Added support for the low density ISSI flash parts.
 * 1.9	akm 02/27/19 Added support for IS25LP128, IS25WP128, IS25LP256,
 * 		     IS25WP256, IS25LP512, IS25WP512 Flash Devices
+* 1.9   akm 03/26/19 Fixed data alignment warnings on IAR compiler.
+*
 *</pre>
 *
 ******************************************************************************/
@@ -621,7 +623,6 @@ int Test = 1;
 #ifdef __ICCARM__
 #pragma data_alignment = 32
 u8 ReadBuffer[(PAGE_COUNT * MAX_PAGE_SIZE) + (DATA_OFFSET + DUMMY_SIZE)*8];
-#pragma data_alignment = 4
 #else
 u8 ReadBuffer[(PAGE_COUNT * MAX_PAGE_SIZE) + (DATA_OFFSET + DUMMY_SIZE)*8] __attribute__ ((aligned(64)));
 #endif
