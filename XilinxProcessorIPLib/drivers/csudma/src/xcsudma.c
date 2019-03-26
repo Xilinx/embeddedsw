@@ -370,6 +370,8 @@ u32 XCsuDma_GetSize(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 void XCsuDma_Pause(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 						XCsuDma_PauseType Type)
 {
+	u32 CsuDmaChannel = (u32)Channel;
+
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid((Type == (XCSUDMA_PAUSE_MEMORY)) ||
@@ -382,19 +384,19 @@ void XCsuDma_Pause(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	if (Type == (XCSUDMA_PAUSE_MEMORY)) {
 		XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
 			((u32)(XCSUDMA_CTRL_OFFSET) +
-				((u32)Channel * (u32)(XCSUDMA_OFFSET_DIFF))),
+				((u32)CsuDmaChannel * (u32)(XCSUDMA_OFFSET_DIFF))),
 			(XCsuDma_ReadReg(InstancePtr->Config.BaseAddress,
 				((u32)(XCSUDMA_CTRL_OFFSET) +
-				((u32)Channel * (u32)(XCSUDMA_OFFSET_DIFF)))) |
+				((u32)CsuDmaChannel * (u32)(XCSUDMA_OFFSET_DIFF)))) |
 					(u32)(XCSUDMA_CTRL_PAUSE_MEM_MASK)));
 	}
 	if (Type == (XCSUDMA_PAUSE_STREAM)) {
 		XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
 			((u32)(XCSUDMA_CTRL_OFFSET) +
-				((u32)Channel * (u32)(XCSUDMA_OFFSET_DIFF))),
+				((u32)CsuDmaChannel * (u32)(XCSUDMA_OFFSET_DIFF))),
 			(XCsuDma_ReadReg(InstancePtr->Config.BaseAddress,
 				((u32)(XCSUDMA_CTRL_OFFSET) +
-				(Channel * (u32)XCSUDMA_OFFSET_DIFF))) |
+				(CsuDmaChannel * (u32)XCSUDMA_OFFSET_DIFF))) |
 				(u32)(XCSUDMA_CTRL_PAUSE_STRM_MASK)));
 	}
 }
