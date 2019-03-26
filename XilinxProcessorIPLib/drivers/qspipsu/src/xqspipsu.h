@@ -159,6 +159,7 @@
  *
  * 1.9 akm 03/08/19 Set recommended clock and data tap delay values for 40MHZ,
  *                  100MHZ and 150MHZ frequencies(CR#1023187)
+ * 1.9   akm 03/26/19 Fixed data alignment warnings on IAR compiler.
  *
  * </pre>
  *
