@@ -47,6 +47,7 @@
 * 4.0   vns    03/12/19 Modified function call XSecure_RsaDecrypt to
 *                       XSecure_RsaPublicEncrypt, as XSecure_RsaDecrypt is
 *                       deprecated.
+*       vns    03/26/19 Fixed compilation errors on IAR
 *
 * </pre>
 ******************************************************************************/
@@ -99,11 +100,6 @@ u32 SecureRsaExample(void);
 
 /************************** Variable Definitions *****************************/
 
-XSecure_Rsa Secure_Rsa;
-XSecure_Sha3 Secure_Sha3;
-XCsuDma CsuDma;
-u8 XSecure_RsaSha3Array[XSECURE_FSBL_SIG_SIZE];
-
 /*****************************************************************************/
 /**
 *
@@ -155,6 +151,12 @@ int main(void)
 u32 SecureRsaExample(void)
 {
 	u32 Status;
+	int ii;
+	int i;
+	XSecure_Rsa Secure_Rsa;
+	XSecure_Sha3 Secure_Sha3;
+	XCsuDma CsuDma;
+	u8 XSecure_RsaSha3Array[XSECURE_FSBL_SIG_SIZE];
 
 	/*
 	 * Download the boot image elf at a DDR location, Read the boot header
@@ -179,8 +181,12 @@ u32 SecureRsaExample(void)
 
 	xil_printf(" Authentication Certificate Location is %0x ",AcLocation);
 	xil_printf(" \r\n ");
-
+#if defined (__GNUC__)
 	u8 BIHash[XSECURE_HASH_TYPE_SHA3] __attribute__ ((aligned (4)));
+#elif defined (__ICCARM__)
+#pragma data_alignment = 4
+	u8 BIHash[XSECURE_HASH_TYPE_SHA3];
+#endif
 	u8 * SpkModular = (u8 *)XNULL;
 	u8 * SpkModularEx = (u8 *)XNULL;
 	u32 SpkExp = 0;
@@ -265,7 +271,7 @@ u32 SecureRsaExample(void)
 	}
 
 	xil_printf("\r\n Calculated Boot image Hash \r\n ");
-	int i= 0;
+	i= 0;
 	for(i=0; i < 384/8; i++)
 	{
 		xil_printf(" %0x ", BIHash[i]);
@@ -273,7 +279,7 @@ u32 SecureRsaExample(void)
 	xil_printf(" \r\n ");
 
 	xil_printf("\r\n Hash From Signature \r\n ");
-	int ii= 128;
+	ii= 128;
 	for(ii = 464; ii < 512; ii++)
 	{
 		xil_printf(" %0x ", XSecure_RsaSha3Array[ii]);

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,7 @@
 * ----- ------ -------- -------------------------------------------------
 * 2.0   vns    02/10/17 First Release
 * 2.2   vns    07/06/16 Added doxygen tags
+* 4.0   vns    03/26/19 Fixed compilation errors on IAR
 *
 * </pre>
 ******************************************************************************/
@@ -81,12 +82,22 @@ static u32 Secure_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len);
 static u32 Secure_ConvertCharToNibble(char InChar, u8 *Num);
 
 /************************** Variable Definitions *****************************/
-u8 Data[XSECURE_DATA_SIZE]__attribute__ ((aligned (64)));
-u8 Iv[XSECURE_IV_SIZE];
-u8 Key[XSECURE_KEY_SIZE];
+static u8 Iv[XSECURE_IV_SIZE];
+static u8 Key[XSECURE_KEY_SIZE];
 
-XSecure_Aes Secure_Aes;
-XCsuDma CsuDma;
+#if defined (__GNUC__)
+static u8 Data[XSECURE_DATA_SIZE]__attribute__ ((aligned (64)));
+static u8 DecData[XSECURE_DATA_SIZE]__attribute__ ((aligned (64)));
+static u8 EncData[XSECURE_DATA_SIZE + XSECURE_SECURE_GCM_TAG_SIZE]
+					__attribute__ ((aligned (64)));
+#elif defined (__ICCARM__)
+#pragma data_alignment = 64
+static u8 Data[XSECURE_DATA_SIZE];
+#pragma data_alignment = 64
+static u8 DecData[XSECURE_DATA_SIZE];
+#pragma data_alignment = 64
+static u8 EncData[XSECURE_DATA_SIZE + XSECURE_SECURE_GCM_TAG_SIZE];
+#endif
 
 /************************** Function Definitions ******************************/
 int main(void)
@@ -156,9 +167,8 @@ static s32 SecureAesExample(void)
 	XCsuDma_Config *Config;
 	s32 Status;
 	u32 Index;
-	u8 DecData[XSECURE_DATA_SIZE]__attribute__ ((aligned (64)));
-	u8 EncData[XSECURE_DATA_SIZE + XSECURE_SECURE_GCM_TAG_SIZE]
-					__attribute__ ((aligned (64)));
+	XCsuDma CsuDmaInstance;
+	XSecure_Aes Secure_Aes;
 
 	/* Initialize CSU DMA driver */
 	Config = XCsuDma_LookupConfig(XSECURE_CSUDMA_DEVICEID);
@@ -166,13 +176,14 @@ static s32 SecureAesExample(void)
 		return XST_FAILURE;
 	}
 
-	Status = XCsuDma_CfgInitialize(&CsuDma, Config, Config->BaseAddress);
+	Status = XCsuDma_CfgInitialize(&CsuDmaInstance, Config,
+					Config->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 	/* Initialize the Aes driver so that it's ready to use */
-	XSecure_AesInitialize(&Secure_Aes, &CsuDma,
+	XSecure_AesInitialize(&Secure_Aes, &CsuDmaInstance,
 				XSECURE_CSU_AES_KEY_SRC_KUP,
 				(u32 *)Iv, (u32 *)Key);
 
