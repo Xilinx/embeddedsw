@@ -711,13 +711,13 @@ void XCsuDma_SetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 				(Channel == (XCSUDMA_DST_CHANNEL)));
 	Xil_AssertVoid(XCsuDma_IsBusy(InstancePtr, Channel) != (s32)(TRUE));
 
-	Data = (((ConfigurValues->EndianType <<
+	Data = ((((u32)(ConfigurValues->EndianType) <<
 			(u32)(XCSUDMA_CTRL_ENDIAN_SHIFT)) &
 			(u32)(XCSUDMA_CTRL_ENDIAN_MASK)) |
-		((ConfigurValues->ApbErr <<
+		(((u32)(ConfigurValues->ApbErr) <<
 			(u32)(XCSUDMA_CTRL_APB_ERR_SHIFT)) &
 			(u32)(XCSUDMA_CTRL_APB_ERR_MASK)) |
-		((ConfigurValues->AxiBurstType <<
+		(((u32)(ConfigurValues->AxiBurstType) <<
 			(u32)(XCSUDMA_CTRL_BURST_SHIFT)) &
 			(u32)(XCSUDMA_CTRL_BURST_MASK)) |
 		((ConfigurValues->TimeoutValue <<
@@ -727,7 +727,7 @@ void XCsuDma_SetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 			(u32)(XCSUDMA_CTRL_FIFO_THRESH_SHIFT)) &
 			(u32)(XCSUDMA_CTRL_FIFO_THRESH_MASK)));
 	if(Channel == XCSUDMA_DST_CHANNEL) {
-		Data = Data | (u32)((ConfigurValues->SssFifoThesh <<
+		Data = Data | (u32)(((u32)(ConfigurValues->SssFifoThesh) <<
 				(u32)(XCSUDMA_CTRL_SSS_FIFOTHRESH_SHIFT)) &
 				(u32)(XCSUDMA_CTRL_SSS_FIFOTHRESH_MASK));
 	}
@@ -740,13 +740,13 @@ void XCsuDma_SetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 			((u32)(XCSUDMA_CTRL2_OFFSET) +
 			((u32)Channel * (u32)(XCSUDMA_OFFSET_DIFF)))) &
 				(u32)(XCSUDMA_CTRL2_RESERVED_MASK));
-	Data |= (((ConfigurValues->Acache <<
+	Data |= ((((u32)(ConfigurValues->Acache) <<
 			(u32)(XCSUDMA_CTRL2_ACACHE_SHIFT)) &
 			(u32)(XCSUDMA_CTRL2_ACACHE_MASK)) |
-		((ConfigurValues->RouteBit <<
+		(((u32)(ConfigurValues->RouteBit) <<
 			(u32)(XCSUDMA_CTRL2_ROUTE_SHIFT)) &
 			(u32)(XCSUDMA_CTRL2_ROUTE_MASK)) |
-		((ConfigurValues->TimeoutEn <<
+		(((u32)(ConfigurValues->TimeoutEn) <<
 			(u32)(XCSUDMA_CTRL2_TIMEOUT_EN_SHIFT)) &
 			(u32)(XCSUDMA_CTRL2_TIMEOUT_EN_MASK)) |
 		((ConfigurValues->TimeoutPre <<
