@@ -345,6 +345,7 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 			InstancePtr->Hdcp22SrmPtr) {
 		InstancePtr->HdcpIsReady = TRUE;
 		XDpTxSs_HdcpSetCapability(InstancePtr, XDPTXSS_HDCP_BOTH);
+		XDpTxSs_HdcpSetProtocol(InstancePtr, XDPTXSS_HDCP_1X);
 	}
 #elif (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 	/* HDCP is ready when only the HDCP 1.4 core is instantiated
@@ -352,6 +353,7 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 	if (InstancePtr->Hdcp1xPtr) {
 		InstancePtr->HdcpIsReady = TRUE;
 		XDpTxSs_HdcpSetCapability(InstancePtr, XDPTXSS_HDCP_1X);
+		XDpTxSs_HdcpSetProtocol(InstancePtr, XDPTXSS_HDCP_1X);
 	}
 #elif (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 	/* HDCP is ready when only the HDCP 2.2 core is instantiated
@@ -361,6 +363,7 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 			InstancePtr->Hdcp22SrmPtr) {
 		InstancePtr->HdcpIsReady = TRUE;
 		XDpTxSs_HdcpSetCapability(InstancePtr, XDPTXSS_HDCP_22);
+		XDpTxSs_HdcpSetProtocol(InstancePtr, XDPTXSS_HDCP_22);
 	}
 #endif
 
