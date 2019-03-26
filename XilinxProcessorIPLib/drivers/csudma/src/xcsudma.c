@@ -174,8 +174,8 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 				((u32)(Addr) & (u32)(XCSUDMA_ADDR_MASK)));
 
 	XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
-		((u32)(XCSUDMA_ADDR_MSB_OFFSET) +
-			((u32)Channel * (u32)(XCSUDMA_OFFSET_DIFF))),
+		(u32)(XCSUDMA_ADDR_MSB_OFFSET +
+			((u32)Channel * XCSUDMA_OFFSET_DIFF)),
 			((u32)((Addr & ULONG64_HI_MASK) >> XCSUDMA_MSB_ADDR_SHIFT) &
 					(u32)(XCSUDMA_MSB_ADDR_MASK)));
 
@@ -297,7 +297,7 @@ u64 XCsuDma_GetAddr(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 	Xil_AssertNonvoid((Channel == (XCSUDMA_SRC_CHANNEL)) ||
 					(Channel == (XCSUDMA_DST_CHANNEL)));
 
-	FullAddr = XCsuDma_ReadReg(InstancePtr->Config.BaseAddress,
+	FullAddr = (u64)XCsuDma_ReadReg(InstancePtr->Config.BaseAddress,
 				((u32)(XCSUDMA_ADDR_OFFSET) +
 			((u32)Channel * (u32)(XCSUDMA_OFFSET_DIFF))));
 
@@ -383,20 +383,20 @@ void XCsuDma_Pause(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	/* Pause Memory Read/Write/Stream operations */
 	if (Type == (XCSUDMA_PAUSE_MEMORY)) {
 		XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
-			((u32)(XCSUDMA_CTRL_OFFSET) +
-				((u32)CsuDmaChannel * (u32)(XCSUDMA_OFFSET_DIFF))),
+			((XCSUDMA_CTRL_OFFSET) +
+				(u32)(CsuDmaChannel * XCSUDMA_OFFSET_DIFF)),
 			(XCsuDma_ReadReg(InstancePtr->Config.BaseAddress,
-				((u32)(XCSUDMA_CTRL_OFFSET) +
-				((u32)CsuDmaChannel * (u32)(XCSUDMA_OFFSET_DIFF)))) |
+				((XCSUDMA_CTRL_OFFSET) +
+				(u32)(CsuDmaChannel * XCSUDMA_OFFSET_DIFF))) |
 					(u32)(XCSUDMA_CTRL_PAUSE_MEM_MASK)));
 	}
 	if (Type == (XCSUDMA_PAUSE_STREAM)) {
 		XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
-			((u32)(XCSUDMA_CTRL_OFFSET) +
-				((u32)CsuDmaChannel * (u32)(XCSUDMA_OFFSET_DIFF))),
+			(XCSUDMA_CTRL_OFFSET +
+				(u32)(CsuDmaChannel * XCSUDMA_OFFSET_DIFF)),
 			(XCsuDma_ReadReg(InstancePtr->Config.BaseAddress,
-				((u32)(XCSUDMA_CTRL_OFFSET) +
-				(CsuDmaChannel * (u32)XCSUDMA_OFFSET_DIFF))) |
+				(XCSUDMA_CTRL_OFFSET +
+				(u32)(CsuDmaChannel * XCSUDMA_OFFSET_DIFF))) |
 				(u32)(XCSUDMA_CTRL_PAUSE_STRM_MASK)));
 	}
 }
