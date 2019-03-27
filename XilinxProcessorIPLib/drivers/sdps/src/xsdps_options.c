@@ -1282,7 +1282,7 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 			break;
 		}
 
-		if (TuningCount == 31) {
+		if (TuningCount == 31U) {
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
 			/* Issue DLL Reset to load new SDHC tuned tap values */
 			XSdPs_DllReset(InstancePtr);
