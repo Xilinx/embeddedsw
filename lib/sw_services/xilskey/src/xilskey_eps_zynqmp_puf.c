@@ -45,6 +45,7 @@
 *       arc  03/15/19 Modified initial default status value as XST_FAILURE
 *       mmd  03/17/19 Handled buffer underflow issue and added timeouts during
 *                     syndrome data reading
+*       rama 03/25/19 Added polling routine for PUF ready state
 * </pre>
 *
 *****************************************************************************/
@@ -87,7 +88,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_PufRowWrite(u8 Row, u8 *Data,
 						XskEfusePs_Type EfuseType);
 static inline u32 XilSKey_Read_Puf_EfusePs_SecureBits_Regs(
 		XilSKey_Puf_Secure *SecureBits, u8 ReadOption);
-
+static u32  XilSKey_WaitForPufStatus(u32 *PufStatus);
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
@@ -546,6 +547,41 @@ END:
 
 /*****************************************************************************/
 /**
+* This function will poll for syndrome word is ready in the PUF_WORD register
+* or till the timeout occurs.
+*
+* @param	None.
+*
+* @return	XST_SUCCESS - Incase of Success
+*			XST_FAILURE - Incase of Timeout.
+*
+* @note		None.
+*
+******************************************************************************/
+static u32  XilSKey_WaitForPufStatus(u32 *PufStatus)
+{
+	u32 Timeout = XILSKEY_PUF_STATUS_SYN_WRD_RDY_TIMEOUT/100U;
+	u32 TimeoutFlag = (u32)XST_FAILURE;
+
+	while(Timeout != 0U) {
+		*PufStatus = XilSKey_ReadReg(XSK_ZYNQMP_CSU_BASEADDR,
+											XSK_ZYNQMP_CSU_PUF_STATUS);
+		if ((*PufStatus & XSK_ZYNQMP_CSU_PUF_STATUS_SYN_WRD_RDY_MASK) ==
+							XSK_ZYNQMP_CSU_PUF_STATUS_SYN_WRD_RDY_MASK) {
+			TimeoutFlag = (u32)XST_SUCCESS;
+			goto done;
+		}
+		usleep(100U);
+		Timeout--;
+	}
+
+done:
+	return TimeoutFlag;
+}
+
+
+/*****************************************************************************/
+/**
  * PUF Registration/Re-registration
  *
  * @param	InstancePtr	Pointer to the XilSKey_Puf instance.
@@ -610,12 +646,8 @@ u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 
 	RegistrationStatus = XSK_EFUSEPS_PUF_REGISTRATION_STARTED;
 	do {
-		Timeout = Xil_poll_timeout(Xil_In32,
-		                XSK_ZYNQMP_CSU_BASEADDR + XSK_ZYNQMP_CSU_PUF_STATUS,
-		                PufStatus,
-		                PufStatus & XSK_ZYNQMP_CSU_PUF_STATUS_SYN_WRD_RDY_MASK,
-		                XILSKEY_PUF_STATUS_SYN_WRD_RDY_TIMEOUT);
 
+		Timeout = XilSKey_WaitForPufStatus(&PufStatus);
 		if (Timeout != 0U) {
 			Status = (u32)XSK_EFUSEPS_ERROR_PUF_TIMEOUT;
 			break;
