@@ -64,9 +64,12 @@ mkdir -p $BSP_DIR/libsrc/xilffs
 cp -r $SERVICES_DIR/xilffs/src $BSP_DIR/libsrc/xilffs/
 cp -r $SERVICES_DIR/xilffs/src/include/* $BSP_DIR/include/
 
-mkdir -p $BSP_DIR/libsrc/xilsecure
-cp -r $SERVICES_DIR/xilsecure/src $BSP_DIR/libsrc/xilsecure/
-cp -r $SERVICES_DIR/xilsecure/src/*.h $BSP_DIR/include/
+mkdir -p $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/Makefile $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/common/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/zynqmp/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/common/*.h $BSP_DIR/include/
+cp -r $SERVICES_DIR/xilsecure/src/zynqmp/*.h $BSP_DIR/include/
 
 cp -r $SERVICES_DIR/xilpm/ $BSP_DIR/libsrc/
 cp -r $SERVICES_DIR/xilpm/src/common/* $BSP_DIR/libsrc/xilpm/src/
@@ -88,9 +91,10 @@ cp -f $STANDALONE_DIR/common/*.h $BSP_DIR/libsrc/standalone/src/
 
 if [ $PROC == "a53" ]; then
 	if [ $A53_STATE == "64" ]; then
-		cp -f $STANDALONE_DIR/arm/cortexa53/64bit/*.c $BSP_DIR/libsrc/standalone/src/
-		cp -f $STANDALONE_DIR/arm/cortexa53/64bit/*.h $BSP_DIR/libsrc/standalone/src/
-		cp -f $STANDALONE_DIR/arm/cortexa53/64bit/gcc/* $BSP_DIR/libsrc/standalone/src/
+		cp -f $STANDALONE_DIR/arm/ARMv8/64bit/*.c $BSP_DIR/libsrc/standalone/src/
+		cp -f $STANDALONE_DIR/arm/ARMv8/64bit/*.h $BSP_DIR/libsrc/standalone/src/
+		cp -f $STANDALONE_DIR/arm/ARMv8/64bit/gcc/* $BSP_DIR/libsrc/standalone/src/
+		cp -f $STANDALONE_DIR/arm/ARMv8/64bit/platform/ZynqMP/gcc/* $BSP_DIR/libsrc/standalone/src/
 		cp $BOARD_DIR/bspconfig.h $BSP_DIR/include
 		cp $BOARD_DIR/bspconfig.h $BSP_DIR/libsrc/standalone/src/
 		#Copy xilpm src for apu
@@ -98,22 +102,24 @@ if [ $PROC == "a53" ]; then
 		cp $SERVICES_DIR/xilpm/src/apu/*.h $BSP_DIR/include/
 
 	elif [ $A53_STATE == "32" ]; then
-		cp -f $STANDALONE_DIR/arm/cortexa53/32bit/*.c $BSP_DIR/libsrc/standalone/src/
-		cp -f $STANDALONE_DIR/arm/cortexa53/32bit/*.h $BSP_DIR/libsrc/standalone/src/
-		cp -f $STANDALONE_DIR/arm/cortexa53/32bit/gcc/* $BSP_DIR/libsrc/standalone/src/
-		cp -f $STANDALONE_DIR/arm/cortexa53/32bit/*.h $BSP_DIR/include
+		cp -f $STANDALONE_DIR/arm/ARMv8/32bit/*.c $BSP_DIR/libsrc/standalone/src/
+		cp -f $STANDALONE_DIR/arm/ARMv8/32bit/*.h $BSP_DIR/libsrc/standalone/src/
+		cp -f $STANDALONE_DIR/arm/ARMv8/32bit/gcc/* $BSP_DIR/libsrc/standalone/src/
+		cp -f $STANDALONE_DIR/arm/ARMv8/32bit/platform/ZynqMP/* $BSP_DIR/libsrc/standalone/src/
+		cp -f $STANDALONE_DIR/arm/ARMv8/32bit/*.h $BSP_DIR/include
 		cp $BOARD_DIR/bspconfig32.h $BSP_DIR/include/bspconfig.h
 		cp $BOARD_DIR/bspconfig32.h $BSP_DIR/libsrc/standalone/src/bspconfig.h
 		#Copy xilpm src for apu
 		cp -rf $SERVICES_DIR/xilpm/src/apu/* $BSP_DIR/libsrc/xilpm/src/
 		cp -rf $SERVICES_DIR/xilpm/src/apu/*.h $BSP_DIR/include/
 	fi
-		cp -rf $STANDALONE_DIR/arm/cortexa53/includes_ps $BSP_DIR/libsrc/standalone/src/
-		cp -rf $STANDALONE_DIR/arm/cortexa53/includes_ps/* $BSP_DIR/include/
+		cp -rf $STANDALONE_DIR/arm/ARMv8/includes_ps $BSP_DIR/libsrc/standalone/src/
+		cp -rf $STANDALONE_DIR/arm/ARMv8/includes_ps/* $BSP_DIR/include/
 elif [ $PROC == "r5" ]; then
 	cp -f $STANDALONE_DIR/arm/cortexr5/*.c $BSP_DIR/libsrc/standalone/src/
 	cp -f $STANDALONE_DIR/arm/cortexr5/*.h $BSP_DIR/libsrc/standalone/src/
 	cp -f $STANDALONE_DIR/arm/cortexr5/gcc/* $BSP_DIR/libsrc/standalone/src/
+	cp -f $STANDALONE_DIR/arm/cortexr5/platform/ZynqMP/* $BSP_DIR/libsrc/standalone/src/
 
 	#include files
 	cp -f $STANDALONE_DIR/arm/cortexr5/*.h $BSP_DIR/include
@@ -125,9 +131,8 @@ elif [ $PROC == "r5" ]; then
 	cp -rf $SERVICES_DIR/xilpm/src/rpu/*.h $BSP_DIR/include/
 
 	#copy includes_ps from a53 directory
-	cp -rf $STANDALONE_DIR/arm/cortexa53/includes_ps $BSP_DIR/libsrc/standalone/src/
-	cp -f $STANDALONE_DIR/arm/cortexa53/includes_ps/* $BSP_DIR/include/
-
+	cp -rf $STANDALONE_DIR/arm/ARMv8/includes_ps $BSP_DIR/libsrc/standalone/src/
+	cp -rf $STANDALONE_DIR/arm/ARMv8/includes_ps/* $BSP_DIR/include/
 fi
 
 # copy the bsp drivers
