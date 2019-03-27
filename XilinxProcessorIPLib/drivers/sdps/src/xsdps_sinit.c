@@ -60,7 +60,7 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-extern XSdPs_Config XSdPs_ConfigTable[];
+extern XSdPs_Config XSdPs_ConfigTable[XPAR_XSDPS_NUM_INSTANCES];
 
 /*****************************************************************************/
 /**
