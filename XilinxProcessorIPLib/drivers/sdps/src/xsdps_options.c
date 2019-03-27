@@ -99,7 +99,7 @@ void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff);
 static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr);
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
 s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode);
-static void XSdPs_sdr50_tapdelay(u32 Bank, u32 DeviceId, u32 CardType);
+void XSdPs_sdr50_tapdelay(u32 Bank, u32 DeviceId, u32 CardType);
 void XSdPs_SetTapDelay(XSdPs *InstancePtr);
 static void XSdPs_DllReset(XSdPs *InstancePtr);
 #endif
