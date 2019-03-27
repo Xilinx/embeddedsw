@@ -442,7 +442,7 @@ s32 XSdPs_SdCardInitialize(XSdPs *InstancePtr)
 		 */
 		if ((InstancePtr->HC_Version == XSDPS_HC_SPEC_V3) &&
 #if defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU)
-			(XGetPSVersion_Info() > XPS_VERSION_1) &&
+			(XGetPSVersion_Info() > (u32)XPS_VERSION_1) &&
 #endif
 			(InstancePtr->Config.BusWidth == XSDPS_WIDTH_8)) {
 			Arg |= XSDPS_OCR_S18;
@@ -531,8 +531,8 @@ s32 XSdPs_SdCardInitialize(XSdPs *InstancePtr)
 			XSDPS_RESP3_OFFSET);
 
 	if (((CSD[3] & CSD_STRUCT_MASK) >> 22U) == 0U) {
-		BlkLen = 1U << ((CSD[2] & READ_BLK_LEN_MASK) >> 8U);
-		Mult = 1U << (((CSD[1] & C_SIZE_MULT_MASK) >> 7U) + 2U);
+		BlkLen = 1U << ((u32)(CSD[2] & READ_BLK_LEN_MASK) >> 8U);
+		Mult = 1U << ((u32)((CSD[1] & C_SIZE_MULT_MASK) >> 7U) + 2U);
 		DeviceSize = (CSD[1] & C_SIZE_LOWER_MASK) >> 22U;
 		DeviceSize |= (CSD[2] & C_SIZE_UPPER_MASK) << 10U;
 		DeviceSize = (DeviceSize + 1U) * Mult;
@@ -694,7 +694,7 @@ s32 XSdPs_CardInitialize(XSdPs *InstancePtr)
 			(ReadBuff[13] >= UHS_SDR50_SUPPORT) &&
 			(InstancePtr->Config.BusWidth == XSDPS_WIDTH_8) &&
 #if defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU)
-			(XGetPSVersion_Info() > XPS_VERSION_1) &&
+			(XGetPSVersion_Info() > (u32)XPS_VERSION_1) &&
 #endif
 			(InstancePtr->Switch1v8 == 0U)) {
 			u16 CtrlReg, ClockReg;
@@ -1849,11 +1849,11 @@ s32 XSdPs_MmcCardInitialize(XSdPs *InstancePtr)
 	CSD[3] = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
 			XSDPS_RESP3_OFFSET);
 
-	InstancePtr->Card_Version =  (CSD[3] & CSD_SPEC_VER_MASK) >>18U;
+	InstancePtr->Card_Version =  (u8)((u32)(CSD[3] & CSD_SPEC_VER_MASK) >>18U);
 
 	/* Calculating the memory capacity */
-	BlkLen = 1U << ((CSD[2] & READ_BLK_LEN_MASK) >> 8U);
-	Mult = 1U << (((CSD[1] & C_SIZE_MULT_MASK) >> 7U) + 2U);
+	BlkLen = 1U << ((u32)(CSD[2] & READ_BLK_LEN_MASK) >> 8U);
+	Mult = 1U << ((u32)((CSD[1] & C_SIZE_MULT_MASK) >> 7U) + 2U);
 	DeviceSize = (CSD[1] & C_SIZE_LOWER_MASK) >> 22U;
 	DeviceSize |= (CSD[2] & C_SIZE_UPPER_MASK) << 10U;
 	DeviceSize = (DeviceSize + 1U) * Mult;
