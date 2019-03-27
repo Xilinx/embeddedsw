@@ -1888,10 +1888,11 @@ void XSdPs_Idle(XSdPs *InstancePtr)
 		do {
 			StatusReg = XSdPs_ReadReg8(InstancePtr->Config.BaseAddress,
 					XSDPS_PRES_STATE_OFFSET);
+			Timeout = Timeout - 1;
 		} while ((StatusReg & (XSDPS_PSR_INHIBIT_CMD_MASK
 				| XSDPS_PSR_INHIBIT_DAT_MASK
 				| XSDPS_PSR_DAT_ACTIVE_MASK))
-				&& --Timeout);
+				&& Timeout);
 	}
 	/* Reset the eMMC card */
 	if (InstancePtr->CardType == XSDPS_CHIP_EMMC) {
@@ -1923,9 +1924,11 @@ void XSdPs_Idle(XSdPs *InstancePtr)
 	/* Proceed with initialization only after reset is complete */
 	RegVal = XSdPs_ReadReg8(InstancePtr->Config.BaseAddress,
 			XSDPS_SW_RST_OFFSET);
-	while (((RegVal & XSDPS_SWRST_ALL_MASK) != 0U) && --Timeout) {
+	Timeout = Timeout - 1;
+	while (((RegVal & XSDPS_SWRST_ALL_MASK) != 0U) && Timeout) {
 		RegVal = XSdPs_ReadReg8(InstancePtr->Config.BaseAddress,
 				XSDPS_SW_RST_OFFSET);
+		Timeout = Timeout - 1;
 	}
 }
 /** @} */
