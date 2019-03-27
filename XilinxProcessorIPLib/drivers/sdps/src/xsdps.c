@@ -95,6 +95,7 @@
 *       mn     10/01/18 Change Expected Response for CMD3 to R1 for MMC
 *       mus    11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
 * 3.7   mn     02/01/19 Add support for idling of SDIO
+*       aru    03/12/19 Modified the code according to MISRAC-2012.
 * </pre>
 *
 ******************************************************************************/

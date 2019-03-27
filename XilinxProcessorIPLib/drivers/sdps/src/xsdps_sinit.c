@@ -42,6 +42,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.00a hk/sg  10/17/13 Initial release
 *       kvn    07/15/15 Modified the code according to MISRAC-2012.
+* 3.7   aru    03/12/19 Modified the code according to MISRAC-2012.
 *
 * </pre>
 *
