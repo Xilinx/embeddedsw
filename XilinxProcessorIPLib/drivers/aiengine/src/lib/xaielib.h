@@ -92,6 +92,7 @@ struct XAieGbl_Tile;
 typedef struct XAieGbl_Tile XAieGbl_Tile;
 
 u32 XAieLib_LoadElf(XAieGbl_Tile *TileInstPtr, u8 *ElfPtr, u8 LoadSym);
+u32 XAieLib_LoadElfMem(XAieGbl_Tile *TileInstPtr, u8 *ElfPtr, u8 LoadSym);
 
 void XAieLib_InitDev(void);
 u32 XAieLib_InitTile(XAieGbl_Tile *TileInstPtr);

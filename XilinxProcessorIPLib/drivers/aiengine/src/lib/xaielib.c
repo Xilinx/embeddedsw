@@ -204,6 +204,30 @@ u32 XAieLib_LoadElf(XAieGbl_Tile *TileInstPtr, u8 *ElfPtr, u8 LoadSym)
 /*****************************************************************************/
 /**
 *
+* This API loads the elf to corresponding tile
+*
+* @param	TileInstPtr: Tile instance for the elf to be loaded
+* @param	ElfPtr: pointer to the elf in memory
+*
+* @return	XAIELIB_SUCCESS on success, otherwise XAIELIB_FAILURE
+*
+* @note		None.
+*
+*******************************************************************************/
+u32 XAieLib_LoadElfMem(XAieGbl_Tile *TileInstPtr, u8 *ElfPtr, u8 LoadSym)
+{
+#ifdef __AIESIM__
+	return XAIELIB_FAILURE;
+#elif defined __AIEBAREMTL__
+	return XAIELIB_FAILURE;
+#else
+	return XAieTileProc_LoadElfMem(TileInstPtr, ElfPtr, LoadSym);
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
 * This API initializes the platform specific device instance if needed
 *
 * @param	None.

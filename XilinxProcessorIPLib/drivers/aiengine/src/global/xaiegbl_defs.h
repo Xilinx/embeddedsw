@@ -83,6 +83,7 @@
 #define XAieGbl_WriteCmd                 XAieLib_WriteCmd
 #define XAieGbl_MaskPoll                 XAieLib_MaskPoll
 #define XAieGbl_LoadElf                  XAieLib_LoadElf
+#define XAieGbl_LoadElfMem               XAieLib_LoadElfMem
 
 #define XAieGbl_MemInst                  XAieLib_MemInst
 #define XAieGbl_MemInit                  XAieLib_MemInit
