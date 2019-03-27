@@ -2386,7 +2386,7 @@ XStatus XPm_AddNodeName(u32 *Args, u32 NumArgs)
 {
 	int Status = XST_SUCCESS;
 	u32 NodeId;
-	char Name[MAX_NAME_BYTES];
+	char Name[MAX_NAME_BYTES] = {0};
 	u32 i=0, j=0;
 
 	if (NumArgs == 0) {
