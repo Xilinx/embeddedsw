@@ -273,6 +273,7 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 	XPm_Subsystem *Subsystem;
 	XPm_PinNode *Pin;
 	u32 SubSysIdx = NODEINDEX(SubsystemId);
+	u32 DevId;
 
 	if (SubsystemId == XPM_SUBSYSID_PMC) {
 		Status = XST_SUCCESS;
@@ -318,7 +319,7 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 			goto done;
 		}
 
-		u32 DevId = PmDevices[Pin->PinFunc->DeviceId]->Node.Id;
+		DevId = PmDevices[Pin->PinFunc->DeviceId]->Node.Id;
 		if ((XPM_PINSTATE_UNUSED == Pin->Node.State) || (0 == DevId)) {
 			Status = XST_SUCCESS;
 			goto done;
