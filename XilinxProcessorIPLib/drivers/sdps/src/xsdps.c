@@ -205,12 +205,13 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	/* Disable bus power and issue emmc hw reset */
 	if ((XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_HOST_CTRL_VER_OFFSET) & XSDPS_HC_SPEC_VER_MASK) ==
-			XSDPS_HC_SPEC_V3)
+			XSDPS_HC_SPEC_V3) {
 		XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
 				XSDPS_POWER_CTRL_OFFSET, XSDPS_PC_EMMC_HW_RST_MASK);
-	else
+	} else {
 		XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
 				XSDPS_POWER_CTRL_OFFSET, 0x0);
+	}
 
 	/* Delay to poweroff card */
     (void)usleep(1000U);
@@ -239,21 +240,24 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 						XSDPS_CAPS_OFFSET);
 
 	/* Select voltage and enable bus power. */
-	if (InstancePtr->HC_Version == XSDPS_HC_SPEC_V3)
+	if (InstancePtr->HC_Version == XSDPS_HC_SPEC_V3) {
 		XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
 				XSDPS_POWER_CTRL_OFFSET,
 				(XSDPS_PC_BUS_VSEL_3V3_MASK | XSDPS_PC_BUS_PWR_MASK) &
 				~XSDPS_PC_EMMC_HW_RST_MASK);
-	else
+	} else {
 		XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
 				XSDPS_POWER_CTRL_OFFSET,
 				XSDPS_PC_BUS_VSEL_3V3_MASK | XSDPS_PC_BUS_PWR_MASK);
+	}
 
 	/* Delay before issuing the command after emmc reset */
-	if (InstancePtr->HC_Version == XSDPS_HC_SPEC_V3)
+	if (InstancePtr->HC_Version == XSDPS_HC_SPEC_V3) {
 		if ((InstancePtr->Host_Caps & XSDPS_CAPS_SLOT_TYPE_MASK) ==
-				XSDPS_CAPS_EMB_SLOT)
+				XSDPS_CAPS_EMB_SLOT) {
 			usleep(200);
+		}
+	}
 
 	/* Change the clock frequency to 400 KHz */
 	Status = XSdPs_Change_ClkFreq(InstancePtr, XSDPS_CLK_400_KHZ);
@@ -622,10 +626,11 @@ s32 XSdPs_CardInitialize(XSdPs *InstancePtr)
 		 * The reason for this is SD requires a voltage level shifter.
 		 * This limitation applies to ZynqMPSoC.
 		 */
-		if (InstancePtr->HC_Version == XSDPS_HC_SPEC_V3)
+		if (InstancePtr->HC_Version == XSDPS_HC_SPEC_V3) {
 			InstancePtr->BusSpeed = SD_CLK_19_MHZ;
-		else
+		} else {
 			InstancePtr->BusSpeed = SD_CLK_25_MHZ;
+		}
 		Status = XSdPs_Change_ClkFreq(InstancePtr, InstancePtr->BusSpeed);
 		if (Status != XST_SUCCESS) {
 			Status = XST_FAILURE;
@@ -869,8 +874,9 @@ s32 XSdPs_CardInitialize(XSdPs *InstancePtr)
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
 			InstancePtr->Config_TapDelay = XSdPs_hsd_sdr25_tapdelay;
 #endif
-		} else
+		} else {
 			InstancePtr->Mode = XSDPS_DEFAULT_SPEED_MODE;
+		}
 
 		if (InstancePtr->Mode != XSDPS_DEFAULT_SPEED_MODE) {
 			Status = XSdPs_Change_BusSpeed(InstancePtr);
