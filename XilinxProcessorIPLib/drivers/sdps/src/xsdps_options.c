@@ -306,15 +306,17 @@ s32 XSdPs_Change_BusWidth(XSdPs *InstancePtr)
 		}
 
 		if (InstancePtr->BusWidth == XSDPS_8_BIT_WIDTH) {
-			if (InstancePtr->Mode == XSDPS_DDR52_MODE)
+			if (InstancePtr->Mode == XSDPS_DDR52_MODE) {
 				Arg = XSDPS_MMC_DDR_8_BIT_BUS_ARG;
-			else
+			} else {
 				Arg = XSDPS_MMC_8_BIT_BUS_ARG;
+			}
 		} else {
-			if (InstancePtr->Mode == XSDPS_DDR52_MODE)
+			if (InstancePtr->Mode == XSDPS_DDR52_MODE) {
 				Arg = XSDPS_MMC_DDR_4_BIT_BUS_ARG;
-			else
+			} else {
 				Arg = XSDPS_MMC_4_BIT_BUS_ARG;
+			}
 		}
 
 		Status = XSdPs_CmdTransfer(InstancePtr, CMD6, Arg, 0U);
@@ -777,9 +779,10 @@ s32 XSdPs_Change_ClkFreq(XSdPs *InstancePtr, u32 SelFreq)
 	if (InstancePtr->HC_Version == XSDPS_HC_SPEC_V3) {
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
 	if ((InstancePtr->Mode != XSDPS_DEFAULT_SPEED_MODE) &&
-			(InstancePtr->Mode != XSDPS_UHS_SPEED_MODE_SDR12))
+			(InstancePtr->Mode != XSDPS_UHS_SPEED_MODE_SDR12)) {
 		/* Program the Tap delays */
 		XSdPs_SetTapDelay(InstancePtr);
+	}
 #endif
 		/* Calculate divisor */
 		for (DivCnt = 0x1U; DivCnt <= XSDPS_CC_EXT_MAX_DIV_CNT;DivCnt++) {
@@ -1071,24 +1074,21 @@ void XSdPs_Identify_UhsMode(XSdPs *InstancePtr, u8 *ReadBuff)
 		(InstancePtr->Config.InputClockHz >= XSDPS_SD_INPUT_MAX_CLK)) {
 		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_SDR104;
 		InstancePtr->Config_TapDelay = XSdPs_sdr104_hs200_tapdelay;
-	}
-	else if (((ReadBuff[13] & UHS_SDR50_SUPPORT) != 0U) &&
+	} else if (((ReadBuff[13] & UHS_SDR50_SUPPORT) != 0U) &&
 		(InstancePtr->Config.InputClockHz >= XSDPS_SD_SDR50_MAX_CLK)) {
 		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_SDR50;
 		InstancePtr->Config_TapDelay = XSdPs_sdr50_tapdelay;
-	}
-	else if (((ReadBuff[13] & UHS_DDR50_SUPPORT) != 0U) &&
+	} else if (((ReadBuff[13] & UHS_DDR50_SUPPORT) != 0U) &&
 		(InstancePtr->Config.InputClockHz >= XSDPS_SD_DDR50_MAX_CLK)) {
 		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_DDR50;
 		InstancePtr->Config_TapDelay = XSdPs_ddr50_tapdelay;
-	}
-	else if (((ReadBuff[13] & UHS_SDR25_SUPPORT) != 0U) &&
+	} else if (((ReadBuff[13] & UHS_SDR25_SUPPORT) != 0U) &&
 		(InstancePtr->Config.InputClockHz >= XSDPS_SD_SDR25_MAX_CLK)) {
 		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_SDR25;
 		InstancePtr->Config_TapDelay = XSdPs_hsd_sdr25_tapdelay;
-	}
-	else
+	} else {
 		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_SDR12;
+	}
 }
 
 /*****************************************************************************/
@@ -1333,22 +1333,24 @@ void XSdPs_sdr104_hs200_tapdelay(u32 Bank, u32 DeviceId, u32 CardType)
 	if (DeviceId == 0U) {
 #if EL1_NONSECURE && defined (__aarch64__)
 		(void)TapDelay;
-		if (Bank == 2)
+		if (Bank == 2U) {
 			Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR +
 					SD_OTAPDLY) | ((u64)SD0_OTAPDLY_SEL_MASK << 32),
 					(u64)SD0_OTAPDLYSEL_HS200_B2, 0, 0, 0, 0, 0);
-		else
+		} else {
 			Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR +
 					SD_OTAPDLY) | ((u64)SD0_OTAPDLY_SEL_MASK << 32),
 					(u64)SD0_OTAPDLYSEL_HS200_B0, 0, 0, 0, 0, 0);
+		}
 #else
 		/* Program the OTAPDLY */
 		TapDelay = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD_OTAPDLY);
 		TapDelay &= ~SD0_OTAPDLY_SEL_MASK;
-		if (Bank == 2)
+		if (Bank == 2U) {
 			TapDelay |= SD0_OTAPDLYSEL_HS200_B2;
-		else
+		} else {
 			TapDelay |= SD0_OTAPDLYSEL_HS200_B0;
+		}
 		XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_OTAPDLY, TapDelay);
 #endif
 	} else {
@@ -1356,21 +1358,23 @@ void XSdPs_sdr104_hs200_tapdelay(u32 Bank, u32 DeviceId, u32 CardType)
 		(void) DeviceId;
 #if EL1_NONSECURE && defined (__aarch64__)
 		(void)TapDelay;
-		if (Bank == 2)
+		if (Bank == 2U) {
 			Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR +
 					SD_OTAPDLY) | ((u64)SD1_OTAPDLY_SEL_MASK << 32),
 					(u64)SD1_OTAPDLYSEL_HS200_B2, 0, 0, 0, 0, 0);
-		else
+		} else {
 			Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR +
 					SD_OTAPDLY) | ((u64)SD1_OTAPDLY_SEL_MASK << 32),
 					(u64)SD1_OTAPDLYSEL_HS200_B0, 0, 0, 0, 0, 0);
+		}
 #else
 		TapDelay = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD_OTAPDLY);
 		TapDelay &= ~SD1_OTAPDLY_SEL_MASK;
-		if (Bank == 2)
+		if (Bank == 2U) {
 			TapDelay |= SD1_OTAPDLYSEL_HS200_B2;
-		else
+		} else {
 			TapDelay |= SD1_OTAPDLYSEL_HS200_B0;
+		}
 		XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_OTAPDLY, TapDelay);
 #endif
 #ifdef XPAR_PSU_SD_0_DEVICE_ID
@@ -1458,24 +1462,26 @@ void XSdPs_ddr50_tapdelay(u32 Bank, u32 DeviceId, u32 CardType)
 		Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR + SD_ITAPDLY) |
 				((u64)SD0_ITAPDLYENA << 32), (u64)SD0_ITAPDLYENA,
 				0, 0, 0, 0, 0);
-		if (CardType== XSDPS_CARD_SD)
+		if (CardType == XSDPS_CARD_SD) {
 			Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR +
 					SD_ITAPDLY) | ((u64)SD0_ITAPDLY_SEL_MASK << 32),
 					(u64)SD0_ITAPDLYSEL_SD_DDR50, 0, 0, 0, 0, 0);
-		else
+		} else {
 			Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR +
 					SD_ITAPDLY) | ((u64)SD0_ITAPDLY_SEL_MASK << 32),
 					(u64)SD0_ITAPDLYSEL_EMMC_DDR50, 0, 0, 0, 0, 0);
+		}
 		Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR + SD_ITAPDLY) |
 				((u64)SD0_ITAPCHGWIN << 32), (u64)0x0, 0, 0, 0, 0, 0);
-		if (CardType == XSDPS_CARD_SD)
+		if (CardType == XSDPS_CARD_SD) {
 			Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR +
 					SD_OTAPDLY) | ((u64)SD0_OTAPDLY_SEL_MASK << 32),
 					(u64)SD0_OTAPDLYSEL_SD_DDR50, 0, 0, 0, 0, 0);
-		else
+		} else {
 			Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR +
 					SD_OTAPDLY) | ((u64)SD0_OTAPDLY_SEL_MASK << 32),
 					(u64)SD0_OTAPDLYSEL_EMMC_DDR50, 0, 0, 0, 0, 0);
+		}
 #else
 		TapDelay = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD_ITAPDLY);
 		TapDelay |= SD0_ITAPCHGWIN;
@@ -1483,20 +1489,22 @@ void XSdPs_ddr50_tapdelay(u32 Bank, u32 DeviceId, u32 CardType)
 		/* Program the ITAPDLY */
 		TapDelay |= SD0_ITAPDLYENA;
 		XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_ITAPDLY, TapDelay);
-		if (CardType== XSDPS_CARD_SD)
+		if (CardType== XSDPS_CARD_SD) {
 			TapDelay |= SD0_ITAPDLYSEL_SD_DDR50;
-		else
+		} else {
 			TapDelay |= SD0_ITAPDLYSEL_EMMC_DDR50;
+		}
 		XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_ITAPDLY, TapDelay);
 		TapDelay &= ~SD0_ITAPCHGWIN;
 		XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_ITAPDLY, TapDelay);
 		/* Program the OTAPDLY */
 		TapDelay = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD_OTAPDLY);
 		TapDelay &= ~SD0_OTAPDLY_SEL_MASK;
-		if (CardType == XSDPS_CARD_SD)
+		if (CardType == XSDPS_CARD_SD) {
 			TapDelay |= SD0_OTAPDLYSEL_SD_DDR50;
-		else
+		} else {
 			TapDelay |= SD0_OTAPDLYSEL_EMMC_DDR50;
+		}
 		XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_OTAPDLY, TapDelay);
 #endif
 	} else {
@@ -1510,25 +1518,27 @@ void XSdPs_ddr50_tapdelay(u32 Bank, u32 DeviceId, u32 CardType)
 		Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR + SD_ITAPDLY) |
 				((u64)SD1_ITAPDLYENA << 32), (u64)SD1_ITAPDLYENA,
 				0, 0, 0, 0, 0);
-		if (CardType== XSDPS_CARD_SD)
+		if (CardType == XSDPS_CARD_SD) {
 			Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR +
 					SD_ITAPDLY) | ((u64)SD1_ITAPDLY_SEL_MASK << 32),
 					(u64)SD1_ITAPDLYSEL_SD_DDR50, 0, 0, 0, 0, 0);
-		else
+		} else {
 			Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR +
 					SD_ITAPDLY) | ((u64)SD1_ITAPDLY_SEL_MASK << 32),
 					(u64)SD1_ITAPDLYSEL_EMMC_DDR50, 0, 0, 0, 0, 0);
+		}
 		Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR +
 				SD_ITAPDLY) | ((u64)SD1_ITAPCHGWIN << 32),
 				(u64)0x0, 0, 0, 0, 0, 0);
-		if (CardType == XSDPS_CARD_SD)
+		if (CardType == XSDPS_CARD_SD) {
 			Xil_Smc(MMIO_WRITE_SMC_FID,(u64)(XPS_SYS_CTRL_BASEADDR +
 					SD_OTAPDLY) | ((u64)SD1_OTAPDLY_SEL_MASK << 32),
 					(u64)SD1_OTAPDLYSEL_SD_DDR50, 0, 0, 0, 0, 0);
-		else
+		} else {
 			Xil_Smc(MMIO_WRITE_SMC_FID,(u64)(XPS_SYS_CTRL_BASEADDR +
 					SD_OTAPDLY) | ((u64)SD1_OTAPDLY_SEL_MASK << 32),
 					(u64)SD1_OTAPDLYSEL_EMMC_DDR50, 0, 0, 0, 0, 0);
+		}
 #else
 		TapDelay = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD_ITAPDLY);
 		TapDelay |= SD1_ITAPCHGWIN;
@@ -1536,20 +1546,22 @@ void XSdPs_ddr50_tapdelay(u32 Bank, u32 DeviceId, u32 CardType)
 		/* Program the ITAPDLY */
 		TapDelay |= SD1_ITAPDLYENA;
 		XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_ITAPDLY, TapDelay);
-		if (CardType == XSDPS_CARD_SD)
+		if (CardType == XSDPS_CARD_SD) {
 			TapDelay |= SD1_ITAPDLYSEL_SD_DDR50;
-		else
+		} else {
 			TapDelay |= SD1_ITAPDLYSEL_EMMC_DDR50;
+		}
 		XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_ITAPDLY, TapDelay);
 		TapDelay &= ~SD1_ITAPCHGWIN;
 		XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_ITAPDLY, TapDelay);
 		/* Program the OTAPDLY */
 		TapDelay = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD_OTAPDLY);
 		TapDelay &= ~SD1_OTAPDLY_SEL_MASK;
-		if (CardType == XSDPS_CARD_SD)
+		if (CardType == XSDPS_CARD_SD) {
 			TapDelay |= SD1_OTAPDLYSEL_SD_DDR50;
-		else
+		} else {
 			TapDelay |= SD1_OTAPDLYSEL_EMMC_DDR50;
+		}
 		XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_OTAPDLY, TapDelay);
 #endif
 #ifdef XPAR_PSU_SD_0_DEVICE_ID
@@ -1590,14 +1602,15 @@ void XSdPs_hsd_sdr25_tapdelay(u32 Bank, u32 DeviceId, u32 CardType)
 				0, 0, 0, 0, 0);
 		Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR + SD_ITAPDLY) |
 				((u64)SD0_ITAPCHGWIN << 32), (u64)0x0, 0, 0, 0, 0, 0);
-		if (CardType == XSDPS_CARD_SD)
+		if (CardType == XSDPS_CARD_SD) {
 			Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR +
 					SD_OTAPDLY) | ((u64)SD0_OTAPDLY_SEL_MASK << 32),
 					(u64)SD0_OTAPDLYSEL_SD_HSD, 0, 0, 0, 0, 0);
-		else
+		} else {
 			Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR +
 					SD_OTAPDLY) | ((u64)SD0_OTAPDLY_SEL_MASK << 32),
 					(u64)SD0_OTAPDLYSEL_EMMC_HSD, 0, 0, 0, 0, 0);
+		}
 #else
 		TapDelay = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD_ITAPDLY);
 		TapDelay |= SD0_ITAPCHGWIN;
@@ -1612,10 +1625,11 @@ void XSdPs_hsd_sdr25_tapdelay(u32 Bank, u32 DeviceId, u32 CardType)
 		/* Program the OTAPDLY */
 		TapDelay = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD_OTAPDLY);
 		TapDelay &= ~SD0_OTAPDLY_SEL_MASK;
-		if (CardType == XSDPS_CARD_SD)
+		if (CardType == XSDPS_CARD_SD) {
 			TapDelay |= SD0_OTAPDLYSEL_SD_HSD;
-		else
+		} else {
 			TapDelay |= SD0_OTAPDLYSEL_EMMC_HSD;
+		}
 		XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_OTAPDLY, TapDelay);
 #endif
 	} else {
@@ -1634,14 +1648,15 @@ void XSdPs_hsd_sdr25_tapdelay(u32 Bank, u32 DeviceId, u32 CardType)
 				0, 0, 0, 0, 0);
 		Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR + SD_ITAPDLY) |
 				((u64)SD1_ITAPCHGWIN << 32), (u64)0x0, 0, 0, 0, 0, 0);
-		if (CardType == XSDPS_CARD_SD)
+		if (CardType == XSDPS_CARD_SD) {
 			Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR +
 					SD_OTAPDLY) | ((u64)SD1_OTAPDLY_SEL_MASK << 32),
 					(u64)SD1_OTAPDLYSEL_SD_HSD, 0, 0, 0, 0, 0);
-		else
+		} else {
 			Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR +
 					SD_OTAPDLY) | ((u64)SD1_OTAPDLY_SEL_MASK << 32),
 					(u64)SD1_OTAPDLYSEL_EMMC_HSD, 0, 0, 0, 0, 0);
+		}
 #else
 		TapDelay = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD_ITAPDLY);
 		TapDelay |= SD1_ITAPCHGWIN;
@@ -1656,10 +1671,11 @@ void XSdPs_hsd_sdr25_tapdelay(u32 Bank, u32 DeviceId, u32 CardType)
 		/* Program the OTAPDLY */
 		TapDelay = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD_OTAPDLY);
 		TapDelay &= ~SD1_OTAPDLY_SEL_MASK;
-		if (CardType == XSDPS_CARD_SD)
+		if (CardType == XSDPS_CARD_SD) {
 			TapDelay |= SD1_OTAPDLYSEL_SD_HSD;
-		else
+		} else {
 			TapDelay |= SD1_OTAPDLYSEL_EMMC_HSD;
+		}
 		XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_OTAPDLY, TapDelay);
 #endif
 #ifdef XPAR_PSU_SD_0_DEVICE_ID
