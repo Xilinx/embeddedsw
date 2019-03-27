@@ -1182,7 +1182,7 @@ s32 XSdPs_CmdTransfer(XSdPs *InstancePtr, u32 Cmd, u32 Arg, u32 BlkCnt)
 		if ((StatusReg & XSDPS_INTR_ERR_MASK) != 0U) {
 			Status = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
 									XSDPS_ERR_INTR_STS_OFFSET);
-			if ((Status & ~XSDPS_INTR_ERR_CT_MASK) == 0) {
+			if (((u32)Status & ~XSDPS_INTR_ERR_CT_MASK) == 0) {
 				Status = XSDPS_CT_ERROR;
 			}
 			 /* Write to clear error bits */
