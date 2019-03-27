@@ -44,11 +44,18 @@ else
 fi
 
 # copy the libraries required
-cp -r $SERVICES_DIR/xilfpga/ $BSP_DIR/libsrc/
+mkdir -p $BSP_DIR/libsrc/xilfpga/src/
+cp -r $SERVICES_DIR/xilfpga/src/* $BSP_DIR/libsrc/xilfpga/src
+cp -r $SERVICES_DIR/xilfpga/src/interface/zynqmp/* $BSP_DIR/libsrc/xilfpga/src
 cp -r $SERVICES_DIR/xilfpga/src/*.h $BSP_DIR/include/
 cp -r $SERVICES_DIR/xilfpga/src/interface/zynqmp/*.h $BSP_DIR/include/
-cp -r $SERVICES_DIR/xilsecure/ $BSP_DIR/libsrc/
-cp -r $SERVICES_DIR/xilsecure/src/*.h $BSP_DIR/include/
+rm -r $BSP_DIR/libsrc/xilfpga/src/interface/
+mkdir -p $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/Makefile $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/common/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/zynqmp/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/common/*.h $BSP_DIR/include/
+cp -r $SERVICES_DIR/xilsecure/src/zynqmp/*.h $BSP_DIR/include/
 cp -r $SERVICES_DIR/xilskey/ $BSP_DIR/libsrc/
 cp -r $SERVICES_DIR/xilskey/src/*.h $BSP_DIR/include/
 cp -r $SERVICES_DIR/xilskey/src/include/*.h $BSP_DIR/include/
