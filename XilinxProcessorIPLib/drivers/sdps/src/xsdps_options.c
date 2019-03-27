@@ -366,7 +366,7 @@ s32 XSdPs_Change_BusWidth(XSdPs *InstancePtr)
 		StatusReg &= (u16)(~XSDPS_HC2_UHS_MODE_MASK);
 		StatusReg |= InstancePtr->Mode;
 		XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-				XSDPS_HOST_CTRL2_OFFSET, StatusReg);
+					XSDPS_HOST_CTRL2_OFFSET, (u16)StatusReg);
 	}
 
 	Status = XST_SUCCESS;
@@ -1777,7 +1777,7 @@ static void XSdPs_DllReset(XSdPs *InstancePtr)
 			XSDPS_CLK_CTRL_OFFSET);
 	ClockReg &= ~XSDPS_CC_SD_CLK_EN_MASK;
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_CLK_CTRL_OFFSET, ClockReg);
+			XSDPS_CLK_CTRL_OFFSET, (u16)ClockReg);
 
 	/* Issue DLL Reset to load zero tap values */
 	DllCtrl = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD_DLL_CTRL);
