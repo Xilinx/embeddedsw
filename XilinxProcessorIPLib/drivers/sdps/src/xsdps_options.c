@@ -168,7 +168,7 @@ s32 XSdPs_SetBlkSize(XSdPs *InstancePtr, u16 BlkSize)
 * @note		None.
 *
 ******************************************************************************/
-s32 XSdPs_Get_BusWidth(XSdPs *InstancePtr, u8 *SCR)
+s32 XSdPs_Get_BusWidth(XSdPs *InstancePtr, u8 *ReadBuff)
 {
 	s32 Status;
 	u32 StatusReg;
@@ -180,7 +180,7 @@ s32 XSdPs_Get_BusWidth(XSdPs *InstancePtr, u8 *SCR)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	for (LoopCnt = 0; LoopCnt < 8; LoopCnt++) {
-		SCR[LoopCnt] = 0U;
+		ReadBuff[LoopCnt] = 0U;
 	}
 
 	/* Send block write command */
@@ -199,12 +199,12 @@ s32 XSdPs_Get_BusWidth(XSdPs *InstancePtr, u8 *SCR)
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_BLK_SIZE_OFFSET, BlkSize);
 
-	XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, SCR);
+	XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, ReadBuff);
 
 	TransferMode = 	XSDPS_TM_DAT_DIR_SEL_MASK | XSDPS_TM_DMA_EN_MASK;
 
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
-		Xil_DCacheInvalidateRange((INTPTR)SCR, 8);
+		Xil_DCacheInvalidateRange((INTPTR)ReadBuff, 8);
 	}
 
 	Status = XSdPs_CmdTransfer(InstancePtr, ACMD51, 0U, BlkCnt);
