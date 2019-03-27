@@ -1290,7 +1290,7 @@ XStatus XPmDevice_UpdateStatus(XPm_Device *Device)
 	XStatus Status = XST_FAILURE;
 	u32 Caps = GetMaxCapabilities(Device);
 	u32 WkupLat, MinLat;
-	u32 State;
+	u32 State = 0;
 
 	if ((XPM_DEVSTATE_UNUSED != Device->Node.State) &&
 	    (XPM_DEVSTATE_RUNNING != Device->Node.State)) {
