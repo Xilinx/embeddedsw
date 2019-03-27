@@ -1109,10 +1109,10 @@ void XSdPs_Identify_UhsMode(XSdPs *InstancePtr, u8 *ReadBuff)
 ******************************************************************************/
 s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode)
 {
-	s32 Status;
+	s32 Status = XST_SUCCESS;
 	u16 StatusReg;
 	u16 CtrlReg;
-	u32 Arg;
+	u32 Arg = 0U;
 	u16 BlkCnt;
 	u16 BlkSize;
 	u8 ReadBuff[64] = {0U};
@@ -1160,8 +1160,11 @@ s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode)
 		break;
 	default:
 		Status = XST_FAILURE;
-		goto RETURN_PATH;
 		break;
+	}
+
+	if (Status == XST_FAILURE) {
+		goto RETURN_PATH;
 	}
 
 	Status = XSdPs_CmdTransfer(InstancePtr, CMD6, Arg, 1U);
