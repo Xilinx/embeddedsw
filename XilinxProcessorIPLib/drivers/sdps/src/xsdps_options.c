@@ -203,7 +203,7 @@ s32 XSdPs_Get_BusWidth(XSdPs *InstancePtr, u8 *SCR)
 
 	TransferMode = 	XSDPS_TM_DAT_DIR_SEL_MASK | XSDPS_TM_DMA_EN_MASK;
 
-	if (InstancePtr->Config.IsCacheCoherent == 0) {
+	if (InstancePtr->Config.IsCacheCoherent == 0U) {
 		Xil_DCacheInvalidateRange((INTPTR)SCR, 8);
 	}
 
@@ -363,7 +363,7 @@ s32 XSdPs_Change_BusWidth(XSdPs *InstancePtr)
 	if (InstancePtr->Mode == XSDPS_DDR52_MODE) {
 		StatusReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
 					XSDPS_HOST_CTRL2_OFFSET);
-		StatusReg &= (u16)(~XSDPS_HC2_UHS_MODE_MASK);
+		StatusReg &= (u32)(~XSDPS_HC2_UHS_MODE_MASK);
 		StatusReg |= InstancePtr->Mode;
 		XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 					XSDPS_HOST_CTRL2_OFFSET, (u16)StatusReg);
@@ -421,7 +421,7 @@ s32 XSdPs_Get_BusSpeed(XSdPs *InstancePtr, u8 *ReadBuff)
 
 	Arg = XSDPS_SWITCH_CMD_HS_GET;
 
-	if (InstancePtr->Config.IsCacheCoherent == 0) {
+	if (InstancePtr->Config.IsCacheCoherent == 0U) {
 		Xil_DCacheInvalidateRange((INTPTR)ReadBuff, 64);
 	}
 
@@ -509,7 +509,7 @@ s32 XSdPs_Get_Status(XSdPs *InstancePtr, u8 *SdStatReg)
 
 	TransferMode = 	XSDPS_TM_DAT_DIR_SEL_MASK | XSDPS_TM_DMA_EN_MASK;
 
-	if (InstancePtr->Config.IsCacheCoherent == 0) {
+	if (InstancePtr->Config.IsCacheCoherent == 0U) {
 		Xil_DCacheInvalidateRange((INTPTR)SdStatReg, 64);
 	}
 
@@ -587,7 +587,7 @@ s32 XSdPs_Change_BusSpeed(XSdPs *InstancePtr)
 
 		XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, ReadBuff);
 
-		if (InstancePtr->Config.IsCacheCoherent == 0) {
+		if (InstancePtr->Config.IsCacheCoherent == 0U) {
 			Xil_DCacheFlushRange((INTPTR)ReadBuff, 64);
 		}
 
@@ -729,7 +729,7 @@ s32 XSdPs_Change_BusSpeed(XSdPs *InstancePtr)
 
 	usleep(XSDPS_MMC_DELAY_FOR_SWITCH);
 
-	StatusReg = (s32)XSdPs_ReadReg8(InstancePtr->Config.BaseAddress,
+	StatusReg = (u32)XSdPs_ReadReg8(InstancePtr->Config.BaseAddress,
 					XSDPS_HOST_CTRL1_OFFSET);
 	StatusReg |= XSDPS_HC_SPEED_MASK;
 	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
@@ -947,7 +947,7 @@ s32 XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff)
 
 	XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, ReadBuff);
 
-	if (InstancePtr->Config.IsCacheCoherent == 0) {
+	if (InstancePtr->Config.IsCacheCoherent == 0U) {
 		Xil_DCacheInvalidateRange((INTPTR)ReadBuff, 512U);
 	}
 
@@ -1131,7 +1131,7 @@ s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode)
 
 	XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, ReadBuff);
 
-	if (InstancePtr->Config.IsCacheCoherent == 0) {
+	if (InstancePtr->Config.IsCacheCoherent == 0U) {
 		Xil_DCacheFlushRange((INTPTR)ReadBuff, 64);
 	}
 

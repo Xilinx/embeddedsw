@@ -169,7 +169,7 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-#define XSDPS_CT_ERROR	0x2U	/**< Command timeout flag */
+#define XSDPS_CT_ERROR	0x2L	/**< Command timeout flag */
 #define MAX_TUNING_COUNT	40U		/**< Maximum Tuning count */
 #define MAX_TIMEOUT		0x1FFFFFFFU		/**< Maximum Timeout */
 
