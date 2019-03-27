@@ -1615,9 +1615,7 @@ void XSdPs_SetupADMA2DescTbl64Bit(XSdPs *InstancePtr, u32 BlkCnt)
 				(DescNum*XSDPS_DESC_MAX_LENGTH);
 		InstancePtr->Adma2_DescrTbl[DescNum].Attribute =
 				XSDPS_DESC_TRAN | XSDPS_DESC_VALID;
-		/* This will write '0' to length field which indicates 65536 */
-		InstancePtr->Adma2_DescrTbl[DescNum].Length =
-				(u16)XSDPS_DESC_MAX_LENGTH;
+		InstancePtr->Adma2_DescrTbl[DescNum].Length = 0U;
 	}
 
 	InstancePtr->Adma2_DescrTbl[TotalDescLines-1].Address =
@@ -1692,9 +1690,7 @@ void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 #endif
 		InstancePtr->Adma2_DescrTbl[DescNum].Attribute =
 				XSDPS_DESC_TRAN | XSDPS_DESC_VALID;
-		/* This will write '0' to length field which indicates 65536 */
-		InstancePtr->Adma2_DescrTbl[DescNum].Length =
-				(u16)XSDPS_DESC_MAX_LENGTH;
+		InstancePtr->Adma2_DescrTbl[DescNum].Length = 0U;
 	}
 
 #if defined(__aarch64__) || defined(__arch64__)
