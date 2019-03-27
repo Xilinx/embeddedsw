@@ -159,6 +159,8 @@
  *
  * 1.9 akm 03/08/19 Set recommended clock and data tap delay values for 40MHZ,
  *                  100MHZ and 150MHZ frequencies(CR#1023187)
+ * 1.9  nsk 03/27/19 Update 64bit dma support
+ *		     (CR#1018102).
  *
  * </pre>
  *
@@ -214,6 +216,7 @@ typedef struct {
 	u8 PollStatusCmd;
 	u8 PollBusMask;
 	u64 RxAddr64bit;
+	u8 Xfer64bit;
 } XQspiPsu_Msg;
 
 /**
