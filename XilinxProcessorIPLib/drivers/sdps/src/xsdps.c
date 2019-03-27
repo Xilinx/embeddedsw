@@ -537,6 +537,9 @@ s32 XSdPs_SdCardInitialize(XSdPs *InstancePtr)
 	} else if (((CSD[3] & CSD_STRUCT_MASK) >> 22U) == 1U) {
 		InstancePtr->SectorCount = (((CSD[1] & CSD_V2_C_SIZE_MASK) >> 8U) +
 										1U) * 1024U;
+	} else {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
 	}
 
 	Status = XST_SUCCESS;
@@ -915,6 +918,9 @@ s32 XSdPs_CardInitialize(XSdPs *InstancePtr)
 				goto RETURN_PATH;
 			}
 		}
+	} else {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
 	}
 	if ((InstancePtr->Mode != XSDPS_DDR52_MODE) ||
 			(InstancePtr->CardType == XSDPS_CARD_SD)) {
