@@ -101,7 +101,7 @@ void NodeQspiIdle(u16 DeviceId, u32 BaseAddress)
 {
 	int Status;
 	XQspiPsu_Config *ConfigPtr;
-	XQspiPsu QspiInst;
+	XQspiPsu QspiInst = {0};
 
 	ConfigPtr = XQspiPsu_LookupConfig(DeviceId);
 	if (NULL == ConfigPtr) {
@@ -131,7 +131,7 @@ void NodeOspiIdle(u16 DeviceId, u32 BaseAddress)
 {
 	int Status;
 	XOspiPsv_Config *ConfigPtr;
-	XOspiPsv OspiInst;
+	XOspiPsv OspiInst = {0};
 
 	/* Warning Fix */
 	(void)(BaseAddress);
@@ -164,7 +164,7 @@ void NodeSdioIdle(u16 DeviceId, u32 BaseAddress)
 {
 	int Status;
 	XSdPs_Config *ConfigPtr;
-	XSdPs SdioInst;
+	XSdPs SdioInst = {0};
 
 	ConfigPtr = XSdPs_LookupConfig(DeviceId);
 	if (NULL == ConfigPtr) {
@@ -194,7 +194,7 @@ void NodeUsbIdle(u16 DeviceId, u32 BaseAddress)
 {
 	int Status;
 	XUsbPsu_Config *ConfigPtr;
-	struct XUsbPsu UsbInst;
+	struct XUsbPsu UsbInst = {0};
 
 	ConfigPtr = XUsbPsu_LookupConfig(DeviceId);
 	if (NULL == ConfigPtr) {
