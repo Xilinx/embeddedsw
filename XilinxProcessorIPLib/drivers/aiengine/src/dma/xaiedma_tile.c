@@ -317,7 +317,8 @@ void XAieDma_TileBdSetPkt(XAieDma_Tile *DmaInstPtr, u8 BdNum, u8 PktEn,
 * @param	BaseAddrB - AddrB base address (to be in 32b words).
 * @param	Length - Transfer length in bytes.
 * @param	AbMode - Enable/disable double buffer mode(1-Enable,0-Disable).
-* @param	FifoMode - Enable/Disable FIFO mode (1-Enable,0-Disable).
+* @param	FifoMode - 0 to disable.
+* XAIEDMA_TILE_FIFO_CNT0 or XAIE_DMA_TILE_FIFO_CNT1 to enable.
 *
 * @return	None.
 *
@@ -332,6 +333,9 @@ void XAieDma_TileBdSetAdrLenMod(XAieDma_Tile *DmaInstPtr, u8 BdNum, u16 BaseAddr
 
 	XAie_AssertNonvoid(DmaInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(BdNum < XAIEDMA_TILE_MAX_NUM_DESCRS);
+	XAie_AssertNonvoid((FifoMode == 0) ||
+			(FifoMode == XAIEDMA_TILE_FIFO_CNT0) ||
+			(FifoMode == XAIEDMA_TILE_FIFO_CNT1));
 
 	/* Base address A to be in 32 bit words */
 	XAie_AssertNonvoid((BaseAddrA & XAIEDMA_TILE_ADDRAB_ALIGN_MASK) == 0U);
