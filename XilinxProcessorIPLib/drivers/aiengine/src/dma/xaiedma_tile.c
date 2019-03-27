@@ -339,14 +339,9 @@ void XAieDma_TileBdSetAdrLenMod(XAieDma_Tile *DmaInstPtr, u8 BdNum, u16 BaseAddr
 	/* Base address B to be in 32 bit words */
 	XAie_AssertNonvoid((BaseAddrB & XAIEDMA_TILE_ADDRAB_ALIGN_MASK) == 0U);
 
+	Length = Length >> XAIEDMA_TILE_LENGTH32_OFFSET;
 	if(FifoMode != 0U) {
-		/* Length in 128-bit words for FIFO mode */
-		Length = Length >> XAIEDMA_TILE_LENGTH128_OFFSET;
 		LenMask = XAIEDMA_TILE_LENGTH128_MASK;
-	} else {
-		/* Length in 32-bit words for non-FIFO mode */
-		Length = Length >> XAIEDMA_TILE_LENGTH32_OFFSET;
-		LenMask = XAIEDMA_TILE_LENGTH32_MASK;
 	}
 
 	XAie_AssertNonvoid((Length & LenMask) == 0U);
