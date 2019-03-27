@@ -104,5 +104,8 @@ uint64_t XAieIO_MemGetPaddr(XAieIO_Mem *IO_MemInstPtr);
 void XAieIO_MemWrite32(XAieIO_Mem *IO_MemInstPtr, uint64_t Addr, uint32 Data);
 uint32 XAieIO_MemRead32(XAieIO_Mem *IO_MemInstPtr, uint64_t Addr);
 
+uint32 XAieIO_NPIRead32(uint64_t Addr);
+void XAieIO_NPIWrite32(uint64_t Addr, uint32 Data);
+
 #endif		/* end of protection macro */
 /** @} */

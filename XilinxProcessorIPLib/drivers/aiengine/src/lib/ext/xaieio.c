@@ -87,8 +87,11 @@ typedef struct
 {
 	u32 RefCnt;			/**< RefCnt. Will not work perfectly */
 	struct metal_device *device;	/**< libmetal device */
+	struct metal_device *npi;	/**< device for aie npi mapping */
 	struct metal_io_region *io;	/**< libmetal io region */
 	u64 io_base;			/**< libmetal io region base */
+	struct metal_io_region *npi_io;	/**< io region for aie npi */
+	u64 npi_io_base;		/**< io region base for aie npi */
 	unsigned long shm_ids[SHM_NUM_ULONG];	/**< bitmap for shm name space */
 } XAieIO;
 
@@ -171,6 +174,18 @@ void XAieIO_Init(void)
 	}
 	IOInst.io_base = metal_io_phys(IOInst.io, 0);
 	IOInst.RefCnt++;
+
+	ret = metal_device_open("platform", "aie-npi", &IOInst.npi);
+	if (ret) {
+		return;
+	}
+
+	IOInst.npi_io = metal_device_io_region(IOInst.npi, 0);
+	if (!IOInst.npi_io) {
+		return;
+	}
+	IOInst.npi_io_base = metal_io_phys(IOInst.npi_io, 0);
+	XAieLib_print("AIE NPI space is mapped\n");
 }
 
 /*****************************************************************************/
@@ -654,6 +669,45 @@ u32 XAieIO_MemRead32(XAieIO_Mem *IO_MemInstPtr, uint64_t Addr)
 {
 	return  (u32)metal_io_read32(IO_MemInstPtr->io,
 			Addr - IO_MemInstPtr->io_base);
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the NPI IO function to read 32bit data from the specified address.
+*
+* @param	Addr: Address to read from.
+*
+* @return	32-bit read value.
+*
+* @note		This only work if NPI is accessble.
+*
+*******************************************************************************/
+u32 XAieIO_NPIRead32(u64 Addr)
+{
+	if (!IOInst.npi_io)
+		return 0;
+	return metal_io_read32(IOInst.npi_io, Addr - IOInst.npi_io_base);
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the NPI IO function to write 32bit data to the specified address.
+*
+* @param	Addr: Address to write to.
+* @param	Data: 32-bit data to be written.
+*
+* @return	None.
+*
+* @note		This only work if NPI is accessble.
+*
+*******************************************************************************/
+void XAieIO_NPIWrite32(u64 Addr, u32 Data)
+{
+	if (!IOInst.npi_io)
+		return;
+	metal_io_write32(IOInst.npi_io, Addr - IOInst.npi_io_base, Data);
 }
 
 /** @} */
