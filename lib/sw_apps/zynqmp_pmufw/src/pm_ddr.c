@@ -110,6 +110,12 @@
 				 DDRC_MSTR_DDR4 | \
 				 DDRC_MSTR_LPDDR4)
 
+#define DDRC_MSTR_BUS_WIDTH_MASK	3U
+#define DDRC_MSTR_BUS_WIDTH_SHIFT	12U
+#define DDRC_MSTR_BUS_WIDTH_FULL_DQ	(0U << DDRC_MSTR_BUS_WIDTH_SHIFT)
+#define DDRC_MSTR_BUS_WIDTH_HALF_DQ	(1U << DDRC_MSTR_BUS_WIDTH_SHIFT)
+#define DDRC_MSTR_BUS_WIDTH_QUART_DQ	(2U << DDRC_MSTR_BUS_WIDTH_SHIFT)
+
 #define DDRC_STAT_OPMODE_MASK	7U
 #define DDRC_STAT_OPMODE_SHIFT	0U
 #define DDRC_STAT_OPMODE_INIT	0U
@@ -1223,10 +1229,15 @@ static void ddr_power_down_io(void)
 static void DDR_reinit(bool ddrss_is_reset)
 {
 	size_t i;
-	u32 readVal;
+	u32 readVal, busWidth;
 	XStatus status = XST_FAILURE;
 
 	if (true == ddrss_is_reset) {
+		/* Data Bus Width */
+		readVal = Xil_In32(DDRC_MSTR);
+		busWidth = (readVal & (DDRC_MSTR_BUS_WIDTH_MASK <<
+				       DDRC_MSTR_BUS_WIDTH_SHIFT));
+
 		/* PHY init */
 		do {
 			Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_ZCALBYP |
@@ -1249,23 +1260,28 @@ static void DDR_reinit(bool ddrss_is_reset)
 			if (XST_SUCCESS != status) {
 				continue;
 			}
-			status = XPfw_UtilPollForMask(DDRPHY_DXGSR0(2U),
-						      DDRPHY_DXGSR0_DPLOCK,
-						      PM_DDR_POLL_PERIOD);
-			if (XST_SUCCESS != status) {
-				continue;
+			if ((DDRC_MSTR_BUS_WIDTH_FULL_DQ == busWidth) ||
+			    (DDRC_MSTR_BUS_WIDTH_HALF_DQ == busWidth)) {
+				status = XPfw_UtilPollForMask(DDRPHY_DXGSR0(2U),
+							   DDRPHY_DXGSR0_DPLOCK,
+							   PM_DDR_POLL_PERIOD);
+				if (XST_SUCCESS != status) {
+					continue;
+				}
 			}
-			status = XPfw_UtilPollForMask(DDRPHY_DXGSR0(4U),
-						      DDRPHY_DXGSR0_DPLOCK,
-						      PM_DDR_POLL_PERIOD);
-			if (XST_SUCCESS != status) {
-				continue;
-			}
-			status = XPfw_UtilPollForMask(DDRPHY_DXGSR0(6U),
-						      DDRPHY_DXGSR0_DPLOCK,
-						      PM_DDR_POLL_PERIOD);
-			if (XST_SUCCESS != status) {
-				continue;
+			if (DDRC_MSTR_BUS_WIDTH_FULL_DQ == busWidth)  {
+				status = XPfw_UtilPollForMask(DDRPHY_DXGSR0(4U),
+							   DDRPHY_DXGSR0_DPLOCK,
+							   PM_DDR_POLL_PERIOD);
+				if (XST_SUCCESS != status) {
+					continue;
+				}
+				status = XPfw_UtilPollForMask(DDRPHY_DXGSR0(6U),
+							   DDRPHY_DXGSR0_DPLOCK,
+							   PM_DDR_POLL_PERIOD);
+				if (XST_SUCCESS != status) {
+					continue;
+				}
 			}
 #if XPAR_PSU_DDRC_0_HAS_ECC
 			status = XPfw_UtilPollForMask(DDRPHY_DXGSR0(8U),
