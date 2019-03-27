@@ -70,11 +70,11 @@ extern "C" {
 #define XILSP_INIT_DONE 0xF2000000
 #define	ARITH_SMC_FID	0xF2000001
 
-#define PM_ASSERT_SMC_FID       0xC2000011
-#define PM_GETSTATUS_SMC_FID    0xC2000012
-#define MMIO_WRITE_SMC_FID	0xC2000013
-#define MMIO_READ_SMC_FID	0xC2000014
-#define GET_CHIPID_SMC_FID      0xC2000018
+#define PM_ASSERT_SMC_FID       0xC2000011U
+#define PM_GETSTATUS_SMC_FID    0xC2000012U
+#define MMIO_WRITE_SMC_FID	0xC2000013U
+#define MMIO_READ_SMC_FID	0xC2000014U
+#define GET_CHIPID_SMC_FID      0xC2000018U
 /**************************** Type Definitions ******************************/
 typedef struct {
 	u64 Arg0;
