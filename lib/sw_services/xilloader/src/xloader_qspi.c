@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -720,7 +720,7 @@ XStatus XLoader_Qspi24Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 
 		FlashMsg[2].TxBfrPtr = NULL;
 		FlashMsg[2].RxAddr64bit = DestAddr;
-		FlashMsg[2].RxBfrPtr = (u8 *)DestAddr;
+		FlashMsg[2].Xfer64bit = 1;
 
 		FlashMsg[2].ByteCount = TransferBytes;
 		FlashMsg[2].Flags = XQSPIPSU_MSG_FLAG_RX;
@@ -1042,8 +1042,8 @@ XStatus XLoader_Qspi32Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		}
 
 		FlashMsg[2].TxBfrPtr = NULL;
-        FlashMsg[2].RxAddr64bit = DestAddr;
-        FlashMsg[2].RxBfrPtr = (u8 *)DestAddr;
+		FlashMsg[2].RxAddr64bit = DestAddr;
+		FlashMsg[2].Xfer64bit = 1;
 
 		FlashMsg[2].ByteCount = TransferBytes;
 		FlashMsg[2].Flags = XQSPIPSU_MSG_FLAG_RX;

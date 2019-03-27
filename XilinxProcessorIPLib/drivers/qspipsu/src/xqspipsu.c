@@ -82,6 +82,7 @@
  * 1.9  nsk 02/01/19 Added QSPI idling support.
  * 1.9  rama 03/13/19 Fixed MISRA violations related to UR data anamoly,
  *					  expression is not a boolean
+ * 1.9  nsk 03/27/19 Update 64bit dma support
  * </pre>
  *
  ******************************************************************************/
@@ -1152,7 +1153,8 @@ static inline void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		*GenFifoEntry |= XQSPIPSU_GENFIFO_RX;
 		InstancePtr->RxBytes = (s32)Msg->ByteCount;
 		InstancePtr->SendBufferPtr = NULL;
-		if (Msg->RxAddr64bit >= XQSPIPSU_RXADDR_OVER_32BIT) {
+		if ((Msg->RxAddr64bit >= XQSPIPSU_RXADDR_OVER_32BIT) ||
+			(Msg->Xfer64bit != (u8)0U)) {
 			if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
 				XQspiPsu_Setup64BRxDma(InstancePtr, Msg);
 			}
@@ -1184,7 +1186,8 @@ static inline void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		InstancePtr->SendBufferPtr = Msg->TxBfrPtr;
 		XQspiPsu_FillTxFifo(InstancePtr, Msg, XQSPIPSU_TXD_DEPTH);
 		/* Add check for DMA or PIO here */
-		if (Msg->RxAddr64bit >= XQSPIPSU_RXADDR_OVER_32BIT) {
+		if ((Msg->RxAddr64bit >= XQSPIPSU_RXADDR_OVER_32BIT) ||
+			(Msg->Xfer64bit != (u8)0U)) {
 			if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
 				XQspiPsu_Setup64BRxDma(InstancePtr, Msg);
 			}
