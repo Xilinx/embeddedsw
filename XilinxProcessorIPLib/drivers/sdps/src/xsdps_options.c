@@ -72,6 +72,7 @@
 *       mn     08/22/17 Updated for Word Access System support
 * 3.4   mn     01/22/18 Separated out SDR104 and HS200 clock defines
 * 3.6   mn     07/06/18 Fix Cppcheck warnings for sdps driver
+* 3.7   aru    03/12/19 Modified the code according to MISRAC-2012.
 *
 * </pre>
 *
