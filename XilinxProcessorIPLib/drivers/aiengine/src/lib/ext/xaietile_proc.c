@@ -240,10 +240,10 @@ static struct remoteproc_ops xaietile_proc_ops = {
 };
 
 /*
- * Internal store operations to load the elf from a file.
+ * Internal store operations to load the elf from a file or memory.
  */
 
-struct file_store {
+struct elf_store {
 	FILE *file;
 	void *elf;
 };
@@ -252,8 +252,8 @@ static int xaietile_store_load(void *store, size_t offset, size_t size,
 		const void **data, metal_phys_addr_t pa,
 		struct metal_io_region *io, char is_blocking)
 {
-	struct file_store *file_store = (struct file_store *)store;
-	const void *elf = file_store->elf;
+	struct elf_store *elf_store = (struct elf_store *)store;
+	const void *elf = elf_store->elf;
 
 	(void)is_blocking;
 
@@ -358,7 +358,7 @@ static void xaietile_store_workaround(char *elf)
 static int xaietile_file_store_open(void *store, const char *path,
 		const void **image_data)
 {
-	struct file_store *file_store = (struct file_store *)store;
+	struct elf_store *elf_store = (struct elf_store *)store;
 	FILE *file;
 	int size;
 	void *elf;
@@ -368,7 +368,7 @@ static int xaietile_file_store_open(void *store, const char *path,
 		XAieLib_print("failed to open the elf file: %s\n", path);
 		return -EINVAL;
 	}
-	file_store->file = file;
+	elf_store->file = file;
 
 	fseek(file, 0, SEEK_END);
 	size = ftell(file);
@@ -379,7 +379,7 @@ static int xaietile_file_store_open(void *store, const char *path,
 		return -ENOMEM;
 	}
 	fread(elf, size, 1, file);
-	file_store->elf = elf;
+	elf_store->elf = elf;
 	*image_data = elf;
 
 	xaietile_store_workaround(elf);
@@ -389,10 +389,10 @@ static int xaietile_file_store_open(void *store, const char *path,
 
 static void xaietile_file_store_close(void *store)
 {
-	struct file_store *file_store = (struct file_store *)store;
+	struct elf_store *elf_store = (struct elf_store *)store;
 
-	metal_free_memory(file_store->elf);
-	fclose(file_store->file);
+	metal_free_memory(elf_store->elf);
+	fclose(elf_store->file);
 }
 
 struct image_store_ops xaietile_file_store_ops = {
@@ -409,10 +409,13 @@ struct image_store_ops xaietile_file_store_ops = {
 static int xaietile_mem_store_open(void *store, const char *elf,
 		const void **image_data)
 {
+	struct elf_store *elf_store = (struct elf_store *)store;
+
 	if (!elf) {
 		XAieLib_print("failed to allocate a memory for elf\n");
 		return -EINVAL;
 	}
+	elf_store->elf = elf;
 	*image_data = elf;
 
 	xaietile_store_workaround((void *)elf);
@@ -484,19 +487,19 @@ static u32 xaietileproc_load(XAieGbl_Tile *TileInstPtr, u8 *ElfPtr,
 *******************************************************************************/
 u32 XAieTileProc_LoadElfFile(XAieGbl_Tile *TileInstPtr, u8 *ElfPtr, u8 LoadSym)
 {
-	struct file_store *file_store;
+	struct elf_store *elf_store;
 	u32 ret;
 
-	file_store = metal_allocate_memory(sizeof(*file_store));
-	if (!file_store) {
+	elf_store = metal_allocate_memory(sizeof(*elf_store));
+	if (!elf_store) {
 		XAieLib_print("failed to allocae a memory()\n");
 		return XAIELIB_FAILURE;
 	}
 
-	ret = xaietileproc_load(TileInstPtr, ElfPtr, file_store,
+	ret = xaietileproc_load(TileInstPtr, ElfPtr, elf_store,
 			&xaietile_file_store_ops);
 	if (ret) {
-		metal_free_memory(file_store);
+		metal_free_memory(elf_store);
 		return ret;
 	}
 
@@ -520,8 +523,23 @@ u32 XAieTileProc_LoadElfFile(XAieGbl_Tile *TileInstPtr, u8 *ElfPtr, u8 LoadSym)
 *******************************************************************************/
 u32 XAieTileProc_LoadElfMem(XAieGbl_Tile *TileInstPtr, u8 *ElfPtr, u8 LoadSym)
 {
-	return xaietileproc_load(TileInstPtr, ElfPtr, NULL,
+	struct elf_store *elf_store;
+	u32 ret;
+
+	elf_store = metal_allocate_memory(sizeof(*elf_store));
+	if (!elf_store) {
+		XAieLib_print("failed to allocae a memory()\n");
+		return XAIELIB_FAILURE;
+	}
+
+	ret = xaietileproc_load(TileInstPtr, ElfPtr, elf_store,
 			&xaietile_mem_store_ops);
+	if (ret) {
+		metal_free_memory(elf_store);
+		return ret;
+	}
+
+	return XAIELIB_SUCCESS;
 }
 
 /*****************************************************************************/
