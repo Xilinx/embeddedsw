@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -118,6 +118,8 @@
 * 4.2   ms  04/18/17 Modified tcl file to add suffix U for all macro
 *                    definitions of bram in xparameters.h
 *       ms  08/07/17 Fixed compilation warnings in xbram_sinit.c
+* 4.3   aru 03/23/19 Used UINTPTR instead of u32 for MemBaseAddress and
+*                    MemHighAddress.
 * </pre>
 *****************************************************************************/
 #ifndef XBRAM_H		/* prevent circular inclusions */
@@ -166,8 +168,8 @@ typedef struct {
 					     *  register in h/w */
 	int WriteAccess;		   /**< Is write access enabled in
 					     *  h/w */
-	u32 MemBaseAddress;		   /**< Device memory base address */
-	u32 MemHighAddress;		   /**< Device memory high address */
+	UINTPTR MemBaseAddress;		   /**< Device memory base address */
+	UINTPTR MemHighAddress;		   /**< Device memory high address */
 	UINTPTR CtrlBaseAddress;		   /**< Device register base address.*/
 	UINTPTR CtrlHighAddress;		   /**< Device register base address.*/
 } XBram_Config;
