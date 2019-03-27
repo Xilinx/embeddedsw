@@ -757,7 +757,7 @@ s32 XSdPs_CardInitialize(XSdPs *InstancePtr)
 			XSdPs_Identify_UhsMode(InstancePtr, ReadBuff);
 
 			/* Set UHS-I SDR104 mode */
-			Status = XSdPs_Uhs_ModeInit(InstancePtr, InstancePtr->Mode);
+			Status = XSdPs_Uhs_ModeInit(InstancePtr, (u8)InstancePtr->Mode);
 			if (Status != XST_SUCCESS) {
 				goto RETURN_PATH;
 			}
@@ -1661,7 +1661,7 @@ void XSdPs_SetupADMA2DescTbl64Bit(XSdPs *InstancePtr, u32 BlkCnt)
 void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 {
 	u32 TotalDescLines;
-	u32 DescNum;
+	u64 DescNum;
 	u32 BlkSize;
 
 	/* Setup ADMA2 - Write descriptor table and point ADMA SAR to it */
@@ -1713,7 +1713,7 @@ void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 
 #if defined(__aarch64__) || defined(__arch64__)
 	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_EXT_OFFSET,
-			(u32)(((u64)&(InstancePtr->Adma2_DescrTbl[0]))>>32U));
+			(u32)((UINTPTR)(InstancePtr->Adma2_DescrTbl)>>32U));
 #endif
 
 	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_OFFSET,
