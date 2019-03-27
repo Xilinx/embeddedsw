@@ -1326,7 +1326,7 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 ******************************************************************************/
 void XSdPs_sdr104_hs200_tapdelay(u32 Bank, u32 DeviceId, u32 CardType)
 {
-	u32 TapDelay;
+	u32 TapDelay = 0U;
 	(void) CardType;
 
 #ifdef XPAR_PSU_SD_0_DEVICE_ID
@@ -1393,7 +1393,7 @@ void XSdPs_sdr104_hs200_tapdelay(u32 Bank, u32 DeviceId, u32 CardType)
 ******************************************************************************/
 void XSdPs_sdr50_tapdelay(u32 Bank, u32 DeviceId, u32 CardType)
 {
-	u32 TapDelay;
+	u32 TapDelay = 0U;
 	(void) Bank;
 	(void) CardType;
 
@@ -1445,7 +1445,7 @@ void XSdPs_sdr50_tapdelay(u32 Bank, u32 DeviceId, u32 CardType)
 ******************************************************************************/
 void XSdPs_ddr50_tapdelay(u32 Bank, u32 DeviceId, u32 CardType)
 {
-	u32 TapDelay;
+	u32 TapDelay = 0U;
 	(void) Bank;
 
 #ifdef XPAR_PSU_SD_0_DEVICE_ID
@@ -1572,7 +1572,7 @@ void XSdPs_ddr50_tapdelay(u32 Bank, u32 DeviceId, u32 CardType)
 ******************************************************************************/
 void XSdPs_hsd_sdr25_tapdelay(u32 Bank, u32 DeviceId, u32 CardType)
 {
-	u32 TapDelay;
+	u32 TapDelay = 0U;
 	(void) Bank;
 
 #ifdef XPAR_PSU_SD_0_DEVICE_ID
@@ -1682,7 +1682,10 @@ void XSdPs_hsd_sdr25_tapdelay(u32 Bank, u32 DeviceId, u32 CardType)
 ******************************************************************************/
 void XSdPs_SetTapDelay(XSdPs *InstancePtr)
 {
-	u32 DllCtrl, BankNum, DeviceId, CardType;
+	u32 DllCtrl = 0U;
+	u32 BankNum;
+	u32 DeviceId;
+	u32 CardType;
 
 	BankNum = InstancePtr->Config.BankNumber;
 	DeviceId = InstancePtr->Config.DeviceId ;
