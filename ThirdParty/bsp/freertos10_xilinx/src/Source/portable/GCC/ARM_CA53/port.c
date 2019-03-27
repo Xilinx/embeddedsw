@@ -176,6 +176,10 @@ uint64_t ullPortInterruptNesting = 0;
 volatile uint32_t ulHighFrequencyTimerTicks;
 #endif
 
+/* The space on the stack required to hold the FPU registers.  This is 32 128-bit
+ * registers, plus a 32-bit status register. */
+#define portFPU_REGISTER_WORDS	( ( 64 * 2 ) + 1 )
+
 /* Used in the ASM code. */
 __attribute__(( used )) const uint64_t ullICCEOIR = portICCEOIR_END_OF_INTERRUPT_REGISTER_ADDRESS;
 __attribute__(( used )) const uint64_t ullICCIAR = portICCIAR_INTERRUPT_ACKNOWLEDGE_REGISTER_ADDRESS;
@@ -277,12 +281,30 @@ StackType_t *pxPortInitialiseStack( StackType_t *pxTopOfStack, TaskFunction_t px
 	/* The task will start with a critical nesting count of 0 as interrupts are
 	enabled. */
 	*pxTopOfStack = portNO_CRITICAL_NESTING;
-	pxTopOfStack--;
-
+	#if( configUSE_TASK_FPU_SUPPORT == 1 )
+	{
 	/* The task will start without a floating point context.  A task that uses
 	the floating point hardware must call vPortTaskUsesFPU() before executing
 	any floating point instructions. */
+	 pxTopOfStack--;
 	*pxTopOfStack = portNO_FLOATING_POINT_CONTEXT;
+	}
+	#elif( configUSE_TASK_FPU_SUPPORT == 2 )
+	{
+		/* The task will start with a floating point context.  Leave enough
+		 * space for the registers - and ensure they are initialised to 0. */
+		pxTopOfStack -= portFPU_REGISTER_WORDS;
+		memset( pxTopOfStack, 0x00, portFPU_REGISTER_WORDS * sizeof( StackType_t ) );
+
+		pxTopOfStack--;
+		*pxTopOfStack = pdTRUE;
+		ullPortTaskHasFPUContext = pdTRUE;
+	}
+	#else
+	{
+		#error Invalid configUSE_TASK_FPU_SUPPORT setting - configUSE_TASK_FPU_SUPPORT must be set to 1, 2, or left undefined.
+	}
+	#endif
 
 	return pxTopOfStack;
 }
@@ -577,7 +599,7 @@ void FreeRTOS_Tick_Handler( void )
 	portCLEAR_INTERRUPT_MASK();
 }
 /*-----------------------------------------------------------*/
-
+#if( configUSE_TASK_FPU_SUPPORT != 2 )
 void vPortTaskUsesFPU( void )
 {
 	/* A task is registering the fact that it needs an FPU context.  Set the
@@ -587,6 +609,7 @@ void vPortTaskUsesFPU( void )
 	/* Consider initialising the FPSR here - but probably not necessary in
 	AArch64. */
 }
+#endif /* configUSE_TASK_FPU_SUPPORT */
 /*-----------------------------------------------------------*/
 
 void vPortClearInterruptMask( UBaseType_t uxNewMaskValue )
