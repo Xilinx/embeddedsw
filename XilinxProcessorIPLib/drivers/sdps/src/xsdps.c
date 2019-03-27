@@ -899,7 +899,7 @@ s32 XSdPs_CardInitialize(XSdPs *InstancePtr)
 			}
 
 			if ((InstancePtr->Mode == XSDPS_HIGH_SPEED_MODE) ||
-					InstancePtr->Mode == XSDPS_DDR52_MODE) {
+					(InstancePtr->Mode == XSDPS_DDR52_MODE)) {
 				if (ExtCsd[EXT_CSD_HS_TIMING_BYTE] != EXT_CSD_HS_TIMING_HIGH) {
 					Status = XST_FAILURE;
 					goto RETURN_PATH;
