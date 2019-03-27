@@ -80,7 +80,7 @@ done:
  ****************************************************************************/
 XStatus XPm_IpiReadStatus(u32 IpiMask)
 {
-	u32 Response[RESPONSE_ARG_CNT];
+	u32 Response[RESPONSE_ARG_CNT] = {0};
 	XStatus Status;
 
 	/* Wait until current IPI interrupt is handled by target module */
