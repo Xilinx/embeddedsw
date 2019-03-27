@@ -527,8 +527,8 @@ s32 XSdPs_SdCardInitialize(XSdPs *InstancePtr)
 			XSDPS_RESP3_OFFSET);
 
 	if (((CSD[3] & CSD_STRUCT_MASK) >> 22U) == 0U) {
-		BlkLen = 1 << ((CSD[2] & READ_BLK_LEN_MASK) >> 8U);
-		Mult = 1 << (((CSD[1] & C_SIZE_MULT_MASK) >> 7U) + 2U);
+		BlkLen = 1U << ((CSD[2] & READ_BLK_LEN_MASK) >> 8U);
+		Mult = 1U << (((CSD[1] & C_SIZE_MULT_MASK) >> 7U) + 2U);
 		DeviceSize = (CSD[1] & C_SIZE_LOWER_MASK) >> 22U;
 		DeviceSize |= (CSD[2] & C_SIZE_UPPER_MASK) << 10U;
 		DeviceSize = (DeviceSize + 1U) * Mult;
@@ -1844,8 +1844,8 @@ s32 XSdPs_MmcCardInitialize(XSdPs *InstancePtr)
 	InstancePtr->Card_Version =  (CSD[3] & CSD_SPEC_VER_MASK) >>18U;
 
 	/* Calculating the memory capacity */
-	BlkLen = 1 << ((CSD[2] & READ_BLK_LEN_MASK) >> 8U);
-	Mult = 1 << (((CSD[1] & C_SIZE_MULT_MASK) >> 7U) + 2U);
+	BlkLen = 1U << ((CSD[2] & READ_BLK_LEN_MASK) >> 8U);
+	Mult = 1U << (((CSD[1] & C_SIZE_MULT_MASK) >> 7U) + 2U);
 	DeviceSize = (CSD[1] & C_SIZE_LOWER_MASK) >> 22U;
 	DeviceSize |= (CSD[2] & C_SIZE_UPPER_MASK) << 10U;
 	DeviceSize = (DeviceSize + 1U) * Mult;
