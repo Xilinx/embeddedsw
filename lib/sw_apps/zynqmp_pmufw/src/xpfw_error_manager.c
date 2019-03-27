@@ -453,48 +453,46 @@ s32 XPfw_EmSetAction(u8 ErrorId, u8 ActionId,
 		Status = XST_FAILURE;
 		goto Done;
 	}
+	if((EM_ACTION_CUSTOM == ActionId) && (NULL == ErrorHandler)) {
+		/* Null handler */
+		Status = XST_FAILURE;
+		goto Done;
+	}
+
+	if((ActionId > EM_ACTION_NONE) && (ActionId < EM_ACTION_MAX)) {
+		/* Disable the error actions for Error ID for configuring
+		 * the requested error action */
+		if (XST_SUCCESS != XPfw_EmDisable(ErrorId)) {
+			/* Error action disabling failure */
+			Status = XST_FAILURE;
+			goto Done;
+		}
+	}
 
 	switch (ActionId) {
 
 	case EM_ACTION_POR:
-		if (XPfw_EmDisable(ErrorId) != XST_SUCCESS) {
-			Status = XST_FAILURE;
-			goto Done;
-		}
+		/* Set the error action and enable it */
 		ErrorTable[ErrorId].Action = ActionId;
 		Status = XPfw_EmEnablePOR(ErrorId);
 		break;
 
 	case EM_ACTION_SRST:
-		if (XPfw_EmDisable(ErrorId) != XST_SUCCESS) {
-			Status = XST_FAILURE;
-			goto Done;
-		}
+		/* Set error action POR for the errorId */
 		ErrorTable[ErrorId].Action = ActionId;
 		Status = XPfw_EmEnableSRST(ErrorId);
 		break;
 
 	case EM_ACTION_CUSTOM:
-		if (ErrorHandler != NULL) {
-			if (XPfw_EmDisable(ErrorId) != XST_SUCCESS) {
-				Status = XST_FAILURE;
-				goto Done;
-			}
-			ErrorTable[ErrorId].Action = ActionId;
-			ErrorTable[ErrorId].Handler = ErrorHandler;
-			Status = XPfw_EmEnableInt(ErrorId);
-		} else {
-			/* Null handler */
-			Status = XST_FAILURE;
-		}
+		/* Set custom handler as error action for the errorId */
+		ErrorTable[ErrorId].Action = ActionId;
+		ErrorTable[ErrorId].Handler = ErrorHandler;
+		Status = XPfw_EmEnableInt(ErrorId);
 		break;
 
 	case EM_ACTION_PSERR:
-		if (XPfw_EmDisable(ErrorId) != XST_SUCCESS) {
-			Status = XST_FAILURE;
-			goto Done;
-		}
 		ErrorTable[ErrorId].Action = ActionId;
+		/* Set error action PSERR signal for the errorId */
 		Status = XPfw_EmEnablePSError(ErrorId);
 		break;
 
@@ -516,6 +514,7 @@ s32 XPfw_EmProcessError(u8 ErrorType)
 	u8 Index;
 	u32 RegAddress = 0U;
 
+	/* Read the error status register based on error type */
 	switch (ErrorType) {
 	case EM_ERR_TYPE_1:
 		RegAddress = PMU_GLOBAL_ERROR_STATUS_1;
