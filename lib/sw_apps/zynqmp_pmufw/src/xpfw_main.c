@@ -37,10 +37,19 @@
 #include "xpfw_core.h"
 #include "xpfw_user_startup.h"
 #include "xpfw_platform.h"
+#ifdef PMU_RAM_EINJ_ADDR
+#include "xstl_defs.h"
+#include "xstl_pmuerrinj.h"
+#include "xstl_topmb.h"
+#endif
 #include "xpfw_restart.h"
 #include "pm_system.h"
 #ifdef ENABLE_DDR_SR_WR
 #include "pm_hooks.h"
+#endif
+
+#ifdef PMU_RAM_EINJ_ADDR
+XStl_ErrReport PMUEccErrInfo;
 #endif
 
 void Assert_CallBack(const char8 *File, s32 Line)
@@ -56,6 +65,12 @@ XStatus XPfw_Main(void)
 {
 	XStatus Status;
 	u32 xpbr_version;
+#ifdef PMU_RAM_EINJ_ADDR
+	u32 Addr;
+	u32 ErrType;
+	u32 ControlWord;
+	u32 RegVal;
+#endif
 
 	/* Start the Init Routine */
 	XPfw_Printf(DEBUG_PRINT_ALWAYS,"PMU Firmware %s\t%s   %s\r\n",
@@ -81,6 +96,32 @@ XStatus XPfw_Main(void)
 
 	/* Call the User Start Up Code to add Mods, Handlers and Tasks */
 	XPfw_UserStartUp();
+
+#ifdef PMU_RAM_EINJ_ADDR
+	/* Invoke PMU RAM ECC Error Injection STL */
+	Addr = PMU_RAM_EINJ_ADDR;
+	ErrType = XSTL_PMU_ECC_SNGLEBIT | XSTL_PMU_ECC_ERRINJ_DAT;
+	ControlWord = ((ErrType << 20U) | (Addr & 0xFFFFFU));
+
+	Status = XStl_PMUECCErrInj(ControlWord, 0x1U, &PMUEccErrInfo);
+	if(XST_SUCCESS != Status) {
+		XPfw_Printf(DEBUG_ERROR,"%s: Error! PMU RAM ECC Error Injection \r\n", __func__);
+
+		/* Enable STL error bit (ERROR_SIG_2) */
+		RegVal = Xil_In32(XSTL_PMU_ERR_SIG_MASK_2);
+		RegVal |= XSTL_PMU_HW_ERR_BITMASK;
+		Xil_Out32(XSTL_PMU_ERR_SIG_EN_2, RegVal);
+
+		/* Trigger Error */
+		RegVal = Xil_In32(XSTL_PMU_SERV_ERR_REG);
+		/* Set bit 31 in the PMU SERV ERR Register */
+		RegVal |= XSTL_PMU_SERV_ERR_BITMASK;
+		Xil_Out32(XSTL_PMU_SERV_ERR_REG, RegVal);
+
+		goto Done;
+	}
+#endif
+
 
 	/* Configure the Modules. Calls CfgInit Handlers of all modules */
 	Status = XPfw_CoreConfigure();
