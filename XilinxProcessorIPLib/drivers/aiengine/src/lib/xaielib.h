@@ -84,6 +84,10 @@ void XAieLib_Write128(u64 Addr, u32 *Data);
 void XAieLib_WriteCmd(u8 Command, u8 ColId, u8 RowId, u32 CmdWd0, u32 CmdWd1, u8 *CmdStr);
 u32 XAieLib_MaskPoll(u64 Addr, u32 Mask, u32 Value, u32 TimeOutUs);
 
+u32 XAieLib_NPIRead32(u64 Addr);
+void XAieLib_NPIWrite32(u64 Addr, u32 Data);
+u32 XAieLib_NPIMaskPoll(u64 Addr, u32 Mask, u32 Value, u32 TimeOutUs);
+
 u32 XAieLib_AssertNonvoid(u8 Cond);
 void XAieLib_AssertVoid(u8 Cond);
 int XAieLib_usleep(u64 Usec);

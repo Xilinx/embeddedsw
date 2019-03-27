@@ -85,6 +85,11 @@
 #define XAieGbl_LoadElf                  XAieLib_LoadElf
 #define XAieGbl_LoadElfMem               XAieLib_LoadElfMem
 
+#define XAieGbl_NPIRead32                XAieLib_NPIRead32
+#define XAieGbl_NPIWrite32               XAieLib_NPIWrite32
+#define XAieGbl_NPIMaskWrite32           XAieLib_NPIMaskWrite32
+#define XAieGbl_NPIMaskPoll              XAieLib_NPIMaskPoll
+
 #define XAieGbl_MemInst                  XAieLib_MemInst
 #define XAieGbl_MemInit                  XAieLib_MemInit
 #define XAieGbl_MemFinish                XAieLib_MemFinish

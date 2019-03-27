@@ -820,8 +820,6 @@ void XAieLib_WriteCmd(u8 Command, u8 ColId, u8 RowId, u32 CmdWd0,
 #endif
 }
 
-/** @} */
-
 /*****************************************************************************/
 /**
 *
@@ -874,3 +872,137 @@ u32 XAieLib_MaskPoll(u64 Addr, u32 Mask, u32 Value, u32 TimeOutUs)
 #endif
 	return Ret;
 }
+
+/*****************************************************************************/
+/**
+*
+* This is the NPI IO function to read 32bit data from the specified address.
+*
+* @param	Addr: Address to read from.
+*
+* @return	32-bit read value.
+*
+* @note		This only work if NPI is accessble.
+*
+*******************************************************************************/
+u32 XAieLib_NPIRead32(u64 Addr)
+{
+#ifdef __AIESIM__
+	/* TODO: add the NPI accessor */
+	return 0;
+#elif defined __AIEBAREMTL__
+        return Xil_In32(Addr);
+#else
+	return XAieIO_NPIRead32(Addr);
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the NPI IO function to write 32bit data to the specified address.
+*
+* @param	Addr: Address to write to.
+* @param	Data: 32-bit data to be written.
+*
+* @return	None.
+*
+* @note		This only work if NPI is accessble.
+*
+*******************************************************************************/
+void XAieLib_NPIWrite32(u64 Addr, u32 Data)
+{
+#ifdef __AIESIM__
+	/* TODO: add the NPI accessor */
+#elif defined __AIEBAREMTL__
+        Xil_Out32(Addr, Data);
+#else
+	XAieIO_NPIWrite32(Addr, Data);
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the NPI IO function to write a masked 32bit data to
+* the specified address.
+*
+* @param	Addr: Address to write to.
+* @param	Mask: Mask to be applied to Data.
+* @param	Data: 32-bit data to be written.
+*
+* @return	None.
+*
+* @note		This only work if NPI is accessble.
+*
+*******************************************************************************/
+void XAieLib_NPIMaskWrite32(u64 Addr, u32 Mask, u32 Data)
+{
+	u32 RegVal;
+
+#ifdef __AIESIM__
+	/* TODO: add the NPI accessor */
+#elif defined __AIEBAREMTL__
+        RegVal = Xil_In32(Addr);
+	RegVal &= ~Mask;
+	RegVal |= Data;
+        Xil_Out32(Addr, RegVal);
+#else
+	RegVal = XAieIO_NPIRead32(Addr);
+	RegVal &= ~Mask;
+	RegVal |= Data;
+	XAieIO_NPIWrite32(Addr, RegVal);
+#endif
+}
+/*****************************************************************************/
+/**
+*
+* This is the NPI IO function to poll until the value at the address to be given
+* masked value.
+*
+* @param	Addr: Address to write to.
+* @param	Mask: Mask to be applied to read data.
+* @param	Value: The expected value
+* @param	TimeOutUs: Minimum timeout in usec.
+*
+* @return	XAIELIB_SUCCESS on success, otherwise XAIELIB_FAILURE
+*
+* @note		This only work if NPI is accessble.
+*
+*******************************************************************************/
+u32 XAieLib_NPIMaskPoll(u64 Addr, u32 Mask, u32 Value, u32 TimeOutUs)
+{
+	u32 RegVal;
+	u32 Ret = XAIELIB_FAILURE;
+
+#ifdef __AIESIM__
+	/* TODO: add the NPI accessor */
+#else
+	u32 Count, MinTimeOutUs;
+
+	/*
+	 * Any value less than 200 us becomes noticable overhead. This is based
+	 * on some profiling, and it may vary between platforms.
+	 */
+	MinTimeOutUs = 200;
+	Count = (TimeOutUs + MinTimeOutUs - 1) / MinTimeOutUs;
+
+	while (Count > 0U) {
+		if ((XAieLib_NPIRead32(Addr) & Mask) == Value) {
+			Ret = XAIELIB_SUCCESS;
+			break;
+		}
+		XAieLib_usleep(MinTimeOutUs);
+		Count--;
+	}
+
+	/* Check for the break from timed-out loop */
+	if ((Ret == XAIELIB_FAILURE) &&
+			((XAieLib_NPIRead32(Addr) & Mask) == Value)) {
+		Ret = XAIELIB_SUCCESS;
+	}
+#endif
+	return Ret;
+}
+
+/** @} */
