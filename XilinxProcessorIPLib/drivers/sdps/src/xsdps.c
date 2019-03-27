@@ -1889,16 +1889,16 @@ void XSdPs_Idle(XSdPs *InstancePtr)
 	PresentStateReg = XSdPs_ReadReg8(InstancePtr->Config.BaseAddress,
 			XSDPS_PRES_STATE_OFFSET);
 	/* Check for Card Present */
-	if (PresentStateReg & XSDPS_PSR_CARD_INSRT_MASK) {
+	if ((PresentStateReg & XSDPS_PSR_CARD_INSRT_MASK) != 0U) {
 		/* Check for SD idle */
 		do {
 			StatusReg = XSdPs_ReadReg8(InstancePtr->Config.BaseAddress,
 					XSDPS_PRES_STATE_OFFSET);
 			Timeout = Timeout - 1;
-		} while ((StatusReg & (XSDPS_PSR_INHIBIT_CMD_MASK
+		} while (((StatusReg & (XSDPS_PSR_INHIBIT_CMD_MASK
 				| XSDPS_PSR_INHIBIT_DAT_MASK
-				| XSDPS_PSR_DAT_ACTIVE_MASK))
-				&& Timeout);
+				| XSDPS_PSR_DAT_ACTIVE_MASK)) != 0U)
+				&& (Timeout != 0U));
 	}
 	/* Reset the eMMC card */
 	if (InstancePtr->CardType == XSDPS_CHIP_EMMC) {
@@ -1931,7 +1931,7 @@ void XSdPs_Idle(XSdPs *InstancePtr)
 	RegVal = XSdPs_ReadReg8(InstancePtr->Config.BaseAddress,
 			XSDPS_SW_RST_OFFSET);
 	Timeout = Timeout - 1;
-	while (((RegVal & XSDPS_SWRST_ALL_MASK) != 0U) && Timeout) {
+	while (((RegVal & XSDPS_SWRST_ALL_MASK) != 0U) && (Timeout != 0U)) {
 		RegVal = XSdPs_ReadReg8(InstancePtr->Config.BaseAddress,
 				XSDPS_SW_RST_OFFSET);
 		Timeout = Timeout - 1;
