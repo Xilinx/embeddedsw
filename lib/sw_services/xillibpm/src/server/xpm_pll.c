@@ -104,7 +104,7 @@ done:
 XStatus XPmClockPll_SetMode(XPm_PllClockNode *Pll, u32 Mode)
 {
 	u32 Status = XST_SUCCESS;
-	u32 Val;
+	u32 Val = 0;
 
 	if (PM_PLL_MODE_FRACTIONAL == Mode) {
 		/* Check if fractional value has been set */
@@ -257,7 +257,7 @@ XStatus XPmClockPll_SetParam(XPm_PllClockNode *Pll, u32 Param, u32 Value)
 {
 	u32 Status = XST_SUCCESS;
 	XPm_PllParam *PtrParam;
-	u32 Mask, ParamValue, Reg;
+	u32 Mask, ParamValue, Reg = 0;
 
 	if (Param >= PLL_PARAM_MAX) {
 		Status = XST_INVALID_PARAM;
@@ -317,7 +317,7 @@ XStatus XPmClockPll_GetParam(XPm_PllClockNode *Pll, u32 Param, u32 *Val)
 {
 	u32 Status = XST_SUCCESS;
 	XPm_PllParam *PtrParam;
-	u32 Shift, Mask, Reg;
+	u32 Shift, Mask, Reg = 0;
 
 	if (Param >= PLL_PARAM_MAX) {
 		Status = XST_INVALID_PARAM;
