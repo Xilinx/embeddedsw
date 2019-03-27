@@ -466,40 +466,6 @@ PmProc* PmGetProcOfThisMaster(const PmMaster* const master,
 }
 
 /**
- * PmGetProcOfOtherMaster() - Get pointer to the processor with given node id,
- *          by excluding given master from the search
- * @master  Master to be excluded from search
- * @nodeId  Node id of the processor to be found
- *
- * @return  Pointer to processor that is not within the master and which has
- *          given node id, or NULL if such processor is not found
- */
-PmProc* PmGetProcOfOtherMaster(const PmMaster* const master,
-			       const PmNodeId nodeId)
-{
-	u32 i;
-	PmProc* proc = NULL;
-	PmMaster* mst = pmMasterHead;
-
-	while (NULL != mst) {
-		if (master == mst) {
-			continue;
-		}
-
-		for (i = 0U; i < mst->procsCnt; i++) {
-			if (nodeId == mst->procs[i]->node.nodeId) {
-				proc = mst->procs[i];
-				goto done;
-			}
-		}
-		mst = mst->nextMaster;
-	}
-
-done:
-	return proc;
-}
-
-/**
  * PmGetProcByWfiStatus() - Get processor struct by wfi interrupt status
  * @mask    WFI interrupt mask read from GPI2 register
  *
