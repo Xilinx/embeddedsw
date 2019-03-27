@@ -181,7 +181,13 @@ void vPortDisableInterrupt( uint8_t ucInterruptID );
 
 /* Any task that uses the floating point unit MUST call vPortTaskUsesFPU()
 before any floating point instructions are executed. */
+#if( configUSE_TASK_FPU_SUPPORT != 2 )
 void vPortTaskUsesFPU( void );
+#else
+	/* Each task has an FPU context already, so define this function away to
+	 * 	nothing to prevent it being called accidentally. */
+	#define vPortTaskUsesFPU()
+#endif
 #define portTASK_USES_FLOATING_POINT() vPortTaskUsesFPU()
 
 #define portLOWEST_INTERRUPT_PRIORITY ( ( ( uint32_t ) configUNIQUE_INTERRUPT_PRIORITIES ) - 1UL )
