@@ -117,6 +117,7 @@ Clear DMA_DST_ADDR_MSB register properly
 Added idling support.
 Set recommended clock and data tap delay values for 40MHZ,
 100MHZ and 150MHZ frequencies(CR#1023187)
+Fixed warnings in the application.
 
 sdps_v3_7:
 Add SDPS idling support
