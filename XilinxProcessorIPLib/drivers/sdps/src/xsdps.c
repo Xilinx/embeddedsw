@@ -1588,11 +1588,11 @@ RETURN_PATH:
 void XSdPs_SetupADMA2DescTbl64Bit(XSdPs *InstancePtr, u32 BlkCnt)
 {
 	u32 TotalDescLines;
-	u32 DescNum;
+	u64 DescNum;
 	u32 BlkSize;
 
 	/* Setup ADMA2 - Write descriptor table and point ADMA SAR to it */
-	BlkSize = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+	BlkSize = (u32)XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
 					XSDPS_BLK_SIZE_OFFSET) &
 					XSDPS_BLK_SIZE_MASK;
 
@@ -1626,7 +1626,7 @@ void XSdPs_SetupADMA2DescTbl64Bit(XSdPs *InstancePtr, u32 BlkCnt)
 			XSDPS_DESC_TRAN | XSDPS_DESC_END | XSDPS_DESC_VALID;
 
 	InstancePtr->Adma2_DescrTbl[TotalDescLines-1].Length =
-			(u16)((BlkCnt*BlkSize) - (DescNum*XSDPS_DESC_MAX_LENGTH));
+			(u16)((BlkCnt*BlkSize) - (u32)(DescNum*XSDPS_DESC_MAX_LENGTH));
 
 	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_OFFSET,
 			(u32)(UINTPTR)&(InstancePtr->Adma2_DescrTbl[0]));
@@ -1663,7 +1663,7 @@ void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 	u32 BlkSize;
 
 	/* Setup ADMA2 - Write descriptor table and point ADMA SAR to it */
-	BlkSize = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+	BlkSize = (u32)XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
 					XSDPS_BLK_SIZE_OFFSET) &
 					XSDPS_BLK_SIZE_MASK;
 
@@ -1683,7 +1683,7 @@ void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 	for (DescNum = 0U; DescNum < (TotalDescLines-1); DescNum++) {
 #if defined(__aarch64__) || defined(__arch64__)
 		InstancePtr->Adma2_DescrTbl[DescNum].Address =
-				(u64)((UINTPTR)Buff + (DescNum*XSDPS_DESC_MAX_LENGTH));
+				((UINTPTR)Buff + (DescNum*XSDPS_DESC_MAX_LENGTH));
 #else
 		InstancePtr->Adma2_DescrTbl[DescNum].Address =
 				(u32)((UINTPTR)Buff + (DescNum*XSDPS_DESC_MAX_LENGTH));
@@ -1705,7 +1705,7 @@ void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 			XSDPS_DESC_TRAN | XSDPS_DESC_END | XSDPS_DESC_VALID;
 
 	InstancePtr->Adma2_DescrTbl[TotalDescLines-1].Length =
-			(u16)((BlkCnt*BlkSize) - (DescNum*XSDPS_DESC_MAX_LENGTH));
+			(u16)((BlkCnt*BlkSize) - (u32)(DescNum*XSDPS_DESC_MAX_LENGTH));
 
 #if defined(__aarch64__) || defined(__arch64__)
 	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_EXT_OFFSET,
