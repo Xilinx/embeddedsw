@@ -254,7 +254,7 @@ s32 XSdPs_Select_Card (XSdPs *InstancePtr);
 s32 XSdPs_Change_ClkFreq(XSdPs *InstancePtr, u32 SelFreq);
 s32 XSdPs_Change_BusWidth(XSdPs *InstancePtr);
 s32 XSdPs_Change_BusSpeed(XSdPs *InstancePtr);
-s32 XSdPs_Get_BusWidth(XSdPs *InstancePtr, u8 *SCR);
+s32 XSdPs_Get_BusWidth(XSdPs *InstancePtr, u8 *ReadBuff);
 s32 XSdPs_Get_BusSpeed(XSdPs *InstancePtr, u8 *ReadBuff);
 s32 XSdPs_Get_Status(XSdPs *InstancePtr, u8 *SdStatReg);
 s32 XSdPs_Pullup(XSdPs *InstancePtr);
