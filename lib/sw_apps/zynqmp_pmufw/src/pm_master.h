@@ -187,8 +187,6 @@ PmMaster* PmMasterGetNextFromIpiMask(u32* const mask);
 PmProc* PmGetProcByWfiStatus(const u32 mask);
 PmProc* PmGetProcOfThisMaster(const PmMaster* const master,
 			      const PmNodeId nodeId);
-PmProc* PmGetProcOfOtherMaster(const PmMaster* const master,
-			       const PmNodeId nodeId);
 
 s32 PmMasterWakeProc(PmProc* const proc);
 s32 PmMasterFsm(PmMaster* const master, const PmMasterEvent event);
