@@ -111,6 +111,9 @@ Fix xemacliteif_input() for freertos multi-packet scenario.
 ospipsv_v1_0:
 First Release.
 
+qspips_v3_6:
+Fixed memory leak issue while reading from qspi.(CR#1016357)
+
 qspipsu_v1_9:
 Resolved MISRA-C:2012 violations in safety mode(CR#1014359)
 Clear DMA_DST_ADDR_MSB register properly
