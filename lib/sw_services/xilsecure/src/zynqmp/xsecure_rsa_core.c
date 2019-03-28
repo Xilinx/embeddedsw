@@ -87,7 +87,7 @@ u32 XSecure_RsaCfgInitialize(XSecure_Rsa *InstancePtr)
 	u32 Status;
 
 	InstancePtr->BaseAddress = XSECURE_CSU_RSA_BASE;
-	Status = XST_SUCCESS;
+	Status = (u32)XST_SUCCESS;
 
 	return Status;
 }
@@ -133,7 +133,7 @@ u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 			(Size == XSECURE_RSA_4096_KEY_SIZE));
 
 	InstancePtr->EncDec = EncDecFlag;
-	InstancePtr->SizeInWords = Size/4;
+	InstancePtr->SizeInWords = Size/4U;
 	/* Put Modulus, exponent, Mod extension in RSA RAM */
 	XSecure_RsaPutData(InstancePtr);
 

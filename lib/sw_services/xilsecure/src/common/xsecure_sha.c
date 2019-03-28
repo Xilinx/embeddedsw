@@ -206,7 +206,7 @@ static void XSecure_Sha3KeccakPadd(XSecure_Sha3 *InstancePtr, u8 *Dst,
 {
 	/* Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(MsgLen != 0);
+	Xil_AssertVoid(MsgLen != 0U);
 
 	(void)memset(Dst, 0, MsgLen);
 	Dst[0] = XSECURE_CSU_SHA3_START_KECCAK_PADDING_MASK;
@@ -230,7 +230,7 @@ static void XSecure_Sha3NistPadd(XSecure_Sha3 *InstancePtr, u8 *Dst, u32 MsgLen)
 {
 	/* Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(MsgLen != 0);
+	Xil_AssertVoid(MsgLen != 0U);
 
 	(void)memset(Dst, 0, MsgLen);
 	Dst[0] =  XSECURE_CSU_SHA3_START_NIST_PADDING_MASK;;
@@ -601,7 +601,7 @@ static void XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 						PrevPartialLen ));
 				DataSize = DataSize - (XSECURE_SHA3_BLOCK_LEN -
 								PrevPartialLen);
-				if ((DataSize == 0) && (IsLastUpdate == TRUE)) {
+				if ((DataSize == 0U) && (IsLastUpdate == TRUE)) {
 					IsLast = TRUE;
 				}
 				XSecure_Sha3DmaTransfer(InstancePtr,

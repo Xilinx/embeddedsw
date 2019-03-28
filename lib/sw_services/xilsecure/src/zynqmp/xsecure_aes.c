@@ -61,7 +61,7 @@
 *       vns 03/13/19 As part of refactoring modified SSS configurations
 *       arc 03/20/19 Added time outs and status info for API's.
 *       mmd 03/15/19 Refactored the code.
-*
+*       psl 03/26/19 Fixed MISRA-C violation
 * </pre>
 *
 * @note
@@ -835,7 +835,7 @@ u32 XSecure_AesKeyZero(XSecure_Aes *InstancePtr)
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 					XSECURE_CSU_AES_KEY_CLR_OFFSET, (u32)ReadReg);
 	if (TimeOut == 0U) {
-		Status =  XSECURE_CSU_AES_KEY_CLEAR_ERROR;
+		Status = XSECURE_CSU_AES_KEY_CLEAR_ERROR;
 		goto END;
 	}
 	Status = (u32)XST_SUCCESS;
