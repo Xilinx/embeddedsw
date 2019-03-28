@@ -51,6 +51,7 @@
 * 4.0   arc  18/12/18 Fixed MISRA-C violation.
 *       arc  12/02/19 Added support for validate image format.
 *       rama 18/03/19 Fixed IAR compiler errors and warnings
+*       psl  03/26/19 FIxed MISRA_C violation
 * </pre>
 *
 * @note
@@ -131,6 +132,7 @@
 #define XSECURE_INVALID_EFUSE_SELECT 	0x17U
 #define XSECURE_OUT_OF_RANGE_USER_EFUSE_ERROR	0x18U
 #define XSECURE_INVALID_IMAGE_ERROR    0x19U
+#define XSECURE_SHA3_UPDATE_FAIL        0x20U
 
 #define XSECURE_AES_ERROR		0x80U
 #define XSECURE_AUTH_NOT_ENABLED 	0xFFU

@@ -287,8 +287,12 @@ u32 XSecure_Sha3Hash(u32 SrcAddrHigh, u32 SrcAddrLow, u32 SrcSize, u32 Flags)
 		XSecure_Sha3Start(&Sha3Instance);
 		break;
 	case XSECURE_SHA3HASH_UPDATE:
-		XSecure_Sha3Update(&Sha3Instance, (u8 *)(UINTPTR)SrcAddr,
+		Status = XSecure_Sha3Update(&Sha3Instance, (u8 *)(UINTPTR)SrcAddr,
 						SrcSize);
+		if (Status != (u32)XST_SUCCESS) {
+			Status = XSECURE_SHA3_UPDATE_FAIL;
+			goto END;
+		}
 		break;
 	case XSECURE_SHA3_FINAL:
 		Status = XSecure_Sha3Finish(&Sha3Instance,
@@ -733,14 +737,17 @@ static inline u32 XSecure_BhdrAuthentication(XCsuDma *CsuDmaInstPtr,
  *****************************************************************************/
 u32 XSecure_MemCopy(void * DestPtr, void * SrcPtr, u32 Size)
 {
+	u32 Status = (u32)XST_SUCCESS;
 
 	XSecure_Sss SssInstance;
 
 	Xil_AssertNonvoid(Size != 0x0U);
 
 	XSecure_SssInitialize(&SssInstance);
-	XSecure_SssDmaLoopBack(&SssInstance, CsuDma.Config.DeviceId);
-
+	Status = XSecure_SssDmaLoopBack(&SssInstance, CsuDma.Config.DeviceId);
+	if(Status != (u32)XST_SUCCESS){
+		return (u32)XST_FAILURE;
+	}
 	/* Data transfer in loop back mode */
 	XCsuDma_Transfer(&CsuDma, XCSUDMA_DST_CHANNEL,
 				(UINTPTR)DestPtr, Size, 1);
@@ -1344,11 +1351,14 @@ u32 XSecure_SpkAuthentication(XCsuDma *CsuDmaInstPtr, u8 *AuthCert, u8 *Ppk)
 		Status = (u32)XST_SUCCESS;
 	}
 
-	XSecure_Sha3Start(&Sha3Instance);
+	(void)XSecure_Sha3Start(&Sha3Instance);
 
 
 	/* Hash the PPK + SPK choice */
-	XSecure_Sha3Update(&Sha3Instance, AcPtr, XSECURE_AUTH_HEADER_SIZE);
+	Status = XSecure_Sha3Update(&Sha3Instance, AcPtr, XSECURE_AUTH_HEADER_SIZE);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Set PPK pointer */
 	PpkModular = (u8 *)PpkPtr;
@@ -1359,7 +1369,10 @@ u32 XSecure_SpkAuthentication(XCsuDma *CsuDmaInstPtr, u8 *AuthCert, u8 *Ppk)
 	AcPtr += ((u32)XSECURE_RSA_AC_ALIGN + (u32)XSECURE_PPK_SIZE);
 
 	/* Calculate SPK + Auth header Hash */
-	XSecure_Sha3Update(&Sha3Instance, (u8 *)AcPtr, XSECURE_SPK_SIZE);
+	Status = XSecure_Sha3Update(&Sha3Instance, (u8 *)AcPtr, XSECURE_SPK_SIZE);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
 
 	Status = XSecure_Sha3Finish(&Sha3Instance, (u8 *)SpkHash);
 	if (Status != (u32)XST_SUCCESS) {
@@ -1680,11 +1693,19 @@ static inline u32 XSecure_DataAuthentication(XSecure_AuthParam *AuthParam)
 	}
 
 	/* Calculate Hash on Data to be authenticated */
-	XSecure_Sha3Start(&SecureSha3);
-	XSecure_Sha3Update(&SecureSha3, AuthParam->Data, AuthParam->Size);
+	(void)XSecure_Sha3Start(&SecureSha3);
+	Status = XSecure_Sha3Update(&SecureSha3, AuthParam->Data, AuthParam->Size);
+	if (Status != (u32)XST_SUCCESS) {
+		Status = XSECURE_SHA3_UPDATE_FAIL;
+		goto END;
+	}
 	if (1U == AuthParam->AuthIncludingCert) {
-		XSecure_Sha3Update(&SecureSha3, AuthParam->AuthCertPtr,
+		Status = XSecure_Sha3Update(&SecureSha3, AuthParam->AuthCertPtr,
 					(XSECURE_AUTH_CERT_MIN_SIZE - XSECURE_PARTITION_SIG_SIZE));
+		if (Status != (u32)XST_SUCCESS) {
+			Status = XSECURE_SHA3_UPDATE_FAIL;
+			goto END;
+		}
 	}
 
 	Status = XSecure_Sha3Finish(&SecureSha3, Hash);

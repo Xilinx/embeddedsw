@@ -65,7 +65,7 @@
 *       vns  03/12/19 Modified as part of XilSecure code re-arch.
         arc  03/20/19 Changed prototype of the functions return type
                       as void to u32.
-*
+*       psl  03/26/19 Fixed MISRA-C violation
 * </pre>
 *
 * @note
@@ -147,7 +147,7 @@ s32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XCsuDma *CsuDmaPtr);
 void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr);
 
 /* Data Transfer */
-void XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
+u32 XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
 						const u32 Size);
 u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash);
 
