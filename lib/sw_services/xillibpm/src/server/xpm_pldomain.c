@@ -374,6 +374,10 @@ static XStatus PldPreHouseclean(u32 *Args, u32 NumOfArgs)
 	/* Remove POR for PL */
 	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PL_POR),
 				     PM_RESET_ACTION_RELEASE);
+	/* Remove SRST for PL */
+	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PL_SRST),
+				     PM_RESET_ACTION_RELEASE);
+
 	Status = PldCfuInit();
 	if (XST_SUCCESS != Status) {
 		goto done;
