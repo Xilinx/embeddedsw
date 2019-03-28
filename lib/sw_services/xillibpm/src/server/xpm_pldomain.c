@@ -56,8 +56,6 @@ u32 GtyBaseAddressList[11] = {
 static XStatus PldPostHouseclean(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
-	u32 ErrStatus;
-	u32 ErrMask;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -208,7 +206,7 @@ done:
 static XStatus GtyHouseClean()
 {
 	XStatus Status = XST_SUCCESS;
-	int i;
+	unsigned int i;
 
 	for (i=0; i<sizeof(GtyBaseAddressList)/sizeof(GtyBaseAddressList[0]); i++) {
 		PmOut32(GtyBaseAddressList[i] + GTY_PCSR_LOCK_OFFSET, 0);
@@ -389,7 +387,7 @@ static XStatus PldPreHouseclean(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Enable the global signals */
-	XCfupmc_SetGlblSigEn(&CframeIns, (u8 )TRUE);
+	XCfupmc_SetGlblSigEn(&CfupmcIns, (u8 )TRUE);
 
 done:
 	return Status;
@@ -402,7 +400,7 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	u32 Value = 0, i = 0;
+	u32 Value = 0;
 
 #ifdef PLPD_HOUSECLEAN_BYPASS
 	return XST_SUCCESS;
