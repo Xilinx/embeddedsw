@@ -39,6 +39,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 4.0   vns     03/12/19 Initial Release
+*       psl     03/26/19 Fixed MISRA-C violation
 * </pre>
 *
 ******************************************************************************/
@@ -168,7 +169,7 @@ u32 XSecure_SssAes(XSecure_Sss *InstancePtr, XSecure_SssSrc InputSrc,
 		XSecure_SssSrc OuputSrc);
 u32 XSecure_SssSha(XSecure_Sss *InstancePtr, u16 DmaId);
 u32 XSecure_SssDmaLoopBack(XSecure_Sss *InstancePtr, u16 DmaId);
-
+void* XSecure_MemCpy(void * DestPtr, const void * SrcPtr, u32 Len);
 #ifdef __cplusplus
 }
 #endif
