@@ -1683,7 +1683,7 @@ static inline u32 XSecure_DataAuthentication(XSecure_AuthParam *AuthParam)
 		goto END;
 	}
 
-	if (XSECURE_CSU_KECCAK_SHA3 == AuthParam->PaddingType) {
+	if ((u8)XSECURE_CSU_KECCAK_SHA3 == AuthParam->PaddingType) {
 		Status = (u32)XSecure_Sha3PadSelection(&SecureSha3,
 		                                      XSECURE_CSU_KECCAK_SHA3);
 		if (Status != (u32)XST_SUCCESS) {
