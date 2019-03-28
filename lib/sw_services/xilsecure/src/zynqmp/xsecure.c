@@ -944,7 +944,7 @@ UPDATE:
 		PhOffset = Xil_In32((UINTPTR)(Buffer + XSECURE_PH_OFFSET));
 		/* Partition header offset is w.r.t to image start address */
 		Ph = (XSecure_PartitionHeader *)((UINTPTR)
-				(Buffer + ((PhOffset * XSECURE_WORD_LEN)
+				(Buffer + (u32)((PhOffset * (u32)XSECURE_WORD_LEN)
 				- ImgHdrToffset)));
 	}
 
@@ -1584,7 +1584,7 @@ static u32 XSecure_DecryptPartition(XSecure_ImageInfo *ImageHdrInfo,
 			 */
 			Status = XSecure_ConvertStringToHex((char *)(UINTPTR)KupKey,
 			                                   XsecureKey, XSECURE_KEY_STR_LEN);
-			if (Status != XST_SUCCESS) {
+			if (Status != (u32)XST_SUCCESS) {
 				goto END;
 			}
 
