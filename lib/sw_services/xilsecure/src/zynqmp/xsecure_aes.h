@@ -94,6 +94,10 @@
 #ifndef XSECURE_CSU_AES_H
 #define XSECURE_CSU_AES_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /************************** Include Files ***********************************/
 
 #include "xcsudma.h"
@@ -273,6 +277,10 @@ u32 XSecure_AesKeyZero(XSecure_Aes *InstancePtr);
 
 /** @}
 @endcond */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XSECURE_AES_H_ */
 
