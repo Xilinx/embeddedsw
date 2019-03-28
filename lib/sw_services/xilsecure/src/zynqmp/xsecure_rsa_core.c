@@ -66,7 +66,6 @@ static void XSecure_RsaZeroize(XSecure_Rsa *InstancePtr);
 static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
 							u8 RamOffset);
 static void XSecure_RsaMod32Inverse(XSecure_Rsa *InstancePtr);
-static void XSecure_RsaZeroize(XSecure_Rsa *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
