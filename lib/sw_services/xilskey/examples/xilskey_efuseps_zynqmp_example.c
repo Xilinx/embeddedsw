@@ -64,6 +64,7 @@
 *                         successful programming of the requested efuse bits.
 * 6.7	psl      03/13/19 Added XSK_EFUSEPS_CHECK_AES_KEY_CRC, to check for
 * 						  AES key CRC if TRUE.
+* 	psl      03/28/19 Corrected typos
 * </pre>
 *
 ******************************************************************************/
@@ -182,11 +183,11 @@ int main()
 		AesCrc = XilSKey_CrcCalculation((u8 *)XSK_EFUSEPS_AES_KEY);
 		PsStatus = XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc(AesCrc);
 		if (PsStatus != XST_SUCCESS) {
-			xil_printf("\r\nAES CRC checK is failed\n\r");
+			xil_printf("\r\nAES CRC check is failed\n\r");
 			goto EFUSE_ERROR;
 		}
 		else {
-			xil_printf("\r\nAES CRC checK is passed\n\r");
+			xil_printf("\r\nAES CRC check is passed\n\r");
 		}
 	}
 
