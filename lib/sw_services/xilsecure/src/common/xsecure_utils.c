@@ -218,7 +218,7 @@ u32 XSecure_SssDmaLoopBack(XSecure_Sss *InstancePtr, u16 DmaId)
  *****************************************************************************/
 static void XSecure_SssDmaSrc(u16 DmaId, XSecure_SssSrc *Resource)
 {
-	if (DmaId == 0) {
+	if (DmaId == 0U) {
 		*Resource = XSECURE_SSS_DMA0;
 	}
 	else {
