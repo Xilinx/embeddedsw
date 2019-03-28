@@ -459,7 +459,6 @@ u32 XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In, const u32 Size,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Size > (u32)0x00U);
 	Xil_AssertNonvoid(Out != NULL);
-	Xil_AssertNonvoid(In != NULL);
 
 	XSecure_Sha3Start(InstancePtr);
 	Status = XSecure_Sha3Update(InstancePtr, In, Size);

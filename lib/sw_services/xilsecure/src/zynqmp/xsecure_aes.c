@@ -162,7 +162,6 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(EncData != NULL);
 	Xil_AssertNonvoid(Size != (u32)0x0);
 	Xil_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
 
@@ -261,7 +260,6 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, const u8 *Data, u32 Size)
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(Data != NULL);
 	Xil_AssertNonvoid(Size <= InstancePtr->SizeofData);
 	Xil_AssertNonvoid(InstancePtr->AesState == XSECURE_AES_ENCRYPT_INITIALIZED);
 
@@ -375,7 +373,6 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(DecData != NULL);
 	Xil_AssertNonvoid(((Size/4U) != 0x00U) && ((Size%4U) == 0x00U));
 	Xil_AssertNonvoid(GcmTagAddr != NULL);
 	Xil_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
@@ -488,7 +485,6 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(EncData != NULL);
 	Xil_AssertNonvoid(Size <= InstancePtr->SizeofData);
 	Xil_AssertNonvoid(InstancePtr->AesState == XSECURE_AES_DECRYPT_INITIALIZED);
 
