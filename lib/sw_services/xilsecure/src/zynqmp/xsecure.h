@@ -61,6 +61,10 @@
 #ifndef XSECURE_H
 #define XSECURE_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /************************** Include Files ***********************************/
 
 #include "xcsudma.h"
@@ -358,5 +362,9 @@ u32 XSecure_IsEncOnlyEnabled(void);
 u32 XSecure_SecureImage(u32 AddrHigh, u32 AddrLow,
 		u32 KupAddrHigh, u32 KupAddrLow, XSecure_DataAddr *Addr);
 /*****************************************************************************/
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  /* XSECURE_HW_H */
