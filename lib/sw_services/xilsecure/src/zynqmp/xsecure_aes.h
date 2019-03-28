@@ -85,6 +85,7 @@
 * 4.0   arc  18/12/18 Fixed MISRA-C violations.
 *       arc  03/20/19 Changed prototype of the functions void to u32
 *       mmd  03/15/19 Defined AES Key Clear value
+*       psl  03/26/19 Fixed MISRA-C violation
 * </pre>
 * @endcond
 *
@@ -164,7 +165,7 @@
 					/**< device copy failed */
 #define XSECURE_CSU_AES_ZEROIZATION_ERROR	(4L)
 					/**< Zeroization error*/
-#define XSECURE_CSU_AES_KEY_CLEAR_ERROR		(0x20)
+#define XSECURE_CSU_AES_KEY_CLEAR_ERROR		(0x20U)
 					/**< AES key clear error */
 
 #define XSECURE_SECURE_HDR_SIZE		(48U)
