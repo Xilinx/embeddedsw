@@ -291,7 +291,7 @@ static u32 XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
  *****************************************************************************/
 void* XSecure_MemCpy(void * DestPtr, const void * SrcPtr, u32 Len)
 {
-	u8 *Dst = DestPtr;
+	u8 *Dst = (u8 *)(UINTPTR)DestPtr;
 	const u8 *Src = SrcPtr;
 
 	/* Loop and copy.  */
