@@ -42,7 +42,7 @@
 *       arc  03/20/19 modified default status value to XST_FAILURE
 *                     for XSecure_RsaSignVerification()
 *       mmd  03/15/19 Refactored the code
-*
+*       psl  03/26/19 Fixed MISRA-C violation
 * </pre>
 *
 * @note
@@ -226,7 +226,7 @@ u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 	XSecure_RsaZeroize(InstancePtr);
 
 END:
-	return ErrorCode;
+	return (u32)ErrorCode;
 }
 
 /*****************************************************************************/

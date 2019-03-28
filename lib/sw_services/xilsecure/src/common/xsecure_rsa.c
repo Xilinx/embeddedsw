@@ -55,7 +55,7 @@
 *       vns  21/12/18 Added RSA key zeroization after RSA operation
 *       arc  03/06/19 Added input validations
 *       vns  03/12/19 Modified as part of XilSecure code re-arch.
-*
+*       psl  03/26/19 Fixed MISRA-C violation
 * </pre>
 *
 * @note
@@ -132,7 +132,7 @@ s32 XSecure_RsaInitialize(XSecure_Rsa *InstancePtr, u8 *Mod, u8 *ModExt,
 	InstancePtr->RsaState = XSECURE_RSA_INITIALIZED;
 
 END:
-	return Status;
+	return (s32)Status;
 }
 
 /*****************************************************************************/
