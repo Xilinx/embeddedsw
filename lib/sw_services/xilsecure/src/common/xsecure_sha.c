@@ -463,11 +463,11 @@ u32 XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In, const u32 Size,
 
 	XSecure_Sha3Start(InstancePtr);
 	Status = XSecure_Sha3Update(InstancePtr, In, Size);
-	if (Status != XST_SUCCESS){
+	if (Status != (u32)XST_SUCCESS){
 		goto END;
 	}
 	Status = XSecure_Sha3Finish(InstancePtr, Out);
-	if (Status != XST_SUCCESS){
+	if (Status != (u32)XST_SUCCESS){
 		goto END;
 	}
 
@@ -531,7 +531,7 @@ static u32 XSecure_Sha3DmaTransfer(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	/* Configure the SSS for SHA3 hashing. */
 	Status = XSecure_SssSha(&(InstancePtr->SssInstance),
 				InstancePtr->CsuDmaPtr->Config.DeviceId);
-	if (Status != XST_SUCCESS){
+	if (Status != (u32)XST_SUCCESS){
 		return (u32)XST_FAILURE;
 	}
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
@@ -583,7 +583,7 @@ static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	if ((CurrentPartialLen == 0U) && (PrevPartialLen == 0U) &&
 			(((UINTPTR)Data & XCSUDMA_ADDR_LSB_MASK) == 0U)) {
 		Status = XSecure_Sha3DmaTransfer(InstancePtr, Data, Size, IsLastUpdate);
-		if (Status != XST_SUCCESS){
+		if (Status != (u32)XST_SUCCESS){
 			goto END;
 		}
 	}
@@ -612,7 +612,7 @@ static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 			Status = XSecure_Sha3DmaTransfer(InstancePtr,
 						InstancePtr->PartialData,
 						XSECURE_SHA3_BLOCK_LEN, IsLastUpdate);
-			if (Status != XST_SUCCESS){
+			if (Status != (u32)XST_SUCCESS){
 				goto END;
 			}
 			InstancePtr->PartialLen = 0U ;
@@ -640,7 +640,7 @@ static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 				Status = XSecure_Sha3DmaTransfer(InstancePtr,
 						InstancePtr->PartialData,
 						XSECURE_SHA3_BLOCK_LEN, IsLast);
-				if (Status != XST_SUCCESS){
+				if (Status != (u32)XST_SUCCESS){
 					goto END;
 				}
 				(void)memset(&InstancePtr->PartialData, 0,
