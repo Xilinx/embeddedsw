@@ -121,7 +121,7 @@ s32 XSecure_RsaInitialize(XSecure_Rsa *InstancePtr, u8 *Mod, u8 *ModExt,
 	Xil_AssertNonvoid(ModExpo != NULL);
 
 	Status = XSecure_RsaCfgInitialize(InstancePtr);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
@@ -281,7 +281,7 @@ s32 XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 	Xil_AssertNonvoid(Size != 0x00U);
 	Xil_AssertNonvoid(InstancePtr->RsaState == XSECURE_RSA_INITIALIZED);
 
-	ErrorCode = XSecure_RsaOperation(InstancePtr, Input, Result,
+	ErrorCode = (s32)XSecure_RsaOperation(InstancePtr, Input, Result,
 					XSECURE_RSA_SIGN_ENC, Size);
 
 	return ErrorCode;
@@ -333,7 +333,7 @@ s32 XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 	 */
 	for (idx = 0U; idx < Size; idx++) {
 		if ((*(u8 *)(InstancePtr->Mod + idx)) > (*(u8 *)(Input + idx))) {
-			Status = XSecure_RsaOperation(InstancePtr, Input, Result,
+			Status = (s32)XSecure_RsaOperation(InstancePtr, Input, Result,
 						XSECURE_RSA_SIGN_DEC, Size);
 			break;
 		}
