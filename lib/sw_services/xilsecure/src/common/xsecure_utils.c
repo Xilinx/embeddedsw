@@ -257,7 +257,7 @@ static u32 XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
 	 * i.e Configure given InputSrc as a input for given Resource
 	 */
 	InputSrcCfg = (u32) XSecure_SssLookupTable [Resource][InputSrc] <<
-		(XSECURE_SSS_CFG_LEN_IN_BITS * Resource);
+		(XSECURE_SSS_CFG_LEN_IN_BITS * (u32)Resource);
 
 	/*
 	 * SSS allows configuring only input source for any Resources
@@ -265,7 +265,7 @@ static u32 XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
 	 *  configure given Resource as input to source mentioned by OutputSrc
 	*/
 	OutputSrcCfg = (u32) XSecure_SssLookupTable [OutputSrc][Resource] <<
-			(XSECURE_SSS_CFG_LEN_IN_BITS * OutputSrc);
+			(XSECURE_SSS_CFG_LEN_IN_BITS * (u32)OutputSrc);
 
 	SssCfg = InputSrcCfg | OutputSrcCfg;
 
