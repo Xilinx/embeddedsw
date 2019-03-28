@@ -41,32 +41,32 @@ typedef struct XPmDevice_SoftResetInfo {
 } XPmDevice_SoftResetInfo;
 
 #if defined(XPAR_PSU_QSPI_0_DEVICE_ID)
-#include <xqspipsu.h>
+#include "xqspipsu.h"
 void NodeQspiIdle(u16 DeviceId, u32 BaseAddress);
 #endif
 
 #if defined(XPAR_PSU_OSPI_0_DEVICE_ID)
-#include <xospipsv.h>
+#include "xospipsv.h"
 void NodeOspiIdle(u16 DeviceId, u32 BaseAddress);
 #endif
 
 #if defined(XPAR_PSU_SD_0_DEVICE_ID) || defined(XPAR_PSU_SD_1_DEVICE_ID)
-#include <xsdps.h>
+#include "xsdps.h"
 void NodeSdioIdle(u16 DeviceId, u32 BaseAddress);
 #endif
 
 #if defined(XPAR_XUSBPSU_0_DEVICE_ID)
-#include <xusbpsu.h>
+#include "xusbpsu.h"
 void NodeUsbIdle(u16 DeviceId, u32 BaseAddress);
 #endif
 
 #if defined(XPAR_PSU_ETHERNET_0_DEVICE_ID) || defined(XPAR_PSU_ETHERNET_1_DEVICE_ID)
-#include <xemacps_hw.h>
+#include "xemacps_hw.h"
 void NodeGemIdle(u16 DeviceId, u32 BaseAddress);
 #endif
 
 #if defined(XPAR_PSU_GDMA_0_DEVICE_ID) || defined(XPAR_PSU_ADMA_0_DEVICE_ID)
-#include <xzdma_hw.h>
+#include "xzdma_hw.h"
 void NodeZdmaIdle(u16 DeviceId, u32 BaseAddress);
 #endif
 
