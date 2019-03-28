@@ -167,9 +167,11 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 	Xil_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
 
 	/* Configure the SSS for AES.*/
-	XSecure_SssAes(&(InstancePtr->SssInstance), XSECURE_SSS_DMA0,
+	Status = XSecure_SssAes(&(InstancePtr->SssInstance), XSECURE_SSS_DMA0,
 						XSECURE_SSS_DMA0);
-
+	if(Status != (u32)XST_SUCCESS){
+		goto END;
+	}
 	/* Clear AES contents by reseting it. */
 	XSecure_AesReset(InstancePtr);
 
@@ -380,12 +382,18 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 
 	/* Configure the SSS for AES. */
 	if (DecData == (u8*)XSECURE_DESTINATION_PCAP_ADDR) {
-		XSecure_SssAes(&(InstancePtr->SssInstance), XSECURE_SSS_DMA0,
+		Status = XSecure_SssAes(&(InstancePtr->SssInstance), XSECURE_SSS_DMA0,
 				XSECURE_SSS_PCAP);
+		if (Status != (u32)XST_SUCCESS){
+			goto END;
+		}
 	}
 	else {
-		XSecure_SssAes(&(InstancePtr->SssInstance), XSECURE_SSS_DMA0,
+		Status = XSecure_SssAes(&(InstancePtr->SssInstance), XSECURE_SSS_DMA0,
 							XSECURE_SSS_DMA0);
+		if (Status != (u32)XST_SUCCESS){
+			goto END;
+		}
 	}
 
 	/* Clear AES contents by reseting it. */
@@ -1263,13 +1271,19 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 	/* Configure the SSS for AES. */
 	if (Dst == (u8*)XSECURE_DESTINATION_PCAP_ADDR)
 	{
-		XSecure_SssAes(&(InstancePtr->SssInstance), XSECURE_SSS_DMA0,
+		Status = XSecure_SssAes(&(InstancePtr->SssInstance), XSECURE_SSS_DMA0,
 								XSECURE_SSS_PCAP);
+		if (Status != XST_SUCCESS){
+			goto ENDF;
+		}
 	}
 	else
 	{
-		XSecure_SssAes(&(InstancePtr->SssInstance), XSECURE_SSS_DMA0,
+		Status = XSecure_SssAes(&(InstancePtr->SssInstance), XSECURE_SSS_DMA0,
 								XSECURE_SSS_DMA0);
+		if (Status != XST_SUCCESS){
+			goto ENDF;
+		}
 	}
 
 	/* Configure AES for Decryption */
