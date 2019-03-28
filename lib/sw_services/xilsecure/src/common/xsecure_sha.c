@@ -313,7 +313,7 @@ u32 XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
 			XSECURE_CSU_DMA_MAX_TRANSFER;
 	}
 	Status = XSecure_Sha3DataUpdate(InstancePtr, (Data + TransferredBytes),
-				DataSize, InstancePtr->IsLastUpdate);
+				DataSize, (u8)InstancePtr->IsLastUpdate);
 	if (Status != (u32)XST_SUCCESS){
 		goto END;
 	}
@@ -597,7 +597,7 @@ static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 			 */
 
 			(void)XSecure_MemCpy(&InstancePtr->PartialData[PrevPartialLen],
-								Data, Size);
+					(void *)(UINTPTR)Data, Size);
 			InstancePtr->PartialLen = TotalLen;
 		}
 		else if (TotalLen == XSECURE_SHA3_BLOCK_LEN) {
@@ -608,7 +608,7 @@ static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 			 */
 
 			(void)XSecure_MemCpy(&InstancePtr->PartialData[PrevPartialLen],
-								Data, Size);
+					(void *)(UINTPTR)Data, Size);
 			Status = XSecure_Sha3DmaTransfer(InstancePtr,
 						InstancePtr->PartialData,
 						XSECURE_SHA3_BLOCK_LEN, IsLastUpdate);
@@ -629,7 +629,7 @@ static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 			IsLast = FALSE;
 			while (DataSize > XSECURE_SHA3_BLOCK_LEN) {
 				(void)XSecure_MemCpy(&InstancePtr->PartialData[PrevPartialLen],
-						Data + TransferredBytes,
+						(void *)(UINTPTR)(Data + TransferredBytes),
 						(XSECURE_SHA3_BLOCK_LEN -
 						PrevPartialLen ));
 				DataSize = DataSize - (XSECURE_SHA3_BLOCK_LEN -
