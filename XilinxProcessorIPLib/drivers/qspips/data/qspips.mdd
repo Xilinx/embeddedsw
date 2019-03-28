@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2011 - 2018 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2011 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,7 @@ BEGIN driver qspips
   OPTION supported_peripherals = (ps7_qspi);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-    OPTION VERSION = 3.5;
+    OPTION VERSION = 3.6;
   OPTION NAME = qspips;
 
 END driver
