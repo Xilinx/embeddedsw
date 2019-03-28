@@ -66,6 +66,7 @@
 *                    To avoid data sharing conflicts removed SecureIV
 *                    shared variable dependency.
 *       mmd 03/15/19 Refactored the code
+*       psl 03/26/19 Fixed MISRA-C violation
 * </pre>
 *
 * @note
@@ -842,7 +843,7 @@ u32 XSecure_AuthenticationHeaders(u8 *StartAddr, XSecure_ImageInfo *ImageInfo)
 	/* validate the  image */
 	if((memcmp((StartAddr + XSECURE_IMAGE_SYNC_WORD_OFFSET),
 				BootgenBinFormat,
-				XSECURE_ARRAY_LENGTH(BootgenBinFormat)))){
+				XSECURE_ARRAY_LENGTH(BootgenBinFormat))) != 0){
 		Status = XSECURE_INVALID_IMAGE_ERROR;
 		goto END;
 	}
