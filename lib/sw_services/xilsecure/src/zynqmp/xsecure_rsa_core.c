@@ -451,7 +451,7 @@ static void XSecure_RsaZeroize(XSecure_Rsa *InstancePtr)
 		for (DataOffset = 0U; DataOffset < 22U; DataOffset++) {
 			XSecure_WriteReg(InstancePtr->BaseAddress,
 				XSECURE_CSU_RSA_WR_ADDR_OFFSET,
-				((RamOffset * 22) + DataOffset));
+				((RamOffset * 22U) + DataOffset));
 		}
 		RamOffset++;
 	} while(RamOffset <= XSECURE_CSU_RSA_RAM_RES_Q);

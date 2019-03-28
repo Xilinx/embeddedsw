@@ -374,7 +374,7 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(DecData != NULL);
-	Xil_AssertNonvoid((Size/4 != 0x00U) && (Size%4 == 0x00U));
+	Xil_AssertNonvoid(((Size/4U) != 0x00U) && ((Size%4U) == 0x00U));
 	Xil_AssertNonvoid(GcmTagAddr != NULL);
 	Xil_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
 
