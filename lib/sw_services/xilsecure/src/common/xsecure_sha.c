@@ -54,7 +54,7 @@
 *       vns  03/12/19 Modified as part of XilSecure code re-arch.
 *       arc  03/20/19 Added time outs and status info for API's.
 *       mmd  03/15/19 Refactored the code.
-*
+*       psl  03/26/19 Fixed MISRA-C violation
 * </pre>
 *
 * @note
@@ -566,7 +566,7 @@ static void XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 			 * does not exceed SHA3_BLOCK_LEN
 			 */
 
-			(void)memcpy(&InstancePtr->PartialData[PrevPartialLen],
+			(void)XSecure_MemCpy(&InstancePtr->PartialData[PrevPartialLen],
 								Data, Size);
 			InstancePtr->PartialLen = TotalLen;
 		}
@@ -577,7 +577,7 @@ static void XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 			 * is equal to SHA3_BLOCK_LEN
 			 */
 
-			(void)memcpy(&InstancePtr->PartialData[PrevPartialLen],
+			(void)XSecure_MemCpy(&InstancePtr->PartialData[PrevPartialLen],
 								Data, Size);
 			XSecure_Sha3DmaTransfer(InstancePtr,
 						InstancePtr->PartialData,
@@ -595,7 +595,7 @@ static void XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 			 */
 			IsLast = FALSE;
 			while (DataSize > XSECURE_SHA3_BLOCK_LEN) {
-				(void)memcpy(&InstancePtr->PartialData[PrevPartialLen],
+				(void)XSecure_MemCpy(&InstancePtr->PartialData[PrevPartialLen],
 						Data + TransferredBytes,
 						(XSECURE_SHA3_BLOCK_LEN -
 						PrevPartialLen ));
@@ -624,7 +624,7 @@ static void XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 						sizeof(InstancePtr->PartialData));
 			}
 			else {
-				(void)memcpy(InstancePtr->PartialData,
+				(void)XSecure_MemCpy(InstancePtr->PartialData,
 					Data + TransferredBytes,
 							DataSize);
 				InstancePtr->PartialLen = DataSize;
