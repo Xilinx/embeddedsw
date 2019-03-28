@@ -220,7 +220,7 @@ static u32 XSecure_ConvertStringToHex(char *Str, u32 *Buf, u8 Len)
 	u8 Nibble[XSECURE_MAX_NIBBLES] = {0U};
 	u8 NibbleNum;
 
-	Xil_AssertNonvoid((Len > 0) && (Len % 8 == 0));
+	Xil_AssertNonvoid((Len > 0U) && ((Len % 8U) == 0U));
 
 	while (ConvertedLen < Len) {
 		/* Convert char to nibble */
