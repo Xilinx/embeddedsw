@@ -297,7 +297,7 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, const u8 *Data, u32 Size)
 
 		/* Wait for AES encryption completion.*/
 		Status = XSecure_AesWaitForDone(InstancePtr);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 	}
@@ -337,7 +337,7 @@ u32 XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 	Xil_AssertNonvoid(Len != 0U);
 
 	Status = XSecure_AesEncryptInit(InstancePtr, Dst, Len);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 	Status = XSecure_AesEncryptUpdate(InstancePtr, Src, Len);
@@ -419,7 +419,7 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 	}
 
 	Status = XSecure_AesKeySelNLoad(InstancePtr);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
@@ -636,7 +636,7 @@ s32 XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u8 * DecData, u8 *EncData,
 {
 	s32 Status;
 
-	Status = XSecure_AesDecryptInit(InstancePtr, DecData, Size, GcmTagAddr);
+	Status = (s32)XSecure_AesDecryptInit(InstancePtr, DecData, Size, GcmTagAddr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1173,7 +1173,7 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 	                                 XCSUDMA_SRC_CHANNEL, 0U);
 
 	/* Wait for AES Decryption completion. */
-	Status = XSecure_AesWaitForDone(InstancePtr);
+	Status = (s32)XSecure_AesWaitForDone(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1273,7 +1273,7 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 	{
 		Status = XSecure_SssAes(&(InstancePtr->SssInstance), XSECURE_SSS_DMA0,
 								XSECURE_SSS_PCAP);
-		if (Status != XST_SUCCESS){
+		if (Status != (u32)XST_SUCCESS){
 			goto ENDF;
 		}
 	}
@@ -1281,7 +1281,7 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 	{
 		Status = XSecure_SssAes(&(InstancePtr->SssInstance), XSECURE_SSS_DMA0,
 								XSECURE_SSS_DMA0);
-		if (Status != XST_SUCCESS){
+		if (Status != (u32)XST_SUCCESS){
 			goto ENDF;
 		}
 	}
@@ -1405,7 +1405,7 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 		 */
 		InstancePtr->KeySel = XSECURE_CSU_AES_KEY_SRC_KUP;
 		Status = XSecure_AesKeySelNLoad(InstancePtr);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			goto ENDF;
 		}
 		/* Point IV to the CSU IV register. */
