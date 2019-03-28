@@ -57,7 +57,12 @@ endif
 libs: libxilsecure.a
 
 libxilsecure.a: print_msg_secure $(SECURE_OBJS)
-	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${SECURE_OBJS}
+ifneq ("$(wildcard $(SECURE_DIR)/$(LIB))","")
+	 cp $(SECURE_DIR)/$(LIB) $(RELEASEDIR)
+	 $(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${SECURE_OBJS}
+else
+	 $(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${SECURE_OBJS}
+endif
 
 print_msg_secure:
 	@echo "Compiling XilSecure Library"
