@@ -333,7 +333,12 @@
 *	#define XSK_EFUSEPS_CHECK_AES_KEY_CRC		FALSE
 *	Default value is FALSE
 *	TRUE will check the CRC provided in XSK_EFUSEPS_AES_KEY.
-*	Please make sure if intension is to check only CRC of the provided key
+*	CRC verification is done after programming AES key to verify the key
+*	is programmed properly or not, if not library error outs the same.
+*	So While programming AES key it is not necessary to verify
+*	the AES key again.
+*	NOTE:
+*	Please make sure if intention is to check only CRC of the provided key
 *	and not programming AES key then do not modify XSK_EFUSEPS_WRITE_AES_KEY
 *	(TRUE will Program key).
 *
@@ -366,6 +371,7 @@
 *                        programmed by setting only one macro.
 * 6.7	psl     03/13/19 Added XSK_EFUSEPS_CHECK_AES_KEY_CRC, to check for
 * 						 AES key CRC if TRUE.
+* 	psl     03/28/19 Updated Description for XSK_EFUSEPS_CHECK_AES_KEY_CRC
 * </pre>
 *
 ******************************************************************************/
