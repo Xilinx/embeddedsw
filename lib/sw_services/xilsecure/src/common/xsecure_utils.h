@@ -151,13 +151,13 @@ typedef enum{
 #define XSecure_WriteReg(BaseAddress, RegOffset, RegisterValue) \
 			Xil_Out32((BaseAddress) + (RegOffset), (RegisterValue))
 
-#define XSecure_In32(Addr)			Xil_In32(Addr)
+#define XSecure_In32(Addr)			Xil_In32((Addr))
 
-#define XSecure_In64(Addr)			Xil_In64(Addr)
+#define XSecure_In64(Addr)			Xil_In64((Addr))
 
-#define XSecure_Out32(Addr, Data)		Xil_Out32(Addr, Data)
+#define XSecure_Out32(Addr, Data)		Xil_Out32((Addr), (Data))
 
-#define XSecure_Out64(Addr, Data)		Xil_Out64(Addr, Data)
+#define XSecure_Out64(Addr, Data)		Xil_Out64((Addr), (Data))
 
 /************************** Function Prototypes ******************************/
 
