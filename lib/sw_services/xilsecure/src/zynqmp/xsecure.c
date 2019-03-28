@@ -792,7 +792,7 @@ u32 XSecure_VerifySpk(u8 *AcPtr, u32 EfuseRsaenable)
 	}
 	if (IsRsaenabled != 0x00U) {
 		/* Verify SPK with verified PPK */
-		Status = XSecure_SpkAuthentication(&CsuDma, AcPtr, EfusePpk);
+		Status = XSecure_SpkAuthentication(&CsuDma, AcPtr, (u8 *)EfusePpk);
 		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
@@ -864,7 +864,7 @@ u32 XSecure_AuthenticationHeaders(u8 *StartAddr, XSecure_ImageInfo *ImageInfo)
 	ImageInfo->EfuseRsaenable = XSecure_IsRsaEnabled();
 
 	/* Copy boot header to internal buffer */
-	(void)XSecure_MemCopy(Buffer, StartAddr,
+	(void)XSecure_MemCopy((void *)(UINTPTR)Buffer, StartAddr,
 		XSECURE_BOOT_HDR_MAX_SIZE/XSECURE_WORD_LEN);
 
 	/* Know image header's authentication certificate */
@@ -883,7 +883,7 @@ u32 XSecure_AuthenticationHeaders(u8 *StartAddr, XSecure_ImageInfo *ImageInfo)
 	}
 
 	/* Copy Image header authentication certificate to local memory */
-	(void)XSecure_MemCopy(AcBuf, (u8 *)(StartAddr + AuthCertOffset),
+	(void)XSecure_MemCopy((void *)(UINTPTR)AcBuf, (u8 *)(StartAddr + AuthCertOffset),
 			XSECURE_AUTH_CERT_MIN_SIZE/XSECURE_WORD_LEN);
 
 	Status = XSecure_BhdrValidation(ImageInfo);
@@ -904,12 +904,12 @@ u32 XSecure_AuthenticationHeaders(u8 *StartAddr, XSecure_ImageInfo *ImageInfo)
 
 	/* Copy image header to internal memory */
 	SizeofImgHdr = AuthCertOffset - ImgHdrToffset;
-	(void)XSecure_MemCopy(Buffer, (u8 *)(StartAddr + ImgHdrToffset),
+	(void)XSecure_MemCopy((void *)(UINTPTR)Buffer, (u8 *)(StartAddr + ImgHdrToffset),
 					SizeofImgHdr/XSECURE_WORD_LEN);
 
 	/* Authenticate image header */
 	Status = XSecure_PartitionAuthentication(&CsuDma,
-			Buffer, SizeofImgHdr, (u8 *)(UINTPTR)AcBuf);
+			(u8 *)(UINTPTR)Buffer, SizeofImgHdr, (u8 *)(UINTPTR)AcBuf);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = Status | (u32)XSECURE_IMG_HDR_FAIL;
 		goto END;
@@ -1069,12 +1069,12 @@ u32 XSecure_SecureImage(u32 AddrHigh, u32 AddrLow,
 		((ImageHdrInfo.PartitionHdr->PartitionAttributes &
 			XSECURE_PH_ATTR_AUTH_ENABLE) != 0x00U)) {
 		/* Copy authentication certificate to internal memory */
-		(void)XSecure_MemCopy(AcBuf, (u8 *)(SrcAddr +
+		(void)XSecure_MemCopy((void *)(UINTPTR)AcBuf, (u8 *)(SrcAddr +
 			(ImageHdrInfo.PartitionHdr->AuthCertificateOffset *
 					XSECURE_WORD_LEN)),
 			XSECURE_AUTH_CERT_MIN_SIZE/XSECURE_WORD_LEN);
 
-		Status = XSecure_VerifySpk(AcBuf, ImageHdrInfo.EfuseRsaenable);
+		Status = XSecure_VerifySpk((u8 *)(UINTPTR)AcBuf, ImageHdrInfo.EfuseRsaenable);
 		if (Status != (u32)XST_SUCCESS) {
 			Status = XSECURE_PARTITION_FAIL | Status;
 			goto END;
@@ -1524,30 +1524,30 @@ static u32 XSecure_BhdrValidation(XSecure_ImageInfo *ImageInfo)
 
 	if (ImageInfo->EfuseRsaenable != 0x0U) {
 		/* Verify PPK hash with eFUSE */
-		Status = XSecure_PpkVerify(&CsuDma, AcBuf);
+		Status = XSecure_PpkVerify(&CsuDma, (u8 *)(UINTPTR)AcBuf);
 		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 		/* Copy PPK to global variable for future use */
-		(void)XSecure_MemCopy(EfusePpk, AcBuf + XSECURE_AC_PPK_OFFSET,
+		(void)XSecure_MemCopy((void *)(UINTPTR)EfusePpk, AcBuf + XSECURE_AC_PPK_OFFSET,
 				XSECURE_PPK_SIZE/XSECURE_WORD_LEN);
 	}
 	/* SPK authentication */
-	Status = XSecure_SpkAuthentication(&CsuDma, AcBuf, NULL);
+	Status = XSecure_SpkAuthentication(&CsuDma, (u8 *)(UINTPTR)AcBuf, NULL);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = Status | (u32)XSECURE_BOOT_HDR_FAIL;
 		goto END;
 	}
 	if (ImageInfo->EfuseRsaenable != 0x00U) {
 		/* SPK revocation check */
-		Status = XSecure_SpkRevokeCheck(AcBuf);
+		Status = XSecure_SpkRevokeCheck((u8 *)(UINTPTR)AcBuf);
 		if (Status != (u32)XST_SUCCESS) {
 			Status = Status | (u32)XSECURE_BOOT_HDR_FAIL;
 			goto END;
 		}
 	}
 	/* Authenticated boot header */
-	Status = XSecure_BhdrAuthentication(&CsuDma, Buffer, SizeofBH, AcBuf);
+	Status = XSecure_BhdrAuthentication(&CsuDma, Buffer, SizeofBH, (u8 *)(UINTPTR)AcBuf);
 
 END:
 	return Status;
