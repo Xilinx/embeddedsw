@@ -80,9 +80,9 @@
 
 /************************** Function Prototypes ******************************/
 
-static void XSecure_Sha3DmaTransfer(XSecure_Sha3 *InstancePtr, const u8 *Data,
+static u32 XSecure_Sha3DmaTransfer(XSecure_Sha3 *InstancePtr, const u8 *Data,
 						const u32 Size, u8 IsLast);
-static void XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
+static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 					const u32 Size, u8 IsLastUpdate);
 static void XSecure_Sha3KeccakPadd(XSecure_Sha3 *InstancePtr, u8 *Dst,
 					u32 MsgLen);
@@ -281,16 +281,17 @@ void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
  *
  *
  ******************************************************************************/
-void XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
+u32 XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
 						const u32 Size)
 {
 	u32 DataSize;
 	u32 TransferredBytes;
+	u32 Status;
 
 	/* Asserts validate the input arguments */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(Size > (u32)0x00U);
-	Xil_AssertVoid(InstancePtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED);
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Size > (u32)0x00U);
+	Xil_AssertNonvoid(InstancePtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED);
 
 	InstancePtr->Sha3Len += Size;
 	DataSize = Size;
@@ -301,15 +302,23 @@ void XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	 * in the next update internally
 	 */
 	while (DataSize > XSECURE_CSU_DMA_MAX_TRANSFER) {
-		XSecure_Sha3DataUpdate(InstancePtr,
+		Status = XSecure_Sha3DataUpdate(InstancePtr,
 				(Data + TransferredBytes),
 				XSECURE_CSU_DMA_MAX_TRANSFER, 0);
+		if (Status != (u32)XST_SUCCESS){
+			goto END;
+		}
 		DataSize = DataSize - XSECURE_CSU_DMA_MAX_TRANSFER;
 		TransferredBytes = TransferredBytes +
 			XSECURE_CSU_DMA_MAX_TRANSFER;
 	}
-	XSecure_Sha3DataUpdate(InstancePtr, (Data + TransferredBytes),
+	Status = XSecure_Sha3DataUpdate(InstancePtr, (Data + TransferredBytes),
 				DataSize, InstancePtr->IsLastUpdate);
+	if (Status != (u32)XST_SUCCESS){
+		goto END;
+	}
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -389,9 +398,11 @@ u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 
 
 	/* Configure the SSS for SHA3 hashing. */
-	XSecure_SssSha(&(InstancePtr->SssInstance),
+	Status = XSecure_SssSha(&(InstancePtr->SssInstance),
 			InstancePtr->CsuDmaPtr->Config.DeviceId);
-
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
 
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 				(UINTPTR)InstancePtr->PartialData,
@@ -451,9 +462,16 @@ u32 XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In, const u32 Size,
 	Xil_AssertNonvoid(In != NULL);
 
 	XSecure_Sha3Start(InstancePtr);
-	XSecure_Sha3Update(InstancePtr, In, Size);
+	Status = XSecure_Sha3Update(InstancePtr, In, Size);
+	if (Status != XST_SUCCESS){
+		goto END;
+	}
 	Status = XSecure_Sha3Finish(InstancePtr, Out);
+	if (Status != XST_SUCCESS){
+		goto END;
+	}
 
+END:
 	return Status;
 }
 
@@ -501,14 +519,21 @@ void XSecure_Sha3_ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash)
  *
  *
  ******************************************************************************/
-static void XSecure_Sha3DmaTransfer(XSecure_Sha3 *InstancePtr, const u8 *Data,
+static u32 XSecure_Sha3DmaTransfer(XSecure_Sha3 *InstancePtr, const u8 *Data,
 								const u32 Size, u8 IsLast)
 {
+	u32 Status = (u32)XST_FAILURE;
+
+	/* Asserts validate the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Size > (u32)0x00U);
 
 	/* Configure the SSS for SHA3 hashing. */
-	XSecure_SssSha(&(InstancePtr->SssInstance),
+	Status = XSecure_SssSha(&(InstancePtr->SssInstance),
 				InstancePtr->CsuDmaPtr->Config.DeviceId);
-
+	if (Status != XST_SUCCESS){
+		return (u32)XST_FAILURE;
+	}
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 				(UINTPTR)Data, (u32)Size/4U, IsLast);
 
@@ -518,6 +543,7 @@ static void XSecure_Sha3DmaTransfer(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	/* Acknowledge the transfer has completed */
 	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 				XCSUDMA_IXR_DONE_MASK);
+	return (u32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -533,7 +559,7 @@ static void XSecure_Sha3DmaTransfer(XSecure_Sha3 *InstancePtr, const u8 *Data,
  *
  *
  ******************************************************************************/
-static void XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
+static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 								const u32 Size, u8 IsLastUpdate)
 {
 	u32 CurrentPartialLen;
@@ -542,10 +568,11 @@ static void XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	u32 TransferredBytes ;
 	u32 DataSize;
 	u8 IsLast;
+	u32 Status = XST_FAILURE;
 
 	/* Asserts validate the input arguments */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(Size > (u32)0x00U);
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Size > (u32)0x00U);
 
 	CurrentPartialLen = (Size % 4U);
 	PrevPartialLen = InstancePtr->PartialLen;
@@ -555,7 +582,10 @@ static void XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	/* If always Word Aligned Data and Word aligned address */
 	if ((CurrentPartialLen == 0U) && (PrevPartialLen == 0U) &&
 			(((UINTPTR)Data & XCSUDMA_ADDR_LSB_MASK) == 0U)) {
-		XSecure_Sha3DmaTransfer(InstancePtr, Data, Size, IsLastUpdate);
+		Status = XSecure_Sha3DmaTransfer(InstancePtr, Data, Size, IsLastUpdate);
+		if (Status != XST_SUCCESS){
+			goto END;
+		}
 	}
 	/* For Non-Word Aligned Data and for Non-Word aligned Address*/
 	else {
@@ -579,9 +609,12 @@ static void XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 
 			(void)XSecure_MemCpy(&InstancePtr->PartialData[PrevPartialLen],
 								Data, Size);
-			XSecure_Sha3DmaTransfer(InstancePtr,
+			Status = XSecure_Sha3DmaTransfer(InstancePtr,
 						InstancePtr->PartialData,
 						XSECURE_SHA3_BLOCK_LEN, IsLastUpdate);
+			if (Status != XST_SUCCESS){
+				goto END;
+			}
 			InstancePtr->PartialLen = 0U ;
 			(void)memset(&InstancePtr->PartialData, 0,
 				sizeof(InstancePtr->PartialData));
@@ -604,9 +637,12 @@ static void XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 				if ((DataSize == 0U) && (IsLastUpdate == TRUE)) {
 					IsLast = TRUE;
 				}
-				XSecure_Sha3DmaTransfer(InstancePtr,
+				Status = XSecure_Sha3DmaTransfer(InstancePtr,
 						InstancePtr->PartialData,
 						XSECURE_SHA3_BLOCK_LEN, IsLast);
+				if (Status != XST_SUCCESS){
+					goto END;
+				}
 				(void)memset(&InstancePtr->PartialData, 0,
 					sizeof(InstancePtr->PartialData));
 				TransferredBytes = TransferredBytes +
@@ -631,4 +667,6 @@ static void XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 			}
 		}
 	}
+END:
+	return Status;
 }
