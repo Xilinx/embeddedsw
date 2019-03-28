@@ -948,7 +948,7 @@ UPDATE:
 		IsEncrypted = 1U;
 	}
 
-	EncOnly = XSecure_IsEncOnlyEnabled();
+	EncOnly = (u8)XSecure_IsEncOnlyEnabled();
 	if ((EncOnly != 0U) && (IsEncrypted == 0U)) {
 		Status = XSECURE_ENC_ISCOMPULSORY;
 		goto END;
