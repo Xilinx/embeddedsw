@@ -317,7 +317,7 @@ s32 XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 s32 XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 				u8 *Result)
 {
-	s32 Status = XSECURE_RSA_DATA_VALUE_ERROR;
+	s32 Status = (s32)XSECURE_RSA_DATA_VALUE_ERROR;
 	u32 idx;
 
 	/* Assert validates the input arguments */
