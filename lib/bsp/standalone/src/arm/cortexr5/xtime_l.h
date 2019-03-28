@@ -78,6 +78,11 @@ extern "C" {
 #pragma message ("For the sleep routines, TTC3 is used if present else the assembly instructions are called")
 #endif
 
+/*
+ * 1st bit of PROCESSOR_ACCESS_VALUE macro signifies trustzone
+ * setting for IOU slcr address space
+ */
+#define IOU_SLCR_TZ_MASK	0x2U
 /**************************** Type Definitions *******************************/
 
 /* The following definitions are applicable only when TTC3 is present*/
@@ -87,6 +92,7 @@ typedef u32 XTime;
 void XTime_SetTime(XTime Xtime_Global);
 void XTime_GetTime(XTime *Xtime_Global);
 #endif
+
 
 #ifdef __cplusplus
 }
