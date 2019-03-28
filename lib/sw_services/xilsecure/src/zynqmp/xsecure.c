@@ -665,7 +665,7 @@ u32 XSecure_PartitionAuthentication(XCsuDma *CsuDmaInstPtr, u8 *Data,
 	AuthParam.Size = Size;
 	AuthParam.AuthCertPtr = AuthCertPtr;
 	AuthParam.SignatureOffset = XSECURE_AUTH_CERT_PARTSIG_OFFSET;
-	AuthParam.PaddingType = XSECURE_CSU_NIST_SHA3;
+	AuthParam.PaddingType = (u8)XSECURE_CSU_NIST_SHA3;
 	AuthParam.AuthIncludingCert = 1U;
 
 	Status = XSecure_DataAuthentication(&AuthParam);
@@ -709,7 +709,7 @@ static inline u32 XSecure_BhdrAuthentication(XCsuDma *CsuDmaInstPtr,
 	AuthParam.Size = Size;
 	AuthParam.AuthCertPtr = AuthCertPtr;
 	AuthParam.SignatureOffset = XSECURE_AUTH_CERT_BHDRSIG_OFFSET;
-	AuthParam.PaddingType = XSECURE_CSU_KECCAK_SHA3;
+	AuthParam.PaddingType = (u8)XSECURE_CSU_KECCAK_SHA3;
 	AuthParam.AuthIncludingCert = 0U;
 
 	Status = XSecure_DataAuthentication(&AuthParam);
