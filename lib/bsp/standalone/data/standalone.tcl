@@ -52,6 +52,8 @@
 #                     on -mfpu-abi option in extra compiler flags.
 # 6.8   mus  09/10/18 Updated tcl to add -hier option while using
 #                     get_cells command.
+# 7.0   mus  03/27/19 Added procs to check if specific address space is
+#                     accessible to the cortexr5 processor CR#1015725
 #
 ##############################################################################
 
@@ -140,6 +142,80 @@ proc is_pl_coherent {} {
      }
 
      return 0
+}
+
+#---------------------------------------------------------------------
+# Tcl procedure is get_processor_access
+# Returns processor access info. Each bit of return value signifies
+# processor access to specific address space/slave.
+# If specific bit is 0 that means address space
+# corresponding to that bit position is not accessible from processor,
+# else processor has privilege to access the same. As of now only 2 bits
+# are being used others are kept as reserved.
+# 0th bit - RPU address space
+# 1st bit - IOU SLCR address space
+# Note: This proc is applicable only for cortexr5 processor
+#----------------------------------------------------------------------
+proc get_processor_access {} {
+	set sw_proc_handle [hsi::get_sw_processor]
+	set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
+	set r5_access 0
+	set cnt 0
+	set cortexa72proc [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexa72" || IP_NAME=="psv_cortexa72"}]
+	set rpu_instance [get_mem_ranges -of_objects [get_cells -hier $sw_proc_handle] -filter { INSTANCE == "psu_rpu" || INSTANCE == "psv_rpu"}]
+	set slcr_instance [get_mem_ranges -of_objects [get_cells -hier $sw_proc_handle] -filter { INSTANCE == "psu_iouslcr_0" }]
+
+	set r5_tz [common::get_property CONFIG.C_TZ_NONSECURE $hw_proc_handle]
+	if {$r5_tz == "" || $r5_tz == "0"} {
+		set r5_access 0xff
+	} else {
+		if {[llength $rpu_instance] > 0} {
+			set rpu_tz [string toupper [get_property TRUSTZONE [get_mem_ranges \
+                            -of_objects [get_cells -hier $sw_proc_handle] *rpu*]]]
+			if {([string compare -nocase $rpu_tz "NONSECURE"] == 0)} {
+				set r5_access [expr $r5_access + pow(2,$cnt)]
+			}
+		}
+		incr cnt
+
+		if {[llength $cortexa72proc] == 0 && [llength $slcr_instance] > 0} {
+			set iou_slcr_tz [string toupper [get_property TRUSTZONE [get_mem_ranges \
+                         -of_objects [get_cells -hier $sw_proc_handle] psu_iouslcr_0]]]
+			if {([string compare -nocase $iou_slcr_tz "NONSECURE"] == 0)} {
+				set r5_access [expr $r5_access + pow(2,$cnt)]
+			}
+		}
+	}
+	return [expr round($r5_access)]
+
+}
+
+#---------------------------------------------------------------------
+# Tcl procedure is_ttc_accessible_from_processor
+# Returns true(1) if specific ttc instance is accessible from processor
+#----------------------------------------------------------------------
+proc is_ttc_accessible_from_processor {ttc_instance} {
+	set sw_proc_handle [hsi::get_sw_processor]
+	set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
+	set ttc_instance [get_mem_ranges -of_objects [get_cells -hier $sw_proc_handle] -filter { INSTANCE == "$ttc_instance" }]
+
+	set r5_tz [common::get_property CONFIG.C_TZ_NONSECURE $hw_proc_handle]
+	if {$r5_tz == "" || $r5_tz == "0"} {
+		return 1
+	} else {
+		if {[llength $ttc_instance] > 0} {
+			set ttc_tz [string toupper [get_property TRUSTZONE [get_mem_ranges \
+                        -of_objects [get_cells -hier $sw_proc_handle] $ttc_instance]]]
+			if {([string compare -nocase $ttc_tz "NONSECURE"] == 0)} {
+			return 1
+			} else {
+				return 0
+			}
+		} else {
+			return 0
+		}
+	}
+
 }
 
 proc get_connected_if {drv_handle hpc_pin} {
@@ -663,9 +739,13 @@ proc generate {os_handle} {
 	 puts $file_handle "/* Definitions for sleep timer configuration */"
 	 xsleep_timer_config $proctype $os_handle $file_handle
 	 puts $file_handle " "
+	if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5"} {
+		puts $file_handle "/* Definitions for processor access to RPU/IOU slcr address space*/"
+		set r5_access [get_processor_access]
+		puts $file_handle "#define PROCESSOR_ACCESS_VALUE $r5_access"
+	}
 	 puts $file_handle " "
 	 puts $file_handle "/******************************************************************/"
-
 	close $file_handle
 #	xcreate_cmake_toolchain_file $os_handle $cortexa72proc
 }
@@ -788,13 +868,23 @@ proc xsleep_timer_config {proctype os_handle file_handle} {
 			set periphs [hsi::get_cells -hier]
 			foreach periph $periphs {
 				if {[string compare -nocase "psu_ttc_3" $periph] == 0} {
-					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSU_TTC_9_BASEADDR"
-					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSU_TTC_9_TTC_CLK_FREQ_HZ"
-					puts $file_handle "#define XSLEEP_TTC_INSTANCE 3"
+					if {[is_ttc_accessible_from_processor $periph]} {
+						puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSU_TTC_9_BASEADDR"
+						puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSU_TTC_9_TTC_CLK_FREQ_HZ"
+						puts $file_handle "#define XSLEEP_TTC_INSTANCE 3"
+					} else {
+						puts "WARNING: $periph is secure and it is not accessible to the processor, \
+						processor cycles will be used for sleep routines."
+					}
 				} elseif {[string compare -nocase "psv_ttc_3" $periph] == 0} {
-					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSV_TTC_9_BASEADDR"
-					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSV_TTC_9_TTC_CLK_FREQ_HZ"
-					puts $file_handle "#define XSLEEP_TTC_INSTANCE 3"
+					if {[is_ttc_accessible_from_processor $periph]} {
+						puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSV_TTC_9_BASEADDR"
+						puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSV_TTC_9_TTC_CLK_FREQ_HZ"
+						puts $file_handle "#define XSLEEP_TTC_INSTANCE 3"
+					} else {
+						puts "WARNING: $periph is secure and it is not accessible to the processor, \
+						processor cycles will be used for sleep routines."
+					}
 				}
 			}
 		}
@@ -816,9 +906,17 @@ proc xsleep_timer_config {proctype os_handle file_handle} {
 			puts $file_handle "#define SLEEP_TIMER_BASEADDR [format "XPAR_PS7_TTC_%d_BASEADDR" [ expr 3 * $module + $timer ] ] "
 			puts $file_handle "#define SLEEP_TIMER_FREQUENCY [format "XPAR_PS7_TTC_%d_TTC_CLK_FREQ_HZ" [ expr 3 * $module + $timer ] ] "
 		} elseif { $proctype == "psu_cortexa53" || $proctype == "psu_cortexr5" || $proctype == "psu_cortexa72" } {
+			if { $proctype == "psu_cortexr5" && [is_ttc_accessible_from_processor $sleep_timer] == 0 } {
+				error "ERROR: $sleep_timer is secure and it is not accessible to the processor. Please select non secure ttc \
+					instance as sleep_timer from BSP settings"
+			}
 			puts $file_handle "#define SLEEP_TIMER_BASEADDR [format "XPAR_PSU_TTC_%d_BASEADDR" [ expr 3 * $module + $timer ] ] "
 			puts $file_handle "#define SLEEP_TIMER_FREQUENCY [format "XPAR_PSU_TTC_%d_TTC_CLK_FREQ_HZ" [ expr 3 * $module + $timer ] ] "
 		} elseif {$proctype == "psv_cortexr5" || $proctype == "psv_cortexa72"} {
+			if { $proctype == "psv_cortexr5" && [is_ttc_accessible_from_processor $sleep_timer] == 0 } {
+				error "ERROR: $sleep_timer is secure and it is not accessible to the processor. Please select non secure ttc \
+					instance as sleep_timer from BSP settings"
+			}
 			puts $file_handle "#define SLEEP_TIMER_BASEADDR [format "XPAR_PSV_TTC_%d_BASEADDR" [ expr 3 * $module + $timer ] ] "
 			puts $file_handle "#define SLEEP_TIMER_FREQUENCY [format "XPAR_PSV_TTC_%d_TTC_CLK_FREQ_HZ" [ expr 3 * $module + $timer ] ] "
 		}

@@ -55,7 +55,11 @@
 	.file	"xil-crt0.S"
 	.section ".got2","aw"
 	.align	2
-
+/*
+ * 0th bit of PROCESSOR_ACCESS_VALUE macro signifies trustzone
+ * setting for RPU address space
+ */
+.set RPU_TZ_MASK,	0x1
 	.text
 .Lsbss_start:
 	.long	__sbss_start
@@ -81,6 +85,7 @@
 
 _startup:
 	bl      __cpu_init		/* Initialize the CPU first (BSP provides this) */
+#if (PROCESSOR_ACCESS_VALUE & RPU_TZ_MASK)
 	mrc	p15, 0, r0,  c0,  c0, 5	/* Read MPIDR register */
 	ands	r0, r0, #MPIDR_AFF0	/* Get affinity level 0 */
 	bne	core1
@@ -96,7 +101,7 @@ test_boot_status:
 
 	/* if warm reset, skip the clearing of BSS and SBSS */
 	bne	.Lenclbss
-
+#endif
 	mov	r0, #0
 
 	/* clear sbss */

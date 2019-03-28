@@ -74,6 +74,9 @@
 * 6.8  mus   09/20/18 Clear VINITHI field in RPU_0_CFG/RPU_1_CFG
 *		      registers to initialize CortexR5 core with LOVEC
 *		      on reset. It fixes CR#1010656.
+* 7.0  mus  03/27/19  Skip reading/writing to the RPU address space registers,
+*		      in case if processor is nonsecure and RPU
+*		      address space is secure. CR#1015725.
 * </pre>
 *
 ******************************************************************************/
@@ -109,6 +112,12 @@
 .set RST_LPD_DBG,	0xFF5E0240
 .set BOOT_MODE_USER,	0xFF5E0200
 .set fault_log_enable,	0x101
+
+/*
+ * 0th bit of PROCESSOR_ACCESS_VALUE macro signifies trustzone
+ * setting for RPU address space
+ */
+.set RPU_TZ_MASK,	0x1
 
 .section .boot,"axS"
 
@@ -255,7 +264,7 @@ OKToRun:
 	mcr	p15, 0, r0, c7, c5, 0		/* invalidate icache */
 	mcr 	p15, 0, r0, c15, c5, 0      	/* Invalidate entire data cache*/
 	isb
-#if LOCKSTEP_MODE_DEBUG == 0
+#if LOCKSTEP_MODE_DEBUG == 0 && (PROCESSOR_ACCESS_VALUE & RPU_TZ_MASK)
 /* enable fault log for lock step */
 	ldr	r0,=RPU_GLBL_CNTL
 	ldr	r1, [r0]
@@ -316,6 +325,8 @@ init:
 	and	r0, r0, r1
 	mcr	p15, 0, r0, c1, c0, 0
 
+/* Check if processor is having access to RPU address space */
+#if (PROCESSOR_ACCESS_VALUE & RPU_TZ_MASK)
 /* Clear VINITHI to enable LOVEC on reset */
 #if XPAR_CPU_ID == 0
 	ldr r0, =RPU_0_CFG
@@ -326,7 +337,7 @@ init:
 	bic r1, r1, #(0x1 << 2)
 	str r1, [r0]
 #endif
-
+#endif
 /* enable asynchronous abort exception */
 	mrs	r0, cpsr
 	bic	r0, r0, #0x100
