@@ -166,7 +166,7 @@ void XSecure_ReleaseReset(u32 BaseAddress, u32 Offset);
 
 void XSecure_SssInitialize(XSecure_Sss *InstancePtr);
 u32 XSecure_SssAes(XSecure_Sss *InstancePtr, XSecure_SssSrc InputSrc,
-		XSecure_SssSrc OuputSrc);
+		XSecure_SssSrc OutputSrc);
 u32 XSecure_SssSha(XSecure_Sss *InstancePtr, u16 DmaId);
 u32 XSecure_SssDmaLoopBack(XSecure_Sss *InstancePtr, u16 DmaId);
 void* XSecure_MemCpy(void * DestPtr, const void * SrcPtr, u32 Len);
