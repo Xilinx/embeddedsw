@@ -72,10 +72,13 @@
 * 3.6   mn     07/06/18 Fix Cppcheck warnings for sdps driver
 * 3.7   aru    03/12/19 Modified the code according to MISRAC-2012.
 *       mn     03/27/19 Disable calls to dll_reset API for versal SPP Platforms
+<<<<<<< HEAD
 * 3.8   mn     04/12/19 Modified TapDelay code for supporting ZynqMP and Versal
 *       mn     05/21/19 Set correct tap delays for Versal
 *       mn     05/21/19 Disable DLL Reset code for Versal
 *       mn     08/29/19 Add call to Cache Invalidation API in XSdPs_Get_BusWidth
+=======
+>>>>>>> sdps: Disable calls to dll_reset APIs for versal platforms
 *
 * </pre>
 *
@@ -787,11 +790,13 @@ s32 XSdPs_Change_ClkFreq(XSdPs *InstancePtr, u32 SelFreq)
 
 	if (InstancePtr->HC_Version == XSDPS_HC_SPEC_V3) {
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
+#ifndef versal
 	if ((InstancePtr->Mode != XSDPS_DEFAULT_SPEED_MODE) &&
 			(InstancePtr->Mode != XSDPS_UHS_SPEED_MODE_SDR12)) {
 		/* Program the Tap delays */
 		XSdPs_SetTapDelay(InstancePtr);
 	}
+#endif
 #endif
 		/* Calculate divisor */
 		for (DivCnt = 0x1U; DivCnt <= XSDPS_CC_EXT_MAX_DIV_CNT;DivCnt++) {
@@ -1279,6 +1284,7 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 
 #ifndef versal
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
+#ifndef versal
 	/* Issue DLL Reset to load new SDHC tuned tap values */
 	XSdPs_DllReset(InstancePtr);
 #endif
@@ -1305,8 +1311,10 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 #ifndef versal
 		if (TuningCount == 31U) {
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
+#ifndef versal
 			/* Issue DLL Reset to load new SDHC tuned tap values */
 			XSdPs_DllReset(InstancePtr);
+#endif
 #endif
 		}
 #endif
@@ -1323,6 +1331,7 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 
 #ifndef versal
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
+#ifndef versal
 	/* Issue DLL Reset to load new SDHC tuned tap values */
 	XSdPs_DllReset(InstancePtr);
 #endif
@@ -1583,9 +1592,115 @@ static void XSdPs_ConfigTapDelay(XSdPs *InstancePtr)
 ******************************************************************************/
 void XSdPs_SetTapDelay(XSdPs *InstancePtr)
 {
+<<<<<<< HEAD
 #ifndef versal
 	/* Issue DLL Reset */
 	XSdPs_DllRstCtrl(InstancePtr, 1U);
+=======
+	u32 DllCtrl = 0U;
+	u32 BankNum;
+	u32 DeviceId;
+	u32 CardType;
+
+	BankNum = InstancePtr->Config.BankNumber;
+	DeviceId = InstancePtr->Config.DeviceId ;
+	CardType = InstancePtr->CardType ;
+#ifdef XPAR_PSU_SD_0_DEVICE_ID
+	if (DeviceId == 0U) {
+#if EL1_NONSECURE && defined (__aarch64__)
+		(void)DllCtrl;
+		(void)Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR +
+				SD_DLL_CTRL) | ((u64)SD0_DLL_RST << 32),
+				(u64)SD0_DLL_RST, 0, 0, 0, 0, 0);
+#else
+		DllCtrl = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD_DLL_CTRL);
+		DllCtrl |= SD0_DLL_RST;
+		XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_DLL_CTRL, DllCtrl);
+#endif
+		InstancePtr->Config_TapDelay(BankNum, DeviceId, CardType);
+#if EL1_NONSECURE && defined (__aarch64__)
+		(void)DllCtrl;
+		(void)Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR +
+				SD_DLL_CTRL) | ((u64)SD0_DLL_RST << 32),
+				(u64)0x0, 0, 0, 0, 0, 0);
+#else
+		DllCtrl &= ~SD0_DLL_RST;
+		XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_DLL_CTRL, DllCtrl);
+#endif
+	} else {
+#endif
+#if EL1_NONSECURE && defined (__aarch64__)
+		(void)DllCtrl;
+		(void)Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR +
+				SD_DLL_CTRL) | ((u64)SD1_DLL_RST << 32),
+				(u64)SD1_DLL_RST, 0, 0, 0, 0, 0);
+#else
+		DllCtrl = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD_DLL_CTRL);
+		DllCtrl |= SD1_DLL_RST;
+		XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_DLL_CTRL, DllCtrl);
+#endif
+		InstancePtr->Config_TapDelay(BankNum, DeviceId, CardType);
+#if EL1_NONSECURE && defined (__aarch64__)
+		(void)DllCtrl;
+		(void)Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR +
+				SD_DLL_CTRL) | ((u64)SD1_DLL_RST << 32),
+				(u64)0x0, 0, 0, 0, 0, 0);
+#else
+		DllCtrl &= ~SD1_DLL_RST;
+		XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_DLL_CTRL, DllCtrl);
+#endif
+#ifdef XPAR_PSU_SD_0_DEVICE_ID
+	}
+#endif
+}
+
+#ifndef versal
+/*****************************************************************************/
+/**
+*
+* API to reset the DLL
+*
+*
+* @param	InstancePtr is a pointer to the XSdPs instance.
+*
+* @return	None
+*
+* @note		None.
+*
+******************************************************************************/
+static void XSdPs_DllReset(XSdPs *InstancePtr)
+{
+	u32 ClockReg, DllCtrl;
+
+	/* Disable clock */
+	ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+			XSDPS_CLK_CTRL_OFFSET);
+	ClockReg &= ~XSDPS_CC_SD_CLK_EN_MASK;
+	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+			XSDPS_CLK_CTRL_OFFSET, (u16)ClockReg);
+
+	/* Issue DLL Reset to load zero tap values */
+	DllCtrl = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD_DLL_CTRL);
+	if (InstancePtr->Config.DeviceId == 0U) {
+#if EL1_NONSECURE && defined (__aarch64__)
+		(void)DllCtrl;
+		(void)Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR +
+				SD_DLL_CTRL) | ((u64)SD0_DLL_RST << 32),
+				(u64)SD0_DLL_RST, 0, 0, 0, 0, 0);
+#else
+		DllCtrl |= SD0_DLL_RST;
+		XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_DLL_CTRL, DllCtrl);
+#endif
+	} else {
+#if EL1_NONSECURE && defined (__aarch64__)
+		(void)DllCtrl;
+		(void)Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR +
+				SD_DLL_CTRL) | ((u64)SD1_DLL_RST << 32),
+				(u64)SD1_DLL_RST, 0, 0, 0, 0, 0);
+#else
+		DllCtrl |= SD1_DLL_RST;
+		XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_DLL_CTRL, DllCtrl);
+>>>>>>> sdps: Disable calls to dll_reset APIs for versal platforms
 #endif
 
 	/* Configure the Tap Delay Registers */
@@ -1596,5 +1711,6 @@ void XSdPs_SetTapDelay(XSdPs *InstancePtr)
 	XSdPs_DllRstCtrl(InstancePtr, 0U);
 #endif
 }
+#endif
 #endif
 /** @} */
