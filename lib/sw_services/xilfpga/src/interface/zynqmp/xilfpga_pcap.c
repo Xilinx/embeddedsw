@@ -1239,7 +1239,7 @@ static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr)
 		XSecure_Sha3_ReadHash(&Secure_Sha3, Sha3Hash);
 
 		/* Copy SHA3 hash into the OCM */
-		(void)memcpy((u32 *)(UINTPTR)OcmChunkAddr, Sha3Hash, HASH_LEN);
+		(void)memcpy((u8 *)(UINTPTR)OcmChunkAddr, (u8 *)Sha3Hash, HASH_LEN);
 		OcmChunkAddr = OcmChunkAddr + HASH_LEN;
 		Temp_BitstreamAddr = Temp_BitstreamAddr + ChunkSize;
 	}
@@ -1257,7 +1257,7 @@ static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr)
 				(u8 *)(UINTPTR)OcmAddr, RemaningBytes);
 		XSecure_Sha3_ReadHash(&Secure_Sha3, Sha3Hash);
 		/* Copy SHA3 hash into the OCM */
-		(void)memcpy((u32 *)(UINTPTR)OcmChunkAddr, Sha3Hash, HASH_LEN);
+		(void)memcpy((u8 *)(UINTPTR)OcmChunkAddr, (u8 *)Sha3Hash, HASH_LEN);
 	}
 
 	/* Copy AC into the OCM */
@@ -1328,7 +1328,7 @@ static u32 XFpga_ReAuthPlChunksWriteToPl(XFpgaPs_PlPartition *PlAesInfo,
 		XSecure_Sha3_ReadHash(&Secure_Sha3, Sha3Hash);
 
 		/* Compare SHA3 hash with OCM Stored hash*/
-		if (memcmp((u32 *)(UINTPTR)OcmChunkAddr, Sha3Hash, HASH_LEN)!= 0) {
+		if (memcmp((u8 *)((UINTPTR)OcmChunkAddr), (u8 *)Sha3Hash, HASH_LEN)!= 0) {
 			Status = XFPGA_FAILURE;
 		} else {
 			OcmChunkAddr = OcmChunkAddr + HASH_LEN;
@@ -1367,7 +1367,7 @@ static u32 XFpga_ReAuthPlChunksWriteToPl(XFpgaPs_PlPartition *PlAesInfo,
 		XSecure_Sha3_ReadHash(&Secure_Sha3, Sha3Hash);
 
 		/* Compare SHA3 hash with OCM Stored hash*/
-		if (memcmp((u32 *)(UINTPTR)OcmChunkAddr, Sha3Hash, HASH_LEN) != 0) {
+		if (memcmp((u8 *)((UINTPTR)OcmChunkAddr), (u8 *)Sha3Hash, HASH_LEN) != 0) {
 			Status = XFPGA_FAILURE;
 			goto END;
 		}
