@@ -349,5 +349,9 @@ XHdmiC_Aux XV_HdmiC_AudioIF_GeneratePacket(XHdmiC_AudioInfoFrame *AudioInfoFrame
 XHdmiC_Colorspace XV_HdmiC_XVidC_To_IfColorformat(XVidC_ColorFormat ColorFormat);
 XVidC_AspectRatio XV_HdmiC_IFAspectRatio_To_XVidC(XHdmiC_PicAspectRatio AR);
 
+#ifdef __cplusplus
+}
+#endif
+
 #endif /* XHDMIC_H_ */
 /** @} */
