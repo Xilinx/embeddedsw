@@ -171,6 +171,8 @@
 *               03/09/17 Corrected status bits of Ultrascale plus
 * 6.7   arc     10/29/18 Fixed ARMCC compiler warnings and errors
 *       psl     03/20/19 Added eFuse key write support for SSIT devices.
+*       psl     03/29/19 Added support for user configurable GPIO for
+*                        jtag control.
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "stdio.h"
@@ -1528,6 +1530,7 @@ u32 XilSKey_EfusePl_InitData(XilSKey_EPl *PlInstancePtr)
 
 	PlInstancePtr->CrcOfAESKey = XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY;
 
+	PlInstancePtr->JtagGpioID  = XSK_EFUSEPL_AXI_GPIO_DEVICE_ID;
 	PlInstancePtr->JtagGpioTDI = XSK_EFUSEPL_AXI_GPIO_JTAG_TDI;
 	PlInstancePtr->JtagGpioTMS = XSK_EFUSEPL_AXI_GPIO_JTAG_TMS;
 	PlInstancePtr->JtagGpioTCK = XSK_EFUSEPL_AXI_GPIO_JTAG_TCK;
