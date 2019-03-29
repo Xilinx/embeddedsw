@@ -670,8 +670,8 @@ static u32 XFpga_PcapWaitForDone(void)
 	PollCount = (u32)(PL_DONE_POLL_COUNT);
 	while (PollCount != 0U) {
 		RegVal = Xil_In32(CSU_PCAP_STATUS);
-		RegVal = RegVal & CSU_PCAP_STATUS_PCAP_WR_IDLE_MASK;
-		if (RegVal == CSU_PCAP_STATUS_PCAP_WR_IDLE_MASK) {
+		RegVal = RegVal & PCAP_STATUS_PCAP_WR_IDLE_MASK;
+		if (RegVal == PCAP_STATUS_PCAP_WR_IDLE_MASK) {
 			break;
 		}
 		PollCount--;
@@ -738,8 +738,8 @@ static u32 XFpga_PcapWaitForidle(void)
 	PollCount = (u32)(PL_DONE_POLL_COUNT);
 	while (PollCount != 0U) {
 		RegVal = Xil_In32(CSU_PCAP_STATUS);
-		RegVal = RegVal & CSU_PCAP_STATUS_PCAP_RD_IDLE_MASK;
-		if (RegVal == CSU_PCAP_STATUS_PCAP_RD_IDLE_MASK) {
+		RegVal = RegVal & PCAP_STATUS_PCAP_RD_IDLE_MASK;
+		if (RegVal == PCAP_STATUS_PCAP_RD_IDLE_MASK) {
 			break;
 		}
 		PollCount--;
