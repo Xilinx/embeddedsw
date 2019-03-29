@@ -58,6 +58,8 @@ u32 GpioPinHwmReady;
 
 u32 GpioInPutCh;
 u32 GpioOutPutCh;
+
+u32 GpioDeviceId;
 /*
  * Constant definitions for instruction used in BBRAM key program and verify
  */
@@ -376,6 +378,10 @@ typedef struct {
 	 * Value on the MUX Selection line for ZYNQ
 	 */
 	u32 JtagMuxSelLineDefVal;/* Only for ZYNQ */
+	/**
+     * GPIO device ID
+     */
+    u32 JtagGpioID; /* Only for Ultrascale*/
 	/*
 	 * Hardware module Start signal's GPIO pin
 	 * number

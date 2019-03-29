@@ -73,6 +73,7 @@
 *                        XSK_ZYNQMP_BBRAMPS_ERROR_IN_WRITE_CRC
 *       mmd     03/17/19 Added timeout and PUF underflow error
 *       psl     03/19/19 FIxed MISRA-C violation
+*       psl     03/29/19 Removed GPIO ID macro.
  *****************************************************************************/
 
 #ifndef XILSKEY_UTILS_H
@@ -144,7 +145,6 @@ extern "C" {
 #define XTMRCTR_DEVICE_ID		(XPAR_TMRCTR_0_DEVICE_ID)
 #define XSK_EFUSEPL_CLCK_FREQ_ULTRA	(XPAR_AXI_TIMER_0_CLOCK_FREQ_HZ)
 #define XSK_TMRCTR_NUM			(0U)
-#define XSK_GPIO_DEVICE_ID		(XPAR_AXI_GPIO_0_DEVICE_ID)
 #endif
 
 #define REVERSE_POLYNOMIAL	(0x82F63B78U)
