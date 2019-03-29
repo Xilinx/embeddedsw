@@ -185,6 +185,7 @@ u32 XFpga_PL_Config(XFpga *InstancePtr)
 	default:
 			Xfpga_Printf(XFPGA_DEBUG, "Invalid Option\r\n");
 			Status = XFPGA_FAILURE;
+			break;
 	}
 
 	return Status;
