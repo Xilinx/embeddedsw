@@ -198,6 +198,8 @@ int remoteproc_config(struct remoteproc *rproc, void *data)
 			 */
 			if (rproc->ops->config)
 				ret = rproc->ops->config(rproc, data);
+			else
+				ret = 0;
 			rproc->state = RPROC_READY;
 		} else {
 			ret = -RPROC_EINVAL;
