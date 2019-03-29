@@ -1388,7 +1388,7 @@ done:
  *
  * @param SubsystemId	Subsystem ID.
  * @param ClockId	Clock node ID
- * @param ParentId	Parent clock node ID
+ * @param ParentIdx	Parent clock index
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -1397,7 +1397,7 @@ done:
  * this request will be denied.
  *
  ****************************************************************************/
-XStatus XPm_SetClockParent(const u32 SubsystemId, const u32 ClockId, const u32 ParentId)
+XStatus XPm_SetClockParent(const u32 SubsystemId, const u32 ClockId, const u32 ParentIdx)
 {
 	XStatus Status = XST_SUCCESS;
 	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
@@ -1414,7 +1414,7 @@ XStatus XPm_SetClockParent(const u32 SubsystemId, const u32 ClockId, const u32 P
 		goto done;
 	}
 
-	Status = XPmClock_SetParent((XPm_OutClockNode *)Clk, ParentId);
+	Status = XPmClock_SetParent((XPm_OutClockNode *)Clk, ParentIdx);
 
 done:
 	return Status;
@@ -1425,7 +1425,7 @@ done:
  * @brief  This function reads the clock parent.
  *
  * @param ClockId	ID of the clock node
- * @param ParentId	Address to store the parent node ID
+ * @param ParentIdx	Address to store the parent clock index
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -1433,7 +1433,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_GetClockParent(const u32 ClockId, u32 *const ParentId)
+XStatus XPm_GetClockParent(const u32 ClockId, u32 *const ParentIdx)
 {
 	XStatus Status = XST_SUCCESS;
 	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
@@ -1444,7 +1444,7 @@ XStatus XPm_GetClockParent(const u32 ClockId, u32 *const ParentId)
 		goto done;
 	}
 
-	Status = XPmClock_GetClockData((XPm_OutClockNode *)Clk, TYPE_MUX, ParentId);
+	Status = XPmClock_GetClockData((XPm_OutClockNode *)Clk, TYPE_MUX, ParentIdx);
 
 done:
 	return Status;
