@@ -256,7 +256,7 @@ static const u8 BootgenBinFormat[] = {
 u32 XFpga_Initialize(XFpga *InstancePtr) {
 	u32 Status;
 
-	memset(InstancePtr, 0, sizeof(*InstancePtr));
+	(void)memset(InstancePtr, 0, sizeof(*InstancePtr));
 	InstancePtr->XFpga_ValidateBitstream = XFpga_ValidateBitstreamImage;
 	InstancePtr->XFpga_PreConfig = XFpga_PreConfigPcap;
 	InstancePtr->XFpga_WriteToPl = XFpga_WriteToPlPcap;
@@ -1269,7 +1269,7 @@ static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr)
 	}
 	XSecure_Sha3Update(&Secure_Sha3, (u8 *)(UINTPTR)OcmAddr,
 				AC_LEN - XSECURE_PARTITION_SIG_SIZE);
-	XSecure_Sha3Finish(&Secure_Sha3, Sha3Hash);
+	(void)XSecure_Sha3Finish(&Secure_Sha3, Sha3Hash);
 
 	/* Calculate Hash on the given signature  and compare with Sha3Hash */
 	AcPtr += ((u32)XSECURE_RSA_AC_ALIGN + XSECURE_PPK_SIZE);
@@ -1388,7 +1388,7 @@ static u32 XFpga_ReAuthPlChunksWriteToPl(XFpgaPs_PlPartition *PlAesInfo,
 		}
 	}
 
-	XSecure_Sha3Finish(&Secure_Sha3, Sha3Hash);
+	(void)XSecure_Sha3Finish(&Secure_Sha3, Sha3Hash);
 END:
 	return Status;
 }
@@ -1520,9 +1520,9 @@ static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
 
 	/* If this is the first block to be decrypted it is the secure header */
 	if (PartitionParams->PlEncrypt.NextBlkLen == 0x00U) {
-		XSecure_AesDecryptInit(PartitionParams->PlEncrypt.SecureAes,
-		(u8 *)XSECURE_DESTINATION_PCAP_ADDR, XSECURE_SECURE_HDR_SIZE,
-			(u8 *)(SrcAddr + XSECURE_SECURE_HDR_SIZE));
+                (void)XSecure_AesDecryptInit(PartitionParams->PlEncrypt.SecureAes,
+                                (u8 *)XSECURE_DESTINATION_PCAP_ADDR, XSECURE_SECURE_HDR_SIZE,
+                                (u8 *)(SrcAddr + XSECURE_SECURE_HDR_SIZE));
 
 		/*
 		 * Configure AES engine to push decrypted Key and IV in the
@@ -1542,7 +1542,7 @@ static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
 		}
 		PartitionParams->PlEncrypt.SecureAes->KeySel =
 				XSECURE_CSU_AES_KEY_SRC_KUP;
-		XSecure_AesKeySelNLoad(PartitionParams->PlEncrypt.SecureAes);
+		(void)XSecure_AesKeySelNLoad(PartitionParams->PlEncrypt.SecureAes);
 		/* Point IV to the CSU IV register. */
 		PartitionParams->PlEncrypt.SecureAes->Iv =
 		(u32 *)(PartitionParams->PlEncrypt.SecureAes->BaseAddress +
@@ -1582,7 +1582,7 @@ static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
 	 */
 	else  if (PartitionParams->Hdr != 0x00U) {
 		/* Configure AES engine */
-		XSecure_SssAes(&PartitionParams->SssInstance, XSECURE_SSS_DMA0, XSECURE_SSS_PCAP);
+		(void)XSecure_SssAes(&PartitionParams->SssInstance, XSECURE_SSS_DMA0, XSECURE_SSS_PCAP);
 
 		(void)memcpy((u8 *)(PartitionParams->SecureHdr
 				+ PartitionParams->Hdr), (u8 *)(UINTPTR)SrcAddr,
@@ -1608,7 +1608,7 @@ static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
 		PartitionParams->PlEncrypt.SecureAes->KeySel =
 				XSECURE_CSU_AES_KEY_SRC_KUP;
 
-		XSecure_AesKeySelNLoad(PartitionParams->PlEncrypt.SecureAes);
+		(void)XSecure_AesKeySelNLoad(PartitionParams->PlEncrypt.SecureAes);
 		Status = XFpga_DecrptSetUpNextBlk(PartitionParams);
 		if (Status != XFPGA_SUCCESS) {
 			goto END;
@@ -1659,7 +1659,7 @@ static u32 XFpga_DecrptSetUpNextBlk(XFpgaPs_PlPartition *PartitionParams)
 			(UINTPTR)XSECURE_CSU_AES_IV_0_OFFSET);
 
 	/* Configure the SSS for AES. */
-	XSecure_SssAes(&PartitionParams->SssInstance, XSECURE_SSS_DMA0, XSECURE_SSS_PCAP);
+	(void)XSecure_SssAes(&PartitionParams->SssInstance, XSECURE_SSS_DMA0, XSECURE_SSS_PCAP);
 
 	/* Start the message. */
 	XSecure_WriteReg(PartitionParams->PlEncrypt.SecureAes->BaseAddress,
@@ -1749,7 +1749,7 @@ static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
 				XCSUDMA_SRC_CHANNEL, &ConfigurValues);
 
 		/* Configure SSS for AES engine */
-		XSecure_SssAes(&PartitionParams->SssInstance, XSECURE_SSS_DMA0, XSECURE_SSS_PCAP);
+		(void)XSecure_SssAes(&PartitionParams->SssInstance, XSECURE_SSS_DMA0, XSECURE_SSS_PCAP);
 
 		/* Send whole chunk of data to AES */
 		if ((Size <=
@@ -1808,7 +1808,7 @@ static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
 		}
 
 		/* Configure AES engine */
-		XSecure_SssAes(&PartitionParams->SssInstance, XSECURE_SSS_DMA0, XSECURE_SSS_PCAP);
+		(void)XSecure_SssAes(&PartitionParams->SssInstance, XSECURE_SSS_DMA0, XSECURE_SSS_PCAP);
 
 		XCsuDma_GetConfig(
 			PartitionParams->PlEncrypt.SecureAes->CsuDmaPtr,
@@ -1839,7 +1839,7 @@ static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
 			 */
 			PartitionParams->PlEncrypt.SecureAes->KeySel =
 					XSECURE_CSU_AES_KEY_SRC_KUP;
-			XSecure_AesKeySelNLoad(
+			(void)XSecure_AesKeySelNLoad(
 				PartitionParams->PlEncrypt.SecureAes);
 			Status = XFpga_DecrptSetUpNextBlk(PartitionParams);
 			if (Status != XFPGA_SUCCESS) {
@@ -1916,7 +1916,7 @@ static u32 XFpga_DecrypSecureHdr(XSecure_Aes *InstancePtr, u64 SrcAddr)
 
 	XSecure_PcapWaitForDone();
 
-	XSecure_AesWaitForDone(InstancePtr);
+	(void)XSecure_AesWaitForDone(InstancePtr);
 	/* Get the AES status to know if GCM check passed. */
 	GcmStatus = XSecure_ReadReg(InstancePtr->BaseAddress,
 				XSECURE_CSU_AES_STS_OFFSET) &
@@ -2753,7 +2753,7 @@ static u32 XFpga_SelectEndianess(u8 *Buf, u32 Size, u32 *Pos)
 	if (Status == XFPGA_SUCCESS) {
 		IsBitNonAligned = Index % 4U;
 		if (IsBitNonAligned != 0U) {
-			memcpy(Buf, Buf + IsBitNonAligned, Size - IsBitNonAligned);
+			(void)memcpy(Buf, Buf + IsBitNonAligned, Size - IsBitNonAligned);
 			Index -= IsBitNonAligned;
 		}
 
