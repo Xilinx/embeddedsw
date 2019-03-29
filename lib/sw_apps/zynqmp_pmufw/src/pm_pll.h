@@ -93,6 +93,7 @@ typedef struct PmPll {
 	u32 perms;
 	const u8 lockShift;
 	u8 flags;
+	u32 childCount;
 #ifdef ENABLE_EM
 	u32 errShift;
 	u32 errValue;
