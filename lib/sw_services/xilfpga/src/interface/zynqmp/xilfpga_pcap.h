@@ -145,7 +145,6 @@ extern "C" {
 
 
 /* Dummy address to indicate that destination is PCAP */
-#define XFPGA_DESTINATION_PCAP_ADDR    (0XFFFFFFFFU)
 #define XFPGA_CSU_SSS_SRC_SRC_DMA	(0x5U)
 #define XFPGA_CSU_SSS_SRC_DST_DMA	(0x30U)
 #define XFPGA_CSU_SSS_DMA_TO_DMA	(0x50U)
