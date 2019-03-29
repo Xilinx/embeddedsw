@@ -47,6 +47,7 @@
 *                     Added support for unaligned byte count read.
 *       sk   02/04/19 Added support for SDR+PHY and DDR+PHY modes.
 *       sk   02/07/19 Added OSPI Idling sequence.
+* 1.0   akm 03/29/19 Fixed data alignment issues on IAR compiler.
 *
 * </pre>
 *
@@ -130,9 +131,9 @@ typedef struct {
 	void *StatusRef;  	 /**< Callback reference for status handler */
 	u8 IsUnaligned;		/* Flag used to indicate bytecnt is aligned or not */
 #ifdef __ICCARM__
-#pragma data_alignment = 64
+#pragma pack(push, 8)
 	u8 UnalignReadBuffer[4];	/**< Buffer used to read the unaligned bytes in DMA */
-#pragma data_alignment = 4
+#pragma pack(pop)
 #else
 	u8 UnalignReadBuffer[4] __attribute__ ((aligned(64)));
 #endif
