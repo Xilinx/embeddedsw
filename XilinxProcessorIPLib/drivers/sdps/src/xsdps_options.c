@@ -73,6 +73,7 @@
 * 3.4   mn     01/22/18 Separated out SDR104 and HS200 clock defines
 * 3.6   mn     07/06/18 Fix Cppcheck warnings for sdps driver
 * 3.7   aru    03/12/19 Modified the code according to MISRAC-2012.
+*       mn     03/27/19 Disable calls to dll_reset API for versal SPP Platforms
 *
 * </pre>
 *
@@ -102,7 +103,9 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr);
 s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode);
 void XSdPs_sdr50_tapdelay(u32 Bank, u32 DeviceId, u32 CardType);
 void XSdPs_SetTapDelay(XSdPs *InstancePtr);
+#ifndef versal
 static void XSdPs_DllReset(XSdPs *InstancePtr);
+#endif
 #endif
 
 extern u16 TransferMode;
@@ -779,11 +782,13 @@ s32 XSdPs_Change_ClkFreq(XSdPs *InstancePtr, u32 SelFreq)
 
 	if (InstancePtr->HC_Version == XSDPS_HC_SPEC_V3) {
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
+#ifndef versal
 	if ((InstancePtr->Mode != XSDPS_DEFAULT_SPEED_MODE) &&
 			(InstancePtr->Mode != XSDPS_UHS_SPEED_MODE_SDR12)) {
 		/* Program the Tap delays */
 		XSdPs_SetTapDelay(InstancePtr);
 	}
+#endif
 #endif
 		/* Calculate divisor */
 		for (DivCnt = 0x1U; DivCnt <= XSDPS_CC_EXT_MAX_DIV_CNT;DivCnt++) {
@@ -1264,8 +1269,10 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 	(void)usleep(1U);
 
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
+#ifndef versal
 	/* Issue DLL Reset to load new SDHC tuned tap values */
 	XSdPs_DllReset(InstancePtr);
+#endif
 #endif
 
 	for (TuningCount = 0U; TuningCount < MAX_TUNING_COUNT; TuningCount++) {
@@ -1288,8 +1295,10 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 
 		if (TuningCount == 31U) {
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
+#ifndef versal
 			/* Issue DLL Reset to load new SDHC tuned tap values */
 			XSdPs_DllReset(InstancePtr);
+#endif
 #endif
 		}
 	}
@@ -1304,8 +1313,10 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 	(void)usleep(1U);
 
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
+#ifndef versal
 	/* Issue DLL Reset to load new SDHC tuned tap values */
 	XSdPs_DllReset(InstancePtr);
+#endif
 #endif
 
 	Status = XST_SUCCESS;
@@ -1759,6 +1770,7 @@ void XSdPs_SetTapDelay(XSdPs *InstancePtr)
 #endif
 }
 
+#ifndef versal
 /*****************************************************************************/
 /**
 *
@@ -1849,5 +1861,6 @@ static void XSdPs_DllReset(XSdPs *InstancePtr)
 			XSDPS_CLK_CTRL_OFFSET,
 			ClockReg | XSDPS_CC_SD_CLK_EN_MASK);
 }
+#endif
 #endif
 /** @} */
