@@ -947,7 +947,7 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 				XSECURE_AUTH_CERT_MIN_SIZE/(u32)XSECURE_WORD_LEN);
 		/*Verify Spk */
 		Status = XSecure_VerifySpk(AcBuf, ImageInfo->EfuseRsaenable);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			Status = XFPGA_PCAP_UPDATE_ERR(
 					XFPGA_ERROR_DDR_AUTH_VERIFY_SPK,
 					Status);
@@ -958,7 +958,7 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 		Status = XSecure_PartitionAuthentication(&CsuDma, (u8 *)BitAddr,
 							 PL_PARTATION_SIZE,
 							(u8 *)(UINTPTR)AcBuf);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			Status = XFPGA_PCAP_UPDATE_ERR(
 					XFPGA_ERROR_DDR_AUTH_PARTITION,
 					Status);
@@ -990,7 +990,7 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 				XSECURE_AUTH_CERT_MIN_SIZE/(u32)XSECURE_WORD_LEN);
 		/*Verify Spk */
 		Status = XSecure_VerifySpk(AcBuf, ImageInfo->EfuseRsaenable);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			Status = XFPGA_PCAP_UPDATE_ERR(
 					XFPGA_ERROR_DDR_AUTH_VERIFY_SPK,
 					Status);
@@ -1001,7 +1001,7 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 		Status = XSecure_PartitionAuthentication(&CsuDma, (u8 *)BitAddr,
 							 RemaningBytes,
 							(u8 *)(UINTPTR)AcBuf);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			Status = XFPGA_PCAP_UPDATE_ERR(
 					XFPGA_ERROR_DDR_AUTH_PARTITION,
 					Status);
@@ -1162,7 +1162,7 @@ static u32 XFpga_AuthPlChunksOcm(XFpga *InstancePtr, u32 Size)
 		XSECURE_AUTH_CERT_MIN_SIZE/(u32)XSECURE_WORD_LEN);
 	/*Verify Spk */
 	Status = XSecure_VerifySpk(AcBuf, ImageInfo->EfuseRsaenable);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		Status = XFPGA_PCAP_UPDATE_ERR(
 				XFPGA_ERROR_OCM_AUTH_VERIFY_SPK,
 				Status);
