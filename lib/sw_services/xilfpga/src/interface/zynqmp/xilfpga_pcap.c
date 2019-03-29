@@ -1062,7 +1062,7 @@ static u32 XFpga_SecureBitstreamOcmLoad(XFpga *InstancePtr,
 							* XSECURE_WORD_LEN;
 		PartationLen = PartationAcOffset - PartationOffset;
 		InstancePtr->PLInfo.TotalBitPartCount =
-					(u8)(PartationLen/PL_PARTATION_SIZE);
+					(u32)(PartationLen/PL_PARTATION_SIZE);
 		InstancePtr->PLInfo.RemaningBytes = PartationLen -
 			((u32)InstancePtr->PLInfo.TotalBitPartCount *
 			 PL_PARTATION_SIZE);
@@ -1103,11 +1103,11 @@ static u32 XFpga_SecureBitstreamOcmLoad(XFpga *InstancePtr,
 	}
 
 #if defined (PSU_PMU)
-	if ((s32)InstancePtr->PLInfo.TotalBitPartCount != 0U) {
+	if ((u32)InstancePtr->PLInfo.TotalBitPartCount != 0U) {
 		Status = XFpga_AuthPlChunksOcm(InstancePtr, PL_PARTATION_SIZE);
 	}
 #else
-	while ((s32)InstancePtr->PLInfo.TotalBitPartCount != 0U) {
+	while ((u32)InstancePtr->PLInfo.TotalBitPartCount != 0U) {
 
 		Status = XFpga_AuthPlChunksOcm(InstancePtr, PL_PARTATION_SIZE);
 		if (Status != XFPGA_SUCCESS) {
@@ -1117,7 +1117,7 @@ static u32 XFpga_SecureBitstreamOcmLoad(XFpga *InstancePtr,
 #endif
 
 	if ((InstancePtr->PLInfo.RemaningBytes != 0U) &&
-		((s32)InstancePtr->PLInfo.TotalBitPartCount == 0U)){
+		((u32)InstancePtr->PLInfo.TotalBitPartCount == 0U)){
 
 		Status = XFpga_AuthPlChunksOcm(InstancePtr,
 					InstancePtr->PLInfo.RemaningBytes);
@@ -1129,7 +1129,7 @@ static u32 XFpga_SecureBitstreamOcmLoad(XFpga *InstancePtr,
 	}
 
 	if ((InstancePtr->PLInfo.RemaningBytes == 0U) &&
-			((s32)InstancePtr->PLInfo.TotalBitPartCount == 0U)){
+			((u32)InstancePtr->PLInfo.TotalBitPartCount == 0U)){
 		InstancePtr->PLInfo.State = XFPGA_POST_CONFIG;
 	}
 

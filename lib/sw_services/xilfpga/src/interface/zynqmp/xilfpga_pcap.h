@@ -325,10 +325,10 @@ typedef struct {
 	XSecure_ImageInfo SecureImageInfo;
 	XFpgaPs_PlPartition PlAesInfo;
 	XSecure_Aes Secure_Aes;
-	s32 TotalBitPartCount;
-	s32 SecureOcmState;
-	s32 ConfigStatus;
-	s32 State;
+	u32 TotalBitPartCount;
+	u32 SecureOcmState;
+	u32 ConfigStatus;
+	u32 State;
 	u32 RemaningBytes;
 	UINTPTR AcPtr;
 	UINTPTR BitAddr;
