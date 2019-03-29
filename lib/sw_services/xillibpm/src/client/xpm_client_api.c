@@ -855,7 +855,7 @@ done:
  * @brief  This function is used to set the parent for specified clock
  *
  * @param  ClockId		Clock ID
- * @param  ParentId		Parent ID which needs to be set
+ * @param  ParentIdx		Parent clock index
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -863,12 +863,12 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_ClockSetParent(const u32 ClockId, const u32 ParentId)
+XStatus XPm_ClockSetParent(const u32 ClockId, const u32 ParentIdx)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD2(Payload, PM_CLOCK_SETPARENT, ClockId, ParentId);
+	PACK_PAYLOAD2(Payload, PM_CLOCK_SETPARENT, ClockId, ParentIdx);
 
 	/* Send request to the target module */
 	Status = XPm_IpiSend(PrimaryProc, Payload);
@@ -888,7 +888,7 @@ done:
  * @brief  This function is used to get the parent of specified clock
  *
  * @param  ClockId		Clock ID
- * @param  ParentId		Pointer to store the parent ID
+ * @param  ParentIdx		Pointer to store the parent clock index
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -896,12 +896,12 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_ClockGetParent(const u32 ClockId, u32 *const ParentId)
+XStatus XPm_ClockGetParent(const u32 ClockId, u32 *const ParentIdx)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	if (NULL == ParentId) {
+	if (NULL == ParentIdx) {
 		XPm_Dbg("ERROR: Passing NULL pointer to %s\r\n", __func__);
 		Status = XST_FAILURE;
 		goto done;
@@ -916,7 +916,7 @@ XStatus XPm_ClockGetParent(const u32 ClockId, u32 *const ParentId)
 	}
 
 	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, ParentId, NULL, NULL);
+	Status = Xpm_IpiReadBuff32(PrimaryProc, ParentIdx, NULL, NULL);
 
 done:
 	return Status;
