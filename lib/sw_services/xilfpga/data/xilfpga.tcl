@@ -111,9 +111,9 @@ proc generate {lib_handle} {
     puts $conffile "#define _XFPGA_CONFIG_H"
     puts $conffile "#include <xilfpga.h>"
     set value  [common::get_property CONFIG.ocm_address $lib_handle]
-    puts  $conffile "#define XFPGA_OCM_ADDRESS $value"
+    puts  $conffile "#define XFPGA_OCM_ADDRESS ${value}U"
     set value  [common::get_property CONFIG.base_address $lib_handle]
-    puts  $conffile "#define XFPGA_BASE_ADDRESS $value"
+    puts  $conffile "#define XFPGA_BASE_ADDRESS ${value}U"
     set value  [common::get_property CONFIG.secure_mode $lib_handle]
 
     if {$value == true} {
