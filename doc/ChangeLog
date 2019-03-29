@@ -129,6 +129,9 @@ configuration register values of both the Flashes in dual parellel mode.
 prc_v1_2:
 Updated the tcl logic to generated the XPrc_ConfigTable properly.
 
+prc_v1_2:
+Updated the tcl logic to generated the XPrc_ConfigTable properly.
+
 qspipsu_v1_9:
 Resolved MISRA-C:2012 violations in safety mode(CR#1014359)
 Clear DMA_DST_ADDR_MSB register properly
