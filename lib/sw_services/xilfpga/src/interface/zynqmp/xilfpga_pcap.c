@@ -1301,7 +1301,7 @@ static u32 XFpga_ReAuthPlChunksWriteToPl(XFpgaPs_PlPartition *PlAesInfo,
 					 UINTPTR BitstreamAddr,
 					 u32 Size, u32 flags)
 {
-	u32 Status;
+	u32 Status = XFPGA_FAILURE;
 	XSecure_Sha3 Secure_Sha3;
 	u64 OcmAddr = OCM_PL_ADDR;
 	u32 NumChunks = NUM_OF_PL_CHUNKS(Size);
