@@ -110,6 +110,7 @@ Fix xemacliteif_input() for freertos multi-packet scenario.
 
 ospipsv_v1_0:
 First Release.
+Fixed data alignment issues on IAR compiler.
 
 qspips_v3_6:
 Fixed memory leak issue while reading from qspi.(CR#1016357)
