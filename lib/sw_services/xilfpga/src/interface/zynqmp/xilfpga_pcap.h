@@ -270,7 +270,7 @@ extern "C" {
 
 /* FPGA Configuration Registers Offsets */
 #define CRC		0U  /* Status Register */
-#define FAR		1U  /* Frame Address Register */
+#define FAR1		1U  /* Frame Address Register */
 #define FDRI		2U  /* FDRI Register */
 #define FDRO		3U  /* FDRO Register */
 #define CMD		4U  /* Command Register */
