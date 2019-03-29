@@ -49,6 +49,7 @@
 # 4.2	adk   24/07/18 Added proper error message if xilsecure is not enabled
 #			in the bsp.
 # 5.0   Nava  11/05/18  Added full bitstream loading support for versal Platform.
+# 5.0	sne   27/03/19 Fixed Misra-C violations.
 #
 ##############################################################################
 
