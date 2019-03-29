@@ -295,6 +295,12 @@
 *	to actual AES key before decrypting the bitstream.
 *	FALSE will not modify this secure bit of eFUSE.
 *
+*       #define XSK_EFUSEPL_AXI_GPIO_DEVICE_ID  XPAR_AXI_GPIO_0_DEVICE_ID
+*       Default value is XPAR_AXI_GPIO_0_DEVICE_ID
+*       This macro is for providing exact GPIO device ID, based on the
+*       design configuration this macro should be modified to provide
+*       GPIO device ID which is used for connecting MASTER JTAG pins.
+*
 *	In Ultrascale GPIO pins used for connecting MASTER_JTAG pins and
 *	hardware module to access eFUSE.
 *	Following are the GPIO pins and user can change these pins
@@ -483,6 +489,8 @@
 * 6.4   vns     02/27/18 Added support for programming secure bit -
 *                        enable obfuscation feature for eFUSE AES key
 * 6.7   psl     03/20/19 Added eFuse key write support for SSIT devices.
+*       psl     03/29/19 Added support for user configurable GPIO for
+*                        jtag control.
 * </pre>
 *
 *
@@ -707,6 +715,10 @@ extern "C" {
  * AXI GPIO pin numbers connected to MASTER JTAG primitive and corresponding
  * channel numbers for GPIO pins
  */
+
+/* GPIO device ID */
+#define XSK_EFUSEPL_AXI_GPIO_DEVICE_ID	XPAR_AXI_GPIO_0_DEVICE_ID
+
 /* Signals connect as Input to GPIO */
 #define	XSK_EFUSEPL_AXI_GPIO_JTAG_TDO	(0)	/**< MASTER JTAG GPIO
 						  *  pin for TDO */

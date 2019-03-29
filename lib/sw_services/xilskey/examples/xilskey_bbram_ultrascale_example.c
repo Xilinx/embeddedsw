@@ -82,6 +82,8 @@
 * 6.0   vns     07/28/16 Updated example to allow counting configuration
 *                        feature and to program Obfuscated key.
 * 6.7   psl     03/20/19 Added BBRAM key write support for SSIT devices.
+*       psl     03/29/19 Added Support for user configurable GPIO for
+*                        jtag control.
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -386,6 +388,7 @@ int XilSKey_Bbram_InitData(XilSKey_Bbram *BbramInstancePtr)
 
 	u32 Status;
 
+	BbramInstancePtr->JtagGpioID  = XSK_BBRAM_AXI_GPIO_DEVICE_ID;
 	BbramInstancePtr->JtagGpioTDI = XSK_BBRAM_AXI_GPIO_JTAG_TDI;
 	BbramInstancePtr->JtagGpioTMS = XSK_BBRAM_AXI_GPIO_JTAG_TMS;
 	BbramInstancePtr->JtagGpioTCK = XSK_BBRAM_AXI_GPIO_JTAG_TCK;
