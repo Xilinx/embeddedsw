@@ -2637,9 +2637,9 @@ static u32 Xfpga_RegAddr(u8 Register, u8 OpCode, u16 Size)
 	 * as only read operation is to be carried out and then performing OR
 	 * operation with the Word Length.
 	 */
-	return (((XDC_TYPE_1 << (u8)XDC_TYPE_SHIFT) |
-		(Register << (u8)XDC_REGISTER_SHIFT) |
-		(OpCode << (u8)XDC_OP_SHIFT)) | (u32)Size);
+	return ((u32)(((u32)XDC_TYPE_1 << (u32)XDC_TYPE_SHIFT) |
+		((u32)Register << (u32)XDC_REGISTER_SHIFT) |
+		((u32)OpCode << (u32)XDC_OP_SHIFT)) | (u32)Size);
 }
 
 /****************************************************************************/
@@ -2674,8 +2674,8 @@ static u32 Xfpga_Type2Pkt(u8 OpCode, u32 Size)
 	 * Header Mask, OpCode and then performing OR
 	 * operation with the Word Length.
 	 */
-	return (((XDC_TYPE_2 << (u8)XDC_TYPE_SHIFT) |
-		(OpCode << (u8)XDC_OP_SHIFT)) | Size);
+	return ((u32)(((u32)XDC_TYPE_2 << (u32)XDC_TYPE_SHIFT) |
+		((u32)OpCode << (u32)XDC_OP_SHIFT)) | (u32)Size);
 }
 
 /*****************************************************************************/
