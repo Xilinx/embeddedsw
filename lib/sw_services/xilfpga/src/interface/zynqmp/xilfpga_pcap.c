@@ -792,6 +792,7 @@ static u32 XFpga_ValidateCryptoFlags(const XSecure_ImageInfo *ImageInfo,
 		} else if (ImageInfo->KeySrc == XFPGA_KEY_SRC_KUP) {
 			IsImageUserKeyEncrypted = 1U;
 		}
+                else { /* for MISRA-C viloation */}
 	}
 
 	if (((flags & XFPGA_AUTHENTICATION_DDR_EN) != 0U) ||
@@ -1798,6 +1799,7 @@ static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
 				Size = 0U;
 			}
 		}
+                else { /* MISRA-C violations */}
 
 		/* Wait PCAP done */
 		Status = XFpga_PcapWaitForDone();
@@ -2744,6 +2746,7 @@ static u32 XFpga_SelectEndianess(u8 *Buf, u32 Size, u32 *Pos)
 				Status = XFPGA_SUCCESS;
 				break;
 			}
+                        else { /* MISRA-C violation */}
 		}
 	}
 
