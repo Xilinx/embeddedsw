@@ -319,9 +319,9 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 	}
 
 	if ((InstancePtr->WriteInfo.Flags & XFPGA_SECURE_FLAGS) == 0U) {
-		if(!(memcmp((u8 *)(InstancePtr->WriteInfo.BitstreamAddr +
+		if((u32)(memcmp((u8 *)(InstancePtr->WriteInfo.BitstreamAddr +
 		   BOOTGEN_DATA_OFFSET + SYNC_BYTE_POSITION),
-		   BootgenBinFormat, ARRAY_LENGTH(BootgenBinFormat)))) {
+		   BootgenBinFormat, ARRAY_LENGTH(BootgenBinFormat)))== 0U) {
 			BitstreamPos = BOOTGEN_DATA_OFFSET;
 		} else {
 			Status = XFpga_SelectEndianess(
