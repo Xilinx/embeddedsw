@@ -53,6 +53,7 @@
  * 5.0 Nava  22/03/19  Added new API's to support the state machine mechanism
  *                     for bitstream loading to meet the safety requirements
  *                     with PMUFW.
+ * 5.0 sne   27/03/19  Fixed misra-c violations.
  *</pre>
  *
  *@note
