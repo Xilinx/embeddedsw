@@ -775,7 +775,7 @@ u8 XPrc_IsVsmInShutdown(XPrc *InstancePtr, u32 VsmIdOrStatus);
 u32 XPrc_GetVsmState(XPrc *InstancePtr, u32 VsmIdOrStatus);
 u32 XPrc_GetVsmErrorStatus(XPrc *InstancePtr, u32 VsmIdOrStatus);
 u32 XPrc_GetRmIdFromStatus(XPrc *InstancePtr, u32 VsmIdOrStatus);
-u32 XPrc_GetBSIdFromStatus(XPrc *InstancePtr, u32 VsmIdOrStatus);
+u32 XPrc_GetBsIdFromStatus(XPrc *InstancePtr, u32 VsmIdOrStatus);
 void XPrc_SendSwTrigger(XPrc *InstancePtr, u16 VsmId, u16 Trigger);
 u8 XPrc_IsSwTriggerPending(XPrc *InstancePtr, u16 VsmId, u16 *Trigger);
 void XPrc_SetTriggerToRmMapping(XPrc *InstancePtr, u16 VsmId, u16 TriggerId,
