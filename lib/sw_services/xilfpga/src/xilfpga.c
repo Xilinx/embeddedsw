@@ -260,7 +260,7 @@ u32 XFpga_PL_ValidateImage(XFpga *InstancePtr,
 	InstancePtr->WriteInfo.AddrPtr_Size = AddrPtr_Size;
 	InstancePtr->WriteInfo.Flags = Flags;
 
-	if (!InstancePtr->XFpga_ValidateBitstream) {
+	if (InstancePtr->XFpga_ValidateBitstream == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
 		"%s Implementation not exists..\r\n", __FUNCTION__);
@@ -287,7 +287,7 @@ u32 XFpga_PL_Preconfig(XFpga *InstancePtr)
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	if (!InstancePtr->XFpga_PreConfig) {
+	if (InstancePtr->XFpga_PreConfig == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
 		"%s Implementation not exists..\r\n", __FUNCTION__);
@@ -343,7 +343,7 @@ u32 XFpga_PL_Write(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
 	 InstancePtr->WriteInfo.AddrPtr_Size = AddrPtr_Size;
 	 InstancePtr->WriteInfo.Flags = Flags;
 
-	if (!InstancePtr->XFpga_WriteToPl) {
+	if (InstancePtr->XFpga_WriteToPl == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
 		"%s Implementation not exists..\r\n", __FUNCTION__);
@@ -371,7 +371,7 @@ u32 XFpga_PL_PostConfig(XFpga *InstancePtr)
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	if (!InstancePtr->XFpga_PostConfig) {
+	if (InstancePtr->XFpga_PostConfig == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
 		"%s Implementation not exists..\r\n", __FUNCTION__);
@@ -413,7 +413,7 @@ u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 	InstancePtr->ReadInfo.ReadbackAddr = ReadbackAddr;
 	InstancePtr->ReadInfo.ConfigReg_NumFrames = ConfigReg_NumFrames;
 
-	if (!InstancePtr->XFpga_GetConfigData) {
+	if (InstancePtr->XFpga_GetConfigData == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
 		"%s Implementation not exists..\r\n", __FUNCTION__);
@@ -450,7 +450,7 @@ u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 	InstancePtr->ReadInfo.ReadbackAddr = ReadbackAddr;
 	InstancePtr->ReadInfo.ConfigReg_NumFrames = ConfigReg_NumFrames;
 
-	if (!InstancePtr->XFpga_GetConfigData) {
+	if (InstancePtr->XFpga_GetConfigData == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
 			"%s Implementation not exists..\r\n", __FUNCTION__);
