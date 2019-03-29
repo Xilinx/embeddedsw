@@ -199,7 +199,7 @@ typedef struct XFpgatag{
 					)
 
 #define Xfpga_Printf(DebugType, ...) \
-	if (DebugType != 0U) \
+	if ((DebugType) != 0U) \
 	{xil_printf (__VA_ARGS__); }
 
 #define XFPGA_ERR_MASK				(0xFFU)
