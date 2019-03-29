@@ -421,6 +421,13 @@ static void PmClockGenInitParent(PmClock* const clock)
 		}
 	}
 
+	if (clk->parent) {
+		if (clk->parent->class == &pmClockClassPll) {
+			PmClockPll* pclk = (PmClockPll*)clk->parent->derived;
+			pclk->pll->childCount++;
+		}
+	}
+
 done:
 	return;
 }
@@ -477,11 +484,20 @@ static s32 PmClockGenSetParent(PmClock* const clock, const u32 select)
 	if (NULL != new_parent) {
 		PmClockRequestInt(new_parent);
 	}
+	if (new_parent->class == &pmClockClassPll) {
+		PmClockPll* pclk = (PmClockPll*)new_parent->derived;
+		pclk->pll->childCount++;
+	}
+
 	XPfw_RMW32(clk->ctrlAddr,
 		   MASK_OF_BITS(clk->mux->bits) << clk->mux->shift,
 		   select << clk->mux->shift);
 	if (NULL != clk->parent) {
 		PmClockReleaseInt(clk->parent);
+		if (clk->parent->class == &pmClockClassPll) {
+			PmClockPll* pclk = (PmClockPll*)clk->parent->derived;
+			pclk->pll->childCount--;
+		}
 	}
 	clk->parent = new_parent;
 

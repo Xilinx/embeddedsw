@@ -273,6 +273,7 @@ extern "C" {
 #define XST_PM_ABORT_SUSPEND	2005L
 #define XST_PM_TIMEOUT		2006L
 #define XST_PM_NODE_USED	2007L
+#define XST_PM_MULT_USER	2008L
 
 /* Reset configuration argument */
 #define PM_RESET_ACTION_RELEASE	0U

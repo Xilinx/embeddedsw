@@ -452,6 +452,7 @@ PmPll pmApll_g = {
 	.perms = 0U,
 	.lockShift = CRF_APB_PLL_STATUS_APLL_LOCK_SHIFT,
 	.flags = 0U,
+	.childCount = 0U,
 #ifdef ENABLE_EM
 	.errShift = PMU_GLOBAL_ERROR_SIG_2_APLL_SHIFT,
 	.errValue = 0,
@@ -477,6 +478,7 @@ PmPll pmVpll_g = {
 	.perms = 0U,
 	.lockShift = CRF_APB_PLL_STATUS_VPLL_LOCK_SHIFT,
 	.flags = 0U,
+	.childCount = 0U,
 #ifdef ENABLE_EM
 	.errShift = PMU_GLOBAL_ERROR_SIG_2_VPLL_SHIFT,
 	.errValue = 0,
@@ -502,6 +504,7 @@ PmPll pmDpll_g __attribute__((__section__(".srdata"))) = {
 	.perms = 0U,
 	.lockShift = CRF_APB_PLL_STATUS_DPLL_LOCK_SHIFT,
 	.flags = 0U,
+	.childCount = 0U,
 #ifdef ENABLE_EM
 	.errShift = PMU_GLOBAL_ERROR_SIG_2_DPLL_SHIFT,
 	.errValue = 0,
@@ -527,6 +530,7 @@ PmPll pmRpll_g = {
 	.perms = 0U,
 	.lockShift = CRL_APB_PLL_STATUS_RPLL_LOCK_SHIFT,
 	.flags = 0U,
+	.childCount = 0U,
 #ifdef ENABLE_EM
 	.errShift = PMU_GLOBAL_ERROR_SIG_2_RPLL_SHIFT,
 	.errValue = 0,
@@ -552,6 +556,7 @@ PmPll pmIOpll_g = {
 	.perms = 0U,
 	.lockShift = CRL_APB_PLL_STATUS_IOPLL_LOCK_SHIFT,
 	.flags = 0U,
+	.childCount = 0U,
 #ifdef ENABLE_EM
 	.errShift = PMU_GLOBAL_ERROR_SIG_2_IOPLL_SHIFT,
 	.errValue = 0,
@@ -610,6 +615,20 @@ s32 PmPllSetParameterInt(PmPll* const pll, const u32 paramId, const u32 val)
 	p = &pllParams[paramId];
 	if (val > MASK_OF_BITS(p->bits)) {
 		goto done;
+	}
+
+	/*
+	 * We're running on a ZynqMP compatible machine, make sure the
+	 * VPLL only has one child. Check only while changing PLL rate.
+	 * This helps to remove the warn in cases where the expected clock
+	 * is not using vpll and vpll is used for other stuff.
+	 */
+	if (NODE_VPLL == pll->node.nodeId && PM_PLL_PARAM_FBDIV == paramId) {
+		if (pll->childCount > 1) {
+			PmErr("More than 1 devices are using VPLL which is forbidden\r\n");
+			status = XST_PM_MULT_USER;
+			goto done;
+		}
 	}
 
 	XPfw_RMW32(pll->addr + p->regOffset, MASK_OF_BITS(p->bits) << p->shift,
