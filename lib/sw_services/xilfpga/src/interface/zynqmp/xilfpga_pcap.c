@@ -1703,7 +1703,7 @@ static void XFpga_DmaPlCopy(XCsuDma *InstancePtr, UINTPTR Src, u32 Size,
 	XCsuDma_Transfer(InstancePtr, XCSUDMA_SRC_CHANNEL, (UINTPTR)Src,
 							Size, EnLast);
 	/* Polling for transfer to be done */
-	XCsuDma_WaitForDone(InstancePtr, XCSUDMA_SRC_CHANNEL);
+	XCsuDma_WaitForDone(InstancePtr, XCSUDMA_SRC_CHANNEL){/*MISRA-C violation*/};
 	/* To acknowledge the transfer has completed */
 	XCsuDma_IntrClear(InstancePtr, XCSUDMA_SRC_CHANNEL,
 					XCSUDMA_IXR_DONE_MASK);
