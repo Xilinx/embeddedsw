@@ -54,6 +54,8 @@
 * 6.7   arc     25/02/19 Changed void XilSKey_ZynqMp_Bbram_Zeroise(void)
 *                        prototype to u32 XilSKey_ZynqMp_Bbram_Zeroise(void)
 *       psl     03/20/19 Added BBRAM key write support for SSIT devices.
+*       psl     03/29/19 Added Support for user configurable GPIO for jtag
+*                        control.
 ****************************************************************************/
 #ifndef XILSKEY_BBRAM_H
 #define XILSKEY_BBRAM_H
@@ -96,7 +98,10 @@ typedef struct {
 	 * Value on the MUX Selection line
 	 */
 	u32	JtagMuxSelLineDefVal;
-
+	/**
+     * GPIO device ID
+     */
+    u32 JtagGpioID; /* Only for Ultrascale*/
 	/* TDI AXI GPIO pin number for Ultrascale */
 	u32 JtagGpioTDI;	/* Only for Ultrascale */
 	/* TDO AXI GPIO pin number for Ultrascale */
