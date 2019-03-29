@@ -942,10 +942,10 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 
 	for (s32 i = 0; i < (s32)TotalBitPartCount; i++) {
 		/* Copy authentication certificate to internal memory */
-		(void)XSecure_MemCopy(AcBuf, (u8 *)AcPtr,
+		(void)XSecure_MemCopy((u8 *)AcBuf, (u8 *)AcPtr,
 				XSECURE_AUTH_CERT_MIN_SIZE/(u32)XSECURE_WORD_LEN);
 		/*Verify Spk */
-		Status = XSecure_VerifySpk(AcBuf, ImageInfo->EfuseRsaenable);
+		Status = XSecure_VerifySpk((u8 *)AcBuf, ImageInfo->EfuseRsaenable);
 		if (Status != (u32)XST_SUCCESS) {
 			Status = XFPGA_PCAP_UPDATE_ERR(
 					XFPGA_ERROR_DDR_AUTH_VERIFY_SPK,
@@ -985,10 +985,10 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 	if (RemaningBytes != 0U) {
 
 		/* Copy authentication certificate to internal memory */
-		(void)XSecure_MemCopy(AcBuf, (u8 *)AcPtr,
+		(void)XSecure_MemCopy((u8 *)AcBuf, (u8 *)AcPtr,
 				XSECURE_AUTH_CERT_MIN_SIZE/(u32)XSECURE_WORD_LEN);
 		/*Verify Spk */
-		Status = XSecure_VerifySpk(AcBuf, ImageInfo->EfuseRsaenable);
+		Status = XSecure_VerifySpk((u8 *)AcBuf, ImageInfo->EfuseRsaenable);
 		if (Status != (u32)XST_SUCCESS) {
 			Status = XFPGA_PCAP_UPDATE_ERR(
 					XFPGA_ERROR_DDR_AUTH_VERIFY_SPK,
@@ -1157,10 +1157,10 @@ static u32 XFpga_AuthPlChunksOcm(XFpga *InstancePtr, u32 Size)
 	XSecure_ImageInfo *ImageInfo = &InstancePtr->PLInfo.SecureImageInfo;
 
 	/* Copy authentication certificate to internal memory */
-	(void)XSecure_MemCopy(AcBuf, (u8 *)InstancePtr->PLInfo.AcPtr,
+	(void)XSecure_MemCopy((u8 *)AcBuf, (u8 *)InstancePtr->PLInfo.AcPtr,
 		XSECURE_AUTH_CERT_MIN_SIZE/(u32)XSECURE_WORD_LEN);
 	/*Verify Spk */
-	Status = XSecure_VerifySpk(AcBuf, ImageInfo->EfuseRsaenable);
+	Status = XSecure_VerifySpk((u8 *)AcBuf, ImageInfo->EfuseRsaenable);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = XFPGA_PCAP_UPDATE_ERR(
 				XFPGA_ERROR_OCM_AUTH_VERIFY_SPK,
