@@ -40,6 +40,9 @@ proc define_addr_params {drv_handle file_name} {
 
    # Open include file
    set file_handle [::hsi::utils::open_include_file $file_name]
+   set sw_proc_handle [hsi::get_sw_processor]
+   set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
+   set proctype [common::get_property IP_NAME $hw_proc_handle]
 
    #Flags to check if specific DDR region is present in design
    set is_ddr_low_0 0
@@ -102,7 +105,11 @@ proc define_addr_params {drv_handle file_name} {
 	}
 
         if {$is_ddr_low_0 == 1} {
-                puts $file_handle "#define XPAR_AXI_NOC_DDR_LOW_0_BASEADDR $base_value_0"
+		if {$base_value_0 == 0 && ($proctype == "psu_cortexr5" || $proctype == "psv_cortexr5")} {
+			 puts $file_handle "#define XPAR_AXI_NOC_DDR_LOW_0_BASEADDR 0x00100000"
+		} else {
+                         puts $file_handle "#define XPAR_AXI_NOC_DDR_LOW_0_BASEADDR $base_value_0"
+		}
                 puts $file_handle "#define XPAR_AXI_NOC_DDR_LOW_0_HIGHADDR $high_value_0"
                 puts $file_handle ""
         }
