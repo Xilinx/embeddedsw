@@ -106,6 +106,7 @@ extern "C" {
  * Subsystem related macros
  */
 #define XLOADER_MAX_SUBSYSTEMS	10U
+#define XLOADER_RUNNING_CPU_SHIFT	(0x8U)
 
 /*
  * PDI type macros
@@ -165,7 +166,7 @@ typedef struct {
 	XilPdi_MetaHdr MetaHdr; /**< Metaheader of the PDI */
 	XStatus (*DeviceCopy) (u32, u64, u32, u32);
 	u32 NoOfHandoffCpus; /**< Number of CPU's loader will handoff to */
-        XLoader_HandoffParam HandoffParam[10];
+    XLoader_HandoffParam HandoffParam[10];
 	u32 EccStatus;
 	u32 CurImgId; /**< Current Processing image ID */
 	u32 CurPrtnId; /**< Current Processing Partition ID */
@@ -203,6 +204,7 @@ typedef struct {
 	u32 PlCfiPresent;
 	u32 SdTypeBootMode;
 	u32 SbiTypeBootMode;
+	u32 CpusRunning;
 } XLoader;
 
 /***************** Macros (Inline Functions) Definitions *********************/
