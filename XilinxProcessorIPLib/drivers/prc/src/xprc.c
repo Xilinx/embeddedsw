@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xprc.c
-* @addtogroup prc_v1_1
+* @addtogroup prc_v1_2
 * @{
 *
 * This file contains the required functions for the XPrc driver. Refer xprc.h
@@ -46,7 +46,8 @@
 *                           "XPrc_CfgInitialize" function.
 *                           Added new status error macros in function
 *                           "XPrc_PrintVsmStatus".
-*
+* 1.2  Nava   29/03/19      Updated the tcl logic to generated the
+*                           XPrc_ConfigTable properly.
 * </pre>
 *
 ******************************************************************************/
