@@ -2488,7 +2488,7 @@ static u32 XFpga_GetPLConfigData(const XFpga *InstancePtr)
 	cmdindex++;
 
 	/* Step 7 */         /* Type 1 Write 1 Word to FAR */
-	CmdBuf[cmdindex] = Xfpga_RegAddr(FAR, OPCODE_WRITE, 0x1U);
+	CmdBuf[cmdindex] = Xfpga_RegAddr(FAR1, OPCODE_WRITE, 0x1U);
 	cmdindex++;
 	CmdBuf[cmdindex] = 0x00000000U; /* FAR Address = 00000000 */
 	cmdindex++;
