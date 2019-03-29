@@ -571,7 +571,7 @@ static u32 XFpga_PostConfigPcap(XFpga *InstancePtr)
 				 ((u32)XCSUDMA_SRC_CHANNEL *
 				 (u32)(XCSUDMA_OFFSET_DIFF))));
 
-	RegVal |= (EndianType << (u32)(XCSUDMA_CTRL_ENDIAN_SHIFT)) &
+	RegVal |= ((u32)EndianType << (u32)(XCSUDMA_CTRL_ENDIAN_SHIFT)) &
 			  (u32)(XCSUDMA_CTRL_ENDIAN_MASK);
 
 	XCsuDma_WriteReg(CsuDma.Config.BaseAddress,
@@ -2758,7 +2758,7 @@ static u32 XFpga_SelectEndianess(u8 *Buf, u32 Size, u32 *Pos)
 					((u32)(XCSUDMA_CTRL_OFFSET) +
 					((u32)XCSUDMA_SRC_CHANNEL *
 					(u32)(XCSUDMA_OFFSET_DIFF))));
-		RegVal |= (EndianType << (u32)(XCSUDMA_CTRL_ENDIAN_SHIFT)) &
+		RegVal |= ((u32)EndianType << (u32)(XCSUDMA_CTRL_ENDIAN_SHIFT)) &
 					(u32)(XCSUDMA_CTRL_ENDIAN_MASK);
 		XCsuDma_WriteReg(CsuDma.Config.BaseAddress,
 				((u32)(XCSUDMA_CTRL_OFFSET) +
