@@ -931,7 +931,7 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 					      &CsuDma,
 					      XSECURE_CSU_AES_KEY_SRC_KUP,
 					      (u32 *)ImageInfo->Iv,
-					      (u32 *)AesKey);
+					      AesKey);
 		} else {
 			/* Initialize the Aes driver so that it's ready to use */
 			(void)XSecure_AesInitialize(PlAesInfo.PlEncrypt.SecureAes,
@@ -1089,7 +1089,7 @@ static u32 XFpga_SecureBitstreamOcmLoad(XFpga *InstancePtr,
 				(void)XSecure_AesInitialize(
 					PlAesInfoPtr->PlEncrypt.SecureAes,
 					&CsuDma, XSECURE_CSU_AES_KEY_SRC_KUP,
-					(u32 *)ImageInfo->Iv, (u32 *)AesKey);
+					(u32 *)ImageInfo->Iv, AesKey);
 			} else {
 				/* Initialize the Aes driver so that it's ready to use */
 				(void)XSecure_AesInitialize(
@@ -1422,7 +1422,7 @@ static u32 XFpga_WriteEncryptToPcap(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 		/* Initialize the Aes driver so that it's ready to use */
 		(void)XSecure_AesInitialize(&Secure_Aes, &CsuDma,
 					XSECURE_CSU_AES_KEY_SRC_KUP,
-					(u32 *)ImageHdrInfo->Iv, (u32 *)key);
+					(u32 *)ImageHdrInfo->Iv, key);
 	} else {
 
 		/* Initialize the Aes driver so that it's ready to use */
