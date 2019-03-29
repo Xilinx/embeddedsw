@@ -2731,6 +2731,8 @@ static u32 XFpga_SelectEndianess(u8 *Buf, u32 Size, u32 *Pos)
 	u8 BitHdrSize = ARRAY_LENGTH(BootgenBinFormat);
 	u32 IsBitNonAligned;
 
+	if(BitHdrSize ==0U){/*For Misrac violation*/}
+	if(Size ==0U){/*For Misrac violation*/}
 	for (Index = 0U; Index <= BOOTGEN_DATA_OFFSET; Index++) {
 	/* Find the First Dummy Byte */
 		if (Buf[Index] == DUMMY_BYTE) {
