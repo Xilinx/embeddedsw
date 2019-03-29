@@ -2012,7 +2012,7 @@ static u32 XFpga_CsuDmaInit(void)
 		goto END;
 	}
 
-	Status = XCsuDma_CfgInitialize(&CsuDma, CsuDmaConfig,
+	Status = (u32)XCsuDma_CfgInitialize(&CsuDma, CsuDmaConfig,
 			CsuDmaConfig->BaseAddress);
 END:
 	return Status;
