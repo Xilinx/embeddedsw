@@ -118,7 +118,7 @@
 #define AC_LEN				(0xEC0U)
 #define PL_PARTATION_SIZE		(0x800000U)
 #define PL_CHUNK_SIZE_BYTES		(1024U * 56U)
-#define NUM_OF_PL_CHUNKS(Size)	(Size / PL_CHUNK_SIZE_BYTES)
+#define NUM_OF_PL_CHUNKS(Size)	((Size) / PL_CHUNK_SIZE_BYTES)
 #endif
 
 /**
