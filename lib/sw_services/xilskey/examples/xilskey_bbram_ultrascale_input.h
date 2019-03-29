@@ -151,6 +151,12 @@
 *	If XSK_BBRAM_DPA_PROTECT_ENABLE is FALSE, it should be
 *	XSK_BBRAM_INVALID_CONFIGURATIONS.
 *
+*	#define XSK_BBRAM_AXI_GPIO_DEVICE_ID  XPAR_AXI_GPIO_0_DEVICE_ID
+*	Default value is XPAR_AXI_GPIO_0_DEVICE_ID
+*	This macro is for providing exact GPIO device ID, based on the
+*	design configuration this macro should be modified to provide
+*	GPIO device ID which is used for connecting MASTER JTAG pins.
+*
 *	In Ultrascale GPIO pins are used for connecting MASTER_JTAG pins to
 *	access BBRAM.
 *	Following are the GPIO pins and user can change these pins
@@ -183,6 +189,8 @@
 *                        feature(DPA count), protection and to
 *                        program Obfuscated key.
 * 6.7   psl     03/20/19 Added BBRAM key write support for SSIT devices.
+*       psl     03/29/19 Added Support for user configurable GPIO for
+*                        jtag control.
 * </pre>
 *
 ******************************************************************************/
@@ -197,7 +205,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 #include "xil_types.h"
-
+#include "xparameters.h"
 /************************** Constant Definitions *****************************/
 
 /* Constant definitions to specify the configurations in XSK_BBRAM_DPA_MODE*/
@@ -216,6 +224,9 @@ extern "C" {
  * AXI GPIO pin numbers connected to MASTER JTAG primitive and corresponding
  * channel numbers for GPIO pins
  */
+/* GPIO device ID */
+#define XSK_BBRAM_AXI_GPIO_DEVICE_ID	XPAR_AXI_GPIO_0_DEVICE_ID
+
 #define	XSK_BBRAM_AXI_GPIO_JTAG_TDO	(0)	/**< MASTER JTAG GPIO
 						  *  pin for TDO */
 #define	XSK_BBRAM_AXI_GPIO_JTAG_TDI	(0)	/**< MASTER JTAG GPIO
