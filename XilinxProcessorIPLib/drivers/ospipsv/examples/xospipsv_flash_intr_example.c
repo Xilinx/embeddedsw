@@ -50,6 +50,8 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.0   sk  01/09/19 First release
+* 1.0	akm 03/29/19 Fixed data alignment issues on IAR compiler
+*
 *</pre>
 *
 ******************************************************************************/
@@ -193,7 +195,12 @@ int FlashSetSDRDDRMode(XOspiPsv *OspiPsvPtr, int Mode);
 
 /************************** Variable Definitions *****************************/
 u8 TxBfrPtr;
+#ifdef __ICCARM__
+#pragma data_alignment = 4
+u8 ReadBfrPtr[8];
+#else
 u8 ReadBfrPtr[8]__attribute__ ((aligned(4)));
+#endif
 FlashInfo Flash_Config_Table[1] = {
 	/* Micron */
 	{0x20000, 0x200, 256, 0x40000, 0x4000000, MICRON_OCTAL_ID_BYTE0,
@@ -554,7 +561,12 @@ int FlashReadID(XOspiPsv *OspiPsvPtr)
 int FlashIoWrite(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 				u8 *WriteBfrPtr)
 {
+#ifdef __ICCARM__
+#pragma data_alignment = 4
+	u8 FlashStatus[2];
+#else
 	u8 FlashStatus[2] __attribute__ ((aligned(4)));
+#endif
 	u8 Status;
 	u32 Bytestowrite;
 
@@ -678,7 +690,12 @@ int FlashErase(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 {
 	int Sector;
 	u32 NumSect;
+#ifdef __ICCARM__
+#pragma data_alignment = 4
+	u8 FlashStatus[2];
+#else
 	u8 FlashStatus[2] __attribute__ ((aligned(4)));
+#endif
 	u8 Status;
 
 	/*
@@ -893,7 +910,12 @@ int FlashRead(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 ******************************************************************************/
 int BulkErase(XOspiPsv *OspiPsvPtr, u8 *WriteBfrPtr)
 {
+#ifdef __ICCARM__
+#pragma data_alignment = 4
+	u8 FlashStatus[2];
+#else
 	u8 FlashStatus[2] __attribute__ ((aligned(4)));
+#endif
 	int Status;
 
 
@@ -1001,7 +1023,12 @@ int BulkErase(XOspiPsv *OspiPsvPtr, u8 *WriteBfrPtr)
 int DieErase(XOspiPsv *OspiPsvPtr, u8 *WriteBfrPtr)
 {
 	u8 DieCnt;
+#ifdef __ICCARM__
+#pragma data_alignment = 4
+	u8 FlashStatus[2];
+#else
 	u8 FlashStatus[2] __attribute__ ((aligned(4)));
+#endif
 	int Status;
 
 	for(DieCnt = 0; DieCnt < Flash_Config_Table[FCTIndex].NumDie; DieCnt++) {
@@ -1112,7 +1139,12 @@ int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, int Enable)
 {
 	int Status;
 	u8 Command;
+#ifdef __ICCARM__
+#pragma data_alignment = 4
+	u8 FlashStatus[2];
+#else
 	u8 FlashStatus[2] __attribute__ ((aligned(4)));
+#endif
 
 	if(Enable)
 		Command = ENTER_4B_ADDR_MODE;
@@ -1387,9 +1419,16 @@ void OspiPsvHandler(void *CallBackRef, u32 StatusEvent)
 int FlashSetSDRDDRMode(XOspiPsv *OspiPsvPtr, int Mode)
 {
 	int Status;
+#ifdef __ICCARM__
+#pragma data_alignment = 4
+	u8 ConfigReg[2];
+#pragma data_alignment = 4
+	u8 Data[2];
+#else
 	u8 ConfigReg[2] __attribute__ ((aligned(4)));
 	u8 Data[2] __attribute__ ((aligned(4)));
 
+#endif
 	if (Mode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 		Data[0] = 0xE7;
 		Data[1] = 0xE7;
