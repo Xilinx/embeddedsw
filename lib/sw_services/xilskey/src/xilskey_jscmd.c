@@ -76,6 +76,8 @@
 * 6.7   psl     03/18/19 Modified code to mask most significant nibble which
 *                        represents production version for ultrascale plus.
 *               03/20/19 Added eFuse/BBRAM key write support for SSIT devices.
+*       psl     03/29/19 Added Support for user configurable GPIO for jtag
+*                        control.
 * </pre>
 *
 *
@@ -261,7 +263,7 @@ void JtagInitGpio (XilSKey_ModuleSelection Module)
 	u32 DataDirection;
 
 	js_printf("===== Initializing PL GPIO pins...\n\r");
-	XGpio_Config *ptrConfigPtr = XGpio_LookupConfig(XSK_GPIO_DEVICE_ID);
+	XGpio_Config *ptrConfigPtr = XGpio_LookupConfig(GpioDeviceId);
 	XGpio_CfgInitialize(&structXGpio, ptrConfigPtr,
 						ptrConfigPtr->BaseAddress);
 
@@ -1351,6 +1353,7 @@ int JtagServerInit(XilSKey_EPl *InstancePtr)
 
 	GpioInPutCh = InstancePtr->GpioInputCh;
 	GpioOutPutCh = InstancePtr->GpioOutPutCh;
+	GpioDeviceId = InstancePtr->JtagGpioID;
 
 	status = JtagValidateMioPins(XSK_EFUSE);
 	if(status != 0)
@@ -1478,6 +1481,7 @@ int JtagServerInitBbram(XilSKey_Bbram *InstancePtr)
 
 	GpioInPutCh = InstancePtr->GpioInputCh;
 	GpioOutPutCh = InstancePtr->GpioOutPutCh;
+	GpioDeviceId = InstancePtr->JtagGpioID;
 
 	status = JtagValidateMioPins(XSK_BBRAM);
 	if (status != 0) {

@@ -57,6 +57,8 @@
 * 6.6   vns     06/06/18 Added doxygen tags
 * 6.7   arc     01/05/19 Fixed MISRA-C violations.
 *       psl     03/20/19 Added eFuse key write support for SSIT devices.
+*       psl     03/29/19 Added Support for user configurable GPIO for jtag
+*                        control
 ****************************************************************************/
 #ifndef XILSKEY_EPL_H
 #define XILSKEY_EPL_H
@@ -333,6 +335,10 @@ typedef struct {
 	 * Value on the MUX Selection line for ZYNQ
 	 */
 	u32 JtagMuxSelLineDefVal;/* Only for ZYNQ */
+	/**
+     * GPIO device ID
+     */
+	u32 JtagGpioID; /* Only for Ultrascale*/
 	/*
 	 * Hardware module Start signal's GPIO pin
 	 * number
