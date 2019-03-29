@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2016-2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -39,6 +39,8 @@
 #                          and also in xprc_g.c.
 #                          Modified version from prc_v1_1 to prc_v1_2 as
 #                          api.tcl which is source for prc.tcl got updated.
+# 1.2 Nava  29/03/19	   Updated the tcl logic to generated the
+#			   XPrc_ConfigTable properly.
 ###############################################################################
 
 #uses "xillib.tcl"
@@ -344,7 +346,7 @@ proc prc_generate_config {drv_handle file_name} {
 			for {set vs_id 0} {$vs_id < $num_vs} { incr vs_id} {
 				set vs_name		[prc_v1_2::priv::get_vs_name	configuration $vs_id]
 				puts  -nonewline $config_file [format "XPAR_%s_%s_%s" [string toupper $periphs] "NUM_RMS" [string toupper $vs_name]]
-				for {set id $vs_id } { $id < ($num_vs-1)} { incr id } {
+				if { $vs_id < ($num_vs-1)} {
 				puts $config_file ", "
 				puts -nonewline $config_file "\t\t\t"
 				}
@@ -356,7 +358,7 @@ proc prc_generate_config {drv_handle file_name} {
 			for {set vs_id 0} {$vs_id < $num_vs} { incr vs_id} {
 				set vs_name		[prc_v1_2::priv::get_vs_name	configuration $vs_id]
 				puts -nonewline $config_file [format "XPAR_%s_%s_%s" [string toupper $periphs] "NUM_RMS_ALLOC" [string toupper $vs_name]]
-				for {set id $vs_id } { $id < ($num_vs-1)} { incr id } {
+				if { $vs_id < ($num_vs-1)} {
 				puts $config_file ", "
 				puts -nonewline $config_file "\t\t\t"
 				}
@@ -367,7 +369,7 @@ proc prc_generate_config {drv_handle file_name} {
 			for {set vs_id 0} {$vs_id < $num_vs} { incr vs_id} {
 				set vs_name		[prc_v1_2::priv::get_vs_name	configuration $vs_id]
 				puts -nonewline $config_file [format "XPAR_%s_%s_%s" [string toupper $periphs] "STRT_IN_SHTDOWN" [string toupper $vs_name]]
-				for {set id $vs_id } { $id < ($num_vs-1)} { incr id } {
+				if { $vs_id < ($num_vs-1)} {
 				puts $config_file ", "
 				puts -nonewline $config_file "\t\t\t"
 				}
@@ -378,7 +380,7 @@ proc prc_generate_config {drv_handle file_name} {
 			for {set vs_id 0} {$vs_id < $num_vs} { incr vs_id} {
 				set vs_name		[prc_v1_2::priv::get_vs_name	configuration $vs_id]
 				puts -nonewline $config_file [format "XPAR_%s_%s_%s" [string toupper $periphs] "NUM_TRGRS_ALLOC" [string toupper $vs_name]]
-				for {set id $vs_id } { $id < ($num_vs-1)} { incr id } {
+				if { $vs_id < ($num_vs-1)} {
 				puts $config_file ", "
 				puts -nonewline $config_file "\t\t\t"
 				}
@@ -389,7 +391,7 @@ proc prc_generate_config {drv_handle file_name} {
 			for {set vs_id 0} {$vs_id < $num_vs} { incr vs_id} {
 				set vs_name		[prc_v1_2::priv::get_vs_name	configuration $vs_id]
 				puts -nonewline $config_file [format "XPAR_%s_%s_%s" [string toupper $periphs] "SHUTDOWN_ON_ERR" [string toupper $vs_name]]
-				for {set id $vs_id } { $id < ($num_vs-1)} { incr id } {
+				if { $vs_id < ($num_vs-1)} {
 				puts $config_file ", "
 				puts -nonewline $config_file "\t\t\t"
 				}
@@ -400,7 +402,7 @@ proc prc_generate_config {drv_handle file_name} {
 			for {set vs_id 0} {$vs_id < $num_vs} { incr vs_id} {
 				set vs_name		[prc_v1_2::priv::get_vs_name	configuration $vs_id]
 				puts -nonewline $config_file [format "XPAR_%s_%s_%s" [string toupper $periphs] "HAS_POR_RM" [string toupper $vs_name]]
-				for {set id $vs_id } { $id < ($num_vs-1)} { incr id } {
+				if { $vs_id < ($num_vs-1)} {
 				puts $config_file ", "
 				puts -nonewline $config_file "\t\t\t"
 				}
@@ -411,7 +413,7 @@ proc prc_generate_config {drv_handle file_name} {
 			for {set vs_id 0} {$vs_id < $num_vs} { incr vs_id} {
 				set vs_name		[prc_v1_2::priv::get_vs_name	configuration $vs_id]
 				puts -nonewline $config_file [format "XPAR_%s_%s_%s" [string toupper $periphs] "POR_RM" [string toupper $vs_name]]
-				for {set id $vs_id } { $id < ($num_vs-1)} { incr id } {
+				if { $vs_id < ($num_vs-1)} {
 				puts $config_file ", "
 				puts -nonewline $config_file "\t\t\t"
 				}
@@ -422,7 +424,7 @@ proc prc_generate_config {drv_handle file_name} {
 			for {set vs_id 0} {$vs_id < $num_vs} { incr vs_id} {
 				set vs_name		[prc_v1_2::priv::get_vs_name	configuration $vs_id]
 				puts -nonewline $config_file [format "XPAR_%s_%s_%s" [string toupper $periphs] "HAS_AXIS_STATUS" [string toupper $vs_name]]
-				for {set id $vs_id } { $id < ($num_vs-1)} { incr id } {
+				if { $vs_id < ($num_vs-1)} {
 				puts $config_file ", "
 				puts -nonewline $config_file "\t\t\t"
 				}
@@ -433,7 +435,7 @@ proc prc_generate_config {drv_handle file_name} {
 			for {set vs_id 0} {$vs_id < $num_vs} { incr vs_id} {
 				set vs_name		[prc_v1_2::priv::get_vs_name	configuration $vs_id]
 				puts -nonewline $config_file [format "XPAR_%s_%s_%s" [string toupper $periphs] "HAS_AXIS_CONTROL" [string toupper $vs_name]]
-				for {set id $vs_id } { $id < ($num_vs-1)} { incr id } {
+				if { $vs_id < ($num_vs-1)} {
 				puts $config_file ", "
 				puts -nonewline $config_file "\t\t\t"
 				}
@@ -444,7 +446,7 @@ proc prc_generate_config {drv_handle file_name} {
 			for {set vs_id 0} {$vs_id < $num_vs} { incr vs_id} {
 				set vs_name		[prc_v1_2::priv::get_vs_name	configuration $vs_id]
 				puts -nonewline $config_file [format "XPAR_%s_%s_%s" [string toupper $periphs] "SKIP_RM_STARTUP_AFTER_RESET" [string toupper $vs_name]]
-				for {set id $vs_id } { $id < ($num_vs-1)} { incr id } {
+				if { $vs_id < ($num_vs-1)} {
 				puts $config_file ", "
 				puts -nonewline $config_file "\t\t\t"
 				}
@@ -455,7 +457,7 @@ proc prc_generate_config {drv_handle file_name} {
 			for {set vs_id 0} {$vs_id < $num_vs} { incr vs_id} {
 				set vs_name		[prc_v1_2::priv::get_vs_name	configuration $vs_id]
 				puts -nonewline $config_file [format "XPAR_%s_%s_%s" [string toupper $periphs] "NUM_HW_TRIGGERS" [string toupper $vs_name]]
-				for {set id $vs_id } { $id < ($num_vs-1)} { incr id } {
+				if { $vs_id < ($num_vs-1)} {
 				puts $config_file ", "
 				puts -nonewline $config_file "\t\t\t"
 				}
