@@ -1790,6 +1790,8 @@ static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
 			if (Size <
 			 (XSECURE_SECURE_HDR_SIZE +
 				XSECURE_SECURE_GCM_TAG_SIZE)) {
+				if(SrcAddr == (UINTPTR)NULL)
+				{goto END;}
 				(void)memcpy(PartitionParams->SecureHdr,
 						(u8 *)(UINTPTR)SrcAddr, Size);
 				PartitionParams->Hdr = (u8)Size;
