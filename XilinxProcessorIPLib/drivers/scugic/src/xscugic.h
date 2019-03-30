@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -176,8 +176,15 @@
 *                     by applications to unmap specific/all interrupts from
 *                     target CPU.
 * 3.10  aru  08/23/18 Resolved MISRA-C:2012 compliance mandatory violations
-* 4.0   mus  11/22/18 Fixed bugs in software interrupt generation through 
+* 4.0   mus  11/22/18 Fixed bugs in software interrupt generation through
 *                      XScuGic_SoftwareIntr API
+* 4.1   asa  03/30/19 Made changes not to direct each interrupt to all
+*                     available CPUs by default. This was breaking AMP
+*                     behavior. Instead every time an interrupt enable
+*                     request is received, the interrupt was mapped to
+*                     the respective CPU. There were several other changes
+*                     made to implement this. This set of changes was to
+*                     fix CR-1024716.
 *
 * </pre>
 *
