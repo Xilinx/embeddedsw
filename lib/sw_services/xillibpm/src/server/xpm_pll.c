@@ -37,7 +37,7 @@ static struct XPm_PllTopology PllTopologies[] =
 };
 
 XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
-			    u16 *Offsets, u32 PowerDomainId)
+			    u16 *Offsets, u32 PowerDomainId, u8 ClkFlags)
 {
 	int Status = XST_SUCCESS;
 	u32 ClockIndex = NODEINDEX(Id);
@@ -62,6 +62,7 @@ XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 	PllClkPtr->ClkNode.ClkHandles = NULL;
 	PllClkPtr->ClkNode.UseCount = 0;
 	PllClkPtr->ClkNode.NumParents = 1;
+	PllClkPtr->ClkNode.Flags = ClkFlags;
 	PllClkPtr->Topology = &PllTopologies[TopologyType-TOPOLOGY_GENERIC_PLL];
 	PllClkPtr->StatusReg = ControlReg + Offsets[0];
 	PllClkPtr->ConfigReg = ControlReg + Offsets[1];

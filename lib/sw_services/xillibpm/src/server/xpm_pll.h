@@ -147,7 +147,7 @@ struct XPm_PllClockNode {
 
 /************************** Function Prototypes ******************************/
 XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
-			    u16 *Offsets, u32 PowerDomainId);
+			    u16 *Offsets, u32 PowerDomainId, u8 ClkFlags);
 XStatus XPmClockPll_AddParent(u32 Id, u32 *Parents, u32 NumParents);
 XStatus XPmClockPll_Request(u32 PllId);
 XStatus XPmClockPll_Release(u32 PllId);

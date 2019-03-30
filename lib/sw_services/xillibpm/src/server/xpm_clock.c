@@ -45,6 +45,9 @@
 #define CLK_CLKFLAGS_SHIFT		8U
 #define CLK_TYPEFLAGS_SHIFT		24U
 
+/* Clock Flags */
+#define CLK_FLAG_READ_ONLY		(1U << 0U)
+
 #define GENERIC_MUX						\
 	{									\
 		.Type = TYPE_MUX,				\
@@ -137,7 +140,7 @@ static uint32_t ClkInvalidList[] = {
 
 static XStatus XPmClock_Init(XPm_ClockNode *Clk, u32 Id, u32 ControlReg,
 			     u8 TopologyType, u8 NumCustomNodes, u8 NumParents,
-			     u32 PowerDomainId)
+			     u32 PowerDomainId, u8 ClkFlags)
 {
 	int Status = XST_SUCCESS;
 	u32 Subclass = NODESUBCLASS(Id);
@@ -155,6 +158,7 @@ static XStatus XPmClock_Init(XPm_ClockNode *Clk, u32 Id, u32 ControlReg,
 		OutClkPtr->ClkNode.ClkHandles = NULL;
 		OutClkPtr->ClkNode.UseCount = 0;
 		OutClkPtr->ClkNode.NumParents = NumParents;
+		OutClkPtr->ClkNode.Flags = ClkFlags;
 		if (TopologyType == TOPOLOGY_CUSTOM) {
 			OutClkPtr->Topology.Id = TOPOLOGY_CUSTOM;
 			OutClkPtr->Topology.NumNodes = NumCustomNodes;
@@ -186,7 +190,8 @@ done:
 }
 
 XStatus XPmClock_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
-			 u8 NumCustomNodes, u8 NumParents, u32 PowerDomainId)
+			 u8 NumCustomNodes, u8 NumParents, u32 PowerDomainId,
+			 u8 ClkFlags)
 {
 	int Status = XST_SUCCESS;
 	u32 Subclass = NODESUBCLASS(Id);
@@ -219,7 +224,8 @@ XStatus XPmClock_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 	}
 
 	Status = XPmClock_Init(Clk, Id, ControlReg, TopologyType,
-			       NumCustomNodes, NumParents, PowerDomainId);
+			       NumCustomNodes, NumParents, PowerDomainId,
+			       ClkFlags);
 
 	if (XST_SUCCESS == Status) {
 		ClkNodeList[ClockIndex] = Clk;
@@ -823,6 +829,12 @@ XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId)
 	Clk = XPmClock_GetById(ClockId);
 	if (NULL == Clk) {
 		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Check for read-only flag */
+	if (0 != (CLK_FLAG_READ_ONLY & Clk->Flags)) {
+		Status = XST_NO_ACCESS;
 		goto done;
 	}
 
