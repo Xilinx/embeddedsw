@@ -170,7 +170,6 @@ static u32 XFpga_PcapWaitForDone(void);
 static u32 XFpga_PcapWaitForidle(void);
 static u32 XFpga_WriteToPcap(u32 Size, UINTPTR BitstreamAddr);
 static u32 XFpga_PcapInit(u32 flags);
-static u32 XFpga_CsuDmaInit(void);
 static u32 XFpga_PLWaitForDone(void);
 static u32 XFpga_PowerUpPl(void);
 static u32 XFpga_IsolationRestore(void);
@@ -225,7 +224,7 @@ static u32 XFpga_DecrypSecureHdr(XSecure_Aes *InstancePtr, u64 SrcAddr);
 extern const XpbrServHndlr_t XpbrServHndlrTbl[XPBR_SERV_EXT_TBL_MAX];
 #endif
 /************************** Variable Definitions *****************************/
-XCsuDma CsuDma;
+static XCsuDma *CsuDmaPtr;
 
 /* Xilinx ZynqMp Vivado generated Bitstream header format */
 static const u8 VivadoBinFormat[] = {
@@ -254,7 +253,7 @@ static const u8 BootgenBinFormat[] = {
  * @return error status based on implemented functionality (SUCCESS by default)
  ******************************************************************************/
 u32 XFpga_Initialize(XFpga *InstancePtr) {
-	u32 Status;
+	u32 Status = XFPGA_SUCCESS;
 
 	(void)memset(InstancePtr, 0, sizeof(*InstancePtr));
 	InstancePtr->XFpga_ValidateBitstream = XFpga_ValidateBitstreamImage;
@@ -267,10 +266,10 @@ u32 XFpga_Initialize(XFpga *InstancePtr) {
 	InstancePtr->XFpga_GetConfigStatus = XFpga_PcapConfigStatus;
 
 	/* Initialize CSU DMA driver */
-	Status = XFpga_CsuDmaInit();
-	if (Status != XFPGA_SUCCESS) {
+	CsuDmaPtr = Xsecure_GetCsuDma();
+	if (CsuDmaPtr == NULL) {
 		Status = XFPGA_PCAP_UPDATE_ERR(XFPGA_ERROR_CSUDMA_INIT_FAIL,
-					       Status);
+					       XFPGA_FAILURE);
 	}
 
 	InstancePtr->PLInfo.State = XFPGA_VALIDATE_INIT;
@@ -566,7 +565,7 @@ static u32 XFpga_PostConfigPcap(XFpga *InstancePtr)
 		XFpga_SetFirmwareState(XFPGA_FIRMWARE_STATE_UNKNOWN);
 	}
 
-	RegVal = XCsuDma_ReadReg(CsuDma.Config.BaseAddress,
+	RegVal = XCsuDma_ReadReg(CsuDmaPtr->Config.BaseAddress,
 				 ((u32)(XCSUDMA_CTRL_OFFSET) +
 				 ((u32)XCSUDMA_SRC_CHANNEL *
 				 (u32)(XCSUDMA_OFFSET_DIFF))));
@@ -574,7 +573,7 @@ static u32 XFpga_PostConfigPcap(XFpga *InstancePtr)
 	RegVal |= ((u32)EndianType << (u32)(XCSUDMA_CTRL_ENDIAN_SHIFT)) &
 			  (u32)(XCSUDMA_CTRL_ENDIAN_MASK);
 
-	XCsuDma_WriteReg(CsuDma.Config.BaseAddress,
+	XCsuDma_WriteReg(CsuDmaPtr->Config.BaseAddress,
 			 ((u32)(XCSUDMA_CTRL_OFFSET) +
 			 ((u32)XCSUDMA_SRC_CHANNEL *
 			 (u32)(XCSUDMA_OFFSET_DIFF))), RegVal);
@@ -706,16 +705,16 @@ static u32 XFpga_WriteToPcap(u32 Size, UINTPTR BitstreamAddr)
 	Xil_Out32(CSU_PCAP_RDWR, 0x0U);
 
 	/* Setup the source DMA channel */
-	XCsuDma_Transfer(&CsuDma, XCSUDMA_SRC_CHANNEL, BitstreamAddr, Size, 0U);
+	XCsuDma_Transfer(CsuDmaPtr, XCSUDMA_SRC_CHANNEL, BitstreamAddr, Size, 0U);
 
 	/* wait for the SRC_DMA to complete and the pcap to be IDLE */
-	Status = XCsuDma_WaitForDoneTimeout(&CsuDma, XCSUDMA_SRC_CHANNEL);
+	Status = XCsuDma_WaitForDoneTimeout(CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
 	if (Status != XFPGA_SUCCESS) {
 		goto END;
 	}
 
 	/* Acknowledge the transfer has completed */
-	XCsuDma_IntrClear(&CsuDma, XCSUDMA_SRC_CHANNEL, XCSUDMA_IXR_DONE_MASK);
+	XCsuDma_IntrClear(CsuDmaPtr, XCSUDMA_SRC_CHANNEL, XCSUDMA_IXR_DONE_MASK);
 
 	Status = XFpga_PcapWaitForDone();
 END:
@@ -928,14 +927,14 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 			 * ready to use
 			 */
 			(void)XSecure_AesInitialize(PlAesInfo.PlEncrypt.SecureAes,
-					      &CsuDma,
+					      CsuDmaPtr,
 					      XSECURE_CSU_AES_KEY_SRC_KUP,
 					      ImageInfo->Iv,
 					      AesKey);
 		} else {
 			/* Initialize the Aes driver so that it's ready to use */
 			(void)XSecure_AesInitialize(PlAesInfo.PlEncrypt.SecureAes,
-					      &CsuDma,
+					      CsuDmaPtr,
 					      XSECURE_CSU_AES_KEY_SRC_DEV,
 					      ImageInfo->Iv, NULL);
 		}
@@ -955,7 +954,7 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 		}
 
 		/* Authenticate Partition */
-		Status = XSecure_PartitionAuthentication(&CsuDma, (u8 *)BitAddr,
+		Status = XSecure_PartitionAuthentication(CsuDmaPtr, (u8 *)BitAddr,
 							 PL_PARTATION_SIZE,
 							(u8 *)(UINTPTR)AcBuf);
 		if (Status != (u32)XST_SUCCESS) {
@@ -998,7 +997,7 @@ static u32 XFpga_SecureBitstreamDdrLoad(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 		}
 
 		/* Authenticate Partition */
-		Status = XSecure_PartitionAuthentication(&CsuDma, (u8 *)BitAddr,
+		Status = XSecure_PartitionAuthentication(CsuDmaPtr, (u8 *)BitAddr,
 							 RemaningBytes,
 							(u8 *)(UINTPTR)AcBuf);
 		if (Status != (u32)XST_SUCCESS) {
@@ -1088,13 +1087,13 @@ static u32 XFpga_SecureBitstreamOcmLoad(XFpga *InstancePtr,
 				/* Initialize the Aes driver so that it's ready to use */
 				(void)XSecure_AesInitialize(
 					PlAesInfoPtr->PlEncrypt.SecureAes,
-					&CsuDma, XSECURE_CSU_AES_KEY_SRC_KUP,
+					CsuDmaPtr, XSECURE_CSU_AES_KEY_SRC_KUP,
 					ImageInfo->Iv, AesKey);
 			} else {
 				/* Initialize the Aes driver so that it's ready to use */
 				(void)XSecure_AesInitialize(
 					PlAesInfoPtr->PlEncrypt.SecureAes,
-					&CsuDma, XSECURE_CSU_AES_KEY_SRC_DEV,
+					CsuDmaPtr, XSECURE_CSU_AES_KEY_SRC_DEV,
 					ImageInfo->Iv, NULL);
 			}
 		}
@@ -1225,7 +1224,7 @@ static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr)
 	UINTPTR Temp_BitstreamAddr = BitstreamAddr;
 	RemaningBytes = (Size - (ChunkSize * NumChunks));
 
-	(void)XSecure_Sha3Initialize(&Secure_Sha3, &CsuDma);
+	(void)XSecure_Sha3Initialize(&Secure_Sha3, CsuDmaPtr);
 	(void)XSecure_Sha3Start(&Secure_Sha3);
 	for (Count = 0U; Count < NumChunks; Count++) {
 		Status = XFpga_CopyToOcm((UINTPTR)Temp_BitstreamAddr,
@@ -1314,7 +1313,7 @@ static u32 XFpga_ReAuthPlChunksWriteToPl(XFpgaPs_PlPartition *PlAesInfo,
 	UINTPTR Temp_BitstreamAddr = BitstreamAddr;
 	RemaningBytes = (Size  - (ChunkSize * NumChunks));
 
-	(void)XSecure_Sha3Initialize(&Secure_Sha3, &CsuDma);
+	(void)XSecure_Sha3Initialize(&Secure_Sha3, CsuDmaPtr);
 	(void)XSecure_Sha3Start(&Secure_Sha3);
 	for (Count = 0U; Count < NumChunks; Count++) {
 		Status = XFpga_CopyToOcm((UINTPTR)Temp_BitstreamAddr,
@@ -1420,13 +1419,13 @@ static u32 XFpga_WriteEncryptToPcap(UINTPTR BitstreamAddr, UINTPTR KeyAddr,
 			key[i] = Xil_Htonl(key[i]);
 		}
 		/* Initialize the Aes driver so that it's ready to use */
-		(void)XSecure_AesInitialize(&Secure_Aes, &CsuDma,
+		(void)XSecure_AesInitialize(&Secure_Aes, CsuDmaPtr,
 					XSECURE_CSU_AES_KEY_SRC_KUP,
 					ImageHdrInfo->Iv, key);
 	} else {
 
 		/* Initialize the Aes driver so that it's ready to use */
-		(void)XSecure_AesInitialize(&Secure_Aes, &CsuDma,
+		(void)XSecure_AesInitialize(&Secure_Aes, CsuDmaPtr,
 					XSECURE_CSU_AES_KEY_SRC_DEV,
 					ImageHdrInfo->Iv, NULL);
 	}
@@ -1478,18 +1477,18 @@ static u32 XFpga_CopyToOcm(UINTPTR Src, UINTPTR Dst, u32 Size)
 
 
 	/* Data transfer to OCM */
-	XCsuDma_Transfer(&CsuDma, XCSUDMA_DST_CHANNEL, Dst, Size, 0U);
-	XCsuDma_Transfer(&CsuDma, XCSUDMA_SRC_CHANNEL, Src, Size, 0U);
+	XCsuDma_Transfer(CsuDmaPtr, XCSUDMA_DST_CHANNEL, Dst, Size, 0U);
+	XCsuDma_Transfer(CsuDmaPtr, XCSUDMA_SRC_CHANNEL, Src, Size, 0U);
 
 	/* Polling for transfer to be done */
-	Status = XCsuDma_WaitForDoneTimeout(&CsuDma, XCSUDMA_DST_CHANNEL);
+	Status = XCsuDma_WaitForDoneTimeout(CsuDmaPtr, XCSUDMA_DST_CHANNEL);
 	if (Status != XFPGA_SUCCESS) {
 		goto END;
 	}
 
 	/* To acknowledge the transfer has completed */
-	XCsuDma_IntrClear(&CsuDma, XCSUDMA_SRC_CHANNEL, XCSUDMA_IXR_DONE_MASK);
-	XCsuDma_IntrClear(&CsuDma, XCSUDMA_DST_CHANNEL, XCSUDMA_IXR_DONE_MASK);
+	XCsuDma_IntrClear(CsuDmaPtr, XCSUDMA_SRC_CHANNEL, XCSUDMA_IXR_DONE_MASK);
+	XCsuDma_IntrClear(CsuDmaPtr, XCSUDMA_DST_CHANNEL, XCSUDMA_IXR_DONE_MASK);
 END:
 	return Status;
 }
@@ -1994,31 +1993,6 @@ END:
 
 /*****************************************************************************/
 /*
- * This function is used to initialize the DMA driver
- *
- * @param	None
- *
- * @return	error status based on implemented functionality
- *		(SUCCESS by default)
- *
- *****************************************************************************/
-static u32 XFpga_CsuDmaInit(void)
-{
-	u32 Status = XFPGA_FAILURE;
-	XCsuDma_Config *CsuDmaConfig;
-
-	CsuDmaConfig = XCsuDma_LookupConfig(0U);
-	if (CsuDmaConfig == NULL) {
-		goto END;
-	}
-
-	Status = (u32)XCsuDma_CfgInitialize(&CsuDma, CsuDmaConfig,
-			CsuDmaConfig->BaseAddress);
-END:
-	return Status;
-}
-/*****************************************************************************/
-/*
  * This function is used to power-up the PL
  *
  * @param	None
@@ -2324,7 +2298,7 @@ static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 	Xil_DCacheFlushRange(Address, 256U);
 
 	/* Set up the Destination DMA Channel*/
-	XCsuDma_Transfer(&CsuDma, XCSUDMA_DST_CHANNEL, Address, 1U, 0U);
+	XCsuDma_Transfer(CsuDmaPtr, XCSUDMA_DST_CHANNEL, Address, 1U, 0U);
 
 	/* Setup the source DMA channel */
 	Status = XFpga_PcapWaitForDone();
@@ -2348,7 +2322,7 @@ static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 	Xil_Out32(CSU_PCAP_RDWR, 0x1U);
 
 	/* wait for the DST_DMA to complete and the pcap to be IDLE */
-	Status = XCsuDma_WaitForDoneTimeout(&CsuDma, XCSUDMA_DST_CHANNEL);
+	Status = XCsuDma_WaitForDoneTimeout(CsuDmaPtr, XCSUDMA_DST_CHANNEL);
 	if (Status != XFPGA_SUCCESS) {
 		xil_printf("Read from PCAP Failed\n\r");
 		Status = XFPGA_FAILURE;
@@ -2356,7 +2330,7 @@ static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 	}
 
 	/* Acknowledge the transfer has completed */
-	XCsuDma_IntrClear(&CsuDma, XCSUDMA_DST_CHANNEL, XCSUDMA_IXR_DONE_MASK);
+	XCsuDma_IntrClear(CsuDmaPtr, XCSUDMA_DST_CHANNEL, XCSUDMA_IXR_DONE_MASK);
 
 	CmdIndex = 2U;
 	CmdBuf[CmdIndex] = 0x30008001U; /* Type 1 Write 1 word to CMD */
@@ -2507,14 +2481,14 @@ static u32 XFpga_GetPLConfigData(const XFpga *InstancePtr)
 		cmdindex++;
 	}
 
-	XCsuDma_EnableIntr(&CsuDma, XCSUDMA_DST_CHANNEL,
+	XCsuDma_EnableIntr(CsuDmaPtr, XCSUDMA_DST_CHANNEL,
 			   XCSUDMA_IXR_DST_MASK);
 
 	/* Flush the DMA buffer */
 	Xil_DCacheFlushRange(Address, NumFrames * 4U);
 
 	/* Set up the Destination DMA Channel*/
-	XCsuDma_Transfer(&CsuDma, XCSUDMA_DST_CHANNEL,
+	XCsuDma_Transfer(CsuDmaPtr, XCSUDMA_DST_CHANNEL,
 			 Address + CFGDATA_DSTDMA_OFFSET, NumFrames, 0U);
 
 	Status = XFpga_PcapWaitForDone();
@@ -2539,7 +2513,7 @@ static u32 XFpga_GetPLConfigData(const XFpga *InstancePtr)
 
 
 	/* wait for the DST_DMA to complete and the pcap to be IDLE */
-	Status = XCsuDma_WaitForDoneTimeout(&CsuDma, XCSUDMA_DST_CHANNEL);
+	Status = XCsuDma_WaitForDoneTimeout(CsuDmaPtr, XCSUDMA_DST_CHANNEL);
 	if (Status != XFPGA_SUCCESS) {
 		xil_printf("Read from PCAP Failed\n\r");
 		Status = XFPGA_FAILURE;
@@ -2547,7 +2521,7 @@ static u32 XFpga_GetPLConfigData(const XFpga *InstancePtr)
 	}
 
 	/* Acknowledge the transfer has completed */
-	XCsuDma_IntrClear(&CsuDma, XCSUDMA_DST_CHANNEL, XCSUDMA_IXR_DONE_MASK);
+	XCsuDma_IntrClear(CsuDmaPtr, XCSUDMA_DST_CHANNEL, XCSUDMA_IXR_DONE_MASK);
 
 	Status = XFpga_PcapWaitForidle();
 	if (Status != XFPGA_SUCCESS) {
@@ -2759,13 +2733,13 @@ static u32 XFpga_SelectEndianess(u8 *Buf, u32 Size, u32 *Pos)
 			Index -= IsBitNonAligned;
 		}
 
-		RegVal = XCsuDma_ReadReg(CsuDma.Config.BaseAddress,
+		RegVal = XCsuDma_ReadReg(CsuDmaPtr->Config.BaseAddress,
 					((u32)(XCSUDMA_CTRL_OFFSET) +
 					((u32)XCSUDMA_SRC_CHANNEL *
 					(u32)(XCSUDMA_OFFSET_DIFF))));
 		RegVal |= ((u32)EndianType << (u32)(XCSUDMA_CTRL_ENDIAN_SHIFT)) &
 					(u32)(XCSUDMA_CTRL_ENDIAN_MASK);
-		XCsuDma_WriteReg(CsuDma.Config.BaseAddress,
+		XCsuDma_WriteReg(CsuDmaPtr->Config.BaseAddress,
 				((u32)(XCSUDMA_CTRL_OFFSET) +
 				((u32)XCSUDMA_SRC_CHANNEL *
 				(u32)(XCSUDMA_OFFSET_DIFF))), RegVal);
