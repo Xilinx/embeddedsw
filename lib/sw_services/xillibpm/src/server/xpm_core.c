@@ -55,6 +55,7 @@ done:
 static XStatus XPmCore_Sleep(XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
+	XPm_ResetHandle *RstHandle, *RstNextDevice;
 
 	/*
 	 * If parent is on, then only send sleep request
@@ -85,6 +86,23 @@ static XStatus XPmCore_Sleep(XPm_Core *Core)
 			goto done;
 		}
 	}
+
+	if (NULL != Core->Device.RstHandles) {
+		RstHandle = Core->Device.RstHandles;
+		while (NULL != RstHandle) {
+			RstNextDevice = RstHandle->NextDevice;
+			while(RstNextDevice != NULL) {
+				if(XPM_DEVSTATE_RUNNING == RstNextDevice->Device->Node.State) {
+					break;
+				}
+				RstNextDevice = RstNextDevice->NextDevice;
+			}
+			if(RstNextDevice == NULL) {
+				RstHandle->Reset->Ops->SetState(RstHandle->Reset, PM_RESET_ACTION_ASSERT);
+			}
+			RstHandle = RstHandle->NextReset;
+		}
+        }
 
 done:
 	return Status;
