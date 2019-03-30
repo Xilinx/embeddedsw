@@ -82,7 +82,7 @@ static XSecure_Aes SecureAes;
 static XSecure_Rsa Secure_Rsa;
 static XSecure_Sha3 Sha3Instance;
 
-XCsuDma CsuDma = {0U};
+static XCsuDma CsuDma = {0U};
 #if defined (__GNUC__)
 u8 EfusePpk[XSECURE_PPK_SIZE]__attribute__ ((aligned (32)));
 			/**< eFUSE verified PPK */
@@ -154,6 +154,24 @@ u32 XSecure_CsuDmaInit(void)
 	Status = (u32)XST_SUCCESS;
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to initialize CsuDma and return CsuDma pointer
+ *
+ * @param	None
+ *
+ *****************************************************************************/
+XCsuDma* Xsecure_GetCsuDma(void)
+{
+	u32 Status;
+
+	Status = XSecure_CsuDmaInit();
+	if (Status != XST_SUCCESS) {
+		return NULL;
+	}
+	return &CsuDma;
 }
 
 /****************************************************************************/

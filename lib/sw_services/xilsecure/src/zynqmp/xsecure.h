@@ -360,6 +360,9 @@ u32 XSecure_IsEncOnlyEnabled(void);
 /* For single partition secure image */
 u32 XSecure_SecureImage(u32 AddrHigh, u32 AddrLow,
 		u32 KupAddrHigh, u32 KupAddrLow, XSecure_DataAddr *Addr);
+
+/* For getting CsuDma pointer*/
+XCsuDma* Xsecure_GetCsuDma(void);
 /*****************************************************************************/
 
 #ifdef __cplusplus
