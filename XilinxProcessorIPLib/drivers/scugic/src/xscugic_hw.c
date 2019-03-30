@@ -76,6 +76,15 @@
 *                     It fixes CR#1007753
 * 3.10  mus  09/19/18 Update documentation for XScuGic_RegisterHandler to
 *                     fix doxygen warnings.
+* 4.1   asa  03/30/19 Made changes not to direct each interrupt to all
+*                     available CPUs by default. This was breaking AMP
+*                     behavior. Instead every time an interrupt enable
+*                     request is received, the interrupt was mapped to
+*                     the respective CPU. There were several other changes
+*                     made to implement this including adding APIs:
+*                     XScuGic_InterruptMapFromCpuByDistAddr,
+*                     XScuGic_EnableIntr, and XScuGic_DisableIntr.
+*                     This set of changes was to fix CR-1024716.
 * </pre>
 *
 ******************************************************************************/
@@ -96,14 +105,13 @@
 
 /************************** Function Prototypes ******************************/
 
-static void DistInit(XScuGic_Config *Config, u32 CpuID);
+static void DistInit(XScuGic_Config *Config);
 static void CPUInit(XScuGic_Config *Config);
 static XScuGic_Config *LookupConfigByBaseAddress(u32 CpuBaseAddress);
 
 /************************** Variable Definitions *****************************/
 
 extern XScuGic_Config XScuGic_ConfigTable[XPAR_XSCUGIC_NUM_INSTANCES];
-extern u32 CpuId;
 
 /*****************************************************************************/
 /**
@@ -123,10 +131,9 @@ extern u32 CpuId;
 * @note		None.
 *
 ******************************************************************************/
-static void DistInit(XScuGic_Config *Config, u32 CpuID)
+static void DistInit(XScuGic_Config *Config)
 {
 	u32 Int_Id;
-	u32 LocalCpuID = CpuID;
 
 #if USE_AMP == 1
 	#warning "Building GIC for AMP"
@@ -179,19 +186,6 @@ static void DistInit(XScuGic_Config *Config, u32 CpuID)
 		XScuGic_WriteReg(Config->DistBaseAddress,
 				XSCUGIC_PRIORITY_OFFSET_CALC(Int_Id),
 				DEFAULT_PRIORITY);
-	}
-
-	for (Int_Id = 32U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
-			Int_Id = Int_Id+4U) {
-		/*
-		 * 3. The CPU interface in the spi_target register
-		 * Only write to the SPI interrupts, so start at 32
-		 */
-		LocalCpuID |= LocalCpuID << 8U;
-		LocalCpuID |= LocalCpuID << 16U;
-
-		XScuGic_WriteReg(Config->DistBaseAddress,
-			XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id), LocalCpuID);
 	}
 
 	for (Int_Id = 0U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
@@ -282,12 +276,9 @@ static void CPUInit(XScuGic_Config *Config)
 s32 XScuGic_DeviceInitialize(u32 DeviceId)
 {
 	XScuGic_Config *Config;
-	u32 Cpu_Id = XScuGic_GetCpuID() + (u32)1;
 
 	Config = &XScuGic_ConfigTable[(u32)DeviceId];
-
-	DistInit(Config, Cpu_Id);
-
+	DistInit(Config);
 	CPUInit(Config);
 
 	return XST_SUCCESS;
