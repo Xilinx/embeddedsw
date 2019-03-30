@@ -145,12 +145,12 @@ static XClock_TypePll Plls[] = {
 * @note		None.
 *
 ******************************************************************************/
-static XClock_PllMode XClock_PllGetMode(u8 PllIndex, XClock_PllMode *PllMode)
+static XStatus XClock_PllGetMode(u8 PllIndex, XClock_PllMode *PllMode)
 {
 	u32 Value;
 
 	/* Validate arguments */
-	XCLOCK_VALIDATE_INDEX(PLL, PllIndex);
+	 XCLOCK_VALIDATE_INDEX(PLL, PllIndex);
 
 	if (XST_SUCCESS != XClock_ReadReg(Plls[PllIndex].CtrlReg +
 				XCLOCK_PLL_FRAC_REGISTER_OFFSET, &Value)) {
@@ -376,7 +376,7 @@ static XStatus XClock_PllRoundRate(u8 PllIndex, XClockRate Rate,
 
 	RateDiv = ((Rate * XCLOCK_PLL_FRAC_DIV) / ParentRate);
 	RateRem = RateDiv % XCLOCK_PLL_FRAC_DIV;
-	XClock_PllSetMode(PllIndex, !!RateRem);
+	XClock_PllSetMode(PllIndex, (XClock_PllMode)(!!RateRem));
 
 	if (XST_SUCCESS != XClock_PllGetMode(PllIndex, &PllMode)) {
 		return XST_FAILURE;
@@ -486,10 +486,10 @@ static void XClock_PllInit(u8 PllIndex)
 		/* Init parent */
 		ParentType = XCLOCK_FETCH_PARENT_TYPE(Plls[PllIndex].Parent);
 		ParentIdx = XCLOCK_FETCH_PARENT_INDEX(Plls[PllIndex].Parent);
-		XClock_InitClk(ParentType, ParentIdx);
+		XClock_InitClk((XClock_Types)ParentType, ParentIdx);
 
 		/* Set rate */
-		ParentRate = XClock_FetchRate(ParentType, ParentIdx);
+		ParentRate = XClock_FetchRate((XClock_Types)ParentType, ParentIdx);
 		if (XST_SUCCESS !=
 			XClock_PllRecalcRate(PllIndex, ParentRate, &Rate)) {
 			xil_printf("Warning: Failed to Recalculate rate for "
@@ -529,7 +529,7 @@ static XStatus XClock_PllEnable(u8 PllIndex)
 	ParentIdx =  XCLOCK_FETCH_PARENT_INDEX(Plls[PllIndex].Parent);
 
 	/* Enable parent node */
-	if (XST_SUCCESS != XClock_EnableClkNode(ParentType, ParentIdx)) {
+	if (XST_SUCCESS != XClock_EnableClkNode((XClock_Types)ParentType, ParentIdx)) {
 		return XST_FAILURE;
 	}
 
@@ -575,7 +575,7 @@ static XStatus XClock_PllDisable(u8 PllIndex)
 	ParentIdx =  XCLOCK_FETCH_PARENT_INDEX(Plls[PllIndex].Parent);
 
 	/* Disable parent node */
-	if (XST_SUCCESS != XClock_DisableClkNode(ParentType, ParentIdx)) {
+	if (XST_SUCCESS != XClock_DisableClkNode((XClock_Types)ParentType, ParentIdx)) {
 		return XST_FAILURE;
 	}
 
@@ -610,7 +610,7 @@ static XStatus XClock_PllFetchParent(XClock_Types *NodeType, u8 *PllIndex)
 	XCLOCK_VALIDATE_PTR(PllIndex);
 	XCLOCK_VALIDATE_INDEX(PLL, *PllIndex);
 
-	*NodeType = XCLOCK_FETCH_PARENT_TYPE(Plls[*PllIndex].Parent);
+	*NodeType = (XClock_Types)XCLOCK_FETCH_PARENT_TYPE(Plls[*PllIndex].Parent);
 	*PllIndex = XCLOCK_FETCH_PARENT_INDEX(Plls[*PllIndex].Parent);
 
 	return XST_SUCCESS;
@@ -788,10 +788,10 @@ static void XClock_PllUpdateRate(u8 PllIndex)
 	/* Fetch parent */
 	ParentType = XCLOCK_FETCH_PARENT_TYPE(Plls[PllIndex].Parent);
 	ParentIdx = XCLOCK_FETCH_PARENT_INDEX(Plls[PllIndex].Parent);
-	XClock_UpdateRate(ParentType, ParentIdx);
+	XClock_UpdateRate((XClock_Types)ParentType, ParentIdx);
 
 	/* Set rate */
-	ParentRate = XClock_FetchRate(ParentType, ParentIdx);
+	ParentRate = XClock_FetchRate((XClock_Types)ParentType, ParentIdx);
 	if (XST_SUCCESS !=
 			XClock_PllRecalcRate(PllIndex, ParentRate, &Rate)) {
 		xil_printf("Warning: Failed to Recalculate rate for "

@@ -392,10 +392,10 @@ static void XClock_GateInit(u8 GateIndex)
 		/* Init parent */
 		ParentType = XCLOCK_FETCH_PARENT_TYPE(Gates[GateIndex].Parent);
 		ParentIdx = XCLOCK_FETCH_PARENT_INDEX(Gates[GateIndex].Parent);
-		XClock_InitClk(ParentType, ParentIdx);
+		XClock_InitClk((XClock_Types)ParentType, ParentIdx);
 
 		/* Set rate */
-		Gates[GateIndex].Rate = XClock_FetchRate(ParentType, ParentIdx);
+		Gates[GateIndex].Rate = XClock_FetchRate((XClock_Types)ParentType, ParentIdx);
 		Gates[GateIndex].IsInit = TRUE;
 	}
 }
@@ -427,7 +427,7 @@ XStatus XClock_GateEnable(u8 GateIndex)
 	ParentIdx = XCLOCK_FETCH_PARENT_INDEX(Gates[GateIndex].Parent);
 
 	/* Enable parent node */
-	if (XST_SUCCESS != XClock_EnableClkNode(ParentType, ParentIdx)) {
+	if (XST_SUCCESS != XClock_EnableClkNode((XClock_Types)ParentType, ParentIdx)) {
 		return XST_FAILURE;
 	}
 
@@ -473,7 +473,7 @@ static XStatus XClock_GateDisable(u8 GateIndex)
 	ParentIdx = XCLOCK_FETCH_PARENT_INDEX(Gates[GateIndex].Parent);
 
 	/* Disable parent node */
-	if (XST_SUCCESS != XClock_DisableClkNode(ParentType, ParentIdx)) {
+	if (XST_SUCCESS != XClock_DisableClkNode((XClock_Types)ParentType, ParentIdx)) {
 		return XST_FAILURE;
 	}
 
@@ -541,7 +541,7 @@ static XStatus XClock_GateFetchParent(XClock_Types *NodeType, u8 *GateIndex)
 	XCLOCK_VALIDATE_PTR(GateIndex);
 	XCLOCK_VALIDATE_INDEX(GATE, *GateIndex);
 
-	*NodeType = XCLOCK_FETCH_PARENT_TYPE(Gates[*GateIndex].Parent);
+	*NodeType = (XClock_Types)XCLOCK_FETCH_PARENT_TYPE(Gates[*GateIndex].Parent);
 	*GateIndex = XCLOCK_FETCH_PARENT_INDEX(Gates[*GateIndex].Parent);
 
 	return XST_SUCCESS;
@@ -594,10 +594,10 @@ static void XClock_GateUpdateRate(u8 GateIndex)
 	/* Fetch parent */
 	ParentType = XCLOCK_FETCH_PARENT_TYPE(Gates[GateIndex].Parent);
 	ParentIdx = XCLOCK_FETCH_PARENT_INDEX(Gates[GateIndex].Parent);
-	XClock_UpdateRate(ParentType, ParentIdx);
+	XClock_UpdateRate((XClock_Types)ParentType, ParentIdx);
 
 	/* Set rate */
-	Gates[GateIndex].Rate = XClock_FetchRate(ParentType, ParentIdx);
+	Gates[GateIndex].Rate = XClock_FetchRate((XClock_Types)ParentType, ParentIdx);
 }
 
 /*****************************************************************************/

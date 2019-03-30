@@ -138,10 +138,10 @@ static void XClock_FixedFactorInit(u8 FixFactIndex)
 					(FixedFactors[FixFactIndex].Parent);
 		ParentIdx = XCLOCK_FETCH_PARENT_INDEX
 					(FixedFactors[FixFactIndex].Parent);
-		XClock_InitClk(ParentType, ParentIdx);
+		XClock_InitClk((XClock_Types)ParentType, ParentIdx);
 
 		/* Set rate */
-		ParentRate = XClock_FetchRate(ParentType, ParentIdx);
+		ParentRate = XClock_FetchRate((XClock_Types)ParentType, ParentIdx);
 		if (XST_SUCCESS !=
 		XClock_FixedFactorRecalcRate(FixFactIndex, ParentRate, &Rate)) {
 			xil_printf("Warning: Failed to Recalculate rate for "
@@ -183,7 +183,7 @@ static XStatus XClock_FixedFactorEnable(u8 FixFactIndex)
 					(FixedFactors[FixFactIndex].Parent);
 
 	/* Enable parent node */
-	if (XST_SUCCESS != XClock_EnableClkNode(ParentType, ParentIdx)) {
+	if (XST_SUCCESS != XClock_EnableClkNode((XClock_Types)ParentType, ParentIdx)) {
 		return XST_FAILURE;
 	}
 
@@ -226,7 +226,7 @@ static XStatus XClock_FixedFactorDisable(u8 FixFactIndex)
 					(FixedFactors[FixFactIndex].Parent);
 
 	/* Disable parent node */
-	if (XST_SUCCESS != XClock_DisableClkNode(ParentType, ParentIdx)) {
+	if (XST_SUCCESS != XClock_DisableClkNode((XClock_Types)ParentType, ParentIdx)) {
 		return XST_FAILURE;
 	}
 
@@ -258,7 +258,7 @@ static XStatus XClock_FixedFactorFetchParent(XClock_Types *NodeType,
 	XCLOCK_VALIDATE_PTR(FixFactIndex);
 	XCLOCK_VALIDATE_INDEX(FIXEDFACTOR, *FixFactIndex);
 
-	*NodeType = XCLOCK_FETCH_PARENT_TYPE
+	*NodeType = (XClock_Types)XCLOCK_FETCH_PARENT_TYPE
 					(FixedFactors[*FixFactIndex].Parent);
 	*FixFactIndex = XCLOCK_FETCH_PARENT_INDEX
 					(FixedFactors[*FixFactIndex].Parent);
@@ -319,10 +319,10 @@ static void XClock_FixedFactorUpdateRate(u8 FixFactIndex)
 					(FixedFactors[FixFactIndex].Parent);
 	ParentIdx = XCLOCK_FETCH_PARENT_INDEX
 					(FixedFactors[FixFactIndex].Parent);
-	XClock_UpdateRate(ParentType, ParentIdx);
+	XClock_UpdateRate((XClock_Types)ParentType, ParentIdx);
 
 	/* Set rate */
-	ParentRate = XClock_FetchRate(ParentType, ParentIdx);
+	ParentRate = XClock_FetchRate((XClock_Types)ParentType, ParentIdx);
 	if (XST_SUCCESS !=
 		XClock_FixedFactorRecalcRate(FixFactIndex, ParentRate, &Rate)) {
 		xil_printf("Warning: Failed to Recalculate rate for "

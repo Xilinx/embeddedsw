@@ -82,8 +82,8 @@
 /* Assign structure elements for output clock mappings */
 #define XCLOCK_MUX_ASSIGN_INDICES(ClockIdVal, MuxIndexVal) \
 { \
-	.ClockId = ClockIdVal, \
-	.MuxIndex = MuxIndexVal \
+	.ClockId = (XClock_OutputClks)ClockIdVal, \
+	.MuxIndex = (XClock_MuxIndices)MuxIndexVal \
 }
 
 /* Assign structure elements for muxes */
@@ -223,10 +223,10 @@ static u16 DllRefParents[XCLOCK_NUM_DLL_REF_PARENTS];
 /* Output clock mapped to muxes */
 static XClock_MuxMappings MuxMap[] = {
 	XCLOCK_MUX_ASSIGN_INDICES(GEM_TSU, GEM_TSU),
-	XCLOCK_MUX_ASSIGN_INDICES(CAN0,    CAN0),
-	XCLOCK_MUX_ASSIGN_INDICES(CAN1,    CAN1),
+	XCLOCK_MUX_ASSIGN_INDICES(CAN0, CAN0),
+	XCLOCK_MUX_ASSIGN_INDICES(CAN1, CAN1),
 	XCLOCK_MUX_ASSIGN_INDICES(DLL_REF, DLL_REF),
-	XCLOCK_MUX_ASSIGN_INDICES(WDT,     WDT),
+	XCLOCK_MUX_ASSIGN_INDICES(WDT, WDT),
 };
 
 /* Muxes database */
@@ -792,7 +792,7 @@ static XStatus XClock_MuxSetActiveParent(u8 MuxIndex, u8 SetParentIdx)
 		ParentIdx = XCLOCK_FETCH_PARENT_INDEX(ParentPtr[SetParentIdx]);
 
 		if (XST_SUCCESS !=
-				XClock_EnableClkNode(ParentType, ParentIdx)) {
+				XClock_EnableClkNode((XClock_Types)ParentType, ParentIdx)) {
 			return XST_FAILURE;
 		}
 	}
@@ -846,10 +846,10 @@ static void XClock_MuxInit(u8 MuxIndex)
 		/* Init parent */
 		ParentType = XCLOCK_FETCH_PARENT_TYPE(Parent);
 		ParentIdx = XCLOCK_FETCH_PARENT_INDEX(Parent);
-		XClock_InitClk(ParentType, ParentIdx);
+		XClock_InitClk((XClock_Types)ParentType, ParentIdx);
 
 		/* Set rate */
-		Muxes[MuxIndex].Rate = XClock_FetchRate(ParentType, ParentIdx);
+		Muxes[MuxIndex].Rate = XClock_FetchRate((XClock_Types)ParentType, ParentIdx);
 		Muxes[MuxIndex].ActiveParent = Muxes[MuxIndex].DefaultParent;
 		Muxes[MuxIndex].IsInit = TRUE;
 	}
@@ -892,7 +892,7 @@ static XStatus XClock_MuxEnable(u8 MuxIndex)
 
 		/* Enable parent node */
 		if (XST_SUCCESS !=
-				XClock_EnableClkNode(ParentType, ParentIdx)) {
+				XClock_EnableClkNode((XClock_Types)ParentType, ParentIdx)) {
 			return XST_FAILURE;
 		}
 	}
@@ -947,7 +947,7 @@ static XStatus XClock_MuxDisable(u8 MuxIndex)
 
 		/* Disable parent node */
 		if (XST_SUCCESS !=
-				XClock_DisableClkNode(ParentType, ParentIdx)) {
+				XClock_DisableClkNode((XClock_Types)ParentType, ParentIdx)) {
 			return XST_FAILURE;
 		}
 	}
@@ -1016,7 +1016,7 @@ static XStatus XClock_MuxFetchParent(XClock_Types *NodeType, u8 *MuxIndex)
 
 	Parent = Muxes[*MuxIndex].Parent[Muxes[*MuxIndex].ActiveParent];
 
-	*NodeType = XCLOCK_FETCH_PARENT_TYPE(Parent);
+	*NodeType = (XClock_Types)XCLOCK_FETCH_PARENT_TYPE(Parent);
 	*MuxIndex = XCLOCK_FETCH_PARENT_INDEX(Parent);
 
 	return XST_SUCCESS;
@@ -1078,10 +1078,10 @@ static void XClock_MuxUpdateRate(u8 MuxIndex)
 	/* Init parent */
 	ParentType = XCLOCK_FETCH_PARENT_TYPE(Parent);
 	ParentIdx = XCLOCK_FETCH_PARENT_INDEX(Parent);
-	XClock_UpdateRate(ParentType, ParentIdx);
+	XClock_UpdateRate((XClock_Types)ParentType, ParentIdx);
 
 	/* Set rate */
-	Muxes[MuxIndex].Rate = XClock_FetchRate(ParentType, ParentIdx);
+	Muxes[MuxIndex].Rate = XClock_FetchRate((XClock_Types)ParentType, ParentIdx);
 }
 
 /*****************************************************************************/
