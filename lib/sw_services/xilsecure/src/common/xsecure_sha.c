@@ -55,6 +55,8 @@
 *       arc  03/20/19 Added time outs and status info for API's.
 *       mmd  03/15/19 Refactored the code.
 *       psl  03/26/19 Fixed MISRA-C violation
+*       vns  03/30/19 Added error condition in XSecure_Sha3Finish for
+*                     for wrong pad selection
 * </pre>
 *
 * @note
@@ -390,12 +392,15 @@ u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 			&InstancePtr->PartialData[InstancePtr->PartialLen],
 								PartialLen);
 	}
-	 else {
+	else if (InstancePtr->Sha3PadType == XSECURE_CSU_KECCAK_SHA3) {
 		 XSecure_Sha3KeccakPadd(InstancePtr,
 			&InstancePtr->PartialData[InstancePtr->PartialLen],
 								PartialLen);
-	 }
-
+	}
+	else {
+		Status = XST_FAILURE;
+		goto END;
+	}
 
 	/* Configure the SSS for SHA3 hashing. */
 	Status = XSecure_SssSha(&(InstancePtr->SssInstance),
