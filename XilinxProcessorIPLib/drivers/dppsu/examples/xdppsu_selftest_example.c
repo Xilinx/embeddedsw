@@ -45,11 +45,6 @@
  * </pre>
  *
 *******************************************************************************/
-
-/******************************* Include Files ********************************/
-
-#include "xdppsu_common_example.h"
-
 /**************************** Function Prototypes *****************************/
 
 u32 DpPsu_SelfTestExample(XDpPsu *InstancePtr, u16 DeviceId);
