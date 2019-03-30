@@ -101,6 +101,7 @@ struct XPm_ClockNode {
 	XPm_Node Node;
 	char Name[MAX_NAME_BYTES];
 	u16 NumParents;
+	u8 Flags;
 	u32 ParentId;
 	XPm_ClockHandle *ClkHandles; /**< Pointer to the clock/device pairs */
 	u32 UseCount;
@@ -178,7 +179,8 @@ extern u32 PmNumClocks;
 
 /************************** Function Prototypes ******************************/
 XStatus XPmClock_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
-			 u8 NumCustomNodes, u8 NumParents, u32 PowerDomainId);
+			 u8 NumCustomNodes, u8 NumParents, u32 PowerDomainId,
+			 u8 ClkFlags);
 XStatus XPmClock_AddClkName(u32 Id, char *Name);
 XStatus XPmClock_AddSubNode(u32 Id, u32 Type, u32 ControlReg, u8 Param1, u8 Param2, u32 Flags);
 XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u32 NumParents);
