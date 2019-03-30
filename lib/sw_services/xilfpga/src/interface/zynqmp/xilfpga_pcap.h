@@ -378,7 +378,6 @@ typedef struct {
 }XFpga_Read;
 
 /************************** Variable Definitions *****************************/
-extern XCsuDma CsuDma;  /* CSU DMA instance */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
