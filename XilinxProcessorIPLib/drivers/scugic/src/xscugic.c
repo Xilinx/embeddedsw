@@ -174,12 +174,12 @@ static void DoDistributorInit(XScuGic *InstancePtr, u32 CpuID)
 #endif
 
 #if defined (versal) && !defined(ARMR5)
-		u32 temp;
+	u32 Temp;
 
-		temp = XScuGic_DistReadReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET);
-		temp = (XSCUGIC500_DCTLR_ARE_NS_ENABLE | XSCUGIC500_DCTLR_ARE_S_ENABLE);
-		temp &= ~(XSCUGIC_EN_INT_MASK);
-		XScuGic_DistWriteReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET, temp);
+	Temp = XScuGic_DistReadReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET);
+	Temp = (XSCUGIC500_DCTLR_ARE_NS_ENABLE | XSCUGIC500_DCTLR_ARE_S_ENABLE);
+	Temp &= ~(XSCUGIC_EN_INT_MASK);
+	XScuGic_DistWriteReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET, Temp);
 #else
 	XScuGic_DistWriteReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET, 0U);
 #endif
@@ -462,7 +462,6 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
 		}
 #if defined (versal) && !defined(ARMR5)
 	u32 Waker_State;
-	xil_printf("Execuing on the a72\n");
 	Waker_State = XScuGic_ReDistReadReg(InstancePtr,XSCUGIC_RDIST_WAKER_OFFSET);
 	XScuGic_ReDistWriteReg(InstancePtr,XSCUGIC_RDIST_WAKER_OFFSET,
 							Waker_State & (~ XSCUGIC_RDIST_WAKER_LOW_POWER_STATE_MASK));
@@ -798,7 +797,8 @@ void XScuGic_SetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 {
 	u32 RegValue;
 #if defined (versal) && !defined(ARMR5)
-	u32 temp,Index;
+	u32 Temp;
+	u32 Index;
 #endif
 	u8 LocalPriority;
 	LocalPriority = Priority;
@@ -812,10 +812,10 @@ void XScuGic_SetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 	if (Int_Id < XSCUGIC_SPI_INT_ID_START )
 	{
 		XScuGic_ReDistSGIPPIWriteReg(InstancePtr,XSCUGIC_RDIST_INT_PRIORITY_OFFSET_CALC(Int_Id),Priority);
-		temp = XScuGic_ReDistSGIPPIReadReg(InstancePtr,XSCUGIC_RDIST_INT_CONFIG_OFFSET_CALC(Int_Id));
+		Temp = XScuGic_ReDistSGIPPIReadReg(InstancePtr,XSCUGIC_RDIST_INT_CONFIG_OFFSET_CALC(Int_Id));
 		Index = XScuGic_Get_Rdist_Int_Trigger_Index(Int_Id);
-		temp |= (Trigger << Index);
-		XScuGic_ReDistSGIPPIWriteReg(InstancePtr,XSCUGIC_RDIST_INT_CONFIG_OFFSET_CALC(Int_Id),temp);
+		Temp |= (Trigger << Index);
+		XScuGic_ReDistSGIPPIWriteReg(InstancePtr,XSCUGIC_RDIST_INT_CONFIG_OFFSET_CALC(Int_Id),Temp);
 		return;
 	}
 #endif
