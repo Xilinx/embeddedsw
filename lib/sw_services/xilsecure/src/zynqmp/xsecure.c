@@ -897,7 +897,7 @@ u32 XSecure_AuthenticationHeaders(u8 *StartAddr, XSecure_ImageInfo *ImageInfo)
 	/* Copy secure header IV */
 	if (ImageInfo->KeySrc != 0x00U) {
 		(void)XSecure_MemCopy(ImageInfo->Iv, (Buffer + XSECURE_IV_OFFSET),
-						XSECURE_IV_SIZE);
+						XSECURE_IV_LEN);
 	}
 
 	/* Image header Authentication */
@@ -937,7 +937,7 @@ UPDATE:
 		if (ImageInfo->KeySrc != 0x00U) {
 			(void)XSecure_MemCopy(ImageInfo->Iv,
 						(Buffer + XSECURE_IV_OFFSET),
-						XSECURE_IV_SIZE);
+						XSECURE_IV_LEN);
 		}
 	} else {
 		/* Partition header */
@@ -1122,7 +1122,7 @@ u32 XSecure_SecureImage(u32 AddrHigh, u32 AddrLow,
 			}
 #endif
 			(void)XSecure_MemCopy(ImageHdrInfo.Iv,
-				(Buffer + XSECURE_IV_OFFSET), XSECURE_IV_SIZE);
+				(Buffer + XSECURE_IV_OFFSET), XSECURE_IV_LEN);
 			/* Add partition header IV to boot header IV */
 			*(IvPtr + XSECURE_IV_LEN) =
 				(*(IvPtr + XSECURE_IV_LEN)) +
