@@ -581,6 +581,41 @@ void XScuGic_GetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 
 /****************************************************************************/
 /**
+* Sets the target CPU for the interrupt of a peripheral
+*
+* @param	DistBaseAddress is the device base address
+* @param	Cpu_Id is a CPU number from which the interrupt has to be
+*			unmapped
+* @param	Int_Id is the IRQ source number to modify
+*
+* @return	None.
+*
+* @note		None
+*
+*****************************************************************************/
+void XScuGic_InterruptMapFromCpuByDistAddr(u32 DistBaseAddress,
+		u8 Cpu_Id, u32 Int_Id)
+{
+	u32 RegValue;
+	u32 Offset;
+
+	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
+
+	RegValue = XScuGic_ReadReg(DistBaseAddress,
+					XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
+
+	Offset = (Int_Id & 0x3U);
+	Cpu_Id = (0x1U << Cpu_Id);
+
+	RegValue |= (Cpu_Id) << (Offset*8U);
+
+	XScuGic_WriteReg(DistBaseAddress,
+					XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),
+					RegValue);
+}
+
+/****************************************************************************/
+/**
 * Unmaps specific SPI interrupt from the target CPU
 *
 * @param	DistBaseAddress is the device base address

@@ -740,6 +740,8 @@ void XScuGic_SetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
                                         u8 Priority, u8 Trigger);
 void XScuGic_GetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 					u8 *Priority, u8 *Trigger);
+void XScuGic_InterruptMapFromCpuByDistAddr(u32 DistBaseAddress,
+							u8 Cpu_Id, u32 Int_Id);
 void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
 											u8 Cpu_Id, u32 Int_Id);
 void XScuGic_UnmapAllInterruptsFromCpuByDistAddr(u32 DistBaseAddress,
