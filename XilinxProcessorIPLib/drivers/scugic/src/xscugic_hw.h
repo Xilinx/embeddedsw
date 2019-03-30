@@ -73,6 +73,9 @@
 *					  API's can be used by applications to unmap specific/all
 *					  interrupts from target CPU. It fixes CR#992490.
 * 3.10  aru  08/23/18 Resolved MISRA-C:2012 compliance mandatory violations
+* 4.1   asa  03/30/19 Removed macros for XScuGic_EnableIntr, and
+*                     XScuGic_DisableIntr. These are now C functions. This
+*                     change was to fix CR-1024716.
 *
 * </pre>
 *
@@ -686,50 +689,6 @@ extern "C" {
 	(Xil_Out32(((BaseAddress) + (RegOffset)), ((u32)(Data))))
 
 
-/****************************************************************************/
-/**
-*
-* Enable specific interrupt(s) in the interrupt controller.
-*
-* @param	DistBaseAddress is the Distributor Register base address of the
-*		device
-* @param	Int_Id is the ID of the interrupt source and should be in the
-*		range of 0 to XSCUGIC_MAX_NUM_INTR_INPUTS - 1
-*
-* @return	None.
-*
-* @note		C-style signature:
-*		void XScuGic_EnableIntr(u32 DistBaseAddress, u32 Int_Id)
-*
-*****************************************************************************/
-#define XScuGic_EnableIntr(DistBaseAddress, Int_Id) \
-	XScuGic_WriteReg((DistBaseAddress), \
-			 XSCUGIC_ENABLE_SET_OFFSET + (((Int_Id) / 32U) * 4U), \
-			 (0x00000001U << ((Int_Id) % 32U)))
-
-/****************************************************************************/
-/**
-*
-* Disable specific interrupt(s) in the interrupt controller.
-*
-* @param	DistBaseAddress is the Distributor Register base address of the
-*		device
-* @param	Int_Id is the ID of the interrupt source and should be in the
-*		range of 0 to XSCUGIC_MAX_NUM_INTR_INPUTS - 1
-*
-*
-* @return	None.
-*
-* @note		C-style signature:
-*		void XScuGic_DisableIntr(u32 DistBaseAddress, u32 Int_Id)
-*
-*****************************************************************************/
-#define XScuGic_DisableIntr(DistBaseAddress, Int_Id) \
-	XScuGic_WriteReg((DistBaseAddress), \
-			 XSCUGIC_DISABLE_OFFSET + (((Int_Id) / 32U) * 4U), \
-			 (0x00000001U << ((Int_Id) % 32U)))
-
-
 /************************** Function Prototypes ******************************/
 
 void XScuGic_DeviceInterruptHandler(void *DeviceId);
@@ -746,6 +705,8 @@ void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
 											u8 Cpu_Id, u32 Int_Id);
 void XScuGic_UnmapAllInterruptsFromCpuByDistAddr(u32 DistBaseAddress,
 												u8 Cpu_Id);
+void XScuGic_EnableIntr (u32 DistBaseAddress, u32 Int_Id);
+void XScuGic_DisableIntr (u32 DistBaseAddress, u32 Int_Id);
 /************************** Variable Definitions *****************************/
 #ifdef __cplusplus
 }
