@@ -632,21 +632,20 @@ void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
 			u8 Cpu_Id, u32 Int_Id)
 {
 	u32 RegValue;
-	u8 BitPos;
+	u32 Offset;
 
 	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
 
 	RegValue = XScuGic_ReadReg(DistBaseAddress,
 				XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
 
-	/*
-	 * Identify bit position corresponding to  Int_Id and Cpu_Id,
-	 * in interrupt target register and clear it
-	 */
-	BitPos = ((Int_Id % 4U) * 8U) + Cpu_Id;
-	RegValue &= (~(1U << BitPos));
+	Offset = (Int_Id & 0x3U);
+	Cpu_Id = (0x1U << Cpu_Id);
+
+	RegValue &= ~(Cpu_Id << (Offset*8U));
 	XScuGic_WriteReg(DistBaseAddress,
 			XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id), RegValue);
+
 }
 
 /****************************************************************************/
