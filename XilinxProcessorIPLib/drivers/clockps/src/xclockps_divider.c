@@ -352,10 +352,10 @@ static void XClock_DivInit(u8 DivIndex)
 						(Dividers[DivIndex].Parent);
 		ParentIdx = XCLOCK_FETCH_PARENT_INDEX
 						(Dividers[DivIndex].Parent);
-		XClock_InitClk(ParentType, ParentIdx);
+		XClock_InitClk((XClock_Types)ParentType, ParentIdx);
 
 		/* Set rate */
-		ParentRate = XClock_FetchRate(ParentType, ParentIdx);
+		ParentRate = XClock_FetchRate((XClock_Types)ParentType, ParentIdx);
 		if (XST_SUCCESS !=
 			XClock_DivRecalcRate(DivIndex, ParentRate, &Rate)) {
 			return;
@@ -393,7 +393,7 @@ static XStatus XClock_DivEnable(u8 DivIndex)
 	ParentIdx = XCLOCK_FETCH_PARENT_INDEX(Dividers[DivIndex].Parent);
 
 	/* Enable parent node */
-	if (XST_SUCCESS != XClock_EnableClkNode(ParentType, ParentIdx)) {
+	if (XST_SUCCESS != XClock_EnableClkNode((XClock_Types)ParentType, ParentIdx)) {
 		return XST_FAILURE;
 	}
 
@@ -434,7 +434,7 @@ static XStatus XClock_DivDisable(u8 DivIndex)
 	ParentIdx =  XCLOCK_FETCH_PARENT_INDEX(Dividers[DivIndex].Parent);
 
 	/* Disable parent node */
-	if (XST_SUCCESS != XClock_DisableClkNode(ParentType, ParentIdx)) {
+	if (XST_SUCCESS != XClock_DisableClkNode((XClock_Types)ParentType, ParentIdx)) {
 		return XST_FAILURE;
 	}
 
@@ -498,7 +498,7 @@ static XStatus XClock_DivFetchParent(XClock_Types *NodeType, u8 *DivIndex)
 	XCLOCK_VALIDATE_PTR(DivIndex);
 	XCLOCK_VALIDATE_INDEX(DIVIDER, *DivIndex);
 
-	*NodeType = XCLOCK_FETCH_PARENT_TYPE(Dividers[*DivIndex].Parent);
+	*NodeType = (XClock_Types)XCLOCK_FETCH_PARENT_TYPE(Dividers[*DivIndex].Parent);
 	*DivIndex = XCLOCK_FETCH_PARENT_INDEX(Dividers[*DivIndex].Parent);
 
 	return XST_SUCCESS;
@@ -613,10 +613,10 @@ static void XClock_DivUpdateRate(u8 DivIndex)
 	/* Fetch parent */
 	ParentType = XCLOCK_FETCH_PARENT_TYPE(Dividers[DivIndex].Parent);
 	ParentIdx = XCLOCK_FETCH_PARENT_INDEX(Dividers[DivIndex].Parent);
-	XClock_UpdateRate(ParentType, ParentIdx);
+	XClock_UpdateRate((XClock_Types)ParentType, ParentIdx);
 
 	/* Set rate */
-	ParentRate = XClock_FetchRate(ParentType, ParentIdx);
+	ParentRate = XClock_FetchRate((XClock_Types)ParentType, ParentIdx);
 	if (XST_SUCCESS != XClock_DivRecalcRate(DivIndex, ParentRate, &Rate)) {
 		return;
 	}
