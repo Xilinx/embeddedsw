@@ -1227,11 +1227,6 @@ XStatus XPm_SetClockState(const u32 SubsystemId, const u32 ClockId, const u32 En
 	XStatus Status = XST_SUCCESS;
 	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
 
-	if (0 == XPmClock_IsValid(Clk)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
 	/* Check if subsystem is allowed to access requested clock or not */
 	Status = XPm_IsAccessAllowed(SubsystemId, ClockId);
 	if (Status != XST_SUCCESS) {
@@ -1279,11 +1274,6 @@ XStatus XPm_GetClockState(const u32 ClockId, u32 *const State)
 	XStatus Status = XST_SUCCESS;
 	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
 
-	if (0 == XPmClock_IsValid(Clk)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
 	if (ISOUTCLK(ClockId)) {
 		Status = XPmClock_GetClockData((XPm_OutClockNode *)Clk,
 						TYPE_GATE, State);
@@ -1323,7 +1313,7 @@ XStatus XPm_SetClockDivider(const u32 SubsystemId, const u32 ClockId, const u32 
 	XStatus Status = XST_SUCCESS;
 	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
 
-	if ((0 == XPmClock_IsValid(Clk)) || (0U == Divider)) {
+	if (0U == Divider) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -1365,11 +1355,6 @@ XStatus XPm_GetClockDivider(const u32 ClockId, u32 *const Divider)
 	XStatus Status = XST_SUCCESS;
 	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
 
-	if (0 == XPmClock_IsValid(Clk)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
 	if (ISOUTCLK(ClockId)) {
 		Status = XPmClock_GetClockData((XPm_OutClockNode *)Clk,
 						TYPE_DIV1, Divider);
@@ -1404,11 +1389,6 @@ XStatus XPm_SetClockParent(const u32 SubsystemId, const u32 ClockId, const u32 P
 {
 	XStatus Status = XST_SUCCESS;
 	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
-
-	if (0 == XPmClock_IsValid(Clk)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
 
 	/* Check if subsystem is allowed to access requested clock or not */
 	Status = XPm_IsAccessAllowed(SubsystemId, ClockId);
@@ -1445,11 +1425,6 @@ XStatus XPm_GetClockParent(const u32 ClockId, u32 *const ParentId)
 {
 	XStatus Status = XST_SUCCESS;
 	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
-
-	if (0 == XPmClock_IsValid(Clk)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
 
 	/* Get parent is allowed only on output clocks */
 	if (!ISOUTCLK(ClockId)) {

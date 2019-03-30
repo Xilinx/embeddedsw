@@ -185,7 +185,6 @@ XStatus XPmClock_AddClkName(u32 Id, char *Name);
 XStatus XPmClock_AddSubNode(u32 Id, u32 Type, u32 ControlReg, u8 Param1, u8 Param2, u32 Flags);
 XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u32 NumParents);
 XPm_ClockNode* XPmClock_GetById(u32 ClockId);
-u32 XPmClock_IsValid(XPm_ClockNode *Clk);
 XStatus XPmClock_Request(XPm_ClockHandle *ClkHandle);
 XStatus XPmClock_Release(XPm_ClockHandle *ClkHandle);
 XStatus XPmClock_SetGate(XPm_OutClockNode *Clk, u32 Enable);
