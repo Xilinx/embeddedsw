@@ -683,4 +683,56 @@ void XScuGic_UnmapAllInterruptsFromCpuByDistAddr(u32 DistBaseAddress,
 
 	}
 }
+
+/*****************************************************************************/
+/**
+*
+* Enables the interrupt source provided as the argument Int_Id. Any pending
+* interrupt condition for the specified Int_Id will occur after this function is
+* called.
+*
+* @param	InstancePtr is a pointer to the XScuGic instance.
+* @param	Int_Id contains the ID of the interrupt source and should be
+*		in the range of 0 to XSCUGIC_MAX_NUM_INTR_INPUTS - 1
+*
+* @return	None.
+*
+* @note		None.
+*
+****************************************************************************/
+void XScuGic_EnableIntr (u32 DistBaseAddress, u32 Int_Id)
+{
+	u8 Cpu_Id = (u8)XScuGic_GetCpuID();
+
+	XScuGic_InterruptMapFromCpuByDistAddr(DistBaseAddress, Cpu_Id, Int_Id);
+	XScuGic_WriteReg((DistBaseAddress), XSCUGIC_ENABLE_SET_OFFSET +
+			(((Int_Id) / 32U) * 4U), (0x00000001U << ((Int_Id) % 32U)));
+}
+
+/*****************************************************************************/
+/**
+*
+* Disables the interrupt source provided as the argument Int_Id such that the
+* interrupt controller will not cause interrupts for the specified Int_Id. The
+* interrupt controller will continue to hold an interrupt condition for the
+* Int_Id, but will not cause an interrupt.
+*
+* @param	InstancePtr is a pointer to the XScuGic instance.
+* @param	Int_Id contains the ID of the interrupt source and should be
+*		in the range of 0 to XSCUGIC_MAX_NUM_INTR_INPUTS - 1
+*
+* @return	None.
+*
+* @note		None.
+*
+****************************************************************************/
+void XScuGic_DisableIntr (u32 DistBaseAddress, u32 Int_Id)
+{
+	u8 Cpu_Id = (u8)XScuGic_GetCpuID();
+
+	XScuGic_InterruptUnmapFromCpuByDistAddr(DistBaseAddress, Cpu_Id, Int_Id);
+	XScuGic_WriteReg((DistBaseAddress), XSCUGIC_DISABLE_OFFSET +
+			(((Int_Id) / 32U) * 4U), (0x00000001U << ((Int_Id) % 32U)));
+}
+
 /** @} */
