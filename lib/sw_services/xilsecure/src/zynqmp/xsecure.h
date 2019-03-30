@@ -227,7 +227,6 @@ extern "C" {
 					(0x00000182U * 4U))
 			/**< When boot header contains PUF helper data */
 #define XSECURE_BUFFER_SIZE		(0x00001080U)
-#define XSECURE_IV_SIZE			(4U)
 
 #define XSECURE_IV_OFFSET		(0xA0U)
 #define XSECURE_PH_TABLE_OFFSET		(0x9CU)
