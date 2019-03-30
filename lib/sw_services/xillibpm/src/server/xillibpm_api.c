@@ -2324,7 +2324,7 @@ static XStatus XPm_AddNodeClock(u32 *Args, u32 NumArgs)
 	int Status = XST_SUCCESS;
 	u32 ClockId, ControlReg;
 	u32 PowerDomainId;
-	u8 TopologyType, NumCustomNodes=0, NumParents;
+	u8 TopologyType, NumCustomNodes=0, NumParents, ClkFlags;
 
 	if (NumArgs < 4) {
 		Status = XST_INVALID_PARAM;
@@ -2345,16 +2345,18 @@ static XStatus XPm_AddNodeClock(u32 *Args, u32 NumArgs)
 		TopologyType = Args[2] & 0xFF;
 		NumCustomNodes = (Args[2] >> 8) & 0xFF;
 		NumParents = (Args[2] >> 16) & 0xFF;
+		ClkFlags = (Args[2] >> 24) & 0xFF;
 		PowerDomainId = Args[3];
 		if (ISPLL(ClockId)) {
 			u16 *Offsets = (u16 *)&Args[4];
 			Status = XPmClockPll_AddNode(ClockId, ControlReg,
 						     TopologyType, Offsets,
-						     PowerDomainId);
+						     PowerDomainId, ClkFlags);
 		} else {
 			Status = XPmClock_AddNode(ClockId, ControlReg,
 						  TopologyType, NumCustomNodes,
-						  NumParents, PowerDomainId);
+						  NumParents, PowerDomainId,
+						  ClkFlags);
 		}
 	} else {
 		Status = XST_INVALID_PARAM;
