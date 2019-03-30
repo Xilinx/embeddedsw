@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2016 - 2018 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2016 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -50,7 +50,11 @@
 #			in the bsp.
 # 5.0   Nava  11/05/18  Added full bitstream loading support for versal Platform.
 # 5.0	sne   27/03/19 Fixed Misra-C violations.
-#
+# 5.0   Nava  29/03/19  Removed vesal platform related changes.As per the new
+#                       design, the Bitstream loading for versal platform is
+#                       done by PLM based on the CDO's data exists in the PDI
+#                       images. So there is no need of xilfpga API's for versal
+#                       platform to configure the PL.
 ##############################################################################
 
 #---------------------------------------------
@@ -82,7 +86,6 @@ proc generate {lib_handle} {
 
     set conffile  [xfpga_open_include_file "xfpga_config.h"]
     set zynqmp "src/interface/zynqmp/"
-    set versal "src/interface/versal/"
     set interface "src/interface/"
     set cortexa53proc [hsi::get_cells -hier -filter "IP_NAME==psu_cortexa53"]
     if {[llength $cortexa53proc] > 0} {
@@ -103,9 +106,7 @@ proc generate {lib_handle} {
             file copy -force $entry "./src"
         }
     } else {
-	foreach entry [glob -nocomplain [file join $versal *]] {
-            file copy -force $entry "./src"
-        }
+		error "This library supports Only ZyqnMP platform."
     }
     file delete -force $interface
     puts $conffile "#ifndef _XFPGA_CONFIG_H"
@@ -128,17 +129,6 @@ proc generate {lib_handle} {
     } else {
 	puts $conffile "#define XFPGA_DEBUG     (0U)"
     }
-  if { $iszynqmp == 0} {
-	set dma_type  [common::get_property CONFIG.pmc_dma $lib_handle]
-        if {$dma_type == 1} {
-		puts $conffile "#define XFPGA_DMA_TYPE	XFPGA_DMATYPEIS_PMCDMA0"
-	} elseif {$dma_type == 2} {
-		puts $conffile "#define XFPGA_DMA_TYPE  XFPGA_DMATYPEIS_PMCDMA1"
-	} else {
-		puts $conffile "#define XFPGA_DMA_TYPE  XFPGA_PMC_DMA_NONE"
-	}
-   }
-
     puts $conffile "#endif"
     close $conffile
 }
