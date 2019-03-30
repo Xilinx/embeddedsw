@@ -54,6 +54,11 @@
  *                     for bitstream loading to meet the safety requirements
  *                     with PMUFW.
  * 5.0 sne   27/03/19  Fixed misra-c violations.
+ * 5.0 Nava  29/03/19  Removed vesal platform related changes.As per the new
+ *                     design, the Bitstream loading for versal platform is
+ *                     done by PLM based on the CDO's data exists in the PDI
+ *                     images. So there is no need of xilfpga API's for versal
+ *                     platform to configure the PL.
  *</pre>
  *
  *@note
@@ -64,7 +69,6 @@
 
 /************************** Variable Definitions *****************************/
 
-#if !defined(versal)
 /*****************************************************************************/
 /**The API is used to load the bitstream file into the PL region.
  * It supports vivado generated Bitstream(*.bit, *.bin) and bootgen
@@ -216,7 +220,6 @@ u32 XFpga_ConfigStatus(XFpga *InstancePtr)
 
 	return Status;
 }
-#endif
 
 /*****************************************************************************/
 /**
@@ -486,46 +489,3 @@ u32 XFpga_InterfaceStatus(XFpga *InstancePtr)
 
 	return Status;
 }
-
-#if defined(versal)
-/*****************************************************************************/
-/** This function is used to get the Dma Instance Pointer from the user
- * @param InstancePtr Pointer to the XFgpa structure.
- *
- * @DmaPtr CSUDMA  driver instance pointer.
- *
- * @return None.
- *
- *****************************************************************************/
-void XFpga_GetDmaPtr(XFpga *InstancePtr, XCsuDma *DmaPtr)
-{
-	memcpy(&InstancePtr->PLInfo.PmcDmaIns, DmaPtr, sizeof(*DmaPtr));
-}
-
-
-/*****************************************************************************/
-/**
- * This function is used control the fabric global sequence.
- *
- * @param InstancePtr Pointer to the XFgpa structure.
- * @param Mask Mask of the bit field to be written.
- * @param Val Value of bit field.
- *
- * @return Codes as mentioned in xilfpga.h.
- ******************************************************************************/
-u32 XFpga_GlobSeqWriteReg(XFpga *InstancePtr, u32 Mask, u32 Val)
-{
-	u32 Status;
-
-	if (!InstancePtr->XFpga_GlobSeqWriteReg) {
-		Status = XFPGA_OPS_NOT_IMPLEMENTED;
-		Xfpga_Printf(XFPGA_DEBUG,
-		"%s Implementation not exists..\r\n", __FUNCTION__);
-	} else {
-		InstancePtr->XFpga_GlobSeqWriteReg(InstancePtr, Mask, Val);
-		Status = XFPGA_SUCCESS;
-	}
-
-	return Status;
-}
-#endif
