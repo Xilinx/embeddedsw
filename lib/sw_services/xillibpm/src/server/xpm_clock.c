@@ -117,27 +117,6 @@ XPm_ClockNode *ClkNodeList[XPM_NODEIDX_CLK_MAX];
 u32 MaxClkNodes=XPM_NODEIDX_CLK_MAX;
 u32 PmNumClocks=0;
 
-/* Array of clock which should not be exposed to other subsystems */
-static uint32_t ClkInvalidList[] = {
-	XPM_NODEIDX_CLK_RCLK_PMC,
-	XPM_NODEIDX_CLK_RCLK_LPD,
-	XPM_NODEIDX_CLK_CPM_LSBUS_REF,
-	XPM_NODEIDX_CLK_PMC_LSBUS_REF,
-	XPM_NODEIDX_CLK_TEST_PATTERN_REF,
-	XPM_NODEIDX_CLK_LPD_LSBUS,
-	XPM_NODEIDX_CLK_TIMESTAMP_REF,
-	XPM_NODEIDX_CLK_CPM_PLL,
-	XPM_NODEIDX_CLK_CPM_PRESRC,
-	XPM_NODEIDX_CLK_CPM_POSTCLK,
-	XPM_NODEIDX_CLK_CPM_PLL_OUT,
-	XPM_NODEIDX_CLK_CPM_CORE_REF,
-	XPM_NODEIDX_CLK_CPM_LSBUS_REF,
-	XPM_NODEIDX_CLK_CPM_DBG_REF,
-	XPM_NODEIDX_CLK_CPM_AUX0_REF,
-	XPM_NODEIDX_CLK_CPM_AUX1_REF,
-	XPM_NODEIDX_CLK_CPM_TOPSW_REF,
-};
-
 static XStatus XPmClock_Init(XPm_ClockNode *Clk, u32 Id, u32 ControlReg,
 			     u8 TopologyType, u8 NumCustomNodes, u8 NumParents,
 			     u32 PowerDomainId, u8 ClkFlags)
@@ -595,32 +574,6 @@ done:
 	return Status;
 }
 
-u32 XPmClock_IsValid(XPm_ClockNode *Clk)
-{
-	u32 ClockIndex;
-	u32 Idx;
-	u32 Status = 0;
-
-	/* If clock is not valid, CDO will not include the same and
-	 * hence pointer in array will be NULL */
-	if (Clk == NULL) {
-		goto done;
-	}
-
-	ClockIndex = NODEINDEX(Clk->Node.Id);
-	/* Check if clock doesn't fall in ClkInvalidList */
-	for (Idx = 0; Idx < ARRAY_SIZE(ClkInvalidList); Idx++) {
-		if (ClkInvalidList[Idx] == ClockIndex) {
-			goto done;
-		}
-	}
-
-	Status = 1;
-
-done:
-	return Status;
-}
-
 XStatus XPmClock_QueryName(u32 ClockId, u32 *Resp)
 {
 	u32 RetWord = 0;
@@ -633,8 +586,6 @@ XStatus XPmClock_QueryName(u32 ClockId, u32 *Resp)
 		char ClkName[] = END_OF_CLK;
 		memcpy(&RetWord, ClkName, 4);
 		memcpy(Resp, &ClkName[4], CLK_NAME_LEN - 4);
-	} else if (XPmClock_IsValid(Clk) == 0) {
-		memset(Resp, 0, CLK_NAME_LEN - 4);
 	} else if (ClockIndex < MaxClkNodes) {
 		memcpy(&RetWord, Clk->Name, 4);
 		memcpy(Resp, &Clk->Name[4], CLK_NAME_LEN - 4);
@@ -653,11 +604,6 @@ XStatus XPmClock_QueryTopology(u32 ClockId, u32 Index, u32 *Resp)
 	XPm_OutClockNode *Clk;
 
 	Clk = (XPm_OutClockNode *)XPmClock_GetById(ClockId);
-
-	if (!XPmClock_IsValid((XPm_ClockNode *)Clk)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
 
 	memset(Resp, 0, CLK_TOPOLOGY_PAYLOAD_LEN);
 	if (ISOUTCLK(ClockId)) {
@@ -700,11 +646,6 @@ XStatus XPmClock_QueryFFParams(u32 ClockId, u32 *Resp)
 
 	Clk = (XPm_OutClockNode *)XPmClock_GetById(ClockId);
 
-	if (!XPmClock_IsValid((XPm_ClockNode *)Clk)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
 	if (!ISOUTCLK(ClockId)) {
 		Status = XST_FAILURE;
 		goto done;
@@ -730,11 +671,6 @@ XStatus XPmClock_QueryMuxSources(u32 ClockId, u32 Index, u32 *Resp)
 	u32 i;
 
 	Clk = (XPm_OutClockNode *)XPmClock_GetById(ClockId);
-
-	if (!XPmClock_IsValid((XPm_ClockNode *)Clk)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
 
 	if (!ISOUTCLK(ClockId)) {
 		Status = XST_FAILURE;
@@ -790,8 +726,31 @@ XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp)
 	ClockId = NODEID(Class, SubClass, NodeType, ClockIndex);
 	Clk = XPmClock_GetById(ClockId);
 
-	/* Clock valid bit */
-	Attr = XPmClock_IsValid(Clk);
+	/* Clock valid bit. All clocks in topology are valid. */
+	Attr = 1U;
+#ifndef SPP_HACK
+	/*
+	 * Mark CPM related clock as invalid because their registers are not
+	 * accessible from PS DDR SPP.
+	 * TODO: This code under SPP_HACK flag needs to be removed when CPM
+	 * registers are accessible.
+	 */
+	if (ClockIndex == XPM_NODEIDX_CLK_CPM_LSBUS_REF ||
+	    ClockIndex == XPM_NODEIDX_CLK_CPM_PLL ||
+	    ClockIndex == XPM_NODEIDX_CLK_CPM_PRESRC ||
+	    ClockIndex == XPM_NODEIDX_CLK_CPM_POSTCLK ||
+	    ClockIndex == XPM_NODEIDX_CLK_CPM_PLL_OUT ||
+	    ClockIndex == XPM_NODEIDX_CLK_CPM_CORE_REF ||
+	    ClockIndex == XPM_NODEIDX_CLK_CPM_LSBUS_REF ||
+	    ClockIndex == XPM_NODEIDX_CLK_CPM_DBG_REF ||
+	    ClockIndex == XPM_NODEIDX_CLK_CPM_AUX0_REF ||
+	    ClockIndex == XPM_NODEIDX_CLK_CPM_AUX1_REF ||
+	    ClockIndex == XPM_NODEIDX_CLK_CPM_TOPSW_REF) {
+		PmInfo("Marking Clock: %d as Invalid\r\n", ClockIndex);
+		Attr = 0;
+	}
+#endif
+
 	/* If clock needs to be enabled during init */
 	/* TBD -  Decide InitEnable value */
 	Attr |= InitEnable << CLK_INIT_ENABLE_SHIFT;
