@@ -36,7 +36,7 @@
  * Lower level Errors + Interface specific Errors + Xilfpga top layer Errors
  *----------------------------------------------------------------------------
  * Lower level Errors | Interface Specific Errors | Xilfpga top layer Errors
- * (other libarier    |     (PCAP/CFI Interface)  |
+ * (other libarier    |     (PCAP Interface)      |
  * or drivers         |                           |
  * Used by xilfpga)   |                           |
  * ----------------------------------------------------------------------------
@@ -45,13 +45,12 @@
  * Xilfpga Top Layer:
  *	The functionality exist in this layers is completely Interface agnostic.
  * It provides a unique interface to load the Bitstream  across multiple
- * platforms.(ie; ZynqMP and Versel)
+ * platforms.(ie; ZynqMP)
  *
  * Interface Specific layer:
  * 	This layer is responsible for providing the interface specific related
  * errors.
  *	-->In Case of ZynqMp, it provides the errors related to PCAP Interface.
- *	-->In Case of Versel, it provides the errors related to CFI Interface.
  *
  * Xilfpga lower layer:
  *	This layer is responsible for providing the Error related  to the lower
@@ -82,6 +81,11 @@
  *                      for bitstream loading to meet the safety requirements
  *                      with PMUFW.
  * 5.0   sne  27/03/19  Fixed misra-c violations.
+ * 5.0 Nava   29/03/19  Removed vesal platform related changes.As per the new
+ *                      design, the Bitstream loading for versal platform is
+ *                      done by PLM based on the CDO's data exists in the PDI
+ *                      images. So there is no need of xilfpga API's for versal
+ *                      platform to configure the PL.
  * </pre>
  *
  * @note
@@ -136,8 +140,6 @@ typedef struct XFpgatag{
 	u32 (*XFpga_GetConfigStatus)(struct XFpgatag *InstancePtr);
 	u32 (*XFpga_GetConfigReg)(const struct XFpgatag *InstancePtr);
 	u32 (*XFpga_GetConfigData)(const struct XFpgatag *InstancePtr);
-	void (* XFpga_GlobSeqWriteReg)(struct XFpgatag *InstancePtr,
-				       u32 Mask, u32 Val);
 	XFpga_Info	PLInfo;
 	XFpga_Write	WriteInfo;
 	XFpga_Read	ReadInfo;
@@ -212,13 +214,11 @@ typedef struct XFpgatag{
 /** @endcond*/
 /************************** Function Prototypes ******************************/
 u32 XFpga_Initialize(XFpga *InstancePtr);
-#if !defined(versal)
 u32 XFpga_PL_BitStream_Load(XFpga *InstancePtr,
 			    UINTPTR BitstreamImageAddr,
 			    UINTPTR AddrPtr_Size, u32 Flags);
 u32 XFpga_PL_Config(XFpga *InstancePtr);
 u32 XFpga_ConfigStatus(XFpga *InstancePtr);
-#endif
 u32 XFpga_PL_Preconfig(XFpga *InstancePtr);
 u32 XFpga_PL_Write(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
 		   UINTPTR AddrPtr_Size, u32 Flags);
@@ -231,10 +231,6 @@ u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 			 u32 ConfigReg_NumFrames);
 u32 XFpga_InterfaceStatus(XFpga *InstancePtr);
-#if defined(versal)
-u32 XFpga_GlobSeqWriteReg(XFpga *InstancePtr, u32 Mask, u32 Val);
-void XFpga_GetDmaPtr(XFpga *InstancePtr, XCsuDma *DmaPtr);
-#endif
 
 #ifdef __cplusplus
 }
