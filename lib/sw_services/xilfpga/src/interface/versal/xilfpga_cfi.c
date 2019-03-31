@@ -38,7 +38,11 @@
  * Ver   Who  Date        Changes
  * ---- ---- -------- -------------------------------------------------------
  * 5.0  Nava 11/05/18  Added full bitstream loading support for versal Platform.
+<<<<<<< HEAD
  *
+=======
+ * 5.1  bsv  03/06/19  Added error recovery mechanism
+>>>>>>> Revert "xilfpga: Remove vesal platform related changes"
  * </pre>
  *
  * @note
@@ -559,11 +563,18 @@ static u32 XFpga_ReadFabricData(XFpga *InstancePtr)
  * This function checks for Fabric errors after loading
  * @param CfupmcIns Pointer to the XCfupmc structure
  *
+<<<<<<< HEAD
  * @return Codes as mentioned in xilfpga_cfi.h
  ******************************************************************************/
 static u32 XFpga_CheckFabricErr(XCfupmc *CfupmcIns)
 {
 	u32 Status;
+=======
+ * @return Success or Error codes
+ ******************************************************************************/
+static u32 XFpga_CheckFabricErr(XCfupmc *CfupmcIns)
+{
+>>>>>>> Revert "xilfpga: Remove vesal platform related changes"
 	u32 ErrStatus;
 	u32 ErrMask;
 
@@ -574,6 +585,7 @@ static u32 XFpga_CheckFabricErr(XCfupmc *CfupmcIns)
 		CFU_APB_CFU_ISR_BAD_CFI_PACKET_MASK |
 		CFU_APB_CFU_ISR_AXI_ALIGN_ERROR_MASK |
 		CFU_APB_CFU_ISR_CFI_ROW_ERROR_MASK |
+<<<<<<< HEAD
 		CFU_APB_CFU_IMR_CRC32_ERROR_MASK |
 		CFU_APB_CFU_IMR_CRC8_ERROR_MASK;
 
@@ -594,6 +606,28 @@ static u32 XFpga_CheckFabricErr(XCfupmc *CfupmcIns)
 	}
 
 	return Status;
+=======
+		CFU_APB_CFU_ISR_CRC32_ERROR_MASK |
+		CFU_APB_CFU_ISR_CRC8_ERROR_MASK;
+
+	ErrStatus = XCfupmc_ReadIsr(CfupmcIns) & ErrMask;
+	if ((ErrStatus & (CFU_APB_CFU_ISR_CRC8_ERROR_MASK |
+					CFU_APB_CFU_ISR_CRC32_ERROR_MASK)) != 0U)
+	{
+		Xfpga_Printf(XFPGA_DEBUG, "Bitstream loading failed ISR: 0x%08x\n\r",
+							ErrStatus);
+		XCfupmc_CfuErrHandler(CfupmcIns);
+	}
+	else if((ErrStatus & (CFU_APB_CFU_ISR_CFI_ROW_ERROR_MASK |
+						CFU_APB_CFU_ISR_BAD_CFI_PACKET_MASK)) != 0U)
+	{
+		XCfupmc_CfiErrHandler(CfupmcIns);
+	}
+	else {
+		/** do nothing */
+	}
+	return ErrStatus;
+>>>>>>> Revert "xilfpga: Remove vesal platform related changes"
 }
 
 /*****************************************************************************/
@@ -649,7 +683,11 @@ static void XFpga_SelectDmaBurtType(XCsuDma *DmaPtr,
 {
 	u32 RegVal;
 
+<<<<<<< HEAD
 	Xil_AssertNonvoid((Channel == (XCSUDMA_SRC_CHANNEL)) ||
+=======
+	Xil_AssertVoid((Channel == (XCSUDMA_SRC_CHANNEL)) ||
+>>>>>>> Revert "xilfpga: Remove vesal platform related changes"
 		       (Channel == (XCSUDMA_DST_CHANNEL)));
 
 	if(Channel == XCSUDMA_SRC_CHANNEL) {
