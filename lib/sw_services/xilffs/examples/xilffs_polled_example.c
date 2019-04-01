@@ -95,8 +95,8 @@ static char *SD_File;
 #ifdef __ICCARM__
 #pragma data_alignment = 32
 u8 DestinationAddress[10*1024];
+#pragma data_alignment = 32
 u8 SourceAddress[10*1024];
-#pragma data_alignment = 4
 #else
 u8 DestinationAddress[10*1024*1024] __attribute__ ((aligned(32)));
 u8 SourceAddress[10*1024*1024] __attribute__ ((aligned(32)));
