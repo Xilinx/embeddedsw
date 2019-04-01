@@ -45,6 +45,7 @@
 * 1.06a kpc		11/11/13 Fixed CR#759458, cacheInvalidate size should be
 *				 ailgned to ccahe line size.
 * 2.1   kpc    04/28/14 Cleanup and removed unused functions
+* 2.4   vak    04/01/19 Fixed IAR data_alignment warnings
 *</pre>
 ******************************************************************************/
 
@@ -68,7 +69,6 @@
 #ifdef __ICCARM__
 #pragma data_alignment = 32
 u8 Buffer[MEMORY_SIZE];
-#pragma data_alignment = 4
 #else
 u8 Buffer[MEMORY_SIZE] ALIGNMENT_CACHELINE;
 #endif

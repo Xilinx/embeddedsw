@@ -42,6 +42,7 @@
  * 1.04a nm  03/04/13 Fixed CR# 704022. Implemented TEST_MODE Feature.
  * 1.06a kpc 11/11/13 Always use global memory for dma operations
  * 2.1   kpc 4/29/14  Align dma buffers to cache line boundary
+ * 2.4	 vak 4/01/19  Fixed IAR data_alignment warnings
  *</pre>
  ******************************************************************************/
 
@@ -85,7 +86,6 @@ static int XUsbPs_HandleVendorReq(XUsbPs *InstancePtr,
 #ifdef __ICCARM__
 #pragma data_alignment = 32
 static u8 Response;
-#pragma data_alignment = 4
 #else
 static u8 Response ALIGNMENT_CACHELINE;
 #endif
@@ -168,7 +168,6 @@ static void XUsbPs_StdDevReq(XUsbPs *InstancePtr,
 #ifdef __ICCARM__
 #pragma data_alignment = 32
 static u8  	Reply[XUSBPS_REQ_REPLY_LEN];
-#pragma data_alignment = 4
 #else
 	static u8  	Reply[XUSBPS_REQ_REPLY_LEN] ALIGNMENT_CACHELINE;
 #endif
@@ -582,7 +581,6 @@ static int XUsbPs_HandleVendorReq(XUsbPs *InstancePtr,
 #ifdef __ICCARM__
 #pragma data_alignment = 32
 const static u8	Reply[8] = {0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17};
-#pragma data_alignment = 4
 #else
 	const static u8	Reply[8] ALIGNMENT_CACHELINE =
 							{0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17};
