@@ -165,7 +165,6 @@ typedef struct {
 #ifdef __ICCARM__
 #pragma data_alignment = 32
 	BYTE	win[FF_MAX_SS];
-#pragma data_alignment = 4
 #else
 #ifdef __aarch64__
 	BYTE	win[FF_MAX_SS] __attribute__ ((aligned(64)));	/* Disk access window for Directory, FAT (and file data at tiny cfg) */
@@ -220,7 +219,6 @@ typedef struct {
 #ifdef __ICCARM__
 #pragma data_alignment = 32
 	BYTE	buf[FF_MAX_SS];	/* File private data read/write window */
-#pragma data_alignment = 4
 #else
 #ifdef __aarch64__
 	BYTE	buf[FF_MAX_SS] __attribute__ ((aligned(64)));	/* File private data read/write window */
