@@ -200,7 +200,6 @@ typedef struct {
 #ifdef __ICCARM__
 #pragma data_alignment = 32
 } XSdPs_Adma2Descriptor;
-#pragma data_alignment = 4
 #else
 }  __attribute__((__packed__))XSdPs_Adma2Descriptor;
 #endif
@@ -233,7 +232,6 @@ typedef struct {
 #ifdef __ICCARM__
 #pragma data_alignment = 32
 	XSdPs_Adma2Descriptor Adma2_DescrTbl[32];
-#pragma data_alignment = 4
 #else
 	XSdPs_Adma2Descriptor Adma2_DescrTbl[32] __attribute__ ((aligned(32)));
 #endif
