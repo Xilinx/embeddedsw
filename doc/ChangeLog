@@ -132,6 +132,7 @@ Added support for versal SD IP name
 Add support for Cache Invalidation after the DMA is complete
 Add UHS mode support for Microblaze platform
 Disable calls to dll_reset APIs for versal platforms
+Fix data alignment on IAR compiler
 
 spips_v3_2:
 Resolved MISRA-C:2012 violations in safety mode(CR#1016116)
@@ -155,6 +156,7 @@ Add additional LFN options in mld.
 Add support to enable use of CHMOD functionality.
 Change the argument type to int for length of string.
 Added support for versal SD IP name
+Fix data alignment on IAR compiler
 
 xilflash_v4_6:
 Fixed compilation errors for application with xilflash(CR#1018603)
