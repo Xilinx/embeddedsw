@@ -84,8 +84,6 @@
  *****************************************************************************/
 int XLoader_SbiInit(u32 DeviceFlags)
 {
-	XLoader* XLoaderPtr = XLoader_GetLoaderInstancePtr();
-
 	if (DeviceFlags == XLOADER_PDI_SRC_SMAP)
 	{
 		XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
@@ -96,7 +94,6 @@ int XLoader_SbiInit(u32 DeviceFlags)
 			       SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
 			       XLOADER_SBI_CTRL_INTERFACE_JTAG);
 	}
-	XLoaderPtr->SbiTypeBootMode = TRUE;
 	return XLOADER_SUCCESS;
 }
 

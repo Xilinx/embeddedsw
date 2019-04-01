@@ -191,12 +191,6 @@ int XSubSys_ReStart(u32 SubsysHd)
 }
 #endif
 
-XLoader* XLoader_GetLoaderInstancePtr(void)
-{
-	static XLoader XLoaderInstance={0U, 0U, 0U, 0U, 0U, 0U};
-	return (XLoader*)&XLoaderInstance;
-}
-
 /*****************************************************************************/
 /**
  * This function initializes the loader instance and registers loader
@@ -370,7 +364,6 @@ int XLoader_StartImage(XilPdi *PdiPtr)
     u64 HandoffAddr;
     u32 ExecState;
     u32 VInitHi;
-    XLoader* LoaderPtr = XLoader_GetLoaderInstancePtr();
 
 	XLoader_Printf(DEBUG_INFO, "XLoader_StartImage enter\r\n");
     /* Handoff to the cpus */
@@ -378,7 +371,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
     {
 		CpuId = PdiPtr->HandoffParam[Index].CpuSettings
 				& XIH_PH_ATTRB_DSTN_CPU_MASK;
-		if((LoaderPtr->CpusRunning & (1U<<(CpuId>>XLOADER_RUNNING_CPU_SHIFT)))
+		if((PdiPtr->CpusRunning & (1U<<(CpuId>>XLOADER_RUNNING_CPU_SHIFT)))
 																 != FALSE)
 		{
 			XLoader_Printf(DEBUG_INFO, "\n CpuId %0x is already running, \
@@ -493,7 +486,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				continue;
 			}
 		}
-		LoaderPtr->CpusRunning |= 1U<<(CpuId >> XLOADER_RUNNING_CPU_SHIFT);
+		PdiPtr->CpusRunning |= 1U<<(CpuId >> XLOADER_RUNNING_CPU_SHIFT);
     }
 
 	/*

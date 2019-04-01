@@ -475,11 +475,7 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnNum)
 
 	/* Read Partition Type */
 	PrtnType = XilPdi_GetPrtnType(PrtnHdr);
-	if(PrtnType == XIH_PH_ATTRB_PRTN_TYPE_CFI)
-	{
-		Status = XLoader_ProcessCfi(PdiPtr, PrtnNum);
-	}
-	else if(PrtnType == XIH_PH_ATTRB_PRTN_TYPE_CDO)
+	if(PrtnType == XIH_PH_ATTRB_PRTN_TYPE_CDO)
 	{
 		Status = XLoader_ProcessCdo(PdiPtr, PrtnNum);
 	} else {
