@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2004 - 2014 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2004 - 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -60,6 +60,7 @@ microblaze_enable_interrupts:
 #if XPAR_MICROBLAZE_USE_MSR_INSTR == 1
 	rtsd	r15, 8
 	msrset  r0, 0x2
+	nop
 #else /*XPAR_MICROBLAZE_USE_MSR_INSTR == 1*/
 	#Read the MSR register
 	mfs	r12, rmsr
