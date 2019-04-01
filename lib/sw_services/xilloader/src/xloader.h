@@ -66,7 +66,6 @@ extern "C" {
 #include "xloader_ddr.h"
 #include "xplmi_dma.h"
 #include "xpm_device.h"
-#include "xilfpga.h"
 /************************** Constant Definitions *****************************/
 #define XLOADER_SUCCESS		XST_SUCCESS
 #define XLoader_Printf		XPlmi_Printf
@@ -167,6 +166,7 @@ typedef struct {
 	XStatus (*DeviceCopy) (u32, u64, u32, u32);
 	u32 NoOfHandoffCpus; /**< Number of CPU's loader will handoff to */
     XLoader_HandoffParam HandoffParam[10];
+    u32 CpusRunning; /** CPUs that are already running */
 	u32 EccStatus;
 	u32 CurImgId; /**< Current Processing image ID */
 	u32 CurPrtnId; /**< Current Processing Partition ID */
@@ -194,19 +194,6 @@ typedef struct {
 	u32 Count; /**< Subsystem count */
 } XilSubsystem;
 
-/**
- * This is XLoader instance pointer. This stores all the information
- * required for loading partitions
- */
-typedef struct {
-	u32 PlPoweredUp;
-	u32 PlCleaningDone;
-	u32 PlCfiPresent;
-	u32 SdTypeBootMode;
-	u32 SbiTypeBootMode;
-	u32 CpusRunning;
-} XLoader;
-
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XLoader_GetBootMode()	XPlmi_In32(CRP_BOOT_MODE_USER) & \
 				CRP_BOOT_MODE_USER_BOOT_MODE_MASK
@@ -230,15 +217,11 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr);
 int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr);
 int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId);
 int XLoader_StartImage(XilPdi *PdiPtr);
-XLoader* XLoader_GetLoaderInstancePtr(void);
 int XLoader_RestartImage(u32 ImageId);
 void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi);
 
 /* functions defined in xloader_prtn_load.c */
 int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum);
-/* function defined in xloader_cfi.c */
-int XLoader_CfiInit(XLoader* XLoaderPtr);
-int XLoader_ProcessCfi (XilPdi* PdiPtr, u32 PrtnNum);
 
 /** Functions defined in xloader_cmds.c */
 void XLoader_CmdsInit(void);
