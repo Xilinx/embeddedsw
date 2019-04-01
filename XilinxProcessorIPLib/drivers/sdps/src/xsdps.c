@@ -577,8 +577,8 @@ s32 XSdPs_CardInitialize(XSdPs *InstancePtr)
 #ifdef __ICCARM__
 #pragma data_alignment = 32
 	static u8 ExtCsd[512];
+#pragma data_alignment = 32
 	u8 SCR[8] = { 0U };
-#pragma data_alignment = 4
 #else
 	static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 	static u8 SCR[8] __attribute__ ((aligned(32))) = { 0U };
