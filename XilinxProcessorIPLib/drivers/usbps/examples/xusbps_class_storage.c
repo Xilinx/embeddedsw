@@ -39,6 +39,7 @@
  * ----- ---- -------- ---------------------------------------------------------
  * 1.00a wgr  10/10/10 First release
  * 2.1   kpc  4/28/14  Align DMA buffers to cache line boundary
+ * 2.4   vak  4/01/19  Fixed IAR data_alignment warnings
  *</pre>
  ******************************************************************************/
 
@@ -83,15 +84,20 @@ const static SCSI_INQUIRY scsiInquiry = {
 	{"PS USB VirtDisk"},	/* Product ID: must be 16 characters long. */
 	{"1.00"}		/* Revision:   must be  4 characters long. */
 };
+
+#pragma data_alignment = 32
 static u8 MaxLUN = 0;
+
+#pragma data_alignment = 32
 /* Buffer for virtual flash disk space. */
 static u8 VirtFlash[VFLASH_SIZE];
 
+#pragma data_alignment = 32
 static USB_CBW lastCBW;
 
+#pragma data_alignment = 32
 /* Local transmit buffer for simple replies. */
 static u8 txBuffer[128];
-#pragma data_alignment = 4
 #else
 const static SCSI_INQUIRY scsiInquiry ALIGNMENT_CACHELINE = {
 	0x00,
