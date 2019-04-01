@@ -195,8 +195,6 @@ int XLoader_SdInit(u32 DeviceFlags)
 	char *boot_file = buffer;
 	u32 MultiBootOffset;
 	u32 DrvNum;
-	XLoader* XLoaderPtr = XLoader_GetLoaderInstancePtr();
-	XLoaderPtr->SdTypeBootMode = 1U;
 	DrvNum = XLoader_GetDrvNumSD(DeviceFlags);
 
 	/* Set logical drive number */
@@ -270,6 +268,7 @@ XStatus XLoader_SdCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 	int Status;
 
 	FRESULT rc;	 /* Result code */
+	(void) Flags;
 	UINT br=0U;
 
 	rc = f_lseek(&fil, SrcAddress);
