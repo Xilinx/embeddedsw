@@ -277,6 +277,25 @@ Deprecate the XilMFS Library
 usbps_v2_4:
 Fix incorrect dma_alignment pragma directive for IAR workbench
 
+zynqmp_fsbl:
+Added dual parallel configuration support and QPI support for 24bit qspi boot
+mode for Macronix flash parts
+AES engine and SHA engine are reset during FSBL initialization
+Zeroize PL upon error in decryption
+Remove sha2 support from FSBL
+Always select EEPROM lower page for reading SPD data
+Dynamic DDR configuration is strictly based upon the design for all boards
+including ZCU102 and ZCU106
+Added support for armclang compiler
+Removed disabling of the WDT error before exiting FSBL to avoid overwriting of
+the PMU settings
+Updated PMU with FSBL running status using bits 1 and 2 from PMU global
+general purpose register 5
+DDR end address is not fixed at 2GB but derived from Vivado
+Using XilPM XPm_SetConfiguration API instead of using direct IPI calls for
+communicating with PMUFW.
+
+
 Changes for 2018.3.1
 ===============================
 rfdc_v5_1:
