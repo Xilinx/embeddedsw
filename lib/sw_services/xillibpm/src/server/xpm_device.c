@@ -27,6 +27,7 @@
 ******************************************************************************/
 #include "xpm_device.h"
 #include "xpm_core.h"
+#include "xpm_regs.h"
 #include "xpm_rpucore.h"
 #include "xillibpm_api.h"
 
@@ -285,6 +286,20 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				/* Todo: Check if clock is enabled */
 				if (1 /* Hack: Clock enabled */) {
 					Node->State = XPM_DEVSTATE_RST_OFF;
+
+					/*
+					 * Configure ADMA as non-secure so Linux
+					 * can use it.
+					 * TODO: Remove this when security config
+					 * support is added through CDO
+					 */
+					if (Device->Node.Id >= XPM_DEVID_ADMA_0 &&
+							Device->Node.Id <= XPM_DEVID_ADMA_7) {
+						XPm_Out32(LPD_SLCR_SECURE_WPROT0, 0x0);
+						XPm_Out32(LPD_SLCR_SECURE_ADMA_0 + (Device->Node.Id - XPM_DEVID_ADMA_0) * 4, 0x1);
+						XPm_Out32(LPD_SLCR_SECURE_WPROT0, 0x1);
+					}
+
 					/* De-assert reset for peripheral devices */
 					if (XPM_NODESUBCL_DEV_PERIPH ==
 						NODESUBCLASS(Device->Node.Id)) {
