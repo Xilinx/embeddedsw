@@ -101,6 +101,9 @@ u32 XAieLib_LoadElfMem(XAieGbl_Tile *TileInstPtr, u8 *ElfPtr, u8 LoadSym);
 void XAieLib_InitDev(void);
 u32 XAieLib_InitTile(XAieGbl_Tile *TileInstPtr);
 
+void XAieLib_InterruptUnregisterIsr(int Offset);
+int XAieLib_InterruptRegisterIsr(int Offset, int (*Handler) (void *Data), void *Data);
+
 void XAieLib_IntPrint(const char *Format, ...);
 
 #ifdef XAIE_DEBUG

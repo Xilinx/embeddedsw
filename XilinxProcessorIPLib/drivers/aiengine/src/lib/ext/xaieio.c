@@ -71,6 +71,7 @@
 #include <metal/alloc.h>
 #include <metal/device.h>
 #include <metal/io.h>
+#include <metal/irq.h>
 
 #include <metal/list.h>
 #include <metal/mutex.h>
@@ -83,6 +84,12 @@
 #define SHM_MAX_IDS	(sizeof(unsigned long) * SHM_NUM_ULONG)	/**< max number of IDs = 64 * 16 = 512 */
 
 /************************** Variable Definitions *****************************/
+typedef struct XAieIO_IntrIsr
+{
+	int (*handler) (void *data);	/**< Interrupt handler */
+	void *data;			/**< Data to be used by the handler */
+} XAieIO_IntrIsr;
+
 typedef struct
 {
 	u32 RefCnt;			/**< RefCnt. Will not work perfectly */
@@ -93,6 +100,7 @@ typedef struct
 	struct metal_io_region *npi_io;	/**< io region for aie npi */
 	u64 npi_io_base;		/**< io region base for aie npi */
 	unsigned long shm_ids[SHM_NUM_ULONG];	/**< bitmap for shm name space */
+	XAieIO_IntrIsr isr;		/**< Interrupt server routine */
 } XAieIO;
 
 typedef struct XAieIO_Mem
@@ -209,6 +217,100 @@ void *_XAieIO_GetIO(void)
 	}
 
 	return (void *)IOInst.io;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function unregisters the interrupt handler for given irq offset.
+*
+* @param	Offset: The value should one of 1 - 3. Current it's not used.
+*
+* @return	None.
+*
+* @note		The driver doesn't support all 4 interrupts yet, so the offset
+* is not used.
+*
+*******************************************************************************/
+void XAieIO_IntrUnregisterIsr(int Offset)
+{
+	metal_irq_disable((int)IOInst.device->irq_info);
+	metal_irq_unregister((int)IOInst.device->irq_info);
+	IOInst.isr.handler = NULL;
+	IOInst.isr.data = NULL;
+	XAieIO_Finish();
+}
+
+/*****************************************************************************/
+/**
+*
+* This is an internal wrapper that calls the user registered callback in
+* the libmetal irq handler.
+*
+* @param	irq: the irq number
+* @param	data: the data given at registration.
+*
+* @return	METAL_IRQ_HANDLED for success.
+*
+* @note		None.
+*
+*******************************************************************************/
+static int XAieIO_IntrHandler(int irq, void *data)
+{
+	if (IOInst.isr.handler != data) {
+		/* Return as handled to avoid interrupt overflow */
+		return METAL_IRQ_HANDLED;
+	}
+
+	IOInst.isr.handler(IOInst.isr.data);
+
+	return METAL_IRQ_HANDLED;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function registers the interrupt handler for given irq offset.
+*
+* @param	Offset: The value should one of 1 - 3. Current it's not used.
+* @param	Handler: the callback to be called upon interrupt.
+* @param	Data: the data to be used with the handler.
+*
+* @return	XAIELIB_SUCCESS for success, XAIELIB_FAILURE otherwise.
+*
+* @note		The driver doesn't support all 4 interrupts yet, so the offset
+* is not used. The handler is registerd as global one, so it isn't allowed to
+* register more than one handlers.
+*
+*******************************************************************************/
+int XAieIO_IntrRegisterIsr(int Offset, int (*Handler) (void *Data), void *Data)
+{
+	int ret;
+
+	XAieIO_Init();
+
+	/* Only one interrupt is supported at the moment */
+	if (Offset == 0 || IOInst.isr.handler) {
+		XAieIO_Finish();
+		return XAIELIB_FAILURE;
+	}
+
+	/*
+	 * Register the handler with global instance. This limits that only one
+	 * handler can be registered.
+	 */
+	IOInst.isr.handler = Handler;
+	IOInst.isr.data = Data;
+	ret = metal_irq_register((int)IOInst.device->irq_info,
+			XAieIO_IntrHandler, Handler);
+	if (ret) {
+		XAieIO_Finish();
+		return XAIELIB_FAILURE;
+	}
+
+	metal_irq_enable((int)IOInst.device->irq_info);
+
+	return XAIELIB_SUCCESS;
 }
 
 /*****************************************************************************/

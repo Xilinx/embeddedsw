@@ -79,6 +79,9 @@ typedef unsigned long int               uint64_t;
 void XAieIO_Finish(void);
 void XAieIO_Init(void);
 
+void XAieIO_IntrUnregisterIsr(int Offset);
+int XAieIO_IntrRegisterIsr(int Offset, int (*Handler) (void *Data), void *Data);
+
 void *_XAieIO_GetIO(void);
 
 uint32 XAieIO_Read32(uint64_t Addr);
