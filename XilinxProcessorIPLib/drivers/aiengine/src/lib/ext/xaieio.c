@@ -183,7 +183,7 @@ void XAieIO_Init(void)
 	IOInst.io_base = metal_io_phys(IOInst.io, 0);
 	IOInst.RefCnt++;
 
-	ret = metal_device_open("platform", "aie-npi", &IOInst.npi);
+	ret = metal_device_open("platform", "f70a0000.aie-npi", &IOInst.npi);
 	if (ret) {
 		return;
 	}
