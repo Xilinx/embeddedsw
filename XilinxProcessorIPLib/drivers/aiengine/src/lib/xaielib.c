@@ -273,6 +273,54 @@ u32 XAieLib_InitTile(XAieGbl_Tile *TileInstPtr)
 /*****************************************************************************/
 /**
 *
+* This API unregisters the interrupt.
+*
+* @param	Offest: Should be 1 - 3.
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void XAieLib_InterruptUnregisterIsr(int Offset)
+{
+#ifdef __AIESIM__
+	return;
+#elif defined __AIEBAREMTL__
+	return;
+#else
+	XAieIO_IntrUnregisterIsr(Offset);
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This API registers the handler for interrupt
+*
+* @param	Offset: The value should one of 1 - 3.
+* @param	Handler: the callback to be called upon interrupt.
+* @param	Data: the data to be used with the handler.
+*
+* @return	XAIELIB_SUCCESS on success, otherwise XAIELIB_FAILURE.
+*
+* @note		None.
+*
+*******************************************************************************/
+int XAieLib_InterruptRegisterIsr(int Offset, int (*Handler) (void *Data), void *Data)
+{
+#ifdef __AIESIM__
+	return XAIELIB_FAILURE;
+#elif defined __AIEBAREMTL__
+	return XAIELIB_FAILURE;
+#else
+	return XAieIO_IntrRegisterIsr(Offset, Handler, Data);
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
 * This API re-routes to platform print function
 *
 * @param	format strings
