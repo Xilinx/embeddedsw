@@ -47,6 +47,7 @@
  * 4.2   Nava    30/05/18  Refactor the xilfpga library to support
  *                         different PL programming Interfaces.
  * 5.0 	 Nava   06/02/19 Updated the example to sync with 5.0 version API's
+ * 		 rama   03/04/19 Fixed IAR compiler warning
  *</pre>
  ******************************************************************************/
 
@@ -57,29 +58,6 @@
 #include "xilfpga.h"
 
 /************************** Constant Definitions *****************************/
-
-/*
- * Addresses of the Configuration Registers
- */
-#define CRC		0	/* Status Register */
-#define FAR		1	/* Frame Address Register */
-#define FDRI		2	/* FDRI Register */
-#define FDRO		3	/* FDRO Register */
-#define CMD		4	/* Command Register */
-#define CTL0		5	/* Control Register 0 */
-#define MASK		6	/* MASK Register */
-#define STAT		7	/* Status Register */
-#define LOUT		8	/* LOUT Register */
-#define COR0		9	/* Configuration Options Register 0 */
-#define MFWR		10	/* MFWR Register */
-#define CBC		11	/* CBC Register */
-#define IDCODE		12	/* IDCODE Register */
-#define AXSS		13	/* AXSS Register */
-#define COR1		14	/* Configuration Options Register 1 */
-#define WBSTAR		16	/* Warm Boot Start Address Register */
-#define TIMER		17	/* Watchdog Timer Register */
-#define BOOTSTS		22	/* Boot History Status Register */
-#define CTL1		24	/* Control Register 1 */
 
 /*
  * Mask For IDCODE
@@ -164,7 +142,7 @@ static int Xfpga_RegReadExample(XFpga *InstancePtr)
 	}
 	xil_printf(" CRC -> \t %x \t\r\n", CfgReg[0]);
 
-	if (XFpga_GetPlConfigReg(InstancePtr, (UINTPTR)CfgReg, FAR) != XST_SUCCESS) {
+	if (XFpga_GetPlConfigReg(InstancePtr, (UINTPTR)CfgReg, FAR1) != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 	xil_printf(" FAR -> \t %x \t\r\n", CfgReg[0]);

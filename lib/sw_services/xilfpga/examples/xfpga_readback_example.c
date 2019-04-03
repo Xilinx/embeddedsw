@@ -45,6 +45,7 @@
  * 4.2   Nava 16/08/18 Modified the PL data handling Logic to support
  *                     different PL programming interfaces.
  * 5.0   Nava 06/02/19 Updated the example to sync with 5.0 version API's
+ *		 rama 03/04/19 Fixed IAR compiler warning
  *</pre>
  ******************************************************************************/
 
@@ -142,7 +143,7 @@ static int XFpga_ReadExample(XFpga *InstancePtr)
 
 void PrintBitStream(u32 NumFrames)
 {
-	int i;
+	u32 i;
 
 	xil_printf("Bitstream contents are\r\n");
 
