@@ -198,6 +198,7 @@ XStatus XPmClock_QueryMuxSources(u32 ClockId, u32 Index, u32 *Resp);
 XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp);
 XStatus XPmClock_GetNumClocks(u32 *Resp);
 XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId);
+XStatus XPmClock_GetMaxDivisor(u32 ClockId, u32 DivType, u32 *Resp);
 
 #ifdef __cplusplus
 }
