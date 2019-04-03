@@ -187,6 +187,46 @@ Added support for OSPI flash interface.
 Added support for SST26WF016B flash.
 Used 3Byte Sector erase and write commands for QSPI Micron flashes.
 
+xilskey_v6_7:
+Updated makefile to support ARMCC and IAR compiler
+Fixed compilation warnings/errors for ARMCC and IAR
+Fixed MISRAC violations
+Added assert conditions for input parameters.
+Updated xilskey_efuseps_zynqmp_input.h
+ - Documentation of AES key
+ - Added macro XSK_EFUSEPS_CHECK_AES_KEY_CRC for AES CRC
+   check which is to be updated by user.
+ - Removed PPK0/1 SHA2 hash programming support
+Added example for PUF regeneration.
+Handled PUF underflow issue
+TCL file is updated to copy only required files to ZynqMP project.
+Updated functions return status variables to default XST_FAILURE
+For Microblaze devices added GPIO selection based on the design.
+Added support for SSIT devices on microblaze.
+
+xilsecure_v4_0:
+Code was made compatible with MISRAC rules
+RSA memory is zeroized after evey RSA operation.
+Updated AES error codes.
+AES engine in set under reset after use
+Data is zeroized after GCM tag mismatch
+SHA3 engine is held in reset after use
+DMA status registers are cleared after transfer is done
+Updated assert statements
+Secure image load errors out if bootgen image is not at the specified location
+Renamed global variables used in xsecure.c
+Deprecated SHA2 support
+Refactored code, now the library has three folders zynqmp, versal and common
+Added support versal
+Deprecated XSecure_RsaDecrypt call, updated with XSecure_RsaPublicEncrypt()
+Added state machines into the library for RSA, AES and SHA
+Added IAR support
+Added tmeouts for the loops
+Modified return status variables to XST_FAILURE by default
+XSecure_Sha3Finish is updated with error condtion if padding is wrongly selected
+Updated Xsecure.c and xsecure.h files to fix IV size, made csudma as
+static variable added an API to give csudma pointer to xilfpga.
+
 xxvethernet_v1_2:
 In tcl use unique global variables to fix bsp generation for certain designs.
 
