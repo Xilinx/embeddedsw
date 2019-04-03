@@ -87,9 +87,6 @@
  * 5.0 Nava  21/03/19  Added Address alignment check. As CSUDMA expects word
  *                     aligned address. In case user passes an unaligned
  *                     address return error.
- * 5.0 Nava  22/03/19  Added new API's to support the state machine mechanism
- *                     for bitstream loading to meet the safety requirements
- *                     with PMUFW.
  * 5.0 sne   27/03/19  Fixed misra-c violations.
  * </pre>
  *
@@ -183,7 +180,6 @@ static u32 XFpga_ValidateBitstreamImage(XFpga  *InstancePtr);
 static u32 XFpga_PreConfigPcap(XFpga *InstancePtr);
 static u32 XFpga_WriteToPlPcap(XFpga *InstancePtr);
 static u32 XFpga_PostConfigPcap(XFpga *InstancePtr);
-static u32 XFpga_PcapConfigStatus(XFpga *InstancePtr);
 static u32 XFpga_PcapStatus(void);
 static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr);
 static u32 XFpga_GetPLConfigData(const XFpga *InstancePtr);
@@ -263,7 +259,6 @@ u32 XFpga_Initialize(XFpga *InstancePtr) {
 	InstancePtr->XFpga_GetInterfaceStatus = XFpga_PcapStatus;
 	InstancePtr->XFpga_GetConfigReg = XFpga_GetConfigRegPcap;
 	InstancePtr->XFpga_GetConfigData = XFpga_GetPLConfigData;
-	InstancePtr->XFpga_GetConfigStatus = XFpga_PcapConfigStatus;
 
 	/* Initialize CSU DMA driver */
 	CsuDmaPtr = Xsecure_GetCsuDma();
@@ -582,20 +577,6 @@ static u32 XFpga_PostConfigPcap(XFpga *InstancePtr)
 	InstancePtr->PLInfo.ConfigStatus = XFPGA_CONFIG_DONE;
 
 	return Status;
-}
-
-/*****************************************************************************/
-/** Provides the PL configuration status
- *
- * @param	InstancePtr Pointer to the XFpga structure
- *
- * @return	PL configuration status.
- *
- *****************************************************************************/
-static u32 XFpga_PcapConfigStatus(XFpga *InstancePtr)
-{
-
-	return InstancePtr->PLInfo.ConfigStatus;
 }
 
 /*****************************************************************************/
@@ -1101,11 +1082,6 @@ static u32 XFpga_SecureBitstreamOcmLoad(XFpga *InstancePtr,
 		InstancePtr->PLInfo.SecureOcmState = 1U;
 	}
 
-#if defined (PSU_PMU)
-	if ((u32)InstancePtr->PLInfo.TotalBitPartCount != 0U) {
-		Status = XFpga_AuthPlChunksOcm(InstancePtr, PL_PARTATION_SIZE);
-	}
-#else
 	while ((u32)InstancePtr->PLInfo.TotalBitPartCount != 0U) {
 
 		Status = XFpga_AuthPlChunksOcm(InstancePtr, PL_PARTATION_SIZE);
@@ -1113,7 +1089,6 @@ static u32 XFpga_SecureBitstreamOcmLoad(XFpga *InstancePtr,
 			goto END;
 		}
 	}
-#endif
 
 	if ((InstancePtr->PLInfo.RemaningBytes != 0U) &&
 		((u32)InstancePtr->PLInfo.TotalBitPartCount == 0U)){

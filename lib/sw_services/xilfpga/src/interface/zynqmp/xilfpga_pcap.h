@@ -113,12 +113,9 @@
  *                     duplication
  * 5.0 Nava  28/02/19  Handling all the 4 PS-PL resets irrespective of the
  *                     design configuration.
- * 5.0 Nava  21/03/19  Added Address alingment check. As CSUDMA expects word
+ * 5.0 Nava  21/03/19  Added Address alignment check. As CSUDMA expects word
  *		       aligned address. In case user passes an unaligned
  *		       address return error.
- * 5.0 Nava  22/03/19  Added new API's to support the state machine mechanism
- *                     for bitstream loading to meet the safety requirements
- *                     with PMUFW.
  * 5.0 sne   27/03/19  Fixed misra-c violations.
  * </pre>
  *
