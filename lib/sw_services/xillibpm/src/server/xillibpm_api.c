@@ -1198,6 +1198,9 @@ XStatus XPm_Query(const u32 Qid, const u32 Arg1, const u32 Arg2,
 		case XPM_QID_CLOCK_GET_NUM_CLOCKS:
 			Status = XPmClock_GetNumClocks(Output);
 			break;
+		case XPM_QID_CLOCK_GET_MAX_DIVISOR:
+			Status = XPmClock_GetMaxDivisor(Arg1, Arg2, Output);
+			break;
 		default:
 			Status = XST_INVALID_PARAM;
 			break;

@@ -835,3 +835,27 @@ XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId)
 done:
 	return Status;
 }
+
+XStatus XPmClock_GetMaxDivisor(u32 ClockId, u32 DivType, u32 *Resp)
+{
+	u32 Status = XST_SUCCESS;
+	struct XPm_ClkTopologyNode *Ptr;
+	XPm_OutClockNode *Clk;
+
+	Clk = (XPm_OutClockNode *)XPmClock_GetById(ClockId);
+	if (NULL == Clk) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Ptr = XPmClock_GetTopologyNode(Clk, DivType);
+	if (NULL == Ptr) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	*Resp = BITMASK(Ptr->Param2.Width);
+
+done:
+	return Status;
+}
