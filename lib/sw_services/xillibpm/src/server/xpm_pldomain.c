@@ -34,6 +34,7 @@
 #include "xpm_bisr.h"
 #include "xparameters.h"
 
+
 XCframe CframeIns={0}; /* CFRAME Driver Instance */
 XCfupmc CfupmcIns={0}; /* CFU Driver Instance */
 
@@ -216,6 +217,7 @@ static XStatus GtyHouseClean()
 		PmOut32(GtyBaseAddressList[i] + GTY_PCSR_LOCK_OFFSET, 1);
 	}
 
+#ifndef PLPD_HOUSECLEAN_BYPASS
 	/* Bisr repair - Bisr should be triggered only for Addresses for wich repair
 	 * data is found and so not calling in loop. Trigger is handled in below routine
 	 * */
@@ -234,6 +236,7 @@ static XStatus GtyHouseClean()
 		PmOut32(GtyBaseAddressList[i] + GTY_PCSR_LOCK_OFFSET, 1);
 	}
 done:
+#endif
 	return Status;
 }
 
@@ -256,6 +259,7 @@ static XStatus CpmHouseClean()
 		goto done;
 	}
 
+#ifndef PLPD_HOUSECLEAN_BYPASS
 	/* Bisr */
 	Status = XPmBisr_Repair(CPM_TAG_ID);
 	if (XST_SUCCESS != Status) {
@@ -275,7 +279,7 @@ static XStatus CpmHouseClean()
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
-
+#endif
 	/* Lock PCSR */
 	PmOut32(CPM_PCSR_LOCK, 1);
 
@@ -402,9 +406,7 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 
 	u32 Value = 0;
 
-#ifdef PLPD_HOUSECLEAN_BYPASS
-	return XST_SUCCESS;
-#endif
+#ifndef PLPD_HOUSECLEAN_BYPASS
 
 	/* Enable ROWON */
 	XCframe_WriteCmd(&CframeIns, XCFRAME_FRAME_BCAST,
@@ -492,7 +494,9 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
-
+#endif
+#endif
+#ifdef SPP_HACK
 	/* Set init_complete */
 	PmOut32(CFU_APB_CFU_MASK, CFU_APB_CFU_FGCR_INIT_COMPLETE_MASK);
 	PmOut32(CFU_APB_CFU_FGCR, CFU_APB_CFU_FGCR_INIT_COMPLETE_MASK);
