@@ -82,6 +82,8 @@
 * 1.9   akm 02/27/19 Added support for IS25LP128, IS25WP128, IS25LP256,
 *                     IS25WP256, IS25LP512, IS25WP512 Flash Devices
 * 1.9   akm 04/03/19 Fixed data alignment warnings on IAR compiler.
+* 1.9   akm 04/03/19 Fixed compilation error in XQspiPsu_LqspiRead()
+*                     function on IAR compiler.
 *
 *</pre>
 *
@@ -673,7 +675,6 @@ int main(void)
 int XQspiPsu_LqspiRead(XQspiPsu *InstancePtr, u8 *RecvBufPtr, u32 Address,
 			unsigned ByteCount)
 {
-	void *ReadAddress = NULL;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(RecvBufPtr != NULL);
@@ -686,9 +687,7 @@ int XQspiPsu_LqspiRead(XQspiPsu *InstancePtr, u8 *RecvBufPtr, u32 Address,
 
 	if (XQspiPsu_GetLqspiConfigReg(InstancePtr) &
 			XQSPIPSU_LQSPI_CR_LINEAR_MASK) {
-		ReadAddress +=
-			(XPAR_PSU_QSPI_LINEAR_0_S_AXI_BASEADDR + Address);
-		memcpy(ReadBuffer, ReadAddress, ByteCount);
+		memcpy((void *)ReadBuffer, (const void *)(XPAR_PSU_QSPI_LINEAR_0_S_AXI_BASEADDR + Address), (size_t)ByteCount);
 		return XST_SUCCESS;
 	} else {
 		return XST_FAILURE;
