@@ -77,9 +77,6 @@
  *                      ZynqMP and versal platforms.
  * 5.0  Nava  26/02/19  Update the data handling logic to avoid the code
  *                      duplication
- * 5.0  Nava  22/03/19  Added new API's to support the state machine mechanism
- *                      for bitstream loading to meet the safety requirements
- *                      with PMUFW.
  * 5.0   sne  27/03/19  Fixed misra-c violations.
  * 5.0 Nava   29/03/19  Removed vesal platform related changes.As per the new
  *                      design, the Bitstream loading for versal platform is
@@ -105,12 +102,8 @@ extern "C" {
 #include "xil_printf.h"
 #include "xparameters.h"
 #include "xfpga_config.h"
-#if defined(PLATFORM_ZYNQMP) || (PSU_PMU)
 #include "xilfpga_pcap.h"
 #include "xsecure.h"
-#else
-#include "xilfpga_cfi.h"
-#endif
 
 /**************************** Type Definitions *******************************/
 /**
@@ -137,7 +130,6 @@ typedef struct XFpgatag{
 	u32 (*XFpga_WriteToPl)(struct XFpgatag *InstancePtr);
 	u32 (*XFpga_PostConfig)(struct XFpgatag *InstancePtr);
 	u32 (*XFpga_GetInterfaceStatus)(void);
-	u32 (*XFpga_GetConfigStatus)(struct XFpgatag *InstancePtr);
 	u32 (*XFpga_GetConfigReg)(const struct XFpgatag *InstancePtr);
 	u32 (*XFpga_GetConfigData)(const struct XFpgatag *InstancePtr);
 	XFpga_Info	PLInfo;
@@ -217,8 +209,6 @@ u32 XFpga_Initialize(XFpga *InstancePtr);
 u32 XFpga_PL_BitStream_Load(XFpga *InstancePtr,
 			    UINTPTR BitstreamImageAddr,
 			    UINTPTR AddrPtr_Size, u32 Flags);
-u32 XFpga_PL_Config(XFpga *InstancePtr);
-u32 XFpga_ConfigStatus(XFpga *InstancePtr);
 u32 XFpga_PL_Preconfig(XFpga *InstancePtr);
 u32 XFpga_PL_Write(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
 		   UINTPTR AddrPtr_Size, u32 Flags);
