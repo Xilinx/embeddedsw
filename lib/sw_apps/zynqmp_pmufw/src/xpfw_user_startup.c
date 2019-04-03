@@ -41,6 +41,8 @@
 #include "xpfw_mod_stl.h"
 #include "xpfw_mod_wdt.h"
 
+#include "xpfw_mod_ultra96.h"
+
 #if defined (XPAR_LPD_IS_CACHE_COHERENT) || defined (XPAR_FPD_IS_CACHE_COHERENT) || defined (XPAR_PL_IS_CACHE_COHERENT)
 /*****************************************************************************
 *
@@ -88,4 +90,6 @@ void XPfw_UserStartUp(void)
 	 */
 	ModCustomInit();
 #endif
+
+	ModUltra96Init();
 }
