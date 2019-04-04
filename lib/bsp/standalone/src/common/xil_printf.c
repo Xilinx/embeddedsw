@@ -125,7 +125,7 @@ static void outnum( const s32 n, const s32 base, struct params_s *par)
 		i++;
 	}
 
-    outbuf[i] = 0;
+    outbuf[i] = '\0';
     i--;
 
     /* Move the converted number to the buffer and   */
@@ -181,7 +181,7 @@ static void outnum1( const s64 n, const s32 base, params_t *par)
 		i++;
 	}
 
-    outbuf[i] = 0;
+    outbuf[i] = '\0';
     i--;
 
     /* Move the converted number to the buffer and   */
