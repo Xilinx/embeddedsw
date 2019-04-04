@@ -190,7 +190,7 @@ int XPsmFw_IoModuleInit(u32 DeviceId)
         goto END;
     }
 
-	XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "IO Module init completed\r\n");
+	XPsmFw_Printf(DEBUG_DETAILED, "IO Module init completed\r\n");
 
  	Status = XST_SUCCESS;
 
@@ -268,7 +268,7 @@ void XPsmFw_IntrHandler(void *IntrNumber)
 {
 	u32 l_IrqReg;
 	u32 l_index;
-	XPsmFw_Printf(DEBUG_PRINT_ALWAYS,
+	XPsmFw_Printf(DEBUG_DETAILED,
 	              "Interrupt number = 0x%x\r\n", (u32)IntrNumber);
 	l_IrqReg = XPsmFw_Read32(PSM_IOMODULE_IRQ_PENDING);
 
