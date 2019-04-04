@@ -39,6 +39,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- -----------------------------------------------------
 * 1.0  Jubaer  03/08/2019  Initial creation
+* 1.1  Hyun    04/04/2019  Add the unlock and lock sequences
 * </pre>
 *
 *******************************************************************************/
@@ -71,12 +72,20 @@ u8 XAieLib_NpiShimReset(u8 Reset)
 
 	XAie_AssertNonvoid(Reset == 0 || Reset == 1);
 
+	XAieGbl_NPIWrite32(XAIE_NPI_PCSR_LOCK,
+			   XAIE_NPI_PCSR_LOCK_STATE_UNLOCK_CODE <<
+			   XAIE_NPI_PCSR_LOCK_STATE_LSB);
+
 	XAieGbl_NPIWrite32(XAIE_NPI_PCSR_MASK, 1U <<
 			   XAIE_NPI_PCSR_MASK_SHIM_RESET_LSB);
 
 	RegVal = XAie_SetField(Reset, XAIE_NPI_PCSR_CONTROL_SHIM_RESET_LSB,
 			       XAIE_NPI_PCSR_CONTROL_SHIM_RESET_MSK);
 	XAieGbl_NPIWrite32(XAIE_NPI_PCSR_CONTROL, RegVal);
+
+	XAieGbl_NPIWrite32(XAIE_NPI_PCSR_LOCK,
+			   XAIE_NPI_PCSR_LOCK_STATE_LOCK_CODE <<
+			   XAIE_NPI_PCSR_LOCK_STATE_LSB);
 
 	return XAIE_SUCCESS;
 }
@@ -99,12 +108,20 @@ u8 XAieLib_NpiAieArrayReset(u8 Reset)
 
 	XAie_AssertNonvoid(Reset == 0 || Reset == 1);
 
+	XAieGbl_NPIWrite32(XAIE_NPI_PCSR_LOCK,
+			   XAIE_NPI_PCSR_LOCK_STATE_UNLOCK_CODE <<
+			   XAIE_NPI_PCSR_LOCK_STATE_LSB);
+
 	XAieGbl_NPIWrite32(XAIE_NPI_PCSR_MASK, 1U <<
 			   XAIE_NPI_PCSR_MASK_AIE_ARRAY_RESET_LSB);
 
 	RegVal = XAie_SetField(Reset, XAIE_NPI_PCSR_CONTROL_AIE_ARRAY_RESET_LSB,
 			       XAIE_NPI_PCSR_CONTROL_AIE_ARRAY_RESET_MASK);
 	XAieGbl_NPIWrite32(XAIE_NPI_PCSR_CONTROL, RegVal);
+
+	XAieGbl_NPIWrite32(XAIE_NPI_PCSR_LOCK,
+			   XAIE_NPI_PCSR_LOCK_STATE_LOCK_CODE <<
+			   XAIE_NPI_PCSR_LOCK_STATE_LSB);
 
 	return XAIE_SUCCESS;
 }

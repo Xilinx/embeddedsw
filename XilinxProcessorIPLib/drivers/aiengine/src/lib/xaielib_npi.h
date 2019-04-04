@@ -39,6 +39,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- -----------------------------------------------------
 * 1.0  Jubaer  03/08/2019  Initial creation
+* 1.1  Hyun    04/04/2019  Add the unlock and lock definitions
 * </pre>
 *
 *******************************************************************************/
@@ -62,6 +63,11 @@
 #define XAIE_NPI_PCSR_CONTROL_SHIM_RESET_LSB		27U
 #define XAIE_NPI_PCSR_CONTROL_AIE_ARRAY_RESET_MASK	0x04000000
 #define XAIE_NPI_PCSR_CONTROL_AIE_ARRAY_RESET_LSB	26U
+
+#define XAIE_NPI_PCSR_LOCK				((XAIE_NPI_BASEADDR) + 0X0000000C)
+#define XAIE_NPI_PCSR_LOCK_STATE_LSB			0
+#define XAIE_NPI_PCSR_LOCK_STATE_UNLOCK_CODE		0xF9E8D7C6
+#define XAIE_NPI_PCSR_LOCK_STATE_LOCK_CODE		0x0
 
 /************************** Function Prototypes  *****************************/
 
