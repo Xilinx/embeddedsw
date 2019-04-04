@@ -7,6 +7,7 @@
 #include "xpsmfw_api.h"
 #include "xpsmfw_ipi_manager.h"
 #include "xpsmfw_power.h"
+#include "xpsmfw_gic.h"
 
 #define PACK_PAYLOAD(Payload, Arg0, Arg1)	\
 	Payload[0] = (u32)Arg0;		\
@@ -35,28 +36,16 @@ static XStatus XPsmFw_FpHouseClean(u32 FunctionId)
 		}
 		break;
 	case (u32)FUNC_INIT_FINISH:
-		Status = XPsmFw_FpdPostHouseClean();
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-		break;
-	case (u32)FUNC_SCAN_CLEAR:
-		Status = XPsmFw_FpdScanClear();
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
+		XPsmFw_FpdPostHouseClean();
+		Status = XST_SUCCESS;
 		break;
 	case (u32)FUNC_BISR:
-		Status = XPsmFw_FpdMbisr();
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
+		XPsmFw_FpdMbisr();
+		Status = XST_SUCCESS;
 		break;
 	case (u32)FUNC_MBIST_CLEAR:
-		Status = XPsmFw_FpdMbistClear();
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
+		XPsmFw_FpdMbistClear();
+		Status = XST_SUCCESS;
 		break;
 	default:
 		Status = XST_INVALID_PARAM;
@@ -92,6 +81,10 @@ XStatus XPsmFw_ProcessIpi(u32 *Payload)
 			break;
 		case PSM_API_FPD_HOUSECLEAN:
 			Status = XPsmFw_FpHouseClean(Payload[1]);
+			break;
+		case PSM_API_CCIX_EN:
+			XPsmFw_GicP2IrqEnable();
+			Status = XST_SUCCESS;
 			break;
 		default:
 			Status = XST_INVALID_PARAM;
