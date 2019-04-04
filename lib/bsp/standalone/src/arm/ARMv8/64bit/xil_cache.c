@@ -116,6 +116,8 @@ void Xil_DCacheEnable(void)
 		CtrlReg = mfcp(SCTLR_EL3);
 	} else if (EL1_NONSECURE == 1) {
 		CtrlReg = mfcp(SCTLR_EL1);
+	} else {
+		CtrlReg = 0U;
 	}
 
 	/* enable caches only if they are disabled */
@@ -653,6 +655,8 @@ void Xil_ICacheEnable(void)
 		CtrlReg = mfcp(SCTLR_EL3);
 	} else if (EL1_NONSECURE == 1) {
 		CtrlReg = mfcp(SCTLR_EL1);
+	} else {
+		CtrlReg = 0U;
 	}
 
 	/* enable caches only if they are disabled */
@@ -691,6 +695,8 @@ void Xil_ICacheDisable(void)
 		CtrlReg = mfcp(SCTLR_EL3);
 	} else if (EL1_NONSECURE == 1) {
 		CtrlReg = mfcp(SCTLR_EL1);
+	} else {
+		CtrlReg = 0U;
 	}
 	/* invalidate the instruction cache */
 	Xil_ICacheInvalidate();

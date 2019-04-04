@@ -593,7 +593,7 @@ u32 Xil_GetNextMPURegion(void)
 void* Xil_MemMap(UINTPTR Physaddr, size_t size, u32 flags)
 {
 	size_t Regionsize = MPU_REGION_SIZE_MIN;
-	UINTPTR Basephysaddr;
+	UINTPTR Basephysaddr = Physaddr & ~(Regionsize - 1);
 
 	if (!flags)
 		return (void *)Physaddr;
