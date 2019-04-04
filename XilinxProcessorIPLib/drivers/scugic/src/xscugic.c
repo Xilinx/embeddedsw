@@ -925,7 +925,7 @@ void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Id, u32 Int_Id)
 		RegValue = XScuGic_DistReadReg(InstancePtr,
 				XSCUGIC_IROUTER_OFFSET_CALC(Temp));
 		RegValue |= Cpu_Id;
-		XScuGic_DistWriteReg(InstancePtr, XSCUGIC_IROUTER_OFFSET_CALC(temp),
+		XScuGic_DistWriteReg(InstancePtr, XSCUGIC_IROUTER_OFFSET_CALC(Temp),
 						  (Cpu_Id-1));
 	}
 #else
@@ -967,7 +967,7 @@ void XScuGic_InterruptUnmapFromCpu(XScuGic *InstancePtr, u8 Cpu_Id, u32 Int_Id)
 		RegValue = XScuGic_DistReadReg(InstancePtr,
 				XSCUGIC_IROUTER_OFFSET_CALC(Temp));
 		RegValue &= ~Cpu_Id;
-		XScuGic_DistWriteReg(InstancePtr, XSCUGIC_IROUTER_OFFSET_CALC(temp),
+		XScuGic_DistWriteReg(InstancePtr, XSCUGIC_IROUTER_OFFSET_CALC(Temp),
 						  (Cpu_Id-1));
 	}
 #else
