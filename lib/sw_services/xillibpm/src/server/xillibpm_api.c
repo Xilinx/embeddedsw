@@ -642,6 +642,7 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 {
 	XStatus Status;
 	XPm_Core *Core;
+	u32 CoreSubsystemId;
 
 	/* Warning Fix */
 	(void) (Ack);
@@ -655,6 +656,10 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 	Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
 	if(Core->CoreOps->RequestWakeup) {
 		Status = Core->CoreOps->RequestWakeup(Core, SetAddress, Address);
+		if (XST_SUCCESS == Status) {
+			CoreSubsystemId = XPmDevice_GetSubsystemIdOfCore((XPm_Device *)Core);
+			XPmSubsystem_SetState(CoreSubsystemId, ONLINE);
+		}
 	} else {
 		Status = XST_FAILURE;
 	}
