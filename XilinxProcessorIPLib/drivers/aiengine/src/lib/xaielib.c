@@ -51,6 +51,7 @@
 * 1.8  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.9  Hyun    01/08/2019  Implement 128bit IO operations for baremetal
 * 2.0  Hyun    01/08/2019  Add XAieLib_MaskPoll()
+* 2.1  Hyun    04/05/2019  NPI support for simulation
 * </pre>
 *
 ******************************************************************************/
@@ -936,8 +937,7 @@ u32 XAieLib_MaskPoll(u64 Addr, u32 Mask, u32 Value, u32 TimeOutUs)
 u32 XAieLib_NPIRead32(u64 Addr)
 {
 #ifdef __AIESIM__
-	/* TODO: add the NPI accessor */
-	return 0;
+	return XAieSim_NPIRead32(Addr);
 #elif defined __AIEBAREMTL__
         return Xil_In32(Addr);
 #else
@@ -961,7 +961,7 @@ u32 XAieLib_NPIRead32(u64 Addr)
 void XAieLib_NPIWrite32(u64 Addr, u32 Data)
 {
 #ifdef __AIESIM__
-	/* TODO: add the NPI accessor */
+	XAieSim_NPIWrite32(Addr, Data);
 #elif defined __AIEBAREMTL__
         Xil_Out32(Addr, Data);
 #else
@@ -989,7 +989,7 @@ void XAieLib_NPIMaskWrite32(u64 Addr, u32 Mask, u32 Data)
 	u32 RegVal;
 
 #ifdef __AIESIM__
-	/* TODO: add the NPI accessor */
+	XAieSim_NPIMaskWrite32(Addr, Mask, Data);
 #elif defined __AIEBAREMTL__
         RegVal = Xil_In32(Addr);
 	RegVal &= ~Mask;
@@ -1024,7 +1024,9 @@ u32 XAieLib_NPIMaskPoll(u64 Addr, u32 Mask, u32 Value, u32 TimeOutUs)
 	u32 Ret = XAIELIB_FAILURE;
 
 #ifdef __AIESIM__
-	/* TODO: add the NPI accessor */
+	if (XAieSim_NPIMaskPoll(Addr, Mask, Value, TimeOutUs) == XAIESIM_SUCCESS) {
+		Ret = XAIELIB_SUCCESS;
+	}
 #else
 	u32 Count, MinTimeOutUs;
 
