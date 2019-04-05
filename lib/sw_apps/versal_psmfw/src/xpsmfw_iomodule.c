@@ -53,7 +53,6 @@
 #include "psm_global.h"
 
 #define XPSMFW_MB_MSR_BIP_MASK		(0x8U)
-#define XPSMFW_MB_MSR_IE_MASK		(0x2U)
 
 static XIOModule IOModule;
 
@@ -250,15 +249,7 @@ int SetUpInterruptSystem(void)
 
 	microblaze_enable_exceptions();
 
-	/* microblaze_enable_interrupts(); */
-
-	/*
-	 * FIXME: Currently, IE bit in MSR is not being set when
-	 * microblaze_enable_interrupts() API is called. So set
-	 * this bit manually to receive interrupt. Remove this
-	 * hack when issue has been fixed.
-	 */
-	mtmsr(mfmsr() | XPSMFW_MB_MSR_IE_MASK);
+	microblaze_enable_interrupts();
 
 	/*
 	 * Clear Break in progress to get interrupts
