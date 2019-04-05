@@ -639,6 +639,21 @@ END:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * This function is used to reload the image only in PDI. This function will
+ * take ImageId as an input and based on the subsystem info available, it will
+ * read the image partitions and loads them.
+ *
+ * @param ImageId Id of the image present in PDI
+ *
+ * @return      returns XLOADER_SUCCESS on success
+ *****************************************************************************/
+int XLoader_ReloadImage(u32 ImageId)
+{
+        return XLoader_LoadImage(SubSystemInfo.PdiPtr, ImageId);
+}
+
 #if 0
 /*****************************************************************************/
 /**

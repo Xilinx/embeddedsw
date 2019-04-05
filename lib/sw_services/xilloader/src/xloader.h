@@ -214,6 +214,7 @@ int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr);
 int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId);
 int XLoader_StartImage(XilPdi *PdiPtr);
 int XLoader_RestartImage(u32 ImageId);
+int XLoader_ReloadImage(u32 ImageId);
 void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi);
 
 /* functions defined in xloader_prtn_load.c */
