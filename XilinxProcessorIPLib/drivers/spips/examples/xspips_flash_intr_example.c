@@ -280,7 +280,7 @@ int SpiPsFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
 	u32 Platform;
 
 	Platform = XGetPlatform_Info();
-	if ((Platform == XPLAT_ZYNQ_ULTRA_MP) || (Platform == XPLAT_versal)) {
+	if ((Platform == XPLAT_ZYNQ_ULTRA_MP) || (Platform == XPLAT_VERSAL)) {
 		MaxSize = 1024 * 10;
 		ChipSelect = FLASH_SPI_SELECT_0;	/* Device is on CS 0 */
 		SpiIntrId = XPAR_XSPIPS_0_INTR;

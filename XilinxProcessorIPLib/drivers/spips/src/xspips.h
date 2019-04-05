@@ -252,6 +252,9 @@
 *                       in safety mode and done changes such as
 *                       Declared the pointer param as Pointer to const.
 * 3.2   nsk    03/26/19 Add support for versal - CR #1025583.
+* 3.3   mus    04/05/19 Replaced XPLAT_versal macro with XPLAT_VERSAL, to be in
+*                       sync with standalone BSP
+
 * </pre>
 *
 ******************************************************************************/

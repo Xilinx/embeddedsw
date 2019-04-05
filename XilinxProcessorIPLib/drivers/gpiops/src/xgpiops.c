@@ -128,7 +128,7 @@ s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, const XGpioPs_Config *ConfigPtr,
 		InstancePtr->MaxPinNum = (u32)174;
 		InstancePtr->MaxBanks = (u8)6;
 	}
-        else if (InstancePtr->Platform == (u32)XPLAT_versal)
+        else if (InstancePtr->Platform == (u32)XPLAT_VERSAL)
         {
                 if(InstancePtr->PmcGpio == (u32)FALSE)
                 {
@@ -168,7 +168,7 @@ s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, const XGpioPs_Config *ConfigPtr,
 	 * interrupts for all pins in all the 4 banks.
 	 */
 	for (i=(u8)0U;i<InstancePtr->MaxBanks;i++) {
-                if (InstancePtr->Platform == XPLAT_versal){
+                if (InstancePtr->Platform == XPLAT_VERSAL){
                         if(InstancePtr->PmcGpio == (u32)FALSE)
                         {
                                 if((i== (u8)XGPIOPS_ONE)||(i== (u8)XGPIOPS_TWO))
@@ -730,7 +730,7 @@ void XGpioPs_GetBankPin(u8 PinNumber, u8 *BankNumber, u8 *PinNumberInBank)
 		}
 	}
 #ifdef versal
-        else if(Platform == XPLAT_versal)
+        else if(Platform == XPLAT_VERSAL)
         {
                 if(InstancePtr->PmcGpio == (u32)(FALSE))
                 {
@@ -800,7 +800,7 @@ void XGpioPs_GetBankPin(u8 PinNumber, u8 *BankNumber, u8 *PinNumberInBank)
 	}
 
 #ifdef versal
-        else if(Platform == XPLAT_versal)
+        else if(Platform == XPLAT_VERSAL)
         {
                 if(InstancePtr->PmcGpio == (u32)(FALSE))
                 {

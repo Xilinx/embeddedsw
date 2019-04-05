@@ -90,7 +90,7 @@ void XGpioPs_ResetHw(u32 BaseAddress)
         if (Platform == (u32)XPLAT_ZYNQ_ULTRA_MP) {
                 MaxBanks = (u32)6;
         }
-        else if(Platform == (u32)XPLAT_versal)
+        else if(Platform == (u32)XPLAT_VERSAL)
         {
                 if (BaseAddress == (u32)XGPIOPS_PS_GPIO_BASEADDR)
                 {
@@ -105,7 +105,7 @@ void XGpioPs_ResetHw(u32 BaseAddress)
                 MaxBanks = (u32)4;
         }
 
-        if (Platform == (u32)XPLAT_versal)
+        if (Platform == (u32)XPLAT_VERSAL)
         {
                 /* Write reset values to all mask data registers */
                 for(BankCount = 3U; BankCount < (u32)MaxBanks; BankCount++) {
