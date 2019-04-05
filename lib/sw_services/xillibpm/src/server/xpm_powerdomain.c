@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -451,7 +451,8 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 
 	switch (Function) {
 	case FUNC_INIT_START:
-		if (XPM_POWER_STATE_OFF != PwrDomain->Power.Node.State) {
+		if ((XPM_POWER_STATE_OFF != PwrDomain->Power.Node.State) &&
+		    (XPM_POWER_STATE_PWR_UP_SELF != PwrDomain->Power.Node.State)) {
 			Status = XST_FAILURE;
 			goto done;
 		}
