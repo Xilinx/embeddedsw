@@ -52,7 +52,7 @@
 #                     on -mfpu-abi option in extra compiler flags.
 # 6.8   mus  09/10/18 Updated tcl to add -hier option while using
 #                     get_cells command.
-# 7.0   mus  03/27/19 Added procs to check if specific address space is
+# 7.1   mus  03/27/19 Added procs to check if specific address space is
 #                     accessible to the cortexr5 processor CR#1015725
 #
 ##############################################################################

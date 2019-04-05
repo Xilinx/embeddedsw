@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -74,7 +74,7 @@
 * 6.8  mus   09/20/18 Clear VINITHI field in RPU_0_CFG/RPU_1_CFG
 *		      registers to initialize CortexR5 core with LOVEC
 *		      on reset. It fixes CR#1010656.
-* 7.0  mus  03/27/19  Skip reading/writing to the RPU address space registers,
+* 7.1  mus  03/27/19  Skip reading/writing to the RPU address space registers,
 *		      in case if processor is nonsecure and RPU
 *		      address space is secure. CR#1015725.
 * </pre>

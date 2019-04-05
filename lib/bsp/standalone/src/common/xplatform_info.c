@@ -87,7 +87,7 @@
 u32 XGetPlatform_Info()
 {
 #if defined (versal)
-	return XPLAT_versal;
+	return XPLAT_VERSAL;
 #elif defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU)
 	return XPLAT_ZYNQ_ULTRA_MP;
 #elif (__microblaze__)
