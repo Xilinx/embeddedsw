@@ -172,7 +172,7 @@ int GpioPolledExample(u16 DeviceId, u32 *DataRead)
 			Output_Pin = 10;
 			break;
 
-                case XPLAT_versal:
+                case XPLAT_VERSAL:
 			Input_Pin = 14;
 			Output_Pin = 88;
                         break;
