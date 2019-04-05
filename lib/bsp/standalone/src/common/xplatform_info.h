@@ -77,7 +77,7 @@ extern "C" {
 #define XPLAT_ZYNQ_ULTRA_MPQEMU 0x3
 #define XPLAT_ZYNQ 0x4
 #define XPLAT_MICROBLAZE 0x5
-#define XPLAT_versal 0x6U
+#define XPLAT_VERSAL 0x6U
 
 #define XPS_VERSION_1 0x0
 #define XPS_VERSION_2 0x1
