@@ -54,6 +54,7 @@
 *                          support. CR-1012480
 * 1.8  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.9  Hyun    01/08/2018  Add the MaskPoll
+* 2.0  Hyun    04/05/2018  NPI support
 * </pre>
 *
 ******************************************************************************/
@@ -85,6 +86,11 @@ typedef struct XAieSim_IO_Funcs {
 	void (*WriteCmd)(uint8 Command, uint8 ColId, uint8 RowId,
 			uint32 CmdWd0, uint32 CmdWd1, uint8 *CmdStr);
 	uint32 (*MaskPoll)(uint64_t Addr, uint32 Mask, uint32 Value,
+			uint32 TimeOutUs);
+	uint32(*NpiRead32)(uint64_t Addr);
+	void(*NpiWrite32)(uint64_t Addr, uint32 Data);
+	void(*NpiMaskWrite32)(uint64_t Addr, uint32 Mask, uint32 Data);
+	uint32(*NpiMaskPoll)(uint64_t Addr, uint32 Mask, uint32 Value,
 			uint32 TimeOutUs);
 } XAieSim_IO_Funcs;
 
@@ -173,6 +179,10 @@ static const XAieSim_IO_Funcs Cdo_IO_Funcs = {
 	.Write128 = XAieSim_CdoWrite128,
 	.WriteCmd = XAieSim_CdoWriteCmd,
 	.MaskPoll = XAieSim_CdoMaskPoll,
+	.NpiRead32 = XAieSim_CdoRead32,
+	.NpiWrite32 = XAieSim_CdoWrite32,
+	.NpiMaskWrite32 = XAieSim_CdoMaskWrite32,
+	.NpiMaskPoll = XAieSim_CdoMaskPoll,
 };
 
 /*
@@ -233,6 +243,43 @@ static inline uint32 XAieSim_EssMaskPoll(uint64_t Addr, uint32 Mask,
 	return Ret;
 }
 
+static inline uint32 XAieSim_EssNpiRead32(uint64_t Addr)
+{
+	return ess_NpiRead32(Addr);
+}
+
+static inline void XAieSim_EssNpiWrite32(uint64_t Addr, uint32 Data)
+{
+	ess_NpiWrite32(Addr, Data);
+}
+
+static inline void XAieSim_EssNpiMaskWrite32(uint64_t Addr, uint32 Mask,
+		uint32 Data)
+{
+	uint32 RegVal = ess_NpiRead32(Addr);
+
+	RegVal &= ~Mask;
+	RegVal |= Data;
+	ess_NpiWrite32(Addr, RegVal);
+}
+
+static inline uint32 XAieSim_EssNpiMaskPoll(uint64_t Addr, uint32 Mask,
+	uint32 Value, uint32 TimeOutUs)
+{
+	uint32 Ret = XAIESIM_FAILURE;
+
+	while (TimeOutUs > 0U) {
+		if ((ess_NpiRead32(Addr) & Mask) == Value) {
+			Ret = XAIESIM_SUCCESS;
+			break;
+		}
+		usleep(1);
+		TimeOutUs--;
+	}
+
+	return Ret;
+}
+
 static const XAieSim_IO_Funcs Ess_IO_Funcs = {
 	.Read32 = XAieSim_EssRead32,
 	.Read128 = XAieSim_EssRead128,
@@ -241,6 +288,10 @@ static const XAieSim_IO_Funcs Ess_IO_Funcs = {
 	.Write128 = XAieSim_EssWrite128,
 	.WriteCmd = XAieSim_EssWriteCmd,
 	.MaskPoll = XAieSim_EssMaskPoll,
+	.NpiRead32 = XAieSim_EssNpiRead32,
+	.NpiWrite32 = XAieSim_EssNpiWrite32,
+	.NpiMaskWrite32 = XAieSim_EssNpiMaskWrite32,
+	.NpiMaskPoll = XAieSim_EssNpiMaskPoll,
 };
 #endif
 
@@ -569,6 +620,82 @@ void XAieSim_Init(uint8 NumCols, uint8 NumRows)
                 }
         }
 #endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the memory IO function to read 32bit data from the NPI space.
+*
+* @param	Addr: Address to read from.
+*
+* @return	32-bit read value.
+*
+* @note		None.
+*
+*******************************************************************************/
+uint32 XAieSim_NPIRead32(uint64_t Addr)
+{
+	return IO_Funcs->NpiRead32(Addr);
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the memory IO function to write 32bit data to the NPI space.
+*
+* @param	Addr: Address to write to.
+* @param	Data: 32-bit data to be written.
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void XAieSim_NPIWrite32(uint64_t Addr, uint32 Data)
+{
+	IO_Funcs->NpiWrite32(Addr, Data);
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the memory IO function to mask-write 32bit data to the NPI space.
+*
+* @param	Addr: Address to write to.
+* @param	Mask: Mask to be applied.
+* @param	Data: 32-bit data to be written.
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void XAieSim_NPIMaskWrite32(uint64_t Addr, uint32 Mask, uint32 Data)
+{
+	IO_Funcs->NpiMaskWrite32(Addr, Mask, Data);
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the IO function to poll until the value at the NPI address space to
+* be given masked value.
+*
+* @param	Addr: Address to write to.
+* @param	Mask: Mask to be applied to read data.
+* @param	Value: The expected value
+* @param	TimeOutUs: Minimum timeout in usec.
+*
+* @return	XAIESIM_SUCCESS if successful, else XAIESIM_FAILURE.
+*
+* @note		None.
+*
+*******************************************************************************/
+uint32 XAieSim_NPIMaskPoll(uint64_t Addr, uint32 Mask, uint32 Value,
+		uint32 TimeOutUs)
+{
+	return IO_Funcs->NpiMaskPoll(Addr, Mask, Value, TimeOutUs);
 }
 
 /** @} */
