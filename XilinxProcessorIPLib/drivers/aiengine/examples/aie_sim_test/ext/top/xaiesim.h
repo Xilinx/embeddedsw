@@ -50,6 +50,7 @@
 * 1.8  Hyun    10/16/2018  Added XAieSim_SetIOMode and mask write APIs
 * 1.9  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 2.0  Hyun    01/08/2018  Add the MaskPoll
+* 2.1  Hyun    04/05/2018  NPI support
 * </pre>
 *
 ******************************************************************************/
@@ -109,6 +110,11 @@ uint32 XAieSim_MaskPoll(uint64_t Addr, uint32 Mask, uint32 Value, uint32 TimeOut
 void XAieSim_Init(uint8 NumCols, uint8 NumRows);
 
 uint8 XAieSim_SetIOMode(uint8 Mode);
+
+uint32 XAieSim_NPIRead32(uint64_t Addr);
+void XAieSim_NPIWrite32(uint64_t Addr, uint32 Data);
+void XAieSim_NPIMaskWrite32(uint64_t Addr, uint32 Mask, uint32 Data);
+uint32 XAieSim_NPIMaskPoll(uint64_t Addr, uint32 Mask, uint32 Value, uint32 TimeOutUs);
 
 #endif		/* end of protection macro */
 /** @} */
