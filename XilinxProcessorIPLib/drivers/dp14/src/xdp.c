@@ -1795,6 +1795,41 @@ void XDp_RxAudioDis(XDp *InstancePtr)
 
 /******************************************************************************/
 /**
+ * This function enables MST audio for a given stream on the main link.
+ *
+ * @param      InstancePtr is a pointer to the XDp instance.
+ * @param      Stream id
+ *
+ * @return      None.
+ *
+ * @note        None.
+ *
+ **********************************************************************************/
+void XDp_Rx_Mst_AudioEn(XDp *InstancePtr, u8 StreamId)
+{
+
+	u32 ReadVal;
+
+	/* Verify arguments. */
+        Xil_AssertVoid(InstancePtr != NULL);
+        Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+        Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+
+	Xil_AssertVoid((StreamId == XDP_RX_STREAM_ID1) ||
+                        (StreamId == XDP_RX_STREAM_ID2) ||
+                        (StreamId == XDP_RX_STREAM_ID3) ||
+                        (StreamId == XDP_RX_STREAM_ID4));
+
+	ReadVal = (StreamId - 1) <<  XDP_RX_AUDIO_CONTROL_LANEX_SET_SHIFT ;
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_AUDIO_CONTROL,
+                       ReadVal);
+
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_AUDIO_CONTROL,
+			(ReadVal | 0x1));
+}
+
+/******************************************************************************/
+/**
  * This function resets the RX core's reception of audio stream packets on the
  * main link.
  *
@@ -3643,6 +3678,63 @@ static u32 XDp_TxSetClkSpeed(XDp *InstancePtr, u32 Speed)
 
 	return XST_SUCCESS;
 }
+
+/******************************************************************************/
+/**
+ * This function enables MST-TX audio for a given stream on the main link.
+ *
+ * @param      InstancePtr is a pointer to the XDp instance.
+ * @param      Stream id
+ *
+ * @return      None.
+ *
+ * @note        None.
+ *
+ **********************************************************************************/
+void XDp_Tx_Mst_AudioEn(XDp *InstancePtr, u8 StreamId)
+{
+
+        u32 ReadVal;
+
+        /* Verify arguments. */
+        Xil_AssertVoid(InstancePtr != NULL);
+        Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+        Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+
+        Xil_AssertVoid((StreamId == XDP_TX_STREAM_ID1) ||
+                        (StreamId == XDP_TX_STREAM_ID2) ||
+                        (StreamId == XDP_TX_STREAM_ID3) ||
+                        (StreamId == XDP_TX_STREAM_ID4));
+
+        ReadVal = (StreamId - 1) <<  XDP_TX_AUDIO_CONTROL_LANEX_SET_SHIFT ;
+        XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL,
+                       ReadVal);
+
+        XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL,
+                        (ReadVal | 0x1));
+}
+
+/******************************************************************************/
+/**
+ * This function disables MST-TX audio stream packets on the main link.
+ *
+ * @param       InstancePtr is a pointer to the XDp instance.
+ *
+ * @return      None.
+ *
+ * @note        None.
+ *
+ *******************************************************************************/
+void XDp_TxAudioDis(XDp *InstancePtr)
+{
+        /* Verify arguments. */
+        Xil_AssertVoid(InstancePtr != NULL);
+        Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+        Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+
+        XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, 0x0);
+}
+
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 /******************************************************************************/

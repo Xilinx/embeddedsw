@@ -1204,6 +1204,8 @@ void XDpTxSs_SetUserPixelWidth(XDpTxSs *InstancePtr, u8 UserPixelWidth,
 	Xil_AssertVoid((StreamId == 1) || (StreamId == 2) ||
                        (StreamId == 3) || (StreamId == 4));
 
+
+	MsaConfig = &InstancePtr->DpPtr->TxInstance.MsaConfig[StreamId - 1];
 	/* Update user pixel width */
 	MsaConfig->UserPixelWidth = UserPixelWidth;
 }

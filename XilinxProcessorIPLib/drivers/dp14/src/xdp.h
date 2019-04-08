@@ -773,7 +773,7 @@ typedef struct {
 						address in order to set a read
 						offset or set the segment
 						pointer. */
-	u8 ReadNumBytes;		/**< The total number of available data
+	u16 ReadNumBytes;		/**< The total number of available data
 						bytes at this I2C address. */
 	u8 *ReadData;			/**< The data available at the specified
 						I2C address. User-defined by
@@ -1369,6 +1369,7 @@ u8 XDp_IsLinkRateValid(XDp *InstancePtr, u8 LinkRate);
 /* xdp.c: Audio functions. */
 void XDp_RxAudioEn(XDp *InstancePtr);
 void XDp_RxAudioDis(XDp *InstancePtr);
+void XDp_Rx_Mst_AudioEn(XDp *InstancePtr, u8 StreamId);
 void XDp_RxAudioReset(XDp *InstancePtr);
 void XDp_RxVSCEn(XDp *InstancePtr);
 void XDp_RxVSCDis(XDp *InstancePtr);
@@ -1413,6 +1414,8 @@ void XDp_TxMstCfgModeDisable(XDp *InstancePtr);
 u32 XDp_TxMstCapable(XDp *InstancePtr);
 u32 XDp_TxMstEnable(XDp *InstancePtr);
 u32 XDp_TxMstDisable(XDp *InstancePtr);
+void XDp_TxAudioDis(XDp *InstancePtr);
+void XDp_Tx_Mst_AudioEn(XDp *InstancePtr, u8 StreamId);
 
 /* xdp_mst.c: Multi-stream transport (MST) functions for enabling or disabling
  * MST streams and selecting their associated target sinks. */
@@ -1481,7 +1484,7 @@ u32 XDp_RxHandleDownReq(XDp *InstancePtr);
 XDp_RxIicMapEntry *XDp_RxGetIicMapEntry(XDp *InstancePtr, u8 PortNum,
 								u8 IicAddress);
 u32 XDp_RxSetIicMapEntry(XDp *InstancePtr, u8 PortNum, u8 IicAddress,
-						u8 ReadNumBytes, u8 *ReadData);
+						u16 ReadNumBytes, u8 *ReadData);
 void XDp_RxSetDpcdMap(XDp *InstancePtr, u8 PortNum, u32 StartAddr, u32 NumBytes,
 								u8 *DpcdMap);
 void XDp_RxMstExposePort(XDp *InstancePtr, u8 PortNum, u8 Expose);
