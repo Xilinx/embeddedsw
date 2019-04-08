@@ -109,19 +109,20 @@ int XPlm_LoadBootPdi(void *arg)
 	XPlmi_Printf(DEBUG_INFO, "PDI Load: Started\n\r");
 
 	PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL;
-	Status = XLoader_PdiInit(PdiPtr, BootMode, 0U);
-	if (Status != XST_SUCCESS)
-	{
-		goto END;
-	}
-
-    Status = XLoader_LoadAndStartSubSystemPdi(PdiPtr);
+	Status = XLoader_LoadPdi(PdiPtr, BootMode, 0U);
 	if (Status != XST_SUCCESS)
 	{
 		goto END;
 	}
 
 	XPlmi_Printf(DEBUG_INFO, "PDI Load: Done\n\r");
+
 END:
+	XLoader_ClearIntrSbiDataRdy();
+	/**
+	 * Enable the SBI RDY interrupt to get the next PDI
+	 */
+	XPlmi_PlmIntrEnable(XPLMI_SBI_DATA_RDY);
+
 	return Status;
 }
