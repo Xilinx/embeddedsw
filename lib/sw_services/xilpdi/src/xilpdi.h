@@ -93,7 +93,7 @@ extern "C" {
 #define XIH_IHT_IH_ADDR_OFST		(0x8U)
 #define XIH_IHT_NO_OF_PRTNS_OFST	(0xCU)
 #define XIH_IHT_PH_ADDR_OFST		(0x10U)
-#define XIH_IHT_PPD_OFST		(0x14U)
+#define XIH_IHT_SBD_ADDR_OFST		(0x14U)
 #define XIH_IHT_IDCODE			(0x18U)
 #define XIH_IHT_ATTR			(0x1CU)
 #define XIH_IHT_CHECKSUM_OFST		(0x3CU)
@@ -122,16 +122,10 @@ extern "C" {
 #define XIH_PH_RSVD_x38				(0x38U)
 #define XIH_PH_CHECKSUM				(0x3CU)
 
-/* Prtn Present Devices(PPD) in IHT */
-#define XIH_IHT_PPD_SAME	        (0x0U)
-#define XIH_IHT_PPD_QSPI	        (0x1U)
-#define XIH_IHT_PPD_NAND	        (0x2U)
-#define XIH_IHT_PPD_SD				(0x3U)
-#define XIH_IHT_PPD_MMC		        (0x4U)
-#define XIH_IHT_PPD_USB				(0x5U)
-#define XIH_IHT_PPD_ETHERNET		(0x6U)
-#define XIH_IHT_PPD_PCIE	        (0x7U)
-#define XIH_IHT_PPD_SATA	        (0x8U)
+/* Secondary Boot Device (SBD) in IHT Attributes */
+#define XIH_IHT_ATTR_SBD_MASK	        (0x3FU<<6U)
+#define XIH_IHT_ATTR_SBD_SAME	        (0x0U<6U)
+#define XIH_IHT_ATTR_SBD_PCIE	        (0xAU<<6U)
 
 /* Prtn Attribute fields */
 #define XIH_PH_ATTRB_PRTN_TYPE_MASK		(0x7000000U)
@@ -216,7 +210,7 @@ extern "C" {
  */
 #define XILPDI_ERR_IHT_CHECKSUM		(0x1U)
 #define XILPDI_ERR_NO_OF_PRTNS		(0x2U)
-#define XILPDI_ERR_PPD			(0x3U)
+#define XILPDI_ERR_SBD			(0x3U)
 #define XILPDI_ERR_ZERO_LENGTH		(0x4U)
 #define XILPDI_ERR_TOTAL_LENGTH		(0x5U)
 #define XILPDI_ERR_PRTN_TYPE		(0x6U)
@@ -270,8 +264,7 @@ typedef struct {
 	u32 ImgHdrAddr; /**< Address to start of 1st Image header*/
 	u32 NoOfPrtns; /**< No of partitions present  */
 	u32 PrtnHdrAddr; /**< Address to start of 1st partition header*/
-	u32 PrtnPresentDevice; /**< Partition present device for secondary
-				boot mode support */
+	u32 SBDAddr; /**< Secondary Boot device address */
 	u32 Idcode; /**< Device ID Code */
 	u32 Attr; /**< Attributes */
 	u32 Rsvd[7]; /**< Reserved */
@@ -348,6 +341,7 @@ u32 XilPdi_GetPrtnType(const XilPdi_PrtnHdr * PrtnHdr);
 u32 XilPdi_IsEnc(const XilPdi_PrtnHdr * PrtnHdr);
 u32 XilPdi_GetA72ExecState(const XilPdi_PrtnHdr * PrtnHdr);
 u32 XilPdi_GetVecLocation(const XilPdi_PrtnHdr * PrtnHdr);
+u32 XilPdi_GetSBD(const XilPdi_ImgHdrTable * ImgHdrTbl);
 
 XStatus XilPdi_ValidateChecksum(u32 Buffer[], u32 Len);
 XStatus XilPdi_ValidatePrtnHdr(XilPdi_PrtnHdr * PrtnHdr);
