@@ -295,6 +295,44 @@ DDR end address is not fixed at 2GB but derived from Vivado
 Using XilPM XPm_SetConfiguration API instead of using direct IPI calls for
 communicating with PMUFW.
 
+xilpm_v2_4:
+Add checksum support for IPI data
+Misra C fixes in XilPm
+Support for IAR compier
+Deprecated PM_SECURE_RSA_AES
+
+zynqmp_pmufw:
+Store and restore LPD SLCR_SECURE registers during POS.
+Idle nodes only once even if they are assigned to multiple masters.
+Add support to idle and reset all twelve TTCs.
+Misra C fixes in PMU Firmware.
+Set LPD WDT error action after FSBL completion as FSBL disables before
+exiting.
+Store FSBL to reserved DDR and restore before performing APU-only restart.
+Added missing cpp protection macros to the PMU header files.
+Update to XilFPGA APIs to support latest 5.0 version.
+Validate reason for abort suspend.
+Fix CRC checksum related issues in IPI messaging.
+Added permission check for modifying error actions over IPI.
+Creat custom FSM handler for GPU nodes to handle the states of PP0 and PP1.
+Bypass DDR related code if DDR is not present in the design.
+Check for parent node in PmSlaveGetWakeUpLatency to avoid access to invalid
+memory.
+Bypass DDR ECC poll if DDR ECC is not enabled.
+Register handler and trigger FW error when Assert occurs.
+Add hook for custom module in PMU Firmware.
+Check for NULL before calling get reset status operations to avoid access to
+invalid memory.
+Add handler for EMIO get reset status.
+Leave MIO34 tristated and connect to PMU GPO only when it need to be driven.
+low when user configures through macros.
+Handle PLL lock errors during PLL reset.
+Remove APU access to LPD WDT clock register over MMIO read/write.
+Added PMU RAM ECC error injection STL during startup.
+Disabled the error actions once before processing the ActionId.
+Fixed DDR_reinit incorrectly checks for PLL lock on unused PLLs.
+Add check for no of users for vpll.
+Add support for Ultra96 power button.
 
 Changes for 2018.3.1
 ===============================
