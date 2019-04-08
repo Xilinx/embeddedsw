@@ -52,7 +52,7 @@ microblaze_disable_dcache:
     BRLID   r15, microblaze_flush_dcache /* microblaze_flush_dcache does not use r1*/
     nop
     LI     r15, r1, 0
-    ADDI    r1, r1, 8
+    ADDIK    r1, r1, 8
 #endif /* XPAR_MICROBLAZE_DCACHE_USE_WRITEBACK != 0 */
 	rtsd	r15, 8
 	msrclr r0, 0x80
@@ -74,8 +74,9 @@ microblaze_disable_dcache:
     LI     r15, r1, 0
 #endif /* XPAR_MICROBLAZE_DCACHE_USE_WRITEBACK != 0 */
 
+	ADDIK	r1, r1, 8
 	rtsd	r15, 8
-	ADDI	r1, r1, 8
+	nop
 
 #endif /*XPAR_MICROBLAZE_USE_MSR_INSTR == 1*/
         .end	microblaze_disable_dcache
