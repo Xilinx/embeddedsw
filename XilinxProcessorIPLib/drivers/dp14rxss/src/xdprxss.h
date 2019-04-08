@@ -531,6 +531,39 @@ typedef struct {
 #define XDpRxSs_AudioReset(InstancePtr) \
 	XDp_RxAudioReset((InstancePtr)->DpPtr)
 
+
+/*****************************************************************************/
+/**
+ * This function macro enables MST audio on a given stream on the main link.
+ *
+ * @param      InstancePtr is a pointer to the XDpRxSs core instance.
+ * @param      Stream Id to be enabled audio
+ *
+ * @return     None.
+ *
+ * @note       C-style signature:
+ *             void XDpRxSs_Mst_AudioEnable(XDpRxSs *InstancePtr, u8 StreamId)
+ *
+ *******************************************************************************/
+#define XDpRxSs_Mst_AudioEnable(InstancePtr, StreamId) \
+        XDp_Rx_Mst_AudioEn((InstancePtr)->DpPtr, StreamId)
+
+/*****************************************************************************/
+/**
+ *
+ * This function macro disables audio on a given stream on the main link.
+ *
+ * @param        InstancePtr is a pointer to the XDpRxSs core instance.
+ *
+ * @return       None.
+ *
+ * @note         C-style signature:
+ *               void XDpRxSs_Mst_AudioDisable(XDpRxSs *InstancePtr)
+ *
+ ******************************************************************************/
+#define XDpRxSs_Mst_AudioDisable(InstancePtr) \
+	XDp_RxAudioDis((InstancePtr)->DpPtr)
+
 /******************************************************************************/
 /**
 *

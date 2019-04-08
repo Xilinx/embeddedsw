@@ -530,6 +530,38 @@ void XDpTxSs_HpdPulseProcess(void *InstancePtr);
 #define XDpTxSs_CfgMsaEnSynchClkMode(InstancePtr, Stream, Enable) \
 	XDp_TxCfgMsaEnSynchClkMode((InstancePtr)->DpPtr, (Sream), (Enable))
 
+/*****************************************************************************/
+/**
+ * This function macro enables MST-TX audio on a given stream on the main link.
+ *
+ * @param      InstancePtr is a pointer to the XDpTxSs core instance.
+ * @param      Stream Id to be enabled audio
+ *
+ * @return     None.
+ *
+ * @note       C-style signature:
+ *             void XDpTxSs_Mst_AudioEnable(XDpTxSs *InstancePtr, u8 StreamId)
+ *
+ *******************************************************************************/
+#define XDpTxSs_Mst_AudioEnable(InstancePtr, StreamId) \
+        XDp_Tx_Mst_AudioEn((InstancePtr)->DpPtr, StreamId)
+
+/*****************************************************************************/
+/**
+ *
+ * This function macro disables audio on a given stream on the main link.
+ *
+ * @param        InstancePtr is a pointer to the XDpTxSs core instance.
+ *
+ * @return       None.
+ *
+ * @note         C-style signature:
+ *               void XDpTxSs_Mst_AudioDisable(XDpTxSs *InstancePtr)
+ *
+ ******************************************************************************/
+#define XDpTxSs_Mst_AudioDisable(InstancePtr) \
+        XDp_TxAudioDis((InstancePtr)->DpPtr)
+
 #ifdef __cplusplus
 }
 #endif

@@ -2472,7 +2472,7 @@ XDp_RxIicMapEntry *XDp_RxGetIicMapEntry(XDp *InstancePtr, u8 PortNum,
  *
 *******************************************************************************/
 u32 XDp_RxSetIicMapEntry(XDp *InstancePtr, u8 PortNum, u8 IicAddress,
-						u8 ReadNumBytes, u8 *ReadData)
+						u16 ReadNumBytes, u8 *ReadData)
 {
 	XDp_RxIicMapEntry *IicMapEntry;
 

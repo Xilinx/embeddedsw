@@ -2243,6 +2243,10 @@
 				0x80000000	/**< Use DFE control. */
 #define XDP_RX_CDR_CONTROL_CONFIG_DISABLE_TIMEOUT \
 				0X40000000	/**< Timeout for MST mode. */
+
+/* 0x300: AUDIO CONTROL */
+#define XDP_RX_AUDIO_CONTROL_LANEX_SET_SHIFT   4
+
 /* Definitions for DP 1.4. */
 /* 0x43C: Link training status reg*/
 #define XDP_RX_DPCD_OVERWRITE_ADJREQUEST 0x80000000
@@ -2958,6 +2962,13 @@
 #define XDP_TX_STREAM_ID2			2
 #define XDP_TX_STREAM_ID3			3
 #define XDP_TX_STREAM_ID4			4
+
+#define XDP_TX_AUDIO_CONTROL_LANEX_SET_SHIFT   4
+
+#define XDP_RX_STREAM_ID1                       1
+#define XDP_RX_STREAM_ID2                       2
+#define XDP_RX_STREAM_ID3                       3
+#define XDP_RX_STREAM_ID4                       4
 /* @} */
 
 /** @name Sideband message codes when the driver is in MST mode.
