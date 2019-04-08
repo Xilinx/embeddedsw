@@ -102,6 +102,19 @@ u32 XilPdi_GetVecLocation(const XilPdi_PrtnHdr * PrtnHdr)
 {
         return PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_HIVEC_MASK;
 }
+
+/****************************************************************************/
+/**
+* @brief This function will return the Secondary boot device
+* @param ImgHdrTbl Pointer to the Image Header table.
+* @return  Secondary Boot device
+*
+*****************************************************************************/
+u32 XilPdi_GetSBD(const XilPdi_ImgHdrTable * ImgHdrTbl)
+{
+        return ImgHdrTbl->Attr & XIH_IHT_ATTR_SBD_MASK;
+}
+
 /****************************************************************************/
 /**
 *  This function is used to validate the word checksum for the image header
@@ -181,7 +194,6 @@ END:
 XStatus XilPdi_ValidateImgHdrTable(XilPdi_ImgHdrTable * ImgHdrTable)
 {
 	XStatus Status;
-	u32 PrtnPresentDevice;
 
 	/* Check the check sum of the image header table */
 	Status = XilPdi_ValidateChecksum((u32 *)ImgHdrTable,
@@ -204,18 +216,6 @@ XStatus XilPdi_ValidateImgHdrTable(XilPdi_ImgHdrTable * ImgHdrTable)
 		goto END;
 	}
 
-	/* check for the partition present device */
-	PrtnPresentDevice = ImgHdrTable->PrtnPresentDevice;
-	if ((PrtnPresentDevice != XIH_IHT_PPD_SAME) &&
-		(PrtnPresentDevice != XIH_IHT_PPD_PCIE) &&
-		(PrtnPresentDevice != XIH_IHT_PPD_ETHERNET) &&
-		(PrtnPresentDevice != XIH_IHT_PPD_SATA) )
-	{
-		Status = XILPDI_ERR_PPD;
-		XilPdi_Printf("XILPDI_ERR_PPD\n\r");
-		goto END;
-	}
-
 END:
 	/**
 	 * Print the Img header table details
@@ -232,8 +232,8 @@ END:
 			ImgHdrTable->NoOfPrtns);
 	XilPdi_Printf("Prtn Hdr Addr: 0x%0lx \n\r",
 			ImgHdrTable->PrtnHdrAddr);
-	XilPdi_Printf("Prtn Present Device: 0x%0lx \n\r",
-			ImgHdrTable->PrtnPresentDevice);
+	XilPdi_Printf("Secondary Boot Device Address: 0x%0lx \n\r",
+			ImgHdrTable->SBDAddr);
 	XilPdi_Printf("IDCODE: 0x%0lx \n\r",
 			ImgHdrTable->Idcode);
 	XilPdi_Printf("Attributes: 0x%0lx \n\r",
