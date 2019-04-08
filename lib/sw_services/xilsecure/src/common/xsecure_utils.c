@@ -40,6 +40,7 @@
 * ----- ------  -------- ------------------------------------------------------
 * 4.0   vns     03/09/19 Initial release
 *       psl     03/26/19 Fixed MISRA-C violation
+*       psl     04/05/19 Fixed IAR warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -173,7 +174,7 @@ u32 XSecure_SssAes(XSecure_Sss *InstancePtr,
  *****************************************************************************/
 u32 XSecure_SssSha(XSecure_Sss *InstancePtr, u16 DmaId)
 {
-	XSecure_SssSrc InputSrc = 0U;
+	XSecure_SssSrc InputSrc = (XSecure_SssSrc)0U;
 
 	XSecure_SssDmaSrc(DmaId, &InputSrc);
 
@@ -195,7 +196,7 @@ u32 XSecure_SssSha(XSecure_Sss *InstancePtr, u16 DmaId)
  *****************************************************************************/
 u32 XSecure_SssDmaLoopBack(XSecure_Sss *InstancePtr, u16 DmaId)
 {
-	XSecure_SssSrc Resource = 0U;
+	XSecure_SssSrc Resource = (XSecure_SssSrc)0U;
 
 	XSecure_SssDmaSrc(DmaId, &Resource);
 
