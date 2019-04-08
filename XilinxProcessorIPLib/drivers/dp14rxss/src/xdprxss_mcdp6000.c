@@ -447,6 +447,80 @@ int XDpRxSs_MCDP6000_DpInit(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 		if (Result != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
+	} else if (MCDP6000_IC_Rev==0x3200) {
+		Result = XDpRxSs_MCDP6000_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+					      0x0350, 0x0000001F);
+		if (Result != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		Result = XDpRxSs_MCDP6000_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+					      0x0504, 0x0001705E);
+		if (Result != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		Result = XDpRxSs_MCDP6000_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+					      0x2614, 0x19890F0F);
+		if (Result != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		Result = XDpRxSs_MCDP6000_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+					      0x01D8, 0x00000601);
+		if (Result != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		Result = XDpRxSs_MCDP6000_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+					      0x0660, 0x00005011);
+		if (Result != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		Result = XDpRxSs_MCDP6000_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+					      0x067C, 0x00000001);
+		if (Result != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		Result = XDpRxSs_MCDP6000_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+					      0x0908, 0x00000866);
+		if (Result != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		Result = XDpRxSs_MCDP6000_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+					      0x090C, 0x04020000);
+		if (Result != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		if (MCDP6000_BS == 0x18) {
+			Result = XDpRxSs_MCDP6000_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+						      0x2340, 0x00000500);
+			if (Result != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+
+			Result = XDpRxSs_MCDP6000_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+						      0x2540, 0x00000500);
+			if (Result != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+		} else if (MCDP6000_BS == 0x8) {
+			Result = XDpRxSs_MCDP6000_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+						      0x2240, 0x00000500);
+			if (Result != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+
+			Result = XDpRxSs_MCDP6000_SetRegister(I2CBaseAddress, I2CSlaveAddress,
+						      0x2440, 0x00000500);
+			if (Result != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+		}
 	} else {
 		Result = XST_SUCCESS;
 	}
