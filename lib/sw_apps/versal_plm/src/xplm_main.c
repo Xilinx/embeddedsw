@@ -47,6 +47,8 @@
 /***************************** Include Files *********************************/
 #include "xplm_main.h"
 #include "xplmi_debug.h"
+#include "xillibpm_api.h"
+#include "xpm_subsystem.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -144,6 +146,21 @@ END:
 int XPlm_InitUart()
 {
 	int Status;
+
+#ifdef DEBUG_UART_PS
+	/**
+	 * PLM needs to request UART if debug is enabled, else LibPM will
+	 * turn it off when it is not used by other processor.
+	 * During such scenario when PLM tries to print debug message,
+	 * system may not work properly.
+	 */
+	Status = XPm_RequestDevice(XPM_SUBSYSID_PMC, NODE_UART, PM_CAP_ACCESS,
+				   XPM_MAX_QOS, 0);
+	if (XST_SUCCESS != Status)
+	{
+		goto END;
+	}
+#endif
 
 	/**
 	 * TODO If UART is defined, can we initialize UART with default
