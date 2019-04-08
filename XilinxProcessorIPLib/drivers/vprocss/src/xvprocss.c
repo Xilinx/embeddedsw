@@ -1220,7 +1220,7 @@ static int ValidateDeintOnlyConfig(XVprocSs *XVprocSsPtr)
   XVidC_VideoStream *pStrmIn  = &XVprocSsPtr->VidIn;
   XVidC_VideoStream *pStrmOut = &XVprocSsPtr->VidOut;
 
-  if((pStrmIn->IsInterlaced != TRUE) || (pStrmOut->IsInterlaced != FALSE)) {
+  if(pStrmOut->IsInterlaced) {
     XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_DEINT, XVPROCSS_EDAT_INTPRG);
     return(XST_FAILURE);
   }
@@ -1512,6 +1512,7 @@ static int SetupModeCscOnly(XVprocSs *XVprocSsPtr)
 static int SetupModeDeintOnly(XVprocSs *XVprocSsPtr)
 {
   XVprocSs_ContextData *CtxtPtr = &XVprocSsPtr->CtxtData;
+  XVidC_VideoStream *pStrmIn = &XVprocSsPtr->VidIn;
   int status = XST_SUCCESS;
 
   if(!XVprocSsPtr->DeintPtr) {
@@ -1545,6 +1546,10 @@ static int SetupModeDeintOnly(XVprocSs *XVprocSsPtr)
 
     // TBD (the deint field ID bit is fixed to zero)
     XV_deinterlacer_Set_invert_field_id(&XVprocSsPtr->DeintPtr->Deint, 0);
+
+    if (!pStrmIn->IsInterlaced)
+	XV_deinterlacer_Set_algo(&XVprocSsPtr->DeintPtr->Deint,
+				 XV_DEINTERLACER_MEMORY_PASSTHROUGH);
 
     /* Start Deint sub-core */
     XV_DeintStart(XVprocSsPtr->DeintPtr);
