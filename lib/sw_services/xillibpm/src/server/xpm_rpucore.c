@@ -68,6 +68,8 @@ static int XPmRpuCore_RestoreResumeAddr(XPm_Core *Core)
 			~XPM_RPU_VINITHI_MASK);
 	}
 
+	Core->ResumeAddr = 0ULL;
+
 done:
 	return Status;
 }
@@ -82,23 +84,17 @@ static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 		Core->ResumeAddr = Address | 1U;
 	}
 
-	Status = XPmRpuCore_RestoreResumeAddr(Core);
+	Status = XPmCore_WakeUp(Core);
 	if (XST_SUCCESS != Status) {
+		PmErr("Core Wake Up failed, Status = %x\r\n", Status);
 		goto done;
-	}
-
-	if (XPM_DEVSTATE_RUNNING != Core->Device.Node.State) {
-		Status = XPmCore_WakeUp(Core);
-		if (XST_SUCCESS != Status) {
-			PmErr("Core Wake Up failed, Status = %x\r\n", Status);
-			goto done;
-		}
 	}
 
 	/* Release reset for all resets attached to this core */
 	Status = XPmDevice_Reset(&Core->Device, PM_RESET_ACTION_RELEASE);
-
-	Core->ResumeAddr = 0ULL;
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	/* Put RPU in running state from halt state */
 	PmRmw32(RpuCore->ResumeCfg, XPM_RPU_NCPUHALT_MASK,
