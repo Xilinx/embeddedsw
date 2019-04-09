@@ -53,6 +53,8 @@ static int XPmApuCore_RestoreResumeAddr(XPm_Core *Core)
 		Status = XST_INVALID_PARAM;
 	}
 
+	Core->ResumeAddr = 0ULL;
+
 done:
 	return Status;
 }
@@ -66,24 +68,20 @@ static XStatus XPmApuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 		Core->ResumeAddr = Address | 1U;
 	}
 
-	Status = XPmApuCore_RestoreResumeAddr(Core);
+	Status = XPmCore_WakeUp(Core);
 	if (XST_SUCCESS != Status) {
+		PmErr("Core Wake Up failed, Status = %x\r\n", Status);
 		goto done;
-	}
-
-	if (XPM_DEVSTATE_RUNNING != Core->Device.Node.State) {
-		Status = XPmCore_WakeUp(Core);
-		if (XST_SUCCESS != Status) {
-			PmErr("Core Wake Up failed, Status = %x\r\n", Status);
-			goto done;
-		}
 	}
 
 	/* Release reset for all resets attached to this core */
 	Status = XPmDevice_Reset(&Core->Device, PM_RESET_ACTION_RELEASE);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
-	Core->ResumeAddr = 0ULL;
 	Core->Device.Node.State = XPM_DEVSTATE_RUNNING;
+
 done:
 	return Status;
 }
