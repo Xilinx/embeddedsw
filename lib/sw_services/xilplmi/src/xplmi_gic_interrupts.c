@@ -16,8 +16,10 @@
 *
 * Ver   Who  Date        Changes
 * ====  ==== ======== ======================================================-
-* 1.00  mg   10/08/2018 Initial release
-* 1.01  mg   04/02/2020 Remove defines which are already part of pmc_global.h
+* 1.00  ma   10/08/2018 Initial release
+* 1.01  kc   04/09/2019 Added code to register/enable/disable interrupts
+* 1.02  bsv  04/04/2020 Code clean up
+* 1.03  bm   10/14/2020 Code clean up
 *
 * </pre>
 *
@@ -39,6 +41,8 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static void XPlmi_GicIntrAddTask(u32 Index);
+static int XPlmi_GicTaskHandler(void *Arg);
 
 /************************** Variable Definitions *****************************/
 static struct GicIntrHandlerTable
@@ -60,7 +64,7 @@ static struct GicIntrHandlerTable
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_GicRegisterHandler(u32 PlmIntrId, Function_t Handler, void *Data)
+void XPlmi_GicRegisterHandler(u32 PlmIntrId, GicIntHandler_t Handler, void *Data)
 {
 	u32 GicPVal;
 	u32 GicPxVal;
@@ -88,16 +92,16 @@ void XPlmi_GicIntrClearStatus(u32 PlmIntrId)
 	u32 GicPxVal;
 
 	/* Get the GicP mask */
-	GicPVal = (PlmIntrId & XPLMI_GICP_MASK)>>8U;
-	GicPxVal = (PlmIntrId & XPLMI_GICPX_MASK)>>16U;
+	GicPVal = (PlmIntrId & XPLMI_GICP_MASK) >> 8U;
+	GicPxVal = (PlmIntrId & XPLMI_GICPX_MASK) >> 16U;
 	/* Enable interrupt */
 	XPlmi_UtilRMW(PMC_GLOBAL_GICP_PMC_IRQ_STATUS,
-		1U << GicPVal,
-		1U << GicPVal);
+		(u32)1U << GicPVal,
+		(u32)1U << GicPVal);
 
 	XPlmi_UtilRMW(PMC_GLOBAL_GICP0_IRQ_STATUS + (GicPVal * XPLMI_GICPX_LEN),
-		1U << GicPxVal,
-		1U << GicPxVal);
+		(u32)1U << GicPxVal,
+		(u32)1U << GicPxVal);
 }
 
 /*****************************************************************************/
@@ -119,12 +123,12 @@ void XPlmi_GicIntrEnable(u32 PlmIntrId)
 	GicPxVal = (PlmIntrId & XPLMI_GICPX_MASK) >> 16U;
 	/* Enable interrupt */
 	XPlmi_UtilRMW(PMC_GLOBAL_GICP_PMC_IRQ_ENABLE,
-		1U << GicPVal,
-		1U << GicPVal);
+		(u32)1U << GicPVal,
+		(u32)1U << GicPVal);
 
 	XPlmi_UtilRMW(PMC_GLOBAL_GICP0_IRQ_ENABLE + (GicPVal * XPLMI_GICPX_LEN),
-		1U << GicPxVal,
-		1U << GicPxVal);
+		(u32)1U << GicPxVal,
+		(u32)1U << GicPxVal);
 }
 
 /*****************************************************************************/
@@ -146,8 +150,7 @@ void XPlmi_GicIntrDisable(u32 PlmIntrId)
 	GicPxVal = (PlmIntrId & XPLMI_GICPX_MASK) >> 16U;
 	/* Disable interrupt */
 	XPlmi_UtilRMW(PMC_GLOBAL_GICP0_IRQ_DISABLE + (GicPVal * XPLMI_GICPX_LEN),
-		1U<<GicPxVal,
-		1U<<GicPxVal);
+		(u32)1U << GicPxVal, (u32)1U << GicPxVal);
 }
 
 /*****************************************************************************/
@@ -174,7 +177,7 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
 			"GicPIntrStatus: 0x%x\r\n", GicPIntrStatus);
 
 	for (GicIndex = 0U; GicIndex < XPLMI_GICP_SOURCE_COUNT; GicIndex++) {
-		if (GicPIntrStatus & (1U << GicIndex)) {
+		if ((GicPIntrStatus & ((u32)1U << GicIndex)) != (u32)FALSE) {
 			GicPNIntrStatus =
 				XPlmi_In32(PMC_GLOBAL_GICP0_IRQ_STATUS +
 				(GicIndex * XPLMI_GICPX_LEN));
@@ -187,25 +190,25 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
 
 			for (GicPIndex = 0U;
 				GicPIndex < XPLMI_NO_OF_BITS_IN_REG; GicPIndex++) {
-				if ((GicPNIntrStatus & (1U << GicPIndex)) &&
-					((GicPNIntrMask & (1U << GicPIndex)) == 0U) ) {
+				if (((GicPNIntrStatus & ((u32)1U << GicPIndex)) != (u32)FALSE) &&
+					((GicPNIntrMask & ((u32)1U << GicPIndex)) == (u32)FALSE)) {
 					if(g_GicPInterruptTable[GicIndex][GicPIndex].GicHandler != NULL) {
 						XPlmi_GicIntrAddTask((GicIndex << 8U) |
 							(GicPIndex << 16U));
-						XPlmi_Out32((PMC_GLOBAL_GICP0_IRQ_DISABLE +
-							(GicIndex * XPLMI_GICPX_LEN)),
-							(1U << GicPIndex));
+						XPlmi_Out32(PMC_GLOBAL_GICP0_IRQ_DISABLE +
+							(GicIndex * XPLMI_GICPX_LEN),
+							(u32)1U << GicPIndex);
 					} else {
 						XPlmi_Printf(DEBUG_GENERAL,
 						"%s: Error: Unhandled GIC"
 						"interrupt received\n\r", __func__);
 					}
-					XPlmi_Out32((PMC_GLOBAL_GICP0_IRQ_STATUS +
-						(GicIndex * XPLMI_GICPX_LEN)),
-						(1U << GicPIndex));
+					XPlmi_Out32(PMC_GLOBAL_GICP0_IRQ_STATUS +
+						(GicIndex * XPLMI_GICPX_LEN),
+						(u32)1U << GicPIndex);
 				}
 			}
-			XPlmi_Out32(PMC_GLOBAL_GICP_PMC_IRQ_STATUS, (1U << GicIndex));
+			XPlmi_Out32(PMC_GLOBAL_GICP_PMC_IRQ_STATUS, ((u32)1U << GicIndex));
 		}
 	}
 
@@ -221,7 +224,7 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_GicIntrAddTask(u32 Index)
+static void XPlmi_GicIntrAddTask(u32 Index)
 {
 	XPlmi_TaskNode *Task;
 
@@ -249,7 +252,7 @@ END:
  * @return	None
  *
  *****************************************************************************/
-int XPlmi_GicTaskHandler(void *Arg)
+static int XPlmi_GicTaskHandler(void *Arg)
 {
 	int Status = XST_FAILURE;
 	u32 Index = (u32)Arg;
