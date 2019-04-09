@@ -90,7 +90,7 @@ typedef struct {
 /************************** Local Routines **********************************/
 static void check_usecase(XVprocSs *VpssPtr, vpssVideo *useCase);
 
-static void setup_video_io(
+static int setup_video_io(
                  XPeriph *PeriphPtr, XVprocSs *VpssPtr, vpssVideo *useCase);
 
 static int start_system(XPeriph *PeriphPtr, XVprocSs *VpssPtr);
@@ -232,7 +232,11 @@ int main(void)
     }
 
     printf ("Set up Video Input and Output streams.\r\n");
-    setup_video_io(PeriphPtr, VpssPtr, thisCase);
+    status = setup_video_io(PeriphPtr, VpssPtr, thisCase);
+    if (status != XST_SUCCESS) {
+	xil_printf ("Failed to setup io\r\n");
+	goto INFINITE_LOOP;
+    }
 
     printf ("Start VPSS.\r\n");
     status = start_system(PeriphPtr, VpssPtr);
@@ -294,6 +298,7 @@ int main(void)
     cnt++;
   }
 
+INFINITE_LOOP:
   while(1) {
     //NOP
   }
@@ -309,42 +314,51 @@ int main(void)
 *  1) Program the TPG and the VPSS input stage to the input video format.
 *  2) Program the VPSS output stage to the output video format.
 *
-*  @return Returns void.
+*  @return Returns XST_SUCCESS, if stream configured properly,
+*  	   otherwise XST_FAILURE.
 *
 ******************************************************************************/
 
-static void setup_video_io(
-  XPeriph *PeriphPtr, XVprocSs *VpssPtr, vpssVideo *useCase){
+static int setup_video_io(XPeriph *PeriphPtr, XVprocSs *VpssPtr,
+			   vpssVideo *useCase)
+{
+	int status = XST_FAILURE;
 
-  // depending on HW config, optionally modify the in/out formats
-  check_usecase(VpssPtr, useCase);
+	/* depending on HW config, optionally modify the in/out formats */
+	check_usecase(VpssPtr, useCase);
 
-  // Test Pattern Generator is the video source for the example design
-  //Set Test Pattern Generator parameters
-  XPeriph_SetTpgParams(PeriphPtr,
-                       useCase->width_in,
-                       useCase->height_in,
-                       useCase->Cformat_in,
-                       useCase->Pattern,
-                       useCase->IsInterlaced);
+	/*
+	 * Test Pattern Generator is the video source for the example design
+	 * Set Test Pattern Generator parameters
+	 */
+	XPeriph_SetTpgParams(PeriphPtr, useCase->width_in, useCase->height_in,
+			     useCase->Cformat_in, useCase->Pattern,
+			     useCase->IsInterlaced);
 
-  // Set VPSS Video Input AXI Stream to match the TPG
-  // Note that framerate is hardwired to 60Hz in the example design
-  XSys_SetStreamParam(VpssPtr,
-                      XSYS_VPSS_STREAM_IN,
-                      PeriphInst.TpgConfig.Width,
-                      PeriphInst.TpgConfig.Height,
-                      PeriphInst.TpgConfig.ColorFmt,
-                      PeriphInst.TpgConfig.IsInterlaced);
+	/*
+	 * Set VPSS Video Input AXI Stream to match the TPG
+	 * Note that framerate is hardwired to 60Hz in the example design
+	 */
+	status = XSys_SetStreamParam(VpssPtr, XSYS_VPSS_STREAM_IN,
+				     PeriphInst.TpgConfig.Width,
+				     PeriphInst.TpgConfig.Height, XVIDC_FR_60HZ,
+				     PeriphInst.TpgConfig.ColorFmt,
+				     PeriphInst.TpgConfig.IsInterlaced);
+	if (status != XST_SUCCESS)
+		return XST_FAILURE;
 
-  // Set VPSS Video Output AXI Stream
-  // Note that output video is always progressive
-  XSys_SetStreamParam(VpssPtr,
-                      XSYS_VPSS_STREAM_OUT,
-                      useCase->width_out,
-                      useCase->height_out,
-                      useCase->Cformat_out,
-                      FALSE);
+	/*
+	 * Set VPSS Video Output AXI Stream
+	 * Note that output video is always progressive
+	 */
+	status = XSys_SetStreamParam(VpssPtr, XSYS_VPSS_STREAM_OUT,
+				     useCase->width_out, useCase->height_out,
+				     XVIDC_FR_60HZ, useCase->Cformat_out,
+				     FALSE);
+	if (status != XST_SUCCESS)
+		return XST_FAILURE;
+
+	return status;
 }
 
 /*****************************************************************************/
