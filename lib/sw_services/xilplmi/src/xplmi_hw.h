@@ -181,6 +181,7 @@ extern "C" {
 #define CRP_BOOT_MODE_USER_BOOT_MODE_MASK    0X0000000F
 #define CRP_BOOT_MODE_POR    ( ( CRP_BASEADDR ) + 0X00000204 )
 #define CRP_RESET_REASON    ( ( CRP_BASEADDR ) + 0X00000220 )
+#define CRP_RST_SBI    ( ( CRP_BASEADDR ) + 0X00000324 )
 
 /**
  * PMC_ANALOG Base Address
@@ -202,6 +203,12 @@ extern "C" {
 #define SLAVE_BOOT_SBI_CTRL    ( ( SLAVE_BOOT_BASEADDR ) + 0X00000004 )
 #define SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK    0X0000001C
 #define SLAVE_BOOT_SBI_CTRL_ENABLE_MASK    0X00000001
+
+#define SLAVE_BOOT_SBI_IRQ_STATUS    ( ( SLAVE_BOOT_BASEADDR ) + 0X00000300 )
+#define SLAVE_BOOT_SBI_IRQ_STATUS_DATA_RDY_MASK    0X00000004
+
+#define SLAVE_BOOT_SBI_IRQ_ENABLE    ( ( SLAVE_BOOT_BASEADDR ) + 0X00000308 )
+#define SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK    0X00000004
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/

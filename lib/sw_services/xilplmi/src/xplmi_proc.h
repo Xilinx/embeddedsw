@@ -66,9 +66,41 @@ extern "C" {
 #define XPLMI_PIT2			(1U)
 
 /**************************** Type Definitions *******************************/
+/**
+ * PMC IOmodule interrupts
+ */
+enum {
+	XPLMI_IOMODULE_PMC_GIC_IRQ=16U,
+	XPLMI_IOMODULE_PPU1_MB_RAM,
+	XPLMI_IOMODULE_ERR_IRQ,
+	XPLMI_IOMODULE_RESERVED_19,
+	XPLMI_IOMODULE_CFRAME_SEU,
+	XPLMI_IOMODULE_RESERVED_21,
+	XPLMI_IOMODULE_PMC_GPI,
+	XPLMI_IOMODULE_PL_IRQ,
+	XPLMI_IOMODULE_SSIT_IRQ_2,
+	XPLMI_IOMODULE_SSIT_IRQ_1,
+	XPLMI_IOMODULE_SSIT_IRQ_0,
+	XPLMI_IOMODULE_PWRDN_REQ,
+	XPLMI_IOMODULE_PWRUP_REQ,
+	XPLMI_IOMODULE_SRST_REQ,
+	XPLMI_IOMODULE_ISO_REQ,
+	XPLMI_IOMODULE_WAKEUP_REQ,
+	XPLMI_IOMODULE_MASK=0xFFU,
+};
+
+/**
+ * External interrupt mapping
+ */
+enum {
+	XPLMI_CFRAME_SEU = 0U,
+	XPLMI_IPI_IRQ,
+	XPLMI_SBI_DATA_RDY,
+};
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /************************** Function Prototypes ******************************/
+void XPlmi_InitPitTimer(u8 Timer, u32 ResetValue);
 int XPlmi_StartTimer();
 int XPlmi_InitProc();
 int XPlmi_InitIOModule();
@@ -76,6 +108,9 @@ void XPlmi_IntrHandler(void *CallbackRef);
 u64 XPlmi_GetTimerValue(void );
 int XPlmi_SetUpInterruptSystem();
 void XPlmi_MeasurePerfTime(u64 tCur);
+void XPlmi_PlmIntrEnable(u32 IntrId);
+void XPlmi_PlmIntrDisable(u32 IntrId);
+void XPlmi_RegisterHandler(u32 IntrId, Function_t Handler, void * Data);
 
 /* Handler Table Structure */
 struct HandlerTable {

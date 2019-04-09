@@ -47,6 +47,7 @@
  ******************************************************************************/
 /***************************** Include Files *********************************/
 #include "xplmi_ipi.h"
+#include "xplmi_proc.h"
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
 /************************** Constant Definitions *****************************/
 
@@ -104,6 +105,10 @@ int XPlmi_IpiInit(void)
 				IpiCfgPtr->TargetList[i].Mask);
 	}
 
+	/**
+	 * Enable the IPI IRQ
+	 */
+	XPlmi_PlmIntrEnable(XPLMI_IPI_IRQ);
 END:
 	XPlmi_Printf(DEBUG_INFO, "%s: IPI init status: 0x%x\n\r", __func__, Status);
 	return Status;
@@ -118,13 +123,16 @@ END:
  * @return	Status	Status of received IPI processing
  *
  *****************************************************************************/
-int XPlmi_IpiDispatchHandler(void)
+int XPlmi_IpiDispatchHandler(void *Data)
 {
 	int Status = XST_FAILURE;
 	u32 SrcCpuMask;
 	u32 Payload[XPLMI_IPI_MAX_MSG_LEN];
 	u32 MaskIndex;
 	XPlmi_Cmd Cmd;
+
+	/* For MISRA C */
+	(void )Data;
 
 	SrcCpuMask = Xil_In32(IPI_PMC_ISR);
 
