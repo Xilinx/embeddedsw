@@ -764,7 +764,7 @@ u32 XSecure_MemCopy(void * DestPtr, void * SrcPtr, u32 Size)
 	XSecure_SssInitialize(&SssInstance);
 	Status = XSecure_SssDmaLoopBack(&SssInstance, CsuDma.Config.DeviceId);
 	if(Status != (u32)XST_SUCCESS){
-		return (u32)XST_FAILURE;
+		goto ENDF;
 	}
 	/* Data transfer in loop back mode */
 	XCsuDma_Transfer(&CsuDma, XCSUDMA_DST_CHANNEL,
@@ -773,13 +773,17 @@ u32 XSecure_MemCopy(void * DestPtr, void * SrcPtr, u32 Size)
 				(UINTPTR)SrcPtr, Size, 1);
 
 	/* Polling for transfer to be done */
-	XCsuDma_WaitForDone(&CsuDma, XCSUDMA_DST_CHANNEL);
+	Status = XCsuDma_WaitForDoneTimeout(&CsuDma, XCSUDMA_DST_CHANNEL);
+	if(Status != (u32)XST_SUCCESS) {
+		goto ENDF;
+	}
 
 	/* To acknowledge the transfer has completed */
 	XCsuDma_IntrClear(&CsuDma, XCSUDMA_SRC_CHANNEL, XCSUDMA_IXR_DONE_MASK);
 	XCsuDma_IntrClear(&CsuDma, XCSUDMA_DST_CHANNEL, XCSUDMA_IXR_DONE_MASK);
 
-	return (u32)XST_SUCCESS;
+ENDF:
+	return Status;
 }
 
 /*****************************************************************************/
