@@ -141,48 +141,48 @@ int XSys_Init(XPeriph  *pPeriph, XVprocSs *pVprocss)
 * This function is to set vpss stream parameters
 *
 * @param	pVprocss is a pointer to the video proc subsystem instance
-* @param    Direction defined if parameters are to be applied to Input or
-*           output stream
-* @param    Width is stream width
-* @param    Height is stream height
-* @param    cfmt is stream color format
+* @param	Direction defined if parameters are to be applied to Input or
+*		output stream
+* @param	Width is stream width
+* @param	Height is stream height
+* @param	FrameRate is stream frame rate
+* @param	cfmt is stream color format
 *
-* @return   None
+* @return	XST_SUCCESS - if the stream configuration is proper
+* 		XST_INVALID_PARAM  - if the stream configuration is not proper
 *
 * @note		None.
 *
 ******************************************************************************/
-void XSys_SetStreamParam(XVprocSs *pVprocss,
-		                 u16 Direction,
-		                 u16 Width,
-		                 u16 Height,
-		                 XVidC_ColorFormat cfmt,
-		                 u16 IsInterlaced)
+int XSys_SetStreamParam(XVprocSs *pVprocss, u16 Direction, u16 Width,
+			u16 Height, XVidC_FrameRate FrameRate,
+			XVidC_ColorFormat cfmt, u16 IsInterlaced)
 {
-  XVidC_VideoMode resId;
-  XVidC_VideoStream Stream;
-  XVidC_VideoTiming const *TimingPtr;
+	XVidC_VideoMode resId;
+	XVidC_VideoStream Stream;
+	XVidC_VideoTiming const *TimingPtr;
 
-  resId = XVidC_GetVideoModeId(Width, Height, XVIDC_FR_60HZ, IsInterlaced);
-  TimingPtr = XVidC_GetTimingInfo(resId);
+	resId = XVidC_GetVideoModeId(Width, Height, FrameRate, IsInterlaced);
+	if (resId == XVIDC_VM_NOT_SUPPORTED)
+		return XST_INVALID_PARAM;
 
-  //Setup Video Processing Subsystem
-  Stream.VmId           = resId;
-  Stream.Timing         = *TimingPtr;
-  Stream.ColorFormatId  = cfmt;
-  Stream.ColorDepth     = pVprocss->Config.ColorDepth;
-  Stream.PixPerClk      = pVprocss->Config.PixPerClock;
-  Stream.FrameRate      = XVIDC_FR_60HZ;
-  Stream.IsInterlaced   = IsInterlaced;
+	TimingPtr = XVidC_GetTimingInfo(resId);
 
-  if(Direction == XSYS_VPSS_STREAM_IN)
-  {
-    XVprocSs_SetVidStreamIn(pVprocss, &Stream);
-  }
-  else
-  {
-    XVprocSs_SetVidStreamOut(pVprocss, &Stream);
-  }
+	/* Setup Video Processing Subsystem */
+	Stream.VmId           = resId;
+	Stream.Timing         = *TimingPtr;
+	Stream.ColorFormatId  = cfmt;
+	Stream.ColorDepth     = pVprocss->Config.ColorDepth;
+	Stream.PixPerClk      = pVprocss->Config.PixPerClock;
+	Stream.FrameRate      = FrameRate;
+	Stream.IsInterlaced   = IsInterlaced;
+
+	if (Direction == XSYS_VPSS_STREAM_IN)
+		XVprocSs_SetVidStreamIn(pVprocss, &Stream);
+	else
+		XVprocSs_SetVidStreamOut(pVprocss, &Stream);
+
+	return XST_SUCCESS;
 }
 
 

@@ -66,15 +66,10 @@ typedef enum
 
 /************************** Exported APIs ************************************/
 int XSys_Init(XPeriph  *pPeriph, XVprocSs *pVprocss);
-void XSys_ReportSystemInfo(XPeriph  *pPeriph,
-		                   XVprocSs *pVprocss);
-
-void XSys_SetStreamParam(XVprocSs *pVprocss,
-		                 u16 Direction,
-		                 u16 Width,
-		                 u16 Height,
-		                 XVidC_ColorFormat cfmt,
-		                 u16 IsInterlaced);
+void XSys_ReportSystemInfo(XPeriph  *pPeriph, XVprocSs *pVprocss);
+int XSys_SetStreamParam(XVprocSs *pVprocss, u16 Direction, u16 Width,
+			u16 Height, XVidC_FrameRate FrameRate,
+			XVidC_ColorFormat cfmt, u16 IsInterlaced);
 
 #ifdef __cplusplus
 }
