@@ -44,8 +44,10 @@
 *       cog    03/12/19 Invert clock detection bits to support IP change.
 *       cog    03/12/19 Fix bug where incorrect FS, RefClk and were output
 *                       divider were being returned.
-*       cog    04/09/19 Discriminate between Gen 2 IP and lower for checking
+*       cog    04/09/19 Discriminate between Gen 3 IP and lower for checking
 *                       if internal PLL is enabled.
+*       cog    04/09/19 Fixed issue where tile was not autostarting after PLL
+*                       rate change.
 * </pre>
 *
 ******************************************************************************/
@@ -1728,7 +1730,7 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	/*
 	 * Stop the ADC or DAC tile by putting tile in reset state if not stopped already
 	 */
-	if (InitialPowerUpState != XRFDC_SM_STATE1) {
+	if (InitialPowerUpState != XRFDC_DISABLED) {
 		Status = XRFdc_Shutdown(InstancePtr, Type, Tile_Id) ;
 		if (Status != XRFDC_SUCCESS) {
 			Status = XRFDC_FAILURE;
@@ -1776,7 +1778,7 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	/*
 	 * Re-start the ADC or DAC tile if tile was shut down in this function
 	 */
-	if (InitialPowerUpState != XRFDC_SM_STATE1) {
+	if (InitialPowerUpState != XRFDC_DISABLED) {
 		Status = XRFdc_StartUp(InstancePtr, Type, Tile_Id) ;
 		if (Status != XRFDC_SUCCESS) {
 			Status = XRFDC_FAILURE;
