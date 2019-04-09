@@ -71,6 +71,7 @@ done:
 }
 
 struct XPm_CoreOps PsmOps = {
+		.RestoreResumeAddr = NULL,
 		.RequestWakeup = XPmPsm_WakeUp,
 		.PowerDown = NULL,
 };

@@ -30,35 +30,44 @@
 #include "xpm_apucore.h"
 #include "xpm_regs.h"
 
+static int XPmApuCore_RestoreResumeAddr(XPm_Core *Core)
+{
+	int Status = XST_SUCCESS;
+	u32 AddrLow = (u32) (Core->ResumeAddr & 0xfffffffeULL);
+	u32 AddrHigh = (u32) (Core->ResumeAddr >> 32ULL);
+
+	/* Check for valid resume address */
+	if (0 == (Core->ResumeAddr & 1ULL)) {
+		PmErr("Invalid resume address\r\n");
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	if (XPM_NODEIDX_DEV_ACPU_0 == NODEINDEX(Core->Device.Node.Id)) {
+		PmOut32(Core->Device.Node.BaseAddress + APU_DUAL_RVBARADDR0L_OFFSET, AddrLow);
+		PmOut32(Core->Device.Node.BaseAddress + APU_DUAL_RVBARADDR0H_OFFSET, AddrHigh);
+	} else if (XPM_NODEIDX_DEV_ACPU_1 == NODEINDEX(Core->Device.Node.Id)) {
+		PmOut32(Core->Device.Node.BaseAddress + APU_DUAL_RVBARADDR1L_OFFSET, AddrLow);
+		PmOut32(Core->Device.Node.BaseAddress + APU_DUAL_RVBARADDR1H_OFFSET, AddrHigh);
+	} else {
+		Status = XST_INVALID_PARAM;
+	}
+
+done:
+	return Status;
+}
+
 static XStatus XPmApuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_ApuCore *ApuCore = (XPm_ApuCore *)Core;
-	u32 AddrLow;
-	u32 AddrHigh;
 
 	/* Set reset address */
-	if (0 == SetAddress) {
-		if (Core->ResumeAddr & 1ULL) {
-			Address = Core->ResumeAddr;
-		} else {
-			PmErr("Invalid resume address\r\n");
-			Status = XST_FAILURE;
-			goto done;
-		}
+	if (1 == SetAddress) {
+		Core->ResumeAddr = Address | 1U;
 	}
 
-	AddrLow = (u32) (Address & 0xfffffffeULL);
-	AddrHigh = (u32) (Address >> 32ULL);
-
-	if (XPM_NODEIDX_DEV_ACPU_0 == NODEINDEX(ApuCore->Core.Device.Node.Id)) {
-		PmOut32(ApuCore->Core.Device.Node.BaseAddress + APU_DUAL_RVBARADDR0L_OFFSET, AddrLow);
-		PmOut32(ApuCore->Core.Device.Node.BaseAddress + APU_DUAL_RVBARADDR0H_OFFSET, AddrHigh);
-	} else if (XPM_NODEIDX_DEV_ACPU_1 == NODEINDEX(ApuCore->Core.Device.Node.Id)) {
-		PmOut32(ApuCore->Core.Device.Node.BaseAddress + APU_DUAL_RVBARADDR1L_OFFSET, AddrLow);
-		PmOut32(ApuCore->Core.Device.Node.BaseAddress + APU_DUAL_RVBARADDR1H_OFFSET, AddrHigh);
-	} else {
-		Status = XST_INVALID_PARAM;
+	Status = XPmApuCore_RestoreResumeAddr(Core);
+	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
@@ -75,7 +84,6 @@ static XStatus XPmApuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 
 	Core->ResumeAddr = 0ULL;
 	Core->Device.Node.State = XPM_DEVSTATE_RUNNING;
-
 done:
 	return Status;
 }
@@ -90,6 +98,7 @@ static XStatus XPmApuCore_PwrDwn(XPm_Core *Core)
 }
 
 struct XPm_CoreOps ApuOps = {
+		.RestoreResumeAddr = XPmApuCore_RestoreResumeAddr,
 		.RequestWakeup = XPmApuCore_WakeUp,
 		.PowerDown = XPmApuCore_PwrDwn,
 };
