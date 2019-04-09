@@ -1,26 +1,8 @@
 /******************************************************************************
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
+* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -44,10 +26,13 @@
 /***************************** Include Files *********************************/
 #include "xloader.h"
 #include "xplmi_proc.h"
+
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
+
 /***************** Macros (Inline Functions) Definitions *********************/
+
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
@@ -56,112 +41,109 @@
 
 /*****************************************************************************/
 /**
- * This function initializes the loader instance and registers loader
- * commands with PLM
+ * @brief	This function initializes the loader instance and registers loader
+ * commands with PLM.
  *
- * @param None
+ * @param	None
  *
- * @return	returns XST_SUCCESS on success
+ * @return	Returns XST_SUCCESS
  *
  *****************************************************************************/
 int XLoader_IntrInit()
 {
-	/**
+	int Status = XST_FAILURE;
+
+	/*
 	 * Register the SBI RDY interrupt to enable the PDI loading from
 	 * SBI interface.
 	 * TODO
 	 * When we enable SMAP_ABORT or any errors, then we need checks for
 	 * SBI DATA RDY mask before loading the PDI.
 	 */
-	XPlmi_RegisterHandler(XPLMI_SBI_DATA_RDY, XLoader_SbiLoadPdi, (void *)0);
-
-	return XST_SUCCESS;
-}
-
-/*****************************************************************************/
-/**
- * @brief This function is the interrupt handler for SBI data ready.
- * In this handler, PDI is loadeed through SBI interface.
- * SBI interface setting for JTAG/SMAP/AXI/HSDP should be set before
- * this handler
- *
- * @param Data Not used as of now, present as a part of general interrupt
- *             handler definition.
- *
- * @return Status of LoadPdi
- *****************************************************************************/
-int XLoader_SbiLoadPdi(void *Data)
-{
-	int Status;
-	u32 PdiSrc;
-	u64 PdiAddr;
-	u32 RegVal;
-	XilPdi* PdiPtr = &SubsystemPdiIns;
-
-	(void ) Data;
-
-	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
-
-	/**
-	 * Disable the SBI RDY interrupt so that PDI load does not
-	 * interrupt itself
-	 */
-	XPlmi_PlmIntrDisable(XPLMI_SBI_DATA_RDY);
-
-	/** store the command fields in resume data */
-	RegVal = XPlmi_In32(SLAVE_BOOT_SBI_CTRL) &
-			SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK;
-	if(RegVal == 0U)
-	{
-		PdiSrc = XLOADER_PDI_SRC_SMAP;
-	}
-	else
-	{
-		PdiSrc = XLOADER_PDI_SRC_SBI;
-	}
-	PdiAddr = 0U;
-
-	XPlmi_Printf(DEBUG_INFO, "SBI PDI Load: Started\n\r");
-
-	PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
-	Status = XLoader_LoadPdi(PdiPtr, PdiSrc, PdiAddr);
-	if (Status != XST_SUCCESS)
-	{
-		/* Update the error code */
-		XPlmi_ErrMgr(Status);
-		goto END;
-	}
-
-	XPlmi_Printf(DEBUG_GENERAL, "SBI PDI Load: Done\n\r");
-END:
-
-	XLoader_ClearIntrSbiDataRdy();
-
-	/**
-	 * Enable the SBI RDY interrupt to get the next PDI
-	 */
-	XPlmi_PlmIntrEnable(XPLMI_SBI_DATA_RDY);
+	XPlmi_RegisterHandler(XPLMI_SBI_DATA_RDY, XLoader_SbiLoadPdi, (void *)0U);
+	Status = XST_SUCCESS;
 
 	return Status;
 }
 
 /*****************************************************************************/
 /**
- * @brief This function clears the previous SBI data ready
- * and enables IRQ for next interrupt
+ * @brief	This function is the interrupt handler for SBI data ready.
+ * In this handler, PDI is loadeed through SBI interface.
+ * SBI interface setting for JTAG/SMAP/AXI/HSDP should be set before
+ * this handler.
  *
- * @param None
+ * @param	Data Not used as of now, present as a part of general interrupt
+ *             handler definition.
  *
- * @return None
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XLoader_SbiLoadPdi(void *Data)
+{
+	int Status = XST_FAILURE;
+	u32 PdiSrc;
+	u64 PdiAddr;
+	u32 RegVal;
+	XilPdi* PdiPtr = &SubsystemPdiIns;
+	(void)Data;
+
+	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
+
+	/*
+	 * Disable the SBI RDY interrupt so that PDI load does not
+	 * interrupt itself
+	 */
+	XPlmi_PlmIntrDisable(XPLMI_SBI_DATA_RDY);
+
+	/* Store the command fields in resume data */
+	RegVal = XPlmi_In32(SLAVE_BOOT_SBI_CTRL) &
+			SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK;
+	if (RegVal == 0U) {
+		PdiSrc = XLOADER_PDI_SRC_SMAP;
+	}
+	else {
+		PdiSrc = XLOADER_PDI_SRC_SBI;
+	}
+
+	PdiAddr = 0U;
+
+	XPlmi_Printf(DEBUG_INFO, "SBI PDI Load: Started\n\r");
+	PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
+	Status = XLoader_LoadPdi(PdiPtr, PdiSrc, PdiAddr);
+	if (Status != XST_SUCCESS) {
+		/* Update the error code */
+		XPlmi_ErrMgr(Status);
+		goto END;
+	}
+	XPlmi_Printf(DEBUG_GENERAL, "SBI PDI Load: Done\n\r");
+
+END:
+	XLoader_ClearIntrSbiDataRdy();
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function clears the previous SBI data ready
+ * and enables IRQ for next interrupt.
+ *
+ * @param	None
+ *
+ * @return	None
+ *
  *****************************************************************************/
 void XLoader_ClearIntrSbiDataRdy()
 {
-	/** Clear the SBI interrupt */
+	/* Clear the SBI interrupt */
 	XPlmi_UtilRMW(SLAVE_BOOT_SBI_IRQ_STATUS,
-		     SLAVE_BOOT_SBI_IRQ_STATUS_DATA_RDY_MASK,
-		     SLAVE_BOOT_SBI_IRQ_STATUS_DATA_RDY_MASK);
+		SLAVE_BOOT_SBI_IRQ_STATUS_DATA_RDY_MASK,
+		SLAVE_BOOT_SBI_IRQ_STATUS_DATA_RDY_MASK);
 	XPlmi_UtilRMW(SLAVE_BOOT_SBI_IRQ_ENABLE,
-		     SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK,
-		     SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK);
+		SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK,
+		SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK);
 
+	/* Clear and Enable GIC interrupt */
+	XPlmi_PlmIntrClear(XPLMI_SBI_DATA_RDY);
+	XPlmi_PlmIntrEnable(XPLMI_SBI_DATA_RDY);
 }
