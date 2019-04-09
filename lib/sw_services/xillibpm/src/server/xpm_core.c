@@ -111,20 +111,31 @@ done:
 XStatus XPmCore_WakeUp(XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
+	XPm_Node *PwrNode;
 
-	if (NULL != Core->Device.Power) {
-		Status = Core->Device.Power->Node.HandleEvent(&Core->Device.Power->Node,
-							XPM_POWER_EVENT_PWR_UP);
+	if ((XPM_DEVSTATE_RUNNING != Core->Device.Node.State) &&
+	    (NULL != Core->Device.Power)) {
+		PwrNode = &Core->Device.Power->Node;
+		Status = PwrNode->HandleEvent(PwrNode, XPM_POWER_EVENT_PWR_UP);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
 	}
 
-	if (NULL != Core->Device.ClkHandles) {
-		XPmClock_Request(Core->Device.ClkHandles);
+	if (NULL != Core->CoreOps && NULL != Core->CoreOps->RestoreResumeAddr) {
+		Status = Core->CoreOps->RestoreResumeAddr(Core);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 	}
 
-	Status = XPm_DirectPwrUp(Core->Device.Node.Id);
+	if (XPM_DEVSTATE_RUNNING != Core->Device.Node.State) {
+		if (NULL != Core->Device.ClkHandles) {
+			XPmClock_Request(Core->Device.ClkHandles);
+		}
+
+		Status = XPm_DirectPwrUp(Core->Device.Node.Id);
+	}
 
 done:
 	return Status;
