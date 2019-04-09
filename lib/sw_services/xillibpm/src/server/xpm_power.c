@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -30,6 +30,7 @@
 #include "xpm_powerdomain.h"
 #include "xpm_psm.h"
 
+extern int XLoader_ReloadImage(u32 ImageId);
 
 XPm_Power *PmPowers[XPM_NODEIDX_POWER_MAX];
 u32 PmNumPowers;
@@ -66,6 +67,19 @@ static XStatus SendPowerUpReq(XPm_Node *Node)
 			break;
 		case XPM_NODEIDX_POWER_FPD:
 			Status = XPmPsm_SendPowerUpReq(Node->BaseAddress);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+
+			if ((XPM_POWER_STATE_PWR_UP_SELF == Node->State) ||
+			    (XPM_POWER_STATE_OFF == Node->State)) {
+				PmInfo("Reloading FPD CDO\r\n");
+				Status = XLoader_ReloadImage(Node->Id);
+				if (XST_SUCCESS != Status) {
+					PmErr("Error while reloading FPD CDO\r\n");
+					goto done;
+				}
+			}
 			break;
 		case XPM_NODEIDX_POWER_NOC:
 			Status = XPm_PowerUpNoC();
@@ -85,6 +99,7 @@ static XStatus SendPowerUpReq(XPm_Node *Node)
 		}
 	}
 
+done:
 	return Status;
 }
 
