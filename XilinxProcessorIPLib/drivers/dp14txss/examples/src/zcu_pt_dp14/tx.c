@@ -127,6 +127,8 @@ void format_help_menu(void);
 void operationMenu(void);
 char inbyte_local(void);
 extern u8 tx_after_rx;
+extern u8 tx_done;
+extern u8 i2s_started;
 
 /************************** Variable Definitions *****************************/
 #define DPCD_TEST_CRC_R_Cr   0x240
@@ -354,6 +356,8 @@ void DpPt_HpdEventHandler(void *InstancePtr)
 	}
 	else
 	{
+		tx_done = 0;
+		i2s_started = 0;
         xil_printf ("TX Cable Disconnected !!\r\n");
 		//DpTxSs_DisableAudio
 		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
@@ -512,6 +516,7 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 		XDpTxSs_SetLaneCount(&DpTxSsInst, lane_set);
 //		XDpTxSs_Start(&DpTxSsInst);
 		DpTxSubsystem_Start(&DpTxSsInst, Msa);
+		i2s_started = 0;
 	}
 
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_INTERRUPT_MASK, 0x0);
@@ -945,7 +950,7 @@ void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame)
 	u8 RSVD=0;
 	
 	//Fixed paramaters
-	u8  dp_version   = 0x11;
+	u8  dp_version   = xilInfoFrame->version;
 	
 	//Write #1
 	db1 = 0x00; //sec packet ID fixed to 0 - SST Mode

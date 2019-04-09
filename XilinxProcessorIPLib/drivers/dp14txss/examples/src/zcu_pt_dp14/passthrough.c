@@ -128,6 +128,9 @@ u8 Edid1_org[128];
 u8 Edid2_org[128];
 int filter_count = 0;
 extern u8 training_lost;
+u8 audio_info_avail;
+int track_color = 0;
+u32 aud_start_delay = 0;
 
 void DpPt_Main(void){
 	u32 Status;
@@ -880,6 +883,7 @@ void DpPt_Main(void){
 			DpTxSsInst.no_video_trigger = 0;
 			tx_done = 0;
 			i2s_started = 0;
+			aud_start_delay = 0;
 #if ENABLE_AUDIO
 			XI2s_Rx_Enable(&I2s_rx, 0);
 		} else {
@@ -904,18 +908,19 @@ void DpPt_Main(void){
 				DpRxSsInst.link_up_trigger == 1) {
 		    tx_after_rx = 0;
 		    if (track_msa == 1) {
-				usleep(20000);
+//				usleep(20000);
 				start_tx_after_rx();
 				// It is observed that some monitors do not give HPD
 				// pulse. Hence checking the link to re-trigger
 				Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
 				if (Status != XST_SUCCESS) {
-					xil_printf ("^*^");
+//					xil_printf ("^*^");
 					hpd_pulse_con(&DpTxSsInst, Msa);
 				}
 					tx_done = 1;
 		    } else {
 			tx_done = 0;
+			aud_start_delay = 0;
 			xil_printf ("Cannot Start TX...\r\n");
 		    }
 		}
@@ -934,7 +939,7 @@ void DpPt_Main(void){
 void start_audio_passThrough(u8 LineRate_init_tx){
 
 	// Copy the Audi Infoframe data from RX to TX
-
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,	XDP_TX_AUDIO_CONTROL, 0x0);
 	xilInfoFrame->audio_channel_count = AudioinfoFrame.audio_channel_count;
 	xilInfoFrame->audio_coding_type = AudioinfoFrame.audio_coding_type;
 	xilInfoFrame->channel_allocation = AudioinfoFrame.channel_allocation;
@@ -945,12 +950,10 @@ void start_audio_passThrough(u8 LineRate_init_tx){
 	xilInfoFrame->sampling_frequency = AudioinfoFrame.sampling_frequency;
 	xilInfoFrame->type = AudioinfoFrame.type;
 	xilInfoFrame->version = AudioinfoFrame.version;
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,	XDP_TX_AUDIO_CONTROL, 0x0);
-	usleep(10000);
+	usleep(30000);
 	sendAudioInfoFrame(xilInfoFrame);
 	usleep(30000);
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,	XDP_TX_AUDIO_CHANNELS, 0x1);
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,	XDP_TX_AUDIO_CONTROL, 0x1);
+
 }
 
 
@@ -1011,7 +1014,7 @@ void start_tx_after_rx (void) {
 		user_config.user_format = XVIDC_CSF_RGB + 1;
 
 	// This block is to use with 4K30 monitor.
-	if(max_cap_org <= 0x14 || monitor_8K == 0){
+	if (max_cap_org <= 0x14 || monitor_8K == 0) {
 		// 8K resolution will be changed to 4K60
 		if(Msa[0].Vtm.Timing.HActive >= 7680 &&
 				Msa[0].Vtm.Timing.VActive >= 4320){
@@ -1088,8 +1091,9 @@ void start_tx_after_rx (void) {
 	//Even though CPLL can be used in limited case,
 	//using QPLL is recommended for more coverage.
 	set_vphy(LineRate_init_tx);
-
 	LaneCount_init_tx = LaneCount_init_tx & 0x7;
+
+	frameBuffer_stop_rd();
 
 	if(downshift4K == 0){
 		start_tx (LineRate_init_tx, LaneCount_init_tx,user_config, Msa);
@@ -1098,10 +1102,7 @@ void start_tx_after_rx (void) {
 		start_tx (LineRate_init_tx, LaneCount_init_tx,user_config, 0);
 	}
 
-
-	frameBuffer_stop_rd();
 	frameBuffer_start_rd(Msa, downshift4K);
-//	start_audio_passThrough (LineRate_init_tx);
 	rx_and_tx_started = 1;
 
 }
@@ -1109,6 +1110,7 @@ void start_tx_after_rx (void) {
 void unplug_proc (void) {
 	i2s_tx_started = 0;
 	tx_done = 0;
+	aud_start_delay = 0;
 	rx_aud = 0;
 	tx_after_rx = 0;
 	rx_trained = 0;
@@ -1117,6 +1119,8 @@ void unplug_proc (void) {
     start_i2s_clk = 0;
     I2cClk_Ps(0, 36864000);
     DpRxSsInst.VBlankCount = 0;
+    audio_info_avail = 0;
+    AudioinfoFrame.frame_count = 0;
     appx_fs_dup = 0;
     XDp_RxDtgDis(DpRxSsInst.DpPtr);
 	frameBuffer_stop();
@@ -1241,20 +1245,20 @@ void audio_start_rx (void) {
 				i2s_tx_started = 1;
 				status_captured = 0;
 				i2s_started = 0;
-				filter_count_b = 0;
 		}
 		}
 }
 
 void audio_start_tx (void) {
 
-	if (tx_done == 1 && i2s_tx_started == 1 && i2s_started == 0) {
+	// Audio on TX will be started only when RX receives Audio Infoframes
+	// and after a delay
+	if (tx_done == 1 && i2s_tx_started == 1 && i2s_started == 0 && audio_info_avail == 1 && aud_start_delay == AUD_START_DELAY) {
 	filter_count_b++;
-	//Audio may not work properly on some monitors if this is started too early
-	//hence the delay here
-	if (filter_count_b < 50) {
+	if (filter_count_b == 50) {
+//		usleep(10000);
 		start_audio_passThrough(LineRate_init_tx);
-	} else if (filter_count_b > 500) {
+	} else if (filter_count_b > 200) {
 
 #if I2S_AUDIO
 	if (appx_fs_dup != 0) {
@@ -1265,20 +1269,24 @@ void audio_start_tx (void) {
 		//Start RX and TX I2S
 		//Put the ACR in External N/CTS update mode with loop control
 		XI2s_Rx_Enable(&I2s_rx, 1);
-
 		XI2s_Tx_Enable(&I2s_tx, 1);
 		XACR_WriteReg (RX_ACR_ADDR, RXACR_MODE, 0x4);
 		xil_printf ("Audio Sampling rate is %d Hz\r\n",appx_fs_dup);
 	}
 #else
 		XGpio_WriteReg (aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x2);
+		usleep(1000);
+		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,	XDP_TX_AUDIO_CHANNELS, 0x1);
+		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,	XDP_TX_AUDIO_CONTROL, 0x1);
 #endif
 		xil_printf ("Starting audio....\r\n");
 		i2s_started = 1;
 		filter_count_b = 0;
 	}
 
-}
+	} else {
+		filter_count_b = 0;
+	}
 
 }
 
@@ -1302,6 +1310,8 @@ void dprx_tracking (void) {
 		XDpTxSs_Stop(&DpTxSsInst);
 		i2s_tx_started = 0;
 		start_i2s_clk = 0;
+	    audio_info_avail = 0;
+	    AudioinfoFrame.frame_count = 0;
 		xil_printf(
 		"> Rx Training done !!! (BW: 0x%x, Lanes: 0x%x, Status: "
 		"0x%x;0x%x).\n\r",
@@ -1346,6 +1356,9 @@ void dprx_tracking (void) {
 		 */
 		XDpRxSs_AudioDisable(&DpRxSsInst);
 		XDpRxSs_AudioEnable(&DpRxSsInst);
+	    audio_info_avail = 0;
+	    AudioinfoFrame.frame_count = 0;
+
 
 		//move to DPPT resolution function
 
@@ -1354,13 +1367,24 @@ void dprx_tracking (void) {
 #endif
 		rx_aud = 1;
 		track_msa = Dppt_DetectResolution(DpRxSsInst.DpPtr, Msa,
-				DpRxSsInst.link_up_trigger);// && DpRxSsInst.link_up_trigger;
+				DpRxSsInst.link_up_trigger);
 	}
 
 	if(tx_done == 1) {
-
-		Dppt_DetectColor(DpRxSsInst.DpPtr, Msa,
+		track_color = Dppt_DetectColor(DpRxSsInst.DpPtr, Msa,
 		DpRxSsInst.link_up_trigger);
+		if (track_color == 1) {
+			tx_after_rx = 1;
+			i2s_started = 0;
+			tx_done = 0;
+			aud_start_delay = 0;
+		}
+
+		if (aud_start_delay < AUD_START_DELAY) {
+			aud_start_delay++;
+		}
+	} else {
+		aud_start_delay = 0;
 	}
 }
 
@@ -1388,17 +1412,17 @@ void dptx_tracking (void) {
 	}
 
 	if(hpd_pulse_con_event == 1 && rx_trained == 1 &&
-			DpRxSsInst.link_up_trigger == 1 && tx_done == 1) {// && DpTxSsInst.no_video_trigger == 0) {
+			DpRxSsInst.link_up_trigger == 1 && tx_done == 1) {
 		//if short HPD pulse detected
 		//run a loop for 3000 times to filter HPD pulses on cable unplug
 		//this time should be more that the BS IDLE time
-		filter_count++;
-		if (filter_count > 50000) {
+//		filter_count++;
+//		if (filter_count > 50000) {
 			xil_printf ("HPD Pulse detected !!\r\n");
-			filter_count = 0;
+//			filter_count = 0;
 			hpd_pulse_con_event = 0;
 			hpd_pulse_con(&DpTxSsInst, Msa);
-		}
+//		}
 	} else {
 		hpd_pulse_con_event = 0;
 		filter_count = 0;
