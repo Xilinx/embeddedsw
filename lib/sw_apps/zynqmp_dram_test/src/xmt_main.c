@@ -42,6 +42,7 @@
  * 1.0   mn   08/17/18 Initial release
  *       mn   09/21/18 Modify code manually enter the DDR memory test size
  *       mn   09/27/18 Modify code to add 2D Read/Write Eye Tests support
+ *       mn   04/09/19 Add check for Carriage return when entering the test size
  *
  * </pre>
  *
@@ -696,15 +697,15 @@ int main(void)
 				do {
 					SizeChar = inbyte();
 					xil_printf("%c", SizeChar);
-					if (SizeChar >= '0' && SizeChar <= '9') {
+					if ((SizeChar >= '0') && (SizeChar <= '9')) {
 						TestSize = (TestSize * 10) + (SizeChar - '0');
-					} else if (SizeChar != '\n') {
+					} else if ((SizeChar != '\r') && (SizeChar != '\n')) {
 						TestSize = 0;
 						xil_printf("\r\nPlease enter numeric value : ");
 					} else {
 						outbyte('\n');
 					}
-				} while (SizeChar != '\n');
+				} while ((SizeChar != '\n') && (SizeChar != '\r'));
 
 				TestSize = ((Ch == 'g') || (Ch == 'G')) ?
 							(TestSize * XMT_KB2BYTE) : TestSize;
