@@ -54,6 +54,7 @@
 
 /************************** Variable Definitions *****************************/
 XilSubsystem SubSystemInfo = {0};
+XilPdi SubsystemPdiIns;
 
 /*****************************************************************************/
 #define XLOADER_DEVICEOPS_INIT(DevInit, DevCopy)	\
@@ -110,46 +111,14 @@ XLoader_DeviceOps DeviceOps[] =
 	XLOADER_DEVICEOPS_INIT(NULL, NULL),
 #endif
 	XLOADER_DEVICEOPS_INIT(XLoader_DdrInit, XLoader_DdrCopy), /* DDR - 0xF */
+#ifdef XLOADER_SBI
+	XLOADER_DEVICEOPS_INIT(XLoader_SbiInit, XLoader_SbiCopy), /* SBI - 0x10 */
+#else
+	XLOADER_DEVICEOPS_INIT(NULL, NULL),
+#endif
 };
 
 #if 0
-/*****************************************************************************/
-/**
- * This function initializes the subsystem with its CDO file.
- * CDO file can contain the system topologies, subsystem policies and
- * system set requirements
- *
- * @param CdoBuf is the pointer to the CDO contents
- *
- * @return	returns SUCCESS on success
- *
- *****************************************************************************/
-int XSubSys_Init(u32 * CdoBuf)
-{
-
-	return XST_SUCCESS;
-}
-
-/*****************************************************************************/
-/**
- * This function is used to load the PDI file and configure different
- * subsystems present in it.
- * It stores the subsystem handle and corresponding PDI images for later
- * usage
- *
- * @param PdiSrc is source of PDI. It can be in Boot Device, DDR
- * @param PdiAddr is the address at PDI is located in the PDI source
- *        mentioned
- *
- * @return	returns SUCCESS on success
- *
- *****************************************************************************/
-int XSubSys_LoadPdi(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
-{
-
-	return XST_SUCCESS;
-}
-
 /*****************************************************************************/
 /**
  * This function is used to copy the PDI image to a new address like DDR so
@@ -165,22 +134,6 @@ int XSubSys_LoadPdi(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
  * @return	returns SUCCESS on success
  *****************************************************************************/
 int XSubSys_CopyPdi(u32 PdiSrc, u64 SrcAddr, u64 DestAddr, u32 PdiLen)
-{
-
-	return XST_SUCCESS;
-}
-
-/*****************************************************************************/
-/**
- * This function is used to restart a subsystem that is already loaded.
- * Using subsystem ID, corresponding PDI image will be reloaded.
- *
- * @param SubsystemId is the subsystem handle returned by libPM or Master ID
- * of processor
- *
- * @return	returns XLOADER_SUCCESS on success
- *****************************************************************************/
-int XSubSys_ReStart(u32 SubsysHd)
 {
 
 	return XST_SUCCESS;
@@ -201,7 +154,11 @@ int XLoader_Init()
 {
 	/** Initializes the DMA pointers */
 	XPlmi_DmaInit();
+	/** Initialize the loader commands */
 	XLoader_CmdsInit();
+	/** Initialize the loader interrupts */
+	XLoader_IntrInit();
+
 	return XST_SUCCESS;
 }
 
@@ -337,10 +294,63 @@ int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 		SubSystemInfo.PdiPtr = PdiPtr;
 	}
 
+	/**
+	 * Set the Secondary Boot Mode settings to enable the
+	 * read from the secondary device
+	 */
+	if (XilPdi_GetSBD(&(PdiPtr->MetaHdr.ImgHdrTable)) == XIH_IHT_ATTR_SBD_PCIE)
+	{
+		XLoader_SbiInit(XLOADER_PDI_SRC_PCIE);
+	}
+
 	/** Mark PDI loading is completed */
 	XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_COMPLETE);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief This function provides loading PDI
+ *
+ * @param Pdi instance pointer where PDI details are stored
+ * @param PdiSrc is source of PDI. It can be in Boot Device, DDR
+ * @param PdiAddr is the address at PDI is located in the PDI source
+ *        mentioned
+ *
+ * @return Returns the Load PDI command
+ *****************************************************************************/
+int XLoader_LoadPdi(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
+{
+	int Status;
+
+	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
+
+	Status = XLoader_PdiInit(PdiPtr, PdiSrc, PdiAddr);
+	if (Status != XST_SUCCESS)
+	{
+		goto END;
+	}
+
+	Status = XLoader_LoadAndStartSubSystemPdi(PdiPtr);
+	if (Status != XST_SUCCESS)
+	{
+		goto END;
+	}
+
 	Status = XST_SUCCESS;
 END:
+	if (Status != XST_SUCCESS)
+	{
+		/** Reset the SBI to clear the buffer in case of error */
+		if ((PdiSrc == XLOADER_PDI_SRC_JTAG) ||
+		    (PdiSrc == XLOADER_PDI_SRC_SMAP) ||
+		    (PdiSrc == XLOADER_PDI_SRC_SBI))
+		{
+			XLoader_SbiRecovery();
+		}
+	}
 	return Status;
 }
 
@@ -653,22 +663,3 @@ int XLoader_ReloadImage(u32 ImageId)
 {
         return XLoader_LoadImage(SubSystemInfo.PdiPtr, ImageId);
 }
-
-#if 0
-/*****************************************************************************/
-/**
- * This function is used to start the PDI image. For processor, reset is
- * released. For PL, end global sequence is done
- *
- * @param PdiPtr Pdi instance pointer
- * @param ImageId Id of the image present in PDI
- *
- * @return	returns XLOADER_SUCCESS on success
- *****************************************************************************/
-int XLoader_StartImage(XilPdi *PdiPtr, u32 ImageId)
-{
-
-
-	return XLOADER_SUCCESS;
-}
-#endif

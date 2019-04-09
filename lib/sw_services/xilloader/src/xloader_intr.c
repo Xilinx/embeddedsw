@@ -26,16 +26,16 @@
 /*****************************************************************************/
 /**
 *
-* @file xloader_cmd.c
+* @file xloader_intr.c
 *
-* This file contains the xloader commands implementation.
+* This file contains the code related to the interrupt handling.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kc   03/12/2019 Initial release
+* 1.00  kc   03/25/2019 Initial release
 *
 * </pre>
 *
@@ -45,53 +45,75 @@
 
 /***************************** Include Files *********************************/
 #include "xloader.h"
-#include "xplmi_cmd.h"
-#include "xplmi_modules.h"
+#include "xplmi_proc.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
-
 /***************** Macros (Inline Functions) Definitions *********************/
-
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
 
-static int XLoader_Reserved(XPlmi_Cmd * Cmd)
+/*****************************************************************************/
+/**
+ * This function initializes the loader instance and registers loader
+ * commands with PLM
+ *
+ * @param None
+ *
+ * @return	returns XST_SUCCESS on success
+ *
+ *****************************************************************************/
+int XLoader_IntrInit()
 {
-	XPlmi_Printf(DEBUG_DETAILED, "%s %p\n\r", __func__, Cmd);
+	/**
+	 * Register the SBI RDY interrupt to enable the PDI loading from
+	 * SBI interface.
+	 * TODO
+	 * When we enable SMAP_ABORT or any errors, then we need checks for
+	 * SBI DATA RDY mask before loading the PDI.
+	 */
+	XPlmi_RegisterHandler(XPLMI_SBI_DATA_RDY, XLoader_SbiLoadPdi, (void *)0);
+
 	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
 /**
- * @brief This function provides load subsystem PDI command execution
- *  Command payload parameters are
- *	* PdiSrc - Boot Mode values, DDR, PCIe
- *	* PdiAddr - 64bit PDI address located in the Source
+ * @brief This function is the interrupt handler for SBI data ready.
+ * In this handler, PDI is loadeed through SBI interface.
+ * SBI interface setting for JTAG/SMAP/AXI/HSDP should be set before
+ * this handler
  *
- * @param Pointer to the command structure
+ * @param Data Not used as of now, present as a part of general interrupt
+ *             handler definition.
  *
- * @return Returns the Load PDI command
+ * @return Status of LoadPdi
  *****************************************************************************/
-static int XLoader_LoadSubsystemPdi(XPlmi_Cmd * Cmd)
+int XLoader_SbiLoadPdi(void *Data)
 {
 	int Status;
 	u32 PdiSrc;
 	u64 PdiAddr;
 	XilPdi* PdiPtr = &SubsystemPdiIns;
 
+	(void ) Data;
+
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
-	/** store the command fields in resume data */
-	PdiSrc = Cmd->Payload[0];
-	PdiAddr = (u64 )Cmd->Payload[1];
-	PdiAddr = ((u64 )Cmd->Payload[2] |
-		   (PdiAddr << 32));
+	/**
+	 * Disable the SBI RDY interrupt so that PDI load does not
+	 * interrupt itself
+	 */
+	XPlmi_PlmIntrDisable(XPLMI_SBI_DATA_RDY);
 
-	XPlmi_Printf(DEBUG_INFO, "Subsytem PDI Load: Started\n\r");
+	/** store the command fields in resume data */
+	PdiSrc = XLOADER_PDI_SRC_SBI;
+	PdiAddr = 0U;
+
+	XPlmi_Printf(DEBUG_INFO, "SBI PDI Load: Started\n\r");
 
 	PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
 	Status = XLoader_LoadPdi(PdiPtr, PdiSrc, PdiAddr);
@@ -100,44 +122,37 @@ static int XLoader_LoadSubsystemPdi(XPlmi_Cmd * Cmd)
 		goto END;
 	}
 
-	XPlmi_Printf(DEBUG_INFO, "Subsystem PDI Load: Done\n\r");
+	XPlmi_Printf(DEBUG_INFO, "SBI PDI Load: Done\n\r");
 END:
+
+	XLoader_ClearIntrSbiDataRdy();
+
+	/**
+	 * Enable the SBI RDY interrupt to get the next PDI
+	 */
+	XPlmi_PlmIntrEnable(XPLMI_SBI_DATA_RDY);
+
 	return Status;
 }
 
 /*****************************************************************************/
 /**
- * @brief contains the array of PLM loader commands
+ * @brief This function clears the previous SBI data ready
+ * and enables IRQ for next interrupt
  *
+ * @param None
+ *
+ * @return None
  *****************************************************************************/
-static XPlmi_ModuleCmd XLoader_Cmds[] =
+void XLoader_ClearIntrSbiDataRdy()
 {
-	XPLMI_MODULE_COMMAND(XLoader_Reserved),
-	XPLMI_MODULE_COMMAND(XLoader_LoadSubsystemPdi),
-};
+	/** Clear the SBI interrupt */
+	XPlmi_UtilRMW(SLAVE_BOOT_SBI_IRQ_STATUS,
+		     SLAVE_BOOT_SBI_IRQ_STATUS_DATA_RDY_MASK,
+		     SLAVE_BOOT_SBI_IRQ_STATUS_DATA_RDY_MASK);
+	XPlmi_UtilRMW(SLAVE_BOOT_SBI_IRQ_ENABLE,
+		     SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK,
+		     SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK);
 
-/*****************************************************************************/
-/**
- * @brief Contains the module ID and loader commands array
- *
- *****************************************************************************/
-static XPlmi_Module XPlmi_Loader =
-{
-	XPLMI_MODULE_LOADER_ID,
-	XLoader_Cmds,
-	sizeof XLoader_Cmds / sizeof *XLoader_Cmds,
-};
-
-/*****************************************************************************/
-/**
- * @brief This function registers the PLM Loader commands to the PLMI
- *
- * @param none
- *
- * @return none
- *
- *****************************************************************************/
-void XLoader_CmdsInit(void)
-{
-	XPlmi_ModuleRegister(&XPlmi_Loader);
 }
+

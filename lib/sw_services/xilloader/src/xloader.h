@@ -127,7 +127,8 @@ enum XLOADER_PDI_SRC {
 	XLOADER_PDI_SRC_OSPI =   (0x8U),
 	XLOADER_PDI_SRC_SMAP =   (0xAU),
 	XLOADER_PDI_SRC_SD1_LS = (0xEU),
-	XLOADER_PDI_SRC_SBI_JTAG = (0x10U)
+	XLOADER_PDI_SRC_SBI = (0x10U),
+	XLOADER_PDI_SRC_PCIE = (0x11U)
 };
 
 /**************************** Type Definitions *******************************/
@@ -200,28 +201,32 @@ typedef struct {
 					(TRUE) : (FALSE)
 
 /************************** Function Prototypes ******************************/
+extern XilPdi SubsystemPdiIns;
 #if 0
-int XSubSys_Init(u32 * CdoBuf);
-int XSubSys_LoadPdi(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr);
 int XSubSys_CopyPdi(u32 PdiSrc, u64 SrcAddr, u64 DestAddr, u32 PdiLen);
-int XSubSys_ReStart(u32 SubsysHd);
-int XLoader_StartImage(XilPdi *PdiPtr, u32 ImageId);
 #endif
 
 int XLoader_Init();
 int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr);
 int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr);
+int XLoader_LoadPdi(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr);
 int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId);
 int XLoader_StartImage(XilPdi *PdiPtr);
 int XLoader_RestartImage(u32 ImageId);
 int XLoader_ReloadImage(u32 ImageId);
 void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi);
+void XLoader_ClearIntrSbiDataRdy();
 
 /* functions defined in xloader_prtn_load.c */
 int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum);
 
 /** Functions defined in xloader_cmds.c */
 void XLoader_CmdsInit(void);
+
+/** Functions defined in xloader_intr.c */
+int XLoader_IntrInit();
+int XLoader_SbiLoadPdi(void *Data);
+void XLoader_SbiRecovery();
 #ifdef __cplusplus
 }
 #endif
