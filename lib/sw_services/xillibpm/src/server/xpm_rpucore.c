@@ -46,23 +46,18 @@ XStatus XPmRpuCore_Halt(XPm_Device *Device)
 	return Status;
 }
 
-static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
+static int XPmRpuCore_RestoreResumeAddr(XPm_Core *Core)
 {
-	XStatus Status = XST_FAILURE;
-	u32 AddrLow;
+	int Status = XST_SUCCESS;
 	XPm_RpuCore *RpuCore = (XPm_RpuCore *)Core;
+	u32 AddrLow = (u32) (Core->ResumeAddr & 0xffff0000ULL);
 
-	/* Set reset address */
-	if (0 == SetAddress) {
-		if (Core->ResumeAddr & 1ULL) {
-			Address = Core->ResumeAddr;
-		} else {
-			PmErr("Invalid resume address\r\n");
-			Status = XST_FAILURE;
-			goto done;
-		}
+	/* Check for valid resume address */
+	if (0 == (Core->ResumeAddr & 1ULL)) {
+		PmErr("Invalid resume address\r\n");
+		Status = XST_FAILURE;
+		goto done;
 	}
-	AddrLow = (u32) (Address & 0xffff0000ULL);
 
 	/* CFG_VINITHI_MASK mask is common for both processors */
 	if (XPM_PROC_RPU_HIVEC_ADDR == AddrLow) {
@@ -71,6 +66,25 @@ static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	} else {
 		PmRmw32(RpuCore->ResumeCfg, XPM_RPU_VINITHI_MASK,
 			~XPM_RPU_VINITHI_MASK);
+	}
+
+done:
+	return Status;
+}
+
+static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_RpuCore *RpuCore = (XPm_RpuCore *)Core;
+
+	/* Set reset address */
+	if (1 == SetAddress) {
+		Core->ResumeAddr = Address | 1U;
+	}
+
+	Status = XPmRpuCore_RestoreResumeAddr(Core);
+	if (XST_SUCCESS != Status) {
+		goto done;
 	}
 
 	if (XPM_DEVSTATE_RUNNING != Core->Device.Node.State) {
@@ -118,6 +132,7 @@ done:
 }
 
 struct XPm_CoreOps RpuOps = {
+		.RestoreResumeAddr = XPmRpuCore_RestoreResumeAddr,
 		.RequestWakeup = XPmRpuCore_WakeUp,
 		.PowerDown = XPmRpuCore_PwrDwn,
 };
