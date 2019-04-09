@@ -414,7 +414,11 @@ u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 				(PartialLen + (InstancePtr->PartialLen))/4U, 1);
 
 	/* Check for CSU DMA done bit */
-	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
+	Status = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
+						XCSUDMA_SRC_CHANNEL);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Acknowledge the transfer has completed */
 	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
@@ -536,18 +540,22 @@ static u32 XSecure_Sha3DmaTransfer(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	Status = XSecure_SssSha(&(InstancePtr->SssInstance),
 				InstancePtr->CsuDmaPtr->Config.DeviceId);
 	if (Status != (u32)XST_SUCCESS){
-		return (u32)XST_FAILURE;
+		goto ENDF;
 	}
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 				(UINTPTR)Data, (u32)Size/4U, IsLast);
 
 	/* Checking the CSU DMA done bit should be enough. */
-	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
-
+	Status = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
+						XCSUDMA_SRC_CHANNEL);
+	if (Status != (u32)XST_SUCCESS) {
+		goto ENDF;
+	}
 	/* Acknowledge the transfer has completed */
 	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 				XCSUDMA_IXR_DONE_MASK);
-	return (u32)XST_SUCCESS;
+ENDF:
+	return Status;
 }
 
 /*****************************************************************************/

@@ -212,7 +212,11 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 		(UINTPTR)InstancePtr->Iv, XSECURE_SECURE_GCM_TAG_SIZE/4U, 0);
 
-	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
+	Status = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
+						XCSUDMA_SRC_CHANNEL);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Acknowledge the transfer has completed */
 	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
@@ -270,7 +274,11 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, const u8 *Data, u32 Size)
 				(UINTPTR) Data,	Size/4U, IsFinal);
 
 	/* Wait for Src DMA done. */
-	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
+	Status = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
+						XCSUDMA_SRC_CHANNEL);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Acknowledge the transfer has completed */
 	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
@@ -279,8 +287,11 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, const u8 *Data, u32 Size)
 
 	if (IsFinal == TRUE) {
 		/* Wait for Dst DMA done. */
-		XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr,
-					XCSUDMA_DST_CHANNEL);
+		Status = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
+							XCSUDMA_DST_CHANNEL);
+		if (Status != (u32)XST_SUCCESS) {
+			goto END;
+		}
 
 		/* Acknowledge the transfer has completed */
 		XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
@@ -441,8 +452,11 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 		(UINTPTR)InstancePtr->Iv, XSECURE_SECURE_GCM_TAG_SIZE/4U, 0);
 
-	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
-
+	Status = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
+						XCSUDMA_SRC_CHANNEL);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
 	/* Acknowledge the transfer has completed */
 	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 				XCSUDMA_IXR_DONE_MASK);
@@ -497,7 +511,12 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 				XCSUDMA_SRC_CHANNEL,
 				(UINTPTR)EncData, Size/4U, IsFinalUpdate);
 	/* Wait for the Src DMA completion. */
-	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
+	GcmStatus = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
+						XCSUDMA_SRC_CHANNEL);
+	if (GcmStatus != (u32)XST_SUCCESS) {
+		goto END;
+	}
+
 	if (InstancePtr->Destination ==
 			(u8 *)XSECURE_DESTINATION_PCAP_ADDR) {
 		XSecure_PcapWaitForDone();
@@ -514,9 +533,11 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 			XSECURE_SECURE_GCM_TAG_SIZE/4U, IsFinalUpdate);
 
 		/* Wait for the Src DMA completion. */
-		XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr,
-				XCSUDMA_SRC_CHANNEL);
-
+		GcmStatus = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
+							XCSUDMA_SRC_CHANNEL);
+		if (GcmStatus != (u32)XST_SUCCESS) {
+			 goto END;
+		}
 		/* Acknowledge the transfer has completed */
 		XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 				XCSUDMA_IXR_DONE_MASK);
@@ -943,7 +964,11 @@ static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
 		/*
 		 * wait for the SRC_DMA to complete
 		 */
-		XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
+		Status = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
+							XCSUDMA_SRC_CHANNEL);
+		if (XST_SUCCESS != Status) {
+			goto END;
+		}
 
 		/* Acknowledge the transfers has completed */
 		XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
@@ -969,8 +994,11 @@ static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
 			(UINTPTR)(InstancePtr->ReadBuffer), RemainingBytes/4U, 0);
 
 		/* wait for the SRC_DMA to complete and the pcap to be IDLE */
-		XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr,
-					XCSUDMA_SRC_CHANNEL);
+		Status = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
+							XCSUDMA_SRC_CHANNEL);
+		if (XST_SUCCESS != Status) {
+			goto END;
+		}
 
 		/* Acknowledge the transfers have completed */
 		XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
@@ -1022,7 +1050,11 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 		(UINTPTR)InstancePtr->Iv, XSECURE_SECURE_GCM_TAG_SIZE/4U, 0);
 
-	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
+	Status = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
+						XCSUDMA_SRC_CHANNEL);
+	if (XST_SUCCESS != Status) {
+		goto END;
+	}
 
 	/* Acknowledge the transfer has completed */
 	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
@@ -1060,8 +1092,12 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 			if (Dst != (u8*)XSECURE_DESTINATION_PCAP_ADDR)
 			{
 				/* Wait for the Dst DMA completion. */
-				XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr,
+				Status = XCsuDma_WaitForDoneTimeout(
+							InstancePtr->CsuDmaPtr,
 							XCSUDMA_DST_CHANNEL);
+				if (XST_SUCCESS != Status) {
+					goto END;
+				}
 
 				XCsuDma_IntrClear(InstancePtr->CsuDmaPtr,
 							XCSUDMA_DST_CHANNEL,
@@ -1074,8 +1110,13 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 			else
 			{
 				/* Wait for the Src DMA completion. */
-				XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr,
+				Status = XCsuDma_WaitForDoneTimeout(
+							InstancePtr->CsuDmaPtr,
 							XCSUDMA_SRC_CHANNEL);
+				if (XST_SUCCESS != Status) {
+					goto END;
+				}
+
 				XSecure_PcapWaitForDone();
 			}
 
@@ -1132,7 +1173,11 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 	}
 
 	/* Wait for the Src DMA completion. */
-	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
+	Status = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
+						XCSUDMA_SRC_CHANNEL);
+	if (XST_SUCCESS != Status) {
+		goto END;
+	}
 
 	/* Acknowledge the transfer has completed */
 	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
@@ -1158,8 +1203,11 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 	}
 
 	/* Wait for the Src DMA completion. */
-	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
-
+	Status = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
+						XCSUDMA_SRC_CHANNEL);
+	if (XST_SUCCESS != Status) {
+		goto END;
+	}
 	/* Acknowledge the transfer has completed */
 	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 						XCSUDMA_IXR_DONE_MASK);
