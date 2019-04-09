@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2011 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -61,6 +61,8 @@
 * 3.02a sa  04/16/12   Added test of byte and halfword read-modify-write
 * 3.03a bss 05/22/13   Added Xil_DCacheFlushRange in InjectErrors API to
 *		       flush the Cache after writing to BRAM (CR #719011)
+* 4.3   aru 04/09/19   Used UINTPTR instead of u32 for Addr in XBram_SelfTest()
+*
 * </pre>
 *****************************************************************************/
 
@@ -379,7 +381,7 @@ int XBram_SelfTest(XBram *InstancePtr, u8 IntMask)
 	if (InstancePtr->Config.FaultInjectionPresent &&
 	    InstancePtr->Config.WriteAccess != 0) {
 
-	    const u32 Addr[2] = {InstancePtr->Config.MemBaseAddress &
+	    const UINTPTR Addr[2] = {InstancePtr->Config.MemBaseAddress &
 					0xfffffffc,
 				 InstancePtr->Config.MemHighAddress &
 					0xfffffffc};
