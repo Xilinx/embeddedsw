@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2011 - 2018 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2011 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -77,6 +77,7 @@
 #                     Fix for CR#100266.
 # 3.10  mus  10/05/18 Updated get_psu_interrupt_id proc, to fix interrupt id
 #                     computation for vectored interrupts. It fixes CR#998583
+# 4.1   mus  04/09/19 Add pl-ps interrupt id generation support for versal
 #
 ##############################################################################
 
@@ -805,6 +806,7 @@ proc get_psu_interrupt_id { ip_name port_name } {
     global pl_ps_irq0
     global or_id
     global or_cnt
+    set is_versal [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexa72" || IP_NAME=="psv_cortexa72"}]
 
     if { [llength $port_name] == 0 } {
         return $ret
@@ -934,9 +936,17 @@ proc get_psu_interrupt_id { ip_name port_name } {
 	}
 
     }
-
-    set intr_list_irq0 [list 89 90 91 92 93 94 95 96]
-    set intr_list_irq1 [list 104 105 106 107 108 109 110 111]
+    if {[llength $is_versal] == 0} {
+        set irq0_base 89
+        set irq1_base 104
+        set intr_list_irq0 [list 89 90 91 92 93 94 95 96]
+        set intr_list_irq1 [list 104 105 106 107 108 109 110 111]
+    } else {
+        set irq0_base 84
+        set irq1_base 92
+        set intr_list_irq0 [list 84 85 86 87 88 89 90 91]
+        set intr_list_irq1 [list 92 93 94 95 96 97 98 99]
+    }
     set sink_pins [::hsi::utils::get_sink_pins $intr_pin]
     if { [llength $sink_pins] == 0 } {
         return
@@ -1037,7 +1047,7 @@ proc get_psu_interrupt_id { ip_name port_name } {
                     if {$concat_block == "0"} {
                         return [lindex $intr_list_irq1 $irqval]
                     } else {
-                        set ret [expr 104 + [expr {$number + $vec}]]
+                        set ret [expr $irq1_base + [expr {$number + $vec}]]
                         lappend result $ret
                     }
 	        }
@@ -1050,7 +1060,7 @@ proc get_psu_interrupt_id { ip_name port_name } {
 		    if {$concat_block == "0"} {
                         return [lindex $intr_list_irq0 $irqval]
                     } else {
-                        set ret [expr 89 + [expr {$number + $vec}]]
+                        set ret [expr $irq0_base + [expr {$number + $vec}]]
                         lappend result $ret
                     }
                 }
