@@ -43,7 +43,9 @@
 * 6.0   cog    02/17/19 Initial release.
 *       cog    03/12/19 Invert clock detection bits to support IP change.
 *       cog    03/12/19 Fix bug where incorrect FS, RefClk and were output
-*						vivider were being returned.
+*                       divider were being returned.
+*       cog    04/09/19 Discriminate between Gen 2 IP and lower for checking
+*                       if internal PLL is enabled.
 * </pre>
 *
 ******************************************************************************/
@@ -1551,8 +1553,15 @@ u32 XRFdc_GetPLLConfig(XRFdc *InstancePtr, u32 Type,
 					goto RETURN_PATH;
 			}
 		}
-
-		Enabled = (ReadReg & XRFDC_PLLREFDIV_INPUT_OFF)?XRFDC_DISABLED:XRFDC_ENABLED;
+		if (InstancePtr->RFdc_Config.IPType < 2) {
+			if (XRFdc_GetClockSource(InstancePtr, Type, Tile_Id, &Enabled)
+								!= XRFDC_SUCCESS) {
+				Status = XRFDC_FAILURE;
+				goto RETURN_PATH;
+			}
+		} else {
+			Enabled = (ReadReg & XRFDC_PLLREFDIV_INPUT_OFF)?XRFDC_DISABLED:XRFDC_ENABLED;
+		}
 
 		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_PLL_DIVIDER0);
 		DivideMode = (ReadReg & XRFDC_PLL_DIVIDER0_MODE_MASK) >> XRFDC_PLL_DIVIDER0_SHIFT;
