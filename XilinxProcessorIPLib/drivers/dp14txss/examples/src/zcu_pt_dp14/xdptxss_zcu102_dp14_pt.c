@@ -40,6 +40,7 @@
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
 * 1.00 KI 04/01/18 Initial release.
+* 1.01 KU 04/01/19 2019.1 - Updates to RX SetLinkRate, audio enable.
 * </pre>
 *
 ******************************************************************************/
@@ -2065,6 +2066,7 @@ u8 lock = 0;
 u32 appx_fs_dup = 0;
 u32 maud_dup = 0;
 u32 naud_dup = 0;
+extern u8 audio_info_avail;
 
 void Dppt_DetectAudio (void) {
 
@@ -2087,21 +2089,23 @@ void Dppt_DetectAudio (void) {
     if (appx_fs >= 31 && appx_fs <= 33) {
 		appx_fs = 32000;
 		lock = 0;
+//		xil_printf ("^^\r\n");
 
 	} else if (appx_fs >= 43 && appx_fs <= 45) {
 		appx_fs = 44100;
 		lock = 0;
+//		xil_printf ("^^\r\n");
 
 	} else if (appx_fs >= 47 && appx_fs <= 49) {
 		appx_fs = 48000;
 		lock = 0;
+//		xil_printf ("^^\r\n");
 
 	} else {
 		//invalid
 		i2s_invalid = 1;
 		if (lock == 0) {
-			xil_printf ("This Audio Sampling Fs is not supported by "
-					"this design. Maud, Maud = %d %d\r\n", rx_maud, rx_naud);
+			xil_printf ("**\r\n");
 			appx_fs = 0;
 			appx_fs_dup = 0;
 			lock = 1;
@@ -2126,9 +2130,12 @@ void Dppt_DetectAudio (void) {
 		XACR_WriteReg (RX_ACR_ADDR, RXACR_NAUD, rx_naud); // divider
 		XACR_WriteReg (RX_ACR_ADDR, RXACR_MODE, 0x0); // use streaming from DP
 		start_i2s_clk = 1;
+		AudioinfoFrame.frame_count = 0;
+		audio_info_avail = 0;
 //		xil_printf (" old new = %d %d\r\n",appx_fs_dup,appx_fs);
 		appx_fs_dup = appx_fs;
 		XACR_WriteReg (RX_ACR_ADDR, RXACR_ENABLE, 0x1);
+		xil_printf ("^^\r\n");
 	} else {
 
 	}
@@ -2323,6 +2330,8 @@ extern u8 tx_after_rx;
 int Dppt_DetectColor(void *InstancePtr,
 							XDpTxSs_MainStreamAttributes Msa[4]){
 
+	int x,y = 0;
+
 	u32 rxMsamisc0 = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 			XDP_RX_MSA_MISC0);
 
@@ -2344,21 +2353,45 @@ int Dppt_DetectColor(void *InstancePtr,
 	if (DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat !=
 			Msa[0].ComponentFormat) {
 
-		usleep(200000);
-		usleep(200000);
-		usleep(200000);
+			for (x=0;x<500;x++){
+				for (y=0;y<500;y++){
+					if (!DpRxSsInst.link_up_trigger) {
+						return 0;
+						break;
+					}
+				}
+				if (!DpRxSsInst.link_up_trigger) {
+					return 0;
+					break;
+				}
+			}
+
+			for (x=0;x<500;x++){
+					for (y=0;y<500;y++){
+						if (!DpRxSsInst.link_up_trigger) {
+							return 0;
+							break;
+						}
+					}
+					if (!DpRxSsInst.link_up_trigger) {
+						return 0;
+						break;
+					}
+				}
 
 		if (DpRxSsInst.link_up_trigger == 1) {
 			frameBuffer_stop();
 			xil_printf ("Color Format change detected.. restarting video & TX\r\n");
 			Dppt_DetectResolution(InstancePtr, Msa);
 			if (DpRxSsInst.link_up_trigger == 1) {
-				tx_after_rx = 1;
+				return 1;
 			}
+		} else {
+			return 0;
 		}
 	}
 
-		return 1;
+
 
 }
 

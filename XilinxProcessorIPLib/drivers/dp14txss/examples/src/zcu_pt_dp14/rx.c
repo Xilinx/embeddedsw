@@ -49,7 +49,7 @@ u16 DrpVal_lower_lane1=0;
 u16 DrpVal_lower_lane2=0;
 u16 DrpVal_lower_lane3=0;
 extern u8 tx_after_rx;
-
+extern u8 audio_info_avail;
 
 /*****************************************************************************/
 /**
@@ -353,6 +353,8 @@ void DpRxSs_TrainingLostHandler(void *InstancePtr)
 	i2s_tx_started = 0;
 	rx_aud = 0;
 	tx_after_rx = 0;
+	audio_info_avail = 0;
+    AudioinfoFrame.frame_count = 0;
 	if (rx_trained == 1) {
 		xil_printf ("Training Lost !!\r\n");
 	}
@@ -425,7 +427,8 @@ void DpRxSs_UnplugHandler(void *InstancePtr)
 	rx_unplugged = 1;
 //	appx_fs_dup = 0;
 //	XDpRxSs_AudioDisable(&DpRxSsInst);
-	AudioinfoFrame.frame_count = 0;
+    audio_info_avail = 0;
+    AudioinfoFrame.frame_count = 0;
 	SdpExtFrame.Header[1] = 0;
 	SdpExtFrame_q.Header[1] = 0;
 	SdpExtFrame.frame_count = 0;
@@ -1001,6 +1004,10 @@ void DpRxSs_InfoPacketHandler(void *InstancePtr)
 
 			AudioinfoFrame.level_shift = (InfoFrame[3]>>3)&0xF;
 			AudioinfoFrame.downmix_inhibit = (InfoFrame[3]>>7)&0x1;
+
+			if (AudioinfoFrame.frame_count > 20) {
+				audio_info_avail = 1;
+			}
 }
 
 /*****************************************************************************/
