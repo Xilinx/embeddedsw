@@ -69,7 +69,7 @@ XI2srx_Config *Config_rx;
 XGpio              Gpio_AudClk_resetn;
 XGpio_Config       *Gpio_AudClk_resetn_ConfigPtr;
 
-#define I2S_CLK_MULT 768
+#define I2S_CLK_MULT 512
 #define XACR_WriteReg(BaseAddress, RegOffset, Data)   \
     XAudGen_Out32((BaseAddress) + ((u32)RegOffset), (u32)(Data))
 
