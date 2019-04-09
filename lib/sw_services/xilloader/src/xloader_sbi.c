@@ -80,16 +80,37 @@
  *****************************************************************************/
 int XLoader_SbiInit(u32 DeviceFlags)
 {
-	if (DeviceFlags == XLOADER_PDI_SRC_SMAP)
+	switch (DeviceFlags)
 	{
-		XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
+		case XLOADER_PDI_SRC_SMAP:
+			XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
 			       SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
 			       XLOADER_SBI_CTRL_INTERFACE_SMAP);
-	} else {
-		XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
+			break;
+
+		case XLOADER_PDI_SRC_JTAG:
+			XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
 			       SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
 			       XLOADER_SBI_CTRL_INTERFACE_JTAG);
+			break;
+
+		case XLOADER_PDI_SRC_PCIE:
+			XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
+			       SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
+			       XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE);
+			break;
+
+		default:
+			break;
 	}
+
+	/**
+	 * Enable the SBI. This is required for
+	 * error cases and PCIe boot modes
+	 */
+	XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL, SLAVE_BOOT_SBI_CTRL_ENABLE_MASK,
+		     SLAVE_BOOT_SBI_CTRL_ENABLE_MASK);
+
 	return XLOADER_SUCCESS;
 }
 
@@ -170,7 +191,7 @@ XStatus XLoader_SbiCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 
 /*****************************************************************************/
 /**
- * This function is used to release the sd settings
+ * This function is used to release the SBI settings
  *
  * @param	None
  *
@@ -183,4 +204,24 @@ int XLoader_SbiRelease(void )
 	return XLOADER_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+ * This function will reset the SBI interfave
+ * @param	None
+ * @return	None
+ *
+ *****************************************************************************/
+void XLoader_SbiRecovery()
+{
+	u32 SbiCtrl;
+	SbiCtrl = Xil_In32(SLAVE_BOOT_SBI_CTRL);
+
+	/** Reset the SBI */
+	Xil_Out32(CRP_RST_SBI, 0x1);
+	usleep(10);
+	Xil_Out32(CRP_RST_SBI, 0x0);
+
+	/* Restore the interface setting */
+	Xil_Out32(SLAVE_BOOT_SBI_CTRL, SbiCtrl);
+}
 #endif /* end of XLOADER_SBI */
