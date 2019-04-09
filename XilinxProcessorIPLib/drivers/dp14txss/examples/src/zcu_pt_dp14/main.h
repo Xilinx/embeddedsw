@@ -217,6 +217,11 @@
   */
 #define I2S_AUDIO 0
 
+/* Some Monitors require audio to be started after some delay
+ * This param adds a delay to start the audio
+ */
+#define AUD_START_DELAY 200000
+
 /* VPHY Specific Defines
  */
 #define XVPHY_RX_SYM_ERR_CNTR_CH1_2_REG    0x084

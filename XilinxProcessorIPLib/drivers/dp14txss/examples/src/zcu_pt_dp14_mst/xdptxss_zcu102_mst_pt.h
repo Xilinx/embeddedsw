@@ -334,10 +334,17 @@ u8 num_sinks;
 
 
 // In PassThrough mode ONLY ONE monitor needs to be connected to TX
-// This monitor can be SST or MST capable
+// This monitor has to be MST capable
 // In case of MST monitor, setting this param to 1 speeds up the
 // training on TX
 #define FAST_MST 1
+
+// The application can be set to use a default Audio on RX stream
+// When set to 1, Audio stream is selected from the same stream
+// number as video
+// when set 0, application will prompt to select the audio from
+// a stream
+#define DEFAULT_STREAM 1
 
 typedef struct {
         u8  MinVoltageSwing;

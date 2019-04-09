@@ -160,10 +160,10 @@ int main()
 {
 	u32 Status;
 
-	xil_printf("-------------------------------------------\r\n");
-	xil_printf("DisplayPort MST Example Design\r\n");
+	xil_printf("---------------------------------------------\r\n");
+	xil_printf("DisplayPort MST Example Design with AudioLite\r\n");
 	xil_printf("(c) 2018 by Xilinx\r\n");
-	xil_printf("--------------------------------------------\r\n\r\n");
+	xil_printf("----------------------------------------------\r\n\r\n");
 
 	Status = DpMST_Main();
 	if (Status != XST_SUCCESS) {
@@ -249,9 +249,13 @@ u32 DpMST_Main()
 		return XST_FAILURE;
     }
 
+    xil_printf ("\r\n!!! Please ensure that MST capable sources and sinks are \r\n");
+    xil_printf ("used for this example application demo !!! \r\n");
+
     operationMenu();
     XScuGic_Disable(&IntcInst, XINTC_DPRXSS_DP_INTERRUPT_ID);
     XScuGic_Disable(&IntcInst, XINTC_DPTXSS_DP_INTERRUPT_ID);
+
 
 	while (1) { // for menu loop
 		UserInput = XUartPs_RecvByte_NonBlocking();
@@ -294,11 +298,13 @@ u32 DpMST_Main()
 * @note		None.
 *
 ******************************************************************************/
+u8 edid_rx[256];
 u32 DpMST_PlatformInit(void)
 {
 
 	u32 Status;
 	u8 Edid_org[128], Edid1_org[128];
+//	u8 edid_rx[256];
 	u8 LaneCount_init = XDP_TX_LANE_COUNT_SET_4;
 	u8 LaneCount_init_tx = XDP_TX_LANE_COUNT_SET_4;
 	u8 LineRate_init = XDP_TX_LINK_BW_SET_540GBPS;
@@ -415,6 +421,25 @@ u32 DpMST_PlatformInit(void)
 		return XST_FAILURE;
 	}
 
+
+	DpTxSs_Setup(&LineRate_init, &LaneCount_init, Edid_org, Edid1_org);
+
+	LaneCount_init_tx = LaneCount_init_tx & 0x7;
+
+	int i=0;
+	for (i=0;i<128;i++) {
+		edid_rx[i] = Edid_org[i];
+		edid_rx[128+i] = Edid1_org[i];
+	}
+	// The Edid read from the Monitor (MST Capable) is copied as edid for
+	// each stream.
+	// User may add his/her own EDID instead of copying the
+	// Monitor EDID
+	// Currently on 2 block EDID is supported
+
+	DpRxSsInst.EdidSize = 256;
+	DpRxSsInst.EdidDataPtr = &edid_rx[0];
+
 	/* Obtain the device configuration
 	 * for the DisplayPort RX Subsystem */
 	ConfigPtr_rx = XDpRxSs_LookupConfig (XDPRXSS_DEVICE_ID);
@@ -436,11 +461,6 @@ u32 DpMST_PlatformInit(void)
 	XDp_RxInterruptDisable(DpRxSsInst.DpPtr, 0xFFF8FFFF);
 	XDp_RxInterruptEnable(DpRxSsInst.DpPtr, 0x80000000);
 	XDp_RxGenerateHpdInterrupt(DpRxSsInst.DpPtr, 50000);
-
-
-	DpTxSs_Setup(&LineRate_init, &LaneCount_init, Edid_org, Edid1_org);
-
-	LaneCount_init_tx = LaneCount_init_tx & 0x7;
 
      /* Start DPRX Subsystem set */
      Status = XDpRxSs_Start(&DpRxSsInst);
@@ -696,6 +716,8 @@ void DpRxSs_VerticalBlankHandler(void *InstancePtr)
 u32 appx_fs_dup = 0;
 extern u8 rx_trained;
 extern u8 tx_is_up;
+u8 aud_info_rcvd = 0;
+
 void DpRxSs_TrainingLostHandler(void *InstancePtr)
 {
         XDp_RxGenerateHpdInterrupt(DpRxSsInst.DpPtr, 750);
@@ -703,6 +725,8 @@ void DpRxSs_TrainingLostHandler(void *InstancePtr)
     	XDp_RxDtgDis(DpRxSsInst.DpPtr);
         DpRxSsInst.link_up_trigger = 0;
         DpRxSsInst.VBlankCount = 0;
+        aud_info_rcvd = 0;
+        AudioinfoFrame.frame_count = 0;
         appx_fs_dup = 0;
     	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x80);
     	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x0);
@@ -772,6 +796,7 @@ void DpRxSs_UnplugHandler(void *InstancePtr)
 	    xil_printf ("Cable Unplugged !!\r\n");
 	    rx_unplugged = 1;
         appx_fs_dup = 0;
+        aud_info_rcvd = 0;
         XDpRxSs_AudioDisable(&DpRxSsInst);
         AudioinfoFrame.frame_count = 0;
         SdpExtFrame.Header[1] = 0;
@@ -1049,7 +1074,6 @@ u32 rx_maud_dup = 0;
 u32 rx_naud_dup = 0;
 u8 start_i2s_clk = 0;
 
-
 void DpRxSs_InfoPacketHandler(void *InstancePtr)
 {
         u32 InfoFrame[9];
@@ -1074,6 +1098,10 @@ void DpRxSs_InfoPacketHandler(void *InstancePtr)
         AudioinfoFrame.channel_allocation = (InfoFrame[2]>>24)&0xFF;
         AudioinfoFrame.level_shift = (InfoFrame[3]>>3)&0xF;
         AudioinfoFrame.downmix_inhibit = (InfoFrame[3]>>7)&0x1;
+        if (AudioinfoFrame.frame_count > 20) {
+		//ensuring audio info frame is captured reliably
+		aud_info_rcvd = 1;
+        }
 }
 
 
@@ -1682,6 +1710,7 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, u8 only_tx)
 
 	u8 retrain_link=0;
 	u8 NumStreams;
+
 	int i = 0;
 
 
@@ -1789,7 +1818,7 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, u8 only_tx)
 
 		}
 
-	if(retrain_link == 1){
+	if(retrain_link == 1 && only_tx == 1){
 		aud_started = 0;
 		XDpTxSs_SetLinkRate(&DpTxSsInst, bw_set);
 		XDpTxSs_SetLaneCount(&DpTxSsInst, lane_set);
@@ -1819,6 +1848,23 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, u8 only_tx)
 
 	}
 
+	if (retrain_link == 1 && only_tx == 0) {
+		XDpTxSs_SetLinkRate(&DpTxSsInst, bw_set);
+		XDpTxSs_SetLaneCount(&DpTxSsInst, lane_set);
+		Status = DpTxSubsystem_Start(&DpTxSsInst, Msa);
+
+		Status = XDpTxSs_DsSetup(DpTxSsInst.DsPtr, 0,
+				&DpTxSsInst.DpPtr->TxInstance.MsaConfig[0]);
+
+		Status |= XDpTxSs_VtcSetup(DpTxSsInst.VtcPtr[0],
+		&DpTxSsInst.DpPtr->TxInstance.MsaConfig[0],
+		DpTxSsInst.UsrOpt.VtcAdjustBs);
+		if (Status != XST_SUCCESS) {
+				xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: "
+						"VTC setup failed!\n\r");
+		}
+	}
+	tx_is_up = 1;
      XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_INTERRUPT_MASK, 0x0);
 }
 
@@ -2042,16 +2088,12 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	u8 C_VideoUserStreamPattern[8] = {0x10, 0x11, 0x12, 0x13, 0x14,
 												0x15, 0x16, 0x17}; //Duplicate
 	int i = 0;
-
-
-//    xil_printf ("Pattern is %d\r\n", pat);
 	u32 Status;
 	//Disabling TX interrupts
-//    tx_started = 0;
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 			XDP_TX_INTERRUPT_MASK, 0xFFF);
 	//Waking up the monitor
-	sink_power_cycle();
+//	sink_power_cycle();
 
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
 // Give a bit of time for DP IP after monitor came up and starting Link training
@@ -2081,16 +2123,11 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 		xil_printf (".");
 	}
 
-	/*
-	 * Setting Color Format
-	 * User can change coefficients here - By default 601 is used for YCbCr
-	 * */
-//	XDp_TxCfgSetColorEncode(DpTxSsInst.DpPtr, XDP_TX_STREAM_ID1,
-//				format, XVIDC_BT_601, XDP_DR_CEA);
-
-	// VTC requires linkup(video clk) before setting values.
-	// This is why we need to linkup once to get proper CLK on VTC.
 	Status = DpTxSubsystem_Start(&DpTxSsInst, Msa);
+	if (Status != XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: "
+					"SS start failed!\n\r");
+	}
 
 	xil_printf (".");
 	//updates required timing values in Video Pattern Generator
@@ -2112,8 +2149,6 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 			xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: "
 					"VTC setup failed!\n\r");
 	}
-
-
 
 //	Status = DpTxSubsystem_Start(&DpTxSsInst, Msa);
 	xil_printf (".");
@@ -2183,22 +2218,19 @@ u32 start_tx_only(u8 line_rate, u8 lane_count,user_config_struct user_config){
 		xil_printf (".");
 	}
 
-	/*
-	 * Setting Color Format
-	 * User can change coefficients here - By default 601 is used for YCbCr
-	 * */
-
 	// VTC requires linkup(video clk) before setting values.
 	Status = DpTxSubsystem_Start(&DpTxSsInst, 0);
+	if (Status != XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: "
+					"SS Start failed!\n\r");
+	}
 	xil_printf (".");
 	//updates required timing values in Video Pattern Generator
 	Vpg_StreamSrcConfigure(DpTxSsInst.DpPtr, 0, 1);
 	xil_printf (".");
 	// setting video pattern
-//	Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr, C_VideoUserStreamPattern[1]);
 	xil_printf (".");
 	clk_wiz_locked();
-
 
 	num_sinks = DpTxSsInst.DpPtr->TxInstance.Topology.SinkTotal;
 	// Keeping splitter in False mode
@@ -2217,9 +2249,8 @@ u32 start_tx_only(u8 line_rate, u8 lane_count,user_config_struct user_config){
 		}
 	}
 
-
 	xil_printf (".");
-        Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
+    Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
 	if (Status != (XST_SUCCESS)) {
 		Status = DpTxSubsystem_Start(&DpTxSsInst, 0);
 		if (Status != XST_SUCCESS) {
@@ -2228,12 +2259,9 @@ u32 start_tx_only(u8 line_rate, u8 lane_count,user_config_struct user_config){
 		}
 	}
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_INTERRUPT_MASK, 0x0);
-
 	xil_printf ("..done !\r\n");
-
 	xil_printf ("MST trained with a total %d sinks\r\n", num_sinks);
-
-		return XST_SUCCESS;
+	return XST_SUCCESS;
 }
 
 
@@ -2834,16 +2862,18 @@ u32 set_vphy(int LineRate_init_tx){
 void sink_power_cycle(void){
 	//Waking up the monitor
 	sink_power_down();
-	// give enough time for monitor to power down
-	usleep(400);
+//	// give enough time for monitor to power down
+//	usleep(40000);
+	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 400000);
 //	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 40000);
 	sink_power_up();
 //	// give enough time for monitor to wake up    CR-962717
-//	usleep(30000);
-	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 300000);
-	sink_power_up();//monitor to wake up once again due to CR-962717
-	usleep(4000);
 	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 400000);
+	sink_power_up();//monitor to wake up once again due to CR-962717
+//	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 400000);
+//	sink_power_up();//monitor to wake up once again due to CR-962717
+//	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 400000);
+
 }
 
 
@@ -3215,25 +3245,19 @@ void Dppt_DetectResolution(void *InstancePtr, u16 offset,
 	int i = 0;
 	u8 msa_offset = stream;//1; //Always copy all into MSA[0] as TX is single
 	stream_id_used = offset;
-//	XVidC_VideoMode VmId_1;
 
-//	XDp_RxDtgDis(DpRxSsInst.DpPtr);
-
-//	frameBuffer_stop_wr();
-
-//	XDp_RxDtgEn(DpRxSsInst.DpPtr);
-
-	while ((DpHres == 0 || i < 300) && DpRxSsInst.link_up_trigger == 1) {
+	while ((DpHres == 0 && i < 3000) && DpRxSsInst.link_up_trigger == 1) {
 	    DpHres = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 			XDP_RX_MSA_HRES+(0x40*(offset-1)));
 	    i++;
 	}
 	i= 0;
-	while ((DpVres == 0 || i < 300) && DpRxSsInst.link_up_trigger == 1) {
+	while ((DpVres == 0 && i < 3000) && DpRxSsInst.link_up_trigger == 1) {
 		DpVres = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 			XDP_RX_MSA_VHEIGHT+(0x40*(offset-1)));
 		i++;
 	}
+
 	// Assuming rest of the MSA would be stable by this time
 	u32 DpHres_total = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 			XDP_RX_MSA_HTOTAL+(0x40*(offset-1)));
@@ -3350,23 +3374,18 @@ void Dppt_DetectResolution(void *InstancePtr, u16 offset,
 	}
 
 	//PPC always set to 4 for MST
-	XDp_RxSetUserPixelWidth(DpRxSsInst.DpPtr, 0x4);//tx_ppc_set);
+//	XDp_RxSetUserPixelWidth(DpRxSsInst.DpPtr, 0x4);//tx_ppc_set);
 
 	Msa[msa_offset-1].OverrideUserPixelWidth = 1;
+
+	if (DpHres != 0) {
 
     xil_printf("*** Stream %d:\r\n", offset);
 	xil_printf("*** Detected Resolution: "
 				"%lu x %lu @ %luHz, BPC = %lu, PPC = 4***\n\r",
 			DpHres, DpVres,recv_frame_clk_int,bpc //,Msa[offset-1].UserPixelWidth
 		);
-//		xil_printf ("PixelWidth is %d\r\n",Msa[0].UserPixelWidth);
-
-//    VmId_1 = XVidC_GetVideoModeId(
-//                    Msa[msa_offset-1].Vtm.Timing.HActive,
-//                    Msa[msa_offset-1].Vtm.Timing.VActive,
-//                    Msa[msa_offset-1].Vtm.FrameRate,0);
-//
-//    frameBuffer_start_wr(VmId_1, Msa, 0); //, msa_offset-1);
+	}
 
 
 }
