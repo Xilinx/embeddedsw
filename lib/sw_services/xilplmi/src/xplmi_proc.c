@@ -52,11 +52,22 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XPLMI_MAP_PLMID(Lvl0, Lvl1, Lvl2)	\
+	(Lvl0<<0U | Lvl1<<8U | Lvl2<<16U)
 
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
 static XIOModule IOModule; /* Instance of the IO Module */
+static u32 PlmIntrMap [] = {
+	[XPLMI_IPI_IRQ] = XPLMI_MAP_PLMID(XPLMI_IOMODULE_PMC_GIC_IRQ,
+					  XPLMI_PMC_GIC_IRQ_GICP0,
+					  XPLMI_GICP0_SRC27),
+	[XPLMI_SBI_DATA_RDY] = XPLMI_MAP_PLMID(XPLMI_IOMODULE_PMC_GIC_IRQ,
+					  XPLMI_PMC_GIC_IRQ_GICP4,
+					  XPLMI_GICP4_SRC8),
+};
+
 /*****************************************************************************/
 /**
 * It initializes the Programmable Interval Timer
@@ -259,7 +270,8 @@ int XPlmi_SetUpInterruptSystem()
 	 * for the device occurs, the device driver handler performs the specific
 	 * interrupt processing for the device
 	 */
-	for (IntrNum = 0U; IntrNum < XPAR_IOMODULE_INTC_MAX_INTR_SIZE; IntrNum++)
+	for (IntrNum = XIN_IOMODULE_EXTERNAL_INTERRUPT_INTR;
+	     IntrNum < XPAR_IOMODULE_INTC_MAX_INTR_SIZE; IntrNum++)
 	{
 		Status = XIOModule_Connect(&IOModule, IntrNum,
 		   (XInterruptHandler) g_TopLevelInterruptTable[IntrNum].Handler,
@@ -272,7 +284,7 @@ int XPlmi_SetUpInterruptSystem()
 		}
 	}
 
-	/*
+	/**
 	 * Enable interrupts for the device and then cause interrupts so the
 	 * handlers will be called.
 	 */
@@ -282,31 +294,19 @@ int XPlmi_SetUpInterruptSystem()
 		XIOModule_Enable(&IOModule, IntrNum);
 	}
 
-	/*
+	/**
 	 * Register the IO module interrupt handler with the exception table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
 	     (Xil_ExceptionHandler)XIOModule_DeviceInterruptHandler,
 		     (void*) IOMODULE_DEVICE_ID);
 
-	/*
-	 * Enable IPI interrupts
-	 * FIXME: DO it elsewhere
-	 */
-	XPlmi_UtilRMW(PMC_GLOBAL_GICP_PMC_IRQ_ENABLE,
-			PMC_GLOBAL_GICP_PMC_IRQ_ENABLE_SRC0_MASK,
-			PMC_GLOBAL_GICP_PMC_IRQ_ENABLE_SRC0_MASK);
-
-	XPlmi_UtilRMW(PMC_GLOBAL_GICP0_IRQ_ENABLE,
-			PMC_GLOBAL_GICP0_IRQ_ENABLE_SRC27_MASK,
-			PMC_GLOBAL_GICP0_IRQ_ENABLE_SRC27_MASK);
-
-	/*
+	/**
 	 * Enable interrupts
 	 */
 	microblaze_enable_interrupts();
 
-	/*
+	/**
 	 * Clear Break In Progress to get interrupts
 	 */
 	mtmsr(mfmsr() & (~XPLMI_MB_MSR_BIP_MASK));
@@ -314,17 +314,94 @@ END:
 	return Status;
 }
 
-/******************************************************************************/
+/****************************************************************************/
 /**
-* This function is an interrupt handler for the device.
+* @brief    This function is default interrupt handler for the device.
 * @param    CallbackRef is presently the interrupt number that is received
 * @return   None.
 ****************************************************************************/
 void XPlmi_IntrHandler(void *CallbackRef)
 {
-	/*
+	/**
 	 * Indicate Interrupt received
 	 */
 	XPlmi_Printf(DEBUG_GENERAL,
 	      "Received Interrupt: 0x%0x\n\r", (u32) CallbackRef);
+}
+
+/****************************************************************************/
+/**
+* @brief    This function will enable the interrupt.
+* @param    IntrId Interrupt ID as specified in the xplmi_proc.h
+* @return   None.
+****************************************************************************/
+void XPlmi_PlmIntrEnable(u32 IntrId)
+{
+	u32 PlmIntrId;
+	u32 IoModIntrNum;
+
+	PlmIntrId = PlmIntrMap[IntrId];
+	IoModIntrNum = PlmIntrId & XPLMI_IOMODULE_MASK;
+
+	switch (IoModIntrNum)
+	{
+		case XPLMI_IOMODULE_PMC_GIC_IRQ:
+			XPlmi_GicIntrEnable(PlmIntrId);
+			break;
+
+		default:
+			break;
+	}
+}
+
+/****************************************************************************/
+/**
+* @brief    This function will disable the interrupt.
+* @param    IntrId Interrupt ID as specified in the xplmi_proc.h
+* @return   None.
+****************************************************************************/
+void XPlmi_PlmIntrDisable(u32 IntrId)
+{
+	u32 PlmIntrId;
+	u32 IoModIntrNum;
+
+	PlmIntrId = PlmIntrMap[IntrId];
+	IoModIntrNum = PlmIntrId & XPLMI_IOMODULE_MASK;
+
+	switch (IoModIntrNum)
+	{
+		case XPLMI_IOMODULE_PMC_GIC_IRQ:
+			XPlmi_GicIntrDisable(PlmIntrId);
+			break;
+
+		default:
+			break;
+	}
+}
+
+/****************************************************************************/
+/**
+* @brief    This function will register the handler and enable the interrupt.
+* @param    IntrId Interrupt ID as specified in the xplmi_proc.h
+* @param    Handler Handler to the registered for the interrupt
+* @param    Data Data to be passed to handler
+* @return   None.
+****************************************************************************/
+void XPlmi_RegisterHandler(u32 IntrId, Function_t Handler, void * Data)
+{
+	u32 PlmIntrId;
+	u32 IoModIntrNum;
+
+	PlmIntrId = PlmIntrMap[IntrId];
+	IoModIntrNum = PlmIntrId & XPLMI_IOMODULE_MASK;
+
+	switch (IoModIntrNum)
+	{
+		case XPLMI_IOMODULE_PMC_GIC_IRQ:
+			XPlmi_GicRegisterHandler(PlmIntrId, Handler, Data);
+			break;
+
+		default:
+			break;
+	}
 }

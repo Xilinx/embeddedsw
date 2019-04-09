@@ -63,31 +63,50 @@ extern "C" {
 #define XPLMI_GICP_SOURCE_COUNT				0x5
 #define XPLMI_NO_OF_BITS_IN_REG				32U
 
-#define XPLMI_GICP0_IPI_INTR_MASK			0x8000000
+#define XPLMI_GICP_MASK			(0xFF00U)
+#define XPLMI_GICPX_MASK		(0xFF0000U)
 
-#define XPLMI_GICP0_INDEX			0x0
-#define XPLMI_GICP1_INDEX			0x1
-#define XPLMI_GICP2_INDEX			0x2
-#define XPLMI_GICP3_INDEX			0x3
-#define XPLMI_GICP4_INDEX			0x4
+/**
+ * PMC GIC interrupts
+ */
+enum {
+	XPLMI_PMC_GIC_IRQ_GICP0 = 0,
+	XPLMI_PMC_GIC_IRQ_GICP1,
+	XPLMI_PMC_GIC_IRQ_GICP2,
+	XPLMI_PMC_GIC_IRQ_GICP3,
+	XPLMI_PMC_GIC_IRQ_GICP4,
+};
 
-#define XPLMI_IPI_INDEX				27U
+/**
+ * PMC GICP0 interrupts
+ */
+enum {
+	XPLMI_GICP0_SRC27 = 27, /**< IPI Interrupt */
+};
+
+/**
+ * PMC GICP4 interrupts
+ */
+enum {
+	XPLMI_GICP4_SRC8 = 8, /**< SBI interrupt */
+};
 
 /**************************** Type Definitions *******************************/
-
+/* Handler Table Structure */
+typedef int (*Function_t)(void *Data);
+struct GicIntrHandlerTable {
+	void *Data;
+	Function_t GicHandler;
+};
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
 
 /* Functions defined in xplm_main.c */
 void XPlmi_GicIntrHandler(void *CallbackRef);
-
-/* Handler Table Structure */
-typedef int (*Function_t)(void);
-struct GicIntrHandlerTable {
-	u32 Mask;
-	Function_t GicHandler;
-};
+void XPlmi_GicRegisterHandler(u32 PlmIntrId, Function_t Handler, void *Data);
+void XPlmi_GicIntrEnable(u32 PlmIntrId);
+void XPlmi_GicIntrDisable(u32 PlmIntrId);
 
 /************************** Variable Definitions *****************************/
 

@@ -49,6 +49,7 @@
 /***************************** Include Files *********************************/
 #include "xplmi_gic_interrupts.h"
 #include "xplmi_hw.h"
+#include "xplmi_util.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -59,11 +60,83 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-static struct GicIntrHandlerTable g_GicPInterruptTable[XPLMI_GICP_SOURCE_COUNT][XPLMI_NO_OF_BITS_IN_REG] = {
+static struct GicIntrHandlerTable
+   g_GicPInterruptTable[XPLMI_GICP_SOURCE_COUNT][XPLMI_NO_OF_BITS_IN_REG] = {
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
-		[XPLMI_GICP0_INDEX][XPLMI_IPI_INDEX] = {XPLMI_GICP0_IPI_INTR_MASK, XPlmi_IpiDispatchHandler},
+	[XPLMI_PMC_GIC_IRQ_GICP0][XPLMI_GICP0_SRC27] =
+		{(void *)0U, XPlmi_IpiDispatchHandler},
 #endif
 };
+
+/*****************************************************************************/
+/**
+ * @brief This will register the GIC handler
+ *
+ * @param	None
+ * @return	None
+ *****************************************************************************/
+void XPlmi_GicRegisterHandler(u32 PlmIntrId, Function_t Handler, void *Data)
+{
+	u32 GicPVal;
+	u32 GicPxVal;
+
+	/** Get the GicP mask */
+	GicPVal = (PlmIntrId & XPLMI_GICP_MASK)>>8U;
+	GicPxVal = (PlmIntrId & XPLMI_GICPX_MASK)>>16U;
+
+	/** Register Handler */
+	g_GicPInterruptTable[GicPVal][GicPxVal].GicHandler = Handler;
+	g_GicPInterruptTable[GicPVal][GicPxVal].Data = Data;
+
+}
+
+/*****************************************************************************/
+/**
+ * @brief This will enable the GIC interrupt
+ *
+ * @param	None
+ * @return	None
+ *****************************************************************************/
+void XPlmi_GicIntrEnable(u32 PlmIntrId)
+{
+	u32 GicPVal;
+	u32 GicPxVal;
+
+	/** Get the GicP mask */
+	GicPVal = (PlmIntrId & XPLMI_GICP_MASK)>>8U;
+	GicPxVal = (PlmIntrId & XPLMI_GICPX_MASK)>>16U;
+
+	/* Enable interrupt */
+	XPlmi_UtilRMW(PMC_GLOBAL_GICP_PMC_IRQ_ENABLE,
+		1U<<GicPVal,
+		1U<<GicPVal);
+
+	XPlmi_UtilRMW(PMC_GLOBAL_GICP0_IRQ_ENABLE + (GicPVal*0x14),
+		1U<<GicPxVal,
+		1U<<GicPxVal);
+}
+
+/*****************************************************************************/
+/**
+ * @brief This will disable the GIC interrupt
+ *
+ * @param	None
+ * @return	None
+ *****************************************************************************/
+void XPlmi_GicIntrDisable(u32 PlmIntrId)
+{
+	u32 GicPVal;
+	u32 GicPxVal;
+
+	/** Get the GicP mask */
+	GicPVal = (PlmIntrId & XPLMI_GICP_MASK)>>8U;
+	GicPxVal = (PlmIntrId & XPLMI_GICPX_MASK)>>16U;
+
+	/* Disable interrupt */
+	XPlmi_UtilRMW(PMC_GLOBAL_GICP0_IRQ_DISABLE + (GicPVal*0x14),
+		1U<<GicPxVal,
+		1U<<GicPxVal);
+}
 
 /*****************************************************************************/
 /**
@@ -81,34 +154,35 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
 	u32 GicIndex;
 	u32 GicPIndex;
 
-	/*
-	 * Indicate Interrupt received
-	 */
-	XPlmi_Printf(DEBUG_DETAILED,
-	      "Received GIC Interrupt: 0x%0x\n\r", (u32) CallbackRef);
+	(void )CallbackRef;
 
 	GicPIntrStatus = XPlmi_In32(XPLMI_GICP_IRQ_STATUS);
-	XPlmi_Printf(DEBUG_DETAILED, "GicPIntrStatus: 0x%x\r\n", GicPIntrStatus);
+	XPlmi_Printf(DEBUG_DETAILED,
+		     "GicPIntrStatus: 0x%x\r\n", GicPIntrStatus);
 
 	for (GicIndex = 0U; GicIndex < XPLMI_GICP_SOURCE_COUNT; GicIndex++) {
 
-		if (GicPIntrStatus & (1 << GicIndex)) {
+		if (GicPIntrStatus & (1U << GicIndex)) {
+			GicPNIntrStatus =
+			  XPlmi_In32(XPLMI_GICP0_IRQ_STATUS + (GicIndex*0x14));
+			XPlmi_Printf(DEBUG_DETAILED,
+				     "GicP%d Intr Status: 0x%x\r\n",
+				     GicIndex, GicPNIntrStatus);
 
-			GicPNIntrStatus = XPlmi_In32(XPLMI_GICP0_IRQ_STATUS + (GicIndex*0x14));
-			XPlmi_Printf(DEBUG_DETAILED, "GicP%d Intr Status: 0x%x\r\n",
-					GicIndex, GicPNIntrStatus);
+			for (GicPIndex = 0U; GicPIndex <
+			     XPLMI_NO_OF_BITS_IN_REG; GicPIndex++) {
 
-			for (GicPIndex = 0U; GicPIndex < XPLMI_NO_OF_BITS_IN_REG; GicPIndex++) {
+				if (GicPNIntrStatus & (1U<<GicPIndex)) {
+					g_GicPInterruptTable[GicIndex][GicPIndex].GicHandler(
+					g_GicPInterruptTable[GicIndex][GicPIndex].Data);
 
-				if (GicPNIntrStatus & g_GicPInterruptTable[GicIndex][GicPIndex].Mask) {
-
-					g_GicPInterruptTable[GicIndex][GicPIndex].GicHandler();
-					XPlmi_Out32((XPLMI_GICP0_IRQ_STATUS + (GicIndex*0x14)),
-							g_GicPInterruptTable[GicIndex][GicPIndex].Mask);
+					XPlmi_Out32((XPLMI_GICP0_IRQ_STATUS +
+						    (GicIndex*0x14U)),
+						    (1U<<GicPIndex));
 
 				}
 			}
-			XPlmi_Out32(XPLMI_GICP_IRQ_STATUS, (GicPIntrStatus & (1 << GicIndex)));
+			XPlmi_Out32(XPLMI_GICP_IRQ_STATUS, (1U << GicIndex));
 		}
 	}
 
