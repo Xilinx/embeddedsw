@@ -91,7 +91,7 @@ XI2srx_Config *Config_rx;
 XGpio              Gpio_AudClk_resetn;
 XGpio_Config       *Gpio_AudClk_resetn_ConfigPtr;
 
-#define I2S_CLK_MULT 768
+#define I2S_CLK_MULT 512
 #define XACR_WriteReg(BaseAddress, RegOffset, Data)   \
     XAudGen_Out32((BaseAddress) + ((u32)RegOffset), (u32)(Data))
 
@@ -339,7 +339,7 @@ void i2s_audio (u32 tmds, u8 ratio_tmds, u8 tx_up, u8 rx_up,
 				XACR_WriteReg
 			(XPAR_AUDIO_I2S_SS_0_AUDIO_CLOCK_RECOVERY_BASEADDR,
 					0x8, 0x1);
-				/* appx_fs*768 is the required
+				/* appx_fs*512 is the required
 				 * Audio clock for DACs/ADCs/I2S
 				 */
 				I2cClk_Ps(appx_fs*2/ratio,
