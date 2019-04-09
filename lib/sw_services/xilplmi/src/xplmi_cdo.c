@@ -350,7 +350,8 @@ int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Size)
 	{
 		XPlmi_Printf(DEBUG_GENERAL,
 		    "CMD: 0x%0x execute failed, Processed Cdo Length 0x%0x\n\r",
-		     CmdPtr->CmdId, CdoPtr->ProcessedCdoLen);
+		     CmdPtr->CmdId,
+		     CdoPtr->ProcessedCdoLen + CdoPtr->BufLen - BufLen);
 		goto END;
 	}
 END:
