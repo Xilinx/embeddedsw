@@ -153,7 +153,8 @@
 *       cog    02/17/19	Added XRFdc_SetSignalDetector() and XRFdc_GetSignalDetector() APIs.
 *       cog    02/17/19 Added XRFdc_DisableCoefficientsOverride(), XRFdc_SetCalCoefficients
 *                       and XRFdc_GetCalCoefficients APIs.
-*       cog    02/21/19 Added XRFdc_SetCalFreeze() and XRFdc_GetCalFreeze() APIs
+*       cog    02/21/19 Added XRFdc_SetCalFreeze() and XRFdc_GetCalFreeze() APIs.
+*       cog    09/04/19 Changed Calibrtation coefficient override control register for OCB1.
 *
 * </pre>
 *
@@ -4679,7 +4680,7 @@ u32 XRFdc_DisableCoefficientsOverride(XRFdc *InstancePtr, u32 Tile_Id, u32 Block
 		BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Index);
 		switch (CalibrationBlock) {
 		case XRFDC_CAL_BLOCK_OCB1:
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL0_OFFSET, XRFDC_CAL_OCB_EN_MASK,
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL1_OFFSET, XRFDC_CAL_OCB_EN_MASK,
 					XRFDC_DISABLED);
 			break;
 		case XRFDC_CAL_BLOCK_OCB2:
@@ -4797,7 +4798,7 @@ u32 XRFdc_SetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 		BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Index);
 		switch (CalibrationBlock) {
 		case XRFDC_CAL_BLOCK_OCB1:
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL0_OFFSET, XRFDC_CAL_OCB_EN_MASK,
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL1_OFFSET, XRFDC_CAL_OCB_EN_MASK,
 					XRFDC_ENABLED);
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB1_OFFSET_COEFF0, XRFDC_CAL_OCB_MASK,
 					CoeffPtr->Coeff0);
