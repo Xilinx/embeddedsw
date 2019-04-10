@@ -515,11 +515,11 @@ XStatus XPmSubsystem_Restart(u32 SubsystemId)
 				/*
 				 * In case the application has not released its
 				 * devices prior to restart request, it is
-				 * released here.  In case of default subsystem, don't
-				 * release the console.  TODO - need to understand
+				 * released here.  Dont release DDR as there is no DDR CDO
+				 * to bring it up back again.  TODO - need to understand
 				 * why releasing TCM0_A causes failure.
 				 */
-				if ((XPM_NODEIDX_DEV_UART_0 != NODEINDEX(Device->Node.Id)) &&
+				if ((XPM_NODETYPE_DEV_DDR != NODETYPE(Device->Node.Id)) &&
 				    (XPM_NODEIDX_DEV_TCM_0_A != NODEINDEX(Device->Node.Id))) {
 					Status = XPm_ReleaseDevice(SubsystemId, Device->Node.Id);
 					if (XST_SUCCESS != Status) {
