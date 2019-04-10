@@ -80,6 +80,9 @@
 ##     06/28/18 mus Updated check_cascade proc, to add check
 ##                  for irq_in pin, while detecting cascaded
 ##                  interrupt controllers.It fixes CR#1005371.
+##     04/10/19 mus Updated intc_update_source_array proc to consider
+##                  interrupt port width, while calculating
+##                  total_source_intrs. It fixes CR#1020269
 ##
 ##
 ##
@@ -753,13 +756,16 @@ proc intc_update_source_array {periph} {
                 incr j
             }
         } else {
-            set source_port_name($intr_cnt)         "${t_source_port_name}"
-            set source_name($intr_cnt)              $t_source_name
-            set source_port_type($intr_cnt)          $t_port_type
-            set source_driver($intr_cnt)            $t_source_driver
-            set source_interrupt_handler($intr_cnt) $t_source_interrupt_handler
-            set source_interrupt_id($intr_cnt)      $port_intr_id
-            incr intr_cnt
+            set width [expr [common::get_property LEFT $source_pin] + 1]
+            for {set count 0} {$count != $width} {incr count} {
+                set source_port_name($intr_cnt)         "${t_source_port_name}"
+                set source_name($intr_cnt)              $t_source_name
+                set source_port_type($intr_cnt)          $t_port_type
+                set source_driver($intr_cnt)            $t_source_driver
+                set source_interrupt_handler($intr_cnt) $t_source_interrupt_handler
+                set source_interrupt_id($intr_cnt)      [expr $count + $port_intr_id]
+                incr intr_cnt
+            }
         }
     }
     set total_source_intrs $intr_cnt

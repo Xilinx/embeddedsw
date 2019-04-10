@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -157,6 +157,9 @@
 *		      CR#765931.
 *		      Modified driver tcl to generate XPAR_AXI_INTC_0_TYPE
 *		      correctly(CR#764865).
+* 3.10  mus   04/10/19 Updated intc_update_source_array proc to
+* 		      calculate total_source_intrs, based on the width of
+*		      interrupt port/pins.
 *
 * @note
 *		For Cascade mode, Interrupt IDs are generated in xparameters.h
