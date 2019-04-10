@@ -1107,20 +1107,6 @@ done:
 }
 
 /**
- * XPsmFwGemDisable() - Disable GEM
- *
- * @return    XST_SUCCESS or error code
- */
-static void XPsmFwGemDisable(struct XPsmFwGemPwrCtrl_t *Args)
-{
-	/* Assert reset to selected GEM core */
-        XPsmFw_RMW32(Args->RstCtrlAddr, Args->RstCtrlMask, Args->RstCtrlMask);
-
-	/* Disable clock for selected GEM core */
-        XPsmFw_RMW32(Args->ClkCtrlAddr, Args->ClkCtrlMask, ~Args->ClkCtrlMask);
-}
-
-/**
  * PowerUp_OCM_BANK0() - Power up OCM BANK0
  *
  * @return    XST_SUCCESS or error code
@@ -1430,17 +1416,7 @@ static XStatus PowerDwn_RPU(void)
  */
 static XStatus PowerDwn_GEM0(void)
 {
-	XStatus Status = XST_SUCCESS;
-
-	Status = XPsmFwMemPwrDown(&Gem0PwrCtrl.GemMemPwrCtrl);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	XPsmFwGemDisable(&Gem0PwrCtrl);
-
-done:
-	return Status;
+	return XPsmFwMemPwrDown(&Gem0PwrCtrl.GemMemPwrCtrl);
 }
 
 /**
@@ -1450,17 +1426,7 @@ done:
  */
 static XStatus PowerDwn_GEM1(void)
 {
-	XStatus Status = XST_SUCCESS;
-
-	Status = XPsmFwMemPwrDown(&Gem1PwrCtrl.GemMemPwrCtrl);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	XPsmFwGemDisable(&Gem1PwrCtrl);
-
-done:
-	return Status;
+	return XPsmFwMemPwrDown(&Gem1PwrCtrl.GemMemPwrCtrl);
 }
 
 /**
