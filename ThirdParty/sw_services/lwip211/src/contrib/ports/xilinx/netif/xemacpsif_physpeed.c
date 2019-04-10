@@ -268,7 +268,7 @@ static u32_t get_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 	else if((temp & 0x0C00) == 0x0000) {
 		return 10;
 	} else {
-		xil_printf("get_IEEE_phy_speed(): Invalid speed bit value, Deafulting to Speed = 10 Mbps\r\n");
+		xil_printf("get_IEEE_phy_speed(): Invalid speed bit value, Defaulting to Speed = 10 Mbps\r\n");
 		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_CONTROL_REG_OFFSET, &temp);
 		XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_CONTROL_REG_OFFSET, 0x0100);
 		return 10;
@@ -723,12 +723,12 @@ static u32_t configure_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr, u32_t s
 	if (speed == 1000) {
 		control |= IEEE_CTRL_LINKSPEED_1000M;
 
-		/* Dont advertise PHY speed of 100 Mbps */
+		/* Don't advertise PHY speed of 100 Mbps */
 		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, &autonereg);
 		autonereg &= (~ADVERTISE_100);
 		XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, autonereg);
 
-		/* Dont advertise PHY speed of 10 Mbps */
+		/* Don't advertise PHY speed of 10 Mbps */
 		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, &autonereg);
 		autonereg &= (~ADVERTISE_10);
 		XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, autonereg);
@@ -742,12 +742,12 @@ static u32_t configure_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr, u32_t s
 	else if (speed == 100) {
 		control |= IEEE_CTRL_LINKSPEED_100M;
 
-		/* Dont advertise PHY speed of 1000 Mbps */
+		/* Don't advertise PHY speed of 1000 Mbps */
 		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET, &autonereg);
 		autonereg &= (~ADVERTISE_1000);
 		XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET, autonereg);
 
-		/* Dont advertise PHY speed of 10 Mbps */
+		/* Don't advertise PHY speed of 10 Mbps */
 		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, &autonereg);
 		autonereg &= (~ADVERTISE_10);
 		XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, autonereg);
@@ -761,12 +761,12 @@ static u32_t configure_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr, u32_t s
 	else if (speed == 10) {
 		control |= IEEE_CTRL_LINKSPEED_10M;
 
-		/* Dont advertise PHY speed of 1000 Mbps */
+		/* Don't advertise PHY speed of 1000 Mbps */
 		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET, &autonereg);
 		autonereg &= (~ADVERTISE_1000);
 		XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET, autonereg);
 
-		/* Dont advertise PHY speed of 100 Mbps */
+		/* Don't advertise PHY speed of 100 Mbps */
 		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, &autonereg);
 		autonereg &= (~ADVERTISE_100);
 		XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, autonereg);

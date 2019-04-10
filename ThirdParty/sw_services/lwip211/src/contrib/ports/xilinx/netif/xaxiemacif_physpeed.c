@@ -258,7 +258,7 @@ unsigned int get_phy_negotiated_speed (XAxiEthernet *xaxiemacp, u32 phy_addr)
 	else if((temp & 0x0C00) == 0x0000) {
 		return 10;
 	} else {
-		xil_printf("get_IEEE_phy_speed(): Invalid speed bit value, Deafulting to Speed = 10 Mbps\r\n");
+		xil_printf("get_IEEE_phy_speed(): Invalid speed bit value, Defaulting to Speed = 10 Mbps\r\n");
 		XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_CONTROL_REG_OFFSET, &temp);
 		XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_CONTROL_REG_OFFSET, 0x0100);
 		return 10;
@@ -630,11 +630,11 @@ unsigned configure_IEEE_phy_speed(XAxiEthernet *xaxiemacp, unsigned speed)
 
 	else if (speed == 100) {
 		control |= IEEE_CTRL_LINKSPEED_100M;
-		/* Dont advertise PHY speed of 1000 Mbps */
+		/* Don't advertise PHY speed of 1000 Mbps */
 		XAxiEthernet_PhyWrite(xaxiemacp, phy_addr,
 					IEEE_1000_ADVERTISE_REG_OFFSET,
 					0);
-		/* Dont advertise PHY speed of 10 Mbps */
+		/* Don't advertise PHY speed of 10 Mbps */
 		XAxiEthernet_PhyWrite(xaxiemacp, phy_addr,
 				IEEE_AUTONEGO_ADVERTISE_REG,
 				ADVERTISE_100);
@@ -642,11 +642,11 @@ unsigned configure_IEEE_phy_speed(XAxiEthernet *xaxiemacp, unsigned speed)
 	}
 	else if (speed == 10) {
 		control |= IEEE_CTRL_LINKSPEED_10M;
-		/* Dont advertise PHY speed of 1000 Mbps */
+		/* Don't advertise PHY speed of 1000 Mbps */
 		XAxiEthernet_PhyWrite(xaxiemacp, phy_addr,
 				IEEE_1000_ADVERTISE_REG_OFFSET,
 					0);
-		/* Dont advertise PHY speed of 100 Mbps */
+		/* Don't advertise PHY speed of 100 Mbps */
 		XAxiEthernet_PhyWrite(xaxiemacp, phy_addr,
 				IEEE_AUTONEGO_ADVERTISE_REG,
 				ADVERTISE_10);
