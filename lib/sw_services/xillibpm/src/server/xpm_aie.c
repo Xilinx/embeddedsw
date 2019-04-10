@@ -64,9 +64,14 @@ static void AiePcsrWrite(u32 Mask, u32 Value)
 }
 
 
-static XStatus AiePreHouseclean()
+static XStatus AiePreHouseclean(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
+
+	/* This function does not use the args */
+	(void)Args;
+	(void)NumOfArgs;
+
 	/* Check for ME Power Status */
 	if( (XPm_In32(ME_NPI_REG_PCSR_STATUS) &
 			 ME_NPI_REG_PCSR_STATUS_ME_PWR_SUPPLY_MASK) !=
@@ -87,9 +92,13 @@ done:
 	return Status;
 }
 
-static XStatus AiePostHouseclean()
+static XStatus AiePostHouseclean(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
+
+	/* This function does not use the args */
+	(void)Args;
+	(void)NumOfArgs;
 
 	/* Set PCOMPLETE bit */
 	AiePcsrWrite(ME_NPI_REG_PCSR_MASK_PCOMPLETE_MASK,
@@ -99,9 +108,13 @@ static XStatus AiePostHouseclean()
 	return Status;
 }
 
-static XStatus AieScanClear()
+static XStatus AieScanClear(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
+
+	/* This function does not use the args */
+	(void)Args;
+	(void)NumOfArgs;
 
 	/* De-assert ODISABLE[1] */
 	AiePcsrWrite(ME_NPI_REG_PCSR_MASK_ODISABLE_1_MASK, 0U);
@@ -136,9 +149,13 @@ done:
 	return Status;
 }
 
-static XStatus AieBisr()
+static XStatus AieBisr(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
+
+	/* This function does not use the args */
+	(void)Args;
+	(void)NumOfArgs;
 
 	Status = XPmBisr_Repair(MEA_TAG_ID);
 	if (XST_SUCCESS != Status) {
@@ -156,10 +173,15 @@ done:
 	return Status;
 }
 
-static XStatus AieMbistClear()
+static XStatus AieMbistClear(u32 *Args, u32 NumOfArgs)
 {
     XStatus Status = XST_SUCCESS;
 	/* TODO: Implement MBIST and memory zeroization */
+
+	/* This function does not use the args */
+	(void)Args;
+	(void)NumOfArgs;
+
         return Status;
 }
 
