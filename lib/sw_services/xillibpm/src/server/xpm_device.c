@@ -329,7 +329,6 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				if (1 /* Hack: Reset de-asserted */) {
 					XPm_RequiremntUpdate(Device->PendingReqm);
 					Node->State = XPM_DEVSTATE_RUNNING;
-					XPm_RequiremntUpdate(Device->PendingReqm);
 					Device->PendingReqm = NULL;
 				} else {
 					/* Todo: Start timer to poll the reset node */
@@ -352,27 +351,19 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				/* Hack */
 				Status = Node->HandleEvent(Node, XPM_DEVEVENT_TIMER);
 			} else if (XPM_DEVEVENT_SHUTDOWN == Event) {
-				Status = XST_SUCCESS;
-				if (Device->UseCount == 1) {
-					Node->State = XPM_DEVSTATE_RST_ON;
-					/* Assert reset for peripheral devices */
-					if (XPM_NODESUBCL_DEV_PERIPH ==
-					    NODESUBCLASS(Device->Node.Id)) {
-						Status = XPmDevice_Reset(Device,
-									 PM_RESET_ACTION_ASSERT);
-						if (XST_SUCCESS != Status) {
-							break;
-						}
+				Node->State = XPM_DEVSTATE_RST_ON;
+				/* Assert reset for peripheral devices */
+				if (XPM_NODESUBCL_DEV_PERIPH ==
+						NODESUBCLASS(Device->Node.Id)) {
+					Status = XPmDevice_Reset(Device,
+							PM_RESET_ACTION_ASSERT);
+					if (XST_SUCCESS != Status) {
+						break;
 					}
-					/* Todo: Start timer to poll reset node */
-					/* Hack */
-					Status = Node->HandleEvent(Node, XPM_DEVEVENT_TIMER);
-				} else {
-					Device->UseCount--;
-					Device->WfPwrUseCnt = Device->Power->UseCount - 1U;
-					Status = Device->Power->Node.HandleEvent(
-						&Device->Power->Node, XPM_POWER_EVENT_PWR_DOWN);
 				}
+				/* Todo: Start timer to poll reset node */
+				/* Hack */
+				Status = Node->HandleEvent(Node, XPM_DEVEVENT_TIMER);
 			} else {
 				/* Required by MISRA */
 			}
@@ -426,7 +417,6 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 						XPm_RequiremntUpdate(Device->PendingReqm);
 						Device->PendingReqm = NULL;
 					}
-					Device->UseCount--;
 					if (0 == IsRunning(Device)) {
 						Node->State = XPM_DEVSTATE_UNUSED;
 					} else {
@@ -505,7 +495,6 @@ static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 
 	/* Allocated device for the subsystem */
 	Reqm->Allocated = 1;
-	Device->UseCount++;
 
 	Status = Device->DeviceOps->SetRequirement(Device, Subsystem,
 						   Capabilities, QoS);
@@ -530,8 +519,15 @@ static XStatus SetRequirement(XPm_Device *Device, XPm_Subsystem *Subsystem,
 		goto done;
 	}
 
-	Device->PendingReqm->Next.Capabilities = Capabilities;
-	Device->PendingReqm->Next.QoS = QoS;
+	/*
+	 * Store current requirements as a backup in next requirement in case
+	 * something fails.
+	 */
+	Device->PendingReqm->Next.Capabilities = Device->PendingReqm->Curr.Capabilities;
+	Device->PendingReqm->Next.QoS = Device->PendingReqm->Curr.QoS;
+
+	Device->PendingReqm->Curr.Capabilities = Capabilities;
+	Device->PendingReqm->Curr.QoS = QoS;
 
 	/*
 	 * If subsystem state is suspending then do not change device's state
@@ -539,34 +535,17 @@ static XStatus SetRequirement(XPm_Device *Device, XPm_Subsystem *Subsystem,
 	 * device's next requirements.
 	 */
 	if (SUSPENDING == Subsystem->State) {
-		Device->PendingReqm = NULL;
 		Status = XST_SUCCESS;
 		goto done;
 	}
 
-	if (0U != Capabilities) {
-		if (0U == Device->PendingReqm->Curr.Capabilities) {
-			/* This subsystem has no requirements on the device before, but now
-			 * it wants to use it.  Bring up power, clocks and reset in case
-			 * they were down.
-			 */
-			Status = Device->Node.HandleEvent((XPm_Node *)Device,
-				XPM_DEVEVENT_BRINGUP_ALL);
-		} else {
-			/* This subsystem has been using the device but is changing the
-			 * requirements.  Bring up clocks and reset in case they are
-			 * down.
-			 */
-			Status = Device->Node.HandleEvent((XPm_Node *)Device,
-				XPM_DEVEVENT_BRINGUP_CLKRST);
-		}
+	Status = XPmDevice_UpdateStatus(Device);
+
+	if (XST_SUCCESS != Status) {
+		Device->PendingReqm->Curr.Capabilities = Device->PendingReqm->Next.Capabilities;
+		Device->PendingReqm->Curr.QoS = Device->PendingReqm->Next.QoS;
 	} else {
-		/* This subsystem will not be using the device.  Trying here to shut
-		 * down the device.  The power, clock and reset nodes should keep use
-		 * count for each subsystem using the device.
-		 */
-		Status = Device->Node.HandleEvent((XPm_Node *)Device,
-			XPM_DEVEVENT_SHUTDOWN);
+		XPm_RequiremntUpdate(Device->PendingReqm);
 	}
 
 done:
@@ -637,7 +616,6 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 	Device->PendingReqm = NULL;
 	Device->WfDealloc = 0;
 	Device->WfPwrUseCnt = 0;
-	Device->UseCount = 0;
 
 	Status = XPmDevice_AddClock(Device, Clock);
 	if (XST_SUCCESS != Status) {
