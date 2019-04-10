@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2019-04-10
+	* Fix typos.
 2019-03-12
 	* Fix BYTE_ORDER redefined warnings in lwip arch/cpu.h.
 	* Fix warnings in emaclite adapter source.

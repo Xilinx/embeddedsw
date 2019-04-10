@@ -685,7 +685,7 @@ unsigned get_IEEE_phy_speed_emaclite(XEmacLite *xemaclitep)
 	u16 phylinkspeed;
 	u32 phy_addr = detect_phy_emaclite(xemaclitep);
 
-	/* Dont advertise PHY speed of 1000 Mbps */
+	/* Don't advertise PHY speed of 1000 Mbps */
 	XEmacLite_PhyWrite(xemaclitep, phy_addr,
 				IEEE_1000_ADVERTISE_REG_OFFSET,
 				0);
@@ -782,11 +782,11 @@ unsigned configure_IEEE_phy_speed_emaclite(XEmacLite *xemaclitep, unsigned speed
 	control &= ~IEEE_CTRL_LINKSPEED_10M;
 	if (speed == 100) {
 		control |= IEEE_CTRL_LINKSPEED_100M;
-		/* Dont advertise PHY speed of 1000 Mbps */
+		/* Don't advertise PHY speed of 1000 Mbps */
 		XEmacLite_PhyWrite(xemaclitep, phy_addr,
 					IEEE_1000_ADVERTISE_REG_OFFSET,
 					0);
-		/* Dont advertise PHY speed of 10 Mbps */
+		/* Don't advertise PHY speed of 10 Mbps */
 		XEmacLite_PhyWrite(xemaclitep, phy_addr,
 				IEEE_AUTONEGO_ADVERTISE_REG,
 				ADVERTISE_100);
@@ -794,11 +794,11 @@ unsigned configure_IEEE_phy_speed_emaclite(XEmacLite *xemaclitep, unsigned speed
 	}
 	else if (speed == 10) {
 		control |= IEEE_CTRL_LINKSPEED_10M;
-		/* Dont advertise PHY speed of 1000 Mbps */
+		/* Don't advertise PHY speed of 1000 Mbps */
 		XEmacLite_PhyWrite(xemaclitep, phy_addr,
 				IEEE_1000_ADVERTISE_REG_OFFSET,
 					0);
-		/* Dont advertise PHY speed of 100 Mbps */
+		/* Don't advertise PHY speed of 100 Mbps */
 		XEmacLite_PhyWrite(xemaclitep, phy_addr,
 				IEEE_AUTONEGO_ADVERTISE_REG,
 				ADVERTISE_10);
