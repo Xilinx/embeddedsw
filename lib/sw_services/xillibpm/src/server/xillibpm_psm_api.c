@@ -220,22 +220,5 @@ done:
  ****************************************************************************/
 XStatus XPm_WakeUpEvent(const u32 DeviceId)
 {
-	XStatus Status = XST_SUCCESS;
-	XPm_Core *Core;
-
-	if ((XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) ||
-	    (XPM_NODESUBCL_DEV_CORE != NODESUBCLASS(DeviceId))) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
-	if (Core->CoreOps->RequestWakeup) {
-		Status = Core->CoreOps->RequestWakeup(Core, 0, 0);
-	} else {
-		Status = XST_FAILURE;
-	}
-
-done:
-	return Status;
+	return XPm_RequestWakeUp(XPM_SUBSYSID_PMC, DeviceId, 0, 0, 0);
 }
