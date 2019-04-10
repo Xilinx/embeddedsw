@@ -34,6 +34,7 @@
 # 4.3     srm     01/27/18  Added support to program the width of WDT
 # 4.4     aru     11/15/18  Fixed compiler warning
 # 4.4     sne     03/04/19  Added versal support.
+# 4.5     mus     04/10/19  Support hierarchical designs. Fix for CR#1020269
 ###############################################################################
 
 ## @BEGIN_CHANGELOG EDK_M
@@ -54,7 +55,7 @@ BEGIN driver wdttb
   OPTION supported_peripherals = (axi_timebase_wdt psu_wwdt psv_wwdt);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 4.4;
+  OPTION VERSION = 4.5;
   OPTION NAME = wdttb;
 
 END driver
