@@ -65,6 +65,7 @@
 * 6.7	psl      03/13/19 Added XSK_EFUSEPS_CHECK_AES_KEY_CRC, to check for
 * 						  AES key CRC if TRUE.
 * 	psl      03/28/19 Corrected typos
+*       psl      04/10/19 Fixed IAR warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -111,7 +112,7 @@ int main()
 	u32 AesCrc;
 	u32 Dna[3];
 
-#if defined (XSK_XPLAT_ZYNQ) || (XSK_MICROBLAZE_PLATFORM)
+#if defined (XSK_ZYNQ_PLATFORM) || defined (XSK_MICROBLAZE_PLATFORM)
 	xil_printf("This example will not work for this platform\n\r");
 #endif
 	/* Initiate the Efuse PS instance */

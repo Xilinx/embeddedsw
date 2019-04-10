@@ -42,6 +42,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 4.0   vns     10/08/15 First release
+* 6.7   psl     04/10/19 Fixed IAR warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -83,7 +84,7 @@ int main()
 {
 	u32 Status = XST_SUCCESS;
 
-#if defined (XSK_XPLAT_ZYNQ) || (XSK_MICROBLAZE_PLATFORM)
+#if defined (XSK_ZYNQ_PLATFORM) || defined (XSK_MICROBLAZE_PLATFORM)
 	xil_printf("This example will not work for this platform\n\r");
 #endif
 
