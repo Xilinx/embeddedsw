@@ -505,12 +505,21 @@ XStatus XPmSubsystem_Restart(u32 SubsystemId)
 	while (NULL != Reqm) {
 		if (TRUE == Reqm->Allocated) {
 			Device = Reqm->Device;
-			if ((XPM_NODETYPE_DEV_CORE_APU == NODETYPE(Device->Node.Id)) ||
-			    (XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(Device->Node.Id))) {
+			if (XPM_NODETYPE_DEV_CORE_APU == NODETYPE(Device->Node.Id)) {
 				Status = XPmDevice_Reset(Device, PM_RESET_ACTION_ASSERT);
 				if (XST_SUCCESS != Status) {
 					goto done;
 				}
+			} else if (XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(Device->Node.Id)) {
+				Status = XPmDevice_Reset(Device, PM_RESET_ACTION_ASSERT);
+				if (XST_SUCCESS != Status) {
+					goto done;
+				}
+				/*
+				 * Put the RPU to halt state so that TCM init
+				 * can be done during loading of RPU CDO.
+				 */
+				XPmRpuCore_Halt(Device);
 			} else {
 				/*
 				 * In case the application has not released its
