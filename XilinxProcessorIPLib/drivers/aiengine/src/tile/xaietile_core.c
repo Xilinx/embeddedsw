@@ -45,6 +45,7 @@
 *                          API to read core done status
 * 1.3  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.4  Hyun    01/08/2019  Use the poll function
+* 1.5  Nishad  03/20/2019  Fix return statement for XAieTile_CoreWaitCycles
 * </pre>
 *
 ******************************************************************************/
@@ -185,7 +186,7 @@ u8 XAieTile_CoreReadStatusDone(XAieGbl_Tile *TileInstPtr)
 * @param	TileInstPtr - Pointer to the Tile instance.
 * @param	CycleCnt - No. of timer clock cycles to elapse.
 *
-* @return	None.
+* @return	XAIE_SUCCESS on success.
 *
 * @note		None.
 *
@@ -217,6 +218,8 @@ u8 XAieTile_CoreWaitCycles(XAieGbl_Tile *TileInstPtr, u32 CycleCnt)
                                                 CoreTimerReg.HighOff);
                 CurVal = ((u64)CurHigh << 0x20U) | CurLow;
         }
+
+	return XAIE_SUCCESS;
 }
 
 /*****************************************************************************/
