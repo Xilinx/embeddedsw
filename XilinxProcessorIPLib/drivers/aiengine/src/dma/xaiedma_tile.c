@@ -44,6 +44,8 @@
 * 1.3  Naresh  07/11/2018  Updated copyright info
 * 1.4  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.5  Hyun    01/08/2019  Don't poll the status after control change
+* 1.6  Nishad  03/20/2019  Fix the use of uninitialized pointer in
+* 			   XAieDma_TileBdSetLock function
 * </pre>
 *
 ******************************************************************************/
@@ -171,11 +173,13 @@ void XAieDma_TileBdSetLock(XAieDma_Tile *DmaInstPtr, u8 BdNum, u8 AbType,
 	XAie_AssertNonvoid(DmaInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(BdNum < XAIEDMA_TILE_MAX_NUM_DESCRS);
 	XAie_AssertNonvoid(LockId < XAIEDMA_TILE_MAX_NUM_LOCKS);
+	XAie_AssertNonvoid(AbType == XAIEDMA_TILE_BD_ADDRA ||
+				AbType == XAIEDMA_TILE_BD_ADDRB);
 
 	if(AbType == XAIEDMA_TILE_BD_ADDRA) {
 		AddrPtr = (XAieDma_TileBdLock *)
 					&(DmaInstPtr->Descrs[BdNum].AddrA);
-	} else if(AbType == XAIEDMA_TILE_BD_ADDRB) {
+	} else {
 		AddrPtr = (XAieDma_TileBdLock *)
 					&(DmaInstPtr->Descrs[BdNum].AddrB);
 	}
@@ -424,7 +428,7 @@ void XAieDma_TileBdWrite(XAieDma_Tile *DmaInstPtr, u8 BdNum)
 				TileBd[BdNum].AddA.LkId.Mask) |
 			XAie_SetField(DescrPtr->AddrA.LkRelEn,
 				TileBd[BdNum].AddA.RelEn.Lsb,
-				TileBd[BdNum].AddA.RelEn.Mask) | 
+				TileBd[BdNum].AddA.RelEn.Mask) |
 			XAie_SetField(DescrPtr->AddrA.LkRelVal,
 				TileBd[BdNum].AddA.RelVal.Lsb,
 				TileBd[BdNum].AddA.RelVal.Mask) |
@@ -433,7 +437,7 @@ void XAieDma_TileBdWrite(XAieDma_Tile *DmaInstPtr, u8 BdNum)
 				TileBd[BdNum].AddA.RelValEn.Mask)|
 			XAie_SetField(DescrPtr->AddrA.LkAcqEn,
 				TileBd[BdNum].AddA.AcqEn.Lsb,
-				TileBd[BdNum].AddA.AcqEn.Mask) | 
+				TileBd[BdNum].AddA.AcqEn.Mask) |
 			XAie_SetField(DescrPtr->AddrA.LkAcqVal,
 				TileBd[BdNum].AddA.AcqVal.Lsb,
 				TileBd[BdNum].AddA.AcqVal.Mask) |
@@ -449,7 +453,7 @@ void XAieDma_TileBdWrite(XAieDma_Tile *DmaInstPtr, u8 BdNum)
 				TileBd[BdNum].AddB.LkId.Mask) |
 			XAie_SetField(DescrPtr->AddrB.LkRelEn,
 				TileBd[BdNum].AddB.RelEn.Lsb,
-				TileBd[BdNum].AddB.RelEn.Mask) | 
+				TileBd[BdNum].AddB.RelEn.Mask) |
 			XAie_SetField(DescrPtr->AddrB.LkRelVal,
 				TileBd[BdNum].AddB.RelVal.Lsb,
 				TileBd[BdNum].AddB.RelVal.Mask) |
@@ -458,7 +462,7 @@ void XAieDma_TileBdWrite(XAieDma_Tile *DmaInstPtr, u8 BdNum)
 				TileBd[BdNum].AddB.RelValEn.Mask)|
 			XAie_SetField(DescrPtr->AddrB.LkAcqEn,
 				TileBd[BdNum].AddB.AcqEn.Lsb,
-				TileBd[BdNum].AddB.AcqEn.Mask) | 
+				TileBd[BdNum].AddB.AcqEn.Mask) |
 			XAie_SetField(DescrPtr->AddrB.LkAcqVal,
 				TileBd[BdNum].AddB.AcqVal.Lsb,
 				TileBd[BdNum].AddB.AcqVal.Mask) |
