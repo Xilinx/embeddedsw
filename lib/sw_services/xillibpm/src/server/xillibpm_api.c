@@ -1231,6 +1231,13 @@ XStatus XPm_SetClockState(const u32 SubsystemId, const u32 ClockId, const u32 En
 {
 	XStatus Status = XST_SUCCESS;
 	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
+	u32 CurrState;
+
+	/* Check if clock's state is already desired state */
+	Status = XPm_GetClockState(ClockId, &CurrState);
+	if ((XST_SUCCESS == Status) && (CurrState == Enable)) {
+		goto done;
+	}
 
 	/* Check if subsystem is allowed to access requested clock or not */
 	Status = XPm_IsAccessAllowed(SubsystemId, ClockId);
