@@ -43,6 +43,8 @@
 * 1.2  Naresh  07/11/2018  Updated copyright info
 * 1.3  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.4  Hyun    01/08/2019  Use the poll function
+* 1.5  Nishad  03/20/2019  Fix usage of uninitialized variable in
+* 			   XAieTile_LockAcquire and XAieTile_LockRelease
 * </pre>
 *
 ******************************************************************************/
@@ -93,20 +95,17 @@ u8 XAieTile_LockAcquire(XAieGbl_Tile *TileInstPtr, u8 LockId, u8 LockVal,
 
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(LockId < XAIEGBL_TILE_LOCK_NUM_MAX);
+	XAie_AssertNonvoid(LockVal == XAIETILE_LOCK_ACQ_VAL0 ||
+				LockVal == XAIETILE_LOCK_ACQ_VAL1 ||
+				LockVal == XAIETILE_LOCK_ACQ_VALINVALID);
 
 	if(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE) {
                 RegPtr = &TileLockRegs[LockId];
         } else {
                 RegPtr = &ShimLockRegs[LockId];
         }
-		
-	if(LockVal == XAIETILE_LOCK_ACQ_VALINVALID) {
-		/* Acquire lock with no value register address */
-		RegAddr = TileInstPtr->TileAddr + RegPtr->AcqNvOff;
-		Lsb = RegPtr->AcqNv.Lsb;
-		Mask = RegPtr->AcqNv.Mask;
 
-	} else if(LockVal == XAIETILE_LOCK_ACQ_VAL0) {
+	if(LockVal == XAIETILE_LOCK_ACQ_VAL0) {
 		/* Acquire lock with value 0 register address */
 		RegAddr = TileInstPtr->TileAddr + RegPtr->AcqV0Off;
 		Lsb = RegPtr->AcqV0.Lsb;
@@ -117,6 +116,12 @@ u8 XAieTile_LockAcquire(XAieGbl_Tile *TileInstPtr, u8 LockId, u8 LockVal,
 		RegAddr = TileInstPtr->TileAddr + RegPtr->AcqV1Off;
 		Lsb = RegPtr->AcqV1.Lsb;
 		Mask = RegPtr->AcqV1.Mask;
+	} else {
+		/* LockVal == XAIETILE_LOCK_ACQ_VALINVALID */
+		/* Acquire lock with no value register address */
+		RegAddr = TileInstPtr->TileAddr + RegPtr->AcqNvOff;
+		Lsb = RegPtr->AcqNv.Lsb;
+		Mask = RegPtr->AcqNv.Mask;
 	}
 
 	Value = XAIETILE_LOCK_ACQ_SUCCESS << Lsb;
@@ -162,6 +167,9 @@ u8 XAieTile_LockRelease(XAieGbl_Tile *TileInstPtr, u8 LockId, u8 LockVal,
 
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(LockId < XAIEGBL_TILE_LOCK_NUM_MAX);
+	XAie_AssertNonvoid(LockVal == XAIETILE_LOCK_REL_VAL0 ||
+				LockVal == XAIETILE_LOCK_REL_VAL1 ||
+				LockVal == XAIETILE_LOCK_REL_VALINVALID);
 
        	if(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE) {
                 RegPtr = &TileLockRegs[LockId];
@@ -169,13 +177,7 @@ u8 XAieTile_LockRelease(XAieGbl_Tile *TileInstPtr, u8 LockId, u8 LockVal,
                 RegPtr = &ShimLockRegs[LockId];
         }
 
-	if(LockVal == XAIETILE_LOCK_REL_VALINVALID) {
-		/* Release lock with no value register address */
-		RegAddr = TileInstPtr->TileAddr + RegPtr->RelNvOff;
-		Lsb = RegPtr->RelNv.Lsb;
-		Mask = RegPtr->RelNv.Mask;
-
-	} else if(LockVal == XAIETILE_LOCK_REL_VAL0) {
+	if(LockVal == XAIETILE_LOCK_REL_VAL0) {
 		/* Release lock with value 0 register address */
 		RegAddr = TileInstPtr->TileAddr + RegPtr->RelV0Off;
 		Lsb = RegPtr->RelV0.Lsb;
@@ -186,6 +188,13 @@ u8 XAieTile_LockRelease(XAieGbl_Tile *TileInstPtr, u8 LockId, u8 LockVal,
 		RegAddr = TileInstPtr->TileAddr + RegPtr->RelV1Off;
 		Lsb = RegPtr->RelV1.Lsb;
 		Mask = RegPtr->RelV1.Mask;
+	} else {
+		/* LockVal == XAIETILE_LOCK_REL_VALINVALID */
+		/* Release lock with no value register address */
+		RegAddr = TileInstPtr->TileAddr + RegPtr->RelNvOff;
+		Lsb = RegPtr->RelNv.Lsb;
+		Mask = RegPtr->RelNv.Mask;
+
 	}
 
 	Value = XAIETILE_LOCK_REL_SUCCESS << Lsb;
