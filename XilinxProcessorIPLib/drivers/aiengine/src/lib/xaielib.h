@@ -54,13 +54,14 @@
 
 /***************************** Include Files *********************************/
 #include "xaieconfig.h"
+#include <stdint.h>
 
 /************************** Constant Definitions *****************************/
-typedef unsigned char			u8;
-typedef unsigned short int		u16;
-typedef signed int			s32;
-typedef unsigned int			u32;
-typedef unsigned long int		u64;
+typedef uint8_t			u8;
+typedef uint16_t		u16;
+typedef int32_t			s32;
+typedef uint32_t		u32;
+typedef uint64_t		u64;
 
 /* Don't mix with equivalent baremetal macros, ex, XST_SUCCESS */
 #define XAIELIB_SUCCESS			0U
