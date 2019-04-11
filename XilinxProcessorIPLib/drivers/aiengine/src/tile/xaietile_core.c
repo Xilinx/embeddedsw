@@ -46,6 +46,8 @@
 * 1.3  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.4  Hyun    01/08/2019  Use the poll function
 * 1.5  Nishad  03/20/2019  Fix return statement for XAieTile_CoreWaitCycles
+* 1.6  Nishad  03/20/2019  Fix the usage of unintialized variable in
+* 			   XAieTile_CoreWaitStatus
 * </pre>
 *
 ******************************************************************************/
@@ -125,11 +127,13 @@ u8 XAieTile_CoreWaitStatus(XAieGbl_Tile *TileInstPtr, u32 TimeOut, u32 Status)
 	u8 Ret;
 
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(Status == XAIETILE_CORE_STATUS_DONE ||
+				Status == XAIETILE_CORE_STATUS_DISABLE);
 
 	if(Status == XAIETILE_CORE_STATUS_DONE) {
 		Mask = CoreStsReg.Done.Mask;
 		Value = XAIETILE_CORE_STATUS_DONE << CoreStsReg.Done.Lsb;
-	} else if(Status == XAIETILE_CORE_STATUS_DISABLE) {
+	} else {
 		Mask = CoreStsReg.En.Mask;
 		Value = XAIETILE_CORE_STATUS_DISABLE << CoreStsReg.En.Lsb;
 	}
