@@ -1,3 +1,8 @@
+Changes for 2019.2
+===============================
+sdps_v3_8:
+Modified Tap Delay code for supporting ZynqMP and Versal
+
 Changes for 2019.1
 ===============================
 v_hdmiphy1_v1_0:
