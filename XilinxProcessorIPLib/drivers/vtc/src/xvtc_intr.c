@@ -179,7 +179,7 @@ void XVtc_IntrHandler(void *InstancePtr)
 	XVtc_IntrClear(XVtcPtr, PendingIntr);
 
 	/* Spurious interrupt has happened */
-	if (0 == (PendingIntr | XVTC_IXR_ALLINTR_MASK)) {
+	if (PendingIntr | XVTC_IXR_SPURIOUS_INTR_MASK) {
 		ErrorStatus = 0;
 		XVtcPtr->ErrCallBack(XVtcPtr->ErrRef, ErrorStatus);
 		return;
