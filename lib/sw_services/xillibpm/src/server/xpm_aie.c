@@ -175,13 +175,26 @@ done:
 
 static XStatus AieMbistClear(u32 *Args, u32 NumOfArgs)
 {
-    XStatus Status = XST_SUCCESS;
-	/* TODO: Implement MBIST and memory zeroization */
+	XStatus Status = XST_SUCCESS;
+
+	/* TODO: Implement MBIST  */
 
 	/* This function does not use the args */
 	(void)Args;
 	(void)NumOfArgs;
 
+        return Status;
+}
+
+static XStatus AieMemInit(u32 *Args, u32 NumOfArgs)
+{
+	XStatus Status = XST_SUCCESS;
+
+        /* This function does not use the args */
+	(void)Args;
+	(void)NumOfArgs;
+
+	/* TODO: Implement memory zeroization */
         return Status;
 }
 
@@ -191,6 +204,7 @@ struct XPm_PowerDomainOps AieOps = {
 	.ScanClear = AieScanClear,
 	.Bisr = AieBisr,
 	.Mbist = AieMbistClear,
+	.MemInit = AieMemInit,
 };
 
 XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
