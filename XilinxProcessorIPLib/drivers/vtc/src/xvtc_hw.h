@@ -389,6 +389,8 @@ extern "C" {
 				 XVTC_IXR_LOCKALL_MASK) /**< Mask for all
 							  *  interrupts Mask */
 
+#define XVTC_IXR_SPURIOUS_INTR_MASK	~(XVTC_IXR_ALLINTR_MASK)
+
 /** @name Error Register Bit Definitions
 * @{
 */
