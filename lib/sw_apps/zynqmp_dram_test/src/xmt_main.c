@@ -366,7 +366,7 @@ static u64 XMt_GetRefVal(u64 Addr, u64 Index, s32 ModeVal, u64 *Pattern)
  *
  * @param XMtPtr is the pointer to the Memtest Data Structure
  * @param StartVal is the starting Address
- * @param SizeVal is the Size (Bytes) of the memory to be Tested
+ * @param SizeVal is the Size (MegaBytes) of the memory to be Tested
  * @param ModeVal is the Mode number for the test
  * @param Pattern is the Test Pattern to be written
  *
@@ -392,8 +392,8 @@ static void XMt_Memtest(XMt_CfgData *XMtPtr, u32 StartVal, u32 SizeVal,
 
 	MemErr = 0U;
 
-	/* Set the Start Address in Bytes */
-	Start = ((u64) StartVal) * XMT_MB2BYTE;
+	/* Set the Start Address */
+	Start = ((u64) StartVal);
 	Size = ((u64) SizeVal) * XMT_MB2BYTE;
 
 	memset(LocalErrCnt, 0U, 8*(sizeof(s32)));
@@ -676,12 +676,12 @@ int main(void)
 		xil_printf("\r\n \tBus Width = %d,  ", XMt.BusWidth);
 		xil_printf(" D-cache is %s,  ",
 			   (XMt.DCacheEnable) ? "enable" : "disable");
-		xil_printf(" Verbose Mode is %s\r\n\r\n",
+		xil_printf(" Verbose Mode is %s,  ",
 			   (Verbose) ? "ON" : "OFF");
-		xil_printf(" DDR ECC is %s\r\n",
+		xil_printf(" DDR ECC is %s\r\n\r\n",
 			   XMt.EccEnabled ? "ENABLED" : "DISABLED");
 		xil_printf(" Enter 'h' to print help menu\r\n");
-		xil_printf(" Enter Test Option:\r\n");
+		xil_printf(" Enter Test Option: ");
 
 		/* Get Keyboard Input */
 		Ch = inbyte();
@@ -689,6 +689,7 @@ int main(void)
 			outbyte('\n');
 		}
 		outbyte(Ch);
+		xil_printf("\r\n");
 
 		if (((Ch >= '0') && (Ch <= '9')) ||
 			((Ch == 'm') || (Ch == 'M')) ||
@@ -716,7 +717,7 @@ int main(void)
 							(TestSize * XMT_KB2BYTE) : TestSize;
 			}
 
-			if (((StartAddr + TestSize) * XMT_MB2BYTE) <=
+			if ((StartAddr + (TestSize * XMT_MB2BYTE)) <=
 					XMT_DDR_MAX_SIZE) {
 				xil_printf("\r\nStarting Memory Test...\r\n");
 				xil_printf("%dMB length - Address 0x%x...\r\n",
@@ -772,18 +773,61 @@ int main(void)
 
 		} else if ((Ch == 'l') || (Ch == 'L')) {
 			xil_printf("Enter the number of iterations : ");
-			scanf("%d", &Iter);
+			Iter = 0U;
+			do {
+				SizeChar = inbyte();
+				xil_printf("%c", SizeChar);
+				if ((SizeChar >= '0') && (SizeChar <= '9')) {
+					Iter = (Iter * 10) + (SizeChar - '0');
+				} else if ((SizeChar != '\r') && (SizeChar != '\n')) {
+					Iter = 0;
+					xil_printf("\r\nPlease enter numeric value : ");
+				} else {
+					if (Iter == 0) {
+						xil_printf("\r\nPlease enter non-zero value : ");
+						SizeChar = 0;
+						continue;
+					}
+					outbyte('\n');
+				}
+			} while ((SizeChar != '\n') && (SizeChar != '\r'));
 
 		} else if ((Ch == 't') || (Ch == 'T')) {
 			xil_printf("Please enter the Start address in hex"
 				"(without leading 0x and press enter):");
-			scanf("%lx", &StartAddr);
+			StartAddr = 0;
+			do {
+				SizeChar = inbyte();
+				xil_printf("%c", SizeChar);
+				if ((SizeChar >= '0') && (SizeChar <= '9')) {
+					StartAddr = (StartAddr * 16) + (SizeChar - '0');
+				} else if ((SizeChar >= 'a') && (SizeChar <= 'f')) {
+					StartAddr = (StartAddr * 16) + (SizeChar - 'a' + 10);
+				} else if ((SizeChar >= 'A') && (SizeChar <= 'F')) {
+					StartAddr = (StartAddr * 16) + (SizeChar - 'A' + 10);
+				} else if ((SizeChar != '\r') && (SizeChar != '\n')) {
+					StartAddr = 0;
+					xil_printf("\r\nPlease enter hexadecimal value : ");
+				} else {
+					outbyte('\n');
+				}
+			} while ((SizeChar != '\n') && (SizeChar != '\r'));
 
 		} else if ((Ch == 's') || (Ch == 'S')) {
 			xil_printf("\r\nEnter rank to select:");
-			Ch = inbyte();
-			outbyte(Ch);
-			RankArg = Ch - '0';
+			RankArg = 0U;
+			do {
+				SizeChar = inbyte();
+				xil_printf("%c", SizeChar);
+				if ((SizeChar >= '0') && (SizeChar <= '9')) {
+					RankArg = (RankArg * 10) + (SizeChar - '0');
+				} else if ((SizeChar != '\r') && (SizeChar != '\n')) {
+					RankArg = 0;
+					xil_printf("\r\nPlease enter numeric value : ");
+				} else {
+					outbyte('\n');
+				}
+			} while ((SizeChar != '\n') && (SizeChar != '\r'));
 
 			if (RankArg > XMt.DdrConfigRanks || RankArg < 1) {
 				xil_printf("\r\nInvalid Selection. "
