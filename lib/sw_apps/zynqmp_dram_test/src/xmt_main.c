@@ -404,7 +404,7 @@ static void XMt_Memtest(XMt_CfgData *XMtPtr, u32 StartVal, u32 SizeVal,
 	UpperDdrOffset = 0U;
 	Addr = Start;
 	for (Index = 0U; Index < Size; Index += 8U) {
-		if (Addr < (2048*(u64)XMT_MB2BYTE) - 8U) {
+		if (Addr < (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U) - 8U) {
 			Addr = Start + Index;
 		} else {
 			Addr = XMT_DDR_1_BASEADDR + UpperDdrOffset;
@@ -417,7 +417,12 @@ static void XMt_Memtest(XMt_CfgData *XMtPtr, u32 StartVal, u32 SizeVal,
 	}
 
 	if (XMtPtr->DCacheEnable != 0U) {
-		Xil_DCacheInvalidateRange(Start, Size);
+		if ((Start + Size) < (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U)) {
+			Xil_DCacheInvalidateRange(Start, Size);
+		} else {
+			Xil_DCacheInvalidateRange(Start, XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U - Start);
+			Xil_DCacheInvalidateRange(XMT_DDR_1_BASEADDR, Start + Size - XMT_DDR_1_BASEADDR);
+		}
 	}
 
 	UpperDdrOffset = 0U;
