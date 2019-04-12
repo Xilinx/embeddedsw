@@ -50,6 +50,7 @@ extern "C" {
 #define BRAM_TAG_ID	0x11
 #define URAM_TAG_ID 	0x12
 
+#define PCSR_UNLOCK_VAL		(0xF9E8D7C6U)
 XStatus XPmBisr_Repair(u32 TagId);
 
 #ifdef __cplusplus

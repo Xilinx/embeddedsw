@@ -210,7 +210,7 @@ static XStatus GtyHouseClean()
 	unsigned int i;
 
 	for (i=0; i<sizeof(GtyBaseAddressList)/sizeof(GtyBaseAddressList[0]); i++) {
-		PmOut32(GtyBaseAddressList[i] + GTY_PCSR_LOCK_OFFSET, 0);
+		PmOut32(GtyBaseAddressList[i] + GTY_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
 		/* Deassert INITCTRL */
 		PmOut32(GtyBaseAddressList[i] + GTY_PCSR_MASK_OFFSET, GTY_PCSR_INITCTRL_MASK);
 		PmOut32(GtyBaseAddressList[i] + GTY_PCSR_CONTROL_OFFSET, 0);
@@ -227,7 +227,7 @@ static XStatus GtyHouseClean()
 	}
 
 	for (i=0; i<sizeof(GtyBaseAddressList)/sizeof(GtyBaseAddressList[0]); i++) {
-		PmOut32(GtyBaseAddressList[i] + GTY_PCSR_LOCK_OFFSET, 0);
+		PmOut32(GtyBaseAddressList[i] + GTY_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
 		/* Mbist */
 		Status = PldGtyMbist(GtyBaseAddressList[i]);
 		if (XST_SUCCESS != Status) {
@@ -245,7 +245,7 @@ static XStatus CpmHouseClean()
 	XStatus Status = XST_SUCCESS;
 
 	/* Unlock PCSR */
-	PmOut32(CPM_PCSR_LOCK, 0);
+	PmOut32(CPM_PCSR_LOCK, PCSR_UNLOCK_VAL);
 
 	/* Run scan clear on CPM */
 	PmOut32(CPM_PCSR_MASK, CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK);
