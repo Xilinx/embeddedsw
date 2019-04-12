@@ -481,9 +481,15 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 	PmIn32(CFRAME0_REG_BASEADDR + 8, Value);
 	PmIn32(CFRAME0_REG_BASEADDR + 12, Value);
 
+	/* Unlock CFU writes */
+	PmOut32(CFU_APB_CFU_PROTECT, 0);
+
 	/* PL scan clear / MBIST */
 	PmOut32(CFU_APB_CFU_MASK, CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
 	PmOut32(CFU_APB_CFU_FGCR, CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
+
+	/* Lock CFU writes */
+	PmOut32(CFU_APB_CFU_PROTECT, 1);
 
 	/* Poll for status */
 	Status = XPm_PollForMask(CFU_APB_CFU_STATUS, CFU_APB_CFU_STATUS_SCAN_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
@@ -497,9 +503,15 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 #endif
 #endif
 #ifdef SPP_HACK
+	/* Unlock CFU writes */
+	PmOut32(CFU_APB_CFU_PROTECT, 0);
+
 	/* Set init_complete */
 	PmOut32(CFU_APB_CFU_MASK, CFU_APB_CFU_FGCR_INIT_COMPLETE_MASK);
 	PmOut32(CFU_APB_CFU_FGCR, CFU_APB_CFU_FGCR_INIT_COMPLETE_MASK);
+
+	/* Lock CFU writes */
+	PmOut32(CFU_APB_CFU_PROTECT, 1);
 
 	/*House clean GTY*/
 	Status = GtyHouseClean();
