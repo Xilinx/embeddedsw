@@ -147,6 +147,7 @@
 *       mn     09/06/17 Resolved compilation errors with IAR toolchain
 * 3.6   mn     08/01/18 Add support for using 64Bit DMA with 32-Bit Processor
 * 3.7   mn     02/01/19 Add support for idling of SDIO
+* 3.8   mn     04/12/19 Modified TapDelay code for supporting ZynqMP and Versal
 *
 * </pre>
 *
@@ -227,7 +228,8 @@ typedef struct {
 	u32 SectorCount;		/**< Sector Count */
 	u32 SdCardConfig;	/**< Sd Card Configuration Register */
 	u32 Mode;			/**< Bus Speed Mode */
-	XSdPs_ConfigTap Config_TapDelay;	/**< Configuring the tap delays */
+	u32	OTapDelay;		/**< Output Tap Delay */
+	u32	ITapDelay;		/**< Input Tap Delay */
 	/**< ADMA Descriptors */
 #ifdef __ICCARM__
 #pragma data_alignment = 32

@@ -96,6 +96,7 @@
 *       mus    11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
 * 3.7   mn     02/01/19 Add support for idling of SDIO
 *       aru    03/12/19 Modified the code according to MISRAC-2012.
+* 3.8   mn     04/12/19 Modified TapDelay code for supporting ZynqMP and Versal
 * </pre>
 *
 ******************************************************************************/
@@ -200,7 +201,8 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	InstancePtr->Config.IsCacheCoherent = ConfigPtr->IsCacheCoherent;
 	InstancePtr->SectorCount = 0U;
 	InstancePtr->Mode = XSDPS_DEFAULT_SPEED_MODE;
-	InstancePtr->Config_TapDelay = NULL;
+	InstancePtr->OTapDelay = 0U;
+	InstancePtr->ITapDelay = 0U;
 	InstancePtr->Dma64BitAddr = 0U;
 
 	/* Disable bus power and issue emmc hw reset */
@@ -776,7 +778,8 @@ s32 XSdPs_CardInitialize(XSdPs *InstancePtr)
 						(InstancePtr->BusWidth >= XSDPS_4_BIT_WIDTH)) {
 					InstancePtr->Mode = XSDPS_HIGH_SPEED_MODE;
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
-					InstancePtr->Config_TapDelay = XSdPs_hsd_sdr25_tapdelay;
+					InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD_HSD;
+					InstancePtr->ITapDelay = SD_ITAPDLYSEL_HSD;
 #endif
 					Status = XSdPs_Change_BusSpeed(InstancePtr);
 					if (Status != XST_SUCCESS) {
@@ -858,7 +861,11 @@ s32 XSdPs_CardInitialize(XSdPs *InstancePtr)
 				(InstancePtr->BusWidth >= XSDPS_4_BIT_WIDTH)) {
 			InstancePtr->Mode = XSDPS_HS200_MODE;
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
-			InstancePtr->Config_TapDelay = XSdPs_sdr104_hs200_tapdelay;
+			if (InstancePtr->Config.BankNumber == 2U) {
+				InstancePtr->OTapDelay = SD_OTAPDLYSEL_HS200_B2;
+			} else {
+				InstancePtr->OTapDelay = SD_OTAPDLYSEL_HS200_B0;
+			}
 #endif
 		} else if (((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
 				(EXT_CSD_DEVICE_TYPE_DDR_1V8_HIGH_SPEED |
@@ -866,14 +873,16 @@ s32 XSdPs_CardInitialize(XSdPs *InstancePtr)
 				(InstancePtr->BusWidth >= XSDPS_4_BIT_WIDTH)) {
 			InstancePtr->Mode = XSDPS_DDR52_MODE;
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
-			InstancePtr->Config_TapDelay = XSdPs_ddr50_tapdelay;
+			InstancePtr->OTapDelay = SD_ITAPDLYSEL_EMMC_DDR50;
+			InstancePtr->ITapDelay = SD_ITAPDLYSEL_EMMC_DDR50;
 #endif
 		} else if (((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
 				EXT_CSD_DEVICE_TYPE_HIGH_SPEED) != 0U) &&
 				(InstancePtr->BusWidth >= XSDPS_4_BIT_WIDTH)) {
 			InstancePtr->Mode = XSDPS_HIGH_SPEED_MODE;
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
-			InstancePtr->Config_TapDelay = XSdPs_hsd_sdr25_tapdelay;
+			InstancePtr->OTapDelay = SD_OTAPDLYSEL_EMMC_HSD;
+			InstancePtr->ITapDelay = SD_ITAPDLYSEL_HSD;
 #endif
 		} else {
 			InstancePtr->Mode = XSDPS_DEFAULT_SPEED_MODE;
