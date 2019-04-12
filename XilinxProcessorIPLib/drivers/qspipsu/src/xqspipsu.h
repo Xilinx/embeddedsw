@@ -162,6 +162,7 @@
  * 1.9   akm 03/26/19 Fixed data alignment warnings on IAR compiler.
  * 1.9   akm 03/26/19 Fixed compilation error in XQspiPsu_LqspiRead()
  *                     function on IAR compiler.
+ * 1.9   akm 04/12/19 Fixed compilation error in XQspiPsu_LqspiRead() function.
  *
  * </pre>
  *

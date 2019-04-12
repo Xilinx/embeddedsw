@@ -84,6 +84,7 @@
 * 1.9   akm 03/26/19 Fixed data alignment warnings on IAR compiler.
 * 1.9   akm 03/26/19 Fixed compilation error in XQspiPsu_LqspiRead()
 *                     function on IAR compiler.
+* 1.9   akm 04/12/19 Fixed compilation error in XQspiPsu_LqspiRead() function.
 *
 *</pre>
 *
@@ -687,7 +688,7 @@ int XQspiPsu_LqspiRead(XQspiPsu *InstancePtr, u8 *RecvBufPtr, u32 Address,
 
 	if (XQspiPsu_GetLqspiConfigReg(InstancePtr) &
 			XQSPIPSU_LQSPI_CR_LINEAR_MASK) {
-		memcpy((void *)ReadBuffer, (const void *)(XPAR_PSU_QSPI_LINEAR_0_S_AXI_BASEADDR + Address), (size_t)BiyteCount);
+		memcpy((void *)ReadBuffer, (const void *)(XPAR_PSU_QSPI_LINEAR_0_S_AXI_BASEADDR + Address), (size_t)ByteCount);
 		return XST_SUCCESS;
 	} else {
 		return XST_FAILURE;
