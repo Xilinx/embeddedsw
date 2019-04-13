@@ -129,6 +129,8 @@ char inbyte_local(void);
 extern u8 tx_after_rx;
 extern u8 tx_done;
 extern u8 i2s_started;
+u8 linkrate_tx_run;
+u8 lanecount_tx_run;
 
 /************************** Variable Definitions *****************************/
 #define DPCD_TEST_CRC_R_Cr   0x240
@@ -458,13 +460,15 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 			&& bw_set != XDP_TX_LINK_BW_SET_540GBPS
 			&& bw_set != XDP_TX_LINK_BW_SET_810GBPS
 			){
-		bw_set = InstancePtr->DpPtr->Config.MaxLinkRate;
+		//Not all MOnitors are capable of 1E
+		bw_set = linkrate_tx_run;
 		retrain_link = 1;
 	}
 	if(lane_set != XDP_TX_LANE_COUNT_SET_1
 			&& lane_set != XDP_TX_LANE_COUNT_SET_2
 			&& lane_set != XDP_TX_LANE_COUNT_SET_4){
-		lane_set = InstancePtr->DpPtr->Config.MaxLaneCount;
+		//Not all links are trained at 4
+		lane_set = lanecount_tx_run;
 		retrain_link = 1;
 	}
 
@@ -766,6 +770,8 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 
 
 	u32 Status;
+	lanecount_tx_run = lane_count;
+	linkrate_tx_run = line_rate;
 	//Disabling TX interrupts
     tx_started = 0;
 
@@ -845,11 +851,13 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 		}
 	}
 
-	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 100000);
+//	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 100000);
 
 	Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
 	if (Status != (XST_SUCCESS)) {
 		xil_printf ("*");
+		XDpTxSs_SetLinkRate(&DpTxSsInst, line_rate);
+		XDpTxSs_SetLaneCount(&DpTxSsInst, lane_count);
 		Status = DpTxSubsystem_Start(&DpTxSsInst, Msa);
 		if (Status != XST_SUCCESS) {
 			xil_printf("ERR:DPTX SS start failed\r\n");
