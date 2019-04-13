@@ -78,6 +78,7 @@
 *               03/20/19 Added eFuse/BBRAM key write support for SSIT devices.
 *       psl     03/29/19 Added Support for user configurable GPIO for jtag
 *                        control.
+*       arc     04/04/19 Fixed CPP warnings.
 * </pre>
 *
 *
@@ -766,8 +767,7 @@ int jtagShiftTDIBits (unsigned char* tdiBuf, unsigned char* tdoBuf, int bitCount
 	bitsLeft = bitCount % 8;
     }
 
-	if(flags | JS_ONES)
-		TdiTemp = 0xFF;
+	TdiTemp = 0xFF;
 
     while (index < byteCount)
     {
@@ -827,6 +827,11 @@ int jtag_setPreAndPostPads (js_port_t *port_arg, int irPrePadBits, int irPostPad
 int jtag_navigate (js_port_t *port, js_state_t state)
 {
 	int status = 0;
+
+	if (port == NULL) {
+		return -1;
+	}
+
 	js_command_sequence_t *cmds = js_create_command_sequence(port->root_node);
 	if (cmds == NULL)
 	{

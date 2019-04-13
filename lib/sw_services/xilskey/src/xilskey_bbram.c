@@ -46,6 +46,7 @@
 *                        of control word.
 * 6.6   vns     06/06/18 Added doxygen tags
 * 6.7   psl     03/20/19 Added BBRAM key write support for SSIT devices.
+*       arc     04/04/19 Fixed CPP warnings.
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "xparameters.h"
@@ -231,7 +232,7 @@ int XilSKey_Bbram_Program(XilSKey_Bbram *InstancePtr)
 *****************************************************************************/
 static inline int XilSKey_Bbram_Program_Zynq(XilSKey_Bbram *InstancePtr)
 {
-	int Status = XST_SUCCESS;
+	int Status;
 
 	InstancePtr->CurSlr = 0;
 	/*
@@ -284,7 +285,7 @@ static inline int XilSKey_Bbram_Program_Zynq(XilSKey_Bbram *InstancePtr)
 ******************************************************************************/
 static inline int XilSKey_Bbram_Program_Ultra(XilSKey_Bbram *InstancePtr)
 {
-	int Status = XST_SUCCESS;
+	int Status;
 
 	XilSKeyJtag.CurSlr = InstancePtr->CurSlr;
 
