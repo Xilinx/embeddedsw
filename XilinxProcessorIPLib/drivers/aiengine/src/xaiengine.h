@@ -11,7 +11,9 @@
 #include <xaiengine/xaietile_event.h>
 #include <xaiengine/xaietile_lock.h>
 #include <xaiengine/xaietile_mem.h>
+#include <xaiengine/xaietile_noc.h>
 #include <xaiengine/xaietile_perfcnt.h>
+#include <xaiengine/xaietile_pl.h>
 #include <xaiengine/xaietile_plif.h>
 #include <xaiengine/xaietile_shim.h>
 #include <xaiengine/xaietile_strm.h>
