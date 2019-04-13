@@ -71,6 +71,7 @@
 *       arc     03/15/19 Modified initial default status value as XST_FAILURE
 * 6.7   psl     03/21/19 Fixed MISRA-C violation.
 *       vns     03/23/19 Fixed CRC calculation for Ultra plus
+*       arc     04/04/19 Fixed CPP warnings.
  *****************************************************************************/
 
 /***************************** Include Files ********************************/
@@ -128,7 +129,7 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 u32 XilSKey_EfusePs_XAdcInit (void)
 {
 	u32 Status = (u32)XST_FAILURE;
-#ifdef XSK_ZYNQ_PLATFORM
+#if defined(XSK_ZYNQ_PLATFORM)
 	XAdcPs_Config *ConfigPtr;
 	XAdcPs *XAdcInstPtr = &XAdcInst;
 
@@ -169,13 +170,11 @@ u32 XilSKey_EfusePs_XAdcInit (void)
 	XAdcPs_SetSequencerMode(XAdcInstPtr, XADCPS_SEQ_MODE_SAFE);
 
 	Status = (u32)XST_SUCCESS;
-#endif
-#ifdef XSK_MICROBLAZE_PLATFORM
-	goto END;
-#endif
 
-#ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-	XSysMonPsu_Config *ConfigPtr = NULL;
+
+
+#elif defined(XSK_ZYNQ_ULTRA_MP_PLATFORM)
+	XSysMonPsu_Config *ConfigPtr;
 	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
 
 	/**
@@ -216,6 +215,9 @@ u32 XilSKey_EfusePs_XAdcInit (void)
 				XSM_SEQ_MODE_SAFE, XSYSMON_PS);
 
 	Status = (u32)XST_SUCCESS;
+
+#else
+	goto END;
 #endif
 END:
 	return Status;
@@ -1117,9 +1119,9 @@ END:
 u32 XilSKey_Timer_Intialise(void)
 {
 
-	u32 RefClk = 0U;
+	u32 RefClk;
 
-#ifdef XSK_ZYNQ_PLATFORM
+#if defined(XSK_ZYNQ_PLATFORM)
 	TimerTicksfor100ns = 0U;
 	u32 ArmPllFdiv;
 	u32 ArmClkDivisor;
@@ -1148,9 +1150,7 @@ u32 XilSKey_Timer_Intialise(void)
 	 */
 	TimerTicksfor100ns =
 		(((RefClk * ArmPllFdiv)/ArmClkDivisor) / 2U) / 10000000U;
-
-#endif
-#ifdef XSK_MICROBLAZE_PLATFORM
+#elif defined(XSK_MICROBLAZE_PLATFORM)
 
 	u32 Status;
 	TimerTicksfor1000ns = 0U;
@@ -1171,7 +1171,8 @@ u32 XilSKey_Timer_Intialise(void)
 	}
 
 	TimerTicksfor1000ns =  XSK_EFUSEPL_CLCK_FREQ_ULTRA/100000U;
-
+#else
+	RefClk = 0U;
 #endif
 
 	return RefClk;
@@ -1239,15 +1240,15 @@ END:
 u32 XilSKey_CrcCalculation(u8 *Key)
 {
 	u32 CrcReturn = 0U;
-	u8 Key_8[9U];
-	u8 Key_Hex[4U] = {0};
 	u32 Index;
 	u8 MaxIndex = 8U;
-	u32 Status;
 
 #if defined (XSK_MICROBLAZE_PLATFORM) || \
 	defined (XSK_ZYNQ_ULTRA_MP_PLATFORM)
 	u32 Key_32 = 0U;
+	u32 Status;
+	u8 Key_Hex[4U] = {0};
+	u8 Key_8[9U];
 #endif
 #ifdef XSK_MICROBLAZE_PLATFORM
 	u8 Row = 0U;
@@ -1311,7 +1312,6 @@ u32 XilSKey_CrcCalculation(u8 *Key)
 			CrcReturn = Status;
 			goto END;
 		}
-		Key_32 = 0x00U;
 		Key_32 = ((u32)Key_Hex[0U] << 8U) | (u32)Key_Hex[1U];
 #endif
 #ifdef XSK_MICROBLAZE_PLATFORM
@@ -1458,46 +1458,53 @@ u32 XilSkey_CrcCalculation_AesKey(u8 *Key)
 {
 	u32 Crc = 0U;
 	u32 Index;
-	u32 MaxIndex = 8U;
+	u32 MaxIndex;
+	u32 Index1 = 0xFFFFFFFF;
 #if defined (XSK_MICROBLAZE_PLATFORM) || \
 	defined (XSK_ZYNQ_ULTRA_MP_PLATFORM)
 		u32 Key_32 = 0U;
-		u32 Index1;
 #endif
 #ifdef XSK_MICROBLAZE_PLATFORM
-	u32 Row;
+	u32 Row = 0;
 #endif
 
-#ifdef XSK_MICROBLAZE_ULTRA_PLUS
+#if defined(XSK_MICROBLAZE_ULTRA_PLUS)
 	MaxIndex = 16U;
 	Row = 5U;
-#endif
-#ifdef XSK_MICROBLAZE_ULTRA
+#elif defined(XSK_MICROBLAZE_ULTRA)
 	MaxIndex = 8U;
 	Row = 20U;
+#elif defined(XSK_ZYNQ_ULTRA_MP_PLATFORM)
+	MaxIndex = 8U;
+#else
+	/* Not supported for other than above platforms */
+	MaxIndex = 0U;
 #endif
 
 	for (Index = 0U; Index < MaxIndex; Index++) {
-#ifdef XSK_MICROBLAZE_ULTRA
-		Index1 = (Index * 4U);
-#endif
-#ifdef XSK_MICROBLAZE_ULTRA_PLUS
-		Index1 = (Index * 2U);
-#endif
 
-#ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
+#if defined(XSK_MICROBLAZE_ULTRA)
+		Index1 = (Index * 4U);
+#elif defined(XSK_MICROBLAZE_ULTRA_PLUS)
+		Index1 = (Index * 2U);
+#elif defined(XSK_ZYNQ_ULTRA_MP_PLATFORM)
 		Index1 = (((u32)7U - Index) * 4U);
+#else
+		Crc = Index1;
+		break;
+
 #endif
 
 #if defined XSK_MICROBLAZE_ULTRA || \
 	defined XSK_ZYNQ_ULTRA_MP_PLATFORM
 	Key_32 = ((u32)Key[Index1 + 3U] << 24U) | ((u32)Key[Index1 + 2U] << 16U) |
 			((u32)Key[Index1 + 1U] << 8U) | ((u32)Key[Index1 + 0U]);
-#endif
-
-#ifdef XSK_MICROBLAZE_ULTRA_PLUS
-	Key_32 = 0x00U;
+#elif defined(XSK_MICROBLAZE_ULTRA_PLUS)
 	Key_32 = ((u32)Key[Index1 + 1U] << 8U) | (u32)Key[Index1];
+#else
+	Crc = Index1;
+	break;
+
 #endif
 
 #ifdef XSK_MICROBLAZE_PLATFORM
@@ -1510,6 +1517,7 @@ u32 XilSkey_CrcCalculation_AesKey(u8 *Key)
 
 #ifdef XSK_ZYNQ_PLATFORM
 		(void) Key;
+		break;
 #endif
 	}
 
