@@ -2066,7 +2066,7 @@ u8 lock = 0;
 u32 appx_fs_dup = 0;
 u32 maud_dup = 0;
 u32 naud_dup = 0;
-extern u8 audio_info_avail;
+//extern u8 audio_info_avail;
 
 void Dppt_DetectAudio (void) {
 
@@ -2131,7 +2131,9 @@ void Dppt_DetectAudio (void) {
 		XACR_WriteReg (RX_ACR_ADDR, RXACR_MODE, 0x0); // use streaming from DP
 		start_i2s_clk = 1;
 		AudioinfoFrame.frame_count = 0;
-		audio_info_avail = 0;
+//		audio_info_avail = 0;
+		XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
+				XDP_RX_INTERRUPT_MASK_INFO_PKT_MASK);
 //		xil_printf (" old new = %d %d\r\n",appx_fs_dup,appx_fs);
 		appx_fs_dup = appx_fs;
 		XACR_WriteReg (RX_ACR_ADDR, RXACR_ENABLE, 0x1);

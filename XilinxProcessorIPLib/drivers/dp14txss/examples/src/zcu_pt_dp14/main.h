@@ -193,6 +193,11 @@
  */
 #define DP_BS_IDLE_TIMEOUT      (0x047868C0*PHY_COMP)+(0x0091FFFF*!PHY_COMP)
 #define VBLANK_WAIT_COUNT       (20+(180*PHY_COMP))
+//Wait for Following number of infoframes before asserting info
+//frame captured
+#define AUD_INFO_COUNT          20
+//Set this to start the audio only after receiving infoframes
+#define WAIT_ON_AUD_INFO          1
 
 /*For compliance, please set AUX_DEFER_COUNT to be 8
  * (Only for ZCU102-ARM R5 based Rx system).
