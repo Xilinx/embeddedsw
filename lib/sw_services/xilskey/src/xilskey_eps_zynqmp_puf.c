@@ -595,7 +595,7 @@ done:
  *****************************************************************************/
 u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 {
-	u32 Status = (u32)XST_FAILURE;
+	u32 Status;
 	s8 Timeout;
 	u32 PufStatus;
 	u32 Index = 0U;
