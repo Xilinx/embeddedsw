@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -173,15 +173,17 @@ static js_lib_command_t *get_command(
 {
     js_lib_command_t *list = cmds->cmd_list;
     unsigned int count = cmds->cmd_count;
+    js_lib_command_t *new_list = NULL;
 
     assert(cmds->cmd_size >= sizeof *list);
     if (count == cmds->cmd_max) {
         unsigned int max = count ? count * 2 : 1;
-        list = (js_lib_command_t *)realloc(list, max * cmds->cmd_size);
-        if (list == NULL) {
+        new_list = (js_lib_command_t *)realloc(list, max * cmds->cmd_size);
+        if (new_list == NULL) {
             js_set_last_error(cmds->base.node->port->server, "end of memory");
             return NULL;
         }
+	list = new_list;
         cmds->cmd_list = list;
         cmds->cmd_max = max;
     }
@@ -251,7 +253,7 @@ int js_add_shift(
     js_lib_command_t *cmd = get_command(cmds);
     if (cmd == NULL)
         return -1;
-    if (bits <= 0) {
+    if (bits == 0) {
         js_set_last_error(cmds->base.node->port->server, "bits argument must be > 0");
         return -1;
     }

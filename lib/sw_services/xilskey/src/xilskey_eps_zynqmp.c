@@ -1183,7 +1183,7 @@ u32 XilSKey_ZynqMp_EfusePs_CacheLoad(void)
 	while(CacheStatus == XSK_ZYNQMP_EFUSEPS_STS_CACHE_LOAD_MASK) {
 		CacheStatus = XilSKey_ZynqMp_EfusePs_Status() &
 			(XSK_ZYNQMP_EFUSEPS_STS_CACHE_LOAD_MASK);
-		if ((CacheStatus) == XSK_ZYNQMP_EFUSEPS_STS_CACHE_DONE_MASK) {
+		if ((CacheStatus) == (u32)XSK_ZYNQMP_EFUSEPS_STS_CACHE_DONE_MASK) {
 			break;
 		}
 	}
@@ -2193,10 +2193,13 @@ UNLOCK:
 ******************************************************************************/
 void XilSKey_ZynqMp_EfusePs_ReadDna(u32 *DnaRead)
 {
-	u32 *DnaPtr = DnaRead;
+
+	u32 *DnaPtr;
 
 	/* Assert validates the input arguments */
 	Xil_AssertVoid(DnaRead != NULL);
+
+	DnaPtr = DnaRead;
 
 	*DnaPtr = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 				XSK_ZYNQMP_EFUSEPS_DNA_0_OFFSET);

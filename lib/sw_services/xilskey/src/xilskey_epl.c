@@ -64,6 +64,7 @@
 *                        enable obfuscation feature for eFUSE AES key
 * 6.6   vns     06/06/18 Added doxygen tags
 * 6.7   psl     03/20/19 Added eFuse key write support for SSIT devices.
+*       arc     04/04/19 Fixed CPP warnings.
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "xparameters.h"
@@ -1589,7 +1590,7 @@ static inline u32 XilSKey_EfusePl_ReadKey_Zynq(XilSKey_EPl *InstancePtr)
 	JtagRead(30, &RowData, 0);
 	InstancePtr->AESKeyReadback[KeyCnt++] = (u8)(RowData & 0xFF);
 	RowData = RowData >> 8;
-	InstancePtr->AESKeyReadback[KeyCnt++] = (u8)(RowData & 0xFF);
+	InstancePtr->AESKeyReadback[KeyCnt] = (u8)(RowData & 0xFF);
 
 	/*
 	 * User key 4 bytes
@@ -2807,7 +2808,7 @@ static inline u32 XilSKey_EfusePl_Program_Checks(XilSKey_EPl *InstancePtr)
 	}
 
 	if ((StatusValues &
-		(1 << XSK_EFUSEPL_STATUS_FUSE_LOGIC_IS_BUSY_ULTRA)) == TRUE) {
+		(1 << XSK_EFUSEPL_STATUS_FUSE_LOGIC_IS_BUSY_ULTRA)) != FALSE) {
 		return (XSK_EFUSEPL_ERROR_FUSE_BUSY + ErrorCode);
 	}
 #endif
@@ -2901,7 +2902,6 @@ static inline u32 XilSKey_EfusePl_Program_RowRange_ultra(u8 RowStart, u8 RowEnd,
 	u32 Row;
 	u8 RowData[XSK_EFUSEPL_MAX_BITS_IN_A_ROW_ULTRA]={0};
 	u32 Status;
-	u8 *RowPtr;
 	u32 MaxBits;
 	u8 RsaRowStart;
 	u8 RsaRowEnd;
@@ -2981,18 +2981,16 @@ static inline u32 XilSKey_EfusePl_Program_RowRange_ultra(u8 RowStart, u8 RowEnd,
 	 */
 	for (Row = RowStart; Row <= RowEnd; Row++) {
 
-		RowPtr = &DataPrgrmg[(Row - RowStart) *
-				MaxBits];
-
-
-		if(XilSKey_EfusePl_ProgramRow_Ultra(Row, RowPtr,
+		if(XilSKey_EfusePl_ProgramRow_Ultra(Row,
+				&DataPrgrmg[(Row - RowStart) * MaxBits],
 			XSK_EFUSEPL_NORMAL_ULTRA, Page) !=
 						XST_SUCCESS) {
 			return (XSK_EFUSEPL_ERROR_IN_PROGRAMMING_ROW +
 						ErrorCode);
 		}
 		/* Programming redundancy bits */
-		if(XilSKey_EfusePl_ProgramRow_Ultra(Row, RowPtr,
+		if(XilSKey_EfusePl_ProgramRow_Ultra(Row,
+				&DataPrgrmg[(Row - RowStart) * MaxBits],
 			XSK_EFUSEPL_REDUNDANT_ULTRA, Page) !=
 						XST_SUCCESS) {
 			return (XSK_EFUSEPL_ERROR_IN_PROGRAMMING_ROW +
@@ -3023,7 +3021,6 @@ static inline u32 XilSKey_EfusePl_Program_AesKey_ultra(void)
 {
 
 	u32 Row;
-	u8 *RowPtr;
 	u32 CrcOfZeros;
 	u32 AesStart;
 	u32 AesEnd;
@@ -3059,16 +3056,16 @@ static inline u32 XilSKey_EfusePl_Program_AesKey_ultra(void)
 
 	for (Row = AesStart; Row <= AesEnd; Row++) {
 
-		RowPtr = &AesDataInBytes[(Row - AesStart) *
-								 MaxBits];
-		if (XilSKey_EfusePl_ProgramRow_Ultra(Row, RowPtr,
+		if (XilSKey_EfusePl_ProgramRow_Ultra(Row,
+				&AesDataInBytes[(Row - AesStart) * MaxBits],
 			XSK_EFUSEPL_NORMAL_ULTRA, XSK_EFUSEPL_PAGE_0_ULTRA) !=
 					XST_SUCCESS) {
 			return ( XSK_EFUSEPL_ERROR_PROGRAMMING_FUSE_AES_ROW +
 							ErrorCode);
 		}
 		/* Programming redundancy bits */
-		if (XilSKey_EfusePl_ProgramRow_Ultra(Row, RowPtr,
+		if (XilSKey_EfusePl_ProgramRow_Ultra(Row,
+				&AesDataInBytes[(Row - AesStart) * MaxBits],
 		XSK_EFUSEPL_REDUNDANT_ULTRA, XSK_EFUSEPL_PAGE_0_ULTRA) !=
 							XST_SUCCESS) {
 			return (XSK_EFUSEPL_ERROR_PROGRAMMING_FUSE_AES_ROW
