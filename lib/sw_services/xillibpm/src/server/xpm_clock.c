@@ -728,28 +728,29 @@ XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp)
 
 	/* Clock valid bit. All clocks in topology are valid. */
 	Attr = 1U;
-#ifndef SPP_HACK
-	/*
-	 * Mark CPM related clock as invalid because their registers are not
-	 * accessible from PS DDR SPP.
-	 * TODO: This code under SPP_HACK flag needs to be removed when CPM
-	 * registers are accessible.
-	 */
-	if (ClockIndex == XPM_NODEIDX_CLK_CPM_LSBUS_REF ||
-	    ClockIndex == XPM_NODEIDX_CLK_CPM_PLL ||
-	    ClockIndex == XPM_NODEIDX_CLK_CPM_PRESRC ||
-	    ClockIndex == XPM_NODEIDX_CLK_CPM_POSTCLK ||
-	    ClockIndex == XPM_NODEIDX_CLK_CPM_PLL_OUT ||
-	    ClockIndex == XPM_NODEIDX_CLK_CPM_CORE_REF ||
-	    ClockIndex == XPM_NODEIDX_CLK_CPM_LSBUS_REF ||
-	    ClockIndex == XPM_NODEIDX_CLK_CPM_DBG_REF ||
-	    ClockIndex == XPM_NODEIDX_CLK_CPM_AUX0_REF ||
-	    ClockIndex == XPM_NODEIDX_CLK_CPM_AUX1_REF ||
-	    ClockIndex == XPM_NODEIDX_CLK_CPM_TOPSW_REF) {
-		PmInfo("Marking Clock: %d as Invalid\r\n", ClockIndex);
-		Attr = 0;
+
+	if (PLATFORM_VERSION_SILICON != Platform) {
+		/*
+		 * Mark CPM related clock as invalid because their registers
+		 * are not accessible from PS DDR SPP.
+		 * TODO: This code under platform version check needs to be
+		 * removed when CPM registers are accessible.
+		 */
+		if (ClockIndex == XPM_NODEIDX_CLK_CPM_LSBUS_REF ||
+		    ClockIndex == XPM_NODEIDX_CLK_CPM_PLL ||
+		    ClockIndex == XPM_NODEIDX_CLK_CPM_PRESRC ||
+		    ClockIndex == XPM_NODEIDX_CLK_CPM_POSTCLK ||
+		    ClockIndex == XPM_NODEIDX_CLK_CPM_PLL_OUT ||
+		    ClockIndex == XPM_NODEIDX_CLK_CPM_CORE_REF ||
+		    ClockIndex == XPM_NODEIDX_CLK_CPM_LSBUS_REF ||
+		    ClockIndex == XPM_NODEIDX_CLK_CPM_DBG_REF ||
+		    ClockIndex == XPM_NODEIDX_CLK_CPM_AUX0_REF ||
+		    ClockIndex == XPM_NODEIDX_CLK_CPM_AUX1_REF ||
+		    ClockIndex == XPM_NODEIDX_CLK_CPM_TOPSW_REF) {
+			PmInfo("Marking Clock: %d as Invalid\r\n", ClockIndex);
+			Attr = 0;
+		}
 	}
-#endif
 
 	/* If clock needs to be enabled during init */
 	/* TBD -  Decide InitEnable value */
