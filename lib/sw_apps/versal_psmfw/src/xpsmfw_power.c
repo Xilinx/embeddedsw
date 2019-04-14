@@ -298,8 +298,12 @@ enum XPsmFWPwrUpDwnType {
 static int XPsmFw_ACPUBisr(const u32 MbistBitMask)
 {
 	int Status = XST_SUCCESS;
-#ifdef SPP_HACK
 	u32 ErrorCnt = 0;
+
+	if (PLATFORM_VERSION_SILICON != Platform) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
 	/* Applying bISR trigger */
 	XPsmFw_Write32(FPD_SLCR_WPROT0, 0x0);
@@ -330,14 +334,18 @@ static int XPsmFw_ACPUBisr(const u32 MbistBitMask)
 	XPsmFw_UtilWait(20);
 
 done:
-#endif // SPP_HACK
 	return Status;
 }
 
 int XPsmFw_FpdMbisr()
 {
 	int Status = XST_SUCCESS;
-#ifdef SPP_HACK
+
+	if (PLATFORM_VERSION_SILICON != Platform) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	XPsmFw_UtilRMW(PSM_LOCAL_MBISR_CNTRL, PSM_LOCAL_MBISR_ENABLE_FPD,
 		       (~PSM_LOCAL_MBISR_ENABLE_FPD));
 	XPsmFw_UtilRMW(PSM_LOCAL_MBISR_CNTRL, PSM_LOCAL_MBISR_TRG_FPD,
@@ -358,14 +366,18 @@ int XPsmFw_FpdMbisr()
 	}
 
 done:
-#endif
 	return Status;
 }
 
 int XPsmFw_FpdScanClear()
 {
 	int Status = XST_SUCCESS;
-#ifdef SPP_HACK
+
+	if (PLATFORM_VERSION_SILICON != Platform) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	/* Trigger scan clear */
 	XPsmFw_UtilRMW(PSM_LOCAL_SCAN_CLEAR_FPD, PSM_LOCAL_SCAN_CLEAR_TRIGGER,
 		       PSM_LOCAL_SCAN_CLEAR_TRIGGER);
@@ -385,14 +397,18 @@ int XPsmFw_FpdScanClear()
 	}
 
 done:
-#endif
 	return Status;
 }
 
 int XPsmFw_FpdMbistClear()
 {
 	int Status = XST_SUCCESS;
-#ifdef SPP_HACK
+
+	if (PLATFORM_VERSION_SILICON != Platform) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	XPsmFw_UtilRMW(PSM_LOCAL_MBIST_RST, PSM_LOCAL_MBIST_RST_FPD_MASK,
 		       PSM_LOCAL_MBIST_RST_FPD_MASK);
 
@@ -416,7 +432,6 @@ int XPsmFw_FpdMbistClear()
 	}
 
 done:
-#endif
 	return Status;
 }
 
@@ -802,9 +817,7 @@ done:
 static XStatus XPsmFwRPUxPwrUp(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDwnType Type)
 {
 	XStatus Status = XST_SUCCESS;
-#ifdef SPP_HACK
 	u32 ErrorCnt = 0;
-#endif
 
 	Status = XPsmFwIslandPwrUp(Args);
 	if (XST_SUCCESS != Status) {
@@ -826,7 +839,11 @@ static XStatus XPsmFwRPUxPwrUp(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDwn
 	XPsmFw_RMW32(Args->PwrCtrlAddr, PSM_LOCAL_PWR_CTRL_ISO_MASK, ~PSM_LOCAL_PWR_CTRL_ISO_MASK);
 
 	/* NOTE: SPP doesn't emulate BISR/BIST */
-#ifdef SPP_HACK
+	if (PLATFORM_VERSION_SILICON != Platform) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	/* Run BISR on RPU */
 
 	/* Applying BISR trigger */
@@ -855,7 +872,7 @@ static XStatus XPsmFwRPUxPwrUp(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDwn
 		XPsmFw_Write32(LPD_SLCR_PERSISTENT0, ErrorCnt);
 	}
 	XPsmFw_UtilWait(20);
-#endif // SPP_HACK
+
 done:
 	return Status;
 }
@@ -1090,7 +1107,11 @@ static XStatus XPsmFwMemPwrDown(struct XPsmFwMemPwrCtrl_t *Args)
 	/* Disable power state for selected bank */
 	XPsmFw_RMW32(Args->PwrCtrlAddr, Args->PwrCtrlMask, ~Args->PwrCtrlMask);
 
-#ifdef SPP_HACK
+	if (PLATFORM_VERSION_SILICON != Platform) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	/* Poll for power status to clear */
 	Status = XPsmFw_UtilPollForZero(Args->PwrStatusAddr, Args->PwrStatusMask, Args->PwrStateAckTimeout);
 	if (XST_SUCCESS != Status) {
@@ -1098,7 +1119,6 @@ static XStatus XPsmFwMemPwrDown(struct XPsmFwMemPwrCtrl_t *Args)
 	}
 
 done:
-#endif // SPP_HACK
 	return Status;
 }
 
