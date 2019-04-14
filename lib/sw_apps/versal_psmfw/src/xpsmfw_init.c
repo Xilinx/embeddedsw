@@ -48,6 +48,8 @@
 #include "xpsmfw_init.h"
 #include "xpsmfw_default.h"
 
+u32 Platform;
+
 int XPsmFw_Init()
 {
 	int Status = XST_SUCCESS;
@@ -58,6 +60,10 @@ int XPsmFw_Init()
 	/* FIXME: Clear IPI0 status and enable IPI interrupts. Do it else where*/
 	XPsmFw_Write32(IPI_PSM_ISR, MASK32_ALL_HIGH);
 #endif
+
+	Platform = ((Xil_In32(PMC_TAP_VERSION) & PMC_TAP_VERSION_PLATFORM_MASK)
+		    >> PMC_TAP_VERSION_PLATFORM_SHIFT);
+
 	return Status;
 }
 
