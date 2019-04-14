@@ -99,7 +99,6 @@ done:
 static XStatus FpdBisr(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
-	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 
 	(void)Args;
 	(void)NumOfArgs;
