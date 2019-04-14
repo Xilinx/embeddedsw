@@ -151,7 +151,7 @@ static XStatus NpdMbist(u32 *AddressList, u32 NumOfAddress)
 {
 	XStatus Status = XST_SUCCESS;
 	u32 RegValue;
-	int i;
+	u32 i;
 
 	if (PLATFORM_VERSION_SILICON != Platform) {
 		Status = XST_SUCCESS;

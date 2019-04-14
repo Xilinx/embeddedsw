@@ -584,8 +584,9 @@ XStatus XPmClock_QueryName(u32 ClockId, u32 *Resp)
 
 	if (ClockIndex == MaxClkNodes) {
 		char ClkName[] = END_OF_CLK;
+		memset(Resp, 0, CLK_NAME_LEN);
 		memcpy(&RetWord, ClkName, 4);
-		memcpy(Resp, &ClkName[4], CLK_NAME_LEN - 4);
+		memcpy(Resp, &ClkName[4], sizeof(ClkName) - 4);
 	} else if (ClockIndex < MaxClkNodes) {
 		memcpy(&RetWord, Clk->Name, 4);
 		memcpy(Resp, &Clk->Name[4], CLK_NAME_LEN - 4);
@@ -695,7 +696,6 @@ XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp)
 {
 	XStatus Status = XST_SUCCESS;
 	unsigned int Attr = 0;
-	XPm_ClockNode *Clk;
 	u32 InitEnable = 0;
 	u32 ClockId = 0;
 	u32 Class = XPM_NODECLASS_CLOCK;
@@ -724,7 +724,6 @@ XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp)
 	}
 
 	ClockId = NODEID(Class, SubClass, NodeType, ClockIndex);
-	Clk = XPmClock_GetById(ClockId);
 
 	/* Clock valid bit. All clocks in topology are valid. */
 	Attr = 1U;

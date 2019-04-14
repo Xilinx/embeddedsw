@@ -443,6 +443,9 @@ static XStatus XPmBisr_RepairME(u32 EfuseTagAddr, u32 TagId,u32 TagSize,u32 TagO
 	u32 RegValue;
 	u64 BaseAddr, BisrDataDestAddr;
 
+	/* Compilation warning fix */
+	(void)TagId;
+
 	BaseAddr = VIVADO_ME_BASEADDR | (TagOptional<<ME_BISR_EFUSE_OFFSET_SHIFT);
 	BisrDataDestAddr = BaseAddr | ME_BISR_FIXED_OFFSET;
 
