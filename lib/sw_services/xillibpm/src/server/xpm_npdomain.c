@@ -112,7 +112,11 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-#ifdef SPP_HACK
+	if (PLATFORM_VERSION_SILICON != Platform) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	XPm_Core *Pmc;
 	u32 RegValue;
 
@@ -140,17 +144,19 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 	}
 
 done:
-#endif
 	return Status;
 }
 
 static XStatus NpdMbist(u32 *AddressList, u32 NumOfAddress)
 {
 	XStatus Status = XST_SUCCESS;
-
-#ifdef SPP_HACK
 	u32 RegValue;
 	int i;
+
+	if (PLATFORM_VERSION_SILICON != Platform) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
 	/* Deassert PCSR Lock*/
 	for(i=0; i<NumOfAddress; i++)
@@ -192,11 +198,8 @@ static XStatus NpdMbist(u32 *AddressList, u32 NumOfAddress)
 	{
 		PmOut32(AddressList[i] + NPI_PSCR_LOCK_OFFSET, 1);
 	}
+
 done:
-#else
-	(void)AddressList;
-	(void)NumOfAddress;
-#endif
 	return Status;
 }
 

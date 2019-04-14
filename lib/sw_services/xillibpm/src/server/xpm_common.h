@@ -102,6 +102,13 @@ extern "C" {
 #define XPm_Read32			XPm_In32
 #define XPm_Write32			XPm_Out32
 
+#define PLATFORM_VERSION_SILICON		(0x0U)
+#define PLATFORM_VERSION_SPP			(0x1U)
+#define PLATFORM_VERSION_EMU			(0x2U)
+#define PLATFORM_VERSION_QEMU			(0x3U)
+
+extern u32 Platform;
+
 void *XPm_AllocBytes(u32 Size);
 
 void XPm_Out32(u32 RegAddress, u32 l_Val);
