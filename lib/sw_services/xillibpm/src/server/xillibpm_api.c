@@ -45,6 +45,7 @@
 #include "xpm_pin.h"
 #include "xplmi_modules.h"
 #include "xpm_aie.h"
+#include "xpm_regs.h"
 
 extern int XLoader_RestartImage(u32 SubsystemId);
 
@@ -293,6 +294,9 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u3
 	XPlmi_ModuleRegister(&XPlmi_Pm);
 
 	XPm_PsmModuleInit();
+
+	Platform = ((Xil_In32(PMC_TAP_VERSION) & PMC_TAP_VERSION_PLATFORM_MASK)
+		    >> PMC_TAP_VERSION_PLATFORM_SHIFT);
 
 #ifdef SELF_TEST
 	/* Todo: Replace this code with the CDO parser */

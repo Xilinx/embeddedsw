@@ -118,27 +118,29 @@ static XStatus AieScanClear(u32 *Args, u32 NumOfArgs)
 
 	/* De-assert ODISABLE[1] */
 	AiePcsrWrite(ME_NPI_REG_PCSR_MASK_ODISABLE_1_MASK, 0U);
-#ifdef SPP_HACK
-	/* Trigger Scan Clear */
-	AiePcsrWrite(ME_NPI_REG_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK,
-		 ME_NPI_REG_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK);
 
-	/* Wait for Scan Clear DONE */
-	Status = XPm_PollForMask(ME_NPI_REG_PCSR_STATUS,
-				 ME_NPI_REG_PCSR_STATUS_SCAN_CLEAR_DONE_MASK,
-				 AIE_POLL_TIMEOUT);
-	if (XST_SUCCESS != Status) {
-		goto done;
+	if (PLATFORM_VERSION_SILICON == Platform) {
+		/* Trigger Scan Clear */
+		AiePcsrWrite(ME_NPI_REG_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK,
+			     ME_NPI_REG_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK);
+
+		/* Wait for Scan Clear DONE */
+		Status = XPm_PollForMask(ME_NPI_REG_PCSR_STATUS,
+					 ME_NPI_REG_PCSR_STATUS_SCAN_CLEAR_DONE_MASK,
+					 AIE_POLL_TIMEOUT);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		/* Check Scan Clear PASS */
+		if( (XPm_In32(ME_NPI_REG_PCSR_STATUS) &
+		     ME_NPI_REG_PCSR_STATUS_SCAN_CLEAR_PASS_MASK) !=
+		    ME_NPI_REG_PCSR_STATUS_SCAN_CLEAR_PASS_MASK) {
+			Status = XST_FAILURE;
+			goto done;
+		}
 	}
 
-	/* Check Scan Clear PASS */
-	if( (XPm_In32(ME_NPI_REG_PCSR_STATUS) &
-			ME_NPI_REG_PCSR_STATUS_SCAN_CLEAR_PASS_MASK) !=
-			ME_NPI_REG_PCSR_STATUS_SCAN_CLEAR_PASS_MASK) {
-		Status = XST_FAILURE;
-		goto done;
-	}
-#endif  /* SPP_HACK	*/
 	/* De-assert ODISABLE[0] */
 	AiePcsrWrite(ME_NPI_REG_PCSR_MASK_ODISABLE_0_MASK, 0U);
 

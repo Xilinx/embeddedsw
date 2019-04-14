@@ -39,7 +39,6 @@ static XStatus LpdPreHouseclean(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-//#ifdef SPP_HACK
 	/* TODO: Check vccint_pslp first to make sure power is on */
 
 	/* Remove PS_PL isolation */
@@ -84,8 +83,8 @@ static XStatus LpdPreHouseclean(u32 *Args, u32 NumOfArgs)
 	 */
 	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PS_POR),
 				     PM_RESET_ACTION_RELEASE);
+
 done:
-//#endif
 	return Status;
 }
 
@@ -113,7 +112,11 @@ static XStatus LpdScanClear(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-#ifdef SPP_HACK
+	if (PLATFORM_VERSION_SILICON != Platform) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	/* Trigger Scan clear on LPD/LPD_IOU */
 	PmRmw32(PMC_ANALOG_SCAN_CLEAR_TRIGGER,
 		(PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_MASK |
@@ -137,7 +140,6 @@ static XStatus LpdScanClear(u32 *Args, u32 NumOfArgs)
 				  PMC_ANALOG_SCAN_CLEAR_PASS_LPD_RPU_MASK),
 				 XPM_POLL_TIMEOUT);
 done:
-#endif
 	return Status;
 }
 
@@ -155,7 +157,11 @@ static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-#ifdef SPP_HACK
+	if (PLATFORM_VERSION_SILICON != Platform) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	/* Enable LBIST isolation */
 	PmRmw32(PMC_ANALOG_LBIST_ISOLATION_EN,
 		(PMC_ANALOG_LBIST_ISOLATION_EN_LPD_MASK |
@@ -181,7 +187,8 @@ static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 				 (PMC_ANALOG_LBIST_DONE_LPD_MASK |
 				  PMC_ANALOG_LBIST_DONE_LPD_RPU_MASK),
 				 XPM_POLL_TIMEOUT);
-#endif
+
+done:
 	return Status;
 }
 
@@ -218,7 +225,11 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-#ifdef SPP_HACK
+	if (PLATFORM_VERSION_SILICON != Platform) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	u32 RegValue;
 
 	PmRmw32(PMC_ANALOG_OD_MBIST_RST,
@@ -261,8 +272,8 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 	     PMC_ANALOG_OD_MBIST_GOOD_LPD_MASK) != RegValue) {
 		Status = XST_FAILURE;
 	}
+
 done:
-#endif
 	return Status;
 }
 

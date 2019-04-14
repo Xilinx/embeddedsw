@@ -466,8 +466,13 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 
 	/* CRAM TRIM */
 	PldApplyTrim(XPM_PL_TRIM_CRAM);
+#endif
 
-#ifdef SPP_HACK
+	if (PLATFORM_VERSION_SILICON != Platform) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	/* LAGUNA REPAIR - not needed for now */
 
 	/* There is no status for Bisr done in hard ip. But we must ensure
@@ -500,9 +505,7 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
-#endif
-#endif
-#ifdef SPP_HACK
+
 	/* Unlock CFU writes */
 	PmOut32(CFU_APB_CFU_PROTECT, 0);
 
@@ -524,7 +527,6 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 	if (XST_SUCCESS != Status) {
                 goto done;
         }
-#endif
 
 done:
 	return Status;

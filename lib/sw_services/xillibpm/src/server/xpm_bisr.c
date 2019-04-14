@@ -163,7 +163,6 @@
 #define CFRM_HB_EXP_REPAIR_VAL1_MASK 		0x001FFFFF
 #define CFRM_HB_EXP_REPAIR_VAL1_SHIFT 		0
 
-#ifdef SPP_HACK
 static u32 XPmTagIdWhiteList[TAG_ID_ARRAY_SIZE] = {0};
 static void XPmBisr_InitTagIdList()
 {
@@ -681,12 +680,9 @@ static int XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 	return TagDataAddr;
 }
 
-#endif
-
 XStatus XPmBisr_Repair(u32 TagId)
 {
 	XStatus Status = XST_SUCCESS;
-#ifdef SPP_HACK
 	u32 EfuseRowTag;
 	u32 EfuseCurrAddr;
 	u32 EfuseNextAddr;
@@ -695,6 +691,11 @@ XStatus XPmBisr_Repair(u32 TagId)
 	u32 EfuseBisrSize;
 	u32 EfuseBisrOptional;
 	u32 TagType;
+
+	if (PLATFORM_VERSION_SILICON != Platform) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
 	//set up the white list
 	XPmBisr_InitTagIdList();
@@ -787,7 +788,7 @@ XStatus XPmBisr_Repair(u32 TagId)
 			EfuseNextAddr += 4;
 		}
 	}
+
 done:
-#endif
 	return Status;
 }
