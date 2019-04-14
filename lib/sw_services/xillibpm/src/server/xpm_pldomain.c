@@ -528,6 +528,9 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
                 goto done;
         }
 
+	/* Compilation warning fix */
+	(void)Value;
+
 done:
 	return Status;
 }
