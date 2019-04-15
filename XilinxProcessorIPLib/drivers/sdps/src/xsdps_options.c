@@ -102,7 +102,6 @@ void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff);
 static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr);
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
 s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode);
-void XSdPs_sdr50_tapdelay(u32 Bank, u32 DeviceId, u32 CardType);
 void XSdPs_SetTapDelay(XSdPs *InstancePtr);
 static void XSdPs_DllReset(XSdPs *InstancePtr);
 #endif
@@ -1352,7 +1351,6 @@ static void XSdPs_DllRstCtrl(XSdPs *InstancePtr, u8 EnRst)
 	u32 DeviceId = InstancePtr->Config.DeviceId;
 	u32 DllCtrl;
 
-	DllCtrl = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD_DLL_CTRL);
 #ifdef XPAR_PSU_SD_0_DEVICE_ID
 	if (DeviceId == 0U) {
 #if EL1_NONSECURE && defined (__aarch64__)
@@ -1367,6 +1365,7 @@ static void XSdPs_DllRstCtrl(XSdPs *InstancePtr, u8 EnRst)
 #else
 
 #ifdef versal
+		DllCtrl = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD0_DLL_CTRL);
 		if (EnRst == 1U) {
 			DllCtrl |= SD_DLL_RST;
 		} else {
@@ -1374,6 +1373,7 @@ static void XSdPs_DllRstCtrl(XSdPs *InstancePtr, u8 EnRst)
 		}
 		XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD0_DLL_CTRL, DllCtrl);
 #else
+		DllCtrl = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD_DLL_CTRL);
 		if (EnRst == 1U) {
 			DllCtrl |= SD0_DLL_RST;
 		} else {
@@ -1398,6 +1398,7 @@ static void XSdPs_DllRstCtrl(XSdPs *InstancePtr, u8 EnRst)
 #else
 
 #ifdef versal
+		DllCtrl = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD1_DLL_CTRL);
 		if (EnRst == 1U) {
 			DllCtrl |= SD_DLL_RST;
 		} else {
@@ -1405,6 +1406,7 @@ static void XSdPs_DllRstCtrl(XSdPs *InstancePtr, u8 EnRst)
 		}
 		XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD1_DLL_CTRL, DllCtrl);
 #else
+		DllCtrl = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD_DLL_CTRL);
 		if (EnRst == 1U) {
 			DllCtrl |= SD1_DLL_RST;
 		} else {
