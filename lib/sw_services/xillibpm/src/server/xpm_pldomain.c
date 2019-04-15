@@ -466,7 +466,6 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 
 	/* CRAM TRIM */
 	PldApplyTrim(XPM_PL_TRIM_CRAM);
-#endif
 
 	if (PLATFORM_VERSION_SILICON != Platform) {
 		Status = XST_SUCCESS;
@@ -503,6 +502,12 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 	}
 	Status = XPm_PollForMask(CFU_APB_CFU_STATUS, CFU_APB_CFU_STATUS_SCAN_CLEAR_PASS_MASK, XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+#endif /* PLPD_HOUSECLEAN_BYPASS */
+
+	if (PLATFORM_VERSION_SILICON != Platform) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
