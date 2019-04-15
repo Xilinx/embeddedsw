@@ -154,7 +154,9 @@
 *       cog    02/17/19 Added XRFdc_DisableCoefficientsOverride(), XRFdc_SetCalCoefficients
 *                       and XRFdc_GetCalCoefficients APIs.
 *       cog    02/21/19 Added XRFdc_SetCalFreeze() and XRFdc_GetCalFreeze() APIs.
-*       cog    09/04/19 Changed Calibrtation coefficient override control register for OCB1.
+*       cog    04/09/19 Changed Calibrtation coefficient override control register for OCB1.
+*       cog    04/15/19 Rename XRFdc_SetDACMode() and XRFdc_GetDACMode() APIs to
+*                       XRFdc_SetDataPathMode() and XRFdc_GetDataPathMode() respectively.
 *
 * </pre>
 *
@@ -3596,7 +3598,7 @@ RETURN_PATH:
 * @note		Only for DAC blocks
 *
 ******************************************************************************/
-u32 XRFdc_SetDACMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
+u32 XRFdc_SetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 						u32 Mode)
 {
 	u32 Status = XRFDC_SUCCESS;
@@ -3648,7 +3650,7 @@ u32 XRFdc_SetDACMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 * @note		Only for DAC blocks
 *
 ******************************************************************************/
-u32 XRFdc_GetDACMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
+u32 XRFdc_GetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 						u32 *ModePtr)
 {
 	u32 Status = XRFDC_SUCCESS;

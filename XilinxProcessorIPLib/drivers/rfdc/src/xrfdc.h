@@ -218,6 +218,8 @@
 *       cog	   02/20/19	XRFdc_IntrClr, XRFdc_IntrDisable and XRFdc_IntrEnable
 *                       now return error codes.
 *       cog    02/21/19 Added XRFdc_SetCalFreeze() and XRFdc_GetCalFreeze() APIs
+*       cog    04/15/19 Rename XRFdc_SetDACMode() and XRFdc_GetDACMode() APIs to
+*                       XRFdc_SetDataPathMode() and XRFdc_GetDataPathMode() respectively.
 *
 * </pre>
 *
@@ -2055,9 +2057,9 @@ u32 XRFdc_GetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings
 				*DistributionSettingsPtr);
 u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 						XRFdc_Tile_Clock_Settings *SettingsPtr);
-u32 XRFdc_SetDACMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
+u32 XRFdc_SetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 					u32 Mode);
-u32 XRFdc_GetDACMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
+u32 XRFdc_GetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 				u32 *ModePtr);
 u32 XRFdc_SetIMRPassMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 				u32 Mode);
