@@ -180,6 +180,7 @@ Removed vesal platform related changes.As per the new design, the Bitstream
 loading for versal platform is done by PLM based on the CDO's data exists in
 the PDI images. So there is no need of xilfpga API's for versal platform to
 configure the PL
+Read the return status of the functions in xilfpga_pcap.c
 
 xilisf_v5_13:
 Declare XQspiPsu_Msg instance as global.
