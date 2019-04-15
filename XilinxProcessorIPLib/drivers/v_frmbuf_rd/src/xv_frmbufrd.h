@@ -74,12 +74,12 @@ typedef struct {
   u16 RGBX12En;             /**< RGBX12     support */
   u16 RGB16En;              /**< RGB16      support */
   u16 YUVX12En;             /**< YUVX12     support */
-  u16 YUV16En;              /**< YUV16      support */
   u16 Y_UV12En;             /**< Y_UV12     support */
-  u16 Y_UV16En;             /**< Y_UV16     support */
   u16 Y_UV12_420En;         /**< Y_UV12_420 support */
-  u16 Y_UV16_420En;         /**< Y_UV16_420 support */
   u16 Y12En;                /**< Y12      support */
+  u16 YUV16En;              /**< YUV16      support */
+  u16 Y_UV16En;             /**< Y_UV16     support */
+  u16 Y_UV16_420En;         /**< Y_UV16_420 support */
   u16 Y16En;                /**< Y16      support */
   u16 Interlaced;           /**< Interlaced support */
 } XV_frmbufrd_Config;
