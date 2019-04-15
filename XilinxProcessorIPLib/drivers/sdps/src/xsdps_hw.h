@@ -1072,7 +1072,11 @@ extern "C" {
 #endif
 
 #ifdef __MICROBLAZE__
+#ifdef versal
+#define XPS_SYS_CTRL_BASEADDR	0xF1060000U
+#else
 #define XPS_SYS_CTRL_BASEADDR	0xFF180000U
+#endif
 #endif
 
 /**************************** Type Definitions *******************************/
