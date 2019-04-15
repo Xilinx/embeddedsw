@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2011 - 2018 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2011 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -77,6 +77,8 @@
 #                     Fix for CR#100266.
 # 3.10  mus  10/05/18 Updated get_psu_interrupt_id proc, to fix interrupt id
 #                     computation for vectored interrupts. It fixes CR#998583
+# 4.0   mus  04/15/19 Updated get_concat_number proc to avoid executing
+#                     get_pins command twice. It fixes CR#1028356
 #
 ##############################################################################
 
@@ -780,7 +782,7 @@ proc get_concat_number {ip pin} {
 		if {$pin ==  [lindex $pins $p]} {
 			break;
 		}
-		set offset [common::get_property LEFT [hsi::get_pins [lindex $pins $p]]]
+		set offset [common::get_property LEFT [lindex $pins $p]]
 		if {[llength $offset] > 1} {
 			set offset [lindex $offset 0]
 		}
