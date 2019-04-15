@@ -100,6 +100,9 @@
 *                    to remove compilation warnings. CR# 868893.
 * 3.5	tjs 13/08/18 Fixed compilation warnings for ARMCC.
 * 3.6	akm 03/28/19 Fixed memory leak issue while reading from qspi.(CR#1016357)
+* 3.6 	akm 04/15/19 Modified the mask in XQspiPs_GetReadData() API to retrieve
+*		     configuration register values of both the Flashes in dual
+*		     parellel connection.
 *
 * </pre>
 *
@@ -1570,7 +1573,8 @@ static void XQspiPs_GetReadData(XQspiPs *InstancePtr, u32 Data, u8 Size)
 		case 2:
 			if (InstancePtr->ShiftReadData == 1) {
 				*((u16 *)InstancePtr->RecvBufferPtr) =
-					((Data & 0xFFFF0000) >> 16);
+					((Data >> 16) & 0xFF00) |
+					((Data >> 8) & 0xFF);
 			} else 	{
 				*((u16 *)InstancePtr->RecvBufferPtr) =
 					(Data & 0xFFFF);
