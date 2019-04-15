@@ -1092,9 +1092,9 @@ void start_tx_after_rx (void) {
 	sink_power_cycle();
 
 	//This is needed for some monitor to make them happy
-	//Setting the VPHY to 1.62 improves performance with some
+	//Setting the linerate to 1.62 improves performance with some
 	//Dell models, which otherwise give too many HPDs
-	//This is needed especially on unplug/plug
+	//This is needed especially on multiple unplug/plug
 	XDpTxSs_SetLinkRate(&DpTxSsInst, XDP_TX_LINK_BW_SET_162GBPS);
 
 	set_vphy(LineRate_init_tx);
