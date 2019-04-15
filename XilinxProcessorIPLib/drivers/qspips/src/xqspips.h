@@ -283,6 +283,9 @@
 * 3.6   akm 04/15/19 Modified FlashQuadEnable, FlashWrie and FlashErase APIs,
 *                    to wait for the on going operation to complete before
 *                    performing the next operation.
+* 3.6   akm 04/15/19 Modified the mask in XQspiPs_GetReadData() API to retrieve
+*                    configuration register values of both the Flashes in dual
+*                    parellel connection.
 *
 * </pre>
 *
