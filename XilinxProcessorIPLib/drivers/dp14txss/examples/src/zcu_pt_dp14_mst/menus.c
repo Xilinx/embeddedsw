@@ -59,70 +59,6 @@ lane_link_rate_struct lane_link_table[]=
 
 };
 
-//extern XVidC_VideoMode resolution_table[];
-// adding new resolution definition example
-// XVIDC_VM_3840x2160_30_P_SB, XVIDC_B_TIMING3_60_P_RB
-// and XVIDC_VM_3840x2160_60_P_RB has added
-typedef enum {
-    XVIDC_VM_1920x1080_60_P_RB = (XVIDC_VM_CUSTOM + 1),
-	XVIDC_B_TIMING3_60_P_RB ,
-	XVIDC_VM_3840x2160_120_P_RB,
-	XVIDC_VM_7680x4320_24_P,
-	XVIDC_VM_7680x4320_25_P,
-	XVIDC_VM_7680x4320_30_P,
-	XVIDC_VM_3840x2160_100_P_RB2,
-	XVIDC_VM_7680x4320_30_DELL,
-	XVIDC_VM_5120x2880_60_P_RB2,
-
-	XVIDC_VM_7680x4320_30_MSTR,
-	XVIDC_VM_5120x2880_60_MSTR,
-	XVIDC_VM_3840x2160_120_MSTR,
-    XVIDC_CM_NUM_SUPPORTED
-} XVIDC_CUSTOM_MODES;
-
-// CUSTOM_TIMING: Here is the detailed timing for each custom resolutions.
-const XVidC_VideoTimingMode XVidC_MyVideoTimingMode[
-					(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1))] =
-{
-    { XVIDC_VM_1920x1080_60_P_RB, "1920x1080@60Hz (RB)", XVIDC_FR_60HZ,
-        {1920, 48, 32, 80, 2080, 1,
-		1080, 3, 5, 23, 1111, 0, 0, 0, 0, 0}},
-    { XVIDC_B_TIMING3_60_P_RB, "2560x1440@60Hz (RB)", XVIDC_FR_60HZ,
-         {2560, 48, 32, 80, 2720, 1,
-		1440, 3, 5, 33, 1481, 0, 0, 0, 0, 0}},
-	{ XVIDC_VM_3840x2160_120_P_RB, "3840x2160@120Hz (RB)", XVIDC_FR_120HZ,
-		{3840, 8, 32, 40, 3920, 1,
-		2160, 113, 8, 6, 2287, 0, 0, 0, 0, 1} },
-
-	{ XVIDC_VM_7680x4320_24_P, "7680x4320@24Hz", XVIDC_FR_24HZ,
-		{7680, 352, 176, 592, 8800, 1,
-		4320, 16, 20, 144, 4500, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_7680x4320_25_P, "7680x4320@25Hz", XVIDC_FR_25HZ,
-		{7680, 352, 176, 592, 8800, 1,
-		4320, 16, 20, 144, 4500, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_7680x4320_30_P, "7680x4320@30Hz", XVIDC_FR_30HZ,
-		{7680, 8, 32, 40, 7760, 0,
-		4320, 47, 8, 6, 4381, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_3840x2160_100_P_RB2, "3840x2160@100Hz (RB2)", XVIDC_FR_100HZ,
-		{3840, 8, 32, 40, 3920, 0,
-		2160, 91, 8, 6, 2265, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_7680x4320_30_DELL, "7680x4320_DELL@30Hz", XVIDC_FR_30HZ,
-		{7680, 48, 32, 80, 7840, 0,
-		4320, 3, 5, 53, 4381, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_5120x2880_60_P_RB2, "5120x2880@60Hz (RB2)", XVIDC_FR_60HZ,
-		{5120, 8, 32, 40, 5200, 0,
-		2880, 68, 8, 6, 2962, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_7680x4320_30_MSTR, "7680x4320_MSTR@30Hz", XVIDC_FR_30HZ,
-		{7680, 25, 97, 239, 8041, 0,
-		4320, 48, 9, 5, 4382, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_5120x2880_60_MSTR, "5120x2880@60Hz_MSTR", XVIDC_FR_60HZ,
-		{5120, 25, 97, 239, 5481, 0,
-		2880, 48, 9, 5, 2942, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_3840x2160_120_MSTR, "3840x2160@120Hz_MSTR", XVIDC_FR_120HZ,
-		{3840, 48, 34, 79, 4001, 1,
-		2160, 4, 6, 53, 2223, 0, 0, 0, 0, 1}},
-};
-
 XVidC_VideoMode resolution_table[] =
 {
                 XVIDC_VM_640x480_60_P,
@@ -132,31 +68,8 @@ XVidC_VideoMode resolution_table[] =
                 XVIDC_VM_720_60_P,
                 XVIDC_VM_1600x1200_60_P,
                 XVIDC_VM_1366x768_60_P,
-                XVIDC_VM_1080_60_P,
-                XVIDC_VM_UHD_30_P,
-                XVIDC_VM_UHD_60_P,
-                XVIDC_VM_2560x1600_60_P,
-                XVIDC_VM_1280x1024_60_P,
-                XVIDC_VM_1792x1344_60_P,
-                XVIDC_VM_848x480_60_P,
-                XVIDC_VM_1280x960_60_P,
-                XVIDC_VM_1920x1440_60_P,
-                XVIDC_VM_USE_EDID_PREFERRED,
-
-				XVIDC_VM_1920x1080_60_P_RB,
-				XVIDC_VM_3840x2160_60_P_RB,
-				XVIDC_VM_3840x2160_120_P_RB,
-	XVIDC_VM_7680x4320_24_P,
-				XVIDC_VM_7680x4320_30_P,
-	XVIDC_VM_3840x2160_100_P_RB2,
-	XVIDC_VM_7680x4320_30_DELL,
-	XVIDC_VM_5120x2880_60_P_RB2,
-	XVIDC_VM_7680x4320_30_MSTR,
-	XVIDC_VM_5120x2880_60_MSTR,
-	XVIDC_VM_3840x2160_120_MSTR
-
+                XVIDC_VM_1080_60_P
 };
-
 
 static char inbyte_local(void);
 
@@ -421,16 +334,6 @@ void main_loop(){
 
 	xilInfoFrame = 0; // initialize
 
-
-	// Adding custom resolutions at here.
-	xil_printf("INFO> Registering Custom Timing Table with %d entries \r\n",
-							(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1)));
-	Status = XVidC_RegisterCustomTimingModes(XVidC_MyVideoTimingMode,
-							(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1)));
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: Unable to register custom timing table\r\r\n\n");
-	}
-
 	XScuGic_Enable(&IntcInst, XINTC_DPTXSS_DP_INTERRUPT_ID);
     set_vphy(DPTXSS_LINK_RATE);
 
@@ -556,8 +459,8 @@ void main_loop(){
 					xilInfoFrame->level_shift = 0;
 					xilInfoFrame->sample_size = 0;//16 bits
 					xilInfoFrame->sampling_frequency = 0; //48 Hz
-					xilInfoFrame->type = 0x4;
-					xilInfoFrame->version = 0x12;
+					xilInfoFrame->type = 0x84;
+					xilInfoFrame->version = 0x11;
 					sendAudioInfoFrame(xilInfoFrame);
 					XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 					 XDP_TX_AUDIO_CHANNELS, 0x1);
@@ -1079,16 +982,6 @@ void pt_loop(){
 
 
 	xilInfoFrame = 0; // initialize
-
-
-	// Adding custom resolutions at here.
-	xil_printf("INFO> Registering Custom Timing Table with %d entries \r\n",
-							(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1)));
-	Status = XVidC_RegisterCustomTimingModes(XVidC_MyVideoTimingMode,
-							(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1)));
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: Unable to register custom timing table\r\r\n\n");
-	}
 
     XAxisScr_MiPortEnable (&axis_switch, 0, 0);
     XAxisScr_RegUpdateEnable (&axis_switch);
