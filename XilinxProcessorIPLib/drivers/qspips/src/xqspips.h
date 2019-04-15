@@ -280,6 +280,9 @@
 * 3.5	tjs 08/21/18 Fixed compilation warnings for the ARMCC.
 * 3.5	tjs 07/16/18 Added support for low density ISSI flash parts.
 * 3.6   akm 03/28/19 Fixed memory leak issue while reading from qspi.(CR#1016357)
+* 3.6   akm 04/15/19 Modified FlashQuadEnable, FlashWrie and FlashErase APIs,
+*                    to wait for the on going operation to complete before
+*                    performing the next operation.
 *
 * </pre>
 *
