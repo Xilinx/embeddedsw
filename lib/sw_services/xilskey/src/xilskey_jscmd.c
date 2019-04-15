@@ -79,6 +79,7 @@
 *       psl     03/29/19 Added Support for user configurable GPIO for jtag
 *                        control.
 *       arc     04/04/19 Fixed CPP warnings.
+*       psl     04/15/19 Corrected zynq Dap ID.
 * </pre>
 *
 *
@@ -121,7 +122,7 @@ void dummy_printf(const char *ctrl1, ...);
 
 #define DEFAULT_FREQUENCY         10000000
 #define MAX_FREQUENCY             30000000
-#define ZYNQ_DAP_ID 0x04ba00477
+#define ZYNQ_DAP_ID 0x0ba00477
 #define KINTEX_ULTRA_MB_DAP_ID 0x03822093 /**< Kintex Ultrascale microblaze TAP ID */
 #define KINTEX_ULTRAPLUS_DAP_ID 0x04A62093 /**< Kintex Ultrascale plus microblaze TAP ID */
 
