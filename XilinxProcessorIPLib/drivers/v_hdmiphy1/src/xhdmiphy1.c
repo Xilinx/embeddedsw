@@ -379,6 +379,10 @@ XHdmiphy1_PllType XHdmiphy1_GetPllType(XHdmiphy1 *InstancePtr, u8 QuadId,
 		PllType = XHDMIPHY1_PLL_TYPE_UNKNOWN;
 	}
 #else
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+	ChId = ChId;
+
 	if (Dir == XHDMIPHY1_DIR_TX) {
 		PllType = (XHdmiphy1_PllType) InstancePtr->Config.TxSysPllClkSel-2;
 	}

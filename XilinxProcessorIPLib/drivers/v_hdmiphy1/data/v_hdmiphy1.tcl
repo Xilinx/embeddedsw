@@ -39,9 +39,9 @@
 ###############################################################################
 
 proc generate {drv_handle} {
-    xdefine_include_file $drv_handle "xparameters.h" "XHDMIPHY1" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "Transceiver" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_FRL_REFCLK_SEL" "C_RX_FRL_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ" "DRPCLK_FREQ" "C_Use_GT_CH4_HDMI"
+    xdefine_include_file $drv_handle "xparameters.h" "XHDMIPHY1" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "Transceiver" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_FRL_REFCLK_SEL" "C_RX_FRL_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ" "DRPCLK_FREQ" "C_Use_GT_CH4_HDMI" "C_SPEEDGRADE"
     xdefine_config_file $drv_handle "xhdmiphy1_g.c" "XHdmiphy1" "DEVICE_ID" "C_BASEADDR" "TRANSCEIVER" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_FRL_REFCLK_SEL" "C_RX_FRL_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ" "DRPCLK_FREQ" "C_Use_GT_CH4_HDMI"
-    xdefine_canonical_xpars $drv_handle "xparameters.h" "HDMIPHY1" "DEVICE_ID" "C_BASEADDR" "Transceiver" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_FRL_REFCLK_SEL" "C_RX_FRL_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ" "DRPCLK_FREQ" "C_Use_GT_CH4_HDMI"
+    xdefine_canonical_xpars $drv_handle "xparameters.h" "HDMIPHY1" "DEVICE_ID" "C_BASEADDR" "Transceiver" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_FRL_REFCLK_SEL" "C_RX_FRL_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ" "DRPCLK_FREQ" "C_Use_GT_CH4_HDMI" "C_SPEEDGRADE"
 }
 
 # -----------------------------------------------------------------------------
@@ -152,7 +152,13 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
                 set value $device_id
                 incr device_id
             } elseif {[string compare -nocase "AXI_LITE_FREQ_HZ" $arg] == 0} {
-                set freq [::hsi::utils::get_clk_pin_freq  $periph "vid_phy_axi4lite_aclk"]
+                set xvr "Transceiver"
+                set xvr [common::get_property CONFIG.$xvr $periph]
+                if {[string compare -nocase "GTYE5" "$xvr"] == 0} {
+                    set freq [::hsi::utils::get_clk_pin_freq  $periph "axi4lite_aclk"]
+                } else {
+                    set freq [::hsi::utils::get_clk_pin_freq  $periph "vid_phy_axi4lite_aclk"]
+                }
                 if {[llength $freq] == 0} {
                     set freq "100000000"
                     puts "WARNING: AXIlite clock frequency information is not available in the design, \
@@ -215,6 +221,8 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
                     } else {
                         puts $file_handle "#error \"Video PHY currently supports only GTYE5, GTYE4, GTHE4, GTHE3, GTHE2, GTPE2 and GTXE2; $value not supported\""
                     }
+            } elseif {[string compare -nocase "C_SPEEDGRADE" $arg] == 0} {
+                    puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg]_STR \"$value\""
             } else {
                 puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] $value"
             }
@@ -302,7 +310,13 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
                        puts $file_handle "#error \"Video PHY currently supports only GTYE5, GTYE4, GTHE4, GTHE3, GTHE2, GTEP2 and GTXE2; $rvalue not supported\""
                    }
             } elseif {[string compare -nocase "AXI_LITE_FREQ_HZ" $arg] == 0} {
-                set rfreq [::hsi::utils::get_clk_pin_freq  $periph "vid_phy_axi4lite_aclk"]
+                set xcvr1 "Transceiver"
+                set xcvr1 [common::get_property CONFIG.$xcvr1 $periph]
+                if {[string compare -nocase "GTYE5" "$xcvr1"] == 0} {
+                    set rfreq [::hsi::utils::get_clk_pin_freq  $periph "axi4lite_aclk"]
+                } else {
+                    set rfreq [::hsi::utils::get_clk_pin_freq  $periph "vid_phy_axi4lite_aclk"]
+                }
                 if {[llength $rfreq] == 0} {
                     set rfreq "100000000"
                     puts "WARNING: Clock frequency information is not available in the design, \
@@ -339,6 +353,8 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
                 }
                 set rvalue $rfreq
                 puts $file_handle "#define [string toupper $lvalue] $rvalue"
+            } elseif {[string compare -nocase "C_SPEEDGRADE" $arg] == 0} {
+                   puts $file_handle "#define [string toupper $lvalue]_STR \"$rvalue\""
             } else {
                puts $file_handle "#define [string toupper $lvalue] $rvalue"
             }

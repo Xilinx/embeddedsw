@@ -67,11 +67,11 @@ typedef struct {
 	u32 Qpll1RefClkMin;
 	u32 CpllRefClkMin;
 	u16 TxMmcmScale;
-	u32 TxMmcmFvcoMin;
-	u32 TxMmcmFvcoMax;
+	u64 TxMmcmFvcoMin;
+	u64 TxMmcmFvcoMax;
 	u16 RxMmcmScale;
-	u32 RxMmcmFvcoMin;
-	u32 RxMmcmFvcoMax;
+	u64 RxMmcmFvcoMin;
+	u64 RxMmcmFvcoMax;
 } XHdmiphy1_GtHdmiChars;
 
 /**************************** Function Prototypes *****************************/
@@ -978,8 +978,10 @@ u64 XHdmiphy1_DruCalcCenterFreqHz(XHdmiphy1 *InstancePtr, u8 QuadId,
 	if ((ChId == XHDMIPHY1_CHANNEL_ID_CMN0) ||
 			(ChId == XHDMIPHY1_CHANNEL_ID_CMN1)) {
 		FDruClk = (DruRefClk * InstancePtr->Quads[QuadId].Plls[
-			XHDMIPHY1_CH2IDX(ChId)].PllParams.NFbDiv) /
-			(ChPtr->RxOutDiv * 20);
+			          XHDMIPHY1_CH2IDX(ChId)].PllParams.NFbDiv) /
+			      (InstancePtr->Quads[QuadId].Plls[
+			          XHDMIPHY1_CH2IDX(ChId)].PllParams.MRefClkDiv *
+			          (ChPtr->RxOutDiv * 20));
 	}
 	else {
 		FDruClk = (DruRefClk * ChPtr->PllParams.N1FbDiv *
@@ -1068,9 +1070,9 @@ u32 XHdmiphy1_HdmiCfgCalcMmcmParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 		XVidC_PixelsPerClock Ppc, XVidC_ColorDepth Bpc)
 {
 	u32 RefClk;
-	u8 Div;
-	u8 Mult;
-	u8 MultDiv;
+	u16 Div;
+	u16 Mult;
+	u16 MultDiv;
 	u8 Valid;
 	u64 LineRate = 0;
 	XHdmiphy1_Mmcm *MmcmPtr;
@@ -1321,9 +1323,15 @@ u32 XHdmiphy1_HdmiCfgCalcMmcmParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 			}
 
 			/* Check values. */
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
 			if ((MmcmPtr->ClkOut0Div > 0) && (MmcmPtr->ClkOut0Div <= 128) &&
 				(MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 128) &&
 				(MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 128)) {
+#else
+			if ((MmcmPtr->ClkOut0Div > 0) && (MmcmPtr->ClkOut0Div <= 432) &&
+				(MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 432) &&
+				(MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 432)) {
+#endif
 				Valid = (TRUE);
 			}
 			else {
@@ -1346,6 +1354,8 @@ u32 XHdmiphy1_HdmiCfgCalcMmcmParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4 || \
      XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
 		} while (!Valid && (Mult > 0) && (Mult < 129));
+#elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)
+		} while (!Valid && (Mult > 0) && (Mult < 432));
 #else
 		} while (!Valid && (Mult > 0) && (Mult < 65));
 #endif
@@ -1354,6 +1364,8 @@ u32 XHdmiphy1_HdmiCfgCalcMmcmParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 		Div++;
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4 || \
      XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
+	} while (!Valid && (Div > 0) && (Div < 107));
+#elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)
 	} while (!Valid && (Div > 0) && (Div < 107));
 #else
 	} while (!Valid && (Div > 0) && (Div < 20));
@@ -2378,6 +2390,7 @@ void XHdmiphy1_HdmiDebugInfo(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId)
 {
 	u32 RegValue;
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
 	XHdmiphy1_Channel *ChPtr;
 	XHdmiphy1_ChannelId CmnId = XHDMIPHY1_CHANNEL_ID_CMN0;
 	u8 CpllDVal;
@@ -2385,7 +2398,6 @@ void XHdmiphy1_HdmiDebugInfo(XHdmiphy1 *InstancePtr, u8 QuadId,
 	u8 UsesQpll0 = 0;
 
 	ChPtr = &InstancePtr->Quads[QuadId].Plls[0];
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
 
 	if (XHdmiphy1_IsHDMI(InstancePtr, XHDMIPHY1_DIR_TX)) {
 		if (XHdmiphy1_IsTxUsingCpll(InstancePtr, QuadId, ChId)) {
