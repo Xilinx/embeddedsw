@@ -119,6 +119,10 @@ Fixed data alignment issues on IAR compiler.
 
 qspips_v3_6:
 Fixed memory leak issue while reading from qspi.(CR#1016357)
+Modified APIs,to wait for the on going operation to complete
+before performing the next operation.
+Modified the mask in XQspiPs_GetReadData() API to retrieve
+configuration register values of both the Flashes in dual parellel mode.
 
 prc_v1_2:
 Updated the tcl logic to generated the XPrc_ConfigTable properly.
