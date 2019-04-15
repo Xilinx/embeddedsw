@@ -47,6 +47,8 @@
 * 6.6   vns     06/06/18 Added doxygen tags
 * 6.7   psl     03/20/19 Added BBRAM key write support for SSIT devices.
 *       arc     04/04/19 Fixed CPP warnings.
+*       psl     04/15/19 Moved XilSKey_Bbram_JTAGServerInit function from
+*                        examples to library.
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "xparameters.h"
@@ -195,6 +197,11 @@ int XilSKey_Bbram_Program(XilSKey_Bbram *InstancePtr)
 	int Status;
 
 	if(NULL == InstancePtr)	{
+		return XST_FAILURE;
+	}
+
+	if(XilSKey_Bbram_JTAGServerInit(InstancePtr) != XST_SUCCESS) {
+		xil_printf("JTAG Sever Init failed \r\n");
 		return XST_FAILURE;
 	}
 

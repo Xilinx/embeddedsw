@@ -65,6 +65,7 @@
 * 6.6   vns     06/06/18 Added doxygen tags
 * 6.7   psl     03/20/19 Added eFuse key write support for SSIT devices.
 *       arc     04/04/19 Fixed CPP warnings.
+*       psl     04/15/19 Added JtagServerInit function.
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "xparameters.h"
@@ -589,6 +590,9 @@ u32 XilSKey_EfusePl_Program(XilSKey_EPl *InstancePtr)
 		 * By reading the Jtag ID we will be sure that the JTAG related
 		 * stuff is working as expected.
 		 */
+		if(JtagServerInit(InstancePtr) != XST_SUCCESS) {
+			return XSK_EFUSEPL_ERROR_JTAG_SERVER_INIT;
+		}
 
 		InstancePtr->SystemInitDone = 1;
 		PlFpgaFlag = InstancePtr->FpgaFlag;
