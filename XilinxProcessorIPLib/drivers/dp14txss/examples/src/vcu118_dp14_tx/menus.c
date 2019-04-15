@@ -68,9 +68,9 @@ typedef enum {
     XVIDC_VM_1920x1080_60_P_RB = (XVIDC_VM_CUSTOM + 1),
 	XVIDC_B_TIMING3_60_P_RB ,
 	XVIDC_VM_3840x2160_120_P_RB,
-	XVIDC_VM_7680x4320_24_P,
-	XVIDC_VM_7680x4320_25_P,
-	XVIDC_VM_7680x4320_30_P,
+	XVIDC_VM_7680x4320_DP_24_P,
+	XVIDC_VM_7680x4320_DP_25_P,
+	XVIDC_VM_7680x4320_DP_30_P,
 	XVIDC_VM_3840x2160_100_P_RB2,
 	XVIDC_VM_7680x4320_30_DELL,
 	XVIDC_VM_5120x2880_60_P_RB2,
@@ -95,13 +95,13 @@ const XVidC_VideoTimingMode XVidC_MyVideoTimingMode[
 		{3840, 8, 32, 40, 3920, 1,
 		2160, 113, 8, 6, 2287, 0, 0, 0, 0, 1} },
 
-	{ XVIDC_VM_7680x4320_24_P, "7680x4320@24Hz", XVIDC_FR_24HZ,
+	{ XVIDC_VM_7680x4320_DP_24_P, "7680x4320@24Hz", XVIDC_FR_24HZ,
 		{7680, 352, 176, 592, 8800, 1,
 		4320, 16, 20, 144, 4500, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_7680x4320_25_P, "7680x4320@25Hz", XVIDC_FR_25HZ,
+	{ XVIDC_VM_7680x4320_DP_25_P, "7680x4320@25Hz", XVIDC_FR_25HZ,
 		{7680, 352, 176, 592, 8800, 1,
 		4320, 16, 20, 144, 4500, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_7680x4320_30_P, "7680x4320@30Hz", XVIDC_FR_30HZ,
+	{ XVIDC_VM_7680x4320_DP_30_P, "7680x4320@30Hz", XVIDC_FR_30HZ,
 		{7680, 8, 32, 40, 7760, 0,
 		4320, 47, 8, 6, 4381, 0, 0, 0, 0, 1}},
 	{ XVIDC_VM_3840x2160_100_P_RB2, "3840x2160@100Hz (RB2)", XVIDC_FR_100HZ,
@@ -147,8 +147,8 @@ XVidC_VideoMode resolution_table[] =
 				XVIDC_VM_1920x1080_60_P_RB,
 				XVIDC_VM_3840x2160_60_P_RB,
 				XVIDC_VM_3840x2160_120_P_RB,
-	XVIDC_VM_7680x4320_24_P,
-				XVIDC_VM_7680x4320_30_P,
+	XVIDC_VM_7680x4320_DP_24_P,
+				XVIDC_VM_7680x4320_DP_30_P,
 	XVIDC_VM_3840x2160_100_P_RB2,
 	XVIDC_VM_7680x4320_30_DELL,
 	XVIDC_VM_5120x2880_60_P_RB2,
@@ -476,7 +476,7 @@ void main_loop(){
                 xilInfoFrame->sample_size = 0;//16 bits
                 xilInfoFrame->sampling_frequency = 0; //48 Hz
                 xilInfoFrame->type = 0x84;
-                xilInfoFrame->version = 0x12;
+                xilInfoFrame->version = 0x11;
 				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 						XDP_TX_AUDIO_CONTROL, 0x0);
 				sendAudioInfoFrame(xilInfoFrame);
