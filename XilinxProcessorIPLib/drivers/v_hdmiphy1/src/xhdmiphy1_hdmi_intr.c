@@ -671,6 +671,9 @@ void XHdmiphy1_HdmiTxClkDetFreqChangeHandler(XHdmiphy1 *InstancePtr)
     XHdmiphy1_PowerDownGtPll(InstancePtr, 0,
         (PllType == XHDMIPHY1_PLL_TYPE_CPLL) ?
         XHDMIPHY1_CHANNEL_ID_CHA : XHDMIPHY1_CHANNEL_ID_CMNA, TRUE);
+#else
+	/* Suppress Warning Messages */
+    PllType = PllType;
 #endif
     XHdmiphy1_ResetGtPll(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
             XHDMIPHY1_DIR_TX, TRUE);
@@ -759,6 +762,9 @@ void XHdmiphy1_HdmiRxClkDetFreqChangeHandler(XHdmiphy1 *InstancePtr)
     XHdmiphy1_PowerDownGtPll(InstancePtr, 0,
         (PllType == XHDMIPHY1_PLL_TYPE_CPLL) ?
         XHDMIPHY1_CHANNEL_ID_CHA : XHDMIPHY1_CHANNEL_ID_CMNA, TRUE);
+#else
+	/* Suppress Warning Messages */
+    PllType = PllType;
 #endif
     XHdmiphy1_ResetGtPll(InstancePtr, 0, XHDMIPHY1_CHANNEL_ID_CHA,
         XHDMIPHY1_DIR_RX, TRUE);
@@ -799,8 +805,10 @@ void XHdmiphy1_HdmiRxClkDetFreqChangeHandler(XHdmiphy1 *InstancePtr)
 ******************************************************************************/
 void XHdmiphy1_HdmiTxTimerTimeoutHandler(XHdmiphy1 *InstancePtr)
 {
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
     XHdmiphy1_ChannelId ChId;
     XHdmiphy1_PllType PllType;
+#endif
     u8 Id, Id0, Id1;
 
     if (!InstancePtr->TxHdmi21Cfg.IsEnabled) {
