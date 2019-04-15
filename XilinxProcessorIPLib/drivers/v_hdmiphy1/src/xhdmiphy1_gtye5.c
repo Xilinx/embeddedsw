@@ -683,6 +683,9 @@ u32 XHdmiphy1_HdmiTxPllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 	u32 Status;
 	XHdmiphy1_PllType PllType;
 
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+
     /* Determine PLL type. */
     PllType = XHdmiphy1_GetPllType(InstancePtr, 0, XHDMIPHY1_DIR_TX,
         XHDMIPHY1_CHANNEL_ID_CH1);
@@ -720,6 +723,9 @@ u32 XHdmiphy1_HdmiRxPllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 {
     u32 Status;
 	XHdmiphy1_PllType PllType;
+
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
 
     /* Determine PLL type. */
     PllType = XHdmiphy1_GetPllType(InstancePtr, 0, XHDMIPHY1_DIR_RX,

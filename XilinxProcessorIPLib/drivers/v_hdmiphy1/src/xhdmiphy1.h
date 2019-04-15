@@ -590,8 +590,8 @@ typedef struct {
  * This typedef contains configuration information for MMCM programming.
  */
 typedef struct {
-    u8 DivClkDivide;
-    u8 ClkFbOutMult;
+    u16 DivClkDivide;
+    u16 ClkFbOutMult;
     u16 ClkFbOutFrac;
     u16 ClkOut0Div;
     u16 ClkOut0Frac;

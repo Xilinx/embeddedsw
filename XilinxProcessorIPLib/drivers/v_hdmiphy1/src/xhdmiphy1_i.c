@@ -415,6 +415,10 @@ u32 XHdmiphy1_IsPllLocked(XHdmiphy1 *InstancePtr, u8 QuadId,
 		MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_QPLL1_MASK;
 #else
 		MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_RPLL_MASK;
+	}
+	else {
+		/* This will result to XST_FAILURE */
+		MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_CPLL_ALL_MASK;
 #endif
 	}
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
@@ -723,7 +727,10 @@ void XHdmiphy1_SetGpi(XHdmiphy1 *InstancePtr, u8 QuadId,
 	u32 MaskVal = 0;
 	u8 Id, Id0, Id1;
 
-	/* Read GPI Register*/
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+
+    /* Read GPI Register*/
 	RegVal = XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr,
 				XHDMIPHY1_GT_DBG_GPI_REG);
 
