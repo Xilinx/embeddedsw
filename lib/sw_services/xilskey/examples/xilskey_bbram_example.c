@@ -66,7 +66,8 @@
 *                        BBRAM configuration as they are not actually
 *                        programming any control bit.
 * 6.7   psl     03/20/19 Added BBRAM jtag server init function.
-*
+*       psl     03/15/19 Moved XilSKey_Bbram_JTAGServerInit function from
+*                        example to library.
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "stdio.h"
@@ -136,10 +137,6 @@ int XilSKey_Bbram_InitData(XilSKey_Bbram *BbramInstancePtr)
 	BbramInstancePtr->JtagMioMuxSel 		=	XSK_BBRAM_MIO_JTAG_MUX_SELECT;
 	BbramInstancePtr->JtagMuxSelLineDefVal	=  XSK_BBRAM_MIO_MUX_SEL_DEFAULT_VAL;
 
-	if(XilSKey_Bbram_JTAGServerInit(&InstancePtr) != XST_SUCCESS) {
-			xil_printf("JTAG Sever Init failed \r\n");
-			return XST_FAILURE;
-		}
 	/*
 	 * Convert key given in xilskey_input.h and
 	 * assign it to the variable in instance.
