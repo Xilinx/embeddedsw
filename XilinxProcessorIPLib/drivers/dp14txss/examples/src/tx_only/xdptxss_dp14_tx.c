@@ -12,12 +12,14 @@
 *
 * Ver  Who      Date      Changes
 * ---- ---      --------  --------------------------------------------------.
-* 1.00 Nishant  19/12/19 Added support for vck190, VCU118
-* 			 DpTxSs_VideoPhyInit() renamed to DpTxSs_PhyInit()
-* 			 set_vphy() renamed to config_phy() and has two
-* 			 parameters for linerate and lanecount.
-* 			 The application files are common for ZCU102, VCU118
-* 			 and VCK190 TX Only design
+* 1.00 Nishant  19/12/19  	Added support for vck190, VCU118
+* 			  				DpTxSs_VideoPhyInit() renamed to DpTxSs_PhyInit()
+* 			  				set_vphy() renamed to config_phy() and has two
+* 			  				parameters for linerate and lanecount.
+* 			  				The application files are common for ZCU102, VCU118
+* 			  				and VCK190 TX Only design
+* 1.01 KU		22/10/20	Added support for fabric 8b10b implementation of
+* 			  				of DP1.4
 *
 *
 * </pre>
@@ -90,6 +92,7 @@ void PHY_Two_byte_set (XVphy *InstancePtr, u8 Rx_to_two_byte);
 
 void clk_wiz_locked(void);
 void hpd_pulse_con(XDpTxSs *InstancePtr);
+extern void Gen_vid_clk(XDp *InstancePtr, u8 Stream);
 int Vpg_StreamSrcConfigure(XDp *InstancePtr, u8 VSplitMode, u8 first_time);
 void Vpg_VidgenSetUserPattern(XDp *InstancePtr, u8 Pattern);
 static u8 CalculateChecksum(u8 *Data, u8 Size);
@@ -297,6 +300,7 @@ u32 DpTxSs_Main(u16 DeviceId)
 	u32 ReadVal=0;
 	u16 DrpVal;
 	u32 dptx_sts = 0;
+	u32 retval = 0;
 
 	user_config_struct user_config;
 	user_config.user_bpc = 8;
@@ -415,7 +419,18 @@ u32 DpTxSs_Main(u16 DeviceId)
 		return XST_FAILURE;
 	}
 
-
+#ifdef versal
+#if (VERSAL_FABRIC_8B10B == 1)
+	// unlocking NPI space
+	//Prgramming ch1outclk div to generate /20 clock
+	XDp_WriteReg(GT_QUAD_BASE, 0xC, 0xF9E8D7C6);
+	retval= XDp_ReadReg(GT_QUAD_BASE, TXCLKDIV_REG);
+	retval &= ~DIV_MASK;
+	retval |= DIV;
+	XDp_WriteReg(GT_QUAD_BASE, TXCLKDIV_REG, retval);
+//	retval=XDp_ReadReg(GT_QUAD_BASE, TXCLKDIV_REG);
+#endif
+#endif
 
 	/* Setup Video Phy, left to the user for implementation */
 	DpTxSs_PhyInit(XVPHY_DEVICE_ID);
@@ -438,8 +453,6 @@ u32 DpTxSs_Main(u16 DeviceId)
 	/* Do not return in order to allow interrupt handling to run. HPD events
 	 * (connect, disconnect, and pulse) will be detected and handled.
 	 */
-
-
 	DpTxSsInst.DpPtr->TxInstance.TxSetMsaCallback = NULL;
 	DpTxSsInst.DpPtr->TxInstance.TxMsaCallbackRef = NULL;
 	DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat = 0x0;
@@ -741,50 +754,46 @@ u32 DpTxSs_PhyInit(u16 DeviceId)
 #else
 	//set vswing of value of 5
 	ReadModifyWrite(0x1F00,(5 << 8));
-	// Configuring lanes to 4
-	ReadModifyWrite(0x70,(XPAR_TX_SUBSYSTEM_V_DP_TXSS1_0_LANE_COUNT << 4));
-//     releasing reset. bit[31] and bit[0] = > 0
-//     releasing reset. bit[31] and bit[0] = > 0
+//      releasing reset. bit[0] = > 0
 	ReadModifyWrite(0x1, (0 << 0));
-	ReadModifyWrite(0x80000000, (0<<31));
 	u32 dptx_sts = 0;
-	u8 retry=0;
+	u32 retry=0;
 	dptx_sts = 0;
 	//Checking the status for 4 lanes
-    while ((dptx_sts != ALL_LANE) && retry < 255) {
-         dptx_sts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
-         dptx_sts &= ALL_LANE;
-         DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 1000);
-         retry++;
-      }
-    if(retry==255)
-    {
-		xil_printf ("+\r\n");
-    }
+	while ((dptx_sts != ALL_LANE) && retry < 10000) {
+	   dptx_sts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
+	   dptx_sts &= ALL_LANE;
+	   retry++;
+	}
+	if(retry==10000)
+	{
+	xil_printf ("+\r\n");
+			//This reset is needed for Versal GT. Sometimes the GT does not come out
+			//automatically and needs a reset
+			//This is because the refclk is not present at start
+			ReadModifyWrite(0x1, (1 << 0));
+			ReadModifyWrite(0x1, (0 << 0));
+	}
 
-    //This reset is needed for Versal GT. Sometimes the GT does not come out
-    //automatically and needs a reset
-    //This is because the refclk is not present at start
-    ReadModifyWrite(0x1, (1 << 0));
-    ReadModifyWrite(0x1, (0 << 0));
 	dptx_sts = 0;
 	retry=0;
-    while ((dptx_sts != ALL_LANE) && retry < 255) {
-         dptx_sts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
-         dptx_sts &= ALL_LANE;
-         DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 1000);
-         retry++;
-      }
-    if(retry==255)
-    {
-        prev_line_rate = XDP_TX_LINK_BW_SET_162GBPS;
-		xil_printf (
-   "+++++++ TX GT configuration encountered a failure init2 +++++++ \r\n");
-//	return XST_FAILURE;
-    } else {
-        prev_line_rate = XDP_TX_LINK_BW_SET_540GBPS;
-//    	xil_printf ("second time pass %x\r\n",dptx_sts1);
-    }
+	//Checking the status for 4 lanes
+	while ((dptx_sts != ALL_LANE) && retry < 10000) {
+	   dptx_sts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
+	   dptx_sts &= ALL_LANE;
+	   retry++;
+	}
+
+	if(retry==10000)
+	{
+	   prev_line_rate = XDP_TX_LINK_BW_SET_162GBPS;
+	   xil_printf (
+		"+++++++ TX GT configuration encountered a failure init2 +++++++ \r\n");
+	//	return XST_FAILURE;
+	} else {
+	   prev_line_rate = XDP_TX_LINK_BW_SET_540GBPS;
+	//    	xil_printf ("second time pass %x\r\n",dptx_sts1);
+	}
 #endif
 	return XST_SUCCESS;
 }
@@ -1343,6 +1352,16 @@ void DpTxSs_Setup(u8 *LineRate_init, u8 *LaneCount_init,
 								XDP_DPCD_MAX_LINK_RATE, 1, LineRate_init);
 			Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr,
 								XDP_DPCD_MAX_LANE_COUNT, 1, LaneCount_init);
+			// check the EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT bit
+			XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_TRAIN_AUX_RD_INTERVAL, 1, &rData);
+			if(rData & 0x80){ // if EXTENDED_RECEIVER_CAPABILITY_FIELD is enabled
+				XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x2201, 1, &rData); // read maxLineRate
+				if(rData == XDP_DPCD_LINK_BW_SET_810GBPS){
+					*LineRate_init = 0x1E;
+					xil_printf ("Monitor Capability is %x\r\n", *LineRate_init);
+				}
+			}
+
 			if (Status != XST_SUCCESS)
 				xil_printf ("Failed to read sink capabilities\r\n");
 		}
@@ -1481,6 +1500,10 @@ u32 start_tx(u8 line_rate, u8 lane_count,user_config_struct user_config){
 
 
 	u32 Status;
+	// Stop the Patgen
+	XDp_WriteReg(XPAR_TX_SUBSYSTEM_AV_PAT_GEN_0_BASEADDR,
+			0x0, 0x0);
+
 	//Disabling TX interrupts
 //	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 //												XDP_TX_INTERRUPT_MASK, 0xFFF);
@@ -1536,7 +1559,6 @@ u32 start_tx(u8 line_rate, u8 lane_count,user_config_struct user_config){
 	}
 
 	}
-
 	xil_printf (".");
 	//updates required timing values in Video Pattern Generator
 	Vpg_StreamSrcConfigure(DpTxSsInst.DpPtr, 0, 1);
@@ -1544,6 +1566,9 @@ u32 start_tx(u8 line_rate, u8 lane_count,user_config_struct user_config){
 	// setting video pattern
 	Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr, C_VideoUserStreamPattern[pat]);
 	xil_printf (".");
+    /* Generate the video clock using MMCM
+     */
+    Gen_vid_clk(DpTxSsInst.DpPtr,(XDP_TX_STREAM_ID1));
 	clk_wiz_locked();
 
 	if (DpTxSsInst.VtcPtr[0]) {
@@ -1579,9 +1604,13 @@ u32 start_tx(u8 line_rate, u8 lane_count,user_config_struct user_config){
 	/* Reset CRC*/
 	XVidFrameCrc_Reset();
 //	/* Set Pixel width in CRC engine*/
+    if (format != 2) {
 	XDp_WriteReg(XPAR_TX_SUBSYSTEM_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
-			XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-					XDP_TX_USER_PIXEL_WIDTH));
+			0x4);
+    } else {
+	XDp_WriteReg(XPAR_TX_SUBSYSTEM_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
+			0x4 | 0x80000000);
+    }
 
 	xil_printf ("..done !\r\n");
 		return XST_SUCCESS;
