@@ -178,7 +178,7 @@ void XPciePSU_ReadBar(XPciePsu *PciePsuPtr, u32 BarNum, u32 *BarLo,
 	u32 Offset =  (BAR0_OFFSET_LO + (BarNum * 0x4));
 	*BarLo = XPciePsu_ReadReg(PciePsuPtr->Config.NpMemBaseAddr, Offset);
 	Offset = (BAR0_OFFSET_HI + (BarNum * 0x4));
-	*BarLo = XPciePsu_ReadReg(PciePsuPtr->Config.NpMemBaseAddr, Offset);
+	*BarHi = XPciePsu_ReadReg(PciePsuPtr->Config.NpMemBaseAddr, Offset);
 
 	XPciePsu_Dbg("BAR%d LO configured by host 0x%08X\r\n", BarNum, *BarLo);
 	XPciePsu_Dbg("BAR%d HI configured by host 0x%08X\r\n", BarNum, *BarHi);
