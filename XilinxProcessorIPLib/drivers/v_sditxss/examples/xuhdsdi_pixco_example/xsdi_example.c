@@ -827,7 +827,7 @@ int main(void)
 
 	/* Initialize SI570_gpio */
 	Gpio_si570_ConfigPtr =
-		XGpio_LookupConfig(XPAR_ZYNQ_US_SS_GPIO_REGISTER_SI5324_LOL_GPIO_DEVICE_ID);
+		XGpio_LookupConfig(XPAR_ZYNQ_US_SS_GPIO_REGISTER_SI5324_LOL1_GPIO_DEVICE_ID);
 
 	if (!Gpio_si570_ConfigPtr) {
 		Gpio_si570.IsReady = 0;
