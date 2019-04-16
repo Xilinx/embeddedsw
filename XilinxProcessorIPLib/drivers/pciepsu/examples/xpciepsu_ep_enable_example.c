@@ -68,7 +68,8 @@
 /******************** Macros (Inline Functions) Definitions *******************/
 #define INGRESS_NUM	0x0		/* Ingress num to setup ingress */
 #define BAR_NUM		0x2		/* Bar no to setup ingress */
-#define PS_DDR_ADDR	0x1000000	/* PS DDR Addr to setup ingress */
+#define PS_DDR_ADDR	0x1000000	/* 32 or 64 bit PS DDR Addr
+						to setup ingress */
 
 /***************************** Function Prototypes ****************************/
 

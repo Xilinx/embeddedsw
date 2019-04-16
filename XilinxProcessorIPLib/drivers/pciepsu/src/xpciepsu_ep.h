@@ -80,6 +80,8 @@ extern "C" {
 /**************************** Constant Definitions ****************************/
 
 /******************** Macros (Inline Functions) Definitions *******************/
+#define XPCIEPSU_LOWER32BITS(data_64bit) (data_64bit & 0xFFFFFFFF)
+#define XPCIEPSU_UPPER32BITS(data_64bit) (data_64bit >> 32)
 
 /****************************** Type Definitions ******************************/
 #define INGRESS_SIZE				0x20
@@ -133,7 +135,7 @@ void XPciePsu_EP_CfgInitialize(XPciePsu *PciePsuPtr,
 void XPciePsu_EP_WaitForLinkup(XPciePsu *PciePsuPtr);
 void XPciePsu_EP_WaitForEnumeration(XPciePsu *PciePsuPtr);
 int XPciePsu_EP_SetupIngress(XPciePsu *PciePsuPtr, u32 IngressNum,
-		u32 BarNum, u32 DstLo);
+		u32 BarNum, u64 Dst);
 
 
 #ifdef __cplusplus
