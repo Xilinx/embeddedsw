@@ -64,11 +64,11 @@
 /**************************** Constant Definitions ****************************/
 
 /****************************** Type Definitions ******************************/
-#define INGRESS_NUM					0x0
-#define BAR_NUM						0x2
-#define PS_DDR_ADDR					0x1000000
 
 /******************** Macros (Inline Functions) Definitions *******************/
+#define INGRESS_NUM	0x0		/* Ingress num to setup ingress */
+#define BAR_NUM		0x2		/* Bar no to setup ingress */
+#define PS_DDR_ADDR	0x1000000	/* PS DDR Addr to setup ingress */
 
 /***************************** Function Prototypes ****************************/
 
@@ -109,10 +109,9 @@ int main()
 	xil_printf("Host driver indicated ready\r\n");
 	int result = XPciePsu_EP_SetupIngress(&PciePsuInstance,
 			INGRESS_NUM, BAR_NUM, PS_DDR_ADDR);
-	if(result == XST_FAILURE){
+	if (result == XST_FAILURE) {
 		xil_printf("PCIE ingress setup failed\r\n");
-	}
-	else{
+	} else {
 		xil_printf("PCIE Ingress Test done\r\n");
 	}
 
@@ -129,14 +128,15 @@ int main()
 * @param    DeviceId is PSU PCIe root complex unique ID
 *
 * @return   - XST_SUCCESS if successful.
-*      	- XST_FAILURE if unsuccessful.
+*		- XST_FAILURE if unsuccessful.
 *
 * @note     None.
 *
 *
 *******************************************************************************/
 
-int XPciePsu_InitEndPoint(XPciePsu *PciePsuPtr, u16 DeviceId){
+int XPciePsu_InitEndPoint(XPciePsu *PciePsuPtr, u16 DeviceId)
+{
 	XPciePsu_Config *ConfigPtr;
 	ConfigPtr = XPciePsu_LookupConfig(DeviceId);
 	Xil_AssertNonvoid(ConfigPtr != NULL);

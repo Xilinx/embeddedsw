@@ -107,12 +107,11 @@ void XPciePsu_EP_BridgeInitialize(XPciePsu *PciePsuPtr)
 	Val |= DMA_ENABLE;
 	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg, DREG_CONTROL, Val);
 
-
 	/* ECAM Configurations */
 	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg, XPCIEPSU_E_ECAM_BASE_LO,
 			PciePsuPtr->Config.NpMemBaseAddr);
-	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg, XPCIEPSU_E_ECAM_BASE_HI, 0U);
-
+	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
+			XPCIEPSU_E_ECAM_BASE_HI, 0U);
 
 	/* ECAM Enable */
 	Val = XPciePsu_ReadReg(PciePsuPtr->Config.BrigReg,
@@ -121,7 +120,7 @@ void XPciePsu_EP_BridgeInitialize(XPciePsu *PciePsuPtr)
 	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
 			XPCIEPSU_E_ECAM_CONTROL, Val);
 
-//- Enable AXI domain interrupt
+	/* Enable AXI domain interrupt */
 	XPciePsu_WriteReg(PciePsuPtr->Config.DmaBaseAddr,
 			DMA0_CHAN_AXI_INTR, AXI_INTR_ENABLE);
 	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg, MSGF_DMA_MASK,
@@ -134,7 +133,8 @@ void XPciePsu_EP_BridgeInitialize(XPciePsu *PciePsuPtr)
 * @param   PciePsuPtr pointer to XPciePsu_Config Instance Pointer
 *
 *******************************************************************************/
-void XPciePsu_EP_WaitForLinkup(XPciePsu *PciePsuPtr){
+void XPciePsu_EP_WaitForLinkup(XPciePsu *PciePsuPtr)
+{
 	Xil_AssertVoid(PciePsuPtr != NULL);
 	int Val;
 	do {
@@ -151,7 +151,8 @@ void XPciePsu_EP_WaitForLinkup(XPciePsu *PciePsuPtr){
 * @param   PciePsuPtr pointer to XPciePsu_Config Instance Pointer
 *
 *******************************************************************************/
-void XPciePsu_EP_WaitForEnumeration(XPciePsu *PciePsuPtr){
+void XPciePsu_EP_WaitForEnumeration(XPciePsu *PciePsuPtr)
+{
 	Xil_AssertVoid(PciePsuPtr != NULL);
 	int Val;
 	do {
@@ -179,8 +180,8 @@ void XPciePSU_ReadBar(XPciePsu *PciePsuPtr, u32 BarNum, u32 *BarLo,
 	Offset = (BAR0_OFFSET_HI + (BarNum * 0x4));
 	*BarLo = XPciePsu_ReadReg(PciePsuPtr->Config.NpMemBaseAddr, Offset);
 
-	XPciePsu_Dbg("BAR%d LO configured by host 0x%08X\r\n",BarNum, *BarLo);
-	XPciePsu_Dbg("BAR%d HI configured by host 0x%08X\r\n",BarNum, *BarHi);
+	XPciePsu_Dbg("BAR%d LO configured by host 0x%08X\r\n", BarNum, *BarLo);
+	XPciePsu_Dbg("BAR%d HI configured by host 0x%08X\r\n", BarNum, *BarHi);
 }
 /******************************************************************************/
 /**
@@ -189,23 +190,23 @@ void XPciePSU_ReadBar(XPciePsu *PciePsuPtr, u32 BarNum, u32 *BarLo,
 * @param	PciePsuPtr pointer to XPciePsu_Config Instance Pointer
 * @param	IngressNum ingress must be 0 to 7.
 * @param	BarNum
-* @param 	DstLo
+* @param	DstLo
 *
 * @retun	XST_SUCCESS if setup is successful
-* 			XST_FAILURE if setup is fail
+*			XST_FAILURE if setup is fail
 *
 *******************************************************************************/
 int XPciePsu_EP_SetupIngress(XPciePsu *PciePsuPtr, u32 IngressNum, u32 BarNum,
 		u32 DstLo){
 	Xil_AssertNonvoid(PciePsuPtr != NULL);
-	if(IngressNum > 7 ){
+	u32 SrcLo;
+	u32 SrcHi;
+	u32 Val;
+	if (IngressNum > 7) {
 		return XST_FAILURE;
 	}
 
-	u32 SrcLo, SrcHi;
 	XPciePSU_ReadBar(PciePsuPtr, BarNum, &SrcLo, &SrcHi);
-
-	u32 Val;
 
 	/*
 	 * Using Ingress Address Translation 0 to setup translation
@@ -215,20 +216,21 @@ int XPciePsu_EP_SetupIngress(XPciePsu *PciePsuPtr, u32 IngressNum, u32 BarNum,
 			(INGRESS0_SRC_BASE_LO + (IngressNum * INGRESS_SIZE)),
 			SrcLo & ~0xf);
 	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
-			(INGRESS0_SRC_BASE_HI + (IngressNum * INGRESS_SIZE)), SrcHi);
+			(INGRESS0_SRC_BASE_HI +
+			(IngressNum * INGRESS_SIZE)), SrcHi);
 
 	XPciePsu_Dbg("Done writing the Ingress Src registers\r\n");
 
 	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
-			(INGRESS0_DST_BASE_LO + (IngressNum * INGRESS_SIZE)), DstLo);
+			(INGRESS0_DST_BASE_LO +
+			(IngressNum * INGRESS_SIZE)), DstLo);
 	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
-			(INGRESS0_DST_BASE_HI + (IngressNum * INGRESS_SIZE)), 0U);
+			(INGRESS0_DST_BASE_HI +
+			(IngressNum * INGRESS_SIZE)), 0U);
 
 	XPciePsu_Dbg("Done writing the Ingress Dst registers\r\n");
 
-
 	Val = XPciePsu_ReadReg(PciePsuPtr->Config.BrigReg, INGRESS0_CONTROL);
-
 
 	XPciePsu_Dbg("Read Ingress Control register\r\n");
 
