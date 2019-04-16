@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -50,6 +50,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 5.00  pkp  02/10/14 Initial version
+* 7.1   aru  04/15/19 Updated the events correctly
 * </pre>
 *
 ******************************************************************************/
@@ -70,7 +71,7 @@ extern "C" {
 /************************** Constant Definitions ****************************/
 
 /* Number of performance counters */
-#define XPM_CTRCOUNT 6U
+#define XPM_CTRCOUNT 3U
 
 /* The following constants define the Cortex-R5 Performance Monitor Events */
 
@@ -81,375 +82,343 @@ extern "C" {
 #define XPM_EVENT_SOFTINCR 0x00U
 
 /*
- * Instruction fetch that causes a refill at (at least) the lowest level(s) of
- * instruction or unified cache. Includes the speculative linefills in the
- * count
+ * Instruction cache miss
+ * Each Instruction fetch from normal cacheable memory that causes a refill from
+ * the level 2 memory system generates this event.Accesses that do not cause a new
+ * cache refill, but are satisfied from refilling data of a previous miss are not
+ * counted. Where instruction fetches consists of multiple instructions, these
+ * accesses count as single events.
  */
-#define XPM_EVENT_INSRFETCH_CACHEREFILL 0x01U
+#define XPM_EVENT_INSTRCACHEMISS 0x01
 
 /*
- * Instruction fetch that causes a TLB refill at (at least) the lowest level of
- * TLB. Includes the speculative requests in the count
+ * Data cache miss
+ * Each data read from or write to normal cacheable memory that causes a refill
+ * from the level 2 memory system generates this event.Accesses that do not cause
+ * a new cache refill, but are satisfied from refilling data of a previous miss are
+ * not counted. Each access to a cache line to normal cacheable memory that causes
+ * a new linefill is counted,including the multiple transactions of an LDM and STM
  */
-#define XPM_EVENT_INSTRFECT_TLBREFILL 0x02U
+
+#define XPM_EVENT_DATACACHEMISS 0x03
 
 /*
- * Data read or write operation that causes a refill at (at least) the lowest
- * level(s)of data or unified cache. Counts the number of allocations performed
- * in the Data Cache due to a read or a write
+ * Each access to a cache line is counted including the multiple transactions of
+ * an LDM, STM, or other operations.
  */
-#define XPM_EVENT_DATA_CACHEREFILL 0x03U
+
+#define XPM_EVENT_DATACACHEACCESS 0x04
 
 /*
- * Data read or write operation that causes a cache access at (at least) the
- * lowest level(s) of data or unified cache. This includes speculative reads
+ *Data read architecturally executed
+ *This evevt occurs for every every instruction that explicitly reads data,
+ *including SWP.
  */
-#define XPM_EVENT_DATA_CACHEACCESS 0x04U
+
+#define XPM_EVENT_DATAREAD 0x06
 
 /*
- * Data read or write operation that causes a TLB refill at (at least) the
- * lowest level of TLB. This does not include micro TLB misses due to PLD, PLI,
- * CP15 Cache operation by MVA and CP15 VA to PA operations
+ *Data write architecturally executed
+ *This evevt occurs for every every instruction that explicitly writes data,
+ *including SWP.
  */
-#define XPM_EVENT_DATA_TLBREFILL 0x05U
+
+#define XPM_EVENT_DATAWRITE 0x07
 
 /*
- * Data read architecturally executed. Counts the number of data read
- * instructions accepted by the Load Store Unit. This includes counting the
- * speculative and aborted LDR/LDM, as well as the reads due to the SWP
- * instructions
+ *Instruction architecturally executed
  */
-#define XPM_EVENT_DATA_READS 0x06U
+
+#define XPM_EVENT_INSTR 0x08
+/*
+ * Dual-issued pair of instructions architecturally executed
+ */
+
+#define XPM_EVENT_DUALINSTR 0x5E
 
 /*
- * Data write architecturally executed. Counts the number of data write
- * instructions accepted by the Load Store Unit. This includes counting the
- * speculative and aborted STR/STM, as well as the writes due to the SWP
- * instructions
+ * Exception taken
+ * This event occurs on each exception taken
  */
-#define XPM_EVENT_DATA_WRITE 0x07U
 
-/* Exception taken. Counts the number of exceptions architecturally taken.*/
-#define XPM_EVENT_EXCEPTION 0x09U
-
-/* Exception return architecturally executed.*/
-#define XPM_EVENT_EXCEPRETURN 0x0AU
+#define XPM_EVENT_EXCEPTION 0x09
 
 /*
- * Change to ContextID retired. Counts the number of instructions
- * architecturally executed writing into the ContextID Register
+ * Exception return architecturally executed.
+ * This event occurs on every exception return
+ * for example:
+ * RFE,MOVS PC,LDM Rn, {..,PC}^
  */
-#define XPM_EVENT_CHANGECONTEXT 0x0BU
+
+#define XPM_EVENT_EXCEPTIONRET 0x0A
 
 /*
- * Software change of PC, except by an exception, architecturally executed.
- * Count the number of PC changes architecturally executed, excluding the PC
- * changes due to taken exceptions
+ * Change to Context ID Executed
  */
-#define XPM_EVENT_SW_CHANGEPC 0x0CU
+
+#define XPM_EVENT_CHANGETOCONTEXID 0x0B
 
 /*
- * Immediate branch architecturally executed (taken or not taken). This includes
- * the branches which are flushed due to a previous load/store which aborts
- * late
+ * Software Change of PC, except by an exception,
+ * architecturally executed
  */
-#define XPM_EVENT_IMMEDBRANCH 0x0DU
+
+#define XPM_EVENT_SWCHANGE 0x0C
 
 /*
- * Unaligned access architecturally executed. Counts the number of aborted
- * unaligned accessed architecturally executed, and the number of not-aborted
- * unaligned accesses, including the speculative ones
+ * B immediate, BL immediate or BLX immediate instruction
+ * architecturally executed
+ *
  */
-#define XPM_EVENT_UNALIGNEDACCESS 0x0FU
+
+#define XPM_EVENT_IMMEDIATEINSTR 0x0D
 
 /*
- * Branch mispredicted/not predicted. Counts the number of mispredicted or
- * not-predicted branches executed. This includes the branches which are flushed
- * due to a previous load/store which aborts late
+ * Procedure return architecturally executed, other than exception returns
+ * For example:
+ * BZ Rm, "LDM Rn, {..,PC}"
  */
-#define XPM_EVENT_BRANCHMISS 0x10U
+
+#define XPM_EVENT_PROCEDURERET 0x0E
 
 /*
- * Counts clock cycles when the Cortex-R5 processor is not in WFE/WFI. This
- * event is not exported on the PMUEVENT bus
+ * Unaligned access architecturally executed
+ * This event occurs for each instruction that was to an unaligned
+ * address that either triggered an alignment fault, or would have done
+ * so if the SCTLR A-bit had been set.
  */
+
+#define XPM_EVENT_UNALIGNACCESS 0x0F
+
+/*
+ * Branch mispredicted or not predicted
+ * This event ocurs for every pipeline flush
+ * caused by a branch
+ */
+
+#define XPM_EVENT_BRANCHMISPREDICT 0x10
+
+/*
+ * Counts clock cycles when the Cortex-r5 processor is not in WFE/WFI. This
+ * event is not exported on the EVENT bus
+ */
+
 #define XPM_EVENT_CLOCKCYCLES 0x11U
 
 /*
- * Branches or other change in program flow that could have been predicted by
- * the branch prediction resources of the processor. This includes the branches
- * which are flushed due to a previous load/store which aborts late
+ * Branches or other change in program flow that could have
+ * been predicted by the branch prediction resources of the processor.
  */
-#define XPM_EVENT_BRANCHPREDICT 0x12U
+
+#define XPM_EVENT_BRANCHPREDICT 0x12
 
 /*
- * Java bytecode execute. Counts the number of Java bytecodes being decoded,
- * including speculative ones
+ * Stall because instruction buffer cannot deliver an instruction
+ * This can indicate a cache miss. This event occurs every cycle where
+ * the conditions is present.
  */
-#define XPM_EVENT_JAVABYTECODE 0x40U
+
+#define XPM_EVENT_INSTRSTALL 0x40
 
 /*
- * Software Java bytecode executed. Counts the number of software java bytecodes
- * being decoded, including speculative ones
+ * Stall because of data dependency between instructions.
+ * This event occurs every cycle where the condition is present.
  */
-#define XPM_EVENT_SWJAVABYTECODE 0x41U
+
+#define XPM_EVENT_DATASTALL 0x41
 
 /*
- * Jazelle backward branches executed. Counts the number of Jazelle taken
- * branches being executed. This includes the branches which are flushed due
- * to a previous load/store which aborts late
+ * Data cache write-back
+ * This event occurs once for each line that is written back from the cache.
  */
-#define XPM_EVENT_JAVABACKBRANCH 0x42U
+
+#define XPM_EVENT_DATACACHEWRITE 0x42
 
 /*
- * Coherent linefill miss Counts the number of coherent linefill requests
- * performed by the Cortex-R5 processor which also miss in all the other
- * Cortex-R5 processors, meaning that the request is sent to the external
- * memory
+ * External memory request
+ * Examples of this are cache refill, Non-cacheable accesses, write through
+ * writes, cache line evictions(write-back)
  */
-#define XPM_EVENT_COHERLINEMISS 0x50U
+
+#define XPM_EVENT_EXTERNALMEMREQ 0x43U
 
 /*
- * Coherent linefill hit. Counts the number of coherent linefill requests
- * performed by the Cortex-R5 processor which hit in another Cortex-R5
- * processor, meaning that the linefill data is fetched directly from the
- * relevant Cortex-R5 cache
+ * Stall because of LSU being busy
+ * This event takes place each clock cycle where the condition is met.
+ * A high incidence of this event indicates the pipeline is often waiting
+ * for transactions to complete on the external bus.
  */
-#define XPM_EVENT_COHERLINEHIT 0x51U
+
+#define XPM_EVENT_LSUSTALL 0x44
 
 /*
- * Instruction cache dependent stall cycles. Counts the number of cycles where
- * the processor is ready to accept new instructions, but does not receive any
- * due to the instruction side not being able to provide any and the
- * instruction cache is currently performing at least one linefill
+ * Store Buffer was forced to drain completely
+ * Examples of this Fir cortex-R5 are DMB, Strongly ordered memory access,
+ * or similar events.
+ *
  */
-#define XPM_EVENT_INSTRSTALL 0x60U
+
+#define XPM_EVENT_FORCEDRAINSTORE 0x45
 
 /*
- * Data cache dependent stall cycles. Counts the number of cycles where the core
- * has some instructions that it cannot issue to any pipeline, and the Load
- * Store unit has at least one pending linefill request, and no pending
+ * Instruction cache tag RAm parity or correctable ECC error
  */
-#define XPM_EVENT_DATASTALL 0x61U
+
+#define XPM_EVENT_INSTRTAGPARITY 0x4A
 
 /*
- * Main TLB miss stall cycles. Counts the number of cycles where the processor
- * is stalled waiting for the completion of translation table walks from the
- * main TLB. The processor stalls can be due to the instruction side not being
- * able to provide the instructions, or to the data side not being able to
- * provide the necessary data, due to them waiting for the main TLB translation
- * table walk to complete
+ * Instruction cache data RAm parity or correctable ECC error
  */
-#define XPM_EVENT_MAINTLBSTALL 0x62U
+
+#define XPM_EVENT_INSTRDATAPARITY 0x4B
 
 /*
- * Counts the number of STREX instructions architecturally executed and
- * passed
+ * Data cache tag or dirty RAM parity error or correctable ECC error,
+ * from data-side or ACP
  */
-#define XPM_EVENT_STREXPASS 0x63U
+
+#define XPM_EVENT_DATATAGPARITY 0x4C
 
 /*
- * Counts the number of STREX instructions architecturally executed and
- * failed
+ * Data cache data RAM parity error or correctable ECC error
  */
-#define XPM_EVENT_STREXFAIL 0x64U
+
+#define XPM_EVENT_DATADATAPARITY 0x4D
 
 /*
- * Data eviction. Counts the number of eviction requests due to a linefill in
- * the data cache
+ * TCM fatal ECC error reported from the prefetch unit
  */
-#define XPM_EVENT_DATAEVICT 0x65U
+
+#define XPM_EVENT_TCMERRORPREFETCH 0x4E
 
 /*
- * Counts the number of cycles where the issue stage does not dispatch any
- * instruction because it is empty or cannot dispatch any instructions
+ * TCM fatal ECC error reported from the load/store unit
  */
-#define XPM_EVENT_NODISPATCH 0x66U
+
+#define XPM_EVENT_TCMERRORSTORE 0x4F
 
 /*
- * Counts the number of cycles where the issue stage is empty
+ * Instruction cache access
  */
-#define XPM_EVENT_ISSUEEMPTY 0x67U
+
+#define XPM_EVENT_INSTRCACHEACCESS 0x58
 
 /*
- * Counts the number of instructions going through the Register Renaming stage.
- * This number is an approximate number of the total number of instructions
- * speculatively executed, and even more approximate of the total number of
- * instructions architecturally executed. The approximation depends mainly on
- * the branch misprediction rate.
- * The renaming stage can handle two instructions in the same cycle so the event
- * is two bits long:
- *    - b00 no instructions renamed
- *    - b01 one instruction renamed
- *    - b10 two instructions renamed
+ * Dual issue case A(branch)
  */
-#define XPM_EVENT_INSTRRENAME 0x68U
+
+#define XPM_EVENT_DUALISSUEA 0x5A
 
 /*
- * Counts the number of procedure returns whose condition codes do not fail,
- * excluding all returns from exception. This count includes procedure returns
- * which are flushed due to a previous load/store which aborts late.
- * Only the following instructions are reported:
- * - BX R14
- * - MOV PC LR
- * - POP {..,pc}
- * - LDR pc,[sp],#offset
- * The following instructions are not reported:
- * - LDMIA R9!,{..,PC} (ThumbEE state only)
- * - LDR PC,[R9],#offset (ThumbEE state only)
- * - BX R0 (Rm != R14)
- * - MOV PC,R0 (Rm != R14)
- * - LDM SP,{...,PC} (writeback not specified)
- * - LDR PC,[SP,#offset] (wrong addressing mode)
+ * Dual issue case B1,B2,F2(load/store), F2D.
  */
-#define XPM_EVENT_PREDICTFUNCRET 0x6EU
+
+#define XPM_EVENT_DUALISSUEB 0x5B
 
 /*
- * Counts the number of instructions being executed in the main execution
- * pipeline of the processor, the multiply pipeline and arithmetic logic unit
- * pipeline. The counted instructions are still speculative
+ * Dual issue other case
  */
-#define XPM_EVENT_MAINEXEC 0x70U
+
+#define XPM_EVENT_DUALISSUEOTHER 0x5C
 
 /*
- * Counts the number of instructions being executed in the processor second
- * execution pipeline (ALU). The counted instructions are still speculative
+ * Double precision floating point arithmatic or
+ * conversion instruction executed.
  */
-#define XPM_EVENT_SECEXEC 0x71U
+
+#define XPM_EVENT_FPA 0x5D
 
 /*
- * Counts the number of instructions being executed in the Load/Store unit. The
- * counted instructions are still speculative
+ * Data cache data RAM fatal ECC error
  */
-#define XPM_EVENT_LDRSTR 0x72U
+
+#define XPM_EVENT_DATACACHEDATAERROR 0x60
 
 /*
- * Counts the number of Floating-point instructions going through the Register
- * Rename stage. Instructions are still speculative in this stage.
- *Two floating-point instructions can be renamed in the same cycle so the event
- * is two bitslong:
- *0b00 no floating-point instruction renamed
- *0b01 one floating-point instruction renamed
- *0b10 two floating-point instructions renamed
+ * Data cache tag/dirty RAM fatal ECC error, from data-side or ACP
  */
-#define XPM_EVENT_FLOATRENAME 0x73U
+
+#define XPM_EVENT_DATACACHETAGERROR 0x61
 
 /*
- * Counts the number of Neon instructions going through the Register Rename
- * stage.Instructions are still speculative in this stage.
- * Two NEON instructions can be renamed in the same cycle so the event is two
- * bits long:
- *0b00 no NEON instruction renamed
- *0b01 one NEON instruction renamed
- *0b10 two NEON instructions renamed
+ * Processor livelock because of hard errors or exception vector
  */
-#define XPM_EVENT_NEONRENAME 0x74U
+
+#define XPM_EVENT_PROCESSORLIVELOCK 0x62
 
 /*
- * Counts the number of cycles where the processor is stalled because PLD slots
- * are all full
+ * ATCM Multi-bit error
  */
-#define XPM_EVENT_PLDSTALL 0x80U
+
+#define XPM_EVENT_ATCMMULTIBITERROR 0x64
 
 /*
- * Counts the number of cycles when the processor is stalled and the data side
- * is stalled too because it is full and executing writes to the external
- * memory
+ * B0TCM Multi-bit error
  */
-#define XPM_EVENT_WRITESTALL 0x81U
+
+#define XPM_EVENT_B0TCMMULTIBITERROR 0x65
 
 /*
- * Counts the number of stall cycles due to main TLB misses on requests issued
- * by the instruction side
+ * B1TCM Multi-bit error
  */
-#define XPM_EVENT_INSTRTLBSTALL 0x82U
+
+#define XPM_EVENT_B1TCMMULTIBITERROR 0x66
 
 /*
- * Counts the number of stall cycles due to main TLB misses on requests issued
- * by the data side
+ * ATCM Single-bit error
  */
-#define XPM_EVENT_DATATLBSTALL 0x83U
+
+#define XPM_EVENT_ATCMSINGLEBITERROR 0x67
 
 /*
- * Counts the number of stall cycles due to micro TLB misses on the instruction
- * side. This event does not include main TLB miss stall cycles that are already
- * counted in the corresponding main TLB event
+ * B0TCM Single-bit error
  */
-#define XPM_EVENT_INSTR_uTLBSTALL 0x84U
+
+#define XPM_EVENT_B0TCMSINGLEBITERROR 0x68
 
 /*
- * Counts the number of stall cycles due to micro TLB misses on the data side.
- * This event does not include main TLB miss stall cycles that are already
- * counted in the corresponding main TLB event
+ * B1TCM Single-bit error
  */
-#define XPM_EVENT_DATA_uTLBSTALL 0x85U
+
+#define XPM_EVENT_B1TCMSINGLEBITERROR 0x69
 
 /*
- * Counts the number of stall cycles because of the execution of a DMB memory
- * barrier. This includes all DMB instructions being executed, even
- * speculatively
+ * TCM correctable ECC error reported by load/store unit
  */
-#define XPM_EVENT_DMB_STALL 0x86U
+
+#define XPM_EVENT_TCMERRORLSU 0x6A
 
 /*
- * Counts the number of cycles during which the integer core clock is enabled
+ * TCM correctable ECC error reported by prefetch unit
  */
-#define XPM_EVENT_INT_CLKEN 0x8AU
+
+#define XPM_EVENT_TCMERRORPFU 0x6B
 
 /*
- * Counts the number of cycles during which the Data Engine clock is enabled
+ * TCM fatal ECC error reported by AXI slave unit
  */
-#define XPM_EVENT_DE_CLKEN 0x8BU
+
+#define XPM_EVENT_TCMFATALERRORAXI 0x6C
 
 /*
- * Counts the number of ISB instructions architecturally executed
+ * TCM correctable ECC error reported by AXI slave unit
  */
-#define XPM_EVENT_INSTRISB 0x90U
+
+#define XPM_EVENT_TCMERRORAXI 0x6D
 
 /*
- * Counts the number of DSB instructions architecturally executed
+ * ACP D-cache acces, lookup or invalidate
  */
-#define XPM_EVENT_INSTRDSB 0x91U
+
+
+#define XPM_EVENT_DCACHEACCESS 0x72
 
 /*
- * Counts the number of DMB instructions speculatively executed
+ * ACP D-cache invalidate
  */
-#define XPM_EVENT_INSTRDMB 0x92U
 
-/*
- * Counts the number of external interrupts executed by the processor
- */
-#define XPM_EVENT_EXTINT 0x93U
+#define XPM_EVENT_DCACHEINVALIDATE 0x73
 
-/*
- * PLE cache line request completed
- */
-#define XPM_EVENT_PLE_LRC 0xA0U
-
-/*
- * PLE cache line request skipped
- */
-#define XPM_EVENT_PLE_LRS 0xA1U
-
-/*
- * PLE FIFO flush
- */
-#define XPM_EVENT_PLE_FLUSH 0xA2U
-
-/*
- * PLE request complete
- */
-#define XPM_EVENT_PLE_CMPL 0xA3U
-
-/*
- * PLE FIFO overflow
- */
-#define XPM_EVENT_PLE_OVFL 0xA4U
-
-/*
- * PLE request programmed
- */
-#define XPM_EVENT_PLE_PROG 0xA5U
 
 /*
  * The following constants define the configurations for Cortex-R5 Performance
@@ -459,81 +428,68 @@ extern "C" {
  * Config		PmCtr0... PmCtr5
  * -----------------------------------------------
  * XPM_CNTRCFG1		{ XPM_EVENT_SOFTINCR,
- *			  XPM_EVENT_INSRFETCH_CACHEREFILL,
- *			  XPM_EVENT_INSTRFECT_TLBREFILL,
- *			  XPM_EVENT_DATA_CACHEREFILL,
- *			  XPM_EVENT_DATA_CACHEACCESS,
- *			  XPM_EVENT_DATA_TLBREFILL }
+ *			  XPM_EVENT_INSTRCACHEMISS,
+ *			  XPM_EVENT_DATACACHEMISS }
  *
- * XPM_CNTRCFG2		{ XPM_EVENT_DATA_READS,
- *			  XPM_EVENT_DATA_WRITE,
- *			  XPM_EVENT_EXCEPTION,
- *			  XPM_EVENT_EXCEPRETURN,
- *			  XPM_EVENT_CHANGECONTEXT,
- *			  XPM_EVENT_SW_CHANGEPC }
+ * XPM_CNTRCFG2		{ XPM_EVENT_DATACACHEACCESS,
+ *			  XPM_EVENT_DATAREAD,
+ *			  XPM_EVENT_DATAWRITE }
  *
- * XPM_CNTRCFG3		{ XPM_EVENT_IMMEDBRANCH,
- *			  XPM_EVENT_UNALIGNEDACCESS,
- *			  XPM_EVENT_BRANCHMISS,
+ * XPM_CNTRCFG3		{ XPM_EVENT_INSTR,
+ *			  XPM_EVENT_DUALINSTR,
+ *			  XPM_EVENT_EXCEPTION }
+ *
+ * XPM_CNTRCFG4		{ XPM_EVENT_EXCEPTIONRET,
+ *			  XPM_EVENT_CHANGETOCONTEXID,
+ *			  XPM_EVENT_SWCHANGE }
+ *
+ * XPM_CNTRCFG5		{ XPM_EVENT_IMMEDIATEINSTR,
+ *			  XPM_EVENT_PROCEDURERET,
+ *			  XPM_EVENT_UNALIGNACCESS }
+ *
+ * XPM_CNTRCFG6		{ XPM_EVENT_BRANCHMISPREDICT,
  *			  XPM_EVENT_CLOCKCYCLES,
- *			  XPM_EVENT_BRANCHPREDICT,
- *			  XPM_EVENT_JAVABYTECODE }
+ *			  XPM_EVENT_BRANCHPREDICT }
  *
- * XPM_CNTRCFG4		{ XPM_EVENT_SWJAVABYTECODE,
- *			  XPM_EVENT_JAVABACKBRANCH,
- *			  XPM_EVENT_COHERLINEMISS,
- *			  XPM_EVENT_COHERLINEHIT,
- *			  XPM_EVENT_INSTRSTALL,
- *			  XPM_EVENT_DATASTALL }
+ * XPM_CNTRCFG7		{ XPM_EVENT_INSTRSTALL,
+ *			  XPM_EVENT_DATASTALL,
+ *			  XPM_EVENT_DATACACHEWRITE }
  *
- * XPM_CNTRCFG5		{ XPM_EVENT_MAINTLBSTALL,
- *			  XPM_EVENT_STREXPASS,
- *			  XPM_EVENT_STREXFAIL,
- *			  XPM_EVENT_DATAEVICT,
- *			  XPM_EVENT_NODISPATCH,
- *			  XPM_EVENT_ISSUEEMPTY }
+ * XPM_CNTRCFG8		{ XPM_EVENT_EXTERNALMEMREQ,
+ *            XPM_EVENT_LSUSTALL,
+ *			  XPM_EVENT_FORCEDRAINSTORE }
  *
- * XPM_CNTRCFG6		{ XPM_EVENT_INSTRRENAME,
- *			  XPM_EVENT_PREDICTFUNCRET,
- *			  XPM_EVENT_MAINEXEC,
- *			  XPM_EVENT_SECEXEC,
- *			  XPM_EVENT_LDRSTR,
- *			  XPM_EVENT_FLOATRENAME }
+ * XPM_CNTRCFG9		{ XPM_EVENT_INSTRTAGPARITY,
+ *            XPM_EVENT_INSTRDATAPARITY,
+ *			  XPM_EVENT_DATATAGPARITY }
  *
- * XPM_CNTRCFG7		{ XPM_EVENT_NEONRENAME,
- *			  XPM_EVENT_PLDSTALL,
- *			  XPM_EVENT_WRITESTALL,
- *			  XPM_EVENT_INSTRTLBSTALL,
- *			  XPM_EVENT_DATATLBSTALL,
- *			  XPM_EVENT_INSTR_uTLBSTALL }
+ * XPM_CNTRCFG10	{ XPM_EVENT_DATADATAPARITY,
+ *            XPM_EVENT_TCMERRORPREFETCH,
+ *			  XPM_EVENT_TCMERRORSTORE }
  *
- * XPM_CNTRCFG8		{ XPM_EVENT_DATA_uTLBSTALL,
- *			  XPM_EVENT_DMB_STALL,
- *			  XPM_EVENT_INT_CLKEN,
- *			  XPM_EVENT_DE_CLKEN,
- *			  XPM_EVENT_INSTRISB,
- *			  XPM_EVENT_INSTRDSB }
+ * XPM_CNTRCFG11	{ XPM_EVENT_INSTRCACHEACCESS,
+ *            XPM_EVENT_DUALISSUEA,
+ *			  XPM_EVENT_DUALISSUEB }
  *
- * XPM_CNTRCFG9		{ XPM_EVENT_INSTRDMB,
- *			  XPM_EVENT_EXTINT,
- *			  XPM_EVENT_PLE_LRC,
- *			  XPM_EVENT_PLE_LRS,
- *			  XPM_EVENT_PLE_FLUSH,
- *			  XPM_EVENT_PLE_CMPL }
+ * XPM_CNTRCFG12	{ XPM_EVENT_DUALISSUEOTHER,
+ *            XPM_EVENT_FPA,
+ *			  XPM_EVENT_DATACACHEDATAERROR }
  *
- * XPM_CNTRCFG10	{ XPM_EVENT_PLE_OVFL,
- *			  XPM_EVENT_PLE_PROG,
- *			  XPM_EVENT_PLE_LRC,
- *			  XPM_EVENT_PLE_LRS,
- *			  XPM_EVENT_PLE_FLUSH,
- *			  XPM_EVENT_PLE_CMPL }
+ * XPM_CNTRCFG13	{ XPM_EVENT_DATACACHETAGERROR,
+ *            XPM_EVENT_PROCESSORLIVELOCK,
+ *			  XPM_EVENT_ATCMMULTIBITERROR }
  *
- * XPM_CNTRCFG11	{ XPM_EVENT_DATASTALL,
- *			  XPM_EVENT_INSRFETCH_CACHEREFILL,
- *			  XPM_EVENT_INSTRFECT_TLBREFILL,
- *			  XPM_EVENT_DATA_CACHEREFILL,
- *			  XPM_EVENT_DATA_CACHEACCESS,
- *			  XPM_EVENT_DATA_TLBREFILL }
+ * XPM_CNTRCFG14	{ XPM_EVENT_B0TCMMULTIBITERROR,
+ *            XPM_EVENT_B1TCMMULTIBITERROR,
+ *			  XPM_EVENT_ATCMSINGLEBITERROR }
+ *
+ * XPM_CNTRCFG15	{ XPM_EVENT_B0TCMSINGLEBITERROR,
+ *            XPM_EVENT_B1TCMSINGLEBITERROR,
+ *			  XPM_EVENT_TCMERRORLSU }
+ *
+ * XPM_CNTRCFG16	{ XPM_EVENT_TCMERRORPFU,
+ *            XPM_EVENT_TCMFATALERRORAXI,
+ *			  XPM_EVENT_TCMERRORAXI }
  */
 #define XPM_CNTRCFG1	0
 #define XPM_CNTRCFG2	1
@@ -546,6 +502,12 @@ extern "C" {
 #define XPM_CNTRCFG9	8
 #define XPM_CNTRCFG10	9
 #define XPM_CNTRCFG11	10
+#define XPM_CNTRCFG12   11
+#define XPM_CNTRCFG13   12
+#define XPM_CNTRCFG14   13
+#define XPM_CNTRCFG15   14
+#define XPM_CNTRCFG16   15
+#endif
 
 /**************************** Type Definitions ******************************/
 
@@ -563,7 +525,6 @@ void Xpm_GetEventCounters(u32 *PmCtrValue);
 }
 #endif
 
-#endif
 /**
 * @} End of "addtogroup r5_event_counter_apis".
 */
