@@ -1490,22 +1490,23 @@ static void XSdPs_ConfigTapDelay(XSdPs *InstancePtr)
 	u32 OTapDelay = InstancePtr->OTapDelay;
 
 #ifdef versal
+	(void) DeviceId;
 	if (ITapDelay) {
 		TapDelay = XSdPs_ReadReg(InstancePtr->Config.BaseAddress, SD_ITAPDLY);
-		TapDelay |= SD0_ITAPCHGWIN;
+		TapDelay |= SD_ITAPCHGWIN;
 		XSdPs_WriteReg(InstancePtr->Config.BaseAddress, SD_ITAPDLY, TapDelay);
 		/* Program the ITAPDLY */
-		TapDelay |= SD0_ITAPDLYENA;
+		TapDelay |= SD_ITAPDLYENA;
 		XSdPs_WriteReg(InstancePtr->Config.BaseAddress, SD_ITAPDLY, TapDelay);
 		TapDelay |= ITapDelay;
 		XSdPs_WriteReg(InstancePtr->Config.BaseAddress, SD_ITAPDLY, TapDelay);
-		TapDelay &= ~SD0_ITAPCHGWIN;
+		TapDelay &= ~SD_ITAPCHGWIN;
 		XSdPs_WriteReg(InstancePtr->Config.BaseAddress, SD_ITAPDLY, TapDelay);
 	}
 	if (OTapDelay) {
 		/* Program the OTAPDLY */
 		TapDelay = XSdPs_ReadReg(InstancePtr->Config.BaseAddress, SD_OTAPDLY);
-		TapDelay &= ~SD0_OTAPDLY_SEL_MASK;
+		TapDelay &= ~SD_OTAPDLY_SEL_MASK;
 		TapDelay |= OTapDelay;
 		XSdPs_WriteReg(InstancePtr->Config.BaseAddress, SD_OTAPDLY, TapDelay);
 	}
