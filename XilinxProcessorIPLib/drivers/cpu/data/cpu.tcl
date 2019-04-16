@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2004 - 2018 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2004 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -61,6 +61,8 @@
 ##                      HSI.
 ## 2.8     mga 06/27/18 Added -Os and LTO to extra_compiler_flags for pmu bsp
 ## 2.8     mus 09/11/18 Added support for Microblaze-X
+## 2.10  mus  04/16/19 Replace XILINX_SDK env variable with RDI_APPROOT. Fix for
+#                     CR#1028460.
 # uses xillib.tcl
 
 ########################################
@@ -116,7 +118,7 @@ proc generate {drv_handle} {
 				set gnu_osdir "lin"
 			}
             if { $xilinx_edk_gnu == "" } {
-                append compiler_root $env(XILINX_SDK) "/gnu/microblaze/" $gnu_osdir
+                append compiler_root $env(RDI_APPROOT) "/gnu/microblaze/" $gnu_osdir
             } {
                 append compiler_root $env(XILINX_EDK_GNU) "/microblaze/" $gnu_osdir
             }
@@ -255,7 +257,7 @@ proc generate {drv_handle} {
    }
 
    if { ![file exists $libxil_path] } {
-	set libxil_path [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/" $libxil]
+	set libxil_path [file join $env(RDI_APPROOT) "data/embeddedsw/lib/microblaze/" $libxil]
    }
 
     file copy -force $libxil_path $targetdir
@@ -280,10 +282,10 @@ proc generate {drv_handle} {
         set xmdstub_periph_handle [xget_hwhandle $xmdstub_periph]
         set targetdir "../../code"
         set filename "xmdstub.s"
-        file copy -force [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
+        file copy -force [file join $env(RDI_APPROOT) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
             file mtime [file join $targetdir $filename] [clock seconds]
         set filename "make.xmdstub"
-        file copy -force [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
+        file copy -force [file join $env(RDI_APPROOT) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
             file mtime [file join $targetdir $filename] [clock seconds]
         set xmd_addr_file [open "../../code/xmdstubaddr.s" w]
         set xmdstub_periph_baseaddr [::hsi::utils::format_addr_string [xget_value $xmdstub_periph_handle "PARAMETER" "C_BASEADDR"] "C_BASEADDR"]
