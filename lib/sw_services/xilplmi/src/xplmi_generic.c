@@ -197,6 +197,7 @@ static int XPlmi_DmaWrite(XPlmi_Cmd * Cmd)
 	u64 SrcAddr;
 	u32 Len = Cmd->PayloadLen;
 	u32 Flags;
+	u32 DestOffset = 0U;
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
@@ -209,12 +210,14 @@ static int XPlmi_DmaWrite(XPlmi_Cmd * Cmd)
 		Len -= 2U;
 	} else {
 		SrcAddr = (u64 )(UINTPTR) &Cmd->Payload[0];
+		/** decrement the destination offset by CMD params */
+		DestOffset = 2U;
 	}
 
 	DestAddr = (u64) Cmd->ResumeData[0];
 	DestAddr = ((u64 )Cmd->ResumeData[1] |
 			(DestAddr<<32));
-	DestAddr += (Cmd->ProcessedLen * 4U);
+	DestAddr += ((Cmd->ProcessedLen - DestOffset) * 4U);
 
 	/** Set DMA flags to DMA0 and INCR */
 	Flags = XPLMI_PMCDMA_0;
