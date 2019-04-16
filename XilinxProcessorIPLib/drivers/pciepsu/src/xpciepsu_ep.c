@@ -188,20 +188,22 @@ void XPciePSU_ReadBar(XPciePsu *PciePsuPtr, u32 BarNum, u32 *BarLo,
 * This function sets up ingress translation
 *
 * @param	PciePsuPtr pointer to XPciePsu_Config Instance Pointer
-* @param	IngressNum ingress must be 0 to 7.
-* @param	BarNum
-* @param	DstLo
+* @param	IngressNum ingress must be 0 to 7
+* @param	BarNum bar no to setup ingress
+* @param	Dst 32 or 64 bit destination address
 *
 * @retun	XST_SUCCESS if setup is successful
 *			XST_FAILURE if setup is fail
 *
 *******************************************************************************/
 int XPciePsu_EP_SetupIngress(XPciePsu *PciePsuPtr, u32 IngressNum, u32 BarNum,
-		u32 DstLo){
+		u64 Dst){
 	Xil_AssertNonvoid(PciePsuPtr != NULL);
 	u32 SrcLo;
 	u32 SrcHi;
 	u32 Val;
+	u32 DestLo;
+	u32 DestHi;
 	if (IngressNum > 7) {
 		return XST_FAILURE;
 	}
@@ -221,12 +223,14 @@ int XPciePsu_EP_SetupIngress(XPciePsu *PciePsuPtr, u32 IngressNum, u32 BarNum,
 
 	XPciePsu_Dbg("Done writing the Ingress Src registers\r\n");
 
+	DestLo = XPCIEPSU_LOWER32BITS(Dst);
+	DestHi = XPCIEPSU_UPPER32BITS(Dst);
 	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
 			(INGRESS0_DST_BASE_LO +
-			(IngressNum * INGRESS_SIZE)), DstLo);
+			(IngressNum * INGRESS_SIZE)), DestLo);
 	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
 			(INGRESS0_DST_BASE_HI +
-			(IngressNum * INGRESS_SIZE)), 0U);
+			(IngressNum * INGRESS_SIZE)), DestHi);
 
 	XPciePsu_Dbg("Done writing the Ingress Dst registers\r\n");
 
