@@ -54,7 +54,7 @@ int XPsmFw_Init()
 {
 	int Status = XST_SUCCESS;
 	
-#ifdef XPAR_PSU_IPI_PSM_DEVICE_ID
+#ifdef XPAR_PSV_IPI_PSM_DEVICE_ID
 	XPsmfw_IpiManagerInit();
 	
 	/* FIXME: Clear IPI0 status and enable IPI interrupts. Do it else where*/

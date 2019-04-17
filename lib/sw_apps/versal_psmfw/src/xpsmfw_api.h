@@ -29,6 +29,10 @@
 #ifndef XPSMFW_API_H_
 #define XPSMFW_API_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "xparameters.h"
 #include "xpsmfw_default.h"
 
@@ -103,5 +107,9 @@ enum XPmInitFunctions {
 XStatus XPsmFw_PowerDownEvent(u32 DevId);
 XStatus XPsmFw_WakeEvent(u32 DevId);
 XStatus XPsmFw_ProcessIpi(u32 *Payload);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XPSMFW_API_H_ */
