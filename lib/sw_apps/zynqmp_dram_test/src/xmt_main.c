@@ -556,6 +556,7 @@ void XMt_RunEyeMemtest(XMt_CfgData *XMtPtr, u64 StartAddr, u32 Len)
 {
 	u32 DataPtr;
 	u32 RegVal;
+	u64 Index;
 	u64 Addr;
 	u64 ReadVal;
 	u64 ExpectedVal;
@@ -572,7 +573,13 @@ void XMt_RunEyeMemtest(XMt_CfgData *XMtPtr, u64 StartAddr, u32 Len)
 	DataPtr = 0U;
 
 	/* Do the Write operation on memory size specified in argument */
-	for (Addr = StartAddr; Addr < (StartAddr+(Len*XMT_KB2BYTE)); Addr += Offset) {
+	for (Index = StartAddr; Index < (StartAddr+(Len*XMT_KB2BYTE)); Index += Offset) {
+		if (Index < (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U)) {
+			Addr = Index;
+		} else {
+			Addr = XMT_DDR_1_BASEADDR + (Index - (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U));
+		}
+
 		if (Offset == 8U) {
 			Xil_Out64(Addr, AggressorPattern64Bit[DataPtr]);
 			DataPtr++;
@@ -585,13 +592,24 @@ void XMt_RunEyeMemtest(XMt_CfgData *XMtPtr, u64 StartAddr, u32 Len)
 	}
 
 	if (XMtPtr->DCacheEnable != 0U) {
-		Xil_DCacheInvalidateRange(StartAddr, Len * XMT_KB2BYTE);
+		if ((StartAddr + (Len * XMT_KB2BYTE)) < (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U)) {
+			Xil_DCacheInvalidateRange(StartAddr, Len * XMT_KB2BYTE);
+		} else {
+			Xil_DCacheInvalidateRange(StartAddr, XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U - StartAddr);
+			Xil_DCacheInvalidateRange(XMT_DDR_1_BASEADDR, StartAddr + (Len * XMT_KB2BYTE) - XMT_DDR_1_BASEADDR);
+		}
 	}
 
 	DataPtr = 0U;
 
 	/* Do the Read operation on memory size specified in argument */
-	for (Addr = StartAddr; Addr < (StartAddr+(Len*XMT_KB2BYTE)); Addr += Offset) {
+	for (Index = StartAddr; Index < (StartAddr+(Len*XMT_KB2BYTE)); Index += Offset) {
+		if (Index < (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U)) {
+			Addr = Index;
+		} else {
+			Addr = XMT_DDR_1_BASEADDR + (Index - (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U));
+		}
+
 		if (Offset == 8U) {
 			ReadVal = Xil_In64(Addr);
 			ExpectedVal = AggressorPattern64Bit[DataPtr];
