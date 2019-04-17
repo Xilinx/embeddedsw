@@ -91,7 +91,7 @@ static inline u32 PrngData(u32 *PrngResult);
 
 static inline u32 CalculateEcc(u32 Data);
 
-static void InjectErrors(XBram * InstancePtr, u32 Addr,
+static void InjectErrors(XBram * InstancePtr, UINTPTR Addr,
 			 int Index1, int Index2, int Width,
 			 u32 *ActualData, u32 *ActualEcc);
 
@@ -231,7 +231,7 @@ static inline u32 UncorrectableData(u32 Data, u8 Syndrome)
 * @note		None.
 *
 ******************************************************************************/
-static void InjectErrors(XBram * InstancePtr, u32 Addr,
+static void InjectErrors(XBram * InstancePtr, UINTPTR Addr,
 			 int Index1, int Index2, int Width,
 			 u32 *ActualData, u32 *ActualEcc)
 {
@@ -381,10 +381,10 @@ int XBram_SelfTest(XBram *InstancePtr, u8 IntMask)
 	if (InstancePtr->Config.FaultInjectionPresent &&
 	    InstancePtr->Config.WriteAccess != 0) {
 
-	    const UINTPTR Addr[2] = {InstancePtr->Config.MemBaseAddress &
-					0xfffffffc,
-				 InstancePtr->Config.MemHighAddress &
-					0xfffffffc};
+	     const UINTPTR Addr[2] = {InstancePtr->Config.MemBaseAddress &
+						(UINTPTR)0xfffffffffffffffc,
+					 InstancePtr->Config.MemHighAddress &
+					(UINTPTR)0xfffffffffffffffc};
 	    u32 SavedWords[2];
 	    u32 ActualData;
 	    u32 ActualEcc;
