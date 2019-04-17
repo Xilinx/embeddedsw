@@ -53,7 +53,7 @@ extern "C" {
 #include "xparameters.h"
 #include "xpsmfw_default.h"
 
-#ifdef XPAR_PSU_IPI_PSM_DEVICE_ID
+#ifdef XPAR_PSV_IPI_PSM_DEVICE_ID
 #include "xipipsu.h"
 
 /* Instance of IPI Driver */
@@ -64,14 +64,14 @@ extern u32 IpiMaskList[XPSMFW_IPI_MASK_COUNT];
 
 #define XPSMFW_IPI_MAX_MSG_LEN XIPIPSU_MAX_MSG_LEN
 
-#endif /* XPAR_PSU_IPI_PSM_DEVICE_ID */
+#endif /* XPAR_PSV_IPI_PSM_DEVICE_ID */
 
 #define XPSMFW_IPI_TIMEOUT	(~0U)
 #define PAYLOAD_ARG_CNT		(8U)
 #define RESPONSE_ARG_CNT	(8U)
 
-#ifdef XPAR_XIPIPS_TARGET_PSU_PMC_0_CH0_MASK
-#define IPI_PSM_IER_PMC_MASK	  XPAR_XIPIPS_TARGET_PSU_PMC_0_CH0_MASK
+#ifdef XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK
+#define IPI_PSM_IER_PMC_MASK	  XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK
 #else
 #define IPI_PSM_IER_PMC_MASK 0U
 #endif

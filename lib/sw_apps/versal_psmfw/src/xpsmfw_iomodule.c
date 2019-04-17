@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -62,7 +62,7 @@ static void XPsmFw_IpiHandler(void)
 	int Status = XST_FAILURE;
 
 	Mask = XPsmFw_Read32(IPI_PSM_ISR);
-#ifdef XPAR_PSU_IPI_PSM_DEVICE_ID
+#ifdef XPAR_PSV_IPI_PSM_DEVICE_ID
 	Status = XPsmFw_DispatchIpiHandler(Mask);
 #else
 	XPsmFw_Printf(DEBUG_ERROR, "PSM IPI channel is not enabled\r\n");
