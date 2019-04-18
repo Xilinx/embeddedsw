@@ -44,6 +44,7 @@
 * 1.4   Jubaer  02/14/2019  Add Broadcast Get API
 * 1.5   Jubaer  02/26/2019  Add group Event API
 * 1.6   Jubaer  03/01/2019  Add Combo Event API
+* 1.7   Jubaer  04/17/2019  Add Stream Switch Event Port Selection API
 * </pre>
 *
 ******************************************************************************/
@@ -125,6 +126,20 @@
 #define XAIETILE_COMBO_0			0x0U
 #define XAIETILE_COMBO_1			0x1U
 #define XAIETILE_COMBO_2			0x2U
+
+/*
+ * Stream Switch Event Port Select
+ */
+#define XAIETILE_STRSW_EVENT_PORT_NUMBER	0x8U
+
+#define XAIETILE_STRSW_EVENT_PORT_0		0x0U
+#define XAIETILE_STRSW_EVENT_PORT_1		0x1U
+#define XAIETILE_STRSW_EVENT_PORT_2		0x2U
+#define XAIETILE_STRSW_EVENT_PORT_3		0x3U
+#define XAIETILE_STRSW_EVENT_PORT_4		0x4U
+#define XAIETILE_STRSW_EVENT_PORT_5		0x5U
+#define XAIETILE_STRSW_EVENT_PORT_6		0x6U
+#define XAIETILE_STRSW_EVENT_PORT_7		0x7U
 
 /*
  * Core module events
@@ -541,6 +556,11 @@ u8 XAieTile_CoreComboEventInputGet(XAieGbl_Tile *TileInstPtr, u8 eventIdx);
 void XAieTile_CoreComboEventControlSet(XAieGbl_Tile *TileInstPtr, u8 combo0, u8 combo1, u8 combo2);
 u8 XAieTile_CoreComboEventControlGet(XAieGbl_Tile *TileInstPtr, u8 comboIdx);
 
+u8 XAieTile_CoreStrmSwEventPortSelectGet(XAieGbl_Tile *TileInstPtr, u8 PortNo);
+u8 XAieTile_CoreStrmSwEventPortSelectSet(XAieGbl_Tile *TileInstPtr, u8 PortNo, u8 PortType, u8 PortID);
+u32 XAieTile_CoreStrmSwEventPortSelectGet32(XAieGbl_Tile *TileInstPtr, u8 SelectID);
+u8 XAieTile_CoreStrmSwEventPortSelectSet32(XAieGbl_Tile *TileInstPtr, u8 SelectID, u32 RegVal);
+
 /*
  * PL module
  */
@@ -566,6 +586,11 @@ void XAieTile_PlComboEventInputSet(XAieGbl_Tile *TileInstPtr, u8 eventA, u8 even
 u8 XAieTile_PlComboEventInputGet(XAieGbl_Tile *TileInstPtr, u8 eventIdx);
 void XAieTile_PlComboEventControlSet(XAieGbl_Tile *TileInstPtr, u8 combo0, u8 combo1, u8 combo2);
 u8 XAieTile_PlComboEventControlGet(XAieGbl_Tile *TileInstPtr, u8 comboIdx);
+
+u8 XAieTile_PlStrmSwEventPortSelectGet(XAieGbl_Tile *TileInstPtr, u8 PortNo);
+u8 XAieTile_PlStrmSwEventPortSelectSet(XAieGbl_Tile *TileInstPtr, u8 PortNo, u8 PortType, u8 PortID);
+u32 XAieTile_PlStrmSwEventPortSelectGet32(XAieGbl_Tile *TileInstPtr, u8 SelectID);
+u8 XAieTile_PlStrmSwEventPortSelectSet32(XAieGbl_Tile *TileInstPtr, u8 SelectID, u32 RegVal);
 
 /*
  * Memory module
