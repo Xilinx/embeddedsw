@@ -49,6 +49,7 @@
 #include "xstatus.h"
 #include "xplmi_util.h"
 #include "xplmi_hw.h"
+#include "xcfupmc.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -326,6 +327,61 @@ static int XPlmi_Write64(XPlmi_Cmd * Cmd)
 
 /*****************************************************************************/
 /**
+ * @param	Npi Src Address
+ *
+ * @param   Destination Address
+ *
+ * @param	Len is number of words to be read
+ *
+ * @return	returns success or the error codes described in xilcdo.h
+ *
+ ******************************************************************************/
+int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
+{
+	u64 RegVal;
+	u32 Count = 0U;
+	int Status;
+	u32 Offset;
+	u32 ProcWords=0U;
+
+	/** For NPI READ command, the source address needs to be
+	 * 16 byte aligned. Use XPlmi_Out64 till the destination address
+	 *becomes 16 byte aligned. */
+	while((ProcWords<Len)&&(((SrcAddr+Count)&(0xFU)) != 0U))
+	{
+		RegVal = XPlmi_In64(SrcAddr + Count);
+		XPlmi_Out64(DestAddr + (ProcWords<<2U), RegVal);
+		Count+=4U;
+		++ProcWords;
+	}
+
+	Status = XPlmi_DmaXfr((u64)(SrcAddr+Count),
+		(u64)(DestAddr+Count), (Len - ProcWords)&(~(0x3U)), XPLMI_PMCDMA_0);
+	if(Status != XST_SUCCESS)
+	{
+		goto END;
+	}
+
+	/** For NPI_READ command, Offset variable should
+	 *  be updated with the unaligned bytes. */
+	ProcWords = ProcWords + ((Len - ProcWords)&(~(0x3U)));
+	Offset = (ProcWords<<2U);
+
+	while(ProcWords < Len)
+	{
+		xil_printf("\n %0x %0x \n\r", SrcAddr+Offset, DestAddr+Offset);
+		RegVal = XPlmi_In64(SrcAddr + Offset);
+		XPlmi_Out64(DestAddr + Offset, RegVal);
+		Offset += 4U;
+		ProcWords++;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
  * @brief This function provides DMA Xfer command execution
  *  Command payload parameters are
  *	* High Src Addr
@@ -371,7 +427,24 @@ static int XPlmi_DmaXfer(XPlmi_Cmd * Cmd)
 	/** Set DMA flags to DMA0 */
 	Flags = Cmd->ResumeData[5] | XPLMI_PMCDMA_0;
 
-	Status = XPlmi_DmaXfr(SrcAddr, DestAddr, Len, Flags);
+	if(DestAddr == XPLMI_SBI_DEST_ADDR)
+	{
+		XPlmi_UtilRMW(SLAVE_BOOT_SBI_MODE,
+			SLAVE_BOOT_SBI_MODE_SELECT_MASK,
+			SLAVE_BOOT_SBI_MODE_SELECT_MASK);
+
+		Status = XPlmi_DmaSbiXfer(SrcAddr, Len, XPLMI_PMCDMA_1);
+		XPlmi_UtilRMW(SLAVE_BOOT_SBI_MODE, SLAVE_BOOT_SBI_MODE_SELECT_MASK,0U);
+	}
+	else if((Flags & XPLMI_DMA_SRC_NPI) == XPLMI_DMA_SRC_NPI)
+	{
+		Status = XPlmi_NpiRead(SrcAddr,DestAddr,Len);
+	}
+	else
+	{
+		Status = XPlmi_DmaXfr(SrcAddr, DestAddr, Len, Flags);
+	}
+
 	if(Status != XST_SUCCESS)
 	{
 		XPlmi_Printf(DEBUG_GENERAL, "DMA XFER Failed\n\r");
@@ -406,7 +479,7 @@ static int XPlmi_InitSeq(XPlmi_Cmd * Cmd)
  *	* Params - SMPA/JTAG/DDR
  *	* High Dest Addr
  *	* Low Dest Addr
- *	* Read Length (Length of words to set to value)
+ *	* Read Length in number of words to be read from CFU
  *	* DATA (CFU READ Packets)
  *
  * @param Pointer to the command structure
@@ -415,10 +488,102 @@ static int XPlmi_InitSeq(XPlmi_Cmd * Cmd)
  *****************************************************************************/
 static int XPlmi_CfiRead(XPlmi_Cmd * Cmd)
 {
-	/** for MISRA C */
-	(void )Cmd;
+	int Status;
+	u32 SrcType = Cmd->Payload[0];
+	u64 DestAddrHigh;
+	u32 DestAddrLow;
+	u32 Len = Cmd->Payload[3];
+	u32 SrcAddr = CFU_FDRO_ADDR;
+	u64 DestAddr;
 
-	return XPLMI_ERR_CMD_NOT_SUPPORTED;
+	XPlmi_SetMaxOutCmds(1U);
+	if(SrcType == XPLMI_READBK_INTF_TYPE_DDR)
+	{
+		DestAddrHigh = Cmd->Payload[1];
+		DestAddrLow =  Cmd->Payload[2];
+		DestAddr = (DestAddrHigh<<32U) | DestAddrLow;
+
+		Status = XPlmi_DmaXfr(CFU_FDRO_ADDR, DestAddr, Len,
+			XPLMI_PMCDMA_1 | XPLMI_SRC_CH_AXI_FIXED |
+						XPLMI_DMA_SRC_NONBLK);
+	}
+	else
+	{
+		if(SrcType == XPLMI_READBK_INTF_TYPE_JTAG)
+		{
+			XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
+                               SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
+                               XPLMI_SBI_CTRL_INTERFACE_JTAG);
+		}
+		else if(SrcType == XPLMI_READBK_INTF_TYPE_SMAP)
+		{
+			XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
+                               SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
+                               XPLMI_SBI_CTRL_INTERFACE_SMAP);
+		}
+		else
+		{
+			/** Do Nothing */
+		}
+
+		XPlmi_UtilRMW(SLAVE_BOOT_SBI_MODE,
+			SLAVE_BOOT_SBI_MODE_SELECT_MASK,
+			SLAVE_BOOT_SBI_MODE_SELECT_MASK);
+
+		Status = XPlmi_DmaSbiXfer(CFU_FDRO_ADDR, Len, XPLMI_PMCDMA_1
+				 | XPLMI_SRC_CH_AXI_FIXED | XPLMI_DMA_SRC_NONBLK);
+	}
+
+	if(Status != XST_SUCCESS)
+	{
+		goto END;
+	}
+	XPlmi_SetMaxOutCmds(8);
+	SrcAddr = (u32)(&Cmd->Payload[4]);
+
+	Status = XPlmi_DmaXfr(SrcAddr, (u64)CFU_STREAM_ADDR,
+				Cmd->PayloadLen-4, XPLMI_PMCDMA_0);
+
+	if(SrcType == XPLMI_READBK_INTF_TYPE_DDR)
+	{
+		XPlmi_WaitForNonBlkDma();
+		goto END;
+	}
+	else
+	{
+		XPlmi_WaitForNonBlkSrcDma();
+	}
+
+	Status = XPlmi_UtilPoll(SLAVE_BOOT_SBI_STATUS,
+			SLAVE_BOOT_SBI_STATUS_CMN_BUF_SPACE_MASK,
+			0x1000, XPLMI_TIME_OUT_DEFAULT);
+
+	if(Status != XST_SUCCESS)
+	{
+		goto END;
+	}
+
+	if(SrcType == XPLMI_READBK_INTF_TYPE_SMAP)
+	{
+		Status = XPlmi_UtilPoll(SLAVE_BOOT_SBI_STATUS,
+			       SLAVE_BOOT_SBI_STATUS_SMAP_DOUT_FIFO_SPACE_MASK,
+				0x800000, XPLMI_TIME_OUT_DEFAULT);
+	}
+	else
+	{
+		Status = XPlmi_UtilPoll(SLAVE_BOOT_SBI_STATUS,
+                               SLAVE_BOOT_SBI_STATUS_JTAG_DOUT_FIFO_SPACE_MASK,
+                                0x80000000, XPLMI_TIME_OUT_DEFAULT);
+	}
+
+	if(Status != XST_SUCCESS)
+        {
+                goto END;
+        }
+
+END:
+	XPlmi_UtilRMW(SLAVE_BOOT_SBI_MODE, SLAVE_BOOT_SBI_MODE_SELECT_MASK, 0U);
+	return Status;
 }
 
 /*****************************************************************************/
