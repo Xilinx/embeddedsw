@@ -501,6 +501,15 @@ typedef struct {
 	XAieGbl_RegFldAttr Reset;	/**< Reset register */
 } XAieGbl_RegShimReset;
 
+/**
+ * This typedef contains the attributes for Stream Switch Event Port Selection register.
+ */
+typedef struct {
+	u32 RegAddr;				/**< Register Address */
+	XAieGbl_RegFldAttr PortIndex[8U];	/**< Port index */
+	XAieGbl_RegFldAttr PortMode[8U];	/**< Port type */
+} XAieGbl_RegStrmSwEventPortSelect;
+
 /**************************** Macro Definitions *****************************/
 
 /**************************** Function prototypes ***************************/
