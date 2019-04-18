@@ -100,6 +100,10 @@ enum {
 #define LL_DMA_XFER(SRC, DST, LEN, PARAM)                      \
     LL_HEADER(6*4, 9), LL_ADDR64(SRC), LL_ADDR64(DST), (LEN), (PARAM)
 
+#define XPLMI_SBI_DEST_ADDR				(0xFFFFFFFFU)
+#define XPLMI_READBK_INTF_TYPE_SMAP		(0x0U)
+#define XPLMI_READBK_INTF_TYPE_JTAG		(0x1U)
+#define XPLMI_READBK_INTF_TYPE_DDR		(0x2U)
 /************************** Function Prototypes ******************************/
 void XPlmi_GenericInit(void);
 

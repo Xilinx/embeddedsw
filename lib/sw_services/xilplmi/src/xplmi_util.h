@@ -74,7 +74,7 @@ extern "C" {
 
 #define XPLMI_ACCESS_ALLOWED 0x01U
 #define XPLMI_ACCESS_DENIED	0x00U
-
+#define XPLMI_TIME_OUT_DEFAULT	(0x10000000U)
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/

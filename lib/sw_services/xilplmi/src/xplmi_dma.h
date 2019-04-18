@@ -61,9 +61,11 @@ extern "C" {
 #define XPLMI_DMA_SRC_NONBLK		(0x1U<<1U)
 #define XPLMI_DST_CH_AXI_FIXED		(0x1U<<16U)
 #define XPLMI_DMA_DST_NONBLK		(0x1U<<17U)
-#define XPLMI_PMCDMA_0			(0x100U)
-#define XPLMI_PMCDMA_1			(0x200U)
-
+#define XPLMI_PMCDMA_0				(0x100U)
+#define XPLMI_PMCDMA_1				(0x200U)
+#define XPLMI_DMA_SRC_NPI			(0x4U)
+#define XPLMI_DMA_DST_TYPE_SHIFT	(18U)
+#define XPLMI_DMA_DST_TYPE_MASK		(0x3U<<18U)
 #define XPLMI_READ_AXI_FIXED		(0x1U)
 
 /*
@@ -113,6 +115,9 @@ int XPlmi_DmaSbiXfer(u64 SrcAddr, u32 Len, u32 Flags);
 int XPlmi_EccInit(u64 Addr, u32 Len);
 int XPlmi_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
 		XCsuDma** DmaPtrAddr);
+void XPlmi_WaitForNonBlkSrcDma(void);
+void XPlmi_WaitForNonBlkDma(void);
+void XPlmi_SetMaxOutCmds(u32 Val);
 #ifdef __cplusplus
 }
 #endif

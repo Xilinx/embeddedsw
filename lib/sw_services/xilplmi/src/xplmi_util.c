@@ -48,7 +48,6 @@
 #include "xplmi_hw.h"
 #include "xplmi_debug.h"
 /************************** Constant Definitions *****************************/
-#define XPLMI_TIME_OUT_DEFAULT	(1000*10000U)
 
 /**************************** Type Definitions *******************************/
 

@@ -199,10 +199,16 @@ void XPlmi_SSSCfgDmaSbi(u32 Flags)
 		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
 				XPLMI_SSSCFG_SBI_MASK,
 				XPLMI_SSS_SBI_DMA0);
+		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
+                                XPLMI_SSSCFG_DMA0_MASK,
+                                XPLMI_SSS_DMA0_SBI);
 	} else if ((Flags & XPLMI_PMCDMA_1) == XPLMI_PMCDMA_1) {
 		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
 				XPLMI_SSSCFG_SBI_MASK,
 				XPLMI_SSS_SBI_DMA1);
+		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
+                                XPLMI_SSSCFG_DMA1_MASK,
+                                XPLMI_SSS_DMA1_SBI);
 	}
 }
 
@@ -243,6 +249,12 @@ int XPlmi_DmaChXfer(u64 Addr, u32 Len, XCsuDma_Channel Channel, u32 Flags)
 	XCsuDma_64BitTransfer(DmaPtr, Channel , Addr & 0xFFFFFFFFU,
 							Addr >> 32, Len, 0U);
 
+	if((Flags & XPLMI_DMA_SRC_NONBLK) != 0U)
+	{
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
 	XCsuDma_WaitForDone(DmaPtr, Channel);
 
 	/* To acknowledge the transfer has completed */
@@ -259,9 +271,43 @@ int XPlmi_DmaChXfer(u64 Addr, u32 Len, XCsuDma_Channel Channel, u32 Flags)
 	}
 
 	Status = XST_SUCCESS;
+END:
 	return Status;
 }
 
+void XPlmi_WaitForNonBlkDma(void)
+{
+	XCsuDma_SetConfig(&CsuDma1, XCSUDMA_SRC_CHANNEL, &DmaCtrl);
+	XCsuDma_WaitForDone(&CsuDma1, XCSUDMA_DST_CHANNEL);
+	XCsuDma_WaitForDone(&CsuDma1, XCSUDMA_SRC_CHANNEL);
+
+	/* To acknowledge the transfer has completed */
+	XCsuDma_IntrClear(&CsuDma1, XCSUDMA_SRC_CHANNEL,
+					XCSUDMA_IXR_DONE_MASK);
+	XCsuDma_IntrClear(&CsuDma1, XCSUDMA_DST_CHANNEL,
+                                        XCSUDMA_IXR_DONE_MASK);
+
+	DmaCtrl.AxiBurstType=0U;
+	XCsuDma_SetConfig(&CsuDma1, XCSUDMA_SRC_CHANNEL, &DmaCtrl);
+	XCsuDma_SetConfig(&CsuDma1, XCSUDMA_DST_CHANNEL, &DmaCtrl);
+
+	return;
+}
+
+void XPlmi_WaitForNonBlkSrcDma(void)
+{
+	XCsuDma_SetConfig(&CsuDma1, XCSUDMA_SRC_CHANNEL, &DmaCtrl);
+        XCsuDma_WaitForDone(&CsuDma1, XCSUDMA_SRC_CHANNEL);
+
+        /* To acknowledge the transfer has completed */
+        XCsuDma_IntrClear(&CsuDma1, XCSUDMA_SRC_CHANNEL,
+                                        XCSUDMA_IXR_DONE_MASK);
+
+        DmaCtrl.AxiBurstType=0U;
+        XCsuDma_SetConfig(&CsuDma1, XCSUDMA_SRC_CHANNEL, &DmaCtrl);
+
+	return;
+}
 /*****************************************************************************/
 /**
  * This function is used to transfer the data from SBI to DMA
@@ -334,6 +380,10 @@ int XPlmi_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 	{
 		XCsuDma_WaitForDone(DmaPtr, XCSUDMA_SRC_CHANNEL);
 	}
+	else
+	{
+		goto END;
+	}
 	if((Flags & XPLMI_DMA_DST_NONBLK) == FALSE)
 	{
 		XCsuDma_WaitForDone(DmaPtr, XCSUDMA_DST_CHANNEL);
@@ -368,6 +418,7 @@ int XPlmi_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 		XPlmi_Printf(DEBUG_INFO, "DMA Xfer completed \n\r");
 	}
 	Status = XST_SUCCESS;
+END:
 	return Status;
 }
 
@@ -448,4 +499,10 @@ int XPlmi_EccInit(u64 Addr, u32 Len)
 	memset((u8 *)Addr, 0U, Len);
 	return 0;
 #endif
+}
+
+
+void XPlmi_SetMaxOutCmds(u32 Val)
+{
+	DmaCtrl.MaxOutCmds = Val;
 }
