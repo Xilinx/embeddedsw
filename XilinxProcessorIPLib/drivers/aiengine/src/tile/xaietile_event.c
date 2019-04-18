@@ -45,6 +45,7 @@
 * 1.4   Jubaer  02/14/2019  Add get Event Broadcast API
 * 1.5   Jubaer  02/26/2019  Add group Event API
 * 1.6   Jubaer  03/01/2019  Add Combo Event API
+* 1.7   Jubaer  04/17/2019  Add Stream Switch Event Port Selection API
 * </pre>
 *
 ******************************************************************************/
@@ -74,6 +75,7 @@ extern XAieGbl_Config XAieGbl_ConfigTable[];
 extern XAieGbl_GroupEvents GroupEvents[];
 extern XAieGbl_ComboEventInput ComboEventInput[];
 extern XAieGbl_ComboEventControl ComboEventControl[];
+extern XAieGbl_RegStrmSwEventPortSelect StrmSwEventPortSelect[];
 
 /************************** Function Definitions *****************************/
 
@@ -2390,6 +2392,323 @@ u8 XAieTile_CoreComboEventControlGet(XAieGbl_Tile *TileInstPtr, u8 comboIdx)
 	return XAie_GetField(RegVal,
 		ComboEventControl[XAIETILE_EVENT_MODULE_CORE].Lsb[comboIdx],
 		ComboEventControl[XAIETILE_EVENT_MODULE_CORE].Mask[comboIdx]);
+}
+
+
+/*****************************************************************************/
+/**
+*
+* This API returns the port ID selected on the given PortNo for Core module:
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	PortNo - Port index. One of
+*		XAIETILE_STRSW_EVENT_PORT_0,
+*		XAIETILE_STRSW_EVENT_PORT_1,
+*		XAIETILE_STRSW_EVENT_PORT_2,
+*		XAIETILE_STRSW_EVENT_PORT_3,
+*		XAIETILE_STRSW_EVENT_PORT_4,
+*		XAIETILE_STRSW_EVENT_PORT_5,
+*		XAIETILE_STRSW_EVENT_PORT_6,
+*		XAIETILE_STRSW_EVENT_PORT_7.
+*
+* @return	port ID.
+*
+* @note		None.
+*
+*******************************************************************************/
+u8 XAieTile_CoreStrmSwEventPortSelectGet(XAieGbl_Tile *TileInstPtr, u8 PortNo)
+{
+	u32 RegVal;
+
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(PortNo < XAIETILE_STRSW_EVENT_PORT_NUMBER);
+
+	RegVal = XAieGbl_Read32(TileInstPtr->TileAddr +
+				StrmSwEventPortSelect[0].RegAddr +
+				(PortNo / 4) * 0x4U);
+
+	return XAie_GetField(RegVal,
+			     StrmSwEventPortSelect[0].PortIndex[PortNo].Lsb,
+			     StrmSwEventPortSelect[0].PortIndex[PortNo].Mask);
+}
+
+
+/*****************************************************************************/
+/**
+*
+* This API returns the port ID selected on the given PortNo for PL module:
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	PortNo - Port index. One of
+*		XAIETILE_STRSW_EVENT_PORT_0,
+*		XAIETILE_STRSW_EVENT_PORT_1,
+*		XAIETILE_STRSW_EVENT_PORT_2,
+*		XAIETILE_STRSW_EVENT_PORT_3.
+*		XAIETILE_STRSW_EVENT_PORT_4,
+*		XAIETILE_STRSW_EVENT_PORT_5,
+*		XAIETILE_STRSW_EVENT_PORT_6,
+*		XAIETILE_STRSW_EVENT_PORT_7.
+*
+* @return	port ID.
+*
+* @note		None.
+*
+*******************************************************************************/
+u8 XAieTile_PlStrmSwEventPortSelectGet(XAieGbl_Tile *TileInstPtr, u8 PortNo)
+{
+	u32 RegVal;
+
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(PortNo < XAIETILE_STRSW_EVENT_PORT_NUMBER);
+
+	RegVal = XAieGbl_Read32(TileInstPtr->TileAddr +
+				StrmSwEventPortSelect[1].RegAddr +
+				(PortNo / 4) * 0x4U);
+
+	return XAie_GetField(RegVal,
+			     StrmSwEventPortSelect[1].PortIndex[PortNo].Lsb,
+			     StrmSwEventPortSelect[1].PortIndex[PortNo].Mask);
+}
+
+
+/*****************************************************************************/
+/**
+*
+* This API sets the port ID on the given PortNo for Core module:
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	PortNo -Port index. One of
+*		XAIETILE_STRSW_EVENT_PORT_0,
+*		XAIETILE_STRSW_EVENT_PORT_1,
+*		XAIETILE_STRSW_EVENT_PORT_2,
+*		XAIETILE_STRSW_EVENT_PORT_3.
+*		XAIETILE_STRSW_EVENT_PORT_4,
+*		XAIETILE_STRSW_EVENT_PORT_5,
+*		XAIETILE_STRSW_EVENT_PORT_6,
+*		XAIETILE_STRSW_EVENT_PORT_7.
+* @param	PortType - Type of the port. (master = 1, slave = 0)
+* @param	PortID - port ID selected.
+*
+* @return	XAIE_SUCCESS on success.
+*
+* @note		None.
+*
+*******************************************************************************/
+u8 XAieTile_CoreStrmSwEventPortSelectSet(XAieGbl_Tile *TileInstPtr, u8 PortNo,
+					 u8 PortType, u8 PortID)
+{
+	u32 CurrVal, RegVal;
+	u32 Mask;
+
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(PortNo < XAIETILE_STRSW_EVENT_PORT_NUMBER);
+	XAie_AssertNonvoid(PortType == 0 || PortType == 1);
+
+	Mask = StrmSwEventPortSelect[0].PortIndex[PortNo].Mask |
+	       StrmSwEventPortSelect[0].PortMode[PortNo].Mask;
+
+
+	CurrVal = ~Mask & XAieGbl_Read32(TileInstPtr->TileAddr +
+					   StrmSwEventPortSelect[0].RegAddr +
+					   (PortNo / 4) * 0x4U);
+
+	RegVal = XAie_SetField(PortID,
+			       StrmSwEventPortSelect[0].PortIndex[PortNo].Lsb,
+			       StrmSwEventPortSelect[0].PortIndex[PortNo].Mask);
+	RegVal |= XAie_SetField(PortType,
+				StrmSwEventPortSelect[0].PortMode[PortNo].Lsb,
+				StrmSwEventPortSelect[0].PortMode[PortNo].Mask);
+
+	XAieGbl_Write32(TileInstPtr->TileAddr +
+			StrmSwEventPortSelect[0].RegAddr +
+			(PortNo / 4) * 0x4U, CurrVal | RegVal);
+
+	return XAIE_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API sets the port ID on the given PortNo for PL module:
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	PortNo -Port index. One of
+*		XAIETILE_STRSW_EVENT_PORT_0,
+*		XAIETILE_STRSW_EVENT_PORT_1,
+*		XAIETILE_STRSW_EVENT_PORT_2,
+*		XAIETILE_STRSW_EVENT_PORT_3.
+*		XAIETILE_STRSW_EVENT_PORT_4,
+*		XAIETILE_STRSW_EVENT_PORT_5,
+*		XAIETILE_STRSW_EVENT_PORT_6,
+*		XAIETILE_STRSW_EVENT_PORT_7.
+* @param	PortType - Type of the port. (master = 1, slave = 0)
+* @param	PortID - port ID selected.
+*
+* @return	XAIE_SUCCESS on success.
+*
+* @note		None.
+*
+*******************************************************************************/
+u8 XAieTile_PlStrmSwEventPortSelectSet(XAieGbl_Tile *TileInstPtr, u8 PortNo,
+				       u8 PortType, u8 PortID)
+{
+	u32 CurrVal, RegVal;
+	u32 Mask;
+
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(PortNo < XAIETILE_STRSW_EVENT_PORT_NUMBER);
+	XAie_AssertNonvoid(PortType == 0 || PortType == 1);
+
+	Mask = StrmSwEventPortSelect[1].PortIndex[PortNo].Mask |
+	       StrmSwEventPortSelect[1].PortMode[PortNo].Mask;
+
+	CurrVal = ~Mask & XAieGbl_Read32(TileInstPtr->TileAddr +
+					   StrmSwEventPortSelect[1].RegAddr +
+					   (PortNo / 4) * 0x4U);
+
+	RegVal = XAie_SetField(PortID,
+			       StrmSwEventPortSelect[1].PortIndex[PortNo].Lsb,
+			       StrmSwEventPortSelect[1].PortIndex[PortNo].Mask);
+	RegVal |= XAie_SetField(PortType,
+				StrmSwEventPortSelect[1].PortMode[PortNo].Lsb,
+				StrmSwEventPortSelect[1].PortMode[PortNo].Mask);
+
+	XAieGbl_Write32(TileInstPtr->TileAddr +
+			StrmSwEventPortSelect[1].RegAddr +
+			(PortNo / 4) * 0x4U, CurrVal | RegVal);
+
+	return XAIE_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API returns 32-bit register value of the Stream Switch Event Port
+* Selection (0/1) register for core module. (batch read)
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	SelectID - register index (0 - Selection_0, 1 - Selection_1).
+*
+* @return	Core stream Switch event port selection register value.
+*
+* @note		None.
+*
+*******************************************************************************/
+u32 XAieTile_CoreStrmSwEventPortSelectGet32(XAieGbl_Tile *TileInstPtr,
+					    u8 SelectID)
+{
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(SelectID == 0 || SelectID == 1);
+
+	return XAieGbl_Read32(TileInstPtr->TileAddr +
+			      StrmSwEventPortSelect[0].RegAddr +
+			      SelectID * 0x4U);
+}
+
+/*****************************************************************************/
+/**
+* This API returns 32-bit register value of the Stream Switch Event Port
+* Selection (0/1) register for PL module. (batch read)
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	SelectID - register index (0 - Selection_0, 1 - Selection_1).
+*
+* @return	PL stream Switch event port selection register value.
+*
+* @note		None.
+*
+*******************************************************************************/
+u32 XAieTile_PlStrmSwEventPortSelectGet32(XAieGbl_Tile *TileInstPtr,
+					  u8 SelectID)
+{
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(SelectID == 0 || SelectID == 1);
+
+	return XAieGbl_Read32(TileInstPtr->TileAddr +
+			      StrmSwEventPortSelect[1].RegAddr +
+			      SelectID * 0x4U);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API sets the 32-bit register value of the Stream Switch Event Port
+* Selection register for core module. (batch write)
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	SelectID - register index (0 - Selection_0, 1 - Selection_1).
+* @param	RegVal - 32 bit value to be written.
+*
+* @return	XAIE_SUCCESS on success.
+*
+* @note		None.
+*
+*******************************************************************************/
+u8 XAieTile_CoreStrmSwEventPortSelectSet32(XAieGbl_Tile *TileInstPtr,
+					   u8 SelectID, u32 RegVal)
+{
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(SelectID == 0 || SelectID == 1);
+
+	u32 Mask = XAIEGBL_CORE_STRSWIEVTPORTSEL0_PORT0ID_MASK |
+		   XAIEGBL_CORE_STRSWIEVTPORTSEL0_PORT1ID_MASK |
+		   XAIEGBL_CORE_STRSWIEVTPORTSEL0_PORT2ID_MASK |
+		   XAIEGBL_CORE_STRSWIEVTPORTSEL0_PORT3ID_MASK |
+		   XAIEGBL_CORE_STRSWIEVTPORTSEL0_PORT0MSTRSLV_MASK |
+		   XAIEGBL_CORE_STRSWIEVTPORTSEL0_PORT0MSTRSLV_MASK |
+		   XAIEGBL_CORE_STRSWIEVTPORTSEL0_PORT0MSTRSLV_MASK |
+		   XAIEGBL_CORE_STRSWIEVTPORTSEL0_PORT0MSTRSLV_MASK;
+
+	XAieGbl_Write32(TileInstPtr->TileAddr +
+			StrmSwEventPortSelect[0].RegAddr + SelectID * 0x4U,
+			RegVal & Mask);
+
+	return XAIE_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API sets the 32-bit register value of the Stream Switch Event Port
+* Selection register for PL module. (batch write)
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	SelectID - register index (0 - Selection_0, 1 - Selection_1).
+* @param	RegVal - 32 bit value to be written.
+*
+* @return	XAIE_SUCCESS on success.
+*
+* @note		None.
+*
+*******************************************************************************/
+u8 XAieTile_PlStrmSwEventPortSelectSet32(XAieGbl_Tile *TileInstPtr,
+					 u8 SelectID, u32 RegVal)
+{
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType != XAIEGBL_TILE_TYPE_AIETILE);
+	XAie_AssertNonvoid(SelectID == 0 || SelectID == 1);
+
+	u32 Mask = XAIEGBL_PL_STRSWIEVTPORTSEL0_PORT0ID_MASK |
+		   XAIEGBL_PL_STRSWIEVTPORTSEL0_PORT1ID_MASK |
+		   XAIEGBL_PL_STRSWIEVTPORTSEL0_PORT2ID_MASK |
+		   XAIEGBL_PL_STRSWIEVTPORTSEL0_PORT3ID_MASK |
+		   XAIEGBL_PL_STRSWIEVTPORTSEL0_PORT0MSTRSLV_MASK |
+		   XAIEGBL_PL_STRSWIEVTPORTSEL0_PORT0MSTRSLV_MASK |
+		   XAIEGBL_PL_STRSWIEVTPORTSEL0_PORT0MSTRSLV_MASK |
+		   XAIEGBL_PL_STRSWIEVTPORTSEL0_PORT0MSTRSLV_MASK;
+
+	XAieGbl_Write32(TileInstPtr->TileAddr +
+			StrmSwEventPortSelect[1].RegAddr + SelectID * 0x4U,
+			RegVal & Mask);
+
+	return XAIE_SUCCESS;
 }
 
 /** @} */
