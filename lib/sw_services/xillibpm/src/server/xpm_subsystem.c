@@ -510,6 +510,11 @@ XStatus XPmSubsystem_Restart(u32 SubsystemId)
 				if (XST_SUCCESS != Status) {
 					goto done;
 				}
+				Status = XPmReset_AssertbyId(SRST_RSTID(XPM_NODEIDX_RST_ACPU_GIC),
+							     PM_RESET_ACTION_PULSE);
+				if (XST_SUCCESS != Status) {
+					goto done;
+				}
 			} else if (XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(Device->Node.Id)) {
 				Status = XPmDevice_Reset(Device, PM_RESET_ACTION_ASSERT);
 				if (XST_SUCCESS != Status) {
@@ -530,7 +535,7 @@ XStatus XPmSubsystem_Restart(u32 SubsystemId)
 				 */
 				if ((XPM_NODETYPE_DEV_DDR != NODETYPE(Device->Node.Id)) &&
 				    (XPM_NODEIDX_DEV_TCM_0_A != NODEINDEX(Device->Node.Id))) {
-					Status = XPm_ReleaseDevice(SubsystemId, Device->Node.Id);
+					Status = XPmRequirement_Release(Reqm, RELEASE_ONE);
 					if (XST_SUCCESS != Status) {
 						goto done;
 					}
