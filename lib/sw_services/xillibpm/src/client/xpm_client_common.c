@@ -54,14 +54,14 @@
 
 static struct XPm_Proc Proc_APU0 = {
 	.DevId = APU_DEVID(XPM_NODEIDX_DEV_ACPU_0),
-	.PwrCtrl = XPAR_PSU_APU_0_S_AXI_BASEADDR + APU_PWRCTRL_OFFSET,
+	.PwrCtrl = XPAR_PSV_APU_0_S_AXI_BASEADDR + APU_PWRCTRL_OFFSET,
 	.PwrDwnMask = APU_0_PWRCTL_CPUPWRDWNREQ_MASK,
 	.Ipi = NULL,
 };
 
 static struct XPm_Proc Proc_APU1 = {
 	.DevId = APU_DEVID(XPM_NODEIDX_DEV_ACPU_1),
-	.PwrCtrl = XPAR_PSU_APU_0_S_AXI_BASEADDR + APU_PWRCTRL_OFFSET,
+	.PwrCtrl = XPAR_PSV_APU_0_S_AXI_BASEADDR + APU_PWRCTRL_OFFSET,
 	.PwrDwnMask = APU_1_PWRCTL_CPUPWRDWNREQ_MASK,
 	.Ipi = NULL,
 };
@@ -81,14 +81,14 @@ struct XPm_Proc *PrimaryProc = &Proc_APU0;
 
 static struct XPm_Proc Proc_RPU0 = {
 	.DevId = RPU_DEVID(XPM_NODEIDX_DEV_RPU0_0),
-	.PwrCtrl = XPAR_PSU_RPU_0_S_AXI_BASEADDR + RPU_0_PWRDWN_OFFSET,
+	.PwrCtrl = XPAR_PSV_RPU_0_S_AXI_BASEADDR + RPU_0_PWRDWN_OFFSET,
 	.PwrDwnMask = RPU_PWRDWN_EN_MASK,
 	.Ipi = NULL,
 };
 
 static struct XPm_Proc Proc_RPU1 = {
 	.DevId = RPU_DEVID(XPM_NODEIDX_DEV_RPU0_1),
-	.PwrCtrl = XPAR_PSU_RPU_0_S_AXI_BASEADDR + RPU_1_PWRDWN_OFFSET,
+	.PwrCtrl = XPAR_PSV_RPU_0_S_AXI_BASEADDR + RPU_1_PWRDWN_OFFSET,
 	.PwrDwnMask = RPU_PWRDWN_EN_MASK,
 	.Ipi = NULL,
 };
@@ -113,7 +113,7 @@ void XPm_SetPrimaryProc(void)
 	ProcId = (mfcp(MPIDR_EL1) & PM_AFL0_MASK);
 #elif defined (__arm__)
 	ProcId = (mfcp(XREG_CP15_MULTI_PROC_AFFINITY) & PM_AFL0_MASK);
-	if (!(XPm_Read(XPAR_PSU_RPU_0_S_AXI_BASEADDR + RPU_GLBL_CTRL_OFFSET) &
+	if (!(XPm_Read(XPAR_PSV_RPU_0_S_AXI_BASEADDR + RPU_GLBL_CTRL_OFFSET) &
 	      RPU_GLBL_CNTL_SLSPLIT_MASK)) {
 		ProcId = 0;
 		memcpy(ProcName, "RPU", sizeof("RPU"));

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -40,7 +40,7 @@ extern "C" {
 
 #define PM_IPI_TIMEOUT			(~0)
 
-#define TARGET_IPI_INT_MASK		XPAR_XIPIPS_TARGET_PSU_PMC_0_CH0_MASK
+#define TARGET_IPI_INT_MASK		XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK
 
 XStatus XPm_IpiSend(struct XPm_Proc *const Proc, u32 *Payload);
 XStatus Xpm_IpiReadBuff32(struct XPm_Proc *const Proc, u32 *Val1,
