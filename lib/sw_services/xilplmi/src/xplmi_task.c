@@ -224,7 +224,7 @@ void XPlmi_TaskDispatchLoop(void )
 		/**
 		 * Goto sleep when all queues are empty
 		 */
-		XPlmi_Printf(DEBUG_INFO,
+		XPlmi_Printf(DEBUG_DETAILED,
 			"No pending tasks..Going to sleep\n\r");
 		mb_sleep();
 	}

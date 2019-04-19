@@ -57,8 +57,9 @@ XilSubsystem SubSystemInfo = {0};
 XilPdi SubsystemPdiIns;
 
 /*****************************************************************************/
-#define XLOADER_DEVICEOPS_INIT(DevInit, DevCopy)	\
+#define XLOADER_DEVICEOPS_INIT(DevSrc, DevInit, DevCopy)	\
 	{ \
+		.Name = DevSrc, \
 		.DeviceBaseAddr = 0U, \
 		.Init = DevInit, \
 		.Copy = DevCopy, \
@@ -66,55 +67,55 @@ XilPdi SubsystemPdiIns;
 
 XLoader_DeviceOps DeviceOps[] =
 {
-	XLOADER_DEVICEOPS_INIT(XLoader_SbiInit, XLoader_SbiCopy),  /* JTAG - 0U */
+	XLOADER_DEVICEOPS_INIT("JTAG", XLoader_SbiInit, XLoader_SbiCopy),  /* JTAG - 0U */
 #ifdef  XLOADER_QSPI
-	XLOADER_DEVICEOPS_INIT(XLoader_Qspi24Init, XLoader_Qspi24Copy), /* QSPI24 - 1U */
-	XLOADER_DEVICEOPS_INIT(XLoader_Qspi32Init, XLoader_Qspi32Copy), /* QSPI32- 2U */
+	XLOADER_DEVICEOPS_INIT("QSPI24", XLoader_Qspi24Init, XLoader_Qspi24Copy), /* QSPI24 - 1U */
+	XLOADER_DEVICEOPS_INIT("QSPI32", XLoader_Qspi32Init, XLoader_Qspi32Copy), /* QSPI32- 2U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL),
-	XLOADER_DEVICEOPS_INIT(NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
 #endif
 #ifdef	XLOADER_SD_0
-	XLOADER_DEVICEOPS_INIT(XLoader_SdInit, XLoader_SdCopy), /* SD0 - 3U*/
+	XLOADER_DEVICEOPS_INIT("SD0", XLoader_SdInit, XLoader_SdCopy), /* SD0 - 3U*/
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
 #endif
-	XLOADER_DEVICEOPS_INIT(NULL, NULL),  /* 4U */
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),  /* 4U */
 #ifdef  XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT(XLoader_SdInit, XLoader_SdCopy), /* SD1 - 5U */
+	XLOADER_DEVICEOPS_INIT("SD1", XLoader_SdInit, XLoader_SdCopy), /* SD1 - 5U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
 #endif
 #ifdef  XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT(XLoader_SdInit, XLoader_SdCopy), /* EMMC - 6U */
+	XLOADER_DEVICEOPS_INIT("EMMC", XLoader_SdInit, XLoader_SdCopy), /* EMMC - 6U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
 #endif
-	XLOADER_DEVICEOPS_INIT(NULL, NULL),  /* 7U */
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),  /* 7U */
 #ifdef  XLOADER_OSPI
-	XLOADER_DEVICEOPS_INIT(XLoader_OspiInit, XLoader_OspiCopy), /* OSPI - 8U */
+	XLOADER_DEVICEOPS_INIT("OSPI", XLoader_OspiInit, XLoader_OspiCopy), /* OSPI - 8U */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
 #endif
-	XLOADER_DEVICEOPS_INIT(NULL, NULL), /* 9U */
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL), /* 9U */
 #ifdef XLOADER_SBI
-	XLOADER_DEVICEOPS_INIT(XLoader_SbiInit, XLoader_SbiCopy), /* SMAP - 0xA */
+	XLOADER_DEVICEOPS_INIT("SMAP", XLoader_SbiInit, XLoader_SbiCopy), /* SMAP - 0xA */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
 #endif
-	XLOADER_DEVICEOPS_INIT(NULL, NULL), /* 0xBU */
-	XLOADER_DEVICEOPS_INIT(NULL, NULL), /* 0xCU */
-	XLOADER_DEVICEOPS_INIT(NULL, NULL), /* 0xDU */
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL), /* 0xBU */
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL), /* 0xCU */
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL), /* 0xDU */
 #ifdef XLOADER_SD_1
-	XLOADER_DEVICEOPS_INIT(XLoader_SdInit, XLoader_SdCopy), /* SD1 LS - 0xEU */
+	XLOADER_DEVICEOPS_INIT("SD1_LS", XLoader_SdInit, XLoader_SdCopy), /* SD1 LS - 0xEU */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
 #endif
-	XLOADER_DEVICEOPS_INIT(XLoader_DdrInit, XLoader_DdrCopy), /* DDR - 0xF */
+	XLOADER_DEVICEOPS_INIT("DDR", XLoader_DdrInit, XLoader_DdrCopy), /* DDR - 0xF */
 #ifdef XLOADER_SBI
-	XLOADER_DEVICEOPS_INIT(XLoader_SbiInit, XLoader_SbiCopy), /* SBI - 0x10 */
+	XLOADER_DEVICEOPS_INIT("SBI", XLoader_SbiInit, XLoader_SbiCopy), /* SBI - 0x10 */
 #else
-	XLOADER_DEVICEOPS_INIT(NULL, NULL),
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
 #endif
 };
 
@@ -187,9 +188,14 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 
 	if(DeviceOps[PdiSrc].Init==NULL)
 	{
-		Status = XLOADER_UNSUPPORTED_BOOT_MODE;
+		XPlmi_Printf(DEBUG_GENERAL,
+			  "Unsupported Boot Mode: Source:0x%x\n\r", PdiSrc);
+		Status = XPLMI_UPDATE_STATUS(XLOADER_UNSUPPORTED_BOOT_MODE, 0x0U);
 		goto END;
 	}
+
+	XPlmi_Printf(DEBUG_GENERAL,
+		 "Loading PDI from %s\n\r", DeviceOps[PdiSrc].Name);
 
 	Status = DeviceOps[PdiSrc].Init(PdiSrc);
 	if(Status != XST_SUCCESS)
@@ -284,7 +290,6 @@ int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 		}
 
 		Status = XLoader_StartImage(PdiPtr);
-		XPlmi_Printf(DEBUG_INFO, "PDI start status: 0x%x\n\r", Status);
 		if (Status != XST_SUCCESS)
 		{
 			goto END;
@@ -300,6 +305,8 @@ int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 	 */
 	if (XilPdi_GetSBD(&(PdiPtr->MetaHdr.ImgHdrTable)) == XIH_IHT_ATTR_SBD_PCIE)
 	{
+		XLoader_Printf(DEBUG_INFO,
+			  "+++Configuring Secondary Boot Device\n\r");
 		XLoader_SbiInit(XLOADER_PDI_SRC_PCIE);
 	}
 
@@ -371,17 +378,16 @@ int XLoader_StartImage(XilPdi *PdiPtr)
     u32 ExecState;
     u32 VInitHi;
 
-	XLoader_Printf(DEBUG_INFO, "XLoader_StartImage enter\r\n");
-    /* Handoff to the cpus */
+	/* Handoff to the cpus */
 	for (Index = 0U; Index < PdiPtr->NoOfHandoffCpus; Index++)
-    {
+	{
 		CpuId = PdiPtr->HandoffParam[Index].CpuSettings
 				& XIH_PH_ATTRB_DSTN_CPU_MASK;
 		if((PdiPtr->CpusRunning & (1U<<(CpuId>>XLOADER_RUNNING_CPU_SHIFT)))
-																 != FALSE)
+								 != FALSE)
 		{
 			XLoader_Printf(DEBUG_INFO, "\n CpuId %0x is already running, \
-											handoff ignored\n\r", CpuId);
+					handoff ignored\n\r", CpuId);
 			continue;
 		}
 
@@ -493,13 +499,13 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 			}
 		}
 		PdiPtr->CpusRunning |= 1U<<(CpuId >> XLOADER_RUNNING_CPU_SHIFT);
-    }
+	}
 
 	/*
 	 * Make Number of handoff CPUs to zero
 	 */
 	PdiPtr->NoOfHandoffCpus = 0x0U;
-    Status = XLOADER_SUCCESS;
+	Status = XLOADER_SUCCESS;
 END:
 	return Status;
 }
@@ -611,6 +617,14 @@ int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId)
 					PdiPtr->PrtnNum;
 		}
 	}
+
+	PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName[3] = 0U;
+	XPlmi_Printf(DEBUG_INFO, "------------------------------------\r\n");
+	XPlmi_Printf(DEBUG_INFO,
+		  "+++++++Loading Image No: 0x%0x, Name: %s, Id: 0x%08x\n\r",
+		  PdiPtr->ImageNum,
+		  (char *)PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName,
+		  PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
 
 	PdiPtr->CurImgId = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
 	Status = XLoader_LoadImagePrtns(PdiPtr, PdiPtr->ImageNum, PdiPtr->PrtnNum);

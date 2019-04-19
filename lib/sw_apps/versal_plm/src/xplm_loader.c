@@ -106,7 +106,7 @@ int XPlm_LoadBootPdi(void *arg)
 		goto END;
 	}
 
-	XPlmi_Printf(DEBUG_INFO, "PDI Load: Started\n\r");
+	XPlmi_Printf(DEBUG_INFO, "***********Boot PDI Load: Started***********\n\r");
 
 	PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL;
 	Status = XLoader_LoadPdi(PdiPtr, BootMode, 0U);
@@ -115,7 +115,7 @@ int XPlm_LoadBootPdi(void *arg)
 		goto ERR_END;
 	}
 
-	XPlmi_Printf(DEBUG_INFO, "PDI Load: Done\n\r");
+	XPlmi_Printf(DEBUG_INFO, "***********Boot PDI Load: Done*************\n\r");
 
 END:
 	/**
