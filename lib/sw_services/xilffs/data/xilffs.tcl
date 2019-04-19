@@ -165,7 +165,7 @@ proc xgen_opts_file {libhandle} {
 		}
 		if {$enable_exfat == true} {
 			puts $file_handle "\#define FILE_SYSTEM_FS_EXFAT"
-			set use_lfn true
+			set use_lfn 1
 		}
 		if {$use_lfn > 0 && $use_lfn < 4} {
 			puts $file_handle "\#define FILE_SYSTEM_USE_LFN $use_lfn"
