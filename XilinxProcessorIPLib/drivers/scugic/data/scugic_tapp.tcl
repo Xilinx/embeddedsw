@@ -90,7 +90,9 @@ proc gen_testfunc_call {swproj mhsinst} {
   set proctype [common::get_property IP_NAME $hw_proc_handle]
   if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)||
 	    (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $ipname "psu_acpu_gic"] == 0))||
-	    (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $ipname "psu_rcpu_gic"] == 0))} {
+	    (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $ipname "psu_rcpu_gic"] == 0)) ||
+	    (([string compare -nocase $proctype "psv_cortexa72"] == 0)&&([string compare -nocase $ipname "psv_acpu_gic"] == 0))||
+	    (([string compare -nocase $proctype "psv_cortexr5"] == 0)&&([string compare -nocase $ipname "psv_rcpu_gic"] == 0))} {
 
 	 if { $stdout == "" || $stdout == "none" } {
 	     set hasStdout 0
