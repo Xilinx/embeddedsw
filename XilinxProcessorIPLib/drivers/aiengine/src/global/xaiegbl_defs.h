@@ -105,8 +105,8 @@
 #define XAieGbl_MemRead32                XAieLib_MemRead32
 #define XAieGbl_MemWrite32               XAieLib_MemWrite32
 
-#define XAieGbl_IntrRegisterIsr          XAieLib_IntrRegisterIsr
-#define XAieGbl_IntrUnregisterIsr        XAieLib_IntrUnregisterIsr
+#define XAieGbl_IntrRegisterIsr          XAieLib_InterruptRegisterIsr
+#define XAieGbl_IntrUnregisterIsr        XAieLib_InterruptUnregisterIsr
 
 /************************** Variable Definitions *****************************/
 
