@@ -268,6 +268,8 @@ zdma_v1_7:
 Add support for versal IP name.
 Update writeonly mode example to support versal IP.
 Fix alignment pragmas for IAR compiler.
+Rename the dma buffers in the xzdma_simple_example.c file
+to avoid peripheral test compilation errors with armclang compiler.
 
 cpu_cortexr5_v1_5:
 Create a new version of cortex r5 CPU driver to add support for hard
