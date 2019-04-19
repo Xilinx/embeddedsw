@@ -151,6 +151,7 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
 {
 	u32 GicPIntrStatus;
 	u32 GicPNIntrStatus;
+	u32 GicPNIntrMask;
 	u32 GicIndex;
 	u32 GicPIndex;
 
@@ -165,6 +166,8 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
 		if (GicPIntrStatus & (1U << GicIndex)) {
 			GicPNIntrStatus =
 			  XPlmi_In32(XPLMI_GICP0_IRQ_STATUS + (GicIndex*0x14));
+			GicPNIntrMask =
+			  XPlmi_In32(XPLMI_GICP0_IRQ_MASK + (GicIndex*0x14));
 			XPlmi_Printf(DEBUG_DETAILED,
 				     "GicP%d Intr Status: 0x%x\r\n",
 				     GicIndex, GicPNIntrStatus);
@@ -172,13 +175,15 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
 			for (GicPIndex = 0U; GicPIndex <
 			     XPLMI_NO_OF_BITS_IN_REG; GicPIndex++) {
 
-				if (GicPNIntrStatus & (1U<<GicPIndex)) {
+				if ((GicPNIntrStatus & (1U<<GicPIndex)) &&
+				   ((GicPNIntrMask & (1U<<GicPIndex)) == 0U) ) {
+
 					if(g_GicPInterruptTable[GicIndex][GicPIndex].GicHandler != NULL) {
 						g_GicPInterruptTable[GicIndex][GicPIndex].GicHandler(
 							g_GicPInterruptTable[GicIndex][GicPIndex].Data);
 					}
 					else {
-						XPlmi_Printf(DEBUG_INFO, "%s: Error: Unhandled GIC interrupt received\n\r", __func__);
+						XPlmi_Printf(DEBUG_GENERAL, "%s: Error: Unhandled GIC interrupt received\n\r", __func__);
 					}
 
 					XPlmi_Out32((XPLMI_GICP0_IRQ_STATUS +
