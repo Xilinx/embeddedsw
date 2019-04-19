@@ -338,7 +338,7 @@ void DpRxSs_VerticalBlankHandler(void *InstancePtr)
 
 #if ENABLE_HDCP_IN_DESIGN
 		XDp_RxInterruptEnable(DpRxSsInst.DpPtr, 0x01F80000);
-		XDpRxSs_SetLane(&DpRxSsInst, DpRxSsInst.UsrOpt.LaneCount);
+//		XDpRxSs_SetLane(&DpRxSsInst, DpRxSsInst.UsrOpt.LaneCount);
 	    XDpRxSs_SetPhysicalState(&DpRxSsInst, hdcp_capable_org); //TRUE);
 	    XHdcp1xExample_Poll();
 	    XDpTxSs_SetPhysicalState(&DpTxSsInst, hdcp_capable_org);
@@ -366,14 +366,17 @@ void DpRxSs_VerticalBlankHandler(void *InstancePtr)
 extern u32 appx_fs_dup;
 u32 maud_dup = 0;
 u32 naud_dup = 0;
+extern u8 rx_trained;
 void DpRxSs_TrainingLostHandler(void *InstancePtr)
 {
 
 #if ENABLE_HDCP_IN_DESIGN
 	XDpRxSs_SetPhysicalState(&DpRxSsInst, FALSE);
+	XDpTxSs_SetPhysicalState(&DpTxSsInst, TRUE);
+	XHdcp1xExample_Poll();
+	XDpTxSs_SetPhysicalState(&DpTxSsInst, FALSE);
+	XHdcp1xExample_Poll();
 	XDpRxSs_StopTimer(&DpRxSsInst);
-//	IsTxEncrypted = 0;
-//	IsTxAuthenticated = 0;
 
 	// This function will over write timer function pointer to be the right one.
 	Dprx_HdcpUnAuthCallback((void *)&DpRxSsInst); 	// Added from 16.4 release
@@ -384,6 +387,7 @@ void DpRxSs_TrainingLostHandler(void *InstancePtr)
 	DpRxSsInst.link_up_trigger = 0;
 	DpRxSsInst.VBlankCount = 0;
 	appx_fs_dup = 0;
+	rx_trained = 0;
 }
 
 /*****************************************************************************/
@@ -423,7 +427,7 @@ void DpRxSs_TrainingDoneHandler(void *InstancePtr)
 	DpRxSsInst.VBlankCount = 0;
 	rx_unplugged = 0;
 #if ENABLE_HDCP_IN_DESIGN
-    XDpRxSs_SetLane(&DpRxSsInst, DpRxSsInst.UsrOpt.LaneCount);
+//    XDpRxSs_SetLane(&DpRxSsInst, DpRxSsInst.UsrOpt.LaneCount);
     XDpRxSs_SetPhysicalState(&DpRxSsInst, hdcp_capable_org); //TRUE);
     XHdcp1xExample_Poll();
 #endif
