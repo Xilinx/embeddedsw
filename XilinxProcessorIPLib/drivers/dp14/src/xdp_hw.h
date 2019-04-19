@@ -2216,10 +2216,10 @@
 				0x1		/**< Hold adjust request to
 							SET_PE. */
 #define XDP_RX_MIN_VOLTAGE_SWING_CE_OPT_PE_TABLE \
-				0x2		/**< Pick pre-emphasis values
+				0x3		/**< Pick pre-emphasis values
 							from PE_TABLE. */
 #define XDP_RX_MIN_VOLTAGE_SWING_CE_OPT_VS_NA \
-				0x3		/**< Not applicable. */
+				0x2		/**< Not applicable. */
 #define XDP_RX_MIN_VOLTAGE_SWING_SET_PE_MASK \
 				0x003000	/**< Set pre-emphasis level. */
 #define XDP_RX_MIN_VOLTAGE_SWING_SET_PE_SHIFT 12 /**< Shift bits for
