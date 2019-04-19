@@ -110,7 +110,8 @@ int XPlmi_IpiInit(void)
 	 */
 	XPlmi_PlmIntrEnable(XPLMI_IPI_IRQ);
 END:
-	XPlmi_Printf(DEBUG_INFO, "%s: IPI init status: 0x%x\n\r", __func__, Status);
+	XPlmi_Printf(DEBUG_DETAILED,
+		    "%s: IPI init status: 0x%x\n\r", __func__, Status);
 	return Status;
 }
 
@@ -155,10 +156,10 @@ int XPlmi_IpiDispatchHandler(void *Data)
 		}
 	}
 
-	XPlmi_Printf(DEBUG_INFO, "%s: IPI processed.\n\r", __func__);
+	XPlmi_Printf(DEBUG_DETAILED, "%s: IPI processed.\n\r", __func__);
 
 	if (XST_SUCCESS != Status) {
-		XPlmi_Printf(DEBUG_INFO, "%s: Error: Unhandled IPI received\n\r", __func__);
+		XPlmi_Printf(DEBUG_GENERAL, "%s: Error: Unhandled IPI received\n\r", __func__);
 	}
 
 	Xil_Out32(IPI_PMC_ISR, SrcCpuMask);

@@ -142,6 +142,7 @@ typedef struct {
 } XLoader_HandoffParam;
 
 typedef struct {
+	char *Name; /**< Source name */
 	u32 DeviceBaseAddr; /**< Flash device base address */
 	int (*Init) (u32 DeviceFlags);
 		/**< Function pointer for Device initialization code */
