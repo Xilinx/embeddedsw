@@ -173,8 +173,13 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
 			     XPLMI_NO_OF_BITS_IN_REG; GicPIndex++) {
 
 				if (GicPNIntrStatus & (1U<<GicPIndex)) {
-					g_GicPInterruptTable[GicIndex][GicPIndex].GicHandler(
-					g_GicPInterruptTable[GicIndex][GicPIndex].Data);
+					if(g_GicPInterruptTable[GicIndex][GicPIndex].GicHandler != NULL) {
+						g_GicPInterruptTable[GicIndex][GicPIndex].GicHandler(
+							g_GicPInterruptTable[GicIndex][GicPIndex].Data);
+					}
+					else {
+						XPlmi_Printf(DEBUG_INFO, "%s: Error: Unhandled GIC interrupt received\n\r", __func__);
+					}
 
 					XPlmi_Out32((XPLMI_GICP0_IRQ_STATUS +
 						    (GicIndex*0x14U)),
