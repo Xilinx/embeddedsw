@@ -65,6 +65,19 @@ extern "C" {
 #define XPlmi_PpuWakeUpDis()	XPlmi_Out32(PMC_GLOBAL_PPU_1_RST_MODE, \
 				    XPlmi_In32(PMC_GLOBAL_PPU_1_RST_MODE) & \
 					~PMC_GLOBAL_PPU_1_RST_MODE_WAKEUP_MASK)
+
+/**
+ * Using FW_IS_PRESENT to indicate Boot PDI loading is completed
+ */
+#define XPlmi_SetBootPdiDone()	XPlmi_UtilRMW(PMC_GLOBAL_GLOBAL_CNTRL, \
+				   PMC_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK, \
+				   PMC_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK)
+
+#define XPlmi_IsLoadBootPdiDone() ((XPlmi_In32(PMC_GLOBAL_GLOBAL_CNTRL) & \
+				PMC_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK) == \
+				PMC_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK) ? \
+					(TRUE) : (FALSE)
+
 /************************** Function Prototypes ******************************/
 int XPlmi_Init(void );
 

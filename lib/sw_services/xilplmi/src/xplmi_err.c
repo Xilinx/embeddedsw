@@ -48,6 +48,7 @@
 #include "xplmi_status.h"
 #include "xplmi_debug.h"
 #include "xplmi_hw.h"
+#include "xplmi.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -75,9 +76,20 @@ void XPlmi_ErrMgr(int Status)
 	XPlmi_Printf(DEBUG_GENERAL, "PLM Error Status: 0x%08lx\n\r",
 			Status);
 	XPlmi_Out32(PMC_GLOBAL_PMC_FW_ERR, Status);
-	XPlmi_DumpRegisters();
 
-	while(1);
+	/**
+	 * Fallback if boot PDI is not done
+	 * else just return, so that we receive next requests
+	 */
+	if (XPlmi_IsLoadBootPdiDone() == FALSE)
+	{
+		XPlmi_DumpRegisters();
+		/**
+		 * TODO
+		 * Add fallback code here.
+		 */
+		while(1);
+	}
 }
 
 /*****************************************************************************/
