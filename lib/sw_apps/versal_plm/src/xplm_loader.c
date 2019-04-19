@@ -112,17 +112,23 @@ int XPlm_LoadBootPdi(void *arg)
 	Status = XLoader_LoadPdi(PdiPtr, BootMode, 0U);
 	if (Status != XST_SUCCESS)
 	{
-		goto END;
+		goto ERR_END;
 	}
 
 	XPlmi_Printf(DEBUG_INFO, "PDI Load: Done\n\r");
 
 END:
+	/**
+	 * This is used to identify PLM has completed boot PDI
+	 */
+	XPlmi_SetBootPdiDone();
+
 	XLoader_ClearIntrSbiDataRdy();
 	/**
 	 * Enable the SBI RDY interrupt to get the next PDI
 	 */
 	XPlmi_PlmIntrEnable(XPLMI_SBI_DATA_RDY);
 
+ERR_END:
 	return Status;
 }
