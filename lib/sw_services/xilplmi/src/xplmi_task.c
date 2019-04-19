@@ -17,8 +17,12 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   02/06/2019 Initial release
-* 1.01  ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
-*                       time and print
+* 1.01  kc   07/16/2019 Added PERF macro to print task times
+* 1.02  kc   02/17/2020 Task dispatcher updated with round robin from FCFS
+*       bsv  04/04/2020 Code clean up
+* 1.03  kc   07/28/2020 WDT support added to set PLM live status
+*       bm   10/14/2020 Code clean up
+*       td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -29,6 +33,7 @@
 /***************************** Include Files *********************************/
 #include "xplmi_task.h"
 #include "xplmi_debug.h"
+#include "xplmi_wdt.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -37,6 +42,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static void XPlmi_TaskDelete(XPlmi_TaskNode *Task);
 
 /************************** Variable Definitions *****************************/
 static struct metal_list TaskQueue[XPLMI_TASK_PRIORITIES];
@@ -50,16 +56,16 @@ static XPlmi_TaskNode Tasks[XPLMI_TASK_MAX];
  * the user parameters.
  *
  * @param	Priority Priority of the task
- * @param	handler function pointer to the task handler
+ * @param	Handler function pointer to the task handler
  * @param	PrivData Private Data to be passed with task handler
  *
  * @return	Pointer to the task node structure
  *
  *****************************************************************************/
-XPlmi_TaskNode * XPlmi_TaskCreate(u32 Priority,
-	int (*Handler)(void * PrivData), void * PrivData)
+XPlmi_TaskNode * XPlmi_TaskCreate(TaskPriority_t Priority,
+	int (*Handler)(void *Arg), void *PrivData)
 {
-	XPlmi_TaskNode * Task = NULL;
+	XPlmi_TaskNode *Task = NULL;
 	u32 Index;
 
 	/* Assign free task node */
@@ -91,9 +97,9 @@ XPlmi_TaskNode * XPlmi_TaskCreate(u32 Priority,
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_TaskDelete(XPlmi_TaskNode * Task)
+static void XPlmi_TaskDelete(XPlmi_TaskNode *Task)
 {
-	if (!metal_list_is_empty(&Task->TaskNode)) {
+	if (metal_list_is_empty(&Task->TaskNode) == (int)FALSE) {
 		metal_list_del(&Task->TaskNode);
 	}
 	Task->Delay = 0U;
@@ -111,10 +117,10 @@ void XPlmi_TaskDelete(XPlmi_TaskNode * Task)
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_TaskTriggerNow(XPlmi_TaskNode * Task)
+void XPlmi_TaskTriggerNow(XPlmi_TaskNode *Task)
 {
 	Xil_AssertVoid(Task->Handler != NULL);
-	if (metal_list_is_empty(&Task->TaskNode)) {
+	if (metal_list_is_empty(&Task->TaskNode) != (int)FALSE) {
 		metal_list_add_tail(&TaskQueue[Task->Priority], &Task->TaskNode);
 	}
 }
@@ -166,12 +172,14 @@ void XPlmi_TaskDispatchLoop(void)
 		Node[Index] = &TaskQueue[Index];
 	}
 
-	while (1U) {
+	while (TRUE) {
 		Task = NULL;
+		XPlmi_SetPlmLiveStatus();
+
 		/* Priority based task handling */
 		for (Index = 0U; Index < XPLMI_TASK_PRIORITIES; Index++) {
 			/* If no pending tasks are present, go to sleep */
-			if (metal_list_is_empty(&TaskQueue[Index])) {
+			if (metal_list_is_empty(&TaskQueue[Index]) != (int)FALSE) {
 				XPlmi_Printf(DEBUG_DETAILED,
 				 "No pending tasks in Priority%d Queue\n\r",
 				 Index);
@@ -180,8 +188,8 @@ void XPlmi_TaskDispatchLoop(void)
 				/* Skip the first element as it
 				 * is not proper task
 				 */
-				if ((Node[Index] == &TaskQueue[Index])) {
-					Node[Index] = (TaskQueue[Index].next);
+				if (Node[Index] == &TaskQueue[Index]) {
+					Node[Index] = TaskQueue[Index].next;
 				}
 				/* Get the next task in round robin */
 				Task = metal_container_of(Node[Index],
@@ -200,15 +208,15 @@ void XPlmi_TaskDispatchLoop(void)
 			Status = Task->Handler(Task->PrivData);
 #ifdef PLM_DEBUG_INFO
 			XPlmi_MeasurePerfTime(TaskStartTime, &PerfTime);
-			XPlmi_Printf(DEBUG_PRINT_PERF, "%u.%u ms: Task Time\n\r",
+			XPlmi_Printf(DEBUG_PRINT_PERF, "%u.%06u ms: Task Time\n\r",
 				(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
 #endif
-			if (Status != XPLMI_TASK_INPROGRESS) {
+			if (Status != (int)XPLMI_TASK_INPROGRESS) {
 				/* Delete the task that is handled */
 				XPlmi_TaskDelete(Task);
 			}
 			if ((Status != XST_SUCCESS) &&
-				(Status != XPLMI_TASK_INPROGRESS)) {
+				(Status != (int)XPLMI_TASK_INPROGRESS)) {
 				XPlmi_ErrMgr(Status);
 			}
 			continue;
