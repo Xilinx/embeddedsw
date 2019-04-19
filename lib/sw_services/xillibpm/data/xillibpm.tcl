@@ -57,8 +57,8 @@ proc generate {libhandle} {
 	}
 
 	switch $proctype {
-		"psu_cortexr5"  -
-		"psu_cortexa72"  {
+		"psv_cortexr5"  -
+		"psv_cortexa72"  {
 			foreach entry [glob -nocomplain [file join $clientSrcDir *]] {
 				file copy -force $entry "./src/"
 			}
