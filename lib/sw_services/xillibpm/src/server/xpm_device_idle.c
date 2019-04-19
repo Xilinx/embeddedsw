@@ -40,57 +40,57 @@ static XPmDevice_SoftResetInfo DeviceRstData[] = {
 		.IdleHookArgs = XPAR_XUSBPSU_0_DEVICE_ID,
 	},
 #endif
-#ifdef XPAR_PSU_ETHERNET_0_DEVICE_ID
+#ifdef XPAR_PSV_ETHERNET_0_DEVICE_ID
 	{
 		.DeviceId = XPM_DEVID_GEM_0,
 		.SoftRst = NULL,
 		.IdleHook = NodeGemIdle,
-		.IdleHookArgs = XPAR_PSU_ETHERNET_0_DEVICE_ID,
+		.IdleHookArgs = XPAR_PSV_ETHERNET_0_DEVICE_ID,
 	},
 #endif
-#ifdef XPAR_PSU_ETHERNET_1_DEVICE_ID
+#ifdef XPAR_PSV_ETHERNET_1_DEVICE_ID
 	{
 		.DeviceId = XPM_DEVID_GEM_1,
 		.SoftRst = NULL,
 		.IdleHook = NodeGemIdle,
-		.IdleHookArgs = XPAR_PSU_ETHERNET_1_DEVICE_ID,
+		.IdleHookArgs = XPAR_PSV_ETHERNET_1_DEVICE_ID,
 	},
 #endif
-#ifdef XPAR_PSU_OSPI_0_DEVICE_ID
+#ifdef XPAR_PSV_OSPI_0_DEVICE_ID
 	{
 		.DeviceId = XPM_DEVID_OSPI,
 		.SoftRst = NULL,
 		.IdleHook = NodeOspiIdle,
-		.IdleHookArgs = XPAR_PSU_OSPI_0_DEVICE_ID,
+		.IdleHookArgs = XPAR_PSV_OSPI_0_DEVICE_ID,
 	},
 #endif
-#ifdef XPAR_PSU_QSPI_0_DEVICE_ID
+#ifdef XPAR_PSV_QSPI_0_DEVICE_ID
 	{
 		.DeviceId = XPM_DEVID_QSPI,
 		.SoftRst = NULL,
 		.IdleHook = NodeQspiIdle,
-		.IdleHookArgs = XPAR_PSU_QSPI_0_DEVICE_ID,
+		.IdleHookArgs = XPAR_PSV_QSPI_0_DEVICE_ID,
 	},
 #endif
-#ifdef XPAR_PSU_SD_0_DEVICE_ID
+#ifdef XPAR_PSV_SD_0_DEVICE_ID
 	{
 		.DeviceId = XPM_DEVID_SDIO_0,
 		.SoftRst = NULL,
 		.IdleHook = NodeSdioIdle,
-		.IdleHookArgs = XPAR_PSU_SD_0_DEVICE_ID,
+		.IdleHookArgs = XPAR_PSV_SD_0_DEVICE_ID,
 	},
 #endif
-#ifdef XPAR_PSU_SD_1_DEVICE_ID
+#ifdef XPAR_PSV_SD_1_DEVICE_ID
 	{
 		.DeviceId = XPM_DEVID_SDIO_1,
 		.SoftRst = NULL,
 		.IdleHook = NodeSdioIdle,
-		.IdleHookArgs = XPAR_PSU_SD_1_DEVICE_ID,
+		.IdleHookArgs = XPAR_PSV_SD_1_DEVICE_ID,
 	},
 #endif
 };
 
-#if defined(XPAR_PSU_QSPI_0_DEVICE_ID)
+#if defined(XPAR_PSV_QSPI_0_DEVICE_ID)
 /**
  * NodeQspiIdle() - Idle the QSPI node
  *
@@ -120,7 +120,7 @@ done:
 }
 #endif
 
-#if defined(XPAR_PSU_OSPI_0_DEVICE_ID)
+#if defined(XPAR_PSV_OSPI_0_DEVICE_ID)
 /**
  * NodeQspiIdle() - Idle the OSPI node
  *
@@ -153,7 +153,7 @@ done:
 }
 #endif
 
-#if defined(XPAR_PSU_SD_0_DEVICE_ID) || defined(XPAR_PSU_SD_1_DEVICE_ID)
+#if defined(XPAR_PSV_SD_0_DEVICE_ID) || defined(XPAR_PSV_SD_1_DEVICE_ID)
 /**
  * NodeSdioIdle() - Idle the SDIO node
  *
@@ -212,7 +212,7 @@ done:
 }
 #endif
 
-#if defined(XPAR_PSU_ETHERNET_0_DEVICE_ID) || defined(XPAR_PSU_ETHERNET_1_DEVICE_ID)
+#if defined(XPAR_PSV_ETHERNET_0_DEVICE_ID) || defined(XPAR_PSV_ETHERNET_1_DEVICE_ID)
 /**
  * NodeGemIdle() - Custom code to idle the GEM
  *
@@ -247,7 +247,7 @@ void NodeGemIdle(u16 DeviceId, u32 BaseAddress)
 }
 #endif
 
-#if defined(XPAR_PSU_GDMA_0_DEVICE_ID) || defined(XPAR_PSU_ADMA_0_DEVICE_ID)
+#if defined(XPAR_PSV_GDMA_0_DEVICE_ID) || defined(XPAR_PSV_ADMA_0_DEVICE_ID)
 
 #define XZDMA_CH_OFFSET		(0X10000)	/* Channel offset per DMA */
 #define XZDMA_NUM_CHANNEL	(8U)		/* Number of Channels */
