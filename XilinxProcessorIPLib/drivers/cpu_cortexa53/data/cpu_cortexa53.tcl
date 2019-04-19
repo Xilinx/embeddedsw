@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2014 - 2017 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -42,6 +42,7 @@
 #                     for Cortexa53 32 mode BSP.This change allows users to
 #                     modify default flag value.It fixes CR#984945.
 # 1.6   mus  01/30/18 Updated to support armclang compiler
+#       aru  04/18/19 Updated to add Assembler support for armclang
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -142,6 +143,8 @@ proc xdefine_cortexa53_params {drvhandle} {
 	      set extra_flags $temp_flag
               common::set_property -name {EXTRA_COMPILER_FLAGS} -value $extra_flags -objects [hsi::get_sw_processor]
          }
+	set assembler_value "armasm"
+	common::set_property -name {ASSEMBLER} -value $assembler_value -objects  [hsi::get_sw_processor]
     }
 
 

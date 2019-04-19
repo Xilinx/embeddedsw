@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -32,12 +32,13 @@ BEGIN driver cpu_cortexa53
 OPTION copyfiles = all;
 OPTION driver_state = ACTIVE;
 OPTION supported_peripherals = (psu_cortexa53);
-OPTION default_os = "standalone_v5_0";
-OPTION VERSION = 1.5;
+OPTION default_os = "standalone_v7_0";
+OPTION VERSION = 1.6;
 OPTION NAME = cpu_cortexa53;
 
 
 PARAM name = compiler, desc = "Compiler used to compile both BSP/Libraries and Applications.", type = string, default = aarch64-none-elf-gcc;
+PARAM name = assembler, desc = "Assembler used to assemble both BSP/Libraries and Applications.", type = string, default = aarch64-none-elf-as;
 PARAM name = archiver, desc = "Archiver used to archive libraries for both BSP generation as well as for applications", type = string, default = aarch64-none-elf-ar;
 PARAM name = compiler_flags, desc = "Compiler flags used in BSP and library generation. '-c' flag stands for 'compile and assemble, but do not link'. Without this flag, gcc tries to link the code, which will fail bacause there is no application involved during libgen. '-O2' can be overwritten by extra compiler flags", type = string, default = "-O2 -c", permit = none;
 PARAM name = extra_compiler_flags, desc = "Extra compiler flags used in BSP and library generation.", type = string, default = "-g -Wall -Wextra";
