@@ -86,11 +86,20 @@ static u8 Iv[XSECURE_IV_SIZE];
 static u8 Key[XSECURE_KEY_SIZE];
 
 #if defined (__GNUC__)
-u8 Data[XSECURE_DATA_SIZE]__attribute__ ((aligned (64)));
-
+static u8 Data[XSECURE_DATA_SIZE]__attribute__ ((aligned (64)))
+				__attribute__ ((section (".data.Data")));
+static u8 DecData[XSECURE_DATA_SIZE]__attribute__ ((aligned (64)))
+				__attribute__ ((section (".data.DecData")));
+static u8 EncData[XSECURE_DATA_SIZE + XSECURE_SECURE_GCM_TAG_SIZE]
+					__attribute__ ((aligned (64)))
+				__attribute__ ((section (".data.EncData")));
 #elif defined (__ICCARM__)
 #pragma data_alignment = 64
-u8 Data[XSECURE_DATA_SIZE];
+static u8 Data[XSECURE_DATA_SIZE];
+#pragma data_alignment = 64
+static u8 DecData[XSECURE_DATA_SIZE];
+#pragma data_alignment = 64
+static u8 EncData[XSECURE_DATA_SIZE + XSECURE_SECURE_GCM_TAG_SIZE];
 #endif
 
 /************************** Function Definitions ******************************/
@@ -163,16 +172,7 @@ static s32 SecureAesExample(void)
 	u32 Index;
 	XCsuDma CsuDmaInstance;
 	XSecure_Aes Secure_Aes;
-#if defined (__GNUC__)
-	u8 DecData[XSECURE_DATA_SIZE]__attribute__ ((aligned (64)));
-	u8 EncData[XSECURE_DATA_SIZE + XSECURE_SECURE_GCM_TAG_SIZE]
-						__attribute__ ((aligned (64)));
-#elif defined (__ICCARM__)
-#pragma data_alignment = 64
-	u8 DecData[XSECURE_DATA_SIZE];
-#pragma data_alignment = 64
-	u8 EncData[XSECURE_DATA_SIZE + XSECURE_SECURE_GCM_TAG_SIZE];
-#endif
+
 	/* Initialize CSU DMA driver */
 	Config = XCsuDma_LookupConfig(XSECURE_CSUDMA_DEVICEID);
 	if (NULL == Config) {
