@@ -1335,6 +1335,9 @@ void dprx_tracking (void) {
     } else if (DpRxSsInst.link_up_trigger == 0) { // Link Not trained
 		if (rx_trained == 1) {             		// If it was previously trained
 			xil_printf ("Training Lost !!\r\n");
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+					XDP_TX_INTERRUPT_MASK, 0xFFF);
+
 			frameBuffer_stop_wr(Msa);
 			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
 			XDpTxSs_Stop(&DpTxSsInst);
@@ -1360,6 +1363,9 @@ void dprx_tracking (void) {
 		XDpRxSs_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 				XDP_RX_DPCD_LANE23_STATUS));
 		DpRxSsInst.VBlankCount++;
+		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+				XDP_TX_INTERRUPT_MASK, 0xFFF);
+
 //			DpRxSsInst.link_up_trigger = 0;
 		appx_fs_dup = 0;
 		rx_trained = 1;
@@ -1371,6 +1377,9 @@ void dprx_tracking (void) {
 	}
 
 	if(DpRxSsInst.no_video_trigger == 1){
+		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+				XDP_TX_INTERRUPT_MASK, 0xFFF);
+
 		frameBuffer_stop(Msa);
 		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
 		XDpTxSs_Stop(&DpTxSsInst);

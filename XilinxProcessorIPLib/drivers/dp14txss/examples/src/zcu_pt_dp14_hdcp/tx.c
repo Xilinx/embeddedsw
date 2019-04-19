@@ -486,13 +486,13 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 			&& bw_set != XDP_TX_LINK_BW_SET_540GBPS
 			&& bw_set != XDP_TX_LINK_BW_SET_810GBPS
 			){
-		bw_set = InstancePtr->DpPtr->Config.MaxLinkRate;
+		bw_set = DpTxSsInst.DpPtr->TxInstance.LinkConfig.LinkRate; //InstancePtr->DpPtr->Config.MaxLinkRate;
 		retrain_link = 1;
 	}
 	if(lane_set != XDP_TX_LANE_COUNT_SET_1
 			&& lane_set != XDP_TX_LANE_COUNT_SET_2
 			&& lane_set != XDP_TX_LANE_COUNT_SET_4){
-		lane_set = InstancePtr->DpPtr->Config.MaxLaneCount;
+		lane_set = DpTxSsInst.DpPtr->TxInstance.LinkConfig.LaneCount; //InstancePtr->DpPtr->Config.MaxLaneCount;
 		retrain_link = 1;
 	}
 
