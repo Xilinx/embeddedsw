@@ -60,6 +60,7 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 #define XPLMI_GICP_IRQ_STATUS				0xF11400A0
 #define XPLMI_GICP0_IRQ_STATUS				0xF1140000
+#define XPLMI_GICP0_IRQ_MASK				0xF1140004
 #define XPLMI_GICP_SOURCE_COUNT				0x5
 #define XPLMI_NO_OF_BITS_IN_REG				32U
 
