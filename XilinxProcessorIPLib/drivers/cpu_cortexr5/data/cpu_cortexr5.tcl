@@ -39,6 +39,7 @@
 #                     BSP.
 # 1.5   mus  03/19/19 Updated to add hard float support for IAR R5
 #                     BSP.
+# 1.6   aru  04/18/19 Updated tcl to add assembler for ARMCC and IAR
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -129,6 +130,9 @@ proc xdefine_cortexr5_params {drvhandle} {
 		set compiler_flags "-Om --cpu=Cortex-R5 $compiler_flags"
 		common::set_property -name VALUE -value $compiler_flags -objects  [hsi::get_comp_params -filter { NAME == compiler_flags } ]
 	}
+
+	set assembler_value "iasmarm"
+    common::set_property -name {ASSEMBLER} -value $assembler_value -objects  [hsi::get_sw_processor]
    } else {
 		#Append LTO flag in EXTRA_COMPILER_FLAGS for zynqmp_fsbl_bsp
 		set is_zynqmp_fsbl_bsp [common::get_property CONFIG.ZYNQMP_FSBL_BSP [hsi::get_os]]
