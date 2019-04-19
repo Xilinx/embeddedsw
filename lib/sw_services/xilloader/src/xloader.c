@@ -884,7 +884,6 @@ int XLoader_RestartImage(u32 ImageId)
 		goto END;
 	}
 
-	SubSystemInfo.PdiPtr->CpusRunning = 0U;
 	Status = XLoader_StartImage(SubSystemInfo.PdiPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
