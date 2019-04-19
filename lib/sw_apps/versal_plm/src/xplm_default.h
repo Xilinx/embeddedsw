@@ -64,6 +64,7 @@ extern "C" {
 #include "xplmi_hw.h"
 #include "xplmi_task.h"
 #include "xplmi_status.h"
+#include "xplmi.h"
 
 /* library headers */
 #include "xpm_device.h"
