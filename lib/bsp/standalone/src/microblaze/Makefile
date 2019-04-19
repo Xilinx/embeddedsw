@@ -31,9 +31,9 @@
 # LIBS - Do Build Profile Libraries
 include config.make
 
-AS=mb-as
-CC=mb-gcc
-AR=mb-ar
+AS=$(ASSEMBLER)
+CC=$(COMPILER)
+AR=$(ARCHIVER)
 CP=cp
 COMPILER_FLAGS=-O2 -c
 EXTRA_COMPILER_FLAGS=
