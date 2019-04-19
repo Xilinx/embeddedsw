@@ -61,7 +61,7 @@
 ##                      HSI.
 ## 2.8     mga 06/27/18 Added -Os and LTO to extra_compiler_flags for pmu bsp
 ## 2.8     mus 09/11/18 Added support for Microblaze-X
-## 2.10  mus  04/16/19 Replace XILINX_SDK env variable with RDI_APPROOT. Fix for
+## 2.10  mus  04/16/19 Replace XILINX_SDK env variable with HDI_APPROOT. Fix for
 #                     CR#1028460.
 # uses xillib.tcl
 
@@ -111,16 +111,18 @@ proc generate {drv_handle} {
 
             set compiler_root ""
             set xilinx_edk_gnu [array get env XILINX_EDK_GNU]
+            set xilinx_sdk [array get env XILINX_SDK]
+
 			set gnu_osdir $osname
 			if {[string first "win64" $osname] != -1  || [string first "win" $osname] != -1 } {
 			    set gnu_osdir "nt"
 			} elseif {[string first "lnx64" $osname] != -1   || [string first "lnx" $osname] != -1 } {
 				set gnu_osdir "lin"
 			}
-            if { $xilinx_edk_gnu == "" } {
-                append compiler_root $env(RDI_APPROOT) "/gnu/microblaze/" $gnu_osdir
-            } {
-                append compiler_root $env(XILINX_EDK_GNU) "/microblaze/" $gnu_osdir
+            if { $xilinx_sdk == "" } {
+                append compiler_root $env(HDI_APPROOT) "/gnu/microblaze/" $gnu_osdir
+            } else {
+                append compiler_root $env(XILINX_SDK) "/gnu/microblaze/" $gnu_osdir
             }
         } else {
             set compiler_root [file dirname $temp]
@@ -257,7 +259,11 @@ proc generate {drv_handle} {
    }
 
    if { ![file exists $libxil_path] } {
-	set libxil_path [file join $env(RDI_APPROOT) "data/embeddedsw/lib/microblaze/" $libxil]
+	if { $xilinx_sdk == "" } {
+		set libxil_path [file join $env(HDI_APPROOT) "data/embeddedsw/lib/microblaze/" $libxil]
+	} else {
+		set libxil_path [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/" $libxil]
+	}
    }
 
     file copy -force $libxil_path $targetdir
@@ -282,10 +288,18 @@ proc generate {drv_handle} {
         set xmdstub_periph_handle [xget_hwhandle $xmdstub_periph]
         set targetdir "../../code"
         set filename "xmdstub.s"
-        file copy -force [file join $env(RDI_APPROOT) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
+	if { $xilinx_sdk == "" } {
+		file copy -force [file join $env(HDI_APPROOT) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
+	} else {
+		file copy -force [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
+	}
             file mtime [file join $targetdir $filename] [clock seconds]
         set filename "make.xmdstub"
-        file copy -force [file join $env(RDI_APPROOT) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
+	if { $xilinx_sdk == "" } {
+		file copy -force [file join $env(HDI_APPROOT) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
+	} else {
+		file copy -force [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
+	}
             file mtime [file join $targetdir $filename] [clock seconds]
         set xmd_addr_file [open "../../code/xmdstubaddr.s" w]
         set xmdstub_periph_baseaddr [::hsi::utils::format_addr_string [xget_value $xmdstub_periph_handle "PARAMETER" "C_BASEADDR"] "C_BASEADDR"]
