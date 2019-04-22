@@ -364,7 +364,8 @@ XStatus XPmSubsystem_SetCurrent(u32 SubsystemId)
 {
 	XStatus Status = XST_SUCCESS;
 
-	if (!ISVALIDSUBSYSTEM(SubsystemId)) {
+	if ((!ISVALIDSUBSYSTEM(SubsystemId)) &&
+	    (INVALID_SUBSYSID != SubsystemId)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
