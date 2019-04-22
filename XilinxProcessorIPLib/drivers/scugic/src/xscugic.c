@@ -582,7 +582,7 @@ void XScuGic_Enable(XScuGic *InstancePtr, u32 Int_Id)
 		Temp |= Int_Id;
 		XScuGic_ReDistSGIPPIWriteReg(InstancePtr,XSCUGIC_RDIST_ISENABLE_OFFSET,Temp);
 	}
-#else
+#endif
 	XScuGic_InterruptMaptoCpu(InstancePtr, Cpu_Id, Int_Id);
 	/*
 	 * The Int_Id is used to create the appropriate mask for the
@@ -595,7 +595,6 @@ void XScuGic_Enable(XScuGic *InstancePtr, u32 Int_Id)
 	 */
 	XScuGic_DistWriteReg(InstancePtr, (u32)XSCUGIC_ENABLE_SET_OFFSET +
 				((Int_Id / 32U) * 4U), Mask);
-#endif
 }
 
 /*****************************************************************************/
