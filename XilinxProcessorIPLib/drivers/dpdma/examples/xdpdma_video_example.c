@@ -134,7 +134,6 @@ int DpdmaVideoExample(Run_Config *RunCfgPtr)
 				return XST_FAILURE;
 	}
 
-	SetupInterrupts(RunCfgPtr);
 	xil_printf("Generating Overlay.....\n\r");
 	GraphicsOverlay(Frame, RunCfgPtr);
 
@@ -144,7 +143,7 @@ int DpdmaVideoExample(Run_Config *RunCfgPtr)
 	FrameBuffer.LineSize = LINESIZE;
 	FrameBuffer.Size = BUFFERSIZE;
 
-	XDpDma_DisplayGfxFrameBuffer(RunCfgPtr->DpDmaPtr, &FrameBuffer);
+	SetupInterrupts(RunCfgPtr);
 
 	return XST_SUCCESS;
 }
