@@ -81,9 +81,9 @@ extern "C" {
 #define XIH_BH_LEN			(0x128U)
 #define XIH_FIELD_LEN			(4U)
 #define XIH_PFW_LEN_FIELD_LEN		(4U)
-#define XIH_IHT_LEN			(64U)
+#define XIH_IHT_LEN			(128U)
 #define XIH_IH_LEN			(64U)
-#define XIH_PH_LEN			(64U)
+#define XIH_PH_LEN			(128U)
 #define XIH_PRTN_WORD_LEN		(0x4U)
 #define XIH_PRTN_ALIGN_LEN		(64U)
 
@@ -267,7 +267,7 @@ typedef struct {
 	u32 SBDAddr; /**< Secondary Boot device address */
 	u32 Idcode; /**< Device ID Code */
 	u32 Attr; /**< Attributes */
-	u32 Rsvd[7]; /**< Reserved */
+	u32 Rsvd[23]; /**< Reserved */
 	u32 Checksum; /**< Checksum of the image header table */
 } XilPdi_ImgHdrTable __attribute__ ((aligned(16)));
 
@@ -306,7 +306,9 @@ typedef struct {
 	u32 PrtnId; /**< Partition ID */
 	u32 AuthCertificateOfst;
 		/**< address to the authentication certificate when enabled */
-	u32 Rsvd_x38; /**< Reserved */
+	u32 PrtnIv[3]; /**< IV of the partition's SH */
+	u32 EncStatus; /**< Encryption Status/Key Selection */
+	u32 Reserved[13]; /**< Reserved */
 	u32 Checksum; /**< checksum of the partition header */
 } XilPdi_PrtnHdr __attribute__ ((aligned(16)));
 
