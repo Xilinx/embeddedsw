@@ -37,6 +37,7 @@
 
 XCframe CframeIns={0}; /* CFRAME Driver Instance */
 XCfupmc CfupmcIns={0}; /* CFU Driver Instance */
+u32 PlpdHouseCleanBypass = 0;
 
 u32 GtyBaseAddressList[11] = {
 	GTY_NPI_SLAVE_0_BASEADDDRESS,
@@ -174,15 +175,15 @@ static XStatus PldCframeInit()
 
         if(CframeIns.IsReady) {
                 Status = XST_SUCCESS;
-                goto done;
+		goto done;
         }
         /*
          * Initialize the Cframe driver so that it's ready to use
-         * look up the configuration in the config table,
+	 * look up the configuration in the config table,
          * then initialize it.
          */
-        Config = XCframe_LookupConfig((u16)XPAR_XCFRAME_0_DEVICE_ID);
-        if (NULL == Config) {
+	Config = XCframe_LookupConfig((u16)XPAR_XCFRAME_0_DEVICE_ID);
+	if (NULL == Config) {
                 Status = XST_FAILURE;
                 goto done;
         }
@@ -217,26 +218,28 @@ static XStatus GtyHouseClean()
 		PmOut32(GtyBaseAddressList[i] + GTY_PCSR_LOCK_OFFSET, 1);
 	}
 
-#ifndef PLPD_HOUSECLEAN_BYPASS
-	/* Bisr repair - Bisr should be triggered only for Addresses for wich repair
-	 * data is found and so not calling in loop. Trigger is handled in below routine
-	 * */
-	Status = XPmBisr_Repair(GTY_TAG_ID);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	for (i=0; i<sizeof(GtyBaseAddressList)/sizeof(GtyBaseAddressList[0]); i++) {
-		PmOut32(GtyBaseAddressList[i] + GTY_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
-		/* Mbist */
-		Status = PldGtyMbist(GtyBaseAddressList[i]);
+//#ifndef PLPD_HOUSECLEAN_BYPASS
+	if(!PlpdHouseCleanBypass) {
+		/* Bisr repair - Bisr should be triggered only for Addresses for wich repair
+		 * data is found and so not calling in loop. Trigger is handled in below routine
+		 * */
+		Status = XPmBisr_Repair(GTY_TAG_ID);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
-		PmOut32(GtyBaseAddressList[i] + GTY_PCSR_LOCK_OFFSET, 1);
+
+		for (i=0; i<sizeof(GtyBaseAddressList)/sizeof(GtyBaseAddressList[0]); i++) {
+			PmOut32(GtyBaseAddressList[i] + GTY_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+			/* Mbist */
+			Status = PldGtyMbist(GtyBaseAddressList[i]);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+			PmOut32(GtyBaseAddressList[i] + GTY_PCSR_LOCK_OFFSET, 1);
+		}
 	}
 done:
-#endif
+//#endif
 	return Status;
 }
 
@@ -259,27 +262,29 @@ static XStatus CpmHouseClean()
 		goto done;
 	}
 
-#ifndef PLPD_HOUSECLEAN_BYPASS
-	/* Bisr */
-	Status = XPmBisr_Repair(CPM_TAG_ID);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
+//#ifndef PLPD_HOUSECLEAN_BYPASS
+	if(!PlpdHouseCleanBypass) {
+		/* Bisr */
+		Status = XPmBisr_Repair(CPM_TAG_ID);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 
-	/* Mbist */
-	PmOut32(CPM_PCSR_MASK, CPM_PCSR_PCR_MEM_CLEAR_TRIGGER_MASK);
-	PmOut32(CPM_PCSR_PCR, CPM_PCSR_PCR_MEM_CLEAR_TRIGGER_MASK);
+		/* Mbist */
+		PmOut32(CPM_PCSR_MASK, CPM_PCSR_PCR_MEM_CLEAR_TRIGGER_MASK);
+		PmOut32(CPM_PCSR_PCR, CPM_PCSR_PCR_MEM_CLEAR_TRIGGER_MASK);
 
-	/* Poll for status */
-	Status = XPm_PollForMask(CPM_PCSR_PSR, CPM_PCSR_PSR_MEM_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
-	if (XST_SUCCESS != Status) {
-		goto done;
+		/* Poll for status */
+		Status = XPm_PollForMask(CPM_PCSR_PSR, CPM_PCSR_PSR_MEM_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		Status = XPm_PollForMask(CPM_PCSR_PSR, CPM_PCSR_PSR_MEM_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 	}
-	Status = XPm_PollForMask(CPM_PCSR_PSR, CPM_PCSR_PSR_MEM_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-#endif
+//#endif
 	/* Lock PCSR */
 	PmOut32(CPM_PCSR_LOCK, 1);
 
@@ -294,6 +299,9 @@ static XStatus PldPreHouseclean(u32 *Args, u32 NumOfArgs)
 
 	(void)Args;
 	(void)NumOfArgs;
+
+	/* Reset Bypass flag */
+	PlpdHouseCleanBypass = 0;
 
 	/* TODO: Proceed only if vccint, vccaux, vccint_ram is 1 */
 
@@ -400,111 +408,113 @@ done:
 static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
-
-	(void)Args;
-	(void)NumOfArgs;
-
 	u32 Value = 0;
 
-#ifndef PLPD_HOUSECLEAN_BYPASS
+	/* If Arg0 is set, bypass houseclean */
+	if(NumOfArgs && Args[0] == 1)
+		PlpdHouseCleanBypass = 1;
 
-	/* Enable ROWON */
-	XCframe_WriteCmd(&CframeIns, XCFRAME_FRAME_BCAST,
-                        XCFRAME_CMD_REG_ROWON);
+//#ifndef PLPD_HOUSECLEAN_BYPASS
+	if(!PlpdHouseCleanBypass)
+	{
+		/* Enable ROWON */
+		XCframe_WriteCmd(&CframeIns, XCFRAME_FRAME_BCAST,
+							XCFRAME_CMD_REG_ROWON);
 
-	/* HCLEANR type 3,4,5,6 */
-	XCframe_WriteCmd(&CframeIns, XCFRAME_FRAME_BCAST,
-                        XCFRAME_CMD_REG_HCLEANR);
+		/* HCLEANR type 3,4,5,6 */
+		XCframe_WriteCmd(&CframeIns, XCFRAME_FRAME_BCAST,
+							XCFRAME_CMD_REG_HCLEANR);
 
-	/* HB BISR REPAIR */
-        Status = XPmBisr_Repair(DCMAC_TAG_ID);
-        if (XST_SUCCESS != Status) {
-                goto done;
-        }
-        Status = XPmBisr_Repair(ILKN_TAG_ID);
-        if (XST_SUCCESS != Status) {
-                goto done;
-        }
-        Status = XPmBisr_Repair(MRMAC_TAG_ID);
-        if (XST_SUCCESS != Status) {
-                goto done;
-        }
-        Status = XPmBisr_Repair(SDFEC_TAG_ID);
-        if (XST_SUCCESS != Status) {
-                goto done;
-        }
+		/* HB BISR REPAIR */
+			Status = XPmBisr_Repair(DCMAC_TAG_ID);
+			if (XST_SUCCESS != Status) {
+					goto done;
+			}
+			Status = XPmBisr_Repair(ILKN_TAG_ID);
+			if (XST_SUCCESS != Status) {
+					goto done;
+			}
+			Status = XPmBisr_Repair(MRMAC_TAG_ID);
+			if (XST_SUCCESS != Status) {
+					goto done;
+			}
+			Status = XPmBisr_Repair(SDFEC_TAG_ID);
+			if (XST_SUCCESS != Status) {
+					goto done;
+			}
 
-	/* BRAM/URAM TRIM */
-	PldApplyTrim(XPM_PL_TRIM_BRAM);
-	PldApplyTrim(XPM_PL_TRIM_URAM);
+		/* BRAM/URAM TRIM */
+		PldApplyTrim(XPM_PL_TRIM_BRAM);
+		PldApplyTrim(XPM_PL_TRIM_URAM);
 
-	/* BRAM/URAM repair */
-	Status = XPmBisr_Repair(BRAM_TAG_ID);
-	if (XST_SUCCESS != Status) {
-                goto done;
-        }
-	Status = XPmBisr_Repair(URAM_TAG_ID);
-	if (XST_SUCCESS != Status) {
-                goto done;
-        }
+		/* BRAM/URAM repair */
+		Status = XPmBisr_Repair(BRAM_TAG_ID);
+		if (XST_SUCCESS != Status) {
+					goto done;
+			}
+		Status = XPmBisr_Repair(URAM_TAG_ID);
+		if (XST_SUCCESS != Status) {
+					goto done;
+			}
 
-	/* HCLEAN type 0,1,2 */
-	XCframe_WriteCmd(&CframeIns, XCFRAME_FRAME_BCAST,
-                                XCFRAME_CMD_REG_HCLEAN);
+		/* HCLEAN type 0,1,2 */
+		XCframe_WriteCmd(&CframeIns, XCFRAME_FRAME_BCAST,
+								XCFRAME_CMD_REG_HCLEAN);
 
-	 /* Poll for house clean completion */
+		 /* Poll for house clean completion */
 
-	while ((Xil_In32(CFU_APB_CFU_STATUS) &
-                        CFU_APB_CFU_STATUS_HC_COMPLETE_MASK) !=
-                                CFU_APB_CFU_STATUS_HC_COMPLETE_MASK);
-        while ((Xil_In32(CFU_APB_CFU_STATUS) &
-                        CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK) ==
-                                CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK);
+		while ((Xil_In32(CFU_APB_CFU_STATUS) &
+						CFU_APB_CFU_STATUS_HC_COMPLETE_MASK) !=
+								CFU_APB_CFU_STATUS_HC_COMPLETE_MASK);
+			while ((Xil_In32(CFU_APB_CFU_STATUS) &
+						CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK) ==
+								CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK);
 
-	/* VGG TRIM */
-	PldApplyTrim(XPM_PL_TRIM_VGG);
+		/* VGG TRIM */
+		PldApplyTrim(XPM_PL_TRIM_VGG);
 
-	/* CRAM TRIM */
-	PldApplyTrim(XPM_PL_TRIM_CRAM);
+		/* CRAM TRIM */
+		PldApplyTrim(XPM_PL_TRIM_CRAM);
 
-	if (PLATFORM_VERSION_SILICON != Platform) {
-		Status = XST_SUCCESS;
-		goto done;
+		if (PLATFORM_VERSION_SILICON != Platform) {
+			Status = XST_SUCCESS;
+			goto done;
+		}
+
+		/* LAGUNA REPAIR - not needed for now */
+
+		/* There is no status for Bisr done in hard ip. But we must ensure
+		 * BISR is complete before scan clear */
+		 /*TBD - Wait for how long?? Wei to confirm with DFT guys */
+
+		/* Fake read */
+		/* each register is 128 bits long so issue 4 reads */
+		PmIn32(CFRAME0_REG_BASEADDR + 0, Value);
+		PmIn32(CFRAME0_REG_BASEADDR + 4, Value);
+		PmIn32(CFRAME0_REG_BASEADDR + 8, Value);
+		PmIn32(CFRAME0_REG_BASEADDR + 12, Value);
+
+		/* Unlock CFU writes */
+		PmOut32(CFU_APB_CFU_PROTECT, 0);
+
+		/* PL scan clear / MBIST */
+		PmOut32(CFU_APB_CFU_MASK, CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
+		PmOut32(CFU_APB_CFU_FGCR, CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
+
+		/* Lock CFU writes */
+		PmOut32(CFU_APB_CFU_PROTECT, 1);
+
+		/* Poll for status */
+		Status = XPm_PollForMask(CFU_APB_CFU_STATUS, CFU_APB_CFU_STATUS_SCAN_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		Status = XPm_PollForMask(CFU_APB_CFU_STATUS, CFU_APB_CFU_STATUS_SCAN_CLEAR_PASS_MASK, XPM_POLL_TIMEOUT);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 	}
-
-	/* LAGUNA REPAIR - not needed for now */
-
-	/* There is no status for Bisr done in hard ip. But we must ensure
-	 * BISR is complete before scan clear */
-	 /*TBD - Wait for how long?? Wei to confirm with DFT guys */
-
-	/* Fake read */
-	/* each register is 128 bits long so issue 4 reads */
-	PmIn32(CFRAME0_REG_BASEADDR + 0, Value);
-	PmIn32(CFRAME0_REG_BASEADDR + 4, Value);
-	PmIn32(CFRAME0_REG_BASEADDR + 8, Value);
-	PmIn32(CFRAME0_REG_BASEADDR + 12, Value);
-
-	/* Unlock CFU writes */
-	PmOut32(CFU_APB_CFU_PROTECT, 0);
-
-	/* PL scan clear / MBIST */
-	PmOut32(CFU_APB_CFU_MASK, CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
-	PmOut32(CFU_APB_CFU_FGCR, CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
-
-	/* Lock CFU writes */
-	PmOut32(CFU_APB_CFU_PROTECT, 1);
-
-	/* Poll for status */
-	Status = XPm_PollForMask(CFU_APB_CFU_STATUS, CFU_APB_CFU_STATUS_SCAN_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-	Status = XPm_PollForMask(CFU_APB_CFU_STATUS, CFU_APB_CFU_STATUS_SCAN_CLEAR_PASS_MASK, XPM_POLL_TIMEOUT);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-#endif /* PLPD_HOUSECLEAN_BYPASS */
+//#endif /* PLPD_HOUSECLEAN_BYPASS */
 
 	if (PLATFORM_VERSION_SILICON != Platform) {
 		Status = XST_SUCCESS;
