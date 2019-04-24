@@ -737,8 +737,20 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 	u32 RunningCpuHandoffAddressPresent=FALSE;
 	u32 CpuNeedsEarlyHandoff;
 	const XFsblPs_PartitionHeader * PartitionHeader;
-
 	static u32 CpuIndexEarlyHandoff = 0;
+	u32 FsblProcType = XFSBL_RUNNING;
+
+	if(FsblInstancePtr->ProcessorID == XIH_PH_ATTRB_DEST_CPU_A53_0)
+	{
+		FsblProcType |= XFSBL_RUNNING_ON_A53;
+	}
+	/*
+	 * Update FSBL running status and running processor to PMU Global Reg5
+	 * as PMU require this during boot for APU only warm-restart feature.
+	*/
+	FsblProcType |= (XFsbl_In32(PMU_GLOBAL_GLOB_GEN_STORAGE5) &
+						~XFSBL_STATE_PROC_INFO_MASK);
+	XFsbl_Out32(PMU_GLOBAL_GLOB_GEN_STORAGE5, FsblProcType);
 
 	/* Restoring the SD card detection signal */
 	XFsbl_Out32(IOU_SLCR_SD_CDN_CTRL, 0X0U);
