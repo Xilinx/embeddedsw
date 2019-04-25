@@ -2364,7 +2364,7 @@ static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 
 	Status = XFpga_GetFirmwareState();
 	if (Status == XFPGA_FIRMWARE_STATE_SECURE) {
-		xil_printf("Operation not permitted\n\r");
+		Xfpga_Printf(XFPGA_DEBUG, "Operation not permitted\n\r");
 		Status = XFPGA_FAILURE;
 		goto END;
 	}
@@ -2413,14 +2413,14 @@ static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 	/* Setup the source DMA channel */
 	Status = XFpga_PcapWaitForDone();
 	if (Status != XFPGA_SUCCESS) {
-		xil_printf("Write to PCAP Failed\n\r");
+		Xfpga_Printf(XFPGA_DEBUG, "Write to PCAP Failed\n\r");
 		Status = XFPGA_FAILURE;
 		goto END;
 	}
 
 	Status = XFpga_WriteToPcap(CmdIndex, Address + CFGREG_SRCDMA_OFFSET);
 	if (Status != XFPGA_SUCCESS) {
-		xil_printf("Write to PCAP Failed\n\r");
+		Xfpga_Printf(XFPGA_DEBUG, "Write to PCAP Failed\n\r");
 		Status = XFPGA_FAILURE;
 		goto END;
 	}
@@ -2434,7 +2434,7 @@ static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 	/* wait for the DST_DMA to complete and the pcap to be IDLE */
 	Status = XCsuDma_WaitForDoneTimeout(CsuDmaPtr, XCSUDMA_DST_CHANNEL);
 	if (Status != XFPGA_SUCCESS) {
-		xil_printf("Read from PCAP Failed\n\r");
+		Xfpga_Printf(XFPGA_DEBUG, "Read from PCAP Failed\n\r");
 		Status = XFPGA_FAILURE;
 		goto END;
 	}
@@ -2454,7 +2454,7 @@ static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 
 	Status = XFpga_WriteToPcap(CmdIndex, Address + CFGREG_SRCDMA_OFFSET);
 	if (Status != XFPGA_SUCCESS) {
-		xil_printf("Write to PCAP Failed\n\r");
+		Xfpga_Printf(XFPGA_DEBUG, "Write to PCAP Failed\n\r");
 		Status = XFPGA_FAILURE;
 		goto END;
 	}
@@ -2492,14 +2492,14 @@ static u32 XFpga_GetPLConfigData(const XFpga *InstancePtr)
 	Status = XFpga_GetFirmwareState();
 
 	if (Status == XFPGA_FIRMWARE_STATE_UNKNOWN) {
-		xil_printf("Error while reading configuration "
+		Xfpga_Printf(XFPGA_DEBUG, "Error while reading configuration "
 			   "data from FPGA\n\r");
 		Status = XFPGA_ERROR_PLSTATE_UNKNOWN;
 		goto END;
 	}
 
 	if (Status == XFPGA_FIRMWARE_STATE_SECURE) {
-		xil_printf("Operation not permitted\n\r");
+		Xfpga_Printf(XFPGA_DEBUG, "Operation not permitted\n\r");
 		Status = XFPGA_FAILURE;
 		goto END;
 	}
@@ -2521,7 +2521,7 @@ static u32 XFpga_GetPLConfigData(const XFpga *InstancePtr)
 	Status = XFpga_PcapInit(1U);
 	if (Status != XFPGA_SUCCESS) {
 		Status = XPFGA_ERROR_PCAP_INIT;
-		xil_printf("PCAP init failed\n\r");
+		Xfpga_Printf(XFPGA_DEBUG, "PCAP init failed\n\r");
 		goto END;
 	}
 
@@ -2603,14 +2603,14 @@ static u32 XFpga_GetPLConfigData(const XFpga *InstancePtr)
 
 	Status = XFpga_PcapWaitForDone();
 	if (Status != XFPGA_SUCCESS) {
-		xil_printf("Write to PCAP Failed\n\r");
+		Xfpga_Printf(XFPGA_DEBUG, "Write to PCAP Failed\n\r");
 		Status = XFPGA_FAILURE;
 		goto END;
 	}
 
 	Status = XFpga_WriteToPcap(cmdindex, Address);
 	if (Status != XFPGA_SUCCESS) {
-		xil_printf("Write to PCAP Failed\n\r");
+		Xfpga_Printf(XFPGA_DEBUG, "Write to PCAP Failed\n\r");
 		Status = XFPGA_FAILURE;
 		goto END;
 	}
@@ -2625,7 +2625,7 @@ static u32 XFpga_GetPLConfigData(const XFpga *InstancePtr)
 	/* wait for the DST_DMA to complete and the pcap to be IDLE */
 	Status = XCsuDma_WaitForDoneTimeout(CsuDmaPtr, XCSUDMA_DST_CHANNEL);
 	if (Status != XFPGA_SUCCESS) {
-		xil_printf("Read from PCAP Failed\n\r");
+		Xfpga_Printf(XFPGA_DEBUG, "Read from PCAP Failed\n\r");
 		Status = XFPGA_FAILURE;
 		goto END;
 	}
@@ -2635,7 +2635,7 @@ static u32 XFpga_GetPLConfigData(const XFpga *InstancePtr)
 
 	Status = XFpga_PcapWaitForidle();
 	if (Status != XFPGA_SUCCESS) {
-		xil_printf("Reading data from PL through PCAP Failed\n\r");
+		Xfpga_Printf(XFPGA_DEBUG, "Reading data from PL through PCAP Failed\n\r");
 		Status = XFPGA_FAILURE;
 		goto END;
 	}
@@ -2675,7 +2675,7 @@ static u32 XFpga_GetPLConfigData(const XFpga *InstancePtr)
 
 	Status = XFpga_WriteToPcap(cmdindex, (UINTPTR)Address);
 	if (Status != XFPGA_SUCCESS) {
-		xil_printf("Write to PCAP 1 Failed\n\r");
+		Xfpga_Printf(XFPGA_DEBUG, "Write to PCAP 1 Failed\n\r");
 		Status = XFPGA_FAILURE;
 	}
 END:
