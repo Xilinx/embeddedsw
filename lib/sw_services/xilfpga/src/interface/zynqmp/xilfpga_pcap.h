@@ -120,6 +120,7 @@
  *                     for bitstream loading to meet the safety requirements
  *                     with PMUFW.
  * 5.0 sne   27/03/19  Fixed misra-c violations.
+ * 5.0 Nava  23/04/19  Optimize the API's logic to avoid code duplication.
  * </pre>
  *
  * @note
@@ -138,6 +139,8 @@ extern "C" {
 #include "xcsudma.h"
 #include "xsecure.h"
 #include "xilfpga.h"
+#include "xil_util.h"
+
 /************************** Constant Definitions *****************************/
 
 #define PL_DONE_POLL_COUNT  300000U
@@ -256,6 +259,7 @@ extern "C" {
 #define XFPGA_ERROR_PLSTATE_UNKNOWN		(0x19U)
 #define XFPGA_ERROR_BITSTREAM_FORMAT		(0x1AU)
 #define XFPGA_ERROR_UNALIGN_ADDR		(0x1BU)
+#define XFPGA_ERROR_AES_INIT			(0x1CU)
 
 /* PCAP Error Update Macro */
 #define XFPGA_PCAP_ERR_MASK			(0xFF00U)
