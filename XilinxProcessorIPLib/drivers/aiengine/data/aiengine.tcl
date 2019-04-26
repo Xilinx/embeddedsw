@@ -35,8 +35,14 @@ proc copy_files {dir} {
 	}
 }
 
+proc copy_sub_files {dir} {
+	foreach sub_dir [glob -nocomplain -directory $dir -type d *] {
+		copy_files $sub_dir
+	}
+}
+
 proc generate {libhandle} {
-	copy_files "./src"
+	copy_sub_files "./src"
 	foreach dir [glob -nocomplain -directory "./src" -type d *] {
 		file delete -force $dir
 	}
