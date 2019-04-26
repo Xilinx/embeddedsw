@@ -93,7 +93,7 @@ void XPlmi_UtilRMW(u32 RegAddr, u32 Mask, u32 Value);
  */
 int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutCount);
 
-int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInMs);
+int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs);
 
 /**
  * Poll for a set of bits to be cleared (represented by Mask)
@@ -105,7 +105,7 @@ int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInMs);
  */
 
 
-int XPlmi_UtilPoll64(u64 Addr, u32 Mask, u32 ExpectedValue, u32 TimeOutInMs);
+int XPlmi_UtilPoll64(u64 Addr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs);
 
 int XPlmi_UtilPollForZero(u32 RegAddr, u32 Mask, u32 TimeOutCount);
 
@@ -126,7 +126,7 @@ void XPlmi_UtilWrite64(u32 HighAddr, u32 LowAddr, u32 Value);
  * @param TimeOutCount is the value to count down before return failure
  */
 int XPlmi_UtilPollForMask64(u32 HighAddr, u32 LowAddr, u32 Mask,
-				u32 TimeOutInMs);
+				u32 TimeOutInUs);
 
 /**
  * Read-modify-write a 64-bit address register
