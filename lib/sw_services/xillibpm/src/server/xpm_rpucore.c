@@ -109,8 +109,13 @@ done:
 static XStatus XPmRpuCore_PwrDwn(XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
+	XPm_Device *Device;
 	u32 CoreId = Core->Device.Node.Id;
 	u32 RegOffset;
+	u32 Tcm0aState;
+	u32 Tcm0bState;
+	u32 Tcm1aState;
+	u32 Tcm1bState;
 
 	if(NODEINDEX(CoreId) == XPM_NODEIDX_DEV_RPU0_0) {
 		RegOffset = RPU_0_PWRDWN_OFFSET;
@@ -121,7 +126,29 @@ static XStatus XPmRpuCore_PwrDwn(XPm_Core *Core)
 		goto done;
 	}
 
-	Status = XPmCore_PwrDwn(Core, RegOffset);
+	/*
+	 * Check TCM status. Put RPU in halt state if TCM is running
+	 */
+	Device = XPmDevice_GetById(XPM_DEVID_TCM_0_A);
+	Tcm0aState = Device->Node.State;
+
+	Device = XPmDevice_GetById(XPM_DEVID_TCM_0_B);
+	Tcm0bState = Device->Node.State;
+
+	Device = XPmDevice_GetById(XPM_DEVID_TCM_1_A);
+	Tcm1aState = Device->Node.State;
+
+	Device = XPmDevice_GetById(XPM_DEVID_TCM_1_A);
+	Tcm1bState = Device->Node.State;
+
+	if (XPM_DEVSTATE_RUNNING == Tcm0aState ||
+	    XPM_DEVSTATE_RUNNING == Tcm0bState ||
+	    XPM_DEVSTATE_RUNNING == Tcm1aState ||
+	    XPM_DEVSTATE_RUNNING == Tcm1aState) {
+		Status = XPmRpuCore_Halt((XPm_Device *)Core);
+	} else {
+		Status = XPmCore_PwrDwn(Core, RegOffset);
+	}
 
 done:
 	return Status;
