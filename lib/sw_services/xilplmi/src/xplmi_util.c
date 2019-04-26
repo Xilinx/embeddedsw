@@ -47,6 +47,7 @@
 #include "xplmi_util.h"
 #include "xplmi_hw.h"
 #include "xplmi_debug.h"
+#include "sleep.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -129,15 +130,15 @@ void XPlmi_UtilWait(u32 TimeOutCount)
  * @param	Addr 32 bit address
  * @param	Mask is the bit field to be updated
  * @param	Value is value to be updated
- * @param       TimeOutCount is delay time in ms
+ * @param       TimeOutCount is delay time in us
  *
  * @return      None
  *
  ******************************************************************************/
-int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInMs)
+int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 {
 	u32 l_RegValue;
-	u32 TimeOut = TimeOutInMs*10000; //TBD: remove multiplication
+	u32 TimeOut = TimeOutInUs;
 
 	/**
 	 * if timeout value is zero, max time out value is taken
@@ -156,10 +157,14 @@ int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInMs)
 	 * Loop while the MAsk is not set or we timeout
 	 */
 	while(((l_RegValue & Mask) != ExpectedValue) && (TimeOut > 0U)){
+
+		usleep(1U);
+
 		/**
 		 * Latch up the Register value again
 		 */
 		l_RegValue = Xil_In32(RegAddr);
+
 		/**
 		 * Decrement the TimeOut Count
 		 */
@@ -174,15 +179,15 @@ int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInMs)
  * @param	Addr 64 bit address
  * @param	Mask is the bit field to be polled
  * @param	Expected Value is value to be polled
- * @param       TimeOutCount is delay time in ms
+ * @param       TimeOutCount is delay time in us
  *
  * @return      None
  *
  ******************************************************************************/
-int XPlmi_UtilPoll64(u64 Addr, u32 Mask, u32 ExpectedValue, u32 TimeOutInMs)
+int XPlmi_UtilPoll64(u64 Addr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 {
 	u32 ReadValue;
-	u32 TimeOut = TimeOutInMs*10000; //TBD: remove multiplication
+	u32 TimeOut = TimeOutInUs;
 
 	/**
 	 * if timeout value is zero, max time out value is taken
@@ -201,6 +206,9 @@ int XPlmi_UtilPoll64(u64 Addr, u32 Mask, u32 ExpectedValue, u32 TimeOutInMs)
 	 * Loop while the Mask is not set or we timeout
 	 */
 	while(((ReadValue & Mask) != ExpectedValue) && (TimeOut > 0U)){
+
+		usleep(1U);
+
 		/**
 		 * Latch up the value again
 		 */
@@ -227,11 +235,11 @@ int XPlmi_UtilPoll64(u64 Addr, u32 Mask, u32 ExpectedValue, u32 TimeOutInMs)
  *
  ******************************************************************************/
 int XPlmi_UtilPollForMask64(u32 HighAddr, u32 LowAddr, u32 Mask,
-				u32 TimeOutInMs)
+				u32 TimeOutInUs)
 {
 	u64 Addr = (((u64)HighAddr << 32U) | LowAddr);
 	u32 ReadValue;
-    u32 TimeOut = TimeOutInMs*10000; //TBD: remove multiplication
+	u32 TimeOut = TimeOutInUs;
 
     /**
 	 * Read the Register value
@@ -242,6 +250,9 @@ int XPlmi_UtilPollForMask64(u32 HighAddr, u32 LowAddr, u32 Mask,
 	 * Loop while the Mask is not set or we timeout
 	 */
     while(((ReadValue & Mask) != Mask) && (TimeOut > 0U)){
+
+		usleep(1U);
+
 		/**
 		 * Latch up the value again
 		 */

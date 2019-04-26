@@ -50,6 +50,7 @@
 #include "xplmi_util.h"
 #include "xplmi_hw.h"
 #include "xcfupmc.h"
+#include "sleep.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -75,7 +76,7 @@ static int XPlmi_Reserved(XPlmi_Cmd * Cmd)
  *	* Address
  *	* Mask
  *	* Expected Value
- *	* Timeout in ms
+ *	* Timeout in us
  *
  * @param Pointer to the command structure
  *
@@ -86,14 +87,14 @@ static int XPlmi_MaskPoll(XPlmi_Cmd * Cmd)
 	u32 Addr = Cmd->Payload[0];
 	u32 Mask = Cmd->Payload[1];
 	u32 ExpectedValue = Cmd->Payload[2];
-	u32 TimeOutInMs = Cmd->Payload[3];
+	u32 TimeOutInUs = Cmd->Payload[3];
 	int Status;
 
 	XPlmi_Printf(DEBUG_DETAILED,
 		"%s, Addr: 0x%0x,  Mask 0x%0x, ExpVal: 0x%0x, Timeout: %d\n\r",
-		__func__, Addr, Mask, ExpectedValue, TimeOutInMs);
+		__func__, Addr, Mask, ExpectedValue, TimeOutInUs);
 
-	Status = XPlmi_UtilPoll(Addr, Mask, ExpectedValue, TimeOutInMs);
+	Status = XPlmi_UtilPoll(Addr, Mask, ExpectedValue, TimeOutInUs);
 	if (Status != XST_SUCCESS)
 	{
 		Status = XPLMI_ERR_MASKPOLL;
@@ -155,7 +156,7 @@ static int XPlmi_Write(XPlmi_Cmd * Cmd)
 /**
  * @brief This function provides delay command execution
  *  Command payload parameters are
- *	* Delay in ms
+ *	* Delay in us
  *
  * @param Pointer to the command structure
  *
@@ -165,14 +166,12 @@ static int XPlmi_Delay(XPlmi_Cmd * Cmd)
 {
 	u32 Delay;
 
-	/** TODO implement timer based delay */
-	Delay = Cmd->Payload[0] * 1000;
-
+	Delay = Cmd->Payload[0];
 	XPlmi_Printf(DEBUG_DETAILED,
 		"%s, Delay: %d\n\r",
 		__func__, Delay);
 
-	XPlmi_UtilWait(Delay);
+	usleep(Delay);
 	return XST_SUCCESS;
 }
 
@@ -238,7 +237,7 @@ END:
  *	* Low Address
  *	* Mask
  *	* Expected Value
- *	* Timeout in ms
+ *	* Timeout in us
  *
  * @param Pointer to the command structure
  *
@@ -250,13 +249,13 @@ static int XPlmi_MaskPoll64(XPlmi_Cmd * Cmd)
 	u64 Addr = (((u64)Cmd->Payload[0] << 32U) | Cmd->Payload[1U]);
 	u32 Mask = Cmd->Payload[2U];
 	u32 ExpectedValue = Cmd->Payload[3U];
-	u32 TimeOutInMs = Cmd->Payload[4U];
+	u32 TimeOutInUs = Cmd->Payload[4U];
 
 	XPlmi_Printf(DEBUG_DETAILED,
 	    "%s, Addr: 0x%0x%08x,  Mask 0x%0x, ExpVal: 0x%0x, Timeout: %d\n\r",
-	    __func__, (u32)(Addr>>32), (u32)Addr, Mask, ExpectedValue, TimeOutInMs);
+	    __func__, (u32)(Addr>>32), (u32)Addr, Mask, ExpectedValue, TimeOutInUs);
 
-	Status = XPlmi_UtilPoll64(Addr, Mask, ExpectedValue, TimeOutInMs);
+	Status = XPlmi_UtilPoll64(Addr, Mask, ExpectedValue, TimeOutInUs);
 	if (Status != XST_SUCCESS)
 	{
 		Status = XPLMI_ERR_MASKPOLL64;
