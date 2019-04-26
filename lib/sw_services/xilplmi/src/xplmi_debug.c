@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -51,6 +51,7 @@
 #endif
 #include "xil_types.h"
 #include "xstatus.h"
+#include "xplmi_hw.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -92,7 +93,10 @@ int XPlmi_InitUart(void )
 		return XST_FAILURE;
 	}
 
-	Config->InputClockHz = 25*1000*1000; //25MHz, SPP
+	if (XPLMI_PLATFORM == PMC_TAP_VERSION_SPP)
+	{
+		Config->InputClockHz = 25*1000*1000; //25MHz, SPP
+	}
 
 	Status = XUartPsv_CfgInitialize(&UartPsvIns, Config, Config->BaseAddress);
 	if (Status != XST_SUCCESS) {
