@@ -39,42 +39,14 @@ static XStatus LpdPreHouseclean(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	/* TODO: Check vccint_pslp first to make sure power is on */
-
-	/* Remove PS_PL isolation */
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_PL_TEST, FALSE);
-	if (Status != XST_SUCCESS)
+	/* Check vccint_pslp first to make sure power is on */
+	if (XST_SUCCESS != XPmPower_CheckPower(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_LPD_MASK)) {
+		/* TODO: Request PMC to power up VCCINT_LP rail and wait for the acknowledgement.*/
 		goto done;
-
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_PL, FALSE);
-	if (Status != XST_SUCCESS)
-		goto done;
-
-	/* Remove PS_CPM domains isolation */
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_CPM_DFX, FALSE);
-	if (Status != XST_SUCCESS)
-		goto done;
-
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_CPM, FALSE);
-	if (Status != XST_SUCCESS)
-		goto done;
-
-	/* Remove FP-SOC isolation */
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_FPD_SOC, FALSE);
-	if (Status != XST_SUCCESS)
-		goto done;
-
-	/* Remove LP-SoC isolation */
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_SOC, FALSE);
-	if (Status != XST_SUCCESS)
-		goto done;
+	}
 
 	/* Remove PS_PMC domains isolation */
 	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_LPD_DFX, FALSE);
-	if (Status != XST_SUCCESS)
-		goto done;
-
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_LPD, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
@@ -83,7 +55,22 @@ static XStatus LpdPreHouseclean(u32 *Args, u32 NumOfArgs)
 	 */
 	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PS_POR),
 				     PM_RESET_ACTION_RELEASE);
+done:
+	return Status;
+}
 
+static XStatus LpdPreBisrReqs()
+{
+	XStatus Status = XST_SUCCESS;
+
+	/* Remove PMC LPD isolation */
+	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PMC_LPD, FALSE);
+	if (Status != XST_SUCCESS)
+		goto done;
+
+	/* Release reset for PS SRST */
+	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PS_SRST),
+				     PM_RESET_ACTION_RELEASE);
 done:
 	return Status;
 }
@@ -95,6 +82,17 @@ static XStatus LpdPostHouseclean(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
+	/* In case bisr and mbist are skipped */
+	Status = LpdPreBisrReqs();
+	if (Status != XST_SUCCESS)
+		goto done;
+
+	/* Remove LPD SoC isolation */
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_SOC, FALSE);
+	if (Status != XST_SUCCESS)
+		goto done;
+
+done:
 	return Status;
 }
 
@@ -139,6 +137,11 @@ static XStatus LpdScanClear(u32 *Args, u32 NumOfArgs)
 				  PMC_ANALOG_SCAN_CLEAR_PASS_LPD_MASK |
 				  PMC_ANALOG_SCAN_CLEAR_PASS_LPD_RPU_MASK),
 				 XPM_POLL_TIMEOUT);
+	/*
+	 * Pulse PS POR
+	 */
+	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PS_POR),
+				     PM_RESET_ACTION_PULSE);
 done:
 	return Status;
 }
@@ -153,12 +156,18 @@ done:
 static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
+	u32 RegVal;
 
 	(void)Args;
 	(void)NumOfArgs;
 
 	if (PLATFORM_VERSION_SILICON != Platform) {
 		Status = XST_SUCCESS;
+		goto done;
+	}
+	/* Check if Lbist is enabled*/
+	PmIn32(EFUSE_CACHE_MISC_CTRL, RegVal);
+	if ((RegVal & EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK) != EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK) {
 		goto done;
 	}
 
@@ -187,7 +196,11 @@ static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 				 (PMC_ANALOG_LBIST_DONE_LPD_MASK |
 				  PMC_ANALOG_LBIST_DONE_LPD_RPU_MASK),
 				 XPM_POLL_TIMEOUT);
-
+	/*
+	 * Pulse PS POR
+	 */
+	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PS_POR),
+				     PM_RESET_ACTION_PULSE);
 done:
 	return Status;
 }
@@ -206,8 +219,14 @@ static XStatus LpdBisr(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
+	/* Pre bisr requirements */
+	Status = LpdPreBisrReqs();
+	if (Status != XST_SUCCESS)
+		goto done;
+
 	Status = XPmBisr_Repair(LPD_TAG_ID);
 
+done:
 	return Status;
 }
 
@@ -231,6 +250,11 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 	}
 
 	u32 RegValue;
+
+	/* Pre bisr requirements - In case if Bisr is skipped */
+	Status = LpdPreBisrReqs();
+	if (Status != XST_SUCCESS)
+		goto done;
 
 	PmRmw32(PMC_ANALOG_OD_MBIST_RST,
 		(PMC_ANALOG_OD_MBIST_RST_LPD_IOU_MASK |

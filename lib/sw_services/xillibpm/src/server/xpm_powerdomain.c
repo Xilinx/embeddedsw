@@ -390,6 +390,25 @@ done:
 	return Status;
 }
 
+XStatus XPmPower_CheckPower(u32 VoltageRailMask)
+{
+	XStatus Status = XST_SUCCESS;
+	u32 RegVal;
+	XPm_Core *Pmc;
+
+	Pmc = (XPm_Core *)PmDevices[XPM_NODEIDX_DEV_PMC_PROC];
+	if (NULL == Pmc) {
+		goto done;
+	}
+
+	PmIn32(Pmc->RegAddress[0] + PWR_SUPPLY_STATUS_OFFSET, RegVal);
+	if (RegVal & VoltageRailMask != VoltageRailMask) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+done:
+	return Status;
+}
 
 XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				  u32 *Args, u32 NumArgs)
