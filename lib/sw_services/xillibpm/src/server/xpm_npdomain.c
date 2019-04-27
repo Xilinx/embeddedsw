@@ -46,43 +46,43 @@ static XStatus NpdPreHouseclean(u32 *Args, u32 NumOfArgs)
 	/* TODO: Ensure power for NPI is on */
 
 	/* Remove FPD-NoC domain isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_FPD_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_FPD_SOC, FALSE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
 	/* Remove LPD-NoC domain isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_LPD_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_SOC, FALSE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
 	/* PL-NoC domain isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_PL_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PL_SOC, FALSE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
 	/* Remove VCCAUX-NoC domain isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_VCCAUX_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCAUX_SOC, FALSE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
 	/* Remove VCCRAM-NoC domain isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_VCCRAM_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCRAM_SOC, FALSE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
 	/* Remove PMC-NoC domain isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_PMC_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_SOC, FALSE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
 	/* Remove PMC-NoC NPI domain isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_PMC_SOC_NPI);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_SOC_NPI, FALSE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}

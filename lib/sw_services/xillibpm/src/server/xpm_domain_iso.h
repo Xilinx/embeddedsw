@@ -58,8 +58,7 @@ enum XPmDomainIso {
 	XPM_DOMAIN_ISO_MAX
 };
 
-XStatus XPm_DomainIsoEnable(enum XPmDomainIso IsoId);
-XStatus XPm_DomainIsoDisable(enum XPmDomainIso IsoId);
+XStatus XPmDomainIso_Control(enum XPmDomainIso IsoId, u32 Enable);
 
 #ifdef __cplusplus
 }

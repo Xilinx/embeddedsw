@@ -42,39 +42,39 @@ static XStatus LpdPreHouseclean(u32 *Args, u32 NumOfArgs)
 	/* TODO: Check vccint_pslp first to make sure power is on */
 
 	/* Remove PS_PL isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_LPD_PL_TEST);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_PL_TEST, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_LPD_PL);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_PL, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Remove PS_CPM domains isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_LPD_CPM_DFX);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_CPM_DFX, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_LPD_CPM);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_CPM, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Remove FP-SOC isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_FPD_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_FPD_SOC, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Remove LP-SoC isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_LPD_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_SOC, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Remove PS_PMC domains isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_PMC_LPD_DFX);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_LPD_DFX, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_PMC_LPD);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_LPD, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 

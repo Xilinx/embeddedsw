@@ -122,46 +122,46 @@ static XStatus ResetPulsePsOnly(XPm_ResetNode *Rst)
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 
 	/* Block LPD-PL interfaces */
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_LPD_PL);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_PL, TRUE);
 	if (Status != XST_SUCCESS) {
 		goto done;
 	}
 
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_LPD_PL_TEST);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_PL_TEST, TRUE);
 	if (Status != XST_SUCCESS) {
 		goto done;
 	}
 
 	/* Block LPD-NoC interfaces */
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_LPD_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_SOC, TRUE);
 	if (Status != XST_SUCCESS) {
 		goto done;
 	}
 
 	/* Block LPD-PMC interfaces */
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_PMC_LPD);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_LPD, TRUE);
 	if (Status != XST_SUCCESS) {
 		goto done;
 	}
 
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_PMC_LPD_DFX);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_LPD_DFX, TRUE);
 	if (Status != XST_SUCCESS) {
 		goto done;
 	}
 
 	/* Block FPD-PL interfaces */
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_FPD_PL);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_FPD_PL, TRUE);
 	if (Status != XST_SUCCESS) {
 		goto done;
 	}
 
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_FPD_PL_TEST);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_FPD_PL_TEST, TRUE);
 	if (Status != XST_SUCCESS) {
 		goto done;
 	}
 
 	/* Block FPD-NoC interfaces */
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_FPD_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_FPD_SOC, TRUE);
 	if (Status != XST_SUCCESS) {
 		goto done;
 	}

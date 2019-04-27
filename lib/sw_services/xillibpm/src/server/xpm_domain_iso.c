@@ -53,7 +53,7 @@ u32 XPmDomainIso_MaskList[XPM_DOMAIN_ISO_MAX] = {
 	[XPM_DOMAIN_ISO_VCCAUX_VCCRAM] = PMC_GLOBAL_DOMAIN_ISO_CNTRL_VCCAUX_VCCRAM_MASK,
 };
 
-XStatus XPm_DomainIsoEnable(enum XPmDomainIso IsoId)
+XStatus XPmDomainIso_Control(enum XPmDomainIso IsoId, u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Core *Pmc;
@@ -66,31 +66,16 @@ XStatus XPm_DomainIsoEnable(enum XPmDomainIso IsoId)
 		goto done;
 	}
 
-	XPm_RMW32((Pmc->RegAddress[0] + DOMAIN_ISO_CTRL_OFFSET),
-		  XPmDomainIso_MaskList[IsoId], XPmDomainIso_MaskList[IsoId]);
-	Status = XST_SUCCESS;
-
-done:
-	return Status;
-}
-
-XStatus XPm_DomainIsoDisable(enum XPmDomainIso IsoId)
-{
-	XStatus Status = XST_FAILURE;
-	XPm_Core *Pmc;
-
-	if (IsoId >= XPM_DOMAIN_ISO_MAX)
-		goto done;
-
-	Pmc = (XPm_Core *)PmDevices[XPM_NODEIDX_DEV_PMC_PROC];
-	if (NULL == Pmc) {
-		goto done;
-	}
-
-	XPm_RMW32((Pmc->RegAddress[0] + DOMAIN_ISO_CTRL_OFFSET),
+	if(Enable)
+		XPm_RMW32((Pmc->RegAddress[0] + DOMAIN_ISO_CTRL_OFFSET),
+			XPmDomainIso_MaskList[IsoId], XPmDomainIso_MaskList[IsoId]);
+	else {
+		/* Check power status before removing isolation */
+		XPm_RMW32((Pmc->RegAddress[0] + DOMAIN_ISO_CTRL_OFFSET),
 		  XPmDomainIso_MaskList[IsoId], 0);
-	Status = XST_SUCCESS;
+	}
 
+	Status = XST_SUCCESS;
 done:
 	return Status;
 }
