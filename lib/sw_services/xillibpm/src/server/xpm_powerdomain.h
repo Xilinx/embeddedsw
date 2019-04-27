@@ -30,6 +30,9 @@
 #define XPM_POWERDOMAIN_H_
 
 #include "xpm_power.h"
+#include "xpm_reset.h"
+#include "xpm_domain_iso.h"
+#include "xpm_regs.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -66,13 +69,15 @@ XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 			    struct XPm_PowerDomainOps *Ops);
 XStatus XPm_PowerUpLPD(XPm_Node *Node);
 XStatus XPm_PowerDwnLPD();
-XStatus XPm_PowerUpPLD();
+XStatus XPm_PowerUpFPD(XPm_Node *Node);
+XStatus XPm_PowerDwnFPD(XPm_Node *Node);
+XStatus XPm_PowerUpPLD(XPm_Node *Node);
 XStatus XPm_PowerDwnPLD();
-XStatus XPm_PowerUpME();
+XStatus XPm_PowerUpME(XPm_Node *Node);
 XStatus XPm_PowerDwnME();
-XStatus XPm_PowerUpCPM();
+XStatus XPm_PowerUpCPM(XPm_Node *Node);
 XStatus XPm_PowerDwnCPM();
-XStatus XPm_PowerUpNoC();
+XStatus XPm_PowerUpNoC(XPm_Node *Node);
 XStatus XPm_PowerDwnNoC();
 XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				  u32 *Args, u32 NumArgs);
