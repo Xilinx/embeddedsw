@@ -367,6 +367,12 @@ static XStatus AieBisr(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
+	/* Remove PMC-NoC domain isolation */
+	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PMC_SOC, FALSE);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
 	Status = XPmBisr_Repair(MEA_TAG_ID);
 	if (XST_SUCCESS != Status) {
                 goto done;
