@@ -62,7 +62,27 @@ static XStatus PldPostHouseclean(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
+	if (XST_SUCCESS == XPmPower_CheckPower(	PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK |
+						PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK)) {
+		/* Remove vccaux-vccram domain isolation */
+		Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCAUX_VCCRAM, FALSE);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	if (XST_SUCCESS == XPmPower_CheckPower(	PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK |
+						PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_SOC_MASK)) {
+		/* Remove vccaux-vccram domain isolation */
+		Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCRAM_SOC, FALSE);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
 	XCfupmc_GlblSeqInit(&CfupmcIns);
+
+done:
 	return Status;
 }
 
@@ -247,6 +267,16 @@ static XStatus CpmHouseClean()
 {
 	XStatus Status = XST_SUCCESS;
 
+	/* Remove isolation to allow scan_clear on CPM */
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_CPM_DFX, FALSE);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Remove POR for CPM */
+	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_CPM_POR),
+				     PM_RESET_ACTION_RELEASE);
+
 	/* Unlock PCSR */
 	PmOut32(CPM_PCSR_LOCK, PCSR_UNLOCK_VAL);
 
@@ -261,6 +291,17 @@ static XStatus CpmHouseClean()
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
+
+	/* Pulse CPM POR */
+	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_CPM_POR),
+				     PM_RESET_ACTION_PULSE);
+
+	/* Remove LPD_CPM isolation to run BISR and MBIST on CPM */
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_CPM, FALSE);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
 
 //#ifndef PLPD_HOUSECLEAN_BYPASS
 	if(!PlpdHouseCleanBypass) {
@@ -303,87 +344,30 @@ static XStatus PldPreHouseclean(u32 *Args, u32 NumOfArgs)
 	/* Reset Bypass flag */
 	PlpdHouseCleanBypass = 0;
 
-	/* TODO: Proceed only if vccint, vccaux, vccint_ram is 1 */
-
-	/*TODO: Check NoC power state before disabling Isolation */
+	/* Proceed only if vccint, vccaux, vccint_ram is 1 */
+	if (XST_SUCCESS != XPmPower_CheckPower(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_PL_MASK |
+						PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK |
+						PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK)) {
+		/* TODO: Request PMC to power up all required rails and wait for the acknowledgement.*/
+		goto done;
+	}
 
 	/* Enable Vgg Clamp in VGG Ctrl Register */
         PmRmw32(PMC_ANALOG_VGG_CTRL,
                        PMC_ANALOG_VGG_CTRL_EN_VGG_CLAMP_MASK,
                        PMC_ANALOG_VGG_CTRL_EN_VGG_CLAMP_MASK);
 
-        /* Check for PL PowerUp */
-        Status = XPm_PollForMask(PMC_GLOBAL_PL_STATUS,
-                     PMC_GLOBAL_PL_STATUS_POR_PL_B_MASK, 0x1U);
-        if(XST_SUCCESS != Status)
-        {
-		goto done;
-        }
-
-	/* Remove PL-NoC isolation */
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PL_SOC, FALSE);
-	if (XST_SUCCESS != Status)
-		goto done;
-
-	/*TODO: Check FPD and LPD  power state before disabling Isolation */
-
-	/* Remove FPD-PL isolation */
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_FPD_PL, FALSE);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_FPD_PL_TEST, FALSE);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Remove LPD-PL isolation */
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_PL, FALSE);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_PL_TEST, FALSE);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Remove PL-PMC isolation */
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_PL, FALSE);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_PL_TEST, FALSE);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_PL_CFRAME, FALSE);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Remove isolation from VCCINT to VCCINT_RAM*/
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCRAM_SOC, FALSE);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCAUX_SOC, FALSE);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCAUX_VCCRAM, FALSE);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
 	/* Remove POR for PL */
 	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PL_POR),
 				     PM_RESET_ACTION_RELEASE);
+
+        /* Check for PL PowerUp */
+        Status = XPm_PollForMask(PMC_GLOBAL_PL_STATUS,
+                     PMC_GLOBAL_PL_STATUS_POR_PL_B_MASK, 0x1U);
+        if(XST_SUCCESS != Status) {
+		goto done;
+        }
+
 	/* Remove SRST for PL */
 	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PL_SRST),
 				     PM_RESET_ACTION_RELEASE);
@@ -413,6 +397,24 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 	/* If Arg0 is set, bypass houseclean */
 	if(NumOfArgs && Args[0] == 1)
 		PlpdHouseCleanBypass = 1;
+
+	if (PLATFORM_VERSION_SILICON == Platform) {
+		/*House clean GTY*/
+		Status = GtyHouseClean();
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		/*House clean CPM*/
+		Status = CpmHouseClean();
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_PL_CFRAME, FALSE);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 //#ifndef PLPD_HOUSECLEAN_BYPASS
 	if(!PlpdHouseCleanBypass)
@@ -516,11 +518,6 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 	}
 //#endif /* PLPD_HOUSECLEAN_BYPASS */
 
-	if (PLATFORM_VERSION_SILICON != Platform) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
-
 	/* Unlock CFU writes */
 	PmOut32(CFU_APB_CFU_PROTECT, 0);
 
@@ -530,18 +527,6 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 
 	/* Lock CFU writes */
 	PmOut32(CFU_APB_CFU_PROTECT, 1);
-
-	/*House clean GTY*/
-	Status = GtyHouseClean();
-	if (XST_SUCCESS != Status) {
-                goto done;
-        }
-
-	/*House clean CPM*/
-	Status = CpmHouseClean();
-	if (XST_SUCCESS != Status) {
-                goto done;
-        }
 
 	/* Compilation warning fix */
 	(void)Value;
