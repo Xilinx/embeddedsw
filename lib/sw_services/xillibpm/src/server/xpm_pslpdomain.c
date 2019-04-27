@@ -46,7 +46,7 @@ static XStatus LpdPreHouseclean(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Remove PS_PMC domains isolation */
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_LPD_DFX, FALSE);
+	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PMC_LPD_DFX, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
@@ -88,7 +88,7 @@ static XStatus LpdPostHouseclean(u32 *Args, u32 NumOfArgs)
 		goto done;
 
 	/* Remove LPD SoC isolation */
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_SOC, FALSE);
+	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_LPD_SOC, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
