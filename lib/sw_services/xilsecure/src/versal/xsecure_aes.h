@@ -8,7 +8,7 @@
 /**
 *
 * @file xsecure_aes.h
-* @addtogroup xsecure_aes_versal_apis XilSecure AES VERSAL APIs
+* @addtogroup xsecure_aes_versal_apis XilSecure AES Versal APIs
 * @{
 * @cond xsecure_internal
 *
@@ -24,6 +24,16 @@
 * 4.2   kpt  01/07/2020 Removed Macro XSECURE_WORD_SIZE
 *                       and added in xsecure_utils.h
 *       vns  02/10/2020 Added DPA CM enable/disable function
+*       rpo  04/02/2020 Added Crypto KAT APIs
+*                       Moved AES error codes to xsecure_error.h
+*       bvi  04/07/2020 Renamed csudma as pmcdma
+* 4.3   ana  06/04/2020 Added NextBlkLen in Xsecure_Aes structure
+*       td   08/19/2020 Fixed MISRA C violations Rule 10.3
+*       am   09/24/2020 Resolved MISRA C violations
+*       har  09/30/2020 Deprecated Family Key support
+*       har  10/12/2020 Addressed security review comments
+*       ana  10/15/2020 Updated doxygen tags
+*
 * </pre>
 *
 * @note
@@ -43,10 +53,10 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /** @cond xsecure_internal
-@{
-*/
+ * @{
+ */
 
-#define XSECURE_AES_BUFFER_SIZE					(4U)
+#define XSECURE_AES_BUFFER_SIZE				(4U)
 #define XSECURE_AES_KEY_DEC_SEL_BBRAM_RED		(0x0U)
 #define XSECURE_AES_KEY_DEC_SEL_BH_RED			(0x1U)
 #define XSECURE_AES_KEY_DEC_SEL_EFUSE_RED		(0x2U)
@@ -54,7 +64,6 @@ extern "C" {
 #define XSECURE_AES_KEY_DEC_SEL_EFUSE_USR1_RED		(0x4U)
 
 #define XSECURE_SECURE_GCM_TAG_SIZE			(16U)
-						/**< GCM Tag Size in Bytes */
 #define XSECURE_AES_KEY_SIZE_128BIT_WORDS		(4U)
 #define XSECURE_AES_KEY_SIZE_256BIT_WORDS		(8U)
 #define XSECURE_AES_TIMEOUT_MAX				(0x1FFFFU)
@@ -68,38 +77,32 @@ extern "C" {
 #define XSECURE_AES_DMA_LAST_WORD_ENABLE		(0x1U)
 #define XSECURE_AES_DMA_LAST_WORD_DISABLE		(0x0U)
 /* Key select values */
-#define XSECURE_AES_KEY_SEL_BBRAM_KEY			(0xBBDE6600)
-#define XSECURE_AES_KEY_SEL_BBRAM_RD_KEY		(0xBBDE8200)
-#define XSECURE_AES_KEY_SEL_BH_KEY			(0xBDB06600)
-#define XSECURE_AES_KEY_SEL_BH_RD_KEY			(0xBDB08200)
-#define XSECURE_AES_KEY_SEL_EFUSE_KEY			(0xEFDE6600)
-#define XSECURE_AES_KEY_SEL_EFUSE_RED_KEY		(0xEFDE8200)
-#define XSECURE_AES_KEY_SEL_EFUSE_USR_KEY0		(0xEF856601)
-#define XSECURE_AES_KEY_SEL_EFUSE_USR_KEY1		(0xEF856602)
-#define XSECURE_AES_KEY_SEL_EFUSE_USR_RD_KEY0		(0xEF858201)
-#define XSECURE_AES_KEY_SEL_EFUSE_USR_RD_KEY1		(0xEF858202)
-#define XSECURE_AES_KEY_SEL_KUP_KEY			(0xBDC98200)
-#define XSECURE_AES_KEY_SEL_FAMILY_KEY			(0xFEDE8200)
-#define XSECURE_AES_KEY_SEL_PUF_KEY			(0xDBDE8200)
-#define XSECURE_AES_KEY_SEL_USR_KEY_0			(0xBD858201)
-#define XSECURE_AES_KEY_SEL_USR_KEY_1			(0xBD858202)
-#define XSECURE_AES_KEY_SEL_USR_KEY_2			(0xBD858204)
-#define XSECURE_AES_KEY_SEL_USR_KEY_3			(0xBD858208)
-#define XSECURE_AES_KEY_SEL_USR_KEY_4			(0xBD858210)
-#define XSECURE_AES_KEY_SEL_USR_KEY_5			(0xBD858220)
-#define XSECURE_AES_KEY_SEL_USR_KEY_6			(0xBD858240)
-#define XSECURE_AES_KEY_SEL_USR_KEY_7			(0xBD858280)
+#define XSECURE_AES_KEY_SEL_BBRAM_KEY			(0xBBDE6600U)
+#define XSECURE_AES_KEY_SEL_BBRAM_RD_KEY		(0xBBDE8200U)
+#define XSECURE_AES_KEY_SEL_BH_KEY			(0xBDB06600U)
+#define XSECURE_AES_KEY_SEL_BH_RD_KEY			(0xBDB08200U)
+#define XSECURE_AES_KEY_SEL_EFUSE_KEY			(0xEFDE6600U)
+#define XSECURE_AES_KEY_SEL_EFUSE_RED_KEY		(0xEFDE8200U)
+#define XSECURE_AES_KEY_SEL_EFUSE_USR_KEY0		(0xEF856601U)
+#define XSECURE_AES_KEY_SEL_EFUSE_USR_KEY1		(0xEF856602U)
+#define XSECURE_AES_KEY_SEL_EFUSE_USR_RD_KEY0		(0xEF858201U)
+#define XSECURE_AES_KEY_SEL_EFUSE_USR_RD_KEY1		(0xEF858202U)
+#define XSECURE_AES_KEY_SEL_KUP_KEY			(0xBDC98200U)
+#define XSECURE_AES_KEY_SEL_PUF_KEY			(0xDBDE8200U)
+#define XSECURE_AES_KEY_SEL_USR_KEY_0			(0xBD858201U)
+#define XSECURE_AES_KEY_SEL_USR_KEY_1			(0xBD858202U)
+#define XSECURE_AES_KEY_SEL_USR_KEY_2			(0xBD858204U)
+#define XSECURE_AES_KEY_SEL_USR_KEY_3			(0xBD858208U)
+#define XSECURE_AES_KEY_SEL_USR_KEY_4			(0xBD858210U)
+#define XSECURE_AES_KEY_SEL_USR_KEY_5			(0xBD858220U)
+#define XSECURE_AES_KEY_SEL_USR_KEY_6			(0xBD858240U)
+#define XSECURE_AES_KEY_SEL_USR_KEY_7			(0xBD858280U)
 
 /** @}
-@endcond */
+ * @endcond
+ */
 
 /**************************** Type Definitions *******************************/
-typedef enum {
-	XSECURE_BLACK_KEY,
-	XSECURE_OBFUSCATED_KEY
-}XSecure_AesKekType;
-
-
 typedef enum {
 	XSECURE_AES_BBRAM_KEY = 0,
 	XSECURE_AES_BBRAM_RED_KEY,
@@ -112,7 +115,6 @@ typedef enum {
 	XSECURE_AES_EFUSE_USER_RED_KEY_0,
 	XSECURE_AES_EFUSE_USER_RED_KEY_1,
 	XSECURE_AES_KUP_KEY,
-	XSECURE_AES_FAMILY_KEY,
 	XSECURE_AES_PUF_KEY,
 	XSECURE_AES_USER_KEY_0,
 	XSECURE_AES_USER_KEY_1,
@@ -122,7 +124,8 @@ typedef enum {
 	XSECURE_AES_USER_KEY_5,
 	XSECURE_AES_USER_KEY_6,
 	XSECURE_AES_USER_KEY_7,
-	XSECURE_AES_EXPANDED_KEYS
+	XSECURE_AES_EXPANDED_KEYS,
+	XSECURE_AES_ALL_KEYS,
 } XSecure_AesKeySrc;
 
 
@@ -132,8 +135,8 @@ typedef enum {
 }XSecure_AesKeySize;
 
 /** @cond xsecure_internal
-@{
-*/
+ * @{
+ */
 typedef enum {
 	XSECURE_AES_UNINITIALIZED,
 	XSECURE_AES_INITIALIZED,
@@ -142,58 +145,62 @@ typedef enum {
 } XSecure_AesState;
 
 typedef struct {
-	u32 BaseAddress;
-	XPmcDma *PmcDmaPtr; /**< PMCDMA Instance Pointer */
-	XSecure_Sss SssInstance;
+	u32 BaseAddress;	   /**< AES Base address */
+	XPmcDma *PmcDmaPtr;	   /**< PMCDMA Instance Pointer */
+	XSecure_Sss SssInstance;   /**< Secure stream switch instance */
 	XSecure_AesState AesState; /**< Current Aes State  */
-	XSecure_AesKeySrc KeySrc;
+	XSecure_AesKeySrc KeySrc;  /**< Key Source */
+	u32 NextBlkLen;		   /**< Next Block Length */
 } XSecure_Aes;
 /** @}
-@endcond */
+ * @endcond
+ */
 /************************** Function Prototypes ******************************/
-u32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr);
+int XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr);
 
-u32 XSecure_AesSetDpaCm(XSecure_Aes *InstancePtr, u32 Configuration);
+int XSecure_AesSetDpaCm(const XSecure_Aes *InstancePtr, u32 DpaCmCfg);
 
-u32 XSecure_AesKeyZero(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc);
+int XSecure_AesKeyZero(const XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc);
 
-u32 XSecure_AesWriteKey(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
-			XSecure_AesKeySize KeySize, u64 KeyAddr);
+int XSecure_AesWriteKey(const XSecure_Aes *InstancePtr,
+	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize, u64 KeyAddr);
 
-u32 XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
-			XSecure_AesKeySrc DecKeySrc, XSecure_AesKeySrc DstKeySrc,
-			u64 IvAddr, u32 KeySize);
+int XSecure_AesKekDecrypt(const XSecure_Aes *InstancePtr,
+	XSecure_AesKeySrc DecKeySrc,XSecure_AesKeySrc DstKeySrc, u64 IvAddr,
+	XSecure_AesKeySize KeySize);
 
-u32 XSecure_AesCfgKupIv(XSecure_Aes *InstancePtr, u32 Config);
+int XSecure_AesCfgKupKeyNIv(const XSecure_Aes *InstancePtr, u8 Config);
 
-u32 XSecure_AesGetNxtBlkLen(XSecure_Aes *InstancePtr, u32 *Size);
+int XSecure_AesGetNxtBlkLen(const XSecure_Aes *InstancePtr, u32 *Size);
 
-u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
-			XSecure_AesKeySize KeySize, u64 IvAddr);
+int XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
+	XSecure_AesKeySize KeySize, u64 IvAddr);
 
-u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
-			u64 OutDataAddr, u32 Size, u8 IsLastChunk);
-u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr);
+int XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
+	u64 OutDataAddr, u32 Size, u8 IsLastChunk);
+int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr);
 
-u32 XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
-			u64 OutDataAddr, u32 Size, u64 GcmTagAddr);
+int XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
+	u64 OutDataAddr, u32 Size, u64 GcmTagAddr);
 
-u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
-			XSecure_AesKeySize KeySize, u64 IvAddr);
+int XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
+	XSecure_AesKeySize KeySize, u64 IvAddr);
 
-u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
-			u64 OutDataAddr, u32 Size, u8 IsLastChunk);
-u32 XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr);
+int XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
+	u64 OutDataAddr, u32 Size, u8 IsLastChunk);
+int XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr);
 
-u32 XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
-			u64 OutDataAddr, u32 Size, u64 GcmTagAddr);
+int XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
+	u64 OutDataAddr, u32 Size, u64 GcmTagAddr);
 
-u32 XSecure_AesDecryptKat(XSecure_Aes *InstancePtr);
+int XSecure_AesDecryptKat(XSecure_Aes *AesInstance);
 
-u32 XSecure_AesDecryptCmKat(XSecure_Aes *InstancePtr);
+int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance);
 
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_AES_H_ */
+
+/* @} */
