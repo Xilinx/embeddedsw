@@ -26,11 +26,13 @@
 *
 ******************************************************************************/
 #include "xillibpm_defs.h"
-#include "xpm_domain_iso.h"
 #include "xpm_common.h"
 #include "xpm_node.h"
+#include "xpm_core.h"
+#include "xpm_psm.h"
 #include "xpm_powerdomain.h"
-#include "xpm_reset.h"
+
+extern int XLoader_ReloadImage(u32 ImageId);
 
 XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 			    u32 BaseAddress, XPm_Power *Parent,
@@ -51,12 +53,35 @@ XStatus XPm_PowerUpLPD(XPm_Node *Node)
 	if (XPM_POWER_STATE_ON == Node->State) {
 		goto done;
 	} else {
-		/* TODO: Right now it is expected that CDO will trigger init node
-		 * commands to power up LPD so here LPD status shoul always be ON.
-		 * Later support can be added to power up and house clean LPD
-		 * here to make it optional for CDO
+		/* TODO: LPD CDO should be rexecuted. Right now we dont have separate LPD
+		 * CDO so calling house cleaning commands here
 		 */
-		Status = XST_FAILURE;
+		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, FUNC_INIT_START, NULL, 0);
+		if (Status != XST_SUCCESS)
+			goto done;
+		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, FUNC_SCAN_CLEAR, NULL, 0);
+		if (Status != XST_SUCCESS)
+			goto done;
+		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, FUNC_LBIST, NULL, 0);
+		if (Status != XST_SUCCESS)
+			goto done;
+
+		/*
+		 * Release SRST for PS-LPD
+		 */
+		Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PS_SRST),
+				     PM_RESET_ACTION_RELEASE);
+
+		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, FUNC_BISR, NULL, 0);
+		if (Status != XST_SUCCESS)
+			goto done;
+		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, FUNC_MBIST_CLEAR, NULL, 0);
+		if (Status != XST_SUCCESS)
+			goto done;
+
+		if (Status != XST_SUCCESS)
+			goto done;
+		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, FUNC_INIT_FINISH, NULL, 0);
 	}
 
 done:
@@ -85,11 +110,6 @@ XStatus XPm_PowerDwnLPD()
 	if (Status != XST_SUCCESS)
 		goto done;
 
-	/* Isolate FP-SOC */
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_FPD_SOC, TRUE);
-	if (Status != XST_SUCCESS)
-		goto done;
-
 	/* Isolate LP-SoC */
 	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_SOC, TRUE);
 	if (Status != XST_SUCCESS)
@@ -104,9 +124,11 @@ XStatus XPm_PowerDwnLPD()
 	if (Status != XST_SUCCESS)
 		goto done;
 
-	/*
-	 * Assert POR for PS-LPD
-	 */
+	/* Assert reset for PS SRST */
+	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PS_SRST),
+				     PM_RESET_ACTION_ASSERT);
+
+	/* Assert POR for PS-LPD */
 	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PS_POR),
 				     PM_RESET_ACTION_ASSERT);
 
@@ -116,68 +138,74 @@ done:
 	return Status;
 }
 
-XStatus XPm_PowerUpPLD()
+XStatus XPm_PowerUpFPD(XPm_Node *Node)
 {
 	XStatus Status = XST_SUCCESS;
 
-	/* TODO: Proceed only if vccint, vccaux, vccint_ram is 1 */
+	if ((XPM_POWER_STATE_PWR_UP_SELF == Node->State) ||
+	    (XPM_POWER_STATE_OFF == Node->State)) {
+		PmInfo("Reloading FPD CDO\r\n");
+		Status = XLoader_ReloadImage(Node->Id);
+		if (XST_SUCCESS != Status) {
+			PmErr("Error while reloading FPD CDO\r\n");
+		}
+	}
 
-	/*TODO: Check NoC power state before disabling Isolation */
+	return Status;
+}
 
-	/* Remove PL-NoC isolation */
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PL_SOC, FALSE);
+XStatus XPm_PowerDwnFPD(XPm_Node *Node)
+{
+	XStatus Status = XST_SUCCESS;
+
+	/* Isolate FPD-NoC */
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_FPD_SOC, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
-	/*TODO: Check FPD and LPD  power state before disabling Isolation */
-
-	/* Remove FPD-PL isolation */
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_FPD_PL, FALSE);
+	/* Isolate FPD-PL */
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_FPD_PL, TRUE);
+	if (Status != XST_SUCCESS)
+		goto done;
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_FPD_PL_TEST, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_FPD_PL_TEST, FALSE);
-	if (Status != XST_SUCCESS)
-		goto done;
+	Status = XPmPsm_SendPowerDownReq(Node->BaseAddress);
 
-	/* Remove LPD-PL isolation */
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_PL, FALSE);
-	if (Status != XST_SUCCESS)
-		goto done;
+	/* Assert SRST for FPD */
+	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_FPD),
+				     PM_RESET_ACTION_ASSERT);
 
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_PL_TEST, FALSE);
-	if (Status != XST_SUCCESS)
-		goto done;
+	/* Assert POR for FPD */
+	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_FPD_POR),
+				     PM_RESET_ACTION_ASSERT);
 
-	/* Remove PL-PMC isolation */
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_PL, FALSE);
-	if (Status != XST_SUCCESS)
-		goto done;
+	/* TODO: Send PMC_I2C command to turn of FPD power rail */
+done:
+	return Status;
+}
 
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_PL_TEST, FALSE);
-	if (Status != XST_SUCCESS)
-		goto done;
+XStatus XPm_PowerUpPLD(XPm_Node *Node)
+{
+	XStatus Status = XST_SUCCESS;
 
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_PL_CFRAME, FALSE);
-	if (Status != XST_SUCCESS)
+	if (XPM_POWER_STATE_ON == Node->State) {
 		goto done;
+	} else {
+		/* TODO: PLD CDO should be rexecuted. Right now we dont have separate PLD
+		 * CDO so calling house cleaning commands here
+		 */
+		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, FUNC_INIT_START, NULL, 0);
+		if (Status != XST_SUCCESS)
+			goto done;
 
-	/* Remove isolation from VCCINT to VCCINT_RAM*/
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCRAM_SOC, FALSE);
-	if (Status != XST_SUCCESS)
-		goto done;
+		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, FUNC_HOUSECLEAN_PL, NULL, 0);
+		if (Status != XST_SUCCESS)
+			goto done;
 
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCAUX_SOC, FALSE);
-	if (Status != XST_SUCCESS)
-		goto done;
-
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCAUX_VCCRAM, FALSE);
-	if (Status != XST_SUCCESS)
-		goto done;
-
-	/* Remove POR for PL */
-	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PL_POR),
-				     PM_RESET_ACTION_RELEASE);
+		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, FUNC_INIT_FINISH, NULL, 0);
+	}
 done:
 	return Status;
 }
@@ -244,11 +272,13 @@ done:
 	return Status;
 }
 
-XStatus XPm_PowerUpME()
+XStatus XPm_PowerUpME(XPm_Node *Node)
 {
 	XStatus Status = XST_SUCCESS;
 
-	/* TODO: Remove ME POR */
+	(void)Node;
+
+	/* TODO: Reload ME CDO */
 
 	return Status;
 }
@@ -266,26 +296,14 @@ XStatus XPm_PowerDwnME()
 	return Status;
 }
 
-XStatus XPm_PowerUpCPM()
+XStatus XPm_PowerUpCPM(XPm_Node *Node)
 {
 	XStatus Status = XST_SUCCESS;
 
-	/* TODO: Wait till PL and LPD on */
+	(void)Node;
 
-	/* Remove LPD-CPM isolation */
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_CPM, FALSE);
-	if (Status != XST_SUCCESS)
-		goto done;
+	/* TODO: Reload CPM CDO */
 
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_CPM_DFX, FALSE);
-	if (Status != XST_SUCCESS)
-		goto done;
-
-	/* Remove POR for CPM */
-	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_CPM_POR),
-				     PM_RESET_ACTION_RELEASE);
-
-done:
 	return Status;
 }
 
@@ -312,80 +330,14 @@ done:
 	return Status;
 }
 
-XStatus XPm_PowerUpDDR()
+XStatus XPm_PowerUpNoC(XPm_Node *Node)
 {
 	XStatus Status = XST_SUCCESS;
 
-	/* TODO: Implement sequence for DDR power on */
+	(void)Node;
 
-	return Status;
-}
+	/* TODO: Reexecure NPD CDO, no NPI programmin needed */
 
-XStatus XPm_PowerDwnDDR()
-{
-	XStatus Status = XST_SUCCESS;
-
-	/* TODO: Implement DDR-SR function */
-
-	/* TODO: Isolate DDR, NoC in order */
-
-	/* TODO: Assert POR for DDR, NoC */
-
-	/* TODO: Send PMC_I2C command to turn off DDR/NPI/NOC power rail */
-
-	return Status;
-}
-
-XStatus XPm_PowerUpNoC()
-{
-	XStatus Status = XST_SUCCESS;
-
-	/*TODO: wait till vccint_soc is 1 */
-
-	/* Isolate FPD-NoC domain */
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_FPD_SOC, FALSE);
-	if (Status != XST_SUCCESS)
-		goto done;
-
-	/* Isolate LPD-NoC domain */
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_SOC, FALSE);
-	if (Status != XST_SUCCESS)
-		goto done;
-
-	/* Isolate PL-NoC domain */
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PL_SOC, FALSE);
-	if (Status != XST_SUCCESS)
-		goto done;
-
-	/* Isolate VCCAUX-NoC domain */
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCAUX_SOC, FALSE);
-	if (Status != XST_SUCCESS)
-		goto done;
-
-	/* Isolate VCCRAM-NoC domain */
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCRAM_SOC, FALSE);
-	if (Status != XST_SUCCESS)
-		goto done;
-
-	/* Isolate PMC-NoC domain */
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_SOC, FALSE);
-	if (Status != XST_SUCCESS)
-		goto done;
-
-	/* Isolate PMC-NoC NPI domain */
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_SOC_NPI, FALSE);
-	if (Status != XST_SUCCESS)
-		goto done;
-
-	/* Remove POR for NoC */
-	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_NOC_POR),
-				     PM_RESET_ACTION_RELEASE);
-	if (Status != XST_SUCCESS)
-		goto done;
-
-	/* TODO: Initiate scan clear/MBIST/BISR for NoC as applicable */
-
-done:
 	return Status;
 }
 
