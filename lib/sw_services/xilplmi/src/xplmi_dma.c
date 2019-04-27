@@ -131,6 +131,37 @@ END:
 
 /*****************************************************************************/
 /**
+ * This function returns DMA instance.
+ *
+ * @param	DeviceId	PMC DMA's device ID
+ *
+ * @return	PMC DMA instance pointer.
+ *****************************************************************************/
+XCsuDma *XPlmi_GetDmaInstance(u32 DeviceId)
+{
+	XCsuDma *CsuDmaPtr;
+
+	if (DeviceId == CSUDMA_0_DEVICE_ID) {
+		if (CsuDma0.IsReady == 0x00) {
+			CsuDmaPtr = NULL;
+		}
+		CsuDmaPtr = &CsuDma0;
+	}
+	else if (DeviceId == CSUDMA_1_DEVICE_ID) {
+		if (CsuDma0.IsReady == 0x00) {
+			CsuDmaPtr = NULL;
+		}
+		CsuDmaPtr = &CsuDma1;
+	}
+	else {
+		CsuDmaPtr = NULL;
+	}
+
+	return CsuDmaPtr;
+}
+
+/*****************************************************************************/
+/**
  * This function is used set SSS configuration for DMA to DMA
  *
  * @param Flags Flags to select PMC DMA
