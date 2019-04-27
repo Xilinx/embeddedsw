@@ -341,31 +341,18 @@ int XPsmFw_FpdMbisr()
 {
 	int Status = XST_SUCCESS;
 
-	if (PLATFORM_VERSION_SILICON != Platform) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
+	/* Release FPD reset */
+	XPsmFw_RMW32(CRL_RST_FPD, CRL_RST_FPD_SRST_MASK,
+			     ~CRL_RST_FPD_SRST_MASK);
 
-	XPsmFw_UtilRMW(PSM_LOCAL_MBISR_CNTRL, PSM_LOCAL_MBISR_ENABLE_FPD,
-		       (~PSM_LOCAL_MBISR_ENABLE_FPD));
-	XPsmFw_UtilRMW(PSM_LOCAL_MBISR_CNTRL, PSM_LOCAL_MBISR_TRG_FPD,
-		       PSM_LOCAL_MBISR_TRG_FPD);
-	XPsmFw_UtilRMW(PSM_LOCAL_MBISR_CNTRL, PSM_LOCAL_MBISR_ENABLE_FPD,
-		       PSM_LOCAL_MBISR_ENABLE_FPD);
+	/* Disable Remaining LP-FP isolation */
+	XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
+			PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK,
+			~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK);
 
-	Status = XPsmFw_UtilPollForMask(PSM_LOCAL_MBISR_STATUS,
-					PSM_LOCAL_MBISR_DONE_STATUS, 0x10000U);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
+	/* Bisr will now be triggered by libpm when this call
+		returns*/
 
-	Status = XPsmFw_UtilPollForMask(PSM_LOCAL_MBISR_STATUS,
-					PSM_LOCAL_MBISR_PASS_STATUS, 0x10000U);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-done:
 	return Status;
 }
 
@@ -404,6 +391,15 @@ int XPsmFw_FpdMbistClear()
 {
 	int Status = XST_SUCCESS;
 
+	/* Release FPD reset */
+	XPsmFw_RMW32(CRL_RST_FPD, CRL_RST_FPD_SRST_MASK,
+			     ~CRL_RST_FPD_SRST_MASK);
+
+	/* Disable Remaining LP-FP isolation */
+	XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
+			PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK,
+			~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK);
+
 	if (PLATFORM_VERSION_SILICON != Platform) {
 		Status = XST_SUCCESS;
 		goto done;
@@ -440,61 +436,64 @@ int XPsmFw_FpdPreHouseClean()
 	int Status = XST_SUCCESS;
 	u32 RegVal, PwrState;
 
-	/* NOTE: As per sequence specs, global power state need to be checked.
-	 * But FPD bit in global register shows its isolation status instead of
-	 * power status. So keeping check of local reg instead of global reg.
-	 */
-	/* Check if FPD is already powered up */
-	RegVal = XPsmFw_Read32(PSM_LOCAL_PWR_STATE);
-	if (!CHECK_BIT(RegVal, PSM_LOCAL_PWR_STATE_FP_MASK)) {
-
-		/* TODO: Disable PSM interrupts */
-
-		/*
-		 * Capture the current Power State
-		 * Power up all ACPU Cores and reflect their PWR_STATE
-		 */
-		PwrState = XPsmFw_Read32(PSM_LOCAL_PWR_STATE);
-
-		/*
-		 * Power up ACPUx power islands.
-		 * Remove physical isolation.
-		 */
-		XPsmFw_Write32(PSM_LOCAL_ACPU0_PWR_CNTRL, 0x0000000F);
-		XPsmFw_Write32(PSM_LOCAL_ACPU1_PWR_CNTRL, 0x0000000F);
-
-		/* Update PWR_STATE register to reflect that all 4 ACPUs are powerd up */
-		XPsmFw_Write32(PSM_LOCAL_PWR_STATE,
-			       (PwrState | PSM_LOCAL_PWR_STATE_ACPU0_MASK |
-			       PSM_LOCAL_PWR_STATE_ACPU1_MASK));
-
+	/* Check vccint_fpd first to make sure power is on */
+	RegVal = XPsmFw_Read32(PMC_GLOBAL_PWR_SUPPLY_STATUS);
+	if ((RegVal & PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_FPD_MASK) != PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_FPD_MASK) {
 		/* TODO: Request PMC to power up VCCINT_FP rail and wait for the acknowledgement.*/
-
-		/* Enable alarm associated with VCCINT_FP */
-		XPsmFw_Write32(PSM_GLOBAL_REG_PWR_CTRL_IRQ_EN,
-			       PSM_GLOBAL_REG_PWR_CTRL_IRQ_EN_FPD_SUPPLY_MASK);
-
-		/* Assert FPD reset */
-		XPsmFw_RMW32(CRL_RST_FPD,
-			     CRL_RST_FPD_SRST_MASK,
-			     CRL_RST_FPD_SRST_MASK);
-
-		/* Disable LP-FP clocking group isolation */
-		XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
-			     PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_DFX_MASK,
-			     ~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_DFX_MASK);
-
-		/* Wait until reset is propogated in FPD */
-		XPsmFw_UtilWait(XPSMFW_PWRON_RST_FPD_WAIT_TIME);
+		Status = XST_FAILURE;
+		goto done;
 	}
 
+	/* TODO: Disable PSM interrupts */
+
+	/*
+	 * Capture the current Power State
+	 * Power up all ACPU Cores and reflect their PWR_STATE
+	 */
+	PwrState = XPsmFw_Read32(PSM_LOCAL_PWR_STATE);
+
+	/*
+	 * Power up ACPUx power islands.
+	 * Remove physical isolation.
+	 */
+	XPsmFw_Write32(PSM_LOCAL_ACPU0_PWR_CNTRL, 0x0000000F);
+	XPsmFw_Write32(PSM_LOCAL_ACPU1_PWR_CNTRL, 0x0000000F);
+
+	/* Update PWR_STATE register to reflect that all ACPUs are powerd up */
+	XPsmFw_Write32(PSM_LOCAL_PWR_STATE,
+			   (PwrState | PSM_LOCAL_PWR_STATE_ACPU0_MASK |
+			   PSM_LOCAL_PWR_STATE_ACPU1_MASK));
+
+
+	/* Enable alarm associated with VCCINT_FP */
+	XPsmFw_Write32(PSM_GLOBAL_REG_PWR_CTRL_IRQ_EN,
+			   PSM_GLOBAL_REG_PWR_CTRL_IRQ_EN_FPD_SUPPLY_MASK);
+
+	/* Assert FPD reset */
+	XPsmFw_RMW32(CRL_RST_FPD,
+			 CRL_RST_FPD_SRST_MASK,
+			 CRL_RST_FPD_SRST_MASK);
+
+	/* Disable LP-FP clocking group isolation */
+	XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
+			 PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_DFX_MASK,
+			 ~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_DFX_MASK);
+
+	/* Wait until reset is propogated in FPD */
+	XPsmFw_UtilWait(XPSMFW_PWRON_RST_FPD_WAIT_TIME);
+done:
 	return Status;
 }
 
 int XPsmFw_FpdPostHouseClean()
 {
 	int Status = XST_SUCCESS;
-	u32 RegVal, PwrState, IsoState;
+	u32 PwrState;
+
+	/* Disable Remaining LP-FP isolation - in case bisr and mbist was skipped */
+	XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
+			PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK,
+			~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK);
 
 	/* Check if FPD is already powered up */
 	PwrState = XPsmFw_Read32(PSM_LOCAL_PWR_STATE);
@@ -512,60 +511,11 @@ int XPsmFw_FpdPostHouseClean()
 		/* Update the PWR_STATE to reflect the ACPU cores that were powered off */
 		XPsmFw_Write32(PSM_LOCAL_PWR_STATE, PwrState);
 
-		/* Disable Remaining LP-FP isolation */
-		XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
-				PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK,
-				~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK);
-
-		/* Disable FP-PL isolation if PL is on */
-		RegVal = XPsmFw_Read32(PMC_GLOBAL_PWR_SUPPLY_STATUS);
-		if (CHECK_BIT(RegVal, PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_PL_MASK)) {
-			XPsmFw_RMW32(PMC_GLOBAL_DOMAIN_ISO_CNTRL,
-				     PMC_GLOBAL_DOMAIN_ISO_CNTRL_FPD_PL_MASK,
-				     ~PMC_GLOBAL_DOMAIN_ISO_CNTRL_FPD_PL_MASK);
-
-			XPsmFw_RMW32(PMC_GLOBAL_DOMAIN_ISO_CNTRL,
-				     PMC_GLOBAL_DOMAIN_ISO_CNTRL_FPD_PL_TEST_MASK,
-				     ~PMC_GLOBAL_DOMAIN_ISO_CNTRL_FPD_PL_TEST_MASK);
-		}
-
-		/* Release FPD reset */
-		XPsmFw_RMW32(CRL_RST_FPD, CRL_RST_FPD_SRST_MASK,
-			     ~CRL_RST_FPD_SRST_MASK);
-
 		/* Mark FPD as powered ON */
 		XPsmFw_RMW32(PSM_LOCAL_PWR_STATE, PSM_LOCAL_PWR_STATE_FP_MASK,
 			     PSM_LOCAL_PWR_STATE_FP_MASK);
-
-		/* Clear Request Status bit in the REQ_PWRUP_STATUS register */
-		/* This is already handled by common handler so no need to handle here */
-
-		/* TODO: Enable PSM Interrupts */
-	} else {
-		/*
-		 * At POR power state of FPD is powered ON but its isolation
-		 * is enabled. So at that time we need to disable isolation
-		 * if it is enabled.
-		 */
-		IsoState = XPsmFw_Read32(PSM_LOCAL_DOMAIN_ISO_CNTRL);
-
-		/* Remove isolation if enabled. */
-		if (CHECK_BIT(IsoState,
-			      PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK)) {
-			/* Disable LP-FP isolation */
-			XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
-				     PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK,
-				     ~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK);
-		}
-
-		if (CHECK_BIT(IsoState,
-			      PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_DFX_MASK)) {
-			/* Disable LP-FP clocking group isolation */
-			XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
-				     PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_DFX_MASK,
-				     ~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_DFX_MASK);
-		}
 	}
+	/* TODO: Enable PSM Interrupts */
 
 	return Status;
 }
@@ -1271,37 +1221,9 @@ static XStatus PowerUp_FP(void)
 {
 	XStatus Status = XST_SUCCESS;
 
-	/* Run pre house cleaning on FPD */
-	Status = XPsmFw_FpdPreHouseClean();
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
+	/* Instead of trigeering this interrupt
+	FPD CDO should be reexecuted by libPM */
 
-	/* Run Scan Clear on FPD */
-	Status = XPsmFw_FpdScanClear();
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Run BISR on FPD */
-	Status = XPsmFw_FpdMbisr();
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Run MbistClear on FPD */
-	Status = XPsmFw_FpdMbistClear();
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Run post house cleaning on FPD */
-	Status = XPsmFw_FpdPostHouseClean();
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-done:
 	return Status;
 }
 
