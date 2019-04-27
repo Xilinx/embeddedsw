@@ -73,13 +73,6 @@ static XStatus XPmCore_Sleep(XPm_Core *Core)
 		goto done;
 	}
 
-	if (NULL != Core->Device.Power) {
-		Status = Core->Device.Power->Node.HandleEvent(&Core->Device.Power->Node, XPM_POWER_EVENT_PWR_DOWN);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-	}
-
 	if (NULL != Core->Device.ClkHandles) {
 		Status = XPmClock_Release(Core->Device.ClkHandles);
 		if (XST_SUCCESS != Status) {
@@ -167,6 +160,13 @@ XStatus XPmCore_PwrDwn(XPm_Core *Core, u32 PwrDwnRegOffset)
 	if (0U != (Core->PwrDwnMask & PwrReq)) {
 		PwrReq &= ~Core->PwrDwnMask;
 		PmOut32(Core->Device.Node.BaseAddress + PwrDwnRegOffset, PwrReq);
+	}
+
+	if (NULL != Core->Device.Power) {
+		Status = Core->Device.Power->Node.HandleEvent(&Core->Device.Power->Node, XPM_POWER_EVENT_PWR_DOWN);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 	}
 
 done:
