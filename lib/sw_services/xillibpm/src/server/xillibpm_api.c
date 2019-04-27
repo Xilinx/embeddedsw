@@ -36,6 +36,7 @@
 #include "xpm_pslpdomain.h"
 #include "xpm_psfpdomain.h"
 #include "xpm_npdomain.h"
+#include "xpm_cpmdomain.h"
 #include "xpm_psm.h"
 #include "xpm_periph.h"
 #include "xpm_mem.h"
@@ -435,6 +436,7 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
 	case XPM_NODEIDX_POWER_NOC:
 	case XPM_NODEIDX_POWER_PLD:
 	case XPM_NODEIDX_POWER_ME:
+	case XPM_NODEIDX_POWER_CPM:
 		Status = XPmPowerDomain_InitDomain(PwrDomainNode, Function, Args, NumArgs);
 		break;
 	default:
@@ -2473,6 +2475,7 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 	XPm_NpDomain *NpDomain;
 	XPm_PlDomain *PlDomain;
 	XPm_AieDomain *AieDomain;
+	XPm_CpmDomain *CpmDomain;
 
 	if (NumArgs < 3) {
 		Status = XST_INVALID_PARAM;
@@ -2573,12 +2576,12 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 						  PowerParent);
 			break;
 		case XPM_NODETYPE_POWER_DOMAIN_CPM:
-			PwrDomain = (XPm_PowerDomain *)XPm_AllocBytes(sizeof(XPm_PowerDomain));
-			if (NULL == PwrDomain) {
+			CpmDomain = (XPm_CpmDomain *)XPm_AllocBytes(sizeof(XPm_CpmDomain));
+			if (NULL == CpmDomain) {
 				Status = XST_BUFFER_TOO_SMALL;
 				goto done;
 			}
-			Status = XPmPowerDomain_Init(PwrDomain, PowerId, 0x00000000, PowerParent, NULL);
+			Status = XPmCpmDomain_Init(CpmDomain, PowerId, 0x00000000, PowerParent);
 			break;
 		case XPM_NODETYPE_POWER_DOMAIN_ME:
 			AieDomain = (XPm_AieDomain *)XPm_AllocBytes(sizeof(XPm_AieDomain));

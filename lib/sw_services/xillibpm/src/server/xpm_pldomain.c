@@ -263,77 +263,6 @@ done:
 	return Status;
 }
 
-static XStatus CpmHouseClean()
-{
-	XStatus Status = XST_SUCCESS;
-
-	/* Remove isolation to allow scan_clear on CPM */
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_LPD_CPM_DFX, FALSE);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Remove POR for CPM */
-	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_CPM_POR),
-				     PM_RESET_ACTION_RELEASE);
-
-	/* Unlock PCSR */
-	PmOut32(CPM_PCSR_LOCK, PCSR_UNLOCK_VAL);
-
-	/* Run scan clear on CPM */
-	PmOut32(CPM_PCSR_MASK, CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK);
-	PmOut32(CPM_PCSR_PCR, CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK);
-	Status = XPm_PollForMask(CPM_PCSR_PSR, CPM_PCSR_PSR_SCAN_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-	Status = XPm_PollForMask(CPM_PCSR_PSR, CPM_PCSR_PSR_SCAN_CLEAR_PASS_MASK, XPM_POLL_TIMEOUT);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Pulse CPM POR */
-	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_CPM_POR),
-				     PM_RESET_ACTION_PULSE);
-
-	/* Remove LPD_CPM isolation to run BISR and MBIST on CPM */
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_LPD_CPM, FALSE);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-
-//#ifndef PLPD_HOUSECLEAN_BYPASS
-	if(!PlpdHouseCleanBypass) {
-		/* Bisr */
-		Status = XPmBisr_Repair(CPM_TAG_ID);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-
-		/* Mbist */
-		PmOut32(CPM_PCSR_MASK, CPM_PCSR_PCR_MEM_CLEAR_TRIGGER_MASK);
-		PmOut32(CPM_PCSR_PCR, CPM_PCSR_PCR_MEM_CLEAR_TRIGGER_MASK);
-
-		/* Poll for status */
-		Status = XPm_PollForMask(CPM_PCSR_PSR, CPM_PCSR_PSR_MEM_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-		Status = XPm_PollForMask(CPM_PCSR_PSR, CPM_PCSR_PSR_MEM_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-	}
-//#endif
-	/* Lock PCSR */
-	PmOut32(CPM_PCSR_LOCK, 1);
-
-done:
-	return Status;
-}
-
-
 static XStatus PldPreHouseclean(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
@@ -401,11 +330,6 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 	if (PLATFORM_VERSION_SILICON == Platform) {
 		/*House clean GTY*/
 		Status = GtyHouseClean();
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-		/*House clean CPM*/
-		Status = CpmHouseClean();
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
