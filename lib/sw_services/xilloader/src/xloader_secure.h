@@ -15,8 +15,36 @@
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.0   vns  04/23/19 First release
-*       har  02/18/20 Added minor error codes for security
+* 1.00  vns  04/23/19 First release
+* 1.01  vns  07/09/19 Added PPK and SPK integrity checks
+*                     Updated chunk size for secure partition
+*                     Added encryption + authentication support
+*       vns  07/23/19 Added functions to load secure headers
+*       vns  08/23/19 Added buffer cleaning on failure
+*                     Added different key sources support
+* 1.02  vns  02/23/20 Added DPA CM enable/disable functionality
+*       har  02/28/20 Added minor error codes for security
+*       vns  03/01/20 Added PUF KEK decrypt support
+*       ana  04/02/20 Added crypto engine KAT test function calls
+*       bsv  04/07/20 Change CSUDMA name to PMCDMA
+*       vns  04/13/20 Moved Aes instance to Secure structure
+* 1.03  ana  06/04/20 Removed XLOADER_ECDSA_INDEXVAL macro and
+*                     updated u32 datatype to u8 datatype
+*       tar  07/23/20 Fixed MISRA-C required violations
+*       kpt  07/30/20 Added minor error codes for ENC only and macros
+*                     related to IV
+*       bsv  08/06/20 Added delay load support for secure cases
+*       har  08/11/20 Added XLoader_AuthJtagMessage structure  and macros for
+*                     Authenticated JTAG
+*       td   08/19/20 Fixed MISRA C violations Rule 10.3
+*       bsv  08/21/20 Included xil_util.h for XSECURE_TEMPORAL_CHECK macro
+*       har  08/24/20 Added macros related to ECDSA P521 support
+*       kal  09/14/20 Added new error code to XLoader_SecErrCodes
+*       har  09/30/20 Deprecated Family Key support
+*       bsv  10/19/20 Parallel DMA changes
+*       kpt  10/19/2020 Code clean up
+*       har  10/19/20 Replaced ECDSA in header files
+*
 * </pre>
 *
 * @note
@@ -32,40 +60,22 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xsecure_ecdsa.h"
+#include "xsecure_elliptic.h"
 #include "xsecure_sha.h"
 #include "xsecure_rsa.h"
 #include "xsecure_aes.h"
+#include "xplmi_hw.h"
 #include "xloader.h"
 #include "xplmi_util.h"
 #include "xpuf.h"
+#include "xil_util.h"
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-/*****************************************************************************/
-/**
-* @brief
-* This macro updates security related minor error codes for Xilloader
-*
-* @param	Minor1	To specify the cause of failure of
-*					security operation
-* @param	Minor2	Libraries / Drivers error code as defined in respective
-*					modules
-* @note		If MSB of Minor1 is set then error in clearing of security
-*			buffer	(16th bit)
-*			If bit next to MSB is set then security buffer was successfully
-*			cleared (15th bit)
-*			For eg: 0x02 : Incorrect authentication type selected
-*			0x42 : Incorrect authentication type selected and
-*				buffer was successfully cleared
-*			0x82 : Incorrect authentication type selected and
-*	 			error in clearing buffer
-******************************************************************************/
-#define XLOADER_UPDATE_MIN_ERR(Minor1, Minor2)		\
-						((Minor1<<8U) | (Minor2))
 /************************** Constant Definitions *****************************/
 #define XLOADER_SHA3_LEN				(48U)
 #define XLOADER_RSA_SIG_EXP_BYTE		(0xBCU)
+#define XLOADER_RSA_EM_MSB_EXP_BYTE		(0x0U)
 #define XLOADER_I2OSP_INT_LIMIT			(256U)
 #define XLOADER_RSA_PSS_MASKED_DB_LEN	(463U)
 #define XLOADER_RSA_PSS_SALT_LEN		(XLOADER_SHA3_LEN)
@@ -75,7 +85,7 @@ extern "C" {
 
 #define XLOADER_SHA3_KAT_MASK			(0x00000010U)
 #define XLOADER_RSA_KAT_MASK			(0x00000020U)
-#define XLOADER_ECDSA_KAT_MASK			(0x00000040U)
+#define XLOADER_ECC_KAT_MASK			(0x00000040U)
 #define XLOADER_AES_KAT_MASK			(0x00000080U)
 #define XLOADER_DPACM_KAT_MASK			(0x00000100U)
 
@@ -85,15 +95,9 @@ extern "C" {
 #define XLOADER_PPK_SIZE				(XSECURE_RSA_4096_KEY_SIZE + \
 										 XSECURE_RSA_4096_KEY_SIZE \
 										 + 4U +12U)
-#define XLOADER_PPK_MOD_SIZE			XSECURE_RSA_4096_KEY_SIZE
-#define XLOADER_PPK_MOD_EXT_SIZE		XSECURE_RSA_4096_KEY_SIZE
-#define XLOADER_SPK_MOD_SIZE			XSECURE_RSA_4096_KEY_SIZE
-#define XLOADER_SPK_MOD_EXT_SIZE		XSECURE_RSA_4096_KEY_SIZE
 #define XLOADER_SPK_SIG_SIZE			XSECURE_RSA_4096_KEY_SIZE
 #define XLOADER_BHDR_SIG_SIZE			XSECURE_RSA_4096_KEY_SIZE
 #define XLOADER_PARTITION_SIG_SIZE		XSECURE_RSA_4096_KEY_SIZE
-#define XLOADER_RSA_AC_ALIGN			(64U)
-#define XLOADER_SPKID_AC_ALIGN			(4U)
 
 #define XLOADER_AUTH_HEADER_SIZE		(8U)
 
@@ -112,37 +116,39 @@ extern "C" {
 #define XLOADER_AC_AH_PUB_ALG_RSA		(0x1U)
 #define XLOADER_AC_AH_PUB_ALG_ECDSA		(0x2U)
 
-#define XLOADER_ECDSA_KEYSIZE			(0x0000000CU)
-#define XLOADER_ECDSA_INDEXVAL			(0x0000000BU)
+#define XLOADER_AC_AH_PUB_STRENGTH_MASK		(0xF0U)
+#define XLOADER_AC_AH_PUB_STRENGTH_SHIFT	(0x4U)
+#define XLOADER_PUB_STRENGTH_ECDSA_P384		(0x0U)
+#define XLOADER_PUB_STRENGTH_RSA_4096		(0x1U)
+#define XLOADER_PUB_STRENGTH_ECDSA_P521		(0x2U)
+
+#define XLOADER_ECDSA_P384_KEYSIZE		(48U)
+#define XLOADER_ECDSA_P521_KEYSIZE		(66U)
+#define XLOADER_ECDSA_MAX_KEYSIZE		XLOADER_ECDSA_P521_KEYSIZE
 
 #define XLOADER_SECURE_HDR_SIZE			(48U)/**< Secure Header Size in Bytes*/
 #define XLOADER_SECURE_GCM_TAG_SIZE		(16U) /**< GCM Tag Size in Bytes */
 #define XLOADER_SECURE_HDR_TOTAL_SIZE	\
 					(XLOADER_SECURE_HDR_SIZE + XLOADER_SECURE_GCM_TAG_SIZE)
-#define XLOADER_SECURE_IV_LEN			(4U)
+#define XLOADER_SECURE_METAHDR_RD_IMG_PRTN_HDRS (0x0U)
+#define XLOADER_SECURE_METAHDR_RD_IMG_HDRS      (0x1U)
+#define XLOADER_SECURE_METAHDR_RD_PRTN_HDRS     (0x2U)
 
 /* AES key source */
-#define XLOADER_UNENCRYPTED			(0x00000000U) /* Unencrypted */
 #define XLOADER_EFUSE_KEY			(0xA5C3C5A3U) /* eFuse Key */
 #define XLOADER_EFUSE_BLK_KEY		(0xA5C3C5A5U) /* eFUSE Black Key */
-#define XLOADER_EFUSE_OBFUS_KEY		(0xA5C3C5A7U) /* eFuse Obfuscated Key */
 
 #define XLOADER_BBRAM_KEY			(0x3A5C3C5AU) /* BBRAM Key */
 #define XLOADER_BBRAM_BLK_KEY		(0x3A5C3C59U) /* BBRAM Black Key */
-#define XLOADER_BBRAM_OBFUS_KEY		(0x3A5C3C57U) /* BBRAM Obfuscated Key */
 
 #define XLOADER_BH_BLK_KEY			(0xA35C7C53U) /*Boot Header Black Key */
-#define XLOADER_BH_OBFUS_KEY		(0xA35C7CA5U)
-									/* Boot Header Obfuscated Key */
 
 #define XLOADER_EFUSE_USR_KEY0		(0x5C3CA5A3U) /* eFuse User Key 0 */
 #define XLOADER_EFUSE_USR_BLK_KEY0	(0x5C3CA5A5U) /* eFUSE User key 0 Black */
-#define XLOADER_EFUSE_USR_OBFUS_KEY0 (0x5C3CA5A7U) /* eFuse User key 0
-													* Obfuscated */
+
 #define XLOADER_EFUSE_USR_KEY1		(0xC3A5C5A3U) /* eFuse User Key 1 */
 #define XLOADER_EFUSE_USR_BLK_KEY1	(0xC3A5C5A5U) /* eFUSE User key 1 Black */
-#define XLOADER_EFUSE_USR_OBFUS_KEY1 (0xC3A5C5A7U) /* eFuse User key 1
-													* Obfuscated */
+
 #define XLOADER_USR_KEY0			(0xC5C3A5A3U) /* User Key 0 */
 #define XLOADER_USR_KEY1			(0xC3A5C5B3U) /* User Key 1 */
 #define XLOADER_USR_KEY2			(0xC5C3A5C3U) /* User Key 2 */
@@ -165,6 +171,13 @@ extern "C" {
 #define XLOADER_EFUSE_PPK2_END_OFFSET			(0xF125015CU)
 #define XLOADER_EFUSE_PPK_HASH_LEN				(32U)
 
+#define XLOADER_SECURE_IV_LEN			(4U)
+#define XLOADER_SECURE_IV_NUM_ROWS      (3U)
+#define XLOADER_EFUSE_IV_METAHDR_START_OFFSET     (0xF1250180U)
+#define XLOADER_EFUSE_IV_METAHDR_END_OFFSET       (0xF1250188U)
+#define XLOADER_EFUSE_IV_BLACK_OBFUS_START_OFFSET (0xF12501D0U)
+#define XLOADER_EFUSE_IV_BLACK_OBFUS_END_OFFSET   (0xF12501D8U)
+
 #define XLOADER_EFUSE_REVOCATION_ID_0_OFFSET	(0xF12500B0U)
 #define XLOADER_EFUSE_REVOCATION_ID_1_OFFSET	(0xF12500B4U)
 #define XLOADER_EFUSE_REVOCATION_ID_2_OFFSET	(0xF12500B8U)
@@ -186,8 +199,9 @@ extern "C" {
 
 #define XLOADER_PUF_HD_BHDR						(0x3U)
 
-#define XLOADER_SEC_BUF_CLEAR_ERR		(XLOADER_SEC_ERR_BUF_CLR_FAILED << 8U)
-#define XLOADER_SEC_BUF_CLEAR_SUCCESS	(XLOADER_SEC_ERR_BUF_CLR_SUCCESS << 8U)
+#define XLOADER_SEC_CHUNK_CLEAR_ERR		((u32)XLOADER_SEC_ERR_CHUNK_CLR_FAILED << 8U)
+#define XLOADER_SEC_BUF_CLEAR_ERR		((u32)XLOADER_SEC_ERR_BUF_CLR_FAILED << 8U)
+#define XLOADER_SEC_BUF_CLEAR_SUCCESS	((u32)XLOADER_SEC_ERR_BUF_CLR_SUCCESS << 8U)
 
 /* KEK key decryption status */
 #define XLOADER_BBRAM_RED_KEY					(0x00000001U)
@@ -196,13 +210,45 @@ extern "C" {
 #define XLOADER_EFUSE_USR0_RED_KEY				(0x00000008U)
 #define XLOADER_EFUSE_USR1_RED_KEY				(0x00000010U)
 
+#define XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET		(0xF12500ACU)
+#define XLOADER_PMC_TAP_AUTH_JTAG_DATA_OFFSET			(0xF11B0030U)
+#define XLOADER_PMC_TAP_DAP_CFG_OFFSET				(0xF11B0008U)
+#define XLOADER_PMC_TAP_INST_MASK_0_OFFSET			(0xF11B0000U)
+#define XLOADER_PMC_TAP_INST_MASK_1_OFFSET			(0xF11B0004U)
+#define XLOADER_PMC_TAP_DAP_SECURITY_OFFSET			(0xF11B000CU)
+#define XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_OFFSET		(0xF11B0018U)
+#define XLOADER_CRP_RST_DBG_OFFSET				(0xF1260400U)
+
+#define XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_MASK		(0x1U)
+#define XLOADER_AUTH_JTAG_DIS_MASK				(0x180000U)
+#define XLOADER_AUTH_JTAG_DATA_LEN_IN_WORDS			(512U)
+#define XLOADER_AUTH_JTAG_DATA_AH_LENGTH			(104U)
+#define XLOADER_AUTH_JTAG_MAX_ATTEMPTS				(1U)
+#define XLOADER_AUTH_FAIL_COUNTER_RST_VALUE			(0U)
+
+#define XLOADER_AUTH_JTAG_PADDING_SIZE				(23U)
+#define XLOADER_AUTH_JTAG_SHA_PADDING_SIZE			(3U)
+#define XLOADER_ENABLE_AUTH_JTAG_SIGNATURE_SIZE			(226U)
+
+#define XLOADER_DAP_SECURITY_GATE_DISABLE_MASK			(0xFFFFFFFFU)
+#define XLOADER_DAP_CFG_SPNIDEN_MASK				(0x1U)
+#define XLOADER_DAP_CFG_SPIDEN_MASK				(0x2U)
+#define XLOADER_DAP_CFG_NIDEN_MASK				(0x4U)
+#define XLOADER_DAP_CFG_DBGEN_MASK				(0x8U)
+#define XLOADER_DAP_CFG_ENABLE_ALL_DBG_MASK	(XLOADER_DAP_CFG_SPNIDEN_MASK | \
+						XLOADER_DAP_CFG_SPIDEN_MASK | \
+						XLOADER_DAP_CFG_NIDEN_MASK |  \
+						XLOADER_DAP_CFG_DBGEN_MASK)
+#define XLOADER_PMC_TAP_INST_MASK_ENABLE_MASK			(0U)
+#define XLOADER_CRP_RST_DBG_ENABLE_MASK				(0U)
+
 /**************************** Type Definitions *******************************/
 
 typedef struct {
 	u32 PubModulus[128U];
 	u32 PubModulusExt[128U];
 	u32 PubExponent;
-}XLoader_RsaKey;
+} XLoader_RsaKey;
 
 typedef struct {
 	u32 AuthHdr;
@@ -216,57 +262,75 @@ typedef struct {
 	u32 SPKSignature[128U];
 	u32 BHSignature[128U];
 	u32 ImgSignature[128U];
-}XLoader_AuthCertificate;
+} XLoader_AuthCertificate;
 
 typedef enum {
 	XLOADER_ECDSA,	/**< 0x0 - ECDSA */
 	XLOADER_RSA		/**< 0x1 - RSA */
-}XLoader_AuthType;
+} XLoader_AuthType;
 
 typedef enum {
 	XLOADER_PPK_SEL_0,	/**< 0 - PPK 0 */
 	XLOADER_PPK_SEL_1,	/**< 1 - PPK 1 */
 	XLOADER_PPK_SEL_2	/**< 2 - PPK 2 */
-}XLoader_PpkSel;
+} XLoader_PpkSel;
 
 typedef struct
 {
 	u8 EmHash[48];	/**< EM hash */
 	u8 Salt[48];	/**< Salt */
 	u8 Padding1[8];	/**< Padding 1 */
-}XLoader_Vars;
+} XLoader_Vars;
 
 typedef struct {
 	u32 PdiKeySrc;
 	u64 KekIvAddr;
 	u32 PufHdLocation;
-	XSecure_AesKekType KekType;
 	XSecure_AesKeySrc KeySrc;
 	XSecure_AesKeySrc KeyDst;
-}XLoader_AesKekKey;
+} XLoader_AesKekInfo;
 
 typedef struct {
-	u32 SecureEn;
-	u32 IsCheckSumEnabled;
-	u32 IsEncrypted;
-	u32 IsAuthenticated;
+	u32 AuthHdr;
+	u32 RevocationIdMsgType;
+	u32 JtagEnableTimeout;
+	u32 AuthJtagPadding[XLOADER_AUTH_JTAG_PADDING_SIZE];
+	XLoader_RsaKey PpkData;
+	u32 AuthJtagPpkShaPadding[XLOADER_AUTH_JTAG_SHA_PADDING_SIZE];
+	u32 EnableJtagSignature[XLOADER_ENABLE_AUTH_JTAG_SIGNATURE_SIZE];
+} XLoader_AuthJtagMessage;
+
+typedef struct {
+	volatile u8 SecureEn;
+	volatile u8 SecureEnTmp;
+	u8 IsNextChunkCopyStarted;
+	u8 IsCheckSumEnabled;
+	u8 IsEncrypted;
+	u8 IsEncryptedTmp;
+	u8 IsAuthenticated;
+	u8 IsAuthenticatedTmp;
+	u8 IsDoubleBuffering;
 	XLoader_AuthType SigType;
 	XilPdi *PdiPtr;
 	XilPdi_PrtnHdr *PrtnHdr;
-	u32 IsCdo; /**< CDO or Elf */
-	u32 NextBlkAddr;
+	u8 IsCdo; /**< CDO or Elf */
+	u64 NextBlkAddr;
 	u32 ChunkAddr;
-	/* verified data is at */
+	u32 NextChunkAddr;
+	/* Verified data is at */
 	u32 SecureData;
 	u32 SecureDataLen;
+	u32 ProcessedLen;
+	u32 RemainingDataLen;
 	u32 RemainingEncLen;
 	u32 BlockNum;
 	u32 Sha3Hash[XLOADER_SHA3_LEN / 4U];
-	u32 EncNextBlkSize;
 	XLoader_AuthCertificate *AcPtr;
 	XPmcDma *PmcDmaInstPtr;
 	XSecure_Aes AesInstance;
-}XLoader_SecureParms;
+	u32 SecureHdrLen;
+	XLoader_AuthJtagMessage* AuthJtagMessagePtr;
+} XLoader_SecureParams;
 
 typedef enum {
 	XLOADER_SEC_AUTH_EN_PPK_HASH_NONZERO = 0x02U,
@@ -319,33 +383,84 @@ typedef enum {
 	XLOADER_SEC_PUF_REGN_ERRR,
 			/**< 0x19 PUF regeneration error */
 	XLOADER_SEC_AES_KEK_DEC,
-			/**< 0x20 AES KEK decryption */
+			/**< 0x1A AES KEK decryption */
 	XLOADER_SEC_RSA_PSS_ENC_BC_VALUE_NOT_MATCHED,
-			/**< 0x21 RSA ENC 0xbc value is not matched */
+			/**< 0x1B RSA ENC 0xbc value is not matched */
 	XLOADER_SEC_RSA_PSS_HASH_COMPARE_FAILURE,
-			/**< 0x22 RSA PSS verification hash is not matched */
+			/**< 0x1C RSA PSS verification hash is not matched */
+	XLOADER_SEC_ENC_ONLY_KEYSRC_ERR,
+	        /**< 0x1D Keysrc should be efuse black key for enc only */
+	XLOADER_SEC_ENC_ONLY_PUFHD_LOC_ERR,
+			/**< 0x1E PUFHD location should be from eFuse for enc only */
+	XLOADER_SEC_METAHDR_IV_ZERO_ERR,
+	        /**< 0x1F eFuse IV should be non-zero for enc only */
+	XLOADER_SEC_BLACK_IV_ZERO_ERR,
+			 /**< 0x20 eFuse IV should be non-zero for enc only */
+	XLOADER_SEC_IV_METAHDR_RANGE_ERROR,
+		   /**< 0x21 Metahdr IV Range not matched with eFuse IV */
+	XLOADER_SEC_EFUSE_DPA_CM_MISMATCH_ERROR,
+		/**< 0x22 Metahdr DpaCm & eFuse DpaCm values are not matched */
+	XLOADER_SEC_RSA_MEMSET_SHA3_ARRAY_FAIL,
+		/**< 0x23 Error during memset for XSecure_RsaSha3Array */
+	XLOADER_SEC_RSA_MEMSET_VARSCOM_FAIL,
+		/**< 0x24 Error during memset for Xsecure_Varsocm */
+	XLOADER_SEC_MASKED_DB_MSB_ERROR,
+		/**< 0x25 Error in RSA EM MSB */
+	XLOADER_SEC_EFUSE_DB_PATTERN_MISMATCH_ERROR,
+		/**< 0x26 Failed to verify DB check */
 
 	/* In case of failure of any security operation, the buffer must be
 	 * cleared.In case of success/failure in clearing the buffer,
 	 * the following error codes shall be updated in the status
 	 */
+	XLOADER_SEC_ERR_CHUNK_CLR_FAILED = 0x20U,
 	XLOADER_SEC_ERR_BUF_CLR_SUCCESS = 0x40U,
 			/* Buffer is successfully cleared */
 	XLOADER_SEC_ERR_BUF_CLR_FAILED = 0x80U,
 			/* Error in clearing buffer */
-}XLoader_SecErrCodes;
+} XLoader_SecErrCodes;
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This function updates security related minor error codes for Xilloader
+ *
+ * @param        Minor1  To specify the cause of failure of
+ *                                       security operation
+ * @param        Minor2  Libraries / Drivers error code as defined in respective
+ *                                       modules
+ * @note         If MSB of Minor1 is set then error in clearing of security
+ *                       buffer  (16th bit)
+ *                       If bit next to MSB is set then security buffer was successfully
+ *                       cleared (15th bit)
+ *                       For eg: 0x02 : Incorrect authentication type selected
+ *                       0x42 : Incorrect authentication type selected and
+ *                               buffer was successfully cleared
+ *                       0x82 : Incorrect authentication type selected and
+ *                               error in clearing buffer
+ ******************************************************************************/
+static inline u32 XLoader_UpdateMinorErr(XLoader_SecErrCodes Minor1, u32 Minor2)
+{
+	u32 UMinor1 = (u32)Minor1;
+
+	return ((UMinor1 << 8U) | Minor2);
+}
 
 /***************************** Function Prototypes ***************************/
-u32 XLoader_SecureInit(XLoader_SecureParms *SecurePtr, XilPdi *PdiPtr,
+int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	u32 PrtnNum);
-u32 XLoader_SecurePrtn(XLoader_SecureParms *SecurePtr, u64 DstAddr,
-	u32 Size, u8 Last);
-u32 XLoader_SecureCopy(XLoader_SecureParms *SecurePtr, u64 DestAddr, u32 Size);
-u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr);
-u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
-	XilPdi_MetaHdr *ImgHdrTbl);
-u32 XLoader_SecureValidations(XLoader_SecureParms *SecurePtr);
-void XLoader_UpdateKekRdKeyStatus(XilPdi *PdiPtr);
+int XLoader_ProcessSecurePrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
+	u32 BlockSize, u8 Last);
+u32 XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size);
+u32 XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr);
+int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
+	XilPdi_MetaHdr *MetaHdr);
+int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr);
+void XLoader_UpdateKekSrc(XilPdi *PdiPtr);
+u32 XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr, u32 TotalLen,
+	u32 NextBlkAddr, u32 ChunkLen);
+int XLoader_AddAuthJtagToScheduler(void);
+void XLoader_SecureClear(void);
 
 #ifdef __cplusplus
 }
