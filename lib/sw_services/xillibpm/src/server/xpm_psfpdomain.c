@@ -29,6 +29,7 @@
 #include "xpm_common.h"
 #include "xpm_psfpdomain.h"
 #include "xpm_bisr.h"
+#include "xpm_regs.h"
 
 static XStatus FpdPreHouseclean(u32 *Args, u32 NumOfArgs)
 {
@@ -37,6 +38,12 @@ static XStatus FpdPreHouseclean(u32 *Args, u32 NumOfArgs)
 
 	(void)Args;
 	(void)NumOfArgs;
+
+	/* Check vccint_fpd first to make sure power is on */
+	if (XST_SUCCESS != XPmPower_CheckPower(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_FPD_MASK)) {
+		/* TODO: Request PMC to power up VCCINT_FP rail and wait for the acknowledgement.*/
+		goto done;
+	}
 
 	Payload[0] = PSM_API_FPD_HOUSECLEAN;
 	Payload[1] = FUNC_INIT_START;
@@ -47,6 +54,12 @@ static XStatus FpdPreHouseclean(u32 *Args, u32 NumOfArgs)
 	}
 
 	Status = XPm_IpiReadStatus(PSM_IPI_INT_MASK);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+	/* Release POR for PS-FPD */
+	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_FPD_POR),
+				     PM_RESET_ACTION_RELEASE);
 
 done:
 	return Status;
@@ -60,6 +73,10 @@ static XStatus FpdPostHouseclean(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
+	/* Release SRST for PS-FPD - in case Bisr and Mbist are skipped */
+	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_FPD),
+				     PM_RESET_ACTION_RELEASE);
+
 	Payload[0] = PSM_API_FPD_HOUSECLEAN;
 	Payload[1] = FUNC_INIT_FINISH;
 
@@ -69,6 +86,13 @@ static XStatus FpdPostHouseclean(u32 *Args, u32 NumOfArgs)
 	}
 
 	Status = XPm_IpiReadStatus(PSM_IPI_INT_MASK);
+	if (Status != XST_SUCCESS)
+		goto done;
+
+	/* Remove FPD SOC domains isolation */
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_FPD_SOC, FALSE);
+	if (Status != XST_SUCCESS)
+		goto done;
 
 done:
 	return Status;
@@ -99,14 +123,33 @@ done:
 static XStatus FpdBisr(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
+	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 
 	(void)Args;
 	(void)NumOfArgs;
 
-	/* Bisr is handled by FPD_SLCR registers only so no
-	 * need to involve PSM */
+	/* Release SRST for PS-FPD */
+	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_FPD),
+				     PM_RESET_ACTION_RELEASE);
+
+	/* Call PSM to execute pre bisr requirements */
+	Payload[0] = PSM_API_FPD_HOUSECLEAN;
+	Payload[1] = FUNC_BISR;
+
+	Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = XPm_IpiReadStatus(PSM_IPI_INT_MASK);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Trigger Bisr repair */
 	Status = XPmBisr_Repair(FPD_TAG_ID);
 
+done:
 	return Status;
 }
 
@@ -117,6 +160,10 @@ static XStatus FpdMbistClear(u32 *Args, u32 NumOfArgs)
 
 	(void)Args;
 	(void)NumOfArgs;
+
+	/* Release SRST for PS-FPD */
+	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_FPD),
+				     PM_RESET_ACTION_RELEASE);
 
         Payload[0] = PSM_API_FPD_HOUSECLEAN;
         Payload[1] = FUNC_MBIST_CLEAR;
