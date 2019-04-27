@@ -51,6 +51,7 @@
 #include "xplmi_cdo.h"
 #include "xillibpm_api.h"
 #include "xplmi_util.h"
+#include "xloader_secure.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -180,6 +181,13 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 	u32 Len;
 	XilPdi_PrtnHdr * PrtnHdr;
 	u32 RpuBaseOfst;
+	XLoader_SecureParms SecureParams;
+
+	/* Secure init */
+	Status = XLoader_SecureInit(&SecureParams, PdiPtr, PrtnNum);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Assign the partition header to local variable */
 	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
@@ -236,11 +244,19 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 		}
 	}
 
-	Status = PdiPtr->MetaHdr.DeviceCopy(SrcAddr, DestAddr, Len, 0x0U);
-	if (XST_SUCCESS != Status)
-	{
-		XPlmi_Printf(DEBUG_GENERAL, "Device Copy Failed \n\r");
-		goto END;
+	if (SecureParams.SecureEn != TRUE) {
+		Status = PdiPtr->MetaHdr.DeviceCopy(SrcAddr, DestAddr, Len, 0x0U);
+		if (XST_SUCCESS != Status)
+		{
+			XPlmi_Printf(DEBUG_GENERAL, "Device Copy Failed \n\r");
+			goto END;
+		}
+	}
+	else {
+		Status = XLoader_SecureCopy(&SecureParams, DestAddr, Len);
+		if (XST_SUCCESS != Status) {
+			goto END;
+		}
 	}
 
 END:
@@ -379,8 +395,15 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 	u32 ChunkLen;
 	XPlmiCdo Cdo = {0};
 	XilPdi_PrtnHdr * PrtnHdr;
+	u32 LastChunk = FALSE;
+	XLoader_SecureParms SecureParams;
 
 	XPlmi_Printf(DEBUG_INFO, "Processing CDO partition \n\r");
+	/* Secure init */
+	Status = XLoader_SecureInit(&SecureParams, PdiPtr, PrtnNum);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Assign the partition header to local variable */
 	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
@@ -414,19 +437,42 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 	 * Process CDO in chunks.
 	 * Chunk size is based on the available PRAM size.
 	 */
-	ChunkLen = XLOADER_CHUNK_SIZE;
+	if (SecureParams.SecureEn != TRUE) {
+		ChunkLen = XLOADER_CHUNK_SIZE;
+	}
+	else {
+		SecureParams.IsCdo = TRUE;
+		if ((SecureParams.IsAuthenticated == TRUE)
+			|| (SecureParams.IsCheckSumEnabled == TRUE)) {
+			ChunkLen = Len % XLOADER_CHUNK_SIZE;
+		}
+		else {
+			ChunkLen = XLOADER_CHUNK_SIZE;
+		}
+
+	}
 	while (Len > 0U)
 	{
 		/** Update the len for last chunk */
-		if (Len < ChunkLen)
+		if (Len <= ChunkLen)
 		{
+			LastChunk = TRUE;
 			ChunkLen = Len;
 		}
 
-		/** Copy the data to PRAM buffer */
-		PdiPtr->DeviceCopy(SrcAddr, XLOADER_CHUNK_MEMORY, ChunkLen, 0U);
-		Cdo.BufPtr = (u32 *)XLOADER_CHUNK_MEMORY;
-		Cdo.BufLen = ChunkLen/4U;
+		if (SecureParams.SecureEn != TRUE) {
+			/** Copy the data to PRAM buffer */
+			PdiPtr->DeviceCopy(SrcAddr, XLOADER_CHUNK_MEMORY, ChunkLen, 0U);
+			Cdo.BufPtr = (u32 *)XLOADER_CHUNK_MEMORY;
+			Cdo.BufLen = ChunkLen/4U;
+		}
+		else {
+			/* Call security function */
+			Status = XLoader_SecurePrtn(&SecureParams, SecureParams.SecureData,
+									 ChunkLen, LastChunk);
+			Cdo.BufPtr = SecureParams.SecureData;
+			Cdo.BufLen = ChunkLen/4;
+		}
 
 		/** Process the chunk */
 		Status = XPlmi_ProcessCdo(&Cdo);
@@ -438,6 +484,9 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 		/** Update variables for next chunk */
 		SrcAddr += ChunkLen;
 		Len -= ChunkLen;
+		if (LastChunk == FALSE) {
+			ChunkLen = XLOADER_CHUNK_SIZE;
+		}
 	}
 	Status = XST_SUCCESS;
 END:
