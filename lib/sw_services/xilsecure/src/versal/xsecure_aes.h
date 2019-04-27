@@ -1,31 +1,16 @@
 /******************************************************************************
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
+* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
 *
 * @file xsecure_aes.h
+* @addtogroup xsecure_aes_versal_apis XilSecure AES VERSAL APIs
+* @{
+* @cond xsecure_internal
 *
 * This file contains AES hardware interface APIs
 *
@@ -36,10 +21,13 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 4.0   vns  04/24/2019 Initial release
 * 4.1   vns  08/06/2019 Added AES encryption APIs
-*
+* 4.2   kpt  01/07/2020 Removed Macro XSECURE_WORD_SIZE
+*                       and added in xsecure_utils.h
+*       vns  02/10/2020 Added DPA CM enable/disable function
 * </pre>
 *
 * @note
+* @endcond
 *
 ******************************************************************************/
 #ifndef XSECURE_AES_H_
@@ -50,13 +38,15 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xsecure_aes_core_hw.h"
-#include "xsecure_utils.h"
-#include "xcsudma.h"
-
+#include "xpmcdma.h"
+#include "xsecure_sss.h"
 
 /************************** Constant Definitions *****************************/
+/** @cond xsecure_internal
+@{
+*/
 
+#define XSECURE_AES_BUFFER_SIZE					(4U)
 #define XSECURE_AES_KEY_DEC_SEL_BBRAM_RED		(0x0U)
 #define XSECURE_AES_KEY_DEC_SEL_BH_RED			(0x1U)
 #define XSECURE_AES_KEY_DEC_SEL_EFUSE_RED		(0x2U)
@@ -67,15 +57,16 @@ extern "C" {
 						/**< GCM Tag Size in Bytes */
 #define XSECURE_AES_KEY_SIZE_128BIT_WORDS		(4U)
 #define XSECURE_AES_KEY_SIZE_256BIT_WORDS		(8U)
-
-#define XSECURE_WORD_SIZE				(4U)
-
 #define XSECURE_AES_TIMEOUT_MAX				(0x1FFFFU)
 
 #define XSECURE_AES_INVALID_CFG				(0xFFFFFFFFU)
 
 #define XSECURE_AES_NO_CFG_DST_DMA			(0xFFFFFFFFU)
 
+#define XSECURE_AES_KEY_MASK_INDEX			(0xA0U)
+#define XSECURE_AES_DMA_SIZE				(16U)
+#define XSECURE_AES_DMA_LAST_WORD_ENABLE		(0x1U)
+#define XSECURE_AES_DMA_LAST_WORD_DISABLE		(0x0U)
 /* Key select values */
 #define XSECURE_AES_KEY_SEL_BBRAM_KEY			(0xBBDE6600)
 #define XSECURE_AES_KEY_SEL_BBRAM_RD_KEY		(0xBBDE8200)
@@ -99,19 +90,10 @@ extern "C" {
 #define XSECURE_AES_KEY_SEL_USR_KEY_6			(0xBD858240)
 #define XSECURE_AES_KEY_SEL_USR_KEY_7			(0xBD858280)
 
+/** @}
+@endcond */
+
 /**************************** Type Definitions *******************************/
-
-typedef struct {
-	u32 RegOffset;
-	u32 KeySrcSelVal;
-	u8  UsrWrAllowed;
-	u8  DecAllowed;
-	u8  EncAllowed;
-	u8  KeyDecSrcAllowed;
-	u32 KeyDecSrcSelVal;
-	u32 KeyClearVal;
-} XSecure_AesKeyLookup;
-
 typedef enum {
 	XSECURE_BLACK_KEY,
 	XSECURE_OBFUSCATED_KEY
@@ -149,7 +131,9 @@ typedef enum {
 	XSECURE_AES_KEY_SIZE_256 = 2,
 }XSecure_AesKeySize;
 
-
+/** @cond xsecure_internal
+@{
+*/
 typedef enum {
 	XSECURE_AES_UNINITIALIZED,
 	XSECURE_AES_INITIALIZED,
@@ -159,22 +143,17 @@ typedef enum {
 
 typedef struct {
 	u32 BaseAddress;
-	XCsuDma *CsuDmaPtr; /**< CSUDMA Instance Pointer */
+	XPmcDma *PmcDmaPtr; /**< PMCDMA Instance Pointer */
 	XSecure_Sss SssInstance;
 	XSecure_AesState AesState; /**< Current Aes State  */
 	XSecure_AesKeySrc KeySrc;
 } XSecure_Aes;
-
-typedef enum {
-	XSECURE_AES_GCM_TAG_MISMATCH = (0x2U),
-					/**< user provided GCM tag does
-						not match calculated tag */
-	XSECURE_AES_KEY_CLEAR_ERROR,
-					/**< AES key clear error */
-} XSecure_AesErrorCodes;
-
+/** @}
+@endcond */
 /************************** Function Prototypes ******************************/
-u32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr);
+u32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr);
+
+u32 XSecure_AesSetDpaCm(XSecure_Aes *InstancePtr, u32 Configuration);
 
 u32 XSecure_AesKeyZero(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc);
 
@@ -185,14 +164,15 @@ u32 XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
 			XSecure_AesKeySrc DecKeySrc, XSecure_AesKeySrc DstKeySrc,
 			u64 IvAddr, u32 KeySize);
 
-u32 XSecure_AesCfgKupIv(XSecure_Aes *InstancePtr, u32 EnableCfg);
+u32 XSecure_AesCfgKupIv(XSecure_Aes *InstancePtr, u32 Config);
+
 u32 XSecure_AesGetNxtBlkLen(XSecure_Aes *InstancePtr, u32 *Size);
 
 u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 			XSecure_AesKeySize KeySize, u64 IvAddr);
 
 u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
-			u64 OutDataAddr, u32 Size, u8 EnLast);
+			u64 OutDataAddr, u32 Size, u8 IsLastChunk);
 u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr);
 
 u32 XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
@@ -202,11 +182,15 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 			XSecure_AesKeySize KeySize, u64 IvAddr);
 
 u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
-			u64 OutDataAddr, u32 Size, u8 EnLast);
+			u64 OutDataAddr, u32 Size, u8 IsLastChunk);
 u32 XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr);
 
 u32 XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 			u64 OutDataAddr, u32 Size, u64 GcmTagAddr);
+
+u32 XSecure_AesDecryptKat(XSecure_Aes *InstancePtr);
+
+u32 XSecure_AesDecryptCmKat(XSecure_Aes *InstancePtr);
 
 #ifdef __cplusplus
 }
