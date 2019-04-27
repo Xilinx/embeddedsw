@@ -81,6 +81,7 @@ XStatus XPm_PowerUpNoC(XPm_Node *Node);
 XStatus XPm_PowerDwnNoC();
 XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				  u32 *Args, u32 NumArgs);
+XStatus XPmPower_CheckPower(u32 VoltageRailMask);
 
 #ifdef __cplusplus
 }
