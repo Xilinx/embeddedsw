@@ -263,6 +263,20 @@ XStatus XPm_PowerDwnPLD()
 	if (Status != XST_SUCCESS)
 		goto done;
 
+	/* Isolate PL_CPM */
+	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR, TRUE);
+	if (Status != XST_SUCCESS)
+		goto done;
+	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR, TRUE);
+	if (Status != XST_SUCCESS)
+		goto done;
+	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PL_CPM_RST_CPI0, TRUE);
+	if (Status != XST_SUCCESS)
+		goto done;
+	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PL_CPM_RST_CPI1, TRUE);
+	if (Status != XST_SUCCESS)
+		goto done;
+
 	/* Assert POR PL */
 	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PL_POR),
 				     PM_RESET_ACTION_ASSERT);
@@ -317,6 +331,20 @@ XStatus XPm_PowerDwnCPM()
 		goto done;
 
 	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_LPD_CPM_DFX, TRUE);
+	if (Status != XST_SUCCESS)
+		goto done;
+
+	/* Isolate PL_CPM */
+	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR, TRUE);
+	if (Status != XST_SUCCESS)
+		goto done;
+	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR, TRUE);
+	if (Status != XST_SUCCESS)
+		goto done;
+	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PL_CPM_RST_CPI0, TRUE);
+	if (Status != XST_SUCCESS)
+		goto done;
+	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PL_CPM_RST_CPI1, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
