@@ -65,7 +65,7 @@ static XStatus PldPostHouseclean(u32 *Args, u32 NumOfArgs)
 	if (XST_SUCCESS == XPmPower_CheckPower(	PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK |
 						PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK)) {
 		/* Remove vccaux-vccram domain isolation */
-		Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCAUX_VCCRAM, FALSE);
+		Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_VCCAUX_VCCRAM, FALSE);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
@@ -74,7 +74,7 @@ static XStatus PldPostHouseclean(u32 *Args, u32 NumOfArgs)
 	if (XST_SUCCESS == XPmPower_CheckPower(	PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK |
 						PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_SOC_MASK)) {
 		/* Remove vccaux-vccram domain isolation */
-		Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCRAM_SOC, FALSE);
+		Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_VCCRAM_SOC, FALSE);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
@@ -268,7 +268,7 @@ static XStatus CpmHouseClean()
 	XStatus Status = XST_SUCCESS;
 
 	/* Remove isolation to allow scan_clear on CPM */
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_CPM_DFX, FALSE);
+	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_LPD_CPM_DFX, FALSE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -297,7 +297,7 @@ static XStatus CpmHouseClean()
 				     PM_RESET_ACTION_PULSE);
 
 	/* Remove LPD_CPM isolation to run BISR and MBIST on CPM */
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_CPM, FALSE);
+	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_LPD_CPM, FALSE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -411,7 +411,7 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 		}
 	}
 
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_PL_CFRAME, FALSE);
+	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PMC_PL_CFRAME, FALSE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}

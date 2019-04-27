@@ -90,7 +90,7 @@ static XStatus FpdPostHouseclean(u32 *Args, u32 NumOfArgs)
 		goto done;
 
 	/* Remove FPD SOC domains isolation */
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_FPD_SOC, FALSE);
+	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_FPD_SOC, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
