@@ -74,6 +74,7 @@ enum class {
 	XPM_NODECLASS_STMIC,
 	XPM_NODECLASS_DEVICE,
 	XPM_NODECLASS_SUBSYSTEM,
+	XPM_NODECLASS_ISOLATION,
 
 	XPM_NODECLASS_MAX
 } XPm_NodeClass;
@@ -116,6 +117,11 @@ typedef enum {
 	/* Subsystem classes */
 	XPM_NODESUBCL_SUBSYSTEM=0,
 } XPm_SubsystemSubclass;
+
+typedef enum {
+	/* isoaltion subclasses */
+	XPM_NODESUBCL_ISOLATION=0,
+} XPm_IsolationSubclass;
 
 /* Node types */
 typedef enum {
@@ -169,6 +175,11 @@ typedef enum {
 	/* Subsystem types */
         XPM_NODETYPE_SUBSYSTEM=0,
 } XPm_SubsystemTypes;
+
+typedef enum {
+	/* isoaltion types */
+	XPM_NODETYPE_ISOLATION=0,
+} XPm_IsolationTypes;
 
 /* All node IDs */
 typedef enum {
@@ -609,6 +620,36 @@ typedef enum {
 
 	XPM_NODEIDX_SUBSYS_MAX,
 } XPm_SubsystemId;
+
+/**
+ * Isolation IDs
+ */
+typedef enum {
+	XPM_NODEIDX_ISO_FPD_PL_TEST,
+	XPM_NODEIDX_ISO_FPD_PL,
+	XPM_NODEIDX_ISO_FPD_SOC,
+	XPM_NODEIDX_ISO_LPD_CPM_DFX,
+	XPM_NODEIDX_ISO_LPD_CPM,
+	XPM_NODEIDX_ISO_LPD_PL_TEST,
+	XPM_NODEIDX_ISO_LPD_PL,
+	XPM_NODEIDX_ISO_LPD_SOC,
+	XPM_NODEIDX_ISO_PMC_LPD_DFX,
+	XPM_NODEIDX_ISO_PMC_LPD,
+	XPM_NODEIDX_ISO_PMC_PL_CFRAME,
+	XPM_NODEIDX_ISO_PMC_PL_TEST,
+	XPM_NODEIDX_ISO_PMC_PL,
+	XPM_NODEIDX_ISO_PMC_SOC_NPI,
+	XPM_NODEIDX_ISO_PMC_SOC,
+	XPM_NODEIDX_ISO_PL_SOC,
+	XPM_NODEIDX_ISO_VCCAUX_SOC,
+	XPM_NODEIDX_ISO_VCCRAM_SOC,
+	XPM_NODEIDX_ISO_VCCAUX_VCCRAM,
+	XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR,
+	XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR,
+	XPM_NODEIDX_ISO_PL_CPM_RST_CPI0,
+	XPM_NODEIDX_ISO_PL_CPM_RST_CPI1,
+	XPM_NODEIDX_ISO_MAX,
+} XPm_IsolationId;
 
 #ifdef __cplusplus
 }
