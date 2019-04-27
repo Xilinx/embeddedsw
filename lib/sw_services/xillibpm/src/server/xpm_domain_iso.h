@@ -29,36 +29,30 @@
 #ifndef XPM_DOMAIN_ISO_H
 #define XPM_DOMAIN_ISO_H
 
+#include "xpm_node.h"
 #include "xpm_common.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-enum XPmDomainIso {
-	XPM_DOMAIN_ISO_FPD_PL_TEST,
-	XPM_DOMAIN_ISO_FPD_PL,
-	XPM_DOMAIN_ISO_FPD_SOC,
-	XPM_DOMAIN_ISO_LPD_CPM_DFX,
-	XPM_DOMAIN_ISO_LPD_CPM,
-	XPM_DOMAIN_ISO_LPD_PL_TEST,
-	XPM_DOMAIN_ISO_LPD_PL,
-	XPM_DOMAIN_ISO_LPD_SOC,
-	XPM_DOMAIN_ISO_PMC_LPD_DFX,
-	XPM_DOMAIN_ISO_PMC_LPD,
-	XPM_DOMAIN_ISO_PMC_PL_CFRAME,
-	XPM_DOMAIN_ISO_PMC_PL_TEST,
-	XPM_DOMAIN_ISO_PMC_PL,
-	XPM_DOMAIN_ISO_PMC_SOC_NPI,
-	XPM_DOMAIN_ISO_PMC_SOC,
-	XPM_DOMAIN_ISO_PL_SOC,
-	XPM_DOMAIN_ISO_VCCAUX_SOC,
-	XPM_DOMAIN_ISO_VCCRAM_SOC,
-	XPM_DOMAIN_ISO_VCCAUX_VCCRAM,
-	XPM_DOMAIN_ISO_MAX
-};
+typedef struct XPm_Iso {
+	XPm_Node Node; /**< Node: Node base class */
+	u8 Offset;
+	u32 DependencyNodeHandles[2];
+}XPm_Iso;
 
-XStatus XPmDomainIso_Control(enum XPmDomainIso IsoId, u32 Enable);
+/* Isoaltion states */
+typedef enum {
+	PM_ISOLATION_ON,
+	PM_ISOLATION_OFF,
+	PM_ISOLATION_REMOVE_PENDING,
+}XPm_IsoStates;
+
+#define ISOID(x)		NODEID(XPM_NODECLASS_ISOLATION, XPM_NODESUBCL_ISOLATION, XPM_NODETYPE_ISOLATION, x)
+
+XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable);
+XStatus XPmDomainIso_ProcessPending(u32 PowerDomainId);
 
 #ifdef __cplusplus
 }

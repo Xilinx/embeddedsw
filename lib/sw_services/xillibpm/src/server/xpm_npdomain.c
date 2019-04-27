@@ -55,7 +55,7 @@ static XStatus NpdPreHouseclean(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_SOC_NPI, FALSE);
+	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PMC_SOC_NPI, FALSE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -103,14 +103,14 @@ static XStatus NpdPostHouseclean(u32 *Args, u32 NumOfArgs)
 	if (XST_SUCCESS == XPmPower_CheckPower(	PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK |
 						PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_SOC_MASK)) {
 		/* Remove vccaux-soc domain isolation */
-		Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCAUX_SOC, FALSE);
+		Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_VCCAUX_SOC, FALSE);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
 	}
 
 	/* Remove PMC-NoC domain isolation */
-	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_SOC, FALSE);
+	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PMC_SOC, FALSE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
