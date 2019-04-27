@@ -65,6 +65,7 @@ extern "C" {
 /* Boot header address in PRAM copied by ROM*/
 #define XIH_BH_PRAM_ADDR		(0xF201E000U)
 
+#define XIH_AC_PRAM_OFFSET		(0xF70)
 /* Boot header SMAP bus width length */
 #define XIH_BH_SMAP_BUS_WIDTH_LEN	(16U)
 
