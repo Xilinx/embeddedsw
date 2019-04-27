@@ -185,6 +185,7 @@ XStatus XPm_AddRequirement(const u32 SubsystemId, const u32 DeviceId);
 XStatus XPm_SetCurrentSubsystem(u32 SubsystemId);
 XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs);
 int XPm_FeatureCheck(const u32 ApiId, u32 *const Version);
+XStatus XPm_IsoControl(u32 NodeId, u32 Enable);
 
 #ifdef __cplusplus
 }

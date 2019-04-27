@@ -236,6 +236,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		case PM_FEATURE_CHECK:
 			Status = XPm_FeatureCheck(Pload[0], ApiResponse);
 			break;
+		case PM_ISO_CONTROL:
+			Status = XPm_IsoControl(Pload[0], Pload[1]);
+			break;
 		default:
 			Status = XST_INVALID_PARAM;
 			break;
@@ -438,6 +441,41 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
 		Status = XST_INVALID_PARAM;
 		break;
 	}
+
+done:
+	return Status;
+}
+
+
+/****************************************************************************/
+/**
+ * @brief  This function allows to control isolation nodes.
+ *
+ * @param  Isoaltion NodeId	Supported isoaltion nodes only
+ * @param  Enable/Disable
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   none
+ *
+ ****************************************************************************/
+XStatus XPm_IsoControl(u32 NodeId, u32 Enable)
+{
+	XStatus Status = XST_SUCCESS;
+	XPm_PowerDomain *PwrDomainNode;
+
+	if ((XPM_NODECLASS_ISOLATION != NODECLASS(NodeId)) ||
+	    (XPM_NODEIDX_ISO_MAX <= NODEINDEX(NodeId))) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/*TODO: Right now we dont have PLD init node support so we assume
+	 * PL subsystem is ready when iso control commands are received*/
+	XPmSubsystem_SetState(XPM_SUBSYSID_PL, ONLINE);
+
+	Status = XPmDomainIso_Control(NODEINDEX(NodeId), Enable);
 
 done:
 	return Status;
