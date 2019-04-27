@@ -68,39 +68,39 @@ XStatus XPm_PowerDwnLPD()
 	XStatus Status = XST_SUCCESS;
 
 	/* Isolate PS_PL */
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_LPD_PL_TEST);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_PL_TEST, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_LPD_PL);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_PL, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Isolate PS_CPM domains */
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_LPD_CPM_DFX);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_CPM_DFX, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_LPD_CPM);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_CPM, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Isolate FP-SOC */
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_FPD_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_FPD_SOC, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Isolate LP-SoC */
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_LPD_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_SOC, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Isolate PS_PMC domains */
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_PMC_LPD_DFX);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_LPD_DFX, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_PMC_LPD);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_LPD, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
@@ -125,53 +125,53 @@ XStatus XPm_PowerUpPLD()
 	/*TODO: Check NoC power state before disabling Isolation */
 
 	/* Remove PL-NoC isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_PL_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PL_SOC, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/*TODO: Check FPD and LPD  power state before disabling Isolation */
 
 	/* Remove FPD-PL isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_FPD_PL);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_FPD_PL, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_FPD_PL_TEST);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_FPD_PL_TEST, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Remove LPD-PL isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_LPD_PL);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_PL, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_LPD_PL_TEST);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_PL_TEST, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Remove PL-PMC isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_PMC_PL);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_PL, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_PMC_PL_TEST);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_PL_TEST, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_PMC_PL_CFRAME);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_PL_CFRAME, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Remove isolation from VCCINT to VCCINT_RAM*/
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_VCCRAM_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCRAM_SOC, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_VCCAUX_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCAUX_SOC, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_VCCAUX_VCCRAM);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCAUX_VCCRAM, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
@@ -187,51 +187,51 @@ XStatus XPm_PowerDwnPLD()
 	XStatus Status = XST_SUCCESS;
 
 	/* Isolate PL-NoC */
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_PL_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PL_SOC, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Isolate FPD-PL */
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_FPD_PL);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_FPD_PL, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_FPD_PL_TEST);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_FPD_PL_TEST, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Isolate LPD-PL */
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_LPD_PL);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_PL, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_LPD_PL_TEST);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_PL_TEST, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Isolate PL-PMC */
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_PMC_PL);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_PL, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_PMC_PL_TEST);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_PL_TEST, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_PMC_PL_CFRAME);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_PL_CFRAME, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Isolate VCCINT_RAM from VCCINT */
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_VCCRAM_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCRAM_SOC, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_VCCAUX_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCAUX_SOC, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_VCCAUX_VCCRAM);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCAUX_VCCRAM, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
@@ -273,11 +273,11 @@ XStatus XPm_PowerUpCPM()
 	/* TODO: Wait till PL and LPD on */
 
 	/* Remove LPD-CPM isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_LPD_CPM);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_CPM, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_LPD_CPM_DFX);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_CPM_DFX, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
@@ -294,11 +294,11 @@ XStatus XPm_PowerDwnCPM()
 	XStatus Status = XST_SUCCESS;
 
 	/* Isolate LPD-CPM */
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_LPD_CPM);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_CPM, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_LPD_CPM_DFX);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_CPM_DFX, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
@@ -343,37 +343,37 @@ XStatus XPm_PowerUpNoC()
 	/*TODO: wait till vccint_soc is 1 */
 
 	/* Isolate FPD-NoC domain */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_FPD_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_FPD_SOC, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Isolate LPD-NoC domain */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_LPD_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_SOC, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Isolate PL-NoC domain */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_PL_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PL_SOC, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Isolate VCCAUX-NoC domain */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_VCCAUX_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCAUX_SOC, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Isolate VCCRAM-NoC domain */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_VCCRAM_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCRAM_SOC, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Isolate PMC-NoC domain */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_PMC_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_SOC, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Isolate PMC-NoC NPI domain */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_PMC_SOC_NPI);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_SOC_NPI, FALSE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
@@ -394,37 +394,37 @@ XStatus XPm_PowerDwnNoC()
 	XStatus Status = XST_SUCCESS;
 
 	/* Isolate FPD-NoC domain */
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_FPD_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_FPD_SOC, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Isolate LPD-NoC domain */
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_LPD_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_SOC, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Isolate PL-NoC domain */
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_PL_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PL_SOC, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Isolate VCCAUX-NoC domain */
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_VCCAUX_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCAUX_SOC, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Isolate VCCRAM-NoC domain */
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_VCCRAM_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCRAM_SOC, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Isolate PMC-NoC domain */
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_PMC_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_SOC, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 
 	/* Isolate PMC-NoC NPI domain */
-	Status = XPm_DomainIsoEnable(XPM_DOMAIN_ISO_PMC_SOC_NPI);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_SOC_NPI, TRUE);
 	if (Status != XST_SUCCESS)
 		goto done;
 

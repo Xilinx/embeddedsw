@@ -321,62 +321,62 @@ static XStatus PldPreHouseclean(u32 *Args, u32 NumOfArgs)
         }
 
 	/* Remove PL-NoC isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_PL_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PL_SOC, FALSE);
 	if (XST_SUCCESS != Status)
 		goto done;
 
 	/*TODO: Check FPD and LPD  power state before disabling Isolation */
 
 	/* Remove FPD-PL isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_FPD_PL);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_FPD_PL, FALSE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_FPD_PL_TEST);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_FPD_PL_TEST, FALSE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
 	/* Remove LPD-PL isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_LPD_PL);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_PL, FALSE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_LPD_PL_TEST);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_LPD_PL_TEST, FALSE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
 	/* Remove PL-PMC isolation */
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_PMC_PL);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_PL, FALSE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_PMC_PL_TEST);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_PL_TEST, FALSE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_PMC_PL_CFRAME);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_PMC_PL_CFRAME, FALSE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
 	/* Remove isolation from VCCINT to VCCINT_RAM*/
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_VCCRAM_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCRAM_SOC, FALSE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_VCCAUX_SOC);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCAUX_SOC, FALSE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
-	Status = XPm_DomainIsoDisable(XPM_DOMAIN_ISO_VCCAUX_VCCRAM);
+	Status = XPmDomainIso_Control(XPM_DOMAIN_ISO_VCCAUX_VCCRAM, FALSE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
