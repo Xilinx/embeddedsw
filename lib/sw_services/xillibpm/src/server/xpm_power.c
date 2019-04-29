@@ -47,6 +47,10 @@ static XPm_Power *GetPowerNode(u32 Id)
 	}
 
 	Power = PmPowers[NODEINDEX(Id)];
+	/* Validate power node ID is same as given ID. */
+	if ((NULL != Power) && (Id != Power->Node.Id)) {
+		Power = NULL;
+	}
 
 done:
 	return Power;
