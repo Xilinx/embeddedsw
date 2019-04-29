@@ -123,6 +123,9 @@ u32 XLoader_SecureInit(XLoader_SecureParms *SecurePtr, XilPdi *PdiPtr,
 
 	/* Check if checksum is enabled */
 	if ((PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_CHECKSUM_MASK) != 0x00) {
+		 XPlmi_Printf(DEBUG_INFO,
+			 "Verifying checksum of the partition\n\r");
+
 		/* Check checksum type */
 		if((PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_CHECKSUM_MASK) ==
 				XIH_PH_ATTRB_HASH_SHA3) {
@@ -145,6 +148,9 @@ u32 XLoader_SecureInit(XLoader_SecureParms *SecurePtr, XilPdi *PdiPtr,
 	}
 	/* check if authentication is enabled */
 	if ((PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_RSA_SIGNATURE_MASK) != 0x00) {
+		 XPlmi_Printf(DEBUG_INFO,
+                         "Authenticating the partition\n\r");
+
 		SecurePtr->IsAuthenticated = TRUE;
 		SecurePtr->SecureEn = TRUE;
 		/* Copy Authentication certificate */
@@ -159,6 +165,9 @@ u32 XLoader_SecureInit(XLoader_SecureParms *SecurePtr, XilPdi *PdiPtr,
 	}
 	/* Check if encryption is enabled */
 	if ((PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_ENCRYPTION_MASK) != 0x00) {
+		 XPlmi_Printf(DEBUG_INFO,
+                         "Partition is in encrypted format\n\r");
+
 		SecurePtr->IsEncrypted = TRUE;
 		SecurePtr->SecureEn = TRUE;
 	}
@@ -226,7 +235,7 @@ u32 XLoader_SecureCopy(XLoader_SecureParms *SecurePtr, u64 DestAddr, u32 Size)
 		if (SecurePtr->IsEncrypted != TRUE) {
 			/* copy to destination address */
 			Status = XPlmi_DmaXfr((u64)SecurePtr->SecureData,
-					(u64)LoadAddr, ChunkLen, XPLMI_PMCDMA_0);
+				(u64)LoadAddr, ChunkLen/4, XPLMI_PMCDMA_0);
 		}
 		LoadAddr = LoadAddr + ChunkLen;
 
