@@ -261,7 +261,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 
 XStatus XPmPower_GetStatus(const u32 SubsystemId, const u32 DeviceId, XPm_DeviceStatus *const DeviceStatus)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_Power *Power;
 
 	/* Warning Fix */
