@@ -768,11 +768,17 @@ XPm_Device *XPmDevice_GetById(const u32 DeviceId)
 {
 	XPm_Device *Device = NULL;
 
-	if (XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
+	if ((XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) &&
+	    (XPM_NODEIDX_DEV_MAX > NODEINDEX(DeviceId))) {
 		goto done;
 	}
 
 	Device = PmDevices[NODEINDEX(DeviceId)];
+	/* Check that Device's ID is same as given ID or not. */
+	if ((NULL != Device) && (DeviceId != Device->Node.Id)) {
+		Device = NULL;
+	}
+
 done:
 	return Device;
 }
