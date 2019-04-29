@@ -81,13 +81,14 @@
 typedef enum {
 	XPUF_REGISTRATION_WO_AUTH_ERROR = (0x2000U),
 	XPUF_FUSE_12K_NOT_ALLOWED_ERROR = (0x2001U),
-	XPUF_STRING_INVALID_ERROR = (0x2001U),
+	XPUF_STRING_INVALID_ERROR = (0x2002U),
 	XPUF_PARAMETER_NULL_ERROR= (0x2003U),
 
 	XPUF_DMA_CONFIG_FAILED_ERROR = (0x2004U),
 	XPUF_DMA_INIT_FAILED_ERROR = (0x20005U),
 	XPUF_AES_INIT_FAILED_ERROR = (0x2006U),
-	XPUF_ENCRYPTION_FAILED_ERROR = (0x2007U)
+	XPUF_ENCRYPTION_FAILED_ERROR = (0x2007U),
+	XPUF_ZERO_BLACK_KEY_ERROR = (0x2008U)
 }Xsk_PufErrocodes;
 
 /************************** Function Prototypes ******************************/
@@ -108,6 +109,8 @@ static u32 XilSKey_Puf_Fetch_Dbg_Mode2_result(XilSKey_Puf *InstancePtr);
 int main() {
 
 	u32 Status;
+	u32 Index;
+	u32 IsBlackKeyZero = TRUE;
 	u32 SiliconVer = XGetPSVersion_Info();
 
 	xPuf_printf(XPUF_DEBUG_GENERAL,
@@ -193,7 +196,20 @@ int main() {
 			"App:Key encryption failed:0x%08x\r\n", Status);
 		goto ENDF;
 	}
-
+	for (Index = 0; Index < XSK_ZYNQMP_EFUSEPS_AES_KEY_LEN_IN_BYTES;
+								Index++) {
+		if (PufInstance.BlackKey[Index] != 0x00U) {
+			IsBlackKeyZero = FALSE;
+			break;
+		}
+	}
+	/* If Black key is zero, dont program eFuse with helper data */
+	if (IsBlackKeyZero) {
+		Status = XPUF_ZERO_BLACK_KEY_ERROR;
+		xPuf_printf(XPUF_DEBUG_GENERAL,
+			"App: Zero Black Key:0x%08x\r\n", Status);
+		goto ENDF;
+	}
 #if defined XPUF_FUSE_SYN_DATA
 	u32 SynReadData[128];
 	u32 Aux;
