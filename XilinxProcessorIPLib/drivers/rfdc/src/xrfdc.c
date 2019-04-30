@@ -157,6 +157,8 @@
 *       cog    04/09/19 Changed Calibrtation coefficient override control register for OCB1.
 *       cog    04/15/19 Rename XRFdc_SetDACMode() and XRFdc_GetDACMode() APIs to
 *                       XRFdc_SetDataPathMode() and XRFdc_GetDataPathMode() respectively.
+*       cog    04/30/19 Made Changes to the bypass calibration functionality to support Gen2
+*                       and below.
 *
 * </pre>
 *
@@ -4593,7 +4595,7 @@ u32 XRFdc_GetSignalDetector(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc
 	if (InstancePtr->RFdc_Config.IPType < 2) {
 		Status = XRFDC_FAILURE;
 		metal_log(METAL_LOG_ERROR,
-			  "\n Requested fuctionality not "
+			  "\n Requested functionality not "
 			  "available for this IP in %s\r\n",
 			  __func__);
 		goto RETURN_PATH;
@@ -4662,8 +4664,19 @@ u32 XRFdc_DisableCoefficientsOverride(XRFdc *InstancePtr, u32 Tile_Id, u32 Block
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not "
-								"available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR,
+			  "\n Requested block not "
+			  "available in %s\r\n",
+			  __func__);
+		goto RETURN_PATH;
+	}
+
+	if ((InstancePtr->RFdc_Config.IPType < 2) && (CalibrationBlock == XRFDC_CAL_BLOCK_OCB1)) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR,
+			  "\n Requested functionality not "
+			  "available for this IP in %s\r\n",
+			  __func__);
 		goto RETURN_PATH;
 	}
 
@@ -4690,26 +4703,59 @@ u32 XRFdc_DisableCoefficientsOverride(XRFdc *InstancePtr, u32 Tile_Id, u32 Block
 					XRFDC_DISABLED);
 			break;
 		case XRFDC_CAL_BLOCK_GCB:
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL2_OFFSET, XRFDC_CAL_GCB_EN_MASK,
-					XRFDC_DISABLED << XRFDC_CAL_GCB_EN_SHIFT);
+			if (InstancePtr->RFdc_Config.IPType < 2) {
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL1_OFFSET,
+						XRFDC_CAL_GCB_ENFL_MASK, XRFDC_CAL_GCB_ACEN_MASK);
+				/*Clear IP Override Coeffs*/
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
+						XRFDC_CAL_GCB_COEFF0_FAB(Index), XRFDC_CAL_GCB_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
+						XRFDC_CAL_GCB_COEFF1_FAB(Index), XRFDC_CAL_GCB_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
+						XRFDC_CAL_GCB_COEFF2_FAB(Index), XRFDC_CAL_GCB_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
+						XRFDC_CAL_GCB_COEFF3_FAB(Index), XRFDC_CAL_GCB_MASK, XRFDC_DISABLED);
+			} else {
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL2_OFFSET,
+						XRFDC_CAL_GCB_EN_MASK, XRFDC_DISABLED);
+			}
 			break;
 		case XRFDC_CAL_BLOCK_TSCB:
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF0, XRFDC_CAL_TSCB_EN_MASK,
-					XRFDC_DISABLED << XRFDC_CAL_TSCB_EN_SHIFT);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF1, XRFDC_CAL_TSCB_EN_MASK,
-					XRFDC_DISABLED << XRFDC_CAL_TSCB_EN_SHIFT);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF2, XRFDC_CAL_TSCB_EN_MASK,
-					XRFDC_DISABLED << XRFDC_CAL_TSCB_EN_SHIFT);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF3, XRFDC_CAL_TSCB_EN_MASK,
-					XRFDC_DISABLED << XRFDC_CAL_TSCB_EN_SHIFT);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF4, XRFDC_CAL_TSCB_EN_MASK,
-					XRFDC_DISABLED << XRFDC_CAL_TSCB_EN_SHIFT);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF5, XRFDC_CAL_TSCB_EN_MASK,
-					XRFDC_DISABLED << XRFDC_CAL_TSCB_EN_SHIFT);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF6, XRFDC_CAL_TSCB_EN_MASK,
-					XRFDC_DISABLED << XRFDC_CAL_TSCB_EN_SHIFT);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF7, XRFDC_CAL_TSCB_EN_MASK,
-					XRFDC_DISABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+			if (InstancePtr->RFdc_Config.IPType < 2) {
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF0_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF1_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF2_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF3_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF4_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF5_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF6_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF7_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+			} else {
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF0,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF1,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF2,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF3,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF4,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF5,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF6,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF7,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
+			}
 			break;
 		default:
 			Status = XRFDC_FAILURE;
@@ -4750,13 +4796,25 @@ u32 XRFdc_SetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 	u32 Status;
 	u32 Index;
 	u32 NoOfBlocks;
+	u32 HighSpeed;
+	u32 Shift;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CoeffPtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
+	if ((InstancePtr->RFdc_Config.IPType < 2) && (CalibrationBlock == XRFDC_CAL_BLOCK_OCB1)) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR,
+			  "\n Requested functionality not "
+			  "available for this IP in %s\r\n",
+			  __func__);
+		goto RETURN_PATH;
+	}
+
 	if (CalibrationBlock == XRFDC_CAL_BLOCK_GCB) {
-		if ((CoeffPtr->Coeff0 | CoeffPtr->Coeff1 | CoeffPtr->Coeff2 | CoeffPtr->Coeff3) & ~XRFDC_CAL_GCB_MASK) {
+		if ((CoeffPtr->Coeff0 | CoeffPtr->Coeff1 | CoeffPtr->Coeff2 | CoeffPtr->Coeff3) &
+		    ~(XRFDC_CAL_GCB_MASK | (XRFDC_CAL_GCB_MASK << XRFDC_CAL_SLICE_SHIFT))) {
 			Status = XRFDC_FAILURE;
 			metal_log(METAL_LOG_ERROR,
 				  "\n Bad Coefficient "
@@ -4768,7 +4826,8 @@ u32 XRFdc_SetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 
 	if (CalibrationBlock == XRFDC_CAL_BLOCK_TSCB) {
 		if ((CoeffPtr->Coeff0 | CoeffPtr->Coeff1 | CoeffPtr->Coeff2 | CoeffPtr->Coeff3 | CoeffPtr->Coeff4 |
-		    CoeffPtr->Coeff5 | CoeffPtr->Coeff6 | CoeffPtr->Coeff7) & ~XRFDC_CAL_TSCB_MASK) {
+		     CoeffPtr->Coeff5 | CoeffPtr->Coeff6 | CoeffPtr->Coeff7) &
+		    ~(XRFDC_CAL_TSCB_MASK | (XRFDC_CAL_TSCB_MASK << XRFDC_CAL_SLICE_SHIFT))) {
 			Status = XRFDC_FAILURE;
 			metal_log(METAL_LOG_ERROR,
 				  "\n Bad Coefficient "
@@ -4777,16 +4836,18 @@ u32 XRFdc_SetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 			goto RETURN_PATH;
 		}
 	}
-
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not "
-								"available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR,
+			  "\n Requested block not "
+			  "available in %s\r\n",
+			  __func__);
 		goto RETURN_PATH;
 	}
 
 	Index = Block_Id;
-	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
+	HighSpeed = XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id);
+	if (HighSpeed == XRFDC_ENABLED) {
 		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
 		if (Block_Id == XRFDC_BLK_ID1) {
 			Index = XRFDC_BLK_ID2;
@@ -4795,79 +4856,135 @@ u32 XRFdc_SetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 	} else {
 		NoOfBlocks = Block_Id + 1U;
 	}
-
 	for (; Index < NoOfBlocks; Index++) {
+		BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Index);
+		Shift = HighSpeed ? XRFDC_CAL_SLICE_SHIFT * (Index % 2) : 0;
 		BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Index);
 		switch (CalibrationBlock) {
 		case XRFDC_CAL_BLOCK_OCB1:
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL1_OFFSET, XRFDC_CAL_OCB_EN_MASK,
 					XRFDC_ENABLED);
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB1_OFFSET_COEFF0, XRFDC_CAL_OCB_MASK,
-					CoeffPtr->Coeff0);
+					CoeffPtr->Coeff0 >> Shift);
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB1_OFFSET_COEFF1, XRFDC_CAL_OCB_MASK,
-					CoeffPtr->Coeff1);
+					CoeffPtr->Coeff1 >> Shift);
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB1_OFFSET_COEFF2, XRFDC_CAL_OCB_MASK,
-					CoeffPtr->Coeff2);
+					CoeffPtr->Coeff2 >> Shift);
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB1_OFFSET_COEFF3, XRFDC_CAL_OCB_MASK,
-					CoeffPtr->Coeff3);
+					CoeffPtr->Coeff3 >> Shift);
 			break;
 		case XRFDC_CAL_BLOCK_OCB2:
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL3_OFFSET, XRFDC_CAL_OCB_EN_MASK,
 					XRFDC_ENABLED);
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB2_OFFSET_COEFF0, XRFDC_CAL_OCB_MASK,
-					CoeffPtr->Coeff0);
+					CoeffPtr->Coeff0 >> Shift);
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB2_OFFSET_COEFF1, XRFDC_CAL_OCB_MASK,
-					CoeffPtr->Coeff1);
+					CoeffPtr->Coeff1 >> Shift);
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB2_OFFSET_COEFF2, XRFDC_CAL_OCB_MASK,
-					CoeffPtr->Coeff2);
+					CoeffPtr->Coeff2 >> Shift);
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB2_OFFSET_COEFF3, XRFDC_CAL_OCB_MASK,
-					CoeffPtr->Coeff3);
+					CoeffPtr->Coeff3 >> Shift);
 			break;
 		case XRFDC_CAL_BLOCK_GCB:
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL2_OFFSET, XRFDC_CAL_GCB_EN_MASK,
-					XRFDC_ENABLED << XRFDC_CAL_GCB_EN_SHIFT);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF0, XRFDC_CAL_GCB_MASK,
-					CoeffPtr->Coeff0);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF1, XRFDC_CAL_GCB_MASK,
-					CoeffPtr->Coeff1);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF2, XRFDC_CAL_GCB_MASK,
-					CoeffPtr->Coeff2);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF3, XRFDC_CAL_GCB_MASK,
-					CoeffPtr->Coeff3);
+
+			if (InstancePtr->RFdc_Config.IPType < 2) {
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL1_OFFSET,
+						XRFDC_CAL_GCB_ACEN_MASK, XRFDC_DISABLED);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL1_OFFSET,
+						XRFDC_CAL_GCB_FLSH_MASK, XRFDC_ENABLED << XRFDC_CAL_GCB_FLSH_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
+						XRFDC_CAL_GCB_COEFF0_FAB(Index), XRFDC_CAL_GCB_MASK,
+						CoeffPtr->Coeff0 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
+						XRFDC_CAL_GCB_COEFF1_FAB(Index), XRFDC_CAL_GCB_MASK,
+						CoeffPtr->Coeff1 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
+						XRFDC_CAL_GCB_COEFF2_FAB(Index), XRFDC_CAL_GCB_MASK,
+						CoeffPtr->Coeff2 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
+						XRFDC_CAL_GCB_COEFF3_FAB(Index), XRFDC_CAL_GCB_MASK,
+						CoeffPtr->Coeff3 >> Shift);
+			} else {
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL2_OFFSET,
+						XRFDC_CAL_GCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_GCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF0, XRFDC_CAL_GCB_MASK,
+						CoeffPtr->Coeff0 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF1, XRFDC_CAL_GCB_MASK,
+						CoeffPtr->Coeff1 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF2, XRFDC_CAL_GCB_MASK,
+						CoeffPtr->Coeff2 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF3, XRFDC_CAL_GCB_MASK,
+						CoeffPtr->Coeff3 >> Shift);
+			}
 			break;
 		case XRFDC_CAL_BLOCK_TSCB:
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF0, XRFDC_CAL_TSCB_EN_MASK,
-					XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF1, XRFDC_CAL_TSCB_EN_MASK,
-					XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF2, XRFDC_CAL_TSCB_EN_MASK,
-					XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF3, XRFDC_CAL_TSCB_EN_MASK,
-					XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF4, XRFDC_CAL_TSCB_EN_MASK,
-					XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF5, XRFDC_CAL_TSCB_EN_MASK,
-					XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF6, XRFDC_CAL_TSCB_EN_MASK,
-					XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF7, XRFDC_CAL_TSCB_EN_MASK,
-					XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF0, XRFDC_CAL_TSCB_MASK,
-					CoeffPtr->Coeff0);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF1, XRFDC_CAL_TSCB_MASK,
-					CoeffPtr->Coeff1);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF2, XRFDC_CAL_TSCB_MASK,
-					CoeffPtr->Coeff2);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF3, XRFDC_CAL_TSCB_MASK,
-					CoeffPtr->Coeff3);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF4, XRFDC_CAL_TSCB_MASK,
-					CoeffPtr->Coeff4);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF5, XRFDC_CAL_TSCB_MASK,
-					CoeffPtr->Coeff5);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF6, XRFDC_CAL_TSCB_MASK,
-					CoeffPtr->Coeff6);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF7, XRFDC_CAL_TSCB_MASK,
-					CoeffPtr->Coeff7);
+			if (InstancePtr->RFdc_Config.IPType < 2) {
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF0_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF1_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF2_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF3_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF4_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF5_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF6_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF7_ALT,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF0_ALT,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff0 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF1_ALT,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff1);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF2_ALT,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff2 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF3_ALT,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff3 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF4_ALT,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff4 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF5_ALT,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff5 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF6_ALT,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff6 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF7_ALT,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff7 >> Shift);
+			} else {
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF0,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF1,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF2,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF3,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF4,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF5,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF6,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF7,
+						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF0,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff0 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF1,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff1 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF2,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff2 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF3,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff3 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF4,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff4 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF5,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff5 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF6,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff6 >> Shift);
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF7,
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff7 >> Shift);
+			}
 			break;
 		default:
 			Status = XRFDC_FAILURE;
@@ -4906,6 +5023,10 @@ u32 XRFdc_GetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 {
 	u32 BaseAddr;
 	u32 Status;
+	u32 Index;
+	u32 HighSpeed;
+	u32 Shift;
+	u32 NoOfBlocks;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CoeffPtr != NULL);
@@ -4913,58 +5034,175 @@ u32 XRFdc_GetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not "
-								"available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR,
+			  "\n Requested block not "
+			  "available in %s\r\n",
+			  __func__);
 		goto RETURN_PATH;
 	}
 
 	memset(CoeffPtr, 0, sizeof(XRFdc_Calibration_Coefficients));
-
-	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Block_Id);
-	switch (CalibrationBlock) {
-	case XRFDC_CAL_BLOCK_OCB1:
-		CoeffPtr->Coeff0 = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB1_OFFSET_COEFF0, XRFDC_CAL_OCB_MASK);
-		CoeffPtr->Coeff1 = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB1_OFFSET_COEFF1, XRFDC_CAL_OCB_MASK);
-		CoeffPtr->Coeff2 = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB1_OFFSET_COEFF2, XRFDC_CAL_OCB_MASK);
-		CoeffPtr->Coeff3 = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB1_OFFSET_COEFF3, XRFDC_CAL_OCB_MASK);
-		break;
-	case XRFDC_CAL_BLOCK_OCB2:
-		CoeffPtr->Coeff0 = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB2_OFFSET_COEFF0, XRFDC_CAL_OCB_MASK);
-		CoeffPtr->Coeff1 = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB2_OFFSET_COEFF1, XRFDC_CAL_OCB_MASK);
-		CoeffPtr->Coeff2 = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB2_OFFSET_COEFF2, XRFDC_CAL_OCB_MASK);
-		CoeffPtr->Coeff3 = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB2_OFFSET_COEFF3, XRFDC_CAL_OCB_MASK);
-		break;
-	case XRFDC_CAL_BLOCK_GCB:
-		CoeffPtr->Coeff0 = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF0, XRFDC_CAL_GCB_MASK);
-		CoeffPtr->Coeff1 = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF1, XRFDC_CAL_GCB_MASK);
-		CoeffPtr->Coeff2 = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF2, XRFDC_CAL_GCB_MASK);
-		CoeffPtr->Coeff3 = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF3, XRFDC_CAL_GCB_MASK);
-		break;
-	case XRFDC_CAL_BLOCK_TSCB:
-		CoeffPtr->Coeff0 =
-			XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF0, XRFDC_CAL_TSCB_MASK);
-		CoeffPtr->Coeff1 =
-			XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF1, XRFDC_CAL_TSCB_MASK);
-		CoeffPtr->Coeff2 =
-			XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF2, XRFDC_CAL_TSCB_MASK);
-		CoeffPtr->Coeff3 =
-			XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF3, XRFDC_CAL_TSCB_MASK);
-		CoeffPtr->Coeff4 =
-			XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF4, XRFDC_CAL_TSCB_MASK);
-		CoeffPtr->Coeff5 =
-			XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF5, XRFDC_CAL_TSCB_MASK);
-		CoeffPtr->Coeff6 =
-			XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF6, XRFDC_CAL_TSCB_MASK);
-		CoeffPtr->Coeff7 =
-			XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF7, XRFDC_CAL_TSCB_MASK);
-		break;
-	default:
-		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Calibration "
-			  "Mode in %s\r\n",
-			  __func__);
-		goto RETURN_PATH;
+	Index = Block_Id;
+	HighSpeed = XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id);
+	if (HighSpeed == XRFDC_ENABLED) {
+		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
+		if (Block_Id == XRFDC_BLK_ID1) {
+			Index = XRFDC_BLK_ID2;
+			NoOfBlocks = XRFDC_NUM_OF_BLKS4;
+		}
+	} else {
+		NoOfBlocks = Block_Id + 1U;
+	}
+	for (; Index < NoOfBlocks; Index++) {
+		BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Index);
+		Shift = HighSpeed ? XRFDC_CAL_SLICE_SHIFT * (Index % 2) : 0;
+		switch (CalibrationBlock) {
+		case XRFDC_CAL_BLOCK_OCB1:
+			CoeffPtr->Coeff0 |=
+				XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB1_OFFSET_COEFF0, XRFDC_CAL_OCB_MASK)
+				<< Shift;
+			CoeffPtr->Coeff1 |=
+				XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB1_OFFSET_COEFF1, XRFDC_CAL_OCB_MASK)
+				<< Shift;
+			CoeffPtr->Coeff2 |=
+				XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB1_OFFSET_COEFF2, XRFDC_CAL_OCB_MASK)
+				<< Shift;
+			CoeffPtr->Coeff3 |=
+				XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB1_OFFSET_COEFF3, XRFDC_CAL_OCB_MASK)
+				<< Shift;
+			break;
+		case XRFDC_CAL_BLOCK_OCB2:
+			CoeffPtr->Coeff0 |=
+				XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB2_OFFSET_COEFF0, XRFDC_CAL_OCB_MASK)
+				<< Shift;
+			CoeffPtr->Coeff1 |=
+				XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB2_OFFSET_COEFF1, XRFDC_CAL_OCB_MASK)
+				<< Shift;
+			CoeffPtr->Coeff2 |=
+				XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB2_OFFSET_COEFF2, XRFDC_CAL_OCB_MASK)
+				<< Shift;
+			CoeffPtr->Coeff3 |=
+				XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_OCB2_OFFSET_COEFF3, XRFDC_CAL_OCB_MASK)
+				<< Shift;
+			break;
+		case XRFDC_CAL_BLOCK_GCB:
+			if (InstancePtr->RFdc_Config.IPType < 2) {
+				if (XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL1_OFFSET,
+						XRFDC_CAL_GCB_FLSH_MASK) == XRFDC_DISABLED) {
+					CoeffPtr->Coeff0 |=
+						(XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF0_ALT,
+							     XRFDC_CAL_GCB_FAB_MASK) >>
+						 4)
+						<< Shift;
+					CoeffPtr->Coeff1 |=
+						(XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF1_ALT,
+							     XRFDC_CAL_GCB_FAB_MASK) >>
+						 4)
+						<< Shift;
+					CoeffPtr->Coeff2 |=
+						(XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF2_ALT,
+							     XRFDC_CAL_GCB_FAB_MASK) >>
+						 4)
+						<< Shift;
+					CoeffPtr->Coeff3 |=
+						(XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF3_ALT,
+							     XRFDC_CAL_GCB_FAB_MASK) >>
+						 4)
+						<< Shift;
+				} else {
+					CoeffPtr->Coeff0 |=
+						XRFdc_RDReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
+							    XRFDC_CAL_GCB_COEFF0_FAB(Block_Id), XRFDC_CAL_GCB_MASK)
+						<< Shift;
+					CoeffPtr->Coeff1 |=
+						XRFdc_RDReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
+							    XRFDC_CAL_GCB_COEFF1_FAB(Block_Id), XRFDC_CAL_GCB_MASK)
+						<< Shift;
+					CoeffPtr->Coeff2 |=
+						XRFdc_RDReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
+							    XRFDC_CAL_GCB_COEFF2_FAB(Block_Id), XRFDC_CAL_GCB_MASK)
+						<< Shift;
+					CoeffPtr->Coeff3 |=
+						XRFdc_RDReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
+							    XRFDC_CAL_GCB_COEFF3_FAB(Block_Id), XRFDC_CAL_GCB_MASK)
+						<< Shift;
+				}
+			} else {
+				CoeffPtr->Coeff0 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF0,
+								XRFDC_CAL_GCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff1 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF1,
+								XRFDC_CAL_GCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff2 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF2,
+								XRFDC_CAL_GCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff3 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_GCB_OFFSET_COEFF3,
+								XRFDC_CAL_GCB_MASK)
+						    << Shift;
+			}
+			break;
+		case XRFDC_CAL_BLOCK_TSCB:
+			if (InstancePtr->RFdc_Config.IPType < 2) {
+				CoeffPtr->Coeff0 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF0_ALT,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff1 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF1_ALT,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff2 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF2_ALT,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff3 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF3_ALT,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff4 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF4_ALT,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff5 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF5_ALT,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff6 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF6_ALT,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff7 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF7_ALT,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+			} else {
+				CoeffPtr->Coeff0 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF0,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff1 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF1,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff2 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF2,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff3 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF3,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff4 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF4,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff5 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF5,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff6 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF6,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+				CoeffPtr->Coeff7 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF7,
+								XRFDC_CAL_TSCB_MASK)
+						    << Shift;
+			}
+			break;
+		default:
+			Status = XRFDC_FAILURE;
+			metal_log(METAL_LOG_ERROR,
+				  "\n Invalid Calibration "
+				  "Mode in %s\r\n",
+				  __func__);
+			goto RETURN_PATH;
+		}
 	}
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
@@ -4998,26 +5236,30 @@ u32 XRFdc_SetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Cal_
 	Xil_AssertNonvoid(CalFreezePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
-	if (CalFreezePtr->FreezeCalibration > XRFDC_CAL_FREEZE_CALIB){
+	if (CalFreezePtr->FreezeCalibration > XRFDC_CAL_FREEZE_CALIB) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Invalid FreezeCalibration "
-			"option in %s\r\n",
-			__func__);
+		metal_log(METAL_LOG_ERROR,
+			  "\n Invalid FreezeCalibration "
+			  "option in %s\r\n",
+			  __func__);
 		goto RETURN_PATH;
 	}
 
-	if (CalFreezePtr->DisableFreezePin > XRFDC_CAL_FRZ_PIN_DISABLE){
+	if (CalFreezePtr->DisableFreezePin > XRFDC_CAL_FRZ_PIN_DISABLE) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Invalid DisableFreezePin "
-				  "option in %s\r\n",
-				  __func__);
+		metal_log(METAL_LOG_ERROR,
+			  "\n Invalid DisableFreezePin "
+			  "option in %s\r\n",
+			  __func__);
 		goto RETURN_PATH;
 	}
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not "
-								"available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR,
+			  "\n Requested block not "
+			  "available in %s\r\n",
+			  __func__);
 		goto RETURN_PATH;
 	}
 
@@ -5035,12 +5277,10 @@ u32 XRFdc_SetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Cal_
 	}
 
 	for (; Index < NoOfBlocks; Index++) {
-		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CONV_CAL_STGS(Index),
-						XRFDC_CAL_FREEZE_PIN_MASK, CalFreezePtr->DisableFreezePin <<
-						XRFDC_CAL_FREEZE_PIN_SHIFT);
-		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CONV_CAL_STGS(Index),
-						XRFDC_CAL_FREEZE_CAL_MASK, CalFreezePtr->FreezeCalibration <<
-						XRFDC_CAL_FREEZE_CAL_SHIFT);
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CONV_CAL_STGS(Index), XRFDC_CAL_FREEZE_PIN_MASK,
+				CalFreezePtr->DisableFreezePin << XRFDC_CAL_FREEZE_PIN_SHIFT);
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CONV_CAL_STGS(Index), XRFDC_CAL_FREEZE_CAL_MASK,
+				CalFreezePtr->FreezeCalibration << XRFDC_CAL_FREEZE_CAL_SHIFT);
 	}
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
@@ -5074,8 +5314,10 @@ u32 XRFdc_GetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Cal_
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not "
-								"available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR,
+			  "\n Requested block not "
+			  "available in %s\r\n",
+			  __func__);
 		goto RETURN_PATH;
 	}
 
@@ -5086,12 +5328,15 @@ u32 XRFdc_GetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Cal_
 			Block_Id = XRFDC_BLK_ID2;
 		}
 	}
-	CalFreezePtr->CalFrozen = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CONV_CAL_STGS(Block_Id),
-												XRFDC_CAL_FREEZE_STS_MASK) >> XRFDC_CAL_FREEZE_STS_SHIFT;
-	CalFreezePtr->DisableFreezePin = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CONV_CAL_STGS(Block_Id),
-												XRFDC_CAL_FREEZE_PIN_MASK) >> XRFDC_CAL_FREEZE_PIN_SHIFT;
-	CalFreezePtr->FreezeCalibration = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CONV_CAL_STGS(Block_Id),
-												XRFDC_CAL_FREEZE_CAL_MASK) >> XRFDC_CAL_FREEZE_CAL_SHIFT;
+	CalFreezePtr->CalFrozen =
+		XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CONV_CAL_STGS(Block_Id), XRFDC_CAL_FREEZE_STS_MASK) >>
+		XRFDC_CAL_FREEZE_STS_SHIFT;
+	CalFreezePtr->DisableFreezePin =
+		XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CONV_CAL_STGS(Block_Id), XRFDC_CAL_FREEZE_PIN_MASK) >>
+		XRFDC_CAL_FREEZE_PIN_SHIFT;
+	CalFreezePtr->FreezeCalibration =
+		XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CONV_CAL_STGS(Block_Id), XRFDC_CAL_FREEZE_CAL_MASK) >>
+		XRFDC_CAL_FREEZE_CAL_SHIFT;
 
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
