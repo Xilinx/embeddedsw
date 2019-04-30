@@ -74,6 +74,7 @@
 *                       XRFdc_GetCalFreeze() APIs.
 *       cog    03/25/19 The new common mode over/under voltage interrupts mask
 *                       bits were clashing with other interrupt bits.
+*       cog    03/25/19 Added more calibration bypass masks.
 *
 *</pre>
 *
@@ -368,6 +369,10 @@ extern "C" {
 #define XRFDC_CONV_INTR_STS(X)			(0x208U + (X * 0x08U))
 #define XRFDC_CONV_INTR_EN(X)			(0x20CU + (X * 0x08U))
 #define XRFDC_CONV_CAL_STGS(X)			(0x234U + (X * 0x04U))
+#define XRFDC_CAL_GCB_COEFF0_FAB(X)		(0x280U + (X * 0x10U))
+#define XRFDC_CAL_GCB_COEFF1_FAB(X)		(0x284U + (X * 0x10U))
+#define XRFDC_CAL_GCB_COEFF2_FAB(X)		(0x288U + (X * 0x10U))
+#define XRFDC_CAL_GCB_COEFF3_FAB(X)		(0x28CU + (X * 0x10U))
 #define XRFDC_PLL_FREQ					0x300U	/**< PLL output frequency (before divider) register */
 #define XRFDC_PLL_FS					0x304U	/**< Sampling rate register */
 #define XRFDC_FIFO_ENABLE				0x230U	/**< FIFO Enable and Disable */
@@ -396,26 +401,39 @@ extern "C" {
 #define XRFDC_PLL_REFDIV_MASK          	0x0E0U  /**< PLL Reference Divider Register Mask for IntraTile */
 #define XRFDC_PLL_DIVIDER0_ALT_MASK     0x800U  /**< PLL Output Divider Register Mask for IntraTile */
 
-#define XRFDC_CAL_OCB1_OFFSET_COEFF0	0x200	/**< Foreground offset correction block */
-#define XRFDC_CAL_OCB1_OFFSET_COEFF1	0x208  	/**< Foreground offset correction block */
-#define XRFDC_CAL_OCB1_OFFSET_COEFF2	0x210  	/**< Foreground offset correction block */
-#define XRFDC_CAL_OCB1_OFFSET_COEFF3	0x218	/**< Foreground offset correction block */
-#define XRFDC_CAL_OCB2_OFFSET_COEFF0	0x204	/**< Background offset correction block */
-#define XRFDC_CAL_OCB2_OFFSET_COEFF1	0x20C	/**< Background offset correction block */
-#define XRFDC_CAL_OCB2_OFFSET_COEFF2	0x214	/**< Background offset correction block */
-#define XRFDC_CAL_OCB2_OFFSET_COEFF3	0x21C	/**< Background offset correction block */
-#define XRFDC_CAL_GCB_OFFSET_COEFF0		0x220	/**< Background gain correction block */
-#define XRFDC_CAL_GCB_OFFSET_COEFF1		0x224	/**< Background gain correction block */
-#define XRFDC_CAL_GCB_OFFSET_COEFF2		0x228	/**< Background gain correction block */
-#define XRFDC_CAL_GCB_OFFSET_COEFF3		0x22C	/**< Background gain correction block */
-#define XRFDC_CAL_TSCB_OFFSET_COEFF0	0x170	/**< Background time skew correction block */
-#define XRFDC_CAL_TSCB_OFFSET_COEFF1	0x174	/**< Background time skew correction block */
-#define XRFDC_CAL_TSCB_OFFSET_COEFF2	0x178	/**< Background time skew correction block */
-#define XRFDC_CAL_TSCB_OFFSET_COEFF3	0x17C	/**< Background time skew correction block */
-#define XRFDC_CAL_TSCB_OFFSET_COEFF4	0x180	/**< Background time skew correction block */
-#define XRFDC_CAL_TSCB_OFFSET_COEFF5	0x184	/**< Background time skew correction block */
-#define XRFDC_CAL_TSCB_OFFSET_COEFF6	0x188	/**< Background time skew correction block */
-#define XRFDC_CAL_TSCB_OFFSET_COEFF7	0x18C	/**< Background time skew correction block */
+#define XRFDC_CAL_OCB1_OFFSET_COEFF0		0x200	/**< Foreground offset correction block */
+#define XRFDC_CAL_OCB1_OFFSET_COEFF1		0x208  	/**< Foreground offset correction block */
+#define XRFDC_CAL_OCB1_OFFSET_COEFF2		0x210  	/**< Foreground offset correction block */
+#define XRFDC_CAL_OCB1_OFFSET_COEFF3		0x218	/**< Foreground offset correction block */
+#define XRFDC_CAL_OCB2_OFFSET_COEFF0		0x204	/**< Background offset correction block */
+#define XRFDC_CAL_OCB2_OFFSET_COEFF1		0x20C	/**< Background offset correction block */
+#define XRFDC_CAL_OCB2_OFFSET_COEFF2		0x214	/**< Background offset correction block */
+#define XRFDC_CAL_OCB2_OFFSET_COEFF3		0x21C	/**< Background offset correction block */
+#define XRFDC_CAL_GCB_OFFSET_COEFF0			0x220	/**< Background gain correction block */
+#define XRFDC_CAL_GCB_OFFSET_COEFF1			0x224	/**< Background gain correction block */
+#define XRFDC_CAL_GCB_OFFSET_COEFF2			0x228	/**< Background gain correction block */
+#define XRFDC_CAL_GCB_OFFSET_COEFF3			0x22C	/**< Background gain correction block */
+#define XRFDC_CAL_GCB_OFFSET_COEFF0_ALT		0x220	/**< Background gain correction block (below Gen 3) */
+#define XRFDC_CAL_GCB_OFFSET_COEFF1_ALT		0x228	/**< Background gain correction block (below Gen 3) */
+#define XRFDC_CAL_GCB_OFFSET_COEFF2_ALT		0x230	/**< Background gain correction block (below Gen 3) */
+#define XRFDC_CAL_GCB_OFFSET_COEFF3_ALT		0x238	/**< Background gain correction block (below Gen 3) */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF0		0x170	/**< Background time skew correction block */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF1		0x174	/**< Background time skew correction block */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF2		0x178	/**< Background time skew correction block */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF3		0x17C	/**< Background time skew correction block */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF4		0x180	/**< Background time skew correction block */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF5		0x184	/**< Background time skew correction block */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF6		0x188	/**< Background time skew correction block */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF7		0x18C	/**< Background time skew correction block */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF0_ALT	0x168	/**< Background time skew correction block (below Gen 3) */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF1_ALT	0x16C	/**< Background time skew correction block (below Gen 3) */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF2_ALT	0x170	/**< Background time skew correction block (below Gen 3) */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF3_ALT	0x174	/**< Background time skew correction block (below Gen 3) */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF4_ALT	0x178	/**< Background time skew correction block (below Gen 3) */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF5_ALT	0x17C	/**< Background time skew correction block (below Gen 3) */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF6_ALT	0x180	/**< Background time skew correction block (below Gen 3) */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF7_ALT	0x184	/**< Background time skew correction block (below Gen 3) */
+
 
 /* @} */
 
@@ -428,15 +446,24 @@ extern "C" {
 
 #define XRFDC_CAL_OCB_MASK		0xFFFFU /**< offsets coeff mask*/
 #define XRFDC_CAL_GCB_MASK		0x0FFFU /**< gain coeff mask*/
+#define XRFDC_CAL_GCB_FAB_MASK	0xFFF0U /**< gain coeff mask for IP Gen 2 or below*/
 #define XRFDC_CAL_TSCB_MASK		0x01FFU /**< time skew coeff mask*/
+
+#define XRFDC_CAL_GCB_FLSH_MASK	0x1000U	/**< GCB accumulator flush mask*/
+#define XRFDC_CAL_GCB_ACEN_MASK	0x0800U	/**< GCB accumulator enable mask*/
+#define XRFDC_CAL_GCB_ENFL_MASK	0x1800U	/**< GCB accumulator enable mask*/
 
 #define XRFDC_CAL_OCB_EN_MASK	0x0001U /**< offsets coeff override enable mask*/
 #define XRFDC_CAL_GCB_EN_MASK	0x0080U /**< gain coeff override enable mask*/
 #define XRFDC_CAL_TSCB_EN_MASK	0x8000U /**< time skew coeff override enable mask*/
 
-#define XRFDC_CAL_OCB_EN_SHIFT	0U /**< offsets coeff shift*/
-#define XRFDC_CAL_GCB_EN_SHIFT	7U /**< gain coeff shift*/
-#define XRFDC_CAL_TSCB_EN_SHIFT	15U /**< time skew coeff shift*/
+#define XRFDC_CAL_OCB_EN_SHIFT		0U /**< offsets coeff shift*/
+#define XRFDC_CAL_GCB_EN_SHIFT		7U /**< gain coeff shift*/
+#define XRFDC_CAL_TSCB_EN_SHIFT		15U /**< time skew coeff shift*/
+#define XRFDC_CAL_GCB_FLSH_SHIFT	12U	/**< GCB accumulator flush shift*/
+#define XRFDC_CAL_GCB_ACEN_SHIFT	11U	/**< GCB accumulator enable shift*/
+
+#define XRFDC_CAL_SLICE_SHIFT		16U /**<Coefficient shift for HSADCs*/
 
 /* @} */
 /** @name Calibration Coefficients - Calibration coefficients and disable registers
