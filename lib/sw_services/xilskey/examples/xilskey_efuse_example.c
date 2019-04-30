@@ -173,6 +173,7 @@
 *       psl     03/20/19 Added eFuse key write support for SSIT devices.
 *       psl     03/29/19 Added support for user configurable GPIO for
 *                        jtag control.
+*       psl     04/29/19 Resolved GCC warnings.
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "stdio.h"
@@ -190,30 +191,6 @@
  */
 #define REBOOT_STATUS_REG_ADDR 						(0xF8000258)
 /**
- *  PL eFUSE aes key size in characters
- */
-#define XSK_EFUSEPL_AES_KEY_STRING_SIZE              (64)
-/**
- *  PL eFUSE user low key size in characters
- */
-#define XSK_EFUSEPL_USER_LOW_KEY_STRING_SIZE         (2)
-/**
- *  PL eFUSE user high key size in characters
- */
-#define XSK_EFUSEPL_USER_HIGH_KEY_STRING_SIZE        (6)
-/**
- *  User AES Key size in Bytes
- */
-#define XSK_EFUSEPL_AES_KEY_SIZE_IN_BITS			(256)
-/**
- *  User Low Key size in Bytes
- */
-#define XSK_EFUSEPL_USER_LOW_KEY_SIZE_IN_BITS		(8)
-/**
- *  User High Key size in Bytes
- */
-#define XSK_EFUSEPL_USER_HIGH_KEY_SIZE_IN_BITS		(24)
-/**
  * user key size in bits
  */
 #define XSK_EFUSEPL_USER_KEY_SIZE_IN_BITS			(32)
@@ -229,13 +206,6 @@
  * PL eFuse user key size in characters
  */
 #define XSK_EFUSEPL_USER_KEY_STRING_SIZE			(8)
-/**
- * Key length definition for RSA KEY Hash
- */
-/**
- *  PS eFUSE RSA key Hash size in characters
- */
-#define XSK_EFUSEPS_RSA_KEY_HASH_STRING_SIZE        (64)
 
 /*
  * PS efuse status bit definitions
