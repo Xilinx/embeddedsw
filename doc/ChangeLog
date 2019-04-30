@@ -928,6 +928,9 @@ Refactor of Clock distribution.
 pmonpsv_v1_1:
 Update the mdd files with the latest naming
 
+gpio_v4_4:
+Updated Makefile for IAR compiler.
+
 Changes for 2019.1
 ===============================
 v_hdmiphy1_v1_0:
