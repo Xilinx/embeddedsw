@@ -302,11 +302,6 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u3
 	Platform = ((Xil_In32(PMC_TAP_VERSION) & PMC_TAP_VERSION_PLATFORM_MASK)
 		    >> PMC_TAP_VERSION_PLATFORM_SHIFT);
 
-#ifdef SELF_TEST
-	/* Todo: Replace this code with the CDO parser */
-	init_pm_objects();
-#endif
-
 	return Status;
 }
 
