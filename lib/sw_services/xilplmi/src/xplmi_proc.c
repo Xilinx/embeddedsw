@@ -288,11 +288,18 @@ int XPlmi_SetUpInterruptSystem()
 	 * Enable interrupts for the device and then cause interrupts so the
 	 * handlers will be called.
 	 */
+#if 0
 	for (IntrNum = XIN_IOMODULE_EXTERNAL_INTERRUPT_INTR;
 		IntrNum< XPAR_IOMODULE_INTC_MAX_INTR_SIZE; IntrNum++)
 	{
 		XIOModule_Enable(&IOModule, IntrNum);
 	}
+#endif
+	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PMC_GIC_IRQ);
+	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PPU1_MB_RAM);
+	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_ERR_IRQ);
+	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_CFRAME_SEU);
+	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PMC_GPI);
 
 	/**
 	 * Register the IO module interrupt handler with the exception table.
