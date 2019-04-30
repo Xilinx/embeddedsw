@@ -39,8 +39,8 @@ OPTION NAME = standalone;
 
 PARAM name = zynqmp_fsbl_bsp, type = bool, default = false, desc = "Disable or Enable Optimization for FSBL's BSP. ZynqMP FSBL will set this to true";
 
-PARAM name = stdin, desc = "stdin peripheral", type = peripheral_instance, requires_interface = stdin, default=none, range = (ps7_uart, psu_uart, psu_sbsauart,psv_sbsauart, ps7_coresight_comp, psu_coresight_0, psv_coresight_0, iomodule, axi_uartlite, axi_uart16550, mdm, psv_pmc_ppu1_mdm);
-PARAM name = stdout, desc = "stdout peripheral", type = peripheral_instance, requires_interface = stdout, default=none, range = (ps7_uart, psu_uart, psu_sbsauart, psv_sbsauart, ps7_coresight_comp, psu_coresight_0, psv_coresight_0, iomodule, axi_uartlite, axi_uart16550, mdm, psv_pmc_ppu1_mdm);
+PARAM name = stdin, desc = "stdin peripheral", type = peripheral_instance, requires_interface = stdin, default=none, range = (ps7_uart, psu_uart, psu_sbsauart,psv_sbsauart, ps7_coresight_comp, psu_coresight_0, psv_coresight_0, psv_pmc_ppu1_mdm, axi_uartlite, axi_uart16550, mdm, iomodule);
+PARAM name = stdout, desc = "stdout peripheral", type = peripheral_instance, requires_interface = stdout, default=none, range = (ps7_uart, psu_uart, psu_sbsauart, psv_sbsauart, ps7_coresight_comp, psu_coresight_0, psv_coresight_0, psv_pmc_ppu1_mdm, axi_uartlite, axi_uart16550, mdm, iomodule);
 
 BEGIN CATEGORY sw_intrusive_profiling
     PARAM name = enable_sw_intrusive_profiling, type = bool, default = false, desc = "Enable S/W Intrusive Profiling on Hardware Targets", permit = user;
