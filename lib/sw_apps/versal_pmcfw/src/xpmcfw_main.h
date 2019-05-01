@@ -160,10 +160,6 @@ typedef struct {
 #define XPMCFW_SBI_CTRL_INTERFACE_AXI_SLAVE		(0x8U)
 #define XPMCFW_SBI_CTRL_ENABLE					(0x1U)
 
-/* XDMA Registers */
-#define XPMCFW_XDMA_SCRATCH_PAD_REG1			(0xE1003080U)
-#define XPMCFW_SBI_DATA_RECV_READY				(0x1U)
-
 /* SSIT error/interrupt masks */
 #define SSIT_INTR_MASK			(0x1U)
 #define SSIT_ERR_INTR_MASK		(0x4U)

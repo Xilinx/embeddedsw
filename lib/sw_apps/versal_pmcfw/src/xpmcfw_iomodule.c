@@ -208,9 +208,6 @@ static void XPmcFw_GicIrqHandler(void)
 			PmcFwInstance.DeviceOps.Copy = XPmcFw_SbiCopy;
 
 			XPmcFw_SbiConfig(XPMCFW_SBI_CTRL_INTERFACE_AXI_SLAVE);
-
-			Xil_Out32(XPMCFW_XDMA_SCRATCH_PAD_REG1,
-					XPMCFW_SBI_DATA_RECV_READY);
 			(void)XPmcFw_PdiLoad(&PmcFwInstance);
 #endif
 			Xil_Out32(CPM_SLCR_PS_MISC_IR_STATUS,
@@ -467,9 +464,6 @@ XStatus XPmcFw_SetUpInterruptSystem()
 #ifdef XPMCFW_CPM
 	Xil_Out32(CPM_SLCR_PS_MISC_IR_ENABLE,
 				CPM_SLCR_PS_MISC_IR_ENABLE_PCIE_LOCAL_EVENT_MASK);
-	XPmcFw_RMW32(XPMCFW_PCIE_INTR_EN_REG,
-				XPMCFW_PCIE_DOORBELL_INTR_MASK,
-				XPMCFW_PCIE_DOORBELL_INTR_MASK);
 #endif
 
 	/*
