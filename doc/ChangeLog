@@ -247,9 +247,6 @@ Added MPU mapping for AIE address space in Cortexr5 BSP
 arm/cortexr5/platform/versal/mpu.c.
 
 
-gpio_v4_4:
-Updated Makefile for IAR compiler.
-
 Changes for 2019.1
 ===============================
 v_hdmiphy1_v1_0:
