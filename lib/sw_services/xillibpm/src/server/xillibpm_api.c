@@ -2183,6 +2183,7 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 			goto done;
 		}
 		XPm_RpuGetOperMode(DeviceId, Response);
+		Status = XST_SUCCESS;
 		break;
 	case IOCTL_SET_RPU_OPER_MODE:
 		if ((DeviceId != XPM_DEVID_R50_0) &&
@@ -2190,6 +2191,7 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 			goto done;
 		}
 		XPm_RpuSetOperMode(DeviceId, Arg1);
+		Status = XST_SUCCESS;
 		break;
 	case IOCTL_RPU_BOOT_ADDR_CONFIG:
 		if ((XPM_DEVID_R50_0 != DeviceId) &&
@@ -2238,28 +2240,33 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 			goto done;
 		}
 		PmOut32((GGS_BASEADDR + (Arg1 << 2)), Arg2);
+		Status = XST_SUCCESS;
 		break;
 	case IOCTL_READ_GGS:
 		if (Arg1 >= GGS_NUM_REGS) {
 			goto done;
 		}
 		PmIn32((GGS_BASEADDR + (Arg1 << 2)), *Response);
+		Status = XST_SUCCESS;
 		break;
 	case IOCTL_WRITE_PGGS:
 		if (Arg1 >= PGGS_NUM_REGS) {
 			goto done;
 		}
 		PmOut32((PGGS_BASEADDR + (Arg1 << 2)), Arg2);
+		Status = XST_SUCCESS;
 		break;
 	case IOCTL_READ_PGGS:
 		if (Arg1 >= PGGS_NUM_REGS) {
 			goto done;
 		}
 		PmIn32((PGGS_BASEADDR + (Arg1 << 2)), *Response);
+		Status = XST_SUCCESS;
 		break;
 	case IOCTL_SET_BOOT_HEALTH_STATUS:
 		PmRmw32(GGS_BASEADDR + GGS_4_OFFSET,
 			XPM_BOOT_HEALTH_STATUS_MASK, Arg1);
+		Status = XST_SUCCESS;
 		break;
 	case IOCTL_PROBE_COUNTER_READ:
 		Status = XPm_ProbeCounterAccess(DeviceId, Arg1, Arg2,
@@ -2275,7 +2282,6 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 		break;
 	}
 
-	Status = XST_SUCCESS;
 done:
 	return Status;
 }
