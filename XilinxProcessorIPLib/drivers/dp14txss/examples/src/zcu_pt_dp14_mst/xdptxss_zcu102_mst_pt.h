@@ -346,6 +346,13 @@ u8 num_sinks;
 // a stream
 #define DEFAULT_STREAM 1
 
+// When set to 1, Audio Infoframe would be programmed in TX
+#define SEND_AIF 0
+
+// we have observed NO-video interrupt getting flagged with some
+// GPUs. Hence not executing
+#define USE_NO_VIDEO 0
+
 typedef struct {
         u8  MinVoltageSwing;
         u8  ClockRecoveryOption;

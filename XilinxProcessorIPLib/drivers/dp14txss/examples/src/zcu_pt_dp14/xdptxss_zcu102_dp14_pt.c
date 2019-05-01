@@ -2302,12 +2302,10 @@ int Dppt_DetectResolution(void *InstancePtr,
 
 	}
 
-	XDp_RxSetUserPixelWidth(DpRxSsInst.DpPtr, (int)DpRxSsInst.UsrOpt.LaneCount);
-
 	Msa[0].OverrideUserPixelWidth = 1;
-
 	XDp_RxSetLineReset(DpRxSsInst.DpPtr,XDP_TX_STREAM_ID1);
 	XDp_RxDtgDis(DpRxSsInst.DpPtr);
+	XDp_RxSetUserPixelWidth(DpRxSsInst.DpPtr, (int)DpRxSsInst.UsrOpt.LaneCount);
 
 	if (DpRxSsInst.link_up_trigger == 1) {
 		xil_printf(

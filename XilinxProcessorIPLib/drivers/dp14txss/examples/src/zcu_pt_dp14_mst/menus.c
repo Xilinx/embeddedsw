@@ -202,6 +202,7 @@ void sub_help_menu(void)
    "5 - Display Link Configuration Status and user selected resolution, BPC\n\r"
    "6 - Display DPCD register Configurations\n\r"
    "7 - Read Auxiliary registers \n\r"
+   "a - Enable/Disable Audio \n\r"
    "e - Display EDID values\n\r"
    "z - Display this Menu again\r\n"
 		  "- - - - - - - - - - - - - - - - - - - - - - - - - \r\n");
@@ -461,7 +462,9 @@ void main_loop(){
 					xilInfoFrame->sampling_frequency = 0; //48 Hz
 					xilInfoFrame->type = 0x84;
 					xilInfoFrame->version = 0x11;
+#if SEND_AIF
 					sendAudioInfoFrame(xilInfoFrame);
+#endif
 					XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 					 XDP_TX_AUDIO_CHANNELS, 0x1);
 
@@ -1091,7 +1094,7 @@ void pt_loop(){
 			XDpRxSs_Mst_AudioDisable (&DpRxSsInst);
 			//RX is always in 4 PPC mode
 			XDp_RxSetUserPixelWidth(DpRxSsInst.DpPtr, 0x4);
-            XDp_RxDtgEn(DpRxSsInst.DpPtr);
+                        XDp_RxDtgEn(DpRxSsInst.DpPtr);
 			start_tx_after_rx (strm_start, 0);
 		}
 
@@ -1432,6 +1435,10 @@ void start_tx_after_rx(u8 stream_id, u8 only_tx) {
 		}
 	}
 
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+			XDP_TX_INTERRUPT_MASK, 0xFFF);
+	frameBuffer_stop_rd();
+
 	if (only_tx == 0) {
 		XAxisScr_MiPortDisableAll(&axis_switch);
 		frameBuffer_stop_wr();
@@ -1477,14 +1484,12 @@ void start_tx_after_rx(u8 stream_id, u8 only_tx) {
 		user_config.user_format = XVIDC_CSF_RGB + 1;
 
 
-//	frameBuffer_stop_rd();
-	XVphy_BufgGtReset(&VPhyInst, XVPHY_DIR_TX,(FALSE));
-	// This configures the vid_phy for line rate to start with
-	//Even though CPLL can be used in limited case,
-	//using QPLL is recommended for more coverage.
-	set_vphy(max_cap_org);
 	sink_power_cycle();
-	frameBuffer_stop_rd();
+
+	//Setting to 0x6 improves the perfomance on some
+	//Dell monitors, which otherwise give multiple HPD pulse
+	XDpTxSs_SetLinkRate(&DpTxSsInst, XDPTXSS_LINK_BW_SET_162GBPS);
+	set_vphy(max_cap_org);
 	start_tx(max_cap_org, DpRxSsInst.UsrOpt.LaneCount, user_config, Msa);
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 			XDP_TX_INTERRUPT_MASK, 0x0);
@@ -1523,9 +1528,11 @@ void start_audio_passThrough(u8 LineRate_init_tx){
 	xilInfoFrame->version = AudioinfoFrame.version;
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, 0x0);
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CHANNELS, 0x1);
+#if SEND_AIF
 	usleep(10000);
 	sendAudioInfoFrame(xilInfoFrame);
 	usleep(30000);
+#endif
 }
 
 void unplug_proc (void) {

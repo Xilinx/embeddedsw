@@ -664,8 +664,12 @@ void DpRxSs_PowerChangeHandler(void *InstancePtr)
 * @note        None.
 *
 ******************************************************************************/
+
 void DpRxSs_NoVideoHandler(void *InstancePtr)
 {
+
+#if USE_NO_VIDEO
+
         DpRxSsInst.VBlankCount = 0;
         XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
                         XDP_RX_INTERRUPT_MASK_VBLANK_MASK);
@@ -678,6 +682,8 @@ void DpRxSs_NoVideoHandler(void *InstancePtr)
 
         XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
                         XDP_RX_INTERRUPT_MASK_INFO_PKT_MASK);
+
+#endif
 }
 
 
@@ -1735,14 +1741,15 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, u8 only_tx)
 
      if(bw_set != XDP_TX_LINK_BW_SET_162GBPS
              && bw_set != XDP_TX_LINK_BW_SET_270GBPS
-             && bw_set != XDP_TX_LINK_BW_SET_540GBPS){
-        bw_set = InstancePtr->DpPtr->Config.MaxLinkRate;
+             && bw_set != XDP_TX_LINK_BW_SET_540GBPS
+			 && bw_set != XDP_TX_LINK_BW_SET_810GBPS){
+        bw_set = DpTxSsInst.DpPtr->TxInstance.LinkConfig.LinkRate;
         retrain_link = 1;
      }
      if(lane_set != XDP_TX_LANE_COUNT_SET_1
              && lane_set != XDP_TX_LANE_COUNT_SET_2
              && lane_set != XDP_TX_LANE_COUNT_SET_4){
-        lane_set = InstancePtr->DpPtr->Config.MaxLaneCount;
+        lane_set = DpTxSsInst.DpPtr->TxInstance.LinkConfig.LaneCount;
         retrain_link = 1;
      }
 
@@ -2093,7 +2100,7 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 			XDP_TX_INTERRUPT_MASK, 0xFFF);
 	//Waking up the monitor
-//	sink_power_cycle();
+	sink_power_cycle();
 
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
 // Give a bit of time for DP IP after monitor came up and starting Link training
@@ -2108,20 +2115,20 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	XDpTxSs_SetLaneCount(&DpTxSsInst, lane_count);
 	xil_printf (".");
 
-	if (res_table !=0) {
-		Status = XDpTxSs_SetVidMode(&DpTxSsInst, res_table);
-		if (Status != XST_SUCCESS) {
-			xil_printf("ERR: Setting resolution failed\r\n");
-		}
-		xil_printf (".");
-	}
-	if (bpc !=0 ) {
-		Status = XDpTxSs_SetBpc(&DpTxSsInst, bpc);
-		if (Status != XST_SUCCESS){
-			xil_printf("ERR: Setting bpc to %d failed\r\n",bpc);
-		}
-		xil_printf (".");
-	}
+//	if (res_table !=0) {
+//		Status = XDpTxSs_SetVidMode(&DpTxSsInst, res_table);
+//		if (Status != XST_SUCCESS) {
+//			xil_printf("ERR: Setting resolution failed\r\n");
+//		}
+//		xil_printf (".");
+//	}
+//	if (bpc !=0 ) {
+//		Status = XDpTxSs_SetBpc(&DpTxSsInst, bpc);
+//		if (Status != XST_SUCCESS){
+//			xil_printf("ERR: Setting bpc to %d failed\r\n",bpc);
+//		}
+//		xil_printf (".");
+//	}
 
 	Status = DpTxSubsystem_Start(&DpTxSsInst, Msa);
 	if (Status != XST_SUCCESS) {
@@ -2861,16 +2868,16 @@ u32 set_vphy(int LineRate_init_tx){
 ******************************************************************************/
 void sink_power_cycle(void){
 	//Waking up the monitor
-	sink_power_down();
+//	sink_power_down();
 //	// give enough time for monitor to power down
 //	usleep(40000);
-	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 400000);
+	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 4000);
 //	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 40000);
 	sink_power_up();
 //	// give enough time for monitor to wake up    CR-962717
-	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 400000);
+	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 50000);
 	sink_power_up();//monitor to wake up once again due to CR-962717
-//	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 400000);
+	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 50000);
 //	sink_power_up();//monitor to wake up once again due to CR-962717
 //	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 400000);
 
@@ -3275,11 +3282,8 @@ void Dppt_DetectResolution(void *InstancePtr, u16 offset,
 	Msa[msa_offset-1].Misc0 = rxMsamisc0;
 	Msa[msa_offset-1].Misc1 = rxMsamisc1;
 	rxMsamisc0 = ((rxMsamisc0 >> 5) & 0x00000007);
-//	u8 comp = ((rxMsamisc0 >> 1) & 0x00000003);
-
 
 	u8 Bpc[] = {6, 8, 10, 12, 16};
-
 
 	Msa[msa_offset-1].Vtm.Timing.HActive = DpHres;
 	Msa[msa_offset-1].Vtm.Timing.VActive = DpVres;
