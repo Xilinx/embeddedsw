@@ -34,7 +34,7 @@
 XPm_Power *PmPowers[XPM_NODEIDX_POWER_MAX];
 u32 PmNumPowers;
 
-static XPm_Power *GetPowerNode(u32 Id)
+XPm_Power *GetPowerNode(u32 Id)
 {
 	XPm_Power *Power = NULL;
 

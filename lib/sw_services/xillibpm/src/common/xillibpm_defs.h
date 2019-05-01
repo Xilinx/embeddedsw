@@ -181,6 +181,9 @@ enum pm_ioctl_id {
 	/* Set healthy bit value */
 	IOCTL_SET_BOOT_HEALTH_STATUS,
 	IOCTL_AFI,
+	/* Probe counter read/write */
+	IOCTL_PROBE_COUNTER_READ,
+	IOCTL_PROBE_COUNTER_WRITE,
 };
 
 /* PLL parameters */
@@ -251,6 +254,11 @@ enum XPmInitFunctions {
 #define XPM_DLL_RESET_ASSERT		(0U)
 #define XPM_DLL_RESET_RELEASE		(1U)
 #define XPM_DLL_RESET_PULSE		(2U)
+
+/* Probe Counter Type */
+#define XPM_PROBE_COUNTER_TYPE_PORT_SEL	(1U)
+#define XPM_PROBE_COUNTER_TYPE_SRC	(2U)
+#define XPM_PROBE_COUNTER_TYPE_VAL	(3U)
 
 /* PM API versions */
 #define XST_API_BASE_VERSION		(1U)
