@@ -313,6 +313,22 @@ extern "C" {
 #define GIC_PROXY_IRQ_ENABLE_OFFSET	0x8U
 #define GIC_PROXY_IRQ_DISABLE_OFFSET	0xCU
 
+/* Probe Counter Register related macros */
+#define CORESIGHT_LPD_ATM_BASE		(0xF0980000U)
+#define CORESIGHT_FPD_ATM_BASE		(0xF0B80000U)
+
+#define PROBE_COUNTER_LPD_MAX_IDX	(9U)
+#define PROBE_COUNTER_FPD_MAX_IDX	(15U)
+
+#define PROBE_COUNTER_TYPE_SHIFT	(8U)
+#define PROBE_COUNTER_TYPE_MASK		(0xFF)
+#define PROBE_COUNTER_IDX_SHIFT		(0U)
+#define PROBE_COUNTER_IDX_MASK		(0xFF)
+
+#define PROBE_COUNTER_PORT_SEL_OFFSET	(0x1134U)
+#define PROBE_COUNTER_SRC_OFFSET	(0x1138U)
+#define PROBE_COUNTER_VAL_OFFSET	(0x113CU)
+
 /**
  * Definitions required from pmc_tap.h
  */

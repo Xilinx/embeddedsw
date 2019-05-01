@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -80,6 +80,7 @@ struct XPm_Power {
 extern XPm_Power *PmPowers[];
 
 /************************** Function Prototypes ******************************/
+XPm_Power *GetPowerNode(u32 Id);
 XStatus XPmPower_Init(XPm_Power *Power,
 	u32 Id, u32 BaseAddress, XPm_Power *Parent);
 XStatus XPmPower_AddParent(u32 Id, u32 *Parents, u32 NumParents);
