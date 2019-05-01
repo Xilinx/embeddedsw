@@ -2071,6 +2071,85 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  This function preforms read/write operation on probe counter
+ *         registers of LPD/FPD.
+ *
+ * @param  DeviceId	DeviceId of the LPD/FPD
+ * @param  Arg1		- Counter Number (0 to 7 bit)
+ *			- Register Type (8 to 16 bit)
+ *                        (1 - PortSel, 2 - Src, 3 - Val)
+ * @param  Value	Register value to write (if Write flag is 1)
+ * @param  Response	Value of register read (if Write flag is 0)
+ * @param  Write	Operation type (0 - Read, 1 - Write)
+ *
+ * @return XST_SUCCESS if successful else error code or a reason code
+ *
+ ****************************************************************************/
+static int XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
+				  u32 *const Response, u8 Write)
+{
+	int Status = XST_INVALID_PARAM;
+	XPm_Power *Power;
+	u32 Reg;
+	u8 CounterIdx;
+
+	CounterIdx = Arg1 & PROBE_COUNTER_IDX_MASK;
+	switch (NODEINDEX(DeviceId)) {
+	case XPM_NODEIDX_POWER_LPD:
+		if (CounterIdx > PROBE_COUNTER_LPD_MAX_IDX) {
+			goto done;
+		}
+		Reg = CORESIGHT_LPD_ATM_BASE;
+		break;
+	case XPM_NODEIDX_POWER_FPD:
+		if (CounterIdx > PROBE_COUNTER_FPD_MAX_IDX) {
+			goto done;
+		}
+		Reg = CORESIGHT_FPD_ATM_BASE;
+		break;
+	default:
+		goto done;
+	}
+
+	Power = GetPowerNode(DeviceId);
+	if ((NULL == Power) || (XPM_POWER_STATE_ON != Power->Node.State)) {
+		goto done;
+	}
+
+	switch ((Arg1 >> PROBE_COUNTER_TYPE_SHIFT) & PROBE_COUNTER_TYPE_MASK) {
+	case XPM_PROBE_COUNTER_TYPE_PORT_SEL:
+		Reg += ((CounterIdx * 20) + PROBE_COUNTER_PORT_SEL_OFFSET);
+		break;
+	case XPM_PROBE_COUNTER_TYPE_SRC:
+		Reg += ((CounterIdx * 20) + PROBE_COUNTER_SRC_OFFSET);
+		break;
+	case XPM_PROBE_COUNTER_TYPE_VAL:
+		if (TRUE == Write) {
+			/* This type doesn't support write operation */
+			goto done;
+		}
+		Reg += ((CounterIdx * 20) + PROBE_COUNTER_VAL_OFFSET);
+		break;
+	default:
+		goto done;
+	}
+
+	if (FALSE == Write) {
+		if (NULL == Response) {
+			goto done;
+		}
+		PmIn32(Reg, *Response);
+	} else {
+		PmOut32(Reg, Value);
+	}
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function performs driver-like IOCTL functions on shared system
  * devices.
  *
@@ -2181,6 +2260,14 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 	case IOCTL_SET_BOOT_HEALTH_STATUS:
 		PmRmw32(GGS_BASEADDR + GGS_4_OFFSET,
 			XPM_BOOT_HEALTH_STATUS_MASK, Arg1);
+		break;
+	case IOCTL_PROBE_COUNTER_READ:
+		Status = XPm_ProbeCounterAccess(DeviceId, Arg1, Arg2,
+						Response, FALSE);
+		break;
+	case IOCTL_PROBE_COUNTER_WRITE:
+		Status = XPm_ProbeCounterAccess(DeviceId, Arg1, Arg2,
+						Response, TRUE);
 		break;
 	default:
 		/* Not supported yet */
