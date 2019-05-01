@@ -341,6 +341,10 @@ Fixed DDR_reinit incorrectly checks for PLL lock on unused PLLs.
 Add check for no of users for vpll.
 Add support for Ultra96 power button.
 
+gpiops_v3_5:
+Fixed MISRA-C suggested violations.
+Added support for Versal.
+
 Changes for 2018.3.1
 ===============================
 rfdc_v5_1:
@@ -478,11 +482,9 @@ Fix warning in example for redefinition of interrupt number.
 Added 64 bit DMA addresses support for Microblaze-X
 Add support for Versal IP name.
 
-gpiops_v3_5:
+gpiops_v3_4:
 Resolved cppcheck warnings.(CR#1006331)
 Resolved MISRA-C mandatory violations.(CR#1007751)
-Fixed MISRA-C suggested violations.
-Added support for Versal.
 
 sdps_v3_6
 Fixed Cppcheck, Doxygen and gcc warnings (CR#1006375)
