@@ -210,6 +210,7 @@ enum XPmInitFunctions {
 	FUNC_MEM_INIT,
 	FUNC_MBIST_CLEAR,
 	FUNC_HOUSECLEAN_PL,
+	FUNC_HOUSECLEAN_COMPLETE,
 };
 
 /* System shutdown macros */

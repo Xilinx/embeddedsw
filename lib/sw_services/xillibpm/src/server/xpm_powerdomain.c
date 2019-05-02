@@ -549,6 +549,18 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
                         }
                 }
                 break;
+	case FUNC_HOUSECLEAN_COMPLETE:
+                if (XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+                        Status = XST_FAILURE;
+                        goto done;
+                }
+                if (Ops && Ops->HcComplete) {
+                        Status = Ops->HcComplete(Args, NumArgs);
+                        if (XST_SUCCESS != Status) {
+                                goto done;
+                        }
+                }
+                break;
 	default:
 		Status = XST_INVALID_PARAM;
 		break;

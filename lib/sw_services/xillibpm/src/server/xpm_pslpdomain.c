@@ -82,6 +82,16 @@ static XStatus LpdInitFinish(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
+	return Status;
+}
+
+static XStatus LpdHcComplete(u32 *Args, u32 NumOfArgs)
+{
+	XStatus Status = XST_SUCCESS;
+
+	(void)Args;
+	(void)NumOfArgs;
+
 	/* In case bisr and mbist are skipped */
 	Status = LpdPreBisrReqs();
 	if (Status != XST_SUCCESS)
@@ -308,6 +318,7 @@ struct XPm_PowerDomainOps LpdOps = {
 	.Mbist = LpdMbist,
 	.Lbist = LpdLbist,
 	.Bisr = LpdBisr,
+	.HcComplete = LpdHcComplete,
 };
 
 XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
