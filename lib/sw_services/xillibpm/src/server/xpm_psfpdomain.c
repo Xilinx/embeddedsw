@@ -68,6 +68,16 @@ done:
 static XStatus FpdInitFinish(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
+
+	(void)Args;
+	(void)NumOfArgs;
+
+	return Status;
+}
+
+static XStatus FpdHcComplete(u32 *Args, u32 NumOfArgs)
+{
+	XStatus Status = XST_SUCCESS;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 
 	(void)Args;
@@ -189,6 +199,7 @@ struct XPm_PowerDomainOps FpdOps = {
 	.ScanClear = FpdScanClear,
 	.Bisr = FpdBisr,
 	.Mbist = FpdMbistClear,
+	.HcComplete = FpdHcComplete,
 };
 
 XStatus XPmPsFpDomain_Init(XPm_PsFpDomain *PsFpd, u32 Id, u32 BaseAddress,
