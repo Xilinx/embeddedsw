@@ -55,7 +55,7 @@ u32 GtyBaseAddressList[11] = {
 
 
 
-static XStatus PldPostHouseclean(u32 *Args, u32 NumOfArgs)
+static XStatus PldInitFinish(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
 
@@ -263,7 +263,7 @@ done:
 	return Status;
 }
 
-static XStatus PldPreHouseclean(u32 *Args, u32 NumOfArgs)
+static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
 
@@ -460,8 +460,8 @@ done:
 }
 
 struct XPm_PowerDomainOps PldOps = {
-	.PreHouseClean = PldPreHouseclean,
-	.PostHouseClean = PldPostHouseclean,
+	.InitStart = PldInitStart,
+	.InitFinish = PldInitFinish,
 	.PlHouseclean = PldHouseClean,
 };
 
