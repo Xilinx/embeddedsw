@@ -142,8 +142,7 @@ XStatus XPm_PowerUpFPD(XPm_Node *Node)
 {
 	XStatus Status = XST_SUCCESS;
 
-	if ((XPM_POWER_STATE_PWR_UP_SELF == Node->State) ||
-	    (XPM_POWER_STATE_OFF == Node->State)) {
+	if (XPM_POWER_STATE_ON != Node->State) {
 		PmInfo("Reloading FPD CDO\r\n");
 		Status = XLoader_ReloadImage(Node->Id);
 		if (XST_SUCCESS != Status) {
@@ -450,11 +449,6 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 
 	switch (Function) {
 	case FUNC_INIT_START:
-		if ((XPM_POWER_STATE_OFF != PwrDomain->Power.Node.State) &&
-		    (XPM_POWER_STATE_PWR_UP_SELF != PwrDomain->Power.Node.State)) {
-			Status = XST_FAILURE;
-			goto done;
-		}
 		if (Ops && Ops->InitStart) {
 			Status = Ops->InitStart(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
