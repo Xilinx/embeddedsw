@@ -47,8 +47,8 @@ typedef struct XPm_PowerDomain XPm_PowerDomain;
  * classes.
  */
 struct XPm_PowerDomainOps {
-	XStatus (*PreHouseClean)(u32 *Args, u32 NumOfArgs);
-	XStatus (*PostHouseClean)(u32 *Args, u32 NumOfArgs);
+	XStatus (*InitStart)(u32 *Args, u32 NumOfArgs);
+	XStatus (*InitFinish)(u32 *Args, u32 NumOfArgs);
 	XStatus (*ScanClear)(u32 *Args, u32 NumOfArgs);
 	XStatus (*Mbist)(u32 *Args, u32 NumOfArgs);
 	XStatus (*Lbist)(u32 *Args, u32 NumOfArgs);

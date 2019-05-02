@@ -32,7 +32,7 @@
 #include "xpm_bisr.h"
 
 
-static XStatus CpmPreHouseclean(u32 *Args, u32 NumOfArgs)
+static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
 
@@ -43,7 +43,7 @@ static XStatus CpmPreHouseclean(u32 *Args, u32 NumOfArgs)
 	return Status;
 }
 
-static XStatus CpmPostHouseclean(u32 *Args, u32 NumOfArgs)
+static XStatus CpmInitFinish(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
 
@@ -159,8 +159,8 @@ done:
 }
 
 struct XPm_PowerDomainOps CpmOps = {
-	.PreHouseClean = CpmPreHouseclean,
-	.PostHouseClean = CpmPostHouseclean,
+	.InitStart = CpmInitStart,
+	.InitFinish = CpmInitFinish,
 	.ScanClear = CpmScanClear,
 	.Bisr = CpmBisr,
 	.Mbist = CpmMbistClear,
