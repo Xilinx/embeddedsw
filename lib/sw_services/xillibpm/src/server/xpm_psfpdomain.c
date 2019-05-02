@@ -31,7 +31,7 @@
 #include "xpm_bisr.h"
 #include "xpm_regs.h"
 
-static XStatus FpdPreHouseclean(u32 *Args, u32 NumOfArgs)
+static XStatus FpdInitStart(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
@@ -65,7 +65,7 @@ done:
 	return Status;
 }
 
-static XStatus FpdPostHouseclean(u32 *Args, u32 NumOfArgs)
+static XStatus FpdInitFinish(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
@@ -184,8 +184,8 @@ done:
 }
 
 struct XPm_PowerDomainOps FpdOps = {
-	.PreHouseClean = FpdPreHouseclean,
-	.PostHouseClean = FpdPostHouseclean,
+	.InitStart = FpdInitStart,
+	.InitFinish = FpdInitFinish,
 	.ScanClear = FpdScanClear,
 	.Bisr = FpdBisr,
 	.Mbist = FpdMbistClear,

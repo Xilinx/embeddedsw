@@ -42,7 +42,7 @@ u32 NpdDdrMcAddressList[] = { 	0xF6110000, //DDRMC_UB_0
 				0xF6560000, //DDRMC_UB_3
 			};
 
-static XStatus NpdPreHouseclean(u32 *Args, u32 NumOfArgs)
+static XStatus NpdInitStart(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
 
@@ -89,7 +89,7 @@ static void NpdPreBisrReqs()
 	return;
 }
 
-static XStatus NpdPostHouseclean(u32 *Args, u32 NumOfArgs)
+static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
 	u32 i=0;
@@ -405,8 +405,8 @@ done:
 }
 
 struct XPm_PowerDomainOps NpdOps = {
-	.PreHouseClean = NpdPreHouseclean,
-	.PostHouseClean = NpdPostHouseclean,
+	.InitStart = NpdInitStart,
+	.InitFinish = NpdInitFinish,
 	.ScanClear = NpdScanClear,
 	.Mbist = NpdMbist,
 	.Bisr = NpdBisr,

@@ -272,7 +272,7 @@ static XStatus MemInit(void)
 
 
 
-static XStatus AiePreHouseclean(u32 *Args, u32 NumOfArgs)
+static XStatus AieInitStart(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
 
@@ -300,7 +300,7 @@ done:
 	return Status;
 }
 
-static XStatus AiePostHouseclean(u32 *Args, u32 NumOfArgs)
+static XStatus AieInitFinish(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
 
@@ -464,8 +464,8 @@ static XStatus AieMemInit(u32 *Args, u32 NumOfArgs)
 }
 
 struct XPm_PowerDomainOps AieOps = {
-	.PreHouseClean = AiePreHouseclean,
-	.PostHouseClean = AiePostHouseclean,
+	.InitStart = AieInitStart,
+	.InitFinish = AieInitFinish,
 	.ScanClear = AieScanClear,
 	.Bisr = AieBisr,
 	.Mbist = AieMbistClear,

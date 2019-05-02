@@ -32,7 +32,7 @@
 #include "xpm_reset.h"
 #include "xpm_bisr.h"
 
-static XStatus LpdPreHouseclean(u32 *Args, u32 NumOfArgs)
+static XStatus LpdInitStart(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
 
@@ -75,7 +75,7 @@ done:
 	return Status;
 }
 
-static XStatus LpdPostHouseclean(u32 *Args, u32 NumOfArgs)
+static XStatus LpdInitFinish(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
 
@@ -302,8 +302,8 @@ done:
 }
 
 struct XPm_PowerDomainOps LpdOps = {
-	.PreHouseClean = LpdPreHouseclean,
-	.PostHouseClean = LpdPostHouseclean,
+	.InitStart = LpdInitStart,
+	.InitFinish = LpdInitFinish,
 	.ScanClear = LpdScanClear,
 	.Mbist = LpdMbist,
 	.Lbist = LpdLbist,

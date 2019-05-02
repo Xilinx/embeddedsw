@@ -455,8 +455,8 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			Status = XST_FAILURE;
 			goto done;
 		}
-		if (Ops && Ops->PreHouseClean) {
-			Status = Ops->PreHouseClean(Args, NumArgs);
+		if (Ops && Ops->InitStart) {
+			Status = Ops->InitStart(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
@@ -468,8 +468,8 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			Status = XST_FAILURE;
 			goto done;
 		}
-		if (Ops && Ops->PostHouseClean) {
-			Status = Ops->PostHouseClean(Args, NumArgs);
+		if (Ops && Ops->InitFinish) {
+			Status = Ops->InitFinish(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
