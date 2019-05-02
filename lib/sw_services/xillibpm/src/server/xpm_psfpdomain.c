@@ -31,6 +31,8 @@
 #include "xpm_bisr.h"
 #include "xpm_regs.h"
 
+static XStatus FpdHcComplete(u32 *Args, u32 NumOfArgs);
+
 static XStatus FpdInitStart(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
@@ -61,6 +63,14 @@ static XStatus FpdInitStart(u32 *Args, u32 NumOfArgs)
 	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_FPD_POR),
 				     PM_RESET_ACTION_RELEASE);
 
+	 /* TODO: Remove when tools have hccomplete support*/
+        FpdHcComplete(NULL, 0);
+	 /* TODO: Remove when support added in tools*/
+	PmRmw32(PMC_GLOBAL_DOMAIN_ISO_CONTROL, PMC_GLOBAL_DOMAIN_ISO_CNTRL_FPD_PL_MASK |
+                                        PMC_GLOBAL_DOMAIN_ISO_CNTRL_LPD_PL_MASK |
+					PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_CFRAME_MASK |
+                                        PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_MASK,
+                                        0);
 done:
 	return Status;
 }
