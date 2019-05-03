@@ -369,6 +369,10 @@ static XStatus XPmBisr_RepairCpm(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 	/* Copy repair data */
 	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
 
+	/* Clear BISR data test registers */
+	PmOut32(CPM_SLCR_BISR_CACHE_CTRL, CPM_SLCR_BISR_CACHE_CTRL_CLR_MASK);
+	PmOut32(CPM_SLCR_BISR_CACHE_CTRL, 0x0);
+
 	/* Trigger Bisr */
 	PmRmw32(CPM_SLCR_BISR_CACHE_CTRL, CPM_SLCR_BISR_CACHE_CTRL_TRIGGER_MASK,
 		CPM_SLCR_BISR_CACHE_CTRL_TRIGGER_MASK);
@@ -387,6 +391,9 @@ static XStatus XPmBisr_RepairCpm(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 		Status = XST_FAILURE;
 		goto done;
 	}
+
+	PmOut32(CPM_SLCR_BISR_CACHE_CTRL, 0x0);
+
 done:
 	return Status;
 }
