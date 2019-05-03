@@ -54,6 +54,9 @@ device driver interrupt handling.
 axiethernet_v5_9:
 In tcl use unique global variables to fix bsp generation for certain designs.
 
+bram_v4_3:
+Fix compiler warnings for bram if it is placed after 4GB.
+
 canfd_v2_1:
 Update fifo number to read data from RX FIFO 0 or RX FIFO 1
 Fix incorrect setting of data phase buad rate prescaler
