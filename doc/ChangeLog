@@ -83,6 +83,7 @@ portZynqUltrascale.c for A53. It fixes CR#1014562
 Upgraded FreeRTOS to new version 10.1.1 (PR#10686)
 Provided feature for stream buffer and message buffer.(PR#10459)
 Add support for hard float in R5 freertos adapter.
+Add FPU support for A53 processor.
 
 hwicap_v11_2:
 Updated the Number of words per frame as mention in the ug570.
