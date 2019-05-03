@@ -40,6 +40,17 @@ static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
+	/* Remove isolation to allow scan_clear on CPM */
+	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_LPD_CPM_DFX, FALSE);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Remove POR for CPM */
+	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_CPM_POR),
+				     PM_RESET_ACTION_RELEASE);
+
+done:
 	return Status;
 }
 
@@ -66,16 +77,6 @@ static XStatus CpmScanClear(u32 *Args, u32 NumOfArgs)
 		Status = XST_SUCCESS;
 		goto done;
 	}
-
-	/* Remove isolation to allow scan_clear on CPM */
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_LPD_CPM_DFX, FALSE);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Remove POR for CPM */
-	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_CPM_POR),
-				     PM_RESET_ACTION_RELEASE);
 
 	/* Unlock PCSR */
 	PmOut32(CPM_PCSR_LOCK, PCSR_UNLOCK_VAL);
@@ -125,6 +126,7 @@ done:
 static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
+	u32 RegValue;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -135,25 +137,33 @@ static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
-	/* Unlock PCSR */
-	PmOut32(CPM_PCSR_LOCK, PCSR_UNLOCK_VAL);
+	/* Unlock Writes */
+	PmOut32(CPM_SLCR_SECURE_WPROT0, 0);
 
-	/* Mbist */
-	PmOut32(CPM_PCSR_MASK, CPM_PCSR_PCR_MEM_CLEAR_TRIGGER_MASK);
-	PmOut32(CPM_PCSR_PCR, CPM_PCSR_PCR_MEM_CLEAR_TRIGGER_MASK);
+	/* Trigger Mbist */
+	PmOut32(CPM_SLCR_SECURE_OD_MBIST_RESET_N, 0xFF);
+	PmOut32(CPM_SLCR_SECURE_OD_MBIST_SETUP, 0xFF);
+	PmOut32(CPM_SLCR_SECURE_OD_MBIST_PG_EN, 0xFF);
 
-	/* Poll for status */
-	Status = XPm_PollForMask(CPM_PCSR_PSR, CPM_PCSR_PSR_MEM_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
+	/* Wait till its done */
+	Status = XPm_PollForMask(CPM_SLCR_SECURE_OD_MBIST_DONE, 0xFF, XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
-	Status = XPm_PollForMask(CPM_PCSR_PSR, CPM_PCSR_PSR_MEM_CLEAR_PASS_MASK, XPM_POLL_TIMEOUT);
-	if (XST_SUCCESS != Status) {
+
+	/* Check status */
+	PmIn32(CPM_SLCR_SECURE_OD_MBIST_GO, RegValue);
+	if (0xFF != (RegValue & 0xFF)) {
+		Status = XST_FAILURE;
 		goto done;
 	}
 
-	/* Lock PCSR */
-	PmOut32(CPM_PCSR_LOCK, 1);
+	PmOut32(CPM_SLCR_SECURE_OD_MBIST_RESET_N, 0x0);
+	PmOut32(CPM_SLCR_SECURE_OD_MBIST_SETUP, 0x0);
+	PmOut32(CPM_SLCR_SECURE_OD_MBIST_PG_EN, 0x0);
+
+	/* Lock Writes */
+	PmOut32(CPM_SLCR_SECURE_WPROT0, 1);
 done:
         return Status;
 }
