@@ -345,6 +345,9 @@ gpiops_v3_5:
 Fixed MISRA-C suggested violations.
 Added support for Versal.
 
+gpio_v4_4:
+Updated Makefile for IAR compiler.
+
 Changes for 2018.3.1
 ===============================
 rfdc_v5_1:
