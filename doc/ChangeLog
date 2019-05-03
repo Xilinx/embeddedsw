@@ -142,6 +142,7 @@ Add support for Cache Invalidation after the DMA is complete
 Add UHS mode support for Microblaze platform
 Disable calls to dll_reset APIs for versal platforms
 Fix data alignment on IAR compiler
+Fix MISRA-C violations
 
 spips_v3_2:
 Resolved MISRA-C:2012 violations in safety mode(CR#1016116)
