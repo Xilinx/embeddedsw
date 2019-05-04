@@ -136,6 +136,14 @@ Fixed data alignment warnings on IAR compiler(CR#1025530)
 Fixed compilation error in lqspi example on IAR compiler.
 Fixed compilation error in LqspiRead function.
 
+scugic_v4_0:
+Update get_psu_interrupt_id proc to return multiple interrupt IDs
+CR#100266.
+Updated get_psu_interrupt_id proc, to fix interrupt id
+computation for vectored interrupts. It fixes CR#998583.
+Updated get_concat_number proc to avoid executing
+get_pins command twice. It fixes CR#1028356
+
 sdps_v3_7:
 Add SDPS idling support
 Added support for versal SD IP name
@@ -152,6 +160,13 @@ Added versal support
 standalone_v7_0:
 Includded stddef.h and stdint.h in xbasic_types.h
 xparameters_ps.h- Added interrupt id for usbpsu
+Added XST_NO_ACCESS status macros for generic access error.
+Updated Xil_MemCpy API to copy two bytes at a time from source to destination if byte count is <= 2.
+Added support for Versal.
+Added armclang complier support to the Cortexa53 64 bit BSP.
+Fix microblaze_disable_dcache for 64 bit microblaze
+Added frequently used functions in common area in xil_utils.c, so that other
+modules can make use of it.
 
 ttcps_v3_8:
 Modified in XTtcPs_ClearInterruptStatus function to clear
