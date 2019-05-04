@@ -115,10 +115,11 @@ u32 Xil_ConvertStringToHex(const char *Str, u32 *buf, u8 Len)
 	u32 Status = XST_FAILURE;
 	u8 ConvertedLen = 0U, index = 0U;
 	u8 Nibble[MAX_NIBBLES] = {0U};
+	u8 i;
 
 	while (ConvertedLen < Len) {
 		/* Convert char to nibble */
-		for (u8 i = 0U; i < MAX_NIBBLES; i++) {
+		for (i = 0U; i < MAX_NIBBLES; i++) {
 			Status = Xil_ConvertCharToNibble(
 					Str[ConvertedLen], &Nibble[i]);
 			ConvertedLen = ConvertedLen +1U;
