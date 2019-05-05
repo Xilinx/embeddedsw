@@ -93,7 +93,7 @@ $(LIBS):
 
 %.o:%.S
 	if [ $(CC) == "arm-none-eabi-gcc" ]; then \
-		$(AS) $(CC_FLAGS) -c $< -o $@ $(INCLUDEPATH); \
+		$(AS) $(CC_FLAGS) $(CFLAGS) $(ECFLAGS) -c $< -o $@ $(INCLUDEPATH); \
 	elif [ $(CC) == "armcc" ]; then \
         $(CC) $(INCLUDEPATH) -E -o fsbl_handoff.s fsbl_handoff.S; \
 		$(AS) $(CC_FLAGS) -c fsbl_handoff.s -o fsbl_handoff.o $(INCLUDEPATH); \
