@@ -333,7 +333,7 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 		/*House clean GTY*/
 		Status = GtyHouseClean();
 		if (XST_SUCCESS != Status) {
-			XPlmi_Printf(DEBUG_GENERAL, "ERROR: GTY HC failed");
+			XPlmi_Printf(DEBUG_GENERAL, "ERROR: %s : GTY HC failed", __func__);
 		}
 	}
 
@@ -390,14 +390,17 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 								XCFRAME_CMD_REG_HCLEAN);
 
 		 /* Poll for house clean completion */
-
+		XPlmi_Printf(DEBUG_INFO, "INFO: %s : Waiitng for PL HC complete....", __func__);
 		while ((Xil_In32(CFU_APB_CFU_STATUS) &
 						CFU_APB_CFU_STATUS_HC_COMPLETE_MASK) !=
 								CFU_APB_CFU_STATUS_HC_COMPLETE_MASK);
-			while ((Xil_In32(CFU_APB_CFU_STATUS) &
+		XPlmi_Printf(DEBUG_INFO, "Done\r\n");
+
+		XPlmi_Printf(DEBUG_INFO, "INFO: %s : CFRAME_BUSY to go low...", __func__);
+		while ((Xil_In32(CFU_APB_CFU_STATUS) &
 						CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK) ==
 								CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK);
-
+		XPlmi_Printf(DEBUG_INFO, "Done\r\n");
 		/* VGG TRIM */
 		PldApplyTrim(XPM_PL_TRIM_VGG);
 
@@ -417,10 +420,12 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 
 		/* Fake read */
 		/* each register is 128 bits long so issue 4 reads */
+		XPlmi_Printf(DEBUG_INFO, "INFO: %s : CFRAME Fake Read...", __func__);
 		PmIn32(CFRAME0_REG_BASEADDR + 0, Value);
 		PmIn32(CFRAME0_REG_BASEADDR + 4, Value);
 		PmIn32(CFRAME0_REG_BASEADDR + 8, Value);
 		PmIn32(CFRAME0_REG_BASEADDR + 12, Value);
+		XPlmi_Printf(DEBUG_INFO, "Done\r\n");
 
 		/* Unlock CFU writes */
 		PmOut32(CFU_APB_CFU_PROTECT, 0);
@@ -433,12 +438,20 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 		PmOut32(CFU_APB_CFU_PROTECT, 1);
 
 		/* Poll for status */
+		XPlmi_Printf(DEBUG_INFO, "INFO: %s : Wait for PL Scan Clear complete...", __func__);
 		Status = XPm_PollForMask(CFU_APB_CFU_STATUS, CFU_APB_CFU_STATUS_SCAN_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
+			XPlmi_Printf(DEBUG_INFO, "ERROR\r\n");
 			goto done;
 		}
-		Status = XPm_PollForMask(CFU_APB_CFU_STATUS, CFU_APB_CFU_STATUS_SCAN_CLEAR_PASS_MASK, XPM_POLL_TIMEOUT);
-		if (XST_SUCCESS != Status) {
+		else {
+			XPlmi_Printf(DEBUG_INFO, "Done\r\n");
+		}
+		/* Check if Scan Clear Passed */
+		if ((XPm_In32(CFU_APB_CFU_STATUS) & CFU_APB_CFU_STATUS_SCAN_CLEAR_PASS_MASK) !=
+			CFU_APB_CFU_STATUS_SCAN_CLEAR_PASS_MASK) {
+			XPlmi_Printf(DEBUG_GENERAL, "ERROR: %s: PL Scan Clear FAILED\r\n", __func__);
+			Status = XST_FAILURE;
 			goto done;
 		}
 	}
