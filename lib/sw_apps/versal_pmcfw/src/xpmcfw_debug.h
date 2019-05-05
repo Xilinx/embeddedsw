@@ -116,7 +116,7 @@ extern u32 UartInitialized;
 
 /* Functions defined in xpmcfw_uart.c */
 XStatus XPmcFw_InitPsUart(void );
-XStatus XPmcFw_InitMdmUart(void );
+void XPmcFw_InitMdmUart(void );
 #ifdef __cplusplus
 }
 #endif
