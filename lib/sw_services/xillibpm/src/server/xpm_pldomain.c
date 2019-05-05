@@ -237,7 +237,9 @@ static XStatus GtyHouseClean()
 		PmOut32(GtyBaseAddressList[i] + GTY_PCSR_CONTROL_OFFSET, 0);
 		PmOut32(GtyBaseAddressList[i] + GTY_PCSR_LOCK_OFFSET, 1);
 	}
-
+/* ===============HACK ======================= */
+return XST_SUCCESS;
+/* Skip BISR */
 //#ifndef PLPD_HOUSECLEAN_BYPASS
 	if(!PlpdHouseCleanBypass) {
 		/* Bisr repair - Bisr should be triggered only for Addresses for wich repair
@@ -331,7 +333,7 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 		/*House clean GTY*/
 		Status = GtyHouseClean();
 		if (XST_SUCCESS != Status) {
-			goto done;
+			XPlmi_Printf(DEBUG_GENERAL, "ERROR: GTY HC failed");
 		}
 	}
 
