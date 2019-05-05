@@ -67,6 +67,8 @@
 #define ME_NPI_REG_PCSR_MASK_ODISABLE_0_MASK  (1U << (ME_NPI_REG_PCSR_MASK_ODISABLE_SHIFT + 0))
 #define ME_NPI_REG_PCSR_MASK_ODISABLE_1_MASK  (1U << (ME_NPI_REG_PCSR_MASK_ODISABLE_SHIFT + 1))
 
+#define ME_NPI_ME_TOP_ROW  ((ME_NPI_BASEADDR) + 0x00000148U)
+
 #define COL_SHIFT 23U
 #define ROW_SHIFT 18U
 #define TILE_BASEADDRESS(col, row) ((u64)0x20000000000U +\
@@ -295,6 +297,8 @@ static XStatus AieInitStart(u32 *Args, u32 NumOfArgs)
 	AiePcsrWrite(ME_NPI_REG_PCSR_MASK_ME_IPOR_MASK, 0U);
 
 	/* TODO: Configure TOP_ROW and ROW_OFFSET by reading from EFUSE */
+	/* Hardcode ME_TOP_ROW value for S80 device */
+	PmOut32(ME_NPI_ME_TOP_ROW, 0x00000008U);
 
 done:
 	return Status;
