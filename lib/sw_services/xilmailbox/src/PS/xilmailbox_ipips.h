@@ -28,8 +28,8 @@
 /*****************************************************************************/
 /**
  *
- * @file xilmbox_ipips.h
- * @addtogroup xilmbox_v1_0
+ * @file xilmailbox_ipips.h
+ * @addtogroup xilmailbox_v1_0
  * @{
  * @details
  *
@@ -43,15 +43,15 @@
  *
  *@note
  *****************************************************************************/
-#ifndef XILMBOX_IPIPS_H
-#define XILMBOX_IPIPS_H
+#ifndef XILMAILBOX_IPIPS_H
+#define XILMAILBOX_IPIPS_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xilmbox.h"
+#include "xilmailbox.h"
 #include "xipipsu.h"
 #include "xscugic.h"
 
@@ -117,4 +117,4 @@ typedef struct {
 }
 #endif
 
-#endif /* XILMBOX_IPIPS_H */
+#endif /* XILMAILBOX_IPIPS_H */

@@ -37,13 +37,13 @@
 
 OPTION psf_version = 2.1;
 
-BEGIN LIBRARY xilmbox
-  OPTION drc = mbox_drc;
+BEGIN LIBRARY xilmailbox
+  OPTION drc = mailbox_drc;
   OPTION copyfiles = all;
   OPTION REQUIRES_OS = (standalone);
   OPTION SUPPORTED_PERIPHERALS = (psu_cortexa72 psu_cortexa53 psu_cortexr5 psu_pmu psu_pmc psv_pmc);
-  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilmbox,-lxil,-lgcc,-lc,--end-group";
+  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilmailbox,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx IPI Mailbox Library";
   OPTION VERSION = 1.0;
-  OPTION NAME = xilmbox;
+  OPTION NAME = xilmailbox;
 END LIBRARY

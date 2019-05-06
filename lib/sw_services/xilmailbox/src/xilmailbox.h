@@ -28,12 +28,14 @@
 /*****************************************************************************/
 /**
  *
- * @file xilmbox.h
- * @addtogroup xilmbox_v1_0
+ * @file xilmailbox.h
+ * @addtogroup xilmailbox_v1_0
  * @{
  * @details
  *
- * This is the library for xilinx ZynqMP and versal IPI.
+ * The XilMailbox library provides the top-level hooks for sending or receiving
+ * an inter-processor interrupt (IPI) message using the Zynq® UltraScale+ MPSoC
+ * IPI hardware.
  *
  * For a full description of IPI features, please see the hardware spec.
  * This library supports the following features:
@@ -65,8 +67,8 @@
  *
  *@note
  *****************************************************************************/
-#ifndef XILMBOX_H
-#define XILMBOX_H
+#ifndef XILMAILBOX_H
+#define XILMAILBOX_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -78,7 +80,7 @@ extern "C" {
 #include "xil_assert.h"
 #include "xil_printf.h"
 #include "xparameters.h"
-#include "xilmbox_ipips.h"
+#include "xilmailbox_ipips.h"
 
 /************************** Constant Definitions *****************************/
 #define XILMBOX_MSG_TYPE_REQ	(0x00000001U)
@@ -134,4 +136,4 @@ s32 XMailbox_SetCallBack(XMailbox *InstancePtr, XMailbox_Handler HandlerType,
 }
 #endif
 
-#endif /* XILMBOX_H */
+#endif /* XILMAILBOX_H */
