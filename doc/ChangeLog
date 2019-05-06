@@ -66,6 +66,9 @@ Adds PSU_PMU processor check to skip the Flushing cache memory and Invalidating
 cache memory API's for PMU Microblaze platform.
 Add support for versal IP name.
 
+clockps_v1_1:
+Fix IAR compilation warnings.
+
 emaclite_v4_4:
 Fix poll example failure on microblaze platform.
 
