@@ -77,6 +77,7 @@ void XFsbl_ShaDigest(const u8 *In, const u32 Size, u8 *Out, u32 HashLen)
 
 	if(XFSBL_HASH_TYPE_SHA3 == HashLen)
 	{
+		(void)XSecure_Sha3Initialize(&SecureSha3, &CsuDma);
 		XSecure_Sha3Digest(&SecureSha3, In, Size, Out);
 	}
 }
