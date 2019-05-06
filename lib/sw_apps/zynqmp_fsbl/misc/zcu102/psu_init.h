@@ -32954,6 +32954,8 @@
 #define IOU_SLCR_MIO_LOOPBACK_SPI0_LOOP_SPI1_MASK              0x00000001U
 #undef CRL_APB_AMS_REF_CTRL_OFFSET
 #define CRL_APB_AMS_REF_CTRL_OFFSET                                                0XFF5E0108
+#undef CRL_APB_RST_LPD_IOU2_OFFSET
+#define CRL_APB_RST_LPD_IOU2_OFFSET                                                0XFF5E0238
 
 /*
 * 6 bit divider
@@ -32996,6 +32998,16 @@
 #define CRL_APB_AMS_REF_CTRL_CLKACT_DEFVAL                     0x01001800
 #define CRL_APB_AMS_REF_CTRL_CLKACT_SHIFT                      24
 #define CRL_APB_AMS_REF_CTRL_CLKACT_MASK                       0x01000000U
+
+/*
+* Block level reset
+*/
+#undef CRL_APB_RST_LPD_IOU2_QSPI_RESET_DEFVAL
+#undef CRL_APB_RST_LPD_IOU2_QSPI_RESET_SHIFT
+#undef CRL_APB_RST_LPD_IOU2_QSPI_RESET_MASK
+#define CRL_APB_RST_LPD_IOU2_QSPI_RESET_DEFVAL                 0x0017FFFF
+#define CRL_APB_RST_LPD_IOU2_QSPI_RESET_SHIFT                  0
+#define CRL_APB_RST_LPD_IOU2_QSPI_RESET_MASK                   0x00000001U
 #undef CRF_APB_RST_FPD_TOP_OFFSET
 #define CRF_APB_RST_FPD_TOP_OFFSET                                                 0XFD1A0100
 #undef CRL_APB_RST_LPD_IOU2_OFFSET
@@ -33074,6 +33086,12 @@
 #define GPIO_OEN_1_OFFSET                                                          0XFF0A0248
 #undef GPIO_MASK_DATA_1_LSW_OFFSET
 #define GPIO_MASK_DATA_1_LSW_OFFSET                                                0XFF0A0008
+#undef GPIO_MASK_DATA_1_LSW_OFFSET
+#define GPIO_MASK_DATA_1_LSW_OFFSET                                                0XFF0A0008
+#undef GPIO_DIRM_1_OFFSET
+#define GPIO_DIRM_1_OFFSET                                                         0XFF0A0244
+#undef GPIO_OEN_1_OFFSET
+#define GPIO_OEN_1_OFFSET                                                          0XFF0A0248
 #undef GPIO_MASK_DATA_1_LSW_OFFSET
 #define GPIO_MASK_DATA_1_LSW_OFFSET                                                0XFF0A0008
 
@@ -34227,6 +34245,46 @@
 #define GPIO_MASK_DATA_1_LSW_DATA_1_LSW_DEFVAL                 0x00000000
 #define GPIO_MASK_DATA_1_LSW_DATA_1_LSW_SHIFT                  0
 #define GPIO_MASK_DATA_1_LSW_DATA_1_LSW_MASK                   0x0000FFFFU
+
+/*
+* Operation is the same as MASK_DATA_0_LSW[MASK_0_LSW]
+*/
+#undef GPIO_MASK_DATA_1_LSW_MASK_1_LSW_DEFVAL
+#undef GPIO_MASK_DATA_1_LSW_MASK_1_LSW_SHIFT
+#undef GPIO_MASK_DATA_1_LSW_MASK_1_LSW_MASK
+#define GPIO_MASK_DATA_1_LSW_MASK_1_LSW_DEFVAL                 0x00000000
+#define GPIO_MASK_DATA_1_LSW_MASK_1_LSW_SHIFT                  16
+#define GPIO_MASK_DATA_1_LSW_MASK_1_LSW_MASK                   0xFFFF0000U
+
+/*
+* Operation is the same as MASK_DATA_0_LSW[DATA_0_LSW]
+*/
+#undef GPIO_MASK_DATA_1_LSW_DATA_1_LSW_DEFVAL
+#undef GPIO_MASK_DATA_1_LSW_DATA_1_LSW_SHIFT
+#undef GPIO_MASK_DATA_1_LSW_DATA_1_LSW_MASK
+#define GPIO_MASK_DATA_1_LSW_DATA_1_LSW_DEFVAL                 0x00000000
+#define GPIO_MASK_DATA_1_LSW_DATA_1_LSW_SHIFT                  0
+#define GPIO_MASK_DATA_1_LSW_DATA_1_LSW_MASK                   0x0000FFFFU
+
+/*
+* Operation is the same as DIRM_0[DIRECTION_0]
+*/
+#undef GPIO_DIRM_1_DIRECTION_1_DEFVAL
+#undef GPIO_DIRM_1_DIRECTION_1_SHIFT
+#undef GPIO_DIRM_1_DIRECTION_1_MASK
+#define GPIO_DIRM_1_DIRECTION_1_DEFVAL                         0x00000000
+#define GPIO_DIRM_1_DIRECTION_1_SHIFT                          0
+#define GPIO_DIRM_1_DIRECTION_1_MASK                           0x03FFFFFFU
+
+/*
+* Operation is the same as OEN_0[OP_ENABLE_0]
+*/
+#undef GPIO_OEN_1_OP_ENABLE_1_DEFVAL
+#undef GPIO_OEN_1_OP_ENABLE_1_SHIFT
+#undef GPIO_OEN_1_OP_ENABLE_1_MASK
+#define GPIO_OEN_1_OP_ENABLE_1_DEFVAL                          0x00000000
+#define GPIO_OEN_1_OP_ENABLE_1_SHIFT                           0
+#define GPIO_OEN_1_OP_ENABLE_1_MASK                            0x03FFFFFFU
 
 /*
 * Operation is the same as MASK_DATA_0_LSW[MASK_0_LSW]
@@ -37613,6 +37671,17 @@
 #define PCIE_ATTRIB_ATTR_37_ATTR_LINK_CAP_LINK_BANDWIDTH_NOTIFICATION_CAP_DEFVAL  0x000009FF
 #define PCIE_ATTRIB_ATTR_37_ATTR_LINK_CAP_LINK_BANDWIDTH_NOTIFICATION_CAP_SHIFT  9
 #define PCIE_ATTRIB_ATTR_37_ATTR_LINK_CAP_LINK_BANDWIDTH_NOTIFICATION_CAP_MASK  0x00000200U
+
+/*
+* Maximum Link Speed. Valid settings are: 0001b [2.5 GT/s], 0010b [5.0 GT/
+    * s and 2.5 GT/s].; EP=0x0002; RP=0x0002
+*/
+#undef PCIE_ATTRIB_ATTR_37_ATTR_LINK_CAP_MAX_LINK_SPEED_DEFVAL
+#undef PCIE_ATTRIB_ATTR_37_ATTR_LINK_CAP_MAX_LINK_SPEED_SHIFT
+#undef PCIE_ATTRIB_ATTR_37_ATTR_LINK_CAP_MAX_LINK_SPEED_MASK
+#define PCIE_ATTRIB_ATTR_37_ATTR_LINK_CAP_MAX_LINK_SPEED_DEFVAL  0x000009FF
+#define PCIE_ATTRIB_ATTR_37_ATTR_LINK_CAP_MAX_LINK_SPEED_SHIFT  10
+#define PCIE_ATTRIB_ATTR_37_ATTR_LINK_CAP_MAX_LINK_SPEED_MASK  0x00003C00U
 
 /*
 * Sets the ASPM Optionality Compliance bit, to comply with the 2.1 ASPM Op
