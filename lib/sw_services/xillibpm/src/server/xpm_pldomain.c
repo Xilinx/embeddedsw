@@ -442,7 +442,10 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 		Status = XPm_PollForMask(CFU_APB_CFU_STATUS, CFU_APB_CFU_STATUS_SCAN_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
 			XPlmi_Printf(DEBUG_INFO, "ERROR\r\n");
-			goto done;
+			/** HACK: Continuing even if CFI SC is not completed */
+			Status = XST_SUCCESS;
+			//Status = XST_FAILURE;
+			//goto done;
 		}
 		else {
 			XPlmi_Printf(DEBUG_INFO, "Done\r\n");
@@ -451,8 +454,10 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 		if ((XPm_In32(CFU_APB_CFU_STATUS) & CFU_APB_CFU_STATUS_SCAN_CLEAR_PASS_MASK) !=
 			CFU_APB_CFU_STATUS_SCAN_CLEAR_PASS_MASK) {
 			XPlmi_Printf(DEBUG_GENERAL, "ERROR: %s: PL Scan Clear FAILED\r\n", __func__);
-			Status = XST_FAILURE;
-			goto done;
+			/** HACK: Continuing even if CFI SC is not pass */
+			Status = XST_SUCCESS;
+			//Status = XST_FAILURE;
+			//goto done;
 		}
 	}
 //#endif /* PLPD_HOUSECLEAN_BYPASS */
