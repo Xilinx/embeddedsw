@@ -28,8 +28,8 @@
 /*****************************************************************************/
 /**
  *
- * @file xilmbox_ipips.c
- * @addtogroup xilmbox_v1_0
+ * @file xilmailbox_ipips.c
+ * @addtogroup xilmailbox_v1_0
  * @{
  * @details
  *
@@ -46,7 +46,7 @@
  *@note
  *****************************************************************************/
 /***************************** Include Files *********************************/
-#include "xilmbox.h"
+#include "xilmailbox.h"
 #include "xscugic.h"
 #include "sleep.h"
 
