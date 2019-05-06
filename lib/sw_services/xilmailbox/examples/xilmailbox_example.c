@@ -28,7 +28,7 @@
 ******************************************************************************/
 /*****************************************************************************/
 /**
-* @file xilmbox_example.c
+* @file xilmailbox_example.c
 *
 * This example demonstrates the usage of mailbox library API's.
 * Each IPI channel can trigger an interrupt to itself and can exchange messages
@@ -48,7 +48,7 @@
 #include <stdlib.h>
 #include "xparameters.h"
 #include "xscugic.h"
-#include "xilmbox.h"
+#include "xilmailbox.h"
 #include "xdebug.h"
 
 /************************* Test Configuration ********************************/

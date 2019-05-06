@@ -31,7 +31,7 @@ ARCHIVER=
 CP=cp
 COMPILER_FLAGS=
 EXTRA_COMPILER_FLAGS=
-LIB= libxilmbox.a
+LIB= libxilmailbox.a
 
 EXTRA_ARCHIVE_FLAGS=rc
 RELEASEDIR=../../../lib
@@ -46,18 +46,18 @@ LIBMBOX_OBJS = $(addprefix $(LIBMBOX_DIR)/, $(LIBMBOX_SRCS:%.c=%.o))
 
 INCLUDEFILES=$(LIBMBOX_DIR)/*.h
 
-libs: libxilmbox.a
+libs: libxilmailbox.a
 
-libxilmbox.a: print_msg_xilmbox $(LIBMBOX_OBJS)
+libxilmailbox.a: print_msg_xilmailbox $(LIBMBOX_OBJS)
 	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${LIBMBOX_OBJS}
 
-print_msg_xilmbox:
-	@echo "Compiling xilmbox Library"
+print_msg_xilmailbox:
+	@echo "Compiling xilmailbox Library"
 
 .PHONY: include
-include: libxilmbox_includes
+include: libxilmailbox_includes
 
-libxilmbox_includes:
+libxilmailbox_includes:
 	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:

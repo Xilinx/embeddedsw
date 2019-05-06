@@ -35,9 +35,9 @@
 ##############################################################################
 
 #---------------------------------------------
-# mbox_drc
+# mailbox_drc
 #---------------------------------------------
-proc mbox_drc {libhandle} {
+proc mailbox_drc {libhandle} {
 	# check processor type
 	set proc_instance [hsi::get_sw_processor];
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
