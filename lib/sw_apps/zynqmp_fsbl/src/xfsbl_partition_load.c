@@ -1847,7 +1847,6 @@ static u32 XFsbl_CalcualteSHA(const XFsblPs * FsblInstancePtr, PTRSIZE LoadAddre
 	u8 Hash[XFSBL_HASH_TYPE_SHA3] __attribute__ ((aligned (4))) = {0};
 	u32 HashOffset;
 	u32 Index;
-	void * ShaCtx = (void * )NULL;
 	u32 Length;
 	u32 Status;
 	const XFsblPs_PartitionHeader * PartitionHeader;
@@ -1860,8 +1859,7 @@ static u32 XFsbl_CalcualteSHA(const XFsblPs * FsblInstancePtr, PTRSIZE LoadAddre
 	Length = PartitionHeader->TotalDataWordLength * 4U;
 	HashOffset = FsblInstancePtr->ImageOffsetAddress + PartitionHeader->ChecksumWordOffset * 4U;
 
-	/* Start the SHA engine */
-	XFsbl_ShaStart(ShaCtx, ShaType);
+	/* Calculate SHA hash */
 	XFsbl_ShaDigest((u8*)LoadAddress,Length, PartitionHash, ShaType);
 	Status = FsblInstancePtr->DeviceOps.DeviceCopy(HashOffset,
 			(PTRSIZE) Hash, ShaType);
