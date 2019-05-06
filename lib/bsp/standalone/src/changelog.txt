@@ -579,4 +579,15 @@
  *                      present in the previous releases but got introduced as part of
  *                      optimization patches that got applied for 6.8 BSP version. These
  *                      changes fix the CR#1016012.
+ * 7.0 rp     10/25/18  Added XST_NO_ACCESS status macros for generic access error.
+ * 7.0 mus    02/01/19  Added support for Versal. Cortea53 BSP will be re-used by Cortexa72,
+ *                      re-named cortexa53 directory as ARMv8, since files are generic for
+ *                      ARMv8 based processors. Created "platform" directory to place
+ *                      SoC based files.
+ * 7.0 mus    02/05/19  Updated Xil_MemCpy API to copy two bytes at a time from source to
+ *                      destination if byte count is <= 2.
+ * 7.0 mus    02/28/19  Added armclang complier support to the Cortexa53 64 bit BSP.
+ * 7.0 mus    04/08/19  Fix microblaze_disable_dcache for 64 bit microblaze
+ * 7.0 mus    04/26/19  Added frequently used functions in common area in xil_utils.c,
+ *                      so that other modules can make use of it.
  *****************************************************************************************/
