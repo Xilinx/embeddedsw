@@ -5849,12 +5849,12 @@ unsigned long psu_ddr_init_data(void)
     * Register : GPR1 @ 0XFD0800C4
 
     * General Purpose Register 1
-    *  PSU_DDR_PHY_GPR1_GPR1                                       0xdc
+    *  PSU_DDR_PHY_GPR1_GPR1                                       0xde
 
     * General Purpose Register 1
-    * (OFFSET, MASK, VALUE)      (0XFD0800C4, 0xFFFFFFFFU ,0x000000DCU)
+    * (OFFSET, MASK, VALUE)      (0XFD0800C4, 0xFFFFFFFFU ,0x000000DEU)
     */
-	PSU_Mask_Write(DDR_PHY_GPR1_OFFSET, 0xFFFFFFFFU, 0x000000DCU);
+	PSU_Mask_Write(DDR_PHY_GPR1_OFFSET, 0xFFFFFFFFU, 0x000000DEU);
 /*##################################################################### */
 
     /*
@@ -15749,6 +15749,23 @@ unsigned long psu_peripherals_pre_init_data(void)
 		0x013F3F07U, 0x01012302U);
 /*##################################################################### */
 
+    /*
+    * PUT QSPI IN RESET STATE
+    */
+    /*
+    * Register : RST_LPD_IOU2 @ 0XFF5E0238
+
+    * Block level reset
+    *  PSU_CRL_APB_RST_LPD_IOU2_QSPI_RESET                         1
+
+    * Software control register for the IOU block. Each bit will cause a singl
+    * erperipheral or part of the peripheral to be reset.
+    * (OFFSET, MASK, VALUE)      (0XFF5E0238, 0x00000001U ,0x00000001U)
+    */
+	PSU_Mask_Write(CRL_APB_RST_LPD_IOU2_OFFSET,
+		0x00000001U, 0x00000001U);
+/*##################################################################### */
+
 
 	return 1;
 }
@@ -16731,6 +16748,49 @@ unsigned long psu_peripherals_init_data(void)
     */
 		mask_delay(5);
 
+/*##################################################################### */
+
+    /*
+    * GPIO POLARITY INITIALIZATION
+    */
+    /*
+    * Register : DIRM_1 @ 0XFF0A0244
+
+    * Operation is the same as DIRM_0[DIRECTION_0]
+    *  PSU_GPIO_DIRM_1_DIRECTION_1                                 0x20
+
+    * Direction mode (GPIO Bank1, MIO)
+    * (OFFSET, MASK, VALUE)      (0XFF0A0244, 0x03FFFFFFU ,0x00000020U)
+    */
+	PSU_Mask_Write(GPIO_DIRM_1_OFFSET, 0x03FFFFFFU, 0x00000020U);
+/*##################################################################### */
+
+    /*
+    * Register : OEN_1 @ 0XFF0A0248
+
+    * Operation is the same as OEN_0[OP_ENABLE_0]
+    *  PSU_GPIO_OEN_1_OP_ENABLE_1                                  0x20
+
+    * Output enable (GPIO Bank1, MIO)
+    * (OFFSET, MASK, VALUE)      (0XFF0A0248, 0x03FFFFFFU ,0x00000020U)
+    */
+	PSU_Mask_Write(GPIO_OEN_1_OFFSET, 0x03FFFFFFU, 0x00000020U);
+/*##################################################################### */
+
+    /*
+    * Register : MASK_DATA_1_LSW @ 0XFF0A0008
+
+    * Operation is the same as MASK_DATA_0_LSW[MASK_0_LSW]
+    *  PSU_GPIO_MASK_DATA_1_LSW_MASK_1_LSW                         0xffdf
+
+    * Operation is the same as MASK_DATA_0_LSW[DATA_0_LSW]
+    *  PSU_GPIO_MASK_DATA_1_LSW_DATA_1_LSW                         0x0
+
+    * Maskable Output Data (GPIO Bank1, MIO, Lower 16bits)
+    * (OFFSET, MASK, VALUE)      (0XFF0A0008, 0xFFFFFFFFU ,0xFFDF0000U)
+    */
+	PSU_Mask_Write(GPIO_MASK_DATA_1_LSW_OFFSET,
+		0xFFFFFFFFU, 0xFFDF0000U);
 /*##################################################################### */
 
 
@@ -21146,15 +21206,19 @@ unsigned long psu_resetout_init_data(void)
     * ; EP=0x0000; RP=0x0001
     *  PSU_PCIE_ATTRIB_ATTR_37_ATTR_LINK_CAP_LINK_BANDWIDTH_NOTIFICATION_CAP 0x1
 
+    * Maximum Link Speed. Valid settings are: 0001b [2.5 GT/s], 0010b [5.0 GT/
+    * s and 2.5 GT/s].; EP=0x0002; RP=0x0002
+    *  PSU_PCIE_ATTRIB_ATTR_37_ATTR_LINK_CAP_MAX_LINK_SPEED        0x2
+
     * Sets the ASPM Optionality Compliance bit, to comply with the 2.1 ASPM Op
     * tionality ECN. Transferred to the Link Capabilities register.; EP=0x0001
     * ; RP=0x0001
     *  PSU_PCIE_ATTRIB_ATTR_37_ATTR_LINK_CAP_ASPM_OPTIONALITY      0x1
 
     * ATTR_37
-    * (OFFSET, MASK, VALUE)      (0XFD480094, 0x00004200U ,0x00004200U)
+    * (OFFSET, MASK, VALUE)      (0XFD480094, 0x00007E00U ,0x00004A00U)
     */
-	PSU_Mask_Write(PCIE_ATTRIB_ATTR_37_OFFSET, 0x00004200U, 0x00004200U);
+	PSU_Mask_Write(PCIE_ATTRIB_ATTR_37_OFFSET, 0x00007E00U, 0x00004A00U);
 /*##################################################################### */
 
     /*
@@ -22479,8 +22543,10 @@ psu_init(void)
 	status &=  psu_peripherals_pre_init_data();
 	status &=   psu_pll_init_data();
 	status &=   psu_clock_init_data();
+#ifndef XPAR_DYNAMIC_DDR_ENABLED 
 	status &=  psu_ddr_init_data();
 	status &=  psu_ddr_phybringup_data();
+#endif
 	status &=  psu_peripherals_init_data();
 	status &=  init_serdes();
 	init_peripheral();
@@ -22502,7 +22568,9 @@ int psu_init_ddr_self_refresh(void) {
 	status &=  psu_peripherals_pre_init_data();
 	status &=   psu_pll_init_data();
 	status &=   psu_clock_init_data();
+#ifndef XPAR_DYNAMIC_DDR_ENABLED 
 	status &=  psu_ddr_init_data();
+#endif
 	status &=  psu_peripherals_init_data();
 	status &=  init_serdes();
 	init_peripheral();
