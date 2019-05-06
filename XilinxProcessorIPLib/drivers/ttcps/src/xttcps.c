@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -59,6 +59,8 @@
 *						MAX interval count to 16 bit value(i.e.65532),
 *						which is incorrect for  zynq ultrascale+mpsoc
 *						(i.e. max interval count is 32 bit).
+* 3.10  aru    05/06/19 Added assert check for driver instance and freq
+*			parameter in  XTtcPs_CalcIntervalFromFreq().
 * </pre>
 *
 ******************************************************************************/
@@ -390,6 +392,12 @@ void XTtcPs_CalcIntervalFromFreq(XTtcPs *InstancePtr, u32 Freq,
 	u8 TmpPrescaler;
 	UINTPTR TempValue;
 	u32 InputClock;
+
+	/*
+         * Assert to validate input arguments.
+         */
+	Xil_AssertVoid(InstancePtr != NULL);
+        Xil_AssertVoid(Freq > 0U);
 
 	InputClock = InstancePtr->Config.InputClockHz;
 	/*
