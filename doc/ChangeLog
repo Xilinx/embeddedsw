@@ -325,7 +325,7 @@ DDR end address is not fixed at 2GB but derived from Vivado
 Using XilPM XPm_SetConfiguration API instead of using direct IPI calls for
 communicating with PMUFW.
 
-xilpm_v2_4:
+xilpm_v2_5:
 Add checksum support for IPI data
 Misra C fixes in XilPm
 Support for IAR compier
