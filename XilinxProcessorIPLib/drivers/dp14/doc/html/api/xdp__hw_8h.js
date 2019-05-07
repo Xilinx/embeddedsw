@@ -1,0 +1,27 @@
+var xdp__hw_8h =
+[
+    [ "XDP_GUID_NBYTES", "xdp__hw_8h.html#ga3534ed5fdd1802412f1475cb332928c1", null ],
+    [ "XDP_LANE_COUNT_SET_1", "xdp__hw_8h.html#gabeb344ffc796b239bee70863d9ec442a", null ],
+    [ "XDP_LANE_COUNT_SET_2", "xdp__hw_8h.html#ga23b3f60de339e3069b4ea35a5ea60550", null ],
+    [ "XDP_LANE_COUNT_SET_4", "xdp__hw_8h.html#ga6f56bca47452901f2f919d49abd30565", null ],
+    [ "XDP_LINK_BW_SET_162GBPS", "xdp__hw_8h.html#ga03d720681171dd41353c16d9082d6146", null ],
+    [ "XDP_LINK_BW_SET_270GBPS", "xdp__hw_8h.html#ga6be548e61b4abc5ee50c4bd2cc376931", null ],
+    [ "XDP_LINK_BW_SET_540GBPS", "xdp__hw_8h.html#gaac63cee431718ac6f9ba14ee8878b878", null ],
+    [ "XDP_LINK_BW_SET_810GBPS", "xdp__hw_8h.html#ga2c2e6d836b27e1ac3c57f6abab866ead", null ],
+    [ "XDP_MAIN_STREAMX_MISC0_BDC_10BPC", "xdp__hw_8h.html#gadbe529dd6747902d918e53d3ba6be068", null ],
+    [ "XDP_MAIN_STREAMX_MISC0_BDC_12BPC", "xdp__hw_8h.html#ga6231e3bcc7123fd3081d11bba41917c4", null ],
+    [ "XDP_MAIN_STREAMX_MISC0_BDC_16BPC", "xdp__hw_8h.html#ga2d1443da2c32b614a00df9c02c26b03e", null ],
+    [ "XDP_MAIN_STREAMX_MISC0_BDC_6BPC", "xdp__hw_8h.html#ga786a90d82907647f43693e0a1c985ca2", null ],
+    [ "XDP_MAIN_STREAMX_MISC0_BDC_8BPC", "xdp__hw_8h.html#gadd66cef941325d08f6e0bc5f10274513", null ],
+    [ "XDP_MAIN_STREAMX_MISC0_BDC_MASK", "xdp__hw_8h.html#gad4d746ffd69d1d364755e101af8dae91", null ],
+    [ "XDP_MAIN_STREAMX_MISC0_BDC_SHIFT", "xdp__hw_8h.html#ga18fb05bde9f6b8c0e4d789f463f5aa06", null ],
+    [ "XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_MASK", "xdp__hw_8h.html#gaf663579763a528e9ef6a74c422d4baa5", null ],
+    [ "XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB", "xdp__hw_8h.html#gabd5d6b0c0924644bc770953ef01629df", null ],
+    [ "XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_SHIFT", "xdp__hw_8h.html#gac77e857e8cb2dca94f70abe1a5b7d5c8", null ],
+    [ "XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422", "xdp__hw_8h.html#gab4da0b3b06faa2dde749ed48a46a0883", null ],
+    [ "XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444", "xdp__hw_8h.html#ga49dc27ba259f6a5d5d2b51003f66a1e8", null ],
+    [ "XDP_MAX_NPORTS", "xdp__hw_8h.html#gaff42db8f2360328a5b13c0e7fe5e596c", null ],
+    [ "XDp_ReadReg", "xdp__hw_8h.html#gaddf35ab387f5403190bd36a30f64f8ee", null ],
+    [ "XDP_RX_NUM_I2C_ENTRIES_PER_PORT", "xdp__hw_8h.html#gafd8c9fcc682e84aacba9fef88ecc77d1", null ],
+    [ "XDp_WriteReg", "xdp__hw_8h.html#ga37923d04a0f4bff0d0e3a392d226b83e", null ]
+];
