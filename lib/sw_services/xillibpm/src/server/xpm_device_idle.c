@@ -194,7 +194,7 @@ void NodeUsbIdle(u16 DeviceId, u32 BaseAddress)
 {
 	int Status;
 	XUsbPsu_Config *ConfigPtr;
-	struct XUsbPsu UsbInst = {0};
+	static struct XUsbPsu UsbInst;
 
 	ConfigPtr = XUsbPsu_LookupConfig(DeviceId);
 	if (NULL == ConfigPtr) {
