@@ -1837,16 +1837,23 @@ XVidC_VideoMode GetPreferredVm(u8 *EdidPtr, u8 cap, u8 lane)
 			break;
 	}
 
-//	xil_printf ("hact %d, vact %d\r\n",Timing.HTotal, Timing.F0PVTotal);
+// There is no good way to find the timing table
+	// The following function would return the video timing table from our library
+	// only if the parameters match
+	//however some monitors may work with different timing params
+	// as such the video timing returned from the library may not work.
 
 	if (pixel_freq1 < pixel_freq) {
 		VmId = XVIDC_VM_NOT_SUPPORTED;
-//		xil_printf ("not supp\r\n");
 	} else {
 		/* Get video mode ID */
+		if (HBlank == 80 || HBlank == 160) {
+			VmId = 	XVidC_GetVideoModeIdRb(Timing.HActive, Timing.VActive,
+					FrameRate, XVidC_EdidIsDtdPtmInterlaced(EdidPtr), (160/HBlank));
+		} else {
 		VmId = XVidC_GetVideoModeId(Timing.HActive, Timing.VActive,
 							FrameRate, XVidC_EdidIsDtdPtmInterlaced(EdidPtr));
-//		xil_printf ("supp\r\n");
+		}
 	}
 
 	return VmId;
