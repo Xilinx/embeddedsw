@@ -1507,7 +1507,7 @@ void main_loop(){
 			/* Read Sink Capablity*/
 			Status = XDp_TxAuxRead(DpTxSsInst.DpPtr,
 					DPCD_MAX_LINE_RATE, 2, &Data);
-			Sink_MaxLinkRate = Data[0];
+			Sink_MaxLinkRate = 0x1E; //Data[0];
 			Sink_MaxLaneCount = Data[1]&0x1F;
 
 			user_config.user_bpc = XVIDC_BPC_8;
@@ -1689,6 +1689,11 @@ void main_loop(){
 
 					/*Train Sink and send video*/
 					Status = start_tx (LineRate,LaneCount,user_config);
+						if(Command==XVIDC_VM_3840x2160_120_P_MSTAR) { //hblank = 161
+							XDp_WiteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+									XDP_TX_LINE_RESET_DISABLE, 0x1);
+
+                                                 }
 					if(Status == XST_FAILURE)
 					{
 						xil_printf("VID_RESULT, Transmitter Training Failed"

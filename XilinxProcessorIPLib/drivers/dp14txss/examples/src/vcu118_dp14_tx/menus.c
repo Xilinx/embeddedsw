@@ -78,6 +78,9 @@ typedef enum {
 	XVIDC_VM_7680x4320_30_MSTR,
 	XVIDC_VM_5120x2880_60_MSTR,
 	XVIDC_VM_3840x2160_120_MSTR,
+	XVIDC_VM_3840x2160_82_ASUS,
+	XVIDC_VM_3840x2160_98_ASUS,
+	XVIDC_VM_3840x2160_120_ASUS,
     XVIDC_CM_NUM_SUPPORTED
 } XVIDC_CUSTOM_MODES;
 
@@ -122,6 +125,23 @@ const XVidC_VideoTimingMode XVidC_MyVideoTimingMode[
 	{ XVIDC_VM_3840x2160_120_MSTR, "3840x2160@120Hz_MSTR", XVIDC_FR_120HZ,
 		{3840, 48, 34, 79, 4001, 1,
 		2160, 4, 6, 53, 2223, 0, 0, 0, 0, 1}},
+
+		//Asus 4k@82
+	{ XVIDC_VM_3840x2160_82_ASUS, "3840x2160@82Hz_ASUS", XVIDC_FR_82HZ,
+			{3840, 8, 32, 20, 3900, 1,
+			2160, 3, 6, 48, 2217, 0, 0, 0, 0, 1}},
+
+		//Asus 4k@98
+	{ XVIDC_VM_3840x2160_98_ASUS, "3840x2160@98Hz_ASUS", XVIDC_FR_98HZ,
+			{3840, 8, 32, 20, 3900, 1,
+			2160, 3, 6, 56, 2225, 0, 0, 0, 0, 1}},
+
+		//Asus 4k@120
+	{ XVIDC_VM_3840x2160_120_ASUS, "3840x2160@120Hz_ASUS", XVIDC_FR_120HZ,
+			{3840, 8, 32, 40, 3920, 1,
+			2160, 3, 5, 70, 2238, 0, 0, 0, 0, 1}},
+
+
 };
 
 XVidC_VideoMode resolution_table[] =
@@ -154,7 +174,10 @@ XVidC_VideoMode resolution_table[] =
 	XVIDC_VM_5120x2880_60_P_RB2,
 	XVIDC_VM_7680x4320_30_MSTR,
 	XVIDC_VM_5120x2880_60_MSTR,
-	XVIDC_VM_3840x2160_120_MSTR
+	XVIDC_VM_3840x2160_120_MSTR,
+	XVIDC_VM_3840x2160_82_ASUS,
+	XVIDC_VM_3840x2160_98_ASUS,
+	XVIDC_VM_3840x2160_120_ASUS
 
 };
 
@@ -252,9 +275,10 @@ xil_printf("- - - - -  -  - - - - - - - - - - - - - - - - - - -  -  - - - - -"
 "9 3840x2160_60_P  |   a 2560x1600_60_P    |   b 1280x1024_60_P\r\n"
 "c 1792x1344_60_P  |   d 848x480_60_P      |   e 1280x960\r\n"
 "f 1920x1440_60_P  |   i 3840x2160_60_P_RB |   j 3840x2160_120_P_RB\r\n"
-	"k 7680x4320_24_P  |   l 7680x4320_30_P    |   m 3840x2160_100_P\r\n"
-	"n 7680x4320_30DELL|   o 5120x2880_30      |   p 7680x4320_30_MSTR\r\n"
-	"q 5120x2880_MSTR  |   r 3840x2160_120_MSTR\r\n"
+"k 7680x4320_24_P  |   l 7680x4320_30_P    |   m 3840x2160_100_P\r\n"
+"n 7680x4320_30DELL|   o 5120x2880_30      |   p 7680x4320_30_MSTR\r\n"
+"q 5120x2880_MSTR  |   r 3840x2160_120_MSTR\r\n"
+"s 3840x2160_82_ASUS|  t 3840x2160_98_ASUS|    u 3840x2160_120_ASUS\r\n"
 "- - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 	"- - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 		" - - - - - -\r\n"
