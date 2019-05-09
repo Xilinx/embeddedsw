@@ -1796,6 +1796,8 @@ void CalculateCRC(void)
 	
 	/* Add delay (~40 ms) for Frame CRC to compute on couple of frames */
 	CustomWaitUs(DpRxSsInst.DpPtr, 400000);
+	CustomWaitUs(DpRxSsInst.DpPtr, 400000);
+	CustomWaitUs(DpRxSsInst.DpPtr, 400000);
 	
 	/* Read computed values from Frame CRC
 	 * module and MISC0 for colorimetry */
