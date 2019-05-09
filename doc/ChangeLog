@@ -8,6 +8,10 @@ udpated gpiops example with versal support.
 gpio_v4_4:
 Updated Makefile for IAR compiler.
 
+csudma_v1_5:
+Updated xcsudma_intr_example.c to use volatile keyword for
+DstDone variable to disable compiler optimizations.
+
 Changes for 2019.1
 ===============================
 v_hdmiphy1_v1_0:
