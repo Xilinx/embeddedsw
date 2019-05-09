@@ -221,6 +221,12 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 	 */
 
 	DstnCpu = XilPdi_GetDstnCpu(PrtnHdr);
+	if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_PSM) &&
+	    (PdiPtr->EccStatus == FALSE))
+	{
+		XPlmi_EccInit(XLOADER_PSM_RAM_BASE_ADDR, XLOADER_PSM_RAM_SIZE);
+		PdiPtr->EccStatus = TRUE;
+	}
 
 	/* Check if R5 App memory is TCM, Copy to global TCM memory MAP */
 	if ( (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) ||
