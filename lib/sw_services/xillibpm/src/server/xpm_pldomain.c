@@ -438,7 +438,7 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 		PmOut32(CFU_APB_CFU_PROTECT, 1);
 
 		/* Poll for status */
-		XPlmi_Printf(DEBUG_INFO, "INFO: %s : Wait for PL Scan Clear complete...", __func__);
+		XPlmi_Printf(DEBUG_INFO, "INFO: %s : Wait for Hard Block Scan Clear / MBIST complete...", __func__);
 		Status = XPm_PollForMask(CFU_APB_CFU_STATUS, CFU_APB_CFU_STATUS_SCAN_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
 			XPlmi_Printf(DEBUG_INFO, "ERROR\r\n");
@@ -453,7 +453,7 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 		/* Check if Scan Clear Passed */
 		if ((XPm_In32(CFU_APB_CFU_STATUS) & CFU_APB_CFU_STATUS_SCAN_CLEAR_PASS_MASK) !=
 			CFU_APB_CFU_STATUS_SCAN_CLEAR_PASS_MASK) {
-			XPlmi_Printf(DEBUG_GENERAL, "ERROR: %s: PL Scan Clear FAILED\r\n", __func__);
+			XPlmi_Printf(DEBUG_GENERAL, "ERROR: %s: Hard Block Scan Clear / MBIST FAILED\r\n", __func__);
 			/** HACK: Continuing even if CFI SC is not pass */
 			Status = XST_SUCCESS;
 			//Status = XST_FAILURE;
