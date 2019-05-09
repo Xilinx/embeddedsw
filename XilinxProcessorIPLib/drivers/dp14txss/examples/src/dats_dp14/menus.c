@@ -1690,7 +1690,7 @@ void main_loop(){
 					/*Train Sink and send video*/
 					Status = start_tx (LineRate,LaneCount,user_config);
 						if(Command==XVIDC_VM_3840x2160_120_P_MSTAR) { //hblank = 161
-							XDp_WiteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+							XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 									XDP_TX_LINE_RESET_DISABLE, 0x1);
 
                                                  }

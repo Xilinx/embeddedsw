@@ -66,6 +66,22 @@ u8 StreamPattern_vpg[5] = {0x11, 0x13, 0x15, 0x16, 0x10};
 
 #define CLK_WIZ_BASE      				XPAR_CLK_WIZ_0_BASEADDR
 #define CLK_LOCK                        1
+
+//Following limits are for ZCU102 US+ device
+//User to refer to DS and Switching char and update for
+//their design
+#define VCO_MAX 1600000
+#define VCO_MIN 800000
+
+#define M_MAX 128
+#define M_MIN 2
+
+#define D_MAX 106
+#define D_MIN 1
+
+#define DIV_MAX 128
+#define DIV_MIN 1
+
 /************************** Constant Definitions *****************************/
 
 
@@ -762,12 +778,12 @@ void ComputeMandD(u32 VidFreq){
 
 	RefFreq = 100000;
 
-	for (m = 20; m <= 64; m++) {
-		for (d = 1; d <= 80; d++) {
+	for (m = M_MIN; m <= M_MAX; m++) {
+		for (d = D_MIN; d <= D_MAX; d++) {
 			Fvco = RefFreq * m / d;
 
-			if ( Fvco >= 600000 && Fvco <= 900000 ) {
-				for (Div = 1; Div <= 128; Div++ ) {
+			if ( Fvco >= VCO_MIN && Fvco <= VCO_MAX ) {
+				for (Div = DIV_MIN; Div <= DIV_MAX; Div++ ) {
 					Freq = Fvco/Div;
 
 					if (Freq >= VidFreq) {
