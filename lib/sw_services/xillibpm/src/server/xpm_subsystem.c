@@ -501,6 +501,12 @@ XStatus XPmSubsystem_Restart(u32 SubsystemId)
 		goto done;
 	}
 
+	/* Idle the subsystem */
+	Status = XPmSubsystem_Idle(SubsystemId);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
 	Reqm = Subsystem->Requirements;
 	while (NULL != Reqm) {
 		if (TRUE == Reqm->Allocated) {
@@ -543,12 +549,6 @@ XStatus XPmSubsystem_Restart(u32 SubsystemId)
 			}
 		}
 		Reqm = Reqm->NextDevice;
-	}
-
-	/* Idle the subsystem */
-	Status = XPmSubsystem_Idle(SubsystemId);
-	if (XST_SUCCESS != Status) {
-		goto done;
 	}
 
 done:
