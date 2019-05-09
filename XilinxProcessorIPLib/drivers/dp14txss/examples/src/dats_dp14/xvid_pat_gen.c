@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -66,6 +44,22 @@ u8 StreamPattern_vpg[5] = {0x11, 0x13, 0x15, 0x16, 0x10};
 
 #define CLK_WIZ_BASE      				XPAR_CLK_WIZ_0_BASEADDR
 #define CLK_LOCK                        1
+
+//Following limits are for ZCU102 US+ device
+//User to refer to DS and Switching char and update for
+//their design
+#define VCO_MAX 1600000
+#define VCO_MIN 800000
+
+#define M_MAX 128
+#define M_MIN 2
+
+#define D_MAX 106
+#define D_MIN 1
+
+#define DIV_MAX 128
+#define DIV_MIN 1
+
 /************************** Constant Definitions *****************************/
 
 
@@ -531,76 +525,97 @@ static void VidgenWriteConfig(XDp *InstancePtr,
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], VsyncPolarity,
 				VidgenConfig->Timing.VSyncPolarity | 1);
+	usleep(10000);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], HsyncPolarity,
 				VidgenConfig->Timing.HSyncPolarity | 1);
+	usleep(10000);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], VsyncWidth,
 				VidgenConfig->Timing.F0PVSyncWidth);
+	usleep(10000);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], VerticalBackPorch,
 				VidgenConfig->Timing.F0PVBackPorch);
+	usleep(10000);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], VerticalFrontPorch,
 				VidgenConfig->Timing.F0PVFrontPorch);
+	usleep(10000);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], VerticalResolution,
 				VidgenConfig->Timing.VActive);
+	usleep(10000);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], HsyncWidth,
 				VidgenConfig->Timing.HSyncWidth);
+	usleep(10000);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], HorizontalBackPorch,
 				VidgenConfig->Timing.HBackPorch);
+	usleep(10000);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], HorizontalFrontPorch,
 				VidgenConfig->Timing.HFrontPorch);
+	usleep(10000);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], HorizontalResolution,
 				VidgenConfig->Timing.HActive);
 
-
+	usleep(10000);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], DataEnablePolarity,
 				VidgenConfig->DePolarity);
+	usleep(10000);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], Framelock_Enable_Delay,
 				VidgenConfig->FrameLock0);
+	usleep(10000);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], FrameLock_AlignHsync_LineFrac,
 				VidgenConfig->FrameLock1);
+	usleep(10000);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], HdColorBarCfg,
 				VidgenConfig->HdColorBarMode);
+	usleep(10000);
 
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], HSBLANK,
 				VidgenConfig->TcHsBlnk);
+	usleep(10000);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], HSSYNC,
 				VidgenConfig->TcHsSync);
+	usleep(10000);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], HESYNC,
 				VidgenConfig->TcHeSync);
+	usleep(10000);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], HEBLNK,
 				VidgenConfig->TcHeBlnk);
+	usleep(10000);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], VSBLNK,
 				VidgenConfig->TcVsBlnk);
+	usleep(10000);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], VSSYNC,
 				VidgenConfig->TcVsSync);
+	usleep(10000);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], VESYNC,
 				VidgenConfig->TcVeSync);
+	usleep(10000);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], VEBLNK,
 				VidgenConfig->Timing.F0PVTotal);
-
+	usleep(10000);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], MISC0,
 				InstancePtr->TxInstance.MsaConfig[0].Misc0);
+	usleep(10000);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], MISC1,
 				InstancePtr->TxInstance.MsaConfig[0].Misc1);
@@ -741,12 +756,12 @@ void ComputeMandD(u32 VidFreq){
 
 	RefFreq = 100000;
 
-	for (m = 20; m <= 64; m++) {
-		for (d = 1; d <= 80; d++) {
+	for (m = M_MIN; m <= M_MAX; m++) {
+		for (d = D_MIN; d <= D_MAX; d++) {
 			Fvco = RefFreq * m / d;
 
-			if ( Fvco >= 600000 && Fvco <= 900000 ) {
-				for (Div = 1; Div <= 128; Div++ ) {
+			if ( Fvco >= VCO_MIN && Fvco <= VCO_MAX ) {
+				for (Div = DIV_MIN; Div <= DIV_MAX; Div++ ) {
 					Freq = Fvco/Div;
 
 					if (Freq >= VidFreq) {
