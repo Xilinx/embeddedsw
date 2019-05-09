@@ -115,6 +115,12 @@ int XPlm_Init()
 	int Status;
 
 	/**
+	 * Disable CFRAME isolation for VCCRAM
+	 */
+	XPlmi_UtilRMW(PMC_GLOBAL_DOMAIN_ISO_CNTRL,
+	 PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_CFRAME_MASK, 0U);
+
+	/**
 	 * Reset the wakeup signal set by ROM
 	 * Otherwise MB will always wakeup, irrespective of the sleep state
 	 */
