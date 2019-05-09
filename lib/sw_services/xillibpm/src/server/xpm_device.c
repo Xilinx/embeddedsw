@@ -584,6 +584,9 @@ static XStatus Release(XPm_Device *Device,
 	Status = Device->DeviceOps->SetRequirement(Device, Subsystem, 0,
 						   XPM_DEF_QOS);
 
+	if (XST_SUCCESS == Status) {
+		XPmRequirement_Clear(Device->PendingReqm);
+	}
 done:
 	return Status;
 }
