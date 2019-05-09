@@ -114,10 +114,6 @@ static XStatus FpdHcComplete(u32 *Args, u32 NumOfArgs)
 	if (Status != XST_SUCCESS)
 		goto done;
 
-	/* TODO: Need to check why this delay is required. */
-        PmInfo("Sleep for 10000us\r\n");
-        usleep(10000);
-
 done:
 	return Status;
 }
