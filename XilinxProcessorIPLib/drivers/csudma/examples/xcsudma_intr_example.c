@@ -50,6 +50,8 @@
 * 	adk    11/01/18 Declared static array rather than hard code memory for
 *			buffers.
 *	adk    18/01/18 Remove unnecessary column in XIntc_Connect() API.
+* 1.5   adk    09/05/19 Added volatile keyword for DstDone variable to disable
+*			optimizations.
 * </pre>
 *
 ******************************************************************************/
@@ -133,7 +135,7 @@ static void DstHandler(void *CallBackRef, u32 Event);
 XCsuDma CsuDma;		/**<Instance of the Csu_Dma Device */
 static INTC Intc;	/* Instance of the Interrupt Controller */
 #endif
-u32 DstDone = 0;
+volatile u32 DstDone = 0;
 
 #ifndef TESTAPP_GEN
 /*****************************************************************************/
