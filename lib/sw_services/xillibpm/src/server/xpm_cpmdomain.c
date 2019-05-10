@@ -47,9 +47,14 @@ static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Remove POR for CPM */
-	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_CPM_POR),
-				     PM_RESET_ACTION_RELEASE);
+	/*Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_CPM_POR),
+				     PM_RESET_ACTION_RELEASE);*/
 
+	/*TODO: Topology is not passing cpm reset register
+		right now, so hard coded for now */
+        PmOut32(CPM_PCSR_LOCK, PCSR_UNLOCK_VAL);
+        PmOut32(CPM_PCSR_ECO, 0);
+        PmOut32(CPM_PCSR_LOCK, 1);
 done:
 	return Status;
 }
