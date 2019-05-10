@@ -227,6 +227,7 @@ extern "C" {
  * Register: XSECURE_AES_KEY_DEC
  */
 #define XSECURE_AES_KEY_DEC_OFFSET    (0x00000058 )
+#define XSECURE_AES_KEY_DEC_MASK		(0xFFFFFFFF)
 
 /**
  * Register: XSECURE_AES_KEY_DEC_TRIG

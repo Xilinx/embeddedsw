@@ -75,6 +75,8 @@ extern "C" {
 
 #define XSECURE_AES_INVALID_CFG				(0xFFFFFFFFU)
 
+#define XSECURE_AES_NO_CFG_DST_DMA			(0xFFFFFFFFU)
+
 /* Key select values */
 #define XSECURE_AES_KEY_SEL_BBRAM_KEY			(0xBBDE6600)
 #define XSECURE_AES_KEY_SEL_BBRAM_RD_KEY		(0xBBDE8200)
@@ -188,9 +190,9 @@ u32 XSecure_AesWriteKey(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 
 u32 XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
 			XSecure_AesKeySrc DecKeySrc, XSecure_AesKeySrc DstKeySrc,
-			u64 IvAddr);
+			u64 IvAddr, u32 KeySize);
 
-u32 XSecure_AesKupIvWr(XSecure_Aes *InstancePtr);
+u32 XSecure_AesCfgKupIv(XSecure_Aes *InstancePtr, u32 EnableCfg);
 u32 XSecure_AesGetNxtBlkLen(XSecure_Aes *InstancePtr, u32 *Size);
 
 u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
