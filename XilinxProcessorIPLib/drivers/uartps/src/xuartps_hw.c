@@ -29,7 +29,7 @@
 /**
 *
 * @file xuartps_hw.c
-* @addtogroup uartps_v3_5
+* @addtogroup uartps_v3_8
 * @{
 *
 *

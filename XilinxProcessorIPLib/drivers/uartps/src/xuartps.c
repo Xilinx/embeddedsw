@@ -29,7 +29,7 @@
 /**
 *
 * @file xuartps.c
-* @addtogroup uartps_v3_5
+* @addtogroup uartps_v3_8
 * @{
 *
 * This file contains the implementation of the interface functions for XUartPs
