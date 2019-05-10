@@ -73,6 +73,7 @@ static u32 XLoader_VerifySignature(XLoader_SecureParms *SecurePtr,
 static u32 XLoader_AesDecryption(XLoader_SecureParms *SecurePtr, u64 SrcAddr,
 			u64 DstAddr, u32 Size);
 static u32 XLoader_AesKeySelct(XLoader_SecureParms *SecurePtr,
+		XSecure_Aes *AesInstancePtr,
 		XSecure_AesKeySrc *KeySrc);
 
 /************************** Variable Definitions *****************************/
@@ -932,14 +933,16 @@ static u32 XLoader_DecryptSH(XLoader_SecureParms *SecurePtr,
 	/* decrypt header/footer */
 
 	/* configure AES engine to push Key and IV */
-	Status = XSecure_AesKupIvWr(AesInstancePtr);
+	XPlmi_Printf(DEBUG_DETAILED, "Decrypting Secure header\n\r");
+	Status = XSecure_AesCfgKupIv(AesInstancePtr, 1);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 	/* Push secure header */
 	Status = XSecure_AesDecryptUpdate(AesInstancePtr,
-			SrcAddr, SrcAddr, XLOADER_SECURE_HDR_SIZE, 1);
+			SrcAddr, XSECURE_AES_NO_CFG_DST_DMA,
+			XLOADER_SECURE_HDR_SIZE, 1);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -951,8 +954,12 @@ static u32 XLoader_DecryptSH(XLoader_SecureParms *SecurePtr,
 		goto END;
 	}
 
+	XSecure_AesCfgKupIv(AesInstancePtr, 0);
+	/* Get next block length */
 	Status = XSecure_AesGetNxtBlkLen(AesInstancePtr,
 			&SecurePtr->EncNextBlkSize);
+	XPlmi_Printf(DEBUG_DETAILED,
+	"Decryption NextBlkLen = %x\n\r", SecurePtr->EncNextBlkSize);
 
 END:
 
@@ -1059,7 +1066,16 @@ static u32 XLoader_AesDecryption(XLoader_SecureParms *SecurePtr,
 	}
 
 	if (SecurePtr->BlockNum == 0x0) {
-		Status = XLoader_AesKeySelct(SecurePtr, &KeySrc);
+		XSecure_ReleaseReset(AesInstance.BaseAddress,
+					XSECURE_AES_SOFT_RST_OFFSET);
+		/* Clear all key zeroization register */
+		XPlmi_Out32((AesInstance.BaseAddress +
+			XSECURE_AES_KEY_CLEAR_OFFSET), 0x00000000U);
+		Status = XLoader_AesKeySelct(SecurePtr, &AesInstance, &KeySrc);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		/* Decrypting SH */
 		Status = XSecure_AesDecryptInit(&AesInstance, KeySrc,
 					XSECURE_AES_KEY_SIZE_256,
 					(UINTPTR)SecurePtr->PrtnHdr->PrtnIv);
@@ -1105,9 +1121,13 @@ END:
  *
  ******************************************************************************/
 static u32 XLoader_AesKeySelct(XLoader_SecureParms *SecurePtr,
+				XSecure_Aes *AesInstancePtr,
 				XSecure_AesKeySrc *KeySrc)
 {
 	u32 Status = XST_SUCCESS;
+	/* TBD can use different IV other than one used by ROM */
+	u32 *KekIv = SecurePtr->PdiPtr->MetaHdr.BootHdr.KekIv;
+	u32 *BhKey = SecurePtr->PdiPtr->MetaHdr.BootHdr.Kek;
 
 	switch (SecurePtr->PrtnHdr->EncStatus) {
 	case XLOADER_BBRAM_KEY:
@@ -1116,11 +1136,46 @@ static u32 XLoader_AesKeySelct(XLoader_SecureParms *SecurePtr,
 	case XLOADER_EFUSE_KEY:
 			*KeySrc = XSECURE_AES_EFUSE_KEY;
 			break;
+	case XLOADER_BBRAM_OBFUS_KEY:
+		XPlmi_Printf(DEBUG_DETAILED,
+			"Decryting BBRAM obfuscated key\n\r");
+		Status = XSecure_AesKekDecrypt(AesInstancePtr,
+				XSECURE_OBFUSCATED_KEY, XSECURE_AES_BBRAM_KEY,
+				XSECURE_AES_BBRAM_RED_KEY, (UINTPTR)KekIv,
+			XSECURE_AES_KEY_SIZE_256);
+		*KeySrc = XSECURE_AES_BBRAM_RED_KEY;
+		break;
+	case XLOADER_EFUSE_OBFUS_KEY:
+		XPlmi_Printf(DEBUG_DETAILED,
+			"Decryting efuse obfuscated key\n\r");
+		Status = XSecure_AesKekDecrypt(AesInstancePtr,
+				XSECURE_OBFUSCATED_KEY, XSECURE_AES_EFUSE_KEY,
+				XSECURE_AES_EFUSE_RED_KEY, (UINTPTR)KekIv,
+			XSECURE_AES_KEY_SIZE_256);
+		*KeySrc = XSECURE_AES_EFUSE_RED_KEY;
+		break;
+	case XLOADER_BH_OBFUS_KEY:
+		XPlmi_Printf(DEBUG_DETAILED,
+			"Decryting BH obfuscated key\n\r");
+		/* Write BH key into BH registers */
+		Status = XSecure_AesWriteKey(AesInstancePtr,
+				XSECURE_AES_BH_KEY, XSECURE_AES_KEY_SIZE_256,
+					(UINTPTR)BhKey);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = XSecure_AesKekDecrypt(AesInstancePtr,
+				XSECURE_OBFUSCATED_KEY, XSECURE_AES_BH_KEY,
+				XSECURE_AES_BH_RED_KEY, (UINTPTR)KekIv,
+			XSECURE_AES_KEY_SIZE_256);
+		*KeySrc = XSECURE_AES_BH_RED_KEY;
+		break;
 	default: Status = XST_FAILURE;
 			break;
 
 	}
 
+END:
 	return Status;
 }
 
