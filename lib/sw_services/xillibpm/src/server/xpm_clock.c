@@ -728,7 +728,8 @@ XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp)
 	/* Clock valid bit. All clocks in topology are valid. */
 	Attr = 1U;
 
-	if (PLATFORM_VERSION_SILICON != Platform) {
+	//if (PLATFORM_VERSION_SILICON != Platform) {
+	if (1) {
 		/*
 		 * Mark CPM related clock as invalid because their registers
 		 * are not accessible from PS DDR SPP.
@@ -746,7 +747,7 @@ XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp)
 		    ClockIndex == XPM_NODEIDX_CLK_CPM_AUX0_REF ||
 		    ClockIndex == XPM_NODEIDX_CLK_CPM_AUX1_REF ||
 		    ClockIndex == XPM_NODEIDX_CLK_CPM_TOPSW_REF) {
-			PmInfo("Marking Clock: %d as Invalid\r\n", ClockIndex);
+			//PmInfo("Marking Clock: %d as Invalid\r\n", ClockIndex);
 			Attr = 0;
 		}
 	}
