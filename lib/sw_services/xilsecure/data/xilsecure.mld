@@ -52,7 +52,7 @@ BEGIN LIBRARY xilsecure
   OPTION SUPPORTED_PERIPHERALS = (psu_cortexa53 psu_cortexr5 psu_pmu psu_pmc psu_cortexa72 psv_pmc psv_cortexa72);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilsecure,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Secure Library provides interface to AES, RSA and SHA hardware engines on ZynqMP Soc and Versal";
-  OPTION VERSION = 4.0;
+  OPTION VERSION = 4.1;
   OPTION NAME = xilsecure;
   PARAM name = secure_environment, desc = "Enables trusted execution environment", type = bool, default = false;
 END LIBRARY
