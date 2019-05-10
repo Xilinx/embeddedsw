@@ -29,7 +29,7 @@
 /**
 *
 * @file xuartps_sinit.c
-* @addtogroup uartps_v3_5
+* @addtogroup uartps_v3_8
 * @{
 *
 * The implementation of the XUartPs driver's static initialzation
