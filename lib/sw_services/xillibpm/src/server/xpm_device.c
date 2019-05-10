@@ -40,6 +40,7 @@ const char *PmDevStates[] = {
 	"RST_ON",
 	"CLK_OFF",
 	"PWR_OFF",
+	"SUSPENDING",
 };
 
 const char *PmDevEvents[] = {
