@@ -82,9 +82,9 @@ $(LIBS):
 	echo "Copying BSP files"
 	$(BSP_DIR)/copy_bsp.sh $(BOARD) $(CC)
 	echo "Compiling bsp"
-	if [ $(CC) == "arm-none-eabi-gcc" ]; then \
+	if [ $(CC) = "arm-none-eabi-gcc" ]; then \
 		make -C $(BSP_DIR) -k all "CC=arm-none-eabi-gcc" "AR=arm-none-eabi-ar" "C_FLAGS=-O2 -c" "EC_FLAGS=-g"; \
-	elif [ $(CC) == "armcc" ]; then \
+	elif [ $(CC) = "armcc" ]; then \
         make -C $(BSP_DIR) -k all "CC=armcc" "AR=armar" "C_FLAGS= -O2 -c" "EC_FLAGS=--debug --wchar32"; \
 	fi;
 
@@ -92,9 +92,9 @@ $(LIBS):
 	$(CC) $(CC_FLAGS) $(CFLAGS) $(ECFLAGS) -c $< -o $@ $(INCLUDEPATH)
 
 %.o:%.S
-	if [ $(CC) == "arm-none-eabi-gcc" ]; then \
+	if [ $(CC) = "arm-none-eabi-gcc" ]; then \
 		$(AS) $(CC_FLAGS) -c $< -o $@ $(INCLUDEPATH); \
-	elif [ $(CC) == "armcc" ]; then \
+	elif [ $(CC) = "armcc" ]; then \
         $(CC) $(INCLUDEPATH) -E -o fsbl_handoff.s fsbl_handoff.S; \
 		$(AS) $(CC_FLAGS) -c fsbl_handoff.s -o fsbl_handoff.o $(INCLUDEPATH); \
 		rm fsbl_handoff.s; \
