@@ -29,7 +29,7 @@
 /**
 *
 * @file xcoresightpsdcc.h
-* @addtogroup coresightps_dcc_v1_5
+* @addtogroup coresightps_dcc_v1_6
 * @{
 * @details
 *
