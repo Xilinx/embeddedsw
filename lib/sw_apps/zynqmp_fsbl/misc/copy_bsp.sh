@@ -7,7 +7,7 @@
 BOARD=$1
 PROC=$2
 A53_STATE=$3
-
+CROSS_COMP=$4
 #processor dir name
 if [ $PROC == "a53" ]; then
 	PROC_DIRNAME="cpu_cortexa53"
@@ -85,7 +85,6 @@ rm -rf $BSP_DIR/libsrc/xilpm/src/rpu/
 # copy bsp standalone code
 cp -f $STANDALONE_DIR/arm/common/*.h $BSP_DIR/libsrc/standalone/src/
 cp -f $STANDALONE_DIR/arm/common/*.c $BSP_DIR/libsrc/standalone/src/
-cp -f $STANDALONE_DIR/arm/common/gcc/* $BSP_DIR/libsrc/standalone/src/
 cp -f $STANDALONE_DIR/common/*.c $BSP_DIR/libsrc/standalone/src/
 cp -f $STANDALONE_DIR/common/*.h $BSP_DIR/libsrc/standalone/src/
 
@@ -93,8 +92,15 @@ if [ $PROC == "a53" ]; then
 	if [ $A53_STATE == "64" ]; then
 		cp -f $STANDALONE_DIR/arm/ARMv8/64bit/*.c $BSP_DIR/libsrc/standalone/src/
 		cp -f $STANDALONE_DIR/arm/ARMv8/64bit/*.h $BSP_DIR/libsrc/standalone/src/
-		cp -f $STANDALONE_DIR/arm/ARMv8/64bit/gcc/* $BSP_DIR/libsrc/standalone/src/
-		cp -f $STANDALONE_DIR/arm/ARMv8/64bit/platform/ZynqMP/gcc/* $BSP_DIR/libsrc/standalone/src/
+		if [ "$CROSS_COMP" == "armclang" ]; then
+			cp -f $STANDALONE_DIR/arm/ARMv8/64bit/armclang/* $BSP_DIR/libsrc/standalone/src/
+			cp -f $STANDALONE_DIR/arm/ARMv8/64bit/platform/ZynqMP/armclang/* $BSP_DIR/libsrc/standalone/src/
+			cp -f $WORKING_DIR/Makefile_standalone_armclang $BSP_DIR/libsrc/standalone/src/Makefile
+		else
+			cp -f $STANDALONE_DIR/arm/ARMv8/64bit/gcc/* $BSP_DIR/libsrc/standalone/src/
+                        cp -f $STANDALONE_DIR/arm/ARMv8/64bit/platform/ZynqMP/gcc/* $BSP_DIR/libsrc/standalone/src/
+			cp -f $STANDALONE_DIR/arm/common/gcc/* $BSP_DIR/libsrc/standalone/src/
+		fi
 		cp $BOARD_DIR/bspconfig.h $BSP_DIR/include
 		cp $BOARD_DIR/bspconfig.h $BSP_DIR/libsrc/standalone/src/
 		#Copy xilpm src for apu
@@ -102,6 +108,7 @@ if [ $PROC == "a53" ]; then
 		cp $SERVICES_DIR/xilpm/src/apu/*.h $BSP_DIR/include/
 
 	elif [ $A53_STATE == "32" ]; then
+		cp -f $STANDALONE_DIR/arm/common/gcc/* $BSP_DIR/libsrc/standalone/src/
 		cp -f $STANDALONE_DIR/arm/ARMv8/32bit/*.c $BSP_DIR/libsrc/standalone/src/
 		cp -f $STANDALONE_DIR/arm/ARMv8/32bit/*.h $BSP_DIR/libsrc/standalone/src/
 		cp -f $STANDALONE_DIR/arm/ARMv8/32bit/gcc/* $BSP_DIR/libsrc/standalone/src/
@@ -116,6 +123,7 @@ if [ $PROC == "a53" ]; then
 		cp -rf $STANDALONE_DIR/arm/ARMv8/includes_ps $BSP_DIR/libsrc/standalone/src/
 		cp -rf $STANDALONE_DIR/arm/ARMv8/includes_ps/* $BSP_DIR/include/
 elif [ $PROC == "r5" ]; then
+	cp -f $STANDALONE_DIR/arm/common/gcc/* $BSP_DIR/libsrc/standalone/src/
 	cp -f $STANDALONE_DIR/arm/cortexr5/*.c $BSP_DIR/libsrc/standalone/src/
 	cp -f $STANDALONE_DIR/arm/cortexr5/*.h $BSP_DIR/libsrc/standalone/src/
 	cp -f $STANDALONE_DIR/arm/cortexr5/gcc/* $BSP_DIR/libsrc/standalone/src/
