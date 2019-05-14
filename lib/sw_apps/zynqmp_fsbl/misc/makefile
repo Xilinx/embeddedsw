@@ -11,7 +11,7 @@ PROCESSOR = zynqmp_fsbl_bsp/psu_cortexr5_0
 endif
 LTO_FLAGS = -Wall -Wextra -Os -flto -ffat-lto-objects
 OTHER_FLAGS = -mfpu=vfpv3 -mfloat-abi=hard
-
+LTO_ARMCLANG_FLAGS = -mfpu=fp-armv8 -Wall -Wextra -march=armv8-a --target=aarch64-arm-none-eabi -Oz
 LIBRARIES = ${PROCESSOR}/lib/libxil.a
 BSP_MAKEFILES := $(wildcard $(PROCESSOR)/libsrc/*/src/Makefile)
 SUBDIRS := $(patsubst %/Makefile, %, $(BSP_MAKEFILES))
@@ -34,8 +34,13 @@ $(PROCESSOR)/lib/libxil.a: $(PROCESSOR)/lib/libxil_init.a
 	@echo "Running Make include in $(subst /make.include,,$@)"
 ifeq "${PROC}" "a53"
 ifeq "${A53_STATE}" "64"
+ifeq "${CROSS_COMP}" "armclang"
+	$(MAKE) -C $(subst /make.include,,$@) -s include  "SHELL=$(SHELL)" "COMPILER=armclang" \
+		"ARCHIVER=armar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g $(LTO_ARMCLANG_FLAGS)"
+else
 	$(MAKE) -C $(subst /make.include,,$@) -s include  "SHELL=$(SHELL)" "COMPILER=aarch64-none-elf-gcc" \
 		"ARCHIVER=aarch64-none-elf-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g $(LTO_FLAGS)"
+endif
 endif
 ifeq "${A53_STATE}" "32"
 	$(MAKE) -C $(subst /make.include,,$@) -s include  "SHELL=$(SHELL)" "COMPILER=arm-none-eabi-gcc" \
@@ -51,8 +56,13 @@ endif
 	@echo "Running Make libs in $(subst /make.libs,,$@)"
 ifeq "${PROC}" "a53"
 ifeq "${A53_STATE}" "64"
+ifeq "${CROSS_COMP}" "armclang"
+	$(MAKE) -C $(subst /make.libs,,$@) -s libs  "SHELL=$(SHELL)" "COMPILER=armclang" \
+		"ARCHIVER=armar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g $(LTO_ARMCLANG_FLAGS)"
+else
 	$(MAKE) -C $(subst /make.libs,,$@) -s libs  "SHELL=$(SHELL)" "COMPILER=aarch64-none-elf-gcc" \
 		"ARCHIVER=aarch64-none-elf-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g $(LTO_FLAGS)"
+endif
 endif
 ifeq "${A53_STATE}" "32"
 	$(MAKE) -C $(subst /make.libs,,$@) -s libs  "SHELL=$(SHELL)" "COMPILER=arm-none-eabi-gcc" \

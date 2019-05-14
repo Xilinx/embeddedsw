@@ -31,3 +31,8 @@ How to compile ZynqMP FSBL:
 			i.make "BOARD=zcu102" "PROC=r5" "CFLAGS+=-DFSBL_DEBUG_INFO"
 		c. To generate A53 32 bit Fsbl for zcu102 board.
 			i.make "BOARD=zcu102" "PROC=a53" "A53_STATE=32"
+	5. FSBL build is now supported with armclang compiler. Armclang build is only
+	   supported for A53-64 FSBL for ZCU102 boards. CROSS_COMP is the command line
+	   variable introduced for the purpose. Default value of CROSSS_COMP is gcc.
+	   Example for armclang build:
+		make clean all CROSS_COMP=armclang
