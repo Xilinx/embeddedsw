@@ -247,10 +247,6 @@ Added MPU mapping for AIE address space in Cortexr5 BSP
 arm/cortexr5/platform/versal/mpu.c.
 
 
-csudma_v1_5:
-Updated xcsudma_intr_example.c to use volatile keyword for
-DstDone variable to disable compiler optimizations.
-
 Changes for 2019.1
 ===============================
 v_hdmiphy1_v1_0:
