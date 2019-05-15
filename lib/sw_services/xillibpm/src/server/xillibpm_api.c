@@ -250,11 +250,14 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	memcpy(&Cmd->Response[1], ApiResponse, sizeof(ApiResponse));
 
 	/*
-	 * XPM_QID_CLOCK_GET_NAME stores part of clock names in Status variable
-	 * which is stored in response. So this value should not be treated as
-	 * error code. Consider error only if clock name is not found.
+	 * XPM_QID_CLOCK_GET_NAME and XPM_QID_PINCTRL_GET_FUNCTION_NAME store part
+	 * of their clock names in Status variable which is stored in response.
+	 * So this value should not be treated as error code.
+	 * Consider error only if clock name is not found.
 	 */
-	if ((PM_QUERY_DATA == (Cmd->CmdId & 0xFF)) && (XPM_QID_CLOCK_GET_NAME == Pload[0])) {
+	if ((PM_QUERY_DATA == (Cmd->CmdId & 0xFF)) &&
+	   ((XPM_QID_CLOCK_GET_NAME == Pload[0]) ||
+	   (XPM_QID_PINCTRL_GET_FUNCTION_NAME == Pload[0]))) {
 		if (!Cmd->Response)
 			Status = XST_FAILURE;
 		else

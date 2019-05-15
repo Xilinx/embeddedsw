@@ -28,6 +28,8 @@
 
 #include "xpm_pinfunc.h"
 
+#define FUNC_QUERY_NAME_LEN	(FUNC_NAME_SIZE - 4U)
+
 /* TODO: Each function can not be mapped with their corresponding
  *       device. Keeping those DeviceId as 0.
  */
@@ -491,7 +493,7 @@ XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 	},
 	[PIN_FUNC_SYSMON_I2C0_ALERT] = {
 		.Id = PIN_FUNC_SYSMON_I2C0_ALERT,
-		.Name = "sysmon_i2c0_alert",
+		.Name = "sysmon_i2c0_alrt",
 		.DeviceId = 0,
 		.LmioRegMask = 0x380,
 		.PmioRegMask = 0x00,
@@ -1200,23 +1202,16 @@ XStatus XPmPinFunc_GetNumFuncs(u32 *NumFuncs)
  ****************************************************************************/
 XStatus XPmPinFunc_GetFuncName(u32 FuncId, char *FuncName)
 {
-	XStatus Status = XST_FAILURE;
-	u32 i;
+	u32 RetWord = 0;
 
-	if (FuncId >= MAX_FUNCTION) {
-		goto done;
-	} else {
-		/* Required by MISRA */
+	memset(FuncName, 0, FUNC_QUERY_NAME_LEN);
+
+	if (FuncId < MAX_FUNCTION) {
+		memcpy(&RetWord, PmPinFuncs[FuncId].Name, 4);
+		memcpy(FuncName, &PmPinFuncs[FuncId].Name[4], FUNC_QUERY_NAME_LEN);
 	}
 
-	for (i = 0; i < FUNC_NAME_SIZE; i++) {
-		FuncName[i] = PmPinFuncs[FuncId].Name[i];
-	}
-
-	Status = XST_SUCCESS;
-
-done:
-	return Status;
+	return RetWord;
 }
 
 /****************************************************************************/
@@ -1234,17 +1229,11 @@ XStatus XPmPinFunc_GetNumFuncGroups(u32 FuncId, u32 *NumGroups)
 {
 	XStatus Status = XST_FAILURE;
 
-	if (FuncId >= MAX_FUNCTION) {
-		goto done;
-	} else {
-		/* Required by MISRA */
+	if (FuncId < MAX_FUNCTION) {
+		*NumGroups = PmPinFuncs[FuncId].NumGroups;
+		Status = XST_SUCCESS;
 	}
 
-	*NumGroups = PmPinFuncs[FuncId].NumGroups;
-
-	Status = XST_SUCCESS;
-
-done:
 	return Status;
 }
 
