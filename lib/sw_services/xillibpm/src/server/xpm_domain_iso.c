@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -255,9 +255,12 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 
 	Mask = BIT(XPmDomainIso_List[IsoIdx].Offset);
 
-	if(Enable) {
+	if(Enable == TRUE) {
 		XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
 		XPmDomainIso_List[IsoIdx].Node.State = PM_ISOLATION_ON;
+	} else if(Enable == FALSE_IMMEDIATE) {
+		XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
+		XPmDomainIso_List[IsoIdx].Node.State = PM_ISOLATION_OFF;
 	} else {
 		Status = XPmDomainIso_CheckDependencies(IsoIdx);
 		if(XST_SUCCESS != Status)
