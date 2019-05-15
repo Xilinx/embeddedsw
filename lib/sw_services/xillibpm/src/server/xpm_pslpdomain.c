@@ -32,8 +32,6 @@
 #include "xpm_reset.h"
 #include "xpm_bisr.h"
 
-static XStatus LpdHcComplete(u32 *Args, u32 NumOfArgs);
-
 static XStatus LpdInitStart(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
@@ -57,24 +55,6 @@ static XStatus LpdInitStart(u32 *Args, u32 NumOfArgs)
 	 */
 	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PS_POR),
 				     PM_RESET_ACTION_RELEASE);
-
-	/* TODO: Remove when tools have hccomplete support */
-	LpdHcComplete(NULL, 0);
-	/* TODO: Remove only needed isolations */
-	PmRmw32(PMC_GLOBAL_DOMAIN_ISO_CONTROL,
-					PMC_GLOBAL_DOMAIN_ISO_CNTRL_FPD_SOC_MASK |
-					PMC_GLOBAL_DOMAIN_ISO_CNTRL_LPD_CPM_DFX_MASK |
-					PMC_GLOBAL_DOMAIN_ISO_CNTRL_LPD_CPM_MASK |
-					PMC_GLOBAL_DOMAIN_ISO_CNTRL_LPD_SOC_MASK |
-					PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_LPD_DFX_MASK |
-					PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_LPD_MASK |
-					PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_SOC_NPI_MASK |
-					PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_SOC_MASK |
-					PMC_GLOBAL_DOMAIN_ISO_CNTRL_PL_SOC_MASK |
-					PMC_GLOBAL_DOMAIN_ISO_CNTRL_VCCAUX_SOC_MASK |
-					PMC_GLOBAL_DOMAIN_ISO_CNTRL_VCCRAM_SOC_MASK |
-					PMC_GLOBAL_DOMAIN_ISO_CNTRL_VCCAUX_VCCRAM_MASK,
-					0);
 done:
 	return Status;
 }

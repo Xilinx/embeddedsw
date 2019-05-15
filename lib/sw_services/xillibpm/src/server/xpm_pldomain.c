@@ -65,7 +65,7 @@ static XStatus PldInitFinish(u32 *Args, u32 NumOfArgs)
 	if (XST_SUCCESS == XPmPower_CheckPower(	PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK |
 						PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK)) {
 		/* Remove vccaux-vccram domain isolation */
-		Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_VCCAUX_VCCRAM, FALSE);
+		Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_VCCAUX_VCCRAM, FALSE_IMMEDIATE);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
@@ -74,7 +74,7 @@ static XStatus PldInitFinish(u32 *Args, u32 NumOfArgs)
 	if (XST_SUCCESS == XPmPower_CheckPower(	PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK |
 						PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_SOC_MASK)) {
 		/* Remove vccaux-vccram domain isolation */
-		Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_VCCRAM_SOC, FALSE);
+		Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_VCCRAM_SOC, FALSE_IMMEDIATE);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
@@ -302,6 +302,17 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 	/* Remove SRST for PL */
 	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PL_SRST),
 				     PM_RESET_ACTION_RELEASE);
+
+	 /* Remove PL-SOC isolation */
+	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PL_SOC, FALSE_IMMEDIATE);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+	 /* Remove PMC-SOC isolation */
+	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PMC_SOC_NPI, FALSE_IMMEDIATE);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	Status = PldCfuInit();
 	if (XST_SUCCESS != Status) {
