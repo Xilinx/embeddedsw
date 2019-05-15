@@ -449,13 +449,13 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 
 	switch (Function) {
 	case FUNC_INIT_START:
+		PwrDomain->Power.Node.State = XPM_POWER_STATE_INITIALIZING;
 		if (Ops && Ops->InitStart) {
 			Status = Ops->InitStart(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
 		}
-		PwrDomain->Power.Node.State = XPM_POWER_STATE_INITIALIZING;
 		break;
 	case FUNC_INIT_FINISH:
 		if (XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
