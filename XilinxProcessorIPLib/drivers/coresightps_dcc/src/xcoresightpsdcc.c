@@ -181,6 +181,6 @@ static INLINE u32 XCoresightPs_DccGetStatus(void)
 	}
 #endif
 	return Status;
-#endif
 }
+#endif
 /** @} */
