@@ -1459,8 +1459,49 @@ XStatus XPm_Query(const u32 QueryId, const u32 Arg1, const u32 Arg2,
 		goto done;
 	}
 
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, Data, NULL, NULL);
+	switch (QueryId) {
+	case XPM_QID_CLOCK_GET_NAME:
+	case XPM_QID_PINCTRL_GET_FUNCTION_NAME:
+		/*
+		 * XPM_QID_CLOCK_GET_NAME and XPM_QID_PINCTRL_GET_FUNCTION_NAME store
+		 * part of their clock names in Status variable which is stored
+		 * in response. So this value should not be treated as error code.
+		 * Consider error only if clock name is not found.
+		 */
+		Status = Xpm_IpiReadBuff32(PrimaryProc, &Data[1], &Data[2], &Data[3]);
+		if (!Status) {
+			Data[0] = '\0';
+			Status = XST_FAILURE;
+		} else {
+			Data[0] = Status;
+			Status = XST_SUCCESS;
+		}
+		break;
+
+	case XPM_QID_CLOCK_GET_TOPOLOGY:
+	case XPM_QID_CLOCK_GET_MUXSOURCES:
+	case XPM_QID_PINCTRL_GET_FUNCTION_GROUPS:
+	case XPM_QID_PINCTRL_GET_PIN_GROUPS:
+		Status = Xpm_IpiReadBuff32(PrimaryProc, &Data[0], &Data[1], &Data[2]);
+		break;
+
+	case XPM_QID_CLOCK_GET_FIXEDFACTOR_PARAMS:
+		Status = Xpm_IpiReadBuff32(PrimaryProc, &Data[0], &Data[1], NULL);
+		break;
+
+	case XPM_QID_CLOCK_GET_ATTRIBUTES:
+	case XPM_QID_PINCTRL_GET_NUM_PINS:
+	case XPM_QID_PINCTRL_GET_NUM_FUNCTIONS:
+	case XPM_QID_PINCTRL_GET_NUM_FUNCTION_GROUPS:
+	case XPM_QID_CLOCK_GET_NUM_CLOCKS:
+	case XPM_QID_CLOCK_GET_MAX_DIVISOR:
+		Status = Xpm_IpiReadBuff32(PrimaryProc, &Data[0], NULL, NULL);
+		break;
+
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+	}
 
 done:
 	return Status;

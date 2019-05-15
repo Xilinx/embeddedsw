@@ -35,7 +35,7 @@
 extern "C" {
 #endif
 
-#define FUNC_NAME_SIZE		(18)		/* Function name string size */
+#define FUNC_NAME_SIZE		(16)		/* Function name string size */
 #define MAX_GROUPS_PER_RES	(6)		/* Max No. of groups per query response */
 #define INVALID_FUNC_ID 	(0xFFFFU)
 #define END_OF_GRP		(0xFFFFU)	/* -1 */

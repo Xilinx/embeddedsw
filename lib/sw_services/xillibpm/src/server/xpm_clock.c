@@ -31,9 +31,9 @@
 #include "xpm_device.h"
 
 /* Query related defines */
-#define CLK_NAME_LEN			15U
-#define END_OF_CLK				"END_OF_CLK"
-#define CLK_INIT_ENABLE_SHIFT	1U
+#define CLK_QUERY_NAME_LEN		(MAX_NAME_BYTES - 4U)
+#define END_OF_CLK			"END_OF_CLK"
+#define CLK_INIT_ENABLE_SHIFT		1U
 #define CLK_TYPE_SHIFT			2U
 #define CLK_NODETYPE_SHIFT		14U
 #define CLK_NODESUBCLASS_SHIFT		20U
@@ -586,19 +586,17 @@ XStatus XPmClock_QueryName(u32 ClockId, u32 *Resp)
 	u32 RetWord = 0;
 	XPm_ClockNode *Clk;
 	u32 ClockIndex = NODEINDEX(ClockId);
+	memset(Resp, 0, CLK_QUERY_NAME_LEN);
 
 	Clk = XPmClock_GetById(ClockId);
 
-	if (ClockIndex == MaxClkNodes) {
+	if (ClockIndex >= MaxClkNodes) {
 		char ClkName[] = END_OF_CLK;
-		memset(Resp, 0, CLK_NAME_LEN);
 		memcpy(&RetWord, ClkName, 4);
 		memcpy(Resp, &ClkName[4], sizeof(ClkName) - 4);
-	} else if (ClockIndex < MaxClkNodes) {
-		memcpy(&RetWord, Clk->Name, 4);
-		memcpy(Resp, &Clk->Name[4], CLK_NAME_LEN - 4);
 	} else {
-		memset(Resp, 0, CLK_NAME_LEN);
+		memcpy(&RetWord, Clk->Name, 4);
+		memcpy(Resp, &Clk->Name[4], CLK_QUERY_NAME_LEN);
 	}
 
 	return RetWord;
