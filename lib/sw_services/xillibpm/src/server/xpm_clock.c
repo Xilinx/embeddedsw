@@ -291,6 +291,13 @@ XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 		Status = XST_INVALID_PARAM;
 		goto done;
 	} else {
+		for (i = 0; i < NumParents; i++) {
+			u32 ParentId = Parents[i];
+			if (ParentId && !ISOUTCLK(ParentId) && !ISREFCLK(ParentId) && !ISPLL(ParentId)) {
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
+		}
 		/* For clocks involving mux */
 		for (i=0;i<NumParents;i++) {
 			ClkPtr->Topology.MuxSources[i] = Parents[i];
