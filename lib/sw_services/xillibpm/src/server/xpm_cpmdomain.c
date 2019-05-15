@@ -46,15 +46,19 @@ static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
-	/* Remove POR for CPM */
-	/*Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_CPM_POR),
+	/* CPM POR control is not valid for ES1 platforms so skip. It is taken care by hw */
+	if(!(PLATFORM_VERSION_SILICON == Platform && PLATFORM_VERSION_SILICON_ES1 == PlatformVersion))
+	{
+		/* Remove POR for CPM */
+		/*Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_CPM_POR),
 				     PM_RESET_ACTION_RELEASE);*/
 
-	/*TODO: Topology is not passing cpm reset register
+		/*TODO: Topology is not passing cpm reset register
 		right now, so hard coded for now */
-        PmOut32(CPM_PCSR_LOCK, PCSR_UNLOCK_VAL);
-        PmOut32(CPM_PCSR_ECO, 0);
-        PmOut32(CPM_PCSR_LOCK, 1);
+	        PmOut32(CPM_PCSR_LOCK, PCSR_UNLOCK_VAL);
+		PmOut32(CPM_PCSR_ECO, 0);
+	        PmOut32(CPM_PCSR_LOCK, 1);
+	}
 done:
 	return Status;
 }
@@ -78,7 +82,8 @@ static XStatus CpmScanClear(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (PLATFORM_VERSION_SILICON != Platform) {
+	/* Scan clear should be skipped for ES1 platforms */
+	if ((PLATFORM_VERSION_SILICON != Platform) || (PLATFORM_VERSION_SILICON == Platform && PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
 		Status = XST_SUCCESS;
 		goto done;
 	}

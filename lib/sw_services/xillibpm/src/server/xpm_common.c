@@ -36,6 +36,7 @@ static u8 ByteBuffer[MAX_BYTEBUFFER_SIZE];
 static u8 *FreeBytes = ByteBuffer;
 
 u32 Platform;
+u32 PlatformVersion;
 
 void *XPm_AllocBytes(u32 Size)
 {

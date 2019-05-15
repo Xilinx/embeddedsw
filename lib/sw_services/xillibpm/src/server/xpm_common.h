@@ -106,8 +106,10 @@ extern "C" {
 #define PLATFORM_VERSION_SPP			(0x1U)
 #define PLATFORM_VERSION_EMU			(0x2U)
 #define PLATFORM_VERSION_QEMU			(0x3U)
+#define PLATFORM_VERSION_SILICON_ES1		(0x0U)
 
 extern u32 Platform;
+extern u32 PlatformVersion;
 
 void *XPm_AllocBytes(u32 Size);
 

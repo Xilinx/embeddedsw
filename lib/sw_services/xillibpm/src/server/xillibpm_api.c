@@ -287,6 +287,7 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u3
 {
 	XStatus Status = XST_SUCCESS;
 	unsigned int i;
+	u32 Version;
 
 	PmInfo("Initializing LibPM\n\r");
 
@@ -299,8 +300,11 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u3
 
 	XPm_PsmModuleInit();
 
-	Platform = ((Xil_In32(PMC_TAP_VERSION) & PMC_TAP_VERSION_PLATFORM_MASK)
-		    >> PMC_TAP_VERSION_PLATFORM_SHIFT);
+	PmIn32(PMC_TAP_VERSION, Version);
+	PlatformVersion = ((Version & PMC_TAP_VERSION_PLATFORM_VERSION_MASK) >>
+                        PMC_TAP_VERSION_PLATFORM_VERSION_SHIFT);
+	Platform = ((Version & PMC_TAP_VERSION_PLATFORM_MASK) >>
+                        PMC_TAP_VERSION_PLATFORM_SHIFT);
 
 	return Status;
 }
