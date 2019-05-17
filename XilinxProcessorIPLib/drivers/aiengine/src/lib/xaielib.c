@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -52,6 +52,8 @@
 * 1.9  Hyun    01/08/2019  Implement 128bit IO operations for baremetal
 * 2.0  Hyun    01/08/2019  Add XAieLib_MaskPoll()
 * 2.1  Hyun    04/05/2019  NPI support for simulation
+* 2.2  Nishad  05/16/2019  Fix deallocation of pointer not on heap MISRA-c
+* 				mandatory violation
 * </pre>
 *
 ******************************************************************************/
@@ -352,30 +354,6 @@ void XAieLib_IntPrint(const char *Format, ...)
 /*****************************************************************************/
 /**
 *
-* This is the memory function to free the platform specific memory instance
-*
-* @param	XAieLib_MemInstPtr: Memory instance pointer.
-*
-* @return	None.
-*
-* @note		@IO_MemInstPtr is freed and invalid after this function.
-*
-*******************************************************************************/
-void XAieLib_MemFinish(XAieLib_MemInst *XAieLib_MemInstPtr)
-{
-#ifdef __AIESIM__
-#elif defined __AIEBAREMTL__
-	free((void *)XAieLib_MemInstPtr->Vaddr);
-	free(XAieLib_MemInstPtr);
-#else
-	XAieIO_Mem *MemInstPtr = (XAieIO_Mem *)XAieLib_MemInstPtr;
-	XAieIO_MemFinish(MemInstPtr);
-#endif
-}
-
-/*****************************************************************************/
-/**
-*
 * This is the memory function to initialize the platform specific memory
 * instance.
 *
@@ -414,23 +392,24 @@ XAieLib_MemInst *XAieLib_MemInit(u8 idx)
 /*****************************************************************************/
 /**
 *
-* This is the memory function to detach the memory from device
+* This is the memory function to free the platform specific memory instance
 *
 * @param	XAieLib_MemInstPtr: Memory instance pointer.
 *
 * @return	None.
 *
-* @note		None.
+* @note		@IO_MemInstPtr is freed and invalid after this function.
 *
 *******************************************************************************/
-void XAieLib_MemDetach(XAieLib_MemInst *XAieLib_MemInstPtr)
+void XAieLib_MemFinish(XAieLib_MemInst *XAieLib_MemInstPtr)
 {
 #ifdef __AIESIM__
 #elif defined __AIEBAREMTL__
-	/* In baremetal expect the handle to be the paddr / vaddr */
+	free((void *)XAieLib_MemInstPtr->Vaddr);
 	free(XAieLib_MemInstPtr);
 #else
-	XAieIO_MemDetach((XAieIO_Mem *)XAieLib_MemInstPtr);
+	XAieIO_Mem *MemInstPtr = (XAieIO_Mem *)XAieLib_MemInstPtr;
+	XAieIO_MemFinish(MemInstPtr);
 #endif
 }
 
@@ -474,23 +453,23 @@ XAieLib_MemInst *XAieLib_MemAttach(u64 Vaddr, u64 Paddr, u64 Size, u64 MemHandle
 /*****************************************************************************/
 /**
 *
-* This is the memory function to free the memory
+* This is the memory function to detach the memory from device
 *
-* @param	XAieLib_MemInstPtr: IO Memory instance pointer.
+* @param	XAieLib_MemInstPtr: Memory instance pointer.
 *
 * @return	None.
 *
 * @note		None.
 *
 *******************************************************************************/
-void XAieLib_MemFree(XAieLib_MemInst *XAieLib_MemInstPtr)
+void XAieLib_MemDetach(XAieLib_MemInst *XAieLib_MemInstPtr)
 {
 #ifdef __AIESIM__
 #elif defined __AIEBAREMTL__
-	free((void *)XAieLib_MemInstPtr->Vaddr);
+	/* In baremetal expect the handle to be the paddr / vaddr */
 	free(XAieLib_MemInstPtr);
 #else
-	XAieIO_MemFree((XAieIO_Mem *)XAieLib_MemInstPtr);
+	XAieIO_MemDetach((XAieIO_Mem *)XAieLib_MemInstPtr);
 #endif
 }
 
@@ -528,6 +507,29 @@ XAieLib_MemInst *XAieLib_MemAllocate(u64 Size, u32 Attr)
 	return XAieLib_MemInstPtr;
 #else
 	return (XAieLib_MemInst *)XAieIO_MemAllocate(Size, Attr);
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the memory function to free the memory
+*
+* @param	XAieLib_MemInstPtr: IO Memory instance pointer.
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void XAieLib_MemFree(XAieLib_MemInst *XAieLib_MemInstPtr)
+{
+#ifdef __AIESIM__
+#elif defined __AIEBAREMTL__
+	free((void *)XAieLib_MemInstPtr->Vaddr);
+	free(XAieLib_MemInstPtr);
+#else
+	XAieIO_MemFree((XAieIO_Mem *)XAieLib_MemInstPtr);
 #endif
 }
 
