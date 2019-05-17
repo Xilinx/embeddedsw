@@ -29,7 +29,7 @@
 /**
 *
 * @file xttcps.c
-* @addtogroup ttcps_v3_7
+* @addtogroup ttcps_v3_10
 * @{
 *
 * This file contains the implementation of the XTtcPs driver. This driver
