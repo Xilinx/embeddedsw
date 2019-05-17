@@ -268,6 +268,7 @@ done:
 static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
+	u32 PlPowerUpTime=0;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -276,11 +277,19 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 	PlpdHouseCleanBypass = 0;
 
 	/* Proceed only if vccint, vccaux, vccint_ram is 1 */
-	if (XST_SUCCESS != XPmPower_CheckPower(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_PL_MASK |
+	while (XST_SUCCESS != XPmPower_CheckPower(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_PL_MASK |
 						PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK |
 						PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK)) {
-		/* TODO: Request PMC to power up all required rails and wait for the acknowledgement.*/
-		goto done;
+		/** Wait for PL power up */
+		usleep(10);
+		PlPowerUpTime++;
+		if (PlPowerUpTime > XPM_POLL_TIMEOUT)
+		{
+			XPlmi_Printf(DEBUG_GENERAL, "ERROR: PL Power Up TimeOut\n\r");
+			Status = XST_FAILURE;
+			/* TODO: Request PMC to power up all required rails and wait for the acknowledgement.*/
+			goto done;
+		}
 	}
 
 	/* Enable Vgg Clamp in VGG Ctrl Register */
@@ -294,7 +303,7 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 
         /* Check for PL PowerUp */
         Status = XPm_PollForMask(PMC_GLOBAL_PL_STATUS,
-                     PMC_GLOBAL_PL_STATUS_POR_PL_B_MASK, 0x1U);
+                     PMC_GLOBAL_PL_STATUS_POR_PL_B_MASK, XPM_POLL_TIMEOUT);
         if(XST_SUCCESS != Status) {
 		goto done;
         }
