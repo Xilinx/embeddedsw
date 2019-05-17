@@ -45,7 +45,7 @@
 #include "platform.h"
 #include "platform_config.h"
 #include "netif/xadapter.h"
-#ifdef PLATFORM_ZYNQMP
+#if defined(PLATFORM_ZYNQMP) || defined(PLATFORM_VERSAL)
 #include "xttcps.h"
 
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
