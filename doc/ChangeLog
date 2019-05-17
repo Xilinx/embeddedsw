@@ -17,6 +17,7 @@ DstDone variable to disable compiler optimizations.
 
 emacps_v3_10:
 Clear status registers properly in reset.
+Use Versal platform version register.
 
 lwip211_v1_1:
 Add support for Versal
