@@ -606,7 +606,7 @@ LONG EmacPsUtilTiPhyLoopback(XEmacPs * EmacPsInstancePtr,
 	XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_REGCR, PHY_REGCR_ADDR);
 	XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_ADDAR, PHY_RGMIIDCTL);
 	XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_REGCR, PHY_REGCR_DATA);
-	if ((Platform & PLATFORM_MASK) == PLATFORM_VERSALEMU) {
+	if ((Platform & PLATFORM_MASK_VERSAL) == PLATFORM_VERSALEMU) {
 		RgmiiTuning = PHY_TI_RGMII_VERSALEMU;
 	}
 	Status = XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_ADDAR, RgmiiTuning);

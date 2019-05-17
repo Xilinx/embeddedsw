@@ -94,9 +94,10 @@
 #define CSU_VERSION		0xFFCA0044
 #define PLATFORM_MASK		0xF000
 #define PLATFORM_SILICON	0x0000
-/* Define a non zero Versal emulation version.
- * Can be replaced with version register when available */
-#define PLATFORM_VERSALEMU	0x5000
+#define VERSAL_VERSION		0xF11A0004
+#define PLATFORM_MASK_VERSAL	0xF000000
+#define PLATFORM_VERSALEMU	0x1000000
+#define PLATFORM_VERSALSIL	0x0000000
 
 /***************** Macros (Inline Functions) Definitions ********************/
 

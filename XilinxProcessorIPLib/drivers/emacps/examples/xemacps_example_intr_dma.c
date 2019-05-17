@@ -120,6 +120,7 @@
 * 3.9 hk    02/12/19 Change MDC divisor for Versal emulation.
 *           03/06/19 Fix BD space assignment and its memory attributes.
 *           03/20/19 Fix alignment pragmas for IAR compiler.
+* 3.10 hk   05/17/19 Use correct platform register for Versal.
 *
 * </pre>
 *
@@ -200,6 +201,7 @@
 #define JUMBO_FRAME_SIZE	10240
 #define FRAME_HDR_SIZE		18
 
+#define GEMVERSION_ZYNQMP	0x7
 #define GEMVERSION_VERSAL	0x107
 
 /*************************** Variable Definitions ***************************/
@@ -402,7 +404,7 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 	GemVersion = ((Xil_In32(Config->BaseAddress + 0xFC)) >> 16) & 0xFFF;
 
 	if (GemVersion == GEMVERSION_VERSAL) {
-		Platform = PLATFORM_VERSALEMU;
+		Platform = Xil_In32(VERSAL_VERSION);
 	} else if (GemVersion > 2) {
 		Platform = Xil_In32(CSU_VERSION);
 	}
@@ -582,13 +584,14 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 	}
 	else
 	{
-		if ((Platform & PLATFORM_MASK) == PLATFORM_VERSALEMU) {
+		if ((Platform & PLATFORM_MASK_VERSAL) == PLATFORM_VERSALEMU) {
 			XEmacPs_SetMdioDivisor(EmacPsInstancePtr, MDC_DIV_8);
 		} else {
 			XEmacPs_SetMdioDivisor(EmacPsInstancePtr, MDC_DIV_224);
 		}
 
-		if ((Platform & PLATFORM_MASK) == PLATFORM_SILICON) {
+		if (((Platform & PLATFORM_MASK) == PLATFORM_SILICON) ||
+			((Platform & PLATFORM_MASK_VERSAL) == PLATFORM_VERSALSIL)) {
 			EmacPsUtilEnterLoopback(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED_1G);
 			XEmacPs_SetOperatingSpeed(EmacPsInstancePtr,EMACPS_LOOPBACK_SPEED_1G);
 		} else {
@@ -1425,7 +1428,7 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 	#endif
 	}
 
-	if ((GemVersion > 2) && ((Platform & PLATFORM_MASK) == PLATFORM_SILICON)) {
+	if ((GemVersion == GEMVERSION_ZYNQMP) && ((Platform & PLATFORM_MASK) == PLATFORM_SILICON)) {
 
 #ifdef XPAR_PSU_CRL_APB_S_AXI_BASEADDR
 #ifdef XPAR_PSU_ETHERNET_0_DEVICE_ID
