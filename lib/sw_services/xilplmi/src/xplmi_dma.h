@@ -100,10 +100,12 @@ extern "C" {
 #define XPLMI_SSS_DMA1_DMA1			(0x00000090U)
 #define XPLMI_SSS_DMA1_AES			(0x00000070U)
 #define XPLMI_SSS_DMA1_SBI			(0x000000E0U)
+#define XPLMI_SSS_DMA1_PZM			(0x00000040U)
 
 #define XPLMI_SSS_DMA0_DMA0			(0x0000000DU)
 #define XPLMI_SSS_DMA0_AES			(0x00000006U)
 #define XPLMI_SSS_DMA0_SBI			(0x0000000BU)
+#define XPLMI_SSS_DMA0_PZM			(0x00000003U)
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
