@@ -423,7 +423,7 @@ XStatus XPmPower_CheckPower(u32 VoltageRailMask)
 	u32 RegVal;
 	XPm_Core *Pmc;
 
-	Pmc = (XPm_Core *)PmDevices[XPM_NODEIDX_DEV_PMC_PROC];
+	Pmc = (XPm_Core *)XPmDevice_GetById(XPM_DEVID_PMC);
 	if (NULL == Pmc) {
 		goto done;
 	}

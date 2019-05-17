@@ -210,8 +210,6 @@ struct XPm_Device {
 	const XPm_DeviceFsm* DeviceFsm; /**< Device finite state machine */
 };
 
-extern XPm_Device *PmDevices[];
-
 /************************** Function Prototypes ******************************/
 XStatus XPmDevice_Init(XPm_Device *Device,
 		u32 Id,
@@ -227,6 +225,8 @@ XStatus XPmDevice_Reset(XPm_Device *Device, const XPm_ResetActions Action);
 int XPmDevice_CheckPermissions(XPm_Subsystem *Subsystem, u32 DeviceId);
 
 XPm_Device *XPmDevice_GetById(const u32 DeviceId);
+
+XPm_Device *XPmDevice_GetByIndex(const u32 DeviceIndex);
 
 XStatus XPm_CheckCapabilities(XPm_Device *Device, u32 Capabilities);
 

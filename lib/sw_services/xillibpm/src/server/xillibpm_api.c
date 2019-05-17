@@ -803,7 +803,12 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 		 * Release devices belonging to the power domain.
 		 */
 		for (i = 1; i < XPM_NODEIDX_DEV_MAX; i++) {
-			Device = PmDevices[i];
+			/*
+			 * Note: XPmDevice_GetByIndex() assumes that the caller
+			 * is responsible for validating the Node ID attributes
+			 * other than node index.
+			 */
+			Device = XPmDevice_GetByIndex(i);
 			if ((NULL == Device) ||
 			    (XPM_DEVSTATE_UNUSED == Device->Node.State)) {
 				continue;
@@ -2780,7 +2785,7 @@ static XStatus AddProcDevice(u32 *Args, u32 PowerId)
 		goto done;
 	}
 
-	if (PmDevices[Index] != 0) {
+	if (NULL != XPmDevice_GetById(DeviceId)) {
 		Status = XST_DEVICE_BUSY;
 		goto done;
 	}
@@ -2858,7 +2863,7 @@ static XStatus AddPeriphDevice(u32 *Args, u32 PowerId)
 		goto done;
 	}
 
-	if (PmDevices[Index] != 0) {
+	if (NULL != XPmDevice_GetById(DeviceId)) {
 		Status = XST_DEVICE_BUSY;
 		goto done;
 	}
@@ -2912,7 +2917,7 @@ static XStatus AddMemDevice(u32 *Args, u32 PowerId)
 		goto done;
 	}
 
-	if (PmDevices[Index] != 0) {
+	if (NULL != XPmDevice_GetById(DeviceId)) {
 		Status = XST_DEVICE_BUSY;
 		goto done;
 	}

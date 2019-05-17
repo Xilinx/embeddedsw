@@ -51,9 +51,9 @@ const char *PmDevEvents[] = {
 };
 
 static XPm_DeviceOps PmDeviceOps;
-XPm_Device *PmDevices[XPM_NODEIDX_DEV_MAX];
-u32 MaxDevices=XPM_NODEIDX_DEV_MAX;
-u32 PmNumDevices=0;
+static XPm_Device *PmDevices[XPM_NODEIDX_DEV_MAX];
+static u32 MaxDevices = XPM_NODEIDX_DEV_MAX;
+static u32 PmNumDevices;
 
 static const u32 XPmGenericDeviceStates[] = {
 	[XPM_DEVSTATE_UNUSED] = XPM_MIN_CAPABILITY,
@@ -72,7 +72,7 @@ static const XPm_StateTran XPmGenericDevTransitions[] = {
 	},
 };
 
-XPm_Requirement *FindReqm(XPm_Device *Device, XPm_Subsystem *Subsystem)
+static XPm_Requirement *FindReqm(XPm_Device *Device, XPm_Subsystem *Subsystem)
 {
 	XPm_Requirement *Reqm = NULL;
 
@@ -85,6 +85,24 @@ XPm_Requirement *FindReqm(XPm_Device *Device, XPm_Subsystem *Subsystem)
 	}
 
 	return Reqm;
+}
+
+static XStatus SetDeviceNode(u32 Id, XPm_Device *Device)
+{
+	u32 Status = XST_INVALID_PARAM;
+	u32 NodeIndex = NODEINDEX(Id);
+
+	/*
+	 * We assume that the Node ID class, subclass and type has _already_
+	 * been validated before, so only check bounds here against index
+	 */
+	if ((NULL != Device) && (XPM_NODEIDX_DEV_MAX > NodeIndex)) {
+		PmDevices[NodeIndex] = Device;
+		PmNumDevices++;
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
 }
 
 /****************************************************************************/
@@ -599,7 +617,7 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 	XStatus Status = XST_FAILURE;
 	XPm_Requirement *Reqm;
 
-	if (PmDevices[NODEINDEX(Id)] != NULL) {
+	if (NULL != XPmDevice_GetById(Id)) {
 		Status = XST_DEVICE_BUSY;
 		goto done;
 	}
@@ -645,8 +663,11 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 	if (NULL == Device->DeviceFsm)
 		Device->DeviceFsm = &XPmGenericDeviceFsm;
 
-	PmDevices[NODEINDEX(Id)] = Device;
-	PmNumDevices++;
+	Status = SetDeviceNode(Id, Device);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+	Status = XST_SUCCESS;
 
 done:
 	return Status;
@@ -768,12 +789,24 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Get handle to requested device node by "complete" Node ID
+ *
+ * @param DeviceId	Device Node ID
+ *
+ * @return	Pointer to requested XPm_Device
+ *              NULL otherwise
+ *
+ * @note	Requires Complete Node ID
+ *
+ ****************************************************************************/
 XPm_Device *XPmDevice_GetById(const u32 DeviceId)
 {
 	XPm_Device *Device = NULL;
 
-	if ((XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) &&
-	    (XPM_NODEIDX_DEV_MAX > NODEINDEX(DeviceId))) {
+	if ((XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) ||
+	    (XPM_NODEIDX_DEV_MAX <= NODEINDEX(DeviceId))) {
 		goto done;
 	}
 
@@ -786,6 +819,44 @@ XPm_Device *XPmDevice_GetById(const u32 DeviceId)
 done:
 	return Device;
 }
+
+/****************************************************************************/
+/**
+ * @brief	Get handle to requested device node by "only" Node INDEX
+ *
+ * @param DeviceIndex	Device Node Index
+ *
+ * @return	Pointer to requested XPm_Device, NULL otherwise
+ *
+ * @note	Requires ONLY Node Index
+ *
+ * Caller should be _careful_ while using this function as it skips the checks
+ * for validating the class, subclass and type of the device before and after
+ * retrieving the node from the database. Use this only where it is absolutely
+ * necessary, otherwise use XPmDevice_GetById() which is more strict
+ * and requires 'complete' Node ID for retrieving the handle.
+ *
+ ****************************************************************************/
+XPm_Device *XPmDevice_GetByIndex(const u32 DeviceIndex)
+{
+	XPm_Device *Device = NULL;
+	/* Make sure we are working with only Index. */
+	u32 Index = (DeviceIndex & NODE_INDEX_MASK);
+
+	if (XPM_NODEIDX_DEV_MAX <= Index) {
+		goto done;
+	}
+
+	Device = PmDevices[Index];
+	/* Check that Device's Index is same as given Index or not. */
+	if ((NULL != Device) && (Index != NODEINDEX(Device->Node.Id))) {
+		Device = NULL;
+	}
+
+done:
+	return Device;
+}
+
 
 XStatus XPmDevice_Request(const u32 SubsystemId,
 			const u32 DeviceId,
@@ -803,7 +874,7 @@ XStatus XPmDevice_Request(const u32 SubsystemId,
 		goto done;
 	}
 
-	Device = PmDevices[NODEINDEX(DeviceId)];
+	Device = XPmDevice_GetById(DeviceId);
 	if (NULL == Device) {
 		Status = XST_INVALID_PARAM;
 		goto done;
@@ -840,7 +911,7 @@ XStatus XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId)
 		goto done;
 	}
 
-	Device = PmDevices[NODEINDEX(DeviceId)];
+	Device = XPmDevice_GetById(DeviceId);
 	if (NULL == Device) {
 		Status = XST_INVALID_PARAM;
 		goto done;
@@ -877,7 +948,7 @@ XStatus XPmDevice_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 		goto done;
 	}
 
-	Device = PmDevices[NODEINDEX(DeviceId)];
+	Device = XPmDevice_GetById(DeviceId);
 	if (NULL == Device) {
 		Status = XST_INVALID_PARAM;
 		goto done;
