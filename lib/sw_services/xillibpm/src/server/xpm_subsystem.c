@@ -272,6 +272,7 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
 	XPm_PinNode *Pin;
+	XPm_Device *Device = NULL;
 	u32 SubSysIdx = NODEINDEX(SubsystemId);
 	u32 DevId;
 
@@ -319,7 +320,18 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 			goto done;
 		}
 
-		DevId = PmDevices[Pin->PinFunc->DeviceId]->Node.Id;
+		/*
+		 * Note: XPmDevice_GetByIndex() assumes that the caller
+		 * is responsible for validating the Node ID attributes
+		 * other than node index.
+		 */
+		Device = XPmDevice_GetByIndex(Pin->PinFunc->DeviceId);
+		if (NULL == Device) {
+			Status = XST_DEVICE_NOT_FOUND;
+			goto done;
+		}
+
+		DevId = Device->Node.Id;
 		if ((XPM_PINSTATE_UNUSED == Pin->Node.State) || (0 == DevId)) {
 			Status = XST_SUCCESS;
 			goto done;
@@ -405,8 +417,14 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 		}
 
 		for (i = 0; i < XPM_NODEIDX_DEV_MAX; i++) {
-			if(PmDevices[i] != NULL) {
-				Status = XPmRequirement_Init(&Reqm[i], Subsystem, PmDevices[i]);
+			/*
+			 * Note: XPmDevice_GetByIndex() assumes that the caller
+			 * is responsible for validating the Node ID attributes
+			 * other than node index.
+			 */
+			XPm_Device *Device = XPmDevice_GetByIndex(i);
+			if (NULL != Device) {
+				Status = XPmRequirement_Init(&Reqm[i], Subsystem, Device);
 				if (XST_SUCCESS != Status)
 					goto done;
 			}

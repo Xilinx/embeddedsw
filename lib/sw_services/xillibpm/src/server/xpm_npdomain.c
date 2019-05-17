@@ -271,7 +271,7 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 	XPm_Core *Pmc;
 	u32 RegValue;
 
-	Pmc = (XPm_Core *)PmDevices[XPM_NODEIDX_DEV_PMC_PROC];
+	Pmc = (XPm_Core *)XPmDevice_GetById(XPM_DEVID_PMC);
 	if (NULL == Pmc) {
 		Status = XST_FAILURE;
 		goto done;

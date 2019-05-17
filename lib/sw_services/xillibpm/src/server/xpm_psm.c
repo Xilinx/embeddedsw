@@ -102,7 +102,7 @@ XStatus XPmPsm_SendPowerUpReq(u32 BitMask)
 
 	PmInfo("BitMask=0x%08X\n\r", BitMask);
 
-	Psm = (XPm_Psm *)PmDevices[XPM_NODEIDX_DEV_PSM_PROC];
+	Psm = (XPm_Psm *)XPmDevice_GetById(XPM_DEVID_PSM);
 	if (NULL == Psm) {
 		goto done;
 	}
@@ -132,7 +132,7 @@ XStatus XPmPsm_SendPowerDownReq(u32 BitMask)
 
 	PmInfo("BitMask=0x%08X\n\r", BitMask);
 
-	Psm = (XPm_Psm *)PmDevices[XPM_NODEIDX_DEV_PSM_PROC];
+	Psm = (XPm_Psm *)XPmDevice_GetById(XPM_DEVID_PSM);
 	if (NULL == Psm) {
 		goto done;
 	}
@@ -159,7 +159,7 @@ u32 XPmPsm_FwIsPresent(void)
 	u32 Reg = FALSE;
 	XPm_Psm *Psm;
 
-	Psm = (XPm_Psm *)PmDevices[XPM_NODEIDX_DEV_PSM_PROC];
+	Psm = (XPm_Psm *)XPmDevice_GetById(XPM_DEVID_PSM);
 	if (NULL == Psm) {
 		goto done;
 	}
@@ -178,7 +178,7 @@ void XPmPsm_RegWrite(const u32 Offset, const u32 Value)
 {
 	XPm_Psm *Psm;
 
-	Psm = (XPm_Psm *)PmDevices[XPM_NODEIDX_DEV_PSM_PROC];
+	Psm = (XPm_Psm *)XPmDevice_GetById(XPM_DEVID_PSM);
 	if (NULL == Psm) {
 		goto done;
 	}
