@@ -864,7 +864,7 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 		} else {
 			xil_printf("Clock Divisors incorrect - Please check\r\n");
 		}
-	} else if (gigeversion > 2) {
+	} else if (gigeversion == GEM_VERSION_ZYNQMP) {
 		/* Setup divisors in CRL_APB for Zynq Ultrascale+ MPSoC */
 		if (mac_baseaddr == ZYNQMP_EMACPS_0_BASEADDR) {
 			CrlApbBaseAddr = CRL_APB_GEM0_REF_CTRL;

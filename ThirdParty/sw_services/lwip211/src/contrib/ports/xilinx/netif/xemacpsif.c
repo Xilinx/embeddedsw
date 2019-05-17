@@ -47,7 +47,6 @@
 #include "netif/xadapter.h"
 #include "netif/xpqueue.h"
 #include "xparameters.h"
-#include "xuartps.h"
 #include "xscugic.h"
 #include "xemacps.h"
 
