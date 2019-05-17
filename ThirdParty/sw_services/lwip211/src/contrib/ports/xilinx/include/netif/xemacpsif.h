@@ -52,7 +52,6 @@ extern "C" {
 #include "xpseudo_asm.h"
 #include "xil_cache.h"
 #include "xil_printf.h"
-#include "xuartps.h"
 #include "xscugic.h"
 #include "xemacps.h"		/* defines XEmacPs API */
 
@@ -82,6 +81,8 @@ extern "C" {
 #define ZYNQMP_USE_JUMBO
 #endif
 #endif
+
+#define GEM_VERSION_ZYNQMP	7
 
 #define MAX_FRAME_SIZE_JUMBO (XEMACPS_MTU_JUMBO + XEMACPS_HDR_SIZE + XEMACPS_TRL_SIZE)
 

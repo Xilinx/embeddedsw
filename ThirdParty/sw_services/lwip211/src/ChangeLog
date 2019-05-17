@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2019-05-17
+	* Add support for Versal
 2019-04-10
 	* Fix typos.
 2019-03-12

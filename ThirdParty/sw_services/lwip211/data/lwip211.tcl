@@ -381,7 +381,17 @@ proc lwip_drc {libhandle} {
 			#puts "Little Endian system"
 			puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
 		    }
+		    "psv_cortexr5" {
+			puts $fd "GCC_COMPILER=armr5-none-eabi-gcc"
+			#puts "Little Endian system"
+			puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
+		    }
 		    "psu_cortexa53" {
+			puts $fd "GCC_COMPILER=aarch64-none-elf-gcc"
+			#puts "Little Endian system"
+			puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
+		    }
+		    "psv_cortexa72" {
 			puts $fd "GCC_COMPILER=aarch64-none-elf-gcc"
 			#puts "Little Endian system"
 			puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
@@ -512,7 +522,19 @@ proc generate_lwip_opts {libhandle} {
 		puts $lwipopts_fd "\#endif\n"
             }
 
+            "psv_cortexr5" {
+		puts $lwipopts_fd "\#ifndef PROCESSOR_LITTLE_ENDIAN"
+		puts $lwipopts_fd "\#define PROCESSOR_LITTLE_ENDIAN"
+		puts $lwipopts_fd "\#endif\n"
+            }
+
             "psu_cortexa53" {
+		puts $lwipopts_fd "\#ifndef PROCESSOR_LITTLE_ENDIAN"
+		puts $lwipopts_fd "\#define PROCESSOR_LITTLE_ENDIAN"
+		puts $lwipopts_fd "\#endif\n"
+            }
+
+            "psv_cortexa72" {
 		puts $lwipopts_fd "\#ifndef PROCESSOR_LITTLE_ENDIAN"
 		puts $lwipopts_fd "\#define PROCESSOR_LITTLE_ENDIAN"
 		puts $lwipopts_fd "\#endif\n"
@@ -565,7 +587,7 @@ proc generate_lwip_opts {libhandle} {
 			set default_udp_recvmbox_size	[common::get_property CONFIG.default_udp_recvmbox_size $libhandle]
 			puts $lwipopts_fd "\#define OS_IS_FREERTOS"
 			puts $lwipopts_fd "\#define DEFAULT_THREAD_PRIO $thread_prio"
-			if {$processor_type == "psu_cortexa53"} {
+			if {$processor_type == "psu_cortexa53" || $processor_type == "psv_cortexa72" } {
 				puts $lwipopts_fd "\#define TCPIP_THREAD_PRIO ($thread_prio)"
 			} else {
 			puts $lwipopts_fd "\#define TCPIP_THREAD_PRIO ($thread_prio + 1)"
@@ -986,7 +1008,8 @@ proc update_emaclite_topology {emac processor topologyvar} {
 	set force_emaclite_on_zynq 0
 
 	if {$use_emaclite_on_zynq == 1} {
-		if {$processor_type == "ps7_cortexa9" || $processor_type == "psu_cortexr5" || $processor_type == "psu_cortexa53"} {
+		if {$processor_type == "ps7_cortexa9" || $processor_type == "psu_cortexr5" || $processor_type == "psu_cortexa53" ||
+			$processor_type == "psv_cortexr5" || $processor_type == "psv_cortexa72" } {
 			set force_emaclite_on_zynq 1
 		}
 	}
@@ -1230,6 +1253,12 @@ proc generate_adapterconfig_makefile {libhandle} {
 	if {$processor_type == "psu_cortexa53" && $use_axieth_on_zynq == 1} {
 		set force_axieth_on_zynq 1
 	}
+	if {$processor_type == "psv_cortexr5" && $use_axieth_on_zynq == 1} {
+		set force_axieth_on_zynq 1
+	}
+	if {$processor_type == "psv_cortexa72" && $use_axieth_on_zynq == 1} {
+		set force_axieth_on_zynq 1
+	}
 	if {$processor_type == "ps7_cortexa9" && $use_emaclite_on_zynq == 1} {
 		set force_emaclite_on_zynq 1
 	}
@@ -1237,6 +1266,12 @@ proc generate_adapterconfig_makefile {libhandle} {
 		set force_emaclite_on_zynq 1
 	}
 	if {$processor_type == "psu_cortexa53" && $use_emaclite_on_zynq == 1} {
+		set force_emaclite_on_zynq 1
+	}
+	if {$processor_type == "psv_cortexr5" && $use_emaclite_on_zynq == 1} {
+		set force_emaclite_on_zynq 1
+	}
+	if {$processor_type == "psv_cortexa72" && $use_emaclite_on_zynq == 1} {
 		set force_emaclite_on_zynq 1
 	}
 	foreach emac $emac_periphs_list {
@@ -1301,6 +1336,16 @@ proc generate_adapterconfig_makefile {libhandle} {
 		puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
             }
             "psu_cortexa53" {
+		puts $fd "GCC_COMPILER=aarch64-none-elf-gcc"
+		#puts "Little Endian system"
+		puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
+            }
+            "psv_cortexr5" {
+		puts $fd "GCC_COMPILER=armr5-none-eabi-gcc"
+		#puts "Little Endian system"
+		puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
+            }
+            "psv_cortexa72" {
 		puts $fd "GCC_COMPILER=aarch64-none-elf-gcc"
 		#puts "Little Endian system"
 		puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
@@ -1371,6 +1416,12 @@ proc generate_adapterconfig_include {libhandle} {
 	if {$processor_type == "psu_cortexa53" && $use_axieth_on_zynq == 1} {
 		set force_axieth_on_zynq 1
 	}
+	if {$processor_type == "psv_cortexr5" && $use_axieth_on_zynq == 1} {
+		set force_axieth_on_zynq 1
+	}
+	if {$processor_type == "psv_cortexa72" && $use_axieth_on_zynq == 1} {
+		set force_axieth_on_zynq 1
+	}
 	if {$processor_type == "ps7_cortexa9" && $use_emaclite_on_zynq == 1} {
 		set force_emaclite_on_zynq 1
 	}
@@ -1378,6 +1429,12 @@ proc generate_adapterconfig_include {libhandle} {
 		set force_emaclite_on_zynq 1
 	}
 	if {$processor_type == "psu_cortexa53" && $use_emaclite_on_zynq == 1} {
+		set force_emaclite_on_zynq 1
+	}
+	if {$processor_type == "psv_cortexr5" && $use_emaclite_on_zynq == 1} {
+		set force_emaclite_on_zynq 1
+	}
+	if {$processor_type == "psv_cortexa72" && $use_emaclite_on_zynq == 1} {
 		set force_emaclite_on_zynq 1
 	}
 
