@@ -162,7 +162,11 @@ static XStatus XPmClock_Init(XPm_ClockNode *Clk, u32 Id, u32 ControlReg,
 		goto done;
 	}
 
-	Clk->PwrDomain = PmPowers[NODEINDEX(PowerDomainId)];
+	Clk->PwrDomain = XPmPower_GetById(PowerDomainId);
+	if (NULL == Clk->PwrDomain) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
 
 done:
 	return Status;

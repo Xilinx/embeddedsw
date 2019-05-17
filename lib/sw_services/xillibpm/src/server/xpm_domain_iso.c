@@ -219,8 +219,10 @@ static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
 	for( i=0; i<2; i++) {
 		NodeId = XPmDomainIso_List[IsoIdx].DependencyNodeHandles[i];
 		if (NODECLASS(NodeId) == XPM_NODECLASS_POWER) {
-			PwrDomainNode = (XPm_PowerDomain *) PmPowers[NODEINDEX(NodeId)];
-			if(PwrDomainNode->Power.Node.State != XPM_POWER_STATE_ON  && PwrDomainNode->Power.Node.State != XPM_POWER_STATE_INITIALIZING) {
+			PwrDomainNode = (XPm_PowerDomain *) XPmPower_GetById(NodeId);
+			if ((NULL != PwrDomainNode) &&
+			    (PwrDomainNode->Power.Node.State != XPM_POWER_STATE_ON)  &&
+			    (PwrDomainNode->Power.Node.State != XPM_POWER_STATE_INITIALIZING)) {
 				Status = XST_FAILURE;
 				goto done;
 			}

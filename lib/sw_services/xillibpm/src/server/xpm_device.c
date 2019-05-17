@@ -978,13 +978,16 @@ XStatus XPmDevice_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 		}
 		else if(NODECLASS(Parents[i]) == XPM_NODECLASS_POWER)
 		{
-			if(DevPtr->Power != NULL)
-			{
+			if (DevPtr->Power != NULL) {
 				Status = XST_INVALID_PARAM;
 				goto done;
+			} else {
+				DevPtr->Power = XPmPower_GetById(Parents[i]);
+				if (NULL == DevPtr->Power) {
+					Status = XST_DEVICE_NOT_FOUND;
+					goto done;
+				}
 			}
-			else
-				DevPtr->Power = PmPowers[NODEINDEX(Parents[i])];
 		}
 		else
 		{

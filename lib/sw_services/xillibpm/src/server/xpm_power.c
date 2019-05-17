@@ -31,29 +31,43 @@
 #include "xpm_psm.h"
 
 
-XPm_Power *PmPowers[XPM_NODEIDX_POWER_MAX];
-u32 PmNumPowers;
+static XPm_Power *PmPowers[XPM_NODEIDX_POWER_MAX];
+static u32 PmNumPowers;
 
-XPm_Power *GetPowerNode(u32 Id)
+XPm_Power *XPmPower_GetById(u32 Id)
 {
 	XPm_Power *Power = NULL;
+	u32 NodeClass = NODECLASS(Id);
+	u32 NodeIndex = NODEINDEX(Id);
 
-	if (NODECLASS(Id) != XPM_NODECLASS_POWER) {
-		goto done;
-	} else if (NODEINDEX(Id) >= XPM_NODEIDX_POWER_MAX) {
-		goto done;
-	} else {
-		/* Required by MISRA */
+	if ((XPM_NODECLASS_POWER == NodeClass) &&
+	    (XPM_NODEIDX_POWER_MAX > NodeIndex)) {
+		Power = PmPowers[NodeIndex];
+		/* Validate power node ID is same as given ID. */
+		if ((NULL != Power) && (Id != Power->Node.Id)) {
+			Power = NULL;
+		}
 	}
 
-	Power = PmPowers[NODEINDEX(Id)];
-	/* Validate power node ID is same as given ID. */
-	if ((NULL != Power) && (Id != Power->Node.Id)) {
-		Power = NULL;
-	}
-
-done:
 	return Power;
+}
+
+static XStatus SetPowerNode(u32 Id, XPm_Power *PwrNode)
+{
+	u32 Status = XST_INVALID_PARAM;
+	u32 NodeIndex = NODEINDEX(Id);
+
+	/*
+	 * We assume that the Node ID class, subclass and type has _already_
+	 * been validated before, so only check bounds here against index
+	 */
+	if ((NULL != PwrNode) && (XPM_NODEIDX_POWER_MAX > NodeIndex)) {
+		PmPowers[NodeIndex] = PwrNode;
+		PmNumPowers++;
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
 }
 
 static XStatus SendPowerUpReq(XPm_Node *Node)
@@ -267,7 +281,7 @@ XStatus XPmPower_GetStatus(const u32 SubsystemId, const u32 DeviceId, XPm_Device
 	/* Warning Fix */
 	(void)SubsystemId;
 
-	Power = GetPowerNode(DeviceId);
+	Power = XPmPower_GetById(DeviceId);
 	if (NULL == Power) {
 		goto done;
 	}
@@ -284,11 +298,10 @@ XStatus XPmPower_Init(XPm_Power *Power,
 	u32 Id, u32 BaseAddress, XPm_Power *Parent)
 {
 	XStatus Status = XST_FAILURE;
-	u32 Index = NODEINDEX(Id);
 	XPm_PowerDomain *PowerDomain;
 
 	/* Todo: Uncomment this after integrating with CDO handler */
-	if (PmPowers[Index] != NULL) {
+	if (NULL != XPmPower_GetById(Id)) {
 		Status = XST_DEVICE_BUSY;
 		goto done;
 	}
@@ -310,9 +323,10 @@ XStatus XPmPower_Init(XPm_Power *Power,
 		PowerDomain->Children = Power;
 	}
 
-	PmPowers[Index] = Power;
-	PmNumPowers++;
-
+	Status = SetPowerNode(Id, Power);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 	Status = XST_SUCCESS;
 
 done:
@@ -326,7 +340,7 @@ XStatus XPmPower_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 	XPm_Power *PowerParent;
 	u32 i;
 
-	Power = GetPowerNode(Id);
+	Power = XPmPower_GetById(Id);
 
 	if (NULL == Power) {
 		Status = XST_INVALID_PARAM;
@@ -334,7 +348,7 @@ XStatus XPmPower_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 	}
 
 	for (i = 0; i < NumParents; i++) {
-		PowerParent = GetPowerNode(Parents[i]);
+		PowerParent = XPmPower_GetById(Parents[i]);
 		if (NULL == PowerParent) {
 			Status = XST_INVALID_PARAM;
 			goto done;

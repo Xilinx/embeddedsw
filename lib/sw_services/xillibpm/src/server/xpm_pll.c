@@ -76,7 +76,11 @@ XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 		goto done;
 	}
 
-	PllClkPtr->ClkNode.PwrDomain = PmPowers[NODEINDEX(PowerDomainId)];
+	PllClkPtr->ClkNode.PwrDomain = XPmPower_GetById(PowerDomainId);
+	if (NULL == PllClkPtr->ClkNode.PwrDomain) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
 
 done:
 	return Status;
