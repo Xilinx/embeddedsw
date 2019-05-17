@@ -216,6 +216,30 @@ void XPlmi_SSSCfgSbiDma(u32 Flags)
 
 /*****************************************************************************/
 /**
+ * This function is used set SSS configuration for DMA to PZM
+ *
+ * @param Flags Flags to select PMC DMA
+ * @return  none
+ *****************************************************************************/
+void XPlmi_SSSCfgDmaPzm(u32 Flags)
+{
+
+	XPlmi_Printf(DEBUG_DETAILED, "SSS config for DMA0/1 to PZM\n\r");
+
+	/* it is DMA0/1 to DMA0/1 configuration */
+	if ((Flags & XPLMI_PMCDMA_0) == XPLMI_PMCDMA_0) {
+		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
+				XPLMI_SSSCFG_DMA0_MASK,
+				XPLMI_SSS_DMA0_PZM);
+	} else if ((Flags & XPLMI_PMCDMA_1) == XPLMI_PMCDMA_1) {
+		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
+				XPLMI_SSSCFG_DMA1_MASK,
+				XPLMI_SSS_DMA1_PZM);
+	}
+}
+
+/*****************************************************************************/
+/**
  * This function is used set SSS configuration for DMA to SBI transfer
  *
  * @param Flags Flags to select PMC DMA
@@ -522,16 +546,18 @@ int XPlmi_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
  *****************************************************************************/
 int XPlmi_EccInit(u64 Addr, u32 Len)
 {
-#if 0
-	u32 SrcAddr[4] __attribute__ ((aligned(16))) = {0U};
-	return XPlmi_DmaXfr((u64 ) &SrcAddr, Addr, Len/4,
-			    XPLMI_SRC_CH_AXI_FIXED);
-#else
-	memset((u8 *)Addr, 0U, Len);
-	return 0;
-#endif
-}
+	XPlmi_Printf(DEBUG_INFO, "PZM to Dma Xfer Dest 0x%0x%08x, Len 0x%0x: ",
+			(u32)(Addr>>32), (u32)Addr, Len/4);
 
+	/* Configure the secure stream switch */
+	XPlmi_SSSCfgDmaPzm(XPLMI_PMCDMA_0);
+
+	/* Configure PZM length in 128bit */
+	XPlmi_Out32(PMC_GLOBAL_PRAM_ZEROIZE_SIZE, Len/16U);
+
+	/* Receive the data from destination channel */
+	return XPlmi_DmaChXfer(Addr, Len/4U, XCSUDMA_DST_CHANNEL, XPLMI_PMCDMA_0);
+}
 
 void XPlmi_SetMaxOutCmds(u32 Val)
 {
