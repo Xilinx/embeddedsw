@@ -426,7 +426,7 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
 		goto done;
 	}
 
-	PwrDomainNode = (XPm_PowerDomain *)PmPowers[NODEINDEX(NodeId)];
+	PwrDomainNode = (XPm_PowerDomain *)XPmPower_GetById(NodeId);
 	if (NULL == PwrDomainNode) {
 		Status = XST_FAILURE;
                 goto done;
@@ -2124,7 +2124,7 @@ static int XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
 		goto done;
 	}
 
-	Power = GetPowerNode(DeviceId);
+	Power = XPmPower_GetById(DeviceId);
 	if ((NULL == Power) || (XPM_POWER_STATE_ON != Power->Node.State)) {
 		goto done;
 	}
@@ -2612,7 +2612,7 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 			/* Required by MISRA */
 		}
 
-		PowerParent = PmPowers[NODEINDEX(ParentId)];
+		PowerParent = XPmPower_GetById(ParentId);
 		if (NULL == PowerParent) {
 			Status = XST_DEVICE_NOT_FOUND;
 			goto done;
@@ -2756,7 +2756,7 @@ static XStatus AddProcDevice(u32 *Args, u32 PowerId)
 	XPm_ApuCore *ApuCore;
 	XPm_RpuCore *RpuCore;
 	XPm_Core *Core;
-	XPm_Power *Power = PmPowers[NODEINDEX(PowerId)];
+	XPm_Power *Power;
 	u32 BaseAddr[MAX_BASEADDR_LEN];
 	u32 Ipi;
 
@@ -2768,6 +2768,12 @@ static XStatus AddProcDevice(u32 *Args, u32 PowerId)
 
 	Type = NODETYPE(DeviceId);
 	Index = NODEINDEX(DeviceId);
+
+	Power = XPmPower_GetById(PowerId);
+	if (NULL == Power) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
 
 	if (Index >= XPM_NODEIDX_DEV_MAX) {
 		Status = XST_DEVICE_NOT_FOUND;
@@ -2830,7 +2836,7 @@ static XStatus AddPeriphDevice(u32 *Args, u32 PowerId)
 	u32 GicProxyGroup;
 
 	XPm_Periph *Device;
-	XPm_Power *Power = PmPowers[NODEINDEX(PowerId)];
+	XPm_Power *Power;
 	u32 BaseAddr;
 
 	DeviceId = Args[0];
@@ -2840,6 +2846,12 @@ static XStatus AddPeriphDevice(u32 *Args, u32 PowerId)
 
 	Type = NODETYPE(DeviceId);
 	Index = NODEINDEX(DeviceId);
+
+	Power = XPmPower_GetById(PowerId);
+	if (NULL == Power) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
 
 	if (Index >= XPM_NODEIDX_DEV_MAX) {
 		Status = XST_DEVICE_NOT_FOUND;
@@ -2876,7 +2888,7 @@ static XStatus AddMemDevice(u32 *Args, u32 PowerId)
 	u32 Index;
 
 	XPm_MemDevice *Device;
-	XPm_Power *Power = PmPowers[NODEINDEX(PowerId)];;
+	XPm_Power *Power;
 	u32 BaseAddr;
 	u32 StartAddr;
 	u32 EndAddr;
@@ -2885,6 +2897,12 @@ static XStatus AddMemDevice(u32 *Args, u32 PowerId)
 	BaseAddr = Args[2];
 	StartAddr = Args[3];
 	EndAddr = Args[4];
+
+	Power = XPmPower_GetById(PowerId);
+	if (NULL == Power) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
 
 	Type = NODETYPE(DeviceId);
 	Index = NODEINDEX(DeviceId);
@@ -2948,7 +2966,7 @@ static XStatus XPm_AddDevice(u32 *Args, u32 NumArgs)
 	SubClass = NODESUBCLASS(DeviceId);
 	PowerId = Args[1];
 
-	if (NULL == PmPowers[NODEINDEX(PowerId)]) {
+	if (NULL == XPmPower_GetById(PowerId)) {
 		Status = XST_DEVICE_NOT_FOUND;
 		goto done;
 	}

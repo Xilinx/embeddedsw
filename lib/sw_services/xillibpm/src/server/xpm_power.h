@@ -77,10 +77,8 @@ struct XPm_Power {
 	u32 PwrUpLatency; /**< Latency (in us) for transition to ON state */
 };
 
-extern XPm_Power *PmPowers[];
-
 /************************** Function Prototypes ******************************/
-XPm_Power *GetPowerNode(u32 Id);
+XPm_Power *XPmPower_GetById(u32 Id);
 XStatus XPmPower_Init(XPm_Power *Power,
 	u32 Id, u32 BaseAddress, XPm_Power *Parent);
 XStatus XPmPower_AddParent(u32 Id, u32 *Parents, u32 NumParents);
