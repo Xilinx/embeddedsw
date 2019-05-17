@@ -15,6 +15,12 @@ csudma_v1_5:
 Updated xcsudma_intr_example.c to use volatile keyword for
 DstDone variable to disable compiler optimizations.
 
+lwip211_v1_1:
+Add support for Versal
+
+lwip_echo_server:
+Add support for Versal
+
 Changes for 2019.1
 ===============================
 v_hdmiphy1_v1_0:
