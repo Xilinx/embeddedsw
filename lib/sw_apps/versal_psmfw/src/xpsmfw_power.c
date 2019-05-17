@@ -600,6 +600,12 @@ static XStatus XPsmFwACPUxPwrDwn(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpD
 	XStatus Status = XST_FAILURE;
 	u32 RegVal;
 
+	RegVal = XPsmFw_Read32(PSM_LOCAL_PWR_STATE);
+	if((RegVal & Args->PwrStateMask) == 0) {
+		/* Return if it is already powered down */
+		return Status;
+	}
+
 	/* Mark ACPUx powered down in LOCAL_PWR_STATUS register */
 	XPsmFw_RMW32(PSM_LOCAL_PWR_STATE, Args->PwrStateMask, ~Args->PwrStateMask);
 
