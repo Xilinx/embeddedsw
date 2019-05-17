@@ -664,6 +664,12 @@ static XStatus XPsmFwACPUxPwrDwn(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpD
 	XStatus Status = XST_SUCCESS;
 	u32 RegVal;
 
+	RegVal = XPsmFw_Read32(PSM_LOCAL_PWR_STATE);
+	if((RegVal & Args->PwrStateMask) == 0) {
+		/* Return if it is already powered down */
+		return Status;
+	}
+
 	/* Mark ACPUx powered down in LOCAL_PWR_STATUS register */
 	XPsmFw_RMW32(PSM_LOCAL_PWR_STATE, Args->PwrStateMask, ~Args->PwrStateMask);
 
@@ -683,7 +689,10 @@ static XStatus XPsmFwACPUxPwrDwn(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpD
 	}
 
 	/* Disable the clock to the APU core */
-	XPsmFw_RMW32(Args->ClkCtrlAddr, Args->ClkCtrlMask, ~Args->ClkCtrlMask);
+	/* As per spec,  if it is not possible to gate clock to individual cores, this step
+	 should  be eliminated. This would not cause issues, since ARM core gates clock
+	internally when reset is asserted or when it is in the WFI state */
+	//XPsmFw_RMW32(Args->ClkCtrlAddr, Args->ClkCtrlMask, ~Args->ClkCtrlMask);
 
 	/*
 	 * Assert reset to ACPUx. ARM recommends the island to be put nto reset
