@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,7 @@
 * 1.2  Hyun    10/03/2018  Added the event port select function
 * 1.3  Hyun    10/08/2018  Added the offset for shim trace slave port
 * 1.4  Nishad  12/05/2018  Renamed ME attributes to AIE
+* 1.5  Wendy   16/05/2019  Wrap pointers parameters with () in macro
 * </pre>
 *
 ******************************************************************************/
@@ -161,7 +162,7 @@ extern XAieGbl_RegStrmEvtPort TileStrmEvtPort[];
 #define XAIETILE_STRSW_MPORT_CFGPKT(TileInstPtr, Master, DropHdr, Msk, Arbiter)  \
 ({                                                                              \
         XAieGbl_RegStrmMstr *TmpPtr;                                             \
-        TmpPtr = (TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE)?            \
+        TmpPtr = ((TileInstPtr)->TileType == XAIEGBL_TILE_TYPE_AIETILE)?            \
                         &TileStrmMstr[Master]:&ShimStrmMstr[Master];            \
         (XAie_SetField(DropHdr, TmpPtr->DrpHdr.Lsb, TmpPtr->DrpHdr.Mask) |      \
 	((u32)Msk << XAIETILE_STRSW_MPORT_PKTMSEL_SHIFT) |                       \
@@ -191,7 +192,7 @@ extern XAieGbl_RegStrmEvtPort TileStrmEvtPort[];
                                 SlotMask, SlotEnable, SlotMsel, SlotArbiter) 	\
 ({                                                                              \
         XAieGbl_RegStrmSlot *TmpPtr;                                            \
-        TmpPtr = ((TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE)?          \
+        TmpPtr = (((TileInstPtr)->TileType == XAIEGBL_TILE_TYPE_AIETILE)?          \
                 &TileStrmSlot[XAIETILE_STRSW_SPORT_NUMSLOTS*Slave + SlotIdx]:    \
                 &ShimStrmSlot[XAIETILE_STRSW_SPORT_NUMSLOTS*Slave + SlotIdx]);   \
         (XAie_SetField(SlotId, TmpPtr->Id.Lsb, TmpPtr->Id.Mask) |      	\
@@ -247,7 +248,7 @@ extern XAieGbl_RegStrmEvtPort TileStrmEvtPort[];
 *
 *******************************************************************************/
 #define XAIETILE_STRSW_SPORT_CTRL(TileInstPtr, Idx)				\
-		(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE)?		\
+		((TileInstPtr)->TileType == XAIEGBL_TILE_TYPE_AIETILE)?		\
 		(XAIETILE_TILESTRSW_SPORT_CTRL_OFF + Idx):			\
 		(XAIETILE_SHIMSTRSW_SPORT_CTRL_OFF + Idx)
 
@@ -265,7 +266,7 @@ extern XAieGbl_RegStrmEvtPort TileStrmEvtPort[];
 *
 *******************************************************************************/
 #define XAIETILE_STRSW_SPORT_FIFO(TileInstPtr, Idx)				\
-		(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE)?		\
+		((TileInstPtr)->TileType == XAIEGBL_TILE_TYPE_AIETILE)?		\
 		(XAIETILE_TILESTRSW_SPORT_FIFO_OFF + Idx):			\
 		(XAIETILE_SHIMSTRSW_SPORT_FIFO_OFF + Idx)
 
@@ -283,7 +284,7 @@ extern XAieGbl_RegStrmEvtPort TileStrmEvtPort[];
 *
 *******************************************************************************/
 #define XAIETILE_STRSW_SPORT_SOUTH(TileInstPtr, Idx)				\
-		(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE)?		\
+		((TileInstPtr)->TileType == XAIEGBL_TILE_TYPE_AIETILE)?		\
 		(XAIETILE_TILESTRSW_SPORT_SOUTH_OFF + Idx):			\
 		(XAIETILE_SHIMSTRSW_SPORT_SOUTH_OFF + Idx)
 
@@ -301,7 +302,7 @@ extern XAieGbl_RegStrmEvtPort TileStrmEvtPort[];
 *
 *******************************************************************************/
 #define XAIETILE_STRSW_SPORT_WEST(TileInstPtr, Idx)				\
-		(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE)?		\
+		((TileInstPtr)->TileType == XAIEGBL_TILE_TYPE_AIETILE)?		\
 		(XAIETILE_TILESTRSW_SPORT_WEST_OFF + Idx):			\
 		(XAIETILE_SHIMSTRSW_SPORT_WEST_OFF + Idx)
 
@@ -319,7 +320,7 @@ extern XAieGbl_RegStrmEvtPort TileStrmEvtPort[];
 *
 *******************************************************************************/
 #define XAIETILE_STRSW_SPORT_NORTH(TileInstPtr, Idx)				\
-		(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE)?		\
+		((TileInstPtr)->TileType == XAIEGBL_TILE_TYPE_AIETILE)?		\
 		(XAIETILE_TILESTRSW_SPORT_NORTH_OFF + Idx):			\
 		(XAIETILE_SHIMSTRSW_SPORT_NORTH_OFF + Idx)
 
@@ -337,7 +338,7 @@ extern XAieGbl_RegStrmEvtPort TileStrmEvtPort[];
 *
 *******************************************************************************/
 #define XAIETILE_STRSW_SPORT_EAST(TileInstPtr, Idx)				\
-		(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE)?		\
+		((TileInstPtr)->TileType == XAIEGBL_TILE_TYPE_AIETILE)?		\
 		(XAIETILE_TILESTRSW_SPORT_EAST_OFF + Idx):			\
 		(XAIETILE_SHIMSTRSW_SPORT_EAST_OFF + Idx)
 
@@ -355,7 +356,7 @@ extern XAieGbl_RegStrmEvtPort TileStrmEvtPort[];
 *
 *******************************************************************************/
 #define XAIETILE_STRSW_SPORT_TRACE(TileInstPtr, Idx)				\
-		(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE)?		\
+		((TileInstPtr)->TileType == XAIEGBL_TILE_TYPE_AIETILE)?		\
 		(XAIETILE_TILESTRSW_SPORT_TRACE_OFF + Idx):			\
 		(XAIETILE_SHIMSTRSW_SPORT_TRACE_OFF + Idx)
 
@@ -405,7 +406,7 @@ extern XAieGbl_RegStrmEvtPort TileStrmEvtPort[];
 *
 *******************************************************************************/
 #define XAIETILE_STRSW_MPORT_CTRL(TileInstPtr, Idx)				\
-		(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE)?		\
+		((TileInstPtr)->TileType == XAIEGBL_TILE_TYPE_AIETILE)?		\
 		(XAIETILE_TILESTRSW_MPORT_CTRL_OFF + Idx):			\
 		(XAIETILE_SHIMSTRSW_MPORT_CTRL_OFF + Idx)
 
@@ -423,7 +424,7 @@ extern XAieGbl_RegStrmEvtPort TileStrmEvtPort[];
 *
 *******************************************************************************/
 #define XAIETILE_STRSW_MPORT_FIFO(TileInstPtr, Idx)				\
-		(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE)?		\
+		((TileInstPtr)->TileType == XAIEGBL_TILE_TYPE_AIETILE)?		\
 		(XAIETILE_TILESTRSW_MPORT_FIFO_OFF + Idx):			\
 		(XAIETILE_SHIMSTRSW_MPORT_FIFO_OFF + Idx)
 
@@ -441,7 +442,7 @@ extern XAieGbl_RegStrmEvtPort TileStrmEvtPort[];
 *
 *******************************************************************************/
 #define XAIETILE_STRSW_MPORT_SOUTH(TileInstPtr, Idx)				\
-		(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE)?		\
+		((TileInstPtr)->TileType == XAIEGBL_TILE_TYPE_AIETILE)?		\
 		(XAIETILE_TILESTRSW_MPORT_SOUTH_OFF + Idx):			\
 		(XAIETILE_SHIMSTRSW_MPORT_SOUTH_OFF + Idx)
 
@@ -459,7 +460,7 @@ extern XAieGbl_RegStrmEvtPort TileStrmEvtPort[];
 *
 *******************************************************************************/
 #define XAIETILE_STRSW_MPORT_WEST(TileInstPtr, Idx)				\
-		(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE)?		\
+		((TileInstPtr)->TileType == XAIEGBL_TILE_TYPE_AIETILE)?		\
 		(XAIETILE_TILESTRSW_MPORT_WEST_OFF + Idx):			\
 		(XAIETILE_SHIMSTRSW_MPORT_WEST_OFF + Idx)
 
@@ -477,7 +478,7 @@ extern XAieGbl_RegStrmEvtPort TileStrmEvtPort[];
 *
 *******************************************************************************/
 #define XAIETILE_STRSW_MPORT_NORTH(TileInstPtr, Idx)				\
-		(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE)?		\
+		((TileInstPtr)->TileType == XAIEGBL_TILE_TYPE_AIETILE)?		\
 		(XAIETILE_TILESTRSW_MPORT_NORTH_OFF + Idx):			\
 		(XAIETILE_SHIMSTRSW_MPORT_NORTH_OFF + Idx)
 
@@ -495,7 +496,7 @@ extern XAieGbl_RegStrmEvtPort TileStrmEvtPort[];
 *
 *******************************************************************************/
 #define XAIETILE_STRSW_MPORT_EAST(TileInstPtr, Idx)				\
-		(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE)?		\
+		((TileInstPtr)->TileType == XAIEGBL_TILE_TYPE_AIETILE)?		\
 		(XAIETILE_TILESTRSW_MPORT_EAST_OFF + Idx):			\
 		(XAIETILE_SHIMSTRSW_MPORT_EAST_OFF + Idx)
 
