@@ -29,7 +29,7 @@
 /**
 *
 * @file xemacps.c
-* @addtogroup emacps_v3_9
+* @addtogroup emacps_v3_10
 * @{
 *
 * The XEmacPs driver. Functions in this file are the minimum required functions
