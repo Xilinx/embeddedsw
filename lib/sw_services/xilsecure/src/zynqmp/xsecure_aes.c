@@ -62,6 +62,8 @@
 *       arc 03/20/19 Added time outs and status info for API's.
 *       mmd 03/15/19 Refactored the code.
 *       psl 03/26/19 Fixed MISRA-C violation
+* 4.1   kal 05/20/19 Updated doxygen tags
+*
 * </pre>
 *
 * @note
@@ -97,15 +99,22 @@ static void XSecure_AesCsuDmaConfigureEndiannes(XCsuDma *InstancePtr,
  *		- XSECURE_CSU_AES_KEY_SRC_DEV :For Device Key
  * @param	Iv		Pointer to the Initialization Vector
  *		for decryption
- * @param	Key		Pointer to Aes decryption key in case KUP
+ * @param	Key		Pointer to Aes key in case KUP
  *		key is used.
- * 		Passes `Null` if device key is to be used.
+ * 		Pass `Null` if ithe device key is to be used.
  *
  * @return	XST_SUCCESS if initialization was successful.
  *
- * @note	All the inputs are accepted in little endian format, but AES
- *		engine accepts the data in big endianess, this will be taken
- *		care while passing data to AES engine.
+ * @note	All the inputs are accepted in little endian format but the AES
+ *		engine accepts the data in big endian format, The decryption and
+ *		encryption functions in xsecure_aes handle the little endian to
+ *		big endian conversion using few API's, Xil_Htonl (provided by
+ *		Xilinx xil_io library) and XSecure_AesCsuDmaConfigureEndiannes
+ *		for handling data endianness conversions.
+ *		If higher performance is needed, users can strictly use data in
+ *		big endian format and modify the xsecure_aes functions to remove
+ *		the use of the Xil_Htonl and XSecure_AesCsuDmaConfigureEndiannes
+ *		functions as required.
  *
  ******************************************************************************/
 s32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
@@ -138,7 +147,7 @@ s32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
 /**
  *
  * @brief
- * This funcion is used to initialize the AES engine for encryption.
+ * This function is used to initialize the AES engine for encryption.
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
  * @param	EncData		Pointer of a buffer in which encrypted data
@@ -149,8 +158,8 @@ s32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
  *
  * @return	None
  *
- * @note	If all the data to be encrypted is available at single location
- *		One can use XSecure_AesEncryptData() directly.
+ * @note	If all of the data to the be encrypted is available,
+ * 		the XSecure_AesEncryptData function can be used instead.
  *
  ******************************************************************************/
 u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
@@ -237,8 +246,10 @@ END:
 /*****************************************************************************/
 /**
  * @brief
- * This function is used to update the AES engine with provided data for
- * encryption.
+ * This function encrypts the clear-text data passed in and updates the GCM tag
+ * from any previous calls. The size from XSecure_AesEncryptInit is decremented
+ * from the size passed into this function to determine when the final CSU DMA
+ * transfer of data to the AES-GCM cryptographic core.
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
  * @param	Data	Pointer to the data for which encryption should be
@@ -248,13 +259,8 @@ END:
  *
  * @return	None
  *
- * @note	When Size of the data equals to size of the remaining data
- *		to be processed that data will be treated as final data.
- *		This API can be called multpile times but sum of all Sizes
- *		should be equal to Size mentioned at encryption initialization
- *		(XSecure_AesEncryptInit()).
- *		If all the data to be encrypted is available at single location
- *		Please call XSecure_AesEncryptData() directly.
+ * @note	If all of the data to the be encrypted is available,
+ * 		the XSecure_AesEncryptData function can be used instead.
  *
  ******************************************************************************/
 u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, const u8 *Data, u32 Size)
@@ -320,7 +326,9 @@ END:
 /*****************************************************************************/
 /**
  * @brief
- * This Function encrypts the data provided by using hardware AES engine.
+ * This function encrypts Len (length) number of bytes of the passed in
+ * Src (source) buffer and stores the encrypted data along with its
+ * associated 16 byte tag in the Dst (destination) buffer.
  *
  * @param	InstancePtr	A pointer to the XSecure_Aes instance.
  * @param	Dst	A pointer to a buffer where encrypted data along with
@@ -331,7 +339,7 @@ END:
  *
  * @return	None
  *
- * @note	If data to be encrypted is not available at one place one can
+ * @note	If data to be encrypted is not available in one buffer one can
  *		call XSecure_AesEncryptInit() and update the AES engine with
  *		data to be encrypted by calling XSecure_AesEncryptUpdate()
  *		API multiple times as required.
@@ -358,7 +366,8 @@ END:
 /*****************************************************************************/
 /**
  * @brief
- * This function initializes the AES engine for decryption.
+ * This function initializes the AES engine for decryption and is required
+ * to be called before calling XSecure_AesDecryptUpdate.
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
  * @param	DecData		Pointer in which decrypted data will be stored.
@@ -368,10 +377,8 @@ END:
  *
  * @return	None
  *
- * @note	If data is encrypted using XSecure_AesEncrypt API then GCM tag
- *		address will be at the end of encrypted data. EncData + Size will
- *		be the GCM tag address.
- *		Chunking will not be handled over here.
+ * @note	If all of the data to be decrypted is available,
+ * 		the XSecure_AesDecryptData function can be used instead.
  *
  ******************************************************************************/
 u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
@@ -473,8 +480,11 @@ END:
 /*****************************************************************************/
 /**
  * @brief
- * This function is used to update the AES engine for decryption with provided
- * data
+ * This function decrypts the encrypted data passed in and updates the GCM tag
+ * from any previous calls. The size from XSecure_AesDecryptInit is decremented
+ * from the size passed into this function to determine when the GCM tag passed
+ * to XSecure_AesDecryptInit needs to be compared to the GCM tag calculated in
+ * the AES engine.
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
  * @param	EncData		Pointer to the encrypted data which needs to be
@@ -483,6 +493,8 @@ END:
  *
  * @return	Final call of this API returns the status of GCM tag matching.
  *		- XSECURE_CSU_AES_GCM_TAG_MISMATCH: If GCM tag is mismatched
+ *		- XSECURE_CSU_AES_ZEROIZATION_ERROR: If GCM tag is mismatched,
+ *		zeroize the decrypted data and send the status of zeroization.
  *		- XST_SUCCESS: If GCM tag is matching.
  *
  * @note	When Size of the data equals to size of the remaining data
@@ -643,9 +655,11 @@ END:
  *		- XSECURE_CSU_AES_GCM_TAG_MISMATCH: If GCM tag was mismatched
  *		- XST_SUCCESS: If GCM tag was matched.
  *
- * @note	When XSecure_AesEncryptData() API is used for encryption
- *		In same buffer GCM tag also be stored, but Size should be
- *		mentioned only for data.
+ * @note	When using this function to decrypt data that was encrypted
+ * 		with XSecure_AesEncryptData, the GCM tag will be stored as
+ * 		the last sixteen (16) bytes of data in XSecure_AesEncryptData's
+ * 		Dst (destination) buffer and should be used as the GcmTagAddr's
+ * 		pointer.
  *
  ******************************************************************************/
 s32 XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u8 * DecData, u8 *EncData,
@@ -767,11 +781,13 @@ END:
 /*****************************************************************************/
 /**
  * @brief
- * This function waits for AES completion.
+ * This function waits for AES completion or a timeout will occur,
+ * as indicated by the return of XST_FAILURE.
  *
  * @param	InstancePtr Pointer to the XSecure_Aes instance.
  *
- * @return	None
+ * @return	XST_SUCCESS if the AES operation has completed
+ * 		XST_FAILURE if a software timeout has occurred.
  *
  ******************************************************************************/
 u32 XSecure_AesWaitForDone(XSecure_Aes *InstancePtr)
@@ -799,7 +815,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief
- * This function resets the AES engine.
+ * This function sets and then clears the AES-GCM's reset line.
  *
  * @param	InstancePtr is a pointer to the XSecure_Aes instance.
  *

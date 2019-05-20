@@ -56,6 +56,7 @@
 *       arc  03/06/19 Added input validations
 *       vns  03/12/19 Modified as part of XilSecure code re-arch.
 *       psl  03/26/19 Fixed MISRA-C violation
+* 4.1   kal  05/20/19 Updated doxygen tags
 * </pre>
 *
 * @note
@@ -90,8 +91,9 @@ static const u8 XSecure_Silicon2_TPadSha3[] = {0x30U, 0x41U, 0x30U, 0x0DU,
 /*****************************************************************************/
 /**
  * @brief
- * This function initializes a specific Xsecure_Rsa instance so that it is
- * ready to be used.
+ * This function initializes a a XSecure_Rsa structure with the default values
+ * required for operating the RSA cryptographic engine.
+ *
  *
  * @param	InstancePtr 	Pointer to the XSecure_Rsa instance.
  * @param	Mod		A character Pointer which contains the key
@@ -143,14 +145,14 @@ END:
  *
  * @param	Signature	Pointer to the buffer which holds the decrypted
  *		RSA signature
- * @param	Hash		Pointer to the buffer which has hash
+ * @param	Hash		Pointer to the buffer which has the hash
  *		calculated on the data to be authenticated.
  * @param	HashLen		Length of Hash used.
  *		- For SHA3 it should be 48 bytes
  *		- For SHA2 it should be 32 bytes
  *
  * @return	XST_SUCCESS if decryption was successful.
- *
+ *		XST_FAILURE in case of mismatch.
  *
  ******************************************************************************/
 u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
@@ -249,24 +251,25 @@ ENDF:
 /*****************************************************************************/
 /**
  * @brief
-* This function handles the RSA signature encryption with public key components
-* provide at XSecure_RsaInitialize() API.
+* This function handles the RSA encryption with the public key components
+* provided when initializing the RSA cryptographic core with the
+* XSecure_RsaInitialize function.
 *
 * @param	InstancePtr	Pointer to the XSecure_Rsa instance.
 * @param	Input		Pointer to the buffer which contains the input
-*		data to be decrypted.
+*		data to be encrypted.
 * @param	Size		Key size in bytes, Input size also should be
 * 		same as Key size mentioned.Inputs supported are
-* 		- XSECURE_RSA_4096_KEY_SIZE and
+* 		- XSECURE_RSA_4096_KEY_SIZE
 * 		- XSECURE_RSA_2048_KEY_SIZE
+* 		- XSECURE_RSA_3072_KEY_SIZE
 * @param	Result		Pointer to the buffer where resultant decrypted
 *		data to be stored		.
 *
 * @return	XST_SUCCESS if encryption was successful.
 *
-* @note		Modulus of API XSecure_RsaInitialize() should also
-* 		be same size of key size mentioned in this API and exponent
-* 		should be 32 bit size.
+* @note		The Size passed here needs to match the key size used in the
+* 		XSecure_RsaInitialize function.
 *
 ******************************************************************************/
 s32 XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
@@ -291,27 +294,29 @@ s32 XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 /*****************************************************************************/
 /**
  * @brief
-* This function handles the RSA signature decryption with private key components
-* provide at XSecure_RsaInitialize() API.
+* This function handles the RSA decryption with the private key components
+* provided when initializing the RSA cryptographic core with the
+* XSecure_RsaInitialize function.
 *
 * @param	InstancePtr	Pointer to the XSecure_Rsa instance.
 * @param	Input		Pointer to the buffer which contains the input
 *		data to be decrypted.
-* @param	Size		Key size in bytes, Input size also should be same as
-* 		Key size mentioned.
-* 		Inputs supported are XSECURE_RSA_4096_KEY_SIZE and
-* 		XSECURE_RSA_2048_KEY_SIZE*
+* @param	Size		Key size in bytes, Input size also should be
+* 		same as	Key size mentioned. Inputs supported are
+* 		- XSECURE_RSA_4096_KEY_SIZE,
+* 		- XSECURE_RSA_2048_KEY_SIZE
+* 		- XSECURE_RSA_3072_KEY_SIZE
 * @param	Result		Pointer to the buffer where resultant decrypted
 *		data to be stored		.
 *
 * @return	XST_SUCCESS if decryption was successful.
-*		else returns an error code
-*			- XSECURE_RSA_DATA_VALUE_ERROR - if input data is
-*		greater than modulus
-*			- XST_FAILURE - on RSA operation failure
 *
-* @note		Modulus and Exponent in XSecure_RsaInitialize() API should also
-* 			be same as key size mentioned in this API.
+*		XSECURE_RSA_DATA_VALUE_ERROR - if input data is
+*		greater than modulus.
+*		XST_FAILURE - on RSA operation failure.
+*
+* @note		The Size passed in needs to match the key size used in the
+* 		XSecure_RsaInitialize function..
 *
 ******************************************************************************/
 s32 XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
