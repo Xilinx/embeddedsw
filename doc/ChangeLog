@@ -15,6 +15,9 @@ csudma_v1_5:
 Updated xcsudma_intr_example.c to use volatile keyword for
 DstDone variable to disable compiler optimizations.
 
+emacps_v3_10:
+Clear status registers properly in reset.
+
 lwip211_v1_1:
 Add support for Versal
 
