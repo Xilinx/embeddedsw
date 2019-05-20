@@ -52,6 +52,8 @@
 #                     get_cells command.
 # 7.1   mus  03/27/19 Added procs to check if specific address space is
 #                     accessible to the cortexr5 processor CR#1015725
+# 7.1   mus  05/20/19 Updated outbyte/inbyte in case stdout/stdin is set as
+#                     "none". This is done to fix warnings CR#1031423
 #
 ##############################################################################
 
@@ -1533,6 +1535,7 @@ proc handle_stdout_parameter {drv_handle} {
 		    puts $config_file "}"
 		    puts $config_file "\#endif \n"
 		    puts $config_file "void outbyte(char c) {"
+		    puts $config_file "    (void) c;"
 		    puts $config_file "}"
                     close $config_file
             }
@@ -1609,6 +1612,7 @@ proc handle_stdin_parameter {drv_handle} {
                     puts $config_file "}"
                     puts $config_file "\#endif \n"
                     puts $config_file "char inbyte(void) {"
+                    puts $config_file "    return (0);"
                     puts $config_file "}"
                     close $config_file
             }
