@@ -614,6 +614,15 @@ proc generate {os_handle} {
                 ::hsi::utils::handle_stdout $os_handle
     }
 
+    if { $proctype == "psv_pmc" && $stdout != "psv_sbsauart_0" && $stdout != "psv_sbsauart_1"} {
+        common::set_property CONFIG.stdout "none" $os_handle
+        handle_stdout_parameter $os_handle
+    }
+
+    if { $proctype == "psv_pmc" && $stdin != "psv_sbsauart_0" && $stdin != "psv_sbsauart_1"} {
+        common::set_property CONFIG.stdin "none" $os_handle
+        handle_stdin_parameter $os_handle
+    }
     #Handle Profile configuration
     if { $enable_sw_profile == "true" } {
         handle_profile $os_handle $proctype
