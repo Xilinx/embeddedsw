@@ -59,6 +59,7 @@
 * 3.2   hk   02/22/16 Added SGMII support for Zynq Ultrascale+ MPSoC.
 * 3.8  hk   09/17/18 Fix PTP interrupt masks.
 * 3.9  hk   01/23/19 Add RX watermark support
+* 3.10 hk   05/16/19 Clear status registers properly in reset
 * </pre>
 *
 ******************************************************************************/
@@ -455,6 +456,9 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 #define XEMACPS_RXSR_ERROR_MASK      ((u32)XEMACPS_RXSR_HRESPNOK_MASK | \
                                        (u32)XEMACPS_RXSR_RXOVR_MASK | \
                                        (u32)XEMACPS_RXSR_BUFFNA_MASK)
+
+#define XEMACPS_SR_ALL_MASK	0xFFFFFFFFU /**< Mask for full register */
+
 /*@}*/
 
 /**
