@@ -29,7 +29,7 @@
 /**
  *
  * @file xemacps.h
-* @addtogroup emacps_v3_9
+* @addtogroup emacps_v3_10
 * @{
 * @details
  *

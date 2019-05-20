@@ -29,7 +29,7 @@
 /**
 *
 * @file xemacps_hw.c
-* @addtogroup emacps_v3_9
+* @addtogroup emacps_v3_10
 * @{
 *
 * This file contains the implementation of the ethernet interface reset sequence
