@@ -52,6 +52,7 @@
 *                    its config structure.
 * 3.8  hk   09/17/18 Cleanup stale comments.
 * 3.8  mus  11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
+* 3.10 hk   05/16/19 Clear status registers properly in reset
 *
 * </pre>
 ******************************************************************************/
@@ -364,7 +365,7 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 	}
 
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
-			   XEMACPS_TXSR_OFFSET, 0x0U);
+			   XEMACPS_TXSR_OFFSET, XEMACPS_SR_ALL_MASK);
 
 	XEmacPs_SetQueuePtr(InstancePtr, 0, 0x00U, (u16)XEMACPS_SEND);
 	if (InstancePtr->Version > 2)
@@ -372,7 +373,7 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 	XEmacPs_SetQueuePtr(InstancePtr, 0, 0x00U, (u16)XEMACPS_RECV);
 
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
-			   XEMACPS_RXSR_OFFSET, 0x0U);
+			   XEMACPS_RXSR_OFFSET, XEMACPS_SR_ALL_MASK);
 
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress, XEMACPS_IDR_OFFSET,
 			   XEMACPS_IXR_ALL_MASK);
