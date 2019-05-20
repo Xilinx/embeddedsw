@@ -30,7 +30,9 @@
 /**
 *
 * @file xsecure_utils.h
-*
+* @addtogroup xsecure_common_apis XILSECURE_UTILITIES
+* @{
+* @cond xsecure_internal
 * This file contains common APIs which are used across the library.
 *
 * <pre>
@@ -39,9 +41,9 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 4.0   vns     03/12/19 Initial Release
-*       psl     03/26/19 Fixed MISRA-C violation
+* 4.1	kal	05/20/19 Updated doxygen tags
 * </pre>
-*
+* @endcond
 ******************************************************************************/
 
 #ifndef XSECURE_UTILS_H_
@@ -60,6 +62,7 @@ extern "C" {
 #include "xil_assert.h"
 
 /************************** Constant Definitions ****************************/
+/** @cond xsecure_internal */
 #ifdef versal
 #define XSECURE_VERSAL		/**< Definition for VERSAL */
 #else
@@ -158,7 +161,7 @@ typedef enum{
 #define XSecure_Out32(Addr, Data)		Xil_Out32((Addr), (Data))
 
 #define XSecure_Out64(Addr, Data)		Xil_Out64((Addr), (Data))
-
+/**  @endcond */
 /************************** Function Prototypes ******************************/
 
 void XSecure_SetReset(u32 BaseAddress, u32 Offset);
@@ -169,9 +172,12 @@ u32 XSecure_SssAes(XSecure_Sss *InstancePtr, XSecure_SssSrc InputSrc,
 		XSecure_SssSrc OutputSrc);
 u32 XSecure_SssSha(XSecure_Sss *InstancePtr, u16 DmaId);
 u32 XSecure_SssDmaLoopBack(XSecure_Sss *InstancePtr, u16 DmaId);
+/** @cond xsecure_internal */
 void* XSecure_MemCpy(void * DestPtr, const void * SrcPtr, u32 Len);
+/**  @endcond */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_UTILS_H_ */
+/**@}*/

@@ -57,6 +57,7 @@
 *       psl  03/26/19 Fixed MISRA-C violation
 *       vns  03/30/19 Added error condition in XSecure_Sha3Finish for
 *                     for wrong pad selection
+* 4.1   kal  05/20/19 Updated doxygen tags
 * </pre>
 *
 * @note
@@ -98,17 +99,17 @@ static void XSecure_Sha3NistPadd(XSecure_Sha3 *InstancePtr, u8 *Dst,
 /****************************************************************************/
 /**
 * @brief
-* This function initializes a specific Xsecure_Sha3 instance so that it is
-* ready to be used.
+* This function initializes a a XSecure_Sha structure with the default values
+* required for operating the SHA3 cryptographic engine.
 *
 * @param	InstancePtr 	Pointer to the XSecure_Sha3 instance.
 * @param	CsuDmaPtr 	Pointer to the XCsuDma instance.
 *
-* @return	XST_SUCCESS if initialization was successful
+* @return	XST_SUCCESS if initialization was successfull
 *
 * @note		The base address is initialized directly with value from
 * 		xsecure_hw.h
-*		By default uses NIST SHA3 padding, to change to KECCAK
+*		The default is NIST SHA3 padding, to change to KECCAK
 *		padding call XSecure_Sha3PadSelection() after
 *		XSecure_Sha3Initialize().
 *
@@ -140,13 +141,16 @@ s32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XCsuDma* CsuDmaPtr)
  * while calculating the hash.
  *
  * @param	InstancePtr	Pointer to the XSecure_Sha3 instance.
- * @param	Sha3Type 	Type of the sha3 padding to be used.
+ * @param	Sha3Type 	Type of SHA3 padding to be used.
  * 			 - For NIST SHA-3 padding - XSECURE_CSU_NIST_SHA3
  * 			 - For KECCAK SHA-3 padding - XSECURE_CSU_KECCAK_SHA3
  *
- * @return	By default provides support for NIST SHA-3, if wants to change for
- * 			Keccak SHA-3 this function should be called after
- * 			XSecure_Sha3Initialize()
+ * @return	XST_SUCCESS if pad selection is successfull.
+ * 		XST_FAILURE if pad selecction is failed.
+ *
+ * @note	The default provides support for NIST SHA-3. If a user wants
+ * 			to change the padding to Keccak SHA-3, this function
+ * 			should be called after XSecure_Sha3Initialize()
  *
  ******************************************************************************/
  s32 XSecure_Sha3PadSelection(XSecure_Sha3 *InstancePtr,
@@ -241,7 +245,7 @@ static void XSecure_Sha3NistPadd(XSecure_Sha3 *InstancePtr, u8 *Dst, u32 MsgLen)
 /*****************************************************************************/
 /**
  * @brief
- * This function configures the SSS and starts the SHA-3 engine.
+ * This function configures Secure Stream Switch and starts the SHA-3 engine.
  *
  * @param	InstancePtr 	Pointer to the XSecure_Sha3 instance.
  *
@@ -273,14 +277,14 @@ void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
 /*****************************************************************************/
 /**
  * @brief
- * This function updates hash for new input data block.
+ * This function updates the SHA3 engine with the input data.
  *
  * @param	InstancePtr 	Pointer to the XSecure_Sha3 instance.
  * @param	Data 		Pointer to the input data for hashing.
  * @param	Size 		Size of the input data in bytes.
  *
- * @return	None
- *
+ * @return	XST_SUCCESS if the update is successfull
+ * 		XST_FAILURE if there is a failure in SSS config
  *
  ******************************************************************************/
 u32 XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
@@ -330,8 +334,8 @@ END:
  *
  * @param	InstancePtr 	Pointer to the XSecure_Sha3 instance.
  *
- * @return	None
- *
+ * @return	XST_SUCCESS if SHA3 completes it action properly
+ *		XST_FAILURE if Timeout happens
  *
  ******************************************************************************/
 u32 XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr)
@@ -361,15 +365,15 @@ END:
 /*****************************************************************************/
 /**
  * @brief
- * This function sends the last data and padding when blocksize is not
- * multiple of 104 bytes.
+ * This function updates SHA3 engine with final data which includes SHA3
+ * padding and reads final hash on complete data.
  *
  * @param	InstancePtr	Pointer to the XSecure_Sha3 instance.
  * @param	Hash		Pointer to location where resulting hash will
  *		be written
  *
- * @return	None
- *
+ * @return	XST_SUCCESS if finished without any errors
+ *		XST_FAILURE if Sha3PadType is other than KECCAK or NIST
  *
  *****************************************************************************/
 u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
@@ -455,8 +459,8 @@ END:
  * @param	Out		Pointer to location where resulting hash will
  *		be written.
  *
- * @return	None
- *
+ * @return	XST_SUCCESS if digest calculation done successfully
+ *		XST_FAILURE if any error from Sha3Update or Sha3Finish.
  *
  ******************************************************************************/
 u32 XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In, const u32 Size,
@@ -486,16 +490,14 @@ END:
 /*****************************************************************************/
 /**
  * @brief
- * Reads the SHA3 hash of the data. It can be called intermediately of updates
- * also to read hashs.
+ * This function reads the SHA3 hash of the data and it can be called
+ * between calls to XSecure_Sha3Update.
  *
  * @param	InstancePtr	Pointer to the XSecure_Sha3 instance.
  * @param	Hash		Pointer to a buffer in which read hash will be
  *		stored.
  *
  * @return	None
- *
- * @note	None
  *
  ******************************************************************************/
 void XSecure_Sha3_ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash)
