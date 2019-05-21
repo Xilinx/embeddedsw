@@ -76,6 +76,7 @@
 *       mn     03/27/19 Disable calls to dll_reset API for versal SPP Platforms
 * 3.8   mn     04/12/19 Modified TapDelay code for supporting ZynqMP and Versal
 *       mn     05/21/19 Set correct tap delays for Versal
+*       mn     05/21/19 Disable DLL Reset code for Versal
 *
 * </pre>
 *
@@ -104,7 +105,9 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr);
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
 s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode);
 void XSdPs_SetTapDelay(XSdPs *InstancePtr);
+#ifndef versal
 static void XSdPs_DllReset(XSdPs *InstancePtr);
+#endif
 #endif
 
 extern u16 TransferMode;
@@ -1271,9 +1274,11 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 	/* Wait for ~60 clock cycles to reset the tap values */
 	(void)usleep(1U);
 
+#ifndef versal
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
 	/* Issue DLL Reset to load new SDHC tuned tap values */
 	XSdPs_DllReset(InstancePtr);
+#endif
 #endif
 
 	for (TuningCount = 0U; TuningCount < MAX_TUNING_COUNT; TuningCount++) {
@@ -1294,12 +1299,14 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 			break;
 		}
 
+#ifndef versal
 		if (TuningCount == 31U) {
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
 			/* Issue DLL Reset to load new SDHC tuned tap values */
 			XSdPs_DllReset(InstancePtr);
 #endif
 		}
+#endif
 	}
 
 	if ((XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
@@ -1311,9 +1318,11 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 	/* Wait for ~12 clock cycles to synchronize the new tap values */
 	(void)usleep(1U);
 
+#ifndef versal
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
 	/* Issue DLL Reset to load new SDHC tuned tap values */
 	XSdPs_DllReset(InstancePtr);
+#endif
 #endif
 
 	Status = XST_SUCCESS;
@@ -1324,6 +1333,7 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
 
+#ifndef versal
 #if EL1_NONSECURE && defined (__aarch64__)
 static inline void XSdps_Smc(u32 RegOffset, u32 Mask, u32 Val)
 {
@@ -1357,22 +1367,7 @@ static void XSdPs_DllRstCtrl(XSdPs *InstancePtr, u8 EnRst)
 #if EL1_NONSECURE && defined (__aarch64__)
 		(void)DllCtrl;
 
-#ifdef versal
-		XSdps_Smc(SD0_DLL_CTRL, SD_DLL_RST, (EnRst == 1U) ? SD_DLL_RST : 0U);
-#else
 		XSdps_Smc(SD_DLL_CTRL, SD0_DLL_RST, (EnRst == 1U) ? SD0_DLL_RST : 0U);
-#endif /* versal */
-
-#else
-
-#ifdef versal
-		DllCtrl = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD0_DLL_CTRL);
-		if (EnRst == 1U) {
-			DllCtrl |= SD_DLL_RST;
-		} else {
-			DllCtrl &= ~SD_DLL_RST;
-		}
-		XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD0_DLL_CTRL, DllCtrl);
 #else
 		DllCtrl = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD_DLL_CTRL);
 		if (EnRst == 1U) {
@@ -1381,8 +1376,6 @@ static void XSdPs_DllRstCtrl(XSdPs *InstancePtr, u8 EnRst)
 			DllCtrl &= ~SD0_DLL_RST;
 		}
 		XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_DLL_CTRL, DllCtrl);
-#endif /* versal */
-
 #endif
 	} else {
 #endif /* XPAR_PSU_SD_0_DEVICE_ID */
@@ -1390,22 +1383,7 @@ static void XSdPs_DllRstCtrl(XSdPs *InstancePtr, u8 EnRst)
 #if EL1_NONSECURE && defined (__aarch64__)
 		(void)DllCtrl;
 
-#ifdef versal
-		XSdps_Smc(SD1_DLL_CTRL, SD_DLL_RST, (EnRst == 1U) ? SD_DLL_RST : 0U);
-#else
 		XSdps_Smc(SD_DLL_CTRL, SD1_DLL_RST, (EnRst == 1U) ? SD1_DLL_RST : 0U);
-#endif /* versal */
-
-#else
-
-#ifdef versal
-		DllCtrl = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD1_DLL_CTRL);
-		if (EnRst == 1U) {
-			DllCtrl |= SD_DLL_RST;
-		} else {
-			DllCtrl &= ~SD_DLL_RST;
-		}
-		XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD1_DLL_CTRL, DllCtrl);
 #else
 		DllCtrl = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD_DLL_CTRL);
 		if (EnRst == 1U) {
@@ -1414,8 +1392,6 @@ static void XSdPs_DllRstCtrl(XSdPs *InstancePtr, u8 EnRst)
 			DllCtrl &= ~SD1_DLL_RST;
 		}
 		XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_DLL_CTRL, DllCtrl);
-#endif /* versal */
-
 #endif
 #ifdef XPAR_PSU_SD_0_DEVICE_ID
 	}
@@ -1469,6 +1445,7 @@ static void XSdPs_DllReset(XSdPs *InstancePtr)
 			XSDPS_CLK_CTRL_OFFSET,
 			ClockReg | XSDPS_CC_SD_CLK_EN_MASK);
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -1603,14 +1580,18 @@ static void XSdPs_ConfigTapDelay(XSdPs *InstancePtr)
 ******************************************************************************/
 void XSdPs_SetTapDelay(XSdPs *InstancePtr)
 {
+#ifndef versal
 	/* Issue DLL Reset */
 	XSdPs_DllRstCtrl(InstancePtr, 1U);
+#endif
 
 	/* Configure the Tap Delay Registers */
 	XSdPs_ConfigTapDelay(InstancePtr);
 
+#ifndef versal
 	/* Release the DLL out of reset */
 	XSdPs_DllRstCtrl(InstancePtr, 0U);
+#endif
 }
 #endif
 /** @} */

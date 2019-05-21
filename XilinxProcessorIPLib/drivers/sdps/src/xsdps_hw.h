@@ -59,6 +59,7 @@
 * 3.6   mn     07/06/18 Fix Doxygen warnings for sdps driver
 * 3.8   mn     04/12/19 Modified TapDelay code for supporting ZynqMP and Versal
 *       mn     05/21/19 Set correct tap delays for Versal
+*       mn     05/21/19 Disable DLL Reset code for Versal
 *
 * </pre>
 *
@@ -1030,13 +1031,10 @@ extern "C" {
 
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
 #ifdef versal
-#define SD0_DLL_CTRL 				0x00000448U
-#define SD1_DLL_CTRL 				0x000004C8U
 #define SD_ITAPDLY_SEL_MASK			0x000000FFU
 #define SD_OTAPDLY_SEL_MASK			0x0000003FU
 #define SD_ITAPDLY					0x0000F0F8U
 #define SD_OTAPDLY					0x0000F0FCU
-#define SD_DLL_RST					0x00000004U
 #define SD_ITAPCHGWIN				0x00000200U
 #define SD_ITAPDLYENA				0x00000100U
 #define SD_OTAPDLYENA				0x00000040U
@@ -1083,11 +1081,7 @@ extern "C" {
 #endif
 
 #ifdef __MICROBLAZE__
-#ifdef versal
-#define XPS_SYS_CTRL_BASEADDR	0xF1060000U
-#else
 #define XPS_SYS_CTRL_BASEADDR	0xFF180000U
-#endif
 #endif
 
 /**************************** Type Definitions *******************************/
