@@ -73,10 +73,10 @@ extern "C" {
 				   PMC_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK, \
 				   PMC_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK)
 
-#define XPlmi_IsLoadBootPdiDone() ((XPlmi_In32(PMC_GLOBAL_GLOBAL_CNTRL) & \
+#define XPlmi_IsLoadBootPdiDone() (((XPlmi_In32(PMC_GLOBAL_GLOBAL_CNTRL) & \
 				PMC_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK) == \
 				PMC_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK) ? \
-					(TRUE) : (FALSE)
+					(TRUE) : (FALSE))
 
 /************************** Function Prototypes ******************************/
 int XPlmi_Init(void );
