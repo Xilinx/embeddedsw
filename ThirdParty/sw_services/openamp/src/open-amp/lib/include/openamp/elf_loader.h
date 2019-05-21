@@ -300,13 +300,13 @@ struct elf64_info {
 	void *shstrtab;
 };
 
-#define ELF_STATE_INIT              0x0UL
-#define ELF_STATE_WAIT_FOR_PHDRS    0x100UL
-#define ELF_STATE_WAIT_FOR_SHDRS    0x200UL
-#define ELF_STATE_WAIT_FOR_SHSTRTAB 0x400UL
-#define ELF_STATE_HDRS_COMPLETE     0x800UL
-#define ELF_STATE_MASK              0xFF00UL
-#define ELF_NEXT_SEGMENT_MASK       0x00FFUL
+#define ELF_STATE_INIT              0x0L
+#define ELF_STATE_WAIT_FOR_PHDRS    0x100L
+#define ELF_STATE_WAIT_FOR_SHDRS    0x200L
+#define ELF_STATE_WAIT_FOR_SHSTRTAB 0x400L
+#define ELF_STATE_HDRS_COMPLETE     0x800L
+#define ELF_STATE_MASK              0xFF00L
+#define ELF_NEXT_SEGMENT_MASK       0x00FFL
 
 extern struct loader_ops elf_ops;
 
