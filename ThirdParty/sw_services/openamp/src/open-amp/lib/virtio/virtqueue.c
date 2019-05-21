@@ -21,8 +21,12 @@ static int vq_ring_enable_interrupt(struct virtqueue *, uint16_t);
 static void vq_ring_free_chain(struct virtqueue *, uint16_t);
 static int vq_ring_must_notify(struct virtqueue *vq);
 static void vq_ring_notify(struct virtqueue *vq);
+#ifndef VIRTIO_SLAVE_ONLY
 static int virtqueue_nused(struct virtqueue *vq);
+#endif
+#ifndef VIRTIO_MASTER_ONLY
 static int virtqueue_navail(struct virtqueue *vq);
+#endif
 
 /* Default implementation of P2V based on libmetal */
 static inline void *virtqueue_phys_to_virt(struct virtqueue *vq,
@@ -504,7 +508,7 @@ static void vq_ring_free_chain(struct virtqueue *vq, uint16_t desc_idx)
 static void vq_ring_init(struct virtqueue *vq, void *ring_mem, int alignment)
 {
 	struct vring *vr;
-	int i, size;
+	int size;
 
 	size = vq->vq_nentries;
 	vr = &vq->vq_ring;
@@ -513,6 +517,8 @@ static void vq_ring_init(struct virtqueue *vq, void *ring_mem, int alignment)
 
 #ifndef VIRTIO_SLAVE_ONLY
 	if (vq->vq_dev->role == VIRTIO_DEV_MASTER) {
+		int i;
+
 		for (i = 0; i < size - 1; i++)
 			vr->desc[i].next = i + 1;
 		vr->desc[i].next = VQ_RING_DESC_CHAIN_END;
