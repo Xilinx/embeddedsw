@@ -186,6 +186,11 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	PdiPtr->PdiSrc = PdiSrc;
 	PdiPtr->PdiAddr = PdiAddr;
 
+	/**
+	 * Mark PDI loading is started.
+	 */
+	XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_STARTED);
+
 	if(DeviceOps[PdiSrc].Init==NULL)
 	{
 		XPlmi_Printf(DEBUG_GENERAL,
@@ -248,11 +253,6 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 		goto END;
 	}
 
-	/**
-	 * Mark PDI loading is started.
-	 * Marking PDI start only after verification of header
-	 */
-	XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_STARTED);
 END:
 	return Status;
 }
