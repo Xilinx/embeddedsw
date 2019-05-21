@@ -22,6 +22,8 @@ extern "C" {
 
 #define RSC_NOTIFY_ID_ANY 0xFFFFFFFFUL
 
+#define RPROC_MAX_NAME_LEN 32
+
 /**
  * struct resource_table - firmware resource table header
  * @ver: version number
@@ -158,7 +160,7 @@ struct fw_rsc_carveout {
 	uint32_t len;
 	uint32_t flags;
 	uint32_t reserved;
-	uint8_t name[32];
+	uint8_t name[RPROC_MAX_NAME_LEN];
 } METAL_PACKED_END;
 
 /**
@@ -198,7 +200,7 @@ struct fw_rsc_devmem {
 	uint32_t len;
 	uint32_t flags;
 	uint32_t reserved;
-	uint8_t name[32];
+	uint8_t name[RPROC_MAX_NAME_LEN];
 } METAL_PACKED_END;
 
 /**
@@ -223,7 +225,7 @@ struct fw_rsc_trace {
 	uint32_t da;
 	uint32_t len;
 	uint32_t reserved;
-	uint8_t name[32];
+	uint8_t name[RPROC_MAX_NAME_LEN];
 } METAL_PACKED_END;
 
 /**
@@ -336,7 +338,7 @@ struct remoteproc_mem {
 	metal_phys_addr_t da;
 	metal_phys_addr_t pa;
 	size_t size;
-	char name[32];
+	char name[RPROC_MAX_NAME_LEN];
 	struct metal_io_region *io;
 	struct metal_list node;
 };

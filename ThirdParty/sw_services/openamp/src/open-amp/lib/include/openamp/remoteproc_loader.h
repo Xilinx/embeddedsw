@@ -40,19 +40,19 @@ extern "C" {
 
 /* Remoteproc loader Executable Image Parsing States */
 /* Remoteproc loader parser initial state */
-#define RPROC_LOADER_NOT_READY      0x0UL
+#define RPROC_LOADER_NOT_READY      0x0L
 /* Remoteproc loader ready to load, even it can be not finish parsing */
-#define RPROC_LOADER_READY_TO_LOAD  0x10000UL
+#define RPROC_LOADER_READY_TO_LOAD  0x10000L
 /* Remoteproc loader post data load */
-#define RPROC_LOADER_POST_DATA_LOAD 0x20000UL
+#define RPROC_LOADER_POST_DATA_LOAD 0x20000L
 /* Remoteproc loader finished loading */
-#define RPROC_LOADER_LOAD_COMPLETE  0x40000UL
+#define RPROC_LOADER_LOAD_COMPLETE  0x40000L
 /* Remoteproc loader state mask */
-#define RPROC_LOADER_MASK           0x00FF0000UL
+#define RPROC_LOADER_MASK           0x00FF0000L
 /* Remoteproc loader private mask */
-#define RPROC_LOADER_PRIVATE_MASK   0x0000FFFFUL
+#define RPROC_LOADER_PRIVATE_MASK   0x0000FFFFL
 /* Remoteproc loader reserved mask */
-#define RPROC_LOADER_RESERVED_MASK  0x0F000000UL
+#define RPROC_LOADER_RESERVED_MASK  0x0F000000L
 
 /**
  * struct image_store_ops - user defined image store operations

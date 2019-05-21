@@ -358,7 +358,7 @@ static const void *elf_next_load_segment(void *elf_info, int *nseg,
 				   size_t *noffset, size_t *nfsize,
 				   size_t *nmsize)
 {
-	const void *phdr;
+	const void *phdr = PT_NULL;
 	unsigned int p_type = PT_NULL;
 
 	if (elf_info == NULL || nseg == NULL)

@@ -37,10 +37,17 @@ remoteproc_get_mem(struct remoteproc *rproc, const char *name,
 	struct metal_list *node;
 	struct remoteproc_mem *mem;
 
+	/*
+	 * Check name length to avoid overflow. This test has to be kept for
+	 * MISRA compliance
+	 */
+	if (name && strlen(name) > RPROC_MAX_NAME_LEN)
+		return NULL;
+
 	metal_list_for_each(&rproc->mems, node) {
 		mem = metal_container_of(node, struct remoteproc_mem, node);
 		if (name) {
-			if (!strncmp(name, mem->name, sizeof(mem->name)))
+			if (!strncmp(name, mem->name, strlen(name)))
 				return mem;
 		} else if (pa != METAL_BAD_PHYS) {
 			metal_phys_addr_t pa_start, pa_end;
@@ -170,7 +177,7 @@ struct remoteproc *remoteproc_init(struct remoteproc *rproc,
 
 int remoteproc_remove(struct remoteproc *rproc)
 {
-	int ret;
+	int ret = 0;
 
 	if (rproc) {
 		metal_mutex_acquire(&rproc->lock);
@@ -495,7 +502,6 @@ int remoteproc_load(struct remoteproc *rproc, const char *path,
 	metal_log(METAL_LOG_DEBUG, "%s: load executable data\r\n", __func__);
 	offset = 0;
 	len = 0;
-	ret = -RPROC_EINVAL;
 	while(1) {
 		unsigned char padding;
 		size_t nmemsize;
@@ -693,7 +699,6 @@ int remoteproc_load_noblock(struct remoteproc *rproc,
 		if (!loader) {
 			metal_log(METAL_LOG_ERROR,
 			       "load failure: failed to identify image.\r\n");
-			ret = -RPROC_EINVAL;
 			metal_mutex_release(&rproc->lock);
 			return -RPROC_EINVAL;
 		}
