@@ -79,8 +79,6 @@ XStatus XPm_PowerUpLPD(XPm_Node *Node)
 		if (Status != XST_SUCCESS)
 			goto done;
 
-		if (Status != XST_SUCCESS)
-			goto done;
 		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, FUNC_INIT_FINISH, NULL, 0);
 	}
 
@@ -91,6 +89,9 @@ done:
 XStatus XPm_PowerDwnLPD()
 {
 	XStatus Status = XST_SUCCESS;
+
+	/* Disable the SSC interface to PS LPD satellite */
+	PmRmw32(AMS_ROOT_TOKEN_MNGR, AMS_ROOT_TOKEN_MNGR_BYPASS_LPD_MASK, AMS_ROOT_TOKEN_MNGR_BYPASS_LPD_MASK);
 
 	/* Isolate PS_PL */
 	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_LPD_PL_TEST, TRUE);
@@ -156,6 +157,9 @@ XStatus XPm_PowerUpFPD(XPm_Node *Node)
 XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 {
 	XStatus Status = XST_SUCCESS;
+
+	/* Disable the SSC interface to PS FPD satellite */
+	PmRmw32(AMS_ROOT_TOKEN_MNGR, AMS_ROOT_TOKEN_MNGR_BYPASS_FPD_MASK, AMS_ROOT_TOKEN_MNGR_BYPASS_FPD_MASK);
 
 	/* Isolate FPD-NoC */
 	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_FPD_SOC, TRUE);
@@ -371,6 +375,10 @@ XStatus XPm_PowerUpNoC(XPm_Node *Node)
 XStatus XPm_PowerDwnNoC()
 {
 	XStatus Status = XST_SUCCESS;
+
+	/* PL satellite depends on NPD and not PLD so disable the SSC interface to PL satellite
+		while powering down NPD*/
+	PmRmw32(AMS_ROOT_TOKEN_MNGR, AMS_ROOT_TOKEN_MNGR_BYPASS_PL_MASK, AMS_ROOT_TOKEN_MNGR_BYPASS_PL_MASK);
 
 	/* Isolate FPD-NoC domain */
 	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_FPD_SOC, TRUE);
