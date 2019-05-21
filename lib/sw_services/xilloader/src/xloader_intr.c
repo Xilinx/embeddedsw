@@ -119,6 +119,8 @@ int XLoader_SbiLoadPdi(void *Data)
 	Status = XLoader_LoadPdi(PdiPtr, PdiSrc, PdiAddr);
 	if (Status != XST_SUCCESS)
 	{
+		/* Update the error code */
+		XPlmi_ErrMgr(Status);
 		goto END;
 	}
 

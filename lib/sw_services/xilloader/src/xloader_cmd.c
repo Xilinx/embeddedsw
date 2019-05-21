@@ -97,6 +97,13 @@ static int XLoader_LoadSubsystemPdi(XPlmi_Cmd * Cmd)
 	Status = XLoader_LoadPdi(PdiPtr, PdiSrc, PdiAddr);
 	if (Status != XST_SUCCESS)
 	{
+		/* Update the error code */
+		XPlmi_ErrMgr(Status);
+		/*
+		 * Return only the PLM error code as Command Handler
+		 * stores only 16 bit error
+		 */
+		Status = ((Status & XPLMI_STATUS_MASK)>>16U);
 		goto END;
 	}
 

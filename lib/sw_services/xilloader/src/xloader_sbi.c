@@ -216,10 +216,13 @@ void XLoader_SbiRecovery()
 	u32 SbiCtrl;
 	SbiCtrl = Xil_In32(SLAVE_BOOT_SBI_CTRL);
 
-	/** Reset the SBI */
+	/** Reset DMA1, SBI */
 	Xil_Out32(CRP_RST_SBI, 0x1);
+	XPlmi_UtilRMW(CRP_RST_PDMA, CRP_RST_PDMA_RESET1_MASK,
+		      CRP_RST_PDMA_RESET1_MASK);
 	usleep(10);
 	Xil_Out32(CRP_RST_SBI, 0x0);
+	XPlmi_UtilRMW(CRP_RST_PDMA, CRP_RST_PDMA_RESET1_MASK, 0x0U);
 
 	/* Restore the interface setting */
 	Xil_Out32(SLAVE_BOOT_SBI_CTRL, SbiCtrl);
