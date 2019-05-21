@@ -214,8 +214,6 @@ static int rpmsg_virtio_wait_remote_ready(struct rpmsg_virtio_device *rvdev)
 		/* TODO: clarify metal_cpu_yield usage*/
 		metal_cpu_yield();
 	}
-
-	return false;
 }
 #endif /*!VIRTIO_MASTER_ONLY*/
 
@@ -310,9 +308,12 @@ static int rpmsg_virtio_send_offchannel_raw(struct rpmsg_device *rdev,
 		/* Lock the device to enable exclusive access to virtqueues */
 		metal_mutex_acquire(&rdev->lock);
 		avail_size = _rpmsg_virtio_get_buffer_size(rvdev);
-		if (size <= avail_size)
-			buffer = rpmsg_virtio_get_tx_buffer(rvdev, &buff_len,
-							    &idx);
+		if (size > avail_size) {
+			metal_mutex_release(&rdev->lock);
+			return RPMSG_ERR_BUFF_SIZE;
+		}
+
+		buffer = rpmsg_virtio_get_tx_buffer(rvdev, &buff_len, &idx);
 		metal_mutex_release(&rdev->lock);
 		if (buffer || !tick_count)
 			break;
