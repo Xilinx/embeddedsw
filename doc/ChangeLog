@@ -5,6 +5,9 @@ Add support for Versal Coresight
 
 sdps_v3_8:
 Modified Tap Delay code for supporting ZynqMP and Versal
+Disable DLL Reset code for Versal
+Enable SD UHS Mode support by default for Versal
+
 gpiops_v3_5
 udpated gpiops example with versal support.
 
