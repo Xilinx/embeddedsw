@@ -162,7 +162,7 @@ int _open(const char *filename, int flags, int mode)
 	struct rpmsg_rpc_syscall *syscall;
 	struct rpmsg_rpc_syscall resp;
 	int filename_len = strlen(filename) + 1;
-	int payload_size = sizeof(*syscall) + filename_len;
+	unsigned int payload_size = sizeof(*syscall) + filename_len;
 	unsigned char tmpbuf[MAX_BUF_LEN];
 	int ret;
 
