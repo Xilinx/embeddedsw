@@ -29,7 +29,7 @@
 /**
 *
 * @file xrfdc_sinit.c
-* @addtogroup rfdc_v6_0
+* @addtogroup rfdc_v7_0
 * @{
 *
 * The implementation of the XRFdc component's static initialization
@@ -49,6 +49,7 @@
 *                       the XRFdc_Config structure. Said changes
 *                       have been done, to remove the xparameters.h
 *                       dependency from RFDC Linux user space driver.
+* 7.0   cog    05/13/19 Formatting changes.
 *
 * </pre>
 *
@@ -74,7 +75,7 @@
 #ifdef __BAREMETAL__
 extern XRFdc_Config XRFdc_ConfigTable[];
 #else
-static XRFdc_Config *XRFdc_ConfigTablePtr=NULL;
+static XRFdc_Config *XRFdc_ConfigTablePtr = NULL;
 #endif
 
 #ifndef __BAREMETAL__
@@ -91,7 +92,7 @@ static XRFdc_Config *XRFdc_ConfigTablePtr=NULL;
 *
 * @return
 *			0 if last "Count" number of bytes matches between Str1Ptr and
-*			Str2Ptr, else differnce in unmatched character.
+*			Str2Ptr, else difference in unmatched character.
 *
 *@note		None.
 *
@@ -147,30 +148,22 @@ s32 XRFdc_GetDeviceNameByDeviceId(char *DevNamePtr, u16 DevId)
 	DirPtr = opendir(XRFDC_PLATFORM_DEVICE_DIR);
 	if (DirPtr) {
 		while ((DirentPtr = readdir(DirPtr)) != NULL) {
-			if (XRFdc_Strrncmp(DirentPtr->d_name,
-				XRFDC_SIGNATURE, SignLen) == 0) {
-				Status = metal_device_open("platform",DirentPtr->d_name,
-						 &DevicePtr);
+			if (XRFdc_Strrncmp(DirentPtr->d_name, XRFDC_SIGNATURE, SignLen) == 0) {
+				Status = metal_device_open("platform", DirentPtr->d_name, &DevicePtr);
 				if (Status) {
-					metal_log(METAL_LOG_ERROR,
-							"\n Failed to open device %s", DirentPtr->d_name);
+					metal_log(METAL_LOG_ERROR, "\n Failed to open device %s", DirentPtr->d_name);
 					continue;
 				}
-				Status = metal_linux_get_device_property(DevicePtr,
-							XRFDC_COMPATIBLE_PROPERTY, CompatibleString ,
-							Len);
+				Status = metal_linux_get_device_property(DevicePtr, XRFDC_COMPATIBLE_PROPERTY,
+									 CompatibleString, Len);
 				if (Status < 0) {
-					metal_log(METAL_LOG_ERROR,
-							"\n Failed to read device tree property");
-				} else if (strncmp(CompatibleString, \
-							XRFDC_COMPATIBLE_STRING, Len) == 0) {
-					Status = metal_linux_get_device_property(DevicePtr,
-								XRFDC_CONFIG_DATA_PROPERTY,
-								&Data, XRFDC_DEVICE_ID_SIZE);
+					metal_log(METAL_LOG_ERROR, "\n Failed to read device tree property");
+				} else if (strncmp(CompatibleString, XRFDC_COMPATIBLE_STRING, Len) == 0) {
+					Status = metal_linux_get_device_property(DevicePtr, XRFDC_CONFIG_DATA_PROPERTY,
+										 &Data, XRFDC_DEVICE_ID_SIZE);
 					if (Status < 0) {
-						metal_log(METAL_LOG_ERROR,
-							"\n Failed to read device tree property");
-					} else if ( Data == DevId ) {
+						metal_log(METAL_LOG_ERROR, "\n Failed to read device tree property");
+					} else if (Data == DevId) {
 						strcpy(DevNamePtr, DirentPtr->d_name);
 						Status = XRFDC_SUCCESS;
 						metal_device_close(DevicePtr);
@@ -205,7 +198,7 @@ XRFdc_Config *XRFdc_LookupConfig(u16 DeviceId)
 {
 	XRFdc_Config *CfgPtr = NULL;
 #ifndef __BAREMETAL__
-	s32 Status=0;
+	s32 Status = 0;
 	u32 NumInstances;
 	struct metal_device *Deviceptr;
 	char DeviceName[NAME_MAX];
@@ -223,34 +216,25 @@ XRFdc_Config *XRFdc_LookupConfig(u16 DeviceId)
 	}
 
 	if (XRFdc_ConfigTablePtr == NULL) {
-		Status = metal_linux_get_device_property(Deviceptr,
-					XRFDC_NUM_INSTANCES_PROPERTY,
-					&NumInstances, XRFDC_NUM_INST_SIZE);
+		Status = metal_linux_get_device_property(Deviceptr, XRFDC_NUM_INSTANCES_PROPERTY, &NumInstances,
+							 XRFDC_NUM_INST_SIZE);
 		if (Status < 0) {
-			metal_log(METAL_LOG_ERROR,
-					"\n Failed to read device tree property %s",
-					XRFDC_NUM_INSTANCES_PROPERTY);
+			metal_log(METAL_LOG_ERROR, "\n Failed to read device tree property %s",
+				  XRFDC_NUM_INSTANCES_PROPERTY);
 			goto RETURN_PATH1;
 		}
-		XRFdc_ConfigTablePtr = (XRFdc_Config*) malloc(ntohl(NumInstances) * \
-								XRFDC_CONFIG_DATA_SIZE);
+		XRFdc_ConfigTablePtr = (XRFdc_Config *)malloc(ntohl(NumInstances) * XRFDC_CONFIG_DATA_SIZE);
 		if (XRFdc_ConfigTablePtr == NULL) {
-			metal_log(METAL_LOG_ERROR,
-					"\n Failed to allocate memory for XRFdc_ConfigTablePtr");
+			metal_log(METAL_LOG_ERROR, "\n Failed to allocate memory for XRFdc_ConfigTablePtr");
 			goto RETURN_PATH1;
 		}
 	}
-	Status = metal_linux_get_device_property(Deviceptr,
-						XRFDC_CONFIG_DATA_PROPERTY,
-						&XRFdc_ConfigTablePtr[DeviceId],
-						XRFDC_CONFIG_DATA_SIZE);
+	Status = metal_linux_get_device_property(Deviceptr, XRFDC_CONFIG_DATA_PROPERTY, &XRFdc_ConfigTablePtr[DeviceId],
+						 XRFDC_CONFIG_DATA_SIZE);
 	if (Status == XRFDC_SUCCESS) {
 		CfgPtr = &XRFdc_ConfigTablePtr[DeviceId];
 	} else {
-		metal_log(METAL_LOG_ERROR,
-			"\n Failed to read device tree property %s",
-			XRFDC_CONFIG_DATA_PROPERTY);
-
+		metal_log(METAL_LOG_ERROR, "\n Failed to read device tree property %s", XRFDC_CONFIG_DATA_PROPERTY);
 	}
 RETURN_PATH1:
 	metal_device_close(Deviceptr);
