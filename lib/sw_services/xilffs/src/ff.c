@@ -27,6 +27,8 @@
 * 3.9   mn   04/18/18 Resolve build warnings for xilffs library
 * 4.2   aru  07/10/19 Fix Coverity warnings
 *       mn   08/16/19 Initialize Status variables with failure values
+* 4.3   mn   02/05/20 Add support for Multi Partitions
+*       mn   04/23/20 Add partition 0 for supporting default partition
 ******************************************************************************/
 #include "xparameters.h"
 #if (defined FILE_SYSTEM_INTERFACE_SD) || (defined FILE_SYSTEM_INTERFACE_RAM)
@@ -565,6 +567,20 @@ static const BYTE DbcTbl[] = MKCVTBL(TBL_DC, FF_CODE_PAGE);
 
 #endif
 
+#if FF_MULTI_PARTITION
+PARTITION VolToPart[] = {
+	{0, 0},     /* Logical drive 0 ==> Physical drive 0, 0th partition */
+	{0, 1},     /* Logical drive 1 ==> Physical drive 0, 1st partition */
+	{0, 2},     /* Logical drive 2 ==> Physical drive 0, 2nd partition */
+	{0, 3},     /* Logical drive 3 ==> Physical drive 0, 3rd partition */
+	{0, 4},     /* Logical drive 4 ==> Physical drive 0, 4th partition */
+	{1, 0},     /* Logical drive 5 ==> Physical drive 1, 0th partition */
+	{1, 1},     /* Logical drive 6 ==> Physical drive 1, 1st partition */
+	{1, 2},     /* Logical drive 7 ==> Physical drive 1, 2nd partition */
+	{1, 3},     /* Logical drive 8 ==> Physical drive 1, 3rd partition */
+	{1, 4}      /* Logical drive 9 ==> Physical drive 1, 4th partition */
+};
+#endif
 
 
 
