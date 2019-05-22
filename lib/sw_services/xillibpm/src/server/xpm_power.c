@@ -317,7 +317,8 @@ XStatus XPmPower_Init(XPm_Power *Power,
 	Power->PwrDnLatency = 0;
 	Power->PwrUpLatency = 0;
 
-	if (NULL != Parent) {
+	if ((NULL != Parent) && (XPM_NODESUBCL_POWER_DOMAIN ==
+				 NODESUBCLASS(Parent->Node.Id))) {
 		PowerDomain = (XPm_PowerDomain *)Parent;
 		Power->NextPeer = PowerDomain->Children;
 		PowerDomain->Children = Power;
