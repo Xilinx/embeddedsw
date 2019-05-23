@@ -75,6 +75,7 @@
 * 3.7   aru    03/12/19 Modified the code according to MISRAC-2012.
 *       mn     03/27/19 Disable calls to dll_reset API for versal SPP Platforms
 * 3.8   mn     04/12/19 Modified TapDelay code for supporting ZynqMP and Versal
+*       mn     05/21/19 Set correct tap delays for Versal
 *
 * </pre>
 *
@@ -1492,8 +1493,7 @@ static void XSdPs_ConfigTapDelay(XSdPs *InstancePtr)
 #ifdef versal
 	(void) DeviceId;
 	if (ITapDelay) {
-		TapDelay = XSdPs_ReadReg(InstancePtr->Config.BaseAddress, SD_ITAPDLY);
-		TapDelay |= SD_ITAPCHGWIN;
+		TapDelay = SD_ITAPCHGWIN;
 		XSdPs_WriteReg(InstancePtr->Config.BaseAddress, SD_ITAPDLY, TapDelay);
 		/* Program the ITAPDLY */
 		TapDelay |= SD_ITAPDLYENA;
@@ -1505,8 +1505,8 @@ static void XSdPs_ConfigTapDelay(XSdPs *InstancePtr)
 	}
 	if (OTapDelay) {
 		/* Program the OTAPDLY */
-		TapDelay = XSdPs_ReadReg(InstancePtr->Config.BaseAddress, SD_OTAPDLY);
-		TapDelay &= ~SD_OTAPDLY_SEL_MASK;
+		TapDelay = SD_OTAPDLYENA;
+		XSdPs_WriteReg(InstancePtr->Config.BaseAddress, SD_OTAPDLY, TapDelay);
 		TapDelay |= OTapDelay;
 		XSdPs_WriteReg(InstancePtr->Config.BaseAddress, SD_OTAPDLY, TapDelay);
 	}
