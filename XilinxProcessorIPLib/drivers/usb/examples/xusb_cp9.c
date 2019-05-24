@@ -707,7 +707,7 @@ void GetDescriptor(XUsb * InstancePtr)
 	switch (Ch9_CmdBuf.Word1.Byte23.bDescriptorType) {
 	case DEVICE_DESCR:
 #ifdef	XUSB_CH9_DEBUG
-		xil_printf("Get Dev Decriptor \r\n");
+		xil_printf("Get Dev Descriptor \r\n");
 #endif
 		if (InstancePtr->DeviceConfig.CurrentSpeed ==
 			XUSB_EP_HIGH_SPEED) {
@@ -725,7 +725,7 @@ void GetDescriptor(XUsb * InstancePtr)
 
 	case QUALIFIER_DESCR:
 #ifdef	XUSB_CH9_DEBUG
-		xil_printf("Get Qua Decriptor \r\n");
+		xil_printf("Get Qua Descriptor \r\n");
 #endif
 		Ch9_CmdBuf.ContWritePtr =
 			(unsigned char *) &QualifierDescriptor;
@@ -737,7 +737,7 @@ void GetDescriptor(XUsb * InstancePtr)
 
 	case CONFIG_DESCR:
 #ifdef	XUSB_CH9_DEBUG
-		xil_printf("Get Config Decriptor \r\n");
+		xil_printf("Get Config Descriptor \r\n");
 #endif
 		if (Ch9_CmdBuf.Word1.Byte23.bDescriptorIndex <=
 		    DeviceDescriptor.bNumConfigurations) {
@@ -786,7 +786,7 @@ void GetDescriptor(XUsb * InstancePtr)
 
 	case OSD_CONFIG_DESCR:
 #ifdef	XUSB_CH9_DEBUG
-		xil_printf("Get OSD Config Decriptor \r\n");
+		xil_printf("Get OSD Config Descriptor \r\n");
 #endif
 		if (Ch9_CmdBuf.Word1.Byte23.bDescriptorIndex <=
 		    DeviceDescriptor.bNumConfigurations) {

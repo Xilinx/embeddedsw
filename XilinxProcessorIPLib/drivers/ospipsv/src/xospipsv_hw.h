@@ -32,7 +32,7 @@
 * @addtogroup ospipsv_v1_0
 * @{
 *
-* This file contains low level access funcitons using the base address
+* This file contains low level access functions using the base address
 * directly without an instance.
 *
 * <pre>

@@ -79,7 +79,7 @@ XUartPsv Uart_Psv;		/* Instance of the UARTPSV Device */
 *
 * @param	None
 *
-* @return	XST_SUCCESS if succesful, otherwise XST_FAILURE
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE
 *
 * @note 	None
 *
@@ -109,7 +109,7 @@ int main(void)
 * @param	DeviceId is the XPAR_<UARTPSV_instance>_DEVICE_ID value from
 *			xparameters.h
 *
-* @return	XST_SUCCESS if succesful, otherwise XST_FAILURE
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE
 *
 * @note 	None
 *
