@@ -44,6 +44,7 @@
 * 1.2  Naresh  05/23/2018  Updated code to fix CR#999693
 * 1.3  Naresh  07/11/2018  Updated copyright info
 * 1.4  Nishad  12/05/2018  Renamed ME attributes to AIE
+* 1.5  Jubaer  05/24/2019  Add PL type on TileType attribute
 * </pre>
 *
 ******************************************************************************/
@@ -191,7 +192,15 @@ void XAieGbl_CfgInitialize(XAieGbl *InstancePtr, XAieGbl_Tile *TileInstPtr,
 			TilePtr->StrmSwAddr = TilePtr->PlModAddr +
 						XAIEGBL_TILE_ADDR_PLSTRMOFF;
 
-			TilePtr->TileType = XAIEGBL_TILE_TYPE_SHIMNOC;
+			switch (ColIdx % 4) {
+			case 0:
+			case 1:
+				TilePtr->TileType = XAIEGBL_TILE_TYPE_SHIMPL;
+				break;
+			default:
+				TilePtr->TileType = XAIEGBL_TILE_TYPE_SHIMNOC;
+				break;
+			}
 
 			TilePtr->IsReady = XAIE_COMPONENT_IS_READY;
 
