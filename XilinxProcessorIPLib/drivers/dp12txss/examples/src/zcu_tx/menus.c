@@ -142,9 +142,9 @@ void test_pattern_gen_help()
 			   "1 -->  Vesa LLC pattern 			\r\n"
 			   "3 -->  Vesa Color Squares			\r\n"
 			   "4 -->  Flat Red  screen 			\r\n"
-			   "5 -->  Flat Blue screen 			\r\n"
-			   "6 -->  Flat Green screen 			\r\n"
-			   "7 -->  Flat Purple screen 			\r\n"
+			   "5 -->  Flat Green screen 			\r\n"
+			   "6 -->  Flat Blue screen 			\r\n"
+			   "7 -->  Flat Yellow screen 			\r\n"
 			   "\r\n"
 			   "Press 'x' to return to main menu\r\n"
 			   "Press any key to show this menu again\r\n");
