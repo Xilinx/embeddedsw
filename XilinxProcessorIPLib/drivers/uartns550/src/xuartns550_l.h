@@ -206,7 +206,7 @@ extern "C" {
 * @param	BaseAddress contains the base address of the device.
 * @param	RegOffset contains the offset from the 1st register of the
 *		device to select the specific register.
-* @param	RegisterValue is the value to be written to the regsiter.
+* @param	RegisterValue is the value to be written to the register.
 *
 * @return	None.
 *

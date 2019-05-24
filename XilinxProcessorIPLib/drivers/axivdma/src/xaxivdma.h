@@ -94,7 +94,7 @@
 * set the RUN/STOP bit in the XAXIVDMA_CR_OFFSET register.
 * - After any reset you need to do, write the head of your BD ring into the
 * XAXIVDMA_CDESC_OFFSET register.
-* - You can do other setup for the harware.
+* - You can do other setup for the hardware.
 * - Start your hardware, by setting up the RUN/STOP bit in the
 * XAXIVDMA_CR_OFFSET register.
 * - You can do other setup for the hardware.
@@ -187,7 +187,7 @@
 * "word" is defined by C_M_AXIS_MM2S_TDATA_WIDTH and C_S_AXIS_S2MM_TDATA_WIDTH
 * for the read and write channel specifically.
 *
-* If the horizonal frame size is not word-aligned, then DRE must be enabled
+* If the horizontal frame size is not word-aligned, then DRE must be enabled
 * in the hardware. Otherwise, undefined results happen.
 *
 * <b>Address Translation</b>
@@ -367,7 +367,7 @@ extern "C" {
 #define XAXIVDMA_ENABLE_DBG_DLY_CNTR	0x08
 #define XAXIVDMA_ENABLE_DBG_ALL_FEATURES	0x0F
 
-/* Defined for backward compatiblity.
+/* Defined for backward compatibility.
  * This  is a typical DMA Internal Error, which on detection doesnt require a
  * reset (as opposed to other errors). So user on seeing this need only to
  * reinitialize channels.

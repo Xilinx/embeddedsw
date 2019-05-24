@@ -372,7 +372,7 @@ s32 XSpiPs_Transfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 		XSpiPs_Enable(InstancePtr);
 
 		/*
-		 * Clear all the interrrupts.
+		 * Clear all the interrupts.
 		 */
 		XSpiPs_WriteReg(InstancePtr->Config.BaseAddress, XSPIPS_SR_OFFSET,
 				XSPIPS_IXR_WR_TO_CLR_MASK);
@@ -648,7 +648,7 @@ s32 XSpiPs_PolledTransfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 * @param	InstancePtr is a pointer to the XSpiPs instance.
 * @param	SlaveSel is the slave number to be selected.
 * 		Normally, 3 slaves can be selected with values 0-2.
-* 		In case, 3-8 decode option is set, then upto 8 slaves
+* 		In case, 3-8 decode option is set, then up to 8 slaves
 * 		can be selected. Only one slave can be selected at a time.
 *
 * @return
@@ -962,7 +962,7 @@ void XSpiPs_InterruptHandler(XSpiPs *InstancePtr)
 		}
 
 		/*
-		 * Fill the TXFIFO until data exists, otherwise fill upto
+		 * Fill the TXFIFO until data exists, otherwise fill up to
 		 * FIFO depth.
 		 */
 		while ((SpiPtr->RemainingBytes > 0U) &&

@@ -120,7 +120,7 @@
 * uses this interrupt to indicate progress while sending data.  The driver may
 * have more data to send, in which case the data transmit FIFO is filled for
 * subsequent transmission. This interrupt is particualrly useful in slave mode,
-* while transfering more than FIFO_DEPTH number of bytes. In this case, the
+* while transferring more than FIFO_DEPTH number of bytes. In this case, the
 * driver ensures that the FIFO is never empty during a transfer and avoids
 * master receiving invalid data.
 *
@@ -267,7 +267,7 @@
 *		      C_TYPE_OF_AXI4_INTERFACE parameters C_BASEADDR will
 *		      be updated with C_AXI4_BASEADDR.
 *		      Modified such that C_FIFO_EXIST will be updated based
-*		      on C_FIFO_DEPTH for compatability of the driver with
+*		      on C_FIFO_DEPTH for compatibility of the driver with
 *		      Axi Spi.
 * 3.05a adk  18/04/13 Updated the code to avoid unused variable 
 *			 warnings when compiling with the -Wextra -Wall flags
@@ -294,7 +294,7 @@
 *                     definitions of spi in xparameters.h
 * 4.4	tjs  11/28/17 When receive fifo exists, we need to check for status
 *                     register rx fifo empty flag. If clear we can proceed for
-*                     read. Otherwise we will hit execption. CR# 989938
+*                     read. Otherwise we will hit exception. CR# 989938
 * 4.5	akm  05/29/19 Removed master inhibit dependency while writing DTR
 *		      in between multiple transfers.
 * </pre>

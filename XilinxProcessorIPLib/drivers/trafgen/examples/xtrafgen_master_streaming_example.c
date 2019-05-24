@@ -36,7 +36,7 @@
  * interconnect connected in the system. 
  *
  * This example demonstrates how to use Streaming mode in Axi Traffic Genrator
- * When Configured in Master only mode.In this mode the core genrates Streaming 
+ * When Configured in Master only mode.In this mode the core generates Streaming 
  * Traffic based on the transfer length and transfer count configured.
  * To test this example hardware Must contain a Streaming FIFO and the 
  * Connections To Axi TrafficGen needs to made As shown below
@@ -167,7 +167,7 @@ int main()
 *       - Initialize the AXI Traffic Generator device
 *       - Initialize the Streaming FIFO device
 *	- Set the Desired Transfer Count and Transfer Length
-*	- Enable the Traffic Genration on the Core
+*	- Enable the Traffic Generation on the Core
 *	- Check for the Streaming data on the FIFO 
 *       - Return test status and exit
 *
@@ -241,7 +241,7 @@ int XTrafGenStremingModeMasterExample(XTrafGen *InstancePtr, u16 DeviceId)
 	}
 	
 	/* 
-	 * Set the Required trasaction length 
+	 * Set the Required transaction length 
 	 * and required transaction count
 	 */
 	XTrafGen_ResetStreamingRandomLen(InstancePtr);
@@ -257,7 +257,7 @@ int XTrafGenStremingModeMasterExample(XTrafGen *InstancePtr, u16 DeviceId)
 	 */
 	AtgPacket = (Len +1) * TransferCnt;
 		
-	/* Enable the traffic genration */
+	/* Enable the traffic generation */
 	XTrafGen_StreamEnable(InstancePtr);
 	
 	FifoOcy = XLlFifo_iRxOccupancy(&XLlFifoInstance);
@@ -276,7 +276,7 @@ int XTrafGenStremingModeMasterExample(XTrafGen *InstancePtr, u16 DeviceId)
 		return XST_FAILURE;
 	}
 	while(XLlFifo_iRxGetLen(&XLlFifoInstance)) {
-		xil_printf("Recived packet DATA: 0x%x \n\r",
+		xil_printf("Received packet DATA: 0x%x \n\r",
 				XLlFifo_RxGetWord(&XLlFifoInstance));
 	}
 	

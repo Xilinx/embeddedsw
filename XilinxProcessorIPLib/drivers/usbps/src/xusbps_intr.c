@@ -455,7 +455,7 @@ static void XUsbPs_IntrHandleEp0Setup(XUsbPs *InstancePtr)
 
 	XUsbPs_EpOut	*Ep;
 
-	/* Notifiy the user. */
+	/* Notify the user. */
 	Ep = &InstancePtr->DeviceConfig.Ep[0].Out;
 
 	if (Ep->HandlerFunc) {

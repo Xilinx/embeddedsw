@@ -122,7 +122,7 @@ static void set_audio_transfer_size(struct audio_if *f_audio)
 	Rate = AudioFreq * f_audio->framesize;
 	f_audio->interval = INTERVAL_PER_SECOND / (1 << (AUDIO_INTERVAL - 1));
 
-	/* Audio data transfer size to be transfered at every interval */
+	/* Audio data transfer size to be transferred at every interval */
 	MaxPacketsize = AUDIO_CHANNEL_NUM * AUDIO_FRAME_SIZE *
 		DIV_ROUND_UP(AudioFreq, INTERVAL_PER_SECOND /
 				(1 << (AUDIO_INTERVAL - 1)));

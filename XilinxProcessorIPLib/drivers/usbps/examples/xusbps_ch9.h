@@ -40,7 +40,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.00a wgr  10/10/10 First release
  * 1.04a nm   03/04/13 Fixed CR# 704022. Implemented TEST_MODE Feature.
- * 2.1   kpc  04/28/14 Added macros secific to cache operations
+ * 2.1   kpc  04/28/14 Added macros specific to cache operations
  * </pre>
  *
  ******************************************************************************/

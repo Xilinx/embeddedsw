@@ -51,7 +51,7 @@
 * ----- ------ -------- ---------------------------------------------
 * 1.00  cjp    02/09/18 First release
 * 1.00  sd     07/26/18 Fix Doxygen warnings
-* 1.1   aru    03/20/19 Fix IAR isssue by changing "XCLOCK_ABS_DIFF" to a
+* 1.1   aru    03/20/19 Fix IAR issue by changing "XCLOCK_ABS_DIFF" to a
 *                       function named "XClock_Absolute_Difference".
 * </pre>
 *

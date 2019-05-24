@@ -488,7 +488,7 @@ void XUsb_DmaTransfer(XUsb *InstancePtr, UINTPTR *SrcAddr, UINTPTR *DstAddr,
 
 /******************************************************************************/
 /**
-* This function reads the USB error counter regsiter and returns the error
+* This function reads the USB error counter register and returns the error
 * counters information.
 *
 * @param	InstancePtr is a pointer to the XUsb instance.
@@ -525,7 +525,7 @@ void XUsb_ReadErrorCounters(XUsb *InstancePtr, u8 *BitStuffErrors,
 
 /******************************************************************************/
 /**
-* This function initiates the USB ULPI PHY regsiter read transaction. This
+* This function initiates the USB ULPI PHY register read transaction. This
 * function  returns the busy status if the earlier transaction is still in
 * progress and returns the PHY register data upon successful read transaction.
 *
@@ -574,7 +574,7 @@ u8 XUsb_UlpiPhyReadRegister(XUsb *InstancePtr, u8 RegAddr)
 
 /******************************************************************************/
 /**
-* This function initiates the USB ULPI PHY regsiter write transaction. This
+* This function initiates the USB ULPI PHY register write transaction. This
 * function  returns the busy status if the earlier transaction is still in
 * progress and returns a success upon successful write transaction initiation.
 *

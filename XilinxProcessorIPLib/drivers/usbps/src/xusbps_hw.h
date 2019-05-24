@@ -101,7 +101,7 @@ extern "C" {
 #define XUSBPS_EP_NUM_SHIFT		1
 /* @} */
 
-/** @name Capability Regsiter offsets
+/** @name Capability Register offsets
  */
 #define XUSBPS_HCSPARAMS_OFFSET		0x00000104
 

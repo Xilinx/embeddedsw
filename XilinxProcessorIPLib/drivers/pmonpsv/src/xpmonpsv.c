@@ -116,7 +116,7 @@ s32 XpsvPmon_CfgInitialize(XpsvPmon *InstancePtr, const XPmonpsv_Config *ConfigP
 * @param	CounterNum is the Counter Number.
 *		The valid values are 0 to 9.
 *
-* @return   XST_SUCCESS on succcess
+* @return   XST_SUCCESS on success
 *	    XST_FAILURE on failure
 *
 *
@@ -177,7 +177,7 @@ u32 XpsvPmon_ResetCounter(const XpsvPmon *InstancePtr, u32 Domain, u32 CounterNu
 * @param	CounterNum is the Counter Number.
 *		The valid values are 0 to 9.
 *
-* @return   XST_SUCCESS on succcess
+* @return   XST_SUCCESS on success
 *	    XST_FAILURE on failure
 *
 * @note		None.
@@ -281,7 +281,7 @@ s32 XpsvPmon_GetMetrics(const XpsvPmon *InstancePtr, u32 CounterNum, u8 *MainCtl
 * @param	CounterNum is the Counter Number.
 *		The valid values are 0 to 9.
 *
-* @return   XST_SUCCESS on succcess
+* @return   XST_SUCCESS on success
 *	    XST_FAILURE on failure
 *
 * @note		None.
@@ -364,7 +364,7 @@ s32 XpsvPmon_RequestCounter(XpsvPmon *InstancePtr,u32 Domain, u32 *CounterNum)
 * @param	CounterNum is the Counter Number.
 *		The valid values are 0 to 9.
 *
-* @return   XST_SUCCESS on succcess
+* @return   XST_SUCCESS on success
 *	    XST_FAILURE on failure
 *
 *****************************************************************************/
@@ -407,7 +407,7 @@ s32 XpsvPmon_GetReadCounter(const XpsvPmon *InstancePtr,u32 *ReadRequestValue,
 * @param    Domain is one of the counter like lpd_main or r5_domain
 * @param    CounterNum is the Counter Number to be enabled.
 *
-* @return   XST_SUCCESS on succcess
+* @return   XST_SUCCESS on success
 *	    XST_FAILURE on failure
 *
 * @note	    None
@@ -494,7 +494,7 @@ s32 XpsvPmon_Lock(const XpsvPmon *InstancePtr)
 * @param	CounterNum is the Counter Number.
 *		The valid values are 0 to 9.
 *
-* @return	XST_SUCCESS on succcess
+* @return	XST_SUCCESS on success
 *		XST_FAILURE on failure
 *
 ******************************************************************************/
@@ -540,7 +540,7 @@ s32 XpsvPmon_StopCounter(const XpsvPmon *InstancePtr, u32 Domain, u32 CounterNum
 * @param	CounterNum is the Counter Number.
 *		The valid values are 0 to 9.
 *
-* @return	XST_SUCCESS on succcess
+* @return	XST_SUCCESS on success
 *		XST_FAILURE on failure
 *
 *****************************************************************************/
@@ -602,7 +602,7 @@ s32 XpsvPmon_SetSrc(const XpsvPmon *InstancePtr, u32 SrcSel , u32 Domain, u32 Co
 * @param	CounterNum is the Counter Number.
 *		The valid values are 0 to 9.
 *
-* @return	XST_SUCCESS on succcess
+* @return	XST_SUCCESS on success
 *		XST_FAILURE on failure
 *
 *****************************************************************************/

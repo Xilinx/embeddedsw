@@ -168,7 +168,7 @@ void XIntc_LowLevelInterruptHandler(void)
 *		compiler does not support nesting. This function enables
 *		Microblaze interrupts after blocking further interrupts
 *		from the current interrupt number and interrupts below current
-*		interrupt proirity by writing to Interrupt Level Register of
+*		interrupt priority by writing to Interrupt Level Register of
 *		INTC on entry. On exit, it disables microblaze interrupts and
 *		restores ILR register default value(0xFFFFFFFF)back. It is
 *		recommended to increase STACK_SIZE in linker script for nested

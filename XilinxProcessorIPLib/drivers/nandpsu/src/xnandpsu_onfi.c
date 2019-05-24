@@ -61,9 +61,9 @@
 /*****************************************************************************/
 /**
 *
-* This function calculates ONFI paramater page CRC.
+* This function calculates ONFI parameter page CRC.
 *
-* @param	Parambuf is a pointer to the ONFI paramater page buffer.
+* @param	Parambuf is a pointer to the ONFI parameter page buffer.
 * @param	StartOff is the starting offset in buffer to calculate CRC.
 * @param	Length is the number of bytes for which CRC is calculated.
 *

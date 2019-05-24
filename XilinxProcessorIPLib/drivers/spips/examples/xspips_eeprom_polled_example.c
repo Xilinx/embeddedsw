@@ -366,7 +366,7 @@ void EepromWrite(XSpiPs *SpiPtr, u16 Address, u8 ByteCount,
 
 	/*
 	 * Send the write enable command to the SEEPOM so that it can be
-	 * written to, this needs to be sent as a seperate transfer before
+	 * written to, this needs to be sent as a separate transfer before
 	 * the write
 	 */
 	XSpiPs_PolledTransfer(SpiPtr, &WriteEnableCmd, NULL,

@@ -469,7 +469,7 @@ int SysMonPsuIntrExample(XScuGic* XScuGicInstPtr, XSysMonPsu* SysMonInstPtr,
 			 * Alarm 0 - Temperature alarm interrupt has occurred.
 			 * The required processing should be put here.
 			 */
-			printf("Alarm 0 - Temperature alarm has occured \r\n");
+			printf("Alarm 0 - Temperature alarm has occurred \r\n");
 			break;
 		}
 
@@ -478,7 +478,7 @@ int SysMonPsuIntrExample(XScuGic* XScuGicInstPtr, XSysMonPsu* SysMonInstPtr,
 			 * Alarm 1 - VCCINT alarm interrupt has occurred.
 			 * The required processing should be put here.
 			 */
-			printf("Alarm 1 - PS VCCINTLP alarm has occured \r\n");
+			printf("Alarm 1 - PS VCCINTLP alarm has occurred \r\n");
 			break;
 		}
 
@@ -487,7 +487,7 @@ int SysMonPsuIntrExample(XScuGic* XScuGicInstPtr, XSysMonPsu* SysMonInstPtr,
 			 * Alarm 3 - VCCAUX alarm interrupt has occurred.
 			 * The required processing should be put here.
 			 */
-			printf("Alarm 3 - PS VCCAUX alarm has occured \r\n");
+			printf("Alarm 3 - PS VCCAUX alarm has occurred \r\n");
 			break;
 		}
 	}

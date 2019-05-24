@@ -388,7 +388,7 @@ typedef struct {
 
 /*****************************************************************************/
 /**
-* Get's global Packet drop Count
+* Gets global Packet drop Count
 *
 * @param	Chan is the MCDMA Channel to be worked on.
 *

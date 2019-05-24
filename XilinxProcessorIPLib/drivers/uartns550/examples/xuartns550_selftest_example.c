@@ -90,7 +90,7 @@ XUartNs550 UartNs550;	/* Instance of the UART Device */
 *
 * @param	None.
 *
-* @return	XST_SUCCESS if succesful, otherwise XST_FAILURE.
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 * @note		None.
 *
@@ -126,7 +126,7 @@ int main(void)
 * @param	DeviceId is the XPAR_<uartns550_instance>_DEVICE_ID value from
 *		xparameters.h.
 *
-* @return	XST_SUCCESS if succesful, otherwise XST_FAILURE.
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 * @note		None.
 *

@@ -32,7 +32,7 @@
 * @addtogroup uartps_v3_8
 * @{
 *
-* The implementation of the XUartPs driver's static initialzation
+* The implementation of the XUartPs driver's static initialization
 * functionality.
 *
 * <pre>

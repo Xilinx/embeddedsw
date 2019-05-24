@@ -87,7 +87,7 @@
  * 1.0   hk  08/21/14 First release
  *       sk  03/13/15 Added IO mode support.
  *       hk  03/18/15 Switch to I/O mode before clearing RX FIFO.
- *                    Clear and disbale DMA interrupts/status in abort.
+ *                    Clear and disable DMA interrupts/status in abort.
  *                    Use DMA DONE bit instead of BUSY as recommended.
  *       sk  04/24/15 Modified the code according to MISRAC-2012.
  *       sk  06/17/15 Removed NULL checks for Rx/Tx buffers. As

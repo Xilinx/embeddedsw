@@ -130,10 +130,10 @@ extern "C" {
 #define MAX_AUDIO_FREQ			0x04
 #define CUR_AUDIO_FREQ			0x01
 
-/* Bytes per Audio transfered frame */
+/* Bytes per Audio transferred frame */
 #define AUDIO_FRAME_SIZE		0x02
 
-/* Bits per Audio transfered frame */
+/* Bits per Audio transferred frame */
 #define BIT_RESOLUTION			((AUDIO_FRAME_SIZE) * (0x08))
 
 /* Mass storage opcodes */

@@ -248,7 +248,7 @@ int EmacLiteIntrLoopbackExample(u16 DeviceId)
 		/*
 		 * Wait for the frame to be transmitted and received back.
 		 * As the core is in loopback the transmit interrupt and the
-		 * receive interrupt occur simulataneously.
+		 * receive interrupt occur simultaneously.
 		 */
 		while ((RecvFrameLength == 0) && (TransmitComplete == FALSE));
 
@@ -518,7 +518,7 @@ static int EmacLiteSetupIntrSystem(XIntc *IntcInstancePtr,
 	/*
 	 * Start the interrupt controller such that interrupts are enabled for
 	 * all devices that cause interrupts, specific real mode so that
-	 * the EmacLite can cause interrupts thru the interrupt controller.
+	 * the EmacLite can cause interrupts through the interrupt controller.
 	 */
 	Status = XIntc_Start(IntcInstancePtr, XIN_REAL_MODE);
 	if (Status != XST_SUCCESS) {

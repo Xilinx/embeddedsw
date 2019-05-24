@@ -60,7 +60,7 @@
 *   asynchronous errors.
 *
 * - AxiEthernetResetDevice() demonstrates how to reset the driver/HW without
-*   loosing all configuration settings.
+*   losing all configuration settings.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -71,7 +71,7 @@
 * 1.01a asa  12/10/10 Added full checksum offload example.
 * 		      		  Changes made to enable the AXIDMA Tx/Rx ring interrupts
 *		      		  before allocation of Tx/Rx BDs for all examples.
-* 3.00a asa  6/25/12  Modifed XAxiDma_BdSetLength API call to support new
+* 3.00a asa  6/25/12  Modified XAxiDma_BdSetLength API call to support new
 *		      		  AXI DMA driver version 7.00a. Removed the calls to
 *		      		  XAxiDma_BdRingStart for the coalesce and checksum
 *		      		  offload examples. They are not required with the new
@@ -2182,7 +2182,7 @@ static int AxiEthernetSetupIntrSystem(INTC *IntcInstancePtr,
 	 */
 	Status = XIntc_Initialize(IntcInstancePtr, INTC_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
-		AxiEthernetUtilErrorTrap("Unable to intialize the interrupt controller");
+		AxiEthernetUtilErrorTrap("Unable to initialize the interrupt controller");
 		return XST_FAILURE;
 	}
 #endif

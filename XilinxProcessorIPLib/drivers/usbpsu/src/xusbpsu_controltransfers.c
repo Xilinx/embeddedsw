@@ -160,7 +160,7 @@ void XUsbPsu_Ep0StallRestart(struct XUsbPsu *InstancePtr)
 * Checks the Data Phase and calls user Endpoint handler.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Event is a pointer to the Endpoint event occured in core.
+* @param	Event is a pointer to the Endpoint event occurred in core.
 *
 * @return	None.
 *
@@ -226,7 +226,7 @@ void XUsbPsu_Ep0DataDone(struct XUsbPsu *InstancePtr,
 * Checks the Status Phase and starts next Control transfer.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Event is a pointer to the Endpoint event occured in core.
+* @param	Event is a pointer to the Endpoint event occurred in core.
 *
 * @return	None.
 *
@@ -265,7 +265,7 @@ void XUsbPsu_Ep0StatusDone(struct XUsbPsu *InstancePtr,
 * Handles Transfer complete event of Control Endpoints EP0 OUT and EP0 IN.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Event is a pointer to the Endpoint event occured in core.
+* @param	Event is a pointer to the Endpoint event occurred in core.
 *
 * @return	None.
 *
@@ -329,7 +329,7 @@ void XUsbPsu_Ep0XferComplete(struct XUsbPsu *InstancePtr,
 * Starts Status Phase of Control Transfer
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Event is a pointer to the Endpoint event occured in core.
+* @param	Event is a pointer to the Endpoint event occurred in core.
 *
 * @return	XST_SUCCESS else XST_FAILURE
 *
@@ -400,7 +400,7 @@ s32 XUsbPsu_Ep0StartStatus(struct XUsbPsu *InstancePtr,
 
 /****************************************************************************/
 /**
-* Ends Data Phase - used incase of error.
+* Ends Data Phase - used in case of error.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
 * @param	Dep is a pointer to the Endpoint structure.
@@ -439,7 +439,7 @@ void XUsbPsu_Ep0_EndControlData(struct XUsbPsu *InstancePtr,
 * Handles Transfer Not Ready event of Control Endpoints EP0 OUT and EP0 IN.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Event is a pointer to the Endpoint event occured in core.
+* @param	Event is a pointer to the Endpoint event occurred in core.
 *
 * @return	None.
 *
@@ -488,7 +488,7 @@ void XUsbPsu_Ep0XferNotReady(struct XUsbPsu *InstancePtr,
 * Handles Interrupts of Control Endpoints EP0 OUT and EP0 IN.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Event is a pointer to the Endpoint event occured in core.
+* @param	Event is a pointer to the Endpoint event occurred in core.
 *
 * @return	None.
 *

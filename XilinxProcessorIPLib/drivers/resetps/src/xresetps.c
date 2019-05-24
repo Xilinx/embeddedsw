@@ -684,7 +684,7 @@ static XStatus XResetPs_PulseResetFpd(void)
 	XResetPs_WriteReg(XRESETPS_LPD_SCR_AXIISO_REQ_CTRL, RegValue);
 
 	/*
-	 * Here we need to check for AIB ack, since nothing is done incase
+	 * Here we need to check for AIB ack, since nothing is done in case
 	 * ack is not received, we are just waiting for specified timeout
 	 * and continuing
 	 */
@@ -928,7 +928,7 @@ XStatus XResetPs_ResetPulse(XResetPs *InstancePtr, const XResetPs_RstId ResetID)
 	RegValue |= RegBitmask;
 	XResetPs_WriteReg(RegAddr, RegValue);
 
-	/* Wait for assert propogation */
+	/* Wait for assert propagation */
 	if (ResetMap[ResetID].PulseType != XRESETPS_PT_NO_DLY_NO_PSCHK) {
 		TimeOut = XRESETPS_PULSE_PROP_DELAY;
 		while (TimeOut > 0U) {
@@ -941,7 +941,7 @@ XStatus XResetPs_ResetPulse(XResetPs *InstancePtr, const XResetPs_RstId ResetID)
 	RegValue &= (~RegBitmask);
 	XResetPs_WriteReg(RegAddr, RegValue);
 
-	/* Wait for release propogation */
+	/* Wait for release propagation */
 	if (ResetMap[ResetID].PulseType != XRESETPS_PT_NO_DLY_NO_PSCHK) {
 		TimeOut = XRESETPS_PULSE_PROP_DELAY;
 		while (TimeOut > 0U) {

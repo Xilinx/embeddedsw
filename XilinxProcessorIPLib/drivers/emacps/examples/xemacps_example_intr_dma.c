@@ -48,7 +48,7 @@
 * - EmacPsErrorHandler() demonstrates how to manage asynchronous errors.
 *
 * - EmacPsResetDevice() demonstrates how to reset the driver/HW without
-*   loosing all configuration settings.
+*   losing all configuration settings.
 *
 *
 * <pre>
@@ -114,7 +114,7 @@
 *                   ensure that "Successfully ran" and "Failed" strings
 *                   are available in all examples. This is a fix for
 *                   CR-965028.
-* 3.5 hk    08/14/17 Dont perform data cache operations when CCI is enabled
+* 3.5 hk    08/14/17 Don't perform data cache operations when CCI is enabled
 *                    on ZynqMP.
 * 3.8 hk    10/01/18 Fix warning for redefinition of interrupt number.
 * 3.9 hk    02/12/19 Change MDC divisor for Versal emulation.
@@ -551,7 +551,7 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 	{
 		/*
 		 * This version of GEM supports priority queuing and the current
-		 * dirver is using tx priority queue 1 and normal rx queue for
+		 * driver is using tx priority queue 1 and normal rx queue for
 		 * packet transmit and receive. The below code ensure that the
 		 * other queue pointers are parked to known state for avoiding
 		 * the controller to malfunction by fetching the descriptors

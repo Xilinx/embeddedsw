@@ -40,11 +40,11 @@
 * modes.
 *
 * To make this example work for 16 bit transfers change u8 Buffer[BUFFER_SIZE]
-* to u16 Buffer[BUFFER_SIZE]. The SPI Core should aslo be configured for 16 bit
+* to u16 Buffer[BUFFER_SIZE]. The SPI Core should also be configured for 16 bit
 * access during the build time.
 *
 * To make this example work for 32 bit transfers change u8 Buffer[BUFFER_SIZE]
-* to u32 Buffer[BUFFER_SIZE]. The SPI Core should aslo be configured for 32 bit
+* to u32 Buffer[BUFFER_SIZE]. The SPI Core should also be configured for 32 bit
 * access during the build time.
 *
 *

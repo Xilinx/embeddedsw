@@ -81,7 +81,7 @@
 * When an Xxv Ethernet device reset is required, XXxvEthernet_Reset() should
 * be utilized. For GT/Serdes reset, refer to the example.
 *
-* <h2>Transfering Data</h2>
+* <h2>Transferring Data</h2>
 *
 * The Xxv Ethernet core by itself is not capable of transmitting or receiving
 * data in any meaningful way. Instead the Xxv Ethernet device needs to be

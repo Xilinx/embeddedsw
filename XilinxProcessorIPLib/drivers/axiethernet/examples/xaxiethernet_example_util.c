@@ -444,7 +444,7 @@ void AxiEthernetUtilFrameMemClear(EthernetFrame * FramePtr)
 * general purpose than matching a specific PHY manufacturer ID.
 *
 * Note also that on some (older) Xilinx ML4xx boards, PHY address 0 does not
-* properly respond to this query.  But, since the default is 0 and asssuming
+* properly respond to this query.  But, since the default is 0 and assuming
 * no other address responds, then it seems to work OK.
 *
 * @param	The Axi Ethernet driver instance

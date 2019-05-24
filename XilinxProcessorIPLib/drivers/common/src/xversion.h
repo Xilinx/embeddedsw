@@ -38,7 +38,7 @@
 *
 * The version is formatted as X.YYZ where X = 0 - 9, Y = 00 - 99, Z = a - z
 * X is the major revision, YY is the minor revision, and Z is the
-* compatability revision.
+* compatibility revision.
 *
 * Packed versions are also utilized for the configuration ROM such that
 * memory is minimized. A packed version consumes only 16 bits and is
@@ -49,7 +49,7 @@
 *
 * Major Revision            0 - 9       Bits 15 - 12
 * Minor Revision            0 - 99      Bits 11 - 5
-* Compatability Revision    a - z       Bits 4 - 0
+* Compatibility Revision    a - z       Bits 4 - 0
 *
 * MODIFICATION HISTORY:
 *

@@ -217,7 +217,7 @@ u32 XBram_InterruptGetEnabled(XBram * InstancePtr)
 *
 * @note
 *
-* The interrupt status indicates the status of the device irregardless if
+* The interrupt status indicates the status of the device regardless if
 * the interrupts from the devices have been enabled or not through
 * XBram_InterruptEnable().
 *

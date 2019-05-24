@@ -32,7 +32,7 @@
 * @addtogroup llfifo_v5_3
 * @{
 *
-* This file contains static initialzation functionality for Axi Streaming FIFO
+* This file contains static initialization functionality for Axi Streaming FIFO
 * driver.
 *
 * <pre>

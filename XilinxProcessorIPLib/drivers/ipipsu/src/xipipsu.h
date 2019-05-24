@@ -48,7 +48,7 @@
  * <b>Initialization</b>
  * The config data for the driver is loaded and is based on the HW build. The
  * XIpiPsu_Config data structure contains all the data related to the
- * IPI driver instance and also teh available Target CPUs.
+ * IPI driver instance and also the available Target CPUs.
  *
  * <b>Sending an IPI</b>
  * The following steps can be followed to send an IPI:

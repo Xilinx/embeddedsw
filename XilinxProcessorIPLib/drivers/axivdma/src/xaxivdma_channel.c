@@ -1434,7 +1434,7 @@ static int XAxiVdma_BdSetVsize(XAxiVdma_Bd *BdPtr, int Vsize)
 {
 	if ((Vsize <= 0) || (Vsize > XAXIVDMA_VSIZE_MASK)) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-		    "Veritcal size %d is not valid\r\n", Vsize);
+		    "Vertical size %d is not valid\r\n", Vsize);
 
 		return XST_INVALID_PARAM;
 	}

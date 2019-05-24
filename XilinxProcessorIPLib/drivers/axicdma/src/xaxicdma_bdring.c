@@ -1075,7 +1075,7 @@ int XAxiCdma_BdRingStartTransfer(XAxiCdma *InstancePtr)
 		return XST_FAILURE;
 	}
 
-	/* If no BDs need to be transfered, we are done
+	/* If no BDs need to be transferred, we are done
 	 */
 	if (InstancePtr->HwBdCnt == 0) {
 		return XST_SUCCESS;

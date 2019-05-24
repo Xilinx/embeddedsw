@@ -162,7 +162,7 @@
 /*
  * The following definitions specify the number of dummy bytes to ignore in the
  * data read from the flash, through various Read commands. This is apart from
- * the dummy bytes returned in reponse to the command and address transmitted.
+ * the dummy bytes returned in response to the command and address transmitted.
  */
 /*
  * After transmitting Dual Read command and address on DIO0,the quad spi device
@@ -1012,7 +1012,7 @@ static int SetupInterruptSystem(XSpi *SpiPtr)
 	/*
 	 * Start the interrupt controller such that interrupts are enabled for
 	 * all devices that cause interrupts, specific real mode so that
-	 * the SPI can cause interrupts thru the interrupt controller.
+	 * the SPI can cause interrupts through the interrupt controller.
 	 */
 	Status = XIntc_Start(&InterruptController, XIN_REAL_MODE);
 	if(Status != XST_SUCCESS) {

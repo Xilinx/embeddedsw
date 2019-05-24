@@ -385,7 +385,7 @@ static int SetupIntrSystem(XIntc *IntcInstancePtr, XAxiCdma *InstancePtr,
 	Status = XIntc_Initialize(IntcInstancePtr, INTC_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-		    "Interrupt controller intialization failed %d\r\n",Status);
+		    "Interrupt controller initialization failed %d\r\n",Status);
 
 		return XST_FAILURE;
 	}

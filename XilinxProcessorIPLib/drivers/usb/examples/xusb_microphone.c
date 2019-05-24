@@ -181,7 +181,7 @@ int main()
 	UsbInstance.DeviceConfig.CurrentConfiguration = 0;
 
 	/*
-	 * Wait untill the USB device is enumerated.
+	 * Wait until the USB device is enumerated.
 	 */
 	while (!UsbInstance.DeviceConfig.CurrentConfiguration);
 

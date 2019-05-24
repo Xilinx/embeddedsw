@@ -493,7 +493,7 @@ void XAvb_UpdateRtcIncrement(XAvb * InstancePtr) {
 #endif
 
     /** Measure the time duration, as measured by the RTC master of the
-     * M sync delay measurment period. */
+     * M sync delay measurement period. */
     MasterTimeDuration = (InstancePtr->PtpRecords.NewMasterTime
                          - InstancePtr->PtpRecords.OldMasterTime);
 
@@ -502,7 +502,7 @@ void XAvb_UpdateRtcIncrement(XAvb * InstancePtr) {
     }
 
     /** Measure the time duration, as measured by the RTC slave of the
-     * M sync delay measurment period. */
+     * M sync delay measurement period. */
     SlaveTimeDuration  = (InstancePtr->PtpRecords.NewSlaveTime
                          - InstancePtr->PtpRecords.OldSlaveTime);
 

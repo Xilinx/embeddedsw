@@ -208,7 +208,7 @@ enum OnfiCommandsEnum {
  */
 /*
  * Parameter page structure of ONFI 1.0 specification.
- * Enhanced this sturcture to include ONFI 2.3 information for EZ NAND support.
+ * Enhanced this structure to include ONFI 2.3 information for EZ NAND support.
  */
 #ifdef __ICCARM__
 #pragma pack(push, 1)

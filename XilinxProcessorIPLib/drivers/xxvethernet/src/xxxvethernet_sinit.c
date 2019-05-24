@@ -31,7 +31,7 @@
 * @addtogroup xxvethernet_v1_1
 * @{
 *
-* This file contains static initialzation functionality for XXV Ethernet driver.
+* This file contains static initialization functionality for XXV Ethernet driver.
 *
 * <pre>
 * MODIFICATION HISTORY:

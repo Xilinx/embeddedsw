@@ -457,8 +457,8 @@ int SysMonIntrExample(INTC* IntcInstancePtr, XSysMon* SysMonInstPtr,
 *	- End of Conversion
 *	- JTAG Locked
 *	- JATG Modified
-*	- Over Temperature DeActive
-*	- ALARM 0 DeActive
+*	- Over Temperature deactivate
+*	- ALARM 0 deactivate
 *
 * This function only handles ALARM 0 and ALARM 2 interrupts. User of this
 * code may need to modify the code to meet needs of the application.

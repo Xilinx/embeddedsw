@@ -822,7 +822,7 @@ int AxiEthernetMultipleFramesIntrExample(XAxiEthernet *AxiEthernetInstancePtr,
 	 * With the xps_ll_fifo core we can't stuff the fifo with data from
 	 * multiple packets and then send them. Instead, the code needs to
 	 * write the data, and then immediately send the packet before
-	 * writting the data for the next packet.
+	 * writing the data for the next packet.
 	 */
 	for (Index = 0; Index < FramesToLoopback; Index++) {
 		/*
@@ -1217,7 +1217,7 @@ static int AxiEthernetSetupIntrSystem(INTC *IntcInstancePtr,
 	Status = XIntc_Initialize(IntcInstancePtr, INTC_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		AxiEthernetUtilErrorTrap
-			("Unable to intialize the interrupt controller");
+			("Unable to initialize the interrupt controller");
 		return XST_FAILURE;
 	}
 #endif

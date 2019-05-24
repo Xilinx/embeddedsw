@@ -49,7 +49,7 @@
 * 2.00a sv   07/30/08 Updated the code to support 16/32 bit transfer width.
 * 3.02a sdm  05/04/11 Added a new parameter for the mode in which SPI device
 *		      operates.
-* 3.06a adk  07/08/13 Added a new parmeter for the startup block
+* 3.06a adk  07/08/13 Added a new parameter for the startup block
 *
 * </pre>
 *

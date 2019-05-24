@@ -77,7 +77,7 @@ extern "C" {
  * Those macros are defined to catch legacy code in Xilinx drivers. The
  * XENV_MEM_COPY and XENV_MEM_FILL macros were used in early Xilinx driver
  * code. They are being replaced by memcpy() and memset() function calls. These
- * macros are defined to catch any remaining occurences of those macros.
+ * macros are defined to catch any remaining occurrences of those macros.
  *
  ******************************************************************************/
 

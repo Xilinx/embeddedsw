@@ -146,7 +146,7 @@ unsigned XIic_Recv(UINTPTR BaseAddress, u8 Address,
 	unsigned RemainingByteCount;
 	volatile u32 StatusReg;
 
-	/* Tx error is enabled incase the address (7 or 10) has no device to
+	/* Tx error is enabled in case the address (7 or 10) has no device to
 	 * answer with Ack. When only one byte of data, must set NO ACK before
 	 * address goes out therefore Tx error must not be enabled as it will go
 	 * off immediately and the Rx full interrupt will be checked.  If full,

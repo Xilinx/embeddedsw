@@ -111,7 +111,7 @@ extern "C" {
  * @{
  */
 
-#define XSCUWDT_RST_STS_RESET_FLAG_MASK	0x00000001U /**< Time out occured */
+#define XSCUWDT_RST_STS_RESET_FLAG_MASK	0x00000001U /**< Time out occurred */
 /*@}*/
 
 /** @name Disable register

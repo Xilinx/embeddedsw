@@ -68,7 +68,7 @@
 /************************** Variable Definitions ****************************/
 /*
  * The following data type maps an option to a register and the bits of the
- * regiser such that getting and setting the options may be table driven.
+ * register such that getting and setting the options may be table driven.
  */
 typedef struct {
 	u16 Option;
@@ -109,11 +109,11 @@ static u32 ReadFcrRegister(UINTPTR BaseAddress);
 *
 * Gets the options for the specified driver instance. The options are
 * implemented as bit masks such that multiple options may be enabled or
-* disabled simulataneously.
+* disabled simultaneously.
 *
 * @param	InstancePtr is a pointer to the XUartNs550 instance.
 *
-* @return 	The current options for the UART. The optionss are bit masks
+* @return 	The current options for the UART. The options are bit masks
 *		that are contained in the file xuartns550.h and
 *		named XUN_OPTION_*.
 *
@@ -133,7 +133,7 @@ u16 XUartNs550_GetOptions(XUartNs550 *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/*
-	 * Loop thru the options table to map the physical options in the
+	 * Loop through the options table to map the physical options in the
 	 * registers of the UART to the logical options to be returned
 	 */
 	for (Index = 0; Index < XUN_NUM_OPTIONS; Index++) {
@@ -198,7 +198,7 @@ int XUartNs550_SetOptions(XUartNs550 *InstancePtr, u16 Options)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/*
-	 * Loop thru the options table to map the logical options to the
+	 * Loop through the options table to map the logical options to the
 	 * physical options in the registers of the UART
 	 */
 	for (Index = 0; Index < XUN_NUM_OPTIONS; Index++) {

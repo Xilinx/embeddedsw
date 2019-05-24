@@ -44,7 +44,7 @@
  * 1.0   hk  08/21/14 First release
  *       sk  03/13/15 Added IO mode support.
  *       hk  03/18/15 Switch to I/O mode before clearing RX FIFO.
- *                    Clear and disbale DMA interrupts/status in abort.
+ *                    Clear and disable DMA interrupts/status in abort.
  *                    Use DMA DONE bit instead of BUSY as recommended.
  *       sk  04/24/15 Modified the code according to MISRAC-2012.
  *       sk  06/17/15 Removed NULL checks for Rx/Tx buffers. As
@@ -368,9 +368,9 @@ void XQspiPsu_Abort(XQspiPsu *InstancePtr)
 	}
 
 	/*
-	 * Switch to IO mode to Clear RX FIFO. This is becuase of DMA behaviour
+	 * Switch to IO mode to Clear RX FIFO. This is because of DMA behaviour
 	 * where it waits on RX empty and goes busy assuming there is data
-	 * to be transfered even if there is no request.
+	 * to be transferred even if there is no request.
 	 */
 	if ((IntrStatus & XQSPIPSU_ISR_RXEMPTY_MASK) != 0U) {
 		ConfigReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,

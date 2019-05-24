@@ -74,7 +74,7 @@
 /*****************************************************************************/
 /**
 *
-* Performs a 16-bit endian converion.
+* Performs a 16-bit endian conversion.
 *
 * @param	Source contains the value to be converted.
 * @param	DestPtr contains a pointer to the location to put the
@@ -93,7 +93,7 @@ void XIo_EndianSwap16(u16 Source, u16 *DestPtr)
 /*****************************************************************************/
 /**
 *
-* Performs a 32-bit endian converion.
+* Performs a 32-bit endian conversion.
 *
 * @param	Source contains the value to be converted.
 * @param	DestPtr contains a pointer to the location to put the

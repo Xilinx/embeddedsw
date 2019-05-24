@@ -32,7 +32,7 @@
 * @addtogroup uartpsv_v1_0
 * @{
 *
-* The implementation of the XUartPsv driver's static initialzation
+* The implementation of the XUartPsv driver's static initialization
 * functionality.
 *
 * <pre>

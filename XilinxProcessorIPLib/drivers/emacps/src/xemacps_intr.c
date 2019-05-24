@@ -79,7 +79,7 @@
 
 /*****************************************************************************/
 /**
- * Install an asynchronious handler function for the given HandlerType:
+ * Install an asynchronous handler function for the given HandlerType:
  *
  * @param InstancePtr is a pointer to the instance to be worked on.
  * @param HandlerType indicates what interrupt handler type is.
@@ -233,7 +233,7 @@ void XEmacPs_IntrHandler(void *XEmacPsPtr)
 		}
 	}
 
-        /* When XEMACPS_IXR_TXCOMPL_MASK is flaged, XEMACPS_IXR_TXUSED_MASK
+        /* When XEMACPS_IXR_TXCOMPL_MASK is flagged, XEMACPS_IXR_TXUSED_MASK
          * will be asserted the same time.
          * Have to distinguish this bit to handle the real error condition.
          */

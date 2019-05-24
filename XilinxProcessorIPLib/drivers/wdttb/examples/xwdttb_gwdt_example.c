@@ -180,7 +180,7 @@ int GWdtTbExample(u16 DeviceId)
          */
         while (1) {
                 xil_printf(".");
-                /* Refresh  General Watchdog timer if generic_wdt_interrupt occured */
+                /* Refresh  General Watchdog timer if generic_wdt_interrupt occurred */
                 if(RefreshReg<=2)
                 {
                         if(XWdtTb_IsGenericWdtFWExpired(&GWatchdog))

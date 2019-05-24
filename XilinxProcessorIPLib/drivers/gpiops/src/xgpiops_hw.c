@@ -43,8 +43,8 @@
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.1	kvn  04/13/15 Add support for Zynq Ultrascale+ MP. CR# 856980.
 * 3.5   sne  03/01/19 Fixes violations according to MISRAC-2012
-*                     in saftey mode and modified the code such as
-*                     Use of mixed mode arithmetic,Declared the poiner param
+*                     in safety mode and modified the code such as
+*                     Use of mixed mode arithmetic,Declared the pointer param
 *                     as Pointer to const,Casting operation to a pointer,
 *                     Literal value requires a U suffix.
 * 3.5   sne  03/14/19 Added versal support.

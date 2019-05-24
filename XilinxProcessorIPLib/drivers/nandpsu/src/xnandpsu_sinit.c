@@ -32,7 +32,7 @@
 * @addtogroup nandpsu_v1_3
 * @{
 *
-* The implementation of the XNandPsu driver's static initialzation
+* The implementation of the XNandPsu driver's static initialization
 * functionality.
 *
 * <pre>

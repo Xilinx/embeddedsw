@@ -367,7 +367,7 @@ extern "C" {
 /* @} */
 
 /** @name  AHB Configuration Register
- * Provides the status of the CFGBIGEND input signal and allows the endianess
+ * Provides the status of the CFGBIGEND input signal and allows the endianness
  * of the GIC to be set.
  * @{
  */
@@ -380,7 +380,7 @@ extern "C" {
 /* @} */
 
 /** @name  Software Triggered Interrupt Register
- * Controls issueing of software interrupts.
+ * Controls issuing of software interrupts.
  * @{
  */
 #define XSCUGIC_SFI_SELFTRIG_MASK	0x02010000U
@@ -494,7 +494,7 @@ extern "C" {
 #endif
 /*
  * Highest Pending Interrupt register definitions
- * Identifies the interrupt priority of the highest priority pending interupt
+ * Identifies the interrupt priority of the highest priority pending interrupt
  */
 #define XSCUGIC_PEND_INTID_MASK		0x000003FFU /**< Pending Interrupt ID */
 /*#define XSCUGIC_CPUID_MASK		0x00000C00U */	 /**< CPU ID */

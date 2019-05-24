@@ -442,7 +442,7 @@ static int UartNs550SetupIntrSystem(INTC *IntcInstancePtr,
 	/*
 	 * Start the interrupt controller such that interrupts are enabled for
 	 * all devices that cause interrupts, specific real mode so that
-	 * the UART can cause interrupts thru the interrupt controller.
+	 * the UART can cause interrupts through the interrupt controller.
 	 */
 	Status = XIntc_Start(IntcInstancePtr, XIN_REAL_MODE);
 	if (Status != XST_SUCCESS) {

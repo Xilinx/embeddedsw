@@ -660,7 +660,7 @@ void XUsbPsu_WakeupIntr(struct XUsbPsu *InstancePtr)
 	}
 
 	/*
-	 * there can be suprious wakeup events , so wait for some time and check
+	 * there can be spurious wakeup events , so wait for some time and check
 	 * the link state
 	 */
 	XUsbSleep(XUSBPSU_TIMEOUT * 10U);

@@ -305,7 +305,7 @@ int XIic_MasterRecv(XIic *InstancePtr, u8 *RxMsgPtr, int ByteCount)
 
 	/*
 	 * Clear and enable Rx full interrupt if using 7 bit, If 10 bit, wait
-	 * until last address byte sent incase arbitration gets lost while
+	 * until last address byte sent in case arbitration gets lost while
 	 * sending out address.
 	 */
 	if ((InstancePtr->Options & XII_SEND_10_BIT_OPTION) == 0) {
@@ -377,7 +377,7 @@ int XIic_MasterRecv(XIic *InstancePtr, u8 *RxMsgPtr, int ByteCount)
 	}
 
 	/*
-	 * Tx error is enabled incase the address (7 or 10) has no device to
+	 * Tx error is enabled in case the address (7 or 10) has no device to
 	 * answer with Ack. When only one byte of data, must set NO ACK before
 	 * address goes out therefore Tx error must not be enabled as it will
 	 * go off immediately and the Rx full interrupt will be checked.
@@ -438,7 +438,7 @@ static int IsBusBusy(XIic *InstancePtr)
 	if (((CntlReg & XIIC_CR_MSMS_MASK) == 0) &&	/* Not master */
 		(StatusReg & XIIC_SR_BUS_BUSY_MASK)) {	/* Is busy */
 		/*
-		 * The bus is busy, clear pending BNB interrupt incase
+		 * The bus is busy, clear pending BNB interrupt in case
 		 * previously set and then enable BusNotBusy interrupt.
 		 */
 		InstancePtr->BNBOnly = TRUE;
@@ -482,7 +482,7 @@ static void SendSlaveAddr(XIic *InstancePtr)
 	 * Set the control register for Master Receive, repeated start must be
 	 * set before writing the address, MSMS should be already set, don't
 	 * set here so if arbitration is lost or some other reason we don't
-	 * want MSMS set incase of error.
+	 * want MSMS set in case of error.
 	 */
 	CRreg = XIic_ReadReg(InstancePtr->BaseAddress, XIIC_CR_REG_OFFSET);
 

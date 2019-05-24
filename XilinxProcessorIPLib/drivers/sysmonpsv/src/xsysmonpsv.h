@@ -33,7 +33,7 @@
 * The XSysMon driver supports the Xilinx System Monitor device on Versal
 *
 * The System Monitor device has the following features:
-*		- Measure and monitor upto 160 voltages across the chip
+*		- Measure and monitor up to 160 voltages across the chip
 *		- Automatic alarms based on user defined limis for the
 *		  on-chip supply voltages and temperature.
 *		- Optional interrupt request generation

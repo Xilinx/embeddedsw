@@ -288,7 +288,7 @@ void XAvb_Stop(XAvb * InstancePtr)
 /**
 *
 * The Interrupt subroutine for the "interruptPtpTimer" signal.  This interrupt
-* fires reguarly on a 1/128 second period (based on the RTC).
+* fires regularly on a 1/128 second period (based on the RTC).
 *
 * @param  InstancePtr is a pointer to the XAvb instance to be worked on
 *

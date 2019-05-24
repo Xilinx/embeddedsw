@@ -486,7 +486,7 @@ extern "C" {
 #define XSM_CFR1_SEQ_ONEPASS_MASK	  0x1000 /**< Onepass through Seq */
 #define XSM_CFR1_SEQ_CONTINPASS_MASK	  0x2000 /**< Continuous Cycling Seq */
 #define XSM_CFR1_SEQ_SINGCHAN_MASK	  0x3000 /**< Single channel - No Seq */
-#define XSM_CFR1_SEQ_SIMUL_SAMPLING_MASK  0x4000 /**< Simulataneous Sampling
+#define XSM_CFR1_SEQ_SIMUL_SAMPLING_MASK  0x4000 /**< Simultaneous Sampling
 						   *  Mask */
 #define XSM_CFR1_SEQ_INDEPENDENT_MASK	  0x8000 /**< Independent Mode */
 #define XSM_CFR1_SEQ_SHIFT		  12     /**< Sequence bit shift */

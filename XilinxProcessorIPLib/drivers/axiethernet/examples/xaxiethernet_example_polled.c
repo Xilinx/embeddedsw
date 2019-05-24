@@ -372,7 +372,7 @@ int AxiEthernetSingleFramePolledExample(void)
 	 * Wait for status of the transmitted packet
 	 */
 	switch (AxiEthernetPollForTxStatus()) {
-	case XST_SUCCESS:/* Got a sucessfull transmit status */
+	case XST_SUCCESS:/* Got a successful transmit status */
 		break;
 
 	case XST_NO_DATA:	/* Timed out */
@@ -391,7 +391,7 @@ int AxiEthernetSingleFramePolledExample(void)
 	 * Wait for packet Rx
 	 */
 	switch (AxiEthernetPollForRxStatus()) {
-	case XST_SUCCESS:/* Got a sucessfull receive status */
+	case XST_SUCCESS:/* Got a successful receive status */
 		break;
 
 	case XST_NO_DATA:	/* Timed out */
@@ -536,7 +536,7 @@ int AxiEthernetMultipleFramesPolledExample(void)
 		XLlFifo_TxSetLen(&FifoInstance, TxFrameLength);
 
 		switch (AxiEthernetPollForTxStatus()) {
-		case XST_SUCCESS:	/* Got a sucessfull transmit status */
+		case XST_SUCCESS:	/* Got a successful transmit status */
 			break;
 
 		case XST_NO_DATA:	/* Timed out */
@@ -563,7 +563,7 @@ int AxiEthernetMultipleFramesPolledExample(void)
 		 * Wait for packet Rx
 		 */
 		switch (AxiEthernetPollForRxStatus()) {
-		case XST_SUCCESS:	/* Got a successfull receive status */
+		case XST_SUCCESS:	/* Got a successful receive status */
 			break;
 
 		case XST_NO_DATA:	/* Timed out */

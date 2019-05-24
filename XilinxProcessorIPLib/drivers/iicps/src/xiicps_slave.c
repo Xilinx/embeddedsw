@@ -73,7 +73,7 @@ static s32 SlaveRecvData(XIicPs *InstancePtr);
 * @return	None.
 *
 * @note
-*	Interrupt is always enabled no matter the tranfer is interrupt-
+*	Interrupt is always enabled no matter the transfer is interrupt-
 *	driven or polled mode. Whether device will be interrupted or not
 *	depends on whether the device is connected to an interrupt
 *	controller and interrupt for the device is enabled.
@@ -113,7 +113,7 @@ void XIicPs_SetupSlave(XIicPs *InstancePtr, u16 SlaveAddr)
 /*****************************************************************************/
 /**
 * This function setup a slave interrupt-driven send. It set the repeated
-* start for the device is the tranfer size is larger than FIFO depth.
+* start for the device is the transfer size is larger than FIFO depth.
 * Data processing for the send is initiated by the interrupt handler.
 *
 * @param	InstancePtr is a pointer to the XIicPs instance.
@@ -416,7 +416,7 @@ s32 XIicPs_SlaveRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 *	data from us. Send more data, and check whether we are done with this
 *	send.
 *
-*	If the instance is receiving, it means that the master has writen
+*	If the instance is receiving, it means that the master has written
 * 	more data to us. Receive more data, and check whether we are done with
 *	with this receive.
 *
@@ -425,7 +425,7 @@ s32 XIicPs_SlaveRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 *	is about to terminate. However, for receiving, the master may have
 *	written us some data, so receive that first.
 *
-*	It is an error if the amount of transfered data is less than expected.
+*	It is an error if the amount of transferred data is less than expected.
 *
 * - NAK
 *	This marks that master does not want our data. It is for send only.

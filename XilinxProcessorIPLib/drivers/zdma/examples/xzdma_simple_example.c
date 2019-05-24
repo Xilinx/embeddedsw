@@ -276,9 +276,9 @@ int XZDma_SimpleExample(INTC *IntcInstPtr, XZDma *ZdmaInstPtr,
 
 	if (ErrorStatus) {
 		if (ErrorStatus & XZDMA_IXR_AXI_WR_DATA_MASK)
-			xil_printf("Error occured on write data channel\n\r");
+			xil_printf("Error occurred on write data channel\n\r");
 		if (ErrorStatus & XZDMA_IXR_AXI_RD_DATA_MASK)
-			xil_printf("Error occured on read data channel\n\r");
+			xil_printf("Error occurred on read data channel\n\r");
 		return XST_FAILURE;
 	}
 

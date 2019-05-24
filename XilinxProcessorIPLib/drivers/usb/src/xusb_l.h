@@ -355,10 +355,10 @@ extern "C" {
  *
  * @{
  */
-#define XUSB_HSIC_CONTROL_REGISTER	0x28	/**< HSIC Control Regsiter */
-#define XUSB_HSIC_STATUS_REGISTER	0x29	/**< HSIC Status Regsiter */
-#define XUSB_HSIC_STROBE_REGISTER	0x2A	/**< HSIC Strobe Regsiter */
-#define XUSB_HSIC_DATA_REGISTER		0x2B	/**< HSIC Data Regsiter */
+#define XUSB_HSIC_CONTROL_REGISTER	0x28	/**< HSIC Control Register */
+#define XUSB_HSIC_STATUS_REGISTER	0x29	/**< HSIC Status Register */
+#define XUSB_HSIC_STROBE_REGISTER	0x2A	/**< HSIC Strobe Register */
+#define XUSB_HSIC_DATA_REGISTER		0x2B	/**< HSIC Data Register */
 
 #define XUSB_HSIC_CR_SOFTRESET_MASK		0x00000001 /**< PHY Soft reset
 							      mask */

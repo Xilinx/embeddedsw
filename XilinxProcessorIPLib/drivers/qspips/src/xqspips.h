@@ -177,7 +177,7 @@
 * thread mutual exclusion, virtual memory, or cache control must be satisfied
 * by the layer above this driver.
 *
-* NOTE: This driver was always tested with endianess set to little-endian.
+* NOTE: This driver was always tested with endianness set to little-endian.
 *
 * <pre>
 * MODIFICATION HISTORY:

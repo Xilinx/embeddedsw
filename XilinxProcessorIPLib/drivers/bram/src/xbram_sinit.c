@@ -31,7 +31,7 @@
 * @addtogroup bram_v4_2
 * @{
 *
-* The implementation of the XBram driver's static initialzation
+* The implementation of the XBram driver's static initialization
 * functionality.
 *
 * @note

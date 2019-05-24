@@ -38,7 +38,7 @@
 #		      C_TYPE_OF_AXI4_INTERFACE parameters C_BASEADDR will 
 #		      be updated with the value of C_AXI4_BASEADDR.
 #		      Modified such that C_FIFO_EXIST will be updated based
-#		      on C_FIFO_DEPTH for compatability of driver
+#		      on C_FIFO_DEPTH for compatibility of driver
 # 3.06a adk 07/08/13 Added C_USE_STARTUP parameter to the config structure
 # 4.0   adk 12/10/13 Updated as per the New Tcl API's
 # 4.2   sk  11/09/15 Removed delete filename statement CR# 784758.

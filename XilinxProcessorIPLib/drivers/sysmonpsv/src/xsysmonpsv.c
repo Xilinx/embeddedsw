@@ -521,7 +521,7 @@ u32 XSysMonPsv_ReadSupplyValue(XSysMonPsv *InstancePtr,
 /*****************************************************************************/
 /**
 *
-* This function is to be used to check if new data is avaiable for a supply.
+* This function is to be used to check if new data is available for a supply.
 *
 * @param	InstancePtr is a pointer to the driver instance.
 * @param	Supply is an enum which indicates the desired supply.

@@ -31,7 +31,7 @@
 * @addtogroup gpio_v4_4
 * @{
 *
-* The implementation of the XGpio driver's static initialzation
+* The implementation of the XGpio driver's static initialization
 * functionality.
 *
 * @note
@@ -122,7 +122,7 @@ XGpio_Config *XGpio_LookupConfig(u16 DeviceId)
 *		application developer.
 *
 * @return
-*		- XST_SUCCESS if the initialization was successfull.
+*		- XST_SUCCESS if the initialization was successful.
 * 		- XST_DEVICE_NOT_FOUND  if the device configuration data was not
 *		found for a device with the supplied device ID.
 *

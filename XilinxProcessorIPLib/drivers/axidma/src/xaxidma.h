@@ -155,7 +155,7 @@
 * is allocated by the application, and it has to be contiguous. Physical
 * address is required to setup the BD ring.
 *
-* The applicaiton can use XAxiDma_BdRingMemCalc() to find out the amount of
+* The application can use XAxiDma_BdRingMemCalc() to find out the amount of
 * memory needed for a certain number of BDs. XAxiDma_BdRingCntCalc() can be
 * used to find out how many BDs can be allocated for certain amount of memory.
 *
@@ -291,7 +291,7 @@
 * All buffer addresses and BD addresses for the hardware are physical
 * addresses. The user application is responsible to provide physical buffer
 * address for the BD upon BD ring creation. The user application accesses BD
-* through its virtual addess. The driver maintains the address translation
+* through its virtual address. The driver maintains the address translation
 * between the physical and virtual address for BDs.
 *
 * <b> Cache Coherency </b>

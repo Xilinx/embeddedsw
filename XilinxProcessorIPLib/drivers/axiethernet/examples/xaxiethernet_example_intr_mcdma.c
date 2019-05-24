@@ -60,7 +60,7 @@
 *   asynchronous errors.
 *
 * - AxiEthernetResetDevice() demonstrates how to reset the driver/HW without
-*   loosing all configuration settings.
+*   losing all configuration settings.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -1924,7 +1924,7 @@ static int AxiEthernetSetupIntrSystem(INTC *IntcInstancePtr,
 	 */
 	Status = XIntc_Initialize(IntcInstancePtr, INTC_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
-		AxiEthernetUtilErrorTrap("Unable to intialize the interrupt controller");
+		AxiEthernetUtilErrorTrap("Unable to initialize the interrupt controller");
 		return XST_FAILURE;
 	}
 #endif

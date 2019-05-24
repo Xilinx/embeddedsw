@@ -104,7 +104,7 @@ u8 RecvBuffer[TEST_BUFFER_SIZE];	/* Buffer for Receiving Data */
 *
 * @param	None.
 *
-* @return	XST_SUCCESS if succesful, otherwise XST_FAILURE.
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 * @note		None.
 *
@@ -138,7 +138,7 @@ int main(void)
 * design example.  The purpose of this function is to illustrate how to use
 * the XUartNs550 component.
 *
-* This function sends data and expects to receive the data thru the UART
+* This function sends data and expects to receive the data through the UART
 * using the local loopback mode of the UART hardware.
 *
 * This function polls the UART and does not require the use of interrupts.
@@ -194,7 +194,7 @@ int UartNs550PolledExample(u16 DeviceId)
 	}
 
 	/*
-	 * Send the buffer thru the UART waiting till the data can be
+	 * Send the buffer through the UART waiting till the data can be
 	 * sent (block), if the specified number of bytes was not sent
 	 * successfully, then an error occurred
 	 */
@@ -204,7 +204,7 @@ int UartNs550PolledExample(u16 DeviceId)
 	}
 
 	/*
-	 * Receive the number of bytes which is transfered.
+	 * Receive the number of bytes which is transferred.
 	 * Data may be received in fifo with some delay hence we continuously
 	 * check the receive fifo for valid data and update the receive buffer
 	 * accordingly.

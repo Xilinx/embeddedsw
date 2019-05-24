@@ -57,7 +57,7 @@
  * 2.00a hvm  12/2/08  Updated the interrupt handler for handling the
  *			new DMA bits defined in the interrupt status register.
  * 3.00a hvm  12/3/09 Updated to use HAL processor APIs. Removed _m from the
- *   			Added the interrrupt handling for the error interrupts.
+ *   			Added the interrupt handling for the error interrupts.
  *			Added new API XUsb_ErrIntrSetHandler for setting up
  *			error handler.
  * 3.01a hvm  5/20/10 Updated with fix for CR561171. The interrupt handler is
@@ -300,7 +300,7 @@ void XUsb_IntrHandler(void *InstancePtr)
 	}
 
 	/*
-	 * Call the error handler if any USB error has occured.
+	 * Call the error handler if any USB error has occurred.
 	 *
 	 */
 	if (PendingIntr & XUSB_STATUS_ERROR_EVENT_MASK) {

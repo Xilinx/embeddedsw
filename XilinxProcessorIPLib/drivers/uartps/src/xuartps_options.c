@@ -100,13 +100,13 @@ static Mapping OptionsTable[] = {
 *
 * Gets the options for the specified driver instance. The options are
 * implemented as bit masks such that multiple options may be enabled or
-* disabled simulataneously.
+* disabled simultaneously.
 *
 * @param	InstancePtr is a pointer to the XUartPs instance.
 *
 * @return
 *
-* The current options for the UART. The optionss are bit masks that are
+* The current options for the UART. The options are bit masks that are
 * contained in the file xuartps.h and named XUARTPS_OPTION_*.
 *
 * @note		None.
@@ -123,7 +123,7 @@ u16 XUartPs_GetOptions(XUartPs *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/*
-	 * Loop thru the options table to map the physical options in the
+	 * Loop through the options table to map the physical options in the
 	 * registers of the UART to the logical options to be returned
 	 */
 	for (Index = 0U; Index < XUARTPS_NUM_OPTIONS; Index++) {
@@ -176,7 +176,7 @@ void XUartPs_SetOptions(XUartPs *InstancePtr, u16 Options)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/*
-	 * Loop thru the options table to map the logical options to the
+	 * Loop through the options table to map the logical options to the
 	 * physical options in the registers of the UART.
 	 */
 	for (Index = 0U; Index < XUARTPS_NUM_OPTIONS; Index++) {
@@ -583,7 +583,7 @@ u8 XUartPs_GetRecvTimeout(XUartPs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XUartPs instance.
 * @param	RecvTimeout setting allows the UART to detect an idle connection
-*		on the reciever data line.
+*		on the receiver data line.
 *		Timeout duration = RecvTimeout x 4 x Bit Period. 0 disables the
 *		timeout function.
 *

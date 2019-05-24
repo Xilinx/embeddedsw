@@ -425,7 +425,7 @@ int XIic_DynMasterRecv(XIic *InstancePtr, u8 *RxMsgPtr, u8 ByteCount)
 	XIic_DynSendStop(InstancePtr->BaseAddress, ByteCount);
 
 	/*
-	 * Tx error is enabled incase the address has no device to answer
+	 * Tx error is enabled in case the address has no device to answer
 	 * with Ack. When only one byte of data, must set NO ACK before address
 	 * goes out therefore Tx error must not be enabled as it will go off
 	 * immediately and the Rx full interrupt will be checked. If full, then
@@ -584,7 +584,7 @@ static int IsBusBusy(XIic *InstancePtr)
 	if (((CntlReg & XIIC_CR_MSMS_MASK) == 0) &&	/* Not master */
 		(StatusReg & XIIC_SR_BUS_BUSY_MASK)) {	/* Is busy    */
 		/*
-		 * The bus is busy, clear pending BNB interrupt incase
+		 * The bus is busy, clear pending BNB interrupt in case
 		 * previously set and then enable BusNotBusy interrupt.
 		 */
 		InstancePtr->BNBOnly = TRUE;

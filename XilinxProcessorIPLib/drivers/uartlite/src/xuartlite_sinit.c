@@ -32,7 +32,7 @@
 * @addtogroup uartlite_v3_2
 * @{
 *
-* The implementation of the XUartLite component's static initialzation
+* The implementation of the XUartLite component's static initialization
 * functionality.
 *
 * <pre>

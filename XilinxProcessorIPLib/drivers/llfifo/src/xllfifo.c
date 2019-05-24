@@ -91,7 +91,7 @@
  * Once the streamer objects are set up, the API routines in this driver, just
  * call through to the streamer driver to perform the read/write operations.
  * The streamer driver will eventually make calls back into the routines (which
- * reside in this driver) given at initialization to peform the actual I/O.
+ * reside in this driver) given at initialization to perform the actual I/O.
  *
  * Interrupts
  * Interrupts are handled in the OS/Application layer above this driver.
@@ -182,7 +182,7 @@ int XLlFifo_iRead_Aligned(XLlFifo *InstancePtr, void *BufPtr,
 	xdbg_printf(XDBG_DEBUG_FIFO_RX, "XLlFifo_iRead_Aligned: start\n");
 	Xil_AssertNonvoid(InstancePtr);
 	Xil_AssertNonvoid(BufPtr);
-	/* assert bufer is 32 bit aligned */
+	/* assert buffer is 32 bit aligned */
 	Xil_AssertNonvoid(((unsigned)BufPtr & 0x3) == 0x0);
 	xdbg_printf(XDBG_DEBUG_FIFO_RX, "XLlFifo_iRead_Aligned: after asserts\n");
 
@@ -290,7 +290,7 @@ int XLlFifo_iWrite_Aligned(XLlFifo *InstancePtr, void *BufPtr,
 		    InstancePtr, BufPtr, WordCount);
 	Xil_AssertNonvoid(InstancePtr);
 	Xil_AssertNonvoid(BufPtr);
-	/* assert bufer is 32 bit aligned */
+	/* assert buffer is 32 bit aligned */
 	Xil_AssertNonvoid(((unsigned)BufPtr & 0x3) == 0x0);
 
 	xdbg_printf(XDBG_DEBUG_FIFO_TX,

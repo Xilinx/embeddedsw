@@ -49,7 +49,7 @@
 *   - Maskable Error and Status Interrupts.
 *   - Readable Error Counters.
 *   - External PHY chip required.
-*   - Backward compatiable for Legacy CAN.
+*   - Backward compatible for Legacy CAN.
 *   - Supports reception in Mailbox and Sequential Mode
 *
 * The device driver supports all the features listed above, if applicable.
@@ -239,7 +239,7 @@ exclusion
 *			 Modified apis
 *						XCanFd_SetBitTiming
 *                                               XCanFd_SetFBitTiming in xcanfd.h
-*       ask  07/03/18 Fix for Sequencial recv CR# 992606,CR# 1004222.
+*       ask  07/03/18 Fix for Sequential recv CR# 992606,CR# 1004222.
 *       nsk  07/11/18 Updated tcl to generate CANFD Frequency macro in
 *		      xparameters.h (CR 1005641).
 *	ask  08/27/18 Modified RecvSeq function to return XST_NO_DATA when the

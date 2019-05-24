@@ -33,7 +33,7 @@
 #			      to fix CR#794167.
 # 2.2	   nsk	  21/07/15 Updated iomodule_define_vector_table by removing
 #		  	   absoluted hsi commands like xget_handle.CR#865544.
-#			   Modified generate proc to get canonical defintions
+#			   Modified generate proc to get canonical definitions
 #			   in xparameters.h.
 # 2.2	   nsk	  07/08/15 Updated iomodule_define_vector_table to handle
 #		 	   External vector interrupts CR#871572.
@@ -520,7 +520,7 @@ proc xredefine_iomodule {drvhandle config_inc} {
                 incr i
             }
         } else {
-            #peripheral interrrupt case
+            #peripheral interrupt case
             set port_type($i) "local"
             set source_name($i) [common::get_property NAME $source_periph($i)]
             set source_port_name($i) [common::get_property NAME $source_pin]

@@ -641,7 +641,7 @@ LONG XEmacPs_ClearOptions(XEmacPs *InstancePtr, u32 Options)
 	RegNewNetCfg = RegNetCfg;
 
 	/* There is only RX configuration!?
-	 * It is configured in two different length, upto 1536 and 10240 bytes
+	 * It is configured in two different length, up to 1536 and 10240 bytes
 	 */
 		if ((Options & XEMACPS_FRAME1536_OPTION) != 0x00000000U) {
 			RegNewNetCfg &= (u32)(~XEMACPS_NWCFG_1536RXEN_MASK);
@@ -772,7 +772,7 @@ LONG XEmacPs_ClearOptions(XEmacPs *InstancePtr, u32 Options)
  *
  * @return
  * A bitmask of XTE_*_OPTION constants. Any bit set to 1 is to be interpreted
- * as a set opion.
+ * as a set option.
  *
  * @note
  * See xemacps.h for a description of the available options.

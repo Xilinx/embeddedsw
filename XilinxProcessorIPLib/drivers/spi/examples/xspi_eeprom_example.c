@@ -434,7 +434,7 @@ void EepromWrite(XSpi *SpiPtr, u16 Address, u8 ByteCount, EepromBuffer Buffer)
 
 	/*
 	 * Send the write enable command to the SEEPOM so that it can be
-	 * written to, this needs to be sent as a seperate transfer before
+	 * written to, this needs to be sent as a separate transfer before
 	 * the write
 	 */
 	TransferInProgress = TRUE;
@@ -559,7 +559,7 @@ static int SetupInterruptSystem(XSpi *SpiPtr)
 	/*
 	 * Start the interrupt controller such that interrupts are enabled for
 	 * all devices that cause interrupts, specific real mode so that
-	 * the SPI can cause interrupts thru the interrupt controller.
+	 * the SPI can cause interrupts through the interrupt controller.
 	 */
 	Status = XIntc_Start(&InterruptController, XIN_REAL_MODE);
 	if (Status != XST_SUCCESS) {

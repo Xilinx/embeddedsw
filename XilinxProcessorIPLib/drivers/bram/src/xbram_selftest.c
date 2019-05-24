@@ -101,7 +101,7 @@ static void InjectErrors(XBram * InstancePtr, UINTPTR Addr,
 * Generate a pseudo random number.
 *
 * @param	The PrngResult is the previous random number in the pseudo
-*		random sequence, also knwon as the seed. It is modified to
+*		random sequence, also known as the seed. It is modified to
 *		the calculated pseudo random number by the function.
 *
 * @return 	The generated pseudo random number

@@ -32,7 +32,7 @@
 * @addtogroup qspipsu_v1_9
 * @{
 *
-* This file contains low level access funcitons using the base address
+* This file contains low level access functions using the base address
 * directly without an instance.
 *
 * <pre>
@@ -146,7 +146,7 @@ extern "C" {
 #define XQSPIPSU_LQSPI_CR_OFFSET	0X000000A0U
 #define XQSPIPSU_LQSPI_CR_LINEAR_MASK     0x80000000U /**< LQSPI mode enable */
 #define XQSPIPSU_LQSPI_CR_TWO_MEM_MASK    0x40000000U /**< Both memories or one */
-#define XQSPIPSU_LQSPI_CR_SEP_BUS_MASK    0x20000000U /**< Seperate memory bus */
+#define XQSPIPSU_LQSPI_CR_SEP_BUS_MASK    0x20000000U /**< Separate memory bus */
 #define XQSPIPSU_LQSPI_CR_U_PAGE_MASK     0x10000000U /**< Upper memory page */
 #define XQSPIPSU_LQSPI_CR_ADDR_32BIT_MASK     0x01000000U /**< Upper memory page */
 #define XQSPIPSU_LQSPI_CR_MODE_EN_MASK    0x02000000U /**< Enable mode bits */

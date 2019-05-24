@@ -36,7 +36,7 @@
  * interconnect connected in the system.
  *
  * This example demonstrates  how to use the Static mode in the Axi Traffic 
- * Genrator.In Static mode the core continously genrates fixed address and 
+ * Genrator.In Static mode the core continuously generates fixed address and 
  * fixed INCR type read and write transfers based on the burst length 
  * configured.
  * 
@@ -133,8 +133,8 @@ int main()
 *       - Set up the output terminal if UART16550 is in the hardware build
 *       - Initialize the AXI Traffic Generator device
 *	- Fill's the Target memory with required data
-*	- Enable the Traffic genration
-*	- Disable the Traffic genration
+*	- Enable the Traffic generation
+*	- Disable the Traffic generation
 *       - Return test status and exit
 *
 * @param	InstancePtr is a pointer to the instance of the
@@ -205,7 +205,7 @@ int XTrafGenStaticModeExample(XTrafGen *InstancePtr, u16 DeviceId)
 	/* Set the Required Burst length */
 	XTrafGen_SetStaticBurstLen(InstancePtr, BURST_LEN);
 	
-	/* Disable the traffic genration */
+	/* Disable the traffic generation */
 	XTrafGen_StaticDisable(InstancePtr);
 	
 	/* Check for the Static control DONE Bit resets */
@@ -216,10 +216,10 @@ int XTrafGenStaticModeExample(XTrafGen *InstancePtr, u16 DeviceId)
 		return Status;
 	}
 	
-	/* Enable the traffic genration */
+	/* Enable the traffic generation */
 	XTrafGen_StaticEnable(InstancePtr);
 	
-	/* Disable the traffic genration */
+	/* Disable the traffic generation */
 	XTrafGen_StaticDisable(InstancePtr);
 	
 	/* Wait till data transmission completes */

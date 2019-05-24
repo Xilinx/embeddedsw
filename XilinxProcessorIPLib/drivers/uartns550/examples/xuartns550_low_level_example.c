@@ -129,7 +129,7 @@ int main(void)
 *
 * This function does a minimal test on the UART device using the low-level
 * driver macros and functions. This function sends data and expects to receive
-* the data thru the UART. A physical loopback must be done by the user with the
+* the data through the UART. A physical loopback must be done by the user with the
 * tranmit and receive signals of the UART.
 *
 * @param	UartBaseAddress is the base address of the UARTNS550 device

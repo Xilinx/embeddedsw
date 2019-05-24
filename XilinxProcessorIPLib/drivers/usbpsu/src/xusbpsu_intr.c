@@ -71,7 +71,7 @@
 * Endpoint interrupt handler.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Event is endpoint Event occured in the core.
+* @param	Event is endpoint Event occurred in the core.
 *
 * @return	None.
 *
@@ -374,7 +374,7 @@ void XUsbPsu_LinkStsChangeIntr(struct XUsbPsu *InstancePtr, u32 EvtInfo)
 * Interrupt handler for device specific events.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Event is the Device Event occured in core.
+* @param	Event is the Device Event occurred in core.
 *
 * @return	None.
 *

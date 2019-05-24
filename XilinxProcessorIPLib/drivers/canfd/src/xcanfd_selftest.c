@@ -214,7 +214,7 @@ int XCanFd_SelfTest(XCanFd *InstancePtr)
 		return Status;
 	}
 
-	/* Wait untill buffer is transmitted. */
+	/* Wait until buffer is transmitted. */
 	while (XCanFd_IsBufferTransmitted(InstancePtr,TxBuffer) == FALSE);
 
 	if (XCANFD_GET_RX_MODE(InstancePtr) == 1) {

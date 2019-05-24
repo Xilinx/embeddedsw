@@ -512,7 +512,7 @@ extern "C" {
 
 /* @} */
 
-/** @name Maximum Current Capablities Register
+/** @name Maximum Current Capabilities Register
  *
  * This register is read only register which contains
  * information about current capabilities at each voltage levels.
@@ -568,7 +568,7 @@ extern "C" {
 #define XSDPS_FE_INTR_ERR_CUR_LMT_MASK	0x0080U /**< Current Limit Error */
 #define XSDPS_FE_INTR_ERR_AUTO_CMD_MASK	0x0100U /**< Auto CMD Error */
 #define XSDPS_FE_INTR_ERR_ADMA_MASK	0x0200U /**< ADMA Error */
-#define XSDPS_FE_INTR_ERR_TR_MASK	0x1000U /**< Target Reponse */
+#define XSDPS_FE_INTR_ERR_TR_MASK	0x1000U /**< Target Response */
 #define XSDPS_FE_INTR_VEND_SPF_ERR_MASK	0xE000U /**< Vendor Specific
 							Error */
 

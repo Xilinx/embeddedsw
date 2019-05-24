@@ -32,7 +32,7 @@
 * @addtogroup trafgen_v4_2
 * @{
 *
-* This file contains static initialzation functionality for Axi Traffic
+* This file contains static initialization functionality for Axi Traffic
 * Generator driver.
 *
 * <pre>

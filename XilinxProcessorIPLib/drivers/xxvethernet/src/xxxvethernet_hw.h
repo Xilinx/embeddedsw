@@ -192,7 +192,7 @@ extern "C" {
 						    */
 /*@}*/
 
-/** @name Transmit Inter-Frame Gap Adjustement Register (TFGP) bit definitions
+/** @name Transmit Inter-Frame Gap Adjustment Register (TFGP) bit definitions
  *  @{
  */
 #define XXE_TFGP_IFGP_MASK		0x0000007F /**< Transmit inter-frame

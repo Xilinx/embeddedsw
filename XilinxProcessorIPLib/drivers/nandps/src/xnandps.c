@@ -1050,7 +1050,7 @@ int XNandPs_WriteCache(XNandPs *InstancePtr, u64 Offset, u32 Length,
 *
 * This function sends a NAND command to the flash device.
 *
-* @param	InstancePtr is the pointer to XNandPs struture
+* @param	InstancePtr is the pointer to XNandPs structure
 * @param	Command is the NAND command to send
 * @param	Page is the page offset required for specific commands
 * @param	Column the column offset required for specific commands

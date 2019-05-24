@@ -151,7 +151,7 @@ void IpiIntrHandler(void *XIpiPsuPtr)
 					TEST_MSG_LEN, XIPIPSU_BUF_TYPE_RESP);
 			xil_printf("Sent back Inverted Message.\r\n");
 
-			/* Clear the Interrupt Status - This clears the OBS bit on teh SRC CPU registers */
+			/* Clear the Interrupt Status - This clears the OBS bit on the SRC CPU registers */
 			XIpiPsu_ClearInterruptStatus(InstancePtr,
 					InstancePtr->Config.TargetList[SrcIndex].Mask);
 
@@ -251,7 +251,7 @@ static XStatus DoIpiTest(XIpiPsu *InstancePtr)
 		XIpiPsu_ReadMessage(InstancePtr, DestCfgPtr->BitMask, TmpBuffer,
 		TEST_MSG_LEN, XIPIPSU_BUF_TYPE_RESP);
 		/**
-		 * Set the Status to SUCCESS; Status will be set to FAILURE incase the check fails
+		 * Set the Status to SUCCESS; Status will be set to FAILURE in case the check fails
 		 * in the consequent code
 		 */
 		Status = XST_SUCCESS;

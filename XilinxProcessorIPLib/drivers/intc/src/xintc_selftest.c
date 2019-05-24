@@ -166,7 +166,7 @@ int XIntc_SelfTest(XIntc * InstancePtr)
 * started in simulation mode. Once it has been started in real mode,
 * interrupts cannot be simulated. A simulated interrupt allows the interrupt
 * controller to be tested without any device to drive an interrupt input
-* signal into it. In Cascade mode writes to ISR of appropraite Slave
+* signal into it. In Cascade mode writes to ISR of appropriate Slave
 * controller depending on Id.
 *
 * @param	InstancePtr is a pointer to the XIntc instance to be worked on.

@@ -185,8 +185,8 @@
 *			XSM_MIN_VUSR3,XSM_ATR_VUSR0_UPPER -
 *			XSM_ATR_VUSR3_LOWER macros.
 *			Added XSM_IP_OFFSET macro(since register
-*			offsets are different for Ultrascale comapared to
-*			earlier familes),Offsets,Masks for VUSER0 to
+*			offsets are different for Ultrascale compared to
+*			earlier families),Offsets,Masks for VUSER0 to
 *			VUSER3 channels, Configuration Register 3 and
 *			Sequence Registers 8 and 9 in xsysmon_hw.h.
 *			Modified XSysMon_GetAdcData,
@@ -370,7 +370,7 @@ extern "C" {
 
 /*@}*/
 
-/* For backwards compatabilty */
+/* For backwards compatibility */
 #define XSM_CH_CALIBRATION	XSM_CH_ADC_CALIB
 #define XSM_ATR_BRAM_UPPER	XSM_ATR_VBRAM_UPPER
 #define XSM_ATR_BRAM_LOWER	XSM_ATR_VBRAM_LOWER

@@ -539,7 +539,7 @@ static int SysMonIntrExample(INTC* IntcInstPtr, XSysMon* SysMonInstPtr,
 			 * Alarm 0 - Temperature alarm interrupt has occurred.
 			 * The required processing should be put here.
 			 */
-			printf("Alarm 0 - Temperature alarm has occured \r\n");
+			printf("Alarm 0 - Temperature alarm has occurred \r\n");
 			break;
 		}
 
@@ -548,7 +548,7 @@ static int SysMonIntrExample(INTC* IntcInstPtr, XSysMon* SysMonInstPtr,
 			 * Alarm 1 - VCCINT alarm interrupt has occurred.
 			 * The required processing should be put here.
 			 */
-			printf("Alarm 1 - VCCINT alarm has occured \r\n");
+			printf("Alarm 1 - VCCINT alarm has occurred \r\n");
 			break;
 		}
 
@@ -557,7 +557,7 @@ static int SysMonIntrExample(INTC* IntcInstPtr, XSysMon* SysMonInstPtr,
 			 * Alarm 2 - VCCAUX alarm interrupt has occurred.
 			 * The required processing should be put here.
 			 */
-			printf("Alarm 2 - VCCAUX alarm has occured \r\n");
+			printf("Alarm 2 - VCCAUX alarm has occurred \r\n");
 			break;
 		}
 	}

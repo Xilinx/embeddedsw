@@ -32,7 +32,7 @@
 * @addtogroup usbps_v2_4
 * @{
  *
- * The implementation of the XUsbPs driver's static initialzation
+ * The implementation of the XUsbPs driver's static initialization
  * functionality.
  *
  * <pre>

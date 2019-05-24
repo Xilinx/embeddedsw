@@ -32,7 +32,7 @@
 *
 * This file contains an example using the XUartPs driver in polled mode.
 *
-* This function sends data and expects to receive the data thru the device
+* This function sends data and expects to receive the data through the device
 * using the local loopback mode.
 *
 * @note
@@ -97,7 +97,7 @@ static u8 RecvBuffer[TEST_BUFFER_SIZE];	/* Buffer for Receiving Data */
 *
 * @param	None
 *
-* @return	XST_SUCCESS if succesful, otherwise XST_FAILURE
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE
 *
 * @note		None
 *
@@ -127,7 +127,7 @@ int main(void)
 *
 * This function does a minimal test on the XUartPs device in polled mode.
 *
-* This function sends data and expects to receive the data thru the UART
+* This function sends data and expects to receive the data through the UART
 * using the local loopback mode.
 *
 *

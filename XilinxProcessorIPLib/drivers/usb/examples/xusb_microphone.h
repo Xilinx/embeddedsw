@@ -291,7 +291,7 @@ FPGA1_CONFIGURATION __attribute__ ((aligned(4))) HsUsbConfig = {
 		sizeof(USB_STD_AUDIO_EP_DESC),	/* bLength */
 		ENDPOINT_DESCR,			/* bType */
 		0x81,				/* bEndpoint IN endpoint
-						   adress 1*/
+						   address 1*/
 		USB_ISOC_TRANSFER_TYPE_ADAPT, 	/* Isochronous, adaptive */
 		0x00,				/* bMaxPacketSizeL */
 		0x14,				/* bMaxPacketSizeH */
@@ -464,7 +464,7 @@ FPGA1_CONFIGURATION __attribute__ ((aligned(4))) FsUsbConfig = {
 		sizeof(USB_STD_AUDIO_EP_DESC),	/* bLength */
 		ENDPOINT_DESCR,			/* bType */
 		0x81,				/* bEndpoint IN endpoint
-						   adress 1*/
+						   address 1*/
 		USB_ISOC_TRANSFER_TYPE_ADAPT, 	/* Isochronous, adaptive */
 		0x00,				/* bMaxPacketSizeL */
 		0x10,				/* bMaxPacketSizeH */
