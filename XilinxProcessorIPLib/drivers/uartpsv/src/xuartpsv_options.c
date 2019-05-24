@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartpsv_options.c
-* @addtogroup uartpsv_v1_2
+* @addtogroup uartpsv_v1_3
 * @{
 *
 * The implementation of the options functions for the XUartPsv driver.
@@ -20,6 +20,8 @@
 * 1.0  sg   09/18/17  First Releasee
 * 1.2  rna  01/20/20  Use XUartPsv_ProgramCtrlReg function to change mode
 *		      Add functions to set Tx and Rx FIFO threshold levels
+* 1.3  rna  04/08/20  Format is corrected in XUartPsv_SetDataFormat function
+*      rna  05/18/20  Fix MISRA-C violations
 * </pre>
 *
 ******************************************************************************/
@@ -51,7 +53,7 @@ typedef struct {
  * maintenance and expansion of the options.
  */
 
-static Mapping OptionsTable[] = {
+static Mapping XUartPsv_OptionsTable[] = {
 	{XUARTPSV_OPTION_SET_BREAK, XUARTPSV_UARTCR_OFFSET,
 				XUARTPSV_UARTLCR_BRK},
 	{XUARTPSV_OPTION_STOP_BREAK, XUARTPSV_UARTCR_OFFSET,
@@ -72,7 +74,7 @@ static Mapping OptionsTable[] = {
 
 /* Create a constant for the number of entries in the table */
 
-#define XUARTPSV_NUM_OPTIONS	  (sizeof(OptionsTable) / sizeof(Mapping))
+#define XUARTPSV_NUM_OPTIONS	  (sizeof(XUartPsv_OptionsTable) / sizeof(Mapping))
 
 /************************** Function Prototypes ******************************/
 
@@ -108,7 +110,7 @@ u16 XUartPsv_GetOptions(XUartPsv *InstancePtr)
 	 */
 	for (Index = 0U; Index < XUARTPSV_NUM_OPTIONS; Index++) {
 		Register = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
-				OptionsTable[Index].RegisterOffset);
+				XUartPsv_OptionsTable[Index].RegisterOffset);
 
 		/*
 		 * If the bit in the register which correlates to the option
@@ -116,8 +118,8 @@ u16 XUartPsv_GetOptions(XUartPsv *InstancePtr)
 		 * ignoring any bits which are zero since the options
 		 * variable is initialized to zero
 		 */
-		if ((Register & OptionsTable[Index].Mask) != (u32)0) {
-			Options |= OptionsTable[Index].Option;
+		if ((Register & XUartPsv_OptionsTable[Index].Mask) != (u32)0) {
+			Options |= XUartPsv_OptionsTable[Index].Option;
 		}
 	}
 
@@ -167,11 +169,11 @@ void XUartPsv_SetOptions(XUartPsv *InstancePtr, u16 Options)
 		 * of the register.
 		 */
 		Register = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
-					OptionsTable[Index].RegisterOffset);
+					XUartPsv_OptionsTable[Index].RegisterOffset);
 
 		/* Write the new value to the register to set the option */
 		XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
-				OptionsTable[Index].RegisterOffset, Register);
+				XUartPsv_OptionsTable[Index].RegisterOffset, Register);
 	}
 
 }
@@ -240,8 +242,7 @@ void XUartPsv_SetFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
 	Xil_AssertVoid(TriggerLevel <= (u8)XUARTPSV_UARTIFLS_TXIFLSEL_MASK);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	TriggerLevel = ((u32)TriggerLevel) &
-				(u32)XUARTPSV_UARTIFLS_TXIFLSEL_MASK;
+	TriggerLevel = TriggerLevel & (u8)XUARTPSV_UARTIFLS_TXIFLSEL_MASK;
 
 	FifoTrigRegister = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
 					XUARTPSV_UARTIFLS_OFFSET);
@@ -249,8 +250,8 @@ void XUartPsv_SetFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
 	FifoTrigRegister &= ~(XUARTPSV_UARTIFLS_TXIFLSEL_MASK |
 					XUARTPSV_UARTIFLS_RXIFLSEL_MASK);
 
-	FifoTrigRegister |= TriggerLevel << XUARTPSV_UARTIFLS_TXIFLSEL_SHIFT;
-	FifoTrigRegister |= TriggerLevel << XUARTPSV_UARTIFLS_RXIFLSEL_SHIFT;
+	FifoTrigRegister |= (u32)TriggerLevel << XUARTPSV_UARTIFLS_TXIFLSEL_SHIFT;
+	FifoTrigRegister |= (u32)TriggerLevel << XUARTPSV_UARTIFLS_RXIFLSEL_SHIFT;
 
 	/*
 	 * Write the new value for the FIFO control register to it such that
@@ -289,15 +290,14 @@ void XUartPsv_SetTxFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
 	Xil_AssertVoid(TriggerLevel <= (u8)XUARTPSV_UARTIFLS_TXIFLSEL_MASK);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	TriggerLevel = ((u32)TriggerLevel) &
-				(u32)XUARTPSV_UARTIFLS_TXIFLSEL_MASK;
+	TriggerLevel = TriggerLevel & (u8)XUARTPSV_UARTIFLS_TXIFLSEL_MASK;
 
 	FifoTrigRegister = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
 					XUARTPSV_UARTIFLS_OFFSET);
 
 	FifoTrigRegister &= ~XUARTPSV_UARTIFLS_TXIFLSEL_MASK;
 
-	FifoTrigRegister |= TriggerLevel << XUARTPSV_UARTIFLS_TXIFLSEL_SHIFT;
+	FifoTrigRegister |= (u32)TriggerLevel << XUARTPSV_UARTIFLS_TXIFLSEL_SHIFT;
 
 	/*
 	 * Write the new value for the FIFO control register to it such that
@@ -336,8 +336,7 @@ void XUartPsv_SetRxFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
 	Xil_AssertVoid(TriggerLevel <= (u8)XUARTPSV_UARTIFLS_RXIFLSEL_MASK);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	TriggerLevel = ((u32)TriggerLevel) &
-				(u32)XUARTPSV_UARTIFLS_RXIFLSEL_MASK;
+	TriggerLevel = TriggerLevel & (u8)XUARTPSV_UARTIFLS_RXIFLSEL_MASK;
 
 	FifoTrigRegister = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
 					XUARTPSV_UARTIFLS_OFFSET);
@@ -426,8 +425,8 @@ u32 XUartPsv_IsSending(XUartPsv *InstancePtr)
 	 */
 	ActiveResult = FlagRegister & ((u32)XUARTPSV_UARTFR_BUSY);
 	EmptyResult = FlagRegister & ((u32)XUARTPSV_UARTFR_TXFE);
-	SendStatus = (((u32)XUARTPSV_UARTFR_BUSY) == ActiveResult) ||
-		(((u32)XUARTPSV_UARTFR_TXFE) != EmptyResult);
+	SendStatus = (u32)((XUARTPSV_UARTFR_BUSY == ActiveResult) ||
+		(XUARTPSV_UARTFR_TXFE != EmptyResult));
 
 	return SendStatus;
 }
@@ -511,7 +510,7 @@ void XUartPsv_SetOperMode(XUartPsv *InstancePtr, u8 OperationMode)
 				XUARTPSV_UARTCR_OFFSET);
 
 	/* Set the correct value by masking the bits, then ORing the const. */
-	CtrlRegister &= (u32)(~XUARTPSV_UARTCR_MODE_MASK);
+	CtrlRegister &= ~(u32)XUARTPSV_UARTCR_MODE_MASK;
 
 	switch (OperationMode) {
 		case XUARTPSV_OPER_MODE_NORMAL:
@@ -567,10 +566,10 @@ s32 XUartPsv_SetDataFormat(XUartPsv *InstancePtr,
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Verify the inputs specified are valid */
-	if ((FormatPtr->DataBits > ((u32)XUARTPSV_FORMAT_6_BITS)) ||
+	if ((FormatPtr->DataBits > ((u32)XUARTPSV_FORMAT_8_BITS)) ||
 		(FormatPtr->StopBits > ((u8)XUARTPSV_FORMAT_2_STOP_BIT)) ||
-		(FormatPtr->Parity > ((u32)XUARTPSV_FORMAT_NO_PARITY))) {
-		Status = XST_INVALID_PARAM;
+		(FormatPtr->Parity > ((u32)XUARTPSV_FORMAT_PARITY_MASK))) {
+		Status = (s32)XST_INVALID_PARAM;
 	} else {
 
 		/*
@@ -594,8 +593,7 @@ s32 XUartPsv_SetDataFormat(XUartPsv *InstancePtr,
 			 * out the bits that control it in the register,
 			 * then set the length in the register
 			 */
-			LineCtrlRegister &= (u32)
-					(~XUARTPSV_UARTLCR_WLEN_MASK);
+			LineCtrlRegister &= ~(u32)XUARTPSV_UARTLCR_WLEN_MASK;
 			LineCtrlRegister |= (FormatPtr->DataBits <<
 						XUARTPSV_UARTLCR_WLEN_SHIFT);
 
@@ -605,7 +603,7 @@ s32 XUartPsv_SetDataFormat(XUartPsv *InstancePtr,
 			 * register, then set the number of stop bits in the
 			 * register.
 			 */
-			LineCtrlRegister &= (u32)(~XUARTPSV_UARTLCR_STP_MASK);
+			LineCtrlRegister &= ~(u32)XUARTPSV_UARTLCR_STP_MASK;
 			LineCtrlRegister |= (((u32)FormatPtr->StopBits) <<
 						XUARTPSV_UARTLCR_STP_SHIFT);
 
@@ -615,17 +613,25 @@ s32 XUartPsv_SetDataFormat(XUartPsv *InstancePtr,
 			 * the register, the default is no parity after
 			 * clearing the register bits
 			 */
-			LineCtrlRegister &= (u32)
-					(~XUARTPSV_UARTLCR_PARITY_MASK);
-			LineCtrlRegister |= (FormatPtr->Parity <<
+			LineCtrlRegister &= ~(u32)XUARTPSV_UARTLCR_PARITY_MASK;
+			LineCtrlRegister |= ((FormatPtr->Parity &
+						XUARTPSV_FORMAT_EN_PARITY) <<
 						XUARTPSV_UARTLCR_PARITY_SHIFT);
+			/* Even/Odd parity set */
+			LineCtrlRegister |= ((FormatPtr->Parity &
+                                                XUARTPSV_FORMAT_EVEN_PARITY) <<
+                                                XUARTPSV_FORMAT_EVEN_PARITY_SHIFT);
+			/* Stick parity enable/disable */
+			LineCtrlRegister |= ((FormatPtr->Parity &
+                                                XUARTPSV_FORMAT_EN_STICK_PARITY) <<
+                                                XUARTPSV_FORMAT_EN_STICK_PARITY_SHIFT);
 
 			/* Update the Line control register */
 			XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
 					XUARTPSV_UARTLCR_OFFSET,
 					LineCtrlRegister);
 
-			Status = XST_SUCCESS;
+			Status = (s32)XST_SUCCESS;
 		}
 	}
 	return Status;

@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartpsv_sinit.c
-* @addtogroup uartpsv_v1_2
+* @addtogroup uartpsv_v1_3
 * @{
 *
 * The implementation of the XUartPsv driver's static initialization
@@ -37,7 +37,6 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Variable Definitions *****************************/
-extern XUartPsv_Config XUartPsv_ConfigTable[XPAR_XUARTPSV_NUM_INSTANCES];
 
 /************************** Function Prototypes ******************************/
 
