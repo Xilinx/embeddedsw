@@ -104,6 +104,9 @@ typedef enum {
 	XVIDC_VM_7680x4320_30_P_MSTAR,
 	XVIDC_VM_5120x2880_60_P_MSTAR,
 	XVIDC_VM_3840x2160_120_P_MSTAR,
+    XVIDC_VM_3840x2160_82_ASUS,
+     XVIDC_VM_3840x2160_98_ASUS,
+     XVIDC_VM_3840x2160_120_ASUS,
 	XVIDC_MAX_NUM_SUPPORTED
 } XVIDC_CUSTOM_MODES;
 
@@ -184,6 +187,21 @@ const XVidC_VideoTimingMode XVidC_AdditionalTimingModes[
     { XVIDC_VM_3840x2160_120_P_MSTAR, "3840x2160@120Hz(MSTAR)", XVIDC_FR_120HZ,
         {3840, 48, 34, 79, 4001, 0,
          2160, 4, 6, 53, 2223, 0, 0, 0, 0, 1} }, 	 
+         //Asus 4k@82
+  { XVIDC_VM_3840x2160_82_ASUS, "3840x2160@82Hz_ASUS", XVIDC_FR_82HZ,
+                  {3840, 8, 32, 20, 3900, 1,
+                  2160, 3, 6, 48, 2217, 0, 0, 0, 0, 1}},
+
+          //Asus 4k@98
+  { XVIDC_VM_3840x2160_98_ASUS, "3840x2160@98Hz_ASUS", XVIDC_FR_98HZ,
+                  {3840, 8, 32, 20, 3900, 1,
+                  2160, 3, 6, 56, 2225, 0, 0, 0, 0, 1}},
+
+          //Asus 4k@120
+  { XVIDC_VM_3840x2160_120_ASUS, "3840x2160@120Hz_ASUS", XVIDC_FR_120HZ,
+                  {3840, 8, 32, 40, 3920, 1,
+                  2160, 3, 5, 70, 2238, 0, 0, 0, 0, 1}},
+
 };
 
 extern XVidC_VideoTimingMode XVidC_VideoTimingModes [XVIDC_VM_NUM_SUPPORTED];
@@ -1276,7 +1294,7 @@ void main_loop(){
 					LinkBandwidth   = (LineRate*27);
 					xil_printf("StreamBandwidth=%d, LinkBandwidth=%d, Pixel_clk=%d\r\n",
 							StreamBandwidth,LinkBandwidth,pixel_clock);
-					if((StreamBandwidth>LinkBandwidth) || (pixel_clock > 1200))
+					if((StreamBandwidth>LinkBandwidth) || (pixel_clock > 1500))
 					{
 						link_oversubscribed = 1;
 						skip_cnt++;
@@ -1302,6 +1320,7 @@ void main_loop(){
 					crc_wait_cnt=0;
 					while(1)
 					{
+
 						/* Read CRC availability every few ms*/
 						Status = XDp_TxAuxRead(DpTxSsInst.DpPtr,
 							DPCD_TEST_SINK_MISC, 1, &Data);
@@ -1326,7 +1345,7 @@ void main_loop(){
 					}
 
 					/*Wait time so that Tx and Rx has enough time to calculate CRC values*/
-					DpPt_CustomWaitUs(&DpTxSsInst,100000);
+//					DpPt_CustomWaitUs(&DpTxSsInst,100000);
 
 					Status = XDp_TxAuxRead(DpTxSsInst.DpPtr,
 							DPCD_TEST_CRC_R_Cr, 6, &Data);
@@ -1398,7 +1417,7 @@ void main_loop(){
 							DPCD_TEST_SINK_START, 1, &Data);
 
 					/*Wait time and then start next video*/
-					DpPt_CustomWaitUs(&DpTxSsInst,100000);
+//					DpPt_CustomWaitUs(&DpTxSsInst,100000);
 
 			}//end while
 

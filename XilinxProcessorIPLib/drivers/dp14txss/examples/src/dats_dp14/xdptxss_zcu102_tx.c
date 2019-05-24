@@ -253,7 +253,7 @@ u32 DpTxSs_Main(u16 DeviceId)
 
 	LaneCount_init_tx = LaneCount_init_tx & 0x7;
 	//800x600 8bpc as default
-	start_tx (LineRate_init_tx, LaneCount_init_tx,user_config);
+//	start_tx (LineRate_init_tx, LaneCount_init_tx,user_config);
 	// Enabling TX interrupts
 
 	while (1) { // for menu loop
