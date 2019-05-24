@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2017-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xuartpsv_options.c
-* @addtogroup uartpsv_v1_1
+* @addtogroup uartpsv_v1_2
 * @{
 *
 * The implementation of the options functions for the XUartPsv driver.
@@ -38,7 +18,8 @@
 * Ver  Who  Date      Changes
 * ---  ---  --------- -----------------------------------------------
 * 1.0  sg   09/18/17  First Releasee
-*
+* 1.2  rna  01/20/20  Use XUartPsv_ProgramCtrlReg function to change mode
+*		      Add functions to set Tx and Rx FIFO threshold levels
 * </pre>
 *
 ******************************************************************************/
@@ -187,23 +168,7 @@ void XUartPsv_SetOptions(XUartPsv *InstancePtr, u16 Options)
 		 */
 		Register = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
 					OptionsTable[Index].RegisterOffset);
-#if 0
-		TBD
-		/*
-		 * If the option is set in the input, then set the
-		 * corresponding bit in the specified register, otherwise
-		 * clear the bit in the register.
-		 */
-		if ((Options & OptionsTable[Index].Option) != (u16)0) {
-			if (OptionsTable[Index].Option ==
-				XUARTPSV_OPTION_SET_BREAK)
-				Register &= ~XUARTPSV_CR_STOPBRK;
-			Register |= OptionsTable[Index].Mask;
-		}
-		else {
-			Register &= ~OptionsTable[Index].Mask;
-		}
-#endif
+
 		/* Write the new value to the register to set the option */
 		XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
 				OptionsTable[Index].RegisterOffset, Register);
@@ -214,14 +179,13 @@ void XUartPsv_SetOptions(XUartPsv *InstancePtr, u16 Options)
 /*****************************************************************************/
 /**
 *
-* This function gets the receive FIFO trigger level. The receive trigger
-* level indicates the number of bytes in the FIFO that cause a receive or
-* transmit data event (interrupt) to be generated.
-*
+* This function gets the Tx and Rx FIFO trigger level. The receive or transmit
+* trigger level specifies the number of bytes in the FIFO that cause a receive
+* or transmit data event (interrupt) to be generated.
 * @param	InstancePtr is a pointer to the XUartPsv instance.
 *
 * @return	The current receive FIFO trigger level. This is a value
-*		from 0-31.
+*		from 0-63.
 *
 * @note 	None.
 *
@@ -243,7 +207,8 @@ u8 XUartPsv_GetFifoThreshold(XUartPsv *InstancePtr)
 
 	/* Return only the trigger level from the register value */
 
-	RtrigRegister &= (u8)XUARTPSV_UARTIFLS_TXIFLSEL_MASK;
+	RtrigRegister &= ((u8)XUARTPSV_UARTIFLS_TXIFLSEL_MASK |
+			(u8)XUARTPSV_UARTIFLS_RXIFLSEL_MASK);
 
 	return RtrigRegister;
 }
@@ -251,12 +216,15 @@ u8 XUartPsv_GetFifoThreshold(XUartPsv *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This functions sets the receive FIFO trigger level. The receive or transmit
-* trigger level specifies the number of bytes in the receive FIFO that cause
-* a receive or transmit data event (interrupt) to be generated.
+* This functions sets the Tx and Rx FIFO trigger level to the 'TriggerLevel'
+* argument. The same value is set for Tx and Rx FIFOs.
+* The receive or transmit trigger level specifies the number of bytes
+* in the FIFO that cause a receive or transmit data event (interrupt)
+* to be generated.
 *
 * @param	InstancePtr is a pointer to the XUartPsv instance.
-* @param	TriggerLevel contains the trigger level to set.
+* @param	TriggerLevel contains the trigger level to set. This is a value
+* 			from 0-7
 *
 * @return	None
 *
@@ -278,12 +246,105 @@ void XUartPsv_SetFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
 	FifoTrigRegister = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
 					XUARTPSV_UARTIFLS_OFFSET);
 
-	FifoTrigRegister &= (XUARTPSV_UARTIFLS_RXIFLSEL_MASK |
+	FifoTrigRegister &= ~(XUARTPSV_UARTIFLS_TXIFLSEL_MASK |
 					XUARTPSV_UARTIFLS_RXIFLSEL_MASK);
 
 	FifoTrigRegister |= TriggerLevel << XUARTPSV_UARTIFLS_TXIFLSEL_SHIFT;
 	FifoTrigRegister |= TriggerLevel << XUARTPSV_UARTIFLS_RXIFLSEL_SHIFT;
 
+	/*
+	 * Write the new value for the FIFO control register to it such that
+	 * the threshold is changed
+	 */
+	XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XUARTPSV_UARTIFLS_OFFSET, FifoTrigRegister);
+
+}
+
+/*****************************************************************************/
+/**
+*
+* This functions sets the Tx FIFO trigger level to the 'TriggerLevel'
+* argument. This value is set for Tx FIFO. Rx FIFO trigger level is unchanged.
+* The receive or transmit trigger level specifies the number of bytes
+* in the FIFO that cause a receive or transmit data event (interrupt)
+* to be generated.
+*
+* @param	InstancePtr is a pointer to the XUartPsv instance.
+* @param	TriggerLevel contains the trigger level to set. This is a value
+* 			from 0-4 (XUARTPSV_UARTIFLS_TXIFLSEL_1_8 -
+* 			XUARTPSV_UARTIFLS_TXIFLSEL_7_8)
+*
+* @return	None
+*
+* @note 	None.
+*
+******************************************************************************/
+void XUartPsv_SetTxFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
+{
+	u32 FifoTrigRegister;
+
+	/* Assert validates the input arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(TriggerLevel <= (u8)XUARTPSV_UARTIFLS_TXIFLSEL_MASK);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	TriggerLevel = ((u32)TriggerLevel) &
+				(u32)XUARTPSV_UARTIFLS_TXIFLSEL_MASK;
+
+	FifoTrigRegister = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
+					XUARTPSV_UARTIFLS_OFFSET);
+
+	FifoTrigRegister &= ~XUARTPSV_UARTIFLS_TXIFLSEL_MASK;
+
+	FifoTrigRegister |= TriggerLevel << XUARTPSV_UARTIFLS_TXIFLSEL_SHIFT;
+
+	/*
+	 * Write the new value for the FIFO control register to it such that
+	 * the threshold is changed
+	 */
+	XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XUARTPSV_UARTIFLS_OFFSET, FifoTrigRegister);
+
+}
+
+/*****************************************************************************/
+/**
+*
+* This functions sets the Rx FIFO trigger level to the 'TriggerLevel'
+* argument. This value is set for Rx FIFO. Tx FIFO trigger level is unchanged.
+* The receive or transmit trigger level specifies the number of bytes
+* in the FIFO that cause a receive or transmit data event (interrupt)
+* to be generated.
+*
+* @param	InstancePtr is a pointer to the XUartPsv instance.
+* @param	TriggerLevel contains the trigger level to set. This is a value
+* 			from 0-32 (XUARTPSV_UARTIFLS_RXIFLSEL_1_8 -
+* 			XUARTPSV_UARTIFLS_RXIFLSEL_7_8)
+*
+* @return	None
+*
+* @note 	None.
+*
+******************************************************************************/
+void XUartPsv_SetRxFifoThreshold(XUartPsv *InstancePtr, u8 TriggerLevel)
+{
+	u32 FifoTrigRegister;
+
+	/* Assert validates the input arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(TriggerLevel <= (u8)XUARTPSV_UARTIFLS_RXIFLSEL_MASK);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	TriggerLevel = ((u32)TriggerLevel) &
+				(u32)XUARTPSV_UARTIFLS_RXIFLSEL_MASK;
+
+	FifoTrigRegister = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
+					XUARTPSV_UARTIFLS_OFFSET);
+
+	FifoTrigRegister &= ~XUARTPSV_UARTIFLS_RXIFLSEL_MASK;
+
+	FifoTrigRegister |= TriggerLevel;
 	/*
 	 * Write the new value for the FIFO control register to it such that
 	 * the threshold is changed
@@ -464,9 +525,8 @@ void XUartPsv_SetOperMode(XUartPsv *InstancePtr, u8 OperationMode)
 			break;
 	}
 
-	XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
-			XUARTPSV_UARTCR_OFFSET, CtrlRegister);
-
+	/* Setup the Control Register with the passed argument.*/
+	XUartPsv_ProgramCtrlReg(InstancePtr, CtrlRegister);
 }
 
 /*****************************************************************************/

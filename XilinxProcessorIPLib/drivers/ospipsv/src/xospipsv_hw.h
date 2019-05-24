@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xospipsv_hw.h
-* @addtogroup ospipsv_v1_1
+* @addtogroup ospipsv_v1_2
 * @{
 *
 * This file contains low level access functions using the base address
@@ -682,6 +662,15 @@ extern "C" {
 #define XOSPIPSV_IRQ_MASK_REG_MODE_M_FAIL_MASK_FLD_SHIFT   0
 #define XOSPIPSV_IRQ_MASK_REG_MODE_M_FAIL_MASK_FLD_WIDTH   1
 #define XOSPIPSV_IRQ_MASK_REG_MODE_M_FAIL_MASK_FLD_MASK    0X00000001U
+
+/**
+ * Register: OSPI_ECO
+ */
+#define XOSPIPSV_ECO_REG		0X00000048U
+
+#define XOSPIPSV_ECO_REG_FIELD_SHIFT   0
+#define XOSPIPSV_ECO_REG_FIELD_WIDTH   1
+#define XOSPIPSV_ECO_REG_FIELD_MASK    0X00000001U
 
 /**
  * Register: OSPI_LOWER_WR_PROT_REG
@@ -1738,9 +1727,11 @@ extern "C" {
 #define XPMC_MIO12_MASK		0x1000U
 #define XPMC_GPIO_DIRM		0xF1020204U
 #define XPMC_GPIO_OUTEN		0xF1020208U
-#define XPMC_GPIO_DATA		0xF1020040U
+#define XPMC_GPIO_DATA		0xF1020000U
 #define XPMC_BNK0_EN_RX_SCHMITT_HYST	0xF106010CU
 #define XPMC_IOU_MIO_TRI0				0xF1060200U
+#define XPMC_MIO12_DATA_MASK_LSW_SHIFT		16
+#define XPMC_MIO12_DATA_MASK_LSW	0xEFFFU
 
 #ifdef __cplusplus
 }

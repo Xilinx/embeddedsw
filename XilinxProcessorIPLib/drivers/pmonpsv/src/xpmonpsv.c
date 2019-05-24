@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /****************************************************************************/
 /**
 *
 * @file xpmonpsv.c
-* @addtogroup  pmonpsv_v1_0
+* @addtogroup pmonpsv_v2_0
 * @{
 *
 * This file contains the driver API functions that can be used to access
@@ -45,6 +25,7 @@
 * ----- -----  -------- -----------------------------------------------------
 * 1.0 sd   01/20/19  First release
 *     sd   03/05/19  Fix the counter check
+* 2.0 sd   04/22/20  Rename the APIs
 * </pre>
 *
 *****************************************************************************/
@@ -65,11 +46,11 @@
 /*****************************************************************************/
 /**
 *
-* This function initializes a specific XpsvPmon device/instance. This function
+* This function initializes a specific XPmonPsv device/instance. This function
 * must be called prior to using the Performance Monitor device.
 *
-* @param	InstancePtr is a pointer to the XpsvPmon instance.
-* @param	ConfigPtr points to the XpsvPmon device configuration structure.
+* @param	InstancePtr is a pointer to the XPmonPsv instance.
+* @param	ConfigPtr points to the XPmonPsv device configuration structure.
 * @param	EffectiveAddr is the device base address in the virtual memory
 *		address space. If the address translation is not used then the
 *		physical address is passed.
@@ -77,19 +58,24 @@
 *		after this function is invoked.
 *
 * @return
-*		- XST_SUCCESS on initialization completion
+*		- XST_SUCCESS if successful.
+*		- XST_DEVICE_IS_STARTED if the device is already started.
 *
-* @note		The user needs to first call the XpsvPmon_LookupConfig() API
+* @note		The user needs to first call the XPmonPsv_LookupConfig() API
 *		which returns the Configuration structure pointer which is
-*		passed as a parameter to the XpsvPmon_CfgInitialize() API.
+*		passed as a parameter to the XPmonPsv_CfgInitialize() API.
 *
 ******************************************************************************/
-s32 XpsvPmon_CfgInitialize(XpsvPmon *InstancePtr, const XPmonpsv_Config *ConfigPtr,
+u32 XPmonPsv_CfgInitialize(XPmonPsv *InstancePtr, const XPmonPsv_Config *ConfigPtr,
 						UINTPTR EffectiveAddr)
 {
 	/* Assert the arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
+
+	if (InstancePtr->IsReady == XIL_COMPONENT_IS_READY) {
+		return XST_DEVICE_IS_STARTED;
+	}
 
 	/* Set the values read from the device config and the base address. */
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
@@ -108,7 +94,7 @@ s32 XpsvPmon_CfgInitialize(XpsvPmon *InstancePtr, const XPmonpsv_Config *ConfigP
 *
 * This function resets the specified counter
 *
-* @param	InstancePtr is a pointer to the XpsvPmon instance.
+* @param	InstancePtr is a pointer to the XPmonPsv instance.
 * @param	Domain is one of the counter like lpd_main or r5_domain
 * 		eg XPMONPSV_R5_DOMAIN, XPMONPSV_LPD_MAIN_DOMAIN
 * @param	CounterNum is the Counter Number.
@@ -121,7 +107,7 @@ s32 XpsvPmon_CfgInitialize(XpsvPmon *InstancePtr, const XPmonpsv_Config *ConfigP
 * @note		None.
 *
 ******************************************************************************/
-u32 XpsvPmon_ResetCounter(const XpsvPmon *InstancePtr, u32 Domain, u32 CounterNum)
+u32 XPmonPsv_ResetCounter(const XPmonPsv *InstancePtr, u32 Domain, u32 CounterNum)
 {
 	u32 Offset=0;
 
@@ -134,7 +120,7 @@ u32 XpsvPmon_ResetCounter(const XpsvPmon *InstancePtr, u32 Domain, u32 CounterNu
 	}
 
 	if (InstancePtr->RequestedCounters[Domain] > XPMONPSV_MAX_COUNTERS) {
-		return (s32)XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 	Offset = Offset +  (CounterNum* XPMONPSV_COUNTER_OFFSET);
@@ -144,18 +130,18 @@ u32 XpsvPmon_ResetCounter(const XpsvPmon *InstancePtr, u32 Domain, u32 CounterNu
 	 *   All statistics counters are cleared when the StatEn
 	 *   bit goes from 0 to 1
 	 */
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_PROBE1_MAINCTRL, 0x0U);
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_PROBE2_MAINCTRL, 0x0U);
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_PROBE3_MAINCTRL, 0x0U);
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_PROBE4_MAINCTRL, 0x0U);
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_PROBE1_MAINCTRL, 0x0U);
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_PROBE2_MAINCTRL, 0x0U);
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_PROBE3_MAINCTRL, 0x0U);
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_PROBE4_MAINCTRL, 0x0U);
 
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_PROBE1_MAINCTRL,
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_PROBE1_MAINCTRL,
 		MAINCTRL_STATEN_MASK);
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_PROBE2_MAINCTRL,
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_PROBE2_MAINCTRL,
 		MAINCTRL_STATEN_MASK);
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_PROBE3_MAINCTRL,
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_PROBE3_MAINCTRL,
 		MAINCTRL_STATEN_MASK);
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_PROBE4_MAINCTRL,
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_PROBE4_MAINCTRL,
 		MAINCTRL_STATEN_MASK);
 
 	return XST_SUCCESS;
@@ -168,7 +154,7 @@ u32 XpsvPmon_ResetCounter(const XpsvPmon *InstancePtr, u32 Domain, u32 CounterNu
 * This function sets Metrics for specified Counter in the corresponding
 * Metric Selector Register.
 *
-* @param	InstancePtr is a pointer to the XpsvPmon instance.
+* @param	InstancePtr is a pointer to the XPmonPsv instance.
 * @param	StatPeriod is the period for which specified counter has to
 *		be connected.
 * @param	Domain is one of the counter like lpd_main or r5_domain
@@ -181,7 +167,7 @@ u32 XpsvPmon_ResetCounter(const XpsvPmon *InstancePtr, u32 Domain, u32 CounterNu
 * @note		None.
 *
 *****************************************************************************/
-u32 XpsvPmon_SetMetrics(const XpsvPmon *InstancePtr, u32 StatPeriod, u32 Domain, u32 CounterNum)
+u32 XPmonPsv_SetMetrics(const XPmonPsv *InstancePtr, u32 StatPeriod, u32 Domain, u32 CounterNum)
 {
 	u32 Offset=0;
 
@@ -190,26 +176,26 @@ u32 XpsvPmon_SetMetrics(const XpsvPmon *InstancePtr, u32 StatPeriod, u32 Domain,
 	}
 
 	if (InstancePtr->RequestedCounters[Domain] > XPMONPSV_MAX_COUNTERS) {
-		return (s32)XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 	Offset = Offset +  (CounterNum* XPMONPSV_COUNTER_OFFSET);
 
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_PROBE1_MAINCTRL,
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_PROBE1_MAINCTRL,
 			MAINCTRL_STATEN_MASK | MAINCTRL_STATCONDDUMP_MASK);
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_PROBE1_STATPERIOD, StatPeriod);
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_PROBE1_STATPERIOD, StatPeriod);
 
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_PROBE2_MAINCTRL,
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_PROBE2_MAINCTRL,
 			MAINCTRL_STATEN_MASK | MAINCTRL_STATCONDDUMP_MASK);
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_PROBE2_STATPERIOD, StatPeriod);
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_PROBE2_STATPERIOD, StatPeriod);
 
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_PROBE3_MAINCTRL,
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_PROBE3_MAINCTRL,
 			MAINCTRL_STATEN_MASK | MAINCTRL_STATCONDDUMP_MASK);
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_PROBE3_STATPERIOD, StatPeriod);
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_PROBE3_STATPERIOD, StatPeriod);
 
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_PROBE4_MAINCTRL,
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_PROBE4_MAINCTRL,
 			MAINCTRL_STATEN_MASK | MAINCTRL_STATCONDDUMP_MASK);
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_PROBE4_STATPERIOD, StatPeriod);
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_PROBE4_STATPERIOD, StatPeriod);
 
 	return XST_SUCCESS;
 }
@@ -220,7 +206,7 @@ u32 XpsvPmon_SetMetrics(const XpsvPmon *InstancePtr, u32 StatPeriod, u32 Domain,
 * This function returns Metrics in the specified Counter from the corresponding
 * Metric Selector Register.
 *
-* @param	InstancePtr is a pointer to the XpsvPmon instance.
+* @param	InstancePtr is a pointer to the XPmonPsv instance.
 * @param	CounterNum is the Counter Number.
 *		The valid values are 0 to 9.
 * @param	MainCtl is a reference parameter from application where mainctrl
@@ -231,7 +217,7 @@ u32 XpsvPmon_SetMetrics(const XpsvPmon *InstancePtr, u32 StatPeriod, u32 Domain,
 * @return	XST_SUCCESS if Success
 *
 *****************************************************************************/
-s32 XpsvPmon_GetMetrics(const XpsvPmon *InstancePtr, u32 CounterNum, u8 *MainCtl,
+u32 XPmonPsv_GetMetrics(const XPmonPsv *InstancePtr, u32 CounterNum, u8 *MainCtl,
 						u8 *StatPeriod ,u32 Domain)
 {
 	u32 RegValue;
@@ -249,15 +235,15 @@ s32 XpsvPmon_GetMetrics(const XpsvPmon *InstancePtr, u32 CounterNum, u8 *MainCtl
 	}
 
 	if (InstancePtr->RequestedCounters[Domain] <= CounterNum) {
-		return (s32)XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 	Offset = Offset +  (CounterNum* XPMONPSV_COUNTER_OFFSET);
 
-	RegValue = XpsvPmon_ReadReg(InstancePtr,
+	RegValue = XPmonPsv_ReadReg(InstancePtr,
 				Offset + PMONPSV_PROBE2_MAINCTRL);
 	*MainCtl = (u8)(RegValue & 0xffU);
-	RegValue = XpsvPmon_ReadReg(InstancePtr,
+	RegValue = XPmonPsv_ReadReg(InstancePtr,
 				Offset + PMONPSV_PROBE2_STATPERIOD);
 	*StatPeriod = (u8)(RegValue & STATPERIOD_PERIOD_MASK);
 
@@ -270,7 +256,7 @@ s32 XpsvPmon_GetMetrics(const XpsvPmon *InstancePtr, u32 CounterNum, u8 *MainCtl
 * This function returns the contents of the Write response and request
 * Counter Register.
 *
-* @param	InstancePtr is a pointer to the XpsvPmon instance.
+* @param	InstancePtr is a pointer to the XPmonPsv instance.
 * @param	WriteRequestValue is the user space pointer with
 * *		which the value of Write Request Count has to be filled
 * @param	WriteRespValue is the user space pointer with
@@ -285,7 +271,7 @@ s32 XpsvPmon_GetMetrics(const XpsvPmon *InstancePtr, u32 CounterNum, u8 *MainCtl
 * @note		None.
 *
 *****************************************************************************/
-s32 XpsvPmon_GetWriteCounter(const XpsvPmon *InstancePtr,u32 *WriteRequestValue,
+u32 XPmonPsv_GetWriteCounter(const XPmonPsv *InstancePtr,u32 *WriteRequestValue,
 				u32 *WriteRespValue, u32 Domain, u32 CounterNum)
 {
 	u32 Offset=0;
@@ -300,14 +286,14 @@ s32 XpsvPmon_GetWriteCounter(const XpsvPmon *InstancePtr,u32 *WriteRequestValue,
 	}
 
 	if (InstancePtr->RequestedCounters[Domain] <= CounterNum) {
-		return (s32)XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 	Offset = Offset +  (CounterNum* XPMONPSV_COUNTER_OFFSET);
 
-	*WriteRequestValue = XpsvPmon_ReadReg(InstancePtr,
+	*WriteRequestValue = XPmonPsv_ReadReg(InstancePtr,
 				Offset + PMONPSV_WR_REQ_COUNTER0_VAL);
-	*WriteRespValue = XpsvPmon_ReadReg(InstancePtr,
+	*WriteRespValue = XPmonPsv_ReadReg(InstancePtr,
 				Offset + PMONPSV_WR_RESP_COUNTER0_VAL);
 	return XST_SUCCESS;
 }
@@ -318,7 +304,7 @@ s32 XpsvPmon_GetWriteCounter(const XpsvPmon *InstancePtr,u32 *WriteRequestValue,
 * This function returns success if a free counter was found and request
 * was granted.
 *
-* @param	InstancePtr is a pointer to the XpsvPmon instance.
+* @param	InstancePtr is a pointer to the XPmonPsv instance.
 * 		which the value of Write Request Count has to be filled
 * @param	Domain is one of the counter like lpd_main or r5_domain
 * @param	CounterNum  pointer to get Counter Number.
@@ -328,7 +314,7 @@ s32 XpsvPmon_GetWriteCounter(const XpsvPmon *InstancePtr,u32 *WriteRequestValue,
 * 		XST_FAILURE otherwise.
 *
 *****************************************************************************/
-s32 XpsvPmon_RequestCounter(XpsvPmon *InstancePtr,u32 Domain, u32 *CounterNum)
+u32 XPmonPsv_RequestCounter(XPmonPsv *InstancePtr,u32 Domain, u32 *CounterNum)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -339,7 +325,7 @@ s32 XpsvPmon_RequestCounter(XpsvPmon *InstancePtr,u32 Domain, u32 *CounterNum)
 		InstancePtr->RequestedCounters[Domain] = 0U;
 
 	if (InstancePtr->RequestedCounters[Domain] > XPMONPSV_MAX_COUNTERS) {
-		return (s32)XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 	*CounterNum = InstancePtr->RequestedCounters[Domain];
@@ -353,7 +339,7 @@ s32 XpsvPmon_RequestCounter(XpsvPmon *InstancePtr,u32 Domain, u32 *CounterNum)
 * This function returns the contents of the Read response and request
 * Counter Register.
 *
-* @param	InstancePtr is a pointer to the XpsvPmon instance.
+* @param	InstancePtr is a pointer to the XPmonPsv instance.
 * @param	ReadRequestValue is the user space pointer with
 * 		which the value of Write Request Count has to be filled
 * @param	ReadRespValue is the user space pointer with
@@ -366,7 +352,7 @@ s32 XpsvPmon_RequestCounter(XpsvPmon *InstancePtr,u32 Domain, u32 *CounterNum)
 *	    XST_FAILURE on failure
 *
 *****************************************************************************/
-s32 XpsvPmon_GetReadCounter(const XpsvPmon *InstancePtr,u32 *ReadRequestValue,
+u32 XPmonPsv_GetReadCounter(const XPmonPsv *InstancePtr,u32 *ReadRequestValue,
 				u32 *ReadRespValue, u32 Domain, u32 CounterNum)
 {
 	u32 Offset=0;
@@ -378,7 +364,7 @@ s32 XpsvPmon_GetReadCounter(const XpsvPmon *InstancePtr,u32 *ReadRequestValue,
 	Xil_AssertNonvoid(ReadRespValue != NULL);
 
 	if (InstancePtr->RequestedCounters[Domain] < CounterNum) {
-		return (s32)XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 	if (Domain == XPMONPSV_LPD_MAIN_DOMAIN) {
@@ -387,9 +373,9 @@ s32 XpsvPmon_GetReadCounter(const XpsvPmon *InstancePtr,u32 *ReadRequestValue,
 
 	Offset = Offset +  (CounterNum* XPMONPSV_COUNTER_OFFSET);
 
-	*ReadRequestValue = XpsvPmon_ReadReg(InstancePtr,
+	*ReadRequestValue = XPmonPsv_ReadReg(InstancePtr,
 				Offset + PMONPSV_RD_REQ_COUNTER0_VAL);
-	*ReadRespValue = XpsvPmon_ReadReg(InstancePtr,
+	*ReadRespValue = XPmonPsv_ReadReg(InstancePtr,
 				Offset + PMONPSV_RD_RESP_COUNTER0_VAL);
 	return XST_SUCCESS;
 }
@@ -399,7 +385,7 @@ s32 XpsvPmon_GetReadCounter(const XpsvPmon *InstancePtr,u32 *ReadRequestValue,
 * This function enables the following in the Performance Monitor:
 *   - Global clock counter
 *
-* @param    InstancePtr is a pointer to the XpsvPmon instance.
+* @param    InstancePtr is a pointer to the XPmonPsv instance.
 *           SampleInterval is the sample interval for the sampled metric
 *           counters
 * @param    Domain is one of the counter like lpd_main or r5_domain
@@ -410,7 +396,7 @@ s32 XpsvPmon_GetReadCounter(const XpsvPmon *InstancePtr,u32 *ReadRequestValue,
 *
 * @note	    None
 ******************************************************************************/
-s32 XpsvPmon_EnableCounters(const XpsvPmon *InstancePtr, u32 Domain, u32 CounterNum)
+u32 XPmonPsv_EnableCounters(const XPmonPsv *InstancePtr, u32 Domain, u32 CounterNum)
 {
 	u32 Offset=0;
 
@@ -419,7 +405,7 @@ s32 XpsvPmon_EnableCounters(const XpsvPmon *InstancePtr, u32 Domain, u32 Counter
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	if (InstancePtr->RequestedCounters[Domain] < CounterNum) {
-		return (s32)XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 	if (Domain == XPMONPSV_LPD_MAIN_DOMAIN) {
@@ -432,13 +418,13 @@ s32 XpsvPmon_EnableCounters(const XpsvPmon *InstancePtr, u32 Domain, u32 Counter
 	 *Setting register field GlobalEn to 1 enables the tracing and
 	 *statistics collection subsystems of the packet probe.
 	 */
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_PROBE1_CFGCTRL,
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_PROBE1_CFGCTRL,
 		CFGCTRL_GLOBALEN_MASK);
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_PROBE2_CFGCTRL,
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_PROBE2_CFGCTRL,
 		CFGCTRL_GLOBALEN_MASK);
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_PROBE3_CFGCTRL,
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_PROBE3_CFGCTRL,
 		CFGCTRL_GLOBALEN_MASK);
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_PROBE4_CFGCTRL,
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_PROBE4_CFGCTRL,
 		CFGCTRL_GLOBALEN_MASK);
 	return XST_SUCCESS;
 }
@@ -446,40 +432,38 @@ s32 XpsvPmon_EnableCounters(const XpsvPmon *InstancePtr, u32 Domain, u32 Counter
 /*****************************************************************************/
 /**
 *
-* This function unlocks the Pmonpsv
+* This function unlocks the PmonPsv
 *
-* @param        InstancePtr is a pointer to the XpsvPmon instance.
+* @param        InstancePtr is a pointer to the XPmonPsv instance.
 *
-* @return       XST_SUCCESS
+* @return       None
 *
 *
 ******************************************************************************/
-s32 XpsvPmon_Unlock(const XpsvPmon *InstancePtr)
+void XPmonPsv_Unlock(const XPmonPsv *InstancePtr)
 {
 	/* Assert the arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	XpsvPmon_WriteReg(InstancePtr, (u32)PMONPSV_APM0_LAR, 0xC5ACCE55U);
-	return XST_SUCCESS;
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	XPmonPsv_WriteReg(InstancePtr, (u32)PMONPSV_APM0_LAR, 0xC5ACCE55U);
 }
 /*****************************************************************************/
 /**
 *
-* This function locks the Pmonpsv
+* This function locks the PmonPsv
 *
-* @param        InstancePtr is a pointer to the XpsvPmon instance.
+* @param        InstancePtr is a pointer to the XPmonPsv instance.
 *
-* @return       XST_SUCCESS
+* @return       None
 *
 *
 ******************************************************************************/
-s32 XpsvPmon_Lock(const XpsvPmon *InstancePtr)
+void XPmonPsv_Lock(const XPmonPsv *InstancePtr)
 {
 	/* Assert the arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	XpsvPmon_WriteReg(InstancePtr, (u32)PMONPSV_APM0_LAR, 0x0U);
-	return XST_SUCCESS;
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	XPmonPsv_WriteReg(InstancePtr, (u32)PMONPSV_APM0_LAR, 0x0U);
 }
 /*****************************************************************************/
 /**
@@ -487,7 +471,7 @@ s32 XpsvPmon_Lock(const XpsvPmon *InstancePtr)
 * This function disables the following in the Performance Monitor:
 *   - Global clock counter
 *
-* @param        InstancePtr is a pointer to the XpsvPmon instance.
+* @param        InstancePtr is a pointer to the XPmonPsv instance.
 * @param	Domain is one of the counter like lpd_main or r5_domain
 * @param	CounterNum is the Counter Number.
 *		The valid values are 0 to 9.
@@ -496,7 +480,7 @@ s32 XpsvPmon_Lock(const XpsvPmon *InstancePtr)
 *		XST_FAILURE on failure
 *
 ******************************************************************************/
-s32 XpsvPmon_StopCounter(const XpsvPmon *InstancePtr, u32 Domain, u32 CounterNum)
+u32 XPmonPsv_StopCounter(const XPmonPsv *InstancePtr, u32 Domain, u32 CounterNum)
 {
 	u32 Offset=0;
 
@@ -505,7 +489,7 @@ s32 XpsvPmon_StopCounter(const XpsvPmon *InstancePtr, u32 Domain, u32 CounterNum
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	if (InstancePtr->RequestedCounters[Domain] < CounterNum) {
-		return (s32)XST_FAILURE;
+		return (u32)XST_FAILURE;
 	}
 
 	if (Domain == XPMONPSV_LPD_MAIN_DOMAIN) {
@@ -514,13 +498,13 @@ s32 XpsvPmon_StopCounter(const XpsvPmon *InstancePtr, u32 Domain, u32 CounterNum
 
 	Offset = Offset +  (CounterNum* XPMONPSV_COUNTER_OFFSET);
 
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_PROBE1_CFGCTRL,
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_PROBE1_CFGCTRL,
               0x0U);
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_PROBE2_CFGCTRL,
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_PROBE2_CFGCTRL,
               0x0U);
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_PROBE3_CFGCTRL,
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_PROBE3_CFGCTRL,
               0x0U);
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_PROBE4_CFGCTRL,
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_PROBE4_CFGCTRL,
               0x0U);
 	return XST_SUCCESS;
 }
@@ -531,7 +515,7 @@ s32 XpsvPmon_StopCounter(const XpsvPmon *InstancePtr, u32 Domain, u32 CounterNum
 *
 * This function selects the Source to be monitored
 *
-* @param	InstancePtr is a pointer to the XpsvPmon instance.
+* @param	InstancePtr is a pointer to the XPmonPsv instance.
 * @param	SrcSel is the value of the sourceselect.
 *
 * @param	Domain is one of the counter like lpd_main or r5_domain
@@ -542,7 +526,7 @@ s32 XpsvPmon_StopCounter(const XpsvPmon *InstancePtr, u32 Domain, u32 CounterNum
 *		XST_FAILURE on failure
 *
 *****************************************************************************/
-s32 XpsvPmon_SetSrc(const XpsvPmon *InstancePtr, u32 SrcSel , u32 Domain, u32 CounterNum)
+u32 XPmonPsv_SetSrc(const XPmonPsv *InstancePtr, u32 SrcSel , u32 Domain, u32 CounterNum)
 {
 	u32 Offset=0;
 
@@ -551,7 +535,7 @@ s32 XpsvPmon_SetSrc(const XpsvPmon *InstancePtr, u32 SrcSel , u32 Domain, u32 Co
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	if (InstancePtr->RequestedCounters[Domain] < CounterNum) {
-		return (s32)XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 	if (Domain == XPMONPSV_LPD_MAIN_DOMAIN) {
@@ -573,10 +557,10 @@ s32 XpsvPmon_SetSrc(const XpsvPmon *InstancePtr, u32 SrcSel , u32 Domain, u32 Co
 	 *	007 - LUT1  Packets selected by the LUT.
 	 *	008 - BYTE2  Total number of payload bytes.
 	 */
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_WR_REQ_COUNTER0_SRC, SrcSel);
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_WR_RESP_COUNTER0_SRC, SrcSel);
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_RD_REQ_COUNTER0_SRC, SrcSel);
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_RD_RESP_COUNTER0_SRC, SrcSel);
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_WR_REQ_COUNTER0_SRC, SrcSel);
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_WR_RESP_COUNTER0_SRC, SrcSel);
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_RD_REQ_COUNTER0_SRC, SrcSel);
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_RD_RESP_COUNTER0_SRC, SrcSel);
 	return XST_SUCCESS;
 }
 
@@ -585,7 +569,7 @@ s32 XpsvPmon_SetSrc(const XpsvPmon *InstancePtr, u32 SrcSel , u32 Domain, u32 Co
 *
 * This function selects the Port to be monitored
 *
-* @param	InstancePtr is a pointer to the XpsvPmon instance.
+* @param	InstancePtr is a pointer to the XPmonPsv instance.
 * @param	PortSel is the value of the portselect.
 * 		eg:for lpd_main
 * 			0: lpd_fpd_axi
@@ -604,7 +588,7 @@ s32 XpsvPmon_SetSrc(const XpsvPmon *InstancePtr, u32 SrcSel , u32 Domain, u32 Co
 *		XST_FAILURE on failure
 *
 *****************************************************************************/
-s32 XpsvPmon_SetPort(const XpsvPmon *InstancePtr, u32 PortSel, u32 Domain, u32 CounterNum)
+u32 XPmonPsv_SetPort(const XPmonPsv *InstancePtr, u32 PortSel, u32 Domain, u32 CounterNum)
 {
 	u32 Offset=0;
 
@@ -613,18 +597,17 @@ s32 XpsvPmon_SetPort(const XpsvPmon *InstancePtr, u32 PortSel, u32 Domain, u32 C
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	if (InstancePtr->RequestedCounters[Domain] < CounterNum) {
-		return (s32)XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 	if (Domain == XPMONPSV_LPD_MAIN_DOMAIN) {
 		Offset = LPD_MAIN_OFFSET;
 	}
 
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_WR_REQ_COUNTER0_PORTSEL, PortSel);
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_WR_RESP_COUNTER0_PORTSEL, PortSel);
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_RD_REQ_COUNTER0_PORTSEL, PortSel);
-	XpsvPmon_WriteReg(InstancePtr, Offset + PMONPSV_RD_RESP_COUNTER0_PORTSEL, PortSel);
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_WR_REQ_COUNTER0_PORTSEL, PortSel);
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_WR_RESP_COUNTER0_PORTSEL, PortSel);
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_RD_REQ_COUNTER0_PORTSEL, PortSel);
+	XPmonPsv_WriteReg(InstancePtr, Offset + PMONPSV_RD_RESP_COUNTER0_PORTSEL, PortSel);
 	return XST_SUCCESS;
 }
-/*****************************************************************************/
 /** @} */
