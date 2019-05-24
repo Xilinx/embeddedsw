@@ -49,7 +49,7 @@
  *
  * <h2>Initialization</h2>
  *
- * Send and receive channels are intialized separately. The receive channel is
+ * Send and receive channels are initialized separately. The receive channel is
  * initiailzed using XStrm_RxInitialize(). The send channel is initialized
  * using XStrm_TxInitialize().
  *

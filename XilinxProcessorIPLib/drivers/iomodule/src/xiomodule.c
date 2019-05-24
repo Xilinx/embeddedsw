@@ -168,7 +168,7 @@ int XIOModule_Initialize(XIOModule * InstancePtr, u16 DeviceId)
 	 */
 	for (Id = 0; Id < XPAR_IOMODULE_INTC_MAX_INTR_SIZE; Id++) {
 		/*
-		 * Initalize the handler to point to a stub to handle an
+		 * Initialize the handler to point to a stub to handle an
 		 * interrupt which has not been connected to a handler. Only
 		 * initialize it if the handler is 0 or XNullHandler, which
 		 * means it was not initialized statically by the tools/user.
@@ -772,7 +772,7 @@ void XIOModule_SetNormalIntrMode(XIOModule *InstancePtr, u8 Id)
 
 /****************************************************************************/
 /**
-* Read state of discretes for the specified GPI channnel.
+* Read state of discretes for the specified GPI channel.
 *
 * @param	InstancePtr is a pointer to an XIOModule instance to be
 *               worked on.

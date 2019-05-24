@@ -108,7 +108,7 @@
 * 1.11a sv   11/21/07 Updated driver to support access through a DCR bridge
 * 2.00a ktn  10/20/09 Updated to use HAL Processor APIs and _m is removed from
 *		      all the macro names/definitions.
-* 2.01a sdm  04/27/10 Updated the tcl so that the defintions are generated in
+* 2.01a sdm  04/27/10 Updated the tcl so that the definitions are generated in
 *		      the xparameters.h to know whether the optional registers
 *		      SIE, CIE and IVR are enabled in the HW - Refer CR 555392.
 *		      This driver doesnot make use of these definitions and does
@@ -190,7 +190,7 @@
 *		required since compiler does not support nesting. It enables
 *		Microblaze interrupts after blocking further interrupts from
 *		the current interrupt number and interrupts below current
-*		interrupt proirity by writing to Interrupt Level Register of
+*		interrupt priority by writing to Interrupt Level Register of
 *		INTC on entry. On exit, it disables microblaze interrupts and
 *		restores ILR register default value(0xFFFFFFFF)back. It is
 *		recommended to increase STACK_SIZE in linker script for nested

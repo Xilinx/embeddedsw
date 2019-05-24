@@ -40,7 +40,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   sg    06/06/16 First release
-* 1.1   sg    10/24/16 Update for backward compatability
+* 1.1   sg    10/24/16 Update for backward compatibility
 *                      Added XUsbPsu_IsSuperSpeed function in xusbpsu.c
 * 1.2   mn    01/20/17 removed unnecessary declaration of
 *                      XUsbPsu_SetConfiguration in xusbpsu.h
@@ -59,7 +59,7 @@
 *	vak   13/03/18 Moved the setup interrupt system calls from driver to
 *		       example.
 *	vak   24/09/18 Added EnableSuperSpeed in XUsbPsu_Config for speed
-*	               negotation at the time of connection to Host
+*	               negotiation at the time of connection to Host
 * 1.5	vak   02/06/19 Added "xusbpsu_endpoint.h" header
 * 1.5	vak   03/25/19 Fixed incorrect data_alignment pragma directive for IAR
 *

@@ -66,9 +66,9 @@
 /*****************************************************************************/
 /**
 * This function perform the reset sequence to the given usbps interface by 
-* configuring the appropriate control bits in the usbps specifc registers.
+* configuring the appropriate control bits in the usbps specific registers.
 * the usbps reset sequence involves the below steps
-* 	Disbale the interrupts
+* 	Disable the interrupts
 *	Clear the status registers
 *	Apply the reset command and wait for reset complete status
 *	Update the relevant control registers with reset values

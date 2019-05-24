@@ -10,8 +10,8 @@ For details, see xqspips_selftest_example.c.
 @section ex2 xqspips_dual_flash_lqspi_example.c
 Contains an example on how to use the XQspips driver directly.
 This example shows the usage of the QSPI driver in Linear QSPI mode,
-with two serial FLASH devices on seperate buses. With two flash memories
-on seperate buses, even numbered bits in data words are written to the
+with two serial FLASH devices on separate buses. With two flash memories
+on separate buses, even numbered bits in data words are written to the
 lower memory and odd numbered bits are written to the upper memory. This
 example writes to the two flash memories in  QSPI mode and reads the data
 back from the flash memories, in Linear QSPI mode.

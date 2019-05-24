@@ -349,7 +349,7 @@ int XIic_Stop(XIic *InstancePtr)
 * @note     The complete IIC core is Reset on giving a software reset to
 *           the IIC core. Some previous versions of the core only reset
 *           the Interrupt Logic/Registers, please refer to the HW specification
-*           for futher details about this.
+*           for further details about this.
 *
 ****************************************************************************/
 void XIic_Reset(XIic *InstancePtr)

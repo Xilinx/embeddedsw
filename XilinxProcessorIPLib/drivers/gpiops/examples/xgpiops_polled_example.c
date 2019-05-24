@@ -74,7 +74,7 @@
 /************************** Constant Definitions ****************************/
 
 /*
- * The followig constants map to the XPAR parameters created in the
+ * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place for ZYNQ & ZYNQMP.
  *

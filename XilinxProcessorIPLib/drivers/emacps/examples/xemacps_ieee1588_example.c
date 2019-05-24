@@ -1041,7 +1041,7 @@ void XEmacPs_InitializeProtocolData(XEmacPs_Ieee1588 *InstancePntr)
 	InstancePntr->PortIdLocal.PortNumber = 0x0001;
 #endif
 	/*
-	 * Initialze some fields in the Tx Ptp buffers.
+	 * Initialize some fields in the Tx Ptp buffers.
 	 */
 	XEmacPs_SetDfltTxFrms(InstancePntr);
 

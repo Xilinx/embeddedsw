@@ -57,7 +57,7 @@
 * The user must define the macro XAVB_CLOCK_LOCK_THRESHOLD in xavb.h to
 * an appropriate value as relevant for the corresponding use case. Presently
 * it is defined to 1000 ns which is typical for telecom industry.
-* This macro is used to compare against the slave error as calculated everytime
+* This macro is used to compare against the slave error as calculated every time
 * after receiving 2 successive sync/followup frames. Slave error is the
 * difference between master time duration and slave time duration as calculated
 * for the time gap (the time it takes to receive two successive sync/follow up
@@ -173,7 +173,7 @@ volatile u8 EchoPTPFramesReceived = 0;
 * @return	- XST_SUCCESS to indicate success.
 *		- XST_FAILURE to indicate failure
 *
-* @note		This example will be in a infinte loop if the HW is not working
+* @note		This example will be in a infinite loop if the HW is not working
 *		properly and if the interrupts are not received.
 *
 ****************************************************************************/
@@ -578,7 +578,7 @@ static void AvbEnablePTPInterrupts(void)
 *
 * @return	None.
 *
-* @note		This Handler ned to be defined otherwise the XAvb_StubHandler
+* @note		This Handler need to be defined otherwise the XAvb_StubHandler
 *		will generate an error
 *
 ****************************************************************************/

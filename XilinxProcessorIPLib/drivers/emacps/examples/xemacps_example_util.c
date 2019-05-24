@@ -290,13 +290,13 @@ void EmacPsUtilFrameMemClear(EthernetFrame * FramePtr)
 /****************************************************************************/
 /**
 *
-* This function copys data from source to desitnation for n bytes.
+* This function copies data from source to desitnation for n bytes.
 *
 * @param    Destination is the targeted string to copy to.
 * @param    Source is the source string to copy from.
 * @param    n is number of bytes to be copied.
 *
-* @note     This function is similiar to strncpy(), however strncpy will
+* @note     This function is similar to strncpy(), however strncpy will
 *           stop either at null byte or n bytes is been copied.
 *           This function will copy n bytes without checking the content.
 *

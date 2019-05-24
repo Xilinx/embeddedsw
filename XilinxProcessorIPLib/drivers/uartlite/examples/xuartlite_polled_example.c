@@ -137,7 +137,7 @@ int main(void)
 * design example. The purpose of this function is to illustrate
 * how to use the XUartLite component.
 *
-* This function sends data and expects to receive the data thru the UartLite
+* This function sends data and expects to receive the data through the UartLite
 * such that a  physical loopback must be done with the transmit and receive
 * signals of the UartLite.
 *
@@ -199,7 +199,7 @@ int UartLitePolledExample(u16 DeviceId)
 	}
 
 	/*
-	 * Receive the number of bytes which is transfered.
+	 * Receive the number of bytes which is transferred.
 	 * Data may be received in fifo with some delay hence we continuously
 	 * check the receive fifo for valid data and update the receive buffer
 	 * accordingly.

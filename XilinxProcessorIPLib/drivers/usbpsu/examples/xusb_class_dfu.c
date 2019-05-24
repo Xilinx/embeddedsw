@@ -38,7 +38,7 @@
  *
  * Ver   Who  Date     Changes
  * ----- ---- -------- ---------------------------------------------------------
- * 1.0	 vak  30/11/16 Addded DFU support
+ * 1.0	 vak  30/11/16 Added DFU support
  * 1.4	 BK   12/01/18 Renamed the file to be in sync with usb common code
  *		       changes for all USB IPs
  * 1.5	 vak  13/02/19 Added support for versal

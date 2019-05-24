@@ -92,7 +92,7 @@
 * Used for spaces where the address range of the region is smaller than
 * the data width. If the memory range is greater than 2 ** width,
 * the patterns used in XUT_WALKONES and XUT_WALKZEROS will repeat on a
-* boundry of a power of two making it more difficult to detect addressing
+* boundary of a power of two making it more difficult to detect addressing
 * errors. The XUT_INCREMENT and XUT_INVERSEADDR tests suffer the same
 * problem. Ideally, if large blocks of memory are to be tested, break
 * them up into smaller regions of memory to allow the test patterns used

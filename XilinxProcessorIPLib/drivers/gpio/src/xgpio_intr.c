@@ -273,7 +273,7 @@ u32 XGpio_InterruptGetEnabled(XGpio * InstancePtr)
 *
 * @note
 *
-* The interrupt status indicates the status of the device irregardless if
+* The interrupt status indicates the status of the device regardless if
 * the interrupts from the devices have been enabled or not through
 * XGpio_InterruptEnable().
 *

@@ -49,7 +49,7 @@
 *		        new bits to MSR,SR,ISR,IER,ICR Registers and modified
 *		        TS2 bits in BTR and F_SJW bits in F_BTR Registers.
 * 2.1   ask  07/03/18 Added support for canfd 2.0 spec sequential mode.
-*       ask  07/03/18 Fix for Sequencial recv CR# 992606,CR# 1004222.
+*       ask  07/03/18 Fix for Sequential recv CR# 992606,CR# 1004222.
 *
 * </pre>
 *
@@ -86,7 +86,7 @@ extern "C" {
 #define XCANFD_IER_OFFSET	0x020  /**< Interrupt Enable Register */
 #define XCANFD_ICR_OFFSET	0x024  /**< Interrupt Clear Register */
 
-#define XCANFD_F_BRPR_OFFSET	0x088  /**< Data Phase Buad Rate Prescalar
+#define XCANFD_F_BRPR_OFFSET	0x088  /**< Data Phase Baud Rate Prescalar
 						Register */
 #define XCANFD_F_BTR_OFFSET	0x08C  /**< Data Phase Bit Timing Register */
 #define XCANFD_TRR_OFFSET	0x090  /**< Tx Buffer Ready Request Register */
@@ -318,18 +318,18 @@ extern "C" {
 #define XCANFD_BTR_SJW_MASK	0x000F0000  /**< Sync Jump Width Mask */
 #define XCANFD_BTR_TS2_MASK	0x00000F00  /**< Time Segment 2 Mask */
 #define XCANFD_BTR_TS1_MASK	0x0000003F  /**< Time Segment 1 Mask */
-#define XCANFD_F_BRPR_TDCMASK	0x00001F00	/**< Tranceiver Delay
+#define XCANFD_F_BRPR_TDCMASK	0x00001F00	/**< Transceiver Delay
                                         compensation Offset Mask */
 #else
 #define XCANFD_BTR_SJW_MASK	0x007F0000  /**< Sync Jump Width Mask */
 #define XCANFD_BTR_TS2_MASK	0x00007F00  /**< Time Segment 2 Mask */
 #define XCANFD_BTR_TS1_MASK	0x000000FF  /**< Time Segment 1 Mask */
-#define XCANFD_F_BRPR_TDCMASK	0x00003F00	/**< Tranceiver Delay
+#define XCANFD_F_BRPR_TDCMASK	0x00003F00	/**< Transceiver Delay
 						compensation Offset Mask */
 #endif
 #define XCANFD_BTR_TS2_SHIFT	8	    /**< Time Segment 2 Shift */
 #define XCANFD_BTR_SJW_SHIFT	16	    /**< Sync Jump Width Shift */
-#define XCANFD_F_BRPR_TDC_ENABLE_MASK	0x00010000	/**< Tranceiver Delay
+#define XCANFD_F_BRPR_TDC_ENABLE_MASK	0x00010000	/**< Transceiver Delay
 							compensation Enable
 							Maskk */
 /* @} */
@@ -375,7 +375,7 @@ extern "C" {
 /** @name Status Register
  *  @{
  */
-#define XCANFD_SR_TDCV_MASK	0x007F0000  /**< Tranceiver Dealy compensation
+#define XCANFD_SR_TDCV_MASK	0x007F0000  /**< Transceiver Dealy compensation
 						Mask */
 #define XCANFD_SR_SNOOP_MASK	0x00001000  /**< Snoop Mode Mask */
 #define XCANFD_SR_ESTAT_MASK	0x00000180  /**< Error Status Mask */
@@ -534,7 +534,7 @@ Mask/Acceptance Filter ID)
 #define XCANFD_AFR_UAF_ALL_MASK	0xFFFFFFFF
 /* @} */
 
-/** @name CAN Recieve FIFO Status Register
+/** @name CAN Receive FIFO Status Register
  *  @{
  */
 #if defined (CANFD_v1_0)

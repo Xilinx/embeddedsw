@@ -155,7 +155,7 @@ int XAxiEthernet_CfgInitialize(XAxiEthernet *InstancePtr,
 * @return	XST_SUCCESS.
 *
 * @note		When user calls this function he should ensure the hardware
-*		is in a quiescent state by reseting all the hardware
+*		is in a quiescent state by resetting all the hardware
 *		Configurations.
 *
 ******************************************************************************/

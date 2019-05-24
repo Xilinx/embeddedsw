@@ -56,7 +56,7 @@
 *		      name of all the macro definitions. XUartNs550_mClearStats
 *		      macro is removed, XUartNs550_ClearStats function should be
 *		      used in its place.
-* 2.01a bss  01/13/12 Removed unneccessary read of the LCR register in the
+* 2.01a bss  01/13/12 Removed unnecessary read of the LCR register in the
 *                     XUartNs550_CfgInitialize function. Removed compiler
 *		      warnings for unused variables in the
 *		      XUartNs550_StubHandler.
@@ -502,7 +502,7 @@ unsigned int XUartNs550_SendBuffer(XUartNs550 *InstancePtr)
 				 IerRegister | XUN_IER_TX_EMPTY);
 	}
 	/*
-	 * Return the number of bytes that were sent, althought they really were
+	 * Return the number of bytes that were sent, although they really were
 	 * only put into the FIFO, not completely sent yet
 	 */
 	return SentCount;

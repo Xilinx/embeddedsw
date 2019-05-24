@@ -188,7 +188,7 @@ proc gen_testfunc_call {swproj mhsinst} {
    {
       XStatus status;
       
-      print(\"\\r\\n Runnning SpiSelfTestExample() for ${ipname}...\\r\\n\");
+      print(\"\\r\\n Running SpiSelfTestExample() for ${ipname}...\\r\\n\");
       
       status = SpiSelfTestExample(${deviceid});
       

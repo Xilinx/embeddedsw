@@ -225,7 +225,7 @@
 *      u32 BdAddrVirt, int NumBds, u16 Direction);
 *
 * This function provides the ability for the user application to re-assign
-* the BD addresses to whereever in the memory it wants. This is to aid the
+* the BD addresses to wherever in the memory it wants. This is to aid the
 * situation that SG engine may have limited access to certain region of the
 * memory, comparing to the processor's ability. The default BD addresses are
 * inside the region that the processor can access.

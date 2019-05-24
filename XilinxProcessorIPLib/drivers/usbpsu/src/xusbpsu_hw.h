@@ -67,7 +67,7 @@ extern "C" {
 #define XUSBPSU_PORTSC_30						0x430U
 #define XUSBPSU_PORTMSC_30						0x434U
 
-/* XUSBPSU registers memory space boundries */
+/* XUSBPSU registers memory space boundaries */
 #define XUSBPSU_GLOBALS_REGS_START              0xC100U
 #define XUSBPSU_GLOBALS_REGS_END                0xC6FFU
 #define XUSBPSU_DEVICE_REGS_START               0xC700U

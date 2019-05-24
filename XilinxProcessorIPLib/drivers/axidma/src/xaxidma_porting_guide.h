@@ -70,7 +70,7 @@
 * <b>API Functions That Only Have Prefix Changes</b>
 *
 * <pre>
-*         xlldma driver              |         xaxidma driver (upto v5_00_a)
+*         xlldma driver              |         xaxidma driver (up to v5_00_a)
 * -----------------------------------------------------------------------
 *    XLlDma_Reset(...)               |  XAxiDma_Reset(...)
 *    XLlDma_BdRingSnapShotCurrBd(...)|  XAxiDma_BdRingSnapShotCurrBd(...)
@@ -133,7 +133,7 @@
 *
 * <b>API Functions That Are New API Functions</b>
 *
-* Now that the AXI DMA core is a standalone core, some new API are intrduced.
+* Now that the AXI DMA core is a standalone core, some new API are introduced.
 * Some other functions are added due to hardware interface change, so to
 * replace old API functions.
 *

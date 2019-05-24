@@ -100,7 +100,7 @@
  *  - Endopint related interrupts
  *
  * The user (typically the adapter layer) can register general interrupt
- * handler fucntions and endpoint specific interrupt handler functions with the
+ * handler functions and endpoint specific interrupt handler functions with the
  * driver to receive those interrupts by calling the
  *    XUsbPs_IntrSetHandler()
  * and
@@ -294,7 +294,7 @@ extern "C" {
  * @{
  */
 #define XUSBPS_EP_EVENT_SETUP_DATA_RECEIVED	0x01
-			/**< Setup data has been received on the enpoint. */
+			/**< Setup data has been received on the endpoint. */
 #define XUSBPS_EP_EVENT_DATA_RX		0x02
 			/**< Data frame has been received on the endpoint. */
 #define XUSBPS_EP_EVENT_DATA_TX		0x03
@@ -319,7 +319,7 @@ extern "C" {
  *		layer when setting the handler, and is passed back to the upper
  *		layer when the handler is called.
  * @param	EpNum is the Number of the endpoint that caused the event.
- * @param	EventType is the type of the event that occured on the endpoint.
+ * @param	EventType is the type of the event that occurred on the endpoint.
  * @param	Data is a pointer to user data pointer specified when callback
  *		was registered.
  */

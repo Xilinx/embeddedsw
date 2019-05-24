@@ -31,7 +31,7 @@
 * @file xresetps_example.c
 *
 * This file contains a design example using the Reset Controller (ResetPs)
-* driver. A list of peripheral blocks to be resetted is maintained. The list
+* driver. A list of peripheral blocks to be reset is maintained. The list
 * has a peripheral reset ID, a register address that is to be modified, value
 * to be modified and value after reset for that register. The register provided
 * for a peripheral block is modified with the value provided. The peripheral is
@@ -64,7 +64,7 @@ typedef struct {
 	const XResetPs_RstId ResetID;    /* Peripheral to reset */
 	const u32            RegAddr;    /* Register to modify */
 	const u32            ResetVal;   /* Reset value of register */
-	const u32            ModifVal;   /* Value to modifiy before reset */
+	const u32            ModifVal;   /* Value to modify before reset */
 } ResetPsPeripherals;
 
 /***************** Macros (Inline Functions) Definitions *********************/

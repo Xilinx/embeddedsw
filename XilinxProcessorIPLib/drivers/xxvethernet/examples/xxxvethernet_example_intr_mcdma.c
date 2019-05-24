@@ -799,7 +799,7 @@ static int XxvEthernetSetupIntrSystem(INTC *IntcInstancePtr,
 	 */
 	Status = XIntc_Initialize(IntcInstancePtr, INTC_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
-		XxvEthernetUtilErrorTrap("Unable to intialize the interrupt controller");
+		XxvEthernetUtilErrorTrap("Unable to initialize the interrupt controller");
 		return XST_FAILURE;
 	}
 #endif

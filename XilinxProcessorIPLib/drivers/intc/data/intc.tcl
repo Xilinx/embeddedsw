@@ -44,7 +44,7 @@
 ##     06/25/09 sdm  Updated so that canonical definitions are
 ##              not generated when instance name matches
 ##              canonical name
-##     04/27/10 sdm Updated the tcl so that the defintions are generated in
+##     04/27/10 sdm Updated the tcl so that the definitions are generated in
 ##		the xparameters.h to know whether the optional registers
 ##		SIE, CIE and IVR are enabled in the HW - Refer CR 555392
 ##     05/24/11 hvm updated tcl to generate vector ids for external interrupts
@@ -64,8 +64,8 @@
 ##		    for Slave controllers in Cascade mode
 ##     01/22/14 bss Modified check_cascade to fix CR#764865
 ##     17/02/14 adk Fixed the CR:771287 in intc_define_vector_table
-##		    if number of interrupt ports not equal to total numer of
-##		    interrupts returning immediatly.And in the xredefine_intc
+##		    if number of interrupt ports not equal to total number of
+##		    interrupts returning immediately.And in the xredefine_intc
 ##		    if there is not interrupt source returining immediately.
 ##     4/8/14   bss Modified xredefine_intc to handle external interrupt pins
 ##		    correctly (CR#799609).

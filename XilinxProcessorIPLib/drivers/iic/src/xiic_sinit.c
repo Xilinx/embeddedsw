@@ -32,7 +32,7 @@
 * @addtogroup iic_v3_4
 * @{
 *
-* The implementation of the Xiic component's static initialzation functionality.
+* The implementation of the Xiic component's static initialization functionality.
 *
 * <pre>
 * MODIFICATION HISTORY:

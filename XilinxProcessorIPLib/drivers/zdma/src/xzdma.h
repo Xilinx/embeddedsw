@@ -104,7 +104,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   vns     2/27/15  First release
-* 1.1   vns    15/02/16  Corrected Destination descriptor addresss calculation
+* 1.1   vns    15/02/16  Corrected Destination descriptor address calculation
 *                        in XZDma_CreateBDList API
 *                        Modified XZDma_SetMode to return XST_FAILURE on
 *                        selecting DMA mode other than normal mode in

@@ -102,11 +102,11 @@ static Mapping OptionsTable[] = {
 *
 * Gets the options for the specified driver instance. The options are
 * implemented as bit masks such that multiple options may be enabled or
-* disabled simulataneously.
+* disabled simultaneously.
 *
 * @param	InstancePtr is a pointer to the XUartPsv instance.
 *
-* @return	The current options for the UART. The optionss are bit masks
+* @return	The current options for the UART. The options are bit masks
 * 		that are contained in the file xuartpsv.h and named
 *		XUARTPSV_OPTION_*.
 *
@@ -124,7 +124,7 @@ u16 XUartPsv_GetOptions(XUartPsv *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/*
-	 * Loop thru the options table to map the physical options in the
+	 * Loop through the options table to map the physical options in the
 	 * registers of the UART to the logical options to be returned
 	 */
 	for (Index = 0U; Index < XUARTPSV_NUM_OPTIONS; Index++) {
@@ -177,7 +177,7 @@ void XUartPsv_SetOptions(XUartPsv *InstancePtr, u16 Options)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/*
-	 * Loop thru the options table to map the logical options to the
+	 * Loop through the options table to map the logical options to the
 	 * physical options in the registers of the UART.
 	 */
 	for (Index = 0U; Index < XUARTPSV_NUM_OPTIONS; Index++) {

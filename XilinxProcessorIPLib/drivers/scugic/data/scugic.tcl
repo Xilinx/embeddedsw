@@ -55,7 +55,7 @@
 # 3.8   mus  05/25/17 Updated proc xdefine_gic_params to declare "valid_periph"
 #                     variable at start of the proc, to avoid the tcl errors
 #                     in case of unsupported processor.It fixes CR#976861
-# 3.8   mus  07/05/17 Added support for intrrupts connected through
+# 3.8   mus  07/05/17 Added support for interrupts connected through
 #                     util_reduced_vector IP(OR gate).
 # 3.8   mus  07/05/17 Updated xdefine_zynq_canonical_xpars proc to initialize
 #                     the HandlerTable in XScuGic_ConfigTable to 0, it removes
@@ -539,7 +539,7 @@ proc xdefine_gic_params {drvhandle} {
                 set source_name_temp [common::get_property NAME $source_periph_temp]
                 for {set count 0} {$count < $i} {incr count} {
                     if {([string compare -nocase $source_name_temp $source_name($count)] == 0) &&  ([string compare -nocase $source_port_name($count) $source_port_name_temp ] == 0)} {
-                        #IP name and correponding interrupt pair has been already detected
+                        #IP name and corresponding interrupt pair has been already detected
 			set is_ip_port_detected 1
                     }
 		}

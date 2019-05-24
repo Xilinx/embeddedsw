@@ -56,7 +56,7 @@
 *                     No brackets to then/else,
 *                     Literal value requires a U suffix,Function return
 *                     type inconsistent,Logical conjunctions need brackets,
-*                     Declared the poiner param as Pointer to const,
+*                     Declared the pointer param as Pointer to const,
 *                     Procedure has more than one exit point.
 * 4.4   sne  03/04/19 Added Support for Versal.
 * </pre>
@@ -92,7 +92,7 @@
 * This function runs a self-test on the timebase or window if enabled. Timebase
 * test verifies that the timebase is incrementing. The watchdog timer is not
 * tested due to the time required to wait for the watchdog timer to expire. The
-* time consumed by this test is dependant on the system clock and the
+* time consumed by this test is dependent on the system clock and the
 * configuration of the dividers in for the input clock of the timebase.
 *
 * Window test verifies that the windowing feature does not generate bad event

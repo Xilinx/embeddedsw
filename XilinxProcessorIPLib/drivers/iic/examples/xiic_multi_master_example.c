@@ -479,7 +479,7 @@ static void SendHandler(XIic *InstancePtr)
 /*****************************************************************************/
 /**
 * The Status handler is called asynchronously from an interrupt context and
-* indicates the events that have occured.
+* indicates the events that have occurred.
 *
 * @param	InstancePtr is a pointer to the IIC driver instance for which
 * 		the handler is being called for.

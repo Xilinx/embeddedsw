@@ -438,7 +438,7 @@ static void FlashWrite(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command)
 			/*
 			 * Send the write enable command to the flash so
 			 * that it can be written to, this needs to be sent
-			 * as a seperate transfer before the write
+			 * as a separate transfer before the write
 			 */
 			XSpiPs_PolledTransfer(SpiPtr, &WriteEnableCmd, NULL,
 						sizeof(WriteEnableCmd));

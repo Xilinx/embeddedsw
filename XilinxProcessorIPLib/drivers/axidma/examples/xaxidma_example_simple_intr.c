@@ -612,7 +612,7 @@ static void RxIntrHandler(void *Callback)
 *
 * @return
 *		- XST_SUCCESS if successful,
-*		- XST_FAILURE.if not succesful
+*		- XST_FAILURE.if not successful
 *
 * @note		None.
 *

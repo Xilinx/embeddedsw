@@ -32,7 +32,7 @@
 * @addtogroup uartns550_v3_5
 * @{
 *
-* The implementation of the XUartNs550 component's static initialzation
+* The implementation of the XUartNs550 component's static initialization
 * functionality.
 *
 * <pre>

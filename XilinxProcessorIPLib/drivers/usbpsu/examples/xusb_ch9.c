@@ -39,7 +39,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   sg  06/06/16  First release
- * 1.1	vak  30/11/16  Addded DFU support
+ * 1.1	vak  30/11/16  Added DFU support
  * 1.4   BK  12/01/18  Renamed the file and added changes to have a common
  *		       example for all USB IPs.
  * 1.5	vak  13/02/19  Added support for versal

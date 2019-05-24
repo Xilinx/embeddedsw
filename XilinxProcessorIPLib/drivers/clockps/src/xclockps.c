@@ -41,7 +41,7 @@
 * ----- ------ -------- ---------------------------------------------
 * 1.00  cjp    02/09/18 First release
 * 1.00  sd     07/26/18 Fix coverity warnings
-* 1.1	aru    03/20/19 Fix IAR isssue by changing "XCLOCK_ABS_DIFF" to a
+* 1.1	aru    03/20/19 Fix IAR issue by changing "XCLOCK_ABS_DIFF" to a
 *			function named "XClock_Absolute_Difference".
 * </pre>
 *
@@ -550,7 +550,7 @@ static XStatus XClock_ConfigPlls(u8 *PllIdx, XClockRate ParRate,
 	XCLOCK_VALIDATE_INDEX(PLL, *PllIdx);
 	XCLOCK_VALIDATE_PTR(SetRate);
 
-	/* Get curent rate */
+	/* Get current rate */
 	Status = XClock_NodeGetRate[XCLOCK_TYPE_PLL](*PllIdx, &CurrRate);
 	if (XST_SUCCESS != Status) {
 		return Status;
@@ -929,7 +929,7 @@ XStatus XClock_SetRate(XClock_OutputClks ClockId, XClockRate Rate,
 		if (XST_SUCCESS == Status) {
 			if (*SetRate != XCLOCK_INVALID_RATE) {
 				/*
-				 * Rate upated. Update rates for all the
+				 * Rate updated. Update rates for all the
 				 * topologies using this PLL
 				 */
 				XClock_UpdateTopologyRates(XCLOCK_TYPE_PLL,

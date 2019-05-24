@@ -109,7 +109,7 @@
 *		address instead.
 *
 * @return
-* 		- XST_SUCCESS if the initialization is successfull.
+* 		- XST_SUCCESS if the initialization is successful.
 *
 * @note		None.
 *
@@ -197,7 +197,7 @@ u32 XGpio_GetDataDirection(XGpio *InstancePtr, unsigned Channel)
 
 /****************************************************************************/
 /**
-* Read state of discretes for the specified GPIO channnel.
+* Read state of discretes for the specified GPIO channel.
 *
 * @param	InstancePtr is a pointer to an XGpio instance to be worked on.
 * @param	Channel contains the channel of the GPIO (1 or 2) to operate on.

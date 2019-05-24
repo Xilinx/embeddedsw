@@ -308,8 +308,8 @@ static int SysMonIntrExample(XIntc* IntcInstPtr, XSysMon* SysMonInstPtr,
 *	- End of Conversion
 *	- JTAG Locked
 *	- JATG Modified
-*	- Over Temperature DeActive
-*	- ALARM 0 DeActive
+*	- Over Temperature deactivate
+*	- ALARM 0 deactivate
 *
 * This function only handles EOS interrupts.
 * User of this code may need to modify the code to meet the needs of the

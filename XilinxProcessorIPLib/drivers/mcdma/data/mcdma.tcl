@@ -36,7 +36,7 @@
 #			CACHE_COHERENT properties when h/w is configured for
 #			single axi4 data interface.
 #			Added failure checks in the tcl to avoid bsp compilation
-#			errors incase stream interface is unconnected.
+#			errors in case stream interface is unconnected.
 # 1.2   rsp   09/07/18  Pass "hier" argument to get_cells API to support hierarchical designs.
 # 1.3   rsp   02/05/19  Enable CCI only at EL1 non-secure state.
 #       rsp   02/12/19  Export use RxLength field.

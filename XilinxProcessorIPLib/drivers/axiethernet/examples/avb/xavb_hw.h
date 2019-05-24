@@ -321,7 +321,7 @@ typedef struct
 } XAvb_RtcFormat;
 
 /**
- * This typedef descibes a 64-bit un-signed integer in terms of 2 u32s
+ * This typedef describes a 64-bit un-signed integer in terms of 2 u32s
  */
 typedef struct
 {

@@ -48,7 +48,7 @@
 * 2.1   ask  07/03/18 Added support for canfd 2.0 spec sequential mode.
 *					   XCanFd_SetRxIntrWatermark : This function has been
 *					   moved to xcanfd_intr.c
-*       ask  07/03/18 Fix for Sequencial recv CR# 992606,CR# 1004222.
+*       ask  07/03/18 Fix for Sequential recv CR# 992606,CR# 1004222.
 * </pre>
 *
 ******************************************************************************/

@@ -51,8 +51,8 @@
 * 3.1   aru  07/13/18 Resolved doxygen reported warnings. CR# 1006331.
 * 3.4   aru  08/17/18 Resolved MISRA-C mandatory violations. CR# 1007751
 * 3.5   sne  03/01/19 Fixes violations according to MISRAC-2012
-*                     in saftey mode and modified the code such as
-*                     Use of mixed mode arithmetic,Declared the poiner param
+*                     in safety mode and modified the code such as
+*                     Use of mixed mode arithmetic,Declared the pointer param
 *                     as Pointer to const,Casting operation to a pointer,
 *                     Literal value requires a U suffix.
 * 3.5   sne  03/13/19 Added Versal support.

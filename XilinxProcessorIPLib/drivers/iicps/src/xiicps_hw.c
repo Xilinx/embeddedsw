@@ -63,8 +63,8 @@
 /*****************************************************************************/
 /**
 * This function perform the reset sequence to the given I2c interface by
-* configuring the appropriate control bits in the I2c specifc registers
-* the i2cps reset squence involves the following steps
+* configuring the appropriate control bits in the I2c specific registers
+* the i2cps reset sequence involves the following steps
 *	Disable all the interuupts
 *	Clear the status
 *	Clear FIFO's and disable hold bit
@@ -76,7 +76,7 @@
 * @return N/A
 *
 * @note
-* This function will not modify the slcr registers that are relavant for
+* This function will not modify the slcr registers that are relevant for
 * I2c controller
 ******************************************************************************/
 void XIicPs_ResetHw(u32 BaseAddress)

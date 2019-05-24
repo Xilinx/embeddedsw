@@ -103,7 +103,7 @@
  * when transferring data in and out of the packet buffers. Each BD describes
  * a memory region containing either a full or partial Ethernet packet.
  *
- * Interrupt coalescing is not suppoted from this built-in DMA engine.
+ * Interrupt coalescing is not supported from this built-in DMA engine.
  *
  * This API requires the user to understand how the DMA operates. The
  * following paragraphs provide some explanation, but the user is encouraged
@@ -509,7 +509,7 @@ typedef void (*XEmacPs_Handler) (void *CallBackRef);
 /**
  * Callback when an asynchronous error occurs. To set this callback, invoke
  * XEmacPs_SetHandler() with XEMACPS_HANDLER_ERROR in the HandlerType
- * paramter.
+ * parameter.
  *
  * @param CallBackRef is user data assigned when the callback was set.
  * @param Direction defines either receive or transmit error(s) has occurred.

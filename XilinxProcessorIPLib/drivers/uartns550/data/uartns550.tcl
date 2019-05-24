@@ -84,7 +84,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     }
 
     # define XPAR_XUARTNS550_CLOCK_HZ as bus freq of the
-    # 1st instance of the core, for backward compatability
+    # 1st instance of the core, for backward compatibility
     set arg "CLOCK_HZ"
     set periph [lindex $periphs 0]
     set freq [xget_freq $periph]

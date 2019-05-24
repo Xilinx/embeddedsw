@@ -76,7 +76,7 @@
 
 #include "xparameters.h"	/* XPAR parameters */
 #include "xspi.h"		/* SPI device driver */
-#include "xintc.h"		/* Interrupt controller devive driver */
+#include "xintc.h"		/* Interrupt controller device driver */
 #include "stdio.h"
 #include "xil_exception.h"
 #include "xil_printf.h"
@@ -248,7 +248,7 @@ static int SpiSlaveIntrExample(XSpi *SpiInstancePtr, u16 SpiDeviceId)
 	XSpi_Start(SpiInstancePtr);
 
 	/*
-	 * Enable the DTR half-empty interrupt while transfering more than
+	 * Enable the DTR half-empty interrupt while transferring more than
 	 * FIFO_DEPTH number of bytes in slave mode, so that the Tx FIFO
 	 * is never empty during a transfer. If the Tx FIFO is empty during
 	 * a transfer, it results in master receiving invalid data.

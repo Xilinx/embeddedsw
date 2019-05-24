@@ -479,11 +479,11 @@ typedef struct {
 /* Array of supported sampling frequencies */
 #define MAX_AUDIO_FREQ			0x04
 
-/* Bytes per Audio transfered frame */
+/* Bytes per Audio transferred frame */
 #define AUDIO_FRAME_SIZE		0x02
 #define CUR_AUDIO_FREQ			0x01
 
-/* Bits per Audio transfered frame */
+/* Bits per Audio transferred frame */
 #define BIT_RESOLUTION			((AUDIO_FRAME_SIZE) * (0x08))
 
 #define DIV_ROUND_UP(n, d)		(((n) + (d) - 1) / (d))

@@ -31,7 +31,7 @@
 * @addtogroup axiethernet_v5_8
 * @{
 *
-* This file contains static initialzation functionality for Axi Ethernet driver.
+* This file contains static initialization functionality for Axi Ethernet driver.
 *
 * <pre>
 * MODIFICATION HISTORY:

@@ -914,7 +914,7 @@ u16 XSysMon_GetCalibEnables(XSysMon *InstancePtr)
 *		- One pass through sequence (XSM_SEQ_MODE_ONEPASS)
 *		- Continuous channel sequencing (XSM_SEQ_MODE_CONTINPASS)
 *		- Single Channel/Sequencer off (XSM_SEQ_MODE_SINGCHAN)
-*		- Simulataneous sampling mode (XSM_SEQ_MODE_SIMUL)
+*		- Simultaneous sampling mode (XSM_SEQ_MODE_SIMUL)
 *		- Independent mode (XSM_SEQ_MODE_INDEPENDENT)
 *
 * @param	InstancePtr is a pointer to the XSysMon instance.
@@ -963,7 +963,7 @@ void XSysMon_SetSequencerMode(XSysMon *InstancePtr, u8 SequencerMode)
 *		- XSM_SEQ_MODE_ONEPASS : One pass through sequence
 *		- XSM_SEQ_MODE_CONTINPASS : Continuous channel sequencing
 *		- XSM_SEQ_MODE_SINGCHAN : Single channel/Sequencer off
-*		- XSM_SEQ_MODE_SIMUL : Simulataneous sampling mode
+*		- XSM_SEQ_MODE_SIMUL : Simultaneous sampling mode
 *		- XSM_SEQ_MODE_INDEPENDENT : Independent mode
 *
 * @note		None.

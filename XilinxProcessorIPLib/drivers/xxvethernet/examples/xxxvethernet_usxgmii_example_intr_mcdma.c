@@ -33,7 +33,7 @@
 * packet transfer mode to send and receive frames.
 *
 * This example demonstrates how to perform a simple send and receive.
-* USXGMII is setup at 1G speed by defualt (can be setup at 2.5G).
+* USXGMII is setup at 1G speed by default (can be setup at 2.5G).
 * USXGMII needs to be looped back externally on the HW for this example.
 * The GT reference clock needs to be set to 161.16035455278MHz for
 * USXGMII.
@@ -806,7 +806,7 @@ static int XxvEthernetSetupIntrSystem(INTC *IntcInstancePtr,
 	 */
 	Status = XIntc_Initialize(IntcInstancePtr, INTC_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
-		XxvEthernetUtilErrorTrap("Unable to intialize the interrupt controller");
+		XxvEthernetUtilErrorTrap("Unable to initialize the interrupt controller");
 		return XST_FAILURE;
 	}
 #endif

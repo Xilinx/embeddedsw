@@ -99,7 +99,7 @@ static u8 Response ALIGNMENT_CACHELINE;
 *
 * @return
 *		- XST_SUCCESS if the function is successful.
-*		- XST_FAILURE if an Error occured.
+*		- XST_FAILURE if an Error occurred.
 *
 * @note		None.
 *
@@ -560,7 +560,7 @@ static u8  	Reply[XUSBPS_REQ_REPLY_LEN];
 *
 * @return
 *		- XST_SUCCESS if successful.
-*		- XST_FAILURE if an Error occured.
+*		- XST_FAILURE if an Error occurred.
 *
 * @note	
 *		This function is a template to handle vendor request for control

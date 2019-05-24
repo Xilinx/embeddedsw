@@ -437,7 +437,7 @@ void XEmacPs_StubHandler(void)
 * @param	InstancePtr is a pointer to the instance to be worked on.
 * @param	QPtr is the address of the Queue to be written
 * @param	QueueNum is the Buffer Queue Index
-* @param	Direction indicates Transmit/Recive
+* @param	Direction indicates Transmit/Receive
 *
 * @note
 * The buffer queue addresses has to be set before starting the transfer, so

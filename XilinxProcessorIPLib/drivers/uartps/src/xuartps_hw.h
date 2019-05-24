@@ -345,7 +345,7 @@ extern "C" {
 
 
 /*
- * Defines for backwards compatabilty, will be removed
+ * Defines for backwards compatibility, will be removed
  * in the next version of the driver
  */
 #define XUARTPS_MEDEMSR_DCDX  XUARTPS_MODEMSR_DDCD

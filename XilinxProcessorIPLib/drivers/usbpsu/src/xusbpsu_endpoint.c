@@ -1098,7 +1098,7 @@ s32 XUsbPsu_IsEpStalled(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir)
 * Checks the Data Phase and calls user Endpoint handler.
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Event is a pointer to the Endpoint event occured in core.
+* @param	Event is a pointer to the Endpoint event occurred in core.
 *
 * @return	None.
 *

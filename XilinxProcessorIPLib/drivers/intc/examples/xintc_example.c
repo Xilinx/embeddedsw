@@ -249,7 +249,7 @@ int IntcExample(u16 DeviceId)
 /**
 *
 * This function connects the interrupt handler of the interrupt controller to
-* the processor.  This function is seperate to allow it to be customized for
+* the processor.  This function is separate to allow it to be customized for
 * each application.  Each processor or RTOS may require unique processing to
 * connect the interrupt handler.
 *

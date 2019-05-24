@@ -64,8 +64,8 @@
 /*****************************************************************************/
 /**
 * This function perform the reset sequence to the given emacps interface by
-* configuring the appropriate control bits in the emacps specifc registers.
-* the emacps reset squence involves the following steps
+* configuring the appropriate control bits in the emacps specific registers.
+* the emacps reset sequence involves the following steps
 *	Disable all the interuupts
 *	Clear the status registers
 *	Disable Rx and Tx engines
@@ -77,7 +77,7 @@
 * @return N/A
 *
 * @note
-* This function will not modify the slcr registers that are relavant for
+* This function will not modify the slcr registers that are relevant for
 * emacps controller
 ******************************************************************************/
 void XEmacPs_ResetHw(u32 BaseAddr)

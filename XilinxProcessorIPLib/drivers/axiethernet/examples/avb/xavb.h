@@ -427,7 +427,7 @@ typedef struct
 } XAvb_StateMachineData;
 
 
-/** This struct captures information from RX'd Sync/FollowUp message pairs in a format similiar
+/** This struct captures information from RX'd Sync/FollowUp message pairs in a format similar
  * to the MDSyncReceive structure described in the IEEE P802.1AS specification.
  */
 typedef struct

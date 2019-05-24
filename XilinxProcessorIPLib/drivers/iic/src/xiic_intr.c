@@ -360,7 +360,7 @@ static void TxErrorHandler(XIic *InstancePtr)
 
 		/*
 		 * If operating in Master mode, call status handler to indicate
-		 * NOACK occured.
+		 * NOACK occurred.
 		 */
 		IntrStatus = XIic_ReadIisr(InstancePtr->BaseAddress);
 		if ((IntrStatus & XIIC_INTR_AAS_MASK) == 0) {
@@ -412,7 +412,7 @@ static void TxErrorHandler(XIic *InstancePtr)
 
 	/*
 	 * Set FIFO occupancy depth = 1 so that the first byte will throttle
-	 * next recieve msg.
+	 * next receive msg.
 	 */
 	XIic_WriteReg(InstancePtr->BaseAddress, XIIC_RFD_REG_OFFSET, 0);
 

@@ -498,7 +498,7 @@ s32 XQspiPs_Transfer(XQspiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
 	XQspiPs_Enable(InstancePtr);
 
 	/*
-	 * Clear all the interrrupts.
+	 * Clear all the interrupts.
 	 */
 	XQspiPs_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPS_SR_OFFSET,
 			XQSPIPS_IXR_WR_TO_CLR_MASK);
@@ -908,8 +908,8 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 
 	/*
 	 * Check if manual start is selected and store it in a
-	 * local varibale for reference. This is to avoid reading
-	 * the config register everytime.
+	 * local variable for reference. This is to avoid reading
+	 * the config register every time.
 	 */
 	IsManualStart = XQspiPs_IsManualStart(InstancePtr);
 
@@ -1322,7 +1322,7 @@ void XQspiPs_InterruptHandler(void *InstancePtr)
 		/*
 		 * Rx FIFO has just reached threshold no. of entries.
 		 * Read threshold no. of entries from RX FIFO
-		 * Another possiblity of entering this loop is when
+		 * Another possibility of entering this loop is when
 		 * the last byte has been transmitted and TX FIFO is empty,
 		 * in which case, read all the data from RX FIFO.
 		 * Always get the received data, but only fill the

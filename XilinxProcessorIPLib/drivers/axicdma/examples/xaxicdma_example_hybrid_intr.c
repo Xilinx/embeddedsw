@@ -38,7 +38,7 @@
  * finally another simple transfer.
  *
  * Modify NUMBER_OF_BDS_TO_TRANSFER for a different number of BDs to be
- * transfered in the SG transfer.
+ * transferred in the SG transfer.
  *
  * This example assumes that the system has an interrupt controller.
  *
@@ -542,7 +542,7 @@ static int SetupIntrSystem(XIntc *IntcInstancePtr, XAxiCdma *InstancePtr,
 	Status = XIntc_Initialize(IntcInstancePtr, INTC_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-		    "Interrupt controller intialization failed %d\r\n",
+		    "Interrupt controller initialization failed %d\r\n",
 		    Status);
 
 		return XST_FAILURE;

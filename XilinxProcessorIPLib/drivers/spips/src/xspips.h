@@ -56,7 +56,7 @@
 * To support multiple runtime loading and initialization strategies employed by
 * various operating systems, the driver instance can be initialized in the
 * following way:
-*	- XSpiPs_LookupConfig(DeviceId) - Use the devide identifier to find the
+*	- XSpiPs_LookupConfig(DeviceId) - Use the divide identifier to find the
 *	static configuration structure defined in xspips_g.c. This is setup by
 *	the tools. For some operating systems the config structure will be
 *	initialized by the software and this call is not needed.
@@ -509,7 +509,7 @@ typedef struct {
 * Set the contents of the slave idle count register.
 *
 * @param	InstancePtr is a pointer to the XSpiPs instance.
-* @param	RegisterValue is the value to be writen, valid values are
+* @param	RegisterValue is the value to be written, valid values are
 *		0-255.
 *
 * @return	None

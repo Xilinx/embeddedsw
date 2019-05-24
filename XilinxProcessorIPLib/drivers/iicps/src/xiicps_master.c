@@ -613,7 +613,7 @@ void XIicPs_EnableSlaveMonitor(XIicPs *InstancePtr, u16 SlaveAddr)
 
 	/*
 	 * Set up interrupt flag for slave monitor interrupt.
-	 * Dont enable NACK.
+	 * Don't enable NACK.
 	 */
 	XIicPs_EnableInterrupts(BaseAddr, (u32)XIICPS_IXR_SLV_RDY_MASK);
 

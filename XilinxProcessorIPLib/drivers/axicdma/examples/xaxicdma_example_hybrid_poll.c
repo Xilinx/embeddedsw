@@ -41,7 +41,7 @@
  * mode can yield better turn-around time for DMA transfers.
  *
  * Modify NUMBER_OF_BDS_TO_TRANSFER for a different number of BDs to be
- * transfered in the SG transfer.
+ * transferred in the SG transfer.
  *
  * To see the debug print, you need a uart16550 or uartlite in your system,
  * and please set "-DDEBUG" in your compiler options for the example, also

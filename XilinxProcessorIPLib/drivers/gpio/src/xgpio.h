@@ -99,7 +99,7 @@
 * 3.01a bss  04/18/13 Updated driver tcl to generate Canonical params in
 *		      xparameters.h. CR#698589
 * 4.0   adk  19/12/13 Updated as per the New Tcl API's
-* 4.1   lks  11/18/15 Updated to use cannonical xparameters in examples and
+* 4.1   lks  11/18/15 Updated to use canonical xparameters in examples and
 *		      clean up of the comments, removed support for DCR bridge
 *		      and removed xgpio_intr_example for CR 900381
 * 4.2   sk   08/16/16 Used UINTPTR instead of u32 for Baseaddress as part of

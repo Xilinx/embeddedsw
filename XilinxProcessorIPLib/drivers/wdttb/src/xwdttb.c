@@ -83,7 +83,7 @@
 *                     No brackets to then/else,
 *                     Literal value requires a U suffix,Function return
 *                     type inconsistent,Logical conjunctions need brackets,
-*                     Declared the poiner param as Pointer to const,
+*                     Declared the pointer param as Pointer to const,
 *                     Procedure has more than one exit point.
 * 4.4   sne  03/04/19 Added support for Versal( Generic Watchdog and
 *                     Window Watchdog Timer). Added below functions:

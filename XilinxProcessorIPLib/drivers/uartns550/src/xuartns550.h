@@ -145,7 +145,7 @@
 *		      used in its place.
 * 2.01a bss  01/13/12 Updated the XUartNs550_SelfTest to use Xil_AssertNonvoid
 *		      in place of XASSERT_NONVOID for CR 641344.
-* 		      Removed unneccessary read of the LCR register in the
+* 		      Removed unnecessary read of the LCR register in the
 *                     XUartNs550_CfgInitialize function. Removed compiler
 *		      warnings for unused variables in the
 *		      XUartNs550_StubHandler.

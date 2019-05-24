@@ -41,7 +41,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   vns     2/27/15  First release
-*       vns    16/10/15  Corrected Destination descriptor addresss calculation
+*       vns    16/10/15  Corrected Destination descriptor address calculation
 *                        in XZDma_CreateBDList API
 * 1.1   vns    05/11/15  Modified XZDma_SetMode to return XST_FAILURE on
 *                        selecting DMA mode other than normal mode in
@@ -136,7 +136,7 @@ s32 XZDma_CfgInitialize(XZDma *InstancePtr, XZDma_Config *CfgPtr,
 
 #if defined (versal)
 	/*
-	 * FIXME : Currenlty PCW/FSBL not configuring the
+	 * FIXME : Currently PCW/FSBL not configuring the
 	 * reset and clocks for the zdma. This code block
 	 * needs to be reverted once PCW/FSBL take care's
 	 * the configuration of the zdma.

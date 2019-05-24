@@ -123,7 +123,7 @@
  *
  * during XStrm_Write():
  * first holding buffer write:    holding buffer
- *                                 writen  empty
+ *                                 written  empty
  *                                +--------------+
  *                                |//////|       |
  *                                +--------------+
@@ -181,7 +181,7 @@ xdbg_stmnt(u32 _xstrm_buffered;)
 *
 * @param    GetOccupancyFn specifies a routine to use to retrieve the occupancy
 *           in the actual FIFO. The true occupancy value needs to come through
-*           this streamer driver becuase it holds some of the bytes.
+*           this streamer driver because it holds some of the bytes.
 *
 * @return   N/A
 *
@@ -225,7 +225,7 @@ void XStrm_RxInitialize(XStrm_RxFifoStreamer *InstancePtr, unsigned FifoWidth,
 *
 * @param    GetVacancyFn specifies a routine to use to retrieve the vacancy in
 *           the actual FIFO. The true vacancy value needs to come through this
-*           streamer driver becuase it holds some of the bytes.
+*           streamer driver because it holds some of the bytes.
 *
 * @return   N/A
 *

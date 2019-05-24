@@ -131,7 +131,7 @@ static void XIntc_InitializeSlaves(XIntc * InstancePtr);
 *		not found for a device with the supplied device ID.
 *
 * @note		In Cascade mode this function calls XIntc_InitializeSlaves to
-*	        initialiaze Slave Interrupt controllers.
+*	        initialize Slave Interrupt controllers.
 *
 ******************************************************************************/
 int XIntc_Initialize(XIntc * InstancePtr, u16 DeviceId)
@@ -187,7 +187,7 @@ int XIntc_Initialize(XIntc * InstancePtr, u16 DeviceId)
 	for (Id = 0; Id < CfgPtr->NumberofIntrs; Id++) {
 
 		/*
-		 * Initalize the handler to point to a stub to handle an
+		 * Initialize the handler to point to a stub to handle an
 		 * interrupt which has not been connected to a handler. Only
 		 * initialize it if the handler is 0 or XNullHandler, which
 		 * means it was not initialized statically by the tools/user.
@@ -372,7 +372,7 @@ void XIntc_Stop(XIntc * InstancePtr)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/*
-	 * Stop all interrupts from occurring thru the interrupt controller by
+	 * Stop all interrupts from occurring through the interrupt controller by
 	 * disabling all interrupts in the MER register
 	 */
 	XIntc_Out32(InstancePtr->BaseAddress + XIN_MER_OFFSET, 0);
@@ -1146,7 +1146,7 @@ static void XIntc_InitializeSlaves(XIntc * InstancePtr)
 		for (Id = 0; Id < CfgPtr->NumberofIntrs; Id++) {
 
 			/*
-			 * Initalize the handler to point to a stub to handle an
+			 * Initialize the handler to point to a stub to handle an
 			 * interrupt which has not been connected to a handler.
 			 * Only initialize it if the handler is 0 or
 			 * XNullHandler, which means it was not initialized

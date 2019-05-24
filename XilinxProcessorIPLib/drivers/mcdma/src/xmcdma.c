@@ -131,7 +131,7 @@ s32 XMcDma_CfgInitialize(XMcdma *InstancePtr, XMcdma_Config *CfgPtr)
 *		- XST_SUCCESS if initialization was successful.
 *
 * @note		When user calls this function he should ensure the hardware
-*		is in a quiescent state by reseting all the hardware
+*		is in a quiescent state by resetting all the hardware
 *		Configurations.
 *
 ******************************************************************************/

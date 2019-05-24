@@ -198,7 +198,7 @@ void XAvb_GetPortIdentity(u32 BaseAddress, u32 PtpFrameBaseAddr,
 * @param  Data is the common data to be written to all Tx PTP frame templates
 * @param  DataBitEnable allows only selected bits of the 32-bit Data word to
 *         be modified.
-* @param  BufferEnable allows the selected buffer to be seleced: there are 8
+* @param  BufferEnable allows the selected buffer to be selected: there are 8
 *         PTP buffers - these are encoded as one-hot.  For example, 0x3F will
 *         write the selected data to the first 6 buffers only.
 *

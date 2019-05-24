@@ -53,7 +53,7 @@
 *                    is Reset on giving a software reset to the IIC core.
 *                    Some previous versions of the core only reset the
 *                    Interrupt Logic/Registers, please refer to the HW
-*                    specification for futher details.
+*                    specification for further details.
 * 2.00a ktn 10/22/09 Converted all register accesses to 32 bit access.
 *		     Updated to use the HAL APIs/macros.
 *		     Some of the macros have been renamed to remove _m from

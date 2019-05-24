@@ -36,7 +36,7 @@
 
 ## @BEGIN_CHANGELOG EDK_P
 ##
-##  - Addded the generation of C_*E_FAILING_DATA_REGISTERS to the config structure
+##  - Added the generation of C_*E_FAILING_DATA_REGISTERS to the config structure
 ##    to distinguish between AXI BRAM and LMB BRAM. These registers are not present 
 ##    in the current common::version of the AXI BRAM Controller.
 ##

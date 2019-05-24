@@ -404,7 +404,7 @@ static int SendFrame(XCanFd *InstancePtr)
 	/*
 	 * Create correct values for Identifier and Data Length Code Register.
 	 * Here Data Length Code value is 8
-	 * but CAN FD Can support upto DLC 15(64Bytes).
+	 * but CAN FD Can support up to DLC 15(64Bytes).
 	 */
 	TxFrame[0] = XCanFd_CreateIdValue(TEST_MESSAGE_ID, 0, 0, 0, 0);
 	TxFrame[1] = XCanFd_Create_CanFD_Dlc_BrsValue(TEST_CANFD_DLC);

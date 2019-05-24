@@ -403,7 +403,7 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
 		for (Int_Id = 0U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
 				Int_Id++) {
 			/*
-			* Initalize the handler to point to a stub to handle an
+			* Initialize the handler to point to a stub to handle an
 			* interrupt which has not been connected to a handler
 			* Only initialize it if the handler is 0 which means it
 			* was not initialized statically by the tools/user. Set

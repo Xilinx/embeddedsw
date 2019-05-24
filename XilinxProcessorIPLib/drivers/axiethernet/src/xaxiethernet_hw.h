@@ -452,7 +452,7 @@ extern "C" {
 #define XAE_RAF_TXVSTRPMODE_MASK 	0x00000180 /**< Tx VLAN STRIP mode */
 #define XAE_RAF_RXVSTRPMODE_MASK 	0x00000600 /**< Rx VLAN STRIP mode */
 #define XAE_RAF_NEWFNCENBL_MASK  	0x00000800 /**< New function mode */
-#define XAE_RAF_EMULTIFLTRENBL_MASK 	0x00001000 /**< Exteneded Multicast
+#define XAE_RAF_EMULTIFLTRENBL_MASK 	0x00001000 /**< Extended Multicast
 						     *  Filtering mode
 						     */
 #define XAE_RAF_STATSRST_MASK  	0x00002000 	   /**< Statistics Counter
@@ -473,7 +473,7 @@ extern "C" {
 #define XAE_TPF_TPFV_MASK		0x0000FFFF /**< Tx pause frame value */
 /*@}*/
 
-/** @name Transmit Inter-Frame Gap Adjustement Register (TFGP) bit definitions
+/** @name Transmit Inter-Frame Gap Adjustment Register (TFGP) bit definitions
  *  @{
  */
 #define XAE_TFGP_IFGP_MASK		0x0000007F /**< Transmit inter-frame

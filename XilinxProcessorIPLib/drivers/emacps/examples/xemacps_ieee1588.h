@@ -36,7 +36,7 @@
 *
 * The PTP standalone example files implement the basic PTPv2 protocol as an
 * example application. However the accuracy of clock offset adjustment is
-* not guaranted as of now. Also the clock rate adjustment and signalling
+* not guaranteed as of now. Also the clock rate adjustment and signalling
 * frames are not implemented. Also it may not be implementing all aspects of
 * PTPv2 strictly as per specs. Since it is based on AVB driver (which is
 * 802.1as based), some aspects of 802.1as which are not there in IEEE1588
@@ -100,7 +100,7 @@ extern "C" {
 			      */
 #undef DEBUG_LEVEL_TWO  /*
 			      * Other debug messages, e.g. function names being
-			      * executed, PTP protocl messages etc.
+			      * executed, PTP protocol messages etc.
 			      */
 
 /* PTP Packet Message Type Definitions */
@@ -463,7 +463,7 @@ typedef struct
 
 /*
  * This struct captures information from RX'd Sync/FollowUp message pairs in a
- * format similiar to the MDSyncReceive structure described in the IEEE1588
+ * format similar to the MDSyncReceive structure described in the IEEE1588
  * specification.
  */
 typedef struct

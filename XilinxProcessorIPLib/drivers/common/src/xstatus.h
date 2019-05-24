@@ -135,7 +135,7 @@ extern "C" {
 						   to be processed */
 #define XST_DMA_SG_IS_STARTED           514L	/* scatter gather not stopped */
 #define XST_DMA_SG_IS_STOPPED           515L	/* scatter gather not running */
-#define XST_DMA_SG_LIST_FULL            517L	/* all the buffer desciptors of
+#define XST_DMA_SG_LIST_FULL            517L	/* all the buffer descriptors of
 						   the scatter gather list are
 						   being used */
 #define XST_DMA_SG_BD_LOCKED            518L	/* the scatter gather buffer
@@ -144,7 +144,7 @@ extern "C" {
 						   list is locked */
 #define XST_DMA_SG_NOTHING_TO_COMMIT    519L	/* no buffer descriptors have been
 						   put into the scatter gather
-						   list to be commited */
+						   list to be committed */
 #define XST_DMA_SG_COUNT_EXCEEDED       521L	/* the packet count threshold
 						   specified was larger than the
 						   total # of buffer descriptors

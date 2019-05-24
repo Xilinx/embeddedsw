@@ -175,7 +175,7 @@ u16 TransferMode;
 *		Voltage of 3.3V is selected as that is supported by host.
 *		Interrupts status is enabled and signal disabled by default.
 *		Default data direction is card to host and
-*		32 bit ADMA2 is selected. Defualt Block size is 512 bytes.
+*		32 bit ADMA2 is selected. Default Block size is 512 bytes.
 *
 ******************************************************************************/
 s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,

@@ -537,7 +537,7 @@ unsigned int XUartLite_SendBuffer(XUartLite *InstancePtr)
 				IntrEnableStatus);
 
 	/*
-	 * Return the number of bytes that were sent, althought they really were
+	 * Return the number of bytes that were sent, although they really were
 	 * only put into the FIFO, not completely sent yet
 	 */
 	return SentCount;

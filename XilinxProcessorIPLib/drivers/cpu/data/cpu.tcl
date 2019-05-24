@@ -399,7 +399,7 @@ proc generate {drv_handle} {
 
 	#------------------------------------------------------------------------------
 	# If the processor is PMU Microblaze, then generate required params and return
-	# We dont need the Parameters being generated after this code block
+	# We don't need the Parameters being generated after this code block
 	#------------------------------------------------------------------------------
 	if {[string compare "psu_pmu" $proctype] == 0 || [string compare "psu_pmc" $proctype] == 0 || [string compare "psu_psm" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0 || [string compare "psv_psm" $proctype] == 0} {
 

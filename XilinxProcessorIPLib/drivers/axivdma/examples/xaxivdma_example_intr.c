@@ -634,7 +634,7 @@ static int WriteSetup(XAxiVdma * InstancePtr)
 *
 * @param	InstancePtr points to the DMA engine instance
 *
-* @return	XST_SUCCESS if both read and write start succesfully
+* @return	XST_SUCCESS if both read and write start successfully
 *		XST_FAILURE if one or both directions cannot be started
 *
 * @note		None.

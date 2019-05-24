@@ -538,7 +538,7 @@ void FlashWrite(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 Command)
 
 	/*
 	 * Send the write enable command to the FLASH so that it can be
-	 * written to, this needs to be sent as a seperate transfer before
+	 * written to, this needs to be sent as a separate transfer before
 	 * the write
 	 */
 	XQspiPs_PolledTransfer(QspiPtr, &WriteEnableCmd, NULL,
@@ -661,7 +661,7 @@ void FlashErase(XQspiPs *QspiPtr, u32 Address, u32 ByteCount)
 	if (ByteCount == (NUM_SECTORS * SECTOR_SIZE)) {
 		/*
 		 * Send the write enable command to the FLASH so that it can be
-		 * written to, this needs to be sent as a seperate transfer
+		 * written to, this needs to be sent as a separate transfer
 		 * before the erase
 		 */
 		XQspiPs_PolledTransfer(QspiPtr, &WriteEnableCmd, NULL,
@@ -711,7 +711,7 @@ void FlashErase(XQspiPs *QspiPtr, u32 Address, u32 ByteCount)
 	for (Sector = 0; Sector < ((ByteCount / SECTOR_SIZE) + 1); Sector++) {
 		/*
 		 * Send the write enable command to the SEEPOM so that it can be
-		 * written to, this needs to be sent as a seperate transfer
+		 * written to, this needs to be sent as a separate transfer
 		 * before the write
 		 */
 		XQspiPs_PolledTransfer(QspiPtr, &WriteEnableCmd, NULL,

@@ -428,7 +428,7 @@ static unsigned long Onfi_Crc16(u8 *Buf)
 /**
 *
 * This function reads the NAND flash parameter page defined by ONFI 1.0
-* specfication.
+* specification.
 *
 * @param	InstancePtr is a pointer to the XNandPs instance.
 * @param	Buf is a buffer pointer to fill the data.
