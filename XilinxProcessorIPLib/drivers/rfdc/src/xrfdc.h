@@ -221,6 +221,7 @@
 *       cog    04/15/19 Rename XRFdc_SetDACMode() and XRFdc_GetDACMode() APIs to
 *                       XRFdc_SetDataPathMode() and XRFdc_GetDataPathMode() respectively.
 * 7.0   cog    05/13/19 Formatting changes.
+*       cog    05/13/19 Added new bock MACROs.
 *
 * </pre>
 *
@@ -890,11 +891,17 @@ typedef struct {
 #define XRFDC_BLK_ID3 0x3U
 #define XRFDC_BLK_ID4 0x4U
 
+#define XRFDC_BLK_ID_NONE -1
+#define XRFDC_BLK_ID_ALL -1
+#define XRFDC_BLK_ID_INV 0x4
+
 #define XRFDC_TILE_ID0 0x0U
 #define XRFDC_TILE_ID1 0x1U
 #define XRFDC_TILE_ID2 0x2U
 #define XRFDC_TILE_ID3 0x3U
 #define XRFDC_TILE_ID4 0x4U
+
+#define XRFDC_TILE_ID_INV 0x4U
 
 #define XRFDC_NUM_OF_BLKS1 0x1U
 #define XRFDC_NUM_OF_BLKS2 0x2U

@@ -59,6 +59,7 @@
 *                       bits were clashing with other interrupt bits.
 * 7.0   cog    05/13/19 Formatting changes.
 *       cog    05/13/19 Re-factor of interrupt clear/status handling.
+*       cog    05/13/19 Added handling for common power up interrupt.
 * </pre>
 *
 ******************************************************************************/
@@ -127,6 +128,16 @@ u32 XRFdc_IntrEnable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u3
 		}
 	} else {
 		NoOfBlocks = Block_Id + 1U;
+	}
+
+	ReadReg = XRFdc_ReadReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile_Id), XRFDC_INTR_ENABLE);
+	if ((IntrMask & XRFDC_COMMON_MASK) != 0U) {
+		ReadReg |= (XRFDC_COMMON_MASK >> XRFDC_COMMON_SHIFT);
+		XRFdc_WriteReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile_Id), XRFDC_INTR_ENABLE, ReadReg);
+		if ((IntrMask & ~XRFDC_COMMON_MASK) == XRFDC_DISABLED) {
+			Status = XRFDC_SUCCESS;
+			goto RETURN_PATH;
+		}
 	}
 
 	for (; Index < NoOfBlocks; Index++) {
@@ -254,6 +265,12 @@ u32 XRFdc_IntrDisable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u
 		NoOfBlocks = Block_Id + 1U;
 	}
 
+	ReadReg = XRFdc_ReadReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile_Id), XRFDC_INTR_ENABLE);
+	if ((IntrMask & XRFDC_COMMON_MASK) != 0U) {
+		ReadReg &= ~(XRFDC_COMMON_MASK >> XRFDC_COMMON_SHIFT);
+		XRFdc_WriteReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile_Id), XRFDC_INTR_ENABLE, ReadReg);
+	}
+
 	for (; Index < NoOfBlocks; Index++) {
 		if (Type == XRFDC_ADC_TILE) {
 			BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
@@ -369,6 +386,8 @@ u32 XRFdc_GetIntrStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id,
 	}
 
 	*IntrStsPtr = 0;
+	ReadReg = XRFdc_ReadReg16(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile_Id), XRFDC_INTR_STS);
+	*IntrStsPtr |= ((ReadReg & XRFDC_INTR_COMMON_MASK) << XRFDC_COMMON_SHIFT);
 	for (; Index < NoOfBlocks; Index++) {
 		if (Type == XRFDC_ADC_TILE) {
 			BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
@@ -549,13 +568,13 @@ u32 XRFdc_IntrHandler(u32 Vector, void *XRFdcPtr)
 {
 	XRFdc *InstancePtr = (XRFdc *)XRFdcPtr;
 	u32 Intrsts = 0x0U;
-	u32 Tile_Id = XRFDC_TILE_ID4;
-	u32 Block_Id = XRFDC_BLK_ID4;
+	u32 Tile_Id = XRFDC_TILE_ID_INV;
+	s32 Block_Id = XRFDC_BLK_ID_INV;
 	u32 ReadReg;
 	u16 Type = 0U;
 	u32 BaseAddr;
 	u32 IntrMask = 0x0U;
-	u32 Block;
+	u32 Block = XRFDC_BLK_ID_INV;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -603,9 +622,16 @@ u32 XRFdc_IntrHandler(u32 Vector, void *XRFdcPtr)
 		Block_Id = XRFDC_BLK_ID2;
 	} else if ((ReadReg & XRFDC_EN_INTR_SLICE3_MASK) != 0U) {
 		Block_Id = XRFDC_BLK_ID3;
+	} else if ((ReadReg & XRFDC_INTR_COMMON_MASK) != 0U) {
+		Block = XRFDC_BLK_ID_NONE;
+		IntrMask |= XRFDC_COMMON_MASK;
+		goto END_OF_BLOCK_LEVEL;
 	} else {
 		metal_log(METAL_LOG_DEBUG, "\n Invalid ADC Block_Id \r\n");
+		goto END_OF_BLOCK_LEVEL;
 	}
+
+	IntrMask |= (ReadReg & XRFDC_INTR_COMMON_MASK) << XRFDC_COMMON_SHIFT;
 
 	Block = Block_Id;
 
@@ -667,16 +693,6 @@ u32 XRFdc_IntrHandler(u32 Vector, void *XRFdcPtr)
 			metal_log(METAL_LOG_DEBUG, "\n DAC Data Path interface interrupt \r\n");
 		}
 	}
-	Block = Block_Id;
-
-	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) && (Type == XRFDC_ADC_TILE)) {
-		if ((Block_Id == XRFDC_BLK_ID0) || (Block_Id == XRFDC_BLK_ID1)) {
-			Block = XRFDC_BLK_ID0;
-		} else {
-			Block = XRFDC_BLK_ID1;
-		}
-	}
-	InstancePtr->StatusHandler(InstancePtr->CallBackRef, Type, Tile_Id, Block, IntrMask);
 
 	/* Clear the interrupt */
 	if (Type == XRFDC_ADC_TILE) {
@@ -687,7 +703,8 @@ u32 XRFdc_IntrHandler(u32 Vector, void *XRFdcPtr)
 		/* DAC */
 		XRFdc_IntrClr(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block, Intrsts);
 	}
-
+END_OF_BLOCK_LEVEL:
+	InstancePtr->StatusHandler(InstancePtr->CallBackRef, Type, Tile_Id, Block, IntrMask);
 	return (u32)METAL_IRQ_HANDLED;
 }
 
