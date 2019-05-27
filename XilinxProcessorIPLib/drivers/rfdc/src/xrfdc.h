@@ -222,6 +222,10 @@
 *                       XRFdc_SetDataPathMode() and XRFdc_GetDataPathMode() respectively.
 * 7.0   cog    05/13/19 Formatting changes.
 *       cog    05/13/19 Added new bock MACROs.
+*       cog    05/13/19 XRFdc_CheckTileEnabled(), XRFdc_IsDACBlockEnabled(),
+*                       XRFdc_IsADCBlockEnabled(), XRFdc_IsDACDigitalPathEnabled() &
+*                       XRFdc_IsADCDigitalPathEnabled() APIs now derive answer from
+*                       DRP rather than context structure.
 *
 * </pre>
 *
@@ -1062,6 +1066,10 @@ typedef struct {
 #define XRFDC_CAL_FREEZE_CALIB 1U
 #define XRFDC_CAL_FRZ_PIN_ENABLE 0U
 #define XRFDC_CAL_FRZ_PIN_DISABLE 1U
+
+#define XRFDC_CLK_REG_EN_MASK 0x2000U
+
+#define XRFDC_TILE_STARTED XRFDC_SM_STATE15
 /*****************************************************************************/
 /**
 *
@@ -1132,7 +1140,26 @@ static inline u16 XRFdc_RDReg(XRFdc *InstancePtr, u32 BaseAddr, u32 RegAddr, u16
 
 	return ReadReg;
 }
+/*****************************************************************************/
+/**
+*
+* Get ADC type is High Speed or Medium Speed.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+*
+* @return
+*		- Return 1 if ADC type is 4GSPS, otherwise 0.
+*
+******************************************************************************/
 
+static inline u32 XRFdc_IsHighSpeedADC(XRFdc *InstancePtr, int Tile)
+{
+	if (InstancePtr->RFdc_Config.ADCTile_Config[Tile].NumSlices == 0) {
+		return InstancePtr->ADC4GSPS;
+	} else {
+		return (InstancePtr->RFdc_Config.ADCTile_Config[Tile].NumSlices == XRFDC_NUM_SLICES_HSADC);
+	}
+}
 /*****************************************************************************/
 /**
 *
@@ -1149,7 +1176,17 @@ static inline u16 XRFdc_RDReg(XRFdc *InstancePtr, u32 BaseAddr, u32 RegAddr, u16
 ******************************************************************************/
 static inline u32 XRFdc_IsDACBlockEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
 {
-	return InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].DACBlock_Analog_Config[Block_Id].BlockAvailable;
+	u32 IsEnabled = XRFDC_DISABLED;
+	u32 BaseAddr;
+	u32 TileState;
+
+	TileState = XRFdc_ReadReg16(InstancePtr, XRFDC_DAC_TILE_CTRL_STATS_ADDR(Tile_Id), XRFDC_CURRENT_STATE_OFFSET);
+	if (TileState == XRFDC_TILE_STARTED) {
+		BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
+		IsEnabled = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_DAC_MC_CFG0_OFFSET) ? XRFDC_ENABLED :
+												   XRFDC_DISABLED;
+	}
+	return IsEnabled;
 }
 
 /*****************************************************************************/
@@ -1168,20 +1205,26 @@ static inline u32 XRFdc_IsDACBlockEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 B
 ******************************************************************************/
 static inline u32 XRFdc_IsADCBlockEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
 {
-	u32 IsBlockAvail;
+	u32 IsEnabled = XRFDC_DISABLED;
+	u32 BaseAddr;
+	u32 TileState;
 
-	if (InstancePtr->RFdc_Config.ADCType == XRFDC_ADC_4GSPS) {
-		if ((Block_Id == 2U) || (Block_Id == 3U)) {
-			IsBlockAvail = 0;
-			goto RETURN_PATH;
+	TileState = XRFdc_ReadReg16(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id), XRFDC_CURRENT_STATE_OFFSET);
+	if (TileState == XRFDC_TILE_STARTED) {
+		if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == XRFDC_ENABLED) {
+			if (Block_Id > 1U) {
+				goto RETURN_PATH;
+			} else if (Block_Id == 1U) {
+				Block_Id = 2U;
+			}
 		}
-		if (Block_Id == 1U) {
-			Block_Id = 2U;
-		}
+		BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Block_Id);
+		IsEnabled = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_RX_MC_PWRDWN_OFFSET) ? XRFDC_ENABLED :
+												    XRFDC_DISABLED;
 	}
-	IsBlockAvail = InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].ADCBlock_Analog_Config[Block_Id].BlockAvailable;
+
 RETURN_PATH:
-	return IsBlockAvail;
+	return IsEnabled;
 }
 
 /*****************************************************************************/
@@ -1200,16 +1243,17 @@ RETURN_PATH:
 ******************************************************************************/
 static inline u32 XRFdc_IsDACDigitalPathEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
 {
-	u32 Status;
+	u32 IsEnabled = XRFDC_DISABLED;
+	u32 BaseAddr;
+	u32 TileState;
 
-	if (InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Block_Id].Mixer_Settings.MixerType ==
-	    XRFDC_MIXER_TYPE_OFF) {
-		Status = 0U;
-	} else {
-		Status = 1U;
+	TileState = XRFdc_ReadReg16(InstancePtr, XRFDC_DAC_TILE_CTRL_STATS_ADDR(Tile_Id), XRFDC_CURRENT_STATE_OFFSET);
+	if (TileState == XRFDC_TILE_STARTED) {
+		BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
+		IsEnabled = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_OFFSET) ? XRFDC_ENABLED :
+												   XRFDC_DISABLED;
 	}
-
-	return Status;
+	return IsEnabled;
 }
 
 /*****************************************************************************/
@@ -1228,27 +1272,26 @@ static inline u32 XRFdc_IsDACDigitalPathEnabled(XRFdc *InstancePtr, u32 Tile_Id,
 ******************************************************************************/
 static inline u32 XRFdc_IsADCDigitalPathEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
 {
-	u32 IsBlockAvail;
+	u32 IsEnabled = XRFDC_DISABLED;
+	u32 BaseAddr;
+	u32 TileState;
 
-	if (InstancePtr->RFdc_Config.ADCType == XRFDC_ADC_4GSPS) {
-		if ((Block_Id == 2U) || (Block_Id == 3U)) {
-			IsBlockAvail = 0;
-			goto RETURN_PATH;
+	TileState = XRFdc_ReadReg16(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id), XRFDC_CURRENT_STATE_OFFSET);
+	if (TileState == XRFDC_TILE_STARTED) {
+		if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == XRFDC_ENABLED) {
+			if (Block_Id > 1U) {
+				goto RETURN_PATH;
+			} else if (Block_Id == 1U) {
+				Block_Id = 2U;
+			}
 		}
-		if (Block_Id == 1U) {
-			Block_Id = 2U;
-		}
-	}
-
-	if (InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].Mixer_Settings.MixerType ==
-	    XRFDC_MIXER_TYPE_OFF) {
-		IsBlockAvail = 0;
-	} else {
-		IsBlockAvail = 1;
+		BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Block_Id);
+		IsEnabled = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_OFFSET) ? XRFDC_ENABLED :
+												   XRFDC_DISABLED;
 	}
 
 RETURN_PATH:
-	return IsBlockAvail;
+	return IsEnabled;
 }
 
 /*****************************************************************************/
@@ -1356,7 +1399,7 @@ static inline u32 XRFdc_Get_BlockBaseAddr(XRFdc *InstancePtr, u32 Type, u32 Tile
 	u32 BaseAddr;
 
 	if (Type == XRFDC_ADC_TILE) {
-		if (InstancePtr->RFdc_Config.ADCType == XRFDC_ADC_4GSPS) {
+		if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == XRFDC_ENABLED) {
 			if (Block_Id == 1U) {
 				Block_Id = 2U;
 			}
@@ -1401,27 +1444,6 @@ static inline u32 XRFdc_GetNoOfDACBlock(XRFdc *InstancePtr, u32 Tile_Id)
 static inline u32 XRFdc_GetNoOfADCBlocks(XRFdc *InstancePtr, u32 Tile_Id)
 {
 	return InstancePtr->ADC_Tile[Tile_Id].NumOfADCBlocks;
-}
-
-/*****************************************************************************/
-/**
-*
-* Get ADC type is High Speed or Medium Speed.
-*
-* @param	InstancePtr is a pointer to the XRfdc instance.
-*
-* @return
-*		- Return 1 if ADC type is 4GSPS, otherwise 0.
-*
-******************************************************************************/
-
-static inline u32 XRFdc_IsHighSpeedADC(XRFdc *InstancePtr, int Tile)
-{
-	if (InstancePtr->RFdc_Config.ADCTile_Config[Tile].NumSlices == 0) {
-		return InstancePtr->ADC4GSPS;
-	} else {
-		return (InstancePtr->RFdc_Config.ADCTile_Config[Tile].NumSlices == XRFDC_NUM_SLICES_HSADC);
-	}
 }
 
 /*****************************************************************************/
@@ -1797,8 +1819,10 @@ RETURN_PATH:
 ******************************************************************************/
 static inline u32 XRFdc_CheckTileEnabled(XRFdc *InstancePtr, u32 Type, u32 Tile_Id)
 {
-	u32 IsTileAvail;
+	u32 IsTileAvail = XRFDC_DISABLED;
 	u32 Status;
+	u32 BaseAddr;
+	u32 TileState;
 
 	if ((Type != XRFDC_ADC_TILE) && (Type != XRFDC_DAC_TILE)) {
 		Status = XRFDC_FAILURE;
@@ -1808,12 +1832,13 @@ static inline u32 XRFdc_CheckTileEnabled(XRFdc *InstancePtr, u32 Type, u32 Tile_
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
-	if (Type == XRFDC_ADC_TILE) {
-		IsTileAvail = InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].Enable;
-	} else {
-		IsTileAvail = InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].Enable;
+	TileState = XRFdc_ReadReg16(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile_Id), XRFDC_CURRENT_STATE_OFFSET);
+	if (TileState == XRFDC_TILE_STARTED) {
+		BaseAddr = XRFDC_DRP_BASE(Type, Tile_Id) + XRFDC_HSCOM_ADDR;
+		IsTileAvail = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_OFFSET, XRFDC_CLK_REG_EN_MASK);
 	}
-	if (IsTileAvail == 0U) {
+
+	if (IsTileAvail == XRFDC_DISABLED) {
 		Status = XRFDC_FAILURE;
 	} else {
 		Status = XRFDC_SUCCESS;
