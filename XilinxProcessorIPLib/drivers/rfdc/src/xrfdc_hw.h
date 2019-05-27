@@ -76,6 +76,7 @@
 *                       bits were clashing with other interrupt bits.
 *       cog    03/25/19 Added more calibration bypass masks.
 * 7.0   cog    05/13/19 Formatting changes.
+*       cog    05/13/19 Added common power up interrupt masks/shifts.
 *
 *</pre>
 *
@@ -1735,6 +1736,7 @@ extern "C" {
 #define XRFDC_EN_INTR_SLICE1_MASK 0x00000002U /**< slice1 	interrupt enable mask */
 #define XRFDC_EN_INTR_SLICE2_MASK 0x00000004U /**< slice2 	interrupt enable mask */
 #define XRFDC_EN_INTR_SLICE3_MASK 0x00000008U /**< slice3 	interrupt enable mask */
+#define XRFDC_INTR_COMMON_MASK 0x00000010U /**< Common interrupt enable mask */
 /* @} */
 
 /** @name Converter(X) interrupt register
@@ -1915,6 +1917,7 @@ extern "C" {
 #define XRFDC_SUBADC3_IXR_DCDR_OF_MASK 0x00400000U
 #define XRFDC_SUBADC3_IXR_DCDR_UF_MASK 0x00800000U
 #define XRFDC_ADC_OVR_VOLTAGE_MASK 0x04000000U
+#define XRFDC_COMMON_MASK 0x01000000U
 #define XRFDC_ADC_OVR_RANGE_MASK 0x08000000U
 #define XRFDC_ADC_CMODE_OVR_MASK 0x10000000U
 #define XRFDC_ADC_CMODE_UNDR_MASK 0x20000000U
@@ -1932,6 +1935,7 @@ extern "C" {
 #define XRFDC_ADC_SUBADC_DCDR_SHIFT 16U
 #define XRFDC_DATA_PATH_SHIFT 4U
 #define XRFDC_ADC_CMODE_SHIFT 10U
+#define XRFDC_COMMON_SHIFT 20U
 
 #define XRFDC_DAC_TILE_DRP_ADDR(X) (0x6000U + (X * 0x4000U))
 #define XRFDC_DAC_TILE_CTRL_STATS_ADDR(X) (0x4000U + (X * 0x4000U))
