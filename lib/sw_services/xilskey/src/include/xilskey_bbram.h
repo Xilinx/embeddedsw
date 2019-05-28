@@ -56,6 +56,7 @@
 *       psl     03/20/19 Added BBRAM key write support for SSIT devices.
 *       psl     03/29/19 Added Support for user configurable GPIO for jtag
 *                        control.
+* 6.8   psl     05/21/19 Added SystemInitDone to check jtag initialized or not.
 ****************************************************************************/
 #ifndef XILSKEY_BBRAM_H
 #define XILSKEY_BBRAM_H
@@ -133,6 +134,10 @@ typedef struct {
     u32 NumSlr;
     /* Current SLR to iterate through */
     u32 CurSlr;
+    /**
+     * Internal variable to check if timer, XADC and JTAG are initialized.
+     */
+    u32 SystemInitDone;
 
 }XilSKey_Bbram;
 /************************** Constant Definitions *****************************/

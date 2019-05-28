@@ -66,6 +66,7 @@
 * 6.7   psl     03/20/19 Added eFuse key write support for SSIT devices.
 *       arc     04/04/19 Fixed CPP warnings.
 *       psl     04/15/19 Added JtagServerInit function.
+* 6.8   psl     05/21/19 Added else case to clear UserFuses_TobePrgrmd
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "xparameters.h"
@@ -3489,7 +3490,10 @@ static inline u32 XilSkey_EfusePl_UserFuses_TobeProgrammed(
 		if ((UserFuses_Write[UserFuseColumn] == 1) &&
 			(UserFuses_Read[UserFuseColumn] == 0)) {
 			UserFuses_TobePrgrmd[UserFuseColumn] = 1;
-		}
+		}else {
+            UserFuses_TobePrgrmd[UserFuseColumn] = 0;
+       }
+
 	}
 
 	return XST_SUCCESS;
