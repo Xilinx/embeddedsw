@@ -600,7 +600,10 @@ proc generate {os_handle} {
 
     # Handle stdin
     set stdin [common::get_property CONFIG.stdin $os_handle]
-    if { $stdin == "" || $stdin == "none" } {
+    if { $proctype == "psv_pmc" && $stdin != "psv_sbsauart_0" && $stdin != "psv_sbsauart_1"} {
+            common::set_property CONFIG.stdin "none" $os_handle
+            handle_stdin_parameter $os_handle
+    } elseif { $stdin == "" || $stdin == "none" } {
             handle_stdin_parameter $os_handle
     } else {
             ::hsi::utils::handle_stdin $os_handle
@@ -608,21 +611,16 @@ proc generate {os_handle} {
 
     # Handle stdout
     set stdout [common::get_property CONFIG.stdout $os_handle]
-    if { $stdout == "" || $stdout == "none" } {
+    if { $proctype == "psv_pmc" && $stdout != "psv_sbsauart_0" && $stdout != "psv_sbsauart_1"} {
+                common::set_property CONFIG.stdout "none" $os_handle
+                handle_stdout_parameter $os_handle
+    } elseif { $stdout == "" || $stdout == "none" } {
                 handle_stdout_parameter $os_handle
     } else {
                 ::hsi::utils::handle_stdout $os_handle
     }
 
-    if { $proctype == "psv_pmc" && $stdout != "psv_sbsauart_0" && $stdout != "psv_sbsauart_1"} {
-        common::set_property CONFIG.stdout "none" $os_handle
-        handle_stdout_parameter $os_handle
-    }
 
-    if { $proctype == "psv_pmc" && $stdin != "psv_sbsauart_0" && $stdin != "psv_sbsauart_1"} {
-        common::set_property CONFIG.stdin "none" $os_handle
-        handle_stdin_parameter $os_handle
-    }
     #Handle Profile configuration
     if { $enable_sw_profile == "true" } {
         handle_profile $os_handle $proctype
