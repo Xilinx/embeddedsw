@@ -150,7 +150,6 @@ int XPlmi_IpiDispatchHandler(void *Data)
 				Cmd.Payload = &Payload[1U];
 			}
 			Status = XPlmi_CmdExecute(&Cmd);
-			Cmd.Response[0] = Status;
 
 			/* Send response to caller */
 			XPlmi_IpiWrite(Cmd.IpiMask, Cmd.Response, XPLMI_CMD_RESP_SIZE, XIPIPSU_BUF_TYPE_RESP);
