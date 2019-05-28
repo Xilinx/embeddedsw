@@ -84,6 +84,10 @@
 * 6.7   psl     03/20/19 Added BBRAM key write support for SSIT devices.
 *       psl     03/29/19 Added Support for user configurable GPIO for
 *                        jtag control.
+* 6.8   psl     05/21/19 Initialized SystemInitDone ,to indicate
+*                        XilSKey_Bbram_JTAGServerInit status.
+*                        And passed BbramInstancePtr instead of InstancePtr in
+*                        XilSKey_Bbram_JTAGServerInit.
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -396,8 +400,9 @@ int XilSKey_Bbram_InitData(XilSKey_Bbram *BbramInstancePtr)
 	BbramInstancePtr->GpioInputCh = XSK_BBRAM_GPIO_INPUT_CH;
 	BbramInstancePtr->GpioOutPutCh = XSK_BBRAM_GPIO_OUTPUT_CH;
 
+	BbramInstancePtr->SystemInitDone = 0;
 
-	if(XilSKey_Bbram_JTAGServerInit(&InstancePtr) != XST_SUCCESS) {
+	if(XilSKey_Bbram_JTAGServerInit(BbramInstancePtr) != XST_SUCCESS) {
 		xil_printf("JTAG Sever Init failed \r\n");
 		return XST_FAILURE;
 	}

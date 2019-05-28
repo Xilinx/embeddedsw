@@ -174,6 +174,9 @@
 *       psl     03/29/19 Added support for user configurable GPIO for
 *                        jtag control.
 *       psl     04/29/19 Resolved GCC warnings.
+* 6.8   psl     05/21/19 Added platform dependent macros for variables and
+*                        initialized PlStatus.
+*                        Added print for current SLR and CRC.
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "stdio.h"
@@ -272,8 +275,13 @@ int main()
 	u32 PlStatus = 0xFFFF;
 	u32 PsStatus = 0xFFFF;
 	u32 Status = 0;
-	u32 StatusSum[MAX_SLRS] = {0};
+#if defined (XSK_MICROBLAZE_PLATFORM) || defined (XSK_EFUSEPS_DRIVER)
 	u32 Index;
+#endif
+
+#if defined (XSK_EFUSEPL_DRIVER) && defined (XSK_MICROBLAZE_PLATFORM)
+	u32 StatusSum[MAX_SLRS] = {0};
+#endif
 
     /*ps7_init();*/
 #ifdef XSK_EFUSEPS_DRIVER
@@ -467,6 +475,8 @@ int main()
 		 * Programming will not happen until corresponding PGM_SLR1 is not TRUE
 		 */
 		PlInstance.CurSlr = Index;
+		xil_printf("-----------------------SLR%d-----------------------\n\r",
+				PlInstance.CurSlr);
 		PlStatus=XilSKey_EfusePl_ReadorWrite(&PlInstance);
 		if(PlStatus != XST_SUCCESS)
 		{
@@ -479,8 +489,8 @@ int main()
 #endif
 EFUSE_ERROR:
 
+#if defined (XSK_EFUSEPL_DRIVER) && defined (XSK_MICROBLAZE_PLATFORM)
 FINAL_EFUSE_ERROR:
-#if defined (XSK_MICROBLAZE_ULTRA_PLUS) || defined (XSK_MICROBLAZE_ULTRA)
 	PlStatus =  (StatusSum[0] |
 				 StatusSum[1] |
 				 StatusSum[2] |
@@ -586,18 +596,19 @@ u32 XilSKey_EfusePl_ReadorWrite(XilSKey_EPl *PlInstancePtr)
 {
 	u32 PlStatus;
 
+
+	PlStatus = XilSKey_EfusePl_LoadData_Slr(PlInstancePtr, PlInstancePtr->CurSlr);
+	if(PlStatus != XST_SUCCESS)
+	{
+		xil_printf("Loading data for SLR%x failed\r\n", PlInstancePtr->CurSlr);
+		goto END;
+	}
+
 	if(((PlInstancePtr->CurSlr == XSK_EFUSEPL_SLR1) && (XSK_EFUSEPL_PGM_SLR1 == TRUE)) ||
 	   ((PlInstancePtr->CurSlr == XSK_EFUSEPL_SLR2) && (XSK_EFUSEPL_PGM_SLR2 == TRUE)) ||
 	   ((PlInstancePtr->CurSlr == XSK_EFUSEPL_SLR3) && (XSK_EFUSEPL_PGM_SLR3 == TRUE)) ||
 	   ((PlInstancePtr->CurSlr == XSK_EFUSEPL_SLR4) && (XSK_EFUSEPL_PGM_SLR4 == TRUE)))
 	{
-		PlStatus = XilSKey_EfusePl_LoadData_Slr(PlInstancePtr, PlInstancePtr->CurSlr);
-		if(PlStatus != XST_SUCCESS)
-		{
-			xil_printf("Loading data for SLR%x failed\r\n", PlInstancePtr->CurSlr);
-			goto END;
-		}
-
 		/**
 		* Call the PL eFUSE programming function to program the eFUSE
 		* based on the user input
@@ -660,8 +671,6 @@ u32 XilSKey_EfusePl_ReadnCheck(XilSKey_EPl *PlInstancePtr)
     /*
      * Print Efuse PL status bits
      */
-    xil_printf("-----------------------SLR%d-----------------------\n\r",
-		PlInstance.CurSlr);
     xil_printf("EfusePL status bits : 0x%x \n\r", PlStatusBits);
     /* Status bits for Zynq */
 	if (PlInstancePtr->FpgaFlag == XSK_FPGA_SERIES_ZYNQ) {
@@ -911,7 +920,7 @@ EFUSE_ERROR:
 #if defined (XSK_MICROBLAZE_ULTRA_PLUS) || defined (XSK_MICROBLAZE_ULTRA)
 u32 XilSKey_EfusePl_LoadData_Slr(XilSKey_EPl *PlInstancePtr, u32 SlrNum)
 {
-	u32 PlStatus;
+	u32 PlStatus = XST_SUCCESS;
 
 	if (PlInstancePtr->ProgUserKeyUltra == TRUE) {
 
@@ -1008,6 +1017,7 @@ u32 XilSKey_EfusePl_LoadData_Slr(XilSKey_EPl *PlInstancePtr, u32 SlrNum)
 
 				PlInstancePtr->CrcToVerify =
 						XilSKey_CrcCalculation((u8 *)XSK_EFUSEPL_AES_KEY);
+				xil_printf("Expected CRC : %08x\n",PlInstancePtr->CrcToVerify);
 
 				if(PlStatus != XST_SUCCESS)
 				goto PL_INIT_ERROR;
@@ -1028,6 +1038,7 @@ u32 XilSKey_EfusePl_LoadData_Slr(XilSKey_EPl *PlInstancePtr, u32 SlrNum)
 
 				PlInstancePtr->CrcToVerify =
 						XilSKey_CrcCalculation((u8 *)XSK_EFUSEPL_AES_KEY_SLR2);
+				xil_printf("Expected CRC : %08x\n",PlInstancePtr->CrcToVerify);
 				break;
 			case XSK_EFUSEPL_SLR3:
 				PlStatus = XilSKey_Efuse_ValidateKey(
@@ -1044,6 +1055,7 @@ u32 XilSKey_EfusePl_LoadData_Slr(XilSKey_EPl *PlInstancePtr, u32 SlrNum)
 
 				PlInstancePtr->CrcToVerify =
 						XilSKey_CrcCalculation((u8 *)XSK_EFUSEPL_AES_KEY_SLR3);
+				xil_printf("Expected CRC : %08x\n",PlInstancePtr->CrcToVerify);
 				break;
 			case XSK_EFUSEPL_SLR4:
 				PlStatus = XilSKey_Efuse_ValidateKey(
@@ -1060,6 +1072,7 @@ u32 XilSKey_EfusePl_LoadData_Slr(XilSKey_EPl *PlInstancePtr, u32 SlrNum)
 
 				PlInstancePtr->CrcToVerify =
 						XilSKey_CrcCalculation((u8 *)XSK_EFUSEPL_AES_KEY_SLR4);
+				xil_printf("Expected CRC : %08x\n",PlInstancePtr->CrcToVerify);
 				break;
 			default:
 				PlStatus = XST_FAILURE;
@@ -1339,6 +1352,31 @@ u32 XilSKey_EfusePl_LoadData_Slr(XilSKey_EPl *PlInstancePtr, u32 SlrNum)
 		}
 	}
 
+	if (PlInstancePtr->CheckAESKeyUltra == TRUE)
+	{
+
+		switch(SlrNum)
+		{/* Set expected AES Key CRC */
+			case XSK_EFUSEPL_SLR1:
+				PlInstancePtr->CrcOfAESKey = XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY;
+				break;
+			case XSK_EFUSEPL_SLR2:
+				PlInstancePtr->CrcOfAESKey = XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_SLR2;
+				break;
+			case XSK_EFUSEPL_SLR3:
+				PlInstancePtr->CrcOfAESKey = XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_SLR3;
+				break;
+			case XSK_EFUSEPL_SLR4:
+				PlInstancePtr->CrcOfAESKey = XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_SLR4;
+				break;
+			default:
+				PlStatus = XST_FAILURE;
+				goto PL_INIT_ERROR;
+				break;
+
+		}
+	}
+
 PL_INIT_ERROR:
 	return PlStatus;
 }
@@ -1498,7 +1536,6 @@ u32 XilSKey_EfusePl_InitData(XilSKey_EPl *PlInstancePtr)
 	PlInstancePtr->CheckAESKeyUltra = XSK_EFUSEPL_CHECK_AES_KEY_CRC;
 	PlInstancePtr->ReadUser128BitUltra = XSK_EFUSEPL_READ_USER_KEY128_BIT;
 
-	PlInstancePtr->CrcOfAESKey = XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY;
 
 	PlInstancePtr->JtagGpioID  = XSK_EFUSEPL_AXI_GPIO_DEVICE_ID;
 	PlInstancePtr->JtagGpioTDI = XSK_EFUSEPL_AXI_GPIO_JTAG_TDI;

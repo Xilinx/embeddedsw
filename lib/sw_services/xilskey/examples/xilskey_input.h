@@ -448,10 +448,18 @@
 *	string and will not burn User Key. Note that, for writing the User Key,
 *	XSK_EFUSEPL_PROGRAM_USER_KEY_128BIT should have TRUE value.
 *
-*	#define XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY	0x621C42AA
-*	0x621C42AA is hexadecimal CRC value of FUSE_AES with all Zeros.
-*	Expected FUSE_AES key's CRC value has to be updated in place of
-*	0x621C42AA.
+*	#define	XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY
+*	XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS
+*   #define	XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_SLR2
+*   XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS
+*   #define	XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_SLR3
+*   XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS
+*   #define	XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_SLR4
+*   XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS
+*
+*   XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS is the default value for all SLRs
+*   and is hexadecimal CRC value of FUSE_AES with all Zeros.
+*	Please provide CRC of the AES key programmed.
 *	For Checking CRC of FUSE_AES XSK_EFUSEPL_CHECK_AES_KEY_ULTRA macro
 *	should be TRUE otherwise CRC check will not be performed.
 *	For calculation of AES key's CRC one can use
@@ -491,6 +499,8 @@
 * 6.7   psl     03/20/19 Added eFuse key write support for SSIT devices.
 *       psl     03/29/19 Added support for user configurable GPIO for
 *                        jtag control.
+* 6.8   psl     05/28/19 Added Macro for expected CRC of AES key for different
+*                        SLR.
 * </pre>
 *
 *
@@ -827,7 +837,10 @@ extern "C" {
 /**
  * Following define is CRC value of expected AES key
  */
-#define	XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY		XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS
+#define	XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY		    XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS
+#define	XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_SLR2	XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS
+#define	XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_SLR3	XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS
+#define	XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_SLR4	XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS
 
 #endif
 
