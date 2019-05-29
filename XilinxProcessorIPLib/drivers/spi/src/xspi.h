@@ -295,6 +295,8 @@
 * 4.4	tjs  11/28/17 When receive fifo exists, we need to check for status
 *                     register rx fifo empty flag. If clear we can proceed for
 *                     read. Otherwise we will hit execption. CR# 989938
+* 4.5	akm  05/29/19 Removed master inhibit dependency while writing DTR
+*		      in between multiple transfers.
 * </pre>
 *
 ******************************************************************************/
