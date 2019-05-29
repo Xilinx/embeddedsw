@@ -29,7 +29,7 @@
 /**
 *
 * @file xspi_l.h
-* @addtogroup spi_v4_4
+* @addtogroup spi_v4_5
 * @{
 *
 * This header file contains identifiers, Register Definitions and  basic driver
