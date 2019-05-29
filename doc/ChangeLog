@@ -28,6 +28,9 @@ Add support for Versal
 lwip_echo_server:
 Add support for Versal
 
+spi_v4_5:
+Removed master inhibit dependency while writing to DTR.
+
 Changes for 2019.1
 ===============================
 v_hdmiphy1_v1_0:
