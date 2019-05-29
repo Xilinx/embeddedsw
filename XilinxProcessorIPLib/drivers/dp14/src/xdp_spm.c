@@ -1192,7 +1192,7 @@ void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream)
 	 * RB2 Video bandwidth : Set Line Reset Disable for Load >95%*/
 	RegVal = XDp_ReadReg(BaseAddr, XDP_RX_LINE_RESET_DISABLE);
 	if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
-		if((StreamLoad>80) && (HBlank == 80)) {
+		if ((StreamLoad > 80) || (HBlank == 80) || (HBlank == 60)) {
 			RegVal |= XDP_RX_LINE_RESET_DISABLE_MASK(Stream);
 		} else {
 			RegVal &= ~XDP_RX_LINE_RESET_DISABLE_MASK(Stream);
@@ -1354,7 +1354,8 @@ static void XDp_TxSetLineReset(XDp *InstancePtr, u8 Stream,
 
 	/* CVT spec. states HBlank is either 80 or 160 for reduced blanking. */
 	RegVal = XDp_ReadReg(ConfigPtr->BaseAddr, XDP_TX_LINE_RESET_DISABLE);
-	if ((HBlank < HReducedBlank) && ((HBlank == 80) || (HBlank == 160))) {
+	if ((HBlank < HReducedBlank) &&
+			((HBlank == 60) || (HBlank == 80) || (HBlank == 160))) {
 		RegVal |= XDP_TX_LINE_RESET_DISABLE_MASK(Stream);
 	}
 	else {
