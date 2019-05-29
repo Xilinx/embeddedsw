@@ -29,7 +29,7 @@
 /**
 *
 * @file xspi.c
-* @addtogroup spi_v4_4
+* @addtogroup spi_v4_5
 * @{
 *
 * Contains required functions of the XSpi driver component.  See xspi.h for

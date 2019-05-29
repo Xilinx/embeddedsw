@@ -29,7 +29,7 @@
 /**
 *
 * @file xspi_i.h
-* @addtogroup spi_v4_4
+* @addtogroup spi_v4_5
 * @{
 *
 * This header file contains internal identifiers. It is intended for internal

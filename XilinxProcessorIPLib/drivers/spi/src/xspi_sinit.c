@@ -29,7 +29,7 @@
 /**
 *
 * @file xspi_sinit.c
-* @addtogroup spi_v4_4
+* @addtogroup spi_v4_5
 * @{
 *
 * The implementation of the XSpi component's static initialization
