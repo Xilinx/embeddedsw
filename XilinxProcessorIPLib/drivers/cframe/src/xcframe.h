@@ -155,8 +155,9 @@ void XCframe_CramTrim(XCframe *InstancePtr,	u32 TrimValue);
 void XCframe_BramTrim(XCframe *InstancePtr, u32 TrimValue);
 void XCframe_UramTrim(XCframe *InstancePtr, u32 TrimValue);
 void XCframe_SetReadParam(XCframe *InstancePtr,
-		XCframe_FrameNo CframeNo, u32 CframeLen);
-
+			XCframe_FrameNo CframeNo, u32 CframeLen);
+void XCframe_ReadReg(XCframe *InstancePtr, u32 AddrOffset,
+			XCframe_FrameNo FrameNo, u32* ValPtr);
 #ifdef __cplusplus
 }
 #endif
