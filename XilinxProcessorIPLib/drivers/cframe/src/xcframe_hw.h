@@ -40,7 +40,9 @@
 *
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
-* 1.0   kc  22/10/17 First release
+* 1.0   kc  22/10/17      First release
+* 1.1   bsv 29/05/2019    Macros declared for CFRM_ISR_OFFSET,
+*			  CFRM_IER_OFFSET and STATUS_OFFSET
 * </pre>
 *
 ******************************************************************************/
@@ -82,6 +84,9 @@ extern "C" {
 #define XCFRAME_TESTMODE_OFFSET			(0x120U)
 #define XCFRAME_BRDOPT_OFFSET			(0x130U)
 #define XCFRAME_VGG_TRIM_OFFSET			(0x140U)
+#define XCFRAME_CFRM_ISR_OFFSET			(0x150U)
+#define XCFRAME_CFRM_IER_OFFSET			(0x170U)
+#define XCFRAME_STATUS_OFFSET			(0x240U)
 /*@}*/
 
 

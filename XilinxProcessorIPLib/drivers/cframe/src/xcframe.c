@@ -39,7 +39,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   11/10/2017 Initial release
-*
+* 1.01  bsv  29/05/2019 XCframe_ReadReg API added
 * </pre>
 *
 * @note
@@ -128,6 +128,30 @@ void XCframe_WriteReg(XCframe *InstancePtr, u32 AddrOffset,
 	XCframe_WriteReg32(InstancePtr->Config.BaseAddress +
 			(FrameNo*XCFRAME_FRAME_OFFSET),
 			AddrOffset+12, Val->Word3);
+}
+
+/*****************************************************************************/
+/**
+ * This function reads the 128 bit CFRAME register
+ *
+ * @param       InstancePtr is a pointer to the XCframe instance.
+ * @param       Addr      CFRAME register address
+ * @param       ValPtr    128 bit variable to store the read data
+ *
+ * @return      None
+ *
+ ******************************************************************************/
+void XCframe_ReadReg(XCframe *InstancePtr, u32 AddrOffset,
+                XCframe_FrameNo FrameNo, u32* ValPtr)
+{
+        ValPtr[0] = XCframe_ReadReg32(InstancePtr->Config.BaseAddress +
+                        (FrameNo*XCFRAME_FRAME_OFFSET), AddrOffset);
+        ValPtr[1] = XCframe_ReadReg32(InstancePtr->Config.BaseAddress +
+                        (FrameNo*XCFRAME_FRAME_OFFSET), AddrOffset+4);
+        ValPtr[2] = XCframe_ReadReg32(InstancePtr->Config.BaseAddress +
+                        (FrameNo*XCFRAME_FRAME_OFFSET), AddrOffset+8);
+        ValPtr[3] = XCframe_ReadReg32(InstancePtr->Config.BaseAddress +
+                        (FrameNo*XCFRAME_FRAME_OFFSET), AddrOffset+12);
 }
 
 /*****************************************************************************/
