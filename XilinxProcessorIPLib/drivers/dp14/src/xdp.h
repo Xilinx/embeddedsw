@@ -704,6 +704,24 @@ typedef struct {
 } XDp_TxTopology;
 
 /**
+ * This typedef describes Audio InfoFrame packet.
+ */
+typedef struct
+{
+	u16 info_length;
+	u8 type;
+	u8 version;
+	u8 length;
+	u8 audio_coding_type;
+	u8 audio_channel_count;
+	u8 sampling_frequency;
+	u8 sample_size;
+	u8 level_shift;
+	u8 downmix_inhibit;
+	u8 channel_allocation;
+} XDp_TxAudioInfoFrame;
+
+/**
  * This typedef describes a port that is connected to a DisplayPort branch
  * device. This structure is used when the driver is operating in multi-stream
  * transport (MST) mode.
@@ -1416,6 +1434,8 @@ u32 XDp_TxMstEnable(XDp *InstancePtr);
 u32 XDp_TxMstDisable(XDp *InstancePtr);
 void XDp_TxAudioDis(XDp *InstancePtr);
 void XDp_Tx_Mst_AudioEn(XDp *InstancePtr, u8 StreamId);
+void XDp_TxSendAudioInfoFrame(XDp *InstancePtr,
+		XDp_TxAudioInfoFrame *xilInfoFrame);
 
 /* xdp_mst.c: Multi-stream transport (MST) functions for enabling or disabling
  * MST streams and selecting their associated target sinks. */
