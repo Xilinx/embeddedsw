@@ -28,8 +28,8 @@
 
 #include "xpm_pin.h"
 
-XPm_PinNode *PmMioPins[XPM_NODEIDX_STMIC_MAX];
-u16 PmNumPins;
+static XPm_PinNode *PmMioPins[XPM_NODEIDX_STMIC_MAX];
+static u16 PmNumPins;
 
 struct PmPinGroup {
 	u16 GroupCount;
@@ -1949,13 +1949,10 @@ XStatus XPmPin_Init(XPm_PinNode *Pin, u32 PinId, u32 BaseAddress)
 	XStatus Status = XST_SUCCESS;
 	u32 PinIdx;
 
-	if ((XPM_NODETYPE_LPD_MIO != NODETYPE(PinId)) &&
-	    (XPM_NODETYPE_PMC_MIO != NODETYPE(PinId))) {
-		Status = XST_INVALID_PARAM;
+	PinIdx = NODEINDEX(PinId);
+	if (PinIdx >= XPM_NODEIDX_STMIC_MAX) {
 		goto done;
 	}
-
-	PinIdx = NODEINDEX(PinId);
 
 	Status = XPmNode_Init(&Pin->Node,
 				PinId, XPM_PINSTATE_UNUSED, BaseAddress);

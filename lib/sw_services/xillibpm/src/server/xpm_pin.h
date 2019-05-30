@@ -79,9 +79,6 @@ struct XPm_PinNode {
 	u32 SubsysId;  /**< SubsystemId of the owner who is using this pin */
 };
 
-extern XPm_PinNode *PmMioPins[XPM_NODEIDX_STMIC_MAX];
-extern u16 PmNumPins;
-
 /************************** Function Prototypes ******************************/
 XStatus XPmPin_Init(XPm_PinNode *Pin, u32 Id, u32 BaseAddress);
 XPm_PinNode *XPmPin_GetById(u32 PinId);
