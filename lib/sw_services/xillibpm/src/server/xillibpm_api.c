@@ -3011,14 +3011,20 @@ static XStatus XPm_AddNodeMio(u32 *Args, u32 NumArgs)
 	MioId = Args[0];
 	BaseAddress = Args[1];
 
-	if (NODECLASS(MioId) != XPM_NODECLASS_STMIC) {
+	if (XPM_NODECLASS_STMIC != NODECLASS(MioId)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
-	} else if (NODEINDEX(MioId) >= XPM_NODEIDX_STMIC_MAX) {
+	}
+
+	if (XPM_NODESUBCL_PIN != NODESUBCLASS(MioId)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
-	} else {
-		/* Required by MISRA */
+	}
+
+	if ((XPM_NODETYPE_LPD_MIO != NODETYPE(MioId)) &&
+	    (XPM_NODETYPE_PMC_MIO != NODETYPE(MioId))) {
+		Status = XST_INVALID_PARAM;
+		goto done;
 	}
 
 	MioPin = (XPm_PinNode *)XPm_AllocBytes(sizeof(XPm_PinNode));
