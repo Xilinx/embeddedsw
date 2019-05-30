@@ -2470,10 +2470,6 @@ static XStatus XPm_AddNodeClock(u32 *Args, u32 NumArgs)
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-	if (ClkNodeList == NULL) {
-		Status = XST_BUFFER_TOO_SMALL;
-		goto done;
-	}
 	ClockId = Args[0];
 
 	if (NODETYPE(ClockId) == XPM_NODETYPE_CLOCK_SUBNODE) {
@@ -2501,10 +2497,6 @@ static XStatus XPm_AddNodeClock(u32 *Args, u32 NumArgs)
 	} else {
 		Status = XST_INVALID_PARAM;
 		goto done;
-	}
-
-	if (XST_SUCCESS == Status) {
-		PmNumClocks++;
 	}
 
 done:
