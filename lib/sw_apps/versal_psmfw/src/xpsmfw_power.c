@@ -777,6 +777,13 @@ static XStatus XPsmFwRPUxPwrUp(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDwn
 {
 	XStatus Status = XST_SUCCESS;
 	u32 ErrorCnt = 0;
+	u32 RegVal;
+
+	/* Check if RPU island is already power up */
+	RegVal = XPsmFw_Read32(PSM_LOCAL_PWR_STATE);
+	if (CHECK_BIT(RegVal, Rpu0PwrCtrl.PwrStateMask)) {
+		goto done;
+	}
 
 	Status = XPsmFwIslandPwrUp(Args);
 	if (XST_SUCCESS != Status) {
