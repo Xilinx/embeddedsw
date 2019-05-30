@@ -1545,6 +1545,46 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  Call this function to request the power management controller to
+ * return information about an operating characteristic of a component.
+ *
+ * @param  DeviceId   Device ID.
+ * @param  Type       Type of operating characteristic requested:
+ *                    - power (current power consumption),
+ *                    - latency (current latency in us to return to active
+ *			state),
+ *                    - temperature (current temperature),
+ * @param  Result     Used to return the requested operating characteristic.
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPm_GetOpCharacteristic(const u32 DeviceId,
+                                const enum XPmOpCharType Type,
+                                u32 *const Result)
+{
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	/* Send request to the target module */
+	PACK_PAYLOAD2(Payload, PM_GET_OP_CHARACTERISTIC, DeviceId, Type);
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, Result, NULL, NULL);
+
+done:
+        return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function is called to notify the power management controller
  * about the completed power management initialization.
  *
