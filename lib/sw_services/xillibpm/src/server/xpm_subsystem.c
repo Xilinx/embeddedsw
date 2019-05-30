@@ -35,7 +35,7 @@
 #include "xpm_pin.h"
 #include "xpm_rpucore.h"
 
-XPm_Subsystem PmSubsystems[XPM_NODEIDX_SUBSYS_MAX] =
+static XPm_Subsystem PmSubsystems[XPM_NODEIDX_SUBSYS_MAX] =
 {
 	[XPM_NODEIDX_SUBSYS_DEFAULT] = {
 		.Id = XPM_SUBSYSID_DEFAULT,
@@ -198,7 +198,7 @@ XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId)
 	XStatus Status = XST_SUCCESS;
 	u32 SubSysIdx = NODEINDEX(SubsystemId);
 
-	if (SubSysIdx > XPM_NODEIDX_SUBSYS_MAX) {
+	if (SubSysIdx >= XPM_NODEIDX_SUBSYS_MAX) {
 		Status = XST_FAILURE;
                 goto done;
 	}
@@ -247,12 +247,43 @@ done:
 	return SubSystem;
 }
 
+/****************************************************************************/
+/**
+ * @brief  This function gives Subsystem from Subsystem "INDEX".
+ *
+ * @param SubSysIdx	Subsystem Index
+ *
+ * @return Pointer to XPm_Subsystem if successful else NULL
+ *
+ * @note
+ * This is a less strict version of XPmSubsystem_GetByIndex(),
+ * and mainly is implemented due to other modules such as xpm_device
+ * needs to access the subsystem database and iterate over it using
+ * indexes only, without the need to use the complete subsystem ID.
+ * Use this function where it is absolutely necessary.
+ *
+ ****************************************************************************/
+XPm_Subsystem *XPmSubsystem_GetByIndex(u32 SubSysIdx)
+{
+	XPm_Subsystem *Subsystem = NULL;
+
+	/*
+	 * We assume that Subsystem class, subclass and type have been
+	 * validated before, so just validate index against bounds here
+	 */
+	if (SubSysIdx < XPM_NODEIDX_SUBSYS_MAX) {
+		Subsystem = &PmSubsystems[SubSysIdx];
+	}
+
+	return Subsystem;
+}
+
 XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId)
 {
 	XStatus Status = XST_SUCCESS;
 	u32 SubSysIdx = NODEINDEX(SubsystemId);
 
-	if (SubSysIdx > XPM_NODEIDX_SUBSYS_MAX) {
+	if (SubSysIdx >= XPM_NODEIDX_SUBSYS_MAX) {
 		Status = XST_FAILURE;
                 goto done;
         }
@@ -281,7 +312,7 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 		goto done;
 	}
 
-	if (SubSysIdx > XPM_NODEIDX_SUBSYS_MAX) {
+	if (SubSysIdx >= XPM_NODEIDX_SUBSYS_MAX) {
 		goto done;
 	}
 
