@@ -136,10 +136,6 @@ enum XPm_ClockSubnodeType {
 	TYPE_MAX,
 };
 
-extern XPm_ClockNode *ClkNodeList[];
-extern u32 MaxClkNodes;
-extern u32 PmNumClocks;
-
 /* Clock states: */
 #define	XPM_CLK_STATE_OFF		0U
 #define XPM_CLK_STATE_REQUESTED	1U			//For all clocks with/without gate
@@ -185,6 +181,7 @@ XStatus XPmClock_AddClkName(u32 Id, char *Name);
 XStatus XPmClock_AddSubNode(u32 Id, u32 Type, u32 ControlReg, u8 Param1, u8 Param2, u32 Flags);
 XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u32 NumParents);
 XPm_ClockNode* XPmClock_GetById(u32 ClockId);
+XStatus XPmClock_SetById(u32 ClockId, XPm_ClockNode *Clk);
 XStatus XPmClock_Request(XPm_ClockHandle *ClkHandle);
 XStatus XPmClock_Release(XPm_ClockHandle *ClkHandle);
 XStatus XPmClock_SetGate(XPm_OutClockNode *Clk, u32 Enable);

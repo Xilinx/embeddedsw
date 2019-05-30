@@ -32,7 +32,6 @@
 
 /* Query related defines */
 #define CLK_QUERY_NAME_LEN		(MAX_NAME_BYTES - 4U)
-#define END_OF_CLK			"END_OF_CLK"
 #define CLK_INIT_ENABLE_SHIFT		1U
 #define CLK_TYPE_SHIFT			2U
 #define CLK_NODETYPE_SHIFT		14U
@@ -113,9 +112,9 @@ static XPm_ClkTopology ClkTopologies[ ] = {
 	 {TOPOLOGY_GENERIC_MUX_DIV_GATE_2, ARRAY_SIZE(GenericMuxDivGate2Nodes), {0}, &GenericMuxDivGate2Nodes},
 };
 
-XPm_ClockNode *ClkNodeList[XPM_NODEIDX_CLK_MAX];
-u32 MaxClkNodes=XPM_NODEIDX_CLK_MAX;
-u32 PmNumClocks=0;
+static XPm_ClockNode *ClkNodeList[XPM_NODEIDX_CLK_MAX];
+static const u32 MaxClkNodes = XPM_NODEIDX_CLK_MAX;
+static u32 PmNumClocks;
 
 static XStatus XPmClock_Init(XPm_ClockNode *Clk, u32 Id, u32 ControlReg,
 			     u8 TopologyType, u8 NumCustomNodes, u8 NumParents,
@@ -178,10 +177,9 @@ XStatus XPmClock_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 {
 	int Status = XST_SUCCESS;
 	u32 Subclass = NODESUBCLASS(Id);
-	u32 ClockIndex = NODEINDEX(Id);
 	XPm_ClockNode *Clk;
 
-	if (ClkNodeList[ClockIndex] != NULL || ClockIndex > MaxClkNodes) {
+	if (NULL != XPmClock_GetById(Id)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -211,7 +209,7 @@ XStatus XPmClock_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 			       ClkFlags);
 
 	if (XST_SUCCESS == Status) {
-		ClkNodeList[ClockIndex] = Clk;
+		Status = XPmClock_SetById(Id, Clk);
 	} else {
 		if (Clk) {
 			/* TODO: Free allocated memory */
@@ -225,14 +223,13 @@ done:
 XStatus XPmClock_AddClkName(u32 Id, char *Name)
 {
 	int Status = XST_SUCCESS;
-	u32 ClockIndex = NODEINDEX(Id);
+	XPm_ClockNode *Clk = XPmClock_GetById(Id);
 
-	if (ClkNodeList[ClockIndex] == NULL || ClockIndex > MaxClkNodes) {
+	if (NULL == Clk) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-
-	memcpy(ClkNodeList[ClockIndex]->Name, Name, MAX_NAME_BYTES);
+	memcpy(Clk->Name, Name, MAX_NAME_BYTES);
 
 done:
 	return Status;
@@ -241,11 +238,10 @@ done:
 XStatus XPmClock_AddSubNode(u32 Id, u32 Type, u32 ControlReg, u8 Param1, u8 Param2, u32 Flags)
 {
 	int Status = XST_SUCCESS, i=0;
-	u32 ClockIndex = NODEINDEX(Id);
-	XPm_OutClockNode *OutClkPtr = (XPm_OutClockNode *)ClkNodeList[ClockIndex];
+	XPm_OutClockNode *OutClkPtr = (XPm_OutClockNode *)XPmClock_GetById(Id);
 	struct XPm_ClkTopologyNode *SubNodes;
 
-	if (OutClkPtr == NULL || ClockIndex > MaxClkNodes || OutClkPtr->Topology.Id != TOPOLOGY_CUSTOM)	{
+	if (OutClkPtr == NULL  || OutClkPtr->Topology.Id != TOPOLOGY_CUSTOM)	{
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -283,10 +279,9 @@ XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 {
 	XStatus Status = XST_SUCCESS;
 	u32 i = 0;
-	u32 ClockIndex = NODEINDEX(Id);
 	XPm_OutClockNode *ClkPtr = (XPm_OutClockNode *)XPmClock_GetById(Id);
 
-	if (ClkPtr == NULL || ClockIndex > MaxClkNodes || NumParents > MAX_MUX_PARENTS || NumParents == 0) {
+	if (ClkPtr == NULL || NumParents > MAX_MUX_PARENTS || NumParents == 0) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -314,43 +309,57 @@ done:
 	return Status;
 }
 
-
 XPm_ClockNode* XPmClock_GetById(u32 ClockId)
 {
 	u32 ClockIndex = NODEINDEX(ClockId);
-	u32 Subclass = NODESUBCLASS(ClockId);
 	u32 NodeType = NODETYPE(ClockId);
 	XPm_ClockNode *Clk = NULL;
+	u32 MaskId = (XPM_NODETYPE_CLOCK_SUBNODE == NodeType) ?
+		~((u32)(NODE_TYPE_MASK)) : ~((u32)(0x0));
 
-	if (NODECLASS(ClockId) != XPM_NODECLASS_CLOCK) {
-		goto done;
-	}
-
-	/* Verify that Subclass matches with NodeType */
-	if (Subclass == XPM_NODESUBCL_CLOCK_PLL) {
-		if (NodeType != XPM_NODETYPE_CLOCK_PLL) {
-			goto done;
-		}
-	} else if (Subclass == XPM_NODESUBCL_CLOCK_OUT) {
-		if (NodeType != XPM_NODETYPE_CLOCK_OUT) {
-			goto done;
-		}
-	} else if (Subclass == XPM_NODESUBCL_CLOCK_REF) {
-		if (NodeType != XPM_NODETYPE_CLOCK_REF) {
-			goto done;
-		}
-	} else {
-		goto done;
-	}
-
-	if (ClockIndex >= MaxClkNodes) {
+	if ((XPM_NODECLASS_CLOCK != NODECLASS(ClockId)) ||
+	    (MaxClkNodes <= ClockIndex)) {
 		goto done;
 	}
 
 	Clk = ClkNodeList[ClockIndex];
+	if (NULL == Clk) {
+		goto done;
+	}
+
+	/* Check that Clock's ID is same as given ID or not.
+	 * NOTE:
+	 * For ADD_CLOCK_SUBNODE command, we add the subnodes to the existing
+	 * clock nodes in the database. These "existing" clock nodes are stored
+	 * with a different node type than the 'XPM_NODETYPE_CLOCK_SUBNODE'
+	 * which is passed into this function for retrieval of such nodes.
+	 * So, we need to mask the type for this special case while validating.
+	 * This is what MaskId does. For all other cases, it is all ones.
+	 */
+	if ((ClockId & MaskId) != (Clk->Node.Id & MaskId)) {
+		Clk = NULL;
+	}
 
 done:
 	return Clk;
+}
+
+XStatus XPmClock_SetById(u32 ClockId, XPm_ClockNode *Clk)
+{
+	u32 Status = XST_INVALID_PARAM;
+	u32 NodeIndex = NODEINDEX(ClockId);
+
+	/*
+	 * We assume that the Node ID class, subclass and type has _already_
+	 * been validated before, so only check bounds here against index
+	 */
+	if ((NULL != Clk) && (MaxClkNodes > NodeIndex)) {
+		ClkNodeList[NodeIndex] = Clk;
+		PmNumClocks++;
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
 }
 
 static struct XPm_ClkTopologyNode* XPmClock_GetTopologyNode(XPm_OutClockNode *Clk, enum XPm_ClockSubnodeType Type)
@@ -589,20 +598,17 @@ XStatus XPmClock_QueryName(u32 ClockId, u32 *Resp)
 {
 	u32 RetWord = 0;
 	XPm_ClockNode *Clk;
-	u32 ClockIndex = NODEINDEX(ClockId);
 	memset(Resp, 0, CLK_QUERY_NAME_LEN);
 
 	Clk = XPmClock_GetById(ClockId);
-
-	if (ClockIndex >= MaxClkNodes) {
-		char ClkName[] = END_OF_CLK;
-		memcpy(&RetWord, ClkName, 4);
-		memcpy(Resp, &ClkName[4], sizeof(ClkName) - 4);
-	} else {
-		memcpy(&RetWord, Clk->Name, 4);
-		memcpy(Resp, &Clk->Name[4], CLK_QUERY_NAME_LEN);
+	if (NULL == Clk) {
+		goto done;
 	}
 
+	memcpy(&RetWord, Clk->Name, 4);
+	memcpy(Resp, &Clk->Name[4], CLK_QUERY_NAME_LEN);
+
+done:
 	return RetWord;
 }
 

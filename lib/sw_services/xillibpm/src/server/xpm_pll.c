@@ -40,10 +40,9 @@ XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 			    u16 *Offsets, u32 PowerDomainId, u8 ClkFlags)
 {
 	int Status = XST_SUCCESS;
-	u32 ClockIndex = NODEINDEX(Id);
 	XPm_PllClockNode *PllClkPtr;
 
-	if (ClkNodeList[ClockIndex] != NULL || ClockIndex > MaxClkNodes) {
+	if (NULL != XPmClock_GetById(Id)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -68,7 +67,10 @@ XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 	PllClkPtr->ConfigReg = ControlReg + Offsets[1];
 	PllClkPtr->FracConfigReg = ControlReg + Offsets[2];
 
-	ClkNodeList[ClockIndex] = (XPm_ClockNode *)PllClkPtr;
+	Status = XPmClock_SetById(Id, (XPm_ClockNode *)PllClkPtr);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	if ((XPM_NODECLASS_POWER != NODECLASS(PowerDomainId)) ||
 	    (XPM_NODESUBCL_POWER_DOMAIN != NODESUBCLASS(PowerDomainId))) {
