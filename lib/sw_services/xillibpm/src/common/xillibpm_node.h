@@ -111,6 +111,7 @@ typedef enum {
         XPM_NODESUBCL_DEV_CORE=1,
         XPM_NODESUBCL_DEV_PERIPH,
         XPM_NODESUBCL_DEV_MEM,
+        XPM_NODESUBCL_DEV_SOC,
 } XPm_DeviceNodeSubclass;
 
 typedef enum {
@@ -169,6 +170,7 @@ typedef enum {
         XPM_NODETYPE_DEV_L2CACHE,
         XPM_NODETYPE_DEV_DDR,
         XPM_NODETYPE_DEV_PERIPH,
+        XPM_NODETYPE_DEV_SOC,
 } XPm_DeviceNodeType;
 
 typedef enum {
@@ -598,6 +600,9 @@ typedef enum {
 	XPM_NODEIDX_DEV_IPI_4,
 	XPM_NODEIDX_DEV_IPI_5,
 	XPM_NODEIDX_DEV_IPI_6,
+
+	/* Entire SoC */
+	XPM_NODEIDX_DEV_SOC,
 
 	XPM_NODEIDX_DEV_MAX
 } XPm_DeviceNodeIndex;

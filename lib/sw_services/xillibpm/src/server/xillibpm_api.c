@@ -47,6 +47,7 @@
 #include "xplmi_modules.h"
 #include "xpm_aie.h"
 #include "xpm_regs.h"
+#include "xsysmonpsv.h"
 
 extern int XLoader_RestartImage(u32 SubsystemId);
 
@@ -239,6 +240,10 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			break;
 		case PM_ISO_CONTROL:
 			Status = XPm_IsoControl(Pload[0], Pload[1]);
+			break;
+		case PM_GET_OP_CHARACTERISTIC:
+			Status = XPm_GetOpCharacteristic(Pload[0], Pload[1],
+							 ApiResponse);
 			break;
 		default:
 			Status = XST_INVALID_PARAM;
@@ -3122,6 +3127,66 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  This function gets operating characteristics of a device
+ *
+ * @param  DeviceId  Targeted device Id.
+ * @param  Type      Type of the operating characteristics:
+ *                       power, temperature, and latency
+ * @param  Result    Returns the value of operating characteristic type
+ *
+ * @return XST_SUCCESS if successful else either XST_NO_FEATURE or XST_FAILURE.
+ *
+ * @note   Temperature reported in Celsius (signed Q8.7 format)
+ *
+ ****************************************************************************/
+XStatus XPm_GetOpCharacteristic(u32 const DeviceId, u32 const Type, u32 *Result)
+{
+	static XSysMonPsv SysMonInst;
+	XSysMonPsv *SysMonInstPtr = &SysMonInst;
+	XSysMonPsv_Config *ConfigPtr;
+	XStatus Status = XST_SUCCESS;
+
+	if (XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	/*
+	 * TODO - need to implement getting power and latency operating
+	 * characteristics.
+	 */
+	if (PM_OPCHAR_TYPE_TEMP != Type) {
+		Status = XST_NO_FEATURE;
+		goto done;
+	}
+
+	/*
+	 * TODO - need to implement getting temperature, beside the
+	 * temperature of entire SoC.
+	 */
+	if (XPM_NODETYPE_DEV_SOC != NODETYPE(DeviceId)) {
+		Status = XST_NO_FEATURE;
+		goto done;
+	}
+
+	/* Initialize the SysMon driver. */
+	ConfigPtr = XSysMonPsv_LookupConfig();
+	if (ConfigPtr == NULL) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	XSysMonPsv_CfgInitialize(SysMonInstPtr, ConfigPtr);
+
+	*Result = XSysMonPsv_ReadDeviceTemp(SysMonInstPtr,
+					    XSYSMONPSV_VAL_VREF_MAX);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function returns supported version of the given API.
  *
  * @param  ApiId	API ID to check
@@ -3144,6 +3209,7 @@ int XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 	switch (ApiId) {
 	case PM_GET_API_VERSION:
 	case PM_GET_DEVICE_STATUS:
+	case PM_GET_OP_CHARACTERISTIC:
 	case PM_REQUEST_SUSPEND:
 	case PM_SELF_SUSPEND:
 	case PM_FORCE_POWERDOWN:
