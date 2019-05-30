@@ -33,10 +33,11 @@
 static XStatus Reset_AssertCommon(XPm_ResetNode *Rst, const u32 Action);
 static XStatus Reset_AssertCustom(XPm_ResetNode *Rst, const u32 Action);
 static u32 Reset_GetStatusCommon(XPm_ResetNode *Rst);
+static XStatus SetResetNode(u32 Id, XPm_ResetNode *Rst);
 
-XPm_ResetNode *RstNodeList[XPM_NODEIDX_RST_MAX];
-u32 MaxRstNodes=XPM_NODEIDX_RST_MAX;
-u32 PmNumResets=0;
+static XPm_ResetNode *RstNodeList[XPM_NODEIDX_RST_MAX];
+static const u32 MaxRstNodes = XPM_NODEIDX_RST_MAX;
+static u32 PmNumResets;
 
 static XPm_ResetOps ResetOps[] = {
 	[XPM_RSTOPS_GENRERIC] = {
@@ -48,6 +49,24 @@ static XPm_ResetOps ResetOps[] = {
 			.GetState = Reset_GetStatusCommon,
 	},
 };
+
+static XStatus SetResetNode(u32 Id, XPm_ResetNode *Rst)
+{
+	u32 Status = XST_INVALID_PARAM;
+	u32 NodeIndex = NODEINDEX(Id);
+
+	/*
+	 * We assume that the Node ID class, subclass and type has _already_
+	 * been validated before, so only check bounds here against index
+	 */
+	if ((NULL != Rst) && (XPM_NODEIDX_RST_MAX > NodeIndex)) {
+		RstNodeList[NodeIndex] = Rst;
+		PmNumResets++;
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
 
 static XStatus XPmReset_Init(XPm_ResetNode *Rst, u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetType, u8 NumParents, u32* Parents)
 {
@@ -66,18 +85,26 @@ static XStatus XPmReset_Init(XPm_ResetNode *Rst, u32 Id, u32 ControlReg, u8 Shif
 
 	return Status;
 }
+
 XStatus XPmReset_AddNode(u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetType, u8 NumParents, u32* Parents)
 {
 	int Status = XST_SUCCESS;
 	u32 SubClass = NODESUBCLASS(Id);
-	u32 ResetIndex = NODEINDEX(Id);
 	XPm_ResetNode *Rst = NULL;
 
-	if (RstNodeList[ResetIndex] != 0 || ResetIndex > MaxRstNodes || NumParents > MAX_RESET_PARENTS) {
+	if (NULL != XPmReset_GetById(Id) || NumParents > MAX_RESET_PARENTS) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-	if (SubClass != XPM_NODETYPE_RESET_PERIPHERAL && SubClass != XPM_NODETYPE_RESET_POR && SubClass != XPM_NODETYPE_RESET_DBG && SubClass != XPM_NODETYPE_RESET_SRST) {
+
+	switch (SubClass) {
+	case XPM_NODETYPE_RESET_PERIPHERAL:
+	case XPM_NODETYPE_RESET_POR:
+	case XPM_NODETYPE_RESET_DBG:
+	case XPM_NODETYPE_RESET_SRST:
+		break;
+
+	default:
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -89,9 +116,14 @@ XStatus XPmReset_AddNode(u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetTyp
 	}
 
 	Status = XPmReset_Init(Rst, Id, ControlReg, Shift, Width, ResetType, NumParents, Parents);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
-	RstNodeList[ResetIndex] = Rst;
-	PmNumResets++;
+	Status = SetResetNode(Id, Rst);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 done:
 	return Status;
@@ -100,20 +132,21 @@ done:
 XPm_ResetNode* XPmReset_GetById(u32 ResetId)
 {
 	u32 ResetIndex = NODEINDEX(ResetId);;
-	u32 SubClass = NODESUBCLASS(ResetId);
+	XPm_ResetNode *Rst = NULL;
 
-	if (NODECLASS(ResetId) != XPM_NODECLASS_RESET) {
-		return NULL;
-	}
-	if (SubClass != XPM_NODETYPE_RESET_PERIPHERAL && SubClass != XPM_NODETYPE_RESET_POR && SubClass != XPM_NODETYPE_RESET_DBG && SubClass != XPM_NODETYPE_RESET_SRST) {
-		return NULL;
-	}
-
-	if (ResetIndex >= MaxRstNodes) {
+	if ((NODECLASS(ResetId) != XPM_NODECLASS_RESET) ||
+	    (ResetIndex >= MaxRstNodes)) {
 		return NULL;
 	}
 
-	return RstNodeList[ResetIndex];
+	Rst = RstNodeList[ResetIndex];
+
+	/* Check that Reset Node's ID is same as given ID or not. */
+	if ((NULL != Rst) && (ResetId != Rst->Node.Id)) {
+		Rst = NULL;
+	}
+
+	return Rst;
 }
 
 static XStatus ResetPulsePsOnly(XPm_ResetNode *Rst)
