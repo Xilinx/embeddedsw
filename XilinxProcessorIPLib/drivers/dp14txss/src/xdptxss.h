@@ -562,6 +562,24 @@ void XDpTxSs_HpdPulseProcess(void *InstancePtr);
 #define XDpTxSs_Mst_AudioDisable(InstancePtr) \
         XDp_TxAudioDis((InstancePtr)->DpPtr)
 
+/*****************************************************************************/
+/**
+ *
+ * This function macro sends audio infoframe packets on the main link.
+ *
+ * @param        InstancePtr is a pointer to the XDpTxSs core instance.
+ * @param		xilInfoFrame is a pointer to the InfoFrame buffer.
+ *
+ * @return       None.
+ *
+ * @note         C-style signature:
+ *               void XDpTxSs_SendAudioInfoFrame(XDpTxSs *InstancePtr,
+ *               			XDp_TxAudioInfoFrame *xilInfoFrame)
+ *
+ ******************************************************************************/
+#define XDpTxSs_SendAudioInfoFrame(InstancePtr, xilInfoFrame) \
+	XDp_TxSendAudioInfoFrame((InstancePtr)->DpPtr, xilInfoFrame)
+
 #ifdef __cplusplus
 }
 #endif
