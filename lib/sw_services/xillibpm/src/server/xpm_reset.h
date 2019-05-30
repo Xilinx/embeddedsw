@@ -97,8 +97,6 @@ struct XPm_ResetNode {
 	XPm_ResetHandle *RstHandles; /**< Pointer to the reset/device pairs */
 };
 
-extern XPm_ResetNode *RstNodeList[];
-
 #define MAX_RESETS	XPM_NODEIDX_RST_MAX
 
 #define XPM_RST_STATE_DEASSERTED 0U

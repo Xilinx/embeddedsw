@@ -2723,10 +2723,6 @@ static XStatus XPm_AddNodeReset(u32 *Args, u32 NumArgs)
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-	if (RstNodeList == NULL) {
-		Status = XST_BUFFER_TOO_SMALL;
-		goto done;
-	}
 
 	ResetId = Args[0];
 	ControlReg = Args[1];

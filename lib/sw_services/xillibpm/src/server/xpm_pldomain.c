@@ -309,7 +309,7 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
         }
 
 	/* Remove SRST for PL */
-	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PL_SRST),
+	Status = XPmReset_AssertbyId(SRST_RSTID(XPM_NODEIDX_RST_PL_SRST),
 				     PM_RESET_ACTION_RELEASE);
 
 	 /* Remove PL-SOC isolation */

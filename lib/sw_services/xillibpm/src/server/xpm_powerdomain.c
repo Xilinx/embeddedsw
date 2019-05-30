@@ -69,7 +69,7 @@ XStatus XPm_PowerUpLPD(XPm_Node *Node)
 		/*
 		 * Release SRST for PS-LPD
 		 */
-		Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PS_SRST),
+		Status = XPmReset_AssertbyId(SRST_RSTID(XPM_NODEIDX_RST_PS_SRST),
 				     PM_RESET_ACTION_RELEASE);
 
 		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, FUNC_BISR, NULL, 0);
@@ -126,7 +126,7 @@ XStatus XPm_PowerDwnLPD()
 		goto done;
 
 	/* Assert reset for PS SRST */
-	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PS_SRST),
+	Status = XPmReset_AssertbyId(SRST_RSTID(XPM_NODEIDX_RST_PS_SRST),
 				     PM_RESET_ACTION_ASSERT);
 
 	/* Assert POR for PS-LPD */
@@ -177,7 +177,7 @@ XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 	Status = XPmPsm_SendPowerDownReq(Node->BaseAddress);
 
 	/* Assert SRST for FPD */
-	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_FPD),
+	Status = XPmReset_AssertbyId(SRST_RSTID(XPM_NODEIDX_RST_FPD),
 				     PM_RESET_ACTION_ASSERT);
 
 	/* Assert POR for FPD */
