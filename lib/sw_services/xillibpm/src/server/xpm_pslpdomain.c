@@ -69,7 +69,7 @@ static XStatus LpdPreBisrReqs()
 		goto done;
 
 	/* Release reset for PS SRST */
-	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PS_SRST),
+	Status = XPmReset_AssertbyId(SRST_RSTID(XPM_NODEIDX_RST_PS_SRST),
 				     PM_RESET_ACTION_RELEASE);
 done:
 	return Status;
