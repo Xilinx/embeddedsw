@@ -2032,19 +2032,13 @@ XStatus XPmPin_SetPinFunction(u32 PinId, u32 FuncId)
 	XPm_PinFunc *PinFunc;
 
 	Pin = XPmPin_GetById(PinId);
-
 	if (NULL == Pin) {
 		Status = XST_INVALID_PARAM;
 		goto done;
-	} else if (FuncId >= MAX_FUNCTION) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	} else {
-		/* Required by MISRA */
 	}
 
-	PinFunc = &PmPinFuncs[FuncId];
-	if (0 == ValidatePinFunc(Pin, PinFunc)) {
+	PinFunc = XPmPinFunc_GetById(FuncId);
+	if ((NULL == PinFunc) || (0 == ValidatePinFunc(Pin, PinFunc))) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}

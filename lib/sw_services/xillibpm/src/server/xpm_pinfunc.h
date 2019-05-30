@@ -653,13 +653,12 @@ struct XPm_PinFunc {
 	u16 *Groups; /**< Array of group identifier */
 };
 
-extern XPm_PinFunc PmPinFuncs[MAX_FUNCTION];
-
 /************************** Function Prototypes ******************************/
 XStatus XPmPinFunc_Init(XPm_PinFunc *PinFunc,
 	u32 Id, char *Name, XPm_Device *Device, u16 RegMask, u8 NumPins);
 XStatus XPmPinFunc_AddGroup(XPm_PinFunc *PinFunc, u16 Group);
 
+XPm_PinFunc *XPmPinFunc_GetById(u32 FuncId);
 XStatus XPmPinFunc_GetNumFuncs(u32 *NumFuncs);
 XStatus XPmPinFunc_GetFuncName(u32 FuncId, char *FuncName);
 XStatus XPmPinFunc_GetNumFuncGroups(u32 FuncId, u32 *NumGroups);

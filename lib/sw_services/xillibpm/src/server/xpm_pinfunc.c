@@ -33,7 +33,7 @@
 /* TODO: Each function can not be mapped with their corresponding
  *       device. Keeping those DeviceId as 0.
  */
-XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
+static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 	[PIN_FUNC_SPI0] = {
 		.Id = PIN_FUNC_SPI0,
 		.Name = "spi0",
@@ -1177,6 +1177,26 @@ XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 
 /****************************************************************************/
 /**
+ * @brief  This function returns handle to requested XPm_PinFunc struct
+ *
+ * @param FuncId	Fuction ID.
+ *
+ * @return Pointer to XPm_PinFunc if successful, NULL otherwise
+ *
+ ****************************************************************************/
+XPm_PinFunc *XPmPinFunc_GetById(u32 FuncId)
+{
+	XPm_PinFunc *PinFunc = NULL;
+
+	if (MAX_FUNCTION > FuncId) {
+		PinFunc = &PmPinFuncs[FuncId];
+	}
+
+	return PinFunc;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function returns total number of functions available.
  *
  * @param NumFuncs	Number of functions.
@@ -1203,12 +1223,14 @@ XStatus XPmPinFunc_GetNumFuncs(u32 *NumFuncs)
 XStatus XPmPinFunc_GetFuncName(u32 FuncId, char *FuncName)
 {
 	u32 RetWord = 0;
+	XPm_PinFunc *PinFunc = NULL;
 
 	memset(FuncName, 0, FUNC_QUERY_NAME_LEN);
 
-	if (FuncId < MAX_FUNCTION) {
-		memcpy(&RetWord, PmPinFuncs[FuncId].Name, 4);
-		memcpy(FuncName, &PmPinFuncs[FuncId].Name[4], FUNC_QUERY_NAME_LEN);
+	PinFunc = XPmPinFunc_GetById(FuncId);
+	if (NULL != PinFunc) {
+		memcpy(&RetWord, PinFunc->Name, 4);
+		memcpy(FuncName, &PinFunc->Name[4], FUNC_QUERY_NAME_LEN);
 	}
 
 	return RetWord;
@@ -1228,9 +1250,11 @@ XStatus XPmPinFunc_GetFuncName(u32 FuncId, char *FuncName)
 XStatus XPmPinFunc_GetNumFuncGroups(u32 FuncId, u32 *NumGroups)
 {
 	XStatus Status = XST_FAILURE;
+	XPm_PinFunc *PinFunc = NULL;
 
-	if (FuncId < MAX_FUNCTION) {
-		*NumGroups = PmPinFuncs[FuncId].NumGroups;
+	PinFunc = XPmPinFunc_GetById(FuncId);
+	if (NULL != PinFunc) {
+		*NumGroups = PinFunc->NumGroups;
 		Status = XST_SUCCESS;
 	}
 
@@ -1255,28 +1279,25 @@ XStatus XPmPinFunc_GetFuncGroups(u32 FuncId, u32 Index, u16 *Groups)
 	XStatus Status = XST_FAILURE;
 	u32 i;
 	u32 num_read;
+	XPm_PinFunc *PinFunc = NULL;
 
 	memset(Groups, END_OF_GRP, (MAX_GROUPS_PER_RES * sizeof(u16)));
 
-	if (FuncId >= MAX_FUNCTION) {
+	PinFunc = XPmPinFunc_GetById(FuncId);
+	if ((NULL == PinFunc) || (Index > PinFunc->NumGroups)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
-	} else if (Index > PmPinFuncs[FuncId].NumGroups) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	} else {
-		/* Required by MISRA */
 	}
 
 	/* Read up to 6 group IDs from Index */
-	if ((PmPinFuncs[FuncId].NumGroups - Index) > MAX_GROUPS_PER_RES) {
+	if ((PinFunc->NumGroups - Index) > MAX_GROUPS_PER_RES) {
 		num_read = MAX_GROUPS_PER_RES;
 	} else {
-		num_read = PmPinFuncs[FuncId].NumGroups - Index;
+		num_read = PinFunc->NumGroups - Index;
 	}
 
 	for (i = 0; i < num_read; i++) {
-		Groups[i] = PmPinFuncs[FuncId].Groups[i + Index];
+		Groups[i] = PinFunc->Groups[i + Index];
 	}
 
 	Status = XST_SUCCESS;
