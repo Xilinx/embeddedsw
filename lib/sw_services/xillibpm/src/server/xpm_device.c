@@ -127,7 +127,7 @@ u32 XPmDevice_GetSubsystemIdOfCore(XPm_Device *Device)
 	u32 Idx, SubSystemId;
 
 	for (Idx = 0; Idx < XPM_NODEIDX_SUBSYS_MAX; Idx++) {
-		Subsystem = &PmSubsystems[Idx];
+		Subsystem = XPmSubsystem_GetByIndex(Idx);
 		Reqm = FindReqm(Device, Subsystem);
 		if ((NULL != Reqm) && (TRUE == Reqm->Allocated)) {
 			break;
@@ -634,7 +634,7 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 		Status = XST_BUFFER_TOO_SMALL;
 		goto done;
 	}
-	Status = XPmRequirement_Init(Reqm, &PmSubsystems[XPM_NODEIDX_SUBSYS_PMC], Device);
+	Status = XPmRequirement_Init(Reqm, XPmSubsystem_GetByIndex(XPM_NODEIDX_SUBSYS_PMC), Device);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -1085,7 +1085,7 @@ XStatus XPmDevice_GetPermissions(XPm_Device *Device, u32 *PermissionMask)
 	while (NULL != Reqm) {
 		if (TRUE == Reqm->Allocated) {
 			for (Idx = 0; Idx < XPM_NODEIDX_SUBSYS_MAX; Idx++) {
-				if (Reqm->Subsystem == &PmSubsystems[Idx]) {
+				if (Reqm->Subsystem == XPmSubsystem_GetByIndex(Idx)) {
 					*PermissionMask |= (1 << Idx);
 				}
 			}

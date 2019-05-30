@@ -79,10 +79,6 @@ struct XPm_Subsystem {
 	void (*NotifyCb)(u32 SubsystemId, const u32 EventId);
 };
 
-extern u32 ReservedSubsystemId;
-extern XPm_Subsystem PmSubsystems[XPM_NODEIDX_SUBSYS_MAX];
-extern u32 XPm_SubsystemIpiMask[XPM_NODEIDX_SUBSYS_MAX];
-
 /************************** Function Prototypes ******************************/
 
 u32 XPmSubsystem_GetIPIMask(u32 SubsystemId);
@@ -96,7 +92,8 @@ XStatus XPmSubsystem_IsAllProcDwn(u32 SubsystemId);
 XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId);
 XStatus XPmSubsystem_ForceDownCleanup(u32 SubsystemId);
 int XPmSubsystem_Idle(u32 SubsystemId);
-XPm_Subsystem * XPmSubsystem_GetById(u32 SubsystemId);
+XPm_Subsystem *XPmSubsystem_GetById(u32 SubsystemId);
+XPm_Subsystem *XPmSubsystem_GetByIndex(u32 SubsystemIndex);
 XStatus XPmSubsystem_SetCurrent(u32 SubsystemId);
 u32 XPmSubsystem_GetCurrent(void);
 XStatus XPmSubsystem_Restart(u32 SubsystemId);
