@@ -216,6 +216,15 @@ enum XPmInitFunctions {
 	FUNC_HOUSECLEAN_COMPLETE,
 };
 
+/**
+ *  PM Operating Characteristic types Enum
+ */
+enum XPmOpCharType {
+	PM_OPCHAR_TYPE_POWER = 1,
+	PM_OPCHAR_TYPE_TEMP,
+	PM_OPCHAR_TYPE_LATENCY,
+};
+
 /* System shutdown macros */
 #define XPM_SHUTDOWN_TYPE_SHUTDOWN	0U
 #define XPM_SHUTDOWN_TYPE_RESET		1U
