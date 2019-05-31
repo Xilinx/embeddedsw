@@ -294,49 +294,6 @@ enum XPsmFWPwrUpDwnType {
 	XPSMFW_PWR_UPDWN_REQUEST,
 };
 
-/* NOTE: SPP doesn't emulate BISR/BIST */
-static int XPsmFw_ACPUBisr(const u32 MbistBitMask)
-{
-	int Status = XST_SUCCESS;
-	u32 ErrorCnt = 0;
-
-	if (PLATFORM_VERSION_SILICON != Platform) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
-
-	/* Applying bISR trigger */
-	XPsmFw_Write32(FPD_SLCR_WPROT0, 0x0);
-	XPsmFw_Write32(FPD_SLCR_BISR_CACHE_CTRL_0, 0x1);
-
-	/* Polling for BISR done and pass status */
-	Status = XPsmFw_UtilPollForMask(FPD_SLCR_BISR_CACHE_STATUS, 0x3FF, FPD_SLCR_BISR_CACHE_STATUS_TIMEOUT);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Initiating odm for ACPUx */
-	XPsmFw_Write32(PSM_GLOBAL_REG_MBIST_RSTN, MbistBitMask);
-	XPsmFw_Write32(PSM_GLOBAL_REG_MBIST_SETUP, MbistBitMask);
-	XPsmFw_Write32(PSM_GLOBAL_REG_MBIST_PG_EN, MbistBitMask);
-
-	/* Polling for DONE status */
-	Status = XPsmFw_UtilPollForMask(PSM_GLOBAL_REG_MBIST_DONE, MbistBitMask, PSM_GLOBAL_MBIST_DONE_TIMEOUT);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Checking for GO status after DONE */
-	if (MbistBitMask != XPsmFw_Read32(PSM_GLOBAL_REG_MBIST_GO)) {
-		ErrorCnt = ErrorCnt + 1;
-		XPsmFw_Write32(LPD_SLCR_PERSISTENT0, ErrorCnt);
-	}
-	XPsmFw_UtilWait(20);
-
-done:
-	return Status;
-}
-
 int XPsmFw_FpdMbisr()
 {
 	int Status = XST_SUCCESS;
@@ -563,15 +520,6 @@ static XStatus XPsmFwACPUxPwrUp(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDw
 
 	/* Disable isolation */
 	XPsmFw_RMW32(Args->PwrCtrlAddr, PSM_LOCAL_PWR_CTRL_ISO_MASK, ~PSM_LOCAL_PWR_CTRL_ISO_MASK);
-
-	/* NOTE: SPP doesn't emulate BISR/BIST */
-
-	/* Run BISR on ACPUx */
-	/* TODO: Call BISR sequence based on value of status register */
-	Status = XPsmFw_ACPUBisr(Args->MbistBitMask);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
 
 	/* Mask and clear ACPUx requested power-up interrupt request */
 	/* This is already handled by common handler so no need to handle here */
