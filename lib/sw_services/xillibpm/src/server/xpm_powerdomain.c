@@ -31,6 +31,7 @@
 #include "xpm_core.h"
 #include "xpm_psm.h"
 #include "xpm_powerdomain.h"
+#include "xpm_bisr.h"
 
 extern int XLoader_ReloadImage(u32 ImageId);
 
@@ -90,8 +91,14 @@ XStatus XPm_PowerDwnLPD()
 {
 	XStatus Status = XST_SUCCESS;
 
+	/* Unlock configuration and system registers for write operation */
+	PmOut32(AMS_ROOT_REG_PCSR_LOCK, PCSR_UNLOCK_VAL);
+
 	/* Disable the SSC interface to PS LPD satellite */
 	PmRmw32(AMS_ROOT_TOKEN_MNGR, AMS_ROOT_TOKEN_MNGR_BYPASS_LPD_MASK, AMS_ROOT_TOKEN_MNGR_BYPASS_LPD_MASK);
+
+	/* Lock configuration and system registers */
+	PmOut32(AMS_ROOT_REG_PCSR_LOCK, 1);
 
 	/* Isolate PS_PL */
 	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_LPD_PL_TEST, TRUE);
@@ -158,8 +165,14 @@ XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 {
 	XStatus Status = XST_SUCCESS;
 
+	/* Unlock configuration and system registers for write operation */
+	PmOut32(AMS_ROOT_REG_PCSR_LOCK, PCSR_UNLOCK_VAL);
+
 	/* Disable the SSC interface to PS FPD satellite */
 	PmRmw32(AMS_ROOT_TOKEN_MNGR, AMS_ROOT_TOKEN_MNGR_BYPASS_FPD_MASK, AMS_ROOT_TOKEN_MNGR_BYPASS_FPD_MASK);
+
+	/* Lock configuration and system registers */
+	PmOut32(AMS_ROOT_REG_PCSR_LOCK, 1);
 
 	/* Isolate FPD-NoC */
 	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_FPD_SOC, TRUE);
@@ -376,9 +389,15 @@ XStatus XPm_PowerDwnNoC()
 {
 	XStatus Status = XST_SUCCESS;
 
+	/* Unlock configuration and system registers for write operation */
+	PmOut32(AMS_ROOT_REG_PCSR_LOCK, PCSR_UNLOCK_VAL);
+
 	/* PL satellite depends on NPD and not PLD so disable the SSC interface to PL satellite
 		while powering down NPD*/
 	PmRmw32(AMS_ROOT_TOKEN_MNGR, AMS_ROOT_TOKEN_MNGR_BYPASS_PL_MASK, AMS_ROOT_TOKEN_MNGR_BYPASS_PL_MASK);
+
+	/* Lock configuration and system registers */
+	PmOut32(AMS_ROOT_REG_PCSR_LOCK, 1);
 
 	/* Isolate FPD-NoC domain */
 	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_FPD_SOC, TRUE);
