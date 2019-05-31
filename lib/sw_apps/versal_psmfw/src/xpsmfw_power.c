@@ -724,7 +724,6 @@ done:
 static XStatus XPsmFwRPUxPwrUp(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDwnType Type)
 {
 	XStatus Status = XST_SUCCESS;
-	u32 ErrorCnt = 0;
 	u32 RegVal;
 
 	/* Check if RPU island is already power up */
@@ -751,41 +750,6 @@ static XStatus XPsmFwRPUxPwrUp(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDwn
 
 	/* Disable isolation */
 	XPsmFw_RMW32(Args->PwrCtrlAddr, PSM_LOCAL_PWR_CTRL_ISO_MASK, ~PSM_LOCAL_PWR_CTRL_ISO_MASK);
-
-	/* NOTE: SPP doesn't emulate BISR/BIST */
-	if (PLATFORM_VERSION_SILICON != Platform) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
-
-	/* Run BISR on RPU */
-
-	/* Applying BISR trigger */
-	XPsmFw_Write32(LPD_SLCR_BISR_CACHE_CTRL_0, 0x1);
-
-	/* Polling for BISR done and pass status */
-	Status = XPsmFw_UtilPollForMask(LPD_SLCR_BISR_CACHE_STATUS, 0xC000000F, LPD_SLCR_BISR_CACHE_STATUS_TIMEOUT);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Initiating odm for RPU */
-	XPsmFw_Write32(PMC_ANALOG_OD_MBIST_RST, Args->MbistBitMask);
-	XPsmFw_Write32(PMC_ANALOG_OD_MBIST_SETUP, Args->MbistBitMask);
-	XPsmFw_Write32(PMC_ANALOG_OD_MBIST_PG_EN, Args->MbistBitMask);
-
-	/* Polling for DONE status */
-	Status = XPsmFw_UtilPollForMask(PMC_ANALOG_OD_MBIST_DONE, Args->MbistBitMask, PMC_ANALOG_MBIST_DONE_TIMEOUT);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Checking for GO status after DONE */
-	if (Args->MbistBitMask != XPsmFw_Read32(PMC_ANALOG_OD_MBIST_GOOD)) {
-		ErrorCnt = ErrorCnt + 1;
-		XPsmFw_Write32(LPD_SLCR_PERSISTENT0, ErrorCnt);
-	}
-	XPsmFw_UtilWait(20);
 
 done:
 	return Status;
