@@ -546,6 +546,21 @@ static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 		goto done;
 	}
 
+	RegVal = XPsmFw_Read32(CRF_RST_APU);
+	/* Release L2 cache reset if asserted */
+	if (RegVal & CRF_RST_APU_L2_RESET_MASK) {
+		XPsmFw_RMW32(CRF_RST_APU, CRF_RST_APU_L2_RESET_MASK, 0);
+	}
+
+	/* Release POR reset of ACPUx if asserted */
+	if ((Args == &Acpu0PwrCtrl) && (RegVal & CRF_RST_APU_ACPU0_PWRON_MASK)) {
+		XPsmFw_RMW32(CRF_RST_APU, CRF_RST_APU_ACPU0_PWRON_MASK, 0);
+	} else if ((Args == &Acpu1PwrCtrl) && (RegVal & CRF_RST_APU_ACPU1_PWRON_MASK)) {
+		XPsmFw_RMW32(CRF_RST_APU, CRF_RST_APU_ACPU1_PWRON_MASK, 0);
+	} else {
+		/* Required by MISRA */
+	}
+
 	/* Release reset to ACPUx */
 	XPsmFw_RMW32(CRF_RST_APU, Args->RstCtrlMask, ~Args->RstCtrlMask);
 
