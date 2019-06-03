@@ -62,7 +62,7 @@ lane_link_rate_struct lane_link_table[]=
 #define AUTO_TEST_MODE        1 //Enables testing after software download without user inputs
 #define NO_OF_TEST_ITERATIONS 7 //5 when testing with Monitors as 422 is visual check only with Monitors (Special CRC constraint)
                                 //7 when testing with Xilinx Sink
-#define NO_OF_TRAINING_COMBOS 12
+#define NO_OF_TRAINING_COMBOS 36
 #define TEST_RETRY_MODE       1 //Retries Failed Test as per TEST_RETRY_COUNT
 #define TEST_RETRY_COUNT      2 //Test will be run TEST_RETRY_COUNT+1 times, if it fails
 
@@ -403,6 +403,7 @@ void main_loop(){
 	unsigned int skip_cnt;
 	unsigned int link_oversubscribed;
 	unsigned int test_itr_cnt;
+	unsigned int test_loop;
 	unsigned int test_train_cnt;
 	unsigned int fail_cnt;
 	unsigned int Total_Tests;
@@ -1092,6 +1093,7 @@ void main_loop(){
 			user_config.user_format = TEST_RGB_FORMAT;
 			user_config.user_pattern = TEST_VID_COLOR_RAMP;
 
+
 			Command = XVIDC_VM_640x350_85_P; //Progressive with Standard and RB timings
 
 			Total_Tests = ((XVIDC_VM_NUM_SUPPORTED-XVIDC_VM_640x350_85_P-1)+ //Video tests from table
@@ -1105,6 +1107,7 @@ void main_loop(){
 			link_oversubscribed = 0;
 			test_itr_cnt=0;
 			test_train_cnt=0;
+			test_loop = 0;
 			xil_printf("VID_RESULT, result, id, hres, vres, refresh, bpc, format, src_comp1, "
 					"src_comp2, src_comp3, snk_comp1, snk_comp2, snk_comp3, LineRate, LaneCount\r\n");
 			exit = 0;
@@ -1141,14 +1144,30 @@ void main_loop(){
 							LineRate  = Sink_MaxLinkRate;
 							Command = XVIDC_VM_640x350_85_P; //Progressive with Standard and RB timings
 							test_itr_cnt = 1;
+							user_config.user_format = TEST_RGB_FORMAT;
+							user_config.user_pattern = TEST_VID_COLOR_RAMP;
 				    	}
-				    	else
+					else if (test_loop == (NO_OF_TRAINING_COMBOS/3))
 				    	{
-							LaneCount = lane_link_table[test_train_cnt].lane_count;
-							LineRate  = lane_link_table[test_train_cnt].link_rate;
+						test_loop = 0;
+							LaneCount = lane_link_table[test_loop].lane_count;
+							LineRate  = lane_link_table[test_loop].link_rate;
 							Command = XVIDC_VM_640x480_60_P; //Default
+					} else {
+							LaneCount = lane_link_table[test_loop].lane_count;
+							LineRate  = lane_link_table[test_loop].link_rate;
+							Command = XVIDC_VM_640x480_60_P; //Default
+
+					}
+					if (test_train_cnt == 24) {
+							user_config.user_format = TEST_YCBCR422_FORMAT;
+							user_config.user_pattern = TEST_VID_COLOR_SQUARES;
+					} else if (test_train_cnt ==12 ) {
+							user_config.user_format = TEST_YCBCR444_FORMAT;
+							user_config.user_pattern = TEST_VID_COLOR_SQUARES;
 				    	}
 				    	test_train_cnt++;
+					test_loop++;
 				    }
 
 				    if(Command==XVIDC_MAX_NUM_SUPPORTED)
@@ -1294,7 +1313,7 @@ void main_loop(){
 					LinkBandwidth   = (LineRate*27);
 					xil_printf("StreamBandwidth=%d, LinkBandwidth=%d, Pixel_clk=%d\r\n",
 							StreamBandwidth,LinkBandwidth,pixel_clock);
-					if((StreamBandwidth>LinkBandwidth) || (pixel_clock > 1500))
+					if((StreamBandwidth>LinkBandwidth) || (pixel_clock > 1200))
 					{
 						link_oversubscribed = 1;
 						skip_cnt++;
@@ -1320,6 +1339,10 @@ void main_loop(){
 					crc_wait_cnt=0;
 					while(1)
 					{
+						if (link_oversubscribed) {
+							crc_timeout = 2;
+							break;
+						}
 
 						/* Read CRC availability every few ms*/
 						Status = XDp_TxAuxRead(DpTxSsInst.DpPtr,
@@ -1345,7 +1368,17 @@ void main_loop(){
 					}
 
 					/*Wait time so that Tx and Rx has enough time to calculate CRC values*/
-//					DpPt_CustomWaitUs(&DpTxSsInst,100000);
+
+					if (!link_oversubscribed) {
+						DpPt_CustomWaitUs(&DpTxSsInst,400000);
+						DpPt_CustomWaitUs(&DpTxSsInst,400000);
+						DpPt_CustomWaitUs(&DpTxSsInst,400000);
+#if UCD400
+						DpPt_CustomWaitUs(&DpTxSsInst,400000);
+						DpPt_CustomWaitUs(&DpTxSsInst,400000);
+						DpPt_CustomWaitUs(&DpTxSsInst,400000);
+#endif
+					}
 
 					Status = XDp_TxAuxRead(DpTxSsInst.DpPtr,
 							DPCD_TEST_CRC_R_Cr, 6, &Data);
@@ -1353,7 +1386,6 @@ void main_loop(){
 					comp1_crc = Data[0] | (Data[1]<<8);
 					comp2_crc = Data[2] | (Data[3]<<8);
 					comp3_crc = Data[4] | (Data[5]<<8);
-
 
 					/*Name is defined as constant in Struct of video timing and hence using if-else*/
 				    if(Command>=XVIDC_VM_CUSTOM)
@@ -1415,6 +1447,9 @@ void main_loop(){
 					Data[0] = 0x0;
 					Status = XDp_TxAuxWrite(DpTxSsInst.DpPtr,
 							DPCD_TEST_SINK_START, 1, &Data);
+
+					XDp_WriteReg(XPAR_TX_SUBSYSTEM_AV_PAT_GEN_0_BASEADDR, 0x0, 0x0);
+					XVidFrameCrc_Reset();
 
 					/*Wait time and then start next video*/
 //					DpPt_CustomWaitUs(&DpTxSsInst,100000);
@@ -1586,16 +1621,31 @@ int XVidFrameCrc_Compare(u16 comp1, u16 comp2, u16 comp3,
 			VIDEO_FRAME_CRC_VALUE_B)
 			& VIDEO_FRAME_CRC_B_CB_COMP_MASK;
 
-	/*Special Case - For 422, CRCs are calculated on AXI4S and
-	 * need to map as per Sink Mapping*/
+
+	calc_comp1 = XVidFrameCrc_ReadReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
+			VIDEO_FRAME_CRC_VALUE_G_R)
+			& VIDEO_FRAME_CRC_R_Y_COMP_MASK;
+
+	calc_comp2 = (XVidFrameCrc_ReadReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
+			VIDEO_FRAME_CRC_VALUE_G_R)
+			& VIDEO_FRAME_CRC_G_CR_COMP_MASK)
+			>> VIDEO_FRAME_CRC_G_CR_COMP_SHIFT;
+
+	calc_comp3 = XVidFrameCrc_ReadReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
+			VIDEO_FRAME_CRC_VALUE_B)
+			& VIDEO_FRAME_CRC_B_CB_COMP_MASK;
+
+
+	/*Y22 now had 3 components CRC*/
+	//matching this to UCD400
 	if(user_config.user_format == TEST_YCBCR422_FORMAT)
 	{
 		src_comp1 = calc_comp1;
-		src_comp2 = 0x0;
+		src_comp2 = calc_comp2;
 		src_comp3 = calc_comp3;
 
 		snk_comp1 = comp3;
-		snk_comp2 = 0x0;
+		snk_comp2 = comp1;
 		snk_comp3 = comp2;
 	}
 	else

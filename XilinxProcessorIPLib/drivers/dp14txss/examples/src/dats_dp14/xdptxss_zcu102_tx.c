@@ -253,7 +253,7 @@ u32 DpTxSs_Main(u16 DeviceId)
 
 	LaneCount_init_tx = LaneCount_init_tx & 0x7;
 	//800x600 8bpc as default
-//	start_tx (LineRate_init_tx, LaneCount_init_tx,user_config);
+	start_tx (LineRate_init_tx, LaneCount_init_tx,user_config);
 	// Enabling TX interrupts
 
 	while (1) { // for menu loop
@@ -1081,8 +1081,7 @@ u32 start_tx(u8 line_rate, u8 lane_count,user_config_struct user_config){
 	/*
 	 * Initialize CRC
 	 */
-	/* Reset CRC*/
-	XVidFrameCrc_Reset();
+
 	/* Set Pixel width in CRC engine*/
 	if (format == XVIDC_CSF_YCRCB_422){
 	XDp_WriteReg(XPAR_TX_SUBSYSTEM_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
@@ -1094,6 +1093,10 @@ u32 start_tx(u8 line_rate, u8 lane_count,user_config_struct user_config){
 						XDP_TX_USER_PIXEL_WIDTH));
 
 	}
+	/* Reset CRC*/
+	XVidFrameCrc_Reset();
+
+
 	xil_printf ("..done !\r\n");
 		return XST_SUCCESS;
 }
