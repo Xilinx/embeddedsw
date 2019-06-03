@@ -143,7 +143,7 @@ void XVidFrameCrc_Report(void)
 	xil_printf("CRC - G/Y  =  0x%x\r\n",
 		   (XVidFrameCrc_ReadReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
 					 VIDEO_FRAME_CRC_VALUE_G_R)
-		    & VIDEO_FRAME_CRC_G_CR_COMP_MASK) >> 
+		    & VIDEO_FRAME_CRC_G_CR_COMP_MASK) >>
 		   VIDEO_FRAME_CRC_G_CR_COMP_SHIFT);
 	xil_printf("CRC - B/Cb  =  0x%x\r\n\r\n",
 		   XVidFrameCrc_ReadReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,

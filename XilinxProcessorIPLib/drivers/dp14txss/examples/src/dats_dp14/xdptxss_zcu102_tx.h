@@ -133,6 +133,7 @@
 #define DIVIDER_810                 57440
 
 #define TX_BUFFER_BYPASS            XPAR_VID_PHY_CONTROLLER_0_TX_BUFFER_BYPASS
+#define UCD400 1
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
