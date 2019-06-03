@@ -234,6 +234,7 @@ extern "C" {
 #define XILPDI_ERR_ZERO_LENGTH		(0x4U)
 #define XILPDI_ERR_TOTAL_LENGTH		(0x5U)
 #define XILPDI_ERR_PRTN_TYPE		(0x6U)
+#define XILPDI_ERR_IDCODE			(0x7U)
 
 /*
  * Image Header Attributes

@@ -34,7 +34,7 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
+#define PMC_TAP_IDCODE		(0xF11A0000U)
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
@@ -343,6 +343,12 @@ int XilPdi_ValidateImgHdrTbl(XilPdi_ImgHdrTbl * ImgHdrTbl)
 		XilPdi_Printf("No of Partitions %u\n\r",
 			      ImgHdrTbl->NoOfPrtns);
 		XilPdi_Printf("XILPDI_ERR_NO_OF_PRTNS\n\r");
+		goto END;
+	}
+
+	if(Xil_In32(PMC_TAP_IDCODE) != ImgHdrTable->Idcode)
+	{
+		Status = XILPDI_ERR_IDCODE;
 		goto END;
 	}
 
