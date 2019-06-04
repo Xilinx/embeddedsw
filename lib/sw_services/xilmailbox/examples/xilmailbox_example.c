@@ -1,29 +1,8 @@
-
 /******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 * @file xilmailbox_example.c
@@ -39,6 +18,18 @@
 * - Read the received response and do a sanity check.
 * - Print PASS or FAIL based on sanity check of response message
 *
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who     Date     Changes
+* ----- ------  -------- ------------------------------------------------------
+* 1.0   adk     14/02/19  Initial Release
+* 1.2   adk     26/03/20  Updated the Remote Channel ID to use IPIPSU driver
+*			  Canonical define inorder make this example work for
+*			  all supported processors.
+* </pre>
+*
+*
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -52,6 +43,8 @@
 /************************* Test Configuration ********************************/
 /* IPI device ID to use for this test */
 #define TEST_CHANNEL_ID	XPAR_XIPIPSU_0_DEVICE_ID
+#define REMOTE_CHANNEL_ID	XPAR_XIPIPSU_0_BIT_MASK
+
 /* Test message length in words. Max is 8 words (32 bytes) */
 #define TEST_MSG_LEN	8
 
@@ -85,7 +78,7 @@ int XMailbox_Example(XMailbox *InstancePtr, u8 DeviceId)
 {
 	u32 Index;
 	u32 Status;
-	u32 *TmpBufPtr;
+	u32 TmpBufPtr[TEST_MSG_LEN];
 
 	Status = XMailbox_Initialize(InstancePtr, DeviceId);
 	if (Status != XST_SUCCESS) {
@@ -106,7 +99,7 @@ int XMailbox_Example(XMailbox *InstancePtr, u8 DeviceId)
 	}
 
 	/* Send an IPI Req Message */
-	Status = XMailbox_SendData(InstancePtr, XMAILBOX_IPI0, ReqBuffer,
+	Status = XMailbox_SendData(InstancePtr, REMOTE_CHANNEL_ID, ReqBuffer,
 				   TEST_MSG_LEN, XILMBOX_MSG_TYPE_REQ, 1);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Sending Req Message Failed\n\r");
@@ -125,7 +118,7 @@ int XMailbox_Example(XMailbox *InstancePtr, u8 DeviceId)
 	ErrorStatus = 0;
 
 	/* Read an IPI Message */
-	Status = XMailbox_Recv(InstancePtr, XMAILBOX_IPI0, TmpBufPtr,
+	Status = XMailbox_Recv(InstancePtr, REMOTE_CHANNEL_ID, TmpBufPtr,
 			       TEST_MSG_LEN, XILMBOX_MSG_TYPE_REQ);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Reading an IPI Req message Failed\n\r");
@@ -144,7 +137,7 @@ int XMailbox_Example(XMailbox *InstancePtr, u8 DeviceId)
 	}
 
 	/* Send an IPI Response Message */
-	Status = XMailbox_SendData(InstancePtr, XMAILBOX_IPI0, RespBuffer,
+	Status = XMailbox_SendData(InstancePtr, REMOTE_CHANNEL_ID, RespBuffer,
 				   TEST_MSG_LEN, XILMBOX_MSG_TYPE_RESP, 0);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Sending Resp Message Failed\n\r");
@@ -159,7 +152,7 @@ int XMailbox_Example(XMailbox *InstancePtr, u8 DeviceId)
 	}
 
 	/* Read an IPI Resp Message */
-	Status = XMailbox_Recv(InstancePtr, XMAILBOX_IPI0, TmpBufPtr,
+	Status = XMailbox_Recv(InstancePtr, REMOTE_CHANNEL_ID, TmpBufPtr,
 			       TEST_MSG_LEN, XILMBOX_MSG_TYPE_RESP);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Reading an IPI Resp message Failed\n\r");

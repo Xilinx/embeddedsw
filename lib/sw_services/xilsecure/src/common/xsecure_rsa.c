@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -55,6 +35,8 @@
 *       vns  03/12/19 Modified as part of XilSecure code re-arch.
 *       psl  03/26/19 Fixed MISRA-C violation
 * 4.1   kal  05/20/19 Updated doxygen tags
+* 4.2   kpt  01/07/20 Resolved CR-1049149,1049107,1049116,1049115,1049118
+*                     and Replaced Magic Numbers with Macros
 * </pre>
 *
 * @note
@@ -63,18 +45,8 @@
 
 /***************************** Include Files *********************************/
 #include "xsecure_rsa.h"
-#include "xplatform_info.h"
+
 /************************** Constant Definitions *****************************/
-#ifdef XSECURE_ZYNQMP
-/* PKCS padding for SHA-3 in 1.0 Silicon */
-static const u8 XSecure_Silicon1_TPadSha3[] = {0x30U, 0x41U, 0x30U, 0x0DU,
-			0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U,
-			0x02U, 0x02U, 0x05U, 0x00U, 0x04U, 0x30U };
-#endif
-/* PKCS padding for SHA-3 in 2.0 Silicon and onwards */
-static const u8 XSecure_Silicon2_TPadSha3[] = {0x30U, 0x41U, 0x30U, 0x0DU,
-			0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U,
-			0x02U, 0x09U, 0x05U, 0x00U, 0x04U, 0x30U };
 
 /**************************** Type Definitions *******************************/
 
@@ -150,16 +122,17 @@ END:
  *		- For SHA3 it should be 48 bytes
  *		- For SHA2 it should be 32 bytes
  *
- * @return	XST_SUCCESS if decryption was successful.
- *		XST_FAILURE in case of mismatch.
+ * @return
+ *		- XST_SUCCESS if decryption was successful.
+ *		- XST_FAILURE in case of mismatch.
  *
  ******************************************************************************/
 u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 {
 	u8 * Tpadding = (u8 *)XNULL;
-	u32 Pad;
+	u32 PadLength;
 	u8 * PadPtr = (u8 *)XNULL;
-	u32 sign_index;
+	volatile u32 sign_index;
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
@@ -167,38 +140,12 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 	Xil_AssertNonvoid(Hash != NULL);
 	Xil_AssertNonvoid(HashLen == XSECURE_HASH_TYPE_SHA3);
 
-	Pad = XSECURE_FSBL_SIG_SIZE - 3U - 19U - HashLen;
+	PadLength = XSECURE_FSBL_SIG_SIZE - XSECURE_RSA_BYTE_PAD_LENGTH
+				- XSECURE_RSA_T_PAD_LENGTH - HashLen;
+
 	PadPtr = Signature;
 
-#ifdef XSECURE_ZYNQMP
-	/* If Silicon version is not 1.0 then use the latest NIST approved SHA-3
-	 * id for padding
-	 */
-	if (XGetPSVersion_Info() != (u32)XPS_VERSION_1)
-	{
-		if(XSECURE_HASH_TYPE_SHA3 == HashLen)
-		{
-			Tpadding = (u8 *)XSecure_Silicon2_TPadSha3;
-		}
-		else
-		{
-			goto ENDF;
-		}
-	}
-	else
-	{
-		if(XSECURE_HASH_TYPE_SHA3 == HashLen)
-		{
-			Tpadding = (u8 *)XSecure_Silicon1_TPadSha3;
-		}
-		else
-		{
-			goto ENDF;
-		}
-	}
-#else
-	Tpadding = (u8 *)XSecure_Silicon2_TPadSha3;
-#endif
+	Tpadding = XSecure_RsaGetTPadding();
 
 	/*
 	 * Re-Create PKCS#1v1.5 Padding
@@ -206,34 +153,34 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 	* 0x0 || 0x1 || 0xFF(for 202 bytes) || 0x0 || T_padding || SHA384 Hash
 	*/
 
-	if (0x00U != *PadPtr)
+	if (XSECURE_RSA_BYTE_PAD1 != *PadPtr)
 	{
 		goto ENDF;
 	}
 	PadPtr++;
 
-	if (0x01U != *PadPtr)
+	if (XSECURE_RSA_BYTE_PAD2 != *PadPtr)
 	{
 		goto ENDF;
 	}
 	PadPtr++;
 
-	for (sign_index = 0U; sign_index < Pad; sign_index++)
+	for (sign_index = 0U; sign_index < PadLength; sign_index++)
 	{
-		if (0xFFU != *PadPtr)
+		if (XSECURE_RSA_BYTE_PAD3 != *PadPtr)
 		{
 			goto ENDF;
 		}
 		PadPtr++;
 	}
 
-	if (0x00U != *PadPtr)
+	if (XSECURE_RSA_BYTE_PAD1 != *PadPtr)
 	{
 		goto ENDF;
 	}
 	PadPtr++;
 
-	for (sign_index = 0U; sign_index < 19U; sign_index++)
+	for (sign_index = 0U; sign_index < XSECURE_RSA_T_PAD_LENGTH; sign_index++)
 	{
 		if (*PadPtr != Tpadding[sign_index])
 		{
@@ -250,7 +197,11 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 		}
 		PadPtr++;
 	}
-	Status = (u32)XST_SUCCESS;
+
+	if (sign_index == HashLen)
+	{
+		Status = (u32)XST_SUCCESS;
+	}
 ENDF:
 	return Status;
 }
@@ -273,7 +224,9 @@ ENDF:
 * @param	Result		Pointer to the buffer where resultant decrypted
 *		data to be stored		.
 *
-* @return	XST_SUCCESS if encryption was successful.
+* @return
+*		- XST_SUCCESS if encryption was successful.
+*		- Error code on failure
 *
 * @note		The Size passed here needs to match the key size used in the
 * 		XSecure_RsaInitialize function.
@@ -316,11 +269,10 @@ s32 XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 * @param	Result		Pointer to the buffer where resultant decrypted
 *		data to be stored		.
 *
-* @return	XST_SUCCESS if decryption was successful.
-*
-*		XSECURE_RSA_DATA_VALUE_ERROR - if input data is
-*		greater than modulus.
-*		XST_FAILURE - on RSA operation failure.
+* @return
+*		- XST_SUCCESS if decryption was successful.
+*		- XSECURE_RSA_DATA_VALUE_ERROR - if input data is greater than modulus.
+*		- XST_FAILURE - on RSA operation failure.
 *
 * @note		The Size passed in needs to match the key size used in the
 * 		XSecure_RsaInitialize function..
@@ -341,7 +293,8 @@ s32 XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 
 	/*
 	 * Input data should always be smaller than modulus
-	 * here we are checking only MSB byte
+	 * One byte is being checked at a time to make sure the input data
+	 * is smaller than the modulus
 	 */
 	for (idx = 0U; idx < Size; idx++) {
 		if ((*(u8 *)(InstancePtr->Mod + idx)) > (*(u8 *)(Input + idx))) {

@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -42,6 +22,11 @@
 *       mmd  03/15/19 Refactored the code
 *       psl  03/26/19 Fixed MISRA-C violation
 * 4.1   psl  08/05/19 Fixed MISRA-C violation
+* 4.2   kpt  01/07/20 Resolved CR-1049134 and Added Macros for all
+*                     the Magic Numbers
+*       kpt  03/24/20 Added XSecure_RsaZeroizeVerify for
+*                     RSA Zeroize Verification
+*
 * </pre>
 *
 * @note
@@ -51,7 +36,18 @@
 /***************************** Include Files *********************************/
 #include "xsecure_rsa_core.h"
 #include "xsecure_rsa_hw.h"
+#include "xplatform_info.h"
+
 /************************** Constant Definitions *****************************/
+/* PKCS padding for SHA-3 in 1.0 Silicon */
+static const u8 XSecure_Silicon1_TPadSha3[] = {0x30U, 0x41U, 0x30U, 0x0DU,
+			0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U,
+			0x02U, 0x02U, 0x05U, 0x00U, 0x04U, 0x30U };
+
+/* PKCS padding for SHA-3 in 2.0 Silicon and onwards */
+static const u8 XSecure_Silicon2_TPadSha3[] = {0x30U, 0x41U, 0x30U, 0x0DU,
+			0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U,
+			0x02U, 0x09U, 0x05U, 0x00U, 0x04U, 0x30U };
 
 /**************************** Type Definitions *******************************/
 
@@ -61,7 +57,8 @@
 
 static void XSecure_RsaPutData(XSecure_Rsa *InstancePtr);
 static void XSecure_RsaGetData(XSecure_Rsa *InstancePtr, u32 *RdData);
-static void XSecure_RsaZeroize(XSecure_Rsa *InstancePtr);
+static u32 XSecure_RsaZeroize(XSecure_Rsa *InstancePtr);
+static u32 XSecure_RsaZeroizeVerify(XSecure_Rsa *InstancePtr);
 static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
 							u8 RamOffset);
 static void XSecure_RsaMod32Inverse(XSecure_Rsa *InstancePtr);
@@ -108,7 +105,7 @@ u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 			u8 *Result, u8 EncDecFlag, u32 Size)
 {
 	u32 Status = (u32)XST_FAILURE;
-	s32 ErrorCode = XST_FAILURE;
+	u32 ErrorCode = XST_FAILURE;
 	u32 RsaType = XSECURE_CSU_RSA_CONTROL_4096;
 	u32 TimeOut = 0U;
 
@@ -132,7 +129,7 @@ u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 			(Size == XSECURE_RSA_4096_KEY_SIZE));
 
 	InstancePtr->EncDec = EncDecFlag;
-	InstancePtr->SizeInWords = Size/4U;
+	InstancePtr->SizeInWords = Size/XSECURE_WORD_SIZE;
 	/* Put Modulus, exponent, Mod extension in RSA RAM */
 	XSecure_RsaPutData(InstancePtr);
 
@@ -184,7 +181,7 @@ u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 			RsaType = XSECURE_CSU_RSA_CONTROL_4096;
 			break;
 		default:
-			ErrorCode = XST_INVALID_PARAM;
+			ErrorCode = (u32)XST_INVALID_PARAM;
 			break;
 	}
 
@@ -212,28 +209,32 @@ u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 		if(XSECURE_CSU_RSA_STATUS_ERROR ==
 				((u32)Status & XSECURE_CSU_RSA_STATUS_ERROR))
 		{
-			ErrorCode = XST_FAILURE;
+			ErrorCode = (u32)XST_FAILURE;
 			goto END;
 		}
 		if(XSECURE_CSU_RSA_STATUS_DONE ==
 				((u32)Status & XSECURE_CSU_RSA_STATUS_DONE)){
-			ErrorCode = XST_SUCCESS;
+			ErrorCode = (u32)XST_SUCCESS;
 			break;
 		}
 		TimeOut = TimeOut + 1U;
 	} while(TimeOut < XSECURE_TIMEOUT_MAX);
 
 	if(TimeOut == XSECURE_TIMEOUT_MAX) {
-		ErrorCode = XST_FAILURE;
+		ErrorCode = (u32)XST_FAILURE;
 		goto END;
 	}
 	/* Copy the result */
 	XSecure_RsaGetData(InstancePtr, (u32 *)Result);
 
 END:
-	/* Zeroize RSA memory space */
-	XSecure_RsaZeroize(InstancePtr);
-	return (u32)ErrorCode;
+	/* Zeroize and Verify RSA memory space */
+	if (InstancePtr->EncDec == XSECURE_RSA_SIGN_DEC) {
+		Status = XSecure_RsaZeroize(InstancePtr);
+		ErrorCode |= Status;
+	}
+
+	return ErrorCode;
 }
 
 /*****************************************************************************/
@@ -295,19 +296,19 @@ static void XSecure_RsaGetData(XSecure_Rsa *InstancePtr, u32 *RdData)
 	 * Each iteration of this loop reads 32 * 6 = 192 bits
 	 * Therefore, for 4096, total iterations required = 4096/192 = 21.33 = 22
 	 */
-	for (DataOffset = 0U; DataOffset < 22U; DataOffset++)
+	TmpIndex = InstancePtr->SizeInWords - 1;
+	for (DataOffset = 0U; DataOffset < XSECURE_RSA_MAX_RD_WR_CNT; DataOffset++)
 	{
 		XSecure_WriteReg(InstancePtr->BaseAddress,
 				XSECURE_CSU_RSA_RD_ADDR_OFFSET,
-				(XSECURE_CSU_RSA_RAM_RES_Y * 22U) + DataOffset);
+				(XSECURE_CSU_RSA_RAM_RES_Y * XSECURE_RSA_MAX_RD_WR_CNT)
+								+ DataOffset);
 		Index = (DataOffset == 0U) ? 2U: 0U;
-		for (; Index < 6U; Index++)
+		for (; Index < XSECURE_RSA_MAX_BUFF; Index++)
 		{
-			TmpIndex = (InstancePtr->SizeInWords + 1U) -
-					((DataOffset*6U) + Index);
 			if(TmpIndex < 0)
 			{
-				break;
+				goto END;
 			}
 			/*
 			 * The Signature digest is compared in Big endian.
@@ -316,10 +317,13 @@ static void XSecure_RsaGetData(XSecure_Rsa *InstancePtr, u32 *RdData)
 			 */
 			RdData[TmpIndex] = Xil_Htonl(XSecure_ReadReg(
 						InstancePtr->BaseAddress,
-			(XSECURE_CSU_RSA_RD_DATA_0_OFFSET+ (Index * 4U))));
+			(XSECURE_CSU_RSA_RD_DATA_0_OFFSET+
+					(Index * XSECURE_WORD_SIZE))));
+			TmpIndex--;
+
 		}
 	}
-
+END: ;
 }
 
 /*****************************************************************************/
@@ -346,7 +350,7 @@ static void XSecure_RsaMod32Inverse(XSecure_Rsa *InstancePtr)
 	u32 ModVal = Xil_Htonl(ModPtr[InstancePtr->SizeInWords - 1]);
 	u32 Inv = (u32)2U - ModVal;
 
-	for (Count = 0U; Count < 4U; ++Count)
+	for (Count = 0U; Count < XSECURE_WORD_SIZE; ++Count)
 	{
 		Inv = (Inv * (2U - ( ModVal * Inv ) ) );
 	}
@@ -355,13 +359,16 @@ static void XSecure_RsaMod32Inverse(XSecure_Rsa *InstancePtr)
 
 	/* Put the value in MINV registers */
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_RSA_MINV0_OFFSET,
-						(Inv & 0xFFU ));
+						(Inv & XSECURE_RSA_BYTE_MASK ));
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_RSA_MINV1_OFFSET,
-						((Inv >> 8) & 0xFFU ));
+						((Inv >> XSECURE_RSA_BYTE_SHIFT)
+							& XSECURE_RSA_BYTE_MASK ));
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_RSA_MINV2_OFFSET,
-						((Inv >> 16) & 0xFFU ));
+						((Inv >> XSECURE_RSA_HWORD_SHIFT)
+							& XSECURE_RSA_BYTE_MASK ));
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_RSA_MINV3_OFFSET,
-						((Inv >> 24) & 0xFFU ));
+						((Inv >> XSECURE_RSA_SWORD_SHIFT)
+							& XSECURE_RSA_BYTE_MASK ));
 }
 
 /*****************************************************************************/
@@ -393,11 +400,11 @@ static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
 	 * Each iteration of this loop writes 32 * 6 = 192 bits
 	 * Therefore, for 4096, total iteration required = 4096/192 = 21.33 = 22
 	 */
-	for (DataOffset = 0U; DataOffset < 22U; DataOffset++)
+	for (DataOffset = 0U; DataOffset < XSECURE_RSA_MAX_RD_WR_CNT; DataOffset++)
 	{
-		for (Index = 0U; Index < 6U; Index++)
+		for (Index = 0U; Index < XSECURE_RSA_MAX_BUFF; Index++)
 		{
-			TmpIndex = (DataOffset*6U) + Index;
+			TmpIndex = (DataOffset * XSECURE_RSA_MAX_BUFF) + Index;
 			/**
 			* Exponent size is only 4 bytes
 			* and rest of the data needs to be 0
@@ -425,12 +432,12 @@ static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
 				}
 			}
 			XSecure_WriteReg(InstancePtr->BaseAddress,
-			(XSECURE_CSU_RSA_WR_DATA_0_OFFSET + (Index * 4U)),
+			(XSECURE_CSU_RSA_WR_DATA_0_OFFSET + (Index * XSECURE_WORD_SIZE)),
 							Data);
 		}
 		XSecure_WriteReg(InstancePtr->BaseAddress,
 				XSECURE_CSU_RSA_WR_ADDR_OFFSET,
-				((RamOffset * 22U) + DataOffset));
+				((RamOffset * XSECURE_RSA_MAX_RD_WR_CNT) + DataOffset));
 	}
 }
 
@@ -443,24 +450,139 @@ static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
  *
  * @param	InstancePtr	Pointer to the XSecure_Rsa instance.
  *
- * @return	None.
+ * @return	XST_SUCCESS On Zeroization Success
+ * 			XSECURE_RSA_ZEROIZE_ERROR On Zeroization Failure.
  *
  *****************************************************************************/
-static void XSecure_RsaZeroize(XSecure_Rsa *InstancePtr)
+static u32 XSecure_RsaZeroize(XSecure_Rsa *InstancePtr)
 {
 
-	u32 RamOffset = 0U;
+	u32 RamOffset = (u32)XSECURE_CSU_RSA_RAM_EXPO;
 	u32 DataOffset;
+	u32 Index;
+	u32 Status = (u32)XST_FAILURE;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->RsaState == XSECURE_RSA_INITIALIZED);
+
+	/**
+	 * Each iteration of this loop writes Zero
+	 * in to one of the six RSA Write Buffers
+	 */
+
+	for (Index = 0; Index < XSECURE_RSA_MAX_BUFF; Index++) {
+		XSecure_WriteReg(InstancePtr->BaseAddress,
+		(XSECURE_CSU_RSA_WR_DATA_0_OFFSET + (Index * XSECURE_WORD_SIZE)),
+		0U);
+	}
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_CSU_RSA_ZERO_OFFSET, 1U);
+		XSECURE_CSU_RSA_ZERO_OFFSET, XSECURE_RSA_CTRL_CLR_DATA_BUF_MASK);
 	do {
-		for (DataOffset = 0U; DataOffset < 22U; DataOffset++) {
+		for (DataOffset = 0U; DataOffset < XSECURE_RSA_MAX_RD_WR_CNT;
+			DataOffset++) {
+
 			XSecure_WriteReg(InstancePtr->BaseAddress,
 				XSECURE_CSU_RSA_WR_ADDR_OFFSET,
-				((RamOffset * 22U) + DataOffset));
-		}
-		RamOffset++;
-	} while(RamOffset <= XSECURE_CSU_RSA_RAM_RES_Q);
+				((RamOffset * XSECURE_RSA_MAX_RD_WR_CNT) + DataOffset));
 
+		}
+
+		RamOffset++;
+	} while (RamOffset <= XSECURE_CSU_RSA_RAM_RES_Q);
+
+	Status = XSecure_RsaZeroizeVerify(InstancePtr);
+
+	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_RSA_MINV0_OFFSET,
+		0U);
+	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_RSA_MINV1_OFFSET,
+		0U);
+	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_RSA_MINV2_OFFSET,
+		0U);
+	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_RSA_MINV3_OFFSET,
+		0U);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This function verifies the Zeroization of RSA memory space.
+ *
+ * @param	InstancePtr	Pointer to the XSecure_Rsa instance.
+ *
+ * @return	XST_SUCCESS On Success
+ * 			XSECURE_RSA_ZEROIZE_ERROR On Zeroize Verify Failure
+ *
+ *****************************************************************************/
+static u32 XSecure_RsaZeroizeVerify(XSecure_Rsa *InstancePtr)
+{
+	u32 RamOffset = (u32)XSECURE_CSU_RSA_RAM_EXPO;
+	u32 DataOffset;
+	u32 Index;
+	u32 Data = 0U;
+	u32 Status = (u32)XST_FAILURE;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	do {
+
+		for (DataOffset = 0U; DataOffset < XSECURE_RSA_MAX_RD_WR_CNT;
+			DataOffset++) {
+
+			XSecure_WriteReg(InstancePtr->BaseAddress,
+				XSECURE_CSU_RSA_RD_ADDR_OFFSET,
+				((RamOffset * (u8)XSECURE_RSA_MAX_RD_WR_CNT) +
+				DataOffset));
+			for (Index = 0U; Index < XSECURE_RSA_MAX_BUFF; Index++) {
+				Data |= XSecure_ReadReg(InstancePtr->BaseAddress,
+						(XSECURE_CSU_RSA_RD_DATA_0_OFFSET +
+						(Index * XSECURE_WORD_SIZE)));
+			}
+
+			if (Data != 0U) {
+				Status = (u32)XSECURE_RSA_ZEROIZE_ERROR;
+				goto END;
+			}
+		}
+
+		RamOffset++;
+	} while (RamOffset <= XSECURE_CSU_RSA_RAM_RES_Q);
+
+	if (((RamOffset - 1U) == XSECURE_CSU_RSA_RAM_RES_Q) &&
+		(DataOffset == XSECURE_RSA_MAX_RD_WR_CNT)) {
+		Status = (u32)XST_SUCCESS;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This function returns PKCS padding as per the silicon version
+ *
+ * @param       None
+ *
+ * @return      XSecure_Silicon2_TPadSha3 if Silicon version is not 1.0
+ *              XSecure_Silicon1_TPadSha3 if Silicon version is 1.0
+ *
+ *****************************************************************************/
+u8* XSecure_RsaGetTPadding()
+{
+	u8* Tpadding = (u8 *)XNULL ;
+
+	/* If Silicon version is not 1.0 then use the latest NIST approved SHA-3
+	 * id for padding
+	 */
+	if(XGetPSVersion_Info() != (u32)XPS_VERSION_1) {
+		Tpadding = (u8*)XSecure_Silicon2_TPadSha3;
+	}
+	else {
+		Tpadding = (u8*)XSecure_Silicon1_TPadSha3;
+	}
+
+	return Tpadding;
 }

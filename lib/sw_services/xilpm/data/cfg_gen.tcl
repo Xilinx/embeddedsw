@@ -112,10 +112,14 @@ proc get_ipi_mask { master } {
 	set slave_list [get_mem_ranges -of_objects [get_cells -hier $master]];
 	#Find the first IPI slave in the list
 	set ipi [lsearch -inline $slave_list psu_ipi_* ];
-	#Get the bit position property for the IPI instance
-	set bit_pos [get_property CONFIG.C_BIT_POSITION -object [get_cells -hier $ipi]];
-	#Convert the bit position into MASK and return it
-	return [format 0x%08X [expr 1<<$bit_pos]];
+	if { $ipi != "" } {
+		#Get the bit position property for the IPI instance
+		set bit_pos [get_property CONFIG.C_BIT_POSITION -object [get_cells -hier $ipi]];
+		#Convert the bit position into MASK and return it
+		return [format 0x%08X [expr 1<<$bit_pos]];
+	} else {
+		return 0;
+	}
 }
 
 #=============================================================================#
@@ -269,7 +273,8 @@ proc get_mem_perm_mask { mem } {
 proc convert_ipi_mask_to_txt { ipi_mask } {
 	set macro_list {}
 	foreach master $pmufw::master_list {
-		if { [expr (($ipi_mask & [get_ipi_mask $master]) != 0)]  } {
+		if { [expr (($ipi_mask & [get_ipi_mask $master]) != 0)] &&
+		     [is_ipi_defined $master] == 1 } {
 			lappend macro_list [get_ipi_mask_txt $master]
 		}
 	}
@@ -287,7 +292,11 @@ proc convert_ipi_mask_to_txt { ipi_mask } {
 #=============================================================================#
 proc get_ipi_mask_txt { master } {
 
-	return "PM_CONFIG_IPI_[string toupper $master]_MASK"
+	if { [is_ipi_defined $master] == 1 } {
+		return "PM_CONFIG_IPI_[string toupper $master]_MASK"
+	} else {
+		return ""
+	}
 }
 
 #=============================================================================#
@@ -296,7 +305,9 @@ proc get_ipi_mask_txt { master } {
 proc get_all_masters_mask_txt { } {
 	set macro_list {}
 	foreach master $pmufw::master_list {
-		lappend macro_list [get_ipi_mask_txt $master]
+		if { [is_ipi_defined $master] == 1 } {
+			lappend macro_list [get_ipi_mask_txt $master]
+		}
 	}
 	return [join $macro_list " | "];
 }
@@ -308,7 +319,7 @@ proc get_all_masters_mask_txt { } {
 proc get_all_other_masters_mask_txt { master_name } {
 	set macro_list {}
 	foreach master $pmufw::master_list {
-		if { $master !=  $master_name} {
+		if { $master !=  $master_name && [is_ipi_defined $master] == 1 } {
 			lappend macro_list [get_ipi_mask_txt $master]
 		}
 	}
@@ -333,7 +344,7 @@ proc get_slave_perm_mask_txt { slave } {
 		#Search for the slave in list
 		set slave_index [lsearch $slave_list $slave]
 		#if found, add the macro to list
-		if { $slave_index >=0 } {
+		if { $slave_index >=0 && [is_ipi_defined $master] == 1 } {
 			lappend macro_list [get_ipi_mask_txt $master]
 		}
 	}
@@ -609,18 +620,27 @@ proc get_slave_section { } {
 			#puts $periph_label
 			switch $periph_label {
 				"NODE_IPI_APU" {
-					if { [lsearch $pmufw::master_list psu_cortexa53_0] >= 0 } {
+					if { [lsearch $pmufw::master_list psu_cortexa53_0] >= 0 &&
+					     [is_ipi_defined psu_cortexa53_0] == 1 } {
 						set ipi_perm [get_ipi_mask_txt psu_cortexa53_0]
+					} else {
+						set ipi_perm ""
 					}
 				}
 				"NODE_IPI_RPU_0" {
-					if { [lsearch $pmufw::master_list psu_cortexr5_0] >= 0 } {
+					if { [lsearch $pmufw::master_list psu_cortexr5_0] >= 0 &&
+					     [is_ipi_defined psu_cortexr5_0] == 1 } {
 						set ipi_perm [get_ipi_mask_txt psu_cortexr5_0]
+					} else {
+						set ipi_perm ""
 					}
 				}
 				"NODE_IPI_RPU_1" {
-					if { [lsearch $pmufw::master_list psu_cortexr5_1] >= 0 } {
+					if { [lsearch $pmufw::master_list psu_cortexr5_1] >= 0 &&
+					     [is_ipi_defined psu_cortexr5_1] == 1 } {
 						set ipi_perm [get_ipi_mask_txt psu_cortexr5_1]
+					} else {
+						set ipi_perm ""
 					}
 				}
 				default {
@@ -656,7 +676,9 @@ $slave_text"
 proc get_master_ipidef { } {
 	set master_ipidef "\n"
 	foreach master $pmufw::master_list {
-		append master_ipidef "#define "  [get_ipi_mask_txt $master] "    " [get_ipi_mask $master] "\n"
+		if { [is_ipi_defined $master] == 1 } {
+			append master_ipidef "#define "  [get_ipi_mask_txt $master] "    " [get_ipi_mask $master] "\n"
+		}
 	}
 	append master_ipidef "\n"
 
@@ -686,7 +708,11 @@ proc get_master_section { } {
 			set master_node "NODE_APU"
 		}
 		append master_text "\t$master_node, /* Master Node ID */" "\n"
-		append master_text "\t[get_ipi_mask_txt $master], /* IPI Mask of this master */" "\n"
+		if { [is_ipi_defined $master] == 1 } {
+			append master_text "\t[get_ipi_mask_txt $master], /* IPI Mask of this master */" "\n"
+		} else {
+			append master_text "\t0U, /* IPI Mask of this master */" "\n"
+		}
 		append master_text "\tSUSPEND_TIMEOUT, /* Suspend timeout */" "\n"
 		append master_text "\t[get_all_other_masters_mask_txt $master], /* Suspend permissions */" "\n"
 		append master_text "\t[get_all_other_masters_mask_txt $master], /* Wake permissions */" "\n"
@@ -700,7 +726,9 @@ proc get_prealloc_for_master_txt { master_name prealloc_list } {
 	set node_count 0
 	set master_prealloc_txt ""
 
-	set master_mask [get_ipi_mask_txt $master_name]
+	if { [is_ipi_defined $master_name] == 1 } {
+		set master_mask [get_ipi_mask_txt $master_name]
+	}
 	foreach node $prealloc_list {
 		set periph_perms [dict get [dict get $pmufw::node_map $node] perms]
 		set periph_name [dict get [dict get $pmufw::node_map $node] periph]
@@ -727,23 +755,40 @@ $master_prealloc_txt
 
 proc get_prealloc_section { } {
 	set prealloc_text "\n"
-	set apu_prealloc_list {NODE_IPI_APU NODE_DDR NODE_L2 NODE_OCM_BANK_0 NODE_OCM_BANK_1 NODE_OCM_BANK_2 NODE_OCM_BANK_3 NODE_I2C_0 NODE_I2C_1 NODE_SD_1 NODE_QSPI NODE_PL}
-	set r5_0_prealloc_list {NODE_IPI_RPU_0 NODE_TCM_0_A NODE_TCM_0_B NODE_TCM_1_A NODE_TCM_1_B NODE_DDR NODE_L2 NODE_OCM_BANK_0 NODE_OCM_BANK_1 NODE_OCM_BANK_2 NODE_OCM_BANK_3 NODE_I2C_0 NODE_I2C_1 NODE_SD_1 NODE_QSPI NODE_PL}
-	set r5_1_prealloc_list {NODE_IPI_RPU_1 NODE_TCM_1_A NODE_TCM_1_B}
+	set apu_prealloc_list {NODE_DDR NODE_L2 NODE_OCM_BANK_0 NODE_OCM_BANK_1 NODE_OCM_BANK_2 NODE_OCM_BANK_3 NODE_I2C_0 NODE_I2C_1 NODE_SD_1 NODE_QSPI NODE_PL}
+	if { [is_ipi_defined psu_cortexa53_0] == 1 } {
+		append apu_prealloc_list { NODE_IPI_APU}
+	}
+	set r5_0_prealloc_list {NODE_TCM_0_A NODE_TCM_0_B NODE_TCM_1_A NODE_TCM_1_B NODE_DDR NODE_L2 NODE_OCM_BANK_0 NODE_OCM_BANK_1 NODE_OCM_BANK_2 NODE_OCM_BANK_3 NODE_I2C_0 NODE_I2C_1 NODE_SD_1 NODE_QSPI NODE_PL NODE_ADMA}
+	if { [is_ipi_defined psu_cortexr5_0] == 1 } {
+		append r5_0_prealloc_list { NODE_IPI_RPU_0}
+	}
+	set r5_1_prealloc_list {NODE_TCM_1_A NODE_TCM_1_B}
+	if { [is_ipi_defined psu_cortexr5_1] == 1 } {
+		append r5_1_prealloc_list { NODE_IPI_RPU_1}
+	}
 
 	append prealloc_text "\tPM_CONFIG_PREALLOC_SECTION_ID, /* Preallaoc SectionID */" "\n"
 
-	set master_count [llength $pmufw::master_list]
+	set master_count 0
+	foreach master $pmufw::master_list {
+		if { [is_ipi_defined $master] == 1 } {
+			incr master_count
+		}
+	}
 	append prealloc_text "\t$master_count" "U, /* No. of Masters*/" "\n"
 	append prealloc_text "\n"
 
-	if { [lsearch $pmufw::master_list psu_cortexa53_0] >= 0 } {
+	if { [lsearch $pmufw::master_list psu_cortexa53_0] >= 0 &&
+	     [is_ipi_defined psu_cortexa53_0] == 1 } {
 		append prealloc_text [get_prealloc_for_master_txt psu_cortexa53_0 $apu_prealloc_list]
 	}
-	if { [lsearch $pmufw::master_list psu_cortexr5_0] >= 0 } {
+	if { [lsearch $pmufw::master_list psu_cortexr5_0] >= 0 &&
+	     [is_ipi_defined psu_cortexr5_0] == 1 } {
 		append prealloc_text [get_prealloc_for_master_txt psu_cortexr5_0 $r5_0_prealloc_list]
 	}
-	if { [lsearch $pmufw::master_list psu_cortexr5_1] >= 0 } {
+	if { [lsearch $pmufw::master_list psu_cortexr5_1] >= 0 &&
+	     [is_ipi_defined psu_cortexr5_1] == 1 } {
 		append prealloc_text [get_prealloc_for_master_txt psu_cortexr5_1 $r5_1_prealloc_list]
 	}
 
@@ -752,7 +797,7 @@ proc get_prealloc_section { } {
 
 set power_perms [dict create]
 dict set power_perms NODE_APU { psu_cortexr5_0 psu_cortexr5_1 }
-dict set power_perms NODE_RPU { psu_cortexa53_0 }
+dict set power_perms NODE_RPU { psu_cortexa53_0 psu_cortexr5_0 psu_cortexr5_1 }
 dict set power_perms NODE_FPD { psu_cortexr5_0 psu_cortexr5_1 }
 dict set power_perms NODE_PLD { psu_cortexa53_0 psu_cortexr5_0 psu_cortexr5_1 }
 
@@ -766,7 +811,8 @@ proc get_power_domain_perm_mask_txt { pwr_domain } {
 	set pwr_perm_masters [dict get $pmufw::power_perms $pwr_domain]
 
 	foreach master $pwr_perm_masters {
-		if { [lsearch $pmufw::master_list $master] >= 0 } {
+		if { [lsearch $pmufw::master_list $master] >= 0 &&
+		     [is_ipi_defined $master] == 1 } {
 			lappend macro_list [get_ipi_mask_txt $master]
 		}
 	}
@@ -810,7 +856,8 @@ proc get_reset_section { } {
 		if { $line_type == "normal" } {
 			append reset_text "\t$line_name, [get_all_masters_mask_txt]," "\n"
 		} elseif { $line_type == "rpu_only" } {
-			if { [lsearch $pmufw::master_list psu_cortexr5_0] >= 0 } {
+			if { [lsearch $pmufw::master_list psu_cortexr5_0] >= 0 &&
+			     [is_ipi_defined psu_cortexr5_0] == 1 } {
 				append reset_text "\t$line_name, [get_ipi_mask_txt "psu_cortexr5_0"]," "\n"
 			} else {
 				append reset_text "\t$line_name, 0," "\n"
