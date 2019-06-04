@@ -531,6 +531,7 @@ static XStatus SetRequirement(XPm_Device *Device, XPm_Subsystem *Subsystem,
 			      u32 Capabilities, const u32 QoS)
 {
 	u32 Status = XST_FAILURE;
+	XPm_ReqmInfo TempReqm;
 
 	if ((XPM_DEVSTATE_UNUSED != Device->Node.State) &&
 		(XPM_DEVSTATE_RUNNING != Device->Node.State)) {
@@ -544,30 +545,32 @@ static XStatus SetRequirement(XPm_Device *Device, XPm_Subsystem *Subsystem,
 	}
 
 	/*
-	 * Store current requirements as a backup in next requirement in case
-	 * something fails.
-	 */
-	Device->PendingReqm->Next.Capabilities = Device->PendingReqm->Curr.Capabilities;
-	Device->PendingReqm->Next.QoS = Device->PendingReqm->Curr.QoS;
-
-	Device->PendingReqm->Curr.Capabilities = Capabilities;
-	Device->PendingReqm->Curr.QoS = QoS;
-
-	/*
 	 * If subsystem state is suspending then do not change device's state
 	 * according to capabilities, only schedule requirements by setting
 	 * device's next requirements.
 	 */
 	if (SUSPENDING == Subsystem->State) {
+		Device->PendingReqm->Next.Capabilities = Capabilities;
+		Device->PendingReqm->Next.QoS = QoS;
 		Status = XST_SUCCESS;
 		goto done;
+	} else {
+		/*
+		 * Store current requirements as a backup in case something
+		 * fails.
+		 */
+		TempReqm.Capabilities = Device->PendingReqm->Curr.Capabilities;
+		TempReqm.QoS = Device->PendingReqm->Curr.QoS;
+
+		Device->PendingReqm->Curr.Capabilities = Capabilities;
+		Device->PendingReqm->Curr.QoS = QoS;
 	}
 
 	Status = XPmDevice_UpdateStatus(Device);
 
 	if (XST_SUCCESS != Status) {
-		Device->PendingReqm->Curr.Capabilities = Device->PendingReqm->Next.Capabilities;
-		Device->PendingReqm->Curr.QoS = Device->PendingReqm->Next.QoS;
+		Device->PendingReqm->Curr.Capabilities = TempReqm.Capabilities;
+		Device->PendingReqm->Curr.QoS = TempReqm.QoS;
 	} else {
 		XPm_RequiremntUpdate(Device->PendingReqm);
 	}
