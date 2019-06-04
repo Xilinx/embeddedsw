@@ -39,6 +39,8 @@
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
 * 1.00 vk 10/04/17 Initial release.
+* 1.01 ku 06/04/19 Minor updates to CRC reporting to follow VESA
+*                  recommendation
 * </pre>
 *
 ******************************************************************************/
@@ -1846,17 +1848,12 @@ void CalculateCRC(void)
 
 	/* Write CRC values to DPCD TEST CRC space */
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP0,
-		     (VidFrameCRC.Mode_422 == 0x1) ?
-				 VidFrameCRC.Pixel_g : VidFrameCRC.Pixel_r);
+					VidFrameCRC.Pixel_r);
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP1,
-		     (VidFrameCRC.Mode_422 == 0x1) ?
-		      VidFrameCRC.Pixel_b : VidFrameCRC.Pixel_g);
-	/* Check for 422 format and move CR/CB calculated CRC
-	 * to G component place as tester needs this way
-	 * */
+					VidFrameCRC.Pixel_g);
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP2,
-		     (VidFrameCRC.Mode_422==0x1) ?
-		      VidFrameCRC.Pixel_r : VidFrameCRC.Pixel_b);
+					VidFrameCRC.Pixel_b);
+
 
 	if (overflow == 0 && misses == 0) {
     // Set CRC only when overflow is not there and no b2b CRC mismatch
@@ -1867,14 +1864,13 @@ void CalculateCRC(void)
 		//for b2b miss CRC forced to 0x1
 		// helps in identifying at TX report
 		if (overflow) {
-		overflow_count++;
-//		xil_printf ("RX FIFO Overflow = %d\r\n",overflow_count);
-		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP0,
-			     0x0);
-		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP1,
-				0x0);
-		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP2,
-				0x0);
+			overflow_count++;
+			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP0,
+					 0x0);
+			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP1,
+					0x0);
+			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP2,
+					0x0);
 
 		}
 		if (misses) {
@@ -1885,8 +1881,6 @@ void CalculateCRC(void)
 					0x1);
 			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP2,
 					0x1);
-
-//			xil_printf ("B2B frame CRC mismatch count = %d %x\r\n",missed_count,misses);
 		}
 	VidFrameCRC.TEST_CRC_CNT = 0;
 
@@ -1896,18 +1890,9 @@ void CalculateCRC(void)
 			 (VidFrameCRC.TEST_CRC_SUPPORTED << 5 |
 			  VidFrameCRC.TEST_CRC_CNT));
 
-
-
-	if (VidFrameCRC.Mode_422 != 1) {
-	xil_printf("[Video CRC] R/Y: 0x%x, G/Cb: 0x%x, B/Cr: 0x%x\r\n\n",
+	xil_printf("[Video CRC] R/Cr: 0x%x, G/Y: 0x%x, B/Cb: 0x%x\r\n\n",
 		   VidFrameCRC.Pixel_r, VidFrameCRC.Pixel_g,
 		   VidFrameCRC.Pixel_b);
-	} else {
-		xil_printf("[Video CRC] R/Cb: 0x%x, G/Y: 0x%x, B/Cr: 0x%x\r\n\n",
-			   VidFrameCRC.Pixel_g, VidFrameCRC.Pixel_b,
-			   VidFrameCRC.Pixel_r);
-	}
-
 }
 
 /*****************************************************************************/
