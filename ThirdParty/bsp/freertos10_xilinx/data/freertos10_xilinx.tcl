@@ -164,9 +164,18 @@ proc generate {os_handle} {
 				}
 
 				file copy -force $includedir "../${standalone_version}/src/"
+				if {[llength $is_versal] > 0} {
+				    set platformincludedir "../${standalone_version}/src/arm/ARMv8/includes_ps/platform/Versal"
+				} else {
+				    set platformincludedir "../${standalone_version}/src/arm/ARMv8/includes_ps/platform/ZynqMP"
+				}
+				foreach entry [glob -nocomplain [file join $platformincludedir *]] {
+				    file copy -force $entry "../${standalone_version}/src/includes_ps/"
+				}
 				file delete -force "../${standalone_version}/src/gcc"
 				file delete -force "../${standalone_version}/src/iccarm"
 				file delete -force "../${standalone_version}/src/profile"
+				file delete -force "../${standalone_version}/src/includes_ps/platform"
 				if { $enable_sw_profile == "true" } {
 					error "ERROR: Profiling is not supported for R5"
 				}
@@ -221,10 +230,19 @@ proc generate {os_handle} {
                                     file copy -force $entry [file join ".." "${standalone_version}" "src"]
 		                }
 				file copy -force $includedir "../${standalone_version}/src/"
+				if {[llength $is_versal] > 0} {
+				    set platformincludedir "../${standalone_version}/src/arm/ARMv8/includes_ps/platform/Versal"
+				} else {
+				    set platformincludedir "../${standalone_version}/src/arm/ARMv8/includes_ps/platform/ZynqMP"
+				}
+				foreach entry [glob -nocomplain [file join $platformincludedir *]] {
+				    file copy -force $entry "../${standalone_version}/src/includes_ps/"
+				}
 				file delete -force "../${standalone_version}/src/gcc"
 				file delete -force "../${standalone_version}/src/armclang"
 				file delete -force "../${standalone_version}/src/platform"
 				file delete -force "../${standalone_version}/src/profile"
+				file delete -force "../${standalone_version}/src/includes_ps/platform"
 				if { $enable_sw_profile == "true" } {
 					error "ERROR: Profiling is not supported for A53"
 				}
