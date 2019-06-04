@@ -123,7 +123,7 @@ void XPlmi_TaskDelete(XPlmi_TaskNode * Task)
 /*****************************************************************************/
 /**
  * @brief This function adds the task to the task queue so that it
- * can be triggerred based on its priority
+ * can be triggered based on its priority
  *
  * @param	Task Pointer to the task node
  *

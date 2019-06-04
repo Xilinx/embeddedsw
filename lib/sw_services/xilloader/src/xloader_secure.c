@@ -86,7 +86,7 @@ XLoader_Vars Xsecure_Varsocm __attribute__ ((aligned(32)));
 /*****************************************************************************/
 /**
 * @brief
-* This function initializes  XLoader_SecureParms's instace.
+* This function initializes  XLoader_SecureParms's instance.
 *
 * @param	SecurePtr	Pointer to the XLoader_SecureParms instance.
 * @param	PdiPtr		Pointer to the XilPdi.
@@ -260,7 +260,7 @@ END:
 * @param	SecurePtr	Pointer to the XLoader_SecureParms instance.
 * @param	BlockSize	Size of the data block to be processed
 *		which doesn't include padding lengths and hash.
-* @param	Last		Notifies if the block to be proccessed is
+* @param	Last		Notifies if the block to be processed is
 *		last or not.
 *
 * @return	XST_SUCCESS on success.
@@ -388,15 +388,15 @@ END:
 /**
 * @brief
 * This function calculates hash and compares with expected hash.
-* If authentication is enabled hash is calulated on AC + Data for first block,
+* If authentication is enabled hash is calculated on AC + Data for first block,
 * encrypts the ECDSA/RSA signature and compares it with the expected hash.
-* For checksum and authentication(after first block), hash is calulated on block
+* For checksum and authentication(after first block), hash is calculated on block
 * of data and compared with the expected hash.
 *
 * @param	SecurePtr	Pointer to the XLoader_SecureParms instance.
 * @param	Size		Size of the data block to be processed
 *		which includes padding lengths and hash.
-* @param	Last		Notifies if the block to be proccessed is
+* @param	Last		Notifies if the block to be processed is
 *		last or not.
 *
 * @return	XST_SUCCESS on success.
@@ -630,7 +630,7 @@ static u32 XLoader_SpkAuthentication(XLoader_SecureParms *SecurePtr)
  *
  * @param	Integer is the variable in which input should be provided.
  * @param	Size holds the required size.
- * @param	Convert is a pointer in which ouput will be updated.
+ * @param	Convert is a pointer in which output will be updated.
  *
  * @return	None.
  *

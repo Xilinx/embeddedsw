@@ -242,7 +242,7 @@ return XST_SUCCESS;
 /* Skip BISR */
 //#ifndef PLPD_HOUSECLEAN_BYPASS
 	if(!PlpdHouseCleanBypass) {
-		/* Bisr repair - Bisr should be triggered only for Addresses for wich repair
+		/* Bisr repair - Bisr should be triggered only for Addresses for which repair
 		 * data is found and so not calling in loop. Trigger is handled in below routine
 		 * */
 		Status = XPmBisr_Repair(GTY_TAG_ID);

@@ -41,7 +41,7 @@
 * 1.0   ba   10/13/14 Initial release
 * 1.1   ba   12/11/15 Added support for NIST approved SHA-3 in 2.0 silicon
 * 2.0   vns  03/15/17 Fixed compilation warning, and corrected SHA2 padding
-*                     verfication for silicon version other than 1.0
+*                     verification for silicon version other than 1.0
 * 2.2   vns  07/06/17 Added doxygen tags
 *       vns  17/08/17 Added APIs XSecure_RsaPublicEncrypt and
 *                     XSecure_RsaPrivateDecrypt.As per functionality
