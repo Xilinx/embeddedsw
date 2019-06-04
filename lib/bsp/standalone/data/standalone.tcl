@@ -410,7 +410,14 @@ proc generate {os_handle} {
 		}
 	    }
 
-	    set includedir "./src/arm/ARMv8/includes_ps"
+	    set includedir "./src/arm/ARMv8/includes_ps/"
+	    file copy -force $includedir "./src/"
+	    if {[llength $cortexa72proc] > 0} {
+	        set platformincludedir "./src/arm/ARMv8/includes_ps/platform/Versal"
+	    } else {
+	        set platformincludedir "./src/arm/ARMv8/includes_ps/platform/ZynqMP"
+	    }
+
             foreach entry [glob -nocomplain [file join $cortexa53srcdir1 *]] {
                 file copy -force $entry "./src/"
             }
@@ -421,11 +428,14 @@ proc generate {os_handle} {
 	    	file copy -force $entry "./src/"
 	    }
 	    file delete -force $platformsrcdir     
-	    file copy -force $includedir "./src/"
+	    foreach entry [glob -nocomplain [file join $platformincludedir *]] {
+	        file copy -force $entry "./src/includes_ps/"
+	    }
             file delete -force "./src/gcc"
 	    file delete -force "./src/armclang"
             file delete -force "./src/profile"
 	    file delete -force "./src/xpvxenconsole"
+	    file delete -force "./src/includes_ps/platform"
             if { $enable_sw_profile == "true" } {
                 error "ERROR: Profiling is not supported for A53/A72"
             }
@@ -458,7 +468,13 @@ proc generate {os_handle} {
 	"psv_cortexr5"
 	{
 	    set procdrv [hsi::get_sw_processor]
-	    set includedir "./src/arm/ARMv8/includes_ps"
+	    set includedir "./src/arm/ARMv8/includes_ps/"
+	    file copy -force $includedir "./src/"
+	    if {[llength $cortexa72proc] > 0} {
+	        set platformincludedir "./src/arm/ARMv8/includes_ps/platform/Versal"
+	    } else {
+	        set platformincludedir "./src/arm/ARMv8/includes_ps/platform/ZynqMP"
+	    }
 	    if {[string compare -nocase $compiler "iccarm"] == 0} {
 	           set ccdir "./src/arm/cortexr5/iccarm"
             } else {
@@ -471,12 +487,14 @@ proc generate {os_handle} {
 		file copy -force $entry "./src/"
 	    }
 	    
-	    if {[llength $cortexa72proc] == 0} {
-	        file copy -force $includedir "./src/"
+	    foreach entry [glob -nocomplain [file join $platformincludedir *]] {
+	        file copy -force $entry "./src/includes_ps/"
 	    }
+
 	    file delete -force "./src/gcc"
 	    file delete -force "./src/iccarm"
 	    file delete -force "./src/profile"
+	    file delete -force "./src/includes_ps/platform"
             if { $enable_sw_profile == "true" } {
                 error "ERROR: Profiling is not supported for R5"
             }
