@@ -83,15 +83,17 @@ void XPm_RequiremntUpdate(XPm_Requirement *Reqm)
 
 void XPmRequirement_Clear(XPm_Requirement* Reqm)
 {
-        /* Clear flag - master is not using slave anymore */
+	if(Reqm) {
+		/* Clear flag - master is not using slave anymore */
 		Reqm->Allocated = 0;
-        /* Release current and next requirements */
+		/* Release current and next requirements */
 		Reqm->Curr.Capabilities = XPM_MIN_CAPABILITY;
 		Reqm->Curr.Latency = XPM_MAX_LATENCY;
 		Reqm->Curr.QoS = XPM_MAX_QOS;
 		Reqm->Next.Capabilities = XPM_MIN_CAPABILITY;
 		Reqm->Next.Latency = XPM_MAX_LATENCY;
 		Reqm->Next.QoS = XPM_MAX_QOS;
+	}
 }
 
 XStatus XPmRequirement_Release(XPm_Requirement *Reqm, XPm_ReleaseScope Scope)
