@@ -31,8 +31,6 @@
 #include "xpm_bisr.h"
 #include "xpm_regs.h"
 
-static XStatus FpdHcComplete(u32 *Args, u32 NumOfArgs);
-
 static XStatus FpdInitStart(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
@@ -62,7 +60,6 @@ static XStatus FpdInitStart(u32 *Args, u32 NumOfArgs)
 	/* Release POR for PS-FPD */
 	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_FPD_POR),
 				     PM_RESET_ACTION_RELEASE);
-
 done:
 	return Status;
 }
@@ -118,18 +115,31 @@ static XStatus FpdScanClear(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	Payload[0] = PSM_API_FPD_HOUSECLEAN;
-	Payload[1] = FUNC_SCAN_CLEAR;
+        if (PLATFORM_VERSION_SILICON != Platform) {
+                Status = XST_SUCCESS;
+                goto done;
+        }
 
-	Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
+        /* Trigger scan clear */
+        PmRmw32(PSM_GLOBAL_SCAN_CLEAR_FPD, PSM_GLOBAL_SCAN_CLEAR_TRIGGER,
+                       PSM_GLOBAL_SCAN_CLEAR_TRIGGER);
 
-	Status = XPm_IpiReadStatus(PSM_IPI_INT_MASK);
+        Status = XPm_PollForMask(PSM_GLOBAL_SCAN_CLEAR_FPD,
+                                        PSM_GLOBAL_SCAN_CLEAR_DONE_STATUS,
+                                        0x10000U);
+        if (XST_SUCCESS != Status) {
+                goto done;
+        }
+
+        Status = XPm_PollForMask(PSM_GLOBAL_SCAN_CLEAR_FPD,
+                                        PSM_GLOBAL_SCAN_CLEAR_PASS_STATUS,
+                                        0x10000U);
+        if (XST_SUCCESS != Status) {
+                goto done;
+        }
 
 done:
-	return Status;
+        return Status;
 }
 
 static XStatus FpdBisr(u32 *Args, u32 NumOfArgs)
@@ -186,6 +196,33 @@ static XStatus FpdMbistClear(u32 *Args, u32 NumOfArgs)
         }
 
         Status = XPm_IpiReadStatus(PSM_IPI_INT_MASK);
+
+        if (PLATFORM_VERSION_SILICON != Platform) {
+                Status = XST_SUCCESS;
+                goto done;
+        }
+
+        PmRmw32(PSM_GLOBAL_MBIST_RST, PSM_GLOBAL_MBIST_RST_FPD_MASK,
+                       PSM_GLOBAL_MBIST_RST_FPD_MASK);
+
+        PmRmw32(PSM_GLOBAL_MBIST_SETUP, PSM_GLOBAL_MBIST_SETUP_FPD_MASK,
+                       PSM_GLOBAL_MBIST_SETUP_FPD_MASK);
+
+        PmRmw32(PSM_GLOBAL_MBIST_PG_EN, PSM_GLOBAL_MBIST_PG_EN_FPD_MASK,
+                       PSM_GLOBAL_MBIST_PG_EN_FPD_MASK);
+
+        Status = XPm_PollForMask(PSM_GLOBAL_MBIST_DONE,
+                                        PSM_GLOBAL_MBIST_DONE_FPD_MASK,
+                                        0x10000U);
+        if (XST_SUCCESS != Status) {
+                goto done;
+        }
+
+        if (PSM_GLOBAL_MBIST_GO_FPD_MASK !=
+            (XPm_In32(PSM_GLOBAL_MBIST_GO) &
+             PSM_GLOBAL_MBIST_GO_FPD_MASK)) {
+                Status = XST_FAILURE;
+        }
 
 done:
         return Status;
