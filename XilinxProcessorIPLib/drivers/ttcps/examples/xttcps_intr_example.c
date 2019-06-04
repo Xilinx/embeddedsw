@@ -57,6 +57,7 @@
 *                      XTtcPs_CalcIntervalFromFreq
 * 3.10 mus    05/20/19 Update example to make it generic to run on any
 *                      intended TTC device
+*      aru    05/30/19 Updated the exapmle to use XTtcPs_InterruptHandler().
 *</pre>
 ******************************************************************************/
 
@@ -134,8 +135,8 @@ static int WaitForDutyCycleFull(void);
 
 static int SetupInterruptSystem(u16 IntcDeviceID, XScuGic *IntcInstancePtr);
 
-static void TickHandler(void *CallBackRef);
-static void PWMHandler(void *CallBackRef);
+static void TickHandler(void *CallBackRef, u32 StatusEvent);
+static void PWMHandler(void *CallBackRef, u32 StatusEvent);
 
 /************************** Variable Definitions *****************************/
 
@@ -296,10 +297,13 @@ int SetupTicker(void)
 	 * Connect to the interrupt controller
 	 */
 	Status = XScuGic_Connect(&InterruptController, TTC_TICK_INTR_ID,
-		(Xil_ExceptionHandler)TickHandler, (void *)TtcPsTick);
+		(Xil_ExceptionHandler)XTtcPs_InterruptHandler, (void *)TtcPsTick);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
+
+	XTtcPs_SetStatusHandler(&(TtcPsInst[TTC_TICK_DEVICE_ID]), &(TtcPsInst[TTC_TICK_DEVICE_ID]),
+		              (XTtcPs_StatusHandler)TickHandler);
 
 	/*
 	 * Enable the interrupt for the Timer counter
@@ -363,11 +367,13 @@ int SetupPWM(void)
 	 * Connect to the interrupt controller
 	 */
 	Status = XScuGic_Connect(&InterruptController, TTC_PWM_INTR_ID,
-		(Xil_ExceptionHandler)PWMHandler, (void *)&MatchValue);
+		(Xil_ExceptionHandler)XTtcPs_InterruptHandler, (void *)TtcPsPWM);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
+	XTtcPs_SetStatusHandler(&(TtcPsInst[TTC_PWM_DEVICE_ID]), &(TtcPsInst[TTC_PWM_DEVICE_ID]),
+		              (XTtcPs_StatusHandler) PWMHandler);
 	/*
 	 * Enable the interrupt for the Timer counter
 	 */
@@ -602,16 +608,8 @@ static int SetupInterruptSystem(u16 IntcDeviceID,
 * @note		None.
 *
 *****************************************************************************/
-static void TickHandler(void *CallBackRef)
+static void TickHandler(void *CallBackRef, u32 StatusEvent)
 {
-	u32 StatusEvent;
-
-	/*
-	 * Read the interrupt status, then write it back to clear the interrupt.
-	 */
-	StatusEvent = XTtcPs_GetInterruptStatus((XTtcPs *)CallBackRef);
-	XTtcPs_ClearInterruptStatus((XTtcPs *)CallBackRef, StatusEvent);
-
 	if (0 != (XTTCPS_IXR_INTERVAL_MASK & StatusEvent)) {
 		TickCount++;
 
@@ -647,23 +645,14 @@ static void TickHandler(void *CallBackRef)
 * @note		None.
 *
 *****************************************************************************/
-static void PWMHandler(void *CallBackRef)
+static void PWMHandler(void *CallBackRef, u32 StatusEvent)
 {
-	u32 *MatchReg;
-	u32 StatusEvent;
 	XTtcPs *Timer;
 
-	MatchReg = (u32 *) CallBackRef;
 	Timer = &(TtcPsInst[TTC_PWM_DEVICE_ID]);
 
-	/*
-	 * Read the interrupt status, then write it back to clear the interrupt.
-	 */
-	StatusEvent = XTtcPs_GetInterruptStatus(Timer);
-	XTtcPs_ClearInterruptStatus(Timer, StatusEvent);
-
 	if (0 != (XTTCPS_IXR_INTERVAL_MASK & StatusEvent)) {
-		XTtcPs_SetMatchValue(Timer, 0, *MatchReg);
+		XTtcPs_SetMatchValue(Timer, 0, MatchValue);
 	}
 	else {
 		/*
