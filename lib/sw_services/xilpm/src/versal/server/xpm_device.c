@@ -12,8 +12,11 @@
 #include "xpm_notifier.h"
 #include "xpm_api.h"
 #include "xpm_pmc.h"
+#include "xpm_mem.h"
 #include "xpm_pslpdomain.h"
 #include "xpm_requirement.h"
+#include "xpm_debug.h"
+#include "xpm_pldevice.h"
 
 /** PSM RAM Base address */
 #define XPM_PSM_RAM_BASE_ADDR           (0xFFC00000U)
@@ -54,8 +57,13 @@ static u32 IpiMasks[][2] = {
 static XPm_DeviceOps PmDeviceOps;
 static XPm_Device *PmDevices[(u32)XPM_NODEIDX_DEV_MAX];
 static XPm_Device *PmPlDevices[(u32)XPM_NODEIDX_DEV_PLD_MAX];
+static XPm_Device *PmOcmMemRegnDevices[(u32)MEM_REGN_DEV_NODE_MAX];
+static XPm_Device *PmDdrMemRegnDevices[(u32)MEM_REGN_DEV_NODE_MAX];
 static u32 PmNumDevices;
 static u32 PmNumPlDevices;
+static u32 PmNumOcmMemRegnDevices;
+static u32 PmNumDdrMemRegnDevices;
+static u32 PmSysmonAddresses[(u32)XPM_NODEIDX_MONITOR_MAX];
 
 static const XPm_StateCap XPmGenericDeviceStates[] = {
 	{
@@ -161,6 +169,47 @@ static int SetPlDeviceNode(u32 Id, XPm_Device *Device)
 		Status = XST_SUCCESS;
 	}
 
+	return Status;
+}
+
+static XStatus SetMemRegnDeviceNode(u32 Id, XPm_Device *Device)
+{
+	XStatus Status = XST_INVALID_PARAM;
+	u32 NodeType = NODETYPE(Id);
+	u32 NodeIndex = NODEINDEX(Id);
+	XPm_Device **MemRegDevices = NULL;
+	u32 *NumMemRegDevices = NULL;
+
+	switch (NodeType) {
+	case (u8)XPM_NODETYPE_DEV_OCM_REGN:
+		MemRegDevices = PmOcmMemRegnDevices;
+		NumMemRegDevices = &PmNumOcmMemRegnDevices;
+		break;
+	case (u8)XPM_NODETYPE_DEV_DDR_REGN:
+		MemRegDevices = PmDdrMemRegnDevices;
+		NumMemRegDevices = &PmNumDdrMemRegnDevices;
+		break;
+	default:
+		PmDbg("Memory type other than OCM or DDR\r\n");
+		break;
+	}
+
+	if (NULL == NumMemRegDevices) {
+		goto done;
+	}
+
+	/*
+	 * We assume that the Node ID class, subclass and type has _already_
+	 * been validated before, so only check bounds here against index
+	 */
+	if ((NULL != Device) && ((u32)MEM_REGN_DEV_NODE_MAX > NodeIndex)) {
+
+		MemRegDevices[NodeIndex] = Device;
+		(*NumMemRegDevices)++;
+		Status = XST_SUCCESS;
+	}
+
+done:
 	return Status;
 }
 
@@ -286,8 +335,10 @@ static u32 IsRunning(XPm_Device *Device)
 XStatus XPmDevice_BringUp(XPm_Device *Device)
 {
 	XStatus Status = XPM_ERR_DEVICE_BRINGUP;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if (NULL == Device->Power) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		goto done;
 	}
 
@@ -305,15 +356,25 @@ XStatus XPmDevice_BringUp(XPm_Device *Device)
 		/* Todo: Start timer to poll the power node */
 		/* Hack */
 		Status = Device->HandleEvent(&Device->Node, XPM_DEVEVENT_TIMER);
+	} else {
+		DbgErr = XPM_INT_ERR_DEVICE_PWR_PARENT_UP;
 	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
+
 	return Status;
 }
 
 static XStatus SetClocks(XPm_Device *Device, u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
+
+	/* TODO: Skip handling for PL clocks until PL topology is available */
+	if ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(Device->Node.Id)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
 	XPm_ClockHandle *ClkHandle = Device->ClkHandles;
 
@@ -324,6 +385,7 @@ static XStatus SetClocks(XPm_Device *Device, u32 Enable)
 		Status = XPmClock_Release(ClkHandle);
 	}
 
+done:
 	return Status;
 }
 
@@ -380,8 +442,9 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 	XStatus Status = XST_FAILURE;
 	XPm_Device *Device = (XPm_Device *)Node;
 	XPm_Core *Core;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	PmDbg("State=%s, Event=%s\n\r", PmDevStates[Node->State], PmDevEvents[Event]);
+	PmDbg("ID=0x%x State=%s, Event=%s\n\r", Node->Id, PmDevStates[Node->State], PmDevEvents[Event]);
 
 	switch(Node->State)
 	{
@@ -391,8 +454,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 			} else if ((u32)XPM_DEVEVENT_SHUTDOWN == Event) {
 				Status = XST_SUCCESS;
 			} else {
-				/* Required due to MISRA */
-				PmDbg("Invalid event type %d\r\n", Event);
+				DbgErr = XPM_INT_ERR_INVALID_EVENT;
 			}
 			break;
 		case (u8)XPM_DEVSTATE_PWR_ON:
@@ -403,6 +465,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 					/* Enable clock */
 					Status = SetClocks(Device, 1U);
 					if (XST_SUCCESS != Status) {
+						DbgErr = XPM_INT_ERR_CLK_ENABLE;
 						break;
 					}
 					/* Todo: Start timer to poll the clock node */
@@ -412,6 +475,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 					/* Todo: Start timer to poll the power node */
 				}
 			} else {
+				DbgErr = XPM_INT_ERR_DEVICE_BUSY;
 				Status = XST_DEVICE_BUSY;
 			}
 			break;
@@ -425,6 +489,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 					XPm_PsLpDomain *PsLpd;
 					PsLpd = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 					if (NULL == PsLpd) {
+						DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 						Status = XST_FAILURE;
 						break;
 					}
@@ -452,6 +517,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 						Status = XPmDevice_Reset(Device,
 							PM_RESET_ACTION_RELEASE);
 						if (XST_SUCCESS != Status) {
+							DbgErr = XPM_INT_ERR_RST_RELEASE;
 							break;
 						}
 
@@ -464,6 +530,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 						    (PM_DEV_SDIO_1 == Device->Node.Id)) {
 							Status = ResetSdDllRegs(Device);
 							if (XST_SUCCESS != Status) {
+								DbgErr = XPM_INT_ERR_RST_SD_DLL_REGS;
 								break;
 							}
 						}
@@ -471,17 +538,18 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 						/*RPU has a special handling */
 						Status = XPmRpuCore_Halt(Device);
 						if (XST_SUCCESS != Status) {
+							DbgErr = XPM_INT_ERR_RPU_CORE_HALT;
 							break;
 						}
 					} else if(Node->Id == PM_DEV_PSM_PROC) {
 						/* Ecc initialize PSM RAM*/
 						Status = XPlmi_EccInit(XPM_PSM_RAM_BASE_ADDR, XPM_PSM_RAM_SIZE);
 						if (XST_SUCCESS != Status) {
+							DbgErr = XPM_INT_ERR_ECC_INIT_PSM_RAM;
 							break;
 						}
 					} else {
-						/* Required due to MISRA */
-						PmDbg("Invalid node id 0x%x\r\n", Node->Id);
+						DbgErr = XPM_INT_ERR_INVALID_NODE;
 					}
 					/* Todo: Start timer to poll the reset node */
 					/* Hack */
@@ -505,6 +573,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 					/* Todo: Start timer to poll the reset node */
 				}
 			} else {
+				DbgErr = XPM_INT_ERR_DEVICE_BUSY;
 				Status = XST_DEVICE_BUSY;
 			}
 			break;
@@ -516,6 +585,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				/* Enable all clocks */
 				Status = SetClocks(Device, 1U);
 				if (XST_SUCCESS != Status) {
+					DbgErr = XPM_INT_ERR_CLK_ENABLE;
 					break;
 				}
 				/* Todo: Start timer to poll the clock node */
@@ -538,6 +608,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 					Status = XPmDevice_Reset(Device,
 							PM_RESET_ACTION_ASSERT);
 					if (XST_SUCCESS != Status) {
+						DbgErr = XPM_INT_ERR_RST_ASSERT;
 						break;
 					}
 				}
@@ -549,9 +620,11 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				/* Disable all clocks */
 				Status = SetClocks(Device, 0U);
 				if (XST_SUCCESS != Status) {
+					DbgErr = XPM_INT_ERR_CLK_DISABLE;
 					break;
 				}
 			} else {
+				DbgErr = XPM_INT_ERR_INVALID_EVENT;
 				/* Required by MISRA */
 			}
 			break;
@@ -564,6 +637,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 					/* Disable all clocks */
 					Status = SetClocks(Device, 0U);
 					if (XST_SUCCESS != Status) {
+						DbgErr = XPM_INT_ERR_CLK_DISABLE;
 						break;
 					}
 					/* Todo: Start timer to poll clock node */
@@ -616,8 +690,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				/* Device is already in power off state */
 				Status = XST_SUCCESS;
 			} else {
-				/* Required due to MISRA */
-				PmDbg("Invalid event type %d\r\n", Event);
+				DbgErr = XPM_INT_ERR_INVALID_EVENT;
 			}
 			break;
 		case (u8)XPM_DEVSTATE_RUNTIME_SUSPEND:
@@ -628,6 +701,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 					Status = XPmDevice_Reset(Device,
 							PM_RESET_ACTION_ASSERT);
 					if (XST_SUCCESS != Status) {
+						DbgErr = XPM_INT_ERR_RST_ASSERT;
 						break;
 					}
 				}
@@ -641,21 +715,25 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				/* Enable all clocks */
 				Status = SetClocks(Device, 1U);
 				if (XST_SUCCESS != Status) {
+					DbgErr = XPM_INT_ERR_CLK_ENABLE;
 					break;
 				}
 				Node->State = (u8)XPM_DEVSTATE_RUNNING;
 			} else {
-				/* Required by MISRA */
+				DbgErr = XPM_INT_ERR_INVALID_EVENT;
 			}
 			break;
 		default:
+			DbgErr = XPM_INT_ERR_INVALID_STATE;
 			Status = XPM_INVALID_STATE;
 			break;
 	}
 
-	if(Status != XST_SUCCESS) {
-		PmErr("Returned: 0x%x\n\r", Status);
+	if (XST_SUCCESS != Status) {
+		PmErr("ID=0x%x State=%s Event=%s Err=%x\r\n", Node->Id,
+		      Node->State, Event, DbgErr);
 	}
+
 	return Status;
 }
 
@@ -715,7 +793,7 @@ static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 {
 	XStatus Status = XPM_ERR_DEVICE_REQ;
 	XPm_Requirement *Reqm;
-	u8 UsagePolicy = 0;
+	u16 UsagePolicy = 0;
 	if (((u8)XPM_DEVSTATE_UNUSED != Device->Node.State) &&
 	    ((u8)XPM_DEVSTATE_RUNNING != Device->Node.State) &&
 	    ((u8)XPM_DEVSTATE_RUNTIME_SUSPEND != Device->Node.State)) {
@@ -735,8 +813,8 @@ static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 	}
 
 	/* Check whether this device is shareable */
-	UsagePolicy = Reqm->Flags & REG_FLAGS_USAGE_MASK;
-	if ((UsagePolicy == (u8)REQ_TIME_SHARED) || (UsagePolicy == (u8)REQ_NONSHARED)) {
+	UsagePolicy = USAGE_POLICY(Reqm->Flags);
+	if ((UsagePolicy == (u16)REQ_TIME_SHARED) || (UsagePolicy == (u16)REQ_NONSHARED)) {
 			//Check if it already requested by other subsystem. If yes, return
 			XPm_Requirement *NextReqm = Reqm->NextSubsystem;
 			while (NULL != NextReqm) {
@@ -880,18 +958,33 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 		XPm_Power *Power, XPm_ClockNode * Clock, XPm_ResetNode *Reset)
 {
 	XStatus Status = XPM_ERR_DEVICE_INIT;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	if (NULL != XPmDevice_GetById(Id)) {
+	if ((NULL != XPmDevice_GetById(Id)) &&
+	   ((u32)XPM_NODESUBCL_DEV_PL != NODESUBCLASS(Id))) {
+		DbgErr = XPM_INT_ERR_INVALID_PARAM;
 		Status = XST_DEVICE_BUSY;
 		goto done;
 	}
 
 	XPmNode_Init(&Device->Node, Id, (u8)XPM_DEVSTATE_UNUSED, BaseAddress);
 
-	/* Add requirement by default for PMC subsystem */
-	Status = XPmRequirement_Add(XPmSubsystem_GetByIndex((u32)XPM_NODEIDX_SUBSYS_PMC), Device, (((u32)REQ_ACCESS_SECURE_NONSECURE << REG_FLAGS_SECURITY_OFFSET) | (u32)REQ_NO_RESTRICTION), NULL, 0);
-	if (XST_SUCCESS != Status) {
-		goto done;
+	/**
+	 * Add requirement by default for PMC subsystem;
+	 * for all the devices except memory region devices.
+	 */
+	if (0U == (u8)IS_MEM_REGN(Id)) {
+		Status = XPmRequirement_Add(
+				XPmSubsystem_GetByIndex((u32)XPM_NODEIDX_SUBSYS_PMC),
+				Device,
+				(u32)REQUIREMENT_FLAGS(0U, 0U, 0U, 0U, 0U,
+					(u32)REQ_ACCESS_SECURE_NONSECURE,
+					(u32)REQ_NO_RESTRICTION),
+				NULL, 0);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_ADD_REQUIREMENT;
+			goto done;
+		}
 	}
 
 	Device->Power = Power;
@@ -901,11 +994,13 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 
 	Status = XPmDevice_AddClock(Device, Clock);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_ADD_CLK;
 		goto done;
 	}
 
 	Status = XPmDevice_AddReset(Device, Reset);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_ADD_RST;
 		goto done;
 	}
 
@@ -922,19 +1017,25 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 	if ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(Id)) {
 		Status = SetPlDeviceNode(Id, Device);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_SET_PL_DEV;
+			goto done;
+		}
+	}  else if (IS_MEM_REGN(Id)) {
+		Status = SetMemRegnDeviceNode(Id, Device);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_SET_MEM_REG_DEV;
 			goto done;
 		}
 	} else {
 		Status = SetDeviceNode(Id, Device);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_SET_DEV_NODE;
 			goto done;
 		}
 	}
 
 done:
-	if(Status != XST_SUCCESS) {
-		PmErr("Returned: 0x%x\n\r", Status);
-	}
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -1032,6 +1133,23 @@ XStatus XPmDevice_Reset(XPm_Device *Device, const XPm_ResetActions Action)
 		goto done;
 	}
 
+	/* TODO: Skip handling for PL resets until PL topology is available */
+	if ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(Device->Node.Id)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+#ifdef DEBUG_UART_PS
+	/* Reset LPD init flag to stop debug prints which is using UART */
+	if ((NODE_UART == Device->Node.Id) &&
+	    (PM_RESET_ACTION_ASSERT == Action)) {
+		PmDbg("Disabling UART prints\r\n");
+		/* Wait for UART buffer to flush */
+		usleep(10000);
+		XPlmi_ResetLpdInitialized();
+	}
+#endif
+
 	RstHandle = Device->RstHandles;
 	if (PM_RESET_ACTION_RELEASE != Action) {
 		while (NULL != RstHandle) {
@@ -1116,6 +1234,7 @@ done:
 XPm_Device *XPmDevice_GetById(const u32 DeviceId)
 {
 	XPm_Device *Device = NULL;
+	XPm_Device **DevicesHandle = NULL;
 
 	if ((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
 		goto done;
@@ -1125,22 +1244,42 @@ XPm_Device *XPmDevice_GetById(const u32 DeviceId)
 		if ((u32)XPM_NODEIDX_DEV_PLD_MAX <= NODEINDEX(DeviceId)) {
 			goto done;
 		}
+		DevicesHandle = PmPlDevices;
 
-		Device = PmPlDevices[NODEINDEX(DeviceId)];
-		/* Check that Device's ID is same as given ID or not. */
-		if ((NULL != Device) && (DeviceId != Device->Node.Id)) {
-			Device = NULL;
+	} else if (((u32)XPM_NODESUBCL_DEV_MEM == NODESUBCLASS(DeviceId))
+		&& (IS_MEM_REGN_TYPE(DeviceId))) {
+		if ((u32)MEM_REGN_DEV_NODE_MAX <= NODEINDEX(DeviceId)) {
+			goto done;
+		}
+
+		switch (NODETYPE(DeviceId)) {
+		case (u8)XPM_NODETYPE_DEV_OCM_REGN:
+			DevicesHandle = PmOcmMemRegnDevices;
+			break;
+		case (u8)XPM_NODETYPE_DEV_DDR_REGN:
+			DevicesHandle = PmDdrMemRegnDevices;
+			break;
+		default:
+			/* Should never reach here */
+			PmDbg("Memory type other than OCM or DDR\r\n");
+			break;
 		}
 	} else {
 		if ((u32)XPM_NODEIDX_DEV_MAX <= NODEINDEX(DeviceId)) {
 			goto done;
 		}
+		DevicesHandle = PmDevices;
+	}
 
-		Device = PmDevices[NODEINDEX(DeviceId)];
-		/* Check that Device's ID is same as given ID or not. */
-		if ((NULL != Device) && (DeviceId != Device->Node.Id)) {
-			Device = NULL;
-		}
+	if (NULL == DevicesHandle) {
+		goto done;
+	}
+
+	/* Retrieve the device */
+	Device = DevicesHandle[NODEINDEX(DeviceId)];
+	/* Check that Device's ID is same as given ID or not. */
+	if ((NULL != Device) && (DeviceId != Device->Node.Id)) {
+		Device = NULL;
 	}
 
 done:
@@ -1245,10 +1384,6 @@ XStatus XPmDevice_Request(const u32 SubsystemId,
 		goto done;
 	}
 
-	if (Device->Node.Id != DeviceId) {
-		Status = XPM_PM_INVALID_NODE;
-		goto done;
-	}
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (Subsystem == NULL || Subsystem->State != (u8)ONLINE) {
@@ -1294,10 +1429,6 @@ XStatus XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId)
 		goto done;
 	}
 
-	if (Device->Node.Id != DeviceId) {
-		Status = XPM_PM_INVALID_NODE;
-		goto done;
-	}
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (Subsystem == NULL || Subsystem->State == (u8)OFFLINE) {
@@ -1334,10 +1465,6 @@ XStatus XPmDevice_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 		goto done;
 	}
 
-	if (Device->Node.Id != DeviceId) {
-		Status = XPM_PM_INVALID_NODE;
-		goto done;
-	}
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (Subsystem == NULL || Subsystem->State == (u8)OFFLINE) {
@@ -1440,6 +1567,30 @@ XStatus XPmDevice_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 				}
 				Status = XST_SUCCESS;
 			}
+		} else if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(Parents[i])) &&
+			   ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(Parents[i]))) {
+			if (((u32)XPM_NODECLASS_DEVICE != NODECLASS(Id)) ||
+			    ((u32)XPM_NODESUBCL_DEV_PL != NODESUBCLASS(Id))) {
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
+			XPm_PlDevice *PlDevice = (XPm_PlDevice *)DevPtr;
+			XPm_PlDevice *Parent = (XPm_PlDevice *)XPmDevice_GetById(Parents[i]);
+			/*
+			 * Along with checking validity of parent, check if parent has
+			 * a parent with exception being PLD_0. This is to prevent
+			 * broken trees
+			 */
+			if ((NULL == Parent) ||
+			   (((u32)XPM_NODEIDX_DEV_PLD_0 != NODEINDEX(Parent->Device.Node.Id)) &&
+			   (NULL == Parent->Parent))) {
+				Status = XST_DEVICE_NOT_FOUND;
+				goto done;
+			}
+			PlDevice->Parent = Parent;
+			PlDevice->NextPeer = Parent->Child;
+			Parent->Child = PlDevice;
+			Status = XST_SUCCESS;
 		} else {
 			Status = XST_INVALID_PARAM;
 			goto done;
@@ -1654,7 +1805,8 @@ static u32 GetLatencyFromState(const XPm_Device *const Device, const u32 State)
 {
 	u32 Idx;
 	u32 Latency = 0U;
-	u32 HighestState = Device->DeviceFsm->StatesCnt - (u32)1U;
+	u32 HighestStateIdx = Device->DeviceFsm->StatesCnt - (u32)1U;
+	u32 HighestState = Device->DeviceFsm->States[HighestStateIdx].State;
 
 	for (Idx = 0U; Idx < Device->DeviceFsm->TransCnt; Idx++) {
 		if ((State == Device->DeviceFsm->Trans[Idx].FromState) &&
@@ -1947,4 +2099,57 @@ int XPmDevice_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
 
 done:
 	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function stores the sysmon addresses so that they can be retrieved
+ * by index.
+ *
+ * @param Id: Sysmon node ID
+ * @param BaseAddress: Sysmon address
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE
+ *
+ ****************************************************************************/
+XStatus XPm_SetSysmonNode(u32 Id, u32 BaseAddress)
+{
+	XStatus Status = XST_FAILURE;
+	u32 NodeIndex = NODEINDEX(Id);
+
+	/*
+	 * We assume that the Node ID class, subclass and type has already
+	 * been validated before, so only check bounds here against index
+	 */
+	if ((u32)XPM_NODEIDX_MONITOR_MAX > NodeIndex) {
+		PmSysmonAddresses[NodeIndex] = BaseAddress;
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief Returns address to sysmon node from given Node Index
+ *
+ * @param SysmonIndex: Node Index assigned to a Sysmon node
+ *
+ * @return Sysmon address to given node; else 0
+ *
+ ****************************************************************************/
+u32 XPm_GetSysmonByIndex(const u32 SysmonIndex)
+{
+	u32 BaseAddress = 0U;
+
+	/* Make sure we are working with only Index. */
+	u32 Index = (SysmonIndex & NODE_INDEX_MASK);
+	if ((u32)XPM_NODEIDX_MONITOR_MAX <= Index) {
+		goto done;
+	}
+
+	BaseAddress = PmSysmonAddresses[Index];
+
+done:
+	return BaseAddress;
 }

@@ -7,6 +7,9 @@
 /**
 *
 * @file xsecure_rsa_core.h
+* @addtogroup xsecure_rsa_zynqmp_apis XilSecure RSA ZynqMP APIs
+* @{
+* @cond xsecure_internal
 * This file contains zynqmp specific RSA core APIs.
 *
 * <pre>
@@ -18,9 +21,12 @@
 * 4.1   kpt  01/07/20 Added Macros for all the Magic Numbers
 *                     in xsecure_rsa_core.c
 * 4.2   kpt  03/26/20 Added Error code XSECURE_RSA_ZEROIZE_ERROR
-*
+*       har  04/06/20 Added function for selection of PKCS padding
+* 4.3   har  06/17/20 Removed references to unused algorithms
+*       ana  10/15/20 Updated doxygen tags
 * </pre>
 *
+* @endcond
 ******************************************************************************/
 #ifndef XSECURE_RSA_CORE_H
 #define XSECURE_RSA_CORE_H
@@ -39,7 +45,6 @@ extern "C" {
 #define XSECURE_RSA_ZEROIZE_ERROR		0x80U /**< for RSA zeroization Error*/
 
 #define XSECURE_HASH_TYPE_SHA3		(48U) /**< SHA-3 hash size */
-#define XSECURE_HASH_TYPE_SHA2		(32U) /**< SHA-2 hash size */
 #define XSECURE_FSBL_SIG_SIZE		(512U)/**< FSBL signature size */
 #define XSECURE_RSA_MAX_BUFF		(6U)  /**< RSA RAM Write Buffers */
 #define XSECURE_RSA_MAX_RD_WR_CNT	(22U) /**< No of writes or reads to RSA RAM Buffers */
@@ -167,3 +172,5 @@ u8* XSecure_RsaGetTPadding();
 #endif
 
 #endif /* XSECURE_RSA_CORE_H */
+
+/* @} */
