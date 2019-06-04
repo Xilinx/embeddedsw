@@ -110,7 +110,7 @@
 /**************************** Type Definitions *******************************/
 
 /*
- * Define a single type used to access the status register irregardless of the
+ * Define a single type used to access the status register regardless of the
  * width of the devices
  */
 typedef union {
@@ -579,7 +579,7 @@ int XFlashIntel_Erase(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 * @param	InstancePtr is the pointer to the XFlash instance.
 * @param	Offset is the offset into the device(s) address space from which
 *		to begin block locking. The first three bytes of every block is
-*		reserved for special purpose. The offset should be atleast three
+*		reserved for special purpose. The offset should be at least three
 *		bytes from start of the block.
 * @param	Bytes indicates the number of bytes to Lock in the Block
 *		starting from Offset.
@@ -723,7 +723,7 @@ int XFlashIntel_Lock(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 * @param	InstancePtr is the pointer to the XFlash instance.
 * @param	Offset is the offset into the device(s) address space from which
 *		to begin block UnLocking. The first three bytes of every block
-*		is reserved for special purpose. The offset should be atleast
+*		is reserved for special purpose. The offset should be at least
 *		three bytes from start of the block.
 * @param	Bytes indicates the number of bytes to UnLock in the Block
 *		starting from Offset.

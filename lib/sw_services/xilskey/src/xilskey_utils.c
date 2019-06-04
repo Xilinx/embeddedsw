@@ -42,12 +42,12 @@
 *                        CR#768077
 * 2.1   kvn     04/01/15 Fixed warnings. CR#716453.
 * 3.00  vns     31/07/15 Added efuse functionality for Ultrascale.
-* 4.0   vns     10/01/15 Modified condtional compilation
+* 4.0   vns     10/01/15 Modified conditional compilation
 *                        to support ZynqMp platform also.
 *                        Added new API Xsk_Ceil
 *                        Modified Xilskey_CrcCalculation() API for providing
 *                        support for efuse ZynqMp also.
-* 6.0   vns     07/07/16 Modifed XilSKey_Timer_Intialise API to intialize
+* 6.0   vns     07/07/16 Modified XilSKey_Timer_Intialise API to initialize
 *                        TimerTicks to 10us. As Hardware module only takes
 *                        care of programming time(5us), through software we
 *                        only need to control hardware module.
@@ -271,7 +271,7 @@ END:
 * @param	XAdcInstancePtr Pointer to the XSKEfusePs_XAdc.
 *		Voltage typ should be specified in XAdcInstancePtr's
 *		structure member VType.
-*		XSK_EFUSEPS_VPAUX - Reads PS VCC Auxilary voltage
+*		XSK_EFUSEPS_VPAUX - Reads PS VCC Auxiliary voltage
 *		XSK_EFUSEPS_VPINT - Reads VCC INT LP voltage
 *
 * @return	None
@@ -615,7 +615,7 @@ u8 XilSKey_Efuse_IsTimerExpired(u64 t)
  * @param InChar is input character. It has to be between 0-9,a-f,A-F
  * @param Num is the output nibble.
  * @return
- * 		- XST_SUCCESS no errors occured.
+ * 		- XST_SUCCESS no errors occurred.
  *		- XST_FAILURE an error when input parameters are not valid
  ****************************************************************************/
 static u32 XilSKey_EfusePs_ConvertCharToNibble (char InChar, u8 *Num)
@@ -652,7 +652,7 @@ END:
  * @param	Buf is Output buffer.
  * @param	Len of the input string. Should have even values
  * @return
- * 		- XST_SUCCESS no errors occured.
+ * 		- XST_SUCCESS no errors occurred.
  *		- XST_FAILURE an error when input parameters are not valid
  *		- an error when input buffer has invalid values
  *
@@ -761,7 +761,7 @@ END:
  * @param	Buf is Output buffer.
  * @param	Len of the input string. Should have even values
  * @return
- * 		- XST_SUCCESS no errors occured.
+ * 		- XST_SUCCESS no errors occurred.
  *		- XST_FAILURE an error when input parameters are not valid
  *		- an error when input buffer has invalid values
  *
@@ -1108,7 +1108,7 @@ END:
 }
 /****************************************************************************/
 /**
- * This API intialises the Timer based on platform
+ * This API initializes the Timer based on platform
  *
  * @param	None.
  *

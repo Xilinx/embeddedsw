@@ -40,7 +40,7 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.01a ksu  04/10/08 First Release.
 * 2.01a ktn  03/31/10 Updated the AMD code to support uniform sector WP modes.
-*		      Addded the new definitions XFL_AMD_TOP_WP_UNIFORM and
+*		      Added the new definitions XFL_AMD_TOP_WP_UNIFORM and
 *		      XFL_AMD_BOTTOM_WP_UNIFORM.
 * 4.1	nsk  06/06/12 Added New definitions as per AMD spec.
 *		      (CR 781697).

@@ -482,7 +482,7 @@ XStatus XPm_IsoControl(u32 NodeId, u32 Enable)
 		goto done;
 	}
 
-	/*TODO: Right now we dont have PLD init node support so we assume
+	/*TODO: Right now we don't have PLD init node support so we assume
 	 * PL subsystem is ready when iso control commands are received*/
 	XPmSubsystem_SetState(XPM_SUBSYSID_PL, ONLINE);
 
@@ -700,7 +700,7 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 	/* Warning Fix */
 	(void) (Ack);
 
-	/*Validate acccess first */
+	/*Validate access first */
 	Status = XPm_IsWakeAllowed(SubsystemId, DeviceId);
 	if (XST_FAILURE == Status) {
 		goto done;
@@ -752,7 +752,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 	/* Warning Fix */
 	(void) (Ack);
 
-	/*Validate acccess first */
+	/*Validate access first */
 	Status = XPm_IsForcePowerDownAllowed(SubsystemId, NodeId);
 	if (XST_SUCCESS != Status) {
 		goto done;
@@ -1296,7 +1296,7 @@ XStatus XPm_SetClockState(const u32 SubsystemId, const u32 ClockId, const u32 En
 	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
 	u32 CurrState;
 
-	/* HACK: Dont disable PLL clocks for now */
+	/* HACK: Don't disable PLL clocks for now */
 	if(Enable == 0 && ISPLL(ClockId))
 	{
 		return Status;
@@ -2043,7 +2043,7 @@ done:
  *
  * @param  DeviceId	DeviceId of the device
  * @param  Type		Type of tap delay to set (input/output)
- * @param  Value	Value to set fot the tap delay
+ * @param  Value	Value to set for the tap delay
  *
  * @return XST_SUCCESS if successful else error code or a reason code
  *
@@ -2098,7 +2098,7 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  This function preforms read/write operation on probe counter
+ * @brief  This function performs read/write operation on probe counter
  *         registers of LPD/FPD.
  *
  * @param  DeviceId	DeviceId of the LPD/FPD

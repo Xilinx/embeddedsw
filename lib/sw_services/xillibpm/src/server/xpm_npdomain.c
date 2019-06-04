@@ -246,7 +246,7 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 		PmOut32(NpdDdrMcAddressList[i] + NPI_PCSR_MASK_OFFSET, NPI_DDRMC_PSCR_CONTROL_UB_INITSTATE_MASK)
 		PmOut32(NpdDdrMcAddressList[i] + NPI_PCSR_CONTROL_OFFSET, 0);
 		PmOut32(NpdDdrMcAddressList[i] + NPI_PCSR_LOCK_OFFSET, 1);
-		/* Ony UB0 for non sillicon platforms */
+		/* Only UB0 for non sillicon platforms */
 		if (PLATFORM_VERSION_SILICON != Platform) {
 			Status = XST_SUCCESS;
 			goto done;

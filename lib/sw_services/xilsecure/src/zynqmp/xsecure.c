@@ -183,7 +183,7 @@ XCsuDma* Xsecure_GetCsuDma(void)
  * @param	Num is the output nibble.
  *
  * @return
- *		- XST_SUCCESS no errors occured.
+ *		- XST_SUCCESS no errors occurred.
  *		- ERROR when input parameters are not valid
  *
  * @note	None.
@@ -223,7 +223,7 @@ END:
  * @param	Len of the input string. Should have even values
  *
  * @return
- *		- XST_SUCCESS no errors occured.
+ *		- XST_SUCCESS no errors occurred.
  *		- ERROR when input parameters are not valid
  *		- an error when input buffer has invalid values
  *

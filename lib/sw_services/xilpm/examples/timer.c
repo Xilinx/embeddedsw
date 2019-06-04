@@ -58,7 +58,7 @@ static void TickHandler(XTtcPs *timer_inst)
 }
 
 /**
- * TimerSetIntervalMode() - This fuction sets TTC into interval mode
+ * TimerSetIntervalMode() - This function sets TTC into interval mode
  * @timer_inst	pointer to the timer instance
  * @sec		interval timeout in seconds
  */

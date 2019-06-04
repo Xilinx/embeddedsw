@@ -312,7 +312,7 @@ static XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
  * @return	XST_SUCCESS if initialization was successful.
  *
  * @note	All the inputs are accepted in little endian format, but AES
- *		engine accepts the data in big endianess, this will be taken
+ *		engine accepts the data in big endianness, this will be taken
  *		care while passing data to AES engine.
  *
  ******************************************************************************/
@@ -415,7 +415,7 @@ u32 XSecure_AesWriteKey(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
  * @param	DecKeySrc	Select key to be decrypted
  * @param	DstKeySrc	Select the key in which decrypted key should be
  *		updated
- * @param	IvAddr		Addres of IV holding buffer for decryption
+ * @param	IvAddr		Address of IV holding buffer for decryption
  *		of key
  *
  * @return	XST_SUCCESS on successful return.
@@ -625,7 +625,7 @@ END:
  *		to be updated.
  * @param	Size		Size of data to be decrypted in bytes.
  * @param	EnLast		If this is the last update of data to be
- *		decrypted, this paramter should be set to TRUE otherwise FALSE.
+ *		decrypted, this parameter should be set to TRUE otherwise FALSE.
  *
  * @return	XST_SUCCESS on successful decryption of the data.
  *
@@ -689,7 +689,7 @@ u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 						XCSUDMA_IXR_DONE_MASK);
 	}
 
-	/* Clear endianess */
+	/* Clear endianness */
 	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
 				XCSUDMA_SRC_CHANNEL, 0U);
 	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,

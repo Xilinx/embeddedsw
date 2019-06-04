@@ -28,8 +28,8 @@
 /*****************************************************************************/
 /**
 * @file xilskey_eps_zynqmp_puf.c
-* This file contains the APIs for registring PUF, eFUSE programming and reading
-* the PUF helper data, CHASH and Auxilary data.
+* This file contains the APIs for registering PUF, eFUSE programming and reading
+* the PUF helper data, CHASH and Auxiliary data.
 *
 * </pre>
 * MODIFICATION HISTORY:
@@ -39,7 +39,7 @@
 * 6.1   vns  10/17/16 First release.
 *       vns  11/07/16 Fixed shutter value to 0x0100005e, as sysosc selection
 *                     is fixed for PUF registration.
-* 6.2   vns  02/18/17 Added masking for PUF auxilary read.
+* 6.2   vns  02/18/17 Added masking for PUF auxiliary read.
 * 6.6   vns  06/06/18 Added doxygen tags
 * 6.7	arc  01/05/19 Fixed MISRA-C violations.
 *       arc  03/15/19 Modified initial default status value as XST_FAILURE
@@ -482,6 +482,7 @@ END:
 
 /*****************************************************************************/
 /**
+<<<<<<< HEAD
 * This function reads eFUSE PUF auxiliary data from eFUSE array
 * or cache based on user read option.
 *
@@ -491,6 +492,17 @@ END:
 * 		eFUSE array or from the eFUSE cache.
 *		- 0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from cache
 *		- 1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array
+=======
+* This API reads efuse puf Auxiliary Data from efuse array or cache based on
+* user read option.
+*
+* @param	Address 	Pointer which holds the read back value of Auxiliary
+* @param	ReadOption	A u8 variable which has to be provided by user
+*		based on this input reading is happened from cache or from efuse
+*		array.
+*		- 0(XSK_EFUSEPS_READ_FROM_CACHE)Reads from cache
+*		- 1(XSK_EFUSEPS_READ_FROM_EFUSE)Reads from efuse array
+>>>>>>> Fixed trivial typos for sw_services reported by codespell utility
 *
 * @return
 * 		- XST_SUCCESS if PUF auxiliary data is read successfully.
@@ -552,8 +564,8 @@ END:
 *
 * @param	None.
 *
-* @return	XST_SUCCESS - Incase of Success
-*			XST_FAILURE - Incase of Timeout.
+* @return	XST_SUCCESS - In case of Success
+*			XST_FAILURE - In case of Timeout.
 *
 * @note		None.
 *

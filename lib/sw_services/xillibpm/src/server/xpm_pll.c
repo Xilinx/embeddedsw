@@ -283,7 +283,7 @@ XStatus XPmClockPll_SetParam(XPm_PllClockNode *Pll, u32 Param, u32 Value)
 		 * TODO - revisit it to allow subsystem CDO
 		 * re-parsing which re-sets PLL parameters.
 		 */
-		PmInfo("Warning: Setting PLL paramter while not in reset state.\r\n");
+		PmInfo("Warning: Setting PLL parameter while not in reset state.\r\n");
 		goto done;
 	}
 

@@ -290,7 +290,7 @@ static inline u32 XilSKey_EfusePs_ZynqMp_InitData(
 	PsInstancePtr->PrgrmUser6Fuse = XSK_EFUSEPS_WRITE_USER6_FUSE;
 	PsInstancePtr->PrgrmUser7Fuse = XSK_EFUSEPS_WRITE_USER7_FUSE;
 
-	/* Variable for Timer Intialization */
+	/* Variable for Timer Initialization */
 	PsInstancePtr->IntialisedTimer = 0;
 
 	/* Copying PPK hash types */

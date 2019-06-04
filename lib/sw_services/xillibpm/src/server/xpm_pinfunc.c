@@ -1179,7 +1179,7 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 /**
  * @brief  This function returns handle to requested XPm_PinFunc struct
  *
- * @param FuncId	Fuction ID.
+ * @param FuncId	Function ID.
  *
  * @return Pointer to XPm_PinFunc if successful, NULL otherwise
  *

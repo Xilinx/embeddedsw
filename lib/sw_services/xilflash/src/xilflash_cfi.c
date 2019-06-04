@@ -558,7 +558,7 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 		 * The platform flash (Intel) have multiple banks in same erase
 		 * region. Read number of identical banks in each erase region,
 		 * number of erase blocks and size of blocks in each bank. For
-		 * platfrom flash, library treats each bank as seperate region.
+		 * platform flash, library treats each bank as separate region.
 		 */
 		if (((InstancePtr->CommandSet == XFL_CMDSET_INTEL_STANDARD) ||
 		    (InstancePtr->CommandSet == XFL_CMDSET_INTEL_EXTENDED)) &&
@@ -661,7 +661,7 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 		 * The Micron G18 flash (Intel) have multiple banks in same erase
 		 * region. Read number of identical banks in each erase region,
 		 * number of erase blocks and size of blocks in each bank. For
-		 * Micron G18 flash, library treats each bank as seperate region.
+		 * Micron G18 flash, library treats each bank as separate region.
 		 */
 		if (InstancePtr->CommandSet == XFL_CMDSET_INTEL_G18) {
 			Index = 0;

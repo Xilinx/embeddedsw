@@ -26,7 +26,7 @@
 #
 ###############################################################################
 ## @BEGIN_CHANGELOG EDK_LS3
-## Added platfrom_flash paramter to select whether a Xilinx Platform Flash XL
+## Added platfrom_flash parameter to select whether a Xilinx Platform Flash XL
 ## device is present in the system and is to be used.
 ##
 ## @END_CHANGELOG
@@ -65,6 +65,6 @@ BEGIN LIBRARY xilflash
   PARAM name = part_width, state = DEPRECATED, desc = "Width of each part in bytes. Indicates the data bus width supported by the Flash part", type = int, default = 2;
   PARAM name = base_address, state = DEPRECATED, desc = "Flash Base Address in Hex", type = int, default = 0x0;
   PARAM name = flash_family, state = DEPRECATED, desc = "Indicates the flash family type. Enter 1 for INTEL and 2 for AMD.", type = int, default = 1;
-  PARAM name = platform_flash, state = DEPRECATED, desc = "Indicates the flash device type. Enter 1 for Platfrom flash and 0 for others.", type = int, default = 0;
+  PARAM name = platform_flash, state = DEPRECATED, desc = "Indicates the flash device type. Enter 1 for Platform flash and 0 for others.", type = int, default = 0;
 
 END LIBRARY

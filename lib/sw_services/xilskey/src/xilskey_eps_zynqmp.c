@@ -1899,10 +1899,19 @@ END:
 *		user fuse.
 * @param	UserFuse_Num	A variable which holds the user fuse number.
 *		Range is (User fuses: 0 to 7)
+<<<<<<< HEAD
 * @param	ReadOption Indicates whether or not to read from the actual
 * 		eFUSE array or from the eFUSE cache.
 *		- 0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from eFUSE cache
 *		- 1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array
+=======
+* @param	ReadOption 	A variable which has to be provided by user
+*		based on this input reading is happened from cache or from efuse
+*		array.
+*		- 0	Reads from cache
+*		- 1	Reads from efuse array
+*
+>>>>>>> Fixed trivial typos for sw_services reported by codespell utility
 * @return
 *		- XST_SUCCESS on successful read
 *		- ErrorCode on failure
@@ -1964,11 +1973,20 @@ UNLOCK:
 * This function is used to read the PPK0 hash from an eFUSE or eFUSE cache.
 *
 * @param	Ppk0Hash	A pointer to an array which holds the readback
+<<<<<<< HEAD
 *		PPK0 hash.
 * @param	ReadOption	Indicates whether or not to read from the actual
 * 		eFUSE array or from the eFUSE cache.
 *		- 0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from eFUSE cache
 *		- 1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array
+=======
+*		PPK0 hash in.
+* @param	ReadOption	A variable which has to be provided by user
+*		based on this input reading is happened from cache or from efuse
+*		array.
+*		- 0	Reads from cache
+*		- 1	Reads from efuse array
+>>>>>>> Fixed trivial typos for sw_services reported by codespell utility
 *
 * @return
 *		- XST_SUCCESS on successful read
@@ -2041,11 +2059,20 @@ UNLOCK:
 * This function is used to read the PPK1 hash from eFUSE or cache.
 *
 * @param	Ppk1Hash	Pointer to an array which holds the readback
+<<<<<<< HEAD
 *		PPK1 hash.
 * @param	ReadOption	Indicates whether or not to read from the actual
 * 		eFUSE array or from the eFUSE cache.
 *		- 0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from eFUSE cache
 *		- 1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array
+=======
+*		PPK1 hash in.
+* @param	ReadOption	A variable which has to be provided by user
+*		based on this input reading is happened from cache or from efuse
+*		array.
+*		- 0	Reads from cache
+*		- 1	Reads from efuse array
+>>>>>>> Fixed trivial typos for sw_services reported by codespell utility
 *
 * @return
 *		- XST_SUCCESS on successful read
@@ -2118,10 +2145,18 @@ UNLOCK:
 * read option.
 *
 * @param	SpkId	Pointer to a 32 bit variable which holds SPK ID.
+<<<<<<< HEAD
 * @param	ReadOption	Indicates whether or not to read from the actual
 * 		eFUSE array or from the eFUSE cache.
 *		- 0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from eFUSE cache
 *		- 1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array
+=======
+* @param	ReadOption	A variable which has to be provided by user
+*		based on this input reading is happened from cache or from efuse
+*		array.
+*		- 0	Reads from cache
+*		- 1	Reads from efuse array
+>>>>>>> Fixed trivial typos for sw_services reported by codespell utility
 *
 * @return
 *		- XST_SUCCESS on successful read

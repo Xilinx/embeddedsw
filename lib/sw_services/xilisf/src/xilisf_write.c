@@ -541,7 +541,7 @@ static int WriteData(XIsf *InstancePtr, u8 Command, u32 Address,
 		Mode = XIsf_GetTransferMode(InstancePtr);
 
 		/*
-		 * Seting the transfer mode to Polled Mode before
+		 * Setting the transfer mode to Polled Mode before
 		 * performing the Bank Select operation.
 		 */
 		XIsf_SetTransferMode(InstancePtr, XISF_POLLING_MODE);

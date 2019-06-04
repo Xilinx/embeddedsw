@@ -81,7 +81,7 @@ proc xgen_opts_file {libhandle} {
 	set enable_amd [common::get_property CONFIG.enable_amd $libhandle]
 
 	if {$enable_intel == false && $enable_amd == false} {
-		error  "ERROR: no flash family enabled. enable atleast one flash family in the bsp settings and rebuild the libraries"
+		error  "ERROR: no flash family enabled. enable at least one flash family in the bsp settings and rebuild the libraries"
 	}
 
 	if {$enable_intel == true} {

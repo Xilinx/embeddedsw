@@ -59,8 +59,8 @@
 *                        BBRAM programming, added Bbram_Init_Ultra,
 *                        Bbram_ProgramKey_Ultra, Bbram_VerifyKey_Ultra
 *                        and Bbram_DeInit_Ultra APIs
-* 6.0   vns     07/07/16 Intialized hardware module connections
-*                        Modifed JtagWrite_Ultrascale API, to handover
+* 6.0   vns     07/07/16 Initialized hardware module connections
+*                        Modified JtagWrite_Ultrascale API, to handover
 *                        programming sequence to hardware module to take care
 *                        of eFUSE programming.
 *                        Once Hardware module is triggered, JTAG state will be
@@ -68,7 +68,7 @@
 *                        toggles TCK pin at 1Mhz frequency. Finally it exists
 *                        when jtag state is navigated to DR SELECT by making
 *                        END pin to High state.
-*                        Modified retur type of JtagWrite_Ultrascale API to int
+*                        Modified return type of JtagWrite_Ultrascale API to int
 *                        for returning FAILURE on timeout.
 *       vns     07/28/16 Modified Bbram_ProgramKey_Ultra API to program control
 *                        word based on user inputs.
