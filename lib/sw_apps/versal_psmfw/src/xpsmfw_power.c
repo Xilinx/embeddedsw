@@ -317,30 +317,6 @@ int XPsmFw_FpdScanClear()
 {
 	int Status = XST_SUCCESS;
 
-	if (PLATFORM_VERSION_SILICON != Platform) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
-
-	/* Trigger scan clear */
-	XPsmFw_UtilRMW(PSM_LOCAL_SCAN_CLEAR_FPD, PSM_LOCAL_SCAN_CLEAR_TRIGGER,
-		       PSM_LOCAL_SCAN_CLEAR_TRIGGER);
-
-	Status = XPsmFw_UtilPollForMask(PSM_LOCAL_SCAN_CLEAR_FPD,
-					PSM_LOCAL_SCAN_CLEAR_DONE_STATUS,
-					0x10000U);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Status = XPsmFw_UtilPollForMask(PSM_LOCAL_SCAN_CLEAR_FPD,
-					PSM_LOCAL_SCAN_CLEAR_PASS_STATUS,
-					0x10000U);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-done:
 	return Status;
 }
 
@@ -357,34 +333,6 @@ int XPsmFw_FpdMbistClear()
 			PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK,
 			~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK);
 
-	if (PLATFORM_VERSION_SILICON != Platform) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
-
-	XPsmFw_UtilRMW(PSM_LOCAL_MBIST_RST, PSM_LOCAL_MBIST_RST_FPD_MASK,
-		       PSM_LOCAL_MBIST_RST_FPD_MASK);
-
-	XPsmFw_UtilRMW(PSM_LOCAL_MBIST_SETUP, PSM_LOCAL_MBIST_SETUP_FPD_MASK,
-		       PSM_LOCAL_MBIST_SETUP_FPD_MASK);
-
-	XPsmFw_UtilRMW(PSM_LOCAL_MBIST_PG_EN, PSM_LOCAL_MBIST_PG_EN_FPD_MASK,
-		       PSM_LOCAL_MBIST_PG_EN_FPD_MASK);
-
-	Status = XPsmFw_UtilPollForMask(PSM_LOCAL_MBIST_DONE,
-					PSM_LOCAL_MBIST_DONE_FPD_MASK,
-					0x10000U);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	if (PSM_LOCAL_MBIST_GOOD_FPD_MASK !=
-	    (XPsmFw_Read32(PSM_LOCAL_MBIST_GOOD) &
-	     PSM_LOCAL_MBIST_GOOD_FPD_MASK)) {
-		Status = XST_FAILURE;
-	}
-
-done:
 	return Status;
 }
 
