@@ -61,6 +61,7 @@
 *						(i.e. max interval count is 32 bit).
 * 3.10  aru    05/06/19 Added assert check for driver instance and freq
 *			parameter in  XTtcPs_CalcIntervalFromFreq().
+* 3.10  aru    05/30/19 Added interrupt handler to clear ISR
 * </pre>
 *
 ******************************************************************************/
@@ -76,7 +77,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-
+static void StubStatusHandler(const void *CallBackRef, u32 StatusEvent);
 /************************** Variable Definitions *****************************/
 
 
@@ -133,6 +134,7 @@ s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr, XTtcPs_Config *ConfigPtr,
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
+	InstancePtr->StatusHandler = StubStatusHandler;
 
 	IsStartResult = XTtcPs_IsStarted(InstancePtr);
 	/*
@@ -453,5 +455,93 @@ void XTtcPs_CalcIntervalFromFreq(XTtcPs *InstancePtr, u32 Freq,
 	*Interval = XTTCPS_MAX_INTERVAL_COUNT;
 	*Prescaler = 0XFFU;
 	return;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * Handles interrupts by resetting the counter value
+ * and clearing the status register
+ *
+ * @param	InstancePtr is a pointer to the XTtcPs instance.
+ *
+ * @return
+ *		- XST_SUCCESS if successful.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+
+u32 XTtcPs_InterruptHandler(XTtcPs *InstancePtr)
+{
+	u32 XTtcPsStatusReg;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	XTtcPsStatusReg = XTtcPs_GetInterruptStatus(InstancePtr);
+	XTtcPs_ClearInterruptStatus(InstancePtr, XTtcPsStatusReg);
+	InstancePtr->StatusHandler(InstancePtr->StatusRef,
+			                                XTtcPsStatusReg);
+	return XST_SUCCESS;
+
+
+
+}
+
+/*****************************************************************************/
+/**
+ *
+ * Sets the status callback function, the status handler, which the driver
+ * calls when it encounters conditions that should be reported to upper
+ * layer software. The handler executes in an interrupt context, so it must
+ * minimize the amount of processing performed. One of the following status
+ * events is passed to the status handler.
+ *
+ * </pre>
+ * @param	InstancePtr is a pointer to the XTtcPs instance.
+ * @param	CallBackRef is the upper layer callback reference passed back
+ *		when the callback function is invoked.
+ * @param	FuncPointer is the pointer to the callback function.
+ *
+ * @return	None.
+ *
+ * @note
+ *
+ * The handler is called within interrupt context, so it should do its work
+ * quickly and queue potentially time-consuming work to a task-level thread.
+ *
+ ******************************************************************************/
+void XTtcPs_SetStatusHandler(XTtcPs *InstancePtr, void *CallBackRef,
+		XTtcPs_StatusHandler FuncPointer)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(FuncPointer != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	InstancePtr->StatusHandler = FuncPointer;
+	InstancePtr->StatusRef = CallBackRef;
+}
+
+
+/*****************************************************************************/
+/**
+ *
+ * This is a stub for the status callback. The stub is here in case the upper
+ * layers forget to set the handler.
+ *
+ * @param	CallBackRef is a pointer to the upper layer callback reference
+ * @param	StatusEvent is the event that just occurred.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+static void StubStatusHandler(const void *CallBackRef, u32 StatusEvent)
+{
+	(const void) CallBackRef;
+	(void) StatusEvent;
+
+	Xil_AssertVoidAlways();
 }
 /** @} */
