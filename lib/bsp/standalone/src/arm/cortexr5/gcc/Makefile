@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2014 - 2019 Xilinx, Inc. All rights reserved.
+# Copyright (C) 2014 - 2015 Xilinx, Inc. All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -50,10 +50,7 @@ OUTS = *.o
 OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 ASSEMBLY_OBJECTS  = $(addsuffix .o, $(basename $(wildcard *.S)))
 INCLUDEFILES=*.h
-
-ifeq (,$(findstring -Dversal, $(ECC_FLAGS)))
 INCLUDEFILES+=includes_ps/*.h
-endif
 
 libs: $(LIBS)
 
