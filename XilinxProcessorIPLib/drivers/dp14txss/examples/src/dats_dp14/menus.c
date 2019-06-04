@@ -1621,7 +1621,7 @@ int XVidFrameCrc_Compare(u16 comp1, u16 comp2, u16 comp3,
 			VIDEO_FRAME_CRC_VALUE_B)
 			& VIDEO_FRAME_CRC_B_CB_COMP_MASK;
 
-
+	//Reading twice for better stability
 	calc_comp1 = XVidFrameCrc_ReadReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
 			VIDEO_FRAME_CRC_VALUE_G_R)
 			& VIDEO_FRAME_CRC_R_Y_COMP_MASK;
@@ -1638,18 +1638,18 @@ int XVidFrameCrc_Compare(u16 comp1, u16 comp2, u16 comp3,
 
 	/*Y22 now had 3 components CRC*/
 	//matching this to UCD400
-	if(user_config.user_format == TEST_YCBCR422_FORMAT)
-	{
-		src_comp1 = calc_comp1;
-		src_comp2 = calc_comp2;
-		src_comp3 = calc_comp3;
-
-		snk_comp1 = comp3;
-		snk_comp2 = comp1;
-		snk_comp3 = comp2;
-	}
-	else
-	{
+//	if(user_config.user_format == TEST_YCBCR422_FORMAT)
+//	{
+//		src_comp1 = calc_comp1;
+//		src_comp2 = calc_comp2;
+//		src_comp3 = calc_comp3;
+//
+//		snk_comp1 = comp3;
+//		snk_comp2 = comp1;
+//		snk_comp3 = comp2;
+//	}
+//	else
+//	{
 		src_comp1 = calc_comp1;
 		src_comp2 = calc_comp2;
 		src_comp3 = calc_comp3;
@@ -1657,7 +1657,7 @@ int XVidFrameCrc_Compare(u16 comp1, u16 comp2, u16 comp3,
 		snk_comp1 = comp1;
 		snk_comp2 = comp2;
 		snk_comp3 = comp3;
-	}
+//	}
 
 	if((src_comp1==snk_comp1) && (src_comp2==snk_comp2) && (src_comp3==snk_comp3))
 		crc_match = 1;

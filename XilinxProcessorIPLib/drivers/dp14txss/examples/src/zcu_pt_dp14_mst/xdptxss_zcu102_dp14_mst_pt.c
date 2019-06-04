@@ -462,21 +462,19 @@ u32 DpMST_PlatformInit(void)
 	XDp_RxInterruptEnable(DpRxSsInst.DpPtr, 0x80000000);
 	XDp_RxGenerateHpdInterrupt(DpRxSsInst.DpPtr, 50000);
 
-     /* Start DPRX Subsystem set */
-     Status = XDpRxSs_Start(&DpRxSsInst);
-     if (Status != XST_SUCCESS) {
-             xil_printf("ERR:DPRX SS start failed\n\r");
-             return;
-     }
-     XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_LINK_ENABLE, 0x0);
+	/* Start DPRX Subsystem set */
+	Status = XDpRxSs_Start(&DpRxSsInst);
+	if (Status != XST_SUCCESS) {
+		 xil_printf("ERR:DPRX SS start failed\n\r");
+		 return;
+	}
+	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_LINK_ENABLE, 0x0);
 
-     DpRxSs_Setup();
+	/* Set Link rate and lane count to maximum */
+	XDpRxSs_SetLinkRate(&DpRxSsInst, DPRXSS_LINK_RATE);
+	XDpRxSs_SetLaneCount(&DpRxSsInst, DPRXSS_LANE_COUNT);
 
-     /* Set Link rate and lane count to maximum */
-     XDpRxSs_SetLinkRate(&DpRxSsInst, DPRXSS_LINK_RATE);
-     XDpRxSs_SetLaneCount(&DpRxSsInst, DPRXSS_LANE_COUNT);
-
- 	xil_printf("DP TX and RX init done...\n\r");
+	xil_printf("DP TX and RX init done...\n\r");
 
 
 
@@ -2356,129 +2354,6 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 	} else {
 		good_edid_hpd = 0;
 	}
-	// Till here is the requirement per DP spec
-
-
-	//////////////////////////////////////////////
-	// From here is optional per application
-	//////////////////////////////////////////////
-
-	// check if lane is 1/2/4 or something else
-//	if(max_cap_lanes_new != 1
-//			&& max_cap_lanes_new != 2
-//			&& max_cap_lanes_new != 4){
-//		// soemthing wrong. Read again
-//		XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_MAX_LANE_COUNT, 1,
-//														&max_cap_lanes_new);
-//	}
-//
-//	// check if line speed is either 0x6, 0xA, 0x14
-//	if (max_cap_new != XDP_TX_LINK_BW_SET_540GBPS
-//				&& max_cap_new != XDP_TX_LINK_BW_SET_270GBPS
-//				&& max_cap_new != XDP_TX_LINK_BW_SET_162GBPS) {
-//		// soemthing wrong. Read again
-//		XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_MAX_LINK_RATE, 1,
-//														&max_cap_new);
-//	}
-//
-//	if (good_edid_hpd == 1) {
-//		htotal_test_hpd = XVidC_EdidGetStdTimingsH(Edid_org, 1);
-//		vtotal_test_hpd = XVidC_EdidGetStdTimingsV(Edid_org, 1);
-//		freq_test_hpd   = XVidC_EdidGetStdTimingsFrr(Edid_org, 1);
-////		XVidC_UnregisterCustomTimingModes();
-//		VmId_test_hpd = XVidC_GetVideoModeId(htotal_test_hpd, vtotal_test_hpd,
-//															freq_test_hpd,0);
-//		VmId_ptm_hpd = GetPreferredVm(Edid_org, max_cap_new ,
-//														max_cap_lanes_new&0x1F);
-//		bpc_hpd = XVidC_EdidGetColorDepth(Edid_org);
-//		if (VmId_ptm_hpd == XVIDC_VM_NOT_SUPPORTED) {
-//			VmId_ptm_hpd = XVIDC_VM_640x480_60_P;
-//			bpc_hpd = 6;
-//			xil_printf ("Inside hpd_con: vmid changed good...\r\n");
-//		}
-//
-//	} else {
-//		VmId_test_hpd = XVIDC_VM_NOT_SUPPORTED;
-//		VmId_ptm_hpd = XVIDC_VM_640x480_60_P;
-//		res_update = XVIDC_VM_640x480_60_P;
-//		bpc_hpd = 6;
-//		good_edid_hpd = 0;
-//		xil_printf ("Inside hpd_con: vmid changed...\r\n");
-//	}
-//
-//
-//	if (max_cap_new == XDP_TX_LINK_BW_SET_540GBPS
-//			|| max_cap_new == XDP_TX_LINK_BW_SET_270GBPS
-//			|| max_cap_new == XDP_TX_LINK_BW_SET_162GBPS) {
-//		Status = set_vphy(max_cap_new);
-//
-//
-//        XDpTxSs_SetLinkRate(&DpTxSsInst, max_cap_new);
-//		XDpTxSs_SetLaneCount(&DpTxSsInst, max_cap_lanes_new&0x1F);
-//
-//        if (good_edid_hpd == 1) {
-//			if ((VmId_ptm_hpd != XVIDC_VM_NOT_SUPPORTED)
-//							&& (VmId_test_hpd != XVIDC_VM_NOT_SUPPORTED)) {
-//				XDpTxSs_SetVidMode(&DpTxSsInst, res_update);
-//			} else if ((VmId_ptm_hpd != XVIDC_VM_NOT_SUPPORTED)) {
-//				XDpTxSs_SetVidMode(&DpTxSsInst, VmId_ptm_hpd);
-//			} else {
-//				XDpTxSs_SetVidMode(&DpTxSsInst, VmId_test_hpd);
-//			}
-//        } else {
-//             XDpTxSs_SetVidMode(&DpTxSsInst, res_update);
-//        }
-//
-//        //over subscription check
-//		/*RGB or YCbCr444 - Hence 3 components*/
-//		u32 StreamBandwidth = (((
-//			DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].Vtm.Timing.HTotal *
-//			DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].Vtm.Timing.F0PVTotal *
-//			DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].Vtm.FrameRate)/1000000) *
-//			(bpc_hpd * 3))/8/DpTxSsInst.DpPtr->TxInstance.LinkConfig.LaneCount;
-//		u32 LinkBandwidth   =
-//				(DpTxSsInst.DpPtr->TxInstance.LinkConfig.LinkRate*27);
-//		if(StreamBandwidth>LinkBandwidth)
-//		{
-//			xil_printf("StreamBandwidth=%d, LinkBandwidth=%d\r\n",
-//					StreamBandwidth,LinkBandwidth);
-//			switch(bpc_hpd){
-//				case 16: bpc_hpd = 12; break;
-//				case 12: bpc_hpd = 10; break;
-//				case 10: bpc_hpd = 8; break;
-//				case 8: bpc_hpd = 6; break;
-//				default: bpc_hpd = 6; break;
-//			}
-//			StreamBandwidth = (((
-//			DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].Vtm.Timing.HTotal *
-//			DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].Vtm.Timing.F0PVTotal *
-//			DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].Vtm.FrameRate)/1000000) *
-//			(bpc_hpd * 3))/8/DpTxSsInst.DpPtr->TxInstance.LinkConfig.LaneCount;
-//			if(StreamBandwidth>LinkBandwidth){
-//				// setting low resolution to fit in the bandwidth
-//				xil_printf("Over subscription and can't display\r\n");
-//			}else
-//				xil_printf("Setting BPC to be %d\r\n", bpc_hpd);
-//		}
-//
-//        XDpTxSs_SetBpc(&DpTxSsInst, bpc_hpd);
-//        XDpTxSs_Start(&DpTxSsInst);
-//        XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-//											XDP_TX_INTERRUPT_MASK, 0x0);
-//        Vpg_StreamSrcConfigure(DpTxSsInst.DpPtr, 0, 1);
-//        Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr, C_VideoUserStreamPattern[1]);
-//        Status = XDpTxSs_Start(&DpTxSsInst);
-//
-//
-//        Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
-//        if (Status != XST_SUCCESS) {
-//			Status = XDpTxSs_Start(&DpTxSsInst);
-//        }
-//	}
-//
-//
-//
-//	Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
 }
 
 
@@ -2495,6 +2370,8 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 * @note		None.
 *
 ******************************************************************************/
+// This is moved to driver in 2019.2
+#if 0
 void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame)
 {
     u8 db1, db2, db3, db4;
@@ -2556,7 +2433,7 @@ void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame)
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 										XDP_TX_AUDIO_INFO_DATA(1), temp);
 }
-
+#endif
 
 /*****************************************************************************/
 /**
@@ -3094,16 +2971,11 @@ u32 DpRxSs_Setup(void)
         XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
                      XDP_RX_LINK_ENABLE, 0x0);
 
-        // Changing the DPCP version to 12 as sources support MST only for DP1.2
-//        XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-//                0x0D8, 0x14);
-
         /*Disable All Interrupts*/
         XDp_RxInterruptDisable(DpRxSsInst.DpPtr, 0xFFFFFFFF);
         XDp_RxInterruptDisable1(DpRxSsInst.DpPtr, 0xFFFFFFFF);
 
         /*Enable Training related interrupts*/
-//		XDp_RxInterruptEnable(DpRxSsInst.DpPtr,0x7007FF02);
         XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
                         XDP_RX_INTERRUPT_MASK_TP1_MASK |
                         XDP_RX_INTERRUPT_MASK_TP2_MASK |
@@ -3167,17 +3039,9 @@ u32 DpRxSs_Setup(void)
                                 );
         }
 
-//        /*Enable CRC Support*/
-//        XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_CONFIG,
-//                        VidFrameCRC_rx.TEST_CRC_SUPPORTED<<5);
-
-//        XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_INTERRUPT_MASK, 0xCFF800FF);
-//        XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x44, 0xF003FFFF);
-
-
         /*Enable Rx*/
         XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-                     XDP_RX_LINK_ENABLE, 0x0);
+                     XDP_RX_LINK_ENABLE, 0x1);
 
         return XST_SUCCESS;
 }
@@ -3218,20 +3082,6 @@ void resetIp_rd()
 
 }
 
-
-//void power_down_HLSIPs(void){
-//
-//  Xil_Out32(XPAR_AXI_GPIO_1_BASEADDR, 0x2);
-//  //  usleep(10000);          //hold reset line
-//}
-//
-//void power_up_HLSIPs(void){
-//
-//	  Xil_Out32(XPAR_AXI_GPIO_1_BASEADDR, 1);
-//
-//
-////  usleep(10000);          //hold reset line
-//}
 
 
 /* This process takes in all the MSA values and find out resolution,
@@ -3307,7 +3157,7 @@ void Dppt_DetectResolution(void *InstancePtr, u16 offset,
 			XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_MSA_VSPOL+(0x40*(offset-1)));
 
 
-	Msa[msa_offset-1].SynchronousClockMode = rxMsamisc0 & 1;
+	Msa[msa_offset-1].SynchronousClockMode = 0; //rxMsamisc0 & 1;
 	u8 bpc = Bpc[rxMsamisc0];
 	Msa[msa_offset-1].BitsPerColor = bpc;
 //	Msa[0].Misc0 = rxMsamisc0;
@@ -3353,41 +3203,35 @@ void Dppt_DetectResolution(void *InstancePtr, u16 offset,
 	}
 
 	Msa[msa_offset-1].Vtm.FrameRate = recv_frame_clk_int;
-
-
 	Msa[msa_offset-1].PixelClockHz = DpHres_total * DpVres_total * recv_frame_clk_int;
 	Msa[msa_offset-1].DynamicRange = XDP_DR_CEA;
 	Msa[msa_offset-1].YCbCrColorimetry = XDP_TX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT601;
 
 	if((recv_clk_freq*1000000)>540000000
 			&& (int)DpRxSsInst.UsrOpt.LaneCount==4){
-//		XDp_RxSetUserPixelWidth(DpRxSsInst.DpPtr, 0x04);
 		Msa[msa_offset-1].UserPixelWidth = 0x4;
 		tx_ppc_set = 0x4;
 	}
 	else if((recv_clk_freq*1000000)>270000000
 			&& (int)DpRxSsInst.UsrOpt.LaneCount!=1){
-//		XDp_RxSetUserPixelWidth(DpRxSsInst.DpPtr, 0x02);
 		Msa[msa_offset-1].UserPixelWidth = 0x2;
 		tx_ppc_set = 0x2;
 	}
 	else{
-//		XDp_RxSetUserPixelWidth(DpRxSsInst.DpPtr, 0x01);
 		Msa[msa_offset-1].UserPixelWidth = 0x1;
 		tx_ppc_set = 0x1;
 	}
 
-	//PPC always set to 4 for MST
-//	XDp_RxSetUserPixelWidth(DpRxSsInst.DpPtr, 0x4);//tx_ppc_set);
-
 	Msa[msa_offset-1].OverrideUserPixelWidth = 1;
+//	XDp_RxSetLineReset(DpRxSsInst.DpPtr,offset);
+//	usleep (400000);
 
 	if (DpHres != 0) {
 
     xil_printf("*** Stream %d:\r\n", offset);
 	xil_printf("*** Detected Resolution: "
 				"%lu x %lu @ %luHz, BPC = %lu, PPC = 4***\n\r",
-			DpHres, DpVres,recv_frame_clk_int,bpc //,Msa[offset-1].UserPixelWidth
+			DpHres, DpVres,recv_frame_clk_int,bpc
 		);
 	}
 

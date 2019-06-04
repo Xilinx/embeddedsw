@@ -951,7 +951,9 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 * @note		None.
 *
 ******************************************************************************/
-void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame)
+#if 0
+// This functionality moved to driver wef 2019.2
+void sendAudioInfoFrame(XDp_TxAudioInfoFrame *xilInfoFrame)
 {
 	u8 db1, db2, db3, db4;
 	u32 temp;
@@ -1012,7 +1014,7 @@ void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame)
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 			XDP_TX_AUDIO_INFO_DATA(1), temp);
 }
-
+#endif
 /*****************************************************************************/
 /**
 *

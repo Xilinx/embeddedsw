@@ -97,7 +97,7 @@ void pt_help_menu();
 void select_rx_quad(void);
 void DpPt_LaneLinkRateHelpMenu(void);
 
-void start_audio_passThrough(u8 LineRate_init_tx);
+void start_audio_passThrough();
 
 u8 edid_page;
 u8 tx_after_rx = 0;
@@ -174,6 +174,7 @@ void DpPt_Main(void){
 	//reading the first block of EDID
 	if (XDpTxSs_IsConnected(&DpTxSsInst)) {
 		XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid_org, 0);
+
 		u8 Sum = 0;
 		for (int i = 0; i < 128; i++) {
 			Sum += Edid_org[i];
@@ -189,7 +190,6 @@ void DpPt_Main(void){
 			XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid2_org, 2);
 
 		xil_printf("Reading EDID contents of the DP Monitor..\r\n");
-
 
 		int i, j;
 
@@ -468,30 +468,30 @@ void DpPt_Main(void){
 					xil_printf ("Rxd Hactive =  %d\r\n",
 							((XDp_ReadReg(VidFrameCRC_rx.Base_Addr,
 								0xC)&0xFFFF) + 1) *
-								(XDp_ReadReg(VidFrameCRC_rx.Base_Addr,0x0)));
+								((XDp_ReadReg(VidFrameCRC_rx.Base_Addr,0x0)) & 0x7));
 
 					xil_printf ("Rxd Vactive =  %d\r\n",
 							XDp_ReadReg(VidFrameCRC_rx.Base_Addr,0xC)>>16);
 					xil_printf ("CRC Cfg     =  0x%x\r\n",
 							XDp_ReadReg(VidFrameCRC_rx.Base_Addr,0x0));
-					xil_printf ("CRC - R/Y   =  0x%x\r\n",
+					xil_printf ("CRC - R/Cr   =  0x%x\r\n",
 							XDp_ReadReg(VidFrameCRC_rx.Base_Addr,0x4)&0xFFFF);
-					xil_printf ("CRC - G/Cr  =  0x%x\r\n",
+					xil_printf ("CRC - G/Y  =  0x%x\r\n",
 							XDp_ReadReg(VidFrameCRC_rx.Base_Addr,0x4)>>16);
 					xil_printf ("CRC - B/Cb  =  0x%x\r\n",
 							XDp_ReadReg(VidFrameCRC_rx.Base_Addr,0x8)&0xFFFF);
 					xil_printf ("========== Tx CRC===========\r\n");
 					xil_printf ("Txd Hactive =  %d\r\n",
 						((XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0xC)&0xFFFF)+ 1)
-						  * (XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0x0)));
+						  * ((XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0x0)) & 0x7));
 
 					xil_printf ("Txd Vactive =  %d\r\n",
 							XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0xC)>>16);
 					xil_printf ("CRC Cfg     =  0x%x\r\n",
 							XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0x0));
-					xil_printf ("CRC - R/Y   =  0x%x\r\n",
+					xil_printf ("CRC - R/Cr   =  0x%x\r\n",
 							XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0x4)&0xFFFF);
-					xil_printf ("CRC - G/Cr  =  0x%x\r\n",
+					xil_printf ("CRC - G/Y  =  0x%x\r\n",
 							XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0x4)>>16);
 					xil_printf ("CRC - B/Cb  =  0x%x\r\n",
 							XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0x8)&0xFFFF);
@@ -908,7 +908,6 @@ void DpPt_Main(void){
 				DpRxSsInst.link_up_trigger == 1) {
 		    tx_after_rx = 0;
 		    if (track_msa == 1) {
-//				usleep(20000);
 				start_tx_after_rx();
 				// It is observed that some monitors do not give HPD
 				// pulse. Hence checking the link to re-trigger
@@ -936,22 +935,12 @@ void DpPt_Main(void){
 
 
 /* Audio passThrough setting */
-void start_audio_passThrough(u8 LineRate_init_tx){
+void start_audio_passThrough(){
 
-	// Copy the Audi Infoframe data from RX to TX
+	// Program the Infoframe data into TX
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,	XDP_TX_AUDIO_CONTROL, 0x0);
-	xilInfoFrame->audio_channel_count = AudioinfoFrame.audio_channel_count;
-	xilInfoFrame->audio_coding_type = AudioinfoFrame.audio_coding_type;
-	xilInfoFrame->channel_allocation = AudioinfoFrame.channel_allocation;
-	xilInfoFrame->downmix_inhibit = AudioinfoFrame.downmix_inhibit;
-	xilInfoFrame->info_length = AudioinfoFrame.info_length;
-	xilInfoFrame->level_shift = AudioinfoFrame.level_shift;
-	xilInfoFrame->sample_size = AudioinfoFrame.sample_size;
-	xilInfoFrame->sampling_frequency = AudioinfoFrame.sampling_frequency;
-	xilInfoFrame->type = AudioinfoFrame.type;
-	xilInfoFrame->version = AudioinfoFrame.version;
 	usleep(30000);
-	sendAudioInfoFrame(xilInfoFrame);
+	XDpTxSs_SendAudioInfoFrame(&DpTxSsInst,xilInfoFrame);
 	usleep(30000);
 
 }
@@ -1100,8 +1089,6 @@ void start_tx_after_rx (void) {
 	set_vphy(LineRate_init_tx);
 	LaneCount_init_tx = LaneCount_init_tx & 0x7;
 
-//	frameBuffer_stop_rd();
-
 	if(downshift4K == 0){
 		start_tx (LineRate_init_tx, LaneCount_init_tx,user_config, Msa);
 
@@ -1158,7 +1145,7 @@ void unplug_proc (void) {
 		XVPHY_GTHE4_PREEMP_DP_L0);
 
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,	XDP_TX_AUDIO_CONTROL, 0x0);
-	XACR_WriteReg (RX_ACR_ADDR, RXACR_MODE, 0x0);// 1);
+	XACR_WriteReg (RX_ACR_ADDR, RXACR_MODE, 0x0);
 
 
 #if ENABLE_AUDIO
@@ -1260,6 +1247,16 @@ void audio_start_rx (void) {
 			//Disable Infoframe Intr
 			XDp_RxInterruptDisable(DpRxSsInst.DpPtr,
 			            XDP_RX_INTERRUPT_MASK_INFO_PKT_MASK);
+			xilInfoFrame->audio_channel_count = AudioinfoFrame.audio_channel_count;
+			xilInfoFrame->audio_coding_type = AudioinfoFrame.audio_coding_type;
+			xilInfoFrame->channel_allocation = AudioinfoFrame.channel_allocation;
+			xilInfoFrame->downmix_inhibit = AudioinfoFrame.downmix_inhibit;
+			xilInfoFrame->info_length = AudioinfoFrame.info_length;
+			xilInfoFrame->level_shift = AudioinfoFrame.level_shift;
+			xilInfoFrame->sample_size = AudioinfoFrame.sample_size;
+			xilInfoFrame->sampling_frequency = AudioinfoFrame.sampling_frequency;
+			xilInfoFrame->type = AudioinfoFrame.type;
+			xilInfoFrame->version = AudioinfoFrame.version;
 			audio_info_avail = 1;
 			AudioinfoFrame.frame_count = 0;
 		}
@@ -1273,12 +1270,13 @@ void audio_start_tx (void) {
 
 	// Audio on TX will be started only when RX receives Audio Infoframes
 	// and after a delay
-	if (tx_done == 1 && i2s_tx_started == 1 && i2s_started == 0 && audio_info_avail == 1 && aud_start_delay == AUD_START_DELAY) {
+	if (tx_done == 1 && i2s_tx_started == 1 && i2s_started == 0 && audio_info_avail == 1
+			&& aud_start_delay == AUD_START_DELAY) {
 	filter_count_b++;
 	if (filter_count_b == 50) {
 
 #if WAIT_ON_AUD_INFO
-		start_audio_passThrough(LineRate_init_tx);
+		start_audio_passThrough();
 #endif
 
 	} else if (filter_count_b > 200) {
