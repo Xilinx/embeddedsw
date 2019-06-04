@@ -116,6 +116,10 @@ extern "C" {
 #include "xttcps_hw.h"
 #include "xstatus.h"
 
+/*****************************************************************************/
+typedef void (*XTtcPs_StatusHandler) (const void *CallBackRef, u32 StatusEvent);
+
+
 /************************** Constant Definitions *****************************/
 
 
@@ -164,6 +168,8 @@ typedef struct {
 typedef struct {
 	XTtcPs_Config Config;	/**< Configuration structure */
 	u32 IsReady;		/**< Device is initialized and ready */
+	XTtcPs_StatusHandler StatusHandler;
+	void *StatusRef;	/**< Callback reference for status handler */
 } XTtcPs;
 
 /**
@@ -454,6 +460,9 @@ u32 XTtcPs_GetOptions(XTtcPs *InstancePtr);
  * Function for self-test, in file xttcps_selftest.c
  */
 s32 XTtcPs_SelfTest(XTtcPs *InstancePtr);
+u32 XTtcPs_InterruptHandler(XTtcPs *InstancePtr);
+void XTtcPs_SetStatusHandler(XTtcPs *InstancePtr, void *CallBackRef,
+		XTtcPs_StatusHandler FuncPointer);
 
 #ifdef __cplusplus
 }
