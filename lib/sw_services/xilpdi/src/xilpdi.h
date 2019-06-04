@@ -278,7 +278,7 @@ typedef struct {
  * It contains all the information of Image header in order.
  */
 typedef struct {
-	u32 FirstPrtnHdr; /**< First parition header in the image */
+	u32 FirstPrtnHdr; /**< First partition header in the image */
 	u32 NoOfPrtns; /**< Number of partitions in the image */
 	u32 Rsvd1; /**< Reserved */
 	u32 ImgAttr; /**< Image Attributes */

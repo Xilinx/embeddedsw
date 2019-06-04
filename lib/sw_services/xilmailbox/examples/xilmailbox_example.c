@@ -118,7 +118,7 @@ int XMailbox_Example(XMailbox *InstancePtr, u8 DeviceId)
 	while(!ErrorStatus && !RecvDone);
 
 	if (ErrorStatus) {
-		xil_printf("Error occured during IPI transfer\n\r");
+		xil_printf("Error occurred during IPI transfer\n\r");
 		Status = XST_FAILURE;
 		goto Done;
 	}
@@ -156,7 +156,7 @@ int XMailbox_Example(XMailbox *InstancePtr, u8 DeviceId)
 	while(!ErrorStatus && !RecvDone);
 	if (ErrorStatus) {
 		Status = XST_FAILURE;
-		xil_printf("Error occured during IPI transfer\n\r");
+		xil_printf("Error occurred during IPI transfer\n\r");
 		goto Done;
 	}
 
@@ -168,7 +168,7 @@ int XMailbox_Example(XMailbox *InstancePtr, u8 DeviceId)
 		goto Done;
 	}
 
-	/* Comapre Data */
+	/* Compare Data */
 	for (Index = 0; Index < TEST_MSG_LEN; Index++) {
 		if (ReqBuffer[Index] != (~TmpBufPtr[Index])) {
 			xil_printf("Data Mismatch Expected: 0x%08x"

@@ -29,7 +29,7 @@
 /*
  * CONTENT
  * Each PU client in the system have such file with definitions of
- * masters in the subsystem and functions for getting informations
+ * masters in the subsystem and functions for getting information
  * about the master.
  */
 

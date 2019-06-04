@@ -185,7 +185,7 @@ proc xgen_opts_file {libhandle} {
 			}
 		}
 		if {$num_logical_vol > 10} {
-			puts "WARNING : File System supports only upto 10 logical drives\
+			puts "WARNING : File System supports only up to 10 logical drives\
 					Setting back the num of vol to 10\n"
 			set num_logical_vol 10
 		}

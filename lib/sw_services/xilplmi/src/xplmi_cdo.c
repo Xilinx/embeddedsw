@@ -266,7 +266,7 @@ int XPlmi_CdoCmdResume(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Size)
 		CdoPtr->CmdState = 0U;
 	}
 
-	/** Copy the image id to cmd subsytem ID */
+	/** Copy the image id to cmd subsystem ID */
 	CmdPtr->SubsystemId = CdoPtr->ImgId;
 
 	CmdPtr->Payload = BufPtr;
@@ -319,11 +319,11 @@ int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Size)
 
 	/**
 	 * Check if Cmd payload is less than buffer size,
-	 * then copy to temparary buffer
+	 * then copy to temporary buffer
 	 */
 	if ((*Size > BufLen) && (BufLen < XPLMI_CMD_LEN_TEMPBUF))
 	{
-		/** Copy Cmd to temparary buffer */
+		/** Copy Cmd to temporary buffer */
 		memcpy(CdoPtr->TempCmdBuf, BufPtr, BufLen*4);
 		CdoPtr->CopiedCmdLen = BufLen;
 		*Size = BufLen;
@@ -340,7 +340,7 @@ int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Size)
 		CdoPtr->CmdState = XPLMI_CMD_STATE_RESUME;
 	}
 
-	/** Copy the image id to cmd subsytem ID */
+	/** Copy the image id to cmd subsystem ID */
 	CmdPtr->SubsystemId = CdoPtr->ImgId;
 
 	/** Execute the command */
@@ -404,7 +404,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 	}
 
 	/**
-	 * Incase CmdEnd is detected in previous iteration,
+	 * In case CmdEnd is detected in previous iteration,
 	 * it just returns
 	 */
 	if (CdoPtr->CmdEndDetected == TRUE)

@@ -140,7 +140,7 @@ XStatus XilPdi_ValidateChecksum(u32 Buffer[], u32 Len)
 	u32 Checksum=0U;
 	u32 Count;
 
-	/* Len has to be atleast equal to 2 */
+	/* Len has to be at least equal to 2 */
 	if (Len < 2U)
 	{
 		Status = XST_FAILURE;

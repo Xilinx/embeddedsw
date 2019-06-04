@@ -164,7 +164,7 @@ typedef struct {
 
 /***************************** Function Prototypes ***************************/
 
-/* ZynqMP specific RSA core intialization function */
+/* ZynqMP specific RSA core initialization function */
 u32 XSecure_RsaCfgInitialize(XSecure_Rsa *InstancePtr);
 
 /* ZynqMP specific RSA core encryption/decryption function */

@@ -55,10 +55,10 @@
 
 /************************** Constant Definitions *****************************/
 
-/* Harcoded KUP key for encryption of data */
+/* Hardcoded KUP key for encryption of data */
 #define	XSECURE_AES_KEY	\
 	"F878B838D8589818E868A828C8488808F070B030D0509010E060A020C0408000"
-/* Harcoded IV for encryption of data */
+/* Hardcoded IV for encryption of data */
 #define	XSECURE_IV	"D2450E07EA5DE0426C0FA133"
 
 #define XSECURE_DATA	\
@@ -259,7 +259,7 @@ static s32 SecureAesExample(void)
  * @param	Num is the output nibble.
  *
  * @return
- * 		- XST_SUCCESS no errors occured.
+ * 		- XST_SUCCESS no errors occurred.
  *		- ERROR when input parameters are not valid
  *
  * @note	None.
@@ -292,7 +292,7 @@ static u32 Secure_ConvertCharToNibble(char InChar, u8 *Num)
  * @param	Len of the input string. Should have even values
  *
  * @return
- *		- XST_SUCCESS no errors occured.
+ *		- XST_SUCCESS no errors occurred.
  *		- ERROR when input parameters are not valid
  *		- an error when input buffer has invalid values
  *

@@ -91,7 +91,7 @@ static int XLoader_LoadSubsystemPdi(XPlmi_Cmd * Cmd)
 	PdiAddr = ((u64 )Cmd->Payload[2] |
 		   (PdiAddr << 32));
 
-	XPlmi_Printf(DEBUG_INFO, "Subsytem PDI Load: Started\n\r");
+	XPlmi_Printf(DEBUG_INFO, "Subsystem PDI Load: Started\n\r");
 
 	PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
 	Status = XLoader_LoadPdi(PdiPtr, PdiSrc, PdiAddr);

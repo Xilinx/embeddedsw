@@ -50,7 +50,7 @@
 * ----- --- -------- -----------------------------------------------
 * 1.00  srt 06/20/12 First release
 * 3.01  srt 03/03/13 Modified the flash write, erase and read logic.
-*		     Ensured flash blocks are unprotected befor a flash erase
+*		     Ensured flash blocks are unprotected before a flash erase
 *		     or write operation. (CR 703816)
 * 3.02  srt 04/26/13 Modified Erase function to perform Write Enable operation
 *		     for each sector erase.

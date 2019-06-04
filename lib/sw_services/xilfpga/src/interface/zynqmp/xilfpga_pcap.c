@@ -2429,7 +2429,7 @@ static u8 XFpga_GetFirmwareState(void)
 }
 
 /*****************************************************************************/
-/* This function is responsible for  identifying the Bitstream Endianess,
+/* This function is responsible for  identifying the Bitstream Endianness,
  * and set the required csudma configurations before transfer the data
  * into the PL.
  *

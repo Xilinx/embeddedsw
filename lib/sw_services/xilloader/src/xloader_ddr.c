@@ -30,7 +30,7 @@
 * @file xloader_ddr.c
 *
 * This is the file which contains DDR init and copy functions
-* related code for the platfrom loader.
+* related code for the platform loader.
 *
 * <pre>
 * MODIFICATION HISTORY:

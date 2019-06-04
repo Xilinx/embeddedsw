@@ -65,7 +65,7 @@
 * 3.0   vns    02/27/18 Modified example to decrypt the single partition
 *                       image instead of FSBL partition in boot image.
 * 3.1   vns    04/04/18 For CR-998923, if data is greater than 1MB size,
-*                       decrypted data is overwritting the part of source and
+*                       decrypted data is overwriting the part of source and
 *                       decryption of image is failing, to fix this modified
 *                       destination address, from now on image is overwritten
 *                       with decrypted data.

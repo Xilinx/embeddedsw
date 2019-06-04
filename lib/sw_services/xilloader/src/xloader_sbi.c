@@ -29,7 +29,7 @@
 *
 * @file xloader_sbi.c
 *
-* This is the file which contains SBI related code for the platfrom loader.
+* This is the file which contains SBI related code for the platform loader.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -206,7 +206,7 @@ int XLoader_SbiRelease(void )
 
 /*****************************************************************************/
 /**
- * This function will reset the SBI interfave
+ * This function will reset the SBI interface
  * @param	None
  * @return	None
  *

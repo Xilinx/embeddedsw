@@ -855,7 +855,7 @@ int XFlashAmd_Lock(XFlash * InstancePtr, u32 Offset, u32 Bytes)
 * @param	InstancePtr is the pointer to the XFlash instance.
 * @param	Offset is the offset into the device(s) address space from which
 *		to begin block UnLocking. The first three bytes of every block
-*		is reserved for special purpose. The offset should be atleast
+*		is reserved for special purpose. The offset should be at least
 *		three bytes from start of the block.
 * @param	Bytes indicates the number of bytes to UnLock in the Block
 *		starting from Offset.

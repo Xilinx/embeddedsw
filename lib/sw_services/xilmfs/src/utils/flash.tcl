@@ -95,7 +95,7 @@ proc id_test { } {
 
 #
 # Initialize the flash. 
-# - Creates the flash target and registers the funtion with xmd.
+# - Creates the flash target and registers the function with xmd.
 # - Initializes the parameters for the respective flash
 #
 proc flash_init {flash_addr board_target} {
@@ -308,7 +308,7 @@ proc flash_data_wrmem {bytes addr num } {
     puts [format "Chunk Length: 0x%08x, Addr: 0x%08x" $num $flash_cur_write_addr]
     
     # flash_new_block_addr is addr range in word mode and we have 2 flash chips
-    # Check if space available in the current flash block to accomadate the
+    # Check if space available in the current flash block to accommodate the
     # section. If not, then call block erase on the next flash block.
     set num_unaligned_bytes [expr $num%4]
     set num_pad_bytes [expr (4 - $num_unaligned_bytes)%4]
@@ -381,7 +381,7 @@ proc flash_wrmem {bytes addr num } {
     # - Section data. The data is padded so that it is Word aligned. 
 
     # flash_new_block_addr is addr range in word mode and we have 2 flash chips
-    # Check if space available in the current flash block to accomadate the
+    # Check if space available in the current flash block to accommodate the
     # section. If not, then call block erase on the next flash block.
     set num_unaligned_bytes [expr $num%4]
     set num_pad_bytes [expr (4 - $num_unaligned_bytes)%4]
@@ -451,7 +451,7 @@ proc flash_wrreg {reg value} {
     puts [format "Program Start address: 0x%08x" $value]
     
     # flash_new_block_addr is addr range in word mode and we have 2 flash chips
-    # Check if space available in the current flash block to accomadate the
+    # Check if space available in the current flash block to accommodate the
     # section. If not, then call block erase on the next flash block.
 
     if { [expr $flash_cur_write_addr + 4] >= $flash_max_empty_addr } {
@@ -459,7 +459,7 @@ proc flash_wrreg {reg value} {
     }
     
     if { $reg != 32 } {
-	error "Error: Dont know how to write register $reg"
+	error "Error: Don't know how to write register $reg"
     }
 
     flash_fast_program_set

@@ -228,7 +228,7 @@ typedef struct {
 #define DRDEINIT		0x00
 
 /*
- * Data and instruction lenghts in de-init
+ * Data and instruction lengths in de-init
  */
 #define IRDEINITLEN		10
 #define DRDEINITLEN		2

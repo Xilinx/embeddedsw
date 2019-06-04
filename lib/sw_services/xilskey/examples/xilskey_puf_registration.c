@@ -31,7 +31,7 @@
  * @file xilskey_puf_registration.c
  *
  * This file illustrates how to do PUF registration and generating syndrome
- * data and obtaining helper data, debug 2 result, Auxilary and CHash values
+ * data and obtaining helper data, debug 2 result, Auxiliary and CHash values
  * from generated syndrome data.
  * This example also encrypts the provided AES key with PUF and generates
  * the black key.
@@ -203,7 +203,7 @@ int main() {
 			break;
 		}
 	}
-	/* If Black key is zero, dont program eFuse with helper data */
+	/* If Black key is zero, don't program eFuse with helper data */
 	if (IsBlackKeyZero) {
 		Status = XPUF_ZERO_BLACK_KEY_ERROR;
 		xPuf_printf(XPUF_DEBUG_GENERAL,
@@ -261,7 +261,7 @@ int main() {
 			}
 		}
 
-		/* Programming Auxilary data into eFUSE */
+		/* Programming Auxiliary data into eFUSE */
 		Status = XilSKey_ZynqMp_EfusePs_WritePufAux(&PufInstance);
 		if (Status != XST_SUCCESS) {
 			xPuf_printf(XPUF_DEBUG_GENERAL,
@@ -695,7 +695,7 @@ static u32 XilSkey_Program_Black_Key()
  * @param	Num is the output nibble.
  *
  * @return
- * 		- XST_SUCCESS no errors occured.
+ * 		- XST_SUCCESS no errors occurred.
  *		- ERROR when input parameters are not valid
  *
  * @note	None.
@@ -727,7 +727,7 @@ static u32 XilSKey_Puf_ConvertCharToNibble(char InChar, u8 *Num) {
  * @param	Len of the input string. Should have even values
  *
  * @return
- *		- XST_SUCCESS no errors occured.
+ *		- XST_SUCCESS no errors occurred.
  *		- ERROR when input parameters are not valid
  *		- an error when input buffer has invalid values
  *
@@ -875,7 +875,7 @@ static u32 XilSKey_Puf_Encrypt_Key()
 			"App: AES Initialize failed \n\r");
 		goto ENDENCRYPT;
 	}
-	/* Set the data endianess for IV */
+	/* Set the data endianness for IV */
 	XCsuDma_GetConfig(&CsuDma, XCSUDMA_SRC_CHANNEL,
 				&ConfigurValues);
 	ConfigurValues.EndianType = 1U;

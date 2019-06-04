@@ -47,7 +47,7 @@
 * 1.01a ksu  04/10/08 Added support for AMD CFI Interface
 * 1.02a ksu  06/16/09 Added support for multiple banks in Intel flash.
 *                     Added support for Xilinx Platform Flash XL. If the
-*                     user selects to use the Xilinx Platfrom Flash XL then
+*                     user selects to use the Xilinx Platform Flash XL then
 *                     it is set to Async mode during the initialization.
 *                     If the user wants to use it in Sync mode then it can be
 *                     done using the XFlash_DeviceControl API.
@@ -326,7 +326,7 @@ int XFlash_Erase(XFlash * InstancePtr, u32 Offset, u32 Bytes)
 * @param	Offset		Offset into the device(s) address space from
 *				which to begin block locking. The first
 *				three bytes of every block is reserved for
-*				special purpose. The offset should be atleast
+*				special purpose. The offset should be at least
 *				three bytes from start of the block.
 * @param	Bytes		Number of bytes to Lock in the Block starting
 *				from Offset.
@@ -367,7 +367,7 @@ int XFlash_Lock(XFlash * InstancePtr, u32 Offset, u32 Bytes)
 * @param	Offset		Offset into the device(s) address space from
 *				which to begin block UnLocking. The first three
 *				bytes of every block is reserved for special
-*				purpose. The offset should be atleast three
+*				purpose. The offset should be at least three
 *				bytes from start of the block.
 * @param	Bytes		Number of bytes to UnLock in the Block
 *				starting from Offset.

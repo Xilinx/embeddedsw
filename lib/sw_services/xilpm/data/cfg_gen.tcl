@@ -14,9 +14,9 @@ proc is_rpu_lockstep {} {
 
 	# Get the property that describes sub-system in design
 	set zusp [get_cells -hier -filter "IP_NAME == zynq_ultra_ps_e"]
-	#if we dont find a valid ZU+ IP
+	#if we don't find a valid ZU+ IP
 	if { [llength $zusp] == 0 } {
-		#defualt to split mode
+		#default to split mode
 		return 0
 	}
 	set subsys_str [get_property CONFIG.PSU__PROTECTION__SUBSYSTEMS [lindex $zusp 0]]
@@ -55,7 +55,7 @@ proc is_master_defined { master } {
 	# Get the property that describes sub-system in design
 	set zusp [get_cells -hier -filter "IP_NAME == zynq_ultra_ps_e"]
 
-	#if we dont find a valid ZU+ IP
+	#if we don't find a valid ZU+ IP
 	if { [llength $zusp] == 0 } {
 		return 0
 	}
@@ -144,7 +144,7 @@ proc get_tcm_r5_perm_mask { r5_proc tcm_bank } {
 	set perm_mask 0x00000000
 	switch -glob $r5_proc {
 		"psu_cortexr5_0" {
-			# Incase of LS, all TCMs are accessible to R5_0
+			# In case of LS, all TCMs are accessible to R5_0
 			if { [is_rpu_lockstep]} {
 				set perm_mask [get_ipi_mask $r5_proc]
 			} else {

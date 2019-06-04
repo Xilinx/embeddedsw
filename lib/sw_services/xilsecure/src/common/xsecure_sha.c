@@ -105,7 +105,7 @@ static void XSecure_Sha3NistPadd(XSecure_Sha3 *InstancePtr, u8 *Dst,
 * @param	InstancePtr 	Pointer to the XSecure_Sha3 instance.
 * @param	CsuDmaPtr 	Pointer to the XCsuDma instance.
 *
-* @return	XST_SUCCESS if initialization was successfull
+* @return	XST_SUCCESS if initialization was successful
 *
 * @note		The base address is initialized directly with value from
 * 		xsecure_hw.h
@@ -145,7 +145,7 @@ s32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XCsuDma* CsuDmaPtr)
  * 			 - For NIST SHA-3 padding - XSECURE_CSU_NIST_SHA3
  * 			 - For KECCAK SHA-3 padding - XSECURE_CSU_KECCAK_SHA3
  *
- * @return	XST_SUCCESS if pad selection is successfull.
+ * @return	XST_SUCCESS if pad selection is successful.
  * 		XST_FAILURE if pad selecction is failed.
  *
  * @note	The default provides support for NIST SHA-3. If a user wants
@@ -283,7 +283,7 @@ void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
  * @param	Data 		Pointer to the input data for hashing.
  * @param	Size 		Size of the input data in bytes.
  *
- * @return	XST_SUCCESS if the update is successfull
+ * @return	XST_SUCCESS if the update is successful
  * 		XST_FAILURE if there is a failure in SSS config
  *
  ******************************************************************************/

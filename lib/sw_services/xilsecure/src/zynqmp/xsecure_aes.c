@@ -180,7 +180,7 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 	if(Status != (u32)XST_SUCCESS){
 		goto END;
 	}
-	/* Clear AES contents by reseting it. */
+	/* Clear AES contents by resetting it. */
 	XSecure_AesReset(InstancePtr);
 
 	/* Clear AES_KEY_CLEAR bits to avoid clearing of key */
@@ -302,7 +302,7 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, const u8 *Data, u32 Size)
 		/* Acknowledge the transfer has completed */
 		XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
 						XCSUDMA_IXR_DONE_MASK);
-		/* Disble CSU DMA Dst channel for byte swapping. */
+		/* Disable CSU DMA Dst channel for byte swapping. */
 		XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
 		                                 XCSUDMA_DST_CHANNEL, 0U);
 
@@ -411,7 +411,7 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 		}
 	}
 
-	/* Clear AES contents by reseting it. */
+	/* Clear AES contents by resetting it. */
 	XSecure_AesReset(InstancePtr);
 
 	/* Configure AES for Decryption */
@@ -609,9 +609,9 @@ END:
  * @param	DataPtr Pointer to the memory which need to be zeroized.
  * @param	Length	Length of the data.
  *
- *return	Final call of this API returns the status of Comparision.
+ *return	Final call of this API returns the status of Comparison.
  *			- XSECURE_CSU_AES_ZEROIZATION_ERROR: If Zeroization is not
- *								Successfull.
+ *								Successful.
  *			- XST_SUCCESS: If Zeroization is Scuccesfull.
  *
  ********************************************************************************/
@@ -1119,7 +1119,7 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 							XCSUDMA_DST_CHANNEL,
 							XCSUDMA_IXR_DONE_MASK);
 
-				/* Disble CSU DMA Dst channel for byte swapping */
+				/* Disable CSU DMA Dst channel for byte swapping */
 				XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
 												 XCSUDMA_DST_CHANNEL, 0U);
 			}
@@ -1356,7 +1356,7 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 	SrcAddr = (u8 *)Src ;
 	GcmTagAddr = SrcAddr + XSECURE_SECURE_HDR_SIZE;
 
-	/* Clear AES contents by reseting it. */
+	/* Clear AES contents by resetting it. */
 	XSecure_AesReset(InstancePtr);
 
 	/* Clear AES_KEY_CLEAR bits to avoid clearing of key */

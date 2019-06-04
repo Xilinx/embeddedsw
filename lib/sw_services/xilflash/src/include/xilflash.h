@@ -60,7 +60,7 @@
 * 	Flash memory space is segmented into areas called blocks. The size of
 * 	each block is based on a power of 2. A region is defined as a contiguous
 *	set of blocks of the same size. Some parts have several regions while
-*	others have one. The arrangement of blocks and regions is refered to by
+*	others have one. The arrangement of blocks and regions is referred to by
 *	this module as the part's geometry. Some Intel flash supports multiple
 *	banks on the same device. This library supports single and multiple bank
 *	flash devices.

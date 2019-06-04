@@ -1,7 +1,7 @@
 This directory contains the following files:
 readme.txt:		This file
 
-flash.tcl:		TCL script to be used in conjuction with xmd to download MFS image to 
+flash.tcl:		TCL script to be used in conjunction with xmd to download MFS image to 
 			flash. Warning: The script has to be modified depending on the board,
 			flash memory type, etc.
 
@@ -47,7 +47,7 @@ The Flash writer supports Toshiba TH50VSF2580/2581AASB and TH50VSF3680/3681AASB 
 	d. flash_init 0x1f800000 0 
 		- Create and initialize the flash target. 
 		  Specify the flash start address (0x1f800000) and existing xmd target (0).
-		*** Depends on the address assinged to flash memory in your system
+		*** Depends on the address assigned to flash memory in your system
 	e. flash_data_dow  filesys.mfs 0x1f800000
 		- Download the mfs image file called filesys.mfs from host to flash ROM
 

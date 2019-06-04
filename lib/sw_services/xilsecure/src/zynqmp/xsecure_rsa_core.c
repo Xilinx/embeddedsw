@@ -285,7 +285,7 @@ static void XSecure_RsaGetData(XSecure_Rsa *InstancePtr, u32 *RdData)
 
 	/** Total bits to be read 4096
 	 * Each iteration of this loop reads 32 * 6 = 192 bits
-	 * Therfore, for 4096, total iterations required = 4096/192 = 21.33 = 22
+	 * Therefore, for 4096, total iterations required = 4096/192 = 21.33 = 22
 	 */
 	for (DataOffset = 0U; DataOffset < 22U; DataOffset++)
 	{
@@ -383,7 +383,7 @@ static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
 
 	/** Total bits to be written 4096 (RSA Key size)
 	 * Each iteration of this loop writes 32 * 6 = 192 bits
-	 * Therfore, for 4096, total iteration required = 4096/192 = 21.33 = 22
+	 * Therefore, for 4096, total iteration required = 4096/192 = 21.33 = 22
 	 */
 	for (DataOffset = 0U; DataOffset < 22U; DataOffset++)
 	{
@@ -410,7 +410,7 @@ static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
 					/**
 					* The RSA data in Image is in Big Endian.
 					* So reverse it before putting in RSA memory,
-					* becasue RSA h/w expects it in Little endian.
+					* because RSA h/w expects it in Little endian.
 					*/
 					Data = Xil_Htonl(
 					        WrData[(InstancePtr->SizeInWords - 1) - TmpIndex]);

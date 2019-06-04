@@ -584,7 +584,7 @@ XStatus XPmSubsystem_Restart(u32 SubsystemId)
 				/*
 				 * In case the application has not released its
 				 * devices prior to restart request, it is
-				 * released here.  Dont release DDR as there is no DDR CDO
+				 * released here.  Don't release DDR as there is no DDR CDO
 				 * to bring it up back again.  TODO - need to understand
 				 * why releasing TCM0_A causes failure.
 				 */

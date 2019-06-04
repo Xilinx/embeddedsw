@@ -193,7 +193,7 @@ u32 XilSKey_ZynqMp_Bbram_Zeroise(void)
 		Offset = Offset + 4U;
 	}
 
-	/* Issue the zeroize comand */
+	/* Issue the zeroize command */
 	XilSKey_WriteReg(XSK_ZYNQMP_BBRAM_BASEADDR, XSK_ZYNQMP_BBRAM_CTRL_OFFSET,
 				XSK_ZYNQMP_BBRAM_CTRL_ZEROIZE_MASK);
 

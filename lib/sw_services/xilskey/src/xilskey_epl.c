@@ -1792,7 +1792,7 @@ static inline u32 XilSKey_EfusePl_ReadKey_Checks(XilSKey_EPl *InstancePtr)
 *
 * @param	Row is the row number of Fuse array.
 * @param	Margin option is the option to select in which mode read has
-*		to be happend
+*		to be happened
 * @param	RowDataBytes is a pointer to an array to store the read value
 *		of given row.
 * @param	Redundant is the option to be selected either redundant row
@@ -1940,7 +1940,7 @@ static inline u8 XilSKey_EfusePl_ReadRow_Ultra(u32 Row, u8 MarginOption,
 * @param	Row is the row number of Fuse array.
 * @param	Bit is the bit position to be read.
 * @param	Margin option is the option to select in which mode read has
-*		to be happend
+*		to be happened
 * @param	BitData is a pointer to a variable to store the read value
 *		of given given bit in provided row.
 * @param	Redundant is the option to be selected either redundant row
@@ -3089,7 +3089,7 @@ static inline u32 XilSKey_EfusePl_Program_AesKey_ultra(void)
 * of Ultrascale and ultrascale plus.
 * For ultrascale plus, read row contains both redundant and normal bits
 * upper 16 bits contains redundant bits and lower 16 bits contain normal
-* bits, each row wil have only 16 valid bits.
+* bits, each row will have only 16 valid bits.
 *
 * @param	Row is the row number.
 * @param	RowData is the ORed result of both rows.

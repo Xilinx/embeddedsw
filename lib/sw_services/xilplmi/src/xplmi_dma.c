@@ -540,7 +540,7 @@ int XPlmi_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
 /**
  * This function is used to ECC initialize the memory
  *
- * @param Addr Memory address to be initialzed
+ * @param Addr Memory address to be initialized
  * @param Len Length of the area to be initialized in bytes
  * @return
  *****************************************************************************/

@@ -450,7 +450,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 					/* Todo: Start timer to poll power node use count */
 				}
 			} else if (XPM_DEVEVENT_SHUTDOWN == Event) {
-				/* Device is alreay in power off state */
+				/* Device is already in power off state */
 				Status = XST_SUCCESS;
 			}
 			break;
@@ -515,7 +515,7 @@ static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 
 	/* Todo: Check whether this device assigned to the subsystem */
 
-	/* Todo: Check whether this device is sharable */
+	/* Todo: Check whether this device is shareable */
 
 	/* Allocated device for the subsystem */
 	Reqm->Allocated = 1;
@@ -1419,7 +1419,7 @@ done:
 /****************************************************************************/
 /**
  * @brief  Get the current usage status for a given device.
- * @param  Subsystem   Subsystem for whcih usage status is in query
+ * @param  Subsystem   Subsystem for which usage status is in query
  * @slave  Device      Device for which usage status need to be calculated
  *
  * @return  Usage status:

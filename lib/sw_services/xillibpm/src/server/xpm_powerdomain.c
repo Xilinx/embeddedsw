@@ -54,7 +54,7 @@ XStatus XPm_PowerUpLPD(XPm_Node *Node)
 	if (XPM_POWER_STATE_ON == Node->State) {
 		goto done;
 	} else {
-		/* TODO: LPD CDO should be rexecuted. Right now we dont have separate LPD
+		/* TODO: LPD CDO should be rexecuted. Right now we don't have separate LPD
 		 * CDO so calling house cleaning commands here
 		 */
 		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, FUNC_INIT_START, NULL, 0);
@@ -209,7 +209,7 @@ XStatus XPm_PowerUpPLD(XPm_Node *Node)
 	if (XPM_POWER_STATE_ON == Node->State) {
 		goto done;
 	} else {
-		/* TODO: PLD CDO should be rexecuted. Right now we dont have separate PLD
+		/* TODO: PLD CDO should be rexecuted. Right now we don't have separate PLD
 		 * CDO so calling house cleaning commands here
 		 */
 		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, FUNC_INIT_START, NULL, 0);

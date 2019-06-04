@@ -227,7 +227,7 @@ static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
 				goto done;
 			}
 		} else if (NodeId == XPM_SUBSYSID_PL) {
-			/* Right now as we dont have
+			/* Right now as we don't have
 			 * init finish for PLD, we assume PL is there when we see
 			 * pm_iso_control commands */
 			 Subsystem = XPmSubsystem_GetById(NodeId);

@@ -451,7 +451,7 @@ extern "C" {
 /**
  * Following defines should be given in the form of hex string.
  * The length of AES_KEY string must be 64, PPK hash should be 96 for
- * SHA3 selction and and for USER_FUSES, SPK ID  must be 32.
+ * SHA3 selection and and for USER_FUSES, SPK ID  must be 32.
  */
 #define XSK_EFUSEPS_AES_KEY		"0000000000000000000000000000000000000000000000000000000000000000"
 

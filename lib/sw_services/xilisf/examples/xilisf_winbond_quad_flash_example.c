@@ -99,7 +99,7 @@
 /*
  * The following definitions specify the number of dummy bytes to ignore in the
  * data read from the flash, through various Read commands. This is apart from
- * the dummy bytes returned in reponse to the command and address transmitted.
+ * the dummy bytes returned in response to the command and address transmitted.
  */
 /*
  * After transmitting Dual Read command and address on DIO0, the quad spi device
@@ -329,7 +329,7 @@ static int IsfWinbondFlashExample()
 
 	/*
 	 * Set the Quad Enable (QE) bit in the flash device, so that Quad
-	 * operations can be perfomed on the flash.
+	 * operations can be performed on the flash.
 	 */
 	Status = SpiFlashQuadEnable();
 	if (Status != XST_SUCCESS) {

@@ -168,7 +168,7 @@ int main()
 	Status = XilSKey_Puf_Encrypt_data();
 	if (Status != XST_SUCCESS) {
 		xPuf_printf(XPUF_DEBUG_GENERAL,
-		"App:Encrytion Failure:0x%08x\r\n",Status);
+		"App:Encryption Failure:0x%08x\r\n",Status);
 	}
 
 	Status = XilSKey_Puf_Decrypt_data();
@@ -253,7 +253,7 @@ u32 XilSKey_Puf_Encrypt_data()
 			"App: AES Initialize failed \n\r");
 		goto ENDENCRYPT;
 	}
-	/* Set the data endianess for IV */
+	/* Set the data endianness for IV */
 	XCsuDma_GetConfig(&CsuDma, XCSUDMA_SRC_CHANNEL,
 				&ConfigurValues);
 	ConfigurValues.EndianType = 1U;
@@ -317,7 +317,7 @@ u32 XilSKey_Puf_Decrypt_data()
 			"App: AES Initialize failed \n\r");
 		goto ENDDECRYPT;
 	}
-	/* Set the data endianess for IV */
+	/* Set the data endianness for IV */
 	XCsuDma_GetConfig(&CsuDma, XCSUDMA_SRC_CHANNEL,
 				&ConfigurValues);
 	ConfigurValues.EndianType = 1U;

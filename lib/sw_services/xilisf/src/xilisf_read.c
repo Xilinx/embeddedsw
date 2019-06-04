@@ -548,7 +548,7 @@ static int ReadData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr, u32 ByteCount)
 				Mode = XIsf_GetTransferMode(InstancePtr);
 
 				/*
-				 * Seting the transfer mode to
+				 * Setting the transfer mode to
 				 * Polled Mode before
 				 * performing the Bank Select
 				 * operation.
@@ -814,7 +814,7 @@ static int FastReadData(XIsf *InstancePtr, u8 Command, u32 Address,
 				Mode = XIsf_GetTransferMode(InstancePtr);
 
 				/*
-				 * Seting the transfer mode to
+				 * Setting the transfer mode to
 				 * Polled Mode before performing
 				 * the Bank Select operation.
 				 */

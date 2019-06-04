@@ -92,7 +92,7 @@ static u8 XilSKey_EfusePs_IsReadModeSupported (u8 ReadMode);
 *
 * @return
 * 		- XST_SUCCESS.
-* 		- Incase of error, value is as defined in xilskey_utils.h
+* 		- In case of error, value is as defined in xilskey_utils.h
 * 		Error value is a combination of Upper 8 bit value and
 * 		Lower 8 bit value. For example, 0x8A03 should be checked
 * 		in error.h as 0x8A00 and 0x03. Upper 8 bit value signifies
@@ -330,8 +330,8 @@ ExitFinal:
 * 	  which PS eFUSE should be burned.
 *
 * @return
-* 		- XST_SUCCESS no errors occured.
-* 		- Incase of error, value is as defined in xilskey_utils.h.
+* 		- XST_SUCCESS no errors occurred.
+* 		- In case of error, value is as defined in xilskey_utils.h.
 * 		Error value is a combination of Upper 8 bit value and
 * 		Lower 8 bit value. For example, 0x8A03 should be checked
 * 		in error.h as 0x8A00 and 0x03. Upper 8 bit value signifies
@@ -536,7 +536,7 @@ ExitControllerReset:
 * @param RefClk is the reference clock frequency. Clock frequency can be
 * 				between 20MHz to 60MHz specified in Hz
 * @return
-* 		- XST_SUCCESS no errors occured
+* 		- XST_SUCCESS no errors occurred
 *		- an error XSK_EFUSEPS_ERROR_WRITE_VCCPAUX_VOLTAGE_OUT_OF_RANGE when
 *		  voltage not in range
 *		- an error XSK_EFUSEPS_ERROR_WRITE_TEMPERATURE_OUT_OF_RANGE when
@@ -615,7 +615,7 @@ XilSKey_EfusePs_WriteWithXadcCheckAndVerify(u32 EfuseAddress, u32 RefClk)
 			return Status;
 		} else {
 			/**
-			 *  Succesfully written lower address, so success
+			 *  Successfully written lower address, so success
 			 */
 			return XST_SUCCESS;
 		}
@@ -1230,7 +1230,7 @@ static u8 XilSKey_EfusePs_IsReadModeSupported (u8 ReadMode)
 * 		- XSK_EFUSEPS_READ_MODE_MARGIN_2
 *
 * @return
-* 		- XST_SUCCESS no errors occured.
+* 		- XST_SUCCESS no errors occurred.
 *		- an error when controller mode is not supported
 *		- an error when reference clock is not supported
 *		- an error when read mode is not supported
@@ -1444,7 +1444,7 @@ void XilSKey_EfusePs_ControllerSetReadWriteEnable(u32 ReadWriteEnable)
 * @param Data has the read eFuse value stored in it.
 *
 * @return
-* 		- XST_SUCCESS for succesfully reading the value.
+* 		- XST_SUCCESS for successfully reading the value.
 *		- an error when addr is restricted
 *
 * Test Cases

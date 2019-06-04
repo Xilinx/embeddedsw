@@ -377,8 +377,8 @@ static struct XPm_ClkTopologyNode* XPmClock_GetTopologyNode(XPm_OutClockNode *Cl
 
 	for (i = 0; i < NumNodes; i++) {
 		if (SubNodes[i].Type == Type) {
-			/* FOr cutom topology, nodes have correct control address but
-			 * for other topologies, theres no separate node memory so fill
+			/* For custom topology, nodes have correct control address but
+			 * for other topologies, there's no separate node memory to fill
 			 * register each time */
 			if (Clk->Topology.Id != TOPOLOGY_CUSTOM) {
 				SubNodes[i].Reg = Clk->ClkNode.Node.BaseAddress;

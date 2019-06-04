@@ -28,7 +28,7 @@
 *
 * @file xloader_prtn_load.c
 *
-* This is the file which contains partition load code for the Platfrom
+* This is the file which contains partition load code for the Platform
 * loader..
 *
 * <pre>

@@ -2448,7 +2448,7 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  This function checks premission for given pin. If subsystem
+ * @brief  This function checks permission for given pin. If subsystem
  *	   requested this pin it returns success else error code.
  *
  * @param SubsystemId	Subsystem ID.
