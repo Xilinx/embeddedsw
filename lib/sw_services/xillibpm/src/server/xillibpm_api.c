@@ -926,8 +926,10 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType)
 		}
 		break;
 	case XPM_SHUTDOWN_SUBTYPE_RST_PS_ONLY:
-	case XPM_SHUTDOWN_SUBTYPE_RST_SYSTEM:
 		/* TODO */
+		break;
+	case XPM_SHUTDOWN_SUBTYPE_RST_SYSTEM:
+		Status = XPmReset_SystemReset();
 		break;
 	default:
 		Status = XST_INVALID_PARAM;
