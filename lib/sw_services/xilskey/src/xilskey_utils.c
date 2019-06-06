@@ -1024,10 +1024,24 @@ u32 XilSKey_Timer_Intialise()
 	TimerTicksfor100ns = 0;
 	u32 ArmPllFdiv;
 	u32 ArmClkDivisor;
-		/**
-		 *  Extract PLL FDIV value from ARM PLL Control Register
-		 */
-	ArmPllFdiv = (Xil_In32(XSK_ARM_PLL_CTRL_REG)>>12 & 0x7F);
+	u32 PllSource;
+
+	/**
+	 *  Extract PLL FDIV value from PLL Control Registers
+	 */
+	PllSource = (Xil_In32(XSK_ARM_CLK_CTRL_REG)>>4 & 0x3);
+	if (PllSource == 0x2) {
+		/* DDR PLL src */
+		ArmPllFdiv = (Xil_In32(XSK_DDR_PLL_CTRL_REG)>>12 & 0x7F);
+	}
+	else if (PllSource == 0x3) {
+		/* IO PLL src */
+		ArmPllFdiv = (Xil_In32(XSK_IO_PLL_CTRL_REG)>>12 & 0x7F);
+	}
+	else {
+		/* ARM PLL src */
+		ArmPllFdiv = (Xil_In32(XSK_ARM_PLL_CTRL_REG)>>12 & 0x7F);
+	}
 
 		/**
 		 *  Extract Clock divisor value from ARM Clock Control Register

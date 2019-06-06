@@ -352,6 +352,14 @@ typedef enum {
  */
 #define XSK_ARM_PLL_CTRL_REG					(XSK_SLCR_START_ADDRESS + 0x100)
 /**
+ * ARM DDR Control Register
+ */
+#define XSK_DDR_PLL_CTRL_REG					(XSK_SLCR_START_ADDRESS + 0x104)
+/**
+ * ARM DDR Control Register
+ */
+#define XSK_IO_PLL_CTRL_REG					(XSK_SLCR_START_ADDRESS + 0x108)
+/**
  * ARM Clock Control Register
  */
 #define XSK_ARM_CLK_CTRL_REG					(XSK_SLCR_START_ADDRESS + 0x120)
