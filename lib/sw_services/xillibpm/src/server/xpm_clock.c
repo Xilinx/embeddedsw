@@ -736,12 +736,17 @@ XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp)
 	} else {
 		SubClass = 0;
 		NodeType = 0;
+		Class = 0;
 	}
 
 	ClockId = NODEID(Class, SubClass, NodeType, ClockIndex);
 
-	/* Clock valid bit. All clocks in topology are valid. */
-	Attr = 1U;
+	/* Clock valid bit. All clocks present in clock database is valid. */
+	if (NULL != ClkNodeList[ClockIndex]) {
+		Attr = 1U;
+	} else {
+		Attr = 0U;
+	}
 
 	//if (PLATFORM_VERSION_SILICON != Platform) {
 	if (1) {
