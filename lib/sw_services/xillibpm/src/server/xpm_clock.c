@@ -789,7 +789,7 @@ done:
 
 XStatus XPmClock_GetNumClocks(u32 *Resp)
 {
-	*Resp = PmNumClocks;
+	*Resp = XPM_NODEIDX_CLK_MAX;
 
 	return XST_SUCCESS;
 }
