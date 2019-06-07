@@ -12,7 +12,7 @@
 
 _STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x1000;
 _HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 0x100;
-
+_USER_CODE_SIZE = DEFINED(_USER_CODE_SIZE) ? _USER_CODE_SIZE : 0x4000;
 /* Define Memories in the system */
 
 MEMORY
@@ -97,6 +97,13 @@ SECTIONS
    *(.data.*)
    *(.gnu.linkonce.d.*)
    __data_end = .;
+} > tmr_ram_cntlr_Mem
+
+.user_code : {
+   _user_code_start = .;
+   . += _USER_CODE_SIZE;
+   . = ALIGN(8);
+   _user_code_end = .;
 } > tmr_ram_cntlr_Mem
 
 .got : {
