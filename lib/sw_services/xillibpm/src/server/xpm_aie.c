@@ -335,19 +335,24 @@ static XStatus AieScanClear(u32 *Args, u32 NumOfArgs)
 		/* Trigger Scan Clear */
 		AiePcsrWrite(ME_NPI_REG_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK,
 			     ME_NPI_REG_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK);
-
+		XPlmi_Printf(DEBUG_INFO, "INFO: %s : Wait for AIE Scan Clear complete...", __func__);
 		/* Wait for Scan Clear DONE */
 		Status = XPm_PollForMask(ME_NPI_REG_PCSR_STATUS,
 					 ME_NPI_REG_PCSR_STATUS_SCAN_CLEAR_DONE_MASK,
 					 AIE_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
+			XPlmi_Printf(DEBUG_INFO, "ERROR\r\n");
 			goto done;
+		}
+		else {
+			XPlmi_Printf(DEBUG_INFO, "DONE\r\n");
 		}
 
 		/* Check Scan Clear PASS */
 		if( (XPm_In32(ME_NPI_REG_PCSR_STATUS) &
 		     ME_NPI_REG_PCSR_STATUS_SCAN_CLEAR_PASS_MASK) !=
 		    ME_NPI_REG_PCSR_STATUS_SCAN_CLEAR_PASS_MASK) {
+			XPlmi_Printf(DEBUG_GENERAL, "ERROR: %s: AIE Scan Clear FAILED\r\n", __func__);
 			Status = XST_FAILURE;
 			goto done;
 		}
@@ -413,19 +418,24 @@ static XStatus AieMbistClear(u32 *Args, u32 NumOfArgs)
 		/* Assert MEM_CLEAR_TRIGGER */
 		AiePcsrWrite(ME_NPI_REG_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK,
 			ME_NPI_REG_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK);
-
+		XPlmi_Printf(DEBUG_INFO, "INFO: %s : Wait for AIE Mem Clear complete...", __func__);
 		/* Wait for Mem Clear DONE */
 		Status = XPm_PollForMask(ME_NPI_REG_PCSR_STATUS,
 					ME_NPI_REG_PCSR_STATUS_MEM_CLEAR_DONE_MASK,
 					AIE_POLL_TIMEOUT);
 		if (Status != XST_SUCCESS) {
+			XPlmi_Printf(DEBUG_INFO, "ERROR\r\n");
 			goto done;
+		}
+		else {
+			XPlmi_Printf(DEBUG_INFO, "DONE\r\n");
 		}
 
 		/* Check Mem Clear PASS */
 		if ((XPm_In32(ME_NPI_REG_PCSR_STATUS) &
 			ME_NPI_REG_PCSR_STATUS_MEM_CLEAR_PASS_MASK) !=
 			ME_NPI_REG_PCSR_STATUS_MEM_CLEAR_PASS_MASK) {
+			XPlmi_Printf(DEBUG_GENERAL, "ERROR: %s: AIE Mem Clear FAILED\r\n", __func__);
 			Status = XST_FAILURE;
 			goto done;
 		}
