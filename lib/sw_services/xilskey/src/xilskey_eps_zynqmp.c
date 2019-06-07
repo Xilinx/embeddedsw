@@ -68,6 +68,7 @@
 *                      and add timeouts and status info
 *       arc   03/15/19 Modified initial default status value as XST_FAILURE
 * 6.7   psl   03/21/19 Fixed MISRA-C violation.
+* 6.8   psl   06/07/19 Added doxygen tags
 * </pre>
 *
 *****************************************************************************/
@@ -139,7 +140,7 @@ static u32 XilSkey_ZynqMpUsrFuseRd(u32 Offset, u32 *Buffer, u32 Size, u8 UsrFuse
 
 /***************************************************************************/
 /**
-* This function is used to program the PS efuse of ZynqMP, based on user
+* This function is used to program the PS eFUSE of ZynqMP, based on user
 * inputs
 *
 * @param	InstancePtr	Pointer to the XilSKey_ZynqMpEPs.
@@ -148,8 +149,8 @@ static u32 XilSkey_ZynqMpUsrFuseRd(u32 Offset, u32 *Buffer, u32 Size, u8 UsrFuse
 * 		- XST_SUCCESS if programs successfully.
 * 		- Errorcode on failure
 *
-* @note		On successful efuse programming cache is been reloaded,
-* 		so programmed efuse bits can directly read from efuse cache.
+* @note		After eFUSE programming is complete, the cache is automatically
+* 	reloaded so all programmed eFUSE bits can be directly read from cache.
 *
 ****************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
@@ -426,16 +427,15 @@ UNLOCK:
 
 /*****************************************************************************/
 /**
-* This function is used to read the PS efuse secure control bits from cache or
+* This function is used to read the PS eFUSE secure control bits from cache or
 * eFUSE based on user input provided.
 *
 * @param	ReadBackSecCtrlBits	Pointer to the XilSKey_SecCtrlBits
 *		which holds the read secure control bits.
-* @param	ReadOption 	Variable which has to be provided by user
-*		based on this input reading is happend from cache or from efuse
-*		array.
-*		- 0	Reads from cache
-*		- 1	Reads from efuse array
+* @param	ReadOption 	Indicates whether or not to read from the actual
+* 		eFUSE array or from the eFUSE cache.
+*		- 0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from eFUSE cache
+*		- 1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array
 *
 * @return
 * 		- XST_SUCCESS if reads successfully
@@ -485,16 +485,15 @@ END:
 
 /*****************************************************************************/
 /**
-* This function is used to read the PS efuse secure control bits from cache
+* This function is used to read the PS eFUSE secure control bits from cache
 * or from eFUSE array based on user selection.
 *
 * @param	ReadBackSecCtrlBits is the pointer to the XilSKey_SecCtrlBits
 *		which holds the read secure control bits.
-* @param	ReadOption is a u8 variable which has to be provided by user
-*		based on this input reading is happened from cache or from
-*		efuse array.
-*		- 0	Reads from cache
-*		- 1	Reads from efuse array
+* @param	ReadOption Indicates whether or not to read from the actual
+* 		eFUSE array or from the eFUSE cache.
+*		- 0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from eFUSE cache
+*		- 1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array
 *
 * @return	None.
 *
@@ -956,11 +955,11 @@ END:
 }
 
 /*****************************************************************************/
-/* This function programs and verifys the particular bit of efuse array
+/* This function programs and verifies the particular bit of eFUSE array
 *
 * @param	Row specifies the row number.
 * @param	Column specifies the column number.
-* @param	EfuseType specifies the efuse type.
+* @param	EfuseType specifies the eFUSE type.
 *
 * @return
 *		XST_SUCCESS - On success
@@ -1030,10 +1029,10 @@ END:
 
 /*****************************************************************************/
 /*
-* This function returns particular row data directly from efuse array.
+* This function returns particular row data directly from eFUSE array.
 *
 * @param	Row specifies the row number to read.
-* @param	EfuseType specifies the efuse type.
+* @param	EfuseType specifies the eFUSE type.
 * @param	RowData is a pointer to 32 bit variable to hold the data read
 *		from provided data
 *
@@ -1096,7 +1095,7 @@ END:
 *
 * @param	Row specifies the row number to program.
 * @param	Column specifies the column number to program.
-* @param	EfuseType specifies the efuse type.
+* @param	EfuseType specifies the eFUSE type.
 *
 * @return
 *		XST_SUCCESS - On success
@@ -1145,7 +1144,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_WriteBit(u8 Row, u8 Column,
 
 /*****************************************************************************/
 /*
-* This function reloads the cache of efuse so that can be directly read from
+* This function reloads the cache of eFUSE so that can be directly read from
 * cache.
 *
 * @param	None.
@@ -1209,7 +1208,7 @@ END:
 
 /*****************************************************************************/
 /*
-* This function sets all the required parameters to program efuse array.
+* This function sets all the required parameters to program eFUSE array.
 *
 * @param	None.
 *
@@ -1259,7 +1258,7 @@ END:
 
 /*****************************************************************************/
 /*
-* This function sets timers for programming and reading from efuse.
+* This function sets timers for programming and reading from eFUSE.
 *
 * @param	InstancePtr is an instance of efuseps of Zynq MP.
 *
@@ -1351,7 +1350,7 @@ END:
 
 /*****************************************************************************/
 /*
-* This function programs secure control bits of efuse
+* This function programs secure control bits of eFUSE
 *
 * @param	InstancePtr is an instance of efuseps of ZynqMp.
 *
@@ -1633,7 +1632,7 @@ END:
 
 /*****************************************************************************/
 /*
-* This function programs misc user control bits of efuse
+* This function programs misc user control bits of eFUSE
 *
 * @param	InstancePtr is an instance of efuseps of ZynqMp.
 *
@@ -1827,7 +1826,7 @@ END:
 
 /*****************************************************************************/
 /**
-* This function performs CRC check of AES key
+* This function performs the CRC check of AES key
 *
 * @param	CrcValue	A 32 bit CRC value of an expected AES key.
 *
@@ -1835,8 +1834,9 @@ END:
 *		- XST_SUCCESS on successful CRC check.
 *		- ErrorCode on failure
 *
-* @note		For Calculating CRC of AES key  use XilSKey_CrcCalculation()
-* 		API or XilSkey_CrcCalculation_AesKey() API.
+* @note		For Calculating the CRC of the AES key use the
+* 		XilSKey_CrcCalculation() function or
+* 		XilSkey_CrcCalculation_AesKey() function
 *
 ******************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc(u32 CrcValue)
@@ -1893,19 +1893,16 @@ END:
 
 /*****************************************************************************/
 /**
-* This function is used to read user fuse from efuse or cache based on user's
-* read option.
+* This function is used to read a user fuse from the eFUSE or cache
 *
 * @param	UseFusePtr	Pointer to an array which holds the readback
-*		user fuse in.
+*		user fuse.
 * @param	UserFuse_Num	A variable which holds the user fuse number.
 *		Range is (User fuses: 0 to 7)
-* @param	ReadOption 	A variable which has to be provided by user
-*		based on this input reading is happend from cache or from efuse
-*		array.
-*		- 0	Reads from cache
-*		- 1	Reads from efuse array
-*
+* @param	ReadOption Indicates whether or not to read from the actual
+* 		eFUSE array or from the eFUSE cache.
+*		- 0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from eFUSE cache
+*		- 1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array
 * @return
 *		- XST_SUCCESS on successful read
 *		- ErrorCode on failure
@@ -1964,16 +1961,14 @@ UNLOCK:
 
 /*****************************************************************************/
 /**
-* This function is used to read PPK0 hash from efuse or cache based on user's
-* read option.
+* This function is used to read the PPK0 hash from an eFUSE or eFUSE cache.
 *
 * @param	Ppk0Hash	A pointer to an array which holds the readback
-*		PPK0 hash in.
-* @param	ReadOption	A variable which has to be provided by user
-*		based on this input reading is happend from cache or from efuse
-*		array.
-*		- 0	Reads from cache
-*		- 1	Reads from efuse array
+*		PPK0 hash.
+* @param	ReadOption	Indicates whether or not to read from the actual
+* 		eFUSE array or from the eFUSE cache.
+*		- 0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from eFUSE cache
+*		- 1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array
 *
 * @return
 *		- XST_SUCCESS on successful read
@@ -2043,16 +2038,14 @@ UNLOCK:
 
 /*****************************************************************************/
 /**
-* This function is used to read PPK1 hash from efuse or cache based on user's
-* read option.
+* This function is used to read the PPK1 hash from eFUSE or cache.
 *
 * @param	Ppk1Hash	Pointer to an array which holds the readback
-*		PPK1 hash in.
-* @param	ReadOption	A variable which has to be provided by user
-*		based on this input reading is happend from cache or from efuse
-*		array.
-*		- 0	Reads from cache
-*		- 1	Reads from efuse array
+*		PPK1 hash.
+* @param	ReadOption	Indicates whether or not to read from the actual
+* 		eFUSE array or from the eFUSE cache.
+*		- 0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from eFUSE cache
+*		- 1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array
 *
 * @return
 *		- XST_SUCCESS on successful read
@@ -2121,15 +2114,14 @@ UNLOCK:
 
 /*****************************************************************************/
 /**
-* This function is used to read SPKID from efuse or cache based on user's
+* This function is used to read SPKID from eFUSE or cache based on user's
 * read option.
 *
 * @param	SpkId	Pointer to a 32 bit variable which holds SPK ID.
-* @param	ReadOption	A variable which has to be provided by user
-*		based on this input reading is happend from cache or from efuse
-*		array.
-*		- 0	Reads from cache
-*		- 1	Reads from efuse array
+* @param	ReadOption	Indicates whether or not to read from the actual
+* 		eFUSE array or from the eFUSE cache.
+*		- 0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from eFUSE cache
+*		- 1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array
 *
 * @return
 *		- XST_SUCCESS on successful read
@@ -2183,10 +2175,10 @@ UNLOCK:
 
 /*****************************************************************************/
 /**
-* This function is used to read DNA from efuse.
+* This function is used to read DNA from eFUSE.
 *
-* @param	DnaRead	Pointer to 32 bit variable which holds the
-*		readback DNA in.
+* @param	DnaRead	Pointer to an array of 3 x u32 words which holds the
+*		readback DNA.
 *
 * @return	None.
 *
@@ -2214,13 +2206,13 @@ void XilSKey_ZynqMp_EfusePs_ReadDna(u32 *DnaRead)
 
 /*****************************************************************************/
 /*
-* This function is used verify efuse keys for Zeros
+* This function is used verify eFUSE keys for Zeros
 *
 * @param	RowStart is row number from which verification has to be
 *		started.
 * @param	RowEnd is row number till which verification has to be
 *		ended.
-* @param	EfuseType is the type of the efuse in which these rows reside.
+* @param	EfuseType is the type of the eFUSE in which these rows reside.
 *
 * @return	None.
 *
@@ -2252,9 +2244,9 @@ u32 XilSKey_ZynqMp_EfusePs_CheckForZeros(u8 RowStart, u8 RowEnd,
 
 /*****************************************************************************/
 /*
-* This function is used verify efuse keys for Zeros before programming.
+* This function is used verify eFUSE keys for Zeros before programming.
 *
-* @param	InstancePtr is a pointer to efuse ps instance.
+* @param	InstancePtr is a pointer to eFUSE ps instance.
 *
 * @return	None.
 *
@@ -2360,7 +2352,7 @@ END:
 * bit to revert, and copies the User FUSE bits which needs actually to be
 * programmed into provided UserFuses_TobePrgrmd pointer.
 *
-* @param	InstancePtr is a pointer to efuse ps instance.
+* @param	InstancePtr is a pointer to eFUSE ps instance.
 * @param	UserFuses_TobePrgrmd holds User FUSE bits which needs to be
 *		actually programmed.
 *
@@ -2557,7 +2549,7 @@ END:
 
 /*****************************************************************************/
 /*
-* This function programs RSA enable secure control bits of efuse
+* This function programs RSA enable secure control bits of eFUSE
 *
 * @param	SecBits_read is a pointer which holds 32 bits of secure
 *		control register.
@@ -2647,7 +2639,8 @@ END:
 
 /*****************************************************************************/
 /*
-* This function provides access to efuse memory
+* This function is for programming eFUSE through IPI response, it has
+* corresponding IPI response call in PMUFW
 *
 * @param	AddrHigh	Higher 32-bit address of the XilSKey_Efuse structure.
 * @param	AddrLow		Lower 32-bit address of the XilSKey_Efuse structure.
@@ -2678,7 +2671,7 @@ u32 XilSkey_ZynqMpEfuseAccess(const u32 AddrHigh, const u32 AddrLow)
 
 /*****************************************************************************/
 /*
-* This function provides support to program efuse memory
+* This function provides support to program eFUSE memory
 *
 * @param	AddrHigh	Higher 32-bit address of the XilSKey_Efuse
 *				structure.
@@ -3060,7 +3053,7 @@ END:
 
 /*****************************************************************************/
 /*
-* This function provides support to read user efuses
+* This function provides support to read user eFUSEs
 *
 * @param	Offset	Offset specifies the user fuses offset to be read.
 * @param	Buffer	Requested user fuses values will be stored in this
@@ -3103,7 +3096,7 @@ END:
 
 /*****************************************************************************/
 /*
-* This function provides support to read  efuse memory
+* This function provides support to read  eFUSE memory
 *
 * @param	AddrHigh	Higher 32-bit address of the
 *				XilSKey_Efuse structure.

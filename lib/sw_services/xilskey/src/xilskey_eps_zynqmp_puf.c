@@ -46,6 +46,7 @@
 *       mmd  03/17/19 Handled buffer underflow issue and added timeouts during
 *                     syndrome data reading
 *       rama 03/25/19 Added polling routine for PUF ready state
+* 6.8   psl  06/07/19 Added doxygen tags.
 * </pre>
 *
 *****************************************************************************/
@@ -93,7 +94,7 @@ static u32  XilSKey_WaitForPufStatus(u32 *PufStatus);
 
 /*****************************************************************************/
 /**
-* This function programs the PS efuse's with puf helper data of ZynqMp.
+* This function programs the PS eFUSEs with the PUF helper data.
 *
 * @param	InstancePtr	Pointer to the XilSKey_Puf instance.
 *
@@ -189,10 +190,10 @@ END:
 
 /*****************************************************************************/
 /**
-* This function reads the puf helper data from eFUSE.
+* This function reads the PUF helper data from eFUSE.
 *
-* @param	Address		Pointer to data array which holds the Puf helper
-*		data read from ZynqMp efuse.
+* @param	Address		Pointer to data array which holds the PUF helper
+*		data read from eFUSEs.
 *
 * @return
 *		- XST_SUCCESS if reads successfully.
@@ -279,16 +280,16 @@ END:
 
 /*****************************************************************************/
 /**
-* This API programs eFUSE with CHash value.
+* This function programs eFUSE with CHash value.
 *
 * @param	InstancePtr	Pointer to the XilSKey_Puf instance.
 *
 * @return
 *		- XST_SUCCESS if chash is programmed successfully.
-*		- Errorcode on failure
+*		- An Error code on failure
 *
-* @note		To generate CHash value please use
-*		XilSKey_Puf_Registration API
+* @note		To generate the CHash value, please use
+*		XilSKey_Puf_Registration function.
 *
 ******************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_WritePufChash(XilSKey_Puf *InstancePtr)
@@ -346,22 +347,21 @@ END:
 
 /*****************************************************************************/
 /**
-* This API reads efuse puf CHash Data from efuse array or cache based on the
-* user read option.
+* This function reads eFUSE PUF CHash data from the eFUSE array or
+* cache based on the user read option.
 *
-* @param	Address	Pointer which holds the read back value of chash
-* @param	ReadOption	A u8 variable which has to be provided by user
-*		based on this input reading is happend from cache or from efuse
-*		array.
-*		- 0(XSK_EFUSEPS_READ_FROM_CACHE)Reads from cache
-*		- 1(XSK_EFUSEPS_READ_FROM_EFUSE)Reads from efuse array
+* @param	Address	Pointer which holds the read back value of the chash.
+* @param	ReadOption	Indicates whether or not to read from the actual
+* 		eFUSE array or from the eFUSE cache.
+*		- 0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from cache
+*		- 1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array
 *
 * @return
 *		- XST_SUCCESS if programs successfully.
 *		- Errorcode on failure
 *
 * @note		Cache reload is required for obtaining updated values for
-*		ReadOption 0.
+*		reading from cache..
 *
 ******************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_ReadPufChash(u32 *Address, u8 ReadOption)
@@ -408,16 +408,16 @@ END:
 
 /*****************************************************************************/
 /**
-* This API programs efuse puf Auxilary Data.
+* This function programs eFUSE PUF auxiliary data.
 *
 * @param	InstancePtr	Pointer to the XilSKey_Puf instance.
 *
 * @return
-*		- XST_SUCCESS if programs successfully.
+*		- XST_SUCCESS if the eFUSE is programmed successfully.
 *		- Errorcode on failure
 *
-* @note		To generate Auxilary data please use the below API
-*		u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
+* @note		To generate auxiliary data, please use
+*		XilSKey_Puf_Registration function.
 *
 ******************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_WritePufAux(XilSKey_Puf *InstancePtr)
@@ -482,22 +482,22 @@ END:
 
 /*****************************************************************************/
 /**
-* This API reads efuse puf Auxilary Data from efuse array or cache based on
-* user read option.
+* This function reads eFUSE PUF auxiliary data from eFUSE array
+* or cache based on user read option.
 *
-* @param	Address 	Pointer which holds the read back value of Auxilary
-* @param	ReadOption	A u8 variable which has to be provided by user
-*		based on this input reading is happend from cache or from efuse
-*		array.
-*		- 0(XSK_EFUSEPS_READ_FROM_CACHE)Reads from cache
-*		- 1(XSK_EFUSEPS_READ_FROM_EFUSE)Reads from efuse array
+* @param	Address 	Pointer which holds the read back value of PUF's
+* 		auxiliary data.
+* @param	ReadOption	Indicates whether or not to read from the actual
+* 		eFUSE array or from the eFUSE cache.
+*		- 0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from cache
+*		- 1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array
 *
 * @return
-* 		- XST_SUCCESS if programs successfully.
+* 		- XST_SUCCESS if PUF auxiliary data is read successfully.
 * 		- Errorcode on failure
 *
 * @note		Cache reload is required for obtaining updated values for
-*		ReadOption 0.
+*		reading from cache.
 *
 ******************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_ReadPufAux(u32 *Address, u8 ReadOption)
@@ -582,7 +582,9 @@ done:
 
 /*****************************************************************************/
 /**
- * PUF Registration/Re-registration
+ * This function performs registration of PUF which generates a new KEK
+ * and associated CHash, Auxilary and PUF-syndrome data which are unique for
+ * each silicon.
  *
  * @param	InstancePtr	Pointer to the XilSKey_Puf instance.
  *
@@ -590,7 +592,8 @@ done:
 		- XST_SUCCESS if registration/re-registration was successful.
  *		- ERROR if registration was unsuccessful
  *
- * @note	Updates the syndrome data @ InstancePtr->SyndromeData
+ * @note	With the help of generated PUF syndrome data, it will be possible
+ * to re-generate same PUF KEK.
  *
  *****************************************************************************/
 u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
@@ -705,7 +708,8 @@ ENDF:
 
 /*****************************************************************************/
 /**
- * PUF Re-generation
+ * This function regenerates the PUF data so that the PUF's output can be used
+ * as the key source to the AES-GCM hardware cryptographic engine.
  *
  * @param       InstancePtr is a pointer to the XilSKey_Puf instance.
  *
@@ -758,7 +762,9 @@ END:
 }
 /*****************************************************************************/
 /**
- * PUF Debug 2 operation
+ * This function Outputs distance metric that may be useful for software to
+ * determine impending key generation failures. Distance metric also is useful
+ * to obtain a more stable provisioning syndrome value.
  *
  * @param	InstancePtr	Pointer to the XilSKey_Puf instance.
  *
@@ -767,7 +773,6 @@ END:
  *		- XST_SUCCESS if debug 2 mode was successful.
  *		- ERROR if registration was unsuccessful.
  *
- * @note	Updates the Debug 2 mode result @ InstancePtr->Debug2Data
  *
  ******************************************************************************/
 u32 XilSKey_Puf_Debug2(XilSKey_Puf *InstancePtr)
@@ -820,9 +825,8 @@ u32 XilSKey_Puf_Debug2(XilSKey_Puf *InstancePtr)
 *		structure
 *
 * @return
-*		XST_SUCCESS - On success
-*		ErrorCode - on Failure
-*
+*		- XST_SUCCESS if eFUSE PUF secure bits are programmed successfully.
+*		- Errorcode on failure.
 *
 ******************************************************************************/
 u32 XilSKey_Write_Puf_EfusePs_SecureBits(XilSKey_Puf_Secure *WriteSecureBits)
@@ -928,20 +932,19 @@ END:
 
 /*****************************************************************************/
 /**
-* This function is used to read the PS efuse PUF secure bits from cache
-* or from eFUSE array based on user selection.
+* This function is used to read the PS eFUSE PUF secure bits from cache
+* or from eFUSE array.
 *
-* @param	SecureBits	Pointer to the XilSKey_Puf_Secure
-*		which holds the read eFUSE secure bits of PUF.
-* @param	ReadOption	A u8 variable which has to be provided by user
-*		based on this input reading is happened from cache or from
-*		efuse array.
+* @param	SecureBits	Pointer to the XilSKey_Puf_Secure structure
+*		which holds the read eFUSE secure bits from the PUF.
+* @param	ReadOption	Indicates whether or not to read from the actual
+* 		eFUSE array or from the eFUSE cache.
 *		- 0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from cache
-*		- 1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from efuse array
+*		- 1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array
 *
 * @return
-*		XST_SUCCESS - On success
-*		ErrorCode - on Failure
+*		- XST_SUCCESS if reads successfully.
+*		- Errorcode on failure.
 *
 ******************************************************************************/
 u32 XilSKey_Read_Puf_EfusePs_SecureBits(
@@ -976,16 +979,15 @@ END:
 
 /*****************************************************************************/
 /**
-* This function is used to read the PS efuse PUF secure bits from cache
+* This function is used to read the PS eFUSE PUF secure bits from cache
 * or from eFUSE array based on user selection.
 *
 * @param	SecureBits is the pointer to the XilSKey_Puf_Secure
 *		which holds the read eFUSE secure bits of PUF.
-* @param	ReadOption is a u8 variable which has to be provided by user
-*		based on this input reading is happened from cache or from
-*		efuse array.
+* @param	ReadOption Indicates whether or not to read from the actual
+* 		eFUSE array or from the eFUSE cache.
 *		- 0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from cache
-*		- 1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from efuse array
+*		- 1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array
 *
 * @return	None.
 *
@@ -1033,7 +1035,7 @@ END:
 
 /***************************************************************************/
 /**
-* This API programs the given data into specified row of efuse.
+* This API programs the given data into specified row of eFUSE.
 *
 * @param	Row specifies the row number to be programmed.
 * @param	Data is pointer to 32 bit variable which holds data to be
