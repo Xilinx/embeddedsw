@@ -74,6 +74,7 @@
 *       mmd     03/17/19 Added timeout and PUF underflow error
 *       psl     03/19/19 FIxed MISRA-C violation
 *       psl     03/29/19 Removed GPIO ID macro.
+* 6.8   psl     06/07/19 Added doxygen tags
  *****************************************************************************/
 
 #ifndef XILSKEY_UTILS_H
@@ -476,7 +477,7 @@ typedef enum {
 						  *  for read. */
 	XSK_EFUSEPL_ERROR_READ_BIT_VALUE_NOT_SET,/**< 0x14 <br>Read bit
 						   *  not set. */
-	XSK_EFUSEPL_ERROR_READ_BIT_OUT_OF_RANGE,/**< <0x15 br>Read bit is out
+	XSK_EFUSEPL_ERROR_READ_BIT_OUT_OF_RANGE,/**< 0x15 <br>Read bit is out
 						  *  of range. */
 	XSK_EFUSEPL_ERROR_READ_TMEPERATURE_OUT_OF_RANGE,/**< 0x16 <br>Temperature
 							  *  obtained
@@ -705,7 +706,7 @@ typedef enum {
 	XSK_EFUSEPS_ERROR_XADC_SELF_TEST,/**< 0x0F<br>XADC self-test failed. */
 
 	/**
-	 * Utils Error Codes
+	 * @name Utils Error Codes
 	 */
 	XSK_EFUSEPS_ERROR_PARAMETER_NULL,/**< 0x10<br>Passed parameter null. */
 	XSK_EFUSEPS_ERROR_STRING_INVALID,/**< 0x20<br>Passed string
@@ -739,8 +740,9 @@ typedef enum {
 	XSK_EFUSEPS_ERROR_ADDR_ACCESS = 0x00E0U, /**< 0x00E0<br>Error in
 							* accessing requested address. */
 	XSK_EFUSEPS_ERROR_READ_NOT_DONE = 0x00F0U,/**< 0x00F0<br>Read not done */
+
 	/**
-	 * XSKEfuse_Write/Read()common error codes
+	 * @name XSKEfuse_Write/Read()common error codes
 	 */
 	XSK_EFUSEPS_ERROR_PS_STRUCT_NULL=0x8100U,/**< 0x8100<br>PS structure
 						  *  pointer is null. */
@@ -964,10 +966,10 @@ typedef enum {
 	XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG = 0xC000U,		/**< 0xC000<br>
 							  *  programming of key
 							  *  is failed. */
-	XSK_ZYNQMP_BBRAMPS_ERROR_IN_ZEROISE = 0xE700U,      /** <0xE700<br>
+	XSK_ZYNQMP_BBRAMPS_ERROR_IN_ZEROISE = 0xE700U,      /**< 0xE700<br>
 							   *  zeroize bbram is
 							   *	failed. */
-	XSK_ZYNQMP_BBRAMPS_ERROR_IN_WRITE_CRC = 0xE800U    /* ** <0xE800<br>
+	XSK_ZYNQMP_BBRAMPS_ERROR_IN_WRITE_CRC = 0xE800U    /**< 0xE800<br>
 							    * error write CRC
 							    * value. */
 }XskZynqMp_Ps_Bbram_ErrorCodes;
