@@ -1,5 +1,7 @@
 var struct_x_vproc_ss___context_data =
 [
+    [ "XSYS_VPSS_STREAM_IN", "system_8h.html#add86a9c9335ceb53d8e504821257e4bfa14012f94fd2b44a882c9a38f55a62456", null ],
+    [ "XSYS_VPSS_STREAM_OUT", "system_8h.html#add86a9c9335ceb53d8e504821257e4bfaeab8d442e0784d2a6a2f99e637142b0c", null ],
     [ "CscIn", "struct_x_vproc_ss___context_data.html#a3e2a334b8f135ad9e1eb1d860c8fa694", null ],
     [ "CscOut", "struct_x_vproc_ss___context_data.html#a9f81ff065d74d35606a3f1b72133cd96", null ],
     [ "DeintBufAddr", "struct_x_vproc_ss___context_data.html#a77a8ad41b6cc8dc4800d859b33a6762b", null ],

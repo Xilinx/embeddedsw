@@ -1,6 +1,13 @@
 var xdppsu_8c =
 [
-    [ "XDpPsu_TrainingState", "xdppsu_8c.html#aa3659e6349a3fc69433bf9b12673bdff", null ],
+    [ "XDpPsu_TrainingState", "xdppsu_8c.html#aa3659e6349a3fc69433bf9b12673bdff", [
+      [ "XDPPSU_TS_CLOCK_RECOVERY", "xdppsu_8c.html#aa3659e6349a3fc69433bf9b12673bdffaa04d78e4186517430b6188993cc8bb19", null ],
+      [ "XDPPSU_TS_CHANNEL_EQUALIZATION", "xdppsu_8c.html#aa3659e6349a3fc69433bf9b12673bdffaedd01dda01109c74cdafc8d00b70c92b", null ],
+      [ "XDPPSU_TS_ADJUST_LINK_RATE", "xdppsu_8c.html#aa3659e6349a3fc69433bf9b12673bdffac8abb49b23d298fec9d39177244c30e1", null ],
+      [ "XDPPSU_TS_ADJUST_LANE_COUNT", "xdppsu_8c.html#aa3659e6349a3fc69433bf9b12673bdffa02720440d0e1e6e67b39028ab32c7004", null ],
+      [ "XDPPSU_TS_FAILURE", "xdppsu_8c.html#aa3659e6349a3fc69433bf9b12673bdffad266dd7b0bdf4e5a47fad25415add4d8", null ],
+      [ "XDPPSU_TS_SUCCESS", "xdppsu_8c.html#aa3659e6349a3fc69433bf9b12673bdffad9811e3dea78cdc0188e3477c98fed93", null ]
+    ] ],
     [ "XDpPsu_AuxRead", "xdppsu_8c.html#ab9d129accbf09c6474ba5e1fac854983", null ],
     [ "XDpPsu_AuxWrite", "xdppsu_8c.html#a619df5cbd94b7f0459e62b55a34e5df5", null ],
     [ "XDpPsu_CfgInitialize", "xdppsu_8c.html#a619d7de707e733f244b8eeaf8dbc8377", null ],

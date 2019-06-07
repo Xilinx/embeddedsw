@@ -1,5 +1,9 @@
 var files =
 [
+    [ "periph.c", "periph_8c.html", "periph_8c" ],
+    [ "periph.h", "periph_8h.html", "periph_8h" ],
+    [ "system.c", "system_8c.html", "system_8c" ],
+    [ "system.h", "system_8h.html", "system_8h" ],
     [ "vpss_example.tcl", "vpss__example_8tcl.html", "vpss__example_8tcl" ],
     [ "xvprocss.c", "xvprocss_8c.html", "xvprocss_8c" ],
     [ "xvprocss.h", "xvprocss_8h.html", "xvprocss_8h" ],
@@ -9,5 +13,7 @@ var files =
     [ "xvprocss_log.h", "xvprocss__log_8h.html", "xvprocss__log_8h" ],
     [ "xvprocss_router.c", "xvprocss__router_8c.html", "xvprocss__router_8c" ],
     [ "xvprocss_router.h", "xvprocss__router_8h.html", "xvprocss__router_8h" ],
-    [ "xvprocss_sinit.c", "xvprocss__sinit_8c.html", "xvprocss__sinit_8c" ]
+    [ "xvprocss_sinit.c", "xvprocss__sinit_8c.html", "xvprocss__sinit_8c" ],
+    [ "xvprocss_vdma.c", "xvprocss__vdma_8c.html", "xvprocss__vdma_8c" ],
+    [ "xvprocss_vdma.h", "xvprocss__vdma_8h.html", "xvprocss__vdma_8h" ]
 ];

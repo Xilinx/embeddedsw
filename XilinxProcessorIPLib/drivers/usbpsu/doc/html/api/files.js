@@ -39,13 +39,14 @@ var files =
     [ "xusb_freertos_keyboard.c", "xusb__freertos__keyboard_8c.html", "xusb__freertos__keyboard_8c" ],
     [ "xusb_freertos_massstorage.c", "xusb__freertos__massstorage_8c.html", "xusb__freertos__massstorage_8c" ],
     [ "xusb_intr_example.c", "xusb__intr__example_8c.html", "xusb__intr__example_8c" ],
+    [ "xusb_poll_example.c", "xusb__poll__example_8c.html", "xusb__poll__example_8c" ],
     [ "xusb_wrapper.c", "xusb__wrapper_8c.html", "xusb__wrapper_8c" ],
     [ "xusb_wrapper.h", "xusb__wrapper_8h.html", "xusb__wrapper_8h" ],
     [ "xusbpsu.c", "xusbpsu_8c.html", "xusbpsu_8c" ],
     [ "xusbpsu.h", "xusbpsu_8h.html", "xusbpsu_8h" ],
     [ "xusbpsu_controltransfers.c", "xusbpsu__controltransfers_8c.html", "xusbpsu__controltransfers_8c" ],
     [ "xusbpsu_endpoint.c", "xusbpsu__endpoint_8c.html", "xusbpsu__endpoint_8c" ],
-    [ "xusbpsu_hibernation.c", "xusbpsu__hibernation_8c.html", "xusbpsu__hibernation_8c" ],
+    [ "xusbpsu_hibernation.c", "xusbpsu__hibernation_8c.html", null ],
     [ "xusbpsu_hw.h", "xusbpsu__hw_8h.html", "xusbpsu__hw_8h" ],
     [ "xusbpsu_intr.c", "xusbpsu__intr_8c.html", "xusbpsu__intr_8c" ]
 ];

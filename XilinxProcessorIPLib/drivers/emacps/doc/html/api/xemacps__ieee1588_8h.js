@@ -31,7 +31,7 @@ var xemacps__ieee1588_8h =
     [ "XEmacPs_SendPDelayReq", "xemacps__ieee1588_8h.html#a493b403b2f9babe7778c9ef4f37dbe54", null ],
     [ "XEmacPs_SendPDelayResp", "xemacps__ieee1588_8h.html#a1d4609324a39c5ef322d3fa14d4e6bd8", null ],
     [ "XEmacPs_SendPDelayRespFollowUp", "xemacps__ieee1588_8h.html#a2b2dafd9729d2c3e6c0d8fbe63e16ff9", null ],
-    [ "XEmacPs_SetMdioDivisor", "group__emacps__v3__8.html#ga5d0b4b9258cdead2c0875a0853c087b3", null ],
+    [ "XEmacPs_SetMdioDivisor", "xemacps__ieee1588_8h.html#ga5d0b4b9258cdead2c0875a0853c087b3", null ],
     [ "XEmacPs_TsuCalcClk", "xemacps__ieee1588_8h.html#adfd0ae3fd37438b0c459347d8001ee50", null ],
     [ "XEmacPs_UpdateBmcRecords", "xemacps__ieee1588_8h.html#a5ef4aded60e6675acd3171bc8b9a1180", null ],
     [ "XEmacPs_UpdateRtcIncrement", "xemacps__ieee1588_8h.html#a4ef3c12b38b0a4fabf70678f08267aea", null ]

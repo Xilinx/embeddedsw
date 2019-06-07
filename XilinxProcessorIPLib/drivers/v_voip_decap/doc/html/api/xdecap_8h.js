@@ -9,7 +9,7 @@ var xdecap_8h =
     [ "XDecap_BusyBit", "xdecap_8h.html#a0c670839ae33cc2e4a8bface4490f103", null ],
     [ "XDECAP_H_", "xdecap_8h.html#a6b925b2e310b835978459f005c37b040", null ],
     [ "XDecap_NumSupportedChannel", "xdecap_8h.html#ab22434d002b396f5c9ff15d19c274382", null ],
-    [ "XDecap_Callback", "xdecap_8h.html#a92455d82c8ce7fade960e9b9622800eb", null ],
+    [ "XDecap_Callback", "xdecap_8h.html#ac156901e5b33ede54893a6e16200eff1", null ],
     [ "XDecap_ChannelEnable", "xdecap_8h.html#af7c36c43a725de94ab136268fd95ee4e", null ],
     [ "XDecap_MatchIPDestReg", "xdecap_8h.html#ae6b999622e65f0019cf60a0d38009df5", null ],
     [ "XDecap_MatchIPSrcReg", "xdecap_8h.html#abf4810a0f0f2c5d63b32c85b3a484571", null ],
@@ -21,22 +21,73 @@ var xdecap_8h =
     [ "XDecap_MPktDropEn", "xdecap_8h.html#ad961feb3d6937740f00c57deb0cdf53a", null ],
     [ "XDecap_OperationMode", "xdecap_8h.html#a828514f64d014353b9f6ab5b2e2d49f0", null ],
     [ "XDecap_VLANMatching", "xdecap_8h.html#ac8e737e7187dbd1d70b86d6e82491828", null ],
-    [ "channel_control_enable", "xdecap_8h.html#ae5f2fbf8b5842a2407f7e61485ec251e", null ],
-    [ "m_pkt_det", "xdecap_8h.html#a06f143b97b85a11c2bee5696c2980a6c", null ],
-    [ "m_pkt_drop", "xdecap_8h.html#aed1ba260a50b53badfe73db0ad63d81b", null ],
-    [ "match_ipdest", "xdecap_8h.html#a9ce1e385ce3da0151101185c4bb4d0b3", null ],
-    [ "match_ipsrc", "xdecap_8h.html#ab717aa553da9e189a1c9de6461109862", null ],
-    [ "match_ssrc", "xdecap_8h.html#a530bd126a160fcbbcda007338be0eb8a", null ],
-    [ "match_udpdest", "xdecap_8h.html#a1174fb4106d193ecfcbd51158463c92b", null ],
-    [ "match_udpsrc", "xdecap_8h.html#a5f6a4a65904ff76ff113f78ee5468800", null ],
-    [ "match_vlanreg", "xdecap_8h.html#a227928cf1aa307e81e385771c19afb21", null ],
-    [ "operation_mode", "xdecap_8h.html#a3e92f146bc3099bf9cae4d78234ec09e", null ],
-    [ "vlan_matching", "xdecap_8h.html#aaa63d5582649e47a9e5429c268f3a234", null ],
-    [ "XDecap_3G_LEVEL", "xdecap_8h.html#a8808165eede0f71c147701de59f7b904", null ],
-    [ "XDecap_HandlerType", "xdecap_8h.html#a808b308838800d9069f4f3ccb028da6b", null ],
-    [ "XDecap_ModuleEnable", "xdecap_8h.html#ab06bb7f7c3d2a3f65cb6a8ff3e223e28", null ],
-    [ "XDecap_RXBITRATE", "xdecap_8h.html#a322e20c88ee35ab8403374160f6efb8f", null ],
-    [ "XDecap_SDIMode", "xdecap_8h.html#a054446678dfb7fdb7324313c01a44cb6", null ],
+    [ "channel_control_enable", "xdecap_8h.html#ae5f2fbf8b5842a2407f7e61485ec251e", [
+      [ "XDECAP_CHANNEL_DISABLE", "xdecap_8h.html#ae5f2fbf8b5842a2407f7e61485ec251ea509fea803f8898ddd4fb0c84240c0f9b", null ],
+      [ "XDECAP_CHANNEL_ENABLE", "xdecap_8h.html#ae5f2fbf8b5842a2407f7e61485ec251ea0718bcb14946419f12b7a5d72d5c11f1", null ]
+    ] ],
+    [ "m_pkt_det", "xdecap_8h.html#a06f143b97b85a11c2bee5696c2980a6c", [
+      [ "XDECAP_MARKER_PACKET_DET_DISABLE", "xdecap_8h.html#a06f143b97b85a11c2bee5696c2980a6caff57d7c38d1c2b06c4387361f927d56b", null ],
+      [ "XDECAP_MARKER_PACKET_DET_ENABLE", "xdecap_8h.html#a06f143b97b85a11c2bee5696c2980a6cade15f14c05deeacbc9e38e6384b7dab8", null ]
+    ] ],
+    [ "m_pkt_drop", "xdecap_8h.html#aed1ba260a50b53badfe73db0ad63d81b", [
+      [ "XDECAP_MARKER_PACKET_DROP_DISABLE", "xdecap_8h.html#aed1ba260a50b53badfe73db0ad63d81babe8eb72a15343d294a9a4ae41b31edad", null ],
+      [ "XDECAP_MARKER_PACKET_DROP_ENABLE", "xdecap_8h.html#aed1ba260a50b53badfe73db0ad63d81ba603e3529e6048eba823b139b2f0c4ed9", null ]
+    ] ],
+    [ "match_ipdest", "xdecap_8h.html#a9ce1e385ce3da0151101185c4bb4d0b3", [
+      [ "XDECAP_UNMATCH_IP_DST", "xdecap_8h.html#a9ce1e385ce3da0151101185c4bb4d0b3a7fecb0084dd38b25f622973b59b60687", null ],
+      [ "XDECAP_MATCH_IP_DST", "xdecap_8h.html#a9ce1e385ce3da0151101185c4bb4d0b3a9901a7ab698c4623452ad155c5a910cb", null ]
+    ] ],
+    [ "match_ipsrc", "xdecap_8h.html#ab717aa553da9e189a1c9de6461109862", [
+      [ "XDECAP_UNMATCH_IP_SRC", "xdecap_8h.html#ab717aa553da9e189a1c9de6461109862a1e24e6b8b6e55fe7413a22f39344b1e8", null ],
+      [ "XDECAP_MATCH_IP_SRC", "xdecap_8h.html#ab717aa553da9e189a1c9de6461109862a2a0b45886df811cc3e323070f1da1f98", null ]
+    ] ],
+    [ "match_ssrc", "xdecap_8h.html#a530bd126a160fcbbcda007338be0eb8a", [
+      [ "XDECAP_UNMATCH_SSRC", "xdecap_8h.html#a530bd126a160fcbbcda007338be0eb8aa9de18071f204e39aca16cb030ffb8e0d", null ],
+      [ "XDECAP_MATCH_SSRC", "xdecap_8h.html#a530bd126a160fcbbcda007338be0eb8aa7ef9dd91ecf48347bc125a2c132879a7", null ]
+    ] ],
+    [ "match_udpdest", "xdecap_8h.html#a1174fb4106d193ecfcbd51158463c92b", [
+      [ "XDECAP_UNMATCH_UDP_DST", "xdecap_8h.html#a1174fb4106d193ecfcbd51158463c92ba5ef1c90efd45642bbf0e73d25f77203b", null ],
+      [ "XDECAP_MATCH_UDP_DST", "xdecap_8h.html#a1174fb4106d193ecfcbd51158463c92ba8ea3e0b89f2c284221c6c6c8d5be06be", null ]
+    ] ],
+    [ "match_udpsrc", "xdecap_8h.html#a5f6a4a65904ff76ff113f78ee5468800", [
+      [ "XDECAP_UNMATCH_UDP_SRC", "xdecap_8h.html#a5f6a4a65904ff76ff113f78ee5468800aa8c5ecc28a4e32dc4b7a0ae4a93bfc2e", null ],
+      [ "XDECAP_MATCH_UDP_SRC", "xdecap_8h.html#a5f6a4a65904ff76ff113f78ee5468800a6b26c6ab7e3da53416d685521993028c", null ]
+    ] ],
+    [ "match_vlanreg", "xdecap_8h.html#a227928cf1aa307e81e385771c19afb21", [
+      [ "XDECAP_UNMATCH_VLAN_TAG_ID_REG", "xdecap_8h.html#a227928cf1aa307e81e385771c19afb21a92c0fbf6c4ee54e2c2f88564c55d0bfa", null ],
+      [ "XDECAP_MATCH_VLAN_TAG_ID_REG", "xdecap_8h.html#a227928cf1aa307e81e385771c19afb21ad6d7c3f41f8c24e7b596f5b2ff77fa22", null ]
+    ] ],
+    [ "operation_mode", "xdecap_8h.html#a3e92f146bc3099bf9cae4d78234ec09e", [
+      [ "XDECAP_NORMAL_MODE", "xdecap_8h.html#a3e92f146bc3099bf9cae4d78234ec09ea90dbe424196e84246d99327d03efcfb4", null ],
+      [ "XDECAP_LOSSLESS_MODE", "xdecap_8h.html#a3e92f146bc3099bf9cae4d78234ec09ea636e4b10aa38b7829d62cad443dc4b92", null ]
+    ] ],
+    [ "vlan_matching", "xdecap_8h.html#aaa63d5582649e47a9e5429c268f3a234", [
+      [ "XDECAP_MATCH_PACKET_WITHOUT_VLAN", "xdecap_8h.html#aaa63d5582649e47a9e5429c268f3a234aa1b1c1b9704ba3c3d6c653ae1bb41dee", null ],
+      [ "XDECAP_MATCH_PACKET_WITH_VLAN_AND_MATCH_VLAN_ID", "xdecap_8h.html#aaa63d5582649e47a9e5429c268f3a234a2edd1f6f95bf15a7716e509c75955de6", null ]
+    ] ],
+    [ "XDecap_3G_LEVEL", "xdecap_8h.html#a8808165eede0f71c147701de59f7b904", [
+      [ "XDECAP_3G_LEVEL_A", "xdecap_8h.html#a8808165eede0f71c147701de59f7b904a4071bfeb1c083e67cde84b8e5443b72f", null ],
+      [ "XDECAP_3G_LEVEL_B", "xdecap_8h.html#a8808165eede0f71c147701de59f7b904ae102ad5ca6993d5851ae6f20f390447e", null ]
+    ] ],
+    [ "XDecap_HandlerType", "xdecap_8h.html#a808b308838800d9069f4f3ccb028da6b", [
+      [ "XDECAP_PACKET_HANDLER_CONNECT", "xdecap_8h.html#a808b308838800d9069f4f3ccb028da6ba796ace42eb0b108c31668e219a3ff434", null ],
+      [ "XDECAP_PACKET_HANDLER_LOCKED", "xdecap_8h.html#a808b308838800d9069f4f3ccb028da6badfbf4986ebbcab29cd090f438fed0043", null ],
+      [ "XDECAP_PACKET_HANDLER_UNLOCKED", "xdecap_8h.html#a808b308838800d9069f4f3ccb028da6ba0cfbc28b8a52c21b52b569dcf5bff104", null ],
+      [ "XDECAP_PACKET_HANDLER_STOP", "xdecap_8h.html#a808b308838800d9069f4f3ccb028da6babdd6a1fc7cbaf7da9ae1ea33ac097cf6", null ]
+    ] ],
+    [ "XDecap_ModuleEnable", "xdecap_8h.html#ab06bb7f7c3d2a3f65cb6a8ff3e223e28", [
+      [ "XDECAP_MODULE_DISABLE", "xdecap_8h.html#ab06bb7f7c3d2a3f65cb6a8ff3e223e28adb534a23b45379f7cfd052366cff7f6b", null ],
+      [ "XDECAP_MODULE_ENABLE", "xdecap_8h.html#ab06bb7f7c3d2a3f65cb6a8ff3e223e28a63fd68aa6a08602c701588c4e38b8405", null ]
+    ] ],
+    [ "XDecap_RXBITRATE", "xdecap_8h.html#a322e20c88ee35ab8403374160f6efb8f", [
+      [ "XDECAP_INTEGER", "xdecap_8h.html#a322e20c88ee35ab8403374160f6efb8faa18499bc8aa23d2fc465187f347a5196", null ],
+      [ "XDECAP_NON_INTEGER", "xdecap_8h.html#a322e20c88ee35ab8403374160f6efb8fa456f6b09e006cd020439d2d000f3a35d", null ]
+    ] ],
+    [ "XDecap_SDIMode", "xdecap_8h.html#a054446678dfb7fdb7324313c01a44cb6", [
+      [ "XDECAP_SDI_SD", "xdecap_8h.html#a054446678dfb7fdb7324313c01a44cb6a26c85f765c136d765f4fd8dcc2848d31", null ],
+      [ "XDECAP_SDI_HD", "xdecap_8h.html#a054446678dfb7fdb7324313c01a44cb6aba2e33fce73e2fbb71bd7deb5158f438", null ],
+      [ "XDECAP_SDI_3G", "xdecap_8h.html#a054446678dfb7fdb7324313c01a44cb6a634d31a3a6fadbb159715e0dca0d23fd", null ]
+    ] ],
     [ "XDecap_CfgInitialize", "xdecap_8h.html#a7b4b1c7c46cd9b705fcb8013fbce9531", null ],
     [ "XDecap_ChannelAccess", "xdecap_8h.html#a974568f7baaf370736865b67e04d82b6", null ],
     [ "XDecap_ChannelClearStatistic", "xdecap_8h.html#a496df344c9ce70164599caf0492a7233", null ],

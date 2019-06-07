@@ -17,10 +17,22 @@ var xvoipfec__rx_8h =
     [ "XVoipFEC_TX_FECRecoveryDisable", "xvoipfec__rx_8h.html#ab3fdd393c6cbd76114743eb915cb612a", null ],
     [ "XVoipFEC_TX_MediaPacketBypass", "xvoipfec__rx_8h.html#abafedd93493b53d88ba9557e0254901d", null ],
     [ "XVoipFEC_TX_OORModeSelection", "xvoipfec__rx_8h.html#a4d2df9940cd47d3c93b38ec69a75face", null ],
-    [ "channel_disable", "xvoipfec__rx_8h.html#a44778db0f055c0b9aa7e09e89f423106", null ],
-    [ "fec_recv_disable", "xvoipfec__rx_8h.html#a28cc6b92f57467a7a2751f7ccbdb2e58", null ],
-    [ "media_packet_bypass", "xvoipfec__rx_8h.html#a90e82eef4fb92859ea8564f94d6fc11b", null ],
-    [ "oor_selection", "xvoipfec__rx_8h.html#a2eea468218f3e270ca6c3542ac1d1ce9", null ],
+    [ "channel_disable", "xvoipfec__rx_8h.html#a44778db0f055c0b9aa7e09e89f423106", [
+      [ "XVOIPFEC_RX_CHANNEL_DISABLE", "xvoipfec__rx_8h.html#a44778db0f055c0b9aa7e09e89f423106a7e7a12bc574defd561247e520361daa7", null ],
+      [ "XVOIPFEC_RX_CHANNEL_ENABLE", "xvoipfec__rx_8h.html#a44778db0f055c0b9aa7e09e89f423106a159eee7d415dde544eea2a55b9255b16", null ]
+    ] ],
+    [ "fec_recv_disable", "xvoipfec__rx_8h.html#a28cc6b92f57467a7a2751f7ccbdb2e58", [
+      [ "XVOIPFEC_RX_FEC_RECOVERY_ENABLE", "xvoipfec__rx_8h.html#a28cc6b92f57467a7a2751f7ccbdb2e58a5840c9e7c7c27e0db05ce919c43afba8", null ],
+      [ "XVOIPFEC_RX_FEC_RECOVERY_DISABLE", "xvoipfec__rx_8h.html#a28cc6b92f57467a7a2751f7ccbdb2e58a515206c5d6d40caabd5f7c2ec5a512d0", null ]
+    ] ],
+    [ "media_packet_bypass", "xvoipfec__rx_8h.html#a90e82eef4fb92859ea8564f94d6fc11b", [
+      [ "XVOIPFEC_RX_MEDIA_PACKET_PROCESSED", "xvoipfec__rx_8h.html#a90e82eef4fb92859ea8564f94d6fc11ba78f7febd08c510cd208c6c8c2009cd41", null ],
+      [ "XVOIPFEC_RX_MEDIA_PACKET_BYPASS", "xvoipfec__rx_8h.html#a90e82eef4fb92859ea8564f94d6fc11baa1bad242ca4964bcb69281e9589dd4a9", null ]
+    ] ],
+    [ "oor_selection", "xvoipfec__rx_8h.html#a2eea468218f3e270ca6c3542ac1d1ce9", [
+      [ "XVOIPFEC_RX_OOR_BASED_ON_RTP_SEQ_NUMBER", "xvoipfec__rx_8h.html#a2eea468218f3e270ca6c3542ac1d1ce9a634ab07c11f3546512af3ee93ed19413", null ],
+      [ "XVOIPFEC_RX_OOR_BASED_ON_RTP_TS", "xvoipfec__rx_8h.html#a2eea468218f3e270ca6c3542ac1d1ce9a35a2f9b10198c587ec12bacec13bb030", null ]
+    ] ],
     [ "XVoipFEC_HitlessStatusRegValue", "xvoipfec__rx_8h.html#ab3ff4458ba12a575ab65a015d47ab2cd", null ],
     [ "XVoipFEC_RX_CfgInitialize", "xvoipfec__rx_8h.html#af3a9c79fb67a63444f681bbaf1b5f6f6", null ],
     [ "XVoipFEC_RX_ChannelAccess", "xvoipfec__rx_8h.html#ab286580847ee17c29b9727d211285925", null ],

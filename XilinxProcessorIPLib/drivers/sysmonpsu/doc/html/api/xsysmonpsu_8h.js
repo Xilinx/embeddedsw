@@ -122,7 +122,7 @@ var xsysmonpsu_8h =
     [ "XSysMonPsu_VccopsioVoltageToRaw", "xsysmonpsu_8h.html#a05b960d7be1902cbefc489cc0ae4ec95", null ],
     [ "XSysMonPsu_VoltageToRaw", "xsysmonpsu_8h.html#a986f164c3c1f811ea27713adf9dace4c", null ],
     [ "XSysMonPsu_VpVnRawToVoltage", "xsysmonpsu_8h.html#a8ce87fd508744ddc0de0c9954f71e1f7", null ],
-    [ "XSysMonPsu_Handler", "xsysmonpsu_8h.html#aa228a3186422ffdc47f63d2e6b0f654e", null ],
+    [ "XSysMonPsu_Handler", "xsysmonpsu_8h.html#a14abd273c5da859d91988eca63d0414c", null ],
     [ "XSysMonPsu_CfgInitialize", "xsysmonpsu_8h.html#a8cd0584410c0931f931aa4da1e3e151b", null ],
     [ "XSysMonPsu_GetAdcClkDivisor", "xsysmonpsu_8h.html#af6c7d46d66608863cf7b859238e44e13", null ],
     [ "XSysMonPsu_GetAdcData", "xsysmonpsu_8h.html#a54eb6ba4c6f594b75d402cde03f6e173", null ],
@@ -161,5 +161,6 @@ var xsysmonpsu_8h =
     [ "XSysMonPsu_SetSequencerEvent", "xsysmonpsu_8h.html#a193dbc689e9a668ef7f548920706b2a8", null ],
     [ "XSysMonPsu_SetSequencerMode", "xsysmonpsu_8h.html#aa4bdb4e555b2c8d47a0185862c9cb4c6", null ],
     [ "XSysMonPsu_SetSingleChParams", "xsysmonpsu_8h.html#a872e9a41818489e77fa554dd01408281", null ],
-    [ "XSysMonPsu_StartAdcConversion", "xsysmonpsu_8h.html#a2ed2a9f0fbd1be48dfd71aaeef05174f", null ]
+    [ "XSysMonPsu_StartAdcConversion", "xsysmonpsu_8h.html#a2ed2a9f0fbd1be48dfd71aaeef05174f", null ],
+    [ "XSysMonPsu_UpdateAdcClkDivisor", "xsysmonpsu_8h.html#a15c7ebcfb5e5e7014deaabaa8f6261eb", null ]
 ];

@@ -7,6 +7,6 @@ var xzdma__readonlymode__example_8c =
     [ "XZDma_SimpleReadOnlyExample", "xzdma__readonlymode__example_8c.html#a422668353271c6d61d0b749f6f7cd048", null ],
     [ "Done", "xzdma__readonlymode__example_8c.html#a38ff5db0a80fb35ef072b78bd53515e8", null ],
     [ "Intc", "xzdma__readonlymode__example_8c.html#aac9b9dd3f01c78843949f1b0dd37b80c", null ],
-    [ "SrcBuf", "xzdma__readonlymode__example_8c.html#a235b9177886740839edf913fc7107d81", null ],
+    [ "SrcBuf", "xzdma__readonlymode__example_8c.html#a1faa3106f2a310d875c91f00f93a7c1d", null ],
     [ "ZDma", "xzdma__readonlymode__example_8c.html#a7e9d669b081d5a33d1deada2d6f07a63", null ]
 ];

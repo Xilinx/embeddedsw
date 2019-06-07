@@ -1,8 +1,8 @@
 var xiomodule__l_8c =
 [
-    [ "XIOModule_DeviceInterruptHandler", "group__iomodule__v2__6.html#ga2e47bfda481c3ceab60d758f049758ef", null ],
-    [ "XIOModule_RecvByte", "group__iomodule__v2__6.html#gaf1784b245813307028ba028246e39606", null ],
-    [ "XIOModule_RegisterHandler", "group__iomodule__v2__6.html#ga3985a47858bc59f526d475536811a393", null ],
-    [ "XIOModule_SendByte", "group__iomodule__v2__6.html#ga77e0649e78c817c27b628b6713c12451", null ],
-    [ "XIOModule_SetIntrSvcOption", "group__iomodule__v2__6.html#gaaf27e1820d586ec1c487078d03854944", null ]
+    [ "XIOModule_DeviceInterruptHandler", "xiomodule__l_8c.html#ga2e47bfda481c3ceab60d758f049758ef", null ],
+    [ "XIOModule_RecvByte", "xiomodule__l_8c.html#gaae5eea17f7c7533affa36870f94f6299", null ],
+    [ "XIOModule_RegisterHandler", "xiomodule__l_8c.html#ga934e04ff467aade2f66a6cc36372c6ec", null ],
+    [ "XIOModule_SendByte", "xiomodule__l_8c.html#ga6e89f42ede1324eaf70720f6db6783b4", null ],
+    [ "XIOModule_SetIntrSvcOption", "xiomodule__l_8c.html#gad53c3d717530494bcc3092f515dc9a3c", null ]
 ];

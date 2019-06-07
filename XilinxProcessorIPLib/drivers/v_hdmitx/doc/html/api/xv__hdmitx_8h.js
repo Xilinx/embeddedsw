@@ -42,8 +42,22 @@ var xv__hdmitx_8h =
     [ "XV_HdmiTx_Reset", "xv__hdmitx_8h.html#ac8a836b7f27942b9a1cfbbcda79eb0ef", null ],
     [ "XV_HdmiTx_SetMode", "xv__hdmitx_8h.html#ab80fe1804de9125b96892b3fb9e41776", null ],
     [ "XV_HdmiTx_SetScrambler", "xv__hdmitx_8h.html#a6da173e33b955815176fd5640f7a1fbf", null ],
-    [ "XV_HdmiTx_Callback", "xv__hdmitx_8h.html#a0d082ed3fc514b136f6064172a228da5", null ],
-    [ "XV_HdmiTx_HandlerType", "xv__hdmitx_8h.html#a13f3db95069a268ab390dd4102604fb2", null ],
+    [ "XV_HdmiTx_Callback", "xv__hdmitx_8h.html#ae8a70df98d7f9509bf1f21f1107fa49d", [
+      [ "XV_HDMITX_AUDFMT_LPCM", "xv__hdmitx_8h.html#ae5879c686b0d530b43164d505cebeb7eaae37ebc0175d8adc167b9f2dc6148b9f", null ],
+      [ "XV_HDMITX_AUDFMT_HBR", "xv__hdmitx_8h.html#ae5879c686b0d530b43164d505cebeb7ea813b7b8a92558dffb69d7a3dbc5db601", null ]
+    ] ],
+    [ "XV_HdmiTx_HandlerType", "xv__hdmitx_8h.html#a13f3db95069a268ab390dd4102604fb2", [
+      [ "XV_HDMITX_HANDLER_CONNECT", "xv__hdmitx_8h.html#a13f3db95069a268ab390dd4102604fb2a9cce555e4306bf2bbae923e17db3e058", null ],
+      [ "XV_HDMITX_HANDLER_TOGGLE", "xv__hdmitx_8h.html#a13f3db95069a268ab390dd4102604fb2ac062647586159e21731cbae6189bf525", null ],
+      [ "XV_HDMITX_HANDLER_BRDGUNLOCK", "xv__hdmitx_8h.html#a13f3db95069a268ab390dd4102604fb2af785828ebde1ae8a0309b85c18b82261", null ],
+      [ "XV_HDMITX_HANDLER_BRDGOVERFLOW", "xv__hdmitx_8h.html#a13f3db95069a268ab390dd4102604fb2af9a1834912442d6f0900d1522e71c9a1", null ],
+      [ "XV_HDMITX_HANDLER_BRDGUNDERFLOW", "xv__hdmitx_8h.html#a13f3db95069a268ab390dd4102604fb2a5a3a3dd7ae714e99d35f99ed0ff0d17f", null ],
+      [ "XV_HDMITX_HANDLER_VS", "xv__hdmitx_8h.html#a13f3db95069a268ab390dd4102604fb2a9fe19d114d8d963da2a5a657b0b0d15c", null ],
+      [ "XV_HDMITX_HANDLER_STREAM_DOWN", "xv__hdmitx_8h.html#a13f3db95069a268ab390dd4102604fb2a91341cb6ecd07cca59765e876860ef7e", null ],
+      [ "XV_HDMITX_HANDLER_STREAM_UP", "xv__hdmitx_8h.html#a13f3db95069a268ab390dd4102604fb2ae4cf5abd3ed61bf72915479ec1e44938", null ],
+      [ "XV_HDMITX_STATE_STREAM_DOWN", "xv__hdmitx_8h.html#a73ae987f90760fc28e1d19b81d875a26aa8e9496175cdf2ae48d860fedfe41dba", null ],
+      [ "XV_HDMITX_STATE_STREAM_UP", "xv__hdmitx_8h.html#a73ae987f90760fc28e1d19b81d875a26af01863138cb3cf0ebfc4233ba852b8d1", null ]
+    ] ],
     [ "XV_HdmiTx_AuxSend", "xv__hdmitx_8h.html#ae75f2ab194a44b9f67b7fa9d4545cb57", null ],
     [ "XV_HdmiTx_CfgInitialize", "xv__hdmitx_8h.html#acfeb8c295991a88031817404dd4135f3", null ],
     [ "XV_HdmiTx_Clear", "xv__hdmitx_8h.html#a30b8f33b34025333a39bcb12961402af", null ],
