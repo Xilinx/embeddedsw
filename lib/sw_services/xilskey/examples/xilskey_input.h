@@ -126,19 +126,19 @@
 *	FALSE will allow Zynq ARM DAP visible through JTAG.
 *
 *	#define		XSK_EFUSEPL_BBRAM_KEY_DISABLE				FALSE
-*	XTURE will force eFUSE key to be used if booting Secure Image.
+*	TRUE will force eFUSE key to be used if booting Secure Image.
 *	FALSE will not set the eFUSE control bit so that user can use secure boot
 *	with BBRAM key.
 *
 *	Following are the MIO pins used for PL JTAG operations.
 *	User can change these pins as their discretion.
 *	#define		XSK_EFUSEPL_MIO_JTAG_TDI				(17)
-*	#define		XSK_EFUSEPL_MIO_JTAG_TDO				(18)
+*	#define		XSK_EFUSEPL_MIO_JTAG_TDO				(21)
 *	#define		XSK_EFUSEPL_MIO_JTAG_TCK				(19)
 *	#define		XSK_EFUSEPL_MIO_JTAG_TMS				(20)
 *
 *	MUX selection pin:
-*	#define		XSK_EFUSEPL_MIO_JTAG_MUX_SELECT		(21)
+*	#define		XSK_EFUSEPL_MIO_JTAG_MUX_SELECT		(11)
 *	This pin is used to select between the external JTAG or MIO driving JTAG
 *	operations.
 *
@@ -162,7 +162,7 @@
 *		"0000000000000000000000000000000000000000000000000000000000000000"
 *	The value mentioned in this will be converted to hex buffer and written
 *	into the PL eFUSE array when write API used. This value should be the
-*	PPK(Primary Public Key) hash given in string format. It should be 64
+*	AES key given in string format. It should be 64
 *	characters long, valid characters are 0-9,a-f,A-F. Any other character
 *	is considered as invalid string and will not burn AES Key. Note that,
 *	for writing the AES Key, XSK_EFUSEPL_PROGRAM_AES_AND_USER_LOW_KEY should
@@ -328,15 +328,15 @@
 *	(TDO, READY and END) can be a other channel of (TDI, TCK, TMS, START)
 *	or the same.
 *
-*	#define XSK_EFUSEPL_PROGRAM_AES_KEY_ULTRA	FALSE
+*	#define XSK_EFUSEPL_PROGRAM_AES_KEY		FALSE
 *	TRUE will burn the AES key given in XSK_EFUSEPL_AES_KEY.
 *	FALSE will ignore the values given.
 *
-*	#define XSK_EFUSEPL_PROGRAM_USER_KEY_ULTRA	FALSE
+*	#define XSK_EFUSEPL_PROGRAM_USER_KEY	FALSE
 *	TRUE will burn 32 bit User key given in XSK_EFUSEPL_USER_KEY
 *	FALSE will ignore the values given.
 *
-*	#define XSK_EFUSEPL_PROGRAM_RSA_HASH_ULTRA	FALSE
+*	#define XSK_EFUSEPL_PROGRAM_RSA_HASH	FALSE
 *	TRUE will burn RSA hash given in XSK_EFUSEPL_RSA_KEY_HASH_VALUE
 *	FALSE will ignore the values given.
 *
@@ -346,19 +346,19 @@
 *	XSK_EFUSEPL_USER_KEY_128BIT_3
 *	FALSE will ignore the values given.
 *
-*	#define XSK_EFUSEPL_CHECK_AES_KEY_ULTRA		FALSE
+*	#define XSK_EFUSEPL_CHECK_AES_KEY		FALSE
 *	TRUE will perform CRC check of FUSE_AES with provided CRC value in macro
 *	XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY.
-*	And result of CRC checck will be updated in XilSKey_EPl instance
+*	And result of CRC check will be updated in XilSKey_EPl instance
 *	parameter AESKeyMatched with either TRUE or FALSE.
 *	FALSE CRC check of FUSE_AES will not be performed.
 *
-*	#define XSK_EFUSEPL_READ_USER_KEY_ULTRA		FALSE
+*	#define XSK_EFUSEPL_READ_USER_KEY		FALSE
 *	TRUE will read 32 bit FUSE_USER from Ultrascale's eFuse and updates in
 *	XilSKey_EPl instance parameter UserKeyReadback
 *	FALSE 32 bit FUSE_USER key read will not be performed.
 *
-*	#define XSK_EFUSEPL_READ_RSA_HASH_ULTRA		FALSE
+*	#define XSK_EFUSEPL_READ_RSA_HASH		FALSE
 *	TRUE will read FUSE_USER from Ultrascale's eFuse and updates in
 *	XilSKey_EPl instance parameter RSAHashReadback
 *	FALSE FUSE_RSA_HASH read will not be performed.
@@ -378,10 +378,10 @@
 *	"0000000000000000000000000000000000000000000000000000000000000000"
 *	The value mentioned in this will be converted to hex buffer and written
 *	into the PL eFUSE array when write API used. This value should be the
-*	PPK(Primary Public Key) hash given in string format. It should be 64
+*	AES key given in string format. It should be 64
 *	characters long, valid characters are 0-9,a-f,A-F. Any other character
 *	is considered as invalid string and will not burn AES Key. Note that,
-*	for writing the AES Key, XSK_EFUSEPL_PROGRAM_AES_KEY_ULTRA for
+*	for writing the AES Key, XSK_EFUSEPL_PROGRAM_AES_KEY for
 *	particular SLR(1/2/3/4)should have TRUE value.
 *
 *	#define XSK_EFUSEPL_USER_KEY			"00000000"
@@ -463,8 +463,7 @@
 *	For Checking CRC of FUSE_AES XSK_EFUSEPL_CHECK_AES_KEY_ULTRA macro
 *	should be TRUE otherwise CRC check will not be performed.
 *	For calculation of AES key's CRC one can use
-*	u32 XilSKey_CrcCalculation(u8 *Key) API or reverse polynomial
-*	0x82F63B78.
+*	u32 XilSKey_CrcCalculation(u8 *Key) API
 *
 *	NOTE:Please make sure you have sufficient heap and stack to run this
 *	application.
@@ -501,6 +500,7 @@
 *                        jtag control.
 * 6.8   psl     05/28/19 Added Macro for expected CRC of AES key for different
 *                        SLR.
+* 6.8   psl     06/07/19 Added doxygen tags.
 * </pre>
 *
 *

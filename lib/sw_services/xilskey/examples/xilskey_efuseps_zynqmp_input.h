@@ -39,163 +39,164 @@
 *------------------------------------------------------------------------------
 *
 *	#define	XSK_EFUSEPS_AES_RD_LOCK			FALSE
-*	TRUE will permanently disables the CRC check of FUSE_AES.
+*	TRUE permanently disables the CRC check of FUSE_AES.
 *	FALSE will not modify this control bit of eFuse.
 *
 *	#define XSK_EFUSEPS_AES_WR_LOCK			FALSE
-*	TRUE will permanently disables the writing to FUSE_AES block.
+*	TRUE permanently disables the writing to FUSE_AES block.
 *	FALSE will not modify this control bit of eFuse.
 *
 *	#define XSK_EFUSEPS_ENC_ONLY		FALSE
-*	TRUE will permanently enables encrypted booting only using the Fuse
+*	TRUE permanently enables encrypted booting only using the Fuse
 *	key. It forces to use AES key from eFUSE.
 *	FALSE will not modify this control bit of eFuse.
 *
 *	#define XSK_EFUSEPS_BBRAM_DISABLE		FALSE
-*	TRUE will permanently disables the BBRAM key.
+*	TRUE permanently disables the BBRAM key.
 *	FALSE will not modify this control bit of eFuse.
 *
 *	#define XSK_EFUSEPS_ERR_DISABLE	FALSE
-*	TRUE will permanently disables the error messages in JTAG status register.
+*	TRUE permanently disables the error messages in the
+*	JTAG status register.
 *	FALSE will not modify this control bit of eFuse.
 *
 *	#define XSK_EFUSEPS_JTAG_DISABLE		FALSE
-*	TRUE will permanently disables JTAG controller.
+*	TRUE permanently disables the JTAG controller.
 *	FALSE will not modify this control bit of eFuse.
 *
 *	#define XSK_EFUSEPS_DFT_DISABLE			FALSE
-*	TRUE will permanently disables DFT boot mode.
+*	TRUE permanently disables DFT boot mode.
 *	FALSE will not modify this control bit of eFuse.
 *
 *	#define XSK_EFUSEPS_PROG_GATE_DISABLE		FALSE
-*	TRUE will permanently disables PROG_GATE feature in PPD.
+*	TRUE permanently disables the PROG_GATE feature in PPD.
 *	If you set this then the PROG_GATE can never be activated
 *	and the PL will always be reset when the PS goes down.
 *	Also prevents reboot into JTAG mode after a secure lock down.
 *	FALSE will not modify this control bit of eFuse.
 *
 *	#define XSK_EFUSEPS_SECURE_LOCK			FALSE
-*	TRUE will permanently disables reboot into JTAG mode when doing
+*	TRUE permanently disables reboot into JTAG mode when performing
 *	a secure lockdown.
 *	FALSE will not modify this control bit of eFuse.
 *
 *	#define XSK_EFUSEPS_RSA_ENABLE			FALSE
-*	TRUE will permanently enables RSA authentication during boot.
+*	TRUE permanently enables RSA authentication during boot.
 *	FALSE will not modify this control bit of eFuse.
 *
 *	#define XSK_EFUSEPS_PPK0_WR_LOCK		FALSE
-*	TRUE will permanently disables writing to PPK0 efuses.
+*	TRUE permanently disables writing to PPK0 eFUSEs.
 *	FALSE will not modify this control bit of eFuse.
 *
 *	#define XSK_EFUSEPS_PPK0_INVLD			FALSE
-*	TRUE will permanently revokes PPK0.
+*	TRUE permanently revokes PPK0.
 *	FALSE will not modify this control bit of eFuse.
 *
 *	#define XSK_EFUSEPS_PPK1_WR_LOCK		FALSE
-*	TRUE will permanently disables writing PPK1 efuses.
+*	TRUE permanently disables writing to PPK1 eFUSEs.
 *	FALSE will not modify this control bit of eFuse.
 *
 *	#define XSK_EFUSEPS_PPK1_INVLD			FALSE
-*	TRUE will permanently revokes PPK1.
+*	TRUE permanently revokes PPK1.
 *	FALSE will not modify this control bit of eFuse.
 *
 *	#define XSK_EFUSEPS_LBIST_EN			FALSE
-*	TRUE will permanently enables logic BIST to be run during boot.
+*	TRUE permanently enables logic BIST to be run during boot.
 *	FALSE will not modify this control bit of eFUSE.
 *
 *	#define XSK_EFUSEPS_LPD_SC_EN			FALSE
-*	TRUE will permanently enables zeroization of registers in Low Power
+*	TRUE permanently enables zeroization of registers in Low Power
 *	Domain(LPD) during boot.
 *	FALSE will not modify this control bit of eFUSE.
 *
 *	#define XSK_EFUSEPS_FPD_SC_EN			FALSE
-*	TRUE will permanently enables zeroization of registers in Full Power
+*	TRUE permanently enables zeroization of registers in the Full Power
 *	Domain(FPD) during boot.
 *	FALSE will not modify this control bit of eFUSE.
 *
 *	#define XSK_EFUSEPS_PBR_BOOT_ERR		FALSE
-*	TRUE will permanently enables the boot halt when there is any PMU error.
+*	TRUE forces the boot to halt when there is any error detected in the PMU.
 *	FALSE will not modify this control bit of eFUSE.
 *
 *	#define XSK_EFUSEPS_USER_WRLK_0			FALSE
-*	TRUE will permanently disables writing to USER_0 efuses.
+*	TRUE permanently disables writing to USER_0 efuses.
 *	FALSE will not modify this control bit of eFuse.
 *
 *	#define XSK_EFUSEPS_USER_WRLK_1			FALSE
-*	TRUE will permanently disables writing to USER_1 efuses.
+*	TRUE permanently disables writing to USER_1 efuses.
 *	FALSE will not modify this control bit of eFuse.
 *
 *	#define XSK_EFUSEPS_USER_WRLK_2			FALSE
-*	TRUE will permanently disables writing to USER_2 efuses.
+*	TRUE permanently disables writing to USER_2 efuses.
 *	FALSE will not modify this control bit of eFuse.
 *
 *	#define XSK_EFUSEPS_USER_WRLK_3			FALSE
-*	TRUE will permanently disables writing to USER_3 efuses.
+*	TRUE permanently disables writing to USER_3 efuses.
 *	FALSE will not modify this control bit of eFuse.
 *
 *	#define XSK_EFUSEPS_USER_WRLK_4			FALSE
-*	TRUE will permanently disables writing to USER_4 efuses.
+*	TRUE permanently disables writing to USER_4 efuses.
 *	FALSE will not modify this control bit of eFuse.
 *
 *	#define XSK_EFUSEPS_USER_WRLK_5			FALSE
-*	TRUE will permanently disables writing to USER_5 efuses.
+*	TRUE permanently disables writing to USER_5 efuses.
 *	FALSE will not modify this control bit of eFuse.
 *
 *	#define XSK_EFUSEPS_USER_WRLK_6			FALSE
-*	TRUE will permanently disables writing to USER_6 efuses.
+*	TRUE permanently disables writing to USER_6 efuses.
 *	FALSE will not modify this control bit of eFuse.
 *
 *	#define XSK_EFUSEPS_USER_WRLK_7			FALSE
-*	TRUE will permanently disables writing to USER_7 efuses.
+*	TRUE permanently disables writing to USER_7 efuses.
 *	FALSE will not modify this control bit of eFuse.
 *
 *          Following has to be set for programming required keys
 *------------------------------------------------------------------------------
-*	#define XSK_EFUSEPS_WRITE_AES_KEY		TRUE
+*	#define XSK_EFUSEPS_WRITE_AES_KEY		FALSE
 *	TRUE will burn the AES key provided in XSK_EFUSEPS_AES_KEY.
-*	FALSE will ignore the key provide XSK_EFUSEPS_AES_KEY.
+*	FALSE will ignore the key provided in XSK_EFUSEPS_AES_KEY.
 *
-*	#define XSK_EFUSEPS_WRITE_PPK0_SHA3_HASH	TRUE
-*	TRUE will burn PPK0 sha3 hash provided in XSK_EFUSEPS_PPK0_SHA3_HASH.
+*	#define XSK_EFUSEPS_WRITE_PPK0_SHA3_HASH	FALSE
+*	TRUE will burn PPK0 with it's SHA3 hash provided in XSK_EFUSEPS_PPK0_SHA3_HASH.
 *	FALSE will ignore the hash provided in XSK_EFUSEPS_PPK0_SHA3_HASH.
 *
-*	#define XSK_EFUSEPS_WRITE_PPK1_SHA3_HASH	TRUE
-*	TRUE will burn PPK1 sha3 hash provided in XSK_EFUSEPS_PPK1_SHA3_HASH.
+*	#define XSK_EFUSEPS_WRITE_PPK1_SHA3_HASH	FALSE
+*	TRUE will burn PPK1 with it's SHA3 hash provided in XSK_EFUSEPS_PPK1_SHA3_HASH.
 *	FALSE will ignore the hash provided in XSK_EFUSEPS_PPK1_SHA3_HASH.
 *
-*	#define XSK_EFUSEPS_WRITE_SPKID			TRUE
+*	#define XSK_EFUSEPS_WRITE_SPKID			FALSE
 *	TRUE will burn SPKID provided in XSK_EFUSEPS_SPK_ID.
 *	FALSE will ignore the hash provided in XSK_EFUSEPS_SPK_ID.
 *
-*	#define XSK_EFUSEPS_WRITE_USER0_FUSE		TRUE
+*	#define XSK_EFUSEPS_WRITE_USER0_FUSE		FALSE
 *	TRUE will burn User0 Fuse provided in XSK_EFUSEPS_USER0_FUSES.
 *	FALSE will ignore the value provided in XSK_EFUSEPS_USER0_FUSES
 *
-*	#define XSK_EFUSEPS_WRITE_USER1_FUSE		TRUE
+*	#define XSK_EFUSEPS_WRITE_USER1_FUSE		FALSE
 *	TRUE will burn User1 Fuse provided in XSK_EFUSEPS_USER1_FUSES.
 *	FALSE will ignore the value provided in XSK_EFUSEPS_USER1_FUSES
 *
-*	#define XSK_EFUSEPS_WRITE_USER2_FUSE		TRUE
+*	#define XSK_EFUSEPS_WRITE_USER2_FUSE		FALSE
 *	TRUE will burn User2 Fuse provided in XSK_EFUSEPS_USER2_FUSES.
 *	FALSE will ignore the value provided in XSK_EFUSEPS_USER2_FUSES
 *
-*	#define XSK_EFUSEPS_WRITE_USER3_FUSE		TRUE
+*	#define XSK_EFUSEPS_WRITE_USER3_FUSE		FALSE
 *	TRUE will burn User3 Fuse provided in XSK_EFUSEPS_USER3_FUSES.
 *	FALSE will ignore the value provided in XSK_EFUSEPS_USER3_FUSES
 *
-*	#define XSK_EFUSEPS_WRITE_USER4_FUSE		TRUE
+*	#define XSK_EFUSEPS_WRITE_USER4_FUSE		FALSE
 *	TRUE will burn User4 Fuse provided in XSK_EFUSEPS_USER4_FUSES.
 *	FALSE will ignore the value provided in XSK_EFUSEPS_USER4_FUSES
 *
-*	#define XSK_EFUSEPS_WRITE_USER5_FUSE		TRUE
+*	#define XSK_EFUSEPS_WRITE_USER5_FUSE		FALSE
 *	TRUE will burn User5 Fuse provided in XSK_EFUSEPS_USER5_FUSES.
 *	FALSE will ignore the value provided in XSK_EFUSEPS_USER5_FUSES
 *
-*	#define XSK_EFUSEPS_WRITE_USER6_FUSE		TRUE
+*	#define XSK_EFUSEPS_WRITE_USER6_FUSE		FALSE
 *	TRUE will burn User6 Fuse provided in XSK_EFUSEPS_USER6_FUSES.
 *	FALSE will ignore the value provided in XSK_EFUSEPS_USER6_FUSES
 *
-*	#define XSK_EFUSEPS_WRITE_USER7_FUSE		TRUE
+*	#define XSK_EFUSEPS_WRITE_USER7_FUSE		FALSE
 *	TRUE will burn User7 Fuse provided in XSK_EFUSEPS_USER7_FUSES.
 *	FALSE will ignore the value provided in XSK_EFUSEPS_USER7_FUSES
 *
@@ -205,9 +206,9 @@
 *	into the ZynqMP Ps eFUSE array when write API used. This value should
 *	be given in string format. It should be 64 characters long, valid
 *	characters are 0-9,a-f,A-F. Any other character is considered as invalid
-*	string and will not burn AES Key.
+*	string and will not burn any Fuses.
 *	Note that,for writing the AES Key, XSK_EFUSEPS_WRITE_AES_KEY should
-*	have TRUE value.
+*	be set to TRUE.
 *	NOTE: This AES key is only red key or gray key. To program black key to eFuse,
 * 	please use xilskey_puf_registeration application and refer
 *
@@ -218,117 +219,113 @@
 *
 *	#define		XSK_EFUSEPS_PPK0_HASH
 *	"00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
-*	The value mentioned in this will be converted to hex buffer and written
-*	into the ZynqMP Ps eFUSE array when write API used. This value should
+*	The value will be converted to a hex buffer and will be written
+*	into the ZynqMP Ps eFUSE array. This value should
 *	be given in string format. It should be 96 or 64 characters long, valid
-*	characters are 0-9,a-f,A-F. Any other character is considered as invalid
-*	string and will not burn PPK0 hash.
+*	characters are 0-9,a-f,A-F. Any other character is considered invalid
+*	and will not burn PPK0 hash.
 *	Note that,for writing the PPK0 hash, XSK_EFUSEPS_WRITE_PPK0_SHA3_HASH
-*	should have TRUE value.
+*	should be set to TRUE.
 *	While writing SHA3 hash, length should be 96 characters long and
-*	XSK_EFUSEPS_PPK0_IS_SHA3 macro should be made TRUE
+*	XSK_EFUSEPS_PPK0_IS_SHA3 macro should be set to TRUE
 *
-*	#define XSK_EFUSEPS_PPK1_IS_SHA3	FALSE
-*	Default value is FALSE.
+*	#define XSK_EFUSEPS_PPK1_IS_SHA3	TRUE
+*	Default value is TRUE.
 *	TRUE XSK_EFUSEPS_PPK1_SHA3_HASH should be of string length 96 it specifies
 *	that PPK1 is used to program SHA3 hash.
 *
 *	#define		XSK_EFUSEPS_PPK1_HASH
 *	"0000000000000000000000000000000000000000000000000000000000000000"
-*	The value mentioned in this will be converted to hex buffer and written
-*	into the ZynqMP Ps eFUSE array when write API used. This value should
-*	be given in string format. It should be 64 or 96 characters long, valid
-*	characters are 0-9,a-f,A-F. Any other character is considered as invalid
-*	string and will not burn PPK1 hash.
-*	Note that,for writing the PPK11 hash, XSK_EFUSEPS_WRITE_PPK1_SHA3_HASH
-*	should have TRUE value.
-*	By default PPK1 hash will be provided with 64 character length to
-*	program PPK1 hash with sha2 hash so XSK_EFUSEPS_PPK1_IS_SHA3
-*	also will be in FALSE state
-*	But to program PPK1 hash with SHA3 hash make XSK_EFUSEPS_PPK1_IS_SHA3
-*	to TRUE and provide sha3 hash of length 96 characters XSK_EFUSEPS_PPK1_HASH
-*	so that one can program sha3 hash.
+*	The value will be converted to a hex buffer and will be written
+*	into the ZynqMP Ps eFUSE array. This value should
+*	be given in string format. It should be 96 or 64 characters long, valid
+*	characters are 0-9,a-f,A-F. Any other character is considered invalid
+*	and will not burn PPK0 hash.
+*	Note that,for writing the PPK1 hash, XSK_EFUSEPS_WRITE_PPK1_SHA3_HASH
+*	should be set to TRUE.
+*	While writing SHA3 hash, length should be 96 characters long and
+*	XSK_EFUSEPS_PPK1_IS_SHA3 macro should be set to TRUE
 *
 *	#define		XSK_EFUSEPS_SPK_ID		"00000000"
-*	The value mentioned in this will be converted to hex buffer and written
+*	The value  will be converted to a hex buffer and written
 *	into the ZynqMP Ps eFUSE array when write API used. This value should
 *	be given in string format. It should be 8 characters long, valid
 *	characters are 0-9,a-f,A-F. Any other character is considered as invalid
 *	string and will not burn SPK ID.
 *	Note that,for writing the SPK ID, XSK_EFUSEPS_WRITE_SPKID
-*	should have TRUE value.
+*	should be set to TRUE.
 *
 *	#define		XSK_EFUSEPS_USER0_FUSES		"00000000"
-*	The value mentioned in this will be converted to hex buffer and written
+*	The value  will be converted to hex buffer and written
 *	into the ZynqMP Ps eFUSE array when write API used. This value should
 *	be given in string format. It should be 8 characters long, valid
 *	characters are 0-9,a-f,A-F. Any other character is considered as invalid
 *	string and will not burn User Fuse.
 *	Note that,for writing the User0 Fuse, XSK_EFUSEPS_WRITE_USER0_FUSE
-*	should have TRUE value.
+*	should be set to TRUE.
 *
 *	#define		XSK_EFUSEPS_USER1_FUSES		"00000000"
-*	The value mentioned in this will be converted to hex buffer and written
+*	The value  will be converted to hex buffer and written
 *	into the ZynqMP Ps eFUSE array when write API used. This value should
 *	be given in string format. It should be 8 characters long, valid
 *	characters are 0-9,a-f,A-F. Any other character is considered as invalid
 *	string and will not burn User Fuse.
 *	Note that,for writing the User1 Fuse, XSK_EFUSEPS_WRITE_USER1_FUSE
-*	should have TRUE value.
+*	should be set to TRUE.
 *
 *	#define		XSK_EFUSEPS_USER2_FUSES		"00000000"
-*	The value mentioned in this will be converted to hex buffer and written
+*	The value will be converted to hex buffer and written
 *	into the ZynqMP Ps eFUSE array when write API used. This value should
 *	be given in string format. It should be 8 characters long, valid
 *	characters are 0-9,a-f,A-F. Any other character is considered as invalid
 *	string and will not burn User Fuse.
 *	Note that,for writing the User2 Fuse, XSK_EFUSEPS_WRITE_USER2_FUSE
-*	should have TRUE value.
+*	should be set to TRUE.
 *
 *	#define		XSK_EFUSEPS_USER3_FUSES		"00000000"
-*	The value mentioned in this will be converted to hex buffer and written
+*	The value will be converted to hex buffer and written
 *	into the ZynqMP Ps eFUSE array when write API used. This value should
 *	be given in string format. It should be 8 characters long, valid
 *	characters are 0-9,a-f,A-F. Any other character is considered as invalid
 *	string and will not burn User Fuse.
 *	Note that,for writing the User3 Fuse, XSK_EFUSEPS_WRITE_USER3_FUSE
-*	should have TRUE value.
+*	should be set to TRUE.
 *
 *	#define		XSK_EFUSEPS_USER4_FUSES		"00000000"
-*	The value mentioned in this will be converted to hex buffer and written
+*	The value will be converted to hex buffer and written
 *	into the ZynqMP Ps eFUSE array when write API used. This value should
 *	be given in string format. It should be 8 characters long, valid
 *	characters are 0-9,a-f,A-F. Any other character is considered as invalid
 *	string and will not burn User Fuse.
 *	Note that,for writing the User4 Fuse, XSK_EFUSEPS_WRITE_USER4_FUSE
-*	should have TRUE value.
+*	should be set to TRUE.
 *
 *	#define		XSK_EFUSEPS_USER5_FUSES		"00000000"
-*	The value mentioned in this will be converted to hex buffer and written
+*	The value will be converted to hex buffer and written
 *	into the ZynqMP Ps eFUSE array when write API used. This value should
 *	be given in string format. It should be 8 characters long, valid
 *	characters are 0-9,a-f,A-F. Any other character is considered as invalid
 *	string and will not burn User Fuse.
 *	Note that,for writing the User5 Fuse, XSK_EFUSEPS_WRITE_USER5_FUSE
-*	should have TRUE value.
+*	should be set to TRUE.
 *
 *	#define		XSK_EFUSEPS_USER6_FUSES		"00000000"
-*	The value mentioned in this will be converted to hex buffer and written
+*	The value will be converted to hex buffer and written
 *	into the ZynqMP Ps eFUSE array when write API used. This value should
 *	be given in string format. It should be 8 characters long, valid
 *	characters are 0-9,a-f,A-F. Any other character is considered as invalid
 *	string and will not burn User Fuse.
 *	Note that,for writing the User6 Fuse, XSK_EFUSEPS_WRITE_USER6_FUSE
-*	should have TRUE value.
+*	should be set to TRUE.
 *
 *	#define		XSK_EFUSEPS_USER7_FUSES		"00000000"
-*	The value mentioned in this will be converted to hex buffer and written
+*	The value  will be converted to hex buffer and written
 *	into the ZynqMP Ps eFUSE array when write API used. This value should
 *	be given in string format. It should be 8 characters long, valid
 *	characters are 0-9,a-f,A-F. Any other character is considered as invalid
 *	string and will not burn User Fuse.
 *	Note that,for writing the User7 Fuse, XSK_EFUSEPS_WRITE_USER7_FUSE
-*	should have TRUE value.
+*	should be set to TRUE.
 *
 *	#define XSK_EFUSEPS_CHECK_AES_KEY_CRC		FALSE
 *	Default value is FALSE
@@ -342,11 +339,12 @@
 *	and not programming AES key then do not modify XSK_EFUSEPS_WRITE_AES_KEY
 *	(TRUE will Program key).
 *
-*	NOTE: PPK hash should be unmodified hash generated by bootgen.
-*	Single bit programming is allowed for User FUSEs (0 to 7), if the user
-*	specifies a value that tries to set a bit that was previously programmed
-*	to 1 back to 0, throws an error. User has to provide already programmed
-*	bits also along with new requests.
+*	NOTE: The PPK hash should be the unmodified hash generated by bootgen.
+*	Single bit programming is allowed for User FUSEs (0 through 7), however
+*	if the user specifies a value that tries to set a bit that was previously
+*	programmed to 1 back to 0, throws an error.
+*   Even if the bits are already programmed user must pass these already
+*   programmed bits along with the new bits that need to be programmed.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -372,6 +370,7 @@
 * 6.7	psl     03/13/19 Added XSK_EFUSEPS_CHECK_AES_KEY_CRC, to check for
 * 						 AES key CRC if TRUE.
 * 	psl     03/28/19 Updated Description for XSK_EFUSEPS_CHECK_AES_KEY_CRC
+* 6.8   psl     06/07/19 Added doxygen tags.
 * </pre>
 *
 ******************************************************************************/

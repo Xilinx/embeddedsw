@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 19 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -39,12 +39,12 @@
 *------------------------------------------------------------------------------
 *
 *	#define	XSK_PUF_INFO_ON_UART			FALSE
-*	TRUE will display syndrome data on UART com port
+*	TRUE will display syndrome data on the UART com port
 *	FALSE will display any data on UART com port.
 *
 *	#define XSK_PUF_PROGRAM_EFUSE			FALSE
-*	TRUE will programs the generated syndrome data, CHash and Auxilary values,
-*	Black key.
+*	TRUE will program the generated syndrome data, CHash ,Auxiliary values,
+*	and the Black key.
 *	FALSE will not program data into eFUSE.
 *
 *	#define XSK_PUF_IF_CONTRACT_MANUFACTURER	FALSE
@@ -54,13 +54,13 @@
 *	FALSE authentication is not mandatory.
 *
 *	#define XSK_PUF_REG_MODE			XSK_PUF_MODE4K
-*	PUF registration is performed in 4K mode. For only understanding it is
-*	provided in this file, but user is not supposed to modify this.
+*	PUF registration is performed in 4K mode. Only 4K mode is supported and
+*	user should not modify this value.
 *
 *	#define XSK_PUF_READ_SECUREBITS			FALSE
-*	TRUE will read status of the puf secure bits from eFUSE and will be
+*	TRUE will read the status of the PUF secure bits from eFUSEs and will be
 *	displayed on UART.
-*	FALSE will not read secure bits.
+*	FALSE will not read the secure bits.
 *
 *	#define XSK_PUF_PROGRAM_SECUREBITS		FALSE
 *	TRUE will program PUF secure bits based on the user input provided
@@ -72,11 +72,11 @@
 *	FALSE will not modify anything
 *
 *	#define XSK_PUF_SYN_WRLK			FALSE
-*	TRUE will permanently disables programming syndrome data into eFUSE.
+*	TRUE will permanently disable programming syndrome data into eFUSEs.
 *	FALSE will not modify anything.
 *
 *	#define XSK_PUF_REGISTER_DISABLE		FALSE
-*	TRUE permanently does not allows PUF syndrome data registration.
+*	TRUE will permanently disable PUF syndrome data registration.
 *	FALSE will not modify anything.
 *
 *	#define XSK_PUF_RESERVED				FALSE
@@ -85,12 +85,13 @@
 *
 *	#define		XSK_PUF_AES_KEY
 *	"0000000000000000000000000000000000000000000000000000000000000000"
-*	The value mentioned in this will be converted to hex buffer and encrypts
-*	this with PUF helper data and generates a black key and written
-*	into the ZynqMP PS eFUSE array when XSK_PUF_PROGRAM_EFUSE macro is TRUE
+*	The value will be converted to hex buffer and encrypts
+*	this with PUF in order to generate black key ,the black key will get
+*	written to the PS eFUSE array when XSK_PUF_PROGRAM_EFUSE macro is set
+*	to TRUE.
 *	This value should be given in string format. It should be 64 characters
 *	long, valid characters are 0-9,a-f,A-F. Any other character is
-*	considered as invalid string and will not burn AES Key.
+*	considered as invalid  and will not burn Black key.
 *	Note: Provided here should be red key and application calculates the
 *	black key and programs into eFUSE if XSK_PUF_PROGRAM_EFUSE macro is
 *	TRUE.
@@ -99,8 +100,8 @@
 *
 *	#define		XSK_PUF_BLACK_KEY_IV	"000000000000000000000000"
 *	The value mentioned here will be converted to hex buffer.
-*	This is Initialization vector(IV) which is used to generated black key
-*	with provided AES key and generated PUF key.
+*	This is Initialization vector(IV) used with the AES-GCM cryptographic
+*	hardware in order to generate encrypted red key, which is black key.
 *	This value should be given in string format. It should be 24 characters
 *	long, valid characters are 0-9,a-f,A-F. Any other character is
 *	considered as invalid string.
@@ -117,6 +118,7 @@
 *                     XSK_PUF_IV  to XSK_PUF_BLACK_KEY_IV and
 *                     XSK_PUF_IF_CONTRACT_MANUFATURER to
 *                     XSK_PUF_IF_CONTRACT_MANUFACTURER
+* 6.8   psl  06/07/19 Added doxygen tags
 * </pre>
 *
 *
