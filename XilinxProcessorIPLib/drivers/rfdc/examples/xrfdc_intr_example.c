@@ -49,6 +49,9 @@
 * For zcu111 board users are expected to define XPS_BOARD_ZCU111 macro
 * while compiling this example.
 *
+* This example is design specific, PL-PS Interrupts must be attached and
+* The Stimulus/Capture Block device names/addresses may vary.
+*
 * <pre>
 *
 * MODIFICATION HISTORY:
@@ -67,7 +70,7 @@
 *                       platform.
 * 6.0   cog    02/06/19 Updated for libmetal v2.0 and added configure PLL to
 *                       set clock to incompatible rate
-*
+*       cog    06/08/19 Linux platform compatibility fixes.
 *
 * </pre>
 *
@@ -332,7 +335,7 @@ int RFdcFabricRateExample(u16 RFdcDeviceId)
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
 
 	if (metal_init(&init_param)) {
-		printf("ERROR: Failed to run metal initialization\n");
+		printf("ERROR: Failed to run metal initialization\r\n");
 		return XRFDC_FAILURE;
 	}
 
@@ -360,24 +363,24 @@ printf("\n Configuring the Clock \r\n");
 #ifdef __BAREMETAL__
 	ret = register_metal_device();
 	if (ret) {
-		printf("%s: failed to register devices: %d\n", __func__, ret);
+		printf("%s: failed to register devices: %d\r\n", __func__, ret);
 		return ret;
 	}
 	ret = metal_device_open(BUS_NAME, RFDC_DEV_NAME, &device);
 	if (ret) {
-		printf("ERROR: Failed to open device usp_rf_data_converter.\n");
+		printf("ERROR: Failed to open device usp_rf_data_converter.\r\n");
 		return XRFDC_FAILURE;
 	}
 #else
 	Status = XRFdc_GetDeviceNameByDeviceId(DeviceName, RFDC_DEVICE_ID);
 	if (Status < 0) {
-		printf("ERROR: Failed to find rfdc device with device id %d\n",
+		printf("ERROR: Failed to find rfdc device with device id %d\r\n",
 				RFDC_DEVICE_ID);
 		return XRFDC_FAILURE;
 	}
 	ret = metal_device_open(BUS_NAME, DeviceName, &device);
 	if (ret) {
-		printf("ERROR: Failed to open device %s.\n",DeviceName);
+		printf("ERROR: Failed to open device %s.\r\n",DeviceName);
 		return XRFDC_FAILURE;
 	}
 #endif
@@ -385,7 +388,7 @@ printf("\n Configuring the Clock \r\n");
 	/* Map RFDC device IO region */
 	io = metal_device_io_region(device, 0);
 	if (!io) {
-		printf("ERROR: Failed to map RFDC regio for %s.\n",
+		printf("ERROR: Failed to map RFDC regio for %s.\r\n",
 			  device->name);
 		return XRFDC_FAILURE;
 	}
@@ -423,48 +426,50 @@ printf("\n Configuring the Clock \r\n");
 	/* Get interrupt ID from RFDC metal device */
 	irq = (intptr_t)RFdcInstPtr->device->irq_info;
 	if (irq < 0) {
-		printf("ERROR: Failed to request interrupt for %s.\n",
+		printf("ERROR: Failed to request interrupt for %s.\r\n",
 			  device->name);
 		return XRFDC_FAILURE;
 	}
 
+#ifdef __BAREMETAL__
 	ret = metal_xlnx_irq_init();
 	if (ret) {
 		printf("\n failed to initialise interrupt handler \r\n");
 	}
+#endif
 	ret =  metal_irq_register(irq,
 				(metal_irq_handler)XRFdc_IntrHandler,
 						RFdcInstPtr);
 	if (ret) {
 		printf("\n failed to register interrupt handler \r\n");
 	} else {
-		printf("registered IPI interrupt.\n");
+		printf("registered IPI interrupt.\r\n");
 	}
 
 	ret = metal_device_open(BUS_NAME, STIM_DEV_NAME, &device_stim);
 	if (ret) {
-		printf("ERROR: Failed to open device stimulus_gen_axi_s.\n");
+		printf("ERROR: Failed to open device stimulus_gen_axi_s.\r\n");
 		return XRFDC_FAILURE;
 	}
 
 	/* Map Stimulus device IO region */
 	io_stim = metal_device_io_region(device_stim, 0);
 	if (!io) {
-		printf("ERROR: Failed to map Stimulus regio for %s.\n",
+		printf("ERROR: Failed to map Stimulus regio for %s.\r\n",
 			  device_stim->name);
 		return XRFDC_FAILURE;
 	}
 
 	ret = metal_device_open(BUS_NAME, CAP_DEV_NAME, &device_cap);
 	if (ret) {
-		printf("ERROR: Failed to open device data_capture_axi_s.\n");
+		printf("ERROR: Failed to open device data_capture_axi_s.\r\n");
 		return XRFDC_FAILURE;
 	}
 
 	/* Map Data Capture device IO region */
 	io_cap = metal_device_io_region(device_cap, 0);
 	if (!io) {
-		printf("ERROR: Failed to map Capture regio for %s.\n",
+		printf("ERROR: Failed to map Capture regio for %s.\r\n",
 			  device_cap->name);
 		return XRFDC_FAILURE;
 	}
@@ -483,7 +488,7 @@ printf("\n Configuring the Clock \r\n");
 
 #ifdef __BAREMETAL__
 	if (init_irq()) {
-		xil_printf("Failed to initialize interrupt\n");
+		xil_printf("Failed to initialize interrupt\r\n");
 	}
 #endif
 
@@ -492,7 +497,7 @@ printf("\n Configuring the Clock \r\n");
 		printf("Could not set PLL");
 		return XRFDC_FAILURE;
 	}
-	xil_printf("Waiting for Interrupt\r\n");
+	printf("Waiting for Interrupt\r\n");
 	/* Wait till interrupt occurs */
 	while (InterruptOccured == 0);
 
