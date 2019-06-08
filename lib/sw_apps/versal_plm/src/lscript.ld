@@ -99,13 +99,6 @@ SECTIONS
    __data_end = .;
 } > tmr_ram_cntlr_Mem
 
-.user_code : {
-   _user_code_start = .;
-   . += _USER_CODE_SIZE;
-   . = ALIGN(8);
-   _user_code_end = .;
-} > tmr_ram_cntlr_Mem
-
 .got : {
    *(.got)
 } > tmr_ram_cntlr_Mem
