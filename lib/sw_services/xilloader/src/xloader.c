@@ -232,8 +232,16 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	Status = XilPdi_ReadAndValidateImgHdrTbl(&PdiPtr->MetaHdr);
 	if(Status != XST_SUCCESS)
 	{
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMGHDR_TBL, Status);
-		goto END;
+		if((Status == XILPDI_ERR_IDCODE) && (XPLMI_PLATFORM !=
+											PMC_TAP_VERSION_SILICON))
+		{
+			Status = XST_SUCCESS;
+		}
+		else
+		{
+			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMGHDR_TBL, Status);
+			goto END;
+		}
 	}
 
 	/*
