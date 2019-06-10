@@ -1024,7 +1024,7 @@ s32 PmMasterInitFinalize(PmMaster* const master)
  *                              other masters in system are suspended or killed
  * @master     Master to be checked
  *
- * @return     True if master is in suspending state and all othe masters are
+ * @return     True if master is in suspending state and all other masters are
  *             killed or suspended, false otherwise
  */
 bool PmMasterIsLastSuspending(const PmMaster* const master)

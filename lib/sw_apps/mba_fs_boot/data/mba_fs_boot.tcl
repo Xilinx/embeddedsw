@@ -236,7 +236,7 @@ proc get_program_code_memory {} {
         }
     }
 
-    error "This application requires atleast [expr $required_mem_size/1024] KB of BRAM memory for code.";
+    error "This application requires at least [expr $required_mem_size/1024] KB of BRAM memory for code.";
 }
 
 proc get_program_data_memory {} {
@@ -272,7 +272,7 @@ proc get_program_data_memory {} {
             }
         }
     }
-    error "This application requires atleast \
+    error "This application requires at least \
 	[expr $required_mem_size/1024] KB of BRAM memory for data.";
 }
 

@@ -152,7 +152,7 @@ done:
 /**
  * PmRequirementUpdate() - Set slaves capabilities according to the master's
  * requirements
- * @masterReq   Pointer to structure keeping informations about the
+ * @masterReq   Pointer to structure keeping information about the
  *              master's requirement
  * @caps        Capabilities of a slave requested by the master
  *

@@ -241,7 +241,7 @@ typedef struct {
 		 */
 	u32 SizeofData; /**< Size of Data to be encrypted or decrypted */
 	u8  *Destination; /**< Destination for decrypted/encrypted data */
-	u8 DstEndinaness; /* Don't change the endianess of Destination if this flag is been set */
+	u8 DstEndinaness; /* Don't change the endianness of Destination if this flag is been set */
 } XSecure_Aes;
 
 /************************** Function Prototypes ******************************/

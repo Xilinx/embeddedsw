@@ -41,7 +41,7 @@
 * 1.0   ba   10/13/14 Initial release
 * 1.1   ba   12/11/15 Added support for NIST approved SHA-3 in 2.0 silicon
 * 2.0   vns  03/15/17 Fixed compilation warning, and corrected SHA2 padding
-*                     verfication for silicon version other than 1.0
+*                     verification for silicon version other than 1.0
 *
 * </pre>
 *
@@ -164,7 +164,7 @@ static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
 				/**
 				* The RSA data in Image is in Big Endian.
 				* So reverse it before putting in RSA memory,
-				* becasue RSA h/w expects it in Little endian.
+				* because RSA h/w expects it in Little endian.
 				*/
 
 				Data = (u32)Xil_Htonl(WrData[(u32)127 - TmpIndex]);
@@ -403,7 +403,7 @@ END:
  *
  * @param	Integer is the variable in which input should be provided.
  * @param	Size holds the required size.
- * @param	Convert is a pointer in which ouput will be updated.
+ * @param	Convert is a pointer in which output will be updated.
  *
  * @return	None.
  *

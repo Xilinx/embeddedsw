@@ -48,7 +48,7 @@ typedef u8 PmProcEvent;
 #define DISABLE_WFI(mask)   XPfw_RMW32(PMU_LOCAL_GPI2_ENABLE, (mask), ~(mask));
 
 /*
- * Processor is powered down as requested by a master which is priviledged
+ * Processor is powered down as requested by a master which is privileged
  * to request so. Processor has not saved its context.
  */
 #define PM_PROC_STATE_FORCEDOFF     0U

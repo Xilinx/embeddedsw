@@ -86,7 +86,7 @@ void PmAcknowledgeCb(const PmMaster* const master, const PmNodeId nodeId,
 }
 
 /**
- * PmNotifyCb() - notifies a master about an event occurance
+ * PmNotifyCb() - notifies a master about an event occurrence
  * @master      Master to be notified about the event
  * @nodeId      Node id regarding which the event is triggered
  * @event       Event to informa master about

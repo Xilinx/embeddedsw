@@ -99,7 +99,7 @@ typedef struct {
 } PmSuspendRequest;
 
 /**
- * PmMaster - contains PM master related informations
+ * PmMaster - contains PM master related information
  * @procs       Pointer to the array of processors within the master
  * @wakeProc    Processor to wake-up (pointer to the processor that has been
  *              suspended the last)

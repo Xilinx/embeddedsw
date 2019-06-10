@@ -31,7 +31,7 @@
 /*****************************************************************************
  * shmem_latency_demod.c
  * This is the remote side of the IPI latency measurement demo.
- * This demo does the follwing steps:
+ * This demo does the following steps:
  *
  *  1. Get the shared memory device libmetal I/O region.
  *  1. Get the TTC timer device libemtal I/O region.

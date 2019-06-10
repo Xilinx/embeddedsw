@@ -72,8 +72,8 @@ const XPfw_Module_t *Ultra96ModPtr;
 static void Ultra96PowerButtonHandler(void)
 {
 	/*
-	 * Dont check for the pin state if PM config is not yet loaded
-	 * This also means that FSBL is not yet running, MIO is not configured and we dont have the IPI info
+	 * Don't check for the pin state if PM config is not yet loaded
+	 * This also means that FSBL is not yet running, MIO is not configured and we don't have the IPI info
 	 */
 	if(!PmConfigObjectIsLoaded()) {
 		return;
@@ -83,7 +83,7 @@ static void Ultra96PowerButtonHandler(void)
 
 		/* Do a second check on the pin to mitigate sub-microsecond glitches, if any */
 		if ((XPfw_Read32(PMU_IOMODULE_GPI1) & PMU_IOMODULE_GPI1_MIO_WAKE_0_MASK) != PWR_BTN_POLL_MASK) {
-			/* If the pin is still not active, dont initiate a power down. Just return. */
+			/* If the pin is still not active, don't initiate a power down. Just return. */
 			return;
 		}
 

@@ -748,7 +748,7 @@ static PmPinParam pmPinParams[] = {
  * @ipiMask	IPI mask of the master
  * @pinId	ID of the pin in question
  *
- * @return	XST_SUCCESS if succesfully requested
+ * @return	XST_SUCCESS if successfully requested
  *		XST_INVALID_PARAM if pinId argument is not valid
  *		XST_PM_NO_ACCESS if PIN control is already requested by another
  *		master
@@ -781,7 +781,7 @@ done:
  * @ipiMask	IPI mask of the master
  * @pinId	ID of the pin in question
  *
- * @return	XST_SUCCESS if succesfully released
+ * @return	XST_SUCCESS if successfully released
  *		XST_INVALID_PARAM if pinId argument is not valid
  *		XST_FAILURE if PIN control has not been previously requested
  */

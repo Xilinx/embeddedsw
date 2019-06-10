@@ -169,7 +169,7 @@
 * 						after PCAP transfer completion
 *						726178 In the 14.6 FSBL function FabricInit() PROG_B 
 *						is kept active for 5mS.
-*						Resolution: PROG_B is now kept active for 5mS only incase 
+*						Resolution: PROG_B is now kept active for 5ms only in case 
 *						if efuse is the aes key source.
 *						755245 FSBL does not load partition if eMMC has only 
 *						one partition
@@ -304,7 +304,7 @@
 * Defining this flag will exclude the feature, forcing every partition to be
 * encrypted when EFUSE_SEC_EN bit is set.
 * This flag can be set/unset during compilation.
-* By deafult this flag is unset/undefined which enables the above feature
+* By default this flag is unset/undefined which enables the above feature
 * Note : Changing the default behaviour is not recommended from
 * Security perspective.
 *

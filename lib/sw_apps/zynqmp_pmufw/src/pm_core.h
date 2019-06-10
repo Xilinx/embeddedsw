@@ -28,7 +28,7 @@
  * Contains the function to call for processing a PM API call.
  * The function (PmProcessRequest) is called from interrupt handler
  * stubs, implemented in pm_binding files. The request is further
- * proccessed according to the master that initiated request and
+ * processed according to the master that initiated request and
  * API call's payload read from master's IPI buffer.
  ********************************************************************/
 

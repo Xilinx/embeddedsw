@@ -11,7 +11,7 @@ BSP_DIR=$WORKING_DIR/zynqmp_pmufw_bsp/psu_pmu_0
 #processor dir
 PROC_DIRNAME=cpu
 
-# Embedded Sw dir relaive path from pmufw src
+# Embedded Sw dir relative path from pmufw src
 EMBEDDED_SW_DIR=$WORKING_DIR/../../../..
 
 # selection of drivers is based on the board selected

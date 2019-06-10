@@ -76,7 +76,7 @@ static u32 PmGetMaxCapabilities(const PmSlave* const slave)
  * @slave   Slave pointer whose capabilities/states should be checked
  * @cap     Check for these capabilities
  *
- * @return  Status wheter slave has a state with given capabilities
+ * @return  Status whether slave has a state with given capabilities
  *          - XST_SUCCESS if slave has state with given capabilities
  *          - XST_NO_FEATURE if slave does not have such state
  */

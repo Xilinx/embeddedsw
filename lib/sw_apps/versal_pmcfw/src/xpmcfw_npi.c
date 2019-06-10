@@ -7925,7 +7925,7 @@ void nps_turn(unsigned int npi_addr, unsigned int Req_ID, unsigned int Resp_ID, 
 
     Xil_Out32(temp_addr,wr_data); // REG_HIGH_ID16_PXX
 
-    //Configuring for Respnse path
+    //Configuring for Response path
     high_id = (Resp_ID & 0xFC0)>>6;
     mid_id = (Resp_ID & 0x030)>>4;
     low_id = (Resp_ID & 0x00F);

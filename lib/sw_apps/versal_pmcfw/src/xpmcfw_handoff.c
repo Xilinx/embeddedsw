@@ -72,7 +72,7 @@ extern u32 PlCfiPresent;
  *
  * @return	returns the error codes described in xpmcfw_error.h on any error
  *
- * @note	This function should not return incase of success
+ * @note	This function should not return in case of success
  *****************************************************************************/
 
 XStatus XPmcFw_Handoff (XPmcFw * PmcFwInstancePtr)

@@ -142,7 +142,7 @@ void __fs_bad_image(unsigned int reason) __attribute__((weak));
  * so we remember to synchronise it with the MTD mappings
  */
 /*! Offset from FLASH base to the location of bootloader partition */
-/* Allow posibility it's defined on the gcc command line with -D, so
+/* Allow possibility it's defined on the gcc command line with -D, so
    hardware projects can place u-boot at different locations in flash */
 #ifndef CONFIG_FS_BOOT_OFFSET
 #define CONFIG_FS_BOOT_OFFSET   0

@@ -123,7 +123,7 @@ platform_create_proc(int proc_index, int rsc_index)
 	/* parse resource table to remoteproc */
 	ret = remoteproc_set_rsc_table(&rproc_inst, rsc_table, rsc_size);
 	if (ret) {
-		xil_printf("Failed to intialize remoteproc\r\n");
+		xil_printf("Failed to initialize remoteproc\r\n");
 		remoteproc_remove(&rproc_inst);
 		return NULL;
 	}

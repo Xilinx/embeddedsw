@@ -28,7 +28,7 @@
  *
  * PMU_ROM SERVICE EXTENSION IDCODES
  *
- *  All Services implemented in the ROM can be extended or overriden by
+ *  All Services implemented in the ROM can be extended or overridden by
  *  firmware loaded into the PMU_RAM. Including the IRQ routing infrastructure.
  *  Aside from the PMU_ROM Service Functions, other extendable/overridable
  *  `hooks` are provided to the firmware. These PMU_ROM Service Hooks are

@@ -281,7 +281,7 @@ typedef struct {
 typedef struct {
 	u32 AcOfset;	/**< Offset of first authentication certificate
 			  *  of bitstream */
-	u8 *HashsOfChunks;/** To store hashs of all chunks of block */
+	u8 *HashsOfChunks;/** To store hashes of all chunks of block */
 	u32 NoOfHashs;	/**< HashsOfChunks buffer size provided */
 	u32 BlockSize;	/**< Block size of bitstream */
 	u32 ChunkNum;

@@ -150,7 +150,7 @@ extern u32 Iv[XIH_BH_IV_LENGTH / 4U];
 /****************************************************************************/
 /**
  * This function is used to save the data section into duplicate data section
- * so that it can be restored from incase of subsequent warm restarts
+ * so that it can be restored from in case of subsequent warm restarts
  *
  * @param  None
  *
@@ -1741,7 +1741,7 @@ u32 XFsbl_TcmEccInit(XFsblPs * FsblInstancePtr, u32 CpuId)
 
 	 /**
 	  * For R5-L,R5-0 don't initialize initial 32 bytes of TCM,
-	  * because inital 32 bytes are holding R5 vectors.
+	  * because initial 32 bytes are holding R5 vectors.
 	  */
 
 	if(CpuId == XIH_PH_ATTRB_DEST_CPU_A53_0) {
@@ -1876,7 +1876,7 @@ END:
 
 /*****************************************************************************/
 /**
- * This function clears pending interrupts. This is called only during APU ony
+ * This function clears pending interrupts. This is called only during APU only
  *  reset.
  *
  * @param

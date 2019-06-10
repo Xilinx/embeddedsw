@@ -191,7 +191,7 @@ void PmNotifierUnregisterAll(const PmMaster* const mst)
 /**
  * PmNotifierProcessEvent() - Process event for the registration
  * @nt          Pointer to registered notifier
- * @event       Event that occured in the system
+ * @event       Event that occurred in the system
  */
 static void PmNotifierProcessEvent(const PmNotifier* const nt,
 				   const u32 event)
@@ -216,7 +216,7 @@ done:
  *              whether the notification callback should be sent for given
  *              arguments
  * @nd          Node regarding which the event is generated
- * @event       Event that occured in the system (check for its PU receipients)
+ * @event       Event that occurred in the system (check for its PU recipients)
  */
 void PmNotifierEvent(const PmNode* const nd, const u32 event)
 {

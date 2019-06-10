@@ -74,7 +74,7 @@ extern "C" {
 /*
  * Buffer sizes required for bitstream
  * if block size is 8MB and taking chunk size as 56KB(READ_BUFFER_SIZE)
- * we may require a buffer to store hashs of the chunks is:
+ * we may require a buffer to store hashes of the chunks is:
  * HASH_BUFFER_SIZE = (8MB/56KB)* (Sha3/2 hash length)
  */
 #define READ_BUFFER_SIZE			(56*1024)
@@ -82,7 +82,7 @@ extern "C" {
 					of data */
 #define HASH_BUFFER_SIZE			(7*1024)
 					 /**< Buffer to store chunk's
-						hashs of each block. */
+						hashes of each block. */
 
 /**************************** Type Definitions *******************************/
 

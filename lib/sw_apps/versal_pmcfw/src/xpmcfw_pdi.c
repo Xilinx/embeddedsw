@@ -142,7 +142,7 @@ END:
 /*****************************************************************************/
 /**
  *
- * @param	PmcFw Instance poiner
+ * @param	PmcFw Instance pointer
  *
  * @return	Success or error status
  *

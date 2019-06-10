@@ -182,7 +182,7 @@ u32 XFsbl_HookPsuInit(void)
  * PMU_GLOBAL_GLOB_GEN_STORAGE1. If Power Off Suspend is supported FSBL must
  * wait for PMU to detect boot type and provide that information using register.
  * In case of resume from Power Off Suspend PMU will wait for FSBL to confirm
- * detection by writting 1 to PMU_GLOBAL_GLOB_GEN_STORAGE2.
+ * detection by writing 1 to PMU_GLOBAL_GLOB_GEN_STORAGE2.
  *
  * @return Boot type, 0 in case of cold boot, 1 for warm boot
  *

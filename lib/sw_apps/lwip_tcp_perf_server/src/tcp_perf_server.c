@@ -218,7 +218,7 @@ static err_t tcp_server_accept(void *arg, struct tcp_pcb *newpcb, err_t err)
 	server.client_id++;
 	server.total_bytes = 0;
 
-	/* Initialize Interim report paramters */
+	/* Initialize Interim report parameters */
 	server.i_report.report_interval_time =
 		INTERIM_REPORT_INTERVAL * 1000; /* ms */
 	server.i_report.last_report_time = 0;

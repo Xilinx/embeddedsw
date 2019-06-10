@@ -624,7 +624,7 @@ u32 XFsbl_PpkVer(u64 AcOffset, u32 HashLen)
 					XFSBL_PPK_SIZE, HashLen);
 	XFsbl_ShaFinish(ShaCtx, (u8 *)PpkHash, HashLen);
 
-	/* Compare hashs */
+	/* Compare hashes */
 	Status = XFsbl_CompareHashs(PpkHash, EfusePpkHash, HashLen);
 	if (Status != XFSBL_SUCCESS) {
 		Status = XFSBL_ERROR_PPK_VERIFICATION;
@@ -646,7 +646,7 @@ END:
 
 /******************************************************************************
 *
-* This function compares the hashs
+* This function compares the hashes
 *
 * @param	Hash1 stores the hash to be compared.
 * @param	Hash2 stores the hash to be compared.

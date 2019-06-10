@@ -417,7 +417,7 @@ void XPfw_RecoveryHandler(u8 ErrorId)
  * XPfw_RecoveryAck - Acknowledge the reception of restart call from a master
  * @Master is the PM master from which restart call has been received
  *
- * @note: The restart stae corresponding to this master is set to DONE when
+ * @note: The restart state corresponding to this master is set to DONE when
  * this function is called.
  */
 void XPfw_RecoveryAck(PmMaster *Master)

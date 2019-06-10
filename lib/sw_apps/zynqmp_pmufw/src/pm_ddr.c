@@ -315,7 +315,7 @@
 #define PM_DDR_POLL_PERIOD		32000U	/* ~1ms @220MHz */
 
 #ifdef ENABLE_DDR_SR_WR
-/* Timeout period of arround 1 second to poll for DDR flags */
+/* Timeout period of around 1 second to poll for DDR flags */
 #define DDR_FLAG_POLL_PERIOD		XPAR_MICROBLAZE_FREQ
 #endif
 
@@ -1797,7 +1797,7 @@ static void restore_training_data(void)
 	 * will cause ECC errors. That is because the Xil_Out32() function first
 	 * reads 8 bytes, then modifies the 4 bytes to be updated, before writing
 	 * out all 8 bytes. Since the memory has already been corrupted by
-	 * calibration, the inital read will cause ECC errors.
+	 * calibration, the initial read will cause ECC errors.
 	 */
 	if (0U != Xil_In32(DDRC_ERRCNT)) {
 		Xil_Out32(DDRC_ERRCLR, 0xfU);

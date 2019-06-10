@@ -152,7 +152,7 @@ int main()
 	gw.addr = 0;
 	netmask.addr = 0;
 #else
-	/* initliaze IP addresses to be used */
+	/* initialize IP addresses to be used */
 	IP4_ADDR(&ipaddr,  192, 168,   1, 10);
 	IP4_ADDR(&netmask, 255, 255, 255,  0);
 	IP4_ADDR(&gw,      192, 168,   1,  1);

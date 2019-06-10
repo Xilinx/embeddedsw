@@ -38,7 +38,7 @@
   * 1.  Initialize the platform hardware such as UART, GIC.
   * 2.  Connect the IPI interrupt.
   * 3.  Register IPI device, shared memory descriptor device and shared memory
-  *     device with libmetal in the intialization.
+  *     device with libmetal in the initialization.
   * 4.  In the main application it does the following,
   *     * open the registered libmetal devices: IPI device, shared memory
   *       descriptor device and shared memory device.
