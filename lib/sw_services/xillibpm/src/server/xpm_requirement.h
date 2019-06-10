@@ -42,8 +42,8 @@ typedef struct XPm_ReqmInfo XPm_ReqmInfo;
  * Specific requirement information.
  */
 struct XPm_ReqmInfo {
-	u32 Capabilities:3; /**< Device capabilities (1-hot) */
-	u32 Latency:22; /**< Maximum device latency */
+	u32 Capabilities:4; /**< Device capabilities (1-hot) */
+	u32 Latency:21; /**< Maximum device latency */
 	u32 QoS:7; /**< QoS requirement */
 };
 
