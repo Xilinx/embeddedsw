@@ -69,6 +69,7 @@ enum XPmCapability {
 	PM_CAP_ACCESS = 0x1U, /**< Full access */
 	PM_CAP_CONTEXT = 0x2U, /**< Configuration and contents retained */
 	PM_CAP_WAKEUP = 0x4U, /**< Enabled as a wake-up source */
+	PM_CAP_UNUSABLE = 0x8U, /**< Not usable */
 };
 
 /* Usage status, returned by PmGetNodeStatus */
