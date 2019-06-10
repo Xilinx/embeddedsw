@@ -141,6 +141,7 @@ typedef enum {
 	XPM_DEVSTATE_CLK_OFF,	/* Disable clock */
 	XPM_DEVSTATE_PWR_OFF,	/* Power down */
 	XPM_DEVSTATE_SUSPENDING,
+	XPM_DEVSTATE_RUNTIME_SUSPEND,
 } XPm_DeviceState;
 
 /* Device events */
@@ -149,6 +150,7 @@ typedef enum {
 	XPM_DEVEVENT_BRINGUP_CLKRST,
 	XPM_DEVEVENT_SHUTDOWN,
 	XPM_DEVEVENT_TIMER,
+	XPM_DEVEVENT_RUNTIME_SUSPEND,
 } XPm_DeviceEvent;
 
 typedef struct XPm_Subsystem XPm_Subsystem;
