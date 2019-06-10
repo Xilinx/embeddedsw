@@ -29,7 +29,7 @@
 *
 * @file xplm_loader.h
 *
-* This file contains the declarations of platfrom loader wrapper functions
+* This file contains the declarations of platform loader wrapper functions
 *
 * <pre>
 * MODIFICATION HISTORY:

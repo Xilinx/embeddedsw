@@ -30,7 +30,7 @@
  *
  * @file xfsbl_csu_dma.c
  *
- * Contains code for the CSU DMA intialization
+ * Contains code for the CSU DMA initialization
  *
  * <pre>
  * MODIFICATION HISTORY:

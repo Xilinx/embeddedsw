@@ -40,7 +40,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   10/21/13 Initial release
 * 2.0   bv   12/02/16 Made compliance to MISRAC 2012 guidelines
-*       vns  01/29/17 Added API XFsbl_AdmaCopy to trasfer data using ADMA
+*       vns  01/29/17 Added API XFsbl_AdmaCopy to transfer data using ADMA
 *
 * </pre>
 *
@@ -802,7 +802,7 @@ END:
 * @param	DestPtr is a pointer to destination buffer to which data needs
 *		to be copied.
 * @param	SrcPtr is a pointer to the source buffer.
-* @param	size holds the size of the data to be transfered.
+* @param	size holds the size of the data to be transferred.
 *
 * @return
 *		Success on successful copy
@@ -876,7 +876,7 @@ u32 XFsbl_AdmaCopy(void * DestPtr, void * SrcPtr, u32 Size)
 	}
 
 	/* Clear the TOTAL BYTE COUNT register to avoid the BYTE_CNT_OVRFLW
-	*interupt from being set
+	*interrupt from being set
 	*/
 	XFsbl_Out32(ADMA_CH0_ZDMA_CH_CTRL0_TOTAL_BYTE_COUNT,0x00000000U);
 

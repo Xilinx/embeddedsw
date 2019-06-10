@@ -72,7 +72,7 @@ zynq_a9_proc_init(struct remoteproc *rproc,
 	irq_vect = prproc->irq_notification;
 	metal_irq_register(irq_vect, zynq_a9_proc_irq_handler, rproc);
 	metal_irq_enable(irq_vect);
-	xil_printf("Successfully intialize remoteproc.\r\n");
+	xil_printf("Successfully initialize remoteproc.\r\n");
 	return rproc;
 err1:
 	metal_device_close(dev);

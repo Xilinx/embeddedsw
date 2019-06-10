@@ -42,7 +42,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   ssc  01/20/16 Initial release
 * 2.0   bv   12/05/16 Made compliance to MISRAC 2012 guidelines.
-*       vns  02/17/17 Added API prototype to compare hashs
+*       vns  02/17/17 Added API prototype to compare hashes
 * 3.0   vns  01/23/18 Added prototype for XFsbl_Sha3PadSelect()
 *       vns  03/07/18 Added PPK/SPK offsets w.r.t to AC, modified
 *                     prototype of XFsbl_CompareHashs()

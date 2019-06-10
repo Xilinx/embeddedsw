@@ -85,7 +85,7 @@ int main(void )
 	Status = XPMCFW_SUCCESS;
 
 	/**
-	 * Enable execeptions and timers
+	 * Enable exceptions and timers
 	 */
 	XPmcFw_ExceptionInit();
 	XPmcFw_InitIOModule();

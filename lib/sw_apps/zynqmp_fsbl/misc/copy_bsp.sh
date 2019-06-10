@@ -27,7 +27,7 @@ fi
 
 BOARD_DIR=$WORKING_DIR/"$BOARD"
 
-# Embedded Sw dir relaive path from FSBL src
+# Embedded Sw dir relative path from FSBL src
 EMBEDDED_SW_DIR=$WORKING_DIR/../../../..
 
 # selection of drivers is based on the board selected

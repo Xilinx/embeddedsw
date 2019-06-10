@@ -2738,7 +2738,7 @@ END:
 
 /*****************************************************************************/
 /**
- * This function does the required Pre Configration for NPI blocks
+ * This function does the required Pre Configuration for NPI blocks
  *
  * @param       Command Args
  *

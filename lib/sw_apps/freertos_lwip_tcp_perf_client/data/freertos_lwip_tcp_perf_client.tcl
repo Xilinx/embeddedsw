@@ -75,7 +75,7 @@ proc require_memory {memsize} {
         }
     }
 
-    error "This application requires atleast $memsize bytes of memory.";
+    error "This application requires at least $memsize bytes of memory.";
 }
 
 proc check_stdout_sw {} {

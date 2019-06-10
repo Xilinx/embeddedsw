@@ -33,7 +33,7 @@
 *     This is the main program for the first-stage bootloader FS-BOOT for the
 *     PetaLinux distribution.
 *
-*     This bootloader is targeted for reconfigurable platform and is desgined
+*     This bootloader is targeted for reconfigurable platform and is designed
 *     to be run from BRAM.  Hence, elf size must remain below 8K bytes.
 *
 *     It supports the booting of any second-stage bootloader from

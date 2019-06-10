@@ -326,7 +326,7 @@ static void PmRequestSuspend(const PmMaster *const master,
 
 done:
 	if (XST_SUCCESS != status) {
-		/* Something went wrong, acknowledge immediatelly */
+		/* Something went wrong, acknowledge immediately */
 		PmProcessAckRequest(ack, master, node, status, 0U);
 	}
 }

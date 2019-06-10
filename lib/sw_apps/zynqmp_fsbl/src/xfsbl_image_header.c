@@ -176,7 +176,7 @@ u32 XFsbl_ValidateChecksum(u32 Buffer[], u32 Length)
 	u32 Count;
 
 	/**
-	 * Length has to be atleast equal to 2,
+	 * Length has to be at least equal to 2,
 	 */
 	if (Length < 2U)
 	{

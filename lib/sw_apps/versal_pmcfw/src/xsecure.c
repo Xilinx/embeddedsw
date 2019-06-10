@@ -730,7 +730,7 @@ static u32 XFsbl_ReAuthenticationBlock(XSecure_Partition *PartitionParams,
 		Xil_Out32(0xF1110500,0xC << 16);
 	}
 
-	/* calculating hashs for all chunks copies to AES/PCAP */
+	/* calculating hashes for all chunks copies to AES/PCAP */
 	if (PartitionParams->IsEncrypted == TRUE) {
 		if ((PartitionParams->PlAuth.BlockNum == 0x00) &&
 			(PartitionParams->PlAuth.ChunkNum != 0x00)) {
@@ -800,7 +800,7 @@ static u32 XFsbl_ReAuthenticationBlock(XSecure_Partition *PartitionParams,
 		PartitionParams->ChunkBuffer, Len, Last);
 	XSecure_Sha3_ReadHash(&Sha3Instance, (u8 *)ChunksHash);
 
-	/* Comparing with stored Hashs */
+	/* Comparing with stored Hashes */
 	Status = memcmp(HashStored, ChunksHash, 48);
 	if (Status != XST_SUCCESS) {
 		XPmcFw_Printf(DEBUG_INFO,"\nError at hash comparison\n\r");

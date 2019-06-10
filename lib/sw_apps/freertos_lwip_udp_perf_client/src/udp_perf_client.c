@@ -141,7 +141,7 @@ static void reset_stats(void)
 	client.total_bytes = 0;
 	client.cnt_datagrams = 0;
 
-	/* Initialize Interim report paramters */
+	/* Initialize Interim report parameters */
 	client.i_report.start_time = 0;
 	client.i_report.total_bytes = 0;
 	client.i_report.last_report_time = 0;
@@ -190,7 +190,7 @@ static int udp_packet_send(u8_t finished)
 		retries = MAX_SEND_RETRY;
 
 		/* For ZynqMP GEM, At high speed, packets are being
-		 * recieved as Out of order at Iperf server running
+		 * received as Out of order at Iperf server running
 		 * on remote host machine.
 		 * To avoid this, added delay of 1us between each
 		 * packets

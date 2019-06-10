@@ -66,7 +66,7 @@
  *
  * @param	None
  *
- * @return	Ideally should not return, incase if it reaches end,
+ * @return	Ideally should not return, in case if it reaches end,
  *          error is returned
  *
  *****************************************************************************/

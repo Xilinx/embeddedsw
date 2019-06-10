@@ -849,7 +849,7 @@ void OutputStatus(u32 State)
 *
 * This function is called upon exceptions.
 *
-* @param	State - where in the boot process the error occured.
+* @param	State - where in the boot process the error occurred.
 *
 * @return	None.
 *

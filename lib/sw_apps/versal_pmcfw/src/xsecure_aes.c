@@ -107,7 +107,7 @@ static u32 XSecure_AesKekWaitForDone(XSecure_Aes *InstancePtr);
  * @return	XST_SUCCESS if initialization was successful.
  *
  * @note	All the inputs are accepted in little endian format, but AES
- *		engine accepts the data in big endianess, this will be taken
+ *		engine accepts the data in big endianness, this will be taken
  *		care while passing data to AES engine.
  *
  ******************************************************************************/
@@ -348,7 +348,7 @@ u32 XSecure_AesKeySelNLoad(XSecure_Aes *InstancePtr)
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	/* AES key Sorce selection */
+	/* AES key Source selection */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_CSU_AES_KEY_SRC_OFFSET, InstancePtr->KeySel);
 	/* Trig loading of key. */
@@ -603,7 +603,7 @@ u32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 						XCSUDMA_DST_CHANNEL,
 						XCSUDMA_IXR_DONE_MASK);
 
-			/* Disble CSU DMA Dst channel for byte swapping */
+			/* Disable CSU DMA Dst channel for byte swapping */
 			XCsuDma_GetConfig(InstancePtr->CsuDmaPtr,
 						XCSUDMA_DST_CHANNEL,
 						&ConfigurValues);

@@ -142,7 +142,7 @@ void XPfw_ResetPsOnly(void)
 			AIB_STATUS_MASK,XPFW_TO_AIB_PS_PL);
 
 	/*
-	 * Due to a bug in AIB, there is a possibilty of glitch on the AIB ACK
+	 * Due to a bug in AIB, there is a possibility of glitch on the AIB ACK
 	 * signal to PMU. So reconfirm the ACK.
 	 */
 	if(l_Status == XST_SUCCESS){

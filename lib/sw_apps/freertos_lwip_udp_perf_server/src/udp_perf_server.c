@@ -151,7 +151,7 @@ static void reset_stats(void)
 	server.cnt_out_of_order_datagrams = 0;
 	server.expected_datagram_id = 0;
 
-	/* Initialize Interim report paramters */
+	/* Initialize Interim report parameters */
 	server.i_report.start_time = 0;
 	server.i_report.total_bytes = 0;
 	server.i_report.cnt_datagrams = 0;

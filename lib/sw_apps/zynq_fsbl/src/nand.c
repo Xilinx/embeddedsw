@@ -115,7 +115,7 @@ u32 InitNand(void)
 	Status = XNandPs_CfgInitialize(NandInstPtr, ConfigPtr,
 			ConfigPtr->SmcBase,ConfigPtr->FlashBase);
 	if (Status != XST_SUCCESS) {
-		fsbl_printf(DEBUG_GENERAL,"NAND intialization failed \n \r");
+		fsbl_printf(DEBUG_GENERAL,"NAND initialization failed \n \r");
 		return XST_FAILURE;
 	}
 

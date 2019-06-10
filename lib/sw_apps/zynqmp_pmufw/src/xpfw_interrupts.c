@@ -386,7 +386,7 @@ void XPfw_InterruptHandler(void)
 		 */
 		XPfw_PulseErrorInt();
 	} else {
-		/* We shouldnt be here before Init, but we are.. So disable the Interrupts */
+		/* We shouldn't be here before Init, but we are.. So disable the Interrupts */
 		/* Init will enable only the required interrupts */
 		XPfw_Write32(PMU_IOMODULE_IRQ_ENABLE, 0U);
 		XPfw_Write32(PMU_IOMODULE_IRQ_ACK, 0xffffffffU);

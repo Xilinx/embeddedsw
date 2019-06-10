@@ -384,7 +384,7 @@ int XPsmFw_FpdPreHouseClean()
 			 PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_DFX_MASK,
 			 ~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_DFX_MASK);
 
-	/* Wait until reset is propogated in FPD */
+	/* Wait until reset is propagated in FPD */
 	XPsmFw_UtilWait(XPSMFW_PWRON_RST_FPD_WAIT_TIME);
 done:
 	return Status;

@@ -379,7 +379,7 @@ static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags)
 
 			/**
 			 * Provide some delay,
-			 * so that clock propogates properly.
+			 * so that clock propagates properly.
 			 */
 			(void)usleep(0x50U);
 
@@ -435,7 +435,7 @@ static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags)
 
 			/**
 			 * Provide some delay,
-			 * so that clock propogates properly.
+			 * so that clock propagates properly.
 			 */
 			(void)usleep(0x50U);
 
@@ -496,7 +496,7 @@ static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags)
 
 			/**
 			 * Provide some delay,
-			 * so that clock propogates properly.
+			 * so that clock propagates properly.
 			 */
 			(void )usleep(0x50U);
 
@@ -720,7 +720,7 @@ static void XFsbl_UpdateResetVector (u64 HandOffAddress, u32 CpuSettings,
  *
  * @return	returns the error codes described in xfsbl_error.h on any error
  *
- * @note	This function should not return incase of success
+ * @note	This function should not return in case of success
  *
  *****************************************************************************/
 

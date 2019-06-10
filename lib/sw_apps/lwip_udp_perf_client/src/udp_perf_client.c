@@ -137,7 +137,7 @@ static void reset_stats(void)
 	client.total_bytes = 0;
 	client.cnt_datagrams = 0;
 
-	/* Initialize Interim report paramters */
+	/* Initialize Interim report parameters */
 	client.i_report.start_time = 0;
 	client.i_report.total_bytes = 0;
 	client.i_report.last_report_time = 0;
