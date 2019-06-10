@@ -41,6 +41,7 @@ const char *PmDevStates[] = {
 	"CLK_OFF",
 	"PWR_OFF",
 	"SUSPENDING",
+	"RUNTIME_SUSPEND",
 };
 
 const char *PmDevEvents[] = {
@@ -57,6 +58,7 @@ static u32 PmNumDevices;
 
 static const u32 XPmGenericDeviceStates[] = {
 	[XPM_DEVSTATE_UNUSED] = XPM_MIN_CAPABILITY,
+	[XPM_DEVSTATE_RUNTIME_SUSPEND] = PM_CAP_UNUSABLE,
 	[XPM_DEVSTATE_RUNNING] = XPM_MAX_CAPABILITY,
 };
 
@@ -68,6 +70,22 @@ static const XPm_StateTran XPmGenericDevTransitions[] = {
 	}, {
 		.FromState = XPM_DEVSTATE_UNUSED,
 		.ToState = XPM_DEVSTATE_RUNNING,
+		.Latency = XPM_DEF_LATENCY,
+	}, {
+		.FromState = XPM_DEVSTATE_RUNTIME_SUSPEND,
+		.ToState = XPM_DEVSTATE_UNUSED,
+		.Latency = XPM_DEF_LATENCY,
+	}, {
+		.FromState = XPM_DEVSTATE_RUNTIME_SUSPEND,
+		.ToState = XPM_DEVSTATE_RUNNING,
+		.Latency = XPM_DEF_LATENCY,
+	}, {
+		.FromState = XPM_DEVSTATE_UNUSED,
+		.ToState = XPM_DEVSTATE_RUNTIME_SUSPEND,
+		.Latency = XPM_DEF_LATENCY,
+	}, {
+		.FromState = XPM_DEVSTATE_RUNNING,
+		.ToState = XPM_DEVSTATE_RUNTIME_SUSPEND,
 		.Latency = XPM_DEF_LATENCY,
 	},
 };
@@ -388,6 +406,13 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				/* Todo: Start timer to poll reset node */
 				/* Hack */
 				Status = Node->HandleEvent(Node, XPM_DEVEVENT_TIMER);
+			} else if (XPM_DEVEVENT_RUNTIME_SUSPEND == Event) {
+				Node->State = XPM_DEVSTATE_RUNTIME_SUSPEND;
+				/* Disable all clocks */
+				Status = SetClocks(Device, FALSE);
+				if (XST_SUCCESS != Status) {
+					break;
+				}
 			} else {
 				/* Required by MISRA */
 			}
@@ -454,6 +479,21 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				Status = XST_SUCCESS;
 			}
 			break;
+		case XPM_DEVSTATE_RUNTIME_SUSPEND:
+			if (XPM_DEVEVENT_SHUTDOWN == Event) {
+				Node->State = XPM_DEVSTATE_RUNNING;
+				Status = Node->HandleEvent(Node, XPM_DEVEVENT_SHUTDOWN);
+			} else if (XPM_DEVEVENT_BRINGUP_ALL == Event) {
+				/* Enable all clocks */
+				Status = SetClocks(Device, TRUE);
+				if (XST_SUCCESS != Status) {
+					break;
+				}
+				Node->State = XPM_DEVSTATE_RUNNING;
+			} else {
+				/* Required by MISRA */
+			}
+			break;
 		default:
 			break;
 	}
@@ -475,6 +515,22 @@ static XStatus HandleDeviceState(XPm_Device* const Device, const u32 NextState)
 		if (XPM_DEVSTATE_UNUSED == NextState) {
 			Status = Device->Node.HandleEvent((XPm_Node *)Device,
 							  XPM_DEVEVENT_SHUTDOWN);
+		} else if (XPM_DEVSTATE_RUNTIME_SUSPEND == NextState) {
+			Status = Device->Node.HandleEvent((XPm_Node *)Device,
+							  XPM_DEVEVENT_RUNTIME_SUSPEND);
+		} else {
+			/* Required by MISRA */
+		}
+		break;
+	case XPM_DEVSTATE_RUNTIME_SUSPEND:
+		if (XPM_DEVSTATE_RUNNING == NextState) {
+			Status = Device->Node.HandleEvent((XPm_Node *)Device,
+							  XPM_DEVEVENT_BRINGUP_ALL);
+		} else if (XPM_DEVSTATE_UNUSED == NextState) {
+			Status = Device->Node.HandleEvent((XPm_Node *)Device,
+							  XPM_DEVEVENT_SHUTDOWN);
+		} else {
+			/* Required by MISRA */
 		}
 		break;
 	default:
@@ -498,7 +554,8 @@ static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 	XPm_Requirement *Reqm;
 
 	if ((XPM_DEVSTATE_UNUSED != Device->Node.State) &&
-		(XPM_DEVSTATE_RUNNING != Device->Node.State)) {
+		(XPM_DEVSTATE_RUNNING != Device->Node.State) &&
+		(XPM_DEVSTATE_RUNTIME_SUSPEND != Device->Node.State)) {
 			Status = XST_DEVICE_BUSY;
 			goto done;
 	}
@@ -534,7 +591,8 @@ static XStatus SetRequirement(XPm_Device *Device, XPm_Subsystem *Subsystem,
 	XPm_ReqmInfo TempReqm;
 
 	if ((XPM_DEVSTATE_UNUSED != Device->Node.State) &&
-		(XPM_DEVSTATE_RUNNING != Device->Node.State)) {
+		(XPM_DEVSTATE_RUNNING != Device->Node.State) &&
+		(XPM_DEVSTATE_RUNTIME_SUSPEND != Device->Node.State)) {
 			Status = XST_DEVICE_BUSY;
 			goto done;
 	}
@@ -571,6 +629,10 @@ static XStatus SetRequirement(XPm_Device *Device, XPm_Subsystem *Subsystem,
 	if (XST_SUCCESS != Status) {
 		Device->PendingReqm->Curr.Capabilities = TempReqm.Capabilities;
 		Device->PendingReqm->Curr.QoS = TempReqm.QoS;
+	} else if (PM_CAP_UNUSABLE == Capabilities) {
+		/* Schedual next requirement to 0 */
+		Device->PendingReqm->Next.Capabilities = 0;
+		Device->PendingReqm->Next.QoS = QoS;
 	} else {
 		XPm_RequiremntUpdate(Device->PendingReqm);
 	}
@@ -585,7 +647,8 @@ static XStatus Release(XPm_Device *Device,
 	u32 Status = XST_FAILURE;
 
 	if ((XPM_DEVSTATE_UNUSED != Device->Node.State) &&
-		(XPM_DEVSTATE_RUNNING != Device->Node.State)) {
+		(XPM_DEVSTATE_RUNNING != Device->Node.State) &&
+		(XPM_DEVSTATE_RUNTIME_SUSPEND != Device->Node.State)) {
 			Status = XST_DEVICE_BUSY;
 			goto done;
 	}
@@ -1378,7 +1441,8 @@ XStatus XPmDevice_UpdateStatus(XPm_Device *Device)
 	u32 State = 0;
 
 	if ((XPM_DEVSTATE_UNUSED != Device->Node.State) &&
-	    (XPM_DEVSTATE_RUNNING != Device->Node.State)) {
+	    (XPM_DEVSTATE_RUNNING != Device->Node.State) &&
+	    (XPM_DEVSTATE_RUNTIME_SUSPEND != Device->Node.State)) {
 			Status = XST_DEVICE_BUSY;
 			goto done;
 	}
