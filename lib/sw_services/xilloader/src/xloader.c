@@ -445,9 +445,6 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 			{
 				XLoader_Printf(DEBUG_INFO,
 						"Request RPU 0 wakeup\r\n");
-				XPm_DevIoctl(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0,
-						IOCTL_SET_RPU_OPER_MODE,
-						XPM_RPU_MODE_SPLIT, 0, 0);
 				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0,
 						1, HandoffAddr, 0);
 				if (Status != XST_SUCCESS)
@@ -462,9 +459,6 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 			{
 				XLoader_Printf(DEBUG_INFO,
 						"Request RPU 1 wakeup\r\n");
-				XPm_DevIoctl(XPM_SUBSYSID_PMC, XPM_DEVID_R50_1,
-						IOCTL_SET_RPU_OPER_MODE,
-						XPM_RPU_MODE_SPLIT, 0, 0);
 				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC, XPM_DEVID_R50_1,
 						1, HandoffAddr, 0);
 				if (Status != XST_SUCCESS)
@@ -479,9 +473,6 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 			{
 				XLoader_Printf(DEBUG_INFO,
 						"Request RPU wakeup\r\n");
-				XPm_DevIoctl(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0,
-						IOCTL_SET_RPU_OPER_MODE,
-						XPM_RPU_MODE_LOCKSTEP, 0, 0);
 				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0,
 						1, HandoffAddr, 0);
 				if (Status != XST_SUCCESS)

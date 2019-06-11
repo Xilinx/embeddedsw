@@ -178,7 +178,6 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 	u32 DstnCpu;
 	u32 Len;
 	XilPdi_PrtnHdr * PrtnHdr;
-	u32 RpuBaseOfst;
 	XLoader_SecureParms SecureParams;
 
 	/* Secure init */
@@ -220,10 +219,10 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 
 	DstnCpu = XilPdi_GetDstnCpu(PrtnHdr);
 	if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_PSM) &&
-	    (PdiPtr->EccStatus == FALSE))
+	    ((PdiPtr->EccStatus & XLOADER_ECC_STATUS_PSM_RAM_MASK)== FALSE))
 	{
 		XPlmi_EccInit(XLOADER_PSM_RAM_BASE_ADDR, XLOADER_PSM_RAM_SIZE);
-		PdiPtr->EccStatus = TRUE;
+		PdiPtr->EccStatus |= XLOADER_ECC_STATUS_PSM_RAM_MASK;
 	}
 
 	/* Check if R5 App memory is TCM, Copy to global TCM memory MAP */
@@ -233,14 +232,63 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 	{
 
 		if (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) {
-			RpuBaseOfst = XLOADER_CRX_RPU_1_BASE_OFFSET;
-		} else {
-			RpuBaseOfst = 0x0U;
+			if((PdiPtr->EccStatus & XLOADER_ECC_STATUS_R5_1_TCM_MASK) == FALSE)
+			{
+				XPm_DevIoctl(XPM_SUBSYSID_PMC, XPM_DEVID_R50_1,
+									IOCTL_SET_RPU_OPER_MODE,
+									XPM_RPU_MODE_SPLIT, 0, 0);
+				XPm_RequestDevice(XPM_SUBSYSID_PMC,XPM_DEVID_TCM_1_A,
+					PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
+				XPm_RequestDevice(XPM_SUBSYSID_PMC,XPM_DEVID_TCM_1_B,
+					PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
+				XPlmi_EccInit(XLOADER_R5_1_TCMA_BASE_ADDR,
+								XLOADER_R5_TCMA_SIZE);
+				XPlmi_EccInit(XLOADER_R5_1_TCMB_BASE_ADDR,
+								XLOADER_R5_TCMB_SIZE);
+				PdiPtr->EccStatus |= XLOADER_ECC_STATUS_R5_1_TCM_MASK;
+			}
+		} else if (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0){
+			if((PdiPtr->EccStatus & XLOADER_ECC_STATUS_R5_0_TCM_MASK)== FALSE)
+			{
+				XPm_DevIoctl(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0,
+										IOCTL_SET_RPU_OPER_MODE,
+										XPM_RPU_MODE_SPLIT, 0, 0);
+				XPm_RequestDevice(XPM_SUBSYSID_PMC,XPM_DEVID_TCM_0_A,
+						PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
+				XPm_RequestDevice(XPM_SUBSYSID_PMC,XPM_DEVID_TCM_0_B,
+						PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
+				XPlmi_EccInit(XLOADER_R5_0_TCMA_BASE_ADDR,
+									XLOADER_R5_TCMA_SIZE);
+				XPlmi_EccInit(XLOADER_R5_0_TCMB_BASE_ADDR,
+									XLOADER_R5_TCMB_SIZE);
+				PdiPtr->EccStatus |= XLOADER_ECC_STATUS_R5_0_TCM_MASK;
+			}
 		}
-
-		/* Halt the CPU */
-		XPlmi_UtilRMW(RPU_RPU_0_CFG + RpuBaseOfst,
-				RPU_RPU_0_CFG_NCPUHALT_MASK, 0x0U);
+		else
+		{
+			if((PdiPtr->EccStatus & XLOADER_ECC_STATUS_R5_LS_TCM_MASK)== FALSE)
+			{
+				XPm_DevIoctl(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0,
+											IOCTL_SET_RPU_OPER_MODE,
+										XPM_RPU_MODE_LOCKSTEP, 0, 0);
+				XPm_DevIoctl(XPM_SUBSYSID_PMC, XPM_DEVID_R50_1,
+											IOCTL_SET_RPU_OPER_MODE,
+										XPM_RPU_MODE_LOCKSTEP, 0, 0);
+				XPm_RequestDevice(XPM_SUBSYSID_PMC,XPM_DEVID_TCM_0_A,
+						PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
+				XPm_RequestDevice(XPM_SUBSYSID_PMC,XPM_DEVID_TCM_0_B,
+						PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
+				XPm_RequestDevice(XPM_SUBSYSID_PMC,XPM_DEVID_TCM_1_A,
+						PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
+				XPm_RequestDevice(XPM_SUBSYSID_PMC,XPM_DEVID_TCM_1_B,
+						PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
+				XPlmi_EccInit(XLOADER_R5_0_TCMA_BASE_ADDR,
+									XLOADER_R5_TCMA_SIZE<<1U);
+				XPlmi_EccInit(XLOADER_R5_0_TCMB_BASE_ADDR,
+									XLOADER_R5_TCMB_SIZE<<1U);
+				PdiPtr->EccStatus |= XLOADER_ECC_STATUS_R5_LS_TCM_MASK;
+			}
+		}
 
 		Status = XLoader_GetLoadAddr(DstnCpu, &DestAddr, Len);
 		if (XST_SUCCESS != Status) {
@@ -574,21 +622,26 @@ static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len)
 	Address = *LoadAddrPtr;
 
 	if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) &&
-			((Address < (XLOADER_R5_TCM_START_ADDRESS + XLOADER_R5_TCM_BANK_LENGTH)) ||
-			((Address >= XLOADER_R5_BTCM_START_ADDRESS) &&
-			(Address < (XLOADER_R5_BTCM_START_ADDRESS + XLOADER_R5_TCM_BANK_LENGTH))))) {
+			((Address < (XLOADER_R5_TCMA_LOAD_ADDRESS + XLOADER_R5_TCM_BANK_LENGTH)) ||
+			((Address >= XLOADER_R5_TCMB_LOAD_ADDRESS) &&
+			(Address < (XLOADER_R5_TCMB_LOAD_ADDRESS + XLOADER_R5_TCM_BANK_LENGTH))))) {
 		if (Len > XLOADER_R5_TCM_BANK_LENGTH) {
-			Status = XST_FAILURE;
+			Status = XLOADER_ERR_TCM_ADDR_OUTOF_RANGE;
+			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, Status);
 			goto END;
 		}
 
 		Address += XLOADER_R5_0_TCMA_BASE_ADDR;
 	} else if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) &&
-			((Address < (XLOADER_R5_TCM_START_ADDRESS + XLOADER_R5_TCM_BANK_LENGTH)) ||
-			((Address >= XLOADER_R5_BTCM_START_ADDRESS) &&
-			(Address < (XLOADER_R5_BTCM_START_ADDRESS + XLOADER_R5_TCM_BANK_LENGTH))))) {
+			((Address < (XLOADER_R5_TCMA_LOAD_ADDRESS +
+						XLOADER_R5_TCM_BANK_LENGTH)) ||
+			((Address >= XLOADER_R5_TCMB_LOAD_ADDRESS) &&
+			(Address < (XLOADER_R5_TCMB_LOAD_ADDRESS +
+						XLOADER_R5_TCM_BANK_LENGTH))))) {
 		if (Len > XLOADER_R5_TCM_BANK_LENGTH) {
-			Status = XST_FAILURE;
+			Status = XLOADER_ERR_TCM_ADDR_OUTOF_RANGE;
+			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_TCM_ADDR_OUTOF_RANGE,
+																	Status);
 			goto END;
 		}
 
@@ -596,7 +649,9 @@ static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len)
 	} else if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L) &&
 			(Address < (XLOADER_R5_TCM_BANK_LENGTH * 4))) {
 		if (Len > (XLOADER_R5_TCM_BANK_LENGTH * 4)) {
-			Status = XST_FAILURE;
+			Status = XLOADER_ERR_TCM_ADDR_OUTOF_RANGE;
+			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_TCM_ADDR_OUTOF_RANGE,
+																	Status);
 			goto END;
 		}
 
