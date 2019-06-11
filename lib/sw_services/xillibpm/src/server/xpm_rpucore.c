@@ -186,6 +186,8 @@ void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 {
 	u32 Val;
 	XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
+	int Status;
+	XPm_Subsystem *DefSubsystem = XPmSubsystem_GetById(XPM_SUBSYSID_DEFAULT);
 
 	PmIn32(RpuCore->Core.Device.Node.BaseAddress + RPU_GLBL_CNTL_OFFSET,
 	       Val);
@@ -203,6 +205,22 @@ void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 
 	PmOut32(RpuCore->Core.Device.Node.BaseAddress + RPU_GLBL_CNTL_OFFSET,
 	        Val);
+
+	/* Add or remove R50_1 core in default subsystem according to its mode */
+	Status = XPmDevice_IsRequested(XPM_DEVID_R50_0, XPM_SUBSYSID_DEFAULT);
+	if ((XST_SUCCESS == Status) && (ONLINE == DefSubsystem->State)) {
+		if (Mode == XPM_RPU_MODE_SPLIT) {
+			XPmDevice_Request(XPM_SUBSYSID_DEFAULT, XPM_DEVID_R50_1,
+					  PM_CAP_ACCESS, XPM_MAX_QOS);
+		} else if (Mode == XPM_RPU_MODE_LOCKSTEP) {
+			Status = XPmDevice_IsRequested(XPM_DEVID_R50_1,
+						       XPM_SUBSYSID_DEFAULT);
+			if (XST_SUCCESS == Status) {
+				XPmDevice_Release(XPM_SUBSYSID_DEFAULT,
+						  XPM_DEVID_R50_1);
+			}
+		}
+	}
 }
 
 XStatus XPm_RpuBootAddrConfig(const u32 DeviceId, const u32 BootAddr)

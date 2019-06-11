@@ -1551,3 +1551,35 @@ int XPmDevice_IsClockActive(XPm_Device *Device)
 done:
 	return Status;
 }
+
+/****************************************************************************/
+/**
+ * @brief  Check if any subsystem requested perticular device or not.
+ *
+ * @param  DeviceId	Device ID
+ * @param  SubsystemId	Subsystem ID
+ *
+ * @return XST_SUCCESS if device is requested from subsystem
+ *         XST_FAILURE if device is not requested or error code
+ *
+ ****************************************************************************/
+int XPmDevice_IsRequested(const u32 DeviceId, const u32 SubsystemId)
+{
+	int Status = XST_FAILURE;
+	XPm_Device *Device = XPmDevice_GetById(DeviceId);
+	XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
+	XPm_Requirement *Reqm;
+
+	if ((NULL == Device) || (NULL == Subsystem)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Reqm = FindReqm(Device, Subsystem);
+	if ((NULL != Reqm) && (TRUE == Reqm->Allocated)) {
+		Status = XST_SUCCESS;
+	}
+
+done:
+	return Status;
+}

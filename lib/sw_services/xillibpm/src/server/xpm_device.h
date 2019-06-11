@@ -257,6 +257,7 @@ XStatus XPmDevice_UpdateStatus(XPm_Device *Device);
 XStatus XPmDevice_BringUp(XPm_Node *Node);
 int XPmDevice_GetUsageStatus(XPm_Subsystem *Subsystem, XPm_Device *Device);
 int XPmDevice_IsClockActive(XPm_Device *Device);
+int XPmDevice_IsRequested(const u32 DeviceId, const u32 SubsystemId);
 
 #ifdef __cplusplus
 }
