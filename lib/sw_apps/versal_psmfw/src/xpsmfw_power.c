@@ -767,6 +767,8 @@ static XStatus XPsmFwRPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	/* Disable wake interrupt by GIC for RPUx */
 	XPsmFw_Write32(PSM_GLOBAL_REG_WAKEUP_IRQ_STATUS, Args->PwrStateMask >> 6);
 
+	/* Clear pending direct power-down request of RPUx */
+	XPsmFw_Write32(PSM_GLOBAL_REG_PWR_CTRL_IRQ_STATUS, Args->PwrStateMask >> 6);
 	/* Enable Direct Power-down Request of RPUx */
 	XPsmFw_Write32(PSM_GLOBAL_REG_PWR_CTRL_IRQ_EN, Args->PwrStateMask >> 6);
 
