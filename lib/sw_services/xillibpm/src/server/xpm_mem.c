@@ -102,14 +102,20 @@ static XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState)
 			XPm_RpuGetOperMode(XPM_DEVID_R50_0, &Mode);
 			 if (XPM_RPU_MODE_SPLIT == Mode)
 			 {
-				if (XPM_DEVID_TCM_0_A == Id || XPM_DEVID_TCM_0_B == Id) {
-					Status = XPmDevice_BringUp(&Rpu0Device->Node);
+				if ((XPM_DEVID_TCM_0_A == Id ||
+				     XPM_DEVID_TCM_0_B == Id) &&
+				    (XPM_DEVSTATE_RUNNING !=
+				     Rpu0Device->Node.State)) {
+					Status = XPmRpuCore_Halt(Rpu0Device);
 					if (XST_SUCCESS != Status) {
 						goto done;
 					}
 				}
-				if (XPM_DEVID_TCM_1_A == Id || XPM_DEVID_TCM_1_B == Id) {
-					Status = XPmDevice_BringUp(&Rpu1Device->Node);
+				if ((XPM_DEVID_TCM_1_A == Id ||
+				     XPM_DEVID_TCM_1_B == Id) &&
+				    (XPM_DEVSTATE_RUNNING !=
+				     Rpu1Device->Node.State)) {
+					Status = XPmRpuCore_Halt(Rpu1Device);
 					if (XST_SUCCESS != Status) {
 						goto done;
 					}
@@ -117,8 +123,13 @@ static XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState)
 			 }
 			 if (XPM_RPU_MODE_LOCKSTEP == Mode)
 			 {
-				if (XPM_DEVID_TCM_0_A == Id || XPM_DEVID_TCM_0_B == Id || XPM_DEVID_TCM_1_A == Id || XPM_DEVID_TCM_1_B == Id) {
-					Status = XPmDevice_BringUp(&Rpu0Device->Node);
+				if ((XPM_DEVID_TCM_0_A == Id ||
+				     XPM_DEVID_TCM_0_B == Id ||
+				     XPM_DEVID_TCM_1_A == Id ||
+				     XPM_DEVID_TCM_1_B == Id) &&
+				     (XPM_DEVSTATE_RUNNING !=
+				      Rpu0Device->Node.State)) {
+					Status = XPmRpuCore_Halt(Rpu0Device);
 					if (XST_SUCCESS != Status) {
 						goto done;
 					}
