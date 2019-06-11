@@ -121,6 +121,11 @@ static XStatus XPmRpuCore_PwrDwn(XPm_Core *Core)
 		goto done;
 	}
 
+	Status = XPmRpuCore_Halt((XPm_Device *)Core);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
 	Status = XPmCore_PwrDwn(Core, RegOffset);
 
 done:

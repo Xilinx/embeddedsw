@@ -61,7 +61,8 @@ static XStatus XPmCore_Sleep(XPm_Core *Core)
 	/*
 	 * If parent is on, then only send sleep request
 	 */
-	if (Core->Device.Power->Parent->Node.State == XPM_POWER_STATE_ON) {
+	if ((Core->Device.Power->Parent->Node.State == XPM_POWER_STATE_ON) &&
+	    (XPM_NODETYPE_DEV_CORE_RPU != NODETYPE(Core->Device.Node.Id))) {
 		/*
 		 * Power down the core
 		 */
@@ -127,7 +128,6 @@ XStatus XPmCore_WakeUp(XPm_Core *Core)
 		if (NULL != Core->Device.ClkHandles) {
 			XPmClock_Request(Core->Device.ClkHandles);
 		}
-
 		Status = XPm_DirectPwrUp(Core->Device.Node.Id);
 	}
 
@@ -148,6 +148,7 @@ XStatus XPmCore_PwrDwn(XPm_Core *Core, u32 PwrDwnRegOffset)
 
 	if(Core->Device.Node.State == XPM_DEVSTATE_SUSPENDING) {
 		DISABLE_WFI(Core->SleepMask);
+		ENABLE_WAKE(Core->SleepMask);
 	}
 
 	Status = XPmCore_Sleep(Core);
