@@ -38,7 +38,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   12/21/2017 Initial release
 * 2.00  bsv  03/01/2019 Added error handling APIs
-*
+* 2.01  bsv  11/06/2019 XCfupmc_ClearCfuIsr API added
 * </pre>
 *
 * @note
@@ -175,6 +175,8 @@ void XCfupmc_WaitForStreamDone(XCfupmc *InstancePtr);
 void XCfupmc_CfuErrHandler(XCfupmc *InstancePtr);
 void XCfupmc_CfiErrHandler(XCfupmc *InstancePtr);
 void XCfupmc_ExtErrorHandler(XCfupmc *InstancePtr);
+void XCfupmc_ClearIgnoreCfiErr(XCfupmc *InstancePtr);
+void XCfupmc_ClearCfuIsr(XCfupmc *InstancePtr);
 #ifdef __cplusplus
 }
 #endif
