@@ -40,6 +40,10 @@
 #include <xstatus.h>
 #include "pm_defs.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 XStatus XPm_GetClockParentBySelect(const enum XPmClock clock,
 				   const u32 select,
 				   enum XPmClock* const parent);
@@ -55,4 +59,8 @@ u8 XPm_MapDivider(const enum XPmClock clock,
 		  u32* const div0,
 		  u32* const div1);
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* PM_CLOCKS_H_ */

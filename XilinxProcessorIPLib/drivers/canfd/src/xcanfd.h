@@ -1,11 +1,10 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* in the Software without restriction, including without limitation the rights * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 * copies of the Software, and to permit persons to whom the Software is
 * furnished to do so, subject to the following conditions:
 *
@@ -29,7 +28,7 @@
 /**
 *
 * @file xcanfd.h
-* @addtogroup canfd_v2_0
+* @addtogroup canfd_v2_1
 * @{
 * @details
 *
@@ -210,17 +209,9 @@ exclusion
 *       ms   04/05/17 Added tabspace for return statements in functions
 *                     of canfd examples for proper documentation while
 *                     generating doxygen.
-* 2.0   ask  08/08/18 Fixed Gcc, Cppcheck and doxygen warnings in api's :
-*					  XCanFd_PollQueue_Buffer, XCanFd_AcceptFilterSet,
-*					  XCanFd_Recv_Sequential, XCanFd_SetBitTiming,
-*					  XCanFd_SetBitRateSwitch_EnableNominal.
-*					  Changed value of Canfd Id to 11 bit value to comply
-*					  with standard Can ID.
-*	ask  09/21/18 Fixed CanFD hang issue in selftest by correcting the
-*  	   	      Configuration regarding the Baud Rate and bit timing
-*		      for both Arbitration and Data Phase.
-*
-* 2.0  ask  09/12/18 Added support for canfd 2.0 spec sequential mode.
+* 2.0   mj   1/3/18   updated supported_peripherals and version number CR# 991037.
+*                     CANFD Driver not pulled by drivers.
+* 2.1   ask  09/12/18 Added support for canfd 2.0 spec sequential mode.
 *                                        API's added : XCanFd_Recv_Sequential
 *                                                                      XCanFd_SeqRecv_logic
 *                                                                      XCanFd_Recv_TXEvents_Sequential
@@ -248,7 +239,30 @@ exclusion
 *			 Modified apis
 *						XCanFd_SetBitTiming
 *                                               XCanFd_SetFBitTiming in xcanfd.h
-* 2.0	nsk  11/16/18 Updated the version in change log(CR 1016901).
+*       ask  07/03/18 Fix for Sequencial recv CR# 992606,CR# 1004222.
+*       nsk  07/11/18 Updated tcl to generate CANFD Frequency macro in
+*		      xparameters.h (CR 1005641).
+*	ask  08/27/18 Modified RecvSeq function to return XST_NO_DATA when the
+*	 	      fifo fill levels are zero.
+* 	ask  08/08/18 Fixed Gcc, Cppcheck and doxygen warnings in api's :
+*                                        XCanFd_PollQueue_Buffer, XCanFd_AcceptFilterSet,
+*                                        XCanFd_Recv_Sequential, XCanFd_SetBitTiming,
+*                                        XCanFd_SetBitRateSwitch_EnableNominal.
+*                                        Changed value of Canfd Id to 11 bit value to comply
+*                                        with standard Can ID.
+*	ask  09/21/18 Fixed CanFD hang issue in selftest by correcting the
+*                    Configuration regarding the Baud Rate and bit timing
+*                    for both Arbitration and Data Phase.
+* 2.1   nsk  01/22/19 Pass correct fifo number to XCanFd_SeqRecv_logic() in
+*		      xcanfd.c CR# 1018379
+* 2.1   nsk  01/22/19 Fixed XCanFd_SetFBaudPrescalar(), which is not setting
+*		      prescalar value properly in xcanfd_config.c CR# 1016013
+* 2.1	nsk  03/09/19 Updated XCanFd_GetDlc2len(), for CAN frames, to handle
+*		      number of data bytes greater than 8. CR# 1022045
+* 2.1	nsk  03/09/19 Fix for TrrMask to not to get written when using
+		      XCanFd_Addto_Queue(). CR# 1022093
+* 2.1	nsk  03/09/19 Added support for PS CANFD, PL CANFD 1.0 and PL CANFD 2.0
+*		      CR# 1021963
 *
 * </pre>
 *
@@ -621,7 +635,7 @@ typedef struct {
 *
 * @param	ReadIndex is the Buffer	number to locate the FIFO
 *
-* @note		None
+* @note		none
 *
 *****************************************************************************/
 #define XCANFD_RXID_OFFSET(ReadIndex) \
@@ -1004,6 +1018,21 @@ typedef struct {
 *****************************************************************************/
 #define XCanFD_Check_TrrVal_Set_Bit(Var)      Var&(-Var)
 
+/****************************************************************************/
+/**
+*
+* This routine returns Number with right most bit set
+* from the target input value.
+*
+* @param	Target value.
+*
+* @return	Number with right most bit set from the target value.
+*
+* @note		None.
+*
+*****************************************************************************/
+#define XCanFD_Check_TrrVal_Set_Bit(Var)      Var&(-Var)
+
 /* Functions in xcan.c */
 int XCanFd_CfgInitialize(XCanFd *InstancePtr, XCanFd_Config *ConfigPtr,
 						UINTPTR EffectiveAddr);
@@ -1024,7 +1053,7 @@ void XCanFd_AcceptFilterGet(XCanFd *InstancePtr, u32 FilterIndex,
 						u32 *MaskValue, u32 *IdValue);
 XCanFd_Config *XCanFd_LookupConfig(u16 DeviceId);
 XCanFd_Config *XCanFd_GetConfig(unsigned int InstanceIndex);
-int XCanFd_GetDlc2len(u32 Dlc);
+int XCanFd_GetDlc2len(u32 Dlc, u32 Edl);
 u8 XCanFd_GetLen2Dlc(int len);
 u32 XCanFd_GetFreeBuffer(XCanFd *InstancePtr);
 int XCanFd_Send_Queue(XCanFd *InstancePtr);

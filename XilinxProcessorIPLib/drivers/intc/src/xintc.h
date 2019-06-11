@@ -29,7 +29,7 @@
 /**
 *
 * @file xintc.h
-* @addtogroup intc_v3_8
+* @addtogroup intc_v3_9
 * @{
 * @details
 *
@@ -211,6 +211,8 @@
 *                     generation.
 * 3.7   ms   04/18/17 Modified tcl file to add suffix U for macro definitions
 *                     of intc in xparameters.h
+* 3.9   adk  19/12/18 If design contains unconnected interrupt pins
+*		      return proper error message(CR#1018878).
 * </pre>
 *
 ******************************************************************************/

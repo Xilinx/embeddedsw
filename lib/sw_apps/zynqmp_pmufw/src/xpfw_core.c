@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -163,10 +163,14 @@ XStatus XPfw_CoreDispatchIpi(u32 IpiNum, u32 SrcMask)
 			/* If set, read the message into buffer */
 			Status = XPfw_IpiReadMessage(IpiMaskList[MaskIndex],
 						&Payload[0], XPFW_IPI_MAX_MSG_LEN);
+			if (XST_SUCCESS != Status) {
+				XPfw_Printf(DEBUG_ERROR, "IPI payload read error\r\n");
+				goto Done;
+			}
 			/* Dispatch based on IPI ID (MSB 16 bits of Word-0) of the module */
 			for (Idx = 0U; Idx < CorePtr->ModCount; Idx++) {
 				/* If API ID matches and IpiHandler is set */
-				if ( (CorePtr->ModList[Idx].IpiId == (Payload[0] >> 16)) &&
+				if ( (CorePtr->ModList[Idx].IpiId == (Payload[0] >> 16U)) &&
 					(CorePtr->ModList[Idx].IpiHandler != NULL)) {
 					/* Call the module's IPI handler */
 					CorePtr->ModList[Idx].IpiHandler(&CorePtr->ModList[Idx],

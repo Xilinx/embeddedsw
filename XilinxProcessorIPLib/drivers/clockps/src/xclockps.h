@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -51,6 +51,8 @@
 * ----- ------ -------- ---------------------------------------------
 * 1.00  cjp    02/09/18 First release
 * 1.00  sd     07/26/18 Fix Doxygen warnings
+* 1.1   aru    03/20/19 Fix IAR isssue by changing "XCLOCK_ABS_DIFF" to a
+*                       function named "XClock_Absolute_Difference".
 * </pre>
 *
 ******************************************************************************/
@@ -139,18 +141,6 @@ extern "C" {
 /* Parse parent to fetch out parent database index */
 #define XCLOCK_FETCH_PARENT_INDEX(parent) \
 				(parent & XCLOCK_PARENT_IDX_MASK)
-
-/* Absolute difference of 2 values */
-#define XCLOCK_ABS_DIFF(a, b) \
-	({ \
-		u32 diff; \
-		if (a < b) { \
-			diff = b - a; \
-		} else { \
-			diff = a - b; \
-		} \
-		diff; \
-	})
 
 /* Limits the value within min and max */
 #define XCLOCK_LIMIT_VALUE(val, min, max) \

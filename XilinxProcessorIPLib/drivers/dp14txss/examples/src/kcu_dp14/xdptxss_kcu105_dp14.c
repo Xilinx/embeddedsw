@@ -284,9 +284,9 @@ typedef enum {
 	XVIDC_VM_1920x1080_60_P_RB = (XVIDC_VM_CUSTOM + 1),
 	XVIDC_B_TIMING3_60_P_RB ,
 	XVIDC_VM_3840x2160_120_P_RB,
-	XVIDC_VM_7680x4320_24_P,
-	XVIDC_VM_7680x4320_25_P,
-	XVIDC_VM_7680x4320_30_P,
+	XVIDC_VM_7680x4320_DP_24_P,
+	XVIDC_VM_7680x4320_DP_25_P,
+	XVIDC_VM_7680x4320_DP_30_P,
 	XVIDC_VM_3840x2160_100_P_RB2,
 	XVIDC_VM_7680x4320_30_DELL,
 	XVIDC_VM_5120x2880_60_P_RB2,
@@ -312,13 +312,13 @@ const XVidC_VideoTimingMode XVidC_MyVideoTimingMode[
 	{ XVIDC_VM_3840x2160_120_P_RB, "3840x2160@120Hz (RB)", XVIDC_FR_120HZ,
 		{3840, 8, 32, 40, 3920, 1,
 		2160, 113, 8, 6, 2287, 0, 0, 0, 0, 1} },
-	{ XVIDC_VM_7680x4320_24_P, "7680x4320@24Hz", XVIDC_FR_24HZ,
+	{ XVIDC_VM_7680x4320_DP_24_P, "7680x4320@24Hz", XVIDC_FR_24HZ,
 		{7680, 352, 176, 592, 8800, 1,
 		4320, 16, 20, 144, 4500, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_7680x4320_25_P, "7680x4320@25Hz", XVIDC_FR_25HZ,
+	{ XVIDC_VM_7680x4320_DP_25_P, "7680x4320@25Hz", XVIDC_FR_25HZ,
 		{7680, 352, 176, 592, 8800, 1,
 		4320, 16, 20, 144, 4500, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_7680x4320_30_P, "7680x4320@30Hz", XVIDC_FR_30HZ,
+	{ XVIDC_VM_7680x4320_DP_30_P, "7680x4320@30Hz", XVIDC_FR_30HZ,
 		{7680, 8, 32, 40, 7760, 0,
 		4320, 47, 8, 6, 4381, 0, 0, 0, 0, 1}},
 	{ XVIDC_VM_3840x2160_100_P_RB2, "3840x2160@100Hz (RB2)", XVIDC_FR_100HZ,
@@ -364,8 +364,8 @@ XVidC_VideoMode resolution_table[] =
 	XVIDC_VM_1920x1080_60_P_RB,
 	XVIDC_VM_3840x2160_60_P_RB,
 	XVIDC_VM_3840x2160_120_P_RB,
-	XVIDC_VM_7680x4320_24_P,
-	XVIDC_VM_7680x4320_30_P,
+	XVIDC_VM_7680x4320_DP_24_P,
+	XVIDC_VM_7680x4320_DP_30_P,
 	XVIDC_VM_3840x2160_100_P_RB2,
 	XVIDC_VM_7680x4320_30_DELL,
 	XVIDC_VM_5120x2880_60_P_RB2,
@@ -631,29 +631,14 @@ int main(void)
 			XDP_RX_AUDIO_CONTROL, 0x0);
 #endif
 
-#if !OVERRIDE_540G
 	XDpRxSs_SetLinkRate(&DpRxSsInst, LineRate_init);
 	XDpRxSs_SetLaneCount(&DpRxSsInst, LaneCount_init);
-#else
-	XDpRxSs_SetLinkRate(&DpRxSsInst, XDP_DPCD_LINK_BW_SET_540GBPS);
-	XDpRxSs_SetLaneCount(&DpRxSsInst, LaneCount_init);
-#endif
 	XDpRxSs_Start(&DpRxSsInst);
 //	/* Programming AUX defer to 6. */
 //	tmp_rd = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x4);
 //	tmp_rd |= tmp_rd | 0x06000000;
 //	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x4, tmp_rd);
 
-#if OVERRIDE_540G
-	// Disabling the extended capability so that RX never trains more than
-	// 5.4G
-	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x1);
-	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_OVER_TP_SET,
-		(XDP_DPCD_TRAIN_AUX_RD_INT_16MS <<
-		 XDP_RX_OVER_TP_SET_TRAINING_AUX_RD_INTERVAL_SHIFT) |
-		0x0000);
-	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x0);
-#endif
 
 	/* Setting RX link to disabled state. This is to ensure
 	 * that Source gets enough time to authenticate and do the 
@@ -3177,10 +3162,11 @@ void DpPt_TxSetMsaValuesImmediate(void *InstancePtr)
 		     XDP_TX_MAIN_STREAM_VSTART + StreamOffsetAddr[0],
 		     XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 				 XDP_RX_MSA_VSTART));
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-		     XDP_TX_MAIN_STREAM_MISC0 + StreamOffsetAddr[0],
-		     XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-				 XDP_RX_MSA_MISC0));
+        XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+                     XDP_TX_MAIN_STREAM_MISC0 + StreamOffsetAddr[0],
+                     ((XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+                                        XDP_RX_MSA_MISC0)) & 0xFFFFFFFE));
+
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 		     XDP_TX_MAIN_STREAM_MISC1 + StreamOffsetAddr[0],
 		     XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
@@ -3887,11 +3873,11 @@ void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame)
 	u8 RSVD=0;
 
 	/* Fixed paramaters */
-	u8 dp_version = 0x11;
+	u8 dp_version = xilInfoFrame->version;
 
 	/* Write #1 */
 	db1 = 0x00; //sec packet ID fixed to 0 - SST Mode
-	db2 = 0x80 + xilInfoFrame->type;
+	db2 = xilInfoFrame->type;
 	db3 = xilInfoFrame->info_length&0xFF;
 	db4 = (dp_version<<2)|(xilInfoFrame->info_length>>8);
 	temp = db4<<24|db3<<16|db2<<8|db1;

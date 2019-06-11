@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -63,16 +63,16 @@
 #define PM_PROC_RPU_HIVEC_ADDR  0xFFFF0000U
 
 /* Power consumptions for the APU for specific states */
-#define DEFAULT_APU_POWER_ACTIVE	200
-#define DEFAULT_APU_POWER_SUSPENDING	100
-#define DEFAULT_APU_POWER_SLEEP		0
-#define DEFAULT_APU_POWER_OFF		0
+#define DEFAULT_APU_POWER_ACTIVE	200U
+#define DEFAULT_APU_POWER_SUSPENDING	100U
+#define DEFAULT_APU_POWER_SLEEP		0U
+#define DEFAULT_APU_POWER_OFF		0U
 
 /* Power consumptions for the RPU for specific states */
-#define DEFAULT_RPU_POWER_ACTIVE	200
-#define DEFAULT_RPU_POWER_SUSPENDING	100
-#define DEFAULT_RPU_POWER_SLEEP		0
-#define DEFAULT_RPU_POWER_OFF		0
+#define DEFAULT_RPU_POWER_ACTIVE	200U
+#define DEFAULT_RPU_POWER_SUSPENDING	100U
+#define DEFAULT_RPU_POWER_SLEEP		0U
+#define DEFAULT_RPU_POWER_OFF		0U
 
 /**
  * PmProcHasResumeAddr() - Check whether the processor has the resume address
@@ -80,7 +80,7 @@
  */
 bool PmProcHasResumeAddr(const PmProc* const proc)
 {
-	return 0ULL != (proc->resumeAddress & 1ULL);
+	return (0ULL != (proc->resumeAddress & 1ULL));
 }
 
 /**
@@ -92,9 +92,9 @@ bool PmProcHasResumeAddr(const PmProc* const proc)
  *              - XST_SUCCESS is address is successfully saved
  *              - XST_INVALID_PARAM if address is invalid
  */
-static int RPUSaveResumeAddr(PmProc* const proc, const u64 address)
+static s32 RPUSaveResumeAddr(PmProc* const proc, const u64 address)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 addrLow = (u32) (address & 0xffffffffULL);
 
 	/*
@@ -108,7 +108,7 @@ static int RPUSaveResumeAddr(PmProc* const proc, const u64 address)
 		goto done;
 	}
 	/* Set bit0 to mark address as valid */
-	proc->resumeAddress = address | 1ULL;
+	proc->resumeAddress = address | (u64)1ULL;
 done:
 	return status;
 }
@@ -120,10 +120,10 @@ done:
  *
  * @return      XST_SUCCESS
  */
-static int APUSaveResumeAddr(PmProc* const proc, const u64 address)
+static s32 APUSaveResumeAddr(PmProc* const proc, const u64 address)
 {
 	/* Set bit0 to mark address as valid */
-	proc->resumeAddress = address | 1ULL;
+	proc->resumeAddress = address | (u64)1ULL;
 	return XST_SUCCESS;
 }
 
@@ -186,7 +186,7 @@ done:
  * PmProcApu0Sleep() - Put APU_0 into sleep
  * @return      The status returned by PMU-ROM
  */
-static int PmProcApu0Sleep(void)
+static s32 PmProcApu0Sleep(void)
 {
 	return XpbrACPU0SleepHandler();
 }
@@ -195,7 +195,7 @@ static int PmProcApu0Sleep(void)
  * PmProcApu1Sleep() - Put APU_1 into sleep
  * @return      The status returned by PMU-ROM
  */
-static int PmProcApu1Sleep(void)
+static s32 PmProcApu1Sleep(void)
 {
 	return XpbrACPU1SleepHandler();
 }
@@ -204,7 +204,7 @@ static int PmProcApu1Sleep(void)
  * PmProcApu2Sleep() - Put APU_2 into sleep
  * @return      The status returned by PMU-ROM
  */
-static int PmProcApu2Sleep(void)
+static s32 PmProcApu2Sleep(void)
 {
 	return XpbrACPU2SleepHandler();
 }
@@ -213,7 +213,7 @@ static int PmProcApu2Sleep(void)
  * PmProcApu3Sleep() - Put APU_3 into sleep
  * @return      The status returned by PMU-ROM
  */
-static int PmProcApu3Sleep(void)
+static s32 PmProcApu3Sleep(void)
 {
 	return XpbrACPU3SleepHandler();
 }
@@ -222,7 +222,7 @@ static int PmProcApu3Sleep(void)
  * PmProcRpu0Sleep() - Put RPU_0 into sleep (reset only)
  * @return      Always success, reset cannot fail
  */
-static int PmProcRpu0Sleep(void)
+static s32 PmProcRpu0Sleep(void)
 {
 	XPfw_RMW32(CRL_APB_RST_LPD_TOP,
 		   CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK,
@@ -241,7 +241,7 @@ static int PmProcRpu0Sleep(void)
  * PmProcRpu1Sleep() - Put RPU_1 into sleep (reset only)
  * @return      Always success, reset cannot fail
  */
-static int PmProcRpu1Sleep(void)
+static s32 PmProcRpu1Sleep(void)
 {
 	XPfw_RMW32(CRL_APB_RST_LPD_TOP,
 		   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK,
@@ -260,7 +260,7 @@ static int PmProcRpu1Sleep(void)
  * PmProcApu0Wake() - Wake up APU_0
  * @return      The status returned by PMU-ROM
  */
-static int PmProcApu0Wake(void)
+static s32 PmProcApu0Wake(void)
 {
 	return XpbrACPU0WakeHandler();
 }
@@ -269,7 +269,7 @@ static int PmProcApu0Wake(void)
  * PmProcApu1Wake() - Wake up APU_1
  * @return      The status returned by PMU-ROM
  */
-static int PmProcApu1Wake(void)
+static s32 PmProcApu1Wake(void)
 {
 	return XpbrACPU1WakeHandler();
 }
@@ -278,7 +278,7 @@ static int PmProcApu1Wake(void)
  * PmProcApu2Wake() - Wake up APU_2
  * @return      The status returned by PMU-ROM
  */
-static int PmProcApu2Wake(void)
+static s32 PmProcApu2Wake(void)
 {
 	return XpbrACPU2WakeHandler();
 }
@@ -287,7 +287,7 @@ static int PmProcApu2Wake(void)
  * PmProcApu3Wake() - Wake up APU_3
  * @return      The status returned by PMU-ROM
  */
-static int PmProcApu3Wake(void)
+static s32 PmProcApu3Wake(void)
 {
 	return XpbrACPU3WakeHandler();
 }
@@ -296,9 +296,9 @@ static int PmProcApu3Wake(void)
  * PmProcRpu0Wake() - Wake up RPU_0
  * @return      The status returned by PMU-ROM
  */
-static int PmProcRpu0Wake(void)
+static s32 PmProcRpu0Wake(void)
 {
-	int status;
+	s32 status;
 
 	status = XpbrRstR50Handler();
 	if (XST_SUCCESS != status) {
@@ -315,9 +315,9 @@ done:
  * PmProcRpu1Wake() - Wake up RPU_1
  * @return      The status returned by PMU-ROM
  */
-static int PmProcRpu1Wake(void)
+static s32 PmProcRpu1Wake(void)
 {
-	int status;
+	s32 status;
 
 	status = XpbrRstR51Handler();
 	if (XST_SUCCESS != status) {
@@ -363,9 +363,9 @@ static void PmProcDisableEvents(const PmProc* const proc)
  *
  * @return      Return status of processor specific wake handler
  */
-static int PmProcWake(PmProc* const proc)
+static s32 PmProcWake(PmProc* const proc)
 {
-	int status;
+	s32 status;
 
 	if (NULL != proc->node.parent) {
 		status = PmPowerRequestParent(&proc->node);
@@ -374,7 +374,7 @@ static int PmProcWake(PmProc* const proc)
 		}
 	}
 	if (NULL != proc->node.clocks) {
-		PmClockRequest(&proc->node);
+		(void)PmClockRequest(&proc->node);
 	}
 
 	proc->restoreResumeAddr(proc);
@@ -394,9 +394,9 @@ done:
  *
  * @return      Return status of processor specific sleep handler
  */
-int PmProcSleep(PmProc* const proc)
+s32 PmProcSleep(PmProc* const proc)
 {
-	int status;
+	s32 status;
 
 	status = proc->sleep();
 
@@ -423,9 +423,9 @@ done:
  *
  * @note    Executes when processor's request for self suspend gets processed.
  */
-static int PmProcTrActiveToSuspend(PmProc* const proc)
+static s32 PmProcTrActiveToSuspend(PmProc* const proc)
 {
-	int status;
+	s32 status;
 
 	PmInfo("%s active->susp\r\n", proc->node.name);
 
@@ -456,9 +456,9 @@ static int PmProcTrActiveToSuspend(PmProc* const proc)
  *          2. No wfi propagates to the PMU on the future boot (before processor
  *             clears the bit on its own)
  */
-static int PmProcTrToForcedOff(PmProc* const proc)
+static s32 PmProcTrToForcedOff(PmProc* const proc)
 {
-	int status;
+	s32 status;
 	bool killed;
 	u32 pwrReq;
 
@@ -498,9 +498,9 @@ done:
  *
  * @note    Executes when processor requests abort suspend through PM API.
  */
-static int PmProcTrSuspendToActive(PmProc* const proc)
+static s32 PmProcTrSuspendToActive(PmProc* const proc)
 {
-	int status;
+	s32 status;
 
 	PmInfo("%s susp->active\r\n", proc->node.name);
 
@@ -522,9 +522,9 @@ static int PmProcTrSuspendToActive(PmProc* const proc)
  * @note    Processor had previously called self suspend and now PMU has
  *          received processor's wfi interrupt.
  */
-static int PmProcTrSuspendToSleep(PmProc* const proc)
+static s32 PmProcTrSuspendToSleep(PmProc* const proc)
 {
-	int status;
+	s32 status;
 	u32 worstCaseLatency = proc->pwrDnLatency + proc->pwrUpLatency;
 
 	PmInfo("%s susp->sleep\r\n", proc->node.name);
@@ -538,7 +538,7 @@ static int PmProcTrSuspendToSleep(PmProc* const proc)
 		status = PmMasterFsm(proc->master, PM_MASTER_EVENT_SLEEP);
 
 		/* If suspended, remember which processor to wake-up first */
-		if (true == PmMasterIsSuspended(proc->master)) {
+		if (true == (u8)PmMasterIsSuspended(proc->master)) {
 			proc->master->wakeProc = proc;
 		}
 	}
@@ -559,9 +559,9 @@ static int PmProcTrSuspendToSleep(PmProc* const proc)
  *          of this processor. Therefore, PMU does not wait for wfi interrupt
  *          from this processor to come, but puts it to sleep.
  */
-static int PmProcTrSleepToActive(PmProc* const proc)
+static s32 PmProcTrSleepToActive(PmProc* const proc)
 {
-	int status;
+	s32 status;
 
 	PmInfo("%s sleep->active\r\n", proc->node.name);
 	status = PmProcWake(proc);
@@ -582,9 +582,9 @@ static int PmProcTrSleepToActive(PmProc* const proc)
  *          of this processor. Therefore, PMU does not wait for wfi interrupt
  *          from this processor to come, but puts it to sleep.
  */
-static int PmProcTrForcePwrdnToActive(PmProc* const proc)
+static s32 PmProcTrForcePwrdnToActive(PmProc* const proc)
 {
-	int status;
+	s32 status;
 
 	PmInfo("%s forced off->active\r\n", proc->node.name);
 	status = PmProcWake(proc);
@@ -602,9 +602,9 @@ static int PmProcTrForcePwrdnToActive(PmProc* const proc)
  * @note    This FSM coordinates the state transitions for an individual
  *          processor.
  */
-int PmProcFsm(PmProc* const proc, const PmProcEvent event)
+s32 PmProcFsm(PmProc* const proc, const PmProcEvent event)
 {
-	int status = XST_PM_INTERNAL;
+	s32 status = XST_PM_INTERNAL;
 	PmStateId currState = proc->node.currState;
 
 	switch (event) {
@@ -628,7 +628,7 @@ int PmProcFsm(PmProc* const proc, const PmProcEvent event)
 		} else {
 			status = XST_SUCCESS;
 		}
-		if (true == PmIsRequestedToSuspend(proc->master)) {
+		if (true == (u8)PmIsRequestedToSuspend(proc->master)) {
 			status = PmMasterSuspendAck(proc->master,
 						    XST_PM_ABORT_SUSPEND);
 		}
@@ -679,7 +679,7 @@ PmProc* PmProcGetByWakeMask(const u32 wake)
 	u32 i;
 
 	for (i = 0U; i < pmNodeClassProc_g.bucketSize; i++) {
-		PmProc* proc = pmNodeClassProc_g.bucket[i]->derived;
+		PmProc* proc = (PmProc*)pmNodeClassProc_g.bucket[i]->derived;
 
 		if (0U != (proc->mask & wake)) {
 			found = proc;
@@ -725,12 +725,12 @@ static void PmProcConstruct(PmNode* const node)
  *		if the latency depends on power parent which has no method
  *		(getWakeUpLatency) to provide latency information
  */
-static int PmProcGetWakeUpLatency(const PmNode* const node, u32* const lat)
+static s32 PmProcGetWakeUpLatency(const PmNode* const node, u32* const lat)
 {
 	PmProc* const proc = (PmProc*)node->derived;
 	PmNode* const powerNode = &node->parent->node;
-	int status = XST_SUCCESS;
-	u32 latency;
+	s32 status = XST_SUCCESS;
+	u32 latency = 0U;
 
 	*lat = 0U;
 	if (PM_PROC_STATE_ACTIVE == node->currState) {
@@ -764,10 +764,10 @@ done:
  *
  * @return	Status of performing the force down operation
  */
-static int PmProcForceDown(PmNode* const node)
+static s32 PmProcForceDown(PmNode* const node)
 {
 	PmProc* const proc = (PmProc*)node->derived;
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	if (PM_PROC_STATE_FORCEDOFF != node->currState) {
 		status = PmProcFsm(proc, PM_PROC_EVENT_FORCE_PWRDN);
@@ -786,10 +786,10 @@ void PmForceDownUnusableRpuCores(void)
 	 * If RPU core is not used then bit of PMU_GLOBAL_GLOBAL_GEN_STORAGE4
 	 * for that core is cleared. So check that bit and force down that core.
 	 */
-	if (!(value & RPU0_STATUS_MASK)) {
+	if (0U == (value & RPU0_STATUS_MASK)) {
 		PmProcForceDown(&pmProcRpu0_g.node);
 	}
-	if (!(value & RPU1_STATUS_MASK)) {
+	if (0U == (value & RPU1_STATUS_MASK)) {
 		mode = XPfw_Read32(RPU_RPU_GLBL_CNTL);
 
 		/* For RPU lockstep mode RPU_1 is assumed to be always down */
@@ -824,10 +824,10 @@ void PmForceDownUnusableRpuCores(void)
  *
  * @return	Status of initializing the node
  */
-static int PmProcInit(PmNode* const node)
+static s32 PmProcInit(PmNode* const node)
 {
 	PmProc* const proc = (PmProc*)node->derived;
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	PmProcDisableEvents(proc);
 	if (NULL != proc->init) {
@@ -918,20 +918,20 @@ PmProc pmProcApu0_g = {
 		DEFINE_PM_POWER_INFO(PmProcPowerAPU_X),
 		DEFINE_NODE_NAME("apu0"),
 	},
-	.master = NULL,
-	.mask = PMU_IOMODULE_GPI2_ACPU_0_SLEEP_MASK,
-	.resumeCfg = APU_RVBARADDR0L,
 	.resumeAddress = 0ULL,
+	.master = NULL,
 	.saveResumeAddr = APUSaveResumeAddr,
 	.restoreResumeAddr = APURestoreResumeAddr,
-	.pwrDnReqAddr = APU_PWRCTL,
-	.pwrDnReqMask = 0x1U,
 	.init = NULL,
 	.sleep = PmProcApu0Sleep,
 	.wake = PmProcApu0Wake,
+	.resumeCfg = APU_RVBARADDR0L,
+	.pwrDnReqAddr = APU_PWRCTL,
+	.pwrDnReqMask = 0x1U,
 	.latencyReq = MAX_LATENCY,
 	.pwrDnLatency = PM_POWER_ISLAND_LATENCY,
 	.pwrUpLatency = PM_POWER_ISLAND_LATENCY,
+	.mask = PMU_IOMODULE_GPI2_ACPU_0_SLEEP_MASK,
 };
 
 PmProc pmProcApu1_g = {
@@ -947,20 +947,20 @@ PmProc pmProcApu1_g = {
 		DEFINE_PM_POWER_INFO(PmProcPowerAPU_X),
 		DEFINE_NODE_NAME("apu1"),
 	},
-	.master = NULL,
-	.mask = PMU_IOMODULE_GPI2_ACPU_1_SLEEP_MASK,
-	.resumeCfg = APU_RVBARADDR1L,
 	.resumeAddress = 0ULL,
+	.master = NULL,
 	.saveResumeAddr = APUSaveResumeAddr,
 	.restoreResumeAddr = APURestoreResumeAddr,
-	.pwrDnReqAddr = APU_PWRCTL,
-	.pwrDnReqMask = 0x2U,
 	.init = NULL,
 	.sleep = PmProcApu1Sleep,
 	.wake = PmProcApu1Wake,
+	.resumeCfg = APU_RVBARADDR1L,
+	.pwrDnReqAddr = APU_PWRCTL,
+	.pwrDnReqMask = 0x2U,
 	.latencyReq = MAX_LATENCY,
 	.pwrDnLatency = PM_POWER_ISLAND_LATENCY,
 	.pwrUpLatency = PM_POWER_ISLAND_LATENCY,
+	.mask = PMU_IOMODULE_GPI2_ACPU_1_SLEEP_MASK,
 };
 
 PmProc pmProcApu2_g = {
@@ -976,20 +976,20 @@ PmProc pmProcApu2_g = {
 		DEFINE_PM_POWER_INFO(PmProcPowerAPU_X),
 		DEFINE_NODE_NAME("apu2"),
 	},
-	.master = NULL,
-	.mask = PMU_IOMODULE_GPI2_ACPU_2_SLEEP_MASK,
-	.resumeCfg = APU_RVBARADDR2L,
 	.resumeAddress = 0ULL,
+	.master = NULL,
 	.saveResumeAddr = APUSaveResumeAddr,
 	.restoreResumeAddr = APURestoreResumeAddr,
-	.pwrDnReqAddr = APU_PWRCTL,
-	.pwrDnReqMask = 0x4U,
 	.init = NULL,
 	.sleep = PmProcApu2Sleep,
 	.wake = PmProcApu2Wake,
+	.resumeCfg = APU_RVBARADDR2L,
+	.pwrDnReqAddr = APU_PWRCTL,
+	.pwrDnReqMask = 0x4U,
 	.latencyReq = MAX_LATENCY,
 	.pwrDnLatency = PM_POWER_ISLAND_LATENCY,
 	.pwrUpLatency = PM_POWER_ISLAND_LATENCY,
+	.mask = PMU_IOMODULE_GPI2_ACPU_2_SLEEP_MASK,
 };
 
 PmProc pmProcApu3_g = {
@@ -1005,20 +1005,20 @@ PmProc pmProcApu3_g = {
 		DEFINE_PM_POWER_INFO(PmProcPowerAPU_X),
 		DEFINE_NODE_NAME("apu3"),
 	},
-	.master = NULL,
-	.mask = PMU_IOMODULE_GPI2_ACPU_3_SLEEP_MASK,
-	.resumeCfg = APU_RVBARADDR3L,
 	.resumeAddress = 0ULL,
+	.master = NULL,
 	.saveResumeAddr = APUSaveResumeAddr,
 	.restoreResumeAddr = APURestoreResumeAddr,
-	.pwrDnReqAddr = APU_PWRCTL,
-	.pwrDnReqMask = 0x8U,
 	.init = NULL,
 	.sleep = PmProcApu3Sleep,
 	.wake = PmProcApu3Wake,
+	.resumeCfg = APU_RVBARADDR3L,
+	.pwrDnReqAddr = APU_PWRCTL,
+	.pwrDnReqMask = 0x8U,
 	.latencyReq = MAX_LATENCY,
 	.pwrDnLatency = PM_POWER_ISLAND_LATENCY,
 	.pwrUpLatency = PM_POWER_ISLAND_LATENCY,
+	.mask = PMU_IOMODULE_GPI2_ACPU_3_SLEEP_MASK,
 };
 
 /* Rpu processors */
@@ -1035,20 +1035,20 @@ PmProc pmProcRpu0_g = {
 		DEFINE_PM_POWER_INFO(PmProcPowerRPU_X),
 		DEFINE_NODE_NAME("rpu0"),
 	},
-	.master = NULL,
-	.mask = PMU_IOMODULE_GPI2_R5_0_SLEEP_MASK,
-	.resumeCfg = RPU_RPU_0_CFG,
 	.resumeAddress = 0ULL,
+	.master = NULL,
 	.saveResumeAddr = RPUSaveResumeAddr,
 	.restoreResumeAddr = RPURestoreResumeAddr,
-	.pwrDnReqAddr = RPU_RPU_0_PWRDWN,
-	.pwrDnReqMask = RPU_RPU_0_PWRDWN_EN_MASK,
 	.init = NULL,
 	.sleep = PmProcRpu0Sleep,
 	.wake = PmProcRpu0Wake,
+	.resumeCfg = RPU_RPU_0_CFG,
+	.pwrDnReqAddr = RPU_RPU_0_PWRDWN,
+	.pwrDnReqMask = RPU_RPU_0_PWRDWN_EN_MASK,
 	.latencyReq = MAX_LATENCY,
-	.pwrDnLatency = 0,
-	.pwrUpLatency = 0,
+	.pwrDnLatency = 0U,
+	.pwrUpLatency = 0U,
+	.mask = PMU_IOMODULE_GPI2_R5_0_SLEEP_MASK,
 };
 
 PmProc pmProcRpu1_g = {
@@ -1064,20 +1064,20 @@ PmProc pmProcRpu1_g = {
 		DEFINE_PM_POWER_INFO(PmProcPowerRPU_X),
 		DEFINE_NODE_NAME("rpu1"),
 	},
-	.master = NULL,
-	.mask = PMU_IOMODULE_GPI2_R5_1_SLEEP_MASK,
-	.resumeCfg = RPU_RPU_1_CFG,
 	.resumeAddress = 0ULL,
+	.master = NULL,
 	.saveResumeAddr = RPUSaveResumeAddr,
 	.restoreResumeAddr = RPURestoreResumeAddr,
-	.pwrDnReqAddr = RPU_RPU_1_PWRDWN,
-	.pwrDnReqMask = RPU_RPU_1_PWRDWN_EN_MASK,
 	.init = PmProcRpu1Init,
 	.sleep = PmProcRpu1Sleep,
 	.wake = PmProcRpu1Wake,
+	.resumeCfg = RPU_RPU_1_CFG,
+	.pwrDnReqAddr = RPU_RPU_1_PWRDWN,
+	.pwrDnReqMask = RPU_RPU_1_PWRDWN_EN_MASK,
 	.latencyReq = MAX_LATENCY,
-	.pwrDnLatency = 0,
-	.pwrUpLatency = 0,
+	.pwrDnLatency = 0U,
+	.pwrUpLatency = 0U,
+	.mask = PMU_IOMODULE_GPI2_R5_1_SLEEP_MASK,
 };
 
 /* Collection of processor nodes */
@@ -1091,8 +1091,6 @@ static PmNode* pmNodeProcBucket[] = {
 };
 
 PmNodeClass pmNodeClassProc_g = {
-	DEFINE_NODE_BUCKET(pmNodeProcBucket),
-	.id = NODE_CLASS_PROC,
 	.clearConfig = PmProcClearConfig,
 	.construct = PmProcConstruct,
 	.getWakeUpLatency = PmProcGetWakeUpLatency,
@@ -1101,6 +1099,8 @@ PmNodeClass pmNodeClassProc_g = {
 	.init = PmProcInit,
 	.isUsable = PmProcIsUsable,
 	.getPerms = PmProcGetPerms,
+	DEFINE_NODE_BUCKET(pmNodeProcBucket),
+	.id = NODE_CLASS_PROC,
 };
 
 #endif

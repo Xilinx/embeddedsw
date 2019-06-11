@@ -64,6 +64,10 @@ proc check_emac_hw {} {
                 return;
     }
 
+    set temacs [hsi::get_cells -hier -filter { ip_name == "psv_ethernet" }];
+        if { [llength $temacs] != 0 } {
+                return;
+    }
     error "This application requires an Ethernet MAC IP instance in the hardware."
 }
 
@@ -164,8 +168,8 @@ proc swapp_is_supported_sw {} {
     # check for stdout being set
     check_stdout_sw;
 
-    # make sure lwip202 is available
-    set librarylist [hsi::get_libs -filter "NAME==lwip202"];
+    # make sure lwip211 is available
+    set librarylist [hsi::get_libs -filter "NAME==lwip211"];
 
     if { [llength $librarylist] == 0 } {
         error "This application requires lwIP library in the Board Support Package.";
@@ -287,6 +291,12 @@ proc generate_emac_config {fp} {
                 puts $fp "#define PLATFORM_EMAC_BASEADDR XPAR_XEMACPS_0_BASEADDR";
                 return;
     }
+
+    set temacs [hsi::get_cells -hier -filter { ip_name == "psv_ethernet" }];
+        if { [llength $temacs] > 0 } {
+                puts $fp "#define PLATFORM_EMAC_BASEADDR XPAR_XEMACPS_0_BASEADDR";
+                return;
+    }
 }
 
 proc generate_timer_config { fp } {
@@ -336,8 +346,8 @@ proc swapp_generate {} {
     generate_stdout_config $fid;
     puts $fid "";
 
-    set use_softeth_on_zynq [common::get_property CONFIG.use_axieth_on_zynq [hsi::get_libs lwip202]];
-    set use_ethernetlite_on_zynq [common::get_property CONFIG.use_emaclite_on_zynq [hsi::get_libs lwip202]];
+    set use_softeth_on_zynq [common::get_property CONFIG.use_axieth_on_zynq [hsi::get_libs lwip211]];
+    set use_ethernetlite_on_zynq [common::get_property CONFIG.use_emaclite_on_zynq [hsi::get_libs lwip211]];
     # figure out the emac baseaddr
     generate_emac_config $fid;
     puts $fid "";

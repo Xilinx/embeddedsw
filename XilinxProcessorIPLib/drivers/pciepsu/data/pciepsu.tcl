@@ -39,11 +39,24 @@
 
 proc generate {drv_handle} {
     ::hsi::utils::define_zynq_include_file $drv_handle "xparameters.h" "XPciePsu" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR"
+    xdefine_pciemode $drv_handle "xparameters.h" "psu_pcie" "C_PCIE_MODE"
 
-    ::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "XPciePsu" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR"
+    ::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "XPciePsu" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_PCIE_MODE"
 
     xdefine_config_file $drv_handle "xpciepsu_g.c" "XPciePsu" "C_S_AXI_BASEADDR"
 
+}
+proc xdefine_pciemode {drv_handle file_name periph param} {
+        set file_handle [::hsi::utils::open_include_file $file_name]
+        set arg_name [::hsi::utils::get_param_value [hsi::get_cells -hier $periph] $param]
+        if {[string compare -nocase "Endpoint Device" $arg_name] == 0} {
+            set arg_name "0x0"
+        } else {
+            set arg_name "0x1"
+        }
+        puts $file_handle "#define [::hsi::utils::get_ip_param_name [hsi::get_cells -hier $periph] $param] $arg_name"
+        puts $file_handle ""
+        close $file_handle
 }
 proc get_parameter {periphs periph param} {
         set arg_name ""
@@ -101,6 +114,12 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
         puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
 
         set arg_name [get_parameter $periphs "psu_pcie_high1" "C_S_AXI_HIGHADDR"]
+        puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
+
+        set arg_name [get_parameter $periphs "psu_pcie_dma" "C_S_AXI_BASEADDR"]
+        puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
+
+        set arg_name [get_parameter $periphs "psu_pcie" "C_PCIE_MODE"]
         puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
 
         puts $config_file "\n\t\}"

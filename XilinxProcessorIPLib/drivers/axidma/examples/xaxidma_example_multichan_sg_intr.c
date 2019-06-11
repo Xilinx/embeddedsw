@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -74,6 +74,7 @@
  *                     for proper documentation while generating doxygen.
  * 9.6   rsp  02/14/18 Support data buffers above 4GB. Use UINTPTR for storing
  *                     and typecasting buffer address(CR-992638).
+ * 9.9   rsp  01/21/19 Fix use of #elif check in deriving DDR_BASE_ADDR.
  * </pre>
  *
  * ***************************************************************************
@@ -112,11 +113,11 @@ extern void xil_printf(const char *format, ...);
 
 #ifdef XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
 #define DDR_BASE_ADDR		XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
-#elif XPAR_MIG7SERIES_0_BASEADDR
+#elif defined (XPAR_MIG7SERIES_0_BASEADDR)
 #define DDR_BASE_ADDR	XPAR_MIG7SERIES_0_BASEADDR
-#elif XPAR_MIG_0_BASEADDR
+#elif defined (XPAR_MIG_0_BASEADDR)
 #define DDR_BASE_ADDR	XPAR_MIG_0_BASEADDR
-#elif XPAR_PSU_DDR_0_S_AXI_BASEADDR
+#elif defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR)
 #define DDR_BASE_ADDR	XPAR_PSU_DDR_0_S_AXI_BASEADDR
 #endif
 

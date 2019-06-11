@@ -1,4 +1,4 @@
 var xscugic__selftest_8c =
 [
-    [ "XScuGic_SelfTest", "group__scugic__v3__10.html#ga081a9a62546b413d94e609894282a575", null ]
+    [ "XScuGic_SelfTest", "xscugic__selftest_8c.html#ga081a9a62546b413d94e609894282a575", null ]
 ];

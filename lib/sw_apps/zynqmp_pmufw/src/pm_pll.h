@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,6 +37,10 @@
 
 #ifndef PM_PLL_H_
 #define PM_PLL_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "pm_node.h"
 
@@ -78,6 +82,8 @@ typedef struct PmPllContext {
  * @perms	Permissions to directly control the PLL
  * @lockShift	Shift of the lock status bit in status register
  * @flags	PLL flags
+ * @errmask	PMU GLOBAL error mask to disable and enable error interrupt
+ * @errValue	PMU GLOBAL error value
  */
 typedef struct PmPll {
 	PmNode node;
@@ -87,6 +93,11 @@ typedef struct PmPll {
 	u32 perms;
 	const u8 lockShift;
 	u8 flags;
+	u32 childCount;
+#ifdef ENABLE_EM
+	u32 errShift;
+	u32 errValue;
+#endif
 } PmPll;
 
 /*********************************************************************
@@ -107,9 +118,9 @@ void PmPllRequest(PmPll* const pll);
 void PmPllRelease(PmPll* const pll);
 void PmPllOpenAccess(PmPll* const pll, u32 ipiMask);
 
-int PmPllSetModeInt(PmPll* const pll, const u32 mode);
-int PmPllSetParameterInt(PmPll* const pll, const u32 paramId, const u32 val);
-int PmPllGetParameterInt(PmPll* const pll, const u32 paramId, u32* const val);
+s32 PmPllSetModeInt(PmPll* const pll, const u32 mode);
+s32 PmPllSetParameterInt(PmPll* const pll, const u32 paramId, const u32 val);
+s32 PmPllGetParameterInt(PmPll* const pll, const u32 paramId, u32* const val);
 
 u32 PmPllGetModeInt(PmPll* const pll);
 static inline u32 PmPllGetPermissions(const PmPll* const pll)
@@ -117,4 +128,8 @@ static inline u32 PmPllGetPermissions(const PmPll* const pll)
 	return pll->perms;
 };
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* PM_PLL_H_ */

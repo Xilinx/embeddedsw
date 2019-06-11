@@ -50,6 +50,7 @@
 *
 ******************************************************************************/
 #include "xdpdma_video_example.h"
+extern XDpDma_FrameBuffer FrameBuffer;
 
 /******************************************************************************/
 /**
@@ -172,6 +173,8 @@ void DpPsu_Run(Run_Config *RunCfgPtr)
 	XDpPsu_EnableMainLink(DpPsuPtr, 0);
 
 	if (!XDpPsu_IsConnected(DpPsuPtr)) {
+		XDpDma_SetChannelState(RunCfgPtr->DpDmaPtr, GraphicsChan,
+				       XDPDMA_DISABLE);
 		xil_printf("! Disconnected.\n\r");
 		return;
 	}
@@ -198,6 +201,12 @@ void DpPsu_Run(Run_Config *RunCfgPtr)
 		}
 		else if (Status != XST_SUCCESS)
 			continue;
+
+		Status = InitDpDmaSubsystem(RunCfgPtr);
+		if (Status != XST_SUCCESS)
+			return XST_FAILURE;
+
+		XDpDma_DisplayGfxFrameBuffer(RunCfgPtr->DpDmaPtr, &FrameBuffer);
 
 		DpPsu_SetupVideoStream(RunCfgPtr);
 		XDpPsu_EnableMainLink(DpPsuPtr, 1);

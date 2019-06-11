@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xprc.h
-* @addtogroup prc_v1_1
+* @addtogroup prc_v1_2
 * @{
 * @details
 *
@@ -132,6 +132,8 @@
 *                           Modified xprc.c, prc.tcl, xprc_hw.h to add a
 *                           new parameter "Cp_Compression" and status error
 *                           flags. Added the Updated api.tcl to data folder.
+* 1.2  Nava   29/03/19      Updated the tcl logic to generated the
+*                           XPrc_ConfigTable properly.
 * </pre>
 *
 ******************************************************************************/
@@ -775,7 +777,7 @@ u8 XPrc_IsVsmInShutdown(XPrc *InstancePtr, u32 VsmIdOrStatus);
 u32 XPrc_GetVsmState(XPrc *InstancePtr, u32 VsmIdOrStatus);
 u32 XPrc_GetVsmErrorStatus(XPrc *InstancePtr, u32 VsmIdOrStatus);
 u32 XPrc_GetRmIdFromStatus(XPrc *InstancePtr, u32 VsmIdOrStatus);
-u32 XPrc_GetBSIdFromStatus(XPrc *InstancePtr, u32 VsmIdOrStatus);
+u32 XPrc_GetBsIdFromStatus(XPrc *InstancePtr, u32 VsmIdOrStatus);
 void XPrc_SendSwTrigger(XPrc *InstancePtr, u16 VsmId, u16 Trigger);
 u8 XPrc_IsSwTriggerPending(XPrc *InstancePtr, u16 VsmId, u16 *Trigger);
 void XPrc_SetTriggerToRmMapping(XPrc *InstancePtr, u16 VsmId, u16 TriggerId,

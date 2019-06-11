@@ -1,3 +1,4 @@
+#include <errno.h>
 #include <metal/mutex.h>
 #include <metal/spinlock.h>
 #include <metal/utilities.h>

@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,7 @@
 /*****************************************************************************/
 /**
  * @file xrtcpsu.h
- * @addtogroup rtcpsu_v1_6
+ * @addtogroup rtcpsu_v1_7
  * @{
  * @details
  *
@@ -113,6 +113,13 @@
  * 1.6   aru    07/11/18 Resolved doxygen warnings.
  * 1.6   aru    08/17/18 Resolved MISRA-C mandatory violations.(CR#1007752)
  * 1.6   tjs    09/17/18 Fixed compilation warnings.
+ * 1.7   sne    03/01/19 Added Versal support.
+ * 1.7   sne    03/01/19 Fixed violations according to MISRAC-2012 standards
+ *                       modified the code such as
+ *                       No brackets to loop body,Declared the poiner param
+ *                       as Pointer to const,No brackets to then/else,
+ *                       Literal value requires a U suffix,Casting operation to a pointer
+ *                       Array has no bounds specified,Logical conjunctions need brackets.
  * </pre>
  *
  ******************************************************************************/
@@ -168,7 +175,7 @@ extern "C" {
  *		modem status for modem events.
  *
  ******************************************************************************/
-typedef void (*XRtcPsu_Handler) (void *CallBackRef, u32 Event);
+typedef void (*XRtcPsu_Handler) (const void *CallBackRef, u32 Event);
 
 /**
  * This typedef contains configuration information for a device.
@@ -378,7 +385,7 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 
 /* Functions in xrtcpsu.c */
-s32 XRtcPsu_CfgInitialize(XRtcPsu *InstancePtr, XRtcPsu_Config *ConfigPtr,
+s32 XRtcPsu_CfgInitialize(XRtcPsu *InstancePtr, const XRtcPsu_Config *ConfigPtr,
 				u32 EffectiveAddr);
 
 void XRtcPsu_SetAlarm(XRtcPsu *InstancePtr, u32 Alarm, u32 Periodic);
@@ -386,20 +393,20 @@ void XRtcPsu_SecToDateTime(u32 Seconds, XRtcPsu_DT *dt);
 u32 XRtcPsu_DateTimeToSec(XRtcPsu_DT *dt);
 void XRtcPsu_CalculateCalibration(XRtcPsu *InstancePtr, u32 TimeReal,
 		u32 CrystalOscFreq);
-u32 XRtcPsu_IsSecondsEventGenerated(XRtcPsu *InstancePtr);
-u32 XRtcPsu_IsAlarmEventGenerated(XRtcPsu *InstancePtr);
+u32 XRtcPsu_IsSecondsEventGenerated(const XRtcPsu *InstancePtr);
+u32 XRtcPsu_IsAlarmEventGenerated(const XRtcPsu *InstancePtr);
 u32 XRtcPsu_GetCurrentTime(XRtcPsu *InstancePtr);
 void XRtcPsu_SetTime(XRtcPsu *InstancePtr, u32 Time);
 
 /* interrupt functions in xrtcpsu_intr.c */
-void XRtcPsu_SetInterruptMask(XRtcPsu *InstancePtr, u32 Mask);
-void XRtcPsu_ClearInterruptMask(XRtcPsu *InstancePtr, u32 Mask);
+void XRtcPsu_SetInterruptMask(const XRtcPsu *InstancePtr, u32 Mask);
+void XRtcPsu_ClearInterruptMask(const XRtcPsu *InstancePtr, u32 Mask);
 void XRtcPsu_InterruptHandler(XRtcPsu *InstancePtr);
 void XRtcPsu_SetHandler(XRtcPsu *InstancePtr, XRtcPsu_Handler FuncPtr,
 			 void *CallBackRef);
 
 /* Functions in xrtcpsu_selftest.c */
-s32 XRtcPsu_SelfTest(XRtcPsu *InstancePtr);
+s32 XRtcPsu_SelfTest(const XRtcPsu *InstancePtr);
 
 /* Functions in xrtcpsu_sinit.c */
 XRtcPsu_Config *XRtcPsu_LookupConfig(u16 DeviceId);

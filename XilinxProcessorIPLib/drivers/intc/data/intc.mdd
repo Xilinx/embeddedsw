@@ -52,7 +52,7 @@ OPTION DRC = intc_drc;
 OPTION supported_peripherals = (axi_intc);
 OPTION driver_state = ACTIVE;
 OPTION copyfiles = all;
-OPTION VERSION = 3.8;
+OPTION VERSION = 3.9;
 OPTION NAME = intc;
 OPTION INTC_TYPE = XIntc;
 

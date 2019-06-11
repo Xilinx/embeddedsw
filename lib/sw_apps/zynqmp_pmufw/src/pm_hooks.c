@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -67,9 +67,9 @@ extern u8 __srdata_end;
  *
  * @return	XST_SUCCESS if context is saved, failure code otherwise
  */
-int PmHookPosSaveDdrContext(void)
+s32 PmHookPosSaveDdrContext(void)
 {
-	int status;
+	s32 status;
 	u32 srDataStart = (u32)&__srdata_start;
 	u32 srDataEnd = (u32)&__srdata_end;
 
@@ -132,12 +132,17 @@ void PmHookPowerDownLpd(void)
 	reg = XPfw_Read32(PMU_LOCAL_GPO1_READ);
 	reg &= ~PMU_IOMODULE_GPO1_MIO_2_MASK;
 	XPfw_Write32(PMU_IOMODULE_GPO1, reg);
+#ifndef CONNECT_PMU_GPO_2
+	/* Configure MIO34 to be controlled by the PMU */
+	XPfw_RMW32((IOU_SLCR_BASE + IOU_SLCR_MIO_PIN_34_OFFSET),
+			0x000000FEU, 0x00000008U);
+#endif
 }
 
 #ifdef ENABLE_DDR_SR_WR
 void PmHookSystemStart(void)
 {
-	if (Xil_In32(XPFW_DDR_STATUS_REGISTER_OFFSET) & DDR_STATUS_FLAG_MASK) {
+	if ((Xil_In32(XPFW_DDR_STATUS_REGISTER_OFFSET) & DDR_STATUS_FLAG_MASK) != 0U) {
 		PmDdrExitSr();
 	}
 }
@@ -175,7 +180,7 @@ u32 PmHookGetBootType(void)
 
 	/* Read state of MIO26 pin which is used to detect boot type */
 	bootType = XPfw_Read32(GPIO_DATA_1_RO) & 1U;
-	bootType += 1;
+	bootType += 1U;
 
 	/* Assert GPIO reset */
 	XPfw_RMW32(CRL_APB_RST_LPD_IOU2, CRL_APB_RST_LPD_IOU2_GPIO_RESET_MASK,
@@ -197,9 +202,9 @@ u32 PmHookGetBootType(void)
  *
  * @return	XST_SUCCESS if context is restored, failure code otherwise
  */
-int PmHookRestoreDdrContext(void)
+s32 PmHookRestoreDdrContext(void)
 {
-	int status;
+	s32 status;
 	u32 srDataStart = (u32)&__srdata_start;
 	u32 srDataEnd = (u32)&__srdata_end;
 

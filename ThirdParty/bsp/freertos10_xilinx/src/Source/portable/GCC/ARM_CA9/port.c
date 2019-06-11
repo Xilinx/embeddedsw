@@ -1,6 +1,6 @@
 /*
- * FreeRTOS Kernel V10.0.0
- * Copyright (C) 2017 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * FreeRTOS Kernel V10.1.1
+ * Copyright (C) 2018 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -10,8 +10,7 @@
  * subject to the following conditions:
  *
  * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software. If you wish to use our Amazon
- * FreeRTOS name, please do so in a fair use way that does not cause confusion.
+ * copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
@@ -224,6 +223,13 @@ volatile uint32_t ulPortYieldRequired = pdFALSE;
 /* Counts the interrupt nesting depth.  A context switch is only performed if
 if the nesting depth is 0. */
 volatile uint32_t ulPortInterruptNesting = 0UL;
+/*
+ * Global counter used for calculation of run time statistics of tasks.
+ * Defined only when the relevant option is turned on
+ */
+#if (configGENERATE_RUN_TIME_STATS==1)
+volatile uint32_t ulHighFrequencyTimerTicks;
+#endif
 
 /* Used in the asm file. */
 __attribute__(( used )) const uint32_t ulICCIAR = portICCIAR_INTERRUPT_ACKNOWLEDGE_REGISTER_ADDRESS;
@@ -568,6 +574,19 @@ void vPortExitCritical( void )
 
 void FreeRTOS_Tick_Handler( void )
 {
+	/*
+	 * The Xilinx implementation of generating run time task stats uses the same timer used for generating
+	 * FreeRTOS ticks. In case user decides to generate run time stats the tick handler is called more
+	 * frequently (10 times faster). The timer/tick handler uses logic to handle the same. It handles
+	 * the FreeRTOS tick once per 10 interrupts.
+	 * For handling generation of run time stats, it increments a pre-defined counter every time the
+	 * interrupt handler executes.
+	 */
+#if (configGENERATE_RUN_TIME_STATS == 1)
+	ulHighFrequencyTimerTicks++;
+	if (!(ulHighFrequencyTimerTicks % 10))
+#endif
+	{
 	/* Set interrupt mask before altering scheduler structures.   The tick
 	handler runs at the lowest priority, so interrupts cannot already be masked,
 	so there is no need to save and restore the current mask value.  It is
@@ -583,6 +602,7 @@ void FreeRTOS_Tick_Handler( void )
 	if( xTaskIncrementTick() != pdFALSE )
 	{
 		ulPortYieldRequired = pdTRUE;
+	}
 	}
 
 	/* Ensure all interrupt priorities are active again. */
@@ -683,3 +703,24 @@ void vApplicationFPUSafeIRQHandler( uint32_t ulICCIAR )
 	( void ) ulICCIAR;
 	configASSERT( ( volatile void * ) NULL );
 }
+
+#if( configGENERATE_RUN_TIME_STATS == 1 )
+/*
+ * For Xilinx implementation this is a dummy function that does a redundant operation
+ * of zeroing out the global counter.
+ * It is called by FreeRTOS kernel.
+ */
+void xCONFIGURE_TIMER_FOR_RUN_TIME_STATS (void)
+{
+	ulHighFrequencyTimerTicks = 0;
+}
+/*
+ * For Xilinx implementation this function returns the global counter used for
+ * run time task stats calculation.
+ * It is called by FreeRTOS kernel task handling logic.
+ */
+uint32_t xGET_RUN_TIME_COUNTER_VALUE (void)
+{
+	return ulHighFrequencyTimerTicks;
+}
+#endif

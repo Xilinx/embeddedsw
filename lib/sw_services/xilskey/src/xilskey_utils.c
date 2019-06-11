@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -58,7 +58,20 @@
 *                        XilSKey_ZynqMP_EfusePs_ReadSysmonVol and
 *                        XilSKey_ZynqMP_EfusePs_ReadSysmonTemp functions
 * 6.6   vns     06/06/18 Added doxygen tags
-*
+* 6.7   arc     01/05/19 Fixed MISRA-C violations.
+*       vns     02/09/19 Fixed buffer overflow access in
+*                        XilSKey_Efuse_ConvertStringToHexLE()
+*       arc     25/02/19 Added asserts for pointer parameter for NULL
+*                        verification
+*                        Fixed Length parameter as length in bits for
+*                        XilSKey_Efuse_ConvertStringToHexBE and added length
+*                        validations
+*       arc     03/13/19 Added assert to validate lengths in
+*                        XilSKey_Efuse_ValidateKey()
+*       arc     03/15/19 Modified initial default status value as XST_FAILURE
+* 6.7   psl     03/21/19 Fixed MISRA-C violation.
+*       vns     03/23/19 Fixed CRC calculation for Ultra plus
+*       arc     04/04/19 Fixed CPP warnings.
  *****************************************************************************/
 
 /***************************** Include Files ********************************/
@@ -74,27 +87,31 @@
 /************************** Variable Definitions ****************************/
 #ifdef XSK_ZYNQ_PLATFORM
 static XAdcPs XAdcInst;     /**< XADC driver instance */
-u16 XAdcDeviceId;	/**< XADC Device ID */
+u16 XAdcDevId;	/**< XADC Device ID */
 #endif
 #ifdef XSK_MICROBLAZE_PLATFORM
 XTmrCtr XTmrCtrInst;
 #endif
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-XSysMonPsu XSysmonInst; /* Sysmon PSU instance */
-u16 XSysmonDeviceId; /* Sysmon PSU device ID */
+static XSysMonPsu XSysmonInst; /* Sysmon PSU instance */
+static u16 XSysmonDevId; /* Sysmon PSU device ID */
 #endif
 
 u32 TimerTicksfor100ns; /**< Global Variable to store ticks/100ns*/
 u32 TimerTicksfor1000ns; /**< Global Variable for 10 micro secs for microblaze */
 /************************** Function Prototypes *****************************/
 static u32 XilSKey_EfusePs_ConvertCharToNibble (char InChar, u8 *Num);
+#ifdef XSK_MICROBLAZE_PLATFORM
 extern void Jtag_Read_Sysmon(u8 Row, u32 *Row_Data);
+#endif
 u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr);
+#ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
 static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
 					XSKEfusePs_XAdc *XAdcInstancePtr);
 static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 					XSKEfusePs_XAdc *XAdcInstancePtr);
+#endif
 /***************************************************************************/
 /**
 * This function is used to initialize the XADC driver
@@ -109,10 +126,10 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 *
 ****************************************************************************/
 
-u32 XilSKey_EfusePs_XAdcInit (void )
+u32 XilSKey_EfusePs_XAdcInit (void)
 {
-	u32 Status = XST_SUCCESS;
-#ifdef XSK_ZYNQ_PLATFORM
+	u32 Status = (u32)XST_FAILURE;
+#if defined(XSK_ZYNQ_PLATFORM)
 	XAdcPs_Config *ConfigPtr;
 	XAdcPs *XAdcInstPtr = &XAdcInst;
 
@@ -120,27 +137,30 @@ u32 XilSKey_EfusePs_XAdcInit (void )
 	 * specify the Device ID that is
 	 * generated in xparameters.h
 	 */
-	XAdcDeviceId=XADC_DEVICE_ID;
+	XAdcDevId = XADC_DEVICE_ID;
 
 	/**
 	 * Initialize the XAdc driver.
 	 */
-	ConfigPtr = XAdcPs_LookupConfig(XAdcDeviceId);
+	ConfigPtr = XAdcPs_LookupConfig(XAdcDevId);
 	if (NULL == ConfigPtr) {
-		return XSK_EFUSEPS_ERROR_XADC_CONFIG;
+		Status = (u32)XSK_EFUSEPS_ERROR_XADC_CONFIG;
+		goto END;
 	}
 
-	Status = XAdcPs_CfgInitialize(XAdcInstPtr, ConfigPtr,
+	Status = (u32)XAdcPs_CfgInitialize(XAdcInstPtr, ConfigPtr,
 			ConfigPtr->BaseAddress);
-	if (Status != XST_SUCCESS) {
-		return XSK_EFUSEPS_ERROR_XADC_INITIALIZE;
+	if (Status != (u32)XST_SUCCESS) {
+		Status = (u32)XSK_EFUSEPS_ERROR_XADC_INITIALIZE;
+		goto END;
 	}
 	/**
 	 * Self Test the XADC/ADC device
 	 */
-	Status = XAdcPs_SelfTest(XAdcInstPtr);
-	if (Status != XST_SUCCESS) {
-		return XSK_EFUSEPS_ERROR_XADC_SELF_TEST;
+	Status = (u32)XAdcPs_SelfTest(XAdcInstPtr);
+	if (Status != (u32)XST_SUCCESS) {
+		Status = (u32)XSK_EFUSEPS_ERROR_XADC_SELF_TEST;
+		goto END;
 	}
 
 	/**
@@ -149,13 +169,11 @@ u32 XilSKey_EfusePs_XAdcInit (void )
 	 */
 	XAdcPs_SetSequencerMode(XAdcInstPtr, XADCPS_SEQ_MODE_SAFE);
 
-	Status = XST_SUCCESS;
-#endif
-#ifdef XSK_MICROBLAZE_PLATFORM
-	Status = XST_FAILURE;
-#endif
+	Status = (u32)XST_SUCCESS;
 
-#ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
+
+
+#elif defined(XSK_ZYNQ_ULTRA_MP_PLATFORM)
 	XSysMonPsu_Config *ConfigPtr;
 	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
 
@@ -163,27 +181,30 @@ u32 XilSKey_EfusePs_XAdcInit (void )
 	 * specify the Device ID that is
 	 * generated in xparameters.h
 	 */
-	XSysmonDeviceId = XSYSMON_DEVICE_ID;
+	XSysmonDevId = (u16)XSYSMON_DEVICE_ID;
 
 	/**
 	 * Initialize the XAdc driver.
 	 */
-	ConfigPtr = XSysMonPsu_LookupConfig(XSysmonDeviceId);
+	ConfigPtr = XSysMonPsu_LookupConfig(XSysmonDevId);
 	if (NULL == ConfigPtr) {
-		return XSK_EFUSEPS_ERROR_XADC_CONFIG;
+		Status = (u32)XSK_EFUSEPS_ERROR_XADC_CONFIG;
+		goto END;
 	}
 
-	Status = XSysMonPsu_CfgInitialize(XSysmonInstPtr, ConfigPtr,
+	Status = (u32)XSysMonPsu_CfgInitialize(XSysmonInstPtr, ConfigPtr,
 			ConfigPtr->BaseAddress);
-	if (Status != XST_SUCCESS) {
-		return XSK_EFUSEPS_ERROR_XADC_INITIALIZE;
+	if (Status != (u32)XST_SUCCESS) {
+		Status = (u32)XSK_EFUSEPS_ERROR_XADC_INITIALIZE;
+		goto END;
 	}
 	/**
 	 * Self Test for sysmon device
 	 */
-	Status = XSysMonPsu_SelfTest(XSysmonInstPtr);
-	if (Status != XST_SUCCESS) {
-		return XSK_EFUSEPS_ERROR_XADC_SELF_TEST;
+	Status = (u32)XSysMonPsu_SelfTest(XSysmonInstPtr);
+	if (Status != (u32)XST_SUCCESS) {
+		Status = (u32)XSK_EFUSEPS_ERROR_XADC_SELF_TEST;
+		goto END;
 	}
 
 	/**
@@ -193,9 +214,12 @@ u32 XilSKey_EfusePs_XAdcInit (void )
 	XSysMonPsu_SetSequencerMode(XSysmonInstPtr,
 				XSM_SEQ_MODE_SAFE, XSYSMON_PS);
 
-	Status = XST_SUCCESS;
-#endif
+	Status = (u32)XST_SUCCESS;
 
+#else
+	goto END;
+#endif
+END:
 	return Status;
 
 }
@@ -212,18 +236,17 @@ u32 XilSKey_EfusePs_XAdcInit (void )
 *		temperature
 *
 ****************************************************************************/
+#ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
 static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 					XSKEfusePs_XAdc *XAdcInstancePtr)
 {
+	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
 	if (NULL == XAdcInstancePtr) {
-		return;
+		goto END;
 	}
 
-#ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
-
 	if (NULL == XSysmonInstPtr) {
-		return;
+		goto END;
 	}
 	/**
 	 * Read the on-chip Temperature Data (Current)
@@ -235,8 +258,8 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 		"Read Temperature Value: %0x -> %d in Centigrades \n",
 		XAdcInstancePtr->Temp,
 	(int )XSysMonPsu_RawToTemperature_OnChip(XAdcInstancePtr->Temp));
-
-#endif
+END:
+	return;
 
 }
 
@@ -259,16 +282,14 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
 				XSKEfusePs_XAdc *XAdcInstancePtr)
 {
-	if (NULL == XAdcInstancePtr) {
-		return;
-	}
-
-#ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
 	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
 	u8 V;
+	if (NULL == XAdcInstancePtr) {
+		goto END;
+	}
 
 	if (NULL == XSysmonInstPtr) {
-		return;
+		goto END;
 	}
 	/**
 	 * Read the VccPint/PAUX Voltage Data (Current/Maximum/Minimum) from
@@ -292,10 +313,10 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
 			"Read Voltage Value: %0x -> %d in Volts \n",
 			XAdcInstancePtr->V,
 			(int )XSysMonPsu_RawToVoltage(XAdcInstancePtr->V));
-#endif
-
+END:
+	return;
 }
-
+#endif
 /***************************************************************************/
 /**
 * This function is used to copy the min, max and current value of the
@@ -319,7 +340,7 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
 void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstancePtr)
 {
 	if (NULL == XAdcInstancePtr) {
-		return;
+		goto END;
 	}
 
 #ifdef XSK_MICROBLAZE_PLATFORM
@@ -335,7 +356,7 @@ void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstance
 
 
 	if (NULL == XAdcInstPtr) {
-		return;
+		goto END;
 	}
 
 	/**
@@ -404,6 +425,7 @@ void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstance
 				(int )XAdcPs_RawToVoltage(XAdcInstancePtr->V));
 
 #endif
+END:
 	return;
 }
 
@@ -421,33 +443,38 @@ void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstance
 *		on the Remus, as Sysmon access is not permitted on Remus.
 *
 ****************************************************************************/
-u32 XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks()
+u32 XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks(void)
 {
+	u32 Status = (u32)XST_FAILURE;
 	/**
 	 * Check the temperature and voltage(VCC_AUX and VCC_PINT_LP)
 	 */
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
 	XSKEfusePs_XAdc XAdcInstance;
 	XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(&XAdcInstance);
-	if ((XAdcInstance.Temp < XSK_EFUSEPS_TEMP_MIN_RAW) ||
-			((XAdcInstance.Temp > XSK_EFUSEPS_TEMP_MAX_RAW))) {
-		return XSK_EFUSEPS_ERROR_READ_TMEPERATURE_OUT_OF_RANGE;
+	if ((XAdcInstance.Temp < (u32)XSK_EFUSEPS_TEMP_MIN_RAW) ||
+			((XAdcInstance.Temp > (u32)XSK_EFUSEPS_TEMP_MAX_RAW))) {
+		Status = (u32)XSK_EFUSEPS_ERROR_READ_TMEPERATURE_OUT_OF_RANGE;
+		goto END;
 	}
 	XAdcInstance.VType = XSK_EFUSEPS_VPAUX;
 	XilSKey_ZynqMP_EfusePs_ReadSysmonVol(&XAdcInstance);
-	if ((XAdcInstance.V < XSK_EFUSEPS_VPAUX_MIN_RAW) ||
-			((XAdcInstance.V > XSK_EFUSEPS_VPAUX_MAX_RAW))) {
-		return XSK_EFUSEPS_ERROR_READ_VCCPAUX_VOLTAGE_OUT_OF_RANGE;
+	if ((XAdcInstance.V < (u32)XSK_EFUSEPS_VPAUX_MIN_RAW) ||
+			((XAdcInstance.V > (u32)XSK_EFUSEPS_VPAUX_MAX_RAW))) {
+		Status = (u32)XSK_EFUSEPS_ERROR_READ_VCCPAUX_VOLTAGE_OUT_OF_RANGE;
+		goto END;
 	}
 	XAdcInstance.VType = XSK_EFUSEPS_VPINT;
 	XilSKey_ZynqMP_EfusePs_ReadSysmonVol(&XAdcInstance);
-	if ((XAdcInstance.V < XSK_EFUSEPS_VCC_PSINTLP_MIN_RAW) ||
-			((XAdcInstance.V > XSK_EFUSEPS_VCC_PSINTLP_MAX_RAW))) {
-		return XSK_EFUSEPS_ERROR_READ_VCCPAUX_VOLTAGE_OUT_OF_RANGE;
+	if ((XAdcInstance.V < (u32)XSK_EFUSEPS_VCC_PSINTLP_MIN_RAW) ||
+			((XAdcInstance.V > (u32)XSK_EFUSEPS_VCC_PSINTLP_MAX_RAW))) {
+		Status = (u32)XSK_EFUSEPS_ERROR_READ_VCCPAUX_VOLTAGE_OUT_OF_RANGE;
+		goto END;
 	}
+	Status = (u32)XST_SUCCESS;
+END:
 #endif
-
-	return XST_SUCCESS;
+	return Status;
 
 }
 
@@ -468,7 +495,7 @@ u32 XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks()
 * @note		None.
 *
 *****************************************************************************/
-void XilSKey_Efuse_StartTimer()
+void XilSKey_Efuse_StartTimer(void)
 {
 #ifdef XSK_ARM_PLATFORM
 		/**
@@ -510,16 +537,20 @@ void XilSKey_Efuse_StartTimer()
 
 u64 XilSKey_Efuse_GetTime(void)
 {
-    volatile u64 t=0;
+    volatile u64 t;
 #ifdef XSK_ARM_PLATFORM
-	volatile u32 t_hi=0, t_lo=0;
+	volatile u32 t_hi, t_lo;
+	u32 TiHi;
+	u32 TiLo;
 
     do {
-			t_hi = Xil_In32(XSK_GLOBAL_TIMER_COUNT_REG_HIGH);
-			t_lo = Xil_In32(XSK_GLOBAL_TIMER_COUNT_REG_LOW);
-	}while(t_hi != Xil_In32(XSK_GLOBAL_TIMER_COUNT_REG_HIGH));
+		t_hi = Xil_In32(XSK_GLOBAL_TIMER_COUNT_REG_HIGH);
+		t_lo = Xil_In32(XSK_GLOBAL_TIMER_COUNT_REG_LOW);
+		TiHi = t_hi;
+		TiLo = t_lo;
+	}while(TiHi != Xil_In32(XSK_GLOBAL_TIMER_COUNT_REG_HIGH));
 
-	t = (((u64) t_hi) << 32) | (u64) t_lo;
+	t = (((u64) TiHi) << 32U) | (u64) TiLo;
 
 #else
 		 t = XTmrCtr_GetValue(&XTmrCtrInst, XSK_TMRCTR_NUM);
@@ -588,19 +619,25 @@ u8 XilSKey_Efuse_IsTimerExpired(u64 t)
  ****************************************************************************/
 static u32 XilSKey_EfusePs_ConvertCharToNibble (char InChar, u8 *Num)
 {
+	u32 Status = (u32)XST_SUCCESS;
 	/**
 	 * Convert the char to nibble
 	 */
-	if ((InChar >= '0') && (InChar <= '9'))
-		*Num = InChar - '0';
-	else if ((InChar >= 'a') && (InChar <= 'f'))
-		*Num = InChar - 'a' + 10;
-	else if ((InChar >= 'A') && (InChar <= 'F'))
-		*Num = InChar - 'A' + 10;
-	else
-		return XSK_EFUSEPS_ERROR_STRING_INVALID;
-
-	return XST_SUCCESS;
+	if ((InChar >= '0') && (InChar <= '9')) {
+		*Num = (u8)InChar - (u8)'0';
+	}
+	else if ((InChar >= 'a') && (InChar <= 'f')) {
+		*Num = (u8)InChar - (u8)'a' + 10U;
+	}
+	else if ((InChar >= 'A') && (InChar <= 'F')) {
+		*Num = (u8)InChar - (u8)'A' + 10U;
+	}
+	else {
+		Status = (u32)XSK_EFUSEPS_ERROR_STRING_INVALID;
+		goto END;
+	}
+END:
+	return Status;
 }
 
 /****************************************************************************/
@@ -636,64 +673,79 @@ static u32 XilSKey_EfusePs_ConvertCharToNibble (char InChar, u8 *Num)
 
 u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
 {
-	u32 ConvertedLen=0;
-	u8 LowerNibble, UpperNibble;
+	u32 ConvertedLen;
+	u8 LowerNibble = 0U, UpperNibble = 0U;
+	u32 Status = (u32)XST_FAILURE;
 
 	/**
 	 * Check the parameters
 	 */
-	if (Str == NULL)
-		return XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+	if (Str == NULL) {
+		Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+		goto END;
+	}
 
-	if (Buf == NULL)
-		return XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+	if (Buf == NULL) {
+		Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+		goto END;
+	}
 
 	/**
 	 * Len has to be multiple of 2
 	 */
-	if ((Len == 0) || (Len%2 == 1))
-		return XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+	if ((Len == 0U) || ((Len%2U) == 1U)) {
+		Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+		goto END;
+	}
 
-	ConvertedLen = 0;
-	while (ConvertedLen < Len) {
+	if(Len != (strlen(Str)*4U)) {
+		Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+		goto END;
+	}
+
+	ConvertedLen = 0U;
+	while (ConvertedLen < (Len/4U)) {
 		/**
 		 * Convert char to nibble
 		 */
 		if (XilSKey_EfusePs_ConvertCharToNibble (Str[ConvertedLen],&UpperNibble)
-				==XST_SUCCESS) {
+				== (u32)XST_SUCCESS) {
 			/**
 			 * Convert char to nibble
 			 */
 			if (XilSKey_EfusePs_ConvertCharToNibble (Str[ConvertedLen+1],
-					&LowerNibble)==XST_SUCCESS) {
+					&LowerNibble) == (u32)XST_SUCCESS) {
 				/**
 				 * Merge upper and lower nibble to Hex
 				 */
 				Buf[ConvertedLen/2] =
-						(UpperNibble << 4) | LowerNibble;
+						(UpperNibble << 4U) | LowerNibble;
 			}
 			else {
 				/**
 				 * Error converting Lower nibble
 				 */
-				return XSK_EFUSEPS_ERROR_STRING_INVALID;
+				Status = (u32)XSK_EFUSEPS_ERROR_STRING_INVALID;
+				goto END;
 			}
 		}
 		else {
 			/**
 			 * Error converting Upper nibble
 			 */
-			return XSK_EFUSEPS_ERROR_STRING_INVALID;
+			Status = (u32)XSK_EFUSEPS_ERROR_STRING_INVALID;
+			goto END;
 		}
 		/**
 		 * Converted upper and lower nibbles
 		 */
 		xeFUSE_printf(XSK_EFUSE_DEBUG_GENERAL,"Converted %c%c to %0x\n",
 				Str[ConvertedLen],Str[ConvertedLen+1],Buf[ConvertedLen/2]);
-		ConvertedLen += 2;
+		ConvertedLen += 2U;
 	}
-
-	return XST_SUCCESS;
+	Status = (u32)XST_SUCCESS;
+END:
+	return Status;
 }
 
 
@@ -731,64 +783,80 @@ u32 XilSKey_Efuse_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len)
 
 u32 XilSKey_Efuse_ConvertStringToHexLE(const char * Str, u8 * Buf, u32 Len)
 {
-	u32 ConvertedLen=0;
-		u8 LowerNibble, UpperNibble;
-		u32 index;
+	u32 ConvertedLen;
+		u8 LowerNibble = 0U, UpperNibble = 0U;
+		u32 StrIndex;
+		u32 Status = (u32)XST_FAILURE;
 
 		/**
 		 * Check the parameters
 		 */
-		if (Str == NULL)
-			return XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+		if (Str == NULL) {
+			Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+			goto END;
+		}
 
-		if (Buf == NULL)
-			return XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+		if (Buf == NULL) {
+			Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+			goto END;
+		}
 
 		/**
 		 * Len has to be multiple of 2
 		 */
-		if ((Len == 0) || (Len%2 == 1))
-			return XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+		if ((Len == 0U) || ((Len % 2U) == 1U)) {
+			Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+			goto END;
+		}
 
-		index = (Len/8) - 1;
-		ConvertedLen = 0;
-		while (ConvertedLen < Len) {
+		if(Len != (strlen(Str)*4U)) {
+			Status = (u32)XSK_EFUSEPS_ERROR_PARAMETER_NULL;
+			goto END;
+		}
+
+		StrIndex = (Len/8U) - 1U;
+		ConvertedLen = 0U;
+		while (ConvertedLen < (Len/4U)) {
 			/**
 			 * Convert char to nibble
 			 */
 			if (XilSKey_EfusePs_ConvertCharToNibble (Str[ConvertedLen],
-										&UpperNibble) == XST_SUCCESS) {
+										&UpperNibble) == (u32)XST_SUCCESS) {
 				/**
 				 * Convert char to nibble
 				 */
 				if (XilSKey_EfusePs_ConvertCharToNibble (Str[ConvertedLen+1],
-						&LowerNibble)==XST_SUCCESS)	{
+						&LowerNibble) == (u32)XST_SUCCESS)	{
 					/**
 					 * Merge upper and lower nibble to Hex
 					 */
-					Buf[index--] =
-							(UpperNibble << 4) | LowerNibble;
+					Buf[StrIndex] =
+							(UpperNibble << 4U) | LowerNibble;
+					StrIndex = StrIndex - 1U;
 				}
 				else {
 					/**
 					 * Error converting Lower nibble
 					 */
-					return XSK_EFUSEPS_ERROR_STRING_INVALID;
+					Status = (u32)XSK_EFUSEPS_ERROR_STRING_INVALID;
+					goto END;
 				}
 			}
 			else {
 				/**
 				 * Error converting Upper nibble
 				 */
-				return XSK_EFUSEPS_ERROR_STRING_INVALID;
+				Status = (u32)XSK_EFUSEPS_ERROR_STRING_INVALID;
+				goto END;
 			}
 			/**
 			 * Converted upper and lower nibbles
 			 */
-			ConvertedLen += 2;
+			ConvertedLen += 2U;
 		}
-
-		return XST_SUCCESS;
+	Status = (u32)XST_SUCCESS;
+END:
+	return Status;
 }
 
 /***************************************************************************/
@@ -811,16 +879,18 @@ void XilSKey_EfusePs_ConvertBytesBeToLe(const u8 *Be, u8 *Le, u32 Len)
 {
 	u32 Index;
 
-	if ((Be == NULL) || (Le == NULL) || (Len == 0))
-		return;
+	if ((Be == NULL) || (Le == NULL) || (Len == 0U)) {
+		goto END;
+	}
 
-	for (Index=0;Index<Len;Index=Index+4) {
+	for (Index = 0U; Index < Len; Index = Index+4U) {
 		Le[Index+3]=Be[Index];
 		Le[Index+2]=Be[Index+1];
 		Le[Index+1]=Be[Index+2];
 		Le[Index]=Be[Index+3];
 	}
-	return ;
+END:
+	return;
 }
 
 /****************************************************************************/
@@ -843,37 +913,44 @@ void XilSKey_EfusePs_ConvertBytesBeToLe(const u8 *Be, u8 *Le, u32 Len)
  ****************************************************************************/
 void XilSKey_Efuse_ConvertBitsToBytes(const u8 * Bits, u8 * Bytes, u32 Len)
 {
-	u8 Data=0;
-	u32 Index=0, BitIndex=0, ByteIndex=0;
+	u8 Data;
+	u32 Index, BitIndex = 0U, ByteIndex = 0U;
+	u32 BytLen = Len;
+
+	/* Assert validates the input arguments */
+	Xil_AssertVoid(Bits != NULL);
+	Xil_AssertVoid(Bytes != NULL);
 
 	/**
 	 * Make sure the bytes array is 0'ed first.
 	 */
-	for(Index=0;Index<Len;Index++) {
-		Bytes[Index] = 0;
+	for(Index = 0U; Index < BytLen; Index++) {
+		Bytes[Index] = 0U;
 	}
 
-	while(Len) {
+	while(BytLen != 0U) {
 		/**
 		 * Convert 8 Bit One Byte to 1 Bit 8 Bytes
 		 */
-		for(Index=0;Index<8;Index++) {
+		for(Index = 0U; Index < 8U; Index++) {
 			/**
 			 * Convert from LSB -> MSB - Little Endian
 			 */
-			Data = (Bits[BitIndex] >> Index) & 0x1;
+			Data = (Bits[BitIndex] >> Index) & 0x1U;
 			Bytes[ByteIndex] = Data;
 			ByteIndex++;
-			Len--;
+			BytLen--;
 			/**
 			 * If len is not Byte aligned
 			 */
-			if(Len == 0)
-				return;
+			if(BytLen == 0U) {
+				goto END;
+			}
 		}
 		BitIndex++;
 	}
-	return ;
+END:
+	return;
 }
 
 /****************************************************************************/
@@ -897,36 +974,43 @@ void XilSKey_Efuse_ConvertBitsToBytes(const u8 * Bits, u8 * Bytes, u32 Len)
  ****************************************************************************/
 void XilSKey_EfusePs_ConvertBytesToBits(const u8 * Bytes, u8 * Bits , u32 Len)
 {
-	u8 Tmp=0;
-	u32 Index=0, BitIndex=0, ByteIndex=0;
+	u8 Tmp;
+	u32 Index, BitIndex = 0U, ByteIndex = 0U;
+	u32 BytLen = Len;
+
+	/* Assert validates the input arguments */
+	Xil_AssertVoid(Bytes != NULL);
+	Xil_AssertVoid(Bits != NULL);
 
 	/**
 	 * Make sure the bits array is 0 first.
 	 */
-	for(Index=0;Index<((Len%8)?((Len/8)+1):(Len/8));Index++) {
-		Bits[Index] = 0;
+	for(Index = 0U; Index < (((BytLen % 8U) != 0U) ? ((BytLen / 8U) + 1U) : (BytLen / 8U)); Index++) {
+		Bits[Index] = 0U;
 	}
 
-	while(Len) {
+	while(BytLen != 0U) {
 		/**
 		 * Convert 1 Bit 8 Bytes to 8 Bit 1 Byte
 		 */
-		for(Index=0;Index<8;Index++) {
+		for(Index = 0U; Index < 8U; Index++) {
 			/**
 			 * Store from LSB -> MSB - Little Endian
 			 */
-			Tmp = (Bytes[ByteIndex]) & 0x1;
+			Tmp = (Bytes[ByteIndex]) & 0x1U;
 			Bits[BitIndex] |= (Tmp << Index);
 			ByteIndex++;
-			Len--;
+			BytLen--;
 			/**
 			 * If Len is not Byte aligned
 			 */
-			if(Len == 0)
-				return;
+			if(BytLen == 0U) {
+				goto END;
+			}
 		}
 		BitIndex++;
 	}
+END:
 	return;
 }
 
@@ -945,36 +1029,51 @@ void XilSKey_EfusePs_ConvertBytesToBits(const u8 * Bytes, u8 * Bits , u32 Len)
 u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
 {
 	u32 i;
-    /**
-     * Make sure passed key is not NULL
-     */
-    if(Key == NULL) {
-	return (XSK_EFUSEPL_ERROR_KEY_VALIDATION +
-			XSK_EFUSEPL_ERROR_NULL_KEY);
-    }
+	u32 Status = (u32)XSK_EFUSEPL_ERROR_NONE;
 
-    if(Len == 0) {
-	return (XSK_EFUSEPL_ERROR_KEY_VALIDATION +
-			XSK_EFUSEPL_ERROR_ZERO_KEY_LENGTH);
-    }
+	Xil_AssertNonvoid(Key != NULL);
+	Xil_AssertNonvoid((Len == XSK_STRING_SIZE_2) ||
+			  (Len == XSK_STRING_SIZE_6) ||
+			  (Len == XSK_STRING_SIZE_8) ||
+			  (Len == XSK_STRING_SIZE_64) ||
+			  (Len == XSK_STRING_SIZE_96));
+
+	/**
+	* Make sure passed key is not NULL
+	*/
+	if(Key == NULL) {
+		Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION +
+			(u32)XSK_EFUSEPL_ERROR_NULL_KEY);
+		goto END;
+	}
+
+	if(Len == 0U) {
+		Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION +
+			(u32)XSK_EFUSEPL_ERROR_ZERO_KEY_LENGTH);
+		goto END;
+	}
 
 	/**
 	 * Make sure the key has valid length
 	 */
-    if (strlen(Key) != Len) {
-		return (XSK_EFUSEPL_ERROR_KEY_VALIDATION +
-				XSK_EFUSEPL_ERROR_NOT_VALID_KEY_LENGTH);
-    }
-
-    /**
-     * Make sure the key has valid characters
-     */
-	for(i=0;i<strlen(Key);i++) {
-		if(XilSKey_Efuse_IsValidChar(&Key[i]) != XST_SUCCESS)
-			return (XSK_EFUSEPL_ERROR_KEY_VALIDATION +
-					XSK_EFUSEPL_ERROR_NOT_VALID_KEY_CHAR);
+	if (strlen(Key) != Len) {
+		Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION +
+			(u32)XSK_EFUSEPL_ERROR_NOT_VALID_KEY_LENGTH);
+		goto END;
 	}
-    return XSK_EFUSEPL_ERROR_NONE;
+
+	/**
+	* Make sure the key has valid characters
+	*/
+	for(i = 0U; i < strlen(Key); i++) {
+		if(XilSKey_Efuse_IsValidChar(&Key[i]) != (u32)XST_SUCCESS) {
+			Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION +
+				(u32)XSK_EFUSEPL_ERROR_NOT_VALID_KEY_CHAR);
+			goto END;
+		}
+	}
+END:
+	return Status;
 }
 /****************************************************************************/
 /**
@@ -990,19 +1089,21 @@ u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
 
 u32 XilSKey_Efuse_IsValidChar(const char *c)
 {
-    char ValidChars[] = "0123456789abcdefABCDEF";
-    char *RetVal;
+	char ValidChars[] = "0123456789abcdefABCDEF";
+	char *RetVal;
+	u32 Status = (u32)XST_FAILURE;
 
-    if(c == NULL)
-	return XST_FAILURE;
+	if(c == NULL) {
+		Status = (u32)XST_FAILURE;
+		goto END;
+	}
 
-    RetVal = strchr(ValidChars, (int)*c);
-    if(RetVal == NULL) {
-	return XST_FAILURE;
-    }
-    else {
-	return XST_SUCCESS;
-    }
+	RetVal = strchr(ValidChars, (int)*c);
+	if(RetVal != NULL) {
+		Status = (u32)XST_SUCCESS;
+	}
+END:
+	return Status;
 }
 /****************************************************************************/
 /**
@@ -1015,59 +1116,63 @@ u32 XilSKey_Efuse_IsValidChar(const char *c)
  * @note	None.
  *
  ****************************************************************************/
-u32 XilSKey_Timer_Intialise()
+u32 XilSKey_Timer_Intialise(void)
 {
 
-	u32 RefClk = 0;
+	u32 RefClk;
 
-#ifdef XSK_ZYNQ_PLATFORM
-	TimerTicksfor100ns = 0;
+#if defined(XSK_ZYNQ_PLATFORM)
+	TimerTicksfor100ns = 0U;
 	u32 ArmPllFdiv;
 	u32 ArmClkDivisor;
 		/**
 		 *  Extract PLL FDIV value from ARM PLL Control Register
 		 */
-	ArmPllFdiv = (Xil_In32(XSK_ARM_PLL_CTRL_REG)>>12 & 0x7F);
-
+	ArmPllFdiv = ((Xil_In32(XSK_ARM_PLL_CTRL_REG) >> 12U) & 0x7FU);
+	if(ArmPllFdiv == 0U) {
+		return (u32)XST_FAILURE;
+	}
 		/**
 		 *  Extract Clock divisor value from ARM Clock Control Register
 		 */
-	ArmClkDivisor = (Xil_In32(XSK_ARM_CLK_CTRL_REG)>>8 & 0x3F);
+	ArmClkDivisor = ((Xil_In32(XSK_ARM_CLK_CTRL_REG) >> 8U) & 0x3FU);
+	if( ArmClkDivisor == 0U) {
+		return (u32)XST_FAILURE;
+	}
 
 		/**
 		 * Initialize the variables
 		 */
 	RefClk = ((XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ * ArmClkDivisor)/
 					ArmPllFdiv);
-
 	/**
 	 * Calculate the Timer ticks per 100ns
 	 */
 	TimerTicksfor100ns =
-			(((RefClk * ArmPllFdiv)/ArmClkDivisor)/2)/10000000;
-#endif
-#ifdef XSK_MICROBLAZE_PLATFORM
+		(((RefClk * ArmPllFdiv)/ArmClkDivisor) / 2U) / 10000000U;
+#elif defined(XSK_MICROBLAZE_PLATFORM)
 
 	u32 Status;
-	TimerTicksfor1000ns = 0;
+	TimerTicksfor1000ns = 0U;
 
 	RefClk = XSK_EFUSEPL_CLCK_FREQ_ULTRA;
 
-	Status = XTmrCtr_Initialize(&XTmrCtrInst, XTMRCTR_DEVICE_ID);
-	if (Status == XST_FAILURE) {
-		return XST_FAILURE;
+	Status = (u32)XTmrCtr_Initialize(&XTmrCtrInst, (u16)XTMRCTR_DEVICE_ID);
+	if (Status == (u32)XST_FAILURE) {
+		return (u32)XST_FAILURE;
 	}
 	/*
 	 * Perform a self-test to ensure that the hardware was built
 	 * correctly.
 	 */
-	Status = XTmrCtr_SelfTest(&XTmrCtrInst, XSK_TMRCTR_NUM);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	Status = (u32)XTmrCtr_SelfTest(&XTmrCtrInst, XSK_TMRCTR_NUM);
+	if (Status != (u32)XST_SUCCESS) {
+		return (u32)XST_FAILURE;
 	}
 
-	TimerTicksfor1000ns =  XSK_EFUSEPL_CLCK_FREQ_ULTRA/100000;
-
+	TimerTicksfor1000ns =  XSK_EFUSEPL_CLCK_FREQ_ULTRA/100000U;
+#else
+	RefClk = 0U;
 #endif
 
 	return RefClk;
@@ -1090,11 +1195,19 @@ u32 XilSKey_Timer_Intialise()
  ****************************************************************************/
 void XilSKey_StrCpyRange(u8 *Src, u8 *Dst, u32 From, u32 To)
 {
-	u32 Index,J = 0;
-	for (Index = From; Index <= To; Index++) {
-		Dst[J++] = Src[Index];
+	u32 Index, J = 0U;
+	u32 SrcLength = strlen((char *)Src);
+
+	if (To >= SrcLength) {
+		goto END;
 	}
-	Dst[J] = '\0';
+
+	for (Index = From; Index <= To; Index++) {
+		Dst[J] = Src[Index];
+		J = J + 1U;
+	}
+END:
+	Dst[J] = (u8)'\0';
 
 }
 
@@ -1126,79 +1239,93 @@ void XilSKey_StrCpyRange(u8 *Src, u8 *Dst, u32 From, u32 To)
  ****************************************************************************/
 u32 XilSKey_CrcCalculation(u8 *Key)
 {
-	u32 Crc = 0;
-	u8 Key_8[8];
-	u8 Key_Hex[4];
+	u32 CrcReturn = 0U;
 	u32 Index;
-	u8 MaxIndex = 8;
+	u8 MaxIndex = 8U;
 
 #if defined (XSK_MICROBLAZE_PLATFORM) || \
 	defined (XSK_ZYNQ_ULTRA_MP_PLATFORM)
-		u32 Key_32;
+	u32 Key_32 = 0U;
+	u32 Status;
+	u8 Key_Hex[4U] = {0};
+	u8 Key_8[9U];
 #endif
-	u8 FullKey[64] = {0};
+#ifdef XSK_MICROBLAZE_PLATFORM
+	u8 Row = 0U;
+#endif
+	u8 FullKey[65U] = {0U};
 	u32 Length = strlen((char *)Key);
 
-	if (Length > 64) {
-		return XSK_EFUSEPL_ERROR_NOT_VALID_KEY_LENGTH;
+	if (Length > 64U) {
+		CrcReturn = (u32)XSK_EFUSEPL_ERROR_NOT_VALID_KEY_LENGTH;
+		goto END;
 	}
-	if (Length < 64) {
-		XilSKey_StrCpyRange(Key, &FullKey[64-Length + 1], 0, Length);
+	if (Length < 64U) {
+		XilSKey_StrCpyRange(Key, &FullKey[64U - Length + 1U], 0U, Length-1U);
 
 	}
 	else {
-		XilSKey_StrCpyRange(Key, FullKey, 0, Length);
+		XilSKey_StrCpyRange(Key, FullKey, 0U, Length-1U);
 	}
 #ifdef XSK_MICROBLAZE_ULTRA_PLUS
-	u8 Row = 0;
-	MaxIndex = 16;
-	Row = 5;
+	MaxIndex = 16U;
+	Row = 5U;
 #endif
 #ifdef XSK_MICROBLAZE_ULTRA
-	u8 Row = 0;
-	MaxIndex = 8;
-	Row = 20;
+	MaxIndex = 8U;
+	Row = 20U;
 #endif
 
 
-	for (Index = 0; Index < MaxIndex; Index++) {
+	for (Index = 0U; Index < MaxIndex; Index++) {
 #ifdef XSK_MICROBLAZE_PLATFORM
 #ifdef XSK_MICROBLAZE_ULTRA
-		XilSKey_StrCpyRange(FullKey, Key_8, ((7 - Index)*8),
-					((((7 - Index) + 1)*8)-1));
+		XilSKey_StrCpyRange(FullKey, Key_8, ((7U - Index) * 8U),
+					((((7U - Index) + 1U) * 8U) - 1U));
 #endif
 #ifdef XSK_MICROBLAZE_ULTRA_PLUS
-		XilSKey_StrCpyRange(FullKey, Key_8, (64 - ((Index + 1)*4)),
-					(63 - (Index * 4)));
+		XilSKey_StrCpyRange(FullKey, Key_8, (64U - ((Index + 1U) * 4U)),
+					(63U - (Index * 4U)));
 #endif
 #endif
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-		XilSKey_StrCpyRange(FullKey, Key_8, ((Index) * 8),
-							((((Index) *8) + 8) -1));
+		XilSKey_StrCpyRange(FullKey, Key_8, ((Index) * 8U),
+							((((Index) * 8U) + 8U) - 1U));
 #endif
 
-		XilSKey_Efuse_ConvertStringToHexBE((char *)Key_8, Key_Hex, 8);
 #if defined (XSK_MICROBLAZE_ULTRA) || \
 	defined (XSK_ZYNQ_ULTRA_MP_PLATFORM)
-		Key_32 = (Key_Hex[0] << 24) | (Key_Hex[1] << 16) |
-				(Key_Hex[2] << 8) | (Key_Hex[3]);
+		Status = XilSKey_Efuse_ConvertStringToHexBE((char *)Key_8,
+							 Key_Hex, 32U);
+		if (Status != (u32)XST_SUCCESS) {
+			CrcReturn = Status;
+			goto END;
+		}
+		Key_32 = (((u32)Key_Hex[0U] << 24U) | ((u32)Key_Hex[1U] << 16U) |
+				((u32)Key_Hex[2U] << 8U) | ((u32)Key_Hex[3U]));
 #endif
 #ifdef	XSK_MICROBLAZE_ULTRA_PLUS
-	Key_32 = 0x00;
-	Key_32 = (Key_Hex[0] << 8) | Key_Hex[1];
+		Status = XilSKey_Efuse_ConvertStringToHexBE((char *)Key_8,
+							Key_Hex, 16U);
+		if (Status != (u32)XST_SUCCESS) {
+			CrcReturn = Status;
+			goto END;
+		}
+		Key_32 = ((u32)Key_Hex[0U] << 8U) | (u32)Key_Hex[1U];
 #endif
 #ifdef XSK_MICROBLAZE_PLATFORM
-		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, Row + Index);
+		CrcReturn = XilSKey_RowCrcCalculation(CrcReturn, Key_32, (u32)Row + Index);
 #endif
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, 8 - Index);
+		CrcReturn = XilSKey_RowCrcCalculation(CrcReturn, Key_32, (u32)8U - Index);
 #endif
 
 	}
 
-	return Crc;
+END:
+	return CrcReturn;
 }
 
 /****************************************************************************/
@@ -1221,24 +1348,24 @@ u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr)
 	u32 Row = Addr;
 	u32 Index;
 
-	for (Index = 0; Index < 32; Index++) {
-		if ((((Value & 0x1) ^ Crc) & 0x1) != 0) {
-			Crc = ((Crc >> 1) ^ REVERSE_POLYNOMIAL);
+	for (Index = 0U; Index < 32U; Index++) {
+		if ((((Value & 0x1U) ^ Crc) & 0x1U) != 0U) {
+			Crc = ((Crc >> 1U) ^ REVERSE_POLYNOMIAL);
 		}
 		else {
-			Crc = Crc >>1;
+			Crc = Crc >> 1U;
 		}
-		Value = Value >>1;
+		Value = Value >> 1U;
 	}
 
-	for (Index = 0; Index < 5; Index++) {
-		if ((((Row & 0x1) ^ Crc) & 0x1) != 0) {
-			Crc = ((Crc >> 1) ^ REVERSE_POLYNOMIAL);
+	for (Index = 0U; Index < 5U; Index++) {
+		if ((((Row & 0x1U) ^ Crc) & 0x1U) != 0U) {
+			Crc = ((Crc >> 1U) ^ REVERSE_POLYNOMIAL);
 		}
 		else {
-			Crc = Crc >>1;
+			Crc = Crc >> 1U;
 		}
-		Row = Row >> 1;
+		Row = Row >> 1U;
 	}
 
 	return Crc;
@@ -1258,16 +1385,19 @@ u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr)
  ****************************************************************************/
 u32 XilSKey_Efuse_ReverseHex(u32 Input)
 {
-	u32 Index = 0;
-	u32 Rev = 0;
+	u32 Index = 0U;
+	u32 Rev = 0U;
 	u32 Bit;
+	u32 InputVar = Input;
 
-	while (Index++ < 32) {
-	Bit = Input & 1;
-	Input = Input >> 1;
-	Rev = Rev ^ Bit;
-	if (Index < 32)
-		Rev = Rev << 1;
+	while (Index < 32U) {
+		Index = Index + 1U;
+		Bit = InputVar & 1U;
+		InputVar = InputVar >> 1U;
+		Rev = Rev ^ Bit;
+		if (Index < 32U) {
+			Rev = Rev << 1U;
+		}
 	}
 
 	return Rev;
@@ -1285,12 +1415,12 @@ u32 XilSKey_Efuse_ReverseHex(u32 Input)
 * @note	None.
 *
 *****************************************************************************/
-u32 XilSKey_Ceil(float Value)
+u32 XilSKey_Ceil(float Freq)
 {
 	u32 RetValue;
 
-	RetValue = ((Value > (u32)Value) || ((u32)Value == 0)) ?
-					(u32)(Value + 1) : (u32)Value;
+	RetValue = ((Freq > (u32)Freq) || ((u32)Freq == 0U)) ?
+					(u32)((u32)Freq + 1U) : (u32)Freq;
 
 	return RetValue;
 
@@ -1326,59 +1456,68 @@ u32 XilSKey_Ceil(float Value)
  ****************************************************************************/
 u32 XilSkey_CrcCalculation_AesKey(u8 *Key)
 {
-	u32 Crc = 0;
+	u32 Crc = 0U;
 	u32 Index;
-	u32 MaxIndex = 8;
+	u32 MaxIndex;
+	u32 Index1 = 0xFFFFFFFF;
 #if defined (XSK_MICROBLAZE_PLATFORM) || \
 	defined (XSK_ZYNQ_ULTRA_MP_PLATFORM)
-		u32 Key_32;
-		u32 Index1;
+		u32 Key_32 = 0U;
+#endif
+#ifdef XSK_MICROBLAZE_PLATFORM
+	u32 Row = 0;
 #endif
 
-#ifdef XSK_MICROBLAZE_ULTRA_PLUS
-	u32 Row;
-	MaxIndex = 16;
-	Row = 5;
-#endif
-#ifdef XSK_MICROBLAZE_ULTRA
-	u32 Row;
-	MaxIndex = 8;
-	Row = 20;
-#endif
-
-	for (Index = 0; Index < MaxIndex; Index++) {
-#ifdef XSK_MICROBLAZE_ULTRA
-		Index1 = (Index * 4);
-#endif
-#ifdef XSK_MICROBLAZE_ULTRA_PLUS
-		Index1 = (Index * 2);
+#if defined(XSK_MICROBLAZE_ULTRA_PLUS)
+	MaxIndex = 16U;
+	Row = 5U;
+#elif defined(XSK_MICROBLAZE_ULTRA)
+	MaxIndex = 8U;
+	Row = 20U;
+#elif defined(XSK_ZYNQ_ULTRA_MP_PLATFORM)
+	MaxIndex = 8U;
+#else
+	/* Not supported for other than above platforms */
+	MaxIndex = 0U;
 #endif
 
-#ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-		Index1 = ((7 - Index) * 4);
+	for (Index = 0U; Index < MaxIndex; Index++) {
+
+#if defined(XSK_MICROBLAZE_ULTRA)
+		Index1 = (Index * 4U);
+#elif defined(XSK_MICROBLAZE_ULTRA_PLUS)
+		Index1 = (Index * 2U);
+#elif defined(XSK_ZYNQ_ULTRA_MP_PLATFORM)
+		Index1 = (((u32)7U - Index) * 4U);
+#else
+		Crc = Index1;
+		break;
+
 #endif
 
 #if defined XSK_MICROBLAZE_ULTRA || \
 	defined XSK_ZYNQ_ULTRA_MP_PLATFORM
-	Key_32 = (Key[Index1 + 3] << 24) | (Key[Index1 + 2] << 16) |
-			(Key[Index1 + 1] << 8) | (Key[Index1 + 0]);
-#endif
+	Key_32 = ((u32)Key[Index1 + 3U] << 24U) | ((u32)Key[Index1 + 2U] << 16U) |
+			((u32)Key[Index1 + 1U] << 8U) | ((u32)Key[Index1 + 0U]);
+#elif defined(XSK_MICROBLAZE_ULTRA_PLUS)
+	Key_32 = ((u32)Key[Index1 + 1U] << 8U) | (u32)Key[Index1];
+#else
+	Crc = Index1;
+	break;
 
-#ifdef XSK_MICROBLAZE_ULTRA_PLUS
-	Key_32 = 0x00;
-	Key_32 = (Key[Index1 + 1] << 8) | Key[Index1];
 #endif
 
 #ifdef XSK_MICROBLAZE_PLATFORM
-		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, Row + Index);
+		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, (u32)(Row + Index));
 #endif
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, 8 - Index);
+		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, (u32)8U - Index);
 #endif
 
 #ifdef XSK_ZYNQ_PLATFORM
 		(void) Key;
+		break;
 #endif
 	}
 

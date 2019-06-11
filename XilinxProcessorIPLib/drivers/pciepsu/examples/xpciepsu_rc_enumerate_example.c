@@ -65,7 +65,7 @@
 #include "stdio.h"
 #include "xil_printf.h"
 #include "xparameters.h" /* Defines for XPAR constants */
-
+#include "xpciepsu_common.h"
 /**************************** Constant Definitions ****************************/
 
 /****************************** Type Definitions ******************************/
@@ -101,7 +101,8 @@ int main(void)
 #ifdef XPAR_PSU_PCIE_DEVICE_ID
 	Status = PcieInitRootComplex(&PciePsuInstance, XPAR_PSU_PCIE_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Psu pcie Root Complex Enumerate Example Failed\r\n");
+		xil_printf("Psu pcie Root Complex Enumerate "
+			"Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
@@ -123,7 +124,7 @@ int main(void)
 * @param    DeviceId is PSU PCIe root complex unique ID
 *
 * @return   - XST_SUCCESS if successful.
-*      	- XST_FAILURE if unsuccessful.
+*		- XST_FAILURE if unsuccessful.
 *
 * @note     None.
 *
@@ -138,6 +139,11 @@ int PcieInitRootComplex(XPciePsu *PciePsuPtr, u16 DeviceId)
 	ConfigPtr = XPciePsu_LookupConfig(DeviceId);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
 
+	if (ConfigPtr->PcieMode == XPCIEPSU_MODE_ENDPOINT) {
+		xil_printf("Failed to initialize... PCIE PSU is configured"
+							" as endpoint\r\n");
+		return XST_FAILURE;
+	}
 	Status = XPciePsu_CfgInitialize(PciePsuPtr, ConfigPtr,
 					ConfigPtr->BrigReg);
 

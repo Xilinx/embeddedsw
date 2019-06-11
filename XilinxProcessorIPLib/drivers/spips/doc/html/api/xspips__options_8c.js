@@ -1,9 +1,9 @@
 var xspips__options_8c =
 [
-    [ "XSpiPs_GetClkPrescaler", "group__spips__v3__1.html#gab8f7c1eb75848839d7dc4fa81bc273e4", null ],
-    [ "XSpiPs_GetDelays", "group__spips__v3__1.html#ga716d3d27606e693e765a2b9d01cce462", null ],
-    [ "XSpiPs_GetOptions", "group__spips__v3__1.html#ga842e4cf2fabf1849f451d9592d0b2722", null ],
-    [ "XSpiPs_SetClkPrescaler", "group__spips__v3__1.html#ga8359f8188f7bf36a0688963aff561692", null ],
-    [ "XSpiPs_SetDelays", "group__spips__v3__1.html#gafe7ecd11569d8cf376ebc8f982503c52", null ],
-    [ "XSpiPs_SetOptions", "group__spips__v3__1.html#gad1b67fe9b7737a1af8067d6d69e1508b", null ]
+    [ "XSpiPs_GetClkPrescaler", "xspips__options_8c.html#ga98c42c293d0278c31dd74cbcbec9451c", null ],
+    [ "XSpiPs_GetDelays", "xspips__options_8c.html#ga06003e6ce763f2e61922a985e40abb2d", null ],
+    [ "XSpiPs_GetOptions", "xspips__options_8c.html#ga95e9f2a440a68b4e55694bd593d6c810", null ],
+    [ "XSpiPs_SetClkPrescaler", "xspips__options_8c.html#ga146ed84d7a6ab3b3f8961697bd78da60", null ],
+    [ "XSpiPs_SetDelays", "xspips__options_8c.html#ga18d5dbc4eeeac171a1c2795f898b8a83", null ],
+    [ "XSpiPs_SetOptions", "xspips__options_8c.html#ga4f14bfc3ddd296adb08843dbbe30a306", null ]
 ];

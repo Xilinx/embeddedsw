@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2012 - 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2012 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -59,6 +59,10 @@
  *				Xisf_Write, CR#980169
  *      ms   08/03/17 Added tags and modified comment lines style for doxygen.
  * 5.12 tjs	 06/18/18 Removed checkpatch and gcc warnings.
+ * 5.13 nsk  01/22/18 Make variable declaration to XQspiPsu_Msg as global
+ *                    CR#1015808.
+ *      sk   02/15/19 4B write command is not supported by all QSPI Micron
+ *                    flashes hence used used 3B write command.
  *
  * </pre>
  *
@@ -81,8 +85,14 @@
 #ifdef XPAR_XISF_INTERFACE_PSQSPI
 extern int SendBankSelect(XIsf *InstancePtr, u32 BankSel);
 #endif
+#ifdef XPAR_XISF_INTERFACE_QSPIPSU
+	static XQspiPsu_Msg FlashMsg[2];
+#elif defined(XPAR_XISF_INTERFACE_OSPIPSV)
+	static XOspiPsv_Msg FlashMsg;
+#endif
 static int WriteData(XIsf *InstancePtr, u8 Command, u32 Address,
 			u8 *BufferPtr, u32 ByteCount);
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 static int AutoPageWrite(XIsf *InstancePtr, u32 Address);
 static int BufferWrite(XIsf *InstancePtr, u8 BufferNum, const u8 *WritePtr,
 			u32 ByteOffset, u32 NumBytes);
@@ -93,6 +103,10 @@ static int BufferToFlashWriteWithoutErase(XIsf *InstancePtr, u8 BufferNum,
 static int WriteSR(XIsf *InstancePtr, u8 SRData);
 static int WriteSR2(XIsf *InstancePtr, u8 *SRData);
 static int WriteOTPData(XIsf *InstancePtr, u32 Address, const u8 *BufferPtr);
+#else
+static int WriteVCR(XIsf *InstancePtr, u8 Command, u32 Address,
+			u8 *BufferPtr, u32 ByteCount);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -240,8 +254,11 @@ int XIsf_Write(XIsf *InstancePtr, XIsf_WriteOperation Operation,
 	int Status = (int)XST_FAILURE;
 	u8 Mode;
 	XIsf_WriteParam *WriteParamPtr;
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 	XIsf_BufferWriteParam *BufferWriteParamPtr;
 	XIsf_BufferToFlashWriteParam *BufferToFlashWriteParamPtr;
+#endif
+	u8 Command;
 
 	if (InstancePtr == NULL)
 		return (int)XST_FAILURE;
@@ -262,16 +279,29 @@ int XIsf_Write(XIsf *InstancePtr, XIsf_WriteOperation Operation,
 			(InstancePtr->ManufacturerID ==
 					XISF_MANUFACTURER_ID_SPANSION ||
 			 InstancePtr->ManufacturerID ==
-					 XISF_MANUFACTURER_ID_MICRON)){
+					 XISF_MANUFACTURER_ID_MICRON ||
+			 InstancePtr->ManufacturerID ==
+					 XISF_MANUFACTURER_ID_MICRON_OCTAL)){
+			Command = XISF_CMD_PAGEPROG_WRITE_4BYTE;
+#ifdef XPAR_XISF_INTERFACE_OSPIPSV
+			if (InstancePtr->SpiInstPtr->OpMode == XOSPIPSV_DAC_MODE) {
+				Command = XISF_CMD_OCTAL_WRITE_4B;
+			}
+#endif
+			if (InstancePtr->ManufacturerID ==
+					 XISF_MANUFACTURER_ID_MICRON) {
+				Command = XISF_CMD_PAGEPROG_WRITE;
+			}
 			Status = WriteData(InstancePtr,
-				XISF_CMD_PAGEPROG_WRITE_4BYTE,
+				Command,
 				WriteParamPtr->Address,
 				WriteParamPtr->WritePtr,
 				WriteParamPtr->NumBytes);
 		} else {
 #endif
+			Command = XISF_CMD_PAGEPROG_WRITE;
 			Status = WriteData(InstancePtr,
-				XISF_CMD_PAGEPROG_WRITE,
+				Command,
 				WriteParamPtr->Address,
 				WriteParamPtr->WritePtr,
 				WriteParamPtr->NumBytes);
@@ -280,7 +310,17 @@ int XIsf_Write(XIsf *InstancePtr, XIsf_WriteOperation Operation,
 		}
 #endif
 		break;
-
+#ifdef XPAR_XISF_INTERFACE_OSPIPSV
+	case XISF_WRITE_VOLATILE_CONFIG_REG:
+		WriteParamPtr = (XIsf_WriteParam *)(void *) OpParamPtr;
+		Xil_AssertNonvoid(WriteParamPtr != NULL);
+		Command = XISF_CMD_VOLATILE_CONFIG_WRITE;
+		Status = WriteVCR(InstancePtr, Command,
+				WriteParamPtr->Address,
+				WriteParamPtr->WritePtr,
+				WriteParamPtr->NumBytes);
+		break;
+#else
 	case XISF_AUTO_PAGE_WRITE:
 		Status = AutoPageWrite(InstancePtr,
 				*((u32 *)(void *) OpParamPtr));
@@ -334,10 +374,11 @@ int XIsf_Write(XIsf *InstancePtr, XIsf_WriteOperation Operation,
 		Status = WriteSR2(InstancePtr,
 			(u8 *)(void *) OpParamPtr);
 		break;
-
-#if ((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
-	(XPAR_XISF_FLASH_FAMILY == STM) || \
-	(XPAR_XISF_FLASH_FAMILY == SPANSION))
+#endif
+#if (((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
+		(XPAR_XISF_FLASH_FAMILY == STM) || \
+		(XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
+		(!defined(XPAR_XISF_INTERFACE_OSPIPSV)))
 	case XISF_QUAD_IP_PAGE_WRITE:
 		WriteParamPtr = (XIsf_WriteParam *)(void *) OpParamPtr;
 		Xil_AssertNonvoid(WriteParamPtr != NULL);
@@ -350,9 +391,10 @@ int XIsf_Write(XIsf *InstancePtr, XIsf_WriteOperation Operation,
 
 #endif
 /**
- * ((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
+ * (((XPAR_XISF_FLASH_FAMILY == WINBOND) || \
  * (XPAR_XISF_FLASH_FAMILY == STM) || \
- * (XPAR_XISF_FLASH_FAMILY == SPANSION))
+ * (XPAR_XISF_FLASH_FAMILY == SPANSION)) && \
+ * (!defined(XPAR_XISF_INTERFACE_OSPIPSV)))
  */
 
 #if (XPAR_XISF_FLASH_FAMILY == STM)
@@ -393,9 +435,14 @@ int XIsf_Write(XIsf *InstancePtr, XIsf_WriteOperation Operation,
 
 	Mode = XIsf_GetTransferMode(InstancePtr);
 
-	if (Mode == XISF_INTERRUPT_MODE)
+	if (Mode == XISF_INTERRUPT_MODE) {
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 		InstancePtr->StatusHandler(InstancePtr,
-			XIsf_StatusEventInfo, XIsf_ByteCountInfo);
+				XIsf_StatusEventInfo, XIsf_ByteCountInfo);
+#else
+	InstancePtr->StatusHandler(InstancePtr, XIsf_StatusEventInfo);
+#endif
+	}
 
 	return Status;
 }
@@ -431,16 +478,27 @@ static int WriteData(XIsf *InstancePtr, u8 Command, u32 Address,
 	u32 Index;
 	u32 BankSel;
 #endif
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 	u32 RealAddr;
+#endif
+#if	defined(XPAR_XISF_INTERFACE_PSSPI)
+	u32 Index;
+#endif
 	int Status;
-#if !defined(XPAR_XISF_INTERFACE_QSPIPSU)
+#if ((!defined(XPAR_XISF_INTERFACE_QSPIPSU)) && \
+		(!defined(XPAR_XISF_INTERFACE_OSPIPSV)) && \
+		(!defined(XPAR_XISF_INTERFACE_PSSPI)))
 	u8 FlagStatus[2] = {0};
 #endif
-	u8 FlashStatus[2] = {0};
+#ifdef XPAR_XISF_INTERFACE_OSPIPSV
+	u32 Bytestowrite;
+#endif
+#if	(!defined(XPAR_XISF_INTERFACE_PSSPI))
+	u8 FlashStatus[2] __attribute__ ((aligned(4))) = {0};
+#endif
 	u8 *NULLPtr = NULL;
 	u8 *LocalBufPtr = BufferPtr;
 #ifdef	XPAR_XISF_INTERFACE_QSPIPSU
-	XQspiPsu_Msg FlashMsg[2];
 	u8 ReadStatusCmd, FSRFlag;
 	u32 CmdByteCount;
 #endif
@@ -448,17 +506,22 @@ static int WriteData(XIsf *InstancePtr, u8 Command, u32 Address,
 	defined(XPAR_XISF_INTERFACE_QSPIPSU)
 	u32 FlashMake = InstancePtr->ManufacturerID;
 #endif
-#if !defined(XPAR_XISF_INTERFACE_QSPIPSU)
+#if ((!defined(XPAR_XISF_INTERFACE_QSPIPSU)) && \
+		(!defined(XPAR_XISF_INTERFACE_OSPIPSV)) && \
+		(!defined(XPAR_XISF_INTERFACE_PSSPI)))
 	u8 ReadStatusCmdBuf[] = { READ_STATUS_CMD, 0 };
 	u8 ReadFlagSRCmd[] = {READ_FLAG_STATUS_CMD, 0};
 #endif
 
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 	if ((ByteCount <= 0) || (ByteCount > InstancePtr->BytesPerPage))
 		return (int)XST_FAILURE;
+#endif
 
 	if (LocalBufPtr == NULL)
 		return (int)XST_FAILURE;
 
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 	/*
 	 * Translate address based on type of connection
 	 * If stacked assert the slave select based on address
@@ -682,9 +745,189 @@ static int WriteData(XIsf *InstancePtr, u8 Command, u32 Address,
 	}
 #endif
 #endif
+#else
+	if (InstancePtr->SpiInstPtr->OpMode == XOSPIPSV_DAC_MODE) {
+		Status = XIsf_WriteEnable(InstancePtr, XISF_WRITE_ENABLE);
+		if (Status != (int)XST_SUCCESS)
+			return (int)XST_FAILURE;
+
+		FlashMsg.Opcode = Command;
+		FlashMsg.Addrvalid = 1;
+		FlashMsg.TxBfrPtr = BufferPtr;
+		FlashMsg.RxBfrPtr = NULL;
+		FlashMsg.ByteCount = ByteCount;
+		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+		FlashMsg.Addrsize = 4;
+		FlashMsg.Addr = Address;
+		FlashMsg.Proto = XIsf_Get_ProtoType(InstancePtr, 0);
+		FlashMsg.Dummy = 0;
+		if (InstancePtr->SpiInstPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+			FlashMsg.Proto = XOSPIPSV_WRITE_8_8_8;
+		}
+		FlashMsg.IsDDROpCode = 0;
+
+		InstancePtr->SpiInstPtr->Msg = &FlashMsg;
+		Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, FlashMsg.ByteCount);
+		if (Status != (int)XST_SUCCESS)
+			return (int)XST_FAILURE;
+
+		while (1) {
+			FlashMsg.Opcode = READ_FLAG_STATUS_CMD;
+			FlashMsg.Addrsize = 0;
+			FlashMsg.Addrvalid = 0;
+			FlashMsg.TxBfrPtr = NULL;
+			FlashMsg.RxBfrPtr = FlashStatus;
+			FlashMsg.ByteCount = 1;
+			FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
+			FlashMsg.Dummy = 0;
+			FlashMsg.IsDDROpCode = 0;
+			FlashMsg.Proto = 0;
+			if (InstancePtr->SpiInstPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+				FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
+				FlashMsg.ByteCount = 2;
+				FlashMsg.Dummy = 8;
+			}
+			InstancePtr->SpiInstPtr->Msg = &FlashMsg;
+			Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, FlashMsg.ByteCount);
+			if (Status != (int)XST_SUCCESS)
+				return (int)XST_FAILURE;
+
+			if ((FlashStatus[0] & 0x80) != 0)
+				break;
+		}
+	} else {
+		while (ByteCount != 0) {
+			/*
+			 * Enable write before transfer
+			 */
+			Status = XIsf_WriteEnable(InstancePtr, XISF_WRITE_ENABLE);
+			if (Status != (int)XST_SUCCESS)
+				return (int)XST_FAILURE;
+
+			if(ByteCount <= 8) {
+				Bytestowrite = ByteCount;
+				ByteCount = 0;
+			} else {
+				Bytestowrite = 8;
+				ByteCount -= 8;
+			}
+
+			FlashMsg.Opcode = Command;
+			FlashMsg.Addrvalid = 1;
+			FlashMsg.TxBfrPtr = BufferPtr;
+			FlashMsg.RxBfrPtr = NULL;
+			FlashMsg.ByteCount = Bytestowrite;
+			FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+			FlashMsg.Proto = XIsf_Get_ProtoType(InstancePtr, 0);
+			FlashMsg.Dummy = 0;
+			FlashMsg.Addrsize = 4;
+			FlashMsg.IsDDROpCode = 0;
+			FlashMsg.Addr = Address;
+			if (InstancePtr->SpiInstPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+				FlashMsg.Proto = XOSPIPSV_WRITE_8_8_8;
+			}
+			InstancePtr->SpiInstPtr->Msg = &FlashMsg;
+			Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, FlashMsg.ByteCount);
+			if (Status != (int)XST_SUCCESS)
+				return (int)XST_FAILURE;
+
+			BufferPtr += 8;
+			Address += 8;
+
+			while (1) {
+				FlashMsg.Opcode = READ_FLAG_STATUS_CMD;
+				FlashMsg.Addrsize = 0;
+				FlashMsg.Addrvalid = 0;
+				FlashMsg.TxBfrPtr = NULL;
+				FlashMsg.RxBfrPtr = FlashStatus;
+				FlashMsg.ByteCount = 1;
+				FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
+				FlashMsg.Dummy = 0;
+				FlashMsg.IsDDROpCode = 0;
+				FlashMsg.Proto = 0;
+				if (InstancePtr->SpiInstPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+					FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
+					FlashMsg.ByteCount = 2;
+					FlashMsg.Dummy = 8;
+				}
+				InstancePtr->SpiInstPtr->Msg = &FlashMsg;
+				Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, FlashMsg.ByteCount);
+				if (Status != (int)XST_SUCCESS)
+					return (int)XST_FAILURE;
+
+				if ((FlashStatus[0] & 0x80) != 0)
+					break;
+			}
+		}
+	}
+#endif
 
 	return Status;
 }
+
+#ifdef XPAR_XISF_INTERFACE_OSPIPSV
+/*****************************************************************************/
+/**
+ *
+ * This function writes the volatile configuration register
+ *
+ * @param	InstancePtr is a pointer to the XIsf instance.
+ * @param	Address is the address in the Serial Flash memory, where the
+ *		data is to be written.
+ * @param	BufferPtr is a pointer to the data to be written to Serial
+ *		Flash.
+ * @param	ByteCount is the number of bytes to be written.
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE.
+ *
+ * @note
+ *
+ ******************************************************************************/
+static int WriteVCR(XIsf *InstancePtr, u8 Command, u32 Address,
+			u8 *BufferPtr, u32 ByteCount)
+{
+	int Status;
+	int Mode;
+	u8 *NULLPtr = NULL;
+
+	if (BufferPtr[0] == 0xE7)
+		Mode = XOSPIPSV_EDGE_MODE_DDR_PHY;
+	else
+		Mode = XOSPIPSV_EDGE_MODE_SDR_NON_PHY;
+
+	Status = XIsf_WriteEnable(InstancePtr, XISF_WRITE_ENABLE);
+	if (Status != (int)XST_SUCCESS)
+		return (int)XST_FAILURE;
+
+	if (InstancePtr->SpiInstPtr->OpMode == XOSPIPSV_DAC_EN_OPTION)
+		XOspiPsv_ConfigureAutoPolling(InstancePtr->SpiInstPtr, Mode);
+
+	FlashMsg.Opcode = Command;
+	FlashMsg.Addrvalid = 1;
+	FlashMsg.Addrsize = 3;
+	if (InstancePtr->FourByteAddrMode == TRUE)
+		FlashMsg.Addrsize = 4;
+	FlashMsg.Addr = Address;
+	FlashMsg.TxBfrPtr = BufferPtr;
+	FlashMsg.RxBfrPtr = NULL;
+	FlashMsg.ByteCount = ByteCount;
+	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+	FlashMsg.IsDDROpCode = 0;
+	FlashMsg.Proto = 0;
+	if (InstancePtr->SpiInstPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.Proto = XOSPIPSV_WRITE_8_8_8;
+		FlashMsg.Addrsize = 4;
+		FlashMsg.ByteCount = 2;
+	}
+
+	InstancePtr->SpiInstPtr->Msg = &FlashMsg;
+	Status = XIsf_Transfer(InstancePtr, NULLPtr, NULLPtr, FlashMsg.ByteCount);
+	if (Status != (int)XST_SUCCESS)
+		return (int)XST_FAILURE;
+
+	return Status;
+}
+#else
 
 /*****************************************************************************/
 /**
@@ -1102,3 +1345,4 @@ static int WriteOTPData(XIsf *InstancePtr, u32 Address, const u8 *BufferPtr)
 
 	return Status;
 }
+#endif

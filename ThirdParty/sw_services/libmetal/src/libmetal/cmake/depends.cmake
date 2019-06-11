@@ -4,6 +4,7 @@ if ("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
 
   check_include_files (stdatomic.h HAVE_STDATOMIC_H)
   check_include_files (linux/futex.h HAVE_FUTEX_H)
+  check_include_files (linux/dma-buf.h HAVE_DMA_BUF_H)
 
   find_package (HugeTLBFS)
   if (HUGETLBFS_FOUND)
@@ -21,7 +22,6 @@ if ("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
 
   find_package(LibRt REQUIRED)
   collect (PROJECT_LIB_DEPS "${LIBRT_LIBRARIES}")
-
 else ("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
 
   # TODO: fix for find_path() to detect stdatomic.h

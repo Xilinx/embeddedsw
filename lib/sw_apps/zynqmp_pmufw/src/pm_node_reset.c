@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,6 +33,7 @@
 #include <sleep.h>
 #include "pm_defs.h"
 #include "pm_common.h"
+#include "pm_core.h"
 #include "pm_reset.h"
 #include "pm_node_reset.h"
 #include "pm_node_idle.h"
@@ -79,17 +80,18 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.RstActionList= {
 			{	.ResetId = PM_RESET_USB0_CORERESET,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
+				.ResetPulseWait = 10U,
 			},
 			{	.ResetId = PM_RESET_USB0_APB,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
+				.ResetPulseWait = 10U,
 			},
 			{	.ResetId = PM_RESET_USB0_HIBERRESET,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
+				.ResetPulseWait = 10U,
 			},
-			{0,0,0}
+			{0U,0U,0U},
+			{0U,0U,0U}
 		},
 #ifdef XPAR_PSU_USB_XHCI_0_DEVICE_ID
 		.SoftRst = NULL,
@@ -108,17 +110,18 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.RstActionList= {
 			{	.ResetId = PM_RESET_USB1_CORERESET,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
+				.ResetPulseWait = 10U,
 			},
 			{	.ResetId = PM_RESET_USB1_APB,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
+				.ResetPulseWait = 10U,
 			},
 			{	.ResetId = PM_RESET_USB1_HIBERRESET,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
+				.ResetPulseWait = 10U,
 			},
-			{0,0,0}
+			{0U,0U,0U},
+			{0U,0U,0U}
 		},
 #ifdef XPAR_PSU_USB_XHCI_1_DEVICE_ID
 		.SoftRst = NULL,
@@ -137,9 +140,12 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.RstActionList= {
 			{	.ResetId = PM_RESET_TTC0,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
+				.ResetPulseWait = 10U,
 			},
-			{0,0,0}
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U}
 		},
 #ifdef XPAR_PSU_TTC_0_DEVICE_ID
 		.SoftRst = NULL,
@@ -158,52 +164,12 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.RstActionList= {
 			{	.ResetId = PM_RESET_TTC1,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
+				.ResetPulseWait = 10U,
 			},
-			{0,0,0}
-		},
-#ifdef XPAR_PSU_TTC_1_DEVICE_ID
-		.SoftRst = NULL,
-		.SoftRstArgs = 0U,
-		.IdleHook = NodeTtcIdle,
-		.IdleHookArgs = XPAR_PSU_TTC_1_BASEADDR
-#else
-		.SoftRst = NULL,
-		.SoftRstArgs = 0U,
-		.IdleHook = NULL,
-		.IdleHookArgs = 0U
-#endif
-	},
-	{
-		.NodeId = NODE_TTC_2,
-		.RstActionList= {
-			{	.ResetId = PM_RESET_TTC2,
-				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
-			},
-			{0,0,0}
-		},
-#ifdef XPAR_PSU_TTC_2_DEVICE_ID
-		.SoftRst = NULL,
-		.SoftRstArgs = 0U,
-		.IdleHook = NodeTtcIdle,
-		.IdleHookArgs = XPAR_PSU_TTC_2_BASEADDR
-#else
-		.SoftRst = NULL,
-		.SoftRstArgs = 0U,
-		.IdleHook = NULL,
-		.IdleHookArgs = 0U
-#endif
-	},
-#ifndef ENABLE_RECOVERY
-	{
-		.NodeId = NODE_TTC_3,
-		.RstActionList= {
-			{	.ResetId = PM_RESET_TTC3,
-				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
-			},
-			{0,0,0}
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U}
 		},
 #ifdef XPAR_PSU_TTC_3_DEVICE_ID
 		.SoftRst = NULL,
@@ -217,15 +183,67 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.IdleHookArgs = 0U
 #endif
 	},
+	{
+		.NodeId = NODE_TTC_2,
+		.RstActionList= {
+			{	.ResetId = PM_RESET_TTC2,
+				.ResetAction = PM_RESET_ACTION_ASSERT,
+				.ResetPulseWait = 10U,
+			},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U}
+		},
+#ifdef XPAR_PSU_TTC_6_DEVICE_ID
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NodeTtcIdle,
+		.IdleHookArgs = XPAR_PSU_TTC_6_BASEADDR
+#else
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NULL,
+		.IdleHookArgs = 0U
+#endif
+	},
+#ifndef ENABLE_RECOVERY
+	{
+		.NodeId = NODE_TTC_3,
+		.RstActionList= {
+			{	.ResetId = PM_RESET_TTC3,
+				.ResetAction = PM_RESET_ACTION_ASSERT,
+				.ResetPulseWait = 10U,
+			},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U}
+		},
+#ifdef XPAR_PSU_TTC_9_DEVICE_ID
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NodeTtcIdle,
+		.IdleHookArgs = XPAR_PSU_TTC_9_BASEADDR
+#else
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NULL,
+		.IdleHookArgs = 0U
+#endif
+	},
 #endif
 	{
 		.NodeId = NODE_SATA,
 		.RstActionList= {
 			{	.ResetId = PM_RESET_SATA,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
+				.ResetPulseWait = 10U,
 			},
-			{0,0,0}
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U}
 		},
 
 #ifdef XPAR_PSU_SATA_S_AXI_BASEADDR
@@ -245,9 +263,12 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.RstActionList= {
 			{	.ResetId = PM_RESET_GEM0,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
+				.ResetPulseWait = 10U,
 			},
-			{0,0,0}
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U}
 		},
 #ifdef XPAR_PSU_ETHERNET_0_DEVICE_ID
 		.SoftRst = XEmacPs_ResetHw,
@@ -266,9 +287,12 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.RstActionList= {
 			{	.ResetId = PM_RESET_GEM1,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
+				.ResetPulseWait = 10U,
 			},
-			{0,0,0}
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U}
 		},
 #ifdef XPAR_PSU_ETHERNET_1_DEVICE_ID
 		.SoftRst = XEmacPs_ResetHw,
@@ -287,9 +311,12 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.RstActionList= {
 			{	.ResetId = PM_RESET_GEM2,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
+				.ResetPulseWait = 10U,
 			},
-			{0,0,0}
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U}
 		},
 #ifdef XPAR_PSU_ETHERNET_2_DEVICE_ID
 		.SoftRst = XEmacPs_ResetHw,
@@ -308,9 +335,12 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.RstActionList= {
 			{	.ResetId = PM_RESET_GEM3,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
+				.ResetPulseWait = 10U,
 			},
-			{0,0,0}
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U}
 		},
 #ifdef XPAR_PSU_ETHERNET_3_DEVICE_ID
 		.SoftRst = XEmacPs_ResetHw,
@@ -330,9 +360,12 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.RstActionList= {
 			{	.ResetId = PM_RESET_UART0,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
+				.ResetPulseWait = 10U,
 			},
-			{0,0,0}
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U}
 		},
 #ifdef XPAR_PSU_UART_0_DEVICE_ID
 		.SoftRst = XUartPs_ResetHw,
@@ -353,9 +386,12 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.RstActionList= {
 			{	.ResetId = PM_RESET_UART1,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
+				.ResetPulseWait = 10U,
 			},
-			{0,0,0}
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U}
 		},
 #ifdef XPAR_PSU_UART_1_DEVICE_ID
 		.SoftRst = XUartPs_ResetHw,
@@ -375,9 +411,12 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.RstActionList= {
 			{	.ResetId = PM_RESET_SPI0,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
+				.ResetPulseWait = 10U,
 			},
-			{0,0,0}
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U}
 		},
 #ifdef XPAR_PSU_SPI_0_DEVICE_ID
 		.SoftRst = XSpiPs_ResetHw,
@@ -396,9 +435,12 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.RstActionList= {
 			{	.ResetId = PM_RESET_SPI1,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
+				.ResetPulseWait = 10U,
 			},
-			{0,0,0}
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U}
 		},
 #ifdef XPAR_PSU_SPI_1_DEVICE_ID
 		.SoftRst = XSpiPs_ResetHw,
@@ -417,9 +459,12 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.RstActionList= {
 			{	.ResetId = PM_RESET_I2C0,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
+				.ResetPulseWait = 10U,
 			},
-			{0,0,0}
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U}
 		},
 #ifdef XPAR_PSU_I2C_0_DEVICE_ID
 		.SoftRst = XIicPs_ResetHw,
@@ -438,9 +483,12 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.RstActionList= {
 			{	.ResetId = PM_RESET_I2C1,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
+				.ResetPulseWait = 10U,
 			},
-			{0,0,0}
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U}
 		},
 #ifdef XPAR_PSU_I2C_1_DEVICE_ID
 		.SoftRst = XIicPs_ResetHw,
@@ -459,9 +507,12 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.RstActionList= {
 			{	.ResetId = PM_RESET_SDIO0,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
+				.ResetPulseWait = 10U,
 			},
-			{0,0,0}
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U}
 		},
 #ifdef XPAR_PSU_SD_0_DEVICE_ID
 		.SoftRst = NULL,
@@ -480,9 +531,12 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.RstActionList= {
 			{	.ResetId = PM_RESET_SDIO1,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
+				.ResetPulseWait = 10U,
 			},
-			{0,0,0}
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U}
 		},
 #ifdef XPAR_PSU_SD_1_DEVICE_ID
 		.SoftRst = NULL,
@@ -501,9 +555,12 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.RstActionList= {
 			{	.ResetId = PM_RESET_QSPI,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
+				.ResetPulseWait = 10U,
 			},
-			{0,0,0}
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U}
 		},
 #ifdef XPAR_PSU_QSPI_0_DEVICE_ID
 		.SoftRst = NULL,
@@ -523,9 +580,12 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.RstActionList= {
 			{	.ResetId = PM_RESET_GPIO,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
+				.ResetPulseWait = 10U,
 			},
-			{0,0,0}
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U}
 		},
 #ifdef XPAR_PSU_GPIO_0_DEVICE_ID
 		.SoftRst = XGpioPs_ResetHw,
@@ -545,9 +605,12 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.RstActionList= {
 			{	.ResetId = PM_RESET_PCIE_CTRL,
 				.ResetAction = PM_RESET_ACTION_PULSE,
-				.ResetPulseWait = 0,
+				.ResetPulseWait = 0U,
 			},
-			{0,0,0}
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U}
 		},
 		.SoftRst = NULL,
 		.SoftRstArgs = 0U,
@@ -559,9 +622,12 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.RstActionList= {
 			{	.ResetId = PM_RESET_DP,
 				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
+				.ResetPulseWait = 10U,
 			},
-			{0,0,0}
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U}
 		},
 #ifdef XPAR_XDPPSU_0_DEVICE_ID
 		.SoftRst = NULL,
@@ -590,7 +656,7 @@ static const PmNodeResetInfo *GetNodeResetInfo(const u32 NodeId)
 	u32 Index;
 	const PmNodeResetInfo *RstInfo = NULL;
 
-	for (Index = 0; Index < ARRAY_SIZE(NodeRstData); Index++) {
+	for (Index = 0U; Index < ARRAY_SIZE(NodeRstData); Index++) {
 		if (NodeId == NodeRstData[Index].NodeId) {
 			RstInfo = &NodeRstData[Index];
 			break;
@@ -610,7 +676,7 @@ void PmNodeReset(const PmMaster *const Master, const u32 NodeId, const u32 IdleR
 	u32 Index;
 	const PmNodeResetInfo *RstInfo = GetNodeResetInfo(NodeId);
 
-	if (!RstInfo) {
+	if (NULL == RstInfo) {
 		/*
 		 * No reset node data available for this node.
 		 */
@@ -623,11 +689,11 @@ void PmNodeReset(const PmMaster *const Master, const u32 NodeId, const u32 IdleR
 	 */
 	if (NODE_IDLE_REQ == IdleReq) {
 
-		if (RstInfo->IdleHook) {
+		if (RstInfo->IdleHook != NULL) {
 			RstInfo->IdleHook(RstInfo->IdleHookArgs);
 		}
 
-		if (RstInfo->SoftRst) {
+		if (RstInfo->SoftRst != NULL) {
 			RstInfo->SoftRst(RstInfo->SoftRstArgs);
 		}
 
@@ -637,9 +703,9 @@ void PmNodeReset(const PmMaster *const Master, const u32 NodeId, const u32 IdleR
 	 * Perform the Node reset using Reset Line for the
 	 * node and its corresponding actions
 	 */
-	for (Index = 0; Index < MAX_RST_ACTION; Index++) {
+	for (Index = 0U; Index < MAX_RST_ACTION; Index++) {
 
-		if (RstInfo->RstActionList[Index].ResetId == 0) {
+		if (RstInfo->RstActionList[Index].ResetId == 0U) {
 			/*
 			 * No more reset action required.
 			 */

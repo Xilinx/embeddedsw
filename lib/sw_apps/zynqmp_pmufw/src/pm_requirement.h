@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2016 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,6 +32,10 @@
 
 #ifndef PM_REQUIREMENT_H_
 #define PM_REQUIREMENT_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "pm_common.h"
 #include "xil_types.h"
@@ -116,18 +120,22 @@ void PmRequirementClockRestore(const PmMaster* const master);
 void PmRequirementFreeAll(void);
 void PmRequirementClear(PmRequirement* const req);
 
-int PmRequirementSchedule(PmRequirement* const masterReq, const u32 caps);
-int PmRequirementUpdate(PmRequirement* const masterReq, const u32 caps);
-int PmRequirementUpdateScheduled(const PmMaster* const master, const bool swap);
-int PmRequirementRequest(PmRequirement* const req, const u32 caps);
-int PmRequirementRelease(PmRequirement* const first, const PmReleaseScope scope);
+s32 PmRequirementSchedule(PmRequirement* const masterReq, const u32 caps);
+s32 PmRequirementUpdate(PmRequirement* const masterReq, const u32 caps);
+s32 PmRequirementUpdateScheduled(const PmMaster* const master, const bool swap);
+s32 PmRequirementRequest(PmRequirement* const req, const u32 caps);
+s32 PmRequirementRelease(PmRequirement* const first, const PmReleaseScope scope);
 
 PmRequirement* PmRequirementAdd(PmMaster* const master, PmSlave* const slave);
 PmRequirement* PmRequirementGet(const PmMaster* const master,
 				const PmSlave* const slave);
 PmRequirement* PmRequirementGetNoMaster(const PmSlave* const slave);
 
-int PmRequirementSetConfig(PmRequirement* const req, const u32 flags,
+s32 PmRequirementSetConfig(PmRequirement* const req, const u32 flags,
 			   const u32 currReq, const u32 defaultReq);
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* PM_REQUIREMENT_H_ */

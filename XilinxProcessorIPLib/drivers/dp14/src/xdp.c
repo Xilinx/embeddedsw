@@ -53,6 +53,8 @@
  * 5.2	 aad  01/21/17 Added training timeout disable for RX MST mode for
  *		       soft-disconnect to work.
  * 6.0	 tu   05/14/17 Added AUX defer to 6
+ * 6.0   jb   02/19/19 Added HDCP22 functions.
+ *            02/21/19 Added returning AUX defers for HDCP22 DPCD offsets
  * </pre>
  *
 *******************************************************************************/
@@ -79,6 +81,11 @@
 #define XDP_AUX_MAX_TIMEOUT_COUNT 50
 /* Error out if checking for a connected device times out more than 50 times. */
 #define XDP_IS_CONNECTED_MAX_TIMEOUT_COUNT 50
+
+/*Hdcp22 DPCD port lower address*/
+#define XDP_HDCP22_DPCD_LOWER_OFFSET	0x69000
+/*Hdcp22 DPCD port higher address*/
+#define XDP_HDCP22_DPCD_HIGHER_OFFSET	0x69558
 
 /****************************** Type Definitions ******************************/
 
@@ -1673,6 +1680,7 @@ void XDp_RxDtgDis(XDp *InstancePtr)
  *		- XDP_RX_LINK_BW_SET_162GBPS = 0x06 (for a 1.62 Gbps data rate)
  *		- XDP_RX_LINK_BW_SET_270GBPS = 0x0A (for a 2.70 Gbps data rate)
  *		- XDP_RX_LINK_BW_SET_540GBPS = 0x14 (for a 5.40 Gbps data rate)
+ *		- XDP_RX_LINK_BW_SET_810GBPS = 0x1E (for a 8.10 Gbps data rate)
  *
  * @return	None.
  *
@@ -1690,8 +1698,17 @@ void XDp_RxSetLinkRate(XDp *InstancePtr, u8 LinkRate)
 	InstancePtr->RxInstance.LinkConfig.LinkRate = LinkRate;
 
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x1);
-	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_LINK_BW_SET,
-								LinkRate);
+	if (LinkRate > XDP_LINK_BW_SET_540GBPS){
+                XDp_WriteReg(InstancePtr->Config.BaseAddr,
+				XDP_RX_OVER_LINK_BW_SET, XDP_LINK_BW_SET_540GBPS);
+                XDp_WriteReg(InstancePtr->Config.BaseAddr,
+				XDP_RX_EXT_OVER_LINK_BW_SET, LinkRate);
+        } else {
+                XDp_WriteReg(InstancePtr->Config.BaseAddr,
+				XDP_RX_OVER_LINK_BW_SET, LinkRate);
+                XDp_WriteReg(InstancePtr->Config.BaseAddr,
+				XDP_RX_EXT_OVER_LINK_BW_SET, LinkRate);
+        }
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x0);
 }
 
@@ -1774,6 +1791,41 @@ void XDp_RxAudioDis(XDp *InstancePtr)
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_AUDIO_CONTROL, 0x0);
+}
+
+/******************************************************************************/
+/**
+ * This function enables MST audio for a given stream on the main link.
+ *
+ * @param      InstancePtr is a pointer to the XDp instance.
+ * @param      Stream id
+ *
+ * @return      None.
+ *
+ * @note        None.
+ *
+ **********************************************************************************/
+void XDp_Rx_Mst_AudioEn(XDp *InstancePtr, u8 StreamId)
+{
+
+	u32 ReadVal;
+
+	/* Verify arguments. */
+        Xil_AssertVoid(InstancePtr != NULL);
+        Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+        Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+
+	Xil_AssertVoid((StreamId == XDP_RX_STREAM_ID1) ||
+                        (StreamId == XDP_RX_STREAM_ID2) ||
+                        (StreamId == XDP_RX_STREAM_ID3) ||
+                        (StreamId == XDP_RX_STREAM_ID4));
+
+	ReadVal = (StreamId - 1) <<  XDP_RX_AUDIO_CONTROL_LANEX_SET_SHIFT ;
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_AUDIO_CONTROL,
+                       ReadVal);
+
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_AUDIO_CONTROL,
+			(ReadVal | 0x1));
 }
 
 /******************************************************************************/
@@ -3366,6 +3418,11 @@ static u32 XDp_TxAuxRequest(XDp *InstancePtr, XDp_AuxTransaction *Request)
 		if (Status == XST_SEND_ERROR) {
 			/* The request was deferred. */
 			DeferCount++;
+			if (Request->CmdCode == XDP_TX_AUX_CMD_READ) {
+				if ((Request->Address >= XDP_HDCP22_DPCD_LOWER_OFFSET) &&
+						(Request->Address <= XDP_HDCP22_DPCD_HIGHER_OFFSET))
+					return Status;
+			}
 		}
 		else if (Status == XST_ERROR_COUNT_MAX) {
 			/* Waiting for a reply timed out. */
@@ -3621,6 +3678,63 @@ static u32 XDp_TxSetClkSpeed(XDp *InstancePtr, u32 Speed)
 
 	return XST_SUCCESS;
 }
+
+/******************************************************************************/
+/**
+ * This function enables MST-TX audio for a given stream on the main link.
+ *
+ * @param      InstancePtr is a pointer to the XDp instance.
+ * @param      Stream id
+ *
+ * @return      None.
+ *
+ * @note        None.
+ *
+ **********************************************************************************/
+void XDp_Tx_Mst_AudioEn(XDp *InstancePtr, u8 StreamId)
+{
+
+        u32 ReadVal;
+
+        /* Verify arguments. */
+        Xil_AssertVoid(InstancePtr != NULL);
+        Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+        Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+
+        Xil_AssertVoid((StreamId == XDP_TX_STREAM_ID1) ||
+                        (StreamId == XDP_TX_STREAM_ID2) ||
+                        (StreamId == XDP_TX_STREAM_ID3) ||
+                        (StreamId == XDP_TX_STREAM_ID4));
+
+        ReadVal = (StreamId - 1) <<  XDP_TX_AUDIO_CONTROL_LANEX_SET_SHIFT ;
+        XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL,
+                       ReadVal);
+
+        XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL,
+                        (ReadVal | 0x1));
+}
+
+/******************************************************************************/
+/**
+ * This function disables MST-TX audio stream packets on the main link.
+ *
+ * @param       InstancePtr is a pointer to the XDp instance.
+ *
+ * @return      None.
+ *
+ * @note        None.
+ *
+ *******************************************************************************/
+void XDp_TxAudioDis(XDp *InstancePtr)
+{
+        /* Verify arguments. */
+        Xil_AssertVoid(InstancePtr != NULL);
+        Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+        Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+
+        XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, 0x0);
+}
+
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 /******************************************************************************/
@@ -3668,4 +3782,95 @@ static u32 XDp_WaitPhyReady(XDp *InstancePtr, u32 Mask)
 
 	return XST_SUCCESS;
 }
+
+#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+/******************************************************************************/
+/**
+ * This function raises the CP_IRQ interrupt to the Upstream device.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @return	None
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_GenerateCpIrq(XDp *InstancePtr) {
+
+	XDp_WriteReg(InstancePtr->Config.BaseAddr,
+			XDP_RX_HPD_INTERRUPT, 0x00);
+	XDp_WriteReg(InstancePtr->Config.BaseAddr,
+			XDP_RX_DEVICE_SERVICE_IRQ,
+			XDP_RX_DEVICE_SERVICE_IRQ_CP_IRQ_MASK);
+}
+
+/******************************************************************************/
+/**
+ * This function is to enable or disable giving AUX_DEFFERs for
+ * HDCP22 DPCD offsets.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @retun	None
+ *
+ * @note	This function will enable or disable AUX_DEFFERS
+ * 			for below DPCD offsets
+ * 			0x6900B to 0x6921F
+ * 			0x692C0 to 0x692D0
+ * 			0x692E0 to 0x692EF.
+ *
+*******************************************************************************/
+void XDp_EnableDisableHdcp22AuxDeffers(XDp *InstancePtr, u8 EnableDisable)
+{
+	u32 Regval;
+
+	/* programming AUX defer*/
+	Regval = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+			XDP_RX_AUX_CLK_DIVIDER);
+	if (EnableDisable)
+		Regval |= (1 << XDP_RX_AUX_DEFER_SHIFT);
+	else
+		Regval &= ~(1 << XDP_RX_AUX_DEFER_SHIFT);
+
+	XDp_WriteReg(InstancePtr->Config.BaseAddr,
+			XDP_RX_AUX_CLK_DIVIDER, Regval);
+}
+#endif
+
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+/******************************************************************************/
+/**
+ * This function Enables Dp Tx video path routes through HDCP22 core.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @return	None
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+void XDp_TxHdcp22Enable(XDp *InstancePtr)
+{
+	XDp_WriteReg(InstancePtr->Config.BaseAddr,
+			XDP_TX_HDCP22_ENABLE,
+			XDP_TX_HDCP22_ENABLE_BYPASS_DISABLE_MASK);
+}
+
+/******************************************************************************/
+/**
+ * This function Disables Dp Tx video path through HDCP22 core.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @return	None
+ *
+ * @note	None.
+ *
+ *******************************************************************************/
+void XDp_TxHdcp22Disable(XDp *InstancePtr)
+{
+	XDp_WriteReg(InstancePtr->Config.BaseAddr,
+			XDP_TX_HDCP22_ENABLE, 0);
+}
+#endif
 /** @} */

@@ -9,6 +9,6 @@ var xclk__wiz__intr__example_8c =
     [ "main", "xclk__wiz__intr__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4", null ],
     [ "SetupInterruptSystem", "xclk__wiz__intr__example_8c.html#aa33a11c5d5f2eae8e4ab36e0bdb6e38d", null ],
     [ "Wait_For_Lock", "xclk__wiz__intr__example_8c.html#ab6b07f0022d7f609127ba69fcce3a6ca", null ],
-    [ "XClk_Wiz_InterruptEnable", "group__clk__wiz__v1__2.html#ga4f547fb0dce8abc367979e38081a5080", null ],
-    [ "XClk_Wiz_IntrHandler", "group__clk__wiz__v1__2.html#gab4d4ca4b2b5d036b0e0df621692135f6", null ]
+    [ "XClk_Wiz_InterruptEnable", "xclk__wiz__intr__example_8c.html#ga4f547fb0dce8abc367979e38081a5080", null ],
+    [ "XClk_Wiz_IntrHandler", "xclk__wiz__intr__example_8c.html#gab4d4ca4b2b5d036b0e0df621692135f6", null ]
 ];

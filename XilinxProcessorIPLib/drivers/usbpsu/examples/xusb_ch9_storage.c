@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -41,6 +41,7 @@
  * 1.0   sg  06/06/16  First release
  * 1.4   BK  12/01/18  Renamed the file and added changes to have a common
  *		       example for all USB IPs.
+ * 1.5   vak 03/25/19  Fixed incorrect data_alignment pragma directive for IAR
  *
  *</pre>
  *
@@ -242,10 +243,6 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x00					/* bInterval */
 	}
 };
-
-#ifdef __ICCARM__
-#pragma data_alignment = 4
-#endif
 
 /*
  * String Descriptors
@@ -483,10 +480,6 @@ u32 Usb_Ch9SetupBosDescReply(u8 *BufPtr, u32 BufLen)
 		0x01, /* bU1DevExitLat */
 		(0x01F4)} /* wU2DevExitLat */
 	};
-
-#ifdef __ICCARM__
-#pragma data_alignment = 4
-#endif
 
 	/* Check buffer pointer is OK and buffer is big enough. */
 	if (!BufPtr) {

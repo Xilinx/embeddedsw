@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -42,6 +42,11 @@ extern "C" {
  * Register: GPIO_MASK_DATA_5_MSW_REG
  */
 #define GPIO_MASK_DATA_5_MSW_REG    ( GPIO_BASEADDR  + 0X0000002CU )
+
+/**
+ * Register: GPIO_DATA_5_RO_REG
+ */
+#define GPIO_DATA_5_RO_REG    ( GPIO_BASEADDR  + 0X00000074U )
 
 /**
  * Register: GPIO_DIRM_5

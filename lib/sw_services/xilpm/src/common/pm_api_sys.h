@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015-2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
  * @addtogroup xpm_apis XilPM APIs
  *
  * Xilinx Power Management(XilPM) provides Embedded Energy Management
- * Interface (EEMI) APIs for power management on Zynq&reg; UltraScale+&trade;
+ * Interface (EEMI) APIs for power management on Zynq&reg; UltraScale+&trade
  * MPSoC. For more details about power management on Zynq Ultrascale+ MPSoC,
  * see the Zynq UltraScale+ MPSoC Power Management User Guide (UG1199).
  * For more details about EEMI, see the Embedded Energy Management Interface
@@ -41,8 +41,8 @@
  * @{
  *****************************************************************************/
 
-#ifndef _PM_API_SYS_H_
-#define _PM_API_SYS_H_
+#ifndef PM_API_SYS_H
+#define PM_API_SYS_H
 
 #include <xil_types.h>
 #include <xstatus.h>
@@ -50,29 +50,33 @@
 #include "pm_defs.h"
 #include "pm_common.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 XStatus XPm_InitXilpm(XIpiPsu *IpiInst);
 
-void XPm_SuspendFinalize();
+void XPm_SuspendFinalize(void);
 
-enum XPmBootStatus XPm_GetBootStatus();
+enum XPmBootStatus XPm_GetBootStatus(void);
 
 /* System-level API function declarations */
-XStatus XPm_RequestSuspend(const enum XPmNodeId node,
+XStatus XPm_RequestSuspend(const enum XPmNodeId target,
 			   const enum XPmRequestAck ack,
 			   const u32 latency,
 			   const u8 state);
 
-XStatus XPm_SelfSuspend(const enum XPmNodeId node,
+XStatus XPm_SelfSuspend(const enum XPmNodeId nid,
 			const u32 latency,
 			const u8 state,
 			const u64 address);
 
-XStatus XPm_ForcePowerDown(const enum XPmNodeId node,
+XStatus XPm_ForcePowerDown(const enum XPmNodeId target,
 			   const enum XPmRequestAck ack);
 
 XStatus XPm_AbortSuspend(const enum XPmAbortReason reason);
 
-XStatus XPm_RequestWakeUp(const enum XPmNodeId node,
+XStatus XPm_RequestWakeUp(const enum XPmNodeId target,
 			  const bool setAddress,
 			  const u64 address,
 			  const enum XPmRequestAck ack);
@@ -85,7 +89,7 @@ XStatus XPm_SystemShutdown(u32 type, u32 subtype);
 
 XStatus XPm_SetConfiguration(const u32 address);
 
-XStatus XPm_InitFinalize();
+XStatus XPm_InitFinalize(void);
 
 /* Callback API function */
 /*
@@ -109,20 +113,18 @@ struct pm_acknowledge {
 	u32 opp;					/**< Operating point of node in question */
 };
 
-/* Forward declaration to enable self reference in struct definition */
-typedef struct XPm_Notifier XPm_Notifier;
 
 /**
  * XPm_Notifier - Notifier structure registered with a callback by app
  */
-typedef struct XPm_Notifier {
+typedef struct XPm_Ntfier {
 	/**
 	 *  Custom callback handler to be called when the notification is
 	 *  received. The custom handler would execute from interrupt
 	 *  context, it shall return quickly and must not block! (enables
 	 *  event-driven notifications)
 	 */
-	void (*const callback)(XPm_Notifier* const notifier);
+	void (*const callback)(struct XPm_Ntfier* const notifier);
 	enum XPmNodeId node; /**< Node argument (the node to receive notifications about) */
 	enum XPmNotifyEvent event;	/**< Event argument (the event type to receive notifications about) */
 	u32 flags;	/**< Flags */
@@ -143,16 +145,14 @@ typedef struct XPm_Notifier {
 	 *  while the notifier is registered. User shall not ever modify
 	 *  this value.
 	 */
-	XPm_Notifier* next;
+	struct XPm_Ntfier* next;
 } XPm_Notifier;
 
-/* Notifier Flags */
-#define XILPM_NOTIFIER_FLAG_WAKE	BIT(0) /* wake up PU for notification */
 
 /**
  * XPm_NodeStatus - struct containing node status information
  */
-typedef struct XPm_NodeStatus {
+typedef struct XPm_NdStatus {
 	u32 status;			/**< Node power state */
 	u32 requirements;	/**< Current requirements asserted on the node (slaves only) */
 	u32 usage;			/**< Usage information (which master is currently using the slave) */
@@ -175,7 +175,7 @@ void XPm_AcknowledgeCb(const enum XPmNodeId node,
 		       const u32 oppoint);
 
 void XPm_NotifyCb(const enum XPmNodeId node,
-		  const u32 event,
+		const enum XPmNotifyEvent event,
 		  const u32 oppoint);
 
 /* API functions for managing PM Slaves */
@@ -184,7 +184,7 @@ XStatus XPm_RequestNode(const enum XPmNodeId node,
 			const u32 qos,
 			const enum XPmRequestAck ack);
 XStatus XPm_ReleaseNode(const enum XPmNodeId node);
-XStatus XPm_SetRequirement(const enum XPmNodeId node,
+XStatus XPm_SetRequirement(const enum XPmNodeId nid,
 			   const u32 capabilities,
 			   const u32 qos,
 			   const enum XPmRequestAck ack);
@@ -206,7 +206,7 @@ XStatus XPm_GetOpCharacteristic(const enum XPmNodeId node,
 
 /* Direct-Control API functions */
 XStatus XPm_ResetAssert(const enum XPmReset reset,
-			const enum XPmResetAction assert);
+			const enum XPmResetAction resetaction);
 
 XStatus XPm_ResetGetStatus(const enum XPmReset reset, u32 *status);
 
@@ -255,5 +255,9 @@ XStatus XPm_PinCtrlGetParameter(const u32 pin,
 				const enum XPmPinParam param,
 				u32* const value);
 
+#ifdef __cplusplus
+}
+#endif
+
 /** @} */
-#endif /* _PM_API_SYS_H_ */
+#endif /* PM_API_SYS_H */

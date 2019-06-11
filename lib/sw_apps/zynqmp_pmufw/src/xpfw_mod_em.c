@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,42 +43,58 @@ static void EmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask, c
 {
 	u32 RetVal = XST_FAILURE;
 	u8 ErrorId = 0U;
+	u32 Buf[XPFW_IPI_MAX_MSG_LEN] = {0U};
 
-	if (IpiNum > 0) {
+	if (IpiNum > 0U) {
 		XPfw_Printf(DEBUG_ERROR,"EM: EM handles only IPI on PMU-0\r\n");
 	} else {
 		switch (Payload[EM_MOD_API_ID_OFFSET] & EM_API_ID_MASK) {
 		case SET_EM_ACTION:
 			ErrorId = (u8)Payload[EM_ERROR_ID_OFFSET];
-			RetVal = XPfw_EmSetAction(ErrorId, (u8)Payload[EM_ERROR_ACTION_OFFSET],
-					ErrorTable[ErrorId].Handler);
 
-			if (RetVal != XST_SUCCESS) {
-				XPfw_Printf(DEBUG_DETAILED, "Warning: EmIpiHandler: Failed "
-						"to set action \r\n");
+			if ((SrcMask & ErrorTable[ErrorId].ChngPerm) == SrcMask) {
+				RetVal = (u32)XPfw_EmSetAction(ErrorId, (u8)Payload[EM_ERROR_ACTION_OFFSET],
+						ErrorTable[ErrorId].Handler);
+			} else {
+				RetVal = PERMISSION_DENIED;
 			}
-			XPfw_IpiWriteResponse(ModPtr, SrcMask, &RetVal, 1);
+			if (RetVal != (u32)XST_SUCCESS) {
+				XPfw_Printf(DEBUG_DETAILED, "Warning: EmIpiHandler: Failed "
+						"to set action. Please check permissions \r\n");
+			}
+			Buf[0] = RetVal;
+			(void)XPfw_IpiWriteResponse(ModPtr, SrcMask, &Buf[0], 1U);
 			break;
 
 		case REMOVE_EM_ACTION:
-			RetVal = XPfw_EmDisable((u8)Payload[EM_ERROR_ID_OFFSET]);
+			ErrorId = (u8)Payload[EM_ERROR_ID_OFFSET];
 
-			if (RetVal != XST_SUCCESS) {
-				XPfw_Printf(DEBUG_DETAILED,"Warning: EmIpiHandler: Failed"
-						" to remove action\r\n");
+			if ((SrcMask & ErrorTable[ErrorId].ChngPerm) == SrcMask) {
+				RetVal = (u32)XPfw_EmDisable(ErrorId);
+			} else {
+				RetVal = PERMISSION_DENIED;
 			}
-			XPfw_IpiWriteResponse(ModPtr, SrcMask, &RetVal, 1);
+
+			if (RetVal != (u32)XST_SUCCESS) {
+				XPfw_Printf(DEBUG_DETAILED,"Warning: EmIpiHandler: Failed"
+						" to remove action. Please check permissions\r\n");
+			}
+			Buf[0] = RetVal;
+			(void)XPfw_IpiWriteResponse(ModPtr, SrcMask, &Buf[0], 1U);
 			break;
 
 		case SEND_ERRORS_OCCURRED:
 			ErrorLog[PMU_BRAM_CE_LOG_OFFSET] = XPfw_Read32(PMU_LMB_BRAM_CE_CNT_REG);
-
-			XPfw_IpiWriteResponse(ModPtr, SrcMask, ErrorLog, EM_ERROR_LOG_MAX);
+			for(ErrorId = 0U; ErrorId < EM_ERROR_LOG_MAX; ErrorId++) {
+				Buf[ErrorId] = ErrorLog[ErrorId];
+			}
+			(void)XPfw_IpiWriteResponse(ModPtr, SrcMask, &Buf[0], EM_ERROR_LOG_MAX);
 			break;
 
 		default:
 			XPfw_Printf(DEBUG_ERROR,"EM: Unsupported API ID received\r\n");
-			XPfw_IpiWriteResponse(ModPtr, SrcMask, &RetVal, 1);
+			Buf[0] = XST_FAILURE;
+			(void)XPfw_IpiWriteResponse(ModPtr, SrcMask, &Buf[0], 1U);
 			break;
 		}
 	}
@@ -144,21 +160,28 @@ static void CheckFsblCompletion(void)
 		XPfw_Write32(PMU_GLOBAL_ERROR_STATUS_2, PMU_GLOBAL_ERROR_STATUS_2_PLL_LOCK_MASK);
 
 		/* Set PS Error Out action for PLL lock errors */
-		XPfw_EmSetAction(EM_ERR_ID_PLL_LOCK, EM_ACTION_PSERR, NULL);
+		(void)XPfw_EmSetAction(EM_ERR_ID_PLL_LOCK, EM_ACTION_PSERR, NULL);
 
 		/* If ENABLE_RECOVERY is defined, PMU need to call this function and
 		 * set FPD WDT error action to APU only restart after FSBL execution
 		 * is completed
 		 */
-		XPfw_EmSetAction(EM_ERR_ID_FPD_SWDT, FPD_WDT_EM_ACTION,
+		(void)XPfw_EmSetAction(EM_ERR_ID_FPD_SWDT, FPD_WDT_EM_ACTION,
 				ErrorTable[EM_ERR_ID_FPD_SWDT].Handler);
-		if (XPfw_RecoveryInit() == XST_SUCCESS) {
+		if (XPfw_RecoveryInit() == (u32)XST_SUCCESS) {
 			/* This is to enable FPD WDT and enable recovery mechanism when
 			* ENABLE_RECOVERY flag is defined.
 			*/
 		}
 
-		Status = XPfw_CoreRemoveTask(EmModPtr, CHECK_FSBL_COMPLETION,
+		/*
+		 * Once FSBL execution is completed, PMU need to enable the LPD WDT
+		 * error and set the error action as FSBL disables while exiting.
+		 */
+		(void)XPfw_EmSetAction(EM_ERR_ID_LPD_SWDT, EM_ACTION_SRST,
+				ErrorTable[EM_ERR_ID_LPD_SWDT].Handler);
+
+		Status = XPfw_CoreRemoveTask(EmModPtr, (u32)CHECK_FSBL_COMPLETION,
 				CheckFsblCompletion);
 		if (XST_FAILURE == Status) {
 			XPfw_Printf(DEBUG_ERROR,"EM (MOD-%d):Removing EM config task "
@@ -185,7 +208,7 @@ static void EmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData,
 	for (ErrId = 1U; ErrId < EM_ERR_ID_MAX; ErrId++)
 	{
 		if (ErrorTable[ErrId].Action != EM_ACTION_NONE) {
-			XPfw_EmSetAction(ErrId, ErrorTable[ErrId].Action,
+			(void)XPfw_EmSetAction((u8)ErrId, ErrorTable[ErrId].Action,
 					ErrorTable[ErrId].Handler);
 		}
 	}

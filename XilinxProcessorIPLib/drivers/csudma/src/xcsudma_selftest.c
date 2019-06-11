@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -30,7 +30,7 @@
 /**
 *
 * @file xcsudma_selftest.c
-* @addtogroup csudma_v1_3
+* @addtogroup csudma_v1_4
 * @{
 *
 * This file contains a diagnostic self-test function for the CSU_DMA driver.

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,10 +27,18 @@
 #ifndef PM_MMIO_ACCESS_H
 #define PM_MMIO_ACCESS_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*********************************************************************
  * Function declarations
  ********************************************************************/
 bool PmGetMmioAccessRead(const PmMaster *const master, const u32 address);
 bool PmGetMmioAccessWrite(const PmMaster *const master, const u32 address);
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* PM_MMIO_ACCESS_H */

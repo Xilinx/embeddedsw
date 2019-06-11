@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -47,10 +47,10 @@
 #define DEFAULT_USB_POWER_OFF	0U
 
 /* USB state transition latency values */
-#define PM_USB_UNUSED_TO_ON_LATENCY	152
-#define PM_USB_ON_TO_UNUSED_LATENCY	3
-#define PM_USB_ON_TO_OFF_LATENCY	3
-#define PM_USB_OFF_TO_ON_LATENCY	152
+#define PM_USB_UNUSED_TO_ON_LATENCY	152U
+#define PM_USB_ON_TO_UNUSED_LATENCY	3U
+#define PM_USB_ON_TO_OFF_LATENCY	3U
+#define PM_USB_OFF_TO_ON_LATENCY	152U
 
 /* USB states */
 static const u32 pmUsbStates[] = {
@@ -97,9 +97,9 @@ static const PmStateTran pmUsbTransitions[] = {
  *
  * @return      Status of performing transition action
  */
-static int PmUsbFsmHandler(PmSlave* const slave, const PmStateId nextState)
+static s32 PmUsbFsmHandler(PmSlave* const slave, const PmStateId nextState)
 {
-	int status;
+	s32 status;
 	PmSlaveUsb* usb = (PmSlaveUsb*)slave->node.derived;
 
 	switch (slave->node.currState) {
@@ -139,10 +139,11 @@ static int PmUsbFsmHandler(PmSlave* const slave, const PmStateId nextState)
 /* USB FSM */
 static const PmSlaveFsm slaveUsbFsm = {
 	.states = pmUsbStates,
-	.statesCnt = ARRAY_SIZE(pmUsbStates),
-	.trans = pmUsbTransitions,
-	.transCnt = ARRAY_SIZE(pmUsbTransitions),
 	.enterState = PmUsbFsmHandler,
+	.trans = pmUsbTransitions,
+	.statesCnt = ARRAY_SIZE(pmUsbStates),
+	.transCnt = ARRAY_SIZE(pmUsbTransitions),
+
 };
 
 static PmWakeEventGicProxy pmUsb0Wake = {
@@ -168,16 +169,16 @@ static u32 PmUsbPowers[] = {
 PmSlaveUsb pmSlaveUsb0_g = {
 	.slv = {
 		.node = {
-			.nodeId = NODE_USB_0,
+			.derived = &pmSlaveUsb0_g,
 			.class = &pmNodeClassSlave_g,
-			.currState = PM_USB_STATE_ON,
 			.parent = &pmPowerDomainLpd_g.power,
 			.clocks = NULL,
-			.derived = &pmSlaveUsb0_g,
-			.latencyMarg = MAX_LATENCY,
-			.flags = 0U,
 			DEFINE_PM_POWER_INFO(PmUsbPowers),
+			.latencyMarg = MAX_LATENCY,
 			DEFINE_NODE_NAME("usb0"),
+			.nodeId = NODE_USB_0,
+			.currState = PM_USB_STATE_ON,
+			.flags = 0U,
 		},
 		.class = NULL,
 		.reqs = NULL,
@@ -208,16 +209,16 @@ static PmWakeEventGicProxy pmUsb1Wake = {
 PmSlaveUsb pmSlaveUsb1_g = {
 	.slv = {
 		.node = {
-			.nodeId = NODE_USB_1,
+			.derived = &pmSlaveUsb1_g,
 			.class = &pmNodeClassSlave_g,
-			.currState = PM_USB_STATE_ON,
 			.parent = &pmPowerDomainLpd_g.power,
 			.clocks = NULL,
-			.derived = &pmSlaveUsb1_g,
-			.latencyMarg = MAX_LATENCY,
-			.flags = 0U,
 			DEFINE_PM_POWER_INFO(PmUsbPowers),
+			.latencyMarg = MAX_LATENCY,
 			DEFINE_NODE_NAME("usb1"),
+			.nodeId = NODE_USB_1,
+			.currState = PM_USB_STATE_ON,
+			.flags = 0U,
 		},
 		.class = NULL,
 		.reqs = NULL,

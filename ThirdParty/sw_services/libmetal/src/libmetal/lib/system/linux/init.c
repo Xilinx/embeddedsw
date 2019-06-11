@@ -13,6 +13,7 @@
 
 #include <metal/sys.h>
 #include <metal/utilities.h>
+#include "shmem.h"
 
 struct metal_state _metal;
 
@@ -135,7 +136,7 @@ int metal_sys_init(const struct metal_init_params *params)
 			  strerror(errno));
 		return -errno;
 	}
-	if (sizeof(int) != fread(&seed, sizeof(int), 1, urandom)) {
+	if (fread(&seed, 1, sizeof(seed), urandom) <= 0) {
 		metal_log(METAL_LOG_DEBUG, "Failed fread /dev/urandom\n");
 	}
 	fclose(urandom);
@@ -160,6 +161,9 @@ int metal_sys_init(const struct metal_init_params *params)
 
 	/* Initialize IRQ handling */
 	metal_linux_irq_init();
+
+	/* Initialize ION shared memory pool */
+	metal_linux_init_shmem();
 	return 0;
 }
 

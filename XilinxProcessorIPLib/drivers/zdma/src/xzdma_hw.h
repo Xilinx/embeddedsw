@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xzdma_hw.h
-* @addtogroup zdma_v1_6
+* @addtogroup zdma_v1_7
 * @{
 *
 * This header file contains identifiers and register-level driver functions (or
@@ -104,6 +104,9 @@ extern "C" {
 /*@}*/
 
 #define XZDMA_SLCR_SECURE_OFFSET		(0xff4b0024)
+#define XZDMA_CRLADMA_CLK_OFFSET		(0xff5e0104)
+#define XZDMA_CRLADMA_RESET_OFFSET		(0xff5e0304)
+#define XZDMA_INTLPD_CONFIG_OFFSET		(0xfe600014)
 /** @name Interrupt Enable/Disable/Mask/Status registers bit masks and shifts
  * @{
  */

@@ -45,6 +45,7 @@
  * 1.8   gm   14/05/18 Updated CDR values for DP
  *            05/09/18 Enable IPS only when XVphy_GetRefClkSourcesCount
  *                       returns more than 1.
+ * 1.9   gm   14/05/18 Added CDR_CFG3 configuration for DP
  * </pre>
  *
 *******************************************************************************/
@@ -203,7 +204,7 @@ u32 XVphy_Gtye4CfgSetCdr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 			ChPtr->PllParams.Cdr[2] = 0x0242;
 		}
 	}
-	else if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
+	else if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX)) {
 		/* RxOutDiv = 1  => Cdr[2] = 0x0269
 		 * RxOutDiv = 2  => Cdr[2] = 0x0259
 		 * RxOutDiv = 4  => Cdr[2] = 0x0249
@@ -423,8 +424,8 @@ u32 XVphy_Gtye4ClkCmnReconfig(XVphy *InstancePtr, u8 QuadId,
 	Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
 			(CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x18 : 0x98, DrpVal);
 
-	if ((InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) ||
-		(InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI)) {
+	if ((XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX)) ||
+		(XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX))) {
 
 		QpllxVcoRateMHz = XVphy_GetPllVcoFreqHz(InstancePtr, QuadId, CmnId,
 				XVphy_IsTxUsingQpll(InstancePtr, QuadId, CmnId) ?
@@ -641,6 +642,7 @@ u32 XVphy_Gtye4RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 	u32 PllxClkOutMHz;
 	u32 PllxClkOutDiv;
     u32 Status = XST_SUCCESS;
+    u64 LineRateHz;
 
 	ChPtr = &InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(ChId)];
 
@@ -664,7 +666,31 @@ u32 XVphy_Gtye4RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 		}
 	}
 
-	if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
+    /* Modify RXCDR_CFG3 for DP */
+	if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_DP) {
+		LineRateHz = XVphy_GetLineRateHz(InstancePtr, QuadId, ChId);
+		if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_810GBPS) {
+            /* RXCDR_CFG3 */
+            Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x11, 0x12);
+            /* RXCDR_CFG3_GEN2 */
+            Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x135, 0x12);
+            /* RXCDR_CFG3_GEN3 */
+            Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0xA5, 0x12);
+            /* RXCDR_CFG3_GEN4 */
+            Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x11C, 0x12);
+		} else {
+            /* RXCDR_CFG3 */
+            Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x11, 0x1A);
+            /* RXCDR_CFG3_GEN2 */
+            Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x135, 0x1A);
+            /* RXCDR_CFG3_GEN3 */
+            Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0xA5, 0x1A);
+            /* RXCDR_CFG3_GEN4 */
+            Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x11C, 0x1A);
+		}
+	}
+
+	if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX)) {
 		/* RX_INT_DATAWIDTH */
 		Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId, 0x66, &DrpVal);
 		DrpVal &= ~(0x3);
@@ -805,7 +831,7 @@ u32 XVphy_Gtye4TxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
     u32 Status = XST_SUCCESS;
 
 	ReturnVal = XVphy_Gtye4TxPllRefClkDiv1Reconfig(InstancePtr, QuadId, ChId);
-	if (InstancePtr->Config.TxProtocol != XVPHY_PROTOCOL_HDMI) {
+	if (!XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX)) {
 		return ReturnVal;
 	}
 
@@ -830,7 +856,7 @@ u32 XVphy_Gtye4TxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 			break;
 	}
 
-	if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) {
+	if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX)) {
 
 		ChPtr = &InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(ChId)];
 		/* TX_INT_DATAWIDTH */
@@ -950,7 +976,7 @@ u32 XVphy_Gtye4TxPllRefClkDiv1Reconfig(XVphy *InstancePtr, u8 QuadId,
 	XVphy_Channel *PllPtr = &InstancePtr->Quads[QuadId].
                     Plls[XVPHY_CH2IDX(ChId)];
 
-	if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) {
+	if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX)) {
 		TxRefClkHz = InstancePtr->HdmiTxRefClkHz;
 	}
 	else {
@@ -992,7 +1018,7 @@ u32 XVphy_Gtye4RxPllRefClkDiv1Reconfig(XVphy *InstancePtr, u8 QuadId,
 	XVphy_Channel *PllPtr = &InstancePtr->Quads[QuadId].
                     Plls[XVPHY_CH2IDX(ChId)];
 
-	if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
+	if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX)) {
 		RxRefClkHz = InstancePtr->HdmiRxRefClkHz;
 	}
 	else {

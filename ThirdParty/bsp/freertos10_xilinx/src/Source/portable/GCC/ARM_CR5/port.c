@@ -1,6 +1,8 @@
 /*
- * FreeRTOS Kernel V10.0.0
- * Copyright (C) 2017 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * FreeRTOS Kernel V10.1.1
+ * Copyright (C) 2018 - 2019 Amazon.com, Inc. or its affiliates.
+ * Copyright (C) 2019 Xilinx, Inc.
+ * All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -10,8 +12,7 @@
  * subject to the following conditions:
  *
  * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software. If you wish to use our Amazon
- * FreeRTOS name, please do so in a fair use way that does not cause confusion.
+ * copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
@@ -151,6 +152,11 @@ debugger. */
 	#define portTASK_RETURN_ADDRESS	prvTaskExitError
 #endif
 
+/* The space on the stack required to hold the FPU registers.
+ * vfpv3-d16 has 16 64 bit registers or 32 32 bit registers. plus
+ * a 32 bit status register
+ */
+#define portFPU_REGISTER_WORDS ( (16 * 2) + 1)
 /*-----------------------------------------------------------*/
 
 /*
@@ -173,7 +179,7 @@ the scheduler starts.  As it is stored as part of the task context it will
 automatically be set to 0 when the first task is started. */
 volatile uint32_t ulCriticalNesting = 9999UL;
 
-/* 
+/*
  * The instance of the interrupt controller used by this port.  This is required
  * by the Xilinx library API functions.
  */
@@ -189,6 +195,13 @@ uint32_t ulPortYieldRequired = pdFALSE;
 /* Counts the interrupt nesting depth.  A context switch is only performed if
 if the nesting depth is 0. */
 uint32_t ulPortInterruptNesting = 0UL;
+/*
+ * Global counter used for calculation of run time statistics of tasks.
+ * Defined only when the relevant option is turned on
+ */
+#if (configGENERATE_RUN_TIME_STATS==1)
+volatile uint32_t ulHighFrequencyTimerTicks;
+#endif
 
 /* Used in asm code. */
 __attribute__(( used )) const uint32_t ulICCIAR = portICCIAR_INTERRUPT_ACKNOWLEDGE_REGISTER_ADDRESS;
@@ -271,12 +284,33 @@ StackType_t *pxPortInitialiseStack( StackType_t *pxTopOfStack, TaskFunction_t px
 	/* The task will start with a critical nesting count of 0 as interrupts are
 	enabled. */
 	*pxTopOfStack = portNO_CRITICAL_NESTING;
-	pxTopOfStack--;
 
+
+#if (configUSE_TASK_FPU_SUPPORT == 1)
+	{
 	/* The task will start without a floating point context.  A task that uses
 	the floating point hardware must call vPortTaskUsesFPU() before executing
 	any floating point instructions. */
+		pxTopOfStack--;
 	*pxTopOfStack = portNO_FLOATING_POINT_CONTEXT;
+	}
+#elif (configUSE_TASK_FPU_SUPPORT == 2)
+	{
+		/* The task will start with a floating point context.
+		 * Leave enough space for FPU registers and ensure that they are zeroed out.
+		 */
+		pxTopOfStack -= portFPU_REGISTER_WORDS;
+		memset(pxTopOfStack, 0x00, portFPU_REGISTER_WORDS * sizeof(StackType_t));
+
+		pxTopOfStack--;
+		*pxTopOfStack = pdTRUE;
+		ulPortTaskHasFPUContext = pdTRUE;
+	}
+#else
+	{
+		#error Invalid configUSE_TASK_FPU_SUPPORT setting - configUSE_TASK_FPU_SUPPORT must be set to 1, 2, or left undefined
+	}
+#endif
 
 	return pxTopOfStack;
 }
@@ -357,7 +391,7 @@ XScuGic_Config *pxGICConfig;
 								&xInterruptController);
 	/* Enable interrupts in the ARM. */
 	Xil_ExceptionEnable();
-	
+
 		if( xStatus == XST_SUCCESS )
 		{
 			xStatus = pdPASS;
@@ -365,7 +399,7 @@ XScuGic_Config *pxGICConfig;
 		else
 		{
 			xStatus = pdFAIL;
-		}	
+		}
 	configASSERT( xStatus == pdPASS );
 
 	return xStatus;
@@ -382,7 +416,7 @@ int32_t lReturn;
 	if( lReturn == pdPASS )
 	{
 		XScuGic_Enable( &xInterruptController, ucInterruptID );
-	}	
+	}
 	configASSERT( lReturn );
 }
 /*-----------------------------------------------------------*/
@@ -438,12 +472,6 @@ uint32_t ulAPSR, ulCycles = 8; /* 8 bits per byte. */
 			}
 		}
 
-		/* Sanity check configUNIQUE_INTERRUPT_PRIORITIES matches the read
-		value. */
-//		configASSERT( ucMaxPriorityValue == portLOWEST_INTERRUPT_PRIORITY );
-
-		/* Restore the clobbered interrupt priority register to its original
-		value. */
 		*pucFirstUserPriorityRegister = ulOriginalPriority;
 	}
 	#endif /* conifgASSERT_DEFINED */
@@ -539,6 +567,19 @@ void vPortExitCritical( void )
 
 void FreeRTOS_Tick_Handler( void )
 {
+	/*
+	 * The Xilinx implementation of generating run time task stats uses the same timer used for generating
+	 * FreeRTOS ticks. In case user decides to generate run time stats the tick handler is called more
+	 * frequently (10 times faster). The timer/tick handler uses logic to handle the same. It handles
+	 * the FreeRTOS tick once per 10 interrupts.
+	 * For handling generation of run time stats, it increments a pre-defined counter every time the
+	 * interrupt handler executes.
+	 */
+#if (configGENERATE_RUN_TIME_STATS == 1)
+	ulHighFrequencyTimerTicks++;
+	if (!(ulHighFrequencyTimerTicks % 10))
+#endif
+	{
 	/* Set interrupt mask before altering scheduler structures.   The tick
 	handler runs at the lowest priority, so interrupts cannot already be masked,
 	so there is no need to save and restore the current mask value.  It is
@@ -555,13 +596,14 @@ void FreeRTOS_Tick_Handler( void )
 	{
 		ulPortYieldRequired = pdTRUE;
 	}
+	}
 
 	/* Ensure all interrupt priorities are active again. */
 	portCLEAR_INTERRUPT_MASK();
 	configCLEAR_TICK_INTERRUPT();
 }
 /*-----------------------------------------------------------*/
-
+#if (configUSE_TASK_FPU_SUPPORT != 2)
 void vPortTaskUsesFPU( void )
 {
 uint32_t ulInitialFPSCR = 0;
@@ -573,6 +615,7 @@ uint32_t ulInitialFPSCR = 0;
 	/* Initialise the floating point status register. */
 	__asm volatile ( "FMXR 	FPSCR, %0" :: "r" (ulInitialFPSCR) : "memory" );
 }
+#endif
 /*-----------------------------------------------------------*/
 
 void vPortClearInterruptMask( uint32_t ulNewMaskValue )
@@ -644,4 +687,25 @@ uint32_t ulReturn;
 	}
 
 #endif /* configASSERT_DEFINED */
+
+#if( configGENERATE_RUN_TIME_STATS == 1 )
+/*
+ * For Xilinx implementation this is a dummy function that does a redundant operation
+ * of zeroing out the global counter.
+ * It is called by FreeRTOS kernel.
+ */
+void xCONFIGURE_TIMER_FOR_RUN_TIME_STATS (void)
+{
+	ulHighFrequencyTimerTicks = 0;
+}
+/*
+ * For Xilinx implementation this function returns the global counter used for
+ * run time task stats calculation.
+ * It is called by FreeRTOS kernel task handling logic.
+ */
+uint32_t xGET_RUN_TIME_COUNTER_VALUE (void)
+{
+	return ulHighFrequencyTimerTicks;
+}
+#endif
 /*-----------------------------------------------------------*/

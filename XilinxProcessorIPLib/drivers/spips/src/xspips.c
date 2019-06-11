@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xspips.c
-* @addtogroup spips_v3_1
+* @addtogroup spips_v3_2
 * @{
 *
 * Contains implements the interface functions of the XSpiPs driver.
@@ -66,7 +66,12 @@
 * 			This change is to tackle CR#910231.
 * 3.1	tjs    04/12/18 InputClockHz parameter copied in instance for use in
 * 						application. CR#998910
-*
+* 3.1   tjs    11/23/18 Added a check for A72 and R5 processor to
+*                       avoid changes made for the workaround DT#842463.
+* 3.2	aru    01/20/19 Fixes violations according to MISRAC-2012
+*                       in safety mode and done changes such as
+*                       Declared the pointer param as Pointer to const,
+*			added goto statements.
 * </pre>
 *
 ******************************************************************************/
@@ -94,7 +99,7 @@
 * @return	None.
 *
 * @note		C-Style signature:
-*		void XSpiPs_SendByte(u32 BaseAddress, u8 Data);
+*		void XSpiPs_SendByte(u32 BaseAddress, u8 Data)
 *
 *****************************************************************************/
 #define XSpiPs_SendByte(BaseAddress, Data) \
@@ -111,7 +116,7 @@
 * @return	The byte retrieved from the receive FIFO/register.
 *
 * @note		C-Style signature:
-*		u8 XSpiPs_RecvByte(u32 BaseAddress);
+*		u8 XSpiPs_RecvByte(u32 BaseAddress)
 *
 *****************************************************************************/
 #define XSpiPs_RecvByte(BaseAddress) \
@@ -119,7 +124,7 @@
 
 /************************** Function Prototypes ******************************/
 
-static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
+static void StubStatusHandler(const void *CallBackRef, u32 StatusEvent,
 				u32 ByteCount);
 
 /************************** Variable Definitions *****************************/
@@ -159,7 +164,7 @@ static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
 * @note		None.
 *
 ******************************************************************************/
-s32 XSpiPs_CfgInitialize(XSpiPs *InstancePtr, XSpiPs_Config *ConfigPtr,
+s32 XSpiPs_CfgInitialize(XSpiPs *InstancePtr, const XSpiPs_Config *ConfigPtr,
 				u32 EffectiveAddr)
 {
 	s32 Status;
@@ -569,7 +574,8 @@ s32 XSpiPs_PolledTransfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 						InstancePtr->Config.BaseAddress,
 						XSPIPS_SR_OFFSET,
 						XSPIPS_IXR_MODF_MASK);
-					return (s32)XST_SEND_ERROR;
+					Status_Polled = (s32)XST_SEND_ERROR;
+					goto END;
 				}
 		        CheckTransfer = (StatusReg &
 							XSPIPS_IXR_TXOW_MASK);
@@ -619,6 +625,8 @@ s32 XSpiPs_PolledTransfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 		XSpiPs_Disable(InstancePtr);
 		Status_Polled = (s32)XST_SUCCESS;
 	}
+
+	END:
 	return Status_Polled;
 }
 
@@ -715,7 +723,7 @@ s32 XSpiPs_SetSlaveSelect(XSpiPs *InstancePtr, u8 SlaveSel)
 * @note		None.
 *
 ******************************************************************************/
-u8 XSpiPs_GetSlaveSelect(XSpiPs *InstancePtr)
+u8 XSpiPs_GetSlaveSelect(const XSpiPs *InstancePtr)
 {
 	u32 ConfigReg;
 	u32 SlaveSel;
@@ -748,7 +756,7 @@ u8 XSpiPs_GetSlaveSelect(XSpiPs *InstancePtr)
 			/*
 			 * Get selected slave number (0,1 or 2)
 			 */
-			SlaveSel = ((~ConfigReg) & XSPIPS_CR_SSCTRL_MAXIMUM)/2;
+			SlaveSel = ((~ConfigReg) & XSPIPS_CR_SSCTRL_MAXIMUM)/2U;
 		}
 	}
 	return (u8)SlaveSel;
@@ -825,10 +833,10 @@ void XSpiPs_SetStatusHandler(XSpiPs *InstancePtr, void *CallBackRef,
 * @note		None.
 *
 ******************************************************************************/
-static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
+static void StubStatusHandler(const void *CallBackRef, u32 StatusEvent,
 				u32 ByteCount)
 {
-	(void) CallBackRef;
+	(const void) CallBackRef;
 	(void) StatusEvent;
 	(void) ByteCount;
 
@@ -924,7 +932,7 @@ void XSpiPs_InterruptHandler(XSpiPs *InstancePtr)
 		SpiPtr->StatusHandler(SpiPtr->StatusRef, XST_SPI_MODE_FAULT,
 					BytesDone);
 
-		return; /* Do not continue servicing other interrupts. */
+		goto END; /* Do not continue servicing other interrupts. */
 	}
 
 
@@ -1077,6 +1085,9 @@ void XSpiPs_InterruptHandler(XSpiPs *InstancePtr)
 			XST_SPI_TRANSMIT_UNDERRUN, BytesDone);
 	}
 
+	END:
+	return;
+
 }
 
 /*****************************************************************************/
@@ -1101,7 +1112,9 @@ void XSpiPs_Abort(XSpiPs *InstancePtr)
 
 	u8 Temp;
 	u32 Check;
+#if !defined(versal)
 	u32 Count;
+#endif
 	XSpiPs_Disable(InstancePtr);
 
 	/*
@@ -1120,11 +1133,12 @@ void XSpiPs_Abort(XSpiPs *InstancePtr)
 	/*
 	 * Read all RX_FIFO entries
 	 */
-	for (Count = 0; Count < XSPIPS_FIFO_DEPTH; Count++) {
+#if !defined(versal)
+	for (Count = 0U; Count < XSPIPS_FIFO_DEPTH; Count++) {
 		(void)XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
 			XSPIPS_RXD_OFFSET);
 	}
-
+#endif
 	/*
 	 * Clear mode fault condition.
 	 */

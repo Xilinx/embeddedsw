@@ -1,7 +1,6 @@
 /*
- * FreeRTOS Kernel V10.0.0
- * Copyright (C) 2012 - 2018 Xilinx, Inc. All rights reserved.
- * Copyright (C) 2017 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * FreeRTOS Kernel V10.1.1
+ * Copyright (C) 2018 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -11,8 +10,7 @@
  * subject to the following conditions:
  *
  * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software. If you wish to use our Amazon
- * FreeRTOS name, please do so in a fair use way that does not cause confusion.
+ * copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
@@ -68,7 +66,7 @@ configINSTALL_EXCEPTION_HANDLERS is not set to 1. */
 
 /* This variable is set in the exception entry code, before
 vPortExceptionHandler is called. */
-uint32_t *pulStackPointerOnFunctionEntry = NULL;
+UINTPTR *pulStackPointerOnFunctionEntry = NULL;
 
 /* This is the structure that is filled with the MicroBlaze context as it
 existed immediately prior to the exception occurrence.  A pointer to this
@@ -150,7 +148,7 @@ extern void *pxCurrentTCB;
 	xRegisterDump.ulR29 = mfgpr( R29 );
 	xRegisterDump.ulR30 = mfgpr( R30 );
 	xRegisterDump.ulR31 = mfgpr( R31 );
-	xRegisterDump.ulR1_SP = ( ( uint32_t ) pulStackPointerOnFunctionEntry ) + portexASM_HANDLER_STACK_FRAME_SIZE;
+	xRegisterDump.ulR1_SP = ( ( UINTPTR ) pulStackPointerOnFunctionEntry ) + portexASM_HANDLER_STACK_FRAME_SIZE;
 	xRegisterDump.ulEAR = mfear();
 	xRegisterDump.ulESR = mfesr();
 	xRegisterDump.ulEDR = mfedr();

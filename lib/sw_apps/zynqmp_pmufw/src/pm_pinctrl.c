@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,6 +29,7 @@
 #include "pm_periph.h"
 #include "pm_usb.h"
 #include "pm_requirement.h"
+#include "pm_pinctrl.h"
 
 #define PINMUX_FN(name, fn, sel, do)	\
 static const PmPinMuxFn pinMux##name = \
@@ -63,8 +64,8 @@ static const PmPinMuxFn pinMux##name = \
 		.owner = 0U,	\
 	}
 
-#define PM_PIN_PARAM_RO		(1 << 0U)
-#define PM_PIN_PARAM_2_BITS	(1 << 1U)
+#define PM_PIN_PARAM_RO		(1U << 0U)
+#define PM_PIN_PARAM_2_BITS	(1U << 1U)
 
 #define PM_PIN_PARAM_PER_REG	26U
 
@@ -752,9 +753,9 @@ static PmPinParam pmPinParams[] = {
  *		XST_PM_NO_ACCESS if PIN control is already requested by another
  *		master
  */
-int PmPinCtrlRequestInt(const u32 ipiMask, const u32 pinId)
+s32 PmPinCtrlRequestInt(const u32 ipiMask, const u32 pinId)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	if (pinId >= ARRAY_SIZE(pmPinMuxCtrl)) {
 		status = XST_INVALID_PARAM;
@@ -784,9 +785,9 @@ done:
  *		XST_INVALID_PARAM if pinId argument is not valid
  *		XST_FAILURE if PIN control has not been previously requested
  */
-int PmPinCtrlReleaseInt(const u32 ipiMask, const u32 pinId)
+s32 PmPinCtrlReleaseInt(const u32 ipiMask, const u32 pinId)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	if (pinId >= ARRAY_SIZE(pmPinMuxCtrl)) {
 		status = XST_INVALID_PARAM;
@@ -813,9 +814,9 @@ done:
  *		XST_INVALID_PARAM if provided argument is invalid
  *		XST_PM_INTERNAL if function cannot be mapped
  */
-int PmPinCtrlGetFunctionInt(const u32 pinId, u32* const fnId)
+s32 PmPinCtrlGetFunctionInt(const u32 pinId, u32* const fnId)
 {
-	int status = XST_PM_INTERNAL;
+	s32 status = XST_PM_INTERNAL;
 	u32 reg, i;
 
 	if (pinId >= ARRAY_SIZE(pmPinMuxCtrl)) {
@@ -823,7 +824,7 @@ int PmPinCtrlGetFunctionInt(const u32 pinId, u32* const fnId)
 		goto done;
 	}
 
-	reg = XPfw_Read32(IOU_SLCR_BASE + 4U * pinId);
+	reg = XPfw_Read32(IOU_SLCR_BASE + (4U * pinId));
 	for (i = 0U; NULL != pmPinMuxCtrl[pinId].pinMux[i]; i++) {
 		if (pmPinMuxCtrl[pinId].pinMux[i]->select == reg) {
 			*fnId = pmPinMuxCtrl[pinId].pinMux[i]->fid;
@@ -845,9 +846,9 @@ done:
  *		XST_INVALID_PARAM if pinId is invalid
  *		XST_PM_NO_ACCESS if master is no allowed to control the PIN
  */
-int PmPinCtrlCheckPerms(const u32 ipiMask, const u32 pinId)
+s32 PmPinCtrlCheckPerms(const u32 ipiMask, const u32 pinId)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 
 	if (pinId >= ARRAY_SIZE(pmPinMuxCtrl)) {
 		status = XST_INVALID_PARAM;
@@ -874,11 +875,13 @@ done:
  *		XST_PM_INTERNAL if function cannot be mapped base on current
  *		configuration
  */
-int PmPinCtrlSetFunctionInt(const PmMaster* const master, const u32 pinId,
+s32 PmPinCtrlSetFunctionInt(const PmMaster* const master, const u32 pinId,
 			    const u32 fnId)
 {
-	int status = XST_INVALID_PARAM;
-	u32 val, i, s;
+	s32 status = XST_INVALID_PARAM;
+	u32 val = 0U;
+	u32 i;
+	u32 s;
 
 	for (i = 0U; NULL != pmPinMuxCtrl[pinId].pinMux[i]; i++) {
 		const PmPinMuxFn* const fn = pmPinMuxCtrl[pinId].pinMux[i];
@@ -905,10 +908,9 @@ int PmPinCtrlSetFunctionInt(const PmMaster* const master, const u32 pinId,
 		break;
 	};
 	if (XST_SUCCESS == status) {
-		XPfw_Write32(IOU_SLCR_BASE + 4U * pinId, val);
+		XPfw_Write32(IOU_SLCR_BASE + (4U * pinId), val);
 	}
 
-done:
 	return status;
 }
 
@@ -923,9 +925,9 @@ done:
  *
  * @note	See note in PmPinCtrlSetParam().
  */
-int PmPinCtrlGetParam(const u32 pinId, const u32 paramId, u32* const value)
+s32 PmPinCtrlGetParam(const u32 pinId, const u32 paramId, u32* const value)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 addr, val, shift;
 
 	if (paramId >= ARRAY_SIZE(pmPinParams)) {
@@ -982,10 +984,10 @@ done:
  * bit 13 (1 + 12). If a user wants to configure pin 4, we need to write as if
  * we're configuring bit[18] to actually get the pin 4 configured.
  */
-int PmPinCtrlSetParam(const u32 pinId, const u32 paramId, const u32 value)
+s32 PmPinCtrlSetParam(const u32 pinId, const u32 paramId, const u32 value)
 {
-	int status = XST_INVALID_PARAM;
-	u32 addr, val, shift;
+	s32 status = XST_INVALID_PARAM;
+	u32 addr, shift;
 
 	if (0U != (PM_PIN_PARAM_RO & pmPinParams[paramId].flags)) {
 		goto done;
@@ -1010,7 +1012,7 @@ int PmPinCtrlSetParam(const u32 pinId, const u32 paramId, const u32 value)
 	}
 
 	if (0U == (PM_PIN_PARAM_2_BITS & pmPinParams[paramId].flags)) {
-		XPfw_RMW32(addr, 1 << shift, value << shift);
+		XPfw_RMW32(addr, 1U << shift, value << shift);
 		/* When setting pull up/down we need to enable pull as well */
 		if (paramId == PINCTRL_CONFIG_PULL_CTRL) {
 			addr = PM_PIN_PARAM_GET_ADDR(pinId,
@@ -1020,12 +1022,12 @@ int PmPinCtrlSetParam(const u32 pinId, const u32 paramId, const u32 value)
 			if (addr == IOU_SLCR_BANK1_CTRL5) {
 				FIX_BANK1_CTRL5(shift);
 			}
-			XPfw_RMW32(addr, 1 << shift, value << shift);
+			XPfw_RMW32(addr, 1U << shift, value << shift);
 		}
 	} else {
 		/* Write value[0] at address + 4 and value[1] at address */
-		XPfw_RMW32(addr + 4U, 1 << shift, (value & 0x1U) << shift);
-		XPfw_RMW32(addr, 1 << shift, ((value & 0x2U) >> 1U) << shift);
+		XPfw_RMW32(addr + 4U, 1U << shift, (value & 0x1U) << shift);
+		XPfw_RMW32(addr, 1U << shift, ((value & 0x2U) >> 1U) << shift);
 	}
 
 done:

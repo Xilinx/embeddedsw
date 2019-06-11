@@ -10,7 +10,7 @@ var files =
     [ "xhwicap_intr_example.c", "xhwicap__intr__example_8c.html", "xhwicap__intr__example_8c" ],
     [ "xhwicap_l.h", "xhwicap__l_8h.html", "xhwicap__l_8h" ],
     [ "xhwicap_low_level_example.c", "xhwicap__low__level__example_8c.html", "xhwicap__low__level__example_8c" ],
-    [ "xhwicap_read_config_reg.c", "xhwicap__read__config__reg_8c.html", "xhwicap__read__config__reg_8c" ],
+    [ "xhwicap_read_config_reg_example.c", "xhwicap__read__config__reg__example_8c.html", "xhwicap__read__config__reg__example_8c" ],
     [ "xhwicap_read_frame_polled_example.c", "xhwicap__read__frame__polled__example_8c.html", "xhwicap__read__frame__polled__example_8c" ],
     [ "xhwicap_selftest.c", "xhwicap__selftest_8c.html", "xhwicap__selftest_8c" ],
     [ "xhwicap_sinit.c", "xhwicap__sinit_8c.html", "xhwicap__sinit_8c" ],

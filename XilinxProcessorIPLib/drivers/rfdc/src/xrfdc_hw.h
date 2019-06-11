@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017-2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xrfdc_hw.h
-* @addtogroup rfdc_v5_0
+* @addtogroup rfdc_v6_0
 * @{
 *
 * This header file contains the identifiers and basic HW access driver
@@ -54,7 +54,29 @@
 * 5.0   sk     08/03/18 Fixed MISRAC warnings.
 *       sk     08/24/18 Reorganize the code to improve readability and
 *                       optimization.
-* </pre>
+* 5.1   cog    01/29/19 Added XRFdc_SetDither() and XRFdc_GetDither() APIs.
+* 6.0   cog    02/17/19 New Interp/Decimation Mask.
+*       cog    02/17/19 Added new Inverse-Sinc mask.
+*       cog    02/17/19 Added new clock Distribution Defs.
+*       cog    02/17/19 Added new intratile clock Defs.
+*       cog    02/17/19 New Masks and offsets for XRFdc_GetPLLConfig() API.
+*       cog    02/17/19 New Masks and offsets for  XRFdc_SetIMRPassMode() and
+*                       XRFdc_SetIMRPassMode() APIs
+*       cog    02/17/19 New Masks and offsets for XRFdc_SetDACMode() and
+*                       XRFdc_GetDACMode() APIs
+*       cog    02/17/19	New Masks and offsets for XRFdc_SetSignalDetector() and
+*                       XRFdc_GetSignalDetector() APIs.
+*       cog    02/17/19 New Masks and offsets for XRFdc_DisableCoefficientsOverride(),
+*                       XRFdc_SetCalCoefficients and XRFdc_GetCalCoefficients APIs.
+*       cog    02/19/19 New Masks and offsets for clock detection register.
+*       cog    02/20/19 New Masks for ADC common mode over/under voltage interrupts.
+*       cog    02/21/19 New Masks and offsets for XRFdc_SetCalFreeze() and
+*                       XRFdc_GetCalFreeze() APIs.
+*       cog    03/25/19 The new common mode over/under voltage interrupts mask
+*                       bits were clashing with other interrupt bits.
+*       cog    03/25/19 Added more calibration bypass masks.
+*
+*</pre>
 *
 ******************************************************************************/
 
@@ -104,6 +126,8 @@ extern "C" {
 							Control Register */
 #define XRFDC_ADC_DEC_ISR_OFFSET	0x030U	/**< ADC Decoder interface
 							ISR Register */
+#define XRFDC_DAC_DATAPATH_OFFSET	0x034U	/**< ADC Decoder interface
+							IMR Register */
 #define XRFDC_ADC_DEC_IMR_OFFSET	0x034U	/**< ADC Decoder interface
 							IMR Register */
 #define XRFDC_DATPATH_ISR_OFFSET	0x038U	/**< ADC Data Path
@@ -288,13 +312,29 @@ extern "C" {
 #define XRFDC_DAC_DECODER_CTRL_OFFSET	0x180U	/**< DAC Unary Decoder/
 							Randomizer settings */
 #define XRFDC_DAC_DECODER_CLK_OFFSET	0x184U	/**< Decoder Clock enable */
+
+#define XRFDC_ADC_SIG_DETECT_CTRL_OFFSET				0x114 /**< ADC Signal Detector Control */
+#define XRFDC_ADC_SIG_DETECT_THRESHOLD0_LEVEL_OFFSET	0x118 /**< ADC Signal Detector Theshold 0 */
+#define XRFDC_ADC_SIG_DETECT_THRESHOLD0_CNT_ON_OFFSET	0x11C /**< ADC Signal Detector Theshold 0 on Counter */
+#define XRFDC_ADC_SIG_DETECT_THRESHOLD0_CNT_OFF_OFFSET	0x120 /**< ADC Signal Detector Theshold 0 off Counter */
+#define XRFDC_ADC_SIG_DETECT_THRESHOLD1_LEVEL_OFFSET	0x124 /**< ADC Signal Detector Theshold 1 */
+#define XRFDC_ADC_SIG_DETECT_THRESHOLD1_CNT_ON_OFFSET	0x128 /**< ADC Signal Detector Theshold 1 on Counter */
+#define XRFDC_ADC_SIG_DETECT_THRESHOLD1_CNT_OFF_OFFSET	0x12C /**< ADC Signal Detector Theshold 1 off Counter */
+#define XRFDC_ADC_SIG_DETECT_MAGN_OFFSET				0x130 /**< ADC Signal Detector Magintude */
+
+
+#define XRFDC_HSCOM_CLK_DSTR_OFFSET	0x088U	/**< Clock Distribution Register*/
+#define XRFDC_HSCOM_CLK_DSTR_MASK	0xC788U	/**< Clock Distribution Register*/
+#define XRFDC_HSCOM_CLK_DSTR_MASK_ALT	0x1870U	/**< Clock Distribution Register
+							for Intratile*/
 #define XRFDC_HSCOM_PWR_OFFSET		0x094	/**< Control register during
 							power-up sequence */
 #define XRFDC_HSCOM_CLK_DIV_OFFSET	0xB0	/**< Fabric clk out divider */
 #define XRFDC_HSCOM_PWR_STATE_OFFSET	0xB4	/**< Check powerup state */
 #define XRFDC_HSCOM_UPDT_DYN_OFFSET		0x0B8	/**< Trigger the update
 							dynamic event */
-#define XRFDC_DAC_INVSINC_OFFSET		0x0C0U	/**< Invsinc control */
+#define XRFDC_HSCOM_EFUSE_2_OFFSET	0x144
+#define XRFDC_DAC_INVSINC_OFFSET	0x0C0U	/**< Invsinc control */
 #define XRFDC_DAC_MB_CFG_OFFSET		0x0C4U	/**< Multiband config */
 #define XRFDC_MTS_SRDIST			0x1CA0U
 #define XRFDC_MTS_SRCAP_T1			(0x24U << 2U)
@@ -316,38 +356,130 @@ extern "C" {
 #define XRFDC_MTS_DAC_MARKER_CNT	(0x92U << 2U)
 #define XRFDC_MTS_DAC_MARKER_LOC	(0x93U << 2U)
 
-#define XRFDC_RESET_OFFSET		0x00U	/**< Tile reset register */
-#define XRFDC_RESTART_OFFSET	0x04U	/**< Tile restart register */
-#define XRFDC_RESTART_STATE_OFFSET	0x08U	/**< Tile restart state register */
-#define XRFDC_CURRENT_STATE_OFFSET	0x0CU	/**< Current state register */
-#define XRFDC_STATUS_OFFSET			0x228U	/**< Common status register */
-#define XRFDC_COMMON_INTR_STS		0x100U	/**< Common Intr Status register */
-#define XRFDC_COMMON_INTR_ENABLE	0x104U	/**< Common Intr enable register */
-#define XRFDC_INTR_STS				0x200U	/**< Intr status register */
-#define XRFDC_INTR_ENABLE			0x204U	/**< Intr enable register */
-#define XRFDC_CONV_INTR_STS(X)		(0x208U + (X * 0x08U))
-#define XRFDC_CONV_INTR_EN(X)		(0x20CU + (X * 0x08U))
-#define XRFDC_FIFO_ENABLE			0x230U	/**< FIFO Enable and Disable */
-#define XRFDC_PLL_SDM_CFG0			0x00U	/**< PLL Configuration bits for sdm */
-#define XRFDC_PLL_SDM_SEED0			0x18U	/**< PLL Bits for sdm LSB */
-#define XRFDC_PLL_SDM_SEED1			0x1CU 	/**< PLL Bits for sdm MSB */
-#define XRFDC_PLL_VREG				0x44U	/**< PLL bits for voltage regulator */
-#define XRFDC_PLL_VCO0				0x54U 	/**< PLL bits for coltage controlled oscillator LSB */
-#define XRFDC_PLL_VCO1				0x58U	/**< PLL bits for coltage controlled oscillator MSB */
-#define XRFDC_PLL_CRS1				0x28U 	/**< PLL bits for coarse frequency control LSB */
-#define XRFDC_PLL_CRS2				0x2CU	/**< PLL bits for coarse frequency control MSB */
-#define XRFDC_PLL_DIVIDER0        	0x30U   /**< PLL Output Divider LSB register */
-#define XRFDC_PLL_DIVIDER1         	0x34U   /**< PLL Output Divider MSB register */
-#define XRFDC_PLL_SPARE0			0x38U	/**< PLL spare inputs LSB */
-#define XRFDC_PLL_SPARE1			0x3CU	/**< PLL spare inputs MSB */
-#define XRFDC_PLL_REFDIV           	0x40U   /**< PLL Reference Divider register */
-#define XRFDC_PLL_VREG             	0x44U   /**< PLL voltage regulator */
-#define XRFDC_PLL_CHARGEPUMP		0x48U	/**< PLL bits for charge pumps */
-#define XRFDC_PLL_LPF0				0x4CU	/**< PLL bits for loop filters LSB */
-#define XRFDC_PLL_LPF1				0x50U	/**< PLL bits for loop filters MSB */
-#define XRFDC_PLL_FPDIV           	0x5CU   /**< PLL Feedback Divider register */
-#define XRFDC_CLK_NETWORK_CTRL0		0x8CU	/**< Clock network control and trim register */
-#define XRFDC_CLK_NETWORK_CTRL1		0x90U	/**< Multi-tile sync and clock source control register */
+#define XRFDC_RESET_OFFSET				0x00U	/**< Tile reset register */
+#define XRFDC_RESTART_OFFSET			0x04U	/**< Tile restart register */
+#define XRFDC_RESTART_STATE_OFFSET		0x08U	/**< Tile restart state register */
+#define XRFDC_CURRENT_STATE_OFFSET		0x0CU	/**< Current state register */
+#define XRFDC_CLOCK_DETECT_OFFSET		0x80U	/**< Clock detect register */
+#define XRFDC_STATUS_OFFSET				0x228U	/**< Common status register */
+#define XRFDC_COMMON_INTR_STS			0x100U	/**< Common Intr Status register */
+#define XRFDC_COMMON_INTR_ENABLE		0x104U	/**< Common Intr enable register */
+#define XRFDC_INTR_STS					0x200U	/**< Intr status register */
+#define XRFDC_INTR_ENABLE				0x204U	/**< Intr enable register */
+#define XRFDC_CONV_INTR_STS(X)			(0x208U + (X * 0x08U))
+#define XRFDC_CONV_INTR_EN(X)			(0x20CU + (X * 0x08U))
+#define XRFDC_CONV_CAL_STGS(X)			(0x234U + (X * 0x04U))
+#define XRFDC_CAL_GCB_COEFF0_FAB(X)		(0x280U + (X * 0x10U))
+#define XRFDC_CAL_GCB_COEFF1_FAB(X)		(0x284U + (X * 0x10U))
+#define XRFDC_CAL_GCB_COEFF2_FAB(X)		(0x288U + (X * 0x10U))
+#define XRFDC_CAL_GCB_COEFF3_FAB(X)		(0x28CU + (X * 0x10U))
+#define XRFDC_PLL_FREQ					0x300U	/**< PLL output frequency (before divider) register */
+#define XRFDC_PLL_FS					0x304U	/**< Sampling rate register */
+#define XRFDC_FIFO_ENABLE				0x230U	/**< FIFO Enable and Disable */
+#define XRFDC_PLL_SDM_CFG0				0x00U	/**< PLL Configuration bits for sdm */
+#define XRFDC_PLL_SDM_SEED0				0x18U	/**< PLL Bits for sdm LSB */
+#define XRFDC_PLL_SDM_SEED1				0x1CU 	/**< PLL Bits for sdm MSB */
+#define XRFDC_PLL_VREG					0x44U	/**< PLL bits for voltage regulator */
+#define XRFDC_PLL_VCO0					0x54U 	/**< PLL bits for coltage controlled oscillator LSB */
+#define XRFDC_PLL_VCO1					0x58U	/**< PLL bits for coltage controlled oscillator MSB */
+#define XRFDC_PLL_CRS1					0x28U 	/**< PLL bits for coarse frequency control LSB */
+#define XRFDC_PLL_CRS2					0x2CU	/**< PLL bits for coarse frequency control MSB */
+#define XRFDC_PLL_DIVIDER0        		0x30U   /**< PLL Output Divider LSB register */
+#define XRFDC_PLL_DIVIDER1         		0x34U   /**< PLL Output Divider MSB register */
+#define XRFDC_PLL_SPARE0				0x38U	/**< PLL spare inputs LSB */
+#define XRFDC_PLL_SPARE1				0x3CU	/**< PLL spare inputs MSB */
+#define XRFDC_PLL_REFDIV           		0x40U   /**< PLL Reference Divider register */
+#define XRFDC_PLL_VREG             		0x44U   /**< PLL voltage regulator */
+#define XRFDC_PLL_CHARGEPUMP			0x48U	/**< PLL bits for charge pumps */
+#define XRFDC_PLL_LPF0					0x4CU	/**< PLL bits for loop filters LSB */
+#define XRFDC_PLL_LPF1					0x50U	/**< PLL bits for loop filters MSB */
+#define XRFDC_PLL_FPDIV           		0x5CU   /**< PLL Feedback Divider register */
+#define XRFDC_CLK_NETWORK_CTRL0			0x8CU	/**< Clock network control and trim register */
+#define XRFDC_CLK_NETWORK_CTRL1			0x90U	/**< Multi-tile sync and clock source control register */
+
+#define XRFDC_HSCOM_NETWORK_CTRL1_MASK	0x02FU	/**< Clock Network Register Mask for IntraTile*/
+#define XRFDC_PLL_REFDIV_MASK          	0x0E0U  /**< PLL Reference Divider Register Mask for IntraTile */
+#define XRFDC_PLL_DIVIDER0_ALT_MASK     0x800U  /**< PLL Output Divider Register Mask for IntraTile */
+
+#define XRFDC_CAL_OCB1_OFFSET_COEFF0		0x200	/**< Foreground offset correction block */
+#define XRFDC_CAL_OCB1_OFFSET_COEFF1		0x208  	/**< Foreground offset correction block */
+#define XRFDC_CAL_OCB1_OFFSET_COEFF2		0x210  	/**< Foreground offset correction block */
+#define XRFDC_CAL_OCB1_OFFSET_COEFF3		0x218	/**< Foreground offset correction block */
+#define XRFDC_CAL_OCB2_OFFSET_COEFF0		0x204	/**< Background offset correction block */
+#define XRFDC_CAL_OCB2_OFFSET_COEFF1		0x20C	/**< Background offset correction block */
+#define XRFDC_CAL_OCB2_OFFSET_COEFF2		0x214	/**< Background offset correction block */
+#define XRFDC_CAL_OCB2_OFFSET_COEFF3		0x21C	/**< Background offset correction block */
+#define XRFDC_CAL_GCB_OFFSET_COEFF0			0x220	/**< Background gain correction block */
+#define XRFDC_CAL_GCB_OFFSET_COEFF1			0x224	/**< Background gain correction block */
+#define XRFDC_CAL_GCB_OFFSET_COEFF2			0x228	/**< Background gain correction block */
+#define XRFDC_CAL_GCB_OFFSET_COEFF3			0x22C	/**< Background gain correction block */
+#define XRFDC_CAL_GCB_OFFSET_COEFF0_ALT		0x220	/**< Background gain correction block (below Gen 3) */
+#define XRFDC_CAL_GCB_OFFSET_COEFF1_ALT		0x228	/**< Background gain correction block (below Gen 3) */
+#define XRFDC_CAL_GCB_OFFSET_COEFF2_ALT		0x230	/**< Background gain correction block (below Gen 3) */
+#define XRFDC_CAL_GCB_OFFSET_COEFF3_ALT		0x238	/**< Background gain correction block (below Gen 3) */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF0		0x170	/**< Background time skew correction block */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF1		0x174	/**< Background time skew correction block */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF2		0x178	/**< Background time skew correction block */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF3		0x17C	/**< Background time skew correction block */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF4		0x180	/**< Background time skew correction block */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF5		0x184	/**< Background time skew correction block */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF6		0x188	/**< Background time skew correction block */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF7		0x18C	/**< Background time skew correction block */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF0_ALT	0x168	/**< Background time skew correction block (below Gen 3) */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF1_ALT	0x16C	/**< Background time skew correction block (below Gen 3) */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF2_ALT	0x170	/**< Background time skew correction block (below Gen 3) */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF3_ALT	0x174	/**< Background time skew correction block (below Gen 3) */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF4_ALT	0x178	/**< Background time skew correction block (below Gen 3) */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF5_ALT	0x17C	/**< Background time skew correction block (below Gen 3) */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF6_ALT	0x180	/**< Background time skew correction block (below Gen 3) */
+#define XRFDC_CAL_TSCB_OFFSET_COEFF7_ALT	0x184	/**< Background time skew correction block (below Gen 3) */
+
+
+/* @} */
+
+/** @name Calibration Coefficients - Calibration coefficients and disable registers
+ *
+ * This register contains bits for calibration coefficients
+ * for ADC.
+ * @{
+ */
+
+#define XRFDC_CAL_OCB_MASK		0xFFFFU /**< offsets coeff mask*/
+#define XRFDC_CAL_GCB_MASK		0x0FFFU /**< gain coeff mask*/
+#define XRFDC_CAL_GCB_FAB_MASK	0xFFF0U /**< gain coeff mask for IP Gen 2 or below*/
+#define XRFDC_CAL_TSCB_MASK		0x01FFU /**< time skew coeff mask*/
+
+#define XRFDC_CAL_GCB_FLSH_MASK	0x1000U	/**< GCB accumulator flush mask*/
+#define XRFDC_CAL_GCB_ACEN_MASK	0x0800U	/**< GCB accumulator enable mask*/
+#define XRFDC_CAL_GCB_ENFL_MASK	0x1800U	/**< GCB accumulator enable mask*/
+
+#define XRFDC_CAL_OCB_EN_MASK	0x0001U /**< offsets coeff override enable mask*/
+#define XRFDC_CAL_GCB_EN_MASK	0x0080U /**< gain coeff override enable mask*/
+#define XRFDC_CAL_TSCB_EN_MASK	0x8000U /**< time skew coeff override enable mask*/
+
+#define XRFDC_CAL_OCB_EN_SHIFT		0U /**< offsets coeff shift*/
+#define XRFDC_CAL_GCB_EN_SHIFT		7U /**< gain coeff shift*/
+#define XRFDC_CAL_TSCB_EN_SHIFT		15U /**< time skew coeff shift*/
+#define XRFDC_CAL_GCB_FLSH_SHIFT	12U	/**< GCB accumulator flush shift*/
+#define XRFDC_CAL_GCB_ACEN_SHIFT	11U	/**< GCB accumulator enable shift*/
+
+#define XRFDC_CAL_SLICE_SHIFT		16U /**<Coefficient shift for HSADCs*/
+
+/* @} */
+/** @name Calibration Coefficients - Calibration coefficients and disable registers
+ *
+ * This register contains bits for calibration coefficients
+ * for ADC.
+ * @{
+ */
+
+#define XRFDC_CAL_FREEZE_CAL_MASK	0x1U /**< Calibration freeze enable mask*/
+#define XRFDC_CAL_FREEZE_STS_MASK	0x2U /**< Calibration freeze status mask*/
+#define XRFDC_CAL_FREEZE_PIN_MASK	0x4U /**< Calibration freeze pin disable mask*/
+
+#define XRFDC_CAL_FREEZE_CAL_SHIFT	0U /**< Calibration freeze enable shift*/
+#define XRFDC_CAL_FREEZE_STS_SHIFT	1U /**< Calibration freeze status shift*/
+#define XRFDC_CAL_FREEZE_PIN_SHIFT	2U /**< Calibration freeze pin disable shift*/
 
 /* @} */
 
@@ -561,6 +693,21 @@ extern "C" {
 
 /* @} */
 
+/** @name DataPath (DAC)- FIFO Latency, Image Reject Filter, Mode,
+ *
+ * This register contains bits for DataPath latency, Image Reject Filter
+ * and the Mode for the DAC. Read/Write apart from the reserved bits.
+ * @{
+ */
+
+#define XRFDC_DATAPATH_MODE_MASK	0x00000003U /**< DataPath Mode */
+#define XRFDC_DATAPATH_IMR_MASK		0x00000004U /**< IMR Mode */
+#define XRFDC_DATAPATH_LATENCY_MASK	0x00000008U /**< DataPath Latency */
+
+/* @} */
+
+
+
 /** @name DataPath ISR - ISR for Data Path interface
  *
  * This register contains bits of QMC Gain/Phase overflow, offset overflow,
@@ -630,14 +777,8 @@ extern "C" {
  * @{
  */
 
-#define XRFDC_DEC_MOD_MASK		0x00000007U	/**< Decimation mode Mask */
-#define XRFDC_DEC_MOD_1X_MASK	0x00000001U /**< 1x (decimation bypass) */
-#define XRFDC_DEC_MOD_2X_MASK	0x00000002U /**< 2x (decimation bypass) */
-#define XRFDC_DEC_MOD_4X_MASK	0x00000003U /**< 4x (decimation bypass) */
-#define XRFDC_DEC_MOD_8X_MASK	0x00000004U /**< 8x (decimation bypass) */
-#define XRFDC_DEC_MOD_2X_BW_MASK	0x00000005U /**< 2x (med BW) */
-#define XRFDC_DEC_MOD_4X_BW_MASK	0x00000006U /**< 4x (med BW) */
-#define XRFDC_DEC_MOD_8X_BW_MASK	0x00000007U /**< 8x (med BW) */
+#define XRFDC_DEC_MOD_MASK 		0x00000007U       /**< Decimation mode Mask */
+#define XRFDC_DEC_MOD_MASK_EXT 	0x0000003FU /**< Decimation mode Mask */
 
 /* @} */
 
@@ -950,6 +1091,7 @@ extern "C" {
  */
 
 #define XRFDC_CRSE_DLY_CFG_MASK		0x00000007U	/**< Coarse delay select */
+#define XRFDC_CRSE_DLY_CFG_MASK_EXT	0x0000003FU	/**< Extended coarse delay select*/
 
 /* @} */
 
@@ -1491,8 +1633,10 @@ extern "C" {
  * @{
  */
 
-#define XRFDC_RX_MC_CFG0_MASK		0x0000FFFFU	/**< RX MC config0 */
-#define XRFDC_RX_MC_CFG0_CM_MASK	0x00000040U /**< Coupling mode mask */
+#define XRFDC_RX_MC_CFG0_MASK		    0x0000FFFFU	/**< RX MC config0 */
+#define XRFDC_RX_MC_CFG0_CM_MASK	    0x00000040U /**< Coupling mode mask */
+#define XRFDC_RX_MC_CFG0_IM3_DITH_MASK  0x00000020U /**< IM3 Dither Enable mode mask */
+#define XRFDC_RX_MC_CFG0_IM3_DITH_SHIFT 5U 			/**< IM3 Dither Enable mode shift */
 
 /* @} */
 
@@ -1782,9 +1926,13 @@ extern "C" {
  * @{
  */
 
-#define XRFDC_INTERP_MODE_MASK	0x00000077U	/**< Interp filter mask */
-#define XRFDC_INTERP_MODE_I_MASK	0x00000007U	/**< Interp filter I */
-#define XRFDC_INTERP_MODE_Q_SHIFT	4U	/**< Interp mode Q shift */
+#define XRFDC_INTERP_MODE_MASK 			0x00000077U   /**< Interp filter mask */
+#define XRFDC_INTERP_MODE_I_MASK 		0x00000007U /**< Interp filter I */
+#define XRFDC_INTERP_MODE_Q_SHIFT 		4U	 /**< Interp mode Q shift */
+#define XRFDC_INTERP_MODE_MASK_EXT 		0x00003F3FU   /**< Interp filter mask */
+#define XRFDC_INTERP_MODE_I_MASK_EXT 	0x0000003FU /**< Interp filter I */
+#define XRFDC_INTERP_MODE_Q_SHIFT_EXT 	8U	 /**< Interp mode Q shift */
+
 
 /* @} */
 
@@ -1819,6 +1967,17 @@ extern "C" {
 
 #define XRFDC_PWR_STATE_MASK		0x0000FFFFU	/**< State mask */
 #define XRFDC_RSR_START_SHIFT		8U	/**< Start state shift */
+
+
+/* @} */
+
+/** @name Clock Detect register
+ *
+ * This register contains Start and End state bits.
+ * @{
+ */
+
+#define XRFDC_CLOCK_DETECT_MASK		0x0000FFFFU	/**< Clock detect mask */
 
 
 /* @} */
@@ -1878,6 +2037,8 @@ extern "C" {
 								interrupt mask */
 #define XRFDC_INTR_FIFO_OVR_MASK	0x00008000U	/**< FIFO OF mask */
 #define XRFDC_INTR_DAT_OVR_MASK		0x00004000U	/**< Data OF mask */
+#define XRFDC_INTR_CMODE_OVR_MASK	0x00040000U /**< Common mode OV mask */
+#define XRFDC_INTR_CMODE_UNDR_MASK	0x00080000U /**< Common mode UV mask */
 /* @} */
 
 /** @name Multiband config register
@@ -1886,8 +2047,10 @@ extern "C" {
  * @{
  */
 
-#define XRFDC_EN_MB_MASK	0x00000008U	/**< multi-band adder mask */
-#define XRFDC_EN_MB_SHIFT	3U	/* Enable Multiband shift */
+#define XRFDC_EN_MB_MASK		0x00000008U	/**< multi-band adder mask */
+#define XRFDC_EN_MB_SHIFT		3U			/** <Enable Multiband shift */
+#define XRFDC_ALT_BOND_MASK		0x0100		/** <Alt bondout mask */
+#define XRFDC_ALT_BOND_SHIFT	8U			/** <Alt bondout shift */
 
 /* @} */
 
@@ -1896,9 +2059,30 @@ extern "C" {
  * This register contains bits to configure Invsinc.
  * @{
  */
-
 #define XRFDC_EN_INVSINC_MASK	0x00000001U	/**< invsinc enable mask */
+#define XRFDC_MODE_INVSINC_MASK	0x00000003U	/**< invsinc mode mask */
+/* @} */
 
+/* @} */
+
+/** @name Signal Detector control register
+ *
+ * This register contains bits to configure Signal Detector.
+ * @{
+ */
+#define XRFDC_ADC_SIG_DETECT_MASK				0xFF /**< signal detector mask */
+#define XRFDC_ADC_SIG_DETECT_THRESH_MASK		0xFF /**< signal detector thresholds mask */
+#define XRFDC_ADC_SIG_DETECT_INTG_MASK			0x01 /**< leaky integrator enable mask */
+#define XRFDC_ADC_SIG_DETECT_FLUSH_MASK			0x02 /**< leaky integrator flush mask */
+#define XRFDC_ADC_SIG_DETECT_TCONST_MASK		0x1C /**< time constant mask */
+#define XRFDC_ADC_SIG_DETECT_MODE_MASK			0x60 /**< mode mask */
+#define XRFDC_ADC_SIG_DETECT_HYST_MASK			0x80 /**< hysteresis enable mask */
+#define XRFDC_ADC_SIG_DETECT_INTG_SHIFT			0 	 /**< leaky integrator enable shift */
+#define XRFDC_ADC_SIG_DETECT_FLUSH_SHIFT		1 	 /**< leaky integrator flush shift */
+#define XRFDC_ADC_SIG_DETECT_TCONST_SHIFT		2    /**< time constant shift */
+#define XRFDC_ADC_SIG_DETECT_MODE_WRITE_SHIFT	5    /**< mode shift fror writing */
+#define XRFDC_ADC_SIG_DETECT_MODE_READ_SHIFT	6    /**< mode shift fror reading */
+#define XRFDC_ADC_SIG_DETECT_HYST_SHIFT			7    /**< hysteresis enable shift */
 /* @} */
 
 /** @name CLK_DIV register
@@ -1950,8 +2134,10 @@ extern "C" {
  * @{
  */
 
-#define XRFDC_PLL_DIVIDER0_MASK 	0x00FFU
-#define XRFDC_PLL_DIVIDER0_SHIFT	6U
+#define XRFDC_PLL_DIVIDER0_MASK 		0x00FFU
+#define XRFDC_PLL_DIVIDER0_MODE_MASK 	0x00C0U
+#define XRFDC_PLL_DIVIDER0_VALUE_MASK 	0x003FU
+#define XRFDC_PLL_DIVIDER0_SHIFT		6U
 
 /* @} */
 
@@ -2020,6 +2206,8 @@ extern "C" {
 #define XRFDC_SUBADC3_IXR_DCDR_UF_MASK 		0x00800000U
 #define XRFDC_ADC_OVR_VOLTAGE_MASK			0x04000000U
 #define XRFDC_ADC_OVR_RANGE_MASK			0x08000000U
+#define XRFDC_ADC_CMODE_OVR_MASK			0x10000000U
+#define XRFDC_ADC_CMODE_UNDR_MASK			0x20000000U
 #define XRFDC_ADC_DAT_OVR_MASK				0x40000000U
 #define XRFDC_ADC_FIFO_OVR_MASK				0x80000000U
 #define XRFDC_DAC_MC_CFG2_OPCSCAS_MASK		0x0000F8F8U
@@ -2032,7 +2220,8 @@ extern "C" {
 #define XRFDC_ADC_OVR_VOL_RANGE_SHIFT		24U
 #define XRFDC_ADC_DAT_FIFO_OVR_SHIFT		16U
 #define XRFDC_ADC_SUBADC_DCDR_SHIFT			16U
-#define XRFDC_DATA_PATH_SHIFT			4U
+#define XRFDC_DATA_PATH_SHIFT				4U
+#define XRFDC_ADC_CMODE_SHIFT				10U
 
 #define XRFDC_DAC_TILE_DRP_ADDR(X)			(0x6000U + (X * 0x4000U))
 #define XRFDC_DAC_TILE_CTRL_STATS_ADDR(X)	(0x4000U + (X * 0x4000U))
@@ -2042,6 +2231,7 @@ extern "C" {
 #define XRFDC_HSCOM_ADDR	0x1C00U
 #define XRFDC_BLOCK_ADDR_OFFSET(X)	(X * 0x400U)
 #define XRFDC_TILE_DRP_OFFSET		0x2000U
+
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XRFdc_In64 metal_io_read64

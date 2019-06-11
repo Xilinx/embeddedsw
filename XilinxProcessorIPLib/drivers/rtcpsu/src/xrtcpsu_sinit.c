@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xrtcpsu_sinit.c
-* @addtogroup rtcpsu_v1_6
+* @addtogroup rtcpsu_v1_7
 * @{
 *
 * This file contains the implementation of the XRtcPsu driver's static
@@ -44,7 +44,13 @@
 * Ver   Who    Date	Changes
 * ----- -----  -------- -----------------------------------------------
 * 1.00  kvn    04/21/15 First release.
-*
+* 1.7   sne    03/01/19 Added Versal support.
+* 1.7   sne    03/01/19 Fixed violations according to MISRAC-2012 standards
+*                       modified the code such as
+*                       No brackets to loop body,Declared the poiner param
+*                       as Pointer to const,No brackets to then/else,
+*                       Literal value requires a U suffix,Casting operation to a pointer
+*                       Array has no bounds specified,Logical conjunctions need brackets.
 * </pre>
 *
 ******************************************************************************/
@@ -64,7 +70,7 @@
 
 /************************** Variable Definitions *****************************/
 
-extern XRtcPsu_Config XRtcPsu_ConfigTable[];
+extern XRtcPsu_Config XRtcPsu_ConfigTable[XPAR_XRTCPSU_NUM_INSTANCES];
 
 /*****************************************************************************/
 /**

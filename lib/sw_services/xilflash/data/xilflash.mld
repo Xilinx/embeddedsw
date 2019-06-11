@@ -39,6 +39,8 @@
 # 3.00a sdm  03/23/11 Added new parameters to enable support for flash families
 # 4.4   ms   08/03/17 Added tags and modified comment lines style for doxygen.
 # 4.4   srm  02/16/18 Updated to pick up latest freertos port 10.0
+# 4.6	akm  01/22/19 Fixed compilation error of application with xilflash
+#		      library(CR#1018603)
 #
 ##############################################################################
 
@@ -52,7 +54,7 @@ BEGIN LIBRARY xilflash
   OPTION supported_peripherals = (opb_emc_v2_00_a plb_emc mch_opb_emc xps_mch_emc axi_emc);
   OPTION APP_LINKER_FLAGS = "-lxilflash";
   OPTION desc = "Xilinx Flash library for Intel/AMD CFI compliant parallel flash";
-  OPTION VERSION = 4.5;
+  OPTION VERSION = 4.6;
   OPTION NAME = xilflash;
   PARAM name = enable_intel, desc = "Enables support for Intel family devices", type = bool, default = true;
   PARAM name = enable_amd, desc = "Enables support for AMD family devices", type = bool, default = false;

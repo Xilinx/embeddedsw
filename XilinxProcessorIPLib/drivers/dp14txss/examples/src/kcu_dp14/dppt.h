@@ -160,15 +160,6 @@ typedef unsigned int    UINT32;
 
 #define ENABLE_HDCP_FLOW_GUIDE		0
 
-/* Setting to 1 overrides the DP RX to
- * to max speed of 5.4G
- * This is done because the design does
- * not meet timing at 8.1G
-  * */
-
-
-#define OVERRIDE_540G 1
-
 /* Setting to 1 enables the auto switchover 
  * from RX to TX when cable is unplugged
  * Setting to 0 enables the RX only mode 

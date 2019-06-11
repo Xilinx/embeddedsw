@@ -6,8 +6,8 @@ var xdppsu_8h =
     [ "XDpPsu_MainStreamAttributes", "struct_x_dp_psu___main_stream_attributes.html", "struct_x_dp_psu___main_stream_attributes" ],
     [ "XDpPsu_BoardChar", "struct_x_dp_psu___board_char.html", "struct_x_dp_psu___board_char" ],
     [ "XDpPsu", "struct_x_dp_psu.html", "struct_x_dp_psu" ],
-    [ "XDpPsu_HpdEventHandler", "xdppsu_8h.html#ae3452c3fd9d8064f7bdb969969f6e8e3", null ],
-    [ "XDpPsu_HpdPulseHandler", "xdppsu_8h.html#a751ac0448e2ee7927973e61d688063ea", null ],
+    [ "XDpPsu_HpdEventHandler", "xdppsu_8h.html#a13e177802b0d46ab226b56650ce50fc0", null ],
+    [ "XDpPsu_HpdPulseHandler", "xdppsu_8h.html#a1b28e87125be77708843cd7941024b60", null ],
     [ "XDpPsu_ColorEncoding", "xdppsu_8h.html#abc1a92f88c89695f8bfa5f7d7ad4d851", [
       [ "XDPPSU_CENC_RGB", "xdppsu_8h.html#abc1a92f88c89695f8bfa5f7d7ad4d851a2d5a375b359c9f58a59fc935d248699c", null ],
       [ "XDPPSU_CENC_XVYCC_422_BT601", "xdppsu_8h.html#abc1a92f88c89695f8bfa5f7d7ad4d851ae7b6c5198c5816c89fa0003c20a601ff", null ],

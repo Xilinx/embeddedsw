@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xintc.c
-* @addtogroup intc_v3_8
+* @addtogroup intc_v3_9
 * @{
 *
 * Contains required functions for the XIntc driver for the Xilinx Interrupt
@@ -67,6 +67,9 @@
 * 3.0   bss  01/28/13 Modified to initialize IVAR register with
 *		      XPAR_MICROBLAZE_BASE_VECTORS + 0x10 to fix
 *		      CR#765931
+* 3.9  sa   03/18/19 Modified XIntc_ConnectFastHandler, XIntc_SetNormalIntrMode
+*		             and XIntc_InitializeSlaves APIs to support vector addresses
+*		             of width > 32 bits.
 *
 * </pre>
 *
@@ -753,7 +756,7 @@ XIntc_Config *XIntc_LookupConfig(u16 DeviceId)
 *
 * Makes the connection between the Id of the interrupt source and the
 * associated handler that is to run when the interrupt is recognized.In Cascade
-* mode, connects handler to corresponding Slave controller IVAR register
+* mode, connects handler to corresponding Slave controller IVAR/IVEAR register
 * depending on the Id and sets all interrupt sources of the Slave controller as
 * fast interrupts.
 *
@@ -761,7 +764,9 @@ XIntc_Config *XIntc_LookupConfig(u16 DeviceId)
 * @param	Id contains the ID of the interrupt source and should be in the
 *		range of 0 to XPAR_INTC_MAX_NUM_INTR_INPUTS - 1 with 0 being
 *		the highest priority interrupt.
-* @param	Handler to the handler for that interrupt.
+* @param	Handler for specified interrupt id. It must be declared with
+*           "fast_interrupt" attribute.
+*           e.g. static void MyHandler(void) __attribute__ ((fast_interrupt));
 *
 * @return
 *		- XST_SUCCESS
@@ -815,8 +820,14 @@ int XIntc_ConnectFastHandler(XIntc *InstancePtr, u8 Id,
 			XIntc_Disable(InstancePtr, Id);
 		}
 
-		XIntc_Out32(CfgPtr->BaseAddress + XIN_IVAR_OFFSET +
-				((Id%32) * 4), (u32) Handler);
+		if (CfgPtr->VectorAddrWidth >
+				XINTC_STANDARD_VECTOR_ADDRESS_WIDTH) {
+			XIntc_Out64(CfgPtr->BaseAddress + XIN_IVEAR_OFFSET +
+					((Id%32) * 8), (UINTPTR) Handler);
+		} else {
+			XIntc_Out32(CfgPtr->BaseAddress + XIN_IVAR_OFFSET +
+					((Id%32) * 4), (u32) Handler);
+		}
 
 		/* Slave controllers in Cascade Mode should have all as Fast
 		 * interrupts or Normal interrupts, mixed interrupts are not
@@ -845,8 +856,14 @@ int XIntc_ConnectFastHandler(XIntc *InstancePtr, u8 Id,
 			XIntc_Disable(InstancePtr, Id);
 		}
 
-		XIntc_Out32(InstancePtr->BaseAddress + XIN_IVAR_OFFSET +
-					 (Id * 4), (u32) Handler);
+		if (InstancePtr->CfgPtr->VectorAddrWidth >
+				XINTC_STANDARD_VECTOR_ADDRESS_WIDTH) {
+			XIntc_Out64(InstancePtr->BaseAddress +
+				XIN_IVEAR_OFFSET + (Id * 8), (UINTPTR) Handler);
+		} else {
+			XIntc_Out32(InstancePtr->BaseAddress +
+				XIN_IVAR_OFFSET + (Id * 4), (u32) Handler);
+		}
 
 		Imr = XIntc_In32(InstancePtr->BaseAddress + XIN_IMR_OFFSET);
 		XIntc_Out32(InstancePtr->BaseAddress + XIN_IMR_OFFSET,
@@ -870,8 +887,8 @@ int XIntc_ConnectFastHandler(XIntc *InstancePtr, u8 Id,
 *
 * Sets the normal interrupt mode for the specified interrupt in the Interrupt
 * Mode Register. In Cascade mode disconnects handler from corresponding Slave
-* controller IVAR register depending on the Id and sets all interrupt sources
-* of the Slave controller as normal interrupts.
+* controller IVAR/IVEAR register depending on the Id and sets all interrupt
+* sources of the Slave controller as normal interrupts.
 *
 * @param	InstancePtr is a pointer to the XIntc instance to be worked on.
 * @param	Id contains the ID of the interrupt source and should be in the
@@ -925,17 +942,36 @@ void XIntc_SetNormalIntrMode(XIntc *InstancePtr, u8 Id)
 		XIntc_Out32(CfgPtr->BaseAddress + XIN_IMR_OFFSET, 0x0);
 
 #ifdef XPAR_MICROBLAZE_BASE_VECTORS
-		for (Id = 0; Id < 32 ; Id++)
-		{
-			XIntc_Out32(CfgPtr->BaseAddress + XIN_IVAR_OFFSET
-				+ (Id * 4), XPAR_MICROBLAZE_BASE_VECTORS
-				+ 0x10);
+		if (CfgPtr->VectorAddrWidth >
+				XINTC_STANDARD_VECTOR_ADDRESS_WIDTH) {
+			for (Id = 0; Id < 32 ; Id++)
+			{
+				XIntc_Out64(CfgPtr->BaseAddress + XIN_IVEAR_OFFSET
+					+ (Id * 8), XPAR_MICROBLAZE_BASE_VECTORS
+					+ 0x10);
+			}
+		} else {
+			for (Id = 0; Id < 32 ; Id++)
+			{
+				XIntc_Out32(CfgPtr->BaseAddress + XIN_IVAR_OFFSET
+					+ (Id * 4), XPAR_MICROBLAZE_BASE_VECTORS
+					+ 0x10);
+			}
 		}
 #else
-		for (Id = 0; Id < 32 ; Id++)
-		{
-			XIntc_Out32(CfgPtr->BaseAddress + XIN_IVAR_OFFSET
+		if (CfgPtr->VectorAddrWidth >
+				XINTC_STANDARD_VECTOR_ADDRESS_WIDTH) {
+			for (Id = 0; Id < 32 ; Id++)
+			{
+				XIntc_Out64(CfgPtr->BaseAddress + XIN_IVEAR_OFFSET
+							+ (Id * 8), 0x10);
+			}
+		} else {
+			for (Id = 0; Id < 32 ; Id++)
+			{
+				XIntc_Out32(CfgPtr->BaseAddress + XIN_IVAR_OFFSET
 							+ (Id * 4), 0x10);
+			}
 		}
 #endif
 
@@ -971,17 +1007,36 @@ void XIntc_SetNormalIntrMode(XIntc *InstancePtr, u8 Id)
 						    Imr & ~Mask);
 
 #ifdef XPAR_MICROBLAZE_BASE_VECTORS
-		for (Id = 0; Id < 32 ; Id++)
-		{
-			XIntc_Out32(InstancePtr->BaseAddress + XIN_IVAR_OFFSET
-				+ (Id * 4), XPAR_MICROBLAZE_BASE_VECTORS
-				+ 0x10);
+		if (InstancePtr->CfgPtr->VectorAddrWidth >
+				XINTC_STANDARD_VECTOR_ADDRESS_WIDTH) {
+			for (Id = 0; Id < 32 ; Id++)
+			{
+				XIntc_Out64(InstancePtr->BaseAddress + XIN_IVEAR_OFFSET
+					+ (Id * 8), XPAR_MICROBLAZE_BASE_VECTORS
+					+ 0x10);
+			}
+		} else {
+			for (Id = 0; Id < 32 ; Id++)
+			{
+				XIntc_Out32(InstancePtr->BaseAddress + XIN_IVAR_OFFSET
+					+ (Id * 4), XPAR_MICROBLAZE_BASE_VECTORS
+					+ 0x10);
+			}
 		}
 #else
-		for (Id = 0; Id < 32 ; Id++)
-		{
-			XIntc_Out32(InstancePtr->BaseAddress + XIN_IVAR_OFFSET
-							+ (Id * 4), 0x10);
+		if (InstancePtr->CfgPtr->VectorAddrWidth >
+				XINTC_STANDARD_VECTOR_ADDRESS_WIDTH) {
+			for (Id = 0; Id < 32 ; Id++)
+			{
+				XIntc_Out64(InstancePtr->BaseAddress + XIN_IVEAR_OFFSET
+								+ (Id * 8), 0x10);
+			}
+		} else {
+			for (Id = 0; Id < 32 ; Id++)
+			{
+				XIntc_Out32(InstancePtr->BaseAddress + XIN_IVAR_OFFSET
+								+ (Id * 4), 0x10);
+			}
 		}
 #endif
 		/* Enable the Interrupt if it was enabled before
@@ -1050,17 +1105,36 @@ static void XIntc_InitializeSlaves(XIntc * InstancePtr)
 			XIntc_Out32(CfgPtr->BaseAddress + XIN_IMR_OFFSET, 0);
 
 #ifdef XPAR_MICROBLAZE_BASE_VECTORS
-			for (Id = 0; Id < 32 ; Id++)
-			{
-				XIntc_Out32(CfgPtr->BaseAddress +
-					XIN_IVAR_OFFSET + (Id * 4),
-					XPAR_MICROBLAZE_BASE_VECTORS + 0x10);
+			if (CfgPtr->VectorAddrWidth >
+				XINTC_STANDARD_VECTOR_ADDRESS_WIDTH) {
+				for (Id = 0; Id < 32 ; Id++)
+				{
+					XIntc_Out64(CfgPtr->BaseAddress +
+						XIN_IVEAR_OFFSET + (Id * 8),
+						XPAR_MICROBLAZE_BASE_VECTORS + 0x10);
+				}
+			} else {
+				for (Id = 0; Id < 32 ; Id++)
+				{
+					XIntc_Out32(CfgPtr->BaseAddress +
+						XIN_IVAR_OFFSET + (Id * 4),
+						XPAR_MICROBLAZE_BASE_VECTORS + 0x10);
+				}
 			}
 #else
-			for (Id = 0; Id < 32 ; Id++)
-			{
-				XIntc_Out32(CfgPtr->BaseAddress +
-					XIN_IVAR_OFFSET + (Id * 4), 0x10);
+			if (CfgPtr->VectorAddrWidth >
+				XINTC_STANDARD_VECTOR_ADDRESS_WIDTH) {
+				for (Id = 0; Id < 32 ; Id++)
+				{
+					XIntc_Out64(CfgPtr->BaseAddress +
+						XIN_IVEAR_OFFSET + (Id * 8), 0x10);
+				}
+			} else {
+				for (Id = 0; Id < 32 ; Id++)
+				{
+					XIntc_Out32(CfgPtr->BaseAddress +
+						XIN_IVAR_OFFSET + (Id * 4), 0x10);
+				}
 			}
 #endif
 		}

@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -50,8 +50,8 @@
  *  - CSU DMA driver is used to transfer the actual Bit stream file for the
  *    PS to PL after PCAP initialization
  *
- *  - Xilsecure_library provides APIs to access secure hardware on the Zynq&reg;
- *    UltraScale+&tm; MPSoC devices. This library includes:
+ *  - Xilsecure_library provides APIs to access secure hardware on the Zynq&reg
+ *    UltraScale+&tm MPSoC devices. This library includes:
  *	 - SHA-3 engine hash functions
  *	 - AES for symmetric key encryption
  *	 - RSA for authentication
@@ -103,6 +103,21 @@
  * 4.2 adk   03/08/18 Added example for partial reconfiguration.
  * 4.2 Nava   16/08/18  Modified the PL data handling Logic to support
  *                      different PL programming interfaces.
+ * 4.2 Nava   15/09/18  Fixed global function call-backs issue.
+ * 5.0 Div    21/01/19  Fixed misra-c required standard violations.
+ * 5.0  Nava 06/02/19  Remove redundant API's from the interface agnostic layer
+ *                     and make the existing API's generic to support both
+ *                     ZynqMP and versal platforms.
+ * 5.0 Nava  26/02/19  Fix for power-up PL issue with pmufw.
+ * 5.0 Nava  26/02/19  Update the data handling logic to avoid the code
+ *                     duplication
+ * 5.0 Nava  28/02/19  Handling all the 4 PS-PL resets irrespective of the
+ *                     design configuration.
+ * 5.0 Nava  21/03/19  Added Address alignment check. As CSUDMA expects word
+ *		       aligned address. In case user passes an unaligned
+ *		       address return error.
+ * 5.0 sne   27/03/19  Fixed misra-c violations.
+ * 5.0 Nava  23/04/19  Optimize the API's logic to avoid code duplication.
  * </pre>
  *
  * @note
@@ -112,19 +127,25 @@
 #ifndef XILFPGA_PCAP_H
 #define XILFPGA_PCAP_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /***************************** Include Files *********************************/
 
 #include "xcsudma.h"
 #include "xsecure.h"
+#include "xilfpga.h"
+#include "xil_util.h"
+
 /************************** Constant Definitions *****************************/
 
-#define PL_DONE_POLL_COUNT  30000U
+#define PL_DONE_POLL_COUNT  300000U
 #define PL_RESET_PERIOD_IN_US  1U
 
 
 
 /* Dummy address to indicate that destination is PCAP */
-#define XFPGA_DESTINATION_PCAP_ADDR    (0XFFFFFFFFU)
 #define XFPGA_CSU_SSS_SRC_SRC_DMA	(0x5U)
 #define XFPGA_CSU_SSS_SRC_DST_DMA	(0x30U)
 #define XFPGA_CSU_SSS_DMA_TO_DMA	(0x50U)
@@ -153,8 +174,8 @@
 #define CSU_PCAP_STATUS    ((XILFPGA_CSU_BASEADDR) + 0X00003010U)
 #define CSU_PCAP_STATUS_PL_INIT_SHIFT   2U
 #define CSU_PCAP_STATUS_PL_INIT_MASK    0X00000004U
-#define CSU_PCAP_STATUS_PCAP_WR_IDLE_MASK    0X00000001U
-#define CSU_PCAP_STATUS_PCAP_RD_IDLE_MASK    0X00000002U
+#define PCAP_STATUS_PCAP_WR_IDLE_MASK    0X00000001U
+#define PCAP_STATUS_PCAP_RD_IDLE_MASK    0X00000002U
 #define CSU_PCAP_STATUS_PCAP_RD_SHIFT	1U
 #define CSU_PCAP_STATUS_PL_DONE_MASK    0X00000008U
 
@@ -182,28 +203,31 @@
 #define PMU_GLOBAL_PWRUP_STATUS		(PMU_GLOBAL_BASE + 0x110U)
 #define PMU_GLOBAL_PWRUP_EN		(PMU_GLOBAL_BASE + 0x118U)
 #define PMU_GLOBAL_PWRUP_TRIG		(PMU_GLOBAL_BASE + 0x120U)
-#define PMU_GLOBAL_PWR_PL_MASK		0x800000
+#define PMU_GLOBAL_PWR_PL_MASK		0x800000U
 #define PMU_GLOBAL_GEN_STORAGE5		(PMU_GLOBAL_BASE + 0x44U)
 
 #define PMU_GLOBAL_ISO_INT_EN		(PMU_GLOBAL_BASE + 0X318U)
 #define PMU_GLOBAL_ISO_TRIG		(PMU_GLOBAL_BASE + 0X320U)
 #define PMU_GLOBAL_ISO_STATUS		(PMU_GLOBAL_BASE + 0X310U)
 
-#define GPIO_DIRM_5_EMIO		0xFF0A0344
-#define GPIO_MASK_DATA_5_MSW	0xFF0A002C
+#define GPIO_DIRM_5_EMIO		0xFF0A0344U
+#define GPIO_MASK_DATA_5_MSW	0xFF0A002CU
+#define GPIO_PS_PL_DIRM_MASK	0xF0000000U
+#define GPIO_LOW_DATA_MSW_VAL	0x0FFF0000U
+#define GPIO_HIGH_DATA_MSW_VAL	0x0FFFF000U
 
 /* Register: PCAP_CLK_CTRL Address */
-#define PCAP_CLK_CTRL		0xFF5E00A4
-#define PCAP_CLK_EN_MASK	0x01000000
+#define PCAP_CLK_CTRL		0xFF5E00A4U
+#define PCAP_CLK_EN_MASK	0x01000000U
 
 /* AES KEY SRC Info */
-#define XFPGA_KEY_SRC_EFUSE_RED		0xA5C3C5A3
-#define XFPGA_KEY_SRC_BBRAM_RED		0x3A5C3C5A
-#define XFPGA_KEY_SRC_EFUSE_BLK		0xA5C3C5A5
-#define XFPGA_KEY_SRC_BH_BLACK		0xA35C7C53
-#define XFPGA_KEY_SRC_EFUSE_GRY		0xA5C3C5A7
-#define XFPGA_KEY_SRC_BH_GRY		0xA35C7CA5
-#define XFPGA_KEY_SRC_KUP		0xA3A5C3C5
+#define XFPGA_KEY_SRC_EFUSE_RED		0xA5C3C5A3U
+#define XFPGA_KEY_SRC_BBRAM_RED		0x3A5C3C5AU
+#define XFPGA_KEY_SRC_EFUSE_BLK		0xA5C3C5A5U
+#define XFPGA_KEY_SRC_BH_BLACK		0xA35C7C53U
+#define XFPGA_KEY_SRC_EFUSE_GRY		0xA5C3C5A7U
+#define XFPGA_KEY_SRC_BH_GRY		0xA35C7CA5U
+#define XFPGA_KEY_SRC_KUP		0xA3A5C3C5U
 
 /* Error Codes */
 #define XFPGA_ERROR_CSUDMA_INIT_FAIL		(0x2U)
@@ -231,50 +255,93 @@
 #define XFPGA_ERROR_CSU_PCAP_TRANSFER		(0x18U)
 #define XFPGA_ERROR_PLSTATE_UNKNOWN		(0x19U)
 #define XFPGA_ERROR_BITSTREAM_FORMAT		(0x1AU)
+#define XFPGA_ERROR_UNALIGN_ADDR		(0x1BU)
+#define XFPGA_ERROR_AES_INIT			(0x1CU)
 
 /* PCAP Error Update Macro */
 #define XFPGA_PCAP_ERR_MASK			(0xFF00U)
 #define XFPGA_ERR_MODULE_MASK			(0xFFFF0000U)
 #define XFPGA_PCAP_UPDATE_ERR(XfpgaPcapErr, ModuleErr)		\
-		((ModuleErr << 16) & XFPGA_ERR_MODULE_MASK) + \
-		((XfpgaPcapErr << 8) & XFPGA_PCAP_ERR_MASK)
+		(((ModuleErr) << (u32)16U) & XFPGA_ERR_MODULE_MASK) + \
+		(((XfpgaPcapErr) << (u32)8U) & XFPGA_PCAP_ERR_MASK)
 
 #define XFPGA_STATE_MASK	0x00FF0000U
-#define XFPGA_STATE_SHIFT	16
-#define CFGREG_SRCDMA_OFFSET	0x8
-#define CFGDATA_DSTDMA_OFFSET	0x1FC
+#define XFPGA_STATE_SHIFT	16U
+#define CFGREG_SRCDMA_OFFSET	0x8U
+#define CFGDATA_DSTDMA_OFFSET	0x1FCU
 
 /* FPGA Configuration Registers Offsets */
-#define CRC		0  /* Status Register */
-#define FAR		1  /* Frame Address Register */
-#define FDRI		2  /* FDRI Register */
-#define FDRO		3  /* FDRO Register */
-#define CMD		4  /* Command Register */
-#define CTL0		5  /* Control Register 0 */
-#define MASK		6  /* MASK Register */
-#define STAT		7  /* Status Register */
-#define LOUT		8  /* LOUT Register */
-#define COR0		9  /* Configuration Options Register 0 */
-#define MFWR		10 /* MFWR Register */
-#define CBC		11 /* CBC Register */
-#define IDCODE		12 /* IDCODE Register */
-#define AXSS		13 /* AXSS Register */
-#define COR1		14 /* Configuration Options Register 1 */
-#define WBSTAR		16 /* Warm Boot Start Address Register */
-#define TIMER		17 /* Watchdog Timer Register */
-#define BOOTSTS		22 /* Boot History Status Register */
-#define CTL1		24 /* Control Register 1 */
+#define CRC		0U  /* Status Register */
+#define FAR1		1U  /* Frame Address Register */
+#define FDRI		2U  /* FDRI Register */
+#define FDRO		3U  /* FDRO Register */
+#define CMD		4U  /* Command Register */
+#define CTL0		5U  /* Control Register 0 */
+#define MASK		6U  /* MASK Register */
+#define STAT		7U  /* Status Register */
+#define LOUT		8U  /* LOUT Register */
+#define COR0		9U  /* Configuration Options Register 0 */
+#define MFWR		10U /* MFWR Register */
+#define CBC		11U /* CBC Register */
+#define IDCODE		12U /* IDCODE Register */
+#define AXSS		13U /* AXSS Register */
+#define COR1		14U /* Configuration Options Register 1 */
+#define WBSTAR		16U /* Warm Boot Start Address Register */
+#define TIMER		17U /* Watchdog Timer Register */
+#define BOOTSTS		22U /* Boot History Status Register */
+#define CTL1		24U /* Control Register 1 */
 
 /**************************** Type Definitions *******************************/
+ typedef struct {
+	XSecure_Aes *SecureAes;	/* AES initialized structure */
+	u32 NextBlkLen;		/* Not required for user, used
+				 * for storing next block size
+				 */
+ } XFpgaPs_PlEncryption;
+
+ typedef struct {
+	XFpgaPs_PlEncryption PlEncrypt;	/* Encryption parameters */
+	u8 SecureHdr[XSECURE_SECURE_HDR_SIZE + XSECURE_SECURE_GCM_TAG_SIZE];
+	u8 Hdr;
+	XSecure_Sss SssInstance;
+ } XFpgaPs_PlPartition;
+
 /**
  * Structure to store the PL Image details.
- * @BitstreamAddr	Linear memory Bitstream image base address.
- * @AddrPtr		Aes key address which is used for Decryption.
- * @ReadbackAddr	Address is the DMA buffer address to store the
- *			readback data.
- * @ConfigReg		Configuration register value to be returned
- * @NumFrames		The number of fpga configuration frames to read
+ *
  * @XSecure_ImageInfo	Used to store the secure image data.
+ * @PlAesInfo used to store the encrypted image data.
+ * @Secure_Aes The AES-GCM driver instance data structure
+ * @TotalBitPartCount Used to store the number of Authenticated partitions info.
+ * @SecureOcmState Used to Preserve the initialization states for the OCM
+ *                 use cases.
+ * @ConfigStatus Used to preserve the software PL configuration status
+ * @State Used to Preserve the software state machine.
+ * @RemaningBytes used to preserve the remaining byte to process Authenticated
+ *                bitstream Images.
+ * @AcPtr Used to Access the authenticate certificate buffer address
+ * @BitAddr Used to Access the Bitstream buffer Address.
+ */
+typedef struct {
+	XSecure_ImageInfo SecureImageInfo;
+	XFpgaPs_PlPartition PlAesInfo;
+	XSecure_Aes Secure_Aes;
+	u32 TotalBitPartCount;
+	u32 SecureOcmState;
+	u32 ConfigStatus;
+	u32 State;
+	u32 RemaningBytes;
+	UINTPTR AcPtr;
+	UINTPTR BitAddr;
+} XFpga_Info;
+
+/**
+ * Structure to store the PL Write Image details.
+ *
+ * @BitstreamAddr	Bitstream image base address.
+ * @AddrPtr_Size	Aes key address which is used for Decryption (or)
+ *			In none Secure Bitstream used it is used store size
+ *			of Bitstream Image.
  * @Flags		Flags are used to specify the type of Bitstream file.
  *			* BIT(0) - Bitstream type
  *                                     * 0 - Full Bitstream
@@ -294,22 +361,33 @@
  *
  */
 typedef struct {
-	UINTPTR BitstreamAddr;
-	UINTPTR	AddrPtr;
-	UINTPTR ReadbackAddr;
-	u32 ConfigReg;
-	u32 NumFrames;
-	XSecure_ImageInfo SecureImageInfo;
-	u32 Flags;
-} XFpga_Info;
+		UINTPTR BitstreamAddr;
+		UINTPTR	AddrPtr_Size;
+		u32 Flags;
+}XFpga_Write;
+
+/**
+ * Structure to store the PL Image details.
+ *
+ * @ReadbackAddr	Address which is used to store the PL readback data.
+ * @ConfigReg		Configuration register value to be returned (or)
+ * 			The number of Fpga configuration frames to read
+ */
+typedef struct {
+		UINTPTR ReadbackAddr;
+		u32 ConfigReg_NumFrames;
+}XFpga_Read;
 
 /************************** Variable Definitions *****************************/
-extern XCsuDma CsuDma;  /* CSU DMA instance */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-
 /*****************************************************************************/
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif  /* XILFPGA_PCAP_H */
 /** @} */

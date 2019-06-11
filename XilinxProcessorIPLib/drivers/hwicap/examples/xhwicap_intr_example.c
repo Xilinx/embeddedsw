@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2007 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -57,7 +57,9 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
-*
+* 11.2 Nava 30/01/19  Replaced #error with #pragma message since the information
+*                     related to #error is not an error info. It provides an
+*		      information about the example behaviour.
 *</pre>
 ******************************************************************************/
 
@@ -86,10 +88,10 @@
 #define TEST_WRITE_BUFFER_SIZE		4096
 
 
-#error This is an example to show the usage of the device/driver in Interrupt \
-	mode. The user has to give a valid partial bitstream as in input to \
+#pragma message ("This is an example to show the usage of the device/driver in Interrupt \
+	mode. The user has to give a valid partial bitstream as an input to \
 	the example otherwise it may overwrite the existing configuration \
-	data in the device and result in unpredicatble behaviour
+	data in the device and result in unpredictable behaviour")
 
 
 /**************************** Type Definitions *******************************/

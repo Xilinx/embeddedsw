@@ -319,29 +319,29 @@ void Vpg_VidgenSetUserPattern(XDp *InstancePtr, u8 Pattern)
 {
 	u8 StreamIndex = 1;
 
-//	                for (StreamIndex = 1; StreamIndex < 5; StreamIndex++) {
+	                for (StreamIndex = 1; StreamIndex < 5; StreamIndex++) {
 
 	if (XDp_ReadReg(InstancePtr->Config.BaseAddr,
 				(XDP_TX_USER_PIXEL_WIDTH)) == 0x4) {
 		XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[StreamIndex-1], TestPatternControl,
-				(QuadPixelMode | Pattern));
+				(QuadPixelMode | (Pattern+(StreamIndex-1))));
 
 	}
 	else if (XDp_ReadReg(InstancePtr->Config.BaseAddr,
 				(XDP_TX_USER_PIXEL_WIDTH)) == 0x2) {
 		XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[StreamIndex-1], TestPatternControl,
-			(DualPixelMode | Pattern));
+			(DualPixelMode | (Pattern+(StreamIndex-1))));
 
 	}
 	else {
 		XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[StreamIndex-1], TestPatternControl,
-			Pattern);
+			(Pattern+(StreamIndex-1)));
 
 	}
-//	                }
+	                }
 }
 
 
@@ -432,7 +432,7 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 
 	VmId = MsaConfig->Vtm.VmId;
 //    if (Stream == 1) {
-	xil_printf ("Pixel is %d, Clock is %d\r\n",MsaConfig->UserPixelWidth,(MsaConfig->PixelClockHz/1000));
+//    	xil_printf ("Pixel is %d, Clock is %d\r\n",MsaConfig->UserPixelWidth,(MsaConfig->PixelClockHz/1000));
 	ComputeMandD(((MsaConfig->PixelClockHz/1000)/MsaConfig->UserPixelWidth));
 //    }
 	/* Configure MSA values from the Display Monitor Timing (DMT) table.
@@ -648,11 +648,11 @@ static void VidgenWriteConfig(XDp *InstancePtr,
 	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], MISC0,
-				InstancePtr->TxInstance.MsaConfig[0].Misc0);
+				InstancePtr->TxInstance.MsaConfig[Stream - 1].Misc0);
 	usleep(MicrosecToWait);
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], MISC1,
-				InstancePtr->TxInstance.MsaConfig[0].Misc1);
+				InstancePtr->TxInstance.MsaConfig[Stream - 1].Misc1);
 }
 
 /*****************************************************************************/

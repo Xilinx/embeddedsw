@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
  *
  * @file xemacps.h
-* @addtogroup emacps_v3_8
+* @addtogroup emacps_v3_9
 * @{
 * @details
  *
@@ -328,6 +328,7 @@
  *		       Add API XEmacPs_BdRingPtrReset() to reset pointers
  * 3.8   hk   07/19/18 Fixed CPP, GCC and doxygen warnings - CR-1006327
  *	 hk   09/17/18 Fix PTP interrupt masks and cleanup comments.
+ * 3.9   hk   01/23/19 Add RX watermark support
  *
  * </pre>
  *
@@ -747,6 +748,49 @@ typedef struct XEmacPs_Instance {
 
 /************************** Function Prototypes *****************************/
 
+/****************************************************************************/
+/**
+*
+* This macro sets RX watermark register.
+*
+* @param InstancePtr is a pointer to the XEmacPs instance to be worked on.
+* @param High is the non-zero RX high watermark value. When SRAM fill level
+*	 is above this, a pause frame will be sent.
+* @param Low is the non-zero RX low watermark value. When SRAM fill level
+*	 is below this, a zero length pause frame will be sent IF the last
+*	 pause frame sent was non-zero.
+*
+* @return None
+*
+* @note
+*
+* Signature: void XEmacPs_SetRXWatermark(XEmacPs *InstancePtr, u16 High,
+* 					u16 Low)
+*
+*****************************************************************************/
+#define XEmacPs_SetRXWatermark(InstancePtr, High, Low)                     \
+        XEmacPs_WriteReg((InstancePtr)->Config.BaseAddress,                \
+        XEMACPS_RXWATERMARK_OFFSET,                                        \
+        (High & XEMACPS_RXWM_HIGH_MASK) |  \
+        ((Low << XEMACPS_RXWM_LOW_SHFT_MSK) & XEMACPS_RXWM_LOW_MASK) |)
+
+/****************************************************************************/
+/**
+*
+* This macro gets RX watermark register.
+*
+* @param InstancePtr is a pointer to the XEmacPs instance to be worked on.
+*
+* @return RX watermark register value
+*
+* @note
+*
+* Signature: void XEmacPs_GetRXWatermark(XEmacPs *InstancePtr)
+*
+*****************************************************************************/
+#define XEmacPs_GetRXWatermark(InstancePtr)                     \
+        XEmacPs_ReadReg((InstancePtr)->Config.BaseAddress,                \
+        XEMACPS_RXWATERMARK_OFFSET)
 /*
  * Initialization functions in xemacps.c
  */

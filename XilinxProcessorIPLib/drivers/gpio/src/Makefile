@@ -5,24 +5,36 @@ COMPILER_FLAGS=
 EXTRA_COMPILER_FLAGS=
 LIB=libxil.a
 
+CC_FLAGS = $(COMPILER_FLAGS)
+ECC_FLAGS = $(EXTRA_COMPILER_FLAGS)
+
 RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
 
-INCLUDEFILES=xgpio_l.h xgpio.h
+OUTS = *.o
 
-LIBSOURCES=*.c
-OUTS = *.o 
+LIBSOURCES:=*.c
+INCLUDEFILES:=*.h
+
 OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 
-libs:
-	echo "Compiling gpio"
-	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(LIBSOURCES)
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} $(OUTS)
-	make clean
+libs: banner xgpio_libs clean
 
-include: 
-	 ${CP} ${INCLUDEFILES} ${INCLUDEDIR} 
+%.o: %.c
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<
+
+banner:
+	echo "Compiling gpio"
+
+xgpio_libs: ${OBJECTS}
+	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS}
+
+.PHONY: include
+include: xgpio_includes
+
+xgpio_includes:
+	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
 	rm -rf ${OBJECTS}

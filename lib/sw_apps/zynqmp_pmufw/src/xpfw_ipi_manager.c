@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -44,8 +44,8 @@ static XIpiPsu *Ipi0InstPtr = &Ipi0Inst;
 static XIpiPsu *Ipi1InstPtr = &Ipi1Inst;
 u32 IpiMaskList[XPFW_IPI_MASK_COUNT] = {0U};
 
-#ifdef ENABLE_SAFETY
-#define XPFW_IPI_W0_TO_W6_SIZE 7U
+#ifdef ENABLE_IPI_CRC
+#define XPFW_IPI_W0_TO_W6_SIZE 28U
 #endif
 
 s32 XPfw_IpiManagerInit(void)
@@ -110,12 +110,9 @@ s32 XPfw_IpiWriteMessage(const XPfw_Module_t *ModPtr, u32 DestCpuMask, u32 *MsgP
 	}
 
 	MsgPtr[0] = (MsgPtr[0] & 0x0000FFFFU) | ((u32)ModPtr->IpiId << 16U);
-#ifdef ENABLE_SAFETY
+#ifdef ENABLE_IPI_CRC
 	/* For CRC, IPI message should have max allowed length i.e.,8 words */
-	if (MsgLen != XPFW_IPI_MAX_MSG_LEN) {
-		Status = XST_FAILURE;
-		goto Done;
-	}
+	MsgLen = XPFW_IPI_MAX_MSG_LEN;
 
 	/*
 	 * Note : The last word MsgPtr[7] in IPI Msg is reserved for CRC.
@@ -141,12 +138,9 @@ s32 XPfw_IpiWriteResponse(const XPfw_Module_t *ModPtr, u32 DestCpuMask, u32 *Msg
 	}
 
 	MsgPtr[0] = (MsgPtr[0] & 0x0000FFFFU) | ((u32)ModPtr->IpiId << 16U);
-#ifdef ENABLE_SAFETY
+#ifdef ENABLE_IPI_CRC
 	/* For CRC, IPI message should have max allowed length i.e.,8 words */
-	if (MsgLen != XPFW_IPI_MAX_MSG_LEN) {
-		Status = XST_FAILURE;
-		goto Done;
-	}
+	MsgLen = XPFW_IPI_MAX_MSG_LEN;
 
 	/*
 	 * Note : The last word MsgPtr[7] in IPI Msg is reserved for CRC.
@@ -164,6 +158,7 @@ Done:
 s32 XPfw_IpiReadMessage(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen)
  {
 	s32 Status = XST_FAILURE;
+	u32 RespBuf[XPFW_IPI_MAX_MSG_LEN] = {0};
 
 	if (MsgPtr == NULL) {
 		Status = XST_FAILURE;
@@ -174,13 +169,13 @@ s32 XPfw_IpiReadMessage(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen)
 	Status = XIpiPsu_ReadMessage(Ipi0InstPtr, SrcCpuMask, MsgPtr, MsgLen,
 			XIPIPSU_BUF_TYPE_MSG);
 
-#ifdef ENABLE_SAFETY
+#ifdef ENABLE_IPI_CRC
 	if (XST_SUCCESS != Status) {
 		goto Done;
 	}
 
 	/* For CRC, IPI message should have max allowed length i.e.,8 words */
-	if (MsgLen != XPFW_IPI_MAX_MSG_LEN) {
+	if (XPFW_IPI_MAX_MSG_LEN != MsgLen) {
 		Status = XST_FAILURE;
 		goto Done;
 	}
@@ -191,18 +186,29 @@ s32 XPfw_IpiReadMessage(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen)
 	 * This is only for safety applications.
 	 */
 	if (MsgPtr[7] != XPfw_CalculateCRC((u32)MsgPtr, XPFW_IPI_W0_TO_W6_SIZE)) {
+		XPfw_Printf(DEBUG_ERROR, "ERROR: IPI buffer CRC mismatch\r\n");
 		Status = XST_FAILURE;
+		goto Done;
 	}
 #endif
 
 Done:
+	/* Send response for failure status */
+	if (XST_SUCCESS != Status) {
+		RespBuf[0] = Status;
+#ifdef ENABLE_IPI_CRC
+		RespBuf[7] = XPfw_CalculateCRC((u32)RespBuf, XPFW_IPI_W0_TO_W6_SIZE);
+#endif
+		(void)XIpiPsu_WriteMessage(Ipi0InstPtr, SrcCpuMask, RespBuf,
+				XPFW_IPI_MAX_MSG_LEN, XIPIPSU_BUF_TYPE_RESP);
+	}
 	return Status;
 }
 
 s32 XPfw_IpiReadResponse(const XPfw_Module_t *ModPtr, u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen)
  {
 	s32 Status = XST_FAILURE;
-	u32 MsgHeader;
+	u32 MsgHeader = 0U;
 
 	if ((ModPtr == NULL) || (MsgPtr == NULL)) {
 		Status = XST_FAILURE;
@@ -225,13 +231,9 @@ s32 XPfw_IpiReadResponse(const XPfw_Module_t *ModPtr, u32 SrcCpuMask, u32 *MsgPt
 	Status = XIpiPsu_ReadMessage(Ipi1InstPtr, SrcCpuMask, MsgPtr, MsgLen,
 			XIPIPSU_BUF_TYPE_RESP);
 
-#ifdef ENABLE_SAFETY
-	if (XST_SUCCESS != Status) {
-		goto Done;
-	}
-
+#ifdef ENABLE_IPI_CRC
 	/* For CRC, IPI message should have max allowed length i.e.,8 words */
-	if (MsgLen != XPFW_IPI_MAX_MSG_LEN) {
+	if (XPFW_IPI_MAX_MSG_LEN != MsgLen) {
 		Status = XST_FAILURE;
 		goto Done;
 	}
@@ -241,7 +243,9 @@ s32 XPfw_IpiReadResponse(const XPfw_Module_t *ModPtr, u32 SrcCpuMask, u32 *MsgPt
 	 * This is only for safety applications.
 	 */
 	if (MsgPtr[7] != XPfw_CalculateCRC((u32)MsgPtr, XPFW_IPI_W0_TO_W6_SIZE)) {
+		XPfw_Printf(DEBUG_ERROR, "ERROR: IPI buffer CRC mismatch\r\n");
 		Status = XST_FAILURE;
+		goto Done;
 	}
 #endif
 

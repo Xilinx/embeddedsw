@@ -1,4 +1,4 @@
 var xiicps__hw_8c =
 [
-    [ "XIicPs_ResetHw", "group__iicps__v3__8.html#gabfedbe03a6ac7de3d4e0ac192b8ab288", null ]
+    [ "XIicPs_ResetHw", "xiicps__hw_8c.html#gabfedbe03a6ac7de3d4e0ac192b8ab288", null ]
 ];

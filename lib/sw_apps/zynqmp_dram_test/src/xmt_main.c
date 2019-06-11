@@ -42,6 +42,7 @@
  * 1.0   mn   08/17/18 Initial release
  *       mn   09/21/18 Modify code manually enter the DDR memory test size
  *       mn   09/27/18 Modify code to add 2D Read/Write Eye Tests support
+ *       mn   04/09/19 Add check for Carriage return when entering the test size
  *
  * </pre>
  *
@@ -58,6 +59,7 @@
 #define XMT_DEFAULT_TEST_PATTERN	0U
 #define XMT_MAX_MODE_NUM		15U
 
+#ifdef XPAR_PSU_DDR_0_S_AXI_BASEADDR
 #ifdef XPAR_PSU_DDR_1_S_AXI_BASEADDR
 /*
  * If the Upper DDR is enabled calculate the DDR total size by adding both
@@ -74,6 +76,10 @@
 #define XMT_DDR_MAX_SIZE		(XPAR_PSU_DDR_0_S_AXI_HIGHADDR -\
 				XPAR_PSU_DDR_0_S_AXI_BASEADDR + 1U)
 #define XMT_DDR_1_BASEADDR		XPAR_PSU_DDR_0_S_AXI_BASEADDR
+#endif
+#else
+#define XMT_DDR_MAX_SIZE		0U
+#define XMT_DDR_1_BASEADDR		0U
 #endif
 
 
@@ -360,7 +366,7 @@ static u64 XMt_GetRefVal(u64 Addr, u64 Index, s32 ModeVal, u64 *Pattern)
  *
  * @param XMtPtr is the pointer to the Memtest Data Structure
  * @param StartVal is the starting Address
- * @param SizeVal is the Size (Bytes) of the memory to be Tested
+ * @param SizeVal is the Size (MegaBytes) of the memory to be Tested
  * @param ModeVal is the Mode number for the test
  * @param Pattern is the Test Pattern to be written
  *
@@ -386,8 +392,8 @@ static void XMt_Memtest(XMt_CfgData *XMtPtr, u32 StartVal, u32 SizeVal,
 
 	MemErr = 0U;
 
-	/* Set the Start Address in Bytes */
-	Start = ((u64) StartVal) * XMT_MB2BYTE;
+	/* Set the Start Address */
+	Start = ((u64) StartVal);
 	Size = ((u64) SizeVal) * XMT_MB2BYTE;
 
 	memset(LocalErrCnt, 0U, 8*(sizeof(s32)));
@@ -398,7 +404,7 @@ static void XMt_Memtest(XMt_CfgData *XMtPtr, u32 StartVal, u32 SizeVal,
 	UpperDdrOffset = 0U;
 	Addr = Start;
 	for (Index = 0U; Index < Size; Index += 8U) {
-		if (Addr < (2048*(u64)XMT_MB2BYTE) - 8U) {
+		if (Addr < (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U) - 8U) {
 			Addr = Start + Index;
 		} else {
 			Addr = XMT_DDR_1_BASEADDR + UpperDdrOffset;
@@ -411,7 +417,12 @@ static void XMt_Memtest(XMt_CfgData *XMtPtr, u32 StartVal, u32 SizeVal,
 	}
 
 	if (XMtPtr->DCacheEnable != 0U) {
-		Xil_DCacheInvalidateRange(Start, Size);
+		if ((Start + Size) < (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U)) {
+			Xil_DCacheInvalidateRange(Start, Size);
+		} else {
+			Xil_DCacheInvalidateRange(Start, XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U - Start);
+			Xil_DCacheInvalidateRange(XMT_DDR_1_BASEADDR, Start + Size - XMT_DDR_1_BASEADDR);
+		}
 	}
 
 	UpperDdrOffset = 0U;
@@ -545,6 +556,7 @@ void XMt_RunEyeMemtest(XMt_CfgData *XMtPtr, u64 StartAddr, u32 Len)
 {
 	u32 DataPtr;
 	u32 RegVal;
+	u64 Index;
 	u64 Addr;
 	u64 ReadVal;
 	u64 ExpectedVal;
@@ -561,7 +573,13 @@ void XMt_RunEyeMemtest(XMt_CfgData *XMtPtr, u64 StartAddr, u32 Len)
 	DataPtr = 0U;
 
 	/* Do the Write operation on memory size specified in argument */
-	for (Addr = StartAddr; Addr < (StartAddr+(Len*XMT_KB2BYTE)); Addr += Offset) {
+	for (Index = StartAddr; Index < (StartAddr+(Len*XMT_KB2BYTE)); Index += Offset) {
+		if (Index < (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U)) {
+			Addr = Index;
+		} else {
+			Addr = XMT_DDR_1_BASEADDR + (Index - (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U));
+		}
+
 		if (Offset == 8U) {
 			Xil_Out64(Addr, AggressorPattern64Bit[DataPtr]);
 			DataPtr++;
@@ -574,13 +592,24 @@ void XMt_RunEyeMemtest(XMt_CfgData *XMtPtr, u64 StartAddr, u32 Len)
 	}
 
 	if (XMtPtr->DCacheEnable != 0U) {
-		Xil_DCacheInvalidateRange(StartAddr, Len * XMT_KB2BYTE);
+		if ((StartAddr + (Len * XMT_KB2BYTE)) < (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U)) {
+			Xil_DCacheInvalidateRange(StartAddr, Len * XMT_KB2BYTE);
+		} else {
+			Xil_DCacheInvalidateRange(StartAddr, XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U - StartAddr);
+			Xil_DCacheInvalidateRange(XMT_DDR_1_BASEADDR, StartAddr + (Len * XMT_KB2BYTE) - XMT_DDR_1_BASEADDR);
+		}
 	}
 
 	DataPtr = 0U;
 
 	/* Do the Read operation on memory size specified in argument */
-	for (Addr = StartAddr; Addr < (StartAddr+(Len*XMT_KB2BYTE)); Addr += Offset) {
+	for (Index = StartAddr; Index < (StartAddr+(Len*XMT_KB2BYTE)); Index += Offset) {
+		if (Index < (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U)) {
+			Addr = Index;
+		} else {
+			Addr = XMT_DDR_1_BASEADDR + (Index - (XPAR_PSU_DDR_0_S_AXI_HIGHADDR + 1U));
+		}
+
 		if (Offset == 8U) {
 			ReadVal = Xil_In64(Addr);
 			ExpectedVal = AggressorPattern64Bit[DataPtr];
@@ -665,12 +694,12 @@ int main(void)
 		xil_printf("\r\n \tBus Width = %d,  ", XMt.BusWidth);
 		xil_printf(" D-cache is %s,  ",
 			   (XMt.DCacheEnable) ? "enable" : "disable");
-		xil_printf(" Verbose Mode is %s\r\n\r\n",
+		xil_printf(" Verbose Mode is %s,  ",
 			   (Verbose) ? "ON" : "OFF");
-		xil_printf(" DDR ECC is %s\r\n",
+		xil_printf(" DDR ECC is %s\r\n\r\n",
 			   XMt.EccEnabled ? "ENABLED" : "DISABLED");
 		xil_printf(" Enter 'h' to print help menu\r\n");
-		xil_printf(" Enter Test Option:\r\n");
+		xil_printf(" Enter Test Option: ");
 
 		/* Get Keyboard Input */
 		Ch = inbyte();
@@ -678,6 +707,7 @@ int main(void)
 			outbyte('\n');
 		}
 		outbyte(Ch);
+		xil_printf("\r\n");
 
 		if (((Ch >= '0') && (Ch <= '9')) ||
 			((Ch == 'm') || (Ch == 'M')) ||
@@ -691,21 +721,21 @@ int main(void)
 				do {
 					SizeChar = inbyte();
 					xil_printf("%c", SizeChar);
-					if (SizeChar >= '0' && SizeChar <= '9') {
+					if ((SizeChar >= '0') && (SizeChar <= '9')) {
 						TestSize = (TestSize * 10) + (SizeChar - '0');
-					} else if (SizeChar != '\n') {
+					} else if ((SizeChar != '\r') && (SizeChar != '\n')) {
 						TestSize = 0;
 						xil_printf("\r\nPlease enter numeric value : ");
 					} else {
 						outbyte('\n');
 					}
-				} while (SizeChar != '\n');
+				} while ((SizeChar != '\n') && (SizeChar != '\r'));
 
 				TestSize = ((Ch == 'g') || (Ch == 'G')) ?
 							(TestSize * XMT_KB2BYTE) : TestSize;
 			}
 
-			if (((StartAddr + TestSize) * XMT_MB2BYTE) <=
+			if ((StartAddr + (TestSize * XMT_MB2BYTE)) <=
 					XMT_DDR_MAX_SIZE) {
 				xil_printf("\r\nStarting Memory Test...\r\n");
 				xil_printf("%dMB length - Address 0x%x...\r\n",
@@ -761,18 +791,61 @@ int main(void)
 
 		} else if ((Ch == 'l') || (Ch == 'L')) {
 			xil_printf("Enter the number of iterations : ");
-			scanf("%d", &Iter);
+			Iter = 0U;
+			do {
+				SizeChar = inbyte();
+				xil_printf("%c", SizeChar);
+				if ((SizeChar >= '0') && (SizeChar <= '9')) {
+					Iter = (Iter * 10) + (SizeChar - '0');
+				} else if ((SizeChar != '\r') && (SizeChar != '\n')) {
+					Iter = 0;
+					xil_printf("\r\nPlease enter numeric value : ");
+				} else {
+					if (Iter == 0) {
+						xil_printf("\r\nPlease enter non-zero value : ");
+						SizeChar = 0;
+						continue;
+					}
+					outbyte('\n');
+				}
+			} while ((SizeChar != '\n') && (SizeChar != '\r'));
 
 		} else if ((Ch == 't') || (Ch == 'T')) {
 			xil_printf("Please enter the Start address in hex"
 				"(without leading 0x and press enter):");
-			scanf("%lx", &StartAddr);
+			StartAddr = 0;
+			do {
+				SizeChar = inbyte();
+				xil_printf("%c", SizeChar);
+				if ((SizeChar >= '0') && (SizeChar <= '9')) {
+					StartAddr = (StartAddr * 16) + (SizeChar - '0');
+				} else if ((SizeChar >= 'a') && (SizeChar <= 'f')) {
+					StartAddr = (StartAddr * 16) + (SizeChar - 'a' + 10);
+				} else if ((SizeChar >= 'A') && (SizeChar <= 'F')) {
+					StartAddr = (StartAddr * 16) + (SizeChar - 'A' + 10);
+				} else if ((SizeChar != '\r') && (SizeChar != '\n')) {
+					StartAddr = 0;
+					xil_printf("\r\nPlease enter hexadecimal value : ");
+				} else {
+					outbyte('\n');
+				}
+			} while ((SizeChar != '\n') && (SizeChar != '\r'));
 
 		} else if ((Ch == 's') || (Ch == 'S')) {
 			xil_printf("\r\nEnter rank to select:");
-			Ch = inbyte();
-			outbyte(Ch);
-			RankArg = Ch - '0';
+			RankArg = 0U;
+			do {
+				SizeChar = inbyte();
+				xil_printf("%c", SizeChar);
+				if ((SizeChar >= '0') && (SizeChar <= '9')) {
+					RankArg = (RankArg * 10) + (SizeChar - '0');
+				} else if ((SizeChar != '\r') && (SizeChar != '\n')) {
+					RankArg = 0;
+					xil_printf("\r\nPlease enter numeric value : ");
+				} else {
+					outbyte('\n');
+				}
+			} while ((SizeChar != '\n') && (SizeChar != '\r'));
 
 			if (RankArg > XMt.DdrConfigRanks || RankArg < 1) {
 				xil_printf("\r\nInvalid Selection. "

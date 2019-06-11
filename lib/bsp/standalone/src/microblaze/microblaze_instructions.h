@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -47,6 +47,10 @@
 #ifndef MICROBLAZE_INSTRUCTIONS_H /* prevent circular inclusions */
 #define MICROBLAZE_INSTRUCTIONS_H /* by using protection macros */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #if defined (__arch64__)
 #define ADDIK addlik
 #define ADDK addlk
@@ -71,6 +75,11 @@
 #define BLEI  bealei
 #define BEQI  beaeqi
 #define BRI   breai
+#define XORI  xorli
+#define BNEI  beanei
+#define OR    orl
+#define BRALID brealid
+#define XOR   xorl
 #else
 #define ADDIK addik
 #define ADDK  addk
@@ -95,6 +104,15 @@
 #define BLEI  blei
 #define BEQI  beqi
 #define BRI   bri
+#define XORI  xori
+#define BNEI bnei
+#define OR    or
+#define BRALID bralid
+#define XOR   xor
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif /* MICROBLAZE_INSTRUCTIONS_H */

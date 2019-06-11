@@ -77,13 +77,8 @@ void XFsbl_ShaDigest(const u8 *In, const u32 Size, u8 *Out, u32 HashLen)
 
 	if(XFSBL_HASH_TYPE_SHA3 == HashLen)
 	{
+		(void)XSecure_Sha3Initialize(&SecureSha3, &CsuDma);
 		XSecure_Sha3Digest(&SecureSha3, In, Size, Out);
-	}
-	else
-	{
-#ifdef XFSBL_SHA2
-		sha_256(In, Size, Out);
-#endif
 	}
 }
 
@@ -121,12 +116,6 @@ void XFsbl_ShaStart(void * Ctx, u32 HashLen)
 
 		XSecure_Sha3Start(&SecureSha3);
 	}
-	else
-	{
-#ifdef XFSBL_SHA2
-		sha2_starts(Ctx);
-#endif
-	}
 }
 
 
@@ -143,12 +132,6 @@ void XFsbl_ShaUpdate(void * Ctx, u8 * Data, u32 Size, u32 HashLen)
 	{
 		XSecure_Sha3Update(&SecureSha3, Data, Size);
 	}
-	else
-	{
-#ifdef XFSBL_SHA2
-		sha2_update(Ctx, Data, Size);
-#endif
-	}
 }
 
 /*****************************************************************************
@@ -164,12 +147,6 @@ void XFsbl_ShaFinish(void * Ctx, u8 * Hash, u32 HashLen)
 	if(XFSBL_HASH_TYPE_SHA3 == HashLen)
 	{
 		XSecure_Sha3Finish(&SecureSha3, Hash);
-	}
-	else
-	{
-#ifdef XFSBL_SHA2
-		sha2_finish(Ctx, Hash);
-#endif
 	}
 }
 

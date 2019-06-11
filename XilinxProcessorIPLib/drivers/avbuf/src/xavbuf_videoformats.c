@@ -51,14 +51,12 @@
 
 #include "xavbuf.h"
 
-
-/**************************** Variable Definitions ****************************/
 #ifdef __cplusplus
-extern "C"
+extern "C" {
 #endif
+/**************************** Variable Definitions ****************************/
 
-const XAVBuf_VideoAttribute XAVBuf_SupportedFormats[XAVBUF_NUM_SUPPORTED] =
-{
+const XAVBuf_VideoAttribute XAVBuf_SupportedFormats[XAVBUF_NUM_SUPPORTED] = {
 	/* Non - Live Video Formats */
 	{ CbY0CrY1, 0, Interleaved,
 		{XAVBUF_BUF_8BIT_SF, XAVBUF_BUF_8BIT_SF, XAVBUF_BUF_8BIT_SF},
@@ -219,5 +217,9 @@ const XAVBuf_VideoAttribute XAVBuf_SupportedFormats[XAVBUF_NUM_SUPPORTED] =
 		TRUE, FALSE, FALSE, 36},
 
 };
+
+#ifdef __cplusplus
+}
+#endif
 
 /** @} */

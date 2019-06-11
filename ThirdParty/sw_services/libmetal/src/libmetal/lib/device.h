@@ -31,6 +31,8 @@ extern "C" {
 
 struct metal_bus;
 struct metal_device;
+struct metal_generic_shmem;
+struct metal_shm_ref;
 
 /** Bus operations. */
 struct metal_bus_ops {
@@ -54,6 +56,15 @@ struct metal_bus_ops {
 				       uint32_t dir,
 				       struct metal_sg *sg,
 				       int nents);
+	int		(*dev_shm_attach)(struct metal_bus *bus,
+					  struct metal_generic_shmem *shm,
+					  struct metal_device *dev,
+					  unsigned int direction,
+					  struct metal_shm_ref *ref);
+	void		(*dev_shm_detach)(struct metal_bus *bus,
+					  struct metal_generic_shmem *shm,
+					  struct metal_device *dev,
+					  struct metal_shm_ref *ref);
 };
 
 /** Libmetal bus structure. */

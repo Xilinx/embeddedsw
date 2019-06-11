@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2011 - 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xiomodule.c
-* @addtogroup iomodule_v2_6
+* @addtogroup iomodule_v2_7
 * @{
 *
 * Contains required functions for the XIomodule driver for the Xilinx
@@ -47,6 +47,9 @@
 *		      of 0 in CounterReg.(CR#794167)
 * 2.4   mi   09/20/16 Fixed compilation warnings
 * 2.5   ms   08/07/17 Fixed compilation warnings
+* 2.7   mus  11/09/18 Updated XIOModule_Initialize and
+*                     XIOModule_ConnectFastHandler to deal with the
+*                     vector address > 32bit.
 * </pre>
 *
 ******************************************************************************/
@@ -204,18 +207,19 @@ int XIOModule_Initialize(XIOModule * InstancePtr, u16 DeviceId)
 	/*
 	 * If the fast Interrupt mode is enabled then set all the
 	 * interrupts as normal mode and initialize the interrupt hardware
-	 * vector table to default ((BaseVector & 0xFFFFFF80) | 0x10).
+	 * vector table to default ((BaseVector & 0xFFFFFFFFFFFFFF80) | 0x10).
 	 */
 	if (InstancePtr->CfgPtr->FastIntr == TRUE) {
 		XIomodule_Out32(InstancePtr->BaseAddress + XIN_IMR_OFFSET, 0);
 
 		for (Id = 0; Id < XPAR_IOMODULE_INTC_MAX_INTR_SIZE; Id++) {
-			if (InstancePtr->CfgPtr->VectorAddrWidth > XIOMODULE_STANDARD_VECTOR_ADDRESS_WIDTH)
+			if (InstancePtr->CfgPtr->VectorAddrWidth >
+				XIOMODULE_STANDARD_VECTOR_ADDRESS_WIDTH)
 			{
 					XIomodule_Out64(InstancePtr->BaseAddress +
 						XIN_IVEAR_OFFSET + Id * 8,
 						(InstancePtr->CfgPtr->BaseVector &
-						0xFFFFFF80) | 0x10);
+					0xFFFFFFFFFFFFFF80ULL) | 0x10);
 			} else {
 					XIomodule_Out32(InstancePtr->BaseAddress +
 						XIN_IVAR_OFFSET + Id * 4,
@@ -660,10 +664,10 @@ int XIOModule_ConnectFastHandler(XIOModule *InstancePtr, u8 Id,
 	if (InstancePtr->CfgPtr->VectorAddrWidth > XIOMODULE_STANDARD_VECTOR_ADDRESS_WIDTH)
 	{
 		XIomodule_Out64(InstancePtr->BaseAddress + XIN_IVEAR_OFFSET + (Id * 8),
-			(u32) Handler);
+			(UINTPTR) Handler);
 	} else {
 		XIomodule_Out32(InstancePtr->BaseAddress + XIN_IVAR_OFFSET + (Id * 4),
-		    	(u32) Handler);
+			(UINTPTR) Handler);
 	}
 
 	/*

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -70,6 +70,9 @@
 * 3.5	tjs 07/16/18 Added support for low density ISSI flash parts.
 *		     Added FlashQuadEnable API to enable quad mode in flash.
 *		     Added FlashReadID API to read and identify the flash.
+* 3.6   akm 04/15/19 Modified FlashQuadEnable, FlashWrie and FlashErase APIs,
+*		     to wait for the on going operation to complete before
+*		     performing the next operation.
 *</pre>
 *
 ******************************************************************************/
@@ -309,12 +312,12 @@ int LinearQspiFlashExample(XQspiPs *QspiInstancePtr, u16 QspiDeviceId)
 	}
 	memset(ReadBuffer, 0x00, sizeof(ReadBuffer));
 
+	/* Assert the FLASH chip select.*/
+	XQspiPs_SetSlaveSelect(QspiInstancePtr);
+
 	FlashReadID();
 
 	FlashQuadEnable(QspiInstancePtr);
-
-	/* Assert the FLASH chip select.*/
-	XQspiPs_SetSlaveSelect(QspiInstancePtr);
 
 	/* Erase the flash sectors */
 	FlashErase(QspiInstancePtr, TEST_ADDRESS, MAX_DATA);
@@ -485,6 +488,7 @@ void FlashWrite(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 Command)
 		 * possibly incorrect such that the device status is not being
 		 * read
 		 */
+		FlashStatus[1] |= FlashStatus[0];
 		if ((FlashStatus[1] & 0x01) == 0) {
 			break;
 		}
@@ -556,6 +560,7 @@ void FlashErase(XQspiPs *QspiPtr, u32 Address, u32 ByteCount)
 			 * device slave select is possibly incorrect such that
 			 * the device status is not being read
 			 */
+			FlashStatus[1] |= FlashStatus[0];
 			if ((FlashStatus[1] & 0x01) == 0) {
 				break;
 			}
@@ -620,6 +625,7 @@ void FlashErase(XQspiPs *QspiPtr, u32 Address, u32 ByteCount)
 			 * device slave select is possibly incorrect such that
 			 * the device status is not being read
 			 */
+			FlashStatus[1] |= FlashStatus[0];
 			if ((FlashStatus[1] & 0x01) == 0) {
 				break;
 			}
@@ -695,5 +701,21 @@ void FlashQuadEnable(XQspiPs *QspiPtr)
 
 		XQspiPs_PolledTransfer(QspiPtr, QuadEnableCmd, NULL,
 				sizeof(QuadEnableCmd));
+		while (1) {
+			/*
+			 * Poll the status register of the FLASH to determine when
+			 * Quad Mode is enabled and the device is ready, by sending
+			 * a read status command and receiving the status byte
+			 */
+			XQspiPs_PolledTransfer(QspiPtr, ReadStatusCmd, FlashStatus,
+					sizeof(ReadStatusCmd));
+			/*
+			 * If 6th bit is set & 0th bit is reset, then Quad is Enabled
+			 * and device is ready.
+			 */
+			if ((FlashStatus[0] == 0x40) && (FlashStatus[1] == 0x40)) {
+				break;
+			}
+		}
 	}
 }

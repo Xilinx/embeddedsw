@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 19 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -58,6 +58,8 @@
 *                     from boot header local buffer, copying IV to global
 *                     variable for using during decryption of partition.
 * 5.0   mn   07/06/18 Add DDR initialization support for new DDR DIMM part
+*       mus  02/26/19 Added support for armclang compiler
+*       vns  03/14/19 Setting AES and SHA hardware engines into reset.
 * </pre>
 *
 * @note
@@ -117,13 +119,24 @@ void XFsbl_RegisterHandlers(void);
 /************************** Variable Definitions *****************************/
 extern XFsblPs FsblInstance;
 
+#ifdef __clang__
+extern u8 Image$$DATA_SECTION$$Base;
+extern u8 Image$$DATA_SECTION$$Limit;
+extern u8 Image$$DUP_DATA_SECTION$$Base;
+#else
 extern  u8 __data_start;
 extern  u8 __data_end;
 extern  u8 __dup_data_start;
+#endif
 
 #ifndef XFSBL_BS
+#ifdef __clang__
+u8 ReadBuffer[XFSBL_SIZE_IMAGE_HDR]
+	__attribute__((section (".bss.bitstream_buffer")));
+#else
 u8 ReadBuffer[XFSBL_SIZE_IMAGE_HDR]
 		__attribute__((section (".bitstream_buffer")));
+#endif
 #else
 extern u8 ReadBuffer[READ_BUFFER_SIZE];
 #endif
@@ -149,8 +162,18 @@ extern u32 Iv[XIH_BH_IV_LENGTH / 4U];
 void XFsbl_SaveData(void)
 {
 	const u8 *MemPtr;
+  #ifdef __clang__
+      u8 *ContextMemPtr = (u8 *)&Image$$DATA_SECTION$$Base;
+  #else
     u8 *ContextMemPtr = (u8 *)&__dup_data_start;
+  #endif
+
+  #ifdef __clang__
+    for (MemPtr = &Image$$DATA_SECTION$$Base;
+	 MemPtr < &Image$$DATA_SECTION$$Limit; MemPtr++, ContextMemPtr++) {
+  #else
     for (MemPtr = &__data_start; MemPtr < &__data_end; MemPtr++, ContextMemPtr++) {
+  #endif
 	*ContextMemPtr = *MemPtr;
     }
 }
@@ -170,8 +193,18 @@ void XFsbl_SaveData(void)
 void XFsbl_RestoreData(void)
 {
 	u8 *MemPtr;
+#ifdef __clang__
+      u8 *ContextMemPtr = (u8 *)&Image$$DATA_SECTION$$Base;
+#else
     u8 *ContextMemPtr = (u8 *)&__dup_data_start;
+#endif
+
+#ifdef __clang__
+    for (MemPtr = &Image$$DATA_SECTION$$Base;
+	 MemPtr < &Image$$DATA_SECTION$$Limit; MemPtr++, ContextMemPtr++) {
+#else
     for (MemPtr = &__data_start; MemPtr < &__data_end; MemPtr++, ContextMemPtr++) {
+#endif
 	*MemPtr = *ContextMemPtr;
     }
 }
@@ -236,6 +269,12 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 	u32 RegValue;
 #endif
 
+	/**
+	 * Place AES and SHA engines in reset
+	 */
+	XFsbl_Out32(CSU_AES_RESET, CSU_AES_RESET_RESET_MASK);
+	XFsbl_Out32(CSU_SHA_RESET, CSU_SHA_RESET_RESET_MASK);
+
 	FsblInstancePtr->ResetReason = XFsbl_GetResetReason();
 
 	/*
@@ -264,6 +303,13 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 		 */
 		XFsbl_ClearPendingInterrupts();
 	}
+
+	/**
+	 * Place AES and SHA engines in reset
+	 */
+	XFsbl_Out32(CSU_AES_RESET, CSU_AES_RESET_RESET_MASK);
+
+	XFsbl_Out32(CSU_SHA_RESET, CSU_SHA_RESET_RESET_MASK);
 
 	/**
 	 * Print the FSBL banner
@@ -707,20 +753,21 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 		goto END;
 	}
 
-#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)
+#ifdef XFSBL_PS_DDR
+#ifdef XPAR_DYNAMIC_DDR_ENABLED
 	/*
-	 * This function is used only for ZCU102 and ZCU106 boards. The DDR part
-	 * (MTA8ATF51264HZ) on these boards have changed to a newer DDR part
-	 * (MTA4ATF51264HZ) which has different configuration used than the
-	 * earlier one.
-	 * This function will reinitialize the DDR if it detects the DDR used is
-	 * newer part (MTA4ATF51264HZ).
+	 * This function is used for all the ZynqMP boards.
+	 * This function initialize the DDR by fetching the SPD data from
+	 * EEPROM. This function will determine the type of the DDR and decode
+	 * the SPD structure accordingly. The SPD data is used to calculate the
+	 * register values of DDR controller and DDR PHY.
 	 */
 	Status = XFsbl_DdrInit();
 	if (XFSBL_SUCCESS != Status) {
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_DDR_INIT_FAILED\n\r");
 		goto END;
 	}
+#endif
 #endif
 
 #ifdef XFSBL_PERF

@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2018 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -39,6 +39,8 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   rb   22/02/18 First release
+ * 1.5   vak  13/02/19 Added support for versal
+ * 1.5   vak  03/25/19 Fixed incorrect data_alignment pragma directive for IAR
  *
  *</pre>
  ******************************************************************************/
@@ -414,13 +416,12 @@ static void Usb_AudioClassReq(struct Usb_DevData *InstancePtr, SetupPacket *Setu
 	u32 ReplyLen;
 	u8 Error = 0;
 #ifdef __ICCARM__
-#ifdef PLATFORM_ZYNQMP
+#if defined (PLATFORM_ZYNQMP) || defined (versal)
 #pragma data_alignment = 64
 #else
 #pragma data_alignment = 32
 #endif
 	static u8 Reply[USB_REQ_REPLY_LEN];
-#pragma data_alignment = 4
 #else
 	static u8 Reply[USB_REQ_REPLY_LEN] ALIGNMENT_CACHELINE;
 #endif
@@ -660,13 +661,12 @@ static void Usb_DfuClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupD
 	s32 result = -1;
 
 #ifdef __ICCARM__
-#ifdef PLATFORM_ZYNQMP
+#if defined (PLATFORM_ZYNQMP) || defined (versal)
 #pragma data_alignment = 64
 #else
 #pragma data_alignment = 32
 #endif
 	static u8 DFUReply[6];
-#pragma data_alignment = 4
 #else
 	static u8 DFUReply[6] ALIGNMENT_CACHELINE;
 #endif

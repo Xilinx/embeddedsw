@@ -1,7 +1,6 @@
 /*
- * FreeRTOS Kernel V10.0.0
- * Copyright (C) 2012 - 2018 Xilinx, Inc. All rights reserved.
- * Copyright (C) 2017 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * FreeRTOS Kernel V10.1.1
+ * Copyright (C) 2018 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -11,8 +10,7 @@
  * subject to the following conditions:
  *
  * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software. If you wish to use our Amazon
- * FreeRTOS name, please do so in a fair use way that does not cause confusion.
+ * copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
@@ -43,13 +41,14 @@
 #include <xintc_i.h>
 #include <xil_exception.h>
 #include <microblaze_exceptions_g.h>
+#include <microblaze_instructions.h>
 
 /* Tasks are started with a critical section nesting of 0 - however, prior to
 the scheduler being commenced interrupts should not be enabled, so the critical
 nesting variable is initialised to a non-zero value. */
 #define portINITIAL_NESTING_VALUE	( 0xff )
 
-/* The bit within the MSR register that enabled/disables interrupts and 
+/* The bit within the MSR register that enabled/disables interrupts and
 exceptions respectively. */
 #define portMSR_IE					( 0x02U )
 #define portMSR_EE					( 0x100U )
@@ -59,6 +58,13 @@ FSR register is saved as part of the task context.  portINITIAL_FSR is the value
 given to the FSR register when the initial context is set up for a task being
 created. */
 #define portINITIAL_FSR				( 0U )
+/*
+ * Global counter used for calculation of run time statistics of tasks.
+ * Defined only when the relevant option is turned on
+ */
+#if (configGENERATE_RUN_TIME_STATS==1)
+volatile uint32_t ulHighFrequencyTimerTicks;
+#endif
 
 /*-----------------------------------------------------------*/
 
@@ -82,7 +88,7 @@ volatile UBaseType_t uxCriticalNesting = portINITIAL_NESTING_VALUE;
 /* This port uses a separate stack for interrupts.  This prevents the stack of
 every task needing to be large enough to hold an entire interrupt stack on top
 of the task stack. */
-uint32_t *pulISRStack;
+UINTPTR *pulISRStack;
 
 /* If an interrupt requests a context switch, then ulTaskSwitchRequested will
 get set to 1.  ulTaskSwitchRequested is inspected just before the main interrupt
@@ -109,8 +115,8 @@ static XIntc xInterruptControllerInstance;
 StackType_t *pxPortInitialiseStack( StackType_t *pxTopOfStack, TaskFunction_t pxCode, void *pvParameters )
 {
 extern void *_SDA2_BASE_, *_SDA_BASE_;
-const uint32_t ulR2 = ( uint32_t ) &_SDA2_BASE_;
-const uint32_t ulR13 = ( uint32_t ) &_SDA_BASE_;
+const UINTPTR ulR2 = ( UINTPTR ) &_SDA2_BASE_;
+const UINTPTR ulR13 = ( UINTPTR ) &_SDA_BASE_;
 extern void _start1( void );
 
 	/* Place a few bytes of known values on the bottom of the stack.
@@ -133,7 +139,7 @@ extern void _start1( void );
 	disabled.  Each task will enable interrupts automatically when it enters
 	the running state for the first time. */
 	*pxTopOfStack = mfmsr() & ~portMSR_IE;
-	
+
 	#if( MICROBLAZE_EXCEPTIONS_ENABLED == 1 )
 	{
 		/* Ensure exceptions are enabled for the task. */
@@ -239,7 +245,7 @@ extern void _start1( void );
 BaseType_t xPortStartScheduler( void )
 {
 extern void ( vPortStartFirstTask )( void );
-extern uint32_t _stack[];
+extern UINTPTR _stack[];
 
 	/* Setup the hardware to generate the tick.  Interrupts are disabled when
 	this function is called.
@@ -253,7 +259,7 @@ extern uint32_t _stack[];
 	vApplicationSetupTimerInterrupt();
 
 	/* Reuse the stack from main() as the stack for the interrupts/exceptions. */
-	pulISRStack = ( uint32_t * ) _stack;
+	pulISRStack = ( UINTPTR * ) _stack;
 
 	/* Ensure there is enough space for the functions called from the interrupt
 	service routines to write back into the stack frame of the caller. */
@@ -290,8 +296,13 @@ extern void VPortYieldASM( void );
 	{
 		/* Jump directly to the yield function to ensure there is no
 		compiler generated prologue code. */
+#ifdef __arch64__
+		asm volatile (	"brealid r14, VPortYieldASM		\n\t" \
+						"or r0, r0, r0					\n\t" );
+#else
 		asm volatile (	"bralid r14, VPortYieldASM		\n\t" \
 						"or r0, r0, r0					\n\t" );
+#endif
 	}
 	portEXIT_CRITICAL();
 }
@@ -307,7 +318,13 @@ int32_t lReturn;
 	lReturn = prvEnsureInterruptControllerIsInitialised();
 	if( lReturn == pdPASS )
 	{
-		XIntc_Enable( &xInterruptControllerInstance, ucInterruptID );
+		/* Critical section protects read/modify/writer operation inside
+		XIntc_Enable(). */
+		portENTER_CRITICAL();
+		{
+			XIntc_Enable( &xInterruptControllerInstance, ucInterruptID );
+		}
+		portEXIT_CRITICAL();
 	}
 
 	configASSERT( lReturn );
@@ -393,6 +410,19 @@ extern void vApplicationClearTimerInterrupt( void );
 	/* Ensure the unused parameter does not generate a compiler warning. */
 	( void ) pvUnused;
 
+	/*
+	 * The Xilinx implementation of generating run time task stats uses the same timer used for generating
+	 * FreeRTOS ticks. In case user decides to generate run time stats the tick handler is called more
+	 * frequently (10 times faster). The timer/tick handler uses logic to handle the same. It handles
+	 * the FreeRTOS tick once per 10 interrupts.
+	 * For handling generation of run time stats, it increments a pre-defined counter every time the
+	 * interrupt handler executes.
+	 */
+#if (configGENERATE_RUN_TIME_STATS == 1)
+	ulHighFrequencyTimerTicks++;
+	if (!(ulHighFrequencyTimerTicks % 10))
+#endif
+	{
 	/* This port uses an application defined callback function to clear the tick
 	interrupt because the kernel will run on lots of different MicroBlaze and
 	FPGA configurations - not all of which will have the same timer peripherals
@@ -406,6 +436,7 @@ extern void vApplicationClearTimerInterrupt( void );
 	{
 		/* Force vTaskSwitchContext() to be called as the interrupt exits. */
 		ulTaskSwitchRequested = 1;
+	}
 	}
 }
 /*-----------------------------------------------------------*/
@@ -451,4 +482,25 @@ int32_t lStatus;
 
 	return lStatus;
 }
+
+#if( configGENERATE_RUN_TIME_STATS == 1 )
+/*
+ * For Xilinx implementation this is a dummy function that does a redundant operation
+ * of zeroing out the global counter.
+ * It is called by FreeRTOS kernel.
+ */
+void xCONFIGURE_TIMER_FOR_RUN_TIME_STATS (void)
+{
+	ulHighFrequencyTimerTicks = 0;
+}
+/*
+ * For Xilinx implementation this function returns the global counter used for
+ * run time task stats calculation.
+ * It is called by FreeRTOS kernel task handling logic.
+ */
+uint32_t xGET_RUN_TIME_COUNTER_VALUE (void)
+{
+	return ulHighFrequencyTimerTicks;
+}
+#endif
 /*-----------------------------------------------------------*/

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xspips.h
-* @addtogroup spips_v3_1
+* @addtogroup spips_v3_2
 * @{
 * @details
 *
@@ -248,6 +248,10 @@
 *                       files to include them in doxygen examples.
 * 3.1	tjs    04/12/18 InputClockHz parameter copied in instance for use in
 * 						application. CR#998910
+* 3.2   aru    01/20/19 Fixes violations according to MISRAC-2012
+*                       in safety mode and done changes such as
+*                       Declared the pointer param as Pointer to const.
+* 3.2   nsk    03/26/19 Add support for versal - CR #1025583.
 * </pre>
 *
 ******************************************************************************/
@@ -385,7 +389,7 @@ extern "C" {
  *		transferred.  This may be less than the number of bytes
  *		requested if the status event indicates an error.
  */
-typedef void (*XSpiPs_StatusHandler) (void *CallBackRef, u32 StatusEvent,
+typedef void (*XSpiPs_StatusHandler) (const void *CallBackRef, u32 StatusEvent,
 					u32 ByteCount);
 
 /**
@@ -432,7 +436,7 @@ typedef struct {
 *		- FALSE if option is not set
 *
 * @note		C-Style signature:
-*		u8 XSpiPs_IsManualStart(XSpiPs *InstancePtr);
+*		u8 XSpiPs_IsManualStart(XSpiPs *InstancePtr)
 *
 *****************************************************************************/
 #define XSpiPs_IsManualStart(InstancePtr) \
@@ -451,7 +455,7 @@ typedef struct {
 *		- FALSE if option is not set
 *
 * @note		C-Style signature:
-*		u8 XSpiPs_IsManualChipSelect(XSpiPs *InstancePtr);
+*		u8 XSpiPs_IsManualChipSelect(XSpiPs *InstancePtr)
 *
 *****************************************************************************/
 #define XSpiPs_IsManualChipSelect(InstancePtr) \
@@ -470,7 +474,7 @@ typedef struct {
 *		- FALSE if option is not set
 *
 * @note		C-Style signature:
-*		u8 XSpiPs_IsDecodeSSelect(XSpiPs *InstancePtr);
+*		u8 XSpiPs_IsDecodeSSelect(XSpiPs *InstancePtr)
 *
 *****************************************************************************/
 #define XSpiPs_IsDecodeSSelect(InstancePtr) \
@@ -489,7 +493,7 @@ typedef struct {
 *		- FALSE if option is not set
 *
 * @note		C-Style signature:
-*		u8 XSpiPs_IsMaster(XSpiPs *InstancePtr);
+*		u8 XSpiPs_IsMaster(XSpiPs *InstancePtr)
 *
 *****************************************************************************/
 #define XSpiPs_IsMaster(InstancePtr) \
@@ -653,7 +657,7 @@ XSpiPs_Config *XSpiPs_LookupConfig(u16 DeviceId);
 /*
  * Functions implemented in xspips.c
  */
-s32 XSpiPs_CfgInitialize(XSpiPs *InstancePtr, XSpiPs_Config * ConfigPtr,
+s32 XSpiPs_CfgInitialize(XSpiPs *InstancePtr, const XSpiPs_Config * ConfigPtr,
 				u32 EffectiveAddr);
 
 void XSpiPs_Reset(XSpiPs *InstancePtr);
@@ -671,7 +675,7 @@ void XSpiPs_InterruptHandler(XSpiPs *InstancePtr);
 void XSpiPs_Abort(XSpiPs *InstancePtr);
 
 s32 XSpiPs_SetSlaveSelect(XSpiPs *InstancePtr, u8 SlaveSel);
-u8 XSpiPs_GetSlaveSelect(XSpiPs *InstancePtr);
+u8 XSpiPs_GetSlaveSelect(const XSpiPs *InstancePtr);
 
 /*
  * Functions for selftest, in xspips_selftest.c
@@ -681,15 +685,15 @@ s32 XSpiPs_SelfTest(XSpiPs *InstancePtr);
 /*
  * Functions for options, in xspips_options.c
  */
-s32 XSpiPs_SetOptions(XSpiPs *InstancePtr, u32 Options);
-u32 XSpiPs_GetOptions(XSpiPs *InstancePtr);
+s32 XSpiPs_SetOptions(const XSpiPs *InstancePtr, u32 Options);
+u32 XSpiPs_GetOptions(const XSpiPs *InstancePtr);
 
-s32 XSpiPs_SetClkPrescaler(XSpiPs *InstancePtr, u8 Prescaler);
-u8 XSpiPs_GetClkPrescaler(XSpiPs *InstancePtr);
+s32 XSpiPs_SetClkPrescaler(const XSpiPs *InstancePtr, u8 Prescaler);
+u8 XSpiPs_GetClkPrescaler(const XSpiPs *InstancePtr);
 
-s32 XSpiPs_SetDelays(XSpiPs *InstancePtr, u8 DelayNss, u8 DelayBtwn,
+s32 XSpiPs_SetDelays(const XSpiPs *InstancePtr, u8 DelayNss, u8 DelayBtwn,
 			u8 DelayAfter, u8 DelayInit);
-void XSpiPs_GetDelays(XSpiPs *InstancePtr, u8 *DelayNss, u8 *DelayBtwn,
+void XSpiPs_GetDelays(const XSpiPs *InstancePtr, u8 *DelayNss, u8 *DelayBtwn,
 			u8 *DelayAfter, u8 *DelayInit);
 #ifdef __cplusplus
 }

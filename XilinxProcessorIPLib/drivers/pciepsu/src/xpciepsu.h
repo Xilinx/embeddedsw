@@ -98,6 +98,8 @@ typedef struct {
 	u64	PMemBaseAddr;		/**< prefetchable memory base address */
 	u32	NpMemMaxAddr;	/**< non prefetchable memory max base address*/
 	u64	PMemMaxAddr;	/**< prefetchable memory max base address */
+    u32 DmaBaseAddr;	/**< DMA base address */
+	u8	PcieMode;		/**< pcie mode rc or endpoint */
 } XPciePsu_Config;
 
 typedef struct {

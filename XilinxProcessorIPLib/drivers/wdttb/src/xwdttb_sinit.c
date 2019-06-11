@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 - 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2016 - 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xwdttb_sinit.c
-* @addtogroup xwdttb_v4_3
+* @addtogroup xwdttb_v4_4
 * @{
 *
 * This file contains static initialization method for Xilinx AXI Timebase

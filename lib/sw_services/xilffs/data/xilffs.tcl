@@ -32,6 +32,7 @@
 # ----- ----  -------  -----------------------------------------------
 # 1.00a hk/sg 10/17/13 First release
 # 2.0   hk    12/13/13 Modified to use new TCL API's
+# 4.1   hk    11/21/18 Use additional LFN options
 #
 ##############################################################################
 
@@ -68,7 +69,7 @@ proc get_ffs_periphs {processor} {
 		set periphname [common::get_property IP_NAME $periph]
 		# Checks if SD instance is present
 		# This can be expanded to add more instances.
-		if {$periphname == "ps7_sdio" || $periphname == "psu_sd"} {
+		if {$periphname == "ps7_sdio" || $periphname == "psu_sd" || $periphname == "psv_pmc_sd"} {
 			lappend ffs_periphs_list $periph
 			lappend ffs_periphs_name_list $periphname
 		}
@@ -115,6 +116,7 @@ proc xgen_opts_file {libhandle} {
 	set use_strfunc [common::get_property CONFIG.use_strfunc $libhandle]
 	set set_fs_rpath [common::get_property CONFIG.set_fs_rpath $libhandle]
 	set word_access [common::get_property CONFIG.word_access $libhandle]
+	set use_chmod [common::get_property CONFIG.use_chmod $libhandle]
 
 	# do processor specific checks
 	set proc  [hsi::get_sw_processor];
@@ -149,7 +151,7 @@ proc xgen_opts_file {libhandle} {
 	global ffs_periphs_name_list
 	foreach periph $ffs_periphs_name_list {
 
-		if {$periph == "ps7_sdio" || $periph == "psu_sd"} {
+		if {$periph == "ps7_sdio" || $periph == "psu_sd" || $periph == "psv_pmc_sd"} {
 			if {$fs_interface == 1} {
 				puts $file_handle "\#define FILE_SYSTEM_INTERFACE_SD"
 				break
@@ -163,16 +165,24 @@ proc xgen_opts_file {libhandle} {
 		}
 		if {$enable_exfat == true} {
 			puts $file_handle "\#define FILE_SYSTEM_FS_EXFAT"
-			set use_lfn true
+			set use_lfn 1
 		}
-		if {$use_lfn == true} {
-			puts $file_handle "\#define FILE_SYSTEM_USE_LFN"
+		if {$use_lfn > 0 && $use_lfn < 4} {
+			puts $file_handle "\#define FILE_SYSTEM_USE_LFN $use_lfn"
 		}
 		if {$use_mkfs == true} {
 			puts $file_handle "\#define FILE_SYSTEM_USE_MKFS"
 		}
 		if {$enable_multi_partition == true} {
 			puts $file_handle "\#define FILE_SYSTEM_MULTI_PARTITION"
+		}
+		if {$use_chmod == true} {
+			if {$read_only == false} {
+				puts $file_handle "\#define FILE_SYSTEM_USE_CHMOD"
+			} else {
+				puts "WARNING : Cannot Enable CHMOD in \
+						Read Only Mode"
+			}
 		}
 		if {$num_logical_vol > 10} {
 			puts "WARNING : File System supports only upto 10 logical drives\

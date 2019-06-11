@@ -29,7 +29,7 @@
 /**
 *
 * @file xio.h
-* @addtogroup cpu_v2_8
+* @addtogroup cpu_v2_9
 * @{
 * @details
 *

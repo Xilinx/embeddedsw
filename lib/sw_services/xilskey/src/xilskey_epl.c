@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -63,7 +63,9 @@
 * 6.4   vns     02/27/18 Added support for programming secure bit 6 -
 *                        enable obfuscation feature for eFUSE AES key
 * 6.6   vns     06/06/18 Added doxygen tags
-*
+* 6.7   psl     03/20/19 Added eFuse key write support for SSIT devices.
+*       arc     04/04/19 Fixed CPP warnings.
+*       psl     04/15/19 Added JtagServerInit function.
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "xparameters.h"
@@ -345,7 +347,7 @@ static u8 RsaDataInBytes[XSK_EFUSEPL_RSA_HASH_SIZE_ULTRA];
 static u8 CtrlBitsUltra[XSK_EFUSEPL_ARRAY_MAX_ROW];
 static u8 User128BitData[XSK_EFUSEPL_ARRAY_FUSE_128BIT_USER_SIZE];
 XSKEfusePl_Fpga	PlFpgaFlag;		/**< For Storing Fpga series */
-
+extern XilSKey_JtagSlr XilSKeyJtag;
 /************************** Function Prototypes *****************************/
 /**
  * PL eFUSE interface functions
@@ -374,7 +376,7 @@ static u32 XilSKey_EfusePl_Program_Zynq(XilSKey_EPl *InstancePtr);
 
 static inline u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr);
 
-static inline u32 XilSKey_EfusePl_Program_AesKey_ultra();
+static inline u32 XilSKey_EfusePl_Program_AesKey_ultra(void);
 
 static inline u32 XilSKey_EfusePl_Program_RowRange_ultra(u8 RowStart, u8 RowEnd,
 				u8 *DataPrgrmg, u8 Page);
@@ -436,6 +438,87 @@ extern void JtagRead_Ultrascale(u8 Row, u32 *RowData, u8 MarginOption,
 extern void JtagRead_Status_Ultrascale(u32 *Rowdata);
 extern u32 JtagAES_Check_Ultrascale(u32 *Crc, u8 MarginOption);
 /***************************************************************************/
+
+/****************************************************************************/
+/**
+*	Initializes PL eFUSE with input data given
+*
+*
+* @param	InstancePtr - Input data to be written to PL eFUSE
+*
+* @return
+*
+*	- XST_FAILURE - In case of failure
+*	- XST_SUCCESS - In case of Success
+*
+*
+* @note		Updates the global variable ErrorCode with error code(if any).
+*
+*****************************************************************************/
+u32 XilSKey_EfusePl_SystemInit(XilSKey_EPl *InstancePtr)
+{
+
+	ErrorCode = XSK_EFUSEPL_ERROR_NONE;
+
+
+	if(NULL == InstancePtr)	{
+		return XSK_EFUSEPL_ERROR_PL_STRUCT_NULL;
+	}
+
+	if(!(InstancePtr->SystemInitDone))
+	{
+
+#ifdef XSK_ARM_PLATFORM
+		u32 RefClk;
+		u32 Status;
+		RefClk = XilSKey_Timer_Intialise();
+		/**
+		 * Return error if the reference clock frequency is not in
+		 * between 20 & 60MHz
+		 */
+		if((RefClk < XSK_EFUSEPL_MIN_REF_CLK_FREQ) ||
+				(RefClk > XSK_EFUSEPL_MAX_REF_CLK_FREQ)) {
+			return XSK_EFUSEPL_ERROR_INVALID_REF_CLK;
+		}
+		/**
+		 * Initialize the system ,
+		 * which means initialize the timer, xadc, and jtag
+		 * server using the passed info.
+		 */
+
+		XilSKey_Efuse_StartTimer();
+
+		Status = XilSKey_EfusePs_XAdcInit();
+		if(Status != XST_SUCCESS) {
+			ErrorCode = Status;
+			return (XSK_EFUSEPL_ERROR_XADC + ErrorCode);
+			}
+#else
+		if (XilSKey_Timer_Intialise() == XST_FAILURE) {
+			return (XSK_EFUSEPL_ERROR_TIMER_INTIALISE_ULTRA);
+		}
+#endif
+		/**
+		 * Start using the Jtag server to read the JTAG ID and
+		 * compare with the stored ID, if it not matches return with
+		 * unique error code.
+		 * By reading the Jtag ID we will be sure that the JTAG related
+		 * stuff is working as expected.
+		 */
+		if(JtagServerInit(InstancePtr) != XST_SUCCESS) {
+			return XSK_EFUSEPL_ERROR_JTAG_SERVER_INIT;
+		}
+
+		InstancePtr->SystemInitDone = 1;
+		PlFpgaFlag = InstancePtr->FpgaFlag;
+	}
+
+	/**
+	 * If everything is ok then return PASS.
+	 */
+	return XST_SUCCESS;
+}
+
 /****************************************************************************/
 /**
 *
@@ -514,7 +597,6 @@ u32 XilSKey_EfusePl_Program(XilSKey_EPl *InstancePtr)
 		InstancePtr->SystemInitDone = 1;
 		PlFpgaFlag = InstancePtr->FpgaFlag;
 	}
-
 	if (PlFpgaFlag == XSK_FPGA_SERIES_ZYNQ) {
 
 		Status = XilSKey_EfusePl_Program_Zynq(InstancePtr);
@@ -1282,14 +1364,11 @@ u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits)
 		}
 #endif
 
-		if(JtagServerInit(InstancePtr) != XST_SUCCESS) {
-			return XSK_EFUSEPL_ERROR_JTAG_SERVER_INIT;
-		}
 
 		InstancePtr->SystemInitDone = 1;
 		PlFpgaFlag = InstancePtr->FpgaFlag;
 	}
-
+	XilSKeyJtag.CurSlr = InstancePtr->CurSlr;
 #ifdef XSK_ZYNQ_PLATFORM
 
 	/**
@@ -1515,7 +1594,7 @@ static inline u32 XilSKey_EfusePl_ReadKey_Zynq(XilSKey_EPl *InstancePtr)
 	JtagRead(30, &RowData, 0);
 	InstancePtr->AESKeyReadback[KeyCnt++] = (u8)(RowData & 0xFF);
 	RowData = RowData >> 8;
-	InstancePtr->AESKeyReadback[KeyCnt++] = (u8)(RowData & 0xFF);
+	InstancePtr->AESKeyReadback[KeyCnt] = (u8)(RowData & 0xFF);
 
 	/*
 	 * User key 4 bytes
@@ -2316,6 +2395,8 @@ u32 XilSKey_EfusePl_Program_Zynq(XilSKey_EPl *InstancePtr)
 	u32 Row = 0;
 	u32 Index = 0;
 
+	/* Initialize current SLR */
+	InstancePtr->CurSlr = 0;
 	/**
 	 *	Read the FUSE_CNTL register bits [5:2], and if any of them is found to
 	 *	be set to 1 then we can not write to the eFUSE, so return with unique
@@ -2509,6 +2590,8 @@ static inline u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr)
 	u32 Status;
 	u8 User32Data[XSK_EFUSEPL_ARRAY_FUSE_USER_KEY_SIZE];
 	u8 User128Data[XSK_EFUSEPL_ARRAY_FUSE_128BIT_USER_SIZE];
+
+	XilSKeyJtag.CurSlr = InstancePtr->CurSlr;
 
 	Status = XilSKey_EfusePl_Program_Checks(InstancePtr);
 	if (Status != XST_SUCCESS) {
@@ -2729,7 +2812,7 @@ static inline u32 XilSKey_EfusePl_Program_Checks(XilSKey_EPl *InstancePtr)
 	}
 
 	if ((StatusValues &
-		(1 << XSK_EFUSEPL_STATUS_FUSE_LOGIC_IS_BUSY_ULTRA)) == TRUE) {
+		(1 << XSK_EFUSEPL_STATUS_FUSE_LOGIC_IS_BUSY_ULTRA)) != FALSE) {
 		return (XSK_EFUSEPL_ERROR_FUSE_BUSY + ErrorCode);
 	}
 #endif
@@ -2823,7 +2906,6 @@ static inline u32 XilSKey_EfusePl_Program_RowRange_ultra(u8 RowStart, u8 RowEnd,
 	u32 Row;
 	u8 RowData[XSK_EFUSEPL_MAX_BITS_IN_A_ROW_ULTRA]={0};
 	u32 Status;
-	u8 *RowPtr;
 	u32 MaxBits;
 	u8 RsaRowStart;
 	u8 RsaRowEnd;
@@ -2903,18 +2985,16 @@ static inline u32 XilSKey_EfusePl_Program_RowRange_ultra(u8 RowStart, u8 RowEnd,
 	 */
 	for (Row = RowStart; Row <= RowEnd; Row++) {
 
-		RowPtr = &DataPrgrmg[(Row - RowStart) *
-				MaxBits];
-
-
-		if(XilSKey_EfusePl_ProgramRow_Ultra(Row, RowPtr,
+		if(XilSKey_EfusePl_ProgramRow_Ultra(Row,
+				&DataPrgrmg[(Row - RowStart) * MaxBits],
 			XSK_EFUSEPL_NORMAL_ULTRA, Page) !=
 						XST_SUCCESS) {
 			return (XSK_EFUSEPL_ERROR_IN_PROGRAMMING_ROW +
 						ErrorCode);
 		}
 		/* Programming redundancy bits */
-		if(XilSKey_EfusePl_ProgramRow_Ultra(Row, RowPtr,
+		if(XilSKey_EfusePl_ProgramRow_Ultra(Row,
+				&DataPrgrmg[(Row - RowStart) * MaxBits],
 			XSK_EFUSEPL_REDUNDANT_ULTRA, Page) !=
 						XST_SUCCESS) {
 			return (XSK_EFUSEPL_ERROR_IN_PROGRAMMING_ROW +
@@ -2941,11 +3021,10 @@ static inline u32 XilSKey_EfusePl_Program_RowRange_ultra(u8 RowStart, u8 RowEnd,
 *	Updates the global variable ErrorCode with error code(if any).
 *
 *****************************************************************************/
-static inline u32 XilSKey_EfusePl_Program_AesKey_ultra()
+static inline u32 XilSKey_EfusePl_Program_AesKey_ultra(void)
 {
 
 	u32 Row;
-	u8 *RowPtr;
 	u32 CrcOfZeros;
 	u32 AesStart;
 	u32 AesEnd;
@@ -2981,16 +3060,16 @@ static inline u32 XilSKey_EfusePl_Program_AesKey_ultra()
 
 	for (Row = AesStart; Row <= AesEnd; Row++) {
 
-		RowPtr = &AesDataInBytes[(Row - AesStart) *
-								 MaxBits];
-		if (XilSKey_EfusePl_ProgramRow_Ultra(Row, RowPtr,
+		if (XilSKey_EfusePl_ProgramRow_Ultra(Row,
+				&AesDataInBytes[(Row - AesStart) * MaxBits],
 			XSK_EFUSEPL_NORMAL_ULTRA, XSK_EFUSEPL_PAGE_0_ULTRA) !=
 					XST_SUCCESS) {
 			return ( XSK_EFUSEPL_ERROR_PROGRAMMING_FUSE_AES_ROW +
 							ErrorCode);
 		}
 		/* Programming redundancy bits */
-		if (XilSKey_EfusePl_ProgramRow_Ultra(Row, RowPtr,
+		if (XilSKey_EfusePl_ProgramRow_Ultra(Row,
+				&AesDataInBytes[(Row - AesStart) * MaxBits],
 		XSK_EFUSEPL_REDUNDANT_ULTRA, XSK_EFUSEPL_PAGE_0_ULTRA) !=
 							XST_SUCCESS) {
 			return (XSK_EFUSEPL_ERROR_PROGRAMMING_FUSE_AES_ROW
@@ -3549,8 +3628,7 @@ static inline u8 XilSKey_EfusePl_Ultra_Check(u8 Row,
 		/**
 		 * If row = 4 then bits should be supported from 0 to 5
 		 */
-		 if (((Row == XSK_EFUSEPL_SEC_ROW_ULTRA_PLUS) ||
-				 (Row == XSK_EFUSEPL_SEC_ROW_ULTRA_PLUS)) &&
+		 if ((Row == XSK_EFUSEPL_SEC_ROW_ULTRA_PLUS) &&
 			 (Bit > XSK_EFUSEPL_SEC_ROW_END_BIT_ULTRA) &&
 			 (Page == XSK_EFUSEPL_PAGE_0_ULTRA)) {
 			ErrorCode = XSK_EFUSEPL_ERROR_WRITE_BIT_OUT_OF_RANGE;

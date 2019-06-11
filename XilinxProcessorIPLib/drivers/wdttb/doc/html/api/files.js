@@ -4,6 +4,8 @@ var files =
     [ "xwdttb.h", "xwdttb_8h.html", "xwdttb_8h" ],
     [ "xwdttb_example.c", "xwdttb__example_8c.html", "xwdttb__example_8c" ],
     [ "xwdttb_g.c", "xwdttb__g_8c.html", null ],
+    [ "xwdttb_gwdt_example.c", "xwdttb__gwdt__example_8c.html", "xwdttb__gwdt__example_8c" ],
+    [ "xwdttb_gwdt_selftest_example.c", "xwdttb__gwdt__selftest__example_8c.html", "xwdttb__gwdt__selftest__example_8c" ],
     [ "xwdttb_hw.h", "xwdttb__hw_8h.html", "xwdttb__hw_8h" ],
     [ "xwdttb_intr_example.c", "xwdttb__intr__example_8c.html", "xwdttb__intr__example_8c" ],
     [ "xwdttb_l.h", "xwdttb__l_8h.html", null ],

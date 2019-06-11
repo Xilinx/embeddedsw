@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,8 @@
  *                     examples.
  * 1.4   BK  12/01/18  Renamed the file and added changes to have a common
  *		       example for all USB IPs.
+ * 1.5	  vak 13/02/19  Added support for versal
+ * 1.5    vak 03/25/19 Fixed incorrect data_alignment pragma directive for IAR
  *
  * </pre>
  *
@@ -69,7 +71,7 @@ extern u8 VirtFlash[];
  * Pre-manufactured response to the SCSI Inquiry command.
  */
 #if __ICCARM__
-#ifdef PLATFORM_ZYNQMP
+#if defined (PLATFORM_ZYNQMP) || defined (versal)
 #pragma data_alignment = 64
 #else
 #pragma data_alignment = 32
@@ -123,10 +125,6 @@ extern u8	*VirtFlashWritePointer;
 static u8 txBuffer[128];
 #else
 static u8 txBuffer[128] ALIGNMENT_CACHELINE;
-#endif
-
-#ifdef __ICCARM__
-#pragma data_alignment = 4
 #endif
 
 /*****************************************************************************/

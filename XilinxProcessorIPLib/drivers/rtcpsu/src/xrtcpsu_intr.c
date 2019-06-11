@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015- 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015- 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xrtcpsu_intr.c
-* @addtogroup rtcpsu_v1_6
+* @addtogroup rtcpsu_v1_7
 * @{
 *
 * This file contains functions related to RTC interrupt handling.
@@ -43,6 +43,13 @@
 * 1.3   vak    04/25/16 Changed the XRtcPsu_InterruptHandler() for updating RTC
 *                       read and write time logic(cr#948833).
 * 1.6   aru    08/17/18 Resolved MISRA-C mandatory violations.(CR#1007752)
+* 1.7   sne    03/01/19 Added Versal support.
+* 1.7   sne    03/01/19 Fixed violations according to MISRAC-2012 standards
+*                       modified the code such as
+*                       No brackets to loop body,Declared the poiner param
+*                       as Pointer to const,No brackets to then/else,
+*                       Literal value requires a U suffix,Casting operation to a pointer
+*                       Array has no bounds specified,Logical conjunctions need brackets.
 * </pre>
 *
 ******************************************************************************/
@@ -77,7 +84,7 @@
 * @note		None.
 *
 *****************************************************************************/
-void XRtcPsu_SetInterruptMask(XRtcPsu *InstancePtr, u32 Mask)
+void XRtcPsu_SetInterruptMask(const XRtcPsu *InstancePtr, u32 Mask)
 {
 	/*
 	 * Clear the Status register to be sure of no pending interrupts.
@@ -112,7 +119,7 @@ void XRtcPsu_SetInterruptMask(XRtcPsu *InstancePtr, u32 Mask)
 * @note		None.
 *
 *****************************************************************************/
-void XRtcPsu_ClearInterruptMask(XRtcPsu *InstancePtr, u32 Mask)
+void XRtcPsu_ClearInterruptMask(const XRtcPsu *InstancePtr, u32 Mask)
 {
 	/*
 	 * XRTC_INT_MSK_RSTVAL contains the valid interrupts
@@ -155,7 +162,7 @@ void XRtcPsu_SetHandler(XRtcPsu *InstancePtr, XRtcPsu_Handler FuncPtr,
 	Xil_AssertVoid(FuncPtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	InstancePtr->Handler = (XRtcPsu_Handler)FuncPtr;
+	InstancePtr->Handler = FuncPtr;
 	InstancePtr->CallBackRef = CallBackRef;
 }
 

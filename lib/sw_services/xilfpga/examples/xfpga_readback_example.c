@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -44,6 +44,8 @@
  * 4.2   adk  11/07/18 First Release
  * 4.2   Nava 16/08/18 Modified the PL data handling Logic to support
  *                     different PL programming interfaces.
+ * 5.0   Nava 06/02/19 Updated the example to sync with 5.0 version API's
+ *		 rama 03/04/19 Fixed IAR compiler warning
  *</pre>
  ******************************************************************************/
 
@@ -66,7 +68,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static int XFpga_ReadExample(void);
+static int XFpga_ReadExample(XFpga *InstancePtr);
 void PrintBitStream(u32 NumFrames);
 /************************** Variable Definitions *****************************/
 u32 readback_buffer[WORDS_PER_FRAME*FRAMES + PAD_FRAMES];
@@ -83,19 +85,23 @@ u32 readback_buffer[WORDS_PER_FRAME*FRAMES + PAD_FRAMES];
  *		- XST_SUCCESS if successful
  *		- XST_FAILURE if unsuccessful
  *
- * @note	None.
+ * @note: This example supports only Zynq UltraScale+ MPSoC platform.
  *****************************************************************************/
 int main(void)
 {
 	int Status;
+	XFpga XFpgaInstance = {0U};
 
 	xil_printf("FPGA Configuration data Read back example\r\n");
 
-	/*
-	 * Call the example , specify the device ID that is generated in
-	 * xparameters.h.
-	 */
-	Status = XFpga_ReadExample();
+	Status = XFpga_Initialize(&XFpgaInstance);
+	if (Status != XST_SUCCESS) {
+		goto done;
+	}
+
+	Status = XFpga_ReadExample(&XFpgaInstance);
+
+ done:
 	if (Status != XST_SUCCESS) {
 		xil_printf("FPGA Configuration Read back example Failed\r\n");
 		return XST_FAILURE;
@@ -119,26 +125,25 @@ int main(void)
  *
  * @note		None.
  *****************************************************************************/
-static int XFpga_ReadExample(void)
+static int XFpga_ReadExample(XFpga *InstancePtr)
 {
 	u32 Status = XST_SUCCESS;
-	XFpga_Info PLInfo = {0};
+	u32 NumFrames = WORDS_PER_FRAME * FRAMES + PAD_FRAMES;
 
-	PLInfo.NumFrames = WORDS_PER_FRAME * FRAMES + PAD_FRAMES;
-	PLInfo.ReadbackAddr = (UINTPTR)readback_buffer;
-	Status = XFpga_GetPlConfigData(&PLInfo);
+	Status = XFpga_GetPlConfigData(InstancePtr,
+				       (UINTPTR)readback_buffer, NumFrames);
 	if (Status != XST_SUCCESS) {
 		xil_printf("FPGA Configuration Read back Failed\r\n");
 		return Status;
 	}
 
-	PrintBitStream(PLInfo.NumFrames);
+	PrintBitStream(NumFrames);
 	return Status;
 }
 
 void PrintBitStream(u32 NumFrames)
 {
-	int i;
+	u32 i;
 
 	xil_printf("Bitstream contents are\r\n");
 

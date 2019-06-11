@@ -29,7 +29,7 @@
 /**
 *
 * @file xscugic_hw.c
-* @addtogroup scugic_v3_10
+* @addtogroup scugic_v4_0
 * @{
 *
 * This file contains low-level driver functions that can be used to access the
@@ -61,16 +61,16 @@
 * 3.6   kvn  02/17/17 Add support for changing GIC CPU master at run time.
 *       kvn  02/28/17 Make the CpuId as static variable and Added new
 *                     XScugiC_GetCpuId to access CpuId.
-* 3.9   mus  02/21/18 Added new API's 
-*                     XScuGic_InterruptUnmapFromCpuByDistAddr and 
+* 3.9   mus  02/21/18 Added new API's
+*                     XScuGic_InterruptUnmapFromCpuByDistAddr and
 *                     XScuGic_UnmapAllInterruptsFromCpuByDistAddr, These
-*                     API's can be used by applications to unmap 
+*                     API's can be used by applications to unmap
 *                     specific/all interrupts from target CPU. It fixes
 *                     CR#992490.
 * 3.10  mus  07/17/18 Updated XScuGic_DeviceInterruptHandler to fix array
-*                     overrun reported by coverity tool. It fixes 
+*                     overrun reported by coverity tool. It fixes
 *                     CR#1006344.
-* 3.10  mus  07/17/18 Updated file to fix the various coding style issues       
+* 3.10  mus  07/17/18 Updated file to fix the various coding style issues
 *                     reported by checkpatch. It fixes CR#1006344.
 * 3.10  aru  08/23/18 Resolved MISRA-C:2012 compliance mandatory violations
 *                     It fixes CR#1007753

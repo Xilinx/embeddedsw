@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,13 +32,17 @@
 #ifndef PM_NOTIFIER_H_
 #define PM_NOTIFIER_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "pm_master.h"
 
 /*********************************************************************
  * Function declarations
  ********************************************************************/
 
-int PmNotifierRegister(const PmMaster* const mst, const PmNode* const nd,
+s32 PmNotifierRegister(const PmMaster* const mst, const PmNode* const nd,
 		       const u32 event, const u32 wake);
 
 void PmNotifierUnregister(const PmMaster* const mst, const PmNode* const nd,
@@ -48,4 +52,8 @@ void PmNotifierUnregisterAll(const PmMaster* const mst);
 
 void PmNotifierEvent(const PmNode* const nd, const u32 event);
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* PM_NOTIFIER_H_ */

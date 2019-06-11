@@ -71,6 +71,8 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 void XFsbl_PrintArray (u32 DebugType, const u8 Buf[], u32 Len, const char *Str);
+s32 XFsbl_Ceil(float Num);
+s32 XFsbl_Round(float Num);
 void *XFsbl_MemCpy(void * DestPtr, const void * SrcPtr, u32 Len);
 char *XFsbl_Strcpy(char *DestPtr, const char *SrcPtr);
 char * XFsbl_Strcat(char* Str1Ptr, const char* Str2Ptr);

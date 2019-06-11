@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2015 - 2018 Xilinx, Inc.
+# Copyright (C) 2015 - 2019 Xilinx, Inc.
 #
 # This file is part of the FreeRTOS port.
 #
@@ -11,8 +11,7 @@
 # subject to the following conditions:
 #
 # The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software. If you wish to use our Amazon
-# FreeRTOS name, please do so in a fair use way that does not cause confusion.
+# copies or substantial portions of the Software.
 #
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
@@ -37,3 +36,4 @@ BEGIN OS
  PARAMETER SYSTMR_DEV = *
  PARAMETER SYSINTC_SPEC = *
 END
+

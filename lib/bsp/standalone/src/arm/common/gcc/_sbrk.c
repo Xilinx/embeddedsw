@@ -50,10 +50,10 @@ __attribute__((weak)) caddr_t _sbrk ( s32 incr )
   }
   prev_heap = heap;
 
-  	if (((heap + incr) <= HeapEndPtr) && (prev_heap != NULL)) {
+	if (((heap + incr) <= HeapEndPtr) && (prev_heap != NULL)) {
   heap += incr;
 	  Status = (caddr_t) ((void *)prev_heap);
-  	} else {
+	} else {
 	  Status = (caddr_t) -1;
   }
 

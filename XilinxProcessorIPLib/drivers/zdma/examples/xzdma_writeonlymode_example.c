@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -47,6 +47,9 @@
 * 1.3   mus    08/14/17  Do not perform cache operations if CCI is enabled
 * 1.4   adk    11/02/17  Updated example to fix compilation errors for IAR
 *			 compiler.
+* 1.7   adk    18/03/19  Update the example data verification check to support
+*			 versal adma IP.
+* 1.7   adk    21/03/19  Fix alignment pragmas in the example for IAR compiler.
 * </pre>
 *
 ******************************************************************************/
@@ -89,7 +92,6 @@ u32 SrcBuf[4];		/**< Source buffer */
 #if defined(__ICCARM__)
     #pragma data_alignment = 64
 	u32 DstBuf[300]; /**< Destination buffer */
-	#pragma data_alignment = 4
 #else
 u32 DstBuf[300] __attribute__ ((aligned (64))); /**< Destination buffer */
 #endif
@@ -245,8 +247,13 @@ int XZDma_WriteOnlyExample(u16 DeviceId)
 		}
 	}
 	else { /* For ADMA */
+#ifdef versal
+		for (Index = 0; Index < (SIZE/4)/4; Index++) {
+			for (Index1 = 0; Index1 < 4; Index1++) {
+#else
 		for (Index = 0; Index < (SIZE/4)/2; Index++) {
 			for (Index1 = 0; Index1 < 2; Index1++) {
+#endif
 				if (SrcBuf[Index1] != *Buf++) {
 						return XST_FAILURE;
 				}

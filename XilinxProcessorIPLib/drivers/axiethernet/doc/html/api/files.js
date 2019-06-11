@@ -1,5 +1,12 @@
 var files =
 [
+    [ "xavb.c", "xavb_8c.html", "xavb_8c" ],
+    [ "xavb.h", "xavb_8h.html", "xavb_8h" ],
+    [ "xavb_example.c", "xavb__example_8c.html", "xavb__example_8c" ],
+    [ "xavb_hw.c", "xavb__hw_8c.html", "xavb__hw_8c" ],
+    [ "xavb_hw.h", "xavb__hw_8h.html", "xavb__hw_8h" ],
+    [ "xavb_ptp_bmca.c", "xavb__ptp__bmca_8c.html", "xavb__ptp__bmca_8c" ],
+    [ "xavb_ptp_packets.c", "xavb__ptp__packets_8c.html", "xavb__ptp__packets_8c" ],
     [ "xaxiethernet.c", "xaxiethernet_8c.html", "xaxiethernet_8c" ],
     [ "xaxiethernet.h", "xaxiethernet_8h.html", "xaxiethernet_8h" ],
     [ "xaxiethernet_control.c", "xaxiethernet__control_8c.html", "xaxiethernet__control_8c" ],

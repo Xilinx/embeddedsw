@@ -34,20 +34,23 @@
  * the execution environment.
  */
 
-#ifndef _PM_CLIENT_H_
-#define _PM_CLIENT_H_
+#ifndef PM_CLIENT_H
+#define PM_CLIENT_H
 
-#include <xil_exception.h>
-#include <xil_io.h>
+#include "xil_exception.h"
+#include "xil_io.h"
 #include "pm_apu.h"
 #include "pm_defs.h"
 #include "pm_common.h"
 
-#define IPI_APU_MASK		0x00000001U
-
-#define IPI_TRIG_OFFSET		0x00000000
-#define IPI_OBS_OFFSET		0x00000004
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #define pm_print(MSG, ...)	xil_printf("APU: "MSG,##__VA_ARGS__)
 
-#endif /* _PM_CLIENT_H_ */
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* PM_CLIENT_H */

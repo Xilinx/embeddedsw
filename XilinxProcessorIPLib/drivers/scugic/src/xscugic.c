@@ -29,7 +29,7 @@
 /**
 *
 * @file xscugic.c
-* @addtogroup scugic_v3_10
+* @addtogroup scugic_v4_0
 * @{
 *
 * Contains required functions for the XScuGic driver for the Interrupt
@@ -52,7 +52,7 @@
 * 1.03a srt  02/27/13 Added APIs
 *                       -XScuGic_SetPriTrigTypeByDistAddr()
 *                       -XScuGic_GetPriTrigTypeByDistAddr()
-*                     Removed Offset calculation macros, defined in _hw.h 
+*                     Removed Offset calculation macros, defined in _hw.h
 *                     (CR 702687)
 *                     added support to direct interrupts  to the appropriate
 *                     CPU Earlier interrupts were directed to CPU1
@@ -61,7 +61,7 @@
 *                     the  relevant CPU. This fixes CR 699688.
 *
 * 1.04a hk   05/04/13 Assigned EffectiveAddr to CpuBaseAddress in
-*                     XScuGic_CfgInitialize. Fix for CR#704400 to remove 
+*                     XScuGic_CfgInitialize. Fix for CR#704400 to remove
 *                     warnings.
 *                     Moved functions XScuGic_SetPriTrigTypeByDistAddr and
 *                    XScuGic_GetPriTrigTypeByDistAddr to xscugic_hw.c.
@@ -87,20 +87,20 @@
 *
 * 3.4   asa  04/07/16 Created a new static function DoDistributorInit to
 *                     simplify the flow and avoid code duplication. Changes are
-*                     made for USE_AMP use case for R5. In a scenario 
+*                     made for USE_AMP use case for R5. In a scenario
 *                     (in R5 split mode) when one R5 is operating with A53 in
 *                     open amp config and other R5 running baremetal app, the
-*                     existing code had the potential to stop the whole AMP 
+*                     existing code had the potential to stop the whole AMP
 *                     solution to work(if for some reason the R5 running the
-*                     baremetal app tasked to initialize the Distributor hangs 
-*                     or crashes before initializing).Changes are made so that 
-*                     the R5 under AMP first checks if the distributor is 
+*                     baremetal app tasked to initialize the Distributor hangs
+*                     or crashes before initializing).Changes are made so that
+*                     the R5 under AMP first checks if the distributor is
 *                     enabled or not and if not, it does the standard
 *                     Distributor initialization.This fixes the CR#952962.
 * 3.4   mus  09/08/16 Added assert to avoid invalid access of GIC from CPUID 1
 *                     for single core zynq-7000s
 * 3.5   mus  10/05/16 Modified DistributorInit function to avoid
-*                     re-initialization of distributor, If it is already 
+*                     re-initialization of distributor, If it is already
 *                     initialized by other CPU.
 * 3.5   pkp  10/17/16 Modified XScuGic_InterruptMaptoCpu to correct the CPU Id
 *                     value and properly mask interrupt target processor value
@@ -118,10 +118,12 @@
 *                     by applications to unmap specific/all interrupts from
 *                     target CPU. It fixes CR#992490.
 * 3.10  mus  07/17/18 Updated file to fix the various coding style issues
-*                     reported by checkpatch. It fixes CR#1006344. 
+*                     reported by checkpatch. It fixes CR#1006344.
 * 3.10  aru  08/23/18 Resolved MISRA-C:2012 compliance mandatory violations
 *                     It fixes CR#1007753.
 * 3.10  mus  09/19/18 Fix cppcheck warnings
+* 4.0   mus  11/22/18 Fixed bugs in software interrupt generation through 
+*                      XScuGic_SoftwareIntr API
 * </pre>
 *
 ******************************************************************************/
@@ -167,9 +169,20 @@ static void StubHandler(void *CallBackRef);
 static void DoDistributorInit(XScuGic *InstancePtr, u32 CpuID)
 {
 	u32 Int_Id;
+#if !defined (versal) || defined (ARMR5)
 	u32 LocalCpuID = CpuID;
+#endif
 
+#if defined (versal) && !defined(ARMR5)
+		u32 temp;
+
+		temp = XScuGic_DistReadReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET);
+		temp = (XSCUGIC500_DCTLR_ARE_NS_ENABLE | XSCUGIC500_DCTLR_ARE_S_ENABLE);
+		temp &= ~(XSCUGIC_EN_INT_MASK);
+		XScuGic_DistWriteReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET, temp);
+#else
 	XScuGic_DistWriteReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET, 0U);
+#endif
 
 	/*
 	 * Set the security domains in the int_security registers for
@@ -212,8 +225,18 @@ static void DoDistributorInit(XScuGic *InstancePtr, u32 CpuID)
 					DEFAULT_PRIORITY);
 	}
 
-	for (Int_Id = 32U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
-			Int_Id = Int_Id+4U) {
+#if defined (versal) && !defined(ARMR5)
+for (Int_Id = 32U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+1){
+	/*
+	 * 3. The CPU interface in the spi_target register
+	 * Only write to the SPI interrupts, so start at 32
+	 */
+	temp = Int_Id -32;
+	XScuGic_DistWriteReg(InstancePtr, XSCUGIC_IROUTER_OFFSET_CALC(temp),
+						  (CpuID-1));
+}
+#else
+	for (Int_Id = 32U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+4U) {
 		/*
 		 * 3. The CPU interface in the spi_target register
 		 * Only write to the SPI interrupts, so start at 32
@@ -224,22 +247,43 @@ static void DoDistributorInit(XScuGic *InstancePtr, u32 CpuID)
 		XScuGic_DistWriteReg(InstancePtr,
 					 XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),
 					 LocalCpuID);
-	}
 
-	for (Int_Id = 0U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
-			Int_Id = Int_Id+32U) {
+	}
+#endif
+#if defined (versal) && !defined(ARMR5)
+	for (Int_Id = 0U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+32U) {
+
+		XScuGic_DistWriteReg(InstancePtr,
+				XSCUGIC_SECURITY_TARGET_OFFSET_CALC(Int_Id),
+				XSCUGIC_DEFAULT_SECURITY);
+	}
+	/*
+	 * Set security for SGI/PPI
+	 *
+	 */
+	XScuGic_ReDistSGIPPIWriteReg(InstancePtr,XSCUGIC_RDIST_IGROUPR_OFFSET,
+									XSCUGIC_DEFAULT_SECURITY);
+#endif
+	for (Int_Id = 0U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+32U) {
 		/*
-		 * 4. Enable the SPI using the enable_set register.
-		 * Leave all disabled for now.
+		 * 4. Enable the SPI using the enable_set register. Leave all
+		 * disabled for now.
 		 */
 		XScuGic_DistWriteReg(InstancePtr,
 		XSCUGIC_EN_DIS_OFFSET_CALC(XSCUGIC_DISABLE_OFFSET, Int_Id),
 			0xFFFFFFFFU);
 
 	}
-
+#if defined (versal) && !defined(ARMR5)
+	temp = XScuGic_DistReadReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET);
+	temp |= XSCUGIC_EN_INT_MASK;
+	XScuGic_DistWriteReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET, temp);
+	XScuGic_Enable_Group1_Interrupts();
+	XScuGic_Enable_Group0_Interrupts();
+#else
 	XScuGic_DistWriteReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET,
 					XSCUGIC_EN_INT_MASK);
+#endif
 }
 
 /*****************************************************************************/
@@ -262,7 +306,7 @@ static void DistributorInit(XScuGic *InstancePtr, u32 CpuID)
 	u32 LocalCpuID = CpuID;
 	u32 RegValue;
 
-#if USE_AMP == 1 && (defined(ARMA9) || defined(__aarch64__))
+#if USE_AMP==1 && (defined (ARMA9) || defined(__aarch64__))
 #warning "Building GIC for AMP"
 	/*
 	 * GIC initialization is taken care by master CPU in
@@ -295,6 +339,7 @@ static void DistributorInit(XScuGic *InstancePtr, u32 CpuID)
 	}
 }
 
+#if !defined (versal) || defined (ARMR5)
 /*****************************************************************************/
 /**
 *
@@ -340,6 +385,7 @@ static void CPUInitialize(XScuGic *InstancePtr)
 	XScuGic_CPUWriteReg(InstancePtr, XSCUGIC_CONTROL_OFFSET, 0x07U);
 
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -385,12 +431,12 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
 	 */
 #ifdef ARMA9
 	if (XPAR_CPU_ID == 0x01) {
-		Xil_AssertNonvoid((Xil_In32(XPS_EFUSE_BASEADDR 
+		Xil_AssertNonvoid((Xil_In32(XPS_EFUSE_BASEADDR
 			+ EFUSE_STATUS_OFFSET) & EFUSE_STATUS_CPU_MASK) == 0);
 	}
 #endif
 
-	if (InstancePtr->IsReady != XIL_COMPONENT_IS_READY) {
+	if(InstancePtr->IsReady != XIL_COMPONENT_IS_READY) {
 
 		InstancePtr->IsReady = 0U;
 		InstancePtr->Config = ConfigPtr;
@@ -408,15 +454,32 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
 			*/
 			if ((InstancePtr->Config->HandlerTable[Int_Id].Handler
 					== (Xil_InterruptHandler)NULL)) {
-				InstancePtr->Config->HandlerTable[Int_Id].Handler 
+				InstancePtr->Config->HandlerTable[Int_Id].Handler
 						= (Xil_InterruptHandler)StubHandler;
 			}
 			InstancePtr->Config->HandlerTable[Int_Id].CallBackRef =
 								InstancePtr;
 		}
+#if defined (versal) && !defined(ARMR5)
+	u32 Waker_State;
+	xil_printf("Execuing on the a72\n");
+	Waker_State = XScuGic_ReDistReadReg(InstancePtr,XSCUGIC_RDIST_WAKER_OFFSET);
+	XScuGic_ReDistWriteReg(InstancePtr,XSCUGIC_RDIST_WAKER_OFFSET,
+							Waker_State & (~ XSCUGIC_RDIST_WAKER_LOW_POWER_STATE_MASK));
+		/* Enable system reg interface through ICC_SRE_EL1 */
+		#if EL3
+			XScuGic_Enable_SystemReg_CPU_Interface_EL3();
+		#endif
+			XScuGic_Enable_SystemReg_CPU_Interface_EL1();
+		isb();
+#endif
 		XScuGic_Stop(InstancePtr);
 		DistributorInit(InstancePtr, Cpu_Id);
+#if defined (versal) && !defined(ARMR5)
+		XScuGic_set_priority_filter(0xff);
+#else
 		CPUInitialize(InstancePtr);
+#endif
 
 		InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 	}
@@ -539,7 +602,9 @@ void XScuGic_Disconnect(XScuGic *InstancePtr, u32 Int_Id)
 void XScuGic_Enable(XScuGic *InstancePtr, u32 Int_Id)
 {
 	u32 Mask;
-
+#if defined (versal) && !defined(ARMR5)
+	u32 temp;
+#endif
 	/*
 	 * Assert the arguments
 	 */
@@ -547,6 +612,19 @@ void XScuGic_Enable(XScuGic *InstancePtr, u32 Int_Id)
 	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
+#if defined (versal) && !defined(ARMR5)
+	if (Int_Id < XSCUGIC_SPI_INT_ID_START)
+	{
+
+		Int_Id &= 0x1f;
+		Int_Id = 1 << Int_Id;
+
+		temp = XScuGic_ReDistSGIPPIReadReg(InstancePtr,XSCUGIC_RDIST_ISENABLE_OFFSET);
+		temp |= Int_Id;
+		XScuGic_ReDistSGIPPIWriteReg(InstancePtr,XSCUGIC_RDIST_ISENABLE_OFFSET,temp);
+		return;
+	}
+#endif
 	/*
 	 * The Int_Id is used to create the appropriate mask for the
 	 * desired bit position. Int_Id currently limited to 0 - 31
@@ -636,6 +714,14 @@ s32  XScuGic_SoftwareIntr(XScuGic *InstancePtr, u32 Int_Id, u32 Cpu_Id)
 	Xil_AssertNonvoid(Int_Id <= 15U);
 	Xil_AssertNonvoid(Cpu_Id <= 255U);
 
+#if defined (versal) && !defined(ARMR5)
+	Mask = (Cpu_Id | (Int_Id << XSCUGIC_SGIR_EL1_INITID_SHIFT));
+#if EL3
+	XScuGic_WriteICC_SGI0R_EL1(Mask);
+#else
+	XScuGic_WriteICC_SGI1R_EL1(Mask);
+#endif
+#else
 
 	/*
 	 * The Int_Id is used to create the appropriate mask for the
@@ -652,7 +738,7 @@ s32  XScuGic_SoftwareIntr(XScuGic *InstancePtr, u32 Int_Id, u32 Cpu_Id)
 	XScuGic_DistWriteReg(InstancePtr, XSCUGIC_SFI_TRIG_OFFSET, Mask);
 
 	/* Indicate the interrupt was successfully simulated */
-
+#endif
 	return XST_SUCCESS;
 }
 
@@ -711,6 +797,9 @@ void XScuGic_SetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 					u8 Priority, u8 Trigger)
 {
 	u32 RegValue;
+#if defined (versal) && !defined(ARMR5)
+	u32 temp,Index;
+#endif
 	u8 LocalPriority;
 	LocalPriority = Priority;
 
@@ -719,6 +808,17 @@ void XScuGic_SetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
 	Xil_AssertVoid(Trigger <= (u8)XSCUGIC_INT_CFG_MASK);
 	Xil_AssertVoid(LocalPriority <= (u8)XSCUGIC_MAX_INTR_PRIO_VAL);
+#if defined (versal) && !defined(ARMR5)
+	if (Int_Id < XSCUGIC_SPI_INT_ID_START )
+	{
+		XScuGic_ReDistSGIPPIWriteReg(InstancePtr,XSCUGIC_RDIST_INT_PRIORITY_OFFSET_CALC(Int_Id),Priority);
+		temp = XScuGic_ReDistSGIPPIReadReg(InstancePtr,XSCUGIC_RDIST_INT_CONFIG_OFFSET_CALC(Int_Id));
+		Index = XScuGic_Get_Rdist_Int_Trigger_Index(Int_Id);
+		temp |= (Trigger << Index);
+		XScuGic_ReDistSGIPPIWriteReg(InstancePtr,XSCUGIC_RDIST_INT_CONFIG_OFFSET_CALC(Int_Id),temp);
+		return;
+	}
+#endif
 
 	/*
 	 * Determine the register to write to using the Int_Id.

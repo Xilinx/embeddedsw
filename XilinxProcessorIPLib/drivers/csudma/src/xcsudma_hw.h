@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xcsudma_hw.h
-* @addtogroup csudma_v1_3
+* @addtogroup csudma_v1_4
 * @{
 *
 * This header file contains identifiers and register-level driver functions (or
@@ -87,8 +87,18 @@ extern "C" {
 #define XCSU_BASEADDRESS	0xFFCA0000U
 						/**< CSU Base Address */
 #define XCSU_DMA_RESET_OFFSET	0x0000000CU	/**< CSU_DMA Reset offset */
+
+#ifndef XPS_CRP_BASEADDRESS
+#define XPS_CRP_BASEADDRESS	0xF1260000U
+#endif
 /*@}*/
 
+/** @name CRP PMC_DMA reset offset
+ * @{
+ */
+#define XCRP_PMCDMA_RESET_OFFSET 0x00000328U	/**< PMC_DMA Reset offset */
+
+/*@}*/
 /** @name CSU_DMA Reset register bit masks
  * @{
  */

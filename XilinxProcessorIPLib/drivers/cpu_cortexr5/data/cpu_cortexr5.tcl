@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -35,6 +35,10 @@
 # 1.4   ms   04/18/17 Modified tcl file to add suffix U for XPAR_CPU_ID
 #                     parameter of cpu_cortexr5 in xparameters.h
 # 1.4   srm  02/21/18 Updated freertos to 10.0
+# 1.5   asa  03/01/19 Updated to add hard float support for R5 FreeRTOS
+#                     BSP.
+# 1.5   mus  03/19/19 Updated to add hard float support for IAR R5
+#                     BSP.
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -67,7 +71,7 @@ proc xdefine_cortexr5_params {drvhandle} {
 	}
     }
     set periphs [::hsi::utils::get_common_driver_ips $drvhandle]
-    set lprocs [hsi::get_cells -hier -filter "IP_NAME==psu_cortexr5"]
+    set lprocs [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexr5" || IP_NAME=="psv_cortexr5"}]
     set lprocs [lsort $lprocs]
 
     set config_inc [::hsi::utils::open_include_file "xparameters.h"]
@@ -100,23 +104,20 @@ proc xdefine_cortexr5_params {drvhandle} {
     }
     set os [lindex $oslist 0];
 
-    if { $os == "freertos10_xilinx" } {
-        set extra_flags [::common::get_property VALUE [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ] ]
-        regsub -- {-mfloat-abi=hard} $extra_flags "" extra_flags
-        common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
-    }
     set procdrv [hsi::get_sw_processor]
     set compiler [common::get_property CONFIG.compiler $procdrv]
     set compiler_name [file tail $compiler]
     set extra_flags [::common::get_property VALUE [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ] ]
     if {[string compare -nocase $compiler_name "iccarm"] == 0} {
 	set temp_flag $extra_flags
-	if {[string compare -nocase $temp_flag "--debug -DARMR5"] != 0} {
+	if {[string compare -nocase $temp_flag "--debug -DARMR5 --fpu=VFPv3_D16"] != 0} {
 		regsub -- {-g -DARMR5 -Wall -Wextra} $temp_flag "" temp_flag
 		regsub -- {--debug} $temp_flag "" temp_flag
 		regsub -- {-mfloat-abi=hard} $temp_flag "" temp_flag
                 regsub -- {-mfpu=vfpv3-d16} $temp_flag "" temp_flag
-		set extra_flags "--debug -DARMR5 $temp_flag"
+		regsub -- {--fpu=VFPv3_D16} $temp_flag "" temp_flag
+		regsub -- {-DARMR5} $temp_flag "" temp_flag
+		set extra_flags "--debug -DARMR5 --fpu=VFPv3_D16 $temp_flag"
 		common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
 	}
 
@@ -140,6 +141,15 @@ proc xdefine_cortexr5_params {drvhandle} {
 			}
 		}
    }
+	# Add "versal" flag to extra compiler flags, if device is versal
+	set cortexa72proc [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexa72" || IP_NAME=="psv_cortexa72"}]
+	if {[llength $cortexa72proc] > 0} {
+		set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
+		if {[string first "-Dversal" $extra_flags] == -1 } {
+			append extra_flags " -Dversal"
+			common::set_property -name {EXTRA_COMPILER_FLAGS} -value $extra_flags -objects [hsi::get_sw_processor]
+                }
+	}
 }
 
 proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {

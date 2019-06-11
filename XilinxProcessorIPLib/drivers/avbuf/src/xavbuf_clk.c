@@ -28,9 +28,9 @@
 /******************************************************************************/
 /**
  *
- * @file xavbuf.c
+ * @file xavbuf_clk.c
  *
- * This header file contains PLL configuring functions. These Functions
+ * This file contains PLL configuring functions. These Functions
  * calculates and configures the PLL depending on desired frequency.
  *
  * @note	None.
@@ -85,7 +85,7 @@ typedef struct{
 	u16 lfhf;
 	u16 lock_dly;
 	u16 lock_cnt;
-}PllConfig;
+} PllConfig;
 
 /* PLL fractional divide programming table*/
 static const PllConfig PllFracDivideTable[] = {
@@ -210,7 +210,7 @@ static const PllConfig PllFracDivideTable[] = {
  *
 *******************************************************************************/
 static void XAVBuf_PllInitialize(XAVBuf_Pll *PllInstancePtr,
-				     u8 Pll, u8 CrossDomain , u8 ExtDividerCnt)
+				     u8 Pll, u8 CrossDomain, u8 ExtDividerCnt)
 {
 	/* Instantiate input frequency. */
 	PllInstancePtr->InputRefClk = XAVBUF_Pss_Ref_Clk;
@@ -220,18 +220,17 @@ static void XAVBuf_PllInitialize(XAVBuf_Pll *PllInstancePtr,
 	PllInstancePtr->Pll = Pll;
 	PllInstancePtr->ExtDividerCnt = ExtDividerCnt;
 
-	//Check if CrossDomain is requested
-	if(CrossDomain)
+	/* Check if CrossDomain is requested*/
+	if (CrossDomain)
 		PllInstancePtr->DomainSwitchDiv = 6;
 	else
 		PllInstancePtr->DomainSwitchDiv = 1;
-	//Check where PLL falls
-	if (Pll>2){
+	/* Check where PLL falls*/
+	if (Pll > 2) {
 		PllInstancePtr->Fpd = 0;
 		PllInstancePtr->BaseAddress = XAVBUF_CLK_LPD_BASEADDR;
 		PllInstancePtr->Offset = XAVBUF_LPD_CTRL_OFFSET;
-	}
-	else{
+	} else {
 		PllInstancePtr->Fpd = 1;
 		PllInstancePtr->BaseAddress = XAVBUF_CLK_FPD_BASEADDR;
 		PllInstancePtr->Offset = XAVBUF_FPD_CTRL_OFFSET;
@@ -257,11 +256,13 @@ static void XAVBuf_PllInitialize(XAVBuf_Pll *PllInstancePtr,
 static int XAVBuf_PllCalcParameterValues(XAVBuf_Pll *PllInstancePtr,
 				     u64 FreqHz)
 {
-	u64 ExtDivider, Vco, VcoIntFrac;
+	u64 ExtDivider;
+	u64 Vco;
+	u64 VcoIntFrac;
 
 	/* Instantiate input frequency. */
 	PllInstancePtr->InputRefClk =  XAVBUF_Pss_Ref_Clk;
-	PllInstancePtr->RefClkFreqhz =  XAVBUF_INPUT_REF_CLK ;
+	PllInstancePtr->RefClkFreqhz =  XAVBUF_INPUT_REF_CLK;
 	/* Turn on internal Divider*/
 	PllInstancePtr->Divider = 1;
 	PllInstancePtr->DomainSwitchDiv = 1;
@@ -269,24 +270,22 @@ static int XAVBuf_PllCalcParameterValues(XAVBuf_Pll *PllInstancePtr,
 	/* Estimate the total divider. */
 	ExtDivider =  (XAVBUF_PLL_OUT_FREQ / FreqHz) /
 			      PllInstancePtr->DomainSwitchDiv;
-	if(ExtDivider > 63 && PllInstancePtr->ExtDividerCnt == 2){
+	if (ExtDivider > 63 && PllInstancePtr->ExtDividerCnt == 2) {
 		PllInstancePtr->ExtDivider0 = 63;
 		PllInstancePtr->ExtDivider1 = ExtDivider / 63;
-	}
-	else if(ExtDivider < 63){
+	} else if (ExtDivider < 63) {
 		PllInstancePtr->ExtDivider0 = ExtDivider;
 		PllInstancePtr->ExtDivider1 = 1;
-	}
-	else
+	} else
 		return XST_FAILURE;
 
-	Vco = FreqHz *(PllInstancePtr->ExtDivider1 *
+	Vco = FreqHz * (PllInstancePtr->ExtDivider1 *
 		PllInstancePtr->ExtDivider0 * 2) *
 		PllInstancePtr->DomainSwitchDiv;
 	/* Calculate integer and fractional part. */
 	VcoIntFrac = (Vco * XAVBUF_INPUT_FREQ_PRECISION *
 		XAVBUF_SHIFT_DECIMAL) /
-		PllInstancePtr->RefClkFreqhz  ;
+		PllInstancePtr->RefClkFreqhz;
 	PllInstancePtr->Fractional = VcoIntFrac &  XAVBUF_DECIMAL;
 	PllInstancePtr->FracIntegerFBDIV = VcoIntFrac >> XAVBUF_PRECISION;
 
@@ -333,7 +332,7 @@ static void XAVBuf_ReadModifyWriteReg(u32 BaseAddress, u32 RegOffset, u32 Mask,
 *******************************************************************************/
 static int  XAVBuf_ConfigurePll(XAVBuf_Pll *PllInstancePtr)
 {
-	u64 BaseAddress = PllInstancePtr->BaseAddress;
+	u32 BaseAddress = PllInstancePtr->BaseAddress;
 	u64 timer = 0;
 	u32 RegPll = 0;
 	u8 Pll = PllInstancePtr->Pll;
@@ -348,25 +347,26 @@ static int  XAVBuf_ConfigurePll(XAVBuf_Pll *PllInstancePtr)
 	RegPll = 0;
 	/* Set the values for lock dly, lock counter, capacitor and resistor. */
 	RegPll |=
-		PllFracDivideTable[PllInstancePtr->FracIntegerFBDIV -25].cp
+		PllFracDivideTable[PllInstancePtr->FracIntegerFBDIV - 25].cp
 		<< XAVBUF_PLL_CFG_CP_SHIFT;
 	RegPll |=
-		PllFracDivideTable[PllInstancePtr->FracIntegerFBDIV -25].res
+		PllFracDivideTable[PllInstancePtr->FracIntegerFBDIV - 25].res
 		<< XAVBUF_PLL_CFG_RES_SHIFT;
 	RegPll |=
-		PllFracDivideTable[PllInstancePtr->FracIntegerFBDIV -25].lfhf
+		PllFracDivideTable[PllInstancePtr->FracIntegerFBDIV - 25].lfhf
 		<< XAVBUF_PLL_CFG_LFHF_SHIFT;
 	RegPll |=
-		PllFracDivideTable[PllInstancePtr->FracIntegerFBDIV -25].lock_dly
-		<< XAVBUF_PLL_CFG_LOCK_DLY_SHIFT;
+		PllFracDivideTable[PllInstancePtr->FracIntegerFBDIV -
+		25].lock_dly << XAVBUF_PLL_CFG_LOCK_DLY_SHIFT;
 	RegPll |=
-		PllFracDivideTable[PllInstancePtr->FracIntegerFBDIV -25].lock_cnt
-		<< XAVBUF_PLL_CFG_LOCK_CNT_SHIFT;
+		PllFracDivideTable[PllInstancePtr->FracIntegerFBDIV -
+		25].lock_cnt << XAVBUF_PLL_CFG_LOCK_CNT_SHIFT;
 	XAVBuf_WriteReg(BaseAddress, XAVBUF_PLL_CFG + (MOD_3(Pll) *
 		PllInstancePtr->Offset), RegPll);
 	/* Enable and set Fractional Data. */
 	XAVBuf_WriteReg(BaseAddress, XAVBUF_PLL_FRAC_CFG + (MOD_3(Pll) *
-		PllInstancePtr->Offset), (1 << XAVBUF_PLL_FRAC_CFG_ENABLED_SHIFT) |
+		PllInstancePtr->Offset),
+		(1 << XAVBUF_PLL_FRAC_CFG_ENABLED_SHIFT) |
 		(PllInstancePtr->Fractional <<
 		XAVBUF_PLL_FRAC_CFG_DATA_SHIFT));
 	/* Assert reset to the PLL. */
@@ -381,10 +381,10 @@ static int  XAVBuf_ConfigurePll(XAVBuf_Pll *PllInstancePtr)
 		XAVBUF_PLL_CTRL_RESET_MASK, XAVBUF_PLL_CTRL_RESET_SHIFT,
 		XAVBUF_DISABLE_BIT);
 
-	while(!(XAVBuf_ReadReg(BaseAddress, XAVBUF_PLL_STATUS -
+	while (!(XAVBuf_ReadReg(BaseAddress, XAVBUF_PLL_STATUS -
 		((1 - PllInstancePtr->Fpd) * XAVBUF_REG_OFFSET)) &
 		(1 << MOD_3(Pll))))
-		if(++timer > 1000)
+		if (++timer > 1000)
 			return XST_FAILURE;
 
 	/* Deassert Bypass. */
@@ -393,8 +393,9 @@ static int  XAVBuf_ConfigurePll(XAVBuf_Pll *PllInstancePtr)
 		XAVBUF_PLL_CTRL_BYPASS_MASK, XAVBUF_PLL_CTRL_BYPASS_SHIFT,
 		XAVBUF_DISABLE_BIT);
 
-	if(PllInstancePtr->DomainSwitchDiv != 1)
-		XAVBuf_ReadModifyWriteReg(BaseAddress, (XAVBUF_DOMAIN_SWITCH_CTRL
+	if (PllInstancePtr->DomainSwitchDiv != 1)
+		XAVBuf_ReadModifyWriteReg(BaseAddress,
+		(XAVBUF_DOMAIN_SWITCH_CTRL
 		+ (MOD_3(Pll) * XAVBUF_REG_OFFSET) - ((1 - PllInstancePtr->Fpd)
 		* XAVBUF_REG_OFFSET)),
 		XAVBUF_DOMAIN_SWITCH_DIVISOR0_MASK,
@@ -418,7 +419,7 @@ static int  XAVBuf_ConfigurePll(XAVBuf_Pll *PllInstancePtr)
  *
 *******************************************************************************/
 static void  XAVBuf_ConfigureExtDivider(XAVBuf_Pll *PllInstancePtr,
-					u64 BaseAddress, u32 Offset)
+					u32 BaseAddress, u32 Offset)
 {
 	XAVBuf_ReadModifyWriteReg(BaseAddress, Offset,
 		XAVBUF_VIDEO_REF_CTRL_CLKACT_MASK,
@@ -453,7 +454,9 @@ int XAVBuf_SetPixelClock(u64 FreqHz)
 {
 	u32 PllAssigned;
 	XAVBuf_Pll PllInstancePtr;
-	u8 Pll, CrossDomain, Flag;
+	u8 Pll;
+	u8 CrossDomain;
+	u8 Flag;
 
 	/*Verify Input Arguments*/
 	Xil_AssertNonvoid(FreqHz < XDPSSU_MAX_VIDEO_FREQ);
@@ -482,10 +485,10 @@ int XAVBuf_SetPixelClock(u64 FreqHz)
 	XAVBuf_PllInitialize(&PllInstancePtr, Pll, CrossDomain,
 		XAVBUF_EXTERNAL_DIVIDER);
 	Flag = XAVBuf_PllCalcParameterValues(&PllInstancePtr, FreqHz);
-	if(Flag != 0)
+	if (Flag != 0)
 		return XST_FAILURE;
 	Flag = XAVBuf_ConfigurePll(&PllInstancePtr);
-	if(Flag != 0)
+	if (Flag != 0)
 		return XST_FAILURE;
 	XAVBuf_ConfigureExtDivider(&PllInstancePtr, XAVBUF_CLK_FPD_BASEADDR,
 		XAVBUF_VIDEO_REF_CTRL);
@@ -508,8 +511,10 @@ int XAVBuf_SetPixelClock(u64 FreqHz)
 *******************************************************************************/
 int XAVBuf_SetAudioClock(u64 FreqHz)
 {
-	u32 Flag, PllAssigned;
-	u8 Pll, CrossDomain;
+	u32 Flag;
+	u32 PllAssigned;
+	u8 Pll;
+	u8 CrossDomain;
 	XAVBuf_Pll XAVBuf_RPllInstancePtr;
 
 	/*Verify Input Arguments*/
@@ -544,10 +549,10 @@ int XAVBuf_SetAudioClock(u64 FreqHz)
 	XAVBuf_PllInitialize(&XAVBuf_RPllInstancePtr, Pll, CrossDomain,
 		XAVBUF_EXTERNAL_DIVIDER);
 	Flag = XAVBuf_PllCalcParameterValues(&XAVBuf_RPllInstancePtr, FreqHz);
-	if(Flag != 0)
+	if (Flag != 0)
 		return XST_FAILURE;
 	Flag = XAVBuf_ConfigurePll(&XAVBuf_RPllInstancePtr);
-	if(Flag != 0)
+	if (Flag != 0)
 		return XST_FAILURE;
 	XAVBuf_ConfigureExtDivider(&XAVBuf_RPllInstancePtr,
 		XAVBUF_CLK_FPD_BASEADDR, XAVBUF_AUDIO_REF_CTRL);

@@ -49,7 +49,7 @@ remoteproc_get_mem(struct remoteproc *rproc, const char *name,
 			pa_end = pa_start + mem->size;
 			if (pa >= pa_start && (pa + size) <= pa_end)
 				return mem;
-		} else if (pa != METAL_BAD_PHYS) {
+		} else if (da != METAL_BAD_PHYS) {
 			metal_phys_addr_t da_start, da_end;
 
 			da_start = mem->da;
@@ -125,13 +125,13 @@ error:
 	return rsc_table;
 }
 
-int remoteproc_parse_rsc_table(struct remoteproc *rproc,
-			       struct resource_table *rsc_table,
-			       size_t rsc_size)
+static int remoteproc_parse_rsc_table(struct remoteproc *rproc,
+				      struct resource_table *rsc_table,
+				      size_t rsc_size)
 {
 	struct metal_io_region *io;
 
-	io = remoteproc_get_io_with_va(rproc, (void *)rsc_table);
+	io = remoteproc_get_io_with_va(rproc, rsc_table);
 	return handle_rsc_table(rproc, rsc_table, rsc_size, io);
 }
 
@@ -142,9 +142,9 @@ int remoteproc_set_rsc_table(struct remoteproc *rproc,
 	int ret;
 	struct metal_io_region *io;
 
-	io = remoteproc_get_io_with_va(rproc, (void *)rsc_table);
+	io = remoteproc_get_io_with_va(rproc, rsc_table);
 	if (!io)
-		return -EINVAL;
+		return -RPROC_EINVAL;
 	ret = remoteproc_parse_rsc_table(rproc, rsc_table, rsc_size);
 	if (!ret) {
 		rproc->rsc_table = rsc_table;
@@ -152,14 +152,13 @@ int remoteproc_set_rsc_table(struct remoteproc *rproc,
 		rproc->rsc_io = io;
 	}
 	return ret;
-
 }
 
 struct remoteproc *remoteproc_init(struct remoteproc *rproc,
 				   struct remoteproc_ops *ops, void *priv)
 {
 	if (rproc) {
-		memset(rproc, 0, sizeof (*rproc));
+		memset(rproc, 0, sizeof(*rproc));
 		rproc->state = RPROC_OFFLINE;
 		metal_mutex_init(&rproc->lock);
 		metal_list_init(&rproc->mems);
@@ -178,10 +177,10 @@ int remoteproc_remove(struct remoteproc *rproc)
 		if (rproc->state == RPROC_OFFLINE)
 			rproc->ops->remove(rproc);
 		else
-			ret = -EBUSY;
+			ret = -RPROC_EAGAIN;
 		metal_mutex_release(&rproc->lock);
 	} else {
-		ret = -EINVAL;
+		ret = -RPROC_EINVAL;
 	}
 	return ret;
 }
@@ -195,7 +194,7 @@ int remoteproc_config(struct remoteproc *rproc, void *data)
 		if (rproc->state == RPROC_OFFLINE) {
 			/* configure operation is allowed if the state is
 			 * offline or ready. This function can be called
-			 * mulitple times before start the remote.
+			 * multiple times before start the remote.
 			 */
 			if (rproc->ops->config)
 				ret = rproc->ops->config(rproc, data);
@@ -383,8 +382,7 @@ int remoteproc_load(struct remoteproc *rproc, const char *path,
 	size_t len, nlen;
 	int last_load_state;
 	metal_phys_addr_t da, rsc_da;
-	int rsc_len;
-	size_t rsc_size;
+	size_t rsc_size = 0;
 	void *rsc_table = NULL;
 	struct metal_io_region *io = NULL;
 
@@ -409,12 +407,12 @@ int remoteproc_load(struct remoteproc *rproc, const char *path,
 		return -RPROC_EINVAL;
 	}
 
-	/* Open exectuable to get ready to parse */
-	metal_log(METAL_LOG_DEBUG, "%s: open exectuable image\r\n", __func__);
+	/* Open executable to get ready to parse */
+	metal_log(METAL_LOG_DEBUG, "%s: open executable image\r\n", __func__);
 	ret = store_ops->open(store, path, &img_data);
 	if (ret <= 0) {
 		metal_log(METAL_LOG_ERROR,
-			  "load failure: failed to open firmware %d.\n",
+			  "load failure: failed to open firmware %d.\r\n",
 			  ret);
 		metal_mutex_release(&rproc->lock);
 		return -RPROC_EINVAL;
@@ -429,14 +427,14 @@ int remoteproc_load(struct remoteproc *rproc, const char *path,
 		loader = remoteproc_check_fw_format(img_data, len);
 		if (!loader) {
 			metal_log(METAL_LOG_ERROR,
-			       "load failure: failed to get store ops.\n");
+			       "load failure: failed to get store ops.\r\n");
 			ret = -RPROC_EINVAL;
 			goto error1;
 		}
 		rproc->loader = loader;
 	}
 
-	/* Load exectuable headers */
+	/* Load executable headers */
 	metal_log(METAL_LOG_DEBUG, "%s: loading headers\r\n", __func__);
 	offset = 0;
 	last_load_state = RPROC_LOADER_NOT_READY;
@@ -444,7 +442,7 @@ int remoteproc_load(struct remoteproc *rproc, const char *path,
 		ret = loader->load_header(img_data, offset, len,
 					  &limg_info, last_load_state,
 					  &noffset, &nlen);
-		last_load_state = (unsigned int)ret;
+		last_load_state = ret;
 		metal_log(METAL_LOG_DEBUG,
 			  "%s, load header 0x%lx, 0x%x, next 0x%lx, 0x%x\r\n",
 			  __func__, offset, len, noffset, nlen);
@@ -484,21 +482,18 @@ int remoteproc_load(struct remoteproc *rproc, const char *path,
 		offset = noffset;
 		len = nlen;
 	}
-	ret = elf_locate_rsc_table(limg_info, &rsc_da, &offset, &rsc_size);
+	ret = loader->locate_rsc_table(limg_info, &rsc_da, &offset, &rsc_size);
 	if (ret == 0 && rsc_size > 0) {
 		/* parse resource table */
-		rsc_len = (int)rsc_size;
 		rsc_table = remoteproc_get_rsc_table(rproc, store, store_ops,
-						     offset, rsc_len);
-	} else {
-		rsc_len = ret;
+						     offset, rsc_size);
 	}
 
 	/* load executable data */
 	metal_log(METAL_LOG_DEBUG, "%s: load executable data\r\n", __func__);
 	offset = 0;
 	len = 0;
-	ret = -EINVAL;
+	ret = -RPROC_EINVAL;
 	while(1) {
 		unsigned char padding;
 		size_t nmemsize;
@@ -578,43 +573,42 @@ int remoteproc_load(struct remoteproc *rproc, const char *path,
 		}
 	}
 
-	if (rsc_len < 0) {
-		ret = elf_locate_rsc_table(limg_info, &rsc_da,
-					   &offset, &rsc_size);
+	if (rsc_size == 0) {
+		ret = loader->locate_rsc_table(limg_info, &rsc_da,
+					       &offset, &rsc_size);
 		if (ret == 0 && rsc_size > 0) {
 			/* parse resource table */
-			rsc_len = (int)rsc_size;
 			rsc_table = remoteproc_get_rsc_table(rproc, store,
 							     store_ops,
 							     offset,
-							     rsc_len);
+							     rsc_size);
 		}
 	}
 
 	/* Update resource table */
-	if (rsc_len && rsc_da != METAL_BAD_PHYS) {
+	if (rsc_table) {
 		void *rsc_table_cp = rsc_table;
 
 		metal_log(METAL_LOG_DEBUG,
 			  "%s, update resource table\r\n", __func__);
 		rsc_table = remoteproc_mmap(rproc, NULL, &rsc_da,
-					    rsc_len, 0, &io);
+					    rsc_size, 0, &io);
 		if (rsc_table) {
 			size_t rsc_io_offset;
 
 			/* Update resource table */
 			rsc_io_offset = metal_io_virt_to_offset(io, rsc_table);
 			ret = metal_io_block_write(io, rsc_io_offset,
-						   rsc_table_cp, rsc_len);
-			if (ret != rsc_len) {
+						   rsc_table_cp, rsc_size);
+			if (ret != (int)rsc_size) {
 				metal_log(METAL_LOG_WARNING,
 					  "load: failed to update rsc\r\n");
 			}
 			rproc->rsc_table = rsc_table;
-			rproc->rsc_len = rsc_len;
+			rproc->rsc_len = rsc_size;
 		} else {
 			metal_log(METAL_LOG_WARNING,
-				  "load: not able to update rsc table.\n");
+				  "load: not able to update rsc table.\r\n");
 		}
 		metal_free_memory(rsc_table_cp);
 		/* So that the rsc_table will not get released */
@@ -695,14 +689,14 @@ int remoteproc_load_noblock(struct remoteproc *rproc,
 		loader = remoteproc_check_fw_format(img_data, len);
 		if (!loader) {
 			metal_log(METAL_LOG_ERROR,
-			       "load failure: failed to identify image.\n");
+			       "load failure: failed to identify image.\r\n");
 			ret = -RPROC_EINVAL;
 			metal_mutex_release(&rproc->lock);
 			return -RPROC_EINVAL;
 		}
 		rproc->loader = loader;
 	}
-	if (img_info == NULL || *img_info == NULL ) {
+	if (img_info == NULL || *img_info == NULL) {
 		last_load_state = 0;
 	} else {
 		limg_info = *img_info;
@@ -722,7 +716,6 @@ int remoteproc_load_noblock(struct remoteproc *rproc,
 		ret = loader->load_header(img_data, offset, len,
 					  &limg_info, last_load_state,
 					  noffset, nlen);
-		last_load_state = (unsigned int)ret;
 		metal_log(METAL_LOG_DEBUG,
 			  "%s, load header 0x%lx, 0x%x, next 0x%lx, 0x%x\r\n",
 			  __func__, offset, len, *noffset, *nlen);
@@ -730,10 +723,9 @@ int remoteproc_load_noblock(struct remoteproc *rproc,
 			metal_log(METAL_LOG_ERROR,
 				  "load header failed 0x%lx,%d.\r\n",
 				  offset, len);
-
 			goto error1;
 		}
-		last_load_state = loader->get_load_state(limg_info);
+		last_load_state = ret;
 		if (*nlen != 0 &&
 		    (last_load_state & RPROC_LOADER_READY_TO_LOAD) == 0)
 			goto out;
@@ -755,6 +747,7 @@ int remoteproc_load_noblock(struct remoteproc *rproc,
 				  offset, len);
 			goto error1;
 		}
+		last_load_state = ret;
 		if (da != RPROC_LOAD_ANYADDR) {
 			/* get the I/O region from remoteproc */
 			*pa = METAL_BAD_PHYS;
@@ -769,16 +762,14 @@ int remoteproc_load_noblock(struct remoteproc *rproc,
 		}
 		if (*nlen != 0)
 			goto out;
-		else
-			last_load_state = loader->get_load_state(limg_info);
 	}
 	if ((last_load_state & RPROC_LOADER_LOAD_COMPLETE) != 0) {
 		/* Get resource table */
 		size_t rsc_offset;
 		size_t rsc_io_offset;
 
-		ret = elf_locate_rsc_table(limg_info, &rsc_da,
-					   &rsc_offset, &rsc_size);
+		ret = loader->locate_rsc_table(limg_info, &rsc_da,
+					       &rsc_offset, &rsc_size);
 		if (ret == 0 && rsc_size > 0) {
 			lrsc_table = metal_allocate_memory(rsc_size);
 			if (lrsc_table == NULL) {
@@ -795,7 +786,7 @@ int remoteproc_load_noblock(struct remoteproc *rproc,
 			}
 			rsc_io_offset = metal_io_virt_to_offset(*io, rsc_table);
 			ret = metal_io_block_read(*io, rsc_io_offset,
-						  lrsc_table, (int)rsc_size);
+						  lrsc_table, rsc_size);
 			if (ret != (int)rsc_size) {
 				metal_log(METAL_LOG_ERROR,
 					  "load failed: failed to get rsc\r\n");
@@ -805,7 +796,7 @@ int remoteproc_load_noblock(struct remoteproc *rproc,
 			/* parse resource table */
 			ret = remoteproc_parse_rsc_table(rproc, lrsc_table,
 							 rsc_size);
-			if (ret == (int)rsc_size) {
+			if (ret < 0) {
 				metal_log(METAL_LOG_ERROR,
 					  "load failed: failed to parse rsc\r\n");
 				metal_free_memory(lrsc_table);
@@ -813,15 +804,18 @@ int remoteproc_load_noblock(struct remoteproc *rproc,
 			}
 			/* Update resource table */
 			ret = metal_io_block_write(*io, rsc_io_offset,
-						  lrsc_table, (int)rsc_size);
+						  lrsc_table, rsc_size);
 			if (ret != (int)rsc_size) {
 				metal_log(METAL_LOG_WARNING,
-					  "load exectuable, failed to update rsc\r\n");
+					  "load executable, failed to update rsc\r\n");
 			}
 			rproc->rsc_table = rsc_table;
-			rproc->rsc_len = (int)rsc_size;
+			rproc->rsc_len = rsc_size;
 			metal_free_memory(lrsc_table);
 		}
+
+		/* get entry point from the firmware */
+		rproc->bootaddr = loader->get_entry(limg_info);
 	}
 out:
 	if (img_info != NULL)
@@ -845,12 +839,16 @@ unsigned int remoteproc_allocate_id(struct remoteproc *rproc,
 
 	if (start == RSC_NOTIFY_ID_ANY)
 		start = 0;
-	if (end == RSC_NOTIFY_ID_ANY)
+	if (end == 0)
 		end = METAL_BITS_PER_ULONG;
-	notifyid = metal_bitmap_next_set_bit(&rproc->bitmap,
-					     start, end);
+
+	notifyid = metal_bitmap_next_clear_bit(&rproc->bitmap,
+					       start, end);
 	if (notifyid != end)
 		metal_bitmap_set_bit(&rproc->bitmap, notifyid);
+	else
+		notifyid = RSC_NOTIFY_ID_ANY;
+
 	return notifyid;
 }
 
@@ -891,14 +889,26 @@ remoteproc_create_virtio(struct remoteproc *rproc,
 	metal_list_for_each(&rproc->vdevs, node) {
 		rpvdev = metal_container_of(node, struct remoteproc_virtio,
 					    node);
-		if (rpvdev->vdev.index == notifyid)
+		if (rpvdev->vdev.notifyid == notifyid) {
+			metal_mutex_release(&rproc->lock);
 			return &rpvdev->vdev;
+		}
 	}
 	vdev = rproc_virtio_create_vdev(role, notifyid,
 					vdev_rsc, vdev_rsc_io, rproc,
 					remoteproc_virtio_notify,
 					rst_cb);
+	if (!vdev) {
+		metal_mutex_release(&rproc->lock);
+		return NULL;
+	}
+
+	rproc_virtio_wait_remote_ready(vdev);
+
+	rpvdev = metal_container_of(vdev, struct remoteproc_virtio, vdev);
+	metal_list_add_tail(&rproc->vdevs, &rpvdev->node);
 	num_vrings = vdev_rsc->num_of_vrings;
+
 	/* set the notification id for vrings */
 	for (i = 0; i < num_vrings; i++) {
 		struct fw_rsc_vdev_vring *vring_rsc;
@@ -923,9 +933,6 @@ remoteproc_create_virtio(struct remoteproc *rproc,
 		if (ret)
 			goto err1;
 	}
-	rpvdev = metal_container_of(vdev, struct remoteproc_virtio, vdev);
-	metal_list_add_tail(&rproc->vdevs, &rpvdev->node);
-
 	metal_mutex_release(&rproc->lock);
 	return vdev;
 

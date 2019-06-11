@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,6 +29,14 @@
 #ifndef XPFW_MOD_DAP_H_
 #define XPFW_MOD_DAP_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void ModDapInit(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XPFW_MOD_DAP_H_ */

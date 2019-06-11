@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,11 +27,19 @@
 #ifndef PM_QSPI_H_
 #define PM_QSPI_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "pm_common.h"
 
-int PmQspiInit(void);
-int PmQspiWrite(u8 *WriteBufrPtr, u32 ByteCount);
-int PmQspiRead(u32 ByteCount, u8 *ReadBfrPtr);
-int PmQspiHWInit(void);
+s32 PmQspiInit(void);
+s32 PmQspiWrite(u8 *WriteBufrPtr, u32 ByteCount);
+s32 PmQspiRead(u32 ByteCount, u8 *ReadBfrPtr);
+s32 PmQspiHWInit(void);
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* PM_QSPI_H_ */

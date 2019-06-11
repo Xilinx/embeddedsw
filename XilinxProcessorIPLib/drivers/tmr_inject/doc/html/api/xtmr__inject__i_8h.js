@@ -1,4 +1,4 @@
 var xtmr__inject__i_8h =
 [
-    [ "XTMR_Inject_ConfigTable", "group__tmr__inject__v1__1.html#ga52343722e17f9e94767d114f4e4e1904", null ]
+    [ "XTMR_Inject_ConfigTable", "xtmr__inject__i_8h.html#ga52343722e17f9e94767d114f4e4e1904", null ]
 ];

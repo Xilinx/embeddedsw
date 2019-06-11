@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015-2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xcoresightpsdcc.c
-* @addtogroup coresightps_dcc_v1_4
+* @addtogroup coresightps_dcc_v1_5
 * @{
 *
 * Functions in this file are the minimum required functions for the
@@ -50,6 +50,7 @@
 * 1.3   asa    07/01/16 Made changes to ensure that the file does not compile
 *                       for MB BSPs. Instead it throws up a warning. This
 *                       fixes the CR#953056.
+* 1.5   sne    01/19/19 Fixed MISRA-C Violations CR#1025101.
 *
 * </pre>
 *
@@ -60,8 +61,9 @@
 #warning "The driver is supported only for ARM architecture"
 #else
 
-#include <xil_types.h>
-#include <xpseudo_asm.h>
+#include "xil_types.h"
+#include "xpseudo_asm.h"
+#include "xcoresightpsdcc.h"
 
 #ifdef __ICCARM__
 #define INLINE
@@ -95,7 +97,7 @@ void XCoresightPs_DccSendByte(u32 BaseAddress, u8 Data)
 {
 	(void) BaseAddress;
 	while (XCoresightPs_DccGetStatus() & XCORESIGHTPS_DCC_STATUS_TX)
-	dsb();
+	{dsb();}
 #ifdef __aarch64__
 	asm volatile ("msr dbgdtrtx_el0, %0" : : "r" (Data));
 #elif defined (__GNUC__) || defined (__ICCARM__)
@@ -132,7 +134,7 @@ u8 XCoresightPs_DccRecvByte(u32 BaseAddress)
 	(void) BaseAddress;
 
 	while (!(XCoresightPs_DccGetStatus() & XCORESIGHTPS_DCC_STATUS_RX))
-		dsb();
+        {dsb();}
 
 #ifdef __aarch64__
 	asm volatile ("mrs %0, dbgdtrrx_el0" : "=r" (Data));

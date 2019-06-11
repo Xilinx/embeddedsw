@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015-2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -35,15 +35,14 @@
 #include "pm_clock.h"
 #include "pm_common.h"
 
-#define PM_CLOCK_TYPE_DIV0	(1 << PM_CLOCK_DIV0_ID)	/* bits 13:8 */
-#define PM_CLOCK_TYPE_DIV1	(1 << PM_CLOCK_DIV1_ID)	/* bits 21:16 */
+#define PM_CLOCK_TYPE_DIV0	(1U << PM_CLOCK_DIV0_ID)	/* bits 13:8 */
+#define PM_CLOCK_TYPE_DIV1	(1U << PM_CLOCK_DIV1_ID)	/* bits 21:16 */
 #define PM_DIV_WIDTH		0x3FU
 #define PM_2xDIV_WIDTH		(PM_DIV_WIDTH * PM_DIV_WIDTH)
 
 #define PM_CLOCK_HAS_DIV0(clk)	(0U != ((clk)->type & PM_CLOCK_TYPE_DIV0))
 #define PM_CLOCK_HAS_DIV1(clk)	(0U != ((clk)->type & PM_CLOCK_TYPE_DIV1))
 
-typedef struct XPmClockModel XPmClockModel;
 
 /**
  * Pair of multiplexer select value and selected clock input
@@ -76,7 +75,7 @@ typedef struct {
 /**
  * Clock model
  */
-typedef struct XPmClockModel {
+typedef struct XPmClkModel {
 	/** Clock ID*/
 	const enum XPmClock id;
 	/** Pointer to the mux model*/
@@ -84,7 +83,7 @@ typedef struct XPmClockModel {
 	/** Type specifying the available divisors*/
 	const u8 type;
 	/** Next clock in the list*/
-	const XPmClockModel* const next;
+	const struct XPmClkModel* const next;
 } XPmClockModel;
 
 /******************************************************************************/
@@ -529,7 +528,7 @@ static XPmClockMux fpdWdtMux = {
 	.inputs = fpdWdtSel2ClkIn,
 	.size = PM_ARRAY_SIZE(fpdWdtSel2ClkIn),
 	.bits = 1U,
-	.shift = 0,
+	.shift = 0U,
 };
 
 /******************************************************************************/
@@ -972,7 +971,7 @@ static const XPmClockModel* XPm_GetClockById(const enum XPmClock id)
 {
 	const XPmClockModel* clk = head;
 
-	while (clk) {
+	while (clk != NULL) {
 		if (clk->id == id) {
 			break;
 		}
@@ -1004,14 +1003,15 @@ XStatus XPm_GetClockParentBySelect(const enum XPmClock clockId,
 	XStatus status = XST_INVALID_PARAM;
 	u32 i;
 
-	if (!clk || !clk->mux) {
+	if ((NULL == clk) || (NULL == clk->mux)) {
 		goto done;
 	}
 
-	if (!clk->mux->inputs) {
+	if (NULL == clk->mux->inputs) {
 		/* MIO mux */
 		if (select <= 0x4DU) {
-			*parentId = PM_CLOCK_EXT_MIO0 + select;
+			*parentId = PM_CLOCK_EXT_MIO0;
+			*parentId += select;
 			status = XST_SUCCESS;
 		}
 		/* else select parameter is invalid (out of scope) */
@@ -1052,11 +1052,11 @@ XStatus XPm_GetSelectByClockParent(const enum XPmClock clockId,
 	XStatus status = XST_INVALID_PARAM;
 	u32 i;
 
-	if (!clk || !clk->mux) {
+	if ((NULL == clk) || (NULL == clk->mux)) {
 		goto done;
 	}
 
-	if (!clk->mux->inputs) {
+	if (NULL == clk->mux->inputs) {
 		/* MIO mux */
 		u32 mioSel = parentId - PM_CLOCK_EXT_MIO0;
 		if (mioSel <= 0x4DU) {
@@ -1096,7 +1096,7 @@ u8 XPm_GetClockDivType(const enum XPmClock clock)
 	const XPmClockModel* const clk = XPm_GetClockById(clock);
 	u8 divs = 0U;
 
-	if (!clk) {
+	if (NULL == clk) {
 		goto done;
 	}
 	divs = clk->type;
@@ -1131,7 +1131,7 @@ u8 XPm_MapDivider(const enum XPmClock clock,
 	u32 d0, d1 = 0U;
 	u8 mapped = 0U;
 
-	if (!clk || !div0 || !div1) {
+	if ((NULL == clk) || (NULL == div0) || (NULL == div1)) {
 		goto done;
 	}
 
@@ -1141,7 +1141,7 @@ u8 XPm_MapDivider(const enum XPmClock clock,
 	}
 
 	/* Check if given div value is out of range */
-	if ((!PM_CLOCK_HAS_DIV1(clk) && div > PM_DIV_WIDTH) ||
+	if (((!PM_CLOCK_HAS_DIV1(clk)) && (div > PM_DIV_WIDTH)) ||
 	    (div > PM_2xDIV_WIDTH)) {
 		goto done;
 	}
@@ -1151,20 +1151,20 @@ u8 XPm_MapDivider(const enum XPmClock clock,
 		*div0 = div;
 		mapped = PM_CLOCK_TYPE_DIV0;
 		if (PM_CLOCK_HAS_DIV1(clk)) {
-			*div1 = 1;
+			*div1 = 1U;
 			mapped |= PM_CLOCK_TYPE_DIV1;
 		}
 		goto done;
 	}
 	/* Divider has to be configured using both DIV0 and DIV1 */
-	for (d0 = 2; d0 <= PM_DIV_WIDTH/2 + 1; d0++) {
+	for (d0 = 2U; d0 <= ((PM_DIV_WIDTH/2U) + 1U); d0++) {
 		if (0U == (div % d0)) {
 			d1 = div / d0;
 			break;
 		}
 	}
 	/* Check if div is prime number > width (d1 would not be assigned) */
-	if (!d1) {
+	if (0U == d1) {
 		goto done;
 	}
 

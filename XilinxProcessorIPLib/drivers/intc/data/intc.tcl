@@ -31,6 +31,8 @@
 # 3.5      sk     11/09/15 Removed delete filename statement CR# 784758.
 # 3.7      ms     04/18/17 Modified tcl file to add suffix U for macro
 #                          definitions of intc in xparameters.h
+# 3.9      adk    19/12/18 If design contains unconnected interrupt pins
+#			   return proper error message CR#1018878
 ##############################################################################
 
 ## @BEGIN_CHANGELOG
@@ -489,6 +491,11 @@ proc xredefine_intc {drvhandle config_inc} {
         set periph_ip_name [common::get_property NAME $periph]
 
         set num_intr_inputs [common::get_property CONFIG.C_NUM_INTR_INPUTS $periph]
+	if {$num_intr_inputs != $total_source_intrs} {
+	    error "ERROR: unconnected interrupt pins in the design.\n" "" "MDT_ERROR"
+	    return
+	}
+
         set instance_list {}
         for {set i 0} {$i < $num_intr_inputs} {incr i} {
 

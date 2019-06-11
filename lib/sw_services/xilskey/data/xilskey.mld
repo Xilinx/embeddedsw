@@ -47,6 +47,7 @@
 #                     cache after successful programming of requested eFUSE bits
 #       srm  02/26/18 Updated to pick up latest freertos port 10.0
 # 6.5   vns  03/16/18 Modified BBRAM functions for ZynqMP
+# 6.7   arc  10/29/18 Fixed ARMCC compiler warnings
 #
 ##############################################################################
 
@@ -57,6 +58,6 @@ BEGIN LIBRARY xilskey
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilskey,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Secure Key Library supports programming efuse and bbram ";
-  OPTION VERSION = 6.6;
+  OPTION VERSION = 6.7;
   OPTION NAME = xilskey;
 END LIBRARY

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xemacps_hw.h
-* @addtogroup emacps_v3_8
+* @addtogroup emacps_v3_9
 * @{
 *
 * This header file contains identifiers and low-level driver functions (or
@@ -58,6 +58,7 @@
 * 3.1  hk   08/10/15 Update upper 32 bit tx and rx queue ptr register offsets.
 * 3.2   hk   02/22/16 Added SGMII support for Zynq Ultrascale+ MPSoC.
 * 3.8  hk   09/17/18 Fix PTP interrupt masks.
+* 3.9  hk   01/23/19 Add RX watermark support
 * </pre>
 *
 ******************************************************************************/
@@ -150,6 +151,8 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 #define XEMACPS_TXPAUSE_OFFSET       0x0000003CU /**< TX Pause Time reg */
 
 #define XEMACPS_JUMBOMAXLEN_OFFSET   0x00000048U /**< Jumbo max length reg */
+
+#define XEMACPS_RXWATERMARK_OFFSET   0x0000007CU /**< RX watermark reg */
 
 #define XEMACPS_HASHL_OFFSET         0x00000080U /**< Hash Low address reg */
 #define XEMACPS_HASHH_OFFSET         0x00000084U /**< Hash High address reg */
@@ -521,6 +524,14 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 #define XEMACPS_PHYMNTNC_DATA_MASK  0x00000FFFU	/**< data bits */
 #define XEMACPS_PHYMNTNC_PHAD_SHFT_MSK   23U	/**< Shift bits for PHYAD */
 #define XEMACPS_PHYMNTNC_PREG_SHFT_MSK   18U	/**< Shift bits for PHREG */
+/*@}*/
+
+/** @name RX watermark bit definitions
+ * @{
+ */
+#define XEMACPS_RXWM_HIGH_MASK		0x0000FFFFU	/**< RXWM high mask */
+#define XEMACPS_RXWM_LOW_MASK		0xFFFF0000U	/**< RXWM low mask */
+#define XEMACPS_RXWM_LOW_SHFT_MSK	16U	/**< Shift for RXWM low */
 /*@}*/
 
 /* Transmit buffer descriptor status words offset

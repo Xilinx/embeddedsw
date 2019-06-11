@@ -55,7 +55,17 @@
 
 <<MASTER_IPI_MASK_DEF>>
 
-const u32 XPm_ConfigObject[] __attribute__((used, section(".sys_cfg_data"))) = {
+#if defined (__ICCARM__)
+#pragma language=save
+#pragma language=extended
+#endif
+#if defined (__GNUC__)
+    const u32 XPm_ConfigObject[] __attribute__((used, section(".sys_cfg_data"))) =
+#elif defined (__ICCARM__)
+#pragma location = ".sys_cfg_data"
+__root const u32 XPm_ConfigObject[] =
+#endif
+{
 	/**********************************************************************/
 	/* HEADER */
 	1,	/* Number of remaining words in the header */
@@ -87,3 +97,6 @@ const u32 XPm_ConfigObject[] __attribute__((used, section(".sys_cfg_data"))) = {
 	/* GPO SECTION */
 <<GPO_SECTION_DATA>>
 };
+#if defined (__ICCARM__)
+#pragma language=restore
+#endif

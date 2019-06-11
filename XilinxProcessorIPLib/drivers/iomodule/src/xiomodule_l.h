@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2011 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xiomodule_l.h
-* @addtogroup iomodule_v2_6
+* @addtogroup iomodule_v2_7
 * @{
 *
 * This header file contains identifiers and low-level driver functions (or
@@ -64,6 +64,7 @@
 * 1.00a sa   07/15/11 First release
 * 1.01a sa   04/10/12 Updated with fast interrupt
 * 1.02a sa   07/25/12 Updated with GPI interrupt support
+* 2.7   sa   11/09/18 Updated macros to support 64 bit addresses
 * </pre>
 *
 ******************************************************************************/
@@ -237,7 +238,8 @@ typedef void (*XFastInterruptHandler) (void);
 * @return	None.
 *
 * @note		C-style signature:
-*		void XIOModule_EnableIntr(u32 BaseAddress, u32 EnableMask);
+*		void XIOModule_EnableIntr(UINTPTR BaseAddress,
+*                                         u32 EnableMask);
 *
 *****************************************************************************/
 #define XIOModule_EnableIntr(BaseAddress, EnableMask) \
@@ -257,7 +259,8 @@ typedef void (*XFastInterruptHandler) (void);
 * @return	None.
 *
 * @note		C-style signature:
-*		void XIOModule_DisableIntr(u32 BaseAddress, u32 DisableMask);
+*		void XIOModule_DisableIntr(UINTPTR BaseAddress,
+*                                          u32 DisableMask);
 *
 *****************************************************************************/
 #define XIOModule_DisableIntr(BaseAddress, DisableMask) \
@@ -278,7 +281,7 @@ typedef void (*XFastInterruptHandler) (void);
 * @return	None.
 *
 * @note		C-style signature:
-*		void XIOModule_AckIntr(u32 BaseAddress, u32 AckMask);
+*		void XIOModule_AckIntr(UINTPTR BaseAddress, u32 AckMask);
 *
 *****************************************************************************/
 #define XIOModule_AckIntr(BaseAddress, AckMask) \
@@ -298,7 +301,7 @@ typedef void (*XFastInterruptHandler) (void);
 *		indicate an active interrupt which is also enabled.
 *
 * @note		C-style signature:
-*		u32 XIOModule_GetIntrStatus(u32 BaseAddress);
+*		u32 XIOModule_GetIntrStatus(UINTPTR BaseAddress);
 *
 *****************************************************************************/
 #define XIOModule_GetIntrStatus(BaseAddress) \
@@ -317,7 +320,7 @@ typedef void (*XFastInterruptHandler) (void);
 *               register.
 *
 * @note		C-style Signature:
-*		u32 XIOModule_GetStatusReg(u32 BaseAddress);
+*		u32 XIOModule_GetStatusReg(UINTPTR BaseAddress);
 *
 *****************************************************************************/
 #define XIOModule_GetStatusReg(BaseAddress) \
@@ -333,7 +336,7 @@ typedef void (*XFastInterruptHandler) (void);
 * @return	TRUE if the receiver is empty, FALSE if there is data present.
 *
 * @note		C-style Signature:
-*		int XIOModule_IsReceiveEmpty(u32 BaseAddress);
+*		int XIOModule_IsReceiveEmpty(UINTPTR BaseAddress);
 *
 *****************************************************************************/
 #define XIOModule_IsReceiveEmpty(BaseAddress) \
@@ -351,7 +354,7 @@ typedef void (*XFastInterruptHandler) (void);
 * @return	TRUE if the transmitter is full, FALSE otherwise.
 *
 * @note		C-style Signature:
-* 		int XIOModule_IsTransmitFull(u32 BaseAddress);
+* 		int XIOModule_IsTransmitFull(UINTPTR BaseAddress);
 *
 *****************************************************************************/
 #define XIOModule_IsTransmitFull(BaseAddress) \
@@ -373,7 +376,7 @@ typedef void (*XFastInterruptHandler) (void);
 * @return	None.
 *
 * @note		C-style signature:
-*		void XIOModule_WriteReg(u32 BaseAddress,
+*		void XIOModule_WriteReg(UINTPTR BaseAddress,
 *                                       unsigned RegOffset, u32 Data)
 *
 ****************************************************************************/
@@ -394,7 +397,7 @@ typedef void (*XFastInterruptHandler) (void);
 * @return	Data read from the register.
 *
 * @note		C-style signature:
-*		u32 XIOModule_ReadReg(u32 BaseAddress, unsigned RegOffset)
+*		u32 XIOModule_ReadReg(UINTPTR BaseAddress, unsigned RegOffset)
 *
 ******************************************************************************/
 #define XIOModule_ReadReg(BaseAddress, RegOffset) \
@@ -407,8 +410,8 @@ typedef void (*XFastInterruptHandler) (void);
  * UART standard in and standard out handlers, to be connected to generic
  * I/O handling code.
  */
-void XIOModule_SendByte(u32 BaseAddress, u8 Data);
-u8 XIOModule_RecvByte(u32 BaseAddress);
+void XIOModule_SendByte(UINTPTR BaseAddress, u8 Data);
+u8 XIOModule_RecvByte(UINTPTR BaseAddress);
 
 
 /*
@@ -419,9 +422,9 @@ void XIOModule_LowLevelInterruptHandler(void);
 void XIOModule_DeviceInterruptHandler(void *DeviceId);
 
 /* Various configuration functions */
-void XIOModule_SetIntrSvcOption(u32 BaseAddress, int Option);
+void XIOModule_SetIntrSvcOption(UINTPTR BaseAddress, int Option);
 
-void XIOModule_RegisterHandler(u32 BaseAddress,
+void XIOModule_RegisterHandler(UINTPTR BaseAddress,
 			       int InterruptId,
 			       XInterruptHandler Handler,
 			       void *CallBackRef);

@@ -160,10 +160,10 @@ void XV_LBoxSetActiveWin(XV_Lbox_l2 *InstancePtr,
 
   XV_letterbox_Set_HwReg_col_start(&InstancePtr->Lbox, ActiveWindow->StartX);
   XV_letterbox_Set_HwReg_col_end(&InstancePtr->Lbox,
-                (ActiveWindow->StartX+ActiveWindow->Width-1));
+                ActiveWindow->StartX+ActiveWindow->Width);
   XV_letterbox_Set_HwReg_row_start(&InstancePtr->Lbox, ActiveWindow->StartY);
   XV_letterbox_Set_HwReg_row_end(&InstancePtr->Lbox,
-                (ActiveWindow->StartY+ActiveWindow->Height-1));
+                ActiveWindow->StartY+ActiveWindow->Height);
 
   XV_letterbox_Set_HwReg_height(&InstancePtr->Lbox, FrameHeight);
   XV_letterbox_Set_HwReg_width(&InstancePtr->Lbox,  FrameWidth);

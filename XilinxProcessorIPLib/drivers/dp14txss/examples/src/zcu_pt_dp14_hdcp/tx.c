@@ -486,13 +486,13 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 			&& bw_set != XDP_TX_LINK_BW_SET_540GBPS
 			&& bw_set != XDP_TX_LINK_BW_SET_810GBPS
 			){
-		bw_set = InstancePtr->DpPtr->Config.MaxLinkRate;
+		bw_set = DpTxSsInst.DpPtr->TxInstance.LinkConfig.LinkRate; //InstancePtr->DpPtr->Config.MaxLinkRate;
 		retrain_link = 1;
 	}
 	if(lane_set != XDP_TX_LANE_COUNT_SET_1
 			&& lane_set != XDP_TX_LANE_COUNT_SET_2
 			&& lane_set != XDP_TX_LANE_COUNT_SET_4){
-		lane_set = InstancePtr->DpPtr->Config.MaxLaneCount;
+		lane_set = DpTxSsInst.DpPtr->TxInstance.LinkConfig.LaneCount; //InstancePtr->DpPtr->Config.MaxLaneCount;
 		retrain_link = 1;
 	}
 
@@ -1087,11 +1087,11 @@ void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame)
 	u8 RSVD=0;
 
 	//Fixed paramaters
-	u8  dp_version   = 0x11;
+	u8  dp_version   = xilInfoFrame->version;
 
 	//Write #1
 	db1 = 0x00; //sec packet ID fixed to 0 - SST Mode
-	db2 = 0x80 + xilInfoFrame->type;
+	db2 = xilInfoFrame->type;
 	db3 = xilInfoFrame->info_length&0xFF;
 	db4 = (dp_version<<2)|(xilInfoFrame->info_length>>8);
 	temp = db4<<24|db3<<16|db2<<8|db1;

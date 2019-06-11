@@ -13,6 +13,9 @@
 #include <metal/sys.h>
 #include <metal/utilities.h>
 #include <metal/irq.h>
+#include <metal/shmem.h>
+#include <sys/ioctl.h>
+#include "uio.h"
 
 #define MAX_DRIVERS	64
 
@@ -31,17 +34,26 @@ struct linux_driver {
 	void			(*dev_irq_ack)(struct linux_bus *lbus,
 					     struct linux_device *ldev,
 					     int irq);
-	int 			(*dev_dma_map)(struct linux_bus *lbus,
+	int			(*dev_dma_map)(struct linux_bus *lbus,
 						struct linux_device *ldev,
 						uint32_t dir,
 						struct metal_sg *sg_in,
 						int nents_in,
 						struct metal_sg *sg_out);
-	void 			(*dev_dma_unmap)(struct linux_bus *lbus,
+	void			(*dev_dma_unmap)(struct linux_bus *lbus,
 						struct linux_device *ldev,
 						uint32_t dir,
 						struct metal_sg *sg,
 						int nents);
+	int			(*dev_shm_attach)(struct linux_bus *lbus,
+						  struct linux_device *ldev,
+						  struct metal_generic_shmem *shm,
+						  unsigned int direction,
+						  struct metal_shm_ref *ref);
+	void			(*dev_shm_detach)(struct linux_bus *lbus,
+						  struct linux_device *ldev,
+						  struct metal_generic_shmem *shm,
+						  struct metal_shm_ref *ref);
 };
 
 struct linux_bus {
@@ -49,6 +61,11 @@ struct linux_bus {
 	const char		*bus_name;
 	struct linux_driver	drivers[MAX_DRIVERS];
 	struct sysfs_bus	*sbus;
+};
+
+struct linux_device_shm_io_region {
+	struct metal_io_region io;
+	metal_phys_addr_t phys;
 };
 
 struct linux_device {
@@ -156,6 +173,7 @@ static int metal_uio_dev_open(struct linux_bus *lbus, struct linux_device *ldev)
 
 
 	ldev->fd = -1;
+	ldev->device.irq_info = (void *)-1;
 
 	ldev->sdev = sysfs_open_device(lbus->bus_name, ldev->dev_name);
 	if (!ldev->sdev) {
@@ -249,6 +267,7 @@ static int metal_uio_dev_open(struct linux_bus *lbus, struct linux_device *ldev)
 	} else {
 		ldev->device.irq_num =  1;
 		ldev->device.irq_info = (void *)(intptr_t)ldev->fd;
+		metal_linux_irq_register_dev(&ldev->device, ldev->fd);
 	}
 
 	return 0;
@@ -258,12 +277,6 @@ static void metal_uio_dev_close(struct linux_bus *lbus,
 				struct linux_device *ldev)
 {
 	(void)lbus;
-
-	if ((intptr_t)ldev->device.irq_info >= 0)
-		/* Normally this call would not be needed, and is added as precaution.
-		   Also for uio there is only 1 interrupt associated to the fd/device,
-		   we therefore do not need to specify a particular device */
-		metal_irq_unregister(ldev->fd, NULL, NULL, NULL);
 
 	if (ldev->override) {
 		sysfs_write_attribute(ldev->override, "", 1);
@@ -354,6 +367,90 @@ static void metal_uio_dev_dma_unmap(struct linux_bus *lbus,
 	return;
 }
 
+static int metal_uio_dev_shm_attach(struct linux_bus *lbus,
+				    struct linux_device *ldev,
+				    struct metal_generic_shmem *shm,
+				    unsigned int direction,
+				    struct metal_shm_ref *ref)
+{
+	int ret;
+	struct uio_dmabuf_args args;
+	struct linux_device_shm_io_region *linux_io = NULL;;
+	void *va;
+
+	(void)lbus;
+
+	va = mmap(NULL, shm->size, PROT_READ | PROT_WRITE, MAP_SHARED,
+		  shm->id, 0);
+	if (va == MAP_FAILED) {
+		metal_log(METAL_LOG_ERROR,
+			  "%s: failed to mmap shmem %s, of 0x%lx\n",
+			  __func__, shm->name, shm->size);
+		return -EINVAL;
+	}
+	linux_io = malloc(sizeof(*linux_io));
+	if (linux_io == NULL) {
+		metal_log(METAL_LOG_ERROR,
+			  "%s: failed to allocate memory.\n", __func__);
+		ret = -ENOMEM;
+		goto error;
+	}
+	args.dbuf_fd = shm->id;
+	if (direction == METAL_SHM_DIR_DEV_R)
+		args.dir = UIO_DMABUF_DIR_TO_DEV;
+	else if (direction == METAL_SHM_DIR_DEV_W)
+		args.dir = UIO_DMABUF_DIR_FROM_DEV;
+	else
+		args.dir = UIO_DMABUF_DIR_BIDIR;
+	ret = ioctl(ldev->fd, UIO_IOC_MAP_DMABUF, &args);
+	if (ret < 0) {
+		metal_log(METAL_LOG_ERROR,
+			  "%s: Failed to attach shared memory to UIO %s.\n",
+			  __func__, ldev->dev_name);
+		goto error;
+	}
+	linux_io->phys = args.dma_addr;
+	metal_io_init(&linux_io->io, va, &linux_io->phys, shm->size,
+		      -1, 0, NULL);
+	ref->sg.ios = &linux_io->io;
+	ref->sg.nents = 1;
+	return 0;
+error:
+	if (linux_io != NULL) {
+		free(linux_io);
+	}
+	munmap(va, shm->size);
+	return ret;
+}
+
+static void metal_uio_dev_shm_detach(struct linux_bus *lbus,
+				     struct linux_device *ldev,
+				     struct metal_generic_shmem *shm,
+				     struct metal_shm_ref *ref)
+{
+	int ret;
+	struct uio_dmabuf_args args;
+	struct metal_io_region *io;
+	void *va;
+
+	(void)lbus;
+	args.dbuf_fd = shm->id;
+	ret = ioctl(ldev->fd, UIO_IOC_UNMAP_DMABUF, &args);
+	if (ret < 0) {
+		metal_log(METAL_LOG_ERROR,
+			  "%s: Failed to detach shared memory to UIO %s.\n",
+			  __func__, ldev->dev_name);
+	}
+	ref->dev = NULL;
+	ref->sg.nents = 0;
+	io = ref->sg.ios;
+	va = metal_io_virt(io, 0);
+	if (va != NULL) {
+		munmap(va, metal_io_region_size(io));
+	}
+	free(ref->sg.ios);
+}
+
 static struct linux_bus linux_bus[] = {
 	{
 		.bus_name	= "platform",
@@ -367,6 +464,8 @@ static struct linux_bus linux_bus[] = {
 				.dev_irq_ack  = metal_uio_dev_irq_ack,
 				.dev_dma_map = metal_uio_dev_dma_map,
 				.dev_dma_unmap = metal_uio_dev_dma_unmap,
+				.dev_shm_attach = metal_uio_dev_shm_attach,
+				.dev_shm_detach = metal_uio_dev_shm_detach,
 			},
 			{
 				.drv_name  = "uio_dmem_genirq",
@@ -377,6 +476,8 @@ static struct linux_bus linux_bus[] = {
 				.dev_irq_ack  = metal_uio_dev_irq_ack,
 				.dev_dma_map = metal_uio_dev_dma_map,
 				.dev_dma_unmap = metal_uio_dev_dma_unmap,
+				.dev_shm_attach = metal_uio_dev_shm_attach,
+				.dev_shm_detach = metal_uio_dev_shm_detach,
 			},
 			{ 0 /* sentinel */ }
 		}
@@ -397,6 +498,8 @@ static struct linux_bus linux_bus[] = {
 				.dev_irq_ack  = metal_uio_dev_irq_ack,
 				.dev_dma_map = metal_uio_dev_dma_map,
 				.dev_dma_unmap = metal_uio_dev_dma_unmap,
+				.dev_shm_attach = metal_uio_dev_shm_attach,
+				.dev_shm_detach = metal_uio_dev_shm_detach,
 			},
 			{ 0 /* sentinel */ }
 		}
@@ -528,6 +631,41 @@ static void metal_linux_dev_dma_unmap(struct metal_bus *bus,
 				       nents);
 }
 
+static int metal_linux_dev_shm_attach(struct metal_bus *bus,
+				      struct metal_generic_shmem *shm,
+				      struct metal_device *device,
+				      unsigned int direction,
+				      struct metal_shm_ref *ref)
+{
+	struct linux_device *ldev = to_linux_device(device);
+	struct linux_bus *lbus = to_linux_bus(bus);
+
+	if (ldev->ldrv->dev_shm_attach) {
+		return ldev->ldrv->dev_shm_attach(lbus, ldev, shm,
+						  direction, ref);
+	} else {
+		metal_log(METAL_LOG_ERROR,
+			  "No device driver definition for shm attach.\n");
+		return -EINVAL;
+	}
+}
+
+static void metal_linux_dev_shm_detach(struct metal_bus *bus,
+				       struct metal_generic_shmem *shm,
+				       struct metal_device *device,
+				       struct metal_shm_ref *ref)
+{
+	struct linux_device *ldev = to_linux_device(device);
+	struct linux_bus *lbus = to_linux_bus(bus);
+
+	if (ldev->ldrv->dev_shm_detach) {
+		ldev->ldrv->dev_shm_detach(lbus, ldev, shm, ref);
+	} else {
+		metal_log(METAL_LOG_ERROR,
+			  "No device driver definition for shm detach.\n");
+	}
+}
+
 static const struct metal_bus_ops metal_linux_bus_ops = {
 	.bus_close	= metal_linux_bus_close,
 	.dev_open	= metal_linux_dev_open,
@@ -535,6 +673,8 @@ static const struct metal_bus_ops metal_linux_bus_ops = {
 	.dev_irq_ack	= metal_linux_dev_irq_ack,
 	.dev_dma_map	= metal_linux_dev_dma_map,
 	.dev_dma_unmap	= metal_linux_dev_dma_unmap,
+	.dev_shm_attach = metal_linux_dev_shm_attach,
+	.dev_shm_detach = metal_linux_dev_shm_detach,
 };
 
 static int metal_linux_register_bus(struct linux_bus *lbus)
@@ -586,34 +726,32 @@ static int metal_linux_probe_driver(struct linux_bus *lbus,
 	return ldrv->sdrv ? 0 : -ENODEV;
 }
 
+static void metal_linux_bus_close(struct metal_bus *bus);
+
 static int metal_linux_probe_bus(struct linux_bus *lbus)
 {
 	struct linux_driver *ldrv;
-	int error = -ENODEV;
+	int ret, error = -ENODEV;
 
 	lbus->sbus = sysfs_open_bus(lbus->bus_name);
 	if (!lbus->sbus)
 		return -ENODEV;
 
 	for_each_linux_driver(lbus, ldrv) {
-		error = metal_linux_probe_driver(lbus, ldrv);
-		if (!error)
-			break;
+		ret = metal_linux_probe_driver(lbus, ldrv);
+		/* Clear the error if any driver is available */
+		if (!ret)
+			error = ret;
 	}
 
 	if (error) {
-		sysfs_close_bus(lbus->sbus);
-		lbus->sbus = NULL;
+		metal_linux_bus_close(&lbus->bus);
 		return error;
 	}
 
 	error = metal_linux_register_bus(lbus);
-	if (error) {
-		sysfs_close_driver(ldrv->sdrv);
-		ldrv->sdrv = NULL;
-		sysfs_close_bus(lbus->sbus);
-		lbus->sbus = NULL;
-	}
+	if (error)
+		metal_linux_bus_close(&lbus->bus);
 
 	return error;
 }
@@ -666,4 +804,3 @@ int metal_linux_get_device_property(struct metal_device *device,
 
 	return status < 0 ? -errno : 0;
 }
-

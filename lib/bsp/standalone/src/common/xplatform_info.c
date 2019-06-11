@@ -48,6 +48,8 @@
 *       mus  08/17/17 Add EL1 NS mode support for
 *                     XGet_Zynq_UltraMp_Platform_info and XGetPSVersion_Info
 *                     APIs.
+* 7.0	aru 03/15/19  Check for versal before aarch64 and armr5
+*		      in XGetPlatform_Info()
 * </pre>
 *
 ******************************************************************************/
@@ -84,8 +86,9 @@
 ******************************************************************************/
 u32 XGetPlatform_Info()
 {
-
-#if defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU)
+#if defined (versal)
+	return XPLAT_versal;
+#elif defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU)
 	return XPLAT_ZYNQ_ULTRA_MP;
 #elif (__microblaze__)
 	return XPLAT_MICROBLAZE;
@@ -119,7 +122,8 @@ u32 XGet_Zynq_UltraMp_Platform_info()
 	return (u32)((reg.Arg1 >> XPLAT_INFO_SHIFT) & XPLAT_INFO_MASK);
 #else
 	u32 reg;
-	reg = ((Xil_In32(XPAR_CSU_BASEADDR + XPAR_CSU_VER_OFFSET) >> 12U )& XPLAT_INFO_MASK);
+	reg = ((Xil_In32(XPLAT_PS_VERSION_ADDRESS) >> XPLAT_INFO_SHIFT )
+		& XPLAT_INFO_MASK);
 	return reg;
 #endif
 }
@@ -146,12 +150,13 @@ u32 XGetPSVersion_Info()
          */
         XSmc_OutVar reg;
         reg = Xil_Smc(GET_CHIPID_SMC_FID,0,0, 0, 0, 0, 0, 0);
-        return (u32)(reg.Arg1 &  XPS_VERSION_INFO_MASK);
+        return (u32)((reg.Arg1 &  XPS_VERSION_INFO_MASK) >>
+		XPS_VERSION_INFO_SHIFT);
 #else
 	u32 reg;
-	reg = (Xil_In32(XPAR_CSU_BASEADDR + XPAR_CSU_VER_OFFSET)
+	reg = (Xil_In32(XPLAT_PS_VERSION_ADDRESS)
 			& XPS_VERSION_INFO_MASK);
-	return reg;
+	return (reg >> XPS_VERSION_INFO_SHIFT);
 #endif
 }
 #endif

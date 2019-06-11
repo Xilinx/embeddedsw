@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -45,6 +45,7 @@
 * ----- ------ -------- ---------------------------------------------
 * 1.00  cjp    10/07/17 First release
 * 1.2   cjp    04/27/18 Updated for clockps interdependency
+*       mus    02/28/19 Initialized FailCnt variable
 * </pre>
 *
 ******************************************************************************/
@@ -132,7 +133,7 @@ static XStatus ResetPsExample(XResetPs *ResetInstancePtr, u16 ResetDeviceId)
 {
 	int                Status;
 	u8                 CurrPeri;
-	u8                 FailCnt;
+	u8                 FailCnt = 0;
 	u32                RegValue;
 	XResetPs_Config    *ConfigPtr;
 	XResetPs_RstStatus IsAsserted;

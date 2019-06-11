@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -50,6 +50,7 @@
 *       ms  04/05/17 Modified Comment lines in functions to
 *                    recognize it as documentation block for doxygen
 *                    generation.
+* 3.2  nsk  03/26/19 Add support for versal
 *</pre>
 *
 ******************************************************************************/
@@ -276,8 +277,10 @@ int SpiPsFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
 	u32 MaxSize = MAX_DATA;
 	u32 ChipSelect = FLASH_SPI_SELECT_1;
 	XSpiPs_Config *SpiConfig;
+	u32 Platform;
 
-	if (XGetPlatform_Info() == XPLAT_ZYNQ_ULTRA_MP) {
+	Platform = XGetPlatform_Info();
+	if ((Platform == XPLAT_ZYNQ_ULTRA_MP) || (Platform == XPLAT_versal)) {
 		MaxSize = 1024 * 10;
 		ChipSelect = FLASH_SPI_SELECT_0;	/* Device is on CS 0 */
 		SpiIntrId = XPAR_XSPIPS_0_INTR;

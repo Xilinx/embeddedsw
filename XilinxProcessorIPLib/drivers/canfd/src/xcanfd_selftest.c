@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xcanfd_selftest.c
-* @addtogroup canfd_v2_0
+* @addtogroup canfd_v2_1
 * @{
 *
 * This file contains a diagnostic self-test function for the XCanFd driver.
@@ -43,12 +43,11 @@
 * ----- ---- -------- ------------------------------------------------------
 * 1.0   nsk  06/04/15 First release
 * 1.2   mi   09/22/16 Fixed compilation warnings.
-* 2.0   ask  08/08/18 Fixed Cppcheck warnings and updated the Canfd Id with
+* 1.3   ask  08/08/18 Fixed Cppcheck warnings and updated the Canfd Id with
 *						11 bit value
-*	ask  09/21/18 Fixed CanFD hang issue in selftest by correcting the
+* 2.1	ask  09/21/18 Fixed CanFD hang issue in selftest by correcting the
 *                     Configuration regarding the Baud Rate and bit timing
-*		      for both Arbitration and Data Phase.
-* 2.0  ask  9/12/18  Added support for canfd 2.0 spec sequential mode
+*                     for both Arbitration and Data Phase.
 *
 * </pre>
 *
@@ -183,7 +182,8 @@ int XCanFd_SelfTest(XCanFd *InstancePtr)
 	TxFrame[0] = XCanFd_CreateIdValue(TEST_MESSAGE_ID, 0, 0, 0, 0);
 	TxFrame[1] = XCanFd_Create_CanFD_Dlc_BrsValue(TEST_CANFD_DLC);
 
-	Dlc = XCanFd_GetDlc2len(TxFrame[1] & XCANFD_DLCR_DLC_MASK);
+	Dlc = XCanFd_GetDlc2len(TxFrame[1] & XCANFD_DLCR_DLC_MASK,
+		EDL_CANFD);
 	FramePtr = (u8 *) (&TxFrame[2]);
 
 	for (Index = 0; Index < Dlc; Index++) {
@@ -226,7 +226,8 @@ int XCanFd_SelfTest(XCanFd *InstancePtr)
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
-	Dlc = XCanFd_GetDlc2len(RxFrame[1] & XCANFD_DLCR_DLC_MASK);
+	Dlc = XCanFd_GetDlc2len(RxFrame[1] & XCANFD_DLCR_DLC_MASK,
+		EDL_CANFD);
 
 	/* Verify Identifier and Data Length Code. */
 	if (RxFrame[0] != XCanFd_CreateIdValue(TEST_MESSAGE_ID, 0, 0, 0, 0)) {

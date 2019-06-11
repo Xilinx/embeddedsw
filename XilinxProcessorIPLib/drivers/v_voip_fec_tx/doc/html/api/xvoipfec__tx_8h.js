@@ -9,8 +9,15 @@ var xvoipfec__tx_8h =
     [ "XVOIPFEC_TX_H_", "xvoipfec__tx_8h.html#ab84742a63650784653064d1d3ab9ec57", null ],
     [ "XVoipFEC_TX_FECMode", "xvoipfec__tx_8h.html#a62112ade95ce4d9523e75a6147cb22be", null ],
     [ "XVoipFEC_TX_NonBlockAlign", "xvoipfec__tx_8h.html#ab736efe989d6e9a47d448bcfef19f637", null ],
-    [ "fec_mode", "xvoipfec__tx_8h.html#af4ecb46a113174f2c69249074de39f4e", null ],
-    [ "non_block_allign", "xvoipfec__tx_8h.html#aae2917d6481af7af854e734ec4f7b982", null ],
+    [ "fec_mode", "xvoipfec__tx_8h.html#af4ecb46a113174f2c69249074de39f4e", [
+      [ "FEC_BYPASS", "xvoipfec__tx_8h.html#af4ecb46a113174f2c69249074de39f4ea5219d7ebb423fe46ac2c499939a7b37e", null ],
+      [ "FEC_1D", "xvoipfec__tx_8h.html#af4ecb46a113174f2c69249074de39f4ea0cb7264c583963f774847acc53c25df6", null ],
+      [ "FEC_2D", "xvoipfec__tx_8h.html#af4ecb46a113174f2c69249074de39f4eaf64f814fc72f57c41f3b57f222b39d4e", null ]
+    ] ],
+    [ "non_block_allign", "xvoipfec__tx_8h.html#aae2917d6481af7af854e734ec4f7b982", [
+      [ "BLOCK_ALLIGN", "xvoipfec__tx_8h.html#aae2917d6481af7af854e734ec4f7b982a582eb61d0dd28cbfb3be93dfee3076dc", null ],
+      [ "NON_BLOCK_ALLIGN", "xvoipfec__tx_8h.html#aae2917d6481af7af854e734ec4f7b982a2c7a4ef03b65301b267fe372d4a26ffd", null ]
+    ] ],
     [ "XVoipFEC_ChannelAccess", "xvoipfec__tx_8h.html#af08cdc845ae3021bcfba68fd2d3873b0", null ],
     [ "XVoipFEC_TX_CfgInitialize", "xvoipfec__tx_8h.html#accaa9afeb5b738bb38ab0d7bead631c6", null ],
     [ "XVoipFEC_TX_ChannelUpdate", "xvoipfec__tx_8h.html#aee86488c11ff9cf53549b2332119c282", null ],

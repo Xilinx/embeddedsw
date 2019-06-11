@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -41,6 +41,8 @@
 #include "xpfw_mod_stl.h"
 #include "xpfw_mod_wdt.h"
 
+#include "xpfw_mod_ultra96.h"
+
 #if defined (XPAR_LPD_IS_CACHE_COHERENT) || defined (XPAR_FPD_IS_CACHE_COHERENT) || defined (XPAR_PL_IS_CACHE_COHERENT)
 /*****************************************************************************
 *
@@ -78,4 +80,16 @@ void XPfw_UserStartUp(void)
 	ModDapInit();
 	ModLegacyInit();
 	ModWdtInit();
+#ifdef ENABLE_CUSTOM_MOD
+	/*
+	 * This ModCustomInit function is a placeholder to the user
+	 * for creating his own module. Define the symbol ENABLE_CUSTOM_MOD,
+	 * add the custom source code and recompile the firmware.
+	 * Refer "Creating a custom module" section in
+	 * Chapter:10 platform management unit firmware of UG1137.
+	 */
+	ModCustomInit();
+#endif
+
+	ModUltra96Init();
 }

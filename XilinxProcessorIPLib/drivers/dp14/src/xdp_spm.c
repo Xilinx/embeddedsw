@@ -161,20 +161,26 @@ void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 		/* Check for Dp1.4 or Dp1.2/1.1 */
 		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
 			if ((MsaConfig->PixelClockHz > 540000000) &&
-			    (LinkConfig->LaneCount == XDP_TX_LANE_COUNT_SET_4)) {
+			    (LinkConfig->LaneCount == XDP_TX_LANE_COUNT_SET_4) &&
+				(XPAR_XDP_0_QUAD_PIXEL_ENABLE == 1)) {
 				MsaConfig->UserPixelWidth = 4;
 			} else if ((MsaConfig->PixelClockHz > 270000000) &&
-				   (LinkConfig->LaneCount != XDP_TX_LANE_COUNT_SET_1)) {
+				   (LinkConfig->LaneCount != XDP_TX_LANE_COUNT_SET_1) &&
+				   ((XPAR_XDP_0_DUAL_PIXEL_ENABLE == 1) ||
+				    (XPAR_XDP_0_QUAD_PIXEL_ENABLE == 1))) {
 				MsaConfig->UserPixelWidth = 2;
 			} else {
 				MsaConfig->UserPixelWidth = 1;
 			}
 		} else {
 			if ((MsaConfig->PixelClockHz > 300000000) &&
-			    (LinkConfig->LaneCount == XDP_TX_LANE_COUNT_SET_4)) {
+			    (LinkConfig->LaneCount == XDP_TX_LANE_COUNT_SET_4) &&
+			    (XPAR_XDP_0_QUAD_PIXEL_ENABLE ==1)) {
 				MsaConfig->UserPixelWidth = 4;
 			} else if ((MsaConfig->PixelClockHz > 75000000) &&
-				   (LinkConfig->LaneCount != XDP_TX_LANE_COUNT_SET_1)) {
+				   (LinkConfig->LaneCount != XDP_TX_LANE_COUNT_SET_1) &&
+					((XPAR_XDP_0_DUAL_PIXEL_ENABLE == 1) ||
+					 (XPAR_XDP_0_QUAD_PIXEL_ENABLE ==1))) {
 				MsaConfig->UserPixelWidth = 2;
 			} else {
 				MsaConfig->UserPixelWidth = 1;

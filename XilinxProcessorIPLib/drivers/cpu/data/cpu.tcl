@@ -317,15 +317,15 @@ proc generate {drv_handle} {
     }
 
     if {[string compare -nocase "1" $shift] == 0 } {
-    	append compiler_flags " -mxl-barrel-shift"
+	append compiler_flags " -mxl-barrel-shift"
     }
 
     if {[string compare -nocase "1" $pcmp] == 0 } {
-    	append compiler_flags " -mxl-pattern-compare"
+	append compiler_flags " -mxl-pattern-compare"
     }
 
-    if {[string compare "psu_pmu" $proctype] == 0} {
-    	set multiply [common::get_property CONFIG.C_USE_HW_MUL $periph]
+    if {[string compare "psu_pmu" $proctype] == 0 || [string compare "psu_pmc" $proctype] == 0 || [string compare "psu_psm" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0 || [string compare "psv_psm" $proctype] == 0} {
+	set multiply [common::get_property CONFIG.C_USE_HW_MUL $periph]
 	if {[string compare -nocase "0" $multiply] == 0 } {
 		append compiler_flags " -mxl-soft-mul"
 	}
@@ -385,7 +385,7 @@ proc generate {drv_handle} {
 	# If the processor is PMU Microblaze, then generate required params and return
 	# We dont need the Parameters being generated after this code block
 	#------------------------------------------------------------------------------
-	if {[string compare "psu_pmu" $proctype] == 0} {
+	if {[string compare "psu_pmu" $proctype] == 0 || [string compare "psu_pmc" $proctype] == 0 || [string compare "psu_psm" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0 || [string compare "psv_psm" $proctype] == 0} {
 
 		# Generate the Parameters
 		set file_handle [::hsi::utils::open_include_file "xparameters.h"]
@@ -396,7 +396,16 @@ proc generate {drv_handle} {
 		lappend reserved_param_list "C_DEVICE" "C_PACKAGE" "C_SPEEDGRADE" "C_FAMILY" "C_INSTANCE" "C_KIND_OF_EDGE" "C_KIND_OF_LVL" "C_KIND_OF_INTR" "C_NUM_INTR_INPUTS" "C_MASK" "C_NUM_MASTERS" "C_NUM_SLAVES" "C_LMB_AWIDTH" "C_LMB_DWIDTH" "C_LMB_MASK" "C_LMB_NUM_SLAVES" "INSTANCE" "HW_VER"
 		# Print all parameters for psu_pmu with XPAR_MICROBLAZE prefix
 		puts $file_handle ""
-		puts $file_handle "/* Definitions for PMU Microblaze */"
+
+		if {[string compare "psu_pmu" $proctype] == 0 } {
+			puts $file_handle "/* Definitions for PMU Microblaze */"
+		}
+		if {[string compare "psu_pmc" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0} {
+			puts $file_handle "/* Definitions for PMC Microblaze */"
+		}
+                if {[string compare "psu_psm" $proctype] == 0 || [string compare "psv_psm" $proctype] == 0} {
+                        puts $file_handle "/* Definitions for PSM Microblaze */"
+                }
 		set params ""
 		set params [common::list_property $periph CONFIG.*]
 		foreach param $params {

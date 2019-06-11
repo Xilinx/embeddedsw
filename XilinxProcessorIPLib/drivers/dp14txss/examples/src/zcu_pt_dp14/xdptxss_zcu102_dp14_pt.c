@@ -40,6 +40,9 @@
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
 * 1.00 KI 04/01/18 Initial release.
+* 1.01 KU 04/01/19 2019.1 - Updates to RX SetLinkRate, audio enable.
+*                         - Setting Tx link to 1.62 for improved linkup
+*                         - Audio starts after infoframe
 * </pre>
 *
 ******************************************************************************/
@@ -77,12 +80,14 @@ u32 CalcStride(XVidC_ColorFormat Cfmt,
 					  u16 AXIMMDataWidth,
 					  XVidC_VideoStream *StreamPtr);
 
-u32 frame_array[4] = {0x10000000, 0x20000000, 0x30000000, 0x40000000};
-u8 frame_pointer = 1;
-u8 frame_pointer_rd = 3;
+u32 frame_array[3] = {0x10000000, 0x20000000, 0x30000000}; //, 0x40000000};
+u32 frame_array_y[3] = {0x40000000, 0x50000000, 0x60000000};
+u8 frame_pointer = 0;
+u8 frame_pointer_rd = 2;
 u8 not_to_read = 1;
 u8 not_to_write = 3;
 u8 fb_rd_start = 0;
+
 //extern XVidC_VideoMode resolution_table[];
 // adding new resolution definition example
 // XVIDC_VM_3840x2160_30_P_SB, XVIDC_B_TIMING3_60_P_RB
@@ -91,9 +96,9 @@ typedef enum {
     XVIDC_VM_1920x1080_60_P_RB = (XVIDC_VM_CUSTOM + 1),
 	XVIDC_B_TIMING3_60_P_RB ,
 	XVIDC_VM_3840x2160_120_P_RB,
-	XVIDC_VM_7680x4320_24_P,
-	XVIDC_VM_7680x4320_25_P,
-	XVIDC_VM_7680x4320_30_P,
+	XVIDC_VM_7680x4320_DP_24_P,
+	XVIDC_VM_7680x4320_DP_25_P,
+	XVIDC_VM_7680x4320_DP_30_P,
 	XVIDC_VM_3840x2160_100_P_RB2,
 	XVIDC_VM_7680x4320_30_DELL,
 	XVIDC_VM_5120x2880_60_P_RB2,
@@ -118,13 +123,13 @@ const XVidC_VideoTimingMode XVidC_MyVideoTimingMode[
 		{3840, 8, 32, 40, 3920, 1,
 		2160, 113, 8, 6, 2287, 0, 0, 0, 0, 1} },
 
-	{ XVIDC_VM_7680x4320_24_P, "7680x4320@24Hz", XVIDC_FR_24HZ,
+	{ XVIDC_VM_7680x4320_DP_24_P, "7680x4320@24Hz", XVIDC_FR_24HZ,
 		{7680, 352, 176, 592, 8800, 1,
 		4320, 16, 20, 144, 4500, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_7680x4320_25_P, "7680x4320@25Hz", XVIDC_FR_25HZ,
+	{ XVIDC_VM_7680x4320_DP_25_P, "7680x4320@25Hz", XVIDC_FR_25HZ,
 		{7680, 352, 176, 592, 8800, 1,
 		4320, 16, 20, 144, 4500, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_7680x4320_30_P, "7680x4320@30Hz", XVIDC_FR_30HZ,
+	{ XVIDC_VM_7680x4320_DP_30_P, "7680x4320@30Hz", XVIDC_FR_30HZ,
 		{7680, 8, 32, 40, 7760, 0,
 		4320, 47, 8, 6, 4381, 0, 0, 0, 0, 1}},
 	{ XVIDC_VM_3840x2160_100_P_RB2, "3840x2160@100Hz (RB2)", XVIDC_FR_100HZ,
@@ -170,8 +175,8 @@ XVidC_VideoMode resolution_table[] =
 	XVIDC_VM_1920x1080_60_P_RB,
 	XVIDC_VM_3840x2160_60_P_RB,
 	XVIDC_VM_3840x2160_120_P_RB,
-	XVIDC_VM_7680x4320_24_P,
-	XVIDC_VM_7680x4320_30_P,
+	XVIDC_VM_7680x4320_DP_24_P,
+	XVIDC_VM_7680x4320_DP_30_P,
 	XVIDC_VM_3840x2160_100_P_RB2,
 	XVIDC_VM_7680x4320_30_DELL,
 	XVIDC_VM_5120x2880_60_P_RB2,
@@ -322,6 +327,13 @@ int main()
 {
 	u32 Status;
 
+	/* Initialize ICache */
+	Xil_ICacheInvalidate();
+	Xil_ICacheDisable();
+
+	/* Initialize DCache */
+	Xil_DCacheInvalidate();
+	Xil_DCacheDisable();
 
 	xil_printf("\n******************************************************"
 				"**********\n\r");
@@ -1540,14 +1552,9 @@ int ConfigFrmbuf_wr(u32 StrideInBytes,
 	int Status;
 
 	/* Stop Frame Buffers */
-//	Status = XVFrmbufWr_Stop(&frmbufwr);
-//	if(Status != XST_SUCCESS) {
-//		xil_printf("Failed to stop XVFrmbufWr\r\n");
-//	}
-//
-//	resetIp_wr();
 
 	XVFRMBUFWR_BUFFER_BASEADDR = frame_array[frame_pointer];
+	XVFRMBUFWR_BUFFER_BASEADDR_Y = frame_array_y[frame_pointer];
 
 	Status = XVFrmbufWr_SetMemFormat(&frmbufwr, StrideInBytes, Cfmt, StreamPtr);
 	if(Status != XST_SUCCESS) {
@@ -1556,6 +1563,7 @@ int ConfigFrmbuf_wr(u32 StrideInBytes,
 	}
 
 	Status = XVFrmbufWr_SetBufferAddr(&frmbufwr, XVFRMBUFWR_BUFFER_BASEADDR);
+	Status |= XVFrmbufWr_SetChromaBufferAddr(&frmbufwr, XVFRMBUFWR_BUFFER_BASEADDR_Y);
 	if(Status != XST_SUCCESS) {
 		xil_printf("ERROR:: Unable to configure Frame Buffer Write "
 			"buffer address\r\n");
@@ -1589,15 +1597,8 @@ int ConfigFrmbuf_rd(u32 StrideInBytes,
 
 	int Status;
 
-	/* Stop Frame Buffers */
-//	Status = XVFrmbufRd_Stop(&frmbufrd);
-//	if(Status != XST_SUCCESS) {
-//		xil_printf("Failed to stop XVFrmbufRd\r\n");
-//	}
-//
-//	resetIp_rd();
-
 	XVFRMBUFRD_BUFFER_BASEADDR = frame_array[frame_pointer_rd];
+	XVFRMBUFRD_BUFFER_BASEADDR_Y = frame_array_y[frame_pointer_rd];
 
 	/* Configure  Frame Buffers */
 	Status = XVFrmbufRd_SetMemFormat(&frmbufrd, StrideInBytes, Cfmt, StreamPtr);
@@ -1607,6 +1608,7 @@ int ConfigFrmbuf_rd(u32 StrideInBytes,
 	}
 
 	Status = XVFrmbufRd_SetBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR);
+	Status |= XVFrmbufRd_SetChromaBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR_Y);
 	if(Status != XST_SUCCESS) {
 		xil_printf("ERROR:: Unable to configure Frame Buffer "
 				"Read buffer address\r\n");
@@ -1647,7 +1649,8 @@ int ConfigFrmbuf_rd_trunc(u32 offset){
 //	}
 //
 //	resetIp_rd();
-	XVFRMBUFRD_BUFFER_BASEADDR = (0 + (0x10000000)) + offset;
+	XVFRMBUFRD_BUFFER_BASEADDR = frame_array[frame_pointer_rd] + offset;
+	XVFRMBUFRD_BUFFER_BASEADDR_Y = frame_array_y[frame_pointer_rd] + offset;
 
 	offset_rd = offset;
 	/* Configure  Frame Buffers */
@@ -1663,6 +1666,7 @@ int ConfigFrmbuf_rd_trunc(u32 offset){
 	}
 
 	Status = XVFrmbufRd_SetBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR);
+	Status |= XVFrmbufRd_SetChromaBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR_Y);
 	if(Status != XST_SUCCESS) {
 		xil_printf("ERROR:: Unable to configure Frame Buffer "
 				"Read buffer address\r\n");
@@ -1676,7 +1680,7 @@ int ConfigFrmbuf_rd_trunc(u32 offset){
 	/* Start Frame Buffers */
 	XVFrmbufRd_Start(&frmbufrd);
 
-	xil_printf("INFO: FRMBUFrd configured\r\n");
+//	xil_printf("INFO: FRMBUFrd configured\r\n");
 	return(Status);
 }
 
@@ -1696,12 +1700,12 @@ void frameBuffer_stop_rd() {
 	fb_rd_start = 0;
 	Status = XVFrmbufRd_Stop(&frmbufrd);
 	if (Status != XST_SUCCESS) {
-		xil_printf ("Failed to stop Frame Buffer Read\r\n");
+		xil_printf ("Failed to stop Frame Buffer Write\r\n");
 	}
 	resetIp_rd();
 	Status = XVFrmbufRd_WaitForIdle(&frmbufrd);
 	if (Status != XST_SUCCESS) {
-		xil_printf ("Frame Buffer Read is not Idle\r\n");
+		xil_printf ("Frame Buffer is not Idle\r\n");
 	}
 
 }
@@ -1716,34 +1720,52 @@ void frameBuffer_stop_wr() {
 	resetIp_wr();
 	Status = XVFrmbufWr_WaitForIdle(&frmbufwr);
 	if (Status != XST_SUCCESS) {
-		xil_printf ("Frame Buffer Write is not Idle\r\n");
+		xil_printf ("Frame Buffer is not Idle\r\n");
 	}
 
 }
 
 
-void frameBuffer_start_wr(XVidC_VideoMode VmId,
-		XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K) {
+//void frameBuffer_start_wr(XVidC_VideoMode VmId,
+//		XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K) {
+void frameBuffer_start_wr(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K) {
+
 
 	XVidC_ColorFormat Cfmt;
-	XVidC_VideoTiming const *TimingPtr;
 	XVidC_VideoStream VidStream;
 
-//	resetIp_wr();
+	resetIp_wr();
 
 	/* Get video format to test */
 	if(Msa[0].BitsPerColor <= 8){
-		Cfmt = ColorFormats[7].MemFormat;
-		VidStream.ColorFormatId = ColorFormats[7].StreamFormat;
 		VidStream.ColorDepth = XVIDC_BPC_8;
+		if (Msa[0].ComponentFormat ==
+						XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
+			Cfmt = ColorFormats[2].MemFormat;
+			VidStream.ColorFormatId = ColorFormats[2].StreamFormat;
+		} else if (Msa[0].ComponentFormat ==
+				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
+			Cfmt = ColorFormats[8].MemFormat;
+			VidStream.ColorFormatId = ColorFormats[8].StreamFormat;
+		} else {
+			Cfmt = ColorFormats[7].MemFormat;
+			VidStream.ColorFormatId = ColorFormats[7].StreamFormat;
+		}
 	}else if(Msa[0].BitsPerColor == 10){
-		Cfmt = ColorFormats[3].MemFormat;
-		VidStream.ColorFormatId = ColorFormats[3].StreamFormat;
 		VidStream.ColorDepth = XVIDC_BPC_10;
-	}else if(Msa[0].BitsPerColor == 6){ // FrameBuufer can't use 6bpc.
-		Cfmt = ColorFormats[7].MemFormat; // instead, use 8bpc setting
-		VidStream.ColorFormatId = ColorFormats[7].StreamFormat;
-		VidStream.ColorDepth = XVIDC_BPC_8;
+		if (Msa[0].ComponentFormat ==
+								XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
+			Cfmt = ColorFormats[9].MemFormat;
+			VidStream.ColorFormatId = ColorFormats[9].StreamFormat;
+
+		} else if (Msa[0].ComponentFormat ==
+				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
+			Cfmt = ColorFormats[4].MemFormat;
+			VidStream.ColorFormatId = ColorFormats[4].StreamFormat;
+		} else {
+			Cfmt = ColorFormats[3].MemFormat;
+			VidStream.ColorFormatId = ColorFormats[3].StreamFormat;
+		}
 	}
 
 	VidStream.PixPerClk  = (int)DpRxSsInst.UsrOpt.LaneCount;
@@ -1763,28 +1785,46 @@ void frameBuffer_start_wr(XVidC_VideoMode VmId,
 }
 
 
-void frameBuffer_start_rd(XVidC_VideoMode VmId,
-		XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K) {
+//void frameBuffer_start_rd(XVidC_VideoMode VmId,
+//		XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K) {
+void frameBuffer_start_rd(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K) {
 
 	XVidC_ColorFormat Cfmt;
 	XVidC_VideoTiming const *TimingPtr;
 	XVidC_VideoStream VidStream;
 
-//	resetIp_rd();
+	resetIp_rd();
 
 	/* Get video format to test */
 	if(Msa[0].BitsPerColor <= 8){
-		Cfmt = ColorFormats[7].MemFormat;
-		VidStream.ColorFormatId = ColorFormats[7].StreamFormat;
 		VidStream.ColorDepth = XVIDC_BPC_8;
+		if (Msa[0].ComponentFormat ==
+						XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
+			Cfmt = ColorFormats[2].MemFormat;
+			VidStream.ColorFormatId = ColorFormats[2].StreamFormat;
+		} else if (Msa[0].ComponentFormat ==
+				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
+			Cfmt = ColorFormats[8].MemFormat;
+			VidStream.ColorFormatId = ColorFormats[8].StreamFormat;
+		} else {
+			Cfmt = ColorFormats[7].MemFormat;
+			VidStream.ColorFormatId = ColorFormats[7].StreamFormat;
+		}
 	}else if(Msa[0].BitsPerColor == 10){
-		Cfmt = ColorFormats[3].MemFormat;
-		VidStream.ColorFormatId = ColorFormats[3].StreamFormat;
 		VidStream.ColorDepth = XVIDC_BPC_10;
-	}else if(Msa[0].BitsPerColor == 6){ // FrameBuufer can't use 6bpc.
-		Cfmt = ColorFormats[7].MemFormat; // instead, use 8bpc setting
-		VidStream.ColorFormatId = ColorFormats[7].StreamFormat;
-		VidStream.ColorDepth = XVIDC_BPC_8;
+		if (Msa[0].ComponentFormat ==
+						XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
+			Cfmt = ColorFormats[9].MemFormat;
+			VidStream.ColorFormatId = ColorFormats[9].StreamFormat;
+
+		} else if (Msa[0].ComponentFormat ==
+			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
+			Cfmt = ColorFormats[4].MemFormat;
+			VidStream.ColorFormatId = ColorFormats[4].StreamFormat;
+		} else {
+			Cfmt = ColorFormats[3].MemFormat;
+			VidStream.ColorFormatId = ColorFormats[3].StreamFormat;
+		}
 	}
 
 	VidStream.PixPerClk  = Msa[0].UserPixelWidth;
@@ -1804,7 +1844,7 @@ void frameBuffer_start_rd(XVidC_VideoMode VmId,
 
 	// Tx side may change due to sink monitor capability
 	if(downshift4K == 1){ // if sink is 4K monitor,
-		VidStream.VmId = VmId; // This will be set as 4K60
+		VidStream.VmId = XVIDC_VM_3840x2160_30_P; //VmId; // This will be set as 4K30
 		TimingPtr = XVidC_GetTimingInfo(VidStream.VmId);
 		VidStream.Timing = *TimingPtr;
 		VidStream.FrameRate = XVidC_GetFrameRate(VidStream.VmId);
@@ -1866,12 +1906,19 @@ void remap_set(XV_axi4s_remap *remap, u8 in_ppc, u8 out_ppc, u16 width,
 
 void remap_start_wr(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K)
 {
+    u8 color_format = 0;
 
+    if( Msa[0].ComponentFormat ==
+			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
+	color_format = 0x2;
+    } else if (Msa[0].ComponentFormat ==
+			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
+	color_format = 0x1;
+    }
 	//Remap on RX side only converts to 4 PPC
-
 	remap_set(&rx_remap, (int)DpRxSsInst.UsrOpt.LaneCount, 4,
 				Msa[0].Vtm.Timing.HActive,  Msa[0].Vtm.Timing.VActive
-				, 0);
+				, color_format);
 
 	XV_axi4s_remap_EnableAutoRestart(&rx_remap);
 	XV_axi4s_remap_Start(&rx_remap);
@@ -1884,28 +1931,39 @@ void remap_start_rd(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K)
 	u8 tx_ppc = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 			XDP_TX_USER_PIXEL_WIDTH);
 
+    u8 color_format = 0;
+
+    if( Msa[0].ComponentFormat ==
+			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
+	color_format = 0x2;
+    } else if (Msa[0].ComponentFormat ==
+			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
+	color_format = 0x1;
+    }
+
+
 	if(downshift4K == 1 && (Msa[0].Vtm.Timing.HActive >= 7680 &&
 			Msa[0].Vtm.Timing.VActive >= 4320)){
-		remap_set(&tx_remap, 4, tx_ppc, //Msa[0].UserPixelWidth,
+		remap_set(&tx_remap, 4, tx_ppc,
 			3840,
 			2160
-			, 0);
+			, color_format);
 	}
 	// 4K120 will be changed to 4K60
 	else if(downshift4K == 1 &&
 			(Msa[0].Vtm.FrameRate * Msa[0].Vtm.Timing.HActive
 			* Msa[0].Vtm.Timing.VActive > 4096*2160*60)){
 
-		remap_set(&tx_remap, 4, tx_ppc, //Msa[0].UserPixelWidth,
+		remap_set(&tx_remap, 4, tx_ppc,
 			3840,
 			2160
-			, 0);
+			, color_format);
 
 	}else{
-		remap_set(&tx_remap, 4, tx_ppc, //Msa[0].UserPixelWidth,
+		remap_set(&tx_remap, 4, tx_ppc,
 				Msa[0].Vtm.Timing.HActive,
 				Msa[0].Vtm.Timing.VActive,
-			0);
+				color_format);
 
 	}
 
@@ -1914,22 +1972,30 @@ void remap_start_rd(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K)
 	XV_axi4s_remap_Start(&tx_remap);
 }
 
-u8 write_stop = 0;
-
 
 void bufferWr_callback(void *InstancePtr){
 	u32 Status;
 
-	if(XVFRMBUFWR_BUFFER_BASEADDR >= (0 + (0x10000000) + (0x10000000 * 3))){
-		XVFRMBUFRD_BUFFER_BASEADDR = (0 + (0x10000000) + (0x10000000 * 2) +
+	if(XVFRMBUFWR_BUFFER_BASEADDR >= (0 + (0x10000000) + (0x10000000 * 2))){
+
+		XVFRMBUFRD_BUFFER_BASEADDR = (0 + (0x10000000) + (0x10000000 * 1) +
 										offset_rd);
+		XVFRMBUFRD_BUFFER_BASEADDR_Y = (0 + (0x40000000) + (0x10000000 * 1) +
+										offset_rd);
+
+
 		XVFRMBUFWR_BUFFER_BASEADDR = 0 + (0x10000000);
+		XVFRMBUFWR_BUFFER_BASEADDR_Y = 0 + (0x40000000);
 	}else{
 		XVFRMBUFRD_BUFFER_BASEADDR = XVFRMBUFWR_BUFFER_BASEADDR + offset_rd;
+		XVFRMBUFRD_BUFFER_BASEADDR_Y = XVFRMBUFWR_BUFFER_BASEADDR_Y + offset_rd;
+
 		XVFRMBUFWR_BUFFER_BASEADDR = XVFRMBUFWR_BUFFER_BASEADDR + 0x10000000;
+		XVFRMBUFWR_BUFFER_BASEADDR_Y = XVFRMBUFWR_BUFFER_BASEADDR_Y + 0x10000000;
 	}
 
 	Status = XVFrmbufWr_SetBufferAddr(&frmbufwr, XVFRMBUFWR_BUFFER_BASEADDR);
+	Status |= XVFrmbufWr_SetChromaBufferAddr(&frmbufwr, XVFRMBUFWR_BUFFER_BASEADDR_Y);
 	if(Status != XST_SUCCESS) {
 		xil_printf("ERROR:: Unable to configure Frame Buffer "
 				"Write buffer address\r\n");
@@ -1937,6 +2003,7 @@ void bufferWr_callback(void *InstancePtr){
 
 	if (fb_rd_start) {
 	Status = XVFrmbufRd_SetBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR);
+	Status |= XVFrmbufRd_SetChromaBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR_Y);
 	if(Status != XST_SUCCESS) {
 		xil_printf("ERROR:: Unable to configure Frame Buffer "
 				"Read buffer address\r\n");
@@ -1981,8 +2048,9 @@ u32 CalcStride(XVidC_ColorFormat Cfmt,
 	// 3 bytes per pixel (RGB8, YUV8)
 	stride = (((width*3)+MMWidthBytes-1)/MMWidthBytes)*MMWidthBytes;
 
-	}
-	else {
+	} else if (Cfmt == XVIDC_CSF_MEM_YUYV8) {
+		stride = (((width*2)+MMWidthBytes-1)/MMWidthBytes)*MMWidthBytes;
+	} else {
 	// 4 bytes per pixel
 	stride = (((width*4)+MMWidthBytes-1)/MMWidthBytes)*MMWidthBytes;
 
@@ -2000,8 +2068,7 @@ u8 lock = 0;
 u32 appx_fs_dup = 0;
 u32 maud_dup = 0;
 u32 naud_dup = 0;
-
-
+//extern u8 audio_info_avail;
 
 void Dppt_DetectAudio (void) {
 
@@ -2022,27 +2089,32 @@ void Dppt_DetectAudio (void) {
 	appx_fs = appx_fs / 1000;
 
     if (appx_fs >= 31 && appx_fs <= 33) {
-	appx_fs = 32000;
-	lock = 0;
+		appx_fs = 32000;
+		lock = 0;
+//		xil_printf ("^^\r\n");
 
 	} else if (appx_fs >= 43 && appx_fs <= 45) {
 		appx_fs = 44100;
 		lock = 0;
+//		xil_printf ("^^\r\n");
 
 	} else if (appx_fs >= 47 && appx_fs <= 49) {
 		appx_fs = 48000;
 		lock = 0;
+//		xil_printf ("^^\r\n");
 
 	} else {
 		//invalid
 		i2s_invalid = 1;
 		if (lock == 0) {
-			xil_printf ("This Audio Sampling Fs is not supported by "
-					"this design\r\n");
+			xil_printf ("**\r\n");
+			appx_fs = 0;
+			appx_fs_dup = 0;
 			lock = 1;
 		}
 	}
 
+#if 0
     if ((rx_maud != maud_dup)) {
 	XACR_WriteReg (RX_ACR_ADDR, RXACR_MAUD, rx_maud); // divider
 	maud_dup = rx_maud;
@@ -2052,18 +2124,26 @@ void Dppt_DetectAudio (void) {
 	XACR_WriteReg (RX_ACR_ADDR, RXACR_NAUD, rx_naud); // divider
 	naud_dup = rx_naud;
     }
+#endif
 
 	if ((appx_fs_dup != appx_fs) && (i2s_invalid == 0)) {
+		XACR_WriteReg (RX_ACR_ADDR, RXACR_ENABLE, 0x0);
+		XACR_WriteReg (RX_ACR_ADDR, RXACR_MAUD, rx_maud); // divider
+		XACR_WriteReg (RX_ACR_ADDR, RXACR_NAUD, rx_naud); // divider
+		XACR_WriteReg (RX_ACR_ADDR, RXACR_MODE, 0x0); // use streaming from DP
+		start_i2s_clk = 1;
+		AudioinfoFrame.frame_count = 0;
+//		audio_info_avail = 0;
+		XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
+				XDP_RX_INTERRUPT_MASK_INFO_PKT_MASK);
+//		xil_printf (" old new = %d %d\r\n",appx_fs_dup,appx_fs);
+		appx_fs_dup = appx_fs;
 		XACR_WriteReg (RX_ACR_ADDR, RXACR_ENABLE, 0x1);
+		xil_printf ("^^\r\n");
 	} else {
 
 	}
 
-	if ((appx_fs_dup != appx_fs) && (i2s_invalid == 0)) {
-		XACR_WriteReg (RX_ACR_ADDR, RXACR_MODE, 0x1);
-		start_i2s_clk = 1;
-		appx_fs_dup = appx_fs;
-	}
 #endif
 
 }
@@ -2088,8 +2168,9 @@ int Dppt_DetectResolution(void *InstancePtr,
 
 	u32 DpHres = 0;
 	u32 DpVres = 0;
+	char *color;
+
 	int i = 0;
-	XVidC_VideoMode VmId_1;
 
 	frameBuffer_stop_wr();
 
@@ -2158,15 +2239,18 @@ int Dppt_DetectResolution(void *InstancePtr,
 	//YUV422
 		Msa[0].ComponentFormat =
 				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
+		color = "YCbCr422";
 	}
 	else if( (Msa[0].Misc0 & 0x6 ) == 0x4  ) {
 	//RGB or YUV444
 		Msa[0].ComponentFormat =
 				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
-	}else
+		color = "YCbCr444";
+	}else {
 		Msa[0].ComponentFormat =
 				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
-
+		color = "RGB";
+	}
 
 	u32 recv_clk_freq =
 		(((int)DpRxSsInst.UsrOpt.LinkRate*27)*rxMsaMVid)/rxMsaNVid;
@@ -2203,48 +2287,117 @@ int Dppt_DetectResolution(void *InstancePtr,
 	if((recv_clk_freq*1000000)>540000000
 			&& (int)DpRxSsInst.UsrOpt.LaneCount==4){
 		tx_ppc_set = 0x4;
-		Msa[0].UserPixelWidth = 0x4; //(int)DpRxSsInst.UsrOpt.LaneCount;
+		Msa[0].UserPixelWidth = 0x4;
 
 	}
 	else if((recv_clk_freq*1000000)>270000000
 			&& (int)DpRxSsInst.UsrOpt.LaneCount!=1){
 		tx_ppc_set = 0x2;
-		Msa[0].UserPixelWidth = 0x2; //(int)DpRxSsInst.UsrOpt.LaneCount;
+		Msa[0].UserPixelWidth = 0x2;
 
 	}
 	else{
 		tx_ppc_set = 0x1;
-		Msa[0].UserPixelWidth = 0x1; //(int)DpRxSsInst.UsrOpt.LaneCount;
+		Msa[0].UserPixelWidth = 0x1;
 
 	}
 
-	XDp_RxSetUserPixelWidth(DpRxSsInst.DpPtr, (int)DpRxSsInst.UsrOpt.LaneCount);
 	Msa[0].OverrideUserPixelWidth = 1;
-
 	XDp_RxSetLineReset(DpRxSsInst.DpPtr,XDP_TX_STREAM_ID1);
 	XDp_RxDtgDis(DpRxSsInst.DpPtr);
-	XDp_RxDtgEn(DpRxSsInst.DpPtr);
+	XDp_RxSetUserPixelWidth(DpRxSsInst.DpPtr, (int)DpRxSsInst.UsrOpt.LaneCount);
 
-	xil_printf(
-		"*** Detected resolution: "
-			"%lu x %lu @ %luHz, BPC = %lu, PPC = %d***\n\r",
-		DpHres, DpVres,recv_frame_clk_int,bpc,(int)DpRxSsInst.UsrOpt.LaneCount
-	);
+	if (DpRxSsInst.link_up_trigger == 1) {
+		xil_printf(
+			"*** Resolution: "
+				"%lu x %lu @ %luHz, BPC = %lu, PPC = %d, Color = %s ***\r\n",
+			DpHres, DpVres,recv_frame_clk_int,bpc,(int)DpRxSsInst.UsrOpt.LaneCount, color
+		);
+	}
 
-	VmId_1 = XVidC_GetVideoModeId(
-			Msa[0].Vtm.Timing.HActive,
-			Msa[0].Vtm.Timing.VActive,
-			Msa[0].Vtm.FrameRate,0);
-
-	frameBuffer_start_wr(VmId_1, Msa, 0);
+	if (DpRxSsInst.link_up_trigger == 1) {
+		frameBuffer_start_wr(Msa, 0);
+		XDp_RxDtgEn(DpRxSsInst.DpPtr);
+	}
 
 #if PHY_COMP
 		CalculateCRC();
 #endif
 
 		return 1;
+}
+
+extern u8 tx_after_rx;
+
+int Dppt_DetectColor(void *InstancePtr,
+							XDpTxSs_MainStreamAttributes Msa[4]){
+
+	int x,y = 0;
+
+	u32 rxMsamisc0 = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+			XDP_RX_MSA_MISC0);
+
+	Msa[0].Misc0 = rxMsamisc0;
+	/* Check for YUV422, BPP has to be set using component value to 2 */
+	if( (Msa[0].Misc0 & 0x6 ) == 0x2  ) {
+	//YUV422
+		Msa[0].ComponentFormat =
+				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
+	}
+	else if( (Msa[0].Misc0 & 0x6 ) == 0x4  ) {
+	//RGB or YUV444
+		Msa[0].ComponentFormat =
+				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
+	}else
+		Msa[0].ComponentFormat =
+				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
+
+	if (DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat !=
+			Msa[0].ComponentFormat) {
+
+			for (x=0;x<500;x++){
+				for (y=0;y<500;y++){
+					if (!DpRxSsInst.link_up_trigger) {
+						return 0;
+						break;
+					}
+				}
+				if (!DpRxSsInst.link_up_trigger) {
+					return 0;
+					break;
+				}
+			}
+
+			for (x=0;x<500;x++){
+					for (y=0;y<500;y++){
+						if (!DpRxSsInst.link_up_trigger) {
+							return 0;
+							break;
+						}
+					}
+					if (!DpRxSsInst.link_up_trigger) {
+						return 0;
+						break;
+					}
+				}
+
+		if (DpRxSsInst.link_up_trigger == 1) {
+			frameBuffer_stop();
+			xil_printf ("Color Format change detected.. restarting video & TX\r\n");
+			Dppt_DetectResolution(InstancePtr, Msa);
+			if (DpRxSsInst.link_up_trigger == 1) {
+				return 1;
+			}
+		} else {
+			return 0;
+		}
+	}
+
+
 
 }
+
+
 #endif
 
 
@@ -2282,9 +2435,12 @@ void DpPt_TxSetMsaValuesImmediate(void *InstancePtr){
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_MAIN_STREAM_VSTART +
 			StreamOffset[0], XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 					XDP_RX_MSA_VSTART));
+	//Ensure to set TX in async mode. The TX is in ASYNC mode
+	//Setting the MISC0[0] to 0
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_MAIN_STREAM_MISC0 +
-			StreamOffset[0], XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-					XDP_RX_MSA_MISC0));
+			StreamOffset[0], ((XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+					XDP_RX_MSA_MISC0)) & 0xFFFFFFFE));
+
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_MAIN_STREAM_MISC1 +
 			StreamOffset[0], XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 					XDP_RX_MSA_MISC1));
@@ -2306,6 +2462,7 @@ void DpPt_TxSetMsaValuesImmediate(void *InstancePtr){
 			 & 0x6 ) == 0x4){
 	// YUV444
 		DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat =
+
 				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
 	}else
 	// RGB

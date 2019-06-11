@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xrfdc_mixer.c
-* @addtogroup xrfdc_v5_0
+* @addtogroup xrfdc_v6_0
 * @{
 *
 * Contains the interface functions of the Mixer Settings in XRFdc driver.
@@ -41,6 +41,12 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 5.0   sk     08/06/18 Initial release
+* 5.1   cog    01/29/19 Replace structure reference ADC checks with
+*                       function.
+*       cog    01/29/19 XRFdc_SetCoarseMixer and MixerRangeCheck now need
+*                       Tile_id as a parameter.
+*       cog    01/29/19 Rename DataType to MixerInputDataType for
+*                       readability.
 * </pre>
 *
 ******************************************************************************/
@@ -56,8 +62,8 @@
 static void XRFdc_SetFineMixer(XRFdc *InstancePtr, u32 BaseAddr,
 			XRFdc_Mixer_Settings *MixerSettingsPtr);
 static void XRFdc_SetCoarseMixer(XRFdc *InstancePtr, u32 Type, u32 BaseAddr,
-	u32 Block_Id, u32 CoarseMixFreq, XRFdc_Mixer_Settings *MixerSettingsPtr);
-static u32 XRFdc_MixerRangeCheck(XRFdc *InstancePtr, u32 Type,
+	u32 Tile_Id, u32 Block_Id, u32 CoarseMixFreq, XRFdc_Mixer_Settings *MixerSettingsPtr);
+static u32 XRFdc_MixerRangeCheck(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 					XRFdc_Mixer_Settings *MixerSettingsPtr);
 
 /************************** Function Prototypes ******************************/
@@ -115,13 +121,13 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		goto RETURN_PATH;
 	}
 
-	Status = XRFdc_MixerRangeCheck(InstancePtr, Type, MixerSettingsPtr);
+	Status = XRFdc_MixerRangeCheck(InstancePtr, Type, Tile_Id, MixerSettingsPtr);
 	if (Status != XRFDC_SUCCESS) {
 		goto RETURN_PATH;
 	}
 
 	Index = Block_Id;
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 			(Type == XRFDC_ADC_TILE)) {
 		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
 		if (Block_Id == XRFDC_BLK_ID1) {
@@ -160,20 +166,20 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		}
 
 		SamplingRate *= XRFDC_MILLI;
-		/* Set DataType for ADC and DAC */
+		/* Set MixerInputDataType for ADC and DAC */
 		if (Type == XRFDC_DAC_TILE) {
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 						XRFDC_DAC_ITERP_DATA_OFFSET);
 			ReadReg &= ~XRFDC_DAC_INTERP_DATA_MASK;
 			InstancePtr->DAC_Tile[Tile_Id].
-				DACBlock_Digital_Datapath[Index].DataType =
+				DACBlock_Digital_Datapath[Index].MixerInputDataType =
 					XRFDC_DATA_TYPE_REAL;
 			if ((MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2C) ||
 					(MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2R)) {
 				ReadReg |= XRFDC_DAC_INTERP_DATA_MASK;
 				InstancePtr->DAC_Tile[Tile_Id].
 					DACBlock_Digital_Datapath[Index].
-					DataType = XRFDC_DATA_TYPE_IQ;
+					MixerInputDataType = XRFDC_DATA_TYPE_IQ;
 			}
 			XRFdc_WriteReg16(InstancePtr, BaseAddr,
 					XRFDC_DAC_ITERP_DATA_OFFSET, ReadReg);
@@ -181,7 +187,7 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 						XRFDC_ADC_DECI_CONFIG_OFFSET);
 			ReadReg &= ~XRFDC_DEC_CFG_MASK;
-			if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
+			if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
 				ReadReg |= XRFDC_DEC_CFG_4GSPS_MASK;
 			} else if ((MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2C) ||
 					(MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2C)) {
@@ -194,18 +200,18 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 			if (MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2C) {
 				InstancePtr->ADC_Tile[Tile_Id].
 					ADCBlock_Digital_Datapath[Index].
-					DataType = XRFDC_DATA_TYPE_IQ;
+					MixerInputDataType = XRFDC_DATA_TYPE_IQ;
 			}
 			if ((MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2C) ||
 					(MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2R)) {
 				InstancePtr->ADC_Tile[Tile_Id].
 					ADCBlock_Digital_Datapath[Index].
-					DataType = XRFDC_DATA_TYPE_REAL;
+					MixerInputDataType = XRFDC_DATA_TYPE_REAL;
 			}
 		}
 
 		/* Set NCO Phase Mode */
-		if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+		if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 					(Type == XRFDC_ADC_TILE)) {
 			if ((Index == XRFDC_BLK_ID0) || (Index == XRFDC_BLK_ID2)) {
 				XRFdc_WriteReg16(InstancePtr, BaseAddr,
@@ -306,7 +312,7 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 								ReadReg);
 
 		if (MixerSettingsPtr->MixerType == XRFDC_MIXER_TYPE_COARSE) {
-			XRFdc_SetCoarseMixer(InstancePtr, Type, BaseAddr,
+			XRFdc_SetCoarseMixer(InstancePtr, Type, BaseAddr, Tile_Id,
 					Index, CoarseMixFreq, MixerSettingsPtr);
 		} else {
 			XRFdc_SetFineMixer(InstancePtr, BaseAddr, MixerSettingsPtr);
@@ -371,7 +377,7 @@ RETURN_PATH:
 * @note		None
 *
 ******************************************************************************/
-static u32 XRFdc_MixerRangeCheck(XRFdc *InstancePtr, u32 Type,
+static u32 XRFdc_MixerRangeCheck(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 					XRFdc_Mixer_Settings *MixerSettingsPtr)
 {
 	u32 Status;
@@ -435,7 +441,7 @@ static u32 XRFdc_MixerRangeCheck(XRFdc *InstancePtr, u32 Type,
 				"\n Invalid Mixer Type in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
 		(Type == XRFDC_ADC_TILE) &&
 		((MixerSettingsPtr->EventSource == XRFDC_EVNT_SRC_SLICE) ||
 		(MixerSettingsPtr->EventSource ==
@@ -552,7 +558,7 @@ static void XRFdc_SetFineMixer(XRFdc *InstancePtr, u32 BaseAddr,
 *
 ******************************************************************************/
 static void XRFdc_SetCoarseMixer(XRFdc *InstancePtr, u32 Type, u32 BaseAddr,
-	u32 Block_Id, u32 CoarseMixFreq, XRFdc_Mixer_Settings *MixerSettingsPtr)
+	u32 Tile_Id, u32 Block_Id, u32 CoarseMixFreq, XRFdc_Mixer_Settings *MixerSettingsPtr)
 {
 	u16 ReadReg;
 
@@ -576,7 +582,7 @@ static void XRFdc_SetCoarseMixer(XRFdc *InstancePtr, u32 Type, u32 BaseAddr,
 		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 						XRFDC_ADC_MXR_CFG0_OFFSET);
 		ReadReg &= ~XRFDC_MIX_CFG0_MASK;
-		if ((InstancePtr->ADC4GSPS != XRFDC_ADC_4GSPS) ||
+		if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 0) ||
 				(Type == XRFDC_DAC_TILE)) {
 			ReadReg |= XRFDC_CRSE_MIX_I_Q_FSBYTWO;
 		} else {
@@ -593,7 +599,7 @@ static void XRFdc_SetCoarseMixer(XRFdc *InstancePtr, u32 Type, u32 BaseAddr,
 		ReadReg &= ~XRFDC_MIX_CFG1_MASK;
 		if ((MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2C) ||
 					(MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2R)) {
-			if ((InstancePtr->ADC4GSPS != XRFDC_ADC_4GSPS) ||
+			if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 0) ||
 					(Type == XRFDC_DAC_TILE)) {
 				ReadReg |= XRFDC_CRSE_MIX_I_Q_FSBYTWO;
 			} else {
@@ -613,7 +619,7 @@ static void XRFdc_SetCoarseMixer(XRFdc *InstancePtr, u32 Type, u32 BaseAddr,
 		ReadReg &= ~XRFDC_MIX_CFG0_MASK;
 		if ((MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2C) ||
 					(MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2R)) {
-			if ((InstancePtr->ADC4GSPS != XRFDC_ADC_4GSPS) ||
+			if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 0) ||
 					(Type == XRFDC_DAC_TILE)) {
 				ReadReg |= XRFDC_CRSE_MIX_I_FSBYFOUR;
 			} else {
@@ -622,7 +628,7 @@ static void XRFdc_SetCoarseMixer(XRFdc *InstancePtr, u32 Type, u32 BaseAddr,
 					XRFDC_CRSE_MIX_I_ODD_FSBYFOUR;
 			}
 		} else {
-			if ((InstancePtr->ADC4GSPS != XRFDC_ADC_4GSPS) ||
+			if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 0) ||
 					(Type == XRFDC_DAC_TILE)) {
 				ReadReg |= XRFDC_CRSE_MIX_R_I_FSBYFOUR;
 			} else {
@@ -638,7 +644,7 @@ static void XRFdc_SetCoarseMixer(XRFdc *InstancePtr, u32 Type, u32 BaseAddr,
 		ReadReg &= ~XRFDC_MIX_CFG1_MASK;
 		if ((MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2C) ||
 				(MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2R)) {
-			if ((InstancePtr->ADC4GSPS != XRFDC_ADC_4GSPS) ||
+			if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 0) ||
 				(Type == XRFDC_DAC_TILE)) {
 				ReadReg |= XRFDC_CRSE_MIX_Q_FSBYFOUR;
 			} else {
@@ -647,7 +653,7 @@ static void XRFdc_SetCoarseMixer(XRFdc *InstancePtr, u32 Type, u32 BaseAddr,
 					XRFDC_CRSE_MIX_Q_ODD_FSBYFOUR;
 			}
 		} else {
-			if ((InstancePtr->ADC4GSPS != XRFDC_ADC_4GSPS) ||
+			if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 0) ||
 				(Type == XRFDC_DAC_TILE)) {
 				ReadReg |= XRFDC_CRSE_MIX_R_Q_FSBYFOUR;
 			} else {
@@ -665,7 +671,7 @@ static void XRFdc_SetCoarseMixer(XRFdc *InstancePtr, u32 Type, u32 BaseAddr,
 		ReadReg &= ~XRFDC_MIX_CFG0_MASK;
 		if ((MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2C) ||
 					(MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2R)) {
-			if ((InstancePtr->ADC4GSPS != XRFDC_ADC_4GSPS) ||
+			if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 0) ||
 					(Type == XRFDC_DAC_TILE)) {
 				ReadReg |= XRFDC_CRSE_MIX_I_MINFSBYFOUR;
 			} else {
@@ -674,7 +680,7 @@ static void XRFdc_SetCoarseMixer(XRFdc *InstancePtr, u32 Type, u32 BaseAddr,
 					XRFDC_CRSE_MIX_Q_ODD_FSBYFOUR;
 			}
 		} else {
-			if ((InstancePtr->ADC4GSPS != XRFDC_ADC_4GSPS) ||
+			if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 0) ||
 					(Type == XRFDC_DAC_TILE)) {
 				ReadReg |= XRFDC_CRSE_MIX_R_I_MINFSBYFOUR;
 			} else {
@@ -690,7 +696,7 @@ static void XRFdc_SetCoarseMixer(XRFdc *InstancePtr, u32 Type, u32 BaseAddr,
 		ReadReg &= ~XRFDC_MIX_CFG1_MASK;
 		if ((MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2C) ||
 				(MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_C2R)) {
-			if ((InstancePtr->ADC4GSPS != XRFDC_ADC_4GSPS) ||
+			if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 0) ||
 					(Type == XRFDC_DAC_TILE)) {
 				ReadReg |= XRFDC_CRSE_MIX_Q_MINFSBYFOUR;
 			} else {
@@ -699,7 +705,7 @@ static void XRFdc_SetCoarseMixer(XRFdc *InstancePtr, u32 Type, u32 BaseAddr,
 					XRFDC_CRSE_MIX_I_ODD_FSBYFOUR;
 			}
 		} else {
-			if ((InstancePtr->ADC4GSPS != XRFDC_ADC_4GSPS) ||
+			if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 0) ||
 					(Type == XRFDC_DAC_TILE)) {
 				ReadReg |= XRFDC_CRSE_MIX_R_Q_MINFSBYFOUR;
 			} else {
@@ -779,7 +785,7 @@ u32 XRFdc_GetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 	}
 
 	Block = Block_Id;
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)  &&
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1)  &&
 				(Type == XRFDC_ADC_TILE)) {
 		if (Block_Id == XRFDC_BLK_ID1) {
 			Block_Id = XRFDC_BLK_ID3;
@@ -833,7 +839,7 @@ u32 XRFdc_GetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 			}
 		}
 	}
-	if ((InstancePtr->ADC4GSPS != XRFDC_ADC_4GSPS) ||
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 0) ||
 			(Type == XRFDC_DAC_TILE)) {
 		if ((ReadReg_Mix1 == XRFDC_CRSE_MIX_I_Q_FSBYTWO) &&
 			(ReadReg == XRFDC_CRSE_MIX_I_Q_FSBYTWO)) {
@@ -860,7 +866,7 @@ u32 XRFdc_GetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 		}
 	}
 
-	if ((InstancePtr->ADC4GSPS != XRFDC_ADC_4GSPS) ||
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 0) ||
 			(Type == XRFDC_DAC_TILE)) {
 		if ((ReadReg_Mix1 == XRFDC_CRSE_MIX_Q_FSBYFOUR) &&
 			(ReadReg == XRFDC_CRSE_MIX_I_FSBYFOUR)) {
@@ -889,7 +895,7 @@ u32 XRFdc_GetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 
 	}
 
-	if ((InstancePtr->ADC4GSPS != XRFDC_ADC_4GSPS) ||
+	if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 0) ||
 			(Type == XRFDC_DAC_TILE)) {
 		if ((ReadReg_Mix1 == XRFDC_CRSE_MIX_I_FSBYFOUR) &&
 			(ReadReg == XRFDC_CRSE_MIX_Q_FSBYFOUR)) {

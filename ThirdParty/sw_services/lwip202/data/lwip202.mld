@@ -37,6 +37,7 @@ BEGIN LIBRARY lwip202
   OPTION requires_os = (standalone xilkernel freertos10_xilinx);
   OPTION VERSION = 1.2;
   OPTION NAME = lwip202;
+  OPTION library_state = "deprecated";
 
   PARAM name = api_mode, desc = "Mode of operation for lwIP (RAW API/Sockets API)", type = enum, values = ("RAW API" = RAW_API, "SOCKET API" = SOCKET_API), default = RAW_API;
   PARAM name = no_sys_no_timers, desc = "Drops support for sys_timeout when NO_SYS==1", type = bool, default = true;

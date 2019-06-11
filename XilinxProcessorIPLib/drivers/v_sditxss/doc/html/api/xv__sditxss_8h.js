@@ -6,7 +6,16 @@ var xv__sditxss_8h =
     [ "XV_SdiTxSs", "struct_x_v___sdi_tx_ss.html", "struct_x_v___sdi_tx_ss" ],
     [ "XV_SdiTxSs_GetVersion", "xv__sditxss_8h.html#afa37a6e6934a9872bcae5ffe78b78ca4", null ],
     [ "XV_SDITXSS_H_", "xv__sditxss_8h.html#af4ea2e44e5fd24d2b9fe8486a95c5eae", null ],
-    [ "XV_SdiTxSs_Callback", "xv__sditxss_8h.html#a4ee30ca6be555a1735e6c947765f7c07", null ],
+    [ "XV_SdiTxSs_Callback", "xv__sditxss_8h.html#a4d949d42b6b0b4d9a93a97013c0c0974", [
+      [ "XV_SDITXSS_CORESELID_INSERTCRC", "xv__sditxss_8h.html#aa680a60ab65a11392a41f3c4d3253cb6a0b9539fe0733848fc9b280443aef28fc", null ],
+      [ "XV_SDITXSS_CORESELID_INSERTST352", "xv__sditxss_8h.html#aa680a60ab65a11392a41f3c4d3253cb6aacbc0ee8dfc490bdb1aa2227a2fddc77", null ],
+      [ "XV_SDITXSS_CORESELID_ST352OVERWRITE", "xv__sditxss_8h.html#aa680a60ab65a11392a41f3c4d3253cb6ac8786bbe9d833042050dd8e186fdf2aa", null ],
+      [ "XV_SDITXSS_CORESELID_INSERTSYNCBIT", "xv__sditxss_8h.html#aa680a60ab65a11392a41f3c4d3253cb6ace9e81b1a1b81612fd587f3e74924861", null ],
+      [ "XV_SDITXSS_CORESELID_SDBITREPBYPASS", "xv__sditxss_8h.html#aa680a60ab65a11392a41f3c4d3253cb6a245c7b791af5d4f03826b74d1b4ac095", null ],
+      [ "XV_SDITXSS_CORESELID_USEANCIN", "xv__sditxss_8h.html#aa680a60ab65a11392a41f3c4d3253cb6a2ce8a0fe02e5fc6549314746cd6ea202", null ],
+      [ "XV_SDITXSS_CORESELID_INSERTLN", "xv__sditxss_8h.html#aa680a60ab65a11392a41f3c4d3253cb6a2ad4e8af12063eaa1cb8cb92d6840ff0", null ],
+      [ "XV_SDITXSS_CORESELID_INSERTEDH", "xv__sditxss_8h.html#aa680a60ab65a11392a41f3c4d3253cb6a6be956fec492727a85c883437b26e9c1", null ]
+    ] ],
     [ "XV_SdiTxSs_HandlerType", "xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7", [
       [ "XV_SDITXSS_HANDLER_GTREADY", "xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7a3cacfc6799829a378ca48c19316db727", null ],
       [ "XV_SDITXSS_HANDLER_OVERFLOW", "xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7aa20193d62a6c7141931edbf932b4ef2f", null ],
@@ -28,6 +37,7 @@ var xv__sditxss_8h =
       [ "XV_SDITXSS_LOG_EVT_CEALIGN", "xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553a1bbcbe23ea627a2ab2a96ed9f403666c", null ],
       [ "XV_SDITXSS_LOG_EVT_AXI4SVIDLOCK", "xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553a63589926dcc66160bc9d119c338ebc46", null ],
       [ "XV_SDITXSS_LOG_EVT_STREAMSTART", "xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553a9e58b21831ecfa79fd021ddb6eb92e94", null ],
+      [ "XV_SDITXSS_LOG_EVT_STREAMCFG", "xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553a9c9cf38e5c9fa411bbdd6e500a53c723", null ],
       [ "XV_SDITXSS_LOG_EVT_DUMMY", "xv__sditxss_8h.html#afe1f5ed1c9022fbb0da8ddfbdf2d7553abde742780ffd0391fac7379cc7052224", null ]
     ] ],
     [ "XV_SdiTxSs_CfgInitialize", "xv__sditxss_8h.html#a4bdb55bb1af5300e000e420e35256eb8", null ],
@@ -48,7 +58,7 @@ var xv__sditxss_8h =
     [ "XV_SdiTxSs_ReportInfo", "xv__sditxss_8h.html#a7c386b6d8ee0f89c2369422a8513337a", null ],
     [ "XV_SdiTxSs_ReportStreamInfo", "xv__sditxss_8h.html#ac95086a1bc10b4a2dab71fe6413e4be2", null ],
     [ "XV_SdiTxSS_SdiTxIntrHandler", "xv__sditxss_8h.html#ae60511dff2276769326babf05ebf92e2", null ],
-    [ "XV_SdiTxSs_SelfTest", "group__xv__sditxss__v1__1.html#ga73c36b96c1df65a8fa2727ecaf4bb647", null ],
+    [ "XV_SdiTxSs_SelfTest", "xv__sditxss_8h.html#ga73c36b96c1df65a8fa2727ecaf4bb647", null ],
     [ "XV_SdiTxSs_SetCallback", "xv__sditxss_8h.html#a0a8055ef29417b51170aace1338c9b25", null ],
     [ "XV_SdiTxSs_SetColorFormat", "xv__sditxss_8h.html#a46a81701624281a6574f419d86018376", null ],
     [ "XV_SdiTxSs_SetCoreSettings", "xv__sditxss_8h.html#a1d4fc65e3e0bf26e83db1ae9caf2cdd9", null ],

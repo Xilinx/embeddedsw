@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xrfdc_mts.c
-* @addtogroup xrfdc_v5_0
+* @addtogroup xrfdc_v6_0
 * @{
 *
 * Contains the multi tile sync related structures, Macros of the XRFdc driver.
@@ -50,6 +50,7 @@
 *       sk     08/03/18 Check for Block0 enable for tiles participating in MTS.
 *       sk     08/24/18 Reorganize the code to improve readability and
 *                       optimization.
+* 6.0   cog    02/17/19 Added XRFdc_GetMTSEnable API.
 *
 * </pre>
 *
@@ -154,6 +155,7 @@ void XRFdc_MultiConverter_Init(XRFdc_MultiConverter_Sync_Config *ConfigPtr,
 u32 XRFdc_MTS_Sysref_Config(XRFdc *InstancePtr,
 		XRFdc_MultiConverter_Sync_Config *DACSyncConfigPtr,
 		XRFdc_MultiConverter_Sync_Config *ADCSyncConfigPtr, u32 SysRefEnable);
+u32 XRFdc_GetMTSEnable(XRFdc *InstancePtr, u32 Type,u32 Tile, u32 *EnablePtr);
 
 
 #ifdef __cplusplus

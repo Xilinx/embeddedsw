@@ -1,7 +1,7 @@
 /******************************************************************************
 *
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
-* (c) Copyright 2007-2013 Xilinx, Inc. All rights reserved.
+* (c) Copyright 2007-2019 Xilinx, Inc. All rights reserved.
 *
 * This file contains confidential and proprietary information of Xilinx, Inc.
 * and is protected under U.S. and international copyright and other
@@ -197,6 +197,8 @@
 * 5.2  MNK   29/03/15 Added 64bit changes for ZYNQMP.
 *      ms    03/17/17 Modified text file in examples folder for doxygen
 *                     generation.
+* 5.3   asa  02/05/19 Added dependencies.props in data folder for
+*                     importing examples in SDK.
 *
 * </pre>
 *

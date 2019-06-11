@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014-2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -46,7 +46,8 @@
 * ----- ------  -------- -----------------------------------------------------
 * 1.0   vnsld  22/10/14 First release
 * 1.2   adk    11/22/17 Added peripheral test app support.
-* 1.2	adk    11/01/18 Declared static array rather than hard code memory for
+* 1.4   adk     04/12/17 Added support for PMC DMA.
+* 	adk    11/01/18 Declared static array rather than hard code memory for
 *			buffers.
 *	adk    18/01/18 Remove unnecessary column in XIntc_Connect() API.
 * </pre>
@@ -79,26 +80,34 @@
 #else
 #define INTC		XScuGic
 #define INTG_INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+#if defined (versal)
+#define INTG_CSUDMA_INTR_DEVICE_ID	XPAR_PSU_PMCDMA_0_INTR /**< Interrupt device ID
+						 *  of PMC DMA 0 device ID */
+#else
 #define INTG_CSUDMA_INTR_DEVICE_ID 	XPAR_XCSUDMA_INTR /**< Interrupt device ID
 						 *  of CSU DMA device ID */
+#endif
 #endif
 
 #define CSU_SSS_CONFIG_OFFSET	0x008		/**< CSU SSS_CFG Offset */
 #define CSUDMA_LOOPBACK_CFG	0x00000050	/**< LOOP BACK configuration
 						  *  macro */
+#define PMC_SSS_CONFIG_OFFSET	0x500		/**< CSU SSS_CFG Offset */
+#define PMCDMA0_LOOPBACK_CFG	0x0000000D	/**< LOOP BACK configuration
+						  *  macro for PMCDMA0*/
+#define PMCDMA1_LOOPBACK_CFG	0x00000090	/**< LOOP BACK configuration
+						  *  macro for PMCDMA1*/
 #define SIZE		0x100		/**< Size of the data to be
 					  *  transfered */
-
 #if defined(__ICCARM__)
-    #pragma data_alignment = 64
+	#pragma data_alignment = 64
 	u32 DstBuf[SIZE]; /**< Destination buffer */
+	#pragma data_alignment = 64
 	u32 SrcBuf[SIZE]; /**< Source buffer */
-	#pragma data_alignment = 4
 #else
 u32 DstBuf[SIZE] __attribute__ ((aligned (64)));	/**< Destination buffer */
 u32 SrcBuf[SIZE] __attribute__ ((aligned (64)));	/**< Source buffer */
 #endif
-
 
 /**************************** Type Definitions *******************************/
 
@@ -198,6 +207,11 @@ int XCsuDma_IntrExample(INTC *IntcInstancePtr, XCsuDma *CsuDmaInstance,
 		return XST_FAILURE;
 	}
 
+#if defined (versal)
+	if (Config->DmaType != XCSUDMA_DMATYPEIS_CSUDMA)
+		XCsuDma_PmcReset(Config->DmaType);
+#endif
+
 	/*
 	 * Performs the self-test to check hardware build.
 	 */
@@ -221,9 +235,21 @@ int XCsuDma_IntrExample(INTC *IntcInstancePtr, XCsuDma *CsuDmaInstance,
 	 * Setting CSU_DMA in loop back mode.
 	 */
 
-	Xil_Out32(XCSU_BASEADDRESS + CSU_SSS_CONFIG_OFFSET,
-		(Xil_In32(XCSU_BASEADDRESS + CSU_SSS_CONFIG_OFFSET) |
+	if (Config->DmaType == XCSUDMA_DMATYPEIS_CSUDMA) {
+		Xil_Out32(XCSU_BASEADDRESS + CSU_SSS_CONFIG_OFFSET,
+			((Xil_In32(XCSU_BASEADDRESS + CSU_SSS_CONFIG_OFFSET) & 0xF0000) |
 						CSUDMA_LOOPBACK_CFG));
+#if defined (versal)
+	} else if(Config->DmaType == XCSUDMA_DMATYPEIS_PMCDMA0) {
+		Xil_Out32(XPS_PMC_GLOBAL_BASEADDRESS + PMC_SSS_CONFIG_OFFSET,
+			((Xil_In32(XPS_PMC_GLOBAL_BASEADDRESS + PMC_SSS_CONFIG_OFFSET) & 0xFF000000) |
+						PMCDMA0_LOOPBACK_CFG));
+	} else {
+		Xil_Out32(XPS_PMC_GLOBAL_BASEADDRESS + PMC_SSS_CONFIG_OFFSET,
+			((Xil_In32(XPS_PMC_GLOBAL_BASEADDRESS + PMC_SSS_CONFIG_OFFSET) & 0xFF000000) |
+						PMCDMA1_LOOPBACK_CFG));
+#endif
+	}
 
 	/* Data writing at source address location */
 

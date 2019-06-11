@@ -42,6 +42,8 @@
 *                        (SecureHdr) to store partial secure header when
 *                        single secure header is in two chunks, also added
 *                        another member(Hdr) to store size of data stored.
+* 3.0   vns     03/12/19 Added instance to XSecure_Sss structure in
+*                        XFsblPs_PlPartition structure.
 * </pre>
 *
 ******************************************************************************/
@@ -106,6 +108,7 @@ typedef struct {
 	XFsblPs_PlAuthentication PlAuth;/**< Authentication parameters */
 	u8 SecureHdr[XSECURE_SECURE_HDR_SIZE + XSECURE_SECURE_GCM_TAG_SIZE];
 	u8 Hdr;
+	XSecure_Sss SssInstance;
 } XFsblPs_PlPartition;
 /*@}*/
 

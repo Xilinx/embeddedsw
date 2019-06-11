@@ -1,6 +1,6 @@
 ##############################################################################
 #
-# Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
+# Copyright (C) 2014 - 2019 Xilinx, Inc. All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -191,15 +191,15 @@ proc generate {os_handle} {
     foreach entry [glob -nocomplain [file join $commonsrcdir *]] {
         file copy -force $entry "./src"
     }
-
-    if { $proctype == "psu_cortexa53" || $proctype == "ps7_cortexa9" || $proctype == "psu_cortexr5" } {
+    if { $proctype == "psu_cortexa53" || $proctype == "psu_cortexa72" || $proctype == "ps7_cortexa9" || $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" || $proctype == "psv_cortexa72"} {
         set compiler [common::get_property CONFIG.compiler $procdrv]
         foreach entry [glob -nocomplain [file join $armcommonsrcdir *]] {
             file copy -force $entry "./src"
             file delete -force "./src/gcc"
             file delete -force "./src/iccarm"
         }
-        if {[string compare -nocase $compiler "armcc"] != 0 && [string compare -nocase $compiler "iccarm"] != 0} {
+        if {[string compare -nocase $compiler "armcc"] != 0 && [string compare -nocase $compiler "iccarm"] != 0
+	    &&  [string compare -nocase $compiler "armclang"] != 0} {
             set commonccdir "./src/arm/common/gcc"
             foreach entry [glob -nocomplain [file join $commonccdir *]] {
 	         file copy -force $entry "./src/"
@@ -213,6 +213,10 @@ proc generate {os_handle} {
 
     }
 
+    set cortexa72proc [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexa72" || IP_NAME=="psv_cortexa72"}]
+
+
+
     # Only processor specific file should be copied to specified standalone folder
     # write a API which needs compiler,
     switch $proctype {
@@ -224,8 +228,28 @@ proc generate {os_handle} {
             set need_config_file "true"
             set mb_exceptions [mb_has_exceptions $hw_proc_handle]
         }
+	"psu_pmc" -
+	"psv_pmc"
+	{
+	    foreach entry [glob -nocomplain [file join $mbsrcdir *]] {
+                # Copy over only files that are not related to exception handling. All such files have exception in their names
+                file copy -force $entry "./src/"
+            }
+            set need_config_file "true"
+            set mb_exceptions [mb_has_exceptions $hw_proc_handle]
+        }
+	"psu_psm" -
+	"psv_psm"
+	{
+	    foreach entry [glob -nocomplain [file join $mbsrcdir *]] {
+                # Copy over only files that are not related to exception handling. All such files have exception in their names
+                file copy -force $entry "./src/"
+            }
+            set need_config_file "true"
+            set mb_exceptions [mb_has_exceptions $hw_proc_handle]
+        }
         "psu_pmu" {
-            foreach entry [glob -nocomplain [file join $mbsrcdir *]] {
+	    foreach entry [glob -nocomplain [file join $mbsrcdir *]] {
                 # Copy over only files that are not related to exception handling. All such files have exception in their names
                 file copy -force $entry "./src/"
             }
@@ -275,16 +299,35 @@ proc generate {os_handle} {
             close $file_handle
 
         }
-        "psu_cortexa53"  {
+        "psu_cortexa53" -
+	"psv_cortexa72" -
+	"psu_cortexa72"
+	{
             set procdrv [hsi::get_sw_processor]
             set compiler [get_property CONFIG.compiler $procdrv]
             if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
-		set ccdir "./src/arm/cortexa53/32bit/gcc"
-		set cortexa53srcdir1 "./src/arm/cortexa53/32bit"
+		set ccdir "./src/arm/ARMv8/32bit/gcc"
+		set cortexa53srcdir1 "./src/arm/ARMv8/32bit"
+		set platformsrcdir "./src/arm/ARMv8/32bit/platform/ZynqMP"
 	    } else {
-	        set ccdir "./src/arm/cortexa53/64bit/gcc"
-	        set cortexa53srcdir1 "./src/arm/cortexa53/64bit"
-	        set pvconsoledir "./src/arm/cortexa53/64bit/xpvxenconsole"
+	      if {[string compare -nocase $compiler "armclang"] == 0} {
+                       set ccdir "./src/arm/ARMv8/64bit/armclang"
+               } else {
+                       set ccdir "./src/arm/ARMv8/64bit/gcc"
+               }
+
+	        set cortexa53srcdir1 "./src/arm/ARMv8/64bit"
+		if { $proctype == "psu_cortexa53" }  {
+		    file copy -force [file join $cortexa53srcdir1 platform ZynqMP xparameters_ps.h] ./src
+		    if {[string compare -nocase $compiler "armclang"] == 0} {
+		        set platformsrcdir "./src/arm/ARMv8/64bit/platform/ZynqMP/armclang"
+		    } else {
+			set platformsrcdir "./src/arm/ARMv8/64bit/platform/ZynqMP/gcc"
+		    }
+		 } else {
+		    set platformsrcdir "./src/arm/ARMv8/64bit/platform/versal"
+		 }
+	        set pvconsoledir "./src/arm/ARMv8/64bit/xpvxenconsole"
 	        set hypervisor_guest [common::get_property CONFIG.hypervisor_guest $os_handle ]
 	        if { $hypervisor_guest == "true" } {
 	             foreach entry [glob -nocomplain [file join $pvconsoledir *]] {
@@ -293,20 +336,24 @@ proc generate {os_handle} {
 		}
 	    }
 
-	    set includedir "./src/arm/cortexa53/includes_ps"
+	    set includedir "./src/arm/ARMv8/includes_ps"
             foreach entry [glob -nocomplain [file join $cortexa53srcdir1 *]] {
                 file copy -force $entry "./src/"
             }
             foreach entry [glob -nocomplain [file join $ccdir *]] {
                 file copy -force $entry "./src/"
             }
-
+	    foreach entry [glob -nocomplain [file join $platformsrcdir *]] {
+		file copy -force $entry "./src/"
+	    }
+	    file delete -force $platformsrcdir
 	    file copy -force $includedir "./src/"
             file delete -force "./src/gcc"
+	    file delete -force "./src/armclang"
             file delete -force "./src/profile"
 	    file delete -force "./src/xpvxenconsole"
             if { $enable_sw_profile == "true" } {
-                error "ERROR: Profiling is not supported for A53"
+                error "ERROR: Profiling is not supported for A53/A72"
             }
 	    set pss_ref_clk_mhz [common::get_property CONFIG.C_PSS_REF_CLK_FREQ $hw_proc_handle]
             if { $pss_ref_clk_mhz == "" } {
@@ -333,9 +380,11 @@ proc generate {os_handle} {
             xdefine_fabric_reset $file_handle
             close $file_handle
         }
-        "psu_cortexr5"  {
+        "psu_cortexr5" -
+	"psv_cortexr5"
+	{
 	    set procdrv [hsi::get_sw_processor]
-	    set includedir "./src/arm/cortexa53/includes_ps"
+	    set includedir "./src/arm/ARMv8/includes_ps"
 	    if {[string compare -nocase $compiler "iccarm"] == 0} {
 	           set ccdir "./src/arm/cortexr5/iccarm"
             } else {
@@ -347,7 +396,10 @@ proc generate {os_handle} {
 	    foreach entry [glob -nocomplain [file join $ccdir *]] {
 		file copy -force $entry "./src/"
 	    }
-	    file copy -force $includedir "./src/"
+
+	    if {[llength $cortexa72proc] == 0} {
+	        file copy -force $includedir "./src/"
+	    }
 	    file delete -force "./src/gcc"
 	    file delete -force "./src/iccarm"
 	    file delete -force "./src/profile"
@@ -365,6 +417,17 @@ proc generate {os_handle} {
 	    puts $file_handle ""
 	    puts $file_handle "#include \"xparameters_ps.h\""
 	    puts $file_handle ""
+	    if {[llength $cortexa72proc] > 0} {
+		set platformsrcdir "./src/arm/cortexr5/platform/versal"
+	    } else {
+	        set platformsrcdir "./src/arm/cortexr5/platform/ZynqMP"
+	    }
+
+	    foreach entry [glob -nocomplain [file join $platformsrcdir *]] {
+		file copy -force $entry "./src/"
+	    }
+            file delete -force $platformsrcdir
+
             # If board name is valid, define corresponding symbol in xparameters
             if { [string length $boardname] != 0 } {
                 set fields [split $boardname ":"]
@@ -428,12 +491,12 @@ proc generate {os_handle} {
     # Write the Config.make file
     set makeconfig [open "./src/config.make" w]
 #    print_generated_header_tcl $makeconfig "Configuration parameters for Standalone Makefile"
-    if { $proctype == "microblaze" || $proctype == "psu_pmu" } {
+    if { $proctype == "microblaze" || $proctype == "psu_pmu" || $proctype == "psu_psm" || $proctype == "psu_pmc" || $proctype == "psv_psm" || $proctype == "psv_pmc" } {
         puts $makeconfig "LIBSOURCES = *.c *.S"
         puts $makeconfig "PROFILE_ARCH_OBJS = profile_mcount_mb.o"
-    } elseif { $proctype == "psu_cortexr5" } {
+    } elseif { $proctype == "psu_cortexr5" ||  $proctype == "psv_cortexr5" } {
 	puts $makeconfig "LIBSOURCES = *.c *.S"
-    } elseif { $proctype == "psu_cortexa53" }  {
+    } elseif { $proctype == "psu_cortexa53" || $proctype == "psu_cortexa72" || $proctype == "psv_cortexa72"}  {
             puts $makeconfig "LIBSOURCES = *.c *.S"
     } elseif { $proctype == "ps7_cortexa9" } {
         if {[string compare -nocase $compiler "armcc"] == 0} {
@@ -499,8 +562,8 @@ proc generate {os_handle} {
     file delete $bspcfg_fn
     set bspcfg_fh [open $bspcfg_fn w]
     ::hsi::utils::write_c_header $bspcfg_fh "Configurations for Standalone BSP"
-	puts $bspcfg_fh "#ifndef BSPCONFIG_H /* prevent circular inclusions */"
-	puts $bspcfg_fh "#define BSPCONFIG_H /* by using protection macros */"
+    puts $bspcfg_fh "#ifndef BSPCONFIG_H  /* prevent circular inclusions */"
+    puts $bspcfg_fh "#define BSPCONFIG_H  /* by using protection macros */"
     puts $bspcfg_fh ""
 
     if { $proctype == "microblaze" && [mb_has_pvr $hw_proc_handle] } {
@@ -538,20 +601,31 @@ proc generate {os_handle} {
 			puts $bspcfg_fh "#define HYP_GUEST 0"
 		}
 	}
-    }
+    } elseif { $proctype == "psu_cortexa72" || $proctype == "psv_cortexa72"} {
+                set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
+                set flagindex [string first {-DARMA72_EL3} $extra_flags 0]
+                if { $flagindex == -1 } {
+                     puts $bspcfg_fh "#define EL3 0"
+                     puts $bspcfg_fh "#define EL1_NONSECURE 1"
+                     puts $bspcfg_fh "#define HYP_GUEST 0"
+               } else {
+                    puts $bspcfg_fh "#define EL3 1"
+                    puts $bspcfg_fh "#define EL1_NONSECURE 0"
+                    puts $bspcfg_fh "#define HYP_GUEST 0"
+               }
 
-    if { $proctype == "ps7_cortexa9" } {
-	if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
-		set extra_flags [::common::get_property VALUE [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ] ]
-		set flagindex [string first {-mfloat-abi=hard} $extra_flags 0]
-		puts $bspcfg_fh ""
-		puts $bspcfg_fh "/* Definition for hard-float ABI */"
-		if { $flagindex != -1 } {
-			puts $bspcfg_fh "#define FPU_HARD_FLOAT_ABI_ENABLED 1"
-		} else {
-			puts $bspcfg_fh "#define FPU_HARD_FLOAT_ABI_ENABLED 0"
+    } elseif { $proctype == "ps7_cortexa9" } {
+		if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
+			set extra_flags [::common::get_property VALUE [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ] ]
+			set flagindex [string first {-mfloat-abi=hard} $extra_flags 0]
+			puts $bspcfg_fh ""
+			puts $bspcfg_fh "/* Definition for hard-float ABI */"
+			if { $flagindex != -1 } {
+				puts $bspcfg_fh "#define FPU_HARD_FLOAT_ABI_ENABLED 1"
+			} else {
+				puts $bspcfg_fh "#define FPU_HARD_FLOAT_ABI_ENABLED 0"
+			}
 		}
-	}
     }
 	puts $bspcfg_fh ""
     puts $bspcfg_fh "\#endif /*end of __BSPCONFIG_H_*/"
@@ -570,7 +644,12 @@ proc generate {os_handle} {
 	puts $file_handle "#define PLATFORM_MB"
     }
 
-    if { $proctype == "psu_cortexr5"} {
+    if {[llength $cortexa72proc] > 0} {
+	puts $file_handle "#ifndef versal"
+        puts $file_handle "#define versal"
+        puts $file_handle "#endif"
+        puts $file_handle ""
+    } elseif { $proctype == "psu_cortexr5"} {
 	 set lockstep_debug [common::get_property CONFIG.lockstep_mode_debug $os_handle]
 	 puts $file_handle " "
 	 puts $file_handle "/* Definitions for debug logic configuration in lockstep mode */"
@@ -586,7 +665,112 @@ proc generate {os_handle} {
 	 puts $file_handle " "
 	 puts $file_handle " "
 	 puts $file_handle "/******************************************************************/"
+
 	close $file_handle
+#	xcreate_cmake_toolchain_file $os_handle $cortexa72proc
+}
+
+proc xcreate_cmake_toolchain_file {os_handle is_versal} {
+	# Get the processor
+	set proc_instance [hsi::get_sw_processor]
+	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
+	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
+	set os [common::get_property NAME [hsi::get_os]]
+	set compiler_str [common::get_property CONFIG.compiler -object ${proc_instance}]
+	set compiler_l [split ${compiler_str}]
+	set compiler [lindex ${compiler_l} 0]
+	set empty_string ""
+	set crosscompiler_postfix [lindex [split $compiler "-"] end]
+	set crosscompile [string map [list $crosscompiler_postfix $empty_string] "${compiler}"]
+	set c_flags [common::get_property CONFIG.compiler_flags -object ${proc_instance}]
+	set extra_flags [common::get_property CONFIG.extra_compiler_flags -object ${proc_instance}]
+	set linclude [file normalize "../.."]
+	set extra_flags "${extra_flags} -I${linclude}/include"
+
+	# Generate cmake toolchain file
+	set toolchain_cmake "toolchain"
+	set fd [open "src/${toolchain_cmake}.cmake" w]
+
+	if { "${proc_type}" == "psu_cortexr5" } {
+		puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"cortexr5\" CACHE STRING \"\")"
+		if { [llength $is_versal] > 0} {
+			puts $fd "set (MACHINE \"versal\")"
+		} else {
+			puts $fd "set (MACHINE \"ZynqMP\")"
+		}
+	} elseif { "${proc_type}" == "psu_cortexa53"} {
+		if { "${compiler}" == "arm-none-eabi-gcc" } {
+			puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"cortexa53-32\" CACHE STRING \"\")"
+			puts $fd "set (MACHINE \"ZynqMP\")"
+		} else {
+			puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"cortexa53\" CACHE STRING \"\")"
+			puts $fd "set (MACHINE \"ZynqMP\")"
+		}
+	} elseif { "${proc_type}" == "psu_cortexa72"} {
+			puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"cortexa72\" CACHE STRING \"\")"
+			puts $fd "set (MACHINE \"versal\")"
+	} elseif { "${proc_type}" == "ps7_cortexa9" } {
+		puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"cortexa9\" CACHE STRING \"\")"
+		puts $fd "set (MACHINE \"Zynq\")"
+	} elseif { "${proc_type}" == "microblaze" || "${proc_type}" == "psu_pmc" || "${proc_type}" == "psu_psm" || "${proc_type}" == "psv_pmc" || "${proc_type}" == "psv_psm" || "${proc_type}" == "psu_pmu"} {
+		puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"microblaze\" CACHE STRING \"\")"
+		puts $fd "set (MACHINE \"microblaze_generic\")"
+		set c_flags "${c_flags}  -mlittle-endian"
+	}
+	puts $fd "set (CROSS_PREFIX \"${crosscompile}\" CACHE STRING \"\")"
+	puts $fd "set (CMAKE_C_FLAGS \"${c_flags} ${extra_flags}\" CACHE STRING \"\")"
+	puts $fd "set (CMAKE_ASM_FLAGS \"${c_flags} ${extra_flags}\" CACHE STRING \"\")"
+	if { [string match "freertos*" "${os}"] > 0 } {
+		puts $fd "set (CMAKE_SYSTEM_NAME \"FreeRTOS\" CACHE STRING \"\")"
+	} else {
+		puts $fd "set (CMAKE_SYSTEM_NAME \"Generic\" CACHE STRING \"\")"
+	}
+	puts $fd "include (CMakeForceCompiler)"
+	puts $fd "CMAKE_FORCE_C_COMPILER (\"\$\{CROSS_PREFIX\}gcc\" GNU)"
+	puts $fd "CMAKE_FORCE_CXX_COMPILER (\"\$\{CROSS_PREFIX\}g++\" GNU)"
+
+	puts $fd "set (CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER CACHE STRING \"\")"
+	puts $fd "set (CMAKE_FIND_ROOT_PATH_MODE_LIBRARY NEVER CACHE STRING \"\")"
+	puts $fd "set (CMAKE_FIND_ROOT_PATH_MODE_INCLUDE NEVER CACHE STRING \"\")"
+	close $fd
+
+	# Run cmake to generate make file
+	set bdir "build_xilstandalone"
+	if { [catch {file mkdir "${bdir}"} msg] } {
+		error "Failed to create xilstandalone build directory."
+	}
+	set workdir [pwd]
+	cd "${bdir}"
+	set cmake_cmd "../src/run_cmake"
+	set os_platform_type "$::tcl_platform(platform)"
+	
+	#copy toolchain file to libsrc directory of BSP
+	file copy -force ../src/toolchain.cmake ../../
+
+	set cmake_opt "-DCMAKE_TOOLCHAIN_FILE=../src/toolchain.cmake"
+	append cmake_opt " -DCMAKE_INSTALL_PREFIX=/"
+	append cmake_opt " -DCMAKE_VERBOSE_MAKEFILE=on"
+	append cmake_opt " -DWITH_DEFAULT_LOGGER=off"
+
+	if { [string match -nocase "windows*" "${os_platform_type}"] == 0 } {
+		# Linux
+		file attributes ${cmake_cmd} -permissions ugo+rx
+		if { [catch {exec ${cmake_cmd} "../src/"  ${cmake_opt}} msg] } {
+			error "Failed to generate cmake files.${msg}"
+		} else {
+			puts "${msg}"
+		}
+	} else {
+		# Windows
+		# Note: windows tcl exec does not do well when trying to provide ${cmake_opt}
+		#       for now hardcoding the values directly on the command line.
+		if { [catch {exec ${cmake_cmd} "../src/" -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=../src/toolchain.cmake -DCMAKE_INSTALL_PREFIX=/ -DCMAKE_VERBOSE_MAKEFILE=on -DWITH_DEFAULT_LOGGER=off -DWITH_DOC=off } msg] } {
+			error "Failed to generate cmake files.${msg}"
+		} else {
+			puts "${msg}"
+		}
+	}
+
 }
 
 # --------------------------------------------------------
@@ -595,19 +779,23 @@ proc generate {os_handle} {
 proc xsleep_timer_config {proctype os_handle file_handle} {
 
     set sleep_timer [common::get_property CONFIG.sleep_timer $os_handle ]
-	if { $sleep_timer == "ps7_globaltimer_0" || $sleep_timer == "psu_iou_scntr" || $sleep_timer == "psu_iou_scntrs" } {
-		if { $proctype == "psu_cortexr5" } {
+	if { $sleep_timer == "ps7_globaltimer_0" || $sleep_timer == "psu_iou_scntr" || $sleep_timer == "psu_iou_scntrs" || $sleep_timer == "psv_iou_scntr" || $sleep_timer == "psv_iou_scntrs"} {
+		if { $proctype == "psu_cortexr5" ||  $proctype == "psv_cortexr5"} {
 			error "ERROR: $proctype does not support $sleep_timer "
 		}
     } elseif { $sleep_timer == "none" } {
-		if { $proctype == "psu_cortexr5" } {
+		if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" } {
 			set periphs [hsi::get_cells -hier]
 			foreach periph $periphs {
 				if {[string compare -nocase "psu_ttc_3" $periph] == 0} {
 					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSU_TTC_9_BASEADDR"
 					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSU_TTC_9_TTC_CLK_FREQ_HZ"
 					puts $file_handle "#define XSLEEP_TTC_INSTANCE 3"
-			    }
+				} elseif {[string compare -nocase "psv_ttc_3" $periph] == 0} {
+					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSV_TTC_9_BASEADDR"
+					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSV_TTC_9_TTC_CLK_FREQ_HZ"
+					puts $file_handle "#define XSLEEP_TTC_INSTANCE 3"
+				}
 			}
 		}
 		puts $file_handle "#define XSLEEP_TIMER_IS_DEFAULT_TIMER"
@@ -627,14 +815,16 @@ proc xsleep_timer_config {proctype os_handle file_handle} {
 		if { $proctype == "ps7_cortexa9" } {
 			puts $file_handle "#define SLEEP_TIMER_BASEADDR [format "XPAR_PS7_TTC_%d_BASEADDR" [ expr 3 * $module + $timer ] ] "
 			puts $file_handle "#define SLEEP_TIMER_FREQUENCY [format "XPAR_PS7_TTC_%d_TTC_CLK_FREQ_HZ" [ expr 3 * $module + $timer ] ] "
-		} elseif { $proctype == "psu_cortexa53" || $proctype == "psu_cortexr5" } {
+		} elseif { $proctype == "psu_cortexa53" || $proctype == "psu_cortexr5" || $proctype == "psu_cortexa72" } {
 			puts $file_handle "#define SLEEP_TIMER_BASEADDR [format "XPAR_PSU_TTC_%d_BASEADDR" [ expr 3 * $module + $timer ] ] "
 			puts $file_handle "#define SLEEP_TIMER_FREQUENCY [format "XPAR_PSU_TTC_%d_TTC_CLK_FREQ_HZ" [ expr 3 * $module + $timer ] ] "
+		} elseif {$proctype == "psv_cortexr5" || $proctype == "psv_cortexa72"} {
+			puts $file_handle "#define SLEEP_TIMER_BASEADDR [format "XPAR_PSV_TTC_%d_BASEADDR" [ expr 3 * $module + $timer ] ] "
+			puts $file_handle "#define SLEEP_TIMER_FREQUENCY [format "XPAR_PSV_TTC_%d_TTC_CLK_FREQ_HZ" [ expr 3 * $module + $timer ] ] "
 		}
 	}
 	return
 }
-
 # --------------------------------------
 # Tcl procedure get_psu_config
 # --------------------------------------

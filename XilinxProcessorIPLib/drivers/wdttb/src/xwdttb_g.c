@@ -1,6 +1,6 @@
 /*******************************************************************
 * 
-* Copyright (C) 2010-2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc. All rights reserved.
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
 * in the Software without restriction, including without limitation the rights
@@ -27,7 +27,7 @@
 /**
 *
 * @file xwdttb_g.c
-* @addtogroup wdttb_v4_3
+* @addtogroup wdttb_v4_4
 * @{
 *
 * Contains the required functions of the XWdtTb driver. See xwdttb.h for a
@@ -40,7 +40,7 @@
 * ----- ---- -------- ---------------------------------------------------------
 * 1.00a ecm  08/16/01 First release
 * 4.3   srm  01/30/18 Added doxygen tags
-*
+* 4.4   sne  03/04/19 Added support for versal
 * </pre>
 *
 ******************************************************************************/
@@ -62,10 +62,14 @@ XWdtTb_Config XWdtTb_ConfigTable[] =
 {
 	{
 		XPAR_WDTTB_0_DEVICE_ID,
+#ifdef versal
+		XPAR_WDTTB_0_BASEADDR
+#else
 		XPAR_WDTTB_0_BASEADDR,
 		XPAR_WDTTB_0_ENABLE_WINDOW_WDT,
 		XPAR_WDTTB_0_MAX_COUNT_WIDTH,
 		XPAR_WDTTB_0_SST_COUNT_WIDTH
+#endif
 	}
 };
 /** @} */

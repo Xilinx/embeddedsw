@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -35,7 +35,7 @@
 
 #include "pm_client.h"
 #include "xparameters.h"
-#include <xil_cache.h>
+#include "xil_cache.h"
 #include <xreg_cortexr5.h>
 #include <xpseudo_asm.h>
 #include "xreg_cortexr5.h"
@@ -44,7 +44,7 @@
 #define PM_CLIENT_RPU_FAULT_LOG_EN_MASK  0x00000101U
 
 /* Mask to get affinity level 0 */
-#define PM_CLIENT_AFL0_MASK              0xFF
+#define PM_CLIENT_AFL0_MASK              0xFFU
 
 static struct XPm_Master pm_rpu_0_master = {
 	.node_id = NODE_RPU_0,
@@ -74,10 +74,13 @@ static struct XPm_Master *const pm_masters_all[] = {
  */
 struct XPm_Master *pm_get_master(const u32 cpuid)
 {
-	if (PM_ARRAY_SIZE(pm_masters_all)) {
-		return pm_masters_all[cpuid];
+	struct XPm_Master *master = NULL;
+	if (PM_ARRAY_SIZE(pm_masters_all) != 0U) {
+		master = pm_masters_all[cpuid];
+		goto done;
 	}
-	return NULL;
+done:
+	return master;
 }
 
 /**
@@ -89,27 +92,35 @@ struct XPm_Master *pm_get_master(const u32 cpuid)
 struct XPm_Master *pm_get_master_by_node(const enum XPmNodeId nid)
 {
 	u8 i;
+	struct XPm_Master *master = NULL;
 
-	for (i = 0; i < PM_ARRAY_SIZE(pm_masters_all); i++) {
+	for (i = 0U; i < PM_ARRAY_SIZE(pm_masters_all); i++) {
 		if (nid == pm_masters_all[i]->node_id) {
-			return pm_masters_all[i];
+			master = pm_masters_all[i];
+			goto done;
 		}
 	}
 
-	return NULL;
+done:
+	return master;
 }
 
 static u32 pm_get_cpuid(const enum XPmNodeId node)
 {
 	u32 i;
+	u32 ret;
 
-	for (i = 0; i < PM_ARRAY_SIZE(pm_masters_all); i++) {
+	for (i = 0U; i < PM_ARRAY_SIZE(pm_masters_all); i++) {
 		if (pm_masters_all[i]->node_id == node) {
-			return i;
+			ret = i;
+			goto done;
 		}
 	}
 
-	return UNDEFINED_CPUID;
+	ret = UNDEFINED_CPUID;
+
+done:
+	return ret;
 }
 
 const enum XPmNodeId subsystem_node = NODE_RPU;
@@ -123,20 +134,26 @@ void XPm_ClientSuspend(const struct XPm_Master *const master)
 	/* Disable interrupts at processor level */
 	pm_disable_int();
 	/* Set powerdown request */
-	pwrdn_req = pm_read(master->pwrctl);
-	pwrdn_req |= master->pwrdn_mask;
-	pm_write(master->pwrctl, pm_read(master->pwrctl) | master->pwrdn_mask);
+	if (NULL != master) {
+		pwrdn_req = pm_read(master->pwrctl);
+		pwrdn_req |= master->pwrdn_mask;
+		pm_write(master->pwrctl, pwrdn_req);
+	}
 }
 
 void XPm_ClientAbortSuspend(void)
 {
-	u32 pwrdn_req = pm_read(primary_master->pwrctl);
+	u32 pwrdn_req;
 
-	/* Clear powerdown request */
-	pwrdn_req &= ~primary_master->pwrdn_mask;
-	pm_write(primary_master->pwrctl, pwrdn_req);
-	/* Enable interrupts at processor level */
-	pm_enable_int();
+	if (NULL != primary_master) {
+		pwrdn_req = pm_read(primary_master->pwrctl);
+
+		/* Clear powerdown request */
+		pwrdn_req &= ~primary_master->pwrdn_mask;
+		pm_write(primary_master->pwrctl, pwrdn_req);
+		/* Enable interrupts at processor level */
+		pm_enable_int();
+	}
 }
 
 void XPm_ClientWakeup(const struct XPm_Master *const master)
@@ -162,18 +179,26 @@ void XPm_ClientSuspendFinalize(void)
 	 * Unconditionally disable fault log.
 	 * BSP enables it once the processor resumes.
 	 */
-	pm_dbg("Disabling RPU Lock-Step Fault Log...\n");
+	pm_dbg("%s: Disabling RPU Lock-Step Fault Log...\n", __func__);
 	pm_write(PM_CLIENT_RPU_ERR_INJ,
 			pm_read(PM_CLIENT_RPU_ERR_INJ) & ~PM_CLIENT_RPU_FAULT_LOG_EN_MASK);
-
+#if defined (__GNUC__)
 	/* Flush data cache if the cache is enabled */
 	ctrlReg = mfcp(XREG_CP15_SYS_CONTROL);
-	if (XREG_CP15_CONTROL_C_BIT & ctrlReg)
+#elif defined (__ICCARM__)
+	mfcp(XREG_CP15_SYS_CONTROL, ctrlReg);
+#endif
+	if ((XREG_CP15_CONTROL_C_BIT & ctrlReg) != 0U) {
 		Xil_DCacheFlush();
+	}
 
-	pm_dbg("Going to WFI...\n");
+	pm_dbg("%s: Going to WFI...\n", __func__);
+#if defined (__GNUC__)
 	__asm__("wfi");
-	pm_dbg("WFI exit...\n");
+#elif defined (__ICCARM__)
+	__asm("wfi");
+#endif
+	pm_dbg("%s: WFI exit...\n", __func__);
 }
 
 /**
@@ -183,23 +208,30 @@ void XPm_ClientSuspendFinalize(void)
  *
  * @return     Name of the master
  */
-char* XPm_GetMasterName(void)
+const char* XPm_GetMasterName(void)
 {
+	static const char* retptr;
 	bool lockstep = !(pm_read(RPU_RPU_GLBL_CNTL) &
-		     RPU_RPU_GLBL_CNTL_SLSPLIT_MASK);
+		     (u32)RPU_RPU_GLBL_CNTL_SLSPLIT_MASK);
 
-	if (lockstep) {
-		return "RPU";
-	} else {
+	if (lockstep != 0U) {
+		retptr = "RPU";
+	}
+	else {
 		switch (primary_master->node_id) {
 		case NODE_RPU_0:
-			return "RPU0";
+			retptr = "RPU0";
+			break;
 		case NODE_RPU_1:
-			return "RPU1";
+			retptr = "RPU1";
+			break;
 		default:
-			return "ERROR";
+			retptr = "ERROR";
+			break;
 		};
-	};
+	}
+
+	return retptr;
 }
 
 /**
@@ -216,9 +248,14 @@ void XPm_ClientSetPrimaryMaster(void)
 	u32 master_id;
 	bool lockstep;
 
+#if defined (__GNUC__)
 	master_id = mfcp(XREG_CP15_MULTI_PROC_AFFINITY) & PM_CLIENT_AFL0_MASK;
+#elif defined (__ICCARM__)
+	mfcp(XREG_CP15_MULTI_PROC_AFFINITY, master_id);
+	master_id &= PM_CLIENT_AFL0_MASK;
+#endif
 	lockstep = !(pm_read(RPU_RPU_GLBL_CNTL) &
-		     RPU_RPU_GLBL_CNTL_SLSPLIT_MASK);
+		     (u32)RPU_RPU_GLBL_CNTL_SLSPLIT_MASK);
 	if (lockstep) {
 		primary_master = &pm_rpu_0_master;
 	} else {

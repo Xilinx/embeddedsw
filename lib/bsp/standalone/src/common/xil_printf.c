@@ -125,7 +125,7 @@ static void outnum( const s32 n, const s32 base, struct params_s *par)
 		i++;
 	}
 
-    outbuf[i] = 0;
+    outbuf[i] = '\0';
     i--;
 
     /* Move the converted number to the buffer and   */
@@ -181,7 +181,7 @@ static void outnum1( const s64 n, const s32 base, params_t *par)
 		i++;
 	}
 
-    outbuf[i] = 0;
+    outbuf[i] = '\0';
     i--;
 
     /* Move the converted number to the buffer and   */
@@ -239,7 +239,7 @@ static s32 getnum( charptr* linep)
 
 /* void esp_printf( const func_ptr f_ptr,
    const charptr ctrl1, ...) */
-#if HYP_GUEST && EL1_NONSECURE && XEN_USE_PV_CONSOLE
+#if  defined (__aarch64__) && HYP_GUEST && EL1_NONSECURE && XEN_USE_PV_CONSOLE
 void xil_printf( const char8 *ctrl1, ...){
 	XPVXenConsole_Printf(ctrl1);
 }

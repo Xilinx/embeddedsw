@@ -60,6 +60,7 @@
  *                     Improved TX initialization flow in bonded mode to
  *                       reset GT TX only when PLL and MMCM are locked
  * 1.7   gm   13/09/17 Added GTYE4 support
+ * 1.9   gm   14/05/18 Added TX and RX MMCM lock event logging
  * </pre>
  *
 *******************************************************************************/
@@ -1092,7 +1093,6 @@ void XVphy_HdmiRxTimerTimeoutHandler(XVphy *InstancePtr)
 	}
 }
 
-#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
 /*****************************************************************************/
 /**
 * This function is the handler for TX MMCM Lock events.
@@ -1106,12 +1106,15 @@ void XVphy_HdmiRxTimerTimeoutHandler(XVphy *InstancePtr)
 ******************************************************************************/
 void XVphy_HdmiTxMmcmLockHandler(XVphy *InstancePtr)
 {
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
 	XVphy_ChannelId ChId;
 	XVphy_PllType TxPllType;
 	u8 Id, Id0, Id1;
+#endif
 
 	XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_TXPLL_LOCK, 1);
 
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
 	/* Determine PLL type. */
 	TxPllType = XVphy_GetPllType(InstancePtr, 0, XVPHY_DIR_TX,
 		XVPHY_CHANNEL_ID_CH1);
@@ -1136,8 +1139,26 @@ void XVphy_HdmiTxMmcmLockHandler(XVphy *InstancePtr)
 				TxState = XVPHY_GT_STATE_RESET;
 		}
 	}
-}
 #endif
+}
+
+/*****************************************************************************/
+/**
+* This function is the handler for RX MMCM Lock events.
+*
+* @param	InstancePtr is a pointer to the VPHY instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XVphy_HdmiRxMmcmLockHandler(XVphy *InstancePtr)
+{
+
+	XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_RXPLL_LOCK, 1);
+
+}
 
 /*****************************************************************************/
 /**
@@ -1174,11 +1195,12 @@ void XVphy_HdmiGtHandler(XVphy *InstancePtr)
 	TxStatePtr = &InstancePtr->Quads[QuadId].Ch1.TxState;
 	RxStatePtr = &InstancePtr->Quads[QuadId].Ch1.RxState;
 
-#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
 	if (Event & XVPHY_INTR_TXMMCMUSRCLK_LOCK_MASK) {
 		XVphy_HdmiTxMmcmLockHandler(InstancePtr);
 	}
-#endif
+	if (Event & XVPHY_INTR_RXMMCMUSRCLK_LOCK_MASK) {
+		XVphy_HdmiRxMmcmLockHandler(InstancePtr);
+	}
 	if ((Event & XVPHY_INTR_QPLL0_LOCK_MASK) ||
 	    (Event & XVPHY_INTR_QPLL1_LOCK_MASK)) {
 #if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTPE2)

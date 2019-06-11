@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -30,6 +30,9 @@
 #ifndef XPFW_DEFAULT_H_
 #define XPFW_DEFAULT_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "xpfw_config.h"
 #include "xpfw_util.h"
@@ -53,6 +56,10 @@
 
 /* Base address of the IOU_SLCR module */
 #define IOU_SLCR_BASE			0xFF180000U
+#define IOU_SLCR_MIO_PIN_34_OFFSET	0x00000088U
+#define IOU_SLCR_MIO_PIN_35_OFFSET	0x0000008CU
+#define IOU_SLCR_MIO_PIN_36_OFFSET	0x00000090U
+#define IOU_SLCR_MIO_PIN_37_OFFSET	0x00000094U
 
 /* RAM address used for scrubbing */
 #define PARAM_RAM_LOW_ADDRESS		0Xffdc0000U
@@ -101,5 +108,9 @@ struct HandlerTable{
 	u32 Mask;
 	VoidFunction_t Handler;
 };
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XPFW_DEFAULT_H_ */

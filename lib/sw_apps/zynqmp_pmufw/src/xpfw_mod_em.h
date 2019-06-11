@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -27,6 +27,10 @@
 #ifndef XPFW_MOD_EM_H_
 #define XPFW_MOD_EM_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define EM_IPI_HANDLER_ID		0xEU
 #define EM_API_ID_MASK			0xFFFFU
 
@@ -41,10 +45,17 @@
 #define REMOVE_EM_ACTION		0x02U
 #define SEND_ERRORS_OCCURRED	0x03U
 
+/* EM error codes */
+#define PERMISSION_DENIED		0xFU
+
 extern u32 ErrorLog[EM_ERROR_LOG_MAX];
 void ModEmInit(void);
 void RpuLsHandler(u8 ErrorId);
 void FpdSwdtHandler(u8 ErrorId);
 void NullHandler(u8 ErrorId);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XPFW_MOD_EM_H_ */

@@ -20,11 +20,45 @@ var xvprocss_8h =
     [ "XVprocSs_ResetZoomModeFlag", "xvprocss_8h.html#a9700711526f9d3d645ae94cc0d2f534e", null ],
     [ "XVprocSs_SetStreamColorDepth", "xvprocss_8h.html#a641ccc79989ce1d91ce41d0376516fbf", null ],
     [ "XVprocSs_SetStreamColorFormat", "xvprocss_8h.html#aacab9c525fac94a691a0d8c86f50befb", null ],
-    [ "XVprocSs_ColorChannel", "xvprocss_8h.html#a7d60f719453eb6b2145c6a9cfa45422f", null ],
-    [ "XVPROCSS_CONFIG_TOPOLOGY", "xvprocss_8h.html#a785e997d05dbd568eb8eefccd57930c3", null ],
-    [ "XVprocSs_ScaleMode", "xvprocss_8h.html#a182e23b6dddfe4387c89aeca2f17ecb1", null ],
-    [ "XVPROCSS_SUBCORE_ID", "xvprocss_8h.html#a63cf1a12fdc139677b3bbf33aeaa6c34", null ],
-    [ "XVprocSs_Win", "xvprocss_8h.html#a0743bfb208145c415f5af1ba231245a6", null ],
+    [ "XVprocSs_ColorChannel", "xvprocss_8h.html#a7d60f719453eb6b2145c6a9cfa45422f", [
+      [ "XVPROCSS_COLOR_CH_Y_RED", "xvprocss_8h.html#a7d60f719453eb6b2145c6a9cfa45422fad109fdbdc89e62386b9eb13d03287177", null ],
+      [ "XVPROCSS_COLOR_CH_CB_GREEN", "xvprocss_8h.html#a7d60f719453eb6b2145c6a9cfa45422fa8745cd7958002036f291d2a55060d563", null ],
+      [ "XVPROCSS_COLOR_CH_CR_BLUE", "xvprocss_8h.html#a7d60f719453eb6b2145c6a9cfa45422fa3f100134fe8653b3bc47efd0290881d7", null ],
+      [ "XVPROCSS_COLOR_CH_NUM_SUPPORTED", "xvprocss_8h.html#a7d60f719453eb6b2145c6a9cfa45422fa4d0d246a48f413fbc276ffd06f867238", null ]
+    ] ],
+    [ "XVPROCSS_CONFIG_TOPOLOGY", "xvprocss_8h.html#a785e997d05dbd568eb8eefccd57930c3", [
+      [ "XVPROCSS_TOPOLOGY_SCALER_ONLY", "xvprocss_8h.html#a785e997d05dbd568eb8eefccd57930c3a6615856f87925980745a9189e3931f81", null ],
+      [ "XVPROCSS_TOPOLOGY_FULL_FLEDGED", "xvprocss_8h.html#a785e997d05dbd568eb8eefccd57930c3ad1da0cf1b89f3ab54c5dbfbd50c9b49a", null ],
+      [ "XVPROCSS_TOPOLOGY_DEINTERLACE_ONLY", "xvprocss_8h.html#a785e997d05dbd568eb8eefccd57930c3ace35782b8951d7785a8f3b4881576610", null ],
+      [ "XVPROCSS_TOPOLOGY_CSC_ONLY", "xvprocss_8h.html#a785e997d05dbd568eb8eefccd57930c3ab6d61512d71b6c36615bba21d36c9d4e", null ],
+      [ "XVPROCSS_TOPOLOGY_VCRESAMPLE_ONLY", "xvprocss_8h.html#a785e997d05dbd568eb8eefccd57930c3ac3055715ae4e381ee74d81167017ddf1", null ],
+      [ "XVPROCSS_TOPOLOGY_HCRESAMPLE_ONLY", "xvprocss_8h.html#a785e997d05dbd568eb8eefccd57930c3aef973b69b1da85fb3a59c031290e8a67", null ],
+      [ "XVPROCSS_TOPOLOGY_NUM_SUPPORTED", "xvprocss_8h.html#a785e997d05dbd568eb8eefccd57930c3a401374f5f1073692bf0e0744779d9592", null ]
+    ] ],
+    [ "XVprocSs_ScaleMode", "xvprocss_8h.html#a182e23b6dddfe4387c89aeca2f17ecb1", [
+      [ "XVPROCSS_SCALE_1_1", "xvprocss_8h.html#a182e23b6dddfe4387c89aeca2f17ecb1abc7c7dc3edf25ba9b2b7a9af74dd62f2", null ],
+      [ "XVPROCSS_SCALE_UP", "xvprocss_8h.html#a182e23b6dddfe4387c89aeca2f17ecb1a9d715fb624f6686591165b75320f97ba", null ],
+      [ "XVPROCSS_SCALE_DN", "xvprocss_8h.html#a182e23b6dddfe4387c89aeca2f17ecb1a9c44839212d5ee982e17ba65746e3538", null ],
+      [ "XVPROCSS_SCALE_NOT_SUPPORTED", "xvprocss_8h.html#a182e23b6dddfe4387c89aeca2f17ecb1a70671c0cc736b5b0c7257e3e6a669c39", null ]
+    ] ],
+    [ "XVPROCSS_SUBCORE_ID", "xvprocss_8h.html#a63cf1a12fdc139677b3bbf33aeaa6c34", [
+      [ "XVPROCSS_SUBCORE_SCALER_V", "xvprocss_8h.html#a63cf1a12fdc139677b3bbf33aeaa6c34a9ef4b7e5735bf5a234971d8f7d44d867", null ],
+      [ "XVPROCSS_SUBCORE_SCALER_H", "xvprocss_8h.html#a63cf1a12fdc139677b3bbf33aeaa6c34a56024e2a8b5f6c450415f13153c86215", null ],
+      [ "XVPROCSS_SUBCORE_VDMA", "xvprocss_8h.html#a63cf1a12fdc139677b3bbf33aeaa6c34ab27890c28bffcb639043eb8e22406fe0", null ],
+      [ "XVPROCSS_SUBCORE_LBOX", "xvprocss_8h.html#a63cf1a12fdc139677b3bbf33aeaa6c34ae8f936dc8a0660ca369460e986211f8e", null ],
+      [ "XVPROCSS_SUBCORE_CR_H", "xvprocss_8h.html#a63cf1a12fdc139677b3bbf33aeaa6c34adeadf8699f3c5b1f677f0a2720fb3eb4", null ],
+      [ "XVPROCSS_SUBCORE_CR_V_IN", "xvprocss_8h.html#a63cf1a12fdc139677b3bbf33aeaa6c34ac30d085ea3e0e36aca803421d769c536", null ],
+      [ "XVPROCSS_SUBCORE_CR_V_OUT", "xvprocss_8h.html#a63cf1a12fdc139677b3bbf33aeaa6c34adce00279fc9758187dfea27fd175913b", null ],
+      [ "XVPROCSS_SUBCORE_CSC", "xvprocss_8h.html#a63cf1a12fdc139677b3bbf33aeaa6c34ae17e387382baf6fab3c8552b1001b788", null ],
+      [ "XVPROCSS_SUBCORE_DEINT", "xvprocss_8h.html#a63cf1a12fdc139677b3bbf33aeaa6c34a8c079d474b3a1cedcb84c353904f7234", null ],
+      [ "XVPROCSS_SUBCORE_MAX", "xvprocss_8h.html#a63cf1a12fdc139677b3bbf33aeaa6c34a348f9ef77f08b7e406677fe6709564e9", null ]
+    ] ],
+    [ "XVprocSs_Win", "xvprocss_8h.html#a0743bfb208145c415f5af1ba231245a6", [
+      [ "XVPROCSS_ZOOM_WIN", "xvprocss_8h.html#a0743bfb208145c415f5af1ba231245a6ac44dc54cf5bfccb6e50ccb6ffe8bfca9", null ],
+      [ "XVPROCSS_PIP_WIN", "xvprocss_8h.html#a0743bfb208145c415f5af1ba231245a6a13b32d8c74fdfcc46afe54e19620e144", null ],
+      [ "XVPROCSS_PIXEL_WIN", "xvprocss_8h.html#a0743bfb208145c415f5af1ba231245a6a4e8473d22871d512606b62459b52c5b7", null ],
+      [ "XVPROCSS_WIN_NUM_SUPPORTED", "xvprocss_8h.html#a0743bfb208145c415f5af1ba231245a6afa54496c91558c9f09512ebcc0f135a0", null ]
+    ] ],
     [ "XVprocSs_CfgInitialize", "xvprocss_8h.html#aac138624e6b5449040be8bd02710a512", null ],
     [ "XVprocSs_GetPictureBrightness", "xvprocss_8h.html#a84c2f382ff78d4cc1c42628d0821870c", null ],
     [ "XVprocSs_GetPictureColorRange", "xvprocss_8h.html#a0b0ba7cd1d7384d9acd813d3b38f2979", null ],
@@ -40,7 +74,7 @@ var xvprocss_8h =
     [ "XVprocSs_LogRead", "xvprocss_8h.html#adf3fd2ffbed19ddf48ee19ef9368e5ac", null ],
     [ "XVprocSs_LogReset", "xvprocss_8h.html#a7bde6b4ee20f3546da3db9c8b3295d59", null ],
     [ "XVprocSs_LogWrite", "xvprocss_8h.html#a477ddfa18fa5fda8658ec72fb29a2d25", null ],
-    [ "XVprocSs_LookupConfig", "group__vprocss__v2__4.html#gae1122f4587efc719f26e180560081e55", null ],
+    [ "XVprocSs_LookupConfig", "xvprocss_8h.html#gae1122f4587efc719f26e180560081e55", null ],
     [ "XVprocSs_ReportSubcoreStatus", "xvprocss_8h.html#acc2dd89a8c01c86bf6093d842db67262", null ],
     [ "XVprocSs_ReportSubsystemConfig", "xvprocss_8h.html#abe70027604ba640917538338703b4a7f", null ],
     [ "XVprocSs_ReportSubsystemCoreInfo", "xvprocss_8h.html#af3ef2fc6d79df8ccb528644f8e539828", null ],

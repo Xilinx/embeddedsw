@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2011 - 2018 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2011 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -70,6 +70,15 @@
 #                     for CR#999732.
 # 3.10  mus  09/10/18 Added -hier option while using get_cells command to
 #                     support hierarchical designs.
+# 3.10  mus  10/05/18 Updated get_psu_interrupt_id proc to return multiple
+#                     interrupt ID's, in case if specific interrupt port of
+#                     PL based IP is connected to the pl_ps_irq0 and
+#                     pl_ps_irq1 directly or through same concat block pin.
+#                     Fix for CR#100266.
+# 3.10  mus  10/05/18 Updated get_psu_interrupt_id proc, to fix interrupt id
+#                     computation for vectored interrupts. It fixes CR#998583
+# 4.0   mus  04/15/19 Updated get_concat_number proc to avoid executing
+#                     get_pins command twice. It fixes CR#1028356
 #
 ##############################################################################
 
@@ -114,7 +123,9 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
     set valid_periph 0
     #Get proper gic instance for periphs in case of zynqmp
     foreach periph $periphs {
-	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)||
+	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)|| ([string compare -nocase $proctype "psu_cortexa72"] == 0) ||
+	     (([string compare -nocase $proctype "psv_cortexa72"] == 0) && ([string compare -nocase $periph "psv_acpu_gic"] == 0)) ||
+	     (([string compare -nocase $proctype "psv_cortexr5"] == 0) && ([string compare -nocase $periph "psv_rcpu_gic"] == 0)) ||
 	    (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $periph "psu_acpu_gic"] == 0))||
 	    (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $periph "psu_rcpu_gic"] == 0))} {
 		lappend newperiphs $periph
@@ -164,10 +175,12 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
 			set value $device_id
 			incr device_id
 		} elseif {[string compare -nocase "C_S_AXI_BASEADDR" $arg] == 0} {
-			if {[string compare -nocase $proctype "psu_cortexr5"] == 0} {
+			if {([string compare -nocase $proctype "psu_cortexr5"] == 0) || ([string compare -nocase $proctype "psv_cortexr5"] == 0)} {
 				set value 0xF9001000
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set value [common::get_property CONFIG.$arg $periph]
+			} elseif {([string compare -nocase $proctype "psu_cortexa72"] == 0) || ([string compare -nocase $proctype "psv_cortexa72"] == 0) } {
+			        set value 0xF9040000
 			} else {
 				if { ($hypervisor_guest == "true") && ([string compare -nocase $compiler "arm-none-eabi-gcc"] != 0) } {
                                      set value 0x03002000
@@ -176,10 +189,12 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
                                 }
 			}
 		} elseif {[string compare -nocase "C_S_AXI_HIGHADDR" $arg] == 0} {
-			if {[string compare -nocase $proctype "psu_cortexr5"] == 0} {
+			if {([string compare -nocase $proctype "psu_cortexr5"] == 0) || ([string compare -nocase $proctype "psv_cortexr5"] == 0) } {
 				set value 0xF9001FFF
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set value [common::get_property CONFIG.$arg $periph]
+			} elseif {([string compare -nocase $proctype "psu_cortexa72"] == 0) || ([string compare -nocase $proctype "psv_cortexa72"] == 0) } {
+			        set value 0xF9041000
 			} else {
                                 if { ($hypervisor_guest == "true") && ([string compare -nocase $compiler "arm-none-eabi-gcc"] != 0) } {
 				   set value 0x03002FFF
@@ -188,11 +203,13 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
                                 }
 			}
 		   } elseif {[string compare -nocase "C_DIST_BASEADDR" $arg] == 0} {
-			if {[string compare -nocase $proctype "psu_cortexr5"] == 0} {
+			if {([string compare -nocase $proctype "psu_cortexr5"] == 0) || ([string compare -nocase $proctype "psv_cortexr5"] == 0) } {
 				set value 0xF9000000
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set value 0xf8f01000
-			} else {
+			} elseif {([string compare -nocase $proctype "psu_cortexa72"] == 0) || ([string compare -nocase $proctype "psv_cortexa72"] == 0) } {
+                                set value 0xf9000000
+                        } else {
                                 if { ($hypervisor_guest == "true") && ([string compare -nocase $compiler "arm-none-eabi-gcc"] != 0) } {
 				   set value 0x03001000
                                 } else {
@@ -241,7 +258,9 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
 	set uSuffix "U"
     #Get proper gic instance for periphs in case of zynqmp
     foreach periph $periphs {
-	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)||
+	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0) || ([string compare -nocase $proctype "psu_cortexa72"] == 0) ||
+	     (([string compare -nocase $proctype "psv_cortexa72"] == 0) && ([string compare -nocase $periph "psv_acpu_gic"] == 0)) ||
+	     (([string compare -nocase $proctype "psv_cortexr5"] == 0) && ([string compare -nocase $periph "psv_rcpu_gic"] == 0)) ||
 	    (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $periph "psu_acpu_gic"] == 0))||
 	    (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $periph "psu_rcpu_gic"] == 0))} {
 		lappend newperiphs $periph
@@ -300,10 +319,12 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
                 # set rvalue [::hsi::utils::get_ip_param_name $periph $arg]
                 # The rvalue set below is the actual value of the parameter
                 if {[string compare -nocase "C_S_AXI_BASEADDR" $arg] == 0} {
-			if {[string compare -nocase $proctype "psu_cortexr5"] == 0} {
+			if {([string compare -nocase $proctype "psu_cortexr5"] == 0) || ([string compare -nocase $proctype "psv_cortexr5"] == 0)} {
 				set rvalue 0xF9001000
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set rvalue [common::get_property CONFIG.$arg $periph]
+			} elseif {([string compare -nocase $proctype "psu_cortexa72"] == 0) || ([string compare -nocase $proctype "psv_cortexa72"] == 0) } {
+			        set rvalue 0xF9040000
 			} else {
                                 if { ($hypervisor_guest == "true") && ([string compare -nocase $compiler "arm-none-eabi-gcc"] != 0) } {
                                      set rvalue 0x03002000
@@ -312,10 +333,12 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
                                 }
 			}
 		} elseif {[string compare -nocase "C_S_AXI_HIGHADDR" $arg] == 0} {
-			if {[string compare -nocase $proctype "psu_cortexr5"] == 0} {
+			if {([string compare -nocase $proctype "psu_cortexr5"] == 0) || ([string compare -nocase $proctype "psv_cortexr5"] == 0)} {
 				set rvalue 0xF9001FFF
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set rvalue [common::get_property CONFIG.$arg $periph]
+			} elseif {([string compare -nocase $proctype "psu_cortexa72"] == 0) || ([string compare -nocase $proctype "psv_cortexa72"] == 0)} {
+			        set rvalue 0xF9041000
 			} else {
                                 if { ($hypervisor_guest == "true") && ([string compare -nocase $compiler "arm-none-eabi-gcc"] != 0) } {
 				   set rvalue 0x03002FFF
@@ -324,10 +347,12 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
                                 }
 			}
 		} elseif {[string compare -nocase "C_DIST_BASEADDR" $arg] == 0} {
-			if {[string compare -nocase $proctype "psu_cortexr5"] == 0} {
+			if {([string compare -nocase $proctype "psu_cortexr5"] == 0) || ([string compare -nocase $proctype "psv_cortexr5"] == 0)} {
 				set rvalue 0xF9000000
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set rvalue 0xf8f01000
+                        } elseif {([string compare -nocase $proctype "psu_cortexa72"] == 0) || ([string compare -nocase $proctype "psv_cortexa72"] == 0)} {
+                                set rvalue 0xF9000000
 			} else {
                                 if { ($hypervisor_guest == "true") && ([string compare -nocase $compiler "arm-none-eabi-gcc"] != 0) } {
 				   set rvalue 0x03001000
@@ -385,7 +410,9 @@ proc xdefine_zynq_config_file {drv_handle file_name drv_string args} {
     set valid_periph 0
     #Get proper gic instance for periphs in case of zynqmp
     foreach periph $periphs {
-	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)||
+	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)|| ([string compare -nocase $proctype "psu_cortexa72"] == 0)||
+	     (([string compare -nocase $proctype "psv_cortexa72"] == 0) && ([string compare -nocase $periph "psv_acpu_gic"] == 0)) ||
+	     (([string compare -nocase $proctype "psv_cortexr5"] == 0) && ([string compare -nocase $periph "psv_rcpu_gic"] == 0)) ||
 	    (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $periph "psu_acpu_gic"] == 0))||
 	    (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $periph "psu_rcpu_gic"] == 0))} {
 		lappend newperiphs $periph
@@ -449,6 +476,7 @@ proc xdefine_gic_params {drvhandle} {
     set sw_proc_handle [hsi::get_sw_processor]
     set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
     set proctype [common::get_property IP_NAME $hw_proc_handle]
+    set is_ip_port_detected 0
 
     set config_inc [::hsi::utils::open_include_file "xparameters.h"]
     # Next define interrupt IDs for each connected peripheral
@@ -457,7 +485,9 @@ proc xdefine_gic_params {drvhandle} {
     set valid_periph 0
     #Get proper gic instance for periphs in case of zynqmp
     foreach periph $periphs {
-	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)||
+	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)|| ([string compare -nocase $proctype "psu_cortexa72"] == 0)||
+	     (([string compare -nocase $proctype "psv_cortexa72"] == 0) && ([string compare -nocase $periph "psv_acpu_gic"] == 0)) ||
+	     (([string compare -nocase $proctype "psv_cortexr5"] == 0) && ([string compare -nocase $periph "psv_rcpu_gic"] == 0)) ||
 	   (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $periph "psu_acpu_gic"] == 0))||
 	   (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $periph "psu_rcpu_gic"] == 0))} {
 		lappend newperiphs $periph
@@ -500,14 +530,27 @@ proc xdefine_gic_params {drvhandle} {
 				set source_periph($i) ""
 				set source_name($i) ""
             } else {
-                set source_port_name($i) [common::get_property NAME $source_port]
                 set source_ip [hsi::get_cells -of_objects $source_port]
                 if { [common::get_property IS_PL $source_ip] == 0 } {
                     #add only PL IP. Return all PS IPs
                     continue
                 }
-                set source_periph($i) $source_ip
-                set source_name($i) [common::get_property NAME $source_periph($i)]
+		set source_port_name_temp [common::get_property NAME $source_port]
+		set source_periph_temp $source_ip
+                set source_name_temp [common::get_property NAME $source_periph_temp]
+                for {set count 0} {$count < $i} {incr count} {
+                    if {([string compare -nocase $source_name_temp $source_name($count)] == 0) &&  ([string compare -nocase $source_port_name($count) $source_port_name_temp ] == 0)} {
+                        #IP name and correponding interrupt pair has been already detected
+			set is_ip_port_detected 1
+                    }
+		}
+		if { $is_ip_port_detected == 1} {
+                      #Skip the repeated instances of IP name and interrupt port pair
+		      continue
+		}
+	        set source_port_name($i) $source_port_name_temp
+		set source_periph($i) $source_periph_temp
+                set source_name($i) $source_name_temp
 			}
             lappend source_list $source_name($i)
             incr i
@@ -526,9 +569,17 @@ proc xdefine_gic_params {drvhandle} {
             set ip_name   $source_name($i)
             set port_name $source_port_name($i)
             set port_obj  [::hsi::get_ports $port_name]
-            if {([string compare -nocase $proctype "psu_cortexa53"] == 0) || ([string compare -nocase $proctype "psu_cortexr5"] == 0)} {
+            if {([string compare -nocase $proctype "psu_cortexa53"] == 0) || ([string compare -nocase $proctype "psu_cortexr5"] == 0) || ([string compare -nocase $proctype "psv_cortexa72"] == 0) || ([string compare -nocase $proctype "psv_cortexr5"] == 0) } {
 		set port_intr_id [get_psu_interrupt_id $ip_name $port_name]
-		set port_intr_id [expr $port_intr_id + 32]
+                if {[llength $port_intr_id] == 1} {
+		      set port_intr_id [expr $port_intr_id + 32]
+	        } else {
+		      set port_intr_id_temp ""
+		      for {set count 0} {$count < [llength $port_intr_id]} {incr count} {
+		           lappend port_intr_id_temp [expr [lindex $port_intr_id $count] + 32]
+		      }
+		      set port_intr_id $port_intr_id_temp
+		}
 	    } else {
 		set port_intr_id [::hsi::utils::get_interrupt_id $ip_name $port_name]
             }
@@ -538,9 +589,17 @@ proc xdefine_gic_params {drvhandle} {
                     set port_obj    [::hsi::get_pins -of_objects $ip_obj $port_name]
                 }
             } else {
-                if {([string compare -nocase $proctype "psu_cortexa53"] == 0) || ([string compare -nocase $proctype "psu_cortexr5"] == 0)} {
+                if {([string compare -nocase $proctype "psu_cortexa53"] == 0) || ([string compare -nocase $proctype "psu_cortexr5"] == 0) || ([string compare -nocase $proctype "psv_cortexa72"] == 0) || ([string compare -nocase $proctype "psv_cortexr5"] == 0) } {
 			set port_intr_id [get_psu_interrupt_id $ip_name $port_name]
-			set port_intr_id [expr $port_intr_id + 32]
+			if {[llength $port_intr_id] == 1} {
+				set port_intr_id [expr $port_intr_id + 32]
+			} else {
+				set port_intr_id_temp ""
+				for {set count 0} {$count < [llength $port_intr_id]} {incr count} {
+					lappend port_intr_id_temp [expr [lindex $port_intr_id $count] + 32]
+				}
+				set port_intr_id $port_intr_id_temp
+			}
 		} else {
 			set port_intr_id [::hsi::utils::get_interrupt_id "" $port_name]
 		}
@@ -705,7 +764,34 @@ proc is_orgate { intc_src_port ip_name} {
 
 	return $ret
 }
+###################################################################
+#
+# Get interrupt offset based on accumulated ports
+#
+###################################################################
+proc get_concat_number {ip pin} {
+	set number 0
+	set pins [hsi::get_pins -of_objects [hsi::get_cells -hier $ip] -filter {DIRECTION=="I"}]
+	set pin_num [regexp -all -inline -- {[0-9]+} $pin]
 
+	if {[llength $pins] == 1 || $pin_num == 0} {
+		return 0
+	}
+
+	for {set p 0} {$p < [llength $pins]} {incr p} {
+		if {$pin ==  [lindex $pins $p]} {
+			break;
+		}
+		set offset [common::get_property LEFT [lindex $pins $p]]
+		if {[llength $offset] > 1} {
+			set offset [lindex $offset 0]
+		}
+		set temp [expr {$offset +1}]
+		set number [expr {$number + $temp}]
+
+	}
+	return $number
+}
 ###################################################################
 #
 # Get interrupt ID for zynqmpsoc
@@ -715,6 +801,8 @@ proc get_psu_interrupt_id { ip_name port_name } {
     set ret -1
     set periph ""
     set intr_pin ""
+    set is_pl_ps_irq1 0
+    set is_pl_ps_irq0 0
     global pl_ps_irq1
     global pl_ps_irq0
     global or_id
@@ -868,14 +956,43 @@ proc get_psu_interrupt_id { ip_name port_name } {
         set connected_ip [get_property IP_NAME [get_cells -hier $sink_periph]]
 	# check for direct connection or concat block connected
         if { [string compare -nocase "$connected_ip" "xlconcat"] == 0 } {
-            set number [regexp -all -inline -- {[0-9]+} $sink_pin]
+            set sink_pin_temp $sink_pin
             set dout "dout"
 	    set concat_block 1
 	    set intr_pin [::hsi::get_pins -of_objects $sink_periph -filter "NAME==$dout"]
+            set is_or_gate 0
             set sink_pins [::hsi::utils::get_sink_pins "$intr_pin"]
-            foreach pin $sink_pins {
-                set sink_pin $pin
+            for {set count 0} {$count < 10} {incr count} {
+                foreach pin $sink_pins {
+                    set sink_pin $pin
+                    if { [string compare -nocase "$sink_pin" "IRQ0_F2P"] == 0 } {
+                        set is_pl_ps_irq0 1
+                    } elseif {[string compare -nocase "$sink_pin" "IRQ1_F2P"] == 0 } {
+                        set is_pl_ps_irq1 1
+                    } elseif {[string compare -nocase "$sink_pin" "op1"] == 0 } {
+                        set is_or_gate 1
+                    }
+                }
+                if { $is_pl_ps_irq0 == 1 || $is_pl_ps_irq1 == 1 || $is_or_gate == 1 } {
+                    break
+                }
+                set sink_periph [::hsi::get_cells -of_objects $sink_pin]
+                set intr_pin [::hsi::get_pins -of_objects $sink_periph -filter "NAME==$dout"]
+                set sink_pins [::hsi::utils::get_sink_pins "$intr_pin"]
             }
+            if { $is_or_gate == 1 } {
+                set number [regexp -all -inline -- {[0-9]+} $sink_pin_temp]
+            } else {
+                set number [get_concat_number $sink_periph $sink_pin_temp]
+            }
+        } else {
+                 #case where interrupts are directly connected to the ps_pl_irq0/ps_pl_irq1 port
+                 if { [string compare -nocase "$sink_pin" "IRQ0_F2P"] == 0 } {
+                      set is_pl_ps_irq0 1
+                 } elseif {[string compare -nocase "$sink_pin" "IRQ1_F2P"] == 0 } {
+                       set is_pl_ps_irq1 1
+                 }
+
         }
 
         # check for ORgate
@@ -897,37 +1014,53 @@ proc get_psu_interrupt_id { ip_name port_name } {
 	            set sink_pins [::hsi::utils::get_sink_pins "$intr_pin"]
 	            foreach pin $sink_pins {
 	                set sink_pin $pin
+                        if { [string compare -nocase "$sink_pin" "IRQ0_F2P"] == 0 } {
+		              set is_pl_ps_irq0 1
+			} elseif {[string compare -nocase "$sink_pin" "IRQ1_F2P"] == 0 } {
+			      set is_pl_ps_irq1 1
+			}
 	            }
 	         }
 	    }
 	 }
-
-
+        set result ""
+	if {[llength [hsi::get_ports $port_name]] != 0 && [common::get_property LEFT [hsi::get_ports $port_name]] != ""} {
+	    set vector_size [common::get_property LEFT [hsi::get_ports $port_name]]
+	    set vector_size [expr {$vector_size + 1}]
+	} else {
+	    set vector_size 1
+	}
+	for {set vec 0} {$vec < $vector_size} {incr vec} {
 	# generate irq id for IRQ1_F2P
-        if { [string compare -nocase "$sink_pin" "IRQ1_F2P"] == 0 } {
-            if {$found == 1} {
-                set irqval $pl_ps_irq1
-                set pl_ps_irq1 [expr $pl_ps_irq1 + 1]
-                if {$concat_block == "0"} {
-                    return [lindex $intr_list_irq1 $irqval]
-                } else {
-                    set ret [expr 104 + $number]
-                    return $ret
+            if {$is_pl_ps_irq1 == 1} {
+                if {$found == 1} {
+                    set irqval $pl_ps_irq1
+                    set pl_ps_irq1 [expr $pl_ps_irq1 + 1]
+                    if {$concat_block == "0"} {
+                        return [lindex $intr_list_irq1 $irqval]
+                    } else {
+                        set ret [expr 104 + [expr {$number + $vec}]]
+                        lappend result $ret
+                    }
+	        }
+            }
+            if {$is_pl_ps_irq0 == 1} {
+	        # generate irq id for IRQ0_F2P
+                if {$found == 1} {
+                    set irqval $pl_ps_irq0
+                    set pl_ps_irq0 [expr $pl_ps_irq0 + 1]
+		    if {$concat_block == "0"} {
+                        return [lindex $intr_list_irq0 $irqval]
+                    } else {
+                        set ret [expr 89 + [expr {$number + $vec}]]
+                        lappend result $ret
+                    }
                 }
-	    }
-        } else {
-	    # generate irq id for IRQ0_F2P
-            if {$found == 1} {
-                set irqval $pl_ps_irq0
-                set pl_ps_irq0 [expr $pl_ps_irq0 + 1]
-		if {$concat_block == "0"} {
-                    return [lindex $intr_list_irq0 $irqval]
-                } else {
-                    set ret [expr 89 + $number]
-                    return $ret
-                }
-             }
-        }
+            }
+	}
+       if { [llength $result] != 0} {
+           return $result
+       }
     }
     set port_width [get_port_width $intr_pin]
     set id $ret
@@ -941,9 +1074,9 @@ proc get_psu_interrupt_id { ip_name port_name } {
 proc is_interrupt { IP_NAME } {
 		if { [string match -nocase $IP_NAME "ps7_scugic"] } {
 						return true
-		} elseif { [string match -nocase $IP_NAME "psu_acpu_gic"] } {
+		} elseif { ([string match -nocase $IP_NAME "psu_acpu_gic"]) || ([string match -nocase $IP_NAME "psv_acpu_gic"])   } {
 						return true
-		} elseif { [string match -nocase $IP_NAME "psu_rcpu_gic"] } {
+		} elseif { ([string match -nocase $IP_NAME "psu_rcpu_gic"]) || ([string match -nocase $IP_NAME "psv_rcpu_gic"])   } {
 						return true
 		}
 		#puts "return $IP_NAME\n\r"

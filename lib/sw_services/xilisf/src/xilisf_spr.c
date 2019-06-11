@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2012 - 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2012 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -155,8 +155,12 @@ int XIsf_SectorProtect(XIsf *InstancePtr, XIsf_SpOperation Operation,
 	Mode = XIsf_GetTransferMode(InstancePtr);
 
 	if (Mode == XISF_INTERRUPT_MODE) {
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 		InstancePtr->StatusHandler(InstancePtr,
-			XIsf_StatusEventInfo, XIsf_ByteCountInfo);
+				XIsf_StatusEventInfo, XIsf_ByteCountInfo);
+#else
+	InstancePtr->StatusHandler(InstancePtr, XIsf_StatusEventInfo);
+#endif
 	}
 
 	return Status;
@@ -246,6 +250,7 @@ static int SprProgram(XIsf *InstancePtr, u8 *BufferPtr)
 	if (BufferPtr == NULL)
 		return (int)(XST_FAILURE);
 
+#ifndef XPAR_XISF_INTERFACE_OSPIPSV
 #if (XPAR_XISF_FLASH_FAMILY == ATMEL)
 	u32 Index;
 
@@ -279,6 +284,10 @@ static int SprProgram(XIsf *InstancePtr, u8 *BufferPtr)
 		return (int)(XST_FAILURE);
 
 	return (int)(XST_SUCCESS);
+#else
+	Status = (int)(XST_FAILURE);
+	return Status;
+#endif
 }
 
 /*****************************************************************************/

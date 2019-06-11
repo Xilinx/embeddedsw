@@ -1,6 +1,6 @@
 var xuartlite__i_8h =
 [
-    [ "XUartLite_ReceiveBuffer", "group__uartlite__v3__2.html#ga74efaecba1b6b1406c8c82abbb628cc8", null ],
-    [ "XUartLite_SendBuffer", "group__uartlite__v3__2.html#ga155b5a1fba111533992e283445ad8f73", null ],
-    [ "XUartLite_ConfigTable", "group__uartlite__v3__2.html#gaa00e4300e2ccd4b82fd4414b054a589e", null ]
+    [ "XUartLite_ReceiveBuffer", "xuartlite__i_8h.html#ga74efaecba1b6b1406c8c82abbb628cc8", null ],
+    [ "XUartLite_SendBuffer", "xuartlite__i_8h.html#ga155b5a1fba111533992e283445ad8f73", null ],
+    [ "XUartLite_ConfigTable", "xuartlite__i_8h.html#gaa00e4300e2ccd4b82fd4414b054a589e", null ]
 ];

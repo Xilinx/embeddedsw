@@ -37,7 +37,7 @@
 #define XGPIOPS_OEN_3_OFFSET	0x000002C8
 #define XGPIOPS_DATA_3_OFFSET	0x0000004C
 #define USECASE_COUNT 1
-#define XNUM_OUTPUTS 3
+#define XNUM_OUTPUTS 2
 #define SRC_BUF_START_ADDR 0x10000000
 #define DST_BUF_START_ADDR 0x30000000
 
@@ -54,21 +54,16 @@ XV_multi_scaler_Video_Config useCase[USECASE_COUNT][XNUM_OUTPUTS] = {
 			XV_MAX_BUF_SIZE, 720, 540, 1920, 1920,
 			XV_MULTI_SCALER_RGB8, XV_MULTI_SCALER_RGB8, 0, 0,
 			DST_BUF_START_ADDR, DST_BUF_START_ADDR + 7 *
-			XV_MAX_BUF_SIZE
+			XV_MAX_BUF_SIZE,
+			{0, 0, 0, 0, 0}
 		},
 		{
 			1, SRC_BUF_START_ADDR + XV_MAX_BUF_SIZE,
 			SRC_BUF_START_ADDR + 9 * XV_MAX_BUF_SIZE, 1280, 1920,
 			720, 720, XV_MULTI_SCALER_RGB8,	XV_MULTI_SCALER_RGB8, 0,
 			0, DST_BUF_START_ADDR + XV_MAX_BUF_SIZE,
-			DST_BUF_START_ADDR + 8 * XV_MAX_BUF_SIZE
-		},
-		{
-			2, SRC_BUF_START_ADDR + 2 * XV_MAX_BUF_SIZE,
-			SRC_BUF_START_ADDR + 10 * XV_MAX_BUF_SIZE, 1080, 1920,
-			1920, 1920, XV_MULTI_SCALER_RGB8, XV_MULTI_SCALER_RGB8,
-			0, 0, DST_BUF_START_ADDR + 2 * XV_MAX_BUF_SIZE,
-			DST_BUF_START_ADDR + 9 * XV_MAX_BUF_SIZE
+			DST_BUF_START_ADDR + 8 * XV_MAX_BUF_SIZE,
+			{800, 600, 0, 0, 1}
 		}
 	}
 };
@@ -186,26 +181,40 @@ static u32 CalcStride(u16 Cfmt, u16 AXIMMDataWidth, u32 width)
 {
 	u32 stride;
 	u16 MMWidthBytes = AXIMMDataWidth / 8;
+	u8 bpp_numerator;
+	u8 bpp_denominator = 1;
 
-	if (Cfmt == XV_MULTI_SCALER_Y_UV10 || Cfmt == XV_MULTI_SCALER_Y_UV10_420
-		|| Cfmt == XV_MULTI_SCALER_Y10)
-		/* 4 bytes per 3 pixels (Y_UV10, Y_UV10_420, Y10) */
-		stride = ((((width * 4) / 3) + MMWidthBytes - 1) /
-			MMWidthBytes) * MMWidthBytes;
-	else if (Cfmt == XV_MULTI_SCALER_Y_UV8 ||
-		Cfmt == XV_MULTI_SCALER_Y_UV8_420 || Cfmt == XV_MULTI_SCALER_Y8)
-		/* 1 byte per pixel (Y_UV8, Y_UV8_420, Y8) */
-		stride = ((width + MMWidthBytes - 1) / MMWidthBytes) *
-			MMWidthBytes;
-	else if (Cfmt == XV_MULTI_SCALER_RGB8 || Cfmt == XV_MULTI_SCALER_YUV8 ||
-		Cfmt == XV_MULTI_SCALER_BGR8)
-		/* 3 bytes per pixel (RGB8, YUV8, BGR8) */
-		stride = (((width * 3) + MMWidthBytes - 1) /
-			MMWidthBytes) * MMWidthBytes;
-	else
-		/* 4 bytes per pixel */
-		stride = (((width * 4) + MMWidthBytes - 1) /
-		MMWidthBytes) * MMWidthBytes;
+	switch (Cfmt) {
+		case XV_MULTI_SCALER_Y_UV10:
+		case XV_MULTI_SCALER_Y_UV10_420:
+		case XV_MULTI_SCALER_Y10:
+			/* 4 bytes per 3 pixels (Y_UV10, Y_UV10_420, Y10) */
+			bpp_numerator = 4;
+			bpp_denominator = 3;
+			break;
+		case XV_MULTI_SCALER_Y_UV8:
+		case XV_MULTI_SCALER_Y_UV8_420:
+		case  XV_MULTI_SCALER_Y8:
+			/* 1 byte per pixel (Y_UV8, Y_UV8_420, Y8) */
+			bpp_numerator = 1;
+			break;
+		case XV_MULTI_SCALER_RGB8:
+		case  XV_MULTI_SCALER_YUV8:
+		case XV_MULTI_SCALER_BGR8:
+			/* 3 bytes per pixel (RGB8, YUV8, BGR8) */
+			bpp_numerator = 3;
+			break;
+		case XV_MULTI_SCALER_YUYV8:
+		case XV_MULTI_SCALER_UYVY8:
+			/* 2 bytes per pixel (YUYV8, UYVY8) */
+			bpp_numerator = 2;
+			break;
+		default:
+			/* 4 bytes per pixel */
+			bpp_numerator = 4;
+	}
+	stride = ((((width * bpp_numerator) / bpp_denominator) +
+		MMWidthBytes - 1) / MMWidthBytes) * MMWidthBytes;
 
 	return stride;
 }

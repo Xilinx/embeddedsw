@@ -37,7 +37,7 @@ BEGIN driver xxvethernet
   OPTION supported_peripherals = (xxv_ethernet usxgmii);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.1;
+  OPTION VERSION = 1.2;
   OPTION NAME = xxvethernet;
 
 END driver

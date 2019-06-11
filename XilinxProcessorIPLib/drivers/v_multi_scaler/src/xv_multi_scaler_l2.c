@@ -247,7 +247,7 @@ static const void (*XV_MS_Set_OutStride[XV_MAX_OUTS])(XV_multi_scaler
 	XV_multi_scaler_Set_HwReg_OutStride_6,
 	XV_multi_scaler_Set_HwReg_OutStride_7};
 static const void (*XV_MS_Set_SrcImgBuf0[XV_MAX_OUTS])(XV_multi_scaler
-	*InstancePtr, u32 Data) = { XV_multi_scaler_Set_HwReg_srcImgBuf0_0_V,
+	*InstancePtr, u64 Data) = { XV_multi_scaler_Set_HwReg_srcImgBuf0_0_V,
 	XV_multi_scaler_Set_HwReg_srcImgBuf0_1_V,
 	XV_multi_scaler_Set_HwReg_srcImgBuf0_2_V,
 	XV_multi_scaler_Set_HwReg_srcImgBuf0_3_V,
@@ -256,7 +256,7 @@ static const void (*XV_MS_Set_SrcImgBuf0[XV_MAX_OUTS])(XV_multi_scaler
 	XV_multi_scaler_Set_HwReg_srcImgBuf0_6_V,
 	XV_multi_scaler_Set_HwReg_srcImgBuf0_7_V};
 static const void (*XV_MS_Set_SrcImgBuf1[XV_MAX_OUTS])(XV_multi_scaler
-	*InstancePtr, u32 Data) = { XV_multi_scaler_Set_HwReg_srcImgBuf1_0_V,
+	*InstancePtr, u64 Data) = { XV_multi_scaler_Set_HwReg_srcImgBuf1_0_V,
 	XV_multi_scaler_Set_HwReg_srcImgBuf1_1_V,
 	XV_multi_scaler_Set_HwReg_srcImgBuf1_2_V,
 	XV_multi_scaler_Set_HwReg_srcImgBuf1_3_V,
@@ -265,7 +265,7 @@ static const void (*XV_MS_Set_SrcImgBuf1[XV_MAX_OUTS])(XV_multi_scaler
 	XV_multi_scaler_Set_HwReg_srcImgBuf1_6_V,
 	XV_multi_scaler_Set_HwReg_srcImgBuf1_7_V};
 static const void (*XV_MS_Set_DstImgBuf0[XV_MAX_OUTS])(XV_multi_scaler
-	*InstancePtr, u32 Data) = { XV_multi_scaler_Set_HwReg_dstImgBuf0_0_V,
+	*InstancePtr, u64 Data) = { XV_multi_scaler_Set_HwReg_dstImgBuf0_0_V,
 	XV_multi_scaler_Set_HwReg_dstImgBuf0_1_V,
 	XV_multi_scaler_Set_HwReg_dstImgBuf0_2_V,
 	XV_multi_scaler_Set_HwReg_dstImgBuf0_3_V,
@@ -274,7 +274,7 @@ static const void (*XV_MS_Set_DstImgBuf0[XV_MAX_OUTS])(XV_multi_scaler
 	XV_multi_scaler_Set_HwReg_dstImgBuf0_6_V,
 	XV_multi_scaler_Set_HwReg_dstImgBuf0_7_V};
 static const void (*XV_MS_Set_DstImgBuf1[XV_MAX_OUTS])(XV_multi_scaler
-	*InstancePtr, u32 Data) = { XV_multi_scaler_Set_HwReg_dstImgBuf1_0_V,
+	*InstancePtr, u64 Data) = { XV_multi_scaler_Set_HwReg_dstImgBuf1_0_V,
 	XV_multi_scaler_Set_HwReg_dstImgBuf1_1_V,
 	XV_multi_scaler_Set_HwReg_dstImgBuf1_2_V,
 	XV_multi_scaler_Set_HwReg_dstImgBuf1_3_V,
@@ -498,6 +498,13 @@ void XV_MultiScalerSetChannelConfig(XV_multi_scaler *InstancePtr,
 	u32 PixelRate;
 	u32 LineRate;
 	u32 i;
+	u16 Cfmt;
+	UINTPTR SrcImgBuf0;
+	UINTPTR SrcImgBuf1;
+	u8 buf0_numerator;
+	u8 buf0_denominator;
+	u8 buf1_numerator;
+	u8 buf1_denominator;
 
 	/*
 	* Assert validates the input arguments
@@ -532,14 +539,95 @@ void XV_MultiScalerSetChannelConfig(XV_multi_scaler *InstancePtr,
 			(MS_cfg->HeightOut * MS_cfg->OutStride)));
 	}
 	InstancePtr->OutBitMask |= 0x1 << i;
-	PixelRate = (u32) ((float)((MS_cfg->WidthIn * STEP_PRECISION) +
-		(MS_cfg->WidthOut / 2)) / (float)MS_cfg->WidthOut);
-	LineRate = (u32) ((float)((MS_cfg->HeightIn * STEP_PRECISION) +
-		(MS_cfg->HeightOut / 2)) / (float)MS_cfg->HeightOut);
+	if (MS_cfg->CropWin.Crop) {
+		Xil_AssertVoid(MS_cfg->CropWin.StartY <= MS_cfg->HeightIn);
+		Xil_AssertVoid(MS_cfg->CropWin.StartX <= MS_cfg->WidthIn);
+		Xil_AssertVoid((MS_cfg->CropWin.Height > 0) &&
+			(MS_cfg->CropWin.Height <= (MS_cfg->HeightIn -
+			MS_cfg->CropWin.StartY)));
+		Xil_AssertVoid((MS_cfg->CropWin.Width > 0) &&
+			(MS_cfg->CropWin.Width <= (MS_cfg->WidthIn -
+			MS_cfg->CropWin.StartX)));
+		Cfmt = MS_cfg->ColorFormatIn;
+		SrcImgBuf0 = MS_cfg->SrcImgBuf0;
+		SrcImgBuf1 = MS_cfg->SrcImgBuf1;
+		/* Table 3 Pixel formats supported in PG325 */
+		switch (Cfmt) {
+			case XV_MULTI_SCALER_Y_UV10:
+			case XV_MULTI_SCALER_Y10:
+				Xil_AssertVoid(!(MS_cfg->CropWin.StartX % 3));
+				buf0_numerator = 4;
+				buf0_denominator = 3;
+				buf1_numerator = 4;
+				buf1_denominator = 3;
+				break;
+			case XV_MULTI_SCALER_Y_UV8:
+			case XV_MULTI_SCALER_Y8:
+				buf0_numerator = 1;
+				buf0_denominator = 1;
+				buf1_numerator = 1;
+				buf1_denominator = 1;
+				break;
+			case XV_MULTI_SCALER_Y_UV8_420:
+				Xil_AssertVoid(!(MS_cfg->CropWin.StartX % 4));
+				buf0_numerator = 1;
+				buf0_denominator = 1;
+				buf1_numerator = 2;
+				buf1_denominator = 4;
+				break;
+			case XV_MULTI_SCALER_Y_UV10_420:
+				Xil_AssertVoid(!(MS_cfg->CropWin.StartX % 12));
+				buf0_numerator = 1;
+				buf0_denominator = 1;
+				buf1_numerator = 8;
+				buf1_denominator = 12;
+				break;
+			case XV_MULTI_SCALER_RGB8:
+			case XV_MULTI_SCALER_YUV8:
+			case XV_MULTI_SCALER_BGR8:
+				buf0_numerator = 3;
+				buf0_denominator = 1;
+				buf1_numerator = 1;
+				buf1_denominator = 1;
+				break;
+			case XV_MULTI_SCALER_YUYV8:
+			case XV_MULTI_SCALER_UYVY8:
+				buf0_numerator = 2;
+				buf0_denominator = 1;
+				buf1_numerator = 1;
+				buf1_denominator = 1;
+				break;
+			default:
+				buf0_numerator = 4;
+				buf0_denominator = 1;
+				buf1_numerator = 1;
+				buf1_denominator = 1;
+				break;
+		}
+		SrcImgBuf0 += (MS_cfg->CropWin.StartY * MS_cfg->InStride)
+			+ ((MS_cfg->CropWin.StartX * buf0_numerator) / buf0_denominator);
+		SrcImgBuf1 += (MS_cfg->CropWin.StartY * MS_cfg->InStride)
+			+ ((MS_cfg->CropWin.StartX * buf1_numerator) / buf1_denominator);
+		XV_MS_Set_SrcImgBuf0[i](InstancePtr, SrcImgBuf0);
+		XV_MS_Set_SrcImgBuf1[i](InstancePtr, SrcImgBuf1);
+		PixelRate = (u32) ((float)(MS_cfg->CropWin.Width * STEP_PRECISION +
+			MS_cfg->WidthOut / 2) / MS_cfg->WidthOut);
+		LineRate = (u32) ((float)(MS_cfg->CropWin.Height * STEP_PRECISION +
+			MS_cfg->HeightOut / 2) / MS_cfg->HeightOut);
+		XV_MS_Set_HeightIn[i](InstancePtr, MS_cfg->CropWin.Height);
+		XV_MS_Set_WidthIn[i](InstancePtr, MS_cfg->CropWin.Width);
+	} else {
+		XV_MS_Set_SrcImgBuf0[i](InstancePtr, MS_cfg->SrcImgBuf0);
+		XV_MS_Set_SrcImgBuf1[i](InstancePtr, MS_cfg->SrcImgBuf1);
+		PixelRate = (u32) ((float)(MS_cfg->WidthIn * STEP_PRECISION +
+			MS_cfg->WidthOut / 2) / MS_cfg->WidthOut);
+		LineRate = (u32) ((float)(MS_cfg->HeightIn * STEP_PRECISION +
+			MS_cfg->HeightOut / 2) / MS_cfg->HeightOut);
+		XV_MS_Set_HeightIn[i](InstancePtr, MS_cfg->HeightIn);
+		XV_MS_Set_WidthIn[i](InstancePtr, MS_cfg->WidthIn);
+	}
 	XV_MultiScalerSetCoeff(InstancePtr, MS_cfg);
-	XV_MS_Set_WidthIn[i](InstancePtr, MS_cfg->WidthIn);
 	XV_MS_Set_WidthOut[i](InstancePtr, MS_cfg->WidthOut);
-	XV_MS_Set_HeightIn[i](InstancePtr, MS_cfg->HeightIn);
 	XV_MS_Set_HeightOut[i](InstancePtr, MS_cfg->HeightOut);
 	XV_MS_Set_LineRate[i](InstancePtr, LineRate);
 	XV_MS_Set_PixelRate[i](InstancePtr, PixelRate);
@@ -547,8 +635,6 @@ void XV_MultiScalerSetChannelConfig(XV_multi_scaler *InstancePtr,
 	XV_MS_Set_ColorFormatOut[i](InstancePtr, MS_cfg->ColorFormatOut);
 	XV_MS_Set_InStride[i](InstancePtr, MS_cfg->InStride);
 	XV_MS_Set_OutStride[i](InstancePtr, MS_cfg->OutStride);
-	XV_MS_Set_SrcImgBuf0[i](InstancePtr, MS_cfg->SrcImgBuf0);
-	XV_MS_Set_SrcImgBuf1[i](InstancePtr, MS_cfg->SrcImgBuf1);
 	XV_MS_Set_DstImgBuf0[i](InstancePtr, MS_cfg->DstImgBuf0);
 	XV_MS_Set_DstImgBuf1[i](InstancePtr, MS_cfg->DstImgBuf1);
 }

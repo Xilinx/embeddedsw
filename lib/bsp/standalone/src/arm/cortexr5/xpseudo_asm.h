@@ -58,12 +58,21 @@
 #ifndef XPSEUDO_ASM_H /* prevent circular inclusions */
 #define XPSEUDO_ASM_H /* by using protection macros */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "xreg_cortexr5.h"
 #if defined (__GNUC__)
 #include "xpseudo_asm_gcc.h"
 #elif defined (__ICCARM__)
 #include "xpseudo_asm_iccarm.h"
 #endif
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif /* XPSEUDO_ASM_H */
 /**
 * @} End of "addtogroup r5_specific".

@@ -52,6 +52,9 @@
 * 5.0  tu  09/08/17 Added two interrupt handler that addresses driver's
 *                   internal callback function of application
 *                   DrvHpdEventHandler and DrvHpdPulseHandler
+* 5.0  jb  02/21/19 Added HDCP22 callback handles.
+* 					Made the Timer counter interrupt handler available
+* 					for both HDCP1x and 22.
 * </pre>
 *
 ******************************************************************************/
@@ -108,7 +111,7 @@ void XDpTxSs_DpIntrHandler(void *InstancePtr)
 	XDp_InterruptHandler(XDpTxSsPtr->DpPtr);
 }
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 /*****************************************************************************/
 /**
 *
@@ -136,7 +139,9 @@ void XDpTxSs_HdcpIntrHandler(void *InstancePtr)
 	/* HDCP Cipher interrupt handler */
 	XHdcp1x_CipherIntrHandler(XDpTxSsPtr->Hdcp1xPtr);
 }
+#endif
 
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 /*****************************************************************************/
 /**
 *
@@ -447,11 +452,29 @@ u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 			Status = XST_SUCCESS;
 			break;
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 		case XDPTXSS_HANDLER_HDCP_RPTR_EXCHG:
 			XHdcp1x_SetCallBack(InstancePtr->Hdcp1xPtr,
 				XHDCP1X_RPTR_HDLR_REPEATER_EXCHANGE,
 					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+#endif
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+		case XDPTXSS_HANDLER_HDCP22_AUTHENTICATED:
+			/* Register HDCP 2.2 callbacks */
+			XHdcp22Tx_SetCallback(InstancePtr->Hdcp22Ptr,
+				XHDCP22_TX_HANDLER_AUTHENTICATED,
+				(void *)(XHdcp22_Tx_Callback)CallbackFunc,
+				(void *)CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+		case XDPTXSS_HANDLER_HDCP22_UNAUTHENTICATED:
+			/** Register HDCP 2.2 callbacks */
+			XHdcp22Tx_SetCallback(InstancePtr->Hdcp22Ptr,
+				XHDCP22_TX_HANDLER_UNAUTHENTICATED,
+				(void *)(XHdcp22_Tx_Callback)CallbackFunc,
+				(void *)CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 #endif

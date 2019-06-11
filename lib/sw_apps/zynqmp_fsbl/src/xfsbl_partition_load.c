@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 19 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -57,6 +57,7 @@
 *                     we are using IV from authenticated header(copied to
 *                     internal memory), using same way for non authenticated
 *                     case as well.
+*       mus  02/26/19 Added support for armclang compiler.
 *
 * </pre>
 *
@@ -127,7 +128,11 @@ static void XFsbl_SetR5ExcepVectorLoVec(void);
 u32 Iv[XIH_BH_IV_LENGTH / 4U] = { 0 };
 u8 AuthBuffer[XFSBL_AUTH_BUFFER_SIZE]__attribute__ ((aligned (4))) = {0};
 #ifdef XFSBL_BS
+#ifdef __clang__
+u8 HashsOfChunks[HASH_BUFFER_SIZE] __attribute__((section (".bss.bitstream_buffer")));
+#else
 u8 HashsOfChunks[HASH_BUFFER_SIZE] __attribute__((section (".bitstream_buffer")));
+#endif
 #endif
 #endif
 
@@ -1361,9 +1366,9 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			if ((FsblInstancePtr->BootHdrAttributes &
 					XIH_BH_IMAGE_ATTRB_SHA2_MASK) ==
 					XIH_BH_IMAGE_ATTRB_SHA2_MASK) {
-				PlParams.PlAuth.AuthType = XFSBL_HASH_TYPE_SHA2;
-				PlParams.PlAuth.NoOfHashs =
-					HASH_BUFFER_SIZE/XFSBL_HASH_TYPE_SHA2;
+				Status = XFSBL_ERROR_SHA2_NOT_SUPPORTED;
+				XFsbl_Printf(DEBUG_INFO,"SHA2 is not supported\r\n");
+				goto END;
 			}
 			else {
 				PlParams.PlAuth.AuthType = XFSBL_HASH_TYPE_SHA3;
@@ -1418,6 +1423,10 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 				"XFSBL_ERROR_BITSTREAM_AUTHENTICATION\r\n");
 				/* Reset PL */
 				XFsbl_Out32(CSU_PCAP_PROG, 0x0);
+				if(IsEncryptionEnabled == TRUE) {
+					usleep(PL_RESET_PERIOD_IN_US);
+					Xil_Out32(CSU_PCAP_PROG, CSU_PCAP_PROG_PCFG_PROG_B_MASK);
+				}
 				goto END;
 			}
 #endif
@@ -1535,8 +1544,10 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 				Status = XFSBL_ERROR_BITSTREAM_DECRYPTION_FAIL;
 				XFsbl_Printf(DEBUG_GENERAL,
 				"XFSBL_ERROR_BITSTREAM_DECRYPTION_FAIL\r\n");
-				/* Reset PL */
+				/* Reset PL and PL zeroization */
 				XFsbl_Out32(CSU_PCAP_PROG, 0x0);
+				usleep(PL_RESET_PERIOD_IN_US);
+				Xil_Out32(CSU_PCAP_PROG, CSU_PCAP_PROG_PCFG_PROG_B_MASK);
 				goto END;
 			} else {
 				XFsbl_Printf(DEBUG_GENERAL,
@@ -1836,7 +1847,6 @@ static u32 XFsbl_CalcualteSHA(const XFsblPs * FsblInstancePtr, PTRSIZE LoadAddre
 	u8 Hash[XFSBL_HASH_TYPE_SHA3] __attribute__ ((aligned (4))) = {0};
 	u32 HashOffset;
 	u32 Index;
-	void * ShaCtx = (void * )NULL;
 	u32 Length;
 	u32 Status;
 	const XFsblPs_PartitionHeader * PartitionHeader;
@@ -1849,8 +1859,7 @@ static u32 XFsbl_CalcualteSHA(const XFsblPs * FsblInstancePtr, PTRSIZE LoadAddre
 	Length = PartitionHeader->TotalDataWordLength * 4U;
 	HashOffset = FsblInstancePtr->ImageOffsetAddress + PartitionHeader->ChecksumWordOffset * 4U;
 
-	/* Start the SHA engine */
-	XFsbl_ShaStart(ShaCtx, ShaType);
+	/* Calculate SHA hash */
 	XFsbl_ShaDigest((u8*)LoadAddress,Length, PartitionHash, ShaType);
 	Status = FsblInstancePtr->DeviceOps.DeviceCopy(HashOffset,
 			(PTRSIZE) Hash, ShaType);

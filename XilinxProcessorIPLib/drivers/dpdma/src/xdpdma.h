@@ -42,6 +42,7 @@
  * Ver	Who   Date     Changes
  * ---- ----- -------- ----------------------------------------------------
  * 1.0  aad   04/12/16 Initial release.
+ * </pre>
  *
  *****************************************************************************/
 
@@ -263,9 +264,9 @@ void XDpDma_DoneHandler(XDpDma *InstancePtr);
 void XDpDma_InitVideoDescriptor(XDpDma_Descriptor *CurrDesc,
 				XDpDma_FrameBuffer *FrameBuffer);
 void  XDpDma_DisplayVideoFrameBuffer(XDpDma *InstancePtr,
+				   XDpDma_FrameBuffer *Plane0,
 				   XDpDma_FrameBuffer *Plane1,
-				   XDpDma_FrameBuffer *Plane2,
-				   XDpDma_FrameBuffer *Plane3);
+				   XDpDma_FrameBuffer *Plane2);
 void XDpDma_DisplayGfxFrameBuffer(XDpDma *InstancePtr,
 				   XDpDma_FrameBuffer *Plane);
 void XDpDma_InitAudioDescriptor(XDpDma_AudioChannel *Channel,

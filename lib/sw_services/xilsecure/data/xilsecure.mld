@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -38,6 +38,8 @@
 # 3.1   vns 04/04/18  Updated AES example
 #       vns 04/13/18  Added secure_environment user configurable parameter.
 # 3.2   vns 04/30/18  Error code is been added if data is greater than moduluss
+# 4.0   arc 18/12/18  Fixed MISRA-C violations
+#       vns 03/20/19  Added support for versal
 #
 ##############################################################################
 
@@ -47,10 +49,10 @@ BEGIN LIBRARY xilsecure
   OPTION drc = secure_drc;
   OPTION copyfiles = all;
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
-  OPTION SUPPORTED_PERIPHERALS = (psu_cortexa53 psu_cortexr5 psu_pmu);
+  OPTION SUPPORTED_PERIPHERALS = (psu_cortexa53 psu_cortexr5 psu_pmu psu_pmc psu_cortexa72 psv_pmc psv_cortexa72);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilsecure,-lxil,-lgcc,-lc,--end-group";
-  OPTION desc = "Xilinx Secure Library provides interface to AES, RSA and SHA hardware engines on ZynqMP Soc ";
-  OPTION VERSION = 3.2;
+  OPTION desc = "Xilinx Secure Library provides interface to AES, RSA and SHA hardware engines on ZynqMP Soc and Versal";
+  OPTION VERSION = 4.0;
   OPTION NAME = xilsecure;
   PARAM name = secure_environment, desc = "Enables trusted execution environment", type = bool, default = false;
 END LIBRARY

@@ -53,7 +53,7 @@
 #include "xstatus.h"
 
 /**************************** Constant Definitions ****************************/
-const XAVBuf_VideoAttribute XAVBuf_SupportedFormats[XAVBUF_NUM_SUPPORTED];
+extern const XAVBuf_VideoAttribute XAVBuf_SupportedFormats[XAVBUF_NUM_SUPPORTED];
 
 /******************************************************************************/
 /**
@@ -151,11 +151,10 @@ static void XAVBuf_SetNonLiveVideoAttributes(XAVBuf *InstancePtr, u32 VideoSrc,
 
 	RegVal = XAVBuf_ReadReg(InstancePtr->Config.BaseAddr,
 							XAVBUF_BUF_FORMAT);
-	if(VideoSrc == XAVBUF_VIDSTREAM1_NONLIVE) {
+	if (VideoSrc == XAVBUF_VIDSTREAM1_NONLIVE) {
 		RegVal &= ~XAVBUF_BUF_FORMAT_NL_VID_FORMAT_MASK;
 		RegVal |= Video->Value;
-	}
-	else if (VideoSrc == XAVBUF_VIDSTREAM2_NONLIVE_GFX) {
+	} else if (VideoSrc == XAVBUF_VIDSTREAM2_NONLIVE_GFX) {
 		RegVal &= ~XAVBUF_BUF_FORMAT_NL_GRAPHX_FORMAT_MASK;
 		RegVal |= (Video->Value) <<
 			XAVBUF_BUF_FORMAT_NL_GRAPHX_FORMAT_SHIFT;
@@ -194,11 +193,10 @@ static void XAVBuf_InConvertToRGB(XAVBuf *InstancePtr, u32 RegOffset,
 			    0x0000, 0x1000, 0x0000,
 			    0x0000, 0x0000, 0x1000 };
 	u16 RGBOffset[] = { 0x0000, 0x0000, 0x0000 };
-	if(Video->IsRGB) {
+	if (Video->IsRGB) {
 		CSCMatrix = RGBCoeffs;
 		OffsetMatrix = RGBOffset;
-	}
-	else {
+	} else {
 		CSCMatrix = CSCCoeffs;
 		OffsetMatrix = CSCOffset;
 	}
@@ -251,12 +249,11 @@ static void XAVBuf_InConvertToOutputFormat(XAVBuf *InstancePtr,
 	u16 RGBOffset[] = { 0x0000, 0x0000, 0x0000 };
 
 
-	if(Value) {
+	if (Value) {
 		MatrixCoeff = CSCCoeffs;
 		MatrixOffset = CSCOffset;
 
-	}
-	else {
+	} else {
 		MatrixCoeff = RGBCoeffs;
 		MatrixOffset = RGBOffset;
 	}
@@ -295,7 +292,7 @@ static int XAVBuf_ConfigureVideo(XAVBuf *InstancePtr, u8 VideoSrc)
 	u32 *ScalingFactors = NULL;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	switch(VideoSrc) {
+	switch (VideoSrc) {
 		case XAVBUF_VIDSTREAM1_LIVE:
 			RegConfig = XAVBUF_BUF_LIVE_VID_CFG;
 			ScalingOffset = XAVBUF_BUF_LIVE_VID_COMP0_SF;
@@ -352,10 +349,19 @@ static int XAVBuf_ConfigureVideo(XAVBuf *InstancePtr, u8 VideoSrc)
 				XAVBUF_V_BLEND_LAYER0_CONTROL_RGB_MODE_SHIFT;
 			RegConfig |= 1 <<
 				XAVBUF_V_BLEND_LAYER0_CONTROL_BYPASS_SHIFT;
+			ScalingOffset = XAVBUF_BUF_VID_COMP0_SCALE_FACTOR;
+			CSCOffset = XAVBUF_V_BLEND_IN1CSC_COEFF0;
+			Video = InstancePtr->AVMode.NonLiveVideo;
+			ScalingFactors = Video->SF;
 			XAVBuf_WriteReg(InstancePtr->Config.BaseAddr,
 					XAVBUF_V_BLEND_LAYER0_CONTROL,
 					RegConfig);
-			break;
+			/* Setting the scaling factors */
+			XAVBuf_SetScalingFactors(InstancePtr, ScalingOffset,
+						 ScalingFactors);
+			/* Colorspace conversion */
+			XAVBuf_InConvertToRGB(InstancePtr, CSCOffset, Video);
+			return XST_SUCCESS;
 		default:
 			return XST_FAILURE;
 	}
@@ -374,7 +380,7 @@ static int XAVBuf_ConfigureVideo(XAVBuf *InstancePtr, u8 VideoSrc)
  *
  * @param	InstancePtr is a pointer to the XAVBuf instance.
  * @param	BaseAddr sets the base address of the AVBuf instance
- * @param	Deviceid is the id of the device from the design.
+ * @param	DeviceId is the id of the device from the design.
  *
  * @return	None.
  *
@@ -482,7 +488,7 @@ int XAVBuf_SetInputNonLiveVideoFormat(XAVBuf *InstancePtr,
 
 	InstancePtr->AVMode.NonLiveVideo =
 		XAVBuf_GetNLiveVideoAttribute(Format);
-	if(InstancePtr->AVMode.NonLiveVideo == NULL)
+	if (InstancePtr->AVMode.NonLiveVideo == NULL)
 		return XST_FAILURE;
 
 	return XST_SUCCESS;
@@ -504,11 +510,11 @@ int XAVBuf_SetInputNonLiveGraphicsFormat(XAVBuf *InstancePtr,
 				       XAVBuf_VideoFormat Format)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((Format >= RGBA8888) |( Format <= YOnly));
+	Xil_AssertNonvoid((Format >= RGBA8888) | (Format <= YOnly));
 
 	InstancePtr->AVMode.NonLiveGraphics =
 		XAVBuf_GetNLGraphicsAttribute(Format);
-	if(InstancePtr->AVMode.NonLiveGraphics == NULL)
+	if (InstancePtr->AVMode.NonLiveGraphics == NULL)
 		return XST_FAILURE;
 
 	return XST_SUCCESS;
@@ -533,7 +539,7 @@ int XAVBuf_SetInputLiveVideoFormat(XAVBuf *InstancePtr,
 	Xil_AssertNonvoid((Format >= RGB_6BPC) | (Format <= YOnly_12BPC));
 
 	InstancePtr->AVMode.LiveVideo = XAVBuf_GetLiveVideoAttribute(Format);
-	if(InstancePtr->AVMode.LiveVideo == NULL)
+	if (InstancePtr->AVMode.LiveVideo == NULL)
 		return XST_FAILURE;
 
 	return XST_SUCCESS;
@@ -559,7 +565,7 @@ int XAVBuf_SetInputLiveGraphicsFormat(XAVBuf *InstancePtr,
 
 	InstancePtr->AVMode.LiveGraphics =
 		XAVBuf_GetLiveVideoAttribute(Format);
-	if(InstancePtr->AVMode.LiveGraphics == NULL)
+	if (InstancePtr->AVMode.LiveGraphics == NULL)
 		return XST_FAILURE;
 
 	return XST_SUCCESS;
@@ -584,7 +590,7 @@ int XAVBuf_SetOutputVideoFormat(XAVBuf *InstancePtr, XAVBuf_VideoFormat Format)
 
 	InstancePtr->Blender.OutputVideo =
 		XAVBuf_GetLiveVideoAttribute(Format);
-	if(InstancePtr->Blender.OutputVideo == NULL)
+	if (InstancePtr->Blender.OutputVideo == NULL)
 		return XST_FAILURE;
 	else
 		return XST_SUCCESS;
@@ -611,16 +617,15 @@ void XAVBuf_SetAudioVideoClkSrc(XAVBuf *InstancePtr, u8 VideoClk, u8 AudioClk)
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid((VideoClk != XAVBUF_PS_CLK) |
-			(VideoClk!= XAVBUF_PL_CLK));
+			(VideoClk != XAVBUF_PL_CLK));
 	Xil_AssertVoid((AudioClk != XAVBUF_PS_CLK) |
-		       (AudioClk!= XAVBUF_PL_CLK));
+		       (AudioClk != XAVBUF_PL_CLK));
 
-	if((InstancePtr->AVMode.VideoSrc != XAVBUF_VIDSTREAM1_LIVE) &&
+	if ((InstancePtr->AVMode.VideoSrc != XAVBUF_VIDSTREAM1_LIVE) &&
 	   (InstancePtr->AVMode.GraphicsSrc != XAVBUF_VIDSTREAM2_LIVE_GFX)) {
 		RegVal = 1 <<
 			XAVBUF_BUF_AUD_VID_CLK_SOURCE_VID_TIMING_SRC_SHIFT;
-	}
-	else if((InstancePtr->AVMode.VideoSrc == XAVBUF_VIDSTREAM1_LIVE) ||
+	} else if ((InstancePtr->AVMode.VideoSrc == XAVBUF_VIDSTREAM1_LIVE) ||
 		(InstancePtr->AVMode.GraphicsSrc ==
 		 XAVBUF_VIDSTREAM2_LIVE_GFX)) {
 		VideoClk = XAVBUF_PL_CLK;
@@ -671,15 +676,14 @@ void XAVBuf_SoftReset(XAVBuf *InstancePtr)
 XAVBuf_VideoAttribute *XAVBuf_GetLiveVideoAttribute(XAVBuf_VideoFormat Format)
 {
 	u8 Index = 0;
-	XAVBuf_VideoAttribute *VideoAttribute;
 	Xil_AssertNonvoid((Format >= RGB_6BPC) |  (Format <= YOnly_12BPC));
 
 	for (Index = RGB_6BPC; Index <= YOnly_12BPC; Index++) {
+		XAVBuf_VideoAttribute *VideoAttribute;
 		VideoAttribute = (XAVBuf_VideoAttribute *)
 					&XAVBuf_SupportedFormats[Index];
-		if(Format == VideoAttribute->VideoFormat) {
+		if (Format == VideoAttribute->VideoFormat)
 			return VideoAttribute;
-		}
 	}
 	return NULL;
 }
@@ -699,14 +703,13 @@ XAVBuf_VideoAttribute *XAVBuf_GetLiveVideoAttribute(XAVBuf_VideoFormat Format)
 XAVBuf_VideoAttribute *XAVBuf_GetNLiveVideoAttribute(XAVBuf_VideoFormat Format)
 {
 	u8 Index = 0;
-	XAVBuf_VideoAttribute *VideoAttribute;
 
 	for (Index = CbY0CrY1; Index <= YV16Ci2_420_10BPC; Index++) {
+		XAVBuf_VideoAttribute *VideoAttribute;
 		VideoAttribute = (XAVBuf_VideoAttribute *)
 					&XAVBuf_SupportedFormats[Index];
-		if(Format == VideoAttribute->VideoFormat) {
+		if (Format == VideoAttribute->VideoFormat)
 			return VideoAttribute;
-		}
 	}
 	return NULL;
 }
@@ -726,16 +729,15 @@ XAVBuf_VideoAttribute *XAVBuf_GetNLiveVideoAttribute(XAVBuf_VideoFormat Format)
 XAVBuf_VideoAttribute *XAVBuf_GetNLGraphicsAttribute(XAVBuf_VideoFormat Format)
 {
 	u32 Index = 0;
-	XAVBuf_VideoAttribute *VideoAttribute;
 
 	Xil_AssertNonvoid((Format >= RGBA8888) | (Format <= YOnly));
 
-	for(Index = RGBA8888; Index <= YOnly; Index++) {
+	for (Index = RGBA8888; Index <= YOnly; Index++) {
+		XAVBuf_VideoAttribute *VideoAttribute;
 		VideoAttribute = (XAVBuf_VideoAttribute *)
 					&XAVBuf_SupportedFormats[Index];
-		if(Format == VideoAttribute->VideoFormat) {
+		if (Format == VideoAttribute->VideoFormat)
 			return VideoAttribute;
-		}
 	}
 	return NULL;
 }
@@ -816,7 +818,7 @@ void XAVBuf_SetBlenderAlpha(XAVBuf *InstancePtr, u8 Alpha, u8 Enable)
 {
 	u32 RegVal;
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Enable !=0) | (Enable != 1));
+	Xil_AssertVoid((Enable != 0) | (Enable != 1));
 
 	InstancePtr->Blender.GlobalAlphaEn = Enable;
 	InstancePtr->Blender.Alpha = Alpha;
@@ -833,7 +835,6 @@ void XAVBuf_SetBlenderAlpha(XAVBuf *InstancePtr, u8 Alpha, u8 Enable)
  * This function configures the Output of the Video Pipeline
  *
  * @param	InstancePtr is an pointer to the XAVBuf Instance.
- * @param	OutputVideo is a pointer to the XAVBuf_VideoAttribute.
  *
  * @return	None.
  *
@@ -869,8 +870,8 @@ void XAVBuf_ConfigureOutputVideo(XAVBuf *InstancePtr)
  * @note	None.
  *
 *******************************************************************************/
-void XAVBuf_InputAudioSelect(XAVBuf *InstancePtr, XAVBuf_AudioStream1 AudStream1,
-			      XAVBuf_AudioStream2 AudStream2)
+void XAVBuf_InputAudioSelect(XAVBuf *InstancePtr, XAVBuf_AudioStream1
+			     AudStream1, XAVBuf_AudioStream2 AudStream2)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid((AudStream1 != XAVBUF_AUDSTREAM1_NONLIVE) |
@@ -937,9 +938,7 @@ void XAVBuf_AudioSoftReset(XAVBuf *InstancePtr)
 	RegVal |= XAVBUF_AUD_SOFT_RST_AUD_SRST_MASK;
 	XAVBuf_WriteReg(InstancePtr->Config.BaseAddr, XAVBUF_AUD_SOFT_RST,
 			RegVal);
-	RegVal &= ~XAVBUF_AUD_SOFT_RST_AUD_SRST_MASK;
 	XAVBuf_WriteReg(InstancePtr->Config.BaseAddr, XAVBUF_AUD_SOFT_RST, 0);
-
 }
 
 /******************************************************************************/
@@ -960,7 +959,7 @@ void XABuf_LineResetDisable(XAVBuf *InstancePtr, u8 Disable)
 	Xil_AssertVoid(InstancePtr != NULL);
 	RegVal = XAVBuf_ReadReg(InstancePtr->Config.BaseAddr,
 				XAVBUF_AUD_SOFT_RST);
-	if(Disable)
+	if (Disable)
 		RegVal |= XAVBUF_AUD_SOFT_RST_LINE_RST_DISABLE_MASK;
 	else
 		RegVal &= ~XAVBUF_AUD_SOFT_RST_LINE_RST_DISABLE_MASK;
@@ -995,7 +994,7 @@ void XAVBuf_EnableVideoBuffers(XAVBuf *InstancePtr, u8 Enable)
 		XAVBuf_WriteReg(InstancePtr->Config.BaseAddr,
 				XAVBUF_CHBUF0 + (Index * 4), RegVal);
 	}
-	if(Enable) {
+	if (Enable) {
 		RegVal = (0xF << XAVBUF_CHBUF0_BURST_LEN_SHIFT) |
 		XAVBUF_CHBUF0_EN_MASK;
 		for (Index = 0; Index <= NumPlanes; Index++) {
@@ -1023,7 +1022,7 @@ void XAVBuf_EnableGraphicsBuffers(XAVBuf *InstancePtr, u8 Enable)
 	RegVal = (0xF << XAVBUF_CHBUF3_BURST_LEN_SHIFT) |
 		XAVBUF_CHBUF3_FLUSH_MASK;
 	XAVBuf_WriteReg(InstancePtr->Config.BaseAddr, XAVBUF_CHBUF3, RegVal);
-	if(Enable) {
+	if (Enable) {
 		RegVal = (0xF << XAVBUF_CHBUF3_BURST_LEN_SHIFT) |
 			XAVBUF_CHBUF0_EN_MASK;
 		XAVBuf_WriteReg(InstancePtr->Config.BaseAddr, XAVBUF_CHBUF3,
@@ -1050,7 +1049,7 @@ void XAVBuf_EnableAudio0Buffers(XAVBuf *InstancePtr, u8 Enable)
 	RegVal = (0x3 << XAVBUF_CHBUF4_BURST_LEN_SHIFT) |
 		XAVBUF_CHBUF4_FLUSH_MASK;
 	XAVBuf_WriteReg(InstancePtr->Config.BaseAddr, XAVBUF_CHBUF4, RegVal);
-	if(Enable) {
+	if (Enable) {
 		RegVal = (0x3 << XAVBUF_CHBUF4_BURST_LEN_SHIFT) |
 			XAVBUF_CHBUF4_EN_MASK;
 		XAVBuf_WriteReg(InstancePtr->Config.BaseAddr, XAVBUF_CHBUF4,
@@ -1077,7 +1076,7 @@ void XAVBuf_EnableAudio1Buffers(XAVBuf *InstancePtr, u8 Enable)
 	RegVal = (0x3 << XAVBUF_CHBUF5_BURST_LEN_SHIFT) |
 		XAVBUF_CHBUF5_FLUSH_MASK;
 	XAVBuf_WriteReg(InstancePtr->Config.BaseAddr, XAVBUF_CHBUF5, RegVal);
-	if(Enable) {
+	if (Enable) {
 		RegVal = (0x3 << XAVBUF_CHBUF5_BURST_LEN_SHIFT) |
 			XAVBUF_CHBUF5_EN_MASK;
 		XAVBuf_WriteReg(InstancePtr->Config.BaseAddr, XAVBUF_CHBUF5,

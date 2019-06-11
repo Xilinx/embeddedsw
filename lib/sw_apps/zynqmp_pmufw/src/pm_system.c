@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -380,6 +380,9 @@ static PmRegisterContext pmSystemRegs[] = {
 	{ .addr = 0XFF18051CU, },
 	{ .addr = 0XFF180520U, },
 	{ .addr = 0XFF180524U, },
+	/* LPD_SLCR_SECURE */
+	{ .addr = 0xFF4B0024U, },
+	{ .addr = 0xFF4B0034U, },
 	/* CRL_APB */
 	{ .addr = 0XFF5E0000U, },
 	{ .addr = 0XFF5E001CU, },
@@ -466,9 +469,9 @@ static PmRegisterContext pmSystemRegs[] = {
  * PmSystemPosDdrRequirementAdd() - Add DDR context saving requirements
  * @return	XST_SUCCESS if requirements are added, XST_FAILURE otherwise
  */
-static int PmSystemPosDdrRequirementAdd(void)
+static s32 PmSystemPosDdrRequirementAdd(void)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 i;
 
 	for (i = 0U; i < ARRAY_SIZE(pmPosDdrReqs_g); i++) {
@@ -506,9 +509,9 @@ done:
  * PmSystemRequirementAdd() - Add requirements of the system
  * @return	XST_SUCCESS if requirements are added, XST_FAILURE otherwise
  */
-int PmSystemRequirementAdd(void)
+s32 PmSystemRequirementAdd(void)
 {
-	int status;
+	s32 status;
 	u32 i;
 
 	for (i = 0U; i < ARRAY_SIZE(pmSystemReqs); i++) {
@@ -630,10 +633,10 @@ static void PmSystemSaveContext(void)
 	for (i = 0U; i < ARRAY_SIZE(pmSystemMemory); i++) {
 		start = pmSystemMemory[i].startAddr;
 		size = pmSystemMemory[i].endAddr - start + 1U;
-		memcpy((void*)address, (void*)start, size);
+		(void)memcpy((void*)address, (void*)start, size);
 		address += size;
-		if (address % 4) {
-			address += 4 - (address % 4);
+		if ((address % 4U) != 0U) {
+			address += 4U - (address % 4U);
 		}
 	}
 
@@ -646,10 +649,10 @@ static void PmSystemSaveContext(void)
 			/* Check TCM configuration */
 			reg = XPfw_Read32(RPU_RPU_GLBL_CNTL);
 			reg &= RPU_RPU_GLBL_CNTL_TCM_COMB_MASK;
-			if (reg != 0U && start >= TCM_1A_START_ADDR) {
+			if ((reg != 0U) && (start >= TCM_1A_START_ADDR)) {
 				start -= TCM_BANK_OFFSET;
 			}
-			memcpy((void*)address, (void*)start, size);
+			(void)memcpy((void*)address, (void*)start, size);
 			address += size;
 		}
 	}
@@ -658,7 +661,7 @@ static void PmSystemSaveContext(void)
 /**
  * PmSystemPosHaltRpu() - Halt RPU0 and RPU1 cores in order to access TCMs
  */
-static void PmSystemPosHaltRpu()
+static void PmSystemPosHaltRpu(void)
 {
 	/* Halt RPU0 */
 	XPfw_RMW32(CRL_APB_RST_LPD_TOP,CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK,
@@ -691,10 +694,10 @@ static void PmSystemRestoreContext(void)
 	for (i = 0U; i < ARRAY_SIZE(pmSystemMemory); i++) {
 		start = pmSystemMemory[i].startAddr;
 		size = pmSystemMemory[i].endAddr - start + 1U;
-		memcpy((void*)start, (void*)address, size);
+		(void)memcpy((void*)start, (void*)address, size);
 		address += size;
-		if (address % 4) {
-			address += 4 - (address % 4);
+		if ((address % 4U) != 0U) {
+			address += 4U - (address % 4U);
 		}
 	}
 
@@ -737,10 +740,10 @@ static void PmSystemRestoreContext(void)
  *
  * @return	XST_SUCCESS if slave capability is set, XST_FAILURE otherwise
  */
-static int PmSystemSetPosRequirement(const PmSlave* const slave, u32 caps)
+static s32 PmSystemSetPosRequirement(const PmSlave* const slave, u32 caps)
 {
 	u32 i;
-	int status = XST_FAILURE;
+	s32 status = XST_FAILURE;
 
 	for (i = 0U; i < ARRAY_SIZE(pmSystemReqs); i++) {
 		if (slave == pmSystemReqs[i].slave) {
@@ -774,7 +777,7 @@ static void PmSystemTcmSetSave(u32 baseAddress, u32 save)
  * PmSystemCheckTcm() - Mark TCM memory regions that needs to be saved/restored
  * 			during Power Off Suspend
  */
-static void PmSystemCheckTcm()
+static void PmSystemCheckTcm(void)
 {
 	u32 i;
 
@@ -844,9 +847,9 @@ done:
  *
  * @return	XST_SUCCESS if capabilities are set, failure code otherwise
  */
-static int PmSystemPosPrepareDdrCaps(void)
+static s32 PmSystemPosPrepareDdrCaps(void)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 i;
 
 	/* Set capabilities required for saving DDR context */
@@ -880,9 +883,9 @@ done:
  * @return	XST_SUCCESS if all Power Off Suspend system slave capabilities
  * 		are set, failure code otherwise
  */
-int PmSystemPreparePowerOffSuspend(void)
+s32 PmSystemPreparePowerOffSuspend(void)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 i;
 
 	pmSystem.suspendType = PM_SUSPEND_TYPE_POWER_OFF;
@@ -922,9 +925,9 @@ done:
  *
  * @return	XST_SUCCESS if capabilities are released, failure code otherwise
  */
-static int PmSystemPosFinalizeDdrCaps(void)
+static s32 PmSystemPosFinalizeDdrCaps(void)
 {
-	int status = XST_SUCCESS;
+	s32 status = XST_SUCCESS;
 	u32 i;
 
 	/* Set capabilities required for DDR context saving to 0 */
@@ -955,10 +958,10 @@ done:
  * @return	This function will not return in case of entering Power Off
  * 		Suspend, failure code otherwise
  */
-int PmSystemFinalizePowerOffSuspend(void)
+s32 PmSystemFinalizePowerOffSuspend(void)
 {
 	u32 i;
-	int status;
+	s32 status;
 	PmRequirement* req;
 
 	/* Save system context */
@@ -1013,9 +1016,9 @@ done:
  *
  * @return	XST_SUCCESS if system is resumed properly, error code otherwise
  */
-int PmSystemResumePowerOffSuspend(void)
+s32 PmSystemResumePowerOffSuspend(void)
 {
-	int status;
+	s32 status;
 	u32 i;
 	PmRequirement* req;
 

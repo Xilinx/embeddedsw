@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014-2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,11 +25,12 @@
  * this Software without prior written authorization from Xilinx.
  *
  ******************************************************************************/
+
 /*****************************************************************************/
 /**
  *
  * @file xqspipsu.h
- * @addtogroup qspipsu_v1_8
+ * @addtogroup qspipsu_v1_9
  * @{
  * @details
  *
@@ -92,21 +93,21 @@
  *       sk  06/17/15 Removed NULL checks for Rx/Tx buffers. As
  *                    writing/reading from 0x0 location is permitted.
  * 1.1   sk  04/12/16 Added debug message prints.
- * 1.2	nsk 07/01/16 Added LQSPI support
- *		     Modified XQspiPsu_Select() macro in xqspipsu.h
- *		     Added XQspiPsu_GetLqspiConfigReg() in xqspipsu.h
- *		     Added required macros in xqspipsu_hw.h
- *		     Modified XQspiPsu_SetOptions() to support
- *		     LQSPI options and updated OptionsTable in
- *		     xqspipsu_options.c
+ * 1.2 nsk 07/01/16 Added LQSPI support
+ *                  Modified XQspiPsu_Select() macro in xqspipsu.h
+ *                  Added XQspiPsu_GetLqspiConfigReg() in xqspipsu.h
+ *                  Added required macros in xqspipsu_hw.h
+ *                  Modified XQspiPsu_SetOptions() to support
+ *                  LQSPI options and updated OptionsTable in
+ *                  xqspipsu_options.c
  *       rk  07/15/16 Added support for TapDelays at different frequencies.
- *	nsk 08/05/16 Added example support PollData and PollTimeout
- *		     Added  XQSPIPSU_MSG_FLAG_POLL macro in xqspipsu.h
- *		     Added XQspiPsu_Create_PollConfigData and
- *		     XQspiPsu_PollData() functions in xqspipsu.c
- * 1.3	nsk 09/16/16 Update PollData and Polltimeout support for dual parallel
- *	             configuration. Updated XQspiPsu_PollData() and
- *	             XQspiPsu_Create_PollConfigData() functions in xqspipsu.c
+ *     nsk 08/05/16 Added example support PollData and PollTimeout
+ *                  Added  XQSPIPSU_MSG_FLAG_POLL macro in xqspipsu.h
+ *                  Added XQspiPsu_Create_PollConfigData and
+ *                  XQspiPsu_PollData() functions in xqspipsu.c
+ * 1.3 nsk 09/16/16 Update PollData and Polltimeout support for dual parallel
+ *                  configuration. Updated XQspiPsu_PollData() and
+ *                  XQspiPsu_Create_PollConfigData() functions in xqspipsu.c
  *                    and also modified the polldata example
  *       ms  03/17/17 Added readme.txt file in examples folder for doxygen
  *                    generation.
@@ -114,41 +115,59 @@
  *                    examples to recognize it as documentation block
  *                    and modified filename tag to include them in
  *                    doxygen examples.
- * 1.4	tjs 05/26/17 Added support for accessing upper DDR (0x800000000)
- *		     while booting images from QSPI
- * 1.5	tjs 08/08/17 Added index.html file for importing examples
- *		     from system.mss
- * 1.5	nsk 08/14/17 Added CCI support
- * 1.5	tjs 09/14/17 Modified the checks for 4 byte addressing and commands.
- * 1.6	tjs 10/16/17 Flow for accessing flash is made similar to u-boot
- *		     and linux For CR-984966
+ * 1.4 tjs 05/26/17 Added support for accessing upper DDR (0x800000000)
+ *                  while booting images from QSPI
+ * 1.5 tjs 08/08/17 Added index.html file for importing examples
+ *                  from system.mss
+ * 1.5 nsk 08/14/17 Added CCI support
+ * 1.5 tjs 09/14/17 Modified the checks for 4 byte addressing and commands.
+ * 1.6 tjs 10/16/17 Flow for accessing flash is made similar to u-boot
+ *                  and linux For CR-984966
  * 1.6   tjs 11/02/17 Resolved the compilation errors for ICCARM. CR-988625
  * 1.7   tjs 11/16/17 Removed the unsupported 4 Byte write and sector erase
  *                    commands.
- * 1.7	tjs 12/01/17 Added support for MT25QL02G Flash from Micron. CR-990642
- * 1.7	tjs 12/19/17 Added support for S25FL064L from Spansion. CR-990724
- * 1.7	tjs 01/11/18 Added support for MX66L1G45G flash from Macronix CR-992367
- * 1.7	tjs 01/16/18 Removed the check for DMA MSB to be written. (CR#992560)
- * 1.7	tjs 01/17/18 Added support to toggle the WP pin of flash. (PR#2448)
+ * 1.7 tjs 12/01/17 Added support for MT25QL02G Flash from Micron. CR-990642
+ * 1.7 tjs 12/19/17 Added support for S25FL064L from Spansion. CR-990724
+ * 1.7 tjs 01/11/18 Added support for MX66L1G45G flash from Macronix CR-992367
+ * 1.7 tjs 01/16/18 Removed the check for DMA MSB to be written. (CR#992560)
+ * 1.7 tjs 01/17/18 Added support to toggle the WP pin of flash. (PR#2448)
  *                    Added XQspiPsu_SetWP() in xqspipsu_options.c
  *                    Added XQspiPsu_WriteProtectToggle() in xqspipsu.c and
  *                    also added write protect example.
- * 1.7	tjs 03/14/18 Added support in EL1 NS mode (CR#974882)
- * 1.7	tjs 26/03/18 In dual parallel mode enable both CS when issuing Write
- *			enable command. CR-998478
- * 1.8	tjs 05/02/18 Added support for IS25LP064 and IS25WP064.
- * 1.8	tjs 06/26/18 Added an example for accessing 64bit dma within
- *		     32 bit application. CR#1004701
- * 1.8	tjs 06/26/18 Removed checkpatch warnings
- * 1.8	tjs 07/09/19 Fixed cppcheck, doxygen and gcc warnings.
- * 1.8	tjs 07/18/18 Setup64BRxDma() should be called only if the RxAddress is
- *		     greater than 32 bit address space. (CR#1006862)
- * 1.8	tjs 07/18/18 Added support for the low density ISSI flash parts.
- * 1.8	tjs 09/06/18 Fixed the code in XQspiPsu_GenFifoEntryData() for data
- *		     transfer length up to 255 for reducing the extra loop.
+ * 1.7 tjs 03/14/18 Added support in EL1 NS mode (CR#974882)
+ * 1.7 tjs 26/03/18 In dual parallel mode enable both CS when issuing Write
+ *                     enable command. CR-998478
+ * 1.8 tjs 05/02/18 Added support for IS25LP064 and IS25WP064.
+ * 1.8 tjs 06/26/18 Added an example for accessing 64bit dma within
+ *                  32 bit application. CR#1004701
+ * 1.8 tjs 06/26/18 Removed checkpatch warnings
+ * 1.8 tjs 07/09/19 Fixed cppcheck, doxygen and gcc warnings.
+ * 1.8 tjs 07/18/18 Setup64BRxDma() should be called only if the RxAddress is
+ *                  greater than 32 bit address space. (CR#1006862)
+ * 1.8 tjs 07/18/18 Added support for the low density ISSI flash parts.
+ * 1.8 tjs 09/06/18 Fixed the code in XQspiPsu_GenFifoEntryData() for data
+ *                  transfer length up to 255 for reducing the extra loop.
+ * 1.9 tjs 11/22/17 Added the check for A72 and R5 processors (CR-987075)
+ * 1.9 tjs 04/17/18 Updated register addresses as per the latest revision
+ *		    of versal (CR#999610)
+ * 1.9  aru 01/17/19 Fixed the violations for  MISRAC-2012
+ *                  in safety mode .Done changes such as added U suffix,
+ *                  Declared pointer param as const.
+ * 1.9  nsk 02/01/19 Clear DMA_DST_ADDR_MSB register on 32bit machine, if the
+ *		     address is of only 32bit (CR#1020031)
+ * 1.9  nsk 02/01/19 Added QSPI idling support
+ *
+ * 1.9 akm 03/08/19 Set recommended clock and data tap delay values for 40MHZ,
+ *                  100MHZ and 150MHZ frequencies(CR#1023187)
+ * 1.9   akm 03/26/19 Fixed data alignment warnings on IAR compiler.
+ * 1.9   akm 03/26/19 Fixed compilation error in XQspiPsu_LqspiRead()
+ *                     function on IAR compiler.
+ * 1.9   akm 04/12/19 Fixed compilation error in XQspiPsu_LqspiRead() function.
+ *
  * </pre>
  *
  ******************************************************************************/
+
 #ifndef XQSPIPSU_H_		/* prevent circular inclusions */
 #define XQSPIPSU_H_		/* by using protection macros */
 
@@ -161,6 +180,7 @@ extern "C" {
 #include "xstatus.h"
 #include "xqspipsu_hw.h"
 #include "xil_cache.h"
+#include "xil_mem.h"
 
 /**************************** Type Definitions *******************************/
 /**
@@ -181,7 +201,7 @@ extern "C" {
  *		transferred.  This may be less than the number of bytes
  *		requested if the status event indicates an error.
  */
-typedef void (*XQspiPsu_StatusHandler) (void *CallBackRef, u32 StatusEvent,
+typedef void (*XQspiPsu_StatusHandler) (const void *CallBackRef, u32 StatusEvent,
 					u32 ByteCount);
 
 /**
@@ -318,9 +338,9 @@ typedef struct {
 #define XQSPIPSU_CONNECTION_MODE_PARALLEL	2U
 
 /*QSPI Frequencies*/
-#define XQSPIPSU_FREQ_40MHZ 40000000
-#define XQSPIPSU_FREQ_100MHZ 100000000
-#define XQSPIPSU_FREQ_150MHZ 150000000
+#define XQSPIPSU_FREQ_40MHZ 40000000U
+#define XQSPIPSU_FREQ_100MHZ 100000000U
+#define XQSPIPSU_FREQ_150MHZ 150000000U
 
 /* Add more flags as required */
 #define XQSPIPSU_MSG_FLAG_STRIPE	0x1U
@@ -335,7 +355,7 @@ typedef struct {
 
 #define XQspiPsu_Select(InstancePtr, Mask)	\
 	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + \
-			XQSPIPSU_SEL_OFFSET, Mask)
+			XQSPIPSU_SEL_OFFSET, (Mask))
 
 #define XQspiPsu_Enable(InstancePtr)	\
 	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + \
@@ -349,12 +369,11 @@ typedef struct {
 	XQspiPsu_In32((XQSPIPS_BASEADDR) + \
 			XQSPIPSU_LQSPI_CR_OFFSET)
 
-
 /************************** Function Prototypes ******************************/
 
 /* Initialization and reset */
 XQspiPsu_Config *XQspiPsu_LookupConfig(u16 DeviceId);
-s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr, XQspiPsu_Config *ConfigPtr,
+s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr, const XQspiPsu_Config *ConfigPtr,
 				u32 EffectiveAddr);
 void XQspiPsu_Reset(XQspiPsu *InstancePtr);
 void XQspiPsu_Abort(XQspiPsu *InstancePtr);
@@ -369,14 +388,15 @@ void XQspiPsu_SetStatusHandler(XQspiPsu *InstancePtr, void *CallBackRef,
 				XQspiPsu_StatusHandler FuncPointer);
 
 /* Configuration functions */
-s32 XQspiPsu_SetClkPrescaler(XQspiPsu *InstancePtr, u8 Prescaler);
+s32 XQspiPsu_SetClkPrescaler(const XQspiPsu *InstancePtr, u8 Prescaler);
 void XQspiPsu_SelectFlash(XQspiPsu *InstancePtr, u8 FlashCS, u8 FlashBus);
 s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options);
 s32 XQspiPsu_ClearOptions(XQspiPsu *InstancePtr, u32 Options);
-u32 XQspiPsu_GetOptions(XQspiPsu *InstancePtr);
+u32 XQspiPsu_GetOptions(const XQspiPsu *InstancePtr);
 s32 XQspiPsu_SetReadMode(XQspiPsu *InstancePtr, u32 Mode);
-void XQspiPsu_SetWP(XQspiPsu *InstancePtr, u8 Value);
-void XQspiPsu_WriteProtectToggle(XQspiPsu *InstancePtr, u32 Toggle);
+void XQspiPsu_SetWP(const XQspiPsu *InstancePtr, u8 Value);
+void XQspiPsu_WriteProtectToggle(const XQspiPsu *InstancePtr, u32 Toggle);
+void XQspiPsu_Idle(const XQspiPsu *InstancePtr);
 
 #ifdef __cplusplus
 }

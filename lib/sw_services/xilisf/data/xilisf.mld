@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2012 - 2018 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2012 - 2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -40,6 +40,7 @@
 #					  serial_flash_family.(CR 967359)
 # 5.9   srm  02/16/18 Updated to pick up latest freertos port 10.0
 # 5.11	tjs  03/16/18 Added ISSI to the serial flash family options.
+# 5.13	sk   02/11/19 Added OSPI interface support.
 #
 ##############################################################################
 
@@ -51,8 +52,8 @@ BEGIN LIBRARY xilisf
   OPTION REQUIRES_OS = (standalone xilkernel freertos10_xilinx);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilisf,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx In-system and Serial Flash Library";
-  OPTION VERSION = 5.12;
+  OPTION VERSION = 5.13;
   OPTION NAME = xilisf;
   PARAM name = serial_flash_family, desc = "Indicates the Serial Flash family type.  Enter 1 for ATMEL.  2 for INTEL.  3 for STM (M25PXX). 4 for Winbond. 5 for Spansion/ Cypress, Micron, Macronix and ISSI. 6 for SST Flash", type = int, default = 1;
-  PARAM name = serial_flash_interface, desc = "Indicates the Serial Flash Interface. Enter 1 for AXI SPI. 2 for PS SPI. 3 for PS QSPI(supported families are Winbond(4), Spansion/Cypress and Micron(5)).", type = int, default = 1;
+  PARAM name = serial_flash_interface, desc = "Indicates the Serial Flash Interface. Enter 1 for AXI SPI. 2 for PS SPI. 3 for PS QSPI(supported families are Winbond(4), Spansion/Cypress and Micron(5)). 4 for OSPI(supported families are Micron(5))", type = int, default = 1;
 END LIBRARY

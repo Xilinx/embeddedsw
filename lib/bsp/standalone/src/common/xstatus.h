@@ -109,6 +109,7 @@ extern "C" {
 #define XST_NOT_ENABLED                 29L	/*!< A requested service is not
 						   available because it has not
 						   been enabled */
+#define XST_NO_ACCESS			30L	/* Generic access error */
 /** @} */
 /***************** Utility Component statuses 401 - 500  *********************/
 /**
@@ -277,6 +278,7 @@ extern "C" {
 #define XST_IIC_TBA_READBACK_ERROR      1087	/*!< Read of the 10 bit addr reg */
 					     /* didn't return written value */
 #define XST_IIC_NOT_SLAVE               1088	/*!< The device isn't a slave    */
+#define XST_IIC_ARB_LOST 				1089 	/*!< Arbitration lost for master	*/
 /** @} */
 /**
 @name ATMC Status Codes 1101 - 1125

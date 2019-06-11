@@ -6,9 +6,18 @@ var xframer_8h =
     [ "XFramer", "struct_x_framer.html", null ],
     [ "XFramer_BusyBit", "xframer_8h.html#a17f16c4ed0de21aa145010c77dc3142b", null ],
     [ "XFRAMER_H_", "xframer_8h.html#a929c46374fdcb8e29e5776499f0f7184", null ],
-    [ "XFramerIPV6Enable", "xframer_8h.html#a9efd8852e5cff12c1f397b5bbdcdb21d", null ],
-    [ "XFramerTXEnable", "xframer_8h.html#a6904eb35bda608584dd35a4b752ff8aa", null ],
-    [ "XFramerVLANEnable", "xframer_8h.html#a835c00cae4834613d3e3cc94b58db8a5", null ],
+    [ "XFramerIPV6Enable", "xframer_8h.html#a9efd8852e5cff12c1f397b5bbdcdb21d", [
+      [ "XFRAMER_IPV6_DISABLE", "xframer_8h.html#a9efd8852e5cff12c1f397b5bbdcdb21da48b9ffa5add8c98f061d40c4836a96cb", null ],
+      [ "XFRAMER_IPV6_ENABLE", "xframer_8h.html#a9efd8852e5cff12c1f397b5bbdcdb21da57e0cf5bd644bdb6d54016337553769b", null ]
+    ] ],
+    [ "XFramerTXEnable", "xframer_8h.html#a6904eb35bda608584dd35a4b752ff8aa", [
+      [ "XFRAMER_MODULE_TRANSMIT_DISABLE", "xframer_8h.html#a6904eb35bda608584dd35a4b752ff8aaa632cb809f52d92f34e142cc4eda9ee3e", null ],
+      [ "XFRAMER_MODULE_TRANSMIT_ENABLE", "xframer_8h.html#a6904eb35bda608584dd35a4b752ff8aaa3e6ed939d1ede3065330432520e2a5fb", null ]
+    ] ],
+    [ "XFramerVLANEnable", "xframer_8h.html#a835c00cae4834613d3e3cc94b58db8a5", [
+      [ "XFRAMER_VLAN_DISABLE", "xframer_8h.html#a835c00cae4834613d3e3cc94b58db8a5af51460fa28d17cef57cb213105bb1ef2", null ],
+      [ "XFRAMER_VLAN_ENABLE", "xframer_8h.html#a835c00cae4834613d3e3cc94b58db8a5af1731e2eba2b0adbf5f08f67be195f23", null ]
+    ] ],
     [ "XFramer_CfgInitialize", "xframer_8h.html#aa750c7ac249efbc8b9abbbfb977d3a5f", null ],
     [ "XFramer_ChannelAccess", "xframer_8h.html#aa6ef8ec5049830215f10f450e8b91580", null ],
     [ "XFramer_ChannelConfig", "xframer_8h.html#a1769857f4d400c8dffbda8fbce01c5d8", null ],

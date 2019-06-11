@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -56,6 +56,15 @@
  *                      proper documentation and Modified Comment lines
  *                      to consider it as a documentation block while
  *                      generating doxygen.
+ * 5.3  rsp 11/08/18    Modified TxSend to fill SourceBuffer with non-zero
+ *                      data otherwise the test can return a false positive
+ *                      because DestinationBuffer is initialized with zeros.
+ *                      In fact, fixing this exposed a bug in RxReceive and
+ *                      caused the test to start failing. According to the
+ *                      product guide (pg080) for the AXI4-Stream FIFO, the
+ *                      RDFO should be read before reading RLR. Reading RLR
+ *                      first will result in the RDFO being reset to zero and
+ *                      no data being received.
  * </pre>
  *
  * ***************************************************************************
@@ -156,7 +165,7 @@ int main()
 *
 * @param	InstancePtr is a pointer to the instance of the
 *		XLlFifo component.
-* @param	DeviceId is Device ID of the Axi Fifo Deive instance,
+* @param	DeviceId is Device ID of the Axi Fifo Device instance,
 *		typically XPAR_<AXI_FIFO_instance>_DEVICE_ID value from
 *		xparameters.h.
 *
@@ -211,11 +220,11 @@ int XLlFifoPollingExample(XLlFifo *InstancePtr, u16 DeviceId)
 	/* Transmit the Data Stream */
 	Status = TxSend(InstancePtr, SourceBuffer);
 	if (Status != XST_SUCCESS){
-		xil_printf("Transmisson of Data failed\n\r");
+		xil_printf("Transmission of Data failed\n\r");
 		return XST_FAILURE;
 	}
 
-	/* Revceive the Data Stream */
+	/* Receive the Data Stream */
 	Status = RxReceive(InstancePtr, DestinationBuffer);
 	if (Status != XST_SUCCESS){
 		xil_printf("Receiving data failed");
@@ -266,9 +275,9 @@ int TxSend(XLlFifo *InstancePtr, u32  *SourceAddr)
 	int j;
 	xil_printf(" Transmitting Data ... \r\n");
 
-	/* Filling the buffer with data */
+	/* Fill the transmit buffer with incremental pattern */
 	for (i=0;i<MAX_DATA_BUFFER_SIZE;i++)
-		*(SourceAddr + i) = 0;
+		*(SourceAddr + i) = i;
 
 	for(i=0 ; i < NO_OF_PACKETS ; i++){
 
@@ -320,18 +329,14 @@ int RxReceive (XLlFifo *InstancePtr, u32* DestinationAddr)
 	static u32 ReceiveLength;
 
 	xil_printf(" Receiving data ....\n\r");
-	/* Read Recieve Length */
-	ReceiveLength = (XLlFifo_iRxGetLen(InstancePtr))/WORD_SIZE;
 
-	/* Start Receiving */
-	for ( i=0; i < ReceiveLength; i++){
-		RxWord = 0;
-		RxWord = XLlFifo_RxGetWord(InstancePtr);
-
-		if(XLlFifo_iRxOccupancy(InstancePtr)){
+	while(XLlFifo_iRxOccupancy(InstancePtr)) {
+		/* Read Receive Length */
+		ReceiveLength = (XLlFifo_iRxGetLen(InstancePtr))/WORD_SIZE;
+		for (i=0; i < ReceiveLength; i++) {
 			RxWord = XLlFifo_RxGetWord(InstancePtr);
+			*(DestinationBuffer+i) = RxWord;
 		}
-		*(DestinationAddr+i) = RxWord;
 	}
 
 	Status = XLlFifo_IsRxDone(InstancePtr);

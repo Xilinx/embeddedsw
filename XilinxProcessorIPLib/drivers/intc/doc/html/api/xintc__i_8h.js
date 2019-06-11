@@ -1,4 +1,4 @@
 var xintc__i_8h =
 [
-    [ "XIntc_ConfigTable", "group__intc__v3__8.html#ga6afbe6b28aa729c753744cba40ecf5b3", null ]
+    [ "XIntc_ConfigTable", "xintc__i_8h.html#ga6afbe6b28aa729c753744cba40ecf5b3", null ]
 ];

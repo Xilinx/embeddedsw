@@ -56,6 +56,10 @@
 #ifndef XIL_MACROBACK_H
 #define XIL_MACROBACK_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*********************************************************************/
 /**
  * Macros for Driver XCan
@@ -1043,6 +1047,10 @@
 
 #ifndef XUsb_mWriteReg
 #define XUsb_mWriteReg XUsb_WriteReg
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif

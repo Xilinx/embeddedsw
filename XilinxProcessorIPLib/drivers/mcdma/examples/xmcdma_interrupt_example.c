@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -37,8 +37,8 @@
  * Per packet transfers.
  *
  * H/W Requirements:
- * In order to test this example at the h/w level AXI MCDMA MM2S should
- * connect with the S2MM.
+ * In order to test this example at the design level AXI MCDMA MM2S should
+ * be connected with the S2MM channel.
  *
  * System level Considerations for Zynq UltraScale+ designs:
  * Please refer xmcdma_polled_example.c file.
@@ -53,6 +53,11 @@
  *			Fix gcc 'pointer from integer without a cast' warning.
  *	 rsp  08/17/18	Fix typos and rephrase comments.
  *	 rsp  08/17/18  Read Length register value from IP config.
+ * 1.3   rsp  02/05/19  Remove snooping enable from application.
+ *       rsp  02/06/19  Programmatically select cache maintenance ops for HPC
+ *                      and non-HPC designs. In Rx remove arch64 specific dsb
+ *                      instruction by performing cache invalidate operation
+ *                      for all supported architectures.
  * </pre>
  *
  * ***************************************************************************
@@ -136,9 +141,6 @@
 #define BLOCK_SIZE_2MB 0x200000U
 
 #define TEST_START_VALUE	0xC
-#ifdef __aarch64__
-// #define HPC_DESIGN
-#endif
 
 #ifdef XPAR_INTC_0_DEVICE_ID
  #define INTC		XIntc
@@ -211,10 +213,6 @@ int main(void)
 	XMcdma_Config *Mcdma_Config;
 
 	xil_printf("\r\n--- Entering main() --- \r\n");
-
-#ifdef HPC_DESIGN
-	Xil_Out32(0xFD6E4000,0x1);
-#endif
 
 #ifdef __aarch64__
 #if (TX_BD_SPACE_BASE < 0x100000000UL)
@@ -337,9 +335,10 @@ static int RxSetup(XMcdma *McDmaInstPtr)
 
 				/* Clear the receive buffer, so we can verify data */
 				memset((void *)RxBufferPtr, 0, MAX_PKT_LEN);
-#ifndef HPC_DESIGN
-				Xil_DCacheInvalidateRange((UINTPTR)RxBufferPtr, MAX_PKT_LEN);
-#endif
+
+				if(!McDmaInstPtr->Config.IsRxCacheCoherent)
+					Xil_DCacheInvalidateRange((UINTPTR)RxBufferPtr, MAX_PKT_LEN);
+
 				RxBufferPtr += MAX_PKT_LEN;
 				if (!Rx_Chan->Has_Rxdre) {
 					buf_align = RxBufferPtr % 64;
@@ -400,7 +399,7 @@ static int RxSetup(XMcdma *McDmaInstPtr)
 * This function sets up the TX channel of a DMA engine to be ready for packet
 * transmission
 *
-* @param	AxiDmaInstPtr is the instance pointer to the DMA engine.
+* @param	McDmaInstPtr is the instance pointer to the AXI MCDMA engine.
 *
 * @return	XST_SUCCESS if the setup is successful, XST_FAILURE otherwise.
 *
@@ -492,7 +491,8 @@ static int TxSetup(XMcdma *McDmaInstPtr)
 *
 * This function checks data buffer after the DMA transfer is finished.
 *
-* @param	None
+* @param	RxPacket is the pointer to Rx packet.
+* @param	ByteCount is the length of RX packet.
 *
 * @return	- XST_SUCCESS if validation is successful
 *		- XST_FAILURE if validation is failure.
@@ -505,15 +505,7 @@ static int CheckData(u8 *RxPacket, int ByteCount)
 	u32 Index;
 	u8 Value;
 
-
 	Value = TEST_START_VALUE;
-
-	/* Invalidate the DestBuffer before receiving the data, in case the
-	 * Data Cache is enabled
-	 */
-#ifndef __aarch64__
-	Xil_DCacheInvalidateRange((UINTPTR)RxPacket, ByteCount);
-#endif
 
 	for(Index = 0; Index < ByteCount; Index++) {
 			if (RxPacket[Index] != Value) {
@@ -523,11 +515,6 @@ static int CheckData(u8 *RxPacket, int ByteCount)
 				return XST_FAILURE;
 				break;
 			}
-#ifndef HPC_DESIGN
-#ifdef __aarch64__
-			dsb();
-#endif
-#endif
 			Value = (Value + 1) & 0xFF;
 	}
 
@@ -561,9 +548,9 @@ static int SendPacket(XMcdma *McDmaInstPtr)
 					Value = (Value + 1) & 0xFF;
 				}
 
-#ifndef HPC_DESIGN
-				Xil_DCacheFlushRange((UINTPTR)TxPacket, MAX_PKT_LEN);
-#endif
+				if (!McDmaInstPtr->Config.IsTxCacheCoherent)
+					Xil_DCacheFlushRange((UINTPTR)TxPacket, MAX_PKT_LEN);
+
 				if (Pkts == 0) {
 					CrBits |= XMCDMA_BD_CTRL_SOF_MASK;
 				}
@@ -594,8 +581,10 @@ static void DoneHandler(void *CallBackRef, u32 Chan_id)
         XMcdma *InstancePtr = (XMcdma *)((void *)CallBackRef);
         XMcdma_ChanCtrl *Rx_Chan = 0;
         XMcdma_Bd *BdPtr1, *FreeBdPtr;
+        u8 *RxPacket;
         int ProcessedBdCount, i;
         int MaxTransferBytes;
+        int RxPacketLength;
 
         Rx_Chan = XMcdma_GetMcdmaRxChan(InstancePtr, Chan_id);
         ProcessedBdCount = XMcdma_BdChainFromHW(Rx_Chan, NUMBER_OF_BDS_TO_TRANSFER, &BdPtr1);
@@ -605,8 +594,15 @@ static void DoneHandler(void *CallBackRef, u32 Chan_id)
         MaxTransferBytes = MAX_TRANSFER_LEN(InstancePtr->Config.MaxTransferlen - 1);
 
         for (i = 0; i < ProcessedBdCount; i++) {
-                if (CheckData((void *)XMcdma_BdRead64(FreeBdPtr, XMCDMA_BD_BUFA_OFFSET),
-			      XMcDma_BdGetActualLength(FreeBdPtr, MaxTransferBytes)) != XST_SUCCESS) {
+		RxPacket = (void *)XMcdma_BdRead64(FreeBdPtr, XMCDMA_BD_BUFA_OFFSET);
+		RxPacketLength = XMcDma_BdGetActualLength(FreeBdPtr, MaxTransferBytes);
+		/* Invalidate the DestBuffer before receiving the data, in case
+		 * the data cache is enabled
+		 */
+		if (!InstancePtr->Config.IsRxCacheCoherent)
+			Xil_DCacheInvalidateRange((UINTPTR)RxPacket, RxPacketLength);
+
+                if (CheckData((void *)RxPacket, RxPacketLength) != XST_SUCCESS) {
                         xil_printf("Data check failed for the Chan %x\n\r", Chan_id);
                 }
                 FreeBdPtr = (XMcdma_Bd *) XMcdma_BdRead64(FreeBdPtr, XMCDMA_BD_NDESC_OFFSET);
@@ -648,12 +644,13 @@ static void TxErrorHandler(void *CallBackRef, u32 Chan_id, u32 Mask)
 * DMA, it assumes INTC component exists in the hardware system.
 *
 * @param	IntcInstancePtr is a pointer to the instance of the INTC.
-* @param	Chan is the MCDMA Channel instance to be worked on.
+* @param	McDmaInstPtr is a pointer to the instance of the MCDMA.
 * @param	InrId is the MCDMA Channel Interrupt Id.
+* @param	Direction is the MCDMA Channel S2MM or MM2S path.
 *
 * @return
 *		- XST_SUCCESS if successful,
-*		- XST_FAILURE.if not succesful
+*		- XST_FAILURE.if not successful
 *
 * @note		None.
 *

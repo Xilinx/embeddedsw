@@ -29,7 +29,7 @@
 /**
 *
 * @file xtmrctr_stats.c
-* @addtogroup tmrctr_v4_5
+* @addtogroup tmrctr_v4_6
 * @{
 *
 * Contains function to get and clear statistics for the XTmrCtr component.

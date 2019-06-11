@@ -29,7 +29,7 @@
 /**
 *
 * @file xscugic_intr.c
-* @addtogroup scugic_v3_10
+* @addtogroup scugic_v4_0
 * @{
 *
 * This file contains the interrupt processing for the driver for the Xilinx
@@ -60,7 +60,7 @@
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.10  mus  07/17/18 Updated XScuGic_InterruptHandler to fix array overrun
 *                     reported by coverity tool. It fixes CR#1006344.
-* 3.10  mus  07/17/18 Updated file to fix the various coding style issues       
+* 3.10  mus  07/17/18 Updated file to fix the various coding style issues
 *                     reported by checkpatch. It fixes CR#1006344.
 *
 * </pre>
@@ -117,7 +117,9 @@ void XScuGic_InterruptHandler(XScuGic *InstancePtr)
 {
 
 	u32 InterruptID;
+#if !defined (versal) || defined (ARMR5)
 	    u32 IntIDFull;
+#endif
 	    XScuGic_VectorTableEntry *TablePtr;
 
 	    /* Assert that the pointer to the instance is valid
@@ -129,9 +131,12 @@ void XScuGic_InterruptHandler(XScuGic *InstancePtr)
 	     * interrupt ID and make sure it is valid. Reading Int_Ack will
 	     * clear the interrupt in the GIC.
 	     */
+#if defined (versal) && !defined(ARMR5)
+	    InterruptID = XScuGic_get_IntID();
+#else
 	    IntIDFull = XScuGic_CPUReadReg(InstancePtr, XSCUGIC_INT_ACK_OFFSET);
 	    InterruptID = IntIDFull & XSCUGIC_ACK_INTID_MASK;
-
+#endif
 	    if (XSCUGIC_MAX_NUM_INTR_INPUTS <= InterruptID) {
 		goto IntrExit;
 	    }
@@ -153,7 +158,7 @@ void XScuGic_InterruptHandler(XScuGic *InstancePtr)
 
 	    /*
 	     * Execute the ISR. Jump into the Interrupt service routine
-	     * based on the IRQSource. A software trigger is cleared by 
+	     * based on the IRQSource. A software trigger is cleared by
 	     *.the ACK.
 	     */
 	    TablePtr = &(InstancePtr->Config->HandlerTable[InterruptID]);
@@ -166,8 +171,12 @@ IntrExit:
 	     * Write to the EOI register, we are all done here.
 	     * Let this function return, the boot code will restore the stack.
 	     */
-	    XScuGic_CPUWriteReg(InstancePtr, XSCUGIC_EOI_OFFSET, IntIDFull);
+#if defined (versal) && !defined(ARMR5)
+	   XScuGic_ack_Int(InterruptID);
 
+#else
+	    XScuGic_CPUWriteReg(InstancePtr, XSCUGIC_EOI_OFFSET, IntIDFull);
+#endif
 	    /*
 	     * Return from the interrupt. Change security domains
 	     * could happen here.

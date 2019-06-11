@@ -41,6 +41,10 @@
 #include "pm_defs.h"
 #include "pm_api_sys.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 XStatus XPm_NotifierAdd(XPm_Notifier* const notifier);
 
 XStatus XPm_NotifierRemove(XPm_Notifier* const notifier);
@@ -49,4 +53,8 @@ void XPm_NotifierProcessEvent(const enum XPmNodeId node,
 			      const enum XPmNotifyEvent event,
 			      const u32 oppoint);
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* XILPM_CALLBACKS_H_ */

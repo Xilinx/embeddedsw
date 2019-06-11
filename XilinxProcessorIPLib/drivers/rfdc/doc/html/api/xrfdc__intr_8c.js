@@ -1,9 +1,9 @@
 var xrfdc__intr_8c =
 [
-    [ "XRFdc_GetIntrStatus", "group__rfdc__v5__0.html#gac0246fc51a19f4729f9554af2f23db70", null ],
-    [ "XRFdc_IntrClr", "group__rfdc__v5__0.html#ga136ec704f18bea845474335321c4ee54", null ],
-    [ "XRFdc_IntrDisable", "group__rfdc__v5__0.html#ga38678a2423a9a46429c713eff441524b", null ],
-    [ "XRFdc_IntrEnable", "group__rfdc__v5__0.html#ga067a2318b9cec0beb8745e50bfe99d7f", null ],
-    [ "XRFdc_IntrHandler", "group__rfdc__v5__0.html#ga0dcb08bb704e0cb5cfc6440fef2d7fdc", null ],
-    [ "XRFdc_SetStatusHandler", "group__rfdc__v5__0.html#gaab67d654d8e0eaa66fbd65c5f1b66823", null ]
+    [ "XRFdc_GetIntrStatus", "xrfdc__intr_8c.html#ga3b066d0273f3fc1fd24741cfe2cc837c", null ],
+    [ "XRFdc_IntrClr", "xrfdc__intr_8c.html#gafb4999411f07e2bbccde3c466d8ba0da", null ],
+    [ "XRFdc_IntrDisable", "xrfdc__intr_8c.html#ga13cace3e47a78c717a4f2d70916adf4e", null ],
+    [ "XRFdc_IntrEnable", "xrfdc__intr_8c.html#ga3ec2e5eb1864718966098b75778e8f9b", null ],
+    [ "XRFdc_IntrHandler", "xrfdc__intr_8c.html#ga0dcb08bb704e0cb5cfc6440fef2d7fdc", null ],
+    [ "XRFdc_SetStatusHandler", "xrfdc__intr_8c.html#gaab67d654d8e0eaa66fbd65c5f1b66823", null ]
 ];

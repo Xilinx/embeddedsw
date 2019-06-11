@@ -2568,7 +2568,7 @@ static void Dprx_DetectResolution(void *InstancePtr)
 	Msa[0].Misc1 = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 									XDP_RX_MSA_MISC1);
 	if (training_done == 1) {
-		xdbg_printf("*** Detected resolution: %d x %d @ %dHz, BPC = %d, Color "
+		xdbg_printf(XDBG_DEBUG_GENERAL,"*** Detected resolution: %d x %d @ %dHz, BPC = %d, Color "
 					"= %d***\n\r", DpHres, DpVres,recv_frame_clk_int,bpc,comp);
 	}
 }
@@ -2601,18 +2601,18 @@ static void Dprx_CheckSetupTx(void *InstancePtr)
 
 #else
 	if ((XVIDC_VM_NOT_SUPPORTED == VmId)) {
-		xdbg_printf("This resolution is not supported in Video Library..."
+		xdbg_printf(XDBG_DEBUG_GENERAL,"This resolution is not supported in Video Library..."
 					"using MSA values\n\r");
 		tx_with_msa = 1;
 	} else {
-		xdbg_printf("This resolution is supported in Video Library.\r\n");
+		xdbg_printf(XDBG_DEBUG_GENERAL,"This resolution is supported in Video Library.\r\n");
 		tx_with_msa = 0;
 	}
 #endif
 
 	//Configure GT channel when running on independent clock
 	if (is_TX_CPLL == 0) {
-		xdbg_printf("TX is running on QPLL........\n\r");
+		xdbg_printf(XDBG_DEBUG_GENERAL,"TX is running on QPLL........\n\r");
 	switch(LineRate)
 	{
 		case 0x6:
@@ -2622,7 +2622,7 @@ static void Dprx_CheckSetupTx(void *InstancePtr)
 							PHY_User_Config_Table[0]);//, 0, is_TX_CPLL);
 			break;
 		default:
-			xdbg_printf ("******** Invalid combination ********\r\n");
+			xdbg_printf (XDBG_DEBUG_GENERAL,"******** Invalid combination ********\r\n");
 			break;
 // these are illegal for KC705
 //    		case 0xA:
@@ -2636,7 +2636,7 @@ static void Dprx_CheckSetupTx(void *InstancePtr)
 //    			break;
 	}
 	}else { // TX running with CPLL
-		xdbg_printf("TX is running on CPLL........\n\r");
+		xdbg_printf(XDBG_DEBUG_GENERAL,"TX is running on CPLL........\n\r");
 	prog_bb (LineRate, 0);
 	Status = XVphy_ClkInitialize(&VPhy_Instance, 0, XVPHY_CHANNEL_ID_CHA,
 									XVPHY_DIR_TX);
@@ -2647,7 +2647,7 @@ static void Dprx_CheckSetupTx(void *InstancePtr)
 									XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_TX);
 	}
 	if (Status != XST_SUCCESS) {
-		xdbg_printf ("+++++++ TX GT configuration encountered a failure "
+		xdbg_printf (XDBG_DEBUG_GENERAL,"+++++++ TX GT configuration encountered a failure "
 					"(TX PT) +++++++\r\n");
 	}
 #if (ENABLE_HDCP_IN_DESIGN && SET_TX_TO_2BYTE==1)
@@ -2811,7 +2811,7 @@ static void Dprx_InterruptHandlerVmChange(void *InstancePtr)
 //	u32 Status;
 
 if (vblank_count >= 200 && training_done == 1) {
-	xdbg_printf("*** Interrupt > Video Mode change ***\n\r");
+	xdbg_printf(XDBG_DEBUG_GENERAL,"*** Interrupt > Video Mode change ***\n\r");
 	//Disabling TX interrupts
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x144, 0xFFF);
 	XDpTxSs_Stop(&DpTxSsInst);
@@ -2926,7 +2926,7 @@ void Dprx_InterruptHandlerLinkBW(void *InstancePtr)
 					XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_RX);
 
 	if (Status != XST_SUCCESS) {
-		xdbg_printf ("+++++++ RX GT configuration encountered an error (TP1)"
+		xdbg_printf (XDBG_DEBUG_GENERAL,"+++++++ RX GT configuration encountered an error (TP1)"
 				 "+++++++\r\n");
      }
 //     Xil_DCacheFlush();
@@ -2973,7 +2973,7 @@ if (internal_rx_tx == 0) {
         Status1 = XVphy_WaitForPllLock(&VPhy_Instance, 0, XVPHY_CHANNEL_ID_CHA);
 
         Status1 += Status2; // only to surpress warnings
-        xdbg_printf ("%d %d\r\n", Status1, Status2);
+        xdbg_printf (XDBG_DEBUG_GENERAL,"%d %d\r\n", Status1, Status2);
 
 #if (ENABLE_HDCP_IN_DESIGN && SET_RX_TO_2BYTE==1)
 //        Xil_Out32 (CLK_2_GPIO_BASEADDR, 0x0);
@@ -2998,7 +2998,7 @@ void Dprx_InterruptHandlerTrainingDone(void *InstancePtr)
     training_done_lane23 = XDp_ReadReg(
 		DpRxSsInst.Config.DpSubCore.DpConfig.BaseAddr,
 			XDP_RX_DPCD_LANE23_STATUS);
-    xdbg_printf("> Interrupt: Training done !!!(BW: 0x%x, Lanes: 0x%x, Status: "
+    xdbg_printf(XDBG_DEBUG_GENERAL,"> Interrupt: Training done !!!(BW: 0x%x, Lanes: 0x%x, Status: "
 		"0x%x;0x%x).\n\r", LineRate, LaneCount,
 			training_done_lane01, training_done_lane23);
 #if ENABLE_HDCP_IN_DESIGN
@@ -3039,7 +3039,7 @@ static void Dprx_InterruptHandlerTrainingLost(void *InstancePtr) {
 	XDpTxSs_Stop(&DpTxSsInst);
 	Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr, C_VideoUserStreamPattern[1]);
 	vdma_stop();
-	xdbg_printf("> Interrupt: Training lost !\n\r");
+	xdbg_printf(XDBG_DEBUG_GENERAL,"> Interrupt: Training lost !\n\r");
 #if ENABLE_HDCP_IN_DESIGN
 	XDpRxSs_SetPhysicalState(&DpRxSsInst, FALSE);
 	XDpRxSs_StopTimer(&DpRxSsInst);
@@ -3086,7 +3086,7 @@ void Dprx_InterruptHandlerUplug(void *InstancePtr)
 
 
 #if !COMPLIANCE
-	xdbg_printf("> Interrupt: Cable unplugged !\n\r");
+	xdbg_printf(XDBG_DEBUG_GENERAL,"> Interrupt: Cable unplugged !\n\r");
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x144, 0xFFF);
 	XDpTxSs_Stop(&DpTxSsInst);
 	Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr, C_VideoUserStreamPattern[1]);
@@ -3133,16 +3133,16 @@ void Dprx_InterruptHandlerUplug(void *InstancePtr)
 #if FOR_INTERNAL
 	if (rx_link_change_requested == 0 && rx_ran_once == 1
 			&& need_to_retrain_rx == 0) { // && hpd_issued == 0) {
-		xdbg_printf(">>> !!!!!!!!! RX cable unplugged. RX Video & REFCLK1 is "
+		xdbg_printf(XDBG_DEBUG_GENERAL,">>> !!!!!!!!! RX cable unplugged. RX Video & REFCLK1 is "
 				"lost !!!!!!!!!\n\r");
 	if (is_TX_CPLL == 0) {
-		xdbg_printf(">>> !!!!!!!!! Displaying the default 800x600 color bar "
+		xdbg_printf(XDBG_DEBUG_GENERAL,">>> !!!!!!!!! Displaying the default 800x600 color bar "
 				"pattern  !!!!!!!!!\n\r");
 		switch_to_patgen = 1;
 	} else {
-		xdbg_printf(">>> !!!!!!!!! Switching over the CPLL to REFCLK0  "
+		xdbg_printf(XDBG_DEBUG_GENERAL,">>> !!!!!!!!! Switching over the CPLL to REFCLK0  "
 				"!!!!!!!!!\n\r");
-		xdbg_printf(">>> !!!!!!!!! Displaying the default 800x600 color bar "
+		xdbg_printf(XDBG_DEBUG_GENERAL,">>> !!!!!!!!! Displaying the default 800x600 color bar "
 				"pattern  !!!!!!!!!\n\r");
 	switch_to_patgen = 1;
 //	switch_to_tx = 1;
@@ -3175,6 +3175,8 @@ void Dprx_InterruptHandlerUplug(void *InstancePtr)
 
 void Dprx_InterruptHandlerPwr(void *InstancePtr)
 {
+// This is handeled in driver. Disabling from application
+#if 0
 #if !COMPLIANCE
 	u32 rdata;
 	rdata = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
@@ -3185,6 +3187,7 @@ void Dprx_InterruptHandlerPwr(void *InstancePtr)
 		XDpRxSs_Dp159Config(DpRxSsInst.IicPtr, XDPRXSS_DP159_CT_UNPLUG,
 				DpRxSsInst.UsrOpt.LinkRate, DpRxSsInst.UsrOpt.LaneCount);
 	}
+#endif
 #endif
 }
 
@@ -3210,7 +3213,7 @@ void Dprx_InterruptHandlerExtPkt(void *InstancePtr){
 void Dprx_HdcpAuthCallback(void *InstancePtr) {
 	XDpRxSs *XDpRxSsInst = (XDpRxSs *)InstancePtr;
 
-	xdbg_printf("\033[33m * \033[0m \r\n");
+	xdbg_printf(XDBG_DEBUG_GENERAL,"\033[33m * \033[0m \r\n");
 	/* Set Timer Counter reset done */
 	XDpRxSsInst->TmrCtrResetDone = 1;
 
@@ -3321,9 +3324,10 @@ void DpPt_TxSetMsaValuesImmediate(void *InstancePtr)
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_MAIN_STREAM_VSTART +
 			StreamOffsetAddr[0], XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 					XDP_RX_MSA_VSTART));
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_MAIN_STREAM_MISC0 +
-			StreamOffsetAddr[0], XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-					XDP_RX_MSA_MISC0));
+       XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_MAIN_STREAM_MISC0 +
+		   StreamOffsetAddr[0], ((XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+                                        XDP_RX_MSA_MISC0)) & 0xFFFFFFFE));
+
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_MAIN_STREAM_MISC1 +
 			StreamOffsetAddr[0], XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 					XDP_RX_MSA_MISC1));
@@ -3680,7 +3684,7 @@ void DpPt_HpdEventHandler(void *InstancePtr)
 	u8 pwr_dwn;
 
 	if (XDpTxSs_IsConnected(&DpTxSsInst)) {
-		xdbg_printf("\r\n+===> HPD Connected.\n\r");
+		xdbg_printf(XDBG_DEBUG_GENERAL,"\r\n+===> HPD Connected.\n\r");
 		pwr_dwn = 0x2;
 		XDp_TxAuxWrite(DpTxSsInst.DpPtr, 0x00600, 1, &pwr_dwn);
 		pwr_dwn = 0x1;
@@ -3703,7 +3707,7 @@ void DpPt_HpdEventHandler(void *InstancePtr)
 	}
 	else
 	{
-		xdbg_printf("\r\n+===> HPD Disconnected.\n\r");
+		xdbg_printf(XDBG_DEBUG_GENERAL,"\r\n+===> HPD Disconnected.\n\r");
 		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x300, 0x0);
 		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,0x300, 0x0);
 		audio_on = 0;
@@ -3718,7 +3722,7 @@ void DpPt_HpdEventHandler(void *InstancePtr)
 #if ENABLE_HDCP_IN_DESIGN
 		if (XDpTxSs_IsAuthenticated(&DpTxSsInst)==1)
 		{
-			xdbg_printf(".~\r\n");
+			xdbg_printf(XDBG_DEBUG_GENERAL,".~\r\n");
 			XDpTxSs_DisableEncryption(&DpTxSsInst,0x1);
 			XDpTxSs_HdcpDisable(&DpTxSsInst);
 			XHdcp1xExample_Poll();
@@ -3759,7 +3763,7 @@ void hpd_pulse_con()
     Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x101, 1, &lane_set);
     Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x100, 1, &bw_set);
     if (Status != XST_SUCCESS) {
-        xdbg_printf ("Failed to read AUX registers on HPD pulse\r\n");
+        xdbg_printf (XDBG_DEBUG_GENERAL,"Failed to read AUX registers on HPD pulse\r\n");
     }
     bw_set = bw_set & 0x1F;
     lane_set = lane_set & 0x1F;
@@ -3767,10 +3771,10 @@ void hpd_pulse_con()
     lane0_sts = lane0_sts & 0x55;
     lane2_sts = lane2_sts & 0x55;
 #if 0
-    xdbg_printf ("lanes set : %x\r\n",lane_set);
-    xdbg_printf ("BW set : %x\r\n",bw_set);
-     xdbg_printf ("lane0 : %x\r\n",lane0_sts);
-     xdbg_printf ("lane2 : %x\r\n",lane2_sts);
+    xdbg_printf (XDBG_DEBUG_GENERAL,"lanes set : %x\r\n",lane_set);
+    xdbg_printf (XDBG_DEBUG_GENERAL,"BW set : %x\r\n",bw_set);
+     xdbg_printf (XDBG_DEBUG_GENERAL,"lane0 : %x\r\n",lane0_sts);
+     xdbg_printf (XDBG_DEBUG_GENERAL,"lane2 : %x\r\n",lane2_sts);
 #endif
 
 #if ENABLE_HDCP_IN_DESIGN
@@ -3787,7 +3791,7 @@ void hpd_pulse_con()
 	/* Check if the Link Integrity Failure Bit is set */
 	if (BStatus & 0x04) {
 #if ENABLE_HDCP_FLOW_GUIDE
-		xdbg_printf("\033[1m\033[41m\033[37m (*<*)TxLink! \033[0m \n");
+		xdbg_printf(XDBG_DEBUG_GENERAL,"\033[1m\033[41m\033[37m (*<*)TxLink! \033[0m \n");
 #endif
 			/* State 5 : Authenticated,
 			 * State 6 : Link Integrity Check */
@@ -3799,7 +3803,7 @@ void hpd_pulse_con()
 
 				/* Re-start authentication (the expectation is
 				 * that HDCP is already in the authenticated state). */
-				xdbg_printf("\033[1m\033[43m\033[34m (*<*)Tx-> \033[0m \n");
+				xdbg_printf(XDBG_DEBUG_GENERAL,"\033[1m\033[43m\033[34m (*<*)Tx-> \033[0m \n");
 				XDpTxSs_Authenticate(&DpTxSsInst);
 				XHdcp1xExample_Poll();
 				XDpTxSs_EnableEncryption(&DpTxSsInst, 0x1);
@@ -3810,7 +3814,7 @@ void hpd_pulse_con()
 	/* Check if the READY bit is set. */
 		if (BStatus & 0x01) {
 #if ENABLE_HDCP_FLOW_GUIDE
-			xdbg_printf("\033[1m\033[42m\033[37m (*<*)Ready! \033[0m \n");
+			xdbg_printf(XDBG_DEBUG_GENERAL,"\033[1m\033[42m\033[37m (*<*)Ready! \033[0m \n");
 #endif
 			/* DP TX State 8 : Wait-for-Ready */
 			if(DpTxSsInst.Hdcp1xPtr->Tx.CurrentState == 8) {
@@ -3831,7 +3835,7 @@ void hpd_pulse_con()
 	     /* Check if the Ro'_AVAILABLE bit is set. */
 		if (BStatus & 0x02) {
 #if ENABLE_HDCP_FLOW_GUIDE
-			xdbg_printf("\033[1m\033[42m\033[37m (*<*)Ro'_AVAILABLE!"
+			xdbg_printf(XDBG_DEBUG_GENERAL,"\033[1m\033[42m\033[37m (*<*)Ro'_AVAILABLE!"
 							"\033[0m \n");
 #endif
 			if ((BStatus & 0x01) != 0x01) {
@@ -3842,7 +3846,7 @@ void hpd_pulse_con()
 		/* Check if CP_IRQ is spurious */
 		if (BStatus == 0x00) {
 #if ENABLE_HDCP_FLOW_GUIDE
-			xdbg_printf("\033[1m\033[41m\033[37m (*<*)Spurious CP_IRQ!"
+			xdbg_printf(XDBG_DEBUG_GENERAL,"\033[1m\033[41m\033[37m (*<*)Spurious CP_IRQ!"
 						"\033[0m \n");
 #endif
 			/* Disable Hpd for a while (100ms) */
@@ -3869,10 +3873,10 @@ void hpd_pulse_con()
 				XDpTxSs_SetLaneCount(&DpTxSsInst, lane_set);
 				if ((only_tx_active == 0) && (training_done == 1)) {
 					Status = XDpTxSs_StartCustomMsa(&DpTxSsInst, Msa);
-					xdbg_printf ("Retraining PT 4..\r\n");
+					xdbg_printf (XDBG_DEBUG_GENERAL,"Retraining PT 4..\r\n");
 				 } else if (only_tx_active == 1) {
 					Status = XDpTxSs_Start(&DpTxSsInst);
-					xdbg_printf ("Retraining 4..\r\n");
+					xdbg_printf (XDBG_DEBUG_GENERAL,"Retraining 4..\r\n");
 				 }
 
 	        }
@@ -3882,10 +3886,10 @@ void hpd_pulse_con()
 				 XDpTxSs_SetLaneCount(&DpTxSsInst, lane_set);
 				 if ((only_tx_active == 0) && (training_done == 1)) {
 					Status = XDpTxSs_StartCustomMsa(&DpTxSsInst, Msa);
-					xdbg_printf ("Retraining PT 2..\r\n");
+					xdbg_printf (XDBG_DEBUG_GENERAL,"Retraining PT 2..\r\n");
 				 } else if (only_tx_active == 1) {
 					Status = XDpTxSs_Start(&DpTxSsInst);
-					xdbg_printf ("Retraining 2..\r\n");
+					xdbg_printf (XDBG_DEBUG_GENERAL,"Retraining 2..\r\n");
 				 }
 	        }
 
@@ -3895,10 +3899,10 @@ void hpd_pulse_con()
 				 XDpTxSs_SetLaneCount(&DpTxSsInst, lane_set);
 				 if ((only_tx_active == 0) && (training_done == 1)) {
 					Status = XDpTxSs_StartCustomMsa(&DpTxSsInst, Msa);
-					xdbg_printf ("Retraining PT 1..\r\n");
+					xdbg_printf (XDBG_DEBUG_GENERAL,"Retraining PT 1..\r\n");
 				 } else if (only_tx_active == 1) {
 					Status = XDpTxSs_Start(&DpTxSsInst);
-					xdbg_printf ("Retraining 1..\r\n");
+					xdbg_printf (XDBG_DEBUG_GENERAL,"Retraining 1..\r\n");
 				 }
 	        }
 		} else {
@@ -3917,7 +3921,7 @@ void hpd_pulse_con()
 void DpPt_HpdPulseHandler(void *InstancePtr)
 {
 
-	xdbg_printf("\r\nHPD Pulse event detected\n\r");
+	xdbg_printf(XDBG_DEBUG_GENERAL,"\r\nHPD Pulse event detected\n\r");
 		// Some monitors give HPD pulse repeatedly which causes HPD pulse
 		// function to be executed huge number of time.
 		// hence hpd_pulse interrupt is disabled and then enabled when
