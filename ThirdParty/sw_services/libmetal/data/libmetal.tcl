@@ -67,7 +67,7 @@ proc generate {libhandle} {
 	set toolchain_cmake "toolchain"
 	set fd [open "src/libmetal/cmake/platforms/${toolchain_cmake}.cmake" w]
 
-	if { "${proc_type}" == "psu_cortexr5" } {
+	if { "${proc_type}" == "psu_cortexr5" || "${proc_type}" == "psv_cortexr5"} {
 		puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"arm\" CACHE STRING \"\")"
 		puts $fd "set (MACHINE \"zynqmp_r5\")"
 	} elseif { "${proc_type}" == "psu_cortexa53" } {
