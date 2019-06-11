@@ -140,6 +140,7 @@ enum {
 	XLOADER_ERR_SD_F_READ, /* 0x31E */
 
 	XLOADER_ERR_IMG_ID_NOT_FOUND, /* 0x31F */
+	XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, /* 0x320 */
 };
 
 /**************************** Type Definitions *******************************/
