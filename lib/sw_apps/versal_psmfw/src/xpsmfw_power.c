@@ -57,6 +57,8 @@
 #include "pmc_global.h"
 #define CHECK_BIT(reg, mask)	((reg & mask) == mask)
 
+static u32 LocalPwrState;
+
 static struct XPsmFwPwrCtrl_t Acpu0PwrCtrl = {
 	.PwrStateMask = PSM_LOCAL_PWR_STATE_ACPU0_MASK,
 	.PwrCtrlAddr = PSM_LOCAL_ACPU0_PWR_CNTRL,
@@ -339,7 +341,7 @@ int XPsmFw_FpdMbistClear()
 int XPsmFw_FpdPreHouseClean()
 {
 	int Status = XST_SUCCESS;
-	u32 RegVal, PwrState;
+	u32 RegVal;
 
 	/* Check vccint_fpd first to make sure power is on */
 	RegVal = XPsmFw_Read32(PMC_GLOBAL_PWR_SUPPLY_STATUS);
@@ -355,7 +357,7 @@ int XPsmFw_FpdPreHouseClean()
 	 * Capture the current Power State
 	 * Power up all ACPU Cores and reflect their PWR_STATE
 	 */
-	PwrState = XPsmFw_Read32(PSM_LOCAL_PWR_STATE);
+	LocalPwrState = XPsmFw_Read32(PSM_LOCAL_PWR_STATE);
 
 	/*
 	 * Power up ACPUx power islands.
@@ -366,7 +368,7 @@ int XPsmFw_FpdPreHouseClean()
 
 	/* Update PWR_STATE register to reflect that all ACPUs are powerd up */
 	XPsmFw_Write32(PSM_LOCAL_PWR_STATE,
-			   (PwrState | PSM_LOCAL_PWR_STATE_ACPU0_MASK |
+			   (LocalPwrState | PSM_LOCAL_PWR_STATE_ACPU0_MASK |
 			   PSM_LOCAL_PWR_STATE_ACPU1_MASK));
 
 
@@ -393,7 +395,6 @@ done:
 int XPsmFw_FpdPostHouseClean()
 {
 	int Status = XST_SUCCESS;
-	u32 PwrState;
 
 	/* Disable Remaining LP-FP isolation - in case bisr and mbist was skipped */
 	XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
@@ -401,20 +402,19 @@ int XPsmFw_FpdPostHouseClean()
 			~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK);
 
 	/* Check if FPD is already powered up */
-	PwrState = XPsmFw_Read32(PSM_LOCAL_PWR_STATE);
-	if (!CHECK_BIT(PwrState, PSM_LOCAL_PWR_STATE_FP_MASK)) {
+	if (!CHECK_BIT(LocalPwrState, PSM_LOCAL_PWR_STATE_FP_MASK)) {
 		/* Check the Saved PWR_STATE in Stage 3 and power off any ACPU cores that were off */
-		if ((PwrState & PSM_GLOBAL_REG_PWR_STATE_ACPU0_MASK)) {
+		if ((LocalPwrState & PSM_LOCAL_PWR_STATE_ACPU0_MASK)) {
 			XPsmFw_Write32(PSM_LOCAL_ACPU0_PWR_CNTRL,
 				       PSM_LOCAL_ACPU0_PWR_CNTRL_ISOLATION_MASK);
 		}
-		if ((PwrState & PSM_GLOBAL_REG_PWR_STATE_ACPU1_MASK)) {
+		if ((LocalPwrState & PSM_LOCAL_PWR_STATE_ACPU1_MASK)) {
 			XPsmFw_Write32(PSM_LOCAL_ACPU1_PWR_CNTRL,
 				       PSM_LOCAL_ACPU1_PWR_CNTRL_ISOLATION_MASK);
 		}
 
 		/* Update the PWR_STATE to reflect the ACPU cores that were powered off */
-		XPsmFw_Write32(PSM_LOCAL_PWR_STATE, PwrState);
+		XPsmFw_Write32(PSM_LOCAL_PWR_STATE, LocalPwrState);
 
 		/* Mark FPD as powered ON */
 		XPsmFw_RMW32(PSM_LOCAL_PWR_STATE, PSM_LOCAL_PWR_STATE_FP_MASK,
