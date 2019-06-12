@@ -1074,6 +1074,10 @@ void pt_loop(){
 
 		//Pass-through Handling
 		if(DpRxSsInst.VBlankCount>VBLANK_WAIT_COUNT){
+			//restoring timeout
+			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CDR_CONTROL_CONFIG,
+							XDP_RX_CDR_CONTROL_CONFIG_TDLOCK_DP159);
+
 			DpRxSsInst.no_video_trigger = 0;
 			//VBLANK Management
 			DpRxSsInst.VBlankCount = 0;
@@ -1537,6 +1541,8 @@ void start_audio_passThrough(){
 void unplug_proc (void) {
         rx_trained = 0;
         rx_unplugged = 0;
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x144, 0xFFF);
+	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
         frameBuffer_stop(Msa);
         XDpRxSs_Mst_AudioDisable (&DpRxSsInst);
         XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,	XDP_TX_AUDIO_CONTROL, 0x00000);
@@ -1544,4 +1550,5 @@ void unplug_proc (void) {
         DpRxSs_Setup();
         AudioinfoFrame.frame_count = 0;
         aud_info_rcvd = 0;
+	XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x140);
 }

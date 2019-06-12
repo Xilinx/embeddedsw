@@ -795,7 +795,7 @@ void DpRxSs_TrainingDoneHandler(void *InstancePtr)
 void DpRxSs_UnplugHandler(void *InstancePtr)
 {
         /* Disable & Enable Audio */
-	    xil_printf ("Cable Unplugged !!\r\n");
+//	    xil_printf ("Cable Unplugged !!\r\n");
 	    rx_unplugged = 1;
         appx_fs_dup = 0;
         aud_info_rcvd = 0;
@@ -828,9 +828,6 @@ void DpRxSs_UnplugHandler(void *InstancePtr)
         XDp_RxGenerateHpdInterrupt(DpRxSsInst.DpPtr, 5000);
         DpRxSsInst.link_up_trigger = 0;
         DpRxSsInst.no_video_trigger = 1;
-//        I2cClk_Ps(0, 24576000);
-//          Xil_Out32 (RX_ACR_ADDR+0x8, 0x0);
-//        xil_printf ("RX Cable unplugged !!\r\n");
 }
 
 /*****************************************************************************/
@@ -950,42 +947,6 @@ void DpRxSs_AccessLaneSetHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_CRCTestEventHandler(void *InstancePtr)
 {
-        u16 ReadVal;
-        u32 TrainingAlgoValue;
-
-        ReadVal = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-                              XDP_RX_CRC_CONFIG);
-
-        /*Record Training Algo Value - to be restored in non-phy test mode*/
-        TrainingAlgoValue = XDp_ReadReg(DpRxSsInst.Config.BaseAddress,
-                        XDP_RX_MIN_VOLTAGE_SWING);
-
-        /*Refer to DPCD 0x270 Register*/
-        if( (ReadVal&0x8000) == 0x8000){
-                        /*Enable PHY test mode - Set Min voltage swing to 0*/
-                XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-                                XDP_RX_MIN_VOLTAGE_SWING,
-                                (TrainingAlgoValue&0xFFFFFFFC)|0x80000000);
-
-                        /*Disable Training timeout*/
-                        ReadVal = XDp_ReadReg(DpRxSsInst.Config.BaseAddress,
-                                        XDP_RX_CDR_CONTROL_CONFIG);
-                                        XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-                                        XDP_RX_CDR_CONTROL_CONFIG, ReadVal|0x40000000);
-
-        }else{
-                /* Disable PHY test mode & Set min
-                 * voltage swing back to level 1 */
-                XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-                                                XDP_RX_MIN_VOLTAGE_SWING,
-                                                (TrainingAlgoValue&0x7FFFFFFF)|0x1);
-
-                        /*Enable Training timeout*/
-                        ReadVal = XDp_ReadReg(DpRxSsInst.Config.BaseAddress,
-                                        XDP_RX_CDR_CONTROL_CONFIG);
-                        XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-                                        XDP_RX_CDR_CONTROL_CONFIG, ReadVal&0xBFFFFFFF);
-        }
 }
 
 /*****************************************************************************/
@@ -3005,7 +2966,17 @@ u32 DpRxSs_Setup(void)
                 XDP_RX_AUX_CLK_DIVIDER, ReadVal);
 
         /*Setting BS Idle timeout value to long value*/
-        XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_BS_IDLE_TIME, DP_BS_IDLE_TIMEOUT);
+        XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+			XDP_RX_BS_IDLE_TIME, DP_BS_IDLE_TIMEOUT);
+
+        /*Disabling timeout */
+        ReadVal = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+			XDP_RX_CDR_CONTROL_CONFIG);
+
+		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+				XDP_RX_CDR_CONTROL_CONFIG,
+				ReadVal |
+				XDP_RX_CDR_CONTROL_CONFIG_DISABLE_TIMEOUT);
 
         if(LINK_TRAINING_DEBUG==1){
                 /*Updating Vswing Iteration Count*/
