@@ -113,7 +113,7 @@ extern "C" {
  * 		The use of XENV_MEM_COPY is deprecated. Use memcpy() instead.
  *
  * @note
- * 		This implemention MAY BREAK work if source and target memory
+ * 		This implementation MAY BREAK work if source and target memory
  * 		area are overlapping.
  *
  *****************************************************************************/

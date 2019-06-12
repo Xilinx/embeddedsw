@@ -163,7 +163,7 @@ _boot:
 	mov      x28, #0
 	mov      x29, #0
 	mov      x30, #0
-#if 0 //dont put other a53 cpus in wfi
+#if 0 //don't put other a53 cpus in wfi
    //Which core am I
    // ----------------
 	mrs      x0, MPIDR_EL1

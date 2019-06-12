@@ -320,7 +320,7 @@ extern "C" {
 #define XPM_EVENT_DUALISSUEOTHER 0x5C
 
 /*
- * Double precision floating point arithmatic or
+ * Double precision floating point arithmetic or
  * conversion instruction executed.
  */
 
@@ -405,7 +405,7 @@ extern "C" {
 #define XPM_EVENT_TCMERRORAXI 0x6D
 
 /*
- * ACP D-cache acces, lookup or invalidate
+ * ACP D-cache access, lookup or invalidate
  */
 
 
@@ -515,7 +515,7 @@ extern "C" {
 
 /************************** Function Prototypes *****************************/
 
-/* Interface fuctions to access perfromance counters from abstraction layer */
+/* Interface functions to access performance counters from abstraction layer */
 void Xpm_SetEvents(s32 PmcrCfg);
 void Xpm_GetEventCounters(u32 *PmCtrValue);
 

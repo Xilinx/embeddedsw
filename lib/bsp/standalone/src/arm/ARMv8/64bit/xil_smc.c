@@ -63,7 +63,7 @@ XSmc_OutVar SmcResult;
 *
 * @param	FunctionID is the SMC identifier for a particular secure service
 *			request
-* @param	Arg1 to Arg6 is the arguements passed to EL3 secure monitor
+* @param	Arg1 to Arg6 is the arguments passed to EL3 secure monitor
 * @param	Arg7 is Hypervisor Client ID register
 *
 * @return	Result from secure payload service

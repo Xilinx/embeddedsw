@@ -31,7 +31,7 @@
 * This file contains the implementation of the reset sequence for various
 * zynq ps devices like DDR,OCM,Slcr,Ethernet,Usb.. controllers. The reset
 * sequence provided to the interfaces is based on the provision in
-* slcr reset functional blcok.
+* slcr reset functional block.
 *
 * <pre>
 * MODIFICATION HISTORY:

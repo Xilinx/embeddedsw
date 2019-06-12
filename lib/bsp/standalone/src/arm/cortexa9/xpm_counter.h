@@ -556,7 +556,7 @@ extern "C" {
 
 /************************** Function Prototypes *****************************/
 
-/* Interface fuctions to access perfromance counters from abstraction layer */
+/* Interface functions to access performance counters from abstraction layer */
 void Xpm_SetEvents(s32 PmcrCfg);
 void Xpm_GetEventCounters(u32 *PmCtrValue);
 

@@ -68,7 +68,7 @@ L_start:
 	blei	r18, L_done
 
 	brid	L_start                                         /* Branch to the beginning of the loop */
-	addik	r5, r5, (XPAR_MICROBLAZE_DCACHE_LINE_LEN * 4)   /* Increment the addrees by 4 (delay slot) */
+	addik	r5, r5, (XPAR_MICROBLAZE_DCACHE_LINE_LEN * 4)   /* Increment the address by 4 (delay slot) */
 
 L_done:
 	rtsd	r15, 8                                          /* Return */

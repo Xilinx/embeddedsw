@@ -54,7 +54,7 @@ PARAM name = hypervisor_guest, type = bool, default = false, desc = "Enable hype
 
 PARAM name = sleep_timer, type = peripheral_instance, range = (ps7_ttc,psu_ttc,ps7_globaltimer,psu_iou_scntr,psu_iou_scntrs,axi_timer,psv_ttc,psv_iou_scntr,psv_iou_scntrs), default=none, desc = "This parameter is used to select specific timer for sleep functionality", permit = user;
 
-PARAM name = ttc_select_cntr, type = enum, default = 2, values = ("0" = 0, "1" = 1, "2" = 2), desc = "Selects the counter to be used in the repective module. Allowed range is 0-2", permit = user;
+PARAM name = ttc_select_cntr, type = enum, default = 2, values = ("0" = 0, "1" = 1, "2" = 2), desc = "Selects the counter to be used in the respective module. Allowed range is 0-2", permit = user;
 
 PARAM name = lockstep_mode_debug, type = bool, default = false, desc = "Enable debug logic in non-JTAG boot mode, when Cortex R5 is configured in lockstep mode", permit = user;
 END OS

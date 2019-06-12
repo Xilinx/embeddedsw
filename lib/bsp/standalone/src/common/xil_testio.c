@@ -95,7 +95,7 @@ static u32 Swap32(u32 Data)
 *
 * @param	Addr: a pointer to the region of memory to be tested.
 * @param	Length: Length of the block.
-* @param	Value: constant used for writting the memory.
+* @param	Value: constant used for writing the memory.
 *
 * @return
 *           - -1 is returned for a failure
@@ -138,7 +138,7 @@ s32 Xil_TestIO8(u8 *Addr, s32 Length, u8 Value)
 *
 * @param	Addr: a pointer to the region of memory to be tested.
 * @param	Length: Length of the block.
-* @param	Value: constant used for writting the memory.
+* @param	Value: constant used for writing the memory.
 * @param	Kind: Type of test. Acceptable values are:
 *		    XIL_TESTIO_DEFAULT, XIL_TESTIO_LE, XIL_TESTIO_BE.
 * @param	Swap: indicates whether to byte swap the read-in value.
@@ -213,7 +213,7 @@ s32 Xil_TestIO16(u16 *Addr, s32 Length, u16 Value, s32 Kind, s32 Swap)
 /**
 *
 * @brief    Perform a destructive 32-bit wide register IO test. Each location
-*           is tested by sequentially writing a 32-bit wide regsiter, reading
+*           is tested by sequentially writing a 32-bit wide register, reading
 *           the register, and comparing value. This function tests three kinds
 *           of register IO functions, normal register IO, little-endian register IO,
 *           and big-endian register IO. When testing little/big-endian IO,
@@ -223,7 +223,7 @@ s32 Xil_TestIO16(u16 *Addr, s32 Length, u16 Value, s32 Kind, s32 Swap)
 *           by the 5th argument.
 * @param	Addr: a pointer to the region of memory to be tested.
 * @param	Length: Length of the block.
-* @param	Value: constant used for writting the memory.
+* @param	Value: constant used for writing the memory.
 * @param	Kind: type of test. Acceptable values are:
 *		    XIL_TESTIO_DEFAULT, XIL_TESTIO_LE, XIL_TESTIO_BE.
 * @param	Swap: indicates whether to byte swap the read-in value.

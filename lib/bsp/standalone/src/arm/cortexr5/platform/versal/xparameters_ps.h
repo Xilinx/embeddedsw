@@ -151,7 +151,7 @@ extern "C" {
 
 /*
  * This block contains constant declarations for the peripherals
- * within the hardblock. These have been put for backwards compatibilty
+ * within the hardblock. These have been put for backwards compatibility
  */
 
 #define XPS_SYS_CTRL_BASEADDR		0xF1060000U
@@ -273,7 +273,7 @@ extern "C" {
 #define XPAR_XADCPS_0_BASEADDR	  (0xF8007000U)
 #define XPAR_XADCPS_INT_ID		XPS_SYSMON_INT_ID
 
-/* For backwards compatibilty */
+/* For backwards compatibility */
 #define XPAR_XUARTPS_0_CLOCK_HZ		XPAR_XUARTPS_0_UART_CLK_FREQ_HZ
 #define XPAR_XUARTPS_1_CLOCK_HZ		XPAR_XUARTPS_1_UART_CLK_FREQ_HZ
 #define XPAR_XTTCPS_0_CLOCK_HZ		XPAR_XTTCPS_0_TTC_CLK_FREQ_HZ

@@ -38,7 +38,7 @@
 * 5.0 	pkp  05/29/14 First release
 * 5.5	pkp	 04/15/16 Updated the Xil_DCacheInvalidate,
 *					  Xil_DCacheInvalidateLine and Xil_DCacheInvalidateRange
-*					  functions description for proper explaination
+*					  functions description for proper explanation
 * 6.2   pkp	 01/22/17 Added support for EL1 non-secure
 * 6.2   asa  01/31/17 The existing Xil_DCacheDisable API first flushes the
 *					  D caches and then disables it. The problem with that is,
@@ -60,7 +60,7 @@
 * 6.6  mus  02/27/18  Updated Xil_DCacheInvalidateRange and
 *					  Xil_ICacheInvalidateRange APIs to change the data type of
 *					  "cacheline" variable as "INTPTR", This change has been done
-*					  to avoid the truncation of upper DDR addreses to 32 bit.It
+*					  to avoid the truncation of upper DDR addresses to 32 bit.It
 *					  fixes CR#995581.
 * 6.6  mus  03/15/18  By default CPUACTLR_EL1 is accessible only from EL3, it
 *					  results into abort if accessed from EL1 non secure privilege
@@ -73,7 +73,7 @@
 *                     CR-1008926.
 * 7.0 mus  10/12/18  Updated Xil_DCacheInvalidateLine and Xil_DCacheInvalidateRange
 *                    APIs to replace IVAC instruction with CIVAC. So that, these
-*                    APIs will always do flush + invalidate incase of Cortexa53 as
+*                    APIs will always do flush + invalidate in case of Cortexa53 as
 *                    well as Cortexa72 processor.
 *
 * </pre>
@@ -270,7 +270,7 @@ void Xil_DCacheDisable(void)
 *
 * @return	None.
 *
-* @note		In Cortex-A53, functionality to simply invalide the cachelines
+* @note		In Cortex-A53, functionality to simply invalid the cachelines
 *  			is not present. Such operations are a problem for an environment
 * 			that supports virtualisation. It would allow one OS to invalidate
 * 			a line belonging to another OS. This could lead to the other OS
@@ -377,7 +377,7 @@ void Xil_DCacheInvalidate(void)
 *
 * @return	None.
 *
-* @note		In Cortex-A53, functionality to simply invalide the cachelines
+* @note		In Cortex-A53, functionality to simply invalid the cachelines
 *  			is not present. Such operations are a problem for an environment
 * 			that supports virtualisation. It would allow one OS to invalidate
 * 			a line belonging to another OS. This could lead to the other OS
@@ -417,7 +417,7 @@ void Xil_DCacheInvalidateLine(INTPTR adr)
 *
 * @return	None.
 *
-* @note		In Cortex-A53, functionality to simply invalide the cachelines
+* @note		In Cortex-A53, functionality to simply invalid the cachelines
 *  			is not present. Such operations are a problem for an environment
 * 			that supports virtualisation. It would allow one OS to invalidate
 * 			a line belonging to another OS. This could lead to the other OS

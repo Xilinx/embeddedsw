@@ -53,11 +53,11 @@
 /*****************************************************************************/
 /**
 *
-* @brief    Perform a 16-bit endian converion.
+* @brief    Perform a 16-bit endian conversion.
 *
 * @param	Data: 16 bit value to be converted
 *
-* @return	16 bit Data with converted endianess
+* @return	16 bit Data with converted endianness
 *
 ******************************************************************************/
 u16 Xil_EndianSwap16(u16 Data)
@@ -68,11 +68,11 @@ u16 Xil_EndianSwap16(u16 Data)
 /*****************************************************************************/
 /**
 *
-* @brief    Perform a 32-bit endian converion.
+* @brief    Perform a 32-bit endian conversion.
 *
 * @param	Data: 32 bit value to be converted
 *
-* @return	32 bit data with converted endianess
+* @return	32 bit data with converted endianness
 *
 ******************************************************************************/
 u32 Xil_EndianSwap32(u32 Data)

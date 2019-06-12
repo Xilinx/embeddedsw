@@ -58,7 +58,7 @@
  * @param	Num is the output nibble.
  *
  * @return
- *		- XST_SUCCESS no errors occured.
+ *		- XST_SUCCESS no errors occurred.
  *		- ERROR when input parameters are not valid
  *
  * @note	None.
@@ -101,7 +101,7 @@ u32 Xil_ConvertCharToNibble(u8 InChar, u8 *Num)
  * @param	Len of the input string. Should have even values
  *
  * @return
- *		- XST_SUCCESS no errors occured.
+ *		- XST_SUCCESS no errors occurred.
  *		- ERROR when input parameters are not valid
  *		- an error when input buffer has invalid values
  *
@@ -141,14 +141,14 @@ END:
 /*
  * Waits for the event
  *
- * @param	RegAddr    Address of register to be checked for event(s) occurance
+ * @param	RegAddr    Address of register to be checked for event(s) occurrence
  * @param	EventMask  Mask indicating event(s) to be checked
  * @param	Event      Specific event(s) value to be checked
  * @param	Timeout    Free counter decremented on each event(s) check and
  *       	           declared timeout when reaches 0
  *
  * @return
- *		- XST_SUCCESS  On occurance of the event(s).
+ *		- XST_SUCCESS  On occurrence of the event(s).
  *		- XST_FAILURE  Event did not occur before counter reaches 0
  *
  * @note	None.

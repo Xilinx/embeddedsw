@@ -31,7 +31,7 @@
 #endif
 
 /*
- * The mcount fucntion is excluded from the library, if the user defines
+ * The mcount function is excluded from the library, if the user defines
  * PROFILE_NO_GRAPH.
  */
 #ifndef PROFILE_NO_GRAPH

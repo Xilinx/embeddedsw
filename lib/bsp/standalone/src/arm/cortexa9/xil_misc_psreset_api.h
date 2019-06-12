@@ -27,7 +27,7 @@
 /**
 * @file xil_misc_psreset_api.h
 *
-* This file contains the various register defintions and function prototypes for
+* This file contains the various register definitions and function prototypes for
 * implementing the reset functionality of zynq ps devices
 *
 * MODIFICATION HISTORY:

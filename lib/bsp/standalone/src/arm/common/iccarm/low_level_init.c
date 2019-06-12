@@ -27,7 +27,7 @@
 /*
  * This module contains the function `__low_level_init', a function
  * that is called before the `main' function of the program.  Normally
- * low-level initializations - such as setting the prefered interrupt
+ * low-level initializations - such as setting the preferred interrupt
  * level or setting the watchdog - can be performed here.
  *
  * Note that this function is called before the data segments are

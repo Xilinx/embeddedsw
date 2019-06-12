@@ -86,7 +86,7 @@ typedef void (*Xil_AssertCallback) (const char8 *File, s32 Line);
 /**
 * @brief    This assert macro is to be used for void functions. This in
 *           conjunction with the Xil_AssertWait boolean can be used to
-*           accomodate tests so that asserts which fail allow execution to
+*           accommodate tests so that asserts which fail allow execution to
 *           continue.
 *
 * @param    Expression: expression to be evaluated. If it evaluates to
@@ -111,7 +111,7 @@ typedef void (*Xil_AssertCallback) (const char8 *File, s32 Line);
 /**
 * @brief    This assert macro is to be used for functions that do return a
 *           value. This in conjunction with the Xil_AssertWait boolean can be
-*           used to accomodate tests so that asserts which fail allow execution
+*           used to accommodate tests so that asserts which fail allow execution
 *           to continue.
 *
 * @param    Expression: expression to be evaluated. If it evaluates to false,

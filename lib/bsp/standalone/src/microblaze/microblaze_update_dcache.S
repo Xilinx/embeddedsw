@@ -47,7 +47,7 @@
 *       |   0    |      1     | Valid, but unlocked cacheline
 *       |   1    |      0     | Invalidate Cache, No effect of lock
 *       |   1    |      1     | Valid cache. Locked to a
-*       |        |            | particular addrees
+*       |        |            | particular address
 *	--------------------------------------------------------------
 *
 *

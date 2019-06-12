@@ -36,7 +36,7 @@
 *
 * Ver   Who  Date	 Changes
 * ----- ---- -------- -------------------------------------------------------
-* 6.6   srm  11/02/17 Added processor specific sleep rountines
+* 6.6   srm  11/02/17 Added processor specific sleep routines
 *								 function prototypes.
 *
 * </pre>
