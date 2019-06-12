@@ -339,25 +339,6 @@ XStatus XPm_GetApiVersion(u32 *Version)
 
 /****************************************************************************/
 /**
- * @brief This function returns information about the boot reason.
- * If the boot is not a system startup but a resume,
- * power down request bitfield for this processor will be cleared.
- *
- *
- * @return Returns processor boot status
- * - PM_RESUME : If the boot reason is because of system resume.
- * - PM_INITIAL_BOOT : If this boot is the initial system startup.
- *
- * @note   None
- *
- ****************************************************************************/
-enum XPmBootStatus XPm_GetBootStatus()
-{
-	return PM_INITIAL_BOOT;
-}
-
-/****************************************************************************/
-/**
  * @brief  This function configures the
  * platform resources for the new subsystem.
  *
