@@ -72,6 +72,7 @@
 * 2.1	nsk  03/09/19 Fix for TrrMask to not to get written when using
 		      XCanFd_Addto_Queue(), to send more than 32 buffers.
 		      CR# 1022093
+* 2.2   sn   06/11/19 Inactivating Mailbox RX buffers based on requirement.
 *
 * </pre>
 ******************************************************************************/
@@ -1036,7 +1037,7 @@ u32 XCanFd_RxBuff_MailBox_DeActive(XCanFd *InstancePtr, u32 RxBuffer)
 	Status = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 			XCANFD_RCS_OFFSET(NoCtrlStatus));
 	if (Status & 1 << RxBuffer) {
-		Status &= ~(1<< RxBuffer);
+		Status &= ((~(1<< RxBuffer)) & XCANFD_MBRXBUF_MASK);
 		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_RCS_OFFSET(NoCtrlStatus),Status);
 	}

@@ -48,6 +48,10 @@
 *		        TS2 bits in BTR and F_SJW bits in F_BTR Registers.
 * 2.1   ask  07/03/18 Added support for canfd 2.0 spec sequential mode.
 *       ask  07/03/18 Fix for Sequential recv CR# 992606,CR# 1004222.
+* 2.2   sn   06/11/19 Updated Mailbox RX buffer offset for CANFD2.0
+*		      Fixed below  incorrect mask values
+*		      XCANFD_MAILBOX_RB_MASK_BASE_OFFSET,XCANFD_WMR_RXFP_MASK
+*		      and CONTROL_STATUS_3.
 *
 * </pre>
 *
@@ -115,9 +119,15 @@ extern "C" {
 					Register */
 #define XCANFD_RXBFLL2_OFFSET 	0x0C4  /**< Rx Buffer Full Interrupt Enable
 					Register */
+#if defined (CANFD_v1_0)
 #define XCANFD_MAILBOX_RB_MASK_BASE_OFFSET	0x1000  /**< Mailbox RxBuffer
 							 Mask Register */
+#else
+#define XCANFD_MAILBOX_RB_MASK_BASE_OFFSET	0x2F00  /**< Mailbox RxBuffer
+							 Mask Register */
+#endif
 #define XCANFD_MAILBOX_NXT_RB			4
+#define XCANFD_MBRXBUF_MASK		0x0000FFFF
 /* @} */
 
 /** @name TxBuffer Element ID Registers
@@ -269,7 +279,7 @@ extern "C" {
                                                Mask */
 #define XCANFD_WMR_RXFWM_1_SHIFT 8 /**< RX FIFO 1 Full Watermark
                                                Mask */
-#define XCANFD_WMR_RXFP_MASK 0x003F0000 /**< Receive filter partition
+#define XCANFD_WMR_RXFP_MASK 0x001F0000 /**< Receive filter partition
                                                Mask */
 #define XCANFD_WMR_RXFP_SHIFT 16 /**< Receive filter partition
                                                Mask */
@@ -562,8 +572,6 @@ Mask/Acceptance Filter ID)
                                                Mask */
  #endif
  #define XCANFD_WMR_RXFWM_1_MASK 0x00003F00 /**< RX FIFO 1 Full Watermark
-                                               Mask */
- #define XCANFD_WMR_RXFP_MASK 0x003F0000 /**< Receive filter partition
                                                Mask */
 
  /** @name TX Event FIFO Registers
@@ -880,7 +888,7 @@ Mask/Acceptance Filter ID)
 #define DESIGN_RANGE_2          31
 #define CONTROL_STATUS_1        0
 #define CONTROL_STATUS_2        1
-#define CONTROL_STATUS_3        3
+#define CONTROL_STATUS_3        2
 #define EXTRACTION_MASK         63
 #define SHIFT1                          1
 #define SHIFT2                          2
