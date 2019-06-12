@@ -84,6 +84,47 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief This Function returns information about the boot reason.
+ * If the boot is not a system startup but a resume,
+ * power down request bitfield for this processor will be cleared.
+ *
+ * @return Returns processor boot status
+ * - PM_RESUME : If the boot reason is because of system resume.
+ * - PM_INITIAL_BOOT : If this boot is the initial system startup.
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+enum XPmBootStatus XPm_GetBootStatus(void)
+{
+	u32 PwrDwnReq;
+	enum XPmBootStatus Ret;
+
+	XPm_SetPrimaryProc();
+
+	/* Error out if primary proc is not defined */
+	if (NULL == PrimaryProc) {
+		Ret = PM_BOOT_ERROR;
+		goto done;
+	}
+
+	PwrDwnReq = XPm_Read(PrimaryProc->PwrCtrl);
+	if (0 != (PwrDwnReq & PrimaryProc->PwrDwnMask)) {
+		PwrDwnReq &= ~PrimaryProc->PwrDwnMask;
+		XPm_Write(PrimaryProc->PwrCtrl, PwrDwnReq);
+		Ret = PM_RESUME;
+		goto done;
+	} else {
+		Ret = PM_INITIAL_BOOT;
+		goto done;
+	}
+
+done:
+	return Ret;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function is used to request the version number of the API
  * running on the platform management controller.
  *
