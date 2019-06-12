@@ -9,7 +9,7 @@ OPTION psf_version = 2.1;
 BEGIN driver aiengine
 
   OPTION supported_peripherals = (aie aiengine ai_engine);
-  OPTION driver_state = ACTIVE;
+  OPTION driver_state = DEPRECATED;
   OPTION copyfiles = all;
   OPTION VERSION = 1.1;
   OPTION NAME = aiengine;

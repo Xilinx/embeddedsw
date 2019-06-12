@@ -28,6 +28,8 @@
 * 1.9   Dishita 11/1/2019   Fix coverity warnings
 * 1.9   Wendy   02/24/2020  Add events notification
 * 2.0   Dishita 03/29/2020  Add support for clock gating
+* 2.1   Nishad  09/15/2020  Fix writes to stream switch event port selection
+*			    registers.
 * </pre>
 *
 ******************************************************************************/
@@ -2488,7 +2490,7 @@ u8 XAieTile_PlStrmSwEventPortSelectGet(XAieGbl_Tile *TileInstPtr, u8 PortNo)
 u8 XAieTile_CoreStrmSwEventPortSelectSet(XAieGbl_Tile *TileInstPtr, u8 PortNo,
 					 u8 PortType, u8 PortID)
 {
-	u32 CurrVal, RegVal;
+	u32 RegVal;
 	u32 Mask;
 
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
@@ -2499,11 +2501,6 @@ u8 XAieTile_CoreStrmSwEventPortSelectSet(XAieGbl_Tile *TileInstPtr, u8 PortNo,
 	Mask = StrmSwEventPortSelect[0].PortIndex[PortNo].Mask |
 	       StrmSwEventPortSelect[0].PortMode[PortNo].Mask;
 
-
-	CurrVal = ~Mask & XAieGbl_Read32(TileInstPtr->TileAddr +
-					   StrmSwEventPortSelect[0].RegAddr +
-					   (PortNo / 4) * 0x4U);
-
 	RegVal = XAie_SetField(PortID,
 			       StrmSwEventPortSelect[0].PortIndex[PortNo].Lsb,
 			       StrmSwEventPortSelect[0].PortIndex[PortNo].Mask);
@@ -2511,9 +2508,9 @@ u8 XAieTile_CoreStrmSwEventPortSelectSet(XAieGbl_Tile *TileInstPtr, u8 PortNo,
 				StrmSwEventPortSelect[0].PortMode[PortNo].Lsb,
 				StrmSwEventPortSelect[0].PortMode[PortNo].Mask);
 
-	XAieGbl_Write32(TileInstPtr->TileAddr +
-			StrmSwEventPortSelect[0].RegAddr +
-			(PortNo / 4) * 0x4U, CurrVal | RegVal);
+	XAieGbl_MaskWrite32(TileInstPtr->TileAddr +
+			    StrmSwEventPortSelect[0].RegAddr +
+			    (PortNo / 4) * 0x4U, Mask, RegVal);
 
 	return XAIE_SUCCESS;
 }
@@ -2544,7 +2541,7 @@ u8 XAieTile_CoreStrmSwEventPortSelectSet(XAieGbl_Tile *TileInstPtr, u8 PortNo,
 u8 XAieTile_PlStrmSwEventPortSelectSet(XAieGbl_Tile *TileInstPtr, u8 PortNo,
 				       u8 PortType, u8 PortID)
 {
-	u32 CurrVal, RegVal;
+	u32 RegVal;
 	u32 Mask;
 
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
@@ -2555,10 +2552,6 @@ u8 XAieTile_PlStrmSwEventPortSelectSet(XAieGbl_Tile *TileInstPtr, u8 PortNo,
 	Mask = StrmSwEventPortSelect[1].PortIndex[PortNo].Mask |
 	       StrmSwEventPortSelect[1].PortMode[PortNo].Mask;
 
-	CurrVal = ~Mask & XAieGbl_Read32(TileInstPtr->TileAddr +
-					   StrmSwEventPortSelect[1].RegAddr +
-					   (PortNo / 4) * 0x4U);
-
 	RegVal = XAie_SetField(PortID,
 			       StrmSwEventPortSelect[1].PortIndex[PortNo].Lsb,
 			       StrmSwEventPortSelect[1].PortIndex[PortNo].Mask);
@@ -2566,9 +2559,9 @@ u8 XAieTile_PlStrmSwEventPortSelectSet(XAieGbl_Tile *TileInstPtr, u8 PortNo,
 				StrmSwEventPortSelect[1].PortMode[PortNo].Lsb,
 				StrmSwEventPortSelect[1].PortMode[PortNo].Mask);
 
-	XAieGbl_Write32(TileInstPtr->TileAddr +
-			StrmSwEventPortSelect[1].RegAddr +
-			(PortNo / 4) * 0x4U, CurrVal | RegVal);
+	XAieGbl_MaskWrite32(TileInstPtr->TileAddr +
+			    StrmSwEventPortSelect[1].RegAddr +
+			    (PortNo / 4) * 0x4U, Mask, RegVal);
 
 	return XAIE_SUCCESS;
 }

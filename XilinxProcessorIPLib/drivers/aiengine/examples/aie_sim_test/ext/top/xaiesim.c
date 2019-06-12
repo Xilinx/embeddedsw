@@ -33,6 +33,7 @@
 * 1.8  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.9  Hyun    01/08/2018  Add the MaskPoll
 * 2.0  Hyun    04/05/2018  NPI support
+* 2.1  Tejus   04/23/2020  Fix unsigned int overflow.
 * </pre>
 *
 ******************************************************************************/
@@ -145,7 +146,7 @@ static inline uint32 XAieSim_CdoMaskPoll(uint64_t Addr, uint32 Mask,
 		uint32 Value, uint32 TimeOutUs)
 {
 	/* Round up to msec */
-	cdo_MaskPoll(Addr, Mask, Value, (TimeOutUs + 999) / 1000);
+	cdo_MaskPoll(Addr, Mask, Value, ((uint64_t)TimeOutUs + 999) / 1000);
 	return XAIESIM_SUCCESS;
 }
 
