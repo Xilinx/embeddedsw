@@ -20,6 +20,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   mn   08/17/18 Initial release
  *       mn   09/27/18 Modify code to add 2D Read/Write Eye Tests support
+ *       mn   07/29/20 Modify code to use DRAM VRef for 2D Write Eye Test
  *
  * </pre>
  *
@@ -753,8 +754,8 @@ u32 XMt_MeasureWrEye2D(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len)
 	void *SerrorData;
 	u32 Status;
 	u32 VRef;
-	u32 VRefMin;
-	u32 VRefMax;
+	u32 VRefStart;
+	u8 Range;
 
 	xil_printf("\r\nRunning 2-D Write Eye Tests\r\n");
 
@@ -779,8 +780,6 @@ u32 XMt_MeasureWrEye2D(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len)
 	/* Disable VT compensation */
 	XMt_DisableVtcomp();
 
-	XMt_Print2DEyeResultsHeader(XMtPtr);
-
 	/* Get the Write Eye Center Values */
 	Status = XMt_GetWrCenter(XMtPtr);
 	if (Status != XST_SUCCESS) {
@@ -795,57 +794,70 @@ u32 XMt_MeasureWrEye2D(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len)
 		goto RETURN_PATH;
 	}
 
-	Status = XMt_GetVRefAuto(XMtPtr);
-	if (Status != XST_SUCCESS) {
-		Status = XST_FAILURE;
-		goto RETURN_PATH;
+	XMtPtr->VRefAutoWr = XMt_GetWrVRef(XMtPtr);
+
+	for (Range = 0U; Range < 2U; Range++) {
+		xil_printf("\r\nEntering VRef DQ Range %d\r\n", Range + 1U);
+
+		XMt_Print2DEyeResultsHeader(XMtPtr);
+
+		if (XMtPtr->DdrType == XMT_DDR_TYPE_DDR4) {
+			/* For entering VRef Calibration Mode */
+			VRefStart = XMT_DDR_VREF_CALIB_MODE_EN;
+		} else {
+			/* For selecting MR14 Address for MRCTRL1 Register */
+			VRefStart = XMT_DDR_MR_ADDR_MR14;
+		}
+
+		/* Set the Range for VRef Values */
+		VRefStart |= (Range << 6U);
+
+		/* Enter Calibration Mode */
+		XMt_SetWrVref(XMtPtr, VRefStart);
+
+		for (VRef = VRefStart; VRef < VRefStart + XMT_MAX_WR_VREF; VRef++) {
+
+			XMt_SetWrVref(XMtPtr, VRef);
+
+			/* Initialize Eye Parameters with zero */
+			XMt_ClearEye(XMtPtr, (u32 *)&XMtPtr->EyeStart[0]);
+			XMt_ClearEye(XMtPtr, (u32 *)&XMtPtr->EyeEnd[0]);
+
+			/* Measure the Right Edge of the Eye */
+			Status = XMt_MeasureWrEyeEdge(XMtPtr, TestAddr, Len,
+					XMT_RIGHT_EYE_TEST | XMT_2D_EYE_TEST);
+			if (Status != XST_SUCCESS) {
+				Status = XST_FAILURE;
+				goto RETURN_PATH;
+			}
+
+			/* Measure the Left Edge of the Eye */
+			Status = XMt_MeasureWrEyeEdge(XMtPtr, TestAddr, Len,
+					XMT_LEFT_EYE_TEST | XMT_2D_EYE_TEST);
+			if (Status != XST_SUCCESS) {
+				Status = XST_FAILURE;
+				goto RETURN_PATH;
+			}
+
+			/* Print the Read Eye Test Results */
+			XMt_Print2DEyeResults(XMtPtr, VRef & 0x3FU);
+
+			/* Reset the Write Eye Center values to Registers */
+			Status = XMt_ResetWrCenter(XMtPtr);
+			if (Status != XST_SUCCESS) {
+				Status = XST_FAILURE;
+				goto RETURN_PATH;
+			}
+		}
+
+		/* Exit the Calibration Mode */
+		XMt_SetWrVref(XMtPtr, XMT_DDR_VREF_CALIB_MODE_DIS);
+
+		XMt_PrintLine(XMtPtr, 5);
 	}
 
-	/* Get the lowest value of VRef to be tested */
-	VRefMin = XMt_GetVRefAutoMin(XMtPtr);
-
-	/* Get the highest value of VRef to be tested */
-	VRefMax = XMt_GetVRefAutoMax(XMtPtr);
-
-	for (VRef = VRefMin; VRef < VRefMax; VRef++) {
-
-		XMt_SetVrefVal(XMtPtr, VRef);
-
-		/* Initialize Eye Parameters with zero */
-		XMt_ClearEye(XMtPtr, (u32 *)&XMtPtr->EyeStart[0]);
-		XMt_ClearEye(XMtPtr, (u32 *)&XMtPtr->EyeEnd[0]);
-
-
-		/* Measure the Right Edge of the Eye */
-		Status = XMt_MeasureWrEyeEdge(XMtPtr, TestAddr, Len,
-				XMT_RIGHT_EYE_TEST | XMT_2D_EYE_TEST);
-		if (Status != XST_SUCCESS) {
-			Status = XST_FAILURE;
-			goto RETURN_PATH;
-		}
-
-		/* Measure the Left Edge of the Eye */
-		Status = XMt_MeasureWrEyeEdge(XMtPtr, TestAddr, Len,
-				XMT_LEFT_EYE_TEST | XMT_2D_EYE_TEST);
-		if (Status != XST_SUCCESS) {
-			Status = XST_FAILURE;
-			goto RETURN_PATH;
-		}
-
-		/* Print the Read Eye Test Results */
-		XMt_Print2DEyeResults(XMtPtr, VRef);
-
-		/* Reset the Write Eye Center values to Registers */
-		Status = XMt_ResetWrCenter(XMtPtr);
-		if (Status != XST_SUCCESS) {
-			Status = XST_FAILURE;
-			goto RETURN_PATH;
-		}
-	}
-
-	XMt_PrintLine(XMtPtr, 5);
-
-	XMt_ResetVrefAuto(XMtPtr);
+	/* Reset the initial got VRef Value */
+	XMt_ResetWrVref(XMtPtr);
 
 	/* Enable the DFI */
 	XMt_DfiEnable();

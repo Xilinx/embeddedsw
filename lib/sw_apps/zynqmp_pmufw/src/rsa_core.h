@@ -4,8 +4,8 @@
 ******************************************************************************/
 
 
-#ifndef _RSA_CORE_H_
-#define _RSA_CORE_H_
+#ifndef RSA_CORE_H_
+#define RSA_CORE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -14,7 +14,7 @@ extern "C" {
 /**
  * RSA_CORE Base Address
  */
-#define RSA_CORE_BASEADDR      0XFFCE0000
+#define RSA_CORE_BASEADDR      0XFFCE0000U
 
 /**
  * Register: RSA_CORE_RSA_WR_DATA
