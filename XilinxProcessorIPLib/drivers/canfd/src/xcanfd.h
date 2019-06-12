@@ -261,6 +261,9 @@ exclusion
 		      XCanFd_Addto_Queue(). CR# 1022093
 * 2.1	nsk  03/09/19 Added support for PS CANFD, PL CANFD 1.0 and PL CANFD 2.0
 *		      CR# 1021963
+* 2.2   sn   06/11/19 Corrected below incorrect Mask values for CANFD2.0 in xcanfd_hw.h
+*		      XCANFD_MAILBOX_RB_MASK_BASE_OFFSET,XCANFD_WMR_RXFP_MASK
+*		      and CONTROL_STATUS_3.
 *
 * </pre>
 *
