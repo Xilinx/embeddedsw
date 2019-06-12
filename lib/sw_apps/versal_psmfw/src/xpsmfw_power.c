@@ -729,16 +729,6 @@ static XStatus XPsmFwRPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 		goto done;
 	}
 
-	/*
-	 * Clear the bit in RPU_PWRDWN_EN register to transfer the interrupts
-	 * back to the R5.
-	 */
-	if (Args == &Rpu0PwrCtrl) {
-		XPsmFw_RMW32(RPU_RPU_0_PWRDWN, RPU_RPU_0_PWRDWN_EN_MASK, ~RPU_RPU_0_PWRDWN_EN_MASK);
-	} else {
-		XPsmFw_RMW32(RPU_RPU_1_PWRDWN, RPU_RPU_1_PWRDWN_EN_MASK, ~RPU_RPU_1_PWRDWN_EN_MASK);
-	}
-
 	IsLockStep = !(XPsmFw_Read32(RPU_RPU_GLBL_CNTL) & RPU_RPU_GLBL_CNTL_SLSPLIT_MASK);
 	if (IsLockStep) {
 		PwrStateMask = Rpu0PwrCtrl.PwrStateMask | Rpu1PwrCtrl.PwrStateMask;
