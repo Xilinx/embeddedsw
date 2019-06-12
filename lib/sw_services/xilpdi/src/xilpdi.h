@@ -123,8 +123,15 @@ extern "C" {
 
 /* Secondary Boot Device (SBD) in IHT Attributes */
 #define XIH_IHT_ATTR_SBD_MASK	        (0x3FU<<6U)
-#define XIH_IHT_ATTR_SBD_SAME	        (0x0U<6U)
+#define XIH_IHT_ATTR_SBD_SAME	        (0x0U)
+#define XIH_IHT_ATTR_SBD_QSPI24	        (0x1U<<6U)
+#define XIH_IHT_ATTR_SBD_QSPI32	        (0x2U<<6U)
+#define XIH_IHT_ATTR_SBD_SD_0		(0x3U<<6U)
+#define XIH_IHT_ATTR_SBD_SD_1		(0x5U<<6U)
+#define XIH_IHT_ATTR_SBD_EMMC	        (0x6U<<6U)
+#define XIH_IHT_ATTR_SBD_OSPI		(0x8U<<6U)
 #define XIH_IHT_ATTR_SBD_PCIE	        (0xAU<<6U)
+#define XIH_IHT_ATTR_SBD_SD_LS          (0xEU<<6U)
 
 /* Prtn Attribute fields */
 #define XIH_PH_ATTRB_PRTN_TYPE_MASK		(0x7000000U)
