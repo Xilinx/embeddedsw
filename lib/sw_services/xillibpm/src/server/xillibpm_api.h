@@ -82,8 +82,6 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u3
 
 XStatus XPm_GetApiVersion(u32 *Version);
 
-enum XPmBootStatus XPm_GetBootStatus();
-
 XStatus XPm_AddSubsystem(u32 SubsystemId);
 
 XStatus XPm_DestroySubsystem(u32 SubsystemId);
