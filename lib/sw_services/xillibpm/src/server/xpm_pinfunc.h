@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -643,7 +643,7 @@ enum PmPinGrpIds {
 struct XPm_PinFunc {
 	u32 Id; /**< Function ID */
 	char Name[FUNC_NAME_SIZE]; /**< Function name */
-	u32 DeviceId; /**< Device node for this function */
+	u32 DevIdx; /**< Device index for this function */
 	u16 LmioRegMask; /**< Register mask value to select this function */
 	u16 PmioRegMask; /**< Register mask value to select this function */
 	u8 NumPins; /**< Number of pins needed for this function */
