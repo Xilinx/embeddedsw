@@ -8,7 +8,7 @@
 /**
 *
 * @file xsecure_aes.h
-* @addtogroup xsecure_aes_apis XilSecure AES APIs
+* @addtogroup xsecure_aes_zynqmp_apis XilSecure AES ZynqMP APIs
 * @{
 * @cond xsecure_internal
 * This file contains hardware interface related information for CSU AES device
@@ -65,7 +65,8 @@
 *       mmd  03/15/19 Defined AES Key Clear value
 *       psl  03/26/19 Fixed MISRA-C violation
 * 4.1   mmd  07/05/19 Optimized the code
-*
+* 4.2   har  04/16/20 Removed extra header file
+*       ana  10/15/20 Updated doxygen tags
 * </pre>
 * @endcond
 *
