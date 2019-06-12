@@ -1828,7 +1828,7 @@ XStatus XPm_SetPinFunction(const u32 SubsystemId,
 {
 	XStatus Status = XST_FAILURE;
 
-	/* Check if subsystem is allowed to access requested reset or not */
+	/* Check if subsystem is allowed to access or not */
 	Status = XPm_IsAccessAllowed(SubsystemId, PinId);
 	if(Status != XST_SUCCESS) {
 		goto done;
@@ -1862,8 +1862,6 @@ XStatus XPm_GetPinFunction(const u32 PinId, u32 *const FunctionId)
 {
 	XStatus Status = XST_FAILURE;
 
-	/* Todo: Add checking for whether subsystem is allowed */
-
 	Status = XPmPin_GetPinFunction(PinId, FunctionId);
 
 	return Status;
@@ -1893,7 +1891,7 @@ XStatus XPm_SetPinParameter(const u32 SubsystemId, const u32 PinId,
 {
 	XStatus Status = XST_FAILURE;
 
-	/* Todo: Add checking for whether subsystem is allowed */
+	/* Check if subsystem is allowed to access or not */
 	Status = XPm_IsAccessAllowed(SubsystemId, PinId);
 	if(Status != XST_SUCCESS) {
 		goto done;
@@ -1929,8 +1927,6 @@ XStatus XPm_GetPinParameter(const u32 PinId,
 			u32 * const ParamVal)
 {
 	XStatus Status = XST_FAILURE;
-
-	/* Todo: Add checking for whether subsystem is allowed */
 
 	Status = XPmPin_GetPinConfig(PinId, ParamId, ParamVal);
 
