@@ -1,5 +1,8 @@
 Changes for 2019.2
 ===============================
+canfd_v2_2:
+Updated mailbox offsets for CANFD2.0
+
 coresightps_dcc_v1_6:
 Add support for Versal Coresight
 
