@@ -349,6 +349,11 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 			goto done;
 		}
 
+		if (XPM_PINSTATE_UNUSED == Pin->Node.State) {
+			Status = XST_SUCCESS;
+			goto done;
+		}
+
 		/*
 		 * Note: XPmDevice_GetByIndex() assumes that the caller
 		 * is responsible for validating the Node ID attributes
