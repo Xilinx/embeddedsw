@@ -63,7 +63,7 @@ struct XPm_Core {
 /************************** Function Prototypes ******************************/
 XStatus XPmCore_Init(XPm_Core *Core, u32 Id, u32 *BaseAddress,
 	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset, u8 IpiCh, struct XPm_CoreOps *Ops);
-XStatus XPmCore_PwrDwn(XPm_Core *Core, u32 RegOffset);
+XStatus XPmCore_PwrDwn(XPm_Core *Core);
 XStatus XPmCore_WakeUp(XPm_Core *Core);
 
 #ifdef __cplusplus

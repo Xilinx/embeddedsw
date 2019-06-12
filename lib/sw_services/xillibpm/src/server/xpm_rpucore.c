@@ -107,24 +107,13 @@ done:
 static XStatus XPmRpuCore_PwrDwn(XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
-	u32 CoreId = Core->Device.Node.Id;
-	u32 RegOffset;
-
-	if(NODEINDEX(CoreId) == XPM_NODEIDX_DEV_RPU0_0) {
-		RegOffset = RPU_0_PWRDWN_OFFSET;
-	} else if(NODEINDEX(CoreId) == XPM_NODEIDX_DEV_RPU0_1) {
-		RegOffset = RPU_1_PWRDWN_OFFSET;
-	} else {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
 
 	Status = XPmRpuCore_Halt((XPm_Device *)Core);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
-	Status = XPmCore_PwrDwn(Core, RegOffset);
+	Status = XPmCore_PwrDwn(Core);
 
 done:
 	return Status;

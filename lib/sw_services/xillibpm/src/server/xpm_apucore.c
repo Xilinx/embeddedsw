@@ -88,7 +88,7 @@ static XStatus XPmApuCore_PwrDwn(XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
 
-	Status = XPmCore_PwrDwn(Core, FPD_APU_PWRCTL_OFFSET);
+	Status = XPmCore_PwrDwn(Core);
 
 	return Status;
 }
