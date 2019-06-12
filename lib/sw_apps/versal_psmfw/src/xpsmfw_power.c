@@ -487,9 +487,13 @@ static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	XStatus Status = XST_SUCCESS;
 	u32 RegVal;
 
-	Status = XPsmFwACPUxPwrUp(Args, XPSMFW_PWR_UPDWN_DIRECT);
-	if (XST_SUCCESS != Status) {
-		goto done;
+	/* Power up ACPUx only if powered down */
+	RegVal = XPsmFw_Read32(PSM_GLOBAL_REG_PWR_STATE);
+	if (!CHECK_BIT(RegVal, Args->PwrStateMask)) {
+		Status = XPsmFwACPUxPwrUp(Args, XPSMFW_PWR_UPDWN_DIRECT);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 	}
 
 	RegVal = XPsmFw_Read32(CRF_RST_APU);
@@ -542,7 +546,7 @@ static XStatus XPsmFwACPUxReqPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	u32 RegVal;
 
 	/* Check if already power up */
-	RegVal = XPsmFw_Read32(PSM_LOCAL_PWR_STATE);
+	RegVal = XPsmFw_Read32(PSM_GLOBAL_REG_PWR_STATE);
 	if (CHECK_BIT(RegVal, Args->PwrStateMask)) {
 		goto done;
 	}
@@ -572,12 +576,6 @@ static XStatus XPsmFwACPUxPwrDwn(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpD
 {
 	XStatus Status = XST_SUCCESS;
 	u32 RegVal;
-
-	RegVal = XPsmFw_Read32(PSM_LOCAL_PWR_STATE);
-	if((RegVal & Args->PwrStateMask) == 0) {
-		/* Return if it is already powered down */
-		return Status;
-	}
 
 	/* Mark ACPUx powered down in LOCAL_PWR_STATUS register */
 	XPsmFw_RMW32(PSM_LOCAL_PWR_STATE, Args->PwrStateMask, ~Args->PwrStateMask);
@@ -632,9 +630,13 @@ static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	/* Set the bit in the ACU_PWR_STATUS_INIT register */
 	XPsmFw_RMW32(PSM_GLOBAL_REG_APU_PWR_STATUS_INIT, Args->PwrStateMask, Args->PwrStateMask);
 
-	Status = XPsmFwACPUxPwrDwn(Args, XPSMFW_PWR_UPDWN_DIRECT);
-	if (XST_SUCCESS != Status) {
-		goto done;
+	/* Power down ACPUx only if powered up */
+	RegVal = XPsmFw_Read32(PSM_GLOBAL_REG_PWR_STATE);
+	if(CHECK_BIT(RegVal, Args->PwrStateMask)) {
+		Status = XPsmFwACPUxPwrDwn(Args, XPSMFW_PWR_UPDWN_DIRECT);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 	}
 
 	/* Disable and clear ACPUx direct power-down interrupt request */
@@ -674,6 +676,12 @@ static XStatus XPsmFwACPUxReqPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 		goto done;
 	}
 
+	/* Check if ACPUx is already power down */
+	RegVal = XPsmFw_Read32(PSM_GLOBAL_REG_PWR_STATE);
+	if(!CHECK_BIT(RegVal, Args->PwrStateMask)) {
+		goto done;
+	}
+
 	/* Clear the bit in the SCU_PWR_STATUS_INIT register */
 	XPsmFw_RMW32(PSM_GLOBAL_REG_APU_PWR_STATUS_INIT, Args->PwrStateMask, ~Args->PwrStateMask);
 
@@ -685,13 +693,6 @@ done:
 static XStatus XPsmFwRPUxPwrUp(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDwnType Type)
 {
 	XStatus Status = XST_SUCCESS;
-	u32 RegVal;
-
-	/* Check if RPU island is already power up */
-	RegVal = XPsmFw_Read32(PSM_LOCAL_PWR_STATE);
-	if (CHECK_BIT(RegVal, Rpu0PwrCtrl.PwrStateMask)) {
-		goto done;
-	}
 
 	Status = XPsmFwIslandPwrUp(Args);
 	if (XST_SUCCESS != Status) {
@@ -720,13 +721,18 @@ static XStatus XPsmFwRPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_SUCCESS;
 	u32 PwrStateMask, IsLockStep;
+	u32 RegVal;
 
 	/* Assert reset to RPU cores */
 	XPsmFw_RMW32(CRL_RST_CPU_R5, Args->RstCtrlMask, Args->RstCtrlMask);
 
-	Status = XPsmFwRPUxPwrUp(Args, XPSMFW_PWR_UPDWN_DIRECT);
-	if (XST_SUCCESS != Status) {
-		goto done;
+	/* Power up RPUx only if powered down */
+	RegVal = XPsmFw_Read32(PSM_GLOBAL_REG_PWR_STATE);
+	if(!CHECK_BIT(RegVal, Args->PwrStateMask)) {
+		Status = XPsmFwRPUxPwrUp(Args, XPSMFW_PWR_UPDWN_DIRECT);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 	}
 
 	IsLockStep = !(XPsmFw_Read32(RPU_RPU_GLBL_CNTL) & RPU_RPU_GLBL_CNTL_SLSPLIT_MASK);
@@ -776,7 +782,7 @@ static XStatus XPsmFwRPUxReqPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	u32 RegVal;
 
 	/* Check if already power up */
-	RegVal = XPsmFw_Read32(PSM_LOCAL_PWR_STATE);
+	RegVal = XPsmFw_Read32(PSM_GLOBAL_REG_PWR_STATE);
 	if (CHECK_BIT(RegVal, Args->PwrStateMask)) {
 		goto done;
 	}
@@ -843,6 +849,7 @@ static XStatus XPsmFwRPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	XStatus Status = XST_SUCCESS;
 	u32 PwrStateMask, OtherCorePowerState, OtherCorePowerStateMask;
 	u32 IsLockStep;
+	u32 RegVal;
 
 	IsLockStep = !(XPsmFw_Read32(RPU_RPU_GLBL_CNTL) & RPU_RPU_GLBL_CNTL_SLSPLIT_MASK);
 	if (IsLockStep) {
@@ -866,7 +873,12 @@ static XStatus XPsmFwRPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 		goto done;
 	}
 
-	Status = XPsmFwRPUxPwrDwn(Args, XPSMFW_PWR_UPDWN_DIRECT);
+	/* Power down RPUx only if powered up */
+	RegVal = XPsmFw_Read32(PSM_GLOBAL_REG_PWR_STATE);
+	if (CHECK_BIT(RegVal, Args->PwrStateMask)) {
+		Status = XPsmFwRPUxPwrDwn(Args, XPSMFW_PWR_UPDWN_DIRECT);
+	}
+
 done:
 	return Status;
 }
@@ -874,6 +886,13 @@ done:
 static XStatus XPsmFwRPUxReqPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_SUCCESS;
+	u32 RegVal;
+
+	/* Check if already power down */
+	RegVal = XPsmFw_Read32(PSM_GLOBAL_REG_PWR_STATE);
+	if (!CHECK_BIT(RegVal, Args->PwrStateMask)) {
+		goto done;
+	}
 
 	/* Mask and clear RPU requested power-down interrupt request */
 	/* This is already handled by common handler so no need to handle here */
@@ -883,6 +902,7 @@ static XStatus XPsmFwRPUxReqPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 
 	Status = XPsmFwRPUxPwrDwn(Args, XPSMFW_PWR_UPDWN_REQUEST);
 
+done:
 	return Status;
 }
 
