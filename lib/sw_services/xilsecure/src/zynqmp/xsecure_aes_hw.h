@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -53,19 +33,14 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_io.h"
-#include "xparameters.h"
-#include "xil_types.h"
-#include "sleep.h"
-#include "xsecure_utils.h"
 
 /************************** Constant Definitions *****************************/
-
-#define XSECURE_CSU_AES_BASE	(XSECURE_CSU_REG_BASE_ADDR + 0x1000U)
-					/**< CSU AES base address */
-#define XSECURE_CSU_PCAP_STATUS	(XSECURE_CSU_REG_BASE_ADDR + 0X00003010U)
-					/**< CSU PCAP Status reg. */
+#define XSECURE_CSU_AES_BASE				(0xFFCA1000 )
+						/**< CSU AES base address */
+#define XSECURE_CSU_PCAP_STATUS				(0xFFCA3010U)
+						/**< CSU PCAP Status reg. */
 #define XSECURE_CSU_PCAP_STATUS_PCAP_WR_IDLE_MASK	(0X00000001U)
-					/**< PCAP Write Idle */
+						/**< PCAP Write Idle */
 /** @name Register Map
  *
  * Register offsets for the AES module.

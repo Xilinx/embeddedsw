@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -74,6 +54,8 @@
 *       vns  03/12/19 Modified as part of XilSecure code re-arch.
 *                     Moved all macro definitions and instance structure to
 *                     xsecure_rsa_core.h
+* 4.2   har  11/07/19 Typo correction to enable compilation in C++
+* 4.3   kpt  01/07/20 Added Macros for Magic Numbers in xsecure_rsa.c
 * </pre>
 *
 * @endcond
@@ -91,6 +73,11 @@ extern "C" {
 #include "xsecure_rsa_core.h"
 
 /************************** Constant Definitions ****************************/
+#define XSECURE_RSA_BYTE_PAD_LENGTH	(3U)  /**< PKCS Byte Padding */
+#define XSECURE_RSA_T_PAD_LENGTH	(19U) /**< PKCS T Padding */
+#define XSECURE_RSA_BYTE_PAD1		(0X00U) /**<PKCS T Padding Byte */
+#define XSECURE_RSA_BYTE_PAD2		(0X01U) /**<PKCS T Padding Byte */
+#define XSECURE_RSA_BYTE_PAD3		(0XFFU)	/**<PKCS T Padding Byte */
 
 /***************************** Type Definitions ******************************/
 
@@ -111,7 +98,7 @@ s32 XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 								u8 *Result);
 
 #ifdef __cplusplus
-extern "C" }
+}
 #endif
 
 #endif /* XSECURE_RSA_H_ */
