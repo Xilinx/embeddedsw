@@ -133,10 +133,9 @@ done:
 	return Status;
 }
 
-XStatus XPmCore_PwrDwn(XPm_Core *Core, u32 PwrDwnRegOffset)
+XStatus XPmCore_PwrDwn(XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
-	u32 PwrReq;
 
 	if ((Core->Device.Node.State == XPM_DEVSTATE_PWR_OFF) ||
 	    (Core->Device.Node.State == XPM_DEVSTATE_UNUSED)) {
@@ -154,13 +153,6 @@ XStatus XPmCore_PwrDwn(XPm_Core *Core, u32 PwrDwnRegOffset)
 		goto done;
 	}
 	Core->Device.Node.State = XPM_DEVSTATE_PWR_OFF;
-
-	/* CLear Power Down Request */
-	PmIn32(Core->Device.Node.BaseAddress + PwrDwnRegOffset, PwrReq);
-	if (0U != (Core->PwrDwnMask & PwrReq)) {
-		PwrReq &= ~Core->PwrDwnMask;
-		PmOut32(Core->Device.Node.BaseAddress + PwrDwnRegOffset, PwrReq);
-	}
 
 	if (NULL != Core->Device.Power) {
 		Status = Core->Device.Power->Node.HandleEvent(&Core->Device.Power->Node, XPM_POWER_EVENT_PWR_DOWN);
