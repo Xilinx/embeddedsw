@@ -7,7 +7,7 @@
 /**
 *
 * @file xpmonpsv.h
-* @addtogroup pmonpsv_v2_0
+* @addtogroup pmonpsv_v2_1
 * @{
 * @details
 *

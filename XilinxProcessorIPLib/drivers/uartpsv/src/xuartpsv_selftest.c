@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartpsv_selftest.c
-* @addtogroup uartpsv_v1_2
+* @addtogroup uartpsv_v1_3
 * @{
 *
 * This file contains the self-test functions for the XUartPsv driver.
@@ -19,6 +19,7 @@
 * ---  ---  --------- -----------------------------------------------
 * 1.0  sg   09/18/17  First Release
 * 1.2  rna  01/20/20  Use XUartPsv_ProgramCtrlReg function to restore CR
+* 1.3  rna  05/14/20  Fix Misra-C violations
 * </pre>
 *
 ******************************************************************************/
@@ -66,7 +67,7 @@ static u8 ReturnString[XUARTPSV_TOTAL_BYTES];
 ******************************************************************************/
 s32 XUartPsv_SelfTest(XUartPsv *InstancePtr)
 {
-	s32 Status = XST_SUCCESS;
+	s32 Status = (s32)XST_SUCCESS;
 	u32 CtrlRegister;
 	u8 Index;
 	u32 ReceiveDataResult;
@@ -83,7 +84,7 @@ s32 XUartPsv_SelfTest(XUartPsv *InstancePtr)
 	XUartPsv_SetOperMode(InstancePtr, XUARTPSV_OPER_MODE_LOCAL_LOOP);
 
 	/* Send a number of bytes and receive them, one at a time. */
-	for (Index = 0U; Index < XUARTPSV_TOTAL_BYTES - 1; Index++) {
+	for (Index = 0U; Index < (XUARTPSV_TOTAL_BYTES - 1U); Index++) {
 		/*
 		 * Send out the byte and if it was not sent then the failure
 		 * will be caught in the comparison at the end
@@ -113,15 +114,15 @@ s32 XUartPsv_SelfTest(XUartPsv *InstancePtr)
 	 * Compare the bytes received to the bytes sent to verify the exact
 	 * data was received
 	 */
-	for (Index = 0U; Index < XUARTPSV_TOTAL_BYTES - 1; Index++) {
+	for (Index = 0U; Index < (XUARTPSV_TOTAL_BYTES - 1U); Index++) {
 		if (TestString[Index] != ReturnString[Index]) {
-			Status = XST_UART_TEST_FAIL;
+			Status = (s32)XST_UART_TEST_FAIL;
 		}
 	}
 
 	/* Reprogram the control Register with the saved value */
 	XUartPsv_ProgramCtrlReg(InstancePtr, CtrlRegister);
 
-	return Status;
+	return (s32)Status;
 }
 /** @} */

@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xhdcp22_rx.c
-* @addtogroup hdcp22_rx_v1_1
+* @addtogroup hdcp22_rx_dp_v2_0
 * @{
 * @details
 *
@@ -102,7 +102,7 @@ static void XHdcp22Rx_SetTopologyDepth(XHdcp22_Rx *InstancePtr, u8 Depth);
 static void XHdcp22Rx_SetTopologyDeviceCnt(XHdcp22_Rx *InstancePtr, u8 DeviceCnt);
 static void XHdcp22Rx_SetTopologyMaxDevsExceeded(XHdcp22_Rx *InstancePtr, u8 Value);
 static void XHdcp22Rx_SetTopologyMaxCascadeExceeded(XHdcp22_Rx *InstancePtr, u8 Value);
-static void XHdcp22Rx_SetTopologyHdcp20RepeaterDownstream(XHdcp22_Rx *InstancePtr, u8 Value);
+static void XHdcp22Rx_SetTopologyHdcp2LegacyDeviceDownstream(XHdcp22_Rx *InstancePtr, u8 Value);
 static void XHdcp22Rx_SetTopologyHdcp1DeviceDownstream(XHdcp22_Rx *InstancePtr, u8 Value);
 
 /* Functions for stub callbacks */
@@ -1152,8 +1152,8 @@ void XHdcp22Rx_SetTopologyField(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_TopologyFiel
 	case XHDCP22_RX_TOPOLOGY_MAXCASCADEEXCEEDED :
 		XHdcp22Rx_SetTopologyMaxCascadeExceeded(InstancePtr, Value);
 		break;
-	case XHDCP22_RX_TOPOLOGY_HDCP20REPEATERDOWNSTREAM :
-		XHdcp22Rx_SetTopologyHdcp20RepeaterDownstream(InstancePtr, Value);
+	case XHDCP22_RX_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM :
+		XHdcp22Rx_SetTopologyHdcp2LegacyDeviceDownstream(InstancePtr, Value);
 		break;
 	case XHDCP22_RX_TOPOLOGY_HDCP1DEVICEDOWNSTREAM :
 		XHdcp22Rx_SetTopologyHdcp1DeviceDownstream(InstancePtr, Value);
@@ -1201,7 +1201,7 @@ void XHdcp22Rx_SetTopologyUpdate(XHdcp22_Rx *InstancePtr)
 *             HDCP Repeater to all HDCP Devices.
 *           - 0x01: Type 1 Content Stream. Must not be transmitted
 *             by the HDCP Repeater to HDCP 1.x-compliant Devices and
-*             HDCP 2.0-compliant Repeaters.
+*             HDCP 2.1-compliant Devices.
 *           - 0x02-0xFF: Reserved for future use only. Content
 *             Streams with reserved Type values must be treated
 *             similar to Type 1 Content Streams.
@@ -3520,7 +3520,7 @@ static int XHdcp22Rx_SendMessageRepeaterAuthSendRxIdList(XHdcp22_Rx *InstancePtr
 	MsgPtr->RepeaterAuthSendRxIdList.RxInfo[1] |=
 		(u8)((InstancePtr->Topology.MaxCascadeExceeded & 0x01) << 2);       // RxInfo[2]    = MaxCascadeExceeded
 	MsgPtr->RepeaterAuthSendRxIdList.RxInfo[1] |=
-		(u8)((InstancePtr->Topology.Hdcp20RepeaterDownstream & 0x01) << 1); // RxInfo[1]    = Hdcp20RepeaterDownstream
+		(u8)((InstancePtr->Topology.Hdcp2LegacyDeviceDownstream & 0x01) << 1); // RxInfo[1]    = Hdcp2LegacyDeviceDownstream
 	MsgPtr->RepeaterAuthSendRxIdList.RxInfo[1] |=
 		(u8)(InstancePtr->Topology.Hdcp1DeviceDownstream & 0x01);           // RxInfo[0]    = Hdcp1DeviceDownstream
 
@@ -3836,9 +3836,9 @@ static void XHdcp22Rx_SetTopologyMaxCascadeExceeded(XHdcp22_Rx *InstancePtr, u8 
 
 /*****************************************************************************/
 /**
-* This function sets the HDCP2_0_REPEATER_DOWNSTREAM flag in the repeater
+* This function sets the HDCP2_LEGACY_DEVICE_DOWNSTREAM flag in the repeater
 * topology table used to indicate the presence of an HDCP2.0-compliant
-* Repeater in the topology.
+* Device in the topology.
 *
 * @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
 * @param    Value is either TRUE or FALSE.
@@ -3847,13 +3847,13 @@ static void XHdcp22Rx_SetTopologyMaxCascadeExceeded(XHdcp22_Rx *InstancePtr, u8 
 *
 * @note     None.
 ******************************************************************************/
-static void XHdcp22Rx_SetTopologyHdcp20RepeaterDownstream(XHdcp22_Rx *InstancePtr, u8 Value)
+static void XHdcp22Rx_SetTopologyHdcp2LegacyDeviceDownstream(XHdcp22_Rx *InstancePtr, u8 Value)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Value == FALSE || Value == TRUE);
 
-	InstancePtr->Topology.Hdcp20RepeaterDownstream = Value;
+	InstancePtr->Topology.Hdcp2LegacyDeviceDownstream = Value;
 }
 
 /*****************************************************************************/
@@ -4326,8 +4326,8 @@ void XHdcp22Rx_Info(XHdcp22_Rx *InstancePtr)
 			xil_printf("MaxDevsExceeded, ");
 		if (InstancePtr->Topology.MaxCascadeExceeded)
 			xil_printf("MaxCascadeExceeded, ");
-		if (InstancePtr->Topology.Hdcp20RepeaterDownstream)
-			xil_printf("Hdcp20RepeaterDownstream, ");
+		if (InstancePtr->Topology.Hdcp2LegacyDeviceDownstream)
+			xil_printf("Hdcp2LegacyDeviceDownstream, ");
 		if (InstancePtr->Topology.Hdcp1DeviceDownstream)
 			xil_printf("Hdcp1DeviceDownstream, ");
 		xil_printf("Depth=%d, ", InstancePtr->Topology.Depth);

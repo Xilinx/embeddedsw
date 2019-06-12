@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_multi_scaler_l2.h
-* @addtogroup v_multi_scaler_v1_1
+* @addtogroup v_multi_scaler_v1_2
 * @{
 *
 * This header file contains layer 2 API's of the multi scaler core

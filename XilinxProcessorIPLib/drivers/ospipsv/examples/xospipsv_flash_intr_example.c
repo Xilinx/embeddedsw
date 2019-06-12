@@ -31,6 +31,7 @@
 * 1.0	akm 03/29/19 Fixed data alignment issues on IAR compiler
 * 1.1   sk  07/23/19 Based on RX Tuning, updated the dummy cycles.
 *       sk  08/08/19 Issue device reset to bring back to default state.
+* 1.3   sk  05/27/20 Added Stacked mode support.
 *
 *</pre>
 *
@@ -38,61 +39,10 @@
 
 /***************************** Include Files *********************************/
 
-#include "xparameters.h"	/* SDK generated parameters */
-#include "xospipsv.h"		/* OSPIPSV device driver */
-#include "xil_printf.h"
-#include "xil_cache.h"
+#include "xospipsv_flash_config.h"
 #include "xscugic.h"
 
 /************************** Constant Definitions *****************************/
-
-/*
- * The following constants define the commands which may be sent to the Flash
- * device.
- */
-
-#define WRITE_STATUS_CMD	0x01
-#define WRITE_DISABLE_CMD	0x04
-#define WRITE_ENABLE_CMD	0x06
-#define BULK_ERASE_CMD		0xC7
-#define DIE_ERASE_CMD		0xC4
-#define READ_ID			0x9F
-#define READ_CONFIG_CMD		0x35
-#define WRITE_CONFIG_CMD	0x01
-#define READ_FLAG_STATUS_CMD	0x70
-#define WRITE_CMD_4B		0x12
-#define SEC_ERASE_CMD_4B	0xDC
-#define READ_CMD_OCTAL_IO_4B	0xCC
-#define READ_CMD_OCTAL_DDR	0x9D
-#define WRITE_CMD_OCTAL_4B	0x84
-#define ENTER_4B_ADDR_MODE	0xB7
-#define EXIT_4B_ADDR_MODE	0xE9
-#define WRITE_CONFIG_REG	0x81
-#define READ_CONFIG_REG		0x85
-
-/*
- * Sixteen MB
- */
-#define SIXTEENMB 0x1000000
-#define ONEMB	0x100000
-
-/*
- * Identification of Flash
- * Micron:
- * Byte 0 is Manufacturer ID;
- * Byte 1 is first byte of Device ID - 0x5B
- * Byte 2 is second byte of Device ID describes flash size:
- * 512Mbit : 0x1A
- */
-#define	MICRON_OCTAL_ID_BYTE0	0x2c
-#define MICRON_OCTAL_ID_BYTE2_512	0x1a
-
-/*
- * The index for Flash config table
- */
-/* Spansion*/
-#define MICRON_INDEX_START			0
-#define FLASH_CFG_TBL_OCTAL_SINGLE_512_MC	MICRON_INDEX_START
 
 /*
  * The following constants map to the XPAR parameters created in the
@@ -122,27 +72,6 @@
 #define UNIQUE_VALUE		0x09
 
 /**************************** Type Definitions *******************************/
-
-typedef struct{
-	u32 SectSize;		/* Individual sector size or
-						 * combined sector size in case of parallel config*/
-	u32 NumSect;		/* Total no. of sectors in one/two flash devices */
-	u32 PageSize;		/* Individual page size or
-				 * combined page size in case of parallel config*/
-	u32 NumPage;		/* Total no. of pages in one/two flash devices */
-	u32 FlashDeviceSize;	/* This is the size of one flash device
-				 * NOT the combination of both devices, if present
-				 */
-	u8 ManufacturerID;	/* Manufacturer ID - used to identify make */
-	u8 DeviceIDMemSize;	/* Byte of device ID indicating the memory size */
-	u32 SectMask;		/* Mask to get sector start address */
-	u8 NumDie;		/* No. of die forming a single flash */
-	u32 ReadCmd;		/* Read command used to read data from flash */
-	u32 WriteCmd;	/* Write command used to write data to flash */
-	u32 EraseCmd;	/* Erase Command */
-	u8 StatusCmd;	/* Status Command */
-	u8 DummyCycles;	/* Number of Dummy cycles for Read operation */
-}FlashInfo;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -181,14 +110,6 @@ u8 ReadBfrPtr[8];
 #else
 u8 ReadBfrPtr[8]__attribute__ ((aligned(4)));
 #endif
-FlashInfo Flash_Config_Table[1] = {
-	/* Micron */
-	{0x20000, 0x200, 256, 0x40000, 0x4000000, MICRON_OCTAL_ID_BYTE0,
-		MICRON_OCTAL_ID_BYTE2_512, 0xFFFF0000, 1, READ_CMD_OCTAL_IO_4B,
-		(WRITE_CMD_OCTAL_4B << 8) | WRITE_CMD_4B,
-		(DIE_ERASE_CMD << 16) | (BULK_ERASE_CMD << 8) | SEC_ERASE_CMD_4B,
-		READ_FLAG_STATUS_CMD, 16}
-};
 
 u32 FlashMake;
 u32 FCTIndex;	/* Flash configuration table index */
@@ -356,6 +277,39 @@ int OspiPsvInterruptFlashExample(XScuGic *IntcInstancePtr,
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
 
+	if(Flash_Config_Table[FCTIndex].FlashDeviceSize > SIXTEENMB) {
+		Status = FlashEnterExit4BAddMode(OspiPsvInstancePtr, 1);
+		if(Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+	}
+
+	if (OspiPsvInstancePtr->Config.ConnectionMode == XOSPIPSV_CONNECTION_MODE_STACKED) {
+		Flash_Config_Table[FCTIndex].NumPage *= 2;
+		Flash_Config_Table[FCTIndex].NumSect *= 2;
+
+		/* Reset the controller mode to NON-PHY */
+		Status = XOspiPsv_SetSdrDdrMode(OspiPsvInstancePtr, XOSPIPSV_EDGE_MODE_SDR_NON_PHY);
+		if (Status != XST_SUCCESS)
+			return XST_FAILURE;
+
+		Status = XOspiPsv_SelectFlash(OspiPsvInstancePtr, XOSPIPSV_SELECT_FLASH_CS1);
+		if (Status != XST_SUCCESS)
+			return XST_FAILURE;
+
+		/* Set Flash device and Controller modes */
+		Status = FlashSetSDRDDRMode(OspiPsvInstancePtr, XOSPIPSV_EDGE_MODE_SDR_NON_PHY);
+		if (Status != XST_SUCCESS)
+			return XST_FAILURE;
+
+		if(Flash_Config_Table[FCTIndex].FlashDeviceSize > SIXTEENMB) {
+			Status = FlashEnterExit4BAddMode(OspiPsvInstancePtr, 1);
+			if(Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+		}
+	}
+
 	MaxData = PAGE_COUNT * (Flash_Config_Table[FCTIndex].PageSize);
 
 	for (UniqueValue = UNIQUE_VALUE, Count = 0;
@@ -363,13 +317,6 @@ int OspiPsvInterruptFlashExample(XScuGic *IntcInstancePtr,
 			Count++, UniqueValue++) {
 		WriteBuffer[Count] = (u8)(UniqueValue + Test);
 
-	}
-
-	if(Flash_Config_Table[FCTIndex].FlashDeviceSize > SIXTEENMB) {
-		Status = FlashEnterExit4BAddMode(OspiPsvInstancePtr, 1);
-		if(Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
 	}
 
 	Status = FlashErase(OspiPsvInstancePtr, TEST_ADDRESS, MaxData, CmdBfr);
@@ -413,11 +360,6 @@ int OspiPsvInterruptFlashExample(XScuGic *IntcInstancePtr,
 			return XST_FAILURE;
 		}
 	}
-
-	/* Set Extended SPI Mode in OSPI device and Controller */
-	Status = FlashSetSDRDDRMode(OspiPsvInstancePtr, XOSPIPSV_EDGE_MODE_SDR_NON_PHY);
-	if (Status != XST_SUCCESS)
-		return XST_FAILURE;
 
 	OspiPsvDisableIntrSystem(IntcInstancePtr, OSPIPSV_INTR_ID);
 
@@ -470,6 +412,7 @@ int FlashReadID(XOspiPsv *OspiPsvPtr)
 {
 	int Status;
 	int ReadIdBytes = 8;
+	u32 ReadId = 0;
 
 	/*
 	 * Read ID
@@ -483,6 +426,7 @@ int FlashReadID(XOspiPsv *OspiPsvPtr)
 	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
 	FlashMsg.Dummy = OspiPsvPtr->Extra_DummyCycle;
 	FlashMsg.IsDDROpCode = 0;
+	FlashMsg.Proto = 0;
 	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 		FlashMsg.Dummy += 8;
 		FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
@@ -502,27 +446,19 @@ int FlashReadID(XOspiPsv *OspiPsvPtr)
 	xil_printf("FlashID = ");
 	while(ReadIdBytes >= 0 ) {
 		xil_printf("0x%x ", ReadBfrPtr[FlashMsg.ByteCount - ReadIdBytes]);
-		if (ReadIdBytes >= 5) {
-			OspiPsvPtr->DeviceIdData |= (ReadBfrPtr[FlashMsg.ByteCount -
-				ReadIdBytes] << ((FlashMsg.ByteCount - ReadIdBytes) * 8));
-		}
 		ReadIdBytes--;
 	}
 	xil_printf("\n\r");
-	/*
-	 * Deduce flash make
-	 */
-	if (ReadBfrPtr[0] == MICRON_OCTAL_ID_BYTE0) {
-		FlashMake = MICRON_OCTAL_ID_BYTE0;
-	}
 
-	/*
-	 * If valid flash ID, then check connection mode & size and
-	 * assign corresponding index in the Flash configuration table
-	 */
-	if(((FlashMake == MICRON_OCTAL_ID_BYTE0)) &&
-		(ReadBfrPtr[2] == MICRON_OCTAL_ID_BYTE2_512)) {
-		FCTIndex = FLASH_CFG_TBL_OCTAL_SINGLE_512_MC;
+	OspiPsvPtr->DeviceIdData = ((ReadBfrPtr[3] << 24) | (ReadBfrPtr[2] << 16) |
+		(ReadBfrPtr[1] << 8) | ReadBfrPtr[0]);
+	ReadId = ((ReadBfrPtr[0] << 16) | (ReadBfrPtr[1] << 8) | ReadBfrPtr[2]);
+
+	FlashMake = ReadBfrPtr[0];
+
+	Status = CalculateFCTIndex(ReadId, &FCTIndex);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
 	}
 
 	return XST_SUCCESS;
@@ -557,8 +493,15 @@ int FlashIoWrite(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 #endif
 	u8 Status;
 	u32 Bytestowrite;
+	u32 RealAddr;
 
 	while(ByteCount != 0) {
+		/*
+		 * Translate address based on type of connection
+		 * If stacked assert the slave select based on address
+		 */
+		RealAddr = GetRealAddr(OspiPsvPtr, Address);
+
 		FlashMsg.Opcode = WRITE_ENABLE_CMD;
 		FlashMsg.Addrsize = 0;
 		FlashMsg.Addrvalid = 0;
@@ -602,7 +545,7 @@ int FlashIoWrite(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 		FlashMsg.Dummy = 0;
 		FlashMsg.Addrsize = 4;
 		FlashMsg.IsDDROpCode = 0;
-		FlashMsg.Addr = Address;
+		FlashMsg.Addr = RealAddr;
 		if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 			FlashMsg.Proto = XOSPIPSV_WRITE_8_8_8;
 		}
@@ -685,6 +628,7 @@ int FlashErase(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 	u8 FlashStatus[2] __attribute__ ((aligned(4)));
 #endif
 	u8 Status;
+	u32 RealAddr;
 
 	/*
 	 * If erase size is same as the total size of the flash, use bulk erase
@@ -693,7 +637,11 @@ int FlashErase(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 	if (ByteCount == ((Flash_Config_Table[FCTIndex]).NumSect *
 		(Flash_Config_Table[FCTIndex]).SectSize) ) {
 
-
+		if (OspiPsvPtr->Config.ConnectionMode == XOSPIPSV_CONNECTION_MODE_STACKED) {
+			Status = XOspiPsv_SelectFlash(OspiPsvPtr, XOSPIPSV_SELECT_FLASH_CS0);
+			if (Status != XST_SUCCESS)
+				return XST_FAILURE;
+		}
 		if(Flash_Config_Table[FCTIndex].NumDie == 1) {
 			xil_printf("EraseCmd 0x%x\n\r", (u8)(Flash_Config_Table[FCTIndex].EraseCmd >> 8));
 			/*
@@ -708,6 +656,28 @@ int FlashErase(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 			 * Call Die erase
 			 */
 			DieErase(OspiPsvPtr, WriteBfrPtr);
+		}
+
+		if (OspiPsvPtr->Config.ConnectionMode == XOSPIPSV_CONNECTION_MODE_STACKED) {
+			Status = XOspiPsv_SelectFlash(OspiPsvPtr, XOSPIPSV_SELECT_FLASH_CS1);
+			if (Status != XST_SUCCESS)
+				return XST_FAILURE;
+
+			if(Flash_Config_Table[FCTIndex].NumDie == 1) {
+				xil_printf("EraseCmd 0x%x\n\r", (u8)(Flash_Config_Table[FCTIndex].EraseCmd >> 8));
+				/*
+				 * Call Bulk erase
+				 */
+				BulkErase(OspiPsvPtr, WriteBfrPtr);
+			}
+
+			if(Flash_Config_Table[FCTIndex].NumDie > 1) {
+				xil_printf("EraseCmd 0x%x\n\r", (u8)(Flash_Config_Table[FCTIndex].EraseCmd >> 16));
+				/*
+				 * Call Die erase
+				 */
+				DieErase(OspiPsvPtr, WriteBfrPtr);
+			}
 		}
 		return 0;
 	}
@@ -736,6 +706,13 @@ int FlashErase(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 	}
 
 	for (Sector = 0; Sector < NumSect; Sector++) {
+
+		/*
+		 * Translate address based on type of connection
+		 * If stacked assert the slave select based on address
+		 */
+		RealAddr = GetRealAddr(OspiPsvPtr, Address);
+
 		/*
 		 * Send the write enable command to the Flash so that it can be
 		 * written to, this needs to be sent as a separate transfer before
@@ -774,7 +751,7 @@ int FlashErase(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 		FlashMsg.RxBfrPtr = NULL;
 		FlashMsg.ByteCount = 0;
 		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
-		FlashMsg.Addr = Address;
+		FlashMsg.Addr = RealAddr;
 		FlashMsg.IsDDROpCode = 0;
 		FlashMsg.Proto = 0;
 		FlashMsg.Dummy = 0;
@@ -851,24 +828,42 @@ int FlashRead(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 				u8 *WriteBfrPtr, u8 *ReadBfrPtr)
 {
 	u8 Status;
+	u32 RealAddr;
+	u32 BytesToRead;
+	u32 ByteCnt = ByteCount;
 
 	xil_printf("ReadCmd 0x%x\r\n", Flash_Config_Table[FCTIndex].ReadCmd);
-	FlashMsg.Opcode = (u8)Flash_Config_Table[FCTIndex].ReadCmd;
-	FlashMsg.Addrsize = 4;
-	FlashMsg.Addrvalid = 1;
-	FlashMsg.TxBfrPtr = NULL;
-	FlashMsg.RxBfrPtr = ReadBfrPtr;
-	FlashMsg.ByteCount = ByteCount;
-	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
-	FlashMsg.Addr = Address;
-	FlashMsg.Proto = XOspiPsv_Get_Proto(OspiPsvPtr, 1);
-	FlashMsg.Dummy = Flash_Config_Table[FCTIndex].DummyCycles +
-			OspiPsvPtr->Extra_DummyCycle;
-	FlashMsg.IsDDROpCode = 0;
-	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
-		FlashMsg.Proto = XOSPIPSV_READ_8_8_8;
-		FlashMsg.Dummy = 16 + OspiPsvPtr->Extra_DummyCycle;
+
+	if ((Address < Flash_Config_Table[FCTIndex].FlashDeviceSize) &&
+		((Address + ByteCount) >= Flash_Config_Table[FCTIndex].FlashDeviceSize) &&
+		(OspiPsvPtr->Config.ConnectionMode == XOSPIPSV_CONNECTION_MODE_STACKED)) {
+		BytesToRead = (Flash_Config_Table[FCTIndex].FlashDeviceSize - Address);
+	} else {
+		BytesToRead = ByteCount;
 	}
+	while (ByteCount != 0) {
+		/*
+		 * Translate address based on type of connection
+		 * If stacked assert the slave select based on address
+		 */
+		RealAddr = GetRealAddr(OspiPsvPtr, Address);
+
+		FlashMsg.Opcode = (u8)Flash_Config_Table[FCTIndex].ReadCmd;
+		FlashMsg.Addrsize = 4;
+		FlashMsg.Addrvalid = 1;
+		FlashMsg.TxBfrPtr = NULL;
+		FlashMsg.RxBfrPtr = ReadBfrPtr;
+		FlashMsg.ByteCount = BytesToRead;
+		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
+		FlashMsg.Addr = RealAddr;
+		FlashMsg.Proto = XOspiPsv_Get_Proto(OspiPsvPtr, 1);
+		FlashMsg.Dummy = Flash_Config_Table[FCTIndex].DummyCycles +
+				OspiPsvPtr->Extra_DummyCycle;
+		FlashMsg.IsDDROpCode = 0;
+		if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+			FlashMsg.Proto = XOSPIPSV_READ_8_8_8;
+			FlashMsg.Dummy = 16 + OspiPsvPtr->Extra_DummyCycle;
+		}
 	TransferInProgress = TRUE;
 	Error = 0;
 	Status = XOspiPsv_IntrTransfer(OspiPsvPtr, &FlashMsg);
@@ -878,6 +873,12 @@ int FlashRead(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 	while(TransferInProgress);
 	if (Error) {
 		return XST_FAILURE;
+	}
+
+		ByteCount -= BytesToRead;
+		Address += BytesToRead;
+		ReadBfrPtr += BytesToRead;
+		BytesToRead = ByteCnt - BytesToRead;
 	}
 
 	return 0;
@@ -1140,35 +1141,29 @@ int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, int Enable)
 	else
 		Command = EXIT_4B_ADDR_MODE;
 
-	switch (FlashMake) {
-		case MICRON_OCTAL_ID_BYTE0:
-			FlashMsg.Opcode = WRITE_ENABLE_CMD;
-			FlashMsg.Addrsize = 0;
-			FlashMsg.Addrvalid = 0;
-			FlashMsg.TxBfrPtr = NULL;
-			FlashMsg.RxBfrPtr = NULL;
-			FlashMsg.ByteCount = 0;
-			FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
-			FlashMsg.IsDDROpCode = 0;
-			FlashMsg.Proto = 0;
-			if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
-				FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
-			}
-			TransferInProgress = TRUE;
-			Error = 0;
-			Status = XOspiPsv_IntrTransfer(OspiPsvPtr, &FlashMsg);
-			if (Status != XST_SUCCESS) {
-				return XST_FAILURE;
-			}
-			while(TransferInProgress);
-			if (Error) {
-				return XST_FAILURE;
-			}
-			break;
-
-		default:
-			break;
+	FlashMsg.Opcode = WRITE_ENABLE_CMD;
+	FlashMsg.Addrsize = 0;
+	FlashMsg.Addrvalid = 0;
+	FlashMsg.TxBfrPtr = NULL;
+	FlashMsg.RxBfrPtr = NULL;
+	FlashMsg.ByteCount = 0;
+	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+	FlashMsg.IsDDROpCode = 0;
+	FlashMsg.Proto = 0;
+	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
 	}
+	TransferInProgress = TRUE;
+	Error = 0;
+	Status = XOspiPsv_IntrTransfer(OspiPsvPtr, &FlashMsg);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	while(TransferInProgress);
+	if (Error) {
+		return XST_FAILURE;
+	}
+
 	FlashMsg.Opcode = Command;
 	FlashMsg.Addrvalid = 0;
 	FlashMsg.Addrsize = 0;
@@ -1519,4 +1514,36 @@ int FlashSetSDRDDRMode(XOspiPsv *OspiPsvPtr, int Mode)
 		return XST_FAILURE;
 
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This functions translates the address based on the type of interconnection.
+ * In case of stacked, this function asserts the corresponding slave select.
+ *
+ * @param	OspiPsvPtr is a pointer to the OSPIPSV driver component to use.
+ * @param	Address which is to be accessed (for erase, write or read)
+ *
+ * @return	RealAddr is the translated address - for single it is unchanged;
+ *			for stacked, the lower flash size is subtracted;
+ *
+ * @note	In addition to get the actual address to work on flash this
+ *			function also selects the CS based on the configuration detected.
+ *
+ ******************************************************************************/
+u32 GetRealAddr(XOspiPsv *OspiPsvPtr, u32 Address)
+{
+	u32 RealAddr = Address;
+	u8 Chip_Sel = XOSPIPSV_SELECT_FLASH_CS0;
+
+	if ((OspiPsvPtr->Config.ConnectionMode == XOSPIPSV_CONNECTION_MODE_STACKED) &&
+			(Address & Flash_Config_Table[FCTIndex].FlashDeviceSize)) {
+		Chip_Sel = XOSPIPSV_SELECT_FLASH_CS1;
+		RealAddr = Address & (~Flash_Config_Table[FCTIndex].FlashDeviceSize);
+	}
+
+	(void)XOspiPsv_SelectFlash(OspiPsvPtr, Chip_Sel);
+
+	return RealAddr;
 }

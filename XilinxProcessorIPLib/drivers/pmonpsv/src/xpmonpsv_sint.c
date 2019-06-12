@@ -7,7 +7,7 @@
 /**
 *
 * @file xpmonpsv_sint.c
-* @addtogroup pmonpsv_v2_0
+* @addtogroup pmonpsv_v2_1
 * @{
 *
 * This file contains the implementation of the XPmonPsv driver's static

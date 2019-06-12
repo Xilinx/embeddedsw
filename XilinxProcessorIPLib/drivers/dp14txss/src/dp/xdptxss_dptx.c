@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -47,6 +25,8 @@
 * 4.0  aad 05/13/16 Use asynchronous clock mode by default.
 * 5.0  tu  08/03/17 Enabled video packing for bpc > 10
 * 5.0  aad 09/08/17 Case to handle HTotal > 4095, PPC = 1 in AXIStream Mode.
+* 6.4  rg  09/26/20 Added support for YUV420 color format.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -58,7 +38,6 @@
 #include "xvidc_edid.h"
 #include "xdebug.h"
 #include "string.h"
-#include "xvphy_dp.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -117,6 +96,7 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 	u8 NumOfStreams;
 	u8 Edid[128];
 	XDp_TxTopologyNode *Sink1;
+	int i;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -159,6 +139,20 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 		InstancePtr->TxInstance.AuxDelayUs = 30000;
 		InstancePtr->TxInstance.SbMsgDelayUs = 30000;
 
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Discovering "
+				"topology.\n\r");
+		/* Get list of sinks */
+		Status = Dp_GetTopology(InstancePtr);
+		if (Status)
+			return Status;
+
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Topology "
+				"discovery done, # of sinks found = %d.\n\r",
+				InstancePtr->TxInstance.Topology.SinkTotal);
+
+		/* Total number of streams equal to number of sinks found */
+		NumOfStreams = InstancePtr->TxInstance.Topology.SinkTotal;
+
 		/* Enable downshifting during link training */
 		XDp_TxEnableTrainAdaptive(InstancePtr, 1);
 
@@ -183,20 +177,12 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 			}
 		}
 
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Discovering "
-				"topology.\n\r");
-
-		/* Get list of sinks */
-		Status = Dp_GetTopology(InstancePtr);
-		if (Status != XST_SUCCESS) {
-			return Status;
+		Status = XDp_TxCheckLinkStatus(InstancePtr,
+				InstancePtr->TxInstance.LinkConfig.LaneCount);
+		if (Status == XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Link "
+					"is up !\n\r\n\r");
 		}
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Topology "
-			"discovery done, # of sinks found = %d.\n\r",
-			InstancePtr->TxInstance.Topology.SinkTotal);
-
-		/* Total number of streams equal to number of sinks found */
-		NumOfStreams = InstancePtr->TxInstance.Topology.SinkTotal;
 
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:Reading (MST) Sink "
 			"EDID...\n\r");
@@ -252,18 +238,6 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 		else if (VidMode != XVIDC_VM_CUSTOM) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Using "
 				"user set resolution.\n\r");
-
-			/* Check whether VidMode ID is supported */
-			Status = XVidC_EdidIsVideoTimingSupported(Edid,
-			(XVidC_VideoTimingMode *)XVidC_GetVideoModeData(
-				VidMode));
-			if (Status != XST_SUCCESS) {
-				xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:"
-				"MST:%s is not supported.\n\rSetting to "
-				"640x480 resolution."
-				"\n\r", XVidC_GetVideoModeStr(VidMode));
-				VidMode = XVIDC_VM_640x480_60_P;
-			}
 
 			if ((InstancePtr->TxInstance.Topology.SinkTotal ==
 				4) && (VidMode == XVIDC_VM_UHD2_60_P)){
@@ -599,18 +573,6 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 					0].UserPixelWidth = 4;
 			}
 		}
-		else {
-			/* Set user pixel width if video mode is 1920 x 2160 */
-			if ((InstancePtr->TxInstance.MsaConfig[
-				0].Vtm.Timing.HActive == 1920) &&
-				(InstancePtr->TxInstance.MsaConfig[
-					0].Vtm.Timing.VActive == 2160) &&
-				(InstancePtr->TxInstance.MsaConfig[
-					0].OverrideUserPixelWidth == 0)) {
-				InstancePtr->TxInstance.MsaConfig[
-					0].UserPixelWidth = 4;
-			}
-		}
 
 		 if((InstancePtr->TxInstance.MsaConfig[0].PixelClockHz <=
 		     75000000) &&
@@ -629,7 +591,8 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 
 		/* Reset the transmitter. */
 		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_SOFT_RESET,
-				XDP_TX_SOFT_RESET_VIDEO_STREAM_ALL_MASK);
+				XDP_TX_SOFT_RESET_VIDEO_STREAM_ALL_MASK |
+				XDP_TX_SOFT_RESET_HDCP_MASK);
 		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_SOFT_RESET,
 				0x0);
 	}
@@ -652,6 +615,20 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 
 	xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:Enabled main link!"
 		"\n\r\n\r");
+
+	/* Program the VSC Extended Packet */
+	if (InstancePtr->TxInstance.ColorimetryThroughVsc)
+	{
+		XDp_WriteReg(InstancePtr->Config.BaseAddr,
+				XDP_TX_AUDIO_EXT_DATA(1), InstancePtr->TxInstance.VscPacket.Header);
+		for (i = 0; i < XDPTXSS_EXT_DATA_2ND_TO_9TH_WORD; i++) {
+			XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_AUDIO_EXT_DATA(i+2),
+				InstancePtr->TxInstance.VscPacket.Payload[i]);
+		}
+	}
+
+	/* Enable Audio*/
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, 0x1);
 
 	return XST_SUCCESS;
 }
@@ -801,10 +778,18 @@ static u32 Dp_CheckBandwidth(XDp *InstancePtr, u8 Bpc, XVidC_VideoMode VidMode)
 
 	LinkBw = (InstancePtr->TxInstance.LinkConfig.LaneCount *
 		  InstancePtr->TxInstance.LinkConfig.LinkRate * 27);
-	BitsPerPixel = (InstancePtr->TxInstance.MsaConfig[0].ComponentFormat ==
-			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) ?
-				(2 * Bpc) :
-				(3 * Bpc);
+	if (InstancePtr->TxInstance.MsaConfig[0].ComponentFormat ==
+	    XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
+		/* YCbCr 4:2:2 color component format. */
+		BitsPerPixel = Bpc * 2;
+	} else if (InstancePtr->TxInstance.MsaConfig[0].ComponentFormat ==
+			XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420) {
+		/* YCbCr 4:2:0 color component format. */
+		BitsPerPixel = (Bpc * 15) / 10;
+	} else {
+		/* RGB or YCbCr 4:4:4 color component format. */
+		BitsPerPixel = Bpc * 3;
+	}
 
 	/* Check for maximum link rate supported */
 	if (InstancePtr->TxInstance.LinkConfig.MaxLinkRate <
@@ -1011,13 +996,6 @@ static u32 Dp_GetTopology(XDp *InstancePtr)
 		NumStreams = InstancePtr->Config.NumMstStreams;
 	}
 
-	Status = XDp_TxCheckLinkStatus(InstancePtr,
-				InstancePtr->TxInstance.LinkConfig.LaneCount);
-	if (Status == XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Link "
-			"is up after topology discovery!\n\r\n\r");
-	}
-
 	return XST_SUCCESS;
 }
 
@@ -1143,13 +1121,13 @@ static void Dp_ConfigVideoPackingClockControl(XDp *InstancePtr, u8 Bpc)
 
 		switch (InstancePtr->TxInstance.LinkConfig.LinkRate) {
 		case XDP_TX_LINK_BW_SET_540GBPS:
-			DpLinkRateHz = XVPHY_DP_LINK_RATE_HZ_540GBPS;
+			DpLinkRateHz = DP_LINK_RATE_HZ_540GBPS;
 			break;
 		case XDP_TX_LINK_BW_SET_270GBPS:
-			DpLinkRateHz = XVPHY_DP_LINK_RATE_HZ_270GBPS;
+			DpLinkRateHz = DP_LINK_RATE_HZ_270GBPS;
 			break;
 		default:
-			DpLinkRateHz = XVPHY_DP_LINK_RATE_HZ_162GBPS;
+			DpLinkRateHz = DP_LINK_RATE_HZ_162GBPS;
 			break;
 		}
 		/* link clock */

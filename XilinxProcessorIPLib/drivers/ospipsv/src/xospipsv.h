@@ -7,7 +7,7 @@
 /**
 *
 * @file xospipsv.h
-* @addtogroup ospipsv_v1_2
+* @addtogroup ospipsv_v1_3
 * @{
 * @details
 *
@@ -35,6 +35,10 @@
 *                     masked data writes.
 *       sk   02/20/20 Make XOspiPsv_SetDllDelay() API as user API.
 *       sk   02/20/20 Added support for DLL Master mode.
+* 1.3   sk   04/09/20 Added support for 64-bit address read from 32-bit proc.
+*       sk   05/27/20 Added support for reading C_OSPI_MODE param.
+*       sk  08/19/20 Reduced the usleep delay while checking transfer done.
+*       sk   10/06/20 Clear the ISR for polled mode transfers.
 *
 * </pre>
 *
@@ -89,6 +93,8 @@ typedef struct {
 	u8 Dummy;		/**< Number of dummy cycles for opcode */
 	u8 Proto;		/**< Indicate number of Cmd-Addr-Data lines */
 	u8 IsDDROpCode;	/**< 1 if opcode is DDR command, 0 otherwise */
+	u64 RxAddr64bit; /**< Provide 64-bit read address for 32-bit platform */
+	u8 Xfer64bit; /**< Set to 1 when reading from 64-bit addr otherwise 0 */
 } XOspiPsv_Msg;
 
 /**
@@ -96,9 +102,10 @@ typedef struct {
  */
 typedef struct {
 	u16 DeviceId;		/**< Unique ID  of device */
-	u32 BaseAddress;	/**< Base address of the device */
+	UINTPTR BaseAddress;	/**< Base address of the device */
 	u32 InputClockHz;	/**< Input clock frequency */
 	u8 IsCacheCoherent;		/**< If OSPI is Cache Coherent or not */
+	u8 ConnectionMode;	/**< OSPI connection mode */
 } XOspiPsv_Config;
 
 /**
@@ -132,6 +139,9 @@ typedef struct {
 	u8 UnalignReadBuffer[4] __attribute__ ((aligned(64)));
 #endif
 } XOspiPsv;
+
+/************************** Variable Definitions *****************************/
+extern XOspiPsv_Config XOspiPsv_ConfigTable[];
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XOSPIPSV_DAC_EN_OPTION	0x1U
@@ -229,6 +239,11 @@ typedef struct {
 
 #define XOSPIPSV_DLL_BYPASS_MODE	0x0U
 #define XOSPIPSV_DLL_MASTER_MODE	0x1U
+
+#define XOSPIPSV_CONNECTION_MODE_SINGLE		0x0U
+#define XOSPIPSV_CONNECTION_MODE_STACKED	0x1U
+
+#define XOSPIPSV_RXADDR_OVER_32BIT		0x100000000U
 
 /* Initialization and reset */
 XOspiPsv_Config *XOspiPsv_LookupConfig(u16 DeviceId);

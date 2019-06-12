@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartpsv_hw.c
-* @addtogroup uartpsv_v1_2
+* @addtogroup uartpsv_v1_3
 * @{
 *
 *
@@ -48,7 +48,7 @@
 * @note 	None.
 *
 ******************************************************************************/
-void XUartPsv_SendByte(u32 BaseAddress, u8 Data)
+void XUartPsv_SendByte(UINTPTR BaseAddress, u8 Data)
 {
 	/* Wait until there is space in TX FIFO */
 	while (XUartPsv_IsTransmitFull(BaseAddress)) {
@@ -72,7 +72,7 @@ void XUartPsv_SendByte(u32 BaseAddress, u8 Data)
 * @note 	None.
 *
 ******************************************************************************/
-u8 XUartPsv_RecvByte(u32 BaseAddress)
+u8 XUartPsv_RecvByte(UINTPTR BaseAddress)
 {
 	u32 RecievedByte;
 	/* Wait until there is data */
@@ -96,7 +96,7 @@ u8 XUartPsv_RecvByte(u32 BaseAddress)
 * @note 	None.
 *
 ******************************************************************************/
-void XUartPsv_ResetHw(u32 BaseAddress)
+void XUartPsv_ResetHw(UINTPTR BaseAddress)
 {
 	(void) BaseAddress;
 }

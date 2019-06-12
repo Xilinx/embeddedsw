@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_multi_scaler_l2.c
-* @addtogroup v_multi_scaler_v1_1
+* @addtogroup v_multi_scaler_v1_2
 * @{
 *
 * The Multi Scaler Layer-2 Driver.
@@ -359,136 +359,175 @@ static void XV_MultiScalerSetCoeff(XV_multi_scaler *MscPtr,
 	u32 num_phases = 1<<MscPtr->PhaseShift;
 	u32 num_taps	= MscPtr->NumTaps/2;
 	u32 val;
-	u32 i;
-	u32 j;
-	u32 baseAddr;
+	u32 i,j, numtaps, pad_offset;
+	u16 *baseAddr;
 	short *coeff;
 	u32 vfltcoef_offset;
 	u32 hfltcoef_offset;
-	float scale;
+	u32 scale;
 
-	scale = (float)MS_cfg->HeightIn / MS_cfg->HeightOut;
-	if ((scale >= 2) && (scale < 2.5))
-	{
-		if(MscPtr->NumTaps == 6)
-			coeff = &XV_multiscaler_fixedcoeff_taps6_6C[0][0];
-		else
-			coeff = &XV_multiscaler_fixedcoeff_taps8_12C[0][0];
-	}
-	if ((scale >= 2.5) && (scale < 3))
-	{
-		if(MscPtr->NumTaps >= 10)
-			coeff = &XV_multiscaler_fixedcoeff_taps10_12C[0][0];
-		else
-		{
-			if(MscPtr->NumTaps == 6)
+	scale = (MS_cfg->HeightIn * 10)/ MS_cfg->HeightOut;
+
+	if (scale < 10) { 	/* Upscale */
+		numtaps = XV_MULTISCALER_TAPS_6;
+		coeff = &XV_multiscaler_fixedcoeff_taps6_6C[0][0];
+	} else { 	/* Downscale */
+		switch (MscPtr->NumTaps) {
+			case XV_MULTISCALER_TAPS_6:
+				numtaps = XV_MULTISCALER_TAPS_6;
 				coeff = &XV_multiscaler_fixedcoeff_taps6_6C[0][0];
-			else
-				coeff = &XV_multiscaler_fixedcoeff_taps8_8C[0][0];
+				break;
+			case XV_MULTISCALER_TAPS_8:
+				if (scale > 15) {
+					numtaps = XV_MULTISCALER_TAPS_8;
+					coeff = &XV_multiscaler_fixedcoeff_taps8_8C[0][0];
+				} else {
+					numtaps = XV_MULTISCALER_TAPS_6;
+					coeff = &XV_multiscaler_fixedcoeff_taps6_6C[0][0];
+				}
+				break;
+			case XV_MULTISCALER_TAPS_10:
+				if (scale > 25) {
+					numtaps = XV_MULTISCALER_TAPS_10;
+					coeff = &XV_multiscaler_fixedcoeff_taps10_10C[0][0];
+				} else if (scale > 15) {
+					numtaps = XV_MULTISCALER_TAPS_8;
+					coeff = &XV_multiscaler_fixedcoeff_taps8_8C[0][0];
+				} else {
+					numtaps = XV_MULTISCALER_TAPS_6;
+					coeff = &XV_multiscaler_fixedcoeff_taps6_6C[0][0];
+				}
+				break;
+			case XV_MULTISCALER_TAPS_12:
+				if (scale > 35) {
+					numtaps = XV_MULTISCALER_TAPS_12;
+					coeff = &XV_multiscaler_fixedcoeff_taps12_12C[0][0];
+				} else if (scale > 25) {
+					numtaps = XV_MULTISCALER_TAPS_10;
+					coeff = &XV_multiscaler_fixedcoeff_taps10_10C[0][0];
+				} else if (scale > 15) {
+					numtaps = XV_MULTISCALER_TAPS_8;
+					coeff = &XV_multiscaler_fixedcoeff_taps8_8C[0][0];
+				} else {
+					numtaps = XV_MULTISCALER_TAPS_6;
+					coeff = &XV_multiscaler_fixedcoeff_taps6_6C[0][0];
+				}
+				break;
+			default:
+				xil_printf("\n\r ERROR: Invalid Tap size : %d \n\r", MscPtr->NumTaps);
+				return XST_FAILURE;
 		}
 	}
-
-	if ((scale >= 3) && (scale < 3.5))
-		if(MscPtr->NumTaps == 12)
-			coeff = &XV_multiscaler_fixedcoeff_taps12_12C[0][0];
-		else
-		{
-			if(MscPtr->NumTaps == 6)
-				coeff = &XV_multiscaler_fixedcoeff_taps6_6C[0][0];
-			if(MscPtr->NumTaps == 8)
-				coeff = &XV_multiscaler_fixedcoeff_taps8_8C[0][0];
-			if(MscPtr->NumTaps == 10)
-				coeff = &XV_multiscaler_fixedcoeff_taps10_10C[0][0];
-		}
-
-	if ((scale >= 3.5) || (scale < 2 && scale >= 1))
-	{
-		if(MscPtr->NumTaps == 6)
-			coeff = &XV_multiscaler_fixedcoeff_taps6_6C[0][0];
-		if(MscPtr->NumTaps == 8)
-			coeff = &XV_multiscaler_fixedcoeff_taps8_8C[0][0];
-		if(MscPtr->NumTaps == 10)
-			coeff = &XV_multiscaler_fixedcoeff_taps10_10C[0][0];
-		if(MscPtr->NumTaps == 12)
-			coeff = &XV_multiscaler_fixedcoeff_taps12_12C[0][0];
-	}
-	if(scale < 1)
-		coeff = &XV_multiscaler_fixedcoeff_taps6_12C[0][0];
 
 	vfltcoef_offset = XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_VFLTCOEFF_0_BASE +
 		MS_cfg->ChannelId *
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_FLTCOEFF_OFFSET;
 
-	baseAddr = MscPtr->Ctrl_BaseAddress + vfltcoef_offset;
+	baseAddr = (u16 *)(MscPtr->Ctrl_BaseAddress + vfltcoef_offset);
+	pad_offset = (MscPtr->NumTaps - numtaps)/2;
+
 	for (i = 0; i < num_phases; i++) {
-		for (j = 0; j < XV_MULTISCALER_TAPS_12; j = j + 2) {
-			val = (coeff[i * XV_MULTISCALER_TAPS_12 + (j + 1)] << 16) |
-				(coeff[i * XV_MULTISCALER_TAPS_12 + j] & 0x0000FFFF);
-			XV_multi_scaler_WriteReg(baseAddr,
-					((i * num_taps + j / 2) * 4), val);
-		}
+
+		/* zero padding is needed when scalefactor differs NUMTAPS */
+		for (j = 0; j < pad_offset; j++)
+			XV_multi_scaler_WriteReg16(baseAddr, j, 0);
+
+		baseAddr += pad_offset;
+
+		/* Programming V coefficients in MS_vcoeff registers */
+		for (j = 0; j < numtaps; j++)
+			XV_multi_scaler_WriteReg16(baseAddr, j, coeff[j]);
+
+		baseAddr += numtaps;
+
+		/* zero padding is needed when scalefactor differs NUMTAPS */
+		for (j = 0; j < pad_offset; j++)
+			XV_multi_scaler_WriteReg16(baseAddr, j, 0);
+
+		baseAddr += pad_offset;
+		coeff += numtaps;
 	}
 
-	scale = (float)MS_cfg->WidthIn / MS_cfg->WidthOut;
-	if ((scale >= 2) && (scale < 2.5))
-	{
-		if(MscPtr->NumTaps == 6)
-			coeff = &XV_multiscaler_fixedcoeff_taps6_6C[0][0];
-		else
-			coeff = &XV_multiscaler_fixedcoeff_taps8_12C[0][0];
-	}
-	if ((scale >= 2.5) && (scale < 3))
-	{
-		if(MscPtr->NumTaps >= 10)
-			coeff = &XV_multiscaler_fixedcoeff_taps10_12C[0][0];
-		else
-		{
-			if(MscPtr->NumTaps == 6)
+	scale = (MS_cfg->WidthIn * 10)/ MS_cfg->WidthOut;
+
+	if (scale < 10) { 	/* Upscale */
+		numtaps = XV_MULTISCALER_TAPS_6;
+		coeff = &XV_multiscaler_fixedcoeff_taps6_6C[0][0];
+	} else { 	/* Downscale */
+		switch (MscPtr->NumTaps) {
+			case XV_MULTISCALER_TAPS_6:
+				numtaps = XV_MULTISCALER_TAPS_6;
 				coeff = &XV_multiscaler_fixedcoeff_taps6_6C[0][0];
-			else
-				coeff = &XV_multiscaler_fixedcoeff_taps8_8C[0][0];
+				break;
+			case XV_MULTISCALER_TAPS_8:
+				if (scale > 15) {
+					numtaps = XV_MULTISCALER_TAPS_8;
+					coeff = &XV_multiscaler_fixedcoeff_taps8_8C[0][0];
+				} else {
+					numtaps = XV_MULTISCALER_TAPS_6;
+					coeff = &XV_multiscaler_fixedcoeff_taps6_6C[0][0];
+				}
+				break;
+			case XV_MULTISCALER_TAPS_10:
+				if (scale > 25) {
+					numtaps = XV_MULTISCALER_TAPS_10;
+					coeff = &XV_multiscaler_fixedcoeff_taps10_10C[0][0];
+				} else if (scale > 15) {
+					numtaps = XV_MULTISCALER_TAPS_8;
+					coeff = &XV_multiscaler_fixedcoeff_taps8_8C[0][0];
+				} else {
+					numtaps = XV_MULTISCALER_TAPS_6;
+					coeff = &XV_multiscaler_fixedcoeff_taps6_6C[0][0];
+				}
+				break;
+			case XV_MULTISCALER_TAPS_12:
+				if (scale > 35) {
+					numtaps = XV_MULTISCALER_TAPS_12;
+					coeff = &XV_multiscaler_fixedcoeff_taps12_12C[0][0];
+				} else if (scale > 25) {
+					numtaps = XV_MULTISCALER_TAPS_10;
+					coeff = &XV_multiscaler_fixedcoeff_taps10_10C[0][0];
+				} else if (scale > 15) {
+					numtaps = XV_MULTISCALER_TAPS_8;
+					coeff = &XV_multiscaler_fixedcoeff_taps8_8C[0][0];
+				} else {
+					numtaps = XV_MULTISCALER_TAPS_6;
+					coeff = &XV_multiscaler_fixedcoeff_taps6_6C[0][0];
+				}
+				break;
+			default:
+				xil_printf("\n\r ERROR: Invalid Tap size : %d \n\r", MscPtr->NumTaps);
+				return XST_FAILURE;
 		}
 	}
-
-	if ((scale >= 3) && (scale < 3.5))
-		if(MscPtr->NumTaps == 12)
-			coeff = &XV_multiscaler_fixedcoeff_taps12_12C[0][0];
-		else
-		{
-			if(MscPtr->NumTaps == 6)
-				coeff = &XV_multiscaler_fixedcoeff_taps6_6C[0][0];
-			if(MscPtr->NumTaps == 8)
-				coeff = &XV_multiscaler_fixedcoeff_taps8_8C[0][0];
-			if(MscPtr->NumTaps == 10)
-				coeff = &XV_multiscaler_fixedcoeff_taps10_10C[0][0];
-		}
-
-	if ((scale >= 3.5) || (scale < 2 && scale >= 1))
-	{
-		if(MscPtr->NumTaps == 6)
-			coeff = &XV_multiscaler_fixedcoeff_taps6_6C[0][0];
-		if(MscPtr->NumTaps == 8)
-			coeff = &XV_multiscaler_fixedcoeff_taps8_8C[0][0];
-		if(MscPtr->NumTaps == 10)
-			coeff = &XV_multiscaler_fixedcoeff_taps10_10C[0][0];
-		if(MscPtr->NumTaps == 12)
-			coeff = &XV_multiscaler_fixedcoeff_taps12_12C[0][0];
-	}
-	if(scale < 1)
-		coeff = &XV_multiscaler_fixedcoeff_taps6_12C[0][0];
 
 	hfltcoef_offset = XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_HFLTCOEFF_0_BASE +
 		MS_cfg->ChannelId *
 		XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_FLTCOEFF_OFFSET;
 
-	baseAddr = MscPtr->Ctrl_BaseAddress + hfltcoef_offset;
+	baseAddr = (u16 *)(MscPtr->Ctrl_BaseAddress + hfltcoef_offset);
+	pad_offset = (MscPtr->NumTaps - numtaps)/2;
+
 	for (i = 0; i < num_phases; i++) {
-		for (j = 0; j < XV_MULTISCALER_TAPS_12; j = j + 2) {
-			val = (coeff[i * XV_MULTISCALER_TAPS_12 + (j + 1)] << 16) |
-				(coeff[i * XV_MULTISCALER_TAPS_12 + j] & 0x0000FFFF);
-			XV_multi_scaler_WriteReg(baseAddr,
-					((i * num_taps + j / 2) * 4), val);
-		}
+
+		/* zero padding is needed when scalefactor differs NUMTAPS */
+		for (j = 0; j < pad_offset; j++)
+			XV_multi_scaler_WriteReg16(baseAddr, j, 0);
+
+		baseAddr += pad_offset;
+
+		/* Programming H coefficients in MS_hcoeff registers */
+		for (j = 0; j < numtaps; j++)
+			XV_multi_scaler_WriteReg16(baseAddr, j, coeff[j]);
+
+		baseAddr += numtaps;
+
+		/* zero padding is needed when scalefactor differs NUMTAPS */
+		for (j = 0; j < pad_offset; j++)
+			XV_multi_scaler_WriteReg16(baseAddr, j, 0);
+
+		baseAddr += pad_offset;
+		coeff += numtaps;
 	}
 }
 

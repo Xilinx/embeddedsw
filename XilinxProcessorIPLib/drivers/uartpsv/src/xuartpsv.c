@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartpsv.c
-* @addtogroup uartpsv_v1_2
+* @addtogroup uartpsv_v1_3
 * @{
 *
 * This file contains the implementation of the interface functions for
@@ -30,6 +30,7 @@
 
 #include "xstatus.h"
 #include "xuartpsv.h"
+#include "xuartpsv_xfer.h"
 #include "xil_io.h"
 
 /************************** Constant Definitions *****************************/
@@ -49,10 +50,6 @@
 /************************** Function Prototypes ******************************/
 
 static void XUartPsv_StubHandler(void *CallBackRef, u32 Event, u32 ByteCount);
-
-u32  XUartPsv_SendBuffer(XUartPsv *InstancePtr);
-
-u32  XUartPsv_ReceiveBuffer(XUartPsv *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -96,7 +93,7 @@ u32  XUartPsv_ReceiveBuffer(XUartPsv *InstancePtr);
 *
 ******************************************************************************/
 s32 XUartPsv_CfgInitialize(XUartPsv *InstancePtr,
-			XUartPsv_Config * Config, u32 EffectiveAddr)
+			XUartPsv_Config * Config, UINTPTR EffectiveAddr)
 {
 	s32 Status;
 	u32 LineCtrlRegister;
@@ -138,8 +135,8 @@ s32 XUartPsv_CfgInitialize(XUartPsv *InstancePtr,
 		/* Set the FIFO trigger level to 1/2 full of Fifo's size */
 		XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
 				XUARTPSV_UARTIFLS_OFFSET,
-				(XUARTPSV_UARTIFLS_RXIFLSEL_1_2 |
-				XUARTPSV_UARTIFLS_TXIFLSEL_1_2));
+				((u32)XUARTPSV_UARTIFLS_RXIFLSEL_1_2 |
+				(u32)XUARTPSV_UARTIFLS_TXIFLSEL_1_2));
 
 		/*
 		 * Set up the default data format: 8 bit data, 1 stop bit,
@@ -176,7 +173,7 @@ s32 XUartPsv_CfgInitialize(XUartPsv *InstancePtr,
 				XUARTPSV_UARTICR_OFFSET,
 				XUARTPSV_UARTIMSC_MASK);
 
-		Status = XST_SUCCESS;
+		Status = (s32)XST_SUCCESS;
 	}
 
 	return Status;
@@ -316,11 +313,15 @@ u32 XUartPsv_Recv(XUartPsv *InstancePtr, u8 *BufferPtr, u32 NumBytes)
 u32 XUartPsv_SendBuffer(XUartPsv *InstancePtr)
 {
 	u32 SentCount = 0U;
+	u32 IsBusy;
 
 	/*
 	 * Check is TX busy
 	 */
-	while (XUartPsv_IsTransmitbusy(InstancePtr->Config.BaseAddress));
+	IsBusy = (u32)XUartPsv_IsTransmitbusy(InstancePtr->Config.BaseAddress);
+	while (IsBusy == (u32)TRUE) {
+		IsBusy = (u32)XUartPsv_IsTransmitbusy(InstancePtr->Config.BaseAddress);
+	}
 
 	/*
 	 * If the TX FIFO is full, send nothing.
@@ -438,8 +439,8 @@ u32 XUartPsv_ReceiveBuffer(XUartPsv *InstancePtr)
 ******************************************************************************/
 s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate)
 {
-	u32 BAUDIDIV_Value;	/* Value for integer baud rate divisor */
-	u16 BAUDFDIV_Value;	/* Value for fractional baud rate divisor */
+	u16 BAUDIDIV_Value;	/* Value for integer baud rate divisor */
+	u8 BAUDFDIV_Value;	/* Value for fractional baud rate divisor */
 	u32 BAUDDIV_Value;
 	u32 CalcBaudRate;	/* Calculated baud rate */
 	u32 BaudError;		/* Diff between calculated and requested
@@ -464,8 +465,8 @@ s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate)
 	 * Make sure the baud rate is not impossible by large.
 	 * Fastest possible baud rate is Input Clock / 16.
 	 */
-	if ((BaudRate * 16) > InstancePtr->Config.InputClockHz) {
-		return XST_UART_BAUD_ERROR;
+	if ((BaudRate * 16U) > InstancePtr->Config.InputClockHz) {
+		return (s32)XST_UART_BAUD_ERROR;
 	}
 
 	InputClk = InstancePtr->Config.InputClockHz;
@@ -478,32 +479,32 @@ s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate)
 	 */
 
 	/* Calculate the baud divisor integer value */
-	BAUDIDIV_Value = InputClk / (BaudRate * 16);
-	BAUDFDIV_Value = InputClk % (BaudRate * 16);
+	BAUDIDIV_Value = (u16)(InputClk / (BaudRate * 16U));
+	BAUDFDIV_Value = (u8)(InputClk % (BaudRate * 16U));
 
 	Best_BAUDIDIV = BAUDIDIV_Value;
 	Best_BAUDFDIV = BAUDFDIV_Value;
 
-	if (BAUDFDIV_Value != 0) {
+	if (BAUDFDIV_Value != 0U) {
 		/*
 		 * Determine the fractional Baud rate divider.
 		 * It can be 0 to 63.
 		 * Loop through all possible combinations
 		 */
-		for (BAUDFDIV_Value = 1; BAUDFDIV_Value < 64;
+		for (BAUDFDIV_Value = 1; BAUDFDIV_Value < 64U;
 				BAUDFDIV_Value++) {
 
 			/*
 			 * Multiply BAUDDIV_Value with 64 to avoid
 			 * fractional values
 			 */
-			BAUDDIV_Value = 64 * BAUDIDIV_Value+BAUDFDIV_Value;
+			BAUDDIV_Value = (64U * (u32)BAUDIDIV_Value)+BAUDFDIV_Value;
 
 			/*
 			 * Calculate the baud rate with BAUDDIV_Value divided
 			 * by 64
 			 */
-			CalcBaudRate = (InputClk / (16 * BAUDDIV_Value)) * 64;
+			CalcBaudRate = (InputClk / (16U * BAUDDIV_Value)) * 64U;
 
 			/* Avoid unsigned integer underflow */
 			if (BaudRate > CalcBaudRate) {
@@ -525,9 +526,9 @@ s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate)
 		}
 
 		/* Make sure the best error is not too large. */
-		PercentError = (Best_Error * 100) / BaudRate;
+		PercentError = (Best_Error * 100U) / BaudRate;
 		if (XUARTPSV_MAX_BAUD_ERROR_RATE < PercentError) {
-			return XST_UART_BAUD_ERROR;
+			return (s32)XST_UART_BAUD_ERROR;
 		}
 	}
 
@@ -551,7 +552,7 @@ s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate)
 	XUartPsv_EnableUart(InstancePtr);
 	InstancePtr->BaudRate = BaudRate;
 
-	return XST_SUCCESS;
+	return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -579,12 +580,16 @@ void XUartPsv_ProgramCtrlReg(XUartPsv *InstancePtr, u32 CtrlRegister)
 {
 	u32 LineCtrlRegister;
 	u32 TempCtrlRegister;
+	u32 IsBusy;
 
 	/*
 	 * Check is TX completed. If Uart is disabled in the middle, cannot
 	 * recover. So, keep this check before disable.
 	 */
-	while (XUartPsv_IsTransmitbusy(InstancePtr->Config.BaseAddress));
+	IsBusy = (u32)XUartPsv_IsTransmitbusy(InstancePtr->Config.BaseAddress);
+	while (IsBusy == (u32)TRUE) {
+		IsBusy = (u32)XUartPsv_IsTransmitbusy(InstancePtr->Config.BaseAddress);
+	}
 
 	/* Disable UART */
 	TempCtrlRegister = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,

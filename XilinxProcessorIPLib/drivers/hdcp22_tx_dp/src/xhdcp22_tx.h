@@ -7,7 +7,7 @@
 /**
 *
 * @file xhdcp22_tx.h
-* @addtogroup hdcp22_tx_v1_0
+* @addtogroup hdcp22_tx_dp_v2_0
 * @{
 * @details
 *
@@ -257,7 +257,7 @@ typedef enum {
 	XHDCP22_TX_TOPOLOGY_DEVICECNT,
 	XHDCP22_TX_TOPOLOGY_MAXDEVSEXCEEDED,
 	XHDCP22_TX_TOPOLOGY_MAXCASCADEEXCEEDED,
-	XHDCP22_TX_TOPOLOGY_HDCP20REPEATERDOWNSTREAM,
+	XHDCP22_TX_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM,
 	XHDCP22_TX_TOPOLOGY_HDCP1DEVICEDOWNSTREAM,
 	XHDCP22_TX_TOPOLOGY_INVALID
 } XHdcp22_Tx_TopologyField;
@@ -479,8 +479,8 @@ typedef struct
 	u8  MaxCascadeExceeded;
 
 	/** Flag used to indicate topology information. When set to one,
-	    indicates presence of an HDCP2.0-compliant Repeater in the topology. */
-	u8  Hdcp20RepeaterDownstream;
+	    indicates presence of an HDCP2.1-compliant Device in the topology. */
+	u8  Hdcp2LegacyDeviceDownstream;
 
 	/** Flag used to indicate topology information. When set to one,
 	    indicates presence of an HDCP1.x-compliant device in the topology. */
@@ -655,6 +655,7 @@ void XHdcp22Tx_LoadLc128(XHdcp22_Tx *InstancePtr, const u8 *Lc128Ptr);
 int XHdcp22Tx_LoadRevocationTable(XHdcp22_Tx *InstancePtr, const u8 *SrmPtr);
 XHdcp22_Tx_RevocationList* XHdcp22Tx_GetRevocationReceiverIdList(XHdcp22_Tx *InstancePtr);
 u8 XHdcp22Tx_IsDeviceRevoked(XHdcp22_Tx *InstancePtr, u8 *RecvIdPtr);
+void XHdcp22Tx_RevokeReceiverId(XHdcp22_Tx *InstancePtr, u8 *ReceiverIdPtr);
 
 /* Functions for repeater downstream interface */
 XHdcp22_Tx_Topology *XHdcp22Tx_GetTopology(XHdcp22_Tx *InstancePtr);

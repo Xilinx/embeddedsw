@@ -7,7 +7,7 @@
 /**
 *
 * @file xospipsv_g.c
-* @addtogroup ospipsv_v1_2
+* @addtogroup ospipsv_v1_3
 * @{
 *
 * This file contains a configuration table that specifies the configuration of
@@ -50,7 +50,8 @@ XOspiPsv_Config XOspiPsv_ConfigTable[XPAR_XOSPIPSV_NUM_INSTANCES] =
 		XPAR_XOSPIPSV_0_DEVICE_ID,
 		XPAR_XOSPIPSV_0_BASEADDR,
 		XPAR_XOSPIPSV_0_OSPI_CLK_FREQ_HZ,
-		XPAR_XOSPIPSV_0_IS_CACHE_COHERENT
+		XPAR_XOSPIPSV_0_IS_CACHE_COHERENT,
+		XPAR_XOSPIPSV_0_OSPI_MODE
 	}
 };
 /** @} */

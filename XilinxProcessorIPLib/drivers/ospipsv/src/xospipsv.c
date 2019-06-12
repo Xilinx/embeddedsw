@@ -7,7 +7,7 @@
 /**
 *
 * @file xospipsv.c
-* @addtogroup ospipsv_v1_2
+* @addtogroup ospipsv_v1_3
 * @{
 *
 * This file implements the functions required to use the OSPIPSV hardware to
@@ -34,6 +34,7 @@
 *                     masked data writes.
 *       sk   02/20/20 Make XOspiPsv_SetDllDelay() API as user API.
 *       sk   02/20/20 Added support for DLL Master mode.
+* 1.3   sk   10/06/20 Clear the ISR for polled mode transfers.
 *
 * </pre>
 *
@@ -103,6 +104,7 @@ u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr,
 		InstancePtr->Config.BaseAddress = ConfigPtr->BaseAddress;
 		InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
 		InstancePtr->Config.IsCacheCoherent = ConfigPtr->IsCacheCoherent;
+		InstancePtr->Config.ConnectionMode = ConfigPtr->ConnectionMode;
 		/* Other instance variable initializations */
 		InstancePtr->SendBufferPtr = NULL;
 		InstancePtr->RecvBufferPtr = NULL;
@@ -378,6 +380,12 @@ u32 XOspiPsv_PollTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 		}
 	}
 
+	/* Clear the ISR */
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+		XOSPIPSV_IRQ_STATUS_REG,
+		XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_IRQ_STATUS_REG));
+
 	if (Status != (u32)XST_SUCCESS) {
 		(void)XOspiPsv_CheckOspiIdle(InstancePtr);
 	} else {
@@ -497,6 +505,12 @@ u32 XOspiPsv_CheckDmaDone(XOspiPsv *InstancePtr)
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 		XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG,
 		(XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG_IND_OPS_DONE_STATUS_FLD_MASK));
+
+	/* Clear the ISR */
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+		XOSPIPSV_IRQ_STATUS_REG,
+		XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_IRQ_STATUS_REG));
 
 	Status = XOspiPsv_CheckOspiIdle(InstancePtr);
 
@@ -665,12 +679,16 @@ u32 XOspiPsv_IntrHandler(XOspiPsv *InstancePtr)
 			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG,
 				(XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG_IND_OPS_DONE_STATUS_FLD_MASK));
-			if (InstancePtr->Config.IsCacheCoherent == 0U) {
-				Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
+			if (Msg->Xfer64bit != (u8)1U) {
+				if (InstancePtr->Config.IsCacheCoherent == 0U) {
+					Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
+				}
 			}
 			/* Clear the ISR */
 			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_OSPIDMA_DST_I_STS, XOSPIPSV_OSPIDMA_DST_I_EN_DONE_MASK);
+			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_IRQ_STATUS_REG, XOSPIPSV_IRQ_MASK_REG_INDIRECT_OP_DONE_MASK_FLD_MASK);
 			if (InstancePtr->IsUnaligned != 0U) {
 				InstancePtr->RecvBufferPtr += Msg->ByteCount;
 				Msg->Addr += Msg->ByteCount;
@@ -691,7 +709,7 @@ u32 XOspiPsv_IntrHandler(XOspiPsv *InstancePtr)
 				InstancePtr->StatusHandler(InstancePtr->StatusRef,
 						XST_SPI_TRANSFER_DONE);
 				XOspiPsv_DeAssertCS(InstancePtr);
-				InstancePtr->IsBusy = FALSE;
+				InstancePtr->IsBusy = (u32)FALSE;
 			}
 		}
 	} else {
@@ -802,6 +820,7 @@ u32 XOspiPsv_SetDllDelay(XOspiPsv *InstancePtr)
 	}
 
 	if (InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_SDR_NON_PHY) {
+		InstancePtr->Extra_DummyCycle = 0U;
 		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_PHY_CONFIGURATION_REG, 0x0U);
 		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
@@ -847,7 +866,7 @@ u32 XOspiPsv_SetDllDelay(XOspiPsv *InstancePtr)
 				XOSPIPSV_PHY_CONFIGURATION_REG,
 				XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESET_FLD_MASK);
 		Status = XOspiPsv_WaitForLock(InstancePtr,
-				XOSPIPSV_DLL_OBSERVABLE_LOWER_REG_DLL_OBSERVABLE_LOWER_LOOPBACK_LOCK_FLD_MASK);
+				XOSPIPSV_DLL_OBSERVABLE_LOWER_LOOPBACK_LOCK_FLD_MASK);
 		if (Status != (u32)XST_SUCCESS) {
 			goto RETURN_PATH;
 		}

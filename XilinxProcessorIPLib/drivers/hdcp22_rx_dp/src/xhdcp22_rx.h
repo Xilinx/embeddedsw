@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xhdcp22_rx.h
-* @addtogroup hdcp22_rx_v1_1
+* @addtogroup hdcp22_rx_dp_v2_0
 * @{
 * @details
 *
@@ -259,7 +259,7 @@ typedef enum {
 	XHDCP22_RX_TOPOLOGY_DEVICECNT,
 	XHDCP22_RX_TOPOLOGY_MAXDEVSEXCEEDED,
 	XHDCP22_RX_TOPOLOGY_MAXCASCADEEXCEEDED,
-	XHDCP22_RX_TOPOLOGY_HDCP20REPEATERDOWNSTREAM,
+	XHDCP22_RX_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM,
 	XHDCP22_RX_TOPOLOGY_HDCP1DEVICEDOWNSTREAM,
 	XHDCP22_RX_TOPOLOGY_INVALID
 } XHdcp22_Rx_TopologyField;
@@ -588,8 +588,8 @@ typedef struct
 	    than four levels of repeaters have been casaded together. */
 	u8 MaxCascadeExceeded;
 	/** Flag used to indicate topology information. When set to one,
-	    indicates presence of an HDCP2.0-compliant Repeater in the topology. */
-	u8 Hdcp20RepeaterDownstream;
+	    indicates presence of an HDCP2.1-compliant Device in the topology. */
+	u8 Hdcp2LegacyDeviceDownstream;
 	/** Flag used to indicate topology information. When set to one,
 	    indicates precense of an HDCP1.x-compliant device in the topology. */
 	u8 Hdcp1DeviceDownstream;

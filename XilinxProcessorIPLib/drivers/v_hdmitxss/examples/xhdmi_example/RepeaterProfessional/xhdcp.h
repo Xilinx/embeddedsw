@@ -64,7 +64,7 @@ typedef struct
   u8  DeviceList[XHDCP_MAX_DEVICE_CNT_HDCP14][XHDCP_DEVICE_ID_SIZE];
   u8  MaxDevsExceeded;
   u8  MaxCascadeExceeded;
-  u8  Hdcp20RepeaterDownstream;
+  u8  Hdcp2LegacyDeviceDownstream;
   u8  Hdcp1DeviceDownstream;
 } XHdcp_Topology;
 
