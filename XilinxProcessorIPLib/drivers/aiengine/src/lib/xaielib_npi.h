@@ -1,28 +1,8 @@
 /*******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 
 /******************************************************************************/
 /**
@@ -38,7 +18,7 @@
 * ----- ------  -------- -----------------------------------------------------
 * 1.0  Jubaer  03/08/2019  Initial creation
 * 1.1  Hyun    04/04/2019  Add the unlock and lock definitions
-* 1.2  Wendy   09/15/2019  Remove AIE array reset and shim reset implementation
+* 1.2  Wendy   02/28/2020  Add NPI interrupt registers definition
 * </pre>
 *
 *******************************************************************************/
@@ -48,6 +28,40 @@
 /***************************** Include Files *********************************/
 
 /***************************** Constant Definitions **************************/
+
+#define XAIE_NPI_BASEADDR				0xF70A0000
+
+#define XAIE_NPI_PCSR_MASK				((XAIE_NPI_BASEADDR) + 0X00000000)
+#define XAIE_NPI_PCSR_MASK_SHIM_RESET_MSK		0x08000000
+#define XAIE_NPI_PCSR_MASK_SHIM_RESET_LSB		27U
+#define XAIE_NPI_PCSR_MASK_AIE_ARRAY_RESET_MASK		0x04000000
+#define XAIE_NPI_PCSR_MASK_AIE_ARRAY_RESET_LSB		26U
+
+#define XAIE_NPI_PCSR_CONTROL				((XAIE_NPI_BASEADDR) + 0X00000004)
+#define XAIE_NPI_PCSR_CONTROL_SHIM_RESET_MSK		0x08000000
+#define XAIE_NPI_PCSR_CONTROL_SHIM_RESET_LSB		27U
+#define XAIE_NPI_PCSR_CONTROL_AIE_ARRAY_RESET_MASK	0x04000000
+#define XAIE_NPI_PCSR_CONTROL_AIE_ARRAY_RESET_LSB	26U
+
+#define XAIE_NPI_PCSR_LOCK				((XAIE_NPI_BASEADDR) + 0X0000000C)
+#define XAIE_NPI_PCSR_LOCK_STATE_LSB			0
+#define XAIE_NPI_PCSR_LOCK_STATE_UNLOCK_CODE		0xF9E8D7C6
+#define XAIE_NPI_PCSR_LOCK_STATE_LOCK_CODE		0x0
+
+#define XAIE_NPI_ISR					((XAIE_NPI_BASEADDR) + 0x30U)
+#define XAIE_NPI_ITR					((XAIE_NPI_BASEADDR) + 0x34U)
+#define XAIE_NPI_IMR0					((XAIE_NPI_BASEADDR) + 0x38U)
+#define XAIE_NPI_IER0					((XAIE_NPI_BASEADDR) + 0x3CU)
+#define XAIE_NPI_IDR0					((XAIE_NPI_BASEADDR) + 0x40U)
+#define XAIE_NPI_IMR1					((XAIE_NPI_BASEADDR) + 0x44U)
+#define XAIE_NPI_IER1					((XAIE_NPI_BASEADDR) + 0x48U)
+#define XAIE_NPI_IDR1					((XAIE_NPI_BASEADDR) + 0x4CU)
+#define XAIE_NPI_IMR2					((XAIE_NPI_BASEADDR) + 0x50U)
+#define XAIE_NPI_IER2					((XAIE_NPI_BASEADDR) + 0x54U)
+#define XAIE_NPI_IDR2					((XAIE_NPI_BASEADDR) + 0x58U)
+#define XAIE_NPI_IMR3					((XAIE_NPI_BASEADDR) + 0x5CU)
+#define XAIE_NPI_IER3					((XAIE_NPI_BASEADDR) + 0x60U)
+#define XAIE_NPI_IDR3					((XAIE_NPI_BASEADDR) + 0x64U)
 
 /************************** Function Prototypes  *****************************/
 

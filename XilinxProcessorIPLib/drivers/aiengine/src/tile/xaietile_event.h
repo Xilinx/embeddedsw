@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -43,6 +23,7 @@
 * 1.5   Jubaer  02/26/2019  Add group Event API
 * 1.6   Jubaer  03/01/2019  Add Combo Event API
 * 1.7   Jubaer  04/17/2019  Add Stream Switch Event Port Selection API
+* 2.8   Wendy   02/28/2020  Add events notification APIs
 * </pre>
 *
 ******************************************************************************/
@@ -52,6 +33,8 @@
 /***************************** Include Files *********************************/
 
 /***************************** Constant Definitions **************************/
+#define XAIETILE_BCEVENTS_MAX_NOTIFY			0x7U
+#define XAIETILE_BCEVENTS_NOTIFY_MASK			0x00FFU
 #define XAIETILE_EVENT_TRACING_INVALID_VAL		0xFFU
 
 #define XAIETILE_EVENT_NUM_TRACE_EVENT			8U
@@ -516,6 +499,21 @@
 #define XAIETILE_EVENT_SHIM_USER_EVENT_2			126U
 #define XAIETILE_EVENT_SHIM_USER_EVENT_3			127U
 
+/**
+ * Events and Errors handling constants
+ */
+#define XAIETILE_EVENTS_ALL		0x0  /**< ALL event */
+#define XAIETILE_EVENTS_BROADCAST_MAX	0x7U /**< Max broadcast signal for
+						  event notification.
+						  broadcast signal 0 - 7 is
+						  used by driver for event
+						  notification */
+#define XAIETILE_EVENTS_BROADCAST_MASK	0xFFU /**< broadcast signals mask for
+						   event notification */
+#define XAIETILE_EVENTS_SHIM_INTEVENT_MASK	0xF0000U /**< Shim internal
+							      events mask for
+							      SHIM events
+							      notification */
 /***************************** Macro Definitions *****************************/
 
 /***************************** Type Definitions ******************************/
@@ -632,6 +630,18 @@ u8 XAieGbl_MemEventBroadcastBlockClearColumn(XAieGbl_Tile *TileInstPtr, u8 Dir, 
  * Block all
  */
 u8 XAieGbl_Column_EventBroadcastBlockAll(XAieGbl_Tile *TileInstPtr);
+
+/**
+ * Events Handling functions
+ */
+int XAieTile_EventRegisterNotification(XAieGbl *AieInst, XAie_LocType *Loc, u32 NumTiles, u8 Module, u8 Event, XAieTile_EventCallBack Cb, void *Arg);
+int XAieTile_EventUnregisterNotification(XAieGbl *AieInst, XAie_LocType *Loc, u32 NumTiles, u8 Module, u8 Event);
+void XAieTile_EventsSetupDefaultHandlers(XAieGbl *AieInst);
+int XAieTile_EventsHandlingInitialize(XAieGbl *AieInst);
+int XAieTile_EventsEnableInterrupt(XAieGbl *AieInst);
+int XAieTile_EventsDisableInterrupt(XAieGbl *AieInst);
+void XAieTile_EventsIsr(void *Data);
+void XAieTile_EventsWaitForPending(XAieGbl *AieInst);
 
 #endif		/* end of protection macro */
 

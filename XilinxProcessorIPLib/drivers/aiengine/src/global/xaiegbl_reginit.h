@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -48,6 +28,7 @@
 * 1.6  Hyun    12/13/2018  Added the core PC event registers
 * 1.9  Jubaer  02/26/2019  Added the Group Event registers
 * 2.0  Hyun    07/01/2019  Added XAIETILE_TIMER_MODULE_* macros
+* 2.1  Wendy   12/18/2019  Added timer control and timer events macros
 * </pre>
 *
 ******************************************************************************/
@@ -116,6 +97,10 @@ typedef struct {
 	u32 CtrlOff;                    /**< Timer control Register offset */
 	u32 LowOff;                     /**< Timer low value Register offset */
 	u32 HighOff;                    /**< Timer high value Register offset */
+	u32 TrigEventLowValOff;         /**< Timer trigger evel low value register offset */
+	u32 TrigEventHighValOff;        /**< Timer trigger evel high value register offset */
+	XAieGbl_RegFldAttr CtrlReset;   /**< Timer control reset field */
+	XAieGbl_RegFldAttr CtrlResetEvent; /**< Timer control reset event field */
 } XAieGbl_RegTimer;
 
 /* Index values to TimerReg[] */
@@ -513,6 +498,27 @@ typedef struct {
 	XAieGbl_RegFldAttr PortIndex[8U];	/**< Port index */
 	XAieGbl_RegFldAttr PortMode[8U];	/**< Port type */
 } XAieGbl_RegStrmSwEventPortSelect;
+
+/**
+ * This typedef contains the attributes for 1st level interrupt controller
+ * set irq event register.
+ */
+typedef struct {
+	u32 SwitchOff;					/**< Switch offset */
+	u32 MaskOff;					/**< Mask register offset */
+	u32 EnableOff;					/**< Enable register offset */
+	u32 DisableOff;					/**< Disable register offset */
+	u32 StatusOff;					/**< Status register offset */
+	u32 IrqNoOff;					/**< Irq number register offset */
+	u32 IrqEventOff;				/**< Irq event register offset */
+	u32 BlockNorthSetOff;				/**< Block north set register offset */
+	u32 BlockNorthClearOff;				/**< Block north clear register offset */
+	u32 BlockNorthValueOff;				/**< Block north value register offset */
+	XAieGbl_RegFldAttr IrqsMask;			/**< Irqs mask enable/disable/mask register field */
+	XAieGbl_RegFldAttr IrqNoFld;			/**< Irq No. register field */
+	XAieGbl_RegFldAttr BcEvents;			/**< Broadcast events field */
+	XAieGbl_RegFldAttr IrqEventRegFld[4U];	/**< Irq event register field */
+} XAieGbl_1stIrqCntr;
 
 /**************************** Macro Definitions *****************************/
 

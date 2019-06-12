@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -44,6 +24,7 @@
 * 1.4  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.5  Jubaer  05/24/2019  Add PL type on TileType attribute
 * 1.6  Nishad  07/31/2019  Add support for RPU baremetal
+* 1.7  Wendy   01/20/2020  Add tiles pointer to AIE instance
 * </pre>
 *
 ******************************************************************************/
@@ -51,6 +32,7 @@
 /***************************** Include Files *********************************/
 #include "xaiegbl_defs.h"
 #include "xaiegbl.h"
+#include "xaietile_event.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -116,6 +98,7 @@ void XAieGbl_CfgInitialize(XAieGbl *InstancePtr, XAieGbl_Tile *TileInstPtr,
 		InstancePtr->Config = ConfigPtr;
 		InstancePtr->IsReady = XAIE_COMPONENT_IS_READY;
 		XAieLib_InitDev();
+		InstancePtr->Tiles = TileInstPtr;
 
 #ifdef XAIE_BASE_ARRAY_ADDR_OFFSET
 ConfigPtr->ArrOffset = XAIE_BASE_ARRAY_ADDR_OFFSET;
@@ -126,7 +109,7 @@ ConfigPtr->ArrOffset = XAIE_BASE_ARRAY_ADDR_OFFSET;
 
 			for(ColIdx=0; ColIdx < ConfigPtr->NumCols; ColIdx++) {
 
-				TilePtr = (XAieGbl_Tile *)((u64)TileInstPtr +
+				TilePtr = (XAieGbl_Tile *)((char *)TileInstPtr +
                                         ((ColIdx * (ConfigPtr->NumRows + 1)) *
                                         sizeof(XAieGbl_Tile)) +
                                         (RowIdx * sizeof(XAieGbl_Tile)));
@@ -185,7 +168,7 @@ ConfigPtr->ArrOffset = XAIE_BASE_ARRAY_ADDR_OFFSET;
 		/* Initialize the Shim tiles here */
 		for(ColIdx=0; ColIdx < ConfigPtr->NumCols; ColIdx++) {
 
-                        TilePtr = (XAieGbl_Tile *)((u64)TileInstPtr +
+                        TilePtr = (XAieGbl_Tile *)((char *)TileInstPtr +
                                         ((ColIdx * (ConfigPtr->NumRows + 1)) *
                                         sizeof(XAieGbl_Tile)));
 
@@ -232,6 +215,8 @@ ConfigPtr->ArrOffset = XAIE_BASE_ARRAY_ADDR_OFFSET;
 				TileAddr, 0U, ColIdx, TilePtr->NocModAddr,
 				TilePtr->PlModAddr);
 		}
+		XAie_print("Initialize events handlers.\n");
+		XAieTile_EventsSetupDefaultHandlers(InstancePtr);
 	}
 }
 

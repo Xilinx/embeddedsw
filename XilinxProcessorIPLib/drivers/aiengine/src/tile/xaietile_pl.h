@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2019-2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -39,6 +19,7 @@
 * 1.0  Jubaer  01/29/2019  Initial creation
 * 1.1  Jubaer  03/07/2019  Add Shim reset API
 * 1.2  Hyun    06/27/2019  Add XAieTile_PlReadTimer()
+* 1.3  Wendy   02/26/2020  Add get/set 1st level IRQ events
 * </pre>
 *
 ******************************************************************************/
@@ -50,6 +31,11 @@
 /***************************** Constant Definitions **************************/
 #define XAIETILE_PL_BLOCK_SWITCHA			0U
 #define XAIETILE_PL_BLOCK_SWITCHB			1U
+
+#define XAIETILE_PL_INTERN_EVENT16			16U
+#define XAIETILE_PL_INTERN_EVENT17			17U
+#define XAIETILE_PL_INTERN_EVENT18			18U
+#define XAIETILE_PL_INTERN_EVENT19			18U
 
 /***************************** Type Definitions ******************************/
 
@@ -63,6 +49,8 @@ u32 XAieTile_PlIntcL1StatusGet(XAieGbl_Tile *TileInstPtr, u8 SwitchAB);
 void XAieTile_PlIntcL1StatusClr(XAieGbl_Tile *TileInstPtr, u32 Status, u8 SwitchAB);
 u32 XAieTile_PlIntcL1IrqNoGet(XAieGbl_Tile *TileInstPtr, u8 SwitchAB);
 void XAieTile_PlIntcL1IrqNoSet(XAieGbl_Tile *TileInstPtr, u32 irqNum, u8 SwitchAB);
+u32 XAieTile_PlIntcL1IrqEventGet(XAieGbl_Tile *TileInstPtr, u8 IrqEvent, u8 SwitchAB);
+u32 XAieTile_PlIntcL1IrqEventSet(XAieGbl_Tile *TileInstPtr, u8 IrqEvent, u8 Event, u8 SwitchAB);
 u32 XAieTile_PlIntcL1BlockNorthVal(XAieGbl_Tile *TileInstPtr, u8 SwitchAB);
 void XAieTile_PlIntcL1BlockNorthSet(XAieGbl_Tile *TileInstPtr, u32 Mask, u8 SwitchAB);
 void XAieTile_PlIntcL1BlockNorthClr(XAieGbl_Tile *TileInstPtr, u32 Mask, u8 SwitchAB);

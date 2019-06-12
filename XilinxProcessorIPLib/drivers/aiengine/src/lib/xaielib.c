@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -56,14 +36,21 @@
 * 2.4  Hyun    09/13/2019  Use the simulation elf loader function
 * 2.5  Hyun    09/13/2019  Use XAieSim_LoadElfMem()
 * 2.6  Tejus   10/14/2019  Enable assertion for linux and simulation
+* 2.7  Wendy   02/25/2020  Add logging API
 * </pre>
 *
 ******************************************************************************/
+#include "xaiegbl_defs.h"
 #include "xaielib.h"
+#include "xaielib_npi.h"
+#include <stdarg.h>
+#include <stdio.h>
+#include <string.h>
 
 #ifdef __AIESIM__ /* AIE simulator */
 
 #include <assert.h>
+#include <errno.h>
 #include "xaiesim.h"
 
 #elif defined __AIEBAREMTL__ /* Bare-metal application */
@@ -71,6 +58,7 @@
 #include "xil_types.h"
 #include "xil_io.h"
 #include "xil_assert.h"
+#include "xil_exception.h"
 #include "xil_printf.h"
 #include "xil_cache.h"
 #include "xstatus.h"
@@ -81,8 +69,7 @@
 #else /* Non-baremetal application, ex Linux */
 
 #include <assert.h>
-#include <stdarg.h>
-#include <stdio.h>
+#include <errno.h>
 #include <unistd.h>
 
 #include "xaieio.h"
@@ -115,6 +102,10 @@ typedef struct XAieLib_MemInst
 	u64 Paddr;	/**< Device / physical address */
 	void *Platform;	/**< Platform specific data */
 } XAieLib_MemInst;
+
+#ifdef __linux__
+static FILE *XAieLib_LogFPtr; /**< Pointer to Log file pointer. */
+#endif
 
 /************************** Function Definitions *****************************/
 
@@ -339,6 +330,60 @@ int XAieLib_InterruptRegisterIsr(int Offset, int (*Handler) (void *Data), void *
 /*****************************************************************************/
 /**
 *
+* This API enables AIE interrupt
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void XAieLib_InterruptEnable(void)
+{
+#ifdef __AIESIM__
+	return;
+#elif defined __AIEBAREMTL__
+	/* Enable exception for baremetal,
+	 * Once baremetal has interrupt abstration
+	 * layer to enable/disable particular interrupt.
+	 * driver can enable/disable AIE interrupt.
+	 */
+	Xil_ExceptionEnable();
+#else
+	XAieIO_IntrEnable();
+#endif
+
+}
+
+/*****************************************************************************/
+/**
+*
+* This API disables AIE interrupt
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void XAieLib_InterruptDisable(void)
+{
+#ifdef __AIESIM__
+	return;
+#elif defined __AIEBAREMTL__
+	/* Disable exception for baremetal,
+	 * Once baremetal has interrupt abstration
+	 * layer to enable/disable particular interrupt.
+	 * driver can enable/disable AIE interrupt.
+	 */
+	Xil_ExceptionDisable();
+#else
+	XAieIO_IntrDisable();
+#endif
+
+}
+
+/*****************************************************************************/
+/**
+*
 * This API re-routes to platform print function
 *
 * @param	format strings
@@ -363,6 +408,112 @@ void XAieLib_IntPrint(const char *Format, ...)
 	va_start(argptr, Format);
 	vprintf(Format, argptr);
 	va_end(argptr);
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This API set the log file
+*
+* @param	File - path of the file for logging.
+*
+* @return	XAIE_SUCCESS for success or XAIE_FAILURE for failure.
+*
+* @note		If will be fail if the file is failed to open, or if there is
+*		already logging file opened.
+*
+*******************************************************************************/
+u32 XAieLib_OpenLogFile(const char *File)
+{
+#ifdef __linux__
+	if (XAieLib_LogFPtr != XAIE_NULL) {
+		return XAIELIB_FAILURE;
+	}
+	if (File == XAIE_NULL) {
+		return XAIELIB_FAILURE;
+	}
+	XAieLib_LogFPtr = fopen(File, "a");
+	if (XAieLib_LogFPtr == XAIE_NULL) {
+		XAieLib_IntPrint("Failed to open log file %s, %s.\n",
+				 File, strerror(errno));
+		return XAIE_FAILURE;
+	}
+	return XAIELIB_SUCCESS;
+#else
+	(void)File;
+	return XAIELIB_FAILURE;
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This API close the log file
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void XAieLib_CloseLogFile(void)
+{
+#ifdef __linux__
+	if (XAieLib_LogFPtr != XAIE_NULL) {
+		fclose(XAieLib_LogFPtr);
+		XAieLib_LogFPtr = XAIE_NULL;
+	}
+#else
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This API implements AIE logging
+*
+* @param	Level - Log level
+* @param	Format - format string
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+void XAieLib_log(XAieLib_LogLevel Level, const char *Format, ...)
+{
+	static const char *Level_Str[] = {
+		"XAIE: INFO: ",
+		"XAIE: ERROR: ",
+	};
+
+#ifdef __AIEBAREMTL__
+	va_list args;
+
+	va_start(args, Format);
+	printf("%s", Level_Str[Level]);
+	vprintf(Format, args);
+	va_end(args);
+#else /* __linux__ */
+	va_list args;
+	FILE *FPtr;
+
+	va_start(args, Format);
+	if (XAieLib_LogFPtr == NULL) {
+		if (Level == XAIELIB_LOGERROR) {
+			FPtr = stderr;
+		} else {
+			FPtr = stdout;
+		}
+	} else {
+		FPtr = XAieLib_LogFPtr;
+	}
+	fprintf(FPtr,"%s", Level_Str[Level]);
+	vfprintf(FPtr, Format, args);
+	va_end(args);
+	if (XAieLib_LogFPtr != NULL) {
+		fflush(FPtr);
+	}
 #endif
 }
 
@@ -964,6 +1115,38 @@ u32 XAieLib_NPIRead32(u64 Addr)
 /*****************************************************************************/
 /**
 *
+* This is the internal NPI function to set the lock of AIE NPI space
+*
+* @param	Lock: non 0 for lock, 0 for unlock
+*
+* @note		Used only in this file.
+*		This only work if NPI is accessble.
+*
+*******************************************************************************/
+static void XAieLib_NPISetLock(u8 Lock)
+{
+	u32 RegAddr, RegVal;
+
+	RegAddr = XAIE_NPI_PCSR_LOCK;
+	if (Lock == 0) {
+		RegVal = XAIE_NPI_PCSR_LOCK_STATE_UNLOCK_CODE <<
+			 XAIE_NPI_PCSR_LOCK_STATE_LSB;
+	} else {
+		RegVal = XAIE_NPI_PCSR_LOCK_STATE_LOCK_CODE <<
+			 XAIE_NPI_PCSR_LOCK_STATE_LSB;
+	}
+#ifdef __AIESIM__
+	XAieSim_NPIWrite32(RegAddr, RegVal);
+#elif defined __AIEBAREMTL__
+        Xil_Out32(RegAddr, RegVal);
+#else
+	XAieIO_NPIWrite32(RegAddr, RegVal);
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
 * This is the NPI IO function to write 32bit data to the specified address.
 *
 * @param	Addr: Address to write to.
@@ -976,6 +1159,7 @@ u32 XAieLib_NPIRead32(u64 Addr)
 *******************************************************************************/
 void XAieLib_NPIWrite32(u64 Addr, u32 Data)
 {
+	XAieLib_NPISetLock(0);
 #ifdef __AIESIM__
 	XAieSim_NPIWrite32(Addr, Data);
 #elif defined __AIEBAREMTL__
@@ -983,6 +1167,7 @@ void XAieLib_NPIWrite32(u64 Addr, u32 Data)
 #else
 	XAieIO_NPIWrite32(Addr, Data);
 #endif
+	XAieLib_NPISetLock(1);
 }
 
 /*****************************************************************************/
@@ -1004,6 +1189,7 @@ void XAieLib_NPIMaskWrite32(u64 Addr, u32 Mask, u32 Data)
 {
 	u32 RegVal;
 
+	XAieLib_NPISetLock(0);
 #ifdef __AIESIM__
 	XAieSim_NPIMaskWrite32(Addr, Mask, Data);
 #elif defined __AIEBAREMTL__
@@ -1017,6 +1203,7 @@ void XAieLib_NPIMaskWrite32(u64 Addr, u32 Mask, u32 Data)
 	RegVal |= Data;
 	XAieIO_NPIWrite32(Addr, RegVal);
 #endif
+	XAieLib_NPISetLock(1);
 }
 /*****************************************************************************/
 /**
