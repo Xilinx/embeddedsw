@@ -37,7 +37,7 @@
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
 * 1.00a ecm/sdm  11/11/09 First release
-* 3.07a sgd      07/05/12 Upadted micro sleep function to make use Global Timer
+* 3.07a sgd      07/05/12 Updated micro sleep function to make use Global Timer
 * 4.2	pkp		 08/04/14 Removed unimplemented nanosleep routine as it is not
 *						  possible to generate timer in nanosecond due to
 *						  limited cpu frequency

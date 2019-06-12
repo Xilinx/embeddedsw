@@ -107,7 +107,7 @@ BEGIN CATEGORY tick_setup
 END CATEGORY
 
 BEGIN CATEGORY enable_stm_event_trace
-	PARAM name = enable_stm_event_trace, type = bool, default = false, desc = "Enable event tracing through System Trace Macrocell avaialable on Zynq MPSoC. This is supported only for Cortex A53 and R5 processors", permit = user;
+	PARAM name = enable_stm_event_trace, type = bool, default = false, desc = "Enable event tracing through System Trace Macrocell available on Zynq MPSoC. This is supported only for Cortex A53 and R5 processors", permit = user;
 	PARAM name = enable_timer_tick_trace, type = bool, default = false, desc = "Enable tracing of timer tick events", permit = user;
 	PARAM name = stm_channel, type = int, default = 0, desc = "STM channel to use for trace. Valid channels are 0-65535";
 END CATEGORY

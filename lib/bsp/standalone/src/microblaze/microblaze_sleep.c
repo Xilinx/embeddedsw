@@ -40,7 +40,7 @@
 * 6.6   srm  10/18/17 Updated sleep routines to support user configurable
 *                     implementation. Now sleep routines will use Axi Timer
 *                     or machine cycles as specified by the user.
-* 6.8   mus  10/04/18 FreeRTOS BSP alway use default method for sleep
+* 6.8   mus  10/04/18 FreeRTOS BSP always use default method for sleep
 *                     implementation, It does not have user configurable sleep
 *                     implementation support, that is why FreeRTOS tcl does not
 *                     export XSLEEP_TIMER_IS_DEFAULT_TIMER macro to

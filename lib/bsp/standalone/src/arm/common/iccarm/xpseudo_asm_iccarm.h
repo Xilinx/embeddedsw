@@ -39,7 +39,7 @@
 * 1.00a ecm/sdm  10/28/09 First release
 * 3.12a asa		 11/02/13  Removed the macro mfcpsr to make it a function.
 * 5.3	pkp		 10/09/15 Modified dsb, dmb and isb definitions
-* 5.4	pkp		 03/02/16 Included header file instrinsic.h for assembly
+* 5.4	pkp		 03/02/16 Included header file intrinsic.h for assembly
 *						  instructions definitions
 * 6.2   kvn      03/03/17 Added support thumb mode
 * </pre>

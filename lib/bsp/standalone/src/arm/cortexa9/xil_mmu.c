@@ -208,7 +208,7 @@ void* Xil_MemMap(UINTPTR PhysAddr, size_t size, u32 flags)
    if (!flags)
        return (void*)PhysAddr;
 
-   /* Ensure alignement on a section boundary */
+   /* Ensure alignment on a section boundary */
    PhysAddr &= ARM_AR_MEM_TTB_SECT_SIZE_MASK;
 
    /* Loop through entire region of memory (one MMU section at a time).

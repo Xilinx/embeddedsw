@@ -76,7 +76,7 @@
 * 3.07a asa  07/17/2012 Changed the property of the ".mmu_tbl" section.
 * 4.2	pkp  09/02/2014 added entries for 0xfe000000 to 0xffefffff as reserved
 *			and  0xe0000000 - 0xe1ffffff is broken down into
-*			0xe0000000 - 0xe02fffff (memory mapped devides)
+*			0xe0000000 - 0xe02fffff (memory mapped divides)
 *			0xe0300000 - 0xe0ffffff (reserved) and
 *			0xe1000000 - 0xe1ffffff (NAND)
 * 5.2	pkp  06/08/2015 put a check for XPAR_PS7_DDR_0_S_AXI_BASEADDR to confirm

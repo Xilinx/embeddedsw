@@ -77,7 +77,7 @@ static u32 RotateRight(u32 Input, u8 Width);
 * Used for spaces where the address range of the region is smaller than
 * the data width. If the memory range is greater than 2 ** Width,
 * the patterns used in XIL_TESTMEM_WALKONES and XIL_TESTMEM_WALKZEROS will
-* repeat on a boundry of a power of two making it more difficult to detect
+* repeat on a boundary of a power of two making it more difficult to detect
 * addressing errors. The XIL_TESTMEM_INCREMENT and XIL_TESTMEM_INVERSEADDR
 * tests suffer the same problem. Ideally, if large blocks of memory are to be
 * tested, break them up into smaller regions of memory to allow the test
@@ -325,7 +325,7 @@ End_Label:
 * Used for spaces where the address range of the region is smaller than
 * the data width. If the memory range is greater than 2 ** Width,
 * the patterns used in XIL_TESTMEM_WALKONES and XIL_TESTMEM_WALKZEROS will
-* repeat on a boundry of a power of two making it more difficult to detect
+* repeat on a boundary of a power of two making it more difficult to detect
 * addressing errors. The XIL_TESTMEM_INCREMENT and XIL_TESTMEM_INVERSEADDR
 * tests suffer the same problem. Ideally, if large blocks of memory are to be
 * tested, break them up into smaller regions of memory to allow the test
@@ -557,7 +557,7 @@ End_Label:
 * Used for spaces where the address range of the region is smaller than
 * the data width. If the memory range is greater than 2 ** Width,
 * the patterns used in XIL_TESTMEM_WALKONES and XIL_TESTMEM_WALKZEROS will
-* repeat on a boundry of a power of two making it more difficult to detect
+* repeat on a boundary of a power of two making it more difficult to detect
 * addressing errors. The XIL_TESTMEM_INCREMENT and XIL_TESTMEM_INVERSEADDR
 * tests suffer the same problem. Ideally, if large blocks of memory are to be
 * tested, break them up into smaller regions of memory to allow the test

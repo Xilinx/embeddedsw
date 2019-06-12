@@ -117,7 +117,7 @@ s32 powerpc405_init()
 
 	/* Initialize the Timer.
 	  * 1. If PowerPC PIT Timer has to be used, initialize PIT timer.
-	  * 2. Else use opb_timer. It can be directly connected or thru intc to PowerPC */
+	  * 2. Else use opb_timer. It can be directly connected or through intc to PowerPC */
 #ifdef PPC_PIT_INTERRUPT
 	ppc_pit_init();
 #else
@@ -191,7 +191,7 @@ s32 powerpc405_init(void)
 
 	/* Initialize the Timer.
 	 * 1. If PowerPC DEC Timer has to be used, initialize DEC timer.
-	 * 2. Else use opb_timer. It can be directly connected or thru intc to PowerPC */
+	 * 2. Else use opb_timer. It can be directly connected or through intc to PowerPC */
 #ifdef PPC_PIT_INTERRUPT
 	ppc_dec_init();
 #else

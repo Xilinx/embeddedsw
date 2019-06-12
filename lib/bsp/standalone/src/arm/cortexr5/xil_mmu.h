@@ -27,7 +27,7 @@
 /**
 * @file xil_mmu.h
 * This file only includes xil_mpu.h which contains Xil_SetTlbAttributes API
-* defined for MPU in R5. R5 does not have mmu and for usage of similiar API
+* defined for MPU in R5. R5 does not have mmu and for usage of similar API
 * the file has been created.
 *
 *

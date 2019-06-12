@@ -285,12 +285,12 @@ void Xil_DCacheInvalidateLine(u32 adr)
 * 			flushed out to memory. Then it can safely be invalidated. Again it
 * 			sounds good, but this can result in issues. For example, when the
 * 			invalidation happens in a typical ISR (after a DMA transfer has
-* 			updated the memory), then flushing the cache line means, loosing
+* 			updated the memory), then flushing the cache line means, losing
 * 			data that were updated recently before the ISR got invoked.
 *
 * 			Linux prefers the second one. To have uniform implementation
 * 			(across standalone and Linux), the second option is implemented.
-* 			This being the case, follwoing needs to be taken care of:
+* 			This being the case, following needs to be taken care of:
 * 			1. Whenever possible, the addresses must be cache line aligned.
 * 			Please nore that, not just start address, even the end address must
 * 			be cache line aligned. If that is taken care of, this will always
@@ -796,7 +796,7 @@ void Xil_L1DCacheInvalidate(void)
 
 	/* Check for the cache status. If cache is enabled, then only
 	 * flush stack memory to save return address. If cache is disabled,
-	 * dont flush anything as it might result in flushing stale date into
+	 * don't flush anything as it might result in flushing stale date into
 	 * memory which is undesirable.
 	 * */
 	CtrlReg = mfcp(XREG_CP15_SYS_CONTROL);
@@ -1390,7 +1390,7 @@ void Xil_L2CacheInvalidate(void)
 
 	/* Check for the cache status. If cache is enabled, then only
 	 * flush stack memory to save return address. If cache is disabled,
-     * dont flush anything as it might result in flushing stale date into
+     * don't flush anything as it might result in flushing stale date into
 	 * memory which is undesirable.
 	 */
 	L2CCReg = Xil_In32(XPS_L2CC_BASEADDR + XPS_L2CC_CNTRL_OFFSET);

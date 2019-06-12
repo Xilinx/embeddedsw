@@ -36,7 +36,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- ---------------------------------------------------
 * 1.00a rp/sdm 11/03/09 Initial release.
-* 3.07a sgd    07/05/12 Upadted get/set time functions to make use Global Timer
+* 3.07a sgd    07/05/12 Updated get/set time functions to make use Global Timer
 * </pre>
 *
 * @note		None.

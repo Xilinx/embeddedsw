@@ -52,7 +52,7 @@ correct privileged Vs unprivileged linkage and placement. */
 /* If the user has not provided application specific Rx notification macros,
 or #defined the notification macros away, them provide default implementations
 that uses task notifications. */
-/*lint -save -e9026 Function like macros allowed and needed here so they can be overidden. */
+/*lint -save -e9026 Function like macros allowed and needed here so they can be overridden. */
 #ifndef sbRECEIVE_COMPLETED
 	#define sbRECEIVE_COMPLETED( pxStreamBuffer )										\
 		vTaskSuspendAll();																\

@@ -1643,7 +1643,7 @@ proc handle_stdout_parameter {drv_handle} {
    } else {
             if { $stdout == "" || $stdout == "none" } {
                     #
-                    # UART is not present in the system, add dummy implementatin for outbyte
+                    # UART is not present in the system, add dummy implementation for outbyte
                     #
                     set config_file [open "src/outbyte.c" w]
 		    puts $config_file "\#include \"xparameters.h\""
@@ -1719,7 +1719,7 @@ proc handle_stdin_parameter {drv_handle} {
    } else {
             if { $stdin == "" || $stdin == "none" } {
                     #
-                    # UART is not present in the system, add dummy implementatin for inbyte
+                    # UART is not present in the system, add dummy implementation for inbyte
                     #
                     set config_file [open "src/inbyte.c" w]
                     puts $config_file "\#include \"xparameters.h\""

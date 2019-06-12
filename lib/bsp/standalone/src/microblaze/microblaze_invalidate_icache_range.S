@@ -84,7 +84,7 @@ L_start:
         breai	L_start                                         /* Branch to the beginning of the loop */
 #else
 	brid	L_start                                         /* Branch to the beginning of the loop */
-	addik	r5, r5, (XPAR_MICROBLAZE_ICACHE_LINE_LEN * 4)   /* Increment the addrees by 4 (delay slot) */
+	addik	r5, r5, (XPAR_MICROBLAZE_ICACHE_LINE_LEN * 4)   /* Increment the address by 4 (delay slot) */
 #endif
 L_done:
 	rtsd	r15, 8                                          /* Return */

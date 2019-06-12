@@ -38,7 +38,7 @@
  * 5.2	pkp  28/05/15 First release
  * 5.5	pkp	 04/15/16 Updated the Xil_DCacheInvalidate,
  *			Xil_DCacheInvalidateLine and Xil_DCacheInvalidateRange
- *			functions description for proper explaination
+ *			functions description for proper explanation
  * 6.8  aru  06/15/18 Removed unused variables.
  * 6.8	aru  07/04/18 Optimized code in Xil_DCacheInvalidate and
  *			Xil_DCacheFlush
@@ -128,7 +128,7 @@ void Xil_DCacheDisable(void)
  *
  * @return	None.
  *
- * @note	In Cortex-A53, functionality to simply invalide the
+ * @note	In Cortex-A53, functionality to simply invalid the
  *		cachelines is not present. Such operations are a
  *		problem for an environment that supports virtualisation.
  *		It would allow one OS to invalidate a line belonging to
@@ -218,7 +218,7 @@ void Xil_DCacheInvalidate(void)
  *
  * @return	None.
  *
- * @note	In Cortex-A53, functionality to simply invalide
+ * @note	In Cortex-A53, functionality to simply invalid
  *		the cachelines is not present. Such operations
  *		are a problem for an environment that supports
  *		virtualisation. It would allow one OS to invalidate
@@ -262,7 +262,7 @@ void Xil_DCacheInvalidateLine(u32 adr)
  *
  * @return	None.
  *
- * @notice	In Cortex-A53, functionality to simply invalide the cachelines
+ * @notice	In Cortex-A53, functionality to simply invalid the cachelines
  *		is not present. Such operations are a problem for an
  *		environment that supports virtualisation. It would allow
  *		one OS to invalidate a line belonging to another OS.

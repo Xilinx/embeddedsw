@@ -33,7 +33,7 @@
 * The xil_exception.h file contains Microblaze specific exception
 * related APIs and macros. Application programs can use these APIs/Macros
 * for various exception related operations (i.e. enable exception, disable
-* exception, register exception hander etc.)
+* exception, register exception handler etc.)
 *
 * @{
 * <pre>

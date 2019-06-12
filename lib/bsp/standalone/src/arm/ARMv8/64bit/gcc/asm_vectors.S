@@ -220,7 +220,7 @@ _vector_table:
 SynchronousInterruptHandler:
 	saveregister
 
-/* Check if the Synchronous abort is occured due to floating point access. */
+/* Check if the Synchronous abort is occurred due to floating point access. */
 .if (EL3 == 1)
 	mrs	x0, ESR_EL3
 .else
@@ -233,7 +233,7 @@ SynchronousInterruptHandler:
 	bne	synchronoushandler
 
 /*
- * If excpetion occured due to floating point access, Enable the floating point
+ * If excpetion occurred due to floating point access, Enable the floating point
  * access i.e. do not trap floating point instruction
  */
  .if (EL3 == 1)

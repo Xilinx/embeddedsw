@@ -32,7 +32,7 @@
 # 6.4   ms   05/23/17 Defined PSU_PMU macro in xparameters.h to support
 #                     XGetPSVersion_Info function for PMUFW.
 # 6.6   srm  10/18/17 Added xsleep_timer_config function to support the
-#                     sleep configuration using timers as specifed by the
+#                     sleep configuration using timers as specified by the
 #					  user.
 # 6.6   hk   12/15/17 Define platform macros based on the processor in use.
 # 6.6   mus  01/29/18 Updated to add xen PV console support in Cortexa53 64
@@ -86,7 +86,7 @@ proc lpd_is_coherent {} {
 		# Iterate through each instance and check for CONFIG.IS_CACHE_COHERENT
 		foreach master $mlist {
 			if { [common::get_property CONFIG.IS_CACHE_COHERENT $master] == "1" } {
-				# We found a master thats cache coherent, so return true
+				# We found a master that's cache coherent, so return true
 				return 1
 			}
 		}
@@ -1304,7 +1304,7 @@ proc handle_profile { os_handle proctype } {
     set config_file [open $filename w]
 
     ::hsi::utils::write_c_header $config_file "Profiling Configuration parameters. These parameters
-* can be overwritten thru run configuration in SDK"
+* can be overwritten through run configuration in SDK"
     puts $config_file "#ifndef _PROFILE_CONFIG_H"
     puts $config_file "#define _PROFILE_CONFIG_H\n"
 
@@ -1521,7 +1521,7 @@ proc handle_stdout_parameter {drv_handle} {
    } else {
             if { $stdout == "" || $stdout == "none" } {
                     #
-                    # UART is not present in the system, add dummy implementatin for outbyte
+                    # UART is not present in the system, add dummy implementation for outbyte
                     #
                     set config_file [open "src/outbyte.c" w]
 		    puts $config_file "\#include \"xparameters.h\""
@@ -1597,7 +1597,7 @@ proc handle_stdin_parameter {drv_handle} {
    } else {
             if { $stdin == "" || $stdin == "none" } {
                     #
-                    # UART is not present in the system, add dummy implementatin for inbyte
+                    # UART is not present in the system, add dummy implementation for inbyte
                     #
                     set config_file [open "src/inbyte.c" w]
                     puts $config_file "\#include \"xparameters.h\""

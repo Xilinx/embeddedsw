@@ -100,7 +100,7 @@ extern "C" {
  *                                    provided earlier in the Load Register,
  *                                    XSLEEP_TIMER_AXITIMER_TLR_OFFSET. */
 #define XSLEEP_TIMER_AXITIMER_CSR_INT_OCCURED_MASK	0x00000100U
-				 /**< If bit is set, an interrupt has occured.
+				 /**< If bit is set, an interrupt has occurred.
  *                                    If set and '1' is written to this bit
  *                                    position, bit is cleared.*/
 #define XSLEEP_TIMER_AXITIMER_CSR_ENABLE_TMR_MASK   0x00000080U

@@ -39,9 +39,9 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- ---------------------------------------------------
 * 1.00a rp/sdm 11/03/09 Initial release.
-* 3.06a sgd    05/15/12 Upadted get/set time functions to make use Global Timer
+* 3.06a sgd    05/15/12 Updated get/set time functions to make use Global Timer
 * 3.06a asa    06/17/12 Reverted back the changes to make use Global Timer.
-* 3.07a sgd    07/05/12 Upadted get/set time functions to make use Global Timer
+* 3.07a sgd    07/05/12 Updated get/set time functions to make use Global Timer
 * 6.6   srm    10/23/17 Updated the macros to support user configurable sleep
 *						implementation
 * 6.8   aru  09/06/18 Removed compilation warnings for ARMCC toolchain.
