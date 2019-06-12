@@ -35,6 +35,7 @@ extern "C" {
 #endif
 
 XStatus XPm_InitXilpm(XIpiPsu *IpiInst);
+enum XPmBootStatus XPm_GetBootStatus(void);
 XStatus XPm_GetApiVersion(u32 *version);
 XStatus XPm_RequestNode(const u32 DeviceId, const u32 Capabilities,
 			const u32 QoS, const u32 Ack);
