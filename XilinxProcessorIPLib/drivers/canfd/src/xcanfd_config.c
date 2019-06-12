@@ -27,7 +27,7 @@
 /**
 *
 * @file xcanfd_config.c
-* @addtogroup canfd_v2_1
+* @addtogroup canfd_v2_2
 * @{
 *
 * Functions in this file are CAN Configuration Register access related.

@@ -27,7 +27,7 @@
 /**
 *
 * @file xcanfd_intr.c
-* @addtogroup canfd_v2_1
+* @addtogroup canfd_v2_2
 * @{
 *
 * This file contains functions related to CAN interrupt handling.
