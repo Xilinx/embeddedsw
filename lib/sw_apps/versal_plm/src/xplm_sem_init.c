@@ -1,26 +1,8 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-* 
+* Copyright (c) 2018 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -45,8 +27,8 @@
 /***************************** Include Files *********************************/
 #include "xplm_sem_init.h"
 #include "xplmi_scheduler.h"
+#ifdef XPLM_SEM
 #include "xilsem.h"
-#include "xplm_default.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -62,22 +44,24 @@
 
 /*****************************************************************************/
 /**
- * @brief This function call all the init functions of all xilsem 
- * modules. As a part of init functions, modules can initiate scan on both cfi 
- * npi,scan will be decided based on the CIPS params in xparameters.h.
+ * @brief This function call all the init functions of all xilsem
+ * modules. As a part of init functions, modules can initiate scan on both cfi
+ * npi, scan will be decided based on the CIPS params in xparameters.h.
  *
  * @param	None
  *
- * @return	Status as SUCCESS or FAILURE
+ * @return	Status as defined in XilSem library
  *
  *****************************************************************************/
-int XSem_Init(void)
+int XPlm_SemInit(void)
 {
-	int Status;
-	Status = XST_SUCCESS;
+	int Status = XST_FAILURE;
 
 #ifdef XSEM_CFRSCAN_EN
 	Status = XSem_CfrInit();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 #endif
 
 #ifdef XSEM_NPISCAN_EN
@@ -85,11 +69,18 @@ int XSem_Init(void)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	} else {
-		Status = XPlmi_SchedulerAddTask(XSem_NpiRunScan, 100U);
+		Status = XPlmi_SchedulerAddTask(0x0U, XSem_NpiRunScan, 100U,
+						XPLM_TASK_PRIORITY_0);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
-END:
+#endif
+	Status = XST_SUCCESS;
 
+#if defined(XSEM_CFRSCAN_EN) || defined(XSEM_NPISCAN_EN)
+END:
 #endif
 	return Status;
 }
-
+#endif
