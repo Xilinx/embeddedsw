@@ -308,7 +308,7 @@ u8 num_sinks;
 #define XVPHY_DRP_RX_INT_DATA_WIDTH 0x66
 
 
-#define DP_BS_IDLE_TIMEOUT      0x77359400
+#define DP_BS_IDLE_TIMEOUT      0x047868C0
 #define AUX_DEFER_COUNT         6
 /* DEFAULT VALUE=0. Enabled programming of
  *Rx Training Algo Register for Debugging Purpose
