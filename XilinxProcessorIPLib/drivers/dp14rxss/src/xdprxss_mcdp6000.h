@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2017 - 2018 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file mcdp6000.c
-* @addtogroup dprxss_v5_0
+* @addtogroup dprxss_v6_0
 * @{
 *
 * This is the header file contains macros, enum, structure and function
@@ -56,7 +34,10 @@ extern "C" {
 #include "xvidc.h"
 #include "xparameters.h"
 #include "xil_types.h"
-
+#include "xdprxss.h"
+#ifdef XPAR_XIICPS_NUM_INSTANCES
+#include "xiicps.h"
+#endif /* End of XPAR_XIICPS_NUM_INSTANCES */
 #ifdef XPAR_XIIC_NUM_INSTANCES
 #include "xiic.h"
 #endif /* End of XPAR_XIIC_NUM_INSTANCES */
@@ -71,28 +52,28 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-u32 XDpRxSs_MCDP6000_GetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
+u32 XDpRxSs_MCDP6000_GetRegister(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress,
 			 u16 RegisterAddress);
-int XDpRxSs_MCDP6000_SetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
+int XDpRxSs_MCDP6000_SetRegister(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress,
 			 u16 RegisterAddress, u32 Value);
-int XDpRxSs_MCDP6000_ModifyRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
+int XDpRxSs_MCDP6000_ModifyRegister(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress,
 			    u16 RegisterAddress, u32 Value, u32 Mask);
 
-int XDpRxSs_MCDP6000_DpInit(u32 I2CBaseAddress, u8 I2CSlaveAddress);
-int XDpRxSs_MCDP6000_IbertInit(u32 I2CBaseAddress, u8 I2CSlaveAddress);
-int XDpRxSs_MCDP6000_ResetDpPath(u32 I2CBaseAddress, u8 I2CSlaveAddress);
+int XDpRxSs_MCDP6000_DpInit(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress);
+int XDpRxSs_MCDP6000_IbertInit(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress);
+int XDpRxSs_MCDP6000_ResetDpPath(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress);
 
-int XDpRxSs_MCDP6000_EnablePrbs7_Tx(u32 I2CBaseAddress, u8 I2CSlaveAddress);
-int XDpRxSs_MCDP6000_EnablePrbs7_Rx(u32 I2CBaseAddress, u8 I2CSlaveAddress);
-int XDpRxSs_MCDP6000_DisablePrbs7_Rx(u32 I2CBaseAddress, u8 I2CSlaveAddress);
-int XDpRxSs_MCDP6000_Read_ErrorCounters(u32 I2CBaseAddress, u8 I2CSlaveAddress);
-int XDpRxSs_MCDP6000_EnableCounter(u32 I2CBaseAddress, u8 I2CSlaveAddress);
-int XDpRxSs_MCDP6000_ClearCounter(u32 I2CBaseAddress, u8 I2CSlaveAddress);
+int XDpRxSs_MCDP6000_EnablePrbs7_Tx(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress);
+int XDpRxSs_MCDP6000_EnablePrbs7_Rx(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress);
+int XDpRxSs_MCDP6000_DisablePrbs7_Rx(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress);
+int XDpRxSs_MCDP6000_Read_ErrorCounters(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress);
+int XDpRxSs_MCDP6000_EnableCounter(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress);
+int XDpRxSs_MCDP6000_ClearCounter(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress);
 
-void XDpRxSs_MCDP6000_RegisterDump(u32 I2CBaseAddress, u8 I2CSlaveAddress);
-int XDpRxSs_MCDP6000_TransparentMode(u32 I2CBaseAddress, u8 I2CSlaveAddress);
-int XDpRxSs_MCDP6000_BWchange(u32 I2CBaseAddress, u8 I2CSlaveAddress);
-int XDpRxSs_MCDP6000_AccessLaneSet(u32 I2CBaseAddress, u8 I2CSlaveAddress);
+void XDpRxSs_MCDP6000_RegisterDump(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress);
+int XDpRxSs_MCDP6000_TransparentMode(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress);
+int XDpRxSs_MCDP6000_BWchange(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress);
+int XDpRxSs_MCDP6000_AccessLaneSet(XDpRxSs *InstancePtr, u8 I2CSlaveAddress);
 
 /************************** Variable Declarations ****************************/
 

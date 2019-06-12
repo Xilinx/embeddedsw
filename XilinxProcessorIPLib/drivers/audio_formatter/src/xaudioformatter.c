@@ -1,35 +1,14 @@
 /******************************************************************************
-*
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
 *
 * @file xaudioformatter.c
-* @addtogroup audio_formatter_v1_0
+* @addtogroup audio_formatter_v1_1
 * @{
 *
 * This file contains the implementation of the interface functions for audio
@@ -152,10 +131,10 @@ void XAudioFormatter_InterruptClear(XAudioFormatter *InstancePtr, u32 mask)
 		offset = XAUD_FORMATTER_MM2S_OFFSET;
 	}
 	val = XAudioFormatter_ReadReg(InstancePtr->BaseAddress,
-		XAUD_FORMATTER_CTRL + offset);
+		XAUD_FORMATTER_STS + offset);
 	val |= mask;
 	XAudioFormatter_WriteReg(InstancePtr->BaseAddress,
-		XAUD_FORMATTER_CTRL + offset, val);
+		XAUD_FORMATTER_STS + offset, val);
 }
 
 /*****************************************************************************/
@@ -343,6 +322,7 @@ void XAudioFormatterSetHwParams(XAudioFormatter *InstancePtr,
 
 	val = XAudioFormatter_ReadReg(InstancePtr->BaseAddress,
 		XAUD_FORMATTER_CTRL + offset);
+	val &= ~(XAUD_CTRL_DATA_WIDTH_MASK << XAUD_CTRL_DATA_WIDTH_SHIFT);
 	switch (hw_params->bits_per_sample) {
 		case BIT_DEPTH_8:
 			val |= (BIT_DEPTH_8 << XAUD_CTRL_DATA_WIDTH_SHIFT);

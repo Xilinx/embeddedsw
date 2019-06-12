@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /****************************************************************************/
 /**
 *
 * @file xpmonpsv_hw.h
-* @addtogroup pmonpsv_v1_0
+* @addtogroup pmonpsv_v2_0
 * @{
 *
 * This header file contains identifiers and basic driver functions (or
@@ -44,6 +24,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0 sd    01/20/19 First release
+* 2.0 sd    04/22/20  Rename the APIs
 * </pre>
 *
 *****************************************************************************/
@@ -122,7 +103,7 @@ extern "C" {
 *
 *
 ******************************************************************************/
-#define XpsvPmon_ReadReg(InstancePtr, RegOffset) \
+#define XPmonPsv_ReadReg(InstancePtr, RegOffset) \
 		(Xil_In32((InstancePtr->Config.BaseAddress) + (RegOffset)))
 
 /*****************************************************************************/
@@ -139,7 +120,7 @@ extern "C" {
 *
 *
 ******************************************************************************/
-#define XpsvPmon_WriteReg(InstancePtr, RegOffset, Data) \
+#define XPmonPsv_WriteReg(InstancePtr, RegOffset, Data) \
 		(Xil_Out32( InstancePtr->Config.BaseAddress +  (RegOffset), (Data)))
 /************************** Function Prototypes ******************************/
 

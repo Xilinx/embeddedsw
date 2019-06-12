@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2017-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /****************************************************************************/
 /**
 *
@@ -43,7 +23,7 @@
 * ----- ----- -------- ----------------------------------------------
 * 1.0   ms    11/30/17 First Release
 * 1.1   sd    07/11/19 Remove the hardcoded interrupt id.
-*
+* 1.2   rna   01/20/20 Add selftest, while loop for waiting
 * </pre>
 ****************************************************************************/
 
@@ -188,8 +168,6 @@ int UartPsvIntrExample(INTC *IntcInstPtr, XUartPsv *UartInstPtr,
 	int Index;
 	u32 IntrMask;
 	int BadByteCount = 0;
-	u8 HelloWorld[] = "Hello World";
-	u8 SentCount;
 
 	/*
 	 * Initialize the UART driver so that it's ready to use
@@ -205,13 +183,12 @@ int UartPsvIntrExample(INTC *IntcInstPtr, XUartPsv *UartInstPtr,
 		return XST_FAILURE;
 	}
 
-#if 0
 	/* Check hardware build */
 	Status = XUartPsv_SelfTest(UartInstPtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-#endif
+
 	/*
 	 * Connect the UART to the interrupt subsystem such that interrupts
 	 * can occur. This function is application specific.
@@ -229,11 +206,24 @@ int UartPsvIntrExample(INTC *IntcInstPtr, XUartPsv *UartInstPtr,
 	 */
 	XUartPsv_SetHandler(UartInstPtr, (XUartPsv_Handler)Handler, UartInstPtr);
 
+
+	/* Configure the Rx fifo level less than Tx Fifo level, since we are
+	 * using in Loopback mode. If not, the Tx interrupt comes first before Rx
+	 * interrupt and results in an over run at the Rx end.
+	 */
+
+	XUartPsv_SetRxFifoThreshold(UartInstPtr, XUARTPSV_UARTIFLS_RXIFLSEL_1_4);
+
+	XUartPsv_SetTxFifoThreshold(UartInstPtr, XUARTPSV_UARTIFLS_TXIFLSEL_1_2);
 	/*
 	 * Enable the interrupt of the UART so interrupts will occur, setup
 	 * a local loop back so data that is sent will be received.
 	 */
-	IntrMask = 0x7F0;
+	IntrMask = (XUARTPSV_UARTIMSC_RXIM | XUARTPSV_UARTIMSC_TXIM |
+			XUARTPSV_UARTIMSC_RTIM | XUARTPSV_UARTIMSC_FEIM |
+			XUARTPSV_UARTIMSC_PEIM | XUARTPSV_UARTIMSC_BEIM |
+			XUARTPSV_UARTIMSC_OEIM);
+
 
 	XUartPsv_SetInterruptMask(UartInstPtr, IntrMask);
 
@@ -263,22 +253,15 @@ int UartPsvIntrExample(INTC *IntcInstPtr, XUartPsv *UartInstPtr,
 	 * as the return value since we are using it in interrupt mode.
 	 */
 	XUartPsv_Send(UartInstPtr, SendBuffer, TEST_BUFFER_SIZE);
-#if 0
-	/*
-	 * Wait for the entire buffer to be received, letting the interrupt
-	 * processing work in the background, this function may get locked
-	 * up in this loop if the interrupts are not working correctly.
+
+	/* Wait until all the data is received or any error occurs.
+	 * This can hang if interrupts are not working properly in the
+	 * background
 	 */
-	while (1) {
-		Xil_Out32(0x1000000, TotalSentCount);
-		Xil_Out32(0x1000004, TotalReceivedCount);
-		if ((TotalSentCount == TEST_BUFFER_SIZE) &&
-		    (TotalReceivedCount+1 == TEST_BUFFER_SIZE)) {
-			break;
-		}
-	}
-#endif
-	sleep(5);
+	while ((TotalErrorCount == 0) && ((TotalSentCount != TEST_BUFFER_SIZE)
+			|| (TotalReceivedCount != TEST_BUFFER_SIZE)));
+
+
 	/* Verify the entire receive buffer was successfully received */
 	for (Index = 0; Index < TEST_BUFFER_SIZE; Index++) {
 		if (RecvBuffer[Index] != SendBuffer[Index]) {
@@ -288,15 +271,6 @@ int UartPsvIntrExample(INTC *IntcInstPtr, XUartPsv *UartInstPtr,
 
 	/* Set the UART in Normal Mode */
 	XUartPsv_SetOperMode(UartInstPtr, XUARTPSV_OPER_MODE_NORMAL);
-#if 0
-	while (SentCount < (sizeof(HelloWorld) - 1)) {
-			/* Transmit the data */
-			SentCount += XUartPsv_Send(UartInstPtr,
-						   &HelloWorld[SentCount], 1);
-		}
-#endif
-	xil_printf("TotalSentCount %d\r\n", TotalSentCount);
-	xil_printf("TotalReceivedCount %d\r\n", TotalReceivedCount);
 
 	/* If any bytes were not correct, return an error */
 	if (BadByteCount != 0) {

@@ -1,37 +1,17 @@
 /******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /****************************************************************************/
 /**
 *
 * @file xpmonpsv.h
-* @addtogroup pmonpsv_v1_0
+* @addtogroup pmonpsv_v2_0
 * @{
 * @details
 *
-* The XpsvPmon driver supports the Xilinx Performance Monitor device.
+* The XPmonPsv driver supports the Xilinx Performance Monitor device.
 *
 * For a full description of Performance Monitor features, please see the hardware spec. This
 * driver supports the following features:
@@ -47,8 +27,8 @@
 * The device driver enables higher layer software (e.g., an application) to
 * communicate to the Performance Monitor device.
 *
-* XpsvPmon_CfgInitialize() API is used to initialize the AXI Performance Monitor
-* device. The user needs to first call the XpsvPmon_LookupConfig() API which
+* XPmonPsv_CfgInitialize() API is used to initialize the AXI Performance Monitor
+* device. The user needs to first call the XPmonPsv_LookupConfig() API which
 * returns the Configuration structure pointer which is passed as a parameter to
 * the XAxiPmon_CfgInitialize() API.
 *
@@ -58,7 +38,7 @@
 * The AXI Performance Monitor does not support Interrupts
 *
 * <b> How to read the counters </b>
-* XpsvPmon_GetReadCounter returns the contents of the Read response and request counters.
+* XPmonPsv_GetReadCounter returns the contents of the Read response and request counters.
 *
 * <b> Threads </b>
 *
@@ -77,6 +57,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0 sd   01/20/19 First release
+* 2.0 sd   04/22/20  Rename the APIs
 * </pre>
 *
 *****************************************************************************/
@@ -107,7 +88,7 @@ extern "C" {
 typedef struct {
 	u16 DeviceId;			/**< Unique ID of device */
 	UINTPTR BaseAddress;		/**< Device base address */
-} XPmonpsv_Config;
+} XPmonPsv_Config;
 
 
 /**
@@ -116,10 +97,10 @@ typedef struct {
  * to a variable of this type is then passed to the driver API functions.
  */
 typedef struct {
-	XPmonpsv_Config Config;	/**< XPmonpsv_Config of current device */
+	XPmonPsv_Config Config;	/**< XPmonPsv_Config of current device */
 	u32  IsReady;		/**< Device is initialized and ready  */
 	u32  RequestedCounters[2];	/**< Number of counters requested in each domain */
-} XpsvPmon;
+} XPmonPsv;
 
 /***************** Macros (Inline Functions) Definitions ********************/
 
@@ -128,36 +109,36 @@ typedef struct {
 /**
  * Functions in xpmonpsv_sinit.c
  */
-XPmonpsv_Config *XpsvPmon_LookupConfig(u16 DeviceId);
+XPmonPsv_Config *XPmonPsv_LookupConfig(u16 DeviceId);
 
 /**
  * Functions in xpmonpsv.c
  */
-s32 XpsvPmon_CfgInitialize(XpsvPmon *InstancePtr,
-		const XPmonpsv_Config *ConfigPtr, UINTPTR EffectiveAddr);
+u32 XPmonPsv_CfgInitialize(XPmonPsv *InstancePtr,
+		const XPmonPsv_Config *ConfigPtr, UINTPTR EffectiveAddr);
 
-u32 XpsvPmon_ResetCounter(const XpsvPmon *InstancePtr, u32 Domain, u32 CounterNum);
+u32 XPmonPsv_ResetCounter(const XPmonPsv *InstancePtr, u32 Domain, u32 CounterNum);
 
-u32 XpsvPmon_SetMetrics(const XpsvPmon *InstancePtr, u32 StatPeriod, u32 Domain, u32 CounterNum);
+u32 XPmonPsv_SetMetrics(const XPmonPsv *InstancePtr, u32 StatPeriod, u32 Domain, u32 CounterNum);
 
-s32 XpsvPmon_GetMetrics(const XpsvPmon *InstancePtr, u32 CounterNum, u8 *MainCtl,
+u32 XPmonPsv_GetMetrics(const XPmonPsv *InstancePtr, u32 CounterNum, u8 *MainCtl,
 						u8 *StatPeriod ,u32 Domain);
-s32 XpsvPmon_RequestCounter(XpsvPmon *InstancePtr,u32 Domain, u32 *CounterNum);
+u32 XPmonPsv_RequestCounter(XPmonPsv *InstancePtr,u32 Domain, u32 *CounterNum);
 
-s32 XpsvPmon_GetWriteCounter(const XpsvPmon *InstancePtr,u32 *WriteRequestValue,
+u32 XPmonPsv_GetWriteCounter(const XPmonPsv *InstancePtr,u32 *WriteRequestValue,
 				u32 *WriteRespValue, u32 Domain, u32 CounterNum);
 
-s32 XpsvPmon_GetReadCounter(const XpsvPmon *InstancePtr,u32 *ReadRequestValue,
+u32 XPmonPsv_GetReadCounter(const XPmonPsv *InstancePtr,u32 *ReadRequestValue,
 				u32 *ReadRespValue, u32 Domain, u32 CounterNum);
 
-s32 XpsvPmon_EnableCounters(const XpsvPmon *InstancePtr, u32 Domain, u32 CounterNum);
+u32 XPmonPsv_EnableCounters(const XPmonPsv *InstancePtr, u32 Domain, u32 CounterNum);
 
-s32 XpsvPmon_StopCounter(const XpsvPmon *InstancePtr, u32 Domain, u32 CounterNum);
-s32 XpsvPmon_SetPort(const XpsvPmon *InstancePtr, u32 PortSel, u32 Domain, u32 CounterNum);
-s32 XpsvPmon_SetSrc(const XpsvPmon *InstancePtr, u32 SrcSel , u32 Domain, u32 CounterNum);
+u32 XPmonPsv_StopCounter(const XPmonPsv *InstancePtr, u32 Domain, u32 CounterNum);
+u32 XPmonPsv_SetPort(const XPmonPsv *InstancePtr, u32 PortSel, u32 Domain, u32 CounterNum);
+u32 XPmonPsv_SetSrc(const XPmonPsv *InstancePtr, u32 SrcSel , u32 Domain, u32 CounterNum);
 
-s32 XpsvPmon_Unlock(const XpsvPmon *InstancePtr);
-s32 XpsvPmon_Lock(const XpsvPmon *InstancePtr);
+void XPmonPsv_Unlock(const XPmonPsv *InstancePtr);
+void XPmonPsv_Lock(const XPmonPsv *InstancePtr);
 
 #ifdef __cplusplus
 }

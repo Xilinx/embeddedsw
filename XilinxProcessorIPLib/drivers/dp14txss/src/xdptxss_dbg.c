@@ -1,35 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xdptxss_dbg.c
-* @addtogroup dptxss_v5_1
+* @addtogroup dptxss_v6_3
 * @{
 *
 * This file contains functions to report debug information of DisplayPort TX
@@ -81,6 +59,8 @@
 ******************************************************************************/
 void XDpTxSs_ReportSinkCapInfo(XDpTxSs *InstancePtr)
 {
+	u8 NumAudioEps;
+
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
@@ -137,9 +117,9 @@ void XDpTxSs_ReportSinkCapInfo(XDpTxSs *InstancePtr)
 	u8 TraingAuxReadInt = Dpcd[XDP_DPCD_TRAIN_AUX_RD_INTERVAL];
 	u8 AdapterForceLoadSenseCap = Dpcd[XDP_DPCD_ADAPTER_CAP] & (0x01);
 	u8 AdapterAltI2CPatternCap = Dpcd[XDP_DPCD_ADAPTER_CAP] & (0x02);
-	u8 FauxCap = Dpcd[XDP_DPCD_FAUX_CAP] & XDP_DPCD_FAUX_CAP_MASK;
-	u8 MstmCap = Dpcd[XDP_DPCD_MSTM_CAP] & XDP_DPCD_MST_CAP_MASK;
-	u8 NumAudioEps = Dpcd[XDP_DPCD_NUM_AUDIO_EPS];
+	u8 MstmCap = XDp_TxMstCapable(InstancePtr->DpPtr);
+	XDp_TxAuxRead(InstancePtr->DpPtr,
+				XDP_DPCD_NUM_AUDIO_EPS, 1, &NumAudioEps);
 
 	xil_printf("RX capabilities:\n\r"
 		"\tDPCD rev major (0x00000): %d\n\r"
@@ -177,7 +157,6 @@ void XDpTxSs_ReportSinkCapInfo(XDpTxSs *InstancePtr)
 		"\tTraining AUX read interval (0x0000E): %s\n\r"
 		"\tAdapter force load sense cap? (0x0000F) %s\n\r"
 		"\tAdapter alt i2c pattern cap? (0x0000F) %s\n\r"
-		"\tFaux cap?  (0x00020) %s\n\r"
 		"\tMSTM cap? (0x00021) %s\n\r"
 		"\t# of audio eps (0x00022) : %d\n\r",
 		DpcdRevMajor,
@@ -236,7 +215,6 @@ void XDpTxSs_ReportSinkCapInfo(XDpTxSs *InstancePtr)
 				"Unknown AUX read interval",
 		AdapterForceLoadSenseCap ? "Y" : "N",
 		AdapterAltI2CPatternCap ? "Y" : "N",
-		FauxCap ? "Y" : "N",
 		MstmCap ? "Y" : "N",
 		NumAudioEps
 	);

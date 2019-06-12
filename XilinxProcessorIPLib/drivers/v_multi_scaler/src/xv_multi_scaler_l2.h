@@ -1,33 +1,13 @@
 /******************************************************************************
- *
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
+* Copyright (C) 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xv_multi_scaler_l2.h
-* @addtogroup v_multiscaler_v1_0
+* @addtogroup v_multi_scaler_v1_1
 * @{
 *
 * This header file contains layer 2 API's of the multi scaler core
@@ -143,13 +123,27 @@ typedef struct {
 	XV_multi_scaler_Crop_Window CropWin;
 } XV_multi_scaler_Video_Config;
 
-extern const short XV_multiscaler_fixedcoeff_taps6[XV_MULTISCALER_MAX_V_PHASES]
+/*extern const short XV_multiscaler_fixedcoeff_taps6[XV_MULTISCALER_MAX_V_PHASES]
 	[XV_MULTISCALER_TAPS_12];
 extern const short XV_multiscaler_fixedcoeff_taps8[XV_MULTISCALER_MAX_V_PHASES]
 	[XV_MULTISCALER_TAPS_12];
 extern const short XV_multiscaler_fixedcoeff_taps10[XV_MULTISCALER_MAX_V_PHASES]
 	[XV_MULTISCALER_TAPS_12];
 extern const short XV_multiscaler_fixedcoeff_taps12[XV_MULTISCALER_MAX_V_PHASES]
+	[XV_MULTISCALER_TAPS_12];*/
+extern const short XV_multiscaler_fixedcoeff_taps6_6C[XV_MULTISCALER_MAX_V_PHASES]
+	[XV_MULTISCALER_TAPS_6];
+extern const short XV_multiscaler_fixedcoeff_taps6_12C[XV_MULTISCALER_MAX_V_PHASES]
+	[XV_MULTISCALER_TAPS_12];
+extern const short XV_multiscaler_fixedcoeff_taps8_8C[XV_MULTISCALER_MAX_V_PHASES]
+	[XV_MULTISCALER_TAPS_8];
+extern const short XV_multiscaler_fixedcoeff_taps8_12C[XV_MULTISCALER_MAX_V_PHASES]
+	[XV_MULTISCALER_TAPS_12];
+extern const short XV_multiscaler_fixedcoeff_taps10_10C[XV_MULTISCALER_MAX_V_PHASES]
+	[XV_MULTISCALER_TAPS_10];
+extern const short XV_multiscaler_fixedcoeff_taps10_12C[XV_MULTISCALER_MAX_V_PHASES]
+	[XV_MULTISCALER_TAPS_12];
+extern const short XV_multiscaler_fixedcoeff_taps12_12C[XV_MULTISCALER_MAX_V_PHASES]
 	[XV_MULTISCALER_TAPS_12];
 
 /************************** Function Prototypes ******************************/

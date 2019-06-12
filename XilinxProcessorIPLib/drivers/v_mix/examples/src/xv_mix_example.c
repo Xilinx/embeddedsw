@@ -1,28 +1,8 @@
 /*******************************************************************************
- *
- * Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
+* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 *******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -53,6 +33,9 @@
 *			 software to flush pending transactions.IP is expecting
 *			 a hard reset, when flushing is done.(There is a flush
 *			 status bit and is asserted when the flush is done).
+* 6.00  pg    01/10/20   Add Colorimetry feature.
+*                        Program CSC coefficient registers to do color conversion
+*                        from YUV to RGB and RGB to YUV.
 * </pre>
 *
 ******************************************************************************/
@@ -109,6 +92,9 @@ XScuGic    intc;
 XGpio      vmon;
 
 XVidC_VideoStream VidStream;
+XVidC_ColorStd colorStandard;
+XVidC_ColorRange colorRange;
+u8 colorDepth;
 
 u32 volatile *gpio_hlsIpReset;
 
@@ -564,6 +550,18 @@ static void ConfigMixer(XVidC_VideoStream *StreamPtr)
       xil_printf("INFO: Logo Layer Disabled in HW \r\n");
   }
   XVMix_SetBackgndColor(MixerPtr, XVMIX_BKGND_BLUE, StreamPtr->ColorDepth);
+
+  /*
+   * Program CSC coefficients when ENABLE_CSC_COEFFICIENT_REGISTERS
+   * is enabled
+   */
+#if XPAR_V_MIX_0_ENABLE_CSC_COEFFICIENT_REGISTERS
+  colorStandard = XVIDC_BT_709;
+  colorRange = XVIDC_CR_16_240;
+  colorDepth = MixerPtr->Stream.ColorDepth;
+
+  XVMix_SetCscCoeffs(MixerPtr, colorStandard, colorRange, colorDepth);
+#endif
 
   XVMix_LayerEnable(MixerPtr, XVMIX_LAYER_MASTER);
   XVMix_InterruptDisable(MixerPtr);

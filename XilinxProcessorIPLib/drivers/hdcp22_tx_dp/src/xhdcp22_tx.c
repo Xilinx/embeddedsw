@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xhdcp22_tx.c
-* @addtogroup hdcp22_tx_v2_3
+* @addtogroup hdcp22_tx_v1_0
 * @{
 * @details
 *
@@ -143,6 +123,7 @@ static int XHdcp22Tx_WriteAKEStoredKm(XHdcp22_Tx *InstancePtr,
 static int XHdcp22Tx_WriteLcInit(XHdcp22_Tx *InstancePtr, const u8 *Rn);
 static int XHdcp22Tx_WriteSkeSendEks(XHdcp22_Tx *InstancePtr,
                     const u8 *EdkeyKsPtr, const u8 *RivPtr);
+static int XHdcp22Tx_WriteTypeValue(XHdcp22_Tx *InstancePtr);
 static int XHdcp22Tx_WriteRepeaterAuth_Send_Ack(XHdcp22_Tx *InstancePtr, const u8 *V);
 static int XHdcp22Tx_WriteRepeaterAuth_Stream_Manage(XHdcp22_Tx *InstancePtr);
 static int XHdcp22Tx_ReceiveMsg(XHdcp22_Tx *InstancePtr, u8 MessageId,
@@ -2177,6 +2158,14 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA3(XHdcp22_Tx *InstancePtr)
 		return XHDCP22_TX_STATE_A0;
 	}
 
+	/* Write Type Value */
+	Result = XHdcp22Tx_WriteTypeValue(InstancePtr);
+
+	if (Result != XST_SUCCESS) {
+		XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG, XHDCP22_TX_LOG_DBG_MSG_WRITE_FAIL);
+		return XHDCP22_TX_STATE_A0;
+	}
+
 	return XHDCP22_TX_STATE_A4;
 }
 
@@ -3688,6 +3677,33 @@ static int XHdcp22Tx_WriteSkeSendEks(XHdcp22_Tx *InstancePtr,
 
 /******************************************************************************/
 /**
+ *
+ * This function sends the Type Value to the receiver.
+ *
+ * @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
+ *
+ * @return
+ *         - XST_SUCCESS if writing succeeded
+ *         - XST_FAILURE if failed to write
+ *
+ * @note   None.
+ *
+ ******************************************************************************/
+static int XHdcp22Tx_WriteTypeValue(XHdcp22_Tx *InstancePtr)
+{
+	XHdcp22_Tx_DDCMessage* MsgPtr =
+		(XHdcp22_Tx_DDCMessage*)InstancePtr->MessageBuffer;
+	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG,
+			XHDCP22_TX_LOG_DBG_TX_TYPE_VALUE);
+
+	MsgPtr->Message.MsgId = XHDCP22_TX_TYPE_VALUE;
+
+	xdbg_printf(XDBG_DEBUG_GENERAL,"HDCP22TX: Writing SKE_SEND_EKS\n\r");
+	return XHdcp22Tx_Dp_Write_Dpcd_Msg(InstancePtr);
+}
+
+/******************************************************************************/
+/**
 *
 * This function sends the Receiver ID List acknowledgement to the repeater.
 *
@@ -4718,6 +4734,15 @@ static int XHdcp22Tx_Dp_Write_Dpcd_Msg(XHdcp22_Tx *InstancePtr)
 					XHDCP22_TX_DP_HDCPPORT_R_IV_SIZE);
 			if (NumWritten == (XHDCP22_TX_DP_HDCPPORT_E_DKEY_KS_SIZE +
 						XHDCP22_TX_DP_HDCPPORT_R_IV_SIZE))
+				Status = XST_SUCCESS;
+			break;
+		case XHDCP22_TX_TYPE_VALUE:
+			NumWritten = InstancePtr->TxDpAuxWriteCallback(
+					InstancePtr->TxDpAuxWriteCallbackRef,
+					XHDCP22_TX_DP_HDCPPORT_TYPE_VALUE_OFFSET,
+					(u8 *)&InstancePtr->Info.ContentStreamType,
+					XHDCP22_TX_DP_HDCPPORT_TYPE_VALUE_SIZE);
+			if (NumWritten == XHDCP22_TX_DP_HDCPPORT_TYPE_VALUE_SIZE)
 				Status = XST_SUCCESS;
 			break;
 		default:

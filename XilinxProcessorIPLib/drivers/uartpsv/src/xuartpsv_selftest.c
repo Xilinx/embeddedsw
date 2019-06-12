@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2017-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xuartpsv_selftest.c
-* @addtogroup uartpsv_v1_1
+* @addtogroup uartpsv_v1_2
 * @{
 *
 * This file contains the self-test functions for the XUartPsv driver.
@@ -38,7 +18,7 @@
 * Ver  Who  Date      Changes
 * ---  ---  --------- -----------------------------------------------
 * 1.0  sg   09/18/17  First Release
-*
+* 1.2  rna  01/20/20  Use XUartPsv_ProgramCtrlReg function to restore CR
 * </pre>
 *
 ******************************************************************************/
@@ -90,21 +70,20 @@ s32 XUartPsv_SelfTest(XUartPsv *InstancePtr)
 	u32 CtrlRegister;
 	u8 Index;
 	u32 ReceiveDataResult;
-	u32 LineCtrlRegister;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	/* Setup for local loop back */
+	/* Save the Control Register to restore later */
 	CtrlRegister = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
-				XUARTPSV_UARTCR_OFFSET);
-	CtrlRegister |= XUARTPSV_UARTCR_LBE;
-	XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
-			XUARTPSV_UARTCR_OFFSET, CtrlRegister);
+			XUARTPSV_UARTCR_OFFSET);
+
+	/* Setup for local loop back, this function modifies Control register */
+	XUartPsv_SetOperMode(InstancePtr, XUARTPSV_OPER_MODE_LOCAL_LOOP);
 
 	/* Send a number of bytes and receive them, one at a time. */
-	for (Index = 0U; Index < XUARTPSV_TOTAL_BYTES; Index++) {
+	for (Index = 0U; Index < XUARTPSV_TOTAL_BYTES - 1; Index++) {
 		/*
 		 * Send out the byte and if it was not sent then the failure
 		 * will be caught in the comparison at the end
@@ -134,49 +113,14 @@ s32 XUartPsv_SelfTest(XUartPsv *InstancePtr)
 	 * Compare the bytes received to the bytes sent to verify the exact
 	 * data was received
 	 */
-	for (Index = 0U; Index < XUARTPSV_TOTAL_BYTES; Index++) {
+	for (Index = 0U; Index < XUARTPSV_TOTAL_BYTES - 1; Index++) {
 		if (TestString[Index] != ReturnString[Index]) {
 			Status = XST_UART_TEST_FAIL;
 		}
 	}
 
-	/* Disable UART */
-	CtrlRegister = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
-					XUARTPSV_UARTCR_OFFSET);
-	CtrlRegister &= ~XUARTPSV_UARTCR_UARTEN;
-	XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
-			XUARTPSV_UARTCR_OFFSET, CtrlRegister);
-
-	/*
-	 * Check is TX completed
-	 */
-	while (XUartPsv_IsTransmitbusy(InstancePtr->Config.BaseAddress));
-
-	/*
-	 * Flush the transmit FIFO by setting the FEN bit to 0 in the
-	 * Line Control Register
-	 */
-	LineCtrlRegister = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
-					XUARTPSV_UARTLCR_OFFSET);
-
-	LineCtrlRegister &= ~XUARTPSV_UARTLCR_FEN;
-	XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
-			XUARTPSV_UARTLCR_OFFSET, LineCtrlRegister);
-
-	/* Setup for normal loop mode*/
-	CtrlRegister = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
-					XUARTPSV_UARTCR_OFFSET);
-	CtrlRegister &= ~XUARTPSV_UARTCR_MODE_MASK;
-	CtrlRegister |= XUARTPSV_UARTCR_MODE_NORMAL;
-	XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
-			XUARTPSV_UARTCR_OFFSET, CtrlRegister);
-
-	/* Enable UART */
-	CtrlRegister = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
-					XUARTPSV_UARTCR_OFFSET);
-	CtrlRegister |= XUARTPSV_UARTCR_UARTEN;
-	XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
-			XUARTPSV_UARTCR_OFFSET, CtrlRegister);
+	/* Reprogram the control Register with the saved value */
+	XUartPsv_ProgramCtrlReg(InstancePtr, CtrlRegister);
 
 	return Status;
 }

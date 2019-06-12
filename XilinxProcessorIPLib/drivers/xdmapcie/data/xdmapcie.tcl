@@ -1,26 +1,6 @@
 ###############################################################################
-#
-# Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-#
-#
+# Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
 #
 ###############################################################################
 ##############################################################################
@@ -36,9 +16,10 @@
 #uses "xillib.tcl"
 
 proc generate {drv_handle} {
-    set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
-    foreach periph $periphs {
-        if {[string compare -nocase "xdma_0" $periph] == 0} {
+    set ips [hsi::get_cells -hier "*"]
+    foreach ip $ips {
+	set periph [common::get_property IP_NAME $ip]
+        if {[string compare -nocase "xdma" $periph] == 0} {
             xdefine_pcie_include_file $drv_handle "xparameters.h" "XDmaPcie" \
                 "NUM_INSTANCES" \
                 "DEVICE_ID" \
@@ -75,7 +56,7 @@ proc generate {drv_handle} {
                 "device_port_type"
         }
 
-        if {[string compare -nocase "psv_pciea_attrib_0" $periph] == 0} {
+        if {[string compare -nocase "psv_pciea_attrib" $periph] == 0} {
             xdefine_pcie_include_file $drv_handle "xparameters.h" "XDmaPcie" \
                 "NUM_INSTANCES" \
                 "DEVICE_ID" \

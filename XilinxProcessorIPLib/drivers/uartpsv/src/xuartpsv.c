@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2017-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xuartpsv.c
-* @addtogroup uartpsv_v1_1
+* @addtogroup uartpsv_v1_2
 * @{
 *
 * This file contains the implementation of the interface functions for
@@ -40,7 +20,8 @@
 * Ver  Who  Date      Changes
 * ---  ---  --------- -----------------------------------------------
 * 1.0  sg   09/18/17  First Release
-*
+* 1.2  rna  01/20/20  Add function to Program control register following
+*		      the sequence mentioned in TRM
 * </pre>
 *
 ******************************************************************************/
@@ -159,13 +140,7 @@ s32 XUartPsv_CfgInitialize(XUartPsv *InstancePtr,
 				XUARTPSV_UARTIFLS_OFFSET,
 				(XUARTPSV_UARTIFLS_RXIFLSEL_1_2 |
 				XUARTPSV_UARTIFLS_TXIFLSEL_1_2));
-#if 0
-		/* Enable transmit and receive DMA*/
-		XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
-				XUARTPSV_UARTDMACR_OFFSET,
-				(XUARTPSV_UARTDMACR_TXDMAE |
-				XUARTPSV_UARTDMACR_RXDMAE));
-#endif
+
 		/*
 		 * Set up the default data format: 8 bit data, 1 stop bit,
 		 * no parity
@@ -349,7 +324,7 @@ u32 XUartPsv_SendBuffer(XUartPsv *InstancePtr)
 
 	/*
 	 * If the TX FIFO is full, send nothing.
-	 * Otherwise put bytes into the TX FIFO unil it is full, or all of
+	 * Otherwise put bytes into the TX FIFO until it is full, or all of
 	 * the data has been put into the FIFO.
 	 */
 	while ((!XUartPsv_IsTransmitFull(InstancePtr->Config.BaseAddress)) &&
@@ -577,6 +552,76 @@ s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate)
 	InstancePtr->BaudRate = BaudRate;
 
 	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function reprograms the control register according to the following
+ * sequence mentioned in the TRM
+ *
+ * Sequence to Program Control Register.
+ * 	1. Disable UART
+ * 	2. Check if Busy
+ * 	3. Flush the transmit FIFO
+ * 	4. Program the Control Register
+ * 	5. Enable the Uart
+ *
+ * @param	InstancePtr is a pointer to the XUartPsv instance
+ * @param	Control Register value to be written
+ *
+ * @return	None.
+ *
+ * @note 	None.
+ *
+ ******************************************************************************/
+void XUartPsv_ProgramCtrlReg(XUartPsv *InstancePtr, u32 CtrlRegister)
+{
+	u32 LineCtrlRegister;
+	u32 TempCtrlRegister;
+
+	/*
+	 * Check is TX completed. If Uart is disabled in the middle, cannot
+	 * recover. So, keep this check before disable.
+	 */
+	while (XUartPsv_IsTransmitbusy(InstancePtr->Config.BaseAddress));
+
+	/* Disable UART */
+	TempCtrlRegister = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
+			XUARTPSV_UARTCR_OFFSET);
+
+	XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XUARTPSV_UARTCR_OFFSET, TempCtrlRegister & (~XUARTPSV_UARTCR_UARTEN));
+
+	/*
+	 * Flush the transmit FIFO by setting the FEN bit to 0 in the
+	 * Line Control Register
+	 */
+	LineCtrlRegister = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
+			XUARTPSV_UARTLCR_OFFSET);
+
+	LineCtrlRegister &= ~XUARTPSV_UARTLCR_FEN;
+	XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XUARTPSV_UARTLCR_OFFSET, LineCtrlRegister);
+
+
+	/* Setup the Control Register with the passed argument.*/
+	XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XUARTPSV_UARTCR_OFFSET, CtrlRegister);
+
+	/* By default, driver works in FIFO mode, so set FEN as it is
+	 * cleared above
+	 */
+	LineCtrlRegister |= XUARTPSV_UARTLCR_FEN;
+	XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XUARTPSV_UARTLCR_OFFSET, LineCtrlRegister);
+
+	/* Enable UART */
+	TempCtrlRegister = XUartPsv_ReadReg(InstancePtr->Config.BaseAddress,
+			XUARTPSV_UARTCR_OFFSET);
+	TempCtrlRegister |= XUARTPSV_UARTCR_UARTEN;
+	XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XUARTPSV_UARTCR_OFFSET, TempCtrlRegister);
 }
 
 /*****************************************************************************/

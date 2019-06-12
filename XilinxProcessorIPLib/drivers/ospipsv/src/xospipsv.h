@@ -1,33 +1,13 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
 * @file xospipsv.h
-* @addtogroup ospipsv_v1_1
+* @addtogroup ospipsv_v1_2
 * @{
 * @details
 *
@@ -49,6 +29,12 @@
 * 1.1   sk   07/22/19 Added RX Tuning algorithm for SDR and DDR modes.
 *       sk   08/08/19 Added flash device reset support.
 *       sk   08/16/19 Set Read Delay Fld to 0x1 for Non-Phy mode.
+* 1.2   sk   02/03/20 Added APIs for non-blocking transfer support.
+*       sk   02/20/20 Reorganize the source code, enable the interrupts
+*                     by default and updated XOspiPsv_DeviceReset() API with
+*                     masked data writes.
+*       sk   02/20/20 Make XOspiPsv_SetDllDelay() API as user API.
+*       sk   02/20/20 Added support for DLL Master mode.
 *
 * </pre>
 *
@@ -137,6 +123,7 @@ typedef struct {
 	u8 IsUnaligned;		/* Flag used to indicate bytecnt is aligned or not */
 	u32 DeviceIdData;	/* Contains Device Id Data information */
 	u8 Extra_DummyCycle;
+	u8 DllMode;
 #ifdef __ICCARM__
 #pragma pack(push, 8)
 	u8 UnalignReadBuffer[4];	/**< Buffer used to read the unaligned bytes in DMA */
@@ -230,16 +217,23 @@ typedef struct {
 #define XOSPIPSV_REMAP_ADDR_VAL		0x40000000U
 #define XOSPIPSV_SDR_TX_VAL			0x5U
 #define XOSPIPSV_DDR_TX_VAL			0x0U
+#define XOSPIPSV_DDR_TX_VAL_MASTER		0x19U
+#define XOSPIPSV_SDR_TX_VAL_MASTER		0x39U
 
 #define XOSPIPSV_HWPIN_RESET	0x0U
 #define XOSPIPSV_INBAND_RESET	0x1U
 
-#define XOSPIPSV_NON_PHY_RD_DLY		0x1
+#define XOSPIPSV_NON_PHY_RD_DLY		0x1U
+
+#define XOSPIPSV_DLL_MAX_TAPS		0x80U
+
+#define XOSPIPSV_DLL_BYPASS_MODE	0x0U
+#define XOSPIPSV_DLL_MASTER_MODE	0x1U
 
 /* Initialization and reset */
 XOspiPsv_Config *XOspiPsv_LookupConfig(u16 DeviceId);
 u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr, const XOspiPsv_Config *ConfigPtr);
-void XOspiPsv_Reset(const XOspiPsv *InstancePtr);
+void XOspiPsv_Reset(XOspiPsv *InstancePtr);
 /* Configuration functions */
 u32 XOspiPsv_SetClkPrescaler(XOspiPsv *InstancePtr, u8 Prescaler);
 u32 XOspiPsv_SelectFlash(XOspiPsv *InstancePtr, u8 chip_select);
@@ -251,9 +245,12 @@ u32 XOspiPsv_IntrHandler(XOspiPsv *InstancePtr);
 void XOspiPsv_SetStatusHandler(XOspiPsv *InstancePtr, void *CallBackRef,
 				XOspiPsv_StatusHandler FuncPointer);
 u32 XOspiPsv_SetSdrDdrMode(XOspiPsv *InstancePtr, u32 Mode);
-void XOspiPsv_ConfigureAutoPolling(XOspiPsv *InstancePtr, u32 FlashMode);
+void XOspiPsv_ConfigureAutoPolling(const XOspiPsv *InstancePtr, u32 FlashMode);
 void XOspiPsv_Idle(const XOspiPsv *InstancePtr);
 u32 XOspiPsv_DeviceReset(u8 Type);
+u32 XOspiPsv_StartDmaTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg);
+u32 XOspiPsv_CheckDmaDone(XOspiPsv *InstancePtr);
+u32 XOspiPsv_SetDllDelay(XOspiPsv *InstancePtr);
 #ifdef __cplusplus
 }
 #endif

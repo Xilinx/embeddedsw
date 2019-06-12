@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -58,7 +36,6 @@
 #include "xvidc_edid.h"
 #include "xdebug.h"
 #include "string.h"
-#include "xvphy_dp.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -159,6 +136,20 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 		InstancePtr->TxInstance.AuxDelayUs = 30000;
 		InstancePtr->TxInstance.SbMsgDelayUs = 30000;
 
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Discovering "
+				"topology.\n\r");
+		/* Get list of sinks */
+		Status = Dp_GetTopology(InstancePtr);
+		if (Status)
+			return Status;
+
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Topology "
+				"discovery done, # of sinks found = %d.\n\r",
+				InstancePtr->TxInstance.Topology.SinkTotal);
+
+		/* Total number of streams equal to number of sinks found */
+		NumOfStreams = InstancePtr->TxInstance.Topology.SinkTotal;
+
 		/* Enable downshifting during link training */
 		XDp_TxEnableTrainAdaptive(InstancePtr, 1);
 
@@ -183,20 +174,12 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 			}
 		}
 
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Discovering "
-				"topology.\n\r");
-
-		/* Get list of sinks */
-		Status = Dp_GetTopology(InstancePtr);
-		if (Status != XST_SUCCESS) {
-			return Status;
+		Status = XDp_TxCheckLinkStatus(InstancePtr,
+				InstancePtr->TxInstance.LinkConfig.LaneCount);
+		if (Status == XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Link "
+					"is up !\n\r\n\r");
 		}
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Topology "
-			"discovery done, # of sinks found = %d.\n\r",
-			InstancePtr->TxInstance.Topology.SinkTotal);
-
-		/* Total number of streams equal to number of sinks found */
-		NumOfStreams = InstancePtr->TxInstance.Topology.SinkTotal;
 
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:Reading (MST) Sink "
 			"EDID...\n\r");
@@ -587,18 +570,6 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 					0].UserPixelWidth = 4;
 			}
 		}
-		else {
-			/* Set user pixel width if video mode is 1920 x 2160 */
-			if ((InstancePtr->TxInstance.MsaConfig[
-				0].Vtm.Timing.HActive == 1920) &&
-				(InstancePtr->TxInstance.MsaConfig[
-					0].Vtm.Timing.VActive == 2160) &&
-				(InstancePtr->TxInstance.MsaConfig[
-					0].OverrideUserPixelWidth == 0)) {
-				InstancePtr->TxInstance.MsaConfig[
-					0].UserPixelWidth = 4;
-			}
-		}
 
 		 if((InstancePtr->TxInstance.MsaConfig[0].PixelClockHz <=
 		     75000000) &&
@@ -617,7 +588,8 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 
 		/* Reset the transmitter. */
 		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_SOFT_RESET,
-				XDP_TX_SOFT_RESET_VIDEO_STREAM_ALL_MASK);
+				XDP_TX_SOFT_RESET_VIDEO_STREAM_ALL_MASK |
+				XDP_TX_SOFT_RESET_HDCP_MASK);
 		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_SOFT_RESET,
 				0x0);
 	}
@@ -999,13 +971,6 @@ static u32 Dp_GetTopology(XDp *InstancePtr)
 		NumStreams = InstancePtr->Config.NumMstStreams;
 	}
 
-	Status = XDp_TxCheckLinkStatus(InstancePtr,
-				InstancePtr->TxInstance.LinkConfig.LaneCount);
-	if (Status == XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Link "
-			"is up after topology discovery!\n\r\n\r");
-	}
-
 	return XST_SUCCESS;
 }
 
@@ -1131,13 +1096,13 @@ static void Dp_ConfigVideoPackingClockControl(XDp *InstancePtr, u8 Bpc)
 
 		switch (InstancePtr->TxInstance.LinkConfig.LinkRate) {
 		case XDP_TX_LINK_BW_SET_540GBPS:
-			DpLinkRateHz = XVPHY_DP_LINK_RATE_HZ_540GBPS;
+			DpLinkRateHz = DP_LINK_RATE_HZ_540GBPS;
 			break;
 		case XDP_TX_LINK_BW_SET_270GBPS:
-			DpLinkRateHz = XVPHY_DP_LINK_RATE_HZ_270GBPS;
+			DpLinkRateHz = DP_LINK_RATE_HZ_270GBPS;
 			break;
 		default:
-			DpLinkRateHz = XVPHY_DP_LINK_RATE_HZ_162GBPS;
+			DpLinkRateHz = DP_LINK_RATE_HZ_162GBPS;
 			break;
 		}
 		/* link clock */
