@@ -224,6 +224,8 @@
 *                       XRFdc_IsADCBlockEnabled(), XRFdc_IsDACDigitalPathEnabled() &
 *                       XRFdc_IsADCDigitalPathEnabled() APIs now derive answer from
 *                       DRP rather than context structure.
+*       cog    06/12/19 Fixed issue where positive NCO frequencies were not being
+*                       set correctly.
 *
 * </pre>
 *
@@ -722,8 +724,7 @@ typedef struct {
 
 #define XRFDC_CRSE_DLY_MAX 0x7U
 #define XRFDC_CRSE_DLY_MAX_EXT 0x28U
-#define XRFDC_NCO_FREQ_MULTIPLIER ((0x1LLU << 48U) - 2) /* 2^48 -2 */
-#define XRFDC_NCO_FREQ_MIN_MULTIPLIER (0x1LLU << 48U) /* 2^48 */
+#define XRFDC_NCO_FREQ_MULTIPLIER (0x1LLU << 48U) /* 2^48 */
 #define XRFDC_NCO_PHASE_MULTIPLIER (1U << 17U) /* 2^17 */
 #define XRFDC_QMC_PHASE_MULT (1U << 11U) /* 2^11 */
 #define XRFDC_QMC_GAIN_MULT (1U << 14U) /* 2^14 */

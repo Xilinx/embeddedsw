@@ -46,6 +46,8 @@
 *       cog    01/29/19 Rename DataType to MixerInputDataType for
 *                       readability.
 * 7.0   cog    05/13/19 Formatting changes.
+*       cog    06/12/19 Fixed issue where positive NCO frequencies were not
+*                       being set correctly.
 * </pre>
 *
 ******************************************************************************/
@@ -148,7 +150,6 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 		}
 
 		BaseAddr = XRFDC_BLOCK_BASE(Type, Tile_Id, Index);
-
 		if (SamplingRate <= 0) {
 			Status = XRFDC_FAILURE;
 			metal_log(METAL_LOG_ERROR,
@@ -261,11 +262,7 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 		}
 
 		/* NCO Frequency */
-		if (NCOFreq < 0) {
-			Freq = ((NCOFreq * XRFDC_NCO_FREQ_MIN_MULTIPLIER) / SamplingRate);
-		} else {
-			Freq = ((NCOFreq * XRFDC_NCO_FREQ_MULTIPLIER) / SamplingRate);
-		}
+		Freq = ((NCOFreq * XRFDC_NCO_FREQ_MULTIPLIER) / SamplingRate);
 		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_ADC_NCO_FQWD_LOW_OFFSET, (u16)Freq);
 		ReadReg = (Freq >> XRFDC_NCO_FQWD_MID_SHIFT) & XRFDC_NCO_FQWD_MID_MASK;
 		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_ADC_NCO_FQWD_MID_OFFSET, (u16)ReadReg);
@@ -876,11 +873,7 @@ u32 XRFdc_GetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 	Freq |= ReadReg;
 	Freq &= XRFDC_NCO_FQWD_MASK;
 	Freq = (Freq << 16) >> 16;
-	if (Freq < 0) {
-		MixerSettingsPtr->Freq = ((Freq * SamplingRate) / XRFDC_NCO_FREQ_MIN_MULTIPLIER);
-	} else {
-		MixerSettingsPtr->Freq = ((Freq * SamplingRate) / XRFDC_NCO_FREQ_MULTIPLIER);
-	}
+	MixerSettingsPtr->Freq = ((Freq * SamplingRate) / XRFDC_NCO_FREQ_MULTIPLIER);
 
 	/* Event Source */
 	ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_NCO_UPDT_OFFSET);
