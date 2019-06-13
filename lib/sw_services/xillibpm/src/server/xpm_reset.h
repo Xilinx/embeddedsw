@@ -51,13 +51,7 @@ typedef enum {
 	XPM_RSTOPS_CUSTOM,
 }XPm_ResetOpsType;
 
-/* Reset configuration argument */
-typedef enum {
-	PM_RESET_ACTION_RELEASE,
-	PM_RESET_ACTION_ASSERT,
-	PM_RESET_ACTION_PULSE,
-}XPm_ResetActions;
-
+typedef enum XPmResetActions XPm_ResetActions;
 typedef struct XPm_ResetNode XPm_ResetNode;
 typedef struct XPm_Subsystem XPm_Subsystem;
 
