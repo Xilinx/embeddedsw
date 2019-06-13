@@ -336,9 +336,9 @@ done:
  *
  * @param  ResetId		Reset ID
  * @param  Action		Reset action to be taken
- *				- 1 for Assert Reset
- *				- 2 for Release Reset
- *				- 3 for Pulse Reset
+ *				- PM_RESET_ACTION_RELEASE for Release Reset
+ *				- PM_RESET_ACTION_ASSERT for Assert Reset
+ *				- PM_RESET_ACTION_PULSE for Pulse Reset
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
