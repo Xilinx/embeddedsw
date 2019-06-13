@@ -190,6 +190,8 @@ enum pm_ioctl_id {
 	/* Probe counter read/write */
 	IOCTL_PROBE_COUNTER_READ,
 	IOCTL_PROBE_COUNTER_WRITE,
+	/* Ospi mux select */
+	IOCTL_OSPI_MUX_SELECT,
 };
 
 /* PLL parameters */
@@ -260,6 +262,11 @@ enum XPmOpCharType {
 /* Tap delay bypass */
 #define XPM_TAPDELAY_BYPASS_DISABLE	(0U)
 #define XPM_TAPDELAY_BYPASS_ENABLE	(1U)
+
+/* Ospi AXI Mux select */
+#define XPM_OSPI_MUX_SEL_DMA		(0U)
+#define XPM_OSPI_MUX_SEL_LINEAR		(1U)
+#define XPM_OSPI_MUX_GET_MODE		(2U)
 
 /* Tap delay type */
 #define XPM_TAPDELAY_INPUT		(0U)

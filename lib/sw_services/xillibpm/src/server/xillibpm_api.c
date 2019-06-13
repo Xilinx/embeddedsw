@@ -2152,6 +2152,62 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  This function selects/returns the AXI interface to OSPI device
+ *
+ * @param  DeviceId	DeviceId of the device
+ * @param  Type		Reset type
+ * @param  Response	Output Response (0 - DMA, 1 - LINEAR)
+ *
+ * @return XST_SUCCESS if successful else error code or a reason code
+ *
+ ****************************************************************************/
+static int XPm_OspiMuxSelect(const u32 DeviceId, const u32 Type, u32 *Response)
+{
+	int Status = XST_SUCCESS;
+	XPm_Device *Device;
+	u32 BaseAddress;
+	u32 Offset;
+
+	(void)DeviceId;
+
+	Device = XPmDevice_GetById(XPM_DEVID_PMC);
+	if (NULL == Device) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+	/* PMC_IOU_SLCR base address */
+	BaseAddress = Device->Node.BaseAddress;
+	Offset = XPM_OSPI_MUX_SEL_OFFSET;
+
+	switch (Type) {
+	case XPM_OSPI_MUX_SEL_DMA:
+		PmRmw32(BaseAddress + Offset, XPM_OSPI_MUX_SEL_MASK,
+				~XPM_OSPI_MUX_SEL_MASK);
+		break;
+	case XPM_OSPI_MUX_SEL_LINEAR:
+		PmRmw32(BaseAddress + Offset, XPM_OSPI_MUX_SEL_MASK,
+				XPM_OSPI_MUX_SEL_MASK);
+		break;
+	case XPM_OSPI_MUX_GET_MODE:
+		if (NULL == Response) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+		PmIn32(BaseAddress + Offset, *Response);
+		*Response = (((*Response) & XPM_OSPI_MUX_SEL_MASK) >>
+			XPM_OSPI_MUX_SEL_SHIFT);
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function performs driver-like IOCTL functions on shared system
  * devices.
  *
@@ -2278,6 +2334,16 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 		Status = XPm_ProbeCounterAccess(DeviceId, Arg1, Arg2,
 						Response, TRUE);
 		break;
+	case IOCTL_OSPI_MUX_SELECT:
+		if (XPM_DEVID_OSPI != DeviceId) {
+			goto done;
+		}
+
+		Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		Status = XPm_OspiMuxSelect(DeviceId, Arg1, Response);
 	default:
 		/* Not supported yet */
 		goto done;
