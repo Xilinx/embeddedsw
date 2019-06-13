@@ -37,7 +37,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   12/21/2017 Initial release
-*
+* 1.01  bsv  06/11/2019 Added XCframe_ClearCframeErr API
 * </pre>
 *
 * @note
@@ -156,6 +156,7 @@ void XCframe_SetReadParam(XCframe *InstancePtr,
 			XCframe_FrameNo CframeNo, u32 CframeLen);
 void XCframe_ReadReg(XCframe *InstancePtr, u32 AddrOffset,
 			XCframe_FrameNo FrameNo, u32* ValPtr);
+void XCframe_ClearCframeErr(XCframe *InstancePtr);
 #ifdef __cplusplus
 }
 #endif
