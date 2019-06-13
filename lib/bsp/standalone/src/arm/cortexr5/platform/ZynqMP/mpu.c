@@ -1,30 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
 * @file mpu.c
@@ -41,6 +19,9 @@
 * 6.00  pkp  06/27/16 moving the Init_MPU code to .boot section since it is a
 *                     part of processor boot process
 * 6.2   mus  01/27/17 Updated to support IAR compiler
+* 7.1   mus  09/11/19 Added warning message if DDR size is not in power of 2.
+*                     Fix for CR#1038577.
+* 7.2   asa  04/08/20 Fix warning in the function Init_MPU.
 * </pre>
 *
 * @note
@@ -51,6 +32,7 @@
 /***************************** Include Files *********************************/
 
 #include "xil_types.h"
+#include "xil_printf.h"
 #include "xreg_cortexr5.h"
 #include "xil_mpu.h"
 #include "xpseudo_asm.h"
@@ -103,11 +85,13 @@ static const struct {
 void Init_MPU(void) __attribute__((__section__(".boot")));
 static void Xil_SetAttribute(u32 addr, u32 reg_size,s32 reg_num, u32 attrib) __attribute__((__section__(".boot")));
 static void Xil_DisableMPURegions(void) __attribute__((__section__(".boot")));
+extern XMpu_Config Mpu_Config __attribute__((section(".boot")));
 #elif defined (__ICCARM__)
 #pragma default_function_attributes = @ ".boot"
 void Init_MPU(void);
 static void Xil_SetAttribute(u32 addr, u32 reg_size,s32 reg_num, u32 attrib);
 static void Xil_DisableMPURegions(void);
+extern XMpu_Config Mpu_Config;
 #endif
 /*****************************************************************************
 *
@@ -121,13 +105,21 @@ static void Xil_DisableMPURegions(void);
 *
 *
 ******************************************************************************/
+static inline void Update_MpuConfig_Array(u32 Addr,u32 RegSize,u32 RegNum,
+																u32 Attrib)
+{
+	Mpu_Config[RegNum].RegionStatus = MPU_REG_ENABLED;
+	Mpu_Config[RegNum].BaseAddress = Addr;
+	Mpu_Config[RegNum].Size = RegSize;
+	Mpu_Config[RegNum].Attribute = Attrib;
+}
 
 void Init_MPU(void)
 {
 	u32 Addr;
 	u32 RegSize = 0U;
 	u32 Attrib;
-	u32 RegNum = 0, i;
+	u32 RegNum = 0, i, Offset = 0;
 	u64 size;
 
 	Xil_DisableMPURegions();
@@ -141,6 +133,17 @@ void Init_MPU(void)
 		for (i = 0; i < sizeof region_size / sizeof region_size[0]; i++) {
 			if (size <= region_size[i].size) {
 				RegSize = region_size[i].encoding;
+
+				/* Check if DDR size is in power of 2*/
+				if ( XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR == 0x100000)
+					Offset = XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR;
+				if (region_size[i].size > (size + Offset + 1)) {
+					xil_printf ("WARNING: DDR size mapped to Cortexr5 processor is not \
+								in power of 2. As processor allocates MPU regions size \
+								in power of 2, address range %llx to %x has been \
+								incorrectly mapped as normal memory \n", \
+								region_size[i].size - 1, ((u32)XPAR_PSU_R5_DDR_0_S_AXI_HIGHADDR + 1));
+				}
 				break;
 			}
 		}
@@ -154,6 +157,7 @@ void Init_MPU(void)
 #endif
 	Attrib = NORM_NSHARED_WB_WA | PRIV_RW_USER_RW;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
 	/*
@@ -166,6 +170,7 @@ void Init_MPU(void)
 	RegSize = REGION_1G;
 	Attrib = STRONG_ORDERD_SHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
 	/* 512M of device memory from 0xC0000000 to 0xDFFFFFFF for QSPI */
@@ -173,6 +178,7 @@ void Init_MPU(void)
 	RegSize = REGION_512M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
 	/* 256M of device memory from 0xE0000000 to 0xEFFFFFFF for PCIe Low */
@@ -180,6 +186,7 @@ void Init_MPU(void)
 	RegSize = REGION_256M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
 	/* 16M of device memory from 0xF8000000 to 0xF8FFFFFF for STM_CORESIGHT */
@@ -187,6 +194,7 @@ void Init_MPU(void)
 	RegSize = REGION_16M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
 	/* 1M of device memory from 0xF9000000 to 0xF90FFFFF for RPU_A53_GIC */
@@ -194,6 +202,7 @@ void Init_MPU(void)
 	RegSize = REGION_1M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
 	/* 16M of device memory from 0xFD000000 to 0xFDFFFFFF for FPS slaves */
@@ -201,6 +210,7 @@ void Init_MPU(void)
 	RegSize = REGION_16M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
 	/* 16M of device memory from 0xFE000000 to 0xFEFFFFFF for Upper LPS slaves */
@@ -208,6 +218,7 @@ void Init_MPU(void)
 	RegSize = REGION_16M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
 	/*
@@ -218,6 +229,7 @@ void Init_MPU(void)
 	RegSize = REGION_16M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 	RegNum++;
 
 	/* 256K of OCM RAM from 0xFFFC0000 to 0xFFFFFFFF marked as normal memory */
@@ -225,6 +237,7 @@ void Init_MPU(void)
 	RegSize = REGION_256K;
 	Attrib = NORM_NSHARED_WB_WA| PRIV_RW_USER_RW  ;
 	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 
 	/* A total of 10 MPU regions are allocated with another 6 being free for users */
 

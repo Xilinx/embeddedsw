@@ -1,29 +1,6 @@
 /******************************************************************************
-*
-* Copyright (C) 2014 - 2018 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
-*
+* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
 /**
@@ -84,6 +61,7 @@
 *                         to ensure floating-point unit is disabled, before
 *                         any subsequent instruction.
 * 7.0   mus      03/26/18 Updated TCR_EL3/TCR_EL1 as per versal address map
+* 7.3   mus      04/24/20 Corrected CPACR_EL1 handling at EL1 NS
 *
 *
 ******************************************************************************/
@@ -165,7 +143,7 @@ _boot:
 	mov      x28, #0
 	mov      x29, #0
 	mov      x30, #0
-#if 0 //dont put other a53 cpus in wfi
+#if 0 //don't put other a53 cpus in wfi
    //Which core am I
    // ----------------
 	mrs      x0, MPIDR_EL1
@@ -324,9 +302,16 @@ InitEL1:
 	ldr	x1, =vector_base
 	msr	VBAR_EL1,x1
 
+	/* Trap floating point access only in case of standalone BSP */
+#ifdef FREERTOS_BSP
+        mrs     x0, CPACR_EL1
+        orr     x0, x0, #(0x3 << 20)
+        msr     CPACR_EL1, x0
+#else
 	mrs	x0, CPACR_EL1
-	bic	x0, x0, #(0x3 << 0x20)
+	bic	x0, x0, #(0x3 << 20)
 	msr	CPACR_EL1, x0
+#endif
 	isb
 
 	/*
