@@ -76,6 +76,13 @@ enum XPmDeviceUsage {
 	PM_USAGE_OTHER_SUBSYSTEM   = 0x2U,
 };
 
+/* Reset configuration argument */
+enum XPmResetActions {
+	PM_RESET_ACTION_RELEASE,
+	PM_RESET_ACTION_ASSERT,
+	PM_RESET_ACTION_PULSE,
+};
+
 /**
  * XPm_DeviceStatus - struct containing device status information
  */
