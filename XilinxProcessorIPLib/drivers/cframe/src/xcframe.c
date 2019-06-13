@@ -38,6 +38,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   11/10/2017 Initial release
 * 1.01  bsv  29/05/2019 XCframe_ReadReg API added
+* 1.02  bsv  11/06/2019 XCframe_ClearCframeErr API added
 * </pre>
 *
 * @note
@@ -271,4 +272,27 @@ void XCframe_SetReadParam(XCframe *InstancePtr,
 
 	Value128.Word0=CframeLen/4;
 	XCframe_WriteReg(InstancePtr, XCFRAME_FRCNT_OFFSET, CframeNo, &Value128);
+}
+
+/*****************************************************************************/
+/**
+ * This function clears CFRAME ISRs and is called as part of CFRAME error recovery
+ *
+ * @param XCframe Instance Pointer
+ *
+ * @return	None
+ *
+ ******************************************************************************/
+void XCframe_ClearCframeErr(XCframe *InstancePtr)
+{
+	Xuint128 Value128={0xFFFFFFFFU, 0xFFFFFFFFU, 0xFFFFFFFFU, 0xFFFFFFFFU};
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XCframe_FrameNo CframeNo = XCFRAME_FRAME_0;
+	/* Clear CFRAME ISRs */
+	while(CframeNo <= XCFRAME_FRAME_BCAST)
+	{
+		XCframe_WriteReg(InstancePtr, XCFRAME_CFRM_ISR_OFFSET, CframeNo++,
+															&Value128);
+	}
 }
