@@ -383,6 +383,13 @@ extern "C" {
 #define PMC_TAP_VERSION_PLATFORM_VERSION_SHIFT   28
 #define PMC_TAP_VERSION_PLATFORM_VERSION_MASK    0XF0000000
 
+/**
+ * OSPI Mux select related macros
+ */
+#define XPM_OSPI_MUX_SEL_OFFSET		(0x00000504U)
+#define XPM_OSPI_MUX_SEL_MASK		(0x2U)
+#define XPM_OSPI_MUX_SEL_SHIFT		(0x1U)
+
 #ifdef __cplusplus
 }
 #endif
