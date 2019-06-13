@@ -1,28 +1,9 @@
 /******************************************************************************/
 /**
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /****************************************************************************/
 /**
 * @file xil_util.c
@@ -35,6 +16,9 @@
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
 * 6.4   mmd      04/21/19 First release.
+* 7.2   nava     08/01/20 Updated Xil_WaitForEvent() and Xil_WaitForEvents(()
+*                         API to use microsecond timeout instead of a free
+*                         counter.
 *
 * </pre>
 *
@@ -42,6 +26,7 @@
 
 /****************************** Include Files *********************************/
 #include "xil_util.h"
+#include "sleep.h"
 
 /************************** Constant Definitions ****************************/
 #define MAX_NIBBLES			8U
@@ -138,14 +123,13 @@ END:
 /*
  * Waits for the event
  *
- * @param   RegAddr   - Address of register to be checked for event(s) occurance
+ * @param   RegAddr   - Address of register to be checked for event(s) occurrence
  * @param   EventMask - Mask indicating event(s) to be checked
  * @param   Event     - Specific event(s) value to be checked
- * @param   Timeout   - Free counter decremented on each event(s) check and
- *                      declared timeout when reaches 0
+ * @param   Timeout   - Max number of microseconds to wait for an event(s).
  *
  * @return
- *          XST_SUCCESS - On occurance of the event(s).
+ *          XST_SUCCESS - On occurrence of the event(s).
  *          XST_FAILURE - Event did not occur before counter reaches 0
  *
  * @note    None.
@@ -164,6 +148,7 @@ u32 Xil_WaitForEvent(u32 RegAddr, u32 EventMask, u32 Event, u32 Timeout)
 			break;
 		}
 		PollCount--;
+		usleep(1U);
 	}
 
 	return Status;
@@ -178,9 +163,8 @@ u32 Xil_WaitForEvent(u32 RegAddr, u32 EventMask, u32 Event, u32 Timeout)
  *                       occurrence
  * @param   EventMask  - Mask indicating event(s) to be checked
  * @param   WaitEvents - Specific event(s) to be checked
- * @param   Timeout    - Free counter decremented on each event(s) check and
- *                       declared timeout when reaches 0
- * @param   Events     - Mask of Events occured returned in memory pointed by
+ * @param   Timeout    - Max number of microseconds to wait for an event(s).
+ * @param   Events     - Mask of Events occurred returned in memory pointed by
  *                       this variable
  *
  * @return
@@ -207,6 +191,7 @@ u32 Xil_WaitForEvents(u32 EventsRegAddr, u32 EventsMask, u32 WaitEvents,
 			break;
 		}
 		PollCount--;
+		usleep(1U);
 	}
 	while(PollCount > 0);
 
@@ -276,6 +261,84 @@ u32 Xil_ValidateHexStr(const char *HexStr)
 		}
 	}
 
+END:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * Converts the string into the equivalent Hex buffer.
+ *	Ex: "abc123" -> {0xab, 0xc1, 0x23}
+ *
+ * @param	Str is a Input String. Will support the lower and upper case values.
+ * 		Value should be between 0-9, a-f and A-F
+ * @param	Buf is Output buffer.
+ * @param	Len of the input string. Should have even values
+ *
+ * @return
+ * 		- XST_SUCCESS no errors occurred.
+ *		- XST_FAILURE an error when input parameters are not valid
+ *		- an error when input buffer has invalid values
+ *
+ *	TDD Test Cases:
+ *	---Initialization---
+ *	Len is odd
+ *	Len is zero
+ *	Str is NULL
+ *	Buf is NULL
+ *	---Functionality---
+ *	Str input with only numbers
+ *	Str input with All values in A-F
+ *	Str input with All values in a-f
+ *	Str input with values in a-f, 0-9, A-F
+ *	Str input with values in a-z, 0-9, A-Z
+ *	Boundary Cases
+ *	Memory Bounds of buffer checking
+ * ****************************************************************************/
+u32 Xil_ConvertStringToHexBE(const char *Str, u8 *Buf, u32 Len)
+{
+	u32 ConvertedLen;
+	u8 LowerNibble = 0U;
+	u8 UpperNibble = 0U;
+	u32 Status = (u32)XST_FAILURE;
+
+	if ((Str == NULL) || (Buf == NULL)) {
+		Status = (u32)XST_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((Len == 0U) || ((Len % XIL_SIZE_OF_BYTE_IN_BITS) != 0U)) {
+		Status = (u32)XST_INVALID_PARAM;
+		goto END;
+	}
+
+	if(Len != (strlen(Str) * XIL_SIZE_OF_NIBBLE_IN_BITS)) {
+		Status = (u32)XST_INVALID_PARAM;
+		goto END;
+	}
+
+	ConvertedLen = 0U;
+	while (ConvertedLen < (Len / XIL_SIZE_OF_NIBBLE_IN_BITS)) {
+		if (Xil_ConvertCharToNibble(Str[ConvertedLen],&UpperNibble)
+				== (u32)XST_SUCCESS) {
+			if (Xil_ConvertCharToNibble(Str[ConvertedLen+1],
+					&LowerNibble) == (u32)XST_SUCCESS) {
+				Buf[ConvertedLen/2] =
+				(UpperNibble << XIL_SIZE_OF_NIBBLE_IN_BITS) |
+								LowerNibble;
+			}
+			else {
+				Status = (u32)XST_INVALID_PARAM;
+				goto END;
+			}
+		}
+		else {
+			Status = (u32)XST_INVALID_PARAM;
+			goto END;
+		}
+		ConvertedLen += 2U;
+	}
+	Status = (u32)XST_SUCCESS;
 END:
 	return Status;
 }
