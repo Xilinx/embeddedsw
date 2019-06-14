@@ -11,8 +11,9 @@ Modified Tap Delay code for supporting ZynqMP and Versal
 Disable DLL Reset code for Versal
 Enable SD UHS Mode support by default for Versal
 
-gpiops_v3_5
+gpiops_v3_7
 udpated gpiops example with versal support.
+Fixed IAR compiler warnings.
 
 gpio_v4_5:
 Updated Makefile for IAR compiler.
