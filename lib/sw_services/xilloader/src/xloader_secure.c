@@ -274,7 +274,6 @@ u32 XLoader_SecurePrtn(XLoader_SecureParms *SecurePtr, u64 DstAddr,
 {
 	u32 Status = XST_SUCCESS;
 	u32 TotalSize = BlockSize;
-	u32 Padding;
 	u32 SrcAddr;
 	u64 OutAddr;
 
@@ -307,29 +306,6 @@ u32 XLoader_SecurePrtn(XLoader_SecureParms *SecurePtr, u64 DstAddr,
 		if (Last != TRUE) {
 			TotalSize = TotalSize + XLOADER_SHA3_LEN;
 		}
-
-		/* Each block of data will be padded with SHA3 padding */
-
-		/*
-		 * If authentication is enabled,
-		 * first block's hash is calculated along with AC -
-		 * Image signature
-		 */
-		if ((SecurePtr->BlockNum == 0) &&
-			(SecurePtr->IsAuthenticated == TRUE)) {
-			Padding = (TotalSize + (XLOADER_AUTH_CERT_MIN_SIZE -
-						XLOADER_PARTITION_SIG_SIZE)) %
-							XSECURE_SHA3_BLOCK_LEN;
-		}
-		else {
-			Padding = TotalSize  % XSECURE_SHA3_BLOCK_LEN;
-		}
-
-		/* Calculate SHA3 padding for the data */
-		Padding = (Padding == 0U) ? (XSECURE_SHA3_BLOCK_LEN) :
-			(XSECURE_SHA3_BLOCK_LEN - Padding);
-
-		TotalSize = TotalSize + Padding;
 
 		/* Copy to total data to the buffer */
 		SecurePtr->PdiPtr->DeviceCopy(SrcAddr,
@@ -437,23 +413,16 @@ static u32 XLoader_VerifyHash(XLoader_SecureParms *SecurePtr,
 			goto END;
 		}
 	}
-	RetStatus = XSecure_Sha3LastUpdate(&Sha3Instance);
-	if (RetStatus != XST_SUCCESS) {
-		Status = XST_FAILURE;
-		goto END;
-	}
+
 	Status = XSecure_Sha3Update(&Sha3Instance, Data, Size);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/* Sha3 Wait for Done */
-	Status = XSecure_Sha3WaitForDone(&Sha3Instance);
+	Status = XSecure_Sha3Finish(&Sha3Instance, CalHash);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	/* Read Hash */
-	XSecure_Sha3_ReadHash(&Sha3Instance, CalHash);
 
 	/* Verify the hash */
 	if ((SecurePtr->IsAuthenticated == TRUE) &&
@@ -467,10 +436,10 @@ static u32 XLoader_VerifyHash(XLoader_SecureParms *SecurePtr,
 		for (Index = 0; Index < XLOADER_SHA3_LEN; Index++) {
 			if ((*(ExpHash + Index)) != CalHash[Index]) {
 				XPlmi_PrintArray(DEBUG_INFO,
-				(UINTPTR)CalHash, XLOADER_SHA3_LEN,
+				(UINTPTR)CalHash, XLOADER_SHA3_LEN/XIH_PRTN_WORD_LEN,
 					"Calculated Hash");
-				XPlmi_PrintArray(DEBUG_INFO, ExpHash,
-					(UINTPTR)XLOADER_SHA3_LEN,
+				XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)ExpHash,
+					(UINTPTR)XLOADER_SHA3_LEN/XIH_PRTN_WORD_LEN,
 					"Expected Hash");
 				Status = XST_FAILURE;
 				goto END;
