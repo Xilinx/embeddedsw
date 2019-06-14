@@ -47,7 +47,7 @@ XStatus XPmGicProxy_WakeEventSet(XPm_Periph *Periph, u8 Enable)
 		u32 RegAddress = BaseAddress +
 				 PMC_GLOBAL_GIC_PROXY_BASE_OFFSET +
 				 GIC_PROXY_GROUP_OFFSET(GicProxyGroup) +
-				 GIC_PROXY_IRQ_STATUS_OFFSET;
+				 GIC_PROXY_IRQ_ENABLE_OFFSET;
 
 		/* Write 1 into status register to Clear interrupt */
 		XPm_Out32(RegAddress, GicProxyMask);
