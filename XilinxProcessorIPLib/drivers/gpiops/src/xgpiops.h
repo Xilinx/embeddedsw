@@ -27,7 +27,7 @@
 /**
 *
 * @file xgpiops.h
-* @addtogroup gpiops_v3_5
+* @addtogroup gpiops_v3_7
 * @{
 * @details
 *
