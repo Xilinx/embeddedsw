@@ -26,7 +26,7 @@
 /*****************************************************************************/
 /**
 * @file xgpio.c
-* @addtogroup gpio_v4_4
+* @addtogroup gpio_v4_5
 * @{
 *
 * The implementation of the XGpio driver's basic functionality. See xgpio.h
