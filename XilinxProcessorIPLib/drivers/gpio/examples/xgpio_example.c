@@ -50,6 +50,7 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 4.5  sne   06/12/19 Fixed IAR compiler warning.
 *
 * </pre>
 ******************************************************************************/
@@ -167,6 +168,4 @@ int main(void)
 		for (Delay = 0; Delay < LED_DELAY; Delay++);
 	}
 
-	xil_printf("Successfully ran Gpio Example\r\n");
-	return XST_SUCCESS;
 }
