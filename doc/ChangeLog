@@ -14,8 +14,9 @@ Enable SD UHS Mode support by default for Versal
 gpiops_v3_5
 udpated gpiops example with versal support.
 
-gpio_v4_4:
+gpio_v4_5:
 Updated Makefile for IAR compiler.
+Fixed IAR warnings in example files
 
 csudma_v1_5:
 Updated xcsudma_intr_example.c to use volatile keyword for
