@@ -1354,11 +1354,6 @@ void DpRxSs_LinkBandwidthHandler(void *InstancePtr)
 			    XVPHY_PLL_TYPE_QPLL1, XVPHY_PLL_TYPE_CPLL);
 	XVphy_ClkInitialize(&VPhyInst, 0, XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_RX);
 
-	/*Overriding MC programming to work in DP mode always:
-	 * Paranoid operation to ensure MC is in good state*/
-        Status = XDpRxSs_MCDP6000_SetRegister(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR,
-	                                                      0x0504, 0x0000705E);
-
 }
 
 /*****************************************************************************/
