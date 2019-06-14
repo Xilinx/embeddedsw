@@ -35,7 +35,7 @@ Change Log for lwip
 2018-03-05
 	* Add Hot plug detect support for EmacPS and AXI Ethernet
 2018-03-14
-	* Avoid axi ethernet config intialize in two places.
+	* Avoid axi ethernet config initialize in two places.
 2018-01-19
 	* Add support for Realtek RTL8211 phy.
 2018-01-11
@@ -66,7 +66,7 @@ Change Log for lwip
 	* Upgrade to LWIP2.0.2 version.
 	* Removed PPC References
 2017-08-14
-	* Dont perform data cache related operations when CCI is
+	* Don't perform data cache related operations when CCI is
 	  enabled.
 2017-08-11
 	* Fix for conflicting types for xInsideISR. Fixes CR-981909.
@@ -95,7 +95,7 @@ Change Log for lwip
 	  PCS PMA core with phy address scanning.
 2016-11-09
 	* Fix compilation errors for microblaze based designs CR#963580
-	* dsb() is not availble for Microblaze added checks for the same
+	* dsb() is not available for Microblaze added checks for the same
 	* in the xaxiemacif_dma.c file.
 2016-11-06
 	* Axi Ethernet Lwip Performance issue on ZynqMP Fix for CR#953533
@@ -108,7 +108,7 @@ Change Log for lwip
 2016-08-17
 	* Update divisors in CRL_APB (for ZynqMP) based on speed negotiated.
 2016-07-29
-	* Dont set clk dividers in Zynq SLCR when EMIO clock source is used.
+	* Don't set clk dividers in Zynq SLCR when EMIO clock source is used.
 2016-07-11
 	* Change Zynq BD space attributes to device memory.
 2016-04-07
@@ -193,7 +193,7 @@ Change Log for lwip
 	last made (related to freertos) are reverted back.
 2013-12-1
 	* A new version of lwip (v2_0) is created with tcl
-	changes releated to HSM and new versioing scheme.
+	changes related to HSM and new versioing scheme.
 2013-11-08
 	* Fix for CR#759896.
 2013-11-02
@@ -288,7 +288,7 @@ Change Log for lwip
 	* Created a new version of lwIP (v1_03_a).
 	* Changed data/lwip140_v2_1_0.tcl to fix UDP isses in FreeRTOS and
 	fix compilation issues when Emac1 is used (instead of Emac0).
-	* Changed the EmacPs adpater files:
+	* Changed the EmacPs adapter files:
 	src/contrib/ports/xilinx/netif/xemacpsif_dma.c,
 	src/contrib/ports/xilinx/netif/xemacpsif_hw.c,
 	src/contrib/ports/xilinx/netif/xemacpsif_physpeed.c,
@@ -438,6 +438,6 @@ Change Log for lwip
 2014-04-16
 	* Fixed the CR#788954 Changes are Made in the xemacliteif.c file
 2014-04-20
-	* Fixed teh CR#792040 Changes are Made in the lwip tcl file
+	* Fixed the CR#792040 Changes are Made in the lwip tcl file
 2014-04-23
 	* Fixed the CR#781147 Changes are made in the Makefile.

@@ -464,7 +464,7 @@ xaxiemacif_mld6_mac_filter_update (struct netif *netif, ip_addr_t *group,
 			xaxiemacif_mld6_mac_hash_update(netif, ip_addr, action,entry);
 
 			LWIP_DEBUGF(NETIF_DEBUG,
-					("%s: Muticast MAC address successfully added.\r\n", __func__));
+					("%s: Multicast MAC address successfully added.\r\n", __func__));
 
 			return ERR_OK;
 		}
@@ -561,7 +561,7 @@ xaxiemacif_mac_filter_update (struct netif *netif, ip_addr_t *group,
 						(&xaxiemacif->axi_ethernet);
 
 						LWIP_DEBUGF(NETIF_DEBUG,
-						("xaxiemacif_mac_filter_update: Muticast MAC address successfully added.\r\n"));
+						("xaxiemacif_mac_filter_update: Multicast MAC address successfully added.\r\n"));
 
 						return_val = ERR_OK;
 						break;
@@ -619,7 +619,7 @@ xaxiemacif_mac_filter_update (struct netif *netif, ip_addr_t *group,
 						(&xaxiemacif->axi_ethernet);
 
 						LWIP_DEBUGF(NETIF_DEBUG,
-						("xaxiemacif_mac_filter_update: Muticast MAC address successfully removed.\r\n"));
+						("xaxiemacif_mac_filter_update: Multicast MAC address successfully removed.\r\n"));
 
 						return_val = ERR_OK;
 						xaxiemac_mcast_entry_mask &=
