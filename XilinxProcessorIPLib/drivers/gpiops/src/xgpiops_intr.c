@@ -52,6 +52,7 @@
 *                     Literal value requires a U suffix.
 * 3.5   sne  03/14/19 Added Versal support.
 * 3.5   sne  03/20/19 Fixed multiple interrupts problem CR#1024556.
+* 3.7	sne  06/12/19 Fixed IAR compiler warning.
 * </pre>
 *
 ******************************************************************************/
@@ -802,7 +803,7 @@ void XGpioPs_IntrHandler(const XGpioPs *InstancePtr)
 ******************************************************************************/
 void StubHandler(const void *CallBackRef, u32 Bank, u32 Status)
 {
-	(const void) CallBackRef;
+	(void) CallBackRef;
 	(void) Bank;
 	(void) Status;
 

@@ -109,6 +109,7 @@
 * 3.5   sne  03/14/19 Added Versal support.
 * 3.6   mus  04/05/19 Replaced XPLAT_versal macro with XPLAT_VERSAL, to be in
 *                     sync with standalone BSP
+* 3.7	sne  06/12/19 Fixed IAR compiler warning.
 * </pre>
 *
 ******************************************************************************/
