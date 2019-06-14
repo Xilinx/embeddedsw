@@ -328,7 +328,7 @@ proc get_emac_periphs {processor} {
 # all components to run lwIP are available.
 #---------------------------------------------
 proc lwip_drc {libhandle} {
-	#puts "Runnning DRC for lwIP library... \n"
+	#puts "Running DRC for lwIP library... \n"
 
 	# find the list of xps_ethernetlite, xps_ll_temac, or axi_ethernet cores
 	set sw_processor [hsi::get_sw_processor]
@@ -748,7 +748,7 @@ proc generate_lwip_opts {libhandle} {
 		set tx_full_csum_temp [common::get_property CONFIG.tcp_ip_tx_checksum_offload $libhandle]
 		if {$tx_full_csum_temp == true} {
 			if {$checksum_txoption != 2} {
-				error "ERROR: Wrong Tx cheksum options. The selected Tx checksum does not match with the HW supported Tx csum offload option"
+				error "ERROR: Wrong Tx checksum options. The selected Tx checksum does not match with the HW supported Tx csum offload option"
 				"" "mdt_error"
 			} else {
 				set tx_full_csum [expr ![common::get_property CONFIG.tcp_ip_tx_checksum_offload $libhandle]]
@@ -760,7 +760,7 @@ proc generate_lwip_opts {libhandle} {
 		set rx_full_csum_temp [common::get_property CONFIG.tcp_ip_rx_checksum_offload $libhandle]
 		if {$rx_full_csum_temp == true} {
 			if {$checksum_rxoption != 2} {
-				error "ERROR: Wrong Rx cheksum options. The selected Rx checksum does not match with the HW supported Rx csum offload option"
+				error "ERROR: Wrong Rx checksum options. The selected Rx checksum does not match with the HW supported Rx csum offload option"
 				"" "mdt_error"
 			} else {
 				set rx_full_csum [expr ![common::get_property CONFIG.tcp_ip_rx_checksum_offload $libhandle]]
@@ -773,7 +773,7 @@ proc generate_lwip_opts {libhandle} {
 		set tx_csum_temp [common::get_property CONFIG.tcp_tx_checksum_offload $libhandle]
 		if {$tx_csum_temp == true} {
 			if {$checksum_txoption != 1} {
-				error "ERROR: Wrong Tx cheksum options. The selected Tx checksum does not match with the HW supported Tx csum offload option"
+				error "ERROR: Wrong Tx checksum options. The selected Tx checksum does not match with the HW supported Tx csum offload option"
 				"" "mdt_error"
 			} else {
 				set tx_csum [expr ![common::get_property CONFIG.tcp_tx_checksum_offload $libhandle]]
@@ -783,7 +783,7 @@ proc generate_lwip_opts {libhandle} {
 		set rx_csum_temp [common::get_property CONFIG.tcp_rx_checksum_offload $libhandle]
 		if {$rx_csum_temp == true} {
 			if {$checksum_rxoption != 1} {
-				error "ERROR: Wrong Rx cheksum options. The selected Rx checksum does not match with the HW supported Rx csum offload option"
+				error "ERROR: Wrong Rx checksum options. The selected Rx checksum does not match with the HW supported Rx csum offload option"
 				"" "mdt_error"
 			} else {
 				set rx_csum [expr ![common::get_property CONFIG.tcp_rx_checksum_offload $libhandle]]

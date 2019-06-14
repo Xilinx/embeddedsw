@@ -521,7 +521,7 @@ static err_t xemacpsif_mld6_mac_filter_update (struct netif *netif, ip_addr_t *g
 			xemacpsif_mld6_mac_hash_update(netif, ip_addr, action);
 
 			LWIP_DEBUGF(NETIF_DEBUG,
-					("%s: Muticast MAC address successfully added.\r\n", __func__));
+					("%s: Multicast MAC address successfully added.\r\n", __func__));
 
 			return ERR_OK;
 		}
@@ -632,7 +632,7 @@ static err_t xemacpsif_mac_filter_update (struct netif *netif, ip_addr_t *group,
 			xemacpsif_mac_hash_update(netif, ip_addr, action);
 
 			LWIP_DEBUGF(NETIF_DEBUG,
-					("%s: Muticast MAC address successfully added.\r\n", __func__));
+					("%s: Multicast MAC address successfully added.\r\n", __func__));
 
 			return ERR_OK;
 		}
