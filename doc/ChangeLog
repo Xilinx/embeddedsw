@@ -247,9 +247,6 @@ Added MPU mapping for AIE address space in Cortexr5 BSP
 arm/cortexr5/platform/versal/mpu.c.
 
 
-uartlite_v3_3:
-Updated driver tcl to export proper baseaddress for pmc_ppu1_mdm IP.
-
 Changes for 2019.1
 ===============================
 v_hdmiphy1_v1_0:
