@@ -112,6 +112,7 @@
 *       ms   03/17/17 Added readme.txt file in examples folder for doxygen
 *                     generation.
 * 4.4   sne  04/25/19 Updated Makefile for IAR compier (CR-1029421).
+* 4.5   sne  06/14/19 Fixed IAR compiler warnings on example files.
 *
 * </pre>
 *****************************************************************************/
