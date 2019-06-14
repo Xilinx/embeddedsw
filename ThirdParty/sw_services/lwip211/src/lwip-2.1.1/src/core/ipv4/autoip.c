@@ -70,7 +70,7 @@
 
 #include <string.h>
 
-/** Pseudo random macro based on netif informations.
+/** Pseudo random macro based on netif information.
  * You could use "rand()" from the C Library if you define LWIP_AUTOIP_RAND in lwipopts.h */
 #ifndef LWIP_AUTOIP_RAND
 #define LWIP_AUTOIP_RAND(netif) ( (((u32_t)((netif->hwaddr[5]) & 0xff) << 24) | \
@@ -149,7 +149,7 @@ autoip_handle_arp_conflict(struct netif *netif)
     LWIP_DEBUGF(AUTOIP_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_STATE,
                 ("autoip_handle_arp_conflict(): we are defending, but in DEFEND_INTERVAL, retreating\n"));
 
-    /* Active TCP sessions are aborted when removing the ip addresss */
+    /* Active TCP sessions are aborted when removing the ip address */
     autoip_restart(netif);
   } else {
     LWIP_DEBUGF(AUTOIP_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_STATE,
