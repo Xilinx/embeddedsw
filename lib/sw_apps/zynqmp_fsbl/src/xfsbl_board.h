@@ -76,7 +76,7 @@ extern "C" {
 #define IRPS5401_SWC_ADDR		0x45U
 
 #define BUF_LEN		10U
-#define MAX_SIZE		32U
+#define MAX_SIZE		256U
 
 #define CMD_CFG_0_REG		0x06U
 #define CMD_OUTPUT_0_REG	0x02U
