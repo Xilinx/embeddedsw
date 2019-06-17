@@ -141,6 +141,8 @@ enum {
 
 	XLOADER_ERR_IMG_ID_NOT_FOUND, /* 0x31F */
 	XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, /* 0x320 */
+	XLOADER_ERR_CFRAME_LOOKUP, /* 0x321 */
+	XLOADER_ERR_CFRAME_CFG, /* 0x322 */
 };
 
 /**************************** Type Definitions *******************************/
