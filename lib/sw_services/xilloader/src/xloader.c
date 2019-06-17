@@ -169,7 +169,7 @@ int XLoader_Init()
 	if (0 != (ResetReason & SysResetMask)) {
 		XPlmi_Out32(CRP_RESET_REASON, (ResetReason & SysResetMask));
 	}
-
+	XLoader_CframeInit();
 	return XST_SUCCESS;
 }
 
@@ -304,6 +304,8 @@ int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 			++PdiPtr->ImageNum)
 	{
 		Status = XLoader_LoadImage(PdiPtr, 0xFFFFFFFFU);
+		/** Check for Cfi errors */
+		XLoader_CfiErrorHandler();
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}

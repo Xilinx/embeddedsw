@@ -60,6 +60,8 @@ extern "C" {
 #include "xloader_ddr.h"
 #include "xplmi_dma.h"
 #include "xpm_device.h"
+#include "xcfupmc.h"
+#include "xcframe.h"
 /************************** Constant Definitions *****************************/
 #define XLOADER_SUCCESS		XST_SUCCESS
 #define XLoader_Printf		XPlmi_Printf
@@ -126,7 +128,7 @@ extern "C" {
  */
 #define XLOADER_PDI_TYPE_FULL			0x1U
 #define XLOADER_PDI_TYPE_PARTIAL		0x2U
-
+#define XLOADER_PDI_TYPE_SECONDARY		0x3U
 /*
  * PDI Loading status
  */
@@ -235,6 +237,8 @@ int XLoader_RestartImage(u32 ImageId);
 int XLoader_ReloadImage(u32 ImageId);
 void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi);
 void XLoader_ClearIntrSbiDataRdy();
+void XLoader_CfiErrorHandler(void);
+int XLoader_CframeInit();
 
 /* functions defined in xloader_prtn_load.c */
 int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum);
