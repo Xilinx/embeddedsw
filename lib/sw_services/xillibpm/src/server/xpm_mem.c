@@ -24,6 +24,7 @@
 *
 ******************************************************************************/
 #include "xillibpm_defs.h"
+#include "xplmi_dma.h"
 #include "xpm_device.h"
 #include "xpm_mem.h"
 #include "xpm_rpucore.h"
@@ -75,7 +76,7 @@ static void TcmEccInit(XPm_MemDevice *Tcm, u32 Mode)
 			Base -= XPM_TCM_BASEADDRESS_MODE_OFFSET;
 	}
 	if (Size) {
-		memset((void*)Base, 0U, Size);
+		XPlmi_EccInit(Base, Size);
 	}
 	return;
 }
