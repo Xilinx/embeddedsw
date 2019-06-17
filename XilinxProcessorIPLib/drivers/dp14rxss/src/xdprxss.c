@@ -438,32 +438,34 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 	InstancePtr->HdcpIsReady = FALSE;
 #endif
 
-	/*Set default HDCP protocol*/
 #if ((XPAR_DPRXSS_0_HDCP_ENABLE > 0) && (XPAR_XHDCP22_RX_NUM_INSTANCES > 0))
-	/* Setting HDCP22 as default if both HDCP1x and HDCP22 are
-	 * capable & enabled*/
+	/*
+	 * Set default HDCP protocol.
+	 * Setting HDCP1x as default if both HDCP1x
+	 * and HDCP22 are capable & enabled
+	 */
 
-	/* HDCP is ready when only the HDCP 2.2 core is
-	 * instantiated and the keys are loaded */
-	if (InstancePtr->Hdcp22Ptr &&
-			InstancePtr->Hdcp22Lc128Ptr &&
-			InstancePtr->Hdcp22PrivateKeyPtr) {
+	/*
+	 * HDCP is ready when only the HDCP 1.4 core is
+	 * instantiated and the keys are loaded
+	 */
+	if (InstancePtr->Hdcp1xPtr) {
 		InstancePtr->HdcpIsReady = TRUE;
 
 		/* Set default HDCP content protection scheme */
-		if (XDpRxSs_HdcpSetProtocol(InstancePtr, XDPRXSS_HDCP_22)
-				!= XST_SUCCESS)
-		{
+		if (XDpRxSs_HdcpSetProtocol(InstancePtr, XDPRXSS_HDCP_14)) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,
-				"DPRXSS ERR:: setting HDCP22 as default"
-				"protocol\n\r");
+					"DPRXSS ERR:: setting HDCP14 as default"
+					"protocol\n\r");
 			return XST_FAILURE;
 		}
 	}
 #elif (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
-	/*HDCP1x*/
-	/* HDCP is ready when only the HDCP 1.4 core is
-	 * instantiated and the key is loaded */
+	/*
+	 * HDCP1X.
+	 * HDCP is ready when only the HDCP 1.4 core is
+	 * instantiated and the key is loaded
+	 */
 	if (InstancePtr->Hdcp1xPtr) {
 		InstancePtr->HdcpIsReady = TRUE;
 
