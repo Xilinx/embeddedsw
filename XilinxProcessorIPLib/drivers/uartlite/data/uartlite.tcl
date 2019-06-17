@@ -36,8 +36,15 @@
 #uses "xillib.tcl"
 
 proc generate {drv_handle} {
-    ::hsi::utils::define_include_file $drv_handle "xparameters.h" "XUartLite" "NUM_INSTANCES" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "C_BAUDRATE" "C_USE_PARITY" "C_ODD_PARITY" "C_DATA_BITS"
-    ::hsi::utils::define_config_file $drv_handle "xuartlite_g.c" "XUartLite"  "DEVICE_ID" "C_BASEADDR" "C_BAUDRATE" "C_USE_PARITY" "C_ODD_PARITY"  "C_DATA_BITS"
+    set is_pl [common::get_property IS_PL [get_cells -hier $drv_handle]]
+    if {$is_pl == 1} {
+        ::hsi::utils::define_include_file $drv_handle "xparameters.h" "XUartLite" "NUM_INSTANCES" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "C_BAUDRATE" "C_USE_PARITY" "C_ODD_PARITY" "C_DATA_BITS"
+        ::hsi::utils::define_config_file $drv_handle "xuartlite_g.c" "XUartLite"  "DEVICE_ID" "C_BASEADDR" "C_BAUDRATE" "C_USE_PARITY" "C_ODD_PARITY"  "C_DATA_BITS"
+        ::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "UartLite" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_BAUDRATE" "C_USE_PARITY" "C_ODD_PARITY" "C_DATA_BITS"
+    } else {
+        ::hsi::utils::define_zynq_include_file $drv_handle "xparameters.h" "XUartLite" "NUM_INSTANCES" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "DEVICE_ID" "C_BAUDRATE" "C_USE_PARITY" "C_ODD_PARITY" "C_DATA_BITS"
+        ::hsi::utils::define_zynq_config_file $drv_handle "xuartlite_g.c" "XUartLite"  "DEVICE_ID" "C_S_AXI_BASEADDR" "C_BAUDRATE" "C_USE_PARITY" "C_ODD_PARITY"  "C_DATA_BITS"
+        ::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "UartLite" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_BAUDRATE" "C_USE_PARITY" "C_ODD_PARITY" "C_DATA_BITS"
 
-    ::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "UartLite" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_BAUDRATE" "C_USE_PARITY" "C_ODD_PARITY" "C_DATA_BITS"
+    }
 }
