@@ -27,7 +27,7 @@
 /**
 *
 * @file xuartlite_l.c
-* @addtogroup uartlite_v3_2
+* @addtogroup uartlite_v3_3
 * @{
 *
 * This file contains low-level driver functions that can be used to access the

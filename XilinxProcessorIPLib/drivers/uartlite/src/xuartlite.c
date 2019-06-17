@@ -27,7 +27,7 @@
 /**
 *
 * @file xuartlite.c
-* @addtogroup uartlite_v3_2
+* @addtogroup uartlite_v3_3
 * @{
 *
 * Contains required functions for the XUartLite driver. See the xuartlite.h

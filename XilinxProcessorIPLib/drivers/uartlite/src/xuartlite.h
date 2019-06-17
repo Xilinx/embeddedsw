@@ -27,7 +27,7 @@
 /**
 *
 * @file xuartlite.h
-* @addtogroup uartlite_v3_2
+* @addtogroup uartlite_v3_3
 * @{
 * @details
 *
