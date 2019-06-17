@@ -34,6 +34,9 @@ Add support for Versal
 spi_v4_5:
 Removed master inhibit dependency while writing to DTR.
 
+uartlite_v3_3:
+Updated driver tcl to export proper baseaddress for pmc_ppu1_mdm IP.
+
 Changes for 2019.1
 ===============================
 v_hdmiphy1_v1_0:
