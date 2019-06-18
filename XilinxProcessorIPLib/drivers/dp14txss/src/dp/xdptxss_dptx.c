@@ -157,6 +157,20 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 		InstancePtr->TxInstance.AuxDelayUs = 30000;
 		InstancePtr->TxInstance.SbMsgDelayUs = 30000;
 
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Discovering "
+				"topology.\n\r");
+		/* Get list of sinks */
+		Status = Dp_GetTopology(InstancePtr);
+		if (Status)
+			return Status;
+
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Topology "
+				"discovery done, # of sinks found = %d.\n\r",
+				InstancePtr->TxInstance.Topology.SinkTotal);
+
+		/* Total number of streams equal to number of sinks found */
+		NumOfStreams = InstancePtr->TxInstance.Topology.SinkTotal;
+
 		/* Enable downshifting during link training */
 		XDp_TxEnableTrainAdaptive(InstancePtr, 1);
 
@@ -181,20 +195,12 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 			}
 		}
 
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Discovering "
-				"topology.\n\r");
-
-		/* Get list of sinks */
-		Status = Dp_GetTopology(InstancePtr);
-		if (Status != XST_SUCCESS) {
-			return Status;
+		Status = XDp_TxCheckLinkStatus(InstancePtr,
+				InstancePtr->TxInstance.LinkConfig.LaneCount);
+		if (Status == XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Link "
+					"is up !\n\r\n\r");
 		}
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Topology "
-			"discovery done, # of sinks found = %d.\n\r",
-			InstancePtr->TxInstance.Topology.SinkTotal);
-
-		/* Total number of streams equal to number of sinks found */
-		NumOfStreams = InstancePtr->TxInstance.Topology.SinkTotal;
 
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:Reading (MST) Sink "
 			"EDID...\n\r");
@@ -984,13 +990,6 @@ static u32 Dp_GetTopology(XDp *InstancePtr)
 
 	if (NumStreams > InstancePtr->Config.NumMstStreams) {
 		NumStreams = InstancePtr->Config.NumMstStreams;
-	}
-
-	Status = XDp_TxCheckLinkStatus(InstancePtr,
-				InstancePtr->TxInstance.LinkConfig.LaneCount);
-	if (Status == XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Link "
-			"is up after topology discovery!\n\r\n\r");
 	}
 
 	return XST_SUCCESS;
