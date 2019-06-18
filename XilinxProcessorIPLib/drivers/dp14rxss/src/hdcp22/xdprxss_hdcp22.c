@@ -82,6 +82,15 @@ static void XHdcp22_PortDpRxProcessAkeInit(void *RefPtr)
 
 	/*Set Ake_Init message received event in HDCP22 rx instance*/
 	if (DpRxSsPtr->Hdcp22Ptr) {
+		/*Reset HDCP FIFOs as we have got a new authentication request*/
+		for(u8 Index = 0; Index < 2; Index++) {
+			XDp_WriteReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
+					XDP_RX_SOFT_RESET,
+					XDP_RX_SOFT_RESET_HDCP_MASK);
+			XDp_WriteReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
+					XDP_RX_SOFT_RESET, 0);
+		}
+
 		XHdcp22Rx_SetDpcdMsgRdWrtAvailable(DpRxSsPtr->Hdcp22Ptr,
 				XDPRX_HDCP22_RX_DPCD_FLAG_AKE_INIT_RCVD);
 	}
