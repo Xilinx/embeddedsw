@@ -2069,7 +2069,8 @@ static u32 XDp_TxInitialize(XDp *InstancePtr)
 	/* Reset the video streams and AUX logic. */
 	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_SOFT_RESET,
 		XDP_TX_SOFT_RESET_VIDEO_STREAM_ALL_MASK |
-		XDP_TX_SOFT_RESET_AUX_MASK);
+		XDP_TX_SOFT_RESET_AUX_MASK |
+		XDP_TX_SOFT_RESET_HDCP_MASK);
 
 	/* Disable the DisplayPort TX core. */
 	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_ENABLE, 0);

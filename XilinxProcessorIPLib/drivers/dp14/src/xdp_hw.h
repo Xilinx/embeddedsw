@@ -472,6 +472,9 @@
 #define XDP_TX_SOFT_RESET_VIDEO_STREAM_ALL_MASK \
 				0x0000000F	/**< Reset video logic for all
 							streams. */
+#define XDP_TX_SOFT_RESET_HDCP_MASK \
+				0x00000100	/**< Reset HDCP logic. */
+
 /* 0x0D0: TX_MST_CONFIG */
 #define XDP_TX_MST_CONFIG_MST_EN_MASK \
 				0x00000001	/**< Enable MST. */
@@ -1569,6 +1572,7 @@
 /* 0x01C: SOFT_RESET */
 #define XDP_RX_SOFT_RESET_VIDEO_MASK	0x01	/**< Reset the video logic. */
 #define XDP_RX_SOFT_RESET_AUX_MASK	0x80	/**< Reset the AUX logic. */
+#define XDP_RX_SOFT_RESET_HDCP_MASK	0x100	/**< Reset the HDCP logic. */
 /* 0x02C: HPD_INTERRUPT */
 #define XDP_RX_HPD_INTERRUPT_ASSERT_MASK \
 				0x00000001	/**< Instructs the RX core to
