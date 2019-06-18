@@ -1879,6 +1879,10 @@ static void StubUnplugCallback(void *InstancePtr)
 					DpRxSsPtr->UsrOpt.LaneCount);
 	}
 
+	XDpRxSs_MCDP6000_ModifyRegister(DpRxSsPtr->IicPtr->BaseAddress,
+			XDPRXSS_MCDP6000_IIC_SLAVE, 0x0A00,
+			0x55000000, 0x55000000);
+
 	/* Disable unplug interrupt so that no unplug event when RX is
 	 * disconnected
 	 */
