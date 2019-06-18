@@ -448,7 +448,9 @@ void XDpTxSs_Reset(XDpTxSs *InstancePtr)
 
 	/* Reset the DisplayPort. */
 	XDpTxSs_WriteReg(InstancePtr->Config.DpSubCore.DpConfig.BaseAddr,
-		XDP_TX_SOFT_RESET, XDP_TX_SOFT_RESET_VIDEO_STREAM_ALL_MASK);
+			XDP_TX_SOFT_RESET,
+			(XDP_TX_SOFT_RESET_VIDEO_STREAM_ALL_MASK |
+			 XDP_TX_SOFT_RESET_HDCP_MASK));
 	XDpTxSs_WriteReg(InstancePtr->Config.DpSubCore.DpConfig.BaseAddr,
 		XDP_TX_SOFT_RESET, 0x0);
 

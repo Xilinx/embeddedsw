@@ -603,7 +603,8 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 
 		/* Reset the transmitter. */
 		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_SOFT_RESET,
-				XDP_TX_SOFT_RESET_VIDEO_STREAM_ALL_MASK);
+				XDP_TX_SOFT_RESET_VIDEO_STREAM_ALL_MASK |
+				XDP_TX_SOFT_RESET_HDCP_MASK);
 		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_SOFT_RESET,
 				0x0);
 	}
