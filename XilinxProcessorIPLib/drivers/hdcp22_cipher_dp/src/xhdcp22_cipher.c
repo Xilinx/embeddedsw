@@ -246,14 +246,15 @@ void XHdcp22Cipher_SetRiv(XHdcp22_Cipher *InstancePtr, const u8 *RivPtr,  u16 Le
 void XHdcp22Cipher_SetLanecount(XHdcp22_Cipher *InstancePtr, u8 LaneCount)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	u32 value = 0;
 
-	value = XHdcp22Cipher_ReadReg(InstancePtr->Config.BaseAddress,
-			XHDCP22_CIPHER_REG_CTRL_SET_OFFSET);
-	value &= ~XHDCP22_CIPHER_REG_CTRL_LANE_CNT_MASK;
-	value |= (LaneCount << XHDCP22_CIPHER_REG_CTRL_LANE_CNT_BIT_POS);
+	/*Clear Lane count bits*/
 	XHdcp22Cipher_WriteReg(InstancePtr->Config.BaseAddress,
-			XHDCP22_CIPHER_REG_CTRL_SET_OFFSET, value);
+			XHDCP22_CIPHER_REG_CTRL_CLR_OFFSET,
+			XHDCP22_CIPHER_REG_CTRL_LANE_CNT_MASK);
+	/*Set new Lane count*/
+	XHdcp22Cipher_WriteReg(InstancePtr->Config.BaseAddress,
+			XHDCP22_CIPHER_REG_CTRL_SET_OFFSET,
+			(LaneCount << XHDCP22_CIPHER_REG_CTRL_LANE_CNT_BIT_POS));
 }
 
 /** @} */
