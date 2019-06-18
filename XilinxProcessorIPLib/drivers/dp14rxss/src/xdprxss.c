@@ -1821,6 +1821,15 @@ static void StubTp2Callback(void *InstancePtr)
 	u8 Index;
 	XDpRxSs *DpRxSsPtr = (XDpRxSs *)InstancePtr;
 
+	/*Reset HDCP FIFOs*/
+	for(Index = 0; Index < 2; Index++) {
+		XDp_WriteReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
+				XDP_RX_SOFT_RESET,
+				XDP_RX_SOFT_RESET_HDCP_MASK);
+		XDp_WriteReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
+				XDP_RX_SOFT_RESET, 0);
+	}
+
 	if (DpRxSsPtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
 		DpRxSsPtr->ltState = 2;
 		return;
@@ -1830,13 +1839,6 @@ static void StubTp2Callback(void *InstancePtr)
 	XDpRxSs_Dp159Config(DpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_TP2,
 			DpRxSsPtr->UsrOpt.LinkRate,
 				DpRxSsPtr->UsrOpt.LaneCount);
-	/*Reset HDCP FIFOs*/
-	for(Index = 0; Index < 2; Index++) {
-		XDp_WriteReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
-			     XDP_RX_SOFT_RESET, 0x100);
-		XDp_WriteReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
-			     XDP_RX_SOFT_RESET, 0x000);
-	}
 }
 
 /*****************************************************************************/
