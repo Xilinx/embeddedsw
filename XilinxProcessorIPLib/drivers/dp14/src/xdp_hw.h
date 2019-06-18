@@ -2762,7 +2762,7 @@
 /* 0x00111: MSTM_CTRL */
 #define XDP_DPCD_MST_EN_MASK					0x01
 #define XDP_DPCD_UP_REQ_EN_MASK					0x02
-#define XDP_DPCD_UP_IS_SRC_MASK					0x03
+#define XDP_DPCD_UP_IS_SRC_MASK					0x04
 /* @} */
 
 /** @name DisplayPort Configuration Data: Link/sink status field masks, shifts,
