@@ -53,7 +53,6 @@
 /************************** Variable Definitions *****************************/
 XilSubsystem SubSystemInfo = {0};
 XilPdi SubsystemPdiIns;
-u32 ResetReason;
 
 /*****************************************************************************/
 #define XLOADER_DEVICEOPS_INIT(DevSrc, DevInit, DevCopy)	\
@@ -159,16 +158,6 @@ int XLoader_Init()
 	/** Initialize the loader interrupts */
 	XLoader_IntrInit();
 
-	/** Record the reset reason value */
-	ResetReason = XPlmi_In32(CRP_RESET_REASON);
-	/** Clear the system reset bits of reset_reason register */
-	u32 SysResetMask = (CRP_RESET_REASON_SLR_SYS_MASK |
-			    CRP_RESET_REASON_SW_SYS_MASK |
-			    CRP_RESET_REASON_ERR_SYS_MASK |
-			    CRP_RESET_REASON_DAP_SYS_MASK);
-	if (0 != (ResetReason & SysResetMask)) {
-		XPlmi_Out32(CRP_RESET_REASON, (ResetReason & SysResetMask));
-	}
 	XLoader_CframeInit();
 	return XST_SUCCESS;
 }
