@@ -49,6 +49,7 @@
 #include "xsysmonpsv.h"
 #endif
 
+u32 ResetReason;
 extern int XLoader_RestartImage(u32 SubsystemId);
 
 void (* PmRequestCb)(u32 SubsystemId, const u32 EventId, u32 *Payload);
@@ -296,6 +297,25 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u3
 	XStatus Status = XST_SUCCESS;
 	unsigned int i;
 	u32 Version;
+	u32 SysResetMask = (CRP_RESET_REASON_SLR_SYS_MASK |
+			    CRP_RESET_REASON_SW_SYS_MASK |
+			    CRP_RESET_REASON_ERR_SYS_MASK |
+			    CRP_RESET_REASON_DAP_SYS_MASK);
+	u32 IsolationIdx[] = {
+		XPM_NODEIDX_ISO_VCCAUX_VCCRAM,
+		XPM_NODEIDX_ISO_VCCRAM_SOC,
+		XPM_NODEIDX_ISO_VCCAUX_SOC,
+		XPM_NODEIDX_ISO_PL_SOC,
+		XPM_NODEIDX_ISO_PMC_SOC,
+		XPM_NODEIDX_ISO_PMC_SOC_NPI,
+		XPM_NODEIDX_ISO_PMC_PL,
+		XPM_NODEIDX_ISO_PMC_LPD,
+		XPM_NODEIDX_ISO_LPD_SOC,
+		XPM_NODEIDX_ISO_LPD_PL,
+		XPM_NODEIDX_ISO_LPD_CPM,
+		XPM_NODEIDX_ISO_FPD_SOC,
+		XPM_NODEIDX_ISO_FPD_PL,
+	};
 
 	PmInfo("Initializing LibPM\n\r");
 
@@ -314,6 +334,23 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u3
 	Platform = ((Version & PMC_TAP_VERSION_PLATFORM_MASK) >>
                         PMC_TAP_VERSION_PLATFORM_SHIFT);
 
+	/* Read and store the reset reason value */
+	PmIn32(CRP_RESET_REASON, ResetReason);
+
+	if (0 != (ResetReason & SysResetMask)) {
+		/* Clear the system reset bits of reset_reason register */
+		PmOut32(CRP_RESET_REASON, (ResetReason & SysResetMask));
+
+		/* Enable domain isolations after system reset */
+		for (i = 0; i < ARRAY_SIZE(IsolationIdx); i++) {
+			Status = XPmDomainIso_Control(IsolationIdx[i], TRUE);
+			if (Status != XST_SUCCESS) {
+				goto done;
+			}
+		}
+	}
+
+done:
 	return Status;
 }
 
