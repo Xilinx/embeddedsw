@@ -17,7 +17,7 @@ _USER_CODE_SIZE = DEFINED(_USER_CODE_SIZE) ? _USER_CODE_SIZE : 0x4000;
 
 MEMORY
 {
-   tmr_ram_cntlr_Mem : ORIGIN = 0xF0200000, LENGTH = 0x5FFB0
+   tmr_ram_cntlr_Mem : ORIGIN = 0xF0200000, LENGTH = (0x5FFB0 - _USER_CODE_SIZE)
    tmr_ram_instr_cntlr_Mem : ORIGIN = 0xF0200000, LENGTH = 0x3FFB0
    tmr_ram_data_cntlr_Mem : ORIGIN = 0xF0240000, LENGTH = 0x20000
 }
@@ -97,13 +97,6 @@ SECTIONS
    *(.data.*)
    *(.gnu.linkonce.d.*)
    __data_end = .;
-} > tmr_ram_cntlr_Mem
-
-.user_code : {
-   _user_code_start = .;
-   . += _USER_CODE_SIZE;
-   . = ALIGN(8);
-   _user_code_end = .;
 } > tmr_ram_cntlr_Mem
 
 .got : {
