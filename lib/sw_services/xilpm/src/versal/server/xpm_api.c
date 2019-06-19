@@ -29,27 +29,23 @@
 #include "xpm_aie.h"
 #include "xpm_prot.h"
 #include "xpm_regs.h"
+#include "xpm_ioctl.h"
 #include "xpm_ipi.h"
 #include "xsysmonpsv.h"
 #include "xpm_notifier.h"
 #include "xplmi_error_node.h"
-
-#ifdef STDOUT_BASEADDRESS
-#if (STDOUT_BASEADDRESS == 0xFF000000U)
-#define NODE_UART PM_DEV_UART_0 /* Assign node ID with UART0 device ID */
-#elif (STDOUT_BASEADDRESS == 0xFF010000U)
-#define NODE_UART PM_DEV_UART_1 /* Assign node ID with UART1 device ID */
-#endif
-#endif
+#include "xpm_rail.h"
+#include "xpm_pldevice.h"
+#include "xpm_debug.h"
+#include "xpm_device.h"
 
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
 	XPlmi_GicRegisterHandler(((GicId) << (8U)) | ((SrcId) << (16U)), \
 		XPm_DispatchWakeHandler, (void *)(NodeId))
 
 u32 ResetReason;
-u32 SysmonAddresses[XPM_NODEIDX_MONITOR_MAX];
 
-void (* PmRequestCb)(u32 SubsystemId, const u32 EventId, u32 *Payload);
+void (*PmRequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload);
 
 static XPlmi_ModuleCmd XPlmi_PmCmds[PM_API_MAX+1];
 static XPlmi_Module XPlmi_Pm =
@@ -58,6 +54,7 @@ static XPlmi_Module XPlmi_Pm =
 	XPlmi_PmCmds,
 	PM_API_MAX+1,
 };
+static int (*PmRestartCb)(u32 ImageId, u32 *FuncId);
 
 /****************************************************************************/
 /**
@@ -138,6 +135,40 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  This function activates subsystem by requesting all pre-alloc
+ * 	   devices which are essential for susbystem to be operational.
+ *
+ * @param  SubsystemId	ID of subsystem which is requesting to activate other
+ * 			subsystem (NULL in case of request from XSDB master)
+ * @param  IpiMask	IPI mask of requesting master
+ * @param  TargetSubsystemId	ID of subsystem which needs activation
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   This command is only allowed from XSDB master or from PMC subsystem
+ *
+ ****************************************************************************/
+static XStatus XPm_ActivateSubsystem(u32 SubsystemId, u32 IpiMask,
+				     u32 TargetSubsystemId)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Return error if request is not from XSDB master or PMC subsystem */
+	if ((XSDB_IPI_INT_MASK != IpiMask) && (PM_SUBSYS_PMC != SubsystemId)) {
+		Status = XPM_PM_NO_ACCESS;
+		goto done;
+	}
+
+	/* Configure target subsystem */
+	Status = XPmSubsystem_Configure(TargetSubsystemId);
+
+done:
+	return Status;
+}
+
 static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 {
 	u32 ApiResponse[XPLMI_CMD_RESP_SIZE-1] = {0};
@@ -159,6 +190,11 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			SubsystemId = Cmd->SubsystemId;
 			PmDbg("Using subsystemId passed by PLM: 0x%x\n\r", SubsystemId);
 
+			/* PLD node ids are used as image ids for PLD images */
+			if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(SubsystemId)) &&
+				((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(SubsystemId))) {
+				SubsystemId = PM_SUBSYS_PMC;
+			}
 			/* Use PMC subsystem ID for power domain CDOs. */
 			if ((u32)XPM_NODECLASS_POWER == NODECLASS(SubsystemId)) {
 				SubsystemId = PM_SUBSYS_PMC;
@@ -173,16 +209,13 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 
 		Subsystem = XPmSubsystem_GetById(SubsystemId);
 		if ((NULL == Subsystem) || (Subsystem->State == (u8)OFFLINE)) {
-			/* Subsystem must not be offline here */
-			PmErr("Invalid SubsystemId 0x%x\n\r", SubsystemId);
-			Status = XPM_INVALID_SUBSYSID;
-			goto done;
-		}
-		/* Set subsystem to online if suspended or powered off */
-		if ((Subsystem->State == (u8)SUSPENDED) ||
-		    (Subsystem->State == (u8)POWERED_OFF)) {
-			Status = XPmSubsystem_SetState(SubsystemId, (u32)ONLINE);
-			if (XST_SUCCESS != Status) {
+			if (XSDB_IPI_INT_MASK == Cmd->IpiMask) {
+				PmDbg("Command from XSDB master\r\n");
+			} else {
+				/* Subsystem must not be offline here */
+				PmErr("Invalid SubsystemId 0x%x\n\r",
+				      SubsystemId);
+				Status = XPM_INVALID_SUBSYSID;
 				goto done;
 			}
 		}
@@ -318,7 +351,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		Status = XPm_SetPinParameter(SubsystemId, Pload[0], Pload[1], Pload[2]);
 		break;
 	case PM_IOCTL:
-		Status = XPm_DevIoctl(SubsystemId, Pload[0], Pload[1],
+		Status = XPm_DevIoctl(SubsystemId, Pload[0], (pm_ioctl_id) Pload[1],
 				      Pload[2], Pload[3], ApiResponse);
 		break;
 	case PM_INIT_FINALIZE:
@@ -360,27 +393,58 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 					      Pload[1], Pload[2],
 					      Pload[3], Cmd->IpiMask);
 		break;
+	case PM_ACTIVATE_SUBSYSTEM:
+		Status = XPm_ActivateSubsystem(SubsystemId, Cmd->IpiMask,
+					       Pload[0]);
+		break;
 	default:
-		PmErr("CMD: INVALID PARAM\n\r");
+		PmErr("CMD: INVALID PARAM\r\n");
 		Status = XST_INVALID_PARAM;
 		break;
 	}
 
-	/* First word of the response is status */
-	Cmd->Response[0] = (u32)Status;
-	(void)XPlmi_MemCpy(&Cmd->Response[1], ApiResponse, sizeof(ApiResponse));
-
-	if (Status == XST_SUCCESS) {
+	if (XST_SUCCESS == Status) {
 		Cmd->ResumeHandler = NULL;
 	} else {
-		PmErr("Error %d while processing command 0x%x\r\n", Status, Cmd->CmdId);
+		PmErr("Error 0x%x while processing command 0x%x\r\n", Status, Cmd->CmdId);
 		PmDbg("Command payload: 0x%x, 0x%x, 0x%x, 0x%x\r\n",
 			Pload[0], Pload[1], Pload[2], Pload[3]);
 	}
-done:
-	if(Status != XST_SUCCESS) {
-		PmErr("Err Code: 0x%x\n\r", Status);
+
+	/* First word of the response is status */
+	Cmd->Response[0] = (u32)Status;
+	Status = Xil_SecureMemCpy(&Cmd->Response[1], sizeof(ApiResponse),
+			ApiResponse, sizeof(ApiResponse));
+	if (XST_SUCCESS != Status) {
+		PmErr("Error 0x%x while copying the Cmd 0x%x return payload\r\n", Status, Cmd->CmdId);
+		goto done;
 	}
+
+	/* Restore the CmdHandler status */
+	Status = (int)Cmd->Response[0];
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("Err Code: 0x%x\r\n", Status);
+	}
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief This is the handler for wake up interrupts
+ *
+ * @param  DeviceIdx	Index of peripheral device
+ *
+ * @return Status	XST_SUCCESS if processor wake successfully
+ *			XST_FAILURE or error code in case of failure
+ *
+ *****************************************************************************/
+static int XPm_DispatchWakeHandler(void *DeviceIdx)
+{
+	int Status;
+
+	Status = XPm_GicProxyWakeUp((u32)DeviceIdx);
 	return Status;
 }
 
@@ -441,6 +505,47 @@ static void XPm_RegisterWakeUpHandlers(void)
 	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP4, (u32)XPLMI_GICP4_SRC14, XPM_NODEIDX_DEV_RTC);
 }
 
+static void XPm_CheckLastResetReason(void)
+{
+	u32 CurrResetReason;
+	u32 PreviousSysResetReason;
+	u32 LatestSysReset;
+	u32 SysRstReason;
+	u32 RegVal;
+
+	PmIn32(CRP_RESET_REASON, CurrResetReason);
+	/* Read previous system reset reason stored in PGGS2 BIT[3:0] */
+	PmIn32(PGGS_BASEADDR + 0x8U, RegVal);
+	PreviousSysResetReason = (RegVal << 7U) & CRP_RESET_REASON_SYS_RESET_MASK;
+
+	SysRstReason = CurrResetReason & CRP_RESET_REASON_SYS_RESET_MASK;
+
+	/* No need to do anything is same system reset occurs back to back */
+	if (CurrResetReason == PreviousSysResetReason) {
+		ResetReason = CurrResetReason;
+		return;
+	}
+
+	LatestSysReset = SysRstReason & ~PreviousSysResetReason;
+
+	/*
+	 * Clear all reset reasons, except the latest sys reset reason.
+	 * The reset reason can not be completely cleared since ROM need
+	 * to know if last reset was due to sys reset or not.
+	 * Clear all POR and all sys resets except the latest so
+	 * next reset reason can be uniquely identified.
+	 */
+	PmOut32(CRP_RESET_REASON, CurrResetReason & ~LatestSysReset);
+
+	/* Store latest system reset reason in PGGS2 BIT[3:0] */
+	PmRmw32(PGGS_BASEADDR + 0x8U, 0xFU, (LatestSysReset >> 7U));
+
+	/* Mast out previous system reset reason. */
+	ResetReason = CurrResetReason & ~PreviousSysResetReason;
+
+	return;
+}
+
 /****************************************************************************/
 /**
  * @brief  Initialize XilPM library
@@ -454,12 +559,14 @@ static void XPm_RegisterWakeUpHandlers(void)
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u32 *Payload))
+XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload),
+		 int (*const RestartCb)(u32 ImageId, u32 *FuncId))
 {
 	XStatus Status = XST_FAILURE;
 	unsigned int i;
-	u32 Version;
-	u32 RegValue;
+	u32 Platform = 0;
+	u32 PlatformVersion = 0;
+
 	u32 PmcIPORMask = (CRP_RESET_REASON_ERR_POR_MASK |
 			   CRP_RESET_REASON_SLR_POR_MASK |
 			   CRP_RESET_REASON_SW_POR_MASK);
@@ -495,21 +602,13 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u3
 
 	XPm_PsmModuleInit();
 
-	PmIn32(PMC_TAP_VERSION, Version);
-	PlatformVersion = ((Version & PMC_TAP_VERSION_PLATFORM_VERSION_MASK) >>
-                        PMC_TAP_VERSION_PLATFORM_VERSION_SHIFT);
-	Platform = ((Version & PMC_TAP_VERSION_PLATFORM_MASK) >>
-                        PMC_TAP_VERSION_PLATFORM_SHIFT);
-	PmIn32(PMC_TAP_SLR_TYPE_OFFSET + PMC_TAP_BASEADDR, RegValue);
-	SlrType = (RegValue & PMC_TAP_SLR_TYPE_MASK);
+	PlatformVersion = XPm_GetPlatformVersion();
+	Platform = XPm_GetPlatform();
 
-	/* Read and store the reset reason value */
-	PmIn32(CRP_RESET_REASON, ResetReason);
+	/* Check last reset reason */
+	XPm_CheckLastResetReason();
 
 	if (0U != (ResetReason & SysResetMask)) {
-		/* Clear the system reset bits of reset_reason register */
-		PmOut32(CRP_RESET_REASON, (ResetReason & SysResetMask));
-
 		/* Enable domain isolations after system reset */
 		for (i = 0; i < ARRAY_SIZE(IsolationIdx); i++) {
 			Status = XPmDomainIso_Control(IsolationIdx[i], TRUE_VALUE);
@@ -538,114 +637,52 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u3
 
 	Status = XPmSubsystem_Add(PM_SUBSYS_PMC);
 
+	PmRestartCb = RestartCb;
+
 done:
 	return Status;
 }
 
-/*****************************************************************************/
-/**
- * @brief This is the handler for wake up interrupts
- *
- * @param  DeviceIdx	Index of peripheral device
- *
- * @return Status	XST_SUCCESS if processor wake successfully
- *			XST_FAILURE or error code in case of failure
- *
- *****************************************************************************/
-int XPm_DispatchWakeHandler(void *DeviceIdx)
-{
-	int Status;
-
-	Status = XPm_GicProxyWakeUp((u32)DeviceIdx);
-	return Status;
-}
-
-static void AddPld0Device(void)
-{
-	XPm_Device *Device = XPmDevice_GetById(PM_DEV_PLD_0);
-	int Status;
-
-	if (NULL == Device) {
-		u32 Args[3] = {PM_DEV_PLD_0, PM_POWER_PLD};
-		u32 Parents[] = {PM_CLK_PMC_PL0_REF, PM_CLK_PMC_PL1_REF,
-				 PM_CLK_PMC_PL2_REF, PM_CLK_PMC_PL3_REF,
-				 PM_RST_PL0, PM_RST_PL1, PM_RST_PL2,
-				 PM_RST_PL3};
-
-		Status = XPm_AddNode(Args, (u32)ARRAY_SIZE(Args));
-		if (XST_SUCCESS != Status) {
-			PmWarn("Error %d in adding PLD0 device\r\n", Status);
-		}
-
-		Status = XPmDevice_AddParent(PM_DEV_PLD_0, Parents,
-					     (u32)ARRAY_SIZE(Parents));
-		if (XST_SUCCESS != Status) {
-			PmWarn("Error %d in add patent for PLD0 device\r\n",
-				Status);
-		}
-	}
-}
-
-static void AddIPIPmcDevice(void)
-{
-	XPm_Device *Device = XPmDevice_GetById(PM_DEV_IPI_PMC);
-	int Status;
-
-	if (NULL == Device) {
-		u32 Args[3] = {PM_DEV_IPI_PMC, PM_POWER_LPD};
-		u32 Parents[] = {PM_RST_IPI};
-
-		Status = XPm_AddNode(Args, (u32)ARRAY_SIZE(Args));
-		if (XST_SUCCESS != Status) {
-			PmWarn("Error %d in adding PLD0 device\r\n", Status);
-		}
-
-		Status = XPmDevice_AddParent(PM_DEV_IPI_PMC, Parents,
-					     (u32)ARRAY_SIZE(Parents));
-		if (XST_SUCCESS != Status) {
-			PmWarn("Error %d in add patent for PLD0 device\r\n",
-				Status);
-		}
-	}
-}
-
 static void PostTopologyHook(void)
 {
-
-	/**
-	 * Currently PLD0 device is not added through CDO. This will create
-	 * issues when dynamic subsystems are supported. So add workaround for
-	 * adding PLD0 device from XilPM until CDO changes to add PLD0 device
-	 * from topology are there.
-	 * TODO: Remove this workaround when CDO changes to add PLD0 device
-	 *	 will available in tools.
-	 */
-	AddPld0Device();
-
-	/**
-	 * TODO: Remove this workaround when CDO changes to add PMC IPI device
-	 *	 will available in tools.
-	 */
-	AddIPIPmcDevice();
+	/* TODO: Remove this when PL topology handling is added */
+	/* Set all PL clock as read only so that Linux won't disable those */
+	XPmClock_SetPlClockAsReadOnly();
 }
 
 XStatus XPm_HookAfterPlmCdo(void)
 {
 	XStatus Status = XST_FAILURE;
+	u32 PlatformVersion;
+	u32 SysmonAddr;
 
 	/*
-	 * There is a silicon problem where on 2-4% of Versal ES1 S80 devices
+	 * There is a silicon problem where on 2-4% of Versal ES1 XCVC1902 devices
 	 * you can get 12A of VCCINT_PL current before CFI housecleaning is run.
 	 * The problem is eliminated when PL Vgg frame housecleaning is run
 	 * so we need to do that ASAP after PLM is loaded.
 	 * Otherwise also, PL housecleaning needs to be trigerred asap to reduce
 	 * boot time.
 	 */
-	XPmPlDomain_InitandHouseclean();
+	(void)XPmPlDomain_InitandHouseclean();
 
-	// On Boot, Update PMC SAT0 & SAT1 sysmon trim
-	(void)XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PMC_0], PM_POWER_PMC, 0);
-	(void)XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PMC_1], PM_POWER_PMC, 1);
+	/* On Boot, Update PMC SAT0 & SAT1 sysmon trim */
+	SysmonAddr = XPm_GetSysmonByIndex((u32)XPM_NODEIDX_MONITOR_SYSMON_PMC_0);
+	if (0U == SysmonAddr) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	(void)XPmPowerDomain_ApplyAmsTrim(SysmonAddr, PM_POWER_PMC, 0);
+
+	SysmonAddr = XPm_GetSysmonByIndex((u32)XPM_NODEIDX_MONITOR_SYSMON_PMC_1);
+	if (0U == SysmonAddr) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	(void)XPmPowerDomain_ApplyAmsTrim(SysmonAddr, PM_POWER_PMC, 1);
+
 	PostTopologyHook();
 
 	/**
@@ -656,10 +693,13 @@ XStatus XPm_HookAfterPlmCdo(void)
 	 * This will take care of the use cases where PMC is up.
 	 * GPIO will get reset only when PMC goes down.
 	 *
-	 * The VCC_AUX workaround will be removed from MIO-37 in ES2 going ahead.
+	 * The VCC_AUX workaround will be removed from MIO-37 in future.
 	 */
-	if ((PLATFORM_VERSION_SILICON == Platform) &&
-	    (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
+	PlatformVersion = XPm_GetPlatformVersion();
+
+	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform() &&
+	    (((u32)PLATFORM_VERSION_SILICON_ES1 == PlatformVersion) ||
+	     ((u32)PLATFORM_VERSION_SILICON_ES2 == PlatformVersion)))) {
 		Status = XPmDevice_Request(PM_SUBSYS_PMC, PM_DEV_GPIO_PMC,
 					   XPM_MAX_CAPABILITY, XPM_MAX_QOS);
 		if (XST_SUCCESS != Status) {
@@ -768,32 +808,10 @@ XStatus XPm_SetCurrentSubsystem(u32 SubsystemId)
 	return Status;
 }
 
-/****************************************************************************/
-/**
- * @brief  This function allows to initialize the node.
- *
- * @param  NodeId	Supported power domain nodes only
- * @param  Function	Function id
- * @param  Args		Arguments speicifc to function
- * @param  NumArgs  Number of arguments
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- * @note   none
- *
- ****************************************************************************/
-XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
+static XStatus PwrDomainInitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_PowerDomain *PwrDomainNode;
-
-	if (((u32)XPM_NODECLASS_POWER != NODECLASS(NodeId)) ||
-	    ((u32)XPM_NODESUBCL_POWER_DOMAIN != NODESUBCLASS(NodeId)) ||
-	    ((u32)XPM_NODEIDX_POWER_MAX <= NODEINDEX(NodeId))) {
-		Status = XPM_PM_INVALID_NODE;
-		goto done;
-	}
 
 	PwrDomainNode = (XPm_PowerDomain *)XPmPower_GetById(NodeId);
 	if (NULL == PwrDomainNode) {
@@ -854,11 +872,90 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
 
 done:
 	if (Status != XST_SUCCESS) {
-		PmErr("Unable to initialize node. Returned: 0x%x\n\r", Status);
+		PmErr("Unable to initialize node for NodeId: 0x%x Function: 0x%x \
+			Returned: 0x%x\n\r", NodeId, Function, Status);
 	}
 	return Status;
 }
 
+static XStatus PldInitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	XPm_PlDevice *PlDevice = NULL;
+
+	PlDevice = (XPm_PlDevice *)XPmDevice_GetById(NodeId);
+	if (NULL == PlDevice) {
+		DbgErr = XPM_INT_ERR_INVALID_NODE;
+		goto done;
+	}
+
+	if (NULL == PlDevice->Ops) {
+		DbgErr = XPM_INT_ERR_NO_FEATURE;
+		goto done;
+	}
+
+	switch (Function) {
+		case (u32)FUNC_INIT_START:
+			if (NULL == PlDevice->Ops->InitStart) {
+				DbgErr = XPM_INT_ERR_NO_FEATURE;
+				goto done;
+			}
+			Status = PlDevice->Ops->InitStart(PlDevice, Args, NumArgs);
+			break;
+		case (u32)FUNC_INIT_FINISH:
+			if (NULL == PlDevice->Ops->InitFinish) {
+				DbgErr = XPM_INT_ERR_NO_FEATURE;
+				goto done;
+			}
+			Status = PlDevice->Ops->InitFinish(PlDevice, Args, NumArgs);
+			break;
+		default:
+			DbgErr = XPM_INT_ERR_INVALID_FUNC;
+			break;
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function allows to initialize the node.
+ *
+ * @param  NodeId	Supported power domain nodes only
+ * @param  Function	Function id
+ * @param  Args		Arguments speicifc to function
+ * @param  NumArgs  Number of arguments
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   none
+ *
+ ****************************************************************************/
+XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	if (((u32)XPM_NODECLASS_POWER == NODECLASS(NodeId)) &&
+	    ((u32)XPM_NODESUBCL_POWER_DOMAIN == NODESUBCLASS(NodeId)) &&
+	    ((u32)XPM_NODEIDX_POWER_MAX > NODEINDEX(NodeId))) {
+		Status = PwrDomainInitNode(NodeId, Function, Args, NumArgs);
+	} else if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(NodeId)) &&
+		  ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(NodeId)) &&
+		  ((u32)XPM_NODEIDX_DEV_PLD_MAX > NODEINDEX(NodeId))) {
+		Status = PldInitNode(NodeId, Function, Args, NumArgs);
+	} else {
+		Status = XPM_PM_INVALID_NODE;
+		DbgErr = XPM_INT_ERR_PLDEVICE_INITNODE;
+	}
+
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
 
 /****************************************************************************/
 /**
@@ -991,35 +1088,37 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 	XPm_Core *Core;
 	u64 Address = (u64)AddrLow + ((u64)AddrHigh << 32ULL);
 	XPm_Requirement *Reqm;
+	u32 CpuIdleFlag;
 
 	/* TODO: Remove this warning fix hack when functionality is implemented */
 	(void)Latency;
 
-	if ((NODECLASS(DeviceId) == (u32)XPM_NODECLASS_DEVICE) &&
-	   (NODESUBCLASS(DeviceId) == (u32)XPM_NODESUBCL_DEV_CORE)) {
-		Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
-		if (NULL == Core) {
-			Status = XST_DEVICE_NOT_FOUND;
-			goto done;
-		}
-		Core->ResumeAddr = Address | 1U;
-		Core->Device.Node.State = (u8)XPM_DEVSTATE_SUSPENDING;
-	} else {
+	Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+	if ((NULL == Core) ||
+	    (NODESUBCLASS(DeviceId) != (u32)XPM_NODESUBCL_DEV_CORE)) {
 		Status = XPM_INVALID_DEVICEID;
 		goto done;
 	}
 
-	ENABLE_WFI(Core->SleepMask);
+	if ((PM_SUSPEND_STATE_SUSPEND_TO_RAM != State) &&
+	    (PM_SUSPEND_STATE_CPU_IDLE != State)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	CpuIdleFlag = (State == PM_SUSPEND_STATE_CPU_IDLE) ? (1U) : (0U);
+
+	Status = XPmCore_StoreResumeAddr(Core, (Address | 1U));
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	if (PM_SUSPEND_STATE_SUSPEND_TO_RAM == State) {
 		Status = XPmSubsystem_SetState(SubsystemId, (u32)SUSPENDING);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
-	}
 
-	/* If subsystem is using DDR, enable self-refresh as post suspend requirement*/
-	if (PM_SUSPEND_STATE_SUSPEND_TO_RAM == State) {
+		/* If subsystem is using DDR, enable self-refresh as post suspend requirement*/
 		Reqm = XPmDevice_FindRequirement(PM_DEV_DDR_0, SubsystemId);
 		if (XST_SUCCESS == XPmRequirement_IsExclusive(Reqm)) {
 			Status = XPmDevice_SetRequirement(SubsystemId, PM_DEV_DDR_0,
@@ -1030,7 +1129,13 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 		}
 	}
 
-	Status = XST_SUCCESS;
+	Status = XPmCore_SetCPUIdleFlag(Core, CpuIdleFlag);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	ENABLE_WFI(Core->SleepMask);
+	Core->Device.Node.State = (u8)XPM_DEVSTATE_SUSPENDING;
 
 done:
 	if (XST_SUCCESS != Status) {
@@ -1118,6 +1223,14 @@ int XPm_GicProxyWakeUp(const u32 PeriphIdx)
 		goto done;
 	}
 
+	XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(Periph->WakeProcId);
+
+	/* Do not process anything if core is already running */
+	if ((u8)XPM_DEVSTATE_RUNNING == Core->Device.Node.State) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	Status = XPm_RequestWakeUp(PM_SUBSYS_PMC, Periph->WakeProcId, 0, 0, 0);
 
 done:
@@ -1125,7 +1238,7 @@ done:
 }
 
 
-int XPm_SubsystemPwrUp(const u32 SubsystemId)
+static int XPm_SubsystemPwrUp(const u32 SubsystemId)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -1143,7 +1256,10 @@ int XPm_SubsystemPwrUp(const u32 SubsystemId)
 			goto done;
 		}
 	}
-	Status = XLoader_RestartImage(SubsystemId);
+	Status = XPm_RestartCbWrapper(SubsystemId);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 done:
 	return Status;
@@ -1211,7 +1327,7 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 				/* Power up LPD if not powered up */
 				Power = XPmPower_GetById(PM_POWER_LPD);
 				if ((NULL != Power) && ((u8)XPM_POWER_STATE_OFF == Power->Node.State)) {
-					Status = XLoader_RestartImage(Power->Node.Id);
+					Status = XPm_RestartCbWrapper(Power->Node.Id);
 					if (XST_SUCCESS != Status) {
 						goto done;
 					}
@@ -1255,20 +1371,17 @@ done:
 /****************************************************************************/
 /**
  * @brief  This function can be used by a subsystem to Powerdown other
- * 		processor or domain node forcefully. To powerdown whole
- * 		subsystem, this function needs to be called for all processors
- * 		of target subsystem, which in turn will power down the whole
- * 		subsystem
+ * 	   processor or domain node or subsystem forcefully.
  *
  * @param SubsystemId	Subsystem ID
- * @param  Node 		Processor or domain node to be powered down
- * @param  Ack			Ack request
+ * @param Node 		Processor or domain node or subsystem to be powered down
+ * @param Ack		Ack request
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
  * @note   The affected PUs are not notified about the upcoming powerdown,
- *          and PMU does not wait for their WFI interrupt.
+ *         and PLM does not wait for their WFI interrupt.
  *
  ****************************************************************************/
 XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
@@ -1368,25 +1481,11 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 			Power = Device->Power;
 			while (NULL != Power) {
 				if (NodeId == Power->Node.Id) {
+					/* Disable the direct wake in case of force power down */
 					if ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Device->Node.Id)) {
 						Core = (XPm_Core *)XPmDevice_GetById(Device->Node.Id);
-						if ((NULL != Core) &&
-						    (NULL != Core->CoreOps) &&
-						    (NULL != Core->CoreOps->PowerDown)) {
-							PmDbg("Powering down core 0x%x\r\n", Device->Node.Id);
-							Status = Core->CoreOps->PowerDown(Core);
-							if (XST_SUCCESS != Status) {
-								goto done;
-							}
-							/*
-							 * Disable the direct
-							 * wake in case of force
-							 * power down
-							 */
+						if (NULL != Core) {
 							DISABLE_WAKE(Core->SleepMask);
-						} else {
-							Status = XST_FAILURE;
-							goto done;
 						}
 					}
 
@@ -1554,10 +1653,10 @@ XStatus XPm_SetWakeUpSource(const u32 SubsystemId, const u32 TargetNodeId,
 	XPm_Periph *Periph = NULL;
 	XPm_Subsystem *Subsystem;
 
-	/* Check if given target node is valid */
-	if(NODECLASS(TargetNodeId) != (u32)XPM_NODECLASS_DEVICE ||
-	   NODESUBCLASS(TargetNodeId) != (u32)XPM_NODESUBCL_DEV_CORE)
-	{
+	/* Check if given target node is valid and present in device list */
+	if ((NODECLASS(TargetNodeId) != (u32)XPM_NODECLASS_DEVICE) ||
+	    (NODESUBCLASS(TargetNodeId) != (u32)XPM_NODESUBCL_DEV_CORE) ||
+	    (NULL == XPmDevice_GetById(TargetNodeId))) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -1790,14 +1889,14 @@ done:
  *  - For CPU nodes:
  *   - 0 : if CPU is powered down,
  *   - 1 : if CPU is active (powered up),
- *   - 2 : if CPU is suspending (powered up)
+ *   - 8 : if CPU is suspending (powered up)
  *  - For power islands and power domains:
  *   - 0 : if island is powered down,
- *   - 1 : if island is powered up
+ *   - 2 : if island is powered up
  *  - For slaves:
  *   - 0 : if slave is powered down,
  *   - 1 : if slave is powered up,
- *   - 2 : if slave is in retention
+ *   - 9 : if slave is in retention
  *
  * - Requirement - Requirements placed on the device by the caller
  *
@@ -1905,6 +2004,9 @@ XStatus XPm_Query(const u32 Qid, const u32 Arg1, const u32 Arg2,
 	case (u32)XPM_QID_CLOCK_GET_MAX_DIVISOR:
 		Status = XPmClock_GetMaxDivisor(Arg1, Arg2, Output);
 		break;
+	case (u32)XPM_QID_PLD_GET_PARENT:
+		Status = XPmPlDevice_GetParent(Arg1, Output);
+		break;
 	default:
 		Status = XST_INVALID_PARAM;
 		break;
@@ -1948,9 +2050,17 @@ XStatus XPm_SetClockState(const u32 SubsystemId, const u32 ClockId, const u32 En
 		goto done;
 	}
 
-	/* HACK: Allow enabling of PLLs for now */
-	if ((1U == Enable) && (ISPLL(ClockId))) {
-		goto bypass;
+	if (1U == Enable) {
+		if (ISPLL(ClockId)) {
+			/* HACK: Allow enabling of PLLs for now */
+			goto bypass;
+		} else if (ISOUTCLK(ClockId) &&
+			   (0U != (Clk->Flags & CLK_FLAG_READ_ONLY))) {
+			/* Allow enable operation for read-only clocks */
+			goto bypass;
+		} else {
+			/* Required due to MISRA */
+		}
 	}
 
 	/* Check if subsystem is allowed to access requested clock or not */
@@ -2090,7 +2200,13 @@ done:
 XStatus XPm_GetClockDivider(const u32 ClockId, u32 *const Divider)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
+	XPm_ClockNode *Clk = NULL;
+
+	Clk = XPmClock_GetById(ClockId);
+	if (NULL == Clk) {
+		Status = XPM_INVALID_CLKID;
+		goto done;
+	}
 
 	if (ISOUTCLK(ClockId)) {
 		Status = XPmClock_GetClockData((XPm_OutClockNode *)Clk,
@@ -2165,7 +2281,13 @@ done:
 XStatus XPm_GetClockParent(const u32 ClockId, u32 *const ParentIdx)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
+	XPm_ClockNode *Clk = NULL;
+
+	Clk = XPmClock_GetById(ClockId);
+	if (NULL == Clk) {
+		Status = XPM_INVALID_CLKID;
+		goto done;
+	}
 
 	/* Get parent is allowed only on output clocks */
 	if (!ISOUTCLK(ClockId)) {
@@ -2345,12 +2467,16 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  This function reset or de-reset a device.
+ * @brief  This function reset or de-reset a device. Alternatively a reset
+ * 	   pulse can be requested as well.
  *
  * @param SubsystemId	Subsystem ID
  * @param ResetId	Reset ID
  * @param IpiMask	IPI Mask currently being used
- * @param Action	Reset (true) or de-reset (false) the device
+ * @param Action	Reset action to be taken
+ *			- PM_RESET_ACTION_RELEASE for Release Reset
+ *			- PM_RESET_ACTION_ASSERT for Assert Reset
+ *			- PM_RESET_ACTION_PULSE for Pulse Reset
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -2620,460 +2746,6 @@ XStatus XPm_GetPinParameter(const u32 PinId,
 
 /****************************************************************************/
 /**
- * @brief  Enable/Disable tap delay bypass
- *
- * @param  DeviceId	ID of the device
- * @param  Type		Type of tap delay to enable/disable (QSPI)
- * @param  Value	Enable/Disable
- *
- * @return XST_SUCCESS if successful else error code or a reason code
- *
- ****************************************************************************/
-static int XPm_SetTapdelayBypass(const u32 DeviceId, const u32 Type,
-				 const u32 Value)
-{
-	int Status = XST_FAILURE;
-	XPm_Device *Device = XPmDevice_GetById(DeviceId);
-	u32 BaseAddress;
-
-	if (NULL == Device) {
-		Status = XPM_INVALID_DEVICEID;
-		goto done;
-	}
-
-	/* QSPI base address */
-	BaseAddress = Device->Node.BaseAddress;
-
-	if (((XPM_TAPDELAY_BYPASS_ENABLE != Value) &&
-	    (XPM_TAPDELAY_BYPASS_DISABLE != Value)) ||
-	    (XPM_TAPDELAY_QSPI != Type)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	PmRmw32(BaseAddress + TAPDLY_BYPASS_OFFSET, XPM_TAP_DELAY_MASK,
-		Value << Type);
-
-	Status = XST_SUCCESS;
-
-done:
-	if(Status != XST_SUCCESS) {
-		PmErr("Returned: 0x%x\n\r", Status);
-	}
-	return Status;
-}
-
-/****************************************************************************/
-/**
- * @brief  This function resets DLL logic for the SD device.
- *
- * @param  DeviceId	DeviceId of the device
- * @param  Type		Reset type
- *
- * @return XST_SUCCESS if successful else error code or a reason code
- *
- ****************************************************************************/
-static int XPm_SdDllReset(const u32 DeviceId, const u32 Type)
-{
-	int Status = XST_FAILURE;
-	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
-	u32 BaseAddress;
-	u32 Offset;
-
-	if (NULL == Pmc) {
-		Status = XPM_INVALID_DEVICEID;
-		goto done;
-	}
-
-	/* PMC_IOU_SLCR base address */
-	BaseAddress = Pmc->PmcIouSlcrBaseAddr;
-
-	if (PM_DEV_SDIO_0 == DeviceId) {
-		Offset = SD0_CTRL_OFFSET;
-	} else if (PM_DEV_SDIO_1 == DeviceId) {
-		Offset = SD1_CTRL_OFFSET;
-	} else {
-		Status = XPM_INVALID_DEVICEID;
-		goto done;
-	}
-
-	switch (Type) {
-	case XPM_DLL_RESET_ASSERT:
-		PmRmw32(BaseAddress + Offset, XPM_SD_DLL_RST_MASK,
-			XPM_SD_DLL_RST_MASK);
-		Status = XST_SUCCESS;
-		break;
-	case XPM_DLL_RESET_RELEASE:
-		PmRmw32(BaseAddress + Offset, XPM_SD_DLL_RST_MASK,
-			~XPM_SD_DLL_RST_MASK);
-		Status = XST_SUCCESS;
-		break;
-	case XPM_DLL_RESET_PULSE:
-		PmRmw32(BaseAddress + Offset, XPM_SD_DLL_RST_MASK,
-			XPM_SD_DLL_RST_MASK);
-		PmRmw32(BaseAddress + Offset, XPM_SD_DLL_RST_MASK,
-			~XPM_SD_DLL_RST_MASK);
-		Status = XST_SUCCESS;
-		break;
-	default:
-		Status = XPM_INVALID_TYPEID;
-		break;
-	}
-
-done:
-	if(Status != XST_SUCCESS) {
-		PmErr("Returned: 0x%x\n\r", Status);
-	}
-	return Status;
-}
-
-/****************************************************************************/
-/**
- * @brief  This function sets input/output tap delay for the SD device.
- *
- * @param  DeviceId	DeviceId of the device
- * @param  Type		Type of tap delay to set (input/output)
- * @param  Value	Value to set for the tap delay
- *
- * @return XST_SUCCESS if successful else error code or a reason code
- *
- ****************************************************************************/
-static int XPm_SetSdTapDelay(const u32 DeviceId, const u32 Type,
-			     const u32 Value)
-{
-	int Status = XST_FAILURE;
-	XPm_Device *Device = XPmDevice_GetById(DeviceId);
-	u32 BaseAddress;
-
-	if (NULL == Device) {
-		Status = XPM_INVALID_DEVICEID;
-		goto done;
-	}
-
-	/*Check for Type */
-	if (XPM_TAPDELAY_INPUT != Type && XPM_TAPDELAY_OUTPUT != Type) {
-		Status = XPM_INVALID_TYPEID;
-		goto done;
-	}
-	/* SD0/1 base address */
-	BaseAddress = Device->Node.BaseAddress;
-
-	Status = XPm_SdDllReset(DeviceId, XPM_DLL_RESET_ASSERT);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	switch (Type) {
-	case XPM_TAPDELAY_INPUT:
-		PmRmw32(BaseAddress + ITAPDLY_OFFSET, XPM_SD_ITAPCHGWIN_MASK,
-			XPM_SD_ITAPCHGWIN_MASK);
-		PmRmw32(BaseAddress + ITAPDLY_OFFSET, XPM_SD_ITAPDLYENA_MASK,
-			XPM_SD_ITAPDLYENA_MASK);
-		PmRmw32(BaseAddress + ITAPDLY_OFFSET, XPM_SD_ITAPDLYSEL_MASK,
-			Value);
-		PmRmw32(BaseAddress + ITAPDLY_OFFSET, XPM_SD_ITAPCHGWIN_MASK,
-			~XPM_SD_ITAPCHGWIN_MASK);
-		break;
-	case XPM_TAPDELAY_OUTPUT:
-		PmRmw32(BaseAddress + OTAPDLY_OFFSET, XPM_SD_OTAPDLYENA_MASK,
-			XPM_SD_OTAPDLYENA_MASK);
-		PmRmw32(BaseAddress + OTAPDLY_OFFSET, XPM_SD_OTAPDLYSEL_MASK,
-			Value);
-		break;
-	default:
-		/*No action taken because we check for type earlier in the function
-		 * but present as part of defensive programming in case we reach here */
-		break;
-	}
-
-	Status = XPm_SdDllReset(DeviceId, XPM_DLL_RESET_RELEASE);
-
-done:
-	if(Status != XST_SUCCESS) {
-		PmErr("Returned: 0x%x\n\r", Status);
-	}
-	return Status;
-}
-
-/****************************************************************************/
-/**
- * @brief  This function performs read/write operation on probe counter
- *         registers of LPD/FPD.
- *
- * @param  DeviceId	DeviceId of the LPD/FPD
- * @param  Arg1		- Counter Number (0 to 7 bit)
- *			- Register Type (8 to 15 bit)
- *                         0 - LAR_LSR access (Request Type is ignored and
- *                                             Counter Number is ignored)
- *                         1 - Main Ctl       (Counter Number is ignored)
- *                         2 - Config Ctl     (Counter Number is ignored)
- *                         3 - State Period   (Counter Number is ignored)
- *                         4 - PortSel
- *                         5 - Src
- *                         6 - Val
- *                      - Request Type (16 to 23 bit)
- *                         0 - Read Request
- *                         1 - Read Response
- *                         2 - Write Request
- *                         3 - Write Response
- *                         4 - lpd Read Request (For LPD only)
- *                         5 - lpd Read Response (For LPD only)
- *                         6 - lpd Write Request (For LPD only)
- *                         7 - lpd Write Response (For LPD only)
- * @param  Value	Register value to write (if Write flag is 1)
- * @param  Response	Value of register read (if Write flag is 0)
- * @param  Write	Operation type (0 - Read, 1 - Write)
- *
- * @return XST_SUCCESS if successful else error code or a reason code
- *
- ****************************************************************************/
-static int XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
-				  u32 *const Response, u8 Write)
-{
-	int Status = XST_INVALID_PARAM;
-	XPm_Power *Power;
-	u32 Reg;
-	u32 CounterIdx;
-	u32 ReqType;
-	u32 ReqTypeOffset;
-	u32 FpdReqTypeOffset[] = {
-		PROBE_COUNTER_FPD_RD_REQ_OFFSET,
-		PROBE_COUNTER_FPD_RD_RES_OFFSET,
-		PROBE_COUNTER_FPD_WR_REQ_OFFSET,
-		PROBE_COUNTER_FPD_WR_RES_OFFSET,
-	};
-
-	CounterIdx = Arg1 & PROBE_COUNTER_IDX_MASK;
-	ReqType = ((Arg1 >> PROBE_COUNTER_REQ_TYPE_SHIFT) &
-		   PROBE_COUNTER_REQ_TYPE_MASK);
-	switch (NODEINDEX(DeviceId)) {
-	case (u32)XPM_NODEIDX_POWER_LPD:
-		if (CounterIdx > PROBE_COUNTER_CPU_R5_MAX_IDX) {
-			goto done;
-		}
-		if (ReqType > PROBE_COUNTER_LPD_MAX_REQ_TYPE) {
-			goto done;
-		} else if ((ReqType > PROBE_COUNTER_CPU_R5_MAX_REQ_TYPE) &&
-			   (CounterIdx > PROBE_COUNTER_LPD_MAX_IDX)) {
-			goto done;
-		} else {
-			/* Required due to MISRA */
-			PmDbg("[%d] Unknown else case\r\n", __LINE__);
-		}
-		Reg = CORESIGHT_LPD_ATM_BASE;
-		ReqTypeOffset = (ReqType * PROBE_COUNTER_LPD_REQ_TYPE_OFFSET);
-		Status = XST_SUCCESS;
-		break;
-	case (u32)XPM_NODEIDX_POWER_FPD:
-		if (CounterIdx > PROBE_COUNTER_FPD_MAX_IDX) {
-			goto done;
-		}
-		if (ReqType > PROBE_COUNTER_FPD_MAX_REQ_TYPE) {
-			goto done;
-		}
-		Reg = CORESIGHT_FPD_ATM_BASE;
-		ReqTypeOffset = FpdReqTypeOffset[ReqType];
-		Status = XST_SUCCESS;
-		break;
-	default:
-		Status = XPM_PM_INVALID_NODE;
-		break;
-	}
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Power = XPmPower_GetById(DeviceId);
-	if ((NULL == Power) || ((u8)XPM_POWER_STATE_ON != Power->Node.State)) {
-		goto done;
-	}
-
-	switch ((Arg1 >> PROBE_COUNTER_TYPE_SHIFT) & PROBE_COUNTER_TYPE_MASK) {
-	case XPM_PROBE_COUNTER_TYPE_LAR_LSR:
-		if (1U == Write) {
-			Reg += PROBE_COUNTER_LAR_OFFSET;
-		} else {
-			Reg += PROBE_COUNTER_LSR_OFFSET;
-		}
-		Status = XST_SUCCESS;
-		break;
-	case XPM_PROBE_COUNTER_TYPE_MAIN_CTL:
-		Reg += ReqTypeOffset + PROBE_COUNTER_MAIN_CTL_OFFSET;
-		Status = XST_SUCCESS;
-		break;
-	case XPM_PROBE_COUNTER_TYPE_CFG_CTL:
-		Reg += ReqTypeOffset + PROBE_COUNTER_CFG_CTL_OFFSET;
-		Status = XST_SUCCESS;
-		break;
-	case XPM_PROBE_COUNTER_TYPE_STATE_PERIOD:
-		Reg += ReqTypeOffset + PROBE_COUNTER_STATE_PERIOD_OFFSET;
-		Status = XST_SUCCESS;
-		break;
-	case XPM_PROBE_COUNTER_TYPE_PORT_SEL:
-		Reg += (ReqTypeOffset + (CounterIdx * 20U) +
-			PROBE_COUNTER_PORT_SEL_OFFSET);
-		Status = XST_SUCCESS;
-		break;
-	case XPM_PROBE_COUNTER_TYPE_SRC:
-		Reg += (ReqTypeOffset + (CounterIdx * 20U) +
-			PROBE_COUNTER_SRC_OFFSET);
-		Status = XST_SUCCESS;
-		break;
-	case XPM_PROBE_COUNTER_TYPE_VAL:
-		if (1U == Write) {
-			/* This type doesn't support write operation */
-			goto done;
-		}
-		Reg += (ReqTypeOffset + (CounterIdx * 20U) +
-			PROBE_COUNTER_VAL_OFFSET);
-		Status = XST_SUCCESS;
-		break;
-	default:
-		Status = XST_INVALID_PARAM;
-		break;
-	}
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	if (0U == Write) {
-		if (NULL == Response) {
-			Status = XST_FAILURE;
-			goto done;
-		}
-		PmIn32(Reg, *Response);
-	} else {
-		PmOut32(Reg, Value);
-	}
-
-done:
-	if(Status != XST_SUCCESS) {
-		PmErr("Returned: 0x%x\n\r", Status);
-	}
-	return Status;
-}
-
-/****************************************************************************/
-/**
- * @brief  This function sets the controller into either D3 or D0 state
- *
- * @param  DeviceId	DeviceId of the device
- * @param  ReqState	Requested State (0 - D0, 3 - D3)
- * @param  TimeOut	TimeOut value in micro secs to wait for D3/D0 entry
- *
- * @return XST_SUCCESS if successful else error code
- *
- ****************************************************************************/
-static int XPm_USBDxState(const u32 DeviceId, const u32 ReqState,
-			  const u32 TimeOut)
-{
-	int Status = XST_FAILURE;
-	XPm_Pmc *Pmc;
-	u32 BaseAddress;
-	u32 Offset;
-	u32 CurState;
-	u32 LocalTimeOut;
-
-	(void)DeviceId;
-	LocalTimeOut = TimeOut;
-
-	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
-
-	if (NULL == Pmc) {
-		Status = XST_DEVICE_NOT_FOUND;
-		goto done;
-	}
-
-	/* Only (D0 == 0U) or (D3 == 3U) states allowed */
-	if ((ReqState != 0U) && (ReqState != 3U)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	/* PMC_IOU_SLCR base address */
-	BaseAddress = Pmc->PmcIouSlcrBaseAddr;;
-
-	/* power state request */
-	Offset = XPM_USB_PWR_REQ_OFFSET;
-	PmOut32(BaseAddress + Offset, ReqState);
-
-	/* current power state */
-	Offset = XPM_USB_CUR_PWR_OFFSET;
-	PmIn32(BaseAddress + Offset, CurState);
-
-	while((CurState != ReqState) && (LocalTimeOut > 0U)) {
-		LocalTimeOut--;
-		PmIn32(BaseAddress + Offset, CurState);
-		usleep(1U);
-	}
-
-	Status = ((LocalTimeOut == 0U) ? XST_FAILURE : XST_SUCCESS);
-done:
-	return Status;
-}
-
-/****************************************************************************/
-/**
- * @brief  This function selects/returns the AXI interface to OSPI device
- *
- * @param  DeviceId	DeviceId of the device
- * @param  Type		Reset type
- * @param  Response	Output Response (0 - DMA, 1 - LINEAR)
- *
- * @return XST_SUCCESS if successful else error code or a reason code
- *
- ****************************************************************************/
-static int XPm_OspiMuxSelect(const u32 DeviceId, const u32 Type, u32 *Response)
-{
-	int Status = XST_FAILURE;
-	XPm_Pmc *Pmc;
-	u32 BaseAddress;
-	u32 Offset;
-
-	(void)DeviceId;
-
-	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
-	if (NULL == Pmc) {
-		Status = XST_DEVICE_NOT_FOUND;
-		goto done;
-	}
-
-	/* PMC_IOU_SLCR base address */
-	BaseAddress = Pmc->PmcIouSlcrBaseAddr;
-	Offset = XPM_OSPI_MUX_SEL_OFFSET;
-
-	switch (Type) {
-	case XPM_OSPI_MUX_SEL_DMA:
-		PmRmw32(BaseAddress + Offset, XPM_OSPI_MUX_SEL_MASK,
-				~XPM_OSPI_MUX_SEL_MASK);
-		Status = XST_SUCCESS;
-		break;
-	case XPM_OSPI_MUX_SEL_LINEAR:
-		PmRmw32(BaseAddress + Offset, XPM_OSPI_MUX_SEL_MASK,
-				XPM_OSPI_MUX_SEL_MASK);
-		Status = XST_SUCCESS;
-		break;
-	case XPM_OSPI_MUX_GET_MODE:
-		if (NULL == Response) {
-			Status = XST_INVALID_PARAM;
-			goto done;
-		}
-		PmIn32(BaseAddress + Offset, *Response);
-		*Response = (((*Response) & XPM_OSPI_MUX_SEL_MASK) >>
-			XPM_OSPI_MUX_SEL_SHIFT);
-		Status = XST_SUCCESS;
-		break;
-	default:
-		Status = XST_INVALID_PARAM;
-		break;
-	}
-
-done:
-	return Status;
-}
-
-/****************************************************************************/
-/**
  * @brief  This function performs driver-like IOCTL functions on shared system
  * devices.
  *
@@ -3094,149 +2766,18 @@ done:
  *
  ****************************************************************************/
 XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
-			const u32 IoctlId,
+			const pm_ioctl_id  IoctlId,
 			const u32 Arg1,
 			const u32 Arg2, u32 *const Response)
 {
-	XStatus Status = XPM_ERR_IOCTL;
+	XStatus Status;
 
-	switch (IoctlId) {
-	case (u32)IOCTL_GET_RPU_OPER_MODE:
-		if ((DeviceId != PM_DEV_RPU0_0) &&
-		    (DeviceId != PM_DEV_RPU0_1)) {
-			Status = XPM_INVALID_DEVICEID;
-			goto done;
-		}
-		XPm_RpuGetOperMode(DeviceId, Response);
-		Status = XST_SUCCESS;
-		break;
-	case (u32)IOCTL_SET_RPU_OPER_MODE:
-		if ((DeviceId != PM_DEV_RPU0_0) &&
-		    (DeviceId != PM_DEV_RPU0_1)) {
-			Status = XPM_INVALID_DEVICEID;
-			goto done;
-		}
-		XPm_RpuSetOperMode(DeviceId, Arg1);
-		Status = XST_SUCCESS;
-		break;
-	case (u32)IOCTL_RPU_BOOT_ADDR_CONFIG:
-		if ((PM_DEV_RPU0_0 != DeviceId) &&
-		    (PM_DEV_RPU0_1 != DeviceId)) {
-			goto done;
-		}
-		Status = XPm_RpuBootAddrConfig(DeviceId, Arg1);
-		break;
-	case (u32)IOCTL_TCM_COMB_CONFIG:
-		if ((PM_DEV_RPU0_0 != DeviceId) &&
-		    (PM_DEV_RPU0_1 != DeviceId)) {
-			Status = XPM_INVALID_DEVICEID;
-			goto done;
-		}
-		Status = XPm_RpuTcmCombConfig(DeviceId, Arg1);
-		break;
-	case (u32)IOCTL_SET_TAPDELAY_BYPASS:
-		if (PM_DEV_QSPI != DeviceId) {
-			Status = XPM_INVALID_DEVICEID;
-			goto done;
-		}
-
-		Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-
-		Status = XPm_SetTapdelayBypass(DeviceId, Arg1, Arg2);
-		break;
-	case (u32)IOCTL_SD_DLL_RESET:
-		Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-
-		Status = XPm_SdDllReset(DeviceId, Arg1);
-		break;
-	case (u32)IOCTL_SET_SD_TAPDELAY:
-		Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-
-		Status = XPm_SetSdTapDelay(DeviceId, Arg1, Arg2);
-		break;
-	case (u32)IOCTL_WRITE_GGS:
-		if (Arg1 >= GGS_NUM_REGS) {
-			goto done;
-		}
-		PmOut32((GGS_BASEADDR + (Arg1 << 2)), Arg2);
-		Status = XST_SUCCESS;
-		break;
-	case (u32)IOCTL_READ_GGS:
-		if (Arg1 >= GGS_NUM_REGS) {
-			goto done;
-		}
-		PmIn32((GGS_BASEADDR + (Arg1 << 2)), *Response);
-		Status = XST_SUCCESS;
-		break;
-	case (u32)IOCTL_WRITE_PGGS:
-		if (Arg1 >= PGGS_NUM_REGS) {
-			goto done;
-		}
-		PmOut32((PGGS_BASEADDR + (Arg1 << 2)), Arg2);
-		Status = XST_SUCCESS;
-		break;
-	case (u32)IOCTL_READ_PGGS:
-		if (Arg1 >= PGGS_NUM_REGS) {
-			goto done;
-		}
-		PmIn32((PGGS_BASEADDR + (Arg1 << 2)), *Response);
-		Status = XST_SUCCESS;
-		break;
-	case (u32)IOCTL_SET_BOOT_HEALTH_STATUS:
-		PmRmw32(GGS_BASEADDR + GGS_4_OFFSET,
-			XPM_BOOT_HEALTH_STATUS_MASK, Arg1);
-		Status = XST_SUCCESS;
-		break;
-	case (u32)IOCTL_PROBE_COUNTER_READ:
-		Status = XPm_ProbeCounterAccess(DeviceId, Arg1, Arg2,
-						Response, 0U);
-		break;
-	case (u32)IOCTL_PROBE_COUNTER_WRITE:
-		Status = XPm_ProbeCounterAccess(DeviceId, Arg1, Arg2,
-						Response, 1U);
-		break;
-	case (u32)IOCTL_OSPI_MUX_SELECT:
-		if (PM_DEV_OSPI != DeviceId) {
-			goto done;
-		}
-
-		Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-		Status = XPm_OspiMuxSelect(DeviceId, Arg1, Response);
-		break;
-	case (u32)IOCTL_USB_SET_STATE:
-		if (PM_DEV_USB_0 != DeviceId) {
-			goto done;
-		}
-
-		Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-
-		Status = XPm_USBDxState(DeviceId, Arg1, Arg2);
-		break;
-	default:
-		/* Not supported yet */
-		Status = XPM_ERR_IOCTL;
-		break;
-	}
-
-done:
-	if(Status != XST_SUCCESS) {
+	Status = XPm_Ioctl(SubsystemId, DeviceId, IoctlId, Arg1, Arg2,
+			   Response);
+	if (XST_SUCCESS != Status) {
 		PmErr("Returned: 0x%x\n\r", Status);
 	}
+
 	return Status;
 }
 
@@ -3532,6 +3073,7 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 	XPm_PlDomain *PlDomain;
 	XPm_AieDomain *AieDomain;
 	XPm_CpmDomain *CpmDomain;
+	XPm_Rail *Rail;
 
 	if (NumArgs < 3U) {
 		Status = XST_INVALID_PARAM;
@@ -3544,10 +3086,7 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 	Shift = (u8)(Args[1] & 0xFFU);
 	ParentId = Args[2];
 
-	if (NODECLASS(PowerId) != (u32)XPM_NODECLASS_POWER) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	} else if (NODEINDEX(PowerId) >= (u32)XPM_NODEIDX_POWER_MAX) {
+	if (NODEINDEX(PowerId) >= (u32)XPM_NODEIDX_POWER_MAX) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	} else {
@@ -3556,7 +3095,8 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 
 	BitMask = BITNMASK(Shift, Width);
 
-	if (ParentId != (u32)XPM_NODEIDX_POWER_MIN) {
+	if ((ParentId != (u32)XPM_NODEIDX_POWER_MIN) &&
+		((u32)XPM_NODETYPE_POWER_RAIL != PowerType)) {
 		if (NODECLASS(ParentId) != (u32)XPM_NODECLASS_POWER) {
 			Status = XST_INVALID_PARAM;
 			goto done;
@@ -3649,6 +3189,14 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 			goto done;
 		}
 		Status = XPmAieDomain_Init(AieDomain, PowerId, BitMask, PowerParent);
+		break;
+	case (u32)XPM_NODETYPE_POWER_RAIL:
+		Rail = (XPm_Rail *)XPm_AllocBytes(sizeof(XPm_Rail));
+		if (NULL == Rail) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmRail_Init(Rail, PowerId, Args);
 		break;
 	default:
 		Status = XST_INVALID_PARAM;
@@ -3855,9 +3403,20 @@ static XStatus AddMemDevice(u32 *Args, u32 PowerId)
 	Type = NODETYPE(DeviceId);
 	Index = NODEINDEX(DeviceId);
 
-	if (Index >= (u32)XPM_NODEIDX_DEV_MAX) {
-		Status = XST_DEVICE_NOT_FOUND;
-		goto done;
+	switch (Type) {
+	case (u32)XPM_NODETYPE_DEV_OCM_REGN:
+	case (u32)XPM_NODETYPE_DEV_DDR_REGN:
+		if ((u32)MEM_REGN_DEV_NODE_MAX <= Index) {
+			Status = XST_DEVICE_NOT_FOUND;
+			goto done;
+		}
+		break;
+	default:
+		if ((u32)XPM_NODEIDX_DEV_MAX <= Index) {
+			Status = XST_DEVICE_NOT_FOUND;
+			goto done;
+		}
+		break;
 	}
 
 	if (NULL != XPmDevice_GetById(DeviceId)) {
@@ -3872,6 +3431,9 @@ static XStatus AddMemDevice(u32 *Args, u32 PowerId)
 	case (u32)XPM_NODETYPE_DEV_DDR:
 	case (u32)XPM_NODETYPE_DEV_TCM:
 	case (u32)XPM_NODETYPE_DEV_EFUSE:
+	case (u32)XPM_NODETYPE_DEV_OCM_REGN:
+	case (u32)XPM_NODETYPE_DEV_DDR_REGN:
+	case (u32)XPM_NODETYPE_DEV_HBM:
 		Device = (XPm_MemDevice *)XPm_AllocBytes(sizeof(XPm_MemDevice));
 		if (NULL == Device) {
 			Status = XST_BUFFER_TOO_SMALL;
@@ -3915,6 +3477,7 @@ static XStatus AddMemCtrlrDevice(u32 *Args, u32 PowerId)
 
 	switch (Type) {
 	case (u32)XPM_NODETYPE_DEV_DDR:
+	case (u32)XPM_NODETYPE_DEV_HBM:
 		Device = (XPm_Device *)XPm_AllocBytes(sizeof(XPm_Device));
 		if (NULL == Device) {
 			Status = XST_BUFFER_TOO_SMALL;
@@ -3959,6 +3522,7 @@ static XStatus AddPhyDevice(u32 *Args, u32 PowerId)
 
 	switch (Type) {
 	case (u32)XPM_NODETYPE_DEV_GT:
+	case (u32)XPM_NODETYPE_DEV_VDU:
 		Device = (XPm_Device *)XPm_AllocBytes(sizeof(XPm_Device));
 		if (NULL == Device) {
 			Status = XST_BUFFER_TOO_SMALL;
@@ -3982,8 +3546,8 @@ static int AddPlDevice(u32 *Args, u32 PowerId)
 	u32 DeviceId;
 	u32 Index;
 	XPm_Power *Power;
-	XPm_Device *Device;
 	u32 BaseAddr;
+	XPm_PlDevice *PlDevice;
 
 	DeviceId = Args[0];
 	BaseAddr = Args[2];
@@ -3991,30 +3555,36 @@ static int AddPlDevice(u32 *Args, u32 PowerId)
 	Index = NODEINDEX(DeviceId);
 
 	Power = XPmPower_GetById(PowerId);
-	if (NULL == Power) {
-		Status = XST_DEVICE_NOT_FOUND;
-		goto done;
-	}
 
 	if ((u32)XPM_NODEIDX_DEV_PLD_MAX <= Index) {
 		Status = XST_DEVICE_NOT_FOUND;
 		goto done;
 	}
 
-	/* Check if Device is already added or not. */
-	if (NULL != XPmDevice_GetById(DeviceId)) {
-		PmWarn("0x%x Device is already added\r\n", DeviceId);
-		Status = XST_DEVICE_BUSY;
-		goto done;
+	/*
+	 * Note: This function is executed as part of pm_add_node cmd trigerred
+	 * through CDO. Since there's a possibility of the same RM (hence CDO)
+	 * being executed multiple times, we should not error out on addition
+	 * of same node multiple times. Memory is only allocated only if node
+	 * is not present in database. Since PLD0 represents static image and
+	 * not RM, we shouldn't allow it to be re-added
+	 */
+	PlDevice = (XPm_PlDevice *)XPmDevice_GetById(DeviceId);
+	if (NULL == PlDevice) {
+		PlDevice = (XPm_PlDevice *)XPm_AllocBytes(sizeof(XPm_PlDevice));
+		if (NULL == PlDevice) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+	} else {
+		if ((u32)XPM_NODEIDX_DEV_PLD_0 == Index) {
+			Status = XST_DEVICE_BUSY;
+			goto done;
+		}
+		PmInfo("0x%x Device is already added\r\n", DeviceId);
 	}
 
-	Device = (XPm_Device *)XPm_AllocBytes(sizeof(XPm_Device));
-	if (NULL == Device) {
-		Status = XST_BUFFER_TOO_SMALL;
-		goto done;
-	}
-
-	Status = XPmDevice_Init(Device, DeviceId, BaseAddr, Power, NULL, NULL);
+	Status = XPmPlDevice_Init(PlDevice, DeviceId, BaseAddr, Power, NULL, NULL);
 
 done:
 	return Status;
@@ -4038,21 +3608,32 @@ static XStatus XPm_AddDevice(u32 *Args, u32 NumArgs)
 	int Status = XST_FAILURE;
 	u32 DeviceId;
 	u32 SubClass;
-	u32 PowerId;
+	u32 PowerId = 0;
 
-	if (NumArgs < 3U) {
+	if (NumArgs < 1U) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
 	DeviceId = Args[0];
 	SubClass = NODESUBCLASS(DeviceId);
-	PowerId = Args[1];
 
-	if (NULL == XPmPower_GetById(PowerId)) {
-		Status = XST_DEVICE_NOT_FOUND;
-		goto done;
+	if (NumArgs > 1U) {
+		/*
+		 * Check for Num Args < 3U as device specific (except PLDevice)
+		 * AddNode functions currently don't implement any NumArgs checks
+		 */
+		if (NumArgs < 3U) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+		PowerId = Args[1];
+		if (NULL == XPmPower_GetById(PowerId)) {
+			Status = XST_DEVICE_NOT_FOUND;
+			goto done;
+		}
 	}
+
 
 	switch (SubClass) {
 	case (u32)XPM_NODESUBCL_DEV_CORE:
@@ -4109,10 +3690,6 @@ static XStatus XPm_AddNodeMemIc(u32 *Args, u32 NumArgs)
 	MemIcId = Args[0];
 	BaseAddress = Args[2];
 
-	if ((u32)XPM_NODECLASS_MEMIC != NODECLASS(MemIcId)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
 
 	if ((u32)XPM_NODESUBCL_MEMIC_NOC != NODESUBCLASS(MemIcId)) {
 		Status = XST_INVALID_PARAM;
@@ -4152,10 +3729,6 @@ static XStatus XPm_AddNodeMonitor(u32 *Args, u32 NumArgs)
 	NodeId = Args[0];
 	BaseAddress = Args[2];
 
-	if ((u32)XPM_NODECLASS_MONITOR != NODECLASS(NodeId)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
 
 	if ((u32)XPM_NODESUBCL_MONITOR_SYSMON != NODESUBCLASS(NodeId)) {
 		Status = XST_INVALID_PARAM;
@@ -4172,8 +3745,8 @@ static XStatus XPm_AddNodeMonitor(u32 *Args, u32 NumArgs)
 		goto done;
 	}
 
-	SysmonAddresses[NODEINDEX(NodeId)] = BaseAddress;
-	Status = XST_SUCCESS;
+	Status = XPm_SetSysmonNode(NodeId, BaseAddress);
+
 done:
 	return Status;
 }
@@ -4209,10 +3782,6 @@ static XStatus XPm_AddNodeProt(u32 *Args, u32 NumArgs)
 	BaseAddress = Args[2];
 	SubClass = NODESUBCLASS(NodeId);
 
-	if ((u32)XPM_NODECLASS_PROTECTION != NODECLASS(NodeId)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
 
 	switch (SubClass) {
 	case (u32)XPM_NODESUBCL_PROT_XPPU:
@@ -4268,10 +3837,6 @@ static XStatus XPm_AddNodeMio(u32 *Args, u32 NumArgs)
 	MioId = Args[0];
 	BaseAddress = Args[1];
 
-	if ((u32)XPM_NODECLASS_STMIC != NODECLASS(MioId)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
 
 	if ((u32)XPM_NODESUBCL_PIN != NODESUBCLASS(MioId)) {
 		Status = XST_INVALID_PARAM;
@@ -4527,16 +4092,18 @@ int XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 		goto done;
 	}
 
-	/* Only Event and Device Nodes are supported */
+	/* Only Event, Device and Power Nodes are supported */
 	if (((u32)XPM_NODECLASS_EVENT != NODECLASS(NodeId)) &&
-		((u32)XPM_NODECLASS_DEVICE != NODECLASS(NodeId))) {
+	    ((u32)XPM_NODECLASS_DEVICE != NODECLASS(NodeId)) &&
+	    ((u32)XPM_NODECLASS_POWER != NODECLASS(NodeId))) {
 		goto done;
 	}
 
 	/* Validate other parameters */
 	if ((((u32)XPM_NODECLASS_EVENT == NODECLASS(NodeId)) &&
-			(Event >= XPLMI_NODEIDX_ERROR_PSMERR2_MAX)) ||
-		(((u32)XPM_NODECLASS_DEVICE == NODECLASS(NodeId)) &&
+			(Event >= (u32)XPLMI_NODEIDX_ERROR_PSMERR2_MAX)) ||
+		((((u32)XPM_NODECLASS_DEVICE == NODECLASS(NodeId) ||
+		 (u32)XPM_NODECLASS_POWER == NODECLASS(NodeId))) &&
 			(((0U != Wake) && (1U != Wake)) ||
 			((0U != Enable) && (1U != Enable)) ||
 			(((u32)EVENT_STATE_CHANGE != Event) &&
@@ -4612,6 +4179,7 @@ int XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 	case PM_CLOCK_GETDIVIDER:
 	case PM_CLOCK_SETPARENT:
 	case PM_CLOCK_GETPARENT:
+	case PM_CLOCK_GETRATE:
 	case PM_PLL_SET_PARAMETER:
 	case PM_PLL_GET_PARAMETER:
 	case PM_PLL_SET_MODE:
@@ -4643,5 +4211,27 @@ done:
 	if(Status != XST_SUCCESS) {
 		PmErr("Returned: 0x%x\n\r", Status);
 	}
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function restarts the given subsystem.
+ *
+ * @param  SubsystemId	Subsystem ID to restart
+ *
+ * @return XST_SUCCESS if successful else appropriate return code.
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+int XPm_RestartCbWrapper(const u32 SubsystemId)
+{
+	int Status = XST_FAILURE;
+
+	if (NULL != PmRestartCb) {
+		Status = PmRestartCb(SubsystemId, NULL);
+	}
+
 	return Status;
 }
