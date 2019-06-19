@@ -236,7 +236,10 @@ done:
  */
 void XPfw_DapFpdWakeEvent(void)
 {
-	pmPowerDomainFpd_g.power.node.currState = PM_PWR_STATE_ON;
+	if (0 != (XPfw_Read32(PMU_GLOBAL_PWR_STATE) &
+		  PMU_GLOBAL_PWR_STATE_FP_MASK)) {
+		pmPowerDomainFpd_g.power.node.currState = PM_PWR_STATE_ON;
+	}
 }
 
 /**
@@ -244,7 +247,10 @@ void XPfw_DapFpdWakeEvent(void)
  */
 void XPfw_DapRpuWakeEvent(void)
 {
-	pmPowerIslandRpu_g.power.node.currState = PM_PWR_STATE_ON;
+	if (0 != (XPfw_Read32(PMU_GLOBAL_PWR_STATE) &
+		  PMU_GLOBAL_PWR_STATE_R5_0_MASK)) {
+		pmPowerIslandRpu_g.power.node.currState = PM_PWR_STATE_ON;
+	}
 }
 
 #endif
