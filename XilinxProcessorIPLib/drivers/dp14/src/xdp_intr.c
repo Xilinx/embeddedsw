@@ -589,6 +589,13 @@ int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
 			CallbackRef;
 		Status = XST_SUCCESS;
 		break;
+	case XDP_RX_HANDLER_HDCP22_STREAM_TYPE:
+		InstancePtr->RxInstance.IntrHdcp22StreamTypeWrHandler =
+			CallbackFunc;
+		InstancePtr->RxInstance.IntrHdcp22StreamTypeWrCallbackRef =
+			CallbackRef;
+		Status = XST_SUCCESS;
+		break;
 #endif
 
 	case XDP_RX_HANDLER_UNPLUG:
@@ -1014,6 +1021,15 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 				IntrHdcp22PairingReadDoneCallbackRef);
 	}
 
+	/* A write to the HDCP22 TYPE register has been performed. */
+	if ((IntrStatusHdcp22 &
+			XDP_RX_INTERRUPT_MASK_HDCP22_STREAM_TYPE_MASK)
+			&& InstancePtr->RxInstance.
+			IntrHdcp22StreamTypeWrHandler) {
+		InstancePtr->RxInstance.IntrHdcp22StreamTypeWrHandler(
+				InstancePtr->RxInstance.
+				IntrHdcp22StreamTypeWrCallbackRef);
+	}
 #endif /*XPAR_XHDCP22_RX_NUM_INSTANCES*/
 
 	/* An unplug event has occurred. */

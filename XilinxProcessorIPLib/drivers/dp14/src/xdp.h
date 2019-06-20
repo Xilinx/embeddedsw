@@ -460,6 +460,7 @@ typedef enum {
 	XDP_RX_HANDLER_HDCP22_SKE_SEND_EKS,
 	XDP_RX_HANDLER_HDCP22_HPRIME_READ_DONE,
 	XDP_RX_HANDLER_HDCP22_PAIRING_READ_DONE,
+	XDP_RX_HANDLER_HDCP22_STREAM_TYPE,
 #endif
 	XDP_RX_NUM_HANDLERS
 } Dp_Rx_HandlerType;
@@ -1242,6 +1243,15 @@ typedef struct {
 							  user data passed to
 							  the HDCP22
 							  PairingReadDone
+							  callback function. */
+	XDp_IntrHandler IntrHdcp22StreamTypeWrHandler;	/**< Callback function
+							  for HDCP22 stream
+							  Type write
+							  interrupts. */
+	void *IntrHdcp22StreamTypeWrCallbackRef;	/**< A pointer to the
+							  user data passed to
+							  the HDCP22
+							  stream Type write
 							  callback function. */
 #endif
 
