@@ -4756,4 +4756,37 @@ u32 XHdcp22_RxSetRxCaps(XHdcp22_Rx *InstancePtr, u8 enable)
 	return XST_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+ * This function sets Stream Type.
+ *
+ * @param	InstancePtr is the receiver instance.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+void XHdcp22_RxSetStreamType(XHdcp22_Rx *InstancePtr)
+{
+	u8 buf[R_IV_SIZE] = {0};
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	/*Read Stream Type from DPCD*/
+	InstancePtr->Handles.RxDpAuxReadCallback(
+			InstancePtr->Handles.RxDpAuxReadCallbackRef,
+			RX_STREAM_TYPE_OFFSET,
+			InstancePtr->Params.StreamIdType+1,
+			Rx_STREAM_TYPE_SIZE);
+
+	/*Xor Riv[7] with 0x01 if the Stream Type is not 0*/
+	if (InstancePtr->Params.StreamIdType[1]) {
+		memcpy(buf, InstancePtr->Params.Riv, R_IV_SIZE);
+		buf[R_IV_SIZE - 1] ^= 0x01;
+		XHdcp22Cipher_SetRiv(&InstancePtr->CipherInst, buf, R_IV_SIZE);
+	}
+}
+
 /** @} */
