@@ -32,7 +32,6 @@
 #include "xpm_bisr.h"
 
 extern int XLoader_ReloadImage(u32 ImageId);
-extern u32 ResetReason;
 
 XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 			    u32 BaseAddress, XPm_Power *Parent,
@@ -468,25 +467,9 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 {
 	XStatus Status = XST_SUCCESS;
 	struct XPm_PowerDomainOps *Ops = PwrDomain->DomainOps;
-	u8 SystemReset = FALSE;
-	u8 OtherPORReset = FALSE;
-	u32 ResetReasonOtherPORMask = (CRP_RESET_REASON_ERR_POR_MASK |
-				       CRP_RESET_REASON_SLR_POR_MASK |
-				       CRP_RESET_REASON_SW_POR_MASK);
-	u32 ResetReasonAllSysResetMask = (CRP_RESET_REASON_SLR_SYS_MASK |
-					  CRP_RESET_REASON_SW_SYS_MASK |
-					  CRP_RESET_REASON_ERR_SYS_MASK |
-					  CRP_RESET_REASON_DAP_SYS_MASK);
 
 	if (XPM_POWER_STATE_ON == PwrDomain->Power.Node.State) {
 		goto done;
-	}
-
-	/* ResetReason is already stored during boot up */
-	if (0 != (ResetReason & ResetReasonAllSysResetMask)) {
-		SystemReset = TRUE;
-	} else if (0 != (ResetReason & ResetReasonOtherPORMask)) {
-		OtherPORReset = TRUE;
 	}
 
 	switch (Function) {
@@ -518,9 +501,6 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			Status = XST_FAILURE;
 			goto done;
 		}
-		if ((TRUE == SystemReset) || (TRUE == OtherPORReset)) {
-			goto done;
-		}
 		if (Ops && Ops->ScanClear) {
 			Status = Ops->ScanClear(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
@@ -531,9 +511,6 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 	case FUNC_BISR:
 		if (XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
 			Status = XST_FAILURE;
-			goto done;
-		}
-		if (TRUE == SystemReset) {
 			goto done;
 		}
 		if (Ops && Ops->Bisr) {
@@ -548,9 +525,6 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			Status = XST_FAILURE;
 			goto done;
 		}
-		if ((TRUE == SystemReset) || (TRUE == OtherPORReset)) {
-			goto done;
-		}
 		if (Ops && Ops->Lbist) {
 			Status = Ops->Lbist(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
@@ -563,9 +537,6 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			Status = XST_FAILURE;
 			goto done;
 		}
-		if ((TRUE == SystemReset) || (TRUE == OtherPORReset)) {
-			goto done;
-		}
 		if (Ops && Ops->Mbist) {
 			Status = Ops->Mbist(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
@@ -576,9 +547,6 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 	case FUNC_HOUSECLEAN_PL:
 		if (XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
 			Status = XST_FAILURE;
-			goto done;
-		}
-		if (TRUE == SystemReset) {
 			goto done;
 		}
 		if (Ops && Ops->PlHouseclean) {
