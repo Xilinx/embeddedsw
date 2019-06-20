@@ -74,6 +74,7 @@
 * 4.1   asa  03/30/19 Removed macros for XScuGic_EnableIntr, and
 *                     XScuGic_DisableIntr. These are now C functions. This
 *                     change was to fix CR-1024716.
+* 4.1   mus  06/12/19 Updated XSCUGIC_MAX_NUM_INTR_INPUTS for Versal.
 *
 * </pre>
 *
@@ -104,8 +105,8 @@ extern "C" {
  */
 #ifdef PLATFORM_ZYNQ
 #define XSCUGIC_MAX_NUM_INTR_INPUTS    	95U /* Maximum number of interrupt defined by Zynq */
-#elif defined (versal) && !defined(ARMR5)
-#define XSCUGIC_MAX_NUM_INTR_INPUTS    	191U
+#elif defined (versal)
+#define XSCUGIC_MAX_NUM_INTR_INPUTS    	192U
 #else
 #define XSCUGIC_MAX_NUM_INTR_INPUTS    	195U /* Maximum number of interrupt defined by Zynq Ultrascale Mp */
 #endif
