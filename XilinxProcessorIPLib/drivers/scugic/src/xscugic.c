@@ -129,6 +129,9 @@
 *                     the respective CPU. There were several other changes
 *                     made to implement this. This set of changes was to
 *                     fix CR-1024716.
+* 4.1   mus  06/19/19 Added API's XScuGic_MarkCoreAsleep and
+*                     XScuGic_MarkCoreAwake to mark processor core as
+*                     asleep or awake. Fix for CR#1027220.
 * </pre>
 *
 ******************************************************************************/
@@ -1125,4 +1128,49 @@ u32 XScuGic_GetCpuID(void)
 {
 	return CpuId;
 }
+
+#if defined (GICv3)
+/****************************************************************************/
+/**
+* It marks processor core which calls this API as asleep
+*
+* @return	None.
+*
+* @note 	It should be called before suspending processor core. Once this
+* 			API is invoked, pending interrupts for processor core asserts
+* 			WakeRequest, to indicate that the PE is to have its power
+* 			restored  Incase of Versal SoC, WakeRequest will be consumed by
+* 			psv_psm processor and psmfw will wake up APU processor core.
+*
+*****************************************************************************/
+void XScuGic_MarkCoreAsleep(XScuGic *InstancePtr)
+{
+	u32 Waker_State;
+
+	Waker_State = XScuGic_ReDistReadReg(InstancePtr,XSCUGIC_RDIST_WAKER_OFFSET);
+	XScuGic_ReDistWriteReg(InstancePtr,XSCUGIC_RDIST_WAKER_OFFSET,
+							Waker_State |
+							XSCUGIC_RDIST_WAKER_LOW_POWER_STATE_MASK);
+}
+
+/****************************************************************************/
+/**
+* It marks processor core which calls this API as awake
+*
+* @return	None.
+*
+* @note 	None
+*
+*****************************************************************************/
+void XScuGic_MarkCoreAwake(XScuGic *InstancePtr)
+{
+	u32 Waker_State;
+
+	Waker_State = XScuGic_ReDistReadReg(InstancePtr,
+			XSCUGIC_RDIST_WAKER_OFFSET);
+	XScuGic_ReDistWriteReg(InstancePtr,XSCUGIC_RDIST_WAKER_OFFSET,
+							Waker_State &
+							(~ XSCUGIC_RDIST_WAKER_LOW_POWER_STATE_MASK));
+}
+#endif
 /** @} */
