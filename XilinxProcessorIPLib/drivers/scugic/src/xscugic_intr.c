@@ -115,7 +115,7 @@ void XScuGic_InterruptHandler(XScuGic *InstancePtr)
 {
 
 	u32 InterruptID;
-#if !defined (versal) || defined (ARMR5)
+#if !defined (GICv3)
 	    u32 IntIDFull;
 #endif
 	    XScuGic_VectorTableEntry *TablePtr;
@@ -129,7 +129,7 @@ void XScuGic_InterruptHandler(XScuGic *InstancePtr)
 	     * interrupt ID and make sure it is valid. Reading Int_Ack will
 	     * clear the interrupt in the GIC.
 	     */
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 	    InterruptID = XScuGic_get_IntID();
 #else
 	    IntIDFull = XScuGic_CPUReadReg(InstancePtr, XSCUGIC_INT_ACK_OFFSET);
@@ -169,7 +169,7 @@ IntrExit:
 	     * Write to the EOI register, we are all done here.
 	     * Let this function return, the boot code will restore the stack.
 	     */
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 	   XScuGic_ack_Int(InterruptID);
 
 #else

@@ -174,7 +174,7 @@ static void DoDistributorInit(XScuGic *InstancePtr)
 {
 	u32 Int_Id;
 
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 	u32 Temp;
 
 	Temp = XScuGic_DistReadReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET);
@@ -226,7 +226,7 @@ static void DoDistributorInit(XScuGic *InstancePtr)
 					DEFAULT_PRIORITY);
 	}
 
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 	for (Int_Id = 0U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+32U) {
 
 		XScuGic_DistWriteReg(InstancePtr,
@@ -250,7 +250,7 @@ static void DoDistributorInit(XScuGic *InstancePtr)
 			0xFFFFFFFFU);
 
 	}
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 	Temp = XScuGic_DistReadReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET);
 	Temp |= XSCUGIC_EN_INT_MASK;
 	XScuGic_DistWriteReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET, Temp);
@@ -296,7 +296,7 @@ static void DistributorInit(XScuGic *InstancePtr)
 	}
 }
 
-#if !defined (versal) || defined (ARMR5)
+#if !defined (GICv3)
 /*****************************************************************************/
 /**
 *
@@ -416,7 +416,7 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
 			InstancePtr->Config->HandlerTable[Int_Id].CallBackRef =
 								InstancePtr;
 		}
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 	u32 Waker_State;
 	Waker_State = XScuGic_ReDistReadReg(InstancePtr,XSCUGIC_RDIST_WAKER_OFFSET);
 	XScuGic_ReDistWriteReg(InstancePtr,XSCUGIC_RDIST_WAKER_OFFSET,
@@ -430,7 +430,7 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
 #endif
 		XScuGic_Stop(InstancePtr);
 		DistributorInit(InstancePtr);
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 		XScuGic_set_priority_filter(0xff);
 #else
 		CPUInitialize(InstancePtr);
@@ -559,7 +559,7 @@ void XScuGic_Enable(XScuGic *InstancePtr, u32 Int_Id)
 	u32 Mask;
 	u8 Cpu_Id = (u8)CpuId;
 
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 	u32 Temp;
 #endif
 	/*
@@ -569,7 +569,7 @@ void XScuGic_Enable(XScuGic *InstancePtr, u32 Int_Id)
 	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 	if (Int_Id < XSCUGIC_SPI_INT_ID_START) {
 		XScuGic_InterruptMaptoCpu(InstancePtr, Cpu_Id, Int_Id);
 
@@ -617,7 +617,7 @@ void XScuGic_Disable(XScuGic *InstancePtr, u32 Int_Id)
 {
 	u32 Mask;
 	u8 Cpu_Id = (u8)CpuId;
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 	u32 Temp;
 #endif
 
@@ -628,7 +628,7 @@ void XScuGic_Disable(XScuGic *InstancePtr, u32 Int_Id)
 	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 	if (Int_Id < XSCUGIC_SPI_INT_ID_START) {
 
 		XScuGic_InterruptUnmapFromCpu(InstancePtr, Cpu_Id, Int_Id);
@@ -689,7 +689,7 @@ s32  XScuGic_SoftwareIntr(XScuGic *InstancePtr, u32 Int_Id, u32 Cpu_Id)
 	Xil_AssertNonvoid(Int_Id <= 15U);
 	Xil_AssertNonvoid(Cpu_Id <= 255U);
 
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 	Mask = (Cpu_Id | (Int_Id << XSCUGIC_SGIR_EL1_INITID_SHIFT));
 #if EL3
 	XScuGic_WriteICC_SGI0R_EL1(Mask);
@@ -772,7 +772,7 @@ void XScuGic_SetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 					u8 Priority, u8 Trigger)
 {
 	u32 RegValue;
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 	u32 Temp;
 	u32 Index;
 #endif
@@ -784,7 +784,7 @@ void XScuGic_SetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
 	Xil_AssertVoid(Trigger <= (u8)XSCUGIC_INT_CFG_MASK);
 	Xil_AssertVoid(LocalPriority <= (u8)XSCUGIC_MAX_INTR_PRIO_VAL);
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 	if (Int_Id < XSCUGIC_SPI_INT_ID_START )
 	{
 		XScuGic_ReDistSGIPPIWriteReg(InstancePtr,XSCUGIC_RDIST_INT_PRIORITY_OFFSET_CALC(Int_Id),Priority);
@@ -914,7 +914,7 @@ void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Id, u32 Int_Id)
 {
 	u32 RegValue;
 	Xil_AssertVoid(InstancePtr != NULL);
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 	u32 Temp;
 	if (Int_Id >= 32) {
 		Temp = Int_Id - 32;
@@ -956,7 +956,7 @@ void XScuGic_InterruptUnmapFromCpu(XScuGic *InstancePtr, u8 Cpu_Id, u32 Int_Id)
 {
 	u32 RegValue;
 	Xil_AssertVoid(InstancePtr != NULL);
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 	u32 Temp;
 	if (Int_Id >= 32) {
 		Temp = Int_Id - 32;

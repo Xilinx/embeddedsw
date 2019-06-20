@@ -95,6 +95,9 @@ extern "C" {
 #include "bspconfig.h"
 
 /************************** Constant Definitions *****************************/
+#if defined (versal) && !defined(ARMR5)
+#define GICv3
+#endif
 
 /*
  * The maximum number of interrupts supported by the hardware.
@@ -153,7 +156,7 @@ extern "C" {
 #define XSCUGIC_SFI_TRIG_OFFSET		0x00000F00U /**< Software Triggered
 							Interrupt Register */
 #define XSCUGIC_PERPHID_OFFSET		0x00000FD0U /**< Peripheral ID Reg */
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 #define XSCUGIC_PCELLID_OFFSET		0x0000FFF0U /**< Pcell ID Register */
 #else
 #define XSCUGIC_PCELLID_OFFSET		0x00000FF0U /**< Pcell ID Register */
@@ -164,7 +167,7 @@ extern "C" {
  * Controls if the distributor response to external interrupt inputs.
  * @{
  */
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 #define XSCUGIC_EN_INT_MASK		0x00000003U /**< Interrupt In Enable */
 #else
 #define XSCUGIC_EN_INT_MASK		0x00000001U /**< Interrupt In Enable */
@@ -487,7 +490,7 @@ extern "C" {
 #define XSCUGIC_RUN_PRIORITY_MASK	0x000000FFU    /**< Interrupt Priority */
 /* @} */
 
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 #define XSCUGIC_IROUTER_BASE_OFFSET 0x6000U
 #endif
 /*
@@ -497,7 +500,7 @@ extern "C" {
 #define XSCUGIC_PEND_INTID_MASK		0x000003FFU /**< Pending Interrupt ID */
 /*#define XSCUGIC_CPUID_MASK		0x00000C00U */	 /**< CPU ID */
 /* @} */
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 /** @name ReDistributor Interface Register Map
  *
  * @{
