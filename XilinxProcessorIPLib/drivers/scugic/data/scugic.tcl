@@ -75,6 +75,8 @@
 #                     Fix for CR#100266.
 # 3.10  mus  10/05/18 Updated get_psu_interrupt_id proc, to fix interrupt id
 #                     computation for vectored interrupts. It fixes CR#998583
+# 4.0   mus  04/15/19 Updated get_concat_number proc to avoid executing
+#                     get_pins command twice. It fixes CR#1028356
 # 4.1   mus  04/09/19 Add pl-ps interrupt id generation support for versal
 #
 ##############################################################################
@@ -779,7 +781,7 @@ proc get_concat_number {ip pin} {
 		if {$pin ==  [lindex $pins $p]} {
 			break;
 		}
-		set offset [common::get_property LEFT [hsi::get_pins [lindex $pins $p]]]
+		set offset [common::get_property LEFT [lindex $pins $p]]
 		if {[llength $offset] > 1} {
 			set offset [lindex $offset 0]
 		}
