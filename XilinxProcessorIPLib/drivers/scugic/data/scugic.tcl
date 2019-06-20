@@ -78,6 +78,9 @@
 # 4.0   mus  04/15/19 Updated get_concat_number proc to avoid executing
 #                     get_pins command twice. It fixes CR#1028356
 # 4.1   mus  04/09/19 Add pl-ps interrupt id generation support for versal
+# 4.1   mus  06/20/19 Updated get_concat_number proc to check if
+#                     common::get_property LEFT is returning empty. It
+#                     fixes CR#1033637.
 #
 ##############################################################################
 
@@ -785,8 +788,10 @@ proc get_concat_number {ip pin} {
 		if {[llength $offset] > 1} {
 			set offset [lindex $offset 0]
 		}
-		set temp [expr {$offset +1}]
-		set number [expr {$number + $temp}]
+		if {[llength $offset] != 0} {
+			set temp [expr {$offset +1}]
+			set number [expr {$number + $temp}]
+		}
 
 	}
 	return $number
