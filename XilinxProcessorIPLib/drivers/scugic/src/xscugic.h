@@ -183,6 +183,9 @@
 *                     the respective CPU. There were several other changes
 *                     made to implement this. This set of changes was to
 *                     fix CR-1024716.
+* 4.1   mus  06/19/19 Added API's XScuGic_MarkCoreAsleep and
+*                     XScuGic_MarkCoreAwake to mark processor core as
+*                     asleep or awake. Fix for CR#1027220.
 *
 * </pre>
 *
@@ -595,6 +598,10 @@ s32  XScuGic_SelfTest(XScuGic *InstancePtr);
 
 void XScuGic_EnableSGI_PPI(XScuGic *InstancePtr,u32 ID);
 void XScuGic_SetPPI_SGI_Priority(XScuGic *InstancePtr,u32 ID, u32 priority);
+#if defined (GICv3)
+void XScuGic_MarkCoreAsleep(XScuGic *InstancePtr);
+void XScuGic_MarkCoreAwake(XScuGic *InstancePtr);
+#endif
 #ifdef __cplusplus
 }
 #endif
