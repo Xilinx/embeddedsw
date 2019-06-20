@@ -248,6 +248,28 @@ static void XHdcp22_PortDpRxProcessPairingReadDone(void *RefPtr)
 
 /*****************************************************************************/
 /**
+ * This function is called when the DP-RX HDCP22 Stream Type write
+ * interrupt has occurred.
+ *
+ * @param RefPtr is a callback reference to the HDCP22 RX instance.
+ *
+ * @return None.
+ *
+ * @note   None.
+ ******************************************************************************/
+static void XHdcp22_PortDpRxProcessStreamType(void *RefPtr)
+{
+	XDpRxSs *DpRxSsPtr = (XDpRxSs *)RefPtr;
+
+	Xil_AssertVoid(RefPtr);
+
+	/* Set Stream Type in HDCP22 rx */
+	if (DpRxSsPtr->Hdcp22Ptr)
+		XHdcp22_RxSetStreamType(DpRxSsPtr->Hdcp22Ptr);
+}
+
+/*****************************************************************************/
+/**
 *
 * This function reads a register from a HDCP22 port device.
 *
@@ -658,6 +680,10 @@ int XDpRxSs_SubcoreInitHdcp22(void *InstancePtr)
 			XDp_RxSetCallback(DpRxSsPtr->DpPtr,
 					XDP_RX_HANDLER_HDCP22_PAIRING_READ_DONE,
 					&XHdcp22_PortDpRxProcessPairingReadDone,
+					DpRxSsPtr);
+			XDp_RxSetCallback(DpRxSsPtr->DpPtr,
+					XDP_RX_HANDLER_HDCP22_STREAM_TYPE,
+					&XHdcp22_PortDpRxProcessStreamType,
 					DpRxSsPtr);
 
 			/* Load Production Keys */
