@@ -180,9 +180,15 @@ typedef struct {
 	const u32 ToState; /**< To which state the transition is taken */
 } XPm_StateTran;
 
+/* Device capability in each state */
+typedef struct {
+	const u32 State; /**<  Device state */
+	const u32 Cap; /**< Capability associated with state */
+} XPm_StateCap;
+
 /* Device Finite state machine */
 typedef struct {
-	const u32* const States; /**< Pointer to states array. */
+	const XPm_StateCap* const States; /**< Pointer to states array. */
 	XStatus (*const EnterState)(XPm_Device* const Device, const u32 NextState);
 	/**< Pointer to a function that executes FSM actions to enter a state*/
 	const XPm_StateTran* const Trans;
