@@ -54,10 +54,17 @@ static XPm_Device *PmDevices[XPM_NODEIDX_DEV_MAX];
 static u32 MaxDevices = XPM_NODEIDX_DEV_MAX;
 static u32 PmNumDevices;
 
-static const u32 XPmGenericDeviceStates[] = {
-	[XPM_DEVSTATE_UNUSED] = XPM_MIN_CAPABILITY,
-	[XPM_DEVSTATE_RUNTIME_SUSPEND] = PM_CAP_UNUSABLE,
-	[XPM_DEVSTATE_RUNNING] = XPM_MAX_CAPABILITY,
+static const XPm_StateCap XPmGenericDeviceStates[] = {
+	{
+		.State = XPM_DEVSTATE_UNUSED,
+		.Cap = XPM_MIN_CAPABILITY,
+	}, {
+		.State = XPM_DEVSTATE_RUNTIME_SUSPEND,
+		.Cap = PM_CAP_UNUSABLE,
+	}, {
+		.State = XPM_DEVSTATE_RUNNING,
+		.Cap = XPM_MAX_CAPABILITY,
+	},
 };
 
 static const XPm_StateTran XPmGenericDevTransitions[] = {
@@ -206,7 +213,7 @@ XStatus XPm_CheckCapabilities(XPm_Device *Device, u32 Caps)
 
 	for (Idx = 0U; Idx < Device->DeviceFsm->StatesCnt; Idx++) {
 		/* Find the first state that contains all capabilities */
-		if ((Caps & Device->DeviceFsm->States[Idx]) == Caps) {
+		if ((Caps & Device->DeviceFsm->States[Idx].Cap) == Caps) {
 			Status = XST_SUCCESS;
 			break;
 		}
@@ -1282,10 +1289,10 @@ static XStatus GetStateWithCaps(const XPm_Device* const Device, const u32 Caps,
 
 	for (Idx = 0U; Idx < Device->DeviceFsm->StatesCnt; Idx++) {
 		/* Find the first state that contains all capabilities */
-		if ((Caps & Device->DeviceFsm->States[Idx]) == Caps) {
+		if ((Caps & Device->DeviceFsm->States[Idx].Cap) == Caps) {
 			Status = XST_SUCCESS;
 			if (NULL != State) {
-				*State = Idx;
+				*State = Device->DeviceFsm->States[Idx].State;
 			}
 			break;
 		}
@@ -1365,23 +1372,31 @@ static int ConstrainStateByLatency(const XPm_Device *const Device,
 				   const u32 MinLatency)
 {
 	int Status = XST_FAILURE;
-	u32 StartState = *State;
 	u32 WkupLat;
-	u32 Idx;
+	u32 Idx = 0;
 
-	for (Idx = StartState; Idx < Device->DeviceFsm->StatesCnt; Idx++) {
-		if ((CapsToSet & Device->DeviceFsm->States[Idx]) != CapsToSet) {
+	/*
+	 * Need to find higher power state, so ignore lower power states
+	 * and find index for chosen state
+	 */
+	while (Device->DeviceFsm->States[Idx].State != *State)
+	{
+		Idx++;
+	}
+
+	for (; Idx < Device->DeviceFsm->StatesCnt; Idx++) {
+		if ((CapsToSet & Device->DeviceFsm->States[Idx].Cap) != CapsToSet) {
 			/* State candidate has no required capabilities */
 			continue;
 		}
-		WkupLat = GetLatencyFromState(Device, Idx);
+		WkupLat = GetLatencyFromState(Device, Device->DeviceFsm->States[Idx].State);
 		if (WkupLat > MinLatency) {
 			/* State does not satisfy latency requirement */
 			continue;
 		}
 
 		Status = XST_SUCCESS;
-		*State = Idx;
+		*State = Device->DeviceFsm->States[Idx].State;
 		break;
 	}
 

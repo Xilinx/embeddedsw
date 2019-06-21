@@ -31,26 +31,14 @@
 
 #define XPM_TCM_BASEADDRESS_MODE_OFFSET	0x80000U
 
-static const u32 XPmTcmDeviceStates[] = {
-	[XPM_DEVSTATE_UNUSED] = XPM_MIN_CAPABILITY,
-	[XPM_DEVSTATE_RUNNING] = PM_CAP_ACCESS | PM_CAP_CONTEXT,
-};
-
-static const XPm_StateTran XPmTcmDevTransitions[] = {
+static const XPm_StateCap XPmMemDeviceStates[] = {
 	{
-		.FromState = XPM_DEVSTATE_RUNNING,
-		.ToState = XPM_DEVSTATE_UNUSED,
-		.Latency = XPM_DEF_LATENCY,
+		.State = XPM_DEVSTATE_UNUSED,
+		.Cap = XPM_MIN_CAPABILITY,
 	}, {
-		.FromState = XPM_DEVSTATE_UNUSED,
-		.ToState = XPM_DEVSTATE_RUNNING,
-		.Latency = XPM_DEF_LATENCY,
+		.State = XPM_DEVSTATE_RUNNING,
+		.Cap = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 	},
-};
-
-static const u32 XPmMemDeviceStates[] = {
-	[XPM_DEVSTATE_UNUSED] = XPM_MIN_CAPABILITY,
-	[XPM_DEVSTATE_RUNNING] = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 };
 
 static const XPm_StateTran XPmMemDevTransitions[] = {
@@ -154,8 +142,8 @@ done:
 }
 
 static const XPm_DeviceFsm XPmTcmDeviceFsm = {
-	DEFINE_DEV_STATES(XPmTcmDeviceStates),
-	DEFINE_DEV_TRANS(XPmTcmDevTransitions),
+	DEFINE_DEV_STATES(XPmMemDeviceStates),
+	DEFINE_DEV_TRANS(XPmMemDevTransitions),
 	.EnterState = HandleTcmDeviceState,
 };
 
