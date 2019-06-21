@@ -143,16 +143,14 @@ XStatus XPmCore_PwrDwn(XPm_Core *Core)
 		goto done;
 	}
 
-	if(Core->Device.Node.State == XPM_DEVSTATE_SUSPENDING) {
+	if (XPM_DEVSTATE_SUSPENDING == Core->Device.Node.State) {
 		DISABLE_WFI(Core->SleepMask);
-		ENABLE_WAKE(Core->SleepMask);
 	}
 
 	Status = XPmCore_Sleep(Core);
 	if(Status != XST_SUCCESS) {
 		goto done;
 	}
-	Core->Device.Node.State = XPM_DEVSTATE_PWR_OFF;
 
 	if (NULL != Core->Device.Power) {
 		Status = Core->Device.Power->Node.HandleEvent(&Core->Device.Power->Node, XPM_POWER_EVENT_PWR_DOWN);
@@ -160,6 +158,12 @@ XStatus XPmCore_PwrDwn(XPm_Core *Core)
 			goto done;
 		}
 	}
+
+	if (XPM_DEVSTATE_SUSPENDING == Core->Device.Node.State) {
+		ENABLE_WAKE(Core->SleepMask);
+	}
+
+	Core->Device.Node.State = XPM_DEVSTATE_PWR_OFF;
 
 done:
 	return Status;
