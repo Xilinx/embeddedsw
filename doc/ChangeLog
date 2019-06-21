@@ -928,9 +928,6 @@ Refactor of Clock distribution.
 pmonpsv_v1_1:
 Update the mdd files with the latest naming
 
-zdma_v1_8:
-Fix coverity warnings.
-
 Changes for 2019.1
 ===============================
 v_hdmiphy1_v1_0:
