@@ -29,6 +29,7 @@
 #              calling get_cells/get_property API's with NULL handle.
 # 09/26/18 rsp Fix interrupt ID generation for ZynqMP designs.
 # 10/31/18 rsp Use identifiable suffix for global variables to avoid conflicts.
+# 06/21/19 rsp Fix bsp generation error for axis_rx_0 external port design.
 #
 ###############################################################################
 #uses "xillib.tcl"
@@ -641,6 +642,7 @@ proc get_connected_ip {periph} {
 }
 
 proc get_connected_intf {intf} {
+   set connected_ip {}
    if { [llength $intf]} {
       set intf_net [get_intf_nets -of_objects $intf ]
       if { [llength $intf_net]  } {
