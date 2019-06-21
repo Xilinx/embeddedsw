@@ -87,6 +87,7 @@ cp -f $STANDALONE_DIR/arm/common/*.h $BSP_DIR/libsrc/standalone/src/
 cp -f $STANDALONE_DIR/arm/common/*.c $BSP_DIR/libsrc/standalone/src/
 cp -f $STANDALONE_DIR/common/*.c $BSP_DIR/libsrc/standalone/src/
 cp -f $STANDALONE_DIR/common/*.h $BSP_DIR/libsrc/standalone/src/
+mkdir -p $BSP_DIR/libsrc/standalone/src/includes_ps
 
 if [ $PROC == "a53" ]; then
 	if [ $A53_STATE == "64" ]; then
@@ -120,8 +121,8 @@ if [ $PROC == "a53" ]; then
 		cp -rf $SERVICES_DIR/xilpm/src/apu/* $BSP_DIR/libsrc/xilpm/src/
 		cp -rf $SERVICES_DIR/xilpm/src/apu/*.h $BSP_DIR/include/
 	fi
-		cp -rf $STANDALONE_DIR/arm/ARMv8/includes_ps $BSP_DIR/libsrc/standalone/src/
-		cp -rf $STANDALONE_DIR/arm/ARMv8/includes_ps/* $BSP_DIR/include/
+		cp -rf $STANDALONE_DIR/arm/ARMv8/includes_ps/platform/ZynqMP/* $BSP_DIR/libsrc/standalone/src/includes_ps/
+		cp -rf $STANDALONE_DIR/arm/ARMv8/includes_ps/platform/ZynqMP/* $BSP_DIR/include/
 elif [ $PROC == "r5" ]; then
 	cp -f $STANDALONE_DIR/arm/common/gcc/* $BSP_DIR/libsrc/standalone/src/
 	cp -f $STANDALONE_DIR/arm/cortexr5/*.c $BSP_DIR/libsrc/standalone/src/
@@ -139,8 +140,8 @@ elif [ $PROC == "r5" ]; then
 	cp -rf $SERVICES_DIR/xilpm/src/rpu/*.h $BSP_DIR/include/
 
 	#copy includes_ps from a53 directory
-	cp -rf $STANDALONE_DIR/arm/ARMv8/includes_ps $BSP_DIR/libsrc/standalone/src/
-	cp -rf $STANDALONE_DIR/arm/ARMv8/includes_ps/* $BSP_DIR/include/
+	cp -rf $STANDALONE_DIR/arm/ARMv8/includes_ps/platform/ZynqMP/* $BSP_DIR/libsrc/standalone/src/includes_ps/
+	cp -rf $STANDALONE_DIR/arm/ARMv8/includes_ps/platform/ZynqMP/* $BSP_DIR/include/
 fi
 
 # copy the bsp drivers
