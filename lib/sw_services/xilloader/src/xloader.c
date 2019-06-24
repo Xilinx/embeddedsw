@@ -210,7 +210,7 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	PdiPtr->DeviceCopy =  DeviceOps[PdiSrc].Copy;
 	PdiPtr->MetaHdr.DeviceCopy = PdiPtr->DeviceCopy;
 	PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr;
-	PdiPtr->EccStatus = FALSE;
+
 	/**
 	 * Read meta header from PDI source
 	 */

@@ -72,10 +72,6 @@ extern "C" {
 #define XLOADER_CFI_CHUNK_SIZE		(0x40000U) /** 256K */
 #define XLOADER_DMA_LEN_ALIGN           (0x10U)
 
-/** PSM RAM Base address */
-#define XLOADER_PSM_RAM_BASE_ADDR           (0xFFC00000U)
-#define XLOADER_PSM_RAM_SIZE                (0x40000U)
-
 #define XLOADER_R5_0_TCMA_BASE_ADDR			(0xFFE00000U)
 #define XLOADER_R5_0_TCMB_BASE_ADDR			(0xFFE20000U)
 #define XLOADER_R5_1_TCMA_BASE_ADDR			(0xFFE90000U)
@@ -83,10 +79,6 @@ extern "C" {
 #define XLOADER_R5_TCMA_SIZE				(0x10000U)
 #define XLOADER_R5_TCMB_SIZE				(0x10000U)
 #define XLOADER_CRX_RPU_1_BASE_OFFSET   	(0x100U)
-#define XLOADER_ECC_STATUS_PSM_RAM_MASK		(0x1U)
-#define XLOADER_ECC_STATUS_R5_0_TCM_MASK	(0x2U)
-#define XLOADER_ECC_STATUS_R5_1_TCM_MASK	(0x4U)
-#define XLOADER_ECC_STATUS_R5_LS_TCM_MASK	(0x8U)
 
 /**
  * TCM address for R5
@@ -173,7 +165,6 @@ typedef struct {
 	u32 NoOfHandoffCpus; /**< Number of CPU's loader will handoff to */
     XLoader_HandoffParam HandoffParam[10];
     u32 CpusRunning; /** CPUs that are already running */
-	u32 EccStatus;
 	u32 CurImgId; /**< Current Processing image ID */
 	u32 CurPrtnId; /**< Current Processing Partition ID */
 	u32 ImageNum; /**< Image number in the PDI */
