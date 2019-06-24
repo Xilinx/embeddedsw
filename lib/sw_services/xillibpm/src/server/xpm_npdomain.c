@@ -40,6 +40,8 @@ u32 NpdDdrMcAddressList[] = { 	0xF6110000, //DDRMC_UB_0
 				0xF6560000, //DDRMC_UB_3
 			};
 
+static u32 NpdMemIcAddresses[XPM_NODEIDX_MEMIC_MAX];
+
 static XStatus NpdInitStart(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
@@ -416,4 +418,23 @@ XStatus XPmNpDomain_Init(XPm_NpDomain *Npd, u32 Id, u32 BaseAddress,
 	XPmPowerDomain_Init(&Npd->Domain, Id, BaseAddress, Parent, &NpdOps);
 
 	return XST_SUCCESS;
+}
+
+XStatus XPmNpDomain_MemIcInit(u32 DeviceId, u32 BaseAddr)
+{
+	XStatus Status = XST_SUCCESS;
+	u32 Idx = NODEINDEX(DeviceId);
+	u32 Type = NODETYPE(DeviceId);
+
+	if (((XPM_NODETYPE_MEMIC_SLAVE != Type) &&
+	    (XPM_NODETYPE_MEMIC_MASTER != Type)) ||
+	    (XPM_NODEIDX_MEMIC_MAX <= Idx)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	NpdMemIcAddresses[Idx] = BaseAddr;
+
+done:
+	return Status;
 }

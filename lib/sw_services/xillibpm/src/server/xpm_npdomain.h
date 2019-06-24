@@ -43,6 +43,7 @@ typedef struct XPm_NpDomain {
 /************************** Function Prototypes ******************************/
 XStatus XPmNpDomain_Init(XPm_NpDomain *Npd, u32 Id, u32 BaseAddress,
 			 XPm_Power *Parent);
+XStatus XPmNpDomain_MemIcInit(u32 DeviceId, u32 BaseAddr);
 
 #ifdef __cplusplus
 }

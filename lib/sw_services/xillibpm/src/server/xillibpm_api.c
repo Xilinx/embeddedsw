@@ -3017,6 +3017,94 @@ done:
 	return Status;
 }
 
+static XStatus AddMemCtrlrDevice(u32 *Args, u32 PowerId)
+{
+	XStatus Status = XST_FAILURE;
+	u32 DeviceId;
+	u32 Type;
+	XPm_Device *Device;
+	XPm_Power *Power;
+	u32 BaseAddr;
+
+	DeviceId = Args[0];
+	BaseAddr = Args[2];
+
+	Power = XPmPower_GetById(PowerId);
+	if (NULL == Power) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	Type = NODETYPE(DeviceId);
+
+	if (NULL != XPmDevice_GetById(DeviceId)) {
+		Status = XST_DEVICE_BUSY;
+		goto done;
+	}
+
+	switch (Type) {
+		case XPM_NODETYPE_DEV_DDR:
+			Device = (XPm_Device *)XPm_AllocBytes(sizeof(XPm_Device));
+			if (NULL == Device) {
+				Status = XST_BUFFER_TOO_SMALL;
+				goto done;
+			}
+			Status = XPmDevice_Init(Device, DeviceId, BaseAddr,
+						Power, NULL, NULL);
+			break;
+		default:
+			Status = XST_INVALID_PARAM;
+			break;
+	}
+
+done:
+	return Status;
+}
+
+static XStatus AddPhyDevice(u32 *Args, u32 PowerId)
+{
+	XStatus Status = XST_FAILURE;
+	u32 DeviceId;
+	u32 Type;
+	XPm_Device *Device;
+	XPm_Power *Power;
+	u32 BaseAddr;
+
+	DeviceId = Args[0];
+	BaseAddr = Args[2];
+
+	Power = XPmPower_GetById(PowerId);
+	if (NULL == Power) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	Type = NODETYPE(DeviceId);
+
+	if (NULL != XPmDevice_GetById(DeviceId)) {
+		Status = XST_DEVICE_BUSY;
+		goto done;
+	}
+
+	switch (Type) {
+		case XPM_NODETYPE_DEV_GT:
+			Device = (XPm_Device *)XPm_AllocBytes(sizeof(XPm_Device));
+			if (NULL == Device) {
+				Status = XST_BUFFER_TOO_SMALL;
+				goto done;
+			}
+			Status = XPmDevice_Init(Device, DeviceId, BaseAddr,
+						Power, NULL, NULL);
+			break;
+		default:
+			Status = XST_INVALID_PARAM;
+			break;
+	}
+
+done:
+	return Status;
+}
+
 /****************************************************************************/
 /**
  * @brief  This function adds device node to device topology database
@@ -3061,10 +3149,59 @@ static XStatus XPm_AddDevice(u32 *Args, u32 NumArgs)
 		case XPM_NODESUBCL_DEV_MEM:
 			Status = AddMemDevice(Args, PowerId);
 			break;
+		case XPM_NODESUBCL_DEV_MEM_CTRLR:
+			Status = AddMemCtrlrDevice(Args, PowerId);
+			break;
+		case XPM_NODESUBCL_DEV_PHY:
+			Status = AddPhyDevice(Args, PowerId);
+			break;
 		default:
 			Status = XST_INVALID_PARAM;
 			break;
 	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function add memic node to the topology database
+ *
+ * @param Args		MEMIC arguments
+ * @param NumArgs	number of arguments
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+static XStatus XPm_AddNodeMemIc(u32 *Args, u32 NumArgs)
+{
+	int Status = XST_FAILURE;
+	u32 MemIcId;
+	u32 BaseAddress;
+
+	if (NumArgs < 3) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	MemIcId = Args[0];
+	BaseAddress = Args[2];
+
+	if (XPM_NODECLASS_MEMIC != NODECLASS(MemIcId)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if (XPM_NODESUBCL_MEMIC_NOC != NODESUBCLASS(MemIcId)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = XPmNpDomain_MemIcInit(MemIcId, BaseAddress);
 
 done:
 	return Status;
@@ -3155,6 +3292,7 @@ XStatus XPm_AddNode(u32 *Args, u32 NumArgs)
 			Status = XPm_AddNodeReset(Args, NumArgs);
 			break;
 		case XPM_NODECLASS_MEMIC:
+			Status = XPm_AddNodeMemIc(Args, NumArgs);
 			break;
 		case XPM_NODECLASS_STMIC:
 			Status = XPm_AddNodeMio(Args, NumArgs);
