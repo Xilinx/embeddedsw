@@ -67,6 +67,7 @@
 *       arc   03/15/19 Modified initial default status value as XST_FAILURE
 * 6.7   psl   03/21/19 Fixed MISRA-C violation.
 * 6.8   psl   06/07/19 Added doxygen tags
+*       psl   06/25/19 Fixed Coverity warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -700,109 +701,110 @@ static inline u32 XilSKey_ZynqMp_EfusePsWrite_Checks(
 	if(Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
-		if (InstancePtr->PrgrmAesKey == TRUE) {
-			if (InstancePtr->ReadBackSecCtrlBits.AesKeyWrite ==
-									TRUE) {
-				Status = ((u32)XSK_EFUSEPS_ERROR_FUSE_PROTECTED +
-					(u32)XSK_EFUSEPS_ERROR_WRITE_AES_KEY);
-				goto END;
-			}
-		}
-		if (InstancePtr->PrgrmSpkID == TRUE) {
-			if (XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
-				XSK_ZYNQMP_EFUSEPS_PGM_LOCK_OFFSET) != 0x00U) {
-				Status = ((u32)XSK_EFUSEPS_ERROR_FUSE_PROTECTED +
-					(u32)XSK_EFUSEPS_ERROR_WRITE_SPK_ID);
-				goto END;
-			}
-		}
-		if (((InstancePtr->PrgrmUser0Fuse == TRUE) &&
-		(InstancePtr->ReadBackSecCtrlBits.UserWrLk0 == TRUE))) {
-			Status = ((u32)XSK_EFUSEPS_ERROR_FUSE_PROTECTED |
-					(u32)XSK_EFUSEPS_ERROR_WRITE_USER0_FUSE);
-			goto END;
-		}
 
-		if (((InstancePtr->PrgrmUser1Fuse == TRUE) &&
-		(InstancePtr->ReadBackSecCtrlBits.UserWrLk1 == TRUE))) {
-			Status = ((u32)XSK_EFUSEPS_ERROR_FUSE_PROTECTED |
-					(u32)XSK_EFUSEPS_ERROR_WRITE_USER1_FUSE);
-			goto END;
-		}
-		if (((InstancePtr->PrgrmUser2Fuse == TRUE) &&
-		(InstancePtr->ReadBackSecCtrlBits.UserWrLk2 == TRUE))) {
-			Status = ((u32)XSK_EFUSEPS_ERROR_FUSE_PROTECTED |
-					(u32)XSK_EFUSEPS_ERROR_WRITE_USER2_FUSE);
-			goto END;
-		}
-		if (((InstancePtr->PrgrmUser3Fuse == TRUE) &&
-		(InstancePtr->ReadBackSecCtrlBits.UserWrLk3 == TRUE))) {
-			Status = ((u32)XSK_EFUSEPS_ERROR_FUSE_PROTECTED |
-					(u32)XSK_EFUSEPS_ERROR_WRITE_USER3_FUSE);
-			goto END;
-		}
-		if (((InstancePtr->PrgrmUser4Fuse == TRUE) &&
-		(InstancePtr->ReadBackSecCtrlBits.UserWrLk4 == TRUE))) {
-			Status = ((u32)XSK_EFUSEPS_ERROR_FUSE_PROTECTED |
-					(u32)XSK_EFUSEPS_ERROR_WRITE_USER4_FUSE);
-			goto END;
-		}
-		if (((InstancePtr->PrgrmUser5Fuse == TRUE) &&
-		(InstancePtr->ReadBackSecCtrlBits.UserWrLk5 == TRUE))) {
-			Status = ((u32)XSK_EFUSEPS_ERROR_FUSE_PROTECTED |
-				(u32)XSK_EFUSEPS_ERROR_WRITE_USER5_FUSE);
-			goto END;
-		}
-		if (((InstancePtr->PrgrmUser6Fuse == TRUE) &&
-		(InstancePtr->ReadBackSecCtrlBits.UserWrLk6 == TRUE))) {
-			Status = ((u32)XSK_EFUSEPS_ERROR_FUSE_PROTECTED |
-					(u32)XSK_EFUSEPS_ERROR_WRITE_USER6_FUSE);
-			goto END;
-		}
-		if (((InstancePtr->PrgrmUser7Fuse == TRUE) &&
-		(InstancePtr->ReadBackSecCtrlBits.UserWrLk7 == TRUE))) {
-			Status = ((u32)XSK_EFUSEPS_ERROR_FUSE_PROTECTED |
-					(u32)XSK_EFUSEPS_ERROR_WRITE_USER7_FUSE);
-			goto END;
-		}
-		if (InstancePtr->PrgrmPpk0Hash == TRUE) {
-			if (InstancePtr->ReadBackSecCtrlBits.PPK0WrLock ==
+	if (InstancePtr->PrgrmAesKey == TRUE) {
+		if (InstancePtr->ReadBackSecCtrlBits.AesKeyWrite ==
 								TRUE) {
-				Status = ((u32)XSK_EFUSEPS_ERROR_FUSE_PROTECTED +
+			Status = ((u32)XSK_EFUSEPS_ERROR_FUSE_PROTECTED +
+					(u32)XSK_EFUSEPS_ERROR_WRITE_AES_KEY);
+			goto END;
+		}
+	}
+	if (InstancePtr->PrgrmSpkID == TRUE) {
+		if (XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
+			XSK_ZYNQMP_EFUSEPS_PGM_LOCK_OFFSET) != 0x00U) {
+			Status = ((u32)XSK_EFUSEPS_ERROR_FUSE_PROTECTED +
+				(u32)XSK_EFUSEPS_ERROR_WRITE_SPK_ID);
+			goto END;
+		}
+	}
+	if (((InstancePtr->PrgrmUser0Fuse == TRUE) &&
+			(InstancePtr->ReadBackSecCtrlBits.UserWrLk0 == TRUE))) {
+		Status = ((u32)XSK_EFUSEPS_ERROR_FUSE_PROTECTED |
+				(u32)XSK_EFUSEPS_ERROR_WRITE_USER0_FUSE);
+		goto END;
+	}
+
+	if (((InstancePtr->PrgrmUser1Fuse == TRUE) &&
+			(InstancePtr->ReadBackSecCtrlBits.UserWrLk1 == TRUE))) {
+		Status = ((u32)XSK_EFUSEPS_ERROR_FUSE_PROTECTED |
+				(u32)XSK_EFUSEPS_ERROR_WRITE_USER1_FUSE);
+		goto END;
+	}
+	if (((InstancePtr->PrgrmUser2Fuse == TRUE) &&
+			(InstancePtr->ReadBackSecCtrlBits.UserWrLk2 == TRUE))) {
+		Status = ((u32)XSK_EFUSEPS_ERROR_FUSE_PROTECTED |
+				(u32)XSK_EFUSEPS_ERROR_WRITE_USER2_FUSE);
+		goto END;
+	}
+	if (((InstancePtr->PrgrmUser3Fuse == TRUE) &&
+			(InstancePtr->ReadBackSecCtrlBits.UserWrLk3 == TRUE))) {
+		Status = ((u32)XSK_EFUSEPS_ERROR_FUSE_PROTECTED |
+				(u32)XSK_EFUSEPS_ERROR_WRITE_USER3_FUSE);
+		goto END;
+	}
+	if (((InstancePtr->PrgrmUser4Fuse == TRUE) &&
+			(InstancePtr->ReadBackSecCtrlBits.UserWrLk4 == TRUE))) {
+		Status = ((u32)XSK_EFUSEPS_ERROR_FUSE_PROTECTED |
+				(u32)XSK_EFUSEPS_ERROR_WRITE_USER4_FUSE);
+		goto END;
+	}
+	if (((InstancePtr->PrgrmUser5Fuse == TRUE) &&
+			(InstancePtr->ReadBackSecCtrlBits.UserWrLk5 == TRUE))) {
+		Status = ((u32)XSK_EFUSEPS_ERROR_FUSE_PROTECTED |
+				(u32)XSK_EFUSEPS_ERROR_WRITE_USER5_FUSE);
+		goto END;
+	}
+	if (((InstancePtr->PrgrmUser6Fuse == TRUE) &&
+			(InstancePtr->ReadBackSecCtrlBits.UserWrLk6 == TRUE))) {
+		Status = ((u32)XSK_EFUSEPS_ERROR_FUSE_PROTECTED |
+				(u32)XSK_EFUSEPS_ERROR_WRITE_USER6_FUSE);
+		goto END;
+	}
+	if (((InstancePtr->PrgrmUser7Fuse == TRUE) &&
+			(InstancePtr->ReadBackSecCtrlBits.UserWrLk7 == TRUE))) {
+		Status = ((u32)XSK_EFUSEPS_ERROR_FUSE_PROTECTED |
+				(u32)XSK_EFUSEPS_ERROR_WRITE_USER7_FUSE);
+		goto END;
+	}
+	if (InstancePtr->PrgrmPpk0Hash == TRUE) {
+		if (InstancePtr->ReadBackSecCtrlBits.PPK0WrLock ==
+				TRUE) {
+			Status = ((u32)XSK_EFUSEPS_ERROR_FUSE_PROTECTED +
 					(u32)XSK_EFUSEPS_ERROR_WRITE_PPK0_HASH);
-				goto END;
-			}
-			/* Check for Zeros */
-			for (RowOffset = XSK_ZYNQMP_EFUSEPS_PPK0_0_OFFSET;
+			goto END;
+		}
+		/* Check for Zeros */
+		for (RowOffset = XSK_ZYNQMP_EFUSEPS_PPK0_0_OFFSET;
 				RowOffset < XSK_ZYNQMP_EFUSEPS_PPK0_11_OFFSET;
 				RowOffset = RowOffset + 4U) {
-				if (XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
-							RowOffset) != 0x00U) {
-					Status = (u32)(
-					XSK_EFUSEPS_ERROR_PPK0_HASH_ALREADY_PROGRAMMED);
-					goto END;
-				}
-			}
-		}
-		if (InstancePtr->PrgrmPpk1Hash == TRUE) {
-			if (InstancePtr->ReadBackSecCtrlBits.PPK1WrLock ==
-								TRUE) {
-				Status = ((u32)XSK_EFUSEPS_ERROR_FUSE_PROTECTED +
-					(u32)XSK_EFUSEPS_ERROR_WRITE_PPK1_HASH);
+			if (XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
+					RowOffset) != 0x00U) {
+				Status = (u32)(
+						XSK_EFUSEPS_ERROR_PPK0_HASH_ALREADY_PROGRAMMED);
 				goto END;
 			}
-			/* Check for Zeros */
-			for (RowOffset = XSK_ZYNQMP_EFUSEPS_PPK1_0_OFFSET;
+		}
+	}
+	if (InstancePtr->PrgrmPpk1Hash == TRUE) {
+		if (InstancePtr->ReadBackSecCtrlBits.PPK1WrLock ==
+				TRUE) {
+			Status = ((u32)XSK_EFUSEPS_ERROR_FUSE_PROTECTED +
+					(u32)XSK_EFUSEPS_ERROR_WRITE_PPK1_HASH);
+			goto END;
+		}
+		/* Check for Zeros */
+		for (RowOffset = XSK_ZYNQMP_EFUSEPS_PPK1_0_OFFSET;
 				RowOffset < XSK_ZYNQMP_EFUSEPS_PPK1_11_OFFSET;
 				RowOffset = RowOffset + 4U) {
-				if (XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
-							RowOffset) != 0x00U) {
-					Status = (u32)(
-					XSK_EFUSEPS_ERROR_PPK1_HASH_ALREADY_PROGRAMMED);
-					goto END;
-				}
+			if (XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
+					RowOffset) != 0x00U) {
+				Status = (u32)(
+						XSK_EFUSEPS_ERROR_PPK1_HASH_ALREADY_PROGRAMMED);
+				goto END;
 			}
 		}
+	}
 END:
 	return Status;
 
@@ -2699,7 +2701,7 @@ u32 XilSkey_ZynqMpEfuseAccess(const u32 AddrHigh, const u32 AddrLow)
 		Status = XilSKey_ZynqMpEfuseWrite(AddrHigh, AddrLow);
 	}
 
-		return Status;
+	return Status;
 }
 
 /*****************************************************************************/

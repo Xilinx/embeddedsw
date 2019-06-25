@@ -71,6 +71,7 @@
 *       vns     03/23/19 Fixed CRC calculation for Ultra plus
 *       arc     04/04/19 Fixed CPP warnings.
 * 6.8   psl     06/07/19 Added doxygen tags.
+*       psl     06/25/19 Fixed Coverity warnings.
  *****************************************************************************/
 
 /***************************** Include Files ********************************/
@@ -1248,7 +1249,7 @@ u32 XilSKey_CrcCalculation(u8 *Key)
 	u32 Key_32 = 0U;
 	u32 Status;
 	u8 Key_Hex[4U] = {0};
-	u8 Key_8[9U];
+	u8 Key_8[9U] = {0};
 #endif
 #ifdef XSK_MICROBLAZE_PLATFORM
 	u8 Row = 0U;
