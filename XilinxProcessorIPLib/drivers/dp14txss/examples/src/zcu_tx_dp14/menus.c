@@ -81,6 +81,10 @@ typedef enum {
     XVIDC_CM_NUM_SUPPORTED
 } XVIDC_CUSTOM_MODES;
 
+#define XVIDC_FR_82HZ 82
+#define XVIDC_FR_98HZ 98
+
+
 // CUSTOM_TIMING: Here is the detailed timing for each custom resolutions.
 const XVidC_VideoTimingMode XVidC_MyVideoTimingMode[
 					(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1))] =
