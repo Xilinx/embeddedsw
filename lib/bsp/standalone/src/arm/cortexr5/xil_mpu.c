@@ -579,36 +579,44 @@ u32 Xil_GetNextMPURegion(void)
 * @brief       Memory mapping for Cortex r5.
 *
 * @param       Physaddr is base physical address at which to start mapping.
+*                   NULL in Physaddr masks possible mapping errors.
 * @param       size of region to be mapped.
 * @param       flags used to set translation table.
 *
-* @return      Pointer to virtual address.
+* @return      Physaddr on success, NULL on error. Ambiguous if Physaddr==NULL
 *
-* @note:      Previously this was implemented in libmetal. Move
-*	      to embeddedsw as this functionality is specific to r5.
+* @note:    u32overflow() is defined for readability and (for __GNUC__) to
+*           - force the type of the check to be the same as the first argument
+*           - hide the otherwise unused third argument of the builtin
+*           - improve safety by choosing the explicit _uadd_ version.
+*           Consider __builtin_add_overflow_p() when available.
+*           Use an alternative (less optimal?) for compilers w/o the builtin.
 *
 ******************************************************************************/
-void* Xil_MemMap(UINTPTR Physaddr, size_t size, u32 flags)
+#ifdef __GNUC__
+#define u32overflow(a, b) ({typeof(a) s; __builtin_uadd_overflow(a, b, &s); })
+#else
+#define u32overflow(a, b) ({unsigned int _a = (a), _b = (b); _a > (_a+_b); })
+#endif /* __GNUC__ */
+void *Xil_MemMap(UINTPTR Physaddr, size_t size, u32 flags)
 {
 	size_t Regionsize = MPU_REGION_SIZE_MIN;
-	UINTPTR Basephysaddr = Physaddr & ~(Regionsize - 1);
+	UINTPTR Basephysaddr = 0, end = Physaddr + size;
 
 	if (!flags)
 		return (void *)Physaddr;
-
-	while(1) {
-		if (Regionsize < size) {
-			Regionsize <<= 1;
-			continue;
-		} else {
+	if (u32overflow(Physaddr, size))
+		return NULL;
+	for ( ; Regionsize != 0; Regionsize <<= 1) {
+		if (Regionsize >= size) {
 			Basephysaddr = Physaddr & ~(Regionsize - 1);
-			if ((Basephysaddr + Regionsize) < (Physaddr + size)) {
-				Regionsize <<= 1;
-				continue;
-			}
-			break;
+			if (u32overflow(Basephysaddr, Regionsize))
+				break;
+			if ((Basephysaddr + Regionsize) >= end)
+				return Xil_SetMPURegion(Basephysaddr,
+					Regionsize, flags) == XST_SUCCESS ?
+					(void *)Physaddr : NULL;
 		}
 	}
-	Xil_SetMPURegion(Basephysaddr, Regionsize, flags);
-	return (void *)Physaddr;
+	return NULL;
 }
