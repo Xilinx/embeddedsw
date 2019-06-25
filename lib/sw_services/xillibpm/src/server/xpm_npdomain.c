@@ -31,6 +31,7 @@
 #include "xpm_npdomain.h"
 #include "xpm_pslpdomain.h"
 #include "xpm_regs.h"
+#include "xpm_clock.h"
 #include "xpm_reset.h"
 #include "xpm_bisr.h"
 
@@ -259,6 +260,9 @@ done:
 static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
+	XPm_Core *Pmc;
+	u32 RegValue;
+	XPm_OutClockNode *Clk;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -267,9 +271,6 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 		Status = XST_SUCCESS;
 		goto done;
 	}
-
-	XPm_Core *Pmc;
-	u32 RegValue;
 
 	Pmc = (XPm_Core *)XPmDevice_GetById(XPM_DEVID_PMC);
 	if (NULL == Pmc) {
@@ -286,6 +287,14 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 		PMC_ANALOG_SCAN_CLEAR_TRIGGER_NOC_MASK);
 
 	usleep(200);
+
+	/* Enable NPI Clock */
+	Clk = (XPm_OutClockNode *)XPmClock_GetByIdx(XPM_NODEIDX_CLK_NPI_REF);
+	XPmClock_SetGate((XPm_OutClockNode *)Clk, 1);
+
+	/* Release NPI Reset */
+	XPmReset_AssertbyId(SRST_RSTID(XPM_NODEIDX_RST_NPI),
+                        PM_RESET_ACTION_RELEASE);
 
 	PmIn32((Pmc->RegAddress[0] + PMC_GLOBAL_ERR1_STATUS_OFFSET),
 	       RegValue);
