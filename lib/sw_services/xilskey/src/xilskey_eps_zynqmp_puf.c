@@ -45,6 +45,7 @@
 *                     syndrome data reading
 *       rama 03/25/19 Added polling routine for PUF ready state
 * 6.8   psl  06/07/19 Added doxygen tags.
+*       psl  06/25/19 Fixed Coverity warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -111,7 +112,7 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufHelprData(XilSKey_Puf *InstancePtr)
 	u32 *DataPtr = InstancePtr->EfuseSynData;
 	u32 *TempPtr = InstancePtr->EfuseSynData;
 	XskEfusePs_Type EfuseType;
-	u8 DataInBits[32];
+	u8 DataInBits[32] = {0};
 	u32 Status;
 
 	/* Unlock the controller */
@@ -365,7 +366,7 @@ END:
 u32 XilSKey_ZynqMp_EfusePs_ReadPufChash(u32 *Address, u8 ReadOption)
 {
 
-	u32 Data;
+	u32 Data = 0U;
 	u32 Status = (u32)XST_FAILURE;
 	u32 *ChashPtr = (u32 *)Address;
 
@@ -513,7 +514,7 @@ END:
 u32 XilSKey_ZynqMp_EfusePs_ReadPufAux(u32 *Address, u8 ReadOption)
 {
 
-	u32 Data;
+	u32 Data = 0U;
 	u32 Status = (u32)XST_FAILURE;
 	u32 *AuxPtr = (u32 *)Address;
 
