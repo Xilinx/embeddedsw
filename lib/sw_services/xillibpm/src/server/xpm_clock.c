@@ -342,6 +342,21 @@ done:
 	return Clk;
 }
 
+XPm_ClockNode* XPmClock_GetByIdx(u32 ClockIdx)
+{
+        XPm_ClockNode *Clk = NULL;
+
+        if(MaxClkNodes <= ClockIdx) {
+                goto done;
+        }
+
+        Clk = ClkNodeList[ClockIdx];
+
+done:
+        return Clk;
+}
+
+
 XStatus XPmClock_SetById(u32 ClockId, XPm_ClockNode *Clk)
 {
 	u32 Status = XST_INVALID_PARAM;
