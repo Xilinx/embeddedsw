@@ -80,6 +80,10 @@ lane_link_rate_struct lane_link_table[]=
 #define DPCD_TEST_SINK_START 0x270
 #define CRC_AVAIL_TIMEOUT    1000
 
+#define XVIDC_FR_82HZ 82
+#define XVIDC_FR_98HZ 98
+
+
 //extern XVidC_VideoMode resolution_table[];
 // adding new resolution definition example
 // XVIDC_VM_3840x2160_30_P_SB, XVIDC_B_TIMING3_60_P_RB
