@@ -110,7 +110,8 @@ u32 XilPdi_GetVecLocation(const XilPdi_PrtnHdr * PrtnHdr)
 *****************************************************************************/
 u32 XilPdi_GetSBD(const XilPdi_ImgHdrTable * ImgHdrTbl)
 {
-        return ImgHdrTbl->Attr & XIH_IHT_ATTR_SBD_MASK;
+        return ((ImgHdrTbl->Attr & XIH_IHT_ATTR_SBD_MASK) >>
+											XIH_IHT_ATTR_SBD_SHIFT);
 }
 
 /****************************************************************************/

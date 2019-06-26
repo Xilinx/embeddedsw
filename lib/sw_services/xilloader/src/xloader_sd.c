@@ -193,7 +193,7 @@ int XLoader_SdInit(u32 DeviceFlags)
 	char *boot_file = buffer;
 	u32 MultiBootOffset;
 	u32 DrvNum;
-	DrvNum = XLoader_GetDrvNumSD(DeviceFlags);
+	DrvNum = XLoader_GetDrvNumSD(DeviceFlags & XLOADER_PDISRC_FLAGS_MASK);
 
 	/* Set logical drive number */
 	/* Register volume work area, initialize device */
@@ -215,8 +215,15 @@ int XLoader_SdInit(u32 DeviceFlags)
 	/**
 	 * Read the Multiboot Register
 	 */
-	MultiBootOffset = Xil_In32(PMC_GLOBAL_PMC_MULTI_BOOT) & 
-						XLOADER_MULTIBOOT_OFFSET_MASK;
+	if((DeviceFlags & XLOADER_SBD_ADDR_SET_MASK) == XLOADER_SBD_ADDR_SET_MASK)
+	{
+		MultiBootOffset = (DeviceFlags >> XLOADER_SBD_ADDR_SHIFT);
+	}
+	else
+	{
+		MultiBootOffset = Xil_In32(PMC_GLOBAL_PMC_MULTI_BOOT) &
+							XLOADER_MULTIBOOT_OFFSET_MASK;
+	}
 
 	/**
 	 * Create boot image name

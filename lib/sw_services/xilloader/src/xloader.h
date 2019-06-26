@@ -108,7 +108,12 @@ extern "C" {
  */
 #define XLOADER_PDI_TYPE_FULL			0x1U
 #define XLOADER_PDI_TYPE_PARTIAL		0x2U
-#define XLOADER_PDI_TYPE_SECONDARY		0x3U
+/*
+ * Secondary boot mode related macros
+ */
+#define XLOADER_PDISRC_FLAGS_MASK		(0xFU)
+#define XLOADER_SBD_ADDR_SET_MASK		(0x10U)
+#define XLOADER_SBD_ADDR_SHIFT			(0x5U)
 /*
  * PDI Loading status
  */
