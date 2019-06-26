@@ -170,6 +170,19 @@ static void AiePcsrWrite(u32 Mask, u32 Value)
 
 /*****************************************************************************/
 /**
+ * This function provides a delay for specified duration
+ *
+ * @param MicroSeconds Duration in micro seconds
+ * @return
+ *****************************************************************************/
+static inline void AieWait(u32 MicroSeconds)
+{
+	usleep(MicroSeconds);
+}
+
+
+/*****************************************************************************/
+/**
  * This function is used to enable AIE Core
  *
  * @param Col Column index of the Core
@@ -460,8 +473,8 @@ static XStatus AieMemInit(u32 *Args, u32 NumOfArgs)
 
 	/* Scrub ECC protected memories */
 	TriggerEccScrub();
-	/* Wait for scrubbing to finish */
-	XPlmi_UtilWait(1000U);
+	/* Wait for scrubbing to finish (1ms)*/
+	AieWait(1000U);
 	/* Reset Array */
 	ArrayReset();
 	/* Zeroize Data Memory */
