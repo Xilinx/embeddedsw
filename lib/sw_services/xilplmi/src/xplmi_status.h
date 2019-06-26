@@ -143,6 +143,7 @@ enum {
 	XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, /* 0x320 */
 	XLOADER_ERR_CFRAME_LOOKUP, /* 0x321 */
 	XLOADER_ERR_CFRAME_CFG, /* 0x322 */
+	XLOADER_ERR_UNSUPPORTED_SEC_BOOT_MODE, /* 0x323 */
 };
 
 /**************************** Type Definitions *******************************/

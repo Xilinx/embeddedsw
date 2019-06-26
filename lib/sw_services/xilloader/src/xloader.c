@@ -190,24 +190,27 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	 */
 	XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_STARTED);
 
-	if(DeviceOps[PdiSrc].Init==NULL)
+	if(DeviceOps[PdiSrc & XLOADER_PDISRC_FLAGS_MASK].Init==NULL)
 	{
 		XPlmi_Printf(DEBUG_GENERAL,
-			  "Unsupported Boot Mode: Source:0x%x\n\r", PdiSrc);
+			  "Unsupported Boot Mode: Source:0x%x\n\r", PdiSrc &
+										XLOADER_PDISRC_FLAGS_MASK);
 		Status = XPLMI_UPDATE_STATUS(XLOADER_UNSUPPORTED_BOOT_MODE, 0x0U);
 		goto END;
 	}
 
 	XPlmi_Printf(DEBUG_GENERAL,
-		 "Loading PDI from %s\n\r", DeviceOps[PdiSrc].Name);
+		 "Loading PDI from %s\n\r", DeviceOps[PdiSrc &
+								XLOADER_PDISRC_FLAGS_MASK].Name);
 
-	Status = DeviceOps[PdiSrc].Init(PdiSrc);
+	Status = DeviceOps[PdiSrc & XLOADER_PDISRC_FLAGS_MASK].Init(PdiSrc);
+
 	if(Status != XST_SUCCESS)
         {
                 goto END;
         }
 
-	PdiPtr->DeviceCopy =  DeviceOps[PdiSrc].Copy;
+	PdiPtr->DeviceCopy =  DeviceOps[PdiSrc & XLOADER_PDISRC_FLAGS_MASK].Copy;
 	PdiPtr->MetaHdr.DeviceCopy = PdiPtr->DeviceCopy;
 	PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr;
 
@@ -288,7 +291,9 @@ int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 	 *   3. Load partitions to respective memories
 	 */
 	int Status;
-
+	u32 SecBootMode;
+	u32 PdiSrc;
+	u64 PdiAddr;
 	for ( ;PdiPtr->ImageNum < PdiPtr->MetaHdr.ImgHdrTable.NoOfImgs;
 			++PdiPtr->ImageNum)
 	{
@@ -313,13 +318,91 @@ int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 	 * Set the Secondary Boot Mode settings to enable the
 	 * read from the secondary device
 	 */
-	if (XilPdi_GetSBD(&(PdiPtr->MetaHdr.ImgHdrTable)) == XIH_IHT_ATTR_SBD_PCIE)
+	SecBootMode = XilPdi_GetSBD(&(PdiPtr->MetaHdr.ImgHdrTable));
+	if(SecBootMode == XIH_IHT_ATTR_SBD_SAME)
 	{
-		XLoader_Printf(DEBUG_INFO,
-			  "+++Configuring Secondary Boot Device\n\r");
-		XLoader_SbiInit(XLOADER_PDI_SRC_PCIE);
+		//Do Nothing
+		Status = XST_SUCCESS;
 	}
+	else
+	{
+		XPlmi_Printf(DEBUG_INFO,
+			  "+++Configuring Secondary Boot Device\n\r");
+		if (SecBootMode == XIH_IHT_ATTR_SBD_PCIE)
+		{
+			XLoader_SbiInit(XLOADER_PDI_SRC_PCIE);
+			Status = XST_SUCCESS;
+		}
+		else
+		{
+			switch(SecBootMode)
+			{
+				case XIH_IHT_ATTR_SBD_QSPI32:
+				{
+					PdiSrc = XLOADER_PDI_SRC_QSPI32;
+					PdiAddr = PdiPtr->MetaHdr.ImgHdrTable.SBDAddr;
+				}
+				break;
+				case XIH_IHT_ATTR_SBD_QSPI24:
+				{
+					PdiSrc = XLOADER_PDI_SRC_QSPI24;
+					PdiAddr = PdiPtr->MetaHdr.ImgHdrTable.SBDAddr;
+				}
+				break;
+				case XIH_IHT_ATTR_SBD_SD_0:
+				{
+					PdiSrc = XLOADER_PDI_SRC_SD0 | XLOADER_SBD_ADDR_SET_MASK
+							 | ( PdiPtr->MetaHdr.ImgHdrTable.SBDAddr <<
+														XLOADER_SBD_ADDR_SHIFT);
+					PdiAddr = 0U;
+				}
+				break;
+				case XIH_IHT_ATTR_SBD_SD_1:
+				{
+					PdiSrc = XLOADER_PDI_SRC_SD1 | XLOADER_SBD_ADDR_SET_MASK
+							 | ( PdiPtr->MetaHdr.ImgHdrTable.SBDAddr <<
+														XLOADER_SBD_ADDR_SHIFT);
+					PdiAddr = 0U;
+				}
+				break;
+				case XIH_IHT_ATTR_SBD_SD_LS:
+				{
+					PdiSrc = XLOADER_PDI_SRC_SD1_LS | XLOADER_SBD_ADDR_SET_MASK
+							 | ( PdiPtr->MetaHdr.ImgHdrTable.SBDAddr <<
+														XLOADER_SBD_ADDR_SHIFT);
+					PdiAddr = 0U;
+				}
+				break;
+				case XIH_IHT_ATTR_SBD_EMMC:
+				{
+					PdiSrc = XLOADER_PDI_SRC_EMMC | XLOADER_SBD_ADDR_SET_MASK
+							 | ( PdiPtr->MetaHdr.ImgHdrTable.SBDAddr <<
+														XLOADER_SBD_ADDR_SHIFT);
+					PdiAddr = 0U;
+				}
+				break;
+				case XIH_IHT_ATTR_SBD_OSPI:
+				{
+					PdiSrc = XLOADER_PDI_SRC_OSPI;
+					PdiAddr = 0U;
+				}
+				break;
+				default:
+				{
+					Status = XLOADER_ERR_UNSUPPORTED_SEC_BOOT_MODE;
+					goto END;
+				}
+			}
 
+			memset(PdiPtr, 0U, sizeof(XilPdi));
+			PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
+			Status = XLoader_LoadPdi(PdiPtr, PdiSrc, PdiAddr);
+			if (Status != XST_SUCCESS)
+			{
+				goto END;
+			}
+		}
+	}
 	/** Mark PDI loading is completed */
 	XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_COMPLETE);
 
