@@ -55,6 +55,7 @@ extern "C" {
 #include "xil_assert.h"
 #include "xplmi_modules.h"
 #include "xplmi_dma.h"
+#include "xplmi_cmd.h"
 
 /************************** Constant Definitions *****************************/
 enum {
@@ -104,6 +105,9 @@ enum {
 #define XPLMI_READBK_INTF_TYPE_DDR		(0x2U)
 /************************** Function Prototypes ******************************/
 void XPlmi_GenericInit(void);
+int XPlmi_CfiRead(XPlmi_Cmd * Cmd);
+int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd);
+
 
 /************************** Variable Definitions *****************************/
 

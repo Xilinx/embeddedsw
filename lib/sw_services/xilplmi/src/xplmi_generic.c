@@ -489,7 +489,7 @@ static int XPlmi_InitSeq(XPlmi_Cmd * Cmd)
  *
  * @return Returns the Status
  *****************************************************************************/
-static int XPlmi_CfiRead(XPlmi_Cmd * Cmd)
+int XPlmi_CfiRead(XPlmi_Cmd * Cmd)
 {
 	int Status;
 	u32 SrcType = Cmd->Payload[0];
@@ -623,7 +623,7 @@ static int XPlmi_Set(XPlmi_Cmd * Cmd)
  *
  * @return Returns the Status of DMA Xfer API
  *****************************************************************************/
-static int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd)
+int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd)
 {
 	int Status;
 	u64 DestAddr;
