@@ -66,6 +66,18 @@ void XPlmi_UtilRMW(u32 RegAddr, u32 Mask, u32 Value)
 	Xil_Out32(RegAddr, l_Val);
 }
 
+int XPlmi_UtilSafetyWrite(u32 RegAddr, u32 Mask, u32 Value)
+{
+	u32 l_Val;
+
+	l_Val = Xil_In32(RegAddr);
+	l_Val = (l_Val & (~Mask)) | (Mask & Value);
+
+	Xil_Out32(RegAddr, l_Val);
+	return ((Xil_In32(RegAddr) == l_Val) ? XST_SUCCESS : XST_FAILURE);
+}
+
+
 int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutCount)
 {
 	u32 l_RegValue;

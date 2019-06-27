@@ -83,6 +83,15 @@ extern "C" {
 void XPlmi_UtilRMW(u32 RegAddr, u32 Mask, u32 Value);
 
 /**
+ * Writing a value is set of bits to be set (represented by Mask)
+ * and reading back the wriiten value to compare that write is sucessfully done.
+ * @param RegAddr is the Address of the Register to be written
+ * @param Mask is the bit mask to poll for in the register value
+ * @param Value is the value to be written to the register
+ */
+int XPlmi_UtilSafetyWrite(u32 RegAddr, u32 Mask, u32 Value);
+
+/**
  * Poll for a set of bits to be set (represented by Mask)
  * or until we TimeOut
  * @param RegAddr is the Address of the Register to be polled
