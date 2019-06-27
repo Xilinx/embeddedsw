@@ -675,6 +675,7 @@ static XStatus Release(XPm_Device *Device,
 
 	if (XST_SUCCESS == Status) {
 		XPmRequirement_Clear(Device->PendingReqm);
+		Device->WfDealloc = 0;
 	}
 done:
 	return Status;
