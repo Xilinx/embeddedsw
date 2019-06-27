@@ -220,7 +220,7 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 	DstnCpu = XilPdi_GetDstnCpu(PrtnHdr);
 	if (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_PSM)
 	{
-		XPm_RequestDevice(XPM_SUBSYSID_PMC, XPM_DEVID_PSM, 0, 0, 0);
+		XPm_RequestDevice(XPM_SUBSYSID_PMC, XPM_DEVID_PSM, PM_CAP_ACCESS, XPM_DEF_QOS, 0);
 	}
 
 	/* Check if R5 App memory is TCM, Copy to global TCM memory MAP */
