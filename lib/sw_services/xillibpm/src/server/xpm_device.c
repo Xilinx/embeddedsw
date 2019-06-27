@@ -29,6 +29,10 @@
 #include "xpm_rpucore.h"
 #include "xillibpm_api.h"
 
+/** PSM RAM Base address */
+#define XPM_PSM_RAM_BASE_ADDR           (0xFFC00000U)
+#define XPM_PSM_RAM_SIZE                (0x40000U)
+
 const char *PmDevStates[] = {
 	"UNUSED",
 	"RUNNING",
@@ -353,6 +357,9 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 					} else if(Node->Id == XPM_DEVID_R50_0 || Node->Id == XPM_DEVID_R50_1) {
 						/*RPU has a special handling */
 						XPmRpuCore_Halt(Device);
+					} else if(Node->Id == XPM_DEVID_PSM) {
+						/* Ecc initialize PSM RAM*/
+						XPlmi_EccInit(XPM_PSM_RAM_BASE_ADDR, XPM_PSM_RAM_SIZE);
 					}
 					/* Todo: Start timer to poll the reset node */
 					/* Hack */
