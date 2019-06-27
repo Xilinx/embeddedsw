@@ -87,6 +87,7 @@
  *                     address return error.
  * 5.0 sne   27/03/19  Fixed misra-c violations.
  * 5.0 Nava  23/04/19  Optimize the API's logic to avoid code duplication.
+ * 5.1 Nava  27/06/19  Adds support to clear out the SHA3 engine.
  * </pre>
  *
  * @note
@@ -1088,6 +1089,9 @@ static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr)
 
 	Status = XSecure_DataAuth(Signature, &Key, Sha3Hash);
 END:
+	/* Set SHA under reset */
+	XSecure_SetReset(Secure_Sha3.BaseAddress,
+					XSECURE_CSU_SHA3_RESET_OFFSET);
 	return Status;
 }
 /*****************************************************************************/
@@ -1183,6 +1187,9 @@ static u32 XFpga_ReAuthPlChunksWriteToPl(XFpgaPs_PlPartition *PlAesInfo,
 	Status = XSecure_Sha3Finish(&Secure_Sha3, Sha3Hash);
 
 END:
+	/* Set SHA under reset */
+	XSecure_SetReset(Secure_Sha3.BaseAddress,
+					XSECURE_CSU_SHA3_RESET_OFFSET);
 	return Status;
 }
 
