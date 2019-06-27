@@ -63,7 +63,7 @@ static const XPm_StateCap XPmGenericDeviceStates[] = {
 		.Cap = PM_CAP_UNUSABLE,
 	}, {
 		.State = XPM_DEVSTATE_RUNNING,
-		.Cap = XPM_MAX_CAPABILITY,
+		.Cap = XPM_MAX_CAPABILITY | PM_CAP_UNUSABLE,
 	},
 };
 
