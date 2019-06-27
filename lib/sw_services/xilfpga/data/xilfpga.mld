@@ -52,6 +52,7 @@
 #		       done by PLM based on the CDO's data exists in the PDI
 #		       images. So there is no need of xilfpga API's for versal
 #		       platform to configure the PL.
+# 5.1 Nava   27/06/19  Updated documentation for readback API's.
 ##############################################################################
 
 OPTION psf_version = 2.1;
@@ -63,7 +64,7 @@ BEGIN LIBRARY xilfpga
   OPTION SUPPORTED_PERIPHERALS = (psu_cortexa53 psu_cortexr5 psu_pmu);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilfpga,-lxil,-lxilsecure,-lgcc,-lc,--end-group";
   OPTION desc = "XilFPGA library provides an interface to the Linux or bare-metal users for configuring the PL over PCAP from PS";
-  OPTION VERSION = 5.0;
+  OPTION VERSION = 5.1;
   OPTION NAME = xilfpga;
 PARAM name = secure_mode, desc = "Enable secure Bitstream loading support", type = bool, default = true;
 PARAM name = debug_mode, desc = "Which is used to Enable the Debug messages in the library", type = bool, default = false;
