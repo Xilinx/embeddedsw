@@ -46,6 +46,7 @@
 *       rama 03/25/19 Added polling routine for PUF ready state
 * 6.8   psl  06/07/19 Added doxygen tags.
 *       psl  06/25/19 Fixed Coverity warnings.
+*       psl  06/28/19 Added doxygen tags.
 * </pre>
 *
 *****************************************************************************/
@@ -481,7 +482,6 @@ END:
 
 /*****************************************************************************/
 /**
-<<<<<<< HEAD
 * This function reads eFUSE PUF auxiliary data from eFUSE array
 * or cache based on user read option.
 *
@@ -491,17 +491,6 @@ END:
 * 		eFUSE array or from the eFUSE cache.
 *		- 0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from cache
 *		- 1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array
-=======
-* This API reads efuse puf Auxiliary Data from efuse array or cache based on
-* user read option.
-*
-* @param	Address 	Pointer which holds the read back value of Auxiliary
-* @param	ReadOption	A u8 variable which has to be provided by user
-*		based on this input reading is happened from cache or from efuse
-*		array.
-*		- 0(XSK_EFUSEPS_READ_FROM_CACHE)Reads from cache
-*		- 1(XSK_EFUSEPS_READ_FROM_EFUSE)Reads from efuse array
->>>>>>> Fixed trivial typos for sw_services reported by codespell utility
 *
 * @return
 * 		- XST_SUCCESS if PUF auxiliary data is read successfully.
@@ -561,7 +550,7 @@ END:
 * This function will poll for syndrome word is ready in the PUF_WORD register
 * or till the timeout occurs.
 *
-* @param	None.
+* @param	PufStatus Pointer to pufstatus.
 *
 * @return	XST_SUCCESS - In case of Success
 *			XST_FAILURE - In case of Timeout.
@@ -594,7 +583,7 @@ done:
 /*****************************************************************************/
 /**
  * This function performs registration of PUF which generates a new KEK
- * and associated CHash, Auxilary and PUF-syndrome data which are unique for
+ * and associated CHash, Auxiliary and PUF-syndrome data which are unique for
  * each silicon.
  *
  * @param	InstancePtr	Pointer to the XilSKey_Puf instance.
@@ -1000,7 +989,8 @@ END:
 *		- 0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from cache
 *		- 1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array
 *
-* @return	None.
+* @return	- XST_SUCCESS if reads successfully.
+*			- Errorcode on failure.
 *
 * @note		None.
 *

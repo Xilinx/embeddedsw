@@ -72,6 +72,7 @@
 *       arc     04/04/19 Fixed CPP warnings.
 * 6.8   psl     06/07/19 Added doxygen tags.
 *       psl     06/25/19 Fixed Coverity warnings.
+*       psl     06/28/19 Added doxygen tags.
  *****************************************************************************/
 
 /***************************** Include Files ********************************/
@@ -486,7 +487,7 @@ END:
 *
 *
 *
-* @param	RefClk - reference clock
+* @param	None.
 *
 * @return
 *
@@ -567,7 +568,7 @@ u64 XilSKey_Efuse_GetTime(void)
 *
 *
 * @return
-*	t  - timer ticks to wait to set the timeout
+*	None.
 *
 * @note		None.
 *

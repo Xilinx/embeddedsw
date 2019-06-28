@@ -68,6 +68,7 @@
 * 6.7   psl   03/21/19 Fixed MISRA-C violation.
 * 6.8   psl   06/07/19 Added doxygen tags
 *       psl   06/25/19 Fixed Coverity warnings.
+*       psl   06/28/19 Added doxygen tags.
 * </pre>
 *
 *****************************************************************************/
@@ -494,7 +495,9 @@ END:
 *		- 0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from eFUSE cache
 *		- 1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array
 *
-* @return	None.
+* @return
+* 		- XST_SUCCESS if reads successfully
+* 		- XST_FAILURE if reading is failed
 *
 * @note		None.
 *
@@ -1260,7 +1263,7 @@ END:
 /*
 * This function sets timers for programming and reading from eFUSE.
 *
-* @param	InstancePtr is an instance of efuseps of Zynq MP.
+* @param	None
 *
 * @return	None.
 *
@@ -1899,19 +1902,10 @@ END:
 *		user fuse.
 * @param	UserFuse_Num	A variable which holds the user fuse number.
 *		Range is (User fuses: 0 to 7)
-<<<<<<< HEAD
 * @param	ReadOption Indicates whether or not to read from the actual
 * 		eFUSE array or from the eFUSE cache.
 *		- 0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from eFUSE cache
 *		- 1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array
-=======
-* @param	ReadOption 	A variable which has to be provided by user
-*		based on this input reading is happened from cache or from efuse
-*		array.
-*		- 0	Reads from cache
-*		- 1	Reads from efuse array
-*
->>>>>>> Fixed trivial typos for sw_services reported by codespell utility
 * @return
 *		- XST_SUCCESS on successful read
 *		- ErrorCode on failure
@@ -1973,20 +1967,11 @@ UNLOCK:
 * This function is used to read the PPK0 hash from an eFUSE or eFUSE cache.
 *
 * @param	Ppk0Hash	A pointer to an array which holds the readback
-<<<<<<< HEAD
 *		PPK0 hash.
 * @param	ReadOption	Indicates whether or not to read from the actual
 * 		eFUSE array or from the eFUSE cache.
 *		- 0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from eFUSE cache
 *		- 1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array
-=======
-*		PPK0 hash in.
-* @param	ReadOption	A variable which has to be provided by user
-*		based on this input reading is happened from cache or from efuse
-*		array.
-*		- 0	Reads from cache
-*		- 1	Reads from efuse array
->>>>>>> Fixed trivial typos for sw_services reported by codespell utility
 *
 * @return
 *		- XST_SUCCESS on successful read
@@ -2059,20 +2044,11 @@ UNLOCK:
 * This function is used to read the PPK1 hash from eFUSE or cache.
 *
 * @param	Ppk1Hash	Pointer to an array which holds the readback
-<<<<<<< HEAD
 *		PPK1 hash.
 * @param	ReadOption	Indicates whether or not to read from the actual
 * 		eFUSE array or from the eFUSE cache.
 *		- 0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from eFUSE cache
 *		- 1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array
-=======
-*		PPK1 hash in.
-* @param	ReadOption	A variable which has to be provided by user
-*		based on this input reading is happened from cache or from efuse
-*		array.
-*		- 0	Reads from cache
-*		- 1	Reads from efuse array
->>>>>>> Fixed trivial typos for sw_services reported by codespell utility
 *
 * @return
 *		- XST_SUCCESS on successful read
@@ -2145,18 +2121,10 @@ UNLOCK:
 * read option.
 *
 * @param	SpkId	Pointer to a 32 bit variable which holds SPK ID.
-<<<<<<< HEAD
 * @param	ReadOption	Indicates whether or not to read from the actual
 * 		eFUSE array or from the eFUSE cache.
 *		- 0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from eFUSE cache
 *		- 1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array
-=======
-* @param	ReadOption	A variable which has to be provided by user
-*		based on this input reading is happened from cache or from efuse
-*		array.
-*		- 0	Reads from cache
-*		- 1	Reads from efuse array
->>>>>>> Fixed trivial typos for sw_services reported by codespell utility
 *
 * @return
 *		- XST_SUCCESS on successful read
@@ -2249,7 +2217,8 @@ void XilSKey_ZynqMp_EfusePs_ReadDna(u32 *DnaRead)
 *		ended.
 * @param	EfuseType is the type of the eFUSE in which these rows reside.
 *
-* @return	None.
+* @return	XST_SUCCESS if keys are not programmed.
+* 			Errorcode on failure.
 *
 * @note		None.
 *
@@ -2283,7 +2252,9 @@ u32 XilSKey_ZynqMp_EfusePs_CheckForZeros(u8 RowStart, u8 RowEnd,
 *
 * @param	InstancePtr is a pointer to eFUSE ps instance.
 *
-* @return	None.
+* @return
+* 		- XST_SUCCESS if keys are not programmed
+*		- ErrorCode if keys are already programmed.
 *
 * @note		None.
 *
