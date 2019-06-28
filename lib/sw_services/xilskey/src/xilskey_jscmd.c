@@ -78,6 +78,8 @@
 *                        control.
 *       arc     04/04/19 Fixed CPP warnings.
 *       psl     04/15/19 Corrected zynq Dap ID.
+* 6.8   psl     06/26/19 Added support for user to add IDCODE, IR_length, SLR Nos,
+*                        device series for different devices.
 * </pre>
 *
 *
@@ -106,6 +108,7 @@ typedef long ssize_t;
 #endif
 
 #include "xilskey_bbram.h"
+#include "xilskey_config.h"
 
 XilSKey_JtagSlr XilSKeyJtag; /*JTAG Tap Instance*/
 
@@ -218,7 +221,8 @@ const id_codes_t IDcodeArray [] = {
   {.flag=XSK_FPGA_SERIES_ULTRA,      .id = VIRTEX108_ULTRA_MB_DAP_ID, 		.irLen =  6, .numSlr = 1},  /**< VCU108 VIRTEX Ultrascale microblaze TAP id */
   {.flag=XSK_FPGA_SERIES_ULTRA_PLUS, .id = KINTEX_ULTRAPLUS_DAP_ID, 		.irLen =  6, .numSlr = 1},  /**< Kintex Ultrascale plus microblaze TAP ID */
   {.flag=XSK_FPGA_SERIES_ULTRA_PLUS, .id = VIRTEX_ULTRAPLUS_DAP_ID, 		.irLen = 18, .numSlr = 3},  /**< VCU140 VIRTEX Ultrascale Plus microblaze TAP id */
-  {.flag=XSK_FPGA_SERIES_ULTRA_PLUS, .id = VIRTEX_ULTRAPLUS_VC13P_DAP_ID, 	.irLen = 24, .numSlr = 4}  /**< XCVU13P VIRTEX Ultrascale Plus microblaze TAP id */
+  {.flag=XSK_FPGA_SERIES_ULTRA_PLUS, .id = VIRTEX_ULTRAPLUS_VC13P_DAP_ID, 	.irLen = 24, .numSlr = 4},  /**< XCVU13P VIRTEX Ultrascale Plus microblaze TAP id */
+  {.flag=XSK_USER_DEVICE_SERIES,     .id = XSK_USER_DEVICE_ID,     .irLen = XSK_USER_DEVICE_IRLEN, .numSlr = XSK_USER_DEVICE_NUMSLR}   /**< USER_ENTRY */
 };
 
 void GpioConfig(unsigned long addr, unsigned long mask, unsigned long val)
