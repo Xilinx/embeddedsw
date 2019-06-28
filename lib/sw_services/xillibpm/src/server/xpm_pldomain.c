@@ -299,6 +299,15 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PL_POR),
 				     PM_RESET_ACTION_RELEASE);
 
+	/* Toggle PS POR */
+	if((PLATFORM_VERSION_SILICON == Platform) && (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
+		/* EDT-995767: Theres a bug with ES1, due to which a small percent (<2%) of device
+		may miss pl_por_b during power, which could result CFRAME wait up in wrong state.
+		The work around requires to toggle PL_POR twice after PL supplies is up. */
+		Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PL_POR),
+				     PM_RESET_ACTION_PULSE);
+	}
+
         /* Check for PL PowerUp */
         Status = XPm_PollForMask(PMC_GLOBAL_PL_STATUS,
                      PMC_GLOBAL_PL_STATUS_POR_PL_B_MASK, XPM_POLL_TIMEOUT);
