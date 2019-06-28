@@ -46,7 +46,8 @@
 #       srm  02/26/18 Updated to pick up latest freertos port 10.0
 # 6.5   vns  03/16/18 Modified BBRAM functions for ZynqMP
 # 6.7   arc  10/29/18 Fixed ARMCC compiler warnings
-#
+# 6.8   psl  06/26/19 Added support for user to add IDCODE, IR_length, SLR Nos,
+#                     device series for different devices.
 ##############################################################################
 
 OPTION psf_version = 2.1;
@@ -58,4 +59,8 @@ BEGIN LIBRARY xilskey
   OPTION desc = "Xilinx Secure Key Library supports programming efuse and bbram ";
   OPTION VERSION = 6.8;
   OPTION NAME = xilskey;
+  PARAM name = device_series, desc = "Device series", type = enum, values = ("FPGA SERIES ZYNQ" = XSK_FPGA_SERIES_ZYNQ, "FPGA SERIES ULTRA" = XSK_FPGA_SERIES_ULTRA  , "FPGA SERIES ULTRA PLUS" = XSK_FPGA_SERIES_ULTRA_PLUS), default = XSK_FPGA_SERIES_ZYNQ;
+  PARAM name = device_id, desc = "IDCODE", type = int, default = 0;
+  PARAM name = device_irlen, desc = "IR length", type = int, default = 0;
+  PARAM name = device_numslr, desc = "Number of SLRs", type = int, default = 1;
 END LIBRARY

@@ -33,6 +33,8 @@
 #                     processor
 # 6.4   vns  02/27/18 Added support for virtex and virtex ultrascale plus
 # 6.7	psl  03/12/19 Disabled compilation of code not required for zynqmp
+# 6.8   psl  06/26/19 Added support for user to add IDCODE, IR_length, SLR Nos,
+#                     device series for different devices.
 ##############################################################################
 
 #---------------------------------------------
@@ -40,6 +42,17 @@
 #---------------------------------------------
 proc skey_drc {libhandle} {
 
+}
+
+proc skey_open_include_file {file_name} {
+	set filename [file join "../../include/" $file_name]
+	if {[file exists $filename]} {
+		set config_inc [open $filename a]
+	} else {
+		set config_inc [open $filename a]
+		::hsi::utils::write_c_header $config_inc "User Supported IDCODES"
+	}
+	return $config_inc
 }
 
 proc generate {libhandle} {
@@ -109,6 +122,60 @@ proc xgen_opts_file {libhandle} {
 	puts $file_handle ""
 	close $file_handle
 
+
+#---------
+# Support to add user IDCODEs
+#---------
+	if {$proc_type != "psu_pmu" && $proc_type != "psu_cortexa53" && $proc_type != "psu_cortexr5"} {
+
+		set device_series  [common::get_property CONFIG.device_series $libhandle]
+		set device_id [common::get_property CONFIG.device_id $libhandle]
+		set device_irlen [common::get_property CONFIG.device_irlen $libhandle]
+		set device_numslr [common::get_property CONFIG.device_numslr $libhandle]
+
+		set conffile  [skey_open_include_file "xilskey_config.h"]
+
+		puts $conffile "\#ifndef XILSKEY_IDCODES_H"
+		puts $conffile "\#define XILSKEY_IDCODES_H"
+		puts $conffile ""
+		puts $conffile "\#ifdef __cplusplus"
+		puts $conffile "extern \"c\" \x7b\ "
+		puts $conffile "\#endif"
+		puts $conffile ""
+		puts $conffile "\#include \"xilskey_utils.h\""
+		puts $conffile ""
+
+		if { $device_id != 0 } {
+			if {$device_id != "0x0ba00477" && $device_id != "0x03822093" && $device_id != "0x03931093" && $device_id != "0x03842093" && $device_id != "0x04A62093" && $device_id != "0x04b31093" && $device_id != "0x04B51093"} {
+				puts $conffile "#define XSK_USER_DEVICE_SERIES	$device_series"
+				puts $conffile "#define XSK_USER_DEVICE_ID	$device_id"
+				puts $conffile "#define XSK_USER_DEVICE_IRLEN	$device_irlen"
+				puts $conffile "#define XSK_USER_DEVICE_NUMSLR	$device_numslr"
+			} else {
+				puts stderr "ERROR: Device IDCODE already exist by Default."
+				puts $conffile "#define XSK_USER_DEVICE_SERIES  0"
+				puts $conffile "#define XSK_USER_DEVICE_ID      0"
+				puts $conffile "#define XSK_USER_DEVICE_IRLEN   0"
+				puts $conffile "#define XSK_USER_DEVICE_NUMSLR  0"
+			}
+		} else {
+			puts $conffile "/* No Value specified, assigning default values */"
+			puts $conffile "#define XSK_USER_DEVICE_SERIES	$device_series"
+			puts $conffile "#define XSK_USER_DEVICE_ID	$device_id"
+			puts $conffile "#define XSK_USER_DEVICE_IRLEN	$device_irlen"
+			puts $conffile "#define XSK_USER_DEVICE_NUMSLR	$device_numslr"
+		}
+
+
+		puts $conffile ""
+		puts $conffile "\#ifdef __cplusplus"
+		puts $conffile "extern \"c\" \x7b\ "
+		puts $conffile "\#endif"
+		puts $conffile ""
+		puts $conffile "\#endif /* XILSKEY_IDCODES_H */"
+
+		close $conffile
+	}
 	# Copy the include files to the include directory
 	set srcdir [file join src include]
 	set dstdir [file join .. .. include]
