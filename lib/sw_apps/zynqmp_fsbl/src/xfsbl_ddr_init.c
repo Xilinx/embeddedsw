@@ -737,20 +737,25 @@ u32 XFsbl_ComputeLpDdrParams(u8 *SpdData, struct DdrcInitData *DdrDataPtr)
 static u32 XFsbl_DdrComputeDimmParameters(u8 *SpdData,
 		struct DdrcInitData *DdrDataPtr)
 {
+	u32 Status;
+
 	switch (SpdData[2U]) {
 	case SPD_MEMTYPE_DDR4:
-		XFsbl_ComputeDdr4Params(SpdData, DdrDataPtr);
+		Status = XFsbl_ComputeDdr4Params(SpdData, DdrDataPtr);
 		break;
 	case SPD_MEMTYPE_DDR3:
-		XFsbl_ComputeDdr3Params(SpdData, DdrDataPtr);
+		Status = XFsbl_ComputeDdr3Params(SpdData, DdrDataPtr);
 		break;
 	case SPD_MEMTYPE_LPDDR3:
 	case SPD_MEMTYPE_LPDDR4:
-		XFsbl_ComputeLpDdrParams(SpdData, DdrDataPtr);
+		Status = XFsbl_ComputeLpDdrParams(SpdData, DdrDataPtr);
+		break;
+	default:
+		Status = XFSBL_FAILURE;
 		break;
 	}
 
-	return XFSBL_SUCCESS;
+	return Status;
 }
 #endif
 
@@ -5761,6 +5766,7 @@ static u32 XFsbl_DdrcPhyTraining(struct DdrcInitData *DdrDataPtr)
 	u32 PllRetry = 10U;
 	u32 PllLocked = 0U;
 	u32 Puad;
+	u32 Status;
 
 	ActiveRanks = Xil_In32(XFSBL_DDRC_BASE_ADDR + 0x0000U);
 
@@ -5787,6 +5793,12 @@ static u32 XFsbl_DdrcPhyTraining(struct DdrcInitData *DdrDataPtr)
 	}
 
 	Xil_Out32(DDR_PHY_GPR1_OFFSET, Xil_In32(DDR_PHY_GPR1_OFFSET) | (PllRetry << 16U));
+
+	if (PllLocked == 0U) {
+		XFsbl_Printf(DEBUG_INFO,"DDR-PHY Training failed\n\r");
+		Status = XFSBL_FAILURE;
+		goto END;
+	}
 
 	RegVal = ((PDimmPtr->RDimm ? 0x1U : 0x0U) << 19U) | (0x1U << 18U) | 0x73U;
 
@@ -6276,7 +6288,10 @@ static u32 XFsbl_DdrcPhyTraining(struct DdrcInitData *DdrDataPtr)
 				DDR_PHY_DQSDR0_DFTDTEN_SHIFT, 1U);
 	}
 
-	return XFSBL_SUCCESS;
+	Status = XFSBL_SUCCESS;
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -6841,7 +6856,10 @@ u32 XFsbl_DdrInit(void)
 	}
 #else
 	/* Determine the DIMM parameters to be used for register writes */
-	XFsbl_DdrComputeDimmParameters(SpdData, &DdrData);
+	Status = XFsbl_DdrComputeDimmParameters(SpdData, &DdrData);
+	if (Status != XFSBL_SUCCESS) {
+		goto END;
+	}
 
 	/* Initialize the Parameters with their default values */
 	XFsbl_InitilizeDdrParams(&DdrData);
