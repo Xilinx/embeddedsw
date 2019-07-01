@@ -148,17 +148,29 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_USR6_FUSE	(6U)
 #define XSK_ZYNQMP_EFUSEPS_USR7_FUSE	(7U)
 
+#define XSK_EFUSEPS_TPRGM_VALUE \
+	((((float)5.0) * (XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ)) / ((float)1000000.0))
+#define XSK_EFUSEPS_TRD_VALUE	\
+ ((((float)15.0) * (XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ)) / ((float)100000000.0))
+#define XSK_EFUSEPS_TSUHPS_VALUE \
+ ((((float)67.0) * (XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ)) / ((float)1000000000.0))
+#define XSK_EFUSEPS_TSUHPSCS_VALUE \
+ ((((float)46.0) * (XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ)) / ((float)1000000000.0))
+#define XSK_EFUSEPS_TSUHCS_VALUE \
+ ((((float)30.0) * (XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ)) / ((float)1000000000.0))
+
 /* Timer related macros */
-#define XilSKey_ZynqMp_EfusePs_Tprgrm(RefClk) \
-	XilSKey_Ceil((((float)5.0) * (RefClk)) / ((float)1000000.0))
-#define XilSKey_ZynqMp_EfusePs_Trd(RefClk) \
-	XilSKey_Ceil((((float)15.0) * (RefClk)) / ((float)100000000.0))
-#define XilSKey_ZynqMp_EfusePs_TsuHPs(RefClk) \
-	XilSKey_Ceil((((float)67.0) * (RefClk)) / ((float)1000000000.0))
-#define XilSKey_ZynqMp_EfusePs_TsuHPsCs(RefClk) \
-	XilSKey_Ceil((((float)46.0) * (RefClk)) / ((float)1000000000.0))
-#define XilSKey_ZynqMp_EfusePs_TsuHCs(RefClk) \
-	XilSKey_Ceil((((float)30.0) * (RefClk)) / ((float)1000000000.0))
+#define XilSKey_ZynqMp_EfusePs_Tprgrm() \
+	Xil_Ceil(XSK_EFUSEPS_TPRGM_VALUE)
+#define XilSKey_ZynqMp_EfusePs_Trd() \
+	Xil_Ceil(XSK_EFUSEPS_TRD_VALUE)
+#define XilSKey_ZynqMp_EfusePs_TsuHPs() \
+	Xil_Ceil(XSK_EFUSEPS_TSUHPS_VALUE)
+#define XilSKey_ZynqMp_EfusePs_TsuHPsCs() \
+	Xil_Ceil(XSK_EFUSEPS_TSUHPSCS_VALUE)
+#define XilSKey_ZynqMp_EfusePs_TsuHCs() \
+	Xil_Ceil(XSK_EFUSEPS_TSUHCS_VALUE)
+
 
 #define XSK_ZYNQMP_SEC_PPK_INVLD_BITS_SET	(0x3U)
 			/**< If PPK invalid bits are set */
