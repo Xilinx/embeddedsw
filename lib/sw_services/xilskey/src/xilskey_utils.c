@@ -1407,29 +1407,6 @@ u32 XilSKey_Efuse_ReverseHex(u32 Input)
 
 /****************************************************************************/
 /**
-* This API celis the provided float value.
-*
-* @param	Value is a float variable which has to ceiled to nearest
-*		integer.
-*
-* @return	Returns ceiled value.
-*
-* @note	None.
-*
-*****************************************************************************/
-u32 XilSKey_Ceil(float Freq)
-{
-	u32 RetValue;
-
-	RetValue = ((Freq > (u32)Freq) || ((u32)Freq == 0U)) ?
-					(u32)((u32)Freq + 1U) : (u32)Freq;
-
-	return RetValue;
-
-}
-
-/****************************************************************************/
-/**
  * Calculates CRC value of the provided key. Key should be provided in
  * hexa buffer.
  *

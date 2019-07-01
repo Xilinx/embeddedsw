@@ -96,6 +96,7 @@ extern "C" {
 #endif
 #endif
 #include "xstatus.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions ****************************/
 /**************************** Type Definitions ******************************/
@@ -985,6 +986,7 @@ typedef enum {
 #define XSK_EFUSEPS_ERROR_WRITE_VCCINT_VOLTAGE_OUT_OF_RANGE XSK_EFUSEPS_ERROR_WRITE_VCCPINT_VOLTAGE_OUT_OF_RANGE
 #define Xilskey_CrcCalculation XilSKey_CrcCalculation
 #define Xilskey_Timer_Intialise	XilSKey_Timer_Intialise
+#define XilSKey_Ceil Xil_Ceil
 
 
 /*****************************************************************************/
@@ -1046,7 +1048,6 @@ u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len);
 u32 XilSKey_Timer_Intialise(void);
 u32 XilSKey_Efuse_ReverseHex(u32 Input);
 void XilSKey_StrCpyRange(u8 *Src, u8 *Dst, u32 From, u32 To);
-u32 XilSKey_Ceil(float Freq);
  /** @}
 @endcond */
 /**

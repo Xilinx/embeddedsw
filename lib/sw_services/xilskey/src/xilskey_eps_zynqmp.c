@@ -1286,28 +1286,26 @@ static inline void XilSKey_ZynqMp_EfusePs_SetTimerValues(void)
 
 	/* Initialized Timer */
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-	float RefClk;
-	RefClk = XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ;
 
 	XilSKey_WriteReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 			XSK_ZYNQMP_EFUSEPS_TPGM_OFFSET,
-			((u32)XilSKey_ZynqMp_EfusePs_Tprgrm(RefClk) &
+			((u32)XilSKey_ZynqMp_EfusePs_Tprgrm() &
 			XSK_ZYNQMP_EFUSEPS_TPGM_VAL_MASK));
 	XilSKey_WriteReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 			XSK_ZYNQMP_EFUSEPS_TRD_OFFSET,
-			((u32)XilSKey_ZynqMp_EfusePs_Trd(RefClk) &
+			((u32)XilSKey_ZynqMp_EfusePs_Trd() &
 			XSK_ZYNQMP_EFUSEPS_TRD_VAL_MASK));
 	XilSKey_WriteReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 			XSK_ZYNQMP_EFUSEPS_TSU_H_PS_OFFSET,
-			((u32)XilSKey_ZynqMp_EfusePs_TsuHPs(RefClk) &
+			((u32)XilSKey_ZynqMp_EfusePs_TsuHPs() &
 			XSK_ZYNQMP_EFUSEPS_TSU_H_PS_VAL_MASK));
 	XilSKey_WriteReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 			XSK_ZYNQMP_EFUSEPS_TSU_H_PS_CS_OFFSET,
-			((u32)XilSKey_ZynqMp_EfusePs_TsuHPsCs(RefClk) &
+			((u32)XilSKey_ZynqMp_EfusePs_TsuHPsCs() &
 			XSK_ZYNQMP_EFUSEPS_TSU_H_PS_CS_VAL_MASK));
 	XilSKey_WriteReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 			XSK_ZYNQMP_EFUSEPS_TSU_H_CS_OFFSET,
-			((u32)XilSKey_ZynqMp_EfusePs_TsuHCs(RefClk) &
+			((u32)XilSKey_ZynqMp_EfusePs_TsuHCs() &
 			XSK_ZYNQMP_EFUSEPS_TSU_H_PS_CS_VAL_DEFVAL));
 #endif
 
