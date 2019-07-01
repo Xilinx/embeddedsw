@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -41,6 +41,7 @@
  *       mn   09/21/18 Modify code manually enter the DDR memory test size
  *       mn   09/27/18 Modify code to add 2D Read/Write Eye Tests support
  *       mn   04/09/19 Add check for Carriage return when entering the test size
+ *       mn   07/01/19 Add support to specify number of iteration for memtest
  *
  * </pre>
  *
@@ -735,11 +736,13 @@ int main(void)
 
 			if ((StartAddr + (TestSize * XMT_MB2BYTE)) <=
 					XMT_DDR_MAX_SIZE) {
-				xil_printf("\r\nStarting Memory Test...\r\n");
-				xil_printf("%dMB length - Address 0x%x...\r\n",
-					   TestSize, StartAddr);
-				XMt_MemtestAll(&XMt, StartAddr, TestSize,
-					       XMt.BusWidth);
+				for (Index = 0; Index < Iter; Index++) {
+					xil_printf("\r\nStarting Memory Test...\r\n");
+					xil_printf("%dMB length - Address 0x%x...\r\n",
+						   TestSize, StartAddr);
+					XMt_MemtestAll(&XMt, StartAddr, TestSize,
+						       XMt.BusWidth);
+				}
 			} else {
 				xil_printf("\r\nPlease select the address within DDR range\r\n");
 			}
