@@ -47,6 +47,7 @@
 * 1.7  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.8  Hyun    12/13/2018  Added the core PC event registers
 * 1.9  Jubaer  02/26/2019  Add Group Event registers
+* 2.0  Hyun    06/27/2019  Change CoreTimerReg to TimerReg
 * </pre>
 *
 ******************************************************************************/
@@ -84,13 +85,25 @@ XAieGbl_RegCoreSts CoreStsReg =
 };
 
 /*
- * Global instance for Core module Timer registers.
+ * Global instance for Timer registers: Idx: 0 = core, 1 = PL, 2 = Mem
  */
-XAieGbl_RegTimer CoreTimerReg =
+XAieGbl_RegTimer TimerReg[] =
 {
-        XAIEGBL_CORE_TIMCTRL,
-        XAIEGBL_CORE_TIMLOW,
-        XAIEGBL_CORE_TIMHIG
+	{
+	        XAIEGBL_CORE_TIMCTRL,
+	        XAIEGBL_CORE_TIMLOW,
+	        XAIEGBL_CORE_TIMHIG
+	},
+	{
+	        XAIEGBL_PL_TIMCTRL,
+	        XAIEGBL_PL_TIMLOW,
+	        XAIEGBL_PL_TIMHIG
+	},
+	{
+	        XAIEGBL_MEM_TIMCTRL,
+	        XAIEGBL_MEM_TIMLOW,
+	        XAIEGBL_MEM_TIMHIG
+	},
 };
 
 /*

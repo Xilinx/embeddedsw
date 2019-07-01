@@ -38,6 +38,7 @@
 * ----- ------  -------- -----------------------------------------------------
 * 1.0  Jubaer  01/29/2019  Initial creation
 * 1.1  Jubaer  03/07/2019  Add Shim Reset Enable
+* 1.2  Hyun    06/27/2019  Add XAieTile_PlReadTimer()
 * </pre>
 *
 ******************************************************************************/
@@ -54,6 +55,7 @@
 /************************** Variable Definitions *****************************/
 
 extern XAieGbl_RegShimReset ShimReset;
+extern XAieGbl_RegTimer TimerReg[];
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
@@ -409,6 +411,37 @@ u8 XAieTile_PlShimResetEnable(XAieGbl_Tile *TileInstPtr, u8 Reset)
 			XAIEGBL_PL_AIESHIRSTENA_RST_MASK);
 
 	return XAIE_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API returns the current value of the PL module 64-bit timer.
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+*
+* @return	64-bit timer value.
+*
+* @note		None.
+*
+*******************************************************************************/
+u64 XAieTile_PlReadTimer(XAieGbl_Tile *TileInstPtr)
+{
+	u32 CurValHigh;
+	u32 CurValLow;
+	u64 CurVal;
+
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_SHIMPL ||
+			TileInstPtr->TileType == XAIEGBL_TILE_TYPE_SHIMNOC);
+
+	CurValLow = XAieGbl_Read32(TileInstPtr->TileAddr +
+			TimerReg[XAIETILE_TIMER_MODULE_PL].LowOff);
+	CurValHigh = XAieGbl_Read32(TileInstPtr->TileAddr +
+			TimerReg[XAIETILE_TIMER_MODULE_PL].HighOff);
+	CurVal = ((u64)CurValHigh << 0x20U) | CurValLow;
+
+	return CurVal;
 }
 
 /** @} */

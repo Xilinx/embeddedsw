@@ -46,6 +46,7 @@
 * 1.5  Nishad  03/20/2019  Fix return statement for XAieTile_CoreWaitCycles
 * 1.6  Nishad  03/20/2019  Fix the usage of unintialized variable in
 * 			   XAieTile_CoreWaitStatus
+* 1.7  Hyun    06/27/2019  Use TimerReg
 * </pre>
 *
 ******************************************************************************/
@@ -61,7 +62,7 @@
 /************************** Variable Definitions *****************************/
 extern XAieGbl_RegCoreCtrl CoreCtrlReg;
 extern XAieGbl_RegCoreSts CoreStsReg;
-extern XAieGbl_RegTimer CoreTimerReg;
+extern XAieGbl_RegTimer TimerReg[];
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
@@ -206,8 +207,10 @@ u8 XAieTile_CoreWaitCycles(XAieGbl_Tile *TileInstPtr, u32 CycleCnt)
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 
         /* Read the timer high and low values before wait */
-        StartLow = XAieGbl_Read32(TileInstPtr->TileAddr + CoreTimerReg.LowOff);
-        StartHigh = XAieGbl_Read32(TileInstPtr->TileAddr + CoreTimerReg.HighOff);
+        StartLow = XAieGbl_Read32(TileInstPtr->TileAddr +
+			TimerReg[XAIETILE_TIMER_MODULE_CORE].LowOff);
+        StartHigh = XAieGbl_Read32(TileInstPtr->TileAddr +
+			TimerReg[XAIETILE_TIMER_MODULE_CORE].HighOff);
         StartVal = ((u64)StartHigh << 0x20U) | StartLow;
 
         EndVal = StartVal + CycleCnt;
@@ -215,9 +218,9 @@ u8 XAieTile_CoreWaitCycles(XAieGbl_Tile *TileInstPtr, u32 CycleCnt)
         while(CurVal < EndVal) {
                 /* Read the timer high and low values */
                 CurLow = XAieGbl_Read32(TileInstPtr->TileAddr +
-                                                CoreTimerReg.LowOff);
+				TimerReg[XAIETILE_TIMER_MODULE_CORE].LowOff);
                 CurHigh = XAieGbl_Read32(TileInstPtr->TileAddr +
-                                                CoreTimerReg.HighOff);
+				TimerReg[XAIETILE_TIMER_MODULE_CORE].HighOff);
                 CurVal = ((u64)CurHigh << 0x20U) | CurLow;
         }
 
@@ -238,18 +241,20 @@ u8 XAieTile_CoreWaitCycles(XAieGbl_Tile *TileInstPtr, u32 CycleCnt)
 *******************************************************************************/
 u64 XAieTile_CoreReadTimer(XAieGbl_Tile *TileInstPtr)
 {
-        u32 CurValHigh = 0U;
-        u32 CurValLow = 0U;
-        u64 CurVal = 0U;
+	u32 CurValHigh;
+	u32 CurValLow;
+	u64 CurVal;
 
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 
-        /* Read the timer high and low values before wait */
-        CurValLow = XAieGbl_Read32(TileInstPtr->TileAddr + CoreTimerReg.LowOff);
-        CurValHigh = XAieGbl_Read32(TileInstPtr->TileAddr +CoreTimerReg.HighOff);
-        CurVal = ((u64)CurValHigh << 0x20U) | CurValLow;
+	/* Read the timer high and low values before wait */
+	CurValLow = XAieGbl_Read32(TileInstPtr->TileAddr +
+			TimerReg[XAIETILE_TIMER_MODULE_CORE].LowOff);
+	CurValHigh = XAieGbl_Read32(TileInstPtr->TileAddr +
+			TimerReg[XAIETILE_TIMER_MODULE_CORE].HighOff);
+	CurVal = ((u64)CurValHigh << 0x20U) | CurValLow;
 
-        return CurVal;
+	return CurVal;
 }
 
 /** @} */

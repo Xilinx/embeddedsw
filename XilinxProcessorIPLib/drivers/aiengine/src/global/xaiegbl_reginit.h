@@ -47,6 +47,7 @@
 * 1.7  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.6  Hyun    12/13/2018  Added the core PC event registers
 * 1.9  Jubaer  02/26/2019  Added the Group Event registers
+* 2.0  Hyun    07/01/2019  Added XAIETILE_TIMER_MODULE_* macros
 * </pre>
 *
 ******************************************************************************/
@@ -116,6 +117,11 @@ typedef struct {
 	u32 LowOff;                     /**< Timer low value Register offset */
 	u32 HighOff;                    /**< Timer high value Register offset */
 } XAieGbl_RegTimer;
+
+/* Index values to TimerReg[] */
+#define XAIETILE_TIMER_MODULE_CORE		0x0U
+#define XAIETILE_TIMER_MODULE_PL		0x1U
+#define XAIETILE_TIMER_MODULE_MEM		0x2U
 
 /**
  * This typedef contains the attributes for the PL upsizer config register.

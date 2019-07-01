@@ -38,6 +38,7 @@
 * ----- ------  -------- -----------------------------------------------------
 * 1.0  Jubaer  01/29/2019  Initial creation
 * 1.1  Jubaer  03/07/2019  Add Shim reset API
+* 1.2  Hyun    06/27/2019  Add XAieTile_PlReadTimer()
 * </pre>
 *
 ******************************************************************************/
@@ -66,6 +67,7 @@ u32 XAieTile_PlIntcL1BlockNorthVal(XAieGbl_Tile *TileInstPtr, u8 SwitchAB);
 void XAieTile_PlIntcL1BlockNorthSet(XAieGbl_Tile *TileInstPtr, u32 Mask, u8 SwitchAB);
 void XAieTile_PlIntcL1BlockNorthClr(XAieGbl_Tile *TileInstPtr, u32 Mask, u8 SwitchAB);
 u8 XAieTile_PlShimResetEnable(XAieGbl_Tile *TileInstPtr, u8 Reset);
+u64 XAieTile_PlReadTimer(XAieGbl_Tile *TileInstPtr);
 
 #endif		/* end of protection macro */
 
