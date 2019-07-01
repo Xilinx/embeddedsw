@@ -43,6 +43,22 @@
 #ifndef XIL_UTIL_H_
 #define XIL_UTIL_H_
 
+/****************************************************************************/
+/**
+* This API ceils the provided float value.
+*
+* @param	Value is a float variable which has to ceiled to nearest
+*		integer.
+*
+* @return	Returns ceiled value.
+*
+* @note		one.
+*
+*****************************************************************************/
+#define Xil_Ceil(Value) \
+	(((Value > (u32)Value) || ((u32)Value == 0U)) ? \
+					(u32)((u32)Value + 1U) : (u32)Value)
+
 /* Converts input character to nibble */
 u32 Xil_ConvertCharToNibble(u8 InChar, u8 *Num);
 
