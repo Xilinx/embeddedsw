@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -40,6 +40,7 @@
  *       mn   09/21/18 Modify code manually enter the DDR memory test size
  *       mn   09/27/18 Modify code to add 2D Read/Write Eye Tests support
  *       mn   12/17/18 Limit VRefMin to minimum of 0 for 2D eye scan
+ *       mn   07/01/19 Add support to specify number of iteration for memtest
  *
  * </pre>
  *
@@ -657,7 +658,7 @@ void XMt_PrintHelp(void)
 	xil_printf("   | 'c' | Perform a 2-D read eye analysis test                         |\r\n");
 	xil_printf("   | 'e' | Perform a 2-D write eye analysis test                        |\r\n");
 	xil_printf("   | 'a' | Print test start address                                     |\r\n");
-	xil_printf("   | 'l' | Select Number of Iterations for Read/Write Eye Test          |\r\n");
+	xil_printf("   | 'l' | Select Number of Iterations for Memory/Read/Write-Eye/2D test|\r\n");
 	xil_printf("   | 't' | Specify test start address (default=0x0)                     |\r\n");
 	xil_printf("   | 's' | Select the DRAM Rank (default=1)                             |\r\n");
 	xil_printf("   +-----+--------------------------------------------------------------+\r\n");
