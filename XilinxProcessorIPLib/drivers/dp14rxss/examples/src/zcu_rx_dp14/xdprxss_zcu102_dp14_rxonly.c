@@ -628,7 +628,6 @@ u32 DpRxSs_Main(u16 DeviceId)
 				break;
 
 			case 'e':
-				XDpRxSs_ReportDp159BitErrCount(&DpRxSsInst);
 				ReadVal = XVphy_ReadReg(VIDPHY_BASEADDR,
 							XVPHY_RX_SYM_ERR_CNTR_CH1_2_REG);
 				xil_printf("Video PHY(8B10B): Error Counts [Lane1, Lane0] "
