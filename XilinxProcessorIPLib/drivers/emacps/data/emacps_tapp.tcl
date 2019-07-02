@@ -35,6 +35,7 @@
 # 3.0   kpc  01/20/15 Don't include examples when interrupt is not connected
 # 3.2   mus  02/20/16 Added support for microblaze
 # 3.2   hk   03/10/16 Removed support for Zynq Ultrascale+ MPSoC
+# 3.10  hk   07/02/19 Remove support for Versal
 ##############################################################################
 
 # Uses $XILINX_EDK/bin/lib/xillib_sw.tcl
@@ -106,7 +107,7 @@ proc gen_include_files {swproj mhsinst} {
 
 	if {$ispcs_pma == 0} {
 		if {$swproj == 1} {
-			if { $processor_type != "psu_cortexr5" && $processor_type != "psu_cortexa53"} {
+			if { $processor_type != "psu_cortexr5" && $processor_type != "psu_cortexa53" && $processor_type != "psv_cortexr5" && $processor_type != "psv_cortexa72"} {
 				set inc_file_lines {xemacps.h xemacps_example.h emacps_header.h}
 				return $inc_file_lines
 			}
@@ -132,7 +133,7 @@ proc gen_src_files {swproj mhsinst} {
   if {$ispcs_pma == 0} {
 		if {$swproj == 1} {
 
-			if { $processor_type != "psu_cortexr5" && $processor_type != "psu_cortexa53"} {
+			if { $processor_type != "psu_cortexr5" && $processor_type != "psu_cortexa53" && $processor_type != "psv_cortexr5" && $processor_type != "psv_cortexa72"} {
 				set inc_file_lines {examples/xemacps_example_intr_dma.c examples/xemacps_example_util.c examples/xemacps_example.h data/emacps_header.h}
 
 				return $inc_file_lines
@@ -163,7 +164,7 @@ proc gen_init_code {swproj mhsinst} {
 	if {$ispcs_pma == 0} {
 		if {$swproj == 1} {
 
-			if { $processor_type != "psu_cortexr5" && $processor_type != "psu_cortexa53"} {
+			if { $processor_type != "psu_cortexr5" && $processor_type != "psu_cortexa53" && $processor_type != "psv_cortexr5" && $processor_type != "psv_cortexa72"} {
 				set ipname [common::get_property NAME $mhsinst]
 				set decl "   static XEmacPs ${ipname};"
 				set inc_file_lines $decl
@@ -211,7 +212,7 @@ proc gen_testfunc_call {swproj mhsinst} {
   if {${hasStdout} == 0} {
 
 	if {$ispcs_pma == 0} {
-	if { $processor_type != "psu_cortexr5" && $processor_type != "psu_cortexa53"} {
+	if { $processor_type != "psu_cortexr5" && $processor_type != "psu_cortexa53" && $processor_type != "psv_cortexr5" && $processor_type != "psv_cortexa72"} {
 
 	if {$isintr == 1} {
             if {
@@ -243,7 +244,7 @@ proc gen_testfunc_call {swproj mhsinst} {
   } else {
 
 	if {$ispcs_pma == 0} {
-	if { $processor_type != "psu_cortexr5" && $processor_type != "psu_cortexa53"} {
+	if { $processor_type != "psu_cortexr5" && $processor_type != "psu_cortexa53" && $processor_type != "psv_cortexr5" && $processor_type != "psv_cortexa72"} {
 	if {$isintr == 1} {
            if {
                 $proc == "microblaze"
