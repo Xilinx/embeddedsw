@@ -159,7 +159,6 @@ void XZDma_IntrHandler(void *Instance)
 s32 XZDma_SetCallBack(XZDma *InstancePtr, XZDma_Handler HandlerType,
 	void *CallBackFunc, void *CallBackRef)
 {
-	s32 Status;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -174,25 +173,16 @@ s32 XZDma_SetCallBack(XZDma *InstancePtr, XZDma_Handler HandlerType,
 	 * Calls the respective callback function corresponding to
 	 * the handler type
 	 */
-	switch (HandlerType) {
-		case XZDMA_HANDLER_DONE:
-			InstancePtr->DoneHandler =
+	if(HandlerType == XZDMA_HANDLER_DONE) {
+		InstancePtr->DoneHandler =
 				(XZDma_DoneHandler)((void *)CallBackFunc);
-			InstancePtr->DoneRef = CallBackRef;
-			Status = (XST_SUCCESS);
-			break;
-
-		case XZDMA_HANDLER_ERROR:
-			InstancePtr->ErrorHandler =
+				InstancePtr->DoneRef = CallBackRef;
+	} else {
+		InstancePtr->ErrorHandler =
 				(XZDma_ErrorHandler)((void *)CallBackFunc);
-			InstancePtr->ErrorRef = CallBackRef;
-			Status = (XST_SUCCESS);
-			break;
-		default:
-			Status = (XST_INVALID_PARAM);
-			break;
+				InstancePtr->ErrorRef = CallBackRef;
 	}
 
-	return Status;
+	return XST_SUCCESS;
 }
 /** @} */
