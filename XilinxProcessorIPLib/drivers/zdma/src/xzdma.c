@@ -870,6 +870,7 @@ static void XZDma_SimpleMode(XZDma *InstancePtr, XZDma_Transfer *Data)
 {
 
 	u32 Value;
+	u64 LocalAddr;
 
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -878,17 +879,19 @@ static void XZDma_SimpleMode(XZDma *InstancePtr, XZDma_Transfer *Data)
 	XZDma_WriteReg((InstancePtr->Config.BaseAddress),
 		XZDMA_CH_SRC_DSCR_WORD0_OFFSET,
 			(Data->SrcAddr & XZDMA_WORD0_LSB_MASK));
+	LocalAddr = (u64)Data->SrcAddr;
 	XZDma_WriteReg((InstancePtr->Config.BaseAddress),
 		XZDMA_CH_SRC_DSCR_WORD1_OFFSET,
-		(((u64)Data->SrcAddr >> XZDMA_WORD1_MSB_SHIFT) &
+		((LocalAddr >> XZDMA_WORD1_MSB_SHIFT) &
 		XZDMA_WORD1_MSB_MASK));
 
 	XZDma_WriteReg((InstancePtr->Config.BaseAddress),
 		XZDMA_CH_DST_DSCR_WORD0_OFFSET,
 		(Data->DstAddr & XZDMA_WORD0_LSB_MASK));
+	LocalAddr = (u64)Data->DstAddr;
 	XZDma_WriteReg((InstancePtr->Config.BaseAddress),
 		XZDMA_CH_DST_DSCR_WORD1_OFFSET,
-		(((u64)Data->DstAddr >> XZDMA_WORD1_MSB_SHIFT) &
+		((LocalAddr >> XZDMA_WORD1_MSB_SHIFT) &
 		XZDMA_WORD1_MSB_MASK));
 
 	XZDma_WriteReg((InstancePtr->Config.BaseAddress),
@@ -930,6 +933,7 @@ static void XZDma_ScatterGather(XZDma *InstancePtr, XZDma_Transfer *Data,
 {
 	u32 Count = 0x00U;
 	u8 Last;
+	u64 LocalAddr;
 
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -979,17 +983,19 @@ static void XZDma_ScatterGather(XZDma *InstancePtr, XZDma_Transfer *Data,
 		XZDMA_CH_SRC_START_LSB_OFFSET,
 		((UINTPTR)(InstancePtr->Descriptor.SrcDscrPtr) &
 					XZDMA_WORD0_LSB_MASK));
+	LocalAddr = (u64)(UINTPTR)(InstancePtr->Descriptor.SrcDscrPtr);
 	XZDma_WriteReg(InstancePtr->Config.BaseAddress,
 		XZDMA_CH_SRC_START_MSB_OFFSET,
-		(((u64)(UINTPTR)(InstancePtr->Descriptor.SrcDscrPtr) >>
+		((LocalAddr >>
 			XZDMA_WORD1_MSB_SHIFT) & XZDMA_WORD1_MSB_MASK));
 	XZDma_WriteReg(InstancePtr->Config.BaseAddress,
 		XZDMA_CH_DST_START_LSB_OFFSET,
 		((UINTPTR)(InstancePtr->Descriptor.DstDscrPtr) &
 					XZDMA_WORD0_LSB_MASK));
+	LocalAddr = (u64)(UINTPTR)(InstancePtr->Descriptor.DstDscrPtr);
 	XZDma_WriteReg(InstancePtr->Config.BaseAddress,
 		XZDMA_CH_DST_START_MSB_OFFSET,
-		(((u64)(UINTPTR)(InstancePtr->Descriptor.DstDscrPtr) >>
+		((LocalAddr >>
 			XZDMA_WORD1_MSB_SHIFT) & XZDMA_WORD1_MSB_MASK));
 }
 
