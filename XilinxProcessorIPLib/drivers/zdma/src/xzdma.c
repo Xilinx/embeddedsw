@@ -47,6 +47,7 @@
 *                        XZDma_SetChDataConfig API to set over fetch and
 *                        src issue parameters correctly.
 * 1.3   mus    08/14/17  Add CCI support for A53 in EL1 NS
+* 1.8   aru    07/02/19  Fix coverity warnings
 * </pre>
 *
 ******************************************************************************/
