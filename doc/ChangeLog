@@ -247,6 +247,9 @@ Added MPU mapping for AIE address space in Cortexr5 BSP
 arm/cortexr5/platform/versal/mpu.c.
 
 
+zdma_v1_8:
+Fix coverity warnings.
+
 Changes for 2019.1
 ===============================
 v_hdmiphy1_v1_0:
