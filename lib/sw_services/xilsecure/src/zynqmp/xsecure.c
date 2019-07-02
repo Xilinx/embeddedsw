@@ -65,6 +65,7 @@
 *                    shared variable dependency.
 *       mmd 03/15/19 Refactored the code
 *       psl 03/26/19 Fixed MISRA-C violation
+* 4.1   psl 07/02/19 Fixed Coverity warning.
 * </pre>
 *
 * @note
@@ -1003,8 +1004,8 @@ UPDATE:
 
 	/* Add partition header IV to boot header IV */
 	 if (ImageInfo->KeySrc != 0x00U) {
-		 *(ImageInfo->Iv + XSECURE_IV_LEN) =
-			 (*(ImageInfo->Iv + XSECURE_IV_LEN)) +
+		 *(ImageInfo->Iv + (XSECURE_IV_LEN - 1U)) =
+			 (*(ImageInfo->Iv + (XSECURE_IV_LEN - 1U))) +
 			 (ImageInfo->PartitionHdr->Iv & XSECURE_PH_IV_MASK);
 	}
 
@@ -1144,8 +1145,8 @@ u32 XSecure_SecureImage(u32 AddrHigh, u32 AddrLow,
 			(void)XSecure_MemCopy(ImageHdrInfo.Iv,
 				(Buffer + XSECURE_IV_OFFSET), XSECURE_IV_LEN);
 			/* Add partition header IV to boot header IV */
-			*(IvPtr + XSECURE_IV_LEN) =
-				(*(IvPtr + XSECURE_IV_LEN)) +
+			*(IvPtr + (XSECURE_IV_LEN - 1U)) =
+				(*(IvPtr + (XSECURE_IV_LEN - 1U))) +
 				(ImageHdrInfo.PartitionHdr->Iv & XSECURE_PH_IV_MASK);
 		}
 		/*
@@ -1592,7 +1593,7 @@ END:
 static u32 XSecure_DecryptPartition(XSecure_ImageInfo *ImageHdrInfo,
 	u8 *SrcAddr, u8 *KupKey,	XSecure_DataAddr *Addr)
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 	u32 Index;
 	u8 *EncSrc;
 	u8 *DecDst;
