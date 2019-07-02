@@ -270,7 +270,7 @@ End:
 u32 XZDma_CreateBDList(XZDma *InstancePtr, XZDma_DscrType TypeOfDscr,
 					UINTPTR Dscr_MemPtr, u32 NoOfBytes)
 {
-	u32 Size;
+	UINTPTR Size;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -292,7 +292,7 @@ u32 XZDma_CreateBDList(XZDma *InstancePtr, XZDma_DscrType TypeOfDscr,
 	InstancePtr->Descriptor.SrcDscrPtr = (void *)Dscr_MemPtr;
 	InstancePtr->Descriptor.DstDscrPtr =
 			(void *)(Dscr_MemPtr +
-			(UINTPTR)(Size * InstancePtr->Descriptor.DscrCount));
+			(Size * InstancePtr->Descriptor.DscrCount));
 
 	if (!InstancePtr->Config.IsCacheCoherent)
 	Xil_DCacheInvalidateRange((INTPTR)Dscr_MemPtr, NoOfBytes);
