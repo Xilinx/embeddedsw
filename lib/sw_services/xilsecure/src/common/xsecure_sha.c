@@ -56,6 +56,7 @@
 *       vns  03/30/19 Added error condition in XSecure_Sha3Finish for
 *                     for wrong pad selection
 * 4.1   kal  05/20/19 Updated doxygen tags
+*       psl  07/02/19 Fixed Coverity warnings.
 * </pre>
 *
 * @note
@@ -318,9 +319,6 @@ u32 XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	}
 	Status = XSecure_Sha3DataUpdate(InstancePtr, (Data + TransferredBytes),
 				DataSize, (u8)InstancePtr->IsLastUpdate);
-	if (Status != (u32)XST_SUCCESS){
-		goto END;
-	}
 END:
 	return Status;
 }

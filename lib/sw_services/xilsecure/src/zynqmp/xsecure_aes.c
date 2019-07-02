@@ -61,7 +61,7 @@
 *       mmd 03/15/19 Refactored the code.
 *       psl 03/26/19 Fixed MISRA-C violation
 * 4.1   kal 05/20/19 Updated doxygen tags
-*
+*       psl 07/02/19 Fixed Coverity warning.
 * </pre>
 *
 * @note
@@ -1305,7 +1305,7 @@ END:
 s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 			u32 Length)
 {
-	volatile u32 Status = XST_FAILURE;
+	volatile u32 Status = (u32)XST_FAILURE;
 	u32 CurrentImgLen = 0x0U;
 	u32 NextBlkLen = 0x0U;
 	u32 PrevBlkLen = 0x0U;
