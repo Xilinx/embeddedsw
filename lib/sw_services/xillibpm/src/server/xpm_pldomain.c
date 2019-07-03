@@ -235,10 +235,6 @@ static XStatus GtyHouseClean()
 		PmOut32(GtyBaseAddressList[i] + GTY_PCSR_CONTROL_OFFSET, 0);
 		PmOut32(GtyBaseAddressList[i] + GTY_PCSR_LOCK_OFFSET, 1);
 	}
-/* ===============HACK ======================= */
-return XST_SUCCESS;
-/* Skip BISR */
-//#ifndef PLPD_HOUSECLEAN_BYPASS
 	if(!PlpdHouseCleanBypass) {
 		/* Bisr repair - Bisr should be triggered only for Addresses for which repair
 		 * data is found and so not calling in loop. Trigger is handled in below routine
@@ -253,13 +249,17 @@ return XST_SUCCESS;
 			/* Mbist */
 			Status = PldGtyMbist(GtyBaseAddressList[i]);
 			if (XST_SUCCESS != Status) {
+				/* Gt Mem clear is found to be failing on some parts.
+				 Just print message and return not to break execution */
+				PmInfo("ERROR: GT Mem clear Failed\r\n");
+				Status = XST_SUCCESS;
+				PmOut32(GtyBaseAddressList[i] + GTY_PCSR_LOCK_OFFSET, 1);
 				goto done;
 			}
 			PmOut32(GtyBaseAddressList[i] + GTY_PCSR_LOCK_OFFSET, 1);
 		}
 	}
 done:
-//#endif
 	return Status;
 }
 
