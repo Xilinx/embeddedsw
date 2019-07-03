@@ -25,12 +25,10 @@
 #******************************************************************************/
 
 proc swapp_get_name {} {
-	puts "App name";
 	return "versal PSM Firmware";
 }
 
 proc swapp_get_description {} {
-	puts "Description";
 	return "Processing System Management Unit Firmware for versal.";
 }
 
