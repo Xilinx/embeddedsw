@@ -10,6 +10,7 @@ sdps_v3_8:
 Modified Tap Delay code for supporting ZynqMP and Versal
 Disable DLL Reset code for Versal
 Enable SD UHS Mode support by default for Versal
+Update Input Tap Delays for Versal
 
 gpiops_v3_7
 udpated gpiops example with versal support.
