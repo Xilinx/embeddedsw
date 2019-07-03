@@ -48,6 +48,7 @@
 * 7.0   cog    05/13/19 Formatting changes.
 *       cog    06/12/19 Fixed issue where positive NCO frequencies were not
 *                       being set correctly.
+*       cog    07/03/19 Added new off mode for mixers (both mixers off).
 * </pre>
 *
 ******************************************************************************/
@@ -64,6 +65,7 @@ static void XRFdc_SetFineMixer(XRFdc *InstancePtr, u32 BaseAddr, XRFdc_Mixer_Set
 static void XRFdc_SetCoarseMixer(XRFdc *InstancePtr, u32 Type, u32 BaseAddr, u32 Tile_Id, u32 Block_Id,
 				 u32 CoarseMixFreq, XRFdc_Mixer_Settings *MixerSettingsPtr);
 static u32 XRFdc_MixerRangeCheck(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_Mixer_Settings *MixerSettingsPtr);
+static void XRFdc_MixersOff(XRFdc *InstancePtr, u32 BaseAddr);
 
 /************************** Function Prototypes ******************************/
 
@@ -150,6 +152,7 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 		}
 
 		BaseAddr = XRFDC_BLOCK_BASE(Type, Tile_Id, Index);
+
 		if (SamplingRate <= 0) {
 			Status = XRFDC_FAILURE;
 			metal_log(METAL_LOG_ERROR,
@@ -277,11 +280,17 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 		ReadReg = (PhaseOffset >> XRFDC_NCO_PHASE_UPP_SHIFT) & XRFDC_NCO_PHASE_UPP_MASK;
 		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_NCO_PHASE_UPP_OFFSET, ReadReg);
 
-		if (MixerSettingsPtr->MixerType == XRFDC_MIXER_TYPE_COARSE) {
+		switch (MixerSettingsPtr->MixerType) {
+		case XRFDC_MIXER_TYPE_COARSE:
 			XRFdc_SetCoarseMixer(InstancePtr, Type, BaseAddr, Tile_Id, Index, CoarseMixFreq,
 					     MixerSettingsPtr);
-		} else {
+			break;
+		case XRFDC_MIXER_TYPE_FINE:
 			XRFdc_SetFineMixer(InstancePtr, BaseAddr, MixerSettingsPtr);
+			break;
+		default:
+			XRFdc_MixersOff(InstancePtr, BaseAddr);
+			break;
 		}
 
 		/* Fine Mixer Scale */
@@ -393,7 +402,8 @@ static u32 XRFdc_MixerRangeCheck(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFd
 		goto RETURN_PATH;
 	}
 	if ((MixerSettingsPtr->MixerType != XRFDC_MIXER_TYPE_FINE) &&
-	    (MixerSettingsPtr->MixerType != XRFDC_MIXER_TYPE_COARSE)) {
+	    (MixerSettingsPtr->MixerType != XRFDC_MIXER_TYPE_COARSE) &&
+	    (MixerSettingsPtr->MixerType != XRFDC_MIXER_TYPE_OFF)) {
 		Status = XRFDC_FAILURE;
 		metal_log(METAL_LOG_ERROR, "\n Invalid Mixer Type in %s\r\n", __func__);
 		goto RETURN_PATH;
@@ -447,7 +457,15 @@ static u32 XRFdc_MixerRangeCheck(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFd
 			  __func__);
 		goto RETURN_PATH;
 	}
-
+	if ((MixerSettingsPtr->MixerType == XRFDC_MIXER_TYPE_OFF) &&
+	    (MixerSettingsPtr->MixerMode != XRFDC_MIXER_MODE_OFF)) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR,
+			  "\n Invalid Combination of "
+			  "Mixer type and Mixer mode in %s\r\n",
+			  __func__);
+		goto RETURN_PATH;
+	}
 	Status = XRFDC_SUCCESS;
 
 RETURN_PATH:
@@ -456,11 +474,31 @@ RETURN_PATH:
 
 /*****************************************************************************/
 /**
+* Static API used to turn off Fine & Coarse Mixers.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	BaseAddr is ADC or DAC base address.
+*
+* @return
+*		- None
+*
+* @note		Static API
+*
+******************************************************************************/
+static void XRFdc_MixersOff(XRFdc *InstancePtr, u32 BaseAddr)
+{
+	/* Coarse Mixer is OFF */
+	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_MXR_CFG0_OFFSET, XRFDC_MIX_CFG0_MASK, XRFDC_CRSE_MIX_OFF);
+	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_MXR_CFG1_OFFSET, XRFDC_MIX_CFG1_MASK, XRFDC_CRSE_MIX_OFF);
+	/* Fine mixer mode is OFF */
+	XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_MXR_MODE_OFFSET, XRFDC_MIXER_MODE_OFF);
+}
+/*****************************************************************************/
+/**
 * Static API used to set the Fine Mixer.
 *
 * @param	InstancePtr is a pointer to the XRfdc instance.
 * @param	BaseAddr is ADC or DAC base address.
-* @param	CoarseMixFreq is ADC or DAC Coarse mixer frequency.
 * @param	MixerSettingsPtr Pointer to the XRFdc_Mixer_Settings structure
 *			in which the Mixer/NCO settings are passed.
 *
@@ -834,12 +872,15 @@ u32 XRFdc_GetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 		FineMixerMode = XRFDC_MIXER_MODE_OFF;
 	}
 
-	if (FineMixerMode == XRFDC_MIXER_MODE_OFF) {
+	if (FineMixerMode != XRFDC_MIXER_MODE_OFF) {
+		MixerSettingsPtr->MixerType = XRFDC_MIXER_TYPE_FINE;
+		MixerSettingsPtr->MixerMode = FineMixerMode;
+	} else if (MixerSettingsPtr->CoarseMixFreq != XRFDC_COARSE_MIX_OFF) {
 		MixerSettingsPtr->MixerType = XRFDC_MIXER_TYPE_COARSE;
 		MixerSettingsPtr->MixerMode = CoarseMixerMode;
 	} else {
-		MixerSettingsPtr->MixerType = XRFDC_MIXER_TYPE_FINE;
-		MixerSettingsPtr->MixerMode = FineMixerMode;
+		MixerSettingsPtr->MixerType = XRFDC_MIXER_TYPE_OFF;
+		MixerSettingsPtr->MixerMode = XRFDC_MIXER_MODE_OFF;
 	}
 
 	/* Identify Fine Mixer Scale */
