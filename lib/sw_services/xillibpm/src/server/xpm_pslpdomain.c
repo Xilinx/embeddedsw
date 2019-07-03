@@ -259,10 +259,18 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 
 	u32 RegValue;
 
+	/*ToDo: Mem clear Passes but PSM doesnt wake successfully
+	when mem clear is ran. Remove this when issue is fixed*/
+	return Status;
+
 	/* Pre bisr requirements - In case if Bisr is skipped */
 	Status = LpdPreBisrReqs();
 	if (Status != XST_SUCCESS)
 		goto done;
+
+	/* Release USB reset for LPD IOU Mbist to work*/
+	Status = XPmReset_AssertbyId(PERIPH_RSTID(XPM_NODEIDX_RST_USB_0),
+				     PM_RESET_ACTION_RELEASE);
 
 	PmRmw32(PMC_ANALOG_OD_MBIST_RST,
 		(PMC_ANALOG_OD_MBIST_RST_LPD_IOU_MASK |
