@@ -45,6 +45,7 @@
 /***************************** Include Files *********************************/
 #include "xplm_module.h"
 #include "xplm_main.h"
+#include "xplmi_sysmon.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -81,6 +82,7 @@ static ModuleInit LpdModuleList[] =
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
 	XPlmi_IpiInit,
 #endif
+	XPlmi_SysMonInit,
 };
 
 /*****************************************************************************/
