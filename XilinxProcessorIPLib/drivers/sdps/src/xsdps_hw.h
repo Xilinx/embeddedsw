@@ -59,6 +59,7 @@
 *       mn     05/21/19 Set correct tap delays for Versal
 *       mn     05/21/19 Disable DLL Reset code for Versal
 *       mn     05/21/19 Enable SD UHS Mode support by default for Versal
+*       mn     07/03/19 Update Input Tap Delays for Versal
 *
 * </pre>
 *
@@ -1045,11 +1046,11 @@ extern "C" {
 #define SD_OTAPDLYSEL_HS200_B2		0x00000002U
 #define SD_ITAPDLYSEL_SD50			0x0000000EU
 #define SD_OTAPDLYSEL_SD50			0x00000003U
-#define SD_ITAPDLYSEL_SD_DDR50		0x0000000EU
-#define SD_ITAPDLYSEL_EMMC_DDR50	0x0000000EU
+#define SD_ITAPDLYSEL_SD_DDR50		0x00000036U
+#define SD_ITAPDLYSEL_EMMC_DDR50	0x0000001EU
 #define SD_OTAPDLYSEL_SD_DDR50		0x00000003U
 #define SD_OTAPDLYSEL_EMMC_DDR50	0x00000005U
-#define SD_ITAPDLYSEL_HSD			0x00000011U
+#define SD_ITAPDLYSEL_HSD			0x0000002CU
 #define SD_OTAPDLYSEL_SD_HSD		0x00000004U
 #define SD_OTAPDLYSEL_EMMC_HSD		0x00000005U
 #else
