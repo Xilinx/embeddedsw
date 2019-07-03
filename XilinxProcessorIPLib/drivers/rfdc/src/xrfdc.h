@@ -226,6 +226,7 @@
 *                       DRP rather than context structure.
 *       cog    06/12/19 Fixed issue where positive NCO frequencies were not being
 *                       set correctly.
+*       cog    07/14/19 Added new off mode for mixers (both mixers off).
 *
 * </pre>
 *
@@ -752,7 +753,7 @@ typedef struct {
 #define XRFDC_MIXER_TYPE_COARSE 0x1U
 #define XRFDC_MIXER_TYPE_FINE 0x2U
 
-#define XRFDC_MIXER_TYPE_OFF 0x3U
+#define XRFDC_MIXER_TYPE_OFF 0x0U
 
 #define XRFDC_COARSE_MIX_OFF 0x0U
 #define XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO 0x2U
