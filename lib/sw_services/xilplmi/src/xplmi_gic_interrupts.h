@@ -88,6 +88,7 @@ enum {
  */
 enum {
 	XPLMI_GICP4_SRC8 = 8, /**< SBI interrupt */
+	XPLMI_GICP4_SRC16 = 16, /**< sysmon_root interrupt0 */
 };
 
 /**************************** Type Definitions *******************************/

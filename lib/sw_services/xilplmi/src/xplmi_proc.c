@@ -64,6 +64,9 @@ static u32 PlmIntrMap [] = {
 	[XPLMI_SBI_DATA_RDY] = XPLMI_MAP_PLMID(XPLMI_IOMODULE_PMC_GIC_IRQ,
 					  XPLMI_PMC_GIC_IRQ_GICP4,
 					  XPLMI_GICP4_SRC8),
+	[XPLMI_SYSMON_ROOT_0] = XPLMI_MAP_PLMID(XPLMI_IOMODULE_PMC_GIC_IRQ,
+					  XPLMI_PMC_GIC_IRQ_GICP4,
+					  XPLMI_GICP4_SRC16),
 };
 
 /*****************************************************************************/
