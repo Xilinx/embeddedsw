@@ -45,9 +45,7 @@
 #include "xplmi_modules.h"
 #include "xpm_aie.h"
 #include "xpm_regs.h"
-#if defined(XPAR_XSYSMONPSV_0_S_AXI_BASEADDR)
 #include "xsysmonpsv.h"
-#endif
 
 u32 ResetReason;
 extern int XLoader_RestartImage(u32 SubsystemId);
@@ -3362,6 +3360,9 @@ done:
 XStatus XPm_GetOpCharacteristic(u32 const DeviceId, u32 const Type, u32 *Result)
 {
 	XStatus Status = XST_FAILURE;
+	static XSysMonPsv SysMonInst;
+	XSysMonPsv *SysMonInstPtr = &SysMonInst;
+	XSysMonPsv_Config *ConfigPtr;
 
 	if (XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
 		goto done;
@@ -3385,11 +3386,6 @@ XStatus XPm_GetOpCharacteristic(u32 const DeviceId, u32 const Type, u32 *Result)
 		goto done;
 	}
 
-#if defined(XPAR_XSYSMONPSV_0_S_AXI_BASEADDR)
-	static XSysMonPsv SysMonInst;
-	XSysMonPsv *SysMonInstPtr = &SysMonInst;
-	XSysMonPsv_Config *ConfigPtr;
-
 	/* Initialize the SysMon driver. */
 	ConfigPtr = XSysMonPsv_LookupConfig();
 	if (ConfigPtr == NULL) {
@@ -3401,7 +3397,6 @@ XStatus XPm_GetOpCharacteristic(u32 const DeviceId, u32 const Type, u32 *Result)
 	*Result = XSysMonPsv_ReadDeviceTemp(SysMonInstPtr,
 					    XSYSMONPSV_VAL_VREF_MAX);
 	Status = XST_SUCCESS;
-#endif
 
 done:
 	return Status;
