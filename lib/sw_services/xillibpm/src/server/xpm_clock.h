@@ -143,7 +143,7 @@ enum XPm_ClockSubnodeType {
 #define PERIPH_MUX_SHIFT			0
 #define PERIPH_MUX_WIDTH			3
 #define PERIPH_DIV_SHIFT			8
-#define PERIPH_DIV_WIDTH			8
+#define PERIPH_DIV_WIDTH			10
 #define PERIPH_GATE1_SHIFT			25
 #define PERIPH_GATE2_SHIFT			24
 #define PERIPH_GATE_WIDTH			1
