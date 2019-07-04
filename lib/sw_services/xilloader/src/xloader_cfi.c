@@ -109,8 +109,6 @@ END:
  *****************************************************************************/
 void XLoader_CfiErrorHandler(void)
 {
-	XPlmi_Printf(DEBUG_INFO, "Error handler for cfi bitstream\n\r");
-
 	u32 RegVal = XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS) &
 					PMC_GLOBAL_PMC_ERR1_STATUS_CFRAME_MASK;
 
