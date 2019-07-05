@@ -48,6 +48,8 @@
 * 3.0   vns  03/07/18 All the partitions should be encrypted when ENC_ONLY
 *                     eFUSE bit is set, if not encrypted FSBL throw an error.
 *       mus  02/26/19 Added support for armclang compiler
+*       bsv  07/05/19 Remove MD5 checksum related code
+*
 * </pre>
 *
 * @note
@@ -819,8 +821,6 @@ u32 XFsbl_ValidatePartitionHeader(
 	 */
 	if ((XFsbl_GetChecksumType(PartitionHeader) !=
 	                      XIH_PH_ATTRB_NOCHECKSUM)
-	          && (XFsbl_GetChecksumType(PartitionHeader) !=
-	                      XIH_PH_ATTRB_CHECKSUM_MD5)
 			  && (XFsbl_GetChecksumType(PartitionHeader) !=
 					  XIH_PH_ATTRB_HASH_SHA3))
 	{
