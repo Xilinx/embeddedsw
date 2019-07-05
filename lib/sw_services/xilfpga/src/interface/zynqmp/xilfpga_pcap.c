@@ -88,6 +88,7 @@
  * 5.0 sne   27/03/19  Fixed misra-c violations.
  * 5.0 Nava  23/04/19  Optimize the API's logic to avoid code duplication.
  * 5.1 Nava  27/06/19  Adds support to clear out the SHA3 engine.
+ * 5.1 Nava  05/07/19  Zeroize the Secure data to avoid security violations.
  * </pre>
  *
  * @note
@@ -890,6 +891,11 @@ static u32 XFpga_SecureBitstreamLoad(XFpga *InstancePtr)
 	}
 
 END:
+	/* Zeroize the Secure data*/
+	(void)memset(&InstancePtr->PLInfo.SecureImageInfo, 0,
+			sizeof(InstancePtr->PLInfo.SecureImageInfo));
+	(void)memset(&InstancePtr->PLInfo.PlAesInfo, 0,
+				sizeof(InstancePtr->PLInfo.PlAesInfo));
 
 	return Status;
 }
