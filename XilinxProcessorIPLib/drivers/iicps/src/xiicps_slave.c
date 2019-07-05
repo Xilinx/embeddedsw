@@ -40,6 +40,7 @@
 * 3.00	sk	01/31/15 Modified the code according to MISRAC 2012 Compliant.
 * 3.3   kvn 05/05/16 Modified latest code for MISRA-C:2012 Compliance.
 * 3.8   ask 08/01/18 Fix for Cppcheck and Doxygen warnings.
+* 3.10 sg   06/24/19 Fix for Slave send polled and interruput transfers.
 *
 * </pre>
 *
@@ -47,6 +48,7 @@
 
 /***************************** Include Files *********************************/
 #include "xiicps.h"
+#include "sleep.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -208,6 +210,8 @@ s32 XIicPs_SlaveSendPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 	s32 Status = (s32)XST_SUCCESS;
 	_Bool Value;
 	_Bool Result;
+	volatile u32 RegValue;
+	u32 Timeout = XIICPS_POLL_DEFAULT_TIMEOUT_VAL;
 
 	/*
 	 * Assert validates the input arguments.
@@ -299,6 +303,26 @@ s32 XIicPs_SlaveSendPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 			Value = ((InstancePtr->SendByteCount > (s32)0) &&
 							(Error == 0));
 		}
+
+		/*
+		* Wait for transfer completion and clear the status
+		*/
+		while(Timeout != 0U) {
+			RegValue = XIicPs_ReadReg(BaseAddr, XIICPS_ISR_OFFSET);
+			if((RegValue & XIICPS_IXR_COMP_MASK) == XIICPS_IXR_COMP_MASK) {
+				break;
+			}
+			usleep(1000U);
+			Timeout--;
+		}
+
+		if (Timeout == 0U) {
+			Status = (s32)XST_FAILURE;
+		}
+
+		XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET, RegValue);
+
+
 	}
 	if (Error != 0) {
 		Status = (s32)XST_FAILURE;
@@ -487,14 +511,7 @@ void XIicPs_SlaveInterruptHandler(XIicPs *InstancePtr)
 	 */
 	if ((u32)0U != (IntrStatusReg & XIICPS_IXR_DATA_MASK)) {
 		if (IsSend != 0x0U) {
-			LeftOver = TransmitFifoFill(InstancePtr);
-				/*
-				 * We may finish send here
-				 */
-				if (LeftOver == 0) {
-					StatusEvent |=
-						XIICPS_EVENT_COMPLETE_SEND;
-				}
+			TransmitFifoFill(InstancePtr);
 		} else {
 			LeftOver = SlaveRecvData(InstancePtr);
 
