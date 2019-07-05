@@ -66,6 +66,8 @@
 *       mmd 03/15/19 Refactored the code
 *       psl 03/26/19 Fixed MISRA-C violation
 * 4.1   psl 07/02/19 Fixed Coverity warning.
+*       mmd 07/05/19 Optimized the code
+*
 * </pre>
 *
 * @note
@@ -76,6 +78,7 @@
 
 #include "xsecure.h"
 #include "xparameters.h"
+#include "xil_util.h"
 
 static XSecure_Aes SecureAes;
 static XSecure_Rsa Secure_Rsa;
@@ -173,97 +176,8 @@ XCsuDma* Xsecure_GetCsuDma(void)
 	return &CsuDma;
 }
 
-/****************************************************************************/
-/**
- * Converts the char into the equivalent nibble.
- *	Ex: 'a' -> 0xa, 'A' -> 0xa, '9'->0x9
- *
- * @param	InChar is input character. It has to be between 0-9,a-f,A-F
- * @param	Num is the output nibble.
- *
- * @return
- *		- XST_SUCCESS no errors occurred.
- *		- ERROR when input parameters are not valid
- *
- * @note	None.
- *
- *****************************************************************************/
-static u32 XSecure_ConvertCharToNibble(char InChar, u8 *Num) {
-
-	u32 Status = XST_SUCCESS;
-
-	/* Convert the char to nibble */
-	if ((InChar >= '0') && (InChar <= '9')) {
-		*Num = (u8)InChar - (u8)'0';
-	}
-	else if ((InChar >= 'a') && (InChar <= 'f')) {
-		*Num = (u8)InChar - (u8)'a' + (u8)10U;
-	}
-	else if ((InChar >= 'A') && (InChar <= 'F')) {
-		*Num = (u8)InChar - (u8)'A' + (u8)10U;
-	}
-	else {
-		Status = XSECURE_STRING_INVALID_ERROR;
-		goto END;
-	}
-END:
-	return Status;
-}
 
 /****************************************************************************/
-/**
- * Converts the string into the equivalent Hex buffer.
- *	Ex: "abc123" -> {0xab, 0xc1, 0x23}
- *
- * @param	Str is a Input String. Will support the lower and upper
- *		case values. Value should be between 0-9, a-f and A-F
- *
- * @param	Buf is Output buffer.
- * @param	Len of the input string. Should have even values
- *
- * @return
- *		- XST_SUCCESS no errors occurred.
- *		- ERROR when input parameters are not valid
- *		- an error when input buffer has invalid values
- *
- * @note	None.
- *
- *****************************************************************************/
-static u32 XSecure_ConvertStringToHex(char *Str, u32 *Buf, u8 Len)
-{
-	u32 Status = XST_SUCCESS;
-	u8 ConvertedLen = 0;
-	u8 Index = 0;
-	u8 Nibble[XSECURE_MAX_NIBBLES] = {0U};
-	u8 NibbleNum;
-
-	Xil_AssertNonvoid((Len > 0U) && ((Len % 8U) == 0U));
-
-	while (ConvertedLen < Len) {
-		/* Convert char to nibble */
-		for (NibbleNum = 0U; NibbleNum < XSECURE_MAX_NIBBLES; NibbleNum++) {
-			Status = XSecure_ConvertCharToNibble(Str[ConvertedLen],
-												&Nibble[NibbleNum]);
-			if (Status != (u32)XST_SUCCESS) {
-				/* Error converting char to nibble */
-				Status =  XSECURE_STRING_INVALID_ERROR;
-				goto END;
-			}
-			ConvertedLen = ConvertedLen + 1U;
-		}
-
-		Buf[Index] = (((u32)Nibble[0] << 28) | ((u32)Nibble[1] << 24) |
-				((u32)Nibble[2] << 20) | ((u32)Nibble[3] << 16) |
-				((u32)Nibble[4] << 12) | ((u32)Nibble[5] << 8) |
-				((u32)Nibble[6] << 4) | ((u32)Nibble[7]));
-		Index = Index + 1U;
-	}
-
-END:
-	return Status;
-}
-
- /****************************************************************************/
  /**
  * This function access the xilsecure SHA3 hardware based on the flags provided
  * to calculate the SHA3 hash.
@@ -1603,7 +1517,7 @@ static u32 XSecure_DecryptPartition(XSecure_ImageInfo *ImageHdrInfo,
 			/* Linux or U-boot stores Key in the form of String
 			 * So this conversion is required here.
 			 */
-			Status = XSecure_ConvertStringToHex((char *)(UINTPTR)KupKey,
+			Status = Xil_ConvertStringToHex((char *)(UINTPTR)KupKey,
 			                                   XsecureKey, XSECURE_KEY_STR_LEN);
 			if (Status != (u32)XST_SUCCESS) {
 				goto END;

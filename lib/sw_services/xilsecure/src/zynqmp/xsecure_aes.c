@@ -62,6 +62,8 @@
 *       psl 03/26/19 Fixed MISRA-C violation
 * 4.1   kal 05/20/19 Updated doxygen tags
 *       psl 07/02/19 Fixed Coverity warning.
+*       mmd 07/05/19 Optimized the code
+*
 * </pre>
 *
 * @note
@@ -71,6 +73,25 @@
 /***************************** Include Files *********************************/
 
 #include "xsecure_aes.h"
+
+/***************** Macros (Inline Functions) Definitions *********************/
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This macro waits for AES engine completes key loading.
+ *
+ * @param	InstancePtr Pointer to the XSecure_Aes instance.
+ *
+ * @return	XST_SUCCESS if the AES engine completes key loading.
+ * 		XST_FAILURE if a timeout has occurred.
+ *
+ ******************************************************************************/
+#define XSecure_AesWaitKeyLoad(InstancePtr)	\
+	Xil_WaitForEvent((InstancePtr)->BaseAddress + XSECURE_CSU_AES_STS_OFFSET,\
+	                XSECURE_CSU_AES_STS_KEY_INIT_DONE,	\
+	                XSECURE_CSU_AES_STS_KEY_INIT_DONE,	\
+	                XSECURE_AES_TIMEOUT_MAX)
 
 /************************** Function Prototypes ******************************/
 
@@ -741,73 +762,6 @@ void XSecure_AesSetChunkConfig(XSecure_Aes *InstancePtr, u8 *ReadBuffer,
 	InstancePtr->ReadBuffer = ReadBuffer;
 	InstancePtr->ChunkSize = ChunkSize;
 	InstancePtr->DeviceCopy = DeviceCopy;
-}
-
-/*****************************************************************************/
-/**
- * @brief
- * This function waits for AES completion for keyload.
- *
- * @param	InstancePtr 	Pointer to the XSecure_Aes instance.
- *
- * @return	None
- *
- *
- ******************************************************************************/
-static u32 XSecure_AesWaitKeyLoad(XSecure_Aes *InstancePtr)
-{
-	volatile u32 RegStatus;
-	u32 Status = (u32)XST_FAILURE;
-	u32 TimeOut = XSECURE_AES_TIMEOUT_MAX;
-
-	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-
-	while (TimeOut != 0U) {
-		RegStatus = XSecure_ReadReg(InstancePtr->BaseAddress,
-					XSECURE_CSU_AES_STS_OFFSET);
-		if (((u32)RegStatus & XSECURE_CSU_AES_STS_KEY_INIT_DONE) != 0U) {
-			Status = (u32)XST_SUCCESS;
-			goto END;
-		}
-		TimeOut = TimeOut - 1U;
-	}
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief
- * This function waits for AES completion or a timeout will occur,
- * as indicated by the return of XST_FAILURE.
- *
- * @param	InstancePtr Pointer to the XSecure_Aes instance.
- *
- * @return	XST_SUCCESS if the AES operation has completed
- * 		XST_FAILURE if a software timeout has occurred.
- *
- ******************************************************************************/
-u32 XSecure_AesWaitForDone(XSecure_Aes *InstancePtr)
-{
-	volatile u32 RegStatus;
-	u32 Status = (u32)XST_FAILURE;
-	u32 TimeOut = XSECURE_AES_TIMEOUT_MAX;
-
-	/* Assert validates the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-
-	while (TimeOut != 0U) {
-		RegStatus = XSecure_ReadReg(InstancePtr->BaseAddress,
-					XSECURE_CSU_AES_STS_OFFSET);
-		if (((u32)RegStatus & XSECURE_CSU_AES_STS_AES_BUSY) == 0U) {
-			Status = (u32)XST_SUCCESS;
-			goto END;
-		}
-		TimeOut = TimeOut -1U;
-	}
-END:
-	return Status;
 }
 
 /*****************************************************************************/
