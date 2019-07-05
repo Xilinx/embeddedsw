@@ -64,6 +64,8 @@
         arc  03/20/19 Changed prototype of the functions return type
                       as void to u32.
 *       psl  03/26/19 Fixed MISRA-C violation
+* 4.1   mmd  07/05/19 Optimized the code
+*
 * </pre>
 *
 * @note
@@ -81,6 +83,7 @@ extern "C" {
 #include "xsecure_sha_hw.h"
 #include "xcsudma.h"
 #include "xil_assert.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions ****************************/
 /** @cond xsecure_internal
@@ -138,6 +141,25 @@ typedef struct {
 /**
 @}
 @endcond */
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This macro waits till SHA3 completes its operation.
+ *
+ * @param	InstancePtr Pointer to the XSecure_Sha3 instance.
+ *
+ * @return	XST_SUCCESS if the SHA3 completes its operation.
+ * 		XST_FAILURE if a timeout has occurred.
+ *
+ ******************************************************************************/
+#define XSecure_Sha3WaitForDone(InstancePtr)	\
+	Xil_WaitForEvent((InstancePtr)->BaseAddress + XSECURE_CSU_SHA3_DONE_OFFSET,\
+	                XSECURE_CSU_SHA3_DONE_DONE,	\
+	                XSECURE_CSU_SHA3_DONE_DONE,	\
+	                XSECURE_SHA_TIMEOUT_MAX)
+
+
 /***************************** Function Prototypes ***************************/
 /* Initialization */
 s32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XCsuDma *CsuDmaPtr);
@@ -157,8 +179,6 @@ void XSecure_Sha3_ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash);
 
 s32 XSecure_Sha3PadSelection(XSecure_Sha3 *InstancePtr,
 		XSecure_Sha3PadType Sha3PadType);
-
-u32 XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr);
 
 s32 XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr);
 

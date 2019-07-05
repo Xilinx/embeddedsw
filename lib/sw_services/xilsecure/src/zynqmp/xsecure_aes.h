@@ -84,6 +84,8 @@
 *       arc  03/20/19 Changed prototype of the functions void to u32
 *       mmd  03/15/19 Defined AES Key Clear value
 *       psl  03/26/19 Fixed MISRA-C violation
+* 4.1   mmd  07/05/19 Optimized the code
+*
 * </pre>
 * @endcond
 *
@@ -101,6 +103,7 @@ extern "C" {
 #include "xcsudma.h"
 #include "xstatus.h"
 #include "xil_io.h"
+#include "xil_util.h"
 #include "xsecure_aes_hw.h"
 #include "xsecure_utils.h"
 
@@ -227,6 +230,24 @@ typedef struct {
 
 /** @}
 @endcond */
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This macro waits for AES engine completes configured operation.
+ *
+ * @param	InstancePtr Pointer to the XSecure_Aes instance.
+ *
+ * @return	XST_SUCCESS if the AES engine completes configured operation.
+ * 		XST_FAILURE if a timeout has occurred.
+ *
+ ******************************************************************************/
+#define XSecure_AesWaitForDone(InstancePtr)	\
+	Xil_WaitForEvent((InstancePtr)->BaseAddress + XSECURE_CSU_AES_STS_OFFSET,\
+	                XSECURE_CSU_AES_STS_AES_BUSY,	\
+	                0U,	\
+	                XSECURE_AES_TIMEOUT_MAX)
+
 /************************** Function Prototypes ******************************/
 
 /* Initialization Functions */
@@ -255,8 +276,6 @@ u32 XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 
 /* Reset */
 void XSecure_AesReset(XSecure_Aes  *InstancePtr);
-
-u32 XSecure_AesWaitForDone(XSecure_Aes *InstancePtr);
 
 /** @cond xsecure_internal
 @{ */

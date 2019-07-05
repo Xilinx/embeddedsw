@@ -57,6 +57,8 @@
 *                     for wrong pad selection
 * 4.1   kal  05/20/19 Updated doxygen tags
 *       psl  07/02/19 Fixed Coverity warnings.
+*       mmd  07/05/19 Optimized the code
+*
 * </pre>
 *
 * @note
@@ -98,7 +100,7 @@ static void XSecure_Sha3NistPadd(XSecure_Sha3 *InstancePtr, u8 *Dst,
 /****************************************************************************/
 /**
 * @brief
-* This function initializes a a XSecure_Sha structure with the default values
+* This function initializes a XSecure_Sha3 structure with the default values
 * required for operating the SHA3 cryptographic engine.
 *
 * @param	InstancePtr 	Pointer to the XSecure_Sha3 instance.
@@ -319,40 +321,6 @@ u32 XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	}
 	Status = XSecure_Sha3DataUpdate(InstancePtr, (Data + TransferredBytes),
 				DataSize, (u8)InstancePtr->IsLastUpdate);
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief
- * This function waits till SHA3 completes its action.
- *
- * @param	InstancePtr 	Pointer to the XSecure_Sha3 instance.
- *
- * @return	XST_SUCCESS if SHA3 completes it action properly
- *		XST_FAILURE if Timeout happens
- *
- ******************************************************************************/
-u32 XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr)
-{
-	volatile u32 RegStatus;
-	u32 Status = (u32)XST_FAILURE;
-	u32 TimeOut = XSECURE_SHA_TIMEOUT_MAX;
-
-	/* Asserts validate the input arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-
-	while (TimeOut != 0U) {
-		RegStatus = XSecure_ReadReg(InstancePtr->BaseAddress,
-					XSECURE_CSU_SHA3_DONE_OFFSET);
-		if (XSECURE_CSU_SHA3_DONE_DONE ==
-				((u32)RegStatus & XSECURE_CSU_SHA3_DONE_DONE)) {
-			Status = (u32)XST_SUCCESS;
-			goto END;
-		}
-		TimeOut = TimeOut - 1U;
-	}
 END:
 	return Status;
 }
