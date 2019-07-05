@@ -51,6 +51,7 @@
 *                     IV from boot header should be added with thes 8 bits.
 *       vns  03/07/18 Added BHDR attribute mask for PUF and macros for
 *                     boot header size.
+*       bsv  07/05/19 Remove MD5 checksum related macro
 *
 * </pre>
 *
@@ -166,7 +167,6 @@ extern "C" {
 #define XIH_PH_ATTRB_PART_OWNER_FSBL		(0x00000U)
 #define XIH_PH_ATTRB_RSA_SIGNATURE		(0x8000U)
 #define XIH_PH_ATTRB_NOCHECKSUM			(0x0000U)
-#define XIH_PH_ATTRB_CHECKSUM_MD5		(0x1000U)
 #define XIH_PH_ATTRB_HASH_SHA3			(0x3000U)
 
 #define XIH_PH_ATTRB_DEST_CPU_NONE	(0x0000U)
