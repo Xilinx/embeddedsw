@@ -48,6 +48,7 @@
 *		Rama	02/26/19 Fixed IAR issue by changing
 *						 "XCsuDma_WaitForDoneTimeout" to function
 *       arc     03/26/19 Fixed MISRA-C violations.
+* 1.5   aru     07/05/19 Fixed coverity warning.
 * </pre>
 *
 ******************************************************************************/
@@ -143,6 +144,7 @@ s32 XCsuDma_CfgInitialize(XCsuDma *InstancePtr, XCsuDma_Config *CfgPtr,
 void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 					UINTPTR Addr, u32 Size, u8 EnDataLast)
 {
+	u64 LocalAddr = (u64)Addr;
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(((Addr) & (u64)(XCSUDMA_ADDR_LSB_MASK)) == (u64)0x00);
@@ -175,7 +177,7 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
 		(u32)(XCSUDMA_ADDR_MSB_OFFSET +
 			((u32)Channel * XCSUDMA_OFFSET_DIFF)),
-			((u32)((Addr & ULONG64_HI_MASK) >> XCSUDMA_MSB_ADDR_SHIFT) &
+			((u32)((LocalAddr & ULONG64_HI_MASK) >> XCSUDMA_MSB_ADDR_SHIFT) &
 					(u32)(XCSUDMA_MSB_ADDR_MASK)));
 
 	if (EnDataLast == (u8)(XCSUDMA_LAST_WORD_MASK)) {
