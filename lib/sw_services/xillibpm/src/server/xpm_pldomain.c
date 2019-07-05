@@ -26,32 +26,19 @@
 
 #include "xpm_common.h"
 #include "xpm_pldomain.h"
+#include "xpm_device.h"
 #include "xpm_domain_iso.h"
 #include "xpm_regs.h"
 #include "xpm_reset.h"
 #include "xpm_bisr.h"
 #include "xparameters.h"
 
+#define XPM_NODEIDX_DEV_GT_MIN		XPM_NODEIDX_DEV_GT_0
+#define XPM_NODEIDX_DEV_GT_MAX		XPM_NODEIDX_DEV_GT_10
 
 XCframe CframeIns={0}; /* CFRAME Driver Instance */
 XCfupmc CfupmcIns={0}; /* CFU Driver Instance */
 u32 PlpdHouseCleanBypass = 0;
-
-u32 GtyBaseAddressList[11] = {
-	GTY_NPI_SLAVE_0_BASEADDDRESS,
-	GTY_NPI_SLAVE_1_BASEADDDRESS,
-	GTY_NPI_SLAVE_2_BASEADDDRESS,
-	GTY_NPI_SLAVE_3_BASEADDDRESS,
-	GTY_NPI_SLAVE_4_BASEADDDRESS,
-	GTY_NPI_SLAVE_5_BASEADDDRESS,
-	GTY_NPI_SLAVE_6_BASEADDDRESS,
-	GTY_NPI_SLAVE_7_BASEADDDRESS,
-	GTY_NPI_SLAVE_8_BASEADDDRESS,
-	GTY_NPI_SLAVE_9_BASEADDDRESS,
-	GTY_NPI_SLAVE_10_BASEADDDRESS,
-};
-
-
 
 static XStatus PldInitFinish(u32 *Args, u32 NumOfArgs)
 {
@@ -227,13 +214,21 @@ static XStatus GtyHouseClean()
 {
 	XStatus Status = XST_SUCCESS;
 	unsigned int i;
+	XPm_Device *Device;
+	u32 GtyAddresses[XPM_NODEIDX_DEV_GT_MAX - XPM_NODEIDX_DEV_GT_MIN + 1];
 
-	for (i=0; i<sizeof(GtyBaseAddressList)/sizeof(GtyBaseAddressList[0]); i++) {
-		PmOut32(GtyBaseAddressList[i] + GTY_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+	for (i = 0; i < ARRAY_SIZE(GtyAddresses); i++) {
+		Device = XPmDevice_GetById(GT_DEVID(XPM_NODEIDX_DEV_GT_MIN + i));
+		GtyAddresses[i] = Device->Node.BaseAddress;
+	}
+
+	for (i = 0; i < ARRAY_SIZE(GtyAddresses); i++) {
+		PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
 		/* Deassert INITCTRL */
-		PmOut32(GtyBaseAddressList[i] + GTY_PCSR_MASK_OFFSET, GTY_PCSR_INITCTRL_MASK);
-		PmOut32(GtyBaseAddressList[i] + GTY_PCSR_CONTROL_OFFSET, 0);
-		PmOut32(GtyBaseAddressList[i] + GTY_PCSR_LOCK_OFFSET, 1);
+		PmOut32(GtyAddresses[i] + GTY_PCSR_MASK_OFFSET,
+			GTY_PCSR_INITCTRL_MASK);
+		PmOut32(GtyAddresses[i] + GTY_PCSR_CONTROL_OFFSET, 0);
+		PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, 1);
 	}
 	if(!PlpdHouseCleanBypass) {
 		/* Bisr repair - Bisr should be triggered only for Addresses for which repair
@@ -244,19 +239,20 @@ static XStatus GtyHouseClean()
 			goto done;
 		}
 
-		for (i=0; i<sizeof(GtyBaseAddressList)/sizeof(GtyBaseAddressList[0]); i++) {
-			PmOut32(GtyBaseAddressList[i] + GTY_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+		for (i = 0; i < ARRAY_SIZE(GtyAddresses); i++) {
+			PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET,
+				PCSR_UNLOCK_VAL);
 			/* Mbist */
-			Status = PldGtyMbist(GtyBaseAddressList[i]);
+			Status = PldGtyMbist(GtyAddresses[i]);
 			if (XST_SUCCESS != Status) {
 				/* Gt Mem clear is found to be failing on some parts.
 				 Just print message and return not to break execution */
 				PmInfo("ERROR: GT Mem clear Failed\r\n");
 				Status = XST_SUCCESS;
-				PmOut32(GtyBaseAddressList[i] + GTY_PCSR_LOCK_OFFSET, 1);
+				PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, 1);
 				goto done;
 			}
-			PmOut32(GtyBaseAddressList[i] + GTY_PCSR_LOCK_OFFSET, 1);
+			PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, 1);
 		}
 	}
 done:
