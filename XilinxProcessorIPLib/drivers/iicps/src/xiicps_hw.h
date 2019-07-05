@@ -43,6 +43,7 @@
 * 1.04a kpc		11/07/13 Added function prototype.
 * 3.0	sk		11/03/14 Modified the TimeOut Register value to 0xFF
 *				01/31/15 Modified the code according to MISRAC 2012 Compliant.
+* 3.10  sg 		06/24/19 Added timeout macro for polled transfer.
 * </pre>
 *
 ******************************************************************************/
@@ -260,6 +261,7 @@ extern "C" {
 
 #define XIicPs_In32 Xil_In32
 #define XIicPs_Out32 Xil_Out32
+#define XIICPS_POLL_DEFAULT_TIMEOUT_VAL		1000U /**< Timeout in us */
 
 /****************************************************************************/
 /**
