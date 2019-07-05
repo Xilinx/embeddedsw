@@ -27,7 +27,7 @@
 /**
 *
 * @file xiicps_intr.c
-* @addtogroup iicps_v3_9
+* @addtogroup iicps_v3_10
 * @{
 *
 * Contains functions of the XIicPs driver for interrupt-driven transfers.
