@@ -286,11 +286,6 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 		}
 	}
 
-	/* Enable Vgg Clamp in VGG Ctrl Register */
-        PmRmw32(PMC_ANALOG_VGG_CTRL,
-                       PMC_ANALOG_VGG_CTRL_EN_VGG_CLAMP_MASK,
-                       PMC_ANALOG_VGG_CTRL_EN_VGG_CLAMP_MASK);
-
 	/* Remove POR for PL */
 	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PL_POR),
 				     PM_RESET_ACTION_RELEASE);
