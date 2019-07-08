@@ -47,6 +47,7 @@
 * 6.8   psl  06/07/19 Added doxygen tags.
 *       psl  06/25/19 Fixed Coverity warnings.
 *       psl  06/28/19 Added doxygen tags.
+*       psl  07/05/19 Added Asserts for validation.
 * </pre>
 *
 *****************************************************************************/
@@ -115,6 +116,9 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufHelprData(XilSKey_Puf *InstancePtr)
 	XskEfusePs_Type EfuseType;
 	u8 DataInBits[32] = {0};
 	u32 Status;
+
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Unlock the controller */
 	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
@@ -214,6 +218,9 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPufHelprData(u32 *Address)
 	u32 *AddrPtr = (u32 *)Address;
 	u32 Temp;
 
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(Address != NULL);
+
 	/* Unlock the controller */
 	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 	/* Check the unlock status */
@@ -301,6 +308,9 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufChash(XilSKey_Puf *InstancePtr)
 	XskEfusePs_Type EfuseType;
 	u8 *PufChash = (u8 *)&(InstancePtr->Chash);
 
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
 	/* Unlock the controller */
 	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 	/* Check the unlock status */
@@ -371,6 +381,11 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPufChash(u32 *Address, u8 ReadOption)
 	u32 Status = (u32)XST_FAILURE;
 	u32 *ChashPtr = (u32 *)Address;
 
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(Address != NULL);
+	Xil_AssertNonvoid((ReadOption == XSK_EFUSEPS_READ_FROM_CACHE) ||
+				(ReadOption == XSK_EFUSEPS_READ_FROM_EFUSE));
+
 	if (ReadOption == XSK_EFUSEPS_READ_FROM_EFUSE) {
 		/* Unlock the controller */
 		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
@@ -429,6 +444,9 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufAux(XilSKey_Puf *InstancePtr)
 	XskEfusePs_Type EfuseType;
 	u32 RowDataVal;
 	u8 *AuxValue = (u8 *)&(InstancePtr->Aux);
+
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Unlock the controller */
 	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
@@ -506,6 +524,11 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPufAux(u32 *Address, u8 ReadOption)
 	u32 Data = 0U;
 	u32 Status = (u32)XST_FAILURE;
 	u32 *AuxPtr = (u32 *)Address;
+
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(Address != NULL);
+	Xil_AssertNonvoid((ReadOption == XSK_EFUSEPS_READ_FROM_CACHE) ||
+				(ReadOption == XSK_EFUSEPS_READ_FROM_EFUSE));
 
 	if (ReadOption == XSK_EFUSEPS_READ_FROM_EFUSE) {
 		/* Unlock the controller */
@@ -781,6 +804,9 @@ u32 XilSKey_Puf_Debug2(XilSKey_Puf *InstancePtr)
 	u32 Index;
 	u32 Debug = XSK_PUF_DEBUG_GENERAL;
 
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
 	xPuf_printf(Debug,"API: PUF Debug 2\r\n");
 
 	/**
@@ -837,6 +863,9 @@ u32 XilSKey_Write_Puf_EfusePs_SecureBits(XilSKey_Puf_Secure *WriteSecureBits)
 	u32 RowDataVal;
 	u8 DataInBits[XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW] = {0U};
 	u32 Debug = XSK_PUF_DEBUG_GENERAL;
+
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(WriteSecureBits != NULL);
 
 	/* If user requests any of the secure bit to be programmed */
 	if ((WriteSecureBits->SynInvalid != 0x00U) ||
@@ -952,6 +981,11 @@ u32 XilSKey_Read_Puf_EfusePs_SecureBits(
 {
 
 	u32 Status;
+
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(SecureBitsRead != NULL);
+	Xil_AssertNonvoid((ReadOption == XSK_EFUSEPS_READ_FROM_CACHE) ||
+				(ReadOption == XSK_EFUSEPS_READ_FROM_EFUSE));
 
 	if (ReadOption == XSK_EFUSEPS_READ_FROM_CACHE) {
 		Status = XilSKey_Read_Puf_EfusePs_SecureBits_Regs(
