@@ -609,6 +609,8 @@ static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 			(void)XSecure_MemCpy(&InstancePtr->PartialData[PrevPartialLen],
 					(void *)(UINTPTR)Data, Size);
 			InstancePtr->PartialLen = TotalLen;
+
+			Status = XST_SUCCESS;
 		}
 		else if (TotalLen == XSECURE_SHA3_BLOCK_LEN) {
 
