@@ -259,10 +259,6 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 
 	u32 RegValue;
 
-	/*ToDo: Mem clear Passes but PSM doesnt wake successfully
-	when mem clear is ran. Remove this when issue is fixed*/
-	return Status;
-
 	/* Pre bisr requirements - In case if Bisr is skipped */
 	Status = LpdPreBisrReqs();
 	if (Status != XST_SUCCESS)
@@ -311,7 +307,24 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 	     PMC_ANALOG_OD_MBIST_GOOD_LPD_RPU_MASK |
 	     PMC_ANALOG_OD_MBIST_GOOD_LPD_MASK) != RegValue) {
 		Status = XST_FAILURE;
+		goto done;
 	}
+
+	/* Unwrite bits after mem clear has finished */
+	PmRmw32(PMC_ANALOG_OD_MBIST_RST,
+                (PMC_ANALOG_OD_MBIST_RST_LPD_IOU_MASK |
+                 PMC_ANALOG_OD_MBIST_RST_LPD_RPU_MASK |
+                 PMC_ANALOG_OD_MBIST_RST_LPD_MASK), 0);
+
+        PmRmw32(PMC_ANALOG_OD_MBIST_SETUP,
+                (PMC_ANALOG_OD_MBIST_SETUP_LPD_IOU_MASK |
+                 PMC_ANALOG_OD_MBIST_SETUP_LPD_RPU_MASK |
+                 PMC_ANALOG_OD_MBIST_SETUP_LPD_MASK),0);
+
+        PmRmw32(PMC_ANALOG_OD_MBIST_PG_EN,
+                (PMC_ANALOG_OD_MBIST_PG_EN_LPD_IOU_MASK |
+                 PMC_ANALOG_OD_MBIST_PG_EN_LPD_RPU_MASK |
+                 PMC_ANALOG_OD_MBIST_PG_EN_LPD_MASK),0);
 
 done:
 	return Status;
