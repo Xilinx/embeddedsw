@@ -69,6 +69,7 @@
 * 6.8   psl   06/07/19 Added doxygen tags
 *       psl   06/25/19 Fixed Coverity warnings.
 *       psl   06/28/19 Added doxygen tags.
+*       psl   07/05/19 Added Asserts for validation.
 * </pre>
 *
 *****************************************************************************/
@@ -452,6 +453,8 @@ u32 XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits(
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(ReadBackSecCtrlBits != NULL);
+	Xil_AssertNonvoid((ReadOption == XSK_EFUSEPS_READ_FROM_CACHE) ||
+			(ReadOption == XSK_EFUSEPS_READ_FROM_EFUSE));
 
 	if (ReadOption == 0U) {
 		Status = XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits_Regs(
@@ -1054,6 +1057,13 @@ u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
 	u32 EfusePsType = (u32)EfuseType;
 	u32 Status = (u32)XST_FAILURE;
 	u32 TimeOut = 0U;
+
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(RowData != NULL);
+	Xil_AssertNonvoid((EfuseType == XSK_ZYNQMP_EFUSEPS_EFUSE_0) ||
+			(EfuseType == XSK_ZYNQMP_EFUSEPS_EFUSE_2) || (EfuseType ==
+					XSK_ZYNQMP_EFUSEPS_EFUSE_3));
+	Xil_AssertNonvoid(Row <= XSK_ZYNQMP_EFUSEPS_PPK1_SHA3_HASH_END_ROW);
 
 	WriteValue = ((EfusePsType << (u32)XSK_ZYNQMP_EFUSEPS_RD_ADDR_SHIFT) &
 					(u32)XSK_ZYNQMP_EFUSEPS_RD_ADDR_MASK) |
@@ -1919,6 +1929,8 @@ u32 XilSKey_ZynqMp_EfusePs_ReadUserFuse(u32 *UseFusePtr, u8 UserFuse_Num,
 	Xil_AssertNonvoid(UseFusePtr != NULL);
 	Xil_AssertNonvoid(UserFuse_Num <= (XSK_ZYNQMP_EFUSEPS_USR_FUSE_REG_NUM
 						- 1U));
+	Xil_AssertNonvoid((ReadOption == XSK_EFUSEPS_READ_FROM_CACHE) ||
+				(ReadOption == XSK_EFUSEPS_READ_FROM_EFUSE));
 
 	if (ReadOption ==  0U) {
 		*UseFusePtr = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
@@ -1988,6 +2000,8 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPpk0Hash(u32 *Ppk0Hash, u8 ReadOption)
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(Ppk0hashPtr != NULL);
+	Xil_AssertNonvoid((ReadOption == XSK_EFUSEPS_READ_FROM_CACHE) ||
+				(ReadOption == XSK_EFUSEPS_READ_FROM_EFUSE));
 
 	if (ReadOption == 0U) {
 		for (RegNum = Reg; RegNum >= (s32)0; RegNum--) {
@@ -2065,6 +2079,8 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPpk1Hash(u32 *Ppk1Hash, u8 ReadOption)
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(Ppk1hashPtr != NULL);
+	Xil_AssertNonvoid((ReadOption == XSK_EFUSEPS_READ_FROM_CACHE) ||
+				(ReadOption == XSK_EFUSEPS_READ_FROM_EFUSE));
 
 	if (ReadOption == 0U) {
 		for (RegNum = Reg; RegNum >= (s32)0; RegNum--) {
@@ -2136,6 +2152,8 @@ u32 XilSKey_ZynqMp_EfusePs_ReadSpkId(u32 *SpkId, u8 ReadOption)
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(SpkId != NULL);
+	Xil_AssertNonvoid((ReadOption == XSK_EFUSEPS_READ_FROM_CACHE) ||
+				(ReadOption == XSK_EFUSEPS_READ_FROM_EFUSE));
 
 	if (ReadOption == 0U) {
 		*SpkId = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
