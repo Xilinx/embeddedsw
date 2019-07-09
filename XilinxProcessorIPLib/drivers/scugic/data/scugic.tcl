@@ -81,6 +81,11 @@
 # 4.1   mus  06/20/19 Updated get_concat_number proc to check if
 #                     common::get_property LEFT is returning empty. It
 #                     fixes CR#1033637.
+# 4.1   mus  07/09/19 Unlike ZynqMP, Versal doesnt have IRQ0_F2P/IRQ01_F2P
+#                     ports and interrupt source from PL can be directly
+#                     connected to the pl_ps_irq0, pl_ps_irq1...pl_ps_irq15
+#                     pins. Updated get_psu_interrupt_id proc to generate correct 
+#                     pl-ps interrupt IDs for Versal. It fixes CR#1017942
 #
 ##############################################################################
 
@@ -1004,6 +1009,38 @@ proc get_psu_interrupt_id { ip_name port_name } {
                       set is_pl_ps_irq0 1
                  } elseif {[string compare -nocase "$sink_pin" "IRQ1_F2P"] == 0 } {
                        set is_pl_ps_irq1 1
+                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq0"] == 0 } {
+                       return 84
+                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq1"] == 0 } {
+                       return 85
+                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq2"] == 0 } {
+                       return 86
+                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq3"] == 0 } {
+                       return 87
+                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq4"] == 0 } {
+                       return 88
+                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq5"] == 0 } {
+                       return 89
+                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq6"] == 0 } {
+                       return 90
+                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq7"] == 0 } {
+                       return 91
+                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq8"] == 0 } {
+                       return 92
+                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq9"] == 0 } {
+                       return 93
+                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq10"] == 0 } {
+                       return 94
+                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq11"] == 0 } {
+                       return 95
+                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq12"] == 0 } {
+                       return 96
+                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq13"] == 0 } {
+                       return 97
+                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq14"] == 0 } {
+                       return 98
+                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq15"] == 0 } {
+                       return 99
                  }
 
         }
