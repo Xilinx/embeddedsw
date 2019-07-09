@@ -463,20 +463,8 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 	 * Process CDO in chunks.
 	 * Chunk size is based on the available PRAM size.
 	 */
-	if (SecureParams.SecureEn != TRUE) {
-		ChunkLen = XLOADER_CHUNK_SIZE;
-	}
-	else {
-		SecureParams.IsCdo = TRUE;
-		if ((SecureParams.IsAuthenticated == TRUE)
-			|| (SecureParams.IsCheckSumEnabled == TRUE)) {
-			ChunkLen = Len % XLOADER_CHUNK_SIZE;
-		}
-		else {
-			ChunkLen = XLOADER_CHUNK_SIZE;
-		}
-
-	}
+	ChunkLen = XLOADER_CHUNK_SIZE;
+	SecureParams.IsCdo = TRUE;
 	while (Len > 0U)
 	{
 		/** Update the len for last chunk */
@@ -510,9 +498,6 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 		/** Update variables for next chunk */
 		SrcAddr += ChunkLen;
 		Len -= ChunkLen;
-		if (LastChunk == FALSE) {
-			ChunkLen = XLOADER_CHUNK_SIZE;
-		}
 	}
 	Status = XST_SUCCESS;
 END:

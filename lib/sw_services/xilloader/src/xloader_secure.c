@@ -212,13 +212,7 @@ u32 XLoader_SecureCopy(XLoader_SecureParms *SecurePtr, u64 DestAddr, u32 Size)
 	u8 LastChunk = FALSE;
 	u32 Status = XST_FAILURE;
 
-	if ((SecurePtr->IsAuthenticated == TRUE)
-			|| (SecurePtr->IsCheckSumEnabled == TRUE)) {
-		ChunkLen = Len % XLOADER_CHUNK_SIZE;
-	}
-	else {
-		ChunkLen = XLOADER_CHUNK_SIZE;
-	}
+	ChunkLen = XLOADER_CHUNK_SIZE;
 
 	while (Len > 0U)
 	{
@@ -245,9 +239,6 @@ u32 XLoader_SecureCopy(XLoader_SecureParms *SecurePtr, u64 DestAddr, u32 Size)
 
 		/** Update variables for next chunk */
 		Len -= ChunkLen;
-		if (LastChunk == FALSE) {
-			ChunkLen = XLOADER_CHUNK_SIZE;
-		}
 	}
 
 END:
