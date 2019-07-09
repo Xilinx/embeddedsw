@@ -19,7 +19,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 ******************************************************************************/
 /*****************************************************************************/
 /**
@@ -478,4 +478,53 @@ void* XPlmi_MemCpy(void * DestPtr, const void * SrcPtr, u32 Len)
 	}
 
 	return DestPtr;
+}
+
+/*****************************************************************************/
+/**
+ * This function compares the data and returns the status.
+ *
+ * @param	Buf1Ptr	Pointer to the data to be compared
+ * @param	Buf2Ptr	Pointer to the data to be compared
+ * @param	Len	Length of the data in bytes.
+ *
+ * @return	None
+ *
+ ******************************************************************************/
+s32 XPlmi_MemCmp(const void * Buf1Ptr, const void * Buf2Ptr, u32 Len)
+{
+	const u8 *Buf1 = Buf1Ptr;
+	const u8 *Buf2 = Buf2Ptr;
+	u32 Size = Len;
+	s32 Status;
+
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(Buf1 != NULL);
+	Xil_AssertNonvoid(Buf2 != NULL);
+	Xil_AssertNonvoid(Len != (u32)0x00);
+
+	/* Loop and compare */
+	while (Size != 0U)
+	{
+		if (*Buf1 != *Buf2) {
+			if (*Buf1 > *Buf2) {
+				Status = XST_FAILURE;
+				goto END;
+			}
+			else if (*Buf1 < *Buf2) {
+				Status = -1;
+				goto END;
+			}
+
+		}
+		else {
+			Buf1++;
+			Buf2++;
+			Size--;
+		}
+	}
+
+	Status = XST_SUCCESS;
+END:
+	return Status;
 }

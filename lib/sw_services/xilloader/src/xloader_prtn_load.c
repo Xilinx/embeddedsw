@@ -496,7 +496,7 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 			/* Call security function */
 			Status = XLoader_SecurePrtn(&SecureParams, SecureParams.SecureData,
 									 ChunkLen, LastChunk);
-			Cdo.BufPtr = SecureParams.SecureData;
+			Cdo.BufPtr = (u32 *)SecureParams.SecureData;
 			Cdo.BufLen = ChunkLen/4;
 		}
 

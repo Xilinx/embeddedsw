@@ -158,6 +158,7 @@ char *XPlmi_Strcpy(char *DestPtr, const char *SrcPtr);
 char * XPlmi_Strcat(char* Str1Ptr, const char* Str2Ptr);
 s32 XPlmi_Strcmp( const char* Str1Ptr, const char* Str2Ptr);
 void* XPlmi_MemCpy(void * DestPtr, const void * SrcPtr, u32 Len);
+s32 XPlmi_MemCmp(const void * Buf1Ptr, const void * Buf2Ptr, u32 Len);
 
 #ifdef __cplusplus
 }

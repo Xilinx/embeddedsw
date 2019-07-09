@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -157,7 +157,30 @@ extern "C" {
 #define XLOADER_USR_KEK_KEY7	0xC3A5C575 /* User key 7 Black */
 #define XLOADER_USR_OBFUS_KEY7	0xC3A5C577 /* User key 7 Obfuscated */
 
+/* Efuse addresses */
+#define XLOADER_EFUSE_MISC_CTRL_OFFSET		0xF12500A0U
+#define XLOADER_EFUSE_MISC_CTRL_PPK0_INVLD	0x0000000CU
+#define XLOADER_EFUSE_MISC_CTRL_PPK1_INVLD	0x00000030U
+#define XLOADER_EFUSE_MISC_CTRL_PPK2_INVLD	0x000000C0U
+#define XLOADER_EFUSE_MISC_CTRL_ALL_PPK_INVLD	0x000000FCU
 
+#define XLOADER_EFUSE_PPK0_START_OFFSET		0xF1250100U
+#define XLOADER_EFUSE_PPK1_START_OFFSET		0xF1250120U
+#define XLOADER_EFUSE_PPK2_START_OFFSET		0xF1250140U
+#define XLOADER_EFUSE_PPK2_END_OFFSET		0xF125015CU
+#define XLOADER_EFUSE_PPK_HASH_LEN		32U
+
+#define XLOADER_EFUSE_SPKID_0_OFFSET		0xF12500B0U
+#define XLOADER_EFUSE_SPKID_1_OFFSET		0xF12500B4U
+#define XLOADER_EFUSE_SPKID_2_OFFSET		0xF12500B8U
+#define XLOADER_EFUSE_SPKID_3_OFFSET		0xF12500BCU
+#define XLOADER_EFUSE_SPKID_4_OFFSET		0xF12500C0U
+#define XLOADER_EFUSE_SPKID_5_OFFSET		0xF12500C4U
+#define XLOADER_EFUSE_SPKID_6_OFFSET		0xF12500C8U
+#define XLOADER_EFUSE_SPKID_7_OFFSET		0xF12500CCU
+#define XLOADER_SPKID_MAX			0xFFU
+
+#define XLOADER_WORD_IN_BITS			32U
 /**************************** Type Definitions *******************************/
 
 typedef struct {
@@ -187,6 +210,12 @@ typedef enum {
 	XLOADER_RSA
 }XLoader_AuthType;
 
+typedef enum {
+	XLOADER_PPK_SEL_0,
+	XLOADER_PPK_SEL_1,
+	XLOADER_PPK_SEL_2
+}XLoader_PpkSel;
+
 typedef struct
 {
 	u8 EmHash[48];
@@ -207,7 +236,7 @@ typedef struct {
 	u32 NextBlkAddr;
 	u32 ChunkAddr;
 	/* verified data is at */
-	u64 SecureData;
+	u32 SecureData;
 	u32 BlockNum;
 	u32 Sha3Hash[XLOADER_SHA3_LEN/4];
 	u32 EncNextBlkSize;
