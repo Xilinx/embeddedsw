@@ -102,6 +102,9 @@ extern "C" {
 #define XLOADER_SECURE_HDR_SIZE		(48U)
 					/**< Secure Header Size in Bytes*/
 #define XLOADER_SECURE_GCM_TAG_SIZE	(16U) /**< GCM Tag Size in Bytes */
+#define XLOADER_SECURE_HDR_TOTAL_SIZE	\
+		(XLOADER_SECURE_HDR_SIZE + XLOADER_SECURE_GCM_TAG_SIZE)
+#define XLOADER_SECURE_IV_LEN		(4U)
 
 /* AES key source */
 #define XLOADER_UNENCRYPTED		0x00000000 	/* Unencrypted */
@@ -237,6 +240,8 @@ typedef struct {
 	u32 ChunkAddr;
 	/* verified data is at */
 	u32 SecureData;
+	u32 SecureDataLen;
+	u32 RemainingEncLen;
 	u32 BlockNum;
 	u32 Sha3Hash[XLOADER_SHA3_LEN/4];
 	u32 EncNextBlkSize;

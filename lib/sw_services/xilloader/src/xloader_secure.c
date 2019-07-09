@@ -233,12 +233,16 @@ u32 XLoader_SecureCopy(XLoader_SecureParms *SecurePtr, u64 DestAddr, u32 Size)
 		if (SecurePtr->IsEncrypted != TRUE) {
 			/* copy to destination address */
 			Status = XPlmi_DmaXfr((u64)SecurePtr->SecureData,
-				(u64)LoadAddr, ChunkLen/4, XPLMI_PMCDMA_0);
+				(u64)LoadAddr, SecurePtr->SecureDataLen/XIH_PRTN_WORD_LEN,
+				XPLMI_PMCDMA_0);
 		}
-		LoadAddr = LoadAddr + ChunkLen;
 
-		/** Update variables for next chunk */
-		Len -= ChunkLen;
+		LoadAddr = LoadAddr + SecurePtr->SecureDataLen;
+		/* Update variables for next chunk */
+		Len = Len - SecurePtr->SecureDataLen;
+		if (Len == 0) {
+			break;
+		}
 	}
 
 END:
@@ -273,10 +277,16 @@ u32 XLoader_SecurePrtn(XLoader_SecureParms *SecurePtr, u64 DstAddr,
 	u32 SrcAddr;
 	u64 OutAddr;
 
+	XPlmi_Printf(DEBUG_DETAILED,
+			"Processing Block %d \n\r", SecurePtr->BlockNum);
 	/* 1st block */
 	if (SecurePtr->BlockNum == 0x0) {
 		SrcAddr = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
 		((SecurePtr->PrtnHdr->DataWordOfst) * XIH_PRTN_WORD_LEN);
+		if (SecurePtr->IsEncrypted == TRUE) {
+			SecurePtr->RemainingEncLen =
+				(SecurePtr->PrtnHdr->EncDataWordLen) * XIH_PRTN_WORD_LEN;
+		}
 	}
 	else {
 		SrcAddr = SecurePtr->NextBlkAddr;
@@ -289,10 +299,13 @@ u32 XLoader_SecurePrtn(XLoader_SecureParms *SecurePtr, u64 DstAddr,
 	if ((SecurePtr->IsAuthenticated == TRUE) ||
 			(SecurePtr->IsCheckSumEnabled == TRUE)) {
 		 if (SecurePtr->IsEncrypted == TRUE) {
-			if (SecurePtr->BlockNum == 0) {
-				TotalSize = TotalSize + 64;
+			if (Last == TRUE) {
+				TotalSize = SecurePtr->RemainingEncLen;
 			}
-			TotalSize = TotalSize + 64;
+			if ((SecurePtr->BlockNum == 0) && (Last == FALSE)) {
+				/* To include Secure Header */
+				TotalSize = TotalSize + XLOADER_SECURE_HDR_TOTAL_SIZE;
+			}
 		 }
 		 /*
 		 * Except for the last block of data,
@@ -322,18 +335,22 @@ u32 XLoader_SecurePrtn(XLoader_SecureParms *SecurePtr, u64 DstAddr,
 	if (SecurePtr->IsEncrypted == TRUE) {
 
 		if (SecurePtr->IsAuthenticated != TRUE) {
-			/* Copy to total data to the buffer */
-			if (SecurePtr->BlockNum == 0) {
-				/* Secure header is extra here */
-				TotalSize = BlockSize + 64;
+			if (Last == TRUE) {
+				TotalSize = SecurePtr->RemainingEncLen;
 			}
-			TotalSize = TotalSize + 64;
+			/* Copy to total data to the buffer */
+			if ((SecurePtr->BlockNum == 0) && (Last != TRUE)) {
+				/* Secure header is extra here */
+				TotalSize = TotalSize + XLOADER_SECURE_HDR_TOTAL_SIZE;
+			}
 
 			SecurePtr->PdiPtr->DeviceCopy(SrcAddr,
 				SecurePtr->ChunkAddr, TotalSize, 0U);
 			SecurePtr->SecureData = SecurePtr->ChunkAddr;
+			SecurePtr->SecureDataLen = TotalSize;
 			SecurePtr->NextBlkAddr = SrcAddr + TotalSize;
 		}
+
 		if (SecurePtr->IsCdo != TRUE) {
 			OutAddr = DstAddr;
 		}
@@ -341,7 +358,7 @@ u32 XLoader_SecurePrtn(XLoader_SecureParms *SecurePtr, u64 DstAddr,
 			OutAddr = SecurePtr->ChunkAddr;
 		}
 		Status = XLoader_AesDecryption(SecurePtr,
-				SecurePtr->SecureData, OutAddr, BlockSize);
+				SecurePtr->SecureData, OutAddr, SecurePtr->SecureDataLen);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -444,11 +461,14 @@ static u32 XLoader_VerifyHash(XLoader_SecureParms *SecurePtr,
 	/* Update the next expected hash  and data location */
 	if (Last == 0x00U) {
 		memcpy(ExpHash, Data, XLOADER_SHA3_LEN);
+		/* Here Authentication overhead is removed in the chunk */
 		SecurePtr->SecureData = (UINTPTR)Data + XLOADER_SHA3_LEN;
+		SecurePtr->SecureDataLen = Size - XLOADER_SHA3_LEN;
 	}
 	else {
 		/* this is the last block */
 		SecurePtr->SecureData = (UINTPTR)Data;
+		SecurePtr->SecureDataLen = Size;
 	}
 
 	Status = XST_SUCCESS;
@@ -1220,6 +1240,8 @@ static u32 XLoader_DecryptSH(XLoader_SecureParms *SecurePtr,
 		goto END;
 	}
 
+	SecurePtr->RemainingEncLen = SecurePtr->RemainingEncLen -
+				XLOADER_SECURE_HDR_TOTAL_SIZE;
 	XSecure_AesCfgKupIv(AesInstancePtr, 0);
 	/* Get next block length */
 	Status = XSecure_AesGetNxtBlkLen(AesInstancePtr,
@@ -1248,9 +1270,11 @@ static u32 XLoader_DataDecrypt(XLoader_SecureParms *SecurePtr,
 		XSecure_Aes *AesInstancePtr, u64 SrcAddr, u64 DstAddr, u32 Size)
 {
 	u32 Status = XST_SUCCESS;
-	u32 TotalLen = Size;
 	u64 InAddr = SrcAddr;
 	u64 OutAddr = DstAddr;
+	u32 Iv[XLOADER_SECURE_IV_LEN];
+	u32 ChunkSize = Size;
+	u8 Index;
 
 	do {
 		/* decrypt the data */
@@ -1261,18 +1285,23 @@ static u32 XLoader_DataDecrypt(XLoader_SecureParms *SecurePtr,
 		}
 		InAddr = InAddr + SecurePtr->EncNextBlkSize;
 		OutAddr = OutAddr + SecurePtr->EncNextBlkSize;
-		TotalLen = TotalLen - SecurePtr->EncNextBlkSize;
-
+		SecurePtr->SecureDataLen = SecurePtr->SecureDataLen + SecurePtr->EncNextBlkSize;
+		ChunkSize = ChunkSize - SecurePtr->EncNextBlkSize;
+		SecurePtr->RemainingEncLen = SecurePtr->RemainingEncLen - SecurePtr->EncNextBlkSize;
 
 		/* decrypt Secure header */
 		Status = XLoader_DecryptSH(SecurePtr, AesInstancePtr, InAddr);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
+		ChunkSize = ChunkSize - XLOADER_SECURE_HDR_TOTAL_SIZE;
+		InAddr = InAddr + XLOADER_SECURE_HDR_TOTAL_SIZE;
 
-		InAddr = InAddr + 64;
+		if (ChunkSize == 0x00) {
+			break;
+		}
 		if (SecurePtr->EncNextBlkSize == 0x00) {
-			if (TotalLen == 0) {
+			if (SecurePtr->RemainingEncLen == 0) {
 				Status = XST_SUCCESS;
 			}
 			else {
@@ -1281,20 +1310,28 @@ static u32 XLoader_DataDecrypt(XLoader_SecureParms *SecurePtr,
 			}
 			goto END;
 		}
-		/* If still there is pending length to be
-		 * decrypted and length is less than next blk length error out
-		 */
-		if (TotalLen < SecurePtr->EncNextBlkSize) {
-			if (TotalLen == 0) {
-				Status = XST_SUCCESS;
-			}
-			else {
+		else {
+			if (SecurePtr->RemainingEncLen < SecurePtr->EncNextBlkSize) {
 				Status = XST_FAILURE;
+				goto END;
 			}
-			goto END;
+			if (ChunkSize < SecurePtr->EncNextBlkSize) {
+				Status = XST_FAILURE;
+				goto END;
+			}
 		}
 
+		/* decrypt the data */
+        for (Index = 0; Index < XLOADER_SECURE_IV_LEN; Index++) {
+                Iv[Index] = Xil_Htonl(XPlmi_In32(AesInstancePtr->BaseAddress +
+				(XSECURE_AES_IV_0_OFFSET + (Index *XIH_PRTN_WORD_LEN))));
+        }
 
+        Status = XSecure_AesDecryptInit(AesInstancePtr,
+                XSECURE_AES_KUP_KEY, XSECURE_AES_KEY_SIZE_256, (UINTPTR)Iv);
+        if (Status != XST_SUCCESS) {
+                goto END;
+        }
 
 	} while (1);
 
@@ -1315,21 +1352,23 @@ END:
  * @return	XST_SUCCESS if verification was successful.
  *
  ******************************************************************************/
-/* Size we get is un encrypted length */
 static u32 XLoader_AesDecryption(XLoader_SecureParms *SecurePtr,
 			u64 SrcAddr, u64 DstAddr, u32 Size)
 {
 	XSecure_Aes AesInstance;
 	u32 Status;
-	u32 Iv[4];
+	u32 Iv[XLOADER_SECURE_IV_LEN];
 	u8 Index;
 	XSecure_AesKeySrc KeySrc = 0;
+	u32 ChunkSize = Size;
 
 	/* Initialize AES driver */
 	Status = XSecure_AesInitialize(&AesInstance, SecurePtr->CsuDmaInstPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+	/* To update decrypted data */
+	SecurePtr->SecureDataLen = 0;
 
 	if (SecurePtr->BlockNum == 0x0) {
 		XSecure_ReleaseReset(AesInstance.BaseAddress,
@@ -1350,13 +1389,14 @@ static u32 XLoader_AesDecryption(XLoader_SecureParms *SecurePtr,
 		}
 		/* Decrypt Secure header */
 		Status = XLoader_DecryptSH(SecurePtr, &AesInstance, SrcAddr);
-		SrcAddr = SrcAddr + 64;
+		SrcAddr = SrcAddr + XLOADER_SECURE_HDR_TOTAL_SIZE;
+		ChunkSize = ChunkSize - XLOADER_SECURE_HDR_TOTAL_SIZE;
 
 	}
 
-	for (Index = 0; Index < 4; Index++) {
-		Iv[Index] = Xil_Htonl(XSecure_ReadReg(AesInstance.BaseAddress,
-				(0x40 + (Index *4))));
+	for (Index = 0; Index < XLOADER_SECURE_IV_LEN; Index++) {
+		Iv[Index] = Xil_Htonl(XPlmi_In32(AesInstance.BaseAddress +
+				(XSECURE_AES_IV_0_OFFSET + (Index * XIH_PRTN_WORD_LEN))));
 	}
 
 	Status = XSecure_AesDecryptInit(&AesInstance,
@@ -1365,12 +1405,10 @@ static u32 XLoader_AesDecryption(XLoader_SecureParms *SecurePtr,
 		goto END;
 	}
 	Status = XLoader_DataDecrypt(SecurePtr,
-			&AesInstance, SrcAddr, DstAddr, Size);
+			&AesInstance, SrcAddr, DstAddr, ChunkSize);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-
-
 
 END:
 	return Status;
