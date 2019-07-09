@@ -73,6 +73,11 @@ static u32 XLoader_AesDecryption(XLoader_SecureParms *SecurePtr, u64 SrcAddr,
 static u32 XLoader_AesKeySelct(XLoader_SecureParms *SecurePtr,
 		XSecure_Aes *AesInstancePtr,
 		XSecure_AesKeySrc *KeySrc);
+static u32 XLoader_CheckNonZeroPpk();
+static u32 XLoader_PpkVerify(XLoader_SecureParms *SecurePtr);
+static u32 XLoader_IsPpkValid(u8 PpkSelect, u8 *PpkHash);
+static u32 XLoader_VerifySpkId(u32 SpkId);
+static u32 XLoader_PpkCompare(u32 EfusePpkOffset, u8 *PpkHash);
 
 /************************** Variable Definitions *****************************/
 
@@ -383,7 +388,6 @@ static u32 XLoader_VerifyHash(XLoader_SecureParms *SecurePtr,
 	u32 Status;
 	XSecure_Sha3 Sha3Instance;
 	u8 *Data = (u8 *)SecurePtr->ChunkAddr;
-	u8 Index;
 	u8 CalHash[XLOADER_SHA3_LEN] = {0};
 	u8 *ExpHash = (u8 *)SecurePtr->Sha3Hash;
 	XCsuDma *CsuDmaPtr = SecurePtr->CsuDmaInstPtr;
@@ -433,17 +437,16 @@ static u32 XLoader_VerifyHash(XLoader_SecureParms *SecurePtr,
 		}
 	}
 	else {
-		for (Index = 0; Index < XLOADER_SHA3_LEN; Index++) {
-			if ((*(ExpHash + Index)) != CalHash[Index]) {
-				XPlmi_PrintArray(DEBUG_INFO,
-				(UINTPTR)CalHash, XLOADER_SHA3_LEN/XIH_PRTN_WORD_LEN,
-					"Calculated Hash");
-				XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)ExpHash,
-					(UINTPTR)XLOADER_SHA3_LEN/XIH_PRTN_WORD_LEN,
-					"Expected Hash");
-				Status = XST_FAILURE;
-				goto END;
-			}
+		Status = XPlmi_MemCmp(ExpHash, CalHash, XLOADER_SHA3_LEN);
+		if (Status != XST_SUCCESS) {
+			XPlmi_PrintArray(DEBUG_INFO,
+			(UINTPTR)CalHash, XLOADER_SHA3_LEN/XIH_PRTN_WORD_LEN,
+				"Calculated Hash");
+			XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)ExpHash,
+				XLOADER_SHA3_LEN/XIH_PRTN_WORD_LEN,
+				"Expected Hash");
+			Status = XST_FAILURE;
+			goto END;
 		}
 	}
 
@@ -479,11 +482,58 @@ static u32 XLoader_DataAuth(XLoader_SecureParms *SecurePtr, u8 *Hash)
 	u32 Status = XST_FAILURE;
 	XLoader_AuthCertificate *AcPtr =
 		(XLoader_AuthCertificate *)SecurePtr->AcPtr;
+	u32 IsEfuseAuth = TRUE;
+
+	/* If bits in PPK0/1/2 is programmed bh_auth is not allowed */
+	Status = XLoader_CheckNonZeroPpk();
+	/*
+	 * only boot header authentication is allowed when
+	 * none of PPK hash bits are programmed
+	 */
+	if (Status != XST_SUCCESS) {
+		IsEfuseAuth = FALSE;
+		/* If BHDR authentication is not enabled return error */
+		if ((SecurePtr->PdiPtr->MetaHdr.BootHdr.ImgAttrb &
+			XIH_BH_IMG_ATTRB_BH_AUTH_MASK) == 0x00U) {
+			XPlmi_Printf(DEBUG_INFO,
+			"None of the PPKs are programmed and also boot header"
+				" authentication is not enabled\n\r");
+			Status = XST_FAILURE;
+			goto END;
+		}
+	}
+	/* Only efuse RSA authentication is allowed */
+	else {
+		IsEfuseAuth = TRUE;
+
+		/* If BHDR authentication is enabled return error */
+		if ((SecurePtr->PdiPtr->MetaHdr.BootHdr.ImgAttrb &
+			XIH_BH_IMG_ATTRB_BH_AUTH_MASK) != 0x00U) {
+			XPlmi_Printf(DEBUG_INFO,
+			"As PPK was programmed and boot header"
+				" authentication is also enabled\n\r");
+			Status = XST_FAILURE;
+			goto END;
+		}
+		/* Validate PPK hash */
+		Status = XLoader_PpkVerify(SecurePtr);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
 
 	/* Perform SPK Validation */
 	Status = XLoader_SpkAuthentication(SecurePtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
+	}
+
+	/* Check for SPK ID revocation */
+	if (IsEfuseAuth == TRUE) {
+		Status = XLoader_VerifySpkId(AcPtr->SpkId);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 
 	/* Data Authentication of first block */
@@ -561,12 +611,10 @@ static u32 XLoader_SpkAuthentication(XLoader_SecureParms *SecurePtr)
 	u8 Hash[XSECURE_HASH_TYPE_SHA3]__attribute__ ((aligned(32)));
 	u8 *SpkHash = Hash;
 	u32 Status;
-	XLoader_AuthCertificate *RomAcPtr =
-	(XLoader_AuthCertificate *)(XIH_BH_PRAM_ADDR + XIH_AC_PRAM_OFFSET);
-
 	XLoader_AuthCertificate *AcPtr = SecurePtr->AcPtr;
 	XSecure_Sha3 Sha3Instance;
 
+	XPlmi_Printf(DEBUG_DETAILED, "Performing SPK verification \n\r");
 	/* Initialize sha3 */
 	XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->CsuDmaInstPtr);
 	XSecure_Sha3Start(&Sha3Instance);
@@ -582,14 +630,273 @@ static u32 XLoader_SpkAuthentication(XLoader_SecureParms *SecurePtr)
 	XSecure_Sha3WaitForDone(&Sha3Instance);
 	XSecure_Sha3_ReadHash(&Sha3Instance, (u8 *)SpkHash);
 
-	Status = XLoader_VerifySignature(SecurePtr, SpkHash, &RomAcPtr->Ppk,
+	Status = XLoader_VerifySignature(SecurePtr, SpkHash, &AcPtr->Ppk,
 					(u8 *)&AcPtr->SPKSignature);
-
 
 	return Status;
 
 }
 
+/*****************************************************************************/
+/**
+* @brief
+* This function validates SPK by verifying providing SPK ID is been revoked
+* or not.
+*
+* @param	SpkId	ID of the SPK
+*
+* @return	XST_SUCCESS on success.
+*
+******************************************************************************/
+static u32 XLoader_VerifySpkId(u32 SpkId)
+{
+	u32 Status;
+	u32 SpkRevokeAll;
+	u32 Quo;
+	u32 Mod;
+	u32 Value;
+
+	/* TBD this API should ultilize XilNvm library */
+	XPlmi_Printf(DEBUG_DETAILED, "Validating SPKID\n\r");
+	SpkRevokeAll = XPlmi_In32(XLOADER_EFUSE_SPKID_0_OFFSET) &
+			XPlmi_In32(XLOADER_EFUSE_SPKID_1_OFFSET) &
+			XPlmi_In32(XLOADER_EFUSE_SPKID_2_OFFSET) &
+			XPlmi_In32(XLOADER_EFUSE_SPKID_3_OFFSET) &
+			XPlmi_In32(XLOADER_EFUSE_SPKID_4_OFFSET) &
+			XPlmi_In32(XLOADER_EFUSE_SPKID_5_OFFSET) &
+			XPlmi_In32(XLOADER_EFUSE_SPKID_6_OFFSET) &
+			XPlmi_In32(XLOADER_EFUSE_SPKID_7_OFFSET);
+	/* If all bits of SPKID are programmed */
+	if(SpkRevokeAll == MASK_ALL) {
+		XPlmi_Printf(DEBUG_INFO, "All SPK IDs are invalid\n\r");
+		Status = XST_FAILURE;
+		goto END;
+	}
+	/* Verify range of provided SPK ID */
+	if(SpkId > XLOADER_SPKID_MAX)
+	{
+		XPlmi_Printf(DEBUG_INFO, "SPK ID provided is out of range,"
+				" valid range is 0 - 255\n\r");
+		Status = XST_FAILURE;
+		goto END;
+	}
+	else
+	{
+		Quo = SpkId / XLOADER_WORD_IN_BITS;
+		Mod = SpkId % XLOADER_WORD_IN_BITS;
+		Value = (XPlmi_In32(XLOADER_EFUSE_SPKID_0_OFFSET +
+				(Quo * XIH_PRTN_WORD_LEN))
+				& (1U << Mod)) >> Mod;
+		if(Value != 0x00U)	{
+			Status = XST_FAILURE;
+			goto END;
+		}
+	}
+
+	Status = (u32)XST_SUCCESS;
+	XPlmi_Printf(DEBUG_DETAILED, "SPK Status - GOOD\r\n");
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function compares calculated PPK hash with the efuse PPK hash
+*
+* @param	EfusePpkOffset	PPK hash address of efuse.
+* @param	PpkHash		Pointer to the PPK hash to be verified.
+*
+* @return	XST_SUCCESS on success.
+*
+******************************************************************************/
+static u32 XLoader_PpkCompare(u32 EfusePpkOffset, u8 *PpkHash)
+{
+	s32 HashStatus;
+	u8 Index;
+	u32 Status;
+	u8 HashZeros[XLOADER_EFUSE_PPK_HASH_LEN];
+
+	/* Fill HashZeros array with all zeros */
+	for (Index = 0; Index < 32; Index++) {
+		HashZeros[Index] = 0x00U;
+	}
+
+	HashStatus = XPlmi_MemCmp(PpkHash,
+			(void *)EfusePpkOffset,
+			XLOADER_EFUSE_PPK_HASH_LEN);
+	if (HashStatus == XST_SUCCESS) {
+		/* Check if PPK hash is all zeros */
+		HashStatus = XPlmi_MemCmp(HashZeros,
+			(void *)EfusePpkOffset,
+			XLOADER_EFUSE_PPK_HASH_LEN);
+		if (HashStatus == XST_SUCCESS) {
+			Status = (u32)XST_FAILURE;
+		}
+		else {
+			Status = (u32)XST_SUCCESS;
+		}
+	}
+	else {
+		Status = (u32)XST_FAILURE;
+	}
+
+	return Status;
+
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function validates PPK, by checking selected PPK is valid or not
+* by reading PPK invalid bits and verifying the hash provided with programmed.
+* Efuse only stores 256 bits of hash.
+*
+* @param	PpkSelect	PPK selection of eFUSE.
+* @param	PpkHash		Pointer to the PPK hash to be verified.
+*
+* @return	XST_SUCCESS on success.
+*
+******************************************************************************/
+static u32 XLoader_IsPpkValid(u8 PpkSelect, u8 *PpkHash)
+{
+	u32 ReadReg;
+	u32 Status;
+
+	/* Read PPK invalid set bits */
+	ReadReg = XPlmi_In32(XLOADER_EFUSE_MISC_CTRL_OFFSET);
+
+	switch (PpkSelect) {
+		case XLOADER_PPK_SEL_0:
+			if ((ReadReg & XLOADER_EFUSE_MISC_CTRL_PPK0_INVLD) !=
+				0x0U) {
+				Status = XST_FAILURE;
+				break;
+			}
+			Status = XLoader_PpkCompare(XLOADER_EFUSE_PPK0_START_OFFSET,
+					PpkHash);
+			break;
+		case XLOADER_PPK_SEL_1:
+			if ((ReadReg & XLOADER_EFUSE_MISC_CTRL_PPK1_INVLD) !=
+						0x0U) {
+				Status = (u32)XST_FAILURE;
+				break;
+			}
+			Status = XLoader_PpkCompare(XLOADER_EFUSE_PPK1_START_OFFSET,
+							PpkHash);
+			break;
+		case XLOADER_PPK_SEL_2:
+			if ((ReadReg & XLOADER_EFUSE_MISC_CTRL_PPK2_INVLD) !=
+								0x0U) {
+				Status = (u32)XST_FAILURE;
+				break;
+			}
+			Status = XLoader_PpkCompare(XLOADER_EFUSE_PPK2_START_OFFSET,
+							PpkHash);
+			break;
+		default:
+			Status = (u32)XST_FAILURE;
+			break;
+	}
+
+	return Status;
+
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function returns XST_SUCCESS if any of the PPK hash bits are programmed.
+*
+* @return	XST_SUCCESS on success.
+*
+******************************************************************************/
+static u32 XLoader_CheckNonZeroPpk()
+{
+	u32 Index;
+	u32 Status;
+
+	for (Index = XLOADER_EFUSE_PPK0_START_OFFSET;
+			Index < XLOADER_EFUSE_PPK2_END_OFFSET;
+			Index = Index + XIH_PRTN_WORD_LEN) {
+		/* Any bit of PPK hash are non-zero break and return success */
+		if (XPlmi_In32(Index) != 0x0) {
+			Status = (u32)XST_SUCCESS;
+			goto END;
+		}
+	}
+	Status = (u32)XST_FAILURE;
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function verifies PPK.
+*
+* @param	SecurePtr	Pointer to the XLoader_SecureParms instance.
+*
+* @return	XST_SUCCESS on success.
+*
+******************************************************************************/
+static u32 XLoader_PpkVerify(XLoader_SecureParms *SecurePtr)
+{
+
+	u8 Hash[XSECURE_HASH_TYPE_SHA3]__attribute__ ((aligned(32)));
+	u32 Status;
+	XLoader_AuthCertificate *AcPtr = SecurePtr->AcPtr;
+	XSecure_Sha3 Sha3Instance;
+	u32 ReadReg;
+
+	/* Check if all PPKs are revoked */
+	ReadReg = XPlmi_In32(XLOADER_EFUSE_MISC_CTRL_OFFSET);
+	if ((ReadReg & XLOADER_EFUSE_MISC_CTRL_ALL_PPK_INVLD) ==
+				(XLOADER_EFUSE_MISC_CTRL_ALL_PPK_INVLD)) {
+		XPlmi_Printf(DEBUG_INFO, "All PPKs are invalid\n\r");
+		Status = XST_FAILURE;
+		goto END;
+	}
+		/* Calculate PPK hash */
+	XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->CsuDmaInstPtr);
+	XSecure_Sha3Start(&Sha3Instance);
+	XSecure_Sha3LastUpdate(&Sha3Instance);
+	/* Update PPK  */
+	XSecure_Sha3Update(&Sha3Instance, (u8 *)&AcPtr->Ppk, XLOADER_PPK_SIZE);
+
+	XSecure_Sha3WaitForDone(&Sha3Instance);
+	XSecure_Sha3_ReadHash(&Sha3Instance, (u8 *)Hash);
+
+	Status = XLoader_IsPpkValid(XLOADER_PPK_SEL_0, Hash);
+	if(Status != (u32)XST_SUCCESS)
+	{
+		Status = XLoader_IsPpkValid(XLOADER_PPK_SEL_1, Hash);
+		if(Status != (u32)XST_SUCCESS) {
+			Status = XLoader_IsPpkValid(XLOADER_PPK_SEL_2, Hash);
+			if(Status == (u32)XST_SUCCESS) {
+				/* Selection matched with PPK2 HASH */
+				XPlmi_Printf(DEBUG_INFO, "PPK2 is valid\n\r");
+			}
+			else {
+				/* No PPK is valid */
+				XPlmi_Printf(DEBUG_INFO, "No PPK is valid\n\r");
+				Status = XST_FAILURE;
+			}
+		}
+		else {
+			/* Selection matched with PPK1 HASH */
+			XPlmi_Printf(DEBUG_INFO, "PPK1 is valid\n\r");
+		}
+	}
+	else {
+		/* Selection matched with PPK0 HASH */
+		XPlmi_Printf(DEBUG_INFO, "PPK0 is valid\n\r");
+
+	}
+END:
+	return Status;
+}
 
 /*****************************************************************************/
 /**
@@ -760,11 +1067,12 @@ static u32 XLoader_RsaPssSignatureverification(XLoader_SecureParms *SecurePtr,
 				"signature verification \n\r");
 			Status = XST_FAILURE;
 			XPlmi_PrintArray(DEBUG_INFO,
-				(UINTPTR)MPrimeHash, XLOADER_SHA3_LEN,
+				(UINTPTR)MPrimeHash,
+				XLOADER_SHA3_LEN/XIH_PRTN_WORD_LEN,
 					"M prime Hash");
 			XPlmi_PrintArray(DEBUG_INFO,
 				(UINTPTR)(XSecure_RsaSha3Array + 463),
-				XLOADER_SHA3_LEN,
+				XLOADER_SHA3_LEN/XIH_PRTN_WORD_LEN,
 				"RSA sha3 array Hash");
 				goto END;
 		}
