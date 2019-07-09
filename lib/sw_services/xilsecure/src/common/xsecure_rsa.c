@@ -65,12 +65,12 @@
 #include "xsecure_rsa.h"
 #include "xplatform_info.h"
 /************************** Constant Definitions *****************************/
-
+#ifdef XSECURE_ZYNQMP
 /* PKCS padding for SHA-3 in 1.0 Silicon */
 static const u8 XSecure_Silicon1_TPadSha3[] = {0x30U, 0x41U, 0x30U, 0x0DU,
 			0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U,
 			0x02U, 0x02U, 0x05U, 0x00U, 0x04U, 0x30U };
-
+#endif
 /* PKCS padding for SHA-3 in 2.0 Silicon and onwards */
 static const u8 XSecure_Silicon2_TPadSha3[] = {0x30U, 0x41U, 0x30U, 0x0DU,
 			0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U,
@@ -165,6 +165,7 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 	Xil_AssertNonvoid(Signature != NULL);
 	Xil_AssertNonvoid(Hash != NULL);
 
+#ifdef XSECURE_ZYNQMP
 	/* If Silicon version is not 1.0 then use the latest NIST approved SHA-3
 	 * id for padding
 	 */
@@ -190,6 +191,9 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 			goto ENDF;
 		}
 	}
+#else
+	Tpadding = (u8 *)XSecure_Silicon2_TPadSha3;
+#endif
 
 	/*
 	 * Re-Create PKCS#1v1.5 Padding

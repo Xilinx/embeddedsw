@@ -68,7 +68,7 @@ extern "C" {
 #define XIH_BH_SMAP_BUS_WIDTH_LEN	(16U)
 
 /* Boot header Attr fields */
-#define XIH_BH_IMG_ATTRB_RSA_MASK	(0xC000U)
+#define XIH_BH_IMG_ATTRB_BH_AUTH_MASK	(0xC000U)
 #define XIH_BH_IMG_ATTRB_SHA2_MASK	(0x3000U)
 
 /* Boot Header PMC FW Rsvd Fields */
