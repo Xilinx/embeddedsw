@@ -1075,7 +1075,7 @@ proc get_psu_interrupt_id { ip_name port_name } {
            return $result
        }
     }
-    set port_width [get_port_width $intr_pin]
+    set port_width [::hsi::utils::get_port_width $intr_pin]
     set id $ret
     for {set i 1 } { $i < $port_width } { incr i } {
        lappend ret [expr $id + 1]
