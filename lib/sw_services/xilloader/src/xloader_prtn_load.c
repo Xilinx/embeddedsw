@@ -478,14 +478,14 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 			/** Copy the data to PRAM buffer */
 			PdiPtr->DeviceCopy(SrcAddr, XLOADER_CHUNK_MEMORY, ChunkLen, 0U);
 			Cdo.BufPtr = (u32 *)XLOADER_CHUNK_MEMORY;
-			Cdo.BufLen = ChunkLen/4U;
+			Cdo.BufLen = ChunkLen/XIH_PRTN_WORD_LEN;
 		}
 		else {
 			/* Call security function */
 			Status = XLoader_SecurePrtn(&SecureParams, SecureParams.SecureData,
 									 ChunkLen, LastChunk);
 			Cdo.BufPtr = (u32 *)SecureParams.SecureData;
-			Cdo.BufLen = ChunkLen/4;
+			Cdo.BufLen = SecureParams.SecureDataLen/XIH_PRTN_WORD_LEN;
 		}
 
 		/** Process the chunk */
