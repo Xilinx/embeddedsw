@@ -760,5 +760,87 @@ END:
  *****************************************************************************/
 int XLoader_ReloadImage(u32 ImageId)
 {
-        return XLoader_LoadImage(SubSystemInfo.PdiPtr, ImageId);
+	/** This is for libpm to do the clock settings reqired for boot device
+	 *  to resume post suspension.
+	 */
+	int Status;
+	switch(SubSystemInfo.PdiPtr->PdiSrc)
+	{
+		case XLOADER_PDI_SRC_QSPI24:
+		case XLOADER_PDI_SRC_QSPI32:
+		{
+			XPm_RequestDevice(XPM_SUBSYSID_PMC, XPM_DEVID_QSPI,
+									PM_CAP_ACCESS, XPM_DEF_QOS, 0);
+		}
+		break;
+		case XLOADER_PDI_SRC_SD0:
+		{
+			XPm_RequestDevice(XPM_SUBSYSID_PMC, XPM_DEVID_SDIO_0,
+									PM_CAP_ACCESS, XPM_DEF_QOS, 0);
+		}
+		break;
+		case XLOADER_PDI_SRC_SD1:
+		case XLOADER_PDI_SRC_EMMC:
+		case XLOADER_PDI_SRC_SD1_LS:
+		{
+			XPm_RequestDevice(XPM_SUBSYSID_PMC, XPM_DEVID_SDIO_1,
+									PM_CAP_ACCESS, XPM_DEF_QOS, 0);
+		}
+		break;
+		case XLOADER_PDI_SRC_USB:
+		{
+			XPm_RequestDevice(XPM_SUBSYSID_PMC, XPM_DEVID_USB_0,
+									PM_CAP_ACCESS, XPM_DEF_QOS, 0);
+		}
+		break;
+		case XLOADER_PDI_SRC_OSPI:
+		{
+			XPm_RequestDevice(XPM_SUBSYSID_PMC, XPM_DEVID_OSPI,
+									PM_CAP_ACCESS, XPM_DEF_QOS, 0);
+		}
+		break;
+		default:
+		{
+			break;
+		}
+	}
+
+    Status = XLoader_LoadImage(SubSystemInfo.PdiPtr, ImageId);
+
+	switch(SubSystemInfo.PdiPtr->PdiSrc)
+	{
+		case XLOADER_PDI_SRC_QSPI24:
+		case XLOADER_PDI_SRC_QSPI32:
+		{
+			XPm_ReleaseDevice(XPM_SUBSYSID_PMC, XPM_DEVID_QSPI);
+		}
+		break;
+		case XLOADER_PDI_SRC_SD0:
+		{
+			XPm_ReleaseDevice(XPM_SUBSYSID_PMC, XPM_DEVID_SDIO_0);
+		}
+		break;
+		case XLOADER_PDI_SRC_SD1:
+		case XLOADER_PDI_SRC_EMMC:
+		case XLOADER_PDI_SRC_SD1_LS:
+		{
+			XPm_ReleaseDevice(XPM_SUBSYSID_PMC, XPM_DEVID_SDIO_1);
+		}
+		break;
+		case XLOADER_PDI_SRC_USB:
+		{
+			XPm_ReleaseDevice(XPM_SUBSYSID_PMC, XPM_DEVID_USB_0);
+		}
+		break;
+		case XLOADER_PDI_SRC_OSPI:
+		{
+			XPm_ReleaseDevice(XPM_SUBSYSID_PMC, XPM_DEVID_OSPI);
+		}
+		break;
+		default:
+		{
+			break;
+		}
+	}
+	return Status;
 }
