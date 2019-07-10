@@ -74,6 +74,8 @@
 *		      of erase regions is not more than 1.
 * 4.1	nsk  06/06/12 Updated Spansion WriteBuffer programming.
 *		      (CR 781697).
+* 4.7	akm  07/10/19 Updated XFlashAmd_Write() to use adjusted base address
+*		      in write operation(CR-1029074).
 * </pre>
 *
 ******************************************************************************/
@@ -610,11 +612,11 @@ int XFlashAmd_Write(XFlash * InstancePtr, u32 Offset, u32 Bytes, void *SrcPtr)
 
 	/* Call the proper write buffer function. */
 	DevDataPtr = GET_PARTDATA(InstancePtr);
-	Status = DevDataPtr->WriteBuffer(InstancePtr, (void *)Offset, SrcPtr,
+	Status = DevDataPtr->WriteBuffer(InstancePtr, (void *)StartOffset, SrcPtr,
 					(Bytes));
 
 	/* Reset the bank(s) so that it returns to the read mode. */
-	(void) XFlashAmd_ResetBank(InstancePtr, Offset, Bytes);
+	(void) XFlashAmd_ResetBank(InstancePtr, StartOffset, Bytes);
 
 	return (Status);
 }
