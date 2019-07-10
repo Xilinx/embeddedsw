@@ -214,6 +214,8 @@
 * 4.4   ms   08/03/17 Added doxygen tags.
 * 4.5	tjs  08/13/18 Fixed compilation errors for ARMCC (CR#1008306)
 * 4.6	akm  01/22/19 Fixed compilation errors (CR#1018603)
+* 4.7	akm  07/10/19 Updated XFlashAmd_Write() to use adjusted base address
+*                     in write operation(CR-1029074).
 * </pre>
 *
 ***************************************************************************/

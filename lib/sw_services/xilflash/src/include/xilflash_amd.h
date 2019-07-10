@@ -42,6 +42,8 @@
 *		      XFL_AMD_BOTTOM_WP_UNIFORM.
 * 4.1	nsk  06/06/12 Added New definitions as per AMD spec.
 *		      (CR 781697).
+* 4.7   akm  07/10/19 Updated XFlashAmd_Write() to use adjusted base address
+*                     in write operation(CR-1029074).
 * </pre>
 *
 ******************************************************************************/
