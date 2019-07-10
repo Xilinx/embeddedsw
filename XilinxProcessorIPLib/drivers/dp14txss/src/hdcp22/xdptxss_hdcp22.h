@@ -113,7 +113,6 @@ typedef enum
 
 /************************** Function Prototypes ******************************/
 int XDpTxSs_SubcoreInitHdcp22(void *InstancePtr);
-int XDpTxSs_HdcpAuthRequest(void *Instance);
 int XDpTxSs_HdcpPoll(void *Instance);
 int XDpTxSs_HdcpPushEvent(void *Instance, XDpTxSs_HdcpEvent Event);
 u8 XDpTxSs_IsSinkHdcp22Capable(void *Instance);

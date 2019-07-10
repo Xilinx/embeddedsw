@@ -449,6 +449,8 @@ void XDpTxSs_SetUserPixelWidth(XDpTxSs *InstancePtr, u8 UserPixelWidth,
 
 #if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 /* Optional HDCP related functions */
+u32 XDpTxSs_Authenticate(XDpTxSs *InstancePtr);
+u32 XDpTxSs_IsAuthenticated(XDpTxSs *InstancePtr);
 u32 XDpTxSs_HdcpEnable(XDpTxSs *InstancePtr);
 u32 XDpTxSs_HdcpDisable(XDpTxSs *InstancePtr);
 int XDpTxSs_HdcpSetCapability(XDpTxSs *InstancePtr,
@@ -462,8 +464,6 @@ u32 XDpTxSs_DisableEncryption(XDpTxSs *InstancePtr, u64 StreamMap);
 #if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 u32 XDpTxSs_Poll(XDpTxSs *InstancePtr);
 u32 XDpTxSs_IsHdcpCapable(XDpTxSs *InstancePtr);
-u32 XDpTxSs_Authenticate(XDpTxSs *InstancePtr);
-u32 XDpTxSs_IsAuthenticated(XDpTxSs *InstancePtr);
 u64 XDpTxSs_GetEncryption(XDpTxSs *InstancePtr);
 u32 XDpTxSs_SetPhysicalState(XDpTxSs *InstancePtr, u32 PhyState);
 u32 XDpTxSs_SetLane(XDpTxSs *InstancePtr, u32 Lane);
