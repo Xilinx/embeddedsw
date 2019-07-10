@@ -1463,7 +1463,9 @@ u32 XDpTxSs_IsHdcpCapable(XDpTxSs *InstancePtr)
 
 	return HdcpCapable;
 }
+#endif
 
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 /*****************************************************************************/
 /**
 *
@@ -1476,21 +1478,80 @@ u32 XDpTxSs_IsHdcpCapable(XDpTxSs *InstancePtr)
 *		- XST_FAILURE, if authentication initiated failed.
 *
 * @note		The transmitter initiates authentication by first sending its
-*		An and Aksv value to the HDCP Receiver.
+*		An and Aksv for HDCP1x or Ake_Init for HDCP22
+*		to the HDCP Receiver.
 *
 ******************************************************************************/
 u32 XDpTxSs_Authenticate(XDpTxSs *InstancePtr)
 {
-	u32 Status;
+	u32 Status = XST_FAILURE;
 
 	/* Verify arguments.*/
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
+	Xil_AssertNonvoid(InstancePtr);
+#if (XPAR_DPTXSS_0_HDCP_ENABLE)
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable);
+#endif
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES)
+	Xil_AssertNonvoid(InstancePtr->Config.Hdcp22Enable);
+#endif
+	/* Always disable encryption */
+	Status = XDpTxSs_DisableEncryption(InstancePtr, 0x01);
+	if (Status != XST_SUCCESS) {
+		XDpTxSs_HdcpSetProtocol(InstancePtr, XDPTXSS_HDCP_NONE);
+		return XST_FAILURE;
+	}
 
-	/* Initiate authentication process */
-	Status = XHdcp1x_Authenticate(InstancePtr->Hdcp1xPtr);
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES)
+	/* Authenticate HDCP 2.2, takes priority*/
+	if ((InstancePtr->Hdcp22Ptr) &&
+			(InstancePtr->HdcpCapability == XDPTXSS_HDCP_22 ||
+			 InstancePtr->HdcpCapability == XDPTXSS_HDCP_BOTH)) {
+		if (XDpTxSs_IsSinkHdcp22Capable(InstancePtr)) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+					"Starting HDCP 2.2 authentication\r\n");
+			Status = XDpTxSs_HdcpSetProtocol(InstancePtr,
+					XDPTXSS_HDCP_22);
+			Status |= XDpTxSs_HdcpEnable(InstancePtr);
 
-	return Status;
+			/* Set lane count in HDCP */
+			XHdcp22_TxSetLaneCount(InstancePtr->Hdcp22Ptr,
+					InstancePtr->DpPtr->TxInstance.
+					LinkConfig.LaneCount);
+			Status |= XHdcp22Tx_Authenticate(
+					InstancePtr->Hdcp22Ptr);
+		} else {
+			Status = XST_FAILURE;
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+					"Sink is not HDCP 2.2 capable\r\n");
+		}
+	}
+#endif
+
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+	/*Authenticate HDCP1x*/
+	if ((InstancePtr->Hdcp1xPtr) && (Status == XST_FAILURE) &&
+			(InstancePtr->HdcpCapability == XDPTXSS_HDCP_1X ||
+			 InstancePtr->HdcpCapability == XDPTXSS_HDCP_BOTH)) {
+		if (XHdcp1x_IsDwnstrmCapable(InstancePtr->Hdcp1xPtr)) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+					"Starting HDCP 1X authentication\r\n");
+			Status = XDpTxSs_HdcpSetProtocol(InstancePtr,
+					XDPTXSS_HDCP_1X);
+			Status |= XDpTxSs_HdcpEnable(InstancePtr);
+			Status |= XHdcp1x_Authenticate(InstancePtr->Hdcp1xPtr);
+		} else {
+			Status = XST_FAILURE;
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+					"Sink is not HDCP 1x capable\r\n");
+		}
+	}
+#endif
+	/* Set protocol to None */
+	if (Status == XST_FAILURE) {
+		XDpTxSs_HdcpSetProtocol(InstancePtr, XDPTXSS_HDCP_NONE);
+	}
+
+	return (Status == XST_SUCCESS) ? XST_SUCCESS : XST_FAILURE;
 }
 
 /*****************************************************************************/
@@ -1514,17 +1575,32 @@ u32 XDpTxSs_IsAuthenticated(XDpTxSs *InstancePtr)
 	u32 Authenticate;
 
 	/* Verify arguments.*/
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
-
-	/* Check authentication has completed successfully */
-	Authenticate = XHdcp1x_IsAuthenticated(InstancePtr->Hdcp1xPtr);
-
-	return Authenticate;
-}
+	Xil_AssertNonvoid(InstancePtr);
+#if (XPAR_DPTXSS_0_HDCP_ENABLE)
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable);
+#endif
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES)
+	Xil_AssertNonvoid(InstancePtr->Config.Hdcp22Enable);
 #endif
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE)
+	if (InstancePtr->Hdcp1xPtr &&
+			(InstancePtr->HdcpProtocol == XDPTXSS_HDCP_1X)) {
+		/* Check authentication has completed successfully */
+		Authenticate = XHdcp1x_IsAuthenticated(InstancePtr->Hdcp1xPtr);
+	}
+#endif
+#if (XPAR_XHDCP22_TX_NUM_INSTANCES)
+	if (InstancePtr->Hdcp22Ptr &&
+			(InstancePtr->HdcpProtocol == XDPTXSS_HDCP_22)) {
+		/* Check authentication has completed successfully */
+		Authenticate = XHdcp22Tx_IsAuthenticated(
+				InstancePtr->Hdcp22Ptr);
+	}
+#endif
+	return Authenticate;
+}
+
 /*****************************************************************************/
 /**
 *

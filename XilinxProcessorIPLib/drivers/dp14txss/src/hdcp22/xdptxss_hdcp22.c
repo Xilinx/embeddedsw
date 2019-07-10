@@ -230,7 +230,7 @@ static void XDpTxSs_HdcpProcessEvents(XDpTxSs *InstancePtr)
 
 		/* Authenticate */
 		case XDPTXSS_HDCP_AUTHENTICATE_EVT :
-			XDpTxSs_HdcpAuthRequest(InstancePtr);
+			XDpTxSs_Authenticate(InstancePtr);
 			break;
 
 		default :
@@ -467,90 +467,5 @@ u8 XDpTxSs_IsSinkHdcp22Capable(void *Instance)
 	}
 
 	return FALSE;
-}
-
-/*****************************************************************************/
-/**
-*
-* This function sends an authentication request to the connected receiver.
-*
-* @param InstancePtr is a pointer to the XDpTxSs instance.
-*
-* @return
-*  - XST_SUCCESS if authentication started successfully
-*  - XST_FAILURE if authentication did not start successfully
-*
-* @note   None.
-*
-******************************************************************************/
-int XDpTxSs_HdcpAuthRequest(void *Instance)
-{
-	int Status = XST_FAILURE;
-	XDpTxSs *InstancePtr = (XDpTxSs *)Instance;
-
-	/* Verify argument. */
-	Xil_AssertNonvoid(Instance != NULL);
-
-	/* Always disable encryption */
-	Status = XDpTxSs_DisableEncryption(InstancePtr, 0x01);
-	if (Status != XST_SUCCESS) {
-		XDpTxSs_HdcpSetProtocol(InstancePtr, XDPTXSS_HDCP_NONE);
-		return XST_FAILURE;
-	}
-
-	/* Authenticate HDCP 2.2, takes priority*/
-	if ((InstancePtr->Hdcp22Ptr) &&
-			(InstancePtr->HdcpCapability == XDPTXSS_HDCP_22 ||
-			 InstancePtr->HdcpCapability == XDPTXSS_HDCP_BOTH)) {
-		if (XDpTxSs_IsSinkHdcp22Capable(InstancePtr)) {
-			xdbg_printf(XDBG_DEBUG_GENERAL,
-					"Starting HDCP 2.2 authentication\r\n");
-
-			Status = XDpTxSs_HdcpSetProtocol(InstancePtr,
-					XDPTXSS_HDCP_22);
-
-			Status |= XDpTxSs_HdcpEnable(InstancePtr);
-
-			/* Set lane count in HDCP */
-			XHdcp22_TxSetLaneCount(InstancePtr->Hdcp22Ptr,
-					InstancePtr->DpPtr->TxInstance.
-					LinkConfig.LaneCount);
-			Status |= XHdcp22Tx_Authenticate(
-					InstancePtr->Hdcp22Ptr);
-		} else {
-			Status = XST_FAILURE;
-			xdbg_printf(XDBG_DEBUG_GENERAL,
-					"Sink is not HDCP 2.2 capable\r\n");
-		}
-	}
-
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
-	/*Authenticate HDCP1x*/
-	if ((InstancePtr->Hdcp1xPtr) && (Status == XST_FAILURE) &&
-			(InstancePtr->HdcpCapability == XDPTXSS_HDCP_1X ||
-			 InstancePtr->HdcpCapability == XDPTXSS_HDCP_BOTH)) {
-		if (XHdcp1x_IsDwnstrmCapable(InstancePtr->Hdcp1xPtr)) {
-			xdbg_printf(XDBG_DEBUG_GENERAL,
-					"Starting HDCP 1X authentication\r\n");
-
-			Status = XDpTxSs_HdcpSetProtocol(InstancePtr,
-					XDPTXSS_HDCP_1X);
-			Status |= XDpTxSs_HdcpEnable(InstancePtr);
-			Status |= XHdcp1x_Authenticate(InstancePtr->Hdcp1xPtr);
-		}
-		else {
-			Status = XST_FAILURE;
-			xdbg_printf(XDBG_DEBUG_GENERAL,
-					"Sink is not HDCP 1x capable\r\n");
-		}
-	}
-#endif
-
-	/* Set protocol to None */
-	if (Status == XST_FAILURE) {
-		XDpTxSs_HdcpSetProtocol(InstancePtr, XDPTXSS_HDCP_NONE);
-	}
-
-	return (Status == XST_SUCCESS) ? XST_SUCCESS : XST_FAILURE;
 }
 #endif /*(XPAR_XHDCP22_TX_NUM_INSTANCES > 0)*/
