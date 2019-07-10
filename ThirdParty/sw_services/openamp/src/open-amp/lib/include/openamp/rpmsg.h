@@ -287,7 +287,7 @@ static inline void rpmsg_init_ept(struct rpmsg_endpoint *ept,
 				  rpmsg_ept_cb cb,
 				  rpmsg_ns_unbind_cb ns_unbind_cb)
 {
-	strncpy(ept->name, name ? name : "", sizeof(ept->name));
+	strncpy(ept->name, name ? name : "", sizeof(ept->name)-1);
 	ept->addr = src;
 	ept->dest_addr = dest;
 	ept->cb = cb;
