@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -42,6 +42,7 @@
 * Ver   Who   Date     Changes
 * ----- ----- -------- ----------------------------------------------
 * 1.0   ms    11/30/17 First Release
+* 1.1   sd    07/11/19 Remove the hardcoded interrupt id.
 *
 * </pre>
 ****************************************************************************/
@@ -75,7 +76,7 @@
 #define INTC		XScuGic
 #define UARTPSV_DEVICE_ID		XPAR_XUARTPSV_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
-#define UARTPSV_INT_IRQ_ID		51
+#define UARTPSV_INT_IRQ_ID		XPAR_XUARTPS_0_INTR
 #endif
 /*
  * The following constant controls the length of the buffers to be sent
