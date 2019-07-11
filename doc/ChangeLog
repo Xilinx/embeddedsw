@@ -928,6 +928,10 @@ Refactor of Clock distribution.
 pmonpsv_v1_1:
 Update the mdd files with the latest naming
 
+uartpsv_v1_1:
+Updated the interrupt example to use the interrupt ids from xparameters_ps.h
+instead of hardcoded ones.
+
 Changes for 2019.1
 ===============================
 v_hdmiphy1_v1_0:
