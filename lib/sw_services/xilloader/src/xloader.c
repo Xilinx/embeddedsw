@@ -384,7 +384,7 @@ int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 				case XIH_IHT_ATTR_SBD_OSPI:
 				{
 					PdiSrc = XLOADER_PDI_SRC_OSPI;
-					PdiAddr = 0U;
+					PdiAddr = PdiPtr->MetaHdr.ImgHdrTable.SBDAddr;
 				}
 				break;
 				default:
