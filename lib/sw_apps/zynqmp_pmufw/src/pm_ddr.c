@@ -1691,7 +1691,7 @@ static s32 store_training_data(void)
 	bool old_mapping;
 	u32 haddr, laddr;
 	u64 mirr_offset;
-	s32 status = XST_SUCCESS;
+	s32 status;
 
 	ddr_rank1_addr(&haddr, &laddr);
 	size = ddr_training_size();
@@ -1992,7 +1992,7 @@ done:
  */
 s32 PmDdrPowerOffSuspendResume(void)
 {
-	s32 status = XST_SUCCESS;
+	s32 status;
 
 	PmClockRestoreDdr();
 

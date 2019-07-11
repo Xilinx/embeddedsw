@@ -810,7 +810,7 @@ static void PmFpgaLoad(const PmMaster *const master,
  */
 static void PmFpgaGetStatus(const PmMaster *const master)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status;
 	u32 Value = 0;
 	XFpga XFpgaInstance = {0U};
 
@@ -1000,7 +1000,7 @@ static void PmSecureImage(const PmMaster *const master,
 static void PmEfuseAccess(const PmMaster *const master,
 			const u32 AddrHigh, const u32 AddrLow)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status;
 
 #ifdef EFUSE_ACCESS
 	Status = XilSkey_ZynqMpEfuseAccess(AddrHigh, AddrLow);

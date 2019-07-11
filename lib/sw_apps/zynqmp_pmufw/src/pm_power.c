@@ -504,7 +504,7 @@ done:
  */
 static void PmPowerDownSysOsc(void)
 {
-        u32 val = 0U;
+        u32 val;
 
         /* Put Sysosc in sleep mode */
         val = Xil_In32(AMS_PSSYSMON_CONFIG_REG2);
@@ -517,7 +517,7 @@ static void PmPowerDownSysOsc(void)
  */
 static void PmPowerUpSysOsc(void)
 {
-        u32 val = 0U;
+        u32 val;
 
         /* Wake up SysOsc */
         val = Xil_In32(AMS_PSSYSMON_CONFIG_REG2);
@@ -555,13 +555,12 @@ s32 PmPowerDown(PmPower* const power)
 	}
 	PmInfo("%s 1->0\r\n", power->node.name);
 #ifdef DEBUG_MODE
-	PmRequirement* req;
 	if ((pmPowerIslandRpu_g.power.node.currState == PM_PWR_STATE_OFF) &&
                         (pmPowerDomainFpd_g.power.node.currState == PM_PWR_STATE_OFF)) {
+		PmRequirement* req;
 #if (STDOUT_BASEADDRESS == XPAR_PSU_UART_0_BASEADDR)
 		req = PmRequirementGetNoMaster(&pmSlaveUart0_g);
-#endif
-#if (STDOUT_BASEADDRESS == XPAR_PSU_UART_1_BASEADDR)
+#elif (STDOUT_BASEADDRESS == XPAR_PSU_UART_1_BASEADDR)
 		req = PmRequirementGetNoMaster(&pmSlaveUart1_g);
 #endif
 		(void)PmRequirementUpdate(req, 0U);
@@ -601,8 +600,7 @@ static s32 PmPowerUp(PmPower* const power)
 	PmRequirement* req;
 #if (STDOUT_BASEADDRESS == XPAR_PSU_UART_0_BASEADDR)
 	req = PmRequirementGetNoMaster(&pmSlaveUart0_g);
-#endif
-#if (STDOUT_BASEADDRESS == XPAR_PSU_UART_1_BASEADDR)
+#elif (STDOUT_BASEADDRESS == XPAR_PSU_UART_1_BASEADDR)
 	req = PmRequirementGetNoMaster(&pmSlaveUart1_g);
 #endif
 	(void)PmRequirementUpdate(req, PM_CAP_ACCESS);

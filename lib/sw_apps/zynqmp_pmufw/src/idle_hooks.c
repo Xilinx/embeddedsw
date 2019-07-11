@@ -438,7 +438,7 @@ void NodeDpIdle(u32 BaseAddress)
 
 #define SATA_HOST_CTL			0x04
 #define SATA_HOST_IRQ_EN		(1 << 1)
-#define SATA_HOST_AHCI_EN		(1 << 31)
+#define SATA_HOST_AHCI_EN		(1U << 31U)
 
 #define SATA_AHCI_PORT0_CTRL_OFFSET	0x100
 #define SATA_AHCI_PORT1_CTRL_OFFSET	0x180
