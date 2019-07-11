@@ -175,7 +175,7 @@ u32 GetRealAddr(XQspiPsu *QspiPsuPtr, u32 Address);
 ******************************************************************************/
 s32 PmQspiWrite(u8 *WriteBufrPtr, u32 ByteCount)
 {
-	s32 Status = XST_SUCCESS;
+	s32 Status;
 	u32 length = ByteCount;
 	u32 page = 0U;
 
