@@ -57,8 +57,26 @@ cp -r $SERVICES_DIR/xilsecure/src/zynqmp/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/common/*.h $BSP_DIR/include/
 cp -r $SERVICES_DIR/xilsecure/src/zynqmp/*.h $BSP_DIR/include/
 cp -r $SERVICES_DIR/xilskey/ $BSP_DIR/libsrc/
-cp -r $SERVICES_DIR/xilskey/src/*.h $BSP_DIR/include/
-cp -r $SERVICES_DIR/xilskey/src/include/*.h $BSP_DIR/include/
+
+# remove the xilskey library files which are not required for PMU
+rm -r $BSP_DIR/libsrc/xilskey/src/xilskey_epl.c
+rm -r $BSP_DIR/libsrc/xilskey/src/xilskey_eps.c
+rm -r $BSP_DIR/libsrc/xilskey/src/xilskey_epshw.h
+rm -r $BSP_DIR/libsrc/xilskey/src/xilskey_js.h
+rm -r $BSP_DIR/libsrc/xilskey/src/xilskey_jscmd.c
+rm -r $BSP_DIR/libsrc/xilskey/src/xilskey_jscmd.h
+rm -r $BSP_DIR/libsrc/xilskey/src/xilskey_jslib.c
+rm -r $BSP_DIR/libsrc/xilskey/src/xilskey_jslib.h
+rm -r $BSP_DIR/libsrc/xilskey/src/xilskey_jtag.h
+rm -r $BSP_DIR/libsrc/xilskey/src/xilskey_bbram.c
+rm -r $BSP_DIR/libsrc/xilskey/src/include/xilskey_epl.h
+rm -r $BSP_DIR/libsrc/xilskey/src/include/xilskey_eps.h
+rm -r $BSP_DIR/libsrc/xilskey/src/xilskey_bbramps_zynqmp.c
+rm -r $BSP_DIR/libsrc/xilskey/src/include/xilskey_bbram.h
+
+# copy the xilskey library header files to include directory
+cp -r $BSP_DIR/libsrc/xilskey/src/*.h $BSP_DIR/include/
+cp -r $BSP_DIR/libsrc/xilskey/src/include/*.h $BSP_DIR/include/
 
 # copy bsp standalone code
 cp  $STANDALONE_DIR/common/*  $BSP_DIR/libsrc/standalone/src/
