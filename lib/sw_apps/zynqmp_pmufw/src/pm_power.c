@@ -839,7 +839,7 @@ PmPowerDomain pmPowerDomainLpd_g = {
 		.useCount = 0U,
 	},
 	.supplyCheckHook = NULL,
-	.supplyCheckHookId = 0U,
+	.supplyCheckHookId = XPBR_SERV_EXT_TBL_BASE,
 };
 
 PmPowerDomain pmPowerDomainPld_g = {

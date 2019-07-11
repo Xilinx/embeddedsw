@@ -147,7 +147,7 @@ XStatus XPfw_CoreDispatchIpi(u32 IpiNum, u32 SrcMask)
 	u32 Idx;
 	u32 MaskIndex;
 	u32 CallCount = 0U;
-	u32 Payload[XPFW_IPI_MAX_MSG_LEN];
+	u32 Payload[XPFW_IPI_MAX_MSG_LEN] = {0U};
 
 	if ((CorePtr == NULL) || (IpiNum > 3U)) {
 		Status = XST_FAILURE;
