@@ -70,6 +70,8 @@
 *       psl   06/25/19 Fixed Coverity warnings.
 *       psl   06/28/19 Added doxygen tags.
 *       psl   07/05/19 Added Asserts for validation.
+*       psl   07/12/19 Corrected length of data to read for
+*                      XilSKey_EfusePs_ConvertBytesBeToLe function.
 * </pre>
 *
 *****************************************************************************/
@@ -2008,7 +2010,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPpk0Hash(u32 *Ppk0Hash, u8 ReadOption)
 			DataRead = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 				XSK_ZYNQMP_EFUSEPS_PPK0_0_OFFSET
 						+ ((u32)RegNum * 4U));
-			XilSKey_EfusePs_ConvertBytesBeToLe((u8 *)&DataRead, (u8 *)Ppk0hashPtr, 8);
+			XilSKey_EfusePs_ConvertBytesBeToLe((u8 *)&DataRead, (u8 *)Ppk0hashPtr, 1U);
 			Ppk0hashPtr++;
 		}
 		Status = (u32)XST_SUCCESS;
@@ -2036,7 +2038,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPpk0Hash(u32 *Ppk0Hash, u8 ReadOption)
 								Row--) {
 			Status = XilSKey_ZynqMp_EfusePs_ReadRow((u8)Row,
 						EfuseType, &DataRead);
-			XilSKey_EfusePs_ConvertBytesBeToLe((u8 *)&DataRead, (u8 *)Ppk0hashPtr, 8);
+			XilSKey_EfusePs_ConvertBytesBeToLe((u8 *)&DataRead, (u8 *)Ppk0hashPtr, 1U);
 			if (Status != (u32)XST_SUCCESS) {
 				goto UNLOCK;
 			}
@@ -2087,7 +2089,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPpk1Hash(u32 *Ppk1Hash, u8 ReadOption)
 			DataRead = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 					XSK_ZYNQMP_EFUSEPS_PPK1_0_OFFSET
 							+ ((u32)RegNum * 4U));
-			XilSKey_EfusePs_ConvertBytesBeToLe((u8 *)&DataRead, (u8 *)Ppk1hashPtr, 8U);
+			XilSKey_EfusePs_ConvertBytesBeToLe((u8 *)&DataRead, (u8 *)Ppk1hashPtr, 1U);
 			Ppk1hashPtr++;
 		}
 		Status = (u32)XST_SUCCESS;
@@ -2117,7 +2119,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPpk1Hash(u32 *Ppk1Hash, u8 ReadOption)
 			if (Status != (u32)XST_SUCCESS) {
 				goto UNLOCK;
 			}
-			XilSKey_EfusePs_ConvertBytesBeToLe((u8 *)&DataRead, (u8 *)Ppk1hashPtr, 8);
+			XilSKey_EfusePs_ConvertBytesBeToLe((u8 *)&DataRead, (u8 *)Ppk1hashPtr, 1U);
 			Ppk1hashPtr++;
 		}
 
