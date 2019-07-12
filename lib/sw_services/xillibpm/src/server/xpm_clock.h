@@ -66,7 +66,7 @@ extern "C" {
 #define TOPOLOGY_CUSTOM			8
 #define MAX_TOPOLOGY			9
 
-#define MAX_MUX_PARENTS		7
+#define MAX_MUX_PARENTS		8
 #define MAX_NAME_BYTES		16
 
 /**
