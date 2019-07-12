@@ -55,6 +55,8 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 4.5	akm  07/12/19 Fixed compilation error by passing the correct interrupt
+*		      controller instance to SpiIntrExample() function.
 *</pre>
 ******************************************************************************/
 
@@ -174,7 +176,7 @@ int main(void)
 	/*
 	 * Run the Spi Interrupt example.
 	 */
-	Status = SpiIntrExample(&IntcInstance,
+	Status = SpiIntrExample(&Intc,
 				&SpiInstance,
 				SPI_DEVICE_ID,
 				SPI_IRPT_INTR);

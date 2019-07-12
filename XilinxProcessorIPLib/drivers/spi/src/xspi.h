@@ -295,6 +295,9 @@
 *                     read. Otherwise we will hit exception. CR# 989938
 * 4.5	akm  05/29/19 Removed master inhibit dependency while writing DTR
 *		      in between multiple transfers.
+* 4.5   akm  07/12/19 Fixed compilation error in spi interrupt example by
+*		       passing the correct interrupt controller instance to
+*		       SpiIntrExample() function (CR-1035793).
 * </pre>
 *
 ******************************************************************************/
