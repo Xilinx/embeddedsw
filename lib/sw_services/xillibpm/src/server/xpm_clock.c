@@ -287,7 +287,8 @@ XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 
 	for (Idx = 0; Idx < NumParents; Idx++) {
 		u32 ParentId = Parents[Idx];
-		if (!ISOUTCLK(ParentId) && !ISREFCLK(ParentId) && !ISPLL(ParentId)) {
+		if (!ISOUTCLK(ParentId) && !ISREFCLK(ParentId) &&
+		    !ISPLL(ParentId) && CLK_DUMMY_PARENT != ParentId) {
 			Status = XST_INVALID_PARAM;
 			goto done;
 		}
@@ -729,6 +730,10 @@ XStatus XPmClock_QueryMuxSources(u32 ClockId, u32 Index, u32 *Resp)
 		if (Clk->ClkNode.NumParents == (Index + i)) {
 			Resp[i] = 0xFFFFFFFF;
 			break;
+		}
+		if (CLK_DUMMY_PARENT == Clk->Topology.MuxSources[Index + i]) {
+			Resp[i] = CLK_DUMMY_PARENT;
+			continue;
 		}
 		Resp[i] = NODEINDEX(Clk->Topology.MuxSources[Index + i]);
 	}
