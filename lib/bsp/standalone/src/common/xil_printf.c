@@ -291,9 +291,8 @@ void xil_printf( const char8 *ctrl1, ...)
 		}
 		if(ctrl != NULL) {
 			ch = *ctrl;
-		}
-		else {
-			ch = *ctrl;
+		} else {
+			break;
 		}
 
         if (isdigit((s32)ch) != 0) {
