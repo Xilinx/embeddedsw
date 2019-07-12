@@ -276,7 +276,8 @@ done:
 XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 {
 	XStatus Status = XST_SUCCESS;
-	u32 i = 0;
+	u32 Idx = 0;
+	u32 LastParentIdx = 0;
 	XPm_OutClockNode *ClkPtr = (XPm_OutClockNode *)XPmClock_GetById(Id);
 
 	if (ClkPtr == NULL || NumParents > MAX_MUX_PARENTS || NumParents == 0) {
@@ -284,24 +285,39 @@ XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 		goto done;
 	}
 
-	if (ClkPtr->ClkNode.NumParents == 1 && NumParents != 1)	{
+	for (Idx = 0; Idx < NumParents; Idx++) {
+		u32 ParentId = Parents[Idx];
+		if (!ISOUTCLK(ParentId) && !ISREFCLK(ParentId) && !ISPLL(ParentId)) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+	}
+
+	/*
+	 * For clocks which has more than 5 parents add parent command will call
+	 * multiple times. Because from single command only 5 parents can add.
+	 * So find parent index for second command from there remaining parents
+	 * should be stored.
+	 */
+	while ((0 != ClkPtr->Topology.MuxSources[LastParentIdx]) &&
+	       (MAX_MUX_PARENTS != LastParentIdx)) {
+		LastParentIdx++;
+	}
+
+	/* Parents count should not be greater than clock's numbed of parents */
+	if ((LastParentIdx + NumParents > ClkPtr->ClkNode.NumParents) ||
+	    (MAX_MUX_PARENTS == LastParentIdx)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
-	} else {
-		for (i = 0; i < NumParents; i++) {
-			u32 ParentId = Parents[i];
-			if (ParentId && !ISOUTCLK(ParentId) && !ISREFCLK(ParentId) && !ISPLL(ParentId)) {
-				Status = XST_INVALID_PARAM;
-				goto done;
-			}
-		}
-		/* For clocks involving mux */
-		for (i=0;i<NumParents;i++) {
-			ClkPtr->Topology.MuxSources[i] = Parents[i];
-		}
-		/* Assign default parent */
-		ClkPtr->ClkNode.ParentId = ClkPtr->Topology.MuxSources[0];
 	}
+
+	/* For clocks involving mux */
+	for (Idx = 0; Idx < NumParents; Idx++) {
+		ClkPtr->Topology.MuxSources[LastParentIdx++] = Parents[Idx];
+	}
+
+	/* Assign default parent */
+	ClkPtr->ClkNode.ParentId = ClkPtr->Topology.MuxSources[0];
 
 done:
 	return Status;
