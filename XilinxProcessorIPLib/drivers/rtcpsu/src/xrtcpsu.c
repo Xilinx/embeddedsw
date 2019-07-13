@@ -62,6 +62,8 @@
  *                       as Pointer to const,No brackets to then/else,
  *                       Literal value requires a U suffix,Casting operation to a pointer
  *			 Array has no bounds specified,Logical conjunctions need brackets.
+ * 1.8	 sg	07/13/19 Corrected calibration algorithm
+ *
  * </pre>
  *
  ******************************************************************************/
@@ -495,12 +497,14 @@ void XRtcPsu_CalculateCalibration(XRtcPsu *InstancePtr, u32 TimeReal,
 	} else {
 		float Xf;
 		Cprev = Calibration & XRTC_CALIB_RD_MAX_TCK_MASK;
-		Fprev = Calibration & XRTC_CALIB_RD_FRACTN_DATA_MASK;
+		Fprev = (Calibration & XRTC_CALIB_RD_FRACTN_DATA_MASK) >>
+			XRTC_CALIB_RD_FRACTN_DATA_SHIFT;
 
-		Xf = ((ReadTime - SetTime) * ((Cprev+1U) + ((Fprev+1U)/16U))) /
-							(TimeReal - SetTime);
+		Xf = (float)(ReadTime - SetTime) /(TimeReal - SetTime);
+		Xf = Xf * ((Cprev+1U) + ((Fprev+1U)/16U));
+
 		Cnew = (u32)(Xf) - (u32)1;
-		Fnew = XRtcPsu_RoundOff((Xf - Cnew) * 16U) - (u32)1;
+		Fnew = XRtcPsu_RoundOff((Xf - (u32)Xf) * 16U) - (u32)1;
 	}
 
 	Calibration = (Fnew << XRTC_CALIB_RD_FRACTN_DATA_SHIFT) + Cnew;
