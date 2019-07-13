@@ -27,7 +27,7 @@
 /**
 *
 * @file xrtcpsu_intr.c
-* @addtogroup rtcpsu_v1_7
+* @addtogroup rtcpsu_v1_8
 * @{
 *
 * This file contains functions related to RTC interrupt handling.
