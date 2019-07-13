@@ -30,7 +30,8 @@
 *
 * This file contains an example using the XRtcPsu driver.
 *
-* This function updates the calibration register value.
+* This function calculates new calibration value and updates the
+* calibration register value.
 *
 * @note
 * If the device does not work properly, the example may hang.
@@ -41,6 +42,8 @@
 * ----- ------ -------- -----------------------------------------------
 * 1.00  kvn 05/12/15 First Release
 * 1.6	tjs 09/17/18 Fixed compilation warnings
+* 1.8   sg  07/17/19 Update example sequence for finding
+*			new calibration values
 *
 * </pre>
 ******************************************************************************/
@@ -51,6 +54,7 @@
 #include "xrtcpsu.h"		/* RTCPSU device driver */
 #include "xil_printf.h"
 #include <stdio.h>
+#include "sleep.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -168,6 +172,18 @@ int RtcPsuSetCalibrationExample(u16 DeviceId)
 
 	xil_printf("\n\rOld Calibration value : %08x\tCrystal Frequency : %08x\n\r",
 			Rtc_Psu.CalibrationValue,Rtc_Psu.OscillatorFreq);
+
+	/* Set RTC time to user input time */
+	XRtcPsu_SetTime(&Rtc_Psu,NetworkTime);
+
+	/*
+	 * For time accuracy RTC module need to be calibrated at regular interval,
+	 * new calibration value calculation requires rtc set time, rtc current time
+	 * and system/network time. For reference 10Sec system/network time interval
+	 * used for finding new calibration values.
+	 */
+	sleep(10);
+	NetworkTime = NetworkTime+10;
 
 	XRtcPsu_CalculateCalibration(&Rtc_Psu,NetworkTime,OscillatorFreq);
 
