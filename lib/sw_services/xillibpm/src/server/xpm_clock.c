@@ -287,6 +287,18 @@ XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 
 	for (Idx = 0; Idx < NumParents; Idx++) {
 		u32 ParentId = Parents[Idx];
+
+		/*
+		 * FIXME: For GEM0_RX and GEM1_RX parents are EMIO and MIO
+		 * clocks and their IDs are 0 which is not valid clock ID.
+		 * Consider 0 as a valid parent ID for now.
+		 * Remove this condition once EMIO and MIO clocks are added
+		 * as valid clocks.
+		 */
+		if (0 == ParentId) {
+			continue;
+		}
+
 		if (!ISOUTCLK(ParentId) && !ISREFCLK(ParentId) &&
 		    !ISPLL(ParentId) && CLK_DUMMY_PARENT != ParentId) {
 			Status = XST_INVALID_PARAM;
