@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -48,6 +48,7 @@ struct XPm_Periph {
 	struct XPm_PeriphOps *PeriphOps; /**< Core operations */
 	u32 GicProxyMask; /**< GIC Proxy Mask */
 	u32 GicProxyGroup; /**< GIC Proxy Group */
+	u32 WakeProcId; /**< ID of processor which needs to wake on GIC interrupt */
 };
 
 /************************** Function Prototypes ******************************/

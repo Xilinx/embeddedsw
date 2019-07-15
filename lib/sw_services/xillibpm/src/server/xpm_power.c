@@ -24,6 +24,7 @@
 *
 ******************************************************************************/
 
+#include "xpm_gic_proxy.h"
 #include "xpm_power.h"
 #include "xpm_powerdomain.h"
 #include "xpm_psm.h"
@@ -85,6 +86,7 @@ static XStatus SendPowerUpReq(XPm_Node *Node)
 			break;
 		case XPM_NODEIDX_POWER_FPD:
 			Status = XPm_PowerUpFPD(Node);
+			XPm_GicProxy.Clear();
 			break;
 		case XPM_NODEIDX_POWER_NOC:
 			Status = XPm_PowerUpNoC(Node);
@@ -110,6 +112,7 @@ done:
 static XStatus SendPowerDownReq(XPm_Node *Node)
 {
 	u32 Status = XST_SUCCESS;
+	XPm_Device *CoreAcpu0 = XPmDevice_GetById(XPM_DEVID_ACPU_0);
 
 	if (XPM_NODESUBCL_POWER_ISLAND == NODESUBCLASS(Node->Id)) {
 		Status = XPmPsm_SendPowerDownReq(Node->BaseAddress);
@@ -121,6 +124,10 @@ static XStatus SendPowerDownReq(XPm_Node *Node)
 			break;
 		case XPM_NODEIDX_POWER_FPD:
 			Status = XPm_PowerDwnFPD(Node);
+			/* Enable gic proxy if APU is suspending */
+			if (XPM_DEVSTATE_SUSPENDING == CoreAcpu0->Node.State) {
+				XPm_GicProxy.Enable();
+			}
 			break;
 		case XPM_NODEIDX_POWER_NOC:
 			Status = XPm_PowerDwnNoC();
