@@ -77,6 +77,11 @@ static void XPmGicProxy_Enable(void)
 
 		/* Enable interrupts in the group that are set as wake */
 		XPm_Out32(RegAddress, XPm_GicProxy.Groups[g].SetMask);
+
+		if (0 != XPm_GicProxy.Groups[g].SetMask) {
+			XPm_Out32(BaseAddress +
+				  PMC_GLOBAL_GICP_IRQ_ENABLE_OFFSET, BIT(g));
+		}
 	}
 
 	XPm_GicProxy.Flags |= XPM_GIC_PROXY_IS_ENABLED;
@@ -103,12 +108,21 @@ static void XPm_GicProxyDisable(void)
 				 GIC_PROXY_GROUP_OFFSET(g) +
 				 GIC_PROXY_IRQ_STATUS_OFFSET;
 
+		u32 MaskAddr = BaseAddress +
+			       PMC_GLOBAL_GIC_PROXY_BASE_OFFSET +
+			       GIC_PROXY_GROUP_OFFSET(g) +
+			       GIC_PROXY_IRQ_MASK_OFFSET;
+
 		/* Clear interrupts in the GIC Proxy group that are set as wake */
 		XPm_Out32(StatusAddr, XPm_GicProxy.Groups[g].SetMask);
 
 		/* Disable interrupts in the GIC Proxy group that are set as wake */
 		XPm_Out32(DisableAddr, XPm_GicProxy.Groups[g].SetMask);
 
+		if (GIC_PROXY_ALL_MASK == XPm_In32(MaskAddr)) {
+			XPm_Out32(BaseAddress +
+				  PMC_GLOBAL_GICP_IRQ_DISABLE_OFFSET, BIT(g));
+		}
 	}
 
 	XPm_GicProxy.Flags &= ~XPM_GIC_PROXY_IS_ENABLED;
