@@ -80,14 +80,76 @@ enum {
  * PMC GICP0 interrupts
  */
 enum {
+	XPLMI_GICP0_SRC13 = 13, /**< GPIO Interrupt */
+	XPLMI_GICP0_SRC14 = 14, /**< I2C_0 Interrupt */
+	XPLMI_GICP0_SRC15 = 15, /**< I2C_1 Interrupt */
+	XPLMI_GICP0_SRC16 = 16, /**< SPI_0 Interrupt */
+	XPLMI_GICP0_SRC17 = 17, /**< SPI_1 Interrupt */
+	XPLMI_GICP0_SRC18 = 18, /**< UART_0 Interrupt */
+	XPLMI_GICP0_SRC19 = 19, /**< UART_1 Interrupt */
+	XPLMI_GICP0_SRC20 = 20, /**< CAN_0 Interrupt */
+	XPLMI_GICP0_SRC21 = 21, /**< CAN_1 Interrupt */
+	XPLMI_GICP0_SRC22 = 22, /**< USB_0 Interrupt */
+	XPLMI_GICP0_SRC23 = 23, /**< USB_0 Interrupt */
+	XPLMI_GICP0_SRC24 = 24, /**< USB_0 Interrupt */
+	XPLMI_GICP0_SRC25 = 25, /**< USB_0 Interrupt */
+	XPLMI_GICP0_SRC26 = 26, /**< USB_0 Interrupt */
 	XPLMI_GICP0_SRC27 = 27, /**< IPI Interrupt */
+};
+
+/**
+ * PMC GICP1 interrupts
+ */
+enum {
+	XPLMI_GICP1_SRC5 = 5, /**< TTC_0 Interrupt */
+	XPLMI_GICP1_SRC6 = 6, /**< TTC_0 Interrupt */
+	XPLMI_GICP1_SRC7 = 7, /**< TTC_0 Interrupt */
+	XPLMI_GICP1_SRC8 = 8, /**< TTC_1 Interrupt */
+	XPLMI_GICP1_SRC9 = 9, /**< TTC_1 Interrupt */
+	XPLMI_GICP1_SRC10 = 10, /**< TTC_1 Interrupt */
+	XPLMI_GICP1_SRC11 = 11, /**< TTC_2 Interrupt */
+	XPLMI_GICP1_SRC12 = 12, /**< TTC_2 Interrupt */
+	XPLMI_GICP1_SRC13 = 13, /**< TTC_2 Interrupt */
+	XPLMI_GICP1_SRC14 = 14, /**< TTC_3 Interrupt */
+	XPLMI_GICP1_SRC15 = 15, /**< TTC_3 Interrupt */
+	XPLMI_GICP1_SRC16 = 16, /**< TTC_3 Interrupt */
+	XPLMI_GICP1_SRC24 = 24, /**< GEM_0 Interrupt */
+	XPLMI_GICP1_SRC25 = 25, /**< GEM_0 Interrupt */
+	XPLMI_GICP1_SRC26 = 26, /**< GEM_1 Interrupt */
+	XPLMI_GICP1_SRC27 = 27, /**< GEM_1 Interrupt */
+	XPLMI_GICP1_SRC28 = 28, /**< ADMA_0 Interrupt */
+	XPLMI_GICP1_SRC29 = 29, /**< ADMA_1 Interrupt */
+	XPLMI_GICP1_SRC30 = 30, /**< ADMA_2 Interrupt */
+	XPLMI_GICP1_SRC31 = 31, /**< ADMA_3 Interrupt */
+};
+
+/**
+ * PMC GICP2 interrupts
+ */
+enum {
+	XPLMI_GICP2_SRC0 = 0, /**< ADMA_4 Interrupt */
+	XPLMI_GICP2_SRC1 = 1, /**< ADMA_5 Interrupt */
+	XPLMI_GICP2_SRC2 = 2, /**< ADMA_6 Interrupt */
+	XPLMI_GICP2_SRC3 = 3, /**< ADMA_7 Interrupt */
+	XPLMI_GICP2_SRC10 = 10, /**< USB_0 Interrupt */
+};
+
+/**
+ * PMC GICP3 interrupts
+ */
+enum {
+	XPLMI_GICP3_SRC30 = 30, /**< SD_0 Interrupt */
+	XPLMI_GICP3_SRC31 = 31, /**< SD_0 Interrupt */
 };
 
 /**
  * PMC GICP4 interrupts
  */
 enum {
+	XPLMI_GICP4_SRC0 = 0, /**< SD_1 Interrupt */
+	XPLMI_GICP4_SRC1 = 1, /**< SD_1 Interrupt */
 	XPLMI_GICP4_SRC8 = 8, /**< SBI interrupt */
+	XPLMI_GICP4_SRC14 = 14, /**< RTC interrupt */
 	XPLMI_GICP4_SRC16 = 16, /**< sysmon_root interrupt0 */
 };
 
@@ -107,6 +169,7 @@ void XPlmi_GicIntrHandler(void *CallbackRef);
 void XPlmi_GicRegisterHandler(u32 PlmIntrId, Function_t Handler, void *Data);
 void XPlmi_GicIntrEnable(u32 PlmIntrId);
 void XPlmi_GicIntrDisable(u32 PlmIntrId);
+int XPlmi_DispatchWakeHandler(void *DeviceIdx);
 
 /************************** Variable Definitions *****************************/
 
