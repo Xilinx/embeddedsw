@@ -642,6 +642,9 @@ static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	/* Disable and clear ACPUx direct power-down interrupt request */
 	XPsmFw_Write32(PSM_GLOBAL_REG_PWR_CTRL_IRQ_STATUS, Args->PwrStateMask);
 
+	/* Clear pending wake interrupt for ACPUx */
+	XPsmFw_Write32(PSM_GLOBAL_REG_WAKEUP_IRQ_STATUS, Args->PwrStateMask);
+
 	/* Enable wake interrupt by GIC for ACPUx */
 	XPsmFw_Write32(PSM_GLOBAL_REG_WAKEUP_IRQ_EN, Args->PwrStateMask);
 
@@ -856,6 +859,9 @@ static XStatus XPsmFwRPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 
 	/* Disable and clear RPU direct power-down interrupt request */
 	XPsmFw_Write32(PSM_GLOBAL_REG_PWR_CTRL_IRQ_STATUS, Args->PwrStateMask >> 6);
+
+	/* Clear pending wake interrupt for RPUx */
+	XPsmFw_Write32(PSM_GLOBAL_REG_WAKEUP_IRQ_STATUS, Args->PwrStateMask >> 6);
 
 	/* Enable wake interrupt by GIC for RPUx */
 	XPsmFw_Write32(PSM_GLOBAL_REG_WAKEUP_IRQ_EN, Args->PwrStateMask >> 6);
