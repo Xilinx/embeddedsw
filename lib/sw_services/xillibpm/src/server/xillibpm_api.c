@@ -684,6 +684,21 @@ done:
 	return Status;
 }
 
+int XPm_GicProxyWakeUp(const u32 PeriphIdx)
+{
+	int Status = XST_FAILURE;
+
+	XPm_Periph *Periph = (XPm_Periph *)XPmDevice_GetByIndex(PeriphIdx);
+	if ((NULL == Periph) || (0 == Periph->WakeProcId)) {
+		goto done;
+	}
+
+	Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC, Periph->WakeProcId, 0, 0, 0);
+
+done:
+	return Status;
+}
+
 /****************************************************************************/
 /**
  * @brief  This function can be used by a subsystem to start-up and wake-up
@@ -1015,6 +1030,8 @@ XStatus XPm_SetWakeupSource(const u32 SubsystemId, const u32 TargetNodeId,
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
+
+	Periph->WakeProcId = TargetNodeId;
 
 	if (NULL != Periph->PeriphOps->SetWakeupSource) {
 		Periph->PeriphOps->SetWakeupSource(Periph, Enable);
