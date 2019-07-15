@@ -137,6 +137,11 @@ u32 XFsbl_InitWdt(void)
 			ConfigPtr,
 			ConfigPtr->BaseAddress);
 	if (Status != XFSBL_SUCCESS) {
+		if(Status == XST_DEVICE_IS_STARTED)
+		{
+			UStatus = XFSBL_SUCCESS;
+			goto END;
+		}
 		XFsbl_Printf(DEBUG_INFO, "XFSBL_WDT_INIT_FAILED\n\r");
 		UStatus = XFSBL_WDT_INIT_FAILED;
 		goto END;
