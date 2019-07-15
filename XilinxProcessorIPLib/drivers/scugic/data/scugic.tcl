@@ -801,6 +801,48 @@ proc get_concat_number {ip pin} {
 	}
 	return $number
 }
+
+###################################################################
+#
+# Get interrupt ID for Versal pl-ps interrupts
+#
+###################################################################
+proc get_psv_interrupt_id { sink_pin } {
+    if {[string compare -nocase "$sink_pin" "pl_ps_irq0"] == 0 } {
+        return 84
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq1"] == 0 } {
+        return 85
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq2"] == 0 } {
+        return 86
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq3"] == 0 } {
+        return 87
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq4"] == 0 } {
+        return 88
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq5"] == 0 } {
+        return 89
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq6"] == 0 } {
+        return 90
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq7"] == 0 } {
+        return 91
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq8"] == 0 } {
+        return 92
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq9"] == 0 } {
+        return 93
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq10"] == 0 } {
+        return 94
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq11"] == 0 } {
+        return 95
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq12"] == 0 } {
+        return 96
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq13"] == 0 } {
+        return 97
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq14"] == 0 } {
+        return 98
+    } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq15"] == 0 } {
+        return 99
+    }
+}
+
 ###################################################################
 #
 # Get interrupt ID for zynqmpsoc
@@ -989,6 +1031,11 @@ proc get_psu_interrupt_id { ip_name port_name } {
                         set is_pl_ps_irq1 1
                     } elseif {[string compare -nocase "$sink_pin" "op1"] == 0 } {
                         set is_or_gate 1
+                    } elseif {[llength $is_versal] != 0} {
+                        set port_intr_id [get_psv_interrupt_id $sink_pin]
+                        if {[llength $port_intr_id] != 0} {
+                            return $port_intr_id
+                        }
                     }
                 }
                 if { $is_pl_ps_irq0 == 1 || $is_pl_ps_irq1 == 1 || $is_or_gate == 1 } {
@@ -1009,38 +1056,11 @@ proc get_psu_interrupt_id { ip_name port_name } {
                       set is_pl_ps_irq0 1
                  } elseif {[string compare -nocase "$sink_pin" "IRQ1_F2P"] == 0 } {
                        set is_pl_ps_irq1 1
-                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq0"] == 0 } {
-                       return 84
-                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq1"] == 0 } {
-                       return 85
-                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq2"] == 0 } {
-                       return 86
-                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq3"] == 0 } {
-                       return 87
-                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq4"] == 0 } {
-                       return 88
-                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq5"] == 0 } {
-                       return 89
-                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq6"] == 0 } {
-                       return 90
-                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq7"] == 0 } {
-                       return 91
-                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq8"] == 0 } {
-                       return 92
-                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq9"] == 0 } {
-                       return 93
-                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq10"] == 0 } {
-                       return 94
-                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq11"] == 0 } {
-                       return 95
-                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq12"] == 0 } {
-                       return 96
-                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq13"] == 0 } {
-                       return 97
-                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq14"] == 0 } {
-                       return 98
-                 } elseif {[string compare -nocase "$sink_pin" "pl_ps_irq15"] == 0 } {
-                       return 99
+                 } elseif {[llength $is_versal] != 0 } {
+                        set port_intr_id [get_psv_interrupt_id $sink_pin]
+                        if {[llength $port_intr_id] != 0} {
+                            return $port_intr_id
+                        }
                  }
 
         }
