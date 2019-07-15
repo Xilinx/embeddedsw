@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -103,11 +103,11 @@ static void XPm_GicProxyDisable(void)
 				 GIC_PROXY_GROUP_OFFSET(g) +
 				 GIC_PROXY_IRQ_STATUS_OFFSET;
 
-		/* Clear all interrupts in the GIC Proxy group */
-		XPm_Out32(StatusAddr, ~0U);
+		/* Clear interrupts in the GIC Proxy group that are set as wake */
+		XPm_Out32(StatusAddr, XPm_GicProxy.Groups[g].SetMask);
 
-		/* Disable all interrupts in the GIC Proxy group */
-		XPm_Out32(DisableAddr, ~0U);
+		/* Disable interrupts in the GIC Proxy group that are set as wake */
+		XPm_Out32(DisableAddr, XPm_GicProxy.Groups[g].SetMask);
 
 	}
 
@@ -121,12 +121,12 @@ static void XPmGicProxy_Clear(void)
 {
 	u32 g;
 
-	for (g = 0U; g < XPm_GicProxy.GroupsCnt; g++) {
-		XPm_GicProxy.Groups[g].SetMask = 0U;
-	}
-
 	if (0U != (XPm_GicProxy.Flags & XPM_GIC_PROXY_IS_ENABLED)) {
 		XPm_GicProxyDisable();
+	}
+
+	for (g = 0U; g < XPm_GicProxy.GroupsCnt; g++) {
+		XPm_GicProxy.Groups[g].SetMask = 0U;
 	}
 }
 
