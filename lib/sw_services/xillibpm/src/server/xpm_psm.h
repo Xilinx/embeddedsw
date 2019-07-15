@@ -55,6 +55,7 @@ extern "C" {
 #define ENABLE_WFI(BitMask)		XPmPsm_RegWrite(PSM_GLOBAL_PWR_CTRL_EN, BitMask)
 #define DISABLE_WFI(BitMask)	XPmPsm_RegWrite(PSM_GLOBAL_PWR_CTRL_DIS, BitMask)
 #define ENABLE_WAKE(BitMask)	XPmPsm_RegWrite(PSM_GLOBAL_WAKEUP_EN, BitMask)
+#define DISABLE_WAKE(BitMask)	XPmPsm_RegWrite(PSM_GLOBAL_WAKEUP_DIS, BitMask)
 
 typedef struct XPm_Psm XPm_Psm;
 
