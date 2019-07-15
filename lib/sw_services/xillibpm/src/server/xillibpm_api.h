@@ -35,7 +35,6 @@
 extern "C" {
 #endif
 
-#define XIpiPsu	u32
 #define MAX_BASEADDR_LEN	3
 
 /* Global general storage register base address */
