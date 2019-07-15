@@ -45,6 +45,8 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xillibpm_node.h"
+#include "xillibpm_api.h"
 #include "xplmi_gic_interrupts.h"
 #include "xplmi_hw.h"
 #include "xplmi_util.h"
@@ -64,6 +66,111 @@ static struct GicIntrHandlerTable
 	[XPLMI_PMC_GIC_IRQ_GICP0][XPLMI_GICP0_SRC27] =
 		{(void *)0U, XPlmi_IpiDispatchHandler},
 #endif
+	[XPLMI_PMC_GIC_IRQ_GICP0][XPLMI_GICP0_SRC13] =
+		{(void *)XPM_NODEIDX_DEV_GPIO, XPlmi_DispatchWakeHandler},
+
+	[XPLMI_PMC_GIC_IRQ_GICP0][XPLMI_GICP0_SRC14] =
+		{(void *)XPM_NODEIDX_DEV_I2C_0, XPlmi_DispatchWakeHandler},
+	[XPLMI_PMC_GIC_IRQ_GICP0][XPLMI_GICP0_SRC15] =
+		{(void *)XPM_NODEIDX_DEV_I2C_1, XPlmi_DispatchWakeHandler},
+
+	[XPLMI_PMC_GIC_IRQ_GICP0][XPLMI_GICP0_SRC16] =
+		{(void *)XPM_NODEIDX_DEV_SPI_0, XPlmi_DispatchWakeHandler},
+	[XPLMI_PMC_GIC_IRQ_GICP0][XPLMI_GICP0_SRC17] =
+		{(void *)XPM_NODEIDX_DEV_SPI_1, XPlmi_DispatchWakeHandler},
+
+	[XPLMI_PMC_GIC_IRQ_GICP0][XPLMI_GICP0_SRC18] =
+		{(void *)XPM_NODEIDX_DEV_UART_0, XPlmi_DispatchWakeHandler},
+	[XPLMI_PMC_GIC_IRQ_GICP0][XPLMI_GICP0_SRC19] =
+		{(void *)XPM_NODEIDX_DEV_UART_1, XPlmi_DispatchWakeHandler},
+
+	[XPLMI_PMC_GIC_IRQ_GICP0][XPLMI_GICP0_SRC20] =
+		{(void *)XPM_NODEIDX_DEV_CAN_FD_0, XPlmi_DispatchWakeHandler},
+	[XPLMI_PMC_GIC_IRQ_GICP0][XPLMI_GICP0_SRC21] =
+		{(void *)XPM_NODEIDX_DEV_CAN_FD_1, XPlmi_DispatchWakeHandler},
+
+	[XPLMI_PMC_GIC_IRQ_GICP0][XPLMI_GICP0_SRC22] =
+		{(void *)XPM_NODEIDX_DEV_USB_0, XPlmi_DispatchWakeHandler},
+	[XPLMI_PMC_GIC_IRQ_GICP0][XPLMI_GICP0_SRC23] =
+		{(void *)XPM_NODEIDX_DEV_USB_0, XPlmi_DispatchWakeHandler},
+	[XPLMI_PMC_GIC_IRQ_GICP0][XPLMI_GICP0_SRC24] =
+		{(void *)XPM_NODEIDX_DEV_USB_0, XPlmi_DispatchWakeHandler},
+	[XPLMI_PMC_GIC_IRQ_GICP0][XPLMI_GICP0_SRC25] =
+		{(void *)XPM_NODEIDX_DEV_USB_0, XPlmi_DispatchWakeHandler},
+	[XPLMI_PMC_GIC_IRQ_GICP0][XPLMI_GICP0_SRC26] =
+		{(void *)XPM_NODEIDX_DEV_USB_0, XPlmi_DispatchWakeHandler},
+
+	[XPLMI_PMC_GIC_IRQ_GICP1][XPLMI_GICP1_SRC5] =
+		{(void *)XPM_NODEIDX_DEV_TTC_0, XPlmi_DispatchWakeHandler},
+	[XPLMI_PMC_GIC_IRQ_GICP1][XPLMI_GICP1_SRC6] =
+		{(void *)XPM_NODEIDX_DEV_TTC_0, XPlmi_DispatchWakeHandler},
+	[XPLMI_PMC_GIC_IRQ_GICP1][XPLMI_GICP1_SRC7] =
+		{(void *)XPM_NODEIDX_DEV_TTC_0, XPlmi_DispatchWakeHandler},
+
+	[XPLMI_PMC_GIC_IRQ_GICP1][XPLMI_GICP1_SRC8] =
+		{(void *)XPM_NODEIDX_DEV_TTC_1, XPlmi_DispatchWakeHandler},
+	[XPLMI_PMC_GIC_IRQ_GICP1][XPLMI_GICP1_SRC9] =
+		{(void *)XPM_NODEIDX_DEV_TTC_1, XPlmi_DispatchWakeHandler},
+	[XPLMI_PMC_GIC_IRQ_GICP1][XPLMI_GICP1_SRC10] =
+		{(void *)XPM_NODEIDX_DEV_TTC_1, XPlmi_DispatchWakeHandler},
+
+	[XPLMI_PMC_GIC_IRQ_GICP1][XPLMI_GICP1_SRC11] =
+		{(void *)XPM_NODEIDX_DEV_TTC_2, XPlmi_DispatchWakeHandler},
+	[XPLMI_PMC_GIC_IRQ_GICP1][XPLMI_GICP1_SRC12] =
+		{(void *)XPM_NODEIDX_DEV_TTC_2, XPlmi_DispatchWakeHandler},
+	[XPLMI_PMC_GIC_IRQ_GICP1][XPLMI_GICP1_SRC13] =
+		{(void *)XPM_NODEIDX_DEV_TTC_2, XPlmi_DispatchWakeHandler},
+
+	[XPLMI_PMC_GIC_IRQ_GICP1][XPLMI_GICP1_SRC14] =
+		{(void *)XPM_NODEIDX_DEV_TTC_3, XPlmi_DispatchWakeHandler},
+	[XPLMI_PMC_GIC_IRQ_GICP1][XPLMI_GICP1_SRC15] =
+		{(void *)XPM_NODEIDX_DEV_TTC_3, XPlmi_DispatchWakeHandler},
+	[XPLMI_PMC_GIC_IRQ_GICP1][XPLMI_GICP1_SRC16] =
+		{(void *)XPM_NODEIDX_DEV_TTC_3, XPlmi_DispatchWakeHandler},
+
+	[XPLMI_PMC_GIC_IRQ_GICP1][XPLMI_GICP1_SRC24] =
+		{(void *)XPM_NODEIDX_DEV_GEM_0, XPlmi_DispatchWakeHandler},
+	[XPLMI_PMC_GIC_IRQ_GICP1][XPLMI_GICP1_SRC25] =
+		{(void *)XPM_NODEIDX_DEV_GEM_0, XPlmi_DispatchWakeHandler},
+
+	[XPLMI_PMC_GIC_IRQ_GICP1][XPLMI_GICP1_SRC26] =
+		{(void *)XPM_NODEIDX_DEV_GEM_1, XPlmi_DispatchWakeHandler},
+	[XPLMI_PMC_GIC_IRQ_GICP1][XPLMI_GICP1_SRC27] =
+		{(void *)XPM_NODEIDX_DEV_GEM_1, XPlmi_DispatchWakeHandler},
+
+	[XPLMI_PMC_GIC_IRQ_GICP1][XPLMI_GICP1_SRC28] =
+		{(void *)XPM_NODEIDX_DEV_ADMA_0, XPlmi_DispatchWakeHandler},
+	[XPLMI_PMC_GIC_IRQ_GICP1][XPLMI_GICP1_SRC29] =
+		{(void *)XPM_NODEIDX_DEV_ADMA_1, XPlmi_DispatchWakeHandler},
+	[XPLMI_PMC_GIC_IRQ_GICP1][XPLMI_GICP1_SRC30] =
+		{(void *)XPM_NODEIDX_DEV_ADMA_2, XPlmi_DispatchWakeHandler},
+	[XPLMI_PMC_GIC_IRQ_GICP1][XPLMI_GICP1_SRC31] =
+		{(void *)XPM_NODEIDX_DEV_ADMA_3, XPlmi_DispatchWakeHandler},
+
+	[XPLMI_PMC_GIC_IRQ_GICP2][XPLMI_GICP2_SRC0] =
+		{(void *)XPM_NODEIDX_DEV_ADMA_4, XPlmi_DispatchWakeHandler},
+	[XPLMI_PMC_GIC_IRQ_GICP2][XPLMI_GICP2_SRC1] =
+		{(void *)XPM_NODEIDX_DEV_ADMA_5, XPlmi_DispatchWakeHandler},
+	[XPLMI_PMC_GIC_IRQ_GICP2][XPLMI_GICP2_SRC2] =
+		{(void *)XPM_NODEIDX_DEV_ADMA_6, XPlmi_DispatchWakeHandler},
+	[XPLMI_PMC_GIC_IRQ_GICP2][XPLMI_GICP2_SRC3] =
+		{(void *)XPM_NODEIDX_DEV_ADMA_7, XPlmi_DispatchWakeHandler},
+
+	[XPLMI_PMC_GIC_IRQ_GICP2][XPLMI_GICP2_SRC10] =
+		{(void *)XPM_NODEIDX_DEV_USB_0, XPlmi_DispatchWakeHandler},
+
+	[XPLMI_PMC_GIC_IRQ_GICP3][XPLMI_GICP3_SRC30] =
+		{(void *)XPM_NODEIDX_DEV_SDIO_0, XPlmi_DispatchWakeHandler},
+	[XPLMI_PMC_GIC_IRQ_GICP3][XPLMI_GICP3_SRC31] =
+		{(void *)XPM_NODEIDX_DEV_SDIO_0, XPlmi_DispatchWakeHandler},
+
+	[XPLMI_PMC_GIC_IRQ_GICP4][XPLMI_GICP4_SRC0] =
+		{(void *)XPM_NODEIDX_DEV_SDIO_1, XPlmi_DispatchWakeHandler},
+	[XPLMI_PMC_GIC_IRQ_GICP4][XPLMI_GICP4_SRC1] =
+		{(void *)XPM_NODEIDX_DEV_SDIO_1, XPlmi_DispatchWakeHandler},
+
+	[XPLMI_PMC_GIC_IRQ_GICP4][XPLMI_GICP4_SRC14] =
+		{(void *)XPM_NODEIDX_DEV_RTC, XPlmi_DispatchWakeHandler},
 };
 
 /*****************************************************************************/
@@ -194,4 +301,26 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
 		}
 	}
 
+}
+
+/*****************************************************************************/
+/**
+ * @brief This is the handler for wake up interrupts
+ *
+ * @param  DeviceIdx	Index of peripheral device
+ *
+ * @return Status	XST_SUCCESS if processor wake successfully
+ *			XST_FAILURE or error code in case of failure
+ *
+ *****************************************************************************/
+int XPlmi_DispatchWakeHandler(void *DeviceIdx)
+{
+	int Status = XST_FAILURE;
+
+	Status = XPm_GicProxyWakeUp((int)DeviceIdx);
+	if (XST_SUCCESS != Status) {
+		XPlmi_Printf(DEBUG_GENERAL, "%s: Error: Unhandled Wake interrupt receieved\n\r", __func__);
+	}
+
+	return Status;
 }
