@@ -408,7 +408,7 @@ u32 XFsbl_ComputeDdr4Params(u8 *SpdData, struct DdrcInitData *DdrDataPtr)
 {
 	struct Ddr4SpdEeprom *Ddr4SpdData = (struct Ddr4SpdEeprom *)SpdData;
 	XFsbl_DimmParams *PDimmPtr = &DdrDataPtr->PDimm;
-	u32 Status;
+	u32 Status = XFSBL_FAILURE;
 
 	memset(PDimmPtr->Mpart, 0U, sizeof(PDimmPtr->Mpart));
 	if ((Ddr4SpdData->InfoSizeCrc & 0xFU) > 2U)
@@ -443,7 +443,7 @@ u32 XFsbl_ComputeDdr4Params(u8 *SpdData, struct DdrcInitData *DdrDataPtr)
 			break;
 
 		default:
-			Status = XFSBL_FAILURE;
+			/* Do nothing as Status is initialized to XFSBL_FAILURE */
 			goto END;
 	}
 
@@ -529,7 +529,7 @@ u32 XFsbl_ComputeDdr3Params(u8 *SpdData, struct DdrcInitData *DdrDataPtr)
 
 	u32 MtbPs;
 	u32 Ftb10thPs;
-	u32 Status;
+	u32 Status = XFSBL_FAILURE;
 
 	memset(PDimmPtr->Mpart, 0U, sizeof(PDimmPtr->Mpart));
 	if ((Ddr3SpdData->InfoSizeCrc & 0xFU) > 1U)
@@ -570,7 +570,7 @@ u32 XFsbl_ComputeDdr3Params(u8 *SpdData, struct DdrcInitData *DdrDataPtr)
 			break;
 
 		default:
-			Status = XFSBL_FAILURE;
+			/* Do nothing as Status is initialized to XFSBL_FAILURE */
 			goto END;
 	}
 
@@ -737,7 +737,7 @@ u32 XFsbl_ComputeLpDdrParams(u8 *SpdData, struct DdrcInitData *DdrDataPtr)
 static u32 XFsbl_DdrComputeDimmParameters(u8 *SpdData,
 		struct DdrcInitData *DdrDataPtr)
 {
-	u32 Status;
+	u32 Status = XFSBL_FAILURE;
 
 	switch (SpdData[2U]) {
 	case SPD_MEMTYPE_DDR4:
@@ -751,7 +751,7 @@ static u32 XFsbl_DdrComputeDimmParameters(u8 *SpdData,
 		Status = XFsbl_ComputeLpDdrParams(SpdData, DdrDataPtr);
 		break;
 	default:
-		Status = XFSBL_FAILURE;
+		/* Do nothing as Status is initialized to XFSBL_FAILURE */
 		break;
 	}
 
@@ -5766,7 +5766,7 @@ static u32 XFsbl_DdrcPhyTraining(struct DdrcInitData *DdrDataPtr)
 	u32 PllRetry = 10U;
 	u32 PllLocked = 0U;
 	u32 Puad;
-	u32 Status;
+	u32 Status = XFSBL_FAILURE;
 
 	ActiveRanks = Xil_In32(XFSBL_DDRC_BASE_ADDR + 0x0000U);
 
@@ -5796,7 +5796,7 @@ static u32 XFsbl_DdrcPhyTraining(struct DdrcInitData *DdrDataPtr)
 
 	if (PllLocked == 0U) {
 		XFsbl_Printf(DEBUG_INFO,"DDR-PHY Training failed\n\r");
-		Status = XFSBL_FAILURE;
+		/* Do nothing as Status is initialized to XFSBL_FAILURE */
 		goto END;
 	}
 
