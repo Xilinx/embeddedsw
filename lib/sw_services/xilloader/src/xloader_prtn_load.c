@@ -83,6 +83,7 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum)
 {
 	int Status;
 	u32 PrtnIndex;
+	u64 PrtnLoadTime;
 
 	/* Validate and load the image partitions */
 
@@ -90,6 +91,8 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum)
 	{
 		XPlmi_Printf(DEBUG_GENERAL, "+++++++Loading Prtn No: 0x%0x\r\n",
 			     PrtnNum);
+		PrtnLoadTime = XPlmi_GetTimerValue();
+
 		/* Prtn Hdr Validation */
 		Status = XLoader_PrtnHdrValidation(PdiPtr, PrtnNum);
 
@@ -112,6 +115,10 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum)
 		{
 			goto END;
 		}
+		XPlmi_MeasurePerfTime(PrtnLoadTime);
+		XPlmi_Printf(DEBUG_PRINT_PERF,
+			" for PrtnNum: %d, Size: %d Bytes\n\r", PrtnNum,
+			(PdiPtr->MetaHdr.PrtnHdr[PrtnNum].TotalDataWordLen)*4U);
 		PrtnNum++;
 	}
 	Status = XST_SUCCESS;

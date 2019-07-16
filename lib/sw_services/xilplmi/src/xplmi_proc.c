@@ -166,7 +166,7 @@ void XPlmi_MeasurePerfTime(u64 tCur)
 	tPerfMsFrac = tPerfNs % (u64)1e6;
 
 	/* Print the whole (in ms.) and fractional part */
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%d.%06d ms.",
+	XPlmi_Printf(DEBUG_PRINT_PERF, "%d.%06d ms.",
 			(u32)tPerfMs, (u32)tPerfMsFrac);
 }
 

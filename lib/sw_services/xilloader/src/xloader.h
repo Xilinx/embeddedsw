@@ -62,6 +62,7 @@ extern "C" {
 #include "xpm_device.h"
 #include "xcfupmc.h"
 #include "xcframe.h"
+#include "xplmi_proc.h"
 /************************** Constant Definitions *****************************/
 #define XLOADER_SUCCESS		XST_SUCCESS
 #define XLoader_Printf		XPlmi_Printf

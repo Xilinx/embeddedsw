@@ -205,7 +205,7 @@ void XPlmi_TaskDispatchLoop(void )
 			Xil_AssertVoid(Task->Handler != NULL);
 			Status = Task->Handler(Task->PrivData);
 			XPlmi_MeasurePerfTime(TaskStartTime);
-			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Task Time \n\r");
+			XPlmi_Printf(DEBUG_PRINT_PERF, "Task Time \n\r");
 			if (Status != XPLMI_TASK_INPROGRESS)
 			{
 				/** delete the task that is handled */

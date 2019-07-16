@@ -66,6 +66,12 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#ifdef PLM_PRINT_PERF
+#define DEBUG_PRINT_PERF	DEBUG_PRINT_ALWAYS
+#else
+#define DEBUG_PRINT_PERF	(0)
+#endif
+
 #if !defined (STDOUT_BASEADDRESS)
 #define XPlmiDbgCurrentTypes (0U)
 #elif defined (PLM_DEBUG_DETAILED)
