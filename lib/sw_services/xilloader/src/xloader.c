@@ -279,6 +279,7 @@ END:
  *****************************************************************************/
 int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 {
+	u64 ImageLoadTime;
 
 	/**
 	 * From the meta header present in PDI pointer, read the subsystem
@@ -297,6 +298,7 @@ int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 	for ( ;PdiPtr->ImageNum < PdiPtr->MetaHdr.ImgHdrTable.NoOfImgs;
 			++PdiPtr->ImageNum)
 	{
+		ImageLoadTime = XPlmi_GetTimerValue();
 		Status = XLoader_LoadImage(PdiPtr, 0xFFFFFFFFU);
 		/** Check for Cfi errors */
 		XLoader_CfiErrorHandler();
@@ -309,6 +311,9 @@ int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 		{
 			goto END;
 		}
+		XPlmi_MeasurePerfTime(ImageLoadTime);
+		XPlmi_Printf(DEBUG_PRINT_PERF,
+			"for Image: %d\n\r", PdiPtr->ImageNum);
 	}
 	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
 		SubSystemInfo.PdiPtr = PdiPtr;

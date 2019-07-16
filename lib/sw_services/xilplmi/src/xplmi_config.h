@@ -83,6 +83,13 @@ extern "C" {
 //#define PLM_DEBUG_DETAILED
 
 /**
+ * Enabling the PLM_PRINT_PERF prints the time taken for loading partitions,
+ * images and tasks. This define can be enabled with any of the above
+ * debug defines to print the timings.
+ */
+#define PLM_PRINT_PERF
+
+/**
  * @name PLM code include options
  *
  *  PLM by default all the code is included.
