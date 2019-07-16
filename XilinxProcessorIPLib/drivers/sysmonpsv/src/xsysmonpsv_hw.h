@@ -38,7 +38,8 @@
 *
 * Ver   Who    Date	Changes
 * ----- -----  -------- -----------------------------------------------
-* 1.0   aad    09/11/18 First release
+* 1.0   aad    11/09/18 First release
+* 1.1   aad    07/11/19 Fixed NEW_DATA_MASK
 *
 * </pre>
 *
@@ -2053,7 +2054,7 @@ extern "C" {
  */
 #define XSYSMONPSV_NEW_DATA_INT_SRC     0X00001F80
 
-#define XSYSMONPSV_INTR_NEW_DATA_MASK	0x00000F00
+#define XSYSMONPSV_INTR_NEW_DATA_MASK	0x0000F000
 #define XSYSMONPSV_INTR_NEW_DATA_SHIFT	12
 
 #define XSYSMONPSV_NEW_DATA_INT_SRC_ADDR_ID3_SHIFT   24
