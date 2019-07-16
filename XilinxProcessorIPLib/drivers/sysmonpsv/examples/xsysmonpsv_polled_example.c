@@ -42,7 +42,9 @@
 *
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
-* 1.0   add    27/2/19 First release
+* 1.0   add    02/27/19 First release
+* 1.1   add    07/16/19 Added register unlock
+*
 * </pre>
 *
 *****************************************************************************/
@@ -56,7 +58,8 @@
 
 /************************** Constant Definitions ****************************/
 #define INTR_0		0
-#define SYSMONPSV_TIMEOUT	0xFFFFFFFE
+#define SYSMONPSV_TIMEOUT	100000
+#define LOCK_CODE		0xF9E8D7C6
 
 /**************************** Type Definitions ******************************/
 
@@ -144,6 +147,10 @@ int SysMonPsvPolledExample()
 	}
 
 	XSysMonPsv_CfgInitialize(SysMonInstPtr, ConfigPtr);
+
+	/* Unlock the sysmon register space */
+	XSysMonPsv_WriteReg(SysMonInstPtr->Config.BaseAddress + XSYSMONPSV_PCSR_LOCK,
+			    LOCK_CODE);
 
 	/* Clear any bits set in the Interrupt Status Register. */
 	IntrStatus = XSysMonPsv_IntrGetStatus(SysMonInstPtr);
