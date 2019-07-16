@@ -88,7 +88,7 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum)
 
 	for (PrtnIndex = 0; PrtnIndex < PdiPtr->MetaHdr.ImgHdr[ImgNum].NoOfPrtns; PrtnIndex++)
 	{
-		XPlmi_Printf(DEBUG_INFO, "+++++++Loading Prtn No: 0x%0x\r\n",
+		XPlmi_Printf(DEBUG_GENERAL, "+++++++Loading Prtn No: 0x%0x\r\n",
 			     PrtnNum);
 		/* Prtn Hdr Validation */
 		Status = XLoader_PrtnHdrValidation(PdiPtr, PrtnNum);

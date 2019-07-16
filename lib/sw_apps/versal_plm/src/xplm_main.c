@@ -244,9 +244,9 @@ void XPlm_PrintPlmBanner(void )
 				(PsVersion/16), PsVersion%16);
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "\n\r");
 #ifdef DEBUG_UART_MDM
-	XPlmi_Printf(DEBUG_INFO, "STDOUT: MDM UART \n\r");
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "STDOUT: MDM UART \n\r");
 #else
-	XPlmi_Printf(DEBUG_INFO, "STDOUT: PS UART \n\r");
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "STDOUT: PS UART \n\r");
 #endif
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
                  "****************************************\n\r");
