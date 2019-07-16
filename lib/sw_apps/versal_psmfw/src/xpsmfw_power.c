@@ -117,7 +117,7 @@ static struct XPsmFwPwrCtrl_t Rpu0PwrCtrl = {
 		XPSMFW_PWRUP_RPU_CHN3_WAIT_TM },
 	.PwrDwnAckTimeout = XPSMFW_PWRDWN_RPU_TO,
 	.ClkCtrlAddr = CRL_CPU_R5_CTRL,
-	.ClkCtrlMask = CRL_CPU_R5_CTRL_CLKACT_MASK,
+	.ClkCtrlMask = CRL_CPU_R5_CTRL_CLKACT_CORE_MASK,
 	.ClkPropTime = XPSMFW_RPU_CTRL_CLK_PROP_TIME,
 	.RstCtrlMask = CRL_RST_CPU_R5_RESET_CPU0_MASK,
 	.MbistBitMask = PSM_GLOBAL_RPU_MBIST_BIT_MASK,
@@ -139,7 +139,7 @@ static struct XPsmFwPwrCtrl_t Rpu1PwrCtrl = {
 		XPSMFW_PWRUP_RPU_CHN3_WAIT_TM },
 	.PwrDwnAckTimeout = XPSMFW_PWRDWN_RPU_TO,
 	.ClkCtrlAddr = CRL_CPU_R5_CTRL,
-	.ClkCtrlMask = CRL_CPU_R5_CTRL_CLKACT_MASK,
+	.ClkCtrlMask = CRL_CPU_R5_CTRL_CLKACT_CORE_MASK,
 	.ClkPropTime = XPSMFW_RPU_CTRL_CLK_PROP_TIME,
 	.RstCtrlMask = CRL_RST_CPU_R5_RESET_CPU1_MASK,
 	.MbistBitMask = PSM_GLOBAL_RPU_MBIST_BIT_MASK,
@@ -699,13 +699,12 @@ static XStatus XPsmFwRPUxPwrUp(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDwn
 		goto done;
 	}
 
-	if (Type == XPSMFW_PWR_UPDWN_REQUEST) {
-		/* Enable the clock to the R5 and RPU core */
-		XPsmFw_RMW32(Args->ClkCtrlAddr, Args->ClkCtrlMask | CRL_CPU_R5_CTRL_CLKACT_CORE_MASK, Args->ClkCtrlMask | CRL_CPU_R5_CTRL_CLKACT_CORE_MASK);
-	} else {
-		/* Enable clocks to the RPU */
-		XPsmFw_RMW32(Args->ClkCtrlAddr, Args->ClkCtrlMask, Args->ClkCtrlMask);
-	}
+	/* Enable the R5 main clock if not enabled */
+	XPsmFw_RMW32(Args->ClkCtrlAddr, CRL_CPU_R5_CTRL_CLKACT_MASK,
+		     CRL_CPU_R5_CTRL_CLKACT_MASK);
+
+	/* Enable clocks to the RPU */
+	XPsmFw_RMW32(Args->ClkCtrlAddr, Args->ClkCtrlMask, Args->ClkCtrlMask);
 
 	/* Allow the clock to propagate */
 	XPsmFw_UtilWait(Args->ClkPropTime);
@@ -822,13 +821,8 @@ static XStatus XPsmFwRPUxPwrDwn(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDw
 		goto done;
 	}
 
-	if (Type == XPSMFW_PWR_UPDWN_REQUEST) {
-		/* Disable the clock to the R5 and RPU core */
-		XPsmFw_RMW32(Args->ClkCtrlAddr, Args->ClkCtrlMask | CRL_CPU_R5_CTRL_CLKACT_CORE_MASK, ~(Args->ClkCtrlMask | CRL_CPU_R5_CTRL_CLKACT_CORE_MASK));
-	} else {
-		/* Disable clocks to the RPU */
-		XPsmFw_RMW32(Args->ClkCtrlAddr, Args->ClkCtrlMask, ~Args->ClkCtrlMask);
-	}
+	/* Disable clocks to the RPU */
+	XPsmFw_RMW32(Args->ClkCtrlAddr, Args->ClkCtrlMask, ~Args->ClkCtrlMask);
 
 	Status = XPsmFwIslandPwrDwn(Args);
 	if (XST_SUCCESS != Status) {
