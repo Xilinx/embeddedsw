@@ -78,8 +78,8 @@ extern "C" {
  */
 
 //#define PLM_PRINT
-//#define PLM_DEBUG
-#define PLM_DEBUG_INFO
+#define PLM_DEBUG
+//#define PLM_DEBUG_INFO
 //#define PLM_DEBUG_DETAILED
 
 /**
