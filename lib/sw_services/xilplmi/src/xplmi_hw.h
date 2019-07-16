@@ -136,6 +136,15 @@ extern "C" {
 #define XPLMI_PMCRAM_LEN			(0x20000U)
 
 /**
+ * Definitions required from Efuse
+ */
+#define EFUSE_CACHE_BASEADDR      0XF1250000
+#define EFUSE_CACHE_ANLG_TRIM_5    ( ( EFUSE_CACHE_BASEADDR ) + 0X000000E0 )
+#define EFUSE_CACHE_ANLG_TRIM_7    ( ( EFUSE_CACHE_BASEADDR ) + 0X000000F8 )
+
+#define EFUSE_TRIM_LP_MASK		(0xFFFF)
+
+/**
  * Definition for QSPI to be included
  */
 #if (!defined(PLM_QSPI_EXCLUDE) && defined(XPAR_XQSPIPSU_0_DEVICE_ID))

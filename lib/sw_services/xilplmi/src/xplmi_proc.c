@@ -44,6 +44,7 @@
 
 /***************************** Include Files *********************************/
 #include "xplmi_proc.h"
+#include "xplmi_hw.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_MB_MSR_BIP_MASK		(0x8U)
@@ -56,6 +57,7 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
+static int PmcIroFreq; /* Frequency of the PMC IRO */
 static XIOModule IOModule; /* Instance of the IO Module */
 static u32 PlmIntrMap [] = {
 	[XPLMI_IPI_IRQ] = XPLMI_MAP_PLMID(XPLMI_IOMODULE_PMC_GIC_IRQ,
@@ -160,7 +162,7 @@ void XPlmi_MeasurePerfTime(u64 tCur)
 	tDiff = tCur - tEnd;
 
 	/* Convert tPerf into nanoseconds */
-	tPerfNs = ((double)tDiff / (double)XPAR_CPU_CORE_CLOCK_FREQ_HZ) * 1e9;
+	tPerfNs = ((double)tDiff / (double)PmcIroFreq) * 1e9;
 
 	tPerfMs = tPerfNs / 1e6;
 	tPerfMsFrac = tPerfNs % (u64)1e6;
@@ -168,6 +170,30 @@ void XPlmi_MeasurePerfTime(u64 tCur)
 	/* Print the whole (in ms.) and fractional part */
 	XPlmi_Printf(DEBUG_PRINT_PERF, "%d.%06d ms.",
 			(u32)tPerfMs, (u32)tPerfMsFrac);
+}
+
+/*****************************************************************************/
+/**
+* @brief It sets the PMC IRO frequency
+* @param none
+* @return none
+*****************************************************************************/
+static void XPlmi_SetPmcIroFreq()
+{
+	u32 Trim5;
+	u32 Trim7;
+
+	Trim5 = XPlmi_In32(EFUSE_CACHE_ANLG_TRIM_5);
+	Trim7 = XPlmi_In32(EFUSE_CACHE_ANLG_TRIM_7);
+
+	/* Set the Frequency */
+	if (((Trim5 & EFUSE_TRIM_LP_MASK) != 0) ||
+	    ((Trim7 & EFUSE_TRIM_LP_MASK) != 0))
+	{
+		PmcIroFreq = 320 * 1000 * 1000; // 130MHz
+	} else {
+		PmcIroFreq = 130 * 1000 * 1000; // 320MHz
+	}
 }
 
 /*****************************************************************************/
@@ -201,6 +227,8 @@ int XPlmi_StartTimer()
 					     Status);
 		goto END;
 	}
+
+	XPlmi_SetPmcIroFreq();
 
 	/** Initialize and start the timer
 	 *  Use PIT1 and PIT2 in prescalor mode
