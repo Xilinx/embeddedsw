@@ -89,19 +89,22 @@ static int XPlmi_MaskPoll(XPlmi_Cmd * Cmd)
 	int Status;
 	/** HACK  **/
 	TimeOutInUs = 1000000;
-	XPlmi_Printf(DEBUG_GENERAL,
-		"%s: Addr: 0x%0x,  Mask: 0x%0x, ExpVal: 0x%0x, Timeout: %d .....",
-		 __func__, Addr, Mask, ExpectedValue, TimeOutInUs);
 
 	Status = XPlmi_UtilPoll(Addr, Mask, ExpectedValue, TimeOutInUs);
 	if (Status != XST_SUCCESS)
 	{
-		XPlmi_Printf(DEBUG_GENERAL," ERROR\r\n");
+		XPlmi_Printf(DEBUG_GENERAL,
+		"%s: Addr: 0x%0x,  Mask: 0x%0x, ExpVal: 0x%0x, "
+		"Timeout: %d ...ERROR\r\n",  __func__,
+		Addr, Mask, ExpectedValue, TimeOutInUs);
 		/** HACK -- proceed even if we fail */
 		Status = XST_SUCCESS;
 	}
 	else {
-		XPlmi_Printf(DEBUG_GENERAL," Done\r\n");
+		XPlmi_Printf(DEBUG_INFO,
+		"%s: Addr: 0x%0x,  Mask: 0x%0x, ExpVal: 0x%0x, "
+		"Timeout: %d ...Done\r\n",  __func__,
+		Addr, Mask, ExpectedValue, TimeOutInUs);
 	}
 	return Status;
 }

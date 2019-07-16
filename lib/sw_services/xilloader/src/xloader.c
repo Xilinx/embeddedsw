@@ -704,7 +704,7 @@ int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId)
 
 	PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName[3] = 0U;
 	XPlmi_Printf(DEBUG_INFO, "------------------------------------\r\n");
-	XPlmi_Printf(DEBUG_INFO,
+	XPlmi_Printf(DEBUG_GENERAL,
 		  "+++++++Loading Image No: 0x%0x, Name: %s, Id: 0x%08x\n\r",
 		  PdiPtr->ImageNum,
 		  (char *)PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName,
