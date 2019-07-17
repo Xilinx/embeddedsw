@@ -98,7 +98,7 @@ XStatus XPmPsm_SendPowerUpReq(u32 BitMask)
 	u32 Reg;
 	XPm_Psm *Psm;
 
-	PmInfo("BitMask=0x%08X\n\r", BitMask);
+	PmDbg("BitMask=0x%08X\n\r", BitMask);
 
 	Psm = (XPm_Psm *)XPmDevice_GetById(XPM_DEVID_PSM);
 	if (NULL == Psm) {
@@ -128,7 +128,7 @@ XStatus XPmPsm_SendPowerDownReq(u32 BitMask)
 	u32 Reg;
 	XPm_Psm *Psm;
 
-	PmInfo("BitMask=0x%08X\n\r", BitMask);
+	PmDbg("BitMask=0x%08X\n\r", BitMask);
 
 	Psm = (XPm_Psm *)XPmDevice_GetById(XPM_DEVID_PSM);
 	if (NULL == Psm) {

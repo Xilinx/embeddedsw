@@ -78,7 +78,7 @@ static XStatus SendPowerUpReq(XPm_Node *Node)
 	if (XPM_NODESUBCL_POWER_ISLAND == NODESUBCLASS(Node->Id)) {
 		Status = XPmPsm_SendPowerUpReq(Node->BaseAddress);
 	} else {
-		PmInfo("Request to power up domain %x\r\n",Node->Id);
+		PmDbg("Request to power up domain %x\r\n",Node->Id);
 		switch (NODEINDEX(Node->Id)) {
 		case XPM_NODEIDX_POWER_LPD:
 			Status = XPm_PowerUpLPD(Node);
@@ -114,7 +114,7 @@ static XStatus SendPowerDownReq(XPm_Node *Node)
 	if (XPM_NODESUBCL_POWER_ISLAND == NODESUBCLASS(Node->Id)) {
 		Status = XPmPsm_SendPowerDownReq(Node->BaseAddress);
 	} else {
-		PmInfo("Request to power down domain %x\r\n",Node->Id);
+		PmDbg("Request to power down domain %x\r\n",Node->Id);
 		switch (NODEINDEX(Node->Id)) {
 		case XPM_NODEIDX_POWER_LPD:
 			Status = XPm_PowerDwnLPD();
