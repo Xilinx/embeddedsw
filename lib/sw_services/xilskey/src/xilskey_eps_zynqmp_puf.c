@@ -700,7 +700,7 @@ u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 			RegistrationStatus = XSK_EFUSEPS_PUF_REGISTRATION_COMPLETE;
 
 			/* Capture CHASH & AUX */
-			InstancePtr->Chash = InstancePtr->SyndromeData[Index - 1U];
+			InstancePtr->Chash = InstancePtr->SyndromeData[Index];
 			InstancePtr->Aux = ((PufStatus &
 			        XSK_ZYNQMP_CSU_PUF_STATUS_AUX_MASK) >> 4U);
 
