@@ -70,7 +70,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	u32 SetAddress;
 	u64 Address;
 
-	PmInfo("Processing Cmd %x\r\n", Cmd->CmdId);
+	PmDbg("Processing Cmd %x\r\n", Cmd->CmdId);
 
 	if((Cmd->CmdId & 0xFF) != PM_SET_CURRENT_SUBSYSTEM) {
 		SubsystemId = XPmSubsystem_GetCurrent();
