@@ -45,7 +45,7 @@ static int XPm_ProcessPsmCmd(XPlmi_Cmd * Cmd)
 	u32 Status = XST_SUCCESS;
 	u32 *Pload = Cmd->Payload;
 
-	PmInfo("Processing Cmd %x\n\r", Cmd->CmdId);
+	PmDbg("Processing Cmd %x\n\r", Cmd->CmdId);
 
 	switch (Cmd->CmdId & 0xFF) {
 		case PM_PWR_DWN_EVENT:
