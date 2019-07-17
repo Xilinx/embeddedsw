@@ -268,10 +268,13 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			Status = XST_SUCCESS;
 	}
 
-	if(Status == XST_SUCCESS)
+	if (Status == XST_SUCCESS) {
 		Cmd->ResumeHandler = NULL;
-	/*else
-		TBD*/
+	} else {
+		PmErr("Error %d while processing command 0x%x\r\n", Status, Cmd->CmdId);
+		PmDbg("Command payload: 0x%x, 0x%x, 0x%x, 0x%x\r\n",
+			Pload[0], Pload[1], Pload[2], Pload[3]);
+	}
 done:
 	return Status;
 }

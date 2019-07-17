@@ -63,6 +63,10 @@ static int XPm_ProcessPsmCmd(XPlmi_Cmd * Cmd)
 
 	if (XST_SUCCESS == Status) {
 		Cmd->ResumeHandler = NULL;
+	} else {
+		PmErr("Error %d while processing command 0x%x\r\n", Status, Cmd->CmdId);
+		PmDbg("Command payload: 0x%x, 0x%x, 0x%x, 0x%x\r\n",
+				Pload[0], Pload[1], Pload[2], Pload[3]);
 	}
 
 	return Status;
