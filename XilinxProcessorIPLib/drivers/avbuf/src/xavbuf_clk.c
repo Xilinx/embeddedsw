@@ -364,7 +364,7 @@ static int  XAVBuf_ConfigurePll(XAVBuf_Pll *PllInstancePtr)
 	/* Enable and set Fractional Data. */
 	XAVBuf_WriteReg(BaseAddress, XAVBUF_PLL_FRAC_CFG + (MOD_3(Pll) *
 		PllInstancePtr->Offset),
-		(1 << XAVBUF_PLL_FRAC_CFG_ENABLED_SHIFT) |
+		(1U << XAVBUF_PLL_FRAC_CFG_ENABLED_SHIFT) |
 		(PllInstancePtr->Fractional <<
 		XAVBUF_PLL_FRAC_CFG_DATA_SHIFT));
 	/* Assert reset to the PLL. */
