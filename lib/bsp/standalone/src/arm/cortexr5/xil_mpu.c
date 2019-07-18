@@ -596,7 +596,7 @@ u32 Xil_GetNextMPURegion(void)
 #ifdef __GNUC__
 #define u32overflow(a, b) ({typeof(a) s; __builtin_uadd_overflow(a, b, &s); })
 #else
-#define u32overflow(a, b) ({unsigned int _a = (a), _b = (b); _a > (_a+_b); })
+#define u32overflow(a, b) ((a) > ((a) + (b)))
 #endif /* __GNUC__ */
 void *Xil_MemMap(UINTPTR Physaddr, size_t size, u32 flags)
 {
