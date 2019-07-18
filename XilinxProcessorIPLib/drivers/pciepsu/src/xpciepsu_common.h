@@ -139,23 +139,21 @@ extern "C" {
 #define XPCIEPSU_MODE_ENDPOINT		0X0
 #define XPCIEPSU_MODE_ROOTCOMPLEX	0X1
 
-/* Print log macros */
-#define XPciePsu_Print(MSG, ...)	xil_printf("pcie_psu: "MSG,##__VA_ARGS__)
-#define XPciePsu_Error(MSG, ...)	xil_printf("pcie_psu: "MSG,##__VA_ARGS__)
-
 /* Conditional debugging prints */
-#define XPciePsu_Err(MSG, ...) \
+#define XPciePsu_Err(...) \
 		do { \
-			XPciePsu_Error(MSG, ##__VA_ARGS__); \
+			xil_printf("pcie_psu: "); \
+			xil_printf(__VA_ARGS__);  \
 		} while (0)
 
 #ifdef DEBUG_MODE
-#define XPciePsu_Dbg(MSG, ...) \
+#define XPciePsu_Dbg(...) \
 		do { \
-			XPciePsu_Print(MSG, ##__VA_ARGS__); \
+			xil_printf("pcie_psu: "); \
+			xil_printf(__VA_ARGS__);  \
 		} while (0)
 #else
-	#define XPciePsu_Dbg(MSG, ...)	{}
+	#define XPciePsu_Dbg(...)	{}
 #endif
 
 /***************************** Function Prototypes ****************************/
