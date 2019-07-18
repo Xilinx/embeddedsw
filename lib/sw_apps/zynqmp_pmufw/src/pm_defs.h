@@ -147,6 +147,7 @@ extern "C" {
 #define PM_INIT_SUSPEND_CB      30U
 #define PM_ACKNOWLEDGE_CB       31U
 #define PM_NOTIFY_CB            32U
+#define PM_NOTIFY_STL_NO_OP     33U
 
 /* Nodes */
 #define NODE_UNKNOWN    0U

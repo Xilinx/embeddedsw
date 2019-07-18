@@ -46,7 +46,7 @@ static XWdtPs *WdtInstPtr = &WdtInst;
 /*
  * WDT expire time in milliseconds.
  */
-#define XPFW_WDT_EXPIRE_TIME 90U
+#define XPFW_WDT_EXPIRE_TIME XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
 
 /*
  * WDT restart time in milliseconds.
@@ -74,6 +74,44 @@ const XPfw_Module_t *WdtModPtr;
 static void XPfw_WdtRestart(void)
 {
 	if (WdtInstPtr != NULL) {
+		XWdtPs_RestartWdt(WdtInstPtr);
+	}
+}
+
+/****************************************************************************/
+/**
+ * @brief  This scheduler sets the watchdog timer.
+ *
+ * @param  TimeOutVal - Watchdog timeout in ms.
+ *
+ * @return None.
+ *
+ * @note   None.
+ *
+ ****************************************************************************/
+void XPfw_WdtSetVal(u32 TimeOutVal)
+{
+	u32 CounterValue;
+
+	if (TimeOutVal > 0U) {
+		/* Stop the Watchdog timer */
+		XWdtPs_Stop(WdtInstPtr);
+
+		/* Watchdog counter reset value for Expire time of 100Sec,
+		 * i.e., XPFW_WDT_EXPIRE_TIME
+		 */
+		CounterValue = ((TimeOutVal) * (XPFW_WDT_CLK_PER_MSEC)) >> XPFW_WDT_CRV_SHIFT;
+
+		/* Set the Watchdog counter reset value */
+		XWdtPs_SetControlValue(WdtInstPtr, XWDTPS_COUNTER_RESET,
+				CounterValue);
+
+		/* Enable reset output */
+		XWdtPs_EnableOutput(WdtInstPtr, XWDTPS_RESET_SIGNAL);
+
+		/* Start the Watchdog timer */
+		XWdtPs_Start(WdtInstPtr);
+
 		XWdtPs_RestartWdt(WdtInstPtr);
 	}
 }
