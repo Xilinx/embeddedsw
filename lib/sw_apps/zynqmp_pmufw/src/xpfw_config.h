@@ -127,6 +127,8 @@ extern "C" {
 #define	ENABLE_RTC_TEST_VAL				(0U)
 #define	ENABLE_IPI_CRC_VAL				(0U)
 #define	ENABLE_FPGA_LOAD_VAL			(1U)
+#define ENABLE_FPGA_READ_CONFIG_DATA_VAL		(1U)
+#define ENABLE_FPGA_READ_CONFIG_REG_VAL			(1U)
 #define	ENABLE_SECURE_VAL				(1U)
 #define ENABLE_EFUSE_ACCESS				(0U)
 #define	XPU_INTR_DEBUG_PRINT_ENABLE_VAL	(0U)
@@ -150,6 +152,39 @@ extern "C" {
 #define CONNECT_PMU_GPO_5_VAL			(1U)
 
 #define SECURE_ACCESS_VAL		(0U)
+
+/*
+ * XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
+ * 		Default watchdog timeout
+ *
+ * XPFW_CFG_PMU_FPGA_WDT_TIMEOUT
+ * 		This watchdog timeout is applied during bitstream download, provided
+ * 		its value is greater than XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
+ *
+ * XPFW_CFG_PMU_SHA3_WDT_TIMEOUT
+ * 		This watchdog timeout is applied during SHA3 request, provided
+ * 		its value is greater than XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
+ *
+ * XPFW_CFG_PMU_RSA_WDT_TIMEOUT
+ * 		This watchdog timeout is applied during RSA request, provided
+ * 		its value is greater than XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
+ *
+ * XPFW_CFG_PMU_AES_WDT_TIMEOUT
+ * 		This watchdog timeout is applied during AES request, provided
+ * 		its value is greater than XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
+ *
+ * XPFW_CFG_PMU_SECURE_IMAGE_WDT_TIMEOUT
+ * 		This watchdog timeout is applied during secure image download, provided
+ * 		its value is greater than XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
+ *
+ */
+#define XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT		(90U)	/* ms */
+#define XPFW_CFG_PMU_FPGA_WDT_TIMEOUT			(500U)	/* ms */
+#define XPFW_CFG_PMU_SHA3_WDT_TIMEOUT			(500U)	/* ms */
+#define XPFW_CFG_PMU_RSA_WDT_TIMEOUT			(500U)	/* ms */
+#define XPFW_CFG_PMU_AES_WDT_TIMEOUT			(500U)	/* ms */
+#define XPFW_CFG_PMU_SECURE_IMG_LOAD_WDT_TIMEOUT	(500U)	/* ms */
+
 
 #if ENABLE_PM_VAL
 #define ENABLE_PM
@@ -202,6 +237,15 @@ extern "C" {
 #if ENABLE_FPGA_LOAD_VAL
 #define ENABLE_FPGA_LOAD
 #endif
+
+#if ENABLE_FPGA_READ_CONFIG_DATA_VAL
+#define ENABLE_FPGA_READ_CONFIG_DATA
+#endif
+
+#if ENABLE_FPGA_READ_CONFIG_REG_VAL
+#define ENABLE_FPGA_READ_CONFIG_REG
+#endif
+
 #if ENABLE_SECURE_VAL
 #define ENABLE_SECURE
 #endif

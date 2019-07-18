@@ -30,6 +30,7 @@ extern "C" {
 #endif
 
 void ModWdtInit(void);
+void XPfw_WdtSetVal(u32 TimeOutVal);
 
 #ifdef __cplusplus
 }
