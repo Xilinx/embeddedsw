@@ -227,7 +227,9 @@
 *       cog    06/12/19 Fixed issue where positive NCO frequencies were not being
 *                       set correctly.
 *       cog    07/14/19 Added new off mode for mixers (both mixers off).
-*
+*       cog    07/16/19 The powerup state is not necessary to be checked for the
+*                       tile/block/digital path enabled functions and had potential
+*                       to cause lockout.
 * </pre>
 *
 ******************************************************************************/
@@ -1178,14 +1180,16 @@ static inline u32 XRFdc_IsDACBlockEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 B
 {
 	u32 IsEnabled = XRFDC_DISABLED;
 	u32 BaseAddr;
-	u32 TileState;
 
-	TileState = XRFdc_ReadReg16(InstancePtr, XRFDC_DAC_TILE_CTRL_STATS_ADDR(Tile_Id), XRFDC_CURRENT_STATE_OFFSET);
-	if (TileState == XRFDC_TILE_STARTED) {
-		BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
-		IsEnabled = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_DAC_MC_CFG0_OFFSET) ? XRFDC_ENABLED :
-												   XRFDC_DISABLED;
+	if ((Tile_Id > XRFDC_TILE_ID_MAX) || (Block_Id > XRFDC_BLOCK_ID_MAX)) {
+		goto RETURN_PATH;
 	}
+
+	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
+	IsEnabled =
+		XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_DAC_MC_CFG0_OFFSET) ? XRFDC_ENABLED : XRFDC_DISABLED;
+
+RETURN_PATH:
 	return IsEnabled;
 }
 
@@ -1207,21 +1211,21 @@ static inline u32 XRFdc_IsADCBlockEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 B
 {
 	u32 IsEnabled = XRFDC_DISABLED;
 	u32 BaseAddr;
-	u32 TileState;
 
-	TileState = XRFdc_ReadReg16(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id), XRFDC_CURRENT_STATE_OFFSET);
-	if (TileState == XRFDC_TILE_STARTED) {
-		if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == XRFDC_ENABLED) {
-			if (Block_Id > 1U) {
-				goto RETURN_PATH;
-			} else if (Block_Id == 1U) {
-				Block_Id = 2U;
-			}
-		}
-		BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Block_Id);
-		IsEnabled = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_RX_MC_PWRDWN_OFFSET) ? XRFDC_ENABLED :
-												    XRFDC_DISABLED;
+	if ((Tile_Id > XRFDC_TILE_ID_MAX) || (Block_Id > XRFDC_BLOCK_ID_MAX)) {
+		goto RETURN_PATH;
 	}
+
+	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == XRFDC_ENABLED) {
+		if (Block_Id > 1U) {
+			goto RETURN_PATH;
+		} else if (Block_Id == 1U) {
+			Block_Id = 2U;
+		}
+	}
+	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Block_Id);
+	IsEnabled =
+		XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_RX_MC_PWRDWN_OFFSET) ? XRFDC_ENABLED : XRFDC_DISABLED;
 
 RETURN_PATH:
 	return IsEnabled;
@@ -1245,14 +1249,16 @@ static inline u32 XRFdc_IsDACDigitalPathEnabled(XRFdc *InstancePtr, u32 Tile_Id,
 {
 	u32 IsEnabled = XRFDC_DISABLED;
 	u32 BaseAddr;
-	u32 TileState;
 
-	TileState = XRFdc_ReadReg16(InstancePtr, XRFDC_DAC_TILE_CTRL_STATS_ADDR(Tile_Id), XRFDC_CURRENT_STATE_OFFSET);
-	if (TileState == XRFDC_TILE_STARTED) {
-		BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
-		IsEnabled = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_OFFSET) ? XRFDC_ENABLED :
-												   XRFDC_DISABLED;
+	if ((Tile_Id > XRFDC_TILE_ID_MAX) || (Block_Id > XRFDC_BLOCK_ID_MAX)) {
+		goto RETURN_PATH;
 	}
+
+	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
+	IsEnabled =
+		XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_OFFSET) ? XRFDC_ENABLED : XRFDC_DISABLED;
+
+RETURN_PATH:
 	return IsEnabled;
 }
 
@@ -1274,21 +1280,21 @@ static inline u32 XRFdc_IsADCDigitalPathEnabled(XRFdc *InstancePtr, u32 Tile_Id,
 {
 	u32 IsEnabled = XRFDC_DISABLED;
 	u32 BaseAddr;
-	u32 TileState;
 
-	TileState = XRFdc_ReadReg16(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id), XRFDC_CURRENT_STATE_OFFSET);
-	if (TileState == XRFDC_TILE_STARTED) {
-		if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == XRFDC_ENABLED) {
-			if (Block_Id > 1U) {
-				goto RETURN_PATH;
-			} else if (Block_Id == 1U) {
-				Block_Id = 2U;
-			}
-		}
-		BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Block_Id);
-		IsEnabled = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_OFFSET) ? XRFDC_ENABLED :
-												   XRFDC_DISABLED;
+	if ((Tile_Id > XRFDC_TILE_ID_MAX) || (Block_Id > XRFDC_BLOCK_ID_MAX)) {
+		goto RETURN_PATH;
 	}
+
+	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == XRFDC_ENABLED) {
+		if (Block_Id > 1U) {
+			goto RETURN_PATH;
+		} else if (Block_Id == 1U) {
+			Block_Id = 2U;
+		}
+	}
+	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Block_Id);
+	IsEnabled =
+		XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_OFFSET) ? XRFDC_ENABLED : XRFDC_DISABLED;
 
 RETURN_PATH:
 	return IsEnabled;
@@ -1822,7 +1828,6 @@ static inline u32 XRFdc_CheckTileEnabled(XRFdc *InstancePtr, u32 Type, u32 Tile_
 	u32 IsTileAvail = XRFDC_DISABLED;
 	u32 Status;
 	u32 BaseAddr;
-	u32 TileState;
 
 	if ((Type != XRFDC_ADC_TILE) && (Type != XRFDC_DAC_TILE)) {
 		Status = XRFDC_FAILURE;
@@ -1832,11 +1837,9 @@ static inline u32 XRFdc_CheckTileEnabled(XRFdc *InstancePtr, u32 Type, u32 Tile_
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
-	TileState = XRFdc_ReadReg16(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile_Id), XRFDC_CURRENT_STATE_OFFSET);
-	if (TileState == XRFDC_TILE_STARTED) {
-		BaseAddr = XRFDC_DRP_BASE(Type, Tile_Id) + XRFDC_HSCOM_ADDR;
-		IsTileAvail = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_OFFSET, XRFDC_CLK_REG_EN_MASK);
-	}
+
+	BaseAddr = XRFDC_DRP_BASE(Type, Tile_Id) + XRFDC_HSCOM_ADDR;
+	IsTileAvail = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_OFFSET, XRFDC_CLK_REG_EN_MASK);
 
 	if (IsTileAvail == XRFDC_DISABLED) {
 		Status = XRFDC_FAILURE;
