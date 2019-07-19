@@ -806,7 +806,7 @@ u32 XFsbl_ValidatePartitionHeader(
 		/**
 		 * DDR address for A53-x should be greater than TCM
 		 */
-		if (PartitionHeader->DestinationLoadAddress < 0x80000U)
+		if (PartitionHeader->DestinationLoadAddress < 0x40000U)
 		{
 			Status = XFSBL_ERROR_ADDRESS;
 			XFsbl_Printf(DEBUG_GENERAL,
