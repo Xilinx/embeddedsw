@@ -158,6 +158,7 @@
 *       cog    04/30/19 Made Changes to the bypass calibration functionality to support Gen2
 *                       and below.
 * 7.0   cog    05/13/19 Formatting changes.
+*       cog    07/16/19 Added XRFdc_SetDACOpCurr() API.
 *
 * </pre>
 *
@@ -5185,6 +5186,124 @@ u32 XRFdc_GetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Cal_
 	CalFreezePtr->FreezeCalibration =
 		XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CONV_CAL_STGS(Block_Id), XRFDC_CAL_FREEZE_CAL_MASK) >>
 		XRFDC_CAL_FREEZE_CAL_SHIFT;
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+/*****************************************************************************/
+/**
+*
+* Set Output Current for DAC block.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Tile_Id Valid values are 0-3.
+* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
+*			are 0-3.
+* @param uACurrent is the current in uA.
+*
+* @return
+*        - XRFDC_SUCCESS if successful.
+*        - XRFDC_FAILURE if Tile not enabled.
+*
+* @note  Range 6425 - 32000 uA with 25 uA resolution.
+******************************************************************************/
+u32 XRFdc_SetDACOpCurr(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurrent)
+{
+	u32 Status;
+	u32 BaseAddr;
+	u16 EFuse;
+	u16 Gen1CompatibilityMode;
+	u32 OptIdx;
+	u32 uACurrentNext;
+	u32 Code;
+
+	/* Tuned optimization values*/
+	u32 OptimLU[32] = { 5, 5, 5,  5,  5,  6,  6,  6,  6,  7,  7,  7,  8,  8,  8,  9,
+			    9, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 18, 19, 19, 20, 20 };
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	if (InstancePtr->RFdc_Config.IPType < 2) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR, "\n Requested functionality not available for this IP in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+
+	EFuse = XRFdc_ReadReg16(InstancePtr, XRFDC_DRP_BASE(XRFDC_DAC_TILE, Tile_Id) + XRFDC_HSCOM_ADDR,
+				XRFDC_HSCOM_EFUSE_2_OFFSET);
+	if ((EFuse & XRFDC_EXPORTCTRL_VOP) == XRFDC_EXPORTCTRL_VOP) {
+		if ((uACurrent != XRFDC_GEN1_LOW_I) && (uACurrent != XRFDC_GEN1_HIGH_I)) {
+			Status = XRFDC_FAILURE;
+			metal_log(METAL_LOG_ERROR, "\n API not available - Licensing in %s\r\n", __func__);
+			goto RETURN_PATH;
+		}
+	}
+	if (uACurrent > XRFDC_MAX_I_UA) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid current selection (too high) in %s\r\n", __func__);
+		Status = XRFDC_FAILURE;
+		goto RETURN_PATH;
+	}
+	if (uACurrent < XRFDC_MIN_I_UA) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid current selection (too low) in %s\r\n", __func__);
+		Status = XRFDC_FAILURE;
+		goto RETURN_PATH;
+	}
+	if (uACurrent % XRFDC_STEP_I_UA) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid current selection (please use a multiple of 25 uA) in %s\r\n",
+			  __func__);
+		Status = XRFDC_FAILURE;
+		goto RETURN_PATH;
+	}
+	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
+	Gen1CompatibilityMode =
+		XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_DAC_MC_CFG2_OFFSET, XRFDC_DAC_MC_CFG2_GEN1_COMP_MASK);
+	if (Gen1CompatibilityMode == XRFDC_DAC_MC_CFG2_GEN1_COMP_MASK) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid compatibility mode is set in %s\r\n", __func__);
+		Status = XRFDC_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_DAC_MC_CFG0_OFFSET, XRFDC_DAC_MC_CFG0_CAS_BLDR_MASK,
+			XRFDC_CSCAS_BLDR);
+	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_DAC_MC_CFG2_OFFSET,
+			(XRFDC_DAC_MC_CFG3_CSGAIN_MASK | XRFDC_DAC_MC_CFG2_CAS_BIAS_MASK),
+			(XRFDC_BLDR_GAIN | XRFDC_CSCAS_BIAS));
+	uACurrentNext = ((XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_DAC_MC_CFG3_OFFSET, XRFDC_DAC_MC_CFG3_CSGAIN_MASK)) *
+			 XRFDC_STEP_I_UA) +
+			XRFDC_MIN_I_UA;
+
+	while (uACurrent != uACurrentNext) {
+		if (uACurrentNext < uACurrent) {
+			uACurrentNext += uACurrentNext / 10;
+			if (uACurrentNext > uACurrent)
+				uACurrentNext = uACurrent;
+		} else {
+			uACurrentNext -= uACurrentNext / 10;
+			if (uACurrentNext < uACurrent)
+				uACurrentNext = uACurrent;
+		}
+		Code = ((uACurrentNext - XRFDC_MIN_I_UA) / XRFDC_STEP_I_UA);
+
+		OptIdx = (Code & XRFDC_DAC_MC_CFG3_OPT_LUT_MASK) >> XRFDC_DAC_MC_CFG3_OPT_LUT_SHIFT;
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_MC_CFG3_OFFSET,
+				(XRFDC_DAC_MC_CFG3_CSGAIN_MASK | XRFDC_DAC_MC_CFG3_OPT_MASK),
+				((Code << XRFDC_DAC_MC_CFG3_CSGAIN_SHIFT) | OptimLU[OptIdx]));
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_MC_CFG3_OFFSET, XRFDC_DAC_MC_CFG3_UPDATE_MASK,
+				XRFDC_DAC_MC_CFG3_UPDATE_MASK);
+#ifdef __BAREMETAL__
+		usleep(1);
+#else
+		metal_sleep_usec(1);
+#endif
+	}
 
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
