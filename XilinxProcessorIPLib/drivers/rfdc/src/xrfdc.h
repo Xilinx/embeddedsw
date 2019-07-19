@@ -231,6 +231,7 @@
 *                       tile/block/digital path enabled functions and had potential
 *                       to cause lockout.
 *       cog    07/16/19 Added XRFdc_SetDACOpCurr() API.
+*       cog    07/18/19 Added XRFdc_S/GetDigitalStepAttenuator() APIs.
 *
 * </pre>
 *
@@ -1052,6 +1053,7 @@ typedef struct {
 #define XRFDC_EXPORTCTRL_CLKDIST 0x4000
 #define XRFDC_PREMIUMCTRL_CLKDIST 0x0800
 #define XRFDC_EXPORTCTRL_VOP 0x2000
+#define XRFDC_EXPORTCTRL_DSA 0x0400
 
 #define XRFDC_DAC_MODE_7G_NQ1 0U
 #define XRFDC_DAC_MODE_7G_NQ2 1U
@@ -1082,6 +1084,10 @@ typedef struct {
 #define XRFDC_BLDR_GAIN 0x0000U
 #define XRFDC_CSCAS_BLDR 0xE000U
 #define XRFDC_CSCAS_BIAS 0x001BU
+
+#define XRFDC_MAX_ATTEN -11
+#define XRFDC_MIN_ATTEN 0
+#define XRFDC_STEP_ATTEN 0.5
 
 #define XRFDC_TILE_STARTED XRFDC_SM_STATE15
 /*****************************************************************************/
@@ -2041,6 +2047,8 @@ u32 XRFdc_GetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 u32 XRFdc_SetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Cal_Freeze_Settings *CalFreezePtr);
 u32 XRFdc_GetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Cal_Freeze_Settings *CalFreezePtr);
 u32 XRFdc_SetDACOpCurr(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurrent);
+u32 XRFdc_SetDigitalStepAttenuator(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, float Attenuation);
+u32 XRFdc_GetDigitalStepAttenuator(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, float *AttenuationPtr);
 #ifndef __BAREMETAL__
 s32 XRFdc_GetDeviceNameByDeviceId(char *DevNamePtr, u16 DevId);
 #endif

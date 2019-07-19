@@ -159,6 +159,7 @@
 *                       and below.
 * 7.0   cog    05/13/19 Formatting changes.
 *       cog    07/16/19 Added XRFdc_SetDACOpCurr() API.
+*       cog    07/18/19 Added XRFdc_S/GetDigitalStepAttenuator() APIs.
 *
 * </pre>
 *
@@ -5304,6 +5305,151 @@ u32 XRFdc_SetDACOpCurr(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurr
 		metal_sleep_usec(1);
 #endif
 	}
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+/*****************************************************************************/
+/**
+*
+* Set DSA for ADC block.
+*
+* @param InstancePtr is a pointer to the XRfdc instance.
+* @param Tile_Id Valid values are 0-3.
+* @param Block_Id is ADC/DAC block number inside the tile. Valid values
+*        are 0-3.
+* @param Attenuation is the attenuation in dB
+*
+* @return
+*        - XRFDC_SUCCESS if successful.
+*        - XRFDC_FAILURE if Tile not enabled.
+*
+* @note  Range 0 - -ll dB with 0.5 dB resolution.
+******************************************************************************/
+u32 XRFdc_SetDigitalStepAttenuator(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, float Attenuation)
+{
+	u32 Status;
+	u32 BaseAddr;
+	u16 EFuse;
+	u32 Code;
+	u32 Index;
+	u32 NoOfBlocks;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	if (InstancePtr->RFdc_Config.IPType < 2) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR, "\n Requested functionality not available for this IP in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+
+	EFuse = XRFdc_ReadReg16(InstancePtr, XRFDC_DRP_BASE(XRFDC_ADC_TILE, Tile_Id) + XRFDC_HSCOM_ADDR,
+				XRFDC_HSCOM_EFUSE_2_OFFSET);
+	if ((EFuse & XRFDC_EXPORTCTRL_DSA) == XRFDC_EXPORTCTRL_DSA) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR, "\n API not available - Licensing in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+	if (Attenuation < XRFDC_MAX_ATTEN) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid current selection (too high) in %s\r\n", __func__);
+		Status = XRFDC_FAILURE;
+		goto RETURN_PATH;
+	}
+	if (Attenuation > XRFDC_MIN_ATTEN) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid current selection (too low) in %s\r\n", __func__);
+		Status = XRFDC_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	Index = Block_Id;
+	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
+		NoOfBlocks = XRFDC_NUM_OF_BLKS2;
+		if (Block_Id == XRFDC_BLK_ID1) {
+			Index = XRFDC_BLK_ID2;
+			NoOfBlocks = XRFDC_NUM_OF_BLKS4;
+		}
+	} else {
+		NoOfBlocks = Block_Id + 1U;
+	}
+
+	BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
+	Code = (u32)((Attenuation - XRFDC_MAX_ATTEN) / XRFDC_STEP_ATTEN);
+	for (; Index < NoOfBlocks; Index++) {
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CONV_DSA_STGS(Index), XRFDC_ADC_DSA_CODE_MASK, Code);
+	}
+
+	/*trigger*/
+	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DSA_UPDT_OFFSET, XRFDC_ADC_DSA_UPDT_MASK, XRFDC_ADC_DSA_UPDT_MASK);
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+/*****************************************************************************/
+/**
+*
+* Get DSA for ADC block.
+*
+* @param InstancePtr is a pointer to the XRfdc instance.
+* @param Tile_Id Valid values are 0-3.
+* @param Block_Id is ADC/DAC block number inside the tile. Valid values
+*        are 0-3.
+* @param AttenuationPtr is the attenuation in dB
+*
+* @return
+*        - XRFDC_SUCCESS if successful.
+*        - XRFDC_FAILURE if Tile not enabled.
+*
+* @note  Range 0 - -ll dB with 0.5 dB resolution.
+******************************************************************************/
+u32 XRFdc_GetDigitalStepAttenuator(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, float *AttenuationPtr)
+{
+	u32 Status;
+	u32 BaseAddr;
+	u16 EFuse;
+	u32 Code;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(AttenuationPtr != NULL);
+
+	if (InstancePtr->RFdc_Config.IPType < 2) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR, "\n Requested functionality not available for this IP in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+
+	EFuse = XRFdc_ReadReg16(InstancePtr, XRFDC_DRP_BASE(XRFDC_ADC_TILE, Tile_Id) + XRFDC_HSCOM_ADDR,
+				XRFDC_HSCOM_EFUSE_2_OFFSET);
+	if ((EFuse & XRFDC_EXPORTCTRL_DSA) == XRFDC_EXPORTCTRL_DSA) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR, "\n API not available - Licensing in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+
+	if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) {
+		if (Block_Id == XRFDC_BLK_ID1) {
+			Block_Id = XRFDC_BLK_ID2;
+		}
+	}
+
+	BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
+	Code = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CONV_DSA_STGS(Block_Id), XRFDC_ADC_DSA_CODE_MASK);
+	*AttenuationPtr = (float)((Code * XRFDC_STEP_ATTEN) + XRFDC_MAX_ATTEN);
 
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
