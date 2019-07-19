@@ -180,7 +180,7 @@ int XLoader_OspiInit(u32 DeviceFlags)
 	 * Set the prescaler for OSPIPSV clock
 	 */
 
-	XOspiPsv_SetClkPrescaler(OspiPsvInstancePtr, XOSPIPSV_CLK_PRESCALE_15);
+	XOspiPsv_SetClkPrescaler(OspiPsvInstancePtr, XOSPIPSV_CLK_PRESCALE_6);
 	Status = XOspiPsv_SelectFlash(OspiPsvInstancePtr, XOSPIPSV_SELECT_FLASH_CS0);
 	if (Status != XST_SUCCESS)
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_OSPI_SEL_FLASH, Status);
