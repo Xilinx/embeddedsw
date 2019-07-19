@@ -43,6 +43,7 @@ Updated driver tcl to export proper baseaddress for pmc_ppu1_mdm IP.
 
 zdma_v1_8:
 Fix coverity warnings.
+Remove unnecessary Versal clock and routing workarounds.
 
 uartpsv_v1_1:
 Updated the interrupt example to use the interrupt ids from xparameters_ps.h

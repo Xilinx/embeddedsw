@@ -48,6 +48,7 @@
 *                        src issue parameters correctly.
 * 1.3   mus    08/14/17  Add CCI support for A53 in EL1 NS
 * 1.8   aru    07/02/19  Fix coverity warnings
+*       hk     07/19/19  Remove Versal clock and routing workarounds.
 * </pre>
 *
 ******************************************************************************/
@@ -133,22 +134,6 @@ s32 XZDma_CfgInitialize(XZDma *InstancePtr, XZDma_Config *CfgPtr,
 	InstancePtr->ErrorHandler =
 				(XZDma_ErrorHandler)((void *)StubCallBack);
 
-#if defined (versal)
-	/*
-	 * FIXME : Currently PCW/FSBL not configuring the
-	 * reset and clocks for the zdma. This code block
-	 * needs to be reverted once PCW/FSBL take care's
-	 * the configuration of the zdma.
-	 */
-	/* Reset the ADMA */
-	Xil_Out32(XZDMA_CRLADMA_RESET_OFFSET, 0x1);
-	/* Enable clock for the zdma */
-	Xil_Out32(XZDMA_CRLADMA_CLK_OFFSET, 0x6000300);
-	sleep(1);
-	Xil_Out32(XZDMA_CRLADMA_RESET_OFFSET, 0x0);
-	/* Enable transactions from LPD to LPD/PMC or NOC via FPD */
-	Xil_Out32(XZDMA_INTLPD_CONFIG_OFFSET, 0x1);
-#endif
 	XZDma_Reset(InstancePtr);
 	XZDma_GetConfigurations(InstancePtr);
 
