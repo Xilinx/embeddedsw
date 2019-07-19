@@ -5763,7 +5763,7 @@ static u32 XFsbl_DdrcPhyTraining(struct DdrcInitData *DdrDataPtr)
 	u32 PollVal = 0U;
 	u32 CurTRefPrd;
 	u32 RegVal = 0U;
-	u32 PllRetry = 10U;
+	u32 PllRetry = 100U;
 	u32 PllLocked = 0U;
 	u32 Puad;
 	u32 Status = XFSBL_FAILURE;
@@ -5771,8 +5771,10 @@ static u32 XFsbl_DdrcPhyTraining(struct DdrcInitData *DdrDataPtr)
 	ActiveRanks = Xil_In32(XFSBL_DDRC_BASE_ADDR + 0x0000U);
 
 	while ((PllRetry > 0U) && (!PllLocked)) {
-		Xil_Out32(DDR_PHY_PIR_OFFSET, 0x00040010U);
-		Xil_Out32(DDR_PHY_PIR_OFFSET, 0x00040011U);
+		if ((PllRetry % 10U) == 0U) {
+			Xil_Out32(DDR_PHY_PIR_OFFSET, 0x00040010U);
+			Xil_Out32(DDR_PHY_PIR_OFFSET, 0x00040011U);
+		}
 
 		while ((Xil_In32(DDR_PHY_PGSR0_OFFSET) & 0x1U) != 1U);
 
