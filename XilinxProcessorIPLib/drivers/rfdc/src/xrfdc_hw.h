@@ -76,6 +76,7 @@
 * 7.0   cog    05/13/19 Formatting changes.
 *       cog    05/13/19 Added common power up interrupt masks/shifts.
 *       cog    07/16/19 Added XRFdc_SetDACOpCurr() API masks/shifts.
+*       cog    07/18/19 Added XRFdc_S/GetDigitalStepAttenuator() API masks/shifts.
 *
 *</pre>
 *
@@ -205,6 +206,7 @@ extern "C" {
 #define XRFDC_ADC_TI_DCBSTS6_LB_OFFSET 0x234U /**< ADC DCB Status6 LSB Register */
 #define XRFDC_ADC_TI_DCBSTS7_MB_OFFSET 0x238U /**< ADC DCB Status7 MSB Register */
 #define XRFDC_ADC_TI_DCBSTS7_LB_OFFSET 0x23CU /**< ADC DCB Status7 LSB Register */
+#define XRFDC_DSA_UPDT_OFFSET 0x254U /**< ADC DSA Update Trigger REgister */
 #define XRFDC_ADC_FIFO_LTNCY_LB_OFFSET 0x280U /**< ADC FIFO Latency measurement LSB Register */
 #define XRFDC_ADC_FIFO_LTNCY_MB_OFFSET 0x284U /**< ADC FIFO Latency measurement MSB Register */
 #define XRFDC_DAC_DECODER_CTRL_OFFSET 0x180U /**< DAC Unary Decoder/ Randomizer settings */
@@ -262,6 +264,7 @@ extern "C" {
 #define XRFDC_CONV_INTR_STS(X) (0x208U + (X * 0x08U))
 #define XRFDC_CONV_INTR_EN(X) (0x20CU + (X * 0x08U))
 #define XRFDC_CONV_CAL_STGS(X) (0x234U + (X * 0x04U))
+#define XRFDC_CONV_DSA_STGS(X) (0x244U + (X * 0x04U))
 #define XRFDC_CAL_GCB_COEFF0_FAB(X) (0x280U + (X * 0x10U))
 #define XRFDC_CAL_GCB_COEFF1_FAB(X) (0x284U + (X * 0x10U))
 #define XRFDC_CAL_GCB_COEFF2_FAB(X) (0x288U + (X * 0x10U))
@@ -1934,6 +1937,8 @@ extern "C" {
 #define XRFDC_DAC_MC_CFG3_UPDATE_MASK 0x0020U
 #define XRFDC_DAC_MC_CFG0_CAS_BLDR_MASK 0xE000U
 #define XRFDC_DAC_MC_CFG2_CAS_BIAS_MASK 0x001FU
+#define XRFDC_ADC_DSA_CODE_MASK 0x001FU
+#define XRFDC_ADC_DSA_UPDT_MASK 0x0001U
 
 #define XRFDC_DAC_MC_CFG3_CSGAIN_SHIFT 6U
 #define XRFDC_DAC_MC_CFG3_OPT_LUT_SHIFT 5U
