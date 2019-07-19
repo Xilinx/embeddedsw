@@ -75,6 +75,7 @@
 *       cog    03/25/19 Added more calibration bypass masks.
 * 7.0   cog    05/13/19 Formatting changes.
 *       cog    05/13/19 Added common power up interrupt masks/shifts.
+*       cog    07/16/19 Added XRFdc_SetDACOpCurr() API masks/shifts.
 *
 *</pre>
 *
@@ -1927,7 +1928,15 @@ extern "C" {
 #define XRFDC_DAC_MC_CFG3_CSGAIN_20MA 0x000087C0U
 #define XRFDC_DAC_MC_CFG2_OPCSCAS_32MA 0x0000A0D8U
 #define XRFDC_DAC_MC_CFG3_CSGAIN_32MA 0x0000FFC0U
+#define XRFDC_DAC_MC_CFG2_GEN1_COMP_MASK 0x0020U
+#define XRFDC_DAC_MC_CFG3_OPT_LUT_MASK 0x03E0U
+#define XRFDC_DAC_MC_CFG3_OPT_MASK 0x001FU
+#define XRFDC_DAC_MC_CFG3_UPDATE_MASK 0x0020U
+#define XRFDC_DAC_MC_CFG0_CAS_BLDR_MASK 0xE000U
+#define XRFDC_DAC_MC_CFG2_CAS_BIAS_MASK 0x001FU
 
+#define XRFDC_DAC_MC_CFG3_CSGAIN_SHIFT 6U
+#define XRFDC_DAC_MC_CFG3_OPT_LUT_SHIFT 5U
 #define XRFDC_ADC_OVR_VOL_RANGE_SHIFT 24U
 #define XRFDC_ADC_DAT_FIFO_OVR_SHIFT 16U
 #define XRFDC_ADC_SUBADC_DCDR_SHIFT 16U

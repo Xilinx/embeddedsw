@@ -230,6 +230,8 @@
 *       cog    07/16/19 The powerup state is not necessary to be checked for the
 *                       tile/block/digital path enabled functions and had potential
 *                       to cause lockout.
+*       cog    07/16/19 Added XRFdc_SetDACOpCurr() API.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -1049,6 +1051,7 @@ typedef struct {
 #define XRFDC_CTRL_MASK 0x4800
 #define XRFDC_EXPORTCTRL_CLKDIST 0x4000
 #define XRFDC_PREMIUMCTRL_CLKDIST 0x0800
+#define XRFDC_EXPORTCTRL_VOP 0x2000
 
 #define XRFDC_DAC_MODE_7G_NQ1 0U
 #define XRFDC_DAC_MODE_7G_NQ2 1U
@@ -1070,6 +1073,15 @@ typedef struct {
 #define XRFDC_CAL_FRZ_PIN_DISABLE 1U
 
 #define XRFDC_CLK_REG_EN_MASK 0x2000U
+
+#define XRFDC_GEN1_LOW_I 20000U
+#define XRFDC_GEN1_HIGH_I 32000U
+#define XRFDC_MIN_I_UA 6425U
+#define XRFDC_MAX_I_UA 32000U
+#define XRFDC_STEP_I_UA 25U
+#define XRFDC_BLDR_GAIN 0x0000U
+#define XRFDC_CSCAS_BLDR 0xE000U
+#define XRFDC_CSCAS_BIAS 0x001BU
 
 #define XRFDC_TILE_STARTED XRFDC_SM_STATE15
 /*****************************************************************************/
@@ -2028,6 +2040,7 @@ u32 XRFdc_GetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 			     XRFdc_Calibration_Coefficients *CoeffPtr);
 u32 XRFdc_SetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Cal_Freeze_Settings *CalFreezePtr);
 u32 XRFdc_GetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Cal_Freeze_Settings *CalFreezePtr);
+u32 XRFdc_SetDACOpCurr(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurrent);
 #ifndef __BAREMETAL__
 s32 XRFdc_GetDeviceNameByDeviceId(char *DevNamePtr, u16 DevId);
 #endif
