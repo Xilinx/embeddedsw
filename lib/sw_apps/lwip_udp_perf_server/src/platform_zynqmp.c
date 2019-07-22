@@ -44,7 +44,7 @@
 #include "xil_printf.h"
 #include "platform_config.h"
 #include "netif/xadapter.h"
-#ifdef PLATFORM_ZYNQMP
+#if defined(PLATFORM_ZYNQMP) || defined(PLATFORM_VERSAL)
 #include "xttcps.h"
 #include "xtime_l.h"
 
