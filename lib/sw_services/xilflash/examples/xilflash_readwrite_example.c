@@ -63,6 +63,7 @@
 *                     set to sync mode.
 *                     Modified FLASH_BASE_ADDRESS to canonical name.
 * 4.2   nsk  01/27/16 Added check to unlock the Micron G18 Flash.
+* 4.7	akm  07/23/19 Initialized Status variable to XST_FAILURE.
 *
 *</pre>
 ******************************************************************************/
@@ -148,7 +149,7 @@ u8 WriteBuffer[FLASH_TEST_SIZE]; /* Write buffer. */
 ******************************************************************************/
 int main(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	Status = FlashReadWriteExample();
 	if(Status != XST_SUCCESS) {
@@ -174,7 +175,7 @@ int main(void)
 ******************************************************************************/
 int FlashReadWriteExample(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u32 Index;
 
 	#ifdef XPAR_XFL_DEVICE_FAMILY_INTEL

@@ -59,6 +59,7 @@
 * 4.2   nsk  01/29/16 Added Support to change Flash to Async Mode, if it was
 *                     set to sync mode.
 *                     Modified FLASH_BASE_ADDRESS to canonical name.
+* 4.7	akm  07/23/19 Initialized Status variable to XST_FAILURE.
 *</pre>
 ******************************************************************************/
 
@@ -145,7 +146,7 @@ u8 WriteBuffer[FLASH_TEST_SIZE]; /* Write buffer. */
 ******************************************************************************/
 int main(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	Status = FlashProtectionExample();
 	if(Status != XST_SUCCESS) {
@@ -169,7 +170,7 @@ int main(void)
 ******************************************************************************/
 int FlashProtectionExample(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u32 Index;
 
 	#ifdef XPAR_XFL_DEVICE_FAMILY_INTEL

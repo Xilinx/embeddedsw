@@ -46,6 +46,7 @@
 * 2.00a ktn  12/04/09 Updated to use the HAL processor APIs/macros
 * 3.00a sdm  03/03/11 Updated to pass BaseAddress and Flash Width to _Initialize
 *		      API, as required by the new version of the library
+* 4.7	akm  07/23/19 Initialized Status variable to XST_FAILURE.
 *</pre>
 ******************************************************************************/
 
@@ -123,7 +124,7 @@ u8 WriteBuffer[FLASH_TEST_SIZE]; /* Write buffer. */
 ******************************************************************************/
 int main(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	Status = PlatformFlashReadWriteExample();
 	if(Status != XST_SUCCESS) {
@@ -147,7 +148,7 @@ int main(void)
 ******************************************************************************/
 int PlatformFlashReadWriteExample(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u32 Index;
 	DeviceCtrlParam IoctlParams;
 

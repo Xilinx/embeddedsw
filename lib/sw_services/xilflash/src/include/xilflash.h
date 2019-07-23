@@ -216,6 +216,7 @@
 * 4.6	akm  01/22/19 Fixed compilation errors (CR#1018603)
 * 4.7	akm  07/10/19 Updated XFlashAmd_Write() to use adjusted base address
 *                     in write operation(CR-1029074).
+* 4.7	akm  07/23/19 Initialized Status variable to XST_FAILURE.
 * </pre>
 *
 ***************************************************************************/
