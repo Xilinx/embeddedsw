@@ -72,6 +72,7 @@
 *       psl   07/05/19 Added Asserts for validation.
 *       psl   07/12/19 Corrected length of data to read for
 *                      XilSKey_EfusePs_ConvertBytesBeToLe function.
+*       psl   07/23/19 Fixed input validations.
 * </pre>
 *
 *****************************************************************************/
@@ -1056,7 +1057,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
 {
 	u32 WriteValue;
 	u32 ReadValue = 0U;
-	u32 EfusePsType = (u32)EfuseType;
+	u32 EfusePsType;
 	u32 Status = (u32)XST_FAILURE;
 	u32 TimeOut = 0U;
 
@@ -1066,6 +1067,8 @@ u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
 			(EfuseType == XSK_ZYNQMP_EFUSEPS_EFUSE_2) || (EfuseType ==
 					XSK_ZYNQMP_EFUSEPS_EFUSE_3));
 	Xil_AssertNonvoid(Row <= XSK_ZYNQMP_EFUSEPS_PPK1_SHA3_HASH_END_ROW);
+
+	EfusePsType = (u32)EfuseType;
 
 	WriteValue = ((EfusePsType << (u32)XSK_ZYNQMP_EFUSEPS_RD_ADDR_SHIFT) &
 					(u32)XSK_ZYNQMP_EFUSEPS_RD_ADDR_MASK) |
