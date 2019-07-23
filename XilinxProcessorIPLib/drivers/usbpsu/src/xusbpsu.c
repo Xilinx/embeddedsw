@@ -44,6 +44,7 @@
 * 1.4	vak   30/05/18 Removed xusb_wrapper files
 *	vak   24/09/18 Add support for connecting to host in high-speed
 * 1.5	vak   02/06/19 Add API for idling usb controller
+*	pm    22/07/29 Removed coverity warnings
 *
 * </pre>
 *
@@ -745,8 +746,6 @@ s32 XUsbPsu_SetTestMode(struct XUsbPsu *InstancePtr, u32 Mode)
 	s32 Status = XST_SUCCESS;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((Mode >= XUSBPSU_TEST_J)
-			&& (Mode <= XUSBPSU_TEST_FORCE_ENABLE));
 
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
 	RegVal &= ~XUSBPSU_DCTL_TSTCTRL_MASK;
