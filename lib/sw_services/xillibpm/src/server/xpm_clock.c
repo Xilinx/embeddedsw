@@ -906,7 +906,8 @@ XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId)
 	}
 
 	if (ISPLL(ClockId)) {
-		/* Plls are shared so all subsystems are allowed to access it */
+		/* Do not allow permission by default when PLL is shared */
+		Status = XST_NO_ACCESS;
 		goto done;
 	}
 
