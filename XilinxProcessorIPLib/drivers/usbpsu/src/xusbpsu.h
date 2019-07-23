@@ -60,6 +60,7 @@
 *	               negotiation at the time of connection to Host
 * 1.5	vak   02/06/19 Added "xusbpsu_endpoint.h" header
 * 1.5	vak   03/25/19 Fixed incorrect data_alignment pragma directive for IAR
+*	pm    22/07/19 Removed coverity warnings
 *
 * </pre>
 *
@@ -643,7 +644,7 @@ s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
 s32 XUsbPsu_Start(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_Stop(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_SetTestMode(struct XUsbPsu *InstancePtr, u32 Mode);
-XusbPsuLinkState XUsbPsu_GetLinkState(struct XUsbPsu *InstancePtr);
+u8 XUsbPsu_GetLinkState(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_SetLinkState(struct XUsbPsu *InstancePtr,
 		XusbPsuLinkStateChange State);
 s32 XUsbPsu_SendGenericCmd(struct XUsbPsu *InstancePtr,

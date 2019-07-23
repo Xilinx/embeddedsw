@@ -783,7 +783,7 @@ s32 XUsbPsu_SetTestMode(struct XUsbPsu *InstancePtr, u32 Mode)
  * @note	None.
  *
  ****************************************************************************/
-XusbPsuLinkState XUsbPsu_GetLinkState(struct XUsbPsu *InstancePtr)
+u8 XUsbPsu_GetLinkState(struct XUsbPsu *InstancePtr)
 {
 	u32		RegVal;
 
