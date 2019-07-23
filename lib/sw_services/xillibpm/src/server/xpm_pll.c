@@ -54,7 +54,7 @@ XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 		Status = XST_BUFFER_TOO_SMALL;
 		goto done;
 	}
-	XPmNode_Init(&PllClkPtr->ClkNode.Node, Id, (u32)XPM_CLK_STATE_OFF, 0);
+	XPmNode_Init(&PllClkPtr->ClkNode.Node, Id, (u32)PM_PLL_STATE_SUSPENDED, 0);
 	PllClkPtr->ClkNode.Node.BaseAddress = ControlReg;
 	PllClkPtr->ClkNode.ClkHandles = NULL;
 	PllClkPtr->ClkNode.UseCount = 0;
