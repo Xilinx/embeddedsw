@@ -42,6 +42,7 @@
 *		       for all USB IPs
 *	myk 12/01/18 Added hibernation support for device mode
 * 1.4	vak 30/05/18 Removed xusb_wrapper files
+*	pm  22/07/19 Removed coverity warnings
 * </pre>
 *
 *****************************************************************************/
@@ -346,7 +347,6 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 	struct XUsbPsu_Ep *Ept;
 	struct XUsbPsu_Trb *TrbStHw, *TrbLink;
 	u32 RegVal;
-	s32 Ret = (s32)XST_FAILURE;
 	u32 PhyEpNum;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -371,23 +371,22 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 
 	if (((Ept->EpStatus & XUSBPSU_EP_ENABLED) == 0U)
 			|| (InstancePtr->IsHibernated == TRUE)) {
-		Ret = XUsbPsu_StartEpConfig(InstancePtr, UsbEpNum, Dir);
-		if (Ret == XST_FAILURE) {
-			return Ret;
+		if (XUsbPsu_StartEpConfig(InstancePtr, UsbEpNum, Dir)
+							== XST_FAILURE) {
+			return XST_FAILURE;
 		}
 	}
 
-	Ret = XUsbPsu_SetEpConfig(InstancePtr, UsbEpNum, Dir, Maxsize,
-					Type, Restore);
-	if (Ret == XST_FAILURE) {
-		return Ret;
+	if (XUsbPsu_SetEpConfig(InstancePtr, UsbEpNum, Dir, Maxsize,
+					Type, Restore) == XST_FAILURE) {
+		return XST_FAILURE;
 	}
 
 	if (((Ept->EpStatus & XUSBPSU_EP_ENABLED) == 0U)
 			|| (InstancePtr->IsHibernated == TRUE)) {
-		Ret = XUsbPsu_SetXferResource(InstancePtr, UsbEpNum, Dir);
-		if (Ret == XST_FAILURE) {
-			return Ret;
+		if (XUsbPsu_SetXferResource(InstancePtr, UsbEpNum, Dir)
+							== XST_FAILURE) {
+			return XST_FAILURE;
 		}
 
 		Ept->EpStatus |= XUSBPSU_EP_ENABLED;
