@@ -460,22 +460,27 @@ static void XPmClock_InitParent(XPm_OutClockNode *Clk)
 static void XPmClock_RequestInt(XPm_ClockNode *Clk)
 {
 	if (Clk != NULL) {
-		if (0 == Clk->UseCount++) {
+		if (0 == Clk->UseCount) {
+			/* Initialize the parent if not done before */
+			if (CLOCK_PARENT_INVALID == Clk->ParentId) {
+				XPmClock_InitParent((XPm_OutClockNode *)Clk);
+			}
+
+			/* Request the parent first */
+			if (ISOUTCLK(Clk->ParentId)) {
+				XPmClock_RequestInt(XPmClock_GetById(Clk->ParentId));
+			} else if (ISPLL(Clk->ParentId)) {
+				XPmClockPll_Request(Clk->ParentId);
+			}
+
 			/* Mark it as requested. If clock has a gate, state will be changed to On when enabled */
 			Clk->Node.State |= XPM_CLK_STATE_REQUESTED;
 			/* Enable clock if gated */
 			XPmClock_SetGate((XPm_OutClockNode *)Clk, 1);
 		}
 
-		if (CLOCK_PARENT_INVALID == Clk->ParentId) {
-			XPmClock_InitParent((XPm_OutClockNode *)Clk);
-		}
-
-		if (ISOUTCLK(Clk->ParentId)) {
-			XPmClock_RequestInt(XPmClock_GetById(Clk->ParentId));
-		} else if (ISPLL(Clk->ParentId)) {
-			XPmClockPll_Request(Clk->ParentId);
-		}
+		/* Increment the use count of clock */
+		Clk->UseCount++;
 	}
 	return;
 }
@@ -509,16 +514,21 @@ done:
 static void XPmClock_ReleaseInt(XPm_ClockNode *Clk)
 {
 	if (Clk != NULL) {
-		if (0 == --Clk->UseCount) {
+		/* Decrease the use count of clock */
+		Clk->UseCount--;
+
+		if (0 == Clk->UseCount) {
+			/* Clear the requested bit of clock */
 			Clk->Node.State &= ~(XPM_CLK_STATE_REQUESTED);
 			/* Disable clock */
 			XPmClock_SetGate((XPm_OutClockNode *)Clk, 0);
-		}
 
-		if (ISOUTCLK(Clk->ParentId)) {
-			XPmClock_ReleaseInt(XPmClock_GetById(Clk->ParentId));
-		} else if (ISPLL(Clk->ParentId)) {
-			XPmClockPll_Release(Clk->ParentId);
+			/* Release the clock parent */
+			if (ISOUTCLK(Clk->ParentId)) {
+				XPmClock_ReleaseInt(XPmClock_GetById(Clk->ParentId));
+			} else if (ISPLL(Clk->ParentId)) {
+				XPmClockPll_Release(Clk->ParentId);
+			}
 		}
 	}
 	return;
