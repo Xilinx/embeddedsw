@@ -53,6 +53,24 @@ struct XPm_PllTopology {
 
 typedef struct XPm_PllClockNode XPm_PllClockNode;
 
+/**
+ * PmPllContext - Structure for saving context of PLL registers.
+ *              Contains variable to store default content of:
+ * @ctrl        Control register
+ * @cfg         Configuration register
+ * @frac        Fractional control register
+ * @flag        Indicates context saved or not
+ *
+ * Note: context of the PLL is saved when PM framework suspends a PLL (when
+ * no node requires PLL to be locked).
+ */
+typedef struct PmPllContext {
+	u32 Ctrl;
+	u32 Cfg;
+	u32 Frac;
+	u8 Flag;
+} PmPllContext;
+
 struct XPm_PllClockNode {
 	XPm_ClockNode ClkNode;
 	u32 StatusReg;
@@ -60,6 +78,7 @@ struct XPm_PllClockNode {
 	u32 FracConfigReg;
 	u8 PllMode;
 	struct XPm_PllTopology *Topology;
+	PmPllContext Context;
 };
 
 
@@ -130,6 +149,7 @@ struct XPm_PllClockNode {
 #define PLL_RESET_ASSERT			1U
 #define PLL_RESET_RELEASE			2U
 #define PLL_RESET_PULSE	(PLL_RESET_ASSERT | PLL_RESET_RELEASE)
+#define PM_PLL_CONTEXT_SAVED	1U
 
 /* PLL states: */
 #define PM_PLL_STATE_RESET	0U
