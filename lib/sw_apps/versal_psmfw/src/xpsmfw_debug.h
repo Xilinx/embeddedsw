@@ -56,12 +56,19 @@ extern "C" {
 #include "xpsmfw_config.h"
 #include "xil_types.h"
 
+
 /**
  * Debug levels for PSMFW
  */
-#define DEBUG_PRINT_ALWAYS (0x00000001U) /* Unconditional messages */
-#define DEBUG_ERROR (0x00000002U) /* Error messages */
-#define DEBUG_DETAILED (0x00000004U) /* More debug information */
+#if defined (DEBUG_UART_PS)
+#define DEBUG_PRINT_ALWAYS (0x1U) /* Unconditional messages */
+#define DEBUG_ERROR (0x2U) /* Error messages */
+#define DEBUG_DETAILED (0x4U) /* More debug information */
+#else
+#define DEBUG_PRINT_ALWAYS (0x0U) /* Unconditional messages */
+#define DEBUG_ERROR (0x0U) /* Error messages */
+#define DEBUG_DETAILED (0x0U) /* More debug information */
+#endif
 
 #if defined(XPSMFW_DEBUG_DETAILED)
 #define XPfwDbgCurrentTypes ((DEBUG_DETAILED) | (DEBUG_ERROR) |\
