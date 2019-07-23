@@ -281,11 +281,10 @@ static XStatus SetClocks(XPm_Device *Device, u32 Enable)
 	XPm_ClockHandle *ClkHandle = Device->ClkHandles;
 
 	/* Enable all the clock gates, skip over others */
-	while (NULL != ClkHandle) {
-		if (NULL != ClkHandle->Clock) {
-			XPmClock_SetGate((XPm_OutClockNode *)ClkHandle->Clock, Enable);
-		}
-		ClkHandle = ClkHandle->NextClock;
+	if (TRUE == Enable) {
+		XPmClock_Request(ClkHandle);
+	} else {
+		XPmClock_Release(ClkHandle);
 	}
 
 	return XST_SUCCESS;
