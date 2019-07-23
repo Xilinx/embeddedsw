@@ -42,6 +42,8 @@
 #define CLK_CLKFLAGS_SHIFT		8U
 #define CLK_TYPEFLAGS_SHIFT		24U
 
+#define CLOCK_PARENT_INVALID		0U
+
 /* Clock Flags */
 #define CLK_FLAG_READ_ONLY		(1U << 0U)
 
@@ -330,7 +332,15 @@ XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 	}
 
 	/* Assign default parent */
-	ClkPtr->ClkNode.ParentId = ClkPtr->Topology.MuxSources[0];
+	if (ClkPtr->ClkNode.NumParents > 1) {
+		/*
+		 * For mux clocks, parents are initialized when clock
+		 * requested. So assign invalid clock parent by default.
+		 */
+		ClkPtr->ClkNode.ParentId = CLOCK_PARENT_INVALID;
+	} else {
+		ClkPtr->ClkNode.ParentId = ClkPtr->Topology.MuxSources[0];
+	}
 
 done:
 	return Status;
@@ -431,6 +441,21 @@ static struct XPm_ClkTopologyNode* XPmClock_GetTopologyNode(XPm_OutClockNode *Cl
 	return NULL;
 }
 
+static void XPmClock_InitParent(XPm_OutClockNode *Clk)
+{
+	u32 ParentIdx;
+	struct XPm_ClkTopologyNode *Ptr;
+
+	Ptr = XPmClock_GetTopologyNode(Clk, TYPE_MUX);
+	if (NULL != Ptr) {
+		XPmClock_GetClockData(Clk, TYPE_MUX, &ParentIdx);
+
+		/* Update new parent id */
+		Clk->ClkNode.ParentId = Clk->Topology.MuxSources[ParentIdx];
+	}
+
+	return;
+}
 
 static void XPmClock_RequestInt(XPm_ClockNode *Clk)
 {
@@ -440,6 +465,10 @@ static void XPmClock_RequestInt(XPm_ClockNode *Clk)
 			Clk->Node.State |= XPM_CLK_STATE_REQUESTED;
 			/* Enable clock if gated */
 			XPmClock_SetGate((XPm_OutClockNode *)Clk, 1);
+		}
+
+		if (CLOCK_PARENT_INVALID == Clk->ParentId) {
+			XPmClock_InitParent((XPm_OutClockNode *)Clk);
 		}
 
 		if (ISOUTCLK(Clk->ParentId)) {
