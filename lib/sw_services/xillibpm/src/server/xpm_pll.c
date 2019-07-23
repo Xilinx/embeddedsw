@@ -169,19 +169,77 @@ XStatus XPmClockPll_GetMode(XPm_PllClockNode *Pll, u32 *Mode)
 	return XST_SUCCESS;
 }
 
+static void XPm_PllSaveContext(XPm_PllClockNode* Pll)
+{
+	/* Save register setting */
+	Pll->Context.Ctrl = XPm_Read32(Pll->ClkNode.Node.BaseAddress);
+	Pll->Context.Cfg = XPm_Read32(Pll->ConfigReg);
+	Pll->Context.Frac = XPm_Read32(Pll->FracConfigReg);
+	Pll->Context.Flag |= PM_PLL_CONTEXT_SAVED;
+}
+
+static void XPm_PllRestoreContext(XPm_PllClockNode* Pll)
+{
+	XPm_Write32(Pll->ClkNode.Node.BaseAddress, Pll->Context.Ctrl);
+	XPm_Write32(Pll->ConfigReg, Pll->Context.Cfg);
+	XPm_Write32(Pll->FracConfigReg, Pll->Context.Frac);
+	Pll->Context.Flag &= ~PM_PLL_CONTEXT_SAVED;
+}
+
 XStatus XPmClockPll_Suspend(XPm_PllClockNode *Pll)
 {
 	u32 Status = XST_SUCCESS;
-	/* TBD */
+	XPm_Power *PowerDomain = Pll->ClkNode.PwrDomain;
+
+	XPm_PllSaveContext(Pll);
+
+	/* If PLL is not already in reset, bypass it and put in reset/pwrdn */
+	if (PM_PLL_STATE_RESET != Pll->ClkNode.Node.State) {
+		Status = XPmClockPll_Reset(Pll, PLL_RESET_ASSERT);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	if (NULL != PowerDomain) {
+		Status = PowerDomain->Node.HandleEvent(&PowerDomain->Node,
+						       XPM_POWER_EVENT_PWR_DOWN);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
 	Pll->ClkNode.Node.State = PM_PLL_STATE_SUSPENDED;
+
+done:
 	return Status;
 }
 
 XStatus XPmClockPll_Resume(XPm_PllClockNode *Pll)
 {
 	u32 Status = XST_SUCCESS;
-	/* TBD */
-	Pll->ClkNode.Node.State = PM_PLL_STATE_LOCKED;
+	XPm_Power *PowerDomain = Pll->ClkNode.PwrDomain;
+
+	if (NULL != PowerDomain) {
+		Status = PowerDomain->Node.HandleEvent(&PowerDomain->Node,
+						       XPM_POWER_EVENT_PWR_UP);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	if (Pll->Context.Flag & PM_PLL_CONTEXT_SAVED) {
+		XPm_PllRestoreContext(Pll);
+	}
+
+	/* By saved configuration PLL is in reset, leave it as is */
+	if (Pll->Context.Ctrl & BIT(Pll->Topology->ResetShift)) {
+		Pll->ClkNode.Node.State = PM_PLL_STATE_RESET;
+	} else {
+		Status = XPmClockPll_Reset(Pll, PLL_RESET_RELEASE);
+	}
+
+done:
 	return Status;
 }
 
