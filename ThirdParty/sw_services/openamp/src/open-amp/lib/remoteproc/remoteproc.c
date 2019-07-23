@@ -186,8 +186,10 @@ int remoteproc_remove(struct remoteproc *rproc)
 
 	if (rproc) {
 		metal_mutex_acquire(&rproc->lock);
-		if (rproc->state == RPROC_OFFLINE)
+		if (rproc->state == RPROC_OFFLINE) {
 			rproc->ops->remove(rproc);
+			ret = 0;
+		}
 		else
 			ret = -RPROC_EAGAIN;
 		metal_mutex_release(&rproc->lock);
