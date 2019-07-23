@@ -76,6 +76,7 @@
 *		      (CR 781697).
 * 4.7	akm  07/10/19 Updated XFlashAmd_Write() to use adjusted base address
 *		      in write operation(CR-1029074).
+* 4.7	akm  07/23/19 Initialized Status variable to XST_FAILURE.
 * </pre>
 *
 ******************************************************************************/
@@ -574,7 +575,7 @@ int XFlashAmd_Read(XFlash *InstancePtr, u32 Offset, u32 Bytes, void *DestPtr)
 ******************************************************************************/
 int XFlashAmd_Write(XFlash * InstancePtr, u32 Offset, u32 Bytes, void *SrcPtr)
 {
-	int Status;
+	int Status = (int)XST_FAILURE;
 	u32 StartOffset;
 	u32 EndOffset;
 	XFlashVendorData_Amd *DevDataPtr;
@@ -653,7 +654,7 @@ int XFlashAmd_Erase(XFlash * InstancePtr, u32 Offset, u32 Bytes)
 	u32 Dummy;
 	u32 StartOffset;
 	u32 EndOffset;
-	int Status;
+	int Status = (int)XST_FAILURE;
 	XFlashGeometry *GeomPtr;
 	XFlashVendorData_Amd *DevDataPtr;
 
@@ -756,7 +757,7 @@ int XFlashAmd_Lock(XFlash * InstancePtr, u32 Offset, u32 Bytes)
 	u32 BaseAddress;
 	u32 BlockAddress;
 	u32 GroupAddress;
-	int Status;
+	int Status = (int)XST_FAILURE;
 	XFlashGeometry *GeomPtr;
 	XFlashVendorData_Amd *DevDataPtr;
 
@@ -882,7 +883,7 @@ int XFlashAmd_Unlock(XFlash * InstancePtr, u32 Offset, u32 Bytes)
 	u32 BaseAddress;
 	u32 Index;
 	u32 GroupAddress;
-	int Status = XST_FAILURE;
+	int Status = (int)XST_FAILURE;
 	XFlashGeometry *GeomPtr;
 	XFlashVendorData_Amd *DevDataPtr;
 
@@ -1080,7 +1081,7 @@ int XFlashAmd_Unlock(XFlash * InstancePtr, u32 Offset, u32 Bytes)
 ******************************************************************************/
 int XFlashAmd_EraseChip(XFlash * InstancePtr)
 {
-	int Status = XST_SUCCESS;
+	int Status = (int)XST_FAILURE;
 	XFlashGeometry *GeomPtr;
 	XFlashVendorData_Amd *DevDataPtr;
 
@@ -1143,7 +1144,7 @@ int XFlashAmd_EraseChip(XFlash * InstancePtr)
 
 int XFlashAmd_Reset(XFlash * InstancePtr)
 {
-	int Status;
+	int Status = (int)XST_FAILURE;
 
 	/*
 	 * Verify inputs are valid.
@@ -1183,7 +1184,8 @@ static int XFlashAmd_ResetBank(XFlash * InstancePtr, u32 Offset, u32 Bytes)
 {
 	XFlashVendorData_Amd *DevDataPtr;
 	u16 Region, Block;
-	u32 Dummy, Status;
+	u32 Dummy;
+	u32 Status = (u32)XST_FAILURE;
 	XFlashGeometry *GeomPtr;
 
 	/*
@@ -1256,7 +1258,7 @@ int XFlashAmd_DeviceControl(XFlash * InstancePtr, u32 Command,
 {
 	u32 BlockAddr;
 	u32 Offset;
-	int Status = XST_SUCCESS;
+	int Status = (int)XST_FAILURE;
 	XFlashVendorData_Amd *DevDataPtr;
 
 	/*
@@ -1543,7 +1545,7 @@ static int WriteBuffer8(XFlash * InstancePtr, void *DestPtr,
 	u8 *DestinationPtr = (u8*)DestPtr;
 	u32 BaseAddress;
 	u32 Index = 0;
-	int Status = XST_SUCCESS;
+	int Status = (int)XST_FAILURE;
 	XFlashVendorData_Amd *DevDataPtr;
 
 	DevDataPtr = GET_PARTDATA(InstancePtr);
@@ -1615,7 +1617,7 @@ static int WriteBuffer8(XFlash * InstancePtr, void *DestPtr,
 static int WriteBuffer16(XFlash * InstancePtr, void *DestPtr,
 			 void *SrcPtr, u32 Bytes)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u16 *SrcWordPtr = (u16*)SrcPtr;
 	u16 *DestWordPtr = (u16*)DestPtr;
 
@@ -1663,7 +1665,7 @@ static int WriteBufferSpansion(XFlash * InstancePtr, void *DestPtr,
        u32 BaseAddress= InstancePtr->Geometry.BaseAddress;
        u16* Tempsrcptr = (u16 *)SrcPtr;
        u32 Index = 0;
-       int Status = XST_SUCCESS;
+       int Status = (int)XST_FAILURE;
        XFlashVendorData_Amd *DevDataPtr = GET_PARTDATA(InstancePtr);
        u32 BufferSize = InstancePtr->Properties.ProgCap.WriteBufferSize;
 
@@ -1721,7 +1723,7 @@ static int WriteBufferAmd(XFlash * InstancePtr, void *DestPtr,
 	u32 DestinationPtr = (u32)DestPtr;
 	u32 BaseAddress = InstancePtr->Geometry.BaseAddress;
 	u32 Index = 0;
-	int Status = XST_SUCCESS;
+	int Status = (int)XST_FAILURE;
 	XFlashVendorData_Amd *DevDataPtr = GET_PARTDATA(InstancePtr);
 
 	/* Send the Unlock Bypass command. */
@@ -1789,7 +1791,7 @@ int WriteSingleBuffer(XFlash * InstancePtr, void *DestPtr,
 	u32 DestinationPtr = (u32)DestPtr;
 	u32 BaseAddress;
 	u32 Index = 0;
-	int Status = XST_SUCCESS;
+	int Status = (int)XST_FAILURE;
 	XFlashVendorData_Amd *DevDataPtr;
 	u32 SectorAddress;
 	u32 WordCount = Bytes/2;
@@ -1881,7 +1883,7 @@ static int WriteBuffer32(XFlash * InstancePtr, void *DestPtr,
 	u32 *DestinationPtr = (u32*)DestPtr;
 	u32 BaseAddress;
 	u32 Index = 0;
-	int Status = XST_SUCCESS;
+	int Status = (int)XST_FAILURE;
 	XFlashVendorData_Amd *DevDataPtr;
 
 	/*
@@ -2555,7 +2557,7 @@ static int CheckBlockProtection(XFlash * InstancePtr, u32 Offset)
 	u32 BlockAddress;
 	u32 CmdAddress;
 	u32 ProtStatus;
-	int Status;
+	int Status = (int)XST_FAILURE;
 	XFlashGeometry *GeomPtr;
 	XFlashVendorData_Amd *DevDataPtr;
 

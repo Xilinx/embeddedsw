@@ -91,6 +91,7 @@
 *		      Description: Non-word aligned data write to flash fails
 *		      with AXI interface.
 * 4.1	nsk  08/06/15 Fixed CR 835008.
+* 4.7	akm  07/23/19 Initialized Status variable to XST_FAILURE.
 * </pre>
 *
 ******************************************************************************/
@@ -432,7 +433,7 @@ int XFlashIntel_Read(XFlash *InstancePtr, u32 Offset, u32 Bytes, void *DestPtr)
 int XFlashIntel_Write(XFlash *InstancePtr, u32 Offset, u32 Bytes, void *SrcPtr)
 {
 	XFlashVendorData_Intel *DevDataPtr;
-	int Status;
+	int Status = (int)XST_FAILURE;
 
 	/*
 	 * Verify inputs are valid.
@@ -503,7 +504,7 @@ int XFlashIntel_Erase(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 	u32 Dummy;
 	XFlashGeometry *GeomPtr;
 	XFlashVendorData_Intel *DevDataPtr;
-	int Status;
+	int Status = (int)XST_FAILURE;
 
 	/*
 	 * Verify inputs are valid.
@@ -601,7 +602,7 @@ int XFlashIntel_Lock(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 	u32 Dummy;
 	u32 BaseAddress;
 	u32 BlockAddress;
-	int Status;
+	int Status = (int)XST_FAILURE;
 	XFlashGeometry *GeomPtr;
 
 	/*
@@ -746,7 +747,7 @@ int XFlashIntel_Unlock(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 	u32 Dummy;
 	u32 BaseAddress;
 	u32 BlockAddress;
-	int Status;
+	int Status = (int)XST_FAILURE;
 	XFlashGeometry *GeomPtr;
 
 	/*
@@ -919,7 +920,7 @@ int XFlashIntel_Reset(XFlash *InstancePtr)
 static int XFlashIntel_ResetBank(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 {
 	XFlashVendorData_Intel *DevDataPtr;
-	int Status;
+	int Status = (int)XST_FAILURE;
 	u16 Region, Block;
 	u32 BaseAddress;
 	u32 Dummy;
@@ -1029,7 +1030,7 @@ static int XFlashIntel_ResetBank(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 int XFlashIntel_DeviceControl(XFlash *InstancePtr, u32 Command,
 			      DeviceCtrlParam *Parameters)
 {
-	int Status;
+	int Status = (int)XST_FAILURE;
 	XFlashVendorData_Intel *DevDataPtr;
 
 	/*
@@ -1703,7 +1704,7 @@ static int WriteBuffer8(XFlash *InstancePtr, void *DestPtr,
 	u32 BaseAddress;
 	u32 PartialBytes;
 	u32 Count;
-	int Status = XST_SUCCESS;
+	int Status = (int)XST_FAILURE;
 	u32 Index;
 
 	DevDataPtr = GET_PARTDATA(InstancePtr);
@@ -1944,7 +1945,7 @@ static int WriteBufferStrataFlashDevice(XFlash *InstancePtr, void *DestPtr,
 	u32 BytesLeft = Bytes;
 	u32 PartialBytes;
 	u32 Count;
-	int Status = XST_SUCCESS;
+	int Status = (int)XST_FAILURE;
 	u32 Index;
 
 	DevDataPtr = GET_PARTDATA(InstancePtr);
@@ -2197,7 +2198,7 @@ static int WriteBufferIntelFlashDevice(XFlash *InstancePtr, void *DestPtr,
 	u32 BytesLeft = Bytes;
 	u32 PartialBytes;
 	u32 Count;
-	int Status = XST_SUCCESS;
+	int Status = (int)XST_FAILURE;
 	u32 Index;
 
 	DevDataPtr = GET_PARTDATA(InstancePtr);
@@ -2446,7 +2447,7 @@ static int WriteBufferIntelFlashDevice(XFlash *InstancePtr, void *DestPtr,
 static int WriteBuffer16(XFlash *InstancePtr, void *DestPtr,
 			 void *SrcPtr, u32 Bytes)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	if (InstancePtr->Properties.PartID.DeviceID == 0x01) {
 		Status = WriteBufferStrataFlashDevice(InstancePtr, DestPtr,
 							SrcPtr, Bytes);
@@ -2507,7 +2508,7 @@ static int WriteBuffer32(XFlash *InstancePtr, void *DestPtr,
 	u32 BytesLeft = Bytes;
 	u32 PartialBytes;
 	u32 Count;
-	int Status = XST_SUCCESS;
+	int Status = (int)XST_FAILURE;
 	u32 Index;
 
 	DevDataPtr = GET_PARTDATA(InstancePtr);
@@ -2816,7 +2817,7 @@ static int WriteBuffer64(XFlash *InstancePtr, void *DestPtr,
 	u32 BytesLeft = Bytes;
 	u32 PartialBytes;
 	u32 Count;
-	int Status = XST_SUCCESS;
+	int Status = (int)XST_FAILURE;
 	u32 Index;
 
 	DevDataPtr = GET_PARTDATA(InstancePtr);

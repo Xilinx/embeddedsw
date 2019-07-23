@@ -79,6 +79,7 @@
 *		      fails to work.
 * 3.04a srt  02/18/13 Fixed CR 700553.
 * 4.5	tjs  08/13/18 Fixed compilation errors for ARMCC (CR#1008306)
+* 4.7	akm  07/23/19 Initialized Status variable to XST_FAILURE.
 * </pre>
 *
 *
@@ -127,7 +128,7 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 {
 	void *DataPtr;
 	u32 BaseAddress;
-	int Status = XST_SUCCESS;
+	int Status = (int)XST_FAILURE;
 	u8 Data8;
 	u8 Mode;
 	u8 DataQRY[3];
