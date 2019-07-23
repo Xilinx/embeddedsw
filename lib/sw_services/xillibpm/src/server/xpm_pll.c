@@ -152,6 +152,13 @@ done:
 XStatus XPmClockPll_GetMode(XPm_PllClockNode *Pll, u32 *Mode)
 {
 	u32 Val;
+	XStatus Status = XST_SUCCESS;
+	XPm_Power *PowerDomain = Pll->ClkNode.PwrDomain;
+
+	if (XPM_POWER_STATE_ON != PowerDomain->Node.State) {
+		Status = XST_NO_ACCESS;
+		goto done;
+	}
 
 	Val = XPm_Read32(Pll->ClkNode.Node.BaseAddress);
 	if (0 != (Val & BIT(Pll->Topology->ResetShift))) {
@@ -166,7 +173,9 @@ XStatus XPmClockPll_GetMode(XPm_PllClockNode *Pll, u32 *Mode)
 	}
 
 	Pll->PllMode = *Mode;
-	return XST_SUCCESS;
+
+done:
+	return Status;
 }
 
 static void XPm_PllSaveContext(XPm_PllClockNode* Pll)
@@ -381,6 +390,12 @@ XStatus XPmClockPll_GetParam(XPm_PllClockNode *Pll, u32 Param, u32 *Val)
 	u32 Status = XST_SUCCESS;
 	XPm_PllParam *PtrParam;
 	u32 Shift, Mask, Reg = 0;
+	XPm_Power *PowerDomain = Pll->ClkNode.PwrDomain;
+
+	if (XPM_POWER_STATE_ON != PowerDomain->Node.State) {
+		Status = XST_NO_ACCESS;
+		goto done;
+	}
 
 	if (Param >= PLL_PARAM_MAX) {
 		Status = XST_INVALID_PARAM;

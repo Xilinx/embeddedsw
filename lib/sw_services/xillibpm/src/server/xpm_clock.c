@@ -651,10 +651,16 @@ XStatus XPmClock_GetClockData(XPm_OutClockNode *Clk, u32 Nodetype, u32 *Value)
 	u32 Status = XST_SUCCESS;
 	u32 Mask;
 	struct XPm_ClkTopologyNode *Ptr;
+	XPm_Power *PowerDomain = Clk->ClkNode.PwrDomain;
 
 	Ptr = XPmClock_GetTopologyNode(Clk, Nodetype);
 	if (Ptr == NULL) {
 		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if (XPM_POWER_STATE_ON != PowerDomain->Node.State) {
+		Status = XST_NO_ACCESS;
 		goto done;
 	}
 
