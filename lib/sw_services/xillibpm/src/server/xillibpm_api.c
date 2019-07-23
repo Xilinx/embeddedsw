@@ -1345,12 +1345,18 @@ XStatus XPm_SetClockState(const u32 SubsystemId, const u32 ClockId, const u32 En
 		goto done;
 	}
 
+	/* HACK: Allow enabling of PLLs for now */
+	if ((TRUE == Enable) && (ISPLL(ClockId))) {
+		goto bypass;
+	}
+
 	/* Check if subsystem is allowed to access requested clock or not */
 	Status = XPm_IsAccessAllowed(SubsystemId, ClockId);
 	if (Status != XST_SUCCESS) {
 		goto done;
 	}
 
+bypass:
 	if (ISOUTCLK(ClockId)) {
 		Status = XPmClock_SetGate((XPm_OutClockNode *)Clk, Enable);
 	} else if (ISPLL(ClockId)) {
