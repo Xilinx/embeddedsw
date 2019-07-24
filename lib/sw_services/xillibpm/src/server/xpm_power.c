@@ -24,11 +24,12 @@
 *
 ******************************************************************************/
 
+#include "xpm_bisr.h"
 #include "xpm_gic_proxy.h"
 #include "xpm_power.h"
 #include "xpm_powerdomain.h"
+#include "xpm_pslpdomain.h"
 #include "xpm_psm.h"
-
 
 static XPm_Power *PmPowers[XPM_NODEIDX_POWER_MAX];
 static u32 PmNumPowers;
@@ -72,12 +73,31 @@ static XStatus SetPowerNode(u32 Id, XPm_Power *PwrNode)
 static XStatus SendPowerUpReq(XPm_Node *Node)
 {
 	u32 Status = XST_SUCCESS;
+	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(LPD_ID);
 
 	if (XPM_POWER_STATE_ON == Node->State)
 		goto done;
 
 	if (XPM_NODESUBCL_POWER_ISLAND == NODESUBCLASS(Node->Id)) {
 		Status = XPmPsm_SendPowerUpReq(Node->BaseAddress);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		/*
+		 * For S80 ES1, there is a bug in LPD which requires the
+		 * LPD_INT and RPU power domain signals needs to be
+		 * asserted, to prevent repair vector corruption
+		 * (http://jira.xilinx.com/browse/EDT-993543). To fix
+		 * this bug rerun LPD BISR whenever the RPU power
+		 * island is powered down and brought up again.
+		 */
+		if ((PLATFORM_VERSION_SILICON_ES1 == PlatformVersion) &&
+		    (PLATFORM_VERSION_SILICON == Platform) &&
+		    (XPM_NODEIDX_POWER_RPU0_0 == NODEINDEX(Node->Id)) &&
+		    (0 == LpDomain->LpdBisrDone)) {
+			Status = XPmBisr_TriggerLpd();
+		}
 	} else {
 		PmDbg("Request to power up domain %x\r\n",Node->Id);
 		switch (NODEINDEX(Node->Id)) {
@@ -113,9 +133,15 @@ static XStatus SendPowerDownReq(XPm_Node *Node)
 {
 	u32 Status = XST_SUCCESS;
 	XPm_Device *CoreAcpu0 = XPmDevice_GetById(XPM_DEVID_ACPU_0);
+	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(LPD_ID);
 
 	if (XPM_NODESUBCL_POWER_ISLAND == NODESUBCLASS(Node->Id)) {
 		Status = XPmPsm_SendPowerDownReq(Node->BaseAddress);
+
+		if ((XST_SUCCESS == Status) &&
+		    (XPM_NODEIDX_POWER_RPU0_0 == NODEINDEX(Node->Id))) {
+			LpDomain->LpdBisrDone = 0;
+		}
 	} else {
 		PmDbg("Request to power down domain %x\r\n",Node->Id);
 		switch (NODEINDEX(Node->Id)) {
