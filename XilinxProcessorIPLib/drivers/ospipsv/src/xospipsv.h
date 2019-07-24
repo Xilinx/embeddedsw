@@ -46,6 +46,7 @@
 *       sk   02/04/19 Added support for SDR+PHY and DDR+PHY modes.
 *       sk   02/07/19 Added OSPI Idling sequence.
 * 1.0   akm 03/29/19 Fixed data alignment issues on IAR compiler.
+* 1.1   sk   07/22/19 Added RX Tuning algorithm for SDR and DDR modes.
 *
 * </pre>
 *
@@ -128,6 +129,8 @@ typedef struct {
 	XOspiPsv_StatusHandler StatusHandler;
 	void *StatusRef;  	 /**< Callback reference for status handler */
 	u8 IsUnaligned;		/* Flag used to indicate bytecnt is aligned or not */
+	u32 DeviceIdData;	/* Contains Device Id Data information */
+	u8 Extra_DummyCycle;
 #ifdef __ICCARM__
 #pragma pack(push, 8)
 	u8 UnalignReadBuffer[4];	/**< Buffer used to read the unaligned bytes in DMA */
@@ -219,15 +222,15 @@ typedef struct {
 #define XOSPIPSV_EDGE_MODE_DDR_PHY			0x2U
 
 #define XOSPIPSV_REMAP_ADDR_VAL		0x40000000U
-#define XOSPIPSV_SDR_TX_RX_DLY_VAL		0x00140014U
-#define XOSPIPSV_DDR_TX_RX_DLY_VAL		0x00400040U
+#define XOSPIPSV_SDR_TX_VAL			0x5U
+#define XOSPIPSV_DDR_TX_VAL			0x0U
 
 /* Initialization and reset */
 XOspiPsv_Config *XOspiPsv_LookupConfig(u16 DeviceId);
 u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr, const XOspiPsv_Config *ConfigPtr);
 void XOspiPsv_Reset(const XOspiPsv *InstancePtr);
 /* Configuration functions */
-u32 XOspiPsv_SetClkPrescaler(const XOspiPsv *InstancePtr, u8 Prescaler);
+u32 XOspiPsv_SetClkPrescaler(XOspiPsv *InstancePtr, u8 Prescaler);
 u32 XOspiPsv_SelectFlash(XOspiPsv *InstancePtr, u8 chip_select);
 u32 XOspiPsv_SetOptions(XOspiPsv *InstancePtr, u32 Options);
 u32 XOspiPsv_GetOptions(const XOspiPsv *InstancePtr);
