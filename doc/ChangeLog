@@ -60,6 +60,9 @@ uartpsv_v1_1:
 Updated the interrupt example to use the interrupt ids from xparameters_ps.h
 instead of hardcoded ones.
 
+xxvethernet_v1_3:
+In tcl fix bsp generation error for axis_rx_0 external port design.
+
 Changes for 2019.1
 ===============================
 v_hdmiphy1_v1_0:
