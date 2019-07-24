@@ -43,6 +43,7 @@
 *                     DAC mode switching.
 *                     Removed Legacy/STIG mode option in OptionsTable.
 *       sk   02/04/19 Added support for SDR+PHY and DDR+PHY modes.
+* 1.1   sk   07/22/19 Added RX Tuning algorithm for SDR and DDR modes.
 *
 * </pre>
 *
@@ -60,7 +61,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static void XOspiPsv_SetDllDelay(const XOspiPsv *InstancePtr);
+static u32 XOspiPsv_SetDllDelay(XOspiPsv *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -85,6 +86,8 @@ static OptionsMap OptionsTable[] = {
 };
 
 #define XOSPIPSV_NUM_OPTIONS	(sizeof(OptionsTable) / sizeof(OptionsMap))
+#define READ_ID		0x9FU
+#define TERA_MACRO	1000000000000U
 
 /*****************************************************************************/
 /**
@@ -230,7 +233,7 @@ u32 XOspiPsv_GetOptions(const XOspiPsv *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-u32 XOspiPsv_SetClkPrescaler(const XOspiPsv *InstancePtr, u8 Prescaler)
+u32 XOspiPsv_SetClkPrescaler(XOspiPsv *InstancePtr, u8 Prescaler)
 {
 	u32 ConfigReg;
 	u32 Status;
@@ -259,9 +262,7 @@ u32 XOspiPsv_SetClkPrescaler(const XOspiPsv *InstancePtr, u8 Prescaler)
 		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_CONFIG_REG,
 						ConfigReg);
 
-		XOspiPsv_SetDllDelay(InstancePtr);
-
-		Status = (u32)XST_SUCCESS;
+		Status = XOspiPsv_SetDllDelay(InstancePtr);
 	}
 
 	return Status;
@@ -281,27 +282,126 @@ u32 XOspiPsv_SetClkPrescaler(const XOspiPsv *InstancePtr, u8 Prescaler)
 * @note		None.
 *
 ******************************************************************************/
-static void XOspiPsv_SetDllDelay(const XOspiPsv *InstancePtr)
+static u32 XOspiPsv_SetDllDelay(XOspiPsv *InstancePtr)
 {
-	if (InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_SDR_PHY) {
-		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-				XOSPIPSV_PHY_CONFIGURATION_REG, XOSPIPSV_SDR_TX_RX_DLY_VAL);
-		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-			XOSPIPSV_PHY_CONFIGURATION_REG, (XOSPIPSV_SDR_TX_RX_DLY_VAL |
-				XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESYNC_FLD_MASK));
-	} else if (InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
-		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-				XOSPIPSV_PHY_CONFIGURATION_REG, XOSPIPSV_DDR_TX_RX_DLY_VAL);
-		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-			XOSPIPSV_PHY_CONFIGURATION_REG, (XOSPIPSV_DDR_TX_RX_DLY_VAL |
-				XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESYNC_FLD_MASK));
-	} else {
+	u8 RXMax_Tap = 0;
+	u8 RXMin_Tap = 0;
+	u8 Avg_RXTap = 0;
+	XOspiPsv_Msg FlashMsg = {0};
+	u8 Index;
+	u32 *DeviceIdInfo;
+	u8 ByteCnt = 4;
+	u8 RXTapFound = 0;
+	u32 Status;
+	u32 TXTap;
+	u32 MaxTap;
+	u8 WindowSize;
+	u8 Max_WindowSize = 0;
+	u8 Dummy_Incr;
+	u8 Dummy_Flag = 0;
+#ifdef __ICCARM__
+#pragma data_alignment = 4
+	u8 ReadBfrPtr[8];
+#else
+	u8 ReadBfrPtr[8]__attribute__ ((aligned(4)));
+#endif
+
+	if (InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_SDR_NON_PHY) {
 		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_PHY_CONFIGURATION_REG, 0x0U);
 		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 			XOSPIPSV_PHY_CONFIGURATION_REG,
 				XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESYNC_FLD_MASK);
+		Status = (u32)XST_SUCCESS;
+		goto RETURN_PATH;
+	} else if (InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		TXTap = (u32)XOSPIPSV_DDR_TX_VAL;
+	} else {
+		TXTap = XOSPIPSV_SDR_TX_VAL <<
+			XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_TX_DLL_DELAY_FLD_SHIFT;
 	}
+
+	FlashMsg.Opcode = READ_ID;
+	FlashMsg.Addrsize = 0U;
+	FlashMsg.Addrvalid = 0U;
+	FlashMsg.TxBfrPtr = ReadBfrPtr;
+	FlashMsg.RxBfrPtr = ReadBfrPtr;
+	FlashMsg.ByteCount = ByteCnt;
+	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
+	FlashMsg.Dummy = 0U;
+	FlashMsg.Addr = 0U;
+	FlashMsg.Proto = 0U;
+	FlashMsg.IsDDROpCode = 0U;
+	if (InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.Dummy = 8U;
+		FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
+	}
+
+	MaxTap = ((TERA_MACRO/InstancePtr->Config.InputClockHz) / (u32)160);
+	for (Dummy_Incr = 0U; Dummy_Incr <= 1U; Dummy_Incr++) {
+		if (Dummy_Incr != 0U) {
+			if (InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+				FlashMsg.Dummy = 9U;
+			} else {
+				FlashMsg.Dummy = 1U;
+			}
+		}
+		for (Index = 0U; Index <= MaxTap; Index++) {
+			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_PHY_CONFIGURATION_REG, (TXTap | (u32)Index));
+			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_PHY_CONFIGURATION_REG, (TXTap | (u32)Index |
+					XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESYNC_FLD_MASK));
+
+			Status = XOspiPsv_PollTransfer(InstancePtr, &FlashMsg);
+			if (Status != (u32)XST_SUCCESS) {
+				goto RETURN_PATH;
+			}
+			DeviceIdInfo = (u32 *)(void *)&ReadBfrPtr[0];
+
+			if (InstancePtr->DeviceIdData == *DeviceIdInfo) {
+				if (RXTapFound == 0U) {
+					RXMin_Tap = Index;
+					RXMax_Tap = Index;
+					RXTapFound = 1;
+				} else {
+					RXMax_Tap = Index;
+				}
+			}
+			if ((InstancePtr->DeviceIdData != *DeviceIdInfo) || (Index == MaxTap)) {
+				if (RXTapFound != 0U) {
+					WindowSize = RXMax_Tap - RXMin_Tap + 1U;
+					if (WindowSize > Max_WindowSize) {
+						Dummy_Flag = Dummy_Incr;
+						Max_WindowSize = WindowSize;
+						Avg_RXTap = (RXMin_Tap + RXMax_Tap) / 2U;
+					}
+					RXTapFound = 0U;
+				}
+			}
+		}
+		if (Dummy_Incr == 0U) {
+			RXMin_Tap = 0U;
+			RXMax_Tap = 0U;
+			RXTapFound = 0U;
+		}
+	}
+	InstancePtr->Extra_DummyCycle = Dummy_Flag;
+
+	if (Max_WindowSize < 3U) {
+		Status = (u32)XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+		XOSPIPSV_PHY_CONFIGURATION_REG, (TXTap | (u32)Avg_RXTap));
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+		XOSPIPSV_PHY_CONFIGURATION_REG, (TXTap | (u32)Avg_RXTap |
+		XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESYNC_FLD_MASK));
+
+	Status = (u32)XST_SUCCESS;
+RETURN_PATH:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -359,9 +459,7 @@ u32 XOspiPsv_SetSdrDdrMode(XOspiPsv *InstancePtr, u32 Mode)
 								ConfigReg);
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_WRITE_COMPLETION_CTRL_REG, ReadReg);
-	XOspiPsv_SetDllDelay(InstancePtr);
-
-	Status = (u32)XST_SUCCESS;
+	Status = XOspiPsv_SetDllDelay(InstancePtr);
 
 ERROR_PATH:
 	return Status;
@@ -424,16 +522,19 @@ ERROR_PATH:
 void XOspiPsv_ConfigureAutoPolling(XOspiPsv *InstancePtr, u32 FlashMode)
 {
 	u32 ReadReg;
+	u8 Dummy;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_POLLING_FLASH_STATUS_REG);
 	ReadReg &= ~XOSPIPSV_POLLING_FLASH_STATUS_REG_DEVICE_STATUS_NB_DUMMY_MASK;
+	Dummy = InstancePtr->Extra_DummyCycle;
 	if (FlashMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
-		ReadReg |= (XOSPIPSV_DDR_STATS_REG_DUMMY <<
-			XOSPIPSV_POLLING_FLASH_STATUS_REG_DEVICE_STATUS_NB_DUMMY_SHIFT);
+		Dummy += XOSPIPSV_DDR_STATS_REG_DUMMY;
 	}
+	ReadReg |= ((u32)Dummy <<
+		XOSPIPSV_POLLING_FLASH_STATUS_REG_DEVICE_STATUS_NB_DUMMY_SHIFT);
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 					XOSPIPSV_POLLING_FLASH_STATUS_REG, ReadReg);
 }
