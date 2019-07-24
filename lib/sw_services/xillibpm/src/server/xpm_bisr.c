@@ -259,14 +259,20 @@ done:
 
 static XStatus XPmBisr_RepairLpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr)
 {
-	XStatus Status = XST_SUCCESS;
-	u32 RegValue;
 	u64 BisrDataDestAddr;
 
 	BisrDataDestAddr = LPD_SLCR_BISR_CACHE_DATA_0;
 
 	/* Copy repair data */
 	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
+
+	return XPmBisr_TriggerLpd();
+}
+
+int XPmBisr_TriggerLpd(void)
+{
+	int Status = XST_SUCCESS;
+	u32 RegValue;
 
 	/* Trigger Bisr */
 	PmRmw32(LPD_SLCR_BISR_CACHE_CTRL_1, (LPD_SLCR_CACHE_CTRL_1_PGEN0_MASK | LPD_SLCR_CACHE_CTRL_1_PGEN1_MASK),
@@ -294,8 +300,8 @@ static XStatus XPmBisr_RepairLpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 				  LPD_SLCR_BISR_PASS_1_MASK |
 				  LPD_SLCR_BISR_PASS_0_MASK)) {
 		Status = XST_FAILURE;
-		goto done;
 	}
+
 done:
 	return Status;
 }

@@ -50,6 +50,7 @@ extern "C" {
 
 #define PCSR_UNLOCK_VAL		(0xF9E8D7C6U)
 XStatus XPmBisr_Repair(u32 TagId);
+int XPmBisr_TriggerLpd(void);
 
 #ifdef __cplusplus
 }
