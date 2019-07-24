@@ -52,6 +52,7 @@
 *                     supported commands.
 *       sk   02/04/19 Add support for SDR+PHY and DDR+PHY modes.
 * 1.0   akm 03/29/19 Fixed data alignment issues on IAR compiler.
+* 1.1   sk  07/23/19 Based on RX Tuning, updated the dummy cycles.
 *
 *</pre>
 *
@@ -328,10 +329,6 @@ int OspiPsvPolledFlashExample(XOspiPsv *OspiPsvInstancePtr, u16 OspiPsvDeviceId)
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
 
-	/* Set Flash device and Controller modes */
-	Status = FlashSetSDRDDRMode(OspiPsvInstancePtr, XOSPIPSV_EDGE_MODE_SDR_NON_PHY);
-	if (Status != XST_SUCCESS)
-		return XST_FAILURE;
 	/*
 	 * Read flash ID and obtain all flash related information
 	 * It is important to call the read id function before
@@ -342,6 +339,11 @@ int OspiPsvPolledFlashExample(XOspiPsv *OspiPsvInstancePtr, u16 OspiPsvDeviceId)
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
+
+	/* Set Flash device and Controller modes */
+	Status = FlashSetSDRDDRMode(OspiPsvInstancePtr, XOSPIPSV_EDGE_MODE_SDR_NON_PHY);
+	if (Status != XST_SUCCESS)
+		return XST_FAILURE;
 
 	MaxData = PAGE_COUNT * (Flash_Config_Table[FCTIndex].PageSize);
 
@@ -471,10 +473,10 @@ int FlashReadID(XOspiPsv *OspiPsvPtr)
 	FlashMsg.RxBfrPtr = ReadBfrPtr;
 	FlashMsg.ByteCount = ReadIdBytes;
 	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
-	FlashMsg.Dummy = 0;
+	FlashMsg.Dummy = OspiPsvPtr->Extra_DummyCycle;
 	FlashMsg.IsDDROpCode = 0;
 	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
-		FlashMsg.Dummy = 8;
+		FlashMsg.Dummy += 8;
 		FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
 	}
 	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
@@ -484,6 +486,10 @@ int FlashReadID(XOspiPsv *OspiPsvPtr)
 	xil_printf("FlashID = ");
 	while(ReadIdBytes >= 0 ) {
 		xil_printf("0x%x ", ReadBfrPtr[FlashMsg.ByteCount - ReadIdBytes]);
+		if (ReadIdBytes >= 5) {
+			OspiPsvPtr->DeviceIdData |= (ReadBfrPtr[FlashMsg.ByteCount -
+				ReadIdBytes] << ((FlashMsg.ByteCount - ReadIdBytes) * 8));
+		}
 		ReadIdBytes--;
 	}
 	xil_printf("\n\r");
@@ -653,14 +659,14 @@ int FlashIoWrite(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 			FlashMsg.TxBfrPtr = NULL;
 			FlashMsg.RxBfrPtr = FlashStatus;
 			FlashMsg.ByteCount = 1;
-			FlashMsg.Dummy = 0;
+			FlashMsg.Dummy = OspiPsvPtr->Extra_DummyCycle;
 			FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
 			FlashMsg.IsDDROpCode = 0;
 			FlashMsg.Proto = 0;
 			if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 				FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
 				FlashMsg.ByteCount = 2;
-				FlashMsg.Dummy = 8;
+				FlashMsg.Dummy += 8;
 			}
 
 			Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
@@ -804,13 +810,13 @@ int FlashErase(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 			FlashMsg.RxBfrPtr = FlashStatus;
 			FlashMsg.ByteCount = 1;
 			FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
-			FlashMsg.Dummy = 0;
+			FlashMsg.Dummy = OspiPsvPtr->Extra_DummyCycle;
 			FlashMsg.IsDDROpCode = 0;
 			FlashMsg.Proto = 0;
 			if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 				FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
 				FlashMsg.ByteCount = 2;
-				FlashMsg.Dummy = 8;
+				FlashMsg.Dummy += 8;
 			}
 
 			Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
@@ -860,11 +866,12 @@ int FlashRead(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
 	FlashMsg.Addr = Address;
 	FlashMsg.Proto = XOspiPsv_Get_Proto(OspiPsvPtr, 1);
-	FlashMsg.Dummy = Flash_Config_Table[FCTIndex].DummyCycles;
+	FlashMsg.Dummy = Flash_Config_Table[FCTIndex].DummyCycles +
+			OspiPsvPtr->Extra_DummyCycle;
 	FlashMsg.IsDDROpCode = 0;
 	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 		FlashMsg.Proto = XOSPIPSV_READ_8_8_8;
-		FlashMsg.Dummy = 16;
+		FlashMsg.Dummy = 16 + OspiPsvPtr->Extra_DummyCycle;
 	}
 
 	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
@@ -950,13 +957,13 @@ int BulkErase(XOspiPsv *OspiPsvPtr, u8 *WriteBfrPtr)
 		FlashMsg.RxBfrPtr = FlashStatus;
 		FlashMsg.ByteCount = 1;
 		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
-		FlashMsg.Dummy = 0;
+		FlashMsg.Dummy = OspiPsvPtr->Extra_DummyCycle;
 		FlashMsg.IsDDROpCode = 0;
 		FlashMsg.Proto = 0;
 		if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 			FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
 			FlashMsg.ByteCount = 2;
-			FlashMsg.Dummy = 8;
+			FlashMsg.Dummy += 8;
 		}
 
 		Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
@@ -1044,13 +1051,13 @@ int DieErase(XOspiPsv *OspiPsvPtr, u8 *WriteBfrPtr)
 			FlashMsg.RxBfrPtr = FlashStatus;
 			FlashMsg.ByteCount = 1;
 			FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
-			FlashMsg.Dummy = 0;
+			FlashMsg.Dummy = OspiPsvPtr->Extra_DummyCycle;
 			FlashMsg.IsDDROpCode = 0;
 			FlashMsg.Proto = 0;
 			if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 				FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
 				FlashMsg.ByteCount = 2;
-				FlashMsg.Dummy = 8;
+				FlashMsg.Dummy += 8;
 			}
 
 			Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
@@ -1142,13 +1149,13 @@ int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, int Enable)
 		FlashMsg.RxBfrPtr = FlashStatus;
 		FlashMsg.ByteCount = 1;
 		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
-		FlashMsg.Dummy = 0;
+		FlashMsg.Dummy = OspiPsvPtr->Extra_DummyCycle;
 		FlashMsg.IsDDROpCode = 0;
 		FlashMsg.Proto = 0;
 		if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 			FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
 			FlashMsg.ByteCount = 2;
-			FlashMsg.Dummy = 8;
+			FlashMsg.Dummy += 8;
 		}
 
 		Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
@@ -1262,13 +1269,9 @@ int FlashSetSDRDDRMode(XOspiPsv *OspiPsvPtr, int Mode)
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
 
-	if (Mode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
-		XOspiPsv_SetSdrDdrMode(OspiPsvPtr, XOSPIPSV_EDGE_MODE_DDR_PHY);
-	} else if (Mode == XOSPIPSV_EDGE_MODE_SDR_PHY) {
-		XOspiPsv_SetSdrDdrMode(OspiPsvPtr, XOSPIPSV_EDGE_MODE_SDR_PHY);
-	} else {
-		XOspiPsv_SetSdrDdrMode(OspiPsvPtr, XOSPIPSV_EDGE_MODE_SDR_NON_PHY);
-	}
+	Status = XOspiPsv_SetSdrDdrMode(OspiPsvPtr, Mode);
+	if (Status != XST_SUCCESS)
+		return XST_FAILURE;
 
 	/* Read Configuration register */
 	FlashMsg.Opcode = READ_CONFIG_REG;
@@ -1279,7 +1282,7 @@ int FlashSetSDRDDRMode(XOspiPsv *OspiPsvPtr, int Mode)
 	FlashMsg.RxBfrPtr = ConfigReg;
 	FlashMsg.ByteCount = 1;
 	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
-	FlashMsg.Dummy = 8;
+	FlashMsg.Dummy = 8 + OspiPsvPtr->Extra_DummyCycle;
 	FlashMsg.IsDDROpCode = 0;
 	FlashMsg.Proto = 0;
 	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
