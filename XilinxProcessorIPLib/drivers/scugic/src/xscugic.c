@@ -916,9 +916,10 @@ void XScuGic_GetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Id, u32 Int_Id)
 {
 	u32 RegValue;
-	Xil_AssertVoid(InstancePtr != NULL);
+
 #if defined (GICv3)
 	u32 Temp;
+	Xil_AssertVoid(InstancePtr != NULL);
 	if (Int_Id >= 32) {
 		Temp = Int_Id - 32;
 		RegValue = XScuGic_DistReadReg(InstancePtr,
@@ -929,6 +930,7 @@ void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Id, u32 Int_Id)
 	}
 #else
 	u32 Offset;
+	Xil_AssertVoid(InstancePtr != NULL);
 	RegValue = XScuGic_DistReadReg(InstancePtr,
 			XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
 
@@ -958,9 +960,10 @@ void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Id, u32 Int_Id)
 void XScuGic_InterruptUnmapFromCpu(XScuGic *InstancePtr, u8 Cpu_Id, u32 Int_Id)
 {
 	u32 RegValue;
-	Xil_AssertVoid(InstancePtr != NULL);
+
 #if defined (GICv3)
 	u32 Temp;
+	Xil_AssertVoid(InstancePtr != NULL);
 	if (Int_Id >= 32) {
 		Temp = Int_Id - 32;
 		RegValue = XScuGic_DistReadReg(InstancePtr,
@@ -971,6 +974,7 @@ void XScuGic_InterruptUnmapFromCpu(XScuGic *InstancePtr, u8 Cpu_Id, u32 Int_Id)
 	}
 #else
 	u32 Offset;
+	Xil_AssertVoid(InstancePtr != NULL);
 	RegValue = XScuGic_DistReadReg(InstancePtr,
 				XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
 
