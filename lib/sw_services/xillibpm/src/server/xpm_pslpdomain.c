@@ -223,6 +223,7 @@ done:
 static XStatus LpdBisr(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
+	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(LPD_ID);
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -233,6 +234,9 @@ static XStatus LpdBisr(u32 *Args, u32 NumOfArgs)
 		goto done;
 
 	Status = XPmBisr_Repair(LPD_TAG_ID);
+	if (XST_SUCCESS == Status) {
+		LpDomain->LpdBisrDone = 1;
+	}
 
 done:
 	return Status;
@@ -344,6 +348,8 @@ XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
 			   XPm_Power *Parent)
 {
 	XPmPowerDomain_Init(&PsLpd->Domain, Id, BaseAddress, Parent, &LpdOps);
+
+	PsLpd->LpdBisrDone = 0;
 
 	return XST_SUCCESS;
 }
