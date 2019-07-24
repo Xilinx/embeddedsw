@@ -1302,9 +1302,13 @@ u32 XOspiPsv_IntrHandler(XOspiPsv *InstancePtr)
 {
 	u32 StatusReg;
 	u32 DmaStatusReg;
-	XOspiPsv_Msg *Msg = InstancePtr->Msg;
+	XOspiPsv_Msg *Msg;
+	u32 IntrMask;
+	u32 ReadReg;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	Msg = InstancePtr->Msg;
 
 	if (((Msg->Flags & XOSPIPSV_MSG_FLAG_RX) != 0U) &&
 					(Msg->Addrvalid != 0U)) {
@@ -1351,38 +1355,44 @@ u32 XOspiPsv_IntrHandler(XOspiPsv *InstancePtr)
 		if (((Msg->Flags & XOSPIPSV_MSG_FLAG_RX) != 0U) &&
 					(Msg->Addrvalid == 0U)) {
 			if ((StatusReg & XOSPIPSV_IRQ_MASK_REG_STIG_REQ_MASK_FLD_MASK) != 0U) {
-				/* Clear the ISR */
-				XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-					XOSPIPSV_IRQ_STATUS_REG,
-					XOSPIPSV_IRQ_MASK_REG_STIG_REQ_MASK_FLD_MASK);
 				/* Read the data from FIFO */
 				XOspiPsv_FifoRead(InstancePtr, Msg);
-				/* Disable the interrupt */
-				XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-					XOSPIPSV_IRQ_MASK_REG,
-					XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
-					XOSPIPSV_IRQ_MASK_REG) &
-					~(u32)XOSPIPSV_IRQ_MASK_REG_STIG_REQ_MASK_FLD_MASK);
 				StatusReg &= ~(u32)XOSPIPSV_IRQ_MASK_REG_STIG_REQ_MASK_FLD_MASK;
 				StatusReg |= (u32)XST_SPI_TRANSFER_DONE;
 			}
 		} else {
 			if (((Msg->Flags & XOSPIPSV_MSG_FLAG_TX) != 0U) &&
 				((StatusReg & XOSPIPSV_IRQ_MASK_REG_STIG_REQ_MASK_FLD_MASK) != 0U)) {
-				/* Clear the interrupt */
-				XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-					XOSPIPSV_IRQ_STATUS_REG,
-					XOSPIPSV_IRQ_MASK_REG_STIG_REQ_MASK_FLD_MASK);
-				/* Disable the interrupts */
-				XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-					XOSPIPSV_IRQ_MASK_REG,
-					XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
-					XOSPIPSV_IRQ_MASK_REG) &
-					~(u32)XOSPIPSV_IRQ_MASK_REG_STIG_REQ_MASK_FLD_MASK);
 				StatusReg &= ~(u32)XOSPIPSV_IRQ_MASK_REG_STIG_REQ_MASK_FLD_MASK;
 				StatusReg |= (u32)XST_SPI_TRANSFER_DONE;
 
 			}
+		}
+
+		/* Clear the interrupts */
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_IRQ_STATUS_REG,
+			XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_IRQ_STATUS_REG));
+		IntrMask = ((u32)XOSPIPSV_IRQ_MASK_REG_STIG_REQ_MASK_FLD_MASK |
+			(u32)XOSPIPSV_IRQ_MASK_REG_TX_CRC_CHUNK_BRK_MASK_FLD_MASK |
+			(u32)XOSPIPSV_IRQ_MASK_REG_RX_CRC_DATA_VAL_MASK_FLD_MASK |
+			(u32)XOSPIPSV_IRQ_MASK_REG_RX_CRC_DATA_ERR_MASK_FLD_MASK |
+			(u32)XOSPIPSV_IRQ_MASK_REG_INDIRECT_XFER_LEVEL_BREACH_MASK_FLD_MASK |
+			(u32)XOSPIPSV_IRQ_MASK_REG_ILLEGAL_ACCESS_DET_MASK_FLD_MASK |
+			(u32)XOSPIPSV_IRQ_MASK_REG_PROT_WR_ATTEMPT_MASK_FLD_MASK |
+			(u32)XOSPIPSV_IRQ_MASK_REG_INDIRECT_TRANSFER_REJECT_MASK_FLD_MASK);
+		 /* Disable the interrupts */
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_IRQ_MASK_REG,
+			XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_IRQ_MASK_REG) & ~IntrMask);
+		/* Wait for Idle */
+		ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_CONFIG_REG);
+		while((ReadReg & XOSPIPSV_CONFIG_REG_IDLE_FLD_MASK) == 0U) {
+			ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+					XOSPIPSV_CONFIG_REG);
 		}
 		InstancePtr->StatusHandler(InstancePtr->StatusRef, StatusReg);
 		XOspiPsv_DeAssertCS(InstancePtr);
