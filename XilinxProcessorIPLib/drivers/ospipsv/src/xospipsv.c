@@ -45,6 +45,7 @@
 *                     Added support for unaligned byte count read.
 *       sk   02/04/19 Added support for SDR+PHY and DDR+PHY modes.
 *       sk   02/07/19 Added OSPI Idling sequence.
+* 1.1   sk   07/22/19 Added RX Tuning algorithm for SDR and DDR modes.
 *
 * </pre>
 *
@@ -152,6 +153,8 @@ u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr,
 		InstancePtr->IsUnaligned = 0U;
 		InstancePtr->StatusHandler = StubStatusHandler;
 		InstancePtr->SdrDdrMode = XOSPIPSV_EDGE_MODE_SDR_NON_PHY;
+		InstancePtr->DeviceIdData = 0U;
+		InstancePtr->Extra_DummyCycle = 0U;
 
 		/*
 		 * Reset the OSPIPSV device to get it into its initial state. It is
