@@ -35,6 +35,13 @@ Add support for Versal
 lwip_echo_server:
 Add support for Versal
 
+lwip perf apps:
+Add support for Versal
+
+freertos_lwip_echo_server and
+freertos_lwip perf apps:
+Add support for Versal
+
 rtcpsu_v1_8
 Updated driver source and example with right sequence
 
