@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2016 - 2019, Xilinx Inc. and Contributors. All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -19,8 +19,6 @@
 #include "xil_mpu.h"
 #include "xreg_cortexr5.h"
 #include "xscugic.h"
-
-#define MPU_REGION_SIZE_MIN 0x20
 
 void sys_irq_restore_enable(unsigned int flags)
 {
@@ -61,27 +59,13 @@ void metal_weak metal_generic_default_poll(void)
 	asm volatile("wfi");
 }
 
+/**
+ * The code moved to cortexr5/xil_mpu.c:Xil_MemMap()
+ * NULL in pa masks possible Xil_MemMap() errors.
+ */
 void *metal_machine_io_mem_map(void *va, metal_phys_addr_t pa,
 			       size_t size, unsigned int flags)
 {
-	size_t rsize = MPU_REGION_SIZE_MIN;
-	metal_phys_addr_t base_pa;
-
-	if (!flags)
-		return va;
-	while(1) {
-		if (rsize < size) {
-			rsize <<= 1;
-			continue;
-		} else {
-			base_pa = pa & ~(rsize - 1);
-			if ((base_pa + rsize) < (pa + size)) {
-				rsize <<= 1;
-				continue;
-			}
-			break;
-		}
-	}
-	Xil_SetMPURegion(base_pa, rsize, flags);
+	metal_assert(Xil_MemMap(pa, size, flags) == (void *)pa);
 	return va;
 }
