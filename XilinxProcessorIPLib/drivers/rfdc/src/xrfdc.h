@@ -233,6 +233,7 @@
 *       cog    07/16/19 Added XRFdc_SetDACOpCurr() API.
 *       cog    07/18/19 Added XRFdc_S/GetDigitalStepAttenuator() APIs.
 *       cog    07/25/19 Added new XRFdc_RegisterMetal() API to register RFDC with Libmetal.
+*       cog    07/25/19 Moved XRFDC_PLL_LOCK_DLY_CNT macro from source file.
 *
 * </pre>
 *
@@ -1092,6 +1093,8 @@ typedef struct {
 #define XRFDC_MAX_ATTEN -11
 #define XRFDC_MIN_ATTEN 0
 #define XRFDC_STEP_ATTEN 0.5
+
+#define XRFDC_PLL_LOCK_DLY_CNT 1000U
 
 #define XRFDC_TILE_STARTED XRFDC_SM_STATE15
 /*****************************************************************************/
