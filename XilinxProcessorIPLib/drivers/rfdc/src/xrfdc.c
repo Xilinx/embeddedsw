@@ -161,6 +161,7 @@
 *       cog    07/16/19 Added XRFdc_SetDACOpCurr() API.
 *       cog    07/18/19 Added XRFdc_S/GetDigitalStepAttenuator() APIs.
 *       cog    07/25/19 Baremetal Region mapping now taken care of in XRFdc_RegisterMetal().
+*       cog    07/25/19 Moved XRFDC_PLL_LOCK_DLY_CNT macro to header file.
 *
 * </pre>
 *
@@ -170,7 +171,6 @@
 #include "xrfdc.h"
 
 /************************** Constant Definitions *****************************/
-#define XRFDC_PLL_LOCK_DLY_CNT 1000U
 
 /**************************** Type Definitions *******************************/
 
