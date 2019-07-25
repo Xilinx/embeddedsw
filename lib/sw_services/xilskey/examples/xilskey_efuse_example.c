@@ -175,6 +175,8 @@
 * 6.8   psl     05/21/19 Added platform dependent macros for variables and
 *                        initialized PlStatus.
 *                        Added print for current SLR and CRC.
+*               07/17/19 Added print to display CRC of AES key during CRC
+*                        verification.
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "stdio.h"
@@ -860,6 +862,8 @@ u32 XilSKey_EfusePl_ReadnCheck(XilSKey_EPl *PlInstancePtr)
 #else
 
 		if (XSK_EFUSEPL_CHECK_AES_KEY_CRC == TRUE){
+			xil_printf("AES Key's CRC provided for verification : %08x\n\r",
+					PlInstancePtr->CrcOfAESKey);
 			if (PlInstancePtr->AESKeyMatched == TRUE) {
 				xil_printf("AES key matched with expected AES Key's CRC\n\r");
 			}
