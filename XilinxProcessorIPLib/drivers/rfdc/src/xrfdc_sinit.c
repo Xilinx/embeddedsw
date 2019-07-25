@@ -48,6 +48,8 @@
 *                       have been done, to remove the xparameters.h
 *                       dependency from RFDC Linux user space driver.
 * 7.0   cog    05/13/19 Formatting changes.
+*       cog    07/25/19 Added new XRFdc_RegisterMetal() API to register
+*                       RFDC with Libmetal
 *
 * </pre>
 *
@@ -248,5 +250,69 @@ RETURN_PATH2:
 	}
 #endif
 	return (XRFdc_Config *)CfgPtr;
+}
+
+/*****************************************************************************/
+/**
+*
+* Register/open the deviceand map RFDC to the IO region.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	DeviceId contains the ID of the device to register/map
+* @param	DevicePtr is a pointer to the metal device.
+*
+* @return
+*     - XRFDC_SUCCESS if successful.
+*     - XRFDC_FAILURE if error occurs.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XRFdc_RegisterMetal(XRFdc *InstancePtr, u16 DeviceId, struct metal_device **DevicePtr)
+{
+	s32 Status;
+#ifndef __BAREMETAL__
+	char DeviceName[100];
+#endif
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+#ifdef __BAREMETAL__
+	Xil_AssertNonvoid(DevicePtr != NULL);
+	Status = metal_register_generic_device(*DevicePtr);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Failed to register device");
+		goto RETURN_PATH;
+	}
+	Status = metal_device_open(XRFDC_BUS_NAME, XRFDC_DEV_NAME, DevicePtr);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Failed to open device usp_rf_data_converter");
+		goto RETURN_PATH;
+	}
+#else
+	Status = XRFdc_GetDeviceNameByDeviceId(DeviceName, DeviceId);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Failed to find rfdc device with device id %d", DeviceId);
+		goto RETURN_PATH;
+	}
+	Status = metal_device_open(XRFDC_BUS_NAME, DeviceName, DevicePtr);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Failed to open device %s.\n", DeviceName);
+		goto RETURN_PATH;
+	}
+#endif
+
+	/* Map RFDC device IO region */
+	InstancePtr->io = metal_device_io_region(*DevicePtr, DeviceId);
+	if (InstancePtr->io == NULL) {
+		metal_log(METAL_LOG_ERROR, "\n Failed to map RFDC region for %s.\n", (*DevicePtr)->name);
+		Status = XRFDC_FAILURE;
+		goto RETURN_PATH;
+	}
+	InstancePtr->device = *DevicePtr;
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return (u32)Status;
 }
 /** @} */
