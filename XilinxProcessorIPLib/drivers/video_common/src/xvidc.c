@@ -157,7 +157,7 @@ void XVidC_UnregisterCustomTimingModes(void)
  * @note	None.
  *
 *******************************************************************************/
-u32 XVidC_GetPixelClockHzByHVFr(u32 HTotal, u32 VTotal, u8 FrameRate)
+u64 XVidC_GetPixelClockHzByHVFr(u32 HTotal, u32 VTotal, u8 FrameRate)
 {
 	return (HTotal * VTotal * FrameRate);
 }
@@ -173,9 +173,9 @@ u32 XVidC_GetPixelClockHzByHVFr(u32 HTotal, u32 VTotal, u8 FrameRate)
  * @note	None.
  *
 *******************************************************************************/
-u32 XVidC_GetPixelClockHzByVmId(XVidC_VideoMode VmId)
+u64 XVidC_GetPixelClockHzByVmId(XVidC_VideoMode VmId)
 {
-	u32 ClkHz;
+	u64 ClkHz;
 	const XVidC_VideoTimingMode *VmPtr;
 
 	VmPtr = XVidC_GetVideoModeData(VmId);
@@ -1085,19 +1085,19 @@ void XVidC_ReportStreamInfo(const XVidC_VideoStream *Stream)
 				Stream->FrameRate);
 		xil_printf("\tResolution:       %dx%d [Custom Mode]\r\n",
 				Stream->Timing.HActive, Stream->Timing.VActive);
-		xil_printf("\tPixel Clock:      %d\r\n",
+		xil_printf("\tPixel Clock:      %d kHz\r\n",
 				XVidC_GetPixelClockHzByHVFr(
 					Stream->Timing.HTotal,
 					Stream->Timing.F0PVTotal,
-					Stream->FrameRate));
+					Stream->FrameRate)/1000);
 	}
 	else {
 		xil_printf("\tFrame Rate:       %s\r\n",
 				XVidC_GetFrameRateStr(Stream->VmId));
 		xil_printf("\tResolution:       %s\r\n",
 				XVidC_GetVideoModeStr(Stream->VmId));
-		xil_printf("\tPixel Clock:      %d\r\n",
-				XVidC_GetPixelClockHzByVmId(Stream->VmId));
+		xil_printf("\tPixel Clock:      %d kHz\r\n",
+				XVidC_GetPixelClockHzByVmId(Stream->VmId)/1000);
 	}
 }
 
