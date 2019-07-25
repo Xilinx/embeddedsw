@@ -232,6 +232,7 @@
 *                       to cause lockout.
 *       cog    07/16/19 Added XRFdc_SetDACOpCurr() API.
 *       cog    07/18/19 Added XRFdc_S/GetDigitalStepAttenuator() APIs.
+*       cog    07/25/19 Added new XRFdc_RegisterMetal() API to register RFDC with Libmetal.
 *
 * </pre>
 *
@@ -700,6 +701,9 @@ typedef struct {
 #define XRFDC_DEVICE_ID_SIZE 4U
 #define XRFDC_NUM_INST_SIZE 4U
 #define XRFDC_CONFIG_DATA_SIZE sizeof(XRFdc_Config)
+#else
+#define XRFDC_BUS_NAME "generic"
+#define XRFDC_DEV_NAME XPAR_XRFDC_0_DEV_NAME
 #endif
 #define XRFDC_REGION_SIZE 0x40000U
 #define XRFDC_DRP_BASE(type, tile)                                                                                     \
@@ -1968,6 +1972,7 @@ static inline double XRFdc_GetDriverVersion(void)
 /************************** Function Prototypes ******************************/
 
 XRFdc_Config *XRFdc_LookupConfig(u16 DeviceId);
+u32 XRFdc_RegisterMetal(XRFdc *InstancePtr, u16 DeviceId, struct metal_device **DevicePtr);
 u32 XRFdc_CfgInitialize(XRFdc *InstancePtr, XRFdc_Config *ConfigPtr);
 u32 XRFdc_StartUp(XRFdc *InstancePtr, u32 Type, int Tile_Id);
 u32 XRFdc_Shutdown(XRFdc *InstancePtr, u32 Type, int Tile_Id);

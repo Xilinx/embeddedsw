@@ -160,6 +160,7 @@
 * 7.0   cog    05/13/19 Formatting changes.
 *       cog    07/16/19 Added XRFdc_SetDACOpCurr() API.
 *       cog    07/18/19 Added XRFdc_S/GetDigitalStepAttenuator() APIs.
+*       cog    07/25/19 Baremetal Region mapping now taken care of in XRFdc_RegisterMetal().
 *
 * </pre>
 *
@@ -218,9 +219,14 @@ u32 XRFdc_CfgInitialize(XRFdc *InstancePtr, XRFdc_Config *ConfigPtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
 
-	InstancePtr->io = (struct metal_io_region *)metal_allocate_memory(sizeof(struct metal_io_region));
-	metal_io_init(InstancePtr->io, (void *)(metal_phys_addr_t)ConfigPtr->BaseAddr, &ConfigPtr->BaseAddr,
-		      XRFDC_REGION_SIZE, (unsigned)(-1), 0, NULL);
+#ifdef __BAREMETAL__
+	/*for cases where we haven't registered a custom device*/
+	if (InstancePtr->io == NULL) {
+		InstancePtr->io = (struct metal_io_region *)metal_allocate_memory(sizeof(struct metal_io_region));
+		metal_io_init(InstancePtr->io, (void *)(metal_phys_addr_t)ConfigPtr->BaseAddr, &ConfigPtr->BaseAddr,
+			      XRFDC_REGION_SIZE, (unsigned)(-1), 0, NULL);
+	}
+#endif
 
 	/*
 	 * Set the values read from the device config and the base address.
