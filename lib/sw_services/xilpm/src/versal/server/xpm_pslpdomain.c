@@ -1,110 +1,126 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 #include "xpm_common.h"
 #include "xpm_pslpdomain.h"
 #include "xpm_domain_iso.h"
 #include "xpm_reset.h"
 #include "xpm_bisr.h"
+#include "xpm_board.h"
 #include "xpm_prot.h"
 #include "xpm_regs.h"
 #include "xpm_device.h"
 
 static XStatus LpdInitStart(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	(void)Args;
 	(void)NumOfArgs;
 
 	/* Check vccint_pslp first to make sure power is on */
 	if (XST_SUCCESS != XPmPower_CheckPower(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_LPD_MASK)) {
-		/* TODO: Request PMC to power up VCCINT_LP rail and wait for the acknowledgement.*/
-		goto done;
+		Status = XPmBoard_ControlRail(RAIL_POWER_UP, POWER_RAIL_LPD);
+		if (XST_SUCCESS != Status) {
+			PmErr("Control power rail for LPD failure during power up\r\n");
+			goto done;
+		}
 	}
 
 	/* Remove PS_PMC domains isolation */
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PMC_LPD_DFX, FALSE);
-	if (Status != XST_SUCCESS)
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_LPD_DFX, FALSE_VALUE);
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/*
 	 * Release POR for PS-LPD
 	 */
-	Status = XPmReset_AssertbyId(PM_RST_PS_POR,
-				     PM_RESET_ACTION_RELEASE);
+	Status = XPmReset_AssertbyId(PM_RST_PS_POR, (u32)PM_RESET_ACTION_RELEASE);
 done:
 	return Status;
 }
 
-static XStatus LpdPreBisrReqs()
+static XStatus LpdPreBisrReqs(void)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
+	XPm_Device *XramDevice = NULL;
+	XPm_ResetNode *XramRst = NULL;
 
 	/* Remove PMC LPD isolation */
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PMC_LPD, FALSE);
-	if (Status != XST_SUCCESS)
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_LPD, FALSE_VALUE);
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Release reset for PS SRST */
-	Status = XPmReset_AssertbyId(PM_RST_PS_SRST,
-				     PM_RESET_ACTION_RELEASE);
+	Status = XPmReset_AssertbyId(PM_RST_PS_SRST, (u32)PM_RESET_ACTION_RELEASE);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Release OCM2 (XRAM) SRST if XRAM exists */
+	XramDevice = XPmDevice_GetById(PM_DEV_XRAM_0);
+	if (NULL == XramDevice) {
+		goto done;
+	}
+
+	/* Make sure SRST source is PS SRST */
+	/* If PM_RST_XRAM_RST val is 0x0, XRAM_SRST = PS_SRST */
+	/* else XRAM_SRST = PL_SRST */
+	XramRst = XPmReset_GetById(PM_RST_XRAM);
+	if (NULL == XramRst) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	if (XramRst->Ops->GetState(XramRst) == 0x0U) {
+		Status = XPmReset_AssertbyId(PM_RST_OCM2_RST, (u32)PM_RESET_ACTION_RELEASE);
+	} else {
+		/* We shouldn't reach here. PL SRST is source for XRAM SRST */
+		Status = XPM_ERR_RESET;
+	}
+
 done:
 	return Status;
 }
 
 static XStatus LpdInitFinish(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	(void)Args;
 	(void)NumOfArgs;
+
+	Status = XST_SUCCESS;
 
 	return Status;
 }
 
 static XStatus LpdHcComplete(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	(void)Args;
 	(void)NumOfArgs;
 
 	/* In case bisr and mbist are skipped */
 	Status = LpdPreBisrReqs();
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Remove LPD SoC isolation */
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_LPD_SOC, FALSE);
-	if (Status != XST_SUCCESS)
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_SOC, FALSE_VALUE);
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Copy sysmon data */
-	XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PS_LPD], PM_POWER_LPD, 0);
+	Status = XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PS_LPD], PM_POWER_LPD, 0);
 done:
 	return Status;
 }
@@ -118,7 +134,7 @@ done:
  ****************************************************************************/
 static XStatus LpdScanClear(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -163,8 +179,7 @@ static XStatus LpdScanClear(u32 *Args, u32 NumOfArgs)
 	/*
 	 * Pulse PS POR
 	 */
-	Status = XPmReset_AssertbyId(PM_RST_PS_POR,
-				     PM_RESET_ACTION_PULSE);
+	Status = XPmReset_AssertbyId(PM_RST_PS_POR, (u32)PM_RESET_ACTION_PULSE);
 done:
 	return Status;
 }
@@ -178,7 +193,7 @@ done:
  ****************************************************************************/
 static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	u32 RegVal;
 
@@ -198,6 +213,7 @@ static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 	/* Check if Lbist is enabled*/
 	PmIn32(EfuseCache->Node.BaseAddress + EFUSE_CACHE_MISC_CTRL_OFFSET, RegVal);
 	if ((RegVal & EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK) != EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
@@ -238,8 +254,7 @@ static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 	/*
 	 * Pulse PS POR
 	 */
-	Status = XPmReset_AssertbyId(PM_RST_PS_POR,
-				     PM_RESET_ACTION_PULSE);
+	Status = XPmReset_AssertbyId(PM_RST_PS_POR, (u32)PM_RESET_ACTION_PULSE);
 done:
 	return Status;
 }
@@ -253,11 +268,11 @@ done:
  ****************************************************************************/
 static XStatus LpdBisr(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
+	XPm_Device *XramDevice = XPmDevice_GetById(PM_DEV_XRAM_0);
 	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 
 	if (NULL == LpDomain) {
-		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -266,13 +281,90 @@ static XStatus LpdBisr(u32 *Args, u32 NumOfArgs)
 
 	/* Pre bisr requirements */
 	Status = LpdPreBisrReqs();
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	Status = XPmBisr_Repair(LPD_TAG_ID);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	if (NULL == XramDevice) {
+		goto done;
+	}
+
+	Status = XPmBisr_Repair(XRAM_TAG_ID);
+
+done:
 	if (XST_SUCCESS == Status) {
 		LpDomain->LpdBisrFlags |= LPD_BISR_DONE;
 	}
+
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function executes MBIST sequence for XRAM
+ *
+ * @return XST_SUCCESS if successful else XPM_ERR_MBIST_CLR
+ *
+ ****************************************************************************/
+static XStatus XramMbist(void)
+{
+
+	/* XRAM MBIST Sequence */
+	/* There are 2 modes of memclear: (1) Unison Mode (2) Per Island Mode */
+	/* Using Unison Mode */
+
+	XStatus Status = XPM_ERR_MBIST_CLR;
+	XPm_Device *Device = NULL;
+	u32 BaseAddr, RegValue;
+
+	Device = XPmDevice_GetById(PM_DEV_XRAM_0);
+	if (NULL == Device) {
+		/* device might not have XRAM IP, hence return success*/
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	BaseAddr = Device->Node.BaseAddress;
+
+	/* Unlock PCSR */
+	PmOut32(BaseAddr + XRAM_SLCR_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+
+	/* Write to Memclear Trigger */
+	PmOut32(BaseAddr + XRAM_SLCR_PCSR_MASK_OFFSET, XRAM_MEM_CLEAR_TRIGGER_0_MASK);
+	PmOut32(BaseAddr + XRAM_SLCR_PCSR_PCR_OFFSET, XRAM_MEM_CLEAR_TRIGGER_0_MASK);
+
+	/* Poll for Memclear done */
+	Status = XPm_PollForMask(BaseAddr + XRAM_SLCR_PCSR_PSR_OFFSET,
+			XRAM_SLCR_PCSR_PSR_MEM_CLEAR_DONE_0_MASK |
+			XRAM_SLCR_PCSR_PSR_MEM_CLEAR_DONE_3_TO_1_MASK, XPM_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Check Memclear pass/fail status */
+	PmIn32(BaseAddr + XRAM_SLCR_PCSR_PSR_OFFSET, RegValue);
+	if ((RegValue &
+		(XRAM_SLCR_PCSR_PSR_MEM_CLEAR_PASS_0_MASK |
+		XRAM_SLCR_PCSR_PSR_MEM_CLEAR_PASS_3_TO_1_MASK)) !=
+		((XRAM_SLCR_PCSR_PSR_MEM_CLEAR_PASS_0_MASK |
+		XRAM_SLCR_PCSR_PSR_MEM_CLEAR_PASS_3_TO_1_MASK))) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	/* Unwrite the trigger bits */
+	PmOut32(BaseAddr + XRAM_SLCR_PCSR_PCR_OFFSET, 0x0);
+	PmOut32(BaseAddr + XRAM_SLCR_PCSR_MASK_OFFSET, 0x0);
+
+	/* Lock PCSR */
+	PmOut32(BaseAddr + XRAM_SLCR_PCSR_LOCK_OFFSET, 0x0);
+
+	Status = XST_SUCCESS;
 
 done:
 	return Status;
@@ -287,7 +379,7 @@ done:
  ****************************************************************************/
 static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -301,12 +393,12 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 
 	/* Pre bisr requirements - In case if Bisr is skipped */
 	Status = LpdPreBisrReqs();
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Release USB reset for LPD IOU Mbist to work*/
-	Status = XPmReset_AssertbyId(PM_RST_USB_0,
-				     PM_RESET_ACTION_RELEASE);
+	Status = XPmReset_AssertbyId(PM_RST_USB_0, (u32)PM_RESET_ACTION_RELEASE);
 
 	PmRmw32(PMC_ANALOG_OD_MBIST_RST,
 		(PMC_ANALOG_OD_MBIST_RST_LPD_IOU_MASK |
@@ -366,6 +458,9 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
                  PMC_ANALOG_OD_MBIST_PG_EN_LPD_RPU_MASK |
                  PMC_ANALOG_OD_MBIST_PG_EN_LPD_MASK),0);
 
+
+	Status = XramMbist();
+
 done:
 	return Status;
 }
@@ -380,10 +475,10 @@ done:
  ****************************************************************************/
 static XStatus LpdXppuCtrl(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 XppuNodeId, Enable;
 
-	if(NumOfArgs < 2) {
+	if (NumOfArgs < 2U) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -391,26 +486,27 @@ static XStatus LpdXppuCtrl(u32 *Args, u32 NumOfArgs)
 	XppuNodeId = Args[0];
 	Enable = Args[1];
 
-	if (XPM_NODECLASS_PROTECTION != NODECLASS(XppuNodeId)) {
+	if ((u32)XPM_NODECLASS_PROTECTION != NODECLASS(XppuNodeId)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	if (XPM_NODESUBCL_PROT_XPPU != NODESUBCLASS(XppuNodeId)) {
+	if ((u32)XPM_NODESUBCL_PROT_XPPU != NODESUBCLASS(XppuNodeId)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	if(Enable && (NumOfArgs==3))
+	if ((0U != Enable) && (3U == NumOfArgs)) {
 		Status = XPmProt_XppuEnable(XppuNodeId, Args[2]);
-	else
+	} else {
 		Status = XPmProt_XppuDisable(XppuNodeId);
+	}
 
 done:
 	return Status;
 }
 
-struct XPm_PowerDomainOps LpdOps = {
+static struct XPm_PowerDomainOps LpdOps = {
 	.InitStart = LpdInitStart,
 	.InitFinish = LpdInitFinish,
 	.ScanClear = LpdScanClear,
@@ -425,20 +521,25 @@ XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
 			   XPm_Power *Parent, u32 *OtherBaseAddresses,
 			   u32 OtherBaseAddressesCnt)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
-	XPmPowerDomain_Init(&PsLpd->Domain, Id, BaseAddress, Parent, &LpdOps);
+	Status = XPmPowerDomain_Init(&PsLpd->Domain, Id, BaseAddress, Parent, &LpdOps);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	PsLpd->LpdBisrFlags = 0;
 
 	/* Make sure enough base addresses are being passed */
-	if (3 <= OtherBaseAddressesCnt) {
+	if (3U <= OtherBaseAddressesCnt) {
 		PsLpd->LpdIouSlcrBaseAddr = OtherBaseAddresses[0];
 		PsLpd->LpdSlcrBaseAddr = OtherBaseAddresses[1];
 		PsLpd->LpdSlcrSecureBaseAddr = OtherBaseAddresses[2];
+		Status = XST_SUCCESS;
 	} else {
 		Status = XST_FAILURE;
 	}
 
+done:
 	return Status;
 }
