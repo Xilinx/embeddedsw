@@ -54,6 +54,7 @@ struct XPm_PowerDomainOps {
 	XStatus (*PlHouseclean)(u32 *Args, u32 NumOfArgs);
 	XStatus (*MemInit)(u32 *Args, u32 NumOfArgs);
 	XStatus (*HcComplete)(u32 *Args, u32 NumOfArgs);
+	XStatus (*XppuCtrl)(u32 *Args, u32 NumOfArgs);
 };
 
 struct XPm_PowerDomain {
