@@ -162,6 +162,7 @@
 *       cog    07/18/19 Added XRFdc_S/GetDigitalStepAttenuator() APIs.
 *       cog    07/25/19 Baremetal Region mapping now taken care of in XRFdc_RegisterMetal().
 *       cog    07/25/19 Moved XRFDC_PLL_LOCK_DLY_CNT macro to header file.
+*       cog    07/26/19 Added new XRFdc_S/GetLegacyCompatibilityMode() APIs.
 *
 * </pre>
 *
@@ -5311,6 +5312,106 @@ u32 XRFdc_SetDACOpCurr(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurr
 		metal_sleep_usec(1);
 #endif
 	}
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+/*****************************************************************************/
+/**
+*
+* Gets legacy compatibility mode.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Tile_Id Valid values are 0-3.
+* @param	mode is ADC/DAC block number inside the tile. Valid values
+*			are 0-3.
+* @param	EnabledPtr is pointer a that is filled with whether the mode is
+*			enabled (1) or disabled(0).
+*
+* @return
+*        - XRFDC_SUCCESS if successful.
+*        - XRFDC_FAILURE if error occurs.
+*
+* @note  None.
+******************************************************************************/
+u32 XRFdc_GetLegacyCompatibilityMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *EnabledPtr)
+{
+	u32 Status;
+	u32 BaseAddr;
+	u16 CompatibilityMode;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(EnabledPtr != NULL);
+
+	if (InstancePtr->RFdc_Config.IPType < 2) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR, "\n Requested functionality not available for this IP in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+
+	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
+	CompatibilityMode =
+		XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_DAC_MC_CFG2_OFFSET, XRFDC_DAC_MC_CFG2_GEN1_COMP_MASK);
+	*EnabledPtr = (CompatibilityMode == XRFDC_DAC_MC_CFG2_GEN1_COMP_MASK) ? XRFDC_ENABLED : XRFDC_DISABLED;
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+/*****************************************************************************/
+/**
+*
+* Sets legacy compatibility mode.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Tile_Id Valid values are 0-3.
+* @param	mode is ADC/DAC block number inside the tile. Valid values
+*			are 0-3.
+* @param	Enable is whether to enable (1) or disable(0) the compatibility
+*			mode.
+*
+* @return
+*        - XRFDC_SUCCESS if successful.
+*        - XRFDC_FAILURE if error occurs.
+*
+* @note  None.
+******************************************************************************/
+u32 XRFdc_SetLegacyCompatibilityMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Enable)
+{
+	u32 Status;
+	u32 BaseAddr;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	if (InstancePtr->RFdc_Config.IPType < 2) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR, "\n Requested functionality not available for this IP in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+
+	if (Enable > XRFDC_ENABLED) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR, "\n Bad enable parameter (%u) in %s\r\n", Enable, __func__);
+		goto RETURN_PATH;
+	}
+
+	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
+	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_DAC_MC_CFG2_OFFSET, XRFDC_DAC_MC_CFG2_GEN1_COMP_MASK,
+			Enable << XRFDC_DAC_MC_CFG2_GEN1_COMP_SHIFT);
 
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:

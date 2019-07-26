@@ -234,6 +234,7 @@
 *       cog    07/18/19 Added XRFdc_S/GetDigitalStepAttenuator() APIs.
 *       cog    07/25/19 Added new XRFdc_RegisterMetal() API to register RFDC with Libmetal.
 *       cog    07/25/19 Moved XRFDC_PLL_LOCK_DLY_CNT macro from source file.
+*       cog    07/26/19 Added new XRFdc_S/GetLegacyCompatibilityMode() APIs.
 *
 * </pre>
 *
@@ -2057,6 +2058,8 @@ u32 XRFdc_GetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Cal_
 u32 XRFdc_SetDACOpCurr(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurrent);
 u32 XRFdc_SetDigitalStepAttenuator(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, float Attenuation);
 u32 XRFdc_GetDigitalStepAttenuator(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, float *AttenuationPtr);
+u32 XRFdc_SetLegacyCompatibilityMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Enable);
+u32 XRFdc_GetLegacyCompatibilityMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *EnabledPtr);
 #ifndef __BAREMETAL__
 s32 XRFdc_GetDeviceNameByDeviceId(char *DevNamePtr, u16 DevId);
 #endif
