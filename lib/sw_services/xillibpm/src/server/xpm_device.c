@@ -26,6 +26,7 @@
 #include "xpm_device.h"
 #include "xpm_core.h"
 #include "xpm_regs.h"
+#include "xpm_prot.h"
 #include "xpm_rpucore.h"
 #include "xillibpm_api.h"
 #include "xplmi_dma.h"
