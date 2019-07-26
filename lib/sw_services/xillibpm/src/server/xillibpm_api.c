@@ -44,6 +44,7 @@
 #include "xpm_pin.h"
 #include "xplmi_modules.h"
 #include "xpm_aie.h"
+#include "xpm_prot.h"
 #include "xpm_regs.h"
 #include "xsysmonpsv.h"
 
@@ -3227,6 +3228,72 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  This function add xmpu/xppu node to the topology database
+ *
+ * @param Args		Node arguments
+ * @param NumArgs	number of arguments
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+static XStatus XPm_AddNodeProt(u32 *Args, u32 NumArgs)
+{
+	int Status = XST_FAILURE;
+	u32 NodeId;
+	u32 BaseAddress;
+	u32 SubClass;
+	XPm_Prot *ProtNode;
+
+	if (NumArgs < 3) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	NodeId = Args[0];
+	BaseAddress = Args[2];
+	SubClass = NODESUBCLASS(NodeId);
+
+	if (XPM_NODECLASS_PROTECTION != NODECLASS(NodeId)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if ((XPM_NODESUBCL_PROT_XPPU != SubClass) && (XPM_NODESUBCL_PROT_XMPU != SubClass)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	switch (SubClass) {
+		case XPM_NODESUBCL_PROT_XPPU:
+			ProtNode = (XPm_Prot *)XPm_AllocBytes(sizeof(XPm_ProtPpu));
+			if (NULL == ProtNode) {
+				Status = XST_BUFFER_TOO_SMALL;
+				goto done;
+			}
+			Status = XPmProt_Init(ProtNode, NodeId, BaseAddress);
+			break;
+		case XPM_NODESUBCL_PROT_XMPU:
+			ProtNode = (XPm_Prot *)XPm_AllocBytes(sizeof(XPm_ProtMpu));
+			if (NULL == ProtNode) {
+				Status = XST_BUFFER_TOO_SMALL;
+				goto done;
+			}
+			Status = XPmProt_Init(ProtNode, NodeId, BaseAddress);
+			break;
+		default:
+			Status = XST_INVALID_PARAM;
+			break;
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function add mio pin node to the topology database
  *
  * @param  Args		mio arguments
@@ -3317,6 +3384,9 @@ XStatus XPm_AddNode(u32 *Args, u32 NumArgs)
 			break;
 		case XPM_NODECLASS_DEVICE:
 			Status = XPm_AddDevice(Args, NumArgs);
+			break;
+		case XPM_NODECLASS_PROTECTION:
+			Status = XPm_AddNodeProt(Args, NumArgs);
 			break;
 		default:
 			Status = XST_INVALID_PARAM;

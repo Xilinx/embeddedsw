@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 
@@ -73,6 +73,7 @@ enum class {
 	XPM_NODECLASS_DEVICE,
 	XPM_NODECLASS_SUBSYSTEM,
 	XPM_NODECLASS_ISOLATION,
+	XPM_NODECLASS_PROTECTION,
 
 	XPM_NODECLASS_MAX
 } XPm_NodeClass;
@@ -128,6 +129,12 @@ typedef enum {
 	/* isoaltion subclasses */
 	XPM_NODESUBCL_ISOLATION=0,
 } XPm_IsolationSubclass;
+
+typedef enum {
+	/* Protection subclasses */
+	XPM_NODESUBCL_PROT_XPPU,
+	XPM_NODESUBCL_PROT_XMPU,
+} XPm_ProtNodeSubclass;
 
 /* Node types */
 typedef enum {
@@ -194,6 +201,11 @@ typedef enum {
 	/* isoaltion types */
 	XPM_NODETYPE_ISOLATION=0,
 } XPm_IsolationTypes;
+
+typedef enum {
+	/* Protection types */
+	XPM_NODETYPE_PROTECTION=0,
+} XPm_ProtTypes;
 
 /* All node IDs */
 typedef enum {
@@ -799,6 +811,24 @@ typedef enum {
 	XPM_NODEIDX_ISO_PL_CPM_RST_CPI1,
 	XPM_NODEIDX_ISO_MAX,
 } XPm_IsolationId;
+
+/**
+ * Protection IDs
+ */
+typedef enum {
+	XPM_NODEIDX_PROT_MIN,
+
+	XPM_NODEIDX_PROT_XPPU_LPD,
+	XPM_NODEIDX_PROT_XPPU_PMC,
+	XPM_NODEIDX_PROT_XPPU_PMC_NPI,
+
+	XPM_NODEIDX_PROT_XMPU_FPD_SLAVES,
+	XPM_NODEIDX_PROT_XMPU_OCM,
+	XPM_NODEIDX_PROT_XMPU_PMC,
+
+	XPM_NODEIDX_PROT_MAX,
+} XPm_ProtectionId;
+
 
 #ifdef __cplusplus
 }
