@@ -98,7 +98,6 @@ done:
 XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 {
 	XStatus Status = XST_SUCCESS;
-	u32 NodeIndex = NODEINDEX(NodeId);
 	int i = 0;
 	XPm_ProtPpu *PpuNode = (XPm_ProtPpu *)XPmProt_GetById(NodeId);
 	u32 Address, BaseAddr, RegVal;
@@ -219,7 +218,7 @@ static XStatus XPmProt_ConfigureXppu(XPm_Requirement *Reqm, u32 Enable)
 	for (i = 0; i < XPM_NODEIDX_PROT_MAX; i++)
 	{
 		if (PmProtNodes[i] != NULL && (XPM_NODESUBCL_PROT_XPPU == NODESUBCLASS(PmProtNodes[i]->Node.Id))) {
-			PpuNode = PmProtNodes[i];
+			PpuNode = (XPm_ProtPpu *)PmProtNodes[i];
 			if ((DeviceBaseAddr >= PpuNode->Aperture_64k.StartAddress) && (DeviceBaseAddr <= PpuNode->Aperture_64k.EndAddress)) {
 				ApertureOffset =  (DeviceBaseAddr - PpuNode->Aperture_64k.StartAddress) / SIZE_64K;
 				ApertureAddress = (PpuNode->ProtNode.Node.BaseAddress + XPPU_APERTURE_0_OFFSET) + (ApertureOffset * 4);
