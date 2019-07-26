@@ -799,6 +799,8 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
+			/* Disable the direct wake in case of force power down */
+			DISABLE_WAKE(Core->SleepMask);
 		}
 
 		Reqm = Core->Device.Requirements;
