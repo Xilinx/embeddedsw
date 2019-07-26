@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 #include "xpm_domain_iso.h"
 #include "xpm_reset.h"
 #include "xpm_bisr.h"
+#include "xpm_prot.h"
 
 static XStatus LpdInitStart(u32 *Args, u32 NumOfArgs)
 {
@@ -334,6 +335,46 @@ done:
 	return Status;
 }
 
+
+/****************************************************************************/
+/**
+ * @brief  This function configures xppu for LPD
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE
+ *
+ ****************************************************************************/
+static XStatus LpdXppuCtrl(u32 *Args, u32 NumOfArgs)
+{
+	XStatus Status = XST_SUCCESS;
+	u32 XppuNodeId, Enable;
+
+	if(NumOfArgs < 2) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	XppuNodeId = Args[0];
+	Enable = Args[1];
+
+	if (XPM_NODECLASS_PROTECTION != NODECLASS(XppuNodeId)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if (XPM_NODESUBCL_PROT_XPPU != NODESUBCLASS(XppuNodeId)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if(Enable && (NumOfArgs==3))
+		Status = XPmProt_XppuEnable(XppuNodeId, Args[2]);
+	else
+		Status = XPmProt_XppuDisable(XppuNodeId);
+
+done:
+	return Status;
+}
+
 struct XPm_PowerDomainOps LpdOps = {
 	.InitStart = LpdInitStart,
 	.InitFinish = LpdInitFinish,
@@ -342,6 +383,7 @@ struct XPm_PowerDomainOps LpdOps = {
 	.Lbist = LpdLbist,
 	.Bisr = LpdBisr,
 	.HcComplete = LpdHcComplete,
+	.XppuCtrl = LpdXppuCtrl,
 };
 
 XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,

@@ -468,7 +468,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 	XStatus Status = XST_SUCCESS;
 	struct XPm_PowerDomainOps *Ops = PwrDomain->DomainOps;
 
-	if (XPM_POWER_STATE_ON == PwrDomain->Power.Node.State) {
+	if ((XPM_POWER_STATE_ON == PwrDomain->Power.Node.State) && (Function != FUNC_XPPU_CTRL)) {
 		goto done;
 	}
 
@@ -575,6 +575,18 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
                 }
                 if (Ops && Ops->HcComplete) {
                         Status = Ops->HcComplete(Args, NumArgs);
+                        if (XST_SUCCESS != Status) {
+                                goto done;
+                        }
+                }
+                break;
+	case FUNC_XPPU_CTRL:
+                if (XPM_POWER_STATE_ON != PwrDomain->Power.Node.State) {
+                        Status = XST_FAILURE;
+                        goto done;
+                }
+                if (Ops && Ops->XppuCtrl) {
+                        Status = Ops->XppuCtrl(Args, NumArgs);
                         if (XST_SUCCESS != Status) {
                                 goto done;
                         }

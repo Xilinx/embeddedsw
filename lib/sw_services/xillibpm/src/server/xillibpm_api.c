@@ -458,6 +458,7 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
 	}
 
 	switch (NODEINDEX(NodeId)) {
+	case XPM_NODEIDX_POWER_PMC:
 	case XPM_NODEIDX_POWER_LPD:
 	case XPM_NODEIDX_POWER_FPD:
 	case XPM_NODEIDX_POWER_NOC:
