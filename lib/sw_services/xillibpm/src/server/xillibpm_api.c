@@ -493,7 +493,6 @@ done:
 XStatus XPm_IsoControl(u32 NodeId, u32 Enable)
 {
 	XStatus Status = XST_SUCCESS;
-	XPm_PowerDomain *PwrDomainNode;
 
 	if ((XPM_NODECLASS_ISOLATION != NODECLASS(NodeId)) ||
 	    (XPM_NODEIDX_ISO_MAX <= NODEINDEX(NodeId))) {
@@ -2673,7 +2672,6 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 	u32 ParentId;
 	XPm_Power *Power;
 	XPm_Power *PowerParent = NULL;
-	XPm_PowerDomain *PwrDomain;
 	XPm_PsFpDomain *PsFpDomain;
 	XPm_PmcDomain *PmcDomain;
 	XPm_PsLpDomain *PsLpDomain;
