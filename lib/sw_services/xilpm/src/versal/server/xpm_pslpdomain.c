@@ -9,30 +9,34 @@
 #include "xpm_domain_iso.h"
 #include "xpm_reset.h"
 #include "xpm_bisr.h"
-#include "xpm_board.h"
 #include "xpm_prot.h"
 #include "xpm_regs.h"
 #include "xpm_device.h"
+#include "xpm_debug.h"
+#include "xpm_rail.h"
 
 static XStatus LpdInitStart(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	(void)Args;
 	(void)NumOfArgs;
 
+	XPm_Rail *VccintPslpRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PSLP);
+
 	/* Check vccint_pslp first to make sure power is on */
-	if (XST_SUCCESS != XPmPower_CheckPower(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_LPD_MASK)) {
-		Status = XPmBoard_ControlRail(RAIL_POWER_UP, POWER_RAIL_LPD);
-		if (XST_SUCCESS != Status) {
-			PmErr("Control power rail for LPD failure during power up\r\n");
-			goto done;
-		}
+	Status = XPmPower_CheckPower(VccintPslpRail,
+						PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_LPD_MASK);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_POWER_SUPPLY;
+		goto done;
 	}
 
 	/* Remove PS_PMC domains isolation */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_LPD_DFX, FALSE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PMC_LPD_DFX_ISO;
 		goto done;
 	}
 
@@ -40,7 +44,11 @@ static XStatus LpdInitStart(u32 *Args, u32 NumOfArgs)
 	 * Release POR for PS-LPD
 	 */
 	Status = XPmReset_AssertbyId(PM_RST_PS_POR, (u32)PM_RESET_ACTION_RELEASE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PS_POR;
+	}
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -49,22 +57,26 @@ static XStatus LpdPreBisrReqs(void)
 	XStatus Status = XST_FAILURE;
 	XPm_Device *XramDevice = NULL;
 	XPm_ResetNode *XramRst = NULL;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* Remove PMC LPD isolation */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_LPD, FALSE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PMC_LPD_ISO;
 		goto done;
 	}
 
 	/* Release reset for PS SRST */
 	Status = XPmReset_AssertbyId(PM_RST_PS_SRST, (u32)PM_RESET_ACTION_RELEASE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PS_SRST;
 		goto done;
 	}
 
 	/* Release OCM2 (XRAM) SRST if XRAM exists */
 	XramDevice = XPmDevice_GetById(PM_DEV_XRAM_0);
 	if (NULL == XramDevice) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		goto done;
 	}
 
@@ -73,18 +85,24 @@ static XStatus LpdPreBisrReqs(void)
 	/* else XRAM_SRST = PL_SRST */
 	XramRst = XPmReset_GetById(PM_RST_XRAM);
 	if (NULL == XramRst) {
+		DbgErr = XPM_INT_ERR_INVALID_RST;
 		Status = XST_FAILURE;
 		goto done;
 	}
 
 	if (XramRst->Ops->GetState(XramRst) == 0x0U) {
 		Status = XPmReset_AssertbyId(PM_RST_OCM2_RST, (u32)PM_RESET_ACTION_RELEASE);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_RST_RELEASE;
+		}
 	} else {
 		/* We shouldn't reach here. PL SRST is source for XRAM SRST */
+		DbgErr = XPM_INT_ERR_RST_STATE;
 		Status = XPM_ERR_RESET;
 	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -103,6 +121,8 @@ static XStatus LpdInitFinish(u32 *Args, u32 NumOfArgs)
 static XStatus LpdHcComplete(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 SysmonAddr;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -110,18 +130,31 @@ static XStatus LpdHcComplete(u32 *Args, u32 NumOfArgs)
 	/* In case bisr and mbist are skipped */
 	Status = LpdPreBisrReqs();
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PRE_BISR_REQ;
 		goto done;
 	}
 
 	/* Remove LPD SoC isolation */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_SOC, FALSE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_LPD_SOC_ISO;
 		goto done;
 	}
 
 	/* Copy sysmon data */
-	Status = XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PS_LPD], PM_POWER_LPD, 0);
+	SysmonAddr = XPm_GetSysmonByIndex((u32)XPM_NODEIDX_MONITOR_SYSMON_PS_LPD);
+	if (0U == SysmonAddr) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	Status = XPmPowerDomain_ApplyAmsTrim(SysmonAddr, PM_POWER_LPD, 0);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_AMS_TRIM;
+	}
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -135,29 +168,36 @@ done:
 static XStatus LpdScanClear(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 RegBitMask;
 
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (PLATFORM_VERSION_SILICON != Platform) {
+	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
 
 	/* Trigger Scan clear on LPD/LPD_IOU */
-	PmRmw32(PMC_ANALOG_SCAN_CLEAR_TRIGGER,
-		(PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_MASK |
-		 PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_IOU_MASK |
-		 PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_RPU_MASK),
-		(PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_MASK |
-		 PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_IOU_MASK |
-		 PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_RPU_MASK));
+	RegBitMask = ((u32)PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_MASK |
+		      (u32)PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_IOU_MASK |
+		      (u32)PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_RPU_MASK);
+	PmRmw32(PMC_ANALOG_SCAN_CLEAR_TRIGGER, RegBitMask, RegBitMask);
+	/* Check that the register value written properly or not! */
+	PmChkRegRmw32(PMC_ANALOG_SCAN_CLEAR_TRIGGER, RegBitMask, RegBitMask, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_LPDLSCNCLR_TRIGGER;
+		goto done;
+	}
+
 	Status = XPm_PollForMask(PMC_ANALOG_SCAN_CLEAR_DONE,
 				 (PMC_ANALOG_SCAN_CLEAR_DONE_LPD_IOU_MASK |
 				  PMC_ANALOG_SCAN_CLEAR_DONE_LPD_MASK |
 				  PMC_ANALOG_SCAN_CLEAR_DONE_LPD_RPU_MASK),
 				 XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_SCAN_CLEAR_TIMEOUT;
 		goto done;
 	}
 
@@ -167,6 +207,7 @@ static XStatus LpdScanClear(u32 *Args, u32 NumOfArgs)
 				  PMC_ANALOG_SCAN_CLEAR_PASS_LPD_RPU_MASK),
 				 XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_SCAN_PASS_TIMEOUT;
                 goto done;
         }
 
@@ -180,7 +221,11 @@ static XStatus LpdScanClear(u32 *Args, u32 NumOfArgs)
 	 * Pulse PS POR
 	 */
 	Status = XPmReset_AssertbyId(PM_RST_PS_POR, (u32)PM_RESET_ACTION_PULSE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PS_POR;
+	}
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -195,48 +240,70 @@ static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
-	u32 RegVal;
+	u32 RegAddr;
+	volatile u32 RegVal = 0U;
+	volatile u32 RegValTmp = 0U;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 RegBitMask;
 
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (PLATFORM_VERSION_SILICON != Platform) {
+	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
 
 	if (NULL == EfuseCache) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		Status = XST_FAILURE;
 		goto done;
 	}
 
 	/* Check if Lbist is enabled*/
-	PmIn32(EfuseCache->Node.BaseAddress + EFUSE_CACHE_MISC_CTRL_OFFSET, RegVal);
-	if ((RegVal & EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK) != EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK) {
+	RegAddr = EfuseCache->Node.BaseAddress + EFUSE_CACHE_MISC_CTRL_OFFSET;
+	RegVal = XPm_In32(RegAddr) & EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK;
+	/* Required for redundancy */
+	RegValTmp = XPm_In32(RegAddr) & EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK;
+	u32 LocalRegVal = RegValTmp; /* Copy volatile to local to avoid MISRA */
+	if ((EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK != RegVal) &&
+	    (EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK != LocalRegVal)) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
 
 	/* Enable LBIST isolation */
-	PmRmw32(PMC_ANALOG_LBIST_ISOLATION_EN,
-		(PMC_ANALOG_LBIST_ISOLATION_EN_LPD_MASK |
-		 PMC_ANALOG_LBIST_ISOLATION_EN_LPD_RPU_MASK),
-		(PMC_ANALOG_LBIST_ISOLATION_EN_LPD_MASK |
-		 PMC_ANALOG_LBIST_ISOLATION_EN_LPD_RPU_MASK));
+	RegBitMask = ((u32)PMC_ANALOG_LBIST_ISOLATION_EN_LPD_MASK |
+		      (u32)PMC_ANALOG_LBIST_ISOLATION_EN_LPD_RPU_MASK);
+	PmRmw32(PMC_ANALOG_LBIST_ISOLATION_EN, RegBitMask, RegBitMask);
+	/* Check that Lbist isolation Enabled */
+	PmChkRegRmw32(PMC_ANALOG_LBIST_ISOLATION_EN, RegBitMask, RegBitMask, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_LPDLBIST_ISO_EN;
+		goto done;
+	}
 
 	/* Trigger LBIST on LPD */
-	PmRmw32(PMC_ANALOG_LBIST_ENABLE,
-		(PMC_ANALOG_LBIST_ENABLE_LPD_MASK |
-		 PMC_ANALOG_LBIST_ENABLE_LPD_RPU_MASK),
-		(PMC_ANALOG_LBIST_ENABLE_LPD_MASK |
-		 PMC_ANALOG_LBIST_ENABLE_LPD_RPU_MASK));
+	RegBitMask = ((u32)PMC_ANALOG_LBIST_ENABLE_LPD_MASK |
+		      (u32)PMC_ANALOG_LBIST_ENABLE_LPD_RPU_MASK);
+	PmRmw32(PMC_ANALOG_LBIST_ENABLE, RegBitMask, RegBitMask);
+	/* Check that Lbist triggered on LPD */
+	PmChkRegRmw32(PMC_ANALOG_LBIST_ENABLE, RegBitMask, RegBitMask, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_LPDLBIST_ENABLE;
+		goto done;
+	}
 
 	/* Release LBIST reset */
-	PmRmw32(PMC_ANALOG_LBIST_RST_N,
-		(PMC_ANALOG_LBIST_RST_N_LPD_MASK |
-		 PMC_ANALOG_LBIST_RST_N_LPD_RPU_MASK),
-		(PMC_ANALOG_LBIST_RST_N_LPD_MASK |
-		 PMC_ANALOG_LBIST_RST_N_LPD_RPU_MASK));
+	RegBitMask = ((u32)PMC_ANALOG_LBIST_RST_N_LPD_MASK |
+		      (u32)PMC_ANALOG_LBIST_RST_N_LPD_RPU_MASK);
+	PmRmw32(PMC_ANALOG_LBIST_RST_N, RegBitMask, RegBitMask);
+	/* Check that Lbist reset released */
+	PmChkRegRmw32(PMC_ANALOG_LBIST_RST_N, RegBitMask, RegBitMask, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_LPDLBIST_RST_N;
+		goto done;
+	}
 
 	Status = XPm_PollForMask(PMC_ANALOG_LBIST_DONE,
 				 (PMC_ANALOG_LBIST_DONE_LPD_MASK |
@@ -244,6 +311,7 @@ static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 				 XPM_POLL_TIMEOUT);
 
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_LBIST_DONE_TIMEOUT;
                 goto done;
         }
 	/* Unwrite trigger bits */
@@ -255,7 +323,11 @@ static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 	 * Pulse PS POR
 	 */
 	Status = XPmReset_AssertbyId(PM_RST_PS_POR, (u32)PM_RESET_ACTION_PULSE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PS_POR;
+	}
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -271,8 +343,10 @@ static XStatus LpdBisr(u32 *Args, u32 NumOfArgs)
 	XStatus Status = XST_FAILURE;
 	XPm_Device *XramDevice = XPmDevice_GetById(PM_DEV_XRAM_0);
 	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
+	u16 DbgErr;
 
 	if (NULL == LpDomain) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		goto done;
 	}
 
@@ -282,23 +356,31 @@ static XStatus LpdBisr(u32 *Args, u32 NumOfArgs)
 	/* Pre bisr requirements */
 	Status = LpdPreBisrReqs();
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PRE_BISR_REQ;
 		goto done;
 	}
 
 	Status = XPmBisr_Repair(LPD_TAG_ID);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_BISR_REPAIR;
 		goto done;
 	}
 
 	if (NULL == XramDevice) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		goto done;
 	}
 
 	Status = XPmBisr_Repair(XRAM_TAG_ID);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_XRAM_BISR_REPAIR;
+	}
 
 done:
 	if (XST_SUCCESS == Status) {
 		LpDomain->LpdBisrFlags |= LPD_BISR_DONE;
+	} else {
+		PmErr("0x%x\r\n", DbgErr);
 	}
 
 	return Status;
@@ -319,6 +401,7 @@ static XStatus XramMbist(void)
 	/* Using Unison Mode */
 
 	XStatus Status = XPM_ERR_MBIST_CLR;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XPm_Device *Device = NULL;
 	u32 BaseAddr, RegValue;
 
@@ -336,13 +419,31 @@ static XStatus XramMbist(void)
 
 	/* Write to Memclear Trigger */
 	PmOut32(BaseAddr + XRAM_SLCR_PCSR_MASK_OFFSET, XRAM_MEM_CLEAR_TRIGGER_0_MASK);
+	/* Check that the register value written properly or not! */
+	PmChkRegRmw32((BaseAddr + XRAM_SLCR_PCSR_MASK_OFFSET),
+		      XRAM_MEM_CLEAR_TRIGGER_0_MASK,
+		      XRAM_MEM_CLEAR_TRIGGER_0_MASK, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_XRAM_PCSR_MASK;
+		goto done;
+	}
+
 	PmOut32(BaseAddr + XRAM_SLCR_PCSR_PCR_OFFSET, XRAM_MEM_CLEAR_TRIGGER_0_MASK);
+	/* Check that the register value written properly or not! */
+	PmChkRegRmw32((BaseAddr + XRAM_SLCR_PCSR_PCR_OFFSET),
+		      XRAM_MEM_CLEAR_TRIGGER_0_MASK,
+		      XRAM_MEM_CLEAR_TRIGGER_0_MASK, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_XRAM_MEM_CLEAR_TRIGGER_0_MASK;
+		goto done;
+	}
 
 	/* Poll for Memclear done */
 	Status = XPm_PollForMask(BaseAddr + XRAM_SLCR_PCSR_PSR_OFFSET,
 			XRAM_SLCR_PCSR_PSR_MEM_CLEAR_DONE_0_MASK |
 			XRAM_SLCR_PCSR_PSR_MEM_CLEAR_DONE_3_TO_1_MASK, XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_MEM_CLEAR_DONE_TIMEOUT;
 		goto done;
 	}
 
@@ -353,6 +454,7 @@ static XStatus XramMbist(void)
 		XRAM_SLCR_PCSR_PSR_MEM_CLEAR_PASS_3_TO_1_MASK)) !=
 		((XRAM_SLCR_PCSR_PSR_MEM_CLEAR_PASS_0_MASK |
 		XRAM_SLCR_PCSR_PSR_MEM_CLEAR_PASS_3_TO_1_MASK))) {
+		DbgErr = XPM_INT_ERR_MEM_CLEAR_PASS_TIMEOUT;
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -367,6 +469,7 @@ static XStatus XramMbist(void)
 	Status = XST_SUCCESS;
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -379,12 +482,15 @@ done:
  ****************************************************************************/
 static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 RegBitMask;
 
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (PLATFORM_VERSION_SILICON != Platform) {
+	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -394,35 +500,49 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 	/* Pre bisr requirements - In case if Bisr is skipped */
 	Status = LpdPreBisrReqs();
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PRE_BISR_REQ;
 		goto done;
 	}
 
 	/* Release USB reset for LPD IOU Mbist to work*/
 	Status = XPmReset_AssertbyId(PM_RST_USB_0, (u32)PM_RESET_ACTION_RELEASE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_RST_RELEASE;
+		goto done;
+	}
 
-	PmRmw32(PMC_ANALOG_OD_MBIST_RST,
-		(PMC_ANALOG_OD_MBIST_RST_LPD_IOU_MASK |
-		 PMC_ANALOG_OD_MBIST_RST_LPD_RPU_MASK |
-		 PMC_ANALOG_OD_MBIST_RST_LPD_MASK),
-		(PMC_ANALOG_OD_MBIST_RST_LPD_IOU_MASK |
-		 PMC_ANALOG_OD_MBIST_RST_LPD_RPU_MASK |
-		 PMC_ANALOG_OD_MBIST_RST_LPD_MASK));
+	RegBitMask = ((u32)PMC_ANALOG_OD_MBIST_RST_LPD_IOU_MASK |
+		      (u32)PMC_ANALOG_OD_MBIST_RST_LPD_RPU_MASK |
+		      (u32)PMC_ANALOG_OD_MBIST_RST_LPD_MASK);
+	PmRmw32(PMC_ANALOG_OD_MBIST_RST, RegBitMask, RegBitMask);
+	/* Check that the register value written properly or not! */
+	PmChkRegRmw32(PMC_ANALOG_OD_MBIST_RST, RegBitMask, RegBitMask, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_LPDMBIST_RST;
+		goto done;
+	}
 
-	PmRmw32(PMC_ANALOG_OD_MBIST_SETUP,
-		(PMC_ANALOG_OD_MBIST_SETUP_LPD_IOU_MASK |
-		 PMC_ANALOG_OD_MBIST_SETUP_LPD_RPU_MASK |
-		 PMC_ANALOG_OD_MBIST_SETUP_LPD_MASK),
-		(PMC_ANALOG_OD_MBIST_SETUP_LPD_IOU_MASK |
-		 PMC_ANALOG_OD_MBIST_SETUP_LPD_RPU_MASK |
-		 PMC_ANALOG_OD_MBIST_SETUP_LPD_MASK));
+	RegBitMask = ((u32)PMC_ANALOG_OD_MBIST_SETUP_LPD_IOU_MASK |
+		      (u32)PMC_ANALOG_OD_MBIST_SETUP_LPD_RPU_MASK |
+		      (u32)PMC_ANALOG_OD_MBIST_SETUP_LPD_MASK);
+	PmRmw32(PMC_ANALOG_OD_MBIST_SETUP, RegBitMask, RegBitMask);
+	/* Check that the register value written properly or not! */
+	PmChkRegRmw32(PMC_ANALOG_OD_MBIST_SETUP, RegBitMask, RegBitMask, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_LPDMBIST_SETUP;
+		goto done;
+	}
 
-	PmRmw32(PMC_ANALOG_OD_MBIST_PG_EN,
-		(PMC_ANALOG_OD_MBIST_PG_EN_LPD_IOU_MASK |
-		 PMC_ANALOG_OD_MBIST_PG_EN_LPD_RPU_MASK |
-		 PMC_ANALOG_OD_MBIST_PG_EN_LPD_MASK),
-		(PMC_ANALOG_OD_MBIST_PG_EN_LPD_IOU_MASK |
-		 PMC_ANALOG_OD_MBIST_PG_EN_LPD_RPU_MASK |
-		 PMC_ANALOG_OD_MBIST_PG_EN_LPD_MASK));
+	RegBitMask = ((u32)PMC_ANALOG_OD_MBIST_PG_EN_LPD_IOU_MASK |
+		      (u32)PMC_ANALOG_OD_MBIST_PG_EN_LPD_RPU_MASK |
+		      (u32)PMC_ANALOG_OD_MBIST_PG_EN_LPD_MASK);
+	PmRmw32(PMC_ANALOG_OD_MBIST_PG_EN, RegBitMask, RegBitMask);
+	/* Check that the register value written properly or not! */
+	PmChkRegRmw32(PMC_ANALOG_OD_MBIST_PG_EN, RegBitMask, RegBitMask, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_LPDMBIST_PGEN;
+		goto done;
+	}
 
 	Status = XPm_PollForMask(PMC_ANALOG_OD_MBIST_DONE,
 				 (PMC_ANALOG_OD_MBIST_DONE_LPD_IOU_MASK|
@@ -430,6 +550,7 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 				  PMC_ANALOG_OD_MBIST_DONE_LPD_MASK),
 				 XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_MBIST_DONE_TIMEOUT;
 		goto done;
 	}
 
@@ -438,6 +559,7 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 	if ((PMC_ANALOG_OD_MBIST_GOOD_LPD_IOU_MASK |
 	     PMC_ANALOG_OD_MBIST_GOOD_LPD_RPU_MASK |
 	     PMC_ANALOG_OD_MBIST_GOOD_LPD_MASK) != RegValue) {
+		DbgErr = XPM_INT_ERR_MBIST_GOOD;
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -458,10 +580,15 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
                  PMC_ANALOG_OD_MBIST_PG_EN_LPD_RPU_MASK |
                  PMC_ANALOG_OD_MBIST_PG_EN_LPD_MASK),0);
 
-
-	Status = XramMbist();
+	/* Required for redundancy */
+	XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (XramMbist));
+	XStatus LocalStatus = StatusTmp; /* Copy volatile to local to avoid MISRA */
+	if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
+		DbgErr = XPM_INT_ERR_XRAM_MBIST;
+	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -475,35 +602,19 @@ done:
  ****************************************************************************/
 static XStatus LpdXppuCtrl(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_FAILURE;
-	u32 XppuNodeId, Enable;
+	return XPmProt_CommonXppuCtrl(Args, NumOfArgs);
+}
 
-	if (NumOfArgs < 2U) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	XppuNodeId = Args[0];
-	Enable = Args[1];
-
-	if ((u32)XPM_NODECLASS_PROTECTION != NODECLASS(XppuNodeId)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	if ((u32)XPM_NODESUBCL_PROT_XPPU != NODESUBCLASS(XppuNodeId)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	if ((0U != Enable) && (3U == NumOfArgs)) {
-		Status = XPmProt_XppuEnable(XppuNodeId, Args[2]);
-	} else {
-		Status = XPmProt_XppuDisable(XppuNodeId);
-	}
-
-done:
-	return Status;
+/****************************************************************************/
+/**
+ * @brief  This function configures xmpu for OCM
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE
+ *
+ ****************************************************************************/
+static XStatus LpdXmpuCtrl(u32 *Args, u32 NumOfArgs)
+{
+	return XPmProt_CommonXmpuCtrl(Args, NumOfArgs);
 }
 
 static struct XPm_PowerDomainOps LpdOps = {
@@ -515,6 +626,7 @@ static struct XPm_PowerDomainOps LpdOps = {
 	.Bisr = LpdBisr,
 	.HcComplete = LpdHcComplete,
 	.XppuCtrl = LpdXppuCtrl,
+	.XmpuCtrl = LpdXmpuCtrl,
 };
 
 XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
@@ -522,9 +634,11 @@ XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
 			   u32 OtherBaseAddressesCnt)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	Status = XPmPowerDomain_Init(&PsLpd->Domain, Id, BaseAddress, Parent, &LpdOps);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_POWER_DOMAIN_INIT;
 		goto done;
 	}
 
@@ -537,9 +651,11 @@ XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
 		PsLpd->LpdSlcrSecureBaseAddr = OtherBaseAddresses[2];
 		Status = XST_SUCCESS;
 	} else {
+		DbgErr = XPM_INT_ERR_INVALID_BASEADDR;
 		Status = XST_FAILURE;
 	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
