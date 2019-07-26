@@ -564,7 +564,7 @@ static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 {
 	u32 Status = XST_FAILURE;
 	XPm_Requirement *Reqm;
-
+	u32 UsagePolicy = 0;
 	if ((XPM_DEVSTATE_UNUSED != Device->Node.State) &&
 		(XPM_DEVSTATE_RUNNING != Device->Node.State) &&
 		(XPM_DEVSTATE_RUNTIME_SUSPEND != Device->Node.State)) {
@@ -572,6 +572,7 @@ static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 			goto done;
 	}
 
+	/* Check whether this device assigned to the subsystem */
 	Reqm = FindReqm(Device, Subsystem);
 	if (NULL == Reqm) {
 		goto done;
@@ -582,15 +583,31 @@ static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 		goto done;
 	}
 
-	/* Todo: Check whether this device assigned to the subsystem */
-
-	/* Todo: Check whether this device is shareable */
+	/* Check whether this device is shareable */
+	UsagePolicy = Reqm->Flags & REG_FLAGS_USAGE_MASK;
+	if (UsagePolicy == REQ_TIME_SHARED) {
+			//Check if it already requested by other subsystem. If yes, return
+			XPm_Requirement *NextReqm = Reqm->NextSubsystem;
+			while (NULL != NextReqm) {
+				if (TRUE == NextReqm->Allocated) {
+					Status = XST_FAILURE;
+					goto done;
+				}
+				NextReqm = NextReqm->NextSubsystem;
+			}
+	}
 
 	/* Allocated device for the subsystem */
 	Reqm->Allocated = 1;
 
 	Status = Device->DeviceOps->SetRequirement(Device, Subsystem,
 						   Capabilities, QoS);
+
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = XPmProt_Configure(Reqm, TRUE);
 
 done:
 	return Status;
@@ -684,6 +701,9 @@ static XStatus Release(XPm_Device *Device,
 		XPmRequirement_Clear(Device->PendingReqm);
 		Device->WfDealloc = 0;
 	}
+
+	Status = XPmProt_Configure(Device->PendingReqm, FALSE);
+
 done:
 	return Status;
 }
