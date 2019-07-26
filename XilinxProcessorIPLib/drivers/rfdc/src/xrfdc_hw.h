@@ -77,6 +77,7 @@
 *       cog    05/13/19 Added common power up interrupt masks/shifts.
 *       cog    07/16/19 Added XRFdc_SetDACOpCurr() API masks/shifts.
 *       cog    07/18/19 Added XRFdc_S/GetDigitalStepAttenuator() API masks/shifts.
+*       cog    07/26/19 Added XRFdc_S/GetLegacyCompatibilityMode() API shift.
 *
 *</pre>
 *
@@ -1948,6 +1949,7 @@ extern "C" {
 #define XRFDC_DATA_PATH_SHIFT 4U
 #define XRFDC_ADC_CMODE_SHIFT 10U
 #define XRFDC_COMMON_SHIFT 20U
+#define XRFDC_DAC_MC_CFG2_GEN1_COMP_SHIFT 5U
 
 #define XRFDC_DAC_TILE_DRP_ADDR(X) (0x6000U + (X * 0x4000U))
 #define XRFDC_DAC_TILE_CTRL_STATS_ADDR(X) (0x4000U + (X * 0x4000U))
