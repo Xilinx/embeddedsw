@@ -274,6 +274,46 @@ void XDsiTxSs_ReportCoreInfo(XDsiTxSs *InstancePtr)
 
 /*****************************************************************************/
 /**
+ * * This function sets the mode to send short packet.
+ * *
+ * * @param        InstancePtr is the XDsiTxSs instance to operate on
+ * * @param        mode is the DSI mode (video or command) to operate on
+ * *
+ * * @return       None
+ * *
+ * * @note         None.
+ * *
+ * ****************************************************************************/
+int XDsiTxSs_SetDSIMode(XDsiTxSs *InstancePtr, XDsi_DsiModeType mode)
+{
+	/* Verify argument */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	return XDsi_SetMode(InstancePtr->DsiPtr, mode);
+}
+
+/*****************************************************************************/
+/**
+ * * This function will send the short packet to controller in command mode
+ * * Generic Short Packet Register and fill up the structure passed from caller.
+ * *
+ * * @param        InstancePtr is the XDsiTxSs instance to operate on
+ * *
+ * * @return
+ *		   - XST_SUCCESS on successful packet transmission
+ *		   - XST_FAILURE on failure in packet transmission
+ * *
+ * * @note         None.
+ * *
+ * ****************************************************************************/
+int XDsiTxSs_SendCmdModePacket(XDsiTxSs *InstancePtr)
+{
+	/* Verify argument */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	return XDsi_SendCmdModePkt(InstancePtr->DsiPtr, &InstancePtr->CmdPkt);
+}
+
+/*****************************************************************************/
+/**
 * This function will send the short packet to controller
 * Generic Short Packet Register and fill up the structure passed from caller.
 * like to turn on/off peripheral, change color mode
