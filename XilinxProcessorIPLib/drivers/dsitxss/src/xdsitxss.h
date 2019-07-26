@@ -233,6 +233,7 @@ typedef struct {
 #endif
 	XDsi_ShortPacket SpktData; /**< Short packet strucute to
 					send short packet */
+	XDsiTx_CmdModePkt CmdPkt; /**< DSI Command mode packet structure */
 
 	XDsi_ConfigParameters ConfigInfo;  /**< Configuration information
 						contains GUI parameters,
@@ -255,6 +256,8 @@ void XDsiTxSs_Reset(XDsiTxSs *InstancePtr);
 void XDsiTxSs_ReportCoreInfo(XDsiTxSs *InstancePtr);
 u32 XDsiTxSs_SelfTest(XDsiTxSs *InstancePtr);
 void XDsiTxSs_SendShortPacket(XDsiTxSs *InstancePtr);
+int XDsiTxSs_SetDSIMode(XDsiTxSs *InstancePtr, XDsi_DsiModeType mode);
+int XDsiTxSs_SendCmdModePacket(XDsiTxSs *InstancePtr);
 void XDsiTxSs_GetConfigParams(XDsiTxSs *InstancePtr);
 u32 XDsiTxSs_IsControllerReady(XDsiTxSs *InstancePtr);
 u32 XDsiTxSs_GetPixelFormat(XDsiTxSs *InstancePtr);
