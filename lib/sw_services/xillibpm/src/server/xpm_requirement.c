@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 
@@ -28,8 +28,8 @@
 #include "xpm_power.h"
 #include "xillibpm_api.h"
 
-XStatus XPmRequirement_Init(XPm_Requirement *Reqm,
-		XPm_Subsystem *Subsystem, XPm_Device *Device)
+static XStatus XPmRequirement_Init(XPm_Requirement *Reqm,
+		XPm_Subsystem *Subsystem, XPm_Device *Device,  u32 Flags, u32 *Params, u32 NumParams)
 {
 	/* Prepend to subsystem's device reqm list */
 	Reqm->NextDevice = Subsystem->Requirements;
@@ -43,6 +43,14 @@ XStatus XPmRequirement_Init(XPm_Requirement *Reqm,
 
 	Reqm->Allocated = 0;
 	Reqm->SetLatReq = 0;
+
+	Reqm->Flags = Flags & 0xF;
+
+	if (Params && NumParams && NumParams <= MAX_REQ_PARAMS) {
+		memcpy(Reqm->Params, Params, NumParams);
+		Reqm->Flags |= ((NumParams & 0xF) << 4);
+	}
+
 	Reqm->Curr.Capabilities = XPM_MIN_CAPABILITY;
 	Reqm->Curr.Latency = XPM_MAX_LATENCY;
 	Reqm->Curr.QoS = XPM_MAX_QOS;
@@ -53,7 +61,7 @@ XStatus XPmRequirement_Init(XPm_Requirement *Reqm,
 	return XST_SUCCESS;
 }
 
-XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device)
+XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device, u32 Flags, u32 *Params, u32 NumParams)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Requirement *Reqm;
@@ -64,7 +72,7 @@ XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device)
 		goto done;
 	}
 
-	Status = XPmRequirement_Init(Reqm, Subsystem, Device);
+	Status = XPmRequirement_Init(Reqm, Subsystem, Device, Flags, Params, NumParams);
 done:
 	return Status;
 }

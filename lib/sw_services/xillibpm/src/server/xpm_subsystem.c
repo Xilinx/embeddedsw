@@ -426,11 +426,10 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 {
 	XStatus Status = XST_SUCCESS;
 	XPm_Subsystem *Subsystem;
-	XPm_Requirement *Reqm = NULL;
 	u32 i = 0;
 
 	/* If default subsystem is online, no other subsystem is allowed to be created */
-	if (!ISVALIDSUBSYSTEM(SubsystemId) || PmSubsystems[XPM_NODEIDX_SUBSYS_DEFAULT].State == ONLINE) {
+	if (!ISVALIDSUBSYSTEM(SubsystemId) || PmSubsystems[XPM_NODEIDX_SUBSYS_DEFAULT].State == ONLINE || SubsystemId == XPM_SUBSYSID_PMC) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -444,12 +443,6 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 	/* Add all requirements for default subsystem */
 	if(SubsystemId == XPM_SUBSYSID_DEFAULT)
 	{
-		Reqm = (XPm_Requirement *)XPm_AllocBytes(sizeof(XPm_Requirement) * XPM_NODEIDX_DEV_MAX);
-		if (NULL == Reqm) {
-			Status = XST_BUFFER_TOO_SMALL;
-			goto done;
-		}
-
 		for (i = 0; i < XPM_NODEIDX_DEV_MAX; i++) {
 			/*
 			 * Note: XPmDevice_GetByIndex() assumes that the caller
@@ -458,7 +451,7 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 			 */
 			XPm_Device *Device = XPmDevice_GetByIndex(i);
 			if (NULL != Device) {
-				Status = XPmRequirement_Init(&Reqm[i], Subsystem, Device);
+				Status = XPmRequirement_Add(Subsystem, Device, ((REQ_ACCESS_SECURE_NONSECURE << REG_FLAGS_SECURITY_OFFSET)|REQ_NO_RESTRICTION), NULL, 0);
 				if (XST_SUCCESS != Status)
 					goto done;
 			}

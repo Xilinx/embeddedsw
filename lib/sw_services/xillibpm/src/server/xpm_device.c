@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 #include "xpm_device.h"
@@ -694,7 +694,6 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 		XPm_Power *Power, XPm_ClockNode * Clock, XPm_ResetNode *Reset)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Requirement *Reqm;
 
 	if (NULL != XPmDevice_GetById(Id)) {
 		Status = XST_DEVICE_BUSY;
@@ -708,12 +707,7 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 	}
 
 	/* Add requirement by default for PMC subsystem */
-	Reqm = (XPm_Requirement *)XPm_AllocBytes(sizeof(XPm_Requirement));
-	if (NULL == Reqm) {
-		Status = XST_BUFFER_TOO_SMALL;
-		goto done;
-	}
-	Status = XPmRequirement_Init(Reqm, XPmSubsystem_GetByIndex(XPM_NODEIDX_SUBSYS_PMC), Device);
+	Status = XPmRequirement_Add(XPmSubsystem_GetByIndex(XPM_NODEIDX_SUBSYS_PMC), Device, ((REQ_ACCESS_SECURE_NONSECURE << REG_FLAGS_SECURITY_OFFSET) |REQ_NO_RESTRICTION), NULL, 0);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
