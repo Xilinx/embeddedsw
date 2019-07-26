@@ -68,6 +68,7 @@ struct XPm_ProtMpu {
 
 /************************** Function Prototypes ******************************/
 XStatus XPmProt_Init(XPm_Prot *Node, u32 Id, u32 BaseAddr);
+XStatus XPmProt_Configure(XPm_Requirement *Reqm, u32 Enable);
 XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal);
 XStatus XPmProt_XppuDisable(u32 NodeId);
 
