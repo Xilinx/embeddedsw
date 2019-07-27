@@ -30,9 +30,14 @@
 
 #define IPI_DEV_NAME         "ipi_dev"
 #define IPI_BUS_NAME         "generic"
+#ifdef versal
+#define IPI_BASE_ADDR        0xFF340000
+#define IPI_CHN_BITMASK      0x0000020
+#else
 #define IPI_BASE_ADDR        XPAR_XIPIPSU_0_BASE_ADDRESS /* IPI base address*/
 #define IPI_CHN_BITMASK      0x01000000 /* IPI channel bit mask for IPI from/to
 					   APU */
+#endif /* versal */
 
 /* Cortex R5 memory attributes */
 #define DEVICE_SHARED		0x00000001U /* device, shareable */
