@@ -738,7 +738,7 @@ int XLoader_RestartImage(u32 ImageId)
 {
 	u32 Status;
 
-	Status = XLoader_LoadImage(SubSystemInfo.PdiPtr, ImageId);
+	Status = XLoader_ReloadImage(ImageId);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
