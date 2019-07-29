@@ -55,7 +55,8 @@
  *                     images. So there is no need of xilfpga API's for versal
  *                     platform to configure the PL.
  * 5.1 Nava  27/06/19  Updated documentation for readback API's.
- *
+ * 5.1 Nava  16/07/19  Initialize empty status (or) status success to status failure
+ *                     to avoid security violations.
  *</pre>
  *
  *@note
@@ -112,7 +113,7 @@ u32 XFpga_PL_BitStream_Load(XFpga *InstancePtr,
 			    UINTPTR BitstreamImageAddr,
 			    UINTPTR AddrPtr_Size, u32 Flags)
 {
-	u32 Status;
+	u32 Status = XFPGA_FAILURE;
 
 	/* Validate Bitstream Image */
 	Status = XFpga_PL_ValidateImage(InstancePtr, BitstreamImageAddr,
@@ -179,7 +180,7 @@ u32 XFpga_PL_ValidateImage(XFpga *InstancePtr,
 			   UINTPTR BitstreamImageAddr,
 			   UINTPTR AddrPtr_Size, u32 Flags)
 {
-	u32 Status;
+	u32 Status = XFPGA_VALIDATE_ERROR;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -210,7 +211,7 @@ u32 XFpga_PL_ValidateImage(XFpga *InstancePtr,
  *****************************************************************************/
 u32 XFpga_PL_Preconfig(XFpga *InstancePtr)
 {
-	u32 Status;
+	u32 Status = XFPGA_PRE_CONFIG_ERROR;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -262,7 +263,7 @@ u32 XFpga_PL_Preconfig(XFpga *InstancePtr)
 u32 XFpga_PL_Write(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
 		   UINTPTR AddrPtr_Size, u32 Flags)
 {
-	 u32 Status;
+	 u32 Status = XFPGA_WRITE_BITSTREAM_ERROR;
 
 	 Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -294,7 +295,7 @@ u32 XFpga_PL_Write(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
  *****************************************************************************/
 u32 XFpga_PL_PostConfig(XFpga *InstancePtr)
 {
-	u32 Status;
+	u32 Status = XFPGA_POST_CONFIG_ERROR;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -332,7 +333,7 @@ u32 XFpga_PL_PostConfig(XFpga *InstancePtr)
 u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 			  u32 NumFrames)
 {
-	u32 Status;
+	u32 Status = XFPGA_FAILURE;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -371,14 +372,14 @@ u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 						 u32 ConfigRegAddr)
 {
-	u32 Status;
+	u32 Status = XFPGA_FAILURE;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	InstancePtr->ReadInfo.ReadbackAddr = ReadbackAddr;
 	InstancePtr->ReadInfo.ConfigReg_NumFrames = ConfigRegAddr;
 
-	if (InstancePtr->XFpga_GetConfigData == NULL) {
+	if (InstancePtr->XFpga_GetConfigReg == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
 			"%s Implementation not exists..\r\n", __FUNCTION__);
@@ -399,7 +400,7 @@ u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
  *****************************************************************************/
 u32 XFpga_InterfaceStatus(XFpga *InstancePtr)
 {
-	u32 Status;
+	u32 Status = XFPGA_FAILURE;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
