@@ -89,6 +89,8 @@
  * 5.0 Nava  23/04/19  Optimize the API's logic to avoid code duplication.
  * 5.1 Nava  27/06/19  Adds support to clear out the SHA3 engine.
  * 5.1 Nava  05/07/19  Zeroize the Secure data to avoid security violations.
+ * 5.1 Nava  16/07/19  Initialize empty status (or) status success to status failure
+ *                     to avoid security violations.
  * </pre>
  *
  * @note
@@ -505,7 +507,7 @@ END:
  *****************************************************************************/
 static u32 XFpga_PostConfigPcap(XFpga *InstancePtr)
 {
-	u32 Status;
+	u32 Status = XFPGA_FAILURE;
 	u8 EndianType = 0U;
 	u32 RegVal;
 
@@ -704,7 +706,7 @@ static u32 XFpga_PcapWaitForidle(void)
 static u32 XFpga_ValidateCryptoFlags(const XSecure_ImageInfo *ImageInfo,
 								u32 Flags)
 {
-	u32 Status;
+	u32 Status = XFPGA_FAILURE;
 	u8 IsImageAuthenticated = 0U;
 	u8 IsImageUserKeyEncrypted = 0U;
 	u8 IsImageDevKeyEncrypted = 0U;
@@ -749,8 +751,6 @@ static u32 XFpga_ValidateCryptoFlags(const XSecure_ImageInfo *ImageInfo,
 		(IsImageDevKeyEncrypted == IsFlagSetToDevKeyEncryption) &&
 		(IsImageUserKeyEncrypted == IsFlagSetToUserKeyEncryption)) {
 		Status = XFPGA_SUCCESS;
-	} else {
-		Status = XFPGA_FAILURE;
 	}
 
 	return Status;
@@ -2000,7 +2000,7 @@ static u32 XFpga_PcapStatus(void)
  ****************************************************************************/
 static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 {
-	u32 Status;
+	u32 Status = XFPGA_FAILURE;
 	u32 RegVal;
 	UINTPTR Address = InstancePtr->ReadInfo.ReadbackAddr;
 	u32 CmdIndex;
@@ -2127,7 +2127,7 @@ END:
  ****************************************************************************/
 static u32 XFpga_GetPLConfigData(const XFpga *InstancePtr)
 {
-	u32 Status;
+	u32 Status = XFPGA_FAILURE;
 	UINTPTR Address = InstancePtr->ReadInfo.ReadbackAddr;
 	u32 NumFrames = InstancePtr->ReadInfo.ConfigReg_NumFrames;
 	u32 RegVal;
