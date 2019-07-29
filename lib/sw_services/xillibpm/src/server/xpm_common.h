@@ -29,7 +29,7 @@
 
 #include "xstatus.h"
 #include "xil_io.h"
-
+#include "xillibpm_err.h"
 #include "xplmi_debug.h"
 
 #ifdef __cplusplus
@@ -45,11 +45,25 @@ extern "C" {
 #define xDEBUG_REG_IO
 
 /* Debug logs */
-#define PmAlert(...)	XPlmi_Printf(DEBUG_INFO, "%s: ", __func__); XPlmi_Printf(DEBUG_INFO, __VA_ARGS__)
-#define PmErr(...)	XPlmi_Printf(DEBUG_INFO, "%s: ", __func__); XPlmi_Printf(DEBUG_INFO, __VA_ARGS__)
-#define PmWarn(...)	XPlmi_Printf(DEBUG_INFO, "%s: ", __func__); XPlmi_Printf(DEBUG_INFO, __VA_ARGS__)
-#define PmInfo(...)	XPlmi_Printf(DEBUG_INFO, "%s: ", __func__); XPlmi_Printf(DEBUG_INFO, __VA_ARGS__)
-#define PmDbg(...)	//XPlmi_Printf(DEBUG_INFO, "%s: ", __func__); XPlmi_Printf(DEBUG_INFO, __VA_ARGS__)
+#define PmAlert(...) \
+	XPlmi_Printf(DEBUG_GENERAL, "[ALERT] %s: ", __func__); \
+	XPlmi_Printf(DEBUG_GENERAL, __VA_ARGS__)
+
+#define PmErr(...) \
+	XPlmi_Printf(DEBUG_GENERAL, "[ERROR] %s: ", __func__); \
+	XPlmi_Printf(DEBUG_GENERAL, __VA_ARGS__)
+
+#define PmWarn(...) \
+	XPlmi_Printf(DEBUG_GENERAL, "[WARN] %s: ", __func__); \
+	XPlmi_Printf(DEBUG_GENERAL, __VA_ARGS__)
+
+#define PmInfo(...) \
+	XPlmi_Printf(DEBUG_INFO, "[INFO] %s: ", __func__); \
+	XPlmi_Printf(DEBUG_INFO, __VA_ARGS__)
+
+#define PmDbg(...) \
+	XPlmi_Printf(DEBUG_DETAILED, "[DEBUG] %s: ", __func__); \
+	XPlmi_Printf(DEBUG_DETAILED, __VA_ARGS__)
 
 #ifdef __MICROBLAZE__
 #define VERIFY(X) \
