@@ -41,6 +41,7 @@ typedef struct XPm_Core XPm_Core;
 /* Core Operations */
 struct XPm_CoreOps {
 	int (*RestoreResumeAddr)(XPm_Core *Core);
+	int (*HasResumeAddr) (XPm_Core *Core);
 	XStatus (*RequestWakeup)(XPm_Core *Core, u32 SetAddress, u64 Address);
 	XStatus (*PowerDown) (XPm_Core *Core);
 };
