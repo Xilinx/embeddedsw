@@ -335,16 +335,6 @@ proc lwip_drc {libhandle} {
 	set processor [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_processor]]
 	set processor_type [common::get_property IP_NAME $processor]
 
-	if {$processor_type == "psu_cortexa53"} {
-		set procdrv [hsi::get_sw_processor]
-		set compiler [get_property CONFIG.compiler $procdrv]
-
-		if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
-			error "ERROR: No support for 32 bit A53 compiler \n"
-		return
-            }
-	}
-
 	set emac_periphs_list [get_emac_periphs $processor]
 
 	if { [llength $emac_periphs_list] == 0 } {
@@ -385,7 +375,9 @@ proc lwip_drc {libhandle} {
 			puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
 		    }
 		    "psu_cortexa53" {
-			puts $fd "GCC_COMPILER=aarch64-none-elf-gcc"
+			set procdrv [hsi::get_sw_processor]
+			set compiler [::common::get_property CONFIG.compiler $procdrv]
+			puts $fd "GCC_COMPILER=$compiler"
 			#puts "Little Endian system"
 			puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
 		    }
@@ -1334,7 +1326,9 @@ proc generate_adapterconfig_makefile {libhandle} {
 		puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
             }
             "psu_cortexa53" {
-		puts $fd "GCC_COMPILER=aarch64-none-elf-gcc"
+			set procdrv [hsi::get_sw_processor]
+			set compiler [::common::get_property CONFIG.compiler $procdrv]
+			puts $fd "GCC_COMPILER=$compiler"
 		#puts "Little Endian system"
 		puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
             }
