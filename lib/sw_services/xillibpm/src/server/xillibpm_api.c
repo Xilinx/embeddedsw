@@ -601,7 +601,6 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 
 	/* TODO: Remove this warning fix hack when functionality is implemented */
 	(void)Latency;
-	(void)State;
 
 	if((NODECLASS(DeviceId) == XPM_NODECLASS_DEVICE) &&
 	   (NODESUBCLASS(DeviceId) == XPM_NODESUBCL_DEV_CORE)) {
@@ -615,7 +614,7 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 
 	ENABLE_WFI(Core->SleepMask);
 
-	if (XST_SUCCESS == XPmSubsystem_IsAllProcDwn(SubsystemId)) {
+	if (PM_SUSPEND_STATE_SUSPEND_TO_RAM == State) {
 		Status = XPmSubsystem_SetState(SubsystemId, SUSPENDING);
 	}
 
