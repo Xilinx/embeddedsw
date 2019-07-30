@@ -780,7 +780,6 @@ END:
  *
  *
  ******************************************************************************/
-/*LDRA_INSPECTED 120 D 1*/
 static u32 XSecure_AesWaitKeyLoad(XSecure_Aes *InstancePtr)
 {
 	u32 Status = XST_FAILURE;
