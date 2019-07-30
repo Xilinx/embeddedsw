@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 
@@ -49,6 +49,7 @@ XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
 		.Node.State = PM_ISOLATION_ON,
 		.Offset = PMC_GLOBAL_DOMAIN_ISO_CNTRL_FPD_PL_TEST_SHIFT,
+		.Polarity = PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { FPD_NODEID, XPM_SUBSYSID_PL },
 	},
 	[XPM_NODEIDX_ISO_FPD_PL] = {
@@ -56,6 +57,7 @@ XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
 		.Node.State = PM_ISOLATION_ON,
 		.Offset = PMC_GLOBAL_DOMAIN_ISO_CNTRL_FPD_PL_SHIFT,
+		.Polarity = PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { FPD_NODEID, XPM_SUBSYSID_PL },
 	},
 	[XPM_NODEIDX_ISO_FPD_SOC] = {
@@ -63,6 +65,7 @@ XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
 		.Node.State = PM_ISOLATION_ON,
 		.Offset = PMC_GLOBAL_DOMAIN_ISO_CNTRL_FPD_SOC_SHIFT,
+		.Polarity = PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { FPD_NODEID, NPD_NODEID},
 	},
 	[XPM_NODEIDX_ISO_LPD_CPM_DFX] = {
@@ -70,6 +73,7 @@ XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
 		.Node.State = PM_ISOLATION_ON,
 		.Offset = PMC_GLOBAL_DOMAIN_ISO_CNTRL_LPD_CPM_DFX_SHIFT,
+		.Polarity = PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { LPD_NODEID, CPD_NODEID },
 	},
 	[XPM_NODEIDX_ISO_LPD_CPM] = {
@@ -77,6 +81,7 @@ XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
 		.Node.State = PM_ISOLATION_ON,
 		.Offset = PMC_GLOBAL_DOMAIN_ISO_CNTRL_LPD_CPM_SHIFT,
+		.Polarity = PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { LPD_NODEID, CPD_NODEID },
 	},
 	[XPM_NODEIDX_ISO_LPD_PL_TEST] = {
@@ -84,6 +89,7 @@ XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
 		.Node.State = PM_ISOLATION_ON,
 		.Offset = PMC_GLOBAL_DOMAIN_ISO_CNTRL_LPD_PL_TEST_SHIFT,
+		.Polarity = PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { LPD_NODEID, XPM_SUBSYSID_PL },
 	},
 	[XPM_NODEIDX_ISO_LPD_PL] = {
@@ -91,6 +97,7 @@ XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
 		.Node.State = PM_ISOLATION_ON,
 		.Offset = PMC_GLOBAL_DOMAIN_ISO_CNTRL_LPD_PL_SHIFT,
+		.Polarity = PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { LPD_NODEID, XPM_SUBSYSID_PL },
 	},
 	[XPM_NODEIDX_ISO_LPD_SOC] = {
@@ -98,6 +105,7 @@ XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
 		.Node.State = PM_ISOLATION_ON,
 		.Offset = PMC_GLOBAL_DOMAIN_ISO_CNTRL_LPD_SOC_SHIFT,
+		.Polarity = PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { LPD_NODEID, NPD_NODEID },
 	},
 	[XPM_NODEIDX_ISO_PMC_LPD_DFX] = {
@@ -105,6 +113,7 @@ XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
 		.Node.State = PM_ISOLATION_ON,
 		.Offset = PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_LPD_DFX_SHIFT,
+		.Polarity = PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PMC_NODEID, LPD_NODEID },
 	},
 	[XPM_NODEIDX_ISO_PMC_LPD] = {
@@ -112,6 +121,7 @@ XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
 		.Node.State = PM_ISOLATION_ON,
 		.Offset = PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_LPD_SHIFT,
+		.Polarity = PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PMC_NODEID, LPD_NODEID },
 	},
 	[XPM_NODEIDX_ISO_PMC_PL_CFRAME] = {
@@ -119,6 +129,7 @@ XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
 		.Node.State = PM_ISOLATION_ON,
 		.Offset = PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_CFRAME_SHIFT,
+		.Polarity = PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PMC_NODEID, XPM_SUBSYSID_PL },
 	},
 	[XPM_NODEIDX_ISO_PMC_PL_TEST] = {
@@ -126,6 +137,7 @@ XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
 		.Node.State = PM_ISOLATION_ON,
 		.Offset = PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_TEST_SHIFT,
+		.Polarity = PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PMC_NODEID, XPM_SUBSYSID_PL },
 	},
 	[XPM_NODEIDX_ISO_PMC_PL] = {
@@ -133,6 +145,7 @@ XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
 		.Node.State = PM_ISOLATION_ON,
 		.Offset = PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_SHIFT,
+		.Polarity = PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PMC_NODEID, XPM_SUBSYSID_PL },
 	},
 	[XPM_NODEIDX_ISO_PMC_SOC_NPI] = {
@@ -140,6 +153,7 @@ XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
 		.Node.State = PM_ISOLATION_ON,
 		.Offset = PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_SOC_NPI_SHIFT,
+		.Polarity = PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PMC_NODEID, NPD_NODEID },
 	},
 	[XPM_NODEIDX_ISO_PMC_SOC] = {
@@ -147,6 +161,7 @@ XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
 		.Node.State = PM_ISOLATION_ON,
 		.Offset = PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_SOC_SHIFT,
+		.Polarity = PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PMC_NODEID, NPD_NODEID },
 	},
 	[XPM_NODEIDX_ISO_PL_SOC] = {
@@ -154,6 +169,7 @@ XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
 		.Node.State = PM_ISOLATION_ON,
 		.Offset = PMC_GLOBAL_DOMAIN_ISO_CNTRL_PL_SOC_SHIFT,
+		.Polarity = PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { XPM_SUBSYSID_PL, NPD_NODEID },
 	},
 	[XPM_NODEIDX_ISO_VCCAUX_SOC] = {
@@ -161,6 +177,7 @@ XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
 		.Node.State = PM_ISOLATION_ON,
 		.Offset = PMC_GLOBAL_DOMAIN_ISO_CNTRL_VCCAUX_SOC_SHIFT,
+		.Polarity = PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PMC_NODEID, NPD_NODEID },
 	},
 	[XPM_NODEIDX_ISO_VCCRAM_SOC] = {
@@ -168,6 +185,7 @@ XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
 		.Node.State = PM_ISOLATION_ON,
 		.Offset = PMC_GLOBAL_DOMAIN_ISO_CNTRL_VCCRAM_SOC_SHIFT,
+		.Polarity = PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { XPM_SUBSYSID_PL, NPD_NODEID },
 	},
 	[XPM_NODEIDX_ISO_VCCAUX_VCCRAM] = {
@@ -175,6 +193,7 @@ XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
 		.Node.State = PM_ISOLATION_ON,
 		.Offset = PMC_GLOBAL_DOMAIN_ISO_CNTRL_VCCAUX_VCCRAM_SHIFT,
+		.Polarity = PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { XPM_SUBSYSID_PL, NPD_NODEID },
 	},
 	[XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR] = {
@@ -182,6 +201,7 @@ XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Node.BaseAddress = PCIEA_ATTRIB_0_FABRICEN,
 		.Node.State = PM_ISOLATION_ON,
 		.Offset = PCIEA_ATTRIB_0_FABRICEN_ATTR_SHIFT,
+		.Polarity = PM_ACTIVE_LOW,
 		.DependencyNodeHandles = { XPM_SUBSYSID_PL, CPD_NODEID },
 	},
 	[XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR] = {
@@ -189,6 +209,7 @@ XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Node.BaseAddress = PCIEA_ATTRIB_1_FABRICEN,
 		.Node.State = PM_ISOLATION_ON,
 		.Offset = PCIEA_ATTRIB_1_FABRICEN_ATTR_SHIFT,
+		.Polarity = PM_ACTIVE_LOW,
 		.DependencyNodeHandles = { XPM_SUBSYSID_PL, CPD_NODEID },
 	},
 	[XPM_NODEIDX_ISO_PL_CPM_RST_CPI0] = {
@@ -196,6 +217,7 @@ XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Node.BaseAddress = CPM_CRCPM_RST_CPI0,
 		.Node.State = PM_ISOLATION_ON,
 		.Offset = CPM_CRCPM_RST_CPI0_RESET_SHIFT,
+		.Polarity = PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { XPM_SUBSYSID_PL, CPD_NODEID },
 	},
 	[XPM_NODEIDX_ISO_PL_CPM_RST_CPI1] = {
@@ -203,6 +225,7 @@ XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Node.BaseAddress = CPM_CRCPM_RST_CPI1,
 		.Node.State = PM_ISOLATION_ON,
 		.Offset = CPM_CRCPM_RST_CPI1_RESET_SHIFT,
+		.Polarity = PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { XPM_SUBSYSID_PL, CPD_NODEID },
 	},
 };
@@ -256,10 +279,16 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 	Mask = BIT(XPmDomainIso_List[IsoIdx].Offset);
 
 	if(Enable == TRUE) {
-		XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
+		if(XPmDomainIso_List[IsoIdx].Polarity == PM_ACTIVE_HIGH)
+			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
+		else
+			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
 		XPmDomainIso_List[IsoIdx].Node.State = PM_ISOLATION_ON;
 	} else if(Enable == FALSE_IMMEDIATE) {
-		XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
+		if(XPmDomainIso_List[IsoIdx].Polarity == PM_ACTIVE_HIGH)
+			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
+		else
+			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
 		XPmDomainIso_List[IsoIdx].Node.State = PM_ISOLATION_OFF;
 	} else {
 		Status = XPmDomainIso_CheckDependencies(IsoIdx);
@@ -271,7 +300,10 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 			goto done;
 		}
 
-		XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
+		if(XPmDomainIso_List[IsoIdx].Polarity == PM_ACTIVE_HIGH)
+			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
+		else
+			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
 		XPmDomainIso_List[IsoIdx].Node.State = PM_ISOLATION_OFF;
 	}
 done:
