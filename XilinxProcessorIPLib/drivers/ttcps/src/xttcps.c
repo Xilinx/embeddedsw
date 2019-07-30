@@ -196,8 +196,12 @@ s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr, XTtcPs_Config *ConfigPtr,
 *
 * @param	InstancePtr is a pointer to the XTtcPs instance.
 * @param	MatchIndex is the index to the match register to be set.
-*		Valid values are 0, 1, or 2.
+*		    Valid values are: 0 - 2.
 * @param	Value is the 16-bit value to be set in the match register.
+*           Valid Values are: (For Zynq):
+*                             0 - ((2^16)-1)
+*                             (For Zynq UltraScale + MpSoc) and Versal:
+*                             0 - ((2^32) - 1)
 *
 * @return	None
 *
@@ -228,7 +232,8 @@ void XTtcPs_SetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex, XMatchRegValue Val
 *
 * @param	InstancePtr is a pointer to the XTtcPs instance.
 * @param	MatchIndex is the index to the match register to be set.
-*		Valid values are 0, 1, or 2.
+*           There are three match registers are there.
+*		    Valid values are: 0 - 2.
 *
 * @return	The match register value
 *
@@ -260,11 +265,13 @@ XMatchRegValue XTtcPs_GetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex)
 *
 * @param	InstancePtr is a pointer to the XTtcPs instance.
 * @param	PrescalerValue is a number from 0-16 that sets the prescaler
-*		to use.
-*		If the parameter is 0 - 15, use a prescaler on the clock of
-*		2^(PrescalerValue+1), or 2-65536.
-*		If the parameter is XTTCPS_CLK_CNTRL_PS_DISABLE, do not use a
-*		prescaler.
+*		    to use.
+*		    If the parameter is 0 - 15, use a prescaler on the clock of
+*		    2^(PrescalerValue+1), or 2-65536.
+*		    If the parameter is XTTCPS_CLK_CNTRL_PS_DISABLE, do not use a
+*		    prescaler.
+*
+*		    Valid values are: 0 - 15
 *
 * @return	None
 *
@@ -319,7 +326,7 @@ void XTtcPs_SetPrescaler(XTtcPs *InstancePtr, u8 PrescalerValue)
 *
 * <pre>
 * @return	The value(n) from which the prescalar value is calculated
-*		as 2^(n+1). Some example values are given below :
+*		    as 2^(n+1). Some example values are given below :
 *
 * 	Value		Prescaler
 * 	0		2
@@ -327,6 +334,8 @@ void XTtcPs_SetPrescaler(XTtcPs *InstancePtr, u8 PrescalerValue)
 * 	N		2^(n+1)
 * 	15		65536
 * 	16		1
+*
+*           Valid values are: 0 - 16
 * </pre>
 *
 * @note		None.
@@ -371,10 +380,11 @@ u8 XTtcPs_GetPrescaler(XTtcPs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XTtcPs instance.
 * @param	Freq is the requested output frequency for the device.
+*           valid values are: 1 - (2^32)-1
 * @param	Interval is the interval value for the given frequency,
-*		it is the output value for this function.
+*		    it is the output value for this function.
 * @param	Prescaler is the prescaler value for the given frequency,
-*		it is the output value for this function.
+*		    it is the output value for this function.
 *
 * @return	None.
 *
