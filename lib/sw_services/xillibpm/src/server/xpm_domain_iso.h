@@ -39,8 +39,15 @@ extern "C" {
 typedef struct XPm_Iso {
 	XPm_Node Node; /**< Node: Node base class */
 	u8 Offset;
+	u8 Polarity;
 	u32 DependencyNodeHandles[2];
 }XPm_Iso;
+
+/* Polarity */
+typedef enum {
+        PM_ACTIVE_LOW,
+        PM_ACTIVE_HIGH,
+}XPm_IsoPolarity;
 
 /* Isoaltion states */
 typedef enum {
