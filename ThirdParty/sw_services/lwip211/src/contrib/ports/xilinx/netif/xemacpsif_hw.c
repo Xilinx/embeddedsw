@@ -135,7 +135,8 @@ void init_emacps(xemacpsif_s *xemacps, struct netif *netif)
 
 	if (link_speed == XST_FAILURE) {
 		eth_link_status = ETH_LINK_DOWN;
-		xil_printf("Assert due to phy setup failure \n\r",__func__);
+		xil_printf("Phy setup failure %s \n\r",__func__);
+		return;
 	} else {
 		eth_link_status = ETH_LINK_UP;
 	}

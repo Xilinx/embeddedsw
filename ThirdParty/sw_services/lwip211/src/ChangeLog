@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2019-07-11
+	* Fix emacps hotplug bug.
 2019-05-17
 	* Add support for Versal
 2019-04-10
