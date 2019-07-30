@@ -32,6 +32,7 @@ Remove peripheral test app support.
 lwip211_v1_1:
 Add support for Versal
 Fix emacps hotplug support
+Enable A53 32 bit compiler for BM apps.
 
 lwip_echo_server:
 Add support for Versal
