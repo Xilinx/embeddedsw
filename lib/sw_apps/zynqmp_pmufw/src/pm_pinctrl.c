@@ -928,7 +928,8 @@ s32 PmPinCtrlGetParam(const u32 pinId, const u32 paramId, u32* const value)
 	s32 status = XST_SUCCESS;
 	u32 addr, val, shift;
 
-	if (paramId >= ARRAY_SIZE(pmPinParams)) {
+	if ((paramId >= ARRAY_SIZE(pmPinParams)) ||
+	    (pinId >= ARRAY_SIZE(pmPinMuxCtrl))) {
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
