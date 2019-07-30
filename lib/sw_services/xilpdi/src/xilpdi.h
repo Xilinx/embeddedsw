@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 
@@ -120,6 +120,10 @@ extern "C" {
 #define XIH_PH_AUTHCERTIFICATE_OFST		(0x34U)
 #define XIH_PH_RSVD_x38				(0x38U)
 #define XIH_PH_CHECKSUM				(0x3CU)
+
+/* IHT attributes */
+#define XIH_IHT_ATTR_RSA_SIGNATURE_MASK		(0x1000U)
+#define XIH_IHT_ATTR_ENCRYPTION_MASK		(0x2000U)
 
 /* Secondary Boot Device (SBD) in IHT Attributes */
 #define XIH_IHT_ATTR_SBD_MASK	        (0xFC0U)
@@ -360,7 +364,7 @@ XStatus XilPdi_ValidateChecksum(u32 Buffer[], u32 Len);
 XStatus XilPdi_ValidatePrtnHdr(XilPdi_PrtnHdr * PrtnHdr);
 XStatus XilPdi_ValidateImgHdrTable(XilPdi_ImgHdrTable * ImgHdrTable);
 XStatus XilPdi_ReadBootHdr(XilPdi_MetaHdr * ImgHdrPtr);
-XStatus XilPdi_ReadAndValidateImgHdrTbl(XilPdi_MetaHdr * ImgHdrPtr);
+XStatus XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * ImgHdrPtr);
 XStatus XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr * MetaHdrPtr);
 XStatus XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr * ImgHdrPtr);
 XStatus XilPdi_ReadAlignedData(XilPdi_MetaHdr * MetaHdrPtr, u32 PrtnNum);

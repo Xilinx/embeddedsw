@@ -181,6 +181,10 @@ extern "C" {
 #define XLOADER_EFUSE_SPKID_5_OFFSET		0xF12500C4U
 #define XLOADER_EFUSE_SPKID_6_OFFSET		0xF12500C8U
 #define XLOADER_EFUSE_SPKID_7_OFFSET		0xF12500CCU
+
+#define XLOADER_EFUSE_SEC_MISC0_OFFSET		0xF12500E4U
+#define XLOADER_EFUSE_SEC_DEC_MASK		0x0000FFFFU
+
 #define XLOADER_SPKID_MAX			0xFFU
 
 #define XLOADER_WORD_IN_BITS			32U
@@ -236,6 +240,7 @@ typedef struct {
 	XilPdi *PdiPtr;
 	XilPdi_PrtnHdr *PrtnHdr;
 	u32 IsCdo; // CDO or Elf
+	u32 IsIht; /**< Is Image Header table - TRUE else FALSE */
 	u32 NextBlkAddr;
 	u32 ChunkAddr;
 	/* verified data is at */
@@ -254,6 +259,10 @@ typedef struct {
 u32 XLoader_SecureInit(XLoader_SecureParms *SecurePtr, XilPdi *PdiPtr, u32 PrtnNum);
 u32 XLoader_SecurePrtn(XLoader_SecureParms *SecurePtr, u64 DstAddr, u32 Size, u8 Last);
 u32 XLoader_SecureCopy(XLoader_SecureParms *SecurePtr, u64 DestAddr, u32 Size);
+u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr,
+				XilPdi_ImgHdrTable *ImgHdrTbl);
+u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr, XilPdi_MetaHdr *ImgHdrTbl);
+u32 XLoader_SecureValidations(XLoader_SecureParms *SecurePtr);
 
 #ifdef __cplusplus
 }

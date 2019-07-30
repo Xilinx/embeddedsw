@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -78,6 +78,8 @@ static u32 XLoader_PpkVerify(XLoader_SecureParms *SecurePtr);
 static u32 XLoader_IsPpkValid(u8 PpkSelect, u8 *PpkHash);
 static u32 XLoader_VerifySpkId(u32 SpkId);
 static u32 XLoader_PpkCompare(u32 EfusePpkOffset, u8 *PpkHash);
+static u32 XLoader_AuthHdrs(XLoader_SecureParms *SecurePtr,
+			XilPdi_MetaHdr *MetaHdr);
 
 /************************** Variable Definitions *****************************/
 
@@ -374,6 +376,221 @@ END:
 /*****************************************************************************/
 /**
 * @brief
+* This function checks if authentication/encryption is compulsory
+*
+* @param	SecurePtr	Pointer to the XLoader_SecureParms instance.
+*
+* @return	XST_SUCCESS on success.
+*
+******************************************************************************/
+u32 XLoader_SecureValidations(XLoader_SecureParms *SecurePtr)
+{
+	u32 Status;
+
+	XPlmi_Printf(DEBUG_INFO,
+				"Performing security checks \n\r");
+	/*
+	 * Checking if authentication is compulsory
+	 * If bits in PPK0/1/2 is programmed bh_auth is not allowed
+	 */
+	Status = XLoader_CheckNonZeroPpk();
+	/* authentication is compulsory */
+	if (Status == XST_SUCCESS) {
+		if (SecurePtr->IsAuthenticated == FALSE) {
+			XPlmi_Printf(DEBUG_INFO,
+				"Authentication is compulsory\n\r");
+			Status = XST_FAILURE;
+			goto END;
+		}
+		else {
+			if ((SecurePtr->PdiPtr->MetaHdr.BootHdr.ImgAttrb &
+				XIH_BH_IMG_ATTRB_BH_AUTH_MASK) != 0x00U) {
+				XPlmi_Printf(DEBUG_INFO,
+				"Boot header authentication"
+				" is not allowed\n\r");
+				Status = XST_FAILURE;
+				goto END;
+			}
+			else {
+				/*
+				 * Authentication is true and BHDR
+				 * authentication is not enabled
+				 */
+				 XPlmi_Printf(DEBUG_DETAILED,
+				"Authentication is enabled\n\r");
+				 Status = XST_SUCCESS;
+			}
+		}
+	}
+	else {
+		if (SecurePtr->IsAuthenticated == TRUE) {
+			if ((SecurePtr->PdiPtr->MetaHdr.BootHdr.ImgAttrb &
+				XIH_BH_IMG_ATTRB_BH_AUTH_MASK) == 0x00U) {
+				XPlmi_Printf(DEBUG_INFO,
+				"PPK hash is empty and "
+				"authentication is enabled\n\r");
+				Status = XST_FAILURE;
+				goto END;
+			}
+			else {
+				/*
+				 * BHDR authentication is
+				 * enabled and PPK hash is not programmed
+				 */
+				 XPlmi_Printf(DEBUG_INFO,
+					"BHDR Authentication is enabled\n\r");
+				Status = XST_SUCCESS;
+			}
+		}
+		else {
+			/* authentication is not compulsory */
+			XPlmi_Printf(DEBUG_DETAILED,
+				"Authentication is not enabled\n\r");
+			Status = XST_SUCCESS;
+		}
+	}
+
+	/* Checking if encryption is compulsory */
+	if ((XPlmi_In32(XLOADER_EFUSE_SEC_MISC0_OFFSET) &
+		XLOADER_EFUSE_SEC_DEC_MASK) != 0x0) {
+		if (SecurePtr->IsEncrypted == FALSE) {
+			XPlmi_Printf(DEBUG_INFO,
+			"Header encryption is compulsory\n\r");
+			Status = XST_FAILURE;
+			goto END;
+		}
+		else {
+			XPlmi_Printf(DEBUG_INFO, "Encryption is enabled\n\r")
+			Status = XST_SUCCESS;
+		}
+	}
+	else {
+		/* header encryption is not compulsory */
+		XPlmi_Printf(DEBUG_DETAILED,
+				"Encryption is not enabled\n\r");
+		Status = XST_SUCCESS;
+	}
+
+
+END:
+	return Status;
+
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function checks if authentication/encryption is compulsory and
+* authenticates the image header table if authentication is enabled.
+*
+* @param	SecurePtr	Pointer to the XLoader_SecureParms instance.
+* @param	ImgHdrTbl	Pointer to the image header table.
+*
+* @return	XST_SUCCESS on success.
+*
+******************************************************************************/
+u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr,
+				XilPdi_ImgHdrTable *ImgHdrTbl)
+{
+	u32 Status;
+	u8 Hash[XLOADER_SHA3_LEN];
+	XSecure_Sha3 Sha3Instance;
+	u32 AcOffset;
+
+	XPlmi_Printf(DEBUG_DETAILED, "Authentication of"
+				" Image header table\n\r");
+	SecurePtr->IsIht = TRUE;
+
+	if (SecurePtr->IsAuthenticated != TRUE) {
+		Status = XST_FAILURE;
+		goto END;
+	}
+	/* Get DMA instance */
+	SecurePtr->CsuDmaInstPtr = XPlmi_GetDmaInstance(CSUDMA_0_DEVICE_ID);
+	if (SecurePtr->CsuDmaInstPtr == NULL) {
+		Status = XST_FAILURE;
+		goto END;
+	}
+
+	/* Copy Authentication certificate */
+	AcOffset = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
+		SecurePtr->PdiPtr->MetaHdr.BootHdr.BootHdrFwRsvd.MetaHdrOfst +
+					XIH_IHT_LEN;
+	SecurePtr->AcPtr = &AuthCert;
+	SecurePtr->PdiPtr->DeviceCopy(AcOffset,	(UINTPTR)SecurePtr->AcPtr,
+			XLOADER_AUTH_CERT_MIN_SIZE, 0U);
+
+	/* calculate hash of the image header table */
+	XSecure_Sha3Initialize(&Sha3Instance, SecurePtr->CsuDmaInstPtr);
+	XSecure_Sha3Digest(&Sha3Instance, (u8 *)ImgHdrTbl,
+					XIH_IHT_LEN, Hash);
+
+	XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)Hash,
+		XLOADER_SHA3_LEN/XIH_PRTN_WORD_LEN, "IHT Hash");
+
+	/* Authenticating Image header table */
+	Status = XLoader_DataAuth(SecurePtr, Hash);
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_INFO,
+			"Authentication of image header table is failed\n\r");
+		goto END;
+	}
+
+	XPlmi_Printf(DEBUG_INFO, "Authentication of"
+				" Image header table is successful\n\r");
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function authenticates and/or decrypts the image headers and partition
+* headers and copies the contents to corresponding structures.
+*
+* @param	SecurePtr	Pointer to the XLoader_SecureParms instance.
+* @param	MetaHdr		Pointer to the Meta header table.
+*
+* @return	XST_SUCCESS on success.
+*
+******************************************************************************/
+u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
+				XilPdi_MetaHdr *MetaHdr)
+{
+	u32 Status = XST_FAILURE;
+
+	XPlmi_Printf(DEBUG_DETAILED,
+		"Loading secure image headers and partition headers\n\r");
+	/* update IHT to false as this IHs and PHs */
+	SecurePtr->IsIht = FALSE;
+
+	/*
+	 * If headers are in encrypted format
+	 * either authentication is enabled or not
+	 */
+	if (SecurePtr->IsEncrypted == TRUE) {
+		/* TBD */
+	}
+	/* If authentication is enabled */
+	else if (SecurePtr->IsAuthenticated == TRUE) {
+		Status = XLoader_AuthHdrs(SecurePtr, MetaHdr);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+	else {
+		XPlmi_Printf(DEBUG_INFO, "Headers are not secure\n\r");
+		Status = XST_FAILURE;
+		goto END;
+	}
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief
 * This function calculates hash and compares with expected hash.
 * If authentication is enabled hash is calculated on AC + Data for first block,
 * encrypts the ECDSA/RSA signature and compares it with the expected hash.
@@ -547,9 +764,16 @@ static u32 XLoader_DataAuth(XLoader_SecureParms *SecurePtr, u8 *Hash)
 		}
 	}
 
-	/* Data Authentication of first block */
-	Status = XLoader_VerifySignature(SecurePtr, Hash, &AcPtr->Spk,
-			(u8 *)&AcPtr->ImageSignature);
+	if (SecurePtr->IsIht != TRUE) {
+		/* Data Authentication of first block */
+		Status = XLoader_VerifySignature(SecurePtr, Hash, &AcPtr->Spk,
+			(u8 *)AcPtr->ImageSignature);
+	}
+	else {
+		/* authenticating the IHT */
+		Status = XLoader_VerifySignature(SecurePtr, Hash, &AcPtr->Spk,
+			(u8 *)AcPtr->BHSignature);
+	}
 
 
 END:
@@ -1483,3 +1707,98 @@ END:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ *
+ * This function authenticates image headers and partition headers of image.
+ *
+ * @param	SecurePtr	Pointer to the XLoader_SecureParms
+ * @param	MetaHdr		Pointer to the Meta header.
+ *
+ * @return	XST_SUCCESS if verification was successful.
+ *
+ ******************************************************************************/
+static u32 XLoader_AuthHdrs(XLoader_SecureParms *SecurePtr,
+			XilPdi_MetaHdr *MetaHdr)
+{
+	u32 Status = XST_FAILURE;
+	XStatus XStatus;
+	u8 Hash[XLOADER_SHA3_LEN];
+	XSecure_Sha3 Sha3Instance;
+
+	/* Get DMA instance */
+	SecurePtr->CsuDmaInstPtr = XPlmi_GetDmaInstance(CSUDMA_0_DEVICE_ID);
+	if (SecurePtr->CsuDmaInstPtr == NULL) {
+		Status = XST_FAILURE;
+		goto END;
+	}
+
+	/* Read IHT and PHT to structures and verify checksum */
+	XStatus = XilPdi_ReadAndVerifyImgHdr(MetaHdr);
+	if (XStatus != XST_SUCCESS)
+	{
+		Status = XST_FAILURE;
+		goto END;
+	}
+
+	XStatus = XilPdi_ReadAndVerifyPrtnHdr(MetaHdr);
+	if(XStatus != XST_SUCCESS)
+	{
+		Status = XST_FAILURE;
+		goto END;
+	}
+
+	/*
+	 * As SPK and PPK are validated during authentication of IHT
+	 * using same valid SPK to authenticate IHs and PHs.
+	 */
+	/* calculate hash on the data */
+	Status = XSecure_Sha3Initialize(&Sha3Instance,
+			SecurePtr->CsuDmaInstPtr);
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto END;
+	}
+
+	XSecure_Sha3Start(&Sha3Instance);
+	Status = XSecure_Sha3Update(&Sha3Instance, (u8 *)(SecurePtr->AcPtr),
+		XLOADER_AUTH_CERT_MIN_SIZE - XLOADER_PARTITION_SIG_SIZE);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Image headers */
+	Status = XSecure_Sha3Update(&Sha3Instance, (u8 *)(MetaHdr->ImgHdr),
+				MetaHdr->ImgHdrTable.NoOfImgs * XIH_IH_LEN);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Partition headers */
+	Status = XSecure_Sha3Update(&Sha3Instance, (u8 *)MetaHdr->PrtnHdr,
+		MetaHdr->ImgHdrTable.NoOfPrtns * XIH_PH_LEN);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	/* Read hash */
+	Status = XSecure_Sha3Finish(&Sha3Instance, Hash);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	XPlmi_PrintArray(DEBUG_INFO,
+		(UINTPTR)Hash,
+		XLOADER_SHA3_LEN/XIH_PRTN_WORD_LEN,
+		"Headers Hash");
+
+	/* Signature Verification */
+	Status = XLoader_DataAuth(SecurePtr, Hash);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	XPlmi_Printf(DEBUG_INFO, "Authentication of"
+				" Partition and image headers is successful\n\r");
+
+END:
+	return Status;
+}

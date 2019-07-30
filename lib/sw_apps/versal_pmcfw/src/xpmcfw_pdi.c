@@ -96,9 +96,18 @@ XStatus XPmcFw_PdiInit(XPmcFw * PmcFwInstancePtr)
 	}
 
 	/* Read Img Hdr Table and verify Checksum */
-	Status = XilPdi_ReadAndValidateImgHdrTbl(&(PmcFwInstancePtr->MetaHdr));
+	Status = XilPdi_ReadImgHdrTbl(&(PmcFwInstancePtr->MetaHdr));
 	if (XPMCFW_SUCCESS != Status)
 	{
+		goto END;
+	}
+	/**
+	 * Check the validity of Img Hdr Table
+	 */
+	Status = XilPdi_ValidateImgHdrTable(&(PmcFwInstancePtr->MetaHdr.ImgHdrTable));
+	if (Status != XST_SUCCESS)
+	{
+		XilPdi_Printf("Img Hdr Table Validation failed \n\r");
 		goto END;
 	}
 
@@ -155,9 +164,19 @@ XStatus XPmcFw_PdiLoad(XPmcFw* PmcFwInstancePtr)
 	/* Update the Image Hdr structure */
 
 	/* Read Img Hdr Table and verify Checksum */
-	Status = XilPdi_ReadAndValidateImgHdrTbl(&(PmcFwInstancePtr->MetaHdr));
+	Status = XilPdi_ReadImgHdrTbl(&(PmcFwInstancePtr->MetaHdr));
 	if (XPMCFW_SUCCESS != Status)
 	{
+		goto END;
+	}
+
+	/**
+	 * Check the validity of Img Hdr Table
+	 */
+	Status = XilPdi_ValidateImgHdrTable(&(PmcFwInstancePtr->MetaHdr.ImgHdrTable));
+	if (Status != XST_SUCCESS)
+	{
+		XilPdi_Printf("Img Hdr Table Validation failed \n\r");
 		goto END;
 	}
 
