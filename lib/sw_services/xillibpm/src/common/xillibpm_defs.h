@@ -242,6 +242,10 @@ enum XPmOpCharType {
 #define XPM_SHUTDOWN_SUBTYPE_RST_PS_ONLY	1U
 #define XPM_SHUTDOWN_SUBTYPE_RST_SYSTEM		2U
 
+/* State arguments of the self suspend */
+#define PM_SUSPEND_STATE_CPU_IDLE		0x0U
+#define PM_SUSPEND_STATE_SUSPEND_TO_RAM		0xFU
+
 /* RPU operation mode */
 #define XPM_RPU_MODE_LOCKSTEP	0U
 #define XPM_RPU_MODE_SPLIT	1U
