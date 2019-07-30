@@ -68,13 +68,79 @@
 * Interrupt handler is not provided by the driver, as handling of interrupt
 * is application specific.
 *
-* @note
-* The default setting for a timer/counter is:
-*  - Overflow Mode
-*  - Internal clock (pclk) selected
-*  - Counter disabled
-*  - All Interrupts disabled
-*  - Output waveforms disabled
+* <b>stack usage(in bytes)</b>
+*
+* 	XTtcPs_LookupConfig : 32
+* 	XTtcPs_CfgInitialize : 80
+* 	XTtcPs_SetMatchValue : 32
+* 	XTtcPs_GetMatchValue : 48
+* 	XTtcPs_SetPrescaler : 48
+* 	XTtcPs_GetPrescaler : 48
+* 	XTtcPs_CalcIntervalFromFreq : 48
+* 	XTtcPs_SetOptions : 48
+* 	XTtcPs_GetOptions : 48
+* 	XTtcPs_SelfTest : 48
+* 	XTtcPs_InterruptHandler : 48
+* 	XTtcPs_SetStatusHandler : 48
+*
+* <b>Memory foot-print(in bytes)</b>
+*
+* 	XTtcPs_LookupConfig : 72
+* 	XTtcPs_CfgInitialize : 304
+* 	XTtcPs_SetMatchValue : 168
+* 	XTtcPs_GetMatchValue : 176
+* 	XTtcPs_SetPrescaler : 172
+* 	XTtcPs_GetPrescaler : 152
+* 	XTtcPs_CalcIntervalFromFreq : 228
+* 	XTtcPs_SetOptions : 424
+* 	XTtcPs_GetOptions : 200
+* 	XTtcPs_SelfTest : 148
+* 	XTtcPs_InterruptHandler : 88
+* 	XTtcPs_SetStatusHandler : 140
+*
+* <b>Execution Time(in usec)</b>
+*
+* 	XTtcPs_LookupConfig : 8.31
+* 	TtcPs_CfgInitialize : 1.30
+* 	XTtcPs_SetMatchValue : 1.10
+* 	XTtcPs_GetMatchValue : 1.00
+* 	XTtcPs_SetPrescaler : 1.09
+* 	XTtcPs_GetPrescaler : 1.00
+* 	XTtcPs_CalcIntervalFromFreq : 1.29
+* 	XTtcPs_SetOptions: 1.91
+* 	XTtcPs_GetOptions: 2.55
+* 	XTtcPs_SelfTest: .85
+*
+* <b>Assumptions of Use</b>
+
+* 	1.The default setting for a timer/counter is:
+* 	 - Overflow Mode
+* 	 - Internal clock (pclk) selected
+* 	 - Counter disabled
+* 	 - All Interrupts disabled
+* 	 - Output waveforms disabled
+*
+* <b>Compiler Name</b>
+*
+*	gcc
+*
+* <b>Compiler version</b>
+*
+*	8.2.0
+*
+* <b>Compiler options</b>
+*
+* 	-DARMR5 -Wall -O0 -g3 -c -fmessage-length=0 -MT"$@" -mcpu=cortex-r5 -mfloat-abi=hard  -mfpu=vfpv3-d16 -I<include_path>
+* 	-Wall -O0 -g3 -c -fmessage-length=0 -MT"$@" -mcpu=cortex-a72 -I<include_path>
+* 	-Wall -O0 -g3 -c -fmessage-length=0 -MT"$@" -I<include_path>
+*
+* <b>User Defined data types</b>
+*
+* 	u8	1 byte
+* 	u16	2 bytes
+* 	u32	4 bytes / 1 word
+* 	u64	8 bytes / double word
+*
 *
 * <pre>
 * MODIFICATION HISTORY:
