@@ -102,6 +102,7 @@
 *       ms   04/05/17 Added tabspace for return statements in functions of
 *                     srio examples for proper documentation while
 *                     generating doxygen.
+* 1.2   adk  30/07/19 Fix portwidth handling in the XSrio_CfgInitialize() API.
 * </pre>
 ******************************************************************************/
 

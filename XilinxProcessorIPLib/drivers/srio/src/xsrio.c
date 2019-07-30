@@ -84,7 +84,7 @@ int XSrio_CfgInitialize(XSrio *InstancePtr,
 		
 	/* Port width for the Device */
 	Portwidth = XSrio_ReadReg(InstancePtr->Config.BaseAddress,
-		XSRIO_PORT_N_ERR_STS_CSR_OFFSET + XSRIO_PORT_N_CTL_CSR_OFFSET);
+				  XSRIO_PORT_N_CTL_CSR_OFFSET);
 	InstancePtr->PortWidth = ((Portwidth & XSRIO_PORT_N_CTL_CSR_PW_MASK) >> 
 					XSRIO_PORT_N_CTL_CSR_PW_SHIFT);
 
