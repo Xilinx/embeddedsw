@@ -144,6 +144,7 @@ enum {
 	XLOADER_ERR_CFRAME_LOOKUP, /* 0x321 */
 	XLOADER_ERR_CFRAME_CFG, /* 0x322 */
 	XLOADER_ERR_UNSUPPORTED_SEC_BOOT_MODE, /* 0x323 */
+	XLOADER_ERR_SECURE_METAHDR, /* 0x324 */
 };
 
 /**************************** Type Definitions *******************************/

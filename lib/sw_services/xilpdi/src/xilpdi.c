@@ -348,18 +348,18 @@ XStatus XilPdi_ReadBootHdr(XilPdi_MetaHdr * MetaHdrPtr)
 
 /****************************************************************************/
 /**
-* This function validates the image header table.
+* This function Reads the image header table.
 *
 * @param MetaHdrPtr is pointer to the XilPdi_MetaHdr structure
 *
 * @return
-*	- XST_SUCCESS on successful validation
+*	- XST_SUCCESS on successful reading
 *	- errors as mentioned in xilpdi.h
 *
 * @note
 *
 *****************************************************************************/
-XStatus XilPdi_ReadAndValidateImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
+XStatus XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
 {
 	XStatus Status;
 	u32 SmapBusWidthCheck[4];
@@ -407,17 +407,6 @@ XStatus XilPdi_ReadAndValidateImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
 			XilPdi_Printf("Device Copy Failed \n\r");
 			goto END;
 		}
-	}
-
-	/**
-	 * Check the validity of Img Hdr Table
-	 */
-	Status = XilPdi_ValidateImgHdrTable(
-	          &(MetaHdrPtr->ImgHdrTable));
-	if (XST_SUCCESS != Status)
-	{
-		XilPdi_Printf("Img Hdr Table Validation failed \n\r");
-		goto END;
 	}
 
 END:

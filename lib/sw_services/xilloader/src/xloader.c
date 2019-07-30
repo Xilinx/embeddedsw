@@ -44,6 +44,7 @@
 /***************************** Include Files *********************************/
 #include "xloader.h"
 #include "xillibpm_api.h"
+#include "xloader_secure.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -178,6 +179,7 @@ int XLoader_Init()
 int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 {
 	int Status;
+	XLoader_SecureParms SecureParam;
 
 	/**
 	 * Update PDI Ptr with source, addr, meta header
@@ -230,37 +232,91 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 		PdiPtr->ImageNum = 0U;
 		PdiPtr->PrtnNum = 0U;
 	}
-
-	Status = XilPdi_ReadAndValidateImgHdrTbl(&PdiPtr->MetaHdr);
+	/* Read image header */
+	Status = XilPdi_ReadImgHdrTbl(&PdiPtr->MetaHdr);
 	if(Status != XST_SUCCESS)
 	{
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMGHDR_TBL,
+							Status);
+		goto END;
+	}
+	SecureParam.PdiPtr = PdiPtr;
+	/* Is Authentication enabled */
+	if (((PdiPtr->MetaHdr.ImgHdrTable.Attr) &
+			XIH_IHT_ATTR_RSA_SIGNATURE_MASK) != 0x0U) {
+		SecureParam.IsAuthenticated = TRUE;
+		SecureParam.SecureEn = TRUE;
+	}
+	/* Is Encryption enabled */
+	if (((PdiPtr->MetaHdr.ImgHdrTable.Attr) &
+			XIH_IHT_ATTR_ENCRYPTION_MASK) != 0x0U) {
+		SecureParam.IsEncrypted = TRUE;
+		SecureParam.SecureEn = TRUE;
+	}
+
+	/* Validates if authentication/encryption is compulsory */
+	Status = XLoader_SecureValidations(&SecureParam);
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_INFO,"Failed at secure validations\n\r");
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMGHDR_TBL,
+							Status);
+		goto END;
+	}
+
+	/* Authentication of IHT */
+	if (SecureParam.IsAuthenticated == TRUE) {
+		Status = XLoader_ImgHdrTblAuth(&SecureParam,
+				&(PdiPtr->MetaHdr.ImgHdrTable));
+		if (Status != XST_SUCCESS) {
+			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMGHDR_TBL,
+							Status);
+			goto END;
+		}
+	}
+	/**
+	 * Check the validity of Img Hdr Table fields
+	 */
+	Status = XilPdi_ValidateImgHdrTable(&(PdiPtr->MetaHdr.ImgHdrTable));
+	if (Status != XST_SUCCESS)
+	{
+		XilPdi_Printf("Img Hdr Table Validation failed \n\r");
 		if((Status == XILPDI_ERR_IDCODE) && (XPLMI_PLATFORM !=
-											PMC_TAP_VERSION_SILICON))
+						PMC_TAP_VERSION_SILICON))
 		{
 			Status = XST_SUCCESS;
 		}
 		else
 		{
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMGHDR_TBL, Status);
+			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMGHDR_TBL,
+							Status);
 			goto END;
 		}
 	}
-
 	/*
-	 * Read and verify image headers
+	 * Read and verify image headers and partition headers
 	 */
-	Status = XilPdi_ReadAndVerifyImgHdr(&(PdiPtr->MetaHdr));
-	if (XST_SUCCESS != Status)
-	{
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMGHDR, Status);
-		goto END;
-	}
+	if (SecureParam.SecureEn != TRUE) {
+		Status = XilPdi_ReadAndVerifyImgHdr(&(PdiPtr->MetaHdr));
+		if (XST_SUCCESS != Status)
+		{
+			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMGHDR, Status);
+			goto END;
+		}
 
-	Status = XilPdi_ReadAndVerifyPrtnHdr(&PdiPtr->MetaHdr);
-	if(Status != XST_SUCCESS)
-	{
-		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_PRTNHDR, Status);
-		goto END;
+		Status = XilPdi_ReadAndVerifyPrtnHdr(&PdiPtr->MetaHdr);
+		if(Status != XST_SUCCESS)
+		{
+			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_PRTNHDR, Status);
+			goto END;
+		}
+	}
+	else {
+		Status = XLoader_ReadAndVerifySecureHdrs(&SecureParam,
+							&(PdiPtr->MetaHdr));
+		if (Status != XST_SUCCESS) {
+			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SECURE_METAHDR, Status);
+			goto END;
+		}
 	}
 
 END:
