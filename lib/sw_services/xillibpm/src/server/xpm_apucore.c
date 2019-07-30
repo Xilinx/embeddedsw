@@ -57,6 +57,17 @@ done:
 	return Status;
 }
 
+static int XPmApuCore_HasResumeAddr(XPm_Core *Core)
+{
+	XStatus Status = XST_FAILURE;
+
+	if (0U != (Core->ResumeAddr & 1ULL)) {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
 static XStatus XPmApuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
@@ -95,6 +106,7 @@ static XStatus XPmApuCore_PwrDwn(XPm_Core *Core)
 
 struct XPm_CoreOps ApuOps = {
 		.RestoreResumeAddr = XPmApuCore_RestoreResumeAddr,
+		.HasResumeAddr = XPmApuCore_HasResumeAddr,
 		.RequestWakeup = XPmApuCore_WakeUp,
 		.PowerDown = XPmApuCore_PwrDwn,
 };
