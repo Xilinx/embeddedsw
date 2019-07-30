@@ -191,6 +191,10 @@ END:
  *****************************************************************************/
 s32 XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr)
 {
+
+	 /* Assert validates the input arguments */
+	 Xil_AssertVoid(InstancePtr != NULL);
+
 	InstancePtr->IsLastUpdate = TRUE;
 
 	return XST_SUCCESS;
