@@ -30,6 +30,7 @@
 #include "xpm_psm.h"
 #include "xpm_powerdomain.h"
 #include "xpm_bisr.h"
+#include "xpm_gic_proxy.h"
 
 extern int XLoader_ReloadImage(u32 ImageId);
 
@@ -154,6 +155,8 @@ XStatus XPm_PowerUpFPD(XPm_Node *Node)
 		if (XST_SUCCESS != Status) {
 			PmErr("Error while reloading FPD CDO\r\n");
 		}
+
+		XPm_GicProxy.Clear();
 	}
 
 	return Status;
@@ -162,6 +165,7 @@ XStatus XPm_PowerUpFPD(XPm_Node *Node)
 XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 {
 	XStatus Status = XST_SUCCESS;
+	XPm_Core *ApuCore = (XPm_Core *)XPmDevice_GetById(XPM_DEVID_ACPU_0);
 
 	/* Unlock configuration and system registers for write operation */
 	PmOut32(AMS_ROOT_REG_PCSR_LOCK, PCSR_UNLOCK_VAL);
@@ -196,6 +200,13 @@ XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 				     PM_RESET_ACTION_ASSERT);
 
 	/* TODO: Send PMC_I2C command to turn of FPD power rail */
+
+	/* Enable GIC proxy only if resume path is set */
+	if ((NULL != ApuCore) &&
+	    (XST_SUCCESS == ApuCore->CoreOps->HasResumeAddr(ApuCore))) {
+		XPm_GicProxy.Enable();
+	}
+
 done:
 	return Status;
 }
