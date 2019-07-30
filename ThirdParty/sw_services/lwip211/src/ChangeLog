@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2019-07-30
+	* Add support for A53 32 bit compiler.
 2019-07-11
 	* Fix emacps hotplug bug.
 2019-05-17
