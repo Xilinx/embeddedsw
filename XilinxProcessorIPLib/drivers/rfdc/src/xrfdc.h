@@ -235,6 +235,7 @@
 *       cog    07/25/19 Added new XRFdc_RegisterMetal() API to register RFDC with Libmetal.
 *       cog    07/25/19 Moved XRFDC_PLL_LOCK_DLY_CNT macro from source file.
 *       cog    07/26/19 Added new XRFdc_S/GetLegacyCompatibilityMode() APIs.
+*       cog    07/29/19 Added XRFdc_GetEnabledInterrupts() API.
 *
 * </pre>
 *
@@ -708,6 +709,7 @@ typedef struct {
 #define XRFDC_DEV_NAME XPAR_XRFDC_0_DEV_NAME
 #endif
 #define XRFDC_REGION_SIZE 0x40000U
+#define XRFDC_IP_BASE 0x0U
 #define XRFDC_DRP_BASE(type, tile)                                                                                     \
 	((type) == XRFDC_ADC_TILE ? XRFDC_ADC_TILE_DRP_ADDR(tile) : XRFDC_DAC_TILE_DRP_ADDR(tile))
 
@@ -960,6 +962,10 @@ typedef struct {
 #define XRFDC_CLK_DST_ADC2 6
 #define XRFDC_CLK_DST_ADC3 7
 #define XRFDC_CLK_DST_INVALID 0xFFU
+
+#define XRFDC_GLBL_OFST_DAC 0U
+#define XRFDC_GLBL_OFST_ADC 4U
+#define XRFDC_TILE_GLBL_ADDR(X, Y) (Y + ((X == XRFDC_ADC_TILE) ? XRFDC_GLBL_OFST_ADC : XRFDC_GLBL_OFST_DAC))
 
 #define XRFDC_CLK_DISTR_MUX4A_SRC_INT 0x0008U
 #define XRFDC_CLK_DISTR_MUX4A_SRC_STH 0x0000U
@@ -2015,6 +2021,7 @@ u32 XRFdc_IntrClr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 I
 u32 XRFdc_GetIntrStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 *IntrStsPtr);
 u32 XRFdc_IntrDisable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 IntrMask);
 u32 XRFdc_IntrEnable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 IntrMask);
+u32 XRFdc_GetEnabledInterrupts(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 *IntrMask);
 u32 XRFdc_SetThresholdClrMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 ThresholdToUpdate, u32 ClrMode);
 u32 XRFdc_ThresholdStickyClear(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 ThresholdToUpdate);
 void XRFdc_SetStatusHandler(XRFdc *InstancePtr, void *CallBackRef, XRFdc_StatusHandler FunctionPtr);
