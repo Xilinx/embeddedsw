@@ -401,20 +401,15 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				Status = Node->HandleEvent(Node, XPM_DEVEVENT_TIMER);
 			} else if (XPM_DEVEVENT_SHUTDOWN == Event) {
 				Node->State = XPM_DEVSTATE_RST_ON;
-				/*
-				 * FIXME: Do not assert reset to peripherals,
-				 * since their register values are lost after
-				 * reset assert.
-				 */
 				/* Assert reset for peripheral devices */
-				/*if (XPM_NODESUBCL_DEV_PERIPH ==
+				if (XPM_NODESUBCL_DEV_PERIPH ==
 						NODESUBCLASS(Device->Node.Id)) {
 					Status = XPmDevice_Reset(Device,
 							PM_RESET_ACTION_ASSERT);
 					if (XST_SUCCESS != Status) {
 						break;
 					}
-				}*/
+				}
 				/* Todo: Start timer to poll reset node */
 				/* Hack */
 				Status = Node->HandleEvent(Node, XPM_DEVEVENT_TIMER);
