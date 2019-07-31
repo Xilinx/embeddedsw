@@ -225,6 +225,9 @@ XStatus XPm_CheckCapabilities(XPm_Device *Device, u32 Caps)
 	}
 
 done:
+	if (Status != XST_SUCCESS) {
+		Status = XPM_NO_PERMISSION;
+	}
 	return Status;
 }
 
@@ -248,7 +251,7 @@ static u32 IsRunning(XPm_Device *Device)
 
 XStatus XPmDevice_BringUp(XPm_Node *Node)
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = XPM_ERR_DEVICE_BRINGUP;
 	XPm_Device *Device = (XPm_Device *)Node;
 
 	if (NULL == Device->Power) {
@@ -515,9 +518,13 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 			}
 			break;
 		default:
+			Status = XPM_INVALID_STATE;
 			break;
 	}
 
+	if(Status != XST_SUCCESS) {
+		PmErr("Returned: 0x%x\n\r", Status);
+	}
 	return Status;
 }
 
@@ -554,10 +561,13 @@ static XStatus HandleDeviceState(XPm_Device* const Device, const u32 NextState)
 		}
 		break;
 	default:
-		Status = XST_FAILURE;
+		Status = XPM_INVALID_STATE;
 		break;
 	}
 
+	if(Status != XST_SUCCESS) {
+		PmErr("Returned: 0x%x\n\r", Status);
+	}
 	return Status;
 }
 
@@ -570,7 +580,7 @@ static const XPm_DeviceFsm XPmGenericDeviceFsm = {
 static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 		       u32 Capabilities, const u32 QoS)
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = XPM_ERR_DEVICE_REQ;
 	XPm_Requirement *Reqm;
 	u32 UsagePolicy = 0;
 	if ((XPM_DEVSTATE_UNUSED != Device->Node.State) &&
@@ -618,13 +628,16 @@ static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 	Status = XPmProt_Configure(Reqm, TRUE);
 
 done:
+	if(Status != XST_SUCCESS) {
+		PmErr("Returned: 0x%x\n\r", Status);
+	}
 	return Status;
 }
 
 static XStatus SetRequirement(XPm_Device *Device, XPm_Subsystem *Subsystem,
 			      u32 Capabilities, const u32 QoS)
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = XPM_ERR_SET_REQ;;
 	XPm_ReqmInfo TempReqm;
 
 	if ((XPM_DEVSTATE_UNUSED != Device->Node.State) &&
@@ -675,13 +688,16 @@ static XStatus SetRequirement(XPm_Device *Device, XPm_Subsystem *Subsystem,
 	}
 
 done:
+	if(Status != XST_SUCCESS) {
+		PmErr("Returned: 0x%x\n\r", Status);
+	}
 	return Status;
 }
 
 static XStatus Release(XPm_Device *Device,
 		XPm_Subsystem *Subsystem)
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = XPM_ERR_DEVICE_RELEASE;
 
 	if ((XPM_DEVSTATE_UNUSED != Device->Node.State) &&
 		(XPM_DEVSTATE_RUNNING != Device->Node.State) &&
@@ -709,10 +725,16 @@ static XStatus Release(XPm_Device *Device,
 		XPmRequirement_Clear(Device->PendingReqm);
 		Device->WfDealloc = 0;
 	}
+	else {
+		Status = XPM_ERR_DEVICE_RELEASE;
+	}
 
 	Status = XPmProt_Configure(Device->PendingReqm, FALSE);
 
 done:
+	if(Status != XST_SUCCESS) {
+		PmErr("Returned: 0x%x\n\r", Status);
+	}
 	return Status;
 }
 
@@ -721,7 +743,7 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 		u32 BaseAddress,
 		XPm_Power *Power, XPm_ClockNode * Clock, XPm_ResetNode *Reset)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = XPM_ERR_DEVICE_INIT;
 
 	if (NULL != XPmDevice_GetById(Id)) {
 		Status = XST_DEVICE_BUSY;
@@ -771,6 +793,9 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 	Status = XST_SUCCESS;
 
 done:
+	if(Status != XST_SUCCESS) {
+		PmErr("Returned: 0x%x\n\r", Status);
+	}
 	return Status;
 }
 
@@ -781,7 +806,7 @@ XStatus XPmDevice_AddClock(XPm_Device *Device, XPm_ClockNode *Clock)
 	XPm_ClockHandle *ClkHandle;
 
 	if (NULL == Device) {
-		Status = XST_FAILURE;
+		Status = XPM_ERR_DEVICE;
 		goto done;
 	}
 
@@ -807,6 +832,9 @@ XStatus XPmDevice_AddClock(XPm_Device *Device, XPm_ClockNode *Clock)
 	Clock->ClkHandles = ClkHandle;
 
 done:
+	if(Status != XST_SUCCESS) {
+		PmErr("Returned: 0x%x\n\r", Status);
+	}
 	return Status;
 }
 
@@ -816,7 +844,7 @@ XStatus XPmDevice_AddReset(XPm_Device *Device, XPm_ResetNode *Reset)
 	XPm_ResetHandle *RstHandle;
 
 	if (NULL == Device) {
-		Status = XST_FAILURE;
+		Status = XPM_ERR_DEVICE;
 		goto done;
 	}
 
@@ -842,6 +870,9 @@ XStatus XPmDevice_AddReset(XPm_Device *Device, XPm_ResetNode *Reset)
 	Reset->RstHandles = RstHandle;
 
 done:
+	if(Status != XST_SUCCESS) {
+		PmErr("Returned: 0x%x\n\r", Status);
+	}
 	return Status;
 }
 
@@ -851,7 +882,7 @@ XStatus XPmDevice_Reset(XPm_Device *Device, const XPm_ResetActions Action)
 	XPm_ResetHandle *RstHandle;
 
 	if (NULL == Device) {
-		Status = XST_FAILURE;
+		Status = XPM_ERR_DEVICE;
 		goto done;
 	}
 
@@ -862,6 +893,9 @@ XStatus XPmDevice_Reset(XPm_Device *Device, const XPm_ResetActions Action)
 	}
 
 done:
+	if(Status != XST_SUCCESS) {
+		PmErr("Returned: 0x%x\n\r", Status);
+	}
 	return Status;
 }
 
@@ -887,6 +921,9 @@ int XPmDevice_CheckPermissions(XPm_Subsystem *Subsystem, u32 DeviceId)
 	}
 
 done:
+	if(Status != XST_SUCCESS) {
+		PmErr("Returned: 0x%x\n\r", Status);
+	}
 	return Status;
 }
 
@@ -964,105 +1001,110 @@ XStatus XPmDevice_Request(const u32 SubsystemId,
 			const u32 Capabilities,
 			const u32 QoS)
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = XPM_ERR_DEVICE_REQ;
 	XPm_Device *Device;
 	XPm_Subsystem *Subsystem;
 
 	/* Todo: Check if policy allows this request */
 
 	if (XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
-		Status = XST_INVALID_PARAM;
+		Status = XPM_INVALID_DEVICEID;
 		goto done;
 	}
 
 	Device = XPmDevice_GetById(DeviceId);
 	if (NULL == Device) {
-		Status = XST_INVALID_PARAM;
+		Status = XPM_INVALID_DEVICEID;
 		goto done;
 	}
 
 	if (Device->Node.Id != DeviceId) {
-		Status = XST_INVALID_PARAM;
+		Status = XPM_INVALID_DEVICEID;
 		goto done;
 	}
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (Subsystem == NULL || Subsystem->State != ONLINE) {
-		Status = XST_FAILURE;
+		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
 
 	Status = Device->DeviceOps->Request(Device, Subsystem, Capabilities,
 					    QoS);
-
 done:
+	if(Status != XST_SUCCESS) {
+		PmErr("Returned: 0x%x\n\r", Status);
+	}
 	return Status;
 }
 
 XStatus XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId)
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = XPM_ERR_DEVICE_RELEASE;
 	XPm_Device *Device;
 	XPm_Subsystem *Subsystem;
 
 	/* Todo: Check if subsystem has permission */
 
 	if (XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
-		Status = XST_INVALID_PARAM;
+		Status = XPM_INVALID_DEVICEID;
 		goto done;
 	}
 
 	Device = XPmDevice_GetById(DeviceId);
 	if (NULL == Device) {
-		Status = XST_INVALID_PARAM;
+		Status = XPM_INVALID_DEVICEID;
 		goto done;
 	}
 
 	if (Device->Node.Id != DeviceId) {
-		Status = XST_INVALID_PARAM;
+		Status = XPM_INVALID_DEVICEID;
 		goto done;
 	}
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (Subsystem == NULL || Subsystem->State != ONLINE) {
-		Status = XST_FAILURE;
+		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
 
 	Status = Device->DeviceOps->Release(Device, Subsystem);
 
 done:
+	if(Status != XST_SUCCESS) {
+		PmErr("Returned: 0x%x\n\r", Status);
+	}
 	return Status;
 }
 
 XStatus XPmDevice_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 				 const u32 Capabilities, const u32 QoS)
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = XPM_ERR_SET_REQ;
 	XPm_Device *Device;
 	XPm_Subsystem *Subsystem;
 
 	/* Todo: Check if subsystem has permission */
 
 	if (XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
-		Status = XST_INVALID_PARAM;
+		Status = XPM_INVALID_DEVICEID;
 		goto done;
 	}
 
 	Device = XPmDevice_GetById(DeviceId);
 	if (NULL == Device) {
-		Status = XST_INVALID_PARAM;
+		Status = XPM_INVALID_DEVICEID;
 		goto done;
 	}
 
 	if (Device->Node.Id != DeviceId) {
-		Status = XST_INVALID_PARAM;
+		Status = XPM_INVALID_DEVICEID;
 		goto done;
 	}
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (Subsystem == NULL || Subsystem->State != ONLINE) {
-		Status = XST_FAILURE;
+		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
 
@@ -1070,6 +1112,9 @@ XStatus XPmDevice_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 						   Capabilities, QoS);
 
 done:
+	if(Status != XST_SUCCESS) {
+		PmErr("Returned: 0x%x\n\r", Status);
+	}
 	return Status;
 }
 
@@ -1077,19 +1122,20 @@ XStatus XPmDevice_GetStatus(const u32 SubsystemId,
 			const u32 DeviceId,
 			XPm_DeviceStatus *const DeviceStatus)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = XPM_ERR_DEVICE_STATUS;
 	XPm_Subsystem *Subsystem;
 	XPm_Device *Device;
 	XPm_Requirement *Reqm;
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (Subsystem == NULL || Subsystem->State != ONLINE) {
-		Status = XST_FAILURE;
+		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
 
 	Device = XPmDevice_GetById(DeviceId);
 	if (NULL == Device) {
+		Status = XPM_INVALID_DEVICEID;
 		goto done;
 	}
 
@@ -1104,6 +1150,9 @@ XStatus XPmDevice_GetStatus(const u32 SubsystemId,
 
 	Status = XST_SUCCESS;
 done:
+	if(Status != XST_SUCCESS) {
+		PmErr("Returned: 0x%x\n\r", Status);
+	}
 	return Status;
 }
 
@@ -1226,7 +1275,7 @@ int XPmDevice_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
 
 	Reqm = FindReqm(Device, Subsystem);
 	if (NULL == Reqm) {
-		Status = XST_FAILURE;
+		Status = XPM_ERR_DEVICE_REQ;
 		goto done;
 	}
 
@@ -1260,7 +1309,7 @@ done:
  ****************************************************************************/
 XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = XPM_ERR_SETSTATE;
 	const XPm_DeviceFsm* Fsm = Device->DeviceFsm;
 	u32 OldState = Device->Node.State;
 	u32 Trans;
@@ -1315,7 +1364,7 @@ static XStatus GetStateWithCaps(const XPm_Device* const Device, const u32 Caps,
 				u32* const State)
 {
 	u32 Idx;
-	XStatus Status = XST_FAILURE;
+	XStatus Status = XPM_ERR_GETSTATE;
 
 	for (Idx = 0U; Idx < Device->DeviceFsm->StatesCnt; Idx++) {
 		/* Find the first state that contains all capabilities */
@@ -1478,7 +1527,7 @@ done:
  ****************************************************************************/
 XStatus XPmDevice_UpdateStatus(XPm_Device *Device)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = XPM_ERR_DEVICE_STATUS;
 	u32 Caps = GetMaxCapabilities(Device);
 	u32 WkupLat, MinLat;
 	u32 State = 0;
