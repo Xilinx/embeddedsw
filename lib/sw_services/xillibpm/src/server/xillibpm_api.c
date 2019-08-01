@@ -3123,6 +3123,7 @@ static XStatus AddMemDevice(u32 *Args, u32 PowerId)
 		case XPM_NODETYPE_DEV_L2CACHE:
 		case XPM_NODETYPE_DEV_DDR:
 		case XPM_NODETYPE_DEV_TCM:
+		case XPM_NODETYPE_DEV_EFUSE:
 			Device = (XPm_MemDevice *)XPm_AllocBytes(sizeof(XPm_MemDevice));
 			if (NULL == Device) {
 				Status = XST_BUFFER_TOO_SMALL;
