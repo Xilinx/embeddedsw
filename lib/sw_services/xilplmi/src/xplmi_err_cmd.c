@@ -7,7 +7,9 @@
 /**
 *
 * @file xplmi_err_cmd.c
-*
+* @addtogroup xplmi_apis XilPlmi Versal APIs
+* @{
+* @cond xplmi_internal
 * This file contains error management commands code for the PLM.
 *
 * <pre>
@@ -16,10 +18,16 @@
 * Ver   Who  Date        Changes
 * ====  ==== ======== ======================================================-
 * 1.00  kc   02/12/2019 Initial release
+* 1.01  kc   08/01/2019 Added error management framework
+* 1.02  ma   02/28/2020 Error actions related changes
+*       bsv  04/04/2020 Code clean up
+* 1.03  bm   10/14/2020 Code clean up
+*       ana  10/19/2020 Added doxygen comments
 *
 * </pre>
 *
 * @note
+* @endcond
 *
 ******************************************************************************/
 
@@ -43,7 +51,15 @@
  * @brief	Contains the module ID and PLM error commands array
  *
  *****************************************************************************/
+/**
+ * @{
+ * @cond xplmi_internal
+ */
 static XPlmi_Module XPlmi_ErrModule;
+/**
+ * @}
+ * @endcond
+ */
 
 /*****************************************************************************/
 /**
@@ -107,18 +123,27 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 		(ErrorAction >= XPLMI_EM_ACTION_MAX) ||
 		(XPLMI_EM_ACTION_INVALID == ErrorAction)) {
 		XPlmi_Printf(DEBUG_GENERAL,
-				"Error: XPlmi_CmdEmSetAction: Invalid/unsupported error "
-				"action %d received for error 0x%x", ErrorAction, ErrorMask);
+			"Error: XPlmi_CmdEmSetAction: Invalid/unsupported error "
+			"action %d received for error 0x%x", ErrorAction, ErrorMask);
 		Status = XPLMI_INVALID_ERROR_ACTION;
 		goto END;
 	}
 
+	/* Do not allow invalid node id */
+	if ((NodeId != XPLMI_EVENT_ERROR_PMC_ERR1) &&
+		(NodeId != XPLMI_EVENT_ERROR_PMC_ERR2) &&
+		(NodeId != XPLMI_EVENT_ERROR_PSM_ERR1) &&
+		(NodeId != XPLMI_EVENT_ERROR_PSM_ERR2)) {
+		Status = XPLMI_INVALID_NODE_ID;
+		goto END;
+	}
+
 	/* PMC's PSM CR and NCR error actions must not be changed */
-	if ((ErrorMask == XPLMI_NODEIDX_ERROR_PMC_PSM_CR) ||
-		(ErrorMask == XPLMI_NODEIDX_ERROR_PMC_PSM_NCR)) {
+	if ((ErrorMask == (u32)XPLMI_NODEIDX_ERROR_PMC_PSM_CR) ||
+		(ErrorMask == (u32)XPLMI_NODEIDX_ERROR_PMC_PSM_NCR)) {
 		XPlmi_Printf(DEBUG_GENERAL,
-				"Error: XPlmi_CmdEmSetAction: Error Action "
-				"cannot be changed for error 0x%x\r\n", ErrorMask);
+			"Error: XPlmi_CmdEmSetAction: Error Action "
+			"cannot be changed for error 0x%x\r\n", ErrorMask);
 		Status = XPLMI_CANNOT_CHANGE_ACTION;
 		goto END;
 	}
@@ -126,8 +151,8 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 	/*
 	 * Allow error action setting for PSM errors only if LPD is initialized
 	 */
-	if ((ErrorMask >= XPLMI_NODEIDX_ERROR_PS_SW_CR) &&
-		(ErrorMask < XPLMI_NODEIDX_ERROR_PSMERR2_MAX) &&
+	if ((ErrorMask >= (u32)XPLMI_NODEIDX_ERROR_PS_SW_CR) &&
+		(ErrorMask < (u32)XPLMI_NODEIDX_ERROR_PSMERR2_MAX) &&
 		((LpdInitialized & LPD_INITIALIZED) != LPD_INITIALIZED)) {
 		XPlmi_Printf(DEBUG_GENERAL, "LPD is not initialized to configure "
 				"PSM errors and actions\n\r");
@@ -144,6 +169,10 @@ END:
 	return Status;
 }
 
+/**
+ * @{
+ * @cond xplmi_internal
+ */
 /*****************************************************************************/
 /**
  * @brief	Contains the array of PLM error commands
@@ -180,3 +209,10 @@ void XPlmi_ErrModuleInit(void)
 {
 	XPlmi_ModuleRegister(&XPlmi_ErrModule);
 }
+
+/**
+ * @}
+ * @endcond
+ */
+
+ /** @} */

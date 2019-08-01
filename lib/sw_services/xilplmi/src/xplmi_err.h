@@ -15,7 +15,19 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kc   05/23/2019 Initial release
+* 1.00  kc   02/12/2019 Initial release
+* 1.01  kc   08/01/2019 Added error management framework
+*       ma   08/01/2019 Added LPD init code
+*       sn   08/03/2019 Added code to wait until over-temperature condition
+*						gets resolved before restart
+*       bsv  08/29/2019 Added Multiboot and Fallback support
+*       scs  08/29/2019 Added support for Extended IDCODE checks
+* 1.02  ma   05/02/2020 Remove SRST error action for PSM errors as it is
+*                       de-featured
+*       ma   02/28/2020 Error actions related changes
+*       bsv  04/04/2020 Code clean up
+* 1.03  bsv  07/07/2020 Made functions used in single transaltion unit as
+*						static
 *
 * </pre>
 *
@@ -30,24 +42,20 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xil_types.h"
-#include "xil_assert.h"
-#include "xplmi_status.h"
 #include "xplmi_debug.h"
-#include "xplmi_hw.h"
 #include "xplmi_error_node.h"
 
 /************************** Constant Definitions *****************************/
 /* Action to be taken when an error occurs */
 #define XPLMI_EM_ACTION_INVALID			(0U)
-#define XPLMI_EM_ACTION_POR				(1U)
+#define XPLMI_EM_ACTION_POR			(1U)
 #define XPLMI_EM_ACTION_SRST			(2U)
 #define XPLMI_EM_ACTION_CUSTOM			(3U)
 #define XPLMI_EM_ACTION_ERROUT			(4U)
-#define XPLMI_EM_ACTION_SUBSYS_SHUTDN	(5U)
-#define XPLMI_EM_ACTION_SUBSYS_RESTART	(6U)
+#define XPLMI_EM_ACTION_SUBSYS_SHUTDN		(5U)
+#define XPLMI_EM_ACTION_SUBSYS_RESTART		(6U)
 #define XPLMI_EM_ACTION_NONE			(7U)
-#define XPLMI_EM_ACTION_MAX				(8U)
+#define XPLMI_EM_ACTION_MAX			(8U)
 
 /* Subsystem shutdown/restart related macros */
 #define XPLMI_SUBSYS_SHUTDN_TYPE_SHUTDN		(0U)
@@ -55,16 +63,23 @@ extern "C" {
 #define XPLMI_RESTART_SUBTYPE_SUBSYS		(0U)
 
 /* PLMI ERROR Management error codes */
-#define XPLMI_INVALID_ERROR_ID		(1U)
-#define XPLMI_INVALID_ERROR_TYPE	(2U)
-#define XPLMI_INVALID_ERROR_HANDLER	(3U)
-#define XPLMI_INVALID_ERROR_ACTION	(4U)
-#define XPLMI_LPD_UNINITIALIZED		(5U)
-#define XPLMI_CANNOT_CHANGE_ACTION	(6U)
+#define XPLMI_INVALID_ERROR_ID		(1)
+#define XPLMI_INVALID_ERROR_TYPE	(2)
+#define XPLMI_INVALID_ERROR_HANDLER	(3)
+#define XPLMI_INVALID_ERROR_ACTION	(4)
+#define XPLMI_LPD_UNINITIALIZED		(5)
+#define XPLMI_CANNOT_CHANGE_ACTION	(6)
+#define XPLMI_INVALID_NODE_ID		(7)
+
+/* Error Register mask */
+#define XPLMI_ERR_REG_MASK		(0x1FU)
 
 /**************************** Type Definitions *******************************/
 /* Pointer to Error Handler Function */
 typedef void (*XPlmi_ErrorHandler_t) (u32 ErrorId, u32 ErrorMask);
+/* Pointer to Shutdown Handler Function */
+typedef s32 (*XPlmi_ShutdownHandler_t)(u32 SubsystemId, const u32 Type,
+		const u32 SubType);
 extern s32 (* PmSystemShutdown)(u32 SubsystemId, const u32 Type,
 		const u32 SubType);
 
@@ -87,9 +102,9 @@ struct XPlmi_Error_t {
  * @return	Register mask value
  *
  *****************************************************************************/
-inline u32 XPlmi_ErrRegMask(u32 ErrorMask)
+static inline u32 XPlmi_ErrRegMask(u32 ErrorMask)
 {
-	return (0x1U << (ErrorMask & 0x1FU));
+	return ((u32)0x1U << (ErrorMask & (u32)XPLMI_ERR_REG_MASK));
 }
 
 /*****************************************************************************/
@@ -101,26 +116,27 @@ inline u32 XPlmi_ErrRegMask(u32 ErrorMask)
  * @return	Error event ID
  *
  *****************************************************************************/
-inline u32 XPlmi_EventNodeType(u32 Id)
+static inline XPlmi_EventType XPlmi_EventNodeType(u32 Id)
 {
-	return ((Id & XPLMI_NODE_TYPE_MASK) >> XPLMI_NODE_TYPE_SHIFT);
+	Id = (Id & XPLMI_NODE_TYPE_MASK) >> XPLMI_NODE_TYPE_SHIFT;
+
+	return (XPlmi_EventType)Id;
 }
 
 /************************** Function Prototypes ******************************/
-void XPlmi_EmInit(s32 (* SystemShutdown)(u32 SubsystemId,
-		const u32 Type, const u32 SubType));
+void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown);
 int XPlmi_PsEmInit(void);
 int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMask, u8 ActionId,
 		XPlmi_ErrorHandler_t ErrorHandler);
 int XPlmi_EmDisable(u32 ErrorNodeId, u32 ErrorMask);
 void XPlmi_ErrIntrHandler(void *CallbackRef);
-void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 ErrorMask);
+void XPlmi_SetEmSubsystemId(u32 *Id);
 
 /* Functions defined in xplmi_err_cmd.c */
 void XPlmi_ErrModuleInit(void);
 
 /************************** Variable Definitions *****************************/
-extern u32 EmSubsystemId;
+
 /*****************************************************************************/
 
 #ifdef __cplusplus
