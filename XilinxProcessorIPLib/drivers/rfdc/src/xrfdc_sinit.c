@@ -49,7 +49,8 @@
 *                       dependency from RFDC Linux user space driver.
 * 7.0   cog    05/13/19 Formatting changes.
 *       cog    07/25/19 Added new XRFdc_RegisterMetal() API to register
-*                       RFDC with Libmetal
+*                       RFDC with Libmetal.
+*       cog    08/02/19 Formatting changes.
 *
 * </pre>
 *
@@ -85,16 +86,16 @@ static XRFdc_Config *XRFdc_ConfigTablePtr = NULL;
 * Compare two strings in the reversed order.This function compares only
 * the last "Count" number of characters of Str1Ptr and Str2Ptr.
 *
-* @param	Str1Ptr is base address of first string
-* @param	Str2Ptr is base address of second string
-* @param	Count is number of last characters  to be compared between
-*			Str1Ptr and Str2Ptr
+* @param    Str1Ptr is base address of first string
+* @param    Str2Ptr is base address of second string
+* @param    Count is number of last characters  to be compared between
+*           Str1Ptr and Str2Ptr
 *
 * @return
-*			0 if last "Count" number of bytes matches between Str1Ptr and
-*			Str2Ptr, else difference in unmatched character.
+*           0 if last "Count" number of bytes matches between Str1Ptr and
+*           Str2Ptr, else difference in unmatched character.
 *
-*@note		None.
+*@note     None.
 *
 ******************************************************************************/
 static s32 XRFdc_Strrncmp(const char *Str1Ptr, const char *Str2Ptr, size_t Count)
@@ -122,16 +123,16 @@ static s32 XRFdc_Strrncmp(const char *Str1Ptr, const char *Str2Ptr, size_t Count
 * corresponding to provided device id. If device entry corresponding to said
 * device id is found, store it in output buffer DevNamePtr.
 *
-* @param	DevNamePtr is base address of char array, where device name
-*			will be stored
-* @param	DevId contains the ID of the device to look up the
-*			RFDC device name entry in "/sys/bus/platform/device"
+* @param    DevNamePtr is base address of char array, where device name
+*           will be stored
+* @param    DevId contains the ID of the device to look up the
+*           RFDC device name entry in "/sys/bus/platform/device"
 *
 * @return
- *			- XRFDC_SUCCESS if successful.
- *			- XRFDC_FAILURE if device entry not found for given device id.
+ *           - XRFDC_SUCCESS if successful.
+ *           - XRFDC_FAILURE if device entry not found for given device id.
  *
- *@note		None.
+ *@note     None.
 *
 ******************************************************************************/
 s32 XRFdc_GetDeviceNameByDeviceId(char *DevNamePtr, u16 DevId)
@@ -183,15 +184,15 @@ s32 XRFdc_GetDeviceNameByDeviceId(char *DevNamePtr, u16 DevId)
 * Looks up the device configuration based on the unique device ID. A table
 * contains the configuration info for each device in the system.
 *
-* @param	DeviceId contains the ID of the device to look up the
-*		configuration for.
+* @param    DeviceId contains the ID of the device to look up the
+*           configuration for.
 *
 * @return
 *
 * A pointer to the configuration found or NULL if the specified device ID was
 * not found. See xrfdc.h for the definition of XRFdc_Config.
 *
-* @note		None.
+* @note     None.
 *
 ******************************************************************************/
 XRFdc_Config *XRFdc_LookupConfig(u16 DeviceId)
@@ -219,7 +220,7 @@ XRFdc_Config *XRFdc_LookupConfig(u16 DeviceId)
 		Status = metal_linux_get_device_property(Deviceptr, XRFDC_NUM_INSTANCES_PROPERTY, &NumInstances,
 							 XRFDC_NUM_INST_SIZE);
 		if (Status < 0) {
-			metal_log(METAL_LOG_ERROR, "\n Failed to read device tree property %s",
+			metal_log(METAL_LOG_ERROR, "\n Failed to read device tree property %s\r\n",
 				  XRFDC_NUM_INSTANCES_PROPERTY);
 			goto RETURN_PATH1;
 		}
@@ -257,15 +258,15 @@ RETURN_PATH2:
 *
 * Register/open the deviceand map RFDC to the IO region.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	DeviceId contains the ID of the device to register/map
-* @param	DevicePtr is a pointer to the metal device.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    DeviceId contains the ID of the device to register/map
+* @param    DevicePtr is a pointer to the metal device.
 *
 * @return
-*     - XRFDC_SUCCESS if successful.
-*     - XRFDC_FAILURE if error occurs.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		None.
+* @note     None.
 *
 ******************************************************************************/
 u32 XRFdc_RegisterMetal(XRFdc *InstancePtr, u16 DeviceId, struct metal_device **DevicePtr)

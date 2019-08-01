@@ -163,6 +163,7 @@
 *       cog    07/25/19 Baremetal Region mapping now taken care of in XRFdc_RegisterMetal().
 *       cog    07/25/19 Moved XRFDC_PLL_LOCK_DLY_CNT macro to header file.
 *       cog    07/26/19 Added new XRFdc_S/GetLegacyCompatibilityMode() APIs.
+*       cog    08/02/19 Formatting changes and added a MACRO for the IP generation.
 *
 * </pre>
 *
@@ -200,17 +201,17 @@ static u32 XRFdc_WaitForRestartClr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u3
 * Initializes a specific XRFdc instance such that the driver is ready to use.
 *
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	ConfigPtr is a reference to a structure containing information
-*			about xrfdc. This function initializes an InstancePtr object
-*			for a specific device specified by the contents of Config.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    ConfigPtr is a reference to a structure containing information
+*           about xrfdc. This function initializes an InstancePtr object
+*           for a specific device specified by the contents of Config.
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
+*           - XRFDC_SUCCESS if successful.
 *
-* @note		The user needs to first call the XRFdc_LookupConfig() API
-*			which returns the Configuration structure pointer which is
-*			passed as a parameter to the XRFdc_CfgInitialize() API.
+* @note     The user needs to first call the XRFdc_LookupConfig() API
+*           which returns the Configuration structure pointer which is
+*           passed as a parameter to the XRFdc_CfgInitialize() API.
 *
 ******************************************************************************/
 u32 XRFdc_CfgInitialize(XRFdc *InstancePtr, XRFdc_Config *ConfigPtr)
@@ -259,12 +260,12 @@ u32 XRFdc_CfgInitialize(XRFdc *InstancePtr, XRFdc_Config *ConfigPtr)
 * Initialize ADC Tiles.
 *
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param    InstancePtr is a pointer to the XRfdc instance.
 *
 * @return
-*		- None.
+*           - None.
 *
-* @note		Static API used to initialize ADC Tiles
+* @note     Static API used to initialize ADC Tiles
 *
 ******************************************************************************/
 static void XRFdc_ADCInitialize(XRFdc *InstancePtr)
@@ -326,12 +327,12 @@ static void XRFdc_ADCInitialize(XRFdc *InstancePtr)
 * Initialize DAC Tiles.
 *
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param    InstancePtr is a pointer to the XRfdc instance.
 *
 * @return
-*		- None.
+*           - None.
 *
-* @note		Static API used to initialize DAC Tiles
+* @note     Static API used to initialize DAC Tiles
 *
 ******************************************************************************/
 static void XRFdc_DACInitialize(XRFdc *InstancePtr)
@@ -390,15 +391,15 @@ static void XRFdc_DACInitialize(XRFdc *InstancePtr)
 * Initialize Multiband Configuration for DAC Tiles.
 *
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3, and -1.
-* @param	Block_Id is DAC block number inside the tile. Valid values
-*			are 0-3.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3, and -1.
+* @param    Block_Id is DAC block number inside the tile. Valid values
+*           are 0-3.
 *
 * @return
-*		- None.
+*           - None.
 *
-* @note		Static API used to initialize DAC MB Config
+* @note     Static API used to initialize DAC MB Config
 *
 ******************************************************************************/
 static void XRFdc_DACMBConfigInit(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
@@ -453,21 +454,22 @@ static void XRFdc_DACMBConfigInit(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
 		XRFdc_SetConnectedIQData(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, Block_Id, -1);
 	}
 }
+
 /*****************************************************************************/
 /**
 *
 * Initialize Multiband Configuration for ADC Tiles.
 *
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3, and -1.
-* @param	Block_Id is ADC block number inside the tile. Valid values
-*			are 0-3.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3, and -1.
+* @param    Block_Id is ADC block number inside the tile. Valid values
+*           are 0-3.
 *
 * @return
-*		- None.
+*           - None.
 *
-* @note		Static API used to initialize ADC MB Config
+* @note     Static API used to initialize ADC MB Config
 *
 ******************************************************************************/
 static void XRFdc_ADCMBConfigInit(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
@@ -529,14 +531,14 @@ static void XRFdc_ADCMBConfigInit(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
 * This API updates PLL Structure.
 *
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC.
-* @param	Tile_Id Valid values are 0-3, and -1.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC.
+* @param    Tile_Id Valid values are 0-3, and -1.
 *
 * @return
-*		- None.
+*           - None.
 *
-* @note		Static API used to initialize PLL Settings for ADC and DAC
+* @note     Static API used to initialize PLL Settings for ADC and DAC
 *
 ******************************************************************************/
 static void XRFdc_UpdatePLLStruct(XRFdc *InstancePtr, u32 Type, u32 Tile_Id)
@@ -577,15 +579,15 @@ static void XRFdc_UpdatePLLStruct(XRFdc *InstancePtr, u32 Type, u32 Tile_Id)
 * alternatively can restart all the tiles. Existing register settings are not
 * lost or altered in the process. It just starts the requested tile(s).
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3, and -1.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3, and -1.
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if tile is not enabled or available
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		None
+* @note     None.
 *
 ******************************************************************************/
 u32 XRFdc_StartUp(XRFdc *InstancePtr, u32 Type, int Tile_Id)
@@ -606,15 +608,15 @@ u32 XRFdc_StartUp(XRFdc *InstancePtr, u32 Type, int Tile_Id)
 * asked for. It does not clear any of the existing register settings. It just
 * stops the requested tile(s).
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3, and -1.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3, and -1.
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if tile is not enabled or available
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		None
+* @note     None.
 *
 ******************************************************************************/
 u32 XRFdc_Shutdown(XRFdc *InstancePtr, u32 Type, int Tile_Id)
@@ -636,15 +638,15 @@ u32 XRFdc_Shutdown(XRFdc *InstancePtr, u32 Type, int Tile_Id)
 * with the settings initially configured (through the GUI).
 *
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3, and -1.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3, and -1.
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if tile is not enabled or available
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		None
+* @note     None.
 ******************************************************************************/
 u32 XRFdc_Reset(XRFdc *InstancePtr, u32 Type, int Tile_Id)
 {
@@ -664,13 +666,14 @@ u32 XRFdc_Reset(XRFdc *InstancePtr, u32 Type, int Tile_Id)
 * for PLL Lock if clock source is internal PLL.
 *
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	End is end state of State Machine.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    End is end state of State Machine.
 *
-* @return   - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if timeout occurs.
+* @return
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if timeout occurs.
 *
-* @note		None
+* @note     None.
 *
 ******************************************************************************/
 static u32 XRFdc_WaitForRestartClr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 BaseAddr, u32 End)
@@ -699,10 +702,7 @@ static u32 XRFdc_WaitForRestartClr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u3
 		DelayCount = 0U;
 		while (LockStatus != XRFDC_PLL_LOCKED) {
 			if (DelayCount == XRFDC_PLL_LOCK_DLY_CNT) {
-				metal_log(METAL_LOG_ERROR,
-					  "\n PLL Lock timeout "
-					  "error in %s\r\n",
-					  __func__);
+				metal_log(METAL_LOG_ERROR, "\n PLL Lock timeout error in %s\r\n", __func__);
 				Status = XRFDC_FAILURE;
 				goto RETURN_PATH;
 			} else {
@@ -722,10 +722,7 @@ static u32 XRFdc_WaitForRestartClr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u3
 	DelayCount = 0U;
 	while (XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_RESTART_OFFSET) != 0U) {
 		if (DelayCount == XRFDC_PLL_LOCK_DLY_CNT) {
-			metal_log(METAL_LOG_ERROR,
-				  "\n Failed to clear "
-				  "the restart bit in %s\r\n",
-				  __func__);
+			metal_log(METAL_LOG_ERROR, "\n Failed to clear the restart bit in %s\r\n", __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		} else {
@@ -743,6 +740,7 @@ static u32 XRFdc_WaitForRestartClr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u3
 RETURN_PATH:
 	return Status;
 }
+
 /*****************************************************************************/
 /**
 *
@@ -750,16 +748,17 @@ RETURN_PATH:
 * state and reaches the requested or defined end state.
 *
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3, and -1.
-* @param	Start is start state of State Machine
-* @param	End is end state of State Machine.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3, and -1.
+* @param    Start is start state of State Machine
+* @param    End is end state of State Machine.
 *
-* @return   - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if tile is not enabled or available
+* @return
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		None
+* @note     None.
 *
 ******************************************************************************/
 static u32 XRFdc_RestartIPSM(XRFdc *InstancePtr, u32 Type, int Tile_Id, u32 Start, u32 End)
@@ -782,16 +781,10 @@ static u32 XRFdc_RestartIPSM(XRFdc *InstancePtr, u32 Type, int Tile_Id, u32 Star
 		BaseAddr = XRFDC_CTRL_STS_BASE(Type, Index);
 		Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Index);
 		if ((Status != XRFDC_SUCCESS) && (Tile_Id != XRFDC_SELECT_ALL_TILES)) {
-			metal_log(METAL_LOG_ERROR,
-				  "\n Requested tile%d not "
-				  "available in %s\r\n",
-				  Index, __func__);
+			metal_log(METAL_LOG_ERROR, "\n Requested tile%d not available in %s\r\n", Index, __func__);
 			goto RETURN_PATH;
 		} else if (Status != XRFDC_SUCCESS) {
-			metal_log(METAL_LOG_DEBUG,
-				  "\n Tile%d not "
-				  "available in %s\r\n",
-				  Index, __func__);
+			metal_log(METAL_LOG_DEBUG, "\n Tile%d not available in %s\r\n", Index, __func__);
 			continue;
 		} else {
 			/* Write Start and End states */
@@ -820,14 +813,14 @@ RETURN_PATH:
 * The API returns the IP status.
 *
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	IPStatusPtr Pointer to the XRFdc_IPStatus structure through
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    IPStatusPtr Pointer to the XRFdc_IPStatus structure through
 *           which the status is returned.
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
+*           - XRFDC_SUCCESS if successful.
 *
-* @note		None.
+* @note     None.
 *
 ******************************************************************************/
 u32 XRFdc_GetIPStatus(XRFdc *InstancePtr, XRFdc_IPStatus *IPStatusPtr)
@@ -883,19 +876,19 @@ u32 XRFdc_GetIPStatus(XRFdc *InstancePtr, XRFdc_IPStatus *IPStatusPtr)
 * The API returns the requested block status.
 *
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3. XRFdc_BlockStatus.
-* @param	BlockStatusPtr is Pointer to the XRFdc_BlockStatus structure through
-*			which the ADC/DAC block status is returned.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3. XRFdc_BlockStatus.
+* @param    BlockStatusPtr is Pointer to the XRFdc_BlockStatus structure through
+*           which the ADC/DAC block status is returned.
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if block not enabled.
 *
-* @note		Common API for ADC/DAC blocks.
+* @note     Common API for ADC/DAC blocks.
 *
 ******************************************************************************/
 u32 XRFdc_GetBlockStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, XRFdc_BlockStatus *BlockStatusPtr)
@@ -911,10 +904,7 @@ u32 XRFdc_GetBlockStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -953,18 +943,18 @@ RETURN_PATH:
 * The API returns the requested block status for ADC block
 *
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3. XRFdc_BlockStatus.
-* @param	BlockStatus is Pointer to the XRFdc_BlockStatus structure through
-*			which the ADC/DAC block status is returned.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3. XRFdc_BlockStatus.
+* @param    BlockStatus is Pointer to the XRFdc_BlockStatus structure through
+*           which the ADC/DAC block status is returned.
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if block not enabled.
 *
-* @note		Static API for ADC blocks.
+* @note     Static API for ADC blocks.
 *
 ******************************************************************************/
 static u32 XRFdc_GetADCBlockStatus(XRFdc *InstancePtr, u32 BaseAddr, u32 Tile_Id, u32 Block_Id,
@@ -996,10 +986,7 @@ static u32 XRFdc_GetADCBlockStatus(XRFdc *InstancePtr, u32 BaseAddr, u32 Tile_Id
 		MixerMode = XRFDC_MIXER_MODE_OFF;
 		break;
 	default:
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid MixerMode "
-			  "for ADC in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid MixerMode for ADC in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -1027,18 +1014,18 @@ RETURN_PATH:
 * The API returns the requested block status for DAC block
 *
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3. XRFdc_BlockStatus.
-* @param	BlockStatus is Pointer to the XRFdc_BlockStatus structure through
-*			which the DAC block status is returned.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3. XRFdc_BlockStatus.
+* @param    BlockStatus is Pointer to the XRFdc_BlockStatus structure through
+*           which the DAC block status is returned.
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if block not enabled.
 *
-* @note		Static API for DAC blocks.
+* @note     Static API for DAC blocks.
 *
 ******************************************************************************/
 static u32 XRFdc_GetDACBlockStatus(XRFdc *InstancePtr, u32 BaseAddr, u32 Tile_Id, u32 Block_Id,
@@ -1074,10 +1061,7 @@ static u32 XRFdc_GetDACBlockStatus(XRFdc *InstancePtr, u32 BaseAddr, u32 Tile_Id
 		MixerMode = XRFDC_MIXER_MODE_OFF;
 		break;
 	default:
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid MixerMode "
-			  "for ADC in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid MixerMode for ADC in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -1085,9 +1069,9 @@ static u32 XRFdc_GetDACBlockStatus(XRFdc *InstancePtr, u32 BaseAddr, u32 Tile_Id
 	BlockStatusPtr->DigitalDataPathStatus |= (MixerMode << XRFDC_DIGI_ANALOG_SHIFT12);
 
 	/* AnalogDataPathStatus */
-	BlockStatusPtr->AnalogDataPathStatus =
-		XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_DAC_INVSINC_OFFSET,
-			    (InstancePtr->RFdc_Config.IPType < 2) ? XRFDC_EN_INVSINC_MASK : XRFDC_MODE_INVSINC_MASK);
+	BlockStatusPtr->AnalogDataPathStatus = XRFdc_RDReg(
+		InstancePtr, BaseAddr, XRFDC_DAC_INVSINC_OFFSET,
+		(InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) ? XRFDC_EN_INVSINC_MASK : XRFDC_MODE_INVSINC_MASK);
 	(void)XRFdc_GetDecoderMode(InstancePtr, Tile_Id, Block_Id, &DecoderMode);
 	BlockStatusPtr->AnalogDataPathStatus |= (DecoderMode << XRFDC_DIGI_ANALOG_SHIFT4);
 
@@ -1108,19 +1092,19 @@ RETURN_PATH:
 * QMC settings passed are used to update the corresponding
 * block level registers. Driver structure is updated with the new values.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
-* @param	QMCSettingsPtr is Pointer to the XRFdc_QMC_Settings structure
-*			in which the QMC settings are passed.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    QMCSettingsPtr is Pointer to the XRFdc_QMC_Settings structure
+*           in which the QMC settings are passed.
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		None
+* @note     None.
 *
 ******************************************************************************/
 u32 XRFdc_SetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, XRFdc_QMC_Settings *QMCSettingsPtr)
@@ -1140,10 +1124,7 @@ u32 XRFdc_SetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -1177,46 +1158,31 @@ u32 XRFdc_SetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 		BaseAddr = XRFDC_BLOCK_BASE(Type, Tile_Id, Index);
 
 		if ((QMCSettingsPtr->EnableGain != 0U) && (QMCSettingsPtr->EnableGain != 1U)) {
-			metal_log(METAL_LOG_ERROR,
-				  "\n Invalid QMC gain option "
-				  "in %s\r\n",
-				  __func__);
+			metal_log(METAL_LOG_ERROR, "\n Invalid QMC gain option in %s\r\n", __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
 		if ((QMCSettingsPtr->EnablePhase != 0U) && (QMCSettingsPtr->EnablePhase != 1U)) {
-			metal_log(METAL_LOG_ERROR,
-				  "\n Invalid QMC phase option "
-				  "in %s\r\n",
-				  __func__);
+			metal_log(METAL_LOG_ERROR, "\n Invalid QMC phase option in %s\r\n", __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
 		if ((QMCSettingsPtr->PhaseCorrectionFactor <= XRFDC_MIN_PHASE_CORR_FACTOR) ||
 		    (QMCSettingsPtr->PhaseCorrectionFactor >= XRFDC_MAX_PHASE_CORR_FACTOR)) {
-			metal_log(METAL_LOG_ERROR,
-				  "\n Invalid QMC Phase Correction "
-				  "factor in %s\r\n",
-				  __func__);
+			metal_log(METAL_LOG_ERROR, "\n Invalid QMC Phase Correction factor in %s\r\n", __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
 		if ((QMCSettingsPtr->GainCorrectionFactor < XRFDC_MIN_GAIN_CORR_FACTOR) ||
 		    (QMCSettingsPtr->GainCorrectionFactor >= XRFDC_MAX_GAIN_CORR_FACTOR)) {
-			metal_log(METAL_LOG_ERROR,
-				  "\n Invalid QMC Gain Correction "
-				  "factor in %s\r\n",
-				  __func__);
+			metal_log(METAL_LOG_ERROR, "\n Invalid QMC Gain Correction factor in %s\r\n", __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
 
 		if ((QMCSettingsPtr->EventSource > XRFDC_EVNT_SRC_PL) ||
 		    ((QMCSettingsPtr->EventSource == XRFDC_EVNT_SRC_MARKER) && (Type == XRFDC_ADC_TILE))) {
-			metal_log(METAL_LOG_ERROR,
-				  "\n Invalid event source selection "
-				  "in %s\r\n",
-				  __func__);
+			metal_log(METAL_LOG_ERROR, "\n Invalid event source selection in %s\r\n", __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
@@ -1225,8 +1191,7 @@ u32 XRFdc_SetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 		    ((QMCSettingsPtr->EventSource == XRFDC_EVNT_SRC_SLICE) ||
 		     (QMCSettingsPtr->EventSource == XRFDC_EVNT_SRC_IMMEDIATE))) {
 			metal_log(METAL_LOG_ERROR,
-				  "\n Invalid Event Source, "
-				  "event source is not supported in 4GSPS ADC %s\r\n",
+				  "\n Invalid Event Source, event source is not supported in 4GSPS ADC %s\r\n",
 				  __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
@@ -1297,19 +1262,19 @@ RETURN_PATH:
 *
 * QMC settings are returned back to the caller through this API.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
-* @param	QMCSettingsPtr Pointer to the XRFdc_QMC_Settings structure
-*			in which the QMC settings are passed.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    QMCSettingsPtr Pointer to the XRFdc_QMC_Settings structure
+*           in which the QMC settings are passed.
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		None
+* @note     None.
 *
 ******************************************************************************/
 u32 XRFdc_GetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, XRFdc_QMC_Settings *QMCSettingsPtr)
@@ -1326,10 +1291,7 @@ u32 XRFdc_GetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -1388,19 +1350,19 @@ RETURN_PATH:
 * Coarse delay settings passed are used to update the corresponding
 * block level registers. Driver structure is updated with the new values.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
-* @param	CoarseDelaySettingsPtr is Pointer to the XRFdc_CoarseDelay_Settings
-*			structure in which the CoarseDelay settings are passed.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    CoarseDelaySettingsPtr is Pointer to the XRFdc_CoarseDelay_Settings
+*           structure in which the CoarseDelay settings are passed.
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		None
+* @note     None.
 *
 ******************************************************************************/
 u32 XRFdc_SetCoarseDelaySettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id,
@@ -1418,14 +1380,11 @@ u32 XRFdc_SetCoarseDelaySettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 
 	Xil_AssertNonvoid(CoarseDelaySettingsPtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
-	Mask = (InstancePtr->RFdc_Config.IPType < 2) ? XRFDC_CRSE_DLY_CFG_MASK : XRFDC_CRSE_DLY_CFG_MASK_EXT;
-	MaxDelay = (InstancePtr->RFdc_Config.IPType < 2) ? XRFDC_CRSE_DLY_MAX : XRFDC_CRSE_DLY_MAX_EXT;
+	Mask = (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) ? XRFDC_CRSE_DLY_CFG_MASK : XRFDC_CRSE_DLY_CFG_MASK_EXT;
+	MaxDelay = (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) ? XRFDC_CRSE_DLY_MAX : XRFDC_CRSE_DLY_MAX_EXT;
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -1452,19 +1411,13 @@ u32 XRFdc_SetCoarseDelaySettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 
 		BaseAddr = XRFDC_BLOCK_BASE(Type, Tile_Id, Index);
 
 		if (CoarseDelaySettingsPtr->CoarseDelay > MaxDelay) {
-			metal_log(METAL_LOG_ERROR,
-				  "\n Requested coarse "
-				  "delay not valid in %s\r\n",
-				  __func__);
+			metal_log(METAL_LOG_ERROR, "\n Requested coarse delay not valid in %s\r\n", __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
 		if ((CoarseDelaySettingsPtr->EventSource > XRFDC_EVNT_SRC_PL) ||
 		    ((CoarseDelaySettingsPtr->EventSource == XRFDC_EVNT_SRC_MARKER) && (Type == XRFDC_ADC_TILE))) {
-			metal_log(METAL_LOG_ERROR,
-				  "\n Invalid event "
-				  "source selection in %s\r\n",
-				  __func__);
+			metal_log(METAL_LOG_ERROR, "\n Invalid event source selection in %s\r\n", __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
@@ -1473,9 +1426,7 @@ u32 XRFdc_SetCoarseDelaySettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 
 		     (CoarseDelaySettingsPtr->EventSource == XRFDC_EVNT_SRC_IMMEDIATE))) {
 			Status = XRFDC_FAILURE;
 			metal_log(METAL_LOG_ERROR,
-				  "\n Invalid Event "
-				  "Source, event source is not supported in "
-				  "4GSPS ADC %s\r\n",
+				  "\n Invalid Event Source, event source is not supported in 4GSPS ADC %s\r\n",
 				  __func__);
 			goto RETURN_PATH;
 		}
@@ -1513,19 +1464,19 @@ RETURN_PATH:
 *
 * Coarse delay settings are returned back to the caller.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
-* @param	CoarseDelaySettingsPtr Pointer to the XRFdc_CoarseDelay_Settings
-*			structure in which the Coarse Delay settings are passed.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    CoarseDelaySettingsPtr Pointer to the XRFdc_CoarseDelay_Settings
+*           structure in which the Coarse Delay settings are passed.
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		None.
+* @note     None.
 *
 ******************************************************************************/
 u32 XRFdc_GetCoarseDelaySettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id,
@@ -1540,10 +1491,7 @@ u32 XRFdc_GetCoarseDelaySettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -1576,19 +1524,19 @@ RETURN_PATH:
 *
 * This function will trigger the update event for an event.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
-* @param	Event is for which dynamic update event will trigger.
-*			XRFDC_EVENT_* defines the different events.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    Event is for which dynamic update event will trigger.
+*           XRFDC_EVENT_* defines the different events.
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Common API for ADC/DAC blocks
+* @note     Common API for ADC/DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_UpdateEvent(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 Event)
@@ -1623,10 +1571,7 @@ u32 XRFdc_UpdateEvent(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u
 	}
 
 	if ((Event != XRFDC_EVENT_MIXER) && (Event != XRFDC_EVENT_QMC) && (Event != XRFDC_EVENT_CRSE_DLY)) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Event "
-			  "value in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Event value in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -1650,10 +1595,7 @@ u32 XRFdc_UpdateEvent(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u
 				XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_QMC_UPDT_OFFSET, XRFDC_QMC_UPDT_MODE_MASK);
 		}
 		if (Status != XRFDC_SUCCESS) {
-			metal_log(METAL_LOG_ERROR,
-				  "\n Requested block not "
-				  "available in %s\r\n",
-				  __func__);
+			metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 			goto RETURN_PATH;
 		}
 
@@ -1661,9 +1603,7 @@ u32 XRFdc_UpdateEvent(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u
 		    (EventSource == XRFDC_EVNT_SRC_MARKER)) {
 			Status = XRFDC_FAILURE;
 			metal_log(METAL_LOG_ERROR,
-				  "\n Invalid Event "
-				  "Source, this should be issued external to "
-				  "the driver %s\r\n",
+				  "\n Invalid Event Source, this should be issued external to the driver %s\r\n",
 				  __func__);
 			goto RETURN_PATH;
 		}
@@ -1703,18 +1643,18 @@ RETURN_PATH:
 * This API is to set the decimation factor and also update the FIFO write
 * words w.r.t to decimation factor.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
-* @param	DecimationFactor to be set for DAC block.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    DecimationFactor to be set for DAC block.
 *           XRFDC_INTERP_DECIM_* defines the valid values.
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Only ADC blocks
+* @note     Only ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 DecimationFactor)
@@ -1732,26 +1672,20 @@ u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32
 
 	Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block digital path not "
-			  "enabled in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block digital path not enabled in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
 	if ((DecimationFactor != XRFDC_INTERP_DECIM_OFF) && (DecimationFactor != XRFDC_INTERP_DECIM_1X) &&
 	    (DecimationFactor != XRFDC_INTERP_DECIM_2X) && (DecimationFactor != XRFDC_INTERP_DECIM_4X) &&
 	    (DecimationFactor != XRFDC_INTERP_DECIM_8X) &&
-	    ((InstancePtr->RFdc_Config.IPType < 2) ||
+	    ((InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) ||
 	     ((DecimationFactor != XRFDC_INTERP_DECIM_3X) && (DecimationFactor != XRFDC_INTERP_DECIM_5X) &&
 	      (DecimationFactor != XRFDC_INTERP_DECIM_6X) && (DecimationFactor != XRFDC_INTERP_DECIM_10X) &&
 	      (DecimationFactor != XRFDC_INTERP_DECIM_12X) && (DecimationFactor != XRFDC_INTERP_DECIM_16X) &&
 	      (DecimationFactor != XRFDC_INTERP_DECIM_20X) && (DecimationFactor != XRFDC_INTERP_DECIM_24X) &&
 	      (DecimationFactor != XRFDC_INTERP_DECIM_40X)))) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Decimation factor "
-			  "value in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Decimation factor value in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -1773,7 +1707,7 @@ u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32
 
 		/* Decimation factor */
 		Factor = DecimationFactor;
-		if (InstancePtr->RFdc_Config.IPType < 2) {
+		if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 			if (DecimationFactor == XRFDC_INTERP_DECIM_4X) {
 				Factor = 0x3;
 			}
@@ -1817,10 +1751,7 @@ u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32
 				FabricRate = XRFDC_FAB_RATE_1;
 				break;
 			default:
-				metal_log(METAL_LOG_DEBUG,
-					  "\n Decimation block "
-					  "is OFF in %s\r\n",
-					  __func__);
+				metal_log(METAL_LOG_DEBUG, "\n Decimation block is OFF in %s\r\n", __func__);
 				break;
 			}
 		} else {
@@ -1845,10 +1776,7 @@ u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32
 				FabricRate = XRFDC_FAB_RATE_1;
 				break;
 			default:
-				metal_log(METAL_LOG_DEBUG,
-					  "\n Decimation block "
-					  "is OFF in %s\r\n",
-					  __func__);
+				metal_log(METAL_LOG_DEBUG, "\n Decimation block is OFF in %s\r\n", __func__);
 				break;
 			}
 		}
@@ -1866,17 +1794,17 @@ RETURN_PATH:
 *
 * This API is to set the divider for clock fabric out.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
-* @param	FabClkDiv to be set for a tile.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    FabClkDiv to be set for a tile.
 *           XRFDC_FAB_CLK_* defines the valid divider values.
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		ADC and DAC Tiles
+* @note     ADC and DAC Tiles
 *
 ******************************************************************************/
 u32 XRFdc_SetFabClkOutDiv(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u16 FabClkDiv)
@@ -1889,20 +1817,14 @@ u32 XRFdc_SetFabClkOutDiv(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u16 FabClkD
 
 	Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Tile_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested tile not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested tile not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
 	if ((FabClkDiv != XRFDC_FAB_CLK_DIV1) && (FabClkDiv != XRFDC_FAB_CLK_DIV2) &&
 	    (FabClkDiv != XRFDC_FAB_CLK_DIV4) && (FabClkDiv != XRFDC_FAB_CLK_DIV8) &&
 	    (FabClkDiv != XRFDC_FAB_CLK_DIV16)) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Fabric clock out "
-			  "divider value in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Fabric clock out divider value in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -1911,10 +1833,7 @@ u32 XRFdc_SetFabClkOutDiv(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u16 FabClkD
 
 	if ((Type == XRFDC_ADC_TILE) && (FabClkDiv == XRFDC_FAB_CLK_DIV1)) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid clock divider "
-			  "in %s \r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid clock divider in %s \r\n", __func__);
 		goto RETURN_PATH;
 	} else {
 		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_HSCOM_CLK_DIV_OFFSET, XRFDC_FAB_CLK_DIV_MASK, FabClkDiv);
@@ -1930,17 +1849,17 @@ RETURN_PATH:
 *
 * This API is to get the divider for clock fabric out.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
-* @param	FabClkDivPtr is a pointer to get fabric clock for a tile.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    FabClkDivPtr is a pointer to get fabric clock for a tile.
 *           XRFDC_FAB_CLK_* defines the valid divider values.
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Tile not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		API is applicable for both ADC and DAC Tiles
+* @note     API is applicable for both ADC and DAC Tiles
 *
 ******************************************************************************/
 u32 XRFdc_GetFabClkOutDiv(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u16 *FabClkDivPtr)
@@ -1954,10 +1873,7 @@ u32 XRFdc_GetFabClkOutDiv(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u16 *FabClk
 
 	Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Tile_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested tile not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested tile not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -1980,18 +1896,18 @@ RETURN_PATH:
 * This API is to set the interpolation factor and also update the FIFO read
 * words w.r.t to interpolation factor.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
-* @param	InterpolationFactor to be set for DAC block.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    InterpolationFactor to be set for DAC block.
 *           XRFDC_INTERP_DECIM_* defines the valid values.
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Only DAC blocks
+* @note     Only DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 InterpolationFactor)
@@ -2007,26 +1923,20 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, 
 
 	Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block digital path not "
-			  "enabled in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block digital path not enabled in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
 	if ((InterpolationFactor != XRFDC_INTERP_DECIM_OFF) && (InterpolationFactor != XRFDC_INTERP_DECIM_1X) &&
 	    (InterpolationFactor != XRFDC_INTERP_DECIM_2X) && (InterpolationFactor != XRFDC_INTERP_DECIM_4X) &&
 	    (InterpolationFactor != XRFDC_INTERP_DECIM_8X) &&
-	    ((InstancePtr->RFdc_Config.IPType < 2) ||
+	    ((InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) ||
 	     ((InterpolationFactor != XRFDC_INTERP_DECIM_3X) && (InterpolationFactor != XRFDC_INTERP_DECIM_5X) &&
 	      (InterpolationFactor != XRFDC_INTERP_DECIM_6X) && (InterpolationFactor != XRFDC_INTERP_DECIM_10X) &&
 	      (InterpolationFactor != XRFDC_INTERP_DECIM_12X) && (InterpolationFactor != XRFDC_INTERP_DECIM_16X) &&
 	      (InterpolationFactor != XRFDC_INTERP_DECIM_20X) && (InterpolationFactor != XRFDC_INTERP_DECIM_24X) &&
 	      (InterpolationFactor != XRFDC_INTERP_DECIM_40X)))) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Interpolation factor "
-			  "divider value in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Interpolation factor divider value in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -2036,17 +1946,14 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, 
 	DataType = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_DAC_ITERP_DATA_OFFSET);
 	if ((DataType == XRFDC_ADC_MIXER_MODE_IQ) && (InterpolationFactor == XRFDC_INTERP_DECIM_1X)) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid interpolation "
-			  "factor in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid interpolation factor in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
 	/* Interpolation factor */
 	Factor = InterpolationFactor;
 
-	if (InstancePtr->RFdc_Config.IPType < 2) {
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 		if (InterpolationFactor == XRFDC_INTERP_DECIM_4X) {
 			Factor = 0x3;
 		}
@@ -2055,12 +1962,13 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, 
 		}
 	}
 	if (DataType == XRFDC_ADC_MIXER_MODE_IQ) {
-		Factor |= Factor << ((InstancePtr->RFdc_Config.IPType < 2) ? XRFDC_INTERP_MODE_Q_SHIFT :
-									     XRFDC_INTERP_MODE_Q_SHIFT_EXT);
+		Factor |= Factor << ((InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) ? XRFDC_INTERP_MODE_Q_SHIFT :
+										      XRFDC_INTERP_MODE_Q_SHIFT_EXT);
 	}
 
 	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_INTERP_CTRL_OFFSET,
-			(InstancePtr->RFdc_Config.IPType < 2) ? XRFDC_INTERP_MODE_MASK : XRFDC_INTERP_MODE_MASK_EXT,
+			(InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) ? XRFDC_INTERP_MODE_MASK :
+									 XRFDC_INTERP_MODE_MASK_EXT,
 			Factor);
 
 	/* Fabric rate */
@@ -2089,10 +1997,7 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, 
 			FabricRate = XRFDC_FAB_RATE_1;
 			break;
 		default:
-			metal_log(METAL_LOG_DEBUG,
-				  "\n Interpolation block "
-				  "is OFF in %s\r\n",
-				  __func__);
+			metal_log(METAL_LOG_DEBUG, "\n Interpolation block is OFF in %s\r\n", __func__);
 			break;
 		}
 	} else {
@@ -2119,10 +2024,7 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, 
 			FabricRate = XRFDC_FAB_RATE_1;
 			break;
 		default:
-			metal_log(METAL_LOG_DEBUG,
-				  "\n Interpolation block "
-				  "is OFF in %s\r\n",
-				  __func__);
+			metal_log(METAL_LOG_DEBUG, "\n Interpolation block is OFF in %s\r\n", __func__);
 			break;
 		}
 	}
@@ -2139,18 +2041,18 @@ RETURN_PATH:
 *
 * Interpolation factor are returned back to the caller.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
-* @param	InterpolationFactorPtr Pointer to return the interpolation factor
-*			for DAC blocks.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    InterpolationFactorPtr Pointer to return the interpolation factor
+*           for DAC blocks.
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Only for DAC blocks
+* @note     Only for DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *InterpolationFactorPtr)
@@ -2164,16 +2066,13 @@ u32 XRFdc_GetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, 
 
 	Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block digital path not "
-			  "enabled in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block digital path not enabled in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
 	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
 
-	if (InstancePtr->RFdc_Config.IPType < 2) {
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 		*InterpolationFactorPtr =
 			XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_DAC_INTERP_CTRL_OFFSET, XRFDC_INTERP_MODE_I_MASK);
 		if (*InterpolationFactorPtr == 0x3U) {
@@ -2196,18 +2095,18 @@ RETURN_PATH:
 *
 * Decimation factor are returned back to the caller.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
-* @param	DecimationFactorPtr Pointer to return the Decimation factor
-*			for DAC blocks.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    DecimationFactorPtr Pointer to return the Decimation factor
+*           for DAC blocks.
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Only for ADC blocks
+* @note     Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *DecimationFactorPtr)
@@ -2221,10 +2120,7 @@ u32 XRFdc_GetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32
 
 	Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block digital path not "
-			  "enabled in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block digital path not enabled in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -2234,7 +2130,7 @@ u32 XRFdc_GetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32
 
 	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Block_Id);
 
-	if (InstancePtr->RFdc_Config.IPType < 2) {
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 		*DecimationFactorPtr =
 			XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_DECI_MODE_OFFSET, XRFDC_DEC_MOD_MASK);
 		if (*DecimationFactorPtr == 0x3U) {
@@ -2259,17 +2155,17 @@ RETURN_PATH:
 * corresponding register. The function writes the number of valid write words
 * for the requested DAC block.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
-* @param	FabricWrVldWords is write fabric rate to be set for DAC block.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    FabricWrVldWords is write fabric rate to be set for DAC block.
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Only for DAC blocks
+* @note     Only for DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetFabWrVldWords(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 FabricWrVldWords)
@@ -2282,18 +2178,12 @@ u32 XRFdc_SetFabWrVldWords(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Fa
 
 	Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block digital path not "
-			  "enabled in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block digital path not enabled in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
 	if (FabricWrVldWords > XRFDC_DAC_MAX_WR_FAB_RATE) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested write valid words "
-			  "is Invalid in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested write valid words is Invalid in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -2314,17 +2204,17 @@ RETURN_PATH:
 * corresponding register. The function writes the number of valid read words
 * for the requested ADC block.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC block number inside the tile. Valid values
-*			are 0-3.
-* @param	FabricRdVldWords is Read fabric rate to be set for ADC block.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC block number inside the tile. Valid values
+*           are 0-3.
+* @param    FabricRdVldWords is Read fabric rate to be set for ADC block.
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Only for ADC blocks
+* @note     Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetFabRdVldWords(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 FabricRdVldWords)
@@ -2339,18 +2229,12 @@ u32 XRFdc_SetFabRdVldWords(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Fa
 
 	Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block digital path not "
-			  "enabled in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block digital path not enabled in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
 	if (FabricRdVldWords > XRFDC_ADC_MAX_RD_FAB_RATE) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested read "
-			  "valid words is Invalid in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested read valid words is Invalid in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -2383,19 +2267,19 @@ RETURN_PATH:
 * This API returns the the number of fabric write valid words requested
 * for the block.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
-* @param	FabricWrVldWordsPtr Pointer to return the fabric data rate for
-*			DAC block
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    FabricWrVldWordsPtr Pointer to return the fabric data rate for
+*           DAC block
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		ADC/DAC blocks
+* @note     ADC/DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetFabWrVldWords(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 *FabricWrVldWordsPtr)
@@ -2409,10 +2293,7 @@ u32 XRFdc_GetFabWrVldWords(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 
 	Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block digital path not "
-			  "enabled in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block digital path not enabled in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -2441,19 +2322,19 @@ RETURN_PATH:
 * This API returns the the number of fabric read valid words requested
 * for the block.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
-* @param	FabricRdVldWordsPtr Pointer to return the fabric data rate for
-*			ADC/DAC block
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    FabricRdVldWordsPtr Pointer to return the fabric data rate for
+*           ADC/DAC block
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		ADC/DAC blocks
+* @note     ADC/DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetFabRdVldWords(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 *FabricRdVldWordsPtr)
@@ -2467,10 +2348,7 @@ u32 XRFdc_GetFabRdVldWords(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 
 	Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block digital path not "
-			  "enabled in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block digital path not enabled in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -2493,18 +2371,18 @@ RETURN_PATH:
 *
 * This API is to clear the Sticky bit in threshold config registers.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
-* @param	ThresholdToUpdate Select which Threshold (Threshold0 or
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    ThresholdToUpdate Select which Threshold (Threshold0 or
 *           Threshold1 or both) to update.
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Only ADC blocks
+* @note     Only ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_ThresholdStickyClear(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 ThresholdToUpdate)
@@ -2519,19 +2397,13 @@ u32 XRFdc_ThresholdStickyClear(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u3
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
 	if ((ThresholdToUpdate != XRFDC_UPDATE_THRESHOLD_0) && (ThresholdToUpdate != XRFDC_UPDATE_THRESHOLD_1) &&
 	    (ThresholdToUpdate != XRFDC_UPDATE_THRESHOLD_BOTH)) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid ThresholdToUpdate "
-			  "value in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid ThresholdToUpdate value in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -2590,20 +2462,20 @@ RETURN_PATH:
 * This API sets the threshold clear mode. The clear mode can be through
 * explicit DRP access (manual) or auto clear (QMC gain update event).
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADCC block number inside the tile. Valid values
-*			are 0-3.
-* @param	ThresholdToUpdate Select which Threshold (Threshold0 or
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADCC block number inside the tile. Valid values
+*           are 0-3.
+* @param    ThresholdToUpdate Select which Threshold (Threshold0 or
 *           Threshold1 or both) to update.
-* @param	ClrMode can be DRP access (manual) or auto clear (QMC gain
+* @param    ClrMode can be DRP access (manual) or auto clear (QMC gain
 *           update event).
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Only ADC blocks
+* @note     Only ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetThresholdClrMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 ThresholdToUpdate, u32 ClrMode)
@@ -2619,28 +2491,19 @@ u32 XRFdc_SetThresholdClrMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
 	if ((ThresholdToUpdate != XRFDC_UPDATE_THRESHOLD_0) && (ThresholdToUpdate != XRFDC_UPDATE_THRESHOLD_1) &&
 	    (ThresholdToUpdate != XRFDC_UPDATE_THRESHOLD_BOTH)) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid ThresholdToUpdate "
-			  "value in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid ThresholdToUpdate value in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
 
 	if ((ClrMode != XRFDC_THRESHOLD_CLRMD_MANUAL_CLR) && (ClrMode != XRFDC_THRESHOLD_CLRMD_AUTO_CLR)) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Clear mode "
-			  "value in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Clear mode value in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -2711,18 +2574,18 @@ RETURN_PATH:
 * The function returns the requested threshold (which can be threshold0,
 * threshold1, or both.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
-* @param	ThresholdSettingsPtr Pointer through which the register settings for
-*			thresholds are passed to the API.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    ThresholdSettingsPtr Pointer through which the register settings for
+*           thresholds are passed to the API.
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Only ADC blocks
+* @note     Only ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetThresholdSettings(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
@@ -2740,10 +2603,7 @@ u32 XRFdc_SetThresholdSettings(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -2773,20 +2633,14 @@ u32 XRFdc_SetThresholdSettings(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 		if ((ThresholdSettingsPtr->UpdateThreshold != XRFDC_UPDATE_THRESHOLD_0) &&
 		    (ThresholdSettingsPtr->UpdateThreshold != XRFDC_UPDATE_THRESHOLD_1) &&
 		    (ThresholdSettingsPtr->UpdateThreshold != XRFDC_UPDATE_THRESHOLD_BOTH)) {
-			metal_log(METAL_LOG_ERROR,
-				  "\n Invalid UpdateThreshold "
-				  "value in %s\r\n",
-				  __func__);
+			metal_log(METAL_LOG_ERROR, "\n Invalid UpdateThreshold value in %s\r\n", __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
 		if (((ThresholdSettingsPtr->UpdateThreshold == XRFDC_UPDATE_THRESHOLD_0) ||
 		     (ThresholdSettingsPtr->UpdateThreshold == XRFDC_UPDATE_THRESHOLD_BOTH)) &&
 		    (ThresholdSettingsPtr->ThresholdMode[0] > XRFDC_TRSHD_HYSTERISIS)) {
-			metal_log(METAL_LOG_ERROR,
-				  "\n Requested threshold "
-				  "mode for threshold0 is invalid "
-				  "in %s\r\n",
+			metal_log(METAL_LOG_ERROR, "\n Requested threshold mode for threshold0 is invalid in %s\r\n",
 				  __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
@@ -2794,10 +2648,7 @@ u32 XRFdc_SetThresholdSettings(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 		if (((ThresholdSettingsPtr->UpdateThreshold == XRFDC_UPDATE_THRESHOLD_1) ||
 		     (ThresholdSettingsPtr->UpdateThreshold == XRFDC_UPDATE_THRESHOLD_BOTH)) &&
 		    (ThresholdSettingsPtr->ThresholdMode[1] > XRFDC_TRSHD_HYSTERISIS)) {
-			metal_log(METAL_LOG_ERROR,
-				  "\n Requested threshold "
-				  "mode for threshold1 is invalid "
-				  "in %s\r\n",
+			metal_log(METAL_LOG_ERROR, "\n Requested threshold mode for threshold1 is invalid in %s\r\n",
 				  __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
@@ -2865,18 +2716,18 @@ RETURN_PATH:
 * The function returns the requested threshold (which can be threshold0,
 * threshold1, or both.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
-* @param	ThresholdSettingsPtr Pointer through which the register settings
-*			for thresholds are passed back..
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    ThresholdSettingsPtr Pointer through which the register settings
+*           for thresholds are passed back..
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Only for ADC blocks
+* @note     Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetThresholdSettings(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
@@ -2891,10 +2742,7 @@ u32 XRFdc_GetThresholdSettings(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -2946,18 +2794,18 @@ RETURN_PATH:
 * Decoder mode is updated into the relevant registers. Driver structure is
 * updated with the new values.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is DAC block number inside the tile. Valid values
-*			are 0-3.
-* @param	DecoderMode Valid values are 1 (Maximum SNR, for non-
-*			randomized decoder), 2 (Maximum Linearity, for randomized decoder)
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    DecoderMode Valid values are 1 (Maximum SNR, for non-
+*           randomized decoder), 2 (Maximum Linearity, for randomized decoder)
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Only DAC blocks
+* @note     Only DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetDecoderMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 DecoderMode)
@@ -2971,10 +2819,7 @@ u32 XRFdc_SetDecoderMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Deco
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -2982,10 +2827,7 @@ u32 XRFdc_SetDecoderMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Deco
 	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
 
 	if ((DecoderMode != XRFDC_DECODER_MAX_SNR_MODE) && (DecoderMode != XRFDC_DECODER_MAX_LINEARITY_MODE)) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid decoder mode "
-			  "in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid decoder mode in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -3003,18 +2845,18 @@ RETURN_PATH:
 *
 * Decoder mode is read and returned back.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is DAC block number inside the tile. Valid values
-*			are 0-3.
-* @param	DecoderModePtr Valid values are 1 (Maximum SNR, for non-randomized
-*			decoder), 2 (Maximum Linearity, for randomized decoder)
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    DecoderModePtr Valid values are 1 (Maximum SNR, for non-randomized
+*           decoder), 2 (Maximum Linearity, for randomized decoder)
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Only for DAC blocks
+* @note     Only for DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetDecoderMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *DecoderModePtr)
@@ -3028,10 +2870,7 @@ u32 XRFdc_GetDecoderMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *Dec
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -3048,17 +2887,17 @@ RETURN_PATH:
 *
 * Resets the NCO phase of the current block phase accumulator.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		None
+* @note     None.
 *
 ******************************************************************************/
 u32 XRFdc_ResetNCOPhase(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
@@ -3073,10 +2912,7 @@ u32 XRFdc_ResetNCOPhase(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
 
 	Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block digital path not "
-			  "enabled in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block digital path not enabled in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -3101,6 +2937,7 @@ u32 XRFdc_ResetNCOPhase(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
 RETURN_PATH:
 	return Status;
 }
+
 /*****************************************************************************/
 /**
 *
@@ -3112,10 +2949,10 @@ RETURN_PATH:
 * @param    Enable valid values are 1 (FIFO enable) and 0 (FIFO Disable)
 *
 * @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Tile not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Common API for ADC/DAC blocks
+* @note     Common API for ADC/DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetupFIFO(XRFdc *InstancePtr, u32 Type, int Tile_Id, u8 Enable)
@@ -3129,10 +2966,7 @@ u32 XRFdc_SetupFIFO(XRFdc *InstancePtr, u32 Type, int Tile_Id, u8 Enable)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
 	if ((Enable != 0U) && (Enable != 1U)) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid enable "
-			  "value in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid enable value in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -3151,16 +2985,10 @@ u32 XRFdc_SetupFIFO(XRFdc *InstancePtr, u32 Type, int Tile_Id, u8 Enable)
 
 		Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Index);
 		if ((Status != XRFDC_SUCCESS) && (Tile_Id != XRFDC_SELECT_ALL_TILES)) {
-			metal_log(METAL_LOG_ERROR,
-				  "\n Requested tile%d not "
-				  "available in %s\r\n",
-				  Index, __func__);
+			metal_log(METAL_LOG_ERROR, "\n Requested tile%d not available in %s\r\n", Index, __func__);
 			goto RETURN_PATH;
 		} else if (Status != XRFDC_SUCCESS) {
-			metal_log(METAL_LOG_DEBUG,
-				  "\n Tile%d not "
-				  "available in %s\r\n",
-				  Index, __func__);
+			metal_log(METAL_LOG_DEBUG, "\n Tile%d not available in %s\r\n", Index, __func__);
 			continue;
 		} else {
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_FIFO_ENABLE, XRFDC_FIFO_EN_MASK, (!Enable));
@@ -3183,10 +3011,10 @@ RETURN_PATH:
 * @param    EnablePtr valid values are 1 (FIFO enable) and 0 (FIFO Disable)
 *
 * @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Tile not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Common API for ADC/DAC blocks
+* @note     Common API for ADC/DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetFIFOStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 *EnablePtr)
@@ -3201,10 +3029,7 @@ u32 XRFdc_GetFIFOStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 *EnablePtr
 
 	Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Tile_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested tile not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested tile not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -3224,14 +3049,14 @@ RETURN_PATH:
 *
 * Get Output Current for DAC block.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
 * @param    OutputCurrPtr pointer to return the output current.
 *
 * @return
-*		- Return Output Current for DAC block
+*           - Return Output Current for DAC block
 *
 ******************************************************************************/
 u32 XRFdc_GetOutputCurr(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *OutputCurrPtr)
@@ -3247,10 +3072,7 @@ u32 XRFdc_GetOutputCurr(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *Outp
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -3267,10 +3089,7 @@ u32 XRFdc_GetOutputCurr(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *Outp
 		*OutputCurrPtr = 0x0;
 	} else {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid output "
-			  "current value %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid output current value %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -3287,15 +3106,15 @@ RETURN_PATH:
 * @param    InstancePtr is a pointer to the XRfdc instance.
 * @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
 * @param    Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
 * @param    NyquistZone valid values are 1 (Odd),2 (Even).
 *
 * @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Tile not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Common API for ADC/DAC blocks
+* @note     Common API for ADC/DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetNyquistZone(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 NyquistZone)
@@ -3312,18 +3131,12 @@ u32 XRFdc_SetNyquistZone(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
 	if ((NyquistZone != XRFDC_ODD_NYQUIST_ZONE) && (NyquistZone != XRFDC_EVEN_NYQUIST_ZONE)) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid NyquistZone "
-			  "value in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid NyquistZone value in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -3390,15 +3203,15 @@ RETURN_PATH:
 * @param    InstancePtr is a pointer to the XRfdc instance.
 * @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
 * @param    Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
 * @param    NyquistZonePtr Pointer to return the Nyquist zone.
 *
 * @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Tile not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Common API for ADC/DAC blocks
+* @note     Common API for ADC/DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetNyquistZone(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 *NyquistZonePtr)
@@ -3426,10 +3239,7 @@ u32 XRFdc_GetNyquistZone(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 		Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	}
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -3479,15 +3289,15 @@ RETURN_PATH:
 *
 * @param    InstancePtr is a pointer to the XRfdc instance.
 * @param    Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
 * @param    Mode valid values are 0-3.
 *
 * @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Tile not enabled / out of range.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if tile not enabled / out of range.
 *
-* @note		Only for DAC blocks
+* @note     Only for DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mode)
@@ -3501,18 +3311,12 @@ u32 XRFdc_SetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mod
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		return Status;
 	}
 
 	if (Mode > XRFDC_DAC_MODE_MAX) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Mode "
-			  "value in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Mode value in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		return Status;
 	}
@@ -3532,15 +3336,15 @@ u32 XRFdc_SetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mod
 *
 * @param    InstancePtr is a pointer to the XRfdc instance.
 * @param    Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
 * @param    ModePtr pointer used to return value.
 *
 * @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Tile not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Only for DAC blocks
+* @note     Only for DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *ModePtr)
@@ -3554,10 +3358,7 @@ u32 XRFdc_GetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *Mo
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		return Status;
 	}
 
@@ -3573,15 +3374,15 @@ u32 XRFdc_GetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *Mo
 *
 * @param    InstancePtr is a pointer to the XRfdc instance.
 * @param    Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
 * @param    Mode valid values are 0 (for low pass) 1 (for high pass).
 *
 * @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Tile not enabled / bad parameter passed
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if tile not enabled / bad parameter passed
 *
-* @note		Only for DAC blocks
+* @note     Only for DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetIMRPassMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mode)
@@ -3594,18 +3395,12 @@ u32 XRFdc_SetIMRPassMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mode
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		return Status;
 	}
 
 	if (Mode > XRFDC_DAC_IMR_MODE_MAX) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Mode "
-			  "value in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Mode value in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		return Status;
 	}
@@ -3623,15 +3418,15 @@ u32 XRFdc_SetIMRPassMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mode
 *
 * @param    InstancePtr is a pointer to the XRfdc instance.
 * @param    Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
 * @param     ModePtr pointer used to return value.
 *
 * @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Tile not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Only for DAC blocks
+* @note     Only for DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetIMRPassMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *ModePtr)
@@ -3645,10 +3440,7 @@ u32 XRFdc_GetIMRPassMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *Mod
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		return Status;
 	}
 
@@ -3656,6 +3448,7 @@ u32 XRFdc_GetIMRPassMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *Mod
 	*ModePtr = (XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_DAC_DATAPATH_OFFSET, XRFDC_DATAPATH_IMR_MASK)) >> 2;
 	return Status;
 }
+
 /*****************************************************************************/
 /**
 *
@@ -3663,15 +3456,15 @@ u32 XRFdc_GetIMRPassMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *Mod
 *
 * @param    InstancePtr is a pointer to the XRfdc instance.
 * @param    Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
 * @param    CalibrationMode valid values are 1 and 2.
 *
 * @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Tile not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Only for ADC blocks
+* @note     Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 CalibrationMode)
@@ -3688,10 +3481,7 @@ u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 C
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
 	if ((CalibrationMode != XRFDC_CALIB_MODE1) && (CalibrationMode != XRFDC_CALIB_MODE2)) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Calibration mode "
-			  "value in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Calibration mode value in %s\r\n", __func__);
 		return XRFDC_FAILURE;
 	}
 
@@ -3757,15 +3547,15 @@ u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 C
 *
 * @param    InstancePtr is a pointer to the XRfdc instance.
 * @param    Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
 * @param    CalibrationModePtr pointer to get the calibration mode.
 *
 * @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Tile not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Only for ADC blocks
+* @note     Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 *CalibrationModePtr)
@@ -3784,10 +3574,7 @@ u32 XRFdc_GetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 *
 		Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	}
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -3818,18 +3605,18 @@ RETURN_PATH:
 *
 * This API is used to set the mode for the Inverse-Sinc filter.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is DAC block number inside the tile. Valid values
-*			are 0-3.
-* @param	Mode valid values are 0(disable),  1(1st Nyquist zone)
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    Mode valid values are 0(disable),  1(1st Nyquist zone)
 			and 2(2nd Nyquist zone).
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled/invalid mode.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if block not enabled/invalid mode.
 *
-* @note		Only DAC blocks
+* @note     Only DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u16 Mode)
@@ -3840,26 +3627,21 @@ u32 XRFdc_SetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u16 Mode)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
-	if (Mode > ((InstancePtr->RFdc_Config.IPType < 2) ? XRFDC_INV_SYNC_EN_MAX : XRFDC_INV_SYNC_MODE_MAX)) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid mode "
-			  "value in %s\r\n",
-			  __func__);
+	if (Mode > ((InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) ? XRFDC_INV_SYNC_EN_MAX : XRFDC_INV_SYNC_MODE_MAX)) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid mode value in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
 	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
-	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_INVSINC_OFFSET,
-			(InstancePtr->RFdc_Config.IPType < 2) ? XRFDC_EN_INVSINC_MASK : XRFDC_MODE_INVSINC_MASK, Mode);
+	XRFdc_ClrSetReg(
+		InstancePtr, BaseAddr, XRFDC_DAC_INVSINC_OFFSET,
+		(InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) ? XRFDC_EN_INVSINC_MASK : XRFDC_MODE_INVSINC_MASK, Mode);
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
 	return Status;
@@ -3870,18 +3652,18 @@ RETURN_PATH:
 *
 * This API is used to get the Inverse-Sinc filter mode.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is DAC block number inside the tile. Valid values
-*			are 0-3.
-* @param	ModePtr is a pointer to get the inv-sinc status. valid values
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    ModePtr is a pointer to get the inv-sinc status. valid values
 *           are 0(disable),  1(1st Nyquist zone) and 2(2nd Nyquist zone).
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Only DAC blocks
+* @note     Only DAC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u16 *ModePtr)
@@ -3895,16 +3677,14 @@ u32 XRFdc_GetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u16 *Mode
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
 	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	*ModePtr = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_DAC_INVSINC_OFFSET,
-			       (InstancePtr->RFdc_Config.IPType < 2) ? XRFDC_EN_INVSINC_MASK : XRFDC_MODE_INVSINC_MASK);
+			       (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) ? XRFDC_EN_INVSINC_MASK :
+										XRFDC_MODE_INVSINC_MASK);
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
 	return Status;
@@ -3915,13 +3695,13 @@ RETURN_PATH:
 *
 * Static API to dump ADC registers.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3, and -1.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3, and -1.
 *
 * @return
-*			None
+*           None
 *
-* @note		None
+* @note     None.
 *
 ******************************************************************************/
 static void XRFdc_DumpADCRegs(XRFdc *InstancePtr, int Tile_Id)
@@ -3971,13 +3751,13 @@ static void XRFdc_DumpADCRegs(XRFdc *InstancePtr, int Tile_Id)
 *
 * Static API to dump DAC registers.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3, and -1.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3, and -1.
 *
 * @return
-*			None
+*           None
 *
-* @note		None
+* @note     None.
 *
 ******************************************************************************/
 static void XRFdc_DumpDACRegs(XRFdc *InstancePtr, int Tile_Id)
@@ -4017,14 +3797,14 @@ static void XRFdc_DumpDACRegs(XRFdc *InstancePtr, int Tile_Id)
 *
 * Static API to dump HSCOM registers.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3, and -1.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3, and -1.
 *
 * @return
-*			None
+*           None
 *
-* @note		None
+* @note     None.
 *
 ******************************************************************************/
 static void XRFdc_DumpHSCOMRegs(XRFdc *InstancePtr, u32 Type, int Tile_Id)
@@ -4061,14 +3841,14 @@ static void XRFdc_DumpHSCOMRegs(XRFdc *InstancePtr, u32 Type, int Tile_Id)
 * of registers for the passed Tile_Id. If -1 is passed, it prints the contents
 * of the registers for all the tiles for the respective ADC or DAC
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3, and -1.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3, and -1.
 *
 * @return
-*			None
+*           None
 *
-* @note		None
+* @note     None.
 *
 ******************************************************************************/
 void XRFdc_DumpRegs(XRFdc *InstancePtr, u32 Type, int Tile_Id)
@@ -4103,15 +3883,15 @@ void XRFdc_DumpRegs(XRFdc *InstancePtr, u32 Type, int Tile_Id)
 * This is a stub for the status callback. The stub is here in case the upper
 * layers forget to set the handler.
 *
-* @param	CallBackRefPtr is a pointer to the upper layer callback reference.
-* @param	Type indicates ADC/DAC.
-* @param	Tile_Id indicates Tile number (0-3).
-* @param	Block_Id indicates Block number (0-3).
-* @param	StatusEvent indicates one or more interrupt occurred.
+* @param    CallBackRefPtr is a pointer to the upper layer callback reference.
+* @param    Type indicates ADC/DAC.
+* @param    Tile_Id indicates Tile number (0-3).
+* @param    Block_Id indicates Block number (0-3).
+* @param    StatusEvent indicates one or more interrupt occurred.
 *
-* @return	None.
+* @note     None.
 *
-* @note		None.
+* @note     None.
 *
 ******************************************************************************/
 static void StubHandler(void *CallBackRefPtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 StatusEvent)
@@ -4124,21 +3904,22 @@ static void StubHandler(void *CallBackRefPtr, u32 Type, u32 Tile_Id, u32 Block_I
 
 	Xil_AssertVoidAlways();
 }
+
 /*****************************************************************************/
 /**
 *
 * This function is used to get the Link Coupling mode.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id indicates Tile number (0-3).
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id indicates Tile number (0-3).
 * @param    Block_Id indicates Block number(0-3 for 2G, 0-1 for 4G).
-* @param	ModePtr pointer to get link coupling mode.
+* @param    ModePtr pointer to get link coupling mode.
 *
 * @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Tile not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Only for ADC blocks
+* @note     Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetLinkCoupling(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *ModePtr)
@@ -4153,10 +3934,7 @@ u32 XRFdc_GetLinkCoupling(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *Mo
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -4183,17 +3961,17 @@ RETURN_PATH:
 *
 * This function is used to set the IM3 Dither mode.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id indicates Tile number (0-3).
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id indicates Tile number (0-3).
 * @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
-* @param	Mode 0: Disable
-*				 1: Enable
+* @param    Mode 0: Disable
+*                1: Enable
 *
 * @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Tile not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Only for ADC blocks
+* @note     Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetDither(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mode)
@@ -4208,19 +3986,13 @@ u32 XRFdc_SetDither(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mode)
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
 	if (Mode > XRFDC_DITH_ENABLE) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Dither Mode "
-			  "in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Dither Mode in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 	Index = Block_Id;
@@ -4250,16 +4022,16 @@ RETURN_PATH:
 *
 * This function is used to get the IM3 Dither mode.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id indicates Tile number (0-3).
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id indicates Tile number (0-3).
 * @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
-* @param	ModePtr pointer to get link coupling mode.
+* @param    ModePtr pointer to get link coupling mode.
 *
 * @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Tile not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Only for ADC blocks
+* @note     Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetDither(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *ModePtr)
@@ -4274,10 +4046,7 @@ u32 XRFdc_GetDither(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *ModePtr)
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -4298,22 +4067,23 @@ u32 XRFdc_GetDither(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *ModePtr)
 RETURN_PATH:
 	return Status;
 }
+
 /*****************************************************************************/
 /**
 *
 * This function is used to set the ADC Signal Detector Settings.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id indicates Tile number (0-3).
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id indicates Tile number (0-3).
 * @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
 * @param    SettingsPtr pointer to the XRFdc_Signal_Detector_Settings structure
 *           to set the signal detector configurations
 *
 * @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Tile not enabled, or invalid values.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if tile not enabled, or invalid values.
 *
-* @note		Only for ADC blocks
+* @note     Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetSignalDetector(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Signal_Detector_Settings *SettingsPtr)
@@ -4328,62 +4098,41 @@ u32 XRFdc_SetSignalDetector(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc
 	Xil_AssertNonvoid(SettingsPtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
-	if (InstancePtr->RFdc_Config.IPType < 2) {
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested fuctionality not "
-			  "available for this IP in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested fuctionality not available for this IP in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 	if (SettingsPtr->Mode > XRFDC_SIGDET_MODE_RNDM) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Signal Detector "
-			  "Mode in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Signal Detector Mode in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 	if (SettingsPtr->EnableIntegrator > XRFDC_ENABLED) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Signal Detector "
-			  "Integrator Enable in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Signal Detector Integrator Enable in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 	if (SettingsPtr->HysteresisEnable > XRFDC_ENABLED) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Signal Detector "
-			  "Hysteresis Enable in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Signal Detector Hysteresis Enable in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 	if (SettingsPtr->Flush > XRFDC_ENABLED) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Signal Detector "
-			  "Flush Option in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Signal Detector Flush Option in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 	if (SettingsPtr->TimeConstant > XRFDC_SIGDET_TC_2_18) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Signal Detector "
-			  "Time Constant in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Signal Detector Time Constant in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 	SignalDetCtrlReg |= SettingsPtr->EnableIntegrator << XRFDC_ADC_SIG_DETECT_INTG_SHIFT;
@@ -4427,17 +4176,17 @@ RETURN_PATH:
 *
 * This function is used to get the ADC Signal Detector Settings.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id indicates Tile number (0-3).
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id indicates Tile number (0-3).
 * @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
 * @param    SettingsPtr pointer to the XRFdc_Signal_Detector_Settings structure
 *           to get the signal detector configurations
 *
 * @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Tile not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Only for ADC blocks
+* @note     Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetSignalDetector(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Signal_Detector_Settings *SettingsPtr)
@@ -4449,21 +4198,15 @@ u32 XRFdc_GetSignalDetector(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc
 	Xil_AssertNonvoid(SettingsPtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
-	if (InstancePtr->RFdc_Config.IPType < 2) {
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested functionality not "
-			  "available for this IP in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested functionality not available for this IP in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -4492,21 +4235,22 @@ u32 XRFdc_GetSignalDetector(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc
 RETURN_PATH:
 	return Status;
 }
+
 /*****************************************************************************/
 /**
 *
 * This function is used to disable Calibration Coefficients override.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id indicates Tile number (0-3).
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id indicates Tile number (0-3).
 * @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
-* @param	CalibrationBlock indicates the calibration block.
+* @param    CalibrationBlock indicates the calibration block.
 *
 * @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if error occurs.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Only for ADC blocks
+* @note     Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_DisableCoefficientsOverride(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 CalibrationBlock)
@@ -4521,19 +4265,13 @@ u32 XRFdc_DisableCoefficientsOverride(XRFdc *InstancePtr, u32 Tile_Id, u32 Block
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
-	if ((InstancePtr->RFdc_Config.IPType < 2) && (CalibrationBlock == XRFDC_CAL_BLOCK_OCB1)) {
+	if ((InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) && (CalibrationBlock == XRFDC_CAL_BLOCK_OCB1)) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested functionality not "
-			  "available for this IP in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested functionality not available for this IP in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -4560,7 +4298,7 @@ u32 XRFdc_DisableCoefficientsOverride(XRFdc *InstancePtr, u32 Tile_Id, u32 Block
 					XRFDC_DISABLED);
 			break;
 		case XRFDC_CAL_BLOCK_GCB:
-			if (InstancePtr->RFdc_Config.IPType < 2) {
+			if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL1_OFFSET,
 						XRFDC_CAL_GCB_ENFL_MASK, XRFDC_CAL_GCB_ACEN_MASK);
 				/*Clear IP Override Coeffs*/
@@ -4578,7 +4316,7 @@ u32 XRFdc_DisableCoefficientsOverride(XRFdc *InstancePtr, u32 Tile_Id, u32 Block
 			}
 			break;
 		case XRFDC_CAL_BLOCK_TSCB:
-			if (InstancePtr->RFdc_Config.IPType < 2) {
+			if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF0_ALT,
 						XRFDC_CAL_TSCB_EN_MASK, XRFDC_DISABLED);
 				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF1_ALT,
@@ -4616,10 +4354,7 @@ u32 XRFdc_DisableCoefficientsOverride(XRFdc *InstancePtr, u32 Tile_Id, u32 Block
 			break;
 		default:
 			Status = XRFDC_FAILURE;
-			metal_log(METAL_LOG_ERROR,
-				  "\n Invalid Calibration "
-				  "Mode in %s\r\n",
-				  __func__);
+			metal_log(METAL_LOG_ERROR, "\n Invalid Calibration Mode in %s\r\n", __func__);
 			goto RETURN_PATH;
 		}
 	}
@@ -4627,23 +4362,24 @@ u32 XRFdc_DisableCoefficientsOverride(XRFdc *InstancePtr, u32 Tile_Id, u32 Block
 RETURN_PATH:
 	return Status;
 }
+
 /*****************************************************************************/
 /**
 *
 * This function is used to set the ADC Calibration Coefficients.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id indicates Tile number (0-3).
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id indicates Tile number (0-3).
 * @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
-* @param	CalibrationBlock indicates the block to be written to.
+* @param    CalibrationBlock indicates the block to be written to.
 * @param    CoeffPtr is pointer to the XRFdc_Calibration_Coefficients structure
 *           to set the calibration coefficients.
 *
 * @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if error occurs.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Only for ADC blocks
+* @note     Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 CalibrationBlock,
@@ -4660,12 +4396,9 @@ u32 XRFdc_SetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 	Xil_AssertNonvoid(CoeffPtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
-	if ((InstancePtr->RFdc_Config.IPType < 2) && (CalibrationBlock == XRFDC_CAL_BLOCK_OCB1)) {
+	if ((InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) && (CalibrationBlock == XRFDC_CAL_BLOCK_OCB1)) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested functionality not "
-			  "available for this IP in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested functionality not available for this IP in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -4673,10 +4406,7 @@ u32 XRFdc_SetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 		if ((CoeffPtr->Coeff0 | CoeffPtr->Coeff1 | CoeffPtr->Coeff2 | CoeffPtr->Coeff3) &
 		    ~(XRFDC_CAL_GCB_MASK | (XRFDC_CAL_GCB_MASK << XRFDC_CAL_SLICE_SHIFT))) {
 			Status = XRFDC_FAILURE;
-			metal_log(METAL_LOG_ERROR,
-				  "\n Bad Coefficient "
-				  "available for this IP in %s\r\n",
-				  __func__);
+			metal_log(METAL_LOG_ERROR, "\n Bad Coefficient available for this IP in %s\r\n", __func__);
 			goto RETURN_PATH;
 		}
 	}
@@ -4686,19 +4416,13 @@ u32 XRFdc_SetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 		     CoeffPtr->Coeff5 | CoeffPtr->Coeff6 | CoeffPtr->Coeff7) &
 		    ~(XRFDC_CAL_TSCB_MASK | (XRFDC_CAL_TSCB_MASK << XRFDC_CAL_SLICE_SHIFT))) {
 			Status = XRFDC_FAILURE;
-			metal_log(METAL_LOG_ERROR,
-				  "\n Bad Coefficient "
-				  "available for this IP in %s\r\n",
-				  __func__);
+			metal_log(METAL_LOG_ERROR, "\n Bad Coefficient available for this IP in %s\r\n", __func__);
 			goto RETURN_PATH;
 		}
 	}
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -4744,7 +4468,7 @@ u32 XRFdc_SetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 			break;
 		case XRFDC_CAL_BLOCK_GCB:
 
-			if (InstancePtr->RFdc_Config.IPType < 2) {
+			if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL1_OFFSET,
 						XRFDC_CAL_GCB_ACEN_MASK, XRFDC_DISABLED);
 				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL1_OFFSET,
@@ -4775,7 +4499,7 @@ u32 XRFdc_SetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 			}
 			break;
 		case XRFDC_CAL_BLOCK_TSCB:
-			if (InstancePtr->RFdc_Config.IPType < 2) {
+			if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF0_ALT,
 						XRFDC_CAL_TSCB_EN_MASK, XRFDC_ENABLED << XRFDC_CAL_TSCB_EN_SHIFT);
 				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF1_ALT,
@@ -4845,10 +4569,7 @@ u32 XRFdc_SetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 			break;
 		default:
 			Status = XRFDC_FAILURE;
-			metal_log(METAL_LOG_ERROR,
-				  "\n Invalid Calibration "
-				  "Mode in %s\r\n",
-				  __func__);
+			metal_log(METAL_LOG_ERROR, "\n Invalid Calibration Mode in %s\r\n", __func__);
 			goto RETURN_PATH;
 		}
 	}
@@ -4856,23 +4577,24 @@ u32 XRFdc_SetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 RETURN_PATH:
 	return Status;
 }
+
 /*****************************************************************************/
 /**
 *
 * This function is used to get the ADC Calibration Coefficients.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id indicates Tile number (0-3).
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id indicates Tile number (0-3).
 * @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
-* @param	CalibrationBlock indicates the block to be read from
+* @param    CalibrationBlock indicates the block to be read from
 * @param    CoeffPtr is pointer to the XRFdc_Calibration_Coefficients structure
 *           to get the calibration coefficients.
 *
 * @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if error occurs.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Only for ADC blocks
+* @note     Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 CalibrationBlock,
@@ -4891,10 +4613,7 @@ u32 XRFdc_GetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -4943,7 +4662,7 @@ u32 XRFdc_GetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 				<< Shift;
 			break;
 		case XRFDC_CAL_BLOCK_GCB:
-			if (InstancePtr->RFdc_Config.IPType < 2) {
+			if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 				if (XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL1_OFFSET,
 						XRFDC_CAL_GCB_FLSH_MASK) == XRFDC_DISABLED) {
 					CoeffPtr->Coeff0 |=
@@ -5000,7 +4719,7 @@ u32 XRFdc_GetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 			}
 			break;
 		case XRFDC_CAL_BLOCK_TSCB:
-			if (InstancePtr->RFdc_Config.IPType < 2) {
+			if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 				CoeffPtr->Coeff0 |= XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF0_ALT,
 								XRFDC_CAL_TSCB_MASK)
 						    << Shift;
@@ -5054,10 +4773,7 @@ u32 XRFdc_GetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 			break;
 		default:
 			Status = XRFDC_FAILURE;
-			metal_log(METAL_LOG_ERROR,
-				  "\n Invalid Calibration "
-				  "Mode in %s\r\n",
-				  __func__);
+			metal_log(METAL_LOG_ERROR, "\n Invalid Calibration Mode in %s\r\n", __func__);
 			goto RETURN_PATH;
 		}
 	}
@@ -5065,21 +4781,22 @@ u32 XRFdc_GetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 RETURN_PATH:
 	return Status;
 }
+
 /*****************************************************************************/
 /**
 *
 * This function is used to set calibration freeze settings.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id indicates Tile number (0-3).
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id indicates Tile number (0-3).
 * @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
-* @param	CalFreezePtr pointer to the settings to be applied.
+* @param    CalFreezePtr pointer to the settings to be applied.
 *
 * @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if error occurs.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Only for ADC blocks
+* @note     Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_SetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Cal_Freeze_Settings *CalFreezePtr)
@@ -5095,28 +4812,19 @@ u32 XRFdc_SetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Cal_
 
 	if (CalFreezePtr->FreezeCalibration > XRFDC_CAL_FREEZE_CALIB) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid FreezeCalibration "
-			  "option in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid FreezeCalibration option in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
 	if (CalFreezePtr->DisableFreezePin > XRFDC_CAL_FRZ_PIN_DISABLE) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid DisableFreezePin "
-			  "option in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid DisableFreezePin option in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -5143,21 +4851,22 @@ u32 XRFdc_SetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Cal_
 RETURN_PATH:
 	return Status;
 }
+
 /*****************************************************************************/
 /**
 *
 * This function is used to get calibration freeze settings and status.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id indicates Tile number (0-3).
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id indicates Tile number (0-3).
 * @param    Block_Id indicates Block number(0-3 for LS, 0-1 for HS).
-* @param	CalFreezePtr pointer to be filled the settings/status.
+* @param    CalFreezePtr pointer to be filled the settings/status.
 *
 * @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if error occurs.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		Only for ADC blocks
+* @note     Only for ADC blocks
 *
 ******************************************************************************/
 u32 XRFdc_GetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Cal_Freeze_Settings *CalFreezePtr)
@@ -5171,10 +4880,7 @@ u32 XRFdc_GetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Cal_
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested block not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -5199,22 +4905,23 @@ u32 XRFdc_GetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Cal_
 RETURN_PATH:
 	return Status;
 }
+
 /*****************************************************************************/
 /**
 *
 * Set Output Current for DAC block.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
-* @param uACurrent is the current in uA.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    uACurrent is the current in uA.
 *
 * @return
-*        - XRFDC_SUCCESS if successful.
-*        - XRFDC_FAILURE if Tile not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note  Range 6425 - 32000 uA with 25 uA resolution.
+* @note     Range 6425 - 32000 uA with 25 uA resolution.
 ******************************************************************************/
 u32 XRFdc_SetDACOpCurr(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurrent)
 {
@@ -5233,7 +4940,7 @@ u32 XRFdc_SetDACOpCurr(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurr
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
-	if (InstancePtr->RFdc_Config.IPType < 2) {
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 		Status = XRFDC_FAILURE;
 		metal_log(METAL_LOG_ERROR, "\n Requested functionality not available for this IP in %s\r\n", __func__);
 		goto RETURN_PATH;
@@ -5317,23 +5024,24 @@ u32 XRFdc_SetDACOpCurr(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurr
 RETURN_PATH:
 	return Status;
 }
+
 /*****************************************************************************/
 /**
 *
 * Gets legacy compatibility mode.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	mode is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
-* @param	EnabledPtr is pointer a that is filled with whether the mode is
-*			enabled (1) or disabled(0).
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    mode is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    EnabledPtr is pointer a that is filled with whether the mode is
+*           enabled (1) or disabled(0).
 *
 * @return
-*        - XRFDC_SUCCESS if successful.
-*        - XRFDC_FAILURE if error occurs.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note  None.
+* @note     None.
 ******************************************************************************/
 u32 XRFdc_GetLegacyCompatibilityMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *EnabledPtr)
 {
@@ -5345,7 +5053,7 @@ u32 XRFdc_GetLegacyCompatibilityMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(EnabledPtr != NULL);
 
-	if (InstancePtr->RFdc_Config.IPType < 2) {
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 		Status = XRFDC_FAILURE;
 		metal_log(METAL_LOG_ERROR, "\n Requested functionality not available for this IP in %s\r\n", __func__);
 		goto RETURN_PATH;
@@ -5365,23 +5073,24 @@ u32 XRFdc_GetLegacyCompatibilityMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_
 RETURN_PATH:
 	return Status;
 }
+
 /*****************************************************************************/
 /**
 *
 * Sets legacy compatibility mode.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	mode is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
-* @param	Enable is whether to enable (1) or disable(0) the compatibility
-*			mode.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    mode is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    Enable is whether to enable (1) or disable(0) the compatibility
+*           mode.
 *
 * @return
-*        - XRFDC_SUCCESS if successful.
-*        - XRFDC_FAILURE if error occurs.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note  None.
+* @note     None.
 ******************************************************************************/
 u32 XRFdc_SetLegacyCompatibilityMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Enable)
 {
@@ -5391,7 +5100,7 @@ u32 XRFdc_SetLegacyCompatibilityMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
-	if (InstancePtr->RFdc_Config.IPType < 2) {
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 		Status = XRFDC_FAILURE;
 		metal_log(METAL_LOG_ERROR, "\n Requested functionality not available for this IP in %s\r\n", __func__);
 		goto RETURN_PATH;
@@ -5417,22 +5126,23 @@ u32 XRFdc_SetLegacyCompatibilityMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_
 RETURN_PATH:
 	return Status;
 }
+
 /*****************************************************************************/
 /**
 *
 * Set DSA for ADC block.
 *
-* @param InstancePtr is a pointer to the XRfdc instance.
-* @param Tile_Id Valid values are 0-3.
-* @param Block_Id is ADC/DAC block number inside the tile. Valid values
-*        are 0-3.
-* @param Attenuation is the attenuation in dB
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    Attenuation is the attenuation in dB
 *
 * @return
-*        - XRFDC_SUCCESS if successful.
-*        - XRFDC_FAILURE if Tile not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note  Range 0 - -ll dB with 0.5 dB resolution.
+* @note     Range 0 - -ll dB with 0.5 dB resolution.
 ******************************************************************************/
 u32 XRFdc_SetDigitalStepAttenuator(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, float Attenuation)
 {
@@ -5446,7 +5156,7 @@ u32 XRFdc_SetDigitalStepAttenuator(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
-	if (InstancePtr->RFdc_Config.IPType < 2) {
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 		Status = XRFDC_FAILURE;
 		metal_log(METAL_LOG_ERROR, "\n Requested functionality not available for this IP in %s\r\n", __func__);
 		goto RETURN_PATH;
@@ -5500,22 +5210,23 @@ u32 XRFdc_SetDigitalStepAttenuator(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id
 RETURN_PATH:
 	return Status;
 }
+
 /*****************************************************************************/
 /**
 *
 * Get DSA for ADC block.
 *
-* @param InstancePtr is a pointer to the XRfdc instance.
-* @param Tile_Id Valid values are 0-3.
-* @param Block_Id is ADC/DAC block number inside the tile. Valid values
-*        are 0-3.
-* @param AttenuationPtr is the attenuation in dB
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    AttenuationPtr is the attenuation in dB
 *
 * @return
-*        - XRFDC_SUCCESS if successful.
-*        - XRFDC_FAILURE if Tile not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note  Range 0 - -ll dB with 0.5 dB resolution.
+* @note     Range 0 - -ll dB with 0.5 dB resolution.
 ******************************************************************************/
 u32 XRFdc_GetDigitalStepAttenuator(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, float *AttenuationPtr)
 {
@@ -5528,7 +5239,7 @@ u32 XRFdc_GetDigitalStepAttenuator(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(AttenuationPtr != NULL);
 
-	if (InstancePtr->RFdc_Config.IPType < 2) {
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 		Status = XRFDC_FAILURE;
 		metal_log(METAL_LOG_ERROR, "\n Requested functionality not available for this IP in %s\r\n", __func__);
 		goto RETURN_PATH;

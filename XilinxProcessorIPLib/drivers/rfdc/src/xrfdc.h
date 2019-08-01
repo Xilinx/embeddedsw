@@ -236,6 +236,7 @@
 *       cog    07/25/19 Moved XRFDC_PLL_LOCK_DLY_CNT macro from source file.
 *       cog    07/26/19 Added new XRFdc_S/GetLegacyCompatibilityMode() APIs.
 *       cog    07/29/19 Added XRFdc_GetEnabledInterrupts() API.
+*       cog    08/02/19 Formatting changes and added a MACRO for the IP generation.
 *
 * </pre>
 *
@@ -285,14 +286,14 @@ typedef __s8 s8;
 * respond to interrupt events in the system. This function is executed
 * in interrupt context, so amount of processing should be minimized.
 *
-* @param	CallBackRef is the callback reference passed in by the upper
-*		layer when setting the callback functions, and passed back to
-*		the upper layer when the callback is invoked. Its type is
-*		not important to the driver, so it is a void pointer.
-* @param	Type indicates ADC/DAC.
-* @param	Tile_Id indicates Tile number (0-3).
-* @param	Block_Id indicates Block number (0-3).
-* @param	StatusEvent indicates one or more interrupt occurred.
+* @param    CallBackRef is the callback reference passed in by the upper
+*           layer when setting the callback functions, and passed back to
+*           the upper layer when the callback is invoked. Its type is
+*           not important to the driver, so it is a void pointer.
+* @param    Type indicates ADC/DAC.
+* @param    Tile_Id indicates Tile number (0-3).
+* @param    Block_Id indicates Block number (0-3).
+* @param    StatusEvent indicates one or more interrupt occurred.
 */
 typedef void (*XRFdc_StatusHandler)(void *CallBackRef, u32 Type, u32 Tile_Id, u32 Block_Id, u32 StatusEvent);
 #ifndef __BAREMETAL__
@@ -690,6 +691,7 @@ typedef struct {
 #define MIN(x, y) (x < y) ? x : y
 #define XRFDC_SUCCESS 0U
 #define XRFDC_FAILURE 1U
+#define XRFDC_GEN3 2
 #define XRFDC_COMPONENT_IS_READY 0x11111111U
 #define XRFDC_NUM_SLICES_HSADC 2
 #define XRFDC_NUM_SLICES_LSADC 4
@@ -1109,14 +1111,14 @@ typedef struct {
 *
 * Execute Read modify Write
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	BaseAddr is address of a block.
-* @param	RegAddr is register offset value.
-* @param	Mask contains bit mask value.
-* @param	Data contains value to be written to register.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    BaseAddr is address of a block.
+* @param    RegAddr is register offset value.
+* @param    Mask contains bit mask value.
+* @param    Data contains value to be written to register.
 *
 * @return
-*		- None
+*           - None
 *
 ******************************************************************************/
 static inline void XRFdc_ClrSetReg(XRFdc *InstancePtr, u32 BaseAddr, u32 RegAddr, u16 Mask, u16 Data)
@@ -1133,13 +1135,13 @@ static inline void XRFdc_ClrSetReg(XRFdc *InstancePtr, u32 BaseAddr, u32 RegAddr
 *
 * Execute Read and clear
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	BaseAddr is address of a block.
-* @param	RegAddr is register offset value.
-* @param	Mask contains bit mask value.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    BaseAddr is address of a block.
+* @param    RegAddr is register offset value.
+* @param    Mask contains bit mask value.
 *
 * @return
-*		- None
+*           - None
 *
 ******************************************************************************/
 static inline void XRFdc_ClrReg(XRFdc *InstancePtr, u32 BaseAddr, u32 RegAddr, u16 Mask)
@@ -1156,13 +1158,13 @@ static inline void XRFdc_ClrReg(XRFdc *InstancePtr, u32 BaseAddr, u32 RegAddr, u
 *
 * Execute Read and mask with the value
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	BaseAddr is address of a block.
-* @param	RegAddr is register offset value.
-* @param	Mask contains bit mask value.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    BaseAddr is address of a block.
+* @param    RegAddr is register offset value.
+* @param    Mask contains bit mask value.
 *
 * @return
-*		- None
+*           - None
 *
 ******************************************************************************/
 static inline u16 XRFdc_RDReg(XRFdc *InstancePtr, u32 BaseAddr, u32 RegAddr, u16 Mask)
@@ -1174,15 +1176,16 @@ static inline u16 XRFdc_RDReg(XRFdc *InstancePtr, u32 BaseAddr, u32 RegAddr, u16
 
 	return ReadReg;
 }
+
 /*****************************************************************************/
 /**
 *
 * Get ADC type is High Speed or Medium Speed.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param    InstancePtr is a pointer to the XRfdc instance.
 *
 * @return
-*		- Return 1 if ADC type is 4GSPS, otherwise 0.
+*           - Return 1 if ADC type is 4GSPS, otherwise 0.
 *
 ******************************************************************************/
 
@@ -1194,18 +1197,19 @@ static inline u32 XRFdc_IsHighSpeedADC(XRFdc *InstancePtr, int Tile)
 		return (InstancePtr->RFdc_Config.ADCTile_Config[Tile].NumSlices == XRFDC_NUM_SLICES_HSADC);
 	}
 }
+
 /*****************************************************************************/
 /**
 *
 * Checks whether DAC block is available or not.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
 *
 * @return
-*		- Return 1 if DAC block is available, otherwise 0.
+*           - Return 1 if DAC block is available, otherwise 0.
 *
 ******************************************************************************/
 static inline u32 XRFdc_IsDACBlockEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
@@ -1230,13 +1234,13 @@ RETURN_PATH:
 *
 * Checks whether ADC block is available or not.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3 in DAC/ADC-2GSPS and 0-1 in ADC-4GSPS.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3 in DAC/ADC-2GSPS and 0-1 in ADC-4GSPS.
 *
 * @return
-*		- Return 1 if ADC block is available, otherwise 0.
+*           - Return 1 if ADC block is available, otherwise 0.
 *
 ******************************************************************************/
 static inline u32 XRFdc_IsADCBlockEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
@@ -1268,13 +1272,13 @@ RETURN_PATH:
 *
 * Checks whether DAC Digital path is enabled or not.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
 *
 * @return
-*		- Return 1 if DAC digital path is enabled, otherwise 0.
+*           - Return 1 if DAC digital path is enabled, otherwise 0.
 *
 ******************************************************************************/
 static inline u32 XRFdc_IsDACDigitalPathEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
@@ -1299,13 +1303,13 @@ RETURN_PATH:
 *
 * Checks whether ADC digital path is enabled or not.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3 in DAC/ADC-2GSPS and 0-1 in ADC-4GSPS.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3 in DAC/ADC-2GSPS and 0-1 in ADC-4GSPS.
 *
 * @return
-*		- Return 1 if ADC digital path is enabled, otherwise 0.
+*           - Return 1 if ADC digital path is enabled, otherwise 0.
 *
 ******************************************************************************/
 static inline u32 XRFdc_IsADCDigitalPathEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
@@ -1337,15 +1341,15 @@ RETURN_PATH:
 *
 * Checks whether ADC/DAC Digital path is enabled or not.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param    InstancePtr is a pointer to the XRfdc instance.
 * @param    Type is ADC or DAC. 0 for ADC and 1 for DAC.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
 *
 * @return
-*		- XRFDC_SUCCESS if Digital path is enabled.
-*       - XRFDC_FAILURE if Digital path is not enabled.
+*           - XRFDC_SUCCESS if Digital path is enabled.
+*           - XRFDC_FAILURE if Digital path is not enabled.
 *
 ******************************************************************************/
 static inline u32 XRFdc_CheckDigitalPathEnabled(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
@@ -1380,10 +1384,10 @@ RETURN_PATH:
 *
 * Get IP BaseAddress.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param    InstancePtr is a pointer to the XRfdc instance.
 *
 * @return
-*		- Return IP BaseAddress.
+*           - Return IP BaseAddress.
 *
 ******************************************************************************/
 static inline u32 XRFdc_Get_IPBaseAddr(XRFdc *InstancePtr)
@@ -1396,12 +1400,12 @@ static inline u32 XRFdc_Get_IPBaseAddr(XRFdc *InstancePtr)
 *
 * Get Tile BaseAddress
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
 *
 * @return
-*		- Return Tile BaseAddress.
+*           - Return Tile BaseAddress.
 *
 ******************************************************************************/
 static inline u32 XRFdc_Get_TileBaseAddr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id)
@@ -1422,14 +1426,14 @@ static inline u32 XRFdc_Get_TileBaseAddr(XRFdc *InstancePtr, u32 Type, u32 Tile_
 *
 * Get Block BaseAddress
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3 in DAC/ADC-2GSPS and 0-1 in ADC-4GSPS.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3 in DAC/ADC-2GSPS and 0-1 in ADC-4GSPS.
 *
 * @return
-*		- Return Block BaseAddress.
+*           - Return Block BaseAddress.
 *
 ******************************************************************************/
 static inline u32 XRFdc_Get_BlockBaseAddr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
@@ -1455,11 +1459,11 @@ static inline u32 XRFdc_Get_BlockBaseAddr(XRFdc *InstancePtr, u32 Type, u32 Tile
 *
 * Get Number of DAC Blocks enabled.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
 *
 * @return
-*		- Return number of DAC blocks enabled.
+*           - Return number of DAC blocks enabled.
 *
 ******************************************************************************/
 static inline u32 XRFdc_GetNoOfDACBlock(XRFdc *InstancePtr, u32 Tile_Id)
@@ -1472,11 +1476,11 @@ static inline u32 XRFdc_GetNoOfDACBlock(XRFdc *InstancePtr, u32 Tile_Id)
 *
 * Get Number of ADC Blocks enabled.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
 *
 * @return
-*		- Return number of ADC blocks enabled.
+*           - Return number of ADC blocks enabled.
 *
 ******************************************************************************/
 static inline u32 XRFdc_GetNoOfADCBlocks(XRFdc *InstancePtr, u32 Tile_Id)
@@ -1489,14 +1493,14 @@ static inline u32 XRFdc_GetNoOfADCBlocks(XRFdc *InstancePtr, u32 Tile_Id)
 *
 * Get Mixer Input Data Type for ADC/DAC block.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
 *
 * @return
-*		- Return MixerInputDataType of ADC/DAC block.
+*           - Return MixerInputDataType of ADC/DAC block.
 *
 ******************************************************************************/
 static inline u32 XRFdc_GetDataType(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
@@ -1521,14 +1525,14 @@ static inline u32 XRFdc_GetDataType(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u
 *
 * Get Data Width for ADC/DAC block.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
 *
 * @return
-*		- Return DataWidth of ADC/DAC block.
+*           - Return DataWidth of ADC/DAC block.
 *
 ******************************************************************************/
 static inline u32 XRFdc_GetDataWidth(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
@@ -1551,13 +1555,13 @@ static inline u32 XRFdc_GetDataWidth(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, 
 *
 * Get Inversesync filter for DAC block.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
 *
 * @return
-*		- Return Inversesync filter for DAC block
+*           - Return Inversesync filter for DAC block
 *
 ******************************************************************************/
 static inline u32 XRFdc_GetInverseSincFilter(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
@@ -1570,13 +1574,13 @@ static inline u32 XRFdc_GetInverseSincFilter(XRFdc *InstancePtr, u32 Tile_Id, u3
 *
 * Get Mixed mode for DAC block.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
 *
 * @return
-*		- Return mixed mode for DAC block
+*           - Return mixed mode for DAC block
 *
 ******************************************************************************/
 static inline u32 XRFdc_GetMixedMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
@@ -1589,11 +1593,11 @@ static inline u32 XRFdc_GetMixedMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_
 *
 * Get Master Tile for ADC/DAC tiles.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
 *
 * @return
-*		- Return Master Tile for ADC/DAC tiles
+*           - Return Master Tile for ADC/DAC tiles
 *
 ******************************************************************************/
 static inline u32 XRFdc_GetMasterTile(XRFdc *InstancePtr, u32 Type)
@@ -1614,11 +1618,11 @@ static inline u32 XRFdc_GetMasterTile(XRFdc *InstancePtr, u32 Type)
 *
 * Get Sysref source for ADC/DAC tile.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
 *
 * @return
-*		- Return Sysref source for ADC/DAC tile
+*           - Return Sysref source for ADC/DAC tile
 *
 ******************************************************************************/
 static inline u32 XRFdc_GetSysRefSource(XRFdc *InstancePtr, u32 Type)
@@ -1639,12 +1643,12 @@ static inline u32 XRFdc_GetSysRefSource(XRFdc *InstancePtr, u32 Type)
 *
 * Get Fabric Clock frequency.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
 *
 * @return
-*		- Return Fabric Clock frequency for ADC/DAC tile
+*           - Return Fabric Clock frequency for ADC/DAC tile
 *
 ******************************************************************************/
 static inline double XRFdc_GetFabClkFreq(XRFdc *InstancePtr, u32 Type, u32 Tile_Id)
@@ -1665,14 +1669,14 @@ static inline double XRFdc_GetFabClkFreq(XRFdc *InstancePtr, u32 Type, u32 Tile_
 *
 * Get whether FIFO is enabled or not.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
 *
 * @return
-*		- Return 1 if FIFO is enabled, otherwise 0.
+*           - Return 1 if FIFO is enabled, otherwise 0.
 *
 ******************************************************************************/
 static inline u32 XRFdc_IsFifoEnabled(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
@@ -1695,13 +1699,13 @@ static inline u32 XRFdc_IsFifoEnabled(XRFdc *InstancePtr, u32 Type, u32 Tile_Id,
 *
 * Get Data Converter connected for digital data path I
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is Digital Data Path number.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is Digital Data Path number.
 *
 * @return
-*		- Return Data converter Id.
+*           - Return Data converter Id.
 *
 ******************************************************************************/
 static inline int XRFdc_GetConnectedIData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
@@ -1722,13 +1726,13 @@ static inline int XRFdc_GetConnectedIData(XRFdc *InstancePtr, u32 Type, u32 Tile
 *
 * Get Data Converter connected for digital data path Q
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is Digital Data Path number.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is Digital Data Path number.
 *
 * @return
-*		- Return Data converter Id.
+*           - Return Data converter Id.
 *
 ******************************************************************************/
 static inline int XRFdc_GetConnectedQData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
@@ -1749,15 +1753,15 @@ static inline int XRFdc_GetConnectedQData(XRFdc *InstancePtr, u32 Type, u32 Tile
 *
 * Set Data Converter connected for digital data path I and Q
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is Digital Data Path number.
-* @param	ConnectedIData is Converter Id to which DigitalPathI connected.
-* @param	ConnectedQData is Converter Id to which DigitalPathQ connected.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is Digital Data Path number.
+* @param    ConnectedIData is Converter Id to which DigitalPathI connected.
+* @param    ConnectedQData is Converter Id to which DigitalPathQ connected.
 *
 * @return
-*		- None.
+*           - None.
 *
 ******************************************************************************/
 static inline void XRFdc_SetConnectedIQData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, int ConnectedIData,
@@ -1777,12 +1781,12 @@ static inline void XRFdc_SetConnectedIQData(XRFdc *InstancePtr, u32 Type, u32 Ti
 *
 * Get Multiband Config data
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
 *
 * @return
-*		- Return Multiband Configuration.
+*           - Return Multiband Configuration.
 *
 ******************************************************************************/
 static inline u32 XRFdc_GetMultibandConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id)
@@ -1803,15 +1807,15 @@ static inline u32 XRFdc_GetMultibandConfig(XRFdc *InstancePtr, u32 Type, u32 Til
 *
 * Checks whether ADC/DAC block is enabled or not.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param    InstancePtr is a pointer to the XRfdc instance.
 * @param    Type is ADC or DAC. 0 for ADC and 1 for DAC.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
 *
 * @return
-*		- XRFDC_SUCCESS if block enabled.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if block enabled.
+*           - XRFDC_FAILURE if block not enabled.
 *
 ******************************************************************************/
 static inline u32 XRFdc_CheckBlockEnabled(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
@@ -1846,13 +1850,13 @@ RETURN_PATH:
 *
 * Checks whether ADC/DAC tile is enabled or not.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param    InstancePtr is a pointer to the XRfdc instance.
 * @param    Type is ADC or DAC. 0 for ADC and 1 for DAC.
-* @param	Tile_Id Valid values are 0-3.
+* @param    Tile_Id Valid values are 0-3.
 *
 * @return
-*		- XRFDC_SUCCESS if tile enabled.
-*       - XRFDC_FAILURE if tile not enabled.
+*           - XRFDC_SUCCESS if tile enabled.
+*           - XRFDC_FAILURE if tile not enabled.
 *
 ******************************************************************************/
 static inline u32 XRFdc_CheckTileEnabled(XRFdc *InstancePtr, u32 Type, u32 Tile_Id)
@@ -1881,19 +1885,20 @@ static inline u32 XRFdc_CheckTileEnabled(XRFdc *InstancePtr, u32 Type, u32 Tile_
 RETURN_PATH:
 	return Status;
 }
+
 /*****************************************************************************/
 /**
 *
 * Gets ADC/DAC tile maximum sampling rate.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param    InstancePtr is a pointer to the XRfdc instance.
 * @param    Type is ADC or DAC. 0 for ADC and 1 for DAC.
-* @param	Tile_Id Valid values are 0-3.
-* @param	MaxSampleRatePtr pointer for maximum sample rate.
+* @param    Tile_Id Valid values are 0-3.
+* @param    MaxSampleRatePtr pointer for maximum sample rate.
 *
 * @return
-*		- XRFDC_SUCCESS if found sampling rate.
-*       - XRFDC_FAILURE if could not find sampling rate.
+*           - XRFDC_SUCCESS if found sampling rate.
+*           - XRFDC_FAILURE if could not find sampling rate.
 *
 ******************************************************************************/
 static inline u32 XRFdc_GetMaxSampleRate(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double *MaxSampleRatePtr)
@@ -1924,19 +1929,20 @@ static inline u32 XRFdc_GetMaxSampleRate(XRFdc *InstancePtr, u32 Type, u32 Tile_
 RETURN_PATH:
 	return Status;
 }
+
 /*****************************************************************************/
 /**
 *
 * Gets ADC/DAC tile minimum sampling rate.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param    InstancePtr is a pointer to the XRfdc instance.
 * @param    Type is ADC or DAC. 0 for ADC and 1 for DAC.
-* @param	Tile_Id Valid values are 0-3.
-* @param	MinSampleRatePtr pointer for minimum sample rate.
+* @param    Tile_Id Valid values are 0-3.
+* @param    MinSampleRatePtr pointer for minimum sample rate.
 *
 * @return
-*		- XRFDC_SUCCESS if found sampling rate.
-*       - XRFDC_FAILURE if could not find sampling rate.
+*           - XRFDC_SUCCESS if found sampling rate.
+*           - XRFDC_FAILURE if could not find sampling rate.
 *
 ******************************************************************************/
 static inline u32 XRFdc_GetMinSampleRate(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double *MinSampleRatePtr)
@@ -1961,17 +1967,18 @@ static inline u32 XRFdc_GetMinSampleRate(XRFdc *InstancePtr, u32 Type, u32 Tile_
 RETURN_PATH:
 	return Status;
 }
+
 /*****************************************************************************/
 /**
 *
 * This API is used to get the driver version.
 *
-* @param	None
+* @param    None
 *
 * @return
-*		Driver version number
+*           Driver version number
 *
-* @note		None
+* @note     None.
 *
 ******************************************************************************/
 static inline double XRFdc_GetDriverVersion(void)

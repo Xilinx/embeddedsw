@@ -49,6 +49,7 @@
 *       cog    06/12/19 Fixed issue where positive NCO frequencies were not
 *                       being set correctly.
 *       cog    07/03/19 Added new off mode for mixers (both mixers off).
+*       cog    08/02/19 Formatting changes.
 * </pre>
 *
 ******************************************************************************/
@@ -75,24 +76,24 @@ static void XRFdc_MixersOff(XRFdc *InstancePtr, u32 BaseAddr);
 * Mixer/NCO settings passed are used to update the corresponding
 * block level registers. Driver structure is updated with the new values.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
-* @param	MixerSettingsPtr Pointer to the XRFdc_Mixer_Settings structure
-*			in which the Mixer/NCO settings are passed.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    MixerSettingsPtr Pointer to the XRFdc_Mixer_Settings structure
+*           in which the Mixer/NCO settings are passed.
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		FineMixerScale in Mixer_Settings structure can have 3 values.
-*		XRFDC_MIXER_SCALE_* represents the valid values.
-*		XRFDC_MIXER_SCALE_AUTO - If mixer mode is R2C, Mixer Scale is
-*		set to 1 and for other modes mixer scale is set to 0.7
-*		XRFDC_MIXER_SCALE_1P0 - To set fine mixer scale to 1.
-*		XRFDC_MIXER_SCALE_0P7 - To set fine mixer scale to 0.7.
+* @note     FineMixerScale in Mixer_Settings structure can have 3 values.
+*           XRFDC_MIXER_SCALE_* represents the valid values.
+*           XRFDC_MIXER_SCALE_AUTO - If mixer mode is R2C, Mixer Scale is
+*           set to 1 and for other modes mixer scale is set to 0.7
+*           XRFDC_MIXER_SCALE_1P0 - To set fine mixer scale to 1.
+*           XRFDC_MIXER_SCALE_0P7 - To set fine mixer scale to 0.7.
 *
 ******************************************************************************/
 u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id,
@@ -155,16 +156,10 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 
 		if (SamplingRate <= 0) {
 			Status = XRFDC_FAILURE;
-			metal_log(METAL_LOG_ERROR,
-				  "\n Incorrect Sampling "
-				  "rate in %s\r\n",
-				  __func__);
+			metal_log(METAL_LOG_ERROR, "\n Incorrect Sampling rate in %s\r\n", __func__);
 			goto RETURN_PATH;
 		} else {
-			metal_log(METAL_LOG_DEBUG,
-				  "\n Sampling "
-				  "rate is %2.4f in %s\r\n",
-				  SamplingRate, __func__);
+			metal_log(METAL_LOG_DEBUG, "\n Sampling rate is %2.4f in %s\r\n", SamplingRate, __func__);
 		}
 
 		SamplingRate *= XRFDC_MILLI;
@@ -336,16 +331,16 @@ RETURN_PATH:
 /**
 * Static API used to do the Mixer Settings range check.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	MixerSettingsPtr Pointer to the XRFdc_Mixer_Settings structure
-*			in which the Mixer/NCO settings are passed.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    MixerSettingsPtr Pointer to the XRFdc_Mixer_Settings structure
+*           in which the Mixer/NCO settings are passed.
 *
 * @return
-*		- XRFDC_SUCCESS if mixer settings are within the range.
-*       - XRFDC_FAILURE if mixer settings are not in valid range
+*           - XRFDC_SUCCESS if mixer settings are within the range.
+*           - XRFDC_FAILURE if mixer settings are not in valid range
 *
-* @note		None
+* @note     None.
 *
 ******************************************************************************/
 static u32 XRFdc_MixerRangeCheck(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_Mixer_Settings *MixerSettingsPtr)
@@ -354,27 +349,18 @@ static u32 XRFdc_MixerRangeCheck(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFd
 
 	if ((MixerSettingsPtr->PhaseOffset >= XRFDC_MIXER_PHASE_OFFSET_UP_LIMIT) ||
 	    (MixerSettingsPtr->PhaseOffset <= XRFDC_MIXER_PHASE_OFFSET_LOW_LIMIT)) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid phase offset value "
-			  "in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid phase offset value in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
 	if ((MixerSettingsPtr->EventSource > XRFDC_EVNT_SRC_PL) ||
 	    ((MixerSettingsPtr->EventSource == XRFDC_EVNT_SRC_MARKER) && (Type == XRFDC_ADC_TILE))) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid event source "
-			  "selection in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid event source selection in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
 	if (MixerSettingsPtr->MixerMode > XRFDC_MIXER_MODE_R2R) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid fine mixer mode "
-			  "in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid fine mixer mode in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -383,10 +369,7 @@ static u32 XRFdc_MixerRangeCheck(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFd
 	    (MixerSettingsPtr->CoarseMixFreq != XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR) &&
 	    (MixerSettingsPtr->CoarseMixFreq != XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR) &&
 	    (MixerSettingsPtr->CoarseMixFreq != XRFDC_COARSE_MIX_BYPASS)) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid coarse mix "
-			  "frequency value in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid coarse mix frequency value in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -412,9 +395,7 @@ static u32 XRFdc_MixerRangeCheck(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFd
 	    ((MixerSettingsPtr->EventSource == XRFDC_EVNT_SRC_SLICE) ||
 	     (MixerSettingsPtr->EventSource == XRFDC_EVNT_SRC_IMMEDIATE))) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Event Source, event "
-			  "source is not supported in 4GSPS ADC %s\r\n",
+		metal_log(METAL_LOG_ERROR, "\n Invalid Event Source, event source is not supported in 4GSPS ADC %s\r\n",
 			  __func__);
 		goto RETURN_PATH;
 	}
@@ -423,47 +404,32 @@ static u32 XRFdc_MixerRangeCheck(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFd
 	    ((MixerSettingsPtr->MixerType == XRFDC_MIXER_TYPE_FINE) &&
 	     (MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_OFF))) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Combination of "
-			  "Mixer settings in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Combination of Mixer settings in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 	if ((MixerSettingsPtr->MixerType == XRFDC_MIXER_TYPE_COARSE) &&
 	    (MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_OFF)) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Combination of "
-			  "Mixer type and Mixer mode in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Combination of Mixer type and Mixer mode in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 	if ((MixerSettingsPtr->MixerType == XRFDC_MIXER_TYPE_FINE) &&
 	    (MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2R)) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Combination of "
-			  "Mixer type and Mixer mode in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Combination of Mixer type and Mixer mode in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 	if ((MixerSettingsPtr->MixerType == XRFDC_MIXER_TYPE_COARSE) &&
 	    (MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2R) &&
 	    (MixerSettingsPtr->CoarseMixFreq != XRFDC_COARSE_MIX_BYPASS)) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Combination of "
-			  "Mixer type and Mixer mode in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Combination of Mixer type and Mixer mode in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 	if ((MixerSettingsPtr->MixerType == XRFDC_MIXER_TYPE_OFF) &&
 	    (MixerSettingsPtr->MixerMode != XRFDC_MIXER_MODE_OFF)) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Combination of "
-			  "Mixer type and Mixer mode in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Combination of Mixer type and Mixer mode in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 	Status = XRFDC_SUCCESS;
@@ -476,13 +442,13 @@ RETURN_PATH:
 /**
 * Static API used to turn off Fine & Coarse Mixers.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	BaseAddr is ADC or DAC base address.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    BaseAddr is ADC or DAC base address.
 *
 * @return
-*		- None
+*           - None
 *
-* @note		Static API
+* @note     Static API
 *
 ******************************************************************************/
 static void XRFdc_MixersOff(XRFdc *InstancePtr, u32 BaseAddr)
@@ -493,19 +459,20 @@ static void XRFdc_MixersOff(XRFdc *InstancePtr, u32 BaseAddr)
 	/* Fine mixer mode is OFF */
 	XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_MXR_MODE_OFFSET, XRFDC_MIXER_MODE_OFF);
 }
+
 /*****************************************************************************/
 /**
 * Static API used to set the Fine Mixer.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	BaseAddr is ADC or DAC base address.
-* @param	MixerSettingsPtr Pointer to the XRFdc_Mixer_Settings structure
-*			in which the Mixer/NCO settings are passed.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    BaseAddr is ADC or DAC base address.
+* @param    MixerSettingsPtr Pointer to the XRFdc_Mixer_Settings structure
+*           in which the Mixer/NCO settings are passed.
 *
 * @return
-*		- None
+*           - None
 *
-* @note		Static API
+* @note     Static API
 *
 ******************************************************************************/
 static void XRFdc_SetFineMixer(XRFdc *InstancePtr, u32 BaseAddr, XRFdc_Mixer_Settings *MixerSettingsPtr)
@@ -538,18 +505,18 @@ static void XRFdc_SetFineMixer(XRFdc *InstancePtr, u32 BaseAddr, XRFdc_Mixer_Set
 /**
 * Static API used to set the Coarse Mixer.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	BaseAddr is ADC or DAC base address.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    BaseAddr is ADC or DAC base address.
 * @param        Block_Id is ADC/DAC block number inside the tile.
-* @param	CoarseMixFreq is ADC or DAC Coarse mixer frequency.
-* @param	MixerSettingsPtr Pointer to the XRFdc_Mixer_Settings structure
-*			in which the Mixer/NCO settings are passed.
+* @param    CoarseMixFreq is ADC or DAC Coarse mixer frequency.
+* @param    MixerSettingsPtr Pointer to the XRFdc_Mixer_Settings structure
+*           in which the Mixer/NCO settings are passed.
 *
 * @return
-*		- None
+*           - None
 *
-* @note		Static API
+* @note     Static API
 *
 ******************************************************************************/
 static void XRFdc_SetCoarseMixer(XRFdc *InstancePtr, u32 Type, u32 BaseAddr, u32 Tile_Id, u32 Block_Id,
@@ -681,10 +648,7 @@ static void XRFdc_SetCoarseMixer(XRFdc *InstancePtr, u32 Type, u32 BaseAddr, u32
 		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_MXR_CFG1_OFFSET, XRFDC_MIX_CFG1_MASK,
 				XRFDC_CRSE_MIX_OFF);
 	} else {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Coarse "
-			  "Mixer frequency in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Coarse Mixer frequency in %s\r\n", __func__);
 	}
 
 	/* Fine mixer mode is OFF */
@@ -696,24 +660,24 @@ static void XRFdc_SetCoarseMixer(XRFdc *InstancePtr, u32 Type, u32 BaseAddr, u32
 *
 * The API returns back Mixer/NCO settings to the caller.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
-* @param	MixerSettingsPtr Pointer to the XRFdc_Mixer_Settings structure
-*			in which the Mixer/NCO settings are passed.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Block_Id is ADC/DAC block number inside the tile. Valid values
+*           are 0-3.
+* @param    MixerSettingsPtr Pointer to the XRFdc_Mixer_Settings structure
+*           in which the Mixer/NCO settings are passed.
 *
 * @return
-*		- XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Block not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		FineMixerScale in Mixer_Settings structure can have 3 values.
-*		XRFDC_MIXER_SCALE_* represents the valid values.
-*		XRFDC_MIXER_SCALE_AUTO - If mixer mode is R2C, Mixer Scale is
-*		set to 1 and for other modes mixer scale is set to 0.7
-*		XRFDC_MIXER_SCALE_1P0 - To set fine mixer scale to 1.
-*		XRFDC_MIXER_SCALE_0P7 - To set fine mixer scale to 0.7.
+* @note     FineMixerScale in Mixer_Settings structure can have 3 values.
+*           XRFDC_MIXER_SCALE_* represents the valid values.
+*           XRFDC_MIXER_SCALE_AUTO - If mixer mode is R2C, Mixer Scale is
+*           set to 1 and for other modes mixer scale is set to 0.7
+*           XRFDC_MIXER_SCALE_1P0 - To set fine mixer scale to 1.
+*           XRFDC_MIXER_SCALE_0P7 - To set fine mixer scale to 0.7.
 *
 ******************************************************************************/
 u32 XRFdc_GetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id,
@@ -765,10 +729,7 @@ u32 XRFdc_GetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 
 	if (SamplingRate <= 0) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Incorrect Sampling rate "
-			  "in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Incorrect Sampling rate in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
