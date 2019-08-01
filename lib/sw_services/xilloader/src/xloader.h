@@ -170,7 +170,6 @@ typedef struct {
 	XStatus (*DeviceCopy) (u32, u64, u32, u32);
 	u32 NoOfHandoffCpus; /**< Number of CPU's loader will handoff to */
     XLoader_HandoffParam HandoffParam[10];
-    u32 CpusRunning; /** CPUs that are already running */
 	u32 CurImgId; /**< Current Processing image ID */
 	u32 CurPrtnId; /**< Current Processing Partition ID */
 	u32 ImageNum; /**< Image number in the PDI */
