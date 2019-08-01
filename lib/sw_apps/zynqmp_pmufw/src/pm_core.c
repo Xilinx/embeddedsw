@@ -368,6 +368,15 @@ static void PmForcePowerdown(const PmMaster *const master,
 			goto done;
 		}
 	}
+	
+	if (NODE_IS_PROC(nodePtr)) {
+		PmProc* proc = (PmProc*)nodePtr->derived;
+		PmPower* power = (PmPower*)proc->node.parent;
+		if (false == PmMasterCanForceDown(master, power)) {
+			status = XST_PM_NO_ACCESS;
+			goto done;
+		}
+	}
 
 	status = PmNodeForceDown(nodePtr);
 	oppoint = nodePtr->currState;
