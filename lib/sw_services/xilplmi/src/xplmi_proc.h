@@ -97,7 +97,6 @@ enum {
 	XPLMI_CFRAME_SEU = 0U,
 	XPLMI_IPI_IRQ,
 	XPLMI_SBI_DATA_RDY,
-	XPLMI_SYSMON_ROOT_0,
 };
 
 /***************** Macros (Inline Functions) Definitions *********************/
