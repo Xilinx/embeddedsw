@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -19,77 +19,86 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 ******************************************************************************/
-
 /*****************************************************************************/
 /**
 *
-* @file xplmi_modules.h
+* @file xplmi_err.h
 *
-* This is the header file which contains definitions for the modules
+* This is the file which contains .
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kc   08/20/2018 Initial release
+* 1.00  kc   05/23/2019 Initial release
 *
 * </pre>
 *
 * @note
 *
 ******************************************************************************/
-
-#ifndef XPLMI_MODULES_H
-#define XPLMI_MODULES_H
+#ifndef XPLMI_ERR_H
+#define XPLMI_ERR_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xplmi_cmd.h"
+#include "xil_types.h"
+#include "xil_assert.h"
+#include "xplmi_status.h"
+#include "xplmi_debug.h"
+#include "xplmi_hw.h"
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_MAX_MODULES				(10U)
+/* Action to be taken when an error occurs */
+#define XPLMI_EM_ACTION_POR		1U
+#define XPLMI_EM_ACTION_SRST		2U
+#define XPLMI_EM_ACTION_CUSTOM		3U
+#define XPLMI_EM_ACTION_ERROUT		4U
+#define XPLMI_EM_ACTION_SUBSYS_SHUTDN	5U
+#define XPLMI_EM_ACTION_SUBSYS_RESTART	6U
+#define XPLMI_EM_ACTION_NOTIFY_AGENT	7U
+#define XPLMI_EM_ACTION_NONE		8U
+#define XPLMI_EM_ACTION_MAX		9U
 
-/* TODO add enum for declaring module ids */
-#define XPLMI_MODULE_GENERIC_ID			(1U)
-#define XPLMI_MODULE_XILPM_ID				(2U)
-#define XPLMI_MODULE_SEM_ID				(3U)
-#define XPLMI_MODULE_XILFPGA_ID			(4U)
-#define XPLMI_MODULE_XILSECURE_ID			(5U)
-#define XPLMI_MODULE_XILPSM_ID				(6U)
-#define XPLMI_MODULE_LOADER_ID				(7U)
-#define XPLMI_MODULE_ERROR_ID				(8U)
-
-#define XPLMI_MODULE_COMMAND(FUNC)		{ (FUNC) }
+/* PLMI ERROR Management error codes */
+#define XPLMI_INVALID_ERROR_ID		(1U)
+#define XPLMI_INVALID_ERROR_TYPE	(2U)
+#define XPLMI_INVALID_ERROR_HANDLER	(3U)
+#define XPLMI_INVALID_ERROR_ACTION	(4U)
+#define XPLMI_INVALID_NODEID		(5U)
 
 /**************************** Type Definitions *******************************/
-typedef struct {
-	int (*Handler)(XPlmi_Cmd *Cmd);
-} XPlmi_ModuleCmd;
+/* Pointer to Error Handler Function */
+typedef void (*XPlmi_ErrorHandler_t) (u8 ErrorId);
 
-typedef struct {
-	u32 Id;
-	XPlmi_ModuleCmd * CmdAry;
-	u32 CmdCnt;
-} XPlmi_Module;
-
+/* Data Structure to hold Error Info */
+struct XPlmi_Error_t {
+	XPlmi_ErrorHandler_t Handler;
+	u8 Action;
+};
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-void XPlmi_ModuleRegister(XPlmi_Module * Module);
+void XPlmi_EmInit(void);
+void XPlmi_PsEmInit(void);
+int XPlmi_EmSetAction(u32 ErrorId, u8 ActionId,
+		XPlmi_ErrorHandler_t ErrorHandler);
+
+/* Functions defined in xplmi_err_cmd.c */
+void XPlmi_ErrModuleInit(void);
 
 /************************** Variable Definitions *****************************/
-extern XPlmi_Module * Modules[XPLMI_MAX_MODULES];
 
 /*****************************************************************************/
 
 #ifdef __cplusplus
-extern "C" {
+}
 #endif
 
-#endif /* XPLMI_MODULES_H */
+#endif /* XPLMI_ERR_H */
