@@ -58,7 +58,7 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 #define IOMODULE_DEVICE_ID XPAR_IOMODULE_0_DEVICE_ID
 #define MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK	(0x2U)
-#define XPLMI_PIT1_RESET_VALUE		(0xFFFFFFFDU)
+#define XPLMI_PIT1_RESET_VALUE		(0xFFFFFFFEU)
 #define XPLMI_PIT2_RESET_VALUE		(0xFFFFFFFEU)
 #define XPLMI_PIT1			(0U)
 #define XPLMI_PIT2			(1U)
@@ -110,6 +110,8 @@ void XPlmi_MeasurePerfTime(u64 tCur);
 void XPlmi_PlmIntrEnable(u32 IntrId);
 void XPlmi_PlmIntrDisable(u32 IntrId);
 void XPlmi_RegisterHandler(u32 IntrId, Function_t Handler, void * Data);
+void XPlmi_PrintRomTime();
+void XPlmi_PrintPlmTimeStamp();
 
 /* Handler Table Structure */
 struct HandlerTable {

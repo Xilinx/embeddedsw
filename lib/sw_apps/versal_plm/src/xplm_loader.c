@@ -86,6 +86,9 @@ int XPlm_LoadBootPdi(void *arg)
 	int Status;
 	u32 BootMode;
 
+	XPlmi_PrintPlmTimeStamp();
+	XPlmi_Printf(DEBUG_PRINT_PERF, "PLM Initialization Time \n\r");
+
 	/**
 	 * 1. Read Boot mode register and multiboot offset register
 	 * 2. Load subsystem present in PDI
@@ -115,6 +118,10 @@ int XPlm_LoadBootPdi(void *arg)
 
 	XPlmi_Printf(DEBUG_GENERAL, "***********Boot PDI Load: Done*************\n\r");
 
+	/** Print ROM time and PLM time stamp */
+	XPlmi_PrintRomTime();
+	XPlmi_PrintPlmTimeStamp();
+	XPlmi_Printf(DEBUG_PRINT_PERF, "Total PLM Boot Time \n\r");
 END:
 	/**
 	 * This is used to identify PLM has completed boot PDI
