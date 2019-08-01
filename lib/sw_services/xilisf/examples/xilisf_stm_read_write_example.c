@@ -57,6 +57,7 @@
 * 5.5   sk  01/14/16 Added support for Spansion flash in extended address
 *                    mode.
 * 5.6   sk   05/12/16 Corrected the missing WE before erase. CR# 951694.
+* 5.14  akm  08/01/19 Initialized Status variable to XST_FAILURE.
 *
 * </pre>
 *
@@ -166,7 +167,7 @@ u8 WriteBuffer[ISF_PAGE_SIZE];				  /* Write buffer */
 ******************************************************************************/
 int main(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	xil_printf("STM Serial Flash Read/Write example\r\n");
 
@@ -197,7 +198,7 @@ int main(void)
 ******************************************************************************/
 static int IsfStmFlashExample()
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u32 Index;
 	u32 Address;
 	XIsf_WriteParam WriteParam;
@@ -464,7 +465,7 @@ static int IsfStmFlashExample()
 ******************************************************************************/
 int IsfWaitForFlashNotBusy(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u8 StatusReg;
 
 	while(1) {
@@ -556,7 +557,7 @@ void SpiHandler(void *CallBackRef, u32 StatusEvent, u16 ByteCount)
 static int SetupInterruptSystem(XSpi *SpiPtr)
 {
 
-	int Status;
+	int Status = XST_FAILURE;
 
 	/*
 	 * Initialize the interrupt controller driver so that

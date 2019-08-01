@@ -54,6 +54,7 @@
 * 1.00a sdm 04/02/08 First release
 * 2.00a ktn 11/22/09 The Spi Driver APIs have changed. Replaced the call
 *		     to XSpi_mIntrGlobalDisable with XSpi_IntrGlobalDisable.
+* 5.14 akm  08/01/19 Initialized Status variable to XST_FAILURE.
 *
 * </pre>
 ******************************************************************************/
@@ -148,7 +149,7 @@ u8 WriteBuffer[ISF_PAGE_SIZE];				  /* Write buffer */
 ******************************************************************************/
 int main(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	xil_printf("Intel Serial Flash Read/Write polled example\r\n");
 
@@ -179,7 +180,7 @@ int main(void)
 ******************************************************************************/
 static int IsfIntelFlashExample()
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u32 Index;
 	u32 Address;
 	XIsf_WriteParam WriteParam;
@@ -415,7 +416,7 @@ static int IsfIntelFlashExample()
 ******************************************************************************/
 int IsfWaitForFlashNotBusy(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u8 StatusReg;
 
 	while(1) {

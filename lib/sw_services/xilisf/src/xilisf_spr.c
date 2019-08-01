@@ -48,6 +48,7 @@
  * 5.9   ms       08/03/17 Added tags and updated comment lines style for
  *                          doxygen.
  * 5.12 tjs	 06/18/18 Removed checkpatch and gcc warnings.
+ * 5.14 akm  	 08/01/19 Initialized Status variable to XST_FAILURE.
  *
  * </pre>
  *
@@ -185,7 +186,7 @@ int XIsf_SectorProtect(XIsf *InstancePtr, XIsf_SpOperation Operation,
  ******************************************************************************/
 static int SprRead(XIsf *InstancePtr, u8 *ReadPtr)
 {
-	int Status;
+	int Status = (int)(XST_FAILURE);
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -241,7 +242,7 @@ static int SprRead(XIsf *InstancePtr, u8 *ReadPtr)
  ******************************************************************************/
 static int SprProgram(XIsf *InstancePtr, u8 *BufferPtr)
 {
-	int Status;
+	int Status = (int)(XST_FAILURE);
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 

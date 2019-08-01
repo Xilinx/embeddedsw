@@ -53,6 +53,7 @@
 * 2.04a sdm  08/25/11 First release
 * 5.0   sb   08/05/14 Registering to Xilisf Interrupt handler
 *		      instead of driver handler.
+* 5.14  akm  08/01/19 Initialized Status variable to XST_FAILURE.
 * </pre>
 *
 ******************************************************************************/
@@ -184,7 +185,7 @@ u8 WriteBuffer[ISF_PAGE_SIZE];				      /* Write buffer */
 ******************************************************************************/
 int main(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	xil_printf("Winbond Quad Serial Flash Read/Write example\r\n");
 
@@ -215,7 +216,7 @@ int main(void)
 ******************************************************************************/
 static int IsfWinbondFlashExample()
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u32 Index;
 	u32 Address;
 	XIsf_WriteParam WriteParam;
@@ -645,7 +646,7 @@ static int IsfWinbondFlashExample()
 ******************************************************************************/
 int IsfWaitForFlashNotBusy(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u8 StatusReg;
 
 	while(1) {
@@ -694,7 +695,7 @@ int IsfWaitForFlashNotBusy(void)
 ******************************************************************************/
 static int SpiFlashQuadEnable(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	/*
 	 * Perform the Write Enable operation.
@@ -812,7 +813,7 @@ void SpiHandler(void *CallBackRef, u32 StatusEvent, u16 ByteCount)
 static int SetupInterruptSystem(XSpi *SpiPtr)
 {
 
-	int Status;
+	int Status = XST_FAILURE;
 
 	/*
 	 * Initialize the interrupt controller driver so that

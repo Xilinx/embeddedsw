@@ -42,6 +42,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 5.13  sk  02/11/19 First Release.
+* 5.14  akm 08/01/19 Initialized Status variable to XST_FAILURE.
 *
 *</pre>
 *
@@ -159,7 +160,7 @@ u8 IsfWriteBuffer[PAGE_SIZE + XISF_CMD_SEND_EXTRA_BYTES];/**< IsfWrite Buffer
 ******************************************************************************/
 int main(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	xil_printf("OSPIPSV FLASH Polling Example Test \r\n");
 
@@ -195,7 +196,7 @@ int OspiFlashPollExample(XOspiPsv *OspiInstancePtr, u16 OspiDeviceId)
 	u8 UniqueValue;
 	int Count;
 	int Page;
-	int Status;
+	int Status = XST_FAILURE;
 	u32 Options;
 	XOspiPsv_Config *ConfigPtr;
 
@@ -324,7 +325,7 @@ int FlashWrite(XIsf *InstancePtr, u32 Address, u32 ByteCount,
 {
 	XIsf_WriteParam WriteParam;
 
-	int Status;
+	int Status = XST_FAILURE;
 
 	WriteParam.Address = Address;
 	WriteParam.NumBytes = ByteCount;
@@ -359,7 +360,7 @@ int FlashWrite(XIsf *InstancePtr, u32 Address, u32 ByteCount,
 int FlashRead(XIsf *InstancePtr, u32 Address, u32 ByteCount, u8 Command)
 {
 	XIsf_ReadParam ReadParam;
-	int Status;
+	int Status = XST_FAILURE;
 
 	/*
 	 * Set the
@@ -398,7 +399,7 @@ int FlashRead(XIsf *InstancePtr, u32 Address, u32 ByteCount, u8 Command)
 ******************************************************************************/
 int FlashSetSDRDDRMode(XIsf *InstancePtr, int Mode)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u8 ConfigReg[2] __attribute__ ((aligned(64)));
 	u8 Data[2] __attribute__ ((aligned(4)));
 	XIsf_WriteParam WriteParam;
@@ -461,7 +462,7 @@ int FlashSetSDRDDRMode(XIsf *InstancePtr, int Mode)
 ******************************************************************************/
 int FlashErase(XIsf *InstancePtr, u32 Address, u32 ByteCount)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	int Sector;
 	u32 NumSect;
 	u32 SectorSize;
