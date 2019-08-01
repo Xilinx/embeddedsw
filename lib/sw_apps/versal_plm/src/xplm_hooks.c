@@ -44,6 +44,7 @@
 
 /***************************** Include Files *********************************/
 #include "xplm_hooks.h"
+#include "xplm_main.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -81,7 +82,23 @@ int XPlm_HookBeforePlmCdo()
 *****************************************************************************/
 int XPlm_HookAfterPlmCdo()
 {
+	
+	return XST_SUCCESS;
+}
 
+/*****************************************************************************/
+/**
+* @brief This function will be called after processing the LPD CDO. All the
+* LPD configuration will be completed by this time.
+*
+* @param	None
+* @return	XST_SUCCESS on success, any other value for error
+*
+*****************************************************************************/
+int XPlm_HookAfterLpdInit()
+{
+	/** Print PLM banner  */
+	XPlm_PrintPlmBanner();
 	return XST_SUCCESS;
 }
 

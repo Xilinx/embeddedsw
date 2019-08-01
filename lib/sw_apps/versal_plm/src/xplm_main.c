@@ -74,7 +74,9 @@ int main(void )
 
 #ifdef DEBUG_UART_MDM
 	/** If MDM UART, banner can be printed before any initialization */
-	XPlm_InitUart();
+	XPlmi_InitUart();
+	/** Print PLM banner  */
+	XPlm_PrintPlmBanner();
 #endif
 
 	/** Initialize the processor, tasks lists */
@@ -139,53 +141,6 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief This function initializes the PS/MDM uart and prints
- * PLM banner.
- *
- * @param	None
- *
- * @return	Status of the UART initialization
- *
- *****************************************************************************/
-int XPlm_InitUart()
-{
-	int Status;
-
-#ifdef DEBUG_UART_PS
-	/**
-	 * PLM needs to request UART if debug is enabled, else LibPM will
-	 * turn it off when it is not used by other processor.
-	 * During such scenario when PLM tries to print debug message,
-	 * system may not work properly.
-	 */
-	Status = XPm_RequestDevice(XPM_SUBSYSID_PMC, NODE_UART, PM_CAP_ACCESS,
-				   XPM_MAX_QOS, 0);
-	if (XST_SUCCESS != Status)
-	{
-		goto END;
-	}
-#endif
-
-	/**
-	 * TODO If UART is defined, can we initialize UART with default
-	 * HW values so that we can print from the start
-	 */
-	/* Initialize UART */
-	Status = XPlmi_InitUart();
-	if (Status != XST_SUCCESS)
-	{
-		goto END;
-	}
-
-	/** Print PLM banner  */
-	XPlm_PrintPlmBanner();
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
  * @brief This function prints PMC FW banner
  *
  * @param none
@@ -200,51 +155,61 @@ void XPlm_PrintPlmBanner(void )
 	u32 Platform;
 	u32 PsVersion;
 	u32 PmcVersion;
-
-	/* Print the PLM Banner */
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
+	static u8 IsBannerPrinted = FALSE;
+	
+	if (FALSE == IsBannerPrinted) {
+		/* Print the PLM Banner */
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
                  "\n\r****************************************\n\r");
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
                  "Xilinx Versal Platform Loader and Manager \n\r");
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
                  "Release %s.%s   %s  -  %s\n\r",
                  SDK_RELEASE_YEAR, SDK_RELEASE_QUARTER, __DATE__, __TIME__);
 
-	/* Read the Version */
-	Version = XPlmi_In32(PMC_TAP_VERSION);
-	PlatformVersion = ((Version & PMC_TAP_VERSION_PLATFORM_VERSION_MASK) >>
-			PMC_TAP_VERSION_PLATFORM_VERSION_SHIFT);
-	Platform = ((Version & PMC_TAP_VERSION_PLATFORM_MASK) >>
-			PMC_TAP_VERSION_PLATFORM_SHIFT);
-	PsVersion = ((Version & PMC_TAP_VERSION_PS_VERSION_MASK) >>
-			PMC_TAP_VERSION_PS_VERSION_SHIFT);
-	PmcVersion = ((Version & PMC_TAP_VERSION_PMC_VERSION_MASK) >>
-			PMC_TAP_VERSION_PMC_VERSION_SHIFT);
-	switch(Platform)
-	{
-		case PMC_TAP_VERSION_SILICON:
-			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Silicon: "); break;
-		case PMC_TAP_VERSION_SPP:
-			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "SPP: "); break;
-		case PMC_TAP_VERSION_EMU:
-			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "EMU: "); break;
-		case PMC_TAP_VERSION_QEMU:
-			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "QEMU: "); break;
-		default:break;
-	}
+		/* Read the Version */
+		Version = XPlmi_In32(PMC_TAP_VERSION);
+		PlatformVersion = ((Version & 
+				PMC_TAP_VERSION_PLATFORM_VERSION_MASK) >>
+				PMC_TAP_VERSION_PLATFORM_VERSION_SHIFT);
+		Platform = ((Version & PMC_TAP_VERSION_PLATFORM_MASK) >>
+				PMC_TAP_VERSION_PLATFORM_SHIFT);
+		PsVersion = ((Version & PMC_TAP_VERSION_PS_VERSION_MASK) >>
+				PMC_TAP_VERSION_PS_VERSION_SHIFT);
+		PmcVersion = ((Version & PMC_TAP_VERSION_PMC_VERSION_MASK) >>
+				PMC_TAP_VERSION_PMC_VERSION_SHIFT);
+		switch (Platform) {
+			case PMC_TAP_VERSION_SILICON:
+				XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Silicon: ");
+				break;
+			case PMC_TAP_VERSION_SPP:
+				XPlmi_Printf(DEBUG_PRINT_ALWAYS, "SPP: ");
+				break;
+			case PMC_TAP_VERSION_EMU:
+				XPlmi_Printf(DEBUG_PRINT_ALWAYS, "EMU: ");
+				break;
+			case PMC_TAP_VERSION_QEMU:
+				XPlmi_Printf(DEBUG_PRINT_ALWAYS, "QEMU: ");
+				break;
+			default:
+				break;
+		}
 
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "v%d, ", PlatformVersion);
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PMC: v%d.%d, ",
-				(PmcVersion/16), PmcVersion%16);
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PS: v%d.%d",
-				(PsVersion/16), PsVersion%16);
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "\n\r");
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "v%d, ", PlatformVersion);
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PMC: v%d.%d, ",
+					(PmcVersion/16), PmcVersion%16);
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PS: v%d.%d",
+					(PsVersion/16), PsVersion%16);
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "\n\r");
 #ifdef DEBUG_UART_MDM
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "STDOUT: MDM UART \n\r");
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "STDOUT: MDM UART\n\r");
 #else
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "STDOUT: PS UART \n\r");
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "STDOUT: PS UART\n\r");
 #endif
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
                  "****************************************\n\r");
+	
+		IsBannerPrinted = TRUE;
+	}
 }
 

@@ -70,7 +70,6 @@ extern "C" {
 /* Functions defined in xplm_main.c */
 int XPlm_Init();
 void XPlm_PrintPlmBanner(void);
-int XPlm_InitUart();
 
 /************************** Variable Definitions *****************************/
 

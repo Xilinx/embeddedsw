@@ -72,13 +72,6 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#ifdef STDOUT_BASEADDRESS
-#if (STDOUT_BASEADDRESS == 0xFF000000)
-#define NODE_UART XPM_DEVID_UART_0
-#elif (STDOUT_BASEADDRESS == 0xFF010000)
-#define NODE_UART XPM_DEVID_UART_1
-#endif
-#endif
 
 /************************** Function Prototypes ******************************/
 
