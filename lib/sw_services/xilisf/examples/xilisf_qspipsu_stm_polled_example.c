@@ -48,6 +48,7 @@
 * ----- --- -------- -----------------------------------------------
 * 5.4   sk  08/07/15 First Release.
 * 5.7   rk  07/27/16 Added the dummy bytecnt other than normal reads.
+* 5.14  akm 08/01/19 Initialized Status variable to XST_FAILURE.
 *
 *</pre>
 *
@@ -189,7 +190,7 @@ u8 IsfWriteBuffer[PAGE_SIZE + XISF_CMD_SEND_EXTRA_BYTES];/**< IsfWrite Buffer
 ******************************************************************************/
 int main(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	xil_printf("QSPIPSU FLASH Polling Example Test \r\n");
 
@@ -231,7 +232,7 @@ int QspiFlashPollExample(XScuGic *IntcInstancePtr, XQspiPsu *QspiInstancePtr,
 	u8 UniqueValue;
 	int Count;
 	int Page;
-	int Status;
+	int Status = XST_FAILURE;
 	u32 Options;
 
 	/*
@@ -347,7 +348,7 @@ int FlashWrite(XIsf *InstancePtr, u32 Address, u32 ByteCount,
 {
 	XIsf_WriteParam WriteParam;
 
-	int Status;
+	int Status = XST_FAILURE;
 
 	WriteParam.Address = Address;
 	WriteParam.NumBytes = ByteCount;
@@ -382,7 +383,7 @@ int FlashWrite(XIsf *InstancePtr, u32 Address, u32 ByteCount,
 int FlashRead(XIsf *InstancePtr, u32 Address, u32 ByteCount, u8 Command)
 {
 	XIsf_ReadParam ReadParam;
-	int Status;
+	int Status = XST_FAILURE;
 
 	/*
 	 * Set the
@@ -426,7 +427,7 @@ int FlashRead(XIsf *InstancePtr, u32 Address, u32 ByteCount, u8 Command)
 ******************************************************************************/
 int FlashErase(XIsf *InstancePtr, u32 Address, u32 ByteCount)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	int Sector;
 	u32 NumSect;
 	u32 SectorSize;

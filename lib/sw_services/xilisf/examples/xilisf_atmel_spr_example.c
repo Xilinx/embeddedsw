@@ -75,6 +75,7 @@
 * 2.00a ktn  	 11/22/09 Updated to use HAL processor APIs.
 * 5.0   sb   	 08/05/14 Registering to Xilisf Interrupt handler
 *		      	  instead of driver handler.
+* 5.14  akm  	 08/01/19 Initialized Status variable to XST_FAILURE.
 *</pre>
 ******************************************************************************/
 
@@ -182,7 +183,7 @@ u8 WriteBuffer[ISF_PAGE_SIZE]; 				   /* Write buffer. */
 ******************************************************************************/
 int main(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	xil_printf("Atmel Serial Flash SPR Interrupt example\r\n");
 
@@ -213,7 +214,7 @@ int main(void)
 ******************************************************************************/
 static int IsfAtmelFlashExample(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u16 Index;
 	XIsf_WriteParam WriteParam;
 	XIsf_ReadParam ReadParam;
@@ -658,7 +659,7 @@ static int IsfAtmelFlashExample(void)
 ******************************************************************************/
 static int IsfWaitForFlashNotBusy()
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u8 StatusReg;
 	u8 ReadBuffer[2];
 
@@ -751,7 +752,7 @@ void SpiHandler(void *CallBackRef, u32 StatusEvent, u16 ByteCount)
 static int SetupInterruptSystem(XSpi *SpiPtr)
 {
 
-	int Status;
+	int Status = XST_FAILURE;
 
 	/*
 	 * Initialize the interrupt controller driver so that it's ready to use

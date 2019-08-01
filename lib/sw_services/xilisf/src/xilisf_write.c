@@ -61,6 +61,7 @@
  *                    CR#1015808.
  *      sk   02/15/19 4B write command is not supported by all QSPI Micron
  *                    flashes hence used used 3B write command.
+ * 5.14 akm  08/01/19 Initialized Status variable to XST_FAILURE.
  *
  * </pre>
  *
@@ -482,7 +483,7 @@ static int WriteData(XIsf *InstancePtr, u8 Command, u32 Address,
 #if	defined(XPAR_XISF_INTERFACE_PSSPI)
 	u32 Index;
 #endif
-	int Status;
+	int Status = (int)(XST_FAILURE);
 #if ((!defined(XPAR_XISF_INTERFACE_QSPIPSU)) && \
 		(!defined(XPAR_XISF_INTERFACE_OSPIPSV)) && \
 		(!defined(XPAR_XISF_INTERFACE_PSSPI)))
@@ -884,7 +885,7 @@ static int WriteData(XIsf *InstancePtr, u8 Command, u32 Address,
 static int WriteVCR(XIsf *InstancePtr, u8 Command, u32 Address,
 			u8 *BufferPtr, u32 ByteCount)
 {
-	int Status;
+	int Status = (int)(XST_FAILURE);
 	int Mode;
 	u8 *NULLPtr = NULL;
 
@@ -1218,7 +1219,7 @@ static int BufferToFlashWriteWithoutErase(XIsf *InstancePtr, u8 BufferNum,
  ******************************************************************************/
 static int WriteSR(XIsf *InstancePtr, u8 SRData)
 {
-	int Status = XST_FAILURE;
+	int Status = (int)(XST_FAILURE);
 
 #if ((XPAR_XISF_FLASH_FAMILY == INTEL) || \
 	(XPAR_XISF_FLASH_FAMILY == STM) || \

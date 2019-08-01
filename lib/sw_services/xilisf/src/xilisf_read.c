@@ -63,6 +63,7 @@
  * 5.13 nsk  01/22/18 Make variable declaration to XQspiPsu_Msg as global
  *                    CR#1015808.
  *      sk   02/11/19 Added support for OSPI flash interface.
+ * 5.14 akm  08/01/19 Initialized Status variable to XST_FAILURE.
  *
  * </pre>
  *
@@ -471,7 +472,7 @@ static int ReadData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr, u32 ByteCount)
 	u8 ShiftSize;
 #endif
 	u32 RealAddr;
-	int Status;
+	int Status = (int)(XST_FAILURE);
 	u32 RealByteCnt;
 #ifndef XPAR_XISF_INTERFACE_QSPIPSU
 	u32 TotalByteCnt = ByteCount;
@@ -743,7 +744,7 @@ static int FastReadData(XIsf *InstancePtr, u8 Command, u32 Address,
 	int Index;
 	u32 TotalByteCnt = ByteCount;
 #endif
-	int Status;
+	int Status = (int)(XST_FAILURE);
 	u32 RealAddr;
 	u32 RealByteCnt;
 	u32 LocalAddress = Address;
@@ -1349,7 +1350,7 @@ static int ReadOTPData(XIsf *InstancePtr, u32 Address, u8 *ReadPtr,
 static int OctalReadData(XIsf *InstancePtr, u8 Command, u32 Address,
 			u8 *ReadPtr, u32 ByteCount, int NumDummyBytes)
 {
-	u8 Status;
+	u8 Status = (int)(XST_FAILURE);
 	u8 *NULLPtr = NULL;
 
 	FlashMsg.Opcode = Command;
@@ -1396,7 +1397,7 @@ static int OctalReadData(XIsf *InstancePtr, u8 Command, u32 Address,
 static int ReadVCR(XIsf *InstancePtr, u8 Command, u32 Address,
 			u8 *BufferPtr, u32 ByteCount, u8 NumDummyBytes)
 {
-	int Status;
+	int Status = (int)(XST_FAILURE);
 	u8 *NULLPtr = NULL;
 
 	FlashMsg.Opcode = Command;

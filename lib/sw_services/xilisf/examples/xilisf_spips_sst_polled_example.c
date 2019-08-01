@@ -52,6 +52,7 @@
 * 3.02  srt 04/26/13 Modified Erase function to perform Write Enable operation
 *		     for each sector erase.
 * 5.4   sk  08/07/15 Modified the example to support on ZynqMP.
+* 5.14  akm 08/01/19 Initialized Status variable to XST_FAILURE.
 *
 *</pre>
 *
@@ -157,7 +158,7 @@ u8 IsfWriteBuffer[XISF_CMD_SEND_EXTRA_BYTES + 1];
 ******************************************************************************/
 int main(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	xil_printf("SPI FLASH Polled Example Test \r\n");
 
@@ -283,7 +284,7 @@ int SpiFlashPolledExample(XSpiPs *SpiInstancePtr,
 ******************************************************************************/
 int IsfWaitForFlashNotBusy(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u8 StatusReg;
 
 	while(1) {
@@ -328,7 +329,7 @@ int FlashWrite(XIsf *InstancePtr, u32 Address, u32 ByteCount, u8 Command)
 {
 	XIsf_WriteParam WriteParam;
 
-	int Status;
+	int Status = XST_FAILURE;
 
 	WriteEnable(InstancePtr);
 
@@ -372,7 +373,7 @@ int FlashWrite(XIsf *InstancePtr, u32 Address, u32 ByteCount, u8 Command)
 int FlashRead(XIsf *InstancePtr, u32 Address, u32 ByteCount, u8 Command)
 {
 	XIsf_ReadParam ReadParam;
-	int Status;
+	int Status = XST_FAILURE;
 
 	/*
 	 * Set the
@@ -413,7 +414,7 @@ int FlashRead(XIsf *InstancePtr, u32 Address, u32 ByteCount, u8 Command)
 ******************************************************************************/
 int FlashErase(XIsf *InstancePtr, u32 Address, u32 ByteCount)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	int Sector;
 
 	/*
@@ -463,7 +464,7 @@ int FlashErase(XIsf *InstancePtr, u32 Address, u32 ByteCount)
 ******************************************************************************/
 int WriteEnable(XIsf *InstancePtr)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	/*
 	 * Perform the Write Enable operation.

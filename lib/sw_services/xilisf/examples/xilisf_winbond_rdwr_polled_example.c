@@ -51,6 +51,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 2.01a sdm 03/17/10 First release
+* 5.14  akm 08/01/19 Initialized Status variable to XST_FAILURE.
 *
 * </pre>
 *
@@ -146,7 +147,7 @@ u8 WriteBuffer[ISF_PAGE_SIZE];				  /* Write buffer */
 ******************************************************************************/
 int main(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	xil_printf("Winbond Serial Flash Read/Write polled example\r\n");
 
@@ -177,7 +178,7 @@ int main(void)
 ******************************************************************************/
 static int IsfWinbondFlashExample()
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u32 Index;
 	u32 Address;
 	XIsf_WriteParam WriteParam;
@@ -352,7 +353,7 @@ static int IsfWinbondFlashExample()
 ******************************************************************************/
 int IsfWaitForFlashNotBusy(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u8 StatusReg;
 
 	while(1) {
