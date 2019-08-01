@@ -159,8 +159,9 @@ int XPlmi_IpiDispatchHandler(void *Data)
 	if (XST_SUCCESS != Status) {
 		XPlmi_Printf(DEBUG_GENERAL, "%s: Error: Unhandled IPI received\n\r", __func__);
 	}
-
-	Xil_Out32(IPI_PMC_ISR, SrcCpuMask);
+	if ((LpdInitialized & LPD_INITIALIZED) == LPD_INITIALIZED) {
+		Xil_Out32(IPI_PMC_ISR, SrcCpuMask);
+	}
 
 	return Status;
 }
@@ -179,19 +180,22 @@ int XPlmi_IpiDispatchHandler(void *Data)
  *****************************************************************************/
 int XPlmi_IpiWrite(u32 DestCpuMask, u32 *MsgPtr, u32 MsgLen, u32 Type)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
-	if ((NULL == MsgPtr) ||
+	if ((LpdInitialized & LPD_INITIALIZED) == LPD_INITIALIZED) {
+		if ((NULL == MsgPtr) ||
 			((MsgLen <= 0) || (MsgLen > XPLMI_IPI_MAX_MSG_LEN)) ||
 			((XIPIPSU_BUF_TYPE_MSG != Type) && (XIPIPSU_BUF_TYPE_RESP != Type))) {
-		Status = XST_FAILURE;
-	} else {
+			Status = XST_FAILURE;
+		} else {
 
-		Status = XIpiPsu_WriteMessage(IpiInstPtr, DestCpuMask, MsgPtr, MsgLen,
-				Type);
+			Status = XIpiPsu_WriteMessage(IpiInstPtr, DestCpuMask,
+					MsgPtr, MsgLen, Type);
+		}
+
+		XPlmi_Printf(DEBUG_DETAILED, "%s: IPI write status: 0x%x\r\n", 
+				__func__, Status);
 	}
-
-	XPlmi_Printf(DEBUG_DETAILED, "%s: IPI write status: 0x%x\r\n", __func__, Status);
 
 	return Status;
 }

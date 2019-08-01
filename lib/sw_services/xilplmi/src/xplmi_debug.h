@@ -103,12 +103,16 @@ extern "C" {
 int XPlmi_InitUart(void );
 
 /************************** Variable Definitions *****************************/
-extern u32 UartInitialized;
+extern u32 LpdInitialized;
 
+#define UART_INITIALIZED	1U << 0U
+#define LPD_INITIALIZED		1U << 1U
+#define XPlmi_ResetLpdInitialized()	\
+	LpdInitialized = 0U;
 
 #define XPlmi_Printf(DebugType, ...) \
 	if((((DebugType) & XPlmiDbgCurrentTypes) != 0x0U) && \
-	   (UartInitialized == TRUE)) \
+	   (((LpdInitialized) & UART_INITIALIZED) == UART_INITIALIZED)) \
 	{xil_printf (__VA_ARGS__); }
 
 #ifdef __cplusplus

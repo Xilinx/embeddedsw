@@ -86,7 +86,7 @@ struct XPlmi_Error_t {
 
 /************************** Function Prototypes ******************************/
 void XPlmi_EmInit(void);
-void XPlmi_PsEmInit(void);
+int XPlmi_PsEmInit(void);
 int XPlmi_EmSetAction(u32 ErrorId, u8 ActionId,
 		XPlmi_ErrorHandler_t ErrorHandler);
 

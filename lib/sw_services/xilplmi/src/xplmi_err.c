@@ -699,7 +699,7 @@ void XPlmi_EmInit(void)
  * @param None
  * @return None
 *****************************************************************************/
-void XPlmi_PsEmInit(void)
+int XPlmi_PsEmInit(void)
 {
 	u32 Index;
 
@@ -737,6 +737,7 @@ void XPlmi_PsEmInit(void)
 			     "set action for PSM ERR2: %d\r\n", Index)
 		}
 	}
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
