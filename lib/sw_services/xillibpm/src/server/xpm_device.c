@@ -488,8 +488,21 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 			break;
 		case XPM_DEVSTATE_RUNTIME_SUSPEND:
 			if (XPM_DEVEVENT_SHUTDOWN == Event) {
-				Node->State = XPM_DEVSTATE_RUNNING;
-				Status = Node->HandleEvent(Node, XPM_DEVEVENT_SHUTDOWN);
+				/* Assert reset for peripheral devices */
+				if (XPM_NODESUBCL_DEV_PERIPH ==
+						NODESUBCLASS(Device->Node.Id)) {
+					Status = XPmDevice_Reset(Device,
+							PM_RESET_ACTION_ASSERT);
+					if (XST_SUCCESS != Status) {
+						break;
+					}
+				}
+				/*
+				 * Change device's state to clock off since all
+				 * clocks are disabled during runtime suspend.
+				 */
+				Node->State = XPM_DEVSTATE_CLK_OFF;
+				Status = Node->HandleEvent(Node, XPM_DEVEVENT_TIMER);
 			} else if (XPM_DEVEVENT_BRINGUP_ALL == Event) {
 				/* Enable all clocks */
 				Status = SetClocks(Device, TRUE);
