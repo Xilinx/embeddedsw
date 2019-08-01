@@ -537,13 +537,6 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 	{
 		CpuId = PdiPtr->HandoffParam[Index].CpuSettings
 				& XIH_PH_ATTRB_DSTN_CPU_MASK;
-		if((PdiPtr->CpusRunning & (1U<<(CpuId>>XLOADER_RUNNING_CPU_SHIFT)))
-								 != FALSE)
-		{
-			XLoader_Printf(DEBUG_INFO, "\n CpuId %0x is already running, \
-					handoff ignored\n\r", CpuId);
-			continue;
-		}
 
 		HandoffAddr = PdiPtr->HandoffParam[Index].HandoffAddr;
 
@@ -634,8 +627,13 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 			{
 				XLoader_Printf(DEBUG_INFO,
 						" Request PSM wakeup \r\n");
-				XPm_RequestWakeUp(XPM_SUBSYSID_PMC,
+				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC,
 						XPM_DEVID_PSM, 0, 0, 0);
+				if (Status != XST_SUCCESS) {
+					Status = XPLMI_UPDATE_STATUS(
+						XLOADER_ERR_WAKEUP_PSM, Status);
+					goto END;
+				}
 			}break;
 
 			default:
@@ -643,7 +641,6 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				continue;
 			}
 		}
-		PdiPtr->CpusRunning |= 1U<<(CpuId >> XLOADER_RUNNING_CPU_SHIFT);
 	}
 
 	/*
@@ -799,7 +796,6 @@ int XLoader_RestartImage(u32 ImageId)
 		goto END;
 	}
 
-	SubSystemInfo.PdiPtr->CpusRunning = 0U;
 	Status = XLoader_StartImage(SubSystemInfo.PdiPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
