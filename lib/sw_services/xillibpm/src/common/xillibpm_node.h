@@ -190,6 +190,7 @@ typedef enum {
         XPM_NODETYPE_DEV_PERIPH,
         XPM_NODETYPE_DEV_SOC,
         XPM_NODETYPE_DEV_GT,
+	XPM_NODETYPE_DEV_EFUSE,
 } XPm_DeviceNodeType;
 
 typedef enum {
