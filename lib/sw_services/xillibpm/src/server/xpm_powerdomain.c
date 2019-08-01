@@ -387,11 +387,28 @@ XStatus XPm_PowerUpNoC(XPm_Node *Node)
 {
 	XStatus Status = XST_SUCCESS;
 
-	(void)Node;
+        if (XPM_POWER_STATE_ON == Node->State) {
+                goto done;
+        } else {
+                Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, FUNC_INIT_START, NULL, 0);
+                if (Status != XST_SUCCESS)
+                        goto done;
+                Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, FUNC_SCAN_CLEAR, NULL, 0);
+                if (Status != XST_SUCCESS)
+                        goto done;
 
-	/* TODO: Reexecure NPD CDO, no NPI programmin needed */
+                Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, FUNC_BISR, NULL, 0);
+                if (Status != XST_SUCCESS)
+                        goto done;
+                Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, FUNC_MBIST_CLEAR, NULL, 0);
+                if (Status != XST_SUCCESS)
+                        goto done;
 
-	return Status;
+                Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, FUNC_INIT_FINISH, NULL, 0);
+        }
+
+done:
+        return Status;
 }
 
 XStatus XPm_PowerDwnNoC()
