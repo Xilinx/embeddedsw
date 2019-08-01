@@ -174,7 +174,9 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 		PMC_ANALOG_SCAN_CLEAR_TRIGGER_NOC_MASK,
 		PMC_ANALOG_SCAN_CLEAR_TRIGGER_NOC_MASK);
 
-	usleep(200);
+	/* 200 us is not enough and scan clear pass status is updated
+		after so increasing delay for scan clear to finish */
+	usleep(400);
 
 	/* Enable NPI Clock */
 	Clk = (XPm_OutClockNode *)XPmClock_GetByIdx(XPM_NODEIDX_CLK_NPI_REF);
