@@ -78,6 +78,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XPlmi_Init(void );
+void XPlmi_LpdInit(void);
 
 #ifdef __cplusplus
 }
