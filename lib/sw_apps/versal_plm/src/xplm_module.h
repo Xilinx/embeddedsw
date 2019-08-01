@@ -64,9 +64,7 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 int XPlm_PlmiInit();
 int XPlm_ModuleInit(void *arg);
-int XPlm_LpdModuleInit(void *arg);
 int XPlm_ErrInit(void );
-int XPlm_PsErrInit(void );
 
 /************************** Variable Definitions *****************************/
 

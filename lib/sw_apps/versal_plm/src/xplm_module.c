@@ -71,22 +71,6 @@ static ModuleInit ModuleList[] =
 	XPlm_LoaderInit,
 };
 
-/**
- * It contains the all the PS LPD init functions to be run for every module that
- * is present as a part of PLM.
- */
-static ModuleInit LpdModuleList[] =
-{
-#ifdef DEBUG_UART_PS
-	XPlm_InitUart,
-#endif
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
-	XPlmi_IpiInit,
-#endif
-	XPlmi_SysMonInit,
-	XPlm_PsErrInit,
-};
-
 /*****************************************************************************/
 /**
  * @brief This function initializes the Error module and registers the
@@ -103,21 +87,6 @@ int XPlm_ErrInit(void )
 	return XST_SUCCESS;
 }
 
-/*****************************************************************************/
-/**
- * @brief This function initializes the Error module and registers the
- * error commands of the CDO.
- *
- * @param	None
- *
- * @return	Status as defined in xplm_status.h
- *
- *****************************************************************************/
-int XPlm_PsErrInit(void )
-{
-	XPlmi_PsEmInit();
-	return XST_SUCCESS;
-}
 /*****************************************************************************/
 /**
  * @brief This function initializes the PLMI module and registers the
@@ -164,33 +133,3 @@ END:
 	return Status;
 }
 
-/*****************************************************************************/
-/**
- * @brief This function call all the PS LPD init functions of all the different
- * modules. As a part of init functions, modules can register the
- * command handlers, interrupt handlers with the interface layer.
- *
- * @param	None
- *
- * @return	Status as defined in xplm_status.h
- *
- *****************************************************************************/
-int XPlm_LpdModuleInit(void *arg)
-{
-	u32 Index;
-	int Status;
-
-	for (Index = 0; Index <
-	     sizeof LpdModuleList / sizeof *LpdModuleList; Index++)
-	{
-		Status = LpdModuleList[Index]();
-		if (Status != XPLM_SUCCESS)
-		{
-			Status = XPLMI_UPDATE_STATUS(XPLM_ERR_LPD_MOD, Status);
-			goto END;
-		}
-	}
-	Status = XPLM_SUCCESS;
-END:
-	return Status;
-}

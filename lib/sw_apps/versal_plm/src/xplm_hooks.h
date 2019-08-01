@@ -62,6 +62,7 @@ extern "C" {
 int XPlm_HookBeforePlmCdo();
 int XPlm_HookAfterPlmCdo();
 int XPlm_HookAfterBootPdi();
+int XPlm_HookAfterLpdInit();
 
 #ifdef __cplusplus
 }
