@@ -172,7 +172,9 @@ void XPlmi_TaskDispatchLoop(void )
 	struct metal_list *Node;
 	XPlmi_TaskNode *Task;
 	u32 Index;
+#ifdef PLM_DEBUG_INFO
 	u64 TaskStartTime;
+#endif
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s\n\r", __func__);
 
@@ -200,12 +202,16 @@ void XPlmi_TaskDispatchLoop(void )
 
 		if (Task != NULL)
 		{
+#ifdef PLM_DEBUG_INFO
 			/** Call the task handler */
 			TaskStartTime = XPlmi_GetTimerValue();
+#endif
 			Xil_AssertVoid(Task->Handler != NULL);
 			Status = Task->Handler(Task->PrivData);
+#ifdef PLM_DEBUG_INFO
 			XPlmi_MeasurePerfTime(TaskStartTime);
 			XPlmi_Printf(DEBUG_PRINT_PERF, "Task Time \n\r");
+#endif
 			if (Status != XPLMI_TASK_INPROGRESS)
 			{
 				/** delete the task that is handled */
