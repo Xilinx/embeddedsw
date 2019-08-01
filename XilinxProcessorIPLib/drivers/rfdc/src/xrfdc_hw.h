@@ -78,6 +78,7 @@
 *       cog    07/16/19 Added XRFdc_SetDACOpCurr() API masks/shifts.
 *       cog    07/18/19 Added XRFdc_S/GetDigitalStepAttenuator() API masks/shifts.
 *       cog    07/26/19 Added XRFdc_S/GetLegacyCompatibilityMode() API shift.
+*       cog    08/02/19 Formatting changes.
 *
 *</pre>
 *
@@ -1977,15 +1978,15 @@ extern "C" {
 /**
 * Read a register.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the 1st register of the
-*		device to the target register.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    BaseAddress contains the base address of the device.
+* @param    RegOffset contains the offset from the 1st register of the
+*           device to the target register.
 *
-* @return	The value read from the register.
+* @return   The value read from the register.
 *
-* @note		C-Style signature:
-*		u32 XRFdc_ReadReg64(XRFdc *InstancePtr. u32 BaseAddress, s32 RegOffset)
+* @note     C-Style signature:
+*           u32 XRFdc_ReadReg64(XRFdc *InstancePtr. u32 BaseAddress, s32 RegOffset)
 *
 ******************************************************************************/
 #define XRFdc_ReadReg64(InstancePtr, BaseAddress, RegOffset)                                                           \
@@ -1995,15 +1996,15 @@ extern "C" {
 /**
 * Write to a register.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the 1st register of the
-*			device to target register.
-* @param	RegisterValue is the value to be written to the register.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    BaseAddress contains the base address of the device.
+* @param    RegOffset contains the offset from the 1st register of the
+*           device to target register.
+* @param    RegisterValue is the value to be written to the register.
 *
-* @return	None.
+* @note     None.
 *
-* @note		C-Style signature:
+* @note     C-Style signature:
 *	void XRFdc_WriteReg64(XRFdc *InstancePtr, u32 BaseAddress, s32 RegOffset,
 *	u64 RegisterValue)
 *
@@ -2015,15 +2016,15 @@ extern "C" {
 /**
 * Read a register.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the 1st register of the
-*		device to the target register.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    BaseAddress contains the base address of the device.
+* @param    RegOffset contains the offset from the 1st register of the
+*           device to the target register.
 *
-* @return	The value read from the register.
+* @return   The value read from the register.
 *
-* @note		C-Style signature:
-*		u32 XRFdc_ReadReg(XRFdc *InstancePtr, u32 BaseAddress. int RegOffset)
+* @note     C-Style signature:
+*           u32 XRFdc_ReadReg(XRFdc *InstancePtr, u32 BaseAddress. int RegOffset)
 *
 ******************************************************************************/
 #define XRFdc_ReadReg(InstancePtr, BaseAddress, RegOffset)                                                             \
@@ -2033,17 +2034,17 @@ extern "C" {
 /**
 * Write to a register.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the 1st register of the
-*		device to target register.
-* @param	RegisterValue is the value to be written to the register.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    BaseAddress contains the base address of the device.
+* @param    RegOffset contains the offset from the 1st register of the
+*           device to target register.
+* @param    RegisterValue is the value to be written to the register.
 *
-* @return	None.
+* @note     None.
 *
-* @note		C-Style signature:
-*		void XRFdc_WriteReg(XRFdc *InstancePtr, u32 BaseAddress, int RegOffset,
-*		u32 RegisterValue)
+* @note     C-Style signature:
+*           void XRFdc_WriteReg(XRFdc *InstancePtr, u32 BaseAddress, int RegOffset,
+*           u32 RegisterValue)
 *
 ******************************************************************************/
 #define XRFdc_WriteReg(InstancePtr, BaseAddress, RegOffset, RegisterValue)                                             \
@@ -2053,15 +2054,15 @@ extern "C" {
 /**
 * Read a register.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the 1st register of the
-*		device to the target register.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    BaseAddress contains the base address of the device.
+* @param    RegOffset contains the offset from the 1st register of the
+*           device to the target register.
 *
-* @return	The value read from the register.
+* @return   The value read from the register.
 *
-* @note		C-Style signature:
-*		u16 XRFdc_ReadReg16(XRFdc *InstancePtr, u32 BaseAddress. int RegOffset)
+* @note     C-Style signature:
+*           u16 XRFdc_ReadReg16(XRFdc *InstancePtr, u32 BaseAddress. int RegOffset)
 *
 ******************************************************************************/
 #define XRFdc_ReadReg16(InstancePtr, BaseAddress, RegOffset)                                                           \
@@ -2071,15 +2072,15 @@ extern "C" {
 /**
 * Write to a register.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the 1st register of the
-*		device to target register.
-* @param	RegisterValue is the value to be written to the register.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    BaseAddress contains the base address of the device.
+* @param    RegOffset contains the offset from the 1st register of the
+*           device to target register.
+* @param    RegisterValue is the value to be written to the register.
 *
-* @return	None.
+* @note     None.
 *
-* @note		C-Style signature:
+* @note     C-Style signature:
 *	void XRFdc_WriteReg16(XRFdc *InstancePtr, u32 BaseAddress, int RegOffset,
 *	u16 RegisterValue)
 *
@@ -2091,15 +2092,15 @@ extern "C" {
 /**
 * Read a register.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the 1st register of the
-*		device to the target register.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    BaseAddress contains the base address of the device.
+* @param    RegOffset contains the offset from the 1st register of the
+*           device to the target register.
 *
-* @return	The value read from the register.
+* @return   The value read from the register.
 *
-* @note		C-Style signature:
-*		u8 XRFdc_ReadReg8(XRFdc *InstancePtr, u32 BaseAddress. int RegOffset)
+* @note     C-Style signature:
+*           u8 XRFdc_ReadReg8(XRFdc *InstancePtr, u32 BaseAddress. int RegOffset)
 *
 ******************************************************************************/
 #define XRFdc_ReadReg8(InstancePtr, BaseAddress, RegOffset)                                                            \
@@ -2109,15 +2110,15 @@ extern "C" {
 /**
 * Write to a register.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the 1st register of the
-*		device to target register.
-* @param	RegisterValue is the value to be written to the register.
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    BaseAddress contains the base address of the device.
+* @param    RegOffset contains the offset from the 1st register of the
+*           device to target register.
+* @param    RegisterValue is the value to be written to the register.
 *
-* @return	None.
+* @note     None.
 *
-* @note		C-Style signature:
+* @note     C-Style signature:
 *	void XRFdc_WriteReg8(XRFdc *InstancePtr, u32 BaseAddress, int RegOffset,
 *	u8 RegisterValue)
 *

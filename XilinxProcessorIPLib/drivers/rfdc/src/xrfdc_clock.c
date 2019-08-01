@@ -47,6 +47,7 @@
 *       cog    04/09/19 Fixed issue where tile was not autostarting after PLL
 *                       rate change.
 * 7.0   cog    05/13/19 Formatting changes.
+*       cog    08/02/19 Formatting changes and added a MACRO for the IP generation.
 * </pre>
 *
 ******************************************************************************/
@@ -80,13 +81,13 @@ static u32 XRFdc_SetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double 
 * This function is used to set the clock settings
 *
 * @param    InstancePtr is a pointer to the XRfdc instance.
-* @param	Type indicates ADC/DAC.
-* @param	Tile_Id indicates Tile number (0-3).
+* @param    Type indicates ADC/DAC.
+* @param    Tile_Id indicates Tile number (0-3).
 * @param    SettingsPtr pointer to set the clock settings
 *
 * @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if no valid distribution found.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if no valid distribution found.
 *
 ******************************************************************************/
 u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_Tile_Clock_Settings *SettingsPtr)
@@ -106,45 +107,30 @@ u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_Ti
 	Xil_AssertNonvoid(SettingsPtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
-	if (InstancePtr->RFdc_Config.IPType < 2) {
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested fuctionality not "
-			  "available for this IP in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested functionality not available for this IP in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
 	TileIndex = (Type == XRFDC_DAC_TILE) ? Tile_Id : Tile_Id + XRFDC_CLK_DST_ADC0;
 	Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Tile_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested Tile not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested Tile not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 	if (SettingsPtr->SourceTile > XRFDC_CLK_DST_ADC3) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Parameter Value "
-			  "for Source in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Parameter Value for Source in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
 	if (SettingsPtr->DistributedClock > XRFDC_DIST_OUT_OUTDIV) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Parameter Value "
-			  "for Distribution Out in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Parameter Value for Distribution Out in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
 	if (SettingsPtr->PLLEnable > 1) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Parameter Value "
-			  "for PLLEnable in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Parameter Value for PLLEnable in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -167,20 +153,14 @@ u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_Ti
 
 	/*configure PLL & divider or just divider*/
 	if (SettingsPtr->PLLEnable == XRFDC_ENABLED) {
-		metal_log(METAL_LOG_WARNING,
-			  "\n Output divider settings may "
-			  "be overridden in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_WARNING, "\n Output divider settings may be overridden in %s\r\n", __func__);
 		PLLSource = XRFDC_INTERNAL_PLL_CLK;
 		Status = XRFdc_DynamicPLLConfig(InstancePtr, Type, Tile_Id, PLLSource,
 						SettingsPtr->PLLSettings.RefClkFreq,
 						SettingsPtr->PLLSettings.SampleRate);
 		SettingsPtr->DivisionFactor = SettingsPtr->PLLSettings.OutputDivider;
 		if (Status != XRFDC_SUCCESS) {
-			metal_log(METAL_LOG_ERROR,
-				  "\n Could not set up PLL "
-				  "in %s\r\n",
-				  __func__);
+			metal_log(METAL_LOG_ERROR, "\n Could not set up PLL in %s\r\n", __func__);
 			goto RETURN_PATH;
 		}
 	} else if (SettingsPtr->DivisionFactor > 1) {
@@ -322,6 +302,7 @@ u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_Ti
 RETURN_PATH:
 	return Status;
 }
+
 /*****************************************************************************/
 /**
 *
@@ -331,8 +312,8 @@ RETURN_PATH:
 * @param        DistributionSettingsPtr pointer to the distribution settings struct
 *
 * @return
-*       - XRFDC_SUCCESS if Valid.
-*       - XRFDC_FAILURE if Not Valid.
+*           - XRFDC_SUCCESS if valid.
+*           - XRFDC_FAILURE if not valid.
 *
 ******************************************************************************/
 static u32 XRFdc_CheckClkDistValid(XRFdc *InstancePtr, XRFdc_Distribution_Settings *DistributionSettingsPtr)
@@ -359,51 +340,38 @@ static u32 XRFdc_CheckClkDistValid(XRFdc *InstancePtr, XRFdc_Distribution_Settin
 	for (CurrentTile = 0; CurrentTile < XRFDC_DIST_MAX; CurrentTile++, Source++) {
 		if (*Source >= XRFDC_DIST_MAX) {
 			Status = XRFDC_FAILURE; /*out of range*/
-			metal_log(METAL_LOG_ERROR,
-				  "\n Invalid Source "
-				  "value in %s - Out of Range\r\n",
-				  __func__);
+			metal_log(METAL_LOG_ERROR, "\n Invalid Source value in %s - Out of Range\r\n", __func__);
 			goto RETURN_PATH;
 		}
 		if (*Source < LowBoundary) {
 			Status = XRFDC_FAILURE; /*SW: no hopovers*/
-			metal_log(METAL_LOG_ERROR,
-				  "\n Invalid Configuration "
-				  "Hopping Over Not Allowed in %s\r\n",
+			metal_log(METAL_LOG_ERROR, "\n Invalid Configuration Hopping Over Not Allowed in %s\r\n",
 				  __func__);
 			goto RETURN_PATH;
 		}
 		if (Sources[*Source] != *Source) { /*SW: check source is a distributer*/
 			Status = XRFDC_FAILURE;
 			metal_log(METAL_LOG_ERROR,
-				  "\n Invalid Source "
-				  "Sourcing from Tile that is not Distributing in %s\r\n",
-				  __func__);
+				  "\n Invalid Source Sourcing from Tile that is not Distributing in %s\r\n", __func__);
 			goto RETURN_PATH;
 		}
 		if ((*Source == XRFDC_CLK_DST_DAC0) &&
 		    (InstancePtr->RFdc_Config.DACTile_Config[XRFDC_CLK_DST_DAC0].NumSlices == 2)) { /*HW: only 2 clks*/
 			Status = XRFDC_FAILURE;
-			metal_log(METAL_LOG_ERROR,
-				  "\n Invalid Source "
-				  "Sourcing from Tile Without Clock in %s\r\n",
+			metal_log(METAL_LOG_ERROR, "\n Invalid Source Sourcing from Tile Without Clock in %s\r\n",
 				  __func__);
 			goto RETURN_PATH;
 		}
 		if ((*Source == XRFDC_CLK_DST_DAC2) &&
 		    (InstancePtr->RFdc_Config.DACTile_Config[XRFDC_CLK_DST_DAC2].NumSlices == 2)) { /*HW: only 2 clks*/
-			metal_log(METAL_LOG_ERROR,
-				  "\n Invalid Source "
-				  "Sourcing from Tile Without Clock in %s\r\n",
+			metal_log(METAL_LOG_ERROR, "\n Invalid Source Sourcing from Tile Without Clock in %s\r\n",
 				  __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
 		if ((CurrentTile < XRFDC_CLK_DST_ADC0) &&
 		    (*Source > XRFDC_CLK_DST_DAC3)) { /*Cut between ADC0 MUX8 && DAC3 STH*/
-			metal_log(METAL_LOG_ERROR,
-				  "\n Invalid Configuration "
-				  "DAC Cannot Source from ADC in %s\r\n",
+			metal_log(METAL_LOG_ERROR, "\n Invalid Configuration DAC Cannot Source from ADC in %s\r\n",
 				  __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
@@ -442,8 +410,7 @@ static u32 XRFdc_CheckClkDistValid(XRFdc *InstancePtr, XRFdc_Distribution_Settin
 				    (*Source != CurrentTile)) { /*E: no dist past adc1*/
 					Status = XRFDC_FAILURE;
 					metal_log(METAL_LOG_ERROR,
-						  "\n Invalid Configuration "
-						  "- Licensing - Not Premium in %s\r\n",
+						  "\n Invalid Configuration - Licensing - Not Premium in %s\r\n",
 						  __func__);
 					goto RETURN_PATH;
 				}
@@ -452,9 +419,7 @@ static u32 XRFdc_CheckClkDistValid(XRFdc *InstancePtr, XRFdc_Distribution_Settin
 			if ((EFuse & XRFDC_EXPORTCTRL_CLKDIST) == XRFDC_EXPORTCTRL_CLKDIST) {
 				if ((CurrentTile > XRFDC_CLK_DST_DAC3) && (*Source != CurrentTile)) { /*E: No ADC Dist*/
 					Status = XRFDC_FAILURE;
-					metal_log(METAL_LOG_ERROR,
-						  "\n Invalid Configuration "
-						  "- Licensing in %s\r\n",
+					metal_log(METAL_LOG_ERROR, "\n Invalid Configuration - Licensing in %s\r\n",
 						  __func__);
 					goto RETURN_PATH;
 				}
@@ -462,17 +427,14 @@ static u32 XRFdc_CheckClkDistValid(XRFdc *InstancePtr, XRFdc_Distribution_Settin
 				    (*Source != XRFDC_CLK_DST_DAC1)) { /*E: DAC0 must source from DAC1*/
 					Status = XRFDC_FAILURE;
 					metal_log(METAL_LOG_ERROR,
-						  "\n Invalid Configuration "
-						  "- Licensing in - Export Control %s\r\n",
+						  "\n Invalid Configuration - Licensing in - Export Control %s\r\n",
 						  __func__);
 					goto RETURN_PATH;
 				}
 				if ((CurrentTile == XRFDC_CLK_DST_DAC2) &&
 				    (*Source != XRFDC_CLK_DST_DAC3)) { /*E: DAC2 must source from DAC3*/
 					Status = XRFDC_FAILURE;
-					metal_log(METAL_LOG_ERROR,
-						  "\n Invalid Configuration "
-						  "- Licensing in %s\r\n",
+					metal_log(METAL_LOG_ERROR, "\n Invalid Configuration - Licensing in %s\r\n",
 						  __func__);
 					goto RETURN_PATH;
 				}
@@ -496,6 +458,7 @@ RETURN_PATH:
 	}
 	return Status;
 }
+
 /*****************************************************************************/
 /**
 *
@@ -505,8 +468,8 @@ RETURN_PATH:
 * @param        DistributionSettingsPtr pointer to the distribution settings struct
 *
 * @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if could not set distribution.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if could not set distribution.
 *
 ******************************************************************************/
 u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *DistributionSettingsPtr)
@@ -530,21 +493,15 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 	Xil_AssertNonvoid(DistributionSettingsPtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
-	if (InstancePtr->RFdc_Config.IPType < 2) {
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested fuctionality not "
-			  "available for this IP in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested fuctionality not available for this IP in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
 	Status = XRFdc_CheckClkDistValid(InstancePtr, DistributionSettingsPtr);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Distribution "
-			  "in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Distribution in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 	Delays[0] = &DistributionSettingsPtr->DAC[0].Delay;
@@ -851,6 +808,7 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 RETURN_PATH:
 	return Status;
 }
+
 /*****************************************************************************/
 /**
 *
@@ -860,8 +818,8 @@ RETURN_PATH:
 * @param        DistributionSettingsPtr pointer to get the distribution settings
 *
 * @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if no valid distribution found.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if no valid distribution found.
 *
 ******************************************************************************/
 u32 XRFdc_GetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *DistributionSettingsPtr)
@@ -879,12 +837,9 @@ u32 XRFdc_GetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 	Xil_AssertNonvoid(DistributionSettingsPtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
-	if (InstancePtr->RFdc_Config.IPType < 2) {
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested fuctionality not "
-			  "available for this IP in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested fuctionality not available for this IP in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -1032,31 +987,29 @@ u32 XRFdc_GetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 	}
 	Status = XRFdc_CheckClkDistValid(InstancePtr, DistributionSettingsPtr);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Distribution "
-			  "in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Distribution in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
 	return Status;
 }
+
 /*****************************************************************************/
 /**
 *
 * This function gets Clock source
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type indicates ADC/DAC.
-* @param	Tile_Id indicates Tile number (0-3).
-* @param	ClockSourcePtr Pointer to return the clock source
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type indicates ADC/DAC.
+* @param    Tile_Id indicates Tile number (0-3).
+* @param    ClockSourcePtr Pointer to return the clock source
 *
 * @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Tile not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if tile not enabled.
 *
-* @note		None.
+* @note     None.
 *
 ******************************************************************************/
 u32 XRFdc_GetClockSource(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 *ClockSourcePtr)
@@ -1069,10 +1022,7 @@ u32 XRFdc_GetClockSource(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 *ClockSo
 
 	Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Tile_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested tile not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested tile not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -1091,16 +1041,16 @@ RETURN_PATH:
 *
 * This function gets PLL lock status
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type indicates ADC/DAC.
-* @param	Tile_Id indicates Tile number (0-3).
-* @param	LockStatusPtr Pointer to return the PLL lock status
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type indicates ADC/DAC.
+* @param    Tile_Id indicates Tile number (0-3).
+* @param    LockStatusPtr Pointer to return the PLL lock status
 *
 * @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Tile not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		None.
+* @note     None.
 *
 ******************************************************************************/
 u32 XRFdc_GetPLLLockStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 *LockStatusPtr)
@@ -1117,19 +1067,14 @@ u32 XRFdc_GetPLLLockStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 *LockS
 	 * Get Tile clock source information
 	 */
 	if (XRFdc_GetClockSource(InstancePtr, Type, Tile_Id, &ClkSrc) != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Get clock source request Tile %d "
-			  "failed in %s\r\n",
-			  Tile_Id, __func__);
+		metal_log(METAL_LOG_ERROR, "\n Get clock source request Tile %d failed in %s\r\n", Tile_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
 
 	if (ClkSrc == XRFDC_EXTERNAL_CLK) {
-		metal_log(METAL_LOG_DEBUG,
-			  "\n Requested Tile %d "
-			  "uses external clock source in %s\r\n",
-			  Tile_Id, __func__);
+		metal_log(METAL_LOG_DEBUG, "\n Requested Tile %d uses external clock source in %s\r\n", Tile_Id,
+			  __func__);
 		*LockStatusPtr = XRFDC_PLL_LOCKED;
 	} else {
 		if (Type == XRFDC_ADC_TILE) {
@@ -1157,17 +1102,17 @@ RETURN_PATH:
 * This function used for configuring the internal PLL registers
 * based on reference clock and sampling rate
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type indicates ADC/DAC.
-* @param	Tile_Id indicates Tile number (0-3).
-* @param	RefClkFreq Reference Clock Frequency MHz(50MHz - 1.2GHz)
-* @param	SamplingRate Sampling Rate in MHz(0.5- 4 GHz)
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type indicates ADC/DAC.
+* @param    Tile_Id indicates Tile number (0-3).
+* @param    RefClkFreq Reference Clock Frequency MHz(50MHz - 1.2GHz)
+* @param    SamplingRate Sampling Rate in MHz(0.5- 4 GHz)
 *
 * @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Tile not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		None.
+* @note     None.
 *
 ******************************************************************************/
 static u32 XRFdc_SetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double RefClkFreq, double SamplingRate)
@@ -1216,10 +1161,7 @@ static u32 XRFdc_SetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double 
 				 * IP currently supporting 1 to 4 divider values. This
 				 * error condition might change in future based on IP update.
 				 */
-			metal_log(METAL_LOG_ERROR,
-				  "\n Unsupported Reference "
-				  "clock Divider value in %s\r\n",
-				  __func__);
+			metal_log(METAL_LOG_ERROR, "\n Unsupported Reference clock Divider value in %s\r\n", __func__);
 			return XRFDC_FAILURE;
 		}
 	}
@@ -1443,18 +1385,19 @@ static u32 XRFdc_SetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double 
 
 	return Status;
 }
+
 /*****************************************************************************/
 /**
 *
 * This API is used to get the PLL Configurations.
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type represents ADC or DAC.
-* @param	Tile_Id Valid values are 0-3.
-* @param	PLLSettings pointer to the XRFdc_PLL_Settings structure to get
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type represents ADC or DAC.
+* @param    Tile_Id Valid values are 0-3.
+* @param    PLLSettings pointer to the XRFdc_PLL_Settings structure to get
 *           the PLL configurations
 *
-* @return   None
+* @note     None.
 *
 ******************************************************************************/
 u32 XRFdc_GetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_PLL_Settings *PLLSettings)
@@ -1478,10 +1421,7 @@ u32 XRFdc_GetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_PLL_Sett
 
 	Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Tile_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested tile not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested tile not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -1542,15 +1482,13 @@ u32 XRFdc_GetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_PLL_Sett
 					 * IP currently supporting 1 to 4 divider values. This
 					 * error condition might change in future based on IP update.
 					 */
-				metal_log(METAL_LOG_ERROR,
-					  "\n Unsupported Reference "
-					  "clock Divider value in %s\r\n",
+				metal_log(METAL_LOG_ERROR, "\n Unsupported Reference clock Divider value in %s\r\n",
 					  __func__);
 				Status = XRFDC_FAILURE;
 				goto RETURN_PATH;
 			}
 		}
-		if (InstancePtr->RFdc_Config.IPType < 2) {
+		if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 			if (XRFdc_GetClockSource(InstancePtr, Type, Tile_Id, &Enabled) != XRFDC_SUCCESS) {
 				Status = XRFDC_FAILURE;
 				goto RETURN_PATH;
@@ -1576,10 +1514,7 @@ u32 XRFdc_GetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_PLL_Sett
 			OutputDivider = ((ReadReg & XRFDC_PLL_DIVIDER0_VALUE_MASK) + 2) << 1;
 			break;
 		default:
-			metal_log(METAL_LOG_ERROR,
-				  "\n Unsupported Output "
-				  "clock Divider value in %s\r\n",
-				  __func__);
+			metal_log(METAL_LOG_ERROR, "\n Unsupported Output clock Divider value in %s\r\n", __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 			break;
@@ -1604,19 +1539,19 @@ RETURN_PATH:
 * This function used for dynamically switch between internal PLL and
 * external clcok source and configuring the internal PLL
 *
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Type indicates ADC/DAC
-* @param	Tile_Id indicates Tile number (0-3)
-* @param	Source Clock source internal PLL or external clock source
-* @param	RefClkFreq Reference Clock Frequency in MHz(102.40625MHz - 1.2GHz)
-* @param	SamplingRate Sampling Rate in MHz(0.1- 6.554GHz for DAC and
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type indicates ADC/DAC
+* @param    Tile_Id indicates Tile number (0-3)
+* @param    Source Clock source internal PLL or external clock source
+* @param    RefClkFreq Reference Clock Frequency in MHz(102.40625MHz - 1.2GHz)
+* @param    SamplingRate Sampling Rate in MHz(0.1- 6.554GHz for DAC and
 *           0.5/1.0 - 2.058/4.116GHz for ADC based on the device package).
 *
 * @return
-*       - XRFDC_SUCCESS if successful.
-*       - XRFDC_FAILURE if Tile not enabled.
+*           - XRFDC_SUCCESS if successful.
+*           - XRFDC_FAILURE if error occurs.
 *
-* @note		This API enables automatic selection of the VCO which will work in
+* @note     This API enables automatic selection of the VCO which will work in
 *           IP version 2.0.1 and above. Using older version of IP this API is
 *           not likely to work.
 *
@@ -1637,20 +1572,14 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
 	if ((Source != XRFDC_INTERNAL_PLL_CLK) && (Source != XRFDC_EXTERNAL_CLK)) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid Source "
-			  "value in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Source value in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
 
 	Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Tile_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested tile not "
-			  "available in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested tile not available in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -1671,10 +1600,7 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 		goto RETURN_PATH;
 	}
 	if ((SamplingRate < MinSampleRate) || (SamplingRate > MaxSampleRate)) {
-		metal_log(METAL_LOG_ERROR,
-			  "\n Invalid sampling "
-			  "rate value in %s\r\n",
-			  __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid sampling rate value in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -1683,12 +1609,10 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 
 	if (Source == XRFDC_INTERNAL_PLL_CLK) {
 		if ((RefClkFreq < XRFDC_REFFREQ_MIN) || (RefClkFreq > XRFDC_REFFREQ_MAX)) {
-			metal_log(METAL_LOG_ERROR,
-				  "\n Input reference clock "
-				  "frequency does not respect the specifications "
-				  "for internal PLL usage. Please use a different "
-				  "frequency or bypass the internal PLL",
-				  __func__);
+			metal_log(
+				METAL_LOG_ERROR,
+				"\n Input reference clock frequency does not respect the specifications for internal PLL usage. Please use a different frequency or bypass the internal PLL in %s\r\n",
+				__func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
@@ -1700,10 +1624,8 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 	XRFdc_WriteReg(InstancePtr, BaseAddr, XRFDC_PLL_FS, PLLFS);
 
 	if ((Source != XRFDC_INTERNAL_PLL_CLK) && (ClkSrc != XRFDC_INTERNAL_PLL_CLK)) {
-		metal_log(METAL_LOG_DEBUG,
-			  "\n Requested Tile %d "
-			  "uses external clock source in %s\r\n",
-			  Tile_Id, __func__);
+		metal_log(METAL_LOG_DEBUG, "\n Requested Tile %d uses external clock source in %s\r\n", Tile_Id,
+			  __func__);
 		if (Type == XRFDC_ADC_TILE) {
 			InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.SampleRate = (double)(SamplingRate / 1000);
 			InstancePtr->ADC_Tile[Tile_Id].PLL_Settings.RefClkFreq = RefClkFreq;
