@@ -143,22 +143,21 @@ u64 XPlmi_GetTimerValue(void )
 
 /*****************************************************************************/
 /**
- * This function measures the total time taken between two points for
+ * This function prints the total time taken between two points for
  * performance measurement.
  *
  * @param Start time
+ * @param End time
  *
  * @return none
  *****************************************************************************/
-void XPlmi_MeasurePerfTime(u64 tCur)
+void XPlmi_PrintTime(u64 tCur, u64 tEnd)
 {
-	u64 tEnd = 0;
 	u64 tDiff = 0;
 	u64 tPerfNs;
 	u64 tPerfMs = 0;
 	u64 tPerfMsFrac = 0;
 
-	tEnd = XPlmi_GetTimerValue();
 	tDiff = tCur - tEnd;
 
 	/* Convert tPerf into nanoseconds */
@@ -170,6 +169,62 @@ void XPlmi_MeasurePerfTime(u64 tCur)
 	/* Print the whole (in ms.) and fractional part */
 	XPlmi_Printf(DEBUG_PRINT_PERF, "%d.%06d ms.",
 			(u32)tPerfMs, (u32)tPerfMsFrac);
+}
+
+/*****************************************************************************/
+/**
+ * This function measures the total time taken between two points for
+ * performance measurement.
+ *
+ * @param Start time
+ *
+ * @return none
+ *****************************************************************************/
+void XPlmi_MeasurePerfTime(u64 tCur)
+{
+	u64 tEnd = 0;
+
+	tEnd = XPlmi_GetTimerValue();
+	XPlmi_PrintTime(tCur, tEnd);
+}
+
+/*****************************************************************************/
+/**
+ * This function prints the ROM time.
+ *
+ * @param none
+ *
+ * @return none
+ *****************************************************************************/
+void XPlmi_PrintRomTime()
+{
+	u64 PmcRomTime;
+
+	/** Get PMC ROM time */
+	PmcRomTime = (u64)((XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE0)) |
+		   (((u64)XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE1)) << 32U));
+
+	/* Print time stamp of PLM */
+	XPlmi_PrintTime((u64) ((((u64)XPLMI_PIT1_RESET_VALUE) << 32U) |
+			       XPLMI_PIT2_RESET_VALUE), PmcRomTime);
+	XPlmi_Printf(DEBUG_PRINT_PERF, ": ROM Time\n\r");
+}
+
+/*****************************************************************************/
+/**
+ * This function prints the PLM time stamp.
+ *
+ * @param none
+ *
+ * @return none
+ *****************************************************************************/
+void XPlmi_PrintPlmTimeStamp()
+{
+	/* Print time stamp of PLM */
+	XPlmi_Printf(DEBUG_PRINT_PERF, "[");
+	XPlmi_MeasurePerfTime((u64) (((u64)(XPLMI_PIT1_RESET_VALUE) << 32U) |
+				    XPLMI_PIT2_RESET_VALUE));
+	XPlmi_Printf(DEBUG_PRINT_PERF, "] ");
 }
 
 /*****************************************************************************/
@@ -190,9 +245,9 @@ static void XPlmi_SetPmcIroFreq()
 	if (((Trim5 & EFUSE_TRIM_LP_MASK) != 0) ||
 	    ((Trim7 & EFUSE_TRIM_LP_MASK) != 0))
 	{
-		PmcIroFreq = 320 * 1000 * 1000; // 130MHz
+		PmcIroFreq = 320 * 1000 * 1000; // 320MHz
 	} else {
-		PmcIroFreq = 130 * 1000 * 1000; // 320MHz
+		PmcIroFreq = 130 * 1000 * 1000; // 130MHz
 	}
 }
 
@@ -205,7 +260,6 @@ static void XPlmi_SetPmcIroFreq()
 int XPlmi_StartTimer()
 {
 	int Status;
-
 	/*
 	 * Initialize the IO Module so that it's ready to use,
 	 * specify the device ID that is generated in xparameters.h
