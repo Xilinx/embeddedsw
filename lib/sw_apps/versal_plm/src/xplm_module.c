@@ -66,6 +66,7 @@ typedef int (*ModuleInit)(void);
 static ModuleInit ModuleList[] =
 {
 	XPlm_PlmiInit,
+	XPlm_ErrInit,
 	XPlm_PmInit,
 	XPlm_LoaderInit,
 };
@@ -83,8 +84,40 @@ static ModuleInit LpdModuleList[] =
 	XPlmi_IpiInit,
 #endif
 	XPlmi_SysMonInit,
+	XPlm_PsErrInit,
 };
 
+/*****************************************************************************/
+/**
+ * @brief This function initializes the Error module and registers the
+ * error commands of the CDO.
+ *
+ * @param	None
+ *
+ * @return	Status as defined in xplm_status.h
+ *
+ *****************************************************************************/
+int XPlm_ErrInit(void )
+{
+	XPlmi_EmInit();
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ * @brief This function initializes the Error module and registers the
+ * error commands of the CDO.
+ *
+ * @param	None
+ *
+ * @return	Status as defined in xplm_status.h
+ *
+ *****************************************************************************/
+int XPlm_PsErrInit(void )
+{
+	XPlmi_PsEmInit();
+	return XST_SUCCESS;
+}
 /*****************************************************************************/
 /**
  * @brief This function initializes the PLMI module and registers the

@@ -53,6 +53,7 @@ extern "C" {
 #include "xplm_pm.h"
 #include "xplm_loader.h"
 #include "xplmi.h"
+#include "xplmi_err.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -64,6 +65,8 @@ extern "C" {
 int XPlm_PlmiInit();
 int XPlm_ModuleInit(void *arg);
 int XPlm_LpdModuleInit(void *arg);
+int XPlm_ErrInit(void );
+int XPlm_PsErrInit(void );
 
 /************************** Variable Definitions *****************************/
 
