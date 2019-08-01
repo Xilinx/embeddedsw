@@ -42,7 +42,7 @@ OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 LIBPLMI_SRCS := $(wildcard *.c)
 LIBPLMI_OBJS = $(addprefix $(LIBPLMI_DIR)/, $(LIBPLMI_SRCS:%.c=%.o))
 
-INCLUDEFILES=$(LIBPLMI_DIR)/xplmi*.h
+INCLUDEFILES=$(LIBPLMI_DIR)/*.h
 
 libs: libxilplmi.a
 
