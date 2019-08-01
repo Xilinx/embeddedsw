@@ -198,7 +198,6 @@ void XPlm_PrintPlmBanner(void )
 	u32 Version;
 	u32 PlatformVersion;
 	u32 Platform;
-	u32 RtlVersion;
 	u32 PsVersion;
 	u32 PmcVersion;
 
@@ -206,7 +205,7 @@ void XPlm_PrintPlmBanner(void )
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
                  "\n\r****************************************\n\r");
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-                 "Xilinx versal Platform Loader and Manager \n\r");
+                 "Xilinx Versal Platform Loader and Manager \n\r");
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
                  "Release %s.%s   %s  -  %s\n\r",
                  SDK_RELEASE_YEAR, SDK_RELEASE_QUARTER, __DATE__, __TIME__);
@@ -217,8 +216,6 @@ void XPlm_PrintPlmBanner(void )
 			PMC_TAP_VERSION_PLATFORM_VERSION_SHIFT);
 	Platform = ((Version & PMC_TAP_VERSION_PLATFORM_MASK) >>
 			PMC_TAP_VERSION_PLATFORM_SHIFT);
-	RtlVersion = ((Version & PMC_TAP_VERSION_RTL_VERSION_MASK) >>
-			PMC_TAP_VERSION_RTL_VERSION_SHIFT);
 	PsVersion = ((Version & PMC_TAP_VERSION_PS_VERSION_MASK) >>
 			PMC_TAP_VERSION_PS_VERSION_SHIFT);
 	PmcVersion = ((Version & PMC_TAP_VERSION_PMC_VERSION_MASK) >>
@@ -237,7 +234,6 @@ void XPlm_PrintPlmBanner(void )
 	}
 
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "v%d, ", PlatformVersion);
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "RTL: ITR%d, ", (RtlVersion/16));
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PMC: v%d.%d, ",
 				(PmcVersion/16), PmcVersion%16);
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PS: v%d.%d",
