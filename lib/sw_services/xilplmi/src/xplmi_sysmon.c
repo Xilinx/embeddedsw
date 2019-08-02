@@ -45,6 +45,7 @@
  ******************************************************************************/
 /***************************** Include Files *********************************/
 #include "xplmi_sysmon.h"
+#include "sleep.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -96,4 +97,47 @@ END:
 	XPlmi_Printf(DEBUG_DETAILED,
 		    "%s: SysMon init status: 0x%x\n\r", __func__, Status);
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief This function detects if we are still in over-temperature condition
+ *
+ * @param	void
+ *
+ * @return	void
+ *
+ *****************************************************************************/
+void XPlmi_SysMonOTDetect(void)
+{
+	u32 Val, Count;
+
+	/*
+	 * If Interrupt Status Register does not indicate an over-temperature
+	 * condition, we are done.
+	 */
+	Val = XPlmi_In32((XSYSMONPSV_BASEADDR + XSYSMONPSV_ISR_OFFSET));
+	if (0 == (Val & XSYSMONPSV_ISR_OT_MASK)) {
+		return;
+	}
+
+	XPlmi_Out32(XSYSMONPSV_BASEADDR + XSYSMONPSV_PCSR_LOCK,
+		    PCSR_UNLOCK_VAL);
+
+	/* Wait until over-temperature condition is resolved. */
+	Count = 1000;
+	while (0 != (Val & XSYSMONPSV_ISR_OT_MASK)) {
+		XPlmi_Out32((XSYSMONPSV_BASEADDR + XSYSMONPSV_ISR_OFFSET),
+			    XSYSMONPSV_ISR_OT_MASK);
+		usleep(1000);
+		Count--;
+		if (0 == Count) {
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS,
+				     "Warning: Over-temperature condition!\r\n");
+			Count = 1000;
+		}
+		Val = XPlmi_In32((XSYSMONPSV_BASEADDR + XSYSMONPSV_ISR_OFFSET));
+	}
+
+	XPlmi_Out32(XSYSMONPSV_BASEADDR + XSYSMONPSV_PCSR_LOCK, 0);
 }
