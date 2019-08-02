@@ -46,6 +46,7 @@
 #include "xplmi_err.h"
 #include "xplmi.h"
 #include "xillibpm_node.h"
+#include "xplmi_sysmon.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -660,6 +661,9 @@ void XPlmi_EmInit(void)
 	/* Clear the error status registers */
 	XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS, MASK32_ALL_HIGH);
 	XPlmi_Out32(PMC_GLOBAL_PMC_ERR2_STATUS, MASK32_ALL_HIGH);
+
+	/* Detect if we are in over-temperature condition */
+	XPlmi_SysMonOTDetect();
 
 	/* Set the default actions as defined in the Error table */
 	for (Index = XPM_NODEIDX_ERROR_BOOT_CR;

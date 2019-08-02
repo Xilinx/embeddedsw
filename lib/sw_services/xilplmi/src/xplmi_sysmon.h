@@ -66,6 +66,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XPlmi_SysMonInit(void);
+void XPlmi_SysMonOTDetect(void);
 
 /************************** Variable Definitions *****************************/
 
