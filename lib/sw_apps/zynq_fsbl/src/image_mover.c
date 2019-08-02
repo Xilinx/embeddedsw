@@ -431,12 +431,15 @@ u32 LoadBootImage(void)
 			}
 		}
 
+/* If uncheck "Enable DDR" in Vivado, the DDR_END_ADDR is defined as 0x00 in fsbl.h */
+#ifdef XPAR_PS7_DDR_0_S_AXI_BASEADDR
 		if (PSPartitionFlag && (PartitionLoadAddr > DDR_END_ADDR)) {
 			fsbl_printf(DEBUG_GENERAL,
 					"INVALID_LOAD_ADDRESS_FAIL\r\n");
 			OutputStatus(INVALID_LOAD_ADDRESS_FAIL);
 			FsblFallback();
 		}
+#endif
 
         /*
          * Load execution address of first PS partition
