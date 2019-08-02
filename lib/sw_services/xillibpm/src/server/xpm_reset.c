@@ -154,6 +154,11 @@ static XStatus PsOnlyResetAssert(XPm_ResetNode *Rst)
 	const u32 PsDomainIds[] = { LPD_NODEID, FPD_NODEID };
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 
+	/*
+	 * Prevent LPD access
+	 */
+	XPlmi_ResetLpdInitialized();
+	
 	/* Block LPD-PL interfaces */
 	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_LPD_PL, TRUE);
 	if (Status != XST_SUCCESS) {
