@@ -42,6 +42,7 @@
 #include "xpm_rpucore.h"
 #include "xpm_power.h"
 #include "xpm_pin.h"
+#include "xplmi.h"
 #include "xplmi_modules.h"
 #include "xpm_aie.h"
 #include "xpm_prot.h"
@@ -487,6 +488,14 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
 		break;
 	}
 
+	/*
+	 * Call LPD init to initialize required components
+	 */
+	if ((NODEINDEX(NodeId) == XPM_NODEIDX_POWER_LPD) &&
+		(Function == FUNC_INIT_FINISH) &&
+		(XST_SUCCESS == Status)) {
+		XPlmi_LpdInit();
+	}
 
 done:
 	if (Status != XST_SUCCESS) {
