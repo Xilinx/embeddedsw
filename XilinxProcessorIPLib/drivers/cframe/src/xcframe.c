@@ -185,6 +185,14 @@ void XCframe_WriteCmd(XCframe *InstancePtr,	XCframe_FrameNo CframeNo, u32 Cmd)
  ******************************************************************************/
 void XCframe_VggTrim(XCframe *InstancePtr,	Xuint128 *TrimVal)
 {
+	Xuint128 MaskVal={0};
+
+        MaskVal.Word0 = 0xFFFFFFFF;
+        MaskVal.Word1 = 0xFFFFFFFF;
+        MaskVal.Word2 = 0xFFFFFFFF;
+        XCframe_WriteReg(InstancePtr, XCFRAME_MASK_OFFSET,
+                        XCFRAME_FRAME_BCAST, &MaskVal);
+
 	XCframe_WriteReg(InstancePtr, XCFRAME_VGG_TRIM_OFFSET,
 			XCFRAME_FRAME_BCAST, TrimVal);
 }
@@ -202,6 +210,11 @@ void XCframe_VggTrim(XCframe *InstancePtr,	Xuint128 *TrimVal)
 void XCframe_CramTrim(XCframe *InstancePtr,	u32 TrimValue)
 {
 	Xuint128 TrimVal={0};
+	Xuint128 MaskVal={0};
+
+	MaskVal.Word0 = 0xFFFFFFFF;
+	XCframe_WriteReg(InstancePtr, XCFRAME_MASK_OFFSET,
+			XCFRAME_FRAME_BCAST, &MaskVal);
 
 	TrimVal.Word0 = TrimValue;
 	XCframe_WriteReg(InstancePtr, XCFRAME_CRAM_TRIM_OFFSET,
@@ -221,6 +234,12 @@ void XCframe_CramTrim(XCframe *InstancePtr,	u32 TrimValue)
 void XCframe_BramTrim(XCframe *InstancePtr, u32 TrimValue)
 {
 	Xuint128 TrimVal={0};
+	Xuint128 MaskVal={0};
+
+	MaskVal.Word0 = 0xFFFFFFFF;
+	MaskVal.Word1 = 0xFFFFFFFF;
+	XCframe_WriteReg(InstancePtr, XCFRAME_MASK_OFFSET,
+			XCFRAME_FRAME_BCAST, &MaskVal);
 
 	TrimVal.Word0 = TrimValue;
 	XCframe_WriteReg(InstancePtr, XCFRAME_COE_TRIM_OFFSET,
@@ -242,6 +261,12 @@ void XCframe_BramTrim(XCframe *InstancePtr, u32 TrimValue)
 void XCframe_UramTrim(XCframe *InstancePtr, u32 TrimValue)
 {
 	Xuint128 TrimVal={0};
+	Xuint128 MaskVal={0};
+
+        MaskVal.Word0 = 0xFFFFFFFF;
+        MaskVal.Word1 = 0xFFFFFFFF;
+        XCframe_WriteReg(InstancePtr, XCFRAME_MASK_OFFSET,
+                        XCFRAME_FRAME_BCAST, &MaskVal);
 
 	TrimVal.Word0 = TrimValue;
 	XCframe_WriteReg(InstancePtr, XCFRAME_COE_TRIM_OFFSET,
