@@ -55,20 +55,38 @@ proc secure_drc {libhandle} {
 	}
 	file delete -force $common
 
-	if {$proc_type == "psu_cortexa53" || $proc_type == "psu_cortexr5" || $proc_type == "psu_pmu"} {
+	if {$proc_type == "psu_cortexa53" ||
+		$proc_type == "psu_cortexr5" || $proc_type == "psu_pmu"} {
 			foreach entry [glob -nocomplain [file join $zynqmp *]] {
 				file copy -force $entry "./src"
 			}
 			file delete -force $zynqmp
 			file delete -force $versal
-	} elseif {$proc_type == "psu_pmc" || $proc_type == "psu_cortexa72" || $proc_type == "psu_pmc" || $proc_type == "psu_cortexa72" || $proc_type == "psv_pmc" || $proc_type == "psv_cortexa72"} {
+	} elseif {$proc_type == "psu_pmc" || $proc_type == "psu_cortexa72" ||
+				$proc_type == "psv_pmc" || $proc_type == "psv_cortexa72" ||
+				$proc_type == "psv_cortexr5" } {
 			foreach entry [glob -nocomplain [file join $versal *]] {
 				file copy -force $entry "./src"
 			}
 			file delete -force $zynqmp
 			file delete -force $versal
+
+			if {[string compare -nocase $compiler "mb-gcc"] == 0} {
+				file delete -force ./src/libxilsecure_a72_64.a
+				file delete -force ./src/libxilsecure_r5.a
+				file rename -force ./src/libxilsecure_pmc.a ./src/libxilsecure.a
+			} elseif {[string compare -nocase $compiler "aarch64-none-elf-gcc"] == 0} {
+				file delete -force ./src/libxilsecure_pmc.a
+				file delete -force ./src/libxilsecure_r5.a
+				file rename -force ./src/libxilsecure_a72_64.a ./src/libxilsecure.a
+			} elseif {[string compare -nocase $compiler "armr5-none-eabi-gcc"] == 0} {
+				file delete -force ./src/libxilsecure_pmc.a
+				file delete -force ./src/libxilsecure_a72_64.a
+				file rename -force ./src/libxilsecure_r5.a ./src/libxilsecure.a
+			}
+
 	} else {
-		error "ERROR: XilSecure library is supported only for PMU, CortexA53 and CortexR5 processors.";
+		error "ERROR: XilSecure library is supported only for PMU, CortexA53, CortexR5, CortexA72 and psv_pmc processors.";
 		return;
 	}
 

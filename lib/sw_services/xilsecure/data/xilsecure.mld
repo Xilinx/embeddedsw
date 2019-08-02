@@ -47,7 +47,7 @@ BEGIN LIBRARY xilsecure
   OPTION drc = secure_drc;
   OPTION copyfiles = all;
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
-  OPTION SUPPORTED_PERIPHERALS = (psu_cortexa53 psu_cortexr5 psu_pmu psu_pmc psu_cortexa72 psv_pmc psv_cortexa72);
+  OPTION SUPPORTED_PERIPHERALS = (psu_cortexa53 psu_cortexr5 psu_pmu psu_pmc psu_cortexa72 psv_pmc psv_cortexa72 psv_cortexr5);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilsecure,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Secure Library provides interface to AES, RSA and SHA hardware engines on ZynqMP Soc and Versal";
   OPTION VERSION = 4.1;
