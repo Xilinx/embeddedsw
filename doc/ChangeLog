@@ -828,9 +828,6 @@ Updated driver tcl file to support mdm and tmr_sem ip's.
 usbpsu_v1_6:
 Fix coverity warnings.
 
-usbpsu_v1_5:
-Fix coverity warnings.
-
 zdma_v1_8:
 Fix coverity warnings.
 Remove unnecessary Versal clock and routing workarounds.
