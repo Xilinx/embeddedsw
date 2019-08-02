@@ -531,6 +531,15 @@ u32 FlashReadID(void)
 		fsbl_printf(DEBUG_INFO, "1G Bits\r\n");
 	}
 
+#ifndef XPAR_PS7_DDR_0_S_AXI_BASEADDR
+	if (QspiFlashSize > FLASH_SIZE_128M) {
+		fsbl_printf(DEBUG_INFO, "The qspi flash is lager then 16MB,\r\n\
+			only the 16MB is accessible in linear mode\r\n\
+			due to the 24-bit addressing limitation.\r\n");
+		QspiFlashSize = FLASH_SIZE_128M;
+	}
+#endif
+
 	return XST_SUCCESS;
 }
 
