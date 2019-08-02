@@ -36,6 +36,9 @@
 #define XPM_NODEIDX_DEV_GT_MIN		XPM_NODEIDX_DEV_GT_0
 #define XPM_NODEIDX_DEV_GT_MAX		XPM_NODEIDX_DEV_GT_10
 
+//If TRIM_CRAM[31:0]=0 (FUSE not programmed). Then set rw_read_voltages to 0.61V + 0.625V
+#define CRAM_TRIM_RW_READ_VOLTAGE	0x185
+
 XCframe CframeIns={0}; /* CFRAME Driver Instance */
 XCfupmc CfupmcIns={0}; /* CFU Driver Instance */
 u32 PlpdHouseCleanBypass = 0;
@@ -111,8 +114,11 @@ static void PldApplyTrim(u32 TrimType)
                 case XPM_PL_TRIM_CRAM:
                 {
                         PmIn32(EFUSE_CACHE_TRIM_CRAM, TrimVal);
+			/* if eFUSE is not programmed,
+			then set rw_read_voltages to 0.61V + 0.625V by writing */
+			if ((TrimVal == 0) && (PLATFORM_VERSION_SILICON == Platform) && (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion))
+				TrimVal = CRAM_TRIM_RW_READ_VOLTAGE;
                         XCframe_CramTrim(&CframeIns, TrimVal);
-
                 }
                 break;
                 /* Read BRAM trim efuse registers */
