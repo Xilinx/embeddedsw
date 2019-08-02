@@ -66,7 +66,6 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XPlmi_SysMonInit(void);
-int XPlmi_SysMonDispatchHandler(void *Data);
 
 /************************** Variable Definitions *****************************/
 
