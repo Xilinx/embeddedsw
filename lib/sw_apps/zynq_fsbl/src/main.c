@@ -310,6 +310,7 @@ int main(void)
 		FsblHookFallback();
 	}
 
+#endif
 
 	/*
 	 * PCAP initialization
@@ -585,11 +586,6 @@ int main(void)
 	 * exit in JTAG
 	 */
 	FsblHandoff(HandoffAddress);
-
-#else
-	OutputStatus(NO_DDR);
-	FsblFallback();
-#endif
 
 	return Status;
 }
