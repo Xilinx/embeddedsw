@@ -45,7 +45,7 @@
  ******************************************************************************/
 /***************************** Include Files *********************************/
 #include "xplmi_sysmon.h"
-#include "xplmi_proc.h"
+
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -53,7 +53,6 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-extern XStatus XPm_OvertempHandler(void);
 
 /************************** Variable Definitions *****************************/
 
@@ -84,14 +83,10 @@ int XPlmi_SysMonInit(void)
 
 	XSysMonPsv_CfgInitialize(SysMonInstPtr, ConfigPtr);
 
-	XPlmi_RegisterHandler(XPLMI_SYSMON_ROOT_0, XPlmi_SysMonDispatchHandler,
-			      (void *)0);
-
 	/*
 	 * Enable Over-temperature handling.  We need to unlock PCSR to
 	 * enable SysMon interrupt.  Lock it back in after write.
 	 */
-	XPlmi_PlmIntrEnable(XPLMI_SYSMON_ROOT_0);
 	XPlmi_Out32(ConfigPtr->BaseAddress + XSYSMONPSV_PCSR_LOCK,
 		  PCSR_UNLOCK_VAL);
 	XSysMonPsv_IntrEnable(SysMonInstPtr, XSYSMONPSV_IER0_OT_MASK, 0);
@@ -100,26 +95,5 @@ int XPlmi_SysMonInit(void)
 END:
 	XPlmi_Printf(DEBUG_DETAILED,
 		    "%s: SysMon init status: 0x%x\n\r", __func__, Status);
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief This is the handler for SysMon interrupts
- *
- * @param	void
- *
- * @return	Status	Status of received SysMon processing
- *
- *****************************************************************************/
-int XPlmi_SysMonDispatchHandler(void *Data)
-{
-	int Status = XST_FAILURE;
-
-	/* For MISRA C */
-	(void )Data;
-
-	Status = XPm_OvertempHandler();
-
 	return Status;
 }
