@@ -868,10 +868,9 @@ END:
 *
 * @param Be Big endian data
 * @param Le Little endian data
-* @param Len Length of data to be converted and it should be multiple of 4
-* @return
-* 		- XST_SUCCESS no errors occurred.
-*		- XST_FAILURE an error occurred during reading the PS eFUSE.
+* @param Len Length of data to be converted and it should be in number of
+* 	 words (multiple of 4 bytes)
+* @return	None.
 *
 * TDD Test Cases:
 *
