@@ -5,11 +5,14 @@
 
 
 #include "xpm_reset.h"
+#include "xpm_debug.h"
 #include "xpm_device.h"
 #include "xpm_domain_iso.h"
 #include "xpm_powerdomain.h"
 #include "xpm_regs.h"
 #include "xpm_aie.h"
+#include "xpm_api.h"
+#include "xpm_pmc.h"
 #include "xpm_common.h"
 
 static XStatus Reset_AssertCommon(XPm_ResetNode *Rst, const u32 Action);
@@ -20,6 +23,8 @@ static XStatus SetResetNode(u32 Id, XPm_ResetNode *Rst);
 static XPm_ResetNode *RstNodeList[(u32)XPM_NODEIDX_RST_MAX];
 static const u32 MaxRstNodes = (u32)XPM_NODEIDX_RST_MAX;
 static u32 PmNumResets;
+
+u32 UserAssertPsSrst = 0U;
 
 static XPm_ResetOps ResetOps[XPM_RSTOPS_MAX] = {
 	[XPM_RSTOPS_GENRERIC] = {
@@ -71,8 +76,10 @@ XStatus XPmReset_AddNode(u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetTyp
 	XStatus Status = XST_FAILURE;
 	u32 SubClass = NODESUBCLASS(Id);
 	XPm_ResetNode *Rst = NULL;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if (NULL != XPmReset_GetById(Id) || NumParents > MAX_RESET_PARENTS) {
+		DbgErr = XPM_INT_ERR_INVALID_PARAM;
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -85,6 +92,7 @@ XStatus XPmReset_AddNode(u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetTyp
 		Status = XST_SUCCESS;
 		break;
 	default:
+		DbgErr = XPM_INT_ERR_INVALID_SUBCLASS;
 		Status = XST_INVALID_PARAM;
 		break;
 	}
@@ -94,6 +102,7 @@ XStatus XPmReset_AddNode(u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetTyp
 
 	Rst = XPm_AllocBytes(sizeof(XPm_ResetNode));
 	if (Rst == NULL) {
+		DbgErr = XPM_INT_ERR_BUFFER_TOO_SMALL;
 		Status = XST_BUFFER_TOO_SMALL;
 		goto done;
 	}
@@ -102,10 +111,12 @@ XStatus XPmReset_AddNode(u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetTyp
 
 	Status = SetResetNode(Id, Rst);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_SET_RESET_NODE;
 		goto done;
 	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -132,89 +143,41 @@ XPm_ResetNode* XPmReset_GetById(u32 ResetId)
 static XStatus PsOnlyResetAssert(XPm_ResetNode *Rst)
 {
 	XStatus Status = XST_FAILURE;
-	u32 i;
-	const u32 PsDomainIds[] = { PM_POWER_LPD, PM_POWER_FPD };
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 
-	/*
-	 * Prevent LPD access
-	 */
-	XPlmi_ResetLpdInitialized();
-
-	/* Block LPD-PL interfaces */
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_PL, TRUE_PENDING_REMOVE);
-	if (Status != XST_SUCCESS) {
+	XPm_Power *LpdPower = XPmPower_GetById(PM_POWER_LPD);
+	if (NULL == LpdPower) {
+		Status = XST_FAILURE;
 		goto done;
 	}
 
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_PL_TEST, TRUE_PENDING_REMOVE);
-	if (Status != XST_SUCCESS) {
-		goto done;
-	}
-
-	/* Block LPD-NoC interfaces */
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_SOC, TRUE_VALUE);
-	if (Status != XST_SUCCESS) {
-		goto done;
-	}
-
-	/* Block LPD-PMC interfaces */
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_LPD, TRUE_VALUE);
-	if (Status != XST_SUCCESS) {
-		goto done;
-	}
-
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_LPD_DFX, TRUE_VALUE);
-	if (Status != XST_SUCCESS) {
-		goto done;
-	}
-
-	/* Block FPD-PL interfaces */
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL, TRUE_PENDING_REMOVE);
-	if (Status != XST_SUCCESS) {
-		goto done;
-	}
-
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL_TEST, TRUE_PENDING_REMOVE);
-	if (Status != XST_SUCCESS) {
-		goto done;
-	}
-
-	/* Block FPD-NoC interfaces */
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_SOC, TRUE_VALUE);
-	if (Status != XST_SUCCESS) {
-		goto done;
-	}
-
-	/*
-	 * TODO: Use XPm_ForcePowerdown() API here to force LPD and FPD
-	 * power and device nodes to power down, this will handle the
-	 * use count and release of device requirements, gracefully.
-	 *
-	 * At present, Debugging is in progress for the issue where
-	 * JTAG link is lost between XSDB and target device if this API is used.
-	 *
-	 * Therefore, following workaround is needed until debugging is done.
-	 */
-	for (i = 0; i < ARRAY_SIZE(PsDomainIds); i++) {
-		XPm_Power *Power = NULL, *Child = NULL;
-
-		Power = XPmPower_GetById(PsDomainIds[i]);
-		if (NULL == Power) {
-			Status = XST_FAILURE;
+	if (LpdPower->UseCount > 1U) {
+		/**
+		 * LPD UseCount more then 1 indicates that PS only reset is
+		 * not called from LPD power down routine. So power down the
+		 * LPD gracefully which in turn performs PS only reset.
+		 */
+		if (PM_RST_PS_SRST == Rst->Node.Id) {
+			/* Set UserAssertPsSrst flag to skip PS-POR and LPD rail handling for PS-SRST */
+			UserAssertPsSrst = 1U;
+		}
+		Status = XPm_ForcePowerdown(PM_SUBSYS_PMC, PM_POWER_LPD, 0U);
+		UserAssertPsSrst = 0U;
+		if (Status != XST_SUCCESS) {
+			PmErr("Error %d in Powerdown of LPD %d\r\n", Status);
 			goto done;
 		}
-
-		Child = ((XPm_PowerDomain *)Power)->Children;
-		while (Child != NULL) {
-			Child->Node.State = (u8)XPM_POWER_STATE_OFF;
-			Child = Child->NextPeer;
-		}
-		Power->Node.State = (u8)XPM_POWER_STATE_OFF;
+	} else {
+		/**
+		 * LPD UseCount value 1 or less indicates that PS only reset
+		 * is called from LPD power down routine which means that all
+		 * isolation dependency is taken care in FPD and LPD power down
+		 * itself and no need to take care in this routine.
+		 */
+		/* Assert PS System Reset */
+		XPm_RMW32(Rst->Node.BaseAddress, Mask, Mask);
+		Status = XST_SUCCESS;
 	}
-
-	/* Assert PS System Reset */
-	XPm_RMW32(Rst->Node.BaseAddress, Mask, Mask);
 
 done:
 	return Status;
@@ -249,6 +212,77 @@ static XStatus PsOnlyResetPulse(XPm_ResetNode *Rst)
 done:
 	return Status;
 }
+
+static XStatus PlPorResetAssert(XPm_ResetNode *Rst)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
+	XPm_Pmc *Pmc;
+
+	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+	if (NULL == Pmc) {
+		goto done;
+	}
+
+	/* Disable PUDC_B pin to allow PL_POR to toggle */
+	XPm_RMW32(Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_PUDC_B_OVERRIDE_OFFSET,
+			PMC_GLOBAL_PUDC_B_OVERRIDE_VAL_MASK,
+			PMC_GLOBAL_PUDC_B_OVERRIDE_VAL_MASK);
+
+	/* Assert PL POR Reset */
+	XPm_RMW32(Rst->Node.BaseAddress, Mask, Mask);
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+static XStatus PlPorResetRelease(XPm_ResetNode *Rst)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
+	XPm_Pmc *Pmc;
+
+	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+	if (NULL == Pmc) {
+		goto done;
+	}
+
+	/* Release PL POR Reset */
+	XPm_RMW32(Rst->Node.BaseAddress, Mask, 0);
+
+	/* Reset to allow PUDC_B pin to function */
+	XPm_RMW32(Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_PUDC_B_OVERRIDE_OFFSET,
+			PMC_GLOBAL_PUDC_B_OVERRIDE_VAL_MASK,
+			~PMC_GLOBAL_PUDC_B_OVERRIDE_VAL_MASK);
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+static XStatus PlPorResetPulse(XPm_ResetNode *Rst)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Assert PL POR Reset */
+	Status = PlPorResetAssert(Rst);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Release PL POR Reset */
+	Status = PlPorResetRelease(Rst);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+done:
+	return Status;
+}
+
 
 static XStatus ResetPulseLpd(XPm_ResetNode *Rst)
 {
@@ -353,6 +387,18 @@ static const struct ResetCustomOps {
 		.ActionPulse = &PsOnlyResetPulse,
 	},
 	{
+		.ResetIdx = (u32)XPM_NODEIDX_RST_PS_POR,
+		.ActionAssert = &PsOnlyResetAssert,
+		.ActionRelease = &PsOnlyResetRelease,
+		.ActionPulse = &PsOnlyResetPulse,
+	},
+	{
+		.ResetIdx = (u32)XPM_NODEIDX_RST_PL_POR,
+		.ActionAssert = &PlPorResetAssert,
+		.ActionRelease = &PlPorResetRelease,
+		.ActionPulse = &PlPorResetPulse,
+	},
+	{
 		.ResetIdx = (u32)XPM_NODEIDX_RST_LPD,
 		.ActionPulse = &ResetPulseLpd,
 	},
@@ -388,12 +434,14 @@ static XStatus Reset_AssertCustom(XPm_ResetNode *Rst, const u32 Action)
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 	u32 ControlReg = Rst->Node.BaseAddress;
 	const struct ResetCustomOps *Ops = GetResetCustomOps(Rst->Node.Id);
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	switch (Action) {
 	case (u32)PM_RESET_ACTION_RELEASE:
 		if ((NULL != Ops) && (NULL != Ops->ActionRelease)) {
 			Status = Ops->ActionRelease(Rst);
 			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_CUSTOM_RESET_RELEASE;
 				goto done;
 			}
 		} else {
@@ -406,6 +454,7 @@ static XStatus Reset_AssertCustom(XPm_ResetNode *Rst, const u32 Action)
 		if ((NULL != Ops) && (NULL != Ops->ActionAssert)) {
 			Status = Ops->ActionAssert(Rst);
 			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_CUSTOM_RESET_ASSERT;
 				goto done;
 			}
 		} else {
@@ -418,17 +467,20 @@ static XStatus Reset_AssertCustom(XPm_ResetNode *Rst, const u32 Action)
 		if ((NULL != Ops) && (NULL != Ops->ActionPulse)) {
 			Status = Ops->ActionPulse(Rst);
 			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_CUSTOM_RESET_PULSE;
 				goto done;
 			}
 			Rst->Node.State = XPM_RST_STATE_DEASSERTED;
 		}
 		break;
 	default:
+		DbgErr = XPM_INT_ERR_INVALID_PARAM;
 		Status = XST_INVALID_PARAM;
 		break;
 	};
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -521,6 +573,7 @@ done:
 int XPmReset_SystemReset(void)
 {
 	int Status = XST_FAILURE;
+	u32 PlatformVersion = 0x0U;
 
 	/* TODO: Confirm if idling is required here or not */
 
@@ -532,8 +585,9 @@ int XPmReset_SystemReset(void)
 	 * There is no need to set original parent of SYSMON_REF_CLK explicitly,
 	 * as after SRST, CDO will set it to default value.
 	 */
-	if ((PLATFORM_VERSION_SILICON == Platform) &&
-	    (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
+	PlatformVersion = XPm_GetPlatformVersion();
+	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
+	    ((u32)PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
 		u16 i;
 		XPm_OutClockNode *Clk;
 		Clk = (XPm_OutClockNode *)XPmClock_GetById(PM_CLK_SYSMON_REF);
@@ -558,7 +612,7 @@ int XPmReset_SystemReset(void)
 		/* Disable clock before changing parent */
 		(void)XPmClock_SetGate(Clk, 0);
 		Status = XPmClock_SetParent(Clk, i);
-		if (XST_SUCCESS == Status) {
+		if (XST_SUCCESS != Status) {
 			PmWarn("Failed to change parent of SYSMON_REF_CLK\r\n");
 		}
 		(void)XPmClock_SetGate(Clk, 1);
