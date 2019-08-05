@@ -28,6 +28,7 @@
 #include "xpm_psfpdomain.h"
 #include "xpm_bisr.h"
 #include "xpm_regs.h"
+#include "xpm_psm.h"
 
 static XStatus FpdInitStart(u32 *Args, u32 NumOfArgs)
 {
@@ -40,6 +41,11 @@ static XStatus FpdInitStart(u32 *Args, u32 NumOfArgs)
 	/* Check vccint_fpd first to make sure power is on */
 	if (XST_SUCCESS != XPmPower_CheckPower(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_FPD_MASK)) {
 		/* TODO: Request PMC to power up VCCINT_FP rail and wait for the acknowledgement.*/
+		goto done;
+	}
+
+	if (XPmPsm_FwIsPresent() != TRUE) {
+		Status = XST_NOT_ENABLED;
 		goto done;
 	}
 
