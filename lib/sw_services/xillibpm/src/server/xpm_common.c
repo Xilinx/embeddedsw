@@ -29,7 +29,7 @@
 #include "xpm_common.h"
 #include "xpm_regs.h"
 
-#define MAX_BYTEBUFFER_SIZE	(32 * 1024)
+#define MAX_BYTEBUFFER_SIZE	(48 * 1024)
 static u8 ByteBuffer[MAX_BYTEBUFFER_SIZE];
 static u8 *FreeBytes = ByteBuffer;
 
