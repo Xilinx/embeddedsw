@@ -32,6 +32,7 @@
 # 1.0   hk  08/21/14 First release
 #       sk  05/06/15 Imported Bus Width Parameter.
 # 1.5	nsk 08/14/17 Added CCI support
+# 1.9   mus 07/30/19 Added CCI support for Versal at EL1 NS
 #
 ##############################################################################
 
@@ -61,6 +62,12 @@ proc generate_cci_params {drv_handle file_name} {
 		if {$processor_type == "psu_cortexa53"} {
 			set hypervisor [common::get_property CONFIG.hypervisor_guest [hsi::get_os]]
 			if {[string match -nocase $hypervisor "true"]} {
+				set cci_enble [common::get_property CONFIG.IS_CACHE_COHERENT $ip]
+			}
+		} elseif {$processor_type == "psv_cortexa72"} {
+			set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
+			set flagindex [string first {-DARMA72_EL3} $extra_flags 0]
+			if {$flagindex == -1} {
 				set cci_enble [common::get_property CONFIG.IS_CACHE_COHERENT $ip]
 			}
 		}
