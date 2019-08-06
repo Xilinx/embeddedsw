@@ -44,6 +44,8 @@
 *			Removed APIs XWdtPs_SetExternalSignalLength,
 *			XWdtPs_GetExternalSignalLength
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.2	sne    08/05/19 Fixed coverity warnings.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -254,15 +256,12 @@ void XWdtPs_EnableOutput(XWdtPs *InstancePtr, u8 Signal)
 		 */
 		Register |= XWDTPS_ZMR_RSTEN_MASK;
 
-	} else if (Signal == XWDTPS_IRQ_SIGNAL) {
+	} else {
 		/*
 		 * Enable the field in the register.
 		 */
 		Register |= XWDTPS_ZMR_IRQEN_MASK;
 
-	} else {
-		/* Else was made for misra-c compliance */
-		;
 	}
 
 	/*
@@ -315,15 +314,12 @@ void XWdtPs_DisableOutput(XWdtPs *InstancePtr, u8 Signal)
 		 */
 		Register &= (u32)(~XWDTPS_ZMR_RSTEN_MASK);
 
-	} else if (Signal == XWDTPS_IRQ_SIGNAL) {
+	} else {
 		/*
 		 * Disable the field in the register.
 		 */
 		Register &= (u32)(~XWDTPS_ZMR_IRQEN_MASK);
 
-	} else {
-		/* Else was made for misra-c compliance */
-		;
 	}
 
 	/*
@@ -383,7 +379,7 @@ u32 XWdtPs_GetControlValue(XWdtPs *InstancePtr, u8 Control)
 		 */
 		ReturnValue = Register & XWDTPS_CCR_CLKSEL_MASK;
 
-	} else if (Control == XWDTPS_COUNTER_RESET) {
+	} else {
 		/*
 		 * Mask off the field in the register.
 		 */
@@ -393,9 +389,6 @@ u32 XWdtPs_GetControlValue(XWdtPs *InstancePtr, u8 Control)
 		 * Shift over to the right most positions.
 		 */
 		ReturnValue = Register >> XWDTPS_CCR_CRV_SHIFT;
-	} else {
-		/* Else was made for misra-c compliance */
-		;
 	}
 
 	return ReturnValue;
@@ -449,7 +442,7 @@ void XWdtPs_SetControlValue(XWdtPs *InstancePtr, u8 Control, u32 Value)
 		 */
 		Register &= (u32)(~XWDTPS_CCR_CLKSEL_MASK);
 
-	} else if (Control == XWDTPS_COUNTER_RESET) {
+	} else {
 		/*
 		 * Zero the field in the register.
 		 */
@@ -459,9 +452,6 @@ void XWdtPs_SetControlValue(XWdtPs *InstancePtr, u8 Control, u32 Value)
 		 * Shift Value over to the proper positions.
 		 */
 		LocalValue = LocalValue << XWDTPS_CCR_CRV_SHIFT;
-	} else{
-		/* This was made for misrac compliance. */
-		;
 	}
 
 	Register |= LocalValue;
