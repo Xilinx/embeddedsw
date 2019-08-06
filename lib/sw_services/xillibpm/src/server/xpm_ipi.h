@@ -47,6 +47,11 @@ extern "C" {
 XStatus XPm_IpiSend(u32 IpiMask, u32 *Payload);
 XStatus XPm_IpiReadStatus(u32 IpiMask);
 
+/*
+ * XSDB master IPI-5 mask
+ */
+#define XSDB_IPI_INT_MASK		(0x00000080U)
+
 #ifdef __cplusplus
 }
 #endif
