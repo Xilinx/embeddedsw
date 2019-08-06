@@ -50,6 +50,9 @@ spi_v4_5:
 Removed master inhibit dependency while writing to DTR.
 Fixed compilation error in spi interrupt example(CR-1035793).
 
+spips_v3_3:
+Initialized DeviceID in XSpiPs_CfgInitialize function.
+
 uartlite_v3_3:
 Updated driver tcl to export proper baseaddress for pmc_ppu1_mdm IP.
 
