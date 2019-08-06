@@ -70,6 +70,7 @@
 *                       in safety mode and done changes such as
 *                       Declared the pointer param as Pointer to const,
 *			added goto statements.
+* 3.3	akm    08/06/19 Initialized DeviceID in XSpiPs_CfgInitialize function.
 * </pre>
 *
 ******************************************************************************/
@@ -187,6 +188,7 @@ s32 XSpiPs_CfgInitialize(XSpiPs *InstancePtr, const XSpiPs_Config *ConfigPtr,
 		InstancePtr->Config.BaseAddress = EffectiveAddr;
 		InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
 		InstancePtr->StatusHandler = StubStatusHandler;
+		InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
 
 		InstancePtr->SendBufferPtr = NULL;
 		InstancePtr->RecvBufferPtr = NULL;
