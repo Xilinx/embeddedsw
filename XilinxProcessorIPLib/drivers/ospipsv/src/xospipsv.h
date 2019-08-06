@@ -110,6 +110,7 @@ typedef struct {
 	u16 DeviceId;		/**< Unique ID  of device */
 	u32 BaseAddress;	/**< Base address of the device */
 	u32 InputClockHz;	/**< Input clock frequency */
+	u8 IsCacheCoherent;		/**< If OSPI is Cache Coherent or not */
 } XOspiPsv_Config;
 
 /**
