@@ -64,6 +64,9 @@ extern "C" {
 #include "xospipsv_hw.h"
 #include "xil_cache.h"
 #include "xil_mem.h"
+#if defined (__aarch64__)
+#include "xil_smc.h"
+#endif
 
 /**************************** Type Definitions *******************************/
 /**
