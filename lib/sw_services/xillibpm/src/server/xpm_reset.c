@@ -148,7 +148,7 @@ XPm_ResetNode* XPmReset_GetById(u32 ResetId)
 	return Rst;
 }
 
-static XStatus ResetPulsePsOnly(XPm_ResetNode *Rst)
+static XStatus PsOnlyResetAssert(XPm_ResetNode *Rst)
 {
 	u32 i, Status = XST_SUCCESS;
 	const u32 PsDomainIds[] = { LPD_NODEID, FPD_NODEID };
@@ -229,10 +229,35 @@ static XStatus ResetPulsePsOnly(XPm_ResetNode *Rst)
 	/* Assert PS System Reset */
 	XPm_RMW32(Rst->Node.BaseAddress, Mask, Mask);
 
-	/* TODO: Wait for some time */
+done:
+	return Status;
+}
+
+static XStatus PsOnlyResetRelease(XPm_ResetNode *Rst)
+{
+	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 
 	/* Release PS System Reset */
 	XPm_RMW32(Rst->Node.BaseAddress, Mask, 0);
+
+	return XST_SUCCESS;
+}
+
+static XStatus PsOnlyResetPulse(XPm_ResetNode *Rst)
+{
+	u32 Status = XST_SUCCESS;
+
+	/* Assert PS System Reset */
+	Status = PsOnlyResetAssert(Rst);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Release PS System Reset */
+	Status = PsOnlyResetRelease(Rst);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 done:
 	return Status;
@@ -251,35 +276,70 @@ static XStatus ResetPulseLpd(XPm_ResetNode *Rst)
 	return Status;
 }
 
-XStatus (*const Reset_Pulse[])(XPm_ResetNode *Rst) = {
-	[XPM_NODEIDX_RST_PS_SRST - XPM_NODEIDX_RST_MIN] = &ResetPulsePsOnly,
-	[XPM_NODEIDX_RST_LPD - XPM_NODEIDX_RST_MIN] = &ResetPulseLpd,
+struct ResetCustomOps {
+	XStatus (*const ActionAssert)(XPm_ResetNode *Rst);
+	XStatus (*const ActionRelease)(XPm_ResetNode *Rst);
+	XStatus (*const ActionPulse)(XPm_ResetNode *Rst);
+};
+
+static const struct ResetCustomOps Reset_Custom[] = {
+	[XPM_NODEIDX_RST_PS_SRST - XPM_NODEIDX_RST_MIN] = {
+		.ActionAssert = &PsOnlyResetAssert,
+		.ActionRelease = &PsOnlyResetRelease,
+		.ActionPulse = &PsOnlyResetPulse,
+	},
+	[XPM_NODEIDX_RST_LPD - XPM_NODEIDX_RST_MIN] = {
+		.ActionPulse = &ResetPulseLpd,
+	},
 };
 
 static XStatus Reset_AssertCustom(XPm_ResetNode *Rst, const u32 Action)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status = XST_FAILURE;
+	u32 Id = NODEINDEX(Rst->Node.Id);
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 	u32 ControlReg = Rst->Node.BaseAddress;
 
 	switch (Action) {
 	case PM_RESET_ACTION_RELEASE:
-		XPm_RMW32(ControlReg, Mask, 0);
+		if (Reset_Custom[Id].ActionRelease) {
+			Status = Reset_Custom[Id].ActionRelease(Rst);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		} else {
+			XPm_RMW32(ControlReg, Mask, 0);
+		}
 		Rst->Node.State = XPM_RST_STATE_DEASSERTED;
+		Status = XST_SUCCESS;
 		break;
 	case PM_RESET_ACTION_ASSERT:
-		XPm_RMW32(ControlReg, Mask, Mask);
+		if (Reset_Custom[Id].ActionAssert) {
+			Status = Reset_Custom[Id].ActionAssert(Rst);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		} else {
+			XPm_RMW32(ControlReg, Mask, Mask);
+		}
 		Rst->Node.State = XPM_RST_STATE_ASSERTED;
+		Status = XST_SUCCESS;
 		break;
 	case PM_RESET_ACTION_PULSE:
-		Reset_Pulse[NODEINDEX(Rst->Node.Id)](Rst);
-		Rst->Node.State = XPM_RST_STATE_DEASSERTED;
+		if (Reset_Custom[Id].ActionPulse) {
+			Status = Reset_Custom[Id].ActionPulse(Rst);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+			Rst->Node.State = XPM_RST_STATE_DEASSERTED;
+		}
 		break;
 	default:
 		Status = XST_INVALID_PARAM;
 		break;
 	};
 
+done:
 	return Status;
 }
 
