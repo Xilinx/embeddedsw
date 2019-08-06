@@ -36,6 +36,7 @@
 # 3.3   mn   08/17/17 Enabled CCI support for A53 by adding cache coherency
 #                     information.
 # 3.6   mn   07/06/18 Generate canonical entry for IS_CACHE_COHERENT
+# 3.8   mus  07/30/19 Added CCI support for Versal at EL1 NS
 #
 ##############################################################################
 
@@ -65,6 +66,12 @@ proc generate_cci_params {drv_handle file_name} {
 		if {$processor_type == "psu_cortexa53"} {
 			set hypervisor [common::get_property CONFIG.hypervisor_guest [hsi::get_os]]
 			if {[string match -nocase $hypervisor "true"]} {
+				set cci_enble [common::get_property CONFIG.IS_CACHE_COHERENT $ip]
+			}
+		} elseif {$processor_type == "psv_cortexa72"} {
+			set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
+			set flagindex [string first {-DARMA72_EL3} $extra_flags 0]
+			if {$flagindex == -1} {
 				set cci_enble [common::get_property CONFIG.IS_CACHE_COHERENT $ip]
 			}
 		}
