@@ -53,7 +53,6 @@
 
 #include "xospipsv.h"
 
-
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -139,11 +138,25 @@ u32 XOspiPsv_SetOptions(XOspiPsv *InstancePtr, u32 Options)
 							XOSPIPSV_REMAP_ADDR_REG, XOSPIPSV_REMAP_ADDR_VAL);
 					InstancePtr->OpMode = XOSPIPSV_DAC_MODE;
 					/* IOU_SLCR MUX selection */
+					#if EL1_NONSECURE
+					/*
+					 * Execution is happening in non secure world, configure MUX
+					 * settings through SMC calls
+					 */
+
+					/* Request for OSPI node */
+					Xil_Smc(PM_REQUEST_DEVICE_SMC_FID,OSPI_NODE_ID,0, 0,0,0,0,0);
+					/* Change MUX settings to select LINEAR mode */
+					Xil_Smc(PM_IOCTL_SMC_FID, (((u64)PM_IOCTL_OSPI_MUX_SELECT << 32) | OSPI_NODE_ID) , PM_OSPI_MUX_SEL_LINEAR, 0,0,0,0,0);
+					/* Release OSPI node */
+					Xil_Smc(PM_RELEASE_DEVICE_SMC_FID,OSPI_NODE_ID,0, 0,0,0,0,0);
+					#else
 					XOspiPsv_WriteReg(XPMC_IOU_SLCR_BASEADDR,
 						XPMC_IOU_SLCR_OSPI_MUX_SEL,
 						XOspiPsv_ReadReg(XPMC_IOU_SLCR_BASEADDR,
 							XPMC_IOU_SLCR_OSPI_MUX_SEL) |
 							(u32)XPMC_IOU_SLCR_OSPI_MUX_SEL_DAC_MASK);
+					#endif
 				} else {
 					XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 								XOSPIPSV_REMAP_ADDR_REG, 0x0U);
@@ -156,11 +169,25 @@ u32 XOspiPsv_SetOptions(XOspiPsv *InstancePtr, u32 Options)
 			} else {
 				if (OptionsTable[Index].Option == XOSPIPSV_DAC_EN_OPTION) {
 					if ((ConfigReg & XOSPIPSV_CONFIG_REG_ENB_DIR_ACC_CTLR_FLD_MASK) != 0U) {
+						#if EL1_NONSECURE
+						/*
+						 * Execution is happening in non secure world, configure MUX
+						 * settings through SMC calls
+						 */
+
+						/* Request for OSPI node */
+						Xil_Smc(PM_REQUEST_DEVICE_SMC_FID,OSPI_NODE_ID,0, 0,0,0,0,0);
+						/* Change MUX settings to select DMA mode */
+						Xil_Smc(PM_IOCTL_SMC_FID, (((u64)PM_IOCTL_OSPI_MUX_SELECT << 32) | OSPI_NODE_ID) , PM_OSPI_MUX_SEL_DMA, 0,0,0,0,0);
+						/* Release OSPI node */
+						Xil_Smc(PM_RELEASE_DEVICE_SMC_FID,OSPI_NODE_ID,0, 0,0,0,0,0);
+						#else
 						XOspiPsv_WriteReg(XPMC_IOU_SLCR_BASEADDR,
 							XPMC_IOU_SLCR_OSPI_MUX_SEL,
 							XOspiPsv_ReadReg(XPMC_IOU_SLCR_BASEADDR,
 								XPMC_IOU_SLCR_OSPI_MUX_SEL) &
 								~(u32)XPMC_IOU_SLCR_OSPI_MUX_SEL_DAC_MASK);
+						#endif
 					}
 				}
 				ConfigReg &= ~(OptionsTable[Index].Mask);

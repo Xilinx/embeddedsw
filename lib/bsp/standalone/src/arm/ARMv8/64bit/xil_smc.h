@@ -43,6 +43,7 @@
 * 6.4   mus      08/17/17 Added constant define for SMC ID , which is
 *                         intended to read the version/idcode of the
 *                         platform
+* 7.1  mus       07/31/19 Added support for Versal
 *
 *
 * </pre>
@@ -68,6 +69,13 @@ extern "C" {
 #define XILSP_INIT_DONE 0xF2000000
 #define	ARITH_SMC_FID	0xF2000001
 
+#define PM_IOCTL_SMC_FID	0xC2000022U
+#define PM_IOCTL_OSPI_MUX_SELECT	0x15U
+#define PM_OSPI_MUX_SEL_DMA		0x0
+#define PM_OSPI_MUX_SEL_LINEAR	0x1
+#define OSPI_NODE_ID	0x1822402a
+#define PM_REQUEST_DEVICE_SMC_FID	0xC200000DU
+#define PM_RELEASE_DEVICE_SMC_FID	0xC200000EU
 #define PM_ASSERT_SMC_FID       0xC2000011U
 #define PM_GETSTATUS_SMC_FID    0xC2000012U
 #define MMIO_WRITE_SMC_FID	0xC2000013U
