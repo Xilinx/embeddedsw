@@ -27,7 +27,7 @@
 /**
 *
 * @file xspips.h
-* @addtogroup spips_v3_2
+* @addtogroup spips_v3_3
 * @{
 * @details
 *
