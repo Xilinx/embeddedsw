@@ -251,6 +251,12 @@ proc generate_cci_params {drv_handle file_name} {
 			if {$is_xen == "true"} {
 				set is_cc [common::get_property CONFIG.IS_CACHE_COHERENT $ip]
 			}
+		} elseif {$processor_type == "psv_cortexa72"} {
+			set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
+			set flagindex [string first {-DARMA72_EL3} $extra_flags 0]
+			if {$flagindex == -1} {
+				set is_cc [common::get_property CONFIG.IS_CACHE_COHERENT $ip]
+			}
 		}
 		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "IS_CACHE_COHERENT"] $is_cc"
 		set canonical_tag [string toupper [format "XEMACPS_%d" $device_id ]]
