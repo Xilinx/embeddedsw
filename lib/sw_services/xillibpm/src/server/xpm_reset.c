@@ -27,6 +27,7 @@
 #include "xpm_reset.h"
 #include "xpm_device.h"
 #include "xpm_domain_iso.h"
+#include "xpm_powerdomain.h"
 
 static XStatus Reset_AssertCommon(XPm_ResetNode *Rst, const u32 Action);
 static XStatus Reset_AssertCustom(XPm_ResetNode *Rst, const u32 Action);
@@ -149,7 +150,8 @@ XPm_ResetNode* XPmReset_GetById(u32 ResetId)
 
 static XStatus ResetPulsePsOnly(XPm_ResetNode *Rst)
 {
-	u32 Status = XST_SUCCESS;
+	u32 i, Status = XST_SUCCESS;
+	const u32 PsDomainIds[] = { LPD_NODEID, FPD_NODEID };
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 
 	/* Block LPD-PL interfaces */
@@ -195,6 +197,33 @@ static XStatus ResetPulsePsOnly(XPm_ResetNode *Rst)
 	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_FPD_SOC, TRUE);
 	if (Status != XST_SUCCESS) {
 		goto done;
+	}
+
+	/*
+	 * TODO: Use XPm_ForcePowerdown() API here to force LPD and FPD
+	 * power and device nodes to power down, this will handle the
+	 * use count and release of device requirements, gracefully.
+	 *
+	 * At present, Debugging is in progress for the issue where
+	 * JTAG link is lost between XSDB and target device if this API is used.
+	 *
+	 * Therefore, following workaround is needed until debugging is done.
+	 */
+	for (i = 0; i < ARRAY_SIZE(PsDomainIds); i++) {
+		XPm_Power *Power = NULL, *Child = NULL;
+
+		Power = XPmPower_GetById(PsDomainIds[i]);
+		if (NULL == Power) {
+			Status = XST_FAILURE;
+			goto done;
+		}
+
+		Child = ((XPm_PowerDomain *)Power)->Children;
+		while (Child != NULL) {
+			Child->Node.State = XPM_POWER_STATE_OFF;
+			Child = Child->NextPeer;
+		}
+		Power->Node.State = XPM_POWER_STATE_OFF;
 	}
 
 	/* Assert PS System Reset */
