@@ -140,7 +140,8 @@ XStatus XPm_SetPllMode(const u32 SubsystemId, const u32 ClockId, const u32 Value
 
 XStatus XPm_GetPllMode(const u32 ClockId, u32 *const Value);
 
-XStatus XPm_SetResetState(const u32 SubsystemId, const u32 DeviceId, const u32 Reset);
+XStatus XPm_SetResetState(const u32 SubsystemId, const u32 IpiMask,
+			  const u32 DeviceId, const u32 Reset);
 
 XStatus XPm_GetResetState(const u32 DeviceId, u32 *const Reset);
 
