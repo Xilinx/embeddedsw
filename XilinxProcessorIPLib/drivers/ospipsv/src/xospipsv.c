@@ -46,6 +46,7 @@
 *       sk   02/04/19 Added support for SDR+PHY and DDR+PHY modes.
 *       sk   02/07/19 Added OSPI Idling sequence.
 * 1.1   sk   07/22/19 Added RX Tuning algorithm for SDR and DDR modes.
+* 1.1   mus  07/31/19 Added CCI support at EL1 NS
 *
 * </pre>
 *
@@ -144,6 +145,7 @@ u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr,
 		InstancePtr->IsBusy = FALSE;
 		InstancePtr->Config.BaseAddress = ConfigPtr->BaseAddress;
 		InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
+		InstancePtr->Config.IsCacheCoherent = ConfigPtr->IsCacheCoherent;
 		/* Other instance variable initializations */
 		InstancePtr->SendBufferPtr = NULL;
 		InstancePtr->RecvBufferPtr = NULL;
@@ -903,7 +905,9 @@ static inline void XOspiPsv_Dma_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 		XOspiPsv_Config_Dma(InstancePtr,Msg);
 		XOspiPsv_Config_IndirectAhb(InstancePtr,Msg);
 		XOspiPsv_Exec_Dma(InstancePtr);
-		Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
+		if (InstancePtr->Config.IsCacheCoherent == 0) {
+			Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
+		}
 		if (InstancePtr->IsUnaligned != 0U) {
 			InstancePtr->RecvBufferPtr += Msg->ByteCount;
 			Msg->Addr += Msg->ByteCount;
@@ -917,7 +921,9 @@ static inline void XOspiPsv_Dma_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 		XOspiPsv_Config_Dma(InstancePtr,Msg);
 		XOspiPsv_Config_IndirectAhb(InstancePtr,Msg);
 		XOspiPsv_Exec_Dma(InstancePtr);
-		Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
+		if (InstancePtr->Config.IsCacheCoherent == 0) {
+			Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
+		}
 		Xil_MemCpy(InstancePtr->RecvBufferPtr, InstancePtr->UnalignReadBuffer,
 				InstancePtr->RxBytes);
 		InstancePtr->IsUnaligned = 0U;
@@ -948,7 +954,9 @@ static inline void XOspiPsv_Config_Dma(const XOspiPsv *InstancePtr,
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 		XOSPIPSV_DMA_PERIPH_CONFIG_REG, XOSPIPSV_DMA_PERIPH_CONFIG_VAL);
 
-	Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
+	if (InstancePtr->Config.IsCacheCoherent == 0) {
+		Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
+	}
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 		XOSPIPSV_OSPIDMA_DST_ADDR, (u32)AddrTemp);
 
@@ -1318,7 +1326,9 @@ u32 XOspiPsv_IntrHandler(XOspiPsv *InstancePtr)
 			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG,
 				(XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG_IND_OPS_DONE_STATUS_FLD_MASK));
-			Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
+			if (InstancePtr->Config.IsCacheCoherent == 0) {
+				Xil_DCacheInvalidateRange((UINTPTR)Msg->RxBfrPtr, Msg->ByteCount);
+			}
 			/* Clear the ISR */
 			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_OSPIDMA_DST_I_STS, XOSPIPSV_OSPIDMA_DST_I_EN_DONE_MASK);
