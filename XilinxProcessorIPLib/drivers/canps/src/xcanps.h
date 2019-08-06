@@ -200,6 +200,8 @@
 *			error interrupts correctly. CR#925615
 *     ms      03/17/17  Added readme.txt file in examples folder for doxygen
 *                       generation.
+* 3.3 sne     08/06/19	Fixed coverity warnings.
+*
 * </pre>
 *
 ******************************************************************************/
