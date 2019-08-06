@@ -252,7 +252,8 @@
 * 3.2   nsk    03/26/19 Add support for versal - CR #1025583.
 * 3.3   mus    04/05/19 Replaced XPLAT_versal macro with XPLAT_VERSAL, to be in
 *                       sync with standalone BSP
-
+* 3.3   akm    08/06/19 Initialized DeviceID in XSpiPs_CfgInitialize function.
+*
 * </pre>
 *
 ******************************************************************************/
