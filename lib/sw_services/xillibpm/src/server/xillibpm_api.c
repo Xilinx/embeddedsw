@@ -46,6 +46,7 @@
 #include "xpm_aie.h"
 #include "xpm_prot.h"
 #include "xpm_regs.h"
+#include "xpm_ipi.h"
 #include "xsysmonpsv.h"
 
 u32 ResetReason;
@@ -183,7 +184,8 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 					   Pload[3], ApiResponse);
 			break;
 		case PM_RESET_ASSERT:
-			Status = XPm_SetResetState(SubsystemId, Pload[0], Pload[1]);
+			Status = XPm_SetResetState(SubsystemId, Cmd->IpiMask,
+						   Pload[0], Pload[1]);
 			break;
 		case PM_RESET_GET_STATUS:
 			Status = XPm_GetResetState(Pload[0], ApiResponse);
@@ -1799,6 +1801,7 @@ done:
  *
  * @param SubsystemId	Subsystem ID
  * @param ResetId	Reset ID
+ * @param IpiMask	IPI Mask currently being used
  * @param Action	Reset (true) or de-reset (false) the device
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
@@ -1811,7 +1814,8 @@ done:
  * this request will be denied.
  *
  ****************************************************************************/
-XStatus XPm_SetResetState(const u32 SubsystemId, const u32 ResetId, const u32 Action)
+XStatus XPm_SetResetState(const u32 SubsystemId, const u32 IpiMask,
+			  const u32 ResetId, const u32 Action)
 {
 	int Status = XST_SUCCESS;
 	XPm_ResetNode* Reset;
@@ -1824,26 +1828,34 @@ XStatus XPm_SetResetState(const u32 SubsystemId, const u32 ResetId, const u32 Ac
 		goto done;
 	}
 
-	/* Only peripheral and debug reset are allowed to control externally */
-	if (XPM_NODESUBCL_RESET_PERIPHERAL == SubClass) {
-		if (XPM_NODETYPE_RESET_PERIPHERAL != SubType) {
+	/*
+	 * XSDB is a privileged master, allow unrestricted access.
+	 */
+	if (XSDB_IPI_INT_MASK != IpiMask) {
+		/*
+		 * Only peripheral and debug resets
+		 * are allowed to control externally, on other masters.
+		 */
+		if (XPM_NODESUBCL_RESET_PERIPHERAL == SubClass) {
+			if (XPM_NODETYPE_RESET_PERIPHERAL != SubType) {
+				Status = XST_NO_ACCESS;
+				goto done;
+			}
+		} else if (XPM_NODESUBCL_RESET_DBG == SubClass) {
+			if (XPM_NODETYPE_RESET_DBG != SubType) {
+				Status = XST_NO_ACCESS;
+				goto done;
+			}
+		} else {
 			Status = XST_NO_ACCESS;
 			goto done;
 		}
-	} else if (XPM_NODESUBCL_RESET_DBG == SubClass) {
-		if (XPM_NODETYPE_RESET_DBG != SubType) {
-			Status = XST_NO_ACCESS;
-			goto done;
-		}
-	} else {
-		Status = XST_NO_ACCESS;
-		goto done;
-	}
 
-	/* Check if subsystem is allowed to access requested reset or not */
-	Status = XPm_IsAccessAllowed(SubsystemId, ResetId);
-	if (XST_SUCCESS != Status) {
-		goto done;
+		/* Check if subsystem is allowed to access requested reset */
+		Status = XPm_IsAccessAllowed(SubsystemId, ResetId);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 	}
 
 	Status = Reset->Ops->SetState(Reset, Action);
