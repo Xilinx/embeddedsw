@@ -73,6 +73,7 @@
 *       psl   07/12/19 Corrected length of data to read for
 *                      XilSKey_EfusePs_ConvertBytesBeToLe function.
 *       psl   07/23/19 Fixed input validations.
+*       vns   08/07/19 Fixed CTRL LOCK in XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits
 * </pre>
 *
 *****************************************************************************/
@@ -469,22 +470,24 @@ u32 XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits(
 		/* Check the unlock status */
 		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus() != 0U) {
 			Status = (u32)(XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
-			goto END;
+			goto LOCK;
 		}
 		Status = XilSKey_ZynqMp_EfusePs_Init();
 		if (Status != (u32)XST_SUCCESS) {
-			goto END;
+			goto LOCK;
 		}
 		/* Vol and temperature checks */
 		Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
 		if (Status != (u32)XST_SUCCESS) {
-			 goto END;
+			 goto LOCK;
 		}
 		Status = XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits_Regs(
 					ReadBackSecCtrlBits,ReadOption);
-		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
+LOCK:
+		/* Lock the controller back */
+		XilSKey_ZynqMp_EfusePs_CtrlrLock();
 	}
-END:
+
 	return Status;
 
 }
