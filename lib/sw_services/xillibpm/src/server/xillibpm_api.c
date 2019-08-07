@@ -534,10 +534,6 @@ XStatus XPm_IsoControl(u32 NodeId, u32 Enable)
 		goto done;
 	}
 
-	/*TODO: Right now we don't have PLD init node support so we assume
-	 * PL subsystem is ready when iso control commands are received*/
-	XPmSubsystem_SetState(XPM_SUBSYSID_PL, ONLINE);
-
 	Status = XPmDomainIso_Control(NODEINDEX(NodeId), Enable);
 
 done:

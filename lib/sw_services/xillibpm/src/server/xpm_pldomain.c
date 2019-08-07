@@ -362,7 +362,7 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 		}
 	}
 
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PMC_PL_CFRAME, FALSE);
+	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PMC_PL_CFRAME, FALSE_IMMEDIATE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
