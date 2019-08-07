@@ -51,6 +51,7 @@
 *                     Calling XWdtTb_LookupConfig and XWdtTb_CfgInitialize
 *                     functions instead of XWdtTb_Initialize for
 *                     initialization.
+* 4.5   nsk 08/07/19  Add macro to support testapp generation for polled mode
 *</pre>
 ******************************************************************************/
 
@@ -96,6 +97,7 @@ XWdtTb WatchdogTimebase; /* Instance of WatchDog Timer Base */
 * @note		None.
 *
 ******************************************************************************/
+#ifndef TESTAPP_GEN
 int main(void)
 {
 	int Status;
@@ -113,7 +115,7 @@ int main(void)
 
 	return XST_SUCCESS;
 }
-
+#endif
 /*****************************************************************************/
 /**
 * This function tests the functioning of the TimeBase WatchDog Timer module
