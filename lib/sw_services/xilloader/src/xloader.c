@@ -866,6 +866,18 @@ int XLoader_ReloadImage(u32 ImageId)
 		}
 	}
 
+	if(DeviceOps[SubSystemInfo.PdiPtr->PdiSrc &
+			XLOADER_PDISRC_FLAGS_MASK].Init != NULL)
+	{
+		Status = DeviceOps[SubSystemInfo.PdiPtr->PdiSrc &
+				XLOADER_PDISRC_FLAGS_MASK].Init(SubSystemInfo.PdiPtr->
+				PdiSrc & XLOADER_PDISRC_FLAGS_MASK);
+		if(Status != XST_SUCCESS)
+		{
+			goto END;
+		}
+	}
+
     Status = XLoader_LoadImage(SubSystemInfo.PdiPtr, ImageId);
 
 	switch(SubSystemInfo.PdiPtr->PdiSrc)
@@ -903,5 +915,6 @@ int XLoader_ReloadImage(u32 ImageId)
 			break;
 		}
 	}
+END:
 	return Status;
 }
