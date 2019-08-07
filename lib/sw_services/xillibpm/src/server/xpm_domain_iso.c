@@ -220,7 +220,7 @@ XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
 {
 	XStatus Status = XST_SUCCESS;
-	u32 i=0, NodeId;
+	u32 i=0, NodeId, Value;
 	XPm_PowerDomain *PwrDomainNode;
 	XPm_Subsystem *Subsystem;
 
@@ -235,13 +235,19 @@ static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
 				goto done;
 			}
 		} else if (NodeId == XPM_SUBSYSID_PL) {
-			/* Right now as we don't have
-			 * init finish for PLD, we assume PL is there when we see
-			 * pm_iso_control commands */
 			 Subsystem = XPmSubsystem_GetById(NodeId);
 			 if(Subsystem->State != ONLINE) {
-				Status = XST_FAILURE;
-				goto done;
+				/* Right now as we don't have
+				 * init finish for PLD, we decide PLD status based on
+	                           EOS bit */
+				PmIn32(CFU_APB_CFU_FGCR, Value);
+				if (CFU_APB_CFU_FGCR_EOS_MASK == (Value & CFU_APB_CFU_FGCR_EOS_MASK)) {
+					XPmSubsystem_SetState(XPM_SUBSYSID_PL, ONLINE);
+					Status = XST_SUCCESS;
+				} else {
+					Status = XST_FAILURE;
+					goto done;
+				}
 			}
 		} else {
 			Status = XST_FAILURE;
