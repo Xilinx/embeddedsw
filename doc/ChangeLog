@@ -15,7 +15,7 @@ Disable DLL Reset code for Versal
 Enable SD UHS Mode support by default for Versal
 Update Input Tap Delays for Versal
 
-gpiops_v3_7
+gpiops_v3_6
 udpated gpiops example with versal support.
 Fixed IAR compiler warnings.
 
