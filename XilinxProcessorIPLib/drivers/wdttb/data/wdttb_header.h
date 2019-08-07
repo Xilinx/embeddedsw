@@ -41,6 +41,7 @@
 * Ver   Who  Date	 Changes
 * ----- ---- -------- -----------------------------------------------
 * 2.00a ktn  10/22/09 Updated to use the HAL processor APIs/macros.
+* 4.5   nsk  08/07/19 Fix warnings while generating testapp
 *
 * </pre>
 *
@@ -53,6 +54,7 @@
 #include "xstatus.h"
 
 int WdtTbSelfTestExample(u16 DeviceId);
-
+int WdtTbExample(u16 DeviceId);
+int GWdtTbExample(u16 DeviceId);
 #endif
 

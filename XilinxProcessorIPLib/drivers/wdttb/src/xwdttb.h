@@ -171,6 +171,7 @@
 # 4.5   nsk  08/07/19 Updated testapp tcl to generate polled mode
 #                     example, when Wdttb interrupt pin is not connected
 #                     CR# 1035919.
+# 4.5   nsk  08/07/19 Fixed the warnings while generating test app
 * </pre>
 *
 ******************************************************************************/
