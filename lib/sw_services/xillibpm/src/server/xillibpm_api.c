@@ -2499,6 +2499,7 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 			goto done;
 		}
 		Status = XPm_OspiMuxSelect(DeviceId, Arg1, Response);
+		break;
 	default:
 		/* Not supported yet */
 		Status = XPM_ERR_IOCTL;
