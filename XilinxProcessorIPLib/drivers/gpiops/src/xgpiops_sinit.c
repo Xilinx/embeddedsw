@@ -27,7 +27,7 @@
 /**
 *
 * @file xgpiops_sinit.c
-* @addtogroup gpiops_v3_7
+* @addtogroup gpiops_v3_6
 * @{
 *
 * This file contains the implementation of the XGpioPs driver's static
