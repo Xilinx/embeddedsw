@@ -288,7 +288,7 @@ XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 	}
 
 	for (Idx = 0; Idx < NumParents; Idx++) {
-		u32 ParentId = Parents[Idx];
+		int ParentId = Parents[Idx];
 
 		/*
 		 * FIXME: For GEM0_RX and GEM1_RX parents are EMIO and MIO
