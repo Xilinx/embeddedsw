@@ -1332,6 +1332,10 @@ XStatus XPm_GetDeviceStatus(const u32 SubsystemId,
 	case XPM_NODECLASS_POWER:
 		Status = XPmPower_GetStatus(SubsystemId, DeviceId, DeviceStatus);
 		break;
+	case XPM_NODECLASS_SUBSYSTEM:
+		Status = XPmSubsystem_GetStatus(SubsystemId, DeviceId,
+						DeviceStatus);
+		break;
 	default:
 		Status = XPM_ERR_DEVICE_STATUS;
 	}
