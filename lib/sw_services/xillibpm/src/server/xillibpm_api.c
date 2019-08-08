@@ -49,6 +49,7 @@
 #include "xpm_regs.h"
 #include "xpm_ipi.h"
 #include "xsysmonpsv.h"
+#include "xpm_notifier.h"
 
 u32 ResetReason;
 extern int XLoader_RestartImage(u32 SubsystemId);
@@ -249,6 +250,11 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		case PM_GET_OP_CHARACTERISTIC:
 			Status = XPm_GetOpCharacteristic(Pload[0], Pload[1],
 							 ApiResponse);
+			break;
+		case PM_REGISTER_NOTIFIER:
+			Status = XPm_RegisterNotifier(SubsystemId, Pload[0],
+						      Pload[1], Pload[2],
+						      Pload[3], Cmd->IpiMask);
 			break;
 		default:
 			PmErr("CMD: INVALID PARAM\n\r");
@@ -3620,6 +3626,61 @@ XStatus XPm_GetOpCharacteristic(u32 const DeviceId, u32 const Type, u32 *Result)
 	*Result = XSysMonPsv_ReadDeviceTemp(SysMonInstPtr,
 					    XSYSMONPSV_VAL_VREF_MAX);
 	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Register a subsystem to be notified about the device event
+ *
+ * @param  IpiMask      IPI mask of current subsystem
+ * @param  SubsystemId  Subsystem to be notified
+ * @param  DeviceId     Device to which the event is related
+ * @param  Event        Event in question
+ * @param  Wake         Wake subsystem upon capturing the event if value 1
+ * @param  Enable       Enable the registration for value 1, disable for value 0
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ ****************************************************************************/
+int XPm_RegisterNotifier(const u32 SubsystemId, const u32 DeviceId,
+			 const u32 Event, const u32 Wake, const u32 Enable,
+			 const u32 IpiMask)
+{
+	int Status = XST_FAILURE;
+	XPm_Subsystem* Subsystem = NULL;
+	XPm_Device* Device = NULL;
+
+	/* Validate SubsystemId */
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		goto done;
+	}
+
+	/* Validate DeviceId */
+	Device = (XPm_Device *)XPmDevice_GetById(DeviceId);
+	if (NULL == Device) {
+		goto done;
+	}
+
+	/* Validate other parameters */
+	if ((0U != Wake && 1U != Wake) || (0U != Enable && 1U != Enable) ||
+	    (EVENT_STATE_CHANGE != Event && EVENT_ZERO_USERS != Event)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if (0U == Enable) {
+		XPmNotifier_Unregister(Subsystem, Device, Event);
+		Status = XST_SUCCESS;
+	} else {
+		Status = XPmNotifier_Register(Subsystem, Device, Event, Wake,
+					      IpiMask);
+	}
 
 done:
 	return Status;

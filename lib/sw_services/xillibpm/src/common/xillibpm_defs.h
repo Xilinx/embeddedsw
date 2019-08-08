@@ -234,6 +234,11 @@ enum XPmOpCharType {
 	PM_OPCHAR_TYPE_LATENCY,
 };
 
+/* PM events */
+#define EVENT_NONE		(0U)
+#define EVENT_STATE_CHANGE      (0x1U)
+#define EVENT_ZERO_USERS        (0x2U)
+
 /* System shutdown macros */
 #define XPM_SHUTDOWN_TYPE_SHUTDOWN	0U
 #define XPM_SHUTDOWN_TYPE_RESET		1U

@@ -184,6 +184,9 @@ int XPm_FeatureCheck(const u32 ApiId, u32 *const Version);
 XStatus XPm_IsoControl(u32 NodeId, u32 Enable);
 XStatus XPm_GetOpCharacteristic(const u32 DeviceId, const u32 Type,
 				u32 *Result);
+int XPm_RegisterNotifier(const u32 SubsystemId, const u32 DeviceId,
+			 const u32 Event, const u32 Wake, const u32 Enable,
+			 const u32 IpiMask);
 int XPm_GicProxyWakeUp(const u32 PeriphIdx);
 
 #ifdef __cplusplus
