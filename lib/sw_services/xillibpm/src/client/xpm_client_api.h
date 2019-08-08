@@ -122,6 +122,10 @@ XStatus XPm_GetOpCharacteristic(const u32 DeviceId,
 				const enum XPmOpCharType Type,
 				u32 *const Result);
 int XPm_InitFinalize(void);
+int XPm_RegisterNotifier(XPm_Notifier* const Notifier);
+int XPm_UnregisterNotifier(XPm_Notifier* const Notifier);
+void XPm_NotifyCb(const u32 Node, const enum XPmNotifyEvent Event,
+		  const u32 Oppoint);
 
 #ifdef __cplusplus
 }
