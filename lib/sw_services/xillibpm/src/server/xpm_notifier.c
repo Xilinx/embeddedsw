@@ -35,6 +35,7 @@ typedef struct {
 	const XPm_Device* Device;
 	u32 EventMask;
 	u32 WakeMask;
+	u32 IpiMask;  /* TODO: Remove this when IPI mask support in CDO is available*/
 } XPmNotifier;
 
 static XPmNotifier PmNotifiers[XPM_NOTIFIERS_COUNT];
@@ -55,7 +56,7 @@ extern void (* PmRequestCb)(u32 SubsystemId, const u32 EventId, u32 *Payload);
  ****************************************************************************/
 int XPmNotifier_Register(const XPm_Subsystem* const Subsystem,
 			 const XPm_Device* const Device,
-			 const u32 Event, const u32 Wake)
+			 const u32 Event, const u32 Wake, const u32 IpiMask)
 {
 	int Status = XST_SUCCESS;
 	u32 Idx, EmptyIdx = ARRAY_SIZE(PmNotifiers);
@@ -82,6 +83,7 @@ int XPmNotifier_Register(const XPm_Subsystem* const Subsystem,
 		/* Add new entry in empty place if no notifier found for given pair */
 		PmNotifiers[EmptyIdx].Subsystem = Subsystem;
 		PmNotifiers[EmptyIdx].Device = Device;
+		PmNotifiers[EmptyIdx].IpiMask = IpiMask;
 		Idx = EmptyIdx;
 	} else if (Idx >= ARRAY_SIZE(PmNotifiers)) {
 		/* There is no free entry in PmNotifiers array, report error */
@@ -197,7 +199,6 @@ void XPmNotifier_Event(const XPm_Device* const Device, const u32 Event)
 		Payload[1] = Notifier->Device->Node.Id;
 		Payload[2] = Event;
 		Payload[3] = Notifier->Device->Node.State;
-		(*PmRequestCb)(Notifier->Subsystem->IpiMask, XPM_NOTIFY_CB,
-			       Payload);
+		(*PmRequestCb)(Notifier->IpiMask, XPM_NOTIFY_CB, Payload);
 	}
 }
