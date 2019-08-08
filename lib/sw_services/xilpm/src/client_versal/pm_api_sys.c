@@ -1786,6 +1786,90 @@ done:
 	return Status;
 }
 
+/* Callback API functions */
+struct pm_init_suspend pm_susp = {
+	.received = false,
+/* initialization of other fields is irrelevant while 'received' is false */
+};
+
+struct pm_acknowledge pm_ack = {
+	.received = false,
+/* initialization of other fields is irrelevant while 'received' is false */
+};
+
+/****************************************************************************/
+/**
+ * @brief  Callback function to be implemented in each PU, allowing the power
+ * management controller to request that the PU suspend itself.
+ *
+ * @param  Reason  Suspend reason:
+ * - SUSPEND_REASON_PU_REQ : Request by another PU
+ * - SUSPEND_REASON_ALERT : Unrecoverable SysMon alert
+ * - SUSPEND_REASON_SHUTDOWN : System shutdown
+ * - SUSPEND_REASON_RESTART : System restart
+ * @param  Latency Maximum wake-up latency in us(micro secs). This information
+ * can be used by the PU to decide what level of context saving may be
+ * required.
+ * @param  State   Targeted sleep/suspend state.
+ * @param  Timeout Timeout in ms, specifying how much time a PU has to initiate
+ * its suspend procedure before it's being considered unresponsive.
+ *
+ * @return None
+ *
+ * @note   If the PU fails to act on this request the power management
+ * controller or the requesting PU may choose to employ the forceful
+ * power down option.
+ *
+ ****************************************************************************/
+void XPm_InitSuspendCb(const enum XPmSuspendReason Reason,
+		       const u32 Latency, const u32 State, const u32 Timeout)
+{
+	if (true == pm_susp.received) {
+		XPm_Dbg("%s: WARNING: dropping unhandled init suspend request!\n", __func__);
+		XPm_Dbg("Dropped %s (%d, %d, %d, %d)\n", __func__, pm_susp.reason,
+			pm_susp.latency, pm_susp.state, pm_susp.timeout);
+	}
+	XPm_Dbg("%s (%d, %d, %d, %d)\n", __func__, Reason, Latency, State, Timeout);
+
+	pm_susp.reason = Reason;
+	pm_susp.latency = Latency;
+	pm_susp.state = State;
+	pm_susp.timeout = Timeout;
+	pm_susp.received = true;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function is called by the power management controller in
+ * response to any request where an acknowledge callback was requested,
+ * i.e. where the 'ack' argument passed by the PU was REQUEST_ACK_NON_BLOCKING.
+ *
+ * @param  Node    ID of the component or sub-system in question.
+ * @param  Status  Status of the operation:
+ * - OK: the operation completed successfully
+ * - ERR: the requested operation failed
+ * @param  Oppoint Operating point of the node in question
+ *
+ * @return None
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+void XPm_AcknowledgeCb(const u32 Node, const XStatus Status, const u32 Oppoint)
+{
+	if (true == pm_ack.received) {
+		XPm_Dbg("%s: WARNING: dropping unhandled acknowledge!\n", __func__);
+		XPm_Dbg("Dropped %s (%d, %d, %d)\n", __func__, pm_ack.node,
+			pm_ack.status, pm_ack.opp);
+	}
+	XPm_Dbg("%s (%d, %d, %d)\n", __func__, Node, Status, Oppoint);
+
+	pm_ack.node = Node;
+	pm_ack.status = Status;
+	pm_ack.opp = Oppoint;
+	pm_ack.received = true;
+}
+
 /****************************************************************************/
 /**
  * @brief  This function is called by the power management controller if an
@@ -1806,4 +1890,49 @@ void XPm_NotifyCb(const u32 Node, const enum XPmNotifyEvent Event,
 {
 	XPm_Dbg("%s (%d, %d, %d)\n", __func__, Node, Event, Oppoint);
 	XPm_NotifierProcessEvent(Node, Event, Oppoint);
+}
+
+int XPm_SetConfiguration(const u32 Address)
+{
+	/* Suppress compilation warning */
+	(void)Address;
+
+	XPm_Dbg("WARNING: %s() API is not supported\r\n", __func__);
+	return XST_SUCCESS;
+}
+
+int XPm_ClockSetRate(const u32 ClockId, const u32 Rate)
+{
+	/* Suppress compilation warning */
+	(void)ClockId, (void)Rate;
+
+	XPm_Dbg("ERROR: %s() API is not supported\r\n", __func__);
+	return XST_FAILURE;
+}
+
+int XPm_ClockGetRate(const u32 ClockId, u32 *const Rate)
+{
+	/* Suppress compilation warning */
+	(void)ClockId, (void)Rate;
+
+	XPm_Dbg("ERROR: %s() API is not supported\r\n", __func__);
+	return XST_FAILURE;
+}
+
+int XPm_MmioWrite(const u32 Address, const u32 Mask, const u32 Value)
+{
+	/* Suppress compilation warning */
+	(void)Address, (void)Mask, (void)Value;
+
+	XPm_Dbg("ERROR: %s() API is not supported\r\n", __func__);
+	return XST_FAILURE;
+}
+
+int XPm_MmioRead(const u32 Address, u32 *const Value)
+{
+	/* Suppress compilation warning */
+	(void)Address, (void)Value;
+
+	XPm_Dbg("ERROR: %s() API is not supported\r\n", __func__);
+	return XST_FAILURE;
 }
