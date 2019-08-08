@@ -1784,8 +1784,8 @@ static void restore_training_data(void)
 		PmDma64BitTransfer(old_map_offset, 0U, RESERVED_ADDRESS + size,
 				   0U, size);
 	} else {
-		PmDma64BitTransfer(laddr, haddr, 0U,
-				   RESERVED_ADDRESS + size, size);
+		PmDma64BitTransfer(laddr, haddr, RESERVED_ADDRESS + size, 0U,
+				   size);
 	}
 
 #ifdef ENABLE_DDR_SR_WR
