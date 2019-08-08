@@ -47,6 +47,7 @@
 *       sk   02/07/19 Added OSPI Idling sequence.
 * 1.1   sk   07/22/19 Added RX Tuning algorithm for SDR and DDR modes.
 * 1.1   mus  07/31/19 Added CCI support at EL1 NS
+*       sk   08/08/19 Added flash device reset support.
 *
 * </pre>
 *
@@ -55,6 +56,7 @@
 /***************************** Include Files *********************************/
 
 #include "xospipsv.h"
+#include "sleep.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -199,6 +201,68 @@ void XOspiPsv_Reset(const XOspiPsv *InstancePtr)
 
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_DEV_DELAY_REG,
 			XOSPIPSV_DELY_DEF_VALUE);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function reset the OSPI flash device.
+*
+*
+* @param	Type is Reset type.
+*
+* @return	- XST_SUCCESS if successful.
+*		- XST_FAILURE for invalid Reset Type.
+*
+* @note		None
+*
+******************************************************************************/
+u32 XOspiPsv_DeviceReset(u8 Type)
+{
+	u32 Status;
+
+	if (Type == XOSPIPSV_HWPIN_RESET) {
+#if EL1_NONSECURE
+		Xil_Smc(PIN_REQUEST_SMC_FID, PMC_GPIO_NODE_12_ID, 0, 0, 0, 0, 0, 0);
+		Xil_Smc(PIN_SET_CONFIG_SMC_FID, (((u64)PIN_CONFIG_SCHMITT_CMOS << 32) |
+				PMC_GPIO_NODE_12_ID) , 0x1, 0, 0, 0, 0, 0);
+		Xil_Smc(PIN_RELEASE_SMC_FID, PMC_GPIO_NODE_12_ID, 0, 0, 0, 0, 0, 0);
+#else
+		XOspiPsv_WriteReg(XPMC_BNK0_EN_RX_SCHMITT_HYST, 0,
+			XOspiPsv_ReadReg(XPMC_BNK0_EN_RX_SCHMITT_HYST, 0) |
+			XPMC_MIO12_MASK);
+#endif
+		XOspiPsv_WriteReg(XPMC_GPIO_DIRM, 0,
+			XOspiPsv_ReadReg(XPMC_GPIO_DIRM, 0) | XPMC_MIO12_MASK);
+		XOspiPsv_WriteReg(XPMC_GPIO_OUTEN, 0,
+			XOspiPsv_ReadReg(XPMC_GPIO_OUTEN, 0) | XPMC_MIO12_MASK);
+		XOspiPsv_WriteReg(XPMC_GPIO_DATA, 0,
+			XOspiPsv_ReadReg(XPMC_GPIO_DATA, 0) | XPMC_MIO12_MASK);
+#if EL1_NONSECURE
+		Xil_Smc(PIN_REQUEST_SMC_FID, PMC_GPIO_NODE_12_ID, 0, 0, 0, 0, 0, 0);
+		Xil_Smc(PIN_SET_CONFIG_SMC_FID, (((u64)PIN_CONFIG_TRI_STATE << 32) |
+				PMC_GPIO_NODE_12_ID) , 0, 0, 0, 0, 0, 0);
+		Xil_Smc(PIN_RELEASE_SMC_FID, PMC_GPIO_NODE_12_ID, 0, 0, 0, 0, 0, 0);
+#else
+		XOspiPsv_WriteReg(XPMC_IOU_MIO_TRI0, 0,
+			XOspiPsv_ReadReg(XPMC_IOU_MIO_TRI0, 0) & ~XPMC_MIO12_MASK);
+#endif
+		usleep(1);
+		XOspiPsv_WriteReg(XPMC_GPIO_DATA, 0,
+			XOspiPsv_ReadReg(XPMC_GPIO_DATA, 0) & ~XPMC_MIO12_MASK);
+		usleep(1);
+		XOspiPsv_WriteReg(XPMC_GPIO_DATA, 0,
+			XOspiPsv_ReadReg(XPMC_GPIO_DATA, 0) | XPMC_MIO12_MASK);
+		usleep(1);
+	} else {
+		/* TODO In-band reset */
+		Status = (u32)XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	Status = XST_SUCCESS;
+RETURN_PATH:
+	return Status;
 }
 
 /*****************************************************************************/

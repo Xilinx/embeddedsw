@@ -47,6 +47,7 @@
 *       sk   02/07/19 Added OSPI Idling sequence.
 * 1.0   akm 03/29/19 Fixed data alignment issues on IAR compiler.
 * 1.1   sk   07/22/19 Added RX Tuning algorithm for SDR and DDR modes.
+*       sk   08/08/19 Added flash device reset support.
 *
 * </pre>
 *
@@ -229,6 +230,9 @@ typedef struct {
 #define XOSPIPSV_SDR_TX_VAL			0x5U
 #define XOSPIPSV_DDR_TX_VAL			0x0U
 
+#define XOSPIPSV_HWPIN_RESET	0x0U
+#define XOSPIPSV_INBAND_RESET	0x1U
+
 /* Initialization and reset */
 XOspiPsv_Config *XOspiPsv_LookupConfig(u16 DeviceId);
 u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr, const XOspiPsv_Config *ConfigPtr);
@@ -246,6 +250,7 @@ void XOspiPsv_SetStatusHandler(XOspiPsv *InstancePtr, void *CallBackRef,
 u32 XOspiPsv_SetSdrDdrMode(XOspiPsv *InstancePtr, u32 Mode);
 void XOspiPsv_ConfigureAutoPolling(XOspiPsv *InstancePtr, u32 FlashMode);
 void XOspiPsv_Idle(const XOspiPsv *InstancePtr);
+u32 XOspiPsv_DeviceReset(u8 Type);
 #ifdef __cplusplus
 }
 #endif
