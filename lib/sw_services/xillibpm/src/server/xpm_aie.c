@@ -24,13 +24,12 @@
 *
 ******************************************************************************/
 
+#include "xplmi_util.h"
+#include "xplmi_dma.h"
 #include "xpm_common.h"
 #include "xpm_aie.h"
 #include "xpm_regs.h"
 #include "xpm_bisr.h"
-
-#include "xplmi_util.h"
-#include "xplmi_dma.h"
 
 #define ME_PCSR_KEY 0xF9E8D7C6U
 #define AIE_POLL_TIMEOUT 0X1000000U
