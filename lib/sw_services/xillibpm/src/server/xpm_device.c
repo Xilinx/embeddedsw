@@ -23,6 +23,7 @@
 *
 *
 ******************************************************************************/
+#include "xplmi_dma.h"
 #include "xpm_device.h"
 #include "xpm_core.h"
 #include "xpm_regs.h"
@@ -30,7 +31,6 @@
 #include "xpm_rpucore.h"
 #include "xpm_notifier.h"
 #include "xillibpm_api.h"
-#include "xplmi_dma.h"
 /** PSM RAM Base address */
 #define XPM_PSM_RAM_BASE_ADDR           (0xFFC00000U)
 #define XPM_PSM_RAM_SIZE                (0x40000U)

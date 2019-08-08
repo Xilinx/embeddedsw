@@ -32,6 +32,7 @@
 #include "xpm_reset.h"
 #include "xpm_bisr.h"
 #include "xparameters.h"
+#include "sleep.h"
 
 #define XPM_NODEIDX_DEV_GT_MIN		XPM_NODEIDX_DEV_GT_0
 #define XPM_NODEIDX_DEV_GT_MAX		XPM_NODEIDX_DEV_GT_10
