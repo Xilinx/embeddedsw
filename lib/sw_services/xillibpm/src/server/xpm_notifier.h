@@ -36,7 +36,7 @@ extern "C" {
 
 int XPmNotifier_Register(const XPm_Subsystem* const Subsystem,
 			 const XPm_Device* const Device,
-			 const u32 Event, const u32 Wake);
+			 const u32 Event, const u32 Wake, const u32 IpiMask);
 
 void XPmNotifier_Unregister(const XPm_Subsystem* const Subsystem,
 			    const XPm_Device* const Device,
