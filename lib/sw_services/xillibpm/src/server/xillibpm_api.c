@@ -1169,6 +1169,19 @@ XStatus XPm_RequestDevice(const u32 SubsystemId, const u32 DeviceId,
 XStatus XPm_ReleaseDevice(const u32 SubsystemId, const u32 DeviceId)
 {
 	XStatus Status = XST_FAILURE;
+	XPm_Subsystem* Subsystem = NULL;
+	XPm_Device* Device = NULL;
+	u32 Usage = 0U;
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		goto done;
+	}
+
+	Device = XPmDevice_GetById(DeviceId);
+	if (NULL == Device) {
+		goto done;
+	}
 
 	Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
 	if (XST_SUCCESS != Status) {
@@ -1176,6 +1189,15 @@ XStatus XPm_ReleaseDevice(const u32 SubsystemId, const u32 DeviceId)
 	}
 
 	Status = XPmDevice_Release(SubsystemId, DeviceId);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Usage = XPmDevice_GetUsageStatus(Subsystem, Device);
+	if (0U == Usage) {
+		XPmNotifier_Event(Device, EVENT_ZERO_USERS);
+	}
+
 done:
 	if(Status != XST_SUCCESS) {
 		PmErr("Returned: 0x%x\n\r", Status);
