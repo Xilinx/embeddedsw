@@ -600,3 +600,28 @@ XStatus XPmSubsystem_Restart(u32 SubsystemId)
 done:
 	return Status;
 }
+
+XStatus XPmSubsystem_GetStatus(const u32 SubsystemId, const u32 DeviceId,
+			       XPm_DeviceStatus *const DeviceStatus)
+{
+	XStatus Status = XPM_ERR_DEVICE_STATUS;
+	XPm_Subsystem *Subsystem, *Target_Subsystem;
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	Target_Subsystem = XPmSubsystem_GetById(DeviceId);
+	if (NULL == Subsystem || NULL == Target_Subsystem ||
+	    NULL == DeviceStatus) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	DeviceStatus->Status = Target_Subsystem->State;
+	Status = XST_SUCCESS;
+
+done:
+	if (Status != XST_SUCCESS) {
+		PmErr("Returned: 0x%x\n\r", Status);
+	}
+
+	return Status;
+}
