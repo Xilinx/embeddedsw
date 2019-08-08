@@ -32,6 +32,7 @@
 #include "xpm_device_idle.h"
 #include "xpm_pin.h"
 #include "xpm_rpucore.h"
+#include "xpm_notifier.h"
 
 static XPm_Subsystem PmSubsystems[XPM_NODEIDX_SUBSYS_MAX] =
 {
@@ -151,8 +152,8 @@ XStatus XPmSubsystem_ForceDownCleanup(u32 SubsystemId)
 		 * Should be included with wakeup support
 		XPm_WakeUpCancelScheduled(SubSysIdx);*/
 
-        /*Todo: Unregister all notifier for this subsystem
-		 * Should be included with register notifier API support */
+        /* Unregister all notifiers for this subsystem */
+	XPmNotifier_UnregisterAll(Subsystem);
 
         return Status;
 }
