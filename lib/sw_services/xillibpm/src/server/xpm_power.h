@@ -56,9 +56,6 @@ typedef enum {
 	XPM_POWER_EVENT_TIMER,
 } XPm_PowerEvent;
 
-extern const char *PmPowerStates[];
-extern const char *PmPowerEvents[];
-
 typedef struct XPm_Power XPm_Power;
 
 /**
