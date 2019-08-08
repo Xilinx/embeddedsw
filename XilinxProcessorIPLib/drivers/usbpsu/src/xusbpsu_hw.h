@@ -38,6 +38,7 @@
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   sg    06/06/16 First release
 * 1.4   myk   12/01/18 Added support of hibernation
+* 1.5	pm    08/08/19 Added AXI-Cache bits masking for CCI feature is enable
 *
 * </pre>
 *
@@ -296,6 +297,9 @@ extern "C" {
 #define XUSBPSU_DSTS_FULLSPEED2                 (1U << 0U)
 #define XUSBPSU_DSTS_LOWSPEED                   (2U << 0U)
 #define XUSBPSU_DSTS_FULLSPEED1                 (3U << 0U)
+
+/* AXI-cache bits offset DATRDREQINFO */
+#define XUSBPSU_GSBUSCFG0_BITMASK		0xFFFF0000U
 
 /*Portpmsc 3.0 bit field*/
 #define XUSBPSU_PORTMSC_30_FLA_MASK				(1U << 16U)
