@@ -33,6 +33,7 @@
 # 1.3	vak 16/08/17 Export CCI related information
 # 1.4	vak 24/09/18 Added SUPER_SPEED parameter
 # 1.5	vak 13/02/19 Correct the logic for setting SUPER_SPEED parameter
+# 1.5	mus 07/30/19 Added CCI support for Versal at EL1 NS
 #
 ##############################################################################
 
@@ -63,6 +64,12 @@ proc generate_usb_params {drv_handle file_name} {
 		if {$processor_type == "psu_cortexa53"} {
 			set is_xen [common::get_property CONFIG.hypervisor_guest [hsi::get_os]]
 			if {$is_xen == "true"} {
+				set is_cc [common::get_property CONFIG.IS_CACHE_COHERENT $ip]
+			}
+		} elseif {$processor_type == "psv_cortexa72"} {
+			set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
+			set flagindex [string first {-DARMA72_EL3} $extra_flags 0]
+			if {$flagindex == -1} {
 				set is_cc [common::get_property CONFIG.IS_CACHE_COHERENT $ip]
 			}
 		}
