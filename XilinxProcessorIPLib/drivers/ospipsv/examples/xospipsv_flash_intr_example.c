@@ -50,6 +50,7 @@
 * 1.0   sk  01/09/19 First release
 * 1.0	akm 03/29/19 Fixed data alignment issues on IAR compiler
 * 1.1   sk  07/23/19 Based on RX Tuning, updated the dummy cycles.
+*       sk  08/08/19 Issue device reset to bring back to default state.
 *
 *</pre>
 *
@@ -320,6 +321,10 @@ int OspiPsvInterruptFlashExample(XScuGic *IntcInstancePtr,
 	XOspiPsv_Config *OspiPsvConfig;
 	int ReadBfrSize;
 	ReadBfrSize = (PAGE_COUNT * MAX_PAGE_SIZE);
+
+	Status = XOspiPsv_DeviceReset(XOSPIPSV_HWPIN_RESET);
+	if (Status != XST_SUCCESS)
+		return XST_FAILURE;
 
 	/*
 	 * Initialize the OSPIPSV driver so that it's ready to use
