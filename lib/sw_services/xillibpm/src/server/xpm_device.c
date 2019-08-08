@@ -28,6 +28,7 @@
 #include "xpm_regs.h"
 #include "xpm_prot.h"
 #include "xpm_rpucore.h"
+#include "xpm_notifier.h"
 #include "xillibpm_api.h"
 #include "xplmi_dma.h"
 /** PSM RAM Base address */
@@ -1339,6 +1340,9 @@ XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState)
 
 	if ((OldState != NextState) && (XST_SUCCESS == Status)) {
 		Device->Node.State = NextState;
+
+		/* Send notification about device state change */
+		XPmNotifier_Event(Device, EVENT_STATE_CHANGE);
 	}
 
 done:
