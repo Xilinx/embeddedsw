@@ -26,6 +26,7 @@
 
 #include "xpm_client_api.h"
 #include "xpm_client_ipi.h"
+#include "xpm_client_callbacks.h"
 
 /* Payload Packets */
 #define PACK_PAYLOAD(Payload, Arg0, Arg1, Arg2, Arg3, Arg4, Arg5)	\
@@ -1634,4 +1635,129 @@ int XPm_InitFinalize(void)
 {
 	XPm_Dbg("WARNING: %s() API is not supported\r\n", __func__);
 	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+ * @brief  A PU can call this function to request that the power management
+ * controller call its notify callback whenever a qualifying event occurs.
+ * One can request to be notified for a specific or any event related to
+ * a specific node.
+ *
+ * @param  Notifier Pointer to the notifier object to be associated with
+ * the requested notification.
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   The caller shall initialize the notifier object before invoking
+ * the XPm_RegisteredNotifier function. While notifier is registered,
+ * the notifier object shall not be modified by the caller.
+ *
+ ****************************************************************************/
+int XPm_RegisterNotifier(XPm_Notifier* const Notifier)
+{
+	int Status = XST_FAILURE;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	if (NULL == Notifier) {
+		XPm_Dbg("%s ERROR: NULL notifier pointer\n", __func__);
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Send request to the target module */
+	PACK_PAYLOAD4(Payload, PM_REGISTER_NOTIFIER, Notifier->node,
+		      Notifier->event, Notifier->flags, 1);
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Add notifier in the list only if target module has it registered */
+	Status = XPm_NotifierAdd(Notifier);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  A PU calls this function to unregister for the previously
+ * requested notifications.
+ *
+ * @param  Notifier Pointer to the notifier object associated with the
+ * previously requested notification
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+int XPm_UnregisterNotifier(XPm_Notifier* const Notifier)
+{
+	int Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	if (NULL == Notifier) {
+		XPm_Dbg("%s ERROR: NULL notifier pointer\n", __func__);
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/*
+	 * Remove first the notifier from the list. If it's not in the list
+	 * report an error, and don't trigger target module since it don't have
+	 * it registered either.
+	 */
+	Status = XPm_NotifierRemove(Notifier);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Send request to the target module */
+	PACK_PAYLOAD4(Payload, PM_REGISTER_NOTIFIER, Notifier->node,
+		      Notifier->event, 0, 0);
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function is called by the power management controller if an
+ * event the PU was registered for has occurred. It will populate the notifier
+ * data structure passed when calling XPm_RegisterNotifier.
+ *
+ * @param  Node     ID of the device the event notification is related to.
+ * @param  Event    ID of the event
+ * @param  Oppoint  Current operating state of the device.
+ *
+ * @return None
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+void XPm_NotifyCb(const u32 Node, const enum XPmNotifyEvent Event,
+		  const u32 Oppoint)
+{
+	XPm_Dbg("%s (%d, %d, %d)\n", __func__, Node, Event, Oppoint);
+	XPm_NotifierProcessEvent(Node, Event, Oppoint);
 }
