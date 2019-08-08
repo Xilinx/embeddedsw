@@ -34,6 +34,40 @@
 extern "C" {
 #endif
 
+/**
+ * XPm_Notifier - Notifier structure registered with a callback by app
+ */
+typedef struct XPm_Ntfier {
+	/**
+	 *  Custom callback handler to be called when the notification is
+	 *  received. The custom handler would execute from interrupt
+	 *  context, it shall return quickly and must not block! (enables
+	 *  event-driven notifications)
+	 */
+	void (*const callback)(struct XPm_Ntfier* const notifier);
+	const u32 node; /**< Node argument (the node to receive notifications about) */
+	enum XPmNotifyEvent event;	/**< Event argument (the event type to receive notifications about) */
+	u32 flags;	/**< Flags */
+	/**
+	 *  Operating point of node in question. Contains the value updated
+	 *  when the last event notification is received. User shall not
+	 *  modify this value while the notifier is registered.
+	 */
+	volatile u32 oppoint;
+	/**
+	 *  How many times the notification has been received - to be used
+	 *  by application (enables polling). User shall not modify this
+	 *  value while the notifier is registered.
+	 */
+	volatile u32 received;
+	/**
+	 *  Pointer to next notifier in linked list. Must not be modified
+	 *  while the notifier is registered. User shall not ever modify
+	 *  this value.
+	 */
+	struct XPm_Ntfier* next;
+} XPm_Notifier;
+
 XStatus XPm_InitXilpm(XIpiPsu *IpiInst);
 enum XPmBootStatus XPm_GetBootStatus(void);
 XStatus XPm_GetApiVersion(u32 *version);
