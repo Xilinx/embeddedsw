@@ -1691,7 +1691,7 @@ static u32 XLoader_AesDecryption(XLoader_SecureParms *SecurePtr,
 	u32 Status;
 	u32 Iv[XLOADER_SECURE_IV_LEN];
 	u8 Index;
-	XSecure_AesKeySrc KeySrc = 0;
+	XSecure_AesKeySrc KeySrc;
 	u32 ChunkSize = Size;
 
 	/* Initialize AES driver */
@@ -1723,6 +1723,9 @@ static u32 XLoader_AesDecryption(XLoader_SecureParms *SecurePtr,
 		}
 		/* Decrypt Secure header */
 		Status = XLoader_DecryptSH(SecurePtr, &AesInstance, SrcAddr);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 		SrcAddr = SrcAddr + XLOADER_SECURE_HDR_TOTAL_SIZE;
 		ChunkSize = ChunkSize - XLOADER_SECURE_HDR_TOTAL_SIZE;
 
