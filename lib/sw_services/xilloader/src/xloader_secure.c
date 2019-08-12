@@ -1285,7 +1285,6 @@ static u32 XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 	u32 Size = 48;
 	u32 Status = XST_SUCCESS;
 
-	if(Hashstore != 0U){;}
 	while (Counter <= (OutLen/HashLen)) {
 		XLoader_I2Osp(Counter, 4, Xsecure_Varsocm.Convert);
 		XSecure_Sha3Start(Sha3InstancePtr);

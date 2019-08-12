@@ -186,6 +186,7 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 	u32 Len;
 	XilPdi_PrtnHdr * PrtnHdr;
 	XLoader_SecureParms SecureParams;
+	u32 Mode=0;
 
 	/* Secure init */
 	Status = XLoader_SecureInit(&SecureParams, PdiPtr, PrtnNum);
@@ -239,7 +240,7 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 		if (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) {
 			XPm_DevIoctl(XPM_SUBSYSID_PMC, XPM_DEVID_R50_1,
 								IOCTL_SET_RPU_OPER_MODE,
-								XPM_RPU_MODE_SPLIT, 0, 0);
+								XPM_RPU_MODE_SPLIT, 0, &Mode);
 			XPm_RequestDevice(XPM_SUBSYSID_PMC,XPM_DEVID_TCM_1_A,
 				PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
 			XPm_RequestDevice(XPM_SUBSYSID_PMC,XPM_DEVID_TCM_1_B,
@@ -247,7 +248,7 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 		} else if (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0){
 			XPm_DevIoctl(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0,
 									IOCTL_SET_RPU_OPER_MODE,
-									XPM_RPU_MODE_SPLIT, 0, 0);
+									XPM_RPU_MODE_SPLIT, 0, &Mode);
 			XPm_RequestDevice(XPM_SUBSYSID_PMC,XPM_DEVID_TCM_0_A,
 					PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
 			XPm_RequestDevice(XPM_SUBSYSID_PMC,XPM_DEVID_TCM_0_B,
@@ -257,10 +258,10 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 		{
 			XPm_DevIoctl(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0,
 									IOCTL_SET_RPU_OPER_MODE,
-								XPM_RPU_MODE_LOCKSTEP, 0, 0);
+								XPM_RPU_MODE_LOCKSTEP, 0, &Mode);
 			XPm_DevIoctl(XPM_SUBSYSID_PMC, XPM_DEVID_R50_1,
 										IOCTL_SET_RPU_OPER_MODE,
-									XPM_RPU_MODE_LOCKSTEP, 0, 0);
+									XPM_RPU_MODE_LOCKSTEP, 0, &Mode);
 			XPm_RequestDevice(XPM_SUBSYSID_PMC,XPM_DEVID_TCM_0_A,
 					PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
 			XPm_RequestDevice(XPM_SUBSYSID_PMC,XPM_DEVID_TCM_0_B,
@@ -491,6 +492,10 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 			/* Call security function */
 			Status = XLoader_SecurePrtn(&SecureParams, SecureParams.SecureData,
 									 ChunkLen, LastChunk);
+			if(Status != XST_SUCCESS)
+			{
+				goto END;
+			}
 			Cdo.BufPtr = (u32 *)SecureParams.SecureData;
 			Cdo.BufLen = SecureParams.SecureDataLen/XIH_PRTN_WORD_LEN;
 		}
