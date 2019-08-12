@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 
@@ -43,6 +43,7 @@
 * 1.3  Naresh  07/11/2018  Updated copyright info
 * 1.4  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.5  Jubaer  05/24/2019  Add PL type on TileType attribute
+* 1.6  Nishad  07/31/2019  Add support for RPU baremetal
 * </pre>
 *
 ******************************************************************************/
@@ -56,6 +57,26 @@
 /**************************** Type Definitions *******************************/
 
 /**************************** Macro Definitions ******************************/
+/**
+ * XAIE_BASE_ARRAY_ADDR_OFFSET macro defines the AI Engine's base address offset
+ * value. This value is left-shift by 30-bits to obtain the complete physical
+ * address of AIE.
+ *
+ * FIXME: The Makefile used to compile AIE application for ARM Cortex-R5,
+ * by default, adds 'ARMR5' compiler flag. Since the XSA file generated using
+ * the latest tool hides the remapped address of AIE for R5, this compiler flag
+ * can be leveraged to hardcode the value of XAIE_BASE_ARRAY_ADDR_OFFSET.
+ * When AIE adress is available in RPU address map, the aiengine.tcl file for
+ * BareMetal and XAieIO_Init API for Linux flow must be modified to remove the
+ * hardcoded value.
+ * For BareMetal applications, the XAIE_BASE_ARRAY_ADDR_OFFSET value needs to be
+ * parsed by the TCL script from the XSA file. On the other hand, for the Linux
+ * application, this value needs to be parsed from the device tree.
+ *
+ */
+#ifdef ARMR5
+#define XAIE_BASE_ARRAY_ADDR_OFFSET	0x1
+#endif
 
 /************************** Variable Definitions *****************************/
 extern XAieGbl_Config XAieGbl_ConfigTable[];
@@ -95,6 +116,10 @@ void XAieGbl_CfgInitialize(XAieGbl *InstancePtr, XAieGbl_Tile *TileInstPtr,
 		InstancePtr->Config = ConfigPtr;
 		InstancePtr->IsReady = XAIE_COMPONENT_IS_READY;
 		XAieLib_InitDev();
+
+#ifdef XAIE_BASE_ARRAY_ADDR_OFFSET
+ConfigPtr->ArrOffset = XAIE_BASE_ARRAY_ADDR_OFFSET;
+#endif
 
 		/* Row index starts with 1 as row-0 is for shim */
 		for(RowIdx = 1; RowIdx <= ConfigPtr->NumRows; RowIdx++) {
