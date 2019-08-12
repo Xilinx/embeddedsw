@@ -52,6 +52,7 @@
 * 2.1  Hyun    04/05/2019  NPI support for simulation
 * 2.2  Nishad  05/16/2019  Fix deallocation of pointer not on heap MISRA-c
 * 				mandatory violation
+* 2.3  Nishad  08/07/2019  Remove OS specific gaurd from XAieLib_usleep API
 * </pre>
 *
 ******************************************************************************/
@@ -171,10 +172,15 @@ int XAieLib_usleep(u64 Usec)
 {
 #ifdef __AIESIM__
 	return XAieSim_usleep(Usec);
-#elif defined __AIEBAREMTL__
-	return usleep_A53(Usec);
 #else
-	return usleep(Usec);
+	/**
+	 * FIXME: Platform implementation of usleep() API, returns void when it
+	 * is expected to return SUCCESS/FAILURE code. Instead of returning a
+	 * zero, this API must return SUCCESS/FAILURE code when usleep API is
+	 * fixed.
+	 */
+	usleep(Usec);
+	return 0;
 #endif
 }
 
