@@ -52,7 +52,6 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "pmc_global.h"
 #include "xplmi_ipi.h"
 
 /************************** Constant Definitions *****************************/
