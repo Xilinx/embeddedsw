@@ -46,7 +46,7 @@ proc generate {libhandle} {
 	}
 	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 	puts $file_handle ""
-	puts $file_handle "#include \"xparameters_aie.h\""
+	puts $file_handle "#include \"xaiengine/xparameters_aie.h\""
 	puts $file_handle ""
 
 	set config_file "src/xaieconfig.h"
