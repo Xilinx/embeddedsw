@@ -57,7 +57,9 @@ print_msg_xaie:
 include: xaie_includes
 
 xaie_includes:
-	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
+	mkdir $(INCLUDEDIR)/xaiengine -p
+	${CP} xaiengine.h ${INCLUDEDIR}
+	${CP} ${INCLUDEFILES} ${INCLUDEDIR}/xaiengine
 
 clean:
 	rm -rf $(XAIE_DIR)/${OBJECTS}
