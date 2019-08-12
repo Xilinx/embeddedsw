@@ -30,7 +30,6 @@
 #include "xpm_power.h"
 #include "xpm_reset.h"
 #include "xpm_domain_iso.h"
-#include "xpm_regs.h"
 
 #ifdef __cplusplus
 extern "C" {

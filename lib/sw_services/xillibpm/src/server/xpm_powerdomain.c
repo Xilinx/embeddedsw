@@ -31,6 +31,7 @@
 #include "xpm_powerdomain.h"
 #include "xpm_bisr.h"
 #include "xpm_gic_proxy.h"
+#include "xpm_regs.h"
 
 extern int XLoader_ReloadImage(u32 ImageId);
 
