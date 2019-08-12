@@ -95,6 +95,8 @@ extern "C" {
 
 XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u32 *Payload));
 
+int XPm_GetChipID(u32* IDCode, u32 *Version);
+
 XStatus XPm_GetApiVersion(u32 *Version);
 
 XStatus XPm_AddSubsystem(u32 SubsystemId);
