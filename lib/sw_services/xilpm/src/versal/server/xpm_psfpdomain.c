@@ -1,39 +1,20 @@
 /******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 #include "xpm_common.h"
 #include "xpm_psfpdomain.h"
 #include "xpm_bisr.h"
+#include "xpm_board.h"
 #include "xpm_regs.h"
 #include "xpm_psm.h"
 #include "xpm_device.h"
 
 static XStatus FpdInitStart(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 
 	(void)Args;
@@ -41,17 +22,20 @@ static XStatus FpdInitStart(u32 *Args, u32 NumOfArgs)
 
 	/* Check vccint_fpd first to make sure power is on */
 	if (XST_SUCCESS != XPmPower_CheckPower(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_FPD_MASK)) {
-		/* TODO: Request PMC to power up VCCINT_FP rail and wait for the acknowledgement.*/
-		goto done;
+		Status = XPmBoard_ControlRail(RAIL_POWER_UP, POWER_RAIL_FPD);
+		if (XST_SUCCESS != Status) {
+			PmErr("Control power rail for FPD failure during power up\r\n");
+			goto done;
+		}
 	}
 
-	if (XPmPsm_FwIsPresent() != TRUE) {
+	if (1U != XPmPsm_FwIsPresent()) {
 		Status = XST_NOT_ENABLED;
 		goto done;
 	}
 
 	Payload[0] = PSM_API_FPD_HOUSECLEAN;
-	Payload[1] = FUNC_INIT_START;
+	Payload[1] = (u32)FUNC_INIT_START;
 
 	Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
 	if (XST_SUCCESS != Status) {
@@ -63,36 +47,36 @@ static XStatus FpdInitStart(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 	/* Release POR for PS-FPD */
-	Status = XPmReset_AssertbyId(PM_RST_FPD_POR,
-				     PM_RESET_ACTION_RELEASE);
+	Status = XPmReset_AssertbyId(PM_RST_FPD_POR, (u32)PM_RESET_ACTION_RELEASE);
 done:
 	return Status;
 }
 
 static XStatus FpdInitFinish(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	(void)Args;
 	(void)NumOfArgs;
+
+	Status = XST_SUCCESS;
 
 	return Status;
 }
 
 static XStatus FpdHcComplete(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 
 	(void)Args;
 	(void)NumOfArgs;
 
 	/* Release SRST for PS-FPD - in case Bisr and Mbist are skipped */
-	Status = XPmReset_AssertbyId(PM_RST_FPD,
-				     PM_RESET_ACTION_RELEASE);
+	Status = XPmReset_AssertbyId(PM_RST_FPD, (u32)PM_RESET_ACTION_RELEASE);
 
 	Payload[0] = PSM_API_FPD_HOUSECLEAN;
-	Payload[1] = FUNC_INIT_FINISH;
+	Payload[1] = (u32)FUNC_INIT_FINISH;
 
 	Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
 	if (XST_SUCCESS != Status) {
@@ -100,23 +84,25 @@ static XStatus FpdHcComplete(u32 *Args, u32 NumOfArgs)
 	}
 
 	Status = XPm_IpiReadStatus(PSM_IPI_INT_MASK);
-	if (Status != XST_SUCCESS)
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Remove FPD SOC domains isolation */
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_FPD_SOC, FALSE);
-	if (Status != XST_SUCCESS)
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_SOC, FALSE_VALUE);
+	if (XST_SUCCESS != Status) {
 		goto done;
+	}
 
 	/* Copy sysmon data */
-	XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PS_FPD], PM_POWER_FPD, 0);
+	Status = XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PS_FPD], PM_POWER_FPD, 0);
 done:
 	return Status;
 }
 
 static XStatus FpdScanClear(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_Psm *Psm;
 
 	(void)Args;
@@ -159,19 +145,18 @@ done:
 
 static XStatus FpdBisr(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 
 	(void)Args;
 	(void)NumOfArgs;
 
 	/* Release SRST for PS-FPD */
-	Status = XPmReset_AssertbyId(PM_RST_FPD,
-				     PM_RESET_ACTION_RELEASE);
+	Status = XPmReset_AssertbyId(PM_RST_FPD, (u32)PM_RESET_ACTION_RELEASE);
 
 	/* Call PSM to execute pre bisr requirements */
 	Payload[0] = PSM_API_FPD_HOUSECLEAN;
-	Payload[1] = FUNC_BISR;
+	Payload[1] = (u32)FUNC_BISR;
 
 	Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
 	if (XST_SUCCESS != Status) {
@@ -192,16 +177,12 @@ done:
 
 static XStatus FpdMbistClear(u32 *Args, u32 NumOfArgs)
 {
-        XStatus Status = XST_SUCCESS;
+        XStatus Status = XST_FAILURE;
         u32 Payload[PAYLOAD_ARG_CNT] = {0};
 	XPm_Psm *Psm;
 
 	(void)Args;
 	(void)NumOfArgs;
-
-	/* TODO: FPD interconnect mem clear causes linux boot hang
-	so skip for now. Needs to be debugged and fixed */
-	return XST_SUCCESS;
 
 	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);;
 	if (NULL == Psm) {
@@ -210,11 +191,10 @@ static XStatus FpdMbistClear(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Release SRST for PS-FPD */
-	Status = XPmReset_AssertbyId(PM_RST_FPD,
-				     PM_RESET_ACTION_RELEASE);
+	Status = XPmReset_AssertbyId(PM_RST_FPD, (u32)PM_RESET_ACTION_RELEASE);
 
         Payload[0] = PSM_API_FPD_HOUSECLEAN;
-        Payload[1] = FUNC_MBIST_CLEAR;
+        Payload[1] = (u32)FUNC_MBIST_CLEAR;
 
         Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
         if (XST_SUCCESS != Status) {
@@ -259,11 +239,26 @@ static XStatus FpdMbistClear(u32 *Args, u32 NumOfArgs)
         PmRmw32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_PG_EN_OFFSET,
 		PSM_GLOBAL_MBIST_PG_EN_FPD_MASK, 0);
 
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* EDT-997247: Mem clear introduces apu gic ecc error,
+	so pulse gic reset as a work around to fix it */
+	Status = XPmReset_AssertbyId(PM_RST_ACPU_GIC, (u32)PM_RESET_ACTION_ASSERT);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+	Status = XPmReset_AssertbyId(PM_RST_ACPU_GIC, (u32)PM_RESET_ACTION_RELEASE);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
 done:
         return Status;
 }
 
-struct XPm_PowerDomainOps FpdOps = {
+static struct XPm_PowerDomainOps FpdOps = {
 	.InitStart = FpdInitStart,
 	.InitFinish = FpdInitFinish,
 	.ScanClear = FpdScanClear,
@@ -276,15 +271,21 @@ XStatus XPmPsFpDomain_Init(XPm_PsFpDomain *PsFpd, u32 Id, u32 BaseAddress,
 			   XPm_Power *Parent,  u32 *OtherBaseAddresses,
 			   u32 OtherBaseAddressCnt)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
-	XPmPowerDomain_Init(&PsFpd->Domain, Id, BaseAddress, Parent, &FpdOps);
+	Status = XPmPowerDomain_Init(&PsFpd->Domain, Id, BaseAddress, Parent, &FpdOps);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	/* Make sure enough base addresses are being passed */
-	if (1 <= OtherBaseAddressCnt)
+	if (1U <= OtherBaseAddressCnt) {
 		PsFpd->FpdSlcrBaseAddr = OtherBaseAddresses[0];
-	else
+		Status = XST_SUCCESS;
+	} else {
 		Status = XST_FAILURE;
+	}
 
+done:
 	return Status;
 }
