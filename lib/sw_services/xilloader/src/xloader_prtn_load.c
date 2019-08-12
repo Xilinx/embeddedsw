@@ -341,7 +341,11 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 	u32 DstnCpu;
 	u32 Len;
 	XilPdi_PrtnHdr * PrtnHdr;
+<<<<<<< HEAD
 	XLoader_SecureParms SecureParams = {0U};
+=======
+	XLoader_SecureParms SecureParams;
+>>>>>>> sw_services :xilloader: Fix coverity warnings in xilloader library
 	u32 Mode=0;
 
 	/* Secure init */
@@ -397,7 +401,11 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 			XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_1,
 								IOCTL_SET_RPU_OPER_MODE,
 								XPM_RPU_MODE_SPLIT, 0, &Mode);
+<<<<<<< HEAD
 			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_A,
+=======
+			XPm_RequestDevice(XPM_SUBSYSID_PMC,XPM_DEVID_TCM_1_A,
+>>>>>>> sw_services :xilloader: Fix coverity warnings in xilloader library
 				PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
 			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_B,
 				PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
@@ -405,7 +413,11 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 			XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_0,
 									IOCTL_SET_RPU_OPER_MODE,
 									XPM_RPU_MODE_SPLIT, 0, &Mode);
+<<<<<<< HEAD
 			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_A,
+=======
+			XPm_RequestDevice(XPM_SUBSYSID_PMC,XPM_DEVID_TCM_0_A,
+>>>>>>> sw_services :xilloader: Fix coverity warnings in xilloader library
 					PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
 			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_B,
 					PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
@@ -415,10 +427,17 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 			XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_0,
 									IOCTL_SET_RPU_OPER_MODE,
 								XPM_RPU_MODE_LOCKSTEP, 0, &Mode);
+<<<<<<< HEAD
 			XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_1,
 										IOCTL_SET_RPU_OPER_MODE,
 									XPM_RPU_MODE_LOCKSTEP, 0, &Mode);
 			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_A,
+=======
+			XPm_DevIoctl(XPM_SUBSYSID_PMC, XPM_DEVID_R50_1,
+										IOCTL_SET_RPU_OPER_MODE,
+									XPM_RPU_MODE_LOCKSTEP, 0, &Mode);
+			XPm_RequestDevice(XPM_SUBSYSID_PMC,XPM_DEVID_TCM_0_A,
+>>>>>>> sw_services :xilloader: Fix coverity warnings in xilloader library
 					PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
 			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_B,
 					PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
@@ -691,8 +710,13 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 			}
 		} else {
 			/* Call security function */
+<<<<<<< HEAD
 			Status = XLoader_SecurePrtn(&SecureParams,
 				SecureParams.SecureData, ChunkLen, LastChunk);
+=======
+			Status = XLoader_SecurePrtn(&SecureParams, SecureParams.SecureData,
+									 ChunkLen, LastChunk);
+>>>>>>> sw_services :xilloader: Fix coverity warnings in xilloader library
 			if(Status != XST_SUCCESS)
 			{
 				goto END;
