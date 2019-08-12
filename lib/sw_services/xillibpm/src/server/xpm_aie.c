@@ -366,6 +366,9 @@ static XStatus AieScanClear(u32 *Args, u32 NumOfArgs)
 			Status = XST_FAILURE;
 			goto done;
 		}
+
+		/* Unwrite trigger bits */
+		AiePcsrWrite(ME_NPI_REG_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK, 0);
 	}
 
 	/* De-assert ODISABLE[0] */
