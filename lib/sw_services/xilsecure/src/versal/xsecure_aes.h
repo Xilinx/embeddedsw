@@ -19,7 +19,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 ******************************************************************************/
 
 /*****************************************************************************/
@@ -34,7 +34,8 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- ---------- -------------------------------------------------------
-* 1.0   vns  04/24/2019 Initial release
+* 4.0   vns  04/24/2019 Initial release
+* 4.1   vns  08/06/2019 Added AES encryption APIs
 *
 * </pre>
 *
@@ -201,6 +202,16 @@ u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr);
 
 u32 XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
+			u64 OutDataAddr, u32 Size, u64 GcmTagAddr);
+
+u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
+			XSecure_AesKeySize KeySize, u64 IvAddr);
+
+u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
+			u64 OutDataAddr, u32 Size, u8 EnLast);
+u32 XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr);
+
+u32 XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 			u64 OutDataAddr, u32 Size, u64 GcmTagAddr);
 
 #ifdef __cplusplus
