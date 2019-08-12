@@ -188,7 +188,7 @@ int XLoader_SdInit(u32 DeviceFlags)
 {
 	int Status;
 	FRESULT rc;
-	char buffer[32];
+	char buffer[32]={0};
 	char *boot_file = buffer;
 	u32 MultiBootOffset;
 	u32 DrvNum;
@@ -229,7 +229,7 @@ int XLoader_SdInit(u32 DeviceFlags)
 	 */
 	XLoader_MakeSdFileName(boot_file, MultiBootOffset, DrvNum);
 
-	if(boot_file!=NULL) {
+	if(boot_file[0]!=0) {
 		rc = f_open(&fil, boot_file, (BYTE)FA_READ);
 		if (rc!=FR_OK) {
 			XLoader_Printf(DEBUG_INFO,
@@ -242,6 +242,7 @@ int XLoader_SdInit(u32 DeviceFlags)
 	else
 	{
 		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_SD_F_OPEN, 0x0);
+		goto END;
 	}
 
 	Status = XLOADER_SUCCESS;
