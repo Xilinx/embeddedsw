@@ -918,7 +918,6 @@ int XLoader_Qspi32Init(u32 DeviceFlags)
 				Status = XPLMI_UPDATE_STATUS(
 						XLOADER_ERR_QSPI_CONNECTION,
 						0x0);
-				Status = XLOADER_ERR_QSPI_CONNECTION;
 				XLoader_Printf(DEBUG_GENERAL,
 				      "XLOADER_ERR_QSPI_CONNECTION\r\n");
 				goto END;
