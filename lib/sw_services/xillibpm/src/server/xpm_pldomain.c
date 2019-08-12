@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 
@@ -90,6 +90,9 @@ static XStatus PldGtyMbist(u32 BaseAddress)
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
+	/* Unwrite trigger bits */
+	PmOut32(BaseAddress + GTY_PCSR_MASK_OFFSET, GTY_PCSR_MEM_CLEAR_TRIGGER_MASK);
+	PmOut32(BaseAddress + GTY_PCSR_CONTROL_OFFSET, 0);
 done:
 	return Status;
 }
@@ -459,9 +462,6 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 		PmOut32(CFU_APB_CFU_MASK, CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
 		PmOut32(CFU_APB_CFU_FGCR, CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
 
-		/* Lock CFU writes */
-		PmOut32(CFU_APB_CFU_PROTECT, 1);
-
 		/* Poll for status */
 		XPlmi_Printf(DEBUG_INFO, "INFO: %s : Wait for Hard Block Scan Clear / MBIST complete...", __func__);
 		Status = XPm_PollForMask(CFU_APB_CFU_STATUS, CFU_APB_CFU_STATUS_SCAN_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
@@ -484,6 +484,13 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 			//Status = XST_FAILURE;
 			//goto done;
 		}
+
+		/* Unwrite trigger bits for PL scan clear / MBIST */
+		PmOut32(CFU_APB_CFU_MASK, CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
+		PmOut32(CFU_APB_CFU_FGCR, 0);
+
+		/* Lock CFU writes */
+		PmOut32(CFU_APB_CFU_PROTECT, 1);
 	}
 //#endif /* PLPD_HOUSECLEAN_BYPASS */
 

@@ -105,6 +105,10 @@ static XStatus CpmScanClear(u32 *Args, u32 NumOfArgs)
 	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_CPM_POR),
 				     PM_RESET_ACTION_PULSE);
 
+	/* Unwrite trigger bits */
+	PmOut32(CPM_PCSR_MASK, CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK);
+        PmOut32(CPM_PCSR_PCR, 0);
+
 	/* Lock PCSR */
 	PmOut32(CPM_PCSR_LOCK, 1);
 done:
@@ -166,6 +170,7 @@ static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
+	/* Unwrite trigger bits */
 	PmOut32(CPM_SLCR_SECURE_OD_MBIST_RESET_N, 0x0);
 	PmOut32(CPM_SLCR_SECURE_OD_MBIST_SETUP, 0x0);
 	PmOut32(CPM_SLCR_SECURE_OD_MBIST_PG_EN, 0x0);

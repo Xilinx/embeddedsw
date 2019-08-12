@@ -19,7 +19,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 ******************************************************************************/
 #include "xpm_common.h"
 #include "xpm_regs.h"
@@ -251,6 +251,10 @@ static XStatus XPmBisr_RepairGty(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional,
 		goto done;
 	}
 
+	/* Unwrite Trigger Bit */
+	PmOut32(BaseAddr | GTY_PCSR_MASK_OFFSET, GTY_PCSR_BISR_TRIGGER_MASK);
+	PmOut32(BaseAddr | GTY_PCSR_CONTROL_OFFSET, 0);
+
 	/* Lock PCSR */
 	PmOut32(BaseAddr | GTY_PCSR_LOCK_OFFSET, 1);
 done:
@@ -302,6 +306,8 @@ int XPmBisr_TriggerLpd(void)
 		Status = XST_FAILURE;
 	}
 
+	/* Unwrite Trigger Bits */
+	PmRmw32(LPD_SLCR_BISR_CACHE_CTRL_1, (LPD_SLCR_CACHE_CTRL_1_PGEN0_MASK | LPD_SLCR_CACHE_CTRL_1_PGEN1_MASK), 0);
 done:
 	return Status;
 }
@@ -357,6 +363,13 @@ static XStatus XPmBisr_RepairFpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 		Status = XST_FAILURE;
 		goto done;
 	}
+
+	/* Unwrite Trigger Bits */
+        PmRmw32(FPD_SLCR_BISR_CACHE_CTRL_1, (FPD_SLCR_CACHE_CTRL_1_PGEN0_MASK |
+                        FPD_SLCR_CACHE_CTRL_1_PGEN1_MASK |
+                        FPD_SLCR_CACHE_CTRL_1_PGEN2_MASK |
+                        FPD_SLCR_CACHE_CTRL_1_PGEN3_MASK), 0);
+
 done:
 	return Status;
 }
@@ -441,6 +454,10 @@ static XStatus XPmBisr_RepairDdrMc(u32 EfuseTagAddr, u32 TagSize, u32 TagOptiona
 	/* Disable Bisr Clock */
 	PmRmw32(BaseAddr | DDRMC_NPI_CLK_GATE_REGISTER_OFFSET, DDRMC_NPI_CLK_GATE_BISREN_MASK, ~DDRMC_NPI_CLK_GATE_BISREN_MASK);
 
+	/* Unwrite Trigger Bit */
+	PmOut32(BaseAddr | DDRMC_NPI_PCSR_MASK_REGISTER_OFFSET, DDRMC_NPI_PCSR_BISR_TRIGGER_MASK);
+	PmOut32(BaseAddr | DDRMC_NPI_PCSR_CONTROL_REGISTER_OFFSET, 0);
+
 	/* Lock PCSR */
 	PmOut32(BaseAddr | DDRMC_NPI_PCSR_LOCK_REGISTER_OFFSET, 1);
 
@@ -481,6 +498,9 @@ static XStatus XPmBisr_RepairME(u32 EfuseTagAddr, u32 TagId,u32 TagSize,u32 TagO
 		Status = XST_FAILURE;
 		goto done;
 	}
+
+	/* Unwrite Trigger Bit */
+	PmRmw32(BaseAddr | ME_BISR_CACHE_CTRL_OFFSET, ME_BISR_CACHE_CTRL_BISR_TRIGGER_MASK, 0);
 
 done:
 	return Status;

@@ -193,6 +193,10 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 		Status = XST_FAILURE;
 	}
 
+	/* Unwrite trigger bits */
+	PmRmw32(PMC_ANALOG_SCAN_CLEAR_TRIGGER,
+                PMC_ANALOG_SCAN_CLEAR_TRIGGER_NOC_MASK, 0);
+
 done:
 	return Status;
 }
@@ -292,6 +296,20 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 			NOC_DDRMC_UB_CLK_GATE_ILA_EN_MASK, 0);
 		PmOut32(DdrMcAddresses[i] + NPI_PCSR_LOCK_OFFSET, 1);
 	}
+
+
+	/* Unwrite trigger bits */
+        for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
+                PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_MASK_OFFSET,
+                        NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK)
+                PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_CONTROL_OFFSET, 0);
+        }
+        for (i = 0; i < ARRAY_SIZE(DdrMcAddresses); i++) {
+                PmOut32(DdrMcAddresses[i] + NPI_PCSR_MASK_OFFSET,
+                        NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
+                PmOut32(DdrMcAddresses[i] + NPI_PCSR_CONTROL_OFFSET, 0);
+        }
+
 
 	/* Assert PCSR Lock*/
 	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {

@@ -146,6 +146,16 @@ static XStatus LpdScanClear(u32 *Args, u32 NumOfArgs)
 				  PMC_ANALOG_SCAN_CLEAR_PASS_LPD_MASK |
 				  PMC_ANALOG_SCAN_CLEAR_PASS_LPD_RPU_MASK),
 				 XPM_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+                goto done;
+        }
+
+	 /* unwrite trigger bits */
+        PmRmw32(PMC_ANALOG_SCAN_CLEAR_TRIGGER,
+                (PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_MASK |
+                 PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_IOU_MASK |
+                 PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_RPU_MASK), 0);
+
 	/*
 	 * Pulse PS POR
 	 */
@@ -205,6 +215,15 @@ static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 				 (PMC_ANALOG_LBIST_DONE_LPD_MASK |
 				  PMC_ANALOG_LBIST_DONE_LPD_RPU_MASK),
 				 XPM_POLL_TIMEOUT);
+
+	if (XST_SUCCESS != Status) {
+                goto done;
+        }
+	/* Unwrite trigger bits */
+        PmRmw32(PMC_ANALOG_LBIST_ENABLE,
+                (PMC_ANALOG_LBIST_ENABLE_LPD_MASK |
+                 PMC_ANALOG_LBIST_ENABLE_LPD_RPU_MASK), 0);
+
 	/*
 	 * Pulse PS POR
 	 */

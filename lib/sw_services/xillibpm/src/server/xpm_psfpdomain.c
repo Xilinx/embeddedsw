@@ -141,6 +141,9 @@ static XStatus FpdScanClear(u32 *Args, u32 NumOfArgs)
                 goto done;
         }
 
+	/* Unwrite trigger bits */
+        PmRmw32(PSM_GLOBAL_SCAN_CLEAR_FPD, PSM_GLOBAL_SCAN_CLEAR_TRIGGER, 0);
+
 done:
         return Status;
 }
@@ -226,6 +229,13 @@ static XStatus FpdMbistClear(u32 *Args, u32 NumOfArgs)
              PSM_GLOBAL_MBIST_GO_FPD_MASK)) {
                 Status = XST_FAILURE;
         }
+
+	/* Unwrite trigger bits */
+	PmRmw32(PSM_GLOBAL_MBIST_RST, PSM_GLOBAL_MBIST_RST_FPD_MASK, 0);
+
+        PmRmw32(PSM_GLOBAL_MBIST_SETUP, PSM_GLOBAL_MBIST_SETUP_FPD_MASK, 0);
+
+        PmRmw32(PSM_GLOBAL_MBIST_PG_EN, PSM_GLOBAL_MBIST_PG_EN_FPD_MASK, 0);
 
 done:
         return Status;
