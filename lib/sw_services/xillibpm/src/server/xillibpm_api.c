@@ -97,6 +97,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	}
 
 	switch (Cmd->CmdId & 0xFF) {
+		case PM_GET_CHIPID:
+			Status = XPm_GetChipID(&ApiResponse[0], &ApiResponse[1]);
+			break;
 		case PM_GET_API_VERSION:
 			Status = XPm_GetApiVersion(ApiResponse);
 			break;
@@ -370,6 +373,29 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u3
 
 done:
 	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function is used to request the version and ID code of a chip
+ *
+ * @param  IDCode  Returns the chip ID code.
+ * @param  Version Returns the chip version.
+ *
+ * @return XST_SUCCESS
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+int XPm_GetChipID(u32* IDCode, u32 *Version)
+{
+	/* Read the chip ID code */
+	PmIn32(PMC_TAP_IDCODE, *IDCode);
+
+	/* Read the chip version */
+	PmIn32(PMC_TAP_VERSION, *Version);
+
+	return XST_SUCCESS;
 }
 
 /****************************************************************************/
