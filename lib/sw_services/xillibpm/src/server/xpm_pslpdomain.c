@@ -30,6 +30,7 @@
 #include "xpm_reset.h"
 #include "xpm_bisr.h"
 #include "xpm_prot.h"
+#include "xpm_regs.h"
 
 static XStatus LpdInitStart(u32 *Args, u32 NumOfArgs)
 {

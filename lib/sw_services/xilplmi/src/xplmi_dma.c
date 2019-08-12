@@ -47,6 +47,7 @@
 #include "xplmi_generic.h"
 #include "xplmi_util.h"
 #include "xplmi_status.h"
+#include "xplmi_hw.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
