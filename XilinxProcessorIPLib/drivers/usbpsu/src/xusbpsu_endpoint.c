@@ -962,7 +962,7 @@ s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
 
 	RetVal = XUsbPsu_SendEpCmd(InstancePtr, UsbEp, Ept->Direction,
 								cmd, Params);
-	if (RetVal & (s32)XST_FAILURE) {
+	if (RetVal != XST_SUCCESS) {
 		return (s32)XST_FAILURE;
 	}
 
