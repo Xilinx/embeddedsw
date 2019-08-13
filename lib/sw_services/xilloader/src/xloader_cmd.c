@@ -100,7 +100,7 @@ static int XLoader_LoadSubsystemPdi(XPlmi_Cmd * Cmd)
 		goto END;
 	}
 
-	XPlmi_Printf(DEBUG_INFO, "Subsystem PDI Load: Done\n\r");
+	XPlmi_Printf(DEBUG_GENERAL, "Subsystem PDI Load: Done\n\r");
 END:
 	Cmd->Response[0] = Status;
 	return Status;

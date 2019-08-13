@@ -375,7 +375,6 @@ int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 
 	while(ProcWords < Len)
 	{
-		xil_printf("\n %0x %0x \n\r", SrcAddr+Offset, DestAddr+Offset);
 		RegVal = XPlmi_In64(SrcAddr + Offset);
 		XPlmi_Out64(DestAddr + Offset, RegVal);
 		Offset += 4U;
