@@ -124,7 +124,6 @@ static int xaietile_proc_shutdown(struct remoteproc *rproc)
 	struct remoteproc_mem *mem;
 
 	metal_list_for_each(&rproc->mems, node) {
-		metal_phys_addr_t pa, pa_end;
 
 		mem = metal_container_of(node, struct remoteproc_mem, node);
 		metal_free_memory(mem->io);
@@ -143,7 +142,6 @@ static void *xaietile_proc_mmap(struct remoteproc *rproc,
 		size_t size, unsigned int attribute,
 		struct metal_io_region **io)
 {
-	struct remoteproc_mem *mem;
 	XAieGbl_Tile *TileInstPtr = (XAieGbl_Tile *)rproc->priv;
 	metal_phys_addr_t lpa, lda;
 	s32 row, col;
@@ -582,8 +580,6 @@ u32 XAieTileProc_Finish(XAieGbl_Tile *TileInstPtr)
 u32 XAieTileProc_Init(XAieGbl_Tile *TileInstPtr)
 {
 	struct remoteproc *rproc, *ret_rproc;
-	u32 ret;
-	int err;
 
 	rproc = metal_allocate_memory(sizeof(*rproc));
 	if (!rproc) {

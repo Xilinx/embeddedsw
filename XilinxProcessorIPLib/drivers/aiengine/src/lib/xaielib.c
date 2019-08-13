@@ -893,7 +893,6 @@ void XAieLib_WriteCmd(u8 Command, u8 ColId, u8 RowId, u32 CmdWd0,
 *******************************************************************************/
 u32 XAieLib_MaskPoll(u64 Addr, u32 Mask, u32 Value, u32 TimeOutUs)
 {
-	u32 RegVal;
 	u32 Ret = XAIELIB_FAILURE;
 
 #ifdef __AIESIM__
@@ -1026,7 +1025,6 @@ void XAieLib_NPIMaskWrite32(u64 Addr, u32 Mask, u32 Data)
 *******************************************************************************/
 u32 XAieLib_NPIMaskPoll(u64 Addr, u32 Mask, u32 Value, u32 TimeOutUs)
 {
-	u32 RegVal;
 	u32 Ret = XAIELIB_FAILURE;
 
 #ifdef __AIESIM__
