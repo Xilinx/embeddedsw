@@ -147,7 +147,7 @@ XCsuDma *XPlmi_GetDmaInstance(u32 DeviceId)
 		CsuDmaPtr = &CsuDma0;
 	}
 	else if (DeviceId == CSUDMA_1_DEVICE_ID) {
-		if (CsuDma0.IsReady == 0x00) {
+		if (CsuDma1.IsReady == 0x00) {
 			CsuDmaPtr = NULL;
 		}
 		CsuDmaPtr = &CsuDma1;

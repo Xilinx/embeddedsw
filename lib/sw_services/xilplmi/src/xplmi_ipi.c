@@ -138,6 +138,9 @@ int XPlmi_IpiDispatchHandler(void *Data)
 	for (MaskIndex = 0; MaskIndex < XPLMI_IPI_MASK_COUNT; MaskIndex++) {
 		if ((SrcCpuMask & IpiMaskList[MaskIndex]) != 0U) {
 			Status = XPlmi_IpiRead(IpiMaskList[MaskIndex], &Payload[0], XPLMI_IPI_MAX_MSG_LEN, XIPIPSU_BUF_TYPE_MSG);
+			if(Status != XST_SUCCESS){
+				goto END;
+			}
 			Cmd.CmdId = Payload[0U];
 			Cmd.IpiMask = IpiMaskList[MaskIndex];
 			Cmd.Len = (Cmd.CmdId >> 16) & 255;
@@ -162,7 +165,7 @@ int XPlmi_IpiDispatchHandler(void *Data)
 	if ((LpdInitialized & LPD_INITIALIZED) == LPD_INITIALIZED) {
 		Xil_Out32(IPI_PMC_ISR, SrcCpuMask);
 	}
-
+END:
 	return Status;
 }
 
