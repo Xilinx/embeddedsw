@@ -77,7 +77,6 @@ u32 XAieDma_TileInitialize(XAieGbl_Tile *TileInstPtr, XAieDma_Tile *DmaInstPtr)
 {
 	u32 Status = XAIE_FAILURE;
         u8 BdIdx;
-	u8 WdIdx;
 	u8 ChNum;
 	XAieDma_TileBd *DescrPtr;
 
@@ -621,7 +620,6 @@ u32 XAieDma_TileChControl(XAieDma_Tile *DmaInstPtr, u8 ChNum, u8 Reset, u8 Enabl
 {
         u64 RegAddr;
         u32 RegVal;
-        u8 State;
 
         XAie_AssertNonvoid(DmaInstPtr != XAIE_NULL);
         XAie_AssertNonvoid(ChNum < XAIEDMA_TILE_MAX_NUM_CHANNELS);
