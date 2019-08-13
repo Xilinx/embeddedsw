@@ -62,6 +62,9 @@ extern "C" {
 #define XPLMI_PIT2_RESET_VALUE		(0xFFFFFFFEU)
 #define XPLMI_PIT1			(0U)
 #define XPLMI_PIT2			(1U)
+#define XPLMI_PIT3			(2U)
+#define XPLMI_IOMODULE_PMC_PIT3_IRQ			(0x5)
+
 
 /**************************** Type Definitions *******************************/
 /**
