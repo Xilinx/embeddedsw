@@ -122,7 +122,7 @@ int XLoader_SbiLoadPdi(void *Data)
 		goto END;
 	}
 
-	XPlmi_Printf(DEBUG_INFO, "SBI PDI Load: Done\n\r");
+	XPlmi_Printf(DEBUG_GENERAL, "SBI PDI Load: Done\n\r");
 END:
 
 	XLoader_ClearIntrSbiDataRdy();
