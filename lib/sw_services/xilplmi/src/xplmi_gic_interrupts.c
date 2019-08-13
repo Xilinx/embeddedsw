@@ -315,7 +315,7 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
  *****************************************************************************/
 int XPlmi_DispatchWakeHandler(void *DeviceIdx)
 {
-	int Status = XST_FAILURE;
+	int Status;
 
 	Status = XPm_GicProxyWakeUp((int)DeviceIdx);
 	if (XST_SUCCESS != Status) {
