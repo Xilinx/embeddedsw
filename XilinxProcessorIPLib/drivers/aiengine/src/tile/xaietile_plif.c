@@ -81,12 +81,10 @@ void XAieTile_PlIntfStrmWidCfg(XAieGbl_Tile *TileInstPtr, u8 Pl2Me, u8 StreamId,
 								u8 Width)
 {
 	u64 RegAddr;
-	u32 RegVal;
 	u32 RegOff;
 	u32 FldVal;
         u32 FldMask;
 	u8 Idx;
-	u8 BitPos;
 
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid((Pl2Me == XAIETILE_PLIF_PLTOAIE_STRMS_ENABLE) &&

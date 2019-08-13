@@ -157,7 +157,6 @@ u8 XAieTile_LockRelease(XAieGbl_Tile *TileInstPtr, u8 LockId, u8 LockVal,
 								u32 TimeOut)
 {
 	u64 RegAddr;
-	u32 RegVal;
 	u8 RelDone = XAIETILE_LOCK_REL_FAILED;
 	u8 Lsb;
 	u32 Mask, Value;

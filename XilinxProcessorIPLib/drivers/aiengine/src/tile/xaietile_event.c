@@ -749,9 +749,6 @@ static u8 _XAieTile_EventTraceEventId(XAieGbl_Tile *TileInstPtr, u8 ModeId,
 u8 XAieTileMem_EventTraceEventWriteId(XAieGbl_Tile *TileInstPtr, u8 Event,
 		u8 Idx)
 {
-	u64 RegAddr;
-	u32 RegVal;
-
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
 	XAie_AssertNonvoid(Idx >= 0 && Idx < XAIETILE_EVENT_NUM_TRACE_EVENT);
@@ -777,9 +774,6 @@ u8 XAieTileMem_EventTraceEventWriteId(XAieGbl_Tile *TileInstPtr, u8 Event,
 u8 XAieTilePl_EventTraceEventWriteId(XAieGbl_Tile *TileInstPtr, u8 Event,
 		u8 Idx)
 {
-	u64 RegAddr;
-	u32 RegVal;
-
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	/*
 	 * NOC / PL is actually not tile type. If any of those is set,
@@ -1281,7 +1275,6 @@ u8 XAieGbl_CoreEventBroadcastColumn(XAieGbl_Tile *TileInstPtr, u8 BroadcastId,
 				    u8 Event)
 {
 	u16 NumRows = XAieGbl_ConfigTable->NumRows;
-	u16 ColumnId = TileInstPtr->ColId;
 	u16 RowIdx;
 	XAieGbl_Tile *TilePtr;
 	u8 status;
@@ -1323,7 +1316,6 @@ u8 XAieGbl_MemEventBroadcastColumn(XAieGbl_Tile *TileInstPtr, u8 BroadcastId,
 				   u8 Event)
 {
 	u16 NumRows = XAieGbl_ConfigTable->NumRows;
-	u16 ColumnId = TileInstPtr->ColId;
 	u16 RowIdx;
 	XAieGbl_Tile *TilePtr;
 	u8 status;
@@ -1367,7 +1359,6 @@ u8 XAieGbl_CoreEventBroadcastBlockClearColumn(XAieGbl_Tile *TileInstPtr, u8 Dir,
 					      u16 Mask)
 {
 	u16 NumRows = XAieGbl_ConfigTable->NumRows;
-	u16 ColumnId = TileInstPtr->ColId;
 	u16 RowIdx;
 	XAieGbl_Tile *TilePtr;
 	u8 status;
@@ -1411,7 +1402,6 @@ u8 XAieGbl_MemEventBroadcastBlockClearColumn(XAieGbl_Tile *TileInstPtr, u8 Dir,
 					     u16 Mask)
 {
 	u16 NumRows = XAieGbl_ConfigTable->NumRows;
-	u16 ColumnId = TileInstPtr->ColId;
 	u16 RowIdx;
 	XAieGbl_Tile *TilePtr;
 	u8 status;
@@ -1450,7 +1440,6 @@ u8 XAieGbl_MemEventBroadcastBlockClearColumn(XAieGbl_Tile *TileInstPtr, u8 Dir,
 u8 XAieGbl_Column_EventBroadcastBlockAll(XAieGbl_Tile *TileInstPtr)
 {
 	u16 NumRows = XAieGbl_ConfigTable->NumRows;
-	u16 ColumnId = TileInstPtr->ColId;
 	u16 RowIdx;
 	XAieGbl_Tile *TilePtr;
 	u8 Dir;
