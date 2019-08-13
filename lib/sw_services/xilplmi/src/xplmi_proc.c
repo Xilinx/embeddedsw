@@ -45,6 +45,7 @@
 /***************************** Include Files *********************************/
 #include "xplmi_proc.h"
 #include "xplmi_hw.h"
+#include "xplmi_scheduler.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_MB_MSR_BIP_MASK		(0x8U)
@@ -87,7 +88,10 @@ void XPlmi_InitPitTimer(u8 Timer, u32 ResetValue)
 		XIOModule_Timer_SetOptions(&IOModule, Timer,
 				   XTC_AUTO_RELOAD_OPTION);
 	}
-
+    if (XPLMI_PIT3 == Timer) {
+		XIOModule_Timer_SetOptions(&IOModule, Timer,
+				   XTC_AUTO_RELOAD_OPTION);
+	}
 	/*
 	 * Set a reset value for the Programmable Interval Timers such that
 	 * they will expire earlier than letting them roll over from 0, the
@@ -257,6 +261,7 @@ static void XPlmi_SetPmcIroFreq()
 int XPlmi_StartTimer()
 {
 	int Status;
+    int Pit3ResetValue;
 	/*
 	 * Initialize the IO Module so that it's ready to use,
 	 * specify the device ID that is generated in xparameters.h
@@ -280,17 +285,23 @@ int XPlmi_StartTimer()
 	}
 
 	XPlmi_SetPmcIroFreq();
-
+	if (PmcIroFreq == 320 * 1000 * 1000)
+		{
+			Pit3ResetValue = 32000000U;
+		}
+	else
+		{
+			Pit3ResetValue = 13000000U;
+		}
+     XPlmi_SchedulerInit();
 	/** Initialize and start the timer
 	 *  Use PIT1 and PIT2 in prescalor mode
 	 */
 	/* Setting for Prescaler mode */
-	Xil_Out32(IOModule.BaseAddress + XGO_OUT_OFFSET,
-			   MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK);
-	XPlmi_InitPitTimer((u8)XPLMI_PIT2,
-			    XPLMI_PIT2_RESET_VALUE);
-	XPlmi_InitPitTimer((u8)XPLMI_PIT1,
-			    XPLMI_PIT1_RESET_VALUE);
+	Xil_Out32(IOModule.BaseAddress + XGO_OUT_OFFSET, MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK);
+	XPlmi_InitPitTimer((u8)XPLMI_PIT2, XPLMI_PIT2_RESET_VALUE);
+	XPlmi_InitPitTimer((u8)XPLMI_PIT1, XPLMI_PIT1_RESET_VALUE);
+	XPlmi_InitPitTimer((u8)XPLMI_PIT3, Pit3ResetValue);
 END:
 	return Status;
 }
@@ -302,7 +313,7 @@ static struct HandlerTable g_TopLevelInterruptTable[] = {
 	{XPlmi_IntrHandler},
 	{XPlmi_IntrHandler},
 	{XPlmi_IntrHandler},
-	{XPlmi_IntrHandler},
+	{XPlmi_SchedulerHandler},
 	{XPlmi_IntrHandler},
 	{XPlmi_IntrHandler},
 	{XPlmi_IntrHandler},
@@ -363,6 +374,16 @@ int XPlmi_SetUpInterruptSystem()
 			goto END;
 		}
 	}
+	IntrNum = 0x5;
+	Status = XIOModule_Connect(&IOModule, IntrNum,
+			   (XInterruptHandler) g_TopLevelInterruptTable[IntrNum].Handler,
+					   (void *)IntrNum);
+			if (Status != XST_SUCCESS)
+			{
+				Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_IOMOD_CONNECT,
+								 Status);
+				goto END;
+			}
 
 	/**
 	 * Enable interrupts for the device and then cause interrupts so the
@@ -380,6 +401,7 @@ int XPlmi_SetUpInterruptSystem()
 	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_ERR_IRQ);
 	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_CFRAME_SEU);
 	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PMC_GPI);
+	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PMC_PIT3_IRQ);
 
 	/**
 	 * Register the IO module interrupt handler with the exception table.
