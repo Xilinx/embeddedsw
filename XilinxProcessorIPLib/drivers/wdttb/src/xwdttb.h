@@ -168,10 +168,12 @@
 *                     Added following functions:
 *                     XWdtTb_IsGenericWdtFWExpired, XWdtTb_SetSSTWindow
 *                     XWdtTb_SetGenericWdtWindow.
-# 4.5   nsk  08/07/19 Updated testapp tcl to generate polled mode
-#                     example, when Wdttb interrupt pin is not connected
-#                     CR# 1035919.
-# 4.5   nsk  08/07/19 Fixed the warnings while generating test app
+* 4.5   nsk  08/07/19 Updated testapp tcl to generate polled mode
+*                     example, when Wdttb interrupt pin is not connected
+*                     CR# 1035919.
+* 4.5   nsk  08/07/19 Fixed the warnings while generating test app
+* 4.5   sne  06/25/19 Fixed Coverity warning.
+*
 * </pre>
 *
 ******************************************************************************/

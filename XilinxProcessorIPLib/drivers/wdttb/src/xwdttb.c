@@ -88,7 +88,7 @@
 *                     XWdtTb_EnableGenericWdt,XWdtTb_DisableGenericWdt,
 *                     XWdtTb_EnableTimebaseWdt,XWdtTb_DisableTimebaseWdt,
 *                     XWdtTb_IsGenericWdtFWExpired,XWdtTb_SetGenericWdtWindow.
-*
+* 4.5  sne  06/25/19 Fixed Coverity warning in driver file.
 *
 * </pre>
 *
@@ -164,7 +164,6 @@ s32 XWdtTb_CfgInitialize(XWdtTb *InstancePtr, const XWdtTb_Config *CfgPtr,
 	}
         else {
        InstancePtr->Config.DeviceId = CfgPtr->DeviceId;
-	InstancePtr->Config.BaseAddr = CfgPtr->BaseAddr;
 #ifndef versal
 	InstancePtr->Config.EnableWinWdt = CfgPtr->EnableWinWdt;
 	InstancePtr->Config.MaxCountWidth = CfgPtr->MaxCountWidth;
