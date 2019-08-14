@@ -791,7 +791,10 @@ u32 XilSKey_Puf_Regeneration(XilSKey_Puf *InstancePtr)
 
 	PufStatus = XilSKey_ReadReg(XSK_ZYNQMP_CSU_BASEADDR,
 					XSK_ZYNQMP_CSU_ISR);
-	xPuf_printf(Debug,"PufStatus : 0x%x \r\n", PufStatus);
+	if ((PufStatus & XSK_ZYNQMP_CSU_ISR_PUF_ACC_ERROR_MASK) != 0x0U) {
+		xPuf_printf(Debug,"PufStatus : 0x%x \r\n", PufStatus);
+		Status = (u32)XSK_EFUSEPS_ERROR_PUF_ACCESS;
+	}
 END:
 	return Status;
 }

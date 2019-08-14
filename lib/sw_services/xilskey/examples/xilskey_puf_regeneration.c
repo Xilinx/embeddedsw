@@ -142,8 +142,11 @@ int main()
 	if (Status == XST_SUCCESS) {
 		xPuf_printf(XPUF_DEBUG_GENERAL,
 			"App:PUF Regeneration completed:0x%08x\r\n",Status);
+	} else {
+		xPuf_printf(XPUF_DEBUG_GENERAL,
+			"App:PUF Regeneration Failure:0x%08x\r\n", Status);
+		goto END;
 	}
-
 	/* Initialize & configure the DMA */
 	xPuf_printf(XPUF_DEBUG_GENERAL, "App: DMA config  \n\r");
 	Config = XCsuDma_LookupConfig(XSK_CSUDMA_DEVICE_ID);
