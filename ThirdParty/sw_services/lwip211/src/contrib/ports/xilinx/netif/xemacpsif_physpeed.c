@@ -970,6 +970,55 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 		} else {
 			xil_printf("Clock Divisors incorrect - Please check\r\n");
 		}
+	} else if (gigeversion == GEM_VERSION_VERSAL) {
+		/* Setup divisors in CRL for Versal */
+		if (mac_baseaddr == VERSAL_EMACPS_0_BASEADDR) {
+			CrlApbBaseAddr = VERSAL_CRL_GEM0_REF_CTRL;
+		} else if (mac_baseaddr == VERSAL_EMACPS_1_BASEADDR) {
+			CrlApbBaseAddr = VERSAL_CRL_GEM1_REF_CTRL;
+		}
+
+		if (speed == 1000) {
+			if (mac_baseaddr == VERSAL_EMACPS_0_BASEADDR) {
+#ifdef XPAR_PSV_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSV_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0;
+#endif
+			} else if (mac_baseaddr == VERSAL_EMACPS_1_BASEADDR) {
+#ifdef XPAR_PSV_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSV_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0;
+#endif
+			}
+		} else if (speed == 100) {
+			if (mac_baseaddr == VERSAL_EMACPS_0_BASEADDR) {
+#ifdef XPAR_PSV_ETHERNET_0_ENET_SLCR_100MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSV_ETHERNET_0_ENET_SLCR_100MBPS_DIV0;
+#endif
+			} else if (mac_baseaddr == VERSAL_EMACPS_1_BASEADDR) {
+#ifdef XPAR_PSV_ETHERNET_1_ENET_SLCR_100MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSV_ETHERNET_1_ENET_SLCR_100MBPS_DIV0;
+#endif
+			}
+		} else {
+			if (mac_baseaddr == VERSAL_EMACPS_0_BASEADDR) {
+#ifdef XPAR_PSV_ETHERNET_0_ENET_SLCR_10MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSV_ETHERNET_0_ENET_SLCR_10MBPS_DIV0;
+#endif
+			} else if (mac_baseaddr == VERSAL_EMACPS_1_BASEADDR) {
+#ifdef XPAR_PSV_ETHERNET_1_ENET_SLCR_10MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSV_ETHERNET_1_ENET_SLCR_10MBPS_DIV0;
+#endif
+			}
+		}
+
+		if (CrlApbDiv0 != 0) {
+			CrlApbGemCtrl = Xil_In32((UINTPTR)CrlApbBaseAddr);
+			CrlApbGemCtrl &= ~VERSAL_CRL_GEM_DIV_MASK;
+			CrlApbGemCtrl |= CrlApbDiv0 << VERSAL_CRL_APB_GEM_DIV_SHIFT;
+
+			Xil_Out32((UINTPTR)CrlApbBaseAddr, CrlApbGemCtrl);
+		} else {
+			xil_printf("Clock Divisors incorrect - Please check\r\n");
+		}
 	}
 
 	return;
