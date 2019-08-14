@@ -31,11 +31,13 @@ emacps_v3_10:
 Clear status registers properly in reset.
 Use Versal platform version register.
 Remove peripheral test app support.
+Add support for clock setup on Versal.
 
 lwip211_v1_1:
 Add support for Versal
 Fix emacps hotplug support
 Enable A53 32 bit compiler for BM apps.
+Add support for clock setup on Versal.
 
 lwip_echo_server:
 Add support for Versal
