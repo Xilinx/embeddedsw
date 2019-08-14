@@ -33,16 +33,38 @@
 #include "xpm_gic_proxy.h"
 #include "xpm_regs.h"
 
+extern u32 ResetReason;
 extern int XLoader_ReloadImage(u32 ImageId);
+static u8 SystemResetFlag;
+static u8 DomainPORFlag;
 
 XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 			    u32 BaseAddress, XPm_Power *Parent,
 			    struct XPm_PowerDomainOps *Ops)
 {
+	u32 InitMask = 0;
 	XPmPower_Init(&PowerDomain->Power, Id, BaseAddress, Parent);
 
 	PowerDomain->Children = NULL;
 	PowerDomain->DomainOps = Ops;
+
+	if (Ops && Ops->ScanClear) {
+		InitMask |= BIT(FUNC_SCAN_CLEAR);
+	}
+
+	if (Ops && Ops->Bisr) {
+		InitMask |= BIT(FUNC_BISR);
+	}
+
+	if (Ops && Ops->Mbist) {
+		InitMask |= BIT(FUNC_MBIST_CLEAR);
+	}
+
+	if (Ops && Ops->Lbist) {
+		InitMask |= BIT(FUNC_LBIST);
+	}
+
+	PowerDomain->InitMask = InitMask;
 
 	return XST_SUCCESS;
 }
@@ -491,6 +513,82 @@ done:
 	return Status;
 }
 
+static void XPmPower_UpdateResetFlags(XPm_PowerDomain *PwrDomain, u32 FuncId)
+{
+	XPm_ResetNode *Reset;
+	u32 ResetId;
+	u32 PmcSysResetMask = (CRP_RESET_REASON_SLR_SYS_MASK |
+			       CRP_RESET_REASON_SW_SYS_MASK |
+			       CRP_RESET_REASON_ERR_SYS_MASK |
+			       CRP_RESET_REASON_DAP_SYS_MASK);
+	u32 DomainStatusMask = 1 << (NODEINDEX(PwrDomain->Power.Node.Id) - 1);
+
+	/* Clear System Reset and domain POR reset flags */
+	SystemResetFlag = 0;
+	DomainPORFlag = 0;
+
+	if (FUNC_INIT_FINISH == FuncId) {
+		/*
+		 * Mark domain init status bit in DomainInitStatusReg if
+		 * initialization is done.
+		 */
+		if (PwrDomain->InitFlag == PwrDomain->InitMask) {
+			PmRmw32(XPM_DOMAIN_INIT_STATUS_REG, DomainStatusMask,
+				DomainStatusMask);
+		}
+	} else if (FUNC_INIT_START == FuncId) {
+
+		PwrDomain->InitFlag = 0;
+
+		/*
+		 * All sequences should be executed on PMC_POR. During PMC_POR
+		 * power domain bit in XPM_DOMAIN_INIT_STATUS_REG is 0. So
+		 * don't set DomainPORFlag or SystemResetFlag flags.
+		 */
+		if (0 == (XPm_In32(XPM_DOMAIN_INIT_STATUS_REG) &
+			  DomainStatusMask)) {
+			goto done;
+		}
+
+		switch (NODEINDEX(PwrDomain->Power.Node.Id)) {
+			case XPM_NODEIDX_POWER_LPD:
+				ResetId = POR_RSTID(XPM_NODEIDX_RST_PS_POR);
+				break;
+			case XPM_NODEIDX_POWER_FPD:
+				ResetId = POR_RSTID(XPM_NODEIDX_RST_FPD_POR);
+				break;
+			case XPM_NODEIDX_POWER_NOC:
+				ResetId = POR_RSTID(XPM_NODEIDX_RST_NOC_POR);
+				break;
+			case XPM_NODEIDX_POWER_CPM:
+				ResetId = POR_RSTID(XPM_NODEIDX_RST_CPM_POR);
+				break;
+			default:
+				ResetId = 0;
+		}
+
+		/* Check for POR reset for a domain is occured or not. */
+		if (0 != ResetId) {
+			Reset = XPmReset_GetById(ResetId);
+			if (XPM_RST_STATE_ASSERTED ==
+			    Reset->Ops->GetState(Reset)) {
+				DomainPORFlag = 1;
+				goto done;
+			}
+		}
+
+		/* Check for system reset is occured or not. */
+		if (0 != (ResetReason & PmcSysResetMask)) {
+			SystemResetFlag = 1;
+		}
+	} else {
+		/* Required by MISRA */
+	}
+
+done:
+	return;
+}
+
 XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				  u32 *Args, u32 NumArgs)
 {
@@ -504,6 +602,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 	switch (Function) {
 	case FUNC_INIT_START:
 		PwrDomain->Power.Node.State = XPM_POWER_STATE_INITIALIZING;
+		XPmPower_UpdateResetFlags(PwrDomain, FUNC_INIT_START);
 		if (Ops && Ops->InitStart) {
 			Status = Ops->InitStart(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
@@ -524,10 +623,15 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		}
 		PwrDomain->Power.Node.State = XPM_POWER_STATE_ON;
 		XPmDomainIso_ProcessPending(PwrDomain->Power.Node.Id);
+		XPmPower_UpdateResetFlags(PwrDomain, FUNC_INIT_FINISH);
 		break;
 	case FUNC_SCAN_CLEAR:
 		if (XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
 			Status = XST_FAILURE;
+			goto done;
+		}
+		/* Skip in case of system reset or POR of a domain */
+		if ((1 == SystemResetFlag) || (1 == DomainPORFlag)) {
 			goto done;
 		}
 		if (Ops && Ops->ScanClear) {
@@ -535,6 +639,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
+			PwrDomain->InitFlag |= BIT(FUNC_SCAN_CLEAR);
 		}
 		break;
 	case FUNC_BISR:
@@ -542,11 +647,16 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			Status = XST_FAILURE;
 			goto done;
 		}
+		/* Skip in case of system reset */
+		if (1 == SystemResetFlag) {
+			goto done;
+		}
 		if (Ops && Ops->Bisr) {
 			Status = Ops->Bisr(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
+			PwrDomain->InitFlag |= BIT(FUNC_BISR);
 		}
 		break;
 	case FUNC_LBIST:
@@ -554,11 +664,16 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			Status = XST_FAILURE;
 			goto done;
 		}
+		/* Skip in case of system reset or POR of a domain */
+		if ((1 == SystemResetFlag) || (1 == DomainPORFlag)) {
+			goto done;
+		}
 		if (Ops && Ops->Lbist) {
 			Status = Ops->Lbist(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
+			PwrDomain->InitFlag |= BIT(FUNC_LBIST);
 		}
 		break;
 	case FUNC_MBIST_CLEAR:
@@ -566,11 +681,16 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			Status = XST_FAILURE;
 			goto done;
 		}
+		/* Skip in case of system reset or POR of a domain */
+		if ((1 == SystemResetFlag) || (1 == DomainPORFlag)) {
+			goto done;
+		}
 		if (Ops && Ops->Mbist) {
 			Status = Ops->Mbist(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
+			PwrDomain->InitFlag |= BIT(FUNC_MBIST_CLEAR);
 		}
 		break;
 	case FUNC_HOUSECLEAN_PL:

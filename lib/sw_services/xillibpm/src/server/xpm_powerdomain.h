@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -38,6 +38,7 @@ extern "C" {
 typedef struct XPm_PowerDomain XPm_PowerDomain;
 
 #define XPM_POLL_TIMEOUT			(0X1000000U)
+#define XPM_DOMAIN_INIT_STATUS_REG		PMC_GLOBAL_PERS_GLOB_GEN_STORAGE0
 
 /**
  * The power domain node class.  This is the base class for all the power domain
@@ -60,6 +61,8 @@ struct XPm_PowerDomain {
 	XPm_Power Power; /**< Power: Power node base class */
 	XPm_Power *Children; /**< List of children power nodes */
 	struct XPm_PowerDomainOps *DomainOps; /**< house cleaning operations */
+	u32 InitMask; /**< Mask to indicate house cleaning functions present */
+	u32 InitFlag; /**< Flag to indicate house cleaning functions performed */
 };
 
 /************************** Function Prototypes ******************************/
