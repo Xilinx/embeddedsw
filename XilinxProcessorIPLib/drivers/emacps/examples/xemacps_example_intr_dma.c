@@ -120,6 +120,7 @@
 *           03/20/19 Fix alignment pragmas for IAR compiler.
 * 3.10 hk   05/17/19 Use correct platform register for Versal.
 *           08/12/19 Add clock setup support for Versal.
+*           14/08/19 Move definition of Platform to _util file for common use.
 *
 * </pre>
 *
@@ -285,7 +286,6 @@ XEmacPs_Bd BdRxTerminate __attribute__ ((aligned(64)));
 #endif
 
 u32 GemVersion;
-u32 Platform;
 
 /*************************** Function Prototypes ****************************/
 

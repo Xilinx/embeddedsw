@@ -35,6 +35,7 @@ Clear status registers properly in reset.
 Use Versal platform version register.
 Remove peripheral test app support.
 Add support for clock setup on Versal.
+Fix common variable definition in example.
 
 lwip211_v1_1:
 Add support for Versal
