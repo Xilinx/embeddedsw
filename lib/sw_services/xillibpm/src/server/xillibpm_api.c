@@ -2275,8 +2275,24 @@ done:
  *
  * @param  DeviceId	DeviceId of the LPD/FPD
  * @param  Arg1		- Counter Number (0 to 7 bit)
- *			- Register Type (8 to 16 bit)
- *                        (1 - PortSel, 2 - Src, 3 - Val)
+ *			- Register Type (8 to 15 bit)
+ *                         0 - LAR_LSR access (Request Type is ignored and
+ *                                             Counter Number is ignored)
+ *                         1 - Main Ctl       (Counter Number is ignored)
+ *                         2 - Config Ctl     (Counter Number is ignored)
+ *                         3 - State Period   (Counter Number is ignored)
+ *                         4 - PortSel
+ *                         5 - Src
+ *                         6 - Val
+ *                      - Request Type (16 to 23 bit)
+ *                         0 - Read Request
+ *                         1 - Read Response
+ *                         2 - Write Request
+ *                         3 - Write Response
+ *                         4 - lpd Read Request (For LPD only)
+ *                         5 - lpd Read Response (For LPD only)
+ *                         6 - lpd Write Request (For LPD only)
+ *                         7 - lpd Write Response (For LPD only)
  * @param  Value	Register value to write (if Write flag is 1)
  * @param  Response	Value of register read (if Write flag is 0)
  * @param  Write	Operation type (0 - Read, 1 - Write)
@@ -2291,19 +2307,41 @@ static int XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
 	XPm_Power *Power;
 	u32 Reg;
 	u8 CounterIdx;
+	u8 ReqType;
+	u32 ReqTypeOffset;
+	u32 FpdReqTypeOffset[] = {
+		PROBE_COUNTER_FPD_RD_REQ_OFFSET,
+		PROBE_COUNTER_FPD_RD_RES_OFFSET,
+		PROBE_COUNTER_FPD_WR_REQ_OFFSET,
+		PROBE_COUNTER_FPD_WR_RES_OFFSET,
+	};
+
 	CounterIdx = Arg1 & PROBE_COUNTER_IDX_MASK;
+	ReqType = ((Arg1 >> PROBE_COUNTER_REQ_TYPE_SHIFT) &
+		   PROBE_COUNTER_REQ_TYPE_MASK);
 	switch (NODEINDEX(DeviceId)) {
 	case XPM_NODEIDX_POWER_LPD:
-		if (CounterIdx > PROBE_COUNTER_LPD_MAX_IDX) {
+		if (CounterIdx > PROBE_COUNTER_CPU_R5_MAX_IDX) {
+			goto done;
+		}
+		if (ReqType > PROBE_COUNTER_LPD_MAX_REQ_TYPE) {
+			goto done;
+		} else if ((ReqType > PROBE_COUNTER_CPU_R5_MAX_REQ_TYPE) &&
+			   (CounterIdx > PROBE_COUNTER_LPD_MAX_IDX)) {
 			goto done;
 		}
 		Reg = CORESIGHT_LPD_ATM_BASE;
+		ReqTypeOffset = (ReqType * PROBE_COUNTER_LPD_REQ_TYPE_OFFSET);
 		break;
 	case XPM_NODEIDX_POWER_FPD:
 		if (CounterIdx > PROBE_COUNTER_FPD_MAX_IDX) {
 			goto done;
 		}
+		if (ReqType > PROBE_COUNTER_FPD_MAX_REQ_TYPE) {
+			goto done;
+		}
 		Reg = CORESIGHT_FPD_ATM_BASE;
+		ReqTypeOffset = FpdReqTypeOffset[ReqType];
 		break;
 	default:
 		Status = XPM_INVALID_NODEID;
@@ -2316,18 +2354,37 @@ static int XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
 	}
 
 	switch ((Arg1 >> PROBE_COUNTER_TYPE_SHIFT) & PROBE_COUNTER_TYPE_MASK) {
+	case XPM_PROBE_COUNTER_TYPE_LAR_LSR:
+		if (TRUE == Write) {
+			Reg += PROBE_COUNTER_LAR_OFFSET;
+		} else {
+			Reg += PROBE_COUNTER_LSR_OFFSET;
+		}
+		break;
+	case XPM_PROBE_COUNTER_TYPE_MAIN_CTL:
+		Reg += ReqTypeOffset + PROBE_COUNTER_MAIN_CTL_OFFSET;
+		break;
+	case XPM_PROBE_COUNTER_TYPE_CFG_CTL:
+		Reg += ReqTypeOffset + PROBE_COUNTER_CFG_CTL_OFFSET;
+		break;
+	case XPM_PROBE_COUNTER_TYPE_STATE_PERIOD:
+		Reg += ReqTypeOffset + PROBE_COUNTER_STATE_PERIOD_OFFSET;
+		break;
 	case XPM_PROBE_COUNTER_TYPE_PORT_SEL:
-		Reg += ((CounterIdx * 20) + PROBE_COUNTER_PORT_SEL_OFFSET);
+		Reg += (ReqTypeOffset + (CounterIdx * 20) +
+			PROBE_COUNTER_PORT_SEL_OFFSET);
 		break;
 	case XPM_PROBE_COUNTER_TYPE_SRC:
-		Reg += ((CounterIdx * 20) + PROBE_COUNTER_SRC_OFFSET);
+		Reg += (ReqTypeOffset + (CounterIdx * 20) +
+			PROBE_COUNTER_SRC_OFFSET);
 		break;
 	case XPM_PROBE_COUNTER_TYPE_VAL:
 		if (TRUE == Write) {
 			/* This type doesn't support write operation */
 			goto done;
 		}
-		Reg += ((CounterIdx * 20) + PROBE_COUNTER_VAL_OFFSET);
+		Reg += (ReqTypeOffset + (CounterIdx * 20) +
+			PROBE_COUNTER_VAL_OFFSET);
 		break;
 	default:
 		goto done;
