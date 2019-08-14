@@ -27,7 +27,7 @@
 /**
 *
 * @file xwdttb.h
-* @addtogroup wdttb_v4_4
+* @addtogroup wdttb_v4_5
 * @{
 * @details
 *
