@@ -92,6 +92,11 @@ instead of hardcoded ones.
 wdtps_v3_2:
 Fixed coverity warnings.
 
+wdttb_v4_5:
+Added hierarchical design support.
+Updated the test app tcl to support polled mode
+Fixed coverity warnings.
+
 xxvethernet_v1_3:
 In tcl fix bsp generation error for axis_rx_0 external port design.
 
