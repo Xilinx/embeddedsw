@@ -318,6 +318,9 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u3
 	XStatus Status = XST_SUCCESS;
 	unsigned int i;
 	u32 Version;
+	u32 PmcIPORMask = (CRP_RESET_REASON_ERR_POR_MASK |
+			   CRP_RESET_REASON_SLR_POR_MASK |
+			   CRP_RESET_REASON_SW_POR_MASK);
 	u32 SysResetMask = (CRP_RESET_REASON_SLR_SYS_MASK |
 			    CRP_RESET_REASON_SW_SYS_MASK |
 			    CRP_RESET_REASON_ERR_SYS_MASK |
@@ -369,6 +372,14 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u3
 				goto done;
 			}
 		}
+	}
+
+	/*
+	 * Clear DomainInitStatusReg in case of internal PMC_POR. Since PGGS0
+	 * value is not cleared in case of internal POR.
+	 */
+	if (ResetReason & PmcIPORMask) {
+		XPm_Out32(XPM_DOMAIN_INIT_STATUS_REG, 0);
 	}
 
 done:
