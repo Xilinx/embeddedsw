@@ -119,6 +119,7 @@
 *           03/06/19 Fix BD space assignment and its memory attributes.
 *           03/20/19 Fix alignment pragmas for IAR compiler.
 * 3.10 hk   05/17/19 Use correct platform register for Versal.
+*           08/12/19 Add clock setup support for Versal.
 *
 * </pre>
 *
@@ -195,6 +196,14 @@
 #define CRL_GEM_DIV_MASK	0x003F3F00
 #define CRL_GEM_1G_DIV0		0x00000C00
 #define CRL_GEM_1G_DIV1		0x00010000
+
+#ifdef XPAR_PSV_CRL_0_S_AXI_BASEADDR
+#define CRL_GEM0_REF_CTRL	(XPAR_PSV_CRL_0_S_AXI_BASEADDR + 0x118)
+#define CRL_GEM1_REF_CTRL	(XPAR_PSV_CRL_0_S_AXI_BASEADDR + 0x11C)
+#endif
+
+#define CRL_GEM_DIV_VERSAL_MASK		0x0003FF00
+#define CRL_GEM_DIV_VERSAL_SHIFT	8
 
 #define JUMBO_FRAME_SIZE	10240
 #define FRAME_HDR_SIZE		18
@@ -1479,6 +1488,32 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 			ClkCntrl |= CRL_GEM_1G_DIV0;
 			*(volatile unsigned int *)(CRL_GEM3_REF_CTRL) =
 									ClkCntrl;
+		}
+#endif
+#endif
+	}
+	if ((GemVersion == GEMVERSION_VERSAL) &&
+		((Platform & PLATFORM_MASK_VERSAL) == PLATFORM_VERSALSIL)) {
+
+#ifdef XPAR_PSV_CRL_0_S_AXI_BASEADDR
+#ifdef XPAR_PSV_ETHERNET_0_DEVICE_ID
+		if (EmacPsIntrId == XPS_GEM0_INT_ID) {
+			/* GEM0 1G clock configuration*/
+			ClkCntrl = Xil_In32((UINTPTR)CRL_GEM0_REF_CTRL);
+			ClkCntrl &= ~CRL_GEM_DIV_VERSAL_MASK;
+			ClkCntrl |= XPAR_PSV_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0 << CRL_GEM_DIV_VERSAL_SHIFT;
+			Xil_Out32((UINTPTR)CRL_GEM0_REF_CTRL, ClkCntrl);
+
+		}
+#endif
+#ifdef XPAR_PSV_ETHERNET_1_DEVICE_ID
+		if (EmacPsIntrId == XPS_GEM1_INT_ID) {
+
+			/* GEM1 1G clock configuration*/
+			ClkCntrl = Xil_In32((UINTPTR)CRL_GEM1_REF_CTRL);
+			ClkCntrl &= ~CRL_GEM_DIV_VERSAL_MASK;
+			ClkCntrl |= XPAR_PSV_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0 << CRL_GEM_DIV_VERSAL_SHIFT;
+			Xil_Out32((UINTPTR)CRL_GEM1_REF_CTRL, ClkCntrl);
 		}
 #endif
 #endif
