@@ -932,6 +932,8 @@ typedef enum {
 					*  when an under flow occurs. */
 	XSK_EFUSEPS_ERROR_PUF_TIMEOUT = 0xE800U,/**< 0xE800<br>Error
 					*  when an PUF generation timedout. */
+	XSK_EFUSEPS_ERROR_PUF_ACCESS = 0xE900,/**< 0xE900<br>Error
+					*  when an PUF Access violation. */
 	XSK_EFUSEPS_ERROR_CMPLTD_EFUSE_PRGRM_WITH_ERR = 0x10000U,/**< 0x10000<br>
 					*  eFUSE programming is completed with
 					*  temp and vol read errors. */
