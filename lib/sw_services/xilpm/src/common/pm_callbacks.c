@@ -50,7 +50,7 @@ static XPm_Notifier* notifierList = NULL;
  ****************************************************************************/
 XStatus XPm_NotifierAdd(XPm_Notifier* const notifier)
 {
-	XStatus status;
+	XStatus status = XST_FAILURE;
 
 	if (NULL == notifier) {
 		status = XST_INVALID_PARAM;
