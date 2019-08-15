@@ -151,7 +151,7 @@ done:
  ****************************************************************************/
 void XPm_SuspendFinalize(void)
 {
-	XStatus status;
+	XStatus status = XST_FAILURE;
 
 	/*
 	 * Wait until previous IPI request is handled by the PMU.
@@ -236,7 +236,7 @@ static u32 XPm_CalculateCRC(u32 BufAddr, u32 BufSize)
 static XStatus pm_ipi_send(struct XPm_Master *const master,
 			   u32 payload[PAYLOAD_ARG_CNT])
 {
-	XStatus status;
+	XStatus status = XST_FAILURE;
 
 	status = XIpiPsu_PollForAck(master->ipi, IPI_PMU_PM_INT_MASK,
 				    PM_IPI_TIMEOUT);
@@ -286,7 +286,7 @@ static XStatus pm_ipi_buff_read32(struct XPm_Master *const master,
 				  u32 *value1, u32 *value2, u32 *value3)
 {
 	u32 response[RESPONSE_ARG_CNT] = {0U};
-	XStatus status;
+	XStatus status = XST_FAILURE;
 
 	/* Wait until current IPI interrupt is handled by PMU */
 	status = XIpiPsu_PollForAck(master->ipi, IPI_PMU_PM_INT_MASK,
@@ -365,7 +365,7 @@ XStatus XPm_SelfSuspend(const enum XPmNodeId nid,
 			const u8 state,
 			const u64 address)
 {
-	XStatus ret;
+	XStatus ret = XST_FAILURE;
 	u32 payload[PAYLOAD_ARG_CNT];
 
 	struct XPm_Master *master = pm_get_master_by_node(nid);
@@ -620,7 +620,7 @@ XStatus XPm_ForcePowerDown(const enum XPmNodeId target,
  ****************************************************************************/
 XStatus XPm_AbortSuspend(const enum XPmAbortReason reason)
 {
-	XStatus status;
+	XStatus status = XST_FAILURE;
 	u32 payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == primary_master) {
@@ -1309,7 +1309,7 @@ done:
  ****************************************************************************/
 XStatus XPm_UnregisterNotifier(XPm_Notifier* const notifier)
 {
-	XStatus ret;
+	XStatus ret = XST_FAILURE;
 	u32 payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == notifier) {
