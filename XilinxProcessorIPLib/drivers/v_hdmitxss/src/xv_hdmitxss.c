@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 - 2017  Xilinx, Inc. All rights reserved.
+* Copyright (C) 2016 - 2019  Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -138,16 +138,16 @@
 *                           XV_HdmiTxSs_SetVideoStreamHdmi14ScramblingOverrideFlag
 *              25/01/18 Added function XV_HdmiTxSs_SetScrambler
 *              01/02/18	Updated function XV_HdmiTxSs_VtcSetup and changed the
-*              				input parameters to it to enable logging of
-*              				unsupported video timing by VTC
+*                           input parameters to it to enable logging of
+*                           unsupported video timing by VTC
 *       SM     28/02/18 Added definition of XV_HdmiTxSS_SetAppVersion() API
 * 5.20  EB     03/08/18 Updated XV_HdmiTxSS_MaskSetRed, XV_HdmiTxSS_MaskSetGreen,
-* 							XV_HdmiTxSS_MaskSetBlue API
-*						Replaced XV_HdmiTx_AudioMute API call with
-* 							XV_HdmiTx_AudioDisable
-*						Replaced XV_HdmiTx_AudioUnmute API call with
-* 							XV_HdmiTx_AudioEnable
-*						Replaced XV_HdmiTx_AudioUnmute API call with
+*                           XV_HdmiTxSS_MaskSetBlue API
+*                       Replaced XV_HdmiTx_AudioMute API call with
+*                           XV_HdmiTx_AudioDisable
+*                       Replaced XV_HdmiTx_AudioUnmute API call with
+*                           XV_HdmiTx_AudioEnable
+*                       Replaced XV_HdmiTx_AudioUnmute API call with
 * 		MMO    11/08/18 Added Bridge Overflow and Bridge Underflow Interrupt
 * </pre>
 *
@@ -1536,9 +1536,9 @@ static void XV_HdmiTxSs_StreamDownCallback(void *CallbackRef)
 *
 ******************************************************************************/
 int XV_HdmiTxSs_SetCallback(XV_HdmiTxSs *InstancePtr,
-    u32 HandlerType,
-    void *CallbackFunc,
-    void *CallbackRef)
+		XV_HdmiTxSs_HandlerType HandlerType,
+		void *CallbackFunc,
+		void *CallbackRef)
 {
     u32 Status;
 

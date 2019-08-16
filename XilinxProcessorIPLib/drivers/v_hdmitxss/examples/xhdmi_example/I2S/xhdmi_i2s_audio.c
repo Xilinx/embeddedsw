@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -89,7 +89,7 @@ XI2srx_Config *Config_rx;
 XGpio              Gpio_AudClk_resetn;
 XGpio_Config       *Gpio_AudClk_resetn_ConfigPtr;
 
-#define I2S_CLK_MULT 512
+#define I2S_CLK_MULT 768
 #define XACR_WriteReg(BaseAddress, RegOffset, Data)   \
     XAudGen_Out32((BaseAddress) + ((u32)RegOffset), (u32)(Data))
 

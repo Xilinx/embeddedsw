@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 - 2017 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2016 - 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -478,9 +478,9 @@ void XV_HdmiTxSs_SetGcpClearAvmuteBit(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSs_ClearGcpClearAvmuteBit(XV_HdmiTxSs *InstancePtr);
 
 int XV_HdmiTxSs_SetCallback(XV_HdmiTxSs *InstancePtr,
-    u32 HandlerType,
-    void *CallbackFuncPtr,
-    void *CallbackRef);
+		XV_HdmiTxSs_HandlerType HandlerType,
+		void *CallbackFuncPtr,
+		void *CallbackRef);
 int XV_HdmiTxSs_ReadEdid(XV_HdmiTxSs *InstancePtr, u8 *BufferPtr);
 int XV_HdmiTxSs_ReadEdidSegment(XV_HdmiTxSs *InstancePtr, u8 *Buffer, u8 segment);
 void XV_HdmiTxSs_ShowEdid(XV_HdmiTxSs *InstancePtr);
