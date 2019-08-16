@@ -28,7 +28,7 @@
 /**
  *
  * @file xilmailbox.c
- * @addtogroup xilmailbox_v1_0
+ * @addtogroup xilmailbox_v1_1
  * @{
  * @details
  *
@@ -41,6 +41,7 @@
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   adk  14/02/19    Initial Release
+ * 1.1   sd   16/08/19    Initialise status variable
  *</pre>
  *
  *@note
@@ -65,7 +66,7 @@
  ****************************************************************************/
 u32 XMailbox_Send(XMailbox *InstancePtr, u32 RemoteId, u8 Is_Blocking)
 {
-	u32 Status;
+	u32 Status = XST_FAILURE;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -95,7 +96,7 @@ u32 XMailbox_Send(XMailbox *InstancePtr, u32 RemoteId, u8 Is_Blocking)
 u32 XMailbox_SendData(XMailbox *InstancePtr, u32 RemoteId, void *BufferPtr,
 		      u32 MsgLen, u8 BufferType, u8 Is_Blocking)
 {
-	u32 Status;
+	u32 Status = XST_FAILURE;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -131,7 +132,7 @@ u32 XMailbox_SendData(XMailbox *InstancePtr, u32 RemoteId, void *BufferPtr,
 u32 XMailbox_Recv(XMailbox *InstancePtr, u32 SourceId, void *BufferPtr,
 		  u32 MsgLen, u8 BufferType)
 {
-	u32 Status;
+	u32 Status = XST_FAILURE;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);

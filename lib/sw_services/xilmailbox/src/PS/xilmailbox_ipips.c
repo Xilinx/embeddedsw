@@ -27,7 +27,7 @@
 /**
  *
  * @file xilmailbox_ipips.c
- * @addtogroup xilmailbox_v1_0
+ * @addtogroup xilmailbox_v1_1
  * @{
  * @details
  *
@@ -39,6 +39,7 @@
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   adk  14/02/19    Initial Release
+ * 1.1   sd   16/08/19    Initialise status variable
  *</pre>
  *
  *@note
@@ -77,7 +78,7 @@ static void XIpiPs_IntrHandler(void *XMailboxPtr);
 /****************************************************************************/
 u32 XMailbox_Initialize(XMailbox *InstancePtr, u8 DeviceId)
 {
-	u32 Status;
+	u32 Status = XST_FAILURE;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -243,7 +244,7 @@ static u32 XIpiPs_PollforDone(XMailbox *InstancePtr)
 static u32 XIpiPs_RecvData(XMailbox *InstancePtr, void *MsgBufferPtr,
 			   u32 MsgLen, u8 BufferType)
 {
-	u32 Status;
+	u32 Status = XST_FAILURE;
 	XMailbox_Agent *DataPtr = &InstancePtr->Agent;
 	XIpiPsu *IpiInstancePtr = &DataPtr->IpiInst;
 
@@ -255,7 +256,7 @@ static u32 XIpiPs_RecvData(XMailbox *InstancePtr, void *MsgBufferPtr,
 static XStatus XIpiPs_RegisterIrq(XScuGic *IntcInstancePtr,
 				  XMailbox *InstancePtr,
 				  u32 IpiIntrId) {
-	u32 Status;
+	u32 Status = XST_FAILURE;
 	XScuGic_Config *IntcConfigPtr;
 
 	/* Initialize the interrupt controller driver */
@@ -321,7 +322,7 @@ static void XIpiPs_IntrHandler(void *XMailboxPtr)
 static void XIpiPs_ErrorIntrHandler(void *XMailboxPtr)
 {
 	XMailbox *InstancePtr = (XMailbox *)((void *)XMailboxPtr);
-	u32 Status;
+	u32 Status = XST_FAILURE;
 
 	Status = XIpiPsu_ReadReg(IPI_BASEADDRESS, XIPIPSU_ISR_OFFSET);
 	XIpiPsu_WriteReg(IPI_BASEADDRESS, XIPIPSU_ISR_OFFSET,

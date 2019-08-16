@@ -42,6 +42,6 @@ BEGIN LIBRARY xilmailbox
   OPTION SUPPORTED_PERIPHERALS = (psu_cortexa72 psu_cortexa53 psu_cortexr5 psu_pmu psu_pmc psv_pmc);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilmailbox,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx IPI Mailbox Library";
-  OPTION VERSION = 1.0;
+  OPTION VERSION = 1.1;
   OPTION NAME = xilmailbox;
 END LIBRARY
