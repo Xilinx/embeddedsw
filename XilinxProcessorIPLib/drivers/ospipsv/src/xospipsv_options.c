@@ -486,6 +486,15 @@ u32 XOspiPsv_SetSdrDdrMode(XOspiPsv *InstancePtr, u32 Mode)
 								ConfigReg);
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_WRITE_COMPLETION_CTRL_REG, ReadReg);
+	ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+				XOSPIPSV_RD_DATA_CAPTURE_REG);
+	ReadReg &= ~XOSPIPSV_RD_DATA_CAPTURE_REG_DELAY_FLD_MASK;
+	if (InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_SDR_NON_PHY) {
+		ReadReg |= (XOSPIPSV_NON_PHY_RD_DLY <<
+			XOSPIPSV_RD_DATA_CAPTURE_REG_DELAY_FLD_SHIFT);
+	}
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_RD_DATA_CAPTURE_REG, ReadReg);
 	Status = XOspiPsv_SetDllDelay(InstancePtr);
 
 ERROR_PATH:

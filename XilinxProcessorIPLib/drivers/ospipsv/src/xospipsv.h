@@ -48,6 +48,7 @@
 * 1.0   akm 03/29/19 Fixed data alignment issues on IAR compiler.
 * 1.1   sk   07/22/19 Added RX Tuning algorithm for SDR and DDR modes.
 *       sk   08/08/19 Added flash device reset support.
+*       sk   08/16/19 Set Read Delay Fld to 0x1 for Non-Phy mode.
 *
 * </pre>
 *
@@ -232,6 +233,8 @@ typedef struct {
 
 #define XOSPIPSV_HWPIN_RESET	0x0U
 #define XOSPIPSV_INBAND_RESET	0x1U
+
+#define XOSPIPSV_NON_PHY_RD_DLY		0x1
 
 /* Initialization and reset */
 XOspiPsv_Config *XOspiPsv_LookupConfig(u16 DeviceId);
