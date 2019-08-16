@@ -193,7 +193,8 @@ typedef enum {
 	XV_HDMIRX_HANDLER_LINK_ERROR,		/**< Interrupt type for link error */
 	XV_HDMIRX_HANDLER_SYNC_LOSS,       /**< Interrupt type for sync loss */
 	XV_HDMIRX_HANDLER_MODE,            /**< Interrupt type for mode */
-    XV_HDMIRX_HANDLER_TMDS_CLK_RATIO /**< Interrupt type for TMDS clock ratio */
+	XV_HDMIRX_HANDLER_TMDS_CLK_RATIO, /**< Interrupt type for TMDS clock ratio */
+	XV_HDMIRX_HANDLER_VIC_ERROR	/**< Interrupt type for VIC error */
 } XV_HdmiRx_HandlerType;
 /*@}*/
 
@@ -357,6 +358,10 @@ typedef struct {
 	XV_HdmiRx_Callback TmdsClkRatioCallback;    /**< Callback for TMDS clock ratio change */
 	void *TmdsClkRatioRef;                  /**< To be passed to the TMDS callback */
 	u32 IsTmdsClkRatioCallbackSet;          /**< Set flag. This flag is set to true when the callback has been registered */
+
+	XV_HdmiRx_Callback VicErrorCallback;	/**< Callback for Vic error detection */
+	void *VicErrorRef;			/**< To be passed to the vic error callback */
+	u32 IsVicErrorCallbackSet;		/**< Set flag. This flag is set to true when the callback has been registered */
 
 	/* HDMI RX stream */
 	XV_HdmiRx_Stream Stream;				/**< HDMI RX stream information */
@@ -1290,6 +1295,7 @@ int XV_HdmiRx_GetTmdsClockRatio(XV_HdmiRx *InstancePtr);
 u8 XV_HdmiRx_GetAviVic(XV_HdmiRx *InstancePtr);
 XVidC_ColorFormat XV_HdmiRx_GetAviColorSpace(XV_HdmiRx *InstancePtr);
 XVidC_ColorDepth XV_HdmiRx_GetGcpColorDepth(XV_HdmiRx *InstancePtr);
+XVidC_VideoMode XV_HdmiRx_LookupVmId(u8 Vic);
 int XV_HdmiRx_GetVideoProperties(XV_HdmiRx *InstancePtr);
 int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr);
 u32 XV_HdmiRx_Divide(u32 Dividend, u32 Divisor);
@@ -1302,7 +1308,10 @@ int XV_HdmiRx_SelfTest(XV_HdmiRx *InstancePtr);
 
 /* Interrupt related function in xv_hdmirx_intr.c */
 void XV_HdmiRx_IntrHandler(void *InstancePtr);
-int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr, u32 HandlerType, void *CallbackFunc, void *CallbackRef);
+int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr,
+		XV_HdmiRx_HandlerType HandlerType,
+		void *CallbackFunc,
+		void *CallbackRef);
 
 /* Vendor Specific Infomation related functions in xv_hdmirx_vsif.c */
 int XV_HdmiRx_VSIF_ParsePacket(XHdmiC_Aux *AuxPtr, XV_HdmiRx_VSIF  *VSIFPtr);
