@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -47,13 +47,17 @@
  * 1.7   gm   13/09/17 Added GTYE4 support
  * </pre>
  *
- * @addtogroup xvphy_v1_7
+ * @addtogroup xvphy_v1_9
  * @{
 *******************************************************************************/
 
 #ifndef XVPHY_HW_H_
 /* Prevent circular inclusions by using protection macros. */
 #define XVPHY_HW_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /***************************** Include Files **********************************/
 
@@ -638,6 +642,10 @@
 *******************************************************************************/
 #define XVphy_WriteReg(BaseAddress, RegOffset, Data) \
 	XVphy_Out32((BaseAddress) + (RegOffset), (Data))
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XVPHY_HW_H_ */
 /** @} */
