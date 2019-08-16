@@ -64,6 +64,7 @@
 * 2.2  mus    12/08/16   Remove definition of INLINE macro to avoid re-definition,
 *                         since it is being defined in xil_io.h
 * 2.3 kpc     14/10/16   Fixed the compiler error when optimization O0 is used.
+* 2.5 hk      08/16/19   Add a memory barrier before DMASEV as per specification.
 * </pre>
 *
 *****************************************************************************/
@@ -1298,6 +1299,8 @@ static int XDmaPs_BuildDmaProg(unsigned Channel, XDmaPs_Cmd *Cmd,
 		}
 	}
 
+	/* Add a memory barrier before DMASSEV as recommended by spec */
+	DmaProgBuf += XDmaPs_Instr_DMAWMB(DmaProgBuf);
 	DmaProgBuf += XDmaPs_Instr_DMASEV(DmaProgBuf, DevChan);
 	DmaProgBuf += XDmaPs_Instr_DMAEND(DmaProgBuf);
 
