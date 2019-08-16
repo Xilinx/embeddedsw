@@ -112,7 +112,7 @@ static void DpTxSs_TimerCallback(void *InstancePtr, u8 TmrCtrNumber);
 #endif
 
 #if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
-static void DpTxSs_TimeOutCallback(void *InstancePtr, u8 TmrCtrNumber);
+static void DpTxSs_TimerHdcp22Callback(void *InstancePtr, u8 TmrCtrNumber);
 #endif
 
 /************************** Variable Definitions *****************************/
@@ -260,13 +260,6 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 			InstancePtr->Config.BaseAddress;
 		InstancePtr->TmrCtrPtr->BaseAddress +=
 			InstancePtr->Config.BaseAddress;
-
-#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
-		/* Configure the callback */
-		XTmrCtr_SetHandler(InstancePtr->TmrCtrPtr,
-				(XTmrCtr_Handler)DpTxSs_TimeOutCallback,
-				InstancePtr);
-#endif /*XPAR_XHDCP22_TX_NUM_INSTANCES*/
 	}
 #endif /*(XPAR_DPTXSS_0_HDCP_ENABLE > 0)||(XPAR_XHDCP22_TX_NUM_INSTANCES > 0)*/
 
@@ -1513,6 +1506,16 @@ u32 XDpTxSs_Authenticate(XDpTxSs *InstancePtr)
 					XDPTXSS_HDCP_22);
 			Status |= XDpTxSs_HdcpEnable(InstancePtr);
 
+			/*
+			 * As the timer is same for both hdcp1x and hdcp22,
+			 * re-attach and set the callback for hdcp22 timeout
+			 */
+			XHdcp22Tx_timer_attach(InstancePtr->Hdcp22Ptr,
+					InstancePtr->TmrCtrPtr);
+			XTmrCtr_SetHandler(InstancePtr->TmrCtrPtr,
+					(XTmrCtr_Handler)DpTxSs_TimerHdcp22Callback,
+					(void *)InstancePtr);
+
 			/* Set lane count in HDCP */
 			XHdcp22_TxSetLaneCount(InstancePtr->Hdcp22Ptr,
 					InstancePtr->DpPtr->TxInstance.
@@ -2567,7 +2570,7 @@ int XDpTxSs_HdcpSetProtocol(XDpTxSs *InstancePtr,
 * @note		None.
 *
 ******************************************************************************/
-static void DpTxSs_TimeOutCallback(void *InstancePtr, u8 TmrCtrNumber)
+static void DpTxSs_TimerHdcp22Callback(void *InstancePtr, u8 TmrCtrNumber)
 {
 	XDpTxSs *XDpTxSsPtr = (XDpTxSs *)InstancePtr;
 
