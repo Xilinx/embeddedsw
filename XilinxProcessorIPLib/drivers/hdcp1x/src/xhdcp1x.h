@@ -27,7 +27,7 @@
 /**
 *
 * @file xhdcp1x.h
-* @addtogroup hdcp1x_v4_2
+* @addtogroup hdcp1x_v4_3
 * @{
 * @details
 *
@@ -718,6 +718,7 @@
 * 4.2   yas    08/13/18 Addded hdcp14_PropagateTopoErrUpstream flag to track
 *                       topology failures and ready the topology for the
 *                       repeater application to read.
+* 4.3   yas    08/16/19 Added support for HDMI 2.1 Rx and Tx.
 * </pre>
 *
 ******************************************************************************/

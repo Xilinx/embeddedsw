@@ -27,7 +27,7 @@
 /**
 *
 * @file xhdcp1x_port_hdmi_rx.c
-* @addtogroup hdcp1x_v4_2
+* @addtogroup hdcp1x_v4_3
 * @{
 *
 * This contains the implementation of the HDCP port driver for HDMI RX
@@ -56,14 +56,25 @@
 /***************************** Include Files *********************************/
 
 #include "xparameters.h"
-#if defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)
+#if (defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && \
+     (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)) || \
+    (defined(XPAR_XV_HDMIRX1_NUM_INSTANCES) && \
+     (XPAR_XV_HDMIRX1_NUM_INSTANCES > 0))
 #include <stdlib.h>
 #include <string.h>
 #include "xhdcp1x_port.h"
 #include "xhdcp1x_port_hdmi.h"
-#include "xv_hdmirx.h"
 #include "xil_assert.h"
 #include "xil_types.h"
+
+#if (defined(XPAR_XV_HDMITX_NUM_INSTANCES) && \
+     (XPAR_XV_HDMITX_NUM_INSTANCES > 0))
+#include "xv_hdmirx.h"
+#endif
+#if (defined(XPAR_XV_HDMITX1_NUM_INSTANCES) && \
+     (XPAR_XV_HDMITX1_NUM_INSTANCES > 0))
+#include "xv_hdmirx1.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 

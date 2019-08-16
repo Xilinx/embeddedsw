@@ -27,7 +27,7 @@
 /**
 *
 * @file xhdcp1x_port.c
-* @addtogroup hdcp1x_v4_2
+* @addtogroup hdcp1x_v4_3
 * @{
 *
 * This contains the main implementation file for the Xilinx HDCP Port driver
@@ -53,7 +53,14 @@
 #include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
-
+#if defined(XPAR_XV_HDMITX1_NUM_INSTANCES) && \
+    (XPAR_XV_HDMITX1_NUM_INSTANCES > 0)
+#define INCLUDE_HDMI_TX
+#endif
+#if defined(XPAR_XV_HDMIRX1_NUM_INSTANCES) && \
+    (XPAR_XV_HDMIRX1_NUM_INSTANCES > 0)
+#define INCLUDE_HDMI_RX
+#endif
 #if defined(XPAR_XV_HDMITX_NUM_INSTANCES) && (XPAR_XV_HDMITX_NUM_INSTANCES > 0)
 #define INCLUDE_HDMI_TX
 #endif

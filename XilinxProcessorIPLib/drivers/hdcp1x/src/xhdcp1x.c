@@ -27,7 +27,7 @@
 /**
 *
 * @file xhdcp1x.c
-* @addtogroup hdcp1x_v4_2
+* @addtogroup hdcp1x_v4_3
 * @{
 *
 * This contains the implementation of the HDCP state machine module
@@ -82,6 +82,14 @@
 
 /************************** Constant Definitions *****************************/
 
+#if defined(XPAR_XV_HDMITX1_NUM_INSTANCES) && \
+    (XPAR_XV_HDMITX1_NUM_INSTANCES > 0)
+#define INCLUDE_TX
+#endif
+#if defined(XPAR_XV_HDMIRX1_NUM_INSTANCES) && \
+    (XPAR_XV_HDMIRX1_NUM_INSTANCES > 0)
+#define INCLUDE_RX
+#endif
 #if defined(XPAR_XV_HDMITX_NUM_INSTANCES) && (XPAR_XV_HDMITX_NUM_INSTANCES > 0)
 #define INCLUDE_TX
 #endif
