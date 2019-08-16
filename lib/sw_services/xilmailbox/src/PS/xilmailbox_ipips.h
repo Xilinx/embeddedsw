@@ -27,7 +27,7 @@
 /**
  *
  * @file xilmailbox_ipips.h
- * @addtogroup xilmailbox_v1_0
+ * @addtogroup xilmailbox_v1_1
  * @{
  * @details
  *
