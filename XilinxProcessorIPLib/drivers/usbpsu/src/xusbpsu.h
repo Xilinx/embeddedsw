@@ -27,7 +27,7 @@
 /**
 *
 * @file xusbpsu.h
-* @addtogroup usbpsu_v1_3
+* @addtogroup usbpsu_v1_6
 * @{
 * @details
 *
@@ -60,7 +60,7 @@
 *	               negotiation at the time of connection to Host
 * 1.5	vak   02/06/19 Added "xusbpsu_endpoint.h" header
 * 1.5	vak   03/25/19 Fixed incorrect data_alignment pragma directive for IAR
-*	pm    22/07/19 Removed coverity warnings
+* 1.6	pm    22/07/19 Removed coverity warnings
 *
 * </pre>
 *

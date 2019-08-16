@@ -27,7 +27,7 @@
 /**
 *
 * @file xusbpsu.c
-* @addtogroup usbpsu_v1_3
+* @addtogroup usbpsu_v1_6
 * @{
 *
 * <pre>
@@ -44,7 +44,7 @@
 * 1.4	vak   30/05/18 Removed xusb_wrapper files
 *	vak   24/09/18 Add support for connecting to host in high-speed
 * 1.5	vak   02/06/19 Add API for idling usb controller
-*	pm    22/07/19 Removed coverity warnings
+* 1.6	pm    22/07/19 Removed coverity warnings
 *	pm    08/08/19 Added support to set AXI-Cache bits when CCI is enable
 *
 * </pre>
