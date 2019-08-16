@@ -70,6 +70,8 @@
 *                           XV_HdmiTx_DdcRead APIs to prevent another DDC
 *                           transactions from happening in the middle of a DDC
 *                           transaction
+*       EB     16/07/19 Replaced sampling rate of 4 with 2 at the API
+*                           XV_HdmiTx_SetSampleRate
 * </pre>
 *
 ******************************************************************************/
@@ -1081,6 +1083,7 @@ void XV_HdmiTx_SetPixelRate(XV_HdmiTx *InstancePtr)
 *
 * @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 * @param    SampleRate specifies the value that needs to be set.
+*       - 2 samples per clock
 *       - 3 samples per clock.
 *       - 5 samples per clock.
 *
@@ -1107,12 +1110,12 @@ void XV_HdmiTx_SetSampleRate(XV_HdmiTx *InstancePtr, u8 SampleRate)
 
     // Check for sample rate
     switch (SampleRate) {
-        case 3:
-            RegValue = 1;
+        case 2:
+            RegValue = 2;
             break;
 
-        case 4:
-            RegValue = 2;
+        case 3:
+            RegValue = 1;
             break;
 
         case 5:
