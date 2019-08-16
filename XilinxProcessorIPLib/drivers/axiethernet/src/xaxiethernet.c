@@ -51,6 +51,7 @@
 * 5.7   srm  01/16/18 Implemented poll timeout API which replaces while loops
 *                     to ensure a deterministic time delay.
 * 5.8   rsp  07/20/18 Fix cppcheck warning in Aptr assignment.
+* 5.10  aru  08/16/19 Fix coverity warning
 *
 * </pre>
 ******************************************************************************/
@@ -1418,11 +1419,6 @@ int XAxiEthernet_SetOperatingSpeed(XAxiEthernet *InstancePtr, u16 Speed)
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid((Speed == XAE_SPEED_10_MBPS) ||
-			(Speed == XAE_SPEED_100_MBPS) ||
-			(Speed == XAE_SPEED_1000_MBPS) ||
-			(Speed == XAE_SPEED_2500_MBPS));
-
 
 	xdbg_printf(XDBG_DEBUG_GENERAL, "XAxiEthernet_SetOperatingSpeed\n");
 	xdbg_printf(XDBG_DEBUG_GENERAL,
