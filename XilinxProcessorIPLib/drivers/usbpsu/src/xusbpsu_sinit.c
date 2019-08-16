@@ -27,7 +27,7 @@
 /**
 *
 * @file xusbpsu_sinit.h
-* @addtogroup usbpsu_v1_3
+* @addtogroup usbpsu_v1_6
 * @{
 *
 *

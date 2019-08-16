@@ -27,7 +27,7 @@
 /**
  *
  * @file xusbps_endpoint.h
-* @addtogroup usbpsu_v1_3
+* @addtogroup usbpsu_v1_6
 * @{
  *
  * This is an internal file containing the definitions for endpoints. It is
@@ -42,7 +42,7 @@
  * 1.0   sg  06/06/16  First release
  * 1.4 	 bk  12/01/18  Modify USBPSU driver code to fit USB common example code
  *		       for all USB IPs.
- *	  pm  22/07/18  Removed coverity warning- INCLUDE_RECURSION
+ * 1.6   pm  22/07/18  Removed coverity warning- INCLUDE_RECURSION
  * </pre>
  *
  ******************************************************************************/

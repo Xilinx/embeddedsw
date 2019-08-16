@@ -27,7 +27,7 @@
 /**
 *
 * @file xusbpsu_endpoint.c
-* @addtogroup usbpsu_v1_3
+* @addtogroup usbpsu_v1_6
 * @{
 *
 *
@@ -42,7 +42,7 @@
 *		       for all USB IPs
 *	myk 12/01/18 Added hibernation support for device mode
 * 1.4	vak 30/05/18 Removed xusb_wrapper files
-*	pm  22/07/19 Removed coverity warnings
+* 1.6	pm  22/07/19 Removed coverity warnings
 * </pre>
 *
 *****************************************************************************/

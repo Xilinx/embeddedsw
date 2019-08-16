@@ -27,7 +27,7 @@
 /**
 *
 * @file xusbpsu_controltransfers.c
-* @addtogroup usbpsu_v1_0
+* @addtogroup usbpsu_v1_6
 * @{
 *
 * <pre>

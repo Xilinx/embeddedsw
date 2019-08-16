@@ -27,7 +27,7 @@
 /**
 *
 * @file xusbpsu_hw.h
-* @addtogroup usbpsu_v1_3
+* @addtogroup usbpsu_v1_6
 * @{
 *
 * <pre>
@@ -38,7 +38,7 @@
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   sg    06/06/16 First release
 * 1.4   myk   12/01/18 Added support of hibernation
-* 1.5	pm    08/08/19 Added AXI-Cache bits masking for CCI feature is enable
+* 1.6	pm    08/08/19 Added AXI-Cache bits masking for CCI feature is enable
 *
 * </pre>
 *
