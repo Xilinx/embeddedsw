@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -776,7 +776,7 @@ void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr) {
 			}
 
 			// Backspace
-			else if (Data == '\b') {
+			else if (Data == '\b' || Data == 127) {
 				InstancePtr->Value = InstancePtr->Value / 10; //discard previous input
 			}
 

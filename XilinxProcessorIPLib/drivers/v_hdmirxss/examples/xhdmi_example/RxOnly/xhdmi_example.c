@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -134,7 +134,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 /* These macro values need to changed whenever there is a change in version */
 #define APP_MAJ_VERSION 5
-#define APP_MIN_VERSION 3
+#define APP_MIN_VERSION 4
 
 /**************************** Type Definitions *******************************/
 
