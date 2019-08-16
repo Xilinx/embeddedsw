@@ -26,7 +26,7 @@
 /**
 *
 * @file xhdcp1x_port.h
-* @addtogroup hdcp1x_v4_2
+* @addtogroup hdcp1x_v4_3
 * @{
 *
 * This header file contains the external declarations associated with the
