@@ -363,7 +363,7 @@ u32 XilPdi_GetSBD(const XilPdi_ImgHdrTable * ImgHdrTbl);
 XStatus XilPdi_ValidateChecksum(u32 Buffer[], u32 Len);
 XStatus XilPdi_ValidatePrtnHdr(XilPdi_PrtnHdr * PrtnHdr);
 XStatus XilPdi_ValidateImgHdrTable(XilPdi_ImgHdrTable * ImgHdrTable);
-XStatus XilPdi_ReadBootHdr(XilPdi_MetaHdr * ImgHdrPtr);
+void XilPdi_ReadBootHdr(XilPdi_MetaHdr * ImgHdrPtr);
 XStatus XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * ImgHdrPtr);
 XStatus XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr * MetaHdrPtr);
 XStatus XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr * ImgHdrPtr);

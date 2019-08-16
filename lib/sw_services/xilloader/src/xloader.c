@@ -220,12 +220,7 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	 * Read meta header from PDI source
 	 */
 	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
-		Status = XilPdi_ReadBootHdr(&PdiPtr->MetaHdr);
-		if(Status != XST_SUCCESS)
-		{
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_BOOTHDR, Status);
-			goto END;
-		}
+		XilPdi_ReadBootHdr(&PdiPtr->MetaHdr);
 		PdiPtr->ImageNum = 1U;
 		PdiPtr->PrtnNum = 1U;
 	} else {

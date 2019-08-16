@@ -135,14 +135,13 @@ u32 XilPdi_GetSBD(const XilPdi_ImgHdrTable * ImgHdrTbl)
 *****************************************************************************/
 XStatus XilPdi_ValidateChecksum(u32 Buffer[], u32 Len)
 {
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 	u32 Checksum=0U;
 	u32 Count;
 
 	/* Len has to be at least equal to 2 */
 	if (Len < 2U)
 	{
-		Status = XST_FAILURE;
 		goto END;
 	}
 
@@ -164,7 +163,6 @@ XStatus XilPdi_ValidateChecksum(u32 Buffer[], u32 Len)
 	if (Buffer[Len-1U] != Checksum) {
 		XilPdi_Printf("Error: Checksum 0x%0lx != %0lx\r\n",
 			Checksum, Buffer[Len-1U]);
-		Status =  XST_FAILURE;
 	}
 	else
 	{
@@ -192,7 +190,7 @@ END:
 *****************************************************************************/
 XStatus XilPdi_ValidateImgHdrTable(XilPdi_ImgHdrTable * ImgHdrTable)
 {
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 
 	/* Check the check sum of the image header table */
 	Status = XilPdi_ValidateChecksum((u32 *)ImgHdrTable,
@@ -261,7 +259,7 @@ END:
 *****************************************************************************/
 XStatus XilPdi_ValidatePrtnHdr(XilPdi_PrtnHdr * PrtnHdr)
 {
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 	u32 PrtnType;
 
 	if((PrtnHdr->UnEncDataWordLen == 0U) || (PrtnHdr->EncDataWordLen == 0U)
@@ -325,10 +323,8 @@ END:
 * @note
 *
 *****************************************************************************/
-XStatus XilPdi_ReadBootHdr(XilPdi_MetaHdr * MetaHdrPtr)
+void XilPdi_ReadBootHdr(XilPdi_MetaHdr * MetaHdrPtr)
 {
-	XStatus Status = XST_SUCCESS;
-
 	memcpy((u8 *)&(MetaHdrPtr->BootHdr.WidthDetection),
 			(u8 *)XIH_BH_PRAM_ADDR, (XIH_BH_LEN - XIH_BH_SMAP_BUS_WIDTH_LEN));
 
@@ -343,7 +339,6 @@ XStatus XilPdi_ReadBootHdr(XilPdi_MetaHdr * MetaHdrPtr)
 		MetaHdrPtr->BootHdr.BootHdrFwRsvd.MetaHdrLen);
 	XilPdi_Printf("Meta Header AC Offset: 0x%0lx \n\r",
 		MetaHdrPtr->BootHdr.BootHdrFwRsvd.MetaHdrAcOfst);
-	return Status;
 }
 
 /****************************************************************************/
@@ -361,7 +356,7 @@ XStatus XilPdi_ReadBootHdr(XilPdi_MetaHdr * MetaHdrPtr)
 *****************************************************************************/
 XStatus XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
 {
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 	u32 SmapBusWidthCheck[4];
 	/**
 	 * Read the Img header table of 64 bytes
@@ -428,7 +423,7 @@ END:
 *****************************************************************************/
 XStatus XilPdi_ReadAndVerifyImgHdr(XilPdi_MetaHdr * MetaHdrPtr)
 {
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 	u32 NoOfImgs;
 	u32 ImgIndex;
 	u32 ImgHdrAddr;
@@ -488,7 +483,7 @@ END:
 *****************************************************************************/
 XStatus XilPdi_ReadAndVerifyPrtnHdr(XilPdi_MetaHdr * MetaHdrPtr)
 {
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 	u32 PrtnIndex;
 	u32 NoOfPrtns;
 	u32 PrtnHdrAddr;
@@ -553,7 +548,7 @@ END:
 *****************************************************************************/
 XStatus XilPdi_ReadAlignedData(XilPdi_MetaHdr * MetaHdrPtr, u32 PrtnNum)
 {
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 	u32 PrtnLen;
 	u32 AlignLen;
 	XilPdi_PrtnHdr * PrtnHdr;
