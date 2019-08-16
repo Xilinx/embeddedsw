@@ -1576,6 +1576,7 @@
 #define XDP_RX_SOFT_RESET_VIDEO_MASK	0x01	/**< Reset the video logic. */
 #define XDP_RX_SOFT_RESET_AUX_MASK	0x80	/**< Reset the AUX logic. */
 #define XDP_RX_SOFT_RESET_HDCP_MASK	0x100	/**< Reset the HDCP logic. */
+#define XDP_RX_SOFT_RESET_HDCP22_MASK	0x200	/**< Reset the HDCP22 logic. */
 /* 0x02C: HPD_INTERRUPT */
 #define XDP_RX_HPD_INTERRUPT_ASSERT_MASK \
 				0x00000001	/**< Instructs the RX core to
