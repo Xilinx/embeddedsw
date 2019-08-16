@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 - 2017 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2016 - 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -93,6 +93,7 @@
 *                       Added TMDS Clock Ratio callback support
 *       YB     17/08/18 Marked XV_HDMIRXSS_HDCP_1_PROT_EVT and
 *                           XV_HDMIRXSS_HDCP_2_PROT_EVT as deprecated.
+* 5.40  EB     06/08/19 Added Vic and Video Timing mismatch callback support
 * </pre>
 *
 ******************************************************************************/
@@ -168,6 +169,7 @@ typedef enum {
 	XV_HDMIRXSS_LOG_EVT_SYNCLOSS,           /**< Log event Sync Loss detected. */
 	XV_HDMIRXSS_LOG_EVT_PIX_REPEAT_ERR,		/**< Log event Unsupported Pixel Repetition. */
 	XV_HDMIRXSS_LOG_EVT_SYNCEST,            /**< Log event Sync Loss detected. */
+	XV_HDMIRXSS_LOG_EVT_VICERROR,           /**< Log event vic error detected. */
 	XV_HDMIRXSS_LOG_EVT_DUMMY               /**< Dummy Event should be last */
 } XV_HdmiRxSs_LogEvent;
 
@@ -298,9 +300,11 @@ typedef enum {
   XV_HDMIRXSS_HANDLER_HDCP_ENCRYPTION_UPDATE,       /**< Handler for HDCP
                                                          encryption status
                                                          update event */
-  XV_HDMIRXSS_HANDLER_TMDS_CLK_RATIO                /**< Handler type for
+  XV_HDMIRXSS_HANDLER_TMDS_CLK_RATIO,               /**< Handler type for
                                                          TMDS clock ratio
                                                          change */
+  XV_HDMIRXSS_HANDLER_VIC_ERROR                     /**< Handler type for
+                                                         VIC error change */
 } XV_HdmiRxSs_HandlerType;
 /*@}*/
 
@@ -414,6 +418,10 @@ typedef struct
   void *TmdsClkRatioRef;/**< To be passed to the scdc tmds clock ratio change
                              callback */
 
+  XV_HdmiRxSs_Callback VicErrorCallback;  /**< Callback for VIC error
+                                               detection */
+   void *VicErrorRef;   /**< To be passed to the VIC error callback */
+
   // Scratch pad
   u8 IsStreamConnected;         /**< HDMI RX Stream Connected */
   u8 IsStreamUp;                /**< HDMI RX Stream Up */
@@ -473,9 +481,9 @@ void XV_HdmiRxSs_RXCore_LRST(XV_HdmiRxSs *InstancePtr, u8 Reset);
 void XV_HdmiRxSs_VRST(XV_HdmiRxSs *InstancePtr, u8 Reset);
 void XV_HdmiRxSs_SYSRST(XV_HdmiRxSs *InstancePtr, u8 Reset);
 int XV_HdmiRxSs_SetCallback(XV_HdmiRxSs *InstancePtr,
-    u32 HandlerType,
-    void *CallbackFunc,
-    void *CallbackRef);
+		XV_HdmiRxSs_HandlerType HandlerType,
+		void *CallbackFunc,
+		void *CallbackRef);
 void XV_HdmiRxSs_SetEdidParam(XV_HdmiRxSs *InstancePtr, u8 *EdidDataPtr,
                                                                 u16 Length);
 void XV_HdmiRxSs_LoadDefaultEdid(XV_HdmiRxSs *InstancePtr);
