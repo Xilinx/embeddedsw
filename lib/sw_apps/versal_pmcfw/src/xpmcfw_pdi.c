@@ -89,11 +89,7 @@ XStatus XPmcFw_PdiInit(XPmcFw * PmcFwInstancePtr)
 	PmcFwInstancePtr->MetaHdr.DeviceCopy=PmcFwInstancePtr->DeviceOps.Copy;
 
 	/* Read Boot Hdr */
-	Status = XilPdi_ReadBootHdr(&(PmcFwInstancePtr->MetaHdr));
-	if (XPMCFW_SUCCESS != Status)
-	{
-		goto END;
-	}
+	XilPdi_ReadBootHdr(&(PmcFwInstancePtr->MetaHdr));
 
 	/* Read Img Hdr Table and verify Checksum */
 	Status = XilPdi_ReadImgHdrTbl(&(PmcFwInstancePtr->MetaHdr));
