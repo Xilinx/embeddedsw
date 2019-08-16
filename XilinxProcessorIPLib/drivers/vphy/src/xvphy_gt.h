@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -48,13 +48,17 @@
  * 1.7   gm   13/09/17 Added GTYE4 support
  * </pre>
  *
- * @addtogroup xvphy_v1_7
+ * @addtogroup xvphy_v1_9
  * @{
 *******************************************************************************/
 
 #ifndef XVPHY_GT_H_
 /* Prevent circular inclusions by using protection macros. */
 #define XVPHY_GT_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /******************************* Include Files ********************************/
 
@@ -127,6 +131,10 @@ extern const XVphy_GtConfig Gthe3Config;
 extern const XVphy_GtConfig Gthe4Config;
 #elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTYE4)
 extern const XVphy_GtConfig Gtye4Config;
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif /* XVPHY_GT_H_ */

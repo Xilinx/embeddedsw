@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@
 /**
  *
  * @file xvphy.h
- * @addtogroup xvphy_v1_7
+ * @addtogroup xvphy_v1_9
  * @{
  * @details
  * This is main header file of the Xilinx Video PHY Controller driver
@@ -104,6 +104,10 @@
 #ifndef XVPHY_H_
 /* Prevent circular inclusions by using protection macros. */
 #define XVPHY_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #if !defined(XV_CONFIG_LOG_VPHY_DISABLE) && !defined(XV_CONFIG_LOG_DISABLE_ALL)
 #define XV_VPHY_LOG_ENABLE
@@ -1009,6 +1013,10 @@ void XVphy_RegisterDebug(XVphy *InstancePtr);
 #define XVPHY_GTHE3 4
 #define XVPHY_GTHE4 5
 #define XVPHY_GTYE4 6
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XVPHY_H_ */
 /** @} */

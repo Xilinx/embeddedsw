@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -53,13 +53,17 @@
  *                           Moved XVphy_SetRxLpm to xvphy.c/.h
  * </pre>
  *
- * @addtogroup xvphy_v1_7
+ * @addtogroup xvphy_v1_9
  * @{
 *******************************************************************************/
 
 #ifndef XVPHY_I_H_
 /* Prevent circular inclusions by using protection macros. */
 #define XVPHY_I_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /******************************* Include Files ********************************/
 
@@ -150,6 +154,10 @@ void XVphy_PllLayoutErrorHandler(XVphy *InstancePtr);
 #endif
 
 /******************* Macros (Inline Functions) Definitions ********************/
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XVPHY_I_H_ */
 /** @} */
