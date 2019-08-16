@@ -86,7 +86,7 @@ static void XHdcp22_PortDpRxProcessAkeInit(void *RefPtr)
 		for(u8 Index = 0; Index < 2; Index++) {
 			XDp_WriteReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
 					XDP_RX_SOFT_RESET,
-					XDP_RX_SOFT_RESET_HDCP_MASK);
+					XDP_RX_SOFT_RESET_HDCP22_MASK);
 			XDp_WriteReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
 					XDP_RX_SOFT_RESET, 0);
 		}
