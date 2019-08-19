@@ -19,4 +19,7 @@ pmc gpio & Ps gpio with configuring Gpio.PmcGpio value.if Gpio.PmcGpio =1
 it will work for pmc gpio else it works for ps gpio.
 
 For details, see xgpiops_polled_example.c.
+
+Note:
+GPIO pin number has to be changes based on the board design.
 */
