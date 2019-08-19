@@ -21,6 +21,7 @@ Update Input Tap Delays for Versal
 gpiops_v3_6
 udpated gpiops example with versal support.
 Fixed IAR compiler warnings.
+Added interrupt example support on versal.
 
 gpio_v4_5:
 Updated Makefile for IAR compiler.
