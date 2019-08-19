@@ -53,6 +53,8 @@
 * 3.5   sne  03/14/19 Added Versal support.
 * 3.5   sne  03/20/19 Fixed multiple interrupts problem CR#1024556.
 * 3.6	sne  06/12/19 Fixed IAR compiler warning.
+* 3.6   sne  08/14/19 Added interrupt handler support on versal.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -773,16 +775,27 @@ void XGpioPs_IntrHandler(const XGpioPs *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-        for (Bank = 0U; Bank < InstancePtr->MaxBanks; Bank++) {
-                IntrStatus = XGpioPs_IntrGetStatus(InstancePtr, Bank);
-                IntrEnabled = XGpioPs_IntrGetEnabled(InstancePtr,Bank);
-                if ((IntrStatus & IntrEnabled) != (u32)0) {
-                        XGpioPs_IntrClear(InstancePtr, Bank,
-                                        (IntrStatus & IntrEnabled));
-                        InstancePtr->Handler(InstancePtr->
-                                        CallBackRef, Bank,
-                                        (IntrStatus & IntrEnabled));
-                }
+	for (Bank = 0U; Bank < InstancePtr->MaxBanks; Bank++) {
+#ifdef versal
+		if(InstancePtr->PmcGpio == TRUE) {
+			if(Bank == XGPIOPS_TWO) {
+				continue;
+			}
+		} else {
+			if((Bank == XGPIOPS_ONE) || (Bank == XGPIOPS_TWO)) {
+				continue;
+			}
+		}
+#endif
+		IntrStatus = XGpioPs_IntrGetStatus(InstancePtr, Bank);
+		IntrEnabled = XGpioPs_IntrGetEnabled(InstancePtr,Bank);
+		if ((IntrStatus & IntrEnabled) != (u32)0) {
+			XGpioPs_IntrClear(InstancePtr, Bank,
+					(IntrStatus & IntrEnabled));
+			InstancePtr->Handler(InstancePtr->
+					CallBackRef, Bank,
+					(IntrStatus & IntrEnabled));
+		}
 	}
 }
 
