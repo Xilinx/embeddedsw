@@ -57,6 +57,10 @@
 * 3.3   ms   04/17/17 Added notes about input and output pin description
 *                     for zcu102 and zc702 boards.
 * 3.5   sne  04/26/19 Added versal support.
+* 3.6	sne  08/19/19 Updated gpio pin numbers for versal platform.
+*		      Using pmc_MIO38,pmc_MIO39 for PMC device and
+*		      LPD_MIO14,LPD_MIO15 for PS device.
+*
 * </pre>
 *
 *****************************************************************************/
@@ -196,13 +200,13 @@ int GpioPolledExample(u16 DeviceId, u32 *DataRead)
 #ifdef versal
 		case XPLAT_versal:
 			if(Gpio.PmcGpio == 0x1U) {
-				Input_Pin = 52;
-				Output_Pin = 84;
+				Input_Pin = 38;
+				Output_Pin = 39;
 				break;
 			}
 			else {
-				Input_Pin = 26;
-				Output_Pin = 41;
+				Input_Pin = 14;
+				Output_Pin = 15;
 				break;
 			}
 #endif
