@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2002 - 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -108,6 +108,8 @@ extern "C" {
 						   available because it has not
 						   been enabled */
 #define XST_NO_ACCESS			30L	/* Generic access error */
+#define XST_TIMEOUT                     31L	/*!< Event timeout occurred */
+
 /** @} */
 /***************** Utility Component statuses 401 - 500  *********************/
 /**
