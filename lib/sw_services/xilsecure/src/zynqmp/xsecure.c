@@ -1576,9 +1576,9 @@ static u32 XSecure_DecryptPartition(XSecure_ImageInfo *ImageHdrInfo,
 				XSECURE_WORD_LEN));
 
 	if (Status != (u32)XST_SUCCESS) {
-		Status = XSECURE_PARTITION_FAIL |
-				XSECURE_AES_DECRYPTION_FAILURE |
-				XSECURE_AES_ERROR | Status;
+		Status = (u32)((u32)XSECURE_PARTITION_FAIL |
+				(u32)XSECURE_AES_DECRYPTION_FAILURE |
+				(u32)XSECURE_AES_ERROR | (u32)Status);
 		Addr->AddrHigh = 0x00U;
 		Addr->AddrLow = 0x00U;
 	}
