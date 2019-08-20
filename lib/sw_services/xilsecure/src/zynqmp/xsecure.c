@@ -329,6 +329,14 @@ static u32 XSecure_InitAes(u32 AddrHigh, u32 AddrLow)
 	IvPtr = (u32 *)(UINTPTR)IvAddr;
 	KeyPtr =(u32 *)(UINTPTR)KeyAddr;
 
+	if(IvPtr == NULL){
+		Status = (u32)XST_FAILURE;
+		goto END;
+	}
+	if ((AesParams->KeySrc == XSECURE_AES_KUP_KEY) && (KeyPtr == NULL)) {
+		Status = (u32)XST_FAILURE;
+		goto END;
+	}
 	Status = XSecure_CsuDmaInit();
 	if (Status != (u32)XST_SUCCESS) {
 		Status = XSECURE_ERROR_CSUDMA_INIT_FAIL;
