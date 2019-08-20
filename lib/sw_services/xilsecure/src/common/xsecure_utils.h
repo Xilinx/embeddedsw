@@ -40,6 +40,7 @@
 * ----- ------  -------- ------------------------------------------------------
 * 4.0   vns     03/12/19 Initial Release
 * 4.1	kal	05/20/19 Updated doxygen tags
+*       psl     08/05/19 Fixed MISRA-C violation
 * </pre>
 * @endcond
 ******************************************************************************/
@@ -83,6 +84,7 @@ extern "C" {
 #define XSECURE_SSS_MAX_SRCS		(5U)	/**< Maximum resources */
 #endif
 
+#define XSECURE_TIMEOUT_MAX		(0x1FFFFFU)
 
 /***************************** Type Definitions******************************/
 /**
