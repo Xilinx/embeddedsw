@@ -134,6 +134,9 @@ extern "C" {
 #define LPD_ID	NODEID(XPM_NODECLASS_POWER, XPM_NODESUBCL_POWER_DOMAIN, \
 		       XPM_NODETYPE_POWER_DOMAIN_PS_LOW, XPM_NODEIDX_POWER_LPD)
 
+#define LPD_BISR_DONE		BIT(0)
+#define LPD_BISR_DATA_COPIED	BIT(1)
+
 typedef struct XPm_PsLpDomain XPm_PsLpDomain;
 
 /**
@@ -141,7 +144,7 @@ typedef struct XPm_PsLpDomain XPm_PsLpDomain;
  */
 struct XPm_PsLpDomain {
 	XPm_PowerDomain Domain; /**< Power domain node base class */
-	u8 LpdBisrDone;
+	u8 LpdBisrFlags;
 };
 
 /************************** Function Prototypes ******************************/

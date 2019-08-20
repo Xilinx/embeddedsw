@@ -25,6 +25,7 @@
 #include "xpm_regs.h"
 #include "xpm_bisr.h"
 #include "xpm_powerdomain.h"
+#include "xpm_pslpdomain.h"
 
 /* Defines */
 #define PMC_EFUSE_BISR_START_ADDR 	EFUSE_CACHE_BISR_RSVD_0
@@ -263,14 +264,26 @@ done:
 
 static XStatus XPmBisr_RepairLpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr)
 {
+	XStatus Status;
 	u64 BisrDataDestAddr;
+	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(LPD_ID);
+
+	if (NULL == LpDomain) {
+		Status = XST_FAILURE;
+		goto done;
+	}
 
 	BisrDataDestAddr = LPD_SLCR_BISR_CACHE_DATA_0;
 
 	/* Copy repair data */
 	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
 
-	return XPmBisr_TriggerLpd();
+	LpDomain->LpdBisrFlags |= LPD_BISR_DATA_COPIED;
+
+	Status = XPmBisr_TriggerLpd();
+
+done:
+	return Status;
 }
 
 int XPmBisr_TriggerLpd(void)

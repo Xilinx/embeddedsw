@@ -29,6 +29,7 @@
 #include "xpm_core.h"
 #include "xpm_psm.h"
 #include "xpm_powerdomain.h"
+#include "xpm_pslpdomain.h"
 #include "xpm_bisr.h"
 #include "xpm_gic_proxy.h"
 #include "xpm_regs.h"
@@ -112,6 +113,12 @@ done:
 XStatus XPm_PowerDwnLPD()
 {
 	XStatus Status = XST_SUCCESS;
+	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(LPD_ID);
+
+	if (NULL == LpDomain) {
+		Status = XST_FAILURE;
+		goto done;
+	}
 
 	/* Unlock configuration and system registers for write operation */
 	PmOut32(AMS_ROOT_REG_PCSR_LOCK, PCSR_UNLOCK_VAL);
@@ -163,6 +170,8 @@ XStatus XPm_PowerDwnLPD()
 				     PM_RESET_ACTION_ASSERT);
 
 	/*TODO: Send PMC_I2C command to turn off PS-LPD power rail */
+
+	LpDomain->LpdBisrFlags &= ~(LPD_BISR_DATA_COPIED | LPD_BISR_DONE);
 
 done:
 	return Status;
