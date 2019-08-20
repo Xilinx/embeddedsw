@@ -67,6 +67,7 @@
 *       psl 03/26/19 Fixed MISRA-C violation
 * 4.1   psl 07/02/19 Fixed Coverity warning.
 *       mmd 07/05/19 Optimized the code
+*       psl 07/31/19 Fixed MISRA-C violations.
 *
 * </pre>
 *
@@ -170,7 +171,7 @@ XCsuDma* Xsecure_GetCsuDma(void)
 	u32 Status;
 
 	Status = XSecure_CsuDmaInit();
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		return NULL;
 	}
 	return &CsuDma;
