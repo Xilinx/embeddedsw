@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -24,31 +24,19 @@
 *
 ******************************************************************************/
 
-#ifndef XPM_AIE_H_
-#define XPM_AIE_H_
+#ifndef _PM_CFG_OBJ_H_
+#define _PM_CFG_OBJ_H_
 
-#include "xpm_powerdomain.h"
-#include "xpm_defs.h"
-#include "xpm_psm_api.h"
-#include "xpm_ipi.h"
+#include "xil_types.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/**
- * AI Engine domain node class.
- */
-typedef struct XPm_AieDomain {
-	XPm_PowerDomain Domain; /**< Power domain node base class */
-} XPm_AieDomain;
-
-/************************** Function Prototypes ******************************/
-XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
-			   XPm_Power *Parent);
+extern const u32 XPm_ConfigObject[];
 
 #ifdef __cplusplus
 }
 #endif
-/** @} */
-#endif /* XPM_AIE_H_ */
+
+#endif /* _PM_CFG_OBJ_H_ */

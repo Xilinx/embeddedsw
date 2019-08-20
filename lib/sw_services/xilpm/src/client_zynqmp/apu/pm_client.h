@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -24,35 +24,31 @@
 *
 ******************************************************************************/
 
-#ifndef XPM_PMC_H_
-#define XPM_PMC_H_
+/*
+ * CONTENT
+ * File is specific for each PU instance and must exist in order to
+ * port Power Management code for some new PU.
+ * Contains PU specific macros and macros to be defined depending on
+ * the execution environment.
+ */
 
-#include "xpm_core.h"
+#ifndef PM_CLIENT_H
+#define PM_CLIENT_H
+
+#include "xil_exception.h"
+#include "xil_io.h"
+#include "pm_apu.h"
+#include "pm_defs.h"
+#include "pm_common.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef struct XPm_Pmc XPm_Pmc;
-
-/**
- * The PMC processor class.
- */
-struct XPm_Pmc {
-	XPm_Core Core; /**< Processor core device */
-	u32 PmcIouSlcrBaseAddr; /**< PMC IOU SLCR register base address */
-	u32 PmcGlobalBaseAddr; /**< PMC GLOBAL register base address */
-	u32 PmcAnalogBaseAddr; /**< PMC Analog register base address */
-};
-
-/************************** Function Prototypes ******************************/
-XStatus XPmPmc_Init(XPm_Pmc *Pmc, u32 DevcieId, u32 Ipi, u32 *BaseAddress,
-		    XPm_Power *Power,  XPm_ClockNode *Clock,
-		    XPm_ResetNode *Reset);
+#define pm_print(MSG, ...)	xil_printf("APU: "MSG,##__VA_ARGS__)
 
 #ifdef __cplusplus
 }
 #endif
 
-/** @} */
-#endif /* XPM_PMC_H_ */
+#endif /* PM_CLIENT_H */
