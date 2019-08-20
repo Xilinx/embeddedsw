@@ -879,12 +879,13 @@ END:
 void XilSKey_EfusePs_ConvertBytesBeToLe(const u8 *Be, u8 *Le, u32 Len)
 {
 	u32 Index;
+	u32 Length;
 
 	if ((Be == NULL) || (Le == NULL) || (Len == 0U)) {
 		goto END;
 	}
-
-	for (Index = 0U; Index < Len; Index = Index+4U) {
+	Length = Len * 4U;
+	for (Index = 0U; Index < Length; Index = Index+4U) {
 		Le[Index+3]=Be[Index];
 		Le[Index+2]=Be[Index+1];
 		Le[Index+1]=Be[Index+2];
@@ -1436,7 +1437,7 @@ u32 XilSkey_CrcCalculation_AesKey(u8 *Key)
 		u32 Key_32 = 0U;
 #endif
 #ifdef XSK_MICROBLAZE_PLATFORM
-	u32 Row = 0;
+	u32 Row = 0U;
 #endif
 
 #if defined(XSK_MICROBLAZE_ULTRA_PLUS)
