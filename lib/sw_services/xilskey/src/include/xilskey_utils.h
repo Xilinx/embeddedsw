@@ -73,6 +73,7 @@
 *       psl     03/19/19 FIxed MISRA-C violation
 *       psl     03/29/19 Removed GPIO ID macro.
 * 6.8   psl     06/07/19 Added doxygen tags
+*       psl     08/12/19 Fixed MISRA-C violation
  *****************************************************************************/
 
 #ifndef XILSKEY_UTILS_H
@@ -317,16 +318,16 @@ typedef enum {
 #define XSK_EFUSEPS_VINT		(4)
 #define XSK_EFUSEPS_VAUX		(5)
 
-#define XSK_EFUSE_DEBUG_GENERAL	0x00000001    /* general debug  messages */
+#define XSK_EFUSE_DEBUG_GENERAL	0x00000001U    /* general debug  messages */
 
 #if defined (XSK_EFUSE_DEBUG)
 #define xeFUSE_dbg_current_types (XSK_EFUSE_DEBUG_GENERAL)
 #else
-#define xeFUSE_dbg_current_types 0
+#define xeFUSE_dbg_current_types 0U
 #endif
 #ifdef STDOUT_BASEADDRESS
 #define xeFUSE_printf(type,...) \
-		if (((type) & xeFUSE_dbg_current_types) != 0)  {xil_printf (__VA_ARGS__); }
+		if (((type) & xeFUSE_dbg_current_types) != 0U)  {xil_printf (__VA_ARGS__); }
 #else
 #define xeFUSE_printf(type, ...)
 #endif
