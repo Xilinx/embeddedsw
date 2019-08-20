@@ -635,7 +635,6 @@ done:
 u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 {
 	u32 Status;
-	s8 Timeout;
 	u32 PufStatus = 0U;
 	u32 Index = 0U;
 	u32 Debug = XSK_PUF_DEBUG_GENERAL;
@@ -686,8 +685,8 @@ u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 	RegistrationStatus = XSK_EFUSEPS_PUF_REGISTRATION_STARTED;
 	do {
 
-		Timeout = XilSKey_WaitForPufStatus(&PufStatus);
-		if (Timeout != 0U) {
+		Status = XilSKey_WaitForPufStatus(&PufStatus);
+		if (Status != (u32)XST_SUCCESS) {
 			Status = (u32)XSK_EFUSEPS_ERROR_PUF_TIMEOUT;
 			break;
 		}
