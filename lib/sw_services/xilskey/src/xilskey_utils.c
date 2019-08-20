@@ -259,7 +259,7 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 	xeFUSE_printf(XSK_EFUSE_DEBUG_GENERAL,
 		"Read Temperature Value: %0x -> %d in Centigrades \n",
 		XAdcInstancePtr->Temp,
-	(int )XSysMonPsu_RawToTemperature_OnChip(XAdcInstancePtr->Temp));
+	(int )XSysMonPsu_RawToTemperature_OnChip((float)XAdcInstancePtr->Temp));
 END:
 	return;
 
@@ -314,7 +314,7 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
 	xeFUSE_printf(XSK_EFUSE_DEBUG_GENERAL,
 			"Read Voltage Value: %0x -> %d in Volts \n",
 			XAdcInstancePtr->V,
-			(int )XSysMonPsu_RawToVoltage(XAdcInstancePtr->V));
+			(int )XSysMonPsu_RawToVoltage((float)XAdcInstancePtr->V));
 END:
 	return;
 }
