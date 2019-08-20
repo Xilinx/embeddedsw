@@ -114,7 +114,7 @@ typedef struct {
 	u32 Size;
 	u8 *AuthCertPtr;
 	u32 SignatureOffset;
-	u8 PaddingType;
+	XSecure_Sha3PadType PaddingType;
 	u8 AuthIncludingCert;
 } XSecure_AuthParam;
 
@@ -597,7 +597,7 @@ u32 XSecure_PartitionAuthentication(XCsuDma *CsuDmaInstPtr, u8 *Data,
 	AuthParam.Size = Size;
 	AuthParam.AuthCertPtr = AuthCertPtr;
 	AuthParam.SignatureOffset = XSECURE_AUTH_CERT_PARTSIG_OFFSET;
-	AuthParam.PaddingType = (u8)XSECURE_CSU_NIST_SHA3;
+	AuthParam.PaddingType = XSECURE_CSU_NIST_SHA3;
 	AuthParam.AuthIncludingCert = 1U;
 
 	Status = XSecure_DataAuthentication(&AuthParam);
@@ -641,7 +641,7 @@ static inline u32 XSecure_BhdrAuthentication(XCsuDma *CsuDmaInstPtr,
 	AuthParam.Size = Size;
 	AuthParam.AuthCertPtr = AuthCertPtr;
 	AuthParam.SignatureOffset = XSECURE_AUTH_CERT_BHDRSIG_OFFSET;
-	AuthParam.PaddingType = (u8)XSECURE_CSU_KECCAK_SHA3;
+	AuthParam.PaddingType = XSECURE_CSU_KECCAK_SHA3;
 	AuthParam.AuthIncludingCert = 0U;
 
 	Status = XSecure_DataAuthentication(&AuthParam);
@@ -1619,7 +1619,7 @@ static inline u32 XSecure_DataAuthentication(XSecure_AuthParam *AuthParam)
 		goto END;
 	}
 
-	if ((u8)XSECURE_CSU_KECCAK_SHA3 == AuthParam->PaddingType) {
+	if (XSECURE_CSU_KECCAK_SHA3 == AuthParam->PaddingType) {
 		Status = (u32)XSecure_Sha3PadSelection(&SecureSha3,
 		                                      XSECURE_CSU_KECCAK_SHA3);
 		if (Status != (u32)XST_SUCCESS) {
