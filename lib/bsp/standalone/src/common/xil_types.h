@@ -44,6 +44,8 @@
 *	srt  07/14/14 Use standard definitions from stdint.h and stddef.h
 *		      Define LONG and ULONG datatypes and mask values
 * 7.00  mus  01/07/19 Add cpp extern macro
+* 7.1   aru  08/19/19 Shift the value in UPPER_32_BITS only if it
+*                     is 64-bit processor
 * </pre>
 *
 ******************************************************************************/
@@ -176,8 +178,11 @@ typedef void (*XExceptionHandler) (void *InstancePtr);
  *          Use this to suppress the "right shift count >= width of type"
  *          warning when that quantity is 32-bits.
  */
+#if defined (__aarch64__) || defined (__arch64__)
 #define UPPER_32_BITS(n) ((u32)(((n) >> 16) >> 16))
-
+#else
+#define UPPER_32_BITS(n) 0U
+#endif
 /**
  * @brief  Returns 0-31 bits of a number
  * @param  n : Number being accessed.
