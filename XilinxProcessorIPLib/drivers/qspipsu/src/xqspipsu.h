@@ -162,6 +162,7 @@
  * 1.9  akm 04/03/19 Fixed data alignment warnings on IAR compiler.
  * 1.9  akm 04/03/19 Fixed compilation error in XQspiPsu_LqspiRead()
  *                     function on IAR compiler.
+ * 1.10 sk  08/20/19 Fixed issues in poll timeout feature.
  *
  * </pre>
  *
