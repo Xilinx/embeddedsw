@@ -41,6 +41,7 @@
 *                     for XSecure_RsaSignVerification()
 *       mmd  03/15/19 Refactored the code
 *       psl  03/26/19 Fixed MISRA-C violation
+* 4.1   psl  08/05/19 Fixed MISRA-C violation
 * </pre>
 *
 * @note
@@ -109,6 +110,7 @@ u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 	u32 Status;
 	s32 ErrorCode = XST_SUCCESS;
 	u32 RsaType = XSECURE_CSU_RSA_CONTROL_4096;
+	u32 TimeOut = 0U;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Input != NULL);
@@ -213,16 +215,23 @@ u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 			ErrorCode = XST_FAILURE;
 			goto END;
 		}
-	} while(XSECURE_CSU_RSA_STATUS_DONE !=
-		((u32)Status & XSECURE_CSU_RSA_STATUS_DONE));
+		if(XSECURE_CSU_RSA_STATUS_DONE ==
+				((u32)Status & XSECURE_CSU_RSA_STATUS_DONE)){
+			break;
+		}
+		TimeOut = TimeOut + 1U;
+	} while(TimeOut < XSECURE_TIMEOUT_MAX);
 
+	if(TimeOut == XSECURE_TIMEOUT_MAX) {
+		ErrorCode = XST_FAILURE;
+		goto END;
+	}
 	/* Copy the result */
 	XSecure_RsaGetData(InstancePtr, (u32 *)Result);
 
+END:
 	/* Zeroize RSA memory space */
 	XSecure_RsaZeroize(InstancePtr);
-
-END:
 	return (u32)ErrorCode;
 }
 
