@@ -39,6 +39,7 @@
 * 4.0   vns     03/09/19 Initial release
 *       psl     03/26/19 Fixed MISRA-C violation
 *       psl     04/05/19 Fixed IAR warnings.
+* 4.1   psl     07/31/19 Fixed MISRA-C violation
 * </pre>
 *
 ******************************************************************************/
@@ -291,7 +292,7 @@ static u32 XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
 void* XSecure_MemCpy(void * DestPtr, const void * SrcPtr, u32 Len)
 {
 	u8 *Dst = (u8 *)(UINTPTR)DestPtr;
-	const u8 *Src = SrcPtr;
+	const u8 *Src = (const u8 *)SrcPtr;
 
 	/* Loop and copy.  */
 	while (Len != 0U)
