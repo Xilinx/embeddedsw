@@ -74,6 +74,11 @@ static XStatus SendPowerUpReq(XPm_Node *Node)
 	u32 Status = XST_SUCCESS;
 	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(LPD_ID);
 
+	if (NULL == LpDomain) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
 	if (XPM_POWER_STATE_ON == Node->State)
 		goto done;
 
@@ -94,8 +99,12 @@ static XStatus SendPowerUpReq(XPm_Node *Node)
 		if ((PLATFORM_VERSION_SILICON_ES1 == PlatformVersion) &&
 		    (PLATFORM_VERSION_SILICON == Platform) &&
 		    (XPM_NODEIDX_POWER_RPU0_0 == NODEINDEX(Node->Id)) &&
-		    (0 == LpDomain->LpdBisrDone)) {
-			Status = XPmBisr_TriggerLpd();
+		    !(LPD_BISR_DONE & LpDomain->LpdBisrFlags)) {
+			if (LPD_BISR_DATA_COPIED & LpDomain->LpdBisrFlags) {
+				Status = XPmBisr_TriggerLpd();
+			} else {
+				Status = XPmBisr_Repair(LPD_TAG_ID);
+			}
 		}
 	} else {
 		PmDbg("Request to power up domain %x\r\n",Node->Id);
@@ -132,12 +141,17 @@ static XStatus SendPowerDownReq(XPm_Node *Node)
 	u32 Status = XST_SUCCESS;
 	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(LPD_ID);
 
+	if (NULL == LpDomain) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
 	if (XPM_NODESUBCL_POWER_ISLAND == NODESUBCLASS(Node->Id)) {
 		Status = XPmPsm_SendPowerDownReq(Node->BaseAddress);
 
 		if ((XST_SUCCESS == Status) &&
 		    (XPM_NODEIDX_POWER_RPU0_0 == NODEINDEX(Node->Id))) {
-			LpDomain->LpdBisrDone = 0;
+			LpDomain->LpdBisrFlags &= ~(LPD_BISR_DONE);
 		}
 	} else {
 		PmDbg("Request to power down domain %x\r\n",Node->Id);
@@ -166,6 +180,7 @@ static XStatus SendPowerDownReq(XPm_Node *Node)
 		}
 	}
 
+done:
 	return Status;
 }
 
