@@ -51,6 +51,7 @@
 *                        XilSKey_ZynqMp_Bbram_Program
 *                        XilSKey_ZynqMp_Bbram_Zeroise
 * 6.7   psl     03/21/19 Fixed MISRA-C violation.
+* 6.8   psl     08/13/19 Fixed MISRA-C violation.
 * </pre>
 *
 ******************************************************************************/
@@ -108,7 +109,7 @@ u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey)
 	/* Set in programming mode */
 	Status = XilSKey_ZynqMp_Bbram_PrgrmEn();
 	if (Status != (u32)XST_SUCCESS) {
-		Status = (Status + (u32)XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG);
+		Status = (Status | (u32)XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG);
 		goto END;
 	}
 
