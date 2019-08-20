@@ -49,6 +49,7 @@
 *       psl  06/28/19 Added doxygen tags.
 *       psl  07/05/19 Added Asserts for validation.
 *       psl  07/23/19 Fixed input validation.
+*       psl  07/29/19 Fixed MISRA-C violation
 * </pre>
 *
 *****************************************************************************/
@@ -635,7 +636,7 @@ u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 {
 	u32 Status;
 	s8 Timeout;
-	u32 PufStatus;
+	u32 PufStatus = 0U;
 	u32 Index = 0U;
 	u32 Debug = XSK_PUF_DEBUG_GENERAL;
 	u32 MaxSyndromeSizeInWords = XSK_ZYNQMP_PUF_SYN_DATA_LEN_IN_BYTES;
@@ -1208,8 +1209,8 @@ static inline u32 XilSkey_Puf_Validate_Access_Rules(u8 RequestType)
 	u32 PufAux = 0U;
 	u32 Status;
 	u32 Debug = XSK_PUF_DEBUG_GENERAL;
-	XilSKey_SecCtrlBits ReadSecCtrlBits;
-	XilSKey_Puf_Secure PufSecureBits;
+	XilSKey_SecCtrlBits ReadSecCtrlBits = {0U};
+	XilSKey_Puf_Secure PufSecureBits = {0U};
 
 	/* Read secure control register for RSA bits value from eFUSE */
 	Status = XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits(&ReadSecCtrlBits, 0);
