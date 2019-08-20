@@ -63,6 +63,7 @@
 * 4.1   kal 05/20/19 Updated doxygen tags
 *       psl 07/02/19 Fixed Coverity warning.
 *       mmd 07/05/19 Optimized the code
+*       psl 07/31/19 Fixed MISRA-C violation
 *
 * </pre>
 *
@@ -120,7 +121,7 @@ static void XSecure_AesCsuDmaConfigureEndiannes(XCsuDma *InstancePtr,
  *		for decryption
  * @param	Key		Pointer to Aes key in case KUP
  *		key is used.
- * 		Pass `Null` if ithe device key is to be used.
+ * 		Pass `Null` if the device key is to be used.
  *
  * @return	XST_SUCCESS if initialization was successful.
  *
@@ -177,7 +178,7 @@ s32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
  *
  * @return	None
  *
- * @note	If all of the data to the be encrypted is available,
+ * @note	If all of the data to be encrypted is available,
  * 		the XSecure_AesEncryptData function can be used instead.
  *
  ******************************************************************************/
@@ -278,7 +279,7 @@ END:
  *
  * @return	None
  *
- * @note	If all of the data to the be encrypted is available,
+ * @note	If all of the data to be encrypted is available,
  * 		the XSecure_AesEncryptData function can be used instead.
  *
  ******************************************************************************/
@@ -631,7 +632,7 @@ END:
  *return	Final call of this API returns the status of Comparison.
  *			- XSECURE_CSU_AES_ZEROIZATION_ERROR: If Zeroization is not
  *								Successful.
- *			- XST_SUCCESS: If Zeroization is Scuccesfull.
+ *			- XST_SUCCESS: If Zeroization is Successful.
  *
  ********************************************************************************/
 static u32 XSecure_Zeroize(u8 *DataPtr, u32 Length)
@@ -932,7 +933,7 @@ static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
 		/*
 		 * wait for the SRC_DMA to complete
 		 */
-		Status = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
+		Status = (s32)XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
 							XCSUDMA_SRC_CHANNEL);
 		if (XST_SUCCESS != Status) {
 			goto END;
@@ -962,7 +963,7 @@ static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
 			(UINTPTR)(InstancePtr->ReadBuffer), RemainingBytes/4U, 0);
 
 		/* wait for the SRC_DMA to complete and the pcap to be IDLE */
-		Status = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
+		Status = (s32)XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
 							XCSUDMA_SRC_CHANNEL);
 		if (XST_SUCCESS != Status) {
 			goto END;
@@ -1018,7 +1019,7 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 		(UINTPTR)InstancePtr->Iv, XSECURE_SECURE_GCM_TAG_SIZE/4U, 0);
 
-	Status = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
+	Status = (s32)XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
 						XCSUDMA_SRC_CHANNEL);
 	if (XST_SUCCESS != Status) {
 		goto END;
@@ -1060,7 +1061,7 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 			if (Dst != (u8*)XSECURE_DESTINATION_PCAP_ADDR)
 			{
 				/* Wait for the Dst DMA completion. */
-				Status = XCsuDma_WaitForDoneTimeout(
+				Status = (s32)XCsuDma_WaitForDoneTimeout(
 							InstancePtr->CsuDmaPtr,
 							XCSUDMA_DST_CHANNEL);
 				if (XST_SUCCESS != Status) {
@@ -1078,7 +1079,7 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 			else
 			{
 				/* Wait for the Src DMA completion. */
-				Status = XCsuDma_WaitForDoneTimeout(
+				Status = (s32)XCsuDma_WaitForDoneTimeout(
 							InstancePtr->CsuDmaPtr,
 							XCSUDMA_SRC_CHANNEL);
 				if (XST_SUCCESS != Status) {
@@ -1141,7 +1142,7 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 	}
 
 	/* Wait for the Src DMA completion. */
-	Status = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
+	Status = (s32)XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
 						XCSUDMA_SRC_CHANNEL);
 	if (XST_SUCCESS != Status) {
 		goto END;
@@ -1171,7 +1172,7 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 	}
 
 	/* Wait for the Src DMA completion. */
-	Status = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
+	Status = (s32)XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
 						XCSUDMA_SRC_CHANNEL);
 	if (XST_SUCCESS != Status) {
 		goto END;
