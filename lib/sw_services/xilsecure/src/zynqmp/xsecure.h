@@ -50,6 +50,7 @@
 *       arc  12/02/19 Added support for validate image format.
 *       rama 18/03/19 Fixed IAR compiler errors and warnings
 *       psl  03/26/19 FIxed MISRA_C violation
+* 4.1   psl  07/31/19 Fixed MISRA-C violation.
 * </pre>
 *
 * @note
@@ -209,13 +210,13 @@ extern "C" {
 
 #define	XSECURE_AUTH_CERT_USER_DATA	((u32)64U - XSECURE_AUTH_HEADER_SIZE)
 
-#define XSECURE_AUTH_CERT_MIN_SIZE	(XSECURE_AUTH_HEADER_SIZE 	\
-					+ XSECURE_AUTH_CERT_USER_DATA 	\
-					+ XSECURE_PPK_SIZE 		\
-					+ XSECURE_SPK_SIZE 		\
-					+ XSECURE_SPK_SIG_SIZE 		\
-					+ XSECURE_BHDR_SIG_SIZE 	\
-					+ XSECURE_PARTITION_SIG_SIZE)
+#define XSECURE_AUTH_CERT_MIN_SIZE	((u32)XSECURE_AUTH_HEADER_SIZE 	\
+					+ (u32)XSECURE_AUTH_CERT_USER_DATA 	\
+					+ (u32)XSECURE_PPK_SIZE 		\
+					+ (u32)XSECURE_SPK_SIZE 		\
+					+ (u32)XSECURE_SPK_SIG_SIZE 		\
+					+ (u32)XSECURE_BHDR_SIG_SIZE 	\
+					+ (u32)XSECURE_PARTITION_SIG_SIZE)
 
 #define XSECURE_AUTH_CERT_BHDRSIG_OFFSET	0xAC0U
 #define XSECURE_AUTH_CERT_PARTSIG_OFFSET	0xCC0U
