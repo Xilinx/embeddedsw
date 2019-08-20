@@ -293,14 +293,15 @@ void* XSecure_MemCpy(void * DestPtr, const void * SrcPtr, u32 Len)
 {
 	u8 *Dst = (u8 *)(UINTPTR)DestPtr;
 	const u8 *Src = (const u8 *)SrcPtr;
+	u32 Length = Len;
 
 	/* Loop and copy.  */
-	while (Len != 0U)
+	while (Length != 0U)
 	{
 		*Dst = *Src;
 		Dst++;
 		Src++;
-		Len--;
+		Length--;
 	}
 
 	return DestPtr;
