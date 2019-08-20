@@ -692,7 +692,8 @@ u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 			break;
 		}
 
-		if (PufStatus & XSK_ZYNQMP_CSU_PUF_STATUS_OVERFLOW_MASK) {
+		if ((PufStatus & XSK_ZYNQMP_CSU_PUF_STATUS_OVERFLOW_MASK) ==
+				XSK_ZYNQMP_CSU_PUF_STATUS_OVERFLOW_MASK) {
 			xPuf_printf(Debug, "API: Overflow warning\r\n");
 			Status = (u32)XSK_EFUSEPS_ERROR_PUF_DATA_OVERFLOW;
 			break;
