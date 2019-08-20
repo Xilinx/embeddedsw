@@ -27,7 +27,7 @@
 /**
 *
 * @file xqspipsu_g.c
-* @addtogroup qspipsu_v1_9
+* @addtogroup qspipsu_v1_10
 * @{
 *
 * This file contains a configuration table that specifies the configuration of
