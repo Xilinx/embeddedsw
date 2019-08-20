@@ -1430,7 +1430,7 @@ u32 XilSkey_CrcCalculation_AesKey(u8 *Key)
 	u32 Crc = 0U;
 	u32 Index;
 	u32 MaxIndex;
-	u32 Index1 = 0xFFFFFFFF;
+	u32 Index1 = 0xFFFFFFFFU;
 #if defined (XSK_MICROBLAZE_PLATFORM) || \
 	defined (XSK_ZYNQ_ULTRA_MP_PLATFORM)
 		u32 Key_32 = 0U;
