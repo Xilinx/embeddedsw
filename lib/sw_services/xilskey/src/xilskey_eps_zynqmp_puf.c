@@ -1021,7 +1021,7 @@ u32 XilSKey_Read_Puf_EfusePs_SecureBits(
 		}
 		Status = XilSKey_Read_Puf_EfusePs_SecureBits_Regs(
 					SecureBitsRead,ReadOption);
-		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
+		XilSKey_ZynqMp_EfusePs_CtrlrLock();
 	}
 END:
 	return Status;

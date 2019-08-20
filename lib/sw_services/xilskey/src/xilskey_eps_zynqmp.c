@@ -2670,8 +2670,7 @@ END:
 
 /*****************************************************************************/
 /*
-* This function is for programming eFUSE through IPI response, it has
-* corresponding IPI response call in PMUFW
+* This function is used by PMUFW IPI call handler for programming eFUSE
 *
 * @param	AddrHigh	Higher 32-bit address of the XilSKey_Efuse structure.
 * @param	AddrLow		Lower 32-bit address of the XilSKey_Efuse structure.
