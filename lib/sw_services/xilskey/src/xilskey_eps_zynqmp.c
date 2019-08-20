@@ -74,6 +74,7 @@
 *                      XilSKey_EfusePs_ConvertBytesBeToLe function.
 *       psl   07/23/19 Fixed input validations.
 *       vns   08/07/19 Fixed CTRL LOCK in XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits
+*       psl   08/13/19 Fixed MISRA-C violation
 * </pre>
 *
 *****************************************************************************/
@@ -2683,7 +2684,7 @@ END:
 u32 XilSkey_ZynqMpEfuseAccess(const u32 AddrHigh, const u32 AddrLow)
 {
 	u32 Status;
-	u64 Addr = ((u64)AddrHigh << 32U) | AddrLow;
+	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	XilSKey_Efuse *EfuseAccess = (XilSKey_Efuse *)(UINTPTR)Addr;
 
 	/* Read bits */
@@ -2718,7 +2719,7 @@ u32 XilSkey_ZynqMpEfuseAccess(const u32 AddrHigh, const u32 AddrLow)
 static u32 XilSKey_ZynqMpEfuseWrite(const u32 AddrHigh, const u32 AddrLow)
 {
 	u32 Status = (u32)XST_FAILURE;
-	u64 Addr = ((u64)AddrHigh << 32U) | AddrLow;
+	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	XilSKey_Efuse *EfuseAccess = (XilSKey_Efuse *)(UINTPTR)Addr;
 	u8 *Val = (u8 *)(UINTPTR)EfuseAccess->Src;
 	u32 *Val32;
@@ -3143,7 +3144,7 @@ END:
 static u32 XilSKey_ZynqMpEfuseRead(const u32 AddrHigh, const u32 AddrLow)
 {
 	u32 Status = (u32)XST_FAILURE;
-	u64 Addr = ((u64)AddrHigh << 32) | AddrLow;
+	u64 Addr = ((u64)AddrHigh << 32) | (u64)AddrLow;
 	XilSKey_Efuse *EfuseAccess = (XilSKey_Efuse *)(UINTPTR)Addr;
 	u32 *Val = (u32 *)(UINTPTR)EfuseAccess->Src;
 	u8 UsrEfuseNo;

@@ -254,7 +254,7 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 	 * Read the on-chip Temperature Data (Current)
 	 * from the Sysmon PSU data registers.
 	 */
-	XAdcInstancePtr->Temp = XSysMonPsu_GetAdcData(XSysmonInstPtr,
+	XAdcInstancePtr->Temp = (u32)XSysMonPsu_GetAdcData(XSysmonInstPtr,
 						XSM_CH_TEMP, XSYSMON_PS);
 	xeFUSE_printf(XSK_EFUSE_DEBUG_GENERAL,
 		"Read Temperature Value: %0x -> %d in Centigrades \n",
@@ -309,7 +309,7 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
 		break;
 	}
 
-	XAdcInstancePtr->V = XSysMonPsu_GetAdcData(XSysmonInstPtr, V,
+	XAdcInstancePtr->V = (u32)XSysMonPsu_GetAdcData(XSysmonInstPtr, V,
 						XSYSMON_PS);
 	xeFUSE_printf(XSK_EFUSE_DEBUG_GENERAL,
 			"Read Voltage Value: %0x -> %d in Volts \n",

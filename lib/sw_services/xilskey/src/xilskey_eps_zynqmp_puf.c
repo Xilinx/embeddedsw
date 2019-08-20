@@ -639,7 +639,7 @@ u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 	u32 PufStatus = 0U;
 	u32 Index = 0U;
 	u32 Debug = XSK_PUF_DEBUG_GENERAL;
-	u32 MaxSyndromeSizeInWords = XSK_ZYNQMP_PUF_SYN_DATA_LEN_IN_BYTES;
+	u32 MaxSyndromeSizeInWords = (u32)XSK_ZYNQMP_PUF_SYN_DATA_LEN_IN_BYTES;
 	XilsKey_PufRegistrationState RegistrationStatus;
 
 	/* Assert validates the input arguments */
