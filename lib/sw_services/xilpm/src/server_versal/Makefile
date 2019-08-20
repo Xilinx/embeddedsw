@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@ ARCHIVER=
 CP=cp
 COMPILER_FLAGS=
 EXTRA_COMPILER_FLAGS=
-LIB= libxillibpm.a
+LIB= libxilpm.a
 
 EXTRA_ARCHIVE_FLAGS=rc
 RELEASEDIR=../../../lib
@@ -42,13 +42,13 @@ OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 LIBPM_SRCS := $(wildcard *.c)
 LIBPM_OBJS = $(addprefix $(LIBPM_DIR)/, $(LIBPM_SRCS:%.c=%.o))
 
-libs: libxillibpm.a
+libs: libxilpm.a
 
-libxillibpm.a: print_msg_xillibpm $(LIBPM_OBJS)
+libxilpm.a: print_msg_xilpm $(LIBPM_OBJS)
 	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${LIBPM_OBJS}
 
-print_msg_xillibpm:
-	@echo "Compiling XilLibPM Library"
+print_msg_xilpm:
+	@echo "Compiling XilPM Library"
 
 .PHONY: include
 include:
