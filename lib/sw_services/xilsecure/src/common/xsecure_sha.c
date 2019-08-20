@@ -58,6 +58,7 @@
 * 4.1   kal  05/20/19 Updated doxygen tags
 *       psl  07/02/19 Fixed Coverity warnings.
 *       mmd  07/05/19 Optimized the code
+*       psl  07/31/19 Fixed MISRA-C violation
 *
 * </pre>
 *
@@ -193,7 +194,7 @@ s32 XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr)
 {
 
 	 /* Assert validates the input arguments */
-	 Xil_AssertVoid(InstancePtr != NULL);
+	 Xil_AssertNonvoid(InstancePtr != NULL);
 
 	InstancePtr->IsLastUpdate = TRUE;
 
@@ -582,7 +583,7 @@ static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 					(void *)(UINTPTR)Data, Size);
 			InstancePtr->PartialLen = TotalLen;
 
-			Status = XST_SUCCESS;
+			Status = (u32)XST_SUCCESS;
 		}
 		else if (TotalLen == XSECURE_SHA3_BLOCK_LEN) {
 
