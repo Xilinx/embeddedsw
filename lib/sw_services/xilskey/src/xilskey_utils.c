@@ -73,6 +73,7 @@
 * 6.8   psl     06/07/19 Added doxygen tags.
 *       psl     06/25/19 Fixed Coverity warnings.
 *       psl     06/28/19 Added doxygen tags.
+*       psl     07/29/19 Fixed MISRA-C violation.
  *****************************************************************************/
 
 /***************************** Include Files ********************************/
@@ -451,7 +452,7 @@ u32 XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks(void)
 	 * Check the temperature and voltage(VCC_AUX and VCC_PINT_LP)
 	 */
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-	XSKEfusePs_XAdc XAdcInstance;
+	XSKEfusePs_XAdc XAdcInstance = {0U};
 	XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(&XAdcInstance);
 	if ((XAdcInstance.Temp < (u32)XSK_EFUSEPS_TEMP_MIN_RAW) ||
 			((XAdcInstance.Temp > (u32)XSK_EFUSEPS_TEMP_MAX_RAW))) {
