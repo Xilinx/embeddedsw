@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -20,51 +20,45 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 
-/*
- * CONTENT
- * File is specific for each PU instance and must exist in order to
- * port Power Management code for some new PU.
- * Contains PU specific macros and macros to be defined depending on
- * the execution environment.
- */
+/*****************************************************************************/
+/**
+ * @file pm_clock.h
+ *
+ * PM Definitions of clocks - for xilpm internal purposes only
+ *****************************************************************************/
 
-#ifndef PM_CLIENT_H
-#define PM_CLIENT_H
+#ifndef PM_CLOCKS_H_
+#define PM_CLOCKS_H_
 
-#include <xil_exception.h>
-#include <xil_io.h>
-#include "pm_rpu.h"
+#include <xil_types.h>
+#include <xstatus.h>
 #include "pm_defs.h"
-#include "pm_common.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-const char* XPm_GetMasterName(void);
-#ifdef DEBUG_MODE
-#if defined (__GNUC__)
+XStatus XPm_GetClockParentBySelect(const enum XPmClock clock,
+				   const u32 select,
+				   enum XPmClock* const parent);
 
-#define pm_print(MSG, ...)	xil_printf("%s: "MSG, \
-										XPm_GetMasterName(), ##__VA_ARGS__)
+XStatus XPm_GetSelectByClockParent(const enum XPmClock clock,
+				   const enum XPmClock parent,
+				   u32* const select);
 
-#elif defined (__ICCARM__)
+u8 XPm_GetClockDivType(const enum XPmClock clock);
 
-#define pm_print	xil_printf
-
-#endif
-#else
-#define pm_print(...)	{}
-#endif
-
-
+u8 XPm_MapDivider(const enum XPmClock clock,
+		  const u32 div,
+		  u32* const div0,
+		  u32* const div1);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* PM_CLIENT_H */
+#endif /* PM_CLOCKS_H_ */

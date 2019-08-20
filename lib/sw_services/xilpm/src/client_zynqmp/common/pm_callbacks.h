@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015-2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -20,45 +20,39 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
- * @file pm_clock.h
+ * @file pm_callbacks.h
  *
- * PM Definitions of clocks - for xilpm internal purposes only
+ * Callbacks implementation - for xilpm internal purposes only
  *****************************************************************************/
 
-#ifndef PM_CLOCKS_H_
-#define PM_CLOCKS_H_
+#ifndef XILPM_CALLBACKS_H_
+#define XILPM_CALLBACKS_H_
 
 #include <xil_types.h>
 #include <xstatus.h>
 #include "pm_defs.h"
+#include "pm_api_sys.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-XStatus XPm_GetClockParentBySelect(const enum XPmClock clock,
-				   const u32 select,
-				   enum XPmClock* const parent);
+XStatus XPm_NotifierAdd(XPm_Notifier* const notifier);
 
-XStatus XPm_GetSelectByClockParent(const enum XPmClock clock,
-				   const enum XPmClock parent,
-				   u32* const select);
+XStatus XPm_NotifierRemove(XPm_Notifier* const notifier);
 
-u8 XPm_GetClockDivType(const enum XPmClock clock);
-
-u8 XPm_MapDivider(const enum XPmClock clock,
-		  const u32 div,
-		  u32* const div0,
-		  u32* const div1);
+void XPm_NotifierProcessEvent(const enum XPmNodeId node,
+			      const enum XPmNotifyEvent event,
+			      const u32 oppoint);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* PM_CLOCKS_H_ */
+#endif /* XILPM_CALLBACKS_H_ */

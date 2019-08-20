@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015-2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -20,39 +20,35 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 
-/*****************************************************************************/
-/**
- * @file pm_callbacks.h
- *
- * Callbacks implementation - for xilpm internal purposes only
- *****************************************************************************/
+/*
+ * CONTENT
+ * File is specific for each PU instance and must exist in order to
+ * port Power Management code for some new PU.
+ * Contains PU specific macros and macros to be defined depending on
+ * the execution environment.
+ */
 
-#ifndef XILPM_CALLBACKS_H_
-#define XILPM_CALLBACKS_H_
+#ifndef PM_CLIENT_H
+#define PM_CLIENT_H
 
-#include <xil_types.h>
-#include <xstatus.h>
+#include "xil_exception.h"
+#include "xil_io.h"
+#include "pm_apu.h"
 #include "pm_defs.h"
-#include "pm_api_sys.h"
+#include "pm_common.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-XStatus XPm_NotifierAdd(XPm_Notifier* const notifier);
-
-XStatus XPm_NotifierRemove(XPm_Notifier* const notifier);
-
-void XPm_NotifierProcessEvent(const enum XPmNodeId node,
-			      const enum XPmNotifyEvent event,
-			      const u32 oppoint);
+#define pm_print(MSG, ...)	xil_printf("APU: "MSG,##__VA_ARGS__)
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* XILPM_CALLBACKS_H_ */
+#endif /* PM_CLIENT_H */
