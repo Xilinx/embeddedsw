@@ -81,6 +81,7 @@
  * 1.9  rama 03/13/19 Fixed MISRA violations related to UR data anamoly,
  *					  expression is not a boolean
  * 1.9  nsk 03/27/19 Update 64bit dma support
+ * 1.10 sk  08/20/19 Fixed issues in poll timeout feature.
  * </pre>
  *
  ******************************************************************************/
@@ -967,25 +968,28 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 			(void)XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
 				XQSPIPSU_RXD_OFFSET);
 
-			XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_IDR_OFFSET,
-				(u32)XQSPIPSU_IER_TXNOT_FULL_MASK |
-				(u32)XQSPIPSU_IER_TXEMPTY_MASK |
-				(u32)XQSPIPSU_IER_RXNEMPTY_MASK |
-				(u32)XQSPIPSU_IER_GENFIFOEMPTY_MASK |
-				(u32)XQSPIPSU_IER_RXEMPTY_MASK |
-				(u32)XQSPIPSU_IER_POLL_TIME_EXPIRE_MASK);
 			InstancePtr->StatusHandler(InstancePtr->StatusRef,
 				XST_SPI_POLL_DONE, 0);
-
-			InstancePtr->IsBusy = FALSE;
-			/* Disable the device. */
-			XQspiPsu_Disable(InstancePtr);
 
 		}
 		if ((QspiPsuStatusReg & XQSPIPSU_ISR_POLL_TIME_EXPIRE_MASK) != FALSE) {
 			InstancePtr->StatusHandler(InstancePtr->StatusRef,
 					XST_FLASH_TIMEOUT_ERROR, 0);
 		}
+
+		XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_IDR_OFFSET,
+				(u32)XQSPIPSU_IER_RXNEMPTY_MASK |
+				(u32)XQSPIPSU_IER_POLL_TIME_EXPIRE_MASK);
+		InstancePtr->IsBusy = FALSE;
+		if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
+			XQspiPsu_SetReadMode(InstancePtr, XQSPIPSU_READMODE_DMA);
+		}
+
+		/* De-select slave */
+		XQspiPsu_GenFifoEntryCSDeAssert(InstancePtr);
+
+		/* Disable the device. */
+		XQspiPsu_Disable(InstancePtr);
 	}
 	return XST_SUCCESS;
 }
@@ -1631,6 +1635,8 @@ static inline void XQspiPsu_PollData(XQspiPsu *QspiPsuPtr, XQspiPsu_Msg *FlashMs
 
 	XQspiPsu_Enable(QspiPsuPtr);
 
+	XQspiPsu_GenFifoEntryCSAssert(QspiPsuPtr);
+
 	GenFifoEntry = (u32)0;
 	GenFifoEntry |= (u32)XQSPIPSU_GENFIFO_TX;
 	GenFifoEntry |= QspiPsuPtr->GenFifoBus;
@@ -1640,9 +1646,6 @@ static inline void XQspiPsu_PollData(XQspiPsu *QspiPsuPtr, XQspiPsu_Msg *FlashMs
 
 	XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress,
 		XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
-	XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
-				(XQSPIPSU_CFG_START_GEN_FIFO_MASK
-				| XQSPIPSU_CFG_GEN_FIFO_START_MODE_MASK));
 
 	GenFifoEntry = (u32)0;
 	GenFifoEntry |= (u32)XQSPIPSU_GENFIFO_POLL;
@@ -1658,12 +1661,18 @@ static inline void XQspiPsu_PollData(XQspiPsu *QspiPsuPtr, XQspiPsu_Msg *FlashMs
 	XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress,
 		XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
 
+	/* One Dummy entry required for IO mode */
+	GenFifoEntry = 0x0U;
+	XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress,
+		XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
+
 	QspiPsuPtr->Msg = FlashMsg;
 	QspiPsuPtr->NumMsg = (s32)1;
 	QspiPsuPtr->MsgCnt = 0;
 
 	Value = XQspiPsu_ReadReg(QspiPsuPtr->Config.BaseAddress,
 			XQSPIPSU_CFG_OFFSET);
+	Value &= ~XQSPIPSU_CFG_MODE_EN_MASK;
 	Value |= (XQSPIPSU_CFG_START_GEN_FIFO_MASK |
 			XQSPIPSU_CFG_GEN_FIFO_START_MODE_MASK |
 			XQSPIPSU_CFG_EN_POLL_TO_MASK);
@@ -1671,14 +1680,12 @@ static inline void XQspiPsu_PollData(XQspiPsu *QspiPsuPtr, XQspiPsu_Msg *FlashMs
 			Value);
 
 	/* Enable interrupts */
-	Value = ((u32)XQSPIPSU_IER_TXNOT_FULL_MASK |
-		(u32)XQSPIPSU_IER_TXEMPTY_MASK |
-		(u32)XQSPIPSU_IER_RXNEMPTY_MASK |
-		(u32)XQSPIPSU_IER_GENFIFOEMPTY_MASK |
-		(u32)XQSPIPSU_IER_RXEMPTY_MASK |
+	Value = ((u32)XQSPIPSU_IER_RXNEMPTY_MASK |
 		(u32)XQSPIPSU_IER_POLL_TIME_EXPIRE_MASK);
+
 	XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress, XQSPIPSU_IER_OFFSET,
 			Value);
+
 }
 
 /*****************************************************************************/
