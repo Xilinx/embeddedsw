@@ -1043,13 +1043,13 @@ u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
 	* Make sure passed key is not NULL
 	*/
 	if(Key == NULL) {
-		Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION +
+		Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION |
 			(u32)XSK_EFUSEPL_ERROR_NULL_KEY);
 		goto END;
 	}
 
 	if(Len == 0U) {
-		Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION +
+		Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION |
 			(u32)XSK_EFUSEPL_ERROR_ZERO_KEY_LENGTH);
 		goto END;
 	}
@@ -1058,7 +1058,7 @@ u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
 	 * Make sure the key has valid length
 	 */
 	if (strlen(Key) != Len) {
-		Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION +
+		Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION |
 			(u32)XSK_EFUSEPL_ERROR_NOT_VALID_KEY_LENGTH);
 		goto END;
 	}
@@ -1068,7 +1068,7 @@ u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
 	*/
 	for(i = 0U; i < strlen(Key); i++) {
 		if(XilSKey_Efuse_IsValidChar(&Key[i]) != (u32)XST_SUCCESS) {
-			Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION +
+			Status = ((u32)XSK_EFUSEPL_ERROR_KEY_VALIDATION |
 				(u32)XSK_EFUSEPL_ERROR_NOT_VALID_KEY_CHAR);
 			goto END;
 		}

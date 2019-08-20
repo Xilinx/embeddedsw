@@ -726,10 +726,6 @@ typedef enum {
 	XSK_EFUSEPS_ERROR_PROGRAMMING_TBIT_PATTERN,/**< 0x16<br>Error in
 						     *  programming TBITS. */
 
-	XSK_EFUSEPS_ERROR_BEFORE_PROGRAMMING = 0x0080U,/**< 0x0080<br>Error
-							*  occurred before
-							*  programming. */
-
 	XSK_EFUSEPS_ERROR_PROGRAMMING = 0x00A0U,/**< 0x00A0<br>Error in
 						 *  programming eFUSE.*/
 	XSK_EFUSEPS_ERROR_READ = 0x00B0U,/**< 0x00B0<br>Error in reading. */
@@ -831,8 +827,6 @@ typedef enum {
 	XSK_EFUSEPS_ERROR_WRITE_PPK1_HASH = 0xA700U,/**< 0xA700<br>Error in
 						     *  programming PPK1 hash.*/
 
-	XSK_EFUSEPS_ERROR_CACHE_LOAD = 0xB000U,/**< 0xB000<br>Error in
-						*  re-loading CACHE. */
 	/* Error in programmin user fuses */
 	XSK_EFUSEPS_ERROR_WRITE_USER0_FUSE = 0xC000U,/**< 0xC000<br>Error in
 					   *  programming USER 0 Fuses. */
@@ -938,6 +932,9 @@ typedef enum {
 	XSK_EFUSEPS_ERROR_CMPLTD_EFUSE_PRGRM_WITH_ERR = 0x10000U,/**< 0x10000<br>
 					*  eFUSE programming is completed with
 					*  temp and vol read errors. */
+
+	XSK_EFUSEPS_ERROR_CACHE_LOAD = 0x20000U,/**< 0x20000U<br>Error in
+						*  re-loading CACHE. */
 	/* If requested FUSE is write protected */
 	XSK_EFUSEPS_ERROR_FUSE_PROTECTED = 0x00080000U,/**< 0x00080000
 					*  <br>Requested eFUSE is write
@@ -946,6 +943,9 @@ typedef enum {
 	XSK_EFUSEPS_ERROR_USER_BIT_CANT_REVERT = 0x00800000U,/**< 0x00800000<br>
 					* Already programmed user FUSE bit
 					* cannot be reverted.*/
+	XSK_EFUSEPS_ERROR_BEFORE_PROGRAMMING = 0x08000000U,/**< 0x08000000U<br>Error
+								*  occurred before
+								*  programming. */
 
 }XSKEfusePs_ErrorCodes;
  /** @} */
@@ -956,10 +956,13 @@ typedef enum {
  */
 typedef enum {
 	XSK_ZYNQMP_BBRAMPS_ERROR_NONE = 0U, /**< 0<br>No error. */
-	XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG_ENABLE = 0x01U, /**< 0x01<br>If this
+	XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG_ENABLE = 0x010U, /**< 0x010<br>If this
 							  *  error is occurred
 							  *  programming is not
 							  *  possible. */
+	XSK_ZYNQMP_BBRAMPS_ERROR_IN_ZEROISE = 0x20U,      /**< 0x20<br>
+							   *  zeroize bbram is
+							   *	failed. */
 	XSK_ZYNQMP_BBRAMPS_ERROR_IN_CRC_CHECK = 0xB000U,  /**< 0xB000<br>If this
 							  *  error is occurred
 							  *  programming is done
@@ -968,9 +971,6 @@ typedef enum {
 	XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG = 0xC000U,		/**< 0xC000<br>
 							  *  programming of key
 							  *  is failed. */
-	XSK_ZYNQMP_BBRAMPS_ERROR_IN_ZEROISE = 0xE700U,      /**< 0xE700<br>
-							   *  zeroize bbram is
-							   *	failed. */
 	XSK_ZYNQMP_BBRAMPS_ERROR_IN_WRITE_CRC = 0xE800U    /**< 0xE800<br>
 							    * error write CRC
 							    * value. */
