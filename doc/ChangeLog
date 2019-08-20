@@ -58,6 +58,9 @@ Added RX tuning for SDR-PHY and DDR-PHY modes.
 Added support for EL1_NS.
 Added support for flash device reset.
 
+qspipsu_v1_10:
+Fixed issues in poll timeout feature.
+
 rtcpsu_v1_8
 Updated driver source and example with right sequence
 
