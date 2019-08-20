@@ -60,6 +60,7 @@
 * 6.6   vns     06/06/18 Added doxygen tags
 *       vns     09/18/18 Added APIs to support eFUSE programming from linux
 * 6.7   arc     01/05/19 Fixed MISRA-C violations.
+* 6.8   psl     07/30/19 Fixed MISRA-C violations.
 * </pre>
 *
 *****************************************************************************/
@@ -149,15 +150,15 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_USR7_FUSE	(7U)
 
 #define XSK_EFUSEPS_TPRGM_VALUE \
-	((((float)5.0) * (XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ)) / ((float)1000000.0))
+	(((5.0f) * (XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ)) / (1000000.0f))
 #define XSK_EFUSEPS_TRD_VALUE	\
- ((((float)15.0) * (XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ)) / ((float)100000000.0))
+ (((15.0f) * (XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ)) / (100000000.0f))
 #define XSK_EFUSEPS_TSUHPS_VALUE \
- ((((float)67.0) * (XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ)) / ((float)1000000000.0))
+ (((67.0f) * (XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ)) / (1000000000.0f))
 #define XSK_EFUSEPS_TSUHPSCS_VALUE \
- ((((float)46.0) * (XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ)) / ((float)1000000000.0))
+ (((46.0f) * (XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ)) / (1000000000.0f))
 #define XSK_EFUSEPS_TSUHCS_VALUE \
- ((((float)30.0) * (XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ)) / ((float)1000000000.0))
+ (((30.0f) * (XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ)) / (1000000000.0f))
 
 /* Timer related macros */
 #define XilSKey_ZynqMp_EfusePs_Tprgrm() \
