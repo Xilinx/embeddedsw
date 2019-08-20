@@ -863,9 +863,9 @@ u32 XSecure_AuthenticationHeaders(u8 *StartAddr, XSecure_ImageInfo *ImageInfo)
 
 UPDATE:
 	if (NoAuth != 0U) {
-		Ph = (XSecure_PartitionHeader *)(UINTPTR)
+		Ph = (XSecure_PartitionHeader *)((UINTPTR)
 				(StartAddr + Xil_In32((UINTPTR)Buffer +
-						XSECURE_PH_TABLE_OFFSET));
+						XSECURE_PH_TABLE_OFFSET)));
 		/* Copy boot header parameters */
 		ImageInfo->KeySrc = Xil_In32((UINTPTR)(Buffer +
 					XSECURE_KEY_SOURCE_OFFSET));
