@@ -1,8 +1,28 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* SPDX-License-Identifier: MIT
+*
+* Copyright (C) 2015-2019 Xilinx, Inc.  All rights reserved.
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in
+* all copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
+*
+*
+*
 ******************************************************************************/
-
 
 /*****************************************************************************/
 /**
@@ -10,6 +30,12 @@
  * PM API System implementation
  * @addtogroup xpm_apis XilPM APIs
  *
+ * Xilinx Power Management(XilPM) provides Embedded Energy Management
+ * Interface (EEMI) APIs for power management on Zynq&reg; UltraScale+&trade
+ * MPSoC. For more details about power management on Zynq Ultrascale+ MPSoC,
+ * see the Zynq UltraScale+ MPSoC Power Management User Guide (UG1199).
+ * For more details about EEMI, see the Embedded Energy Management Interface
+ * (EEMI) API User Guide(UG1200).
  * @{
  *****************************************************************************/
 
@@ -187,20 +213,20 @@ XStatus XPm_MmioWrite(const u32 address, const u32 mask, const u32 value);
 XStatus XPm_MmioRead(const u32 address, u32 *const value);
 
 /* Clock API */
-XStatus XPm_ClockEnable(const enum XPmClock clk);
-XStatus XPm_ClockDisable(const enum XPmClock clk);
-XStatus XPm_ClockGetStatus(const enum XPmClock clk, u32 *const status);
+XStatus XPm_ClockEnable(const enum XPmClock clock);
+XStatus XPm_ClockDisable(const enum XPmClock clock);
+XStatus XPm_ClockGetStatus(const enum XPmClock clock, u32 *const status);
 
-XStatus XPm_ClockSetDivider(const enum XPmClock clk, const u32 divider);
-XStatus XPm_ClockGetDivider(const enum XPmClock clk, u32 *const divider);
+XStatus XPm_ClockSetDivider(const enum XPmClock clock, const u32 divider);
+XStatus XPm_ClockGetDivider(const enum XPmClock clock, u32 *const divider);
 
-XStatus XPm_ClockSetParent(const enum XPmClock clk,
+XStatus XPm_ClockSetParent(const enum XPmClock clock,
 			   const enum XPmClock parent);
-XStatus XPm_ClockGetParent(const enum XPmClock clk,
+XStatus XPm_ClockGetParent(const enum XPmClock clock,
 			   enum XPmClock *const parent);
 
-XStatus XPm_ClockSetRate(const enum XPmClock clk, const u32 rate);
-XStatus XPm_ClockGetRate(const enum XPmClock clk, u32 *const rate);
+XStatus XPm_ClockSetRate(const enum XPmClock clock, const u32 rate);
+XStatus XPm_ClockGetRate(const enum XPmClock clock, u32 *const rate);
 
 /* PLL API */
 XStatus XPm_PllSetParameter(const enum XPmNodeId node,
