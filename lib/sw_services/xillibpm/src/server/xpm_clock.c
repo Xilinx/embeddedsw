@@ -665,7 +665,7 @@ XStatus XPmClock_GetClockData(XPm_OutClockNode *Clk, u32 Nodetype, u32 *Value)
 
 	Ptr = XPmClock_GetTopologyNode(Clk, Nodetype);
 	if (Ptr == NULL) {
-		Status = XST_INVALID_PARAM;
+		Status = XPM_INVALID_CLK_SUBNODETYPE;
 		goto done;
 	}
 
