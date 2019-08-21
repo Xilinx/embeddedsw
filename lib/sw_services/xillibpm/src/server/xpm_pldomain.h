@@ -42,6 +42,8 @@ typedef struct XPm_PlDomain XPm_PlDomain;
  */
 typedef struct XPm_PlDomain {
 	XPm_PowerDomain Domain; /**< Power domain node base class */
+	u32 CfuApbBaseAddr; /**< CFU APB base address */
+	u32 Cframe0RegBaseAddr; /**< CFRAME0 Register base address */
 } XPm_PlDomain;
 
 /* TRIM Types */
@@ -52,7 +54,8 @@ typedef struct XPm_PlDomain {
 
 /************************** Function Prototypes ******************************/
 XStatus XPmPlDomain_Init(XPm_PlDomain *Pld, u32 Id, u32 BaseAddress,
-			 XPm_Power *Parent);
+			 XPm_Power *Parent,  u32 *OtherBaseAddresses,
+			 u32 OtherBaseAddressCnt);
 
 #ifdef __cplusplus
 }

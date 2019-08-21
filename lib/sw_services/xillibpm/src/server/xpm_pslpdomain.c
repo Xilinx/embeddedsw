@@ -412,11 +412,23 @@ struct XPm_PowerDomainOps LpdOps = {
 };
 
 XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
-			   XPm_Power *Parent)
+			   XPm_Power *Parent, u32 *OtherBaseAddresses,
+			   u32 OtherBaseAddressesCnt)
 {
+	XStatus Status = XST_SUCCESS;
+
 	XPmPowerDomain_Init(&PsLpd->Domain, Id, BaseAddress, Parent, &LpdOps);
 
 	PsLpd->LpdBisrFlags = 0;
 
-	return XST_SUCCESS;
+	/* Make sure enough base addresses are being passed */
+	if (3 <= OtherBaseAddressesCnt) {
+		PsLpd->LpdIouSlcrBaseAddr = OtherBaseAddresses[0];
+		PsLpd->LpdSlcrBaseAddr = OtherBaseAddresses[1];
+		PsLpd->LpdSlcrSecureBaseAddr = OtherBaseAddresses[2];
+	} else {
+		Status = XST_FAILURE;
+	}
+
+	return Status;
 }

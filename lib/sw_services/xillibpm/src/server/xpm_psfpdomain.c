@@ -251,9 +251,18 @@ struct XPm_PowerDomainOps FpdOps = {
 };
 
 XStatus XPmPsFpDomain_Init(XPm_PsFpDomain *PsFpd, u32 Id, u32 BaseAddress,
-			   XPm_Power *Parent)
+			   XPm_Power *Parent,  u32 *OtherBaseAddresses,
+			   u32 OtherBaseAddressCnt)
 {
+	XStatus Status = XST_SUCCESS;
+
 	XPmPowerDomain_Init(&PsFpd->Domain, Id, BaseAddress, Parent, &FpdOps);
 
-	return XST_SUCCESS;
+	/* Make sure enough base addresses are being passed */
+	if (1 <= OtherBaseAddressCnt)
+		PsFpd->FpdSlcrBaseAddr = OtherBaseAddresses[0];
+	else
+		Status = XST_FAILURE;
+
+	return Status;
 }
