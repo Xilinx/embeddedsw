@@ -31,6 +31,8 @@
 #include "xpm_rpucore.h"
 #include "xpm_notifier.h"
 #include "xillibpm_api.h"
+#include "xpm_pslpdomain.h"
+
 /** PSM RAM Base address */
 #define XPM_PSM_RAM_BASE_ADDR           (0xFFC00000U)
 #define XPM_PSM_RAM_SIZE                (0x40000U)
@@ -337,6 +339,13 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				if (1 /* Hack: Clock enabled */) {
 					Node->State = XPM_DEVSTATE_RST_OFF;
 
+					XPm_PsLpDomain *PsLpd;
+					PsLpd = (XPm_PsLpDomain *)XPmPower_GetById(XPM_POWERID_LPD);
+					if (NULL == PsLpd) {
+						Status = XST_FAILURE;
+						break;
+					}
+
 					/*
 					 * Configure ADMA as non-secure so Linux
 					 * can use it.
@@ -345,9 +354,13 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 					 */
 					if (Device->Node.Id >= XPM_DEVID_ADMA_0 &&
 							Device->Node.Id <= XPM_DEVID_ADMA_7) {
-						XPm_Out32(LPD_SLCR_SECURE_WPROT0, 0x0);
-						XPm_Out32(LPD_SLCR_SECURE_ADMA_0 + (Device->Node.Id - XPM_DEVID_ADMA_0) * 4, 0x1);
-						XPm_Out32(LPD_SLCR_SECURE_WPROT0, 0x1);
+						XPm_Out32(PsLpd->LpdSlcrSecureBaseAddr +
+							  LPD_SLCR_SECURE_WPROT0_OFFSET, 0x0);
+						XPm_Out32(PsLpd->LpdSlcrSecureBaseAddr +
+							  LPD_SLCR_SECURE_ADMA_0_OFFSET +
+							  (Device->Node.Id - XPM_DEVID_ADMA_0) * 4, 0x1);
+						XPm_Out32(PsLpd->LpdSlcrSecureBaseAddr +
+							  LPD_SLCR_SECURE_WPROT0_OFFSET, 0x1);
 					}
 
 					/* De-assert reset for peripheral devices */
