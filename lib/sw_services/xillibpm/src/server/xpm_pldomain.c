@@ -464,10 +464,10 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 		/* Fake read */
 		/* each register is 128 bits long so issue 4 reads */
 		XPlmi_Printf(DEBUG_INFO, "INFO: %s : CFRAME Fake Read...", __func__);
-		PmIn32(CFRAME0_REG_BASEADDR + 0, Value);
-		PmIn32(CFRAME0_REG_BASEADDR + 4, Value);
-		PmIn32(CFRAME0_REG_BASEADDR + 8, Value);
-		PmIn32(CFRAME0_REG_BASEADDR + 12, Value);
+		PmIn32(Pld->Cframe0RegBaseAddr + 0, Value);
+		PmIn32(Pld->Cframe0RegBaseAddr + 4, Value);
+		PmIn32(Pld->Cframe0RegBaseAddr + 8, Value);
+		PmIn32(Pld->Cframe0RegBaseAddr + 12, Value);
 		XPlmi_Printf(DEBUG_INFO, "Done\r\n");
 
 		/* Unlock CFU writes */
