@@ -33,10 +33,17 @@
 static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
+	XPm_CpmDomain *Cpm;
 
 	/* This function does not use the args */
 	(void)Args;
 	(void)NumOfArgs;
+
+	Cpm = (XPm_CpmDomain *)XPmPower_GetById(XPM_POWERID_CPM);
+	if (NULL == Cpm) {
+		Status = XST_FAILURE;
+		goto done;
+	}
 
 	/* Remove isolation to allow scan_clear on CPM */
 	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_LPD_CPM_DFX, FALSE);
@@ -53,9 +60,9 @@ static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 
 		/*TODO: Topology is not passing cpm reset register
 		right now, so hard coded for now */
-	        PmOut32(CPM_PCSR_LOCK, PCSR_UNLOCK_VAL);
-		PmOut32(CPM_PCSR_ECO, 0);
-	        PmOut32(CPM_PCSR_LOCK, 1);
+	        PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+		PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_ECO_OFFSET, 0);
+	        PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_LOCK_OFFSET, 1);
 	}
 done:
 	return Status;
@@ -75,6 +82,7 @@ static XStatus CpmInitFinish(u32 *Args, u32 NumOfArgs)
 static XStatus CpmScanClear(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
+	XPm_CpmDomain *Cpm;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -86,17 +94,29 @@ static XStatus CpmScanClear(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
+	Cpm = (XPm_CpmDomain *)XPmPower_GetById(XPM_POWERID_CPM);
+	if (NULL == Cpm) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
 	/* Unlock PCSR */
-	PmOut32(CPM_PCSR_LOCK, PCSR_UNLOCK_VAL);
+	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
 
 	/* Run scan clear on CPM */
-	PmOut32(CPM_PCSR_MASK, CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK);
-	PmOut32(CPM_PCSR_PCR, CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK);
-	Status = XPm_PollForMask(CPM_PCSR_PSR, CPM_PCSR_PSR_SCAN_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
+	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET,
+		CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK);
+	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PCR_OFFSET,
+		CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK);
+	Status = XPm_PollForMask(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PSR_OFFSET,
+				 CPM_PCSR_PSR_SCAN_CLEAR_DONE_MASK,
+				 XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
-	Status = XPm_PollForMask(CPM_PCSR_PSR, CPM_PCSR_PSR_SCAN_CLEAR_PASS_MASK, XPM_POLL_TIMEOUT);
+	Status = XPm_PollForMask(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PSR_OFFSET,
+				 CPM_PCSR_PSR_SCAN_CLEAR_PASS_MASK,
+				 XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -106,11 +126,12 @@ static XStatus CpmScanClear(u32 *Args, u32 NumOfArgs)
 				     PM_RESET_ACTION_PULSE);
 
 	/* Unwrite trigger bits */
-	PmOut32(CPM_PCSR_MASK, CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK);
-        PmOut32(CPM_PCSR_PCR, 0);
+	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET,
+		CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK);
+        PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PCR_OFFSET, 0);
 
 	/* Lock PCSR */
-	PmOut32(CPM_PCSR_LOCK, 1);
+	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_LOCK_OFFSET, 1);
 done:
 	return Status;
 }
