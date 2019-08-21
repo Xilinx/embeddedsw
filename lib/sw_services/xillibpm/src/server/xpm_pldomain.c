@@ -359,6 +359,7 @@ done:
 static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
+	XPm_PlDomain *Pld;
 	u32 Value = 0;
 
 	/* If Arg0 is set, bypass houseclean */
@@ -375,6 +376,12 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 
 	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PMC_PL_CFRAME, FALSE_IMMEDIATE);
 	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Pld = (XPm_PlDomain *)XPmPower_GetById(XPM_POWERID_PLD);
+	if (NULL == Pld) {
+		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -427,15 +434,15 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 
 		 /* Poll for house clean completion */
 		XPlmi_Printf(DEBUG_INFO, "INFO: %s : Waiitng for PL HC complete....", __func__);
-		while ((Xil_In32(CFU_APB_CFU_STATUS) &
-						CFU_APB_CFU_STATUS_HC_COMPLETE_MASK) !=
-								CFU_APB_CFU_STATUS_HC_COMPLETE_MASK);
+		while ((Xil_In32(Pld->CfuApbBaseAddr + CFU_APB_CFU_STATUS_OFFSET) &
+			CFU_APB_CFU_STATUS_HC_COMPLETE_MASK) !=
+					CFU_APB_CFU_STATUS_HC_COMPLETE_MASK);
 		XPlmi_Printf(DEBUG_INFO, "Done\r\n");
 
 		XPlmi_Printf(DEBUG_INFO, "INFO: %s : CFRAME_BUSY to go low...", __func__);
-		while ((Xil_In32(CFU_APB_CFU_STATUS) &
-						CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK) ==
-								CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK);
+		while ((Xil_In32(Pld->CfuApbBaseAddr + CFU_APB_CFU_STATUS_OFFSET) &
+			CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK) ==
+						CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK);
 		XPlmi_Printf(DEBUG_INFO, "Done\r\n");
 		/* VGG TRIM */
 		PldApplyTrim(XPM_PL_TRIM_VGG);
@@ -464,15 +471,19 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 		XPlmi_Printf(DEBUG_INFO, "Done\r\n");
 
 		/* Unlock CFU writes */
-		PmOut32(CFU_APB_CFU_PROTECT, 0);
+		PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_PROTECT_OFFSET, 0);
 
 		/* PL scan clear / MBIST */
-		PmOut32(CFU_APB_CFU_MASK, CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
-		PmOut32(CFU_APB_CFU_FGCR, CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
+		PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_MASK_OFFSET,
+			CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
+		PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_FGCR_OFFSET,
+			CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
 
 		/* Poll for status */
 		XPlmi_Printf(DEBUG_INFO, "INFO: %s : Wait for Hard Block Scan Clear / MBIST complete...", __func__);
-		Status = XPm_PollForMask(CFU_APB_CFU_STATUS, CFU_APB_CFU_STATUS_SCAN_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
+		Status = XPm_PollForMask(Pld->CfuApbBaseAddr + CFU_APB_CFU_STATUS_OFFSET,
+					 CFU_APB_CFU_STATUS_SCAN_CLEAR_DONE_MASK,
+					 XPM_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
 			XPlmi_Printf(DEBUG_INFO, "ERROR\r\n");
 			/** HACK: Continuing even if CFI SC is not completed */
@@ -484,8 +495,9 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 			XPlmi_Printf(DEBUG_INFO, "Done\r\n");
 		}
 		/* Check if Scan Clear Passed */
-		if ((XPm_In32(CFU_APB_CFU_STATUS) & CFU_APB_CFU_STATUS_SCAN_CLEAR_PASS_MASK) !=
-			CFU_APB_CFU_STATUS_SCAN_CLEAR_PASS_MASK) {
+		if ((XPm_In32(Pld->CfuApbBaseAddr + CFU_APB_CFU_STATUS_OFFSET) &
+		     CFU_APB_CFU_STATUS_SCAN_CLEAR_PASS_MASK) !=
+				CFU_APB_CFU_STATUS_SCAN_CLEAR_PASS_MASK) {
 			XPlmi_Printf(DEBUG_GENERAL, "ERROR: %s: Hard Block Scan Clear / MBIST FAILED\r\n", __func__);
 			/** HACK: Continuing even if CFI SC is not pass */
 			Status = XST_SUCCESS;
@@ -494,23 +506,26 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 		}
 
 		/* Unwrite trigger bits for PL scan clear / MBIST */
-		PmOut32(CFU_APB_CFU_MASK, CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
-		PmOut32(CFU_APB_CFU_FGCR, 0);
+		PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_MASK_OFFSET,
+			CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
+		PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_FGCR_OFFSET, 0);
 
 		/* Lock CFU writes */
-		PmOut32(CFU_APB_CFU_PROTECT, 1);
+		PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_PROTECT_OFFSET, 1);
 	}
 //#endif /* PLPD_HOUSECLEAN_BYPASS */
 
 	/* Unlock CFU writes */
-	PmOut32(CFU_APB_CFU_PROTECT, 0);
+	PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_PROTECT_OFFSET, 0);
 
 	/* Set init_complete */
-	PmOut32(CFU_APB_CFU_MASK, CFU_APB_CFU_FGCR_INIT_COMPLETE_MASK);
-	PmOut32(CFU_APB_CFU_FGCR, CFU_APB_CFU_FGCR_INIT_COMPLETE_MASK);
+	PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_MASK_OFFSET,
+		CFU_APB_CFU_FGCR_INIT_COMPLETE_MASK);
+	PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_FGCR_OFFSET,
+		CFU_APB_CFU_FGCR_INIT_COMPLETE_MASK);
 
 	/* Lock CFU writes */
-	PmOut32(CFU_APB_CFU_PROTECT, 1);
+	PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_PROTECT_OFFSET, 1);
 
 	/* Compilation warning fix */
 	(void)Value;
