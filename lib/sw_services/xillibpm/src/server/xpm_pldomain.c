@@ -102,6 +102,11 @@ static void PldApplyTrim(u32 TrimType)
 {
         u32 TrimVal;
         Xuint128 VggTrim={0};
+	XPm_Device *EfuseCache = XPmDevice_GetById(XPM_DEVID_EFUSE_CACHE);
+
+	if (NULL == EfuseCache) {
+		goto done;
+	}
 
         /* Read the corresponding efuse registers for TRIM values */
         switch (TrimType)
@@ -109,16 +114,20 @@ static void PldApplyTrim(u32 TrimType)
                 /* Read VGG trim efuse registers */
                 case XPM_PL_TRIM_VGG:
                 {
-			PmIn32(EFUSE_CACHE_TRIM_CFRM_VGG_0, VggTrim.Word0);
-                        PmIn32(EFUSE_CACHE_TRIM_CFRM_VGG_1, VggTrim.Word1);
-                        PmIn32(EFUSE_CACHE_TRIM_CFRM_VGG_2, VggTrim.Word2);
+			PmIn32(EfuseCache->Node.BaseAddress + EFUSE_CACHE_TRIM_CFRM_VGG_0_OFFSET,
+			       VggTrim.Word0);
+                        PmIn32(EfuseCache->Node.BaseAddress + EFUSE_CACHE_TRIM_CFRM_VGG_1_OFFSET,
+			       VggTrim.Word1);
+                        PmIn32(EfuseCache->Node.BaseAddress + EFUSE_CACHE_TRIM_CFRM_VGG_2_OFFSET,
+			       VggTrim.Word2);
                         XCframe_VggTrim(&CframeIns, &VggTrim);
                 }
                 break;
                 /* Read CRAM trim efuse registers */
                 case XPM_PL_TRIM_CRAM:
                 {
-                        PmIn32(EFUSE_CACHE_TRIM_CRAM, TrimVal);
+                        PmIn32(EfuseCache->Node.BaseAddress + EFUSE_CACHE_TRIM_CRAM_OFFSET,
+			       TrimVal);
 			/* if eFUSE is not programmed,
 			then set rw_read_voltages to 0.61V + 0.625V by writing */
 			if ((TrimVal == 0) && (PLATFORM_VERSION_SILICON == Platform) && (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion))
@@ -129,14 +138,16 @@ static void PldApplyTrim(u32 TrimType)
                 /* Read BRAM trim efuse registers */
                 case XPM_PL_TRIM_BRAM:
                 {
-                        PmIn32(EFUSE_CACHE_TRIM_BRAM, TrimVal);
+                        PmIn32(EfuseCache->Node.BaseAddress + EFUSE_CACHE_TRIM_BRAM_OFFSET,
+			       TrimVal);
                         XCframe_BramTrim(&CframeIns, TrimVal);
                 }
                 break;
                 /* Read URAM trim efuse registers */
                 case XPM_PL_TRIM_URAM:
                 {
-                        PmIn32(EFUSE_CACHE_TRIM_URAM, TrimVal);
+                        PmIn32(EfuseCache->Node.BaseAddress + EFUSE_CACHE_TRIM_URAM_OFFSET,
+			       TrimVal);
                         XCframe_UramTrim(&CframeIns, TrimVal);
                 }
                 break;
@@ -145,6 +156,9 @@ static void PldApplyTrim(u32 TrimType)
                         break;
                 }
         }
+
+done:
+	return;
 }
 
 XStatus PldCfuInit()
