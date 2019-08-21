@@ -31,6 +31,7 @@
 #include "xpm_powerdomain.h"
 #include "xpm_pslpdomain.h"
 #include "xpm_bisr.h"
+#include "xpm_device.h"
 #include "xpm_gic_proxy.h"
 #include "xpm_regs.h"
 
@@ -120,14 +121,23 @@ XStatus XPm_PowerDwnLPD()
 		goto done;
 	}
 
+	XPm_Device *AmsRoot = XPmDevice_GetById(XPM_DEVID_AMS_ROOT);
+	if (NULL == AmsRoot) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
 	/* Unlock configuration and system registers for write operation */
-	PmOut32(AMS_ROOT_REG_PCSR_LOCK, PCSR_UNLOCK_VAL);
+	PmOut32(AmsRoot->Node.BaseAddress + AMS_ROOT_REG_PCSR_LOCK_OFFSET,
+		PCSR_UNLOCK_VAL);
 
 	/* Disable the SSC interface to PS LPD satellite */
-	PmRmw32(AMS_ROOT_TOKEN_MNGR, AMS_ROOT_TOKEN_MNGR_BYPASS_LPD_MASK, AMS_ROOT_TOKEN_MNGR_BYPASS_LPD_MASK);
+	PmRmw32(AmsRoot->Node.BaseAddress + AMS_ROOT_TOKEN_MNGR_OFFSET,
+		AMS_ROOT_TOKEN_MNGR_BYPASS_LPD_MASK,
+		AMS_ROOT_TOKEN_MNGR_BYPASS_LPD_MASK);
 
 	/* Lock configuration and system registers */
-	PmOut32(AMS_ROOT_REG_PCSR_LOCK, 1);
+	PmOut32(AmsRoot->Node.BaseAddress + AMS_ROOT_REG_PCSR_LOCK_OFFSET, 1);
 
 	/* Isolate PS_PL */
 	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_LPD_PL_TEST, TRUE);
@@ -198,15 +208,23 @@ XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 {
 	XStatus Status = XST_SUCCESS;
 	XPm_Core *ApuCore = (XPm_Core *)XPmDevice_GetById(XPM_DEVID_ACPU_0);
+	XPm_Device *AmsRoot = XPmDevice_GetById(XPM_DEVID_AMS_ROOT);
+	if (NULL == AmsRoot) {
+		Status = XST_FAILURE;
+		goto done;
+	}
 
 	/* Unlock configuration and system registers for write operation */
-	PmOut32(AMS_ROOT_REG_PCSR_LOCK, PCSR_UNLOCK_VAL);
+	PmOut32(AmsRoot->Node.BaseAddress + AMS_ROOT_REG_PCSR_LOCK_OFFSET,
+		PCSR_UNLOCK_VAL);
 
 	/* Disable the SSC interface to PS FPD satellite */
-	PmRmw32(AMS_ROOT_TOKEN_MNGR, AMS_ROOT_TOKEN_MNGR_BYPASS_FPD_MASK, AMS_ROOT_TOKEN_MNGR_BYPASS_FPD_MASK);
+	PmRmw32(AmsRoot->Node.BaseAddress + AMS_ROOT_TOKEN_MNGR_OFFSET,
+		AMS_ROOT_TOKEN_MNGR_BYPASS_FPD_MASK,
+		AMS_ROOT_TOKEN_MNGR_BYPASS_FPD_MASK);
 
 	/* Lock configuration and system registers */
-	PmOut32(AMS_ROOT_REG_PCSR_LOCK, 1);
+	PmOut32(AmsRoot->Node.BaseAddress + AMS_ROOT_REG_PCSR_LOCK_OFFSET, 1);
 
 	/* Isolate FPD-NoC */
 	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_FPD_SOC, TRUE);
@@ -446,16 +464,24 @@ done:
 XStatus XPm_PowerDwnNoC()
 {
 	XStatus Status = XST_SUCCESS;
+	XPm_Device *AmsRoot = XPmDevice_GetById(XPM_DEVID_AMS_ROOT);
+	if (NULL == AmsRoot) {
+		Status = XST_FAILURE;
+		goto done;
+	}
 
 	/* Unlock configuration and system registers for write operation */
-	PmOut32(AMS_ROOT_REG_PCSR_LOCK, PCSR_UNLOCK_VAL);
+	PmOut32(AmsRoot->Node.BaseAddress + AMS_ROOT_REG_PCSR_LOCK_OFFSET,
+		PCSR_UNLOCK_VAL);
 
 	/* PL satellite depends on NPD and not PLD so disable the SSC interface to PL satellite
 		while powering down NPD*/
-	PmRmw32(AMS_ROOT_TOKEN_MNGR, AMS_ROOT_TOKEN_MNGR_BYPASS_PL_MASK, AMS_ROOT_TOKEN_MNGR_BYPASS_PL_MASK);
+	PmRmw32(AmsRoot->Node.BaseAddress + AMS_ROOT_TOKEN_MNGR_OFFSET,
+		AMS_ROOT_TOKEN_MNGR_BYPASS_PL_MASK,
+		AMS_ROOT_TOKEN_MNGR_BYPASS_PL_MASK);
 
 	/* Lock configuration and system registers */
-	PmOut32(AMS_ROOT_REG_PCSR_LOCK, 1);
+	PmOut32(AmsRoot->Node.BaseAddress + AMS_ROOT_REG_PCSR_LOCK_OFFSET, 1);
 
 	/* Isolate FPD-NoC domain */
 	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_FPD_SOC, TRUE);
