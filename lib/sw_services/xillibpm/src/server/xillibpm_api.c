@@ -2995,7 +2995,7 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 				goto done;
 			}
 			Status = XPmPsFpDomain_Init(PsFpDomain, PowerId,
-						    BitMask, PowerParent);
+						    BitMask, PowerParent, &Args[3], (NumArgs - 3));
 			break;
 		case XPM_NODETYPE_POWER_DOMAIN_PS_LOW:
 			PsLpDomain =
@@ -3004,8 +3004,9 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 				Status = XST_BUFFER_TOO_SMALL;
 				goto done;
 			}
-			Status = XPmPsLpDomain_Init(PsLpDomain,
-				PowerId, BitMask, PowerParent);
+			Status = XPmPsLpDomain_Init(PsLpDomain, PowerId,
+						    BitMask, PowerParent,
+						    &Args[3], (NumArgs - 3));
 			break;
 		case XPM_NODETYPE_POWER_DOMAIN_NOC:
 			NpDomain = (XPm_NpDomain *)XPm_AllocBytes(sizeof(XPm_NpDomain));
@@ -3023,7 +3024,7 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 				goto done;
 			}
 			Status = XPmPlDomain_Init(PlDomain, PowerId, 0x00000000,
-						  PowerParent);
+						  PowerParent, &Args[3], (NumArgs - 3));
 			break;
 		case XPM_NODETYPE_POWER_DOMAIN_CPM:
 			CpmDomain = (XPm_CpmDomain *)XPm_AllocBytes(sizeof(XPm_CpmDomain));
@@ -3031,7 +3032,8 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 				Status = XST_BUFFER_TOO_SMALL;
 				goto done;
 			}
-			Status = XPmCpmDomain_Init(CpmDomain, PowerId, 0x00000000, PowerParent);
+			Status = XPmCpmDomain_Init(CpmDomain, PowerId, 0x00000000, PowerParent,
+						   &Args[3], (NumArgs - 3));
 			break;
 		case XPM_NODETYPE_POWER_DOMAIN_ME:
 			AieDomain = (XPm_AieDomain *)XPm_AllocBytes(sizeof(XPm_AieDomain));

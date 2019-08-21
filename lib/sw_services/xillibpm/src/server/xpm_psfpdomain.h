@@ -41,11 +41,13 @@ extern "C" {
  */
 typedef struct XPm_PsFpDomain {
 	XPm_PowerDomain Domain; /**< Power domain node base class */
+	u32 FpdSlcrBaseAddr; /**< FPD SLCR base address */
 } XPm_PsFpDomain;
 
 /************************** Function Prototypes ******************************/
 XStatus XPmPsFpDomain_Init(XPm_PsFpDomain *PsFpd, u32 Id, u32 BaseAddress,
-			   XPm_Power *Parent);
+			   XPm_Power *Parent, u32 *OtherBaseAddresses,
+			   u32 OtherBaseAddressCnt);
 
 #ifdef __cplusplus
 }
