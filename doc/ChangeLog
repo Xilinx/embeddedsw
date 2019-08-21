@@ -53,6 +53,9 @@ freertos_lwip_echo_server and
 freertos_lwip perf apps:
 Add support for Versal
 
+freertos_lwip_echo_server:
+Increase main thread timeout
+
 ospipsv_v1_1:
 Added RX tuning for SDR-PHY and DDR-PHY modes.
 Added support for EL1_NS.
