@@ -30,6 +30,7 @@
 #include "xpm_power.h"
 #include "xpm_psfpdomain.h"
 #include "xpm_cpmdomain.h"
+#include "xpm_pldomain.h"
 
 /* Defines */
 #define PMC_EFUSE_BISR_START_ADDR 	EFUSE_CACHE_BISR_RSVD_0
@@ -556,6 +557,7 @@ done:
 
 static int XPmBisr_RepairBram(u32 EfuseTagAddr, u32 TagSize)
 {
+	XPm_PlDomain *Pld;
 	u32 TagRow = 0;
 	u32 TagData;
 	u32 TagDataAddr;
@@ -568,6 +570,13 @@ static int XPmBisr_RepairBram(u32 EfuseTagAddr, u32 TagSize)
 	u32 BramRepairWord;
 
 	TagDataAddr = EfuseTagAddr + 4;
+
+	Pld = (XPm_PlDomain *)XPmPower_GetById(XPM_POWERID_PLD);
+	if (NULL == Pld) {
+		/* Return negative address, caller can identify error */
+		TagDataAddr = ~0;
+		goto done;
+	}
 
 	while (TagRow < TagSize) {
 		if (TagDataAddr == EFUSE_CACHE_TBITS1_BISR_RSVD || TagDataAddr == EFUSE_CACHE_TBITS2_BISR_RSVD) {
@@ -585,7 +594,7 @@ static int XPmBisr_RepairBram(u32 EfuseTagAddr, u32 TagSize)
 
 		//Build address for cfrm registers based on the "row"
 		//CFRM0_REG=0xF12D0000, CFRM1_REG=0xF12D2000, ...
-		CframeRowAddr=CFRAME0_REG_BASEADDR+(0x2000 * BramRepairRow);
+		CframeRowAddr = Pld->Cframe0RegBaseAddr + (0x2000 * BramRepairRow);
 
 		//construct expanded vector
 		//[31:0] init to 0
@@ -613,11 +622,14 @@ static int XPmBisr_RepairBram(u32 EfuseTagAddr, u32 TagSize)
 		//Trigger repair command
 		XPm_Out32((CframeRowAddr+0x60), 0xD);
 	}
+
+done:
 	return TagDataAddr;
 }
 
 static int XPmBisr_RepairUram(u32 EfuseTagAddr, u32 TagSize)
 {
+	XPm_PlDomain *Pld;
 	u32 TagRow = 0;
 	u32 TagData;
 	u32 TagDataAddr;
@@ -630,6 +642,13 @@ static int XPmBisr_RepairUram(u32 EfuseTagAddr, u32 TagSize)
 	u32 UramRepairWord;
 
 	TagDataAddr = EfuseTagAddr + 4;
+
+	Pld = (XPm_PlDomain *)XPmPower_GetById(XPM_POWERID_PLD);
+	if (NULL == Pld) {
+		/* Return negative address, caller can identify error */
+		TagDataAddr = ~0;
+		goto done;
+	}
 
 	while (TagRow < TagSize) {
 		if (TagDataAddr == EFUSE_CACHE_TBITS1_BISR_RSVD || TagDataAddr == EFUSE_CACHE_TBITS2_BISR_RSVD) {
@@ -647,7 +666,7 @@ static int XPmBisr_RepairUram(u32 EfuseTagAddr, u32 TagSize)
 
 		//Build address for cfrm registers based on the "row"
 		//CFRM0_REG=0xF12D0000, CFRM1_REG=0xF12D2000, ...
-		CframeRowAddr = CFRAME0_REG_BASEADDR + (0x2000 * UramRepairRow);
+		CframeRowAddr = Pld->Cframe0RegBaseAddr +  (0x2000 * UramRepairRow);
 
 		//construct expanded vector: BRAM Bottom
 		//[31:0] init to 0
@@ -675,11 +694,14 @@ static int XPmBisr_RepairUram(u32 EfuseTagAddr, u32 TagSize)
 		//Trigger repair command
 		XPm_Out32((CframeRowAddr+0x60),0xD);
 	}
+
+done:
 	return TagDataAddr;
 }
 
 static int XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 {
+	XPm_PlDomain *Pld;
 	u32 TagPairCnt;
 	u32 TagPair[2] = {0};
 	u32 NumPairs;
@@ -703,6 +725,11 @@ static int XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 			TagDataAddr += 4;
 		}
 		return TagDataAddr;
+	}
+
+	Pld = (XPm_PlDomain *)XPmPower_GetById(XPM_POWERID_PLD);
+	if (NULL == Pld) {
+		goto done;
 	}
 
 	TagPairCnt = 0;
@@ -732,7 +759,7 @@ static int XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 
 		//Build address for cfrm registers based on the "row"
 		//CFRM0_REG=0xF12D0000, CFRM1_REG=0xF12D2000, ...
-		CframeRowAddr = CFRAME0_REG_BASEADDR + (0x2000 * HbRepairRow);
+		CframeRowAddr = Pld->Cframe0RegBaseAddr + (0x2000 * HbRepairRow);
 
 		//construct expanded vector
 		// REPAIR_VALUE[31:0] = BISR Value[31:0]  (align to LSB)
@@ -759,6 +786,8 @@ static int XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 		XPm_Out32((CframeRowAddr+0x60),0xD);
 
 	}
+
+done:
 	return TagDataAddr;
 }
 
