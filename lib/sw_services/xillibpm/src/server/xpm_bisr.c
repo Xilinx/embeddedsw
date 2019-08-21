@@ -26,6 +26,7 @@
 #include "xpm_bisr.h"
 #include "xpm_powerdomain.h"
 #include "xpm_pslpdomain.h"
+#include "xpm_core.h"
 
 /* Defines */
 #define PMC_EFUSE_BISR_START_ADDR 	EFUSE_CACHE_BISR_RSVD_0
@@ -194,7 +195,19 @@ static XStatus XPmBisr_TagSupportCheck(u32 TagId)
 
 static void XPmBisr_SwError(u32 ErrorCode)
 {
-	XPm_Out32(PMC_GLOBAL_PMC_GSW_ERR,XPm_In32(PMC_GLOBAL_PMC_GSW_ERR)|(1<<ErrorCode)|(1<<PMC_GLOBAL_PMC_GSW_ERR_CR_FLAG_SHIFT));
+	XPm_Core *Pmc;
+
+	Pmc = (XPm_Core *)XPmDevice_GetById(XPM_DEVID_PMC);
+	if (NULL == Pmc) {
+		goto done;
+	}
+
+	XPm_Out32(Pmc->RegAddress[0] + PMC_GLOBAL_PMC_GSW_ERR_OFFSET,
+		  XPm_In32(Pmc->RegAddress[0] + PMC_GLOBAL_PMC_GSW_ERR_OFFSET) |
+			   (1 << ErrorCode) |
+			   (1 << PMC_GLOBAL_PMC_GSW_ERR_CR_FLAG_SHIFT));
+
+done:
 	return;
 }
 
