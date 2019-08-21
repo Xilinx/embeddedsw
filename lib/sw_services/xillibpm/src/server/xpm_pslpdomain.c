@@ -31,6 +31,7 @@
 #include "xpm_bisr.h"
 #include "xpm_prot.h"
 #include "xpm_regs.h"
+#include "xpm_device.h"
 
 static XStatus LpdInitStart(u32 *Args, u32 NumOfArgs)
 {
@@ -176,6 +177,7 @@ done:
 static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
+	XPm_Device *EfuseCache = XPmDevice_GetById(XPM_DEVID_EFUSE_CACHE);
 	u32 RegVal;
 
 	(void)Args;
@@ -185,8 +187,14 @@ static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 		Status = XST_SUCCESS;
 		goto done;
 	}
+
+	if (NULL == EfuseCache) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
 	/* Check if Lbist is enabled*/
-	PmIn32(EFUSE_CACHE_MISC_CTRL, RegVal);
+	PmIn32(EfuseCache->Node.BaseAddress + EFUSE_CACHE_MISC_CTRL_OFFSET, RegVal);
 	if ((RegVal & EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK) != EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK) {
 		goto done;
 	}
