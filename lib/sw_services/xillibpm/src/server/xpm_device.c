@@ -1636,8 +1636,14 @@ int XPmDevice_IsClockActive(XPm_Device *Device)
 					Status = XST_SUCCESS;
 					goto done;
 				}
+			} else if (XPM_INVALID_CLK_SUBNODETYPE == Status) {
+				PmDbg("Clock 0x%x does not have Clock Gate\n\r",
+						ClkHandle->Clock->Node.Id);
+				Status = XST_SUCCESS;
 			} else {
-				PmErr("Clock 0x%x model\r\n",
+				PmErr("XPmClock_GetClockData failed with Status 0x%x"
+						" for clock id: 0x%x\r\n",
+						Status,
 						ClkHandle->Clock->Node.Id);
 			}
 		}
