@@ -144,12 +144,16 @@ typedef struct XPm_PsLpDomain XPm_PsLpDomain;
  */
 struct XPm_PsLpDomain {
 	XPm_PowerDomain Domain; /**< Power domain node base class */
+	u32 LpdIouSlcrBaseAddr; /**< LPD IOU SLCR Base address */
+	u32 LpdSlcrBaseAddr; /**< LPD SLCR Base address */
+	u32 LpdSlcrSecureBaseAddr; /**< LPD SLCR Secure base address */
 	u8 LpdBisrFlags;
 };
 
 /************************** Function Prototypes ******************************/
-XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd,
-	u32 Id, u32 BaseAddress, XPm_Power *Parent);
+XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
+			   XPm_Power *Parent, u32 *OtherBaseAddresses,
+			   u32 OtherBaseAddressCnt);
 
 #ifdef __cplusplus
 }

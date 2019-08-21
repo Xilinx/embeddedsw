@@ -562,8 +562,11 @@ static XStatus HandlePlDomainEvent(XPm_Node *Node, u32 Event)
 }
 
 XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,
-			 XPm_Power *Parent)
+			 XPm_Power *Parent, u32 *OtherBaseAddresses,
+			 u32 OtherBaseAddressCnt)
 {
+	XStatus Status = XST_SUCCESS;
+
 	XPmPowerDomain_Init(&PlDomain->Domain, Id, BaseAddress, Parent, &PldOps);
 	PlDomain->Domain.Power.Node.State = XPM_POWER_STATE_OFF;
 	PlDomain->Domain.Power.UseCount = 1;
@@ -572,5 +575,13 @@ XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,
 	PlDomain->Domain.Power.Node.HandleEvent =
 		HandlePlDomainEvent;
 
-	return XST_SUCCESS;
+	/* Make sure enough base addresses are being passed */
+	if (2 <= OtherBaseAddressCnt) {
+		PlDomain->CfuApbBaseAddr = OtherBaseAddresses[0];
+		PlDomain->Cframe0RegBaseAddr = OtherBaseAddresses[1];
+	} else {
+		Status = XST_FAILURE;
+	}
+
+	return Status;
 }

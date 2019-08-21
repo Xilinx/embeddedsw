@@ -190,8 +190,22 @@ struct XPm_PowerDomainOps CpmOps = {
 };
 
 XStatus XPmCpmDomain_Init(XPm_CpmDomain *CpmDomain, u32 Id, u32 BaseAddress,
-			   XPm_Power *Parent)
+			  XPm_Power *Parent, u32 *OtherBaseAddresses,
+			  u32 OtherBaseAddressesCnt)
 {
+	XStatus Status = XST_SUCCESS;
+
 	XPmPowerDomain_Init(&CpmDomain->Domain, Id, BaseAddress, Parent, &CpmOps);
-	return XST_SUCCESS;
+
+	/* Make sure enough base addresses are being passed */
+	if (4 <= OtherBaseAddressesCnt) {
+		CpmDomain->CpmSlcrBaseAddr = OtherBaseAddresses[0];
+		CpmDomain->CpmSlcrSecureBaseAddr = OtherBaseAddresses[1];
+		CpmDomain->CpmPcsrBaseAddr = OtherBaseAddresses[2];
+		CpmDomain->CpmCrCpmBaseAddr = OtherBaseAddresses[3];
+	} else {
+		Status = XST_FAILURE;
+	}
+
+	return Status;
 }
