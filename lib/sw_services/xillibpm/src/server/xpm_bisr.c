@@ -27,6 +27,8 @@
 #include "xpm_powerdomain.h"
 #include "xpm_pslpdomain.h"
 #include "xpm_core.h"
+#include "xpm_power.h"
+#include "xpm_psfpdomain.h"
 
 /* Defines */
 #define PMC_EFUSE_BISR_START_ADDR 	EFUSE_CACHE_BISR_RSVD_0
@@ -341,41 +343,50 @@ done:
 static XStatus XPmBisr_RepairFpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr)
 {
 	XStatus Status = XST_SUCCESS;
+	XPm_PsFpDomain *PsFpd;
 	u32 RegValue;
 	u64 BisrDataDestAddr;
 
-	BisrDataDestAddr = FPD_SLCR_BISR_CACHE_DATA_0;
+	PsFpd = (XPm_PsFpDomain *)XPmPower_GetById(XPM_POWERID_FPD);
+	if (NULL == PsFpd) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	BisrDataDestAddr = PsFpd->FpdSlcrBaseAddr + FPD_SLCR_BISR_CACHE_DATA_0_OFFSET;
 
 	/* Copy repair data */
 	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
 
 	/* Trigger Bisr */
-	PmRmw32(FPD_SLCR_BISR_CACHE_CTRL_1, (FPD_SLCR_CACHE_CTRL_1_PGEN0_MASK |
-			FPD_SLCR_CACHE_CTRL_1_PGEN1_MASK |
-			FPD_SLCR_CACHE_CTRL_1_PGEN2_MASK |
-			FPD_SLCR_CACHE_CTRL_1_PGEN3_MASK),
-			(FPD_SLCR_CACHE_CTRL_1_PGEN0_MASK |
-			FPD_SLCR_CACHE_CTRL_1_PGEN1_MASK |
-			FPD_SLCR_CACHE_CTRL_1_PGEN2_MASK |
-			FPD_SLCR_CACHE_CTRL_1_PGEN3_MASK));
+	PmRmw32(PsFpd->FpdSlcrBaseAddr + FPD_SLCR_BISR_CACHE_CTRL_1_OFFSET,
+		(FPD_SLCR_CACHE_CTRL_1_PGEN0_MASK |
+		 FPD_SLCR_CACHE_CTRL_1_PGEN1_MASK |
+		 FPD_SLCR_CACHE_CTRL_1_PGEN2_MASK |
+		 FPD_SLCR_CACHE_CTRL_1_PGEN3_MASK),
+		(FPD_SLCR_CACHE_CTRL_1_PGEN0_MASK |
+		 FPD_SLCR_CACHE_CTRL_1_PGEN1_MASK |
+		 FPD_SLCR_CACHE_CTRL_1_PGEN2_MASK |
+		 FPD_SLCR_CACHE_CTRL_1_PGEN3_MASK));
 
-	PmRmw32(FPD_SLCR_BISR_CACHE_CTRL_0, FPD_SLCR_CACHE_CTRL_0_BISR_TRIGGER_MASK,
+	PmRmw32(PsFpd->FpdSlcrBaseAddr + FPD_SLCR_BISR_CACHE_CTRL_0_OFFSET,
+		FPD_SLCR_CACHE_CTRL_0_BISR_TRIGGER_MASK,
 		FPD_SLCR_CACHE_CTRL_0_BISR_TRIGGER_MASK);
 
 	/* Wait for Bisr to finish */
-	Status = XPm_PollForMask(FPD_SLCR_BISR_CACHE_STATUS,
+	Status = XPm_PollForMask(PsFpd->FpdSlcrBaseAddr + FPD_SLCR_BISR_CACHE_STATUS_OFFSET,
 				 (FPD_SLCR_BISR_DONE_GLOBAL_MASK |
 				  FPD_SLCR_BISR_DONE_3_MASK |
 				  FPD_SLCR_BISR_DONE_2_MASK |
 				  FPD_SLCR_BISR_DONE_1_MASK |
 				  FPD_SLCR_BISR_DONE_0_MASK),
-				 XPM_POLL_TIMEOUT);
+				  XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
 	/* Check Bisr Status */
-	PmIn32(FPD_SLCR_BISR_CACHE_STATUS, RegValue);
+	PmIn32(PsFpd->FpdSlcrBaseAddr + FPD_SLCR_BISR_CACHE_STATUS_OFFSET, RegValue);
 	if ((RegValue & (FPD_SLCR_BISR_PASS_GLOBAL_MASK |
 				  FPD_SLCR_BISR_PASS_3_MASK |
 				  FPD_SLCR_BISR_PASS_2_MASK |
@@ -391,10 +402,11 @@ static XStatus XPmBisr_RepairFpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 	}
 
 	/* Unwrite Trigger Bits */
-        PmRmw32(FPD_SLCR_BISR_CACHE_CTRL_1, (FPD_SLCR_CACHE_CTRL_1_PGEN0_MASK |
-                        FPD_SLCR_CACHE_CTRL_1_PGEN1_MASK |
-                        FPD_SLCR_CACHE_CTRL_1_PGEN2_MASK |
-                        FPD_SLCR_CACHE_CTRL_1_PGEN3_MASK), 0);
+        PmRmw32(PsFpd->FpdSlcrBaseAddr + FPD_SLCR_BISR_CACHE_CTRL_1_OFFSET,
+		(FPD_SLCR_CACHE_CTRL_1_PGEN0_MASK |
+		 FPD_SLCR_CACHE_CTRL_1_PGEN1_MASK |
+		 FPD_SLCR_CACHE_CTRL_1_PGEN2_MASK |
+		 FPD_SLCR_CACHE_CTRL_1_PGEN3_MASK), 0);
 
 done:
 	return Status;
