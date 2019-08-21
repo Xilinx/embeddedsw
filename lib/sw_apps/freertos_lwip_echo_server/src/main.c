@@ -246,7 +246,7 @@ int main_thread()
 			break;
 		}
 		mscnt += DHCP_FINE_TIMER_MSECS;
-		if (mscnt >= 10000) {
+		if (mscnt >= DHCP_COARSE_TIMER_SECS * 2000) {
 			xil_printf("ERROR: DHCP request timed out\r\n");
 			xil_printf("Configuring default IP of 192.168.1.10\r\n");
 			IP4_ADDR(&(server_netif.ip_addr),  192, 168, 1, 10);
