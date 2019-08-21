@@ -29,6 +29,8 @@
 #include "xpm_bisr.h"
 #include "xpm_regs.h"
 #include "xpm_psm.h"
+#include "xpm_core.h"
+#include "xpm_device.h"
 
 static XStatus FpdInitStart(u32 *Args, u32 NumOfArgs)
 {
@@ -82,6 +84,7 @@ static XStatus FpdHcComplete(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
+	XPm_Core *Psm;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -114,6 +117,7 @@ done:
 static XStatus FpdScanClear(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
+	XPm_Core *Psm;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -123,26 +127,31 @@ static XStatus FpdScanClear(u32 *Args, u32 NumOfArgs)
                 goto done;
         }
 
-        /* Trigger scan clear */
-        PmRmw32(PSM_GLOBAL_SCAN_CLEAR_FPD, PSM_GLOBAL_SCAN_CLEAR_TRIGGER,
-                       PSM_GLOBAL_SCAN_CLEAR_TRIGGER);
+	Psm = (XPm_Core *)XPmDevice_GetById(XPM_DEVID_PSM);;
+	if (NULL == Psm) {
+		Status = XST_FAILURE;
+		goto done;
+	}
 
-        Status = XPm_PollForMask(PSM_GLOBAL_SCAN_CLEAR_FPD,
-                                        PSM_GLOBAL_SCAN_CLEAR_DONE_STATUS,
-                                        0x10000U);
+        /* Trigger scan clear */
+        PmRmw32(Psm->Device.Node.BaseAddress + PSM_GLOBAL_SCAN_CLEAR_FPD_OFFSET,
+		PSM_GLOBAL_SCAN_CLEAR_TRIGGER, PSM_GLOBAL_SCAN_CLEAR_TRIGGER);
+
+        Status = XPm_PollForMask(Psm->Device.Node.BaseAddress + PSM_GLOBAL_SCAN_CLEAR_FPD_OFFSET,
+				 PSM_GLOBAL_SCAN_CLEAR_DONE_STATUS, 0x10000U);
         if (XST_SUCCESS != Status) {
                 goto done;
         }
 
-        Status = XPm_PollForMask(PSM_GLOBAL_SCAN_CLEAR_FPD,
-                                        PSM_GLOBAL_SCAN_CLEAR_PASS_STATUS,
-                                        0x10000U);
+        Status = XPm_PollForMask(Psm->Device.Node.BaseAddress + PSM_GLOBAL_SCAN_CLEAR_FPD_OFFSET,
+				 PSM_GLOBAL_SCAN_CLEAR_PASS_STATUS, 0x10000U);
         if (XST_SUCCESS != Status) {
                 goto done;
         }
 
 	/* Unwrite trigger bits */
-        PmRmw32(PSM_GLOBAL_SCAN_CLEAR_FPD, PSM_GLOBAL_SCAN_CLEAR_TRIGGER, 0);
+        PmRmw32(Psm->Device.Node.BaseAddress + PSM_GLOBAL_SCAN_CLEAR_FPD_OFFSET,
+		PSM_GLOBAL_SCAN_CLEAR_TRIGGER, 0);
 
 done:
         return Status;
@@ -185,9 +194,16 @@ static XStatus FpdMbistClear(u32 *Args, u32 NumOfArgs)
 {
         XStatus Status = XST_SUCCESS;
         u32 Payload[PAYLOAD_ARG_CNT] = {0};
+	XPm_Core *Psm;
 
 	(void)Args;
 	(void)NumOfArgs;
+
+	Psm = (XPm_Core *)XPmDevice_GetById(XPM_DEVID_PSM);;
+	if (NULL == Psm) {
+		Status = XST_FAILURE;
+		goto done;
+	}
 
 	/* Release SRST for PS-FPD */
 	Status = XPmReset_AssertbyId(SRST_RSTID(XPM_NODEIDX_RST_FPD),
@@ -208,34 +224,36 @@ static XStatus FpdMbistClear(u32 *Args, u32 NumOfArgs)
                 goto done;
         }
 
-        PmRmw32(PSM_GLOBAL_MBIST_RST, PSM_GLOBAL_MBIST_RST_FPD_MASK,
-                       PSM_GLOBAL_MBIST_RST_FPD_MASK);
+        PmRmw32(Psm->Device.Node.BaseAddress + PSM_GLOBAL_MBIST_RST_OFFSET,
+		PSM_GLOBAL_MBIST_RST_FPD_MASK, PSM_GLOBAL_MBIST_RST_FPD_MASK);
 
-        PmRmw32(PSM_GLOBAL_MBIST_SETUP, PSM_GLOBAL_MBIST_SETUP_FPD_MASK,
-                       PSM_GLOBAL_MBIST_SETUP_FPD_MASK);
+        PmRmw32(Psm->Device.Node.BaseAddress + PSM_GLOBAL_MBIST_SETUP_OFFSET,
+		PSM_GLOBAL_MBIST_SETUP_FPD_MASK, PSM_GLOBAL_MBIST_SETUP_FPD_MASK);
 
-        PmRmw32(PSM_GLOBAL_MBIST_PG_EN, PSM_GLOBAL_MBIST_PG_EN_FPD_MASK,
-                       PSM_GLOBAL_MBIST_PG_EN_FPD_MASK);
+        PmRmw32(Psm->Device.Node.BaseAddress + PSM_GLOBAL_MBIST_PG_EN_OFFSET,
+		PSM_GLOBAL_MBIST_PG_EN_FPD_MASK, PSM_GLOBAL_MBIST_PG_EN_FPD_MASK);
 
-        Status = XPm_PollForMask(PSM_GLOBAL_MBIST_DONE,
-                                        PSM_GLOBAL_MBIST_DONE_FPD_MASK,
-                                        0x10000U);
+        Status = XPm_PollForMask(Psm->Device.Node.BaseAddress + PSM_GLOBAL_MBIST_DONE_OFFSET,
+				 PSM_GLOBAL_MBIST_DONE_FPD_MASK, 0x10000U);
         if (XST_SUCCESS != Status) {
                 goto done;
         }
 
         if (PSM_GLOBAL_MBIST_GO_FPD_MASK !=
-            (XPm_In32(PSM_GLOBAL_MBIST_GO) &
+            (XPm_In32(Psm->Device.Node.BaseAddress + PSM_GLOBAL_MBIST_GO_OFFSET) &
              PSM_GLOBAL_MBIST_GO_FPD_MASK)) {
                 Status = XST_FAILURE;
         }
 
 	/* Unwrite trigger bits */
-	PmRmw32(PSM_GLOBAL_MBIST_RST, PSM_GLOBAL_MBIST_RST_FPD_MASK, 0);
+	PmRmw32(Psm->Device.Node.BaseAddress + PSM_GLOBAL_MBIST_RST_OFFSET,
+		PSM_GLOBAL_MBIST_RST_FPD_MASK, 0);
 
-        PmRmw32(PSM_GLOBAL_MBIST_SETUP, PSM_GLOBAL_MBIST_SETUP_FPD_MASK, 0);
+        PmRmw32(Psm->Device.Node.BaseAddress + PSM_GLOBAL_MBIST_SETUP_OFFSET,
+		PSM_GLOBAL_MBIST_SETUP_FPD_MASK, 0);
 
-        PmRmw32(PSM_GLOBAL_MBIST_PG_EN, PSM_GLOBAL_MBIST_PG_EN_FPD_MASK, 0);
+        PmRmw32(Psm->Device.Node.BaseAddress + PSM_GLOBAL_MBIST_PG_EN_OFFSET,
+		PSM_GLOBAL_MBIST_PG_EN_FPD_MASK, 0);
 
 done:
         return Status;
