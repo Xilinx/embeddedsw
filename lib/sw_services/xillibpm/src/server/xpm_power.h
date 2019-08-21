@@ -34,6 +34,11 @@
 extern "C" {
 #endif
 
+#define XPM_POWERID_CPM		NODEID(XPM_NODECLASS_POWER, \
+					XPM_NODESUBCL_POWER_DOMAIN, \
+					XPM_NODETYPE_POWER_DOMAIN_CPM, \
+					XPM_NODEIDX_POWER_CPM)
+
 typedef enum {
 	/* Default FSM states */
 	XPM_POWER_STATE_OFF = 0,

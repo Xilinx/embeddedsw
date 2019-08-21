@@ -28,7 +28,7 @@
 #include "xpm_cpmdomain.h"
 #include "xpm_regs.h"
 #include "xpm_bisr.h"
-
+#include "xpm_power.h"
 
 static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 {
@@ -138,6 +138,7 @@ done:
 static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
+	XPm_CpmDomain *Cpm;
 	u32 RegValue;
 
 	/* This function does not use the args */
@@ -149,34 +150,49 @@ static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
+	Cpm = (XPm_CpmDomain *)XPmPower_GetById(XPM_POWERID_CPM);
+	if (NULL == Cpm) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
 	/* Unlock Writes */
-	PmOut32(CPM_SLCR_SECURE_WPROT0, 0);
+	PmOut32(Cpm->CpmSlcrSecureBaseAddr + CPM_SLCR_SECURE_WPROT0_OFFSET, 0);
 
 	/* Trigger Mbist */
-	PmOut32(CPM_SLCR_SECURE_OD_MBIST_RESET_N, 0xFF);
-	PmOut32(CPM_SLCR_SECURE_OD_MBIST_SETUP, 0xFF);
-	PmOut32(CPM_SLCR_SECURE_OD_MBIST_PG_EN, 0xFF);
+	PmOut32(Cpm->CpmSlcrSecureBaseAddr +
+		CPM_SLCR_SECURE_OD_MBIST_RESET_N_OFFSET, 0xFF);
+	PmOut32(Cpm->CpmSlcrSecureBaseAddr +
+		CPM_SLCR_SECURE_OD_MBIST_SETUP_OFFSET, 0xFF);
+	PmOut32(Cpm->CpmSlcrSecureBaseAddr +
+		CPM_SLCR_SECURE_OD_MBIST_PG_EN_OFFSET, 0xFF);
 
 	/* Wait till its done */
-	Status = XPm_PollForMask(CPM_SLCR_SECURE_OD_MBIST_DONE, 0xFF, XPM_POLL_TIMEOUT);
+	Status = XPm_PollForMask(Cpm->CpmSlcrSecureBaseAddr +
+				 CPM_SLCR_SECURE_OD_MBIST_DONE_OFFSET,
+				 0xFF, XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
 	/* Check status */
-	PmIn32(CPM_SLCR_SECURE_OD_MBIST_GO, RegValue);
+	PmIn32(Cpm->CpmSlcrSecureBaseAddr + CPM_SLCR_SECURE_OD_MBIST_GO_OFFSET,
+	       RegValue);
 	if (0xFF != (RegValue & 0xFF)) {
 		Status = XST_FAILURE;
 		goto done;
 	}
 
 	/* Unwrite trigger bits */
-	PmOut32(CPM_SLCR_SECURE_OD_MBIST_RESET_N, 0x0);
-	PmOut32(CPM_SLCR_SECURE_OD_MBIST_SETUP, 0x0);
-	PmOut32(CPM_SLCR_SECURE_OD_MBIST_PG_EN, 0x0);
+	PmOut32(Cpm->CpmSlcrSecureBaseAddr +
+		CPM_SLCR_SECURE_OD_MBIST_RESET_N_OFFSET, 0x0);
+	PmOut32(Cpm->CpmSlcrSecureBaseAddr +
+		CPM_SLCR_SECURE_OD_MBIST_SETUP_OFFSET, 0x0);
+	PmOut32(Cpm->CpmSlcrSecureBaseAddr +
+		CPM_SLCR_SECURE_OD_MBIST_PG_EN_OFFSET, 0x0);
 
 	/* Lock Writes */
-	PmOut32(CPM_SLCR_SECURE_WPROT0, 1);
+	PmOut32(Cpm->CpmSlcrSecureBaseAddr + CPM_SLCR_SECURE_WPROT0_OFFSET, 1);
 done:
         return Status;
 }
