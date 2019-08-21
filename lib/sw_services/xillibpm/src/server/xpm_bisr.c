@@ -290,7 +290,7 @@ static XStatus XPmBisr_RepairLpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 		goto done;
 	}
 
-	BisrDataDestAddr = LPD_SLCR_BISR_CACHE_DATA_0;
+	BisrDataDestAddr = LpDomain->LpdSlcrBaseAddr + LPD_SLCR_BISR_CACHE_DATA_0_OFFSET;
 
 	/* Copy repair data */
 	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
@@ -306,17 +306,26 @@ done:
 int XPmBisr_TriggerLpd(void)
 {
 	int Status = XST_SUCCESS;
+	XPm_PsLpDomain *PsLpd;
 	u32 RegValue;
 
-	/* Trigger Bisr */
-	PmRmw32(LPD_SLCR_BISR_CACHE_CTRL_1, (LPD_SLCR_CACHE_CTRL_1_PGEN0_MASK | LPD_SLCR_CACHE_CTRL_1_PGEN1_MASK),
-		 (LPD_SLCR_CACHE_CTRL_1_PGEN0_MASK | LPD_SLCR_CACHE_CTRL_1_PGEN1_MASK));
+	PsLpd = (XPm_PsLpDomain *)XPmPower_GetById(XPM_POWERID_LPD);
+	if (NULL == PsLpd) {
+		Status = XST_FAILURE;
+		goto done;
+	}
 
-	PmRmw32(LPD_SLCR_BISR_CACHE_CTRL_0, LPD_SLCR_CACHE_CTRL_0_BISR_TRIGGER_MASK,
+	/* Trigger Bisr */
+	PmRmw32(PsLpd->LpdSlcrBaseAddr + LPD_SLCR_BISR_CACHE_CTRL_1_OFFSET,
+		(LPD_SLCR_CACHE_CTRL_1_PGEN0_MASK | LPD_SLCR_CACHE_CTRL_1_PGEN1_MASK),
+		(LPD_SLCR_CACHE_CTRL_1_PGEN0_MASK | LPD_SLCR_CACHE_CTRL_1_PGEN1_MASK));
+
+	PmRmw32(PsLpd->LpdSlcrBaseAddr + LPD_SLCR_BISR_CACHE_CTRL_0_OFFSET,
+		LPD_SLCR_CACHE_CTRL_0_BISR_TRIGGER_MASK,
 		LPD_SLCR_CACHE_CTRL_0_BISR_TRIGGER_MASK);
 
 	/* Wait for Bisr to finish */
-	Status = XPm_PollForMask(LPD_SLCR_BISR_CACHE_STATUS,
+	Status = XPm_PollForMask(PsLpd->LpdSlcrBaseAddr + LPD_SLCR_BISR_CACHE_STATUS_OFFSET,
 				 (LPD_SLCR_BISR_DONE_GLOBAL_MASK |
 				  LPD_SLCR_BISR_DONE_1_MASK |
 				  LPD_SLCR_BISR_DONE_0_MASK),
@@ -326,7 +335,7 @@ int XPmBisr_TriggerLpd(void)
 	}
 
 	/* Check Bisr Status */
-	PmIn32(LPD_SLCR_BISR_CACHE_STATUS, RegValue);
+	PmIn32(PsLpd->LpdSlcrBaseAddr + LPD_SLCR_BISR_CACHE_STATUS_OFFSET, RegValue);
 	if ((RegValue & (LPD_SLCR_BISR_PASS_GLOBAL_MASK |
 				  LPD_SLCR_BISR_PASS_1_MASK |
 				  LPD_SLCR_BISR_PASS_0_MASK)) !=
@@ -337,7 +346,9 @@ int XPmBisr_TriggerLpd(void)
 	}
 
 	/* Unwrite Trigger Bits */
-	PmRmw32(LPD_SLCR_BISR_CACHE_CTRL_1, (LPD_SLCR_CACHE_CTRL_1_PGEN0_MASK | LPD_SLCR_CACHE_CTRL_1_PGEN1_MASK), 0);
+	PmRmw32(PsLpd->LpdSlcrBaseAddr + LPD_SLCR_BISR_CACHE_CTRL_1_OFFSET,
+		(LPD_SLCR_CACHE_CTRL_1_PGEN0_MASK |
+		 LPD_SLCR_CACHE_CTRL_1_PGEN1_MASK), 0);
 done:
 	return Status;
 }
