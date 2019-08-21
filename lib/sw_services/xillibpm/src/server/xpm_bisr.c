@@ -29,6 +29,7 @@
 #include "xpm_core.h"
 #include "xpm_power.h"
 #include "xpm_psfpdomain.h"
+#include "xpm_cpmdomain.h"
 
 /* Defines */
 #define PMC_EFUSE_BISR_START_ADDR 	EFUSE_CACHE_BISR_RSVD_0
@@ -416,24 +417,33 @@ done:
 static XStatus XPmBisr_RepairCpm(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr)
 {
 	XStatus Status = XST_SUCCESS;
+	XPm_CpmDomain *Cpm;
 	u32 RegValue;
 	u64 BisrDataDestAddr;
 
-	BisrDataDestAddr = CPM_SLCR_BISR_CACHE_DATA_0;
+	Cpm = (XPm_CpmDomain *)XPmPower_GetById(XPM_POWERID_CPM);
+	if (NULL == Cpm) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	BisrDataDestAddr = Cpm->CpmSlcrBaseAddr + CPM_SLCR_BISR_CACHE_DATA_0_OFFSET;
 
 	/* Copy repair data */
 	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
 
 	/* Clear BISR data test registers */
-	PmOut32(CPM_SLCR_BISR_CACHE_CTRL, CPM_SLCR_BISR_CACHE_CTRL_CLR_MASK);
-	PmOut32(CPM_SLCR_BISR_CACHE_CTRL, 0x0);
+	PmOut32(Cpm->CpmSlcrBaseAddr + CPM_SLCR_BISR_CACHE_CTRL_OFFSET,
+		CPM_SLCR_BISR_CACHE_CTRL_CLR_MASK);
+	PmOut32(Cpm->CpmSlcrBaseAddr + CPM_SLCR_BISR_CACHE_CTRL_OFFSET, 0x0);
 
 	/* Trigger Bisr */
-	PmRmw32(CPM_SLCR_BISR_CACHE_CTRL, CPM_SLCR_BISR_CACHE_CTRL_TRIGGER_MASK,
+	PmRmw32(Cpm->CpmSlcrBaseAddr + CPM_SLCR_BISR_CACHE_CTRL_OFFSET,
+		CPM_SLCR_BISR_CACHE_CTRL_TRIGGER_MASK,
 		CPM_SLCR_BISR_CACHE_CTRL_TRIGGER_MASK);
 
 	/* Wait for Bisr to finish */
-	Status = XPm_PollForMask(CPM_SLCR_BISR_CACHE_STATUS,
+	Status = XPm_PollForMask(Cpm->CpmSlcrBaseAddr + CPM_SLCR_BISR_CACHE_STATUS_OFFSET,
 				 CPM_SLCR_BISR_CACHE_STATUS_DONE_MASK,
 				 XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
@@ -441,13 +451,13 @@ static XStatus XPmBisr_RepairCpm(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 	}
 
 	/* Check Bisr status */
-	PmIn32(CPM_SLCR_BISR_CACHE_STATUS, RegValue);
+	PmIn32(Cpm->CpmSlcrBaseAddr + CPM_SLCR_BISR_CACHE_STATUS_OFFSET, RegValue);
 	if ((RegValue & CPM_SLCR_BISR_CACHE_STATUS_PASS_MASK) != CPM_SLCR_BISR_CACHE_STATUS_PASS_MASK) {
 		Status = XST_FAILURE;
 		goto done;
 	}
 
-	PmOut32(CPM_SLCR_BISR_CACHE_CTRL, 0x0);
+	PmOut32(Cpm->CpmSlcrBaseAddr + CPM_SLCR_BISR_CACHE_CTRL_OFFSET, 0x0);
 
 done:
 	return Status;
