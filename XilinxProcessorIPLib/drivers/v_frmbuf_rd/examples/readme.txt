@@ -1,14 +1,14 @@
-vfrmbufrd_example.tcl automates the process of generating the downloadable bit & elf files from the provided example hdf file.
+vfrmbufrd_example.tcl automates the process of generating the downloadable bit & elf files from the provided example xsa file.
 
 Example application design source files (contained within "examples" folder) are tightly coupled with the v_frmbuf_rd example design available in Vivado Catalog.
 To run the provided tcl
-  1. Copy the exported example design hdf file in the "examples" directory of the driver
+  1. Copy the exported example design xsa file in the "examples" directory of the driver
   2. Launch the xsct terminal
   3. cd into the examples directory
   4. source the tcl file
 		xsct%>source vfrmbufrd_example.tcl
   4. execute the script
-		xsct%>vfrmbufrd_example <hdf_file_name.hdf>
+		xsct%>vfrmbufrd_example <xsa_file_name.xsa>
 
 Script will perform following operations
   1. Create workspace
