@@ -323,7 +323,8 @@ typedef struct {
 		/**< address to the authentication certificate when enabled */
 	u32 PrtnIv[3]; /**< IV of the partition's SH */
 	u32 EncStatus; /**< Encryption Status/Key Selection */
-	u32 Reserved[13]; /**< Reserved */
+	u32 KekIv[3]; /**< KEK IV for partition decryption */
+	u32 Reserved[10]; /**< Reserved */
 	u32 Checksum; /**< checksum of the partition header */
 } XilPdi_PrtnHdr __attribute__ ((aligned(16)));
 
