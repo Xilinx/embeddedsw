@@ -99,20 +99,6 @@ extern "C" {
 #define XSECURE_AES_KEY_SEL_USR_KEY_6			(0xBD858240)
 #define XSECURE_AES_KEY_SEL_USR_KEY_7			(0xBD858280)
 
-
-/* Make them as enum */
-#define XSECURE_CSU_AES_GCM_TAG_MISMATCH	(1L)
-					/**< user provided GCM tag does
-						not match calculated tag */
-#define XSECURE_CSU_AES_IMAGE_LEN_MISMATCH	(2L)
-					/**< image length mismatch */
-#define XSECURE_CSU_AES_DEVICE_COPY_ERROR	(3L)
-					/**< device copy failed */
-#define XSECURE_CSU_AES_ZEROIZATION_ERROR	(4L)
-					/**< Zeroization error*/
-#define XSECURE_CSU_AES_KEY_CLEAR_ERROR		(0x20U)
-					/**< AES key clear error */
-
 /**************************** Type Definitions *******************************/
 
 typedef struct {
@@ -178,6 +164,14 @@ typedef struct {
 	XSecure_AesState AesState; /**< Current Aes State  */
 	XSecure_AesKeySrc KeySrc;
 } XSecure_Aes;
+
+typedef enum {
+	XSECURE_AES_GCM_TAG_MISMATCH = (0x2U),
+					/**< user provided GCM tag does
+						not match calculated tag */
+	XSECURE_AES_KEY_CLEAR_ERROR,
+					/**< AES key clear error */
+} XSecure_AesErrorCodes;
 
 /************************** Function Prototypes ******************************/
 u32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr);

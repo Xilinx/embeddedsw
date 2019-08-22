@@ -254,6 +254,14 @@ typedef struct {
 	XCsuDma *CsuDmaInstPtr;
 }XLoader_SecureParms;
 
+typedef enum {
+	XLOADER_SEC_BUF_CLEAR_ERR = 0x100,
+	XLOADER_SEC_BUF_CLEAR_SUCCESS = 0x200,
+
+	XLOADER_SEC_AUTH_ERR = 0x1000U,
+	XLOADER_SEC_DEC_ERR = 0x2000U,
+}XLoader_SecErrCodes;
+
 /***************************** Function Prototypes ***************************/
 
 u32 XLoader_SecureInit(XLoader_SecureParms *SecurePtr, XilPdi *PdiPtr, u32 PrtnNum);
