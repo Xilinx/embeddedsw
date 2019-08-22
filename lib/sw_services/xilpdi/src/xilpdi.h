@@ -233,6 +233,9 @@ extern "C" {
 #define SMAP_BUS_WIDTH_WORD1		(0xDD000000U)
 #define SMAP_BUS_WIDTH_LENGTH		(16U)
 
+#define XILPDI_METAHDR_RD_HDRS_FROM_DEVICE	(u32)(0x0U)
+#define XILPDI_METAHDR_RD_HDRS_FROM_MEMBUF	(u32)(0x1U)
+
 /**************************** Type Definitions *******************************/
 
 /**
@@ -341,6 +344,10 @@ typedef struct {
 	u32 FlashOfstAddr; /**< Start of DPI start address in Flash */
 	XStatus (*DeviceCopy) (u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 		/**< Function pointer for device copy */
+	u32 Flag; /**< To read from flash or buffer ,
+			   * if 0 - from flash and 1 - from buffer */
+	u64 BufferAddr;
+	void* (*XMemCpy)(void * DestPtr, const void * SrcPtr, u32 Len);
 } XilPdi_MetaHdr __attribute__ ((aligned(16)));
 
 /***************** Macros (Inline Functions) Definitions *********************/

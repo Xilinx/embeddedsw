@@ -291,6 +291,7 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	 * Read and verify image headers and partition headers
 	 */
 	if (SecureParam.SecureEn != TRUE) {
+		PdiPtr->MetaHdr.Flag = XILPDI_METAHDR_RD_HDRS_FROM_DEVICE;
 		Status = XilPdi_ReadAndVerifyImgHdr(&(PdiPtr->MetaHdr));
 		if (XST_SUCCESS != Status)
 		{

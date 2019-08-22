@@ -157,6 +157,10 @@ XStatus XPmcFw_PdiLoad(XPmcFw* PmcFwInstancePtr)
 	Offset = 0U;
 	PmcFwInstancePtr->PartialPdi = TRUE;
 	XPMCFW_DBG_WRITE(0x7U);
+
+	/* Reads from Flash */
+	PmcFwInstancePtr->MetaHdr.Flag = XILPDI_METAHDR_RD_HDRS_FROM_DEVICE;
+
 	/* Update the Image Hdr structure */
 
 	/* Read Img Hdr Table and verify Checksum */
