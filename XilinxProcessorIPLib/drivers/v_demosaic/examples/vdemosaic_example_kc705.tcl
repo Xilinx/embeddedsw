@@ -20,12 +20,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-# 
+#
 #
 ###############################################################################
 
-## \file vdemosaic_example.tcl
-#Automates the process of generating the downloadable bit & elf files from the provided example hdf file.
+## \file vdemosaic_example.tcl for kc705
+#Automates the process of generating the downloadable bit & elf files from the provided example xsa file.
 ## Documented procedure \c vdemosaic_example .
 # The code is inserted here:
 #\code
@@ -33,36 +33,28 @@
 proc vdemosaic_example args {
 
 	if {[llength $args] != 1} {
-		puts "error: hdf file name missing from command line"
-		puts "Please specify hdf to process"
-		puts "Example Usage: vdemosaic_example.tcl design1.hdf"
+		puts "error: xsa file name missing from command line"
+		puts "Please specify xsa to process"
+		puts "Example Usage: vdemosaic_example.tcl design1.xsa"
 	} else {
 
-		set hdf [lindex $args 0]
+		set xsa [lindex $args 0]
 
 		#set workspace
 		puts "Create Workspace"
-		sdk setws vdemosaic_example.sdk
+		setws vdemosaic_example.sdk
+		set a [getws]
+		set app "Empty Application"
 
-		#create hw project
-		puts "Create HW Project"
-		sdk createhw -name vdemosaic_example_hw_platform -hwspec ./$hdf
-
-		#create bsp
-		puts "Create BSP"
-		sdk createbsp -name vdemosaic_example_bsp -hwproject vdemosaic_example_hw_platform -proc processor_ss_processor -os standalone
-
-		#create application project
-		puts "Create Application Project"
-		sdk createapp -name vdemosaic_example_design -hwproject vdemosaic_example_hw_platform -proc processor_ss_processor -os standalone -lang C -app {Empty Application} -bsp vdemosaic_example_bsp
+		app create -name vdemosaic_example_design -template ${app} -hw ./$xsa -os standalone -proc processor_ss_processor
 
 		#copy example source files tp app project
 		puts "Get Example Design Source Files"
-		sdk importsources -name vdemosaic_example_design -path ./src
+		importsources -name vdemosaic_example_design -path ./src
 
 		#build project
 		puts "Build Project"
-		sdk project -build -type all
+		app build -name vdemosaic_example_design
 	}
 }
 
