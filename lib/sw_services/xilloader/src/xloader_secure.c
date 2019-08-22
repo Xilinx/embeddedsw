@@ -1850,6 +1850,7 @@ static u32 XLoader_AuthHdrs(XLoader_SecureParms *SecurePtr,
 		goto END;
 	}
 
+	MetaHdr->Flag = XILPDI_METAHDR_RD_HDRS_FROM_DEVICE;
 	/* Read IHT and PHT to structures and verify checksum */
 	XStatus = XilPdi_ReadAndVerifyImgHdr(MetaHdr);
 	if (XStatus != XST_SUCCESS)
