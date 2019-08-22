@@ -109,56 +109,32 @@ extern "C" {
 /* AES key source */
 #define XLOADER_UNENCRYPTED		0x00000000 	/* Unencrypted */
 #define XLOADER_EFUSE_KEY		0xA5C3C5A3  /* eFuse Key */
-#define XLOADER_EFUSE_KEK_KEY	0xA5C3C5A5  /* eFUSE Black Key */
+#define XLOADER_EFUSE_BLK_KEY	0xA5C3C5A5  /* eFUSE Black Key */
 #define XLOADER_EFUSE_OBFUS_KEY	0xA5C3C5A7  /* eFuse Obfuscated Key */
 
 #define XLOADER_BBRAM_KEY		0x3A5C3C5A  /* BBRAM Key */
-#define XLOADER_BBRAM_KEK_KEY	0x3A5C3C59  /* BBRAM Black Key */
+#define XLOADER_BBRAM_BLK_KEY	0x3A5C3C59  /* BBRAM Black Key */
 #define XLOADER_BBRAM_OBFUS_KEY	0x3A5C3C57  /* BBRAM Obfuscated Key */
 
-#define XLOADER_BH_KEK_KEY		0xA35C7C53 /*Boot Header Black Key */
+#define XLOADER_BH_BLK_KEY		0xA35C7C53 /*Boot Header Black Key */
 #define XLOADER_BH_OBFUS_KEY	0xA35C7CA5  /* Boot Header Obfuscated Key */
 
 #define XLOADER_EFUSE_USR_KEY0			0x5C3CA5A3 /* eFuse User Key 0 */
-#define XLOADER_EFUSE_USR_KEK_KEY0		0x5C3CA5A5 /* eFUSE User key 0 Black */
+#define XLOADER_EFUSE_USR_BLK_KEY0		0x5C3CA5A5 /* eFUSE User key 0 Black */
 #define XLOADER_EFUSE_USR_OBFUS_KEY0	0x5C3CA5A7 /* eFuse User key 0 Obfuscated */
 
 #define XLOADER_EFUSE_USR_KEY1			0xC3A5C5A3 /* eFuse User Key 1 */
-#define XLOADER_EFUSE_USR_KEK_KEY1	0xC3A5C5A5 /* eFUSE User key 1 Black */
+#define XLOADER_EFUSE_USR_BLK_KEY1	0xC3A5C5A5 /* eFUSE User key 1 Black */
 #define XLOADER_EFUSE_USR_OBFUS_KEY1	0xC3A5C5A7 /* eFuse User key 1 Obfuscated */
 
-
-#define XLOADER_USR_KEY0		0xC5C3A5A3 /* User Key 0 */
-#define XLOADER_USR_KEK_KEY0	0xC5C3A5A5 /* User key 0 Black */
-#define XLOADER_USR_OBFUS_KEY0	0xC5C3A5A7 /* User key 0 Obfuscated */
-
+#define XLOADER_USR_KEY0	0xC5C3A5A3 /* User Key 0 */
 #define XLOADER_USR_KEY1	0xC3A5C5B3 /* User Key 1 */
-#define XLOADER_USR_KEK_KEY1	0xC3A5C5B5 /* User key 1 Black */
-#define XLOADER_USR_OBFUS_KEY1	0xC3A5C5B7 /* User key 1 Obfuscated */
-
 #define XLOADER_USR_KEY2	0xC5C3A5C3 /* User Key 2 */
-#define XLOADER_USR_KEK_KEY2	0xC5C3A5C5 /*User key 2 Black */
-#define XLOADER_USR_OBFUS_KEY2	0xC5C3A5C7 /* User key 2 Obfuscated */
-
 #define XLOADER_USR_KEY3	0xC3A5C5D3 /* User Key 3 */
-#define XLOADER_USR_KEK_KEY3	0xC3A5C5D5 /* User key 3 Black */
-#define XLOADER_USR_OBFUS_KEY3	0xC3A5C5D7 /* User key 3 Obfuscated */
-
 #define XLOADER_USR_KEY4	0xC5C3A5E3 /* User Key 4 */
-#define XLOADER_USR_KEK_KEY4	0xC5C3A5E5 /* User key 4 Black */
-#define XLOADER_USR_OBFUS_KEY4 0xC5C3A5E7  /* User key 4 Obfuscated */
-
 #define XLOADER_USR_KEY5	0xC3A5C5F3 /* User Key 5 */
-#define XLOADER_USR_KEK_KEY5	0xC3A5C5F5 /* User key 5 Black */
-#define XLOADER_USR_OBFUS_KEY5	0xC3A5C5F7 /* User key 5 Obfuscated */
-
 #define XLOADER_USR_KEY6	0xC5C3A563 /* User Key 6 */
-#define XLOADER_USR_KEK_KEY6	0xC5C3A565 /* User key 6 Black */
-#define XLOADER_USR_OBFUS_KEY6	0xC5C3A567 /* User key 6 Obfuscated */
-
 #define XLOADER_USR_KEY7	0xC3A5C573 /* User Key 7 */
-#define XLOADER_USR_KEK_KEY7	0xC3A5C575 /* User key 7 Black */
-#define XLOADER_USR_OBFUS_KEY7	0xC3A5C577 /* User key 7 Obfuscated */
 
 /* Efuse addresses */
 #define XLOADER_EFUSE_MISC_CTRL_OFFSET		0xF12500A0U

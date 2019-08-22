@@ -71,8 +71,8 @@ static u32 XLoader_VerifySignature(XLoader_SecureParms *SecurePtr,
 static u32 XLoader_AesDecryption(XLoader_SecureParms *SecurePtr, u64 SrcAddr,
 			u64 DstAddr, u32 Size);
 static u32 XLoader_AesKeySelct(XLoader_SecureParms *SecurePtr,
-		XSecure_Aes *AesInstancePtr,
-		XSecure_AesKeySrc *KeySrc);
+				XSecure_Aes *AesInstancePtr, u32 PdiKeySrc,
+				u32 *KekIv, XSecure_AesKeySrc *KeySrc);
 static u32 XLoader_CheckNonZeroPpk();
 static u32 XLoader_PpkVerify(XLoader_SecureParms *SecurePtr);
 static u32 XLoader_IsPpkValid(u8 PpkSelect, u8 *PpkHash);
@@ -1653,7 +1653,9 @@ static u32 XLoader_AesDecryption(XLoader_SecureParms *SecurePtr,
 		/* Clear all key zeroization register */
 		XPlmi_Out32((AesInstance.BaseAddress +
 			XSECURE_AES_KEY_CLEAR_OFFSET), 0x00000000U);
-		Status = XLoader_AesKeySelct(SecurePtr, &AesInstance, &KeySrc);
+		Status = XLoader_AesKeySelct(SecurePtr, &AesInstance,
+					SecurePtr->PrtnHdr->EncStatus,
+					SecurePtr->PrtnHdr->KekIv, &KeySrc);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -1697,66 +1699,126 @@ END:
  * This function helps in key selection.
  *
  * @param	SecurePtr	Pointer to the XLoader_SecureParms
+ * @param	AesInstancePtr	Pointer to the AES instance
+ * @param	PdiKeySrc	Keysource mentioned in PDI header.
+ * @param	KekIv		KEK IV for obfuscated/black key,
+ *		otherwise it is NULL.
+ * @param	KeySrc		Pointer to the key source to be updated as
+ *		key source for decrypting. If key provided is KEK format, this API
+ *		decrypts and provides the red key source.
  *
  * @return	XST_SUCCESS if verification was successful.
  *
  ******************************************************************************/
 static u32 XLoader_AesKeySelct(XLoader_SecureParms *SecurePtr,
-				XSecure_Aes *AesInstancePtr,
-				XSecure_AesKeySrc *KeySrc)
+				XSecure_Aes *AesInstancePtr, u32 PdiKeySrc,
+				u32 *KekIv, XSecure_AesKeySrc *KeySrc)
 {
-	u32 Status = XST_SUCCESS;
-	/* TBD can use different IV other than one used by ROM */
-	u32 *KekIv = SecurePtr->PdiPtr->MetaHdr.BootHdr.KekIv;
-	u32 *BhKey = SecurePtr->PdiPtr->MetaHdr.BootHdr.Kek;
+	u32 Status = XST_FAILURE;
 
-	switch (SecurePtr->PrtnHdr->EncStatus) {
-	case XLOADER_BBRAM_KEY:
-			*KeySrc = XSECURE_AES_BBRAM_KEY;
-			break;
+	/* TBD can use different IV other than one used by ROM */
+	KekIv = SecurePtr->PdiPtr->MetaHdr.BootHdr.KekIv;
+
+	XPlmi_Printf(DEBUG_INFO, "Key source is %x \n\r", PdiKeySrc);
+	switch (PdiKeySrc) {
 	case XLOADER_EFUSE_KEY:
-			*KeySrc = XSECURE_AES_EFUSE_KEY;
-			break;
-	case XLOADER_BBRAM_OBFUS_KEY:
-		XPlmi_Printf(DEBUG_DETAILED,
-			"Decryting BBRAM obfuscated key\n\r");
-		Status = XSecure_AesKekDecrypt(AesInstancePtr,
-				XSECURE_OBFUSCATED_KEY, XSECURE_AES_BBRAM_KEY,
-				XSECURE_AES_BBRAM_RED_KEY, (UINTPTR)KekIv,
-			XSECURE_AES_KEY_SIZE_256);
-		*KeySrc = XSECURE_AES_BBRAM_RED_KEY;
+		*KeySrc = XSECURE_AES_EFUSE_KEY;
+		Status = XST_SUCCESS;
 		break;
+	case XLOADER_EFUSE_BLK_KEY:
 	case XLOADER_EFUSE_OBFUS_KEY:
-		XPlmi_Printf(DEBUG_DETAILED,
-			"Decryting efuse obfuscated key\n\r");
-		Status = XSecure_AesKekDecrypt(AesInstancePtr,
-				XSECURE_OBFUSCATED_KEY, XSECURE_AES_EFUSE_KEY,
-				XSECURE_AES_EFUSE_RED_KEY, (UINTPTR)KekIv,
-			XSECURE_AES_KEY_SIZE_256);
 		*KeySrc = XSECURE_AES_EFUSE_RED_KEY;
+		Status = XST_SUCCESS;
 		break;
+	case XLOADER_BBRAM_KEY:
+		*KeySrc = XSECURE_AES_BBRAM_KEY;
+		Status = XST_SUCCESS;
+		break;
+	case XLOADER_BBRAM_BLK_KEY:
+	case XLOADER_BBRAM_OBFUS_KEY:
+		*KeySrc = XSECURE_AES_BBRAM_RED_KEY;
+		Status = XST_SUCCESS;
+		break;
+	case XLOADER_BH_BLK_KEY:
 	case XLOADER_BH_OBFUS_KEY:
-		XPlmi_Printf(DEBUG_DETAILED,
-			"Decryting BH obfuscated key\n\r");
-		/* Write BH key into BH registers */
-		Status = XSecure_AesWriteKey(AesInstancePtr,
-				XSECURE_AES_BH_KEY, XSECURE_AES_KEY_SIZE_256,
-					(UINTPTR)BhKey);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		Status = XSecure_AesKekDecrypt(AesInstancePtr,
-				XSECURE_OBFUSCATED_KEY, XSECURE_AES_BH_KEY,
-				XSECURE_AES_BH_RED_KEY, (UINTPTR)KekIv,
-			XSECURE_AES_KEY_SIZE_256);
 		*KeySrc = XSECURE_AES_BH_RED_KEY;
+		Status = XST_SUCCESS;
+		break;
+	case XLOADER_EFUSE_USR_KEY0:
+		*KeySrc = XSECURE_AES_EFUSE_USER_KEY_0;
+		Status = XST_SUCCESS;
+		break;
+	case XLOADER_EFUSE_USR_BLK_KEY0:
+		Status = XSecure_AesKekDecrypt(AesInstancePtr,
+			XSECURE_BLACK_KEY, XSECURE_AES_EFUSE_USER_KEY_0,
+			XSECURE_AES_EFUSE_USER_RED_KEY_0, (UINTPTR)KekIv,
+			XSECURE_AES_KEY_SIZE_256);
+		*KeySrc = XSECURE_AES_EFUSE_USER_RED_KEY_0;
+		Status = XST_SUCCESS;
+		break;
+	case XLOADER_EFUSE_USR_OBFUS_KEY0:
+		Status = XSecure_AesKekDecrypt(AesInstancePtr,
+			XSECURE_OBFUSCATED_KEY, XSECURE_AES_EFUSE_USER_KEY_0,
+			XSECURE_AES_EFUSE_USER_RED_KEY_0, (UINTPTR)KekIv,
+			XSECURE_AES_KEY_SIZE_256);
+		*KeySrc = XSECURE_AES_EFUSE_USER_RED_KEY_0;
+		Status = XST_SUCCESS;
+		break;
+	case XLOADER_EFUSE_USR_KEY1:
+		*KeySrc = XSECURE_AES_EFUSE_USER_KEY_1;
+		Status = XST_SUCCESS;
+		break;
+	case XLOADER_EFUSE_USR_BLK_KEY1:
+		Status = XSecure_AesKekDecrypt(AesInstancePtr,
+			XSECURE_BLACK_KEY, XSECURE_AES_EFUSE_USER_KEY_1,
+			XSECURE_AES_EFUSE_USER_RED_KEY_1, (UINTPTR)KekIv,
+			XSECURE_AES_KEY_SIZE_256);
+		*KeySrc = XSECURE_AES_EFUSE_USER_RED_KEY_1;
+		break;
+	case XLOADER_EFUSE_USR_OBFUS_KEY1:
+		Status = XSecure_AesKekDecrypt(AesInstancePtr,
+			XSECURE_OBFUSCATED_KEY, XSECURE_AES_EFUSE_USER_KEY_1,
+			XSECURE_AES_EFUSE_USER_RED_KEY_1, (UINTPTR)KekIv,
+			XSECURE_AES_KEY_SIZE_256);
+		*KeySrc = XSECURE_AES_EFUSE_USER_RED_KEY_1;
+		break;
+	case XLOADER_USR_KEY0:
+		*KeySrc = XSECURE_AES_USER_KEY_0;
+		Status = XST_SUCCESS;
+		break;
+	case XLOADER_USR_KEY1:
+		*KeySrc = XSECURE_AES_USER_KEY_1;
+		Status = XST_SUCCESS;
+		break;
+	case XLOADER_USR_KEY2:
+		*KeySrc = XSECURE_AES_USER_KEY_2;
+		Status = XST_SUCCESS;
+		break;
+	case XLOADER_USR_KEY3:
+		*KeySrc = XSECURE_AES_USER_KEY_3;
+		Status = XST_SUCCESS;
+		break;
+	case XLOADER_USR_KEY4:
+		*KeySrc = XSECURE_AES_USER_KEY_4;
+		Status = XST_SUCCESS;
+		break;
+	case XLOADER_USR_KEY5:
+		*KeySrc = XSECURE_AES_USER_KEY_5;
+		Status = XST_SUCCESS;
+		break;
+	case XLOADER_USR_KEY6:
+		*KeySrc = XSECURE_AES_USER_KEY_6;
+		Status = XST_SUCCESS;
+		break;
+	case XLOADER_USR_KEY7:
+		*KeySrc = XSECURE_AES_USER_KEY_7;
+		Status = XST_SUCCESS;
 		break;
 	default: Status = XST_FAILURE;
 			break;
 
 	}
 
-END:
 	return Status;
 }
 
