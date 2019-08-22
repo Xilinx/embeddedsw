@@ -353,23 +353,27 @@ static void PmForcePowerdown(const PmMaster *const master,
 	u32 oppoint = 0U;
 	s32 status;
 	PmNode* nodePtr = PmGetNodeById(node);
+	PmPower *power;
 
 	if (NULL == nodePtr || INVALID_ACK_ARG(ack)) {
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	if (NODE_IS_SLAVE(nodePtr)) {
+	if (NODE_IS_POWER(nodePtr)) {
+		power = (PmPower*)nodePtr->derived;
+	} else if (NODE_IS_PROC(nodePtr)) {
+		PmProc* proc = (PmProc*)nodePtr->derived;
+		power = (PmPower*)proc->node.parent;
+	} else {
+		/* Slaves and PLLs can not be force power down */
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	if (NODE_IS_POWER(nodePtr)) {
-		PmPower* power = (PmPower*)nodePtr->derived;
-		if (false == PmMasterCanForceDown(master, power)) {
-			status = XST_PM_NO_ACCESS;
-			goto done;
-		}
+	if (false == PmMasterCanForceDown(master, power)) {
+		status = XST_PM_NO_ACCESS;
+		goto done;
 	}
 
 	status = PmNodeForceDown(nodePtr);
