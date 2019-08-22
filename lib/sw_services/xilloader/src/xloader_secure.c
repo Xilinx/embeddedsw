@@ -46,6 +46,7 @@
 #include "xloader_secure.h"
 #include "xilpdi.h"
 #include "xplmi_dma.h"
+#include "xsecure_ecdsa_rsa_hw.h"
 /************************** Constant Definitions ****************************/
 
 /**************************** Type Definitions *******************************/
@@ -1456,11 +1457,11 @@ static u32 XLoader_RsaSignVerify(XLoader_SecureParms *SecurePtr,
 			&RsaInstance, Signature, Hash);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO, "\nFailed at RSA PSS"
-			"verification for partition\n\r");
+			"verification\n\r");
 		goto END;
 	}
 	XPlmi_Printf(DEBUG_DETAILED,
-		"partition's RSA authentication is successful\n\r");
+		"RSA authentication is successful\n\r");
 END:
 	return Status;
 }
@@ -1498,8 +1499,8 @@ static u32 XLoader_EcdsaSignVerify(u8 *Hash, u8 *Key, u8 *Signature)
 	/**
 	 * Take the core out of reset
 	 */
-	Xil_Out32(0xF1200040, 1);
-	Xil_Out32(0xF1200040, 0);
+	XSecure_ReleaseReset(XSECURE_ECDSA_RSA_BASEADDR,
+			XSECURE_ECDSA_RSA_RESET_OFFSET);
 
 	for (Index = 0; Index < XLOADER_ECDSA_KEYSIZE; Index++) {
 		Qx[Index] = Xil_Htonl(XKey[XLOADER_ECDSA_INDEXVAL - Index]);
@@ -1518,12 +1519,15 @@ static u32 XLoader_EcdsaSignVerify(u8 *Hash, u8 *Key, u8 *Signature)
 					(u8 *)Qy, (u8 *)SIGR, (u8 *)SIGS);
 		if (Status != (u32)XST_SUCCESS) {
 			XPlmi_Printf(DEBUG_INFO, "\nFailed at "
-			"ECDSA signature verification for partition\n\r");
+			"ECDSA signature verification\n\r");
 		}
 	}
 
 	XPlmi_Printf(DEBUG_DETAILED,
 		"\n Authentication of ECDSA is successful \n\r");
+
+	XSecure_SetReset(XSECURE_ECDSA_RSA_BASEADDR,
+			XSECURE_ECDSA_RSA_RESET_OFFSET);
 
 	return Status;
 }
