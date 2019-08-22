@@ -213,6 +213,7 @@ u32 XLoader_SecureCopy(XLoader_SecureParms *SecurePtr, u64 DestAddr, u32 Size)
 	u64 LoadAddr = DestAddr;
 	u8 LastChunk = FALSE;
 	u32 Status = XST_FAILURE;
+	u32 ClrStatus = XST_FAILURE;
 
 	ChunkLen = XLOADER_CHUNK_SIZE;
 
@@ -248,6 +249,17 @@ u32 XLoader_SecureCopy(XLoader_SecureParms *SecurePtr, u64 DestAddr, u32 Size)
 	}
 
 END:
+	if (Status != XST_SUCCESS) {
+		/* On failure updated data at destination address is cleared */
+		ClrStatus = XPlmi_InitNVerifyMem(DestAddr, Size);
+		if (ClrStatus != XST_SUCCESS) {
+			Status = Status | XLOADER_SEC_BUF_CLEAR_ERR;
+		}
+		else {
+			Status = Status | XLOADER_SEC_BUF_CLEAR_SUCCESS;
+		}
+	}
+
 	return Status;
 }
 
@@ -275,6 +287,7 @@ u32 XLoader_SecurePrtn(XLoader_SecureParms *SecurePtr, u64 DstAddr,
 				u32 BlockSize, u8 Last)
 {
 	u32 Status = XST_SUCCESS;
+	u32 ClrStatus = XST_FAILURE;
 	u32 TotalSize = BlockSize;
 	u32 SrcAddr;
 	u64 OutAddr;
@@ -370,6 +383,17 @@ u32 XLoader_SecurePrtn(XLoader_SecureParms *SecurePtr, u64 DstAddr,
 	SecurePtr->BlockNum++;
 
 END:
+	/* Clears whole intermediate buffers on failure */
+	if (Status != XST_SUCCESS) {
+		ClrStatus = XPlmi_InitNVerifyMem(SecurePtr->ChunkAddr, TotalSize);
+		if (ClrStatus != XST_SUCCESS) {
+				Status = Status | XLOADER_SEC_BUF_CLEAR_ERR;
+		}
+		else {
+			Status = Status | XLOADER_SEC_BUF_CLEAR_SUCCESS;
+		}
+	}
+
 	return Status;
 }
 
@@ -496,6 +520,7 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr,
 	u8 Hash[XLOADER_SHA3_LEN];
 	XSecure_Sha3 Sha3Instance;
 	u32 AcOffset;
+	u32 ClrStatus = XST_FAILURE;
 
 	XPlmi_Printf(DEBUG_DETAILED, "Authentication of"
 				" Image header table\n\r");
@@ -540,6 +565,17 @@ u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr,
 				" Image header table is successful\n\r");
 
 END:
+	if (Status != XST_SUCCESS) {
+		/* On failure clear IHT structure which has invalid data */
+		ClrStatus = XPlmi_InitNVerifyMem((UINTPTR)ImgHdrTbl, XIH_IHT_LEN);
+		if (ClrStatus != XST_SUCCESS) {
+				Status = Status | XLOADER_SEC_BUF_CLEAR_ERR;
+		}
+		else {
+			Status = Status | XLOADER_SEC_BUF_CLEAR_SUCCESS;
+		}
+	}
+
 	return Status;
 }
 
@@ -559,6 +595,8 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 				XilPdi_MetaHdr *MetaHdr)
 {
 	u32 Status = XST_FAILURE;
+	u32 ClearIHs;
+	u32 ClearPHs;
 
 	XPlmi_Printf(DEBUG_DETAILED,
 		"Loading secure image headers and partition headers\n\r");
@@ -582,9 +620,23 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 	else {
 		XPlmi_Printf(DEBUG_INFO, "Headers are not secure\n\r");
 		Status = XST_FAILURE;
-		goto END;
+		goto RET;
 	}
 END:
+
+	if (Status != XST_SUCCESS) {
+		ClearIHs = XPlmi_InitNVerifyMem((UINTPTR)&MetaHdr->ImgHdr[0],
+			(MetaHdr->ImgHdrTable.NoOfImgs * XIH_IH_LEN));
+		ClearPHs = XPlmi_InitNVerifyMem((UINTPTR)&MetaHdr->PrtnHdr[0],
+			(MetaHdr->ImgHdrTable.NoOfPrtns * XIH_PH_LEN));
+		if ((ClearIHs != XST_SUCCESS) || (ClearPHs != XST_SUCCESS)) {
+			Status = Status | XLOADER_SEC_BUF_CLEAR_ERR;
+		}
+		else {
+			Status = Status | XLOADER_SEC_BUF_CLEAR_SUCCESS;
+		}
+	}
+RET:
 	return Status;
 }
 
@@ -1461,6 +1513,7 @@ static u32 XLoader_DecryptSH(XLoader_SecureParms *SecurePtr,
 	Status = XSecure_AesDecryptFinal(AesInstancePtr,
 			SrcAddr + XLOADER_SECURE_HDR_SIZE);
 	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_INFO, "GCM TAG is mismatching\n\r");
 		goto END;
 	}
 
@@ -1722,6 +1775,8 @@ static u32 XLoader_AuthHdrs(XLoader_SecureParms *SecurePtr,
 			XilPdi_MetaHdr *MetaHdr)
 {
 	u32 Status = XST_FAILURE;
+	u32 ClrIh = XST_FAILURE;
+	u32 ClrPh = XST_FAILURE;
 	XStatus XStatus;
 	u8 Hash[XLOADER_SHA3_LEN];
 	XSecure_Sha3 Sha3Instance;
@@ -1800,5 +1855,21 @@ static u32 XLoader_AuthHdrs(XLoader_SecureParms *SecurePtr,
 				" Partition and image headers is successful\n\r");
 
 END:
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_INFO, "Clearing memory \n\r");
+		/* Image and partition headers are cleared upon failure */
+		ClrIh = XPlmi_InitNVerifyMem((UINTPTR)(MetaHdr->ImgHdr),
+					MetaHdr->ImgHdrTable.NoOfImgs * XIH_IH_LEN);
+		ClrPh = XPlmi_InitNVerifyMem((UINTPTR)(MetaHdr->PrtnHdr),
+					MetaHdr->ImgHdrTable.NoOfPrtns * XIH_PH_LEN);
+		if ((ClrPh != XST_SUCCESS) || (ClrIh != XST_SUCCESS)) {
+			Status = Status | XLOADER_SEC_BUF_CLEAR_ERR;
+		}
+		else {
+			Status = Status | XLOADER_SEC_BUF_CLEAR_SUCCESS;
+		}
+
+	}
+
 	return Status;
 }
