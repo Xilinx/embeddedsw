@@ -19,7 +19,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 ******************************************************************************/
 /*****************************************************************************/
 /**
@@ -556,6 +556,42 @@ int XPlmi_EccInit(u64 Addr, u32 Len)
 
 	/* Receive the data from destination channel */
 	return XPlmi_DmaChXfer(Addr, Len/4U, XCSUDMA_DST_CHANNEL, XPLMI_PMCDMA_0);
+}
+
+/*****************************************************************************/
+/**
+ * This function initializes the memory using PZM and verifies by reading back
+ * initialized memory.
+ *
+ * @param	Addr Memory address to be initialized
+ * @param	Len Length of the area to be initialized in bytes
+ *
+ * @return	Failure on comparison failure.
+ *		Success on sucessful buffer clear.
+ *
+ *****************************************************************************/
+int XPlmi_InitNVerifyMem(u64 Addr, u32 Len)
+{
+	u32 Status;
+	u32 *MemPtr = (u32 *)(UINTPTR)Addr;
+	u32 NoWords = Len/4U;
+	u32 Index;
+
+	/* Initialize the data */
+	Status = XPlmi_EccInit(Addr, Len);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Read and verify the initialized data */
+	for (Index = 0; Index < NoWords; Index++) {
+		if (MemPtr[Index] != XPLMI_DATA_INIT_PZM) {
+			Status = XST_FAILURE;
+			goto END;
+		}
+	}
+END:
+	return Status;
 }
 
 void XPlmi_SetMaxOutCmds(u32 Val)

@@ -104,6 +104,8 @@ extern "C" {
 #define XPLMI_SSS_DMA0_SBI			(0x0000000BU)
 #define XPLMI_SSS_DMA0_PZM			(0x00000003U)
 
+#define XPLMI_DATA_INIT_PZM			(0xDEADBEEFU)
+
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
@@ -113,6 +115,7 @@ int XPlmi_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags);
 int XPlmi_SbiDmaXfer(u64 DestAddr, u32 Len, u32 Flags);
 int XPlmi_DmaSbiXfer(u64 SrcAddr, u32 Len, u32 Flags);
 int XPlmi_EccInit(u64 Addr, u32 Len);
+int XPlmi_InitNVerifyMem(u64 Addr, u32 Len);
 int XPlmi_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
 		XCsuDma** DmaPtrAddr);
 void XPlmi_WaitForNonBlkSrcDma(void);

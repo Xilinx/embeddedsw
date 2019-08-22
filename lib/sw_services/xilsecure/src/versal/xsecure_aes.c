@@ -769,7 +769,7 @@ u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 			XSECURE_AES_STATUS_OFFSET);
 	Status &= XSECURE_AES_STATUS_GCM_TAG_PASS_MASK;
 	if (Status != XSECURE_AES_STATUS_GCM_TAG_PASS_MASK) {
-		Status = XSECURE_CSU_AES_GCM_TAG_MISMATCH;
+		Status = XSECURE_AES_GCM_TAG_MISMATCH;
 	}
 	else {
 		Status = XST_SUCCESS;
@@ -1378,8 +1378,7 @@ u32 XSecure_AesKeyZero(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 					 KeyClearVal);
 
 	if (TimeOut == 0U) {
-		Status = XSECURE_CSU_AES_KEY_CLEAR_ERROR;
-		Status = XST_FAILURE;
+		Status = XSECURE_AES_KEY_CLEAR_ERROR;
 	}
 
 END:
