@@ -80,6 +80,12 @@ static u32 XLoader_VerifySpkId(u32 SpkId);
 static u32 XLoader_PpkCompare(u32 EfusePpkOffset, u8 *PpkHash);
 static u32 XLoader_AuthHdrs(XLoader_SecureParms *SecurePtr,
 			XilPdi_MetaHdr *MetaHdr);
+static u32 XLoader_ReadHdrs(XLoader_SecureParms *SecurePtr,
+			XilPdi_MetaHdr *MetaHdr, u64 BufferAddr);
+static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
+				XilPdi_MetaHdr *MetaHdr, u64 BufferAddr);
+static u32 XLoader_AuthNDecHdrs(XLoader_SecureParms *SecurePtr,
+				XilPdi_MetaHdr *MetaHdr, u64 BufferAddr);
 
 /************************** Variable Definitions *****************************/
 
@@ -608,10 +614,56 @@ u32 XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParms *SecurePtr,
 	 * either authentication is enabled or not
 	 */
 	if (SecurePtr->IsEncrypted == TRUE) {
-		/* TBD */
+		XPlmi_Printf(DEBUG_INFO, "Headers are in encrypted format\n\r");
+		SecurePtr->ChunkAddr = XLOADER_CHUNK_MEMORY;
+
+		/* Read headers to a buffer */
+		Status = XLoader_ReadHdrs(SecurePtr, MetaHdr,
+				SecurePtr->ChunkAddr);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		/* Authenticate headers and decrypt the headers */
+		if (SecurePtr->IsAuthenticated == TRUE) {
+			XPlmi_Printf(DEBUG_INFO, "Authentication enabled\n\r");
+			Status = XLoader_AuthNDecHdrs(SecurePtr, MetaHdr,
+						SecurePtr->ChunkAddr);
+		}
+		/* Decrypt the headers */
+		else {
+			Status = XLoader_DecHdrs(SecurePtr, MetaHdr,
+						SecurePtr->ChunkAddr);
+		}
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		/* Read and verify headers to structures */
+		MetaHdr->Flag = XILPDI_METAHDR_RD_HDRS_FROM_MEMBUF;
+		MetaHdr->BufferAddr = SecurePtr->ChunkAddr;
+		MetaHdr->XMemCpy = XPlmi_MemCpy;
+
+		/* Read IHT and PHT to structures and verify checksum */
+		Status = XilPdi_ReadAndVerifyImgHdr(MetaHdr);
+		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto END;
+		}
+
+		/* Update buffer address to point to PHs */
+		MetaHdr->BufferAddr = SecurePtr->ChunkAddr +
+				(MetaHdr->ImgHdrTable.NoOfImgs * XIH_IH_LEN);
+		Status = XilPdi_ReadAndVerifyPrtnHdr(MetaHdr);
+		if(Status != XST_SUCCESS)
+		{
+			Status = XST_FAILURE;
+			goto END;
+		}
 	}
 	/* If authentication is enabled */
 	else if (SecurePtr->IsAuthenticated == TRUE) {
+		XPlmi_Printf(DEBUG_INFO, "Headers are only authenticated\n\r");
 		Status = XLoader_AuthHdrs(SecurePtr, MetaHdr);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -1934,5 +1986,243 @@ END:
 
 	}
 
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function copies whole secure headers to the buffer.
+ *
+ * @param	SecurePtr	Pointer to the XLoader_SecureParms
+ * @param	MetaHdr		Pointer to the Meta header.
+ * @param	BufferAddr	Read whole headers to the mentioned buffer
+ *		address
+ *
+ * @return	XST_SUCCESS if verification was successful.
+ *
+ ******************************************************************************/
+static u32 XLoader_ReadHdrs(XLoader_SecureParms *SecurePtr,
+			XilPdi_MetaHdr *MetaHdr, u64 BufferAddr)
+{
+	u32 Status = XST_FAILURE;
+	u32 TotalSize = MetaHdr->ImgHdrTable.TotalHdrLen * XIH_PRTN_WORD_LEN;
+	u32 ImgHdrAddr;
+
+	/* Update the first image header address */
+	ImgHdrAddr = (MetaHdr->ImgHdrTable.ImgHdrAddr)
+				* XIH_PRTN_WORD_LEN;
+
+	if (SecurePtr->IsAuthenticated == TRUE) {
+		TotalSize = TotalSize - XLOADER_AUTH_CERT_MIN_SIZE;
+	}
+
+	/* Read IHT and PHT to buffers along with encryption overhead */
+	Status = MetaHdr->DeviceCopy(MetaHdr->FlashOfstAddr +
+					ImgHdrAddr, (u64 )BufferAddr,
+					TotalSize, 0x0U);
+	if (XST_SUCCESS != Status) {
+		goto END;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function authenticate and decrypt the headers.
+ *
+ * @param	SecurePtr	Pointer to the XLoader_SecureParms
+ * @param	MetaHdr		Pointer to the Meta header.
+ * @param	BufferAddr	Read whole headers to the mentioned buffer
+ *		address
+ *
+ * @return	XST_SUCCESS if verification was successful.
+ *
+ ******************************************************************************/
+static u32 XLoader_AuthNDecHdrs(XLoader_SecureParms *SecurePtr,
+		XilPdi_MetaHdr *MetaHdr,
+		u64 BufferAddr)
+{
+
+	u32 Status = XST_FAILURE;
+	u8 CalHash[XLOADER_SHA3_LEN];
+	XSecure_Sha3 Sha3Instance;
+	u32 TotalSize = MetaHdr->ImgHdrTable.TotalHdrLen * XIH_PRTN_WORD_LEN;
+	u32 ClrStatus = XST_FAILURE;
+
+	if (SecurePtr->IsAuthenticated != TRUE) {
+		Status = XST_FAILURE;
+		goto END;
+	}
+	else {
+		TotalSize = TotalSize - XLOADER_AUTH_CERT_MIN_SIZE;
+	}
+
+	/* Authenticate the headers */
+	Status = XSecure_Sha3Initialize(&Sha3Instance,
+				SecurePtr->CsuDmaInstPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	XSecure_Sha3Start(&Sha3Instance);
+	Status = XSecure_Sha3Update(&Sha3Instance, (u8 *)SecurePtr->AcPtr,
+		(XLOADER_AUTH_CERT_MIN_SIZE - XLOADER_PARTITION_SIG_SIZE));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Status = XSecure_Sha3Update(&Sha3Instance, (u8 *)(UINTPTR)BufferAddr, TotalSize);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XSecure_Sha3Finish(&Sha3Instance, CalHash);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* RSA PSS signature verification */
+	Status = XLoader_DataAuth(SecurePtr, CalHash);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	else {
+		XPlmi_Printf(DEBUG_INFO,
+			"Authentication of the headers is successful\n\r");
+	}
+
+	/* Decrypt the headers and copy to structures */
+	Status = XLoader_DecHdrs(SecurePtr, MetaHdr, BufferAddr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+
+END:
+	if (Status != XST_SUCCESS) {
+		/* clear the buffer */
+		ClrStatus = XPlmi_InitNVerifyMem(BufferAddr, TotalSize);
+		if (ClrStatus != XST_SUCCESS) {
+			Status = Status | XLOADER_SEC_BUF_CLEAR_ERR;
+		}
+		else {
+			Status = Status | XLOADER_SEC_BUF_CLEAR_SUCCESS;
+		}
+
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function decrypts headers.
+ *
+ * @param	SecurePtr	Pointer to the XLoader_SecureParms
+ * @param	MetaHdr		Pointer to the Meta header.
+ * @param	BufferAddr	Read whole headers to the mentioned buffer
+ *		address
+ *
+ * @return	XST_SUCCESS if verification was successful.
+ *
+ ******************************************************************************/
+static u32 XLoader_DecHdrs(XLoader_SecureParms *SecurePtr,
+			XilPdi_MetaHdr *MetaHdr, u64 BufferAddr)
+{
+	XSecure_Aes AesInstance;
+	u32 Status = XST_FAILURE;
+	u32 Iv[XLOADER_SECURE_IV_LEN];
+	u8 Index;
+	XSecure_AesKeySrc KeySrc = 0;
+	u32 TotalSize = MetaHdr->ImgHdrTable.TotalHdrLen * XIH_PRTN_WORD_LEN;
+	u32 SrcAddr = BufferAddr;
+
+	if (SecurePtr->IsAuthenticated == TRUE) {
+		TotalSize = TotalSize - XLOADER_AUTH_CERT_MIN_SIZE;
+	}
+
+	if (SecurePtr->IsEncrypted != TRUE) {
+		XPlmi_Printf(DEBUG_INFO,"Headers are not encrypted \n\r");
+		Status = XST_FAILURE;
+		goto END;
+	}
+
+	/* Get DMA instance */
+	SecurePtr->CsuDmaInstPtr = XPlmi_GetDmaInstance(CSUDMA_0_DEVICE_ID);
+	if (SecurePtr->CsuDmaInstPtr == NULL) {
+		Status = XST_FAILURE;
+		goto END;
+	}
+
+	/* Initialize AES driver */
+	Status = XSecure_AesInitialize(&AesInstance, SecurePtr->CsuDmaInstPtr);
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_INFO,
+			" Failed at XSecure_AesInitialize \n\r");
+		goto END;
+	}
+
+	XSecure_ReleaseReset(AesInstance.BaseAddress,
+			XSECURE_AES_SOFT_RST_OFFSET);
+	/* Clear all key zeroization register */
+	XPlmi_Out32((AesInstance.BaseAddress +
+		XSECURE_AES_KEY_CLEAR_OFFSET), 0x00000000U);
+
+	/*
+	 * Key source selection
+	 */
+	Status = XLoader_AesKeySelct(SecurePtr, &AesInstance,
+			MetaHdr->ImgHdrTable.EncKeySrc,
+			SecurePtr->PdiPtr->MetaHdr.BootHdr.KekIv, &KeySrc);
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_INFO,"Failed at Key selection \n\r");
+		goto END;
+	}
+
+	/* Decrypting SH */
+	Status = XSecure_AesDecryptInit(&AesInstance, KeySrc,
+			XSECURE_AES_KEY_SIZE_256,
+			(UINTPTR)MetaHdr->ImgHdrTable.IvMetaHdr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Decrypt Secure header */
+	Status = XLoader_DecryptSH(SecurePtr, &AesInstance, SrcAddr);
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_INFO,
+		"SH decryption failed during header decryption\n\r");
+		goto END;
+	}
+
+	SrcAddr = SrcAddr + XLOADER_SECURE_HDR_TOTAL_SIZE;
+	TotalSize = TotalSize - XLOADER_SECURE_HDR_TOTAL_SIZE;
+
+
+	for (Index = 0; Index < XLOADER_SECURE_IV_LEN; Index++) {
+		Iv[Index] = Xil_Htonl(XPlmi_In32(AesInstance.BaseAddress +
+		(XSECURE_AES_IV_0_OFFSET + (Index * XIH_PRTN_WORD_LEN))));
+	}
+
+	Status = XSecure_AesDecryptInit(&AesInstance,
+		XSECURE_AES_KUP_KEY, XSECURE_AES_KEY_SIZE_256, (UINTPTR)Iv);
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_INFO,"Failed at header decryption"
+					" XSecure_AesDecryptInit \n\r");
+		goto END;
+	}
+	Status = XLoader_DataDecrypt(SecurePtr,
+			&AesInstance, (UINTPTR)SrcAddr,
+			(UINTPTR)SecurePtr->ChunkAddr, TotalSize);
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_INFO, "Failed at headers decryption\n\r");
+		goto END;
+	}
+
+END:
 	return Status;
 }

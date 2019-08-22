@@ -285,7 +285,11 @@ typedef struct {
 	u32 SBDAddr; /**< Secondary Boot device address */
 	u32 Idcode; /**< Device ID Code */
 	u32 Attr; /**< Attributes */
-	u32 Rsvd[23]; /**< Reserved */
+	u32 Rsrvd[4];
+	u32 TotalHdrLen; /**< Total size of Meta header AC + encryption overload */
+	u32 IvMetaHdr[3]; /**< Iv for decrypting SH of meta header */
+	u32 EncKeySrc; /**< Encryption key source for decrypting SH of headers */
+	u32 Rsvd[14]; /**< Reserved */
 	u32 Checksum; /**< Checksum of the image header table */
 } XilPdi_ImgHdrTable __attribute__ ((aligned(16)));
 
