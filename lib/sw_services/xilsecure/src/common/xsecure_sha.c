@@ -327,6 +327,12 @@ u32 XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	Status = XSecure_Sha3DataUpdate(InstancePtr, (Data + TransferredBytes),
 				DataSize, (u8)InstancePtr->IsLastUpdate);
 END:
+	if (Status != XST_SUCCESS) {
+		/* Set SHA under reset on failure condition */
+		XSecure_SetReset(InstancePtr->BaseAddress,
+					XSECURE_CSU_SHA3_RESET_OFFSET);
+	}
+
 	return Status;
 }
 
