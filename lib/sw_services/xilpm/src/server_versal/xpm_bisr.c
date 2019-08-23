@@ -24,6 +24,7 @@
 #include "xpm_common.h"
 #include "xpm_regs.h"
 #include "xpm_bisr.h"
+#include "xpm_npdomain.h"
 #include "xpm_powerdomain.h"
 #include "xpm_pslpdomain.h"
 #include "xpm_core.h"
@@ -489,12 +490,22 @@ static XStatus XPmBisr_RepairDdrMc(u32 EfuseTagAddr, u32 TagSize, u32 TagOptiona
 	XStatus Status = XST_SUCCESS;
 	u32 RegValue;
 	u64 BaseAddr, BisrDataDestAddr;
+	XPm_NpDomain *NpDomain = (XPm_NpDomain *)XPmPower_GetById(NPD_NODEID);
+
+	if (NULL == NpDomain) {
+		Status = XST_FAILURE;
+		goto done;
+	}
 
 	BaseAddr = NPI_FIXED_BASEADDR | (TagOptional<<NPI_EFUSE_ENDPOINT_SHIFT);
 	BisrDataDestAddr = BaseAddr | DDRMC_NPI_CACHE_DATA_REGISTER_OFFSET;
 
-	/* Copy repair data */
-	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
+	if (0 == NpDomain->BisrDataCopied) {
+		/* Copy repair data */
+		*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize,
+						    BisrDataDestAddr);
+		NpDomain->BisrDataCopied = 1;
+	}
 
 	/* Unlock PCSR */
 	PmOut32(BaseAddr | DDRMC_NPI_PCSR_LOCK_REGISTER_OFFSET, PCSR_UNLOCK_VAL);

@@ -26,6 +26,7 @@
 #include "xillibpm_defs.h"
 #include "xpm_common.h"
 #include "xpm_node.h"
+#include "xpm_npdomain.h"
 #include "xpm_core.h"
 #include "xpm_psm.h"
 #include "xpm_powerdomain.h"
@@ -465,7 +466,9 @@ XStatus XPm_PowerDwnNoC()
 {
 	XStatus Status = XST_SUCCESS;
 	XPm_Device *AmsRoot = XPmDevice_GetById(XPM_DEVID_AMS_ROOT);
-	if (NULL == AmsRoot) {
+	XPm_NpDomain *NpDomain = (XPm_NpDomain *)XPmPower_GetById(NPD_NODEID);
+
+	if ((NULL == AmsRoot) || (NULL == NpDomain)) {
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -523,6 +526,8 @@ XStatus XPm_PowerDwnNoC()
 				     PM_RESET_ACTION_ASSERT);
 
 	/* TODO: Send PMC_I2C command to turn off NoC power rail */
+
+	NpDomain->BisrDataCopied = 0;
 
 done:
 	return Status;
@@ -683,7 +688,8 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			goto done;
 		}
 		/* Skip in case of system reset */
-		if (1 == SystemResetFlag) {
+		if ((1 == SystemResetFlag) &&
+		    (PwrDomain->Power.Node.Id != NPD_NODEID)) {
 			goto done;
 		}
 		if (Ops && Ops->Bisr) {
