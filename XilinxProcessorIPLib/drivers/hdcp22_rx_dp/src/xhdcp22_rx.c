@@ -449,7 +449,8 @@ int XHdcp22Rx_Disable(XHdcp22_Rx *InstancePtr)
 	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO, XHDCP22_RX_LOG_INFO_DISABLE);
 
 	/* Set ReauthReq for recovery when already authenticated */
-	XHdcp22Rx_SetDdcReauthReq(InstancePtr);
+	if (InstancePtr->Info.AuthenticationStatus == XHDCP22_RX_AUTHENTICATED)
+		XHdcp22Rx_SetDdcReauthReq(InstancePtr);
 
 	/* Disable, Rng, Cipher, and Timer */
 	XHdcp22Rng_Disable(&InstancePtr->RngInst);
