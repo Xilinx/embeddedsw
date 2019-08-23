@@ -38,6 +38,9 @@ XStatus XPmPmc_Init(XPm_Pmc *Pmc, u32 DevcieId, u32 Ipi, u32 *BaseAddress,
 		goto done;
 	}
 
+	Pmc->PmcIouSlcrBaseAddr = BaseAddress[0];
+	Pmc->PmcGlobalBaseAddr = BaseAddress[1];
+	Pmc->PmcAnalogBaseAddr = BaseAddress[2];
 done:
 	return Status;
 }

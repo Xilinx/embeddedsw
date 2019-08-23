@@ -26,7 +26,7 @@
 
 #include "sleep.h"
 #include "xpm_common.h"
-#include "xpm_core.h"
+#include "xpm_pmc.h"
 #include "xpm_domain_iso.h"
 #include "xpm_npdomain.h"
 #include "xpm_pslpdomain.h"
@@ -148,7 +148,7 @@ done:
 static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
-	XPm_Core *Pmc;
+	XPm_Pmc *Pmc;
 	u32 RegValue;
 	XPm_OutClockNode *Clk;
 
@@ -160,13 +160,13 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
-	Pmc = (XPm_Core *)XPmDevice_GetById(XPM_DEVID_PMC);
+	Pmc = (XPm_Pmc *)XPmDevice_GetById(XPM_DEVID_PMC);
 	if (NULL == Pmc) {
 		Status = XST_FAILURE;
 		goto done;
 	}
 
-	PmOut32((Pmc->RegAddress[0] + PMC_GLOBAL_ERR1_STATUS_OFFSET),
+	PmOut32((Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_ERR1_STATUS_OFFSET),
 		(PMC_GLOBAL_ERR1_STATUS_NOC_TYPE_1_NCR_MASK |
 		PMC_GLOBAL_ERR1_STATUS_DDRMC_MC_NCR_MASK));
 
@@ -186,7 +186,7 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 	XPmReset_AssertbyId(SRST_RSTID(XPM_NODEIDX_RST_NPI),
                         PM_RESET_ACTION_RELEASE);
 
-	PmIn32((Pmc->RegAddress[0] + PMC_GLOBAL_ERR1_STATUS_OFFSET),
+	PmIn32((Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_ERR1_STATUS_OFFSET),
 	       RegValue);
 	if (0 != (RegValue & (PMC_GLOBAL_ERR1_STATUS_NOC_TYPE_1_NCR_MASK |
 			     PMC_GLOBAL_ERR1_STATUS_DDRMC_MC_NCR_MASK))) {

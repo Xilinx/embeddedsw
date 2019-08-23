@@ -25,7 +25,7 @@
 ******************************************************************************/
 
 #include "xpm_gic_proxy.h"
-#include "xpm_core.h"
+#include "xpm_pmc.h"
 #include "xpm_device.h"
 #include "xpm_common.h"
 #include "xpm_regs.h"
@@ -37,13 +37,13 @@ XStatus XPmGicProxy_WakeEventSet(XPm_Periph *Periph, u8 Enable)
 	XStatus Status = XST_FAILURE;
 	u32 GicProxyMask = Periph->GicProxyMask;
 	u32 GicProxyGroup = Periph->GicProxyGroup;
-	XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(XPM_DEVID_PMC);
+	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(XPM_DEVID_PMC);
 
 	if (0U == Enable) {
 		XPm_GicProxy.Groups[GicProxyGroup].SetMask &= ~GicProxyMask;
 	} else {
 		/* PMC Global base address */
-		u32 BaseAddress = Core->RegAddress[0];
+		u32 BaseAddress = Pmc->PmcGlobalBaseAddr;
 		u32 RegAddress = BaseAddress +
 				 PMC_GLOBAL_GIC_PROXY_BASE_OFFSET +
 				 GIC_PROXY_GROUP_OFFSET(GicProxyGroup) +
@@ -65,11 +65,11 @@ XStatus XPmGicProxy_WakeEventSet(XPm_Periph *Periph, u8 Enable)
 static void XPmGicProxy_Enable(void)
 {
 	u32 g;
-	XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(XPM_DEVID_PMC);
+	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(XPM_DEVID_PMC);
 
 	for (g = 0U; g < XPm_GicProxy.GroupsCnt; g++) {
 		/* PMC Global base address */
-		u32 BaseAddress = Core->RegAddress[0];
+		u32 BaseAddress = Pmc->PmcGlobalBaseAddr;
 		u32 RegAddress = BaseAddress +
 				 PMC_GLOBAL_GIC_PROXY_BASE_OFFSET +
 				 GIC_PROXY_GROUP_OFFSET(g) +
@@ -93,11 +93,11 @@ static void XPmGicProxy_Enable(void)
 static void XPm_GicProxyDisable(void)
 {
 	u32 g;
-	XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(XPM_DEVID_PMC);
+	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(XPM_DEVID_PMC);
 
 	for (g = 0U; g < XPm_GicProxy.GroupsCnt; g++) {
 		/* PMC Global base address */
-		u32 BaseAddress = Core->RegAddress[0];
+		u32 BaseAddress = Pmc->PmcGlobalBaseAddr;
 		u32 DisableAddr = BaseAddress +
 				  PMC_GLOBAL_GIC_PROXY_BASE_OFFSET +
 				  GIC_PROXY_GROUP_OFFSET(g) +
