@@ -31,7 +31,7 @@
 #include "xpm_regs.h"
 #include "xpm_reset.h"
 #include "xpm_bisr.h"
-#include "xpm_core.h"
+#include "xpm_pmc.h"
 #include "xparameters.h"
 #include "sleep.h"
 
@@ -287,7 +287,7 @@ done:
 static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
-	XPm_Core *Pmc;
+	XPm_Pmc *Pmc;
 	u32 PlPowerUpTime=0;
 
 	(void)Args;
@@ -325,14 +325,14 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 				     PM_RESET_ACTION_PULSE);
 	}
 
-	Pmc = (XPm_Core *)XPmDevice_GetById(XPM_DEVID_PMC);;
+	Pmc = (XPm_Pmc *)XPmDevice_GetById(XPM_DEVID_PMC);;
 	if (NULL == Pmc) {
 		Status = XST_FAILURE;
 		goto done;
 	}
 
         /* Check for PL PowerUp */
-        Status = XPm_PollForMask(Pmc->RegAddress[0] + PMC_GLOBAL_PL_STATUS_OFFSET,
+        Status = XPm_PollForMask(Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_PL_STATUS_OFFSET,
 				 PMC_GLOBAL_PL_STATUS_POR_PL_B_MASK, XPM_POLL_TIMEOUT);
         if(XST_SUCCESS != Status) {
 		goto done;

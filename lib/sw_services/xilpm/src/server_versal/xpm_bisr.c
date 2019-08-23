@@ -28,6 +28,7 @@
 #include "xpm_powerdomain.h"
 #include "xpm_pslpdomain.h"
 #include "xpm_core.h"
+#include "xpm_pmc.h"
 #include "xpm_power.h"
 #include "xpm_device.h"
 #include "xpm_psfpdomain.h"
@@ -200,15 +201,15 @@ static XStatus XPmBisr_TagSupportCheck(u32 TagId)
 
 static void XPmBisr_SwError(u32 ErrorCode)
 {
-	XPm_Core *Pmc;
+	XPm_Pmc *Pmc;
 
-	Pmc = (XPm_Core *)XPmDevice_GetById(XPM_DEVID_PMC);
+	Pmc = (XPm_Pmc *)XPmDevice_GetById(XPM_DEVID_PMC);
 	if (NULL == Pmc) {
 		goto done;
 	}
 
-	XPm_Out32(Pmc->RegAddress[0] + PMC_GLOBAL_PMC_GSW_ERR_OFFSET,
-		  XPm_In32(Pmc->RegAddress[0] + PMC_GLOBAL_PMC_GSW_ERR_OFFSET) |
+	XPm_Out32(Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_PMC_GSW_ERR_OFFSET,
+		  XPm_In32(Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_PMC_GSW_ERR_OFFSET) |
 			   (1 << ErrorCode) |
 			   (1 << PMC_GLOBAL_PMC_GSW_ERR_CR_FLAG_SHIFT));
 
