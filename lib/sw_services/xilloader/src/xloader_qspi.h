@@ -179,6 +179,12 @@ extern "C" {
 /* TODO change to QSPI driver API */
 #define XLOADER_QSPIDMA_DST_CTRL	(0xF103080CU)
 
+/*Qspi width detection macros*/
+#define XLOADER_QSPI_BUSWIDTH_DETECT_VALUE	(0xAA995566U)
+#define XLOADER_QSPI_BUSWIDTH_PDI_OFFSET	(0x10U)
+#define XLOADER_QSPI_FLASH_SEARCH_OFFSET	(0x8000U) /**< 32KB offset */
+#define XLOADER_QSPI_BUSWIDTH_LENGTH		(0x10U)
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/

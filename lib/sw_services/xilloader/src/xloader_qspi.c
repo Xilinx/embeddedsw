@@ -198,7 +198,9 @@ int XLoader_Qspi24Init(u32 DeviceFlags)
 	XQspiPsu_Config *QspiConfig;
 	int Status;
 	u32 QspiMode;
-
+	u32 QspiWidthBuffer[4]={0};
+	u32 MultiBootOffset;
+	u32 ImageOffsetAddress;
 	/**
 	 * This parameter is required as per the prototype
 	 */
@@ -284,11 +286,45 @@ int XLoader_Qspi24Init(u32 DeviceFlags)
 		goto END;
 	}
 
-	/*  TODO add code for 1x, 2x and 4x */
-	if(IssiIdFlag==1U) {
+	/* Read multi boot  register */
+	MultiBootOffset = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT)&(XLOADER_MULTIBOOT_OFFSET_MASK);
+	ImageOffsetAddress = MultiBootOffset * (XLOADER_QSPI_FLASH_SEARCH_OFFSET);
+	XLoader_Printf(DEBUG_INFO,"MultiBootOffset: 0x%x\n\r",MultiBootOffset);
+
+	/*Qspi width detection for 1x,2x and 4x*/
+	ReadCommand = QUAD_READ_CMD_24BIT;
+	Status=XLoader_Qspi24Copy((ImageOffsetAddress+XLOADER_QSPI_BUSWIDTH_PDI_OFFSET),
+		(u64)(UINTPTR)(&QspiWidthBuffer),XLOADER_QSPI_BUSWIDTH_LENGTH,0x00U);
+
+	if((Status == XLOADER_SUCCESS) &&
+		(QspiWidthBuffer[0] == XLOADER_QSPI_BUSWIDTH_DETECT_VALUE)){
+			XLoader_Printf(DEBUG_INFO,"\n\rConnectionType: 24BIT QUAD\n\r");
+	}else
+	{
 		ReadCommand = DUAL_READ_CMD_24BIT;
-	} else {
-		ReadCommand = QUAD_READ_CMD_24BIT;
+		Status=XLoader_Qspi24Copy((ImageOffsetAddress+XLOADER_QSPI_BUSWIDTH_PDI_OFFSET),
+			(u64)(UINTPTR)(&QspiWidthBuffer),XLOADER_QSPI_BUSWIDTH_LENGTH,0x00U);
+		if((Status == XLOADER_SUCCESS) &&
+			(QspiWidthBuffer[0] == XLOADER_QSPI_BUSWIDTH_DETECT_VALUE)){
+				XLoader_Printf(DEBUG_INFO,"\n\rConnectionType: 24BIT DUAL\n\r");
+		}else
+		{
+			ReadCommand = FAST_READ_CMD_24BIT;
+			Status=XLoader_Qspi24Copy((ImageOffsetAddress+XLOADER_QSPI_BUSWIDTH_PDI_OFFSET),
+				(u64)(UINTPTR)(&QspiWidthBuffer),XLOADER_QSPI_BUSWIDTH_LENGTH,0x00U);
+			if((Status == XLOADER_SUCCESS) &&
+				(QspiWidthBuffer[0] == XLOADER_QSPI_BUSWIDTH_DETECT_VALUE)){
+					XLoader_Printf(DEBUG_INFO,
+						"\n\rConnectionType: 24BIT SINGLE\n\r");
+			}else
+			{
+				Status = XPLMI_UPDATE_STATUS(
+						XLOADER_ERR_QSPI_CONNECTION, Status);
+				XLoader_Printf(DEBUG_GENERAL,
+						"XLOADER_ERR_QSPI_CONNECTION\r\n");
+				goto END;
+			}
+		}
 	}
 
 	/* TODO add code: For a Stacked connection, read second Flash ID */
@@ -802,6 +838,9 @@ int XLoader_Qspi32Init(u32 DeviceFlags)
 	XQspiPsu_Config *QspiConfig;
 	int Status;
 	u32 QspiMode;
+	u32 QspiWidthBuffer[4]={0};
+	u32 MultiBootOffset;
+	u32 ImageOffsetAddress;
 
 	/**
 	 * This parameter is required as per the prototype
@@ -887,14 +926,52 @@ int XLoader_Qspi32Init(u32 DeviceFlags)
 
 	}
 
-
-	/* add code for 1x, 2x and 4x */
-	ReadCommand = QUAD_READ_CMD_32BIT;
-
 	/* Read Flash ID and extract Manufacture and Size information */
 	Status = FlashReadID(&QspiPsuInstance);
 	if (Status != XLOADER_SUCCESS) {
 		goto END;
+	}
+
+	/* Read multi boot  register */
+	MultiBootOffset = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT)&(XLOADER_MULTIBOOT_OFFSET_MASK);
+	ImageOffsetAddress = MultiBootOffset * (XLOADER_QSPI_FLASH_SEARCH_OFFSET);
+	XLoader_Printf(DEBUG_INFO,"MultiBootOffset: 0x%x\n\r",MultiBootOffset);
+
+	/*Detect connection type for 1x,2x and 4x*/
+	ReadCommand = QUAD_READ_CMD_32BIT;
+	Status=XLoader_Qspi32Copy((ImageOffsetAddress+XLOADER_QSPI_BUSWIDTH_PDI_OFFSET),
+		(u64)(UINTPTR)(&QspiWidthBuffer),XLOADER_QSPI_BUSWIDTH_LENGTH,0x00U);
+
+	if((Status == XLOADER_SUCCESS) &&
+		(QspiWidthBuffer[0] == XLOADER_QSPI_BUSWIDTH_DETECT_VALUE)){
+			XLoader_Printf(DEBUG_INFO,"\n\rConnectionType: 32BIT QUAD\n\r");
+	}else
+	{
+		ReadCommand = DUAL_READ_CMD_32BIT;
+		Status=XLoader_Qspi32Copy((ImageOffsetAddress+XLOADER_QSPI_BUSWIDTH_PDI_OFFSET),
+			(u64)(UINTPTR)(&QspiWidthBuffer),XLOADER_QSPI_BUSWIDTH_LENGTH,0x00U);
+
+		if((Status == XLOADER_SUCCESS) &&
+			(QspiWidthBuffer[0] == XLOADER_QSPI_BUSWIDTH_DETECT_VALUE)){
+				XLoader_Printf(DEBUG_INFO,"\n\rConnectionType: 32BIT DUAL\n\r");
+		}else
+		{
+			ReadCommand = FAST_READ_CMD_32BIT;
+			Status=XLoader_Qspi32Copy((ImageOffsetAddress+XLOADER_QSPI_BUSWIDTH_PDI_OFFSET),
+				(u64)(UINTPTR)(&QspiWidthBuffer),XLOADER_QSPI_BUSWIDTH_LENGTH,0x00U);
+
+			if((Status == XLOADER_SUCCESS) &&
+				(QspiWidthBuffer[0] == XLOADER_QSPI_BUSWIDTH_DETECT_VALUE)){
+					XLoader_Printf(DEBUG_INFO,"\n\rConnectionType: 32BIT SINGLE\n\r");
+			}else
+			{
+				Status = XPLMI_UPDATE_STATUS(
+						XLOADER_ERR_QSPI_CONNECTION, Status);
+				XLoader_Printf(DEBUG_GENERAL,
+						"XLOADER_ERR_QSPI_CONNECTION\r\n");
+				goto END;
+			}
+		}
 	}
 
 	/* add code: For a Stacked connection, read second Flash ID */
@@ -918,6 +995,7 @@ END:
  *
  * @param DestAddr is the address of the destination where it
  * should copy to
+ *
  *
  * @param Length Length of the bytes to be copied
  *
