@@ -36,7 +36,7 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 4.0   vns  04/24/2019 Initial release
 * 4.1   vns  08/06/2019 Added AES encryption APIs
-*
+*       har  08/21/2019 Fixed MISRA C violations
 * </pre>
 *
 * @note
@@ -455,8 +455,12 @@ u32 XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
 	if (KeyType == XSECURE_OBFUSCATED_KEY) {
 		KeySrc = XSECURE_AES_FAMILY_KEY;
 	}
-	if (KeyType == XSECURE_BLACK_KEY) {
+	else if (KeyType == XSECURE_BLACK_KEY) {
 		KeySrc = XSECURE_AES_PUF_KEY;
+	}
+	else {
+		Status = XST_FAILURE;
+		goto END;
 	}
 
 	Status = XSecure_AesKeyLoad(InstancePtr, KeySrc, KeySize);
