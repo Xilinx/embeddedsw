@@ -25,6 +25,13 @@
  * 1 tab == 4 spaces!
  */
 
+
+#if defined (versal) && !defined(ARMR5)
+#define GICv3
+#else
+#define GICv2
+#endif
+
 	.text
 
 	/* Variables and functions. */
@@ -139,8 +146,10 @@
 
 	/* Set the PMR register to be correct for the current critical nesting
 	depth. */
+
 	LDR		X0, ullCriticalNestingConst /* X0 holds the address of ullCriticalNesting. */
 	MOV		X1, #255					/* X1 holds the unmask value. */
+#if defined(GICv2)
 	LDR		X4, ullICCPMRConst			/* X4 holds the address of the ICCPMR constant. */
 	CMP		X3, #0
 	LDR		X5, [X4] 					/* X5 holds the address of the ICCPMR register. */
@@ -149,9 +158,18 @@
 	LDR		X1, [X6]					/* X1 holds the mask value. */
 1:
 	STR		W1, [X5]					/* Write the mask value to ICCPMR. */
+#else
+	CMP		X3, #0
+	B.EQ	2f
+	LDR		X6, ullMaxAPIPriorityMaskConst
+	LDR		X1, [X6]					/* X1 holds the mask value. */
+2:
+	MSR		S3_0_C4_C6_0, X1
+#endif
 	DSB 	SY							/* _RB_Barriers probably not required here. */
 	ISB 	SY
 	STR		X3, [X0]					/* Restore the task's critical nesting count. */
+
 
 	/* Restore the FPU context indicator. */
 	LDR		X0, ullPortTaskHasFPUContextConst
@@ -308,18 +326,27 @@ FreeRTOS_IRQ_Handler:
 
 	/* Read value from the interrupt acknowledge register, which is stored in W0
 	for future parameter and interrupt clearing use. */
+
+#if defined(GICv2)
 	LDR 	X2, ullICCIARConst
 	LDR		X3, [X2]
 	LDR		W0, [X3]	/* ICCIAR in W0 as parameter. */
+#else
 
+	MRS	X0, S3_0_C12_C8_0
+#endif
+	/* ICCIAR in W0 as parameter. */
 	/* Maintain the ICCIAR value across the function call. */
 	STP		X0, X1, [SP, #-0x10]!
 
 	/* Call the C handler. */
 	BL vApplicationIRQHandler
-
 	/* Disable interrupts. */
+#if defined(GICv2)
+	MSR 	DAIFSET, #3
+#else
 	MSR 	DAIFSET, #2
+#endif
 	DSB		SY
 	ISB		SY
 
@@ -327,9 +354,13 @@ FreeRTOS_IRQ_Handler:
 	LDP		X0, X1, [SP], #0x10
 
 	/* End IRQ processing by writing ICCIAR to the EOI register. */
+#if defined(GICv2)
 	LDR 	X4, ullICCEOIRConst
 	LDR		X4, [X4]
 	STR		W0, [X4]
+#else
+	MSR	 S3_0_C12_C8_1, X0
+#endif
 
 	/* Restore the critical nesting count. */
 	LDP		X1, X5, [SP], #0x10
@@ -412,15 +443,15 @@ Exit_IRQ_No_Context_Switch:
 pxCurrentTCBConst: .dword pxCurrentTCB
 ullCriticalNestingConst: .dword ullCriticalNesting
 ullPortTaskHasFPUContextConst: .dword ullPortTaskHasFPUContext
-
-ullICCPMRConst: .dword ullICCPMR
 ullMaxAPIPriorityMaskConst: .dword ullMaxAPIPriorityMask
 vApplicationIRQHandlerConst: .word vApplicationIRQHandler
 ullPortInterruptNestingConst: .dword ullPortInterruptNesting
 ullPortYieldRequiredConst: .dword ullPortYieldRequired
+
+#if defined(GICv2)
+ullICCPMRConst: .dword ullICCPMR
 ullICCIARConst:	.dword ullICCIAR
 ullICCEOIRConst: .dword ullICCEOIR
-
-
+#endif
 
 .end

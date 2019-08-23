@@ -48,6 +48,11 @@
 *
 ******************************************************************************/
 
+#if defined (versal) && !defined(ARMR5)
+#define GICv3
+#else
+#define GICv2
+#endif
 
 
 .org 0
@@ -137,8 +142,11 @@ _freertos_vector_table:
 	b	FreeRTOS_IRQ_Handler
 
 .org (FREERTOS_VBAR + 0x100)
+#if defined(GICv3)
+	b	FreeRTOS_IRQ_Handler
+#else
 	b	.
-
+#endif
 .org (FREERTOS_VBAR + 0x180)
 	b	.
 
@@ -149,7 +157,7 @@ _freertos_vector_table:
 	b	FreeRTOS_IRQ_Handler
 
 .org (FREERTOS_VBAR + 0x300)
-	b	.
+	b	FreeRTOS_IRQ_Handler
 
 .org (FREERTOS_VBAR + 0x380)
 	b	.

@@ -134,7 +134,7 @@ proc generate {os_handle} {
 		file copy -force $entry [file join ".." "${standalone_version}" "src"]
 	}
 
-	if { $proctype == "psu_cortexa53" || $proctype == "ps7_cortexa9" || $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" } {
+	if { $proctype == "psu_cortexa53" || $proctype == "ps7_cortexa9" || $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" || $proctype == "psv_cortexa72" } {
 	        foreach entry [glob -nocomplain [file join $armcommonsrcdir *]] {
 	       file copy -force $entry [file join ".." "${standalone_version}" "src"]
 	       file delete -force "../${standalone_version}/src/gcc"
@@ -207,6 +207,7 @@ proc generate {os_handle} {
 				file delete -force $platformsrcdir 
 				close $file_handle
 			}
+		"psv_cortexa72" -
 		"psu_cortexa53"  {
 				set procdrv [hsi::get_sw_processor]
 			        set compiler [get_property CONFIG.compiler $procdrv]
@@ -224,8 +225,12 @@ proc generate {os_handle} {
 					file copy -force $entry [file join ".." "${standalone_version}" "src"]
 				}
 
+				if { $proctype == "psu_cortexa53" } {
 				file copy -force [file join $arma5364srcdir platform ZynqMP xparameters_ps.h] ./src
                                 set platformsrcdir "../${standalone_version}/src/arm/ARMv8/64bit/platform/ZynqMP/gcc"
+				} else {
+				set platformsrcdir "../${standalone_version}/src/arm/ARMv8/64bit/platform/versal"
+				}
 		                foreach entry [glob -nocomplain [file join $platformsrcdir *]] {
                                     file copy -force $entry [file join ".." "${standalone_version}" "src"]
 		                }
@@ -244,7 +249,7 @@ proc generate {os_handle} {
 				file delete -force "../${standalone_version}/src/profile"
 				file delete -force "../${standalone_version}/src/includes_ps/platform"
 				if { $enable_sw_profile == "true" } {
-					error "ERROR: Profiling is not supported for A53"
+					error "ERROR: Profiling is not supported for A53/A72"
 				}
 				set need_config_file "true"
 
@@ -308,7 +313,7 @@ proc generate {os_handle} {
 	set makeconfig [open "../${standalone_version}/src/config.make" w]
 	file rename -force -- "../${standalone_version}/src/Makefile" "../${standalone_version}/src/Makefile_depends"
 
-	if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" || $proctype == "ps7_cortexa9" || $proctype == "microblaze" || $proctype == "psu_cortexa53" } {
+	if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" || $proctype == "ps7_cortexa9" || $proctype == "microblaze" || $proctype == "psu_cortexa53" || $proctype == "psv_cortexa72"} {
 		puts $makeconfig "LIBSOURCES = *.c *.S"
 		puts $makeconfig "LIBS = standalone_libs"
 	}
@@ -341,7 +346,7 @@ proc generate {os_handle} {
 		file copy -force [file join src Source portable GCC ARM_CR5 portmacro.h] ./src
 		file copy -force [file join src Source portable GCC ARM_CR5 portZynqUltrascale.c] ./src
 	}
-	if { $proctype == "psu_cortexa53" } {
+	if { $proctype == "psu_cortexa53" || $proctype == "psv_cortexa72"} {
 		file copy -force [file join src Source portable GCC ARM_CA53 port.c] ./src
 		file copy -force [file join src Source portable GCC ARM_CA53 portASM.S] ./src
 		file copy -force [file join src Source portable GCC ARM_CA53 port_asm_vectors.S] ./src
@@ -411,7 +416,7 @@ proc generate {os_handle} {
 	puts $bspcfg_fh " * distinguish between standalone BSP and FreeRTOS BSP."
 	puts $bspcfg_fh " */"
 	puts $bspcfg_fh "#define FREERTOS_BSP"
-	if { $proctype == "psu_cortexa53" } {
+	if { $proctype == "psu_cortexa53" || $proctype == "psv_cortexa72"} {
 		if {[string compare -nocase $compiler "arm-none-eabi-gcc"] != 0} {
 			puts $bspcfg_fh "#define EL3 1"
 			puts $bspcfg_fh "#define EL1_NONSECURE 0"
@@ -479,7 +484,7 @@ proc generate {os_handle} {
 	puts $file_handle "\n/******************************************************************/\n"
 	set val [common::get_property CONFIG.enable_stm_event_trace $os_handle]
 	if { $val == "true" } {
-		if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" || $proctype == "psu_cortexa53" } {
+		if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" || $proctype == "psu_cortexa53" || $proctype == "psv_cortexa72" } {
 			variable stm_trace_header_data
 			puts $file_handle "/* Enable event trace through STM */"
 			puts $file_handle "#define FREERTOS_ENABLE_TRACE"
@@ -492,7 +497,7 @@ proc generate {os_handle} {
 				error "Invalid STM channel $val. Please set a value between 0 - 65535"
 			}
 			puts $file_handle "#define FREERTOS_STM_CHAN $val"
-			if { $proctype == "psu_cortexa53" && [common::get_property CONFIG.exec_mode $sw_proc_handle] == "aarch64" } {
+			if { $proctype == "psu_cortexa53" || $proctype == "psv_cortexa72" && [common::get_property CONFIG.exec_mode $sw_proc_handle] == "aarch64" } {
 				puts $file_handle "#define EXEC_MODE64"
 			} else {
 				puts $file_handle "#define EXEC_MODE32"
@@ -785,12 +790,12 @@ proc generate {os_handle} {
 		}
          }
 
-	if { $proctype == "psu_cortexa53" || $flag_mb64 == "1" } {
+	if { $proctype == "psu_cortexa53" || $proctype == "psv_cortexa72" || $flag_mb64 == "1" } {
 		puts $config_file "#define portPOINTER_SIZE_TYPE	uint64_t"
 	} else {
 		puts $config_file "#define portPOINTER_SIZE_TYPE	uint32_t"
 	}
-	if { $proctype == "psu_cortexa53" || $proctype == "microblaze" || $proctype == "ps7_cortexa9"} {
+	if { $proctype == "psu_cortexa53" || $proctype == "psv_cortexa72" ||$proctype == "microblaze" || $proctype == "ps7_cortexa9"} {
 		puts $config_file "#define portTICK_TYPE_IS_ATOMIC 1"
         } else {
 		puts $config_file "#define portTICK_TYPE_IS_ATOMIC 0"
@@ -973,12 +978,16 @@ proc generate {os_handle} {
 	## Add constants specific to the psu_cortexa53
 	############################################################################
 
-	if { $proctype == "psu_cortexa53" } {
+	if { $proctype == "psu_cortexa53" || $proctype == "psv_cortexa72" } {
 
 		set val [common::get_property CONFIG.PSU_TTC0_Select $os_handle]
 		if {$val == "true"} {
 			set have_tick_timer 1
-			Check_ttc_ip "psu_ttc_0"
+			if { $proctype == "psv_cortexa72" } {
+				Check_ttc_ip "psv_ttc_0"
+			} else {
+				Check_ttc_ip "psu_ttc_0"
+			}
 			set val1 [common::get_property CONFIG.PSU_TTC0_Select_Cntr $os_handle]
 			if {$val1 == "0"} {
 				xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_0_DEVICE_ID"
@@ -1007,7 +1016,11 @@ proc generate {os_handle} {
 				error "ERROR: Cannot select multiple timers for tick generation " "mdt_error"
 			} else {
 				set have_tick_timer 1
+			if { $proctype == "psv_cortexa72" } {
+				Check_ttc_ip "psv_ttc_1"
+			} else {
 				Check_ttc_ip "psu_ttc_1"
+			}
 				set val1 [common::get_property CONFIG.PSU_TTC1_Select_Cntr $os_handle]
 				if {$val1 == "0"} {
 					xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_3_DEVICE_ID"
@@ -1037,7 +1050,11 @@ proc generate {os_handle} {
 				error "ERROR: Cannot select multiple timers for tick generation " "mdt_error"
 			} else {
 				set have_tick_timer 1
+				if { $proctype == "psv_cortexa72" } {
+				Check_ttc_ip "psv_ttc_2"
+			} else {
 				Check_ttc_ip "psu_ttc_2"
+			}
 				set val1 [common::get_property CONFIG.PSU_TTC2_Select_Cntr $os_handle]
 				if {$val1 == "0"} {
 					xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_6_DEVICE_ID"
@@ -1067,7 +1084,11 @@ proc generate {os_handle} {
 				error "ERROR: Cannot select multiple timers for tick generation " "mdt_error"
 			} else {
 				set have_tick_timer 1
+			if { $proctype == "psv_cortexa72" } {
+				Check_ttc_ip "psv_ttc_3"
+			} else {
 				Check_ttc_ip "psu_ttc_3"
+			}
 				set val1 [common::get_property CONFIG.PSU_TTC3_Select_Cntr $os_handle]
 				if {$val1 == "0"} {
 					xput_define $config_file "configTIMER_ID" "XPAR_XTTCPS_9_DEVICE_ID"
