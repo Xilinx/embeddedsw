@@ -982,9 +982,9 @@ END:
  *******************************************************************************/
 static u32 XNvm_EfuseCacheLoad(void)
 {
-	volatile u32 CacheStatus;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u32 RegStatus;
+	volatile u32 CacheStatus;
 
 	RegStatus = XNvm_Efuse_ReadReg(XNVM_EFUSE_BASE_ADDR,
 					XNVM_EFUSE_WR_LOCK_REG_OFFSET);
@@ -1039,7 +1039,7 @@ END:
  ******************************************************************************/
 static u32 XNvm_EfuseCheckForTBits(void)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u32 ReadReg;
 	u32 TbitMask = (XNVM_EFUSE_STATUS_TBIT_0 |
 			XNVM_EFUSE_STATUS_TBIT_1 |
@@ -1057,6 +1057,8 @@ static u32 XNvm_EfuseCheckForTBits(void)
 		if (Status != (u32)XST_SUCCESS) {
 				goto END;
 		}
+	} else {
+		Status = (u32)XST_SUCCESS;
 	}
 END :
 	return Status;
