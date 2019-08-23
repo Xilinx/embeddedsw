@@ -64,6 +64,8 @@ typedef struct XPm_Psm XPm_Psm;
  */
 struct XPm_Psm {
 	XPm_Core Core; /**< Processor core device */
+	u32 PsmGlobalBaseAddr; /**< PSM Global register module base address */
+	u32 CrlBaseAddr; /**< CRL module base address */
 };
 
 /************************** Function Prototypes ******************************/
