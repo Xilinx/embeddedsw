@@ -36,6 +36,7 @@
 #include "xpm_device.h"
 #include "xpm_gic_proxy.h"
 #include "xpm_regs.h"
+#include "xpm_board.h"
 
 extern u32 ResetReason;
 extern int XLoader_ReloadImage(u32 ImageId);
@@ -191,7 +192,17 @@ done:
 
 XStatus XPm_PowerUpFPD(XPm_Node *Node)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
+
+	/*
+	 *  Power up FPD power rail
+	 *  Compiler flag CUSTOM_PMBUS must be set
+	 */
+	Status = XPmBoard_ControlRail(RAIL_POWER_UP, POWER_RAIL_FPD);
+	if (XST_SUCCESS != Status) {
+		PmErr("Control power rail for FPD failure during power up\r\n");
+		goto done;
+	}
 
 	if (XPM_POWER_STATE_ON != Node->State) {
 		PmInfo("Reloading FPD CDO\r\n");
@@ -203,6 +214,7 @@ XStatus XPm_PowerUpFPD(XPm_Node *Node)
 		XPm_GicProxy.Clear();
 	}
 
+done:
 	return Status;
 }
 
@@ -251,7 +263,15 @@ XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_FPD_POR),
 				     PM_RESET_ACTION_ASSERT);
 
-	/* TODO: Send PMC_I2C command to turn of FPD power rail */
+	/*
+	 * Power down FPD power rail
+	 * Compiler flag CUSTOM_PMBUS must be set
+	 */
+	Status = XPmBoard_ControlRail(RAIL_POWER_DOWN, POWER_RAIL_FPD);
+	if (XST_SUCCESS != Status) {
+		PmErr("Control power rail for FPD failure during power down\r\n");
+		goto done;
+	}
 
 	/* Enable GIC proxy only if resume path is set */
 	if ((NULL != ApuCore) &&
