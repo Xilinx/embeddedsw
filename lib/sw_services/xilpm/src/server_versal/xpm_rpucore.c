@@ -150,14 +150,14 @@ XStatus XPmRpuCore_Init(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, u32 *BaseAddress,
 		goto done;
 	}
 
+	RpuCore->RpuBaseAddr = BaseAddress[0];
+
 	if (XPM_DEVID_R50_0 == Id) {
-		RpuCore->ResumeCfg = RpuCore->Core.Device.Node.BaseAddress +
-				     RPU_0_CFG_OFFSET;
+		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_0_CFG_OFFSET;
 		RpuCore->Core.SleepMask = XPM_RPU0_0_PWR_CTRL_MASK;
 		RpuCore->Core.PwrDwnMask = XPM_RPU_0_CPUPWRDWNREQ_MASK;
 	} else {
-		RpuCore->ResumeCfg = RpuCore->Core.Device.Node.BaseAddress +
-				     RPU_1_CFG_OFFSET;
+		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_1_CFG_OFFSET;
 		RpuCore->Core.SleepMask = XPM_RPU0_1_PWR_CTRL_MASK;
 		RpuCore->Core.PwrDwnMask = XPM_RPU_1_CPUPWRDWNREQ_MASK;
 	}
@@ -171,8 +171,7 @@ void XPm_RpuGetOperMode(const u32 DeviceId, u32 *Mode)
 	u32 Val;
 	XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
 
-	PmIn32(RpuCore->Core.Device.Node.BaseAddress + RPU_GLBL_CNTL_OFFSET,
-	       Val);
+	PmIn32(RpuCore->RpuBaseAddr + RPU_GLBL_CNTL_OFFSET, Val);
 	Val &= XPM_RPU_SLSPLIT_MASK;
 	if (0 == Val) {
 		*Mode = XPM_RPU_MODE_LOCKSTEP;
@@ -188,8 +187,7 @@ void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 	int Status;
 	XPm_Subsystem *DefSubsystem = XPmSubsystem_GetById(XPM_SUBSYSID_DEFAULT);
 
-	PmIn32(RpuCore->Core.Device.Node.BaseAddress + RPU_GLBL_CNTL_OFFSET,
-	       Val);
+	PmIn32(RpuCore->RpuBaseAddr + RPU_GLBL_CNTL_OFFSET, Val);
 	if (Mode == XPM_RPU_MODE_SPLIT) {
 		Val |= XPM_RPU_SLSPLIT_MASK;
 		Val &= ~XPM_RPU_TCM_COMB_MASK;
@@ -202,8 +200,7 @@ void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 		/* Required by MISRA */
 	}
 
-	PmOut32(RpuCore->Core.Device.Node.BaseAddress + RPU_GLBL_CNTL_OFFSET,
-	        Val);
+	PmOut32(RpuCore->RpuBaseAddr + RPU_GLBL_CNTL_OFFSET, Val);
 
 	/* Add or remove R50_1 core in default subsystem according to its mode */
 	Status = XPmDevice_IsRequested(XPM_DEVID_R50_0, XPM_SUBSYSID_DEFAULT);
@@ -247,7 +244,7 @@ XStatus XPm_RpuTcmCombConfig(const u32 DeviceId, const u32 Config)
 	u32 Address;
 	XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
 
-	Address = RpuCore->Core.Device.Node.BaseAddress + RPU_GLBL_CNTL_OFFSET;
+	Address = RpuCore->RpuBaseAddr + RPU_GLBL_CNTL_OFFSET;
 	if (Config == XPM_RPU_TCM_SPLIT) {
 		PmRmw32(Address, XPM_RPU_TCM_COMB_MASK,
 			~XPM_RPU_TCM_COMB_MASK);
