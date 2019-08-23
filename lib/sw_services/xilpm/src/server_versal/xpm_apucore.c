@@ -33,6 +33,7 @@ static int XPmApuCore_RestoreResumeAddr(XPm_Core *Core)
 	int Status = XST_SUCCESS;
 	u32 AddrLow = (u32) (Core->ResumeAddr & 0xfffffffeULL);
 	u32 AddrHigh = (u32) (Core->ResumeAddr >> 32ULL);
+	XPm_ApuCore *ApuCore = (XPm_ApuCore *)Core;
 
 	/* Check for valid resume address */
 	if (0 == (Core->ResumeAddr & 1ULL)) {
@@ -42,11 +43,11 @@ static int XPmApuCore_RestoreResumeAddr(XPm_Core *Core)
 	}
 
 	if (XPM_NODEIDX_DEV_ACPU_0 == NODEINDEX(Core->Device.Node.Id)) {
-		PmOut32(Core->Device.Node.BaseAddress + APU_DUAL_RVBARADDR0L_OFFSET, AddrLow);
-		PmOut32(Core->Device.Node.BaseAddress + APU_DUAL_RVBARADDR0H_OFFSET, AddrHigh);
+		PmOut32(ApuCore->FpdApuBaseAddr + APU_DUAL_RVBARADDR0L_OFFSET, AddrLow);
+		PmOut32(ApuCore->FpdApuBaseAddr + APU_DUAL_RVBARADDR0H_OFFSET, AddrHigh);
 	} else if (XPM_NODEIDX_DEV_ACPU_1 == NODEINDEX(Core->Device.Node.Id)) {
-		PmOut32(Core->Device.Node.BaseAddress + APU_DUAL_RVBARADDR1L_OFFSET, AddrLow);
-		PmOut32(Core->Device.Node.BaseAddress + APU_DUAL_RVBARADDR1H_OFFSET, AddrHigh);
+		PmOut32(ApuCore->FpdApuBaseAddr + APU_DUAL_RVBARADDR1L_OFFSET, AddrLow);
+		PmOut32(ApuCore->FpdApuBaseAddr + APU_DUAL_RVBARADDR1H_OFFSET, AddrHigh);
 	} else {
 		Status = XST_INVALID_PARAM;
 	}
@@ -122,6 +123,8 @@ XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,
 	Status = XPmCore_Init(&ApuCore->Core,
 		Id, BaseAddress,
 		Power, Clock, Reset, Ipi, &ApuOps);
+
+	ApuCore->FpdApuBaseAddr = BaseAddress[0];
 
 	if(NODEINDEX(Id) == XPM_NODEIDX_DEV_ACPU_0) {
 		ApuCore->Core.SleepMask = XPM_ACPU_0_PWR_CTRL_MASK;
