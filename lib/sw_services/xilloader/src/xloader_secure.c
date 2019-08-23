@@ -111,7 +111,7 @@ u32 XLoader_SecureInit(XLoader_SecureParms *SecurePtr, XilPdi *PdiPtr,
 						u32 PrtnNum)
 {
 	XCsuDma *CsuDmaPtr;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	XilPdi_PrtnHdr *PrtnHdr;
 	u32 ChecksumOffset;
 	u32 AcOffset;
@@ -293,8 +293,8 @@ END:
 u32 XLoader_SecurePrtn(XLoader_SecureParms *SecurePtr, u64 DstAddr,
 				u32 BlockSize, u8 Last)
 {
-	u32 Status = XST_SUCCESS;
-	u32 ClrStatus = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
+	u32 ClrStatus = (u32)XST_FAILURE;
 	u32 TotalSize = BlockSize;
 	u32 SrcAddr;
 	u64 OutAddr;
@@ -416,7 +416,7 @@ END:
 ******************************************************************************/
 u32 XLoader_SecureValidations(XLoader_SecureParms *SecurePtr)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	XPlmi_Printf(DEBUG_INFO,
 				"Performing security checks \n\r");
@@ -523,11 +523,11 @@ END:
 u32 XLoader_ImgHdrTblAuth(XLoader_SecureParms *SecurePtr,
 				XilPdi_ImgHdrTable *ImgHdrTbl)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u8 Hash[XLOADER_SHA3_LEN];
 	XSecure_Sha3 Sha3Instance;
 	u32 AcOffset;
-	u32 ClrStatus = XST_FAILURE;
+	u32 ClrStatus = (u32)XST_FAILURE;
 
 	XPlmi_Printf(DEBUG_DETAILED, "Authentication of"
 				" Image header table\n\r");
@@ -714,8 +714,8 @@ RET:
 static u32 XLoader_VerifyHash(XLoader_SecureParms *SecurePtr,
 					u32 Size, u8 Last)
 {
-	s32 RetStatus;
-	u32 Status;
+	s32 RetStatus = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 	XSecure_Sha3 Sha3Instance;
 	u8 *Data = (u8 *)SecurePtr->ChunkAddr;
 	u8 CalHash[XLOADER_SHA3_LEN] = {0};
@@ -950,7 +950,7 @@ static u32 XLoader_SpkAuthentication(XLoader_SecureParms *SecurePtr)
 
 	u8 Hash[XSECURE_HASH_TYPE_SHA3]__attribute__ ((aligned(32)));
 	u8 *SpkHash = Hash;
-	u32 Status;
+	u32 Status = XST_FAILURE;
 	XLoader_AuthCertificate *AcPtr = SecurePtr->AcPtr;
 	XSecure_Sha3 Sha3Instance;
 
@@ -990,7 +990,7 @@ static u32 XLoader_SpkAuthentication(XLoader_SecureParms *SecurePtr)
 ******************************************************************************/
 static u32 XLoader_VerifySpkId(u32 SpkId)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u32 SpkRevokeAll;
 	u32 Quo;
 	u32 Mod;
@@ -1053,9 +1053,9 @@ END:
 ******************************************************************************/
 static u32 XLoader_PpkCompare(u32 EfusePpkOffset, u8 *PpkHash)
 {
-	s32 HashStatus;
+	s32 HashStatus = XST_FAILURE;
 	u8 Index;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u8 HashZeros[XLOADER_EFUSE_PPK_HASH_LEN];
 
 	/* Fill HashZeros array with all zeros */
@@ -1102,7 +1102,7 @@ static u32 XLoader_PpkCompare(u32 EfusePpkOffset, u8 *PpkHash)
 static u32 XLoader_IsPpkValid(u8 PpkSelect, u8 *PpkHash)
 {
 	u32 ReadReg;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Read PPK invalid set bits */
 	ReadReg = XPlmi_In32(XLOADER_EFUSE_MISC_CTRL_OFFSET);
@@ -1155,7 +1155,7 @@ static u32 XLoader_IsPpkValid(u8 PpkSelect, u8 *PpkHash)
 static u32 XLoader_CheckNonZeroPpk()
 {
 	u32 Index;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	for (Index = XLOADER_EFUSE_PPK0_START_OFFSET;
 			Index < XLOADER_EFUSE_PPK2_END_OFFSET;
@@ -1166,7 +1166,7 @@ static u32 XLoader_CheckNonZeroPpk()
 			goto END;
 		}
 	}
-	Status = (u32)XST_FAILURE;
+
 END:
 	return Status;
 }
@@ -1185,7 +1185,7 @@ static u32 XLoader_PpkVerify(XLoader_SecureParms *SecurePtr)
 {
 
 	u8 Hash[XSECURE_HASH_TYPE_SHA3]__attribute__ ((aligned(32)));
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	XLoader_AuthCertificate *AcPtr = SecurePtr->AcPtr;
 	XSecure_Sha3 Sha3Instance;
 	u32 ReadReg;
@@ -1283,7 +1283,7 @@ static u32 XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 	u8 Hashstore[48]= {0};
 	u32 Index1 = 0;
 	u32 Size = 48;
-	u32 Status = XST_SUCCESS;
+	u32 Status = (u32)XST_FAILURE;
 
 	while (Counter <= (OutLen/HashLen)) {
 		XLoader_I2Osp(Counter, 4, Xsecure_Varsocm.Convert);
@@ -1294,6 +1294,9 @@ static u32 XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 		/* Padding for SHA3 */
 		/* 01 and 10*1 padding */
 		Status = XSecure_Sha3Finish(Sha3InstancePtr, Hashstore);
+		if(Status != (u32)XST_SUCCESS){
+			break;
+		}
 		if ((Counter + 1U) > (OutLen/HashLen)) {
 			 /*
 			  * By the time this if loop is
@@ -1308,7 +1311,6 @@ static u32 XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 		Counter = Counter + 1U;
 		(void)XSecure_Sha3Initialize(Sha3InstancePtr,
 			Sha3InstancePtr->CsuDmaPtr);
-		if(Status != (u32)XST_SUCCESS){;}
 	}
 	return Status;
 
@@ -1337,13 +1339,12 @@ static u32 XLoader_RsaPssSignatureverification(XLoader_SecureParms *SecurePtr,
 		XSecure_Rsa *RsaInstancePtr, u8 *Signature, u8 *MsgHash)
 {
 
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u8 MPrimeHash[48] = {0};
 	u8 XSecure_RsaSha3Array[XLOADER_RSA_SIZE];
 	u8 HashMgf[480]__attribute__ ((aligned(32))) = {0};
 	u8 Db[463]__attribute__ ((aligned(32))); // make use of HashMgf only
 	u32 Index;
-	Status = XST_FAILURE;
 	XSecure_Sha3 Sha3Instance;
 	u8 *DataHash = (u8 *)MsgHash;
 
@@ -1443,7 +1444,7 @@ static u32 XLoader_RsaSignVerify(XLoader_SecureParms *SecurePtr,
 		u8 *Hash, XLoader_RsaKey *Key, u8 *Signature)
 {
 	XSecure_Rsa RsaInstance;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Initialize RSA instance */
 	Status = (u32)XSecure_RsaInitialize(&RsaInstance, (u8 *)Key->PubModulus,
@@ -1493,7 +1494,7 @@ static u32 XLoader_EcdsaSignVerify(u8 *Hash, u8 *Key, u8 *Signature)
 	u32 SIGS[XLOADER_ECDSA_KEYSIZE] = {0};
 	u32 HashPtr[XLOADER_ECDSA_KEYSIZE] = {0};
 	u32 Index;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	/**
 	 * Take the core out of reset
@@ -1546,7 +1547,7 @@ static u32 XLoader_EcdsaSignVerify(u8 *Hash, u8 *Key, u8 *Signature)
 static u32 XLoader_DecryptSH(XLoader_SecureParms *SecurePtr,
 			XSecure_Aes *AesInstancePtr, u64 SrcAddr)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	/* decrypt header/footer */
 
 	/* configure AES engine to push Key and IV */
@@ -1601,7 +1602,7 @@ END:
 static u32 XLoader_DataDecrypt(XLoader_SecureParms *SecurePtr,
 		XSecure_Aes *AesInstancePtr, u64 SrcAddr, u64 DstAddr, u32 Size)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status = (u32)XST_FAILURE;
 	u64 InAddr = SrcAddr;
 	u64 OutAddr = DstAddr;
 	u32 Iv[XLOADER_SECURE_IV_LEN];
@@ -1688,7 +1689,7 @@ static u32 XLoader_AesDecryption(XLoader_SecureParms *SecurePtr,
 			u64 SrcAddr, u64 DstAddr, u32 Size)
 {
 	XSecure_Aes AesInstance;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u32 Iv[XLOADER_SECURE_IV_LEN];
 	u8 Index;
 	XSecure_AesKeySrc KeySrc;
