@@ -28,6 +28,7 @@
 #include "xpm_regs.h"
 #include "xpm_powerdomain.h"
 #include "xpm_subsystem.h"
+#include "xpm_pldomain.h"
 
 /*TODO: Below data should come from topology */
 XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
@@ -223,6 +224,7 @@ static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
 	u32 i=0, NodeId, Value;
 	XPm_PowerDomain *PwrDomainNode;
 	XPm_Subsystem *Subsystem;
+	XPm_PlDomain *Pld;
 
 	for( i=0; i<2; i++) {
 		NodeId = XPmDomainIso_List[IsoIdx].DependencyNodeHandles[i];
@@ -237,16 +239,22 @@ static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
 		} else if (NodeId == XPM_SUBSYSID_PL) {
 			 Subsystem = XPmSubsystem_GetById(NodeId);
 			 if(Subsystem->State != ONLINE) {
-				/* Right now as we don't have
-				 * init finish for PLD, we decide PLD status based on
-	                           EOS bit */
-				PmIn32(CFU_APB_CFU_FGCR, Value);
-				if (CFU_APB_CFU_FGCR_EOS_MASK == (Value & CFU_APB_CFU_FGCR_EOS_MASK)) {
-					XPmSubsystem_SetState(XPM_SUBSYSID_PL, ONLINE);
-					Status = XST_SUCCESS;
-				} else {
-					Status = XST_FAILURE;
-					goto done;
+				 Pld = (XPm_PlDomain *)XPmPower_GetById(XPM_POWERID_PLD);
+				 if (NULL == Pld) {
+					 Status = XST_FAILURE;
+					 goto done;
+				 }
+
+				 /* Right now as we don't have
+				  * init finish for PLD, we decide PLD status based on
+				  EOS bit */
+				 PmIn32(Pld->CfuApbBaseAddr + CFU_APB_CFU_FGCR_OFFSET, Value);
+				 if (CFU_APB_CFU_FGCR_EOS_MASK == (Value & CFU_APB_CFU_FGCR_EOS_MASK)) {
+					 XPmSubsystem_SetState(XPM_SUBSYSID_PL, ONLINE);
+					 Status = XST_SUCCESS;
+				 } else {
+					 Status = XST_FAILURE;
+					 goto done;
 				}
 			}
 		} else {
