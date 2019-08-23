@@ -380,6 +380,8 @@ XStatus XPmNpDomain_Init(XPm_NpDomain *Npd, u32 Id, u32 BaseAddress,
 {
 	XPmPowerDomain_Init(&Npd->Domain, Id, BaseAddress, Parent, &NpdOps);
 
+	Npd->BisrDataCopied = 0;
+
 	return XST_SUCCESS;
 }
 
