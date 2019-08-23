@@ -40,6 +40,9 @@ typedef struct XPm_Pmc XPm_Pmc;
  */
 struct XPm_Pmc {
 	XPm_Core Core; /**< Processor core device */
+	u32 PmcIouSlcrBaseAddr; /**< PMC IOU SLCR register base address */
+	u32 PmcGlobalBaseAddr; /**< PMC GLOBAL register base address */
+	u32 PmcAnalogBaseAddr; /**< PMC Analog register base address */
 };
 
 /************************** Function Prototypes ******************************/

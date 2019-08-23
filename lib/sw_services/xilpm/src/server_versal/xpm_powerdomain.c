@@ -29,6 +29,7 @@
 #include "xpm_npdomain.h"
 #include "xpm_core.h"
 #include "xpm_psm.h"
+#include "xpm_pmc.h"
 #include "xpm_powerdomain.h"
 #include "xpm_pslpdomain.h"
 #include "xpm_bisr.h"
@@ -537,14 +538,14 @@ XStatus XPmPower_CheckPower(u32 VoltageRailMask)
 {
 	XStatus Status = XST_SUCCESS;
 	u32 RegVal;
-	XPm_Core *Pmc;
+	XPm_Pmc *Pmc;
 
-	Pmc = (XPm_Core *)XPmDevice_GetById(XPM_DEVID_PMC);
+	Pmc = (XPm_Pmc *)XPmDevice_GetById(XPM_DEVID_PMC);
 	if (NULL == Pmc) {
 		goto done;
 	}
 
-	PmIn32(Pmc->RegAddress[0] + PWR_SUPPLY_STATUS_OFFSET, RegVal);
+	PmIn32(Pmc->PmcGlobalBaseAddr + PWR_SUPPLY_STATUS_OFFSET, RegVal);
 	if((RegVal & VoltageRailMask) != VoltageRailMask) {
 		Status = XST_FAILURE;
 		goto done;
