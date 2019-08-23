@@ -45,6 +45,7 @@ typedef struct XPm_ApuCore XPm_ApuCore;
  */
 struct XPm_ApuCore {
 	XPm_Core Core; /**< Processor core devices */
+	u32 FpdApuBaseAddr; /**< Base address of FPD_APU module */
 };
 
 /************************** Function Prototypes ******************************/
