@@ -26,7 +26,7 @@
 
 #include "pm_api_sys.h"
 #include "pm_callbacks.h"
-#include "xpm_ipi.h"
+#include "pm_client.h"
 
 /* Payload Packets */
 #define PACK_PAYLOAD(Payload, Arg0, Arg1, Arg2, Arg3, Arg4, Arg5)	\
@@ -54,6 +54,99 @@
 	PACK_PAYLOAD(Payload, HEADER(4, ApiId), Arg1, Arg2, Arg3, Arg4, 0)
 #define PACK_PAYLOAD5(Payload, ApiId, Arg1, Arg2, Arg3, Arg4, Arg5) \
 	PACK_PAYLOAD(Payload, HEADER(5, ApiId), Arg1, Arg2, Arg3, Arg4, Arg5)
+
+/****************************************************************************/
+/**
+ * @brief  Sends IPI request to the target module
+ *
+ * @param  Proc  Pointer to the processor who is initiating request
+ * @param  Payload API id and call arguments to be written in IPI buffer
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPm_IpiSend(struct XPm_Proc *const Proc, u32 *Payload)
+{
+	XStatus Status;
+
+	Status = XIpiPsu_PollForAck(Proc->Ipi, TARGET_IPI_INT_MASK,
+				    PM_IPI_TIMEOUT);
+	if (Status != XST_SUCCESS) {
+		XPm_Dbg("%s: ERROR: Timeout expired\n", __func__);
+		goto done;
+	}
+
+	Status = XIpiPsu_WriteMessage(Proc->Ipi, TARGET_IPI_INT_MASK, Payload,
+				      PAYLOAD_ARG_CNT, XIPIPSU_BUF_TYPE_MSG);
+	if (Status != XST_SUCCESS) {
+		XPm_Dbg("xilpm: ERROR writing to IPI request buffer\n");
+		goto done;
+	}
+
+	Status = XIpiPsu_TriggerIpi(Proc->Ipi, TARGET_IPI_INT_MASK);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Reads IPI Response after target module has handled interrupt
+ *
+ * @param  Proc Pointer to the processor who is waiting and reading Response
+ * @param  Val1 Used to return value from 2nd IPI buffer element (optional)
+ * @param  Val2 Used to return value from 3rd IPI buffer element (optional)
+ * @param  Val3 Used to return value from 4th IPI buffer element (optional)
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus Xpm_IpiReadBuff32(struct XPm_Proc *const Proc, u32 *Val1,
+			  u32 *Val2, u32 *Val3)
+{
+	u32 Response[RESPONSE_ARG_CNT];
+	XStatus Status;
+
+	/* Wait until current IPI interrupt is handled by target module */
+	Status = XIpiPsu_PollForAck(Proc->Ipi, TARGET_IPI_INT_MASK,
+				    PM_IPI_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		XPm_Dbg("%s: ERROR: Timeout expired\r\n", __func__);
+		goto done;
+	}
+
+	Status = XIpiPsu_ReadMessage(Proc->Ipi, TARGET_IPI_INT_MASK, Response,
+				     RESPONSE_ARG_CNT, XIPIPSU_BUF_TYPE_RESP);
+	if (XST_SUCCESS != Status) {
+		XPm_Dbg("%s: ERROR: Reading from IPI Response buffer\r\n", __func__);
+		goto done;
+	}
+
+	/*
+	 * Read Response from IPI buffer
+	 * buf-0: success or error+reason
+	 * buf-1: Val1
+	 * buf-2: Val2
+	 * buf-3: Val3
+	 */
+	if (NULL != Val1)
+		*Val1 = Response[1];
+	if (NULL != Val2)
+		*Val2 = Response[2];
+	if (NULL != Val3)
+		*Val3 = Response[3];
+
+	Status = Response[0];
+
+done:
+	return Status;
+}
 
 /****************************************************************************/
 /**
