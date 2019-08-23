@@ -46,7 +46,7 @@ static XStatus XPmPsm_WakeUp(XPm_Core *Core, u32 SetAddress,
 {
 	XStatus Status = XST_SUCCESS;
 	XPm_Psm *Psm = (XPm_Psm *)Core;
-	u32 CRLBaseAddress = Psm->Core.RegAddress[0];
+	u32 CRLBaseAddress = Psm->CrlBaseAddr;
 
 	/* Set reset address */
 	if (1 == SetAddress) {
@@ -60,7 +60,7 @@ static XStatus XPmPsm_WakeUp(XPm_Core *Core, u32 SetAddress,
 	PmRmw32(CRLBaseAddress + CRL_PSM_RST_MODE_OFFSET, XPM_PSM_WAKEUP_MASK, XPM_PSM_WAKEUP_MASK);
 
 	/* Wait for PSMFW to initialize */
-	Status = XPm_PollForMask(GLOBAL_CNTRL(Core->Device.Node.BaseAddress),
+	Status = XPm_PollForMask(GLOBAL_CNTRL(Psm->PsmGlobalBaseAddr),
 				 PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK,
 				 XPM_MAX_POLL_TIMEOUT);
 
@@ -89,6 +89,8 @@ XStatus XPmPsm_Init(XPm_Psm *Psm,
 		goto done;
 	}
 
+	Psm->PsmGlobalBaseAddr = BaseAddress[0];
+	Psm->CrlBaseAddr = BaseAddress[1];
 done:
 	return Status;
 }
@@ -111,10 +113,10 @@ XStatus XPmPsm_SendPowerUpReq(u32 BitMask)
 		goto done;
 	}
 
-	PmOut32(PWR_UP_TRIG(Psm->Core.Device.Node.BaseAddress), BitMask);
-	PmOut32(PWR_UP_EN(Psm->Core.Device.Node.BaseAddress), BitMask);
+	PmOut32(PWR_UP_TRIG(Psm->PsmGlobalBaseAddr), BitMask);
+	PmOut32(PWR_UP_EN(Psm->PsmGlobalBaseAddr), BitMask);
 	do {
-		PmIn32(PWR_STAT(Psm->Core.Device.Node.BaseAddress), Reg);
+		PmIn32(PWR_STAT(Psm->PsmGlobalBaseAddr), Reg);
 	} while ((Reg & BitMask) != BitMask);
 
 	Status = XST_SUCCESS;
@@ -141,10 +143,10 @@ XStatus XPmPsm_SendPowerDownReq(u32 BitMask)
 		goto done;
 	}
 
-	PmOut32(PWR_DN_TRIG(Psm->Core.Device.Node.BaseAddress), BitMask);
-	PmOut32(PWR_DN_EN(Psm->Core.Device.Node.BaseAddress), BitMask);
+	PmOut32(PWR_DN_TRIG(Psm->PsmGlobalBaseAddr), BitMask);
+	PmOut32(PWR_DN_EN(Psm->PsmGlobalBaseAddr), BitMask);
 	do {
-		PmIn32(PWR_STAT(Psm->Core.Device.Node.BaseAddress), Reg);
+		PmIn32(PWR_STAT(Psm->PsmGlobalBaseAddr), Reg);
 	} while (0 != (Reg & BitMask));
 
 	Status = XST_SUCCESS;
@@ -163,7 +165,7 @@ u32 XPmPsm_FwIsPresent(void)
 		goto done;
 	}
 
-	PmIn32(GLOBAL_CNTRL(Psm->Core.Device.Node.BaseAddress), Reg)
+	PmIn32(GLOBAL_CNTRL(Psm->PsmGlobalBaseAddr), Reg)
 	if (PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK ==
 		(Reg & PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK)) {
 		Reg = TRUE;
@@ -182,7 +184,7 @@ void XPmPsm_RegWrite(const u32 Offset, const u32 Value)
 		goto done;
 	}
 
-	PmOut32(Psm->Core.Device.Node.BaseAddress + Offset, Value);
+	PmOut32(Psm->PsmGlobalBaseAddr + Offset, Value);
 
 done:
 	return;
