@@ -40,6 +40,11 @@ extern "C" {
 
 #define DEBUG_MODE
 
+#define PAYLOAD_ARG_CNT			(6U)	/* 1 for API ID + 5 for API arguments */
+#define RESPONSE_ARG_CNT		(4U)	/* 1 for status + 3 for values */
+#define PM_IPI_TIMEOUT			(~0)
+#define TARGET_IPI_INT_MASK		XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK
+
 #ifndef bool
 	#define bool	u8
 	#define true	1U
