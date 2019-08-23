@@ -49,6 +49,7 @@ extern "C" {
 #define CPM_CRCPM_BASEADDR		0xFCA00000
 #define PCIEA_ATTRIB_0_BASEADDR		0xFCA50000
 #define PCIEA_ATTRIB_1_BASEADDR		0xFCA60000
+#define PMC_TAP_BASEADDR		0XF11A0000
 
 /**
  * PMC Global module
@@ -464,7 +465,6 @@ extern "C" {
 /**
  * Definitions required from pmc_tap.h
  */
-#define PMC_TAP_BASEADDR      0XF11A0000
 #define PMC_TAP_IDCODE     ( ( PMC_TAP_BASEADDR ) + 0X00000000 )
 #define PMC_TAP_VERSION    ( ( PMC_TAP_BASEADDR ) + 0X00000004 )
 #define PMC_TAP_VERSION_PLATFORM_SHIFT   24
