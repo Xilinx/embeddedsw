@@ -52,6 +52,7 @@ typedef struct XPm_RpuCore XPm_RpuCore;
 struct XPm_RpuCore {
 	XPm_Core Core; /**< Processor core devices */
 	u32 ResumeCfg;
+	u32 RpuBaseAddr; /**< Base address of RPU module */
 };
 
 /************************** Function Prototypes ******************************/
