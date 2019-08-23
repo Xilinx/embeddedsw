@@ -36,6 +36,7 @@
 #include "xpm_npdomain.h"
 #include "xpm_cpmdomain.h"
 #include "xpm_psm.h"
+#include "xpm_pmc.h"
 #include "xpm_periph.h"
 #include "xpm_mem.h"
 #include "xpm_apucore.h"
@@ -3100,9 +3101,9 @@ static XStatus AddProcDevice(u32 *Args, u32 PowerId)
 	u32 Index;
 
 	XPm_Psm *Psm;
+	XPm_Pmc *Pmc;
 	XPm_ApuCore *ApuCore;
 	XPm_RpuCore *RpuCore;
-	XPm_Core *Core;
 	XPm_Power *Power;
 	u32 BaseAddr[MAX_BASEADDR_LEN];
 	u32 Ipi;
@@ -3158,12 +3159,12 @@ static XStatus AddProcDevice(u32 *Args, u32 PowerId)
 			Status = XPmRpuCore_Init(RpuCore, DeviceId, Ipi, BaseAddr, Power, 0, 0);
 			break;
 		case XPM_NODETYPE_DEV_CORE_PMC:
-			Core = (XPm_Core *)XPm_AllocBytes(sizeof(XPm_Core));
-			if (NULL == Core) {
+			Pmc = (XPm_Pmc *)XPm_AllocBytes(sizeof(XPm_Pmc));
+			if (NULL == Pmc) {
 				Status = XST_BUFFER_TOO_SMALL;
 				goto done;
 			}
-			Status = XPmCore_Init(Core, DeviceId, BaseAddr, Power, 0, 0, 0, NULL);
+			Status = XPmPmc_Init(Pmc, DeviceId, 0, BaseAddr, Power, 0, 0);
 			break;
 		default:
 			break;
