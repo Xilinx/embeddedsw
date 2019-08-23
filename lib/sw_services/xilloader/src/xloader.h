@@ -137,6 +137,9 @@ enum XLOADER_PDI_SRC {
 	XLOADER_PDI_SRC_PCIE = (0x11U)
 };
 
+/* Multiboot register offset mask */
+#define XLOADER_MULTIBOOT_OFFSET_MASK    	(0x001FFFFF)
+
 /**************************** Type Definitions *******************************/
 
 /**
