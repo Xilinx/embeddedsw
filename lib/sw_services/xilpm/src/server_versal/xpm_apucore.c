@@ -120,9 +120,8 @@ XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,
 {
 	XStatus Status = XST_FAILURE;
 
-	Status = XPmCore_Init(&ApuCore->Core,
-		Id, BaseAddress,
-		Power, Clock, Reset, Ipi, &ApuOps);
+	Status = XPmCore_Init(&ApuCore->Core, Id, Power, Clock, Reset, Ipi,
+			      &ApuOps);
 
 	ApuCore->FpdApuBaseAddr = BaseAddress[0];
 

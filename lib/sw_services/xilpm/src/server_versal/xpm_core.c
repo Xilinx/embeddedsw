@@ -28,13 +28,13 @@
 #include "xpm_core.h"
 #include "xpm_psm.h"
 
-XStatus XPmCore_Init(XPm_Core *Core, u32 Id, u32 *BaseAddress,
-	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset, u8 IpiCh, struct XPm_CoreOps *Ops)
+XStatus XPmCore_Init(XPm_Core *Core, u32 Id, XPm_Power *Power,
+		     XPm_ClockNode *Clock, XPm_ResetNode *Reset, u8 IpiCh,
+		     struct XPm_CoreOps *Ops)
 {
 	XStatus Status = XST_FAILURE;
 
-	Status = XPmDevice_Init(&Core->Device,
-		Id, BaseAddress[0], Power, Clock, Reset);
+	Status = XPmDevice_Init(&Core->Device, Id, 0, Power, Clock, Reset);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -43,8 +43,6 @@ XStatus XPmCore_Init(XPm_Core *Core, u32 Id, u32 *BaseAddress,
 	Core->ImageId = 0;
 	Core->Ipi = IpiCh;
 	Core->CoreOps = Ops;
-	Core->RegAddress[0] = BaseAddress[1];
-	Core->RegAddress[1] = BaseAddress[2];
 
 done:
 	return Status;

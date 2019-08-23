@@ -82,9 +82,8 @@ XStatus XPmPsm_Init(XPm_Psm *Psm,
 {
 	XStatus Status = XST_FAILURE;
 
-	Status = XPmCore_Init(&Psm->Core,
-		PSM_NID, BaseAddress,
-		Power, Clock, Reset, Ipi, &PsmOps);
+	Status = XPmCore_Init(&Psm->Core, PSM_NID, Power, Clock, Reset, Ipi,
+			      &PsmOps);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}

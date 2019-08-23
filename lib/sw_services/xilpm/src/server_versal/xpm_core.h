@@ -54,7 +54,6 @@ struct XPm_Core {
 	u8 DebugMode; /**< DebugMode: Debugger is connected */
 	u32 ImageId; /**< ImageId: Image ID */
 	u8 Ipi; /**< IPI channel */
-	u32 RegAddress[MAX_BASEADDR_LEN-1];	/*Proc device is allowed to pass 3 base addresses, 1 will be stored as node baseaddress*/
 	u64 ResumeAddr;
 	struct XPm_CoreOps *CoreOps; /**< Core operations */
 	u32 SleepMask;
@@ -62,8 +61,9 @@ struct XPm_Core {
 };
 
 /************************** Function Prototypes ******************************/
-XStatus XPmCore_Init(XPm_Core *Core, u32 Id, u32 *BaseAddress,
-	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset, u8 IpiCh, struct XPm_CoreOps *Ops);
+XStatus XPmCore_Init(XPm_Core *Core, u32 Id, XPm_Power *Power,
+		     XPm_ClockNode *Clock, XPm_ResetNode *Reset, u8 IpiCh,
+		     struct XPm_CoreOps *Ops);
 XStatus XPmCore_PwrDwn(XPm_Core *Core);
 XStatus XPmCore_WakeUp(XPm_Core *Core);
 
