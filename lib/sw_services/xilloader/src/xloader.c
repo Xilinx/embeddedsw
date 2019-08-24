@@ -205,12 +205,15 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 		 "Loading PDI from %s\n\r", DeviceOps[PdiSrc &
 								XLOADER_PDISRC_FLAGS_MASK].Name);
 
-	Status = DeviceOps[PdiSrc & XLOADER_PDISRC_FLAGS_MASK].Init(PdiSrc);
-
-	if(Status != XST_SUCCESS)
-        {
-                goto END;
-        }
+	if ((PdiPtr->SlrType == XLOADER_SSIT_MASTER_SLR) ||
+		(PdiPtr->SlrType == XLOADER_SSIT_MONOLITIC)) {
+		XPlmi_Printf(DEBUG_GENERAL, "Monolithic/Master Device\n\r");
+		Status = DeviceOps[PdiSrc & XLOADER_PDISRC_FLAGS_MASK].Init(PdiSrc);
+		if(Status != XST_SUCCESS)
+		{
+			goto END;
+		}
+	}
 
 	PdiPtr->DeviceCopy =  DeviceOps[PdiSrc & XLOADER_PDISRC_FLAGS_MASK].Copy;
 	PdiPtr->MetaHdr.DeviceCopy = PdiPtr->DeviceCopy;
@@ -376,7 +379,9 @@ int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 	 * read from the secondary device
 	 */
 	SecBootMode = XilPdi_GetSBD(&(PdiPtr->MetaHdr.ImgHdrTable));
-	if(SecBootMode == XIH_IHT_ATTR_SBD_SAME)
+	if((SecBootMode == XIH_IHT_ATTR_SBD_SAME) ||
+		((PdiPtr->SlrType != XLOADER_SSIT_MASTER_SLR) &&
+		(PdiPtr->SlrType != XLOADER_SSIT_MONOLITIC)))
 	{
 		//Do Nothing
 		Status = XST_SUCCESS;
