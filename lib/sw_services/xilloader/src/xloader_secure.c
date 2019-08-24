@@ -36,6 +36,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   vns  04/23/19 First release
+*       har  08/22/19 Fixed MISRA C violations
 * </pre>
 *
 * @note
@@ -782,7 +783,7 @@ static u32 XLoader_VerifyHash(XLoader_SecureParms *SecurePtr,
 
 	/* Update the next expected hash  and data location */
 	if (Last == 0x00U) {
-		memcpy(ExpHash, Data, XLOADER_SHA3_LEN);
+		(void *)XPlmi_MemCpy(ExpHash, Data, XLOADER_SHA3_LEN);
 		/* Here Authentication overhead is removed in the chunk */
 		SecurePtr->SecureData = (UINTPTR)Data + XLOADER_SHA3_LEN;
 		SecurePtr->SecureDataLen = Size - XLOADER_SHA3_LEN;
@@ -1306,7 +1307,7 @@ static u32 XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 			  */
 			 Size = (OutLen % HashLen);
 		}
-		(void)memcpy(Out + Index1, Hashstore, Size);
+		(void *)XPlmi_MemCpy(Out + Index1, Hashstore, Size);
 		Index1 = Index1 + 48U;
 		Counter = Counter + 1U;
 		(void)XSecure_Sha3Initialize(Sha3InstancePtr,
@@ -1349,7 +1350,7 @@ static u32 XLoader_RsaPssSignatureverification(XLoader_SecureParms *SecurePtr,
 	u8 *DataHash = (u8 *)MsgHash;
 
 	(void)memset(XSecure_RsaSha3Array, 0U, XLOADER_PARTITION_SIG_SIZE);
-	(void)memset(&Xsecure_Varsocm, 0U, sizeof(XLoader_Vars));
+	(void)memset(&Xsecure_Varsocm, 0U, sizeof(Xsecure_Varsocm));
 
 	/* RSA signature encryption with public key components */
 	Status = (u32)XSecure_RsaPublicEncrypt(RsaInstancePtr, Signature,
