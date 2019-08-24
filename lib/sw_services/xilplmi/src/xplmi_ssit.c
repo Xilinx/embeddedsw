@@ -17,9 +17,10 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  ma   08/13/2019 Initial release
-* 1.01   ma   01/22/2020 Fix SSIT Sync Slaves sequence and also implement
-*                       proper timeout for SSIT Sync Slaves and Wait Slaves
-*                       commands by using usleep
+*       ma   08/24/2019 Added SSIT commands
+* 1.01  bsv  04/04/2020 Code clean up
+* 1.02  bm   10/14/2020 Code clean up
+* 		td   10/19/2020 MISRA C Fixes
 *
 * </pre>
 *
@@ -52,47 +53,48 @@
  * @return	Returns the Status of SSIT Sync Master command
  *
  *****************************************************************************/
-int XPlmi_SsitSyncMaster(XPlmi_Cmd * Cmd)
+int XPlmi_SsitSyncMaster(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
+	u32 ErrStatus = (u32)XST_FAILURE;
 
-	XPlmi_Printf(DEBUG_DETAILED, "%s %p\n\r", __func__, Cmd);
+	XPlmi_Printf(DEBUG_INFO, "%s %p\n\r", __func__, Cmd);
 
 	/* Initiate synchronization to master */
 	XPlmi_UtilRMW(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_0_MASK,
 		PMC_GLOBAL_SSIT_ERR_IRQ_OUT_0_MASK);
 
 	/* Wait for Master SLR to reach synchronization point */
-	Status = Xil_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
-	while ((Status & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) !=
+	ErrStatus = Xil_In32((UINTPTR)PMC_GLOBAL_PMC_ERR2_STATUS);
+	while ((ErrStatus & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) !=
 			PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) {
 		/* Check if there is an error from Master SLR */
-		if ((Status & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK) ==
+		if ((ErrStatus & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK) ==
 				PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK) {
 			XPlmi_Printf(DEBUG_GENERAL, "Received error from Master SLR\n\r");
 			XPlmi_UtilRMW(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK,
 				PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK);
 
-			Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_SSIT_MASTER_SYNC, Status);
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_SSIT_MASTER_SYNC, (int)ErrStatus);
 			goto END;
 		}
-		Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
+		ErrStatus = XPlmi_In32((UINTPTR)PMC_GLOBAL_PMC_ERR2_STATUS);
 	}
 
 	/* Complete synchronization from slave */
 	XPlmi_UtilRMW(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_0_MASK, 0U);
 
-	Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
-	while ((Status & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) ==
+	ErrStatus = XPlmi_In32((UINTPTR)PMC_GLOBAL_PMC_ERR2_STATUS);
+	while ((ErrStatus & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) ==
 			PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) {
-		Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
+		ErrStatus = XPlmi_In32((UINTPTR)PMC_GLOBAL_PMC_ERR2_STATUS);
 
 		/* Clear existing status to know the actual status from Master SLR */
 		XPlmi_Out32(PMC_GLOBAL_PMC_ERR2_STATUS,
 			PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK);
 	}
 
-	XPlmi_Printf(DEBUG_DETAILED, "SSIT Sync Master successful\n\r");
+	XPlmi_Printf(DEBUG_INFO, "SSIT Sync Master successful\n\r");
 	Status = XST_SUCCESS;
 END:
 	return Status;
@@ -110,7 +112,7 @@ END:
  * @return	Returns the Status of SSIT Sync Slaves command
  *
  *****************************************************************************/
-int XPlmi_SsitSyncSlaves(XPlmi_Cmd * Cmd)
+int XPlmi_SsitSyncSlaves(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 SlavesMask = Cmd->Payload[0U];
@@ -119,7 +121,7 @@ int XPlmi_SsitSyncSlaves(XPlmi_Cmd * Cmd)
 	u32 ErrorStatus = 0U;
 	u32 PmcErrStatus2;
 
-	XPlmi_Printf(DEBUG_DETAILED, "%s %p\n\r", __func__, Cmd);
+	XPlmi_Printf(DEBUG_INFO, "%s %p\n\r", __func__, Cmd);
 
 	/* Wait until all Slaves initiate synchronization point */
 	while (((SlavesReady & SlavesMask) != SlavesMask) &&
@@ -127,20 +129,20 @@ int XPlmi_SsitSyncSlaves(XPlmi_Cmd * Cmd)
 		usleep(1U);
 		ErrorStatus = XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS);
 		PmcErrStatus2 = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
-		if (PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) {
+		if ((PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) != (u32)FALSE) {
 			SlavesReady |= SSIT_SLAVE_0_MASK;
 		}
-		if (PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR1_MASK) {
+		if ((PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR1_MASK) != (u32)FALSE) {
 			SlavesReady |= SSIT_SLAVE_1_MASK;
 		}
-		if (PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK) {
+		if ((PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK) != (u32)FALSE) {
 			SlavesReady |= SSIT_SLAVE_2_MASK;
 		}
 		--TimeOut;
 	}
 
 	if (((ErrorStatus & PMC_GLOBAL_SSIT_ERR_MASK) == 0x0U) && (TimeOut != 0x0U)) {
-		XPlmi_Printf(DEBUG_DETAILED, "Acknowledging from master\r\n");
+		XPlmi_Printf(DEBUG_INFO, "Acknowledging from master\r\n");
 		/* Acknowledge synchronization */
 		XPlmi_UtilRMW(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_0_MASK,
 			PMC_GLOBAL_SSIT_ERR_IRQ_OUT_0_MASK);
@@ -153,13 +155,13 @@ int XPlmi_SsitSyncSlaves(XPlmi_Cmd * Cmd)
 			usleep(1U);
 			ErrorStatus = XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS);
 			PmcErrStatus2 = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
-			if (!(PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK)) {
+			if ((PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) == (u32)FALSE) {
 				SlavesReady &= (~SSIT_SLAVE_0_MASK);
 			}
-			if (!(PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR1_MASK)) {
+			if ((PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR1_MASK) == (u32)FALSE) {
 				SlavesReady &= (~SSIT_SLAVE_1_MASK);
 			}
-			if (!(PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK)) {
+			if ((PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK) == (u32)FALSE) {
 				SlavesReady &= (~SSIT_SLAVE_2_MASK);
 			}
 
@@ -175,13 +177,13 @@ int XPlmi_SsitSyncSlaves(XPlmi_Cmd * Cmd)
 		XPlmi_Printf(DEBUG_GENERAL, "Received error from Slave SLR or Timed out\r\n");
 		XPlmi_UtilRMW(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK,
 			PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK);
-		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_SSIT_SLAVE_SYNC, Status);
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_SSIT_SLAVE_SYNC, Status);
 		goto END;
 	}
 
 	/* De-assert synchronization acknowledgement from master */
 	XPlmi_UtilRMW(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_0_MASK, 0U);
-	XPlmi_Printf(DEBUG_DETAILED, "SSIT Sync Slaves successful\n\r");
+	XPlmi_Printf(DEBUG_INFO, "SSIT Sync Slaves successful\n\r");
 	Status = XST_SUCCESS;
 
 END:
@@ -200,30 +202,34 @@ END:
  * @return	Returns the Status of SSIT Wait Slaves command
  *
  *****************************************************************************/
-int XPlmi_SsitWaitSlaves(XPlmi_Cmd * Cmd)
+int XPlmi_SsitWaitSlaves(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 SlavesMask = Cmd->Payload[0U];
 	u32 TimeOut = Cmd->Payload[1U];
 	u32 SlavesReady = 0U;
-	u32 ErrorStatus = 0U;
-	u32 PmcErrStatus2;
+	volatile u32 ErrorStatus = 0U;
+	volatile u32 PmcErrStatus2;
 
-	XPlmi_Printf(DEBUG_DETAILED, "%s %p\n\r", __func__, Cmd);
+	XPlmi_Printf(DEBUG_INFO, "%s %p\n\r", __func__, Cmd);
 
 	/* Wait until all Slaves initiate synchronization point */
 	while (((SlavesReady & SlavesMask) != SlavesMask) &&
-		((ErrorStatus & PMC_GLOBAL_SSIT_ERR_MASK) == 0x0U) && (TimeOut != 0x0U)) {
+			(TimeOut != 0x0U)) {
+		if (ErrorStatus != 0x0U) {
+			break;
+		}
 		usleep(1U);
-		ErrorStatus = XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS);
+		ErrorStatus = XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS) &
+			PMC_GLOBAL_SSIT_ERR_MASK;
 		PmcErrStatus2 = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
-		if (PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) {
+		if ((PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) != (u32)FALSE) {
 			SlavesReady |= SSIT_SLAVE_0_MASK;
 		}
-		if (PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR1_MASK) {
+		if ((PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR1_MASK) != (u32)FALSE) {
 			SlavesReady |= SSIT_SLAVE_1_MASK;
 		}
-		if (PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK) {
+		if ((PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK) != (u32)FALSE) {
 			SlavesReady |= SSIT_SLAVE_2_MASK;
 		}
 
@@ -236,11 +242,11 @@ int XPlmi_SsitWaitSlaves(XPlmi_Cmd * Cmd)
 			"Received error from Slave SLR or Timed out\r\n");
 		XPlmi_UtilRMW(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK,
 			PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK);
-		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_SSIT_SLAVE_SYNC, Status);
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_SSIT_SLAVE_SYNC, Status);
 		goto END;
 	}
 
-	XPlmi_Printf(DEBUG_DETAILED, "SSIT Wait Master successful\n\r");
+	XPlmi_Printf(DEBUG_INFO, "SSIT Wait Master successful\n\r");
 	Status = XST_SUCCESS;
 END:
 	return Status;
