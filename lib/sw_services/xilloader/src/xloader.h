@@ -121,6 +121,17 @@ extern "C" {
 #define XLOADER_PDI_LOAD_COMPLETE		(0x1U)
 #define XLOADER_PDI_LOAD_STARTED		(0x0U)
 
+/*
+ * SLR Types
+ */
+#define XLOADER_SSIT_MONOLITIC				(0x7U)
+#define XLOADER_SSIT_MASTER_SLR				(0x6U)
+#define XLOADER_SSIT_SLAVE_SLR1_TOP_SLR		(0x5U)
+#define XLOADER_SSIT_SLAVE_SLR1_NON_TOP_SLR	(0x4U)
+#define XLOADER_SSIT_SLAVE_SLR2_TOP_SLR		(0x3U)
+#define XLOADER_SSIT_SLAVE_SLR2_NON_TOP_SLR	(0x2U)
+#define XLOADER_SSIT_SLAVE_SLR3_TOP_SLR		(0x1U)
+
 /* Boot Modes */
 enum XLOADER_PDI_SRC {
 	XLOADER_PDI_SRC_JTAG = (0x0U),
@@ -177,6 +188,7 @@ typedef struct {
 	u32 CurPrtnId; /**< Current Processing Partition ID */
 	u32 ImageNum; /**< Image number in the PDI */
 	u32 PrtnNum; /**< Partition number in the PDI */
+	u32 SlrType; /**< SLR Type */
 } XilPdi;
 
 /**
