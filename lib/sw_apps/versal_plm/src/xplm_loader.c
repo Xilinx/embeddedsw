@@ -94,7 +94,15 @@ int XPlm_LoadBootPdi(void *arg)
 	 * 2. Load subsystem present in PDI
 	 */
 	XilPdi* PdiPtr = &PdiInstance;
-	BootMode = XLoader_GetBootMode();
+	PdiPtr->SlrType = XPlmi_In32(PMC_TAP_SLR_TYPE) &
+					PMC_TAP_SLR_TYPE_VAL_MASK;
+
+	if ((PdiPtr->SlrType == XLOADER_SSIT_MASTER_SLR) ||
+		(PdiPtr->SlrType == XLOADER_SSIT_MONOLITIC)) {
+		BootMode = XLoader_GetBootMode();
+	} else {
+		BootMode = XLOADER_PDI_SRC_SBI;
+	}
 
 	/**
 	 * In case of JTAG boot mode and jtag mode is not SBI,
