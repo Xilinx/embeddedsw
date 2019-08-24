@@ -702,6 +702,11 @@ int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd)
 		CfiDataPtr++;
 		ChunkLen++;
 		++Count;
+	}
+
+	/*
+	 * Send unaligned bytes left at the end if any
+	 */
 	if ((Cmd->ProcessedLen + (ChunkLen-(Len % 4U)) + (Cmd->PayloadLen - Len)) ==
 			(Cmd->Len - (Len % 4U))) {
 		if (Count > 0) {
