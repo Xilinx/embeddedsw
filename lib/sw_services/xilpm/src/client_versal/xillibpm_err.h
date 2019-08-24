@@ -152,7 +152,8 @@ extern "C" {
 							   cy for a device*/
 #define XPM_INVALID_CLKID                        0x2067 /* Invalid clock id pas-
 							   sed */
-
+#define XPM_INVALID_CLK_SUBNODETYPE              0x2068 /* Invalid clock
+							   subnode type */
 /**************************** Power Errors ****************************/
 /**************************** 0x2081 - 0x2095 *************************/
 
