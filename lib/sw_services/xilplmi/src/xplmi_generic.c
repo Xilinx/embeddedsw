@@ -49,6 +49,7 @@
 #include "xplmi_hw.h"
 #include "xcfupmc.h"
 #include "sleep.h"
+#include "xplmi_ssit.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -703,6 +704,11 @@ int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd)
 		CfiDataPtr++;
 		ChunkLen++;
 		++Count;
+	}
+
+	/*
+	 * Send unaligned bytes left at the end if any
+	 */
 	if ((Cmd->ProcessedLen + (ChunkLen-(Len % 4U)) + (Cmd->PayloadLen - Len)) ==
 			(Cmd->Len - (Len % 4U))) {
 		if (Count > 0) {
@@ -737,6 +743,9 @@ static XPlmi_ModuleCmd XPlmi_GenericCmds[] =
 	XPLMI_MODULE_COMMAND(XPlmi_CfiRead),
 	XPLMI_MODULE_COMMAND(XPlmi_Set),
 	XPLMI_MODULE_COMMAND(XPlmi_DmaWriteKeyHole),
+	XPLMI_MODULE_COMMAND(XPlmi_SsitSyncMaster),
+	XPLMI_MODULE_COMMAND(XPlmi_SsitSyncSlaves),
+	XPLMI_MODULE_COMMAND(XPlmi_SsitWaitSlaves),
 };
 
 /*****************************************************************************/

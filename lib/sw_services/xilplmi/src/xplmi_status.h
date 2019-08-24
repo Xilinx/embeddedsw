@@ -102,6 +102,9 @@ enum {
 	XPLMI_ERR_UART_LOOKUP, /* 0x10E */
 	XPLMI_ERR_UART_CFG, /* 0x10F */
 
+	XPLMI_ERR_SSIT_MASTER_SYNC, /* 0x110 */
+	XPLMI_ERR_SSIT_SLAVE_SYNC, /* 0x111 */
+
 	/** Status codes used in PLM */
 	XPLM_ERR_TASK_CREATE = 0x200,
 	XPLM_ERR_PM_MOD, /* 0x201 */
