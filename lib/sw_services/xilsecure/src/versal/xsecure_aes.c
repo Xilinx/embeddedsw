@@ -37,6 +37,7 @@
 * 4.0   vns  04/24/2019 Initial release
 * 4.1   vns  08/06/2019 Added AES encryption APIs
 *       har  08/21/2019 Fixed MISRA C violations
+*       vns  08/23/2019 Initialized status variables
 * </pre>
 *
 * @note
@@ -317,6 +318,7 @@ static XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
  ******************************************************************************/
 u32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr)
 {
+	u32 Status = (u32)XST_FAILURE;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CsuDmaPtr != NULL);
@@ -328,7 +330,9 @@ u32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr)
 
 	XSecure_SssInitialize(&(InstancePtr->SssInstance));
 
-	return XST_SUCCESS;
+	Status = XST_SUCCESS;
+
+	return Status;
 }
 
 /*****************************************************************************/
@@ -368,7 +372,7 @@ u32 XSecure_AesWriteKey(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	u32 Index = 0U;
 	u32 *Key;
 	u32 KeySizeInWords;
-	u32 Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(AesKeyLookupTbl[KeySrc].UsrWrAllowed == TRUE);
@@ -428,7 +432,7 @@ u32 XSecure_AesKekDecrypt(XSecure_Aes *InstancePtr, XSecure_AesKekType KeyType,
 			  XSecure_AesKeySrc DecKeySrc,
 			  XSecure_AesKeySrc DstKeySrc, u64 IvAddr, u32 KeySize)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status = (u32)XST_FAILURE;
 	XSecure_AesKeySrc KeySrc;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -546,7 +550,7 @@ END:
 u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 			XSecure_AesKeySize KeySize, u64 IvAddr)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -640,7 +644,7 @@ END:
 u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 		u64 OutDataAddr, u32 Size, u8 EnLast)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -701,6 +705,7 @@ u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 				XCSUDMA_SRC_CHANNEL, 0U);
 	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
 					XCSUDMA_DST_CHANNEL, 0U);
+	Status = (u32)XST_SUCCESS;
 
 	return Status;
 
@@ -723,7 +728,7 @@ u32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
  ******************************************************************************/
 u32 XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -809,7 +814,7 @@ END:
 u32 XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 			u64 OutDataAddr, u32 Size, u64 GcmTagAddr)
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -855,7 +860,7 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 			XSecure_AesKeySize KeySize, u64 IvAddr)
 {
 
-	u32 Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -946,7 +951,7 @@ END:
 u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 			u64 OutDataAddr, u32 Size, u8 EnLast)
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1010,7 +1015,7 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
 					XCSUDMA_DST_CHANNEL, FALSE);
 
-	Status = XST_SUCCESS;
+	Status = (u32)XST_SUCCESS;
 
 	return Status;
 
@@ -1033,7 +1038,7 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
  ******************************************************************************/
 u32 XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1106,7 +1111,7 @@ END:
 u32 XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 			u64 OutDataAddr, u32 Size, u64 GcmTagAddr)
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1144,7 +1149,7 @@ END:
  ******************************************************************************/
 static u32 XSecure_AesWaitKeyLoad(XSecure_Aes *InstancePtr)
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 	u32 ReadReg;
 	u32 Timeout = XSECURE_AES_TIMEOUT_MAX;
 
@@ -1183,6 +1188,12 @@ END:
  ******************************************************************************/
 u32 XSecure_AesCfgKupIv(XSecure_Aes *InstancePtr, u32 EnableCfg)
 {
+	u32 Status = (u32)XST_FAILURE;
+
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((EnableCfg == FALSE) ||
+					(EnableCfg == TRUE));
 	if (EnableCfg == 0x0U) {
 		XSecure_WriteReg(InstancePtr->BaseAddress,
 				XSECURE_AES_KUP_WR_OFFSET, EnableCfg);
@@ -1194,7 +1205,9 @@ u32 XSecure_AesCfgKupIv(XSecure_Aes *InstancePtr, u32 EnableCfg)
 			XSECURE_AES_KUP_WR_IV_SAVE_MASK));
 	}
 
-	return XST_SUCCESS;
+	Status = XST_SUCCESS;
+
+	return Status;
 }
 
 /*****************************************************************************/
@@ -1212,6 +1225,10 @@ u32 XSecure_AesCfgKupIv(XSecure_Aes *InstancePtr, u32 EnableCfg)
  ******************************************************************************/
 u32 XSecure_AesGetNxtBlkLen(XSecure_Aes *InstancePtr, u32 *Size)
 {
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Size != NULL);
+
 	*Size = Xil_Htonl(XSecure_ReadReg(InstancePtr->BaseAddress,
 			XSECURE_AES_IV_3_OFFSET)) * 4;
 
@@ -1232,7 +1249,7 @@ u32 XSecure_AesGetNxtBlkLen(XSecure_Aes *InstancePtr, u32 *Size)
 static u32 XSecure_AesKeyLoad(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 					   XSecure_AesKeySize KeySize)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);

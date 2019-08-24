@@ -36,6 +36,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 4.0   vns  03/18/19 Initial Release.
+* 4.1   vns  08/23/19 Updated Status variables with XST_FAILURE and added
+*                     to while loops.
 *
 * </pre>
 *
@@ -77,13 +79,13 @@ static void XSecure_RsaGetData(XSecure_Rsa *InstancePtr, u32 *RdData);
 ******************************************************************************/
 u32 XSecure_RsaCfgInitialize(XSecure_Rsa *InstancePtr)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	InstancePtr->BaseAddress = XSECURE_ECDSA_RSA_BASEADDR;
-	Status = XST_SUCCESS;
+	Status = (u32)XST_SUCCESS;
 
 	return Status;
 }
@@ -108,8 +110,9 @@ u32 XSecure_RsaCfgInitialize(XSecure_Rsa *InstancePtr)
 u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 			u8 *Result, u8 EncDecFlag, u32 KeySize)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u32 ErrorCode = (u32)XST_FAILURE;
+	u32 Timeout = 0U;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -233,17 +236,26 @@ u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 			ErrorCode = XST_FAILURE;
 			goto END;
 		}
-	}while(XSECURE_CSU_RSA_STATUS_DONE !=
-		((u32)Status & XSECURE_CSU_RSA_STATUS_DONE));
+		if (XSECURE_CSU_RSA_STATUS_DONE ==
+		((u32)Status & XSECURE_CSU_RSA_STATUS_DONE)) {
+			ErrorCode = XST_SUCCESS;
+			break;
+		}
+		Timeout = Timeout + 1U;
+	}while(Timeout < XSECURE_TIMEOUT_MAX);
 
+	/* Time out occured */
+	if (Timeout == XSECURE_TIMEOUT_MAX) {
+		ErrorCode = XST_FAILURE;
+		goto END;
+
+	}
 
 	/* Copy the result */
 	XSecure_RsaGetData(InstancePtr, (u32 *)Result);
 
 	/* Zeroize RSA memory space */
 	XSecure_RsaZeroize(InstancePtr);
-
-	ErrorCode = XST_SUCCESS;
 
 END:
 	/* Revert configuring endianness for data */
@@ -351,14 +363,18 @@ static void XSecure_RsaGetData(XSecure_Rsa *InstancePtr, u32 *RdData)
 
 static void XSecure_RsaMod32Inverse(XSecure_Rsa *InstancePtr)
 {
+	/* Calculate the MINV */
+	u8 Count;
+	u32 *ModPtr;
+	u32 ModVal;
+	u32 Inv;
+
 	/* Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	/* Calculate the MINV */
-	u8 Count;
-	u32 *ModPtr = (u32 *)(InstancePtr->Mod);
-	u32 ModVal = Xil_Htonl(ModPtr[InstancePtr->SizeInWords - 1]);
-	u32 Inv = (u32)2U - ModVal;
+	ModPtr = (u32 *)(InstancePtr->Mod);
+	ModVal = Xil_Htonl(ModPtr[InstancePtr->SizeInWords - 1]);
+	Inv = (u32)2U - ModVal;
 
 	for (Count = 0U; Count < 4U; ++Count) {
 		Inv = (Inv * (2U - ( ModVal * Inv ) ) );
@@ -388,14 +404,14 @@ static void XSecure_RsaMod32Inverse(XSecure_Rsa *InstancePtr)
 static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
 							u8 RamOffset)
 {
-	/* Assert validates the input arguments */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(WrData != NULL);
-
 	u32 Index;
 	u32 DataOffset;
 	u32 TmpIndex;
 	u32 Data;
+
+	/* Assert validates the input arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(WrData != NULL);
 
 	/** Each of this loop will write 192 bits of data*/
 	for (DataOffset = 0U; DataOffset < 22U; DataOffset++) {
@@ -455,6 +471,9 @@ static void XSecure_RsaZeroize(XSecure_Rsa *InstancePtr)
 
 	u32 RamOffset = 0U;
 	u32 DataOffset;
+
+	/* Assert validates the input arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_ECDSA_RSA_CTRL_OFFSET,
