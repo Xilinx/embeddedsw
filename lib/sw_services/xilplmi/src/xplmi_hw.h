@@ -250,6 +250,20 @@ extern "C" {
 #define PSM_GLOBAL_REG_PSM_SRST2_EN    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00001094 )
 #define PSM_GLOBAL_REG_PSM_IRQ1_EN    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00001064 )
 #define PSM_GLOBAL_REG_PSM_IRQ2_EN    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00001074 )
+
+/**
+ * Definitions required from pmc_tap.h
+ */
+/**
+ * PMC_TAP Base Address
+ */
+#define PMC_TAP_BASEADDR      0XF11A0000
+
+/**
+ * Register: PMC_TAP_SLR_TYPE
+ */
+#define PMC_TAP_SLR_TYPE    ( ( PMC_TAP_BASEADDR ) + 0X00000024 )
+#define PMC_TAP_SLR_TYPE_VAL_MASK    0X00000007
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
