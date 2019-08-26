@@ -59,7 +59,7 @@ static XStatus NpdInitStart(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Release POR for NoC */
-	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_NOC_POR),
+	Status = XPmReset_AssertbyId(PM_RST_NOC_POR,
 				     PM_RESET_ACTION_RELEASE);
 done:
 	return Status;
@@ -68,19 +68,19 @@ done:
 static void NpdPreBisrReqs()
 {
 	/* Release NPI Reset */
-	XPmReset_AssertbyId(SRST_RSTID(XPM_NODEIDX_RST_NPI),
+	XPmReset_AssertbyId(PM_RST_NPI,
 			PM_RESET_ACTION_RELEASE);
 
 	/* Release NoC Reset */
-	XPmReset_AssertbyId(SRST_RSTID(XPM_NODEIDX_RST_NOC),
+	XPmReset_AssertbyId(PM_RST_NOC,
 			PM_RESET_ACTION_RELEASE);
 
 	/* Release Sys Resets */
-	XPmReset_AssertbyId(SRST_RSTID(XPM_NODEIDX_RST_SYS_RST_1),
+	XPmReset_AssertbyId(PM_RST_SYS_RST_1,
 			PM_RESET_ACTION_RELEASE);
-	XPmReset_AssertbyId(SRST_RSTID(XPM_NODEIDX_RST_SYS_RST_2),
+	XPmReset_AssertbyId(PM_RST_SYS_RST_2,
 			PM_RESET_ACTION_RELEASE);
-	XPmReset_AssertbyId(SRST_RSTID(XPM_NODEIDX_RST_SYS_RST_3),
+	XPmReset_AssertbyId(PM_RST_SYS_RST_3,
 			PM_RESET_ACTION_RELEASE);
 
 	return;
@@ -145,7 +145,7 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 	for (i = XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN; i < XPM_NODEIDX_MONITOR_SYSMON_NPD_MAX; i++) {
 		/* Copy_trim< AMS_SAT_N> */
 		if (0 != SysmonAddresses[i])
-			XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[i], NPD_NODEID, i);
+			XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[i], PM_POWER_NOC, i);
 	}
 
 done:
@@ -167,7 +167,7 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
-	Pmc = (XPm_Pmc *)XPmDevice_GetById(XPM_DEVID_PMC);
+	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 	if (NULL == Pmc) {
 		Status = XST_FAILURE;
 		goto done;
@@ -190,7 +190,7 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 	XPmClock_SetGate((XPm_OutClockNode *)Clk, 1);
 
 	/* Release NPI Reset */
-	XPmReset_AssertbyId(SRST_RSTID(XPM_NODEIDX_RST_NPI),
+	XPmReset_AssertbyId(PM_RST_NPI,
                         PM_RESET_ACTION_RELEASE);
 
 	PmIn32((Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_ERR1_STATUS_OFFSET),
