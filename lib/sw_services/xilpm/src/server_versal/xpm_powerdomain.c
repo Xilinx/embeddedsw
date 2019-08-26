@@ -89,7 +89,7 @@ XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 Sate
 		goto done;
 	}
 
-	XPm_Device *EfuseCache = XPmDevice_GetById(XPM_DEVID_EFUSE_CACHE);
+	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	if (NULL == EfuseCache) {
 		Status = XST_FAILURE;
 		goto done;
@@ -207,7 +207,7 @@ XStatus XPm_PowerUpLPD(XPm_Node *Node)
 		/*
 		 * Release SRST for PS-LPD
 		 */
-		Status = XPmReset_AssertbyId(SRST_RSTID(XPM_NODEIDX_RST_PS_SRST),
+		Status = XPmReset_AssertbyId(PM_RST_PS_SRST,
 				     PM_RESET_ACTION_RELEASE);
 
 		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, FUNC_BISR, NULL, 0);
@@ -227,14 +227,14 @@ done:
 XStatus XPm_PowerDwnLPD()
 {
 	XStatus Status = XST_SUCCESS;
-	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(LPD_ID);
+	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 
 	if (NULL == LpDomain) {
 		Status = XST_FAILURE;
 		goto done;
 	}
 
-	XPm_Device *AmsRoot = XPmDevice_GetById(XPM_DEVID_AMS_ROOT);
+	XPm_Device *AmsRoot = XPmDevice_GetById(PM_DEV_AMS_ROOT);
 	if (NULL == AmsRoot) {
 		Status = XST_FAILURE;
 		goto done;
@@ -285,11 +285,11 @@ XStatus XPm_PowerDwnLPD()
 		goto done;
 
 	/* Assert reset for PS SRST */
-	Status = XPmReset_AssertbyId(SRST_RSTID(XPM_NODEIDX_RST_PS_SRST),
+	Status = XPmReset_AssertbyId(PM_RST_PS_SRST,
 				     PM_RESET_ACTION_ASSERT);
 
 	/* Assert POR for PS-LPD */
-	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PS_POR),
+	Status = XPmReset_AssertbyId(PM_RST_PS_POR,
 				     PM_RESET_ACTION_ASSERT);
 
 	/*TODO: Send PMC_I2C command to turn off PS-LPD power rail */
@@ -331,8 +331,8 @@ done:
 XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 {
 	XStatus Status = XST_SUCCESS;
-	XPm_Core *ApuCore = (XPm_Core *)XPmDevice_GetById(XPM_DEVID_ACPU_0);
-	XPm_Device *AmsRoot = XPmDevice_GetById(XPM_DEVID_AMS_ROOT);
+	XPm_Core *ApuCore = (XPm_Core *)XPmDevice_GetById(PM_DEV_ACPU_0);
+	XPm_Device *AmsRoot = XPmDevice_GetById(PM_DEV_AMS_ROOT);
 	if (NULL == AmsRoot) {
 		Status = XST_FAILURE;
 		goto done;
@@ -366,11 +366,11 @@ XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 	Status = XPmPsm_SendPowerDownReq(Node->BaseAddress);
 
 	/* Assert SRST for FPD */
-	Status = XPmReset_AssertbyId(SRST_RSTID(XPM_NODEIDX_RST_FPD),
+	Status = XPmReset_AssertbyId(PM_RST_FPD,
 				     PM_RESET_ACTION_ASSERT);
 
 	/* Assert POR for FPD */
-	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_FPD_POR),
+	Status = XPmReset_AssertbyId(PM_RST_FPD_POR,
 				     PM_RESET_ACTION_ASSERT);
 
 	/*
@@ -485,7 +485,7 @@ XStatus XPm_PowerDwnPLD()
 		goto done;
 
 	/* Assert POR PL */
-	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PL_POR),
+	Status = XPmReset_AssertbyId(PM_RST_PL_POR,
 				     PM_RESET_ACTION_ASSERT);
 
 	/* TODO: Send PMC_I2C command to turn of PLD power rail */
@@ -556,7 +556,7 @@ XStatus XPm_PowerDwnCPM()
 		goto done;
 
 	/* Assert POR for CPM */
-	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_CPM_POR),
+	Status = XPmReset_AssertbyId(PM_RST_CPM_POR,
 				     PM_RESET_ACTION_ASSERT);
 
 	/* TODO: Send PMC_I2C command to turn off CPM power rail */
@@ -596,8 +596,8 @@ done:
 XStatus XPm_PowerDwnNoC()
 {
 	XStatus Status = XST_SUCCESS;
-	XPm_Device *AmsRoot = XPmDevice_GetById(XPM_DEVID_AMS_ROOT);
-	XPm_NpDomain *NpDomain = (XPm_NpDomain *)XPmPower_GetById(NPD_NODEID);
+	XPm_Device *AmsRoot = XPmDevice_GetById(PM_DEV_AMS_ROOT);
+	XPm_NpDomain *NpDomain = (XPm_NpDomain *)XPmPower_GetById(PM_POWER_NOC);
 
 	if ((NULL == AmsRoot) || (NULL == NpDomain)) {
 		Status = XST_FAILURE;
@@ -653,7 +653,7 @@ XStatus XPm_PowerDwnNoC()
 		goto done;
 
 	/* Assert POR for NoC */
-	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_NOC_POR),
+	Status = XPmReset_AssertbyId(PM_RST_NOC_POR,
 				     PM_RESET_ACTION_ASSERT);
 
 	/* TODO: Send PMC_I2C command to turn off NoC power rail */
@@ -670,7 +670,7 @@ XStatus XPmPower_CheckPower(u32 VoltageRailMask)
 	u32 RegVal;
 	XPm_Pmc *Pmc;
 
-	Pmc = (XPm_Pmc *)XPmDevice_GetById(XPM_DEVID_PMC);
+	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 	if (NULL == Pmc) {
 		goto done;
 	}
@@ -723,16 +723,16 @@ static void XPmPower_UpdateResetFlags(XPm_PowerDomain *PwrDomain, u32 FuncId)
 
 		switch (NODEINDEX(PwrDomain->Power.Node.Id)) {
 			case XPM_NODEIDX_POWER_LPD:
-				ResetId = POR_RSTID(XPM_NODEIDX_RST_PS_POR);
+				ResetId = PM_RST_PS_POR;
 				break;
 			case XPM_NODEIDX_POWER_FPD:
-				ResetId = POR_RSTID(XPM_NODEIDX_RST_FPD_POR);
+				ResetId = PM_RST_FPD_POR;
 				break;
 			case XPM_NODEIDX_POWER_NOC:
-				ResetId = POR_RSTID(XPM_NODEIDX_RST_NOC_POR);
+				ResetId = PM_RST_NOC_POR;
 				break;
 			case XPM_NODEIDX_POWER_CPM:
-				ResetId = POR_RSTID(XPM_NODEIDX_RST_CPM_POR);
+				ResetId = PM_RST_CPM_POR;
 				break;
 			default:
 				ResetId = 0;
@@ -820,7 +820,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		}
 		/* Skip in case of system reset */
 		if ((1 == SystemResetFlag) &&
-		    (PwrDomain->Power.Node.Id != NPD_NODEID)) {
+		    (PwrDomain->Power.Node.Id != PM_POWER_NOC)) {
 			goto done;
 		}
 		if (Ops && Ops->Bisr) {
