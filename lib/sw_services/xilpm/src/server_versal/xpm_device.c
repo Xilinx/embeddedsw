@@ -340,7 +340,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 					Node->State = XPM_DEVSTATE_RST_OFF;
 
 					XPm_PsLpDomain *PsLpd;
-					PsLpd = (XPm_PsLpDomain *)XPmPower_GetById(XPM_POWERID_LPD);
+					PsLpd = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 					if (NULL == PsLpd) {
 						Status = XST_FAILURE;
 						break;
@@ -352,13 +352,13 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 					 * TODO: Remove this when security config
 					 * support is added through CDO
 					 */
-					if (Device->Node.Id >= XPM_DEVID_ADMA_0 &&
-							Device->Node.Id <= XPM_DEVID_ADMA_7) {
+					if (Device->Node.Id >= PM_DEV_ADMA_0 &&
+							Device->Node.Id <= PM_DEV_ADMA_7) {
 						XPm_Out32(PsLpd->LpdSlcrSecureBaseAddr +
 							  LPD_SLCR_SECURE_WPROT0_OFFSET, 0x0);
 						XPm_Out32(PsLpd->LpdSlcrSecureBaseAddr +
 							  LPD_SLCR_SECURE_ADMA_0_OFFSET +
-							  (Device->Node.Id - XPM_DEVID_ADMA_0) * 4, 0x1);
+							  (Device->Node.Id - PM_DEV_ADMA_0) * 4, 0x1);
 						XPm_Out32(PsLpd->LpdSlcrSecureBaseAddr +
 							  LPD_SLCR_SECURE_WPROT0_OFFSET, 0x1);
 					}
@@ -371,10 +371,10 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 						if (XST_SUCCESS != Status) {
 							break;
 						}
-					} else if(Node->Id == XPM_DEVID_R50_0 || Node->Id == XPM_DEVID_R50_1) {
+					} else if(Node->Id == PM_DEV_RPU0_0 || Node->Id == PM_DEV_RPU0_1) {
 						/*RPU has a special handling */
 						XPmRpuCore_Halt(Device);
-					} else if(Node->Id == XPM_DEVID_PSM) {
+					} else if(Node->Id == PM_DEV_PSM_PROC) {
 						/* Ecc initialize PSM RAM*/
 						XPlmi_EccInit(XPM_PSM_RAM_BASE_ADDR, XPM_PSM_RAM_SIZE);
 					}
