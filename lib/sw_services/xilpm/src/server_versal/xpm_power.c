@@ -72,7 +72,7 @@ static XStatus SetPowerNode(u32 Id, XPm_Power *PwrNode)
 static XStatus SendPowerUpReq(XPm_Node *Node)
 {
 	u32 Status = XST_SUCCESS;
-	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(LPD_ID);
+	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 
 	if (NULL == LpDomain) {
 		Status = XST_FAILURE;
@@ -139,7 +139,7 @@ done:
 static XStatus SendPowerDownReq(XPm_Node *Node)
 {
 	u32 Status = XST_SUCCESS;
-	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(LPD_ID);
+	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 
 	if (NULL == LpDomain) {
 		Status = XST_FAILURE;
