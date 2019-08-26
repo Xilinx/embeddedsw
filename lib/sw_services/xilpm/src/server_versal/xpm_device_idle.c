@@ -32,7 +32,7 @@
 static XPmDevice_SoftResetInfo DeviceRstData[] = {
 #ifdef XPAR_XUSBPSU_0_DEVICE_ID
 	{
-		.DeviceId = XPM_DEVID_USB_0,
+		.DeviceId = PM_DEV_USB_0,
 		.SoftRst = NULL,
 		.IdleHook = NodeUsbIdle,
 		.IdleHookArgs = XPAR_XUSBPSU_0_DEVICE_ID,
@@ -40,7 +40,7 @@ static XPmDevice_SoftResetInfo DeviceRstData[] = {
 #endif
 #ifdef XPAR_PSV_ETHERNET_0_DEVICE_ID
 	{
-		.DeviceId = XPM_DEVID_GEM_0,
+		.DeviceId = PM_DEV_GEM_0,
 		.SoftRst = NULL,
 		.IdleHook = NodeGemIdle,
 		.IdleHookArgs = XPAR_PSV_ETHERNET_0_DEVICE_ID,
@@ -48,7 +48,7 @@ static XPmDevice_SoftResetInfo DeviceRstData[] = {
 #endif
 #ifdef XPAR_PSV_ETHERNET_1_DEVICE_ID
 	{
-		.DeviceId = XPM_DEVID_GEM_1,
+		.DeviceId = PM_DEV_GEM_1,
 		.SoftRst = NULL,
 		.IdleHook = NodeGemIdle,
 		.IdleHookArgs = XPAR_PSV_ETHERNET_1_DEVICE_ID,
@@ -56,7 +56,7 @@ static XPmDevice_SoftResetInfo DeviceRstData[] = {
 #endif
 #ifdef XPAR_PSV_OSPI_0_DEVICE_ID
 	{
-		.DeviceId = XPM_DEVID_OSPI,
+		.DeviceId = PM_DEV_OSPI,
 		.SoftRst = NULL,
 		.IdleHook = NodeOspiIdle,
 		.IdleHookArgs = XPAR_PSV_OSPI_0_DEVICE_ID,
@@ -64,7 +64,7 @@ static XPmDevice_SoftResetInfo DeviceRstData[] = {
 #endif
 #ifdef XPAR_PSV_QSPI_0_DEVICE_ID
 	{
-		.DeviceId = XPM_DEVID_QSPI,
+		.DeviceId = PM_DEV_QSPI,
 		.SoftRst = NULL,
 		.IdleHook = NodeQspiIdle,
 		.IdleHookArgs = XPAR_PSV_QSPI_0_DEVICE_ID,
@@ -72,7 +72,7 @@ static XPmDevice_SoftResetInfo DeviceRstData[] = {
 #endif
 #ifdef XPAR_PSV_SD_0_DEVICE_ID
 	{
-		.DeviceId = XPM_DEVID_SDIO_0,
+		.DeviceId = PM_DEV_SDIO_0,
 		.SoftRst = NULL,
 		.IdleHook = NodeSdioIdle,
 		.IdleHookArgs = XPAR_PSV_SD_0_DEVICE_ID,
@@ -80,7 +80,7 @@ static XPmDevice_SoftResetInfo DeviceRstData[] = {
 #endif
 #ifdef XPAR_PSV_SD_1_DEVICE_ID
 	{
-		.DeviceId = XPM_DEVID_SDIO_1,
+		.DeviceId = PM_DEV_SDIO_1,
 		.SoftRst = NULL,
 		.IdleHook = NodeSdioIdle,
 		.IdleHookArgs = XPAR_PSV_SD_1_DEVICE_ID,
