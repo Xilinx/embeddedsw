@@ -63,7 +63,7 @@ static XStatus FpdInitStart(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 	/* Release POR for PS-FPD */
-	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_FPD_POR),
+	Status = XPmReset_AssertbyId(PM_RST_FPD_POR,
 				     PM_RESET_ACTION_RELEASE);
 done:
 	return Status;
@@ -88,7 +88,7 @@ static XStatus FpdHcComplete(u32 *Args, u32 NumOfArgs)
 	(void)NumOfArgs;
 
 	/* Release SRST for PS-FPD - in case Bisr and Mbist are skipped */
-	Status = XPmReset_AssertbyId(SRST_RSTID(XPM_NODEIDX_RST_FPD),
+	Status = XPmReset_AssertbyId(PM_RST_FPD,
 				     PM_RESET_ACTION_RELEASE);
 
 	Payload[0] = PSM_API_FPD_HOUSECLEAN;
@@ -109,7 +109,7 @@ static XStatus FpdHcComplete(u32 *Args, u32 NumOfArgs)
 		goto done;
 
 	/* Copy sysmon data */
-	XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PS_FPD], FPD_NODEID, 0);
+	XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PS_FPD], PM_POWER_FPD, 0);
 done:
 	return Status;
 }
@@ -127,7 +127,7 @@ static XStatus FpdScanClear(u32 *Args, u32 NumOfArgs)
                 goto done;
         }
 
-	Psm = (XPm_Psm *)XPmDevice_GetById(XPM_DEVID_PSM);;
+	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);;
 	if (NULL == Psm) {
 		Status = XST_FAILURE;
 		goto done;
@@ -166,7 +166,7 @@ static XStatus FpdBisr(u32 *Args, u32 NumOfArgs)
 	(void)NumOfArgs;
 
 	/* Release SRST for PS-FPD */
-	Status = XPmReset_AssertbyId(SRST_RSTID(XPM_NODEIDX_RST_FPD),
+	Status = XPmReset_AssertbyId(PM_RST_FPD,
 				     PM_RESET_ACTION_RELEASE);
 
 	/* Call PSM to execute pre bisr requirements */
@@ -203,14 +203,14 @@ static XStatus FpdMbistClear(u32 *Args, u32 NumOfArgs)
 	so skip for now. Needs to be debugged and fixed */
 	return XST_SUCCESS;
 
-	Psm = (XPm_Psm *)XPmDevice_GetById(XPM_DEVID_PSM);;
+	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);;
 	if (NULL == Psm) {
 		Status = XST_FAILURE;
 		goto done;
 	}
 
 	/* Release SRST for PS-FPD */
-	Status = XPmReset_AssertbyId(SRST_RSTID(XPM_NODEIDX_RST_FPD),
+	Status = XPmReset_AssertbyId(PM_RST_FPD,
 				     PM_RESET_ACTION_RELEASE);
 
         Payload[0] = PSM_API_FPD_HOUSECLEAN;
