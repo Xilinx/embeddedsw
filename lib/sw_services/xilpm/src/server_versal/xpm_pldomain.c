@@ -102,7 +102,7 @@ static void PldApplyTrim(u32 TrimType)
 {
         u32 TrimVal;
         Xuint128 VggTrim={0};
-	XPm_Device *EfuseCache = XPmDevice_GetById(XPM_DEVID_EFUSE_CACHE);
+	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 
 	if (NULL == EfuseCache) {
 		goto done;
@@ -313,7 +313,7 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Remove POR for PL */
-	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PL_POR),
+	Status = XPmReset_AssertbyId(PM_RST_PL_POR,
 				     PM_RESET_ACTION_RELEASE);
 
 	/* Toggle PS POR */
@@ -321,11 +321,11 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 		/* EDT-995767: Theres a bug with ES1, due to which a small percent (<2%) of device
 		may miss pl_por_b during power, which could result CFRAME wait up in wrong state.
 		The work around requires to toggle PL_POR twice after PL supplies is up. */
-		Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PL_POR),
+		Status = XPmReset_AssertbyId(PM_RST_PL_POR,
 				     PM_RESET_ACTION_PULSE);
 	}
 
-	Pmc = (XPm_Pmc *)XPmDevice_GetById(XPM_DEVID_PMC);;
+	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);;
 	if (NULL == Pmc) {
 		Status = XST_FAILURE;
 		goto done;
@@ -339,7 +339,7 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
         }
 
 	/* Remove SRST for PL */
-	Status = XPmReset_AssertbyId(SRST_RSTID(XPM_NODEIDX_RST_PL_SRST),
+	Status = XPmReset_AssertbyId(PM_RST_PL_SRST,
 				     PM_RESET_ACTION_RELEASE);
 
 	 /* Remove PL-SOC isolation */
@@ -393,7 +393,7 @@ static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
-	Pld = (XPm_PlDomain *)XPmPower_GetById(XPM_POWERID_PLD);
+	Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
 	if (NULL == Pld) {
 		Status = XST_FAILURE;
 		goto done;
