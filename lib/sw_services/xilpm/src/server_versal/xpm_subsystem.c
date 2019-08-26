@@ -37,59 +37,59 @@
 static XPm_Subsystem PmSubsystems[XPM_NODEIDX_SUBSYS_MAX] =
 {
 	[XPM_NODEIDX_SUBSYS_DEFAULT] = {
-		.Id = XPM_SUBSYSID_DEFAULT,
+		.Id = PM_SUBSYS_DEFAULT,
 		.State = OFFLINE,
 		.IpiMask = 0x00000000U,
 		.Flags = 0U,
 	},
 	[XPM_NODEIDX_SUBSYS_PMC] = {
-		.Id = XPM_SUBSYSID_PMC,
+		.Id = PM_SUBSYS_PMC,
 		.State = ONLINE,
 		.IpiMask = 0x00000002U,
 		.Flags = SUBSYSTEM_INIT_FINALIZED,
 	},
 	[XPM_NODEIDX_SUBSYS_PSM] = {
-		.Id = XPM_SUBSYSID_PSM,
+		.Id = PM_SUBSYS_PSM,
 		.State = OFFLINE,
 		.IpiMask = 0x00000001U,
 		.Flags = 0U,
 	},
 	[XPM_NODEIDX_SUBSYS_APU] = {
-		.Id = XPM_SUBSYSID_APU,
+		.Id = PM_SUBSYS_APU,
 		.State = OFFLINE,
 		.IpiMask = 0x00000004U,
 		.Flags = 0U,
 	},
 	[XPM_NODEIDX_SUBSYS_RPU0_LOCK] = {
-		.Id = XPM_SUBSYSID_RPU0_LOCK,
+		.Id = PM_SUBSYS_RPU0_LOCK,
 		.State = OFFLINE,
 		.IpiMask = 0x00000008U,
 		.Flags = 0U,
 	},
 	[XPM_NODEIDX_SUBSYS_RPU0_0] = {
-		.Id = XPM_SUBSYSID_RPU0_0,
+		.Id = PM_SUBSYS_RPU0_0,
 		.State = OFFLINE,
 		.IpiMask = 0x00000008U,
 		.Flags = 0U,
 	},
 	[XPM_NODEIDX_SUBSYS_RPU0_1] = {
-		.Id = XPM_SUBSYSID_RPU0_1,
+		.Id = PM_SUBSYS_RPU0_1,
 		.State = OFFLINE,
 		.IpiMask = 0x00000010U,
 		.Flags = 0U,
 	},
 	[XPM_NODEIDX_SUBSYS_DDR0] = {
-		.Id = XPM_SUBSYSID_DDR0,
+		.Id = PM_SUBSYS_DDR0,
 		.State = OFFLINE,
 		.Flags = 0U,
 	},
 	[XPM_NODEIDX_SUBSYS_ME] = {
-		.Id = XPM_SUBSYSID_ME,
+		.Id = PM_SUBSYS_ME,
 		.State = OFFLINE,
 		.Flags = 0U,
 	},
 	[XPM_NODEIDX_SUBSYS_PL] = {
-		.Id = XPM_SUBSYSID_PL,
+		.Id = PM_SUBSYS_PL,
 		.State = OFFLINE,
 		.Flags = 0U,
 	}
@@ -132,7 +132,7 @@ u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask)
 
 	if ((XPM_NODEIDX_SUBSYS_RPU0_LOCK == SubSysIdx) ||
 	    (XPM_NODEIDX_SUBSYS_RPU0_0 == SubSysIdx)) {
-		XPm_RpuGetOperMode(XPM_DEVID_R50_0, &RpuBootMode);
+		XPm_RpuGetOperMode(PM_DEV_RPU0_0, &RpuBootMode);
 
 		if (XPM_RPU_MODE_SPLIT == RpuBootMode) {
 			SubSysIdx = XPM_NODEIDX_SUBSYS_RPU0_0;
@@ -178,14 +178,14 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 	u32 Idx, Idx2;
 	/* TODO: Remove this device list when CDO change is available */
 	u32 ExcludeDevList[] = {
-		XPM_DEVID_L2CACHE,
-		XPM_DEVID_IPI_0,
-		XPM_DEVID_IPI_1,
-		XPM_DEVID_IPI_2,
-		XPM_DEVID_IPI_3,
-		XPM_DEVID_IPI_4,
-		XPM_DEVID_IPI_5,
-		XPM_DEVID_IPI_6,
+		PM_DEV_L2_BANK_0,
+		PM_DEV_IPI_0,
+		PM_DEV_IPI_1,
+		PM_DEV_IPI_2,
+		PM_DEV_IPI_3,
+		PM_DEV_IPI_4,
+		PM_DEV_IPI_5,
+		PM_DEV_IPI_6,
 	};
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
@@ -408,7 +408,7 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 	u32 SubSysIdx = NODEINDEX(SubsystemId);
 	u32 DevId;
 
-	if (SubsystemId == XPM_SUBSYSID_PMC) {
+	if (SubsystemId == PM_SUBSYS_PMC) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -532,7 +532,7 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 	u32 i = 0;
 
 	/* If default subsystem is online, no other subsystem is allowed to be created */
-	if (!ISVALIDSUBSYSTEM(SubsystemId) || PmSubsystems[XPM_NODEIDX_SUBSYS_DEFAULT].State == ONLINE || SubsystemId == XPM_SUBSYSID_PMC) {
+	if (!ISVALIDSUBSYSTEM(SubsystemId) || PmSubsystems[XPM_NODEIDX_SUBSYS_DEFAULT].State == ONLINE || SubsystemId == PM_SUBSYS_PMC) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -544,7 +544,7 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 	}
 
 	/* Add all requirements for default subsystem */
-	if(SubsystemId == XPM_SUBSYSID_DEFAULT)
+	if(SubsystemId == PM_SUBSYS_DEFAULT)
 	{
 		for (i = 0; i < XPM_NODEIDX_DEV_MAX; i++) {
 			/*
@@ -664,7 +664,7 @@ XStatus XPmSubsystem_Restart(u32 SubsystemId)
 				if (XST_SUCCESS != Status) {
 					goto done;
 				}
-				Status = XPmReset_AssertbyId(SRST_RSTID(XPM_NODEIDX_RST_ACPU_GIC),
+				Status = XPmReset_AssertbyId(PM_RST_ACPU_GIC,
 							     PM_RESET_ACTION_PULSE);
 				if (XST_SUCCESS != Status) {
 					goto done;
