@@ -933,7 +933,6 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 
 					XPmSubsystem_SetState(TargetSubsystemId, OFFLINE);
 				}
-				XPmRequirement_Clear(Reqm);
 			}
 			Reqm = Reqm->NextSubsystem;
 		}
