@@ -126,7 +126,7 @@ void pt_help_menu()
 	print(" d = Quad selection ONLY FOR 8K --> 4K demo\n\r");
 	print(" w = Sink register write\n\r");
 	print(" r = Sink register read\n\r");
-	print(" n = toggle EDID setting between 8K to 4K120\r\n");
+	print(" n = Clone EDID from Monitor\r\n");
 	print(" m = Display MCDP6000 stauts\n\r");
 	print(" u - Read from MCDP6000\r\n");
 	print(" o - Write to MCDP6000\r\n");

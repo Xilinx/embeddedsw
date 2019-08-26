@@ -558,12 +558,80 @@ void DpPt_Main(void){
 					break;
 
 				case 'n':
-					if(edid_page == 6){
-						edid_page = 2;
-					}else{
-						edid_page++;
+                                        // This can be used to clone the edid when monitor is changed
+                                        // Ensure to unplug/plug RX cable for changes to take effect
+
+					for (int i = 0; i < 128; i++) {
+						Edid_org[i] = 0;
+						Edid1_org[i] = 0;
+						Edid2_org[i] = 0;
 					}
-					edid_change(edid_page);
+
+					//Waking up the monitor
+					sink_power_cycle();
+
+					//reading the first block of EDID
+					if (XDpTxSs_IsConnected(&DpTxSsInst)) {
+						XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid_org, 0);
+
+						u8 Sum = 0;
+						for (int i = 0; i < 128; i++) {
+							Sum += Edid_org[i];
+						}
+						if(Sum != 0){
+							xil_printf("Wrong EDID was read\r\n");
+						}
+
+						//reading the second block of EDID
+						if(Edid_org[126] > 0)
+							XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid1_org, 1);
+						if(Edid_org[126] > 1)
+							XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid2_org, 2);
+
+						xil_printf("Reading EDID contents of the DP Monitor..\r\n");
+
+						int i, j;
+
+						switch (Edid_org[126]){
+						case 0:
+							for(i=0; i<128; i++)
+								edid_monitor[i] = Edid_org[i];
+							for(i=0; i<128; i++)
+								edid_monitor[i+128] = 0;
+							for(i=0; i<128; i++)
+								edid_monitor[i+256] = 0;
+							break;
+						case 1:
+							for(i=0; i<128; i++)
+								edid_monitor[i] = Edid_org[i];
+							for(i=0; i<128; i++)
+								edid_monitor[i+128] = Edid1_org[i];
+							for(i=0; i<128; i++)
+								edid_monitor[i+256] = 0;
+							break;
+						case 2:
+							for(i=0; i<128; i++)
+								edid_monitor[i] = Edid_org[i];
+							for(i=0; i<128; i++)
+								edid_monitor[i+128] = Edid1_org[i];
+							for(i=0; i<128; i++)
+								edid_monitor[i+256] = Edid2_org[i];
+							break;
+						}
+
+						for(i=0;i<(384*4);i=i+(16*4)){
+							for(j=i;j<(i+(16*4));j=j+4){
+								XDp_WriteReg (VID_EDID_BASEADDR,
+								j, edid_monitor[(i/4)+1]);
+							}
+						}
+						for(i=0;i<(384*4);i=i+4){
+							XDp_WriteReg (VID_EDID_BASEADDR,
+								i, edid_monitor[i/4]);
+						}
+					}
+
+					xil_printf ("Please unplug/plug DP RX cable for changes to take effect\r\n");
 
 					break;
 
