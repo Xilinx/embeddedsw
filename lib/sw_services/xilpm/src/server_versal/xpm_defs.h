@@ -24,8 +24,8 @@
 *
 ******************************************************************************/
 
-#ifndef XILLIBPM_DEFS_H_
-#define XILLIBPM_DEFS_H_
+#ifndef XPM_DEFS_H_
+#define XPM_DEFS_H_
 
 #include "xil_types.h"
 
@@ -385,4 +385,4 @@ enum XPmNotifyEvent {
 }
 #endif
 
-#endif /* XILLIBPM_DEFS_H_ */
+#endif /* XPM_DEFS_H_ */

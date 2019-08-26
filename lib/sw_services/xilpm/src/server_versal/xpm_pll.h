@@ -28,7 +28,7 @@
 #define XPM_PLL_H_
 
 #include "xpm_clock.h"
-#include "xillibpm_defs.h"
+#include "xpm_defs.h"
 
 #ifdef __cplusplus
 extern "C" {

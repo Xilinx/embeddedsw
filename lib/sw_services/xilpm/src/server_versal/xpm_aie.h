@@ -28,7 +28,7 @@
 #define XPM_AIE_H_
 
 #include "xpm_powerdomain.h"
-#include "xillibpm_defs.h"
+#include "xpm_defs.h"
 #include "xillibpm_psm_api.h"
 #include "xpm_ipi.h"
 

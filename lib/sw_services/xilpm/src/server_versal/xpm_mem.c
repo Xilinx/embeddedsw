@@ -23,7 +23,7 @@
 *
 *
 ******************************************************************************/
-#include "xillibpm_defs.h"
+#include "xpm_defs.h"
 #include "xplmi_dma.h"
 #include "xpm_device.h"
 #include "xpm_mem.h"
