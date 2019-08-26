@@ -1,3 +1,7 @@
 #!/bin/bash
-
+if [ -z "${XILINX_SDK}" ]
+then
+${XILINX_VITIS}/tps/lnx64/cmake-3.3.2/bin/cmake $@ 2>&1
+else
 ${XILINX_SDK}/tps/lnx64/cmake-3.3.2/bin/cmake $@ 2>&1
+fi
