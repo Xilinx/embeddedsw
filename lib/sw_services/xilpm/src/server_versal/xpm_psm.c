@@ -129,6 +129,27 @@ XStatus XPmPsm_SendPowerDownReq(u32 BitMask)
 	XStatus Status = XST_FAILURE;
 	u32 Reg;
 	XPm_Psm *Psm;
+	XPm_Power *Ocm0 = XPmPower_GetById(XPM_POWERID_OCM_0);
+	XPm_Power *Ocm1 = XPmPower_GetById(XPM_POWERID_OCM_1);
+	XPm_Power *Ocm2 = XPmPower_GetById(XPM_POWERID_OCM_2);
+	XPm_Power *Ocm3 = XPmPower_GetById(XPM_POWERID_OCM_3);
+
+	/*
+	 * As per EDT-995988, Getting the SLV error from power down
+	 * island even when Dec error disabled
+	 *
+	 * OCM gives SLVERR response when a powered-down bank is
+	 * accessed, even when Response Error is disabled. Error occurs
+	 * only for a narrow access (< 64 bits). Skip OCM power down as
+	 * workaround.
+	 */
+	if ((BitMask == Ocm0->Node.BaseAddress) ||
+	    (BitMask == Ocm1->Node.BaseAddress) ||
+	    (BitMask == Ocm2->Node.BaseAddress) ||
+	    (BitMask == Ocm3->Node.BaseAddress)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
 	PmDbg("BitMask=0x%08X\n\r", BitMask);
 
