@@ -86,9 +86,9 @@ u32 XPm_In32(u32 RegAddress)
 
 void XPm_Out32(u32 RegAddress, u32 l_Val)
 {
-	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(XPM_DEVID_PMC);
-	XPm_PsLpDomain *PsLpd = (XPm_PsLpDomain *)XPmPower_GetById(XPM_POWERID_LPD);
-	XPm_PsFpDomain *PsFpd = (XPm_PsFpDomain *)XPmPower_GetById(XPM_POWERID_FPD);
+	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+	XPm_PsLpDomain *PsLpd = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
+	XPm_PsFpDomain *PsFpd = (XPm_PsFpDomain *)XPmPower_GetById(PM_POWER_FPD);
 
 	if (Pmc && ((RegAddress & 0xFFFF0000) == Pmc->PmcIouSlcrBaseAddr)) {
 		Xil_Out32(Pmc->PmcIouSlcrBaseAddr + PMC_IOU_SLCR_WPROT0_OFFSET,
