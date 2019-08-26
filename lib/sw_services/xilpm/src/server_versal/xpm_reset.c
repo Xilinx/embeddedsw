@@ -151,7 +151,7 @@ XPm_ResetNode* XPmReset_GetById(u32 ResetId)
 static XStatus PsOnlyResetAssert(XPm_ResetNode *Rst)
 {
 	u32 i, Status = XST_SUCCESS;
-	const u32 PsDomainIds[] = { LPD_NODEID, FPD_NODEID };
+	const u32 PsDomainIds[] = { PM_POWER_LPD, PM_POWER_FPD };
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 
 	/*
@@ -437,7 +437,7 @@ int XPmReset_SystemReset()
 
 	/* TODO: Confirm if idling is required here or not */
 
-	Status = XPmReset_AssertbyId(SRST_RSTID(XPM_NODEIDX_RST_PMC),
+	Status = XPmReset_AssertbyId(PM_RST_PMC,
 				     PM_RESET_ACTION_ASSERT);
 	if (XST_SUCCESS != Status) {
 		goto done;
