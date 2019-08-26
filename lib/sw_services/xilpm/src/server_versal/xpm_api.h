@@ -24,8 +24,8 @@
 *
 ******************************************************************************/
 
-#ifndef XILLIBPM_API_H_
-#define XILLIBPM_API_H_
+#ifndef XPM_API_H_
+#define XPM_API_H_
 
 #include "xil_types.h"
 #include "xstatus.h"
@@ -212,4 +212,4 @@ int XPm_GicProxyWakeUp(const u32 PeriphIdx);
 #endif
 
 /** @} */
-#endif /* XILLIBPM_API_H_ */
+#endif /* XPM_API_H_ */
