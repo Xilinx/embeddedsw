@@ -29,7 +29,12 @@
  * @cond xilskey_internal
  * @{
  *
- * @note	None.
+ * @note
+ *
+ *		For Ultrascale
+ *	    ------------------------------------------------------------------------
+ *	    If user wants to Debug and avoid writing Fuses, then user needs to
+ *	    define "DEBUG_FUSE_WRITE_DISABLE" that will disable writing to Fuses.
  *
  *
  * MODIFICATION HISTORY:
@@ -74,6 +79,7 @@
 *       psl     03/29/19 Removed GPIO ID macro.
 * 6.8   psl     06/07/19 Added doxygen tags
 *       psl     08/12/19 Fixed MISRA-C violation
+*       psl     08/23/19 Added Debug define to avoid writing of eFuse.
  *****************************************************************************/
 
 #ifndef XILSKEY_UTILS_H
@@ -126,6 +132,11 @@ extern "C" {
 #endif
 
 #endif
+
+#ifdef DEBUG_FUSE_WRITE_DISABLE
+#define XilsKey_DbgPrint	    xil_printf
+#endif
+
 /**
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily

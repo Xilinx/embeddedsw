@@ -65,6 +65,7 @@
 *       arc     04/04/19 Fixed CPP warnings.
 *       psl     04/15/19 Added JtagServerInit function.
 * 6.8   psl     05/21/19 Added else case to clear UserFuses_TobePrgrmd
+*       psl     08/23/19 Added Debug define to avoid writing of eFuse.
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "xparameters.h"
@@ -2158,10 +2159,15 @@ static inline u8 XilSKey_EfusePl_ProgramRow_Ultra(u8 Row, u8 *RowData,
 			if (! ((Row >= AesStartRow) &&
 				(Row <= AesEndRow) &&
 				(Page == XSK_EFUSEPL_PAGE_0_ULTRA))) {
+#ifndef DEBUG_FUSE_WRITE_DISABLE
 				if (XilSkey_EfusePl_VerifyBit_Ultra(Row,
 					Bit, Redundant, Page) != XST_SUCCESS) {
 					return XST_FAILURE;
 				}
+#else
+				XilsKey_DbgPrint("Skipping XilSkey_EfusePl_VerifyBit_Ultra "
+									"as DEBUG_FUSE_WRITE_DISABLE defined\n\r");
+#endif
 			}
 		}
 	}
@@ -2609,10 +2615,15 @@ static inline u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr)
 			return Status;
 		}
 		/* Verify AES key programmed */
+#ifndef DEBUG_FUSE_WRITE_DISABLE
 		if (XilSKey_EfusePl_VerifyAES_Ultrascale(
 				InstancePtr->CrcToVerify) != XST_SUCCESS) {
 			return XSK_EFUSEPL_ERROR_KEY_VALIDATION;
 		}
+#else
+		XilsKey_DbgPrint("AES key verification failed but "
+				"DEBUG_FUSE_WRITE_DISABLE set so continuing\r\n");
+#endif
 	}
 	/* Programming USER key */
 	if (InstancePtr->ProgUserKeyUltra == TRUE) {
