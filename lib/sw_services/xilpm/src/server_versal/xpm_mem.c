@@ -59,7 +59,7 @@ static void TcmEccInit(XPm_MemDevice *Tcm, u32 Mode)
 	u32 Id = Tcm->Device.Node.Id;
 	u32 Base = Tcm->StartAddress;
 
-	if (XPM_DEVID_TCM_1_A == Id || XPM_DEVID_TCM_1_B == Id) {
+	if (PM_DEV_TCM_1_A == Id || PM_DEV_TCM_1_B == Id) {
 		if (XPM_RPU_MODE_LOCKSTEP == Mode)
 			Base -= XPM_TCM_BASEADDRESS_MODE_OFFSET;
 	}
@@ -72,8 +72,8 @@ static void TcmEccInit(XPm_MemDevice *Tcm, u32 Mode)
 static XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState)
 {
 	XStatus Status = XST_SUCCESS;
-	XPm_Device *Rpu0Device = XPmDevice_GetById(XPM_DEVID_R50_0);
-	XPm_Device *Rpu1Device = XPmDevice_GetById(XPM_DEVID_R50_1);
+	XPm_Device *Rpu0Device = XPmDevice_GetById(PM_DEV_RPU0_0);
+	XPm_Device *Rpu1Device = XPmDevice_GetById(PM_DEV_RPU0_1);
 	u32 Id = Device->Node.Id;
 	u32 Mode;
 
@@ -86,11 +86,11 @@ static XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState)
 			}
 			/* TCM is only accessible when the RPU is powered on and out of reset and is in halted state
 			 * so bring up RPU too when TCM is requested*/
-			XPm_RpuGetOperMode(XPM_DEVID_R50_0, &Mode);
+			XPm_RpuGetOperMode(PM_DEV_RPU0_0, &Mode);
 			 if (XPM_RPU_MODE_SPLIT == Mode)
 			 {
-				if ((XPM_DEVID_TCM_0_A == Id ||
-				     XPM_DEVID_TCM_0_B == Id) &&
+				if ((PM_DEV_TCM_0_A == Id ||
+				     PM_DEV_TCM_0_B == Id) &&
 				    (XPM_DEVSTATE_RUNNING !=
 				     Rpu0Device->Node.State)) {
 					Status = XPmRpuCore_Halt(Rpu0Device);
@@ -98,8 +98,8 @@ static XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState)
 						goto done;
 					}
 				}
-				if ((XPM_DEVID_TCM_1_A == Id ||
-				     XPM_DEVID_TCM_1_B == Id) &&
+				if ((PM_DEV_TCM_1_A == Id ||
+				     PM_DEV_TCM_1_B == Id) &&
 				    (XPM_DEVSTATE_RUNNING !=
 				     Rpu1Device->Node.State)) {
 					Status = XPmRpuCore_Halt(Rpu1Device);
@@ -110,10 +110,10 @@ static XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState)
 			 }
 			 if (XPM_RPU_MODE_LOCKSTEP == Mode)
 			 {
-				if ((XPM_DEVID_TCM_0_A == Id ||
-				     XPM_DEVID_TCM_0_B == Id ||
-				     XPM_DEVID_TCM_1_A == Id ||
-				     XPM_DEVID_TCM_1_B == Id) &&
+				if ((PM_DEV_TCM_0_A == Id ||
+				     PM_DEV_TCM_0_B == Id ||
+				     PM_DEV_TCM_1_A == Id ||
+				     PM_DEV_TCM_1_B == Id) &&
 				     (XPM_DEVSTATE_RUNNING !=
 				      Rpu0Device->Node.State)) {
 					Status = XPmRpuCore_Halt(Rpu0Device);
