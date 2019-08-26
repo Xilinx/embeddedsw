@@ -139,9 +139,6 @@ enum {
 					 times out waiting for slaves sync
 					 point */
 
-	XPLMI_ERR_SSIT_MASTER_SYNC, /* 0x110 */
-	XPLMI_ERR_SSIT_SLAVE_SYNC, /* 0x111 */
-
 	/** Status codes used in PLM */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create
 					  fails. This can happen when max

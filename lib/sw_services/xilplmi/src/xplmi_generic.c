@@ -715,17 +715,6 @@ int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd)
 		}
 	}
 
-	/*
-	 * Send unaligned bytes left at the end if any
-	 */
-	if ((Cmd->ProcessedLen + (ChunkLen-(Len % 4U)) + (Cmd->PayloadLen - Len)) ==
-			(Cmd->Len - (Len % 4U))) {
-		if (Count > 0) {
-			XPlmi_Printf(DEBUG_DETAILED, "Last remaining bytes\r\n");
-			Status = XPlmi_DmaXfr((u32)&Cmd->ResumeData[4U], DestAddr, Count, Flags);
-		}
-	}
-
 END:
 	return Status;
 }
