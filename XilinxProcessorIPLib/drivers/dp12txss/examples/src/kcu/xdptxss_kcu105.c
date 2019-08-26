@@ -2513,7 +2513,7 @@ static void Dprx_DetectResolution(void *InstancePtr)
 		DpVres = (XDp_ReadReg(DpRxSsInst.Config.DpSubCore.DpConfig.BaseAddr,
 						XDP_RX_MSA_VHEIGHT));
 		GetResCount++;
-	} while ( (((DpHres == 0) || (DpVres == 0)) || (GetResCount < 10000))
+	} while ( (((DpHres == 0) || (DpVres == 0)) && (GetResCount < 10000))
 						&& training_done == 1);
 	dp_msa_hres = DpHres;
 	dp_msa_vres = DpVres;
