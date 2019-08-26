@@ -39,7 +39,7 @@ static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	Cpm = (XPm_CpmDomain *)XPmPower_GetById(XPM_POWERID_CPM);
+	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM);
 	if (NULL == Cpm) {
 		Status = XST_FAILURE;
 		goto done;
@@ -55,7 +55,7 @@ static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 	if(!(PLATFORM_VERSION_SILICON == Platform && PLATFORM_VERSION_SILICON_ES1 == PlatformVersion))
 	{
 		/* Remove POR for CPM */
-		/*Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_CPM_POR),
+		/*Status = XPmReset_AssertbyId(PM_RST_CPM_POR,
 				     PM_RESET_ACTION_RELEASE);*/
 
 		/*TODO: Topology is not passing cpm reset register
@@ -94,7 +94,7 @@ static XStatus CpmScanClear(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
-	Cpm = (XPm_CpmDomain *)XPmPower_GetById(XPM_POWERID_CPM);
+	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM);
 	if (NULL == Cpm) {
 		Status = XST_FAILURE;
 		goto done;
@@ -122,7 +122,7 @@ static XStatus CpmScanClear(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Pulse CPM POR */
-	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_CPM_POR),
+	Status = XPmReset_AssertbyId(PM_RST_CPM_POR,
 				     PM_RESET_ACTION_PULSE);
 
 	/* Unwrite trigger bits */
@@ -171,7 +171,7 @@ static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
-	Cpm = (XPm_CpmDomain *)XPmPower_GetById(XPM_POWERID_CPM);
+	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM);
 	if (NULL == Cpm) {
 		Status = XST_FAILURE;
 		goto done;
