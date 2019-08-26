@@ -203,7 +203,7 @@ static void XPmBisr_SwError(u32 ErrorCode)
 {
 	XPm_Pmc *Pmc;
 
-	Pmc = (XPm_Pmc *)XPmDevice_GetById(XPM_DEVID_PMC);
+	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 	if (NULL == Pmc) {
 		goto done;
 	}
@@ -226,7 +226,7 @@ static u32 XPmBisr_CopyStandard(u32 EfuseTagAddr, u32 TagSize, u64 BisrDataDestA
 	//EFUSE Tag Data start pos
 	TagDataAddr = EfuseTagAddr+4;
 
-	XPm_Device *EfuseCache = XPmDevice_GetById(XPM_DEVID_EFUSE_CACHE);
+	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	if (NULL == EfuseCache) {
 		/* Return max possible address so error can be identified by caller */
 		TagDataAddr = ~0;
@@ -294,7 +294,7 @@ static XStatus XPmBisr_RepairLpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 {
 	XStatus Status;
 	u64 BisrDataDestAddr;
-	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(LPD_ID);
+	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 
 	if (NULL == LpDomain) {
 		Status = XST_FAILURE;
@@ -320,7 +320,7 @@ int XPmBisr_TriggerLpd(void)
 	XPm_PsLpDomain *PsLpd;
 	u32 RegValue;
 
-	PsLpd = (XPm_PsLpDomain *)XPmPower_GetById(XPM_POWERID_LPD);
+	PsLpd = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 	if (NULL == PsLpd) {
 		Status = XST_FAILURE;
 		goto done;
@@ -371,7 +371,7 @@ static XStatus XPmBisr_RepairFpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 	u32 RegValue;
 	u64 BisrDataDestAddr;
 
-	PsFpd = (XPm_PsFpDomain *)XPmPower_GetById(XPM_POWERID_FPD);
+	PsFpd = (XPm_PsFpDomain *)XPmPower_GetById(PM_POWER_FPD);
 	if (NULL == PsFpd) {
 		Status = XST_FAILURE;
 		goto done;
@@ -444,7 +444,7 @@ static XStatus XPmBisr_RepairCpm(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 	u32 RegValue;
 	u64 BisrDataDestAddr;
 
-	Cpm = (XPm_CpmDomain *)XPmPower_GetById(XPM_POWERID_CPM);
+	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM);
 	if (NULL == Cpm) {
 		Status = XST_FAILURE;
 		goto done;
@@ -491,7 +491,7 @@ static XStatus XPmBisr_RepairDdrMc(u32 EfuseTagAddr, u32 TagSize, u32 TagOptiona
 	XStatus Status = XST_SUCCESS;
 	u32 RegValue;
 	u64 BaseAddr, BisrDataDestAddr;
-	XPm_NpDomain *NpDomain = (XPm_NpDomain *)XPmPower_GetById(NPD_NODEID);
+	XPm_NpDomain *NpDomain = (XPm_NpDomain *)XPmPower_GetById(PM_POWER_NOC);
 
 	if (NULL == NpDomain) {
 		Status = XST_FAILURE;
@@ -600,11 +600,11 @@ static int XPmBisr_RepairBram(u32 EfuseTagAddr, u32 TagSize)
 	u32 BramRepairVal;
 	u32 BramExtendedRepair[4];
 	u32 BramRepairWord;
-	XPm_Device *EfuseCache = XPmDevice_GetById(XPM_DEVID_EFUSE_CACHE);
+	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 
 	TagDataAddr = EfuseTagAddr + 4;
 
-	Pld = (XPm_PlDomain *)XPmPower_GetById(XPM_POWERID_PLD);
+	Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
 	if (NULL == Pld) {
 		/* Return negative address, caller can identify error */
 		TagDataAddr = ~0;
@@ -680,11 +680,11 @@ static int XPmBisr_RepairUram(u32 EfuseTagAddr, u32 TagSize)
 	u32 UramRepairVal;
 	u32 UramExtendedRepair[4];
 	u32 UramRepairWord;
-	XPm_Device *EfuseCache = XPmDevice_GetById(XPM_DEVID_EFUSE_CACHE);
+	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 
 	TagDataAddr = EfuseTagAddr + 4;
 
-	Pld = (XPm_PlDomain *)XPmPower_GetById(XPM_POWERID_PLD);
+	Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
 	if (NULL == Pld) {
 		/* Return negative address, caller can identify error */
 		TagDataAddr = ~0;
@@ -765,7 +765,7 @@ static int XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 	//tag size must be multiple of 2
 	TagDataAddr = EfuseTagAddr + 4;
 
-	XPm_Device *EfuseCache = XPmDevice_GetById(XPM_DEVID_EFUSE_CACHE);
+	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	if (NULL == EfuseCache) {
 		/* Return negative address so error can be identified by caller */
 		TagDataAddr = ~0;
@@ -784,7 +784,7 @@ static int XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 		return TagDataAddr;
 	}
 
-	Pld = (XPm_PlDomain *)XPmPower_GetById(XPM_POWERID_PLD);
+	Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
 	if (NULL == Pld) {
 		goto done;
 	}
@@ -861,7 +861,7 @@ XStatus XPmBisr_Repair(u32 TagId)
 	u32 EfuseBisrSize;
 	u32 EfuseBisrOptional;
 	u32 TagType;
-	XPm_Device *EfuseCache = XPmDevice_GetById(XPM_DEVID_EFUSE_CACHE);
+	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	if (NULL == EfuseCache) {
 		Status = XST_FAILURE;
 		goto done;
