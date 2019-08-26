@@ -45,7 +45,7 @@
 /***************************** Include Files *********************************/
 #include "xplm_pm.h"
 #include "xplm_main.h"
-#include "xillibpm_api.h"
+#include "xpm_api.h"
 #include "xpm_subsystem.h"
 /************************** Constant Definitions *****************************/
 

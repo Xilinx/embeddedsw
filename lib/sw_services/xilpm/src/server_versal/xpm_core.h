@@ -27,7 +27,7 @@
 #ifndef XPM_CORE_H_
 #define XPM_CORE_H_
 
-#include "xillibpm_api.h"
+#include "xpm_api.h"
 #include "xpm_device.h"
 
 #ifdef __cplusplus

@@ -43,7 +43,7 @@
 
 /***************************** Include Files *********************************/
 #include "xloader.h"
-#include "xillibpm_api.h"
+#include "xpm_api.h"
 #include "xloader_secure.h"
 /************************** Constant Definitions *****************************/
 

@@ -24,7 +24,7 @@
 *
 ******************************************************************************/
 
-#include "xillibpm_api.h"
+#include "xpm_api.h"
 #include "xpm_ipi.h"
 #include "xpm_notifier.h"
 
