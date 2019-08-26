@@ -28,7 +28,7 @@
 #define XPM_DEVICE_IDLE_H_
 
 #include "xparameters.h"
-#include "xillibpm_node.h"
+#include "xpm_node.h"
 #include "xpm_device.h"
 
 #ifdef __cplusplus

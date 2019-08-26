@@ -45,7 +45,7 @@
 /***************************** Include Files *********************************/
 #include "xplmi_err.h"
 #include "xplmi.h"
-#include "xillibpm_node.h"
+#include "xpm_node.h"
 #include "xplmi_sysmon.h"
 
 /************************** Constant Definitions *****************************/
