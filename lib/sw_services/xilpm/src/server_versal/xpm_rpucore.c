@@ -152,7 +152,7 @@ XStatus XPmRpuCore_Init(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, u32 *BaseAddress,
 
 	RpuCore->RpuBaseAddr = BaseAddress[0];
 
-	if (XPM_DEVID_R50_0 == Id) {
+	if (PM_DEV_RPU0_0 == Id) {
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_0_CFG_OFFSET;
 		RpuCore->Core.SleepMask = XPM_RPU0_0_PWR_CTRL_MASK;
 		RpuCore->Core.PwrDwnMask = XPM_RPU_0_CPUPWRDWNREQ_MASK;
@@ -185,7 +185,7 @@ void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 	u32 Val;
 	XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
 	int Status;
-	XPm_Subsystem *DefSubsystem = XPmSubsystem_GetById(XPM_SUBSYSID_DEFAULT);
+	XPm_Subsystem *DefSubsystem = XPmSubsystem_GetById(PM_SUBSYS_DEFAULT);
 
 	PmIn32(RpuCore->RpuBaseAddr + RPU_GLBL_CNTL_OFFSET, Val);
 	if (Mode == XPM_RPU_MODE_SPLIT) {
@@ -203,17 +203,17 @@ void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 	PmOut32(RpuCore->RpuBaseAddr + RPU_GLBL_CNTL_OFFSET, Val);
 
 	/* Add or remove R50_1 core in default subsystem according to its mode */
-	Status = XPmDevice_IsRequested(XPM_DEVID_R50_0, XPM_SUBSYSID_DEFAULT);
+	Status = XPmDevice_IsRequested(PM_DEV_RPU0_0, PM_SUBSYS_DEFAULT);
 	if ((XST_SUCCESS == Status) && (ONLINE == DefSubsystem->State)) {
 		if (Mode == XPM_RPU_MODE_SPLIT) {
-			XPmDevice_Request(XPM_SUBSYSID_DEFAULT, XPM_DEVID_R50_1,
+			XPmDevice_Request(PM_SUBSYS_DEFAULT, PM_DEV_RPU0_1,
 					  PM_CAP_ACCESS, XPM_MAX_QOS);
 		} else if (Mode == XPM_RPU_MODE_LOCKSTEP) {
-			Status = XPmDevice_IsRequested(XPM_DEVID_R50_1,
-						       XPM_SUBSYSID_DEFAULT);
+			Status = XPmDevice_IsRequested(PM_DEV_RPU0_1,
+						       PM_SUBSYS_DEFAULT);
 			if (XST_SUCCESS == Status) {
-				XPmDevice_Release(XPM_SUBSYSID_DEFAULT,
-						  XPM_DEVID_R50_1);
+				XPmDevice_Release(PM_SUBSYS_DEFAULT,
+						  PM_DEV_RPU0_1);
 			}
 		}
 	}
