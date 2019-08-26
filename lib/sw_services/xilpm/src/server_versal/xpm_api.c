@@ -398,8 +398,8 @@ XStatus XPm_HookAfterPlmCdo()
 	XStatus Status = XST_SUCCESS;
 
 	// On Boot, Update PMC SAT0 & SAT1 sysmon trim
-	XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PMC_0], PMC_NODEID, 0);
-	XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PMC_1], PMC_NODEID, 1);
+	XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PMC_0], PM_POWER_PMC, 0);
+	XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PMC_1], PM_POWER_PMC, 1);
 
 	return Status;
 }
@@ -794,7 +794,7 @@ int XPm_GicProxyWakeUp(const u32 PeriphIdx)
 		goto done;
 	}
 
-	Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC, Periph->WakeProcId, 0, 0, 0);
+	Status = XPm_RequestWakeUp(PM_SUBSYS_PMC, Periph->WakeProcId, 0, 0, 0);
 
 done:
 	return Status;
@@ -2213,7 +2213,7 @@ done:
 static int XPm_SdDllReset(const u32 DeviceId, const u32 Type)
 {
 	int Status = XST_SUCCESS;
-	XPm_Device *Device = XPmDevice_GetById(XPM_DEVID_PMC);
+	XPm_Device *Device = XPmDevice_GetById(PM_DEV_PMC_PROC);
 	u32 BaseAddress;
 	u32 Offset;
 
@@ -2225,9 +2225,9 @@ static int XPm_SdDllReset(const u32 DeviceId, const u32 Type)
 	/* PMC_IOU_SLCR base address */
 	BaseAddress = Device->Node.BaseAddress;
 
-	if (XPM_DEVID_SDIO_0 == DeviceId) {
+	if (PM_DEV_SDIO_0 == DeviceId) {
 		Offset = SD0_CTRL_OFFSET;
-	} else if (XPM_DEVID_SDIO_1 == DeviceId) {
+	} else if (PM_DEV_SDIO_1 == DeviceId) {
 		Offset = SD1_CTRL_OFFSET;
 	} else {
 		Status = XPM_INVALID_DEVICEID;
@@ -2482,7 +2482,7 @@ static int XPm_OspiMuxSelect(const u32 DeviceId, const u32 Type, u32 *Response)
 
 	(void)DeviceId;
 
-	Device = XPmDevice_GetById(XPM_DEVID_PMC);
+	Device = XPmDevice_GetById(PM_DEV_PMC_PROC);
 	if (NULL == Device) {
 		Status = XST_DEVICE_NOT_FOUND;
 		goto done;
@@ -2548,8 +2548,8 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 
 	switch (IoctlId) {
 	case IOCTL_GET_RPU_OPER_MODE:
-		if ((DeviceId != XPM_DEVID_R50_0) &&
-		    (DeviceId != XPM_DEVID_R50_1)) {
+		if ((DeviceId != PM_DEV_RPU0_0) &&
+		    (DeviceId != PM_DEV_RPU0_1)) {
 			Status = XPM_INVALID_DEVICEID;
 			goto done;
 		}
@@ -2557,8 +2557,8 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 		Status = XST_SUCCESS;
 		break;
 	case IOCTL_SET_RPU_OPER_MODE:
-		if ((DeviceId != XPM_DEVID_R50_0) &&
-		    (DeviceId != XPM_DEVID_R50_1)) {
+		if ((DeviceId != PM_DEV_RPU0_0) &&
+		    (DeviceId != PM_DEV_RPU0_1)) {
 			Status = XPM_INVALID_DEVICEID;
 			goto done;
 		}
@@ -2566,22 +2566,22 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 		Status = XST_SUCCESS;
 		break;
 	case IOCTL_RPU_BOOT_ADDR_CONFIG:
-		if ((XPM_DEVID_R50_0 != DeviceId) &&
-		    (XPM_DEVID_R50_1 != DeviceId)) {
+		if ((PM_DEV_RPU0_0 != DeviceId) &&
+		    (PM_DEV_RPU0_1 != DeviceId)) {
 			goto done;
 		}
 		Status = XPm_RpuBootAddrConfig(DeviceId, Arg1);
 		break;
 	case IOCTL_TCM_COMB_CONFIG:
-		if ((XPM_DEVID_R50_0 != DeviceId) &&
-		    (XPM_DEVID_R50_1 != DeviceId)) {
+		if ((PM_DEV_RPU0_0 != DeviceId) &&
+		    (PM_DEV_RPU0_1 != DeviceId)) {
 			Status = XPM_INVALID_DEVICEID;
 			goto done;
 		}
 		Status = XPm_RpuTcmCombConfig(DeviceId, Arg1);
 		break;
 	case IOCTL_SET_TAPDELAY_BYPASS:
-		if (XPM_DEVID_QSPI != DeviceId) {
+		if (PM_DEV_QSPI != DeviceId) {
 			Status = XPM_INVALID_DEVICEID;
 			goto done;
 		}
@@ -2651,7 +2651,7 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 						Response, TRUE);
 		break;
 	case IOCTL_OSPI_MUX_SELECT:
-		if (XPM_DEVID_OSPI != DeviceId) {
+		if (PM_DEV_OSPI != DeviceId) {
 			goto done;
 		}
 
