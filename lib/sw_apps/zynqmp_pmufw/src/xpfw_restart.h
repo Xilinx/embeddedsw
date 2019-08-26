@@ -45,14 +45,6 @@ extern "C" {
 
 #define FSBL_STATE_PROC_INFO_MASK		(0x3U << FSBL_STATE_PROC_SHIFT)
 
-#define FSBL_STATE_PROC_SHIFT			(0x1U)
-
-#define FSBL_RUNNING_ON_A53				(0x1U << FSBL_STATE_PROC_SHIFT)
-#define FSBL_RUNNING_ON_R5_0			(0x2U << FSBL_STATE_PROC_SHIFT)
-#define FSBL_RUNNING_ON_R5_L			(0x3U << FSBL_STATE_PROC_SHIFT)
-
-#define FSBL_STATE_PROC_INFO_MASK		(0x3U << FSBL_STATE_PROC_SHIFT)
-
 s32 XPfw_RecoveryInit(void);
 void XPfw_RecoveryHandler(u8 ErrorId);
 void XPfw_RecoveryAck(PmMaster *Master);
