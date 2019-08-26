@@ -163,6 +163,8 @@
  * 1.9  akm 04/03/19 Fixed compilation error in XQspiPsu_LqspiRead()
  *                     function on IAR compiler.
  * 1.10 sk  08/20/19 Fixed issues in poll timeout feature.
+ * 1.10 akm 08/22/19 Set recommended tap delay values for 37.5MHZ, 100MHZ and
+ *		     150MHZ frequencies in Versal.
  *
  * </pre>
  *
@@ -339,6 +341,7 @@ typedef struct {
 #define XQSPIPSU_CONNECTION_MODE_PARALLEL	2U
 
 /*QSPI Frequencies*/
+#define XQSPIPSU_FREQ_37_5MHZ 37500000U
 #define XQSPIPSU_FREQ_40MHZ 40000000U
 #define XQSPIPSU_FREQ_100MHZ 100000000U
 #define XQSPIPSU_FREQ_150MHZ 150000000U

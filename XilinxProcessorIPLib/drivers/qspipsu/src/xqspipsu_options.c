@@ -57,6 +57,8 @@
 *                  as Pointer to const, declared XQspi_Set_TapDelay() as static.
 * 1.9 akm 03/08/19 Set recommended clock and data tap delay values for 40MHZ,
 *		   100MHZ and 150MHZ frequencies(CR#1023187)
+* 1.10 akm 08/22/19 Set recommended tap delay values for 37.5MHZ, 100MHZ and
+*		    150MHZ frequencies in Versal.
 *
 * </pre>
 *
@@ -82,6 +84,7 @@
 #define USE_DATA_DLY_ADJ 0x01U
 #define DATA_DLY_ADJ_DLY 0X02U
 #define LPBK_DLY_ADJ_DLY0 0X02U
+#define LPBK_DLY_ADJ_DLY1 0X02U
 #endif
 
 /************************** Function Prototypes ******************************/
@@ -402,24 +405,43 @@ static s32 XQspipsu_Calculate_Tapdelay(const XQspiPsu *InstancePtr, u8 Prescaler
 	u32 LBkModeReg = 0;
 	u32 delayReg = 0;
 	s32 Status;
+#if defined (versal)
+	u32 IsVersal = 1;
+#else
+	u32 IsVersal = 0;
+#endif
 
 	Divider = (1U << (Prescaler+1U));
 
 	FreqDiv = (InstancePtr->Config.InputClockHz)/Divider;
 
+#if defined (versal)
+	if(FreqDiv <= XQSPIPSU_FREQ_37_5MHZ){
+#else
 	if(FreqDiv <= XQSPIPSU_FREQ_40MHZ){
-		Tapdelay = Tapdelay |
-				(TAPDLY_BYPASS_VALVE_40MHZ << IOU_TAPDLY_BYPASS_LQSPI_RX_SHIFT);
+#endif
+		Tapdelay |= (TAPDLY_BYPASS_VALVE_40MHZ <<
+			     IOU_TAPDLY_BYPASS_LQSPI_RX_SHIFT);
 	} else if (FreqDiv <= XQSPIPSU_FREQ_100MHZ) {
-		Tapdelay = Tapdelay | (TAPDLY_BYPASS_VALVE_100MHZ << IOU_TAPDLY_BYPASS_LQSPI_RX_SHIFT);
-		LBkModeReg = LBkModeReg |
-				(USE_DLY_LPBK <<  XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_SHIFT);
-		delayReg = delayReg |
-				(USE_DATA_DLY_ADJ  << XQSPIPSU_DATA_DLY_ADJ_USE_DATA_DLY_SHIFT) |
-				(DATA_DLY_ADJ_DLY  << XQSPIPSU_DATA_DLY_ADJ_DLY_SHIFT);
+		Tapdelay |= (TAPDLY_BYPASS_VALVE_100MHZ <<
+			     IOU_TAPDLY_BYPASS_LQSPI_RX_SHIFT);
+		LBkModeReg |= (USE_DLY_LPBK <<
+			       XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_SHIFT);
+		delayReg |= (IsVersal != 0) ?
+			    (USE_DATA_DLY_ADJ  <<
+                             XQSPIPSU_DATA_DLY_ADJ_USE_DATA_DLY_SHIFT) :
+			    ((USE_DATA_DLY_ADJ  <<
+			      XQSPIPSU_DATA_DLY_ADJ_USE_DATA_DLY_SHIFT) |
+			     (DATA_DLY_ADJ_DLY  <<
+			      XQSPIPSU_DATA_DLY_ADJ_DLY_SHIFT));
 	} else if (FreqDiv <= XQSPIPSU_FREQ_150MHZ) {
-		LBkModeReg = LBkModeReg |
-				(USE_DLY_LPBK  <<  XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_SHIFT );
+		LBkModeReg |= (IsVersal != 0) ?
+			      ((USE_DLY_LPBK  <<
+			        XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_SHIFT) |
+			       (LPBK_DLY_ADJ_DLY1 <<
+			        XQSPIPSU_LPBK_DLY_ADJ_DLY1_SHIFT)) :
+			      (USE_DLY_LPBK  <<
+			       XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_SHIFT);
 	} else {
 		Status = XST_FAILURE;
 		goto END;
