@@ -24,8 +24,8 @@
  *
  ******************************************************************************/
 
-#ifndef XILLIBPM_PSM_API_H_
-#define XILLIBPM_PSM_API_H_
+#ifndef XPM_PSM_API_H_
+#define XPM_PSM_API_H_
 
 #include "xil_types.h"
 #include "xstatus.h"
@@ -53,4 +53,4 @@ XStatus XPm_DirectPwrDwn(const u32 DeviceId);
 }
 #endif
 
-#endif /* XILLIBPM_PSM_API_H_ */
+#endif /* XPM_PSM_API_H_ */

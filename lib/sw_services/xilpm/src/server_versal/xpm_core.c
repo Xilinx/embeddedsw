@@ -24,7 +24,7 @@
 *
 ******************************************************************************/
 
-#include "xillibpm_psm_api.h"
+#include "xpm_psm_api.h"
 #include "xpm_core.h"
 #include "xpm_psm.h"
 

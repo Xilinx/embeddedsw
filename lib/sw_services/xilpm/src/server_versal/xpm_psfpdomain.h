@@ -29,7 +29,7 @@
 
 #include "xpm_powerdomain.h"
 #include "xpm_defs.h"
-#include "xillibpm_psm_api.h"
+#include "xpm_psm_api.h"
 #include "xpm_ipi.h"
 
 #ifdef __cplusplus
