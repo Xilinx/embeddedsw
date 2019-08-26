@@ -82,7 +82,7 @@ XStatus XPmPsm_Init(XPm_Psm *Psm,
 {
 	XStatus Status = XST_FAILURE;
 
-	Status = XPmCore_Init(&Psm->Core, PSM_NID, Power, Clock, Reset, Ipi,
+	Status = XPmCore_Init(&Psm->Core, PM_DEV_PSM_PROC, Power, Clock, Reset, Ipi,
 			      &PsmOps);
 	if (XST_SUCCESS != Status) {
 		goto done;
@@ -102,7 +102,7 @@ XStatus XPmPsm_SendPowerUpReq(u32 BitMask)
 
 	PmDbg("BitMask=0x%08X\n\r", BitMask);
 
-	Psm = (XPm_Psm *)XPmDevice_GetById(XPM_DEVID_PSM);
+	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
 	if (NULL == Psm) {
 		goto done;
 	}
@@ -129,10 +129,10 @@ XStatus XPmPsm_SendPowerDownReq(u32 BitMask)
 	XStatus Status = XST_FAILURE;
 	u32 Reg;
 	XPm_Psm *Psm;
-	XPm_Power *Ocm0 = XPmPower_GetById(XPM_POWERID_OCM_0);
-	XPm_Power *Ocm1 = XPmPower_GetById(XPM_POWERID_OCM_1);
-	XPm_Power *Ocm2 = XPmPower_GetById(XPM_POWERID_OCM_2);
-	XPm_Power *Ocm3 = XPmPower_GetById(XPM_POWERID_OCM_3);
+	XPm_Power *Ocm0 = XPmPower_GetById(PM_POWER_OCM_0);
+	XPm_Power *Ocm1 = XPmPower_GetById(PM_POWER_OCM_1);
+	XPm_Power *Ocm2 = XPmPower_GetById(PM_POWER_OCM_2);
+	XPm_Power *Ocm3 = XPmPower_GetById(PM_POWER_OCM_3);
 
 	/*
 	 * As per EDT-995988, Getting the SLV error from power down
@@ -153,7 +153,7 @@ XStatus XPmPsm_SendPowerDownReq(u32 BitMask)
 
 	PmDbg("BitMask=0x%08X\n\r", BitMask);
 
-	Psm = (XPm_Psm *)XPmDevice_GetById(XPM_DEVID_PSM);
+	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
 	if (NULL == Psm) {
 		goto done;
 	}
@@ -180,7 +180,7 @@ u32 XPmPsm_FwIsPresent(void)
 	u32 Reg = FALSE;
 	XPm_Psm *Psm;
 
-	Psm = (XPm_Psm *)XPmDevice_GetById(XPM_DEVID_PSM);
+	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
 	if (NULL == Psm) {
 		goto done;
 	}
@@ -199,7 +199,7 @@ void XPmPsm_RegWrite(const u32 Offset, const u32 Value)
 {
 	XPm_Psm *Psm;
 
-	Psm = (XPm_Psm *)XPmDevice_GetById(XPM_DEVID_PSM);
+	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
 	if (NULL == Psm) {
 		goto done;
 	}
