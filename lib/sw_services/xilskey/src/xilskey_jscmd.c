@@ -80,6 +80,7 @@
 *       psl     04/15/19 Corrected zynq Dap ID.
 * 6.8   psl     06/26/19 Added support for user to add IDCODE, IR_length, SLR Nos,
 *                        device series for different devices.
+*       psl     08/23/19 Added Debug define to avoid writing of eFuse.
 * </pre>
 *
 *
@@ -2152,7 +2153,11 @@ int JtagWrite_Ultrascale(u8 Row, u8 Bit, u8 Page, u8 Redundant)
 	jtag_shift (g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, wrBuffer, NULL, JS_DRSELECT);
 
 	/* Prepare FUSE_CTS data */
-	wrBuffer [0] = (((Bit & 0x1) << 7) | ((Row << 2)| 0x3));
+#ifndef DEBUG_FUSE_WRITE_DISABLE
+		wrBuffer [0] = (((Bit & 0x1) << 7) | ((Row << 2)| 0x3));
+#else
+		wrBuffer [0] = (((Bit & 0x1) << 7) | ((Row << 2)| 0x1));
+#endif
 	if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA) {
 		wrBuffer [1] = ((Bit >> 1) & 0xF) | ((0x20 << Redundant) |
 				(Page << 4));
