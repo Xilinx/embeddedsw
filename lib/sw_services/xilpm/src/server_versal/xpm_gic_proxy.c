@@ -37,7 +37,7 @@ XStatus XPmGicProxy_WakeEventSet(XPm_Periph *Periph, u8 Enable)
 	XStatus Status = XST_FAILURE;
 	u32 GicProxyMask = Periph->GicProxyMask;
 	u32 GicProxyGroup = Periph->GicProxyGroup;
-	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(XPM_DEVID_PMC);
+	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 
 	if (0U == Enable) {
 		XPm_GicProxy.Groups[GicProxyGroup].SetMask &= ~GicProxyMask;
@@ -65,7 +65,7 @@ XStatus XPmGicProxy_WakeEventSet(XPm_Periph *Periph, u8 Enable)
 static void XPmGicProxy_Enable(void)
 {
 	u32 g;
-	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(XPM_DEVID_PMC);
+	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 
 	for (g = 0U; g < XPm_GicProxy.GroupsCnt; g++) {
 		/* PMC Global base address */
@@ -93,7 +93,7 @@ static void XPmGicProxy_Enable(void)
 static void XPm_GicProxyDisable(void)
 {
 	u32 g;
-	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(XPM_DEVID_PMC);
+	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 
 	for (g = 0U; g < XPm_GicProxy.GroupsCnt; g++) {
 		/* PMC Global base address */
