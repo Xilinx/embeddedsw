@@ -54,7 +54,7 @@ static XStatus LpdInitStart(u32 *Args, u32 NumOfArgs)
 	/*
 	 * Release POR for PS-LPD
 	 */
-	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PS_POR),
+	Status = XPmReset_AssertbyId(PM_RST_PS_POR,
 				     PM_RESET_ACTION_RELEASE);
 done:
 	return Status;
@@ -70,7 +70,7 @@ static XStatus LpdPreBisrReqs()
 		goto done;
 
 	/* Release reset for PS SRST */
-	Status = XPmReset_AssertbyId(SRST_RSTID(XPM_NODEIDX_RST_PS_SRST),
+	Status = XPmReset_AssertbyId(PM_RST_PS_SRST,
 				     PM_RESET_ACTION_RELEASE);
 done:
 	return Status;
@@ -104,7 +104,7 @@ static XStatus LpdHcComplete(u32 *Args, u32 NumOfArgs)
 		goto done;
 
 	/* Copy sysmon data */
-	XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PS_LPD], LPD_NODEID, 0);
+	XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PS_LPD], PM_POWER_LPD, 0);
 done:
 	return Status;
 }
@@ -163,7 +163,7 @@ static XStatus LpdScanClear(u32 *Args, u32 NumOfArgs)
 	/*
 	 * Pulse PS POR
 	 */
-	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PS_POR),
+	Status = XPmReset_AssertbyId(PM_RST_PS_POR,
 				     PM_RESET_ACTION_PULSE);
 done:
 	return Status;
@@ -179,7 +179,7 @@ done:
 static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
-	XPm_Device *EfuseCache = XPmDevice_GetById(XPM_DEVID_EFUSE_CACHE);
+	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	u32 RegVal;
 
 	(void)Args;
@@ -238,7 +238,7 @@ static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 	/*
 	 * Pulse PS POR
 	 */
-	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_PS_POR),
+	Status = XPmReset_AssertbyId(PM_RST_PS_POR,
 				     PM_RESET_ACTION_PULSE);
 done:
 	return Status;
@@ -254,7 +254,7 @@ done:
 static XStatus LpdBisr(u32 *Args, u32 NumOfArgs)
 {
 	XStatus Status = XST_SUCCESS;
-	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(LPD_ID);
+	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 
 	if (NULL == LpDomain) {
 		Status = XST_FAILURE;
@@ -305,7 +305,7 @@ static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 		goto done;
 
 	/* Release USB reset for LPD IOU Mbist to work*/
-	Status = XPmReset_AssertbyId(PERIPH_RSTID(XPM_NODEIDX_RST_USB_0),
+	Status = XPmReset_AssertbyId(PM_RST_USB_0,
 				     PM_RESET_ACTION_RELEASE);
 
 	PmRmw32(PMC_ANALOG_OD_MBIST_RST,
