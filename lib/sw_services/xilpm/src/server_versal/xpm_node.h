@@ -29,6 +29,7 @@
 
 #include <xil_types.h>
 #include <xstatus.h>
+#include "xilpm_nodeid.h"
 
 #ifdef __cplusplus
 extern "C" {
