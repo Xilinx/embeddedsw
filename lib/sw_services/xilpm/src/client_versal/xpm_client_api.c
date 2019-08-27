@@ -1666,8 +1666,22 @@ done:
  ****************************************************************************/
 int XPm_InitFinalize(void)
 {
-	XPm_Dbg("WARNING: %s() API is not supported\r\n", __func__);
-	return XST_SUCCESS;
+	XStatus Status;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	PACK_PAYLOAD0(Payload, PM_INIT_FINALIZE);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
+
+done:
+	return Status;
 }
 
 /****************************************************************************/
