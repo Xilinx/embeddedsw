@@ -378,7 +378,7 @@ u32 XLoader_SecurePrtn(XLoader_SecureParms *SecurePtr, u64 DstAddr,
 			OutAddr = DstAddr;
 		}
 		else {
-			OutAddr = SecurePtr->ChunkAddr;
+			OutAddr = SecurePtr->SecureData;
 		}
 		Status = XLoader_AesDecryption(SecurePtr,
 				SecurePtr->SecureData, OutAddr, SecurePtr->SecureDataLen);
