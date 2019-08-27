@@ -40,48 +40,58 @@ static XPm_Subsystem PmSubsystems[XPM_NODEIDX_SUBSYS_MAX] =
 		.Id = XPM_SUBSYSID_DEFAULT,
 		.State = OFFLINE,
 		.IpiMask = 0x00000000U,
+		.Flags = 0U,
 	},
 	[XPM_NODEIDX_SUBSYS_PMC] = {
 		.Id = XPM_SUBSYSID_PMC,
 		.State = ONLINE,
 		.IpiMask = 0x00000002U,
+		.Flags = SUBSYSTEM_INIT_FINALIZED,
 	},
 	[XPM_NODEIDX_SUBSYS_PSM] = {
 		.Id = XPM_SUBSYSID_PSM,
 		.State = OFFLINE,
 		.IpiMask = 0x00000001U,
+		.Flags = 0U,
 	},
 	[XPM_NODEIDX_SUBSYS_APU] = {
 		.Id = XPM_SUBSYSID_APU,
 		.State = OFFLINE,
 		.IpiMask = 0x00000004U,
+		.Flags = 0U,
 	},
 	[XPM_NODEIDX_SUBSYS_RPU0_LOCK] = {
 		.Id = XPM_SUBSYSID_RPU0_LOCK,
 		.State = OFFLINE,
 		.IpiMask = 0x00000008U,
+		.Flags = 0U,
 	},
 	[XPM_NODEIDX_SUBSYS_RPU0_0] = {
 		.Id = XPM_SUBSYSID_RPU0_0,
 		.State = OFFLINE,
 		.IpiMask = 0x00000008U,
+		.Flags = 0U,
 	},
 	[XPM_NODEIDX_SUBSYS_RPU0_1] = {
 		.Id = XPM_SUBSYSID_RPU0_1,
 		.State = OFFLINE,
 		.IpiMask = 0x00000010U,
+		.Flags = 0U,
 	},
 	[XPM_NODEIDX_SUBSYS_DDR0] = {
 		.Id = XPM_SUBSYSID_DDR0,
 		.State = OFFLINE,
+		.Flags = 0U,
 	},
 	[XPM_NODEIDX_SUBSYS_ME] = {
 		.Id = XPM_SUBSYSID_ME,
 		.State = OFFLINE,
+		.Flags = 0U,
 	},
 	[XPM_NODEIDX_SUBSYS_PL] = {
 		.Id = XPM_SUBSYSID_PL,
 		.State = OFFLINE,
+		.Flags = 0U,
 	}
 };
 

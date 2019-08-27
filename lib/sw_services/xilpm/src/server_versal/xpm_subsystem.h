@@ -52,6 +52,11 @@ extern "C" {
 #define XPM_SUBSYSID_PL 	NODEID(XPM_NODECLASS_SUBSYSTEM, XPM_NODESUBCL_SUBSYSTEM, XPM_NODETYPE_SUBSYSTEM, XPM_NODEIDX_SUBSYS_PL)
 
 /**
+ * Subsystem specific flags.
+ */
+#define SUBSYSTEM_INIT_FINALIZED		(1 << 0U)
+
+/**
  * Subsystem creation states.
  */
 typedef enum {
@@ -71,6 +76,7 @@ typedef struct XPm_Subsystem XPm_Subsystem;
 struct XPm_Subsystem {
 	u32 Id; /**< Subsystem ID */
 	XPm_SubsysState State; /**< Subsystem state */
+	u8 Flags; /**< Subsystem specific flags */
 	u32 IpiMask;
 	XPm_Requirement *Requirements;
 		/**< Head of the requirement list for all devices. */
