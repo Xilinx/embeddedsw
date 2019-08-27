@@ -65,7 +65,7 @@ typedef struct {
 int XPlmi_SchedulerInit(void);
 int XPlmi_SchedulerStart(XPlmi_Scheduler_t *SchedPtr);
 int XPlmiSchedulerStop(XPlmi_Scheduler_t *SchedPtr);
-void XPlmi_SchedulerHandler(void);
+int XPlmi_SchedulerHandler(void);
 int XPlmi_SchedulerAddTask( XPlmi_Callback_t UserFunc, int MilliSeconds);
 int XPLmi_SchedulerRemoveTask(XPlmi_Scheduler_t *SchedPtr, int CustId, int MilliSeconds,XPlmi_Callback_t UserFunc);
 
