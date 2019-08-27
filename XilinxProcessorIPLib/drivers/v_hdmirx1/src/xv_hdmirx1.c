@@ -159,7 +159,7 @@ int XV_HdmiRx1_CfgInitialize(XV_HdmiRx1 *InstancePtr, XV_HdmiRx1_Config *CfgPtr,
 
 	/* Reset all peripherals*/
 	XV_HdmiRx1_PioDisable(InstancePtr);
-	XV_HdmiRx1_TmrDisable(InstancePtr);
+	XV_HdmiRx1_Tmr1Disable(InstancePtr);
 	XV_HdmiRx1_Tmr2Disable(InstancePtr);
 	XV_HdmiRx1_VtdDisable(InstancePtr);
 	XV_HdmiRx1_DdcDisable(InstancePtr);
@@ -167,7 +167,7 @@ int XV_HdmiRx1_CfgInitialize(XV_HdmiRx1 *InstancePtr, XV_HdmiRx1_Config *CfgPtr,
 	XV_HdmiRx1_AudioDisable(InstancePtr);
 	XV_HdmiRx1_LnkstaDisable(InstancePtr);
 	XV_HdmiRx1_PioIntrDisable(InstancePtr);
-	XV_HdmiRx1_TmrIntrDisable(InstancePtr);
+	XV_HdmiRx1_Tmr1IntrDisable(InstancePtr);
 	XV_HdmiRx1_Tmr2IntrDisable(InstancePtr);
 	XV_HdmiRx1_VtdIntrDisable(InstancePtr);
 	XV_HdmiRx1_DdcScdcClear(InstancePtr);
@@ -204,10 +204,10 @@ int XV_HdmiRx1_CfgInitialize(XV_HdmiRx1 *InstancePtr, XV_HdmiRx1_Config *CfgPtr,
 	*/
 
 	/* Set run flag */
-	XV_HdmiRx1_TmrEnable(InstancePtr);
+	XV_HdmiRx1_Tmr1Enable(InstancePtr);
 
 	/* Enable interrupt */
-	XV_HdmiRx1_TmrIntrEnable(InstancePtr);
+	XV_HdmiRx1_Tmr1IntrEnable(InstancePtr);
 
 	/* Set run flag */
 	XV_HdmiRx1_Tmr2Enable(InstancePtr);
@@ -1601,9 +1601,6 @@ int XV_HdmiRx1_GetVideoTiming(XV_HdmiRx1 *InstancePtr)
 	u8 YUV420_Correction;
 	u8 IsInterlaced;
 
-	/* Setting VmId to not supported for verifying HDMI VTD*/
-	InstancePtr->Stream.Video.VmId = XVIDC_VM_NOT_SUPPORTED;
-
 	/* If the colorspace is YUV420, then the
 	 * horizontal parameters must be doubled*/
 	if (InstancePtr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_420) {
@@ -1873,6 +1870,9 @@ int XV_HdmiRx1_GetVideoTiming(XV_HdmiRx1 *InstancePtr)
 		/* Return success*/
 		return (XST_SUCCESS);
 	} else {
+		/* Setting VmId to not supported for verifying HDMI VTD*/
+		InstancePtr->Stream.Video.VmId = XVIDC_VM_NOT_SUPPORTED;
+
 		/* No match */
 		return (XST_FAILURE);
 	}
@@ -1925,13 +1925,16 @@ void XV_HdmiRx1_SetPixelClk(XV_HdmiRx1 *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function checks if RX's CED and RSED counters are incrementing at the
-* rate of 4 or higher per second and set the CED_Update and RSED_Update SCDC
-* flags if true.
+* This function checks if RX's CED or RSED counters are incrementing at the
+* rate of 4 or higher per second or if they first hit the maximum value
+* (0x7FFF) then set the CED_Update or RSED_Update SCDC flags if true.
 *
 * @param    InstancePtr is a pointer to the XV_HdmiRx1 core instance.
 *
 * @return   None.
+*
+* @note     This function needs to be called every 1 second to comply with
+*           the spec on CED_Update and RSED_Update flags updating.
 *
 ******************************************************************************/
 void XV_HdmiRx1_UpdateEdFlags(XV_HdmiRx1 *InstancePtr)
@@ -1944,6 +1947,7 @@ void XV_HdmiRx1_UpdateEdFlags(XV_HdmiRx1 *InstancePtr)
 	Data = XV_HdmiRx1_FrlDdcReadField(InstancePtr,
 			(XV_HDMIRX1_SCDCFIELD_CH0_ERRCNT_MSB));
 
+	/* Proceed only after confirming that the valid bit is set */
 	if (Data & 0x80) {
 		Data &= 0x7F;
 		Data = (Data << 8) | XV_HdmiRx1_FrlDdcReadField(InstancePtr,
@@ -1964,6 +1968,7 @@ void XV_HdmiRx1_UpdateEdFlags(XV_HdmiRx1 *InstancePtr)
 	Data = XV_HdmiRx1_FrlDdcReadField(InstancePtr,
 			(XV_HDMIRX1_SCDCFIELD_CH1_ERRCNT_MSB));
 
+	/* Proceed only after confirming that the valid bit is set */
 	if (Data & 0x80) {
 		Data &= 0x7F;
 		Data = (Data << 8) | XV_HdmiRx1_FrlDdcReadField(InstancePtr,
@@ -1984,6 +1989,7 @@ void XV_HdmiRx1_UpdateEdFlags(XV_HdmiRx1 *InstancePtr)
 	Data = XV_HdmiRx1_FrlDdcReadField(InstancePtr,
 			(XV_HDMIRX1_SCDCFIELD_CH2_ERRCNT_MSB));
 
+	/* Proceed only after confirming that the valid bit is set */
 	if (Data & 0x80) {
 		Data &= 0x7F;
 		Data = (Data << 8) | XV_HdmiRx1_FrlDdcReadField(InstancePtr,
@@ -2004,6 +2010,7 @@ void XV_HdmiRx1_UpdateEdFlags(XV_HdmiRx1 *InstancePtr)
 	Data = XV_HdmiRx1_FrlDdcReadField(InstancePtr,
 			(XV_HDMIRX1_SCDCFIELD_CH3_ERRCNT_MSB));
 
+	/* Proceed only after confirming that the valid bit is set */
 	if (Data & 0x80) {
 		Data &= 0x7F;
 		Data = (Data << 8) | XV_HdmiRx1_FrlDdcReadField(InstancePtr,
@@ -2024,6 +2031,7 @@ void XV_HdmiRx1_UpdateEdFlags(XV_HdmiRx1 *InstancePtr)
 	Data = XV_HdmiRx1_FrlDdcReadField(InstancePtr,
 				(XV_HDMIRX1_SCDCFIELD_RSCCNT_MSB));
 
+	/* Proceed only after confirming that the valid bit is set */
 	if (Data & 0x80) {
 		Data &= 0x7F;
 		Data = (Data << 8) | XV_HdmiRx1_FrlDdcReadField(InstancePtr,
@@ -2079,7 +2087,7 @@ void XV_HdmiRx1_TmrStartMs(XV_HdmiRx1 *InstancePtr, u32 Milliseconds,
 	}
 
 	if (TimerSelect == 1) {
-		XV_HdmiRx1_TmrStart(InstancePtr, ClockCycles);
+		XV_HdmiRx1_Tmr1Start(InstancePtr, ClockCycles);
 	} else if (TimerSelect == 2) {
 		XV_HdmiRx1_Tmr2Start(InstancePtr, ClockCycles);
 	}

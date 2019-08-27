@@ -121,7 +121,6 @@ extern "C" {
 #endif
 
 /*#define DEBUG_RX_FRL_VERBOSITY	1*/
-/*#define DEBUG_RX_FRL_WATCHDOG	1*/
 
 /***************************** Include Files *********************************/
 
@@ -173,6 +172,14 @@ typedef enum {
 	XV_HDMIRX1_HANDLER_MODE,		/**< Interrupt type for mode */
 	XV_HDMIRX1_HANDLER_TMDS_CLK_RATIO,	/**< Interrupt type for
 						  *  TMDS clock ratio */
+	XV_HDMIRX1_HANDLER_VIC_ERROR,		/**< Interrupt type for
+						  *  VIC error */
+	XV_HDMIRX1_HANDLER_LNK_RDY_ERR,		/**< Interrupt type for
+						  *  Link Ready error */
+	XV_HDMIRX1_HANDLER_VID_RDY_ERR,		/**< Interrupt type for
+						  *  Video Ready error */
+	XV_HDMIRX1_HANDLER_SKEW_LOCK_ERR,	/**< Interrupt type for
+						  *  Skew Lock error */
 	XV_HDMIRX1_HANDLER_FRL_CONFIG,		/**< Handler for FRL Config*/
 	XV_HDMIRX1_HANDLER_FRL_START,		/**< Handler for FRL Start*/
 	XV_HDMIRX1_HANDLER_TMDS_CONFIG,		/**< Handler for TMDS*/
@@ -216,6 +223,16 @@ typedef enum {
 	XV_HDMIRX1_AUDFMT_HBR       /* HBR*/
 } XV_HdmiRx1_AudioFormatType;
 
+/** @name HDMI RX EDID RAM Size
+* @{
+*/
+typedef enum {
+	XV_HDMIRX1_EDID_SIZE_256B = 256,
+	XV_HDMIRX1_EDID_SIZE_512B = 512,
+	XV_HDMIRX1_EDID_SIZE_1024B = 1024,
+	XV_HDMIRX1_EDID_SIZE_4096B = 4096
+} XV_HdmiRx1_EdidSize;
+
 
 /**************************** Type Definitions *******************************/
 
@@ -231,6 +248,8 @@ typedef struct {
 
 	u32 AxiLiteClkFreq;
 	u32 FRLClkFreqkHz;
+	u32 VideoClkFreqkHz;
+	XV_HdmiRx1_EdidSize EdidRamSize;
 } XV_HdmiRx1_Config;
 
 /**
@@ -268,10 +287,6 @@ typedef struct {
 	u16 CedCounter[4];
 	u16 RsCounter;
 	u8 CedTimer;
-#ifdef DEBUG_RX_FRL_WATCHDOG
-	u8 VtdLockFailCounts;			/* Counter to reset
-						 * HDMI 2.0 logic */
-#endif
 } XV_HdmiRx1_Stream;
 
 /**
@@ -345,6 +360,18 @@ typedef struct {
 	XV_HdmiRx1_Callback TmdsClkRatioCallback;	/**< Callback for TMDS clock ratio change */
 	void *TmdsClkRatioRef;				/**< To be passed to the TMDS callback */
 
+	XV_HdmiRx1_Callback VicErrorCallback;		/**< Callback for Vic error detection */
+	void *VicErrorRef;				/**< To be passed to the vic error callback */
+
+	XV_HdmiRx1_Callback LnkRdyErrorCallback;	/**< Callback for Link Ready Error detection */
+	void *LnkRdyErrorRef;				/**< To be passed to the link ready error callback */
+
+	XV_HdmiRx1_Callback VidRdyErrorCallback;	/**< Callback for Video Ready Error detection */
+	void *VidRdyErrorRef;				/**< To be passed to the video ready error callback */
+
+	XV_HdmiRx1_Callback SkewLockErrorCallback;	/**< Callback for Skew Lock Error detection */
+	void *SkewLockErrorRef;				/**< To be passed to the skew lock error callback */
+
 	XV_HdmiRx1_Callback FrlConfigCallback;		/**< Callback for sync loss callback */
 	void *FrlConfigRef;				/**< To be passed to the link error callback */
 
@@ -382,6 +409,8 @@ typedef struct {
 	u32 AudCts;					/**< Audio CTS */
 	u32 AudN;					/**< Audio N element */
 	XV_HdmiRx1_AudioFormatType AudFormat;		/**< Audio Format */
+
+	u8  DBMessage;					/**< Debug Message for Logs */
 } XV_HdmiRx1;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -766,10 +795,10 @@ typedef struct {
 * @return	None.
 *
 * @note		C-style signature:
-*		void XV_HdmiRx1_TmrEnable(XV_HdmiRx1 *InstancePtr)
+*		void XV_HdmiRx1_Tmr1Enable(XV_HdmiRx1 *InstancePtr)
 *
 ******************************************************************************/
-#define XV_HdmiRx1_TmrEnable(InstancePtr) \
+#define XV_HdmiRx1_Tmr1Enable(InstancePtr) \
 	XV_HdmiRx1_WriteReg((InstancePtr)->Config.BaseAddress, \
 			    (XV_HDMIRX1_TMR_CTRL_SET_OFFSET), \
 			    (XV_HDMIRX1_TMR1_CTRL_RUN_MASK))
@@ -784,13 +813,83 @@ typedef struct {
 * @return	None.
 *
 * @note		C-style signature:
-*		void XV_HdmiRx1_TmrDisable(XV_HdmiRx1 *InstancePtr)
+*		void XV_HdmiRx1_Tmr1Disable(XV_HdmiRx1 *InstancePtr)
 *
 ******************************************************************************/
-#define XV_HdmiRx1_TmrDisable(InstancePtr) \
+#define XV_HdmiRx1_Tmr1Disable(InstancePtr) \
 	XV_HdmiRx1_WriteReg((InstancePtr)->Config.BaseAddress, \
 			    (XV_HDMIRX1_TMR_CTRL_CLR_OFFSET),\
 		            (XV_HDMIRX1_TMR1_CTRL_RUN_MASK))
+
+/*****************************************************************************/
+/**
+*
+* This macro enables interrupts in the HDMI RX timer peripheral.
+*
+* @param	InstancePtr is a pointer to the XV_HdmiRx1 core instance.
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiRx1_TmrIntrEnable(XV_HdmiRx1 *InstancePtr)
+*
+******************************************************************************/
+#define XV_HdmiRx1_Tmr1IntrEnable(InstancePtr) \
+	XV_HdmiRx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+			    (XV_HDMIRX1_TMR_CTRL_SET_OFFSET), \
+			    (XV_HDMIRX1_TMR1_CTRL_IE_MASK))
+
+/*****************************************************************************/
+/**
+*
+* This macro disables interrupt in the HDMI RX timer peripheral.
+*
+* @param	InstancePtr is a pointer to the XV_HdmiRx1 core instance.
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiRx1_Tmr1IntrDisable(XV_HdmiRx1 *InstancePtr)
+*
+******************************************************************************/
+#define XV_HdmiRx1_Tmr1IntrDisable(InstancePtr) \
+	XV_HdmiRx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+			    (XV_HDMIRX1_TMR_CTRL_CLR_OFFSET), \
+			    (XV_HDMIRX1_TMR1_CTRL_IE_MASK))
+
+/*****************************************************************************/
+/**
+*
+* This macro starts the HDMI RX timer peripheral.
+*
+* @param	InstancePtr is a pointer to the XV_HdmiRx1 core instance.
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiRx1_Tmr1Start(XV_HdmiRx1 *InstancePtr)
+*
+******************************************************************************/
+#define XV_HdmiRx1_Tmr1Start(InstancePtr, Value) \
+	XV_HdmiRx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+			    (XV_HDMIRX1_TMR1_CNT_OFFSET), (u32)(Value))
+
+/*****************************************************************************/
+/**
+*
+* This macro reads the HDMI RX timer peripheral's remaining timer counter value
+*
+* @param	InstancePtr is a pointer to the XV_HdmiRx1 core instance.
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiRx1_GetTmr1Value(XV_HdmiRx1 *InstancePtr)
+*
+******************************************************************************/
+#define XV_HdmiRx1_GetTmr1Value(InstancePtr) \
+	XV_HdmiRx1_ReadReg((InstancePtr)->Config.BaseAddress, \
+			   (XV_HDMIRX1_TMR1_CNT_OFFSET))
 
 /*****************************************************************************/
 /**
@@ -838,42 +937,6 @@ typedef struct {
 * @return	None.
 *
 * @note		C-style signature:
-*		void XV_HdmiRx1_TmrIntrEnable(XV_HdmiRx1 *InstancePtr)
-*
-******************************************************************************/
-#define XV_HdmiRx1_TmrIntrEnable(InstancePtr) \
-	XV_HdmiRx1_WriteReg((InstancePtr)->Config.BaseAddress, \
-			    (XV_HDMIRX1_TMR_CTRL_SET_OFFSET), \
-			    (XV_HDMIRX1_TMR1_CTRL_IE_MASK))
-
-/*****************************************************************************/
-/**
-*
-* This macro disables interrupt in the HDMI RX timer peripheral.
-*
-* @param	InstancePtr is a pointer to the XV_HdmiRx1 core instance.
-*
-* @return	None.
-*
-* @note		C-style signature:
-*		void XV_HdmiRx1_TmrIntrDisable(XV_HdmiRx1 *InstancePtr)
-*
-******************************************************************************/
-#define XV_HdmiRx1_TmrIntrDisable(InstancePtr) \
-	XV_HdmiRx1_WriteReg((InstancePtr)->Config.BaseAddress, \
-			    (XV_HDMIRX1_TMR_CTRL_CLR_OFFSET), \
-			    (XV_HDMIRX1_TMR1_CTRL_IE_MASK))
-
-/*****************************************************************************/
-/**
-*
-* This macro enables interrupts in the HDMI RX timer peripheral.
-*
-* @param	InstancePtr is a pointer to the XV_HdmiRx1 core instance.
-*
-* @return	None.
-*
-* @note		C-style signature:
 *		void XV_HdmiRx1_Tmr2IntrEnable(XV_HdmiRx1 *InstancePtr)
 *
 ******************************************************************************/
@@ -899,40 +962,6 @@ typedef struct {
 	XV_HdmiRx1_WriteReg((InstancePtr)->Config.BaseAddress, \
 			    (XV_HDMIRX1_TMR_CTRL_CLR_OFFSET), \
 			    (XV_HDMIRX1_TMR2_CTRL_IE_MASK))
-
-/*****************************************************************************/
-/**
-*
-* This macro starts the HDMI RX timer peripheral.
-*
-* @param	InstancePtr is a pointer to the XV_HdmiRx1 core instance.
-*
-* @return	None.
-*
-* @note		C-style signature:
-*		void XV_HdmiRx1_TmrStart(XV_HdmiRx1 *InstancePtr)
-*
-******************************************************************************/
-#define XV_HdmiRx1_TmrStart(InstancePtr, Value) \
-	XV_HdmiRx1_WriteReg((InstancePtr)->Config.BaseAddress, \
-			    (XV_HDMIRX1_TMR_CNT_OFFSET), (u32)(Value))
-
-/*****************************************************************************/
-/**
-*
-* This macro reads the HDMI RX timer peripheral's remaining timer counter value
-*
-* @param	InstancePtr is a pointer to the XV_HdmiRx1 core instance.
-*
-* @return	None.
-*
-* @note		C-style signature:
-*		void XV_HdmiRx1_GetTmrValue(XV_HdmiRx1 *InstancePtr)
-*
-******************************************************************************/
-#define XV_HdmiRx1_GetTmrValue(InstancePtr) \
-	XV_HdmiRx1_ReadReg((InstancePtr)->Config.BaseAddress, \
-			   (XV_HDMIRX1_TMR_CNT_OFFSET))
 
 /*****************************************************************************/
 /**
@@ -1566,6 +1595,7 @@ void XV_HdmiRx1_Stop(XV_HdmiRx1 *InstancePtr);
 void XV_HdmiRx1_UpdateEdFlags(XV_HdmiRx1 *InstancePtr);
 void XV_HdmiRx1_TmrStartMs(XV_HdmiRx1 *InstancePtr, u32 Milliseconds,
 		u8 TimerSelect);
+XVidC_VideoMode XV_HdmiRx1_LookupVmId(u8 Vic);
 
 /* Fixed Rate Link */
 void XV_HdmiRx1_FrlModeEnable(XV_HdmiRx1 *InstancePtr, u8 LtpThreshold,
@@ -1606,8 +1636,10 @@ int XV_HdmiRx1_SelfTest(XV_HdmiRx1 *InstancePtr);
 
 /* Interrupt related function in xv_hdmirx1_intr.c */
 void XV_HdmiRx1_IntrHandler(void *InstancePtr);
-int XV_HdmiRx1_SetCallback(XV_HdmiRx1 *InstancePtr, u32 HandlerType,
-			void *CallbackFunc, void *CallbackRef);
+int XV_HdmiRx1_SetCallback(XV_HdmiRx1 *InstancePtr,
+		XV_HdmiRx1_HandlerType HandlerType,
+		void *CallbackFunc,
+		void *CallbackRef);
 
 /************************** Variable Declarations ****************************/
 /************************** Variable Declarations ****************************/

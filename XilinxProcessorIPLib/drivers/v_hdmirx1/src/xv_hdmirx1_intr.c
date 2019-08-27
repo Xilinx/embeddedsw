@@ -121,7 +121,7 @@ void XV_HdmiRx1_IntrHandler(void *InstancePtr)
 	/* Timer */
 	Data = XV_HdmiRx1_ReadReg(HdmiRx1Ptr->Config.BaseAddress,
 				  (XV_HDMIRX1_TMR_STA_OFFSET)) &
-	       (XV_HDMIRX1_TMR_STA_IRQ_MASK | XV_HDMIRX1_TMR2_STA_IRQ_MASK);
+	       (XV_HDMIRX1_TMR_STA_IRQ_MASK);
 
 	/* Check for IRQ flag set */
 	if (Data) {
@@ -226,8 +226,10 @@ void XV_HdmiRx1_IntrHandler(void *InstancePtr)
 *       installed replaces it with the new handler.
 *
 ******************************************************************************/
-int XV_HdmiRx1_SetCallback(XV_HdmiRx1 *InstancePtr, u32 HandlerType,
-			   void *CallbackFunc, void *CallbackRef)
+int XV_HdmiRx1_SetCallback(XV_HdmiRx1 *InstancePtr,
+		XV_HdmiRx1_HandlerType HandlerType,
+		void *CallbackFunc,
+		void *CallbackRef)
 {
 	u32 Status;
 
@@ -348,6 +350,38 @@ int XV_HdmiRx1_SetCallback(XV_HdmiRx1 *InstancePtr, u32 HandlerType,
 		Status = (XST_SUCCESS);
 		break;
 
+	/* Vic Error */
+	case (XV_HDMIRX1_HANDLER_VIC_ERROR):
+		InstancePtr->VicErrorCallback =
+			  (XV_HdmiRx1_Callback)CallbackFunc;
+		InstancePtr->VicErrorRef = CallbackRef;
+		Status = (XST_SUCCESS);
+		break;
+
+	/* Link Ready Error */
+	case (XV_HDMIRX1_HANDLER_LNK_RDY_ERR):
+		InstancePtr->LnkRdyErrorCallback =
+			  (XV_HdmiRx1_Callback)CallbackFunc;
+		InstancePtr->LnkRdyErrorRef = CallbackRef;
+		Status = (XST_SUCCESS);
+		break;
+
+	/* Video Ready Error */
+	case (XV_HDMIRX1_HANDLER_VID_RDY_ERR):
+		InstancePtr->VidRdyErrorCallback =
+			  (XV_HdmiRx1_Callback)CallbackFunc;
+		InstancePtr->VidRdyErrorRef = CallbackRef;
+		Status = (XST_SUCCESS);
+		break;
+
+	/* Skew Lock Error */
+	case (XV_HDMIRX1_HANDLER_SKEW_LOCK_ERR):
+		InstancePtr->SkewLockErrorCallback =
+			  (XV_HdmiRx1_Callback)CallbackFunc;
+		InstancePtr->SkewLockErrorRef = CallbackRef;
+		Status = (XST_SUCCESS);
+		break;
+
 	/* FRL Config*/
 	case (XV_HDMIRX1_HANDLER_FRL_CONFIG):
 		InstancePtr->FrlConfigCallback = (XV_HdmiRx1_Callback)CallbackFunc;
@@ -439,6 +473,7 @@ static void HdmiRx1_VtdIntrHandler(XV_HdmiRx1 *InstancePtr)
 	u32 ActivePixFRLRatio = 0;
 	u64 VidClk = 0;
 	u8 Remainder = 0;
+	XVidC_VideoMode DecodedVmId = 0;
 
 	/* Read Video timing detector Status register */
 	Status = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
@@ -447,7 +482,7 @@ static void HdmiRx1_VtdIntrHandler(XV_HdmiRx1 *InstancePtr)
 	/* Check for time base event */
 	if ((Status) & (XV_HDMIRX1_VTD_STA_TIMEBASE_EVT_MASK)) {
 
-		/* Clear event flag*/
+		/* Clear event flag */
 		XV_HdmiRx1_WriteReg(InstancePtr->Config.BaseAddress,
 				    (XV_HDMIRX1_VTD_STA_OFFSET),
 				    (XV_HDMIRX1_VTD_STA_TIMEBASE_EVT_MASK));
@@ -457,15 +492,15 @@ static void HdmiRx1_VtdIntrHandler(XV_HdmiRx1 *InstancePtr)
 			return;
 		}
 
-		/* Check if we are in lock state*/
+		/* Check if we are in lock state */
 		if (InstancePtr->Stream.State == XV_HDMIRX1_STATE_STREAM_LOCK) {
 
-			/* Read video timing*/
+			/* Read video timing */
 			Status = XV_HdmiRx1_GetVideoTiming(InstancePtr);
 
 			if (Status == XST_SUCCESS) {
 				if (InstancePtr->Stream.IsFrl == TRUE) {
-					/*Get the ratio and print*/
+					/*Get the ratio and print */
 					ActivePixFRLRatio = XV_HdmiRx1_Divide(XV_HdmiRx1_GetFrlActivePixRatio(InstancePtr), 1000);
 					TotalPixFRLRatio  = XV_HdmiRx1_Divide(XV_HdmiRx1_GetFrlTotalPixRatio(InstancePtr), 1000);
 					VidClk = ActivePixFRLRatio * XV_HdmiRx1_Divide(InstancePtr->Config.FRLClkFreqkHz, 100);
@@ -484,10 +519,10 @@ static void HdmiRx1_VtdIntrHandler(XV_HdmiRx1 *InstancePtr)
 				if (InstancePtr->Stream.IsFrl == TRUE) {
 					VidClk = (InstancePtr->Stream.PixelClk / 100000) /
 							InstancePtr->Stream.Video.PixPerClk;
-					VidClk = 40000 / VidClk;
-					Remainder = VidClk % 10;
-					VidClk = VidClk / 10;
-					if (Remainder >=5) {
+					VidClk = InstancePtr->Config.VideoClkFreqkHz / VidClk;
+					Remainder = VidClk % 100;
+					VidClk = VidClk / 100;
+					if (Remainder >= 50) {
 						VidClk++;
 					}
 
@@ -495,137 +530,110 @@ static void HdmiRx1_VtdIntrHandler(XV_HdmiRx1 *InstancePtr)
 				}
 
 				/* If the colorspace is YUV420, then the
-				 * frame rate must be doubled*/
+				 * frame rate must be doubled */
 				if (InstancePtr->Stream.Video.ColorFormatId ==
-				    XVIDC_CSF_YCRCB_420) {
-					/* Calculate and set the frame rate field*/
+						XVIDC_CSF_YCRCB_420) {
+					/* Calculate and set the frame rate field */
 					InstancePtr->Stream.Video.FrameRate =
 					   (XVidC_FrameRate) (XV_HdmiRx1_Divide((InstancePtr->Stream.PixelClk << 1),
-							(InstancePtr->Stream.Video.Timing.F0PVTotal * InstancePtr->Stream.Video.Timing.HTotal)));
+							(InstancePtr->Stream.Video.Timing.F0PVTotal *
+									InstancePtr->Stream.Video.Timing.HTotal)));
 				} else {
-					/* Calculate and set the frame rate field*/
+					/* Calculate and set the frame rate field */
 					InstancePtr->Stream.Video.FrameRate =
 					   (XVidC_FrameRate) (XV_HdmiRx1_Divide(InstancePtr->Stream.PixelClk,
-							(InstancePtr->Stream.Video.Timing.F0PVTotal * InstancePtr->Stream.Video.Timing.HTotal)));
+							(InstancePtr->Stream.Video.Timing.F0PVTotal *
+									InstancePtr->Stream.Video.Timing.HTotal)));
 				}
 
-				/* Lookup the video mode id*/
+				/* Lookup the video mode id */
 				InstancePtr->Stream.Video.VmId =
 				XVidC_GetVideoModeIdExtensive(&InstancePtr->Stream.Video.Timing,
 						 InstancePtr->Stream.Video.FrameRate,
 						 InstancePtr->Stream.Video.IsInterlaced,
 						 (TRUE));
 
-				/*If video mode not found in the table tag it as custom*/
+				if (InstancePtr->Stream.Vic != 0) {
+					DecodedVmId = XV_HdmiRx1_LookupVmId(InstancePtr->Stream.Vic);
+
+					if (DecodedVmId != InstancePtr->Stream.Video.VmId) {
+						/* Call VIC Error callback */
+						if (InstancePtr->VicErrorCallback) {
+							InstancePtr->VicErrorCallback(
+									InstancePtr->VicErrorRef);
+						}
+					}
+				}
+
+				/*If video mode not found in the table tag it as custom */
 				if (InstancePtr->Stream.Video.VmId ==
 				    XVIDC_VM_NOT_SUPPORTED) {
 					InstancePtr->Stream.Video.VmId = XVIDC_VM_CUSTOM;
 				}
 
-				/* Enable AXI Stream output*/
+			        if (XVidC_IsStream3D(&InstancePtr->Stream.Video)){
+			            XVidC_Set3DVideoStream(&InstancePtr->Stream.Video,
+			                                   InstancePtr->Stream.Video.VmId,
+			                                   InstancePtr->Stream.Video.ColorFormatId,
+			                                   InstancePtr->Stream.Video.ColorDepth,
+			                                   InstancePtr->Stream.Video.PixPerClk,
+			                                   &InstancePtr->Stream.Video.Info_3D);
+			        } else {
+			            XVidC_SetVideoStream(&InstancePtr->Stream.Video,
+			                                 InstancePtr->Stream.Video.VmId,
+			                                 InstancePtr->Stream.Video.ColorFormatId,
+			                                 InstancePtr->Stream.Video.ColorDepth,
+			                                 InstancePtr->Stream.Video.PixPerClk);
+			        }
+
+				/* Enable AXI Stream output */
 				XV_HdmiRx1_AxisEnable(InstancePtr, (TRUE));
 
-				/* Set stream status to up*/
+				/* Set stream status to up */
 				InstancePtr->Stream.State =
 						XV_HDMIRX1_STATE_STREAM_UP;
-				/* The stream is up*/
+				/* The stream is up */
 
-				/* Set stream sync status to est*/
+				/* Set stream sync status to est */
 				InstancePtr->Stream.SyncStatus =
 						XV_HDMIRX1_SYNCSTAT_SYNC_EST;
 
-				/* Enable sync loss*/
+				/* Enable sync loss */
 				/* XV_HdmiRx1_WriteReg(
 				 *	InstancePtr->Config.BaseAddress,
 				 *	(XV_HDMIRX1_VTD_CTRL_SET_OFFSET),
 				 *	(XV_HDMIRX1_VTD_CTRL_SYNC_LOSS_MASK));
 				 */
 
-#ifdef DEBUG_RX_FRL_WATCHDOG
-				InstancePtr->Stream.VtdLockFailCounts = 0;
-#endif
-
-				/* Call stream up callback*/
+				/* Call stream up callback */
 				if (InstancePtr->StreamUpCallback) {
 					InstancePtr->StreamUpCallback(
 							InstancePtr->StreamUpRef);
 				}
-			} else {
-#ifdef DEBUG_RX_FRL_WATCHDOG
-				if (InstancePtr->Stream.IsFrl == TRUE &&
-				    XV_HdmiRx1_GetFrlActivePixRatio(InstancePtr) != 0 &&
-				    XV_HdmiRx1_GetFrlTotalPixRatio(InstancePtr) != 0) {
-					InstancePtr->Stream.VtdLockFailCounts++;
-				}
-
-				if (InstancePtr->Stream.VtdLockFailCounts > 40) {
-					XV_HdmiRx1_INT_LRST(InstancePtr, TRUE);
-					XV_HdmiRx1_INT_VRST(InstancePtr, TRUE);
-					XV_HdmiRx1_EXT_VRST(InstancePtr, TRUE);
-					XV_HdmiRx1_EXT_SYSRST(InstancePtr, TRUE);
-					/* Disable VTD */
-					XV_HdmiRx1_VtdDisable(InstancePtr);
-
-					if (InstancePtr->StreamDownCallback) {
-						InstancePtr->StreamDownCallback(InstancePtr->StreamDownRef);
-					}
-
-					InstancePtr->Stream.State = XV_HDMIRX1_STATE_STREAM_INIT;
-					XV_HdmiRx1_TmrStart(InstancePtr, TIME_200MS);
-					InstancePtr->Stream.VtdLockFailCounts = 0;
-
-					XV_HdmiRx1_EXT_VRST(InstancePtr, FALSE);
-					XV_HdmiRx1_EXT_SYSRST(InstancePtr, FALSE);
-					XV_HdmiRx1_INT_VRST(InstancePtr, FALSE);
-					XV_HdmiRx1_INT_LRST(InstancePtr, FALSE);
-#ifdef DEBUG_RX_FRL_VERBOSITY
-					xil_printf(ANSI_COLOR_RED "Auto RX 2.0 "
-						"core Reset\r\n" ANSI_COLOR_RESET);
-#endif
-				}
-#endif
 			}
 		}
 
-		/* Check if we are in stream up state*/
+		/* Check if we are in stream up state */
 		else if (InstancePtr->Stream.State == XV_HDMIRX1_STATE_STREAM_UP) {
 
-			/* Read video timing*/
+			/* Read video timing */
 			Status = XV_HdmiRx1_GetVideoTiming(InstancePtr);
 
-			/* If the colorspace is YUV420, then the frame rate must be doubled*/
-			if (InstancePtr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_420) {
-				/* Calculate and set the frame rate field*/
-				InstancePtr->Stream.Video.FrameRate =
-				   (XVidC_FrameRate) (XV_HdmiRx1_Divide((InstancePtr->Stream.PixelClk << 1),
-						(InstancePtr->Stream.Video.Timing.F0PVTotal * InstancePtr->Stream.Video.Timing.HTotal)));
+			if (Status == XST_SUCCESS) {
+				if (InstancePtr->Stream.SyncStatus ==
+						XV_HDMIRX1_SYNCSTAT_SYNC_LOSS) {
+					/* Sync Est/Recover Flag */
+					InstancePtr->Stream.SyncStatus =
+						XV_HDMIRX1_SYNCSTAT_SYNC_EST;
+
+					/* Call sync lost callback */
+					if (InstancePtr->SyncLossCallback) {
+						InstancePtr->SyncLossCallback(
+								InstancePtr->SyncLossRef);
+					}
+				}
 			} else {
-				/* Calculate and set the frame rate field*/
-				InstancePtr->Stream.Video.FrameRate =
-				   (XVidC_FrameRate) (XV_HdmiRx1_Divide(InstancePtr->Stream.PixelClk,
-						(InstancePtr->Stream.Video.Timing.F0PVTotal * InstancePtr->Stream.Video.Timing.HTotal)));
-			}
-
-			/* Lookup the video mode id*/
-			InstancePtr->Stream.Video.VmId =
-			XVidC_GetVideoModeIdExtensive(&InstancePtr->Stream.Video.Timing,
-					 InstancePtr->Stream.Video.FrameRate,
-					 InstancePtr->Stream.Video.IsInterlaced,
-					 (TRUE));
-
-			/*If video mode not found in the table tag it as custom*/
-			if (InstancePtr->Stream.Video.VmId ==
-			    XVIDC_VM_NOT_SUPPORTED) {
-				InstancePtr->Stream.Video.VmId = XVIDC_VM_CUSTOM;
-			}
-
-			if (Status != XST_SUCCESS) {
-#ifdef DEBUG_RX_FRL_VERBOSITY
-				xil_printf("XV_HDMIRX1_VTD_STA_TIMEBASE_EVT_MASK"
-					   ": XV_HDMIRX1_STATE_STREAM_UP to "
-					   "STREAM_LOCK\r\n");
-#endif
-				/* Disable sync loss*/
+				/* Disable sync loss */
 				/* XV_HdmiRx1_WriteReg(
 				 *	InstancePtr->Config.BaseAddress,
 				 *	(XV_HDMIRX1_VTD_CTRL_CLR_OFFSET),
@@ -655,24 +663,13 @@ static void HdmiRx1_VtdIntrHandler(XV_HdmiRx1 *InstancePtr)
 							InstancePtr->StreamDownRef);
 					}
 
+					/* Switch to bursty Vcke generation */
+					XV_HdmiRx1_SetFrlVClkVckeRatio(InstancePtr, 0);
+
 					InstancePtr->Stream.State =
 						XV_HDMIRX1_STATE_STREAM_INIT;
-					XV_HdmiRx1_TmrStart(InstancePtr,
+					XV_HdmiRx1_Tmr1Start(InstancePtr,
 							    TIME_200MS);
-				}
-			} else if (InstancePtr->Stream.SyncStatus ==
-			           XV_HDMIRX1_SYNCSTAT_SYNC_LOSS) {
-				xil_printf("XV_HDMIRX1_VTD_STA_TIMEBASE_EVT_MASK"
-					   ": XV_HDMIRX1_STATE_STREAM_UP : "
-					   "Sync lost\r\n");
-				/* Sync Est/Recover Flag*/
-				InstancePtr->Stream.SyncStatus =
-					XV_HDMIRX1_SYNCSTAT_SYNC_EST;
-
-				/* Call sync lost callback*/
-				if (InstancePtr->SyncLossCallback) {
-					InstancePtr->SyncLossCallback(
-							InstancePtr->SyncLossRef);
 				}
 			}
 		}
@@ -682,7 +679,7 @@ static void HdmiRx1_VtdIntrHandler(XV_HdmiRx1 *InstancePtr)
 	/* Check for sync loss event */
 	else if ((Status) & (XV_HDMIRX1_VTD_STA_SYNC_LOSS_EVT_MASK)) {
 
-		/* Clear event flag*/
+		/* Clear event flag */
 		XV_HdmiRx1_WriteReg(InstancePtr->Config.BaseAddress,
 				    (XV_HDMIRX1_VTD_STA_OFFSET),
 				    (XV_HDMIRX1_VTD_STA_SYNC_LOSS_EVT_MASK));
@@ -693,11 +690,11 @@ static void HdmiRx1_VtdIntrHandler(XV_HdmiRx1 *InstancePtr)
 		}
 
 		if (InstancePtr->Stream.State == XV_HDMIRX1_STATE_STREAM_UP) {
-			/* Enable the Stream Up + Sync Loss Flag*/
+			/* Enable the Stream Up + Sync Loss Flag */
 			InstancePtr->Stream.SyncStatus =
 					XV_HDMIRX1_SYNCSTAT_SYNC_LOSS;
 
-			/* Call sync lost callback*/
+			/* Call sync lost callback */
 			if (InstancePtr->SyncLossCallback) {
 				InstancePtr->SyncLossCallback(
 						InstancePtr->SyncLossRef);
@@ -889,6 +886,10 @@ static void HdmiRx1_PioIntrHandler(XV_HdmiRx1 *InstancePtr)
 			InstancePtr->Stream.IsConnected = (TRUE);
 			XV_HdmiRx1_FrlReset(InstancePtr, FALSE);
 
+			/* Clears IsFrl and IsHdmi flags */
+			InstancePtr->Stream.IsHdmi = FALSE;
+			InstancePtr->Stream.IsFrl = FALSE;
+
 			/* Check if user callback has been registered*/
 			if (InstancePtr->ConnectCallback) {
 				InstancePtr->ConnectCallback(
@@ -940,6 +941,14 @@ static void HdmiRx1_PioIntrHandler(XV_HdmiRx1 *InstancePtr)
 					XV_HdmiRx1_ExecFrlState(InstancePtr);
 					break;
 				default:
+					InstancePtr->DBMessage =
+							InstancePtr->Stream.Frl.TrainingState;
+
+					/* Call Link Ready Error callback */
+					if (InstancePtr->LnkRdyErrorCallback) {
+						InstancePtr->LnkRdyErrorCallback(
+								InstancePtr->LnkRdyErrorRef);
+					}
 #ifdef DEBUG_RX_FRL_VERBOSITY
 					xil_printf(ANSI_COLOR_RED "LNK_RDY 1 Error! (%d)\r\n"
 							ANSI_COLOR_RESET,
@@ -954,6 +963,13 @@ static void HdmiRx1_PioIntrHandler(XV_HdmiRx1 *InstancePtr)
 				/* LNK_RDY goes down*/
 			}
 		} else if (InstancePtr->Stream.IsFrl == TRUE) {
+			InstancePtr->DBMessage = 0x80;
+
+			/* Call Link Ready Error callback */
+			if (InstancePtr->LnkRdyErrorCallback) {
+				InstancePtr->LnkRdyErrorCallback(
+						InstancePtr->LnkRdyErrorRef);
+			}
 #ifdef DEBUG_RX_FRL_VERBOSITY
 			xil_printf(ANSI_COLOR_RED "LNK_RDY during FRL Link!\r\n"
 					ANSI_COLOR_RESET);
@@ -967,7 +983,7 @@ static void HdmiRx1_PioIntrHandler(XV_HdmiRx1 *InstancePtr)
 			InstancePtr->Stream.State = XV_HDMIRX1_STATE_STREAM_IDLE;
 
 			/* Load timer*/
-			XV_HdmiRx1_TmrStart(InstancePtr,
+			XV_HdmiRx1_Tmr1Start(InstancePtr,
 				XV_HdmiRx1_GetTime10Ms(InstancePtr)); /* 10 ms*/
 		}
 	}
@@ -987,6 +1003,14 @@ static void HdmiRx1_PioIntrHandler(XV_HdmiRx1 *InstancePtr)
 					XV_HdmiRx1_ExecFrlState(InstancePtr);
 					break;
 				default:
+					InstancePtr->DBMessage =
+							InstancePtr->Stream.Frl.TrainingState;
+
+					/* Call Video Ready Error callback */
+					if (InstancePtr->VidRdyErrorCallback) {
+						InstancePtr->VidRdyErrorCallback(
+								InstancePtr->VidRdyErrorRef);
+					}
 #ifdef DEBUG_RX_FRL_VERBOSITY
 					xil_printf(ANSI_COLOR_RED "VID_RDY 1 Error! (%d)\r\n"
 							ANSI_COLOR_RESET,
@@ -1003,6 +1027,13 @@ static void HdmiRx1_PioIntrHandler(XV_HdmiRx1 *InstancePtr)
 
 /*    		return;*/
 		} else if (InstancePtr->Stream.IsFrl == TRUE) {
+			InstancePtr->DBMessage = 0x80;
+
+			/* Call Video Ready Error callback */
+			if (InstancePtr->VidRdyErrorCallback) {
+				InstancePtr->VidRdyErrorCallback(
+						InstancePtr->VidRdyErrorRef);
+			}
 #ifdef DEBUG_RX_FRL_VERBOSITY
 			xil_printf(ANSI_COLOR_RED "VID_RDY during FRL Link!\r\n"
 					ANSI_COLOR_RESET);
@@ -1035,7 +1066,7 @@ static void HdmiRx1_PioIntrHandler(XV_HdmiRx1 *InstancePtr)
 
 					/* Load timer - 200 ms (one UHD
 					 * frame is 40 ms, 5 frames)*/
-					XV_HdmiRx1_TmrStart(InstancePtr,
+					XV_HdmiRx1_Tmr1Start(InstancePtr,
 					XV_HdmiRx1_GetTime200Ms(InstancePtr));
 				}
 			}
@@ -1133,7 +1164,7 @@ static void HdmiRx1_PioIntrHandler(XV_HdmiRx1 *InstancePtr)
 			InstancePtr->Stream.State = XV_HDMIRX1_STATE_STREAM_IDLE;
 
 			/* Load timer*/
-			XV_HdmiRx1_TmrStart(InstancePtr,
+			XV_HdmiRx1_Tmr1Start(InstancePtr,
 					XV_HdmiRx1_GetTime10Ms(InstancePtr)); /* 10 ms*/
 		}
 
@@ -1184,12 +1215,12 @@ static void HdmiRx1_TmrIntrHandler(XV_HdmiRx1 *InstancePtr)
 				    (XV_HDMIRX1_TMR_STA_OFFSET));
 
 	/* Check for counter event */
-	if ((Status) & (XV_HDMIRX1_TMR_STA_CNT_EVT_MASK)) {
+	if ((Status) & (XV_HDMIRX1_TMR1_STA_CNT_EVT_MASK)) {
 
 		/* Clear counter event*/
 		XV_HdmiRx1_WriteReg(InstancePtr->Config.BaseAddress,
 				    (XV_HDMIRX1_TMR_STA_OFFSET),
-				    (XV_HDMIRX1_TMR_STA_CNT_EVT_MASK));
+				    (XV_HDMIRX1_TMR1_STA_CNT_EVT_MASK));
 
 		if (InstancePtr->Stream.State ==
 		    XV_HDMIRX1_STATE_FRL_LINK_TRAINING) {
@@ -1240,7 +1271,7 @@ static void HdmiRx1_TmrIntrHandler(XV_HdmiRx1 *InstancePtr)
 			}
 
 			/* Load timer - 200 ms (one UHD frame is 40 ms, 5 frames)*/
-			XV_HdmiRx1_TmrStart(InstancePtr,
+			XV_HdmiRx1_Tmr1Start(InstancePtr,
 					XV_HdmiRx1_GetTime200Ms(InstancePtr));
 		}
 
@@ -1273,7 +1304,7 @@ static void HdmiRx1_TmrIntrHandler(XV_HdmiRx1 *InstancePtr)
 
 					/* Load timer - 200 ms (one UHD frame
 					 * is 40 ms, 5 frames)*/
-					XV_HdmiRx1_TmrStart(InstancePtr,
+					XV_HdmiRx1_Tmr1Start(InstancePtr,
 					XV_HdmiRx1_GetTime200Ms(InstancePtr));
 				} else if (InstancePtr->StreamInitCallback) {
 					/* Call stream init callback*/
@@ -1284,7 +1315,7 @@ static void HdmiRx1_TmrIntrHandler(XV_HdmiRx1 *InstancePtr)
 
 			else {
 		/* Load timer - 200 ms (one UHD frame is 40 ms, 5 frames)*/
-				XV_HdmiRx1_TmrStart(InstancePtr,
+				XV_HdmiRx1_Tmr1Start(InstancePtr,
 					XV_HdmiRx1_GetTime200Ms(InstancePtr));
 			}
 		}
@@ -1310,7 +1341,10 @@ static void HdmiRx1_TmrIntrHandler(XV_HdmiRx1 *InstancePtr)
 			/* Clear counter event*/
 			XV_HdmiRx1_WriteReg(InstancePtr->Config.BaseAddress,
 					    (XV_HDMIRX1_TMR_STA_OFFSET),
-					    (XV_HDMIRX1_TMR2_STA_CNT_EVT_MASK));
+			/* Temporarily clear both bit 3 and bit 4 during transition period
+			 * TODO: Revert back the change once the bitstream is used widely
+			 * (XV_HDMIRX1_TMR2_STA_CNT_EVT_MASK)); */
+					    (0x18));
 
 			XV_HdmiRx1_Tmr2Start(InstancePtr,
 					XV_HdmiRx1_GetTime1S(InstancePtr));
@@ -1367,7 +1401,7 @@ static void HdmiRx1_AuxIntrHandler(XV_HdmiRx1 *InstancePtr)
 				}
 
 				InstancePtr->Stream.State = XV_HDMIRX1_STATE_STREAM_INIT;
-				XV_HdmiRx1_TmrStart(InstancePtr, TIME_200MS);
+				XV_HdmiRx1_Tmr1Start(InstancePtr, TIME_200MS);
 			}
 		}
 	}
@@ -1600,7 +1634,7 @@ static void HdmiRx1_FrlIntrHandler(XV_HdmiRx1 *InstancePtr)
 		 InstancePtr->Stream.Frl.FltUpdateAsserted = FALSE;
 #ifdef DEBUG_RX_FRL_VERBOSITY
 		xil_printf(ANSI_COLOR_YELLOW "RX: INTR FLT_UP Cleared (%d)\r\n"
-			ANSI_COLOR_RESET, XV_HdmiRx1_GetTmrValue(InstancePtr));
+			ANSI_COLOR_RESET, XV_HdmiRx1_GetTmr1Value(InstancePtr));
 #endif
 		switch (InstancePtr->Stream.Frl.TrainingState) {
 		case XV_HDMIRX1_FRLSTATE_LTS_P:
@@ -1674,16 +1708,20 @@ xil_printf(ANSI_COLOR_YELLOW "RX: INTR LTP_DET\r\n" ANSI_COLOR_RESET);
 		    XV_HDMIRX1_FRL_STA_SKEW_LOCK_MASK) {
 			if (InstancePtr->Stream.Frl.TrainingState ==
 					XV_HDMIRX1_FRLSTATE_LTS_P_VID_RDY) {
+				/* Error: Skew locked again from an already
+				 * locked state */
 				StreamDownFlag = TRUE;
-#ifdef DEBUG_RX_FRL_VERBOSITY
-				xil_printf(ANSI_COLOR_YELLOW "RX: SKEW LOCKED ERR\r\n"
-						ANSI_COLOR_RESET);
-#endif
+				InstancePtr->DBMessage =
+						InstancePtr->Stream.Frl.TrainingState;
+
+				/* Call Skew Lock Error callback */
+				if (InstancePtr->SkewLockErrorCallback) {
+					InstancePtr->SkewLockErrorCallback(
+							InstancePtr->SkewLockErrorRef);
+				}
 			} else {
-#ifdef DEBUG_RX_FRL_VERBOSITY
-				xil_printf(ANSI_COLOR_YELLOW "RX: SKEW LOCKED\r\n"
-						ANSI_COLOR_RESET);
-#endif
+				/* Placeholder: skew locked, no actions
+                                 * needed */
 			}
 
 			InstancePtr->Stream.Frl.TrainingState =
@@ -1691,16 +1729,21 @@ xil_printf(ANSI_COLOR_YELLOW "RX: INTR LTP_DET\r\n" ANSI_COLOR_RESET);
 		} else {
 			if (InstancePtr->Stream.Frl.TrainingState ==
 					XV_HDMIRX1_FRLSTATE_LTS_P_FRL_RDY) {
+				/* Skew unlocked */
 				StreamDownFlag = TRUE;
-#ifdef DEBUG_RX_FRL_VERBOSITY
-				xil_printf(ANSI_COLOR_YELLOW "RX: SKEW UNLOCKED\r\n"
-						ANSI_COLOR_RESET);
-#endif
-			} else {
-#ifdef DEBUG_RX_FRL_VERBOSITY
-				xil_printf(ANSI_COLOR_YELLOW "RX: SKEW UNLOCKED ERR\r\n"
-						ANSI_COLOR_RESET);
-#endif
+			} else if (InstancePtr->Stream.Frl.TrainingState !=
+					XV_HDMIRX1_FRLSTATE_LTS_3_RATE_CH) {
+				/* Unexpected skew unlock event is true only
+				 * when it is not caused by rate change
+				 * request. */
+				InstancePtr->DBMessage =
+						InstancePtr->Stream.Frl.TrainingState;
+
+				/* Call Skew Lock Error callback */
+				if (InstancePtr->SkewLockErrorCallback) {
+					InstancePtr->SkewLockErrorCallback(
+							InstancePtr->SkewLockErrorRef);
+				}
 			}
 
 			if (InstancePtr->Stream.Frl.TrainingState ==
@@ -1732,7 +1775,7 @@ xil_printf(ANSI_COLOR_YELLOW "RX: INTR LTP_DET\r\n" ANSI_COLOR_RESET);
 			InstancePtr->Stream.State = XV_HDMIRX1_STATE_STREAM_IDLE;
 
 			/* Load timer*/
-			XV_HdmiRx1_TmrStart(InstancePtr,
+			XV_HdmiRx1_Tmr1Start(InstancePtr,
 					XV_HdmiRx1_GetTime10Ms(InstancePtr)); /* 10 ms*/
 			break;
 		default:
