@@ -260,6 +260,9 @@ void XV_HdmiTxSs1_LogDisplay(XV_HdmiTxSs1 *InstancePtr)
 	    case (XV_HDMITXSS1_LOG_EVT_AUDIOUNMUTE):
 		    xil_printf("Audio Unmuted");
 			break;
+	    case (XV_HDMITXSS1_LOG_EVT_AUDIOINVALIDSAMPRATE):
+		    xil_printf("Invalid Audio Sampling Rate");
+			break;
 	    case (XV_HDMITXSS1_LOG_EVT_SETSTREAM):
 		    xil_printf("Set Stream");
 			break;
