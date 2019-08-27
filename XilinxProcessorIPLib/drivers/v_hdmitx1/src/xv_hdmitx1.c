@@ -56,14 +56,14 @@
 * 3) Bits Shift
 */
 const XV_HdmiTx1_ScdcField ScdcField[XV_HDMITX1_SCDCFIELD_SIZE] = {
-	{0x02, 0xFF, 0},	/* XV_HDMITX1_SCDCFIELD_SOURCE_VER*/
-	{0x30, 0xFF, 0},	/* XV_HDMITX1_SCDCFIELD_SNK_CFG0*/
-	{0x31, 0xFF, 0},	/* XV_HDMITX1_SCDCFIELD_SNK_CFG1*/
-	{0x10, 0x01, 3},	/* XV_HDMITX1_SCDCFIELD_SNK_STU*/
-	{0x10, 0xFF, 4},	/* XV_HDMITX1_SCDCFIELD_FRL_START*/
-	{0x10, 0x01, 5},	/* XV_HDMITX1_SCDCFIELD_FLT_UPDATE*/
-	{0x10, 0xFF, 4},	/* XV_HDMITX1_SCDCFIELD_FRL_START1*/
-	{0x10, 0xFF, 5}		/* XV_HDMITX1_SCDCFIELD_FLT_UPDATE1*/
+	{0x02, 0xFF, 0},	/* XV_HDMITX1_SCDCFIELD_SOURCE_VER */
+	{0x30, 0xFF, 0},	/* XV_HDMITX1_SCDCFIELD_SNK_CFG0 */
+	{0x31, 0xFF, 0},	/* XV_HDMITX1_SCDCFIELD_SNK_CFG1 */
+	{0x10, 0x01, 3},	/* XV_HDMITX1_SCDCFIELD_SNK_STU */
+	{0x10, 0xFF, 1},	/* XV_HDMITX1_SCDCFIELD_CED_UPDATE */
+	{0x10, 0xFF, 4},	/* XV_HDMITX1_SCDCFIELD_FRL_START */
+	{0x10, 0xFF, 5},	/* XV_HDMITX1_SCDCFIELD_FLT_UPDATE */
+	{0x30, 0x01, 1}		/* XV_HDMITX1_SCDCFIELD_FLT_NO_RETRAIN */
 };
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -534,22 +534,11 @@ u8 XV_HdmiTx1_LookupVic(XVidC_VideoMode VideoMode)
 /*****************************************************************************/
 /**
 *
-* This function sets and return the TMDS Clock based on Video Parameter
+* This function sets and return the TMDS Clock based on Video Parameter from
+* the InstancePtr.
 *
 *
 * @param    InstancePtr is a pointer to the XV_HdmiTx1 core instance.
-* @param    VideoMode specifies resolution identifier.
-* @param    ColorFormat specifies the type of color format.
-*       - 0 = XVIDC_CSF_RGB
-*       - 1 = XVIDC_CSF_YCRCB_444
-*       - 2 = XVIDC_CSF_YCRCB_422
-*       - 3 = XVIDC_CSF_YCRCB_420
-* @param    Bpc specifies the color depth/bits per color component.
-*       - 6 = XVIDC_BPC_6
-*       - 8 = XVIDC_BPC_8
-*       - 10 = XVIDC_BPC_10
-*       - 12 = XVIDC_BPC_12
-*       - 16 = XVIDC_BPC_16
 *
 * @return
 *       - TMDS Clock
@@ -557,30 +546,36 @@ u8 XV_HdmiTx1_LookupVic(XVidC_VideoMode VideoMode)
 * @note     None.
 *
 ******************************************************************************/
-u64 XV_HdmiTx1_GetTmdsClk (XV_HdmiTx1 *InstancePtr,
-	XVidC_VideoMode VideoMode,
-	XVidC_ColorFormat ColorFormat,
-	XVidC_ColorDepth Bpc)
+u64 XV_HdmiTx1_GetTmdsClk(XV_HdmiTx1 *InstancePtr)
 {
-
 	u64 TmdsClock;
 
 	/* Calculate reference clock. First calculate the pixel clock */
-	TmdsClock = XVidC_GetPixelClockHzByVmId(VideoMode);
+	TmdsClock = InstancePtr->Stream.Video.Timing.F0PVTotal +
+			InstancePtr->Stream.Video.Timing.F1VTotal;
+
+	TmdsClock *= InstancePtr->Stream.Video.Timing.HTotal;
+
+	TmdsClock *= InstancePtr->Stream.Video.FrameRate;
+
+	if (InstancePtr->Stream.Video.Timing.F1VTotal != 0) {
+		/* Divide by 2 for interlaced video. */
+		TmdsClock >>= 1;
+	}
 
 	/* Store the pixel clock in the structure */
 	InstancePtr->Stream.PixelClk = TmdsClock;
 
 	/* YUV420 */
-	if (ColorFormat == (XVIDC_CSF_YCRCB_420)) {
+	if (InstancePtr->Stream.Video.ColorFormatId == (XVIDC_CSF_YCRCB_420)) {
 		/* In YUV420 the tmds clock is divided by two*/
 		TmdsClock = TmdsClock >> 1;
 	}
 
 	/* RGB, YUV444 and YUV420 */
-	if ( ColorFormat != XVIDC_CSF_YCRCB_422 ) {
+	if ( InstancePtr->Stream.Video.ColorFormatId != XVIDC_CSF_YCRCB_422 ) {
 
-		switch (Bpc) {
+		switch (InstancePtr->Stream.Video.ColorDepth) {
 
 		/* 10-bits*/
 		case XVIDC_BPC_10 :
@@ -914,7 +909,8 @@ void XV_HdmiTx1_ShowSCDC(XV_HdmiTx1 *InstancePtr)
 * This function sets the HDMI TX stream parameters.
 *
 * @param    InstancePtr is a pointer to the XV_HdmiTx1 core instance.
-* @param    VideoMode specifies resolution identifier.
+* @param    VideoTiming specifies video timing.
+* @param    FrameRate specifies frame rate.
 * @param    ColorFormat specifies the type of color format.
 *       - 0 = XVIDC_CSF_RGB
 *       - 1 = XVIDC_CSF_YCRCB_444
@@ -937,11 +933,17 @@ void XV_HdmiTx1_ShowSCDC(XV_HdmiTx1 *InstancePtr)
 * @note     None.
 *
 ******************************************************************************/
-u64 XV_HdmiTx1_SetStream(XV_HdmiTx1 *InstancePtr, XVidC_VideoMode VideoMode,
-XVidC_ColorFormat ColorFormat, XVidC_ColorDepth Bpc, XVidC_PixelsPerClock Ppc,
-XVidC_3DInfo *Info3D)
+u64 XV_HdmiTx1_SetStream(XV_HdmiTx1 *InstancePtr,
+		XVidC_VideoTiming VideoTiming,
+		XVidC_FrameRate FrameRate,
+		XVidC_ColorFormat ColorFormat,
+		XVidC_ColorDepth Bpc,
+		XVidC_PixelsPerClock Ppc,
+		XVidC_3DInfo *Info3D)
 {
 	u64 TmdsClock;
+	u16 Vblank0;
+	u16 Vblank1;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -957,19 +959,78 @@ XVidC_3DInfo *Info3D)
 		          (Ppc == (XVIDC_PPC_2)) ||
 		          (Ppc == (XVIDC_PPC_4)));
 
+	/* SetVideoStream Start */
+	InstancePtr->Stream.Video.Timing	= VideoTiming;
+	InstancePtr->Stream.Video.FrameRate	= FrameRate;
+	InstancePtr->Stream.Video.ColorFormatId	= ColorFormat;
+	InstancePtr->Stream.Video.ColorDepth	= Bpc;
+	InstancePtr->Stream.Video.PixPerClk	= Ppc;
+
+	InstancePtr->Stream.Video.IsInterlaced =
+			(InstancePtr->Stream.Video.Timing.F1VTotal != 0) ?
+					1 : 0;
+	/* SetVideoStream End */
+
 	if (Info3D == NULL) {
-		XVidC_SetVideoStream(&InstancePtr->Stream.Video,
-				     VideoMode,
-				     ColorFormat,
-				     Bpc,
-				     Ppc);
+		/* Set stream to 2D. */
+		InstancePtr->Stream.Video.Is3D = FALSE;
+		InstancePtr->Stream.Video.Info_3D.Format = XVIDC_3D_UNKNOWN;
+		InstancePtr->Stream.Video.Info_3D.Sampling.Method =
+				XVIDC_3D_SAMPLING_UNKNOWN;
+		InstancePtr->Stream.Video.Info_3D.Sampling.Position =
+				XVIDC_3D_SAMPPOS_UNKNOWN;
 	} else {
-		XVidC_Set3DVideoStream(&InstancePtr->Stream.Video,
-				       VideoMode,
-				       ColorFormat,
-				       Bpc,
-				       Ppc,
-				       Info3D);
+		InstancePtr->Stream.Video.Is3D = TRUE;
+		InstancePtr->Stream.Video.Info_3D = *Info3D;
+
+		/* Only 3D format supported is frame packing. */
+		if (Info3D->Format != XVIDC_3D_FRAME_PACKING) {
+			return XST_FAILURE;
+		}
+
+		/* Update the timing based on the 3D format. */
+
+		/* An interlaced format is converted to a progressive frame: */
+		/*	3D VActive = (2D VActive * 4) + (2D VBlank field0) +
+							(2D Vblank field1 * 2) */
+		if (InstancePtr->Stream.Video.IsInterlaced) {
+			Vblank0 = InstancePtr->Stream.Video.Timing.F0PVTotal -
+					InstancePtr->Stream.Video.Timing.VActive;
+			Vblank1 = InstancePtr->Stream.Video.Timing.F1VTotal -
+					InstancePtr->Stream.Video.Timing.VActive;
+			InstancePtr->Stream.Video.Timing.VActive =
+					(InstancePtr->Stream.Video.Timing.VActive * 4) +
+					Vblank0 + (Vblank1 * 2);
+
+			/* Set VTotal */
+			InstancePtr->Stream.Video.Timing.F0PVTotal *= 2;
+			InstancePtr->Stream.Video.Timing.F0PVTotal +=
+					InstancePtr->Stream.Video.Timing.F1VTotal
+					* 2;
+
+			/* Clear field 1 values. */
+			InstancePtr->Stream.Video.Timing.F1VFrontPorch = 0;
+			InstancePtr->Stream.Video.Timing.F1VSyncWidth  = 0;
+			InstancePtr->Stream.Video.Timing.F1VBackPorch  = 0;
+			InstancePtr->Stream.Video.Timing.F1VTotal      = 0;
+
+			/* Set format to progressive */
+			InstancePtr->Stream.Video.IsInterlaced = FALSE;
+		}
+		/* Progressive */
+		else {
+			/* 3D Vactive = (2D VActive * 2) + (2D VBlank) */
+			Vblank0 = InstancePtr->Stream.Video.Timing.F0PVTotal -
+					InstancePtr->Stream.Video.Timing.VActive;
+			InstancePtr->Stream.Video.Timing.VActive =
+					(InstancePtr->Stream.Video.Timing.VActive * 2) +
+					Vblank0;
+
+			/* Set VTotal. */
+			InstancePtr->Stream.Video.Timing.F0PVTotal =
+					InstancePtr->Stream.Video.Timing.F0PVTotal *
+					2;
+		}
 	}
 
 	/** In HDMI the colordepth in YUV422 is always 12 bits,
@@ -993,10 +1054,7 @@ XVidC_3DInfo *Info3D)
 	XV_HdmiTx1_SetColorDepth(InstancePtr);
 
 	/* Calculate reference clock. First calculate the pixel clock */
-	TmdsClock = XV_HdmiTx1_GetTmdsClk(InstancePtr,
-		                          InstancePtr->Stream.Video.VmId,
-		                          ColorFormat,
-		                          Bpc);
+	TmdsClock = XV_HdmiTx1_GetTmdsClk(InstancePtr);
 
 	/* Store TMDS clock for future reference */
 	InstancePtr->Stream.TMDSClock = TmdsClock;
@@ -2358,11 +2416,10 @@ void XV_HdmiTx1_TMDSACRStart(XV_HdmiTx1 *InstancePtr)
 
 	RegValue = 0x0;
 
-	if (TMDSCharRate > 340000000) {
-		RegValue = (0x1 << XV_HDMITX1_AUD_CTRL_TMDS_LNKCLK_RATIO_SHIFT);
-	} else {
-		RegValue = (0x4 << XV_HDMITX1_AUD_CTRL_TMDS_LNKCLK_RATIO_SHIFT);
-	}
+	/* Setting the Data Clock and Link Clock Ratio, and for PPC 4 it
+	 * always 0x4
+	 */
+	RegValue = (0x4 << XV_HDMITX1_AUD_CTRL_DATACLK_LNKCLK_RATIO_SHIFT);
 
 	XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress,
 			    (XV_HDMITX1_AUD_CTRL_SET_OFFSET),
@@ -2448,9 +2505,15 @@ int XV_HdmiTx1_SetAudioChannels(XV_HdmiTx1 *InstancePtr, u8 Value)
 	}
 
 	if (Status == (XST_SUCCESS)) {
+		/* Clear active channels*/
+		XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress,
+				(XV_HDMITX1_AUD_CTRL_CLR_OFFSET),
+				(XV_HDMITX1_AUD_CTRL_CH_MASK <<
+				 XV_HDMITX1_AUD_CTRL_CH_SHIFT));
 		/* Set active channels*/
 		XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress,
-				    (XV_HDMITX1_AUD_CTRL_OFFSET), (Data));
+				(XV_HDMITX1_AUD_CTRL_SET_OFFSET),
+				Data);
 
 		/* Store active channel in structure*/
 		(InstancePtr)->Stream.Audio.Channels = Value;

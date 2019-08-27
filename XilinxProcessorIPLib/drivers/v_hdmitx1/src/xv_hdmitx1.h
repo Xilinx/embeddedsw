@@ -211,10 +211,9 @@ typedef enum {
 	XV_HDMITX1_SCDCFIELD_SNK_CFG1,		/* Bits[3:0] = FRL_Rate
 	 	 	 	 	 	 * Bits[7:4] = FFE_Levels */
 	XV_HDMITX1_SCDCFIELD_SNK_STU,		/* Source_Test_Update */
+	XV_HDMITX1_SCDCFIELD_CED_UPDATE,	/* CED_Update */
 	XV_HDMITX1_SCDCFIELD_FRL_START,		/* FLT_start */
 	XV_HDMITX1_SCDCFIELD_FLT_UPDATE,	/* FLT_update */
-	XV_HDMITX1_SCDCFIELD_FRL_START1,	/* FLT_start */
-	XV_HDMITX1_SCDCFIELD_FLT_UPDATE1,	/* FLT_update */
 	XV_HDMITX1_SCDCFIELD_FLT_NO_RETRAIN,	/* FLT_no_retrain */
 	XV_HDMITX1_SCDCFIELD_SIZE
 } XV_HdmiTx1_ScdcFieldType;
@@ -1127,16 +1126,13 @@ void XV_HdmiTx1_Clear(XV_HdmiTx1 *InstancePtr);
 u8 XV_HdmiTx1_GetVic(XVidC_VideoMode VideoMode);
 XVidC_VideoMode XV_HdmiTx1_GetVideoModeFromVic(u8 Vic);
 u64 XV_HdmiTx1_SetStream(XV_HdmiTx1 *InstancePtr,
-			 XVidC_VideoMode VideoMode,
-			 XVidC_ColorFormat ColorFormat,
-			 XVidC_ColorDepth Bpc,
-			 XVidC_PixelsPerClock Ppc,
-			 XVidC_3DInfo *Info3D);
-
-u64 XV_HdmiTx1_GetTmdsClk(XV_HdmiTx1 *InstancePtr,
-			  XVidC_VideoMode VideoMode,
-			  XVidC_ColorFormat ColorFormat,
-			  XVidC_ColorDepth Bpc);
+		XVidC_VideoTiming VideoTiming,
+		XVidC_FrameRate FrameRate,
+		XVidC_ColorFormat ColorFormat,
+		XVidC_ColorDepth Bpc,
+		XVidC_PixelsPerClock Ppc,
+		XVidC_3DInfo *Info3D);
+u64 XV_HdmiTx1_GetTmdsClk(XV_HdmiTx1 *InstancePtr);
 
 void XV_HdmiTx1_INT_VRST(XV_HdmiTx1 *InstancePtr, u8 Reset);
 void XV_HdmiTx1_INT_LRST(XV_HdmiTx1 *InstancePtr, u8 Reset);
@@ -1215,8 +1211,10 @@ int XV_HdmiTx1_SelfTest(XV_HdmiTx1 *InstancePtr);
 
 /* Interrupt related functions in xv_hdmitx1_intr.c */
 void XV_HdmiTx1_IntrHandler(void *InstancePtr);
-int XV_HdmiTx1_SetCallback(XV_HdmiTx1 *InstancePtr, u32 HandlerType,
-			   void *CallbackFunc, void *CallbackRef);
+int XV_HdmiTx1_SetCallback(XV_HdmiTx1 *InstancePtr,
+		XV_HdmiTx1_HandlerType HandlerType,
+		void *CallbackFunc,
+		void *CallbackRef);
 
 /************************** Variable Declarations ****************************/
 

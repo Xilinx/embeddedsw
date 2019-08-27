@@ -157,9 +157,9 @@ void XV_HdmiTx1_IntrHandler(void *InstancePtr)
 *
 ******************************************************************************/
 int XV_HdmiTx1_SetCallback(XV_HdmiTx1 *InstancePtr,
-			   u32 HandlerType,
-			   void *CallbackFunc,
-			   void *CallbackRef)
+			XV_HdmiTx1_HandlerType HandlerType,
+			void *CallbackFunc,
+			void *CallbackRef)
 {
 	u32 Status;
 
@@ -452,9 +452,6 @@ xil_printf(" up\n\r" ANSI_COLOR_RESET);
 
 				if (InstancePtr->Stream.Frl.TrainingState ==
 			    	    XV_HDMITX1_FRLSTATE_LTS_3_ARM) {
-					InstancePtr->Stream.Frl.TrainingState =
-			    				XV_HDMITX1_FRLSTATE_LTS_3;
-
 					XV_HdmiTx1_ExecFrlState(InstancePtr);
 					/* XV_HdmiTx1_SetFrl10MicroSecondsTimer(InstancePtr);*/
 				}
