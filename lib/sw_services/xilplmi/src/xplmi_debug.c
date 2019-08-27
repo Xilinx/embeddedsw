@@ -52,7 +52,7 @@
 #include "xplmi_hw.h"
 #include "xpm_api.h"
 #include "xpm_subsystem.h"
-#include "xpm_device.h"
+#include "xilpm_nodeid.h"
 #include "xplmi_status.h"
 
 /************************** Constant Definitions *****************************/
@@ -61,9 +61,9 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifdef STDOUT_BASEADDRESS
 #if (STDOUT_BASEADDRESS == 0xFF000000)
-#define NODE_UART XPM_DEVID_UART_0 /* Assign node ID with UART0 device ID */
+#define NODE_UART PM_DEV_UART_0 /* Assign node ID with UART0 device ID */
 #elif (STDOUT_BASEADDRESS == 0xFF010000)
-#define NODE_UART XPM_DEVID_UART_1 /* Assign node ID with UART1 device ID */
+#define NODE_UART PM_DEV_UART_1 /* Assign node ID with UART1 device ID */
 #endif
 #endif
 
@@ -108,7 +108,7 @@ int XPlmi_InitUart(void )
 	 * During such scenario when PLM tries to print debug message,
 	 * system may not work properly.
 	 */
-	Status = XPm_RequestDevice(XPM_SUBSYSID_PMC, NODE_UART, PM_CAP_ACCESS,
+	Status = XPm_RequestDevice(PM_SUBSYS_PMC, NODE_UART, PM_CAP_ACCESS,
 				   XPM_MAX_QOS, 0);
 	if (XST_SUCCESS != Status) {
 		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_UART_DEV_PM_REQ, Status);
