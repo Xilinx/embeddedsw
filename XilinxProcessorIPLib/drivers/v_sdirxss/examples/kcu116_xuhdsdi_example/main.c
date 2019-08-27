@@ -15,12 +15,14 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+ * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  *
- *
+ * Except as contained in this notice, the name of the Xilinx shall not be used
+ * in advertising or otherwise to promote the sale, use or other dealings in
+ * this Software without prior written authorization from Xilinx.
  *
  *****************************************************************************/
 /*****************************************************************************/
@@ -44,6 +46,7 @@
 #include <stdio.h>
 #include "xil_cache.h"
 #include "xparameters.h"
+#include "si5324drv.h"
 #include "xuartlite_l.h"
 #include "fzetta_fmc/fzetta_fmc_ctlr.h"
 
@@ -52,10 +55,19 @@
 #define GPIO_0_RX_MODE		XPAR_GPIO_1_BASEADDR
 #define GPIO_2_TX_FORMAT	XPAR_GPIO_2_BASEADDR
 #define AUD_ATPG		XPAR_ATPG_BASEADDR
+#define GT_RESET		XPAR_GPIO_3_BASEADDR
+#define I2C_MUX_ADDR	0x74  /**< I2C Mux Address */
+#define I2C_CLK_ADDR	0x69  /**< I2C Clk Address */
+#define I2C_CLK_ADDR_570	0x5D  /**< I2C Clk Address for Si570*/
 
 #define CARRIAGE_RETURN		0x0D
 #define BACKSPACE		0x08
 #define DELETE			0x7F
+
+#define FREQ_148_5_MHz	(148500000)
+#define FREQ_148_35_MHz	(148350000)
+#define FREQ_148_43_MHz	(148438000)
+#define FREQ_297_MHz	(297000000)
 
 /* global variables */
 unsigned char inchar;
@@ -73,6 +85,12 @@ unsigned char IsFPS1 = 0;
 unsigned char IsFPS2 = 0;
 unsigned char IsFPS3 = 0;
 unsigned char IsFPS4 = 0;
+
+
+static int I2cMux(void);
+static int I2cClk(u32 InFreq, u32 OutFreq);
+static int I2cClk_SI5319(u32 InFreq, u32 OutFreq);
+int Si570_SetClock(u32 IICBaseAddress, u8 IICAddress1, u32 RxRefClk);
 
 fzetta_dev_type dev;
 u8 channel;
@@ -112,6 +130,139 @@ void slave_StringCopy(char *StrOut, spi_slave_sel slave_sel) {
 		break;
 	}
 }
+
+
+
+/*****************************************************************************/
+/**
+ *
+ * This function setup SI5324 clock generator over IIC.
+ *
+ * @return	The number of bytes sent.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+static int I2cMux(void)
+{
+	u8 Buffer;
+	int Status;
+
+	xil_printf("Set i2c mux... ");
+
+	Buffer = 0x18;
+	Status = XIic_Send((XPAR_IIC_0_BASEADDR),
+				(I2C_MUX_ADDR),
+				(u8 *)&Buffer,
+				1,
+				(XIIC_STOP));
+	xil_printf("done\n\r");
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function setup SI5324 clock generator either in free or locked mode.
+ *
+ * @param	InFreq specifies an input frequency for the si5324.
+ * @param	OutFreq specifies the output frequency of si5324.
+ *
+ * @return	'XST_FAILURE' if error in programming external clock
+ *			else 'XST_SUCCESS' if success
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+static int I2cClk(u32 InFreq, u32 OutFreq)
+{
+	int Status;
+
+	/* Free running mode */
+	if (!InFreq) {
+
+		Status = Si5324_SetClock((XPAR_IIC_0_BASEADDR),
+					(I2C_CLK_ADDR),
+					(SI5324_CLKSRC_XTAL),
+					(SI5324_XTAL_FREQ),
+					OutFreq);
+
+		if (Status != (SI5324_SUCCESS)) {
+			print("Error programming SI5324\n\r");
+			return XST_FAILURE;
+		}
+	}
+
+	/* Locked mode */
+	else {
+		Status = Si5324_SetClock((XPAR_IIC_0_BASEADDR),
+					(I2C_CLK_ADDR),
+					(SI5324_CLKSRC_CLK1),
+					InFreq,
+					OutFreq);
+
+		if (Status != (SI5324_SUCCESS)) {
+			print("Error programming SI5324\n\r");
+			return XST_FAILURE;
+		}
+	}
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function setup SI5319 clock generator either in free or locked mode.
+ *
+ * @param	InFreq specifies an input frequency for the si5319.
+ * @param	OutFreq specifies the output frequency of si5319.
+ *
+ * @return	'XST_FAILURE' if error in programming external clock
+ *			else 'XST_SUCCESS' if success
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+static int I2cClk_SI5319(u32 InFreq, u32 OutFreq)
+{
+	int Status;
+
+	/* Free running mode */
+	if (!InFreq) {
+
+		Status = Si5324_SetClock((0x800E0000),
+					(0x68),
+					(SI5324_CLKSRC_XTAL),
+					(SI5324_XTAL_FREQ),
+					OutFreq);
+
+		if (Status != (SI5324_SUCCESS)) {
+			print("Error programming SI5319\n\r");
+			return XST_FAILURE;
+		} else {
+			print("Success programming SI5319\n\r");
+		}
+	}
+
+	/* Locked mode */
+	else {
+		Status = Si5324_SetClock((0x800E0000),
+					(0x68),
+					(SI5324_CLKSRC_CLK1),
+					InFreq,
+					OutFreq);
+
+		if (Status != (SI5324_SUCCESS)) {
+			print("Error programming SI5319\n\r");
+			return XST_FAILURE;
+		}
+	}
+
+	return XST_SUCCESS;
+}
+
 
 /*****************************************************************************/
 /**
@@ -513,6 +664,25 @@ void reset_audio_generator(void)
 	Xil_Out32((UINTPTR) (AUD_ATPG), (u32) (0x00000003));
 }
 
+
+/*****************************************************************************/
+/**
+ *
+ * This function resets the audio test pattern generator.
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ ******************************************************************************/
+void GT_Reset(void)
+{
+	/* Audio test pattern Generator Reset */
+	Xil_Out32((UINTPTR) (GT_RESET), (u32) (0x00000000));
+	Xil_Out32((UINTPTR) (GT_RESET), (u32) (0x00000080));
+}
 /*****************************************************************************/
 /**
  *
@@ -674,7 +844,6 @@ void ctrl_app(unsigned char inchar) {
 				report_audio_status();
 				IsSDReso = 1;
 				break;
-
 			case '2':
 				Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000001));
 				Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000001));
@@ -716,12 +885,10 @@ void ctrl_app(unsigned char inchar) {
 					} else {
 						xil_printf("\n\rFAIL: Rx mode not matching 720p50 (HD-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
-
 					}
 					report_audio_status();
 					IsFPS1 = 1;
 					break;
-
 				case'2':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000008));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000007));
@@ -738,7 +905,6 @@ void ctrl_app(unsigned char inchar) {
 					report_audio_status();
 					IsFPS1 = 1;
 					break;
-
 				case'3':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000000));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000007));
@@ -750,15 +916,13 @@ void ctrl_app(unsigned char inchar) {
 					} else {
 						xil_printf("\n\rFAIL: Rx mode not matching 720p60 (HD-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
-
 					}
 					report_audio_status();
 					IsFPS1 = 1;
 					break;
 				}
-			IsHDReso = 1;
-			break;
-
+				IsHDReso = 1;
+				break;
 			case'2':
 				fps_1_menu(IsFPS1);
 				inchar = inbyte();
@@ -781,7 +945,6 @@ void ctrl_app(unsigned char inchar) {
 					report_audio_status();
 					IsFPS1 = 1;
 					break;
-
 				case'2':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000008));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000002));
@@ -793,12 +956,10 @@ void ctrl_app(unsigned char inchar) {
 					} else {
 						xil_printf("\n\rFAIL: Rx mode not matching 1080i59.94 (HD-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
-
 					}
 					report_audio_status();
 					IsFPS1 = 1;
 					break;
-
 				case'3':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000000));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000002));
@@ -810,15 +971,13 @@ void ctrl_app(unsigned char inchar) {
 					} else {
 						xil_printf("\n\rFAIL: Rx mode not matching 1080i60 (HD-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
-
 					}
 					report_audio_status();
 					IsFPS1 = 1;
 					break;
 				}
-			IsHDReso = 1;
-			break;
-
+				IsHDReso = 1;
+				break;
 			case'3':
 				fps_4_menu(IsFPS4);
 				inchar = inbyte();
@@ -836,12 +995,10 @@ void ctrl_app(unsigned char inchar) {
 					} else {
 						xil_printf("\n\rFAIL: Rx mode not matching 1080pSF23.98 (HD-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
-
 					}
 					report_audio_status();
 					IsFPS4 = 1;
 					break;
-
 				case'2':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000000));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000001));
@@ -853,15 +1010,13 @@ void ctrl_app(unsigned char inchar) {
 					} else {
 						xil_printf("\n\rFAIL: Rx mode not matching 1080pSF24 (HD-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
-
 					}
 					report_audio_status();
 					IsFPS4 = 1;
 					break;
 				}
-			IsHDReso = 1;
-			break;
-
+				IsHDReso = 1;
+				break;
 			case'4':
 				fps_2_menu(IsFPS2);
 				inchar = inbyte();
@@ -879,12 +1034,10 @@ void ctrl_app(unsigned char inchar) {
 					} else {
 						xil_printf("\n\rFAIL: Rx mode not matching 1080p23.98 (HD-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
-
 					}
 					report_audio_status();
 					IsFPS2 = 1;
 					break;
-
 				case'2':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000000));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000006));
@@ -896,12 +1049,10 @@ void ctrl_app(unsigned char inchar) {
 					} else {
 						xil_printf("\n\rFAIL: Rx mode not matching 1080p24 (HD-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
-
 					}
 					report_audio_status();
 					IsFPS2 = 1;
 					break;
-
 				case'3':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000000));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000005));
@@ -913,12 +1064,10 @@ void ctrl_app(unsigned char inchar) {
 					} else {
 						xil_printf("\n\rFAIL: Rx mode not matching 1080p25 (HD-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
-
 					}
 					report_audio_status();
 					IsFPS2 = 1;
 					break;
-
 				case'4':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000008));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000004));
@@ -930,12 +1079,10 @@ void ctrl_app(unsigned char inchar) {
 					} else {
 						xil_printf("\n\rFAIL: Rx mode not matching 1080p29.97 (HD-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
-
 					}
 					report_audio_status();
 					IsFPS2 = 1;
 					break;
-
 				case'5':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000000));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000004));
@@ -947,17 +1094,16 @@ void ctrl_app(unsigned char inchar) {
 					} else {
 						xil_printf("\n\rFAIL: Rx mode not matching 1080p30 (HD-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
-
 					}
 					report_audio_status();
 					IsFPS2 = 1;
 					break;
 				}
-			IsHDReso = 1;
-			break;
+				IsHDReso = 1;
+				break;
 			}
-		IsMode = 1;
-		break;
+			IsMode = 1;
+			break;
 		/* 3G-A */
 		case 'c':
 			threeg_reso_menu(Is3GReso);
@@ -981,12 +1127,10 @@ void ctrl_app(unsigned char inchar) {
 					} else {
 						xil_printf("\n\rFAIL: Rx mode not matching 1080p50 (3G-SDI Level A) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
-
 					}
 					report_audio_status();
 					IsFPS1 = 1;
 					break;
-
 				case'2':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x0000000A));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000004));
@@ -998,12 +1142,10 @@ void ctrl_app(unsigned char inchar) {
 					} else {
 						xil_printf("\n\rFAIL: Rx mode not matching 1080p59.94 (3G-SDI Level A) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
-
 					}
 					report_audio_status();
 					IsFPS1 = 1;
 					break;
-
 				case'3':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000002));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000004));
@@ -1015,7 +1157,6 @@ void ctrl_app(unsigned char inchar) {
 					} else {
 						xil_printf("\n\rFAIL: Rx mode not matching 1080p60 (3G-SDI Level A) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
-
 					}
 					report_audio_status();
 					IsFPS1 = 1;
@@ -1024,8 +1165,8 @@ void ctrl_app(unsigned char inchar) {
 				Is3GReso = 1;
 				break;
 			}
-		IsMode = 1;
-		break;
+			IsMode = 1;
+			break;
 		/* 3G-B */
 		case 'd':
 			threeg_reso_menu(Is3GReso);
@@ -1049,12 +1190,10 @@ void ctrl_app(unsigned char inchar) {
 					} else {
 						xil_printf("\n\rFAIL: Rx mode not matching 1080p25 (3G-SDI Level B) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
-
 					}
 					report_audio_status();
 					IsFPS3 = 1;
 					break;
-
 				case'2':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x0000000B));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000004));
@@ -1066,12 +1205,10 @@ void ctrl_app(unsigned char inchar) {
 					} else {
 						xil_printf("\n\rFAIL: Rx mode not matching 1080p29.97 (3G-SDI Level B) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
-
 					}
 					report_audio_status();
 					IsFPS3 = 1;
 					break;
-
 				case'3':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000003));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000004));
@@ -1083,7 +1220,6 @@ void ctrl_app(unsigned char inchar) {
 					} else {
 						xil_printf("\n\rFAIL: Rx mode not matching 1080p30 (3G-SDI Level B) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
-
 					}
 					report_audio_status();
 					IsFPS3 = 1;
@@ -1092,8 +1228,8 @@ void ctrl_app(unsigned char inchar) {
 				Is3GReso = 1;
 				break;
 			}
-		IsMode = 1;
-		break;
+			IsMode = 1;
+			break;
 		/* 6G */
 		case 'e':
 			higher_reso_menu(IsHigherReso);
@@ -1121,7 +1257,6 @@ void ctrl_app(unsigned char inchar) {
 					report_audio_status();
 					IsFPS3 = 1;
 					break;
-
 				case'2':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x0000000C));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000004));
@@ -1133,12 +1268,10 @@ void ctrl_app(unsigned char inchar) {
 					} else {
 						xil_printf("\n\rFAIL: Rx mode not matching 2160p29.97 (6G-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
-
 					}
 					report_audio_status();
 					IsFPS3 = 1;
 					break;
-
 				case'3':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000004));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000004));
@@ -1150,7 +1283,6 @@ void ctrl_app(unsigned char inchar) {
 					} else {
 						xil_printf("\n\rFAIL: Rx mode not matching 2160p30 (6G-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
-
 					}
 					report_audio_status();
 					IsFPS3 = 1;
@@ -1159,8 +1291,8 @@ void ctrl_app(unsigned char inchar) {
 				IsHigherReso = 1;
 				break;
 			}
-		IsMode = 1;
-		break;
+			IsMode = 1;
+			break;
 		/* 12G */
 		case 'f':
 			higher_reso_menu(IsHigherReso);
@@ -1184,12 +1316,10 @@ void ctrl_app(unsigned char inchar) {
 					} else {
 						xil_printf("\n\rFAIL: Rx mode not matching 2160p50 (12G-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
-
 					}
 					report_audio_status();
 					IsFPS1 = 1;
 					break;
-
 				case'2':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x0000000D));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000004));
@@ -1201,12 +1331,10 @@ void ctrl_app(unsigned char inchar) {
 					} else {
 						xil_printf("\n\rFAIL: Rx mode not matching 2160p59.94 (12G-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
-
 					}
 					report_audio_status();
 					IsFPS1 = 1;
 					break;
-
 				case'3':
 					Xil_Out32((UINTPTR) (GPIO_0_TX_MODE), (u32) (0x00000005));
 					Xil_Out32((UINTPTR) (GPIO_2_TX_FORMAT), (u32) (0x00000004));
@@ -1218,7 +1346,6 @@ void ctrl_app(unsigned char inchar) {
 					} else {
 						xil_printf("\n\rFAIL: Rx mode not matching 2160p60 (12G-SDI) \n\r");
 						xil_printf("\n\rInfo: Please check Rx VIO for more details \n\r");
-
 					}
 					report_audio_status();
 					IsFPS1 = 1;
@@ -1227,8 +1354,8 @@ void ctrl_app(unsigned char inchar) {
 				IsHigherReso = 1;
 				break;
 			}
-		IsMode = 1;
-		break;
+			IsMode = 1;
+			break;
 
 		case CARRIAGE_RETURN:
 			IsMode = 0;
@@ -1331,6 +1458,13 @@ int main() {
 	Xil_ICacheEnable();
 	Xil_DCacheEnable();
 	cls();
+	/* Setting path for Si570 chip */
+	I2cMux();
+
+	/* si570 configuration of 148.5MHz */
+	Si570_SetClock(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR_570, FREQ_148_35_MHz);
+	I2cClk(FREQ_148_43_MHz, FREQ_297_MHz);
+	sleep(1);
 	fzetta_fmc_init();
 	Xil_Out32((UINTPTR) (AUD_ATPG), (u32) (0x00000000));
 	Xil_Out32((UINTPTR) (AUD_ATPG+ (0x04)), (u32) (0x00000823));
