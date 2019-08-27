@@ -186,7 +186,7 @@ static u32 XLoader_GetDrvNumSD(u32 DeviceFlags)
  *****************************************************************************/
 int XLoader_SdInit(u32 DeviceFlags)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	FRESULT rc;
 	char buffer[32]={0};
 	char *boot_file = buffer;
@@ -270,7 +270,7 @@ int XLoader_SdInit(u32 DeviceFlags)
  *****************************************************************************/
 XStatus XLoader_SdCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	FRESULT rc;	 /* Result code */
 	(void) Flags;

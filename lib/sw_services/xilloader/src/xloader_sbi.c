@@ -173,7 +173,7 @@ int XLoader_SlaveSbiConfig(u64 SlrBaseAddr)
  *****************************************************************************/
 XStatus XLoader_SbiCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u32 ReadFlags;
 
 	/**

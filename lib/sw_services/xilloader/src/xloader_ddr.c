@@ -96,7 +96,7 @@ int XLoader_DdrInit(u32 DeviceFlags)
  *****************************************************************************/
 XStatus XLoader_DdrCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	Flags = XPLMI_PMCDMA_0;
 	Status = XPlmi_DmaXfr((u64)SrcAddress, DestAddress, Length/4, Flags);
