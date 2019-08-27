@@ -138,7 +138,7 @@ static inline u32 XSecure_DataAuthentication(XSecure_AuthParam *AuthParam);
  *****************************************************************************/
 u32 XSecure_CsuDmaInit(void)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	s32 SStatus;
 	XCsuDma_Config * CsuDmaConfig;
 
@@ -168,7 +168,7 @@ END:
  *****************************************************************************/
 XCsuDma* Xsecure_GetCsuDma(void)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	Status = XSecure_CsuDmaInit();
 	if (Status != (u32)XST_SUCCESS) {
@@ -266,13 +266,15 @@ END:
 u32 XSecure_RsaCore(u32 SrcAddrHigh, u32 SrcAddrLow, u32 SrcSize,
 				u32 Flags)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u64 WrAddr = ((u64)SrcAddrHigh << 32) | (u64)SrcAddrLow;
-	u8 *Modulus = (u8 *)(UINTPTR)(WrAddr + SrcSize);
-	u8 *Exponent = (u8 *)(UINTPTR)(WrAddr + SrcSize
-						+ SrcSize);
+	u8 *Modulus;
+	u8 *Exponent;
 
 	Xil_AssertNonvoid(SrcSize != 0x0U);
+
+	Modulus = (u8 *)(UINTPTR)(WrAddr + SrcSize);
+	Exponent = (u8 *)(UINTPTR)(WrAddr + SrcSize + SrcSize);
 
 	Status = (u32)XSecure_RsaInitialize(&Secure_Rsa, Modulus, NULL, Exponent);
 	if (Status != (u32)XST_SUCCESS) {
@@ -315,7 +317,7 @@ static u32 XSecure_InitAes(u32 AddrHigh, u32 AddrLow)
 {
 	u64 WrAddr = ((u64)AddrHigh << 32) | (u64)AddrLow;
 	XSecure_AesParams *AesParams = (XSecure_AesParams *)(UINTPTR)WrAddr;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u8 Index;
 	u64 IvAddr;
 	u64 KeyAddr;
@@ -385,7 +387,7 @@ static u32 XSecure_DecryptData(u32 AddrHigh, u32 AddrLow)
 {
 	u64 WrAddr = ((u64)AddrHigh << 32) | (u64)AddrLow;
 	XSecure_AesParams *AesParams = (XSecure_AesParams *)(UINTPTR)WrAddr;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u32 KeyClearStatus;
 	u64 SrcAddr;
 	u64 DstAddr;
@@ -435,7 +437,7 @@ static u32 XSecure_EncryptData(u32 AddrHigh, u32 AddrLow)
 {
 	u64 WrAddr = ((u64)AddrHigh << 32) | (u64)AddrLow;
 	XSecure_AesParams *AesParams = (XSecure_AesParams *)(UINTPTR)WrAddr;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u32 KeyClearStatus;
 	u64 SrcAddr;
 	u64 DstAddr;
@@ -481,7 +483,7 @@ u32 XSecure_AesOperation(u32 AddrHigh, u32 AddrLow)
 {
 	u64 WrAddr = ((u64)AddrHigh << 32) | (u64)AddrLow;
 	XSecure_AesParams *AesParams = (XSecure_AesParams *)(UINTPTR)WrAddr;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u32 Flags = AesParams->AesOp;
 
 #ifndef XSECURE_TRUSTED_ENVIRONMENT
@@ -529,7 +531,7 @@ END:
 u32 XSecure_DataAuth(u8 *Signature, XSecure_RsaKey *KeyInst, u8 *Hash)
 {
 
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	XSecure_Rsa SecureRsaInst = {0U};
 	u8 EncSignature[XSECURE_MOD_LEN]  = {0U};
 
@@ -591,7 +593,7 @@ END:
 u32 XSecure_PartitionAuthentication(XCsuDma *CsuDmaInstPtr, u8 *Data,
 				u32 Size, u8 *AuthCertPtr)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	XSecure_AuthParam AuthParam;
 
 	/* Assert conditions */
@@ -635,7 +637,7 @@ static inline u32 XSecure_BhdrAuthentication(XCsuDma *CsuDmaInstPtr,
 				u8 *Data, u32 Size, u8 *AuthCertPtr)
 {
 
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	XSecure_AuthParam AuthParam;
 
 	/* Assert conditions */
@@ -779,7 +781,7 @@ END:
  *****************************************************************************/
 u32 XSecure_AuthenticationHeaders(u8 *StartAddr, XSecure_ImageInfo *ImageInfo)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u32 ImgHdrToffset;
 	u32 AuthCertOffset;
 	u32 SizeofImgHdr;
@@ -962,7 +964,7 @@ u32 XSecure_SecureImage(u32 AddrHigh, u32 AddrLow,
 {
 	u8* SrcAddr = (u8 *)(UINTPTR)(((u64)AddrHigh << XSECURE_WORD_SHIFT) |
 								AddrLow);
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	XSecure_ImageInfo ImageHdrInfo = {0};
 	u8 *KupKey = (u8 *)(UINTPTR)(((u64)KupAddrHigh << XSECURE_WORD_SHIFT) |
 							KupAddrLow);
@@ -1129,7 +1131,7 @@ END:
  *****************************************************************************/
 u32 XSecure_IsRsaEnabled(void)
 {
-	u32 Status;
+	u32 Status = XSECURE_ENABLED;
 
 	if ((Xil_In32(XSECURE_EFUSE_SEC_CTRL) &
 			XSECURE_EFUSE_SEC_CTRL_RSA_ENABLE) != 0x00U) {
@@ -1154,7 +1156,7 @@ END:
  *****************************************************************************/
 u32 XSecure_IsEncOnlyEnabled(void)
 {
-	u32 Status;
+	u32 Status = XSECURE_ENABLED;
 
 	if ((Xil_In32(XSECURE_EFUSE_SEC_CTRL) &
 			XSECURE_EFUSE_SEC_CTRL_ENC_ONLY) != 0x00U) {
@@ -1184,7 +1186,7 @@ u32 XSecure_PpkVerify(XCsuDma *CsuDmaInstPtr, u8 *AuthCert)
 {
 	u8 PpkSel = (*(u32 *)AuthCert & XSECURE_AH_ATTR_PPK_SEL_MASK) >>
 					XSECURE_AH_ATTR_PPK_SEL_SHIFT;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u32 Hash[XSECURE_HASH_TYPE_SHA3/XSECURE_WORD_LEN] = {0U};
 	XSecure_Sha3 Sha3Inst = {0U};
 	u8 Index;
@@ -1270,7 +1272,7 @@ u32 XSecure_SpkAuthentication(XCsuDma *CsuDmaInstPtr, u8 *AuthCert, u8 *Ppk)
 	u8* PpkModular;
 	u8* PpkModularEx;
 	u8* PpkExpPtr;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u8 RsaSha3Array[512] = {0};
 	u8 *PpkPtr;
 	u8 *AcPtr = (u8 *)AuthCert;
@@ -1374,7 +1376,7 @@ END:
  *****************************************************************************/
 u32 XSecure_SpkRevokeCheck(u8 *AuthCert)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status = (u32)XST_FAILURE;
 	u32 *SpkID = (u32 *)(UINTPTR)(AuthCert + XSECURE_AC_SPKID_OFFSET);
 	u8 SpkIdFuseSel = (*(u32 *)AuthCert & XSECURE_AH_ATTR_SPK_ID_FUSE_SEL_MASK)
 							>>	XSECURE_AH_ATTR_SPKID_FUSESEL_SHIFT;
@@ -1385,6 +1387,8 @@ u32 XSecure_SpkRevokeCheck(u8 *AuthCert)
 	if (SpkIdFuseSel == XSECURE_SPKID_EFUSE) {
 		if (*SpkID != Xil_In32(XSECURE_EFUSE_SPKID)) {
 			Status = (u32)XSECURE_SPK_ERR | (u32)XSECURE_REVOKE_ERR;
+		} else {
+			Status = (u32)XST_SUCCESS;
 		}
 	}
 	/*
@@ -1401,6 +1405,8 @@ u32 XSecure_SpkRevokeCheck(u8 *AuthCert)
 			if ((UserFuseVal & (0x1U << ((*SpkID - 1) %
 								XSECURE_WORD_SHIFT))) != 0x0U) {
 				Status = (u32)XSECURE_SPK_ERR | (u32)XSECURE_REVOKE_ERR;
+			} else {
+				Status = (u32)XST_SUCCESS;
 			}
 		}
 		/*
@@ -1433,7 +1439,7 @@ u32 XSecure_SpkRevokeCheck(u8 *AuthCert)
  *****************************************************************************/
 static u32 XSecure_BhdrValidation(XSecure_ImageInfo *ImageInfo)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u32 ImgAttributes;
 	u32 SizeofBH;
 
@@ -1613,7 +1619,7 @@ END:
  *****************************************************************************/
 static inline u32 XSecure_DataAuthentication(XSecure_AuthParam *AuthParam)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	XSecure_Sha3 SecureSha3 = {0U};
 	u8 Hash[XSECURE_HASH_TYPE_SHA3] = {0U};
 	u8 *Signature = (AuthParam->AuthCertPtr + AuthParam->SignatureOffset);

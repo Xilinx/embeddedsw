@@ -298,7 +298,7 @@ u32 XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
 {
 	u32 DataSize;
 	u32 TransferredBytes;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Asserts validate the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -354,7 +354,7 @@ END:
 u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 {
 	u32 PartialLen;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Asserts validate the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -441,7 +441,7 @@ END:
 u32 XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In, const u32 Size,
 								u8 *Out)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Asserts validate the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);

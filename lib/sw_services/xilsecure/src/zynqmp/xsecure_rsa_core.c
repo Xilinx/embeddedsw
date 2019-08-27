@@ -82,7 +82,7 @@ static void XSecure_RsaMod32Inverse(XSecure_Rsa *InstancePtr);
 ******************************************************************************/
 u32 XSecure_RsaCfgInitialize(XSecure_Rsa *InstancePtr)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	InstancePtr->BaseAddress = XSECURE_CSU_RSA_BASE;
 	Status = (u32)XST_SUCCESS;
@@ -107,8 +107,8 @@ u32 XSecure_RsaCfgInitialize(XSecure_Rsa *InstancePtr)
 u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 			u8 *Result, u8 EncDecFlag, u32 Size)
 {
-	u32 Status;
-	s32 ErrorCode = XST_SUCCESS;
+	u32 Status = (u32)XST_FAILURE;
+	s32 ErrorCode = XST_FAILURE;
 	u32 RsaType = XSECURE_CSU_RSA_CONTROL_4096;
 	u32 TimeOut = 0U;
 
@@ -184,11 +184,11 @@ u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 			RsaType = XSECURE_CSU_RSA_CONTROL_4096;
 			break;
 		default:
-			ErrorCode = XST_FAILURE;
+			ErrorCode = XST_INVALID_PARAM;
 			break;
 	}
 
-	if(ErrorCode == XST_FAILURE) {
+	if(ErrorCode == XST_INVALID_PARAM) {
 		goto END;
 	}
 
@@ -217,6 +217,7 @@ u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 		}
 		if(XSECURE_CSU_RSA_STATUS_DONE ==
 				((u32)Status & XSECURE_CSU_RSA_STATUS_DONE)){
+			ErrorCode = XST_SUCCESS;
 			break;
 		}
 		TimeOut = TimeOut + 1U;
