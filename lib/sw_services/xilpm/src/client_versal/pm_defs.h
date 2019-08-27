@@ -27,6 +27,7 @@
 #ifndef _PM_DEFS_H_
 #define _PM_DEFS_H_
 
+#include "xilpm_nodeid.h"
 #include "xpm_defs.h"
 
 #ifdef __cplusplus
