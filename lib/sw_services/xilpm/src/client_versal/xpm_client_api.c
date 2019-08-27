@@ -306,7 +306,7 @@ done:
  * @brief  This function is used to get the device status
  *
  * @param  DeviceId		Device for which status is requested
- * @param  DeviceStatus		Structure pointer to store device status
+ * @param  NodeStatus		Structure pointer to store device status
  * 				- Status - The current power state of the device
  * 				 - For CPU nodes:
  * 				  - 0 : if CPU is powered down,
@@ -334,13 +334,12 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_GetNodeStatus(const u32 DeviceId,
-			  XPm_DeviceStatus *const DeviceStatus)
+XStatus XPm_GetNodeStatus(const u32 DeviceId, XPm_NodeStatus *const NodeStatus)
 {
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	if (NULL == DeviceStatus) {
+	if (NULL == NodeStatus) {
 		XPm_Dbg("ERROR: Passing NULL pointer to %s\r\n", __func__);
 		Status = XST_FAILURE;
 		goto done;
@@ -355,9 +354,9 @@ XStatus XPm_GetNodeStatus(const u32 DeviceId,
 	}
 
 	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, &DeviceStatus->Status,
-				   &DeviceStatus->Requirement,
-				   &DeviceStatus->Usage);
+	Status = Xpm_IpiReadBuff32(PrimaryProc, &NodeStatus->status,
+				   &NodeStatus->requirements,
+				   &NodeStatus->usage);
 
 done:
 	return Status;
