@@ -83,6 +83,20 @@ enum XPmResetActions {
 	PM_RESET_ACTION_PULSE,
 };
 
+/* Suspend reasons */
+enum XPmSuspendReason {
+	SUSPEND_REASON_SUBSYSTEM_REQ 	= (201U),
+	SUSPEND_REASON_ALERT		= (202U),
+	SUSPEND_REASON_SYS_SHUTDOWN	= (203U),
+};
+
+/* PM API callback ids */
+enum XPmApiCbId {
+	XPM_INIT_SUSPEND_CB		= (30U),
+	XPM_ACKNOWLEDGE_CB		= (31U),
+	XPM_NOTIFY_CB			= (32U),
+};
+
 /**
  * XPm_DeviceStatus - struct containing device status information
  */
