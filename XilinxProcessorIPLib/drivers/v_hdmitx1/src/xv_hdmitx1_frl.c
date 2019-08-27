@@ -61,6 +61,7 @@ static void XV_HdmiTx1_ClearFrlLtp(XV_HdmiTx1 *InstancePtr);
 static int XV_HdmiTx1_ExecFrlState_LtsL(XV_HdmiTx1 *InstancePtr);
 static int XV_HdmiTx1_ExecFrlState_Lts1(XV_HdmiTx1 *InstancePtr);
 static int XV_HdmiTx1_ExecFrlState_Lts2(XV_HdmiTx1 *InstancePtr);
+static int XV_HdmiTx1_ExecFrlState_Lts2_RateWr(XV_HdmiTx1 *InstancePtr);
 static int XV_HdmiTx1_ExecFrlState_Lts3(XV_HdmiTx1 *InstancePtr);
 static int XV_HdmiTx1_ExecFrlState_Lts4(XV_HdmiTx1 *InstancePtr);
 static int XV_HdmiTx1_ExecFrlState_LtsP_Arm(XV_HdmiTx1 *InstancePtr);
@@ -264,8 +265,8 @@ static int XV_HdmiTx1_ExecFrlState_LtsL(XV_HdmiTx1 *InstancePtr)
 		if (DdcBuf & XV_HDMITX1_DDC_UPDATE_FLGS_FLT_UPDATE_MASK) {
 			/* Clears FLT_update */
 			Status = XV_HdmiTx1_DdcWriteField(InstancePtr,
-							  XV_HDMITX1_SCDCFIELD_FLT_UPDATE1,
-							  1);
+						XV_HDMITX1_SCDCFIELD_FLT_UPDATE,
+						1);
 		}
 	}
 
@@ -412,15 +413,6 @@ static int XV_HdmiTx1_ExecFrlState_Lts2(XV_HdmiTx1 *InstancePtr)
 				InstancePtr->FrlFfeCallback(InstancePtr->FrlFfeRef);
 			}
 
-			Status = XV_HdmiTx1_FrlTrainingInit(InstancePtr);
-
-			if (Status != XST_SUCCESS) {
-				return Status;
-			}
-
-			/* Execute FRL register update*/
-			XV_HdmiTx1_FrlExecute(InstancePtr);
-
 			/* Reset timer counter */
 			InstancePtr->Stream.Frl.TimerCnt = 0;
 
@@ -431,6 +423,17 @@ static int XV_HdmiTx1_ExecFrlState_Lts2(XV_HdmiTx1 *InstancePtr)
 				InstancePtr->FrlConfigCallback(
 						InstancePtr->FrlConfigRef);
 			}
+
+			/* Starts sending default data to allow sink's GT to
+			 * lock early */
+			for (u8 ln = 0; ln < 4; ln++) {
+				XV_HdmiTx1_SetFrlLtp(InstancePtr,
+						ln,
+						XV_HDMITX1_LTP_NYQUIST_CLOCK);
+			}
+
+			/* Execute FRL register update*/
+			XV_HdmiTx1_FrlExecute(InstancePtr);
 
 			/* Check if user callback has been registered*/
 			if (InstancePtr->FrlLts2Callback) {
@@ -448,6 +451,26 @@ static int XV_HdmiTx1_ExecFrlState_Lts2(XV_HdmiTx1 *InstancePtr)
 		/* Set short timer to jump state */
 		XV_HdmiTx1_SetFrl10MicroSecondsTimer(InstancePtr);
 	}
+
+	return Status;
+}
+
+static int XV_HdmiTx1_ExecFrlState_Lts2_RateWr(XV_HdmiTx1 *InstancePtr)
+{
+	int Status = XST_FAILURE;
+
+	Status = XV_HdmiTx1_FrlTrainingInit(InstancePtr);
+
+	if (Status != XST_SUCCESS) {
+		return Status;
+	}
+
+	/* Execute FRL register update*/
+	XV_HdmiTx1_FrlExecute(InstancePtr);
+
+	InstancePtr->Stream.Frl.TrainingState = XV_HDMITX1_FRLSTATE_LTS_3;
+
+	XV_HdmiTx1_SetFrl10MicroSecondsTimer(InstancePtr);
 
 	return Status;
 }
@@ -612,9 +635,9 @@ xil_printf(ANSI_COLOR_CYAN "TX: LTS:3 0xF (Drop Rate)\r\n" ANSI_COLOR_RESET);
 xil_printf(ANSI_COLOR_CYAN "TX: LTS:3 LTP: ");
 #endif
 		for (u8 ln = 0; ln < 4; ln++) {
-			/* 0x1 to 0x8 means specific link training pattern is requested.
-			 * Each of the lane need to be set to output the link training
-			 * pattern as requested.
+			/* 0x1 to 0x8 means specific link training pattern is
+			 * requested. Each of the lane need to be set to output
+			 * the link training pattern as requested.
 			 */
 #ifdef DEBUG_TX_FRL_VERBOSITY
 xil_printf("%X ", DdcBuf[ln]);
@@ -622,8 +645,10 @@ xil_printf("%X ", DdcBuf[ln]);
 			if (DdcBuf[ln] >= 1 && DdcBuf[ln] <= 8) {
 				/* Sink requested for other LTP */
 				if (ln == 2 &&
-				    InstancePtr->Stream.Frl.DBSendWrongLTP == (TRUE)) {
-					XV_HdmiTx1_SetFrlLtp(InstancePtr, 2, 3);
+				    InstancePtr->Stream.Frl.DBSendWrongLTP ==
+								(TRUE)) {
+					XV_HdmiTx1_SetFrlLtp(InstancePtr, 2,
+						XV_HDMITX1_LTP_NYQUIST_CLOCK);
 				} else {
 					XV_HdmiTx1_SetFrlLtp(InstancePtr,
 							     ln,
@@ -668,7 +693,7 @@ xil_printf("\r\n" ANSI_COLOR_RESET);
 	 * ensures that this will get sent out within 10 ms after
 	 * FLT_update == 1. This might timeout with just 2ms */
 	Status = XV_HdmiTx1_DdcWriteField(InstancePtr,
-					  XV_HDMITX1_SCDCFIELD_FLT_UPDATE1,
+					  XV_HDMITX1_SCDCFIELD_FLT_UPDATE,
 					  1);
 
 	return Status;
@@ -717,6 +742,11 @@ static int XV_HdmiTx1_ExecFrlState_Lts4(XV_HdmiTx1 *InstancePtr)
 			InstancePtr->Stream.Frl.LineRate);
 #endif
 	if (Status == XST_SUCCESS) {
+		/* Check if user callback has been registered*/
+		if (InstancePtr->FrlLts4Callback) {
+			InstancePtr->FrlLts4Callback(InstancePtr->FrlLts4Ref);
+		}
+
 		/* Reset LaneFfeAdjReq so application can reset TxFFE */
 		InstancePtr->Stream.Frl.LaneFfeAdjReq.Data = 0;
 
@@ -724,16 +754,10 @@ static int XV_HdmiTx1_ExecFrlState_Lts4(XV_HdmiTx1 *InstancePtr)
 			InstancePtr->FrlFfeCallback(InstancePtr->FrlFfeRef);
 		}
 
-		Status = XV_HdmiTx1_FrlTrainingInit(InstancePtr);
-
-		if (Status != XST_SUCCESS) {
-			return Status;
-		}
-
 		/* Clears FLT_update */
 		Status = XV_HdmiTx1_DdcWriteField(InstancePtr,
-						  XV_HDMITX1_SCDCFIELD_FLT_UPDATE1,
-						  1);
+						XV_HDMITX1_SCDCFIELD_FLT_UPDATE,
+						1);
 
 		if (Status == XST_SUCCESS) {
 			InstancePtr->Stream.Frl.TimerCnt = 0;
@@ -746,11 +770,6 @@ static int XV_HdmiTx1_ExecFrlState_Lts4(XV_HdmiTx1 *InstancePtr)
 				InstancePtr->FrlConfigCallback(
 						InstancePtr->FrlConfigRef);
 			}
-		}
-
-		/* Check if user callback has been registered*/
-		if (InstancePtr->FrlLts4Callback) {
-			InstancePtr->FrlLts4Callback(InstancePtr->FrlLts4Ref);
 		}
 	} else {
 		InstancePtr->Stream.Frl.TimerCnt = 0;
@@ -788,7 +807,7 @@ static int XV_HdmiTx1_ExecFrlState_LtsP_Arm(XV_HdmiTx1 *InstancePtr)
 
 	/* Clear FLT_update */
 	Status = XV_HdmiTx1_DdcWriteField(InstancePtr,
-					  XV_HDMITX1_SCDCFIELD_FLT_UPDATE1,
+					  XV_HDMITX1_SCDCFIELD_FLT_UPDATE,
 					  1);
 
 	InstancePtr->Stream.Frl.TrainingState = XV_HDMITX1_FRLSTATE_LTS_P;
@@ -850,8 +869,8 @@ static int XV_HdmiTx1_ExecFrlState_LtsP(XV_HdmiTx1 *InstancePtr)
 
 			/* Clear FLT_start */
 			Status = XV_HdmiTx1_DdcWriteField(InstancePtr,
-							  XV_HDMITX1_SCDCFIELD_FRL_START1,
-							  1);
+						XV_HDMITX1_SCDCFIELD_FRL_START,
+						1);
 
 			InstancePtr->Stream.Frl.TrainingState =
 					XV_HDMITX1_FRLSTATE_LTS_P_FRL_RDY;
@@ -932,7 +951,7 @@ int XV_HdmiTx1_ExecFrlState(XV_HdmiTx1 *InstancePtr)
 			break;
 
 		case XV_HDMITX1_FRLSTATE_LTS_3_ARM:
-			/* Intermediate state, do nothing */
+			Status = XV_HdmiTx1_ExecFrlState_Lts2_RateWr(InstancePtr);
 			Status = XST_SUCCESS;
 			break;
 
