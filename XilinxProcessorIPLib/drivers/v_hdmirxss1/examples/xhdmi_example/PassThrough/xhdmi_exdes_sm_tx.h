@@ -269,7 +269,10 @@ typedef struct {
 	XV_Tx_Hdcp_Config HdcpConfig;
 #endif
 	XHdmiphy1      *VidPhy;	/**< Video Phy reference. */
-
+	u8 ExclHdcpAuthReqFlag; /**< Flag for exclusion of HDCP
+			       *  authentication requests to hdcp drivers,
+			       *  in order to keep the processor from
+			       *  being over-used by constant polling. */
 #if defined (ARMR5) || (__aarch64__) || (__arm__)
 	XScuGic   *Intc; /**< Interrupt Controller reference */
 #else
@@ -328,6 +331,8 @@ u32 XV_Tx_SetTriggerCallbacks(XV_Tx *InstancePtr,
 		void *Callback, void *CallbackRef);
 
 void XV_Tx_Hdcp_Poll(XV_Tx *InstancePtr);
+void XV_Tx_SetHdcpAuthReqExclusion(XV_Tx *InstancePtr, u8 Set);
+u8 XV_Tx_GetHdcpAuthReqExclusion(XV_Tx *InstancePtr);
 #ifdef USE_HDCP_HDMI_TX
 void XV_Tx_Hdcp_Authenticate(XV_Tx *InstancePtr);
 void XV_Tx_Hdcp_SetCapability(XV_Tx *InstancePtr, int Protocol);
@@ -349,8 +354,8 @@ u32 XV_Tx_StartFrlTraining(XV_Tx *InstancePtr,
 			   u8 MaxFrlRate);
 void XV_Tx_SetFrlEdidInfo(XV_Tx *InstancePtr, XV_VidC_Supp IsSCDCPresent,
 			  u8 MaxFrlRateSupp);
-void XV_Tx_SetFRLIntVidCkeGen(XV_Tx *InstancePtr);
-void XV_Tx_SetFRLExtVidCkeGen(XV_Tx *InstancePtr);
+void XV_Tx_SetFrlIntVidCkeGen(XV_Tx *InstancePtr);
+void XV_Tx_SetFrlExtVidCkeGen(XV_Tx *InstancePtr);
 void XV_Tx_SetUseInternalACR(XV_Tx *InstancePtr);
 void XV_Tx_SetUseExternalACR(XV_Tx *InstancePtr);
 void XV_Tx_SetAudSamplingFreq(XV_Tx *InstancePtr,

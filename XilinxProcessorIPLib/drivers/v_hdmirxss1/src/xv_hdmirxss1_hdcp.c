@@ -1264,6 +1264,7 @@ void XV_HdmiRxSs1_HdcpInfo(XV_HdmiRxSs1 *InstancePtr)
   switch (InstancePtr->HdcpProtocol) {
     case XV_HDMIRXSS1_HDCP_NONE :
       xil_printf("\r\nHDCP RX is disabled\r\n");
+      xil_printf("---------\r\n");
       break;
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
@@ -1272,6 +1273,7 @@ void XV_HdmiRxSs1_HdcpInfo(XV_HdmiRxSs1 *InstancePtr)
       if (InstancePtr->Hdcp14Ptr) {
         if (XHdcp1x_IsEnabled(InstancePtr->Hdcp14Ptr)) {
           xil_printf("\r\nHDCP 1.4 RX Info\r\n");
+          xil_printf("---------\r\n");
 
           xil_printf("Encryption : ");
           if (XHdcp1x_IsEncrypted(InstancePtr->Hdcp14Ptr)) {
@@ -1288,6 +1290,7 @@ void XV_HdmiRxSs1_HdcpInfo(XV_HdmiRxSs1 *InstancePtr)
         }
         else {
           xil_printf("\r\nHDCP 1.4 RX is disabled\r\n");
+          xil_printf("---------\r\n");
         }
       }
       break;
@@ -1298,13 +1301,17 @@ void XV_HdmiRxSs1_HdcpInfo(XV_HdmiRxSs1 *InstancePtr)
     case XV_HDMIRXSS1_HDCP_22:
       if (InstancePtr->Hdcp22Ptr) {
         if (XHdcp22Rx_IsEnabled(InstancePtr->Hdcp22Ptr)) {
-          XHdcp22Rx_LogDisplay(InstancePtr->Hdcp22Ptr);
+            if (InstancePtr->EnableHDCPLogging == TRUE) {
+              XHdcp22Rx_LogDisplay(InstancePtr->Hdcp22Ptr);
+            }
 
-          xil_printf("HDCP 2.2 RX Info\r\n");
+          xil_printf("\r\nHDCP 2.2 RX Info\r\n");
+          xil_printf("---------\r\n");
           XHdcp22Rx_Info(InstancePtr->Hdcp22Ptr);
         }
         else {
           xil_printf("\r\nHDCP 2.2 RX is disabled\r\n");
+          xil_printf("---------\r\n");
         }
       }
       break;
@@ -1312,6 +1319,7 @@ void XV_HdmiRxSs1_HdcpInfo(XV_HdmiRxSs1 *InstancePtr)
 
     default:
       xil_printf("\r\nHDCP info unknown?\r\n");
+      xil_printf("---------\r\n");
   }
 }
 #endif

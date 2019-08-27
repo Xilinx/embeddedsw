@@ -138,6 +138,8 @@ static unsigned SI5344_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
 	}
 #else
 	XIic *Iic_Ptr = IicPtr;
+	/* This delay prevents IIC access from hanging */
+	usleep(350);
 	return XIic_Send(Iic_Ptr->BaseAddress, SlaveAddr, MsgPtr,
 					ByteCount, Option);
 

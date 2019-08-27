@@ -41,6 +41,7 @@
 ******************************************************************************/
 
 #include "onsemi_nb7nq621m.h"
+#include "sleep.h"
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
 	defined (XPS_BOARD_ZCU106)
@@ -161,6 +162,8 @@ static unsigned ONSEMI_NB7NQ621M_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr
 	}
 #else
 	XIic *Iic_Ptr = IicPtr;
+	/* This delay prevents IIC access from hanging */
+	usleep(1000);
 	return XIic_Send(Iic_Ptr->BaseAddress, SlaveAddr, MsgPtr,
 					ByteCount, Option);
 #endif
@@ -386,7 +389,14 @@ int ONSEMI_NB7NQ621M_Init(void *IicPtr, u8 I2CSlaveAddress, u8 IsTx)
 	/* Register 09 */
 	/* Data Control 0 */
 	Result = ONSEMI_NB7NQ621M_SetRegister(IicPtr, I2CSlaveAddress,
+#if defined (XPS_BOARD_ZCU106)
 					 0x09, (IsTx ? 0x00 : 0x32));
+#elif defined (XPS_BOARD_VCU118)
+					 0x09, (IsTx ? 0x00 : 0x30));
+#else
+/* Place holder for future board support, Below Value just a random value */
+					 0x09, (IsTx ? 0x00 : 0x32));
+#endif
 
 	/* Register 0A */
 	/* Data Control 1 */
