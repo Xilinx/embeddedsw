@@ -175,7 +175,18 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 	XPm_Device *Device;
 	XPm_Requirement *Reqm;
 	int DeviceInUse = 0;
-	u32 Idx;
+	u32 Idx, Idx2;
+	/* TODO: Remove this device list when CDO change is available */
+	u32 ExcludeDevList[] = {
+		XPM_DEVID_L2CACHE,
+		XPM_DEVID_IPI_0,
+		XPM_DEVID_IPI_1,
+		XPM_DEVID_IPI_2,
+		XPM_DEVID_IPI_3,
+		XPM_DEVID_IPI_4,
+		XPM_DEVID_IPI_5,
+		XPM_DEVID_IPI_6,
+	};
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (NULL == Subsystem) {
@@ -194,6 +205,16 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 		    (XPM_NODETYPE_DEV_GT == NODETYPE(Device->Node.Id)) ||
 		    (XPM_NODETYPE_DEV_CORE_PMC == NODETYPE(Device->Node.Id)) ||
 		    (XPM_NODETYPE_DEV_EFUSE == NODETYPE(Device->Node.Id))) {
+			continue;
+		}
+
+		/* Skip if device falls in ExcludeDevList */
+		for (Idx2 = 0; Idx2 < ARRAY_SIZE(ExcludeDevList); Idx2++) {
+			if (Device->Node.Id == ExcludeDevList[Idx2]) {
+				break;
+			}
+		}
+		if (Idx2 < ARRAY_SIZE(ExcludeDevList)) {
 			continue;
 		}
 
