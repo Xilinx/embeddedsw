@@ -76,7 +76,7 @@ static int XLoader_Reserved(XPlmi_Cmd * Cmd)
  *****************************************************************************/
 static int XLoader_LoadSubsystemPdi(XPlmi_Cmd * Cmd)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u32 PdiSrc;
 	u64 PdiAddr;
 	XilPdi* PdiPtr = &SubsystemPdiIns;
