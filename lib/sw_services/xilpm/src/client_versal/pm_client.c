@@ -26,7 +26,7 @@
 
 #include "pm_client.h"
 #include <xil_cache.h>
-#include "xpm_node.h"
+#include "xilpm_nodeid.h"
 #if defined (__aarch64__)
 #include <xreg_cortexa53.h>
 #elif defined (__arm__)
@@ -34,14 +34,6 @@
 #endif
 
 #define XPM_ARRAY_SIZE(x)		(sizeof(x) / sizeof(x[0]))
-
-#define APU_DEVID(IDX)			NODEID(XPM_NODECLASS_DEVICE, \
-					       XPM_NODESUBCL_DEV_CORE, \
-					       XPM_NODETYPE_DEV_CORE_APU, (IDX))
-
-#define RPU_DEVID(IDX)			NODEID(XPM_NODECLASS_DEVICE, \
-					       XPM_NODESUBCL_DEV_CORE, \
-					       XPM_NODETYPE_DEV_CORE_RPU, (IDX))
 
 #define PM_AFL0_MASK			(0xFF)
 
@@ -51,14 +43,14 @@
 #define APU_1_PWRCTL_CPUPWRDWNREQ_MASK	(0x00000002)
 
 static struct XPm_Proc Proc_APU0 = {
-	.DevId = APU_DEVID(XPM_NODEIDX_DEV_ACPU_0),
+	.DevId = PM_DEV_ACPU_0,
 	.PwrCtrl = XPAR_PSV_APU_0_S_AXI_BASEADDR + APU_PWRCTRL_OFFSET,
 	.PwrDwnMask = APU_0_PWRCTL_CPUPWRDWNREQ_MASK,
 	.Ipi = NULL,
 };
 
 static struct XPm_Proc Proc_APU1 = {
-	.DevId = APU_DEVID(XPM_NODEIDX_DEV_ACPU_1),
+	.DevId = PM_DEV_ACPU_1,
 	.PwrCtrl = XPAR_PSV_APU_0_S_AXI_BASEADDR + APU_PWRCTRL_OFFSET,
 	.PwrDwnMask = APU_1_PWRCTL_CPUPWRDWNREQ_MASK,
 	.Ipi = NULL,
@@ -78,14 +70,14 @@ struct XPm_Proc *PrimaryProc = &Proc_APU0;
 #define RPU_GLBL_CNTL_SLSPLIT_MASK	(0x00000008)
 
 static struct XPm_Proc Proc_RPU0 = {
-	.DevId = RPU_DEVID(XPM_NODEIDX_DEV_RPU0_0),
+	.DevId = PM_DEV_RPU0_0,
 	.PwrCtrl = XPAR_PSV_RPU_0_S_AXI_BASEADDR + RPU_0_PWRDWN_OFFSET,
 	.PwrDwnMask = RPU_PWRDWN_EN_MASK,
 	.Ipi = NULL,
 };
 
 static struct XPm_Proc Proc_RPU1 = {
-	.DevId = RPU_DEVID(XPM_NODEIDX_DEV_RPU0_1),
+	.DevId = PM_DEV_RPU0_0,
 	.PwrCtrl = XPAR_PSV_RPU_0_S_AXI_BASEADDR + RPU_1_PWRDWN_OFFSET,
 	.PwrDwnMask = RPU_PWRDWN_EN_MASK,
 	.Ipi = NULL,
