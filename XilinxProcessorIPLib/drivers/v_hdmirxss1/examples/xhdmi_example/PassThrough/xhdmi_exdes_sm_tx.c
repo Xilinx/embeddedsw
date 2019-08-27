@@ -265,6 +265,16 @@ void XV_Tx_Hdcp_Poll(XV_Tx *InstancePtr)
 #endif
 }
 
+void XV_Tx_SetHdcpAuthReqExclusion(XV_Tx *InstancePtr, u8 Set)
+{
+	InstancePtr->ExclHdcpAuthReqFlag = Set;
+}
+
+u8 XV_Tx_GetHdcpAuthReqExclusion(XV_Tx *InstancePtr)
+{
+	return InstancePtr->ExclHdcpAuthReqFlag;
+}
+
 #ifdef USE_HDCP_HDMI_TX
 /*****************************************************************************/
 /**
@@ -272,7 +282,8 @@ void XV_Tx_Hdcp_Poll(XV_Tx *InstancePtr)
 * This function is called to trigger authentication for each downstream
 * interface.
 *
-* @param    InstancePtr is a pointer to the XHdcp_Repeater instance.
+* @param    InstancePtr is a pointer to the Hdmi Transmitter State
+*           machine layer instance.
 *
 * @return   None.
 *
@@ -442,12 +453,12 @@ void XV_Tx_SetFrlEdidInfo(XV_Tx *InstancePtr, XV_VidC_Supp IsSCDCPresent,
 	InstancePtr->ConfigInfo.FrlEdidInfo.MaxFrlRateSupp = MaxFrlRateSupp;
 }
 
-void XV_Tx_SetFRLIntVidCkeGen(XV_Tx *InstancePtr)
+void XV_Tx_SetFrlIntVidCkeGen(XV_Tx *InstancePtr)
 {
 	XV_HdmiTxSs1_SetFrlIntVidCke(InstancePtr->HdmiTxSs);
 }
 
-void XV_Tx_SetFRLExtVidCkeGen(XV_Tx *InstancePtr)
+void XV_Tx_SetFrlExtVidCkeGen(XV_Tx *InstancePtr)
 {
 	XV_HdmiTxSs1_SetFrlExtVidCke(InstancePtr->HdmiTxSs);
 }
@@ -547,11 +558,14 @@ u32 XV_Tx_VideoSetupAndStart(XV_Tx *InstancePtr,
 			HdmiTxSsVidStreamPtr->VmId,
 			HdmiTxSsVidStreamPtr->ColorDepth,
 			HdmiTxSsVidStreamPtr->ColorFormatId);
+
 	TmdsClock = XV_HdmiTxSs1_SetStream(InstancePtr->HdmiTxSs,
-					HdmiTxSsVidStreamPtr->VmId, /* VideoMode, */
-					HdmiTxSsVidStreamPtr->ColorFormatId,/* ColorFormat, */
-					HdmiTxSsVidStreamPtr->ColorDepth,/* Bpc, */
-					NULL);
+			HdmiTxSsVidStreamPtr->Timing,
+			HdmiTxSsVidStreamPtr->FrameRate,
+			HdmiTxSsVidStreamPtr->ColorFormatId,
+			HdmiTxSsVidStreamPtr->ColorDepth,
+			NULL);
+
 	xdbg_xv_tx_new_stream_setup_print("%s,%d. Tmds clock = %d \r\n"
 			"\tNew Hdmi Tx Stream Params : PPC %d, "
 			"ColorDepth %d, ColorFrmtId %d. \r\n",
@@ -581,6 +595,7 @@ u32 XV_Tx_VideoSetupAndStart(XV_Tx *InstancePtr,
 						  HdmiTxSsVidStreamPtr->PixPerClk,
 						  HdmiTxSsVidStreamPtr->ColorDepth,
 						  HdmiTxSsVidStreamPtr->ColorFormatId);
+
 		xdbg_xv_tx_print("%s,%d. After configuring VidPhy Hdmi Tx Params : PPC %d, "
 			"ColorDepth %d, ColorFrmtId %d. \r\n",
 			__func__, __LINE__,
@@ -688,6 +703,19 @@ u32 XV_Tx_VideoSetupAndStart(XV_Tx *InstancePtr,
 					   (u32)LnkClock);
 
 #ifdef DEBUG_VCKE
+		if (InstancePtr->ConfigInfo.FrlCkeSrc ==
+		    XV_TX_HDMI_FRL_CKE_SRC_INTERNAL) {
+			xdbg_xv_tx_print("%s,%d, Colorbar / Independent TX "
+					": Internal Cke\r\n",
+					__func__, __LINE__);
+			XV_Tx_SetFrlIntVidCkeGen(InstancePtr);
+		} else if (InstancePtr->ConfigInfo.FrlCkeSrc ==
+		           XV_TX_HDMI_FRL_CKE_SRC_EXTERNAL) {
+			xdbg_xv_tx_print("%s,%d, Pass-Through : External Cke\r\n",
+					__func__, __LINE__);
+			XV_Tx_SetFrlExtVidCkeGen(InstancePtr);
+		}
+
 		XV_HdmiTx1_SetFrlVidClock(InstancePtr->HdmiTxSs->HdmiTx1Ptr,
 				(u32)VidClock);
 #else
@@ -2625,8 +2653,15 @@ void XV_Tx_HdmiTx_EnterStateFrlConfig(XV_Tx *InstancePtr)
 	 *			 LineRate, NChannels);
 	 */
 
+	/* Enable GT TX Refclk Input if TMDS and FRL are not sharing the
+	 * same MGTREFCLK port
+	 */
+	if (InstancePtr->VidPhy->Config.TxRefClkSel !=
+			InstancePtr->VidPhy->Config.TxFrlRefClkSel) {
+		XHdmiphy1_IBufDsEnable(InstancePtr->VidPhy, 0,
+				XHDMIPHY1_DIR_TX, (TRUE));
+	}
 
-	XHdmiphy1_IBufDsEnable(InstancePtr->VidPhy, 0, XHDMIPHY1_DIR_TX, (TRUE));
 	XHdmiphy1_Hdmi21Config(InstancePtr->VidPhy, 0, XHDMIPHY1_DIR_TX,
 			       LineRate, NChannels);
 

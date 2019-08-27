@@ -50,6 +50,11 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xparameters.h"
 #include "xil_types.h"
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER == 6) /*GTYE4*/
+#define XPS_BOARD_VCU118
+#else
+/* Place-holder for other boards in future */
+#endif
 
 /************************** Constant Definitions *****************************/
 #define REG04_BIT7_LANE_CTRL_GLOBAL		0

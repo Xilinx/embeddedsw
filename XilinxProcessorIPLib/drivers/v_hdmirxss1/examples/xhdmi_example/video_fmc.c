@@ -63,11 +63,6 @@
 #else
 #define I2C_REPEATED_START XIIC_REPEATED_START
 #define I2C_STOP XIIC_STOP
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == 6) /*GTYE4*/
-#define XPS_BOARD_VCU118
-#else
-#define XPS_BOARD_KCU105
-#endif
 #endif
 
 /* BASE BOARD I2C ADDRESSES */
@@ -82,6 +77,7 @@
 #define VFMC_MEZZ_I2C_NB7NQ621M_RX_ADDR   0x5C  /**< I2C Address NB7NQ621M*/
 
 
+static int  Vfmc_ModifyRegister(void *IicPtr, u8 SlaveAddr, u8 Value, u8 Mask);
 
 /*****************************************************************************/
 /**
@@ -136,6 +132,8 @@ static unsigned Vfmc_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
 	}
 #else
 	XIic *Iic_Ptr = IicPtr;
+	/* This delay prevents IIC access from hanging */
+	usleep(1000);
 	return XIic_Send(Iic_Ptr->BaseAddress, SlaveAddr, MsgPtr,
 					ByteCount, Option);
 #endif
@@ -197,6 +195,45 @@ static unsigned Vfmc_I2cRecv(void *IicPtr, u16 SlaveAddr, u8 *BufPtr,
 	return XIic_Recv(Iic_Ptr->BaseAddress, SlaveAddr, BufPtr,
 					ByteCount, Option);
 #endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function modifies a single byte to the TI LMK03318
+*
+* @param I2CBaseAddress is the baseaddress of the I2C core.
+* @param I2CSlaveAddress is the 7-bit I2C slave address.
+*
+* @return
+*    - XST_SUCCESS Initialization was successful.
+*    - XST_FAILURE I2C write error.
+*
+* @note None.
+*
+******************************************************************************/
+static int Vfmc_ModifyRegister(void *IicPtr, u8 SlaveAddr, u8 Value, u8 Mask)
+{
+	u8 Data;
+	int ByteCount;
+
+	/* Read data */
+	ByteCount = Vfmc_I2cRecv(IicPtr, SlaveAddr, (u8 *)&Data, 1, I2C_STOP);
+
+	/* Clear masked bits */
+	Data &= ~Mask;
+
+	/* Update */
+	Data |= (Value & Mask);
+
+	/* Write data */
+	ByteCount +=
+		Vfmc_I2cSend(IicPtr, SlaveAddr, (u8 *)&Data, 1, (I2C_STOP));
+
+	if (ByteCount == 2)
+	  return XST_SUCCESS;
+	else
+	  return XST_FAILURE;
 }
 
 /*****************************************************************************/
@@ -690,28 +727,62 @@ void Vfmc_Gpio_Mezz_HdmiTxDriver_Reconfig(XVfmc *VfmcPtr, u8 IsFRL,
 ******************************************************************************/
 u32 Vfmc_Mezz_HdmiRxRefClock_Sel(XVfmc *VfmcPtr, XVfmc_Mezz_RxRefClkSel Sel)
 {
-	u8 Buffer[2];
-	int ByteCount;
+	u32 Status;
 	void *IicPtr = VfmcPtr->IicPtr;
 	Vfmc_I2cMuxSelect(VfmcPtr);
 
 	if (Sel == VFMC_MEZZ_RxRefclk_From_Si5344) {
-		Buffer[0] = 0x41;
-		ByteCount = Vfmc_I2cSend(IicPtr, VFMC_I2C_IOEXP_0_ADDR,
-				(u8*)Buffer, 1, I2C_STOP);
-	} else if (VFMC_MEZZ_RxRefclk_From_Cable) {
-		Buffer[0] = 0x51;
-		ByteCount = Vfmc_I2cSend(IicPtr, VFMC_I2C_IOEXP_0_ADDR,
-				(u8*)Buffer, 1, I2C_STOP);
+		/* Set RX Refclk to Si5344 */
+		Status = Vfmc_ModifyRegister(IicPtr, VFMC_I2C_IOEXP_0_ADDR,
+						0x41, 0x18);
+	} else if (Sel == VFMC_MEZZ_RxRefclk_From_Cable) {
+		/* Set RX Refclk to IOCLK(0) */
+		Status = Vfmc_ModifyRegister(IicPtr, VFMC_I2C_IOEXP_0_ADDR,
+						0x51, 0x18);
 	} else {
 		xil_printf("Invalid RX Ref clock selected.\r\n");
 		return XST_FAILURE;
 	}
+	return Status;
+}
 
-	if (ByteCount == 1) {
-		return XST_SUCCESS;
-	} else {
-		xil_printf("Failed to select RX FRL clock.\r\n");
+/*****************************************************************************/
+/**
+*
+* This function selects the TX ref clock on GTYE4 devices
+*
+* @param  Source of ref clock
+*
+* @return XST_SUCCESS if the ref clock source is successfuly set.
+*         XST_FAILURE otherwise.
+*
+* @note   None.
+*
+******************************************************************************/
+u32 Vfmc_Mezz_HdmiTxRefClock_Sel(XVfmc *VfmcPtr, XVfmc_Mezz_TxRefClkSel Sel)
+{
+	u32 Status = XST_SUCCESS;
+	void *IicPtr = VfmcPtr->IicPtr;
+	Vfmc_I2cMuxSelect(VfmcPtr);
+
+	if (Sel == VFMC_MEZZ_TxRefclk_From_IDT) {
+		Status = Vfmc_ModifyRegister(IicPtr, VFMC_I2C_IOEXP_1_ADDR,
+						0x1A, 0x08);
+		Status |= Vfmc_ModifyRegister(IicPtr, VFMC_I2C_IOEXP_0_ADDR,
+						0x41, 0x60);
+
+	} else if (Sel == VFMC_MEZZ_TxRefclk_From_Si5344) {
+		Status = Vfmc_ModifyRegister(IicPtr, VFMC_I2C_IOEXP_1_ADDR,
+						0x12, 0x08);
+		Status |= Vfmc_ModifyRegister(IicPtr, VFMC_I2C_IOEXP_0_ADDR,
+						0x01, 0x60);
+	} else{
+		xil_printf("Invalid TX Ref clock selected.\r\n");
 		return XST_FAILURE;
 	}
+
+	if (Status == XST_FAILURE) {
+		xil_printf("Failed to select TX Ref clock.\r\n");
+	}
+	return Status;
 }

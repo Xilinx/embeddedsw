@@ -194,7 +194,7 @@ static unsigned IDT_8T49N24x_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
 	}
 #else
 	/* This delay prevents IIC access from hanging */
-	usleep(350);
+	usleep(1000);
 	XIic *Iic_Ptr = IicPtr;
 	return XIic_Send(Iic_Ptr->BaseAddress, SlaveAddr, MsgPtr,
 					ByteCount, Option);

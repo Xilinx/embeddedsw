@@ -75,7 +75,10 @@ extern "C" {
 #if (defined XPS_BOARD_ZCU102)
 #include "si570drv.h"
 #include "si5324drv.h"
-#else /* VCU118 */
+#elif (defined XPS_BOARD_ZCU106)
+#include "si570drv.h"
+#elif (defined XPS_BOARD_VCU118)
+#else /* Place Holder for other board */
 #endif
 
 #include "video_fmc.h"
@@ -104,6 +107,10 @@ extern "C" {
 #ifdef XPAR_XV_TPG_NUM_INSTANCES
 #include "xv_tpg.h"
 #endif
+#endif
+
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
+#include "xv_axi4s_remap.h"
 #endif
 
 #ifdef XPAR_XGPIO_NUM_INSTANCES
@@ -232,6 +239,14 @@ typedef struct {
 	                       *  tx state machine controller. */
 	XV_Rx *hdmi_rx_ctlr; /**< Reference to the hdmi
 	                       *  rx state machine controller. */
+
+	XTmrCtr SysTmrInst;  /**< Generic timer instance for control
+	                       *  and exception handlers. */
+	u32 SysTmrPulseIntervalinMs; /**< User specified pulse interval
+	                       *  for system timer. */
+
+	u32 HdcpPulseCounter;
+	u32 TmrPulseCnt1second;
 
 	u8 IsTxPresent;	     /**< Flag to track the presence of TX. */
 	u8 IsRxPresent;      /**< Flag to track the presence of RX. */
