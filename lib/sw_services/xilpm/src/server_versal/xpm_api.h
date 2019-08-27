@@ -83,16 +83,6 @@ extern "C" {
 #define PROBE_COUNTER_LPD_MAX_REQ_TYPE		(7)
 #define PROBE_COUNTER_FPD_MAX_REQ_TYPE		(3)
 
-/* Suspend reasons */
-#define SUSPEND_REASON_SUBSYSTEM_REQ		(201U)
-#define SUSPEND_REASON_ALERT			(202U)
-#define SUSPEND_REASON_SYS_SHUTDOWN 		(203U)
-
-/* PM API callback ids */
-#define XPM_INIT_SUSPEND_CB			(30U)
-#define XPM_ACKNOWLEDGE_CB			(31U)
-#define XPM_NOTIFY_CB				(32U)
-
 XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u32 *Payload));
 
 int XPm_GetChipID(u32* IDCode, u32 *Version);
