@@ -44,6 +44,7 @@
 /***************************** Include Files *********************************/
 #include "xloader.h"
 #include "xpm_api.h"
+#include "xilpm_nodeid.h"
 #include "xloader_secure.h"
 /************************** Constant Definitions *****************************/
 
@@ -543,8 +544,8 @@ int XLoader_StartImage(XilPdi *PdiPtr)
                                 XLoader_A72Config(CpuId, ExecState, VInitHi);
                                 XLoader_Printf(DEBUG_INFO,
                                                 " Request APU0 wakeup\r\n");
-                                Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC,
-                                                XPM_DEVID_ACPU_0, 1, HandoffAddr, 0);
+                                Status = XPm_RequestWakeUp(PM_SUBSYS_PMC,
+                                                PM_DEV_ACPU_0, 1, HandoffAddr, 0);
                                 if (Status != XST_SUCCESS)
                                 {
                                         Status = XPLMI_UPDATE_STATUS(
@@ -560,8 +561,8 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				XLoader_A72Config(CpuId, ExecState, VInitHi);
 				XLoader_Printf(DEBUG_INFO,
 						" Request APU1 wakeup\r\n");
-				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC,
-						XPM_DEVID_ACPU_1, 1, HandoffAddr, 0);
+				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC,
+						PM_DEV_ACPU_1, 1, HandoffAddr, 0);
 				if (Status != XST_SUCCESS)
 				{
 					Status = XPLMI_UPDATE_STATUS(
@@ -575,7 +576,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 			{
 				XLoader_Printf(DEBUG_INFO,
 						"Request RPU 0 wakeup\r\n");
-				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0,
+				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC, PM_DEV_RPU0_0,
 						1, HandoffAddr, 0);
 				if (Status != XST_SUCCESS)
 				{
@@ -589,7 +590,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 			{
 				XLoader_Printf(DEBUG_INFO,
 						"Request RPU 1 wakeup\r\n");
-				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC, XPM_DEVID_R50_1,
+				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC, PM_DEV_RPU0_1,
 						1, HandoffAddr, 0);
 				if (Status != XST_SUCCESS)
 				{
@@ -603,7 +604,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 			{
 				XLoader_Printf(DEBUG_INFO,
 						"Request RPU wakeup\r\n");
-				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0,
+				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC, PM_DEV_RPU0_0,
 						1, HandoffAddr, 0);
 				if (Status != XST_SUCCESS)
 				{
@@ -617,8 +618,8 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 			{
 				XLoader_Printf(DEBUG_INFO,
 						" Request PSM wakeup \r\n");
-				Status = XPm_RequestWakeUp(XPM_SUBSYSID_PMC,
-						XPM_DEVID_PSM, 0, 0, 0);
+				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC,
+						PM_DEV_PSM_PROC, 0, 0, 0);
 				if (Status != XST_SUCCESS) {
 					Status = XPLMI_UPDATE_STATUS(
 						XLOADER_ERR_WAKEUP_PSM, Status);
@@ -816,13 +817,13 @@ int XLoader_ReloadImage(u32 ImageId)
 		case XLOADER_PDI_SRC_QSPI24:
 		case XLOADER_PDI_SRC_QSPI32:
 		{
-			XPm_RequestDevice(XPM_SUBSYSID_PMC, XPM_DEVID_QSPI,
+			XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_QSPI,
 									PM_CAP_ACCESS, XPM_DEF_QOS, 0);
 		}
 		break;
 		case XLOADER_PDI_SRC_SD0:
 		{
-			XPm_RequestDevice(XPM_SUBSYSID_PMC, XPM_DEVID_SDIO_0,
+			XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_0,
 									PM_CAP_ACCESS, XPM_DEF_QOS, 0);
 		}
 		break;
@@ -830,19 +831,19 @@ int XLoader_ReloadImage(u32 ImageId)
 		case XLOADER_PDI_SRC_EMMC:
 		case XLOADER_PDI_SRC_SD1_LS:
 		{
-			XPm_RequestDevice(XPM_SUBSYSID_PMC, XPM_DEVID_SDIO_1,
+			XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_1,
 									PM_CAP_ACCESS, XPM_DEF_QOS, 0);
 		}
 		break;
 		case XLOADER_PDI_SRC_USB:
 		{
-			XPm_RequestDevice(XPM_SUBSYSID_PMC, XPM_DEVID_USB_0,
+			XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_USB_0,
 									PM_CAP_ACCESS, XPM_DEF_QOS, 0);
 		}
 		break;
 		case XLOADER_PDI_SRC_OSPI:
 		{
-			XPm_RequestDevice(XPM_SUBSYSID_PMC, XPM_DEVID_OSPI,
+			XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_OSPI,
 									PM_CAP_ACCESS, XPM_DEF_QOS, 0);
 		}
 		break;
@@ -871,29 +872,29 @@ int XLoader_ReloadImage(u32 ImageId)
 		case XLOADER_PDI_SRC_QSPI24:
 		case XLOADER_PDI_SRC_QSPI32:
 		{
-			XPm_ReleaseDevice(XPM_SUBSYSID_PMC, XPM_DEVID_QSPI);
+			XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_QSPI);
 		}
 		break;
 		case XLOADER_PDI_SRC_SD0:
 		{
-			XPm_ReleaseDevice(XPM_SUBSYSID_PMC, XPM_DEVID_SDIO_0);
+			XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_0);
 		}
 		break;
 		case XLOADER_PDI_SRC_SD1:
 		case XLOADER_PDI_SRC_EMMC:
 		case XLOADER_PDI_SRC_SD1_LS:
 		{
-			XPm_ReleaseDevice(XPM_SUBSYSID_PMC, XPM_DEVID_SDIO_1);
+			XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_SDIO_1);
 		}
 		break;
 		case XLOADER_PDI_SRC_USB:
 		{
-			XPm_ReleaseDevice(XPM_SUBSYSID_PMC, XPM_DEVID_USB_0);
+			XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_USB_0);
 		}
 		break;
 		case XLOADER_PDI_SRC_OSPI:
 		{
-			XPm_ReleaseDevice(XPM_SUBSYSID_PMC, XPM_DEVID_OSPI);
+			XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_OSPI);
 		}
 		break;
 		default:
