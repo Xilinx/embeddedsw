@@ -113,7 +113,7 @@ static const u8 XSecure_Silicon2_TPadSha3[] = {0x30U, 0x41U, 0x30U, 0x0DU,
 s32 XSecure_RsaInitialize(XSecure_Rsa *InstancePtr, u8 *Mod, u8 *ModExt,
 							u8 *ModExpo)
 {
-	u32 Status;
+	u32 Status = XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -131,6 +131,7 @@ s32 XSecure_RsaInitialize(XSecure_Rsa *InstancePtr, u8 *Mod, u8 *ModExt,
 	InstancePtr->SizeInWords = XSECURE_RSA_4096_SIZE_WORDS;
 	InstancePtr->RsaState = XSECURE_RSA_INITIALIZED;
 
+	Status = XST_SUCCESS;
 END:
 	return (s32)Status;
 }
@@ -156,14 +157,18 @@ END:
 u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 {
 	u8 * Tpadding = (u8 *)XNULL;
-	u32 Pad = XSECURE_FSBL_SIG_SIZE - 3U - 19U - HashLen;
-	u8 * PadPtr = Signature;
+	u32 Pad;
+	u8 * PadPtr = (u8 *)XNULL;
 	u32 sign_index;
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(Signature != NULL);
 	Xil_AssertNonvoid(Hash != NULL);
+	Xil_AssertNonvoid(HashLen == XSECURE_HASH_TYPE_SHA3);
+
+	Pad = XSECURE_FSBL_SIG_SIZE - 3U - 19U - HashLen;
+	PadPtr = Signature;
 
 #ifdef XSECURE_ZYNQMP
 	/* If Silicon version is not 1.0 then use the latest NIST approved SHA-3

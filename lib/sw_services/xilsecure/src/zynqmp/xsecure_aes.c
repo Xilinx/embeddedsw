@@ -187,7 +187,7 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 	u32 Count;
 	u32 Value;
 	u32 Addr;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -368,7 +368,7 @@ END:
 u32 XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 			u32 Len)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Len != 0U);
@@ -407,7 +407,7 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 	u32 Count;
 	u32 Value;
 	u32 Addr;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -851,7 +851,7 @@ END:
  ******************************************************************************/
 u32 XSecure_AesKeySelNLoad(XSecure_Aes *InstancePtr)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
