@@ -156,11 +156,6 @@ struct XPm_PllClockNode {
 #define PM_PLL_STATE_LOCKED	1U
 #define PM_PLL_STATE_SUSPENDED	2U
 
-/* PLL modes: */
-#define PM_PLL_MODE_RESET		2U
-#define PM_PLL_MODE_INTEGER		0U
-#define PM_PLL_MODE_FRACTIONAL		1U
-
 #define PLL_FRAC_CFG_ENABLED_MASK	(0x80000000U)
 
 /************************** Function Prototypes ******************************/
