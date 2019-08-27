@@ -50,7 +50,7 @@ static XStatus XPmBoard_WaitForPowerRailUp(u32 VoltageRailMask)
 	XStatus Status = XST_FAILURE;
 	XPm_Pmc *Pmc;
 
-	Pmc = (XPm_Pmc *)XPmDevice_GetById(XPM_DEVID_PMC);
+	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 	if (NULL == Pmc) {
 		goto done;
 	}
