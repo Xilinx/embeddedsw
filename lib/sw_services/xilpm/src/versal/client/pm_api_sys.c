@@ -61,14 +61,14 @@ static XStatus XPm_IpiSend(struct XPm_Proc *const Proc, u32 *Payload)
 	Status = XIpiPsu_PollForAck(Proc->Ipi, TARGET_IPI_INT_MASK,
 				    PM_IPI_TIMEOUT);
 	if (Status != XST_SUCCESS) {
-		XPm_Dbg("%s: ERROR: Timeout expired\n", __func__);
+		XPm_Err("IPI Timeout expired in %s\n", __func__);
 		goto done;
 	}
 
 	Status = XIpiPsu_WriteMessage(Proc->Ipi, TARGET_IPI_INT_MASK, Payload,
 				      PAYLOAD_ARG_CNT, XIPIPSU_BUF_TYPE_MSG);
 	if (Status != XST_SUCCESS) {
-		XPm_Dbg("xilpm: ERROR writing to IPI request buffer\n");
+		XPm_Err("Writing to IPI request buffer failed\n");
 		goto done;
 	}
 
@@ -103,14 +103,14 @@ static XStatus Xpm_IpiReadBuff32(struct XPm_Proc *const Proc, u32 *Val1,
 	Status = XIpiPsu_PollForAck(Proc->Ipi, TARGET_IPI_INT_MASK,
 				    PM_IPI_TIMEOUT);
 	if (XST_SUCCESS != Status) {
-		XPm_Dbg("%s: ERROR: Timeout expired\r\n", __func__);
+		XPm_Err("IPI Timeout expired in %s\n", __func__);
 		goto done;
 	}
 
 	Status = XIpiPsu_ReadMessage(Proc->Ipi, TARGET_IPI_INT_MASK, Response,
 				     RESPONSE_ARG_CNT, XIPIPSU_BUF_TYPE_RESP);
 	if (XST_SUCCESS != Status) {
-		XPm_Dbg("%s: ERROR: Reading from IPI Response buffer\r\n", __func__);
+		XPm_Err("Reading from IPI response buffer failed\n");
 		goto done;
 	}
 
@@ -152,7 +152,7 @@ XStatus XPm_InitXilpm(XIpiPsu *IpiInst)
 	XStatus Status = (s32)XST_FAILURE;
 
 	if (NULL == IpiInst) {
-		XPm_Dbg("ERROR passing NULL pointer to %s\r\n", __func__);
+		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
 		Status = (s32)XST_INVALID_PARAM;
 		goto done;
 	}
@@ -395,14 +395,14 @@ done:
  * 				 - For CPU nodes:
  * 				  - 0 : if CPU is powered down,
  * 				  - 1 : if CPU is active (powered up),
- * 				  - 2 : if CPU is suspending (powered up)
+ * 				  - 8 : if CPU is suspending (powered up)
  * 				 - For power islands and power domains:
  * 				  - 0 : if island is powered down,
- * 				  - 1 : if island is powered up
+ * 				  - 2 : if island is powered up
  * 				 - For slaves:
  * 				  - 0 : if slave is powered down,
  * 				  - 1 : if slave is powered up,
- * 				  - 2 : if slave is in retention
+ * 				  - 9 : if slave is in retention
  *
  * 				- Requirement - Requirements placed on the device by the caller
  *
@@ -424,7 +424,7 @@ XStatus XPm_GetNodeStatus(const u32 DeviceId, XPm_NodeStatus *const NodeStatus)
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == NodeStatus) {
-		XPm_Dbg("ERROR: Passing NULL pointer to %s\r\n", __func__);
+		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
 		goto done;
 	}
 
@@ -488,8 +488,8 @@ done:
  *
  * @param  ResetId		Reset ID
  * @param  State		Pointer to store the status of specified reset
+ *				- 0 for reset released
  *				- 1 for reset asserted
- *				- 2 for reset released
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -503,7 +503,7 @@ XStatus XPm_ResetGetStatus(const u32 ResetId, u32 *const State)
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == State) {
-		XPm_Dbg("ERROR: Passing NULL pointer to %s\r\n", __func__);
+		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
 		goto done;
 	}
 
@@ -638,7 +638,7 @@ XStatus XPm_PinCtrlGetFunction(const u32 PinId, u32 *const FunctionId)
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == FunctionId) {
-		XPm_Dbg("ERROR: Passing NULL pointer to %s\r\n", __func__);
+		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
 		goto done;
 	}
 
@@ -738,7 +738,7 @@ XStatus XPm_PinCtrlGetParameter(const u32 PinId, const u32 ParamId, u32 *const P
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == ParamVal) {
-		XPm_Dbg("ERROR: Passing NULL pointer to %s\r\n", __func__);
+		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
 		goto done;
 	}
 
@@ -774,14 +774,14 @@ done:
  *
  *
  ****************************************************************************/
-XStatus XPm_DevIoctl(const u32 DeviceId, const u32 IoctlId, const u32 Arg1,
+XStatus XPm_DevIoctl(const u32 DeviceId, const pm_ioctl_id IoctlId, const u32 Arg1,
 		     const u32 Arg2, u32 *const Response)
 {
 	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == Response) {
-		XPm_Dbg("ERROR: Passing NULL pointer to %s\r\n", __func__);
+		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
 		goto done;
 	}
 
@@ -885,7 +885,7 @@ XStatus XPm_ClockGetStatus(const u32 ClockId, u32 *const State)
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == State) {
-		XPm_Dbg("ERROR: Passing NULL pointer to %s\r\n", __func__);
+		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
 		goto done;
 	}
 
@@ -956,7 +956,7 @@ XStatus XPm_ClockGetDivider(const u32 ClockId, u32 *const Divider)
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == Divider) {
-		XPm_Dbg("ERROR: Passing NULL pointer to %s\r\n", __func__);
+		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
 		goto done;
 	}
 
@@ -1027,7 +1027,7 @@ XStatus XPm_ClockGetParent(const u32 ClockId, u32 *const ParentIdx)
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == ParentIdx) {
-		XPm_Dbg("ERROR: Passing NULL pointer to %s\r\n", __func__);
+		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
 		goto done;
 	}
 
@@ -1188,7 +1188,7 @@ XStatus XPm_PllGetParameter(const u32 ClockId,
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == Value) {
-		XPm_Dbg("ERROR: Passing NULL pointer to %s\r\n", __func__);
+		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
 		goto done;
 	}
 
@@ -1265,7 +1265,7 @@ XStatus XPm_PllGetMode(const u32 ClockId, u32 *const Value)
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == Value) {
-		XPm_Dbg("ERROR: Passing NULL pointer to %s\r\n", __func__);
+		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
 		goto done;
 	}
 
@@ -1310,7 +1310,7 @@ XStatus XPm_SelfSuspend(const u32 DeviceId, const u32 Latency,
 
 	Proc = XPm_GetProcByDeviceId(DeviceId);
 	if (NULL == Proc) {
-		XPm_Dbg("ERROR: Invalid Device ID\r\n");
+		XPm_Err("Invalid Device ID\r\n");
 		Status = (s32)XST_INVALID_PARAM;
 		goto done;
 	}
@@ -1398,15 +1398,15 @@ void XPm_SuspendFinalize(void)
 	XStatus Status = (s32)XST_FAILURE;
 
 	/*
-	 * Wait until previous IPI request is handled by the PMU.
-	 * If PMU is busy, keep trying until PMU becomes responsive
+	 * Wait until previous IPI request is handled by the PLM.
+	 * If PLM is busy, keep trying until PLM becomes responsive
 	 */
 	do {
 		Status = XIpiPsu_PollForAck(PrimaryProc->Ipi,
 					    TARGET_IPI_INT_MASK,
 					    PM_IPI_TIMEOUT);
 		if (Status != XST_SUCCESS) {
-			XPm_Dbg("ERROR timed out while waiting for PMU to"
+			XPm_Err("Timed out while waiting for PLM to"
 				" finish processing previous PM-API call\n");
 		}
 	} while (XST_SUCCESS != Status);
@@ -1630,7 +1630,7 @@ XStatus XPm_Query(const u32 QueryId, const u32 Arg1, const u32 Arg2,
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == Data) {
-		XPm_Dbg("ERROR: Passing NULL pointer to %s\r\n", __func__);
+		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
 		goto done;
 	}
 
@@ -1677,6 +1677,7 @@ XStatus XPm_Query(const u32 QueryId, const u32 Arg1, const u32 Arg2,
 	case (u32)XPM_QID_PINCTRL_GET_NUM_FUNCTION_GROUPS:
 	case (u32)XPM_QID_CLOCK_GET_NUM_CLOCKS:
 	case (u32)XPM_QID_CLOCK_GET_MAX_DIVISOR:
+	case (u32)XPM_QID_PLD_GET_PARENT:
 		Status = Xpm_IpiReadBuff32(PrimaryProc, &Data[0], NULL, NULL);
 		break;
 
@@ -1733,15 +1734,16 @@ done:
  * @param  DeviceId   Device ID.
  * @param  Type       Type of operating characteristic requested:
  *                    - power (current power consumption),
- *                    - latency (current latency in us to return to active
- *			state),
- *                    - temperature (current temperature),
+ *                    - latency (current latency in micro seconds to return
+ *                               to active state),
+ *                    - temperature (current temperature in Celsius
+ *                                   (Q8.7 format)),
  * @param  Result     Used to return the requested operating characteristic.
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- *
+ * @note   Currently power type is not supported for Versal.
  *
  ****************************************************************************/
 XStatus XPm_GetOpCharacteristic(const u32 DeviceId,
@@ -1817,7 +1819,7 @@ int XPm_RegisterNotifier(XPm_Notifier* const Notifier)
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == Notifier) {
-		XPm_Dbg("%s ERROR: NULL notifier pointer\n", __func__);
+		XPm_Err("NULL notifier pointer\n");
 		Status = (s32)XST_INVALID_PARAM;
 		goto done;
 	}
@@ -1863,7 +1865,7 @@ int XPm_UnregisterNotifier(XPm_Notifier* const Notifier)
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	if (NULL == Notifier) {
-		XPm_Dbg("%s ERROR: NULL notifier pointer\n", __func__);
+		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
 		Status = (s32)XST_INVALID_PARAM;
 		goto done;
 	}
@@ -2007,7 +2009,7 @@ int XPm_SetConfiguration(const u32 Address)
 	/* Suppress compilation warning */
 	(void)Address;
 
-	XPm_Dbg("WARNING: %s() API is not supported\r\n", __func__);
+	XPm_Err("%s() API is not supported\r\n", __func__);
 	return (s32)XST_SUCCESS;
 }
 
@@ -2016,7 +2018,7 @@ int XPm_MmioWrite(const u32 Address, const u32 Mask, const u32 Value)
 	/* Suppress compilation warning */
 	(void)Address, (void)Mask, (void)Value;
 
-	XPm_Dbg("ERROR: %s() API is not supported\r\n", __func__);
+	XPm_Err("%s() API is not supported\r\n", __func__);
 	return (s32)XST_FAILURE;
 }
 
@@ -2025,7 +2027,46 @@ int XPm_MmioRead(const u32 Address, u32 *const Value)
 	/* Suppress compilation warning */
 	(void)Address, (void)Value;
 
-	XPm_Dbg("ERROR: %s() API is not supported\r\n", __func__);
+	XPm_Err("%s() API is not supported\r\n", __func__);
 	return (s32)XST_FAILURE;
 }
  /** @} */
+/****************************************************************************/
+/**
+ * @brief  This function queries information about the feature version.
+ *
+ * @param FeatureId	The feature ID (API-ID)
+ * @param Version	Pointer to the output data where  version of
+ *			feature store.
+ *			For the supported feature get non zero value in version,
+ *			But if version is 0U that means feature not supported.
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ ****************************************************************************/
+XStatus XPm_FeatureCheck(const u32 FeatureId, u32 *Version)
+{
+
+	XStatus Status = (s32)XST_FAILURE;
+	u32 Payload[PAYLOAD_ARG_CNT];
+
+	if (NULL == Version) {
+		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
+		goto done;
+	}
+
+	PACK_PAYLOAD1(Payload, PM_FEATURE_CHECK, FeatureId);
+
+	/* Send request to the target module */
+	Status = XPm_IpiSend(PrimaryProc, Payload);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Return result from IPI return buffer */
+	Status = Xpm_IpiReadBuff32(PrimaryProc, Version, NULL, NULL);
+
+done:
+	return Status;
+}
