@@ -26,7 +26,7 @@
 
 #include "xpm_board.h"
 #include "xpm_common.h"
-#include "xpm_core.h"
+#include "xpm_pmc.h"
 #include "xplmi_util.h"
 #include "xpm_regs.h"
 
@@ -48,14 +48,14 @@ static u8 WriteBuffer[BUFFER_SIZE];
 static XStatus XPmBoard_WaitForPowerRailUp(u32 VoltageRailMask)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Core *Pmc;
+	XPm_Pmc *Pmc;
 
-	Pmc = (XPm_Core *)XPmDevice_GetById(XPM_DEVID_PMC);
+	Pmc = (XPm_Pmc *)XPmDevice_GetById(XPM_DEVID_PMC);
 	if (NULL == Pmc) {
 		goto done;
 	}
 
-	Status = XPlmi_UtilPollForMask((Pmc->RegAddress[0] +
+	Status = XPlmi_UtilPollForMask((Pmc->PmcGlobalBaseAddr +
 				     PWR_SUPPLY_STATUS_OFFSET),
 				     VoltageRailMask,
 				     XPLMI_TIME_OUT_DEFAULT);
