@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -270,6 +270,14 @@ void XHdmiphy1_InterruptHandler(XHdmiphy1 *InstancePtr)
 				InstancePtr->IntrTxAlignDoneCallbackRef);
 	}
 #else
+	if (IntrStatus & XHDMIPHY1_INTR_TXGPO_RE_MASK) {
+		InstancePtr->IntrTxGpoRisingEdgeHandler(
+				InstancePtr->IntrTxGpoRisingEdgeCallbackRef);
+	}
+	if (IntrStatus & XHDMIPHY1_INTR_RXGPO_RE_MASK) {
+		InstancePtr->IntrRxGpoRisingEdgeHandler(
+				InstancePtr->IntrRxGpoRisingEdgeCallbackRef);
+	}
 	if (IntrStatus & XHDMIPHY1_INTR_LCPLL_LOCK_MASK) {
 		InstancePtr->IntrLcpllLockHandler(
 				InstancePtr->IntrLcpllLockCallbackRef);
