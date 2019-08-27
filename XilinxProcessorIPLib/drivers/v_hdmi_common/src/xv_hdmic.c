@@ -27,7 +27,7 @@
 /**
  *
  * @file xhdmic.c
- * @addtogroup hdmi_common_v1_2
+ * @addtogroup hdmi_common_v1_0
  * @{
  *
  * Contains common utility functions that are typically used by hdmi-related
@@ -198,10 +198,10 @@ const XHdmiC_TMDS_N_Table TMDSChar_N_Table[] =
 	{148500000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
 	{185625000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
 	{222750000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
-	{297000000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
-	{371250000, { 6144, 4704,  5120,  9408, 10240, 18816, 20480}},
-	{445500000, { 4096, 4704,  5120,  9408, 10240, 18816, 20480}},
-	{594000000, { 3072, 4704,  5120,  9408, 10240, 18816, 20480}}
+	{297000000, { 3072, 4704,  5120,  9408, 10240, 18816, 20480}},
+	{371250000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
+	{445500000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
+	{594000000, { 3072, 9408,  6144, 18816, 12288, 37632, 24576}}
 };
 
 /**
@@ -398,22 +398,22 @@ XHdmiC_SamplingFrequencyVal
         /* Adding tolerance of 10k CTS */
         if ((CTS <  (item->CTS_NVal[FRLCharRate].ACR_CTSVal + 10000)) &&
         (CTS >  (item->CTS_NVal[FRLCharRate].ACR_CTSVal - 10000))) {
-		for (Index_1 = 0; Index_1 < 6; Index_1++) {
-			if (N ==
-				item->CTS_NVal[FRLCharRate].ACR_NVal[Index_1]){
-				if (Index_0 == 0) {
-					SampleFreq =
-					XHDMIC_SAMPLING_FREQ_32K << Index_1;
-				} else if (Index_0 == 1) {
-					SampleFreq =
-					XHDMIC_SAMPLING_FREQ_44_1K << Index_1;
-				} else {
-					SampleFreq =
-					XHDMIC_SAMPLING_FREQ_48K << Index_1;
-				}
-				break;
-			}
-		}
+        	for (Index_1 = 0; Index_1 < 6; Index_1++) {
+        		if (N ==
+        			item->CTS_NVal[FRLCharRate].ACR_NVal[Index_1]){
+        			if (Index_0 == 0) {
+        				SampleFreq =
+        				XHDMIC_SAMPLING_FREQ_32K << Index_1;
+        			} else if (Index_0 == 1) {
+        				SampleFreq =
+        				XHDMIC_SAMPLING_FREQ_44_1K << Index_1;
+        			} else {
+        				SampleFreq =
+        				XHDMIC_SAMPLING_FREQ_48K << Index_1;
+        			}
+        			break;
+        		}
+        	}
         }
     }
     return SampleFreq;
