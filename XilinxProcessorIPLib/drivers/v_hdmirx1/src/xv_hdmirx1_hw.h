@@ -123,7 +123,7 @@ extern "C" {
 #define XV_HDMIRX1_PIO_IN_SCRAMBLER_LOCK2_MASK       (1<<6) /**< PIO In Scrambler lock 2 mask */
 #define XV_HDMIRX1_PIO_IN_SCDC_SCRAMBLER_ENABLE_MASK (1<<7) /**< PIO In SCDC scrambler enable mask */
 #define XV_HDMIRX1_PIO_IN_SCDC_TMDS_CLOCK_RATIO_MASK (1<<8) /**< PIO In SCDC TMDS clock ratio mask */
-#define XV_HDMIRX1_PIO_IN_ALIGNER_LOCK_MASK			(1<<9) /**< PIO In alinger lock mask */
+#define XV_HDMIRX1_PIO_IN_ALIGNER_LOCK_MASK          (1<<9) /**< PIO In alinger lock mask */
 #define XV_HDMIRX1_PIO_IN_BRDG_OVERFLOW_MASK         (1<<10) /**< PIO In bridge overflow mask */
 
 /* Timer peripheral register offsets*/
@@ -133,7 +133,7 @@ extern "C" {
 #define XV_HDMIRX1_TMR_CTRL_SET_OFFSET               ((XV_HDMIRX1_TMR_BASE)+(2*4))    /**< TMR Control Register Set offset */
 #define XV_HDMIRX1_TMR_CTRL_CLR_OFFSET               ((XV_HDMIRX1_TMR_BASE)+(3*4))    /**< TMR Control Register Clear offset */
 #define XV_HDMIRX1_TMR_STA_OFFSET                    ((XV_HDMIRX1_TMR_BASE)+(4*4))    /**< TMR Status Register offset */
-#define XV_HDMIRX1_TMR_CNT_OFFSET                    ((XV_HDMIRX1_TMR_BASE)+(5*4))    /**< TMR Counter Register offset */
+#define XV_HDMIRX1_TMR1_CNT_OFFSET                   ((XV_HDMIRX1_TMR_BASE)+(5*4))    /**< TMR Counter Register offset */
 #define XV_HDMIRX1_TMR2_CNT_OFFSET                   ((XV_HDMIRX1_TMR_BASE)+(6*4))    /**< TMR Counter Register offset */
 
 /* Timer peripheral Control register masks*/
@@ -143,10 +143,9 @@ extern "C" {
 #define XV_HDMIRX1_TMR2_CTRL_IE_MASK                  (1<<3)  /**< TMR Control Interrupt Enable mask */
 
 /* Timer peripheral Status register masks*/
-#define XV_HDMIRX1_TMR_STA_IRQ_MASK                  (1<<0)  /**< TMR Status Interrupt mask */
-#define XV_HDMIRX1_TMR_STA_CNT_EVT_MASK              (1<<1)  /**< TMR Status counter Event mask */
-#define XV_HDMIRX1_TMR2_STA_IRQ_MASK                 (1<<3)  /**< TMR Status Interrupt mask */
-#define XV_HDMIRX1_TMR2_STA_CNT_EVT_MASK             (1<<4)  /**< TMR Status counter Event mask */
+#define XV_HDMIRX1_TMR_STA_IRQ_MASK                   (1<<0)  /**< TMR Status Interrupt mask */
+#define XV_HDMIRX1_TMR1_STA_CNT_EVT_MASK              (1<<1)  /**< TMR Status counter Event mask */
+#define XV_HDMIRX1_TMR2_STA_CNT_EVT_MASK              (1<<3)  /**< TMR Status counter Event mask */
 
 /* Video Timing Detector (VTD) peripheral register offsets.*/
 #define XV_HDMIRX1_VTD_BASE                          (3*64)
