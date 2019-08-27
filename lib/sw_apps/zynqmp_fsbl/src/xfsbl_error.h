@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 19 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -44,6 +44,7 @@
 *                     failure and for encryption compulsory
 * 5.0   ka   04/10/18 Added error codes for user-efuse revocation
 * 6.0   bkm  04/10/18 Added error codes for FMC_VADJ
+* 7.0	bsv	 08/27/19 Added error code for invalid image header size
 * </pre>
 *
 * @note
@@ -206,6 +207,7 @@ extern "C" {
 #define XSFBL_EEPROM_PRESENT						(0x76U)
 #define XFSBL_BITSTREAM_NOT_LOADED				(0x77U)
 #define XFSBL_ERROR_SHA2_NOT_SUPPORTED				(0x78U)
+#define XFSBL_ERROR_IMAGE_HEADER_SIZE				(0x79U)
 #define XFSBL_FAILURE					(0x3FFFFFFFU)
 
 /**************************** Type Definitions *******************************/

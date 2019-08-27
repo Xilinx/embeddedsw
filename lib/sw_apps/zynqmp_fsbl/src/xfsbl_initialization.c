@@ -1247,6 +1247,11 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 			 */
 			Size = (AcOffset * XIH_PARTITION_WORD_LENGTH) -
 				(ImageHeaderTableAddressOffset);
+			if(Size > sizeof(ReadBuffer))
+			{
+				Status = XFSBL_ERROR_IMAGE_HEADER_SIZE;
+				goto END;
+			}
 
 			/* Copy the Image header to OCM */
 			Status = FsblInstancePtr->DeviceOps.DeviceCopy(
