@@ -8,6 +8,7 @@
 #include "xpm_clock.h"
 #include "xpm_pll.h"
 #include "xpm_reset.h"
+#include "xpm_debug.h"
 #include "xpm_device.h"
 #include "xpm_device_idle.h"
 #include "xpm_pin.h"
@@ -98,6 +99,9 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 	XPm_Requirement *Reqm;
 	int DeviceInUse = 0;
 	u32 Idx, Idx2;
+	u32 Platform;
+	u32 PlatformVersion;
+
 	/* TODO: Remove this device list when CDO change is available */
 	u32 ExcludeDevList[] = {
 		PM_DEV_L2_BANK_0,
@@ -148,9 +152,13 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 			continue;
 		}
 
+		Platform = XPm_GetPlatform();
+		PlatformVersion = XPm_GetPlatformVersion();
+
 		if (((u32)PM_DEV_GPIO == Device->Node.Id) &&
-		    (PLATFORM_VERSION_SILICON == Platform) &&
-		    (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
+		    ((u32)PLATFORM_VERSION_SILICON == Platform) &&
+		    ((u32)PLATFORM_VERSION_SILICON_ES1 == PlatformVersion))
+		{
 			continue;
 		}
 
@@ -164,7 +172,7 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 
 			if ((1U == Reqm->Allocated) ||
 			    (((u8)ONLINE == Reqm->Subsystem->State) &&
-			     (0U == (Reqm->Subsystem->Flags & SUBSYSTEM_INIT_FINALIZED)))) {
+			     !IS_SUBSYS_INIT_FINALIZED(Reqm->Subsystem->Flags))) {
 				DeviceInUse = 1;
 				break;
 			}
@@ -377,6 +385,7 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 	XPm_PinNode *Pin;
 	XPm_Device *Device = NULL;
 	u32 DevId;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if (SubsystemId == PM_SUBSYS_PMC) {
 		Status = XST_SUCCESS;
@@ -385,6 +394,7 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (NULL == Subsystem) {
+		DbgErr = XPM_INT_ERR_INVALID_SUBSYSTEMID;
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
@@ -401,24 +411,28 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 	case (u32)XPM_NODECLASS_CLOCK:
 		Status = XPmClock_CheckPermissions(NODEINDEX(Subsystem->Id), NodeId);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_CLOCK_PERMISSION;
 			goto done;
 		}
 		break;
 	case (u32)XPM_NODECLASS_RESET:
 		Status = XPmReset_CheckPermissions(Subsystem, NodeId);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_RESET_PERMISSION;
 			goto done;
 		}
 		break;
 	case (u32)XPM_NODECLASS_DEVICE:
 		Status = XPmDevice_CheckPermissions(Subsystem, NodeId);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_DEVICE_PERMISSION;
 			goto done;
 		}
 		break;
 	case (u32)XPM_NODECLASS_STMIC:
 		Pin = XPmPin_GetById(NodeId);
 		if (NULL == Pin) {
+			DbgErr = XPM_INT_ERR_INVALID_PARAM;
 			goto done;
 		}
 
@@ -434,6 +448,7 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 		 */
 		Device = XPmDevice_GetByIndex(Pin->PinFunc->DevIdx);
 		if (NULL == Device) {
+			DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 			Status = XST_DEVICE_NOT_FOUND;
 			goto done;
 		}
@@ -446,6 +461,7 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 
 		Status = XPmDevice_CheckPermissions(Subsystem, DevId);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_PIN_PERMISSION;
 			goto done;
 		}
 		break;
@@ -454,6 +470,7 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 		break;
 	}
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -465,6 +482,10 @@ XStatus XPmSubsystem_SetState(const u32 SubsystemId, const u32 State)
 	if (((u32)MAX_STATE <= State) || (NULL == Subsystem)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
+	}
+
+	if (((u32)POWERED_OFF == State) || ((u32)OFFLINE == State)) {
+		Subsystem->Flags &= ~SUBSYSTEM_IS_CONFIGURED;
 	}
 
 	Subsystem->State = (u8)State;
@@ -499,15 +520,88 @@ done:
 	return Status;
 }
 
+XStatus XPmSubsystem_Configure(u32 SubsystemId)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Subsystem *Subsystem;
+	XPm_Requirement *Reqm;
+	u32 DeviceId;
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	/* Consider request as success if subsystem is already configured */
+	if (IS_SUBSYS_CONFIGURED(Subsystem->Flags)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* Set subsystem to online if powered off */
+	if (Subsystem->State == (u8)POWERED_OFF) {
+		Status = XPmSubsystem_SetState(SubsystemId, (u32)ONLINE);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	PmDbg("Configuring Subsystem: 0x%x\r\n", SubsystemId);
+	Reqm = Subsystem->Requirements;
+	while (NULL != Reqm) {
+		if ((1U != Reqm->Allocated) && (0x1U == ISPREALLOCREQUIRED((u32)Reqm->Flags))) {
+			DeviceId = Reqm->Device->Node.Id;
+			PmDbg("Prealloc Node: 0x%x Capabilities: 0x%x\r\n", DeviceId, CAPABILITY(Reqm->Flags));
+			Status = XPm_RequestDevice(SubsystemId, DeviceId,
+					   CAPABILITY((u32)Reqm->Flags), XPM_DEF_QOS, 0);
+			if (XST_SUCCESS != Status) {
+				PmErr("Requesting prealloc device 0x%x failed.\n\r", DeviceId);
+				Status = XPM_ERR_DEVICE_REQ;
+				goto done;
+			}
+		}
+		Reqm = Reqm->NextDevice;
+	}
+	Status = XST_SUCCESS;
+
+	Subsystem->Flags |= SUBSYSTEM_IS_CONFIGURED;
+
+done:
+	return Status;
+}
+
 XStatus XPmSubsystem_Add(u32 SubsystemId)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
-	u32 i = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 i = 0, j = 0, Prealloc = 0, Capability = 0;
+	const u32 DefaultPreallocDevList[][2] = {
+		{PM_DEV_PSM_PROC, (u32)PM_CAP_ACCESS},
+		{PM_DEV_UART_0, (u32)XPM_MAX_CAPABILITY},
+		{PM_DEV_UART_1, (u32)XPM_MAX_CAPABILITY},
+		{PM_DEV_OCM_0, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
+		{PM_DEV_OCM_1, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
+		{PM_DEV_OCM_2, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
+		{PM_DEV_OCM_3, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
+		{PM_DEV_DDR_0, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
+		{PM_DEV_ACPU_0, (u32)PM_CAP_ACCESS},
+		{PM_DEV_ACPU_1, (u32)PM_CAP_ACCESS},
+		{PM_DEV_SDIO_0, (u32)PM_CAP_ACCESS},
+		{PM_DEV_SDIO_1, (u32)PM_CAP_ACCESS},
+		{PM_DEV_QSPI, (u32)PM_CAP_ACCESS},
+		{PM_DEV_I2C_0, (u32)PM_CAP_ACCESS},
+		{PM_DEV_I2C_1, (u32)PM_CAP_ACCESS},
+		{PM_DEV_GEM_0, (u32)XPM_MAX_CAPABILITY},
+		{PM_DEV_GEM_1, (u32)XPM_MAX_CAPABILITY},
+		{PM_DEV_RPU0_0, (u32)PM_CAP_ACCESS},
+	};
 
 	if (((u32)XPM_NODECLASS_SUBSYSTEM != NODECLASS(SubsystemId)) ||
 	    ((u32)XPM_NODESUBCL_SUBSYSTEM != NODESUBCLASS(SubsystemId)) ||
 	    ((u32)XPM_NODETYPE_SUBSYSTEM != NODETYPE(SubsystemId))) {
+		DbgErr = XPM_INT_ERR_INVALID_PARAM;
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -515,18 +609,21 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 	/* If default subsystem is online, no other subsystem is allowed to be created */
 	Subsystem = XPmSubsystem_GetById(PM_SUBSYS_DEFAULT);
 	if ((NULL != Subsystem) && ((u8)OFFLINE != Subsystem->State)) {
+		DbgErr = XPM_INT_ERR_DEFAULT_SUBSYS_ADDED;
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if ((NULL != Subsystem) && ((u8)OFFLINE != Subsystem->State)) {
+		DbgErr = XPM_INT_ERR_SUBSYS_ADDED;
 		Status = XST_FAILURE;
 		goto done;
 	}
 
 	Subsystem = (XPm_Subsystem *)XPm_AllocBytes(sizeof(XPm_Subsystem));
 	if (NULL == Subsystem) {
+		DbgErr = XPM_INT_ERR_BUFFER_TOO_SMALL;
 		Status = XST_BUFFER_TOO_SMALL;
 		goto done;
 	}
@@ -557,8 +654,22 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 			 */
 			XPm_Device *Device = XPmDevice_GetByIndex(i);
 			if (NULL != Device) {
-				Status = XPmRequirement_Add(Subsystem, Device, (((u32)REQ_ACCESS_SECURE_NONSECURE << REG_FLAGS_SECURITY_OFFSET) | (u32)REQ_NO_RESTRICTION), NULL, 0);
+				Prealloc = 0;
+				Capability = 0;
+				for (j = 0; j < ARRAY_SIZE(DefaultPreallocDevList); j++) {
+					if (Device->Node.Id == DefaultPreallocDevList[j][0]) {
+						Prealloc = 1;
+						Capability = DefaultPreallocDevList[j][1];
+						break;
+					}
+				}
+				Status = XPmRequirement_Add(Subsystem, Device,
+						REQUIREMENT_FLAGS(Prealloc, Capability, 0U, 0U, 0U,
+							(u32)REQ_ACCESS_SECURE_NONSECURE,
+							(u32)REQ_NO_RESTRICTION),
+						NULL, 0);
 				if (XST_SUCCESS != Status) {
+					DbgErr = XPM_INT_ERR_ADD_REQUIREMENT;
 					goto done;
 				}
 			}
@@ -568,11 +679,12 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 			XPm_Device *Device = XPmDevice_GetPlDeviceByIndex(i);
 			if (NULL != Device) {
 				Status = XPmRequirement_Add(Subsystem, Device,
-							    (((u32)REQ_ACCESS_SECURE_NONSECURE <<
-							    REG_FLAGS_SECURITY_OFFSET) |
-							    (u32)REQ_NO_RESTRICTION),
-							    NULL, 0U);
+						(u32)REQUIREMENT_FLAGS(0U, 0U, 0U, 0U, 0U,
+							(u32)REQ_ACCESS_SECURE_NONSECURE,
+							(u32)REQ_NO_RESTRICTION),
+						NULL, 0);
 				if (XST_SUCCESS != Status) {
+					DbgErr = XPM_INT_ERR_ADD_REQUIREMENT;
 					goto done;
 				}
 			}
@@ -581,42 +693,12 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 
 	Status = XPmSubsystem_SetState(SubsystemId, (u32)ONLINE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_SUBSYS_SET_STATE;
 		goto done;
 	}
 
 done:
-	return Status;
-}
-
-XStatus XPmSubsystem_IsAllProcDwn(u32 SubsystemId)
-{
-	XStatus Status = XST_FAILURE;
-	XPm_Subsystem *Subsystem;
-	XPm_Requirement *Reqm;
-	XPm_Device *Device;
-	u32 SubClass;
-
-	Subsystem = XPmSubsystem_GetById(SubsystemId);
-	if (NULL == Subsystem) {
-		Status = XPM_INVALID_SUBSYSID;
-		goto done;
-	}
-
-	Reqm = Subsystem->Requirements;
-	while (NULL != Reqm) {
-		if (1U == Reqm->Allocated) {
-			Device = Reqm->Device;
-			SubClass = NODESUBCLASS(Device->Node.Id);
-			if (((u32)XPM_NODESUBCL_DEV_CORE == SubClass) &&
-			    ((u8)XPM_DEVSTATE_RUNNING == Device->Node.State)) {
-				goto done;
-			}
-		}
-		Reqm = Reqm->NextDevice;
-	}
-	Status = XST_SUCCESS;
-
-done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -674,6 +756,8 @@ XStatus XPmSubsystem_Restart(u32 SubsystemId)
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
+
+	Subsystem->Flags &= ~SUBSYSTEM_IS_CONFIGURED;
 
 	/*
 	 * In case the application has not released its
