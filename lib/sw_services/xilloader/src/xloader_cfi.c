@@ -67,7 +67,7 @@ XCfupmc XLoader_CfuIns={0}; /* CFU Driver Instance */
  ******************************************************************************/
 int XLoader_CframeInit()
 {
-	int Status;
+	int Status = XST_FAILURE;
 	XCframe_Config *Config;
 
 	if(XLoader_CframeIns.IsReady)

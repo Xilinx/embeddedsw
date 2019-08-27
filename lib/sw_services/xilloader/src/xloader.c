@@ -118,28 +118,6 @@ XLoader_DeviceOps DeviceOps[] =
 #endif
 };
 
-#if 0
-/*****************************************************************************/
-/**
- * This function is used to copy the PDI image to a new address like DDR so
- * that it can be loaded and started runtime without reading from boot device
- * After copying the image it updates the PDI source and address fields
- *
- * @param PdiSrc is source of PDI. It can be in Boot Device, DDR
- * @param SrcAddr is the address at which PDI is located in the PDI source
- *        mentioned
- * @param DestAddr Address where PDI has to be copied to
- * @param PdiLen is length of the PDI to be copied
- *
- * @return	returns SUCCESS on success
- *****************************************************************************/
-int XSubSys_CopyPdi(u32 PdiSrc, u64 SrcAddr, u64 DestAddr, u32 PdiLen)
-{
-
-	return XST_SUCCESS;
-}
-#endif
-
 /*****************************************************************************/
 /**
  * This function initializes the loader instance and registers loader
@@ -178,7 +156,7 @@ int XLoader_Init()
  *****************************************************************************/
 int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	XLoader_SecureParms SecureParam;
 
 	/**
@@ -346,7 +324,7 @@ int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 	 *      CDO commands to Xilpm, and other components
 	 *   3. Load partitions to respective memories
 	 */
-	int Status;
+	int Status = XST_FAILURE;
 	u32 SecBootMode;
 	u32 PdiSrc;
 	u64 PdiAddr;
@@ -467,7 +445,7 @@ int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 	}
 	/** Mark PDI loading is completed */
 	XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_COMPLETE);
-
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }
@@ -485,7 +463,7 @@ END:
  *****************************************************************************/
 int XLoader_LoadPdi(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
@@ -500,8 +478,6 @@ int XLoader_LoadPdi(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	{
 		goto END;
 	}
-
-	Status = XST_SUCCESS;
 END:
 	if (Status != XST_SUCCESS)
 	{
@@ -526,7 +502,7 @@ END:
  *****************************************************************************/
 int XLoader_StartImage(XilPdi *PdiPtr)
 {
-	int Status;
+	int Status = XST_FAILURE;
     u32 Index;
     u32 CpuId;
     u64 HandoffAddr;
@@ -726,7 +702,7 @@ void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi)
 int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId)
 {
 	u32 Index;
-	int Status;
+	int Status = XST_FAILURE;
 
 	if (0xFFFFFFFFU != ImageId)
 	{
@@ -790,7 +766,7 @@ END:
  *****************************************************************************/
 int XLoader_RestartImage(u32 ImageId)
 {
-	u32 Status;
+	int Status = XST_FAILURE;
 
 	Status = XLoader_ReloadImage(ImageId);
 	if (Status != XST_SUCCESS) {
@@ -821,7 +797,7 @@ int XLoader_ReloadImage(u32 ImageId)
 	/** This is for libpm to do the clock settings reqired for boot device
 	 *  to resume post suspension.
 	 */
-	int Status;
+	int Status = XST_FAILURE;
 	switch(SubSystemInfo.PdiPtr->PdiSrc)
 	{
 		case XLOADER_PDI_SRC_QSPI24:
