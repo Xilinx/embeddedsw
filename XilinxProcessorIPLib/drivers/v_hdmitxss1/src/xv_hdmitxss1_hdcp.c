@@ -1538,6 +1538,7 @@ void XV_HdmiTxSs1_HdcpInfo(XV_HdmiTxSs1 *InstancePtr)
   switch (InstancePtr->HdcpProtocol) {
     case XV_HDMITXSS1_HDCP_NONE :
       xil_printf("\r\nHDCP TX is disabled\r\n");
+      xil_printf("---------\r\n");
       break;
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
@@ -1546,6 +1547,7 @@ void XV_HdmiTxSs1_HdcpInfo(XV_HdmiTxSs1 *InstancePtr)
       if (InstancePtr->Hdcp14Ptr) {
         if (XHdcp1x_IsEnabled(InstancePtr->Hdcp14Ptr)) {
           xil_printf("\r\nHDCP 1.4 TX Info\r\n");
+          xil_printf("---------\r\n");
 
           /* Route debug output to xil_printf*/
           XHdcp1x_SetDebugPrintf(xil_printf);
@@ -1555,6 +1557,7 @@ void XV_HdmiTxSs1_HdcpInfo(XV_HdmiTxSs1 *InstancePtr)
         }
         else {
           xil_printf("\r\nHDCP 1.4 TX is disabled\r\n");
+          xil_printf("---------\r\n");
         }
       }
       break;
@@ -1565,13 +1568,17 @@ void XV_HdmiTxSs1_HdcpInfo(XV_HdmiTxSs1 *InstancePtr)
     case XV_HDMITXSS1_HDCP_22 :
       if (InstancePtr->Hdcp22Ptr) {
         if (XHdcp22Tx_IsEnabled(InstancePtr->Hdcp22Ptr)) {
-          XHdcp22Tx_LogDisplay(InstancePtr->Hdcp22Ptr);
+          if (InstancePtr->EnableHDCPLogging == TRUE) {
+            XHdcp22Tx_LogDisplay(InstancePtr->Hdcp22Ptr);
+          }
 
-          xil_printf("HDCP 2.2 TX Info\r\n");
+          xil_printf("\r\nHDCP 2.2 TX Info\r\n");
+          xil_printf("---------\r\n");
           XHdcp22Tx_Info(InstancePtr->Hdcp22Ptr);
         }
         else {
           xil_printf("\r\nHDCP 2.2 TX is disabled\r\n");
+          xil_printf("---------\r\n");
         }
       }
       break;
@@ -1579,6 +1586,7 @@ void XV_HdmiTxSs1_HdcpInfo(XV_HdmiTxSs1 *InstancePtr)
 
     default:
       xil_printf("\r\nHDCP Info Unknown?\r\n");
+      xil_printf("---------\r\n");
       break;
   }
 }

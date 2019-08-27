@@ -49,10 +49,17 @@
 #define VIDEO_FMC_H_
 
 #include "xparameters.h"
+#include "sleep.h"
 #include "xgpio.h"
 #include "idt_8t49n24x.h"
 #include "ti_lmk03318.h"
 #include "onsemi_nb7nq621m.h"
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER == 6) /*GTYE4*/
+#define XPS_BOARD_VCU118
+#include "si5344drv.h"
+#else
+/* Place-holder for other boards in future */
+#endif
 # if defined XPS_BOARD_VCU118
 #include "si5344drv.h"
 #endif
@@ -91,6 +98,10 @@ typedef enum {
 	VFMC_MEZZ_RxRefclk_From_Cable,
 } XVfmc_Mezz_RxRefClkSel;
 
+typedef enum {
+	VFMC_MEZZ_TxRefclk_From_IDT,
+	VFMC_MEZZ_TxRefclk_From_Si5344,
+} XVfmc_Mezz_TxRefClkSel;
 /**
  * This typedef defines the Vfmc structure
  */
@@ -116,5 +127,5 @@ void Vfmc_Gpio_Mezz_HdmiRxEqualizer_Enable(XVfmc *VfmcPtr, u8 Enable);
 void Vfmc_Gpio_Mezz_HdmiTxDriver_Reconfig(XVfmc *VfmcPtr, u8 IsFRL,
 		u64 LineRate);
 u32 Vfmc_Mezz_HdmiRxRefClock_Sel(XVfmc *VfmcPtr, XVfmc_Mezz_RxRefClkSel Sel);
-
+u32 Vfmc_Mezz_HdmiTxRefClock_Sel(XVfmc *VfmcPtr, XVfmc_Mezz_TxRefClkSel Sel);
 #endif /* VIDEO_FMC_H_ */

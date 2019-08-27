@@ -136,13 +136,15 @@ typedef enum {
 	XV_HDMITXSS1_LOG_EVT_SETAUDIOCHANNELS, /**< Log event Set Audio Channels. */
 	XV_HDMITXSS1_LOG_EVT_AUDIOMUTE,		/**< Log event Audio Mute */
 	XV_HDMITXSS1_LOG_EVT_AUDIOUNMUTE,	/**< Log event Audio Unmute. */
+	XV_HDMITXSS1_LOG_EVT_AUDIOINVALIDSAMPRATE, /**< Log event Audio Invalid
+							Audio Sampling Rate. */
 	XV_HDMITXSS1_LOG_EVT_SETSTREAM,   /**< Log event HDMITXSS1 Setstream. */
 	XV_HDMITXSS1_LOG_EVT_HDCP14_AUTHREQ,   /**< Log event HDCP 1.4 AuthReq. */
 	XV_HDMITXSS1_LOG_EVT_HDCP22_AUTHREQ,   /**< Log event HDCP 2.2 AuthReq. */
 	XV_HDMITXSS1_LOG_EVT_PIX_REPEAT_ERR,	/**< Log event Unsupported Pixel
-											 Repetition. */
+						     Repetition. */
 	XV_HDMITXSS1_LOG_EVT_VTC_RES_ERR,	/**< Log event Resolution Unsupported
-											 by VTC. */
+						     by VTC. */
 	XV_HDMITXSS1_LOG_EVT_BRDG_LOCKED,	/**< VID-OUT bridge locked. */
 	XV_HDMITXSS1_LOG_EVT_BRDG_UNLOCKED,	/**< VID-OUT bridge unlocked. */
 	XV_HDMITXSS1_LOG_EVT_FRL_START,	/**< Log event HDMITXSS1 FRL Start. */
@@ -445,6 +447,9 @@ typedef struct
     u8 AudioMute;                 /**< HDMI TX Audio Mute */
     u8 AudioChannels;             /**< Number of Audio Channels */
 
+    u8 EnableHDCPLogging;         /**< HDCP Logging Enabling */
+    u8 EnableHDMILogging;         /**< HDMI Logging Enabling */
+
 	XHdmiC_AVI_InfoFrame AVIInfoframe;		/**< AVI InfoFrame */
 	XHdmiC_AudioInfoFrame AudioInfoframe;	/**< Audio InfoFrame */
 	XHdmiC_VSIF VSIF;						/**< Vendor Specific InfoFrame */
@@ -496,7 +501,7 @@ void XV_HdmiTxSs1_SetGcpClearAvmuteBit(XV_HdmiTxSs1 *InstancePtr);
 void XV_HdmiTxSs1_ClearGcpClearAvmuteBit(XV_HdmiTxSs1 *InstancePtr);
 
 int XV_HdmiTxSs1_SetCallback(XV_HdmiTxSs1 *InstancePtr,
-	u32 HandlerType,
+	XV_HdmiTxSs1_HandlerType HandlerType,
 	void *CallbackFuncPtr,
 	void *CallbackRef);
 int XV_HdmiTxSs1_SetLogCallback(XV_HdmiTxSs1 *InstancePtr,
@@ -523,10 +528,11 @@ XHdmiC_AVI_InfoFrame *XV_HdmiTxSs1_GetAviInfoframe(XV_HdmiTxSs1 *InstancePtr);
 XHdmiC_AudioInfoFrame *XV_HdmiTxSs1_GetAudioInfoframe(XV_HdmiTxSs1 *InstancePtr);
 XHdmiC_VSIF *XV_HdmiTxSs1_GetVSIF(XV_HdmiTxSs1 *InstancePtr);
 u64 XV_HdmiTxSs1_SetStream(XV_HdmiTxSs1 *InstancePtr,
-	XVidC_VideoMode VideoMode,
-	XVidC_ColorFormat ColorFormat,
-	XVidC_ColorDepth Bpc,
-	XVidC_3DInfo *Info3D);
+		XVidC_VideoTiming VideoTiming,
+		XVidC_FrameRate FrameRate,
+		XVidC_ColorFormat ColorFormat,
+		XVidC_ColorDepth Bpc,
+		XVidC_3DInfo *Info3D);
 XVidC_VideoStream *XV_HdmiTxSs1_GetVideoStream(XV_HdmiTxSs1 *InstancePtr);
 void XV_HdmiTxSs1_SetVideoStream(XV_HdmiTxSs1 *InstancePtr,
 				XVidC_VideoStream VidStream);
@@ -558,6 +564,11 @@ void XV_HdmiTxSs1_LogWrite(XV_HdmiTxSs1 *InstancePtr, XV_HdmiTxSs1_LogEvent Evt,
 u16 XV_HdmiTxSs1_LogRead(XV_HdmiTxSs1 *InstancePtr);
 #endif
 void XV_HdmiTxSs1_LogDisplay(XV_HdmiTxSs1 *InstancePtr);
+
+void XV_HdmiTxSs1_ReportCoreInfo(XV_HdmiTxSs1 *InstancePtr);
+void XV_HdmiTxSs1_ReportTiming(XV_HdmiTxSs1 *InstancePtr);
+void XV_HdmiTxSs1_ReportAudio(XV_HdmiTxSs1 *InstancePtr);
+void XV_HdmiTxSs1_ReportSubcoreVersion(XV_HdmiTxSs1 *InstancePtr);
 
 
 #ifdef USE_HDCP_TX

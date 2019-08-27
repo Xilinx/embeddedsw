@@ -94,10 +94,7 @@ static void XV_HdmiTxSs1_GetIncludedSubcores(XV_HdmiTxSs1 *HdmiTxSs1Ptr,
                                             u16 DevId);
 static int XV_HdmiTxSs1_RegisterSubsysCallbacks(XV_HdmiTxSs1 *InstancePtr);
 static int XV_HdmiTxSs1_VtcSetup(XV_HdmiTxSs1 *HdmiTxSs1Ptr);
-static u64 XV_HdmiTxSS1_SetTMDS(XV_HdmiTxSs1 *InstancePtr,
-                        XVidC_VideoMode VideoMode,
-                        XVidC_ColorFormat ColorFormat,
-                        XVidC_ColorDepth Bpc);
+static u64 XV_HdmiTxSS1_SetTMDS(XV_HdmiTxSs1 *InstancePtr);
 static void XV_HdmiTxSs1_ConnectCallback(void *CallbackRef);
 static void XV_HdmiTxSs1_ToggleCallback(void *CallbackRef);
 static void XV_HdmiTxSs1_BrdgLockedCallback(void *CallbackRef);
@@ -117,10 +114,6 @@ static void XV_HdmiTxSs1_CedUpdateCallback(void *CallbackRef);
 
 static u32 XV_HdmiTxSS1_GetVidMaskColorValue(XV_HdmiTxSs1 *InstancePtr,
 											u16 Value);
-static void XV_HdmiTxSs1_ReportCoreInfo(XV_HdmiTxSs1 *InstancePtr);
-static void XV_HdmiTxSs1_ReportTiming(XV_HdmiTxSs1 *InstancePtr);
-static void XV_HdmiTxSs1_ReportAudio(XV_HdmiTxSs1 *InstancePtr);
-static void XV_HdmiTxSs1_ReportSubcoreVersion(XV_HdmiTxSs1 *InstancePtr);
 
 static void XV_HdmiTxSs1_ConfigBridgeMode(XV_HdmiTxSs1 *InstancePtr);
 
@@ -213,7 +206,7 @@ void XV_HdmiTxSS1_SetDviMode(XV_HdmiTxSs1 *InstancePtr)
 * @return None
 *
 ******************************************************************************/
-static void XV_HdmiTxSs1_ReportCoreInfo(XV_HdmiTxSs1 *InstancePtr)
+void XV_HdmiTxSs1_ReportCoreInfo(XV_HdmiTxSs1 *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
@@ -556,6 +549,10 @@ int XV_HdmiTxSs1_CfgInitialize(XV_HdmiTxSs1 *InstancePtr,
    */
   HdmiTxSs1Ptr->AppMajVer = 0;
   HdmiTxSs1Ptr->AppMinVer = 0;
+
+  /* Disable the Logging */
+  HdmiTxSs1Ptr->EnableHDCPLogging = (FALSE);
+  HdmiTxSs1Ptr->EnableHDMILogging = (FALSE);
 
   return(XST_SUCCESS);
 }
@@ -1014,17 +1011,11 @@ static int XV_HdmiTxSs1_VtcSetup(XV_HdmiTxSs1 *HdmiTxSs1Ptr)
 * @note   None.
 *
 *****************************************************************************/
-static u64 XV_HdmiTxSS1_SetTMDS(XV_HdmiTxSs1 *InstancePtr,
-                        XVidC_VideoMode VideoMode,
-                        XVidC_ColorFormat ColorFormat,
-                        XVidC_ColorDepth Bpc) {
-
+static u64 XV_HdmiTxSS1_SetTMDS(XV_HdmiTxSs1 *InstancePtr)
+{
     u64 TmdsClk;
 
-    TmdsClk = XV_HdmiTx1_GetTmdsClk(InstancePtr->HdmiTx1Ptr,
-                                     VideoMode,
-                                     ColorFormat,
-                                     Bpc);
+    TmdsClk = XV_HdmiTx1_GetTmdsClk(InstancePtr->HdmiTx1Ptr);
 
     /* Store TMDS clock for future reference */
 	InstancePtr->HdmiTx1Ptr->Stream.TMDSClock = TmdsClk;
@@ -1398,9 +1389,9 @@ static void XV_HdmiTxSs1_StreamDownCallback(void *CallbackRef)
 *
 ******************************************************************************/
 int XV_HdmiTxSs1_SetCallback(XV_HdmiTxSs1 *InstancePtr,
-    u32 HandlerType,
-    void *CallbackFunc,
-    void *CallbackRef)
+		XV_HdmiTxSs1_HandlerType HandlerType,
+		void *CallbackFunc,
+		void *CallbackRef)
 {
     u32 Status;
 
@@ -1828,10 +1819,7 @@ void XV_HdmiTxSs1_StreamStart(XV_HdmiTxSs1 *InstancePtr)
   XV_HdmiTx1_SetColorFormat(InstancePtr->HdmiTx1Ptr);
 
   /* Set the TMDS Clock*/
-  TmdsClk = XV_HdmiTxSS1_SetTMDS(InstancePtr,
-				 InstancePtr->HdmiTx1Ptr->Stream.Video.VmId,
-				 InstancePtr->HdmiTx1Ptr->Stream.Video.ColorFormatId,
-				 InstancePtr->HdmiTx1Ptr->Stream.Video.ColorDepth);
+  TmdsClk = XV_HdmiTxSS1_SetTMDS(InstancePtr);
 
   /* Set TX scrambler*/
   XV_HdmiTx1_Scrambler(InstancePtr->HdmiTx1Ptr);
@@ -2182,7 +2170,11 @@ void XV_HdmiTxSs1_SetSampleFrequency(XV_HdmiTxSs1 *InstancePtr,
 		break;
 		default:
 			InstancePtr->HdmiTx1Ptr->Stream.Audio.SFreq =
-				XHDMIC_SAMPLING_FREQUENCY_32K;
+				XHDMIC_SAMPLING_FREQUENCY;
+#ifdef XV_HDMITXSS1_LOG_ENABLE
+			XV_HdmiTxSs1_LogWrite(InstancePtr,
+				XV_HDMITXSS1_LOG_EVT_AUDIOINVALIDSAMPRATE, 0);
+#endif
 		break;
 	}
 }
@@ -2269,27 +2261,32 @@ XHdmiC_VSIF *XV_HdmiTxSs1_GetVSIF(XV_HdmiTxSs1 *InstancePtr)
 *
 ******************************************************************************/
 u64 XV_HdmiTxSs1_SetStream(XV_HdmiTxSs1 *InstancePtr,
-        XVidC_VideoMode VideoMode, XVidC_ColorFormat ColorFormat,
-        XVidC_ColorDepth Bpc, XVidC_3DInfo *Info3D)
+		XVidC_VideoTiming VideoTiming,
+		XVidC_FrameRate FrameRate,
+		XVidC_ColorFormat ColorFormat,
+		XVidC_ColorDepth Bpc,
+		XVidC_3DInfo *Info3D)
 {
-  u64 TmdsClock = 0;
-
-  TmdsClock = XV_HdmiTx1_SetStream(InstancePtr->HdmiTx1Ptr, VideoMode,
-    ColorFormat, Bpc, InstancePtr->Config.Ppc, Info3D);
+	u64 TmdsClock = 0;
+	TmdsClock = XV_HdmiTx1_SetStream(InstancePtr->HdmiTx1Ptr,
+			VideoTiming, FrameRate, ColorFormat, Bpc,
+			InstancePtr->Config.Ppc, Info3D);
 
 #ifdef XV_HDMITXSS1_LOG_ENABLE
-  XV_HdmiTxSs1_LogWrite(InstancePtr, XV_HDMITXSS1_LOG_EVT_SETSTREAM, 0);
+	XV_HdmiTxSs1_LogWrite(InstancePtr, XV_HDMITXSS1_LOG_EVT_SETSTREAM, 0);
 #endif
-  if (TmdsClock == 0) {
-    xdbg_printf(XDBG_DEBUG_GENERAL,
-                "\r\nWarning: Sink does not support HDMI 2.0\r\n");
-    xdbg_printf(XDBG_DEBUG_GENERAL,
-                "         Connect to HDMI 2.0 Sink or \r\n");
-    xdbg_printf(XDBG_DEBUG_GENERAL,
-                "         Change to HDMI 1.4 video format\r\n\r\n");
-}
+	if (TmdsClock == 0) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,
+				"\r\nWarning: Sink does not support HDMI 2.0"
+				"\r\n");
+		xdbg_printf(XDBG_DEBUG_GENERAL,
+				"         Connect to HDMI 2.0 Sink or \r\n");
+		xdbg_printf(XDBG_DEBUG_GENERAL,
+				"         Change to HDMI 1.4 video format"
+				"\r\n\r\n");
+	}
 
-  return TmdsClock;
+	return TmdsClock;
 }
 
 /*****************************************************************************/
@@ -2584,7 +2581,7 @@ void XV_HdmiTxSs1_ReportTiming(XV_HdmiTxSs1 *InstancePtr)
 * @note   None.
 *
 ******************************************************************************/
-static void XV_HdmiTxSs1_ReportAudio(XV_HdmiTxSs1 *InstancePtr)
+void XV_HdmiTxSs1_ReportAudio(XV_HdmiTxSs1 *InstancePtr)
 {
   xil_printf("Format   : ");
   if (XV_HdmiTxSs1_GetAudioFormat(InstancePtr) == 1) {
@@ -2613,7 +2610,7 @@ static void XV_HdmiTxSs1_ReportAudio(XV_HdmiTxSs1 *InstancePtr)
 * @note   None.
 *
 ******************************************************************************/
-static void XV_HdmiTxSs1_ReportSubcoreVersion(XV_HdmiTxSs1 *InstancePtr)
+void XV_HdmiTxSs1_ReportSubcoreVersion(XV_HdmiTxSs1 *InstancePtr)
 {
   u32 Data;
 

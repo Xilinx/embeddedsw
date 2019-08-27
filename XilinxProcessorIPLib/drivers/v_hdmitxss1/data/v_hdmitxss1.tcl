@@ -25,16 +25,7 @@
 ## MODIFICATION HISTORY:
 ##  Ver      Who    Date       Changes
 ## -------- ------ -------- ----------------------------------------------------
-##  1.0     gmagnay 08/14/15 Initial version of subsystem tcl
-##  1.1     MG      03/03/16 Added HDCP 2.2
-##  1.2     YH      30/07/16 No HDCP22_SS sub-cores included in _g.c generation
-##  1.3     YH      16/11/16 Remove Remapper & axi_gpio
-##  1.4     MMO     03/01/16 Added sub-core base address computation in TCL
-##  1.5     MMO      3/01/17 Fix the TCL to support multiple instance and sync
-##                           with XV_HdmiTxSs1_Config Data Structure
-##  1.6     MM0     13/02/17 Fix by adding typecasting for C++ Fix
-##  1.7     MMO     08/02/18 Adding YUV420 Support and Low Resolution
-##                           (NTSC/PAL) Support capability
+##  1.0     MMO    22/05/18 Initial version of subsystem tcl
 #
 ################################################################################
 
