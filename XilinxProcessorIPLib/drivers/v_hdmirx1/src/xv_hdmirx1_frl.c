@@ -382,7 +382,7 @@ static int XV_HdmiRx1_ExecFrlState_Lts3_LtpDetected(XV_HdmiRx1 *InstancePtr)
 {
 #ifdef DEBUG_RX_FRL_VERBOSITY
 xil_printf(ANSI_COLOR_MAGENTA "RX: LTS:3 LTP Detected (%d)\r\n"
-	   ANSI_COLOR_RESET, XV_HdmiRx1_GetTmrValue(InstancePtr));
+	   ANSI_COLOR_RESET, XV_HdmiRx1_GetTmr1Value(InstancePtr));
 #endif
 	int Status = XST_FAILURE;
 
@@ -522,7 +522,7 @@ static int XV_HdmiRx1_ExecFrlState_Lts3(XV_HdmiRx1 *InstancePtr)
 {
 #ifdef DEBUG_RX_FRL_VERBOSITY
 xil_printf(ANSI_COLOR_MAGENTA "RX: LTS:3 (%d)\r\n" ANSI_COLOR_RESET,
-	   XV_HdmiRx1_GetTmrValue(InstancePtr));
+	   XV_HdmiRx1_GetTmr1Value(InstancePtr));
 #endif
 	int Status = XST_FAILURE;
 
@@ -557,7 +557,7 @@ xil_printf(ANSI_COLOR_MAGENTA "RX: LTS:3 (%d)\r\n" ANSI_COLOR_RESET,
 #ifdef DEBUG_RX_FRL_VERBOSITY
 		xil_printf("\r\n" ANSI_COLOR_RED"RX: LTS_3-->FLT_UPDATE not "
 			   "Cleared (%d)\r\n" ANSI_COLOR_RESET,
-			   XV_HdmiRx1_GetTmrValue(InstancePtr));
+			   XV_HdmiRx1_GetTmr1Value(InstancePtr));
 #endif
 		/* Source has not cleared FLT_update so sink should not update
 		 * FLT_req and FLT_update as to ensure proper data handshake */
@@ -1068,7 +1068,7 @@ int XV_HdmiRx1_ConfigFrlLtpDetection(XV_HdmiRx1 *InstancePtr)
 					InstancePtr->Stream.Frl.Ltp.Byte[3]);
 			xil_printf(ANSI_COLOR_GREEN "Assert FLT_UPDATE "
 				   "(%d)\r\n" ANSI_COLOR_RESET,
-				   XV_HdmiRx1_GetTmrValue(InstancePtr));
+				   XV_HdmiRx1_GetTmr1Value(InstancePtr));
 #endif
 			XV_HdmiRx1_FrlFltUpdate(InstancePtr, TRUE);
 			XV_HdmiRx1_ResetFrlLtpDetection(InstancePtr);
@@ -1424,6 +1424,7 @@ void XV_HdmiRx1_FrlReset(XV_HdmiRx1 *InstancePtr, u8 Reset)
 ******************************************************************************/
 void XV_HdmiRx1_SetFrlTimer(XV_HdmiRx1 *InstancePtr, u32 Milliseconds)
 {
+	/* FRL uses Timer1 */
 	XV_HdmiRx1_TmrStartMs(InstancePtr, Milliseconds, 1);
 }
 
@@ -1447,7 +1448,7 @@ void XV_HdmiRx1_SetFrl10MicroSecondsTimer(XV_HdmiRx1 *InstancePtr)
 
 	ClockCycles = InstancePtr->Config.AxiLiteClkFreq / 100000;
 
-	XV_HdmiRx1_TmrStart(InstancePtr, ClockCycles);
+	XV_HdmiRx1_Tmr1Start(InstancePtr, ClockCycles);
 }
 
 void XV_HdmiRx1_FrlFltUpdate(XV_HdmiRx1 *InstancePtr, u8 Flag)

@@ -29,14 +29,18 @@ proc generate {drv_handle} {
     "C_BASEADDR" \
     "C_HIGHADDR" \
     "AXI_LITE_FREQ_HZ" \
-    "C_LNK_REF_CLK"
+    "C_LNK_REF_CLK" \
+    "C_VID_REF_CLK" \
+    "C_DDC_EDID_SIZE"
 
     xdefine_config_file $drv_handle "xv_hdmirx1_g.c" \
     "XV_HdmiRx1" \
     "DEVICE_ID" \
     "C_BASEADDR" \
     "AXI_LITE_FREQ_HZ" \
-    "C_LNK_REF_CLK"
+    "C_LNK_REF_CLK" \
+    "C_VID_REF_CLK" \
+    "C_DDC_EDID_SIZE"
 
     xdefine_canonical_xpars $drv_handle "xparameters.h" "XV_HdmiRx1" \
     "NUM_INSTANCES" \
@@ -44,7 +48,9 @@ proc generate {drv_handle} {
     "C_BASEADDR" \
     "C_HIGHADDR" \
     "AXI_LITE_FREQ_HZ" \
-    "C_LNK_REF_CLK"
+    "C_LNK_REF_CLK" \
+    "C_VID_REF_CLK" \
+    "C_DDC_EDID_SIZE"
 }
 
 #
