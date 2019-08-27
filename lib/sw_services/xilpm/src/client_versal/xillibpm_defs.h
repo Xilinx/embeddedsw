@@ -223,6 +223,13 @@ enum XPm_PllConfigParams {
 	PLL_PARAM_MAX,
 };
 
+/* PLL modes */
+enum XPmPllMode {
+	PM_PLL_MODE_INTEGER		= (0U),
+	PM_PLL_MODE_FRACTIONAL		= (1U),
+	PM_PLL_MODE_RESET		= (2U),
+};
+
 /**
  *  PM init node functions
  */
