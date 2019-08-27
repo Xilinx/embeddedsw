@@ -435,8 +435,18 @@ u32 DpMST_PlatformInit(void)
 	// Monitor EDID
 	// Currently on 2 block EDID is supported
 
-	DpRxSsInst.EdidSize = 256;
-	DpRxSsInst.EdidDataPtr = &edid_rx[0];
+	DpRxSsInst.EdidSize[0] = 256;
+	DpRxSsInst.EdidDataPtr[0] = &edid_rx[0];
+
+	DpRxSsInst.EdidSize[1] = 256;
+	DpRxSsInst.EdidDataPtr[1] = &edid_rx[0];
+
+	DpRxSsInst.EdidSize[2] = 256;
+	DpRxSsInst.EdidDataPtr[2] = &edid_rx[0];
+
+	DpRxSsInst.EdidSize[3] = 256;
+	DpRxSsInst.EdidDataPtr[3] = &edid_rx[0];
+
 
 	/* Obtain the device configuration
 	 * for the DisplayPort RX Subsystem */
@@ -3072,13 +3082,13 @@ void Dppt_DetectResolution(void *InstancePtr, u16 offset,
 	u8 msa_offset = stream;//1; //Always copy all into MSA[0] as TX is single
 	stream_id_used = offset;
 
-	while ((DpHres == 0 && i < 3000) && DpRxSsInst.link_up_trigger == 1) {
+	while ((DpHres == 0 && i < 8000) && DpRxSsInst.link_up_trigger == 1) {
 	    DpHres = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 			XDP_RX_MSA_HRES+(0x40*(offset-1)));
 	    i++;
 	}
 	i= 0;
-	while ((DpVres == 0 && i < 3000) && DpRxSsInst.link_up_trigger == 1) {
+	while ((DpVres == 0 && i < 8000) && DpRxSsInst.link_up_trigger == 1) {
 		DpVres = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 			XDP_RX_MSA_VHEIGHT+(0x40*(offset-1)));
 		i++;
