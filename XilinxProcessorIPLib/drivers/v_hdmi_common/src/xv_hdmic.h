@@ -27,7 +27,7 @@
 /**
  *
  * @file xhdmic.h
- * @addtogroup hdmi_common_v1_2
+ * @addtogroup hdmi_common_v1_0
  * @{
  * @details
  *
@@ -42,9 +42,6 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   EB   21/12/17 Initial release.
- * 1.2   EB   15/08/19 Added enumeration for HDMI 2.1 Support
- *       mmo  15/08/19 Updated the VIC table to support HDMI 2.1 Resolution
- *                     Added Audio ACR CTS/N Enumeration and Library
  * </pre>
  *
 *******************************************************************************/
