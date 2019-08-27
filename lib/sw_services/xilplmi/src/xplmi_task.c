@@ -168,7 +168,7 @@ void XPlmi_TaskInit(void )
  *****************************************************************************/
 void XPlmi_TaskDispatchLoop(void )
 {
-	int Status;
+	int Status = XST_FAILURE;
 	struct metal_list *Node;
 	XPlmi_TaskNode *Task;
 	u32 Index;

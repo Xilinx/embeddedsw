@@ -430,7 +430,7 @@ char * XPlmi_Strcat(char* Str1Ptr, const char* Str2Ptr)
  ******************************************************************************/
 s32 XPlmi_Strcmp( const char* Str1Ptr, const char* Str2Ptr)
 {
-	s32 retVal;
+	s32 retVal = -1;
 
 	while (*Str1Ptr == *Str2Ptr) {
 		if (*Str1Ptr == '\0') {
@@ -442,7 +442,7 @@ s32 XPlmi_Strcmp( const char* Str1Ptr, const char* Str2Ptr)
 	}
 
 	if( *Str1Ptr < *Str2Ptr) {
-		retVal = -1;
+		/** Do nothing */
 	}
 	else {
 		retVal = 1;
@@ -496,7 +496,7 @@ s32 XPlmi_MemCmp(const void * Buf1Ptr, const void * Buf2Ptr, u32 Len)
 	const u8 *Buf1 = Buf1Ptr;
 	const u8 *Buf2 = Buf2Ptr;
 	u32 Size = Len;
-	s32 Status;
+	s32 Status = XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(Buf1 != NULL);
@@ -508,7 +508,6 @@ s32 XPlmi_MemCmp(const void * Buf1Ptr, const void * Buf2Ptr, u32 Len)
 	{
 		if (*Buf1 != *Buf2) {
 			if (*Buf1 > *Buf2) {
-				Status = XST_FAILURE;
 				goto END;
 			}
 			else if (*Buf1 < *Buf2) {

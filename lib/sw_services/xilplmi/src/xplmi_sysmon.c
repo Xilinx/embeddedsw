@@ -73,25 +73,27 @@ static XSysMonPsv *SysMonInstPtr = &SysMonInst;
  *****************************************************************************/
 int XPlmi_SysMonInit(void)
 {
-	int Status = XST_SUCCESS;
+	int Status = XST_FAILURE;
 	XSysMonPsv_Config *ConfigPtr;
 
 	ConfigPtr = XSysMonPsv_LookupConfig();
 	if (ConfigPtr == NULL) {
-		Status = XST_FAILURE;
 		goto END;
 	}
+	else
+	{
+		XSysMonPsv_CfgInitialize(SysMonInstPtr, ConfigPtr);
 
-	XSysMonPsv_CfgInitialize(SysMonInstPtr, ConfigPtr);
-
-	/*
-	 * Enable Over-temperature handling.  We need to unlock PCSR to
-	 * enable SysMon interrupt.  Lock it back in after write.
-	 */
-	XPlmi_Out32(ConfigPtr->BaseAddress + XSYSMONPSV_PCSR_LOCK,
-		  PCSR_UNLOCK_VAL);
-	XSysMonPsv_IntrEnable(SysMonInstPtr, XSYSMONPSV_IER0_OT_MASK, 0);
-	XPlmi_Out32(ConfigPtr->BaseAddress + XSYSMONPSV_PCSR_LOCK, 0);
+		/*
+		* Enable Over-temperature handling.  We need to unlock PCSR to
+		* enable SysMon interrupt.  Lock it back in after write.
+		*/
+		XPlmi_Out32(ConfigPtr->BaseAddress + XSYSMONPSV_PCSR_LOCK,
+			PCSR_UNLOCK_VAL);
+		XSysMonPsv_IntrEnable(SysMonInstPtr, XSYSMONPSV_IER0_OT_MASK, 0);
+		XPlmi_Out32(ConfigPtr->BaseAddress + XSYSMONPSV_PCSR_LOCK, 0);
+		Status = XST_SUCCESS;
+	}
 
 END:
 	XPlmi_Printf(DEBUG_DETAILED,

@@ -68,7 +68,7 @@
  *****************************************************************************/
 int XPlmi_SsitSyncMaster(XPlmi_Cmd * Cmd)
 {
-	u32 Status;
+	int Status = XST_FAILURE;
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s %p\n\r", __func__, Cmd);
 
@@ -128,7 +128,7 @@ int XPlmi_SsitSyncSlaves(XPlmi_Cmd * Cmd)
 	u32 ErrorStatus = 0;
 	u32 PmcErrStatus1;
 	u32 PmcErrStatus2;
-	u32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s %p\n\r", __func__, Cmd);
 
@@ -218,7 +218,7 @@ int XPlmi_SsitWaitSlaves(XPlmi_Cmd * Cmd)
 	u32 ErrorStatus = 0;
 	u32 PmcErrStatus1;
 	u32 PmcErrStatus2;
-	u32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s %p\n\r", __func__, Cmd);
 

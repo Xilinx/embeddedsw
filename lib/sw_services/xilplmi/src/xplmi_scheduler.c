@@ -33,7 +33,7 @@ static XPlmi_Scheduler_t Sched;
 
 static int XPlimi_IsTask_active(XPlmi_Scheduler_t *SchedPtr, int TaskListIndex)
 {
-	int ReturnVal;
+	int ReturnVal = FALSE;
 
 	/* Periodic */
 	if ((0U != SchedPtr->TaskList[TaskListIndex].Interval)
@@ -46,7 +46,7 @@ static int XPlimi_IsTask_active(XPlmi_Scheduler_t *SchedPtr, int TaskListIndex)
 		/* Non-Periodic */
 		ReturnVal = TRUE;
 	} else {
-		ReturnVal = FALSE;
+		/** Do Nothing */
 	}
 
 	return ReturnVal;
@@ -54,13 +54,13 @@ static int XPlimi_IsTask_active(XPlmi_Scheduler_t *SchedPtr, int TaskListIndex)
 
 static int XPlmi_IsTask_NonPeriodic(XPlmi_Scheduler_t *SchedPtr, int TaskListIndex)
 {
-	int ReturnVal;
+	int ReturnVal = FALSE;
 
 	if ((0U == SchedPtr->TaskList[TaskListIndex].Interval)
 		&& (NULL != SchedPtr->TaskList[TaskListIndex].CustomerFunc)) {
 		ReturnVal = TRUE;
 	} else {
-		ReturnVal = FALSE;
+		/** Do Nothing */
 	}
 
 	return ReturnVal;
@@ -69,7 +69,7 @@ static int XPlmi_IsTask_NonPeriodic(XPlmi_Scheduler_t *SchedPtr, int TaskListInd
 int XPlmi_SchedulerInit(void)
 {
 	int Idx;
-	int Status;
+	int Status = XST_FAILURE;
 
 
 	/* Disable all the tasks */
@@ -90,15 +90,16 @@ int XPlmi_SchedulerInit(void)
 
 int XPlmi_SchedulerStart(XPlmi_Scheduler_t *SchedPtr)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	if (SchedPtr == NULL) {
-		Status = XST_FAILURE;
 		goto done;
 	}
-
-	SchedPtr->Enabled = TRUE;
-	Status = XST_SUCCESS;
+	else
+	{
+		SchedPtr->Enabled = TRUE;
+		Status = XST_SUCCESS;
+	}
 
 done:
 	return Status;
@@ -110,11 +111,10 @@ int XPlmi_SchedulerStop(XPlmi_Scheduler_t *SchedPtr)
 	return XST_SUCCESS;
 }
 
-void XPlmi_SchedulerHandler(void)
+int XPlmi_SchedulerHandler(void)
 {
 	int Idx;
-	int Status;
-	int CallCount = 0U;
+	int Status = XST_FAILURE;
 	XPlmi_TaskNode *Task;
     /* XPlmi_Printf(DEBUG_GENERAL,"Received :XPlmi_SchedulerHandler\n\r"); */
 	XPlmi_UtilRMW(PMC_PMC_MB_IO_IRQ_ACK, PMC_PMC_MB_IO_IRQ_ACK, 0x20);
@@ -133,15 +133,14 @@ void XPlmi_SchedulerHandler(void)
 			XPlmi_TaskTriggerNow(Task);
 			}
 	}
-	Status = XST_SUCCESS;
 END:
-	return ;
+	return Status;
 }
 
 int XPlmi_SchedulerAddTask(XPlmi_Callback_t CallbackFn, int MilliSeconds)
 {
 	int Idx;
-	int Status;
+	int Status = XST_FAILURE;
 
 	/* Get the Next Free Task Index */
 	for (Idx=0U;Idx < XPLMI_SCHED_MAX_TASK;Idx++) {
@@ -152,7 +151,6 @@ int XPlmi_SchedulerAddTask(XPlmi_Callback_t CallbackFn, int MilliSeconds)
 
 	/* Check if we have reached Max Task limit */
 	if (XPLMI_SCHED_MAX_TASK == Idx) {
-		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -169,7 +167,7 @@ done:
 int XPlmi_SchedulerRemoveTask(XPlmi_Scheduler_t *SchedPtr, int OwnerId, int MilliSeconds, XPlmi_Callback_t CallbackFn)
 {
 	int Idx;
-	int TaskCount = 0U;
+	u32 TaskCount = 0U;
 
 	/*Find the Task Index */
 	for (Idx = 0U; Idx < XPLMI_SCHED_MAX_TASK; Idx++) {
