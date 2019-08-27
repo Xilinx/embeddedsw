@@ -43,6 +43,7 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xilpm_nodeid.h"
 #include "xloader.h"
 #include "xplmi_dma.h"
 #include "xplmi_debug.h"
@@ -228,7 +229,7 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 	DstnCpu = XilPdi_GetDstnCpu(PrtnHdr);
 	if (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_PSM)
 	{
-		XPm_RequestDevice(XPM_SUBSYSID_PMC, XPM_DEVID_PSM, PM_CAP_ACCESS, XPM_DEF_QOS, 0);
+		XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_PSM_PROC, PM_CAP_ACCESS, XPM_DEF_QOS, 0);
 	}
 
 	/* Check if R5 App memory is TCM, Copy to global TCM memory MAP */
@@ -238,37 +239,37 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 	{
 
 		if (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) {
-			XPm_DevIoctl(XPM_SUBSYSID_PMC, XPM_DEVID_R50_1,
+			XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_1,
 								IOCTL_SET_RPU_OPER_MODE,
 								XPM_RPU_MODE_SPLIT, 0, &Mode);
-			XPm_RequestDevice(XPM_SUBSYSID_PMC,XPM_DEVID_TCM_1_A,
+			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_A,
 				PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
-			XPm_RequestDevice(XPM_SUBSYSID_PMC,XPM_DEVID_TCM_1_B,
+			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_B,
 				PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
 		} else if (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0){
-			XPm_DevIoctl(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0,
+			XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_0,
 									IOCTL_SET_RPU_OPER_MODE,
 									XPM_RPU_MODE_SPLIT, 0, &Mode);
-			XPm_RequestDevice(XPM_SUBSYSID_PMC,XPM_DEVID_TCM_0_A,
+			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_A,
 					PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
-			XPm_RequestDevice(XPM_SUBSYSID_PMC,XPM_DEVID_TCM_0_B,
+			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_B,
 					PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
 		}
 		else
 		{
-			XPm_DevIoctl(XPM_SUBSYSID_PMC, XPM_DEVID_R50_0,
+			XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_0,
 									IOCTL_SET_RPU_OPER_MODE,
 								XPM_RPU_MODE_LOCKSTEP, 0, &Mode);
-			XPm_DevIoctl(XPM_SUBSYSID_PMC, XPM_DEVID_R50_1,
+			XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_1,
 										IOCTL_SET_RPU_OPER_MODE,
 									XPM_RPU_MODE_LOCKSTEP, 0, &Mode);
-			XPm_RequestDevice(XPM_SUBSYSID_PMC,XPM_DEVID_TCM_0_A,
+			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_A,
 					PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
-			XPm_RequestDevice(XPM_SUBSYSID_PMC,XPM_DEVID_TCM_0_B,
+			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_B,
 					PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
-			XPm_RequestDevice(XPM_SUBSYSID_PMC,XPM_DEVID_TCM_1_A,
+			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_A,
 					PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
-			XPm_RequestDevice(XPM_SUBSYSID_PMC,XPM_DEVID_TCM_1_B,
+			XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_B,
 					PM_CAP_ACCESS | PM_CAP_CONTEXT, XPM_DEF_QOS, 0);
 		}
 
