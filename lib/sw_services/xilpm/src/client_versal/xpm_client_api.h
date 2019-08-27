@@ -35,6 +35,15 @@ extern "C" {
 #endif
 
 /**
+ * XPm_NodeStatus - struct containing node status information
+ */
+typedef struct XPm_NdStatus {
+	u32 status;		/**< Node power state */
+	u32 requirements;	/**< Current requirements asserted on the node (slaves only) */
+	u32 usage;		/**< Usage information (which master is currently using the slave) */
+} XPm_NodeStatus;
+
+/**
  * XPm_Notifier - Notifier structure registered with a callback by app
  */
 typedef struct XPm_Ntfier {
@@ -78,7 +87,7 @@ XStatus XPm_ReleaseNode(const u32 DeviceId);
 XStatus XPm_SetRequirement(const u32 DeviceId, const u32 Capabilities,
 			   const u32 QoS, const u32 Ack);
 XStatus XPm_GetNodeStatus(const u32 DeviceId,
-			  XPm_DeviceStatus *const DeviceStatus);
+			  XPm_NodeStatus *const NodeStatus);
 XStatus XPm_ResetAssert(const u32 ResetId, const u32 Action);
 XStatus XPm_ResetGetStatus(const u32 ResetId, u32 *const State);
 XStatus XPm_PinCtrlRequest(const u32 PinId);
