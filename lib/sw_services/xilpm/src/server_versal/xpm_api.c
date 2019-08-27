@@ -224,6 +224,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			Status = XPm_DevIoctl(SubsystemId, Pload[0], Pload[1],
 					      Pload[2], Pload[3], ApiResponse);
 			break;
+		case PM_INIT_FINALIZE:
+			Status = XPm_InitFinalize(SubsystemId);
+			break;
 		case PM_DESCRIBE_NODES:
 			Status = XPm_DescribeNodes(Len);
 			break;
@@ -2658,6 +2661,22 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  This function initializes subsystem and releases unused devices
+ *
+ * @param SubsystemId  ID of the subsystem
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+int XPm_InitFinalize(const u32 SubsystemId)
+{
+	return XPmSubsystem_InitFinalize(SubsystemId);
+}
 
 /****************************************************************************/
 /**

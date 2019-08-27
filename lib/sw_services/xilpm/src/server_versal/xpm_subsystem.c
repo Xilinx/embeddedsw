@@ -168,6 +168,77 @@ XStatus XPmSubsystem_ForceDownCleanup(u32 SubsystemId)
         return Status;
 }
 
+int XPmSubsystem_InitFinalize(const u32 SubsystemId)
+{
+	int Status = XST_SUCCESS;
+	XPm_Subsystem *Subsystem;
+	XPm_Device *Device;
+	XPm_Requirement *Reqm;
+	int DeviceInUse = 0;
+	u32 Idx;
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Subsystem->Flags |= SUBSYSTEM_INIT_FINALIZED;
+
+	for (Idx = 1; Idx < XPM_NODEIDX_DEV_MAX; Idx++) {
+		DeviceInUse = 0;
+
+		Device = XPmDevice_GetByIndex(Idx);
+		if ((NULL == Device) ||
+		    (XPM_NODETYPE_DEV_SOC == NODETYPE(Device->Node.Id)) ||
+		    (XPM_NODETYPE_DEV_GT == NODETYPE(Device->Node.Id)) ||
+		    (XPM_NODETYPE_DEV_CORE_PMC == NODETYPE(Device->Node.Id)) ||
+		    (XPM_NODETYPE_DEV_EFUSE == NODETYPE(Device->Node.Id))) {
+			continue;
+		}
+
+		/* Iterate over all subsystems for particular device */
+		Reqm = Device->Requirements;
+		while (NULL != Reqm) {
+			if (OFFLINE == Reqm->Subsystem->State) {
+				Reqm = Reqm->NextSubsystem;
+				continue;
+			}
+
+			if ((TRUE == Reqm->Allocated) ||
+			    ((ONLINE == Reqm->Subsystem->State) &&
+			     (0 == (Reqm->Subsystem->Flags & SUBSYSTEM_INIT_FINALIZED)))) {
+				DeviceInUse = 1;
+				break;
+			}
+
+			Reqm = Reqm->NextSubsystem;
+		}
+
+		/* Power down the device if device is unused */
+		if (0 == DeviceInUse) {
+			/*
+			 * Here device needs to be requested and released to handle
+			 * the use count of its clock and power. This makes unused
+			 * clock and power to be powered down.
+			 */
+			Status = XPmDevice_Request(SubsystemId, Device->Node.Id,
+						   PM_CAP_ACCESS, XPM_MAX_QOS);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+
+			Status = XPmDevice_Release(SubsystemId, Device->Node.Id);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+	}
+
+done:
+	return Status;
+}
+
 int XPmSubsystem_Idle(u32 SubsystemId)
 {
 	int Status = XST_SUCCESS;

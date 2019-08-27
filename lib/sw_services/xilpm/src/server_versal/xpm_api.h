@@ -183,6 +183,7 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
                         const u32 IoctlId,
                         const u32 Arg1,
                         const u32 Arg2,u32 *const Response);
+int XPm_InitFinalize(const u32 SubsystemId);
 
 XStatus XPm_DescribeNodes(u32 NumArgs);
 XStatus XPm_AddNodeParent(u32 *Args, u32 NumArgs);
