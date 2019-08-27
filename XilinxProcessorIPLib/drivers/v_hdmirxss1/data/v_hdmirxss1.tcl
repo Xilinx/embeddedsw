@@ -25,16 +25,7 @@
 ## MODIFICATION HISTORY:
 ##  Ver      Who    Date       Changes
 ## -------- ------ -------- ----------------------------------------------------
-##  1.0     gmagnay 08/14/15 Initial version of subsystem tcl
-##  1.1     yh      20/01/16 Added remapper subcore,
-##                           axi_gpio is to reset remapper (hls core)
-##  1.2     MG      03/03/16 Added HDCP 2.2
-##  1.3     YH      30/07/16 No HDCP22_SS sub-cores included in _g.c generation
-##  1.4     YH      16/11/16 Remove subcore remapper & axi_gpio
-##  1.5     MMO     03/01/16 Added sub-core base address computation in TCL
-##  1.6     MMO      3/01/17 Fix the TCL to support multiple instance and sync
-##                           with XV_HdmiTxSs1_Config Data Structure
-##  1.7     MM0     13/02/17 Fix by adding typecasting for C++ Fix
+##  1.0     MMO    22/05/18 Initial version of subsystem tcl
 #
 ################################################################################
 

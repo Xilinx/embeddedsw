@@ -124,8 +124,12 @@ typedef enum {
 	XV_HDMIRXSS1_LOG_EVT_HDMIMODE,           /**< Log event HDMI Mode change. */
 	XV_HDMIRXSS1_LOG_EVT_DVIMODE,            /**< Log event HDMI Mode change. */
 	XV_HDMIRXSS1_LOG_EVT_SYNCLOSS,           /**< Log event Sync Loss detected. */
-	XV_HDMIRXSS1_LOG_EVT_PIX_REPEAT_ERR,		/**< Log event Unsupported Pixel Repetition. */
+	XV_HDMIRXSS1_LOG_EVT_PIX_REPEAT_ERR,     /**< Log event Unsupported Pixel Repetition. */
 	XV_HDMIRXSS1_LOG_EVT_SYNCEST,            /**< Log event Sync Loss detected. */
+	XV_HDMIRXSS1_LOG_EVT_VICERROR,           /**< Log event vic error detected. */
+	XV_HDMIRXSS1_LOG_EVT_LNKRDYERROR,        /**< Log event link ready error detected. */
+	XV_HDMIRXSS1_LOG_EVT_VIDRDYERROR,        /**< Log event video ready error detected. */
+	XV_HDMIRXSS1_LOG_EVT_SKEWLOCKERROR,      /**< Log event skew lock error detected. */
 	XV_HDMIRXSS1_LOG_EVT_FRL_LTS1,
 	XV_HDMIRXSS1_LOG_EVT_FRL_LTS2,
 	XV_HDMIRXSS1_LOG_EVT_FRL_LTS3,
@@ -249,11 +253,11 @@ typedef enum {
   XV_HDMIRXSS1_HANDLER_STREAM_UP,                    /**< Handler for stream up
                                                          event */
   XV_HDMIRXSS1_HANDLER_FRL_CONFIG,                   /**< Handler for FRL
-														 Config */
+                                                         Config */
   XV_HDMIRXSS1_HANDLER_FRL_START,                    /**< Handler for FRL
-														 Start */
+                                                         Start */
   XV_HDMIRXSS1_HANDLER_TMDS_CONFIG,                  /**< Handler for TMDS
-														 Config */
+                                                         Config */
   XV_HDMIRXSS1_HANDLER_HDCP,                         /**< Handler for HDCP 1.4
                                                          event */
   XV_HDMIRXSS1_HANDLER_HDCP_AUTHENTICATED,           /**< Handler for HDCP
@@ -270,9 +274,11 @@ typedef enum {
   XV_HDMIRXSS1_HANDLER_HDCP_ENCRYPTION_UPDATE,       /**< Handler for HDCP
                                                          encryption status
                                                          update event */
-  XV_HDMIRXSS1_HANDLER_TMDS_CLK_RATIO                /**< Handler type for
+  XV_HDMIRXSS1_HANDLER_TMDS_CLK_RATIO,               /**< Handler type for
                                                          TMDS clock ratio
                                                          change */
+  XV_HDMIRXSS1_HANDLER_VIC_ERROR                      /**< Handler type for
+                                                         VIC error change */
 } XV_HdmiRxSs1_HandlerType;
 /*@}*/
 
@@ -398,8 +404,12 @@ typedef struct
 
   XV_HdmiRxSs1_Callback TmdsClkRatioCallback;  /**< Callback for scdc TMDS clock
                                                    ratio change callback */
-  void *TmdsClkRatioRef;/**< To be passed to the scdc tmds clock ratio change
+  void *TmdsClkRatioRef; /**< To be passed to the scdc tmds clock ratio change
                              callback */
+
+  XV_HdmiRxSs1_Callback VicErrorCallback;  /**< Callback for VIC error
+                                               detection */
+  void *VicErrorRef;   /**< To be passed to the VIC error callback */
 
   XV_HdmiRxSs1_LogCallback LogWriteCallback; /**< Callback for log write */
   u8 *LogWriteRef;  /**< To be passed to the log write callback */
@@ -439,6 +449,9 @@ typedef struct
   u8 *EdidPtr;                     /**< Default Edid Pointer */
   u16 EdidLength;               /**< Default Edid Length */
   u8 TMDSClockRatio;            /**< HDMI RX TMDS clock ratio */
+
+  u8 EnableHDCPLogging;         /**< HDCP Logging Enabling */
+  u8 EnableHDMILogging;         /**< HDMI Logging Enabling */
 
   XHdmiC_AVI_InfoFrame AVIInfoframe;	/**< AVI InfoFrame */
   XHdmiC_GeneralControlPacket GCP;		/**< General Control Packet */
@@ -490,9 +503,9 @@ void XV_HdmiRxSs1_RXCore_LRST(XV_HdmiRxSs1 *InstancePtr, u8 Reset);
 void XV_HdmiRxSs1_VRST(XV_HdmiRxSs1 *InstancePtr, u8 Reset);
 void XV_HdmiRxSs1_SYSRST(XV_HdmiRxSs1 *InstancePtr, u8 Reset);
 int XV_HdmiRxSs1_SetCallback(XV_HdmiRxSs1 *InstancePtr,
-	u32 HandlerType,
-	void *CallbackFunc,
-	void *CallbackRef);
+		XV_HdmiRxSs1_HandlerType HandlerType,
+		void *CallbackFunc,
+		void *CallbackRef);
 int XV_HdmiRxSs1_SetLogCallback(XV_HdmiRxSs1 *InstancePtr,
 	u64 *CallbackFunc,
 	void *CallbackRef);
@@ -528,6 +541,13 @@ int  XV_HdmiRxSs1_IsStreamConnected(XV_HdmiRxSs1 *InstancePtr);
 void XV_HdmiRxSs1_SetDefaultPpc(XV_HdmiRxSs1 *InstancePtr, u8 Id);
 void XV_HdmiRxSs1_SetPpc(XV_HdmiRxSs1 *InstancePtr, u8 Id, u8 Ppc);
 void XV_HdmiRxSs1_AudioMute(XV_HdmiRxSs1 *InstancePtr, u8 Enable);
+
+void XV_HdmiRxSs1_ReportCoreInfo(XV_HdmiRxSs1 *InstancePtr);
+void XV_HdmiRxSs1_ReportTiming(XV_HdmiRxSs1 *InstancePtr);
+void XV_HdmiRxSs1_ReportLinkQuality(XV_HdmiRxSs1 *InstancePtr);
+void XV_HdmiRxSs1_ReportAudio(XV_HdmiRxSs1 *InstancePtr);
+void XV_HdmiRxSs1_ReportInfoFrame(XV_HdmiRxSs1 *InstancePtr);
+void XV_HdmiRxSs1_ReportSubcoreVersion(XV_HdmiRxSs1 *InstancePtr);
 
 #ifdef XV_HDMIRXSS1_LOG_ENABLE
 void XV_HdmiRxSs1_LogReset(XV_HdmiRxSs1 *InstancePtr);
