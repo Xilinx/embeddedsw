@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,8 +28,8 @@
  *
  * @file xhdmiphy1.c
  *
- * Contains a minimal set of functions for the XHdmiphy1 driver that allow 
- * access to all of the Video PHY core's functionality. See xhdmiphy1.h for a 
+ * Contains a minimal set of functions for the XHdmiphy1 driver that allow
+ * access to all of the Video PHY core's functionality. See xhdmiphy1.h for a
  * detailed description of the driver.
  *
  * @note	None.
@@ -122,7 +122,7 @@ void XHdmiphy1_LogWrite(XHdmiphy1 *InstancePtr, XHdmiphy1_LogEvent Evt,
 
 	/* Update head pointer if reached to end of the buffer */
 	if (InstancePtr->Log.HeadIndex ==
-			(u8)((sizeof(InstancePtr->Log.DataBuffer) / 
+			(u8)((sizeof(InstancePtr->Log.DataBuffer) /
             sizeof(InstancePtr->Log.DataBuffer[0])) - 1)) {
 		/* Clear pointer */
 		InstancePtr->Log.HeadIndex = 0;
@@ -137,7 +137,7 @@ void XHdmiphy1_LogWrite(XHdmiphy1 *InstancePtr, XHdmiphy1_LogEvent Evt,
 	 * remove the oldest entry from the buffer. */
 	if (InstancePtr->Log.TailIndex == InstancePtr->Log.HeadIndex) {
 		if (InstancePtr->Log.TailIndex ==
-			(u8)((sizeof(InstancePtr->Log.DataBuffer) / 
+			(u8)((sizeof(InstancePtr->Log.DataBuffer) /
             sizeof(InstancePtr->Log.DataBuffer[0])) - 1)) {
 			InstancePtr->Log.TailIndex = 0;
 		}
@@ -176,7 +176,7 @@ u16 XHdmiphy1_LogRead(XHdmiphy1 *InstancePtr)
 
 		/* Increment tail pointer */
 		if (InstancePtr->Log.TailIndex ==
-			(u8)((sizeof(InstancePtr->Log.DataBuffer) / 
+			(u8)((sizeof(InstancePtr->Log.DataBuffer) /
             sizeof(InstancePtr->Log.DataBuffer[0])) - 1)) {
 			InstancePtr->Log.TailIndex = 0;
 		}
@@ -228,9 +228,9 @@ void XHdmiphy1_LogDisplay(XHdmiphy1 *InstancePtr)
 		Data = (Log >> 8) & 0xFF;
 
 		if (InstancePtr->LogWriteCallback) {
-			// Printing of TimeUnit
-			xil_printf("0x%08X%08X: HDMIPHY - ", 
-                (u32)((TimeUnit >> 32) & 0xFFFFFFFF), 
+			/* Printing of TimeUnit */
+			xil_printf("0x%08X%08X: HDMIPHY - ",
+                (u32)((TimeUnit >> 32) & 0xFFFFFFFF),
                 (u32)(TimeUnit & 0xFFFFFFFF));
 		}
 
@@ -433,6 +433,12 @@ void XHdmiphy1_LogDisplay(XHdmiphy1 *InstancePtr)
 				xil_printf("RX DRU disable\r\n");
 			}
 			break;
+		case (XHDMIPHY1_LOG_EVT_TXGPO_RE):
+			xil_printf("TX GPO Rising Edge Detected\r\n");
+			break;
+		case (XHDMIPHY1_LOG_EVT_RXGPO_RE):
+			xil_printf("RX GPO Rising Edge Detected\r\n");
+			break;
 		case (XHDMIPHY1_LOG_EVT_FRL_RECONFIG):
 			xil_printf(ANSI_COLOR_GREEN);
 			if (Data == XHDMIPHY1_DIR_RX) {
@@ -481,6 +487,14 @@ void XHdmiphy1_LogDisplay(XHdmiphy1 *InstancePtr)
 				xil_printf(ANSI_COLOR_RED "Error! CPLL config not found!"
 						ANSI_COLOR_RESET "\r\n");
 			break;
+		case (XHDMIPHY1_LOG_EVT_GT_LCPLL_CFG_ERR):
+				xil_printf(ANSI_COLOR_RED "Error! LCPLL config not found!"
+						ANSI_COLOR_RESET "\r\n");
+			break;
+		case (XHDMIPHY1_LOG_EVT_GT_RPLL_CFG_ERR):
+				xil_printf(ANSI_COLOR_RED "Error! RPLL config not found!"
+						ANSI_COLOR_RESET "\r\n");
+			break;
 		case (XHDMIPHY1_LOG_EVT_VD_NOT_SPRTD_ERR):
 				xil_printf(ANSI_COLOR_YELLOW "Warning: This video format "
 						"is not supported by this device. "
@@ -510,6 +524,12 @@ void XHdmiphy1_LogDisplay(XHdmiphy1 *InstancePtr)
 				xil_printf(ANSI_COLOR_RED "Error!  User Clock frequency is "
 						"more than 300 MHz"
 						ANSI_COLOR_RESET "\r\n");
+			break;
+		case (XHDMIPHY1_LOG_EVT_SPDGRDE_ERR):
+					xil_printf(ANSI_COLOR_RED "Error!  %s: Line rates > 8.0 "
+						"Gbps are not supported by -1/-1LV devices"
+						ANSI_COLOR_RESET "\r\n",
+						(Data == XHDMIPHY1_DIR_RX) ? "RX" : "TX");
 			break;
 		default:
 			xil_printf("Unknown event\r\n");

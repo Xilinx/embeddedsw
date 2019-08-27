@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,7 @@
  *
  * @file xhdmiphy1_gt.h
  *
- * The Xilinx HDMI PHY (HDMIPHY) driver. This driver supports the 
+ * The Xilinx HDMI PHY (HDMIPHY) driver. This driver supports the
  * Xilinx HDMI PHY IP core.
  *
  * @note	None.
@@ -50,6 +50,10 @@
 #ifndef XHDMIPHY1_GT_H_
 /* Prevent circular inclusions by using protection macros. */
 #define XHDMIPHY1_GT_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /******************************* Include Files ********************************/
 
@@ -82,19 +86,19 @@ typedef struct XHdmiphy1_GtConfigS {
 
 /******************* Macros (Inline Functions) Definitions ********************/
 #ifdef __cplusplus
-u32 XHdmiphy1_CfgSetCdr(XHdmiphy1 *InstancePtr, u8 QuadId, 
+u32 XHdmiphy1_CfgSetCdr(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId);
 u32 XHdmiphy1_CheckPllOpRange(XHdmiphy1 *InstancePtr, u8 QuadId,
 		XHdmiphy1_ChannelId ChId, u64 PllClkOutFreqHz);
 u32 XHdmiphy1_OutDivChReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
 		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir);
-u32 XHdmiphy1_ClkChReconfig(XHdmiphy1 *InstancePtr, u8 QuadId, 
+u32 XHdmiphy1_ClkChReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId);
-u32 XHdmiphy1_ClkCmnReconfig(XHdmiphy1 *InstancePtr, u8 QuadId, 
+u32 XHdmiphy1_ClkCmnReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId);
-u32 XHdmiphy1_RxChReconfig(XHdmiphy1 *InstancePtr, u8 QuadId, 
+u32 XHdmiphy1_RxChReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId);
-u32 XHdmiphy1_TxChReconfig(XHdmiphy1 *InstancePtr, u8 QuadId, 
+u32 XHdmiphy1_TxChReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId);
 #else
 #define XHdmiphy1_CfgSetCdr(Ip, ...) \
@@ -123,6 +127,10 @@ extern const XHdmiphy1_GtConfig Gthe4Config;
 extern const XHdmiphy1_GtConfig Gtye4Config;
 #elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)
 extern const XHdmiphy1_GtConfig Gtye5Config;
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif /* XHDMIPHY1_GT_H_ */

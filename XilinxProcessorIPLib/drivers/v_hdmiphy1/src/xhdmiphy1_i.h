@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -52,6 +52,10 @@
 #ifndef XHDMIPHY1_I_H_
 /* Prevent circular inclusions by using protection macros. */
 #define XHDMIPHY1_I_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /******************************* Include Files ********************************/
 
@@ -115,8 +119,14 @@ u32 XHdmiphy1_CfgCpllCalPeriodandTol(XHdmiphy1 *InstancePtr, u8 QuadId,
 #else
 void XHdmiphy1_SetGtLineRateCfg(XHdmiphy1 *InstancePtr, u8 QuadId,
 		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir);
+u16 XHdmiphy1_GetGtLineRateCfg(XHdmiphy1 *InstancePtr, u8 QuadId,
+		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir);
 void XHdmiphy1_SetGpi(XHdmiphy1 *InstancePtr, u8 QuadId,
 		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir, u8 Set);
+void XHdmiphy1_GtMstReset(XHdmiphy1 *InstancePtr, u8 QuadId,
+		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir, u8 Reset);
+u8 XHdmiphy1_CheckLineRateCfg(XHdmiphy1 *InstancePtr, u8 QuadId,
+		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir);
 #endif
 
 /* xhdmiphy1.c: GT/MMCM DRP access. */
@@ -160,6 +170,10 @@ void XHdmiphy1_HdmiRxTimerTimeoutHandler(XHdmiphy1 *InstancePtr);
 void XHdmiphy1_ErrorHandler(XHdmiphy1 *InstancePtr);
 
 /******************* Macros (Inline Functions) Definitions ********************/
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XHDMIPHY1_I_H_ */
 /** @} */
