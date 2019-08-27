@@ -138,6 +138,7 @@ static void XHdmi_DisplayOnSemiDebugMenu(void);
 static u8 XHdmi_OneSemiMenuProcess(u8 Hex);
 
 extern void Info(void);
+extern void DetailedInfo(void);
 extern void TxFrlStartDebug(void);
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 extern void UpdateColorFormat(XHdmiphy1 *Hdmiphy1Ptr,
@@ -314,6 +315,8 @@ void XHdmi_DisplayMainMenu(void)
     xil_printf("i - Info\r\n");
     xil_printf("       => Shows information about the HDMI RX stream, \r\n"
 	  "          HDMI TX stream, GT transceivers and PLL settings.\r\n");
+    xil_printf("l - Detailed Info\r\n");
+    xil_printf("       => Additional/Detail Info of the system\r\n");
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
     xil_printf("c - Change Mode\r\n");
     xil_printf("       => Change the mode of the application between \r\n"
@@ -391,6 +394,13 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	case ('i') :
 	case ('I') :
 	    Info();
+	    Menu = XHDMI_MAIN_MENU;
+	    break;
+
+	    /* Detailed/Additional Info */
+	case ('l') :
+	case ('L') :
+		DetailedInfo();
 	    Menu = XHDMI_MAIN_MENU;
 	    break;
 
@@ -1113,9 +1123,7 @@ void XHdmi_DisplayColorSpaceMenu(void) {
     xil_printf("  1 - RGB\r\n");
     xil_printf("  2 - YUV444\r\n");
     xil_printf("  3 - YUV422\r\n");
-#if (XPAR_XV_HDMITXSS1_0_INCLUDE_YUV420_SUP == 1)
     xil_printf("  4 - YUV420\r\n");
-#endif
     xil_printf(" 99 - Exit\r\n");
     xil_printf("Enter Selection -> ");
 }
@@ -1154,12 +1162,10 @@ static XHdmi_MenuType XHdmi_ColorSpaceMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	case 3 :
 	    ColorFormat = XVIDC_CSF_YCRCB_422;
 	    break;
-#if (XPAR_XV_HDMITXSS1_0_INCLUDE_YUV420_SUP == 1)
 	    /* YUV420 */
 	case 4 :
 	    ColorFormat = XVIDC_CSF_YCRCB_420;
 	    break;
-#endif
 	    /* Exit */
 	case 99 :
 	    xil_printf("Returning to main menu.\r\n");
@@ -2001,9 +2007,11 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 #endif
 	    xil_printf("Display log.\r\n");
 #ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
+	    HdmiRxSs.EnableHDCPLogging = (TRUE);
 	    XV_HdmiRxSs1_HdcpInfo(&HdmiRxSs);
 #endif
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
+	    HdmiTxSs.EnableHDCPLogging = (TRUE);
 	    XV_HdmiTxSs1_HdcpInfo(&HdmiTxSs);
 #endif
 	    break;
@@ -2217,22 +2225,22 @@ static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    /* This is needed to ensure that the previous command is executed.*/
 	    XHdcp1x_Poll(xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp14Ptr);
 	    /* Enable and authenticate */
-	    XHdcp1x_TxEnable(
+	    XHdcp1x_Enable(
 		xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp14Ptr);
-	    XHdcp1x_TxPoll(xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp14Ptr);
-	    XHdcp1x_TxAuthenticate(
+	    XHdcp1x_Poll(xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp14Ptr);
+	    XHdcp1x_Authenticate(
 		xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp14Ptr);
-	    XHdcp1x_TxPoll(xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp14Ptr);
-	    XHdcp1x_TxEnableEncryption(
+	    XHdcp1x_Poll(xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp14Ptr);
+	    XHdcp1x_EnableEncryption(
 		xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp14Ptr, 0x1);
-	    XHdcp1x_TxPoll(xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp14Ptr);
+	    XHdcp1x_Poll(xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp14Ptr);
 	    break;
 
 	case 11:
 	    xil_printf("Disabling HDCP 1.4 cipher \r\n");
-	    XHdcp1x_TxDisableEncryption(
+	    XHdcp1x_DisableEncryption(
 		xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp14Ptr, 0x1);
-	    XHdcp1x_TxPoll(xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp14Ptr);
+	    XHdcp1x_Poll(xhdmi_exdes_ctrlr.hdmi_tx_ctlr->HdmiTxSs->Hdcp14Ptr);
 	    break;
 
 #if defined (XPAR_XV_HDMITXSS1_NUM_INSTANCES) ||\
@@ -2242,9 +2250,11 @@ static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 #endif
 	    xil_printf("Display log.\r\n");
 #ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
+	    HdmiRxSs.EnableHDCPLogging = (TRUE);
 	    XV_HdmiRxSs1_HdcpInfo(&HdmiRxSs);
 #endif
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
+	    HdmiTxSs.EnableHDCPLogging = (TRUE);
 	    XV_HdmiTxSs1_HdcpInfo(&HdmiTxSs);
 #endif
 	    break;
@@ -3027,6 +3037,8 @@ static unsigned ONSEMI_NB7NQ621M_I2cSend(void *IicPtr,
     }
 #else
     XIic *Iic_Ptr = IicPtr;
+	/* This delay prevents IIC access from hanging */
+	usleep(350);
     return XIic_Send(Iic_Ptr->BaseAddress, SlaveAddr, MsgPtr,
 		    ByteCount, Option);
 #endif

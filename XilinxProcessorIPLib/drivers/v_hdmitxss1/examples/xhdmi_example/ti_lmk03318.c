@@ -41,6 +41,7 @@
 ******************************************************************************/
 
 #include "ti_lmk03318.h"
+#include "sleep.h"
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
 	defined (XPS_BOARD_ZCU106)
@@ -149,6 +150,8 @@ static unsigned TI_LMK03318_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
 	}
 #else
 	XIic *Iic_Ptr = IicPtr;
+	/* This delay prevents IIC access from hanging */
+	usleep(350);
 	return XIic_Send(Iic_Ptr->BaseAddress, SlaveAddr, MsgPtr,
 					ByteCount, Option);
 #endif
@@ -426,12 +429,17 @@ int TI_LMK03318_Init(void *IicPtr, u8 I2CSlaveAddress)
 	/* Register 30 */
 	/* Power down register */
 	Result |= TI_LMK03318_ModifyRegister(IicPtr, I2CSlaveAddress,
-					    30, 0x00, 0x54);
+					    30, 0x00, 0x5C);
 
 	/* Register 37 */
 	/* Set Q4 output */
 	Result |= TI_LMK03318_SetRegister(IicPtr, I2CSlaveAddress,
 					 37, 0x92);
+
+	/* Register 39 */
+	/* Set Q5 output */
+	Result |= TI_LMK03318_SetRegister(IicPtr, I2CSlaveAddress,
+					 39, 0xD2);
 
 	/* Register 41 */
 	/* Set Q6 output */
