@@ -28,7 +28,7 @@
 #define XPM_CPMDOMAIN_H_
 
 #include "xpm_powerdomain.h"
-#include "xillibpm_defs.h"
+#include "xpm_defs.h"
 
 #ifdef __cplusplus
 extern "C" {

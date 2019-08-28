@@ -29,7 +29,7 @@
 
 #include "xil_types.h"
 #include "xstatus.h"
-#include "xillibpm_defs.h"
+#include "xpm_defs.h"
 
 #ifdef __cplusplus
 extern "C" {

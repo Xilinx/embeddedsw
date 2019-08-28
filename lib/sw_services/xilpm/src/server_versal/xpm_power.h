@@ -27,7 +27,7 @@
 #ifndef XPM_POWER_H_
 #define XPM_POWER_H_
 
-#include "xillibpm_defs.h"
+#include "xpm_defs.h"
 #include "xpm_node.h"
 
 #ifdef __cplusplus
