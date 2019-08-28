@@ -233,6 +233,27 @@ extern "C" {
 #define SMAP_BUS_WIDTH_WORD1		(0xDD000000U)
 #define SMAP_BUS_WIDTH_LENGTH		(16U)
 
+/**
+ * Image Header Attributes
+ */
+#define XILPDI_IH_ATTRIB_IMAGE_OWNER_SHIFT		(0x3)
+#define XILPDI_IH_ATTRIB_IMAGE_OWNER_WIDTH		(0x3U)
+#define XILPDI_IH_ATTRIB_IMAGE_OWNER_MASK		(0X00000038U)
+
+#define XILPDI_IH_ATTRIB_COPY_MEMORY_SHIFT		(0x6U)
+#define XILPDI_IH_ATTRIB_COPY_MEMORY_WIDTH		(0x1U)
+#define XILPDI_IH_ATTRIB_COPY_MEMORY_MASK		(0X00000040U)
+
+
+#define XILPDI_IH_ATTRIB_DELAY_LOAD_SHIFT		(0x7U)
+#define XILPDI_IH_ATTRIB_DELAY_LOAD_WIDTH		(0x1U)
+#define XILPDI_IH_ATTRIB_DELAY_LOAD_MASK		(0X00000080U)
+
+
+#define XILPDI_IH_ATTRIB_DELAY_HANDOFF_SHIFT		(0x8U)
+#define XILPDI_IH_ATTRIB_DELAY_HANDOFF_WIDTH		(0x1U)
+#define XILPDI_IH_ATTRIB_DELAY_HANDOFF_MASK		(0X00000100U)
+
 #define XILPDI_METAHDR_RD_HDRS_FROM_DEVICE	(u32)(0x0U)
 #define XILPDI_METAHDR_RD_HDRS_FROM_MEMBUF	(u32)(0x1U)
 
@@ -371,6 +392,8 @@ u32 XilPdi_IsEnc(const XilPdi_PrtnHdr * PrtnHdr);
 u32 XilPdi_GetA72ExecState(const XilPdi_PrtnHdr * PrtnHdr);
 u32 XilPdi_GetVecLocation(const XilPdi_PrtnHdr * PrtnHdr);
 u32 XilPdi_GetSBD(const XilPdi_ImgHdrTable * ImgHdrTbl);
+u32 XilPdi_GetDelayLoad(const XilPdi_ImgHdr * ImgHdr);
+u32 XilPdi_GetDelayHandoff(const XilPdi_ImgHdr * ImgHdr);
 
 XStatus XilPdi_ValidateChecksum(u32 Buffer[], u32 Len);
 XStatus XilPdi_ValidatePrtnHdr(XilPdi_PrtnHdr * PrtnHdr);
