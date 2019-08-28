@@ -799,6 +799,9 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 	u32_t CrlApbDiv0 = 0;
 	u32_t CrlApbDiv1 = 0;
 	u32_t CrlApbGemCtrl;
+#if EL1_NONSECURE
+	u32_t ClkId;
+#endif
 
 	gigeversion = ((Xil_In32(mac_baseaddr + 0xFC)) >> 16) & 0xFFF;
 	if (gigeversion == 2) {
@@ -974,8 +977,14 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 		/* Setup divisors in CRL for Versal */
 		if (mac_baseaddr == VERSAL_EMACPS_0_BASEADDR) {
 			CrlApbBaseAddr = VERSAL_CRL_GEM0_REF_CTRL;
+#if EL1_NONSECURE
+			ClkId = CLK_GEM0_REF;
+#endif
 		} else if (mac_baseaddr == VERSAL_EMACPS_1_BASEADDR) {
 			CrlApbBaseAddr = VERSAL_CRL_GEM1_REF_CTRL;
+#if EL1_NONSECURE
+			ClkId = CLK_GEM1_REF;
+#endif
 		}
 
 		if (speed == 1000) {
@@ -1011,11 +1020,15 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 		}
 
 		if (CrlApbDiv0 != 0) {
+#if EL1_NONSECURE
+			Xil_Smc(PM_SET_DIVIDER_SMC_FID, (((u64)CrlApbDiv0 << 32) | ClkId), 0, 0, 0, 0, 0, 0);
+#else
 			CrlApbGemCtrl = Xil_In32((UINTPTR)CrlApbBaseAddr);
 			CrlApbGemCtrl &= ~VERSAL_CRL_GEM_DIV_MASK;
 			CrlApbGemCtrl |= CrlApbDiv0 << VERSAL_CRL_APB_GEM_DIV_SHIFT;
 
 			Xil_Out32((UINTPTR)CrlApbBaseAddr, CrlApbGemCtrl);
+#endif
 		} else {
 			xil_printf("Clock Divisors incorrect - Please check\r\n");
 		}
