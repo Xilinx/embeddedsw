@@ -221,28 +221,11 @@ typedef struct
         unsigned char link_rate;
 }lane_link_rate_struct;
 
-
-typedef struct
-{
-        u8 type;
-        u8 version;
-        u8 length;
-        u8 audio_coding_type;
-        u8 audio_channel_count;
-        u8 sampling_frequency;
-        u8 sample_size;
-        u8 level_shift;
-        u8 downmix_inhibit;
-        u8 channel_allocation;
-        u16 info_length;
-} XilAudioInfoFrame;
-
 /************************** Function Prototypes ******************************/
 void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128], u8 Edid1_org[128],
 		u16 res_update);
 void hpd_pulse_con(XDpTxSs *InstancePtr);
 char xil_getc(u32 timeout_ms);
-void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame);
 void Vpg_Audio_start(void);
 void Vpg_Audio_stop(void);
 u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config);

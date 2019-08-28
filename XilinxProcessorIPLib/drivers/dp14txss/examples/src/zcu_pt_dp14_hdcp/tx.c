@@ -49,6 +49,7 @@
 extern u8 rx_trained;
 #if ENABLE_HDCP_IN_DESIGN
 extern u8 hdcp_capable_org ;
+extern int mon_is_hdcp22_cap;
 extern u8 hdcp_capable ;
 extern u8 hdcp_repeater_org ;
 extern u8 hdcp_repeater ;
@@ -400,12 +401,10 @@ void DpPt_HpdEventHandler(void *InstancePtr)
 	    XVphy_SetTxPostCursor(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH4,
 			XVPHY_GTHE4_PREEMP_DP_L0);
 #if ENABLE_HDCP_IN_DESIGN
-		if (XDpTxSs_IsAuthenticated(&DpTxSsInst)==1)
 		{
-			xdbg_printf(".~\r\n");
+			xdbg_printf(XDBG_DEBUG_GENERAL, ".~\r\n");
 			XDpTxSs_DisableEncryption(&DpTxSsInst,0x1);
 			XDpTxSs_HdcpDisable(&DpTxSsInst);
-			XHdcp1xExample_Poll();
 			XDpTxSs_SetPhysicalState(&DpTxSsInst, hdcp_capable_org);
 			XHdcp1xExample_Poll();
 		}
@@ -447,6 +446,7 @@ void DpPt_HpdPulseHandler(void *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
+extern u8 tx_done;
 void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 {
     u32 Status;
@@ -457,6 +457,7 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 	u8 laneAlignStatus = InstancePtr->UsrHpdPulseData.LaneAlignStatus;
 	u8 bw_set = InstancePtr->UsrHpdPulseData.BwSet;
 	u8 lane_set = InstancePtr->UsrHpdPulseData.LaneSet;
+	u8 down_strm = InstancePtr->UsrHpdPulseData.AuxValues[4];
 
 	u8 retrain_link=0;
 
@@ -486,12 +487,14 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 			){
 		bw_set = DpTxSsInst.DpPtr->TxInstance.LinkConfig.LinkRate; //InstancePtr->DpPtr->Config.MaxLinkRate;
 		retrain_link = 1;
+//        xil_printf ("bad bw\r\n");
 	}
 	if(lane_set != XDP_TX_LANE_COUNT_SET_1
 			&& lane_set != XDP_TX_LANE_COUNT_SET_2
 			&& lane_set != XDP_TX_LANE_COUNT_SET_4){
 		lane_set = DpTxSsInst.DpPtr->TxInstance.LinkConfig.LaneCount; //InstancePtr->DpPtr->Config.MaxLaneCount;
 		retrain_link = 1;
+//        xil_printf ("bad lane\r\n");
 	}
 
 	lane0_sts = lane0_sts & 0x77;
@@ -513,6 +516,7 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 				XDP_DPCD_STATUS_LANE_3_SL_DONE_MASK)
 				) || (laneAlignStatus != 1)) {
 			retrain_link = 1;
+//			xil_printf ("bad lane sts 4\r\n");
 		}
 	} else if (lane_set == XDP_TX_LANE_COUNT_SET_2) {
 		if ((lane0_sts !=
@@ -524,6 +528,7 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 				XDP_DPCD_STATUS_LANE_1_SL_DONE_MASK)
 				) || (laneAlignStatus != 1)) {
 			retrain_link = 1;
+//			xil_printf ("bad lane sts 2\r\n");
 		}
 	} else if (lane_set == XDP_TX_LANE_COUNT_SET_1) {
 		lane0_sts = lane0_sts & 0x7;
@@ -533,15 +538,51 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 				XDP_DPCD_STATUS_LANE_0_SL_DONE_MASK)
 				) || (laneAlignStatus != 1)) {
 			retrain_link = 1;
+//			xil_printf ("bad lane sts 1\r\n");
 		}
 	}
-#if ENABLE_HDCP_IN_DESIGN
+
+#if ENABLE_HDCP22_IN_DESIGN
+	if(mon_is_hdcp22_cap)
+	{
+	if ((down_strm & 0x40) == 0x40) {
+//		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
+		retrain_link = 1;
+		xil_printf ("dwn strm\r\n");
+	}
+	}
+#endif
+
+	if (retrain_link) {
+		tx_done = 0;
+	}
+
+	if (!retrain_link) {
+
+#if (ENABLE_HDCP_IN_DESIGN || ENABLE_HDCP22_IN_DESIGN)
+#define DEVICE_SERVICE_IRQ_VECTOR 0x0201
+#define DEVICE_SERVICE_IRQ_VECTOR_CP_IRQ_MASK 0x04
+
      u8 dev_serv_intr_vec;
      u8 BStatus;
      /* Check for the CP_IRQ interrupt. Check the CP_IRQ
       * bit in the DEVICE_SERVICE_IRQ_VECTOR (0x0201) */
      Status = XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x201, 1, &dev_serv_intr_vec);
      if(dev_serv_intr_vec & 0x04) {
+	 if(mon_is_hdcp22_cap)
+	 {
+
+		/* CP_IRQ is set, Call the HDCP22 Cp_Irq handler */
+//    	    	xil_printf("HPD_Pulse: CP_IRQ, dev_serv_intr_vec = 0x%x\n\r",
+//    	    			dev_serv_intr_vec);
+			 DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 1000000);
+		if (XHdcp22Tx_IsInProgress (DpTxSsInst.Hdcp22Ptr)) {
+			/*Handle CP_IRQ*/
+			XHdcp22_Handle_Cp_Irq(DpTxSsInst.Hdcp22Ptr);
+		}
+	 }
+	 else
+	 {
 	/* CP_IRQ is set, read the BStatus register */
 	XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x068029, 1, &BStatus);
 //    	xil_printf(" HPD_Pulse: CP_IRQ, (BStatus : %x) \n", BStatus);
@@ -549,7 +590,7 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 	/* Check if the Link Integrity Failure Bit is set */
 	if (BStatus & 0x04) {
 #if ENABLE_HDCP_FLOW_GUIDE
-		xdbg_printf("\033[1m\033[41m\033[37m (*<*)TxLink! \033[0m \n");
+		xdbg_printf(XDBG_DEBUG_GENERAL, "\033[1m\033[41m\033[37m (*<*)TxLink! \033[0m \n");
 #endif
 			/* State 5 : Authenticated,
 			 * State 6 : Link Integrity Check */
@@ -561,7 +602,7 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 
 				/* Re-start authentication (the expectation is
 				 * that HDCP is already in the authenticated state). */
-				xdbg_printf("\033[1m\033[43m\033[34m (*<*)Tx-> \033[0m \n");
+				xdbg_printf(XDBG_DEBUG_GENERAL, "\033[1m\033[43m\033[34m (*<*)Tx-> \033[0m \n");
 				XDpTxSs_Authenticate(&DpTxSsInst);
 				XHdcp1xExample_Poll();
 				XDpTxSs_EnableEncryption(&DpTxSsInst, 0x1);
@@ -572,7 +613,7 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 	/* Check if the READY bit is set. */
 		if (BStatus & 0x01) {
 #if ENABLE_HDCP_FLOW_GUIDE
-			xdbg_printf("\033[1m\033[42m\033[37m (*<*)Ready! \033[0m \n");
+			xdbg_printf(XDBG_DEBUG_GENERAL, "\033[1m\033[42m\033[37m (*<*)Ready! \033[0m \n");
 #endif
 			/* DP TX State 8 : Wait-for-Ready */
 			if(DpTxSsInst.Hdcp1xPtr->Tx.CurrentState == 8) {
@@ -593,7 +634,7 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 	     /* Check if the Ro'_AVAILABLE bit is set. */
 		if (BStatus & 0x02) {
 #if ENABLE_HDCP_FLOW_GUIDE
-			xdbg_printf("\033[1m\033[42m\033[37m (*<*)Ro'_AVAILABLE!"
+			xdbg_printf(XDBG_DEBUG_GENERAL, "\033[1m\033[42m\033[37m (*<*)Ro'_AVAILABLE!"
 							"\033[0m \n");
 #endif
 			if ((BStatus & 0x01) != 0x01) {
@@ -604,7 +645,7 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 		/* Check if CP_IRQ is spurious */
 		if (BStatus == 0x00) {
 #if ENABLE_HDCP_FLOW_GUIDE
-			xdbg_printf("\033[1m\033[41m\033[37m (*<*)Spurious CP_IRQ!"
+			xdbg_printf(XDBG_DEBUG_GENERAL, "\033[1m\033[41m\033[37m (*<*)Spurious CP_IRQ!"
 						"\033[0m \n");
 #endif
 			/* Disable Hpd for a while (100ms) */
@@ -617,14 +658,17 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x144, 0x0);
 		}
 
+	 }
      }
 #endif
+}
 	if (retrain_link == 1) {
 //		sink_power_cycle();
 		XDpTxSs_SetLinkRate(&DpTxSsInst, bw_set);
 		XDpTxSs_SetLaneCount(&DpTxSsInst, lane_set);
 //		XDpTxSs_Start(&DpTxSsInst);
 		DpTxSubsystem_Start(&DpTxSsInst, Msa);
+		tx_done = 1;
 	}
 
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_INTERRUPT_MASK, 0x0);
@@ -944,8 +988,8 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 		&DpTxSsInst.DpPtr->TxInstance.MsaConfig[0],
 		DpTxSsInst.UsrOpt.VtcAdjustBs);
 		if (Status != XST_SUCCESS) {
-			xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: "
-				"VTC%d setup failed!\n\r", Index);
+			/*xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: "
+				"VTC%d setup failed!\n\r", Index);*/
 		}
 	}
 
@@ -1043,101 +1087,52 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 		u8 Edid1_org[128], u16 res_update)
 {
     u32 Status;
+    u8 retval=0;
 
 	/* This is a PassThrough System to display the Video received on RX
 	 * onto TX. There is nothing special done in the hpd_connect handler.
 	 * On a HPD the application simply tries to retrain the monitor
 	 */
 #if ENABLE_HDCP_IN_DESIGN
-	u8 auxValues[9];
-    XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x068028, 1, auxValues);
+	u8 auxValues;
+	hdcp_capable=0;
+	/*Wait to read the capabilities*/
+	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 2000000);
 
-    hdcp_capable = auxValues[0] & 0x1;
-    hdcp_repeater = auxValues[0] & 0x2;
-	if (hdcp_capable != hdcp_capable_org) {
-		do_not_train_tx = 1;
-		hdcp_capable_org = hdcp_capable;
+	XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x06921D, 1, &auxValues);
+	retval = auxValues & 0x2;
+	if(retval==2)
+	{
+		mon_is_hdcp22_cap=1;
+		hdcp_capable=1;
+	DpTxSsInst.HdcpProtocol=XDPTXSS_HDCP_22;
 	}
-	else{
-		do_not_train_tx = 0;
+	else
+	{
+		XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x068028, 1, &auxValues);
+		retval = auxValues & 0x1;
+		if(retval==1)
+		{
+			mon_is_hdcp22_cap=0;
+			hdcp_capable=1;
+		DpTxSsInst.HdcpProtocol=XDPTXSS_HDCP_1X;
+		}
+		else
+		{
+			hdcp_capable=0;
+		}
 	}
+
+		if (hdcp_capable != hdcp_capable_org) {
+			do_not_train_tx = 1;
+			hdcp_capable_org = hdcp_capable;
+		}
+		else{
+			do_not_train_tx = 0;
+		}
 
 #endif
 
-}
-
-/*****************************************************************************/
-/**
-*
-* This function to send Audio Information Frame
-*
-* @param	XilAudioInfoFrame
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame)
-{
-	u8 db1, db2, db3, db4;
-	u32 temp;
-	u8 RSVD=0;
-
-	//Fixed paramaters
-	u8  dp_version   = xilInfoFrame->version;
-
-	//Write #1
-	db1 = 0x00; //sec packet ID fixed to 0 - SST Mode
-	db2 = xilInfoFrame->type;
-	db3 = xilInfoFrame->info_length&0xFF;
-	db4 = (dp_version<<2)|(xilInfoFrame->info_length>>8);
-	temp = db4<<24|db3<<16|db2<<8|db1;
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-		     XDP_TX_AUDIO_INFO_DATA(1), temp);
-
-	//Write #2
-	db1 = xilInfoFrame->audio_channel_count
-					| (xilInfoFrame->audio_coding_type<<4) | (RSVD<<3);
-	db2 = (RSVD<<5)| (xilInfoFrame->sampling_frequency<<2)
-					| xilInfoFrame->sample_size;
-	db3 = RSVD;
-	db4 = xilInfoFrame->channel_allocation;
-	temp = db4 << 24 | db3 << 16 | db2 << 8 | db1;
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-			XDP_TX_AUDIO_INFO_DATA(1), temp);
-
-	//Write #3
-	db1 = (xilInfoFrame->level_shift<<3) | RSVD
-								| (xilInfoFrame->downmix_inhibit <<7);
-	db2 = RSVD;
-	db3 = RSVD;
-	db4 = RSVD;
-	temp = db4 << 24 | db3 << 16 | db2 << 8 | db1;
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-			XDP_TX_AUDIO_INFO_DATA(1), temp);
-
-	//Write #4
-	db1 = RSVD;
-	db2 = RSVD;
-	db3 = RSVD;
-	db4 = RSVD;
-	temp = 0x00000000;
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-			XDP_TX_AUDIO_INFO_DATA(1), temp);
-	//Write #5
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-			XDP_TX_AUDIO_INFO_DATA(1), temp);
-
-	//Write #6
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-			XDP_TX_AUDIO_INFO_DATA(1), temp);
-	//Write #7
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-			XDP_TX_AUDIO_INFO_DATA(1), temp);
-	//Write #8
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-			XDP_TX_AUDIO_INFO_DATA(1), temp);
 }
 
 /*****************************************************************************/

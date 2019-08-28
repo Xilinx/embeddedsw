@@ -287,7 +287,7 @@ KEYMGMTLDR_Init(
 	xil_printf("\t\t\t[Inside fn KEYMGMTLDR_Init]: do-while;; iterate through");
 	xil_printf("keymgmt handlers - doInit(theHandler) \r\n");
 #endif
-	xil_printf("Loading the keys for Key management module %d \r\n",theNumLeft);
+	xil_printf("\r\nLoading the keys for Key management module %d \r\n",theNumLeft);
 		/* Initialize it */
       if (doInit(theHandler) != KEYMGMT_ERROR_NONE)
         theError = -1;

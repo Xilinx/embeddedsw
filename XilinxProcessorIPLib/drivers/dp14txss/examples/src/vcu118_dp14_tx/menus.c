@@ -58,6 +58,9 @@ lane_link_rate_struct lane_link_table[]=
 
 };
 
+#define XVIDC_FR_82HZ 82
+#define XVIDC_FR_98HZ 98
+
 //extern XVidC_VideoMode resolution_table[];
 // adding new resolution definition example
 // XVIDC_VM_3840x2160_30_P_SB, XVIDC_B_TIMING3_60_P_RB
@@ -380,7 +383,7 @@ void main_loop(){
 	u32 aux_reg_address, num_of_aux_registers;
 	u8 Data[8];
 	u8 audio_on=0;
-	XilAudioInfoFrame *xilInfoFrame;
+	XDp_TxAudioInfoFrame *xilInfoFrame;
 	int m_aud, n_aud;
 	u8 in_pwr_save = 0;
 	u16 DrpVal =0;
@@ -501,7 +504,7 @@ void main_loop(){
                 xilInfoFrame->version = 0x11;
 				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 						XDP_TX_AUDIO_CONTROL, 0x0);
-				sendAudioInfoFrame(xilInfoFrame);
+				XDpTxSs_SendAudioInfoFrame(&DpTxSsInst,xilInfoFrame);
 				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 						XDP_TX_AUDIO_CHANNELS, 0x1);
 				switch(LineRate)

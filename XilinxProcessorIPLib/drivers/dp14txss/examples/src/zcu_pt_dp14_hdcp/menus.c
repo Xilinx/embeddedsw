@@ -70,7 +70,6 @@ void operationMenu(void){
 	"display the video that is received on the RX.\r\n"
 	"The TX is non functional in absence of active RX link\r\n"
 	"Do not change the Monitor once the application is in run mode\r\n"
-	"This system can be used for DisplayPort Sink Compliance\r\n"
 	"****************************************************\n\r"
 			);
 
@@ -124,9 +123,7 @@ void pt_help_menu()
 	//print(" 9 = Report RX, TX Frame stats\n\r");
 	print(" c = Check SUM on Rx and Tx\n\r");
 	print(" d = Quad selection ONLY FOR 8K --> 4K demo\n\r");
-	print(" w = Sink register write\n\r");
-	print(" r = Sink register read\n\r");
-	print(" n = toggle EDID setting between 8K to 4K120\r\n");
+	print(" n = Disable/Enable LineReset\r\n");
 	print(" m = Display MCDP6000 stauts\n\r");
 	print(" u - Read from MCDP6000\r\n");
 	print(" o - Write to MCDP6000\r\n");

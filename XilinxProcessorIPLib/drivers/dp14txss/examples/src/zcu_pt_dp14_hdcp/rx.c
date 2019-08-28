@@ -425,10 +425,13 @@ void DpRxSs_TrainingDoneHandler(void *InstancePtr)
 	DpRxSsInst.VBlankCount = 0;
 	rx_unplugged = 0;
 #if ENABLE_HDCP_IN_DESIGN
-//    XDpRxSs_SetLane(&DpRxSsInst, DpRxSsInst.UsrOpt.LaneCount);
+    XDpRxSs_SetLane(&DpRxSsInst, DpRxSsInst.UsrOpt.LaneCount);
     XDpRxSs_SetPhysicalState(&DpRxSsInst, hdcp_capable_org); //TRUE);
     XHdcp1xExample_Poll();
 #endif
+
+    XDpRxSs_HdcpSetProtocol(&DpRxSsInst, XDPRXSS_HDCP_14);
+	XDpRxSs_HdcpEnable(&DpRxSsInst);
 }
 
 /*****************************************************************************/
@@ -486,8 +489,12 @@ void DpRxSs_UnplugHandler(void *InstancePtr)
 	DpRxSsInst.link_up_trigger = 0;
 	DpRxSsInst.VBlankCount = 0;
 	DpRxSsInst.no_video_trigger = 1;
-	xil_printf("Cable unplugged2 %d %d %d\r\n", DpRxSsInst.link_up_trigger,
-			                              DpRxSsInst.VBlankCount, rx_unplugged);
+	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+						XDP_RX_SOFT_RESET,
+						XDP_RX_SOFT_RESET_HDCP22_MASK);
+				XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+						XDP_RX_SOFT_RESET, 0);
+
 #if ENABLE_HDCP_IN_DESIGN
 #if ENABLE_HDCP_FLOW_GUIDE
 	XDpRxSs_HdcpDisable(&DpRxSsInst);
@@ -977,7 +984,9 @@ void DpRxSs_InfoPacketHandler(void *InstancePtr)
 	}
 
 	//storing the info frame here
+	        if (AudioinfoFrame.frame_count < 51) {
 			AudioinfoFrame.frame_count++;
+	        }
 
 			AudioinfoFrame.version = InfoFrame[1]>>26;
 			AudioinfoFrame.type = (InfoFrame[1]>>8)&0xFF;
