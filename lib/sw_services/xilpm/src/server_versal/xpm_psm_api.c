@@ -222,5 +222,5 @@ done:
  ****************************************************************************/
 XStatus XPm_WakeUpEvent(const u32 DeviceId)
 {
-	return XPm_RequestWakeUp(XPM_SUBSYSID_PMC, DeviceId, 0, 0, 0);
+	return XPm_RequestWakeUp(PM_SUBSYS_PMC, DeviceId, 0, 0, 0);
 }
