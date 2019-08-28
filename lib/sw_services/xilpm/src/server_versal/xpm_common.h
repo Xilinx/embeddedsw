@@ -29,7 +29,7 @@
 
 #include "xstatus.h"
 #include "xil_io.h"
-#include "xillibpm_err.h"
+#include "xpm_err.h"
 #include "xplmi_debug.h"
 
 #ifdef __cplusplus
