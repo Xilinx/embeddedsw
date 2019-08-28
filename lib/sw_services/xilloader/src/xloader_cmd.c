@@ -34,7 +34,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   03/12/2019 Initial release
-*
+		har  08/28/2019 Fixed MISRA C violations
 * </pre>
 *
 * @note
@@ -126,7 +126,7 @@ static XPlmi_Module XPlmi_Loader =
 {
 	XPLMI_MODULE_LOADER_ID,
 	XLoader_Cmds,
-	sizeof XLoader_Cmds / sizeof *XLoader_Cmds,
+	*(&XLoader_Cmds + 1) - XLoader_Cmds,
 };
 
 /*****************************************************************************/
