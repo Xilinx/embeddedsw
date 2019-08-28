@@ -138,7 +138,7 @@ int XPlm_ProcessPlmCdo(void *arg)
 
 	/** Process the PLM CDO */
 	XPlmi_InitCdo(&Cdo);
-	Cdo.ImgId = XPM_SUBSYSID_PMC;
+	Cdo.ImgId = PM_SUBSYS_PMC;
 	Cdo.PrtnId = 0U;
 	Cdo.BufPtr = (u32 *)XPLMI_PMCRAM_BASEADDR;
 	Cdo.BufLen = XPLMI_PMCRAM_LEN;
