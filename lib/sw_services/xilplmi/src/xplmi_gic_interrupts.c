@@ -45,7 +45,7 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xillibpm_node.h"
+#include "xpm_node.h"
 #include "xillibpm_api.h"
 #include "xplmi_gic_interrupts.h"
 #include "xplmi_hw.h"
