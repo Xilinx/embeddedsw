@@ -117,6 +117,16 @@ typedef struct XPm_DeviceStatus {
 #define XPM_DEF_LATENCY		XPM_MAX_LATENCY
 #define XPM_DEF_QOS			XPM_MAX_QOS
 
+/* Device node status */
+#define NODE_STATE_OFF			(0U)
+#define NODE_STATE_ON			(1U)
+
+/* Processor node status */
+#define PROC_STATE_SLEEP		NODE_STATE_OFF
+#define PROC_STATE_ACTIVE		NODE_STATE_ON
+#define PROC_STATE_FORCEDOFF		(7U)
+#define PROC_STATE_SUSPENDING		(8U)
+
 enum pm_query_id {
 	XPM_QID_INVALID,
 	XPM_QID_CLOCK_GET_NAME,
