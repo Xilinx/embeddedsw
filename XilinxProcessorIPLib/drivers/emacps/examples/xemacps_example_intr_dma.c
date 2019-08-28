@@ -121,6 +121,8 @@
 * 3.10 hk   05/17/19 Use correct platform register for Versal.
 *           08/12/19 Add clock setup support for Versal.
 *           14/08/19 Move definition of Platform to _util file for common use.
+*           08/24/19 Add support for clock configuration in EL1 Non Secure for
+*                    Versal.
 *
 * </pre>
 *
@@ -132,6 +134,10 @@
 
 #ifndef __MICROBLAZE__
 #include "xil_mmu.h"
+#endif
+
+#if EL1_NONSECURE
+#include "xil_smc.h"
 #endif
 /*************************** Constant Definitions ***************************/
 
@@ -391,6 +397,19 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 	/* Setup device for first-time usage */
 	/*************************************/
 
+#if EL1_NONSECURE
+	/* Request device to indicate it is in use by this application */
+#ifdef XPAR_PSV_ETHERNET_0_DEVICE_ID
+	if (EmacPsIntrId == XPS_GEM0_INT_ID) {
+		Xil_Smc(PM_REQUEST_DEVICE_SMC_FID, DEV_GEM_0, 1, 0, 100, 1, 0, 0);
+	}
+#endif
+#ifdef XPAR_PSV_ETHERNET_1_DEVICE_ID
+	if (EmacPsIntrId == XPS_GEM1_INT_ID) {
+		Xil_Smc(PM_REQUEST_DEVICE_SMC_FID, DEV_GEM_1, 1, 0, 100, 1, 0, 0);
+	}
+#endif
+#endif
 
 	/*
 	 *  Initialize instance. Should be configured for DMA
@@ -1499,21 +1518,28 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 #ifdef XPAR_PSV_ETHERNET_0_DEVICE_ID
 		if (EmacPsIntrId == XPS_GEM0_INT_ID) {
 			/* GEM0 1G clock configuration*/
+#if EL1_NONSECURE
+			Xil_Smc(PM_SET_DIVIDER_SMC_FID, (((u64)XPAR_PSV_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0 << 32) | CLK_GEM0_REF), 0, 0, 0, 0, 0, 0);
+#else
 			ClkCntrl = Xil_In32((UINTPTR)CRL_GEM0_REF_CTRL);
 			ClkCntrl &= ~CRL_GEM_DIV_VERSAL_MASK;
 			ClkCntrl |= XPAR_PSV_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0 << CRL_GEM_DIV_VERSAL_SHIFT;
 			Xil_Out32((UINTPTR)CRL_GEM0_REF_CTRL, ClkCntrl);
-
+#endif
 		}
 #endif
 #ifdef XPAR_PSV_ETHERNET_1_DEVICE_ID
 		if (EmacPsIntrId == XPS_GEM1_INT_ID) {
 
 			/* GEM1 1G clock configuration*/
+#if EL1_NONSECURE
+			Xil_Smc(PM_SET_DIVIDER_SMC_FID, (((u64)XPAR_PSV_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0 << 32) | CLK_GEM1_REF), 0, 0, 0, 0, 0, 0);
+#else
 			ClkCntrl = Xil_In32((UINTPTR)CRL_GEM1_REF_CTRL);
 			ClkCntrl &= ~CRL_GEM_DIV_VERSAL_MASK;
 			ClkCntrl |= XPAR_PSV_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0 << CRL_GEM_DIV_VERSAL_SHIFT;
 			Xil_Out32((UINTPTR)CRL_GEM1_REF_CTRL, ClkCntrl);
+#endif
 		}
 #endif
 #endif
