@@ -97,7 +97,6 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
     set arg "DEVICE_ID"
     set posn [lsearch -exact $args $arg]
     if {$posn > -1} {
-	puts "\n"
 	puts $file_handle "/* Canonical definitions for peripheral PSU_CR_0 */"
 	puts $file_handle "#define XPAR_XCRPSU_0_DEVICE_ID $device_id"
 	set args [lreplace $args $posn $posn]
