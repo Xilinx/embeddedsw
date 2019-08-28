@@ -46,7 +46,7 @@
 #include "xplmi_modules.h"
 #include "xplmi.h"
 #include "xplmi_debug.h"
-#include "xillibpm_node.h"
+#include "xpm_node.h"
 
 /************************** Constant Definitions *****************************/
 
