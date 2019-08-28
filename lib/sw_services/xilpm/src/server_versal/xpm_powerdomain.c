@@ -23,7 +23,7 @@
 *
 *
 ******************************************************************************/
-#include "xillibpm_defs.h"
+#include "xpm_defs.h"
 #include "xpm_common.h"
 #include "xpm_node.h"
 #include "xpm_npdomain.h"

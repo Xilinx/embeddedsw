@@ -25,7 +25,7 @@
 ******************************************************************************/
 
 #include "xillibpm_api.h"
-#include "xillibpm_defs.h"
+#include "xpm_defs.h"
 #include "xillibpm_psm_api.h"
 #include "xpm_pldomain.h"
 #include "xpm_pll.h"
