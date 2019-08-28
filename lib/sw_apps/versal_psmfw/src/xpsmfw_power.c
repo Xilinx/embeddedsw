@@ -1135,7 +1135,17 @@ static XStatus PowerUp_FP(void)
  */
 static XStatus PowerDwn_OCM_BANK0(void)
 {
-	return XPsmFwMemPwrDown(&Ocm0PwrCtrl);
+	/*
+	 * As per EDT-995988, Getting the SLV error from power down
+	 * island even when Dec error disabled
+	 *
+	 * OCM gives SLVERR response when a powered-down bank is
+	 * accessed, even when Response Error is disabled. Error occurs
+	 * only for a narrow access (< 64 bits). Skip OCM power down as
+	 * workaround.
+	 */
+//	return XPsmFwMemPwrDown(&Ocm0PwrCtrl);
+	return XST_SUCCESS;
 }
 
 /**
@@ -1145,7 +1155,17 @@ static XStatus PowerDwn_OCM_BANK0(void)
  */
 static XStatus PowerDwn_OCM_BANK1(void)
 {
-	return XPsmFwMemPwrDown(&Ocm1PwrCtrl);
+	/*
+	 * As per EDT-995988, Getting the SLV error from power down
+	 * island even when Dec error disabled
+	 *
+	 * OCM gives SLVERR response when a powered-down bank is
+	 * accessed, even when Response Error is disabled. Error occurs
+	 * only for a narrow access (< 64 bits). Skip OCM power down as
+	 * workaround.
+	 */
+//	return XPsmFwMemPwrDown(&Ocm1PwrCtrl);
+	return XST_SUCCESS;
 }
 
 /**
@@ -1155,7 +1175,17 @@ static XStatus PowerDwn_OCM_BANK1(void)
  */
 static XStatus PowerDwn_OCM_BANK2(void)
 {
-	return XPsmFwMemPwrDown(&Ocm2PwrCtrl);
+	/*
+	 * As per EDT-995988, Getting the SLV error from power down
+	 * island even when Dec error disabled
+	 *
+	 * OCM gives SLVERR response when a powered-down bank is
+	 * accessed, even when Response Error is disabled. Error occurs
+	 * only for a narrow access (< 64 bits). Skip OCM power down as
+	 * workaround.
+	 */
+//	return XPsmFwMemPwrDown(&Ocm2PwrCtrl);
+	return XST_SUCCESS;
 }
 
 /**
@@ -1165,7 +1195,17 @@ static XStatus PowerDwn_OCM_BANK2(void)
  */
 static XStatus PowerDwn_OCM_BANK3(void)
 {
-	return XPsmFwMemPwrDown(&Ocm3PwrCtrl);
+	/*
+	 * As per EDT-995988, Getting the SLV error from power down
+	 * island even when Dec error disabled
+	 *
+	 * OCM gives SLVERR response when a powered-down bank is
+	 * accessed, even when Response Error is disabled. Error occurs
+	 * only for a narrow access (< 64 bits). Skip OCM power down as
+	 * workaround.
+	 */
+//	return XPsmFwMemPwrDown(&Ocm3PwrCtrl);
+	return XST_SUCCESS;
 }
 
 /**
