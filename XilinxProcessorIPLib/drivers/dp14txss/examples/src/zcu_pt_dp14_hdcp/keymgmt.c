@@ -101,8 +101,8 @@ KEYMGMT_Init(
     }
 
 #if DEBUG_KEYMGMT_INIT
-    xil_printf("KEYMGMTDEV_Init done , error = %d \r\n",theError);
-    xil_printf("KEYMGMTLDR_Init done , error = %d \r\n",theError);
+    xil_printf("\r\nKEYMGMTDEV_Init done , error = %d \r\n",theError);
+    xil_printf("\r\nKEYMGMTLDR_Init done , error = %d \r\n",theError);
 #endif
 
     /* Update gIsInitialized */

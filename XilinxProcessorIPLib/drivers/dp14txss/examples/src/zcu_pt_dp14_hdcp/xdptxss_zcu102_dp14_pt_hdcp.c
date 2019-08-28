@@ -488,6 +488,25 @@ u32 DpSs_Main(void)
 	DpSs_VideoPhyInit(XVPHY_DEVICE_ID);
 	set_vphy(0x14);
 
+	 /*Load HDCP22 Keys*/
+	 extern uint8_t Hdcp22Lc128[];
+	 extern uint32_t Hdcp22Lc128_Sz;
+	 extern uint8_t Hdcp22RxPrivateKey[];
+	 extern uint32_t Hdcp22RxPrivateKey_Sz;
+	 XHdcp22_LoadKeys_rx(Hdcp22Lc128,
+	                  Hdcp22Lc128_Sz,
+	                  Hdcp22RxPrivateKey,
+					  Hdcp22RxPrivateKey_Sz);
+
+        /*Set pointers to HDCP 2.2 Keys*/
+        XV_DpRxSs_Hdcp22SetKey(&DpRxSsInst,
+                        XV_DPRXSS_KEY_HDCP22_LC128,
+                        Hdcp22Lc128);
+
+        XV_DpRxSs_Hdcp22SetKey(&DpRxSsInst,
+                        XV_DPRXSS_KEY_HDCP22_PRIVATE,
+                        Hdcp22RxPrivateKey);
+
 #ifdef RxOnly
 	/* Obtain the device configuration
 	 * for the DisplayPort RX Subsystem */
@@ -503,6 +522,14 @@ u32 DpSs_Main(void)
 		xil_printf("DPRXSS config initialization failed.\n\r");
 		return XST_FAILURE;
 	}
+#if ENABLE_HDCP22_IN_DESIGN
+        /*Set HDCP upstream interface*/
+        if (XHdcp22_SetUpstream(&Hdcp22Repeater, &DpRxSsInst) != XST_SUCCESS) {
+                xdbg_printf(XDBG_DEBUG_GENERAL,
+                                "DPRXSS ERR: XHdcp22_SetUpstream failed\n\r");
+                return XST_FAILURE;
+        }
+#endif
 
 	/* Check for SST/MST support */
 	if (DpRxSsInst.UsrOpt.MstSupport) {
@@ -522,6 +549,21 @@ u32 DpSs_Main(void)
 	XDp_RxGenerateHpdInterrupt(DpRxSsInst.DpPtr, 50000);
 
 #endif
+
+	/*Load HDCP22 Keys*/
+	extern uint8_t Hdcp22Lc128[];
+	extern uint32_t Hdcp22Lc128_Sz;
+	XHdcp22_LoadKeys_tx(Hdcp22Lc128,
+			Hdcp22Lc128_Sz);
+
+	extern uint8_t Hdcp22Srm[];
+	/*Set pointers to HDCP 2.2 Keys*/
+	XV_DpTxSs_Hdcp22SetKey(&DpTxSsInst,
+			XV_DPTXSS_KEY_HDCP22_LC128,
+			Hdcp22Lc128);
+	XV_DpTxSs_Hdcp22SetKey(&DpTxSsInst,
+			XV_DPTXSS_KEY_HDCP22_SRM,
+			Hdcp22Srm);
 
 #ifdef TxOnly
 /* Obtain the device configuration for the DisplayPort TX Subsystem */
@@ -546,6 +588,19 @@ u32 DpSs_Main(void)
 		xil_printf("INFO:DPTXSS is SST enabled. DPTXSS works "
 			"only in SST mode.\r\n");
 	}
+
+
+#if ENABLE_HDCP22_IN_DESIGN
+	extern XHdcp22_Repeater     Hdcp22Repeater;
+	if (XDpTxSs_HdcpIsReady(&DpTxSsInst)) {
+		/* Initialize the HDCP instance */
+
+		XHdcp_Initialize(&Hdcp22Repeater);
+
+		/* Set HDCP downstream interface(s) */
+		XHdcp_SetDownstream(&Hdcp22Repeater, &DpTxSsInst);
+	}
+#endif
 
 	/* Set DP141 Tx driver here. */
     //Keeping 0db gain on RX
@@ -585,7 +640,6 @@ u32 DpSs_Main(void)
 #endif
 
 	DpSs_SetupIntrSystem();
-
 	// Adding custom resolutions at here.
 	xil_printf("INFO> Registering Custom Timing Table with %d entries \r\n",
 							(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1)));
@@ -1842,12 +1896,17 @@ void frameBuffer_start_rd(XVidC_VideoMode VmId,
 					&VidStream);
 
 	// Tx side may change due to sink monitor capability
-//	if(downshift4K == 1){ // if sink is 4K monitor,
+	if(downshift4K == 1){ // if sink is 4K monitor,
 //		VidStream.VmId = VmId; // This will be set as 4K60
 //		TimingPtr = XVidC_GetTimingInfo(VidStream.VmId);
 //		VidStream.Timing = *TimingPtr;
 //		VidStream.FrameRate = XVidC_GetFrameRate(VidStream.VmId);
-//	}
+		VidStream.VmId = XVIDC_VM_3840x2160_30_P; //VmId; // This will be set as 4K30
+		                TimingPtr = XVidC_GetTimingInfo(VidStream.VmId);
+		                VidStream.Timing = *TimingPtr;
+		                VidStream.FrameRate = XVidC_GetFrameRate(VidStream.VmId);
+
+	}
 
 	ConfigFrmbuf_rd(stride, Cfmt, &VidStream);
 
@@ -2086,15 +2145,7 @@ void Dppt_DetectAudio (void) {
 	appx_fs = (appx_fs * 1000) / 512;
 	appx_fs = appx_fs / 1000;
 
-    if (appx_fs >= 31 && appx_fs <= 33) {
-	appx_fs = 32000;
-	lock = 0;
-
-	} else if (appx_fs >= 43 && appx_fs <= 45) {
-		appx_fs = 44100;
-		lock = 0;
-
-	} else if (appx_fs >= 47 && appx_fs <= 49) {
+     if (appx_fs >= 47 && appx_fs <= 49) {
 		appx_fs = 48000;
 		lock = 0;
 

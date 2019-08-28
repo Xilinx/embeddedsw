@@ -387,7 +387,7 @@ void main_loop(){
 	u32 aux_reg_address, num_of_aux_registers;
 	u8 Data[8];
 	u8 audio_on=0;
-	XilAudioInfoFrame *xilInfoFrame;
+	XDp_TxAudioInfoFrame *xilInfoFrame;
 	int m_aud, n_aud;
 	u8 in_pwr_save = 0;
 	u32 DrpVal =0;
@@ -516,7 +516,7 @@ void main_loop(){
 
 				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 						XDP_TX_AUDIO_CONTROL, 0x0);
-				sendAudioInfoFrame(xilInfoFrame);
+				XDpTxSs_SendAudioInfoFrame(&(DpTxSsInst),xilInfoFrame);
 				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 						XDP_TX_AUDIO_CHANNELS, 0x1);
 				switch(LineRate)
@@ -1183,7 +1183,6 @@ void main_loop(){
 	}
 
 }
-
 
 static char inbyte_local(void){
 	char c=0;
