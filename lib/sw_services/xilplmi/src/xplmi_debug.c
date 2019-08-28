@@ -50,7 +50,7 @@
 #include "xil_types.h"
 #include "xstatus.h"
 #include "xplmi_hw.h"
-#include "xillibpm_api.h"
+#include "xpm_api.h"
 #include "xpm_subsystem.h"
 #include "xpm_device.h"
 #include "xplmi_status.h"

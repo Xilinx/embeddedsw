@@ -47,7 +47,7 @@
 #include "xplmi_dma.h"
 #include "xplmi_debug.h"
 #include "xplmi_cdo.h"
-#include "xillibpm_api.h"
+#include "xpm_api.h"
 #include "xplmi_util.h"
 #include "xloader_secure.h"
 /************************** Constant Definitions *****************************/

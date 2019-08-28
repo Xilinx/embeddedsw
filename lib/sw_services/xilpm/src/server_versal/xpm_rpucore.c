@@ -27,7 +27,7 @@
 #include "xil_io.h"
 #include "xpm_rpucore.h"
 #include "xpm_regs.h"
-#include "xillibpm_api.h"
+#include "xpm_api.h"
 
 XStatus XPmRpuCore_Halt(XPm_Device *Device)
 {

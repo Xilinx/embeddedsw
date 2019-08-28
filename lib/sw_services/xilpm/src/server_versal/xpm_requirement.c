@@ -26,7 +26,7 @@
 
 #include "xpm_requirement.h"
 #include "xpm_power.h"
-#include "xillibpm_api.h"
+#include "xpm_api.h"
 
 static XStatus XPmRequirement_Init(XPm_Requirement *Reqm,
 		XPm_Subsystem *Subsystem, XPm_Device *Device,  u32 Flags, u32 *Params, u32 NumParams)

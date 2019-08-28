@@ -30,7 +30,7 @@
 #include "xpm_prot.h"
 #include "xpm_rpucore.h"
 #include "xpm_notifier.h"
-#include "xillibpm_api.h"
+#include "xpm_api.h"
 #include "xpm_pslpdomain.h"
 
 /** PSM RAM Base address */
