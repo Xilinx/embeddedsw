@@ -87,6 +87,18 @@ extern "C" {
 #define MMIO_WRITE_SMC_FID	0xC2000013U
 #define MMIO_READ_SMC_FID	0xC2000014U
 #define GET_CHIPID_SMC_FID      0xC2000018U
+
+/* GEM device IDs */
+#define	DEV_GEM_0			0x18224019
+#define	DEV_GEM_1			0x1822401a
+
+/* GEM reference clock IDs */
+#define	CLK_GEM0_REF			0x8208058
+#define	CLK_GEM1_REF			0x8208059
+
+/* PM API for setting clock divider */
+#define PM_SET_DIVIDER_SMC_FID		0xC2000027U
+
 /**************************** Type Definitions ******************************/
 typedef struct {
 	u64 Arg0;
