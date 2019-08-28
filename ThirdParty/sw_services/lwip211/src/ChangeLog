@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2019-08-24
+	* Add support for clock config in EL1 Non secure for Versal.
 2019-08-12
 	* Add support for clock setup for Versal.
 2019-07-30

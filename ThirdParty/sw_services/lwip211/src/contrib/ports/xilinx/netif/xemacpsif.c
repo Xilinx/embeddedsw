@@ -344,6 +344,16 @@ static err_t low_level_init(struct netif *netif)
 	/* obtain config of this emac */
 	mac_config = (XEmacPs_Config *)xemacps_lookup_config((unsigned)(UINTPTR)netif->state);
 
+#if EL1_NONSECURE
+	/* Request device to indicate that this library is using it */
+	if (mac_config->BaseAddress == VERSAL_EMACPS_0_BASEADDR) {
+		Xil_Smc(PM_REQUEST_DEVICE_SMC_FID, DEV_GEM_0, 1, 0, 100, 1, 0, 0);
+	}
+	if (mac_config->BaseAddress == VERSAL_EMACPS_0_BASEADDR) {
+		Xil_Smc(PM_REQUEST_DEVICE_SMC_FID, DEV_GEM_1, 1, 0, 100, 1, 0, 0);
+	}
+#endif
+
 	status = XEmacPs_CfgInitialize(&xemacpsif->emacps, mac_config,
 						mac_config->BaseAddress);
 	if (status != XST_SUCCESS) {

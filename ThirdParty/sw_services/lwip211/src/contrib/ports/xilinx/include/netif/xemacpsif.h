@@ -58,6 +58,10 @@ extern "C" {
 #include "netif/xpqueue.h"
 #include "xlwipconfig.h"
 
+#if EL1_NONSECURE
+#include "xil_smc.h"
+#endif
+
 #define ZYNQ_EMACPS_0_BASEADDR 0xE000B000
 #define ZYNQ_EMACPS_1_BASEADDR 0xE000C000
 
