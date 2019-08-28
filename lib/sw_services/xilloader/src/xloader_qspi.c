@@ -34,7 +34,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   02/21/2018 Initial release
-*
+*       har  08/28/2018 Fixed MISRA C violations
 * </pre>
 *
 * @note
@@ -707,7 +707,7 @@ XStatus XLoader_Qspi24Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		DiscardByteCnt = 4;
 
 		FlashMsg[0].TxBfrPtr = WriteBuffer;
-		FlashMsg[0].RxBfrPtr = NULL;
+		FlashMsg[0].RxBfrPtr = (u8 *)NULL;
 		FlashMsg[0].ByteCount = DiscardByteCnt;
 		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
@@ -734,8 +734,8 @@ XStatus XLoader_Qspi24Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 				FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_QUADSPI;
 			}
 
-			FlashMsg[1].TxBfrPtr = NULL;
-			FlashMsg[1].RxBfrPtr = NULL;
+			FlashMsg[1].TxBfrPtr = (u8 *)NULL;
+			FlashMsg[1].RxBfrPtr = (u8 *)NULL;
 			FlashMsg[1].ByteCount = DUMMY_CLOCKS;
 			FlashMsg[1].Flags = 0U;
 		}
@@ -752,7 +752,7 @@ XStatus XLoader_Qspi24Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 			FlashMsg[2].BusWidth = XQSPIPSU_SELECT_MODE_QUADSPI;
 		}
 
-		FlashMsg[2].TxBfrPtr = NULL;
+		FlashMsg[2].TxBfrPtr = (u8 *)NULL;
 		FlashMsg[2].RxAddr64bit = DestAddr;
 		FlashMsg[2].Xfer64bit = 1;
 
