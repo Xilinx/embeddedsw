@@ -214,7 +214,6 @@ proc ipi_generate_params {file_name iszynqmp} {
 	foreach ipi_inst $ipi_list {
 		puts $file_handle [ipi_define_xpar $ipi_inst CONFIG.C_BIT_POSITION]
 		puts $file_handle [ipi_define_xpar $ipi_inst CONFIG.C_BUFFER_INDEX]
-		puts ""
 	}
 	# Generate Canonical definitions to map IPI instance -> Processors
 	puts $file_handle "/* Target List for referring to processor IPI Targets */"
@@ -231,7 +230,6 @@ proc ipi_generate_params {file_name iszynqmp} {
 		foreach ipi_slave $proc_slave_list {
 			puts $file_handle [format "#define  XPAR_XIPIPS_TARGET_%s_CH%s_MASK  XPAR_%s_BIT_MASK" [string toupper $proc] $idx [string toupper $ipi_slave]]
 			puts $file_handle [format "#define  XPAR_XIPIPS_TARGET_%s_CH%s_INDEX  %s$uSuffix" [string toupper $proc] $idx [lsearch $ipi_list $ipi_slave]]
-			puts ""
 			incr idx
 		}
 		puts $file_handle ""
