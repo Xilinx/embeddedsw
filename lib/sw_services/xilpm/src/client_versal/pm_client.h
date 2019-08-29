@@ -24,8 +24,8 @@
 *
 ******************************************************************************/
 
-#ifndef XPM_CLIENT_COMMON_H_
-#define XPM_CLIENT_COMMON_H_
+#ifndef PM_CLIENT_H_
+#define PM_CLIENT_H_
 
 #include <xil_types.h>
 #include <xstatus.h>
@@ -88,4 +88,4 @@ void XPm_ClientAbortSuspend(void);
 }
 #endif
 
-#endif /* XPM_CLIENT_COMMON_H_ */
+#endif /* PM_CLIENT_H_ */

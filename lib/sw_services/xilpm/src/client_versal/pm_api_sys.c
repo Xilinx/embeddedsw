@@ -24,9 +24,9 @@
 *
 ******************************************************************************/
 
-#include "xpm_client_api.h"
-#include "xpm_client_ipi.h"
-#include "xpm_client_callbacks.h"
+#include "pm_api_sys.h"
+#include "pm_callbacks.h"
+#include "xpm_ipi.h"
 
 /* Payload Packets */
 #define PACK_PAYLOAD(Payload, Arg0, Arg1, Arg2, Arg3, Arg4, Arg5)	\

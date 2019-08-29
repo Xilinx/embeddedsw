@@ -24,10 +24,10 @@
 *
 ******************************************************************************/
 
-#ifndef _XPM_CLIENT_IPI_H_
-#define _XPM_CLIENT_IPI_H_
+#ifndef _XPM_IPI_H_
+#define _XPM_IPI_H_
 
-#include "xpm_client_common.h"
+#include "pm_client.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -48,4 +48,4 @@ XStatus Xpm_IpiReadBuff32(struct XPm_Proc *const Proc, u32 *Val1,
 }
 #endif
 
-#endif /* _XPM_CLIENT_IPI_H_ */
+#endif /* _XPM_IPI_H_ */

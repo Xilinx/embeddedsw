@@ -24,7 +24,7 @@
 *
 ******************************************************************************/
 
-#include "xpm_client_callbacks.h"
+#include "pm_callbacks.h"
 
 static XPm_Notifier* NotifierList = NULL;
 

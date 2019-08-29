@@ -24,9 +24,9 @@
 *
 ******************************************************************************/
 
-#include "xpm_client_common.h"
+#include "pm_client.h"
 #include <xil_cache.h>
-#include "xillibpm_node.h"
+#include "xpm_node.h"
 #if defined (__aarch64__)
 #include <xreg_cortexa53.h>
 #elif defined (__arm__)
