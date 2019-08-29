@@ -53,6 +53,8 @@
 #include "xpm_notifier.h"
 
 u32 ResetReason;
+u32 SysmonAddresses[XPM_NODEIDX_MONITOR_MAX];
+
 extern int XLoader_RestartImage(u32 SubsystemId);
 
 void (* PmRequestCb)(u32 SubsystemId, const u32 EventId, u32 *Payload);
@@ -3495,6 +3497,59 @@ done:
 	return Status;
 }
 
+
+/****************************************************************************/
+/**
+ * @brief  This function add monitor node to the topology database
+ *
+ * @param Args		arguments
+ * @param NumArgs	number of arguments
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+static XStatus XPm_AddNodeMonitor(u32 *Args, u32 NumArgs)
+{
+	int Status = XST_FAILURE;
+	u32 NodeId, BaseAddress, NodeType;
+
+	if (NumArgs < 3) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	NodeId = Args[0];
+	BaseAddress = Args[2];
+
+	if (XPM_NODECLASS_MONITOR != NODECLASS(NodeId)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if (XPM_NODESUBCL_MONITOR_SYSMON != NODESUBCLASS(NodeId)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	NodeType = NODETYPE(NodeId);
+
+	if (((XPM_NODETYPE_MONITOR_SYSMON_PMC != NodeType) &&
+	    (XPM_NODETYPE_MONITOR_SYSMON_PS != NodeType)
+		&& (XPM_NODETYPE_MONITOR_SYSMON_NPD != NodeType)) ||
+	    (XPM_NODEIDX_MONITOR_MAX <= NODEINDEX(NodeId))) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	SysmonAddresses[NODEINDEX(NodeId)] = BaseAddress;
+	Status = XST_SUCCESS;
+done:
+	return Status;
+}
+
 /****************************************************************************/
 /**
  * @brief  This function add xmpu/xppu node to the topology database
@@ -3656,6 +3711,9 @@ XStatus XPm_AddNode(u32 *Args, u32 NumArgs)
 			break;
 		case XPM_NODECLASS_PROTECTION:
 			Status = XPm_AddNodeProt(Args, NumArgs);
+			break;
+		case XPM_NODECLASS_MONITOR:
+			Status = XPm_AddNodeMonitor(Args, NumArgs);
 			break;
 		default:
 			Status = XST_INVALID_PARAM;
