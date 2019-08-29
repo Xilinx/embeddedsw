@@ -31,6 +31,10 @@
 #ifndef xvidc_edid_h
 #define xvidc_edid_h
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "stdbool.h"
 #include "xvidc.h"
 #include "xil_assert.h"
