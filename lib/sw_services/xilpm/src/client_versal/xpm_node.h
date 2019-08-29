@@ -27,9 +27,6 @@
 #ifndef XPM_NODE_H_
 #define XPM_NODE_H_
 
-#include <xil_types.h>
-#include <xstatus.h>
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -84,24 +81,24 @@ enum class {
 
 /* Node subclass types */
 typedef enum {
-	/* Power nodes */
-	XPM_NODESUBCL_POWER_ISLAND=1,
-	XPM_NODESUBCL_POWER_DOMAIN,
+        /* Power nodes */
+        XPM_NODESUBCL_POWER_ISLAND=1,
+        XPM_NODESUBCL_POWER_DOMAIN,
 } XPm_PowerNodeSubclass;
 
 typedef enum {
-	/* Clock nodes */
-	XPM_NODESUBCL_CLOCK_PLL=1,
-	XPM_NODESUBCL_CLOCK_OUT,
-	XPM_NODESUBCL_CLOCK_REF,
+        /* Clock nodes */
+        XPM_NODESUBCL_CLOCK_PLL=1,
+        XPM_NODESUBCL_CLOCK_OUT,
+        XPM_NODESUBCL_CLOCK_REF,
 } XPm_ClockNodeSubclass;
 
 typedef enum {
-	/* Reset nodes */
-	XPM_NODESUBCL_RESET_PERIPHERAL=1,
-	XPM_NODESUBCL_RESET_DBG,
-	XPM_NODESUBCL_RESET_POR,
-	XPM_NODESUBCL_RESET_SRST,
+        /* Reset nodes */
+        XPM_NODESUBCL_RESET_PERIPHERAL=1,
+        XPM_NODESUBCL_RESET_DBG,
+        XPM_NODESUBCL_RESET_POR,
+        XPM_NODESUBCL_RESET_SRST,
 } XPm_ResetNodeSubclass;
 
 typedef enum {
@@ -110,18 +107,18 @@ typedef enum {
 } XPm_MemicNodeSubclass;
 
 typedef enum {
-	/* Pin nodes */
-	XPM_NODESUBCL_PIN=1,
+        /* Pin nodes */
+        XPM_NODESUBCL_PIN=1,
 } XPm_PinNodeSubclass;
 
 typedef enum {
-	/* Device types */
-	XPM_NODESUBCL_DEV_CORE=1,
-	XPM_NODESUBCL_DEV_PERIPH,
-	XPM_NODESUBCL_DEV_MEM,
-	XPM_NODESUBCL_DEV_SOC,
-	XPM_NODESUBCL_DEV_MEM_CTRLR,
-	XPM_NODESUBCL_DEV_PHY,
+        /* Device types */
+        XPM_NODESUBCL_DEV_CORE=1,
+        XPM_NODESUBCL_DEV_PERIPH,
+        XPM_NODESUBCL_DEV_MEM,
+        XPM_NODESUBCL_DEV_SOC,
+        XPM_NODESUBCL_DEV_MEM_CTRLR,
+        XPM_NODESUBCL_DEV_PHY,
 } XPm_DeviceNodeSubclass;
 
 typedef enum {
@@ -148,31 +145,31 @@ typedef enum {
 
 /* Node types */
 typedef enum {
-	/* Power nodes */
-	XPM_NODETYPE_POWER_ISLAND=1,
-	XPM_NODETYPE_POWER_DOMAIN_PMC,
-	XPM_NODETYPE_POWER_DOMAIN_PS_FULL,
-	XPM_NODETYPE_POWER_DOMAIN_PS_LOW,
-	XPM_NODETYPE_POWER_DOMAIN_NOC,
-	XPM_NODETYPE_POWER_DOMAIN_CPM,
+        /* Power nodes */
+        XPM_NODETYPE_POWER_ISLAND=1,
+        XPM_NODETYPE_POWER_DOMAIN_PMC,
+        XPM_NODETYPE_POWER_DOMAIN_PS_FULL,
+        XPM_NODETYPE_POWER_DOMAIN_PS_LOW,
+        XPM_NODETYPE_POWER_DOMAIN_NOC,
+        XPM_NODETYPE_POWER_DOMAIN_CPM,
 	XPM_NODETYPE_POWER_DOMAIN_ME,
 	XPM_NODETYPE_POWER_DOMAIN_PL,
 } XPm_PowerNodeType;
 
 typedef enum {
-	/* Clock nodes */
-	XPM_NODETYPE_CLOCK_PLL=1,
-	XPM_NODETYPE_CLOCK_OUT,
-	XPM_NODETYPE_CLOCK_REF,
-	XPM_NODETYPE_CLOCK_SUBNODE,
+        /* Clock nodes */
+        XPM_NODETYPE_CLOCK_PLL=1,
+        XPM_NODETYPE_CLOCK_OUT,
+        XPM_NODETYPE_CLOCK_REF,
+        XPM_NODETYPE_CLOCK_SUBNODE,
 } XPm_ClockNodeType;
 
 typedef enum {
-	/* Reset nodes */
-	XPM_NODETYPE_RESET_PERIPHERAL=1,
-	XPM_NODETYPE_RESET_DBG,
-	XPM_NODETYPE_RESET_POR,
-	XPM_NODETYPE_RESET_SRST,
+        /* Reset nodes */
+        XPM_NODETYPE_RESET_PERIPHERAL=1,
+        XPM_NODETYPE_RESET_DBG,
+        XPM_NODETYPE_RESET_POR,
+        XPM_NODETYPE_RESET_SRST,
 } XPm_ResetNodeType;
 
 typedef enum {
@@ -182,30 +179,30 @@ typedef enum {
 } XPm_MemicNodeType;
 
 typedef enum {
-	/* Pin nodes */
-	XPM_NODETYPE_LPD_MIO=1,
-	XPM_NODETYPE_PMC_MIO,
+        /* Pin nodes */
+        XPM_NODETYPE_LPD_MIO=1,
+        XPM_NODETYPE_PMC_MIO,
 } XPm_PinNodeType;
 
 typedef enum {
-	/* Device types */
-	XPM_NODETYPE_DEV_CORE_PMC=1,
-	XPM_NODETYPE_DEV_CORE_PSM,
-	XPM_NODETYPE_DEV_CORE_APU,
-	XPM_NODETYPE_DEV_CORE_RPU,
-	XPM_NODETYPE_DEV_OCM,
-	XPM_NODETYPE_DEV_TCM,
-	XPM_NODETYPE_DEV_L2CACHE,
-	XPM_NODETYPE_DEV_DDR,
-	XPM_NODETYPE_DEV_PERIPH,
-	XPM_NODETYPE_DEV_SOC,
-	XPM_NODETYPE_DEV_GT,
+        /* Device types */
+        XPM_NODETYPE_DEV_CORE_PMC=1,
+        XPM_NODETYPE_DEV_CORE_PSM,
+        XPM_NODETYPE_DEV_CORE_APU,
+        XPM_NODETYPE_DEV_CORE_RPU,
+        XPM_NODETYPE_DEV_OCM,
+        XPM_NODETYPE_DEV_TCM,
+        XPM_NODETYPE_DEV_L2CACHE,
+        XPM_NODETYPE_DEV_DDR,
+        XPM_NODETYPE_DEV_PERIPH,
+        XPM_NODETYPE_DEV_SOC,
+        XPM_NODETYPE_DEV_GT,
 	XPM_NODETYPE_DEV_EFUSE,
 } XPm_DeviceNodeType;
 
 typedef enum {
 	/* Subsystem types */
-	XPM_NODETYPE_SUBSYSTEM=0,
+        XPM_NODETYPE_SUBSYSTEM=0,
 } XPm_SubsystemTypes;
 
 typedef enum {
@@ -975,31 +972,8 @@ typedef enum {
 	XPM_NODEIDX_ERROR_PSMERR2_MAX,	/* 0x75 */
 } XPm_ErrorId;
 
-#define NODE_IDLE_DONE			(0x4U)
-
-typedef struct XPm_Node XPm_Node;
-
-/**
- * The node class.  This is the base class for all the power, clock, pin and
- * reset node classes.
- */
-struct XPm_Node {
-	u32 Id;	/**< Node ID: For LibPM clock and pin APIs */
-	u32 State; /**< Node state: Specific to node type */
-	u32 BaseAddress; /**< Base address: Specify to node type */
-	u32 LatencyMarg; /**< lowest latency requirement - powerup latency */
-	u8  Flags;
-	XStatus (* HandleEvent)(XPm_Node *Node, u32 Event);
-		/**< HandleEvent: Pointer to event handler */
-};
-
-/************************** Function Prototypes ******************************/
-XStatus XPmNode_Init(XPm_Node *Node,
-		u32 Id, u32 State, u32 BaseAddress);
-
 #ifdef __cplusplus
 }
 #endif
 
-/** @} */
 #endif /* XPM_NODE_H_ */

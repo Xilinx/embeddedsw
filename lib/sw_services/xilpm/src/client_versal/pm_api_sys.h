@@ -30,32 +30,10 @@
 #include "pm_client.h"
 #include "xpm_defs.h"
 #include "xpm_err.h"
-#include "xpm_nodeid.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-/*
- * pm_init_suspend - Init suspend callback arguments (save for custom handling)
- */
-struct pm_init_suspend {
-	volatile bool received;		/**< Has init suspend callback been received/handled */
-	enum XPmSuspendReason reason;	/**< Reason of initializing suspend */
-	u32 latency;			/**< Maximum allowed latency */
-	u32 state;			/**< Targeted sleep/suspend state */
-	u32 timeout;			/**< Period of time the client has to response */
-};
-
-/*
- * pm_acknowledge - Acknowledge callback arguments (save for custom handling)
- */
-struct pm_acknowledge {
-	volatile bool received;		/**< Has acknowledge argument been received? */
-	u32 node;			/**< Node argument about which the acknowledge is */
-	XStatus status;			/**< Acknowledged status */
-	u32 opp;			/**< Operating point of node in question */
-};
 
 /**
  * XPm_NodeStatus - struct containing node status information
@@ -99,10 +77,6 @@ typedef struct XPm_Ntfier {
 	 */
 	struct XPm_Ntfier* next;
 } XPm_Notifier;
-
-/* Global data declarations */
-extern struct pm_init_suspend pm_susp;
-extern struct pm_acknowledge pm_ack;
 
 XStatus XPm_InitXilpm(XIpiPsu *IpiInst);
 enum XPmBootStatus XPm_GetBootStatus(void);
@@ -150,7 +124,7 @@ XStatus XPm_RequestSuspend(const u32 TargetSubsystemId, const u32 Ack,
 XStatus XPm_AbortSuspend(const enum XPmAbortReason Reason);
 XStatus XPm_ForcePowerDown(const u32 TargetDevId, const u32 Ack);
 XStatus XPm_SystemShutdown(const u32 Type, const u32 SubType);
-XStatus XPm_SetWakeUpSource(const u32 TargetDeviceId,
+XStatus XPm_SetWakeupSource(const u32 TargetDeviceId,
 			    const u32 DeviceId, const u32 Enable);
 XStatus XPm_Query(const u32 QueryId, const u32 Arg1, const u32 Arg2,
 		  const u32 Arg3, u32 *const Data);
@@ -163,15 +137,6 @@ int XPm_RegisterNotifier(XPm_Notifier* const Notifier);
 int XPm_UnregisterNotifier(XPm_Notifier* const Notifier);
 void XPm_NotifyCb(const u32 Node, const enum XPmNotifyEvent Event,
 		  const u32 Oppoint);
-
-void XPm_InitSuspendCb(const enum XPmSuspendReason Reason,
-		       const u32 Latency, const u32 State, const u32 Timeout);
-void XPm_AcknowledgeCb(const u32 Node, const XStatus Status, const u32 Oppoint);
-int XPm_SetConfiguration(const u32 Address);
-int XPm_ClockSetRate(const u32 ClockId, const u32 Rate);
-int XPm_ClockGetRate(const u32 ClockId, u32 *const Rate);
-int XPm_MmioWrite(const u32 Address, const u32 Mask, const u32 Value);
-int XPm_MmioRead(const u32 Address, u32 *const Value);
 
 #ifdef __cplusplus
 }

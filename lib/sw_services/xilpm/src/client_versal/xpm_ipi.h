@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -24,19 +24,28 @@
 *
 ******************************************************************************/
 
-#ifndef _PM_CFG_OBJ_H_
-#define _PM_CFG_OBJ_H_
+#ifndef _XPM_IPI_H_
+#define _XPM_IPI_H_
 
-#include "xil_types.h"
+#include "pm_client.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-extern const u32 XPm_ConfigObject[];
+#define PAYLOAD_ARG_CNT			(6U)	/* 1 for API ID + 5 for API arguments */
+#define RESPONSE_ARG_CNT		(4U)	/* 1 for status + 3 for values */
+
+#define PM_IPI_TIMEOUT			(~0)
+
+#define TARGET_IPI_INT_MASK		XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK
+
+XStatus XPm_IpiSend(struct XPm_Proc *const Proc, u32 *Payload);
+XStatus Xpm_IpiReadBuff32(struct XPm_Proc *const Proc, u32 *Val1,
+			  u32 *Val2, u32 *Val3);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _PM_CFG_OBJ_H_ */
+#endif /* _XPM_IPI_H_ */
