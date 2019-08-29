@@ -41,6 +41,7 @@
 * 1.2  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.3  Hyun    01/08/2019  Use the poll function
 * 1.4  Hyun    06/20/2019  Added APIs for individual BD / Channel reset
+* 1.5  Hyun    06/20/2019  Add XAieDma_ShimSoftInitialize()
 * </pre>
 *
 ******************************************************************************/
@@ -56,6 +57,32 @@
 /************************** Variable Definitions *****************************/
 
 /************************** Function Definitions *****************************/
+/*****************************************************************************/
+/**
+*
+* This API intializes the Shim DMA instances without programming any related
+* resources such as bd and channel. This allows the resource to be managed
+* independently.
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	DmaInstPtr - Pointer to the Shim DMA instance.
+*
+* @return	XAIE_SUCCESS if successful, else XAIE_FAILURE.
+*
+* @note		This API is required to be invoked first in the sequence,
+*		before any of the other Shim DMA driver APIs are used.
+*
+*******************************************************************************/
+u32 XAieDma_ShimSoftInitialize(XAieGbl_Tile *TileInstPtr, XAieDma_Shim *DmaInstPtr)
+{
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(DmaInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_SHIMNOC);
+
+	DmaInstPtr->BaseAddress = TileInstPtr->TileAddr;
+	return XAIE_SUCCESS;
+}
+
 /*****************************************************************************/
 /**
 *
