@@ -212,7 +212,6 @@ int main() {
 	u32 SynReadData[128];
 	u32 Aux;
 	u32 Chash;
-	u32 Index;
 
 	xPuf_printf(XPUF_DEBUG_GENERAL, "App: Programming eFUSE \r\n");
 
