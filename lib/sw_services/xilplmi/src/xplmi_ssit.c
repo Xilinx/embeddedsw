@@ -57,13 +57,11 @@
 
 /*****************************************************************************/
 /**
- * @brief This function calls all the PS LPD init functions of all the different
- * modules. As a part of init functions, modules can register the
- * command handlers, interrupt handlers with the interface layer.
+ * @brief This function provides SSIT Sync Master command execution
  *
- * @param	None
+ * @param Pointer to the command structure
  *
- * @return	Status as defined in xplm_status.h
+ * @return Returns the Status of SSIT Sync Master command
  *
  *****************************************************************************/
 int XPlmi_SsitSyncMaster(XPlmi_Cmd * Cmd)
@@ -76,14 +74,16 @@ int XPlmi_SsitSyncMaster(XPlmi_Cmd * Cmd)
 	XPlmi_UtilRMW(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_0_MASK,
 		PMC_GLOBAL_SSIT_ERR_IRQ_OUT_0_MASK);
 
+	/* Wait for Master SLR to reach synchronization point */
 	Status = Xil_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
 	while ((Status & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) !=
 			PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) {
 
-		/* Wait for master SLR to reach synchronization point */
+		/* Check if there is an error from Master SLR */
 		if ((Status & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK) ==
 				PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK) {
 
+			XPlmi_Printf(DEBUG_GENERAL, "Received error from Master SLR\n\r");
 			XPlmi_UtilRMW(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK,
 				PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK);
 
@@ -101,6 +101,10 @@ int XPlmi_SsitSyncMaster(XPlmi_Cmd * Cmd)
 			PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) {
 
 		Status = Xil_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
+
+		/* Clear existing status to know the actual status from Master SLR */
+		Xil_Out32(PMC_GLOBAL_PMC_ERR2_STATUS,
+			PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK);
 	}
 
 	XPlmi_Printf(DEBUG_DETAILED, "SSIT Sync Master successful\n\r");
@@ -111,13 +115,15 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief This function calls all the PS LPD init functions of all the different
- * modules. As a part of init functions, modules can register the
- * command handlers, interrupt handlers with the interface layer.
+ * @brief This function provides SSIT Sync Slaves command execution
+ *  Command payload parameters are
+ *	* Slaves Mask
+ *	* Timeout
  *
- * @param	None
+ * @param Pointer to the command structure
  *
- * @return	Status as defined in xplm_status.h
+ * @return Returns the Status of SSIT Sync Slaves command
+
  *
  *****************************************************************************/
 int XPlmi_SsitSyncSlaves(XPlmi_Cmd * Cmd)
@@ -126,7 +132,6 @@ int XPlmi_SsitSyncSlaves(XPlmi_Cmd * Cmd)
 	u32 TimeOut = Cmd->Payload[1];
 	u32 SlavesReady = 0;
 	u32 ErrorStatus = 0;
-	u32 PmcErrStatus1;
 	u32 PmcErrStatus2;
 	int Status = XST_FAILURE;
 
@@ -134,55 +139,54 @@ int XPlmi_SsitSyncSlaves(XPlmi_Cmd * Cmd)
 
 	/* Wait until all Slaves initiate synchronization point */
 	while (((SlavesReady & SlavesMask) != SlavesMask) &&
-		(ErrorStatus == 0x0U) && (TimeOut != 0x0U)) {
+		((ErrorStatus & PMC_GLOBAL_SSIT_ERR_MASK) == 0x0U) && (TimeOut != 0x0U)) {
 
-		PmcErrStatus1 = Xil_In32(PMC_GLOBAL_PMC_ERR1_STATUS);
+		ErrorStatus = Xil_In32(PMC_GLOBAL_PMC_ERR1_STATUS);
 		PmcErrStatus2 = Xil_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
 		if (PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) {
 			SlavesReady |= SSIT_SLAVE_0_MASK;
 		}
 		if (PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR1_MASK) {
-			ErrorStatus |= SSIT_SLAVE_0_MASK;
-		}
-		if (PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK) {
 			SlavesReady |= SSIT_SLAVE_1_MASK;
 		}
-		if (PmcErrStatus1 & PMC_GLOBAL_PMC_ERR1_STATUS_SSIT_ERR3_MASK) {
-			ErrorStatus |= SSIT_SLAVE_1_MASK;
-		}
-		if (PmcErrStatus1 & PMC_GLOBAL_PMC_ERR1_STATUS_SSIT_ERR4_MASK) {
+		if (PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK) {
 			SlavesReady |= SSIT_SLAVE_2_MASK;
-		}
-		if (PmcErrStatus1 & PMC_GLOBAL_PMC_ERR1_STATUS_SSIT_ERR5_MASK) {
-			ErrorStatus |= SSIT_SLAVE_2_MASK;
 		}
 		--TimeOut;
 	}
 
-	if ((ErrorStatus == 0x0U) && (TimeOut != 0x0U)) {
+	if (((ErrorStatus & PMC_GLOBAL_SSIT_ERR_MASK) == 0x0U) && (TimeOut != 0x0U)) {
+
+		XPlmi_Printf(DEBUG_DETAILED, "Acknowledging from master\r\n");
 		/* Acknowledge synchronization */
 		XPlmi_UtilRMW(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_0_MASK,
 			PMC_GLOBAL_SSIT_ERR_IRQ_OUT_0_MASK);
 
 		TimeOut = 1000;
-		while (((SlavesReady & SlavesMask) != 0x0U) && (TimeOut != 0x0U)) {
-			PmcErrStatus1 = Xil_In32(PMC_GLOBAL_PMC_ERR1_STATUS);
+		while (((SlavesReady & SlavesMask) != 0x0U) &&
+			((ErrorStatus & PMC_GLOBAL_SSIT_ERR_MASK) == 0x0U) && (TimeOut != 0x0U)) {
+			ErrorStatus = Xil_In32(PMC_GLOBAL_PMC_ERR1_STATUS);
 			PmcErrStatus2 = Xil_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
-			if (!(PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK)) {
+			if (PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) {
 				SlavesReady &= (~SSIT_SLAVE_0_MASK);
 			}
-			if (!(PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK)) {
+			if (PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR1_MASK) {
 				SlavesReady &= (~SSIT_SLAVE_1_MASK);
 			}
-			if (!(PmcErrStatus1 & PMC_GLOBAL_PMC_ERR1_STATUS_SSIT_ERR4_MASK)) {
+			if (PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK) {
 				SlavesReady &= (~SSIT_SLAVE_2_MASK);
 			}
+
+			/* Clear exiting status to know the actual status from Slave SLRs */
+			Xil_Out32(PMC_GLOBAL_PMC_ERR2_STATUS,
+				(SlavesReady << PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_SHIFT));
 			--TimeOut;
 		}
 	}
 
 	/* If error or timeout trigger error out to all slaves */
-	if ((ErrorStatus != 0x0U) || (TimeOut == 0x0U)) {
+	if (((ErrorStatus & PMC_GLOBAL_SSIT_ERR_MASK) != 0x0U) || (TimeOut == 0x0U)) {
+		XPlmi_Printf(DEBUG_GENERAL, "Received error from Slave SLR or Timed out\r\n");
 		XPlmi_UtilRMW(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK,
 			PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK);
 		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_SSIT_SLAVE_SYNC, Status);
@@ -201,13 +205,14 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief This function calls all the PS LPD init functions of all the different
- * modules. As a part of init functions, modules can register the
- * command handlers, interrupt handlers with the interface layer.
+ * @brief This function provides SSIT Wait Slaves command execution
+ *  Command payload parameters are
+ *	* Slaves Mask
+ *	* Timeout
  *
- * @param	None
+ * @param Pointer to the command structure
  *
- * @return	Status as defined in xplm_status.h
+ * @return Returns the Status of SSIT Wait Slaves command
  *
  *****************************************************************************/
 int XPlmi_SsitWaitSlaves(XPlmi_Cmd * Cmd)
@@ -216,7 +221,6 @@ int XPlmi_SsitWaitSlaves(XPlmi_Cmd * Cmd)
 	u32 TimeOut = Cmd->Payload[1];
 	u32 SlavesReady = 0;
 	u32 ErrorStatus = 0;
-	u32 PmcErrStatus1;
 	u32 PmcErrStatus2;
 	int Status = XST_FAILURE;
 
@@ -224,34 +228,26 @@ int XPlmi_SsitWaitSlaves(XPlmi_Cmd * Cmd)
 
 	/* Wait until all Slaves initiate synchronization point */
 	while (((SlavesReady & SlavesMask) != SlavesMask) &&
-		(ErrorStatus == 0x0U) && (TimeOut != 0x0U)) {
+		((ErrorStatus & PMC_GLOBAL_SSIT_ERR_MASK) == 0x0U) && (TimeOut != 0x0U)) {
 
-		PmcErrStatus1 = Xil_In32(PMC_GLOBAL_PMC_ERR1_STATUS);
+		ErrorStatus = Xil_In32(PMC_GLOBAL_PMC_ERR1_STATUS);
 		PmcErrStatus2 = Xil_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
-		XPlmi_Printf(DEBUG_DETAILED, "PmcErrStatus1: 0x%x, PmcErrStatus2: 0x%x\n\r", PmcErrStatus1, PmcErrStatus2);
 		if (PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) {
 			SlavesReady |= SSIT_SLAVE_0_MASK;
 		}
 		if (PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR1_MASK) {
-			ErrorStatus |= SSIT_SLAVE_0_MASK;
-		}
-		if (PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK) {
 			SlavesReady |= SSIT_SLAVE_1_MASK;
 		}
-		if (PmcErrStatus1 & PMC_GLOBAL_PMC_ERR1_STATUS_SSIT_ERR3_MASK) {
-			ErrorStatus |= SSIT_SLAVE_1_MASK;
-		}
-		if (PmcErrStatus1 & PMC_GLOBAL_PMC_ERR1_STATUS_SSIT_ERR4_MASK) {
+		if (PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK) {
 			SlavesReady |= SSIT_SLAVE_2_MASK;
 		}
-		if (PmcErrStatus1 & PMC_GLOBAL_PMC_ERR1_STATUS_SSIT_ERR5_MASK) {
-			ErrorStatus |= SSIT_SLAVE_2_MASK;
-		}
+
 		--TimeOut;
 	}
 
 	/* If error or timeout trigger error out to all slaves */
 	if ((ErrorStatus != 0x0U) || (TimeOut == 0x0U)) {
+		XPlmi_Printf(DEBUG_GENERAL, "Received error from Slave SLR or Timed out\r\n");
 		XPlmi_UtilRMW(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK,
 			PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK);
 		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_SSIT_SLAVE_SYNC, Status);
