@@ -27,7 +27,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xillibpm_err.h
+* @file xpm_err.h
 *
 * This is the header file which contains status codes for the PLM, PLMI
 * and loader.
@@ -45,8 +45,8 @@
 *
 ******************************************************************************/
 
-#ifndef XILLIBPM_ERR_H
-#define XILLIBPM_ERR_H
+#ifndef XPM_ERR_H
+#define XPM_ERR_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -199,4 +199,4 @@ extern "C" {
 }
 #endif
 
-#endif  /* XPLMI_STATUS_H */
+#endif  /* XPM_ERR_H */

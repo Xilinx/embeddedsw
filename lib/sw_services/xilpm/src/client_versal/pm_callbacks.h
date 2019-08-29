@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -24,36 +24,24 @@
 *
 ******************************************************************************/
 
-#ifndef XPM_BISR_H_
-#define XPM_BISR_H_
+#ifndef _PM_CALLBACKS_H_
+#define _PM_CALLBACKS_H_
+
+#include "pm_api_sys.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include "xpm_common.h"
+XStatus XPm_NotifierAdd(XPm_Notifier* const Notifier);
 
-#define LPD_TAG_ID 	0x03
-#define FPD_TAG_ID 	0x04
-#define CPM_TAG_ID 	0x05
-#define MEA_TAG_ID 	0x08
-#define MEB_TAG_ID 	0x09
-#define MEC_TAG_ID 	0x0A
-#define DDRMC_TAG_ID 	0x0B
-#define GTY_TAG_ID 	0x0C
-#define DCMAC_TAG_ID	0x0D
-#define ILKN_TAG_ID	0x0E
-#define MRMAC_TAG_ID	0x0F
-#define SDFEC_TAG_ID	0x10
-#define BRAM_TAG_ID	0x11
-#define URAM_TAG_ID 	0x12
+XStatus XPm_NotifierRemove(XPm_Notifier* const Notifier);
 
-#define PCSR_UNLOCK_VAL		(0xF9E8D7C6U)
-XStatus XPmBisr_Repair(u32 TagId);
-int XPmBisr_TriggerLpd(void);
+void XPm_NotifierProcessEvent(const u32 Node, const enum XPmNotifyEvent Event,
+			      const u32 Oppoint);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* XPM_BISR_H_ */
+#endif /* _PM_CALLBACKS_H_ */

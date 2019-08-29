@@ -1,12 +1,32 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* SPDX-License-Identifier: MIT
+*
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in
+* all copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
+*
+*
+*
 ******************************************************************************/
-
 
 #include "pm_client.h"
 #include <xil_cache.h>
-#include "xpm_nodeid.h"
+#include "xpm_node.h"
 #if defined (__aarch64__)
 #include <xreg_cortexa53.h>
 #elif defined (__arm__)
@@ -15,24 +35,30 @@
 
 #define XPM_ARRAY_SIZE(x)		(sizeof(x) / sizeof(x[0]))
 
-#define PM_AFL0_MASK			(0xFFU)
+#define APU_DEVID(IDX)			NODEID(XPM_NODECLASS_DEVICE, \
+					       XPM_NODESUBCL_DEV_CORE, \
+					       XPM_NODETYPE_DEV_CORE_APU, (IDX))
 
-#define WFI				__asm__ ("wfi")
+#define RPU_DEVID(IDX)			NODEID(XPM_NODECLASS_DEVICE, \
+					       XPM_NODESUBCL_DEV_CORE, \
+					       XPM_NODETYPE_DEV_CORE_RPU, (IDX))
+
+#define PM_AFL0_MASK			(0xFF)
 
 #if defined (__aarch64__)
-#define APU_PWRCTRL_OFFSET		(0x90U)
-#define APU_0_PWRCTL_CPUPWRDWNREQ_MASK	(0x00000001U)
-#define APU_1_PWRCTL_CPUPWRDWNREQ_MASK	(0x00000002U)
+#define APU_PWRCTRL_OFFSET		(0x90)
+#define APU_0_PWRCTL_CPUPWRDWNREQ_MASK	(0x00000001)
+#define APU_1_PWRCTL_CPUPWRDWNREQ_MASK	(0x00000002)
 
 static struct XPm_Proc Proc_APU0 = {
-	.DevId = PM_DEV_ACPU_0,
+	.DevId = APU_DEVID(XPM_NODEIDX_DEV_ACPU_0),
 	.PwrCtrl = XPAR_PSV_APU_0_S_AXI_BASEADDR + APU_PWRCTRL_OFFSET,
 	.PwrDwnMask = APU_0_PWRCTL_CPUPWRDWNREQ_MASK,
 	.Ipi = NULL,
 };
 
 static struct XPm_Proc Proc_APU1 = {
-	.DevId = PM_DEV_ACPU_1,
+	.DevId = APU_DEVID(XPM_NODEIDX_DEV_ACPU_1),
 	.PwrCtrl = XPAR_PSV_APU_0_S_AXI_BASEADDR + APU_PWRCTRL_OFFSET,
 	.PwrDwnMask = APU_1_PWRCTL_CPUPWRDWNREQ_MASK,
 	.Ipi = NULL,
@@ -45,21 +71,21 @@ static struct XPm_Proc *const ProcList[] = {
 
 struct XPm_Proc *PrimaryProc = &Proc_APU0;
 #elif defined (__arm__)
-#define RPU_0_PWRDWN_OFFSET		(0x108U)
-#define RPU_1_PWRDWN_OFFSET		(0x208U)
-#define RPU_PWRDWN_EN_MASK		(0x1U)
-#define RPU_GLBL_CTRL_OFFSET		(0x00U)
-#define RPU_GLBL_CNTL_SLSPLIT_MASK	(0x00000008U)
+#define RPU_0_PWRDWN_OFFSET		(0x108)
+#define RPU_1_PWRDWN_OFFSET		(0x208)
+#define RPU_PWRDWN_EN_MASK		(0x1)
+#define RPU_GLBL_CTRL_OFFSET		(0x00)
+#define RPU_GLBL_CNTL_SLSPLIT_MASK	(0x00000008)
 
 static struct XPm_Proc Proc_RPU0 = {
-	.DevId = PM_DEV_RPU0_0,
+	.DevId = RPU_DEVID(XPM_NODEIDX_DEV_RPU0_0),
 	.PwrCtrl = XPAR_PSV_RPU_0_S_AXI_BASEADDR + RPU_0_PWRDWN_OFFSET,
 	.PwrDwnMask = RPU_PWRDWN_EN_MASK,
 	.Ipi = NULL,
 };
 
 static struct XPm_Proc Proc_RPU1 = {
-	.DevId = PM_DEV_RPU0_1,
+	.DevId = RPU_DEVID(XPM_NODEIDX_DEV_RPU0_1),
 	.PwrCtrl = XPAR_PSV_RPU_0_S_AXI_BASEADDR + RPU_1_PWRDWN_OFFSET,
 	.PwrDwnMask = RPU_PWRDWN_EN_MASK,
 	.Ipi = NULL,
@@ -72,9 +98,6 @@ static struct XPm_Proc *const ProcList[] = {
 
 struct XPm_Proc *PrimaryProc = &Proc_RPU0;
 char ProcName[5] = "RPU";
-static char RPU_LS[] = "RPU";
-static char RPU0[] = "RPU0";
-static char RPU1[] = "RPU1";
 #endif
 
 /**
@@ -85,19 +108,19 @@ void XPm_SetPrimaryProc(void)
 	u32 ProcId;
 
 #if defined (__aarch64__)
-	ProcId = ((u32)mfcp(MPIDR_EL1) & PM_AFL0_MASK);
+	ProcId = (mfcp(MPIDR_EL1) & PM_AFL0_MASK);
 #elif defined (__arm__)
 	ProcId = (mfcp(XREG_CP15_MULTI_PROC_AFFINITY) & PM_AFL0_MASK);
-	if (0U == (XPm_Read(XPAR_PSV_RPU_0_S_AXI_BASEADDR + RPU_GLBL_CTRL_OFFSET) &
-	    RPU_GLBL_CNTL_SLSPLIT_MASK)) {
+	if (!(XPm_Read(XPAR_PSV_RPU_0_S_AXI_BASEADDR + RPU_GLBL_CTRL_OFFSET) &
+	      RPU_GLBL_CNTL_SLSPLIT_MASK)) {
 		ProcId = 0;
-		(void)memcpy(ProcName, RPU_LS, sizeof(RPU_LS));
+		memcpy(ProcName, "RPU", sizeof("RPU"));
 		XPm_Dbg("Running in lock-step mode\r\n");
 	} else {
-		if (0U == ProcId) {
-			(void)memcpy(ProcName, RPU0, sizeof(RPU0));
+		if (0 == ProcId) {
+			memcpy(ProcName, "RPU0", sizeof("RPU0"));
 		} else {
-			(void)memcpy(ProcName, RPU1, sizeof(RPU1));
+			memcpy(ProcName, "RPU1", sizeof("RPU1"));
 		}
 		XPm_Dbg("Running in split mode\r\n");
 	}
@@ -152,19 +175,19 @@ void XPm_ClientSuspendFinalize(void)
 
 	/* Flush the data cache only if it is enabled */
 #ifdef __aarch64__
-	CtrlReg = (u32)mfcp(SCTLR_EL3);
-	if (0U != (XREG_CONTROL_DCACHE_BIT & CtrlReg)) {
+	CtrlReg = mfcp(SCTLR_EL3);
+	if (XREG_CONTROL_DCACHE_BIT & CtrlReg) {
 		Xil_DCacheFlush();
 	}
 #else
 	CtrlReg = mfcp(XREG_CP15_SYS_CONTROL);
-	if (0U != (XREG_CP15_CONTROL_C_BIT & CtrlReg)) {
+	if (XREG_CP15_CONTROL_C_BIT & CtrlReg) {
 		Xil_DCacheFlush();
 	}
 #endif
 
 	XPm_Dbg("Going to WFI...\n");
-	WFI;
+	__asm__("wfi");
 	XPm_Dbg("WFI exit...\n");
 }
 

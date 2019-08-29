@@ -24,8 +24,8 @@
 *
 ******************************************************************************/
 
-#ifndef XILLIBPM_DEFS_H_
-#define XILLIBPM_DEFS_H_
+#ifndef XPM_DEFS_H_
+#define XPM_DEFS_H_
 
 #include "xil_types.h"
 
@@ -83,6 +83,20 @@ enum XPmResetActions {
 	PM_RESET_ACTION_PULSE,
 };
 
+/* Suspend reasons */
+enum XPmSuspendReason {
+	SUSPEND_REASON_SUBSYSTEM_REQ 	= (201U),
+	SUSPEND_REASON_ALERT		= (202U),
+	SUSPEND_REASON_SYS_SHUTDOWN	= (203U),
+};
+
+/* PM API callback ids */
+enum XPmApiCbId {
+	XPM_INIT_SUSPEND_CB		= (30U),
+	XPM_ACKNOWLEDGE_CB		= (31U),
+	XPM_NOTIFY_CB			= (32U),
+};
+
 /**
  * XPm_DeviceStatus - struct containing device status information
  */
@@ -102,6 +116,16 @@ typedef struct XPm_DeviceStatus {
 #define XPM_DEF_CAPABILITY	XPM_MAX_CAPABILITY
 #define XPM_DEF_LATENCY		XPM_MAX_LATENCY
 #define XPM_DEF_QOS			XPM_MAX_QOS
+
+/* Device node status */
+#define NODE_STATE_OFF			(0U)
+#define NODE_STATE_ON			(1U)
+
+/* Processor node status */
+#define PROC_STATE_SLEEP		NODE_STATE_OFF
+#define PROC_STATE_ACTIVE		NODE_STATE_ON
+#define PROC_STATE_FORCEDOFF		(7U)
+#define PROC_STATE_SUSPENDING		(8U)
 
 enum pm_query_id {
 	XPM_QID_INVALID,
@@ -196,17 +220,24 @@ enum pm_ioctl_id {
 
 /* PLL parameters */
 enum XPm_PllConfigParams {
-	PLL_PARAM_ID_CLKOUTDIV,
-	PLL_PARAM_ID_FBDIV,
-	PLL_PARAM_ID_FRAC_DATA,
-	PLL_PARAM_ID_PRE_SRC,
-	PLL_PARAM_ID_POST_SRC,
-	PLL_PARAM_ID_LOCK_DLY,
-	PLL_PARAM_ID_LOCK_CNT,
-	PLL_PARAM_ID_LFHF,
-	PLL_PARAM_ID_CP,
-	PLL_PARAM_ID_RES,
-	PLL_PARAM_MAX,
+	PM_PLL_PARAM_ID_DIV2,
+	PM_PLL_PARAM_ID_FBDIV,
+	PM_PLL_PARAM_ID_DATA,
+	PM_PLL_PARAM_ID_PRE_SRC,
+	PM_PLL_PARAM_ID_POST_SRC,
+	PM_PLL_PARAM_ID_LOCK_DLY,
+	PM_PLL_PARAM_ID_LOCK_CNT,
+	PM_PLL_PARAM_ID_LFHF,
+	PM_PLL_PARAM_ID_CP,
+	PM_PLL_PARAM_ID_RES,
+	PM_PLL_PARAM_MAX,
+};
+
+/* PLL modes */
+enum XPmPllMode {
+	PM_PLL_MODE_INTEGER		= (0U),
+	PM_PLL_MODE_FRACTIONAL		= (1U),
+	PM_PLL_MODE_RESET		= (2U),
 };
 
 /**
@@ -243,12 +274,12 @@ enum XPmNotifyEvent {
 };
 
 /* System shutdown macros */
-#define XPM_SHUTDOWN_TYPE_SHUTDOWN	0U
-#define XPM_SHUTDOWN_TYPE_RESET		1U
+#define PM_SHUTDOWN_TYPE_SHUTDOWN		(0U)
+#define PM_SHUTDOWN_TYPE_RESET			(1U)
 
-#define XPM_SHUTDOWN_SUBTYPE_RST_SUBSYSTEM	0U
-#define XPM_SHUTDOWN_SUBTYPE_RST_PS_ONLY	1U
-#define XPM_SHUTDOWN_SUBTYPE_RST_SYSTEM		2U
+#define PM_SHUTDOWN_SUBTYPE_RST_SUBSYSTEM	(0U)
+#define PM_SHUTDOWN_SUBTYPE_RST_PS_ONLY		(1U)
+#define PM_SHUTDOWN_SUBTYPE_RST_SYSTEM		(2U)
 
 /* State arguments of the self suspend */
 #define PM_SUSPEND_STATE_CPU_IDLE		0x0U
@@ -305,7 +336,7 @@ enum XPmNotifyEvent {
 /* PM API ids */
 #define PM_GET_API_VERSION              1U
 #define PM_SET_CONFIGURATION            2U
-#define PM_GET_DEVICE_STATUS            3U
+#define PM_GET_NODE_STATUS              3U
 #define PM_GET_OP_CHARACTERISTIC        4U
 #define PM_REGISTER_NOTIFIER            5U
 
@@ -317,8 +348,8 @@ enum XPmNotifyEvent {
 #define PM_SET_WAKEUP_SOURCE            11U
 #define PM_SYSTEM_SHUTDOWN              12U
 
-#define PM_REQUEST_DEVICE                13U
-#define PM_RELEASE_DEVICE                14U
+#define PM_REQUEST_NODE                 13U
+#define PM_RELEASE_NODE                 14U
 #define PM_SET_REQUIREMENT              15U
 #define PM_SET_MAX_LATENCY              16U
 
@@ -365,7 +396,10 @@ enum XPmNotifyEvent {
 #define PM_PLL_SET_MODE			50U
 #define PM_PLL_GET_MODE			51U
 
-#define PM_ADD_SUBSYSTEM         	    54U
+#define PM_REGISTER_ACCESS		52U
+#define PM_EFUSE_ACCESS			53U
+
+#define PM_ADD_SUBSYSTEM		54U
 #define PM_DESTROY_SUBSYSTEM            55U
 
 #define PM_DESCRIBE_NODES		56U
@@ -373,7 +407,7 @@ enum XPmNotifyEvent {
 #define	PM_ADD_NODE_PARENT		58U
 #define	PM_ADD_NODE_NAME		59U
 #define PM_ADD_REQUIREMENT		60U
-#define PM_SET_CURRENT_SUBSYSTEM		61U
+#define PM_SET_CURRENT_SUBSYSTEM	61U
 #define PM_INIT_NODE			62U
 #define PM_FEATURE_CHECK		63U
 #define PM_ISO_CONTROL			64U
@@ -385,4 +419,4 @@ enum XPmNotifyEvent {
 }
 #endif
 
-#endif /* XILLIBPM_DEFS_H_ */
+#endif /* XPM_DEFS_H_ */
