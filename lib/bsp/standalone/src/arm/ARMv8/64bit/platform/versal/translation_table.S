@@ -89,6 +89,8 @@
 * 7.00  mus  05/21/14 Initial version
 * 7.00  mus  03/16/19 Updated translation table to mark DDR regions as
 *                     memory, based on the DDR size in hdf
+* 7.1   mus  08/29/19 Updated translation table entries for DDR_CH_1,
+*                     DDR_CH_2 and DDR_CH_3 based on respective size in hdf
 *
 *
 ******************************************************************************/
@@ -265,20 +267,88 @@ MMUTableL1:
 .set SECT, SECT + 0x40000000
 .endr
 
-.rept	0x400			/* 0x500_0000_0000 - 0x5FF_FFFF_FFFF */
-.8byte	SECT + Memory		/* 1TB DDR ch1*/
-.set SECT, SECT + 0x40000000
+#ifdef XPAR_AXI_NOC_DDR_CH_1_BASEADDR
+.set DDR_CH_1_START, XPAR_AXI_NOC_DDR_CH_1_BASEADDR
+.set DDR_CH_1_END, XPAR_AXI_NOC_DDR_CH_1_HIGHADDR
+.set DDR_CH_1_SIZE, (DDR_CH_1_END - DDR_CH_1_START)+1
+.if DDR_CH_1_SIZE > 0x010000000000
+/* If DDR size is larger than 1TB, truncate to 1 TB */
+.set DDR_CH_1_REG, 0x400		/* 0x500_0000_0000 - 0x5FF_FFFF_FFFF */
+.else
+.set DDR_CH_1_REG, DDR_CH_1_SIZE/0x40000000
+.endif
+#else
+.set DDR_CH_1_REG, 0
+#warning "There's no DDR_CH_1 in the HW design. MMU translation table marks 1 TB DDR address space as undefined"
+#endif
+
+.set UNDEF_CH_1_REG, 0x400 - DDR_CH_1_REG
+
+.rept	DDR_CH_1_REG			/* DDR based on size in hdf, Max size 1 TB*/
+.8byte	SECT + Memory
+.set	SECT, SECT+0x40000000
 .endr
 
-.rept	0x400			/* 0x600_0000_0000 - 0x6FF_FFFF_FFFF */
-.8byte	SECT + Memory		/* 1TB DDR ch2*/
-.set SECT, SECT + 0x40000000
+.rept	UNDEF_CH_1_REG		/* reserved for region where ddr is absent */
+.8byte	SECT + reserved
+.set	SECT, SECT+0x40000000
 .endr
 
-.rept	0x400			/* 0x700_0000_0000 - 0x7FF_FFFF_FFFF */
-.8byte	SECT + Memory		/* 1TB DDR ch3*/
-.set SECT, SECT + 0x40000000
+#ifdef XPAR_AXI_NOC_DDR_CH_2_BASEADDR
+.set DDR_CH_2_START, XPAR_AXI_NOC_DDR_CH_2_BASEADDR
+.set DDR_CH_2_END, XPAR_AXI_NOC_DDR_CH_2_HIGHADDR
+.set DDR_CH_2_SIZE, (DDR_CH_2_END - DDR_CH_2_START)+1
+.if DDR_CH_2_SIZE > 0x010000000000
+/* If DDR_CH_2 size is larger than 1TB, truncate to 1 TB */
+.set DDR_CH_2_REG, 0x400		/* 0x600_0000_0000 - 0x6FF_FFFF_FFFF */
+.else
+.set DDR_CH_2_REG, DDR_CH_2_SIZE/0x40000000
+.endif
+#else
+.set DDR_CH_2_REG, 0
+#warning "There's no DDR_CH_2 in the HW design. MMU translation table marks 1 TB DDR address space as undefined"
+#endif
+
+.set UNDEF_CH_2_REG, 0x400 - DDR_CH_2_REG
+
+.rept	DDR_CH_2_REG			/* DDR based on size in hdf, Max size 1 TB*/
+.8byte	SECT + Memory
+.set	SECT, SECT+0x40000000
 .endr
+
+.rept	UNDEF_CH_2_REG		/* reserved for region where ddr is absent */
+.8byte	SECT + reserved
+.set	SECT, SECT+0x40000000
+.endr
+
+
+#ifdef XPAR_AXI_NOC_DDR_CH_3_BASEADDR
+.set DDR_CH_3_START, XPAR_AXI_NOC_DDR_CH_3_BASEADDR
+.set DDR_CH_3_END, XPAR_AXI_NOC_DDR_CH_3_HIGHADDR
+.set DDR_CH_3_SIZE, (DDR_CH_3_END - DDR_CH_3_START)+1
+.if DDR_CH_3_SIZE > 0x010000000000
+/* If DDR_CH_3 size is larger than 1TB, truncate to 1 TB */
+.set DDR_CH_3_REG, 0x400		/* 0x700_0000_0000 - 0x7FF_FFFF_FFFF */
+.else
+.set DDR_CH_3_REG, DDR_CH_3_SIZE/0x40000000
+.endif
+#else
+.set DDR_CH_3_REG, 0
+#warning "There's no DDR_CH_3 in the HW design. MMU translation table marks 1 TB DDR address space as undefined"
+#endif
+
+.set UNDEF_CH_3_REG, 0x400 - DDR_CH_3_REG
+
+.rept	DDR_CH_3_REG			/* DDR based on size in hdf, Max size 1 TB*/
+.8byte	SECT + Memory
+.set	SECT, SECT+0x40000000
+.endr
+
+.rept	UNDEF_CH_3_REG		/* reserved for region where ddr is absent */
+.8byte	SECT + reserved
+.set	SECT, SECT+0x40000000
+.endr
+
 
 .rept	0x2000			/* 0x800_0000_0000 - 0xFFF_FFFF_FFFF */
 .8byte	SECT + Device		/* 8TB PL- via NoC*/
