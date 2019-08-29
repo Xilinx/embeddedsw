@@ -74,6 +74,116 @@ XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 	return XST_SUCCESS;
 }
 
+#define BITMASK_LOWER_15_BITS 0x7fff
+#define BITMASK_UPPER_17_BITS 0xffff8000
+#define GET_DELTA_AT_OFFSET(array, x) (0xf & (array[x / 32] >> (x % 32)))
+
+XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 SateliteIdx)
+{
+	XStatus Status = XST_SUCCESS;
+	u32 EfuseCacheBaseAddress, StartbitOffset, RegValue, TrimVal, DeltaVal = 0;
+	int i, Arr[8];
+
+	if (0 == DestAddress) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	XPm_Device *EfuseCache = XPmDevice_GetById(XPM_DEVID_EFUSE_CACHE);
+	if (NULL == EfuseCache) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+	EfuseCacheBaseAddress = EfuseCache->Node.BaseAddress;
+
+	/* Unlock writes */
+	PmOut32(DestAddress + NPI_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+
+	/* Copy EFUSE_CACHE.TSENS_INT_OFFSET_5_0 to dest_reg.EFUSE_CONFIG0[5:0] */
+	PmIn32(EfuseCacheBaseAddress + EFUSE_CACHE_TRIM_AMS_3_OFFSET, RegValue);
+	TrimVal = (RegValue & EFUSE_CACHE_TRIM_AMS_3_TSENS_INT_OFFSET_5_0_MASK) >> EFUSE_CACHE_TRIM_AMS_3_TSENS_INT_OFFSET_5_0_SHIFT;
+	PmRmw32(DestAddress + EFUSE_CONFIG0_OFFSET,  EFUSE_CONFIG0_OFFSET_MASK, (TrimVal << EFUSE_CONFIG0_OFFSET_SHIFT));
+	/* Copy EFUSE_CACHE.TSENS_SLOPE_5_0      to dest_reg.EFUSE_CONFIG0[11:6] */
+	TrimVal = (RegValue & EFUSE_CACHE_TRIM_AMS_3_TSENS_SLOPE_5_0_MASK) >> EFUSE_CACHE_TRIM_AMS_3_TSENS_SLOPE_5_0_SHIFT;
+	PmRmw32(DestAddress + EFUSE_CONFIG0_OFFSET,  EFUSE_CONFIG0_SLOPE_MASK, (TrimVal << EFUSE_CONFIG0_SLOPE_SHIFT));
+
+	/* Copy EFUSE_CACHE.IXPCM_PROCESS_15_0   to dest_reg.EFUSE_CONFIG0[31:16] */
+	PmIn32(EfuseCacheBaseAddress + EFUSE_CACHE_TRIM_AMS_11_OFFSET, RegValue);
+	TrimVal = (RegValue & EFUSE_CACHE_TRIM_AMS_11_IXPCM_PROCESS_15_0_MASK) >> EFUSE_CACHE_TRIM_AMS_11_IXPCM_PROCESS_15_0_SHIFT;
+	PmRmw32(DestAddress + EFUSE_CONFIG0_OFFSET,  EFUSE_CONFIG0_PROCESS_MASK, (TrimVal << EFUSE_CONFIG0_PROCESS_SHIFT));
+
+	/* Copy EFUSE_CACHE.RES_PROCESS_6_0     to dest_reg.EFUSE_CONFIG1[6:0] */
+	PmIn32(EfuseCacheBaseAddress + EFUSE_CACHE_TRIM_AMS_11_OFFSET, RegValue);
+	TrimVal = (RegValue & EFUSE_CACHE_TRIM_AMS_11_RES_PROCESS_0_MASK) >> EFUSE_CACHE_TRIM_AMS_11_RES_PROCESS_0_SHIFT;
+	PmIn32(EfuseCacheBaseAddress + EFUSE_CACHE_TRIM_AMS_12_OFFSET, RegValue);
+	TrimVal |= (((RegValue & EFUSE_CACHE_TRIM_AMS_12_RES_PROCESS_6_1_MASK) >> EFUSE_CACHE_TRIM_AMS_12_RES_PROCESS_6_1_SHIFT) << 1);
+	PmRmw32(DestAddress + EFUSE_CONFIG1_OFFSET,  EFUSE_CONFIG1_RESISTOR_MASK, (TrimVal << EFUSE_CONFIG1_RESISTOR_SHIFT));
+	/* Copy EFUSE_CACHE.BJT_PROCESS_3_0      to dest_reg.EFUSE_CONFIG1[10:7] */
+	TrimVal = (RegValue & EFUSE_CACHE_TRIM_AMS_12_BJT_PROCESS_3_0_MASK) >> EFUSE_CACHE_TRIM_AMS_12_BJT_PROCESS_3_0_SHIFT;
+	PmRmw32(DestAddress + EFUSE_CONFIG1_OFFSET,  EFUSE_CONFIG1_BJT_OFFSET_MASK, (TrimVal << EFUSE_CONFIG1_BJT_OFFSET_SHIFT));
+	/* Copy EFUSE_CACHE.TSENS_EXT_OFFSET_5_0 to dest_reg.EFUSE_CONFIG1[16:11] */
+	TrimVal = (RegValue & EFUSE_CACHE_TRIM_AMS_12_TSENS_EXT_OFFSET_5_0_MASK) >> EFUSE_CACHE_TRIM_AMS_12_TSENS_EXT_OFFSET_5_0_SHIFT;
+	PmRmw32(DestAddress + EFUSE_CONFIG1_OFFSET,  EFUSE_CONFIG1_EXT_OFFSET_MASK, (TrimVal << EFUSE_CONFIG1_EXT_OFFSET_SHIFT));
+	/* Copy EFUSE_CACHE.SHARED_SPARE_1_0     to dest_reg.EFUSE_CONFIG1[18:17] */
+	TrimVal = (RegValue & EFUSE_CACHE_TRIM_AMS_12_SHARED_SPARE_1_0_MASK) >> EFUSE_CACHE_TRIM_AMS_12_SHARED_SPARE_1_0_SHIFT;
+	PmRmw32(DestAddress + EFUSE_CONFIG1_OFFSET,  EFUSE_CONFIG1_ANA_SPARE_MASK, (TrimVal << EFUSE_CONFIG1_ANA_SPARE_SHIFT));
+	/* Copy EFUSE_CACHE.SHARED_SPARE_14_2    to dest_reg.EFUSE_CONFIG1[31:19] */
+	TrimVal = (RegValue & EFUSE_CACHE_TRIM_AMS_12_SHARED_SPARE_14_2_MASK) >> EFUSE_CACHE_TRIM_AMS_12_SHARED_SPARE_14_2_SHIFT;
+	PmRmw32(DestAddress + EFUSE_CONFIG1_OFFSET,  EFUSE_CONFIG1_DIG_SPARE_MASK, (TrimVal << EFUSE_CONFIG1_DIG_SPARE_SHIFT));
+
+	/* Copy 256 bits of TSENS_DELTA value to array */
+	PmIn32(EfuseCacheBaseAddress + EFUSE_CACHE_TRIM_AMS_3_OFFSET, RegValue);
+	/*Store 17 bits from current register */
+	Arr[0] = (RegValue & EFUSE_CACHE_TRIM_AMS_3_TSENS_DELTA_16_0_MASK) >> EFUSE_CACHE_TRIM_AMS_3_TSENS_DELTA_16_0_SHIFT;
+	for (i=0; i<8; i++) {
+		u32 Address = (EfuseCacheBaseAddress + EFUSE_CACHE_TRIM_AMS_4_OFFSET + (i*4));
+		PmIn32(Address, RegValue);
+		/* current element already have 17 bits stored from prev register,
+		store 15 bits from current register to current element */
+		Arr[i] |= (RegValue & BITMASK_LOWER_15_BITS) << 17;
+		/* store 17 bits from current register to next element */
+		if (i != 7)
+			Arr[i+1] = (RegValue & BITMASK_UPPER_17_BITS) >> 15;
+	}
+
+	switch (NODEINDEX(PowerDomainId)) {
+        case XPM_NODEIDX_POWER_PMC:
+			if (SateliteIdx == 0) {
+				/* Copy EFUSE_CACHE.TSENS_DELTA_3_0 to PMC_SYSMON.SAT0_EFUSE_CONFIG0[15:12] */
+				DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 0);
+			} else if (SateliteIdx == 1) {
+				/* Copy EFUSE_CACHE.TSENS_DELTA_7_4 to PMC_SYSMON.SAT1_EFUSE_CONFIG0[15:12] */
+				DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 4);
+			}
+			break;
+        case XPM_NODEIDX_POWER_LPD:
+			/* Copy EFUSE_CACHE.TSENS_DELTA_11_8 to LPD_SYSMON_SAT.EFUSE_CONFIG0[15:12] */
+			DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 8);
+			break;
+        case XPM_NODEIDX_POWER_FPD:
+			/* Copy EFUSE_CACHE.TSENS_DELTA_15_12 to FPD_SYSMON_SAT.EFUSE_CONFIG0[15:12] */
+			DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 12);
+			break;
+        case XPM_NODEIDX_POWER_NOC:
+			StartbitOffset = 16+(SateliteIdx*4);
+			/* Copy EFUSE_CACHE.TSENS_DELTA_STARTBIT_ENDBIT to AMS_SAT_N.EFUSE_CONFIG0[15:12] */
+			DeltaVal =  GET_DELTA_AT_OFFSET(Arr, StartbitOffset);
+			break;
+		default:
+			Status = XST_FAILURE;
+			goto done;
+	}
+
+	if(DeltaVal != 0)
+		PmRmw32(DestAddress + EFUSE_CONFIG0_OFFSET,  EFUSE_CONFIG0_DELTA_MASK, (DeltaVal << EFUSE_CONFIG0_DELTA_SHIFT));
+
+	/* Lock writes */
+	PmOut32(DestAddress + NPI_PCSR_LOCK_OFFSET, 1);
+
+done:
+	return Status;
+}
+
 XStatus XPm_PowerUpLPD(XPm_Node *Node)
 {
 	XStatus Status = XST_SUCCESS;
