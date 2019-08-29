@@ -214,7 +214,7 @@ XStatus XPm_RequestNode(const u32 DeviceId, const u32 Capabilities,
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD4(Payload, PM_REQUEST_DEVICE, DeviceId, Capabilities,
+	PACK_PAYLOAD4(Payload, PM_REQUEST_NODE, DeviceId, Capabilities,
 		      QoS, Ack);
 
 	/* Send request to the target module */
