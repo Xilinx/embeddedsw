@@ -44,6 +44,7 @@
 * 1.5  Hyun    01/08/2019  Don't poll the status after control change
 * 1.6  Nishad  03/20/2019  Fix the use of uninitialized pointer in
 * 			   XAieDma_TileBdSetLock function
+* 1.7  Hyun    06/20/2019  Remove the duplicate initialization on BD
 * </pre>
 *
 ******************************************************************************/
@@ -78,7 +79,6 @@ u32 XAieDma_TileInitialize(XAieGbl_Tile *TileInstPtr, XAieDma_Tile *DmaInstPtr)
 	u32 Status = XAIE_FAILURE;
         u8 BdIdx;
 	u8 ChNum;
-	XAieDma_TileBd *DescrPtr;
 
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(DmaInstPtr != XAIE_NULL);
@@ -97,17 +97,6 @@ u32 XAieDma_TileInitialize(XAieGbl_Tile *TileInstPtr, XAieDma_Tile *DmaInstPtr)
 	/* Clear the BD entries in the DMA instance structure */
 	for(BdIdx = 0U; BdIdx < XAIEDMA_TILE_MAX_NUM_DESCRS; BdIdx++) {
 		XAieDma_TileBdClear(DmaInstPtr, BdIdx);
-
-		DescrPtr = (XAieDma_TileBd *)&(DmaInstPtr->Descrs[BdIdx]);
-
-		/* Set the 2D X and Y parameters to their default */
-		DescrPtr->X2dCfg.Incr = XAIEDMA_TILE_2DX_DEFAULT_INCR;
-		DescrPtr->X2dCfg.Wrap = XAIEDMA_TILE_2DX_DEFAULT_WRAP;
-		DescrPtr->X2dCfg.Offset = XAIEDMA_TILE_2DX_DEFAULT_OFFSET;
-
-		DescrPtr->Y2dCfg.Incr = XAIEDMA_TILE_2DY_DEFAULT_INCR;
-		DescrPtr->Y2dCfg.Wrap = XAIEDMA_TILE_2DY_DEFAULT_WRAP;
-		DescrPtr->Y2dCfg.Offset = XAIEDMA_TILE_2DY_DEFAULT_OFFSET;
 	}
 
 #ifndef XAIE_WRKARND_CRVO1692
@@ -578,12 +567,13 @@ void XAieDma_TileBdClear(XAieDma_Tile *DmaInstPtr, u8 BdNum)
 	DescrPtr->AddrB.LkAcqValEn = 0U;
 	DescrPtr->AddrB.BaseAddr = 0U;
 
-	DescrPtr->X2dCfg.Incr = 0U;
-	DescrPtr->X2dCfg.Wrap = 0U;
-	DescrPtr->X2dCfg.Offset = 0U;
-	DescrPtr->Y2dCfg.Incr = 0U;
-	DescrPtr->Y2dCfg.Wrap = 0U;
-	DescrPtr->Y2dCfg.Offset = 0U;
+	/* Set the 2D X and Y parameters to their default */
+	DescrPtr->X2dCfg.Incr = XAIEDMA_TILE_2DX_DEFAULT_INCR;
+	DescrPtr->X2dCfg.Wrap = XAIEDMA_TILE_2DX_DEFAULT_WRAP;
+	DescrPtr->X2dCfg.Offset = XAIEDMA_TILE_2DX_DEFAULT_OFFSET;
+	DescrPtr->Y2dCfg.Incr = XAIEDMA_TILE_2DY_DEFAULT_INCR;
+	DescrPtr->Y2dCfg.Wrap = XAIEDMA_TILE_2DY_DEFAULT_WRAP;
+	DescrPtr->Y2dCfg.Offset = XAIEDMA_TILE_2DY_DEFAULT_OFFSET;
 
 	DescrPtr->PktType = 0U;
 	DescrPtr->PktId = 0U;
