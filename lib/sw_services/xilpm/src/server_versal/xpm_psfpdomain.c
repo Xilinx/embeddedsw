@@ -199,6 +199,10 @@ static XStatus FpdMbistClear(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
+	/* TODO: FPD interconnect mem clear causes linux boot hang
+	so skip for now. Needs to be debugged and fixed */
+	return XST_SUCCESS;
+
 	Psm = (XPm_Psm *)XPmDevice_GetById(XPM_DEVID_PSM);;
 	if (NULL == Psm) {
 		Status = XST_FAILURE;
