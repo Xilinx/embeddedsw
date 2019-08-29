@@ -24,11 +24,12 @@
 *
 ******************************************************************************/
 
-#ifndef _XPM_CLIENT_API_H_
-#define _XPM_CLIENT_API_H_
+#ifndef _PM_API_SYS_H_
+#define _PM_API_SYS_H_
 
-#include "xpm_client_common.h"
-#include "xillibpm_defs.h"
+#include "pm_client.h"
+#include "xpm_defs.h"
+#include "xpm_err.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -141,4 +142,4 @@ void XPm_NotifyCb(const u32 Node, const enum XPmNotifyEvent Event,
 }
 #endif
 
-#endif /* _XPM_CLIENT_API_H_ */
+#endif /* _PM_API_SYS_H_ */

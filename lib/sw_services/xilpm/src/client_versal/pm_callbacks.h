@@ -24,10 +24,10 @@
 *
 ******************************************************************************/
 
-#ifndef _XPM_CLIENT_CALLBACKS_H_
-#define _XPM_CLIENT_CALLBACKS_H_
+#ifndef _PM_CALLBACKS_H_
+#define _PM_CALLBACKS_H_
 
-#include "xpm_client_api.h"
+#include "pm_api_sys.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -44,4 +44,4 @@ void XPm_NotifierProcessEvent(const u32 Node, const enum XPmNotifyEvent Event,
 }
 #endif
 
-#endif /* _XPM_CLIENT_CALLBACKS_H_ */
+#endif /* _PM_CALLBACKS_H_ */

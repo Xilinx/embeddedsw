@@ -24,8 +24,8 @@
 *
 ******************************************************************************/
 
-#ifndef XILLIBPM_NODE_H_
-#define XILLIBPM_NODE_H_
+#ifndef XPM_NODE_H_
+#define XPM_NODE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -976,4 +976,4 @@ typedef enum {
 }
 #endif
 
-#endif /* XILLIBPM_NODE_H_ */
+#endif /* XPM_NODE_H_ */
