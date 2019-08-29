@@ -42,6 +42,7 @@
 * 1.3  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.4  Hyun    06/20/2019  Add XAieDma_TileBdClearAll() that resets all sw BDs
 * 1.5  Hyun    06/20/2019  Added APIs for individual BD / Channel reset
+* 1.6  Hyun    06/20/2019  Add XAieDma_TileSoftInitialize()
 * </pre>
 *
 ******************************************************************************/
@@ -200,6 +201,7 @@ typedef struct
                         DmaInstPtr->StartBd[ChNum] = BdStart
 
 /************************** Function Prototypes  *****************************/
+u32 XAieDma_TileSoftInitialize(XAieGbl_Tile *TileInstPtr, XAieDma_Tile *DmaInstPtr);
 u32 XAieDma_TileInitialize(XAieGbl_Tile *TileInstPtr, XAieDma_Tile *DmaInstPtr);
 void XAieDma_TileBdSetLock(XAieDma_Tile *DmaInstPtr, u8 BdNum, u8 AbType, u8 LockId, u8 LockRelEn, u8 LockRelVal, u8 LockAcqEn, u8 LockAcqVal);
 void XAieDma_TileBdSetXy2d(XAieDma_Tile *DmaInstPtr, u8 BdNum, u8 XyType, u16 Incr, u16 Wrap, u16 Offset);
