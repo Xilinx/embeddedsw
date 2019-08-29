@@ -270,15 +270,17 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	if (Status != XST_SUCCESS)
 	{
 		XilPdi_Printf("Img Hdr Table Validation failed \n\r");
-		if((Status == XILPDI_ERR_IDCODE) && (XPLMI_PLATFORM !=
-						PMC_TAP_VERSION_SILICON))
-		{
-			Status = XST_SUCCESS;
-		}
-		else
-		{
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMGHDR_TBL,
-							Status);
+		Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMGHDR_TBL,
+						Status);
+		goto END;
+	}
+
+	/* Perform IDCODE and Extended IDCODE checks */
+	if(XPLMI_PLATFORM == PMC_TAP_VERSION_SILICON) {
+		Status = XLoader_IdCodeCheck(&(PdiPtr->MetaHdr.ImgHdrTable));
+		if (XST_SUCCESS != Status) {
+			XPlmi_Printf(DEBUG_GENERAL, "IDCODE Checks failed\n\r");
+			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMGHDR_TBL, Status);
 			goto END;
 		}
 	}
@@ -905,3 +907,117 @@ int XLoader_ReloadImage(u32 ImageId)
 END:
 	return Status;
 }
+
+/****************************************************************************/
+/**
+*  This function performs the checks of IDCODE and EXTENDED IDCODE.
+*  It also supports bypass of subset of these checks
+*
+* @param ImgHdrTable pointer to the image header table.
+*
+* @return
+*	- XST_SUCCESS on successful image header table validation
+*	- errors as mentioned in xilpdi.h
+*
+* @note
+*
+*****************************************************************************/
+XStatus XLoader_IdCodeCheck(XilPdi_ImgHdrTable * ImgHdrTable)
+{
+	XStatus Status = XST_FAILURE;
+	XLoader_IdCodeInfo IdCodeInfo;
+
+	IdCodeInfo.IdCodeIHT = ImgHdrTable->Idcode;
+	IdCodeInfo.IdCodeRd = Xil_In32(PMC_TAP_IDCODE);
+	IdCodeInfo.ExtIdCodeIHT = ImgHdrTable->ExtIdCode & XIH_IHT_EXT_IDCODE_MASK;
+	IdCodeInfo.ExtIdCodeRd = Xil_In32(EFUSE_CACHE_IP_DISABLE_0)
+			& EFUSE_CACHE_IP_DISABLE_0_EID_MASK;
+
+	/* Determine and fetch the Extended IDCODE (out of two) for checks */
+	if (0U == IdCodeInfo.ExtIdCodeRd) {
+		IdCodeInfo.IsExtIdCodeZero = TRUE;
+	}
+	else {
+		IdCodeInfo.IsExtIdCodeZero = FALSE;
+
+		if ((IdCodeInfo.ExtIdCodeRd &
+				EFUSE_CACHE_IP_DISABLE_0_EID_SEL_MASK) == 0U) {
+			IdCodeInfo.ExtIdCodeRd =
+					(IdCodeInfo.ExtIdCodeRd & EFUSE_CACHE_IP_DISABLE_0_EID1_MASK)
+					>> EFUSE_CACHE_IP_DISABLE_0_EID1_SHIFT;
+		}
+		else {
+			IdCodeInfo.ExtIdCodeRd =
+					(IdCodeInfo.ExtIdCodeRd & EFUSE_CACHE_IP_DISABLE_0_EID2_MASK)
+					>> EFUSE_CACHE_IP_DISABLE_0_EID2_SHIFT;
+		}
+	}
+
+	/* Check if VC1902 ES1 */
+	if ((IdCodeInfo.IdCodeRd & PMC_TAP_IDCODE_SIREV_DVCD_MASK) ==
+			PMC_TAP_IDCODE_ES1_VC1902) {
+		IdCodeInfo.IsVC1902Es1 = TRUE;
+	}
+	else {
+		IdCodeInfo.IsVC1902Es1 = FALSE;
+	}
+
+	/* Check if a subset of checks to be bypassed */
+	if (0x1U == (ImgHdrTable->Attr & XIH_IHT_ATTR_BYPS_MASK)) {
+		IdCodeInfo.BypassChkIHT = TRUE;
+	}
+	else {
+		IdCodeInfo.BypassChkIHT = FALSE;
+	}
+
+
+	/*
+	*	EXT_IDCODE
+	*	[26:14]is0?	VC1902-ES1?	BYPASS?	Checks done
+	*	--------------------------------------------------------------------
+	*	Y			Y			Y		Check IDCODE[27:0] (skip Si Rev chk)
+	*	Y			Y			N		Check IDCODE[31:0]
+	*	Y			N			X		Invalid combination (Error out)
+	*	N			X			Y		Check IDCODE[27:0] (skip Si Rev chk), check ext_idcode
+	*	N			X			N		Check IDCODE[31:0], check ext_idcode
+	*	--------------------------------------------------------------------
+	*/
+
+	/*
+	 * Error out for the invalid combination of Extended IDCODE - Device.
+	 * Assumption is that only VC1902-ES1 device can have Extended IDCODE value 0
+	 */
+	if ((IdCodeInfo.IsExtIdCodeZero == TRUE) &&
+			(IdCodeInfo.IsVC1902Es1 == FALSE)) {
+		Status = XLOADER_ERR_EXT_ID_SI;
+		goto END;
+	}
+	else {
+
+		/* Do not check Si revision if bypass configured */
+		if (TRUE == IdCodeInfo.BypassChkIHT) {
+			IdCodeInfo.IdCodeIHT &= ~PMC_TAP_IDCODE_SI_REV_MASK;
+			IdCodeInfo.IdCodeRd &= ~PMC_TAP_IDCODE_SI_REV_MASK;
+		}
+
+		/* Do the actual IDCODE check */
+		if (IdCodeInfo.IdCodeIHT != IdCodeInfo.IdCodeRd) {
+			Status = XLOADER_ERR_IDCODE;
+			goto END;
+		}
+
+		/* Do the actual Extended IDCODE check */
+		if (FALSE == IdCodeInfo.IsExtIdCodeZero) {
+			if (IdCodeInfo.ExtIdCodeIHT != IdCodeInfo.ExtIdCodeRd) {
+				Status = XLOADER_ERR_EXT_IDCODE;
+				goto END;
+			}
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+

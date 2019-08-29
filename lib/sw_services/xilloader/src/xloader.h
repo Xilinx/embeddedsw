@@ -152,6 +152,12 @@ enum XLOADER_PDI_SRC {
 /* Multiboot register offset mask */
 #define XLOADER_MULTIBOOT_OFFSET_MASK    	(0x001FFFFF)
 
+/* Minor Error codes for Major Error code: XLOADER_ERR_IDCODE */
+#define XLOADER_ERR_IDCODE			(0x1U) /**< IDCODE mismatch */
+#define XLOADER_ERR_EXT_IDCODE		(0x2U) /**< EXTENDED IDCODE mismatch */
+#define XLOADER_ERR_EXT_ID_SI		(0x3U) /**< Invalid combination of
+										EXTENDED IDCODE - Device */
+
 /**************************** Type Definitions *******************************/
 
 /**
@@ -212,6 +218,18 @@ typedef struct {
 	u32 Count; /**< Subsystem count */
 } XilSubsystem;
 
+/* Structure to store various attributes required for IDCODEs checks */
+
+typedef struct {
+	u32 IdCodeIHT; /**< IdCode as read from IHT */
+	u32 ExtIdCodeIHT; /**< Extended IdCode as read from IHT */
+	u32 IdCodeRd; /**< IdCode as read from Device */
+	u32 ExtIdCodeRd; /**< Extended IdCode as read from Device */
+	u32 BypassChkIHT; /**< Flag to bypass checks */
+	u32 IsVC1902Es1; /**< Flag to indicate IsVC1902-ES1 device */
+	u32 IsExtIdCodeZero; /**< Flag to indicate Extended IdCode is valid */
+} XLoader_IdCodeInfo __attribute__ ((aligned(16)));
+
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XLoader_GetBootMode()	XPlmi_In32(CRP_BOOT_MODE_USER) & \
 				CRP_BOOT_MODE_USER_BOOT_MODE_MASK
@@ -235,6 +253,7 @@ int XLoader_LoadImage(XilPdi *PdiPtr, u32 ImageId);
 int XLoader_StartImage(XilPdi *PdiPtr);
 int XLoader_RestartImage(u32 ImageId);
 int XLoader_ReloadImage(u32 ImageId);
+XStatus XLoader_IdCodeCheck(XilPdi_ImgHdrTable * ImgHdrTable);
 void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi);
 void XLoader_ClearIntrSbiDataRdy();
 void XLoader_CfiErrorHandler(void);

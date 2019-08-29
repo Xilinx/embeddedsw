@@ -124,6 +124,9 @@ extern "C" {
 /* IHT attributes */
 #define XIH_IHT_ATTR_RSA_SIGNATURE_MASK		(0x1000U)
 #define XIH_IHT_ATTR_ENCRYPTION_MASK		(0x2000U)
+#define XIH_IHT_ATTR_BYPS_MASK				(0x1U) /**< IDCODE checks bypass */
+
+#define XIH_IHT_EXT_IDCODE_MASK			(0x3FU)
 
 /* Secondary Boot Device (SBD) in IHT Attributes */
 #define XIH_IHT_ATTR_SBD_MASK	        (0xFC0U)
@@ -228,7 +231,6 @@ extern "C" {
 #define XILPDI_ERR_ZERO_LENGTH		(0x4U)
 #define XILPDI_ERR_TOTAL_LENGTH		(0x5U)
 #define XILPDI_ERR_PRTN_TYPE		(0x6U)
-#define XILPDI_ERR_IDCODE			(0x7U)
 
 #define SMAP_BUS_WIDTH_WORD1		(0xDD000000U)
 #define SMAP_BUS_WIDTH_LENGTH		(16U)
@@ -310,7 +312,8 @@ typedef struct {
 	u32 TotalHdrLen; /**< Total size of Meta header AC + encryption overload */
 	u32 IvMetaHdr[3]; /**< Iv for decrypting SH of meta header */
 	u32 EncKeySrc; /**< Encryption key source for decrypting SH of headers */
-	u32 Rsvd[14]; /**< Reserved */
+	u32 ExtIdCode;  /**< Extended ID Code */
+	u32 Rsvd[13]; /**< Reserved */
 	u32 Checksum; /**< Checksum of the image header table */
 } XilPdi_ImgHdrTable __attribute__ ((aligned(16)));
 
