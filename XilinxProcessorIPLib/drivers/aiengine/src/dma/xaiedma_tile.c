@@ -47,6 +47,7 @@
 * 1.7  Hyun    06/20/2019  Remove the duplicate initialization on BD
 * 1.8  Hyun    06/20/2019  Add XAieDma_TileBdClearAll() that resets all sw BDs
 * 1.9  Hyun    06/20/2019  Added APIs for individual BD / Channel reset
+* 2.0  Hyun    06/20/2019  Add XAieDma_TileSoftInitialize()
 * </pre>
 *
 ******************************************************************************/
@@ -61,6 +62,32 @@
 /************************** Variable Definitions *****************************/
 
 /************************** Function Definitions *****************************/
+/*****************************************************************************/
+/**
+*
+* This API intializes the Tile DMA instances without programming hardware
+* resource. This allows to control individual resources independently.
+*
+* @param	TileInstPtr - Pointer to the Tile instance.
+* @param	DmaInstPtr - Pointer to the Tile DMA instance.
+*
+* @return	XAIE_SUCCESS if successful, else XAIE_FAILURE.
+*
+* @note		This API is required to be invoked first in the sequence,
+*		before any of the other Tile DMA driver APIs are used.
+*
+*******************************************************************************/
+u32 XAieDma_TileSoftInitialize(XAieGbl_Tile *TileInstPtr, XAieDma_Tile *DmaInstPtr)
+{
+	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(DmaInstPtr != XAIE_NULL);
+	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
+
+	DmaInstPtr->BaseAddress = TileInstPtr->TileAddr;
+	DmaInstPtr->IsReady = XAIE_COMPONENT_IS_READY;
+	return XAIE_SUCCESS;
+}
+
 /*****************************************************************************/
 /**
 *
@@ -131,6 +158,7 @@ u32 XAieDma_TileInitialize(XAieGbl_Tile *TileInstPtr, XAieDma_Tile *DmaInstPtr)
 
         return Status;
 }
+
 
 /*****************************************************************************/
 /**
