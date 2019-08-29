@@ -1014,8 +1014,8 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType)
 	XPm_Device *Device;
 	XPm_Core *Core = NULL;
 
-	if ((XPM_SHUTDOWN_TYPE_SHUTDOWN != Type) &&
-	    (XPM_SHUTDOWN_TYPE_RESET != Type)) {
+	if ((PM_SHUTDOWN_TYPE_SHUTDOWN != Type) &&
+	    (PM_SHUTDOWN_TYPE_RESET != Type)) {
 		Status = XPM_INVALID_TYPEID;
 		goto done;
 	}
@@ -1027,7 +1027,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType)
 	}
 
 	/* For shutdown type the subtype is irrelevant: shut the caller down */
-	if (XPM_SHUTDOWN_TYPE_SHUTDOWN == Type) {
+	if (PM_SHUTDOWN_TYPE_SHUTDOWN == Type) {
 		Reqm = Subsystem->Requirements;
 		while (NULL != Reqm) {
 			if (TRUE == Reqm->Allocated) {
@@ -1060,7 +1060,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType)
 		goto done;
 	}
 
-	VERIFY(XPM_SHUTDOWN_TYPE_RESET == Type);
+	VERIFY(PM_SHUTDOWN_TYPE_RESET == Type);
 
 	switch (SubType) {
 	case XPM_SHUTDOWN_SUBTYPE_RST_SUBSYSTEM:
