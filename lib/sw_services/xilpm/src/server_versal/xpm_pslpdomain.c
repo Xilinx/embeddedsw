@@ -103,6 +103,8 @@ static XStatus LpdHcComplete(u32 *Args, u32 NumOfArgs)
 	if (Status != XST_SUCCESS)
 		goto done;
 
+	/* Copy sysmon data */
+	XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PS_LPD], LPD_NODEID, 0);
 done:
 	return Status;
 }

@@ -110,6 +110,8 @@ static XStatus FpdHcComplete(u32 *Args, u32 NumOfArgs)
 	if (Status != XST_SUCCESS)
 		goto done;
 
+	/* Copy sysmon data */
+	XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PS_FPD], FPD_NODEID, 0);
 done:
 	return Status;
 }
