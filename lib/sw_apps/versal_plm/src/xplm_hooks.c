@@ -45,6 +45,7 @@
 /***************************** Include Files *********************************/
 #include "xplm_hooks.h"
 #include "xplm_main.h"
+#include "xpm_api.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -82,7 +83,8 @@ int XPlm_HookBeforePlmCdo()
 *****************************************************************************/
 int XPlm_HookAfterPlmCdo()
 {
-	
+	/* Call LibPM hook */
+	XPm_HookAfterPlmCdo();
 	return XST_SUCCESS;
 }
 
