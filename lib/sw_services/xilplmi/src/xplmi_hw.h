@@ -192,6 +192,11 @@ extern "C" {
 #define CRP_RST_SBI    ( ( CRP_BASEADDR ) + 0X00000324 )
 #define CRP_RST_PDMA    ( ( CRP_BASEADDR ) + 0X00000328 )
 #define CRP_RST_PDMA_RESET1_MASK    0X00000002
+/**
+ * Register: CRP_RST_PS
+ */
+#define CRP_RST_PS    ( ( CRP_BASEADDR ) + 0x0000031CU )
+#define CRP_RST_PS_PMC_SRST_MASK    (0x00000008U)
 
 /**
  * PMC_ANALOG Base Address

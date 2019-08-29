@@ -70,6 +70,8 @@
  *****************************************************************************/
 void XPlmi_ErrMgr(int Status)
 {
+	u32 RegVal;
+
 	/* Print the PMCFW error */
 	XPlmi_Printf(DEBUG_GENERAL, "PLM Error Status: 0x%08lx\n\r",
 			Status);
@@ -82,10 +84,18 @@ void XPlmi_ErrMgr(int Status)
 	if (XPlmi_IsLoadBootPdiDone() == FALSE)
 	{
 		XPlmi_DumpRegisters();
-		/**
-		 * TODO
-		 * Add fallback code here.
-		 */
+		/** Update Multiboot register */
+		RegVal = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
+		XPlmi_Out32(PMC_GLOBAL_PMC_MULTI_BOOT, ++RegVal);
+
+		/* make sure every thing completes */
+        DATA_SYNC;
+        INST_SYNC;
+
+		RegVal = XPlmi_In32(CRP_RST_PS);
+		XPlmi_Out32(CRP_RST_PS, RegVal |
+			CRP_RST_PS_PMC_SRST_MASK);
+
 		while(1);
 	}
 }
