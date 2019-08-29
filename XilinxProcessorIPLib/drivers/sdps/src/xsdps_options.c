@@ -75,6 +75,7 @@
 * 3.8   mn     04/12/19 Modified TapDelay code for supporting ZynqMP and Versal
 *       mn     05/21/19 Set correct tap delays for Versal
 *       mn     05/21/19 Disable DLL Reset code for Versal
+*       mn     08/29/19 Add call to Cache Invalidation API in XSdPs_Get_BusWidth
 *
 * </pre>
 *
@@ -237,6 +238,10 @@ s32 XSdPs_Get_BusWidth(XSdPs *InstancePtr, u8 *ReadBuff)
 	/* Write to clear bit */
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_TC_MASK);
+
+	if (InstancePtr->Config.IsCacheCoherent == 0U) {
+		Xil_DCacheInvalidateRange((INTPTR)ReadBuff, 8);
+	}
 
 	Status = XST_SUCCESS;
 
