@@ -22,6 +22,7 @@ Modified Tap Delay code for supporting ZynqMP and Versal
 Disable DLL Reset code for Versal
 Enable SD UHS Mode support by default for Versal
 Update Input Tap Delays for Versal
+Add cache invalidation call at the end of XSdPs_Get_BusWidth
 
 gpiops_v3_6
 udpated gpiops example with versal support.
