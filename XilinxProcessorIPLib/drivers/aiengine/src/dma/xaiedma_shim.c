@@ -40,6 +40,7 @@
 * 1.1  Naresh  07/11/2018  Updated copyright info
 * 1.2  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.3  Hyun    01/08/2019  Use the poll function
+* 1.4  Hyun    06/20/2019  Added APIs for individual BD / Channel reset
 * </pre>
 *
 ******************************************************************************/
@@ -96,6 +97,61 @@ void XAieDma_ShimInitialize(XAieGbl_Tile *TileInstPtr, XAieDma_Shim *DmaInstPtr)
 		XAieDma_ShimSetStartBd(DmaInstPtr, ChNum,
 						XAIEDMA_SHIM_STARTBD_RESET);
 	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This API resets the selected Shim DMA channel, followed by disabling
+* the channel. The StartBd is cleared to default value.
+*
+* @param	DmaInstPtr - Pointer to the Shim DMA instance.
+* @param	ChNum - Channel number (0-S2MM0,1-S2MM1,2-MM2S0,3-MM2S1).
+*
+* @return	XAIE_SUCCESS if successful, else XAIE_FAILURE.
+*
+* @note		None.
+*
+*******************************************************************************/
+u32 XAieDma_ShimChReset(XAieDma_Shim *DmaInstPtr, u8 ChNum)
+{
+	XAie_AssertNonvoid(DmaInstPtr != XAIE_NULL);
+
+	/* Disable the channel */
+	XAieDma_ShimChControl(DmaInstPtr, ChNum, XAIE_DISABLE, XAIE_DISABLE,
+			XAIE_DISABLE);
+
+	/* Set Start BD to the reset value */
+	XAieDma_ShimSetStartBd(DmaInstPtr, ChNum, XAIEDMA_SHIM_STARTBD_RESET);
+
+        return XAIE_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API resets all Shim DMA channel, followed by disabling the channel.
+* The StartBd is cleared to default value.
+*
+* @param	DmaInstPtr - Pointer to the Shim DMA instance.
+*
+* @return	XAIE_SUCCESS if successful, else XAIE_FAILURE.
+*
+* @note		None.
+*
+*******************************************************************************/
+u32 XAieDma_ShimChResetAll(XAieDma_Shim *DmaInstPtr)
+{
+	u8 ChNum;
+
+	XAie_AssertNonvoid(DmaInstPtr != XAIE_NULL);
+
+	/* Disable and reset all the channels */
+	for (ChNum = 0U; ChNum < XAIEDMA_SHIM_MAX_NUM_CHANNELS; ChNum++) {
+		XAieDma_ShimChReset(DmaInstPtr, ChNum);
+	}
+
+        return XAIE_SUCCESS;
 }
 
 /*****************************************************************************/
