@@ -45,6 +45,7 @@
 * 1.6  Nishad  03/20/2019  Fix the use of uninitialized pointer in
 * 			   XAieDma_TileBdSetLock function
 * 1.7  Hyun    06/20/2019  Remove the duplicate initialization on BD
+* 1.8  Hyun    06/20/2019  Add XAieDma_TileBdClearAll() that resets all sw BDs
 * </pre>
 *
 ******************************************************************************/
@@ -589,6 +590,30 @@ void XAieDma_TileBdClear(XAieDma_Tile *DmaInstPtr, u8 BdNum)
 	DescrPtr->NextBdEn = 0U;
 	DescrPtr->NextBd = 0U;
 	DescrPtr->Length = 0U;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API is used to clear all BD entries in the Tile DMA instance.
+*
+* @param	DmaInstPtr - Pointer to the Tile DMA instance.
+*
+* @return	None.
+*
+* @note		This doesn't clear the values in the BD physical location.
+*
+*******************************************************************************/
+void XAieDma_TileBdClearAll(XAieDma_Tile *DmaInstPtr)
+{
+	u8 BdIdx;
+
+	XAie_AssertVoid(DmaInstPtr != XAIE_NULL);
+
+	/* Clear the BD entries in the DMA instance structure */
+	for (BdIdx = 0U; BdIdx < XAIEDMA_TILE_MAX_NUM_DESCRS; BdIdx++) {
+		XAieDma_TileBdClear(DmaInstPtr, BdIdx);
+	}
 }
 
 /*****************************************************************************/
