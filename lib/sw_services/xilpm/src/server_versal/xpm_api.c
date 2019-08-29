@@ -169,7 +169,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		case PM_PLL_GET_MODE:
 			Status = XPm_GetPllMode(Pload[0], ApiResponse);
 			break;
-		case PM_REQUEST_DEVICE:
+		case PM_REQUEST_NODE:
 			Status = XPm_RequestDevice(SubsystemId, Pload[0],
 						   Pload[1], Pload[2],
 						   Pload[3]);
@@ -3926,7 +3926,7 @@ int XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 	case PM_REQUEST_WAKEUP:
 	case PM_SET_WAKEUP_SOURCE:
 	case PM_SYSTEM_SHUTDOWN:
-	case PM_REQUEST_DEVICE:
+	case PM_REQUEST_NODE:
 	case PM_RELEASE_DEVICE:
 	case PM_SET_REQUIREMENT:
 	case PM_SET_MAX_LATENCY:
