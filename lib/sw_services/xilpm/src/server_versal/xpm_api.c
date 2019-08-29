@@ -174,7 +174,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 						   Pload[1], Pload[2],
 						   Pload[3]);
 			break;
-		case PM_RELEASE_DEVICE:
+		case PM_RELEASE_NODE:
 			Status = XPm_ReleaseDevice(SubsystemId, Pload[0]);
 			break;
 		case PM_SET_REQUIREMENT:
@@ -3927,7 +3927,7 @@ int XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 	case PM_SET_WAKEUP_SOURCE:
 	case PM_SYSTEM_SHUTDOWN:
 	case PM_REQUEST_NODE:
-	case PM_RELEASE_DEVICE:
+	case PM_RELEASE_NODE:
 	case PM_SET_REQUIREMENT:
 	case PM_SET_MAX_LATENCY:
 	case PM_RESET_ASSERT:

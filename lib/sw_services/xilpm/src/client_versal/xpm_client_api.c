@@ -247,7 +247,7 @@ XStatus XPm_ReleaseNode(const u32 DeviceId)
 	XStatus Status;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD1(Payload, PM_RELEASE_DEVICE, DeviceId);
+	PACK_PAYLOAD1(Payload, PM_RELEASE_NODE, DeviceId);
 
 	/* Send request to the target module */
 	Status = XPm_IpiSend(PrimaryProc, Payload);

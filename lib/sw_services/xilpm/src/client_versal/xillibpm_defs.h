@@ -349,7 +349,7 @@ enum XPmNotifyEvent {
 #define PM_SYSTEM_SHUTDOWN              12U
 
 #define PM_REQUEST_NODE                 13U
-#define PM_RELEASE_DEVICE                14U
+#define PM_RELEASE_NODE                 14U
 #define PM_SET_REQUIREMENT              15U
 #define PM_SET_MAX_LATENCY              16U
 
