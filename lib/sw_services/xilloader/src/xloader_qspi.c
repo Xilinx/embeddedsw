@@ -288,7 +288,7 @@ int XLoader_Qspi24Init(u32 DeviceFlags)
 
 	/* Read multi boot  register */
 	MultiBootOffset = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT)&(XLOADER_MULTIBOOT_OFFSET_MASK);
-	ImageOffsetAddress = MultiBootOffset * (XLOADER_QSPI_FLASH_SEARCH_OFFSET);
+	ImageOffsetAddress = MultiBootOffset * (XLOADER_IMAGE_SEARCH_OFFSET);
 	XLoader_Printf(DEBUG_INFO,"MultiBootOffset: 0x%x\n\r",MultiBootOffset);
 
 	/*Qspi width detection for 1x,2x and 4x*/
@@ -933,7 +933,7 @@ int XLoader_Qspi32Init(u32 DeviceFlags)
 
 	/* Read multi boot  register */
 	MultiBootOffset = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT)&(XLOADER_MULTIBOOT_OFFSET_MASK);
-	ImageOffsetAddress = MultiBootOffset * (XLOADER_QSPI_FLASH_SEARCH_OFFSET);
+	ImageOffsetAddress = MultiBootOffset * (XLOADER_IMAGE_SEARCH_OFFSET);
 	XLoader_Printf(DEBUG_INFO,"MultiBootOffset: 0x%x\n\r",MultiBootOffset);
 
 	/*Detect connection type for 1x,2x and 4x*/

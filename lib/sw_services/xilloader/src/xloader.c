@@ -156,7 +156,8 @@ int XLoader_Init()
  *****************************************************************************/
 int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 {
-	int Status = XST_FAILURE;
+	u32 RegVal;
+	int Status;
 	XLoader_SecureParms SecureParam;
 
 	/**
@@ -195,7 +196,6 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 
 	PdiPtr->DeviceCopy =  DeviceOps[PdiSrc & XLOADER_PDISRC_FLAGS_MASK].Copy;
 	PdiPtr->MetaHdr.DeviceCopy = PdiPtr->DeviceCopy;
-	PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr;
 
 	/**
 	 * Read meta header from PDI source
@@ -204,9 +204,22 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 		XilPdi_ReadBootHdr(&PdiPtr->MetaHdr);
 		PdiPtr->ImageNum = 1U;
 		PdiPtr->PrtnNum = 1U;
+		RegVal = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
+		if((PdiSrc == XLOADER_PDI_SRC_QSPI24) ||
+                        (PdiSrc == XLOADER_PDI_SRC_QSPI32) ||
+                        (PdiSrc == XLOADER_PDI_SRC_OSPI))
+		{
+			PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr + \
+				(RegVal * XLOADER_IMAGE_SEARCH_OFFSET);
+		}
+		else
+		{
+			PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr;
+		}
 	} else {
 		PdiPtr->ImageNum = 0U;
 		PdiPtr->PrtnNum = 0U;
+		PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr;
 	}
 	/* Read image header */
 	Status = XilPdi_ReadImgHdrTbl(&PdiPtr->MetaHdr);
