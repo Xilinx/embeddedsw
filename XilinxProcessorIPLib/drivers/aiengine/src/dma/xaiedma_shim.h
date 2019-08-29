@@ -39,6 +39,7 @@
 * 1.0  Naresh  03/14/2018  Initial creation
 * 1.1  Naresh  07/11/2018  Updated copyright info
 * 1.2  Nishad  12/05/2018  Renamed ME attributes to AIE
+* 1.3  Hyun    06/20/2019  Added APIs for individual BD / Channel reset
 * </pre>
 *
 ******************************************************************************/
@@ -187,6 +188,8 @@ typedef struct
 
 /************************** Function Prototypes  *****************************/
 void XAieDma_ShimInitialize(XAieGbl_Tile *TileInstPtr, XAieDma_Shim *DmaInstPtr);
+u32 XAieDma_ShimChReset(XAieDma_Shim *DmaInstPtr, u8 ChNum);
+u32 XAieDma_ShimChResetAll(XAieDma_Shim *DmaInstPtr);
 void XAieDma_ShimBdSetLock(XAieDma_Shim *DmaInstPtr, u8 BdNum, u8 LockId, u8 LockRelEn, u8 LockRelVal, u8 LockAcqEn, u8 LockAcqVal);
 void XAieDma_ShimBdSetAxi(XAieDma_Shim *DmaInstPtr, u8 BdNum, u8 Smid, u8 BurstLen, u8 Qos, u8 Cache, u8 Secure);
 void XAieDma_ShimBdSetPkt(XAieDma_Shim *DmaInstPtr, u8 BdNum, u8 PktEn, u8 PktType, u8 PktId);
