@@ -1609,7 +1609,7 @@ XStatus XPm_SetClockDivider(const u32 SubsystemId, const u32 ClockId, const u32 
 		Status = XPmClock_SetDivider((XPm_OutClockNode *)Clk, Divider);
 	} else if (ISPLL(ClockId)) {
 		Status = XPmClockPll_SetParam((XPm_PllClockNode *)Clk,
-					      PLL_PARAM_ID_FBDIV, Divider);
+					      PM_PLL_PARAM_ID_FBDIV, Divider);
 	} else {
 		Status = XPM_INVALID_CLKID;
 		goto done;
@@ -1644,7 +1644,7 @@ XStatus XPm_GetClockDivider(const u32 ClockId, u32 *const Divider)
 						TYPE_DIV1, Divider);
 	} else if (ISPLL(ClockId)) {
 		Status = XPmClockPll_GetParam((XPm_PllClockNode *)Clk,
-					      PLL_PARAM_ID_FBDIV, Divider);
+					      PM_PLL_PARAM_ID_FBDIV, Divider);
 	} else {
 		Status = XPM_INVALID_CLKID;
 		goto done;
