@@ -113,7 +113,7 @@ XStatus XPmClockPll_SetMode(XPm_PllClockNode *Pll, u32 Mode)
 
 	if (PM_PLL_MODE_FRACTIONAL == Mode) {
 		/* Check if fractional value has been set */
-		XPmClockPll_GetParam(Pll, PLL_PARAM_ID_FRAC_DATA, &Val);
+		XPmClockPll_GetParam(Pll, PM_PLL_PARAM_ID_DATA, &Val);
 		if (0U == Val) {
 			Status = XST_FAILURE;
 			goto done;
@@ -331,7 +331,7 @@ XStatus XPmClockPll_SetParam(XPm_PllClockNode *Pll, u32 Param, u32 Value)
 	XPm_PllParam *PtrParam;
 	u32 Mask, ParamValue, Reg = 0;
 
-	if (Param >= PLL_PARAM_MAX) {
+	if (Param >= PM_PLL_PARAM_MAX) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -356,20 +356,20 @@ XStatus XPmClockPll_SetParam(XPm_PllClockNode *Pll, u32 Param, u32 Value)
 	ParamValue = Value << PtrParam->Shift;
 
 	switch (Param) {
-	case PLL_PARAM_ID_CLKOUTDIV:
-	case PLL_PARAM_ID_FBDIV:
+	case PM_PLL_PARAM_ID_DIV2:
+	case PM_PLL_PARAM_ID_FBDIV:
 		Reg = Pll->ClkNode.Node.BaseAddress;
                 break;
-	case PLL_PARAM_ID_FRAC_DATA:
+	case PM_PLL_PARAM_ID_DATA:
 		Reg = Pll->FracConfigReg;
                 break;
-	case PLL_PARAM_ID_PRE_SRC:
-	case PLL_PARAM_ID_POST_SRC:
-	case PLL_PARAM_ID_LOCK_DLY:
-	case PLL_PARAM_ID_LOCK_CNT:
-	case PLL_PARAM_ID_LFHF:
-	case PLL_PARAM_ID_CP:
-	case PLL_PARAM_ID_RES:
+	case PM_PLL_PARAM_ID_PRE_SRC:
+	case PM_PLL_PARAM_ID_POST_SRC:
+	case PM_PLL_PARAM_ID_LOCK_DLY:
+	case PM_PLL_PARAM_ID_LOCK_CNT:
+	case PM_PLL_PARAM_ID_LFHF:
+	case PM_PLL_PARAM_ID_CP:
+	case PM_PLL_PARAM_ID_RES:
 		Reg = Pll->ConfigReg;
 		break;
 	default:
@@ -397,7 +397,7 @@ XStatus XPmClockPll_GetParam(XPm_PllClockNode *Pll, u32 Param, u32 *Val)
 		goto done;
 	}
 
-	if (Param >= PLL_PARAM_MAX) {
+	if (Param >= PM_PLL_PARAM_MAX) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -407,20 +407,20 @@ XStatus XPmClockPll_GetParam(XPm_PllClockNode *Pll, u32 Param, u32 *Val)
 	Shift = PtrParam->Shift;
 
 	switch (Param) {
-	case PLL_PARAM_ID_CLKOUTDIV:
-	case PLL_PARAM_ID_FBDIV:
+	case PM_PLL_PARAM_ID_DIV2:
+	case PM_PLL_PARAM_ID_FBDIV:
 		Reg = Pll->ClkNode.Node.BaseAddress;
                 break;
-	case PLL_PARAM_ID_FRAC_DATA:
+	case PM_PLL_PARAM_ID_DATA:
 		Reg = Pll->FracConfigReg;
                 break;
-	case PLL_PARAM_ID_PRE_SRC:
-	case PLL_PARAM_ID_POST_SRC:
-	case PLL_PARAM_ID_LOCK_DLY:
-	case PLL_PARAM_ID_LOCK_CNT:
-	case PLL_PARAM_ID_LFHF:
-	case PLL_PARAM_ID_CP:
-	case PLL_PARAM_ID_RES:
+	case PM_PLL_PARAM_ID_PRE_SRC:
+	case PM_PLL_PARAM_ID_POST_SRC:
+	case PM_PLL_PARAM_ID_LOCK_DLY:
+	case PM_PLL_PARAM_ID_LOCK_CNT:
+	case PM_PLL_PARAM_ID_LFHF:
+	case PM_PLL_PARAM_ID_CP:
+	case PM_PLL_PARAM_ID_RES:
 		Reg = Pll->ConfigReg;
 		break;
 	default:

@@ -1001,16 +1001,16 @@ done:
  *
  * @param  ClockId		Clock ID
  * @param  ParamId		Parameter ID
- *				- PLL_PARAM_ID_CLKOUTDIV
- *				- PLL_PARAM_ID_FBDIV
- *				- PLL_PARAM_ID_FRAC_DATA
- *				- PLL_PARAM_ID_PRE_SRC
- *				- PLL_PARAM_ID_POST_SRC
- *				- PLL_PARAM_ID_LOCK_DLY
- *				- PLL_PARAM_ID_LOCK_CNT
- *				- PLL_PARAM_ID_LFHF
- *				- PLL_PARAM_ID_CP
- *				- PLL_PARAM_ID_RES
+ *				- PM_PLL_PARAM_ID_DIV2
+ *				- PM_PLL_PARAM_ID_FBDIV
+ *				- PM_PLL_PARAM_ID_DATA
+ *				- PM_PLL_PARAM_ID_PRE_SRC
+ *				- PM_PLL_PARAM_ID_POST_SRC
+ *				- PM_PLL_PARAM_ID_LOCK_DLY
+ *				- PM_PLL_PARAM_ID_LOCK_CNT
+ *				- PM_PLL_PARAM_ID_LFHF
+ *				- PM_PLL_PARAM_ID_CP
+ *				- PM_PLL_PARAM_ID_RES
  * @param  Value		Value of parameter
  *				(See register description for possible values)
  *
@@ -1048,16 +1048,16 @@ done:
  *
  * @param  ClockId		Clock ID
  * @param  ParamId		Parameter ID
- *				- PLL_PARAM_ID_CLKOUTDIV
- *				- PLL_PARAM_ID_FBDIV
- *				- PLL_PARAM_ID_FRAC_DATA
- *				- PLL_PARAM_ID_PRE_SRC
- *				- PLL_PARAM_ID_POST_SRC
- *				- PLL_PARAM_ID_LOCK_DLY
- *				- PLL_PARAM_ID_LOCK_CNT
- *				- PLL_PARAM_ID_LFHF
- *				- PLL_PARAM_ID_CP
- *				- PLL_PARAM_ID_RES
+ *				- PM_PLL_PARAM_ID_DIV2
+ *				- PM_PLL_PARAM_ID_FBDIV
+ *				- PM_PLL_PARAM_ID_DATA
+ *				- PM_PLL_PARAM_ID_PRE_SRC
+ *				- PM_PLL_PARAM_ID_POST_SRC
+ *				- PM_PLL_PARAM_ID_LOCK_DLY
+ *				- PM_PLL_PARAM_ID_LOCK_CNT
+ *				- PM_PLL_PARAM_ID_LFHF
+ *				- PM_PLL_PARAM_ID_CP
+ *				- PM_PLL_PARAM_ID_RES
  * @param  Value		Pointer to store parameter value
  *				(See register description for possible values)
  *

@@ -44,7 +44,7 @@ typedef struct XPm_PllParam {
 
 struct XPm_PllTopology {
 	uint16_t Id;
-	XPm_PllParam ConfigParams[PLL_PARAM_MAX];
+	XPm_PllParam ConfigParams[PM_PLL_PARAM_MAX];
 	uint8_t ResetShift;
 	uint8_t BypassShift;
 	uint8_t LockShift;
@@ -100,43 +100,43 @@ struct XPm_PllClockNode {
 #define NPLL_STABLE_SHIFT	3U
 
 #define PLLPARAMS {	\
-	[PLL_PARAM_ID_CLKOUTDIV] = {	\
+	[PM_PLL_PARAM_ID_DIV2] = {	\
 		.Shift = 16U,		\
 		.Width = 2U,		\
 	},				\
-	[PLL_PARAM_ID_FBDIV] = {	\
+	[PM_PLL_PARAM_ID_FBDIV] = {	\
 		.Shift = 8U,		\
 		.Width = 7U,		\
 	},				\
-	[PLL_PARAM_ID_FRAC_DATA] = {	\
+	[PM_PLL_PARAM_ID_DATA] = {	\
 		.Shift = 0U,		\
 		.Width = 16U,		\
 	},				\
-	[PLL_PARAM_ID_PRE_SRC] = {	\
+	[PM_PLL_PARAM_ID_PRE_SRC] = {	\
 		.Shift = 20U,		\
 		.Width = 3U,		\
 	},				\
-	[PLL_PARAM_ID_POST_SRC] = {	\
+	[PM_PLL_PARAM_ID_POST_SRC] = {	\
 		.Shift = 24U,		\
 		.Width = 3U,		\
 	},				\
-	[PLL_PARAM_ID_LOCK_DLY] = {	\
+	[PM_PLL_PARAM_ID_LOCK_DLY] = {	\
 		.Shift = 25U,		\
 		.Width = 7U,		\
 	},				\
-	[PLL_PARAM_ID_LOCK_CNT] = {	\
+	[PM_PLL_PARAM_ID_LOCK_CNT] = {	\
 		.Shift = 13U,		\
 		.Width = 10U,		\
 	},				\
-	[PLL_PARAM_ID_LFHF] = {		\
+	[PM_PLL_PARAM_ID_LFHF] = {	\
 		.Shift = 10U,		\
 		.Width = 2U,		\
 	},				\
-	[PLL_PARAM_ID_CP] = {		\
+	[PM_PLL_PARAM_ID_CP] = {	\
 		.Shift = 5U,		\
 		.Width = 4U,		\
 	},				\
-	[PLL_PARAM_ID_RES] = {		\
+	[PM_PLL_PARAM_ID_RES] = {	\
 		.Shift = 0U,		\
 		.Width = 4U,		\
 	},				\
