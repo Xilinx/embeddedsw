@@ -41,6 +41,7 @@
 * 1.2  Naresh  07/11/2018  Updated copyright info
 * 1.3  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.4  Hyun    06/20/2019  Add XAieDma_TileBdClearAll() that resets all sw BDs
+* 1.5  Hyun    06/20/2019  Added APIs for individual BD / Channel reset
 * </pre>
 *
 ******************************************************************************/
@@ -210,6 +211,8 @@ void XAieDma_TileBdWrite(XAieDma_Tile *DmaInstPtr, u8 BdNum);
 void XAieDma_TileBdClear(XAieDma_Tile *DmaInstPtr, u8 BdNum);
 void XAieDma_TileBdClearAll(XAieDma_Tile *DmaInstPtr);
 u32 XAieDma_TileChControl(XAieDma_Tile *DmaInstPtr, u8 ChNum, u8 Reset, u8 Enable);
+u32 XAieDma_TileChReset(XAieDma_Tile *DmaInstPtr, u8 ChNum);
+u32 XAieDma_TileChResetAll(XAieDma_Tile *DmaInstPtr);
 
 #endif		/* end of protection macro */
 /** @} */

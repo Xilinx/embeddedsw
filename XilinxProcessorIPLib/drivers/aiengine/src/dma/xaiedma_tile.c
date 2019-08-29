@@ -46,6 +46,7 @@
 * 			   XAieDma_TileBdSetLock function
 * 1.7  Hyun    06/20/2019  Remove the duplicate initialization on BD
 * 1.8  Hyun    06/20/2019  Add XAieDma_TileBdClearAll() that resets all sw BDs
+* 1.9  Hyun    06/20/2019  Added APIs for individual BD / Channel reset
 * </pre>
 *
 ******************************************************************************/
@@ -651,6 +652,81 @@ u32 XAieDma_TileChControl(XAieDma_Tile *DmaInstPtr, u8 ChNum, u8 Reset, u8 Enabl
         XAieGbl_Write32(RegAddr, RegVal);
 
         return XAIE_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API is used to reset the selected Tile DMA channel. The channel gets
+* reset first, and then gets out of reset as disabled. The StartBd value
+* is cleared in the instance, but not cleared in the register.
+*
+* @param	DmaInstPtr - Pointer to the Tile DMA instance.
+* @param	ChNum - Channel number (0-S2MM0,1-S2MM1,2-MM2S0,3-MM2S1).
+*
+* @return	XAIE_SUCCESS if successful, else XAIE_FAILURE.
+*
+* @note		None.
+*
+*******************************************************************************/
+u32 XAieDma_TileChReset(XAieDma_Tile *DmaInstPtr, u8 ChNum)
+{
+	u32 Status;
+
+        XAie_AssertNonvoid(DmaInstPtr != XAIE_NULL);
+        XAie_AssertNonvoid(ChNum < XAIEDMA_TILE_MAX_NUM_CHANNELS);
+
+	/* Reset the channel */
+	Status = XAieDma_TileChControl(DmaInstPtr, ChNum, XAIE_RESETENABLE,
+			XAIE_DISABLE);
+	if (Status == XAIE_FAILURE) {
+		return Status;
+	}
+
+	/* Unreset and Disable the channel */
+	Status = XAieDma_TileChControl(DmaInstPtr, ChNum, XAIE_RESETDISABLE,
+			XAIE_DISABLE);
+	if (Status == XAIE_FAILURE) {
+		return Status;
+	}
+
+	/* Set Start BD to the reset value */
+	XAieDma_TileSetStartBd(DmaInstPtr, ChNum, XAIEDMA_TILE_STARTBD_RESET);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API is used to reset all Tile DMA channel. The channel gets reset first,
+* and then gets out of reset as disabled. The StartBd value is cleared in
+* the instance, but not cleared in the register.
+*
+* @param	DmaInstPtr - Pointer to the Tile DMA instance.
+*
+* @return	XAIE_SUCCESS if successful, or XAIE_FAILURE if any fails.
+*
+* @note		None.
+*
+*******************************************************************************/
+u32 XAieDma_TileChResetAll(XAieDma_Tile *DmaInstPtr)
+{
+	u8 ChNum;
+	u32 Status;
+	u32 Ret = XAIE_SUCCESS;;
+
+        XAie_AssertNonvoid(DmaInstPtr != XAIE_NULL);
+
+	/* Reset and disable all the channels */
+	for (ChNum = 0U; ChNum < XAIEDMA_TILE_MAX_NUM_CHANNELS; ChNum++) {
+		Status = XAieDma_TileChReset(DmaInstPtr, ChNum);
+		if (Status == XAIE_FAILURE) {
+			Ret = XAIE_FAILURE;
+		}
+	}
+
+	return Ret;
 }
 
 /** @} */
