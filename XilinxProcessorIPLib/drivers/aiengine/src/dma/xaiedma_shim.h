@@ -194,6 +194,7 @@ void XAieDma_ShimBdSetNext(XAieDma_Shim *DmaInstPtr, u8 BdNum, u8 NextBd);
 void XAieDma_ShimBdSetAddr(XAieDma_Shim *DmaInstPtr, u8 BdNum, u16 AddrHigh, u32 AddrLow, u32 Length);
 void XAieDma_ShimBdWrite(XAieDma_Shim *DmaInstPtr, u8 BdNum);
 void XAieDma_ShimBdClear(XAieDma_Shim *DmaInstPtr, u8 BdNum);
+void XAieDma_ShimBdClearAll(XAieDma_Shim *DmaInstPtr);
 u8 XAieDma_ShimWaitDone(XAieDma_Shim *DmaInstPtr, u32 ChNum, u32 TimeOut);
 u8 XAieDma_ShimPendingBdCount(XAieDma_Shim *DmaInstPtr, u32 ChNum);
 
