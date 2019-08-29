@@ -767,6 +767,8 @@ void XPlmi_DumpRegisters()
 
 	XPlmi_Printf(DEBUG_GENERAL, "IDCODE: 0x%08x\n\r",
 		      XPlmi_In32(PMC_TAP_IDCODE));
+	XPlmi_Printf(DEBUG_GENERAL, "EXTENDED IDCODE: 0x%08x\n\r",
+		      XPlmi_In32(EFUSE_CACHE_IP_DISABLE_0));
 	XPlmi_Printf(DEBUG_GENERAL, "Version: 0x%08x\n\r",
 		      XPlmi_In32(PMC_TAP_VERSION));
 	XPlmi_Printf(DEBUG_GENERAL, "Bootmode User: 0x%08x\n\r",
