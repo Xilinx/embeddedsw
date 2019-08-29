@@ -392,6 +392,18 @@ done:
 	return Status;
 }
 
+
+XStatus XPm_HookAfterPlmCdo()
+{
+	XStatus Status = XST_SUCCESS;
+
+	// On Boot, Update PMC SAT0 & SAT1 sysmon trim
+	XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PMC_0], PMC_NODEID, 0);
+	XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[XPM_NODEIDX_MONITOR_SYSMON_PMC_1], PMC_NODEID, 1);
+
+	return Status;
+}
+
 /****************************************************************************/
 /**
  * @brief  This function is used to request the version and ID code of a chip

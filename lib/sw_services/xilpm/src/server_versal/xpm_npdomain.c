@@ -61,7 +61,6 @@ static XStatus NpdInitStart(u32 *Args, u32 NumOfArgs)
 	/* Release POR for NoC */
 	Status = XPmReset_AssertbyId(POR_RSTID(XPM_NODEIDX_RST_NOC_POR),
 				     PM_RESET_ACTION_RELEASE);
-
 done:
 	return Status;
 }
@@ -141,6 +140,14 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 			goto done;
 		}
 	}
+
+	/* When NPD is powered, copy sysmon data */
+	for (i = XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN; i < XPM_NODEIDX_MONITOR_SYSMON_NPD_MAX; i++) {
+		/* Copy_trim< AMS_SAT_N> */
+		if (0 != SysmonAddresses[i])
+			XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[i], NPD_NODEID, i);
+	}
+
 done:
 	return Status;
 }

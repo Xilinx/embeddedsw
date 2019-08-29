@@ -37,6 +37,8 @@ extern "C" {
 
 typedef struct XPm_PowerDomain XPm_PowerDomain;
 
+extern u32 SysmonAddresses[];
+
 #define XPM_POLL_TIMEOUT			(0X1000000U)
 #define XPM_DOMAIN_INIT_STATUS_REG		PMC_GLOBAL_PERS_GLOB_GEN_STORAGE0
 
@@ -84,6 +86,7 @@ XStatus XPm_PowerDwnNoC();
 XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				  u32 *Args, u32 NumArgs);
 XStatus XPmPower_CheckPower(u32 VoltageRailMask);
+XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 SateliteIdx);
 
 #ifdef __cplusplus
 }
