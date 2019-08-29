@@ -346,7 +346,7 @@ XStatus XPm_GetNodeStatus(const u32 DeviceId,
 		goto done;
 	}
 
-	PACK_PAYLOAD1(Payload, PM_GET_DEVICE_STATUS, DeviceId);
+	PACK_PAYLOAD1(Payload, PM_GET_NODE_STATUS, DeviceId);
 
 	/* Send request to the target module */
 	Status = XPm_IpiSend(PrimaryProc, Payload);

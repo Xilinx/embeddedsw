@@ -184,7 +184,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			Status = XPm_SetMaxLatency(SubsystemId, Pload[0],
 						   Pload[1]);
 			break;
-		case PM_GET_DEVICE_STATUS:
+		case PM_GET_NODE_STATUS:
 			Status = XPm_GetDeviceStatus(SubsystemId, Pload[0], (XPm_DeviceStatus *)ApiResponse);
 			break;
 		case PM_QUERY_DATA:
@@ -3917,7 +3917,7 @@ int XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 
 	switch (ApiId) {
 	case PM_GET_API_VERSION:
-	case PM_GET_DEVICE_STATUS:
+	case PM_GET_NODE_STATUS:
 	case PM_GET_OP_CHARACTERISTIC:
 	case PM_REQUEST_SUSPEND:
 	case PM_SELF_SUSPEND:

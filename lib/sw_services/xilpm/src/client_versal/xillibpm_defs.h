@@ -336,7 +336,7 @@ enum XPmNotifyEvent {
 /* PM API ids */
 #define PM_GET_API_VERSION              1U
 #define PM_SET_CONFIGURATION            2U
-#define PM_GET_DEVICE_STATUS            3U
+#define PM_GET_NODE_STATUS              3U
 #define PM_GET_OP_CHARACTERISTIC        4U
 #define PM_REGISTER_NOTIFIER            5U
 
