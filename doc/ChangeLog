@@ -1,3 +1,8 @@
+Changes for 2020.1
+===============================
+csudma_v1_6:
+Added assert check XCsuDma_WaitForDoneTimeout().
+
 Changes for 2019.2
 ===============================
 canfd_v2_2:
