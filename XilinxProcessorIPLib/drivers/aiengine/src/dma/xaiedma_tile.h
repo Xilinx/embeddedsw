@@ -40,6 +40,7 @@
 * 1.1  Naresh  06/20/2018  Fixed CR#1005445
 * 1.2  Naresh  07/11/2018  Updated copyright info
 * 1.3  Nishad  12/05/2018  Renamed ME attributes to AIE
+* 1.4  Hyun    06/20/2019  Add XAieDma_TileBdClearAll() that resets all sw BDs
 * </pre>
 *
 ******************************************************************************/
@@ -207,6 +208,7 @@ void XAieDma_TileBdSetAdrLenMod(XAieDma_Tile *DmaInstPtr, u8 BdNum, u16 BaseAddr
 void XAieDma_TileBdSetNext(XAieDma_Tile *DmaInstPtr, u8 BdNum, u8 NextBd);
 void XAieDma_TileBdWrite(XAieDma_Tile *DmaInstPtr, u8 BdNum);
 void XAieDma_TileBdClear(XAieDma_Tile *DmaInstPtr, u8 BdNum);
+void XAieDma_TileBdClearAll(XAieDma_Tile *DmaInstPtr);
 u32 XAieDma_TileChControl(XAieDma_Tile *DmaInstPtr, u8 ChNum, u8 Reset, u8 Enable);
 
 #endif		/* end of protection macro */
