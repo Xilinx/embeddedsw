@@ -47,6 +47,9 @@ proc define_addr_params {drv_handle file_name} {
    set is_ddr_low_1 0
    set is_ddr_low_2 0
    set is_ddr_low_3 0
+   set is_ddr_ch_1 0
+   set is_ddr_ch_2 0
+   set is_ddr_ch_3 0
 
    set sw_proc [hsi::get_sw_processor]
    set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
@@ -96,6 +99,30 @@ proc define_addr_params {drv_handle file_name} {
                         set high_value_3 [common::get_property HIGH_VALUE [lindex [get_mem_ranges \
                         -of_objects [get_cells -hier $sw_proc] $periph] $i]]
                         set is_ddr_low_3 1
+		} elseif {$block_name == "C0_DDR_CH1" } {
+                        if {$is_ddr_ch_1 == "0"} {
+                                set base_value_4 [common::get_property BASE_VALUE [lindex [get_mem_ranges \
+                                        -of_objects [get_cells -hier $sw_proc] $periph] $i]]
+                        }
+                        set high_value_4 [common::get_property HIGH_VALUE [lindex [get_mem_ranges \
+                        -of_objects [get_cells -hier $sw_proc] $periph] $i]]
+                        set is_ddr_ch_1 1
+		} elseif {$block_name == "C0_DDR_CH2" } {
+                        if {$is_ddr_ch_2 == "0"} {
+                                set base_value_4 [common::get_property BASE_VALUE [lindex [get_mem_ranges \
+                                        -of_objects [get_cells -hier $sw_proc] $periph] $i]]
+                        }
+                        set high_value_5 [common::get_property HIGH_VALUE [lindex [get_mem_ranges \
+                        -of_objects [get_cells -hier $sw_proc] $periph] $i]]
+                        set is_ddr_ch_2 1
+		} elseif {$block_name == "C0_DDR_CH3" } {
+                        if {$is_ddr_ch_3 == "0"} {
+                                set base_value_6 [common::get_property BASE_VALUE [lindex [get_mem_ranges \
+                                        -of_objects [get_cells -hier $sw_proc] $periph] $i]]
+                        }
+                        set high_value_6 [common::get_property HIGH_VALUE [lindex [get_mem_ranges \
+                        -of_objects [get_cells -hier $sw_proc] $periph] $i]]
+                        set is_ddr_ch_3 1
 		}
 
 		incr i
@@ -131,6 +158,28 @@ proc define_addr_params {drv_handle file_name} {
 		puts $file_handle "#define XPAR_AXI_NOC_DDR_LOW_3_HIGHADDR $high_value_3"
 		puts $file_handle ""
 	}
+
+
+	if {$is_ddr_ch_1 == 1} {
+		puts $file_handle "#define XPAR_AXI_NOC_DDR_CH_1_BASEADDR $base_value_4"
+		puts $file_handle "#define XPAR_AXI_NOC_DDR_CH_1_HIGHADDR $high_value_4"
+		puts $file_handle ""
+	}
+	
+	
+	if {$is_ddr_ch_2 == 1} {
+		puts $file_handle "#define XPAR_AXI_NOC_DDR_CH_2_BASEADDR $base_value_5"
+		puts $file_handle "#define XPAR_AXI_NOC_DDR_CH_2_HIGHADDR $high_value_5"
+		puts $file_handle ""
+	}
+
+
+	if {$is_ddr_ch_3 == 1} {
+		puts $file_handle "#define XPAR_AXI_NOC_DDR_CH_3_BASEADDR $base_value_6"
+		puts $file_handle "#define XPAR_AXI_NOC_DDR_CH_3_HIGHADDR $high_value_6"
+		puts $file_handle ""
+	}
+
    }
 
    puts $file_handle "\n/******************************************************************/\n"
