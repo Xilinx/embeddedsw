@@ -49,6 +49,7 @@
 *						 "XCsuDma_WaitForDoneTimeout" to function
 *       arc     03/26/19 Fixed MISRA-C violations.
 * 1.5   aru     07/05/19 Fixed coverity warning.
+* 1.6   aru     08/29/19 Added assert check in XCsuDma_WaitForDoneTimeout().
 * </pre>
 *
 ******************************************************************************/
@@ -607,6 +608,10 @@ u32 XCsuDma_WaitForDoneTimeout(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 	u32 status;
 	u32 Addr;
 	u32 TimeoutFlag = (u32)XST_FAILURE;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((Channel == (XCSUDMA_SRC_CHANNEL)) ||
+                                        (Channel == (XCSUDMA_DST_CHANNEL)));
 
 	Addr = InstancePtr->Config.BaseAddress +
 			(u32)XCSUDMA_I_STS_OFFSET +
