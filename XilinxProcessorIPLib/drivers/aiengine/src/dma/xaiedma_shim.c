@@ -425,6 +425,30 @@ void XAieDma_ShimBdClear(XAieDma_Shim *DmaInstPtr, u8 BdNum)
 /*****************************************************************************/
 /**
 *
+* This API is used to clear all BD entries in the Shim DMA instance.
+*
+* @param	DmaInstPtr - Pointer to the Shim DMA instance.
+*
+* @return	None.
+*
+* @note		This doesn't clear the values in the BD physical location.
+*
+*******************************************************************************/
+void XAieDma_ShimBdClearAll(XAieDma_Shim *DmaInstPtr)
+{
+	u8 BdIdx;
+
+	XAie_AssertVoid(DmaInstPtr != XAIE_NULL);
+
+	/* Clear the BD entries in the DMA instance structure */
+	for (BdIdx = 0U; BdIdx < XAIEDMA_SHIM_MAX_NUM_DESCRS; BdIdx++) {
+		XAieDma_ShimBdClear(DmaInstPtr, BdIdx);
+	}
+}
+
+/*****************************************************************************/
+/**
+*
 * This API is used to wait on Shim DMA channel to be completed.
 *
 * @param	DmaInstPtr - Pointer to the Shim DMA instance.
