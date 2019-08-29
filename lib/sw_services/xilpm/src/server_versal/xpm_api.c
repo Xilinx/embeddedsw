@@ -1063,7 +1063,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType)
 	VERIFY(PM_SHUTDOWN_TYPE_RESET == Type);
 
 	switch (SubType) {
-	case XPM_SHUTDOWN_SUBTYPE_RST_SUBSYSTEM:
+	case PM_SHUTDOWN_SUBTYPE_RST_SUBSYSTEM:
 		Status = XPmSubsystem_Restart(SubsystemId);
 		if (XST_SUCCESS != Status) {
 			goto done;
@@ -1074,10 +1074,10 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType)
 			goto done;
 		}
 		break;
-	case XPM_SHUTDOWN_SUBTYPE_RST_PS_ONLY:
+	case PM_SHUTDOWN_SUBTYPE_RST_PS_ONLY:
 		/* TODO */
 		break;
-	case XPM_SHUTDOWN_SUBTYPE_RST_SYSTEM:
+	case PM_SHUTDOWN_SUBTYPE_RST_SYSTEM:
 		Status = XPmReset_SystemReset();
 		break;
 	default:
