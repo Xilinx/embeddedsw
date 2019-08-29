@@ -396,7 +396,10 @@ enum XPmNotifyEvent {
 #define PM_PLL_SET_MODE			50U
 #define PM_PLL_GET_MODE			51U
 
-#define PM_ADD_SUBSYSTEM         	    54U
+#define PM_REGISTER_ACCESS		52U
+#define PM_EFUSE_ACCESS			53U
+
+#define PM_ADD_SUBSYSTEM		54U
 #define PM_DESTROY_SUBSYSTEM            55U
 
 #define PM_DESCRIBE_NODES		56U
@@ -404,7 +407,7 @@ enum XPmNotifyEvent {
 #define	PM_ADD_NODE_PARENT		58U
 #define	PM_ADD_NODE_NAME		59U
 #define PM_ADD_REQUIREMENT		60U
-#define PM_SET_CURRENT_SUBSYSTEM		61U
+#define PM_SET_CURRENT_SUBSYSTEM	61U
 #define PM_INIT_NODE			62U
 #define PM_FEATURE_CHECK		63U
 #define PM_ISO_CONTROL			64U
