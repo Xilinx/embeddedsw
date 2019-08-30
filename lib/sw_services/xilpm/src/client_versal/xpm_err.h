@@ -69,27 +69,41 @@ extern "C" {
 #define XPM_SUCCESS                              XST_SUCCESS
 #define XPM_FAILURE                              XST_FAILURE
 
-/****************************** Generic API Errors ***********************/
-/******************************  0x2001 - 0x2020  ************************/
+/****************************** PM Specific Errors ***********************/
+/******************************  0x2000 - 0x2007  ************************/
+#define XPM_PM_INTERNAL                          0x2000L /* Internal error
+							   occurred */
+#define XPM_PM_CONFLICT                          0x2001L /* Conflicting require-
+							   ments asserted */
+#define XPM_PM_NO_ACCESS                         0x2002L /* No access to reque-
+							   sted node or operation */
+#define XPM_PM_INVALID_NODE                      0x2003L /* API does not apply¬
+							   to node */
+#define XPM_PM_DOUBLE_REQ                        0x2004L /* Duplicate device
+							   request */
+#define XPM_PM_ABORT_SUSPEND                     0x2005L /* Abort suspend not
+							   allowed */
+#define XPM_PM_TIMEOUT                           0x2006L /* Timeout occurred */
 
-#define XPM_INVALID_NODEID                       0x2001 /* Error when invalid
-							 NoedId is passed */
-#define XPM_INVALID_TYPEID                       0x2002 /* Invalid Reset/Shutd-
+#define XPM_PM_NODE_USED                         0x2007L /* Node is used and
+							   non-shareable */
+
+/****************************** Generic API Errors ***********************/
+/******************************  0x2010 - 0x2020  ************************/
+#define XPM_INVALID_TYPEID                       0x2010 /* Invalid Reset/Shutd-
 							   ownType */
-#define XPM_NO_PERMISSION                        0x2003 /* Core not permitted to
-							 to access resource */
-#define XPM_ERR_WAKEUP                           0x2004 /* Failed to wakeup core
+#define XPM_ERR_WAKEUP                           0x2011 /* Failed to wakeup core
 							 */
-#define XPM_ERR_CLEANUP                          0x2005 /* Failed subsys cleanup
+#define XPM_ERR_CLEANUP                          0x2012 /* Failed subsys cleanup
 							 */
-#define XPM_NO_FEATURE                           0x2006 /* Feature check failed
+#define XPM_NO_FEATURE                           0x2013 /* Feature check failed
 							 because of unsupported
 							 feature */
-#define XPM_ERR_VERSION                          0x2007 /* Version not supported
+#define XPM_ERR_VERSION                          0x2014 /* Version not supported
 							 */
-#define XPM_ERR_IOCTL                            0x2008 /* IOCTL type not suppor
+#define XPM_ERR_IOCTL                            0x2015 /* IOCTL type not suppor
 							  ted */
-#define XPM_INVALID_NAME                         0x2009 /* Generic Error for in-
+#define XPM_INVALID_NAME                         0x2016 /* Generic Error for in-
 							   valid name, eg. clock
 							   name */
 
