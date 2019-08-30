@@ -202,7 +202,7 @@ xvidc_disp_edid1(const struct edid * const edid,
         xil_printf("  Product code............. %u\r\n",
                (u16) edid->product_u16);
 
-        if (*(u32 *) edid->serial_number_u32)
+        if (edid->serial_number_u32)
             xil_printf("  Module serial number..... %u\r\n",
                    (u32) edid->serial_number_u32);
 #endif
@@ -545,7 +545,7 @@ xvidc_disp_cea861_audio_data(
             case XVIDC_CEA861_AUDIO_FORMAT_LPCM:
 #if XVIDC_EDID_VERBOSITY > 0
                 if (VerboseEn) {
-                    xil_printf("  LPCM    %u-channel, %s%s%s\b%s",
+                    xil_printf("  LPCM        %u-channel, %s%s%s\b%s",
                            sad->channels + 1,
                            sad->flags.lpcm.bitrate_16_bit ? "16/" : "",
                            sad->flags.lpcm.bitrate_20_bit ? "20/" : "",
@@ -561,9 +561,51 @@ xvidc_disp_cea861_audio_data(
             case XVIDC_CEA861_AUDIO_FORMAT_AC_3:
 #if XVIDC_EDID_VERBOSITY > 0
                 if (VerboseEn) {
-                    xil_printf("  AC-3    %u-channel, %4uk max. bit rate",
+                    xil_printf("  AC-3        %u-channel, %4ukHz max. bit rate",
                            sad->channels + 1,
                            (sad->flags.maximum_bit_rate << 3));
+                }
+#endif
+                break;
+            case XVIDC_CEA861_AUDIO_FORMAT_DTS:
+#if XVIDC_EDID_VERBOSITY > 0
+                if (VerboseEn) {
+                    xil_printf("  DTS         %u-channel, %4ukHz max. bit rate",
+                           sad->channels + 1,
+                           (sad->flags.maximum_bit_rate << 3));
+                }
+#endif
+                break;
+
+            case XVIDC_CEA861_AUDIO_FORMAT_E_AC_3:
+#if XVIDC_EDID_VERBOSITY > 0
+                if (VerboseEn) {
+                    xil_printf("  DD+(E-AC3)  %u-channel,"
+                           " %u-Format Dependent Value",
+                           sad->channels + 1,
+                           (sad->flags.format_dependent));
+                }
+#endif
+                break;
+
+            case XVIDC_CEA861_AUDIO_FORMAT_DTS_HD:
+#if XVIDC_EDID_VERBOSITY > 0
+                if (VerboseEn) {
+                    xil_printf("  DTS-HD      %u-channel,"
+                           " %u-Format Dependent Value",
+                           sad->channels + 1,
+                           (sad->flags.format_dependent));
+                }
+#endif
+                break;
+
+            case XVIDC_CEA861_AUDIO_FORMAT_MLP:
+#if XVIDC_EDID_VERBOSITY > 0
+                if (VerboseEn) {
+                    xil_printf("  MAL (MLP)   %u-channel,"
+                           " %u-Format Dependent Value",
+                           sad->channels + 1,
+                           (sad->flags.format_dependent));
                 }
 #endif
                 break;
@@ -732,6 +774,16 @@ xvidc_disp_cea861_extended_data(
                 xil_printf("  CE video identifiers (VICs) - "
                                               " timing/formats supported\r\n");
             }
+            /* For VIC 1 to VIC 64, where, the first 7 bit is the VIC number,
+             * and the most significant bit is to define the Native Video Format
+             * or not.
+             * svd/short video descriptor = [native, 7 bits of VIC]
+             *       --> Covers for SVD [1-64] and SVD [129-192]
+             * VIC 65 to VIC 127, all the 8 bits are the VIC Number
+             * VIC 193 to VIC 253, all the 8 bits are the VIC Number
+             * svd/short video descriptor = [8 bits of VIC]
+             *       --> SVD= 0, 128, 254 and 255 are reserved.
+             */
             for (u8 i = 0; i < edb->header.length - 1; i++) {
                u8 vic;
                u8 native=0;
@@ -825,21 +877,52 @@ xvidc_disp_cea861_video_data(
     /* For Future Usage */
     EdidCtrlParam = EdidCtrlParam;
 
+    /* Variable */
+    u8 Vic;
+    u8 Native;
+
     if (VerboseEn) {
        xil_printf("CE video identifiers (VICs) - timing/formats"
                                                              " supported\r\n");
     }
 
     for (u8 i = 0; i < vdb->header.length; i++) {
+        /* For VIC 1 to VIC 64, where, the first 7 bit is the VIC number,
+         * and the most significant bit is to define the Native Video Format
+         * or not.
+         * svd/short video descriptor = [native, 7 bits of VIC]
+         *       --> Covers for SVD [1-64] and SVD [129-192]
+         * VIC 65 to VIC 127, all the 8 bits are the VIC Number
+         * VIC 193 to VIC 253, all the 8 bits are the VIC Number
+         * svd/short video descriptor = [8 bits of VIC]
+         *       --> SVD= 0, 128, 254 and 255 are reserved.
+         */
+        if (vdb->svd[i].video_identification_code >= 1 &&
+                        vdb->svd[i].video_identification_code <= 127) {
+                Native = FALSE;
+                Vic    = vdb->svd[i].video_identification_code;
+        } else if (vdb->svd[i].video_identification_code >= 129 &&
+                        vdb->svd[i].video_identification_code <= 192) {
+                Native = TRUE;
+                Vic    = vdb->svd[i].video_identification_code & 0x7F;
+        } else if (vdb->svd[i].video_identification_code >= 193 &&
+                        vdb->svd[i].video_identification_code <= 253) {
+                Native = FALSE;
+                Vic    = vdb->svd[i].video_identification_code;
+        } else {
+                /* Reserved or Not Valid */
+                Native = FALSE;
+                Vic    = vdb->svd[i].video_identification_code;
+        }
 
         const struct xvidc_cea861_timing * const timing =
-            &xvidc_cea861_timings[vdb->svd[i].video_identification_code];
+            &xvidc_cea861_timings[Vic];
 
-        EdidCtrlParam->SuppCeaVIC[i] = vdb->svd[i].video_identification_code;
+        EdidCtrlParam->SuppCeaVIC[i] = Vic;
         if (VerboseEn) {
             xil_printf(" %s CEA Mode %02u: %4u x %4u%c @ %dHz\r\n",
-                   vdb->svd[i].native ? "*" : " ",
-                   vdb->svd[i].video_identification_code,
+                   Native ? "*" : " ",
+                   Vic,
                    timing->hactive, timing->vactive,
                    (timing->mode == INTERLACED) ? 'i' : 'p',
                    (u32)(timing->vfreq));
@@ -998,6 +1081,50 @@ xvidc_disp_cea861_vendor_data(
 #endif
                 }
 
+            switch (hdmi->max_frl_rate) {
+            case XVIDC_MAXFRLRATE_NOT_SUPPORTED:
+                EdidCtrlParam->MaxFrlLanesSupp = 0;
+                EdidCtrlParam->MaxFrlLineRateSupp = 0;
+                break;
+
+            case XVIDC_MAXFRLRATE_3X3GBITSPS:
+                EdidCtrlParam->MaxFrlLanesSupp = 3;
+                EdidCtrlParam->MaxFrlLineRateSupp = 3;
+                break;
+
+            case XVIDC_MAXFRLRATE_3X6GBITSPS:
+                EdidCtrlParam->MaxFrlLanesSupp = 3;
+                EdidCtrlParam->MaxFrlLineRateSupp = 6;
+                break;
+
+            case XVIDC_MAXFRLRATE_4X6GBITSPS:
+                EdidCtrlParam->MaxFrlLanesSupp = 4;
+                EdidCtrlParam->MaxFrlLineRateSupp = 6;
+                break;
+
+            case XVIDC_MAXFRLRATE_4X8GBITSPS:
+                EdidCtrlParam->MaxFrlLanesSupp = 4;
+                EdidCtrlParam->MaxFrlLineRateSupp = 8;
+                break;
+
+            case XVIDC_MAXFRLRATE_4X10GBITSPS:
+                EdidCtrlParam->MaxFrlLanesSupp = 4;
+                EdidCtrlParam->MaxFrlLineRateSupp = 10;
+                break;
+
+            case XVIDC_MAXFRLRATE_4X12GBITSPS:
+                EdidCtrlParam->MaxFrlLanesSupp = 4;
+                EdidCtrlParam->MaxFrlLineRateSupp = 12;
+                break;
+
+            default:
+                EdidCtrlParam->MaxFrlLanesSupp = 0;
+                EdidCtrlParam->MaxFrlLineRateSupp = 0;
+                break;
+            }
+
+            EdidCtrlParam->MaxFrlRateSupp = hdmi->max_frl_rate;
+
             if (hdmi->header.length >= HDMI_VSDB_EXTENSION_FLAGS_OFFSET) {
 #if XVIDC_EDID_VERBOSITY > 0
                 if (VerboseEn) {
@@ -1011,11 +1138,17 @@ xvidc_disp_cea861_vendor_data(
 #endif
                     xil_printf("  YUV 420 Deep.C. Support..\r\n");
                     xil_printf("    Supports 48bpp......... %s\r\n",
-                           hdmi->dc_48bit_yuv420 ? "Yes" : "No");
+                            hdmi->dc_48bit_yuv420 ? "Yes" : "No");
                     xil_printf("    Supports 36bpp......... %s\r\n",
-                           hdmi->dc_36bit_yuv420 ? "Yes" : "No");
+                            hdmi->dc_36bit_yuv420 ? "Yes" : "No");
                     xil_printf("    Supports 30bpp......... %s\r\n",
-                           hdmi->dc_30bit_yuv420 ? "Yes" : "No");
+                            hdmi->dc_30bit_yuv420 ? "Yes" : "No");
+                    xil_printf("    Max FRL Rate Support... %u\r\n",
+                            EdidCtrlParam->MaxFrlRateSupp);
+                    xil_printf("    FRL Lanes Support...... %u\r\n",
+                            EdidCtrlParam->MaxFrlLanesSupp);
+                    xil_printf("    Max FRL Line Rate Support. %u\r\n",
+                            EdidCtrlParam->MaxFrlLineRateSupp);
                 }
 #endif
                 EdidCtrlParam->IsYCbCr420dc30bppSupp = hdmi->dc_30bit_yuv420;

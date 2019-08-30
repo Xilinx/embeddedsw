@@ -584,6 +584,13 @@ XVidC_VideoMode XVidC_GetVideoModeIdExtensive(XVidC_VideoTiming *Timing,
 								Timing->F1VSyncWidth)) {
 					ResFound = (TRUE);
 					break;
+				} else {
+					Mid = Mid + 1;
+					HActive =
+					XVidC_VideoTimingModes[Mid].Timing.HActive;
+					VActive =
+					XVidC_VideoTimingModes[Mid].Timing.VActive;
+					Rate = XVidC_VideoTimingModes[Mid].FrameRate;
 				}
 			}
 			/* Check next entry */
@@ -749,6 +756,9 @@ const char *XVidC_GetFrameRateStr(XVidC_VideoMode VmId)
 		case (XVIDC_FR_96HZ):   return ("96Hz");
 		case (XVIDC_FR_100HZ):  return ("100Hz");
 		case (XVIDC_FR_120HZ):  return ("120Hz");
+		case (XVIDC_FR_144HZ):  return ("144Hz");
+		case (XVIDC_FR_200HZ):  return ("200Hz");
+		case (XVIDC_FR_240HZ):  return ("240Hz");
 
 		default:
 		     return ("Frame rate not supported");
@@ -1086,7 +1096,7 @@ void XVidC_ReportStreamInfo(const XVidC_VideoStream *Stream)
 		xil_printf("\tResolution:       %dx%d [Custom Mode]\r\n",
 				Stream->Timing.HActive, Stream->Timing.VActive);
 		xil_printf("\tPixel Clock:      %d kHz\r\n",
-				XVidC_GetPixelClockHzByHVFr(
+				(u32)XVidC_GetPixelClockHzByHVFr(
 					Stream->Timing.HTotal,
 					Stream->Timing.F0PVTotal,
 					Stream->FrameRate)/1000);
@@ -1097,7 +1107,7 @@ void XVidC_ReportStreamInfo(const XVidC_VideoStream *Stream)
 		xil_printf("\tResolution:       %s\r\n",
 				XVidC_GetVideoModeStr(Stream->VmId));
 		xil_printf("\tPixel Clock:      %d kHz\r\n",
-				XVidC_GetPixelClockHzByVmId(Stream->VmId)/1000);
+				(u32)XVidC_GetPixelClockHzByVmId(Stream->VmId)/1000);
 	}
 }
 

@@ -51,7 +51,7 @@
  * 4.4   eb   09/04/18 Fixed timings for 1280x720_24_P, 1280x720_25_P,
  *                         1280x720_30_P
  * 4.5	 jsr  07/03/18 Added timing for new video mode XVIDC_VM_720x486_60_I
- * 4.5   mmo  02/14/19 Added 5k, 8k, 10k and Low Resolution with 200Hz, 240Hz
+ * 4.6   mmo  02/14/19 Added 5k, 8k, 10k and Low Resolution with 200Hz, 240Hz
  * </pre>
  *
 *******************************************************************************/

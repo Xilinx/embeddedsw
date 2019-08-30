@@ -71,7 +71,7 @@
  *       vyc  04/04/18 Added BGR8 memory format
  * 4.5   jsr  07/03/18 Added XVIDC_VM_720x486_60_I video format
  * 4.5   yas  03/08/19 Added support for frame rates 144HZ and 240HZ
- * 4.5   mmo  02/14/19 Added 5k, 8k, 10k and Low Resolution with 200Hz, 240Hz
+ * 4.6   mmo  02/14/19 Added 5k, 8k, 10k and Low Resolution with 200Hz, 240Hz
  * </pre>
  *
 *******************************************************************************/
