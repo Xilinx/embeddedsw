@@ -905,7 +905,7 @@ XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId)
 
 	/* Check for read-only flag */
 	if (0 != (CLK_FLAG_READ_ONLY & Clk->Flags)) {
-		Status = XST_NO_ACCESS;
+		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
 
@@ -917,7 +917,7 @@ XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId)
 
 	if (ISPLL(ClockId)) {
 		/* Do not allow permission by default when PLL is shared */
-		Status = XST_NO_ACCESS;
+		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
 
@@ -935,13 +935,13 @@ XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId)
 
 	/* Check permission for given subsystem */
 	if (0 == (PermissionMask & (1 << SubsystemIdx))) {
-		Status = XST_NO_ACCESS;
+		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
 
 	/* Access is not allowed if resource is shared (multiple subsystems) */
 	if (__builtin_popcount(PermissionMask) > 1) {
-		Status = XST_NO_ACCESS;
+		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
 

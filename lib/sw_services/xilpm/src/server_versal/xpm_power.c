@@ -382,7 +382,7 @@ XStatus XPmPower_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 	Power = XPmPower_GetById(Id);
 
 	if (NULL == Power) {
-		Status = XST_INVALID_PARAM;
+		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
 
