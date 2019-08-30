@@ -604,6 +604,9 @@ typedef struct {
 	/*Sink Capability Support*/
     u8             MaxFrameRateSupp;
     u16            MaxTmdsMhz;
+    u8             MaxFrlRateSupp;
+    u8             MaxFrlLineRateSupp;
+    u8             MaxFrlLanesSupp;
 	/*CEA 861 Supported VIC Support*/
     u8             SuppCeaVIC[32];
 	/*VESA Sink Preffered Timing Support*/

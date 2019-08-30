@@ -121,6 +121,8 @@ void XV_VidC_EdidCtrlParamInit (XV_VidC_EdidCntrlParam *EdidCtrlParam) {
     EdidCtrlParam->IsYCbCr420dc30bppSupp = XVIDC_NOT_SUPPORTED;
     EdidCtrlParam->IsYCbCr420dc36bppSupp = XVIDC_NOT_SUPPORTED;
     EdidCtrlParam->IsYCbCr420dc48bppSupp = XVIDC_NOT_SUPPORTED;
+    EdidCtrlParam->MaxFrlLineRateSupp    = XVIDC_NOT_SUPPORTED;
+    EdidCtrlParam->MaxFrlLanesSupp       = XVIDC_NOT_SUPPORTED;
     EdidCtrlParam->IsSCDCReadRequestReady= XVIDC_NOT_SUPPORTED;
     EdidCtrlParam->IsSCDCPresent         = XVIDC_NOT_SUPPORTED;
     EdidCtrlParam->MaxFrameRateSupp      = 0;
