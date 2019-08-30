@@ -80,6 +80,7 @@ extern u32 MCDP6000_IC_Rev;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+#define EDID_IIC_ADDRESS	0x50
 
 /**************************** Type Definitions *******************************/
 
@@ -1686,14 +1687,16 @@ static void DpRxSs_PopulateDpRxPorts(XDpRxSs *InstancePtr)
 			StreamIndex < InstancePtr->Config.NumMstStreams;
 							StreamIndex++) {
 			/* Set I2C maps. */
-			if (InstancePtr->EdidSize == 0)
-                                XDp_RxSetIicMapEntry(InstancePtr->DpPtr,
-                                        StreamIndex + 1, 0x50, 128, GenEdid);
-                        else
-                                XDp_RxSetIicMapEntry(InstancePtr->DpPtr,
-                                        StreamIndex + 1, 0x50,
-                                        InstancePtr->EdidSize,
-                                        InstancePtr->EdidDataPtr);
+			if (!InstancePtr->EdidSize[StreamIndex]) {
+				XDp_RxSetIicMapEntry(InstancePtr->DpPtr,
+					StreamIndex + 1, EDID_IIC_ADDRESS,
+					sizeof(GenEdid), GenEdid);
+			} else {
+				XDp_RxSetIicMapEntry(InstancePtr->DpPtr,
+					StreamIndex + 1, EDID_IIC_ADDRESS,
+					InstancePtr->EdidSize[StreamIndex],
+					InstancePtr->EdidDataPtr[StreamIndex]);
+			}
 
 			/* Set DPCD maps. */
 			XDp_RxSetDpcdMap(InstancePtr->DpPtr, StreamIndex + 1,
