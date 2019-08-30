@@ -155,5 +155,5 @@ XStatus XPm_PollForMask(u32 RegAddress, u32 Mask, u32 TimeOutCount)
 		TimeOut--;
 	}
 
-	return ((TimeOut == 0U) ? XST_FAILURE : XST_SUCCESS);
+	return ((TimeOut == 0U) ? XPM_PM_TIMEOUT : XST_SUCCESS);
 }

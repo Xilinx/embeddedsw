@@ -2046,7 +2046,7 @@ XStatus XPmPin_SetPinFunction(u32 PinId, u32 FuncId)
 	} else if (XPM_NODETYPE_PMC_MIO == NODETYPE(PinId)) {
 		PmOut32(Pin->Node.BaseAddress + PINNUM(Pin->Node.Id) * 4, PinFunc->PmioRegMask);
 	} else {
-		Status = XST_FAILURE;
+		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
 	Pin->PinFunc = PinFunc;
@@ -2402,7 +2402,7 @@ XStatus XPmPin_Request(const u32 SubsystemId, const u32 PinId)
 		if (SubsystemId == Pin->SubsysId) {
 			goto done;
 		}
-		Status = XST_NO_ACCESS;
+		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
 
@@ -2467,7 +2467,7 @@ XStatus XPmPin_CheckPerms(const u32 SubsystemId, const u32 PinId)
 	}
 
 	if (SubsystemId != Pin->SubsysId) {
-		Status = XST_NO_ACCESS;
+		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
 

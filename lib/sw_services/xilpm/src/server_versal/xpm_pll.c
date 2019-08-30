@@ -41,7 +41,7 @@ XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 	XPm_PllClockNode *PllClkPtr;
 
 	if (NULL != XPmClock_GetById(Id)) {
-		Status = XST_INVALID_PARAM;
+		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
 	if (TopologyType!=TOPOLOGY_GENERIC_PLL && TopologyType!=TOPOLOGY_NOC_PLL) {

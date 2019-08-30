@@ -308,6 +308,7 @@ XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId)
 	(void) (NodeId);
 
 	/*TODO: Add validation based on permissions defined by user*/
+	/* No permission should return XPM_PM_NO_ACCESS */
 done:
 	return Status;
 }
@@ -713,7 +714,7 @@ XStatus XPmSubsystem_GetStatus(const u32 SubsystemId, const u32 DeviceId,
 	Target_Subsystem = XPmSubsystem_GetById(DeviceId);
 	if (NULL == Subsystem || NULL == Target_Subsystem ||
 	    NULL == DeviceStatus) {
-		Status = XPM_INVALID_SUBSYSID;
+		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
 

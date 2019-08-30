@@ -229,7 +229,7 @@ XStatus XPm_CheckCapabilities(XPm_Device *Device, u32 Caps)
 
 done:
 	if (Status != XST_SUCCESS) {
-		Status = XPM_NO_PERMISSION;
+		Status = XST_NO_FEATURE;
 	}
 	return Status;
 }
@@ -617,12 +617,12 @@ static XStatus Request(XPm_Device *Device, XPm_Subsystem *Subsystem,
 
 	/* Check whether this device is shareable */
 	UsagePolicy = Reqm->Flags & REG_FLAGS_USAGE_MASK;
-	if (UsagePolicy == REQ_TIME_SHARED) {
+	if ((UsagePolicy == REQ_TIME_SHARED) || (UsagePolicy == REQ_NONSHARED)) {
 			//Check if it already requested by other subsystem. If yes, return
 			XPm_Requirement *NextReqm = Reqm->NextSubsystem;
 			while (NULL != NextReqm) {
 				if (TRUE == NextReqm->Allocated) {
-					Status = XST_FAILURE;
+					Status = XPM_PM_NODE_USED;
 					goto done;
 				}
 				NextReqm = NextReqm->NextSubsystem;
@@ -915,7 +915,7 @@ done:
 
 int XPmDevice_CheckPermissions(XPm_Subsystem *Subsystem, u32 DeviceId)
 {
-	int Status = XST_FAILURE;
+	int Status = XPM_PM_NO_ACCESS;
 	XPm_Requirement *Reqm;
 	XPm_Device *Device = XPmDevice_GetById(DeviceId);
 
@@ -1020,20 +1020,21 @@ XStatus XPmDevice_Request(const u32 SubsystemId,
 	XPm_Subsystem *Subsystem;
 
 	/* Todo: Check if policy allows this request */
+	/* If not allowed XPM_PM_NO_ACCESS error should be returned */
 
 	if (XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
-		Status = XPM_INVALID_DEVICEID;
+		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
 
 	Device = XPmDevice_GetById(DeviceId);
 	if (NULL == Device) {
-		Status = XPM_INVALID_DEVICEID;
+		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
 
 	if (Device->Node.Id != DeviceId) {
-		Status = XPM_INVALID_DEVICEID;
+		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
 
@@ -1061,18 +1062,18 @@ XStatus XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId)
 	/* Todo: Check if subsystem has permission */
 
 	if (XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
-		Status = XPM_INVALID_DEVICEID;
+		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
 
 	Device = XPmDevice_GetById(DeviceId);
 	if (NULL == Device) {
-		Status = XPM_INVALID_DEVICEID;
+		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
 
 	if (Device->Node.Id != DeviceId) {
-		Status = XPM_INVALID_DEVICEID;
+		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
 
@@ -1101,18 +1102,18 @@ XStatus XPmDevice_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 	/* Todo: Check if subsystem has permission */
 
 	if (XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
-		Status = XPM_INVALID_DEVICEID;
+		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
 
 	Device = XPmDevice_GetById(DeviceId);
 	if (NULL == Device) {
-		Status = XPM_INVALID_DEVICEID;
+		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
 
 	if (Device->Node.Id != DeviceId) {
-		Status = XPM_INVALID_DEVICEID;
+		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
 
@@ -1149,7 +1150,7 @@ XStatus XPmDevice_GetStatus(const u32 SubsystemId,
 
 	Device = XPmDevice_GetById(DeviceId);
 	if (NULL == Device) {
-		Status = XPM_INVALID_DEVICEID;
+		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
 
@@ -1381,7 +1382,7 @@ static XStatus GetStateWithCaps(const XPm_Device* const Device, const u32 Caps,
 				u32* const State)
 {
 	u32 Idx;
-	XStatus Status = XPM_ERR_GETSTATE;
+	XStatus Status = XPM_PM_CONFLICT;
 
 	for (Idx = 0U; Idx < Device->DeviceFsm->StatesCnt; Idx++) {
 		/* Find the first state that contains all capabilities */

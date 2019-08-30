@@ -522,14 +522,14 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
 	if ((XPM_NODECLASS_POWER != NODECLASS(NodeId)) ||
 	    (XPM_NODESUBCL_POWER_DOMAIN != NODESUBCLASS(NodeId)) ||
 	    (XPM_NODEIDX_POWER_MAX <= NODEINDEX(NodeId))) {
-		Status = XPM_INVALID_NODEID;
+		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
 
 	PwrDomainNode = (XPm_PowerDomain *)XPmPower_GetById(NodeId);
 	if (NULL == PwrDomainNode) {
 		PmErr("Unable to find Power Domain for given Node Id\n\r");
-		Status = XPM_INVALID_NODEID;
+		Status = XPM_PM_INVALID_NODE;
                 goto done;
 	}
 
@@ -585,7 +585,7 @@ XStatus XPm_IsoControl(u32 NodeId, u32 Enable)
 
 	if ((XPM_NODECLASS_ISOLATION != NODECLASS(NodeId)) ||
 	    (XPM_NODEIDX_ISO_MAX <= NODEINDEX(NodeId))) {
-		Status = XPM_INVALID_NODEID;
+		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
 
@@ -649,9 +649,10 @@ XStatus XPm_AbortSuspend(const u32 SubsystemId, const u32 Reason,
 	   (NODESUBCLASS(DeviceId) == XPM_NODESUBCL_DEV_CORE)) {
 		Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
 		Core->Device.Node.State = XPM_DEVSTATE_RUNNING;
+		Status = XPM_PM_ABORT_SUSPEND;
 	} else {
 		PmErr("Invalid Device Id\n\r");
-		Status = XPM_INVALID_DEVICEID;
+		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
 
@@ -761,10 +762,12 @@ XStatus XPm_RequestSuspend(const u32 SubsystemId, const u32 TargetSubsystemId,
 	}
 
 	/* TODO: Check if current subsystem has access to request target subsystem */
+	/* Failure in this case should return XPM_PM_NO_ACCESS */
 
 	/* TODO: Target subsystem must be active to get the suspend request */
 
 	/* TODO: Check if other subsystem has sent suspend request to target subsystem */
+	/* Failure in this case should return XPM_PM_DOUBLE_REQ */
 
 	Payload[0] = XPM_INIT_SUSPEND_CB;
 	Payload[1] = SUSPEND_REASON_SUBSYSTEM_REQ;
@@ -835,7 +838,7 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 	/*Validate access first */
 	Status = XPm_IsWakeAllowed(SubsystemId, DeviceId);
 	if (XST_SUCCESS != Status) {
-		Status = XPM_NO_PERMISSION;
+		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
 
@@ -934,7 +937,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 
 	} else if (XPM_NODECLASS_POWER == NODECLASS(NodeId)) {
 		if (XPM_NODESUBCL_POWER_ISLAND == NODESUBCLASS(NodeId)) {
-			Status = XPM_INVALID_NODEID;
+			Status = XPM_PM_INVALID_NODE;
 			goto done;
 		}
 		VERIFY(XPM_NODESUBCL_POWER_DOMAIN == NODESUBCLASS(NodeId));
@@ -943,7 +946,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 		 * PMC power domain can not be powered off.
 		 */
 		if (XPM_NODEIDX_POWER_PMC == NODEINDEX(NodeId)) {
-			Status = XPM_INVALID_NODEID;
+			Status = XPM_PM_INVALID_NODE;
 			goto done;
 		}
 
@@ -972,7 +975,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 					Status = XPmRequirement_Release(
 					    Device->Requirements, RELEASE_DEVICE);
 					if (XST_SUCCESS != Status) {
-						Status = XPM_INVALID_NODEID;
+						Status = XPM_PM_INVALID_NODE;
 						goto done;
 					}
 				}
@@ -980,7 +983,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 			}
 		}
 	} else {
-		Status = XPM_INVALID_NODEID;
+		Status = XPM_PM_INVALID_NODE;
 	}
 
 done:
@@ -1119,20 +1122,21 @@ XStatus XPm_SetWakeupSource(const u32 SubsystemId, const u32 TargetNodeId,
 	if(NODECLASS(TargetNodeId) != XPM_NODECLASS_DEVICE ||
 	   NODESUBCLASS(TargetNodeId) != XPM_NODESUBCL_DEV_CORE)
 	{
-		Status = XPM_INVALID_NODEID;
+		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
 	/* The call applies only to peripheral nodes */
 	if (NODECLASS(SourceNodeId) != XPM_NODECLASS_DEVICE ||
 	    NODESUBCLASS(SourceNodeId) != XPM_NODESUBCL_DEV_PERIPH) {
-		Status = XPM_INVALID_NODEID;
+		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
 	/* Is subsystem allowed to use resource (slave)? */
 	Status = XPm_IsAccessAllowed(SubsystemId, SourceNodeId);
 	if (XST_SUCCESS != Status) {
+		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
 
@@ -1146,7 +1150,7 @@ XStatus XPm_SetWakeupSource(const u32 SubsystemId, const u32 TargetNodeId,
 	/* Check whether the device has wake-up capability */
 	Status = XPm_CheckCapabilities(&Periph->Device, PM_CAP_WAKEUP);
 	if (XST_SUCCESS != Status) {
-
+		Status = XST_NO_FEATURE;
 		goto done;
 	}
 
@@ -1231,11 +1235,13 @@ XStatus XPm_ReleaseDevice(const u32 SubsystemId, const u32 DeviceId)
 
 	Device = XPmDevice_GetById(DeviceId);
 	if (NULL == Device) {
+		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
 
 	Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
 	if (XST_SUCCESS != Status) {
+		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
 
@@ -1286,6 +1292,7 @@ XStatus XPm_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 
 	Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
 	if (XST_SUCCESS != Status) {
+		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
 
@@ -1320,6 +1327,7 @@ int XPm_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
 
 	Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
 	if (XST_SUCCESS != Status) {
+		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
 
@@ -1388,7 +1396,7 @@ XStatus XPm_GetDeviceStatus(const u32 SubsystemId,
 						DeviceStatus);
 		break;
 	default:
-		Status = XPM_ERR_DEVICE_STATUS;
+		Status = XST_INVALID_PARAM;
 	}
 
 	return Status;
@@ -1602,6 +1610,7 @@ XStatus XPm_SetClockDivider(const u32 SubsystemId, const u32 ClockId, const u32 
 	/* Check if subsystem is allowed to access requested clock or not */
 	Status = XPm_IsAccessAllowed(SubsystemId, ClockId);
 	if (Status != XST_SUCCESS) {
+		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
 
@@ -1680,6 +1689,7 @@ XStatus XPm_SetClockParent(const u32 SubsystemId, const u32 ClockId, const u32 P
 	/* Check if subsystem is allowed to access requested clock or not */
 	Status = XPm_IsAccessAllowed(SubsystemId, ClockId);
 	if (Status != XST_SUCCESS) {
+		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
 
@@ -1753,6 +1763,7 @@ XStatus XPm_SetPllParameter(const u32 SubsystemId, const u32 ClockId, const u32 
 	/* Check if subsystem is allowed to access requested clock or not */
 	Status = XPm_IsAccessAllowed(SubsystemId, ClockId);
 	if (Status != XST_SUCCESS) {
+		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
 
@@ -1837,6 +1848,7 @@ XStatus XPm_SetPllMode(const u32 SubsystemId, const u32 ClockId, const u32 Value
 	/* Check if subsystem is allowed to access requested pll or not */
 	Status = XPm_IsAccessAllowed(SubsystemId, ClockId);
 	if (Status != XST_SUCCESS) {
+		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
 
@@ -1930,22 +1942,23 @@ XStatus XPm_SetResetState(const u32 SubsystemId, const u32 IpiMask,
 		 */
 		if (XPM_NODESUBCL_RESET_PERIPHERAL == SubClass) {
 			if (XPM_NODETYPE_RESET_PERIPHERAL != SubType) {
-				Status = XST_NO_ACCESS;
+				Status = XPM_PM_NO_ACCESS;
 				goto done;
 			}
 		} else if (XPM_NODESUBCL_RESET_DBG == SubClass) {
 			if (XPM_NODETYPE_RESET_DBG != SubType) {
-				Status = XST_NO_ACCESS;
+				Status = XPM_PM_NO_ACCESS;
 				goto done;
 			}
 		} else {
-			Status = XST_NO_ACCESS;
+			Status = XPM_PM_NO_ACCESS;
 			goto done;
 		}
 
 		/* Check if subsystem is allowed to access requested reset */
 		Status = XPm_IsAccessAllowed(SubsystemId, ResetId);
 		if (XST_SUCCESS != Status) {
+			Status = XPM_PM_NO_ACCESS;
 			goto done;
 		}
 	}
@@ -2055,6 +2068,7 @@ XStatus XPm_SetPinFunction(const u32 SubsystemId,
 	/* Check if subsystem is allowed to access or not */
 	Status = XPm_IsAccessAllowed(SubsystemId, PinId);
 	if(Status != XST_SUCCESS) {
+		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
 
@@ -2118,6 +2132,7 @@ XStatus XPm_SetPinParameter(const u32 SubsystemId, const u32 PinId,
 	/* Check if subsystem is allowed to access or not */
 	Status = XPm_IsAccessAllowed(SubsystemId, PinId);
 	if(Status != XST_SUCCESS) {
+		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
 
@@ -2399,7 +2414,7 @@ static int XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
 		ReqTypeOffset = FpdReqTypeOffset[ReqType];
 		break;
 	default:
-		Status = XPM_INVALID_NODEID;
+		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
 
