@@ -177,6 +177,9 @@
 *                        Added print for current SLR and CRC.
 *               07/17/19 Added print to display CRC of AES key during CRC
 *                        verification.
+*               08/30/19 Corrected length in bits parameter while converting
+*                        PPK hash string(zynq efuse ps)
+*
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "stdio.h"
@@ -561,7 +564,8 @@ u32 XilSKey_EfusePs_InitData(XilSKey_EPs *PsInstancePtr)
 		 */
 		PsStatus = XilSKey_Efuse_ConvertStringToHexBE(
 						XSK_EFUSEPS_RSA_KEY_HASH_VALUE,
-						&(PsInstancePtr->RsaKeyHashValue[0]), 64);
+						&(PsInstancePtr->RsaKeyHashValue[0]), 
+						256U);
 		if(PsStatus != XST_SUCCESS)	{
 			return PsStatus;
 		}
