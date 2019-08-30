@@ -75,6 +75,7 @@
 *       psl   07/23/19 Fixed input validations.
 *       vns   08/07/19 Fixed CTRL LOCK in XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits
 *       psl   08/13/19 Fixed MISRA-C violation
+*       vns   08/29/19 Initialized Status variables
 * </pre>
 *
 *****************************************************************************/
@@ -161,7 +162,7 @@ static u32 XilSkey_ZynqMpUsrFuseRd(u32 Offset, u32 *Buffer, u32 Size, u8 UsrFuse
 ****************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u8 AesKeyInBits[XSK_ZYNQMP_EFUSEPS_AES_KEY_LEN_IN_BITS] = {0};
 	u8 Ppk0InBits[XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS] = {0};
 	u8 Ppk1InBits[XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS] = {0};
@@ -454,7 +455,7 @@ UNLOCK:
 u32 XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits(
 		XilSKey_SecCtrlBits *ReadBackSecCtrlBits, u8 ReadOption)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(ReadBackSecCtrlBits != NULL);
@@ -694,7 +695,7 @@ static inline u32 XilSKey_ZynqMp_EfusePsWrite_Checks(
 					XilSKey_ZynqMpEPs *InstancePtr)
 {
 	u32 RowOffset;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -890,7 +891,7 @@ END:
 static inline u32 XilSKey_ZynqMp_EfusePs_PrgrmTbits(void)
 {
 	u32 RowDataVal = 0U;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u8 Column;
 	u32 TbitsPrgrmReg;
 
@@ -985,7 +986,7 @@ u32 XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(u8 Row, u8 Column,
 						XskEfusePs_Type EfuseType)
 {
 	u32 RowDataVal = 0U;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u8 MarginRead;
 	u32 ReadReg;
 
@@ -1244,7 +1245,7 @@ END:
 u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions(void)
 {
 	u32 ReadReg;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Enable Program enable bit */
 	XilSKey_ZynqMp_EfusePS_PrgrmEn();
@@ -1347,7 +1348,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_Write_SecCtrl(
 				XilSKey_ZynqMpEPs *InstancePtr)
 {
 
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1666,7 +1667,7 @@ END:
 static inline u32 XilSKey_ZynqMp_EfusePs_Write_UsrCtrlBits(
 					XilSKey_ZynqMpEPs *InstancePtr)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	XskEfusePs_Type EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
 	u8 Row = XSK_ZYNQMP_EFUSEPS_MISC_USR_CTRL_ROW;
 	u8 DataInBits[XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW] = {0};
@@ -1862,7 +1863,7 @@ END:
 u32 XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc(u32 CrcValue)
 {
 
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u32 ReadReg = 0U;
 	u32 TimeOut = 0U;
 
@@ -2682,7 +2683,7 @@ END:
 ******************************************************************************/
 u32 XilSkey_ZynqMpEfuseAccess(const u32 AddrHigh, const u32 AddrLow)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	XilSKey_Efuse *EfuseAccess = (XilSKey_Efuse *)(UINTPTR)Addr;
 
@@ -3101,7 +3102,7 @@ END:
 static u32 XilSkey_ZynqMpUsrFuseRd(u32 Offset, u32 *Buffer,
 					u32 Size, u8 UsrFuseNum)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u8 FuseNum = UsrFuseNum;
 	u32 *Value = Buffer;
 	u32 Words = Size;

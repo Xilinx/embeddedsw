@@ -50,6 +50,7 @@
 *       psl  07/05/19 Added Asserts for validation.
 *       psl  07/23/19 Fixed input validation.
 *       psl  07/29/19 Fixed MISRA-C violation
+*       vns  08/29/19 Initialized Status variables
 * </pre>
 *
 *****************************************************************************/
@@ -117,7 +118,7 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufHelprData(XilSKey_Puf *InstancePtr)
 	u32 *TempPtr;
 	XskEfusePs_Type EfuseType;
 	u8 DataInBits[32] = {0};
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -215,7 +216,7 @@ END:
 u32 XilSKey_ZynqMp_EfusePs_ReadPufHelprData(u32 *Address)
 {
 
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u32 Row;
 	u32 RowDataVal[128] = {0U};
 	u32 *PtrEfuse2 = &RowDataVal[0];
@@ -308,7 +309,7 @@ END:
 u32 XilSKey_ZynqMp_EfusePs_WritePufChash(XilSKey_Puf *InstancePtr)
 {
 
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u8 Value[32] = {0U};
 	u8 Column;
 	XskEfusePs_Type EfuseType;
@@ -448,7 +449,7 @@ END:
 u32 XilSKey_ZynqMp_EfusePs_WritePufAux(XilSKey_Puf *InstancePtr)
 {
 
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u8 Value[32] = {0U};
 	u8 Column;
 	XskEfusePs_Type EfuseType;
@@ -634,7 +635,7 @@ done:
  *****************************************************************************/
 u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u32 PufStatus = 0U;
 	u32 Index = 0U;
 	u32 Debug = XSK_PUF_DEBUG_GENERAL;
@@ -757,7 +758,7 @@ ENDF:
 u32 XilSKey_Puf_Regeneration(XilSKey_Puf *InstancePtr)
 {
 	u32 PufStatus;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u32 PufChash = 0U;
 	u32 Debug = XSK_PUF_DEBUG_GENERAL;
 
@@ -816,7 +817,7 @@ END:
  ******************************************************************************/
 u32 XilSKey_Puf_Debug2(XilSKey_Puf *InstancePtr)
 {
-	u32 PufStatus;
+	u32 PufStatus = (u32)XST_FAILURE;
 	u32 Index;
 	u32 Debug = XSK_PUF_DEBUG_GENERAL;
 
@@ -873,7 +874,7 @@ u32 XilSKey_Puf_Debug2(XilSKey_Puf *InstancePtr)
 ******************************************************************************/
 u32 XilSKey_Write_Puf_EfusePs_SecureBits(XilSKey_Puf_Secure *WriteSecureBits)
 {
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	XskEfusePs_Type EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
 	u8 Row = XSK_ZYNQMP_EFUSEPS_PUF_AUX_ROW;
 	u32 RowDataVal;
@@ -996,7 +997,7 @@ u32 XilSKey_Read_Puf_EfusePs_SecureBits(
 		XilSKey_Puf_Secure *SecureBitsRead, u8 ReadOption)
 {
 
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(SecureBitsRead != NULL);
@@ -1050,7 +1051,7 @@ static inline u32 XilSKey_Read_Puf_EfusePs_SecureBits_Regs(
 {
 
 	u32 RegData = 0U;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	if (ReadOption == XSK_EFUSEPS_READ_FROM_CACHE) {
 		RegData = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
@@ -1138,7 +1139,7 @@ END:
 static inline u32 XilSKey_ZynqMp_EfusePs_CheckZeros_Puf(void)
 {
 	u32 RowDataVal = 0U;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 
 	/*
 	 * By the time of checking PUF syndrome data T bits
@@ -1207,7 +1208,7 @@ static inline u32 XilSkey_Puf_Validate_Access_Rules(u8 RequestType)
 {
 	u32 PufChash = 0U;
 	u32 PufAux = 0U;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u32 Debug = XSK_PUF_DEBUG_GENERAL;
 	XilSKey_SecCtrlBits ReadSecCtrlBits = {0U};
 	XilSKey_Puf_Secure PufSecureBits = {0U};
