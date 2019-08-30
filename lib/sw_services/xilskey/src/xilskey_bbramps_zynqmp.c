@@ -52,6 +52,7 @@
 *                        XilSKey_ZynqMp_Bbram_Zeroise
 * 6.7   psl     03/21/19 Fixed MISRA-C violation.
 * 6.8   psl     08/13/19 Fixed MISRA-C violation.
+*       vns     08/29/19 Initialized Status variables
 * </pre>
 *
 ******************************************************************************/
@@ -96,7 +97,7 @@ extern u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr);
 u32 XilSKey_ZynqMp_Bbram_Program(u32 *AesKey)
 {
 
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u32 AesCrc;
 	u32 *KeyPtr = AesKey;
 	u32 StatusRead = 0U;
@@ -231,7 +232,7 @@ static inline u32 XilSKey_ZynqMp_Bbram_PrgrmEn(void)
 {
 
 	u32 StatusRead = 0U;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u32 TimeOut = 0U;
 
 	/*

@@ -49,6 +49,7 @@
 *                        examples to library.
 * 6.8   psl     05/21/19 Added check for SystemInitDone, to initialize jtag
 *                        server only once to solve stack corruption issue.
+*       vns     08/29/19 Initialized Status variables
 ****************************************************************************/
 /***************************** Include Files *********************************/
 #include "xparameters.h"
@@ -195,7 +196,7 @@ int XilSKey_Bbram_JTAGServerInit(XilSKey_Bbram *InstancePtr)
 *****************************************************************************/
 int XilSKey_Bbram_Program(XilSKey_Bbram *InstancePtr)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	if(NULL == InstancePtr)	{
 		return XST_FAILURE;
@@ -240,7 +241,7 @@ int XilSKey_Bbram_Program(XilSKey_Bbram *InstancePtr)
 *****************************************************************************/
 static inline int XilSKey_Bbram_Program_Zynq(XilSKey_Bbram *InstancePtr)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	InstancePtr->CurSlr = 0;
 	/*
@@ -293,7 +294,7 @@ static inline int XilSKey_Bbram_Program_Zynq(XilSKey_Bbram *InstancePtr)
 ******************************************************************************/
 static inline int XilSKey_Bbram_Program_Ultra(XilSKey_Bbram *InstancePtr)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
 	XilSKeyJtag.CurSlr = InstancePtr->CurSlr;
 

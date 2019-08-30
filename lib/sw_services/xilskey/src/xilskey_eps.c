@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -51,6 +51,7 @@
 *                        API to program eFUSE protect bit after programming
 *                        DFT bits
 * 6.6   vns     06/06/18 Added doxygen tags
+* 6.8   vns     08/29/19 Initialized Status variables
 *
 *****************************************************************************/
 
@@ -109,10 +110,10 @@ static u8 XilSKey_EfusePs_IsReadModeSupported (u8 ReadMode);
 ****************************************************************************/
 u32 XilSKey_EfusePs_Write(XilSKey_EPs *InstancePtr)
 {
-	u32 Status, StatusRedundantBit, RetValue;
+	u32 Status = (u32)XST_FAILURE;
+	u32 StatusRedundantBit = (u32)XST_FAILURE;
+	u32 RetValue = (u32)XST_FAILURE;
 	u32 RefClk;
-
-	RetValue = XST_SUCCESS;
 
 
 	if (NULL == InstancePtr) {
@@ -304,6 +305,7 @@ u32 XilSKey_EfusePs_Write(XilSKey_EPs *InstancePtr)
 		}
 	}
 
+	RetValue = (u32)XST_SUCCESS;
 ExitCtrlResetStatus:
 	/**
 	 * Disable Programming, write and read
@@ -348,12 +350,10 @@ ExitFinal:
 u32 XilSKey_EfusePs_Read(XilSKey_EPs *InstancePtr)
 {
 
-	u32 Status, RetValue;
+	u32 Status = (u32)XST_FAILURE;
+	u32 RetValue = (u32)XST_FAILURE;
 	u32 RefClk;
 	u32 Index;
-
-	RetValue = XST_SUCCESS;
-
 
 	if (NULL == InstancePtr) {
 		return XSK_EFUSEPS_ERROR_PS_STRUCT_NULL;
@@ -431,6 +431,7 @@ u32 XilSKey_EfusePs_Read(XilSKey_EPs *InstancePtr)
 		}
 	}
 
+	RetValue = (u32)XST_SUCCESS;
 ExitCtrlResetStatus:
 	/**
 	 * Disable Programming, write and read
@@ -465,11 +466,11 @@ ExitFinal:
 
 static u32 XilSKey_EfusePs_CheckRsaHashForAllZeros(u32 RefClk)
 {
-	u32 EfuseAddress,Status,RetValue;
+	u32 EfuseAddress;
+	u32 Status = (u32)XST_FAILURE;
+	u32 RetValue = (u32)XST_FAILURE;
 	u32 LoopIndex;
 	u8 Data;
-
-	RetValue = XST_SUCCESS;
 
 	/**
 	 * Set the controller to read in redundancy mode
@@ -507,6 +508,8 @@ static u32 XilSKey_EfusePs_CheckRsaHashForAllZeros(u32 RefClk)
 		EfuseAddress += 4;
 		LoopIndex++;
 	} /* End of  while (LoopIndex < (XSK_EFUSEPS_HAMMING_LOOPS* ....) */
+	
+	RetValue = (u32)XST_SUCCESS;
 
 ExitControllerReset:
 	/**
@@ -546,7 +549,9 @@ static u32
 XilSKey_EfusePs_WriteWithXadcCheckAndVerify(u32 EfuseAddress, u32 RefClk)
 {
 	XSKEfusePs_XAdc XAdcInstancePtr;
-	u32 Status, StatusLowerAddr, RedundantEfuseAddress;
+	u32 Status = (u32)XST_FAILURE;
+	u32 StatusLowerAddr = (u32)XST_FAILURE;
+	u32 RedundantEfuseAddress;
 
 	/**
 	 * If the eFUSE bit is already programmed, no need to program again.
@@ -645,7 +650,8 @@ static u32 XilSKey_EfusePs_WriteRsaKeyHash(u8 *RsaKeyHashBuf, u32 RefClk)
 {
 	int LoopIndex,BitIndex;
 	u8 DataBytes[XSK_EFUSEPS_RSA_HASH_LEN_ECC_CALC] = {0}, Ecc[32];
-	u32 EfuseAddress, Status;
+	u32 EfuseAddress;
+	u32 Status = (u32)XST_FAILURE;
 
 
 	/**
@@ -726,7 +732,8 @@ static u32 XilSKey_EfusePs_ReadRsaKeyHash(u8 *RsaKeyHashBuf, u32 RefClk)
 {
 	int LoopIndex, BitIndex, Index;
 	u8 DataBytes[260], Recover[32], Syndrome[5], Pos;
-	u32 EfuseAddress, Status;
+	u32 EfuseAddress;
+	u32 Status = (u32)XST_FAILURE;
 
 	/**
 	 * Prepare the hamming matrix for encoding the RSA Key hash
@@ -821,7 +828,7 @@ static u32
 XilSKey_EfusePs_ReadWithXadcCheck(u32 EfuseAddress, u32 RefClk, u8 *Data)
 {
 	XSKEfusePs_XAdc XAdcInstancePtr;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	(void) RefClk;
 
 	XAdcInstancePtr.VType = XSK_EFUSEPS_VPAUX;
@@ -875,7 +882,7 @@ XilSKey_EfusePs_ReadWithXadcCheck(u32 EfuseAddress, u32 RefClk, u8 *Data)
 static u32 XilSKey_EfusePs_VerifyWithXadcCheck(u32 EfuseAddress, u32 RefClk)
 {
 	XSKEfusePs_XAdc XAdcInstancePtr;
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	u8 Data;
 
 	XAdcInstancePtr.VType = XSK_EFUSEPS_VPAUX;
@@ -1544,9 +1551,8 @@ u32 XilSKey_EfusePs_WriteEfuseBit(u32 Addr)
 ****************************************************************************/
 u32 XilSKey_EfusePs_ReadStatus(XilSKey_EPs *InstancePtr, u32 *StatusBits)
 {
-	u32 RetValue;
+	u32 RetValue = (u32)XST_FAILURE;
 
-	RetValue = XST_SUCCESS;
 
 	if (NULL == InstancePtr) {
 		return XSK_EFUSEPS_ERROR_PS_STRUCT_NULL;
@@ -1569,6 +1575,8 @@ u32 XilSKey_EfusePs_ReadStatus(XilSKey_EPs *InstancePtr, u32 *StatusBits)
 	 *  Read the eFUSE status
 	 */
 	*StatusBits = Xil_In32(XSK_EFUSEPS_STATUS_REG);
+	
+	RetValue = (u32)XST_SUCCESS;
 
 ExitFinal:
 	return RetValue;

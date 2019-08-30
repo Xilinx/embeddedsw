@@ -74,6 +74,7 @@
 *       psl     06/25/19 Fixed Coverity warnings.
 *       psl     06/28/19 Added doxygen tags.
 *       psl     07/29/19 Fixed MISRA-C violation.
+*       vns     08/29/19 Initialized Status variables
  *****************************************************************************/
 
 /***************************** Include Files ********************************/
@@ -621,7 +622,7 @@ u8 XilSKey_Efuse_IsTimerExpired(u64 t)
  ****************************************************************************/
 static u32 XilSKey_EfusePs_ConvertCharToNibble (char InChar, u8 *Num)
 {
-	u32 Status = (u32)XST_SUCCESS;
+	u32 Status = (u32)XST_FAILURE;
 	/**
 	 * Convert the char to nibble
 	 */
@@ -638,6 +639,7 @@ static u32 XilSKey_EfusePs_ConvertCharToNibble (char InChar, u8 *Num)
 		Status = (u32)XSK_EFUSEPS_ERROR_STRING_INVALID;
 		goto END;
 	}
+	Status = (u32)XST_SUCCESS;
 END:
 	return Status;
 }
@@ -1031,7 +1033,7 @@ END:
 u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
 {
 	u32 i;
-	u32 Status = (u32)XSK_EFUSEPL_ERROR_NONE;
+	u32 Status = (u32)XST_FAILURE;
 
 	Xil_AssertNonvoid(Key != NULL);
 	Xil_AssertNonvoid((Len == XSK_STRING_SIZE_2) ||
@@ -1074,6 +1076,8 @@ u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len)
 			goto END;
 		}
 	}
+	
+	Status = (u32)XSK_EFUSEPL_ERROR_NONE;
 END:
 	return Status;
 }
@@ -1154,7 +1158,7 @@ u32 XilSKey_Timer_Intialise(void)
 		(((RefClk * ArmPllFdiv)/ArmClkDivisor) / 2U) / 10000000U;
 #elif defined(XSK_MICROBLAZE_PLATFORM)
 
-	u32 Status;
+	u32 Status = (u32)XST_FAILURE;
 	TimerTicksfor1000ns = 0U;
 
 	RefClk = XSK_EFUSEPL_CLCK_FREQ_ULTRA;
