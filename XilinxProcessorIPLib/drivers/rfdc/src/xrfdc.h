@@ -242,6 +242,8 @@
 *                       XRFdc_IsADCBlockEnabled(), XRFdc_IsDACDigitalPathEnabled() &
 *                       XRFdc_IsADCDigitalPathEnabled() APIs now get answer from
 *                       context structure.
+*       cog    09/01/19 Rename new XRFdc_S/GetLegacyCompatibilityMode() APIs to
+*                       XRFdc_S/GetDACCompMode().
 *
 * </pre>
 *
@@ -1108,6 +1110,9 @@ typedef struct {
 #define XRFDC_MAX_ATTEN -11
 #define XRFDC_MIN_ATTEN 0
 #define XRFDC_STEP_ATTEN 0.5
+
+#define XRFDC_DAC_VOP_CTRL_REG_UPDT_MASK 0x2U
+#define XRFDC_DAC_VOP_CTRL_TST_BLD_MASK 0x1U
 
 #define XRFDC_PLL_LOCK_DLY_CNT 1000U
 
@@ -2055,11 +2060,11 @@ u32 XRFdc_GetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 			     XRFdc_Calibration_Coefficients *CoeffPtr);
 u32 XRFdc_SetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Cal_Freeze_Settings *CalFreezePtr);
 u32 XRFdc_GetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Cal_Freeze_Settings *CalFreezePtr);
-u32 XRFdc_SetDACOpCurr(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurrent);
+u32 XRFdc_SetDACVOP(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurrent);
+u32 XRFdc_SetDACCompMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Enable);
+u32 XRFdc_GetDACCompMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *EnabledPtr);
 u32 XRFdc_SetDigitalStepAttenuator(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, float Attenuation);
 u32 XRFdc_GetDigitalStepAttenuator(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, float *AttenuationPtr);
-u32 XRFdc_SetLegacyCompatibilityMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Enable);
-u32 XRFdc_GetLegacyCompatibilityMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *EnabledPtr);
 #ifndef __BAREMETAL__
 s32 XRFdc_GetDeviceNameByDeviceId(char *DevNamePtr, u16 DevId);
 #endif

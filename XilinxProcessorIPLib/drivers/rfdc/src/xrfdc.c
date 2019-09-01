@@ -164,6 +164,11 @@
 *       cog    07/25/19 Moved XRFDC_PLL_LOCK_DLY_CNT macro to header file.
 *       cog    07/26/19 Added new XRFdc_S/GetLegacyCompatibilityMode() APIs.
 *       cog    08/02/19 Formatting changes and added a MACRO for the IP generation.
+*       cog    09/01/19 Renamed XRFdc_SetDACOpCurr() to XRFdc_SetDACVOP(). Also explicitly set
+*                       API to use register values rather than from fabric.
+*       cog    09/01/19 Added support for VOP in XRFdc_GetOutputCurr().
+*       cog    09/01/19 Rename new XRFdc_S/GetLegacyCompatibilityMode() APIs to
+*                       XRFdc_S/GetDACCompMode().
 *
 * </pre>
 *
@@ -3078,19 +3083,26 @@ u32 XRFdc_GetOutputCurr(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *Outp
 
 	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
 
-	ReadReg_Cfg2 = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_DAC_MC_CFG2_OFFSET, XRFDC_DAC_MC_CFG2_OPCSCAS_MASK);
 	ReadReg_Cfg3 = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_DAC_MC_CFG3_OFFSET, XRFDC_DAC_MC_CFG3_CSGAIN_MASK);
-	if ((ReadReg_Cfg2 == XRFDC_DAC_MC_CFG2_OPCSCAS_32MA) && (ReadReg_Cfg3 == XRFDC_DAC_MC_CFG3_CSGAIN_32MA)) {
-		*OutputCurrPtr = XRFDC_OUTPUT_CURRENT_32MA;
-	} else if ((ReadReg_Cfg2 == XRFDC_DAC_MC_CFG2_OPCSCAS_20MA) &&
-		   (ReadReg_Cfg3 == XRFDC_DAC_MC_CFG3_CSGAIN_20MA)) {
-		*OutputCurrPtr = XRFDC_OUTPUT_CURRENT_20MA;
-	} else if ((ReadReg_Cfg2 == 0x0) && (ReadReg_Cfg3 == 0x0)) {
-		*OutputCurrPtr = 0x0;
+
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+		ReadReg_Cfg2 = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_DAC_MC_CFG2_OFFSET,
+					   XRFDC_DAC_MC_CFG2_OPCSCAS_MASK);
+		if ((ReadReg_Cfg2 == XRFDC_DAC_MC_CFG2_OPCSCAS_32MA) &&
+		    (ReadReg_Cfg3 == XRFDC_DAC_MC_CFG3_CSGAIN_32MA)) {
+			*OutputCurrPtr = XRFDC_OUTPUT_CURRENT_32MA;
+		} else if ((ReadReg_Cfg2 == XRFDC_DAC_MC_CFG2_OPCSCAS_20MA) &&
+			   (ReadReg_Cfg3 == XRFDC_DAC_MC_CFG3_CSGAIN_20MA)) {
+			*OutputCurrPtr = XRFDC_OUTPUT_CURRENT_20MA;
+		} else if ((ReadReg_Cfg2 == 0x0) && (ReadReg_Cfg3 == 0x0)) {
+			*OutputCurrPtr = 0x0;
+		} else {
+			Status = XRFDC_FAILURE;
+			metal_log(METAL_LOG_ERROR, "\n Invalid output current value %s\r\n", __func__);
+			goto RETURN_PATH;
+		}
 	} else {
-		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Invalid output current value %s\r\n", __func__);
-		goto RETURN_PATH;
+		*OutputCurrPtr = ((ReadReg_Cfg3 >> XRFDC_DAC_MC_CFG3_CSGAIN_SHIFT) * XRFDC_STEP_I_UA) + XRFDC_MIN_I_UA;
 	}
 
 	Status = XRFDC_SUCCESS;
@@ -4923,7 +4935,7 @@ RETURN_PATH:
 *
 * @note     Range 6425 - 32000 uA with 25 uA resolution.
 ******************************************************************************/
-u32 XRFdc_SetDACOpCurr(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurrent)
+u32 XRFdc_SetDACVOP(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurrent)
 {
 	u32 Status;
 	u32 BaseAddr;
@@ -4986,6 +4998,8 @@ u32 XRFdc_SetDACOpCurr(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurr
 		goto RETURN_PATH;
 	}
 
+	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_VOP_CTRL_OFFSET,
+			(XRFDC_DAC_VOP_CTRL_REG_UPDT_MASK | XRFDC_DAC_VOP_CTRL_TST_BLD_MASK), XRFDC_DISABLED);
 	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_DAC_MC_CFG0_OFFSET, XRFDC_DAC_MC_CFG0_CAS_BLDR_MASK,
 			XRFDC_CSCAS_BLDR);
 	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_DAC_MC_CFG2_OFFSET,
@@ -5028,7 +5042,7 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Gets legacy compatibility mode.
+* Gets VOP compatibility mode.
 *
 * @param    InstancePtr is a pointer to the XRfdc instance.
 * @param    Tile_Id Valid values are 0-3.
@@ -5043,7 +5057,7 @@ RETURN_PATH:
 *
 * @note     None.
 ******************************************************************************/
-u32 XRFdc_GetLegacyCompatibilityMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *EnabledPtr)
+u32 XRFdc_GetDACCompMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *EnabledPtr)
 {
 	u32 Status;
 	u32 BaseAddr;
@@ -5077,7 +5091,7 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* Sets legacy compatibility mode.
+* Sets VOP compatibility mode.
 *
 * @param    InstancePtr is a pointer to the XRfdc instance.
 * @param    Tile_Id Valid values are 0-3.
@@ -5092,7 +5106,7 @@ RETURN_PATH:
 *
 * @note     None.
 ******************************************************************************/
-u32 XRFdc_SetLegacyCompatibilityMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Enable)
+u32 XRFdc_SetDACCompMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Enable)
 {
 	u32 Status;
 	u32 BaseAddr;

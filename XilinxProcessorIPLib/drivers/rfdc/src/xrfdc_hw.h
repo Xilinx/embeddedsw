@@ -79,6 +79,7 @@
 *       cog    07/18/19 Added XRFdc_S/GetDigitalStepAttenuator() API masks/shifts.
 *       cog    07/26/19 Added XRFdc_S/GetLegacyCompatibilityMode() API shift.
 *       cog    08/02/19 Formatting changes.
+*       cog    09/01/19 Added offset for VOP control register.
 *
 *</pre>
 *
@@ -177,6 +178,7 @@ extern "C" {
 #define XRFDC_ADC_TI_TISK_DACP1_OFFSET 0x17CU /**< ADC Time skew DAC cal code of subadc ch1 Register */
 #define XRFDC_ADC_TI_TISK_DACP2_OFFSET 0x180U /**< ADC Time skew DAC cal code of subadc ch2 Register */
 #define XRFDC_ADC_TI_TISK_DACP3_OFFSET 0x184U /**< ADC Time skew DAC cal code of subadc ch3 Register */
+#define XRFDC_DAC_VOP_CTRL_OFFSET 0x198U /**< DAC variable output power control Register */
 #define XRFDC_ADC0_SUBDRP_ADDR_OFFSET 0x198U /**< subadc0, sub-drp address of target Register */
 #define XRFDC_ADC0_SUBDRP_DAT_OFFSET 0x19CU /**< subadc0, sub-drp data of target Register */
 #define XRFDC_ADC1_SUBDRP_ADDR_OFFSET 0x1A0U /**< subadc1, sub-drp address of target Register */
