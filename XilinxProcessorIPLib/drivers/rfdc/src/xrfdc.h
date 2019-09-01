@@ -237,6 +237,7 @@
 *       cog    07/26/19 Added new XRFdc_S/GetLegacyCompatibilityMode() APIs.
 *       cog    07/29/19 Added XRFdc_GetEnabledInterrupts() API.
 *       cog    08/02/19 Formatting changes and added a MACRO for the IP generation.
+*       cog    09/01/19 Changed the MACRO for turning off the mixer.
 *
 * </pre>
 *
@@ -768,7 +769,8 @@ typedef struct {
 #define XRFDC_MIXER_TYPE_COARSE 0x1U
 #define XRFDC_MIXER_TYPE_FINE 0x2U
 
-#define XRFDC_MIXER_TYPE_OFF 0x0U
+#define XRFDC_MIXER_TYPE_OFF 0x3U
+#define XRFDC_MIXER_TYPE_DISABLED 0x0U
 
 #define XRFDC_COARSE_MIX_OFF 0x0U
 #define XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO 0x2U
