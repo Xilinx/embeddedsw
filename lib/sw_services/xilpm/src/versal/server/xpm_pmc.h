@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -24,30 +24,35 @@
 *
 ******************************************************************************/
 
-#ifndef XPM_NPDOMAIN_H_
-#define XPM_NPDOMAIN_H_
+#ifndef XPM_PMC_H_
+#define XPM_PMC_H_
 
-#include "xpm_powerdomain.h"
+#include "xpm_core.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+typedef struct XPm_Pmc XPm_Pmc;
+
 /**
- * The NOC power domain node class.
+ * The PMC processor class.
  */
-typedef struct XPm_NpDomain {
-	XPm_PowerDomain Domain; /**< Power domain node base class */
-} XPm_NpDomain;
+struct XPm_Pmc {
+	XPm_Core Core; /**< Processor core device */
+	u32 PmcIouSlcrBaseAddr; /**< PMC IOU SLCR register base address */
+	u32 PmcGlobalBaseAddr; /**< PMC GLOBAL register base address */
+	u32 PmcAnalogBaseAddr; /**< PMC Analog register base address */
+};
 
 /************************** Function Prototypes ******************************/
-XStatus XPmNpDomain_Init(XPm_NpDomain *Npd, u32 Id, u32 BaseAddress,
-			 XPm_Power *Parent);
-XStatus XPmNpDomain_MemIcInit(u32 DeviceId, u32 BaseAddr);
+XStatus XPmPmc_Init(XPm_Pmc *Pmc, u32 DevcieId, u32 Ipi, u32 *BaseAddress,
+		    XPm_Power *Power,  XPm_ClockNode *Clock,
+		    XPm_ResetNode *Reset);
 
 #ifdef __cplusplus
 }
 #endif
 
 /** @} */
-#endif /* XPM_NPDOMAIN_H_ */
+#endif /* XPM_PMC_H_ */

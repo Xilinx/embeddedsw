@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 #ifndef XPM_PINFUNC_H_
 #define XPM_PINFUNC_H_
@@ -33,10 +13,10 @@
 extern "C" {
 #endif
 
-#define FUNC_NAME_SIZE		(16)		/* Function name string size */
-#define MAX_GROUPS_PER_RES	(6)		/* Max No. of groups per query response */
+#define FUNC_NAME_SIZE		(16U)		/* Function name string size */
+#define MAX_GROUPS_PER_RES	(6U)		/* Max No. of groups per query response */
 #define INVALID_FUNC_ID 	(0xFFFFU)
-#define END_OF_GRP		(0xFFFFU)	/* -1 */
+#define END_OF_GRP		(0xFFU)		/* -1 */
 #define RESERVED_GRP		(0xFFFEU)	/* -2 */
 
 typedef struct XPm_PinFunc XPm_PinFunc;
@@ -582,21 +562,17 @@ enum PmPinGrpIds {
  * The Pin Function class.
  */
 struct XPm_PinFunc {
-	u32 Id; /**< Function ID */
 	char Name[FUNC_NAME_SIZE]; /**< Function name */
-	u32 DevIdx; /**< Device index for this function */
+	u8 Id; /**< Function ID */
+	u8 NumPins; /**< Number of pins needed for this function */
+	u8 NumGroups; /**< Number of groups for this function */
+	u16 DevIdx; /**< Device index for this function */
 	u16 LmioRegMask; /**< Register mask value to select this function */
 	u16 PmioRegMask; /**< Register mask value to select this function */
-	u8 NumPins; /**< Number of pins needed for this function */
-	u16 NumGroups; /**< Number of groups for this function */
 	u16 *Groups; /**< Array of group identifier */
 };
 
 /************************** Function Prototypes ******************************/
-XStatus XPmPinFunc_Init(XPm_PinFunc *PinFunc,
-	u32 Id, char *Name, XPm_Device *Device, u16 RegMask, u8 NumPins);
-XStatus XPmPinFunc_AddGroup(XPm_PinFunc *PinFunc, u16 Group);
-
 XPm_PinFunc *XPmPinFunc_GetById(u32 FuncId);
 XStatus XPmPinFunc_GetNumFuncs(u32 *NumFuncs);
 XStatus XPmPinFunc_GetFuncName(u32 FuncId, char *FuncName);

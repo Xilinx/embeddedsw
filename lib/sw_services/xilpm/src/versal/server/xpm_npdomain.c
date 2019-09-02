@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 #include "sleep.h"
 #include "xpm_common.h"
@@ -42,53 +22,61 @@ static u32 NpdMemIcAddresses[XPM_NODEIDX_MEMIC_MAX];
 
 static XStatus NpdInitStart(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
+	u32 NpdPowerUpTime = 0;
 
 	(void)Args;
 	(void)NumOfArgs;
 
 	/* Check vccint_soc first to make sure power is on */
-	if (XST_SUCCESS != XPmPower_CheckPower(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_SOC_MASK)) {
-		/* TODO: Request PMC to power up VCCINT_SOC rail and wait for the acknowledgement.*/
-		goto done;
+	while (XST_SUCCESS != XPmPower_CheckPower(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_SOC_MASK)) {
+		/* Wait for VCCINT_SOC power up */
+		usleep(10);
+		NpdPowerUpTime++;
+		if (NpdPowerUpTime > XPM_POLL_TIMEOUT) {
+			/* TODO: Request PMC to power up VCCINT_SOC rail and wait for the acknowledgement.*/
+			Status = XST_FAILURE;
+			goto done;
+		}
+	}
+	if (PLATFORM_VERSION_SILICON == Platform) {
+		/* TODO: This is a temporary fix for MGT boards;
+		 * Remove the delay once AMS solution to read rail voltages is finalized.
+		 */
+		usleep(1000);
 	}
 
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PMC_SOC_NPI, FALSE);
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_SOC_NPI, FALSE_VALUE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
 	/* Release POR for NoC */
-	Status = XPmReset_AssertbyId(PM_RST_NOC_POR,
-				     PM_RESET_ACTION_RELEASE);
+	Status = XPmReset_AssertbyId(PM_RST_NOC_POR, (u32)PM_RESET_ACTION_RELEASE);
+
 done:
 	return Status;
 }
 
-static void NpdPreBisrReqs()
+static void NpdPreBisrReqs(void)
 {
 	/* Release NPI Reset */
-	XPmReset_AssertbyId(PM_RST_NPI,
-			PM_RESET_ACTION_RELEASE);
+	(void)XPmReset_AssertbyId(PM_RST_NPI, (u32)PM_RESET_ACTION_RELEASE);
 
 	/* Release NoC Reset */
-	XPmReset_AssertbyId(PM_RST_NOC,
-			PM_RESET_ACTION_RELEASE);
+	(void)XPmReset_AssertbyId(PM_RST_NOC, (u32)PM_RESET_ACTION_RELEASE);
 
 	/* Release Sys Resets */
-	XPmReset_AssertbyId(PM_RST_SYS_RST_1,
-			PM_RESET_ACTION_RELEASE);
-	XPmReset_AssertbyId(PM_RST_SYS_RST_2,
-			PM_RESET_ACTION_RELEASE);
-	XPmReset_AssertbyId(PM_RST_SYS_RST_3,
-			PM_RESET_ACTION_RELEASE);
+	(void)XPmReset_AssertbyId(PM_RST_SYS_RST_1, (u32)PM_RESET_ACTION_RELEASE);
+	(void)XPmReset_AssertbyId(PM_RST_SYS_RST_2, (u32)PM_RESET_ACTION_RELEASE);
+	(void)XPmReset_AssertbyId(PM_RST_SYS_RST_3, (u32)PM_RESET_ACTION_RELEASE);
 
 	return;
 }
 
 static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 i=0;
 	XPm_Device *Device;
 	u32 BaseAddress;
@@ -102,51 +90,81 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 	if (XST_SUCCESS == XPmPower_CheckPower(	PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK |
 						PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_SOC_MASK)) {
 		/* Remove vccaux-soc domain isolation */
-		Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_VCCAUX_SOC, FALSE);
+		Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCAUX_SOC, FALSE_VALUE);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
 	}
 
 	/* Remove PMC-NoC domain isolation */
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PMC_SOC, FALSE);
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_SOC, FALSE_VALUE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
-	/* Assert ODISABLE NPP for all NMU and NSU*/
-	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
-		PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_LOCK_OFFSET,
-			PCSR_UNLOCK_VAL);
-		PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_MASK_OFFSET,
-			NPI_PCSR_CONTROL_ODISABLE_NPP_MASK)
-		PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_CONTROL_OFFSET,
-			NPI_PCSR_CONTROL_ODISABLE_NPP_MASK);
-		PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_LOCK_OFFSET, 1);
+	/* Assert ODISABLE NPP for all NMU and NSU
+	 * This step is omitted for SSIT Device Slave SLR for  NSU_1 as config is
+	 * done by BOOT ROM
+	 */
+	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses) && (0U != NpdMemIcAddresses[i]); i++) {
+			if (i == (u32)XPM_NODEIDX_MEMIC_NSU_1 &&
+				SlrType < SLR_TYPE_SSIT_DEV_MASTER_SLR) {
+				continue;
+			}
+
+			PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_LOCK_OFFSET,
+				PCSR_UNLOCK_VAL);
+			PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_MASK_OFFSET,
+				NPI_PCSR_CONTROL_ODISABLE_NPP_MASK);
+			PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_CONTROL_OFFSET,
+				NPI_PCSR_CONTROL_ODISABLE_NPP_MASK);
+			PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_LOCK_OFFSET, 1);
 	}
 
 	/* Deassert UB_INITSTATE for DDR blocks */
-	for (i = XPM_NODEIDX_DEV_DDRMC_MIN; i <= XPM_NODEIDX_DEV_DDRMC_MAX; i++) {
+	for (i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN; i <= (u32)XPM_NODEIDX_DEV_DDRMC_MAX; i++) {
 		Device = XPmDevice_GetById(DDRMC_DEVID(i));
-		BaseAddress = Device->Node.BaseAddress;
-		PmOut32(BaseAddress + NPI_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
-		PmOut32(BaseAddress + NPI_PCSR_MASK_OFFSET,
-			NPI_DDRMC_PSCR_CONTROL_UB_INITSTATE_MASK)
-		PmOut32(BaseAddress + NPI_PCSR_CONTROL_OFFSET, 0);
-		PmOut32(BaseAddress + NPI_PCSR_LOCK_OFFSET, 1);
-		/* Only UB0 for non sillicon platforms */
-		if (PLATFORM_VERSION_SILICON != Platform) {
-			Status = XST_SUCCESS;
-			goto done;
+		if (NULL != Device) {
+			BaseAddress = Device->Node.BaseAddress;
+			PmOut32(BaseAddress + NPI_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+			PmOut32(BaseAddress + NPI_PCSR_MASK_OFFSET,
+				NPI_DDRMC_PSCR_CONTROL_UB_INITSTATE_MASK);
+			PmOut32(BaseAddress + NPI_PCSR_CONTROL_OFFSET, 0);
+			PmOut32(BaseAddress + NPI_PCSR_LOCK_OFFSET, 1);
+			/* Only UB0 for non sillicon platforms */
+			if (PLATFORM_VERSION_SILICON != Platform) {
+				Status = XST_SUCCESS;
+				break;
+			}
+		}
+	}
+	/* When NPD is powered, copy sysmon data */
+	for (i = (u32)XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN; i < (u32)XPM_NODEIDX_MONITOR_SYSMON_NPD_MAX; i++) {
+		/* Copy_trim< AMS_SAT_N> */
+		if (0U != SysmonAddresses[i]) {
+			Status = XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[i], PM_POWER_NOC, i-(u32)XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
 		}
 	}
 
-	/* When NPD is powered, copy sysmon data */
-	for (i = XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN; i < XPM_NODEIDX_MONITOR_SYSMON_NPD_MAX; i++) {
-		/* Copy_trim< AMS_SAT_N> */
-		if (0 != SysmonAddresses[i])
-			XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[i], PM_POWER_NOC, i-XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN);
-	}
+	/* Assert pcomplete to indicate HC is done and NoC is ready to use */
+	/* Unlock PCSR Register*/
+	PmOut32(NPI_BASEADDR + NPI_NIR_0_OFFSET + NPI_PCSR_LOCK_OFFSET,
+		PCSR_UNLOCK_VAL);
+
+	/* Unmask the pcomplete bit */
+	PmOut32(NPI_BASEADDR + NPI_NIR_0_OFFSET + NPI_PCSR_MASK_OFFSET,
+		NPI_PCSR_CONTROL_PCOMPLETE_MASK);
+
+	/*Assert control on pcomplete bit*/
+	PmOut32(NPI_BASEADDR + NPI_NIR_0_OFFSET + NPI_PCSR_CONTROL_OFFSET,
+		NPI_PCSR_CONTROL_PCOMPLETE_MASK);
+
+	/*Lock PCSR Register */
+	PmOut32(NPI_BASEADDR + NPI_NIR_0_OFFSET + NPI_PCSR_LOCK_OFFSET,
+		0x1);
 
 done:
 	return Status;
@@ -154,7 +172,7 @@ done:
 
 static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_Pmc *Pmc;
 	u32 RegValue;
 	XPm_OutClockNode *Clk;
@@ -163,6 +181,13 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 	(void)NumOfArgs;
 
 	if (PLATFORM_VERSION_SILICON != Platform) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	if (SlrType != SLR_TYPE_MONOLITHIC_DEV &&
+		SlrType != SLR_TYPE_SSIT_DEV_MASTER_SLR) {
+		PmDbg("Skipping Scan-Clear of NPD for Slave SLR\n\r");
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -186,23 +211,27 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 	usleep(400);
 
 	/* Enable NPI Clock */
-	Clk = (XPm_OutClockNode *)XPmClock_GetByIdx(XPM_NODEIDX_CLK_NPI_REF);
-	XPmClock_SetGate((XPm_OutClockNode *)Clk, 1);
+	Clk = (XPm_OutClockNode *)XPmClock_GetByIdx((u32)XPM_NODEIDX_CLK_NPI_REF);
+	Status = XPmClock_SetGate((XPm_OutClockNode *)Clk, 1);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	/* Release NPI Reset */
-	XPmReset_AssertbyId(PM_RST_NPI,
-                        PM_RESET_ACTION_RELEASE);
+	Status = XPmReset_AssertbyId(PM_RST_NPI, (u32)PM_RESET_ACTION_RELEASE);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	PmIn32((Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_ERR1_STATUS_OFFSET),
 	       RegValue);
-	if (0 != (RegValue & (PMC_GLOBAL_ERR1_STATUS_NOC_TYPE_1_NCR_MASK |
+	if (0U != (RegValue & (PMC_GLOBAL_ERR1_STATUS_NOC_TYPE_1_NCR_MASK |
 			     PMC_GLOBAL_ERR1_STATUS_DDRMC_MC_NCR_MASK))) {
 		Status = XST_FAILURE;
+		goto done;
 	}
 
-	/* Unwrite trigger bits */
-	PmRmw32(PMC_ANALOG_SCAN_CLEAR_TRIGGER,
-                PMC_ANALOG_SCAN_CLEAR_TRIGGER_NOC_MASK, 0);
+	Status = XST_SUCCESS;
 
 done:
 	return Status;
@@ -210,18 +239,20 @@ done:
 
 static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 RegValue;
 	u32 i;
 	XPm_Device *Device;
-	u32 DdrMcAddresses[XPM_NODEIDX_DEV_DDRMC_MAX - XPM_NODEIDX_DEV_DDRMC_MIN + 1];
+	u32 DdrMcAddresses[XPM_NODEIDX_DEV_DDRMC_MAX - XPM_NODEIDX_DEV_DDRMC_MIN + 1] = {0};
 
 	(void)Args;
 	(void)NumOfArgs;
 
 	for (i = 0; i < ARRAY_SIZE(DdrMcAddresses); i++) {
-		Device = XPmDevice_GetById(DDRMC_DEVID(XPM_NODEIDX_DEV_DDRMC_MIN + i));
-		DdrMcAddresses[i] = Device->Node.BaseAddress;
+		Device = XPmDevice_GetById(DDRMC_DEVID((u32)XPM_NODEIDX_DEV_DDRMC_MIN + i));
+		if (NULL != Device) {
+			DdrMcAddresses[i] = Device->Node.BaseAddress;
+		}
 	}
 
 	/* NPD pre bisr requirements - in case if bisr was skipped */
@@ -233,13 +264,13 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Deassert PCSR Lock*/
-	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
+	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses) && (0U != NpdMemIcAddresses[i]); i++) {
 		PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_LOCK_OFFSET,
 			PCSR_UNLOCK_VAL);
 	}
 
 	/* Enable ILA clock for DDR blocks*/
-	for (i = 0; i < ARRAY_SIZE(DdrMcAddresses); i++) {
+	for (i = 0; i < ARRAY_SIZE(DdrMcAddresses) && (0U != DdrMcAddresses[i]); i++) {
 		PmOut32(DdrMcAddresses[i] + NPI_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
 		PmRmw32(DdrMcAddresses[i] + NOC_DDRMC_UB_CLK_GATE_OFFSET,
 			NOC_DDRMC_UB_CLK_GATE_ILA_EN_MASK,
@@ -247,13 +278,13 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Trigger Mem clear */
-	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
+	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses) && (0U != NpdMemIcAddresses[i]); i++) {
 		PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_MASK_OFFSET,
-			NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK)
+			NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
 		PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_CONTROL_OFFSET,
 			NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
 	}
-	for (i = 0; i < ARRAY_SIZE(DdrMcAddresses); i++) {
+	for (i = 0; i < ARRAY_SIZE(DdrMcAddresses) && (0U != DdrMcAddresses[i]); i++) {
 		PmOut32(DdrMcAddresses[i] + NPI_PCSR_MASK_OFFSET,
 			NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
 		PmOut32(DdrMcAddresses[i] + NPI_PCSR_CONTROL_OFFSET,
@@ -261,7 +292,7 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Check for Mem clear done */
-	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
+	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses) && (0U != NpdMemIcAddresses[i]); i++) {
 		Status = XPm_PollForMask(NpdMemIcAddresses[i] +
 					 NPI_PCSR_STATUS_OFFSET,
 					 NPI_PCSR_STATUS_MEM_CLEAR_DONE_MASK,
@@ -270,7 +301,7 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 			goto done;
 		}
 	}
-	for (i = 0; i < ARRAY_SIZE(DdrMcAddresses); i++) {
+	for (i = 0; i < ARRAY_SIZE(DdrMcAddresses) && (0U != DdrMcAddresses[i]); i++) {
 		Status = XPm_PollForMask(DdrMcAddresses[i] + NPI_PCSR_STATUS_OFFSET,
 				 NPI_PCSR_STATUS_MEM_CLEAR_DONE_MASK,
 				 XPM_POLL_TIMEOUT);
@@ -280,7 +311,7 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Check for Mem clear Pass/Fail */
-	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
+	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses) && (0U != NpdMemIcAddresses[i]); i++) {
 		PmIn32(NpdMemIcAddresses[i] + NPI_PCSR_STATUS_OFFSET, RegValue);
 		if (NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK !=
 		    (RegValue & NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK)) {
@@ -288,7 +319,7 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 			goto done;
 		}
 	}
-	for (i = 0; i < ARRAY_SIZE(DdrMcAddresses); i++) {
+	for (i = 0; i < ARRAY_SIZE(DdrMcAddresses) && (0U != DdrMcAddresses[i]); i++) {
 		PmIn32(DdrMcAddresses[i] + NPI_PCSR_STATUS_OFFSET, RegValue);
 		if (NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK !=
 		    (RegValue & NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK)) {
@@ -298,7 +329,7 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Disable ILA clock for DDR blocks*/
-	for (i = 0; i < ARRAY_SIZE(DdrMcAddresses); i++) {
+	for (i = 0; i < ARRAY_SIZE(DdrMcAddresses) && (0U != DdrMcAddresses[i]); i++) {
 		PmRmw32(DdrMcAddresses[i] + NOC_DDRMC_UB_CLK_GATE_OFFSET,
 			NOC_DDRMC_UB_CLK_GATE_ILA_EN_MASK, 0);
 		PmOut32(DdrMcAddresses[i] + NPI_PCSR_LOCK_OFFSET, 1);
@@ -306,39 +337,43 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 
 
 	/* Unwrite trigger bits */
-        for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
+        for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses) && (0U != NpdMemIcAddresses[i]); i++) {
                 PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_MASK_OFFSET,
                         NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK)
                 PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_CONTROL_OFFSET, 0);
         }
-        for (i = 0; i < ARRAY_SIZE(DdrMcAddresses); i++) {
+        for (i = 0; i < ARRAY_SIZE(DdrMcAddresses) && (0U != DdrMcAddresses[i]); i++) {
                 PmOut32(DdrMcAddresses[i] + NPI_PCSR_MASK_OFFSET,
                         NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
-                PmOut32(DdrMcAddresses[i] + NPI_PCSR_CONTROL_OFFSET, 0);
-        }
-
+		PmOut32(DdrMcAddresses[i] + NPI_PCSR_CONTROL_OFFSET, 0);
+	}
 
 	/* Assert PCSR Lock*/
-	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
+	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses) && (0U != NpdMemIcAddresses[i]); i++) {
 		PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_LOCK_OFFSET, 1);
 	}
+
+	Status = XST_SUCCESS;
+
 done:
 	return Status;
 }
 
 static XStatus NpdBisr(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 i = 0;
 	XPm_Device *Device;
-	u32 DdrMcAddresses[XPM_NODEIDX_DEV_DDRMC_MAX - XPM_NODEIDX_DEV_DDRMC_MIN + 1];
+	u32 DdrMcAddresses[XPM_NODEIDX_DEV_DDRMC_MAX - XPM_NODEIDX_DEV_DDRMC_MIN + 1] = {0};
 
 	(void)Args;
 	(void)NumOfArgs;
 
 	for (i = 0; i < ARRAY_SIZE(DdrMcAddresses); i++) {
-		Device = XPmDevice_GetById(DDRMC_DEVID(XPM_NODEIDX_DEV_DDRMC_MIN + i));
-		DdrMcAddresses[i] = Device->Node.BaseAddress;
+		Device = XPmDevice_GetById(DDRMC_DEVID((u32)XPM_NODEIDX_DEV_DDRMC_MIN + i));
+		if (NULL != Device) {
+			DdrMcAddresses[i] = Device->Node.BaseAddress;
+		}
 	}
 
 	/* NPD pre bisr requirements */
@@ -351,7 +386,7 @@ static XStatus NpdBisr(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Enable Bisr clock */
-	for (i = 0; i < ARRAY_SIZE(DdrMcAddresses); i++) {
+	for (i = 0; i < ARRAY_SIZE(DdrMcAddresses) && (0U != DdrMcAddresses[i]); i++) {
 		/* Unlock writes */
 		PmOut32(DdrMcAddresses[i] + NPI_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
 		PmRmw32(DdrMcAddresses[i] + NOC_DDRMC_UB_CLK_GATE_OFFSET,
@@ -361,20 +396,26 @@ static XStatus NpdBisr(u32 *Args, u32 NumOfArgs)
 
 	/* Run BISR */
 	Status = XPmBisr_Repair(DDRMC_TAG_ID);
+	if (Status != XST_SUCCESS) {
+		goto done;
+	}
 
 	/* Disable Bisr clock */
-	for (i = 0; i < ARRAY_SIZE(DdrMcAddresses); i++) {
+	for (i = 0; i < ARRAY_SIZE(DdrMcAddresses) && (0U != DdrMcAddresses[i]); i++) {
 		PmRmw32(DdrMcAddresses[i] + NOC_DDRMC_UB_CLK_GATE_OFFSET,
 			NOC_DDRMC_UB_CLK_GATE_BISR_EN_MASK, 0);
 		/* Lock writes */
 		PmOut32(DdrMcAddresses[i] + NPI_PCSR_LOCK_OFFSET, 1);
 	}
 
+	/* NIDB Lane Repair */
+	Status = XPmBisr_NidbLaneRepair();
+
 done:
 	return Status;
 }
 
-struct XPm_PowerDomainOps NpdOps = {
+static struct XPm_PowerDomainOps NpdOps = {
 	.InitStart = NpdInitStart,
 	.InitFinish = NpdInitFinish,
 	.ScanClear = NpdScanClear,
@@ -385,27 +426,32 @@ struct XPm_PowerDomainOps NpdOps = {
 XStatus XPmNpDomain_Init(XPm_NpDomain *Npd, u32 Id, u32 BaseAddress,
 			 XPm_Power *Parent)
 {
-	XPmPowerDomain_Init(&Npd->Domain, Id, BaseAddress, Parent, &NpdOps);
+	XStatus Status = XST_FAILURE;
 
-	Npd->BisrDataCopied = 0;
+	Status = XPmPowerDomain_Init(&Npd->Domain, Id, BaseAddress, Parent, &NpdOps);
+	if (XST_SUCCESS == Status) {
+		Npd->BisrDataCopied = 0;
+	}
 
-	return XST_SUCCESS;
+	return Status;
 }
 
 XStatus XPmNpDomain_MemIcInit(u32 DeviceId, u32 BaseAddr)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 Idx = NODEINDEX(DeviceId);
 	u32 Type = NODETYPE(DeviceId);
 
-	if (((XPM_NODETYPE_MEMIC_SLAVE != Type) &&
-	    (XPM_NODETYPE_MEMIC_MASTER != Type)) ||
-	    (XPM_NODEIDX_MEMIC_MAX <= Idx)) {
+	if ((((u32)XPM_NODETYPE_MEMIC_SLAVE != Type) &&
+	    ((u32)XPM_NODETYPE_MEMIC_MASTER != Type)) ||
+	    ((u32)XPM_NODEIDX_MEMIC_MAX <= Idx)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
 	NpdMemIcAddresses[Idx] = BaseAddr;
+
+	Status = XST_SUCCESS;
 
 done:
 	return Status;
