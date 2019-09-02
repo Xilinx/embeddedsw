@@ -5,6 +5,7 @@
 
 
 #include "xpm_bisr.h"
+#include "xpm_notifier.h"
 #include "xpm_power.h"
 #include "xpm_regs.h"
 #include "xpm_powerdomain.h"
@@ -13,6 +14,7 @@
 #include "sleep.h"
 #include "xpm_rpucore.h"
 #include "xpm_pll.h"
+#include "xpm_debug.h"
 
 static XPm_Power *PmPowers[XPM_NODEIDX_POWER_MAX];
 static u32 PmNumPowers;
@@ -215,6 +217,7 @@ static XStatus SendPowerUpReq(XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
+	u32 Platform;
 
 	if (NULL == LpDomain) {
 		Status = XST_FAILURE;
@@ -239,14 +242,16 @@ static XStatus SendPowerUpReq(XPm_Node *Node)
                         }
 		}
 		/*
-		 * For S80 ES1, there is a bug in LPD which requires the
+		 * For XCVC1902 ES1, there is a bug in LPD which requires the
 		 * LPD_INT and RPU power domain signals needs to be
 		 * asserted, to prevent repair vector corruption(EDT-993543).
 		 * To fix this bug rerun LPD BISR whenever the RPU power
 		 * island is powered down and brought up again.
 		 */
-		if ((PLATFORM_VERSION_SILICON_ES1 == PlatformVersion) &&
-		    (PLATFORM_VERSION_SILICON == Platform) &&
+		Platform = XPm_GetPlatform();
+		if ((PLATFORM_VERSION_SILICON_ES1 ==
+		     XPm_GetPlatformVersion()) &&
+		    ((u32)PLATFORM_VERSION_SILICON == Platform) &&
 		    ((u32)XPM_NODEIDX_POWER_RPU0_0 == NODEINDEX(Node->Id)) &&
 		    (0U == (LPD_BISR_DONE & LpDomain->LpdBisrFlags))) {
 			if (0U != (LPD_BISR_DATA_COPIED & LpDomain->LpdBisrFlags)) {
@@ -370,6 +375,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Power *Power = (XPm_Power *)Node;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	PmDbg("Id:0x%x, UseCount:%d, State=%x, Event=%x\n\r",
 				Node->Id, Power->UseCount, Node->State, Event);
@@ -385,6 +391,10 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 					Power->WfParentUseCnt = Power->Parent->UseCount + 1U;
 					Status = Power->Parent->HandleEvent(
 						 &Power->Parent->Node, XPM_POWER_EVENT_PWR_UP);
+					if (XST_SUCCESS != Status) {
+						DbgErr = XPM_INT_ERR_PWR_PARENT_UP;
+						break;
+					}
 					/* Todo: Start timer to poll parent node */
 					/* Hack */
 					Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
@@ -392,6 +402,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 					/* Write to PSM power up request register */
 					Status = SendPowerUpReq(Node);
 					if (XST_SUCCESS != Status) {
+						DbgErr = XPM_INT_ERR_PSM_PWR_UP;
 						break;
 					}
 					Node->State = (u8)XPM_POWER_STATE_PWR_UP_SELF;
@@ -409,6 +420,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 					/* Write to PSM power up request register */
 					Status = SendPowerUpReq(Node);
 					if (XST_SUCCESS != Status) {
+						DbgErr = XPM_INT_ERR_PSM_PWR_UP;
 						break;
 					}
 					Node->State = (u8)XPM_POWER_STATE_PWR_UP_SELF;
@@ -426,6 +438,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 				/* Todo: Read PSM status register */
 				if (TRUE /* Hack: Power node is up */) {
 					Node->State = (u8)XPM_POWER_STATE_ON;
+					XPmNotifier_Event(Node->Id, (u32)EVENT_STATE_CHANGE);
 					Power->UseCount++;
 				} else {
 					/* Todo: Restart timer to poll PSM */
@@ -446,6 +459,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 					/* Write to PSM power down request register */
 					Status = SendPowerDownReq(Node);
 					if (XST_SUCCESS != Status) {
+						DbgErr = XPM_INT_ERR_PSM_PWR_DWN;
 						break;
 					}
 					Node->State = (u8)XPM_POWER_STATE_PWR_DOWN_SELF;
@@ -479,6 +493,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 						Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
 					} else {
 						Node->State = (u8)XPM_POWER_STATE_OFF;
+						XPmNotifier_Event(Node->Id, (u32)EVENT_STATE_CHANGE);
 					}
 				} else {
 					/* Todo: Restart timer to poll PSM */
@@ -491,6 +506,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 				if (Power->WfParentUseCnt == Power->Parent->UseCount) {
 					Node->State = (u8)XPM_POWER_STATE_OFF;
 					Power->WfParentUseCnt = 0;
+					XPmNotifier_Event(Node->Id, (u32)EVENT_STATE_CHANGE);
 				} else {
 					/* Todo: Restart timer to poll parent state */
 				}
@@ -501,6 +517,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 			break;
 	}
 
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -531,9 +548,11 @@ XStatus XPmPower_Init(XPm_Power *Power,
 {
 	XStatus Status = XST_FAILURE;
 	XPm_PowerDomain *PowerDomain;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* Todo: Uncomment this after integrating with CDO handler */
 	if (NULL != XPmPower_GetById(Id)) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		Status = XST_DEVICE_BUSY;
 		goto done;
 	}
@@ -557,11 +576,13 @@ XStatus XPmPower_Init(XPm_Power *Power,
 
 	Status = SetPowerNode(Id, Power);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_INVALID_PARAM;
 		goto done;
 	}
 	Status = XST_SUCCESS;
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 

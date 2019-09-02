@@ -44,6 +44,7 @@ typedef enum {
 
 XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable);
 XStatus XPmDomainIso_ProcessPending(u32 PowerDomainId);
+XStatus XPmDomainIso_GetState(u32 IsoIdx, XPm_IsoStates *State);
 
 #ifdef __cplusplus
 }

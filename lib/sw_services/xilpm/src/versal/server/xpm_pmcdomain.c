@@ -48,39 +48,24 @@ static XStatus HandlePmcDomainEvent(XPm_Node *Node, u32 Event)
  ****************************************************************************/
 static XStatus PmcXppuCtrl(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_FAILURE;
-	u32 XppuNodeId, Enable;
+	return XPmProt_CommonXppuCtrl(Args, NumOfArgs);
+}
 
-	if(NumOfArgs < 2U) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	XppuNodeId = Args[0];
-	Enable = Args[1];
-
-	if ((u32)XPM_NODECLASS_PROTECTION != NODECLASS(XppuNodeId)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	if ((u32)XPM_NODESUBCL_PROT_XPPU != NODESUBCLASS(XppuNodeId)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	if ((1U == Enable) && (3U == NumOfArgs)) {
-		Status = XPmProt_XppuEnable(XppuNodeId, Args[2]);
-	} else {
-		Status = XPmProt_XppuDisable(XppuNodeId);
-	}
-
-done:
-	return Status;
+/****************************************************************************/
+/**
+ * @brief  This function configures xmpu for PMC (used for DDR memory)
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE
+ *
+ ****************************************************************************/
+static XStatus PmcXmpuCtrl(u32 *Args, u32 NumOfArgs)
+{
+	return XPmProt_CommonXmpuCtrl(Args, NumOfArgs);
 }
 
 static struct XPm_PowerDomainOps PmcOps = {
 	.XppuCtrl = PmcXppuCtrl,
+	.XmpuCtrl = PmcXmpuCtrl,
 };
 
 XStatus XPmPmcDomain_Init(XPm_PmcDomain *PmcDomain, u32 Id)
@@ -89,6 +74,7 @@ XStatus XPmPmcDomain_Init(XPm_PmcDomain *PmcDomain, u32 Id)
 
 	Status = XPmPowerDomain_Init(&PmcDomain->Domain, Id, 0x00000000, NULL, &PmcOps);
 	if (XST_SUCCESS != Status) {
+		PmErr("Status: 0x%x\r\n", Status);
 		goto done;
 	}
 

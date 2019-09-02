@@ -41,20 +41,22 @@ struct XPm_ProtPpu {
 	Aperture Aperture_64k;	/**< Aperture 64k */
 	Aperture Aperture_1m;	/**< Aperture 1m */
 	Aperture Aperture_512m;	/**< Aperture 512m */
+	u32 AperPermInitMask;	/**< Default aperture permission mask */
 	u8 MIDParityEn;		/**< Parity error checking status for Master IDs */
 	u8 AperParityEn;	/**< Parity error checking status for Aperture entries */
 };
 
 struct XPm_ProtMpu {
-	XPm_Prot ProtNode;
+	XPm_Prot ProtNode;	/**< Node: Base Class */
+	u8 AlignCfg;		/**< Region alignment: 4k or 1m aligned */
 };
 
 /************************** Function Prototypes ******************************/
 XStatus XPmProtPpu_Init(XPm_ProtPpu *PpuNode, u32 Id, u32 BaseAddr);
 XStatus XPmProtMpu_Init(XPm_ProtMpu *MpuNode, u32 Id, u32 BaseAddr);
 XStatus XPmProt_Configure(XPm_Requirement *Reqm, u32 Enable);
-XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal);
-XStatus XPmProt_XppuDisable(u32 NodeId);
+XStatus XPmProt_CommonXppuCtrl(u32 *Args, u32 NumOfArgs);
+XStatus XPmProt_CommonXmpuCtrl(u32 *Args, u32 NumOfArgs);
 
 #ifdef __cplusplus
 }

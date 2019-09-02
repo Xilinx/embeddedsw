@@ -7,6 +7,7 @@
 #include "xil_io.h"
 #include "xpm_regs.h"
 #include "xpm_psm.h"
+#include "xpm_psm_api.h"
 
 #define GLOBAL_CNTRL(BASE)	((BASE) + PSM_GLOBAL_CNTRL)
 #define PWR_UP_EN(BASE)		((BASE) + PSM_GLOBAL_REQ_PWRUP_EN)
@@ -19,12 +20,19 @@
 #define SLEEP_TRIG(BASE)	((BASE) + PSM_GLOBAL_PWR_CTRL_TRIG)
 #define PWR_STAT(BASE)		((BASE) + PSM_GLOBAL_PWR_STATE)
 
-static XStatus XPmPsm_WakeUp(XPm_Core *Core, u32 SetAddress,
-			  u64 Address)
+static struct PsmToPlmEvent_t PsmToPlmEvent_bkp = {0};
+static u32 Is_PsmPoweredDown = 0U;
+
+static XStatus XPmPsm_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Psm *Psm = (XPm_Psm *)Core;
 	u32 CRLBaseAddress = Psm->CrlBaseAddr;
+
+	if (1U == Core->isCoreUp) {
+		Status = XPM_ERR_WAKEUP;
+		goto done;
+	}
 
 	/* Set reset address */
 	if (1U == SetAddress) {
@@ -42,16 +50,73 @@ static XStatus XPmPsm_WakeUp(XPm_Core *Core, u32 SetAddress,
 	Status = XPm_PollForMask(GLOBAL_CNTRL(Psm->PsmGlobalBaseAddr),
 				 PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK,
 				 XPM_MAX_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	if (1U == Is_PsmPoweredDown) {
+		/* Restore the context of reserved PSM RAM memory */
+		Status = Xil_SecureMemCpy((void *)PsmToPlmEvent, sizeof(PsmToPlmEvent_bkp),
+					&PsmToPlmEvent_bkp, sizeof(PsmToPlmEvent_bkp));
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	/* Check for the version of the PsmToPlmEvent structure */
+	if (PsmToPlmEvent->Version != PSM_TO_PLM_EVENT_VERSION) {
+		PmErr("PSM-PLM are out of sync. Can't process PSM event\n\r");
+		goto done;
+	} else {
+		Status = XST_SUCCESS;
+		Core->isCoreUp = 1;
+	}
+
+done:
+	return Status;
+}
+
+static XStatus XPmPsm_PowerDown(XPm_Core *Core)
+{
+	int Status = XST_FAILURE;
+	XPm_Power *PwrNode;
+	(void)Core;
+
+	if ((u8)XPM_DEVSTATE_UNUSED == Core->Device.Node.State) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* Store the context of reserved PSM RAM memory */
+	Status = Xil_SecureMemCpy(&PsmToPlmEvent_bkp, sizeof(PsmToPlmEvent_bkp),
+				(void *)PsmToPlmEvent, sizeof(PsmToPlmEvent_bkp));
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Add PSM specific power down sequence if any */
+
+	if (NULL != Core->Device.Power) {
+		PwrNode = Core->Device.Power;
+		Status = PwrNode->HandleEvent(&PwrNode->Node, XPM_POWER_EVENT_PWR_DOWN);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	Is_PsmPoweredDown = 1U;
+
+	Core->Device.Node.State = (u8)XPM_DEVSTATE_UNUSED;
+	Core->isCoreUp = 0;
+	Status = XST_SUCCESS;
 
 done:
 	return Status;
 }
 
 static struct XPm_CoreOps PsmOps = {
-		.RestoreResumeAddr = NULL,
-		.HasResumeAddr = NULL,
-		.RequestWakeup = XPmPsm_WakeUp,
-		.PowerDown = NULL,
+	.RequestWakeup = XPmPsm_WakeUp,
+	.PowerDown = XPmPsm_PowerDown,
 };
 
 XStatus XPmPsm_Init(XPm_Psm *Psm,
@@ -64,6 +129,7 @@ XStatus XPmPsm_Init(XPm_Psm *Psm,
 	Status = XPmCore_Init(&Psm->Core, PM_DEV_PSM_PROC, Power, Clock, Reset,
 			      (u8)Ipi, &PsmOps);
 	if (XST_SUCCESS != Status) {
+		PmErr("Status: 0x%x\r\n", Status);
 		goto done;
 	}
 
@@ -87,6 +153,7 @@ XStatus XPmPsm_SendPowerUpReq(u32 BitMask)
 	}
 
 	if (1U != XPmPsm_FwIsPresent()) {
+		PmErr("PSMFW is not present\r\n");
 		Status = XST_NOT_ENABLED;
 		goto done;
 	}
@@ -178,7 +245,7 @@ u32 XPmPsm_FwIsPresent(void)
 		goto done;
 	}
 
-	PmIn32(GLOBAL_CNTRL(Psm->PsmGlobalBaseAddr), Reg)
+	PmIn32(GLOBAL_CNTRL(Psm->PsmGlobalBaseAddr), Reg);
 	if (PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK ==
 		(Reg & PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK)) {
 		Reg = 1U;

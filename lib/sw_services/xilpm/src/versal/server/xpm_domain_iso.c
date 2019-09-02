@@ -382,11 +382,23 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 		XramIsoUnmask(IsoIdx);
 	}
 
+	/*
+	 * Note: XCVC1902 ES1 has a Si errata where stage 1  portion of PCIe design
+	 * did not work for certain configurations. This issue is resolved in ES2.
+	 * Resolution in ES2 is to invert spare bit w.r.t. PL_CPM_PCIEA0_FabricEn
+	 * (corresponds to XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR iso node). In ES1
+	 * there's no effect of writing to sparebit.
+	 */
 	if ((TRUE_VALUE == Enable) || (TRUE_PENDING_REMOVE == Enable)) {
 		if (XPmDomainIso_List[IsoIdx].Polarity == (u8)PM_ACTIVE_HIGH) {
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
 		} else {
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
+			if ((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR == IsoIdx) {
+				XPm_RMW32(PCIEA_ATTRIB_DMA_ATTR_DMA_SPARE_3_H,
+					  PCIEA_ATTRIB_DMA_ATTR_DMA_SPARE_3_H_MASK,
+					  PCIEA_ATTRIB_DMA_ATTR_DMA_SPARE_3_H_MASK);
+			}
 		}
 		/* Mark node state appropriately */
 		XPmDomainIso_List[IsoIdx].Node.State = (TRUE_VALUE == Enable) ?
@@ -400,6 +412,11 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
 		} else {
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
+			if ((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR == IsoIdx) {
+				XPm_RMW32(PCIEA_ATTRIB_DMA_ATTR_DMA_SPARE_3_H,
+					  PCIEA_ATTRIB_DMA_ATTR_DMA_SPARE_3_H_MASK,
+					  0U);
+			}
 		}
 		XPmDomainIso_List[IsoIdx].Node.State = (u8)PM_ISOLATION_OFF;
 	} else {
@@ -419,6 +436,11 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
 		} else {
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
+			if ((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR == IsoIdx) {
+				XPm_RMW32(PCIEA_ATTRIB_DMA_ATTR_DMA_SPARE_3_H,
+					  PCIEA_ATTRIB_DMA_ATTR_DMA_SPARE_3_H_MASK,
+					  0U);
+			}
 		}
 		XPmDomainIso_List[IsoIdx].Node.State = (u8)PM_ISOLATION_OFF;
 	}
@@ -450,5 +472,33 @@ XStatus XPmDomainIso_ProcessPending(u32 PowerDomainId)
 		}
 	}
 
+	return Status;
+}
+
+XStatus XPmDomainIso_GetState(u32 IsoIdx, XPm_IsoStates *State)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Mask, Base, Polarity;
+
+	if ((IsoIdx >= (u32)XPM_NODEIDX_ISO_MAX) || (NULL == State)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Mask = XPmDomainIso_List[IsoIdx].Mask;
+	Base = XPmDomainIso_List[IsoIdx].Node.BaseAddress;
+	Polarity = XPmDomainIso_List[IsoIdx].Polarity;
+
+	if (Mask == (XPm_In32(Base) & Mask)) {
+		*State = (Polarity == (u32)PM_ACTIVE_HIGH)?
+			PM_ISOLATION_ON : PM_ISOLATION_OFF;
+	} else {
+		*State = (Polarity == (u32)PM_ACTIVE_HIGH)?
+			PM_ISOLATION_OFF : PM_ISOLATION_ON;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
 	return Status;
 }

@@ -10,65 +10,58 @@
 #define XPM_MAX_TIMEOUT 		(0x1FFFFFFF)
 
 static XPmDevice_SoftResetInfo DeviceRstData[] = {
-#ifdef XPAR_XUSBPSU_0_DEVICE_ID
+#ifdef XILPM_USB_0
 	{
 		.DeviceId = PM_DEV_USB_0,
-		.SoftRst = NULL,
 		.IdleHook = NodeUsbIdle,
-		.IdleHookArgs = XPAR_XUSBPSU_0_DEVICE_ID,
+		.IdleHookArgs = XILPM_USB_0,
 	},
 #endif
-#ifdef XPAR_PSV_ETHERNET_0_DEVICE_ID
+#ifdef XILPM_ETH_0
 	{
 		.DeviceId = PM_DEV_GEM_0,
-		.SoftRst = NULL,
 		.IdleHook = NodeGemIdle,
-		.IdleHookArgs = XPAR_PSV_ETHERNET_0_DEVICE_ID,
+		.IdleHookArgs = XILPM_ETH_0,
 	},
 #endif
-#ifdef XPAR_PSV_ETHERNET_1_DEVICE_ID
+#ifdef XILPM_ETH_1
 	{
 		.DeviceId = PM_DEV_GEM_1,
-		.SoftRst = NULL,
 		.IdleHook = NodeGemIdle,
-		.IdleHookArgs = XPAR_PSV_ETHERNET_1_DEVICE_ID,
+		.IdleHookArgs = XILPM_ETH_1,
 	},
 #endif
-#ifdef XPAR_PSV_OSPI_0_DEVICE_ID
+#ifdef XILPM_OSPI_0
 	{
 		.DeviceId = PM_DEV_OSPI,
-		.SoftRst = NULL,
 		.IdleHook = NodeOspiIdle,
-		.IdleHookArgs = XPAR_PSV_OSPI_0_DEVICE_ID,
+		.IdleHookArgs = XILPM_OSPI_0,
 	},
 #endif
-#ifdef XPAR_PSV_QSPI_0_DEVICE_ID
+#ifdef XILPM_QSPI_0
 	{
 		.DeviceId = PM_DEV_QSPI,
-		.SoftRst = NULL,
 		.IdleHook = NodeQspiIdle,
-		.IdleHookArgs = XPAR_PSV_QSPI_0_DEVICE_ID,
+		.IdleHookArgs = XILPM_QSPI_0,
 	},
 #endif
-#ifdef XPAR_PSV_SD_0_DEVICE_ID
+#ifdef XILPM_SD_0
 	{
 		.DeviceId = PM_DEV_SDIO_0,
-		.SoftRst = NULL,
 		.IdleHook = NodeSdioIdle,
-		.IdleHookArgs = XPAR_PSV_SD_0_DEVICE_ID,
+		.IdleHookArgs = XILPM_SD_0,
 	},
 #endif
-#ifdef XPAR_PSV_SD_1_DEVICE_ID
+#ifdef XILPM_SD_1
 	{
 		.DeviceId = PM_DEV_SDIO_1,
-		.SoftRst = NULL,
 		.IdleHook = NodeSdioIdle,
-		.IdleHookArgs = XPAR_PSV_SD_1_DEVICE_ID,
+		.IdleHookArgs = XILPM_SD_1,
 	},
 #endif
 };
 
-#if defined(XPAR_PSV_QSPI_0_DEVICE_ID)
+#if defined(XILPM_QSPI_0)
 /**
  * NodeQspiIdle() - Idle the QSPI node
  *
@@ -98,7 +91,7 @@ done:
 }
 #endif
 
-#if defined(XPAR_PSV_OSPI_0_DEVICE_ID)
+#if defined(XILPM_OSPI_0)
 /**
  * NodeQspiIdle() - Idle the OSPI node
  *
@@ -131,7 +124,7 @@ done:
 }
 #endif
 
-#if defined(XPAR_PSV_SD_0_DEVICE_ID) || defined(XPAR_PSV_SD_1_DEVICE_ID)
+#if defined(XILPM_SD_0) || defined(XILPM_SD_1)
 /**
  * NodeSdioIdle() - Idle the SDIO node
  *
@@ -161,7 +154,7 @@ done:
 }
 #endif
 
-#if defined(XPAR_XUSBPSU_0_DEVICE_ID)
+#if defined(XILPM_USB_0)
 /**
  * NodeUsbIdle() - Idle the USB node
  *
@@ -190,7 +183,7 @@ done:
 }
 #endif
 
-#if defined(XPAR_PSV_ETHERNET_0_DEVICE_ID) || defined(XPAR_PSV_ETHERNET_1_DEVICE_ID)
+#if defined(XILPM_ETH_0) || defined(XILPM_ETH_1)
 /**
  * NodeGemIdle() - Custom code to idle the GEM
  *
@@ -226,7 +219,9 @@ void NodeGemIdle(u16 DeviceId, u32 BaseAddress)
 }
 #endif
 
-#if defined(XPAR_PSV_GDMA_0_DEVICE_ID) || defined(XPAR_PSV_ADMA_0_DEVICE_ID)
+#if (defined(XILPM_ZDMA_0) || defined(XILPM_ZDMA_1) || defined(XILPM_ZDMA_2) || \
+	defined(XILPM_ZDMA_3) || defined(XILPM_ZDMA_4) || defined(XILPM_ZDMA_5) || \
+	defined(XILPM_ZDMA_6) || defined(XILPM_ZDMA_7))
 
 #define XZDMA_CH_OFFSET		(0x10000U)	/* Channel offset per DMA */
 #define XZDMA_NUM_CHANNEL	(8U)		/* Number of Channels */
@@ -314,9 +309,6 @@ void XPmDevice_SoftResetIdle(XPm_Device *Device, const u32 IdleReq)
 					  Device->Node.BaseAddress);
 		}
 
-		if (NULL != RstInfo->SoftRst) {
-			RstInfo->SoftRst(Device->Node.BaseAddress);
-		}
 	}
 
 	/* Perform the device reset using its reset lines and its reset actions */

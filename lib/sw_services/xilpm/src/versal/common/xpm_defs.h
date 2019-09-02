@@ -76,11 +76,11 @@ enum XPmSuspendReason {
 };
 
 /* PM API callback ids */
-enum XPmApiCbId {
-	PM_INIT_SUSPEND_CB		= (30U),
-	PM_ACKNOWLEDGE_CB		= (31U),
-	PM_NOTIFY_CB			= (32U),
-};
+typedef enum {
+	PM_INIT_SUSPEND_CB		= (30),
+	PM_ACKNOWLEDGE_CB		= (31),
+	PM_NOTIFY_CB			= (32),
+} XPmApiCbId_t;
 
 /**
  * Contains the device status information.
@@ -127,6 +127,7 @@ enum pm_query_id {
 	XPM_QID_PINCTRL_GET_PIN_GROUPS,
 	XPM_QID_CLOCK_GET_NUM_CLOCKS,
 	XPM_QID_CLOCK_GET_MAX_DIVISOR,
+	XPM_QID_PLD_GET_PARENT,
 };
 
 enum PmPinFunIds {
@@ -232,7 +233,7 @@ enum pm_pinctrl_tri_state {
 	PINCTRL_TRI_STATE_ENABLE,
 };
 
-enum pm_ioctl_id {
+typedef enum {
 	IOCTL_GET_RPU_OPER_MODE,
 	IOCTL_SET_RPU_OPER_MODE,
 	IOCTL_RPU_BOOT_ADDR_CONFIG,
@@ -262,7 +263,10 @@ enum pm_ioctl_id {
 	IOCTL_OSPI_MUX_SELECT,
 	/* USB PMU state req */
 	IOCTL_USB_SET_STATE,
-};
+	IOCTL_GET_LAST_RESET_REASON,
+	/* AIE ISR Clear */
+	IOCTL_AIE_ISR_CLEAR,
+} pm_ioctl_id;
 
 /* PLL parameters */
 enum XPm_PllConfigParams {
@@ -300,6 +304,8 @@ enum XPmInitFunctions {
 	FUNC_HOUSECLEAN_PL,
 	FUNC_HOUSECLEAN_COMPLETE,
 	FUNC_XPPU_CTRL,
+	FUNC_XMPU_CTRL,
+	FUNC_MAX_COUNT_PMINIT,
 };
 
 /**
@@ -366,6 +372,17 @@ enum XPmNotifyEvent {
 #define XPM_DLL_RESET_ASSERT		(0U)
 #define XPM_DLL_RESET_RELEASE		(1U)
 #define XPM_DLL_RESET_PULSE		(2U)
+
+/* Reset Reason */
+#define XPM_RESET_REASON_EXT_POR	(0U)
+#define XPM_RESET_REASON_SW_POR		(1U)
+#define XPM_RESET_REASON_SLR_POR	(2U)
+#define XPM_RESET_REASON_ERR_POR	(3U)
+#define XPM_RESET_REASON_DAP_SRST	(7U)
+#define XPM_RESET_REASON_ERR_SRST	(8U)
+#define XPM_RESET_REASON_SW_SRST	(9U)
+#define XPM_RESET_REASON_SLR_SRST	(10U)
+#define XPM_RESET_REASON_INVALID	(0xFFU)
 
 /* Probe Counter Type */
 #define XPM_PROBE_COUNTER_TYPE_LAR_LSR		(0U)
@@ -459,9 +476,10 @@ enum XPmNotifyEvent {
 #define PM_INIT_NODE			62U
 #define PM_FEATURE_CHECK		63U
 #define PM_ISO_CONTROL			64U
+#define PM_ACTIVATE_SUBSYSTEM		65U
 
 #define PM_API_MIN      PM_GET_API_VERSION
-#define PM_API_MAX      PM_ISO_CONTROL
+#define PM_API_MAX      PM_ACTIVATE_SUBSYSTEM
 
 #ifdef __cplusplus
 }

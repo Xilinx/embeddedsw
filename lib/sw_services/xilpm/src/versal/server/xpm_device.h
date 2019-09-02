@@ -172,6 +172,8 @@ u32 XPmDevice_GetUsageStatus(XPm_Subsystem *Subsystem, XPm_Device *Device);
 int XPmDevice_IsClockActive(XPm_Device *Device);
 int XPmDevice_IsRequested(const u32 DeviceId, const u32 SubsystemId);
 int XPmDevice_GetWakeupLatency(const u32 DeviceId, u32 *Latency);
+XStatus XPm_SetSysmonNode(u32 Id, u32 BaseAddress);
+u32 XPm_GetSysmonByIndex(const u32 SysmonIndex);
 
 #ifdef __cplusplus
 }

@@ -6,6 +6,7 @@
 #include "xpm_defs.h"
 #include "xpm_common.h"
 #include "xpm_node.h"
+#include "xpm_notifier.h"
 #include "xpm_npdomain.h"
 #include "xpm_core.h"
 #include "xpm_psm.h"
@@ -17,22 +18,40 @@
 #include "xpm_device.h"
 #include "xpm_gic_proxy.h"
 #include "xpm_regs.h"
-#include "xpm_board.h"
 #include "xpm_api.h"
+#include "xpm_debug.h"
+
+#define SYSMON_CHECK_POWER_TIMEOUT	2000000U
 
 static u8 SystemResetFlag;
 static u8 DomainPORFlag;
 static u32 PsmApuPwrState;
+
+static const char *PmInitFunctions[FUNC_MAX_COUNT_PMINIT] = {
+	[FUNC_INIT_START]		= "INIT_START",
+	[FUNC_INIT_FINISH]		= "INIT_FINISH",
+	[FUNC_SCAN_CLEAR]		= "SCAN_CLEAR",
+	[FUNC_BISR]			= "BISR",
+	[FUNC_LBIST]			= "LBIST",
+	[FUNC_MEM_INIT]			= "MEM_INIT",
+	[FUNC_MBIST_CLEAR]		= "MBIST_CLEAR",
+	[FUNC_HOUSECLEAN_PL]		= "HOUSECLEAN_PL",
+	[FUNC_HOUSECLEAN_COMPLETE]	= "HOUSECLEAN_COMPLETE",
+	[FUNC_XPPU_CTRL]		= "XPPU_CTRL",
+	[FUNC_XMPU_CTRL]		= "XMPU_CTRL",
+};
 
 XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 			    u32 BaseAddress, XPm_Power *Parent,
 			    struct XPm_PowerDomainOps *Ops)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	u16 InitMask = 0;
 	Status = XPmPower_Init(&PowerDomain->Power, Id, BaseAddress, Parent);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_POWER_DOMAIN_INIT;
 		goto done;
 	}
 
@@ -59,6 +78,7 @@ XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 	Status = XST_SUCCESS;
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -73,13 +93,16 @@ XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 Sate
 	static u32 OffsetVal,SlopeVal,ProcessVal,ResistorVal,BjtOffsetVal,ExtOffsetVal,AnaSpareVal,DigSpareVal,Arr[8];
 	static u32 CacheRead=0;
 	static u32 BipSelVal, TsensSelVal, TsensBiasVal;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if (0U == DestAddress) {
+		DbgErr = XPM_INT_ERR_INVALID_ADDR;
 		goto done;
 	}
 
 	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	if (NULL == EfuseCache) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -190,6 +213,7 @@ XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 Sate
 		Status = XST_SUCCESS;
 		break;
 	default:
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		Status = XST_FAILURE;
 		break;
 	}
@@ -205,12 +229,14 @@ XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 Sate
 	PmOut32(DestAddress + NPI_PCSR_LOCK_OFFSET, 1);
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
 XStatus XPm_PowerUpLPD(XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if ((u8)XPM_POWER_STATE_ON == Node->State) {
 		Status = XST_SUCCESS;
@@ -221,14 +247,17 @@ XStatus XPm_PowerUpLPD(XPm_Node *Node)
 		 */
 		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_INIT_START, NULL, 0);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_FUNC_INIT_START;
 			goto done;
 		}
 		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_SCAN_CLEAR, NULL, 0);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_FUNC_SCAN_CLEAR;
 			goto done;
 		}
 		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_LBIST, NULL, 0);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_FUNC_LBIST;
 			goto done;
 		}
 
@@ -236,20 +265,30 @@ XStatus XPm_PowerUpLPD(XPm_Node *Node)
 		 * Release SRST for PS-LPD
 		 */
 		Status = XPmReset_AssertbyId(PM_RST_PS_SRST, (u32)PM_RESET_ACTION_RELEASE);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_RST_RELEASE;
+			goto done;
+		}
 
 		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_BISR, NULL, 0);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_FUNC_BISR;
 			goto done;
 		}
 		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_MBIST_CLEAR, NULL, 0);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_FUNC_MBIST_CLEAR;
 			goto done;
 		}
 
 		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_INIT_FINISH, NULL, 0);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_FUNC_INIT_FINISH;
+		}
 	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -257,13 +296,51 @@ XStatus XPm_PowerDwnLPD(void)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
+	u32 DbgErr = (u32)XPM_INT_ERR_UNDEFINED;
+	XPm_Core *RpuCore0;
+	XPm_Core *RpuCore1;
+	int HasResumeAddrStatus = XST_FAILURE;
+	u32 i;
+
+	RpuCore0 = (XPm_Core *)XPmDevice_GetById(PM_DEV_RPU0_0);
+	if (NULL != RpuCore0) {
+		HasResumeAddrStatus = XPmCore_HasResumeAddr(RpuCore0);
+		if (XST_SUCCESS == HasResumeAddrStatus) {
+			/* Enable GIC proxy only if resume path is set */
+			XPm_GicProxy.Enable();
+		} else {
+			DbgErr = (u32)XPM_INT_ERR_INVALID_ADDR;
+		}
+	}
+
+	RpuCore1 = (XPm_Core *)XPmDevice_GetById(PM_DEV_RPU0_1);
+	if (NULL != RpuCore1) {
+		HasResumeAddrStatus = XPmCore_HasResumeAddr(RpuCore1);
+		if (XST_SUCCESS == HasResumeAddrStatus) {
+			/* Enable GIC proxy only if resume path is set */
+			XPm_GicProxy.Enable();
+		} else {
+			DbgErr = (u32)XPM_INT_ERR_INVALID_ADDR;
+		}
+	}
+
+	const u32 LpdPlIso[] = {
+		(u32)XPM_NODEIDX_ISO_LPD_PL_TEST,
+		(u32)XPM_NODEIDX_ISO_LPD_PL
+	};
+	const u32 LpdPlIsoErr[] = {
+		(u32)XPM_INT_ERR_LPD_PL_TEST_ISO,
+		(u32)XPM_INT_ERR_LPD_PL_ISO
+	};
 
 	if (NULL == LpDomain) {
+		DbgErr = (u32)XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		goto done;
 	}
 
 	XPm_Device *AmsRoot = XPmDevice_GetById(PM_DEV_AMS_ROOT);
 	if (NULL == AmsRoot) {
+		DbgErr = (u32)XPM_INT_ERR_INVALID_DEVICE;
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -280,79 +357,96 @@ XStatus XPm_PowerDwnLPD(void)
 	/* Lock configuration and system registers */
 	PmOut32(AmsRoot->Node.BaseAddress + AMS_ROOT_REG_PCSR_LOCK_OFFSET, 1);
 
-	/* Isolate PS_PL */
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_PL_TEST, TRUE_VALUE);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
+	/**
+	 * Isolate LPD <-> PL interface and mark the isolations pending for removal
+	 * only if appropriate based on the initial boot time configuration.
+	 */
+	for (i = 0; i < ARRAY_SIZE(LpdPlIso) && i < ARRAY_SIZE(LpdPlIsoErr); i++) {
+		XPm_IsoStates IsoState;
 
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_PL, TRUE_VALUE);
-	if (XST_SUCCESS != Status) {
-		goto done;
+		Status = XPmDomainIso_GetState(LpdPlIso[i], &IsoState);
+		if (XST_SUCCESS != Status) {
+			DbgErr = LpdPlIsoErr[i];
+			goto done;
+		}
+
+		u32 Enable = (IsoState == PM_ISOLATION_ON) ?
+					TRUE_VALUE : TRUE_PENDING_REMOVE;
+
+		/* Isolate LPD-PL */
+		Status = XPmDomainIso_Control(LpdPlIso[i], Enable);
+		if (XST_SUCCESS != Status) {
+			DbgErr = LpdPlIsoErr[i];
+			goto done;
+		}
 	}
 
 	/* Isolate PS_CPM domains */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_CPM_DFX, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = (u32)XPM_INT_ERR_LPD_CPM_DFX_ISO;
 		goto done;
 	}
 
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_CPM, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = (u32)XPM_INT_ERR_LPD_CPM_ISO;
 		goto done;
 	}
 
 	/* Isolate LP-SoC */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_SOC, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = (u32)XPM_INT_ERR_LPD_SOC_ISO;
 		goto done;
 	}
 
 	/* Isolate PS_PMC domains */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_LPD_DFX, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = (u32)XPM_INT_ERR_PMC_LPD_DFX_ISO;
 		goto done;
 	}
 
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_LPD, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = (u32)XPM_INT_ERR_PMC_LPD_ISO;
 		goto done;
 	}
 
 	/* Assert reset for PS SRST */
 	Status = XPmReset_AssertbyId(PM_RST_PS_SRST, (u32)PM_RESET_ACTION_ASSERT);
+	if (XST_SUCCESS != Status) {
+		DbgErr = (u32)XPM_INT_ERR_PS_SRST;
+	}
 
-	/* Assert POR for PS-LPD */
-	Status = XPmReset_AssertbyId(PM_RST_PS_POR, (u32)PM_RESET_ACTION_ASSERT);
+	/* Skip PS-POR and LPD power rail handling in case of user PS-SRST */
+	if (0U == UserAssertPsSrst) {
+		/* Assert POR for PS-LPD */
+		Status = XPmReset_AssertbyId(PM_RST_PS_POR, (u32)PM_RESET_ACTION_ASSERT);
+		if (XST_SUCCESS != Status) {
+			DbgErr = (u32)XPM_INT_ERR_PS_POR;
+		}
 
-	/*TODO: Send PMC_I2C command to turn off PS-LPD power rail */
+		/*TODO: Send PMC_I2C command to turn off PS-LPD power rail */
+	}
 
 	LpDomain->LpdBisrFlags &= (u8)(~(LPD_BISR_DATA_COPIED | LPD_BISR_DONE));
 
 done:
-	if (XST_SUCCESS != Status) {
-		PmErr("Returned %d\r\n", Status);
-	}
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
 XStatus XPm_PowerUpFPD(XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XPm_Psm *Psm;
-
-	/*
-	 *  Power up FPD power rail
-	 *  Compiler flag CUSTOM_PMBUS must be set
-	 */
-	Status = XPmBoard_ControlRail(RAIL_POWER_UP, POWER_RAIL_FPD);
-	if (XST_SUCCESS != Status) {
-		PmErr("Control power rail for FPD failure during power up\r\n");
-		goto done;
-	}
 
 	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
 	if (NULL == Psm) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -362,15 +456,16 @@ XStatus XPm_PowerUpFPD(XPm_Node *Node)
 		PmOut32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_APU_POWER_STATUS_INIT_OFFSET, PsmApuPwrState);
 
 		PmInfo("Reloading FPD CDO\r\n");
-		Status = XLoader_ReloadImage(Node->Id);
+		Status = XPm_RestartCbWrapper(Node->Id);
 		if (XST_SUCCESS != Status) {
-			PmErr("Error while reloading FPD CDO\r\n");
+			DbgErr = XPM_INT_ERR_RELOAD_IMAGE;
 		}
 
 		XPm_GicProxy.Clear();
 	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -378,9 +473,23 @@ XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Psm *Psm;
-	XPm_Core *ApuCore = (XPm_Core *)XPmDevice_GetById(PM_DEV_ACPU_0);
+	XPm_Core *ApuCore;
+	int HasResumeAddrStatus = XST_FAILURE;
+	u32 DbgErr = (u32)XPM_INT_ERR_UNDEFINED;
+	u32 i;
+
+	const u32 FpdPlIso[] = {
+		(u32)XPM_NODEIDX_ISO_FPD_PL,
+		(u32)XPM_NODEIDX_ISO_FPD_PL_TEST
+	};
+	const u32 FpdPlIsoErr[] = {
+		(u32)XPM_INT_ERR_FPD_PL_ISO,
+		(u32)XPM_INT_ERR_FPD_PL_TEST_ISO
+	};
+
 	XPm_Device *AmsRoot = XPmDevice_GetById(PM_DEV_AMS_ROOT);
 	if (NULL == AmsRoot) {
+		DbgErr = (u32)XPM_INT_ERR_INVALID_DEVICE;
 		goto done;
 	}
 
@@ -399,17 +508,32 @@ XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 	/* Isolate FPD-NoC */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_SOC, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = (u32)XPM_INT_ERR_FPD_SOC_ISO;
 		goto done;
 	}
 
-	/* Isolate FPD-PL */
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL, TRUE_VALUE);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL_TEST, TRUE_VALUE);
-	if (XST_SUCCESS != Status) {
-		goto done;
+	/**
+	 * Isolate FPD <-> PL interface and mark the isolations pending for removal
+	 * only if appropriate based on the initial boot time configuration.
+	 */
+	for (i = 0; i < ARRAY_SIZE(FpdPlIso) && i < ARRAY_SIZE(FpdPlIsoErr); i++) {
+		XPm_IsoStates IsoState;
+
+		Status = XPmDomainIso_GetState(FpdPlIso[i], &IsoState);
+		if (XST_SUCCESS != Status) {
+			DbgErr = FpdPlIsoErr[i];
+			goto done;
+		}
+
+		u32 Enable = (IsoState == PM_ISOLATION_ON)?
+				TRUE_VALUE : TRUE_PENDING_REMOVE;
+
+		/* Isolate FPD-PL */
+		Status = XPmDomainIso_Control(FpdPlIso[i], Enable);
+		if (XST_SUCCESS != Status) {
+			DbgErr = FpdPlIsoErr[i];
+			goto done;
+		}
 	}
 
 	Status = XPmPsm_SendPowerDownReq(Node->BaseAddress);
@@ -420,38 +544,36 @@ XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 	/* Assert POR for FPD */
 	Status = XPmReset_AssertbyId(PM_RST_FPD_POR, (u32)PM_RESET_ACTION_ASSERT);
 
-	/*
-	 * Power down FPD power rail
-	 * Compiler flag CUSTOM_PMBUS must be set
-	 */
-	Status = XPmBoard_ControlRail(RAIL_POWER_DOWN, POWER_RAIL_FPD);
-	if (XST_SUCCESS != Status) {
-		PmErr("Control power rail for FPD failure during power down\r\n");
-		goto done;
-	}
-
 	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
 	if (NULL == Psm) {
+		DbgErr = (u32)XPM_INT_ERR_INVALID_PROC;
 		Status = XST_FAILURE;
 		goto done;
 	}
 
-	/* Enable GIC proxy only if resume path is set */
-	if ((NULL != ApuCore) &&
-	    (XST_SUCCESS == ApuCore->CoreOps->HasResumeAddr(ApuCore))) {
-		XPm_GicProxy.Enable();
+	ApuCore = (XPm_Core *)XPmDevice_GetById(PM_DEV_ACPU_0);
+	if (NULL != ApuCore) {
+		HasResumeAddrStatus = XPmCore_HasResumeAddr(ApuCore);
+		if (XST_SUCCESS == HasResumeAddrStatus) {
+			/* Enable GIC proxy only if resume path is set */
+			XPm_GicProxy.Enable();
 
-		/* Store the PSM APU power state register */
-		PmIn32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_APU_POWER_STATUS_INIT_OFFSET, PsmApuPwrState);
+			/* Store the PSM APU power state register */
+			PmIn32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_APU_POWER_STATUS_INIT_OFFSET, PsmApuPwrState);
+		} else {
+			DbgErr = (u32)XPM_INT_ERR_INVALID_ADDR;
+		}
 	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
 XStatus XPm_PowerUpPLD(XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if ((u8)XPM_POWER_STATE_ON == Node->State) {
 		Status = XST_SUCCESS;
@@ -462,99 +584,121 @@ XStatus XPm_PowerUpPLD(XPm_Node *Node)
 		 */
 		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_INIT_START, NULL, 0);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_FUNC_INIT_START;
 			goto done;
 		}
 
 		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_HOUSECLEAN_PL, NULL, 0);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_FUNC_HOUSECLEAN_PL;
 			goto done;
 		}
 
 		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_INIT_FINISH, NULL, 0);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_FUNC_INIT_FINISH;
+		}
 	}
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
 XStatus XPm_PowerDwnPLD(void)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* Isolate PL-NoC */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_SOC, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PL_SOC_ISO;
 		goto done;
 	}
 
 	/* Isolate FPD-PL */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_FPD_PL_ISO;
 		goto done;
 	}
 
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_PL_TEST, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_FPD_PL_TEST_ISO;
 		goto done;
 	}
 
 	/* Isolate LPD-PL */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_PL, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_LPD_PL_ISO;
 		goto done;
 	}
 
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_PL_TEST, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_LPD_PL_TEST_ISO;
 		goto done;
 	}
 
 	/* Isolate PL-PMC */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_PL, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PMC_PL_ISO;
 		goto done;
 	}
 
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_PL_TEST, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PMC_PL_TEST_ISO;
 		goto done;
 	}
 
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_PL_CFRAME, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PMC_PL_CFRAME_ISO;
 		goto done;
 	}
 
 	/* Isolate VCCINT_RAM from VCCINT */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCRAM_SOC, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_VCCRAM_SOC_ISO;
 		goto done;
 	}
 
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCAUX_SOC, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_VCCAUX_ISO;
 		goto done;
 	}
 
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCAUX_VCCRAM, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_VCCAUX_VCCRAM_ISO;
 		goto done;
 	}
 
 	/* Isolate PL_CPM */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PL_CPM_PCIEA0_ISO;
 		goto done;
 	}
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PL_CPM_PCIEA1_ISO;
 		goto done;
 	}
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_CPM_RST_CPI0, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PL_CPM_RST_CPI0_ISO;
 		goto done;
 	}
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_CPM_RST_CPI1, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PL_CPM_RST_CPI1_ISO;
 		goto done;
 	}
 	/* Reset Houseclean flag for PL */
@@ -562,9 +706,13 @@ XStatus XPm_PowerDwnPLD(void)
 
 	/* Assert POR PL */
 	Status = XPmReset_AssertbyId(PM_RST_PL_POR, (u32)PM_RESET_ACTION_ASSERT);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_RST_ASSERT;
+	}
 
 	/* TODO: Send PMC_I2C command to turn of PLD power rail */
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -610,48 +758,61 @@ XStatus XPm_PowerUpCPM(XPm_Node *Node)
 XStatus XPm_PowerDwnCPM(void)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* Isolate LPD-CPM */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_CPM, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_LPD_CPM_ISO;
 		goto done;
 	}
 
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_CPM_DFX, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_LPD_CPM_DFX_ISO;
 		goto done;
 	}
 
 	/* Isolate PL_CPM */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PL_CPM_PCIEA0_ISO;
 		goto done;
 	}
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PL_CPM_PCIEA1_ISO;
 		goto done;
 	}
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_CPM_RST_CPI0, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PL_CPM_RST_CPI0_ISO;
 		goto done;
 	}
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_CPM_RST_CPI1, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PL_CPM_RST_CPI1_ISO;
 		goto done;
 	}
 
 	/* Assert POR for CPM */
 	Status = XPmReset_AssertbyId(PM_RST_CPM_POR, (u32)PM_RESET_ACTION_ASSERT);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_RST_ASSERT;
+		goto done;
+	}
 
 	/* TODO: Send PMC_I2C command to turn off CPM power rail */
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
 XStatus XPm_PowerUpNoC(XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
         if ((u8)XPM_POWER_STATE_ON == Node->State) {
 			Status = XST_SUCCESS;
@@ -659,26 +820,34 @@ XStatus XPm_PowerUpNoC(XPm_Node *Node)
         } else {
                 Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_INIT_START, NULL, 0);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_FUNC_INIT_START;
 			goto done;
 		}
                 Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_SCAN_CLEAR, NULL, 0);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_FUNC_SCAN_CLEAR;
 			goto done;
 		}
 
                 Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_BISR, NULL, 0);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_FUNC_BISR;
 			goto done;
 		}
                 Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_MBIST_CLEAR, NULL, 0);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_FUNC_MBIST_CLEAR;
 			goto done;
 		}
 
                 Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_INIT_FINISH, NULL, 0);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_FUNC_INIT_FINISH;
+		}
         }
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
         return Status;
 }
 
@@ -687,8 +856,10 @@ XStatus XPm_PowerDwnNoC(void)
 	XStatus Status = XST_FAILURE;
 	XPm_Device *AmsRoot = XPmDevice_GetById(PM_DEV_AMS_ROOT);
 	XPm_NpDomain *NpDomain = (XPm_NpDomain *)XPmPower_GetById(PM_POWER_NOC);
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if ((NULL == AmsRoot) || (NULL == NpDomain)) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -709,61 +880,148 @@ XStatus XPm_PowerDwnNoC(void)
 	/* Isolate FPD-NoC domain */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_SOC, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_FPD_SOC_ISO;
 		goto done;
 	}
 
 	/* Isolate LPD-NoC domain */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_SOC, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_LPD_SOC_ISO;
 		goto done;
 	}
 
 	/* Isolate PL-NoC domain */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PL_SOC, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PL_SOC_ISO;
 		goto done;
 	}
 
 	/* Isolate VCCAUX-NoC domain */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCAUX_SOC, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_VCCAUX_ISO;
 		goto done;
 	}
 
 	/* Isolate VCCRAM-NoC domain */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_VCCRAM_SOC, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_VCCRAM_SOC_ISO;
 		goto done;
 	}
 
 	/* Isolate PMC-NoC domain */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_SOC, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PMC_SOC_ISO;
 		goto done;
 	}
 
 	/* Isolate PMC-NoC NPI domain */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_SOC_NPI, TRUE_VALUE);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PMC_SOC_NPI_ISO;
 		goto done;
 	}
 
 	/* Assert POR for NoC */
 	Status = XPmReset_AssertbyId(PM_RST_NOC_POR, (u32)PM_RESET_ACTION_ASSERT);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_RST_ASSERT;
+	}
 
 	/* TODO: Send PMC_I2C command to turn off NoC power rail */
 
 	NpDomain->BisrDataCopied = 0;
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
-XStatus XPmPower_CheckPower(u32 VoltageRailMask)
+/****************************************************************************/
+/**
+ * @brief  Check power rail if minimum operational voltage has been reached
+ *		   using Sysmon
+ *
+ * @param  PowerRail: Pointer to power rail node
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ ****************************************************************************/
+static XStatus XPmPower_SysmonCheckPower(XPm_Rail *Rail)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 RailVoltage = 0;
+	u32 LowThreshVal = 0;
+
+	/**
+	 * Index is stored as the BaseAddress and is used to calculate the SysMon
+	 * SUPPLYn and NewDataFlag registers
+	 */
+	u32 Index = Rail->Power.Node.BaseAddress;
+	u32 SysmonSupplyReg = (u32)PMC_SYSMON_SUPPLY0 + (Index * 4U);
+	u32 SysmonLowThReg = (u32)PMC_SYSMON_SUPPLY0_TH_LOWER + (Index * 4U);
+	u32 NewDataFlagReg = (u32)PMC_SYSMON_NEW_DATA_FLAG0 + ((Index/32U) * 4U);
+	u32 Offset = Index % 32U;
+
+	/* Wait for New Data Flag */
+	Status = XPm_PollForMask(NewDataFlagReg, BIT32(Offset),
+								SYSMON_CHECK_POWER_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_NEW_DATA_FLAG_TIMEOUT;
+		goto done;
+	}
+
+	PmIn32(SysmonLowThReg, LowThreshVal);
+	PmIn32(SysmonSupplyReg, RailVoltage);
+	if (RailVoltage < LowThreshVal) {
+		DbgErr = XPM_INT_ERR_POWER_SUPPLY;
+		Status = XST_FAILURE;
+	}
+
+	/* Unlock Root SysMon registers */
+	PmOut32((PMC_SYSMON_BASEADDR + AMS_ROOT_REG_PCSR_LOCK_OFFSET),
+			PCSR_UNLOCK_VAL);
+
+	/* Clear New Data Flag */
+	PmOut32(NewDataFlagReg, BIT32(Offset));
+
+	/* Lock Root SysMon registers */
+	PmOut32((PMC_SYSMON_BASEADDR + AMS_ROOT_REG_PCSR_LOCK_OFFSET), 1U);
+
+done:
+
+	if (XST_SUCCESS != Status) {
+		PmDbg("0x%x\r\n", DbgErr);
+	}
+
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Check power rail power using power detectors. This check uses the
+ *		   PMC_GLOBAL_PWR_SUPPLY_STATUS registers
+ *
+ * @param  VoltageRailMask: Mask of PMC_GLOBAL_PWR_SUPPLY_STATUS registers for
+ *		   rails to be checked
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note This function uses power detectors which are not very reliable. It
+ *		 should only be used when no other methods are available i.e. sysmon
+ *
+ ****************************************************************************/
+static XStatus XPmPower_DetectorCheckPower(u32 VoltageRailMask)
 {
 	XStatus Status = XST_FAILURE;
 	u32 RegVal;
 	XPm_Pmc *Pmc;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 	if (NULL == Pmc) {
@@ -773,13 +1031,51 @@ XStatus XPmPower_CheckPower(u32 VoltageRailMask)
 
 	PmIn32(Pmc->PmcGlobalBaseAddr + PWR_SUPPLY_STATUS_OFFSET, RegVal);
 	if((RegVal & VoltageRailMask) != VoltageRailMask) {
-		Status = XST_FAILURE;
+		DbgErr = XPM_INT_ERR_POWER_SUPPLY;
 		goto done;
 	}
 
 	Status = XST_SUCCESS;
 
 done:
+	if (XST_SUCCESS != Status) {
+		PmDbg("0x%x\r\n", DbgErr);
+	}
+
+	return Status;
+
+}
+
+XStatus XPmPower_CheckPower(XPm_Rail *Rail, u32 VoltageRailMask)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Source;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 Platform = XPm_GetPlatform();
+
+	if ((NULL == Rail) || (PLATFORM_VERSION_QEMU == Platform)) {
+		Status = XPmPower_DetectorCheckPower(VoltageRailMask);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_POWER_SUPPLY;
+		}
+		goto done;
+	}
+
+	Source = (u32)Rail->Source;
+	if ((u32)XPM_PGOOD_SYSMON == Source) {
+		Status = XPmPower_SysmonCheckPower(Rail);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_POWER_SUPPLY;
+		}
+	} else {
+		DbgErr = XPM_INT_ERR_RAIL_SOURCE;
+	}
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmDbg("0x%x\r\n", DbgErr);
+	}
+
 	return Status;
 }
 
@@ -864,10 +1160,17 @@ done:
 XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				  u32 *Args, u32 NumArgs)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	struct XPm_PowerDomainOps *Ops = PwrDomain->DomainOps;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	if (((u8)XPM_POWER_STATE_ON == PwrDomain->Power.Node.State) && (Function != (u32)FUNC_XPPU_CTRL)) {
+	PmDbg("%s for PwrDomain 0x%x Start\r\n", PmInitFunctions[Function],
+						  PwrDomain->Power.Node.Id);
+
+	if (((u8)XPM_POWER_STATE_ON == PwrDomain->Power.Node.State)
+	&&  ((u32)FUNC_XPPU_CTRL != Function)
+	&&  ((u32)FUNC_XMPU_CTRL != Function)) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -882,6 +1185,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		if ((NULL != Ops) && (NULL != Ops->InitStart)) {
 			Status = Ops->InitStart(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_FUNC_INIT_START;
 				goto done;
 			}
 		}
@@ -889,22 +1193,26 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		break;
 	case (u32)FUNC_INIT_FINISH:
 		if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+			DbgErr = XPM_INT_ERR_INVALID_PWR_STATE;
 			Status = XST_FAILURE;
 			goto done;
 		}
 		if ((NULL != Ops) && (NULL != Ops->InitFinish)) {
 			Status = Ops->InitFinish(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_FUNC_INIT_FINISH;
 				goto done;
 			}
 		}
 		PwrDomain->Power.Node.State = (u8)XPM_POWER_STATE_ON;
+		XPmNotifier_Event(PwrDomain->Power.Node.Id, (u32)EVENT_STATE_CHANGE);
 		if (PM_POWER_PLD == PwrDomain->Power.Node.Id) {
 			/* Request PLD0 device once PL is housecleaned. */
 			Status = XPmDevice_Request(PM_SUBSYS_PMC, PM_DEV_PLD_0,
 						   XPM_MAX_CAPABILITY,
 						   XPM_MAX_QOS);
 			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_REQ_PL_DEVICE;
 				break;
 			}
 		} else if (PM_POWER_ME == PwrDomain->Power.Node.Id) {
@@ -913,6 +1221,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 						   XPM_MAX_CAPABILITY,
 						   XPM_MAX_QOS);
 			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_REQ_ME_DEVICE;
 				break;
 			}
 		} else {
@@ -921,6 +1230,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 
 		Status = XPmDomainIso_ProcessPending(PwrDomain->Power.Node.Id);
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_DOMAIN_ISO;
 			goto done;
 		}
 
@@ -930,6 +1240,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		break;
 	case (u32)FUNC_SCAN_CLEAR:
 		if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+			DbgErr = XPM_INT_ERR_INVALID_PWR_STATE;
 			Status = XST_FAILURE;
 			goto done;
 		}
@@ -943,6 +1254,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		if ((NULL != Ops) && (NULL != Ops->ScanClear)) {
 			Status = Ops->ScanClear(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_FUNC_SCAN_CLEAR;
 				goto done;
 			}
 			PwrDomain->InitFlag |= BIT(FUNC_SCAN_CLEAR);
@@ -951,6 +1263,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		break;
 	case (u32)FUNC_BISR:
 		if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+			DbgErr = XPM_INT_ERR_INVALID_PWR_STATE;
 			Status = XST_FAILURE;
 			goto done;
 		}
@@ -963,6 +1276,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		if ((NULL != Ops) && (NULL != Ops->Bisr)) {
 			Status = Ops->Bisr(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_FUNC_BISR;
 				goto done;
 			}
 			PwrDomain->InitFlag |= BIT(FUNC_BISR);
@@ -971,6 +1285,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		break;
 	case (u32)FUNC_LBIST:
 		if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+			DbgErr = XPM_INT_ERR_INVALID_PWR_STATE;
 			Status = XST_FAILURE;
 			goto done;
 		}
@@ -980,8 +1295,11 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			goto done;
 		}
 		if ((NULL != Ops) && (NULL != Ops->Lbist)) {
-			Status = Ops->Lbist(Args, NumArgs);
-			if (XST_SUCCESS != Status) {
+			XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (Ops->Lbist), (Args), (NumArgs));
+			XStatus LocalStatus = StatusTmp; /* Copy volatile to local to avoid MISRA */
+			/* Required for redundancy */
+			if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
+				DbgErr = XPM_INT_ERR_FUNC_LBIST;
 				goto done;
 			}
 			PwrDomain->InitFlag |= BIT(FUNC_LBIST);
@@ -990,6 +1308,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		break;
 	case (u32)FUNC_MBIST_CLEAR:
 		if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+			DbgErr = XPM_INT_ERR_INVALID_PWR_STATE;
 			Status = XST_FAILURE;
 			goto done;
 		}
@@ -999,8 +1318,11 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			goto done;
 		}
 		if ((NULL != Ops) && (NULL != Ops->Mbist)) {
-			Status = Ops->Mbist(Args, NumArgs);
-			if (XST_SUCCESS != Status) {
+			XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (Ops->Mbist), (Args), (NumArgs));
+			XStatus LocalStatus = StatusTmp; /* Copy volatile to local to avoid MISRA */
+			/* Required for redundancy */
+			if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
+				DbgErr = XPM_INT_ERR_FUNC_MBIST_CLEAR;
 				goto done;
 			}
 			PwrDomain->InitFlag |= BIT(FUNC_MBIST_CLEAR);
@@ -1009,12 +1331,14 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		break;
 	case (u32)FUNC_HOUSECLEAN_PL:
 		if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+			DbgErr = XPM_INT_ERR_INVALID_PWR_STATE;
 			Status = XST_FAILURE;
 			goto done;
 		}
 		if ((NULL != Ops) && (NULL != Ops->PlHouseclean)) {
 			Status = Ops->PlHouseclean(Args, NumArgs);
 			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_FUNC_HOUSECLEAN_PL;
 				goto done;
 			}
 		}
@@ -1022,48 +1346,77 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		break;
 	case (u32)FUNC_MEM_INIT:
                 if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+			DbgErr = XPM_INT_ERR_INVALID_PWR_STATE;
                         Status = XST_FAILURE;
                         goto done;
                 }
                 if ((NULL != Ops) && (NULL != Ops->MemInit)) {
                         Status = Ops->MemInit(Args, NumArgs);
                         if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_FUNC_MEM_INIT;
                                 goto done;
                         }
                 }
-				Status = XST_SUCCESS;
+		Status = XST_SUCCESS;
                 break;
 	case (u32)FUNC_HOUSECLEAN_COMPLETE:
                 if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+			DbgErr = XPM_INT_ERR_INVALID_PWR_STATE;
                         Status = XST_FAILURE;
                         goto done;
                 }
                 if ((NULL != Ops) && (NULL != Ops->HcComplete)) {
                         Status = Ops->HcComplete(Args, NumArgs);
                         if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_FUNC_HOUSECLEAN_COMPLETE;
                                 goto done;
                         }
                 }
-				Status = XST_SUCCESS;
+		Status = XST_SUCCESS;
                 break;
 	case (u32)FUNC_XPPU_CTRL:
-                if ((u8)XPM_POWER_STATE_ON != PwrDomain->Power.Node.State) {
-                        Status = XST_FAILURE;
-                        goto done;
-                }
-                if ((NULL != Ops) && (NULL != Ops->XppuCtrl)) {
-                        Status = Ops->XppuCtrl(Args, NumArgs);
-                        if (XST_SUCCESS != Status) {
-                                goto done;
-                        }
-                }
-				Status = XST_SUCCESS;
-                break;
+		if ((u8)XPM_POWER_STATE_ON != PwrDomain->Power.Node.State) {
+			DbgErr = XPM_INT_ERR_INVALID_PWR_STATE;
+			Status = XST_FAILURE;
+			goto done;
+		}
+		if ((NULL != Ops) && (NULL != Ops->XppuCtrl)) {
+			Status = Ops->XppuCtrl(Args, NumArgs);
+			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_FUNC_XPPU_CTRL;
+				goto done;
+			}
+		}
+		Status = XST_SUCCESS;
+		break;
+	case (u32)FUNC_XMPU_CTRL:
+		if ((u8)XPM_POWER_STATE_ON != PwrDomain->Power.Node.State) {
+			DbgErr = XPM_INT_ERR_INVALID_PWR_STATE;
+			Status = XST_FAILURE;
+			goto done;
+		}
+		if ((NULL != Ops) && (NULL != Ops->XmpuCtrl)) {
+			Status = Ops->XmpuCtrl(Args, NumArgs);
+			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_FUNC_XMPU_CTRL;
+				goto done;
+			}
+		}
+		Status = XST_SUCCESS;
+		break;
 	default:
+		DbgErr = XPM_INT_ERR_INVALID_FUNC;
 		Status = XST_INVALID_PARAM;
 		break;
 	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
+
+	if (XST_SUCCESS == Status) {
+		PmDbg("%s for PwrDomain 0x%x completed successfully\r\n",
+		      PmInitFunctions[Function], PwrDomain->Power.Node.Id);
+	}
+
 	return Status;
 }

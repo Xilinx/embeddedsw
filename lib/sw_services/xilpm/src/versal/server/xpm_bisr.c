@@ -16,6 +16,7 @@
 #include "xpm_psfpdomain.h"
 #include "xpm_cpmdomain.h"
 #include "xpm_pldomain.h"
+#include "xpm_debug.h"
 
 /* Defines */
 #define PMC_EFUSE_BISR_EXIT_CODE			(0U)
@@ -275,6 +276,7 @@ static XStatus XPmBisr_RepairGty(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional,
 	XStatus Status = XST_FAILURE;
 	u32 RegValue, EfuseEndpointShift;
 	u32 BaseAddr, BisrDataDestAddr;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* Modify Base Address based on the Tag type */
 	switch(TagType) {
@@ -294,6 +296,7 @@ static XStatus XPmBisr_RepairGty(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional,
 		break;
 	default:
 		XPmBisr_SwError(PMC_EFUSE_BISR_UNSUPPORTED_ID);
+		DbgErr = XPM_INT_ERR_BISR_UNSUPPORTED_ID;
 		Status = XST_FAILURE;
 		break;
 	}
@@ -301,38 +304,41 @@ static XStatus XPmBisr_RepairGty(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional,
 		goto done;
 	}
 
-	BaseAddr = BaseAddr | (TagOptional<< EfuseEndpointShift);
-	BisrDataDestAddr = BaseAddr | GTY_CACHE_DATA_REGISTER_OFFSET;
+	BaseAddr = BaseAddr + (TagOptional<< EfuseEndpointShift);
+	BisrDataDestAddr = BaseAddr + GTY_CACHE_DATA_REGISTER_OFFSET;
 
 	/* Copy repair data */
 	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
 
 	/* Unlock PCSR */
-	PmOut32(BaseAddr | GTY_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+	PmOut32(BaseAddr + GTY_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
 
 	/* Trigger Bisr */
-	PmOut32(BaseAddr | GTY_PCSR_MASK_OFFSET, GTY_PCSR_BISR_TRIGGER_MASK);
-	PmOut32(BaseAddr | GTY_PCSR_CONTROL_OFFSET, GTY_PCSR_BISR_TRIGGER_MASK);
+	PmOut32(BaseAddr + GTY_PCSR_MASK_OFFSET, GTY_PCSR_BISR_TRIGGER_MASK);
+	PmOut32(BaseAddr + GTY_PCSR_CONTROL_OFFSET, GTY_PCSR_BISR_TRIGGER_MASK);
 
 	/* Wait for Bisr to finish */
-	Status = XPm_PollForMask(BaseAddr | GTY_PCSR_STATUS_OFFSET, GTY_PCSR_STATUS_BISR_DONE_MASK, XPM_POLL_TIMEOUT);
+	Status = XPm_PollForMask(BaseAddr + GTY_PCSR_STATUS_OFFSET, GTY_PCSR_STATUS_BISR_DONE_MASK, XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_BISR_DONE_TIMEOUT;
 		goto done;
 	}
 
-	PmIn32(BaseAddr | GTY_PCSR_STATUS_OFFSET, RegValue);
+	PmIn32(BaseAddr + GTY_PCSR_STATUS_OFFSET, RegValue);
 	if ((RegValue & GTY_PCSR_STATUS_BISR_PASS_MASK) != GTY_PCSR_STATUS_BISR_PASS_MASK) {
+		DbgErr = XPM_INT_ERR_BISR_PASS;
 		Status = XST_FAILURE;
 		goto done;
 	}
 
 	/* Unwrite Trigger Bit */
-	PmOut32(BaseAddr | GTY_PCSR_MASK_OFFSET, GTY_PCSR_BISR_TRIGGER_MASK);
-	PmOut32(BaseAddr | GTY_PCSR_CONTROL_OFFSET, 0);
+	PmOut32(BaseAddr + GTY_PCSR_MASK_OFFSET, GTY_PCSR_BISR_TRIGGER_MASK);
+	PmOut32(BaseAddr + GTY_PCSR_CONTROL_OFFSET, 0);
 
 	/* Lock PCSR */
-	PmOut32(BaseAddr | GTY_PCSR_LOCK_OFFSET, 1);
+	PmOut32(BaseAddr + GTY_PCSR_LOCK_OFFSET, 1);
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -341,8 +347,10 @@ static XStatus XPmBisr_RepairLpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 	XStatus Status = XST_FAILURE;
 	u64 BisrDataDestAddr;
 	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if (NULL == LpDomain) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		goto done;
 	}
 
@@ -354,8 +362,12 @@ static XStatus XPmBisr_RepairLpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 	LpDomain->LpdBisrFlags |= LPD_BISR_DATA_COPIED;
 
 	Status = XPmBisr_TriggerLpd();
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_BISR_TRIGGER;
+	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -364,9 +376,11 @@ int XPmBisr_TriggerLpd(void)
 	int Status = XST_FAILURE;
 	XPm_PsLpDomain *PsLpd;
 	u32 RegValue;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	PsLpd = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 	if (NULL == PsLpd) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		goto done;
 	}
 
@@ -386,6 +400,7 @@ int XPmBisr_TriggerLpd(void)
 				  LPD_SLCR_BISR_DONE_0_MASK),
 				 XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_BISR_DONE_TIMEOUT;
 		goto done;
 	}
 
@@ -397,6 +412,7 @@ int XPmBisr_TriggerLpd(void)
 				  (LPD_SLCR_BISR_PASS_GLOBAL_MASK |
 				  LPD_SLCR_BISR_PASS_1_MASK |
 				  LPD_SLCR_BISR_PASS_0_MASK)) {
+		DbgErr = XPM_INT_ERR_BISR_PASS;
 		Status = XST_FAILURE;
 	}
 
@@ -405,6 +421,7 @@ int XPmBisr_TriggerLpd(void)
 		(LPD_SLCR_CACHE_CTRL_1_PGEN0_MASK |
 		 LPD_SLCR_CACHE_CTRL_1_PGEN1_MASK), 0);
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -414,9 +431,11 @@ static XStatus XPmBisr_RepairFpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 	XPm_PsFpDomain *PsFpd;
 	u32 RegValue;
 	u64 BisrDataDestAddr;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	PsFpd = (XPm_PsFpDomain *)XPmPower_GetById(PM_POWER_FPD);
 	if (NULL == PsFpd) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		goto done;
 	}
 
@@ -449,6 +468,7 @@ static XStatus XPmBisr_RepairFpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 				  FPD_SLCR_BISR_DONE_0_MASK),
 				  XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_BISR_DONE_TIMEOUT;
 		goto done;
 	}
 
@@ -464,6 +484,7 @@ static XStatus XPmBisr_RepairFpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 				  FPD_SLCR_BISR_PASS_2_MASK |
 				  FPD_SLCR_BISR_PASS_1_MASK |
 				  FPD_SLCR_BISR_PASS_0_MASK)) {
+		DbgErr = XPM_INT_ERR_BISR_PASS;
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -476,6 +497,7 @@ static XStatus XPmBisr_RepairFpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 		 FPD_SLCR_CACHE_CTRL_1_PGEN3_MASK), 0);
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -486,9 +508,11 @@ static XStatus XPmBisr_RepairCpm(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 	XPm_CpmDomain *Cpm;
 	u32 RegValue;
 	u64 BisrDataDestAddr;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM);
 	if (NULL == Cpm) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		goto done;
 	}
 
@@ -512,12 +536,14 @@ static XStatus XPmBisr_RepairCpm(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 				 CPM_SLCR_BISR_CACHE_STATUS_DONE_MASK,
 				 XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_BISR_DONE_TIMEOUT;
 		goto done;
 	}
 
 	/* Check Bisr status */
 	PmIn32(Cpm->CpmSlcrBaseAddr + CPM_SLCR_BISR_CACHE_STATUS_OFFSET, RegValue);
 	if ((RegValue & CPM_SLCR_BISR_CACHE_STATUS_PASS_MASK) != CPM_SLCR_BISR_CACHE_STATUS_PASS_MASK) {
+		DbgErr = XPM_INT_ERR_BISR_PASS;
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -525,6 +551,7 @@ static XStatus XPmBisr_RepairCpm(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 	PmOut32(Cpm->CpmSlcrBaseAddr + CPM_SLCR_BISR_CACHE_CTRL_OFFSET, 0x0);
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -534,9 +561,11 @@ static XStatus XPmBisr_RepairCpm5(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAdd
 	XPm_CpmDomain *Cpm;
 	u32 RegValue;
 	u64 BisrDataDestAddr;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM5);
 	if (NULL == Cpm) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		goto done;
 	}
 
@@ -562,6 +591,7 @@ static XStatus XPmBisr_RepairCpm5(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAdd
 				 CPM5_SLCR_BISR_CACHE_STATUS_DONE_MASK,
 				 XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_BISR_DONE_TIMEOUT;
 		goto done;
 	}
 
@@ -569,6 +599,7 @@ static XStatus XPmBisr_RepairCpm5(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAdd
 	PmIn32(Cpm->CpmSlcrBaseAddr + CPM5_SLCR_BISR_CACHE_STATUS_OFFSET, RegValue);
 	if ((RegValue & CPM5_SLCR_BISR_CACHE_STATUS_PASS_MASK) !=
 		CPM5_SLCR_BISR_CACHE_STATUS_PASS_MASK) {
+		DbgErr = XPM_INT_ERR_BISR_PASS;
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -580,6 +611,7 @@ static XStatus XPmBisr_RepairCpm5(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAdd
 	PmOut32(Cpm->CpmSlcrBaseAddr + CPM5_SLCR_WPROTP_OFFSET, 0x1);
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -589,14 +621,16 @@ static XStatus XPmBisr_RepairDdrMc(u32 EfuseTagAddr, u32 TagSize, u32 TagOptiona
 	XStatus Status = XST_FAILURE;
 	u32 RegValue;
 	u32 BaseAddr, BisrDataDestAddr;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XPm_NpDomain *NpDomain = (XPm_NpDomain *)XPmPower_GetById(PM_POWER_NOC);
 
 	if (NULL == NpDomain) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		goto done;
 	}
 
-	BaseAddr = NPI_FIXED_BASEADDR | (TagOptional<<NPI_EFUSE_ENDPOINT_SHIFT);
-	BisrDataDestAddr = BaseAddr | DDRMC_NPI_CACHE_DATA_REGISTER_OFFSET;
+	BaseAddr = NPI_FIXED_BASEADDR + (TagOptional<<NPI_EFUSE_ENDPOINT_SHIFT);
+	BisrDataDestAddr = BaseAddr + DDRMC_NPI_CACHE_DATA_REGISTER_OFFSET;
 
 	if (0U == NpDomain->BisrDataCopied) {
 		/* Copy repair data */
@@ -606,40 +640,43 @@ static XStatus XPmBisr_RepairDdrMc(u32 EfuseTagAddr, u32 TagSize, u32 TagOptiona
 	}
 
 	/* Unlock PCSR */
-	PmOut32(BaseAddr | DDRMC_NPI_PCSR_LOCK_REGISTER_OFFSET, PCSR_UNLOCK_VAL);
+	PmOut32(BaseAddr + DDRMC_NPI_PCSR_LOCK_REGISTER_OFFSET, PCSR_UNLOCK_VAL);
 
 	/* Enable Bisr clock */
-	PmRmw32(BaseAddr | DDRMC_NPI_CLK_GATE_REGISTER_OFFSET, DDRMC_NPI_CLK_GATE_BISREN_MASK, DDRMC_NPI_CLK_GATE_BISREN_MASK);
+	PmRmw32(BaseAddr + DDRMC_NPI_CLK_GATE_REGISTER_OFFSET, DDRMC_NPI_CLK_GATE_BISREN_MASK, DDRMC_NPI_CLK_GATE_BISREN_MASK);
 
 	/*Trigger Bisr */
-	PmOut32(BaseAddr | DDRMC_NPI_PCSR_MASK_REGISTER_OFFSET, DDRMC_NPI_PCSR_BISR_TRIGGER_MASK);
-	PmOut32(BaseAddr | DDRMC_NPI_PCSR_CONTROL_REGISTER_OFFSET, DDRMC_NPI_PCSR_BISR_TRIGGER_MASK);
+	PmOut32(BaseAddr + DDRMC_NPI_PCSR_MASK_REGISTER_OFFSET, DDRMC_NPI_PCSR_BISR_TRIGGER_MASK);
+	PmOut32(BaseAddr + DDRMC_NPI_PCSR_CONTROL_REGISTER_OFFSET, DDRMC_NPI_PCSR_BISR_TRIGGER_MASK);
 
 	/* Wait for Bisr to be done and check status */
-	Status = XPm_PollForMask(BaseAddr | DDRMC_NPI_CACHE_STATUS_REGISTER_OFFSET,
+	Status = XPm_PollForMask(BaseAddr + DDRMC_NPI_CACHE_STATUS_REGISTER_OFFSET,
 				 DDRMC_NPI_CACHE_STATUS_BISR_DONE_MASK,
 				 XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_BISR_DONE_TIMEOUT;
 		goto done;
 	}
 
-	PmIn32(BaseAddr | DDRMC_NPI_CACHE_STATUS_REGISTER_OFFSET, RegValue);
+	PmIn32(BaseAddr + DDRMC_NPI_CACHE_STATUS_REGISTER_OFFSET, RegValue);
 	if ((RegValue & DDRMC_NPI_CACHE_STATUS_BISR_PASS_MASK) != DDRMC_NPI_CACHE_STATUS_BISR_PASS_MASK) {
+		DbgErr = XPM_INT_ERR_BISR_PASS;
 		Status = XST_FAILURE;
 		goto done;
 	}
 
 	/* Disable Bisr Clock */
-	PmRmw32(BaseAddr | DDRMC_NPI_CLK_GATE_REGISTER_OFFSET, DDRMC_NPI_CLK_GATE_BISREN_MASK, ~DDRMC_NPI_CLK_GATE_BISREN_MASK);
+	PmRmw32(BaseAddr + DDRMC_NPI_CLK_GATE_REGISTER_OFFSET, DDRMC_NPI_CLK_GATE_BISREN_MASK, ~DDRMC_NPI_CLK_GATE_BISREN_MASK);
 
 	/* Unwrite Trigger Bit */
-	PmOut32(BaseAddr | DDRMC_NPI_PCSR_MASK_REGISTER_OFFSET, DDRMC_NPI_PCSR_BISR_TRIGGER_MASK);
-	PmOut32(BaseAddr | DDRMC_NPI_PCSR_CONTROL_REGISTER_OFFSET, 0);
+	PmOut32(BaseAddr + DDRMC_NPI_PCSR_MASK_REGISTER_OFFSET, DDRMC_NPI_PCSR_BISR_TRIGGER_MASK);
+	PmOut32(BaseAddr + DDRMC_NPI_PCSR_CONTROL_REGISTER_OFFSET, 0);
 
 	/* Lock PCSR */
-	PmOut32(BaseAddr | DDRMC_NPI_PCSR_LOCK_REGISTER_OFFSET, 1);
+	PmOut32(BaseAddr + DDRMC_NPI_PCSR_LOCK_REGISTER_OFFSET, 1);
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -647,40 +684,45 @@ static XStatus XPmBisr_RepairME(u32 EfuseTagAddr, u32 TagId,u32 TagSize,u32 TagO
 {
 	XStatus Status = XST_FAILURE;
 	u32 RegValue;
-	u32 BaseAddr, BisrDataDestAddr;
+	u64 BaseAddr, BisrDataDestAddr;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* Compilation warning fix */
 	(void)TagId;
 
-	BaseAddr = (u32)VIVADO_ME_BASEADDR | (TagOptional << ME_BISR_EFUSE_OFFSET_SHIFT);
-	BisrDataDestAddr = BaseAddr | ME_BISR_FIXED_OFFSET;
+	BaseAddr = (u64)VIVADO_ME_BASEADDR + ((u64)TagOptional << ME_BISR_EFUSE_OFFSET_SHIFT);
+	BisrDataDestAddr = BaseAddr + ME_BISR_FIXED_OFFSET;
 
 	/* Copy repair data */
 	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
 
 	/* Trigger Bisr */
-	PmRmw32(BaseAddr | ME_BISR_CACHE_CTRL_OFFSET, ME_BISR_CACHE_CTRL_BISR_TRIGGER_MASK, ME_BISR_CACHE_CTRL_BISR_TRIGGER_MASK);
+	PmRmw64(BaseAddr + ME_BISR_CACHE_CTRL_OFFSET, ME_BISR_CACHE_CTRL_BISR_TRIGGER_MASK, ME_BISR_CACHE_CTRL_BISR_TRIGGER_MASK);
 
 	/* Wait for Bisr to finish */
-	Status = XPm_PollForMask(BaseAddr | ME_BISR_CACHE_STATUS_OFFSET,
-				 ME_BISR_CACHE_STATUS_BISR_DONE_MASK,
-				 XPM_POLL_TIMEOUT);
+	Status = XPm_PollForMask64(BaseAddr + ME_BISR_CACHE_STATUS_OFFSET,
+				   ME_BISR_CACHE_STATUS_BISR_DONE_MASK,
+				   XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_BISR_DONE_TIMEOUT;
 		goto done;
 	}
 
 	/* Check Bisr Status */
-	PmIn32(BaseAddr | ME_BISR_CACHE_STATUS_OFFSET, RegValue);
+	PmIn64(BaseAddr + ME_BISR_CACHE_STATUS_OFFSET, RegValue);
 	if ((RegValue & ME_BISR_CACHE_STATUS_BISR_PASS_MASK) !=
 				  ME_BISR_CACHE_STATUS_BISR_PASS_MASK) {
+		DbgErr = XPM_INT_ERR_BISR_PASS;
 		Status = XST_FAILURE;
 		goto done;
 	}
 
 	/* Unwrite Trigger Bit */
-	PmRmw32(BaseAddr | ME_BISR_CACHE_CTRL_OFFSET, ME_BISR_CACHE_CTRL_BISR_TRIGGER_MASK, 0);
+	PmRmw64(BaseAddr + ME_BISR_CACHE_CTRL_OFFSET,
+		ME_BISR_CACHE_CTRL_BISR_TRIGGER_MASK, 0);
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -965,6 +1007,7 @@ static XStatus XPmBisr_RepairXram(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAdd
 	XPm_Device *Device = NULL;
 	u32 RegValue, BaseAddr;
 	u64 BisrDataDestAddr;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* Not possible to reach here if Device doesn't exist hence no */
 	/* check for existence of Device */
@@ -1001,6 +1044,7 @@ static XStatus XPmBisr_RepairXram(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAdd
 	Status = XPm_PollForMask(BaseAddr + XRAM_SLCR_PCSR_PSR_OFFSET,
 		XRAM_SLCR_PCSR_PSR_BISR_DONE_MASK, XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_BISR_DONE_TIMEOUT;
 		goto done;
 	}
 
@@ -1008,6 +1052,7 @@ static XStatus XPmBisr_RepairXram(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAdd
 	PmIn32(BaseAddr + XRAM_SLCR_PCSR_PSR_OFFSET, RegValue);
 	if (XRAM_SLCR_PCSR_PSR_BISR_PASS_MASK != (RegValue &
 		XRAM_SLCR_PCSR_PSR_BISR_PASS_MASK)) {
+		DbgErr = XPM_INT_ERR_BISR_PASS;
 		Status = XPM_ERR_BISR;
 		goto done;
 	}
@@ -1022,6 +1067,7 @@ static XStatus XPmBisr_RepairXram(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAdd
 	Status = XST_SUCCESS;
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -1036,12 +1082,14 @@ XStatus XPmBisr_Repair(u32 TagId)
 	u32 EfuseBisrSize;
 	u32 EfuseBisrOptional;
 	u32 TagType;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	if (NULL == EfuseCache) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		goto done;
 	}
 
-	if (PLATFORM_VERSION_SILICON != Platform) {
+	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -1052,6 +1100,7 @@ XStatus XPmBisr_Repair(u32 TagId)
 	//check requested ID is a valid ID
 	if (TagId > 255U) {
 		XPmBisr_SwError(PMC_EFUSE_BISR_UNKN_TAG_ID);
+		DbgErr = XPM_INT_ERR_BISR_UNKN_TAG_ID;
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -1061,6 +1110,7 @@ XStatus XPmBisr_Repair(u32 TagId)
 		TagType = XPmTagIdWhiteList[TagId] & TAG_ID_TYPE_MASK;
 	} else {
 		XPmBisr_SwError(PMC_EFUSE_BISR_INVLD_TAG_ID);
+		DbgErr = XPM_INT_ERR_BISR_INVALID_ID;
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -1133,10 +1183,12 @@ XStatus XPmBisr_Repair(u32 TagId)
 						break;
 					default: //block type not recognized, no function to handle it
 						XPmBisr_SwError(PMC_EFUSE_BISR_BAD_TAG_TYPE);
+						DbgErr = XPM_INT_ERR_BAD_TAG_TYPE;
 						Status = XST_FAILURE;
 						break;
 					}
 					if (XST_SUCCESS != Status) {
+						DbgErr = XPM_INT_ERR_BISR_REPAIR;
 						goto done;
 					}
 				} else {	//calculate the next efuse address if not matched ID
@@ -1152,6 +1204,7 @@ XStatus XPmBisr_Repair(u32 TagId)
 				}
 			} else { 	//Not supported
 				XPmBisr_SwError(PMC_EFUSE_BISR_UNSUPPORTED_ID);
+				DbgErr = XPM_INT_ERR_BISR_UNSUPPORTED_ID;
 				Status = XST_FAILURE;
 				goto done;
 			}
@@ -1165,6 +1218,7 @@ XStatus XPmBisr_Repair(u32 TagId)
 	Status = XST_SUCCESS;
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -1230,9 +1284,11 @@ XStatus XPmBisr_NidbLaneRepair(void)
 	u32 NocSwId     = 0x0;
 	u32 SlvSkipAddr = 0x0;
 	u32 NidbAddr    = 0x0;
+	u32 SlrType;
 	struct XPm_NidbEfuseGrpInfo NidbEfuseGrpInfo[MAX_NIDB_EFUSE_GROUPS];
 
 	/* Check SLR TYPE */
+	SlrType = XPm_GetSlrType();
 	if ( SlrType == SLR_TYPE_MONOLITHIC_DEV ||
 		 SlrType == SLR_TYPE_INVALID) {
 		PmInfo("Not an SSIT Device\n\r");

@@ -36,6 +36,9 @@ extern "C" {
 #define MAX_MUX_PARENTS		8U
 #define MAX_NAME_BYTES		16U
 
+/* Clock Flags */
+#define CLK_FLAG_READ_ONLY		(1U << 0U)
+
 /**
  * The topology node class.	 This is the class to represent each node
  * in clock topology. It can be mux/div/gate/fixed factor.
@@ -122,7 +125,8 @@ enum XPm_ClockSubnodeType {
 #define CLK_SET_PARENT_GATE		BIT16(1) /* must be gated across re-parent */
 #define CLK_SET_RATE_PARENT		BIT16(2) /* propagate rate change up one level */
 #define CLK_IGNORE_UNUSED		BIT16(3) /* do not gate even if unused */
-#define CLK_IS_BASIC			BIT16(5) /* Basic clk, can't do a to_clk_foo() */
+						 /* BIT(4) unused */
+						 /* BIT(5) unused */
 #define CLK_GET_RATE_NOCACHE		BIT16(6) /* do not use the cached clk rate */
 #define CLK_SET_RATE_NO_REPARENT	BIT16(7) /* don't re-parent on rate change */
 #define CLK_GET_ACCURACY_NOCACHE	BIT16(8) /* do not use the cached clk accuracy */
@@ -130,14 +134,22 @@ enum XPm_ClockSubnodeType {
 #define CLK_SET_RATE_UNGATE		BIT16(10) /* clock needs to run to set rate */
 #define CLK_IS_CRITICAL			BIT16(11) /* do not gate, ever */
 
-/* Type Flags */
+/* Type Flags for divider clock */
 #define CLK_DIVIDER_ONE_BASED		BIT(0)
 #define CLK_DIVIDER_POWER_OF_TWO	BIT(1)
 #define CLK_DIVIDER_ALLOW_ZERO		BIT(2)
 #define CLK_DIVIDER_HIWORD_MASK		BIT(3)
 #define CLK_DIVIDER_ROUND_CLOSEST	BIT(4)
-#define CLK_DIVIDER_READ_ONLY		BIT(5)
+#define CLK_DIVIDER_READ_ONLY		BIT16(5)
 #define CLK_DIVIDER_MAX_AT_ZERO		BIT(6)
+
+/* Type Flags for mux clock */
+#define CLK_MUX_INDEX_ONE               BIT(0)
+#define CLK_MUX_INDEX_BIT               BIT(1)
+#define CLK_MUX_HIWORD_MASK             BIT(2)
+#define CLK_MUX_READ_ONLY               BIT16(3)
+#define CLK_MUX_ROUND_CLOSEST           BIT(4)
+#define CLK_MUX_BIG_ENDIAN              BIT(5)
 
 /************************** Function Prototypes ******************************/
 XStatus XPmClock_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
@@ -146,6 +158,7 @@ XStatus XPmClock_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 XStatus XPmClock_AddClkName(u32 Id, char *Name);
 XStatus XPmClock_AddSubNode(u32 Id, u32 Type, u32 ControlReg, u8 Param1, u8 Param2, u32 Flags);
 XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u8 NumParents);
+void XPmClock_SetPlClockAsReadOnly(void);
 XPm_ClockNode* XPmClock_GetById(u32 ClockId);
 XPm_ClockNode* XPmClock_GetByIdx(u32 ClockIdx);
 XStatus XPmClock_SetById(u32 ClockId, XPm_ClockNode *Clk);

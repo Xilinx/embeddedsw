@@ -14,7 +14,7 @@ extern "C" {
 #include "xpm_subsystem.h"
 #include "xpm_device.h"
 
-extern void (* PmRequestCb)(u32 SubsystemId, const u32 EventId, u32 *Payload);
+extern void (* PmRequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload);
 
 int XPmNotifier_Register(const XPm_Subsystem* const Subsystem,
 			 const u32 NodeId,

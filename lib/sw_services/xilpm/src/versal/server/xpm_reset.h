@@ -17,6 +17,8 @@ extern "C" {
 
 #define MAX_RESET_PARENTS	(3U)
 
+extern u32 UserAssertPsSrst;
+
 /* All reset types */
 typedef enum {
 	XPM_RSTTYPE_POR,
