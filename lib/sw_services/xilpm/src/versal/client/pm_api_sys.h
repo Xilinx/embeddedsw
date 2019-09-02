@@ -30,6 +30,7 @@
 #include "pm_client.h"
 #include "xpm_defs.h"
 #include "xpm_err.h"
+#include "xpm_nodeid.h"
 
 #ifdef __cplusplus
 extern "C" {
