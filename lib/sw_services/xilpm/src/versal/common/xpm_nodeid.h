@@ -11,7 +11,10 @@
 #ifndef XPM_NODEID_H_
 #define XPM_NODEID_H_
 
-/* Power Nodes */
+/** @defgroup xilpmpwrnodes Power Nodes
+@ingroup xilpmnodeids
+@{
+*/
 #define PM_POWER_PMC				(0x4208001U)
 #define PM_POWER_LPD				(0x4210002U)
 #define PM_POWER_FPD				(0x420c003U)
@@ -34,6 +37,7 @@
 #define PM_POWER_ACPU_0				(0x4104014U)
 #define PM_POWER_ACPU_1				(0x4104015U)
 #define PM_POWER_L2_BANK_0			(0x4104016U)
+/** @cond INTERNAL */
 #define PM_POWER_XRAM_0				(0x4124017U)
 #define PM_POWER_XRAM_1				(0x4124018U)
 #define PM_POWER_XRAM_2				(0x4124019U)
@@ -51,8 +55,23 @@
 #define PM_POWER_XRAM_14			(0x4124025U)
 #define PM_POWER_XRAM_15			(0x4124026U)
 #define PM_POWER_CPM5				(0x4218027U)
+#define PM_POWER_ME2				(0x421c028U)
+#define PM_POWER_VCC_PMC            (0x4328029U)
+#define PM_POWER_VCCAUX_PMC         (0x432802aU)
+#define PM_POWER_VCCINT_PSLP            (0x432802bU)
+#define PM_POWER_VCCINT_PSFP            (0x432802cU)
+#define PM_POWER_VCC_SOC            (0x432802dU)
+#define PM_POWER_VCC_RAM            (0x432802eU)
+#define PM_POWER_VCCAUX             (0x432802fU)
+#define PM_POWER_VCCINT             (0x4328030U)
+/** @}
+ * @endcond
+ */
 
-/* Reset Nodes */
+/** @defgroup xilpmrstnodes Reset Nodes
+@ingroup xilpmnodeids
+@{
+*/
 #define PM_RST_PMC_POR				(0xc30c001U)
 #define PM_RST_PMC				(0xc410002U)
 #define PM_RST_PS_POR				(0xc30c003U)
@@ -145,11 +164,17 @@
 #define PM_RST_ADDR_REMAP			(0xc41005aU)
 #define PM_RST_CPI0				(0xc41005bU)
 #define PM_RST_CPI1				(0xc41005cU)
+/** @cond INTERNAL */
 #define PM_RST_XRAM				(0xc30c05dU)
+/** @endcond */
 #define PM_RST_AIE_ARRAY			(0xc10405eU)
 #define PM_RST_AIE_SHIM				(0xc10405fU)
+/** @} */
 
-/* Clock nodes */
+/** @defgroup xilpmclknodes Clock nodes
+@ingroup xilpmnodeids
+@{
+*/
 #define PM_CLK_PMC_PLL				(0x8104001U)
 #define PM_CLK_APU_PLL				(0x8104002U)
 #define PM_CLK_RPU_PLL				(0x8104003U)
@@ -262,10 +287,19 @@
 #define PM_CLK_MIO_24_OR_25			(0x830c070U)
 #define PM_CLK_EMIO				(0x830c071U)
 #define PM_CLK_MIO				(0x830c072U)
+/** @cond INTERNAL */
 #define PM_CLK_XRAM_MAIN_CLK			(0x8208074U)
 #define PM_CLK_XRAM_APB				(0x8208075U)
+/** @endcond */
+#define PM_CLK_PL_PMC_ALT_REF_CLK		(0x830c076U)
+#define PM_CLK_PL_LPD_ALT_REF_CLK		(0x830c077U)
+#define PM_CLK_PL_FPD_ALT_REF_CLK		(0x830c078U)
+/** @} */
 
-/* MIO nodes */
+/** @defgroup xilpmmionodes MIO nodes
+@ingroup xilpmnodeids
+@{
+*/
 #define PM_STMIC_LMIO_0				(0x14104001U)
 #define PM_STMIC_LMIO_1				(0x14104002U)
 #define PM_STMIC_LMIO_2				(0x14104003U)
@@ -344,8 +378,12 @@
 #define PM_STMIC_PMIO_49			(0x1410804cU)
 #define PM_STMIC_PMIO_50			(0x1410804dU)
 #define PM_STMIC_PMIO_51			(0x1410804eU)
+/** @} */
 
-/* Device Nodes */
+/** @defgroup xilpmdvcnodes Device nodes
+@ingroup xilpmnodeids
+@{
+*/
 #define PM_DEV_PLD_0				(0x18700000U)
 #define PM_DEV_PMC_PROC				(0x18104001U)
 #define PM_DEV_PSM_PROC				(0x18108002U)
@@ -363,6 +401,7 @@
 #define PM_DEV_TCM_1_B				(0x1831800eU)
 #define PM_DEV_L2_BANK_0			(0x1831c00fU)
 #define PM_DEV_DDR_0				(0x18320010U)
+/** @cond INTERNAL */
 #define PM_DEV_DDR_1				(0x18320011U)
 #define PM_DEV_DDR_2				(0x18320012U)
 #define PM_DEV_DDR_3				(0x18320013U)
@@ -370,6 +409,7 @@
 #define PM_DEV_DDR_5				(0x18320015U)
 #define PM_DEV_DDR_6				(0x18320016U)
 #define PM_DEV_DDR_7				(0x18320017U)
+/** @endcond */
 #define PM_DEV_USB_0				(0x18224018U)
 #define PM_DEV_GEM_0				(0x18224019U)
 #define PM_DEV_GEM_1				(0x1822401aU)
@@ -394,10 +434,6 @@
 #define PM_DEV_I2C_PMC				(0x1822402dU)
 #define PM_DEV_SDIO_0				(0x1822402eU)
 #define PM_DEV_SDIO_1				(0x1822402fU)
-#define PM_DEV_PL_0				(0x18224030U)
-#define PM_DEV_PL_1				(0x18224031U)
-#define PM_DEV_PL_2				(0x18224032U)
-#define PM_DEV_PL_3				(0x18224033U)
 #define PM_DEV_RTC				(0x18224034U)
 #define PM_DEV_ADMA_0				(0x18224035U)
 #define PM_DEV_ADMA_1				(0x18224036U)
@@ -432,6 +468,7 @@
 #define PM_DEV_GT_10				(0x1862c053U)
 #define PM_DEV_EFUSE_CACHE			(0x18330054U)
 #define PM_DEV_AMS_ROOT				(0x18224055U)
+/** @cond INTERNAL */
 #define PM_DEV_XRAM_0				(0x18334056U)
 #define PM_DEV_XRAM_1				(0x18334057U)
 #define PM_DEV_XRAM_2				(0x18334058U)
@@ -460,14 +497,61 @@
 #define PM_DEV_GTYP_CPM5_1			(0x1862c06fU)
 #define PM_DEV_GTYP_CPM5_2			(0x1862c070U)
 #define PM_DEV_GTYP_CPM5_3			(0x1862c071U)
+/** @endcond */
 #define PM_DEV_AIE				(0x18224072U)
 #define PM_DEV_IPI_PMC				(0x18224073U)
+/** @cond INTERNAL */
+#define PM_DEV_GTM_5				(0x1862c074U)
+#define PM_DEV_GTM_6				(0x1862c075U)
+#define PM_DEV_GTM_7				(0x1862c076U)
+#define PM_DEV_GTM_8				(0x1862c077U)
+#define PM_DEV_GTM_9				(0x1862c078U)
+#define PM_DEV_HBMMC_0				(0x18540079U)
+#define PM_DEV_HBMMC_1				(0x1854007aU)
+#define PM_DEV_HBMMC_2				(0x1854007bU)
+#define PM_DEV_HBMMC_3				(0x1854007cU)
+#define PM_DEV_HBMMC_4				(0x1854007dU)
+#define PM_DEV_HBMMC_5				(0x1854007eU)
+#define PM_DEV_HBMMC_6				(0x1854007fU)
+#define PM_DEV_HBMMC_7				(0x18540080U)
+#define PM_DEV_HBMMC_8				(0x18540081U)
+#define PM_DEV_HBMMC_9				(0x18540082U)
+#define PM_DEV_HBMMC_10				(0x18540083U)
+#define PM_DEV_HBMMC_11				(0x18540084U)
+#define PM_DEV_HBMMC_12				(0x18540085U)
+#define PM_DEV_HBMMC_13				(0x18540086U)
+#define PM_DEV_HBMMC_14				(0x18540087U)
+#define PM_DEV_HBMMC_15				(0x18540088U)
+#define PM_DEV_GTYP_3				(0x1862c089U)
+#define PM_DEV_GTYP_4				(0x1862c08aU)
+#define PM_DEV_GTYP_5				(0x1862c08bU)
+#define PM_DEV_GTYP_6				(0x1862c08cU)
+#define PM_DEV_GTYP_7				(0x1862c08dU)
+#define PM_DEV_GTYP_8				(0x1862c08eU)
+#define PM_DEV_GTYP_9				(0x1862c08fU)
+#define PM_DEV_HBM_0				(0x18340090U)
+#define PM_DEV_VDU_0				(0x18644091U)
+#define PM_DEV_VDU_1				(0x18644092U)
+#define PM_DEV_VDU_2				(0x18644093U)
+#define PM_DEV_VDU_3				(0x18644094U)
+/** @}
+ * @endcond
+ */
 
-/* Subsystem Nodes */
+/** @defgroup xilpmsubsysnodes Subsystem nodes
+@ingroup xilpmnodeids
+@{
+*/
 #define PM_SUBSYS_DEFAULT			(0x1c000000U)
 #define PM_SUBSYS_PMC				(0x1c000001U)
+/** @} */
 
-/* Isolation Nodes */
+/**
+ * @cond INTERNAL
+ * @defgroup xilpmisonodes Isolation nodes
+@ingroup xilpmnodeids
+@{
+*/
 #define PM_ISO_FPD_PL_TEST			(0x20000000U)
 #define PM_ISO_FPD_PL				(0x20000001U)
 #define PM_ISO_FPD_SOC				(0x20000002U)
@@ -509,5 +593,8 @@
 #define PM_ISO_XRAM_PL_AXI2			(0x20000026U)
 #define PM_ISO_XRAM_PL_AXILITE			(0x20000027U)
 #define PM_ISO_XRAM_PL_FABRIC			(0x20000028U)
+/** @}
+ * @endcond
+ */
 
 #endif /* XPM_NODEID_H_ */
