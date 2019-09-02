@@ -72,13 +72,12 @@ cp -r $SERVICES_DIR/xilsecure/src/common/*.h $BSP_DIR/include/
 cp -r $SERVICES_DIR/xilsecure/src/zynqmp/*.h $BSP_DIR/include/
 
 cp -r $SERVICES_DIR/xilpm/ $BSP_DIR/libsrc/
-cp -r $SERVICES_DIR/xilpm/src/client_zynqmp/common/* $BSP_DIR/libsrc/xilpm/src/
-cp -r $SERVICES_DIR/xilpm/src/client_zynqmp/common/*.h $BSP_DIR/include/
+cp -r $SERVICES_DIR/xilpm/src/zynqmp/client/common/* $BSP_DIR/libsrc/xilpm/src/
+cp -r $SERVICES_DIR/xilpm/src/zynqmp/client/common/*.h $BSP_DIR/include/
 cp $WORKING_DIR/pm_cfg_obj.c  $BSP_DIR/libsrc/xilpm/src/
 
-rm -rf $BSP_DIR/libsrc/xilpm/src/client_zynqmp/
-rm -rf $BSP_DIR/libsrc/xilpm/src/client_versal/
-rm -rf $BSP_DIR/libsrc/xilpm/src/server_versal/
+rm -rf $BSP_DIR/libsrc/xilpm/src/zynqmp/
+rm -rf $BSP_DIR/libsrc/xilpm/src/versal/
 
 
 
@@ -105,8 +104,8 @@ if [ $PROC == "a53" ]; then
 		cp $BOARD_DIR/bspconfig.h $BSP_DIR/include
 		cp $BOARD_DIR/bspconfig.h $BSP_DIR/libsrc/standalone/src/
 		#Copy xilpm src for apu
-		cp $SERVICES_DIR/xilpm/src/client_zynqmp/apu/* $BSP_DIR/libsrc/xilpm/src/
-		cp $SERVICES_DIR/xilpm/src/client_zynqmp/apu/*.h $BSP_DIR/include/
+		cp $SERVICES_DIR/xilpm/src/zynqmp/client/apu/* $BSP_DIR/libsrc/xilpm/src/
+		cp $SERVICES_DIR/xilpm/src/zynqmp/client/apu/*.h $BSP_DIR/include/
 
 	elif [ $A53_STATE == "32" ]; then
 		cp -f $STANDALONE_DIR/arm/common/gcc/* $BSP_DIR/libsrc/standalone/src/
@@ -118,8 +117,8 @@ if [ $PROC == "a53" ]; then
 		cp $BOARD_DIR/bspconfig32.h $BSP_DIR/include/bspconfig.h
 		cp $BOARD_DIR/bspconfig32.h $BSP_DIR/libsrc/standalone/src/bspconfig.h
 		#Copy xilpm src for apu
-		cp -rf $SERVICES_DIR/xilpm/src/client_zynqmp/apu/* $BSP_DIR/libsrc/xilpm/src/
-		cp -rf $SERVICES_DIR/xilpm/src/client_zynqmp/apu/*.h $BSP_DIR/include/
+		cp -rf $SERVICES_DIR/xilpm/src/zynqmp/client/apu/* $BSP_DIR/libsrc/xilpm/src/
+		cp -rf $SERVICES_DIR/xilpm/src/zynqmp/client/apu/*.h $BSP_DIR/include/
 	fi
 		cp -rf $STANDALONE_DIR/arm/ARMv8/includes_ps/platform/ZynqMP/* $BSP_DIR/libsrc/standalone/src/includes_ps/
 		cp -rf $STANDALONE_DIR/arm/ARMv8/includes_ps/platform/ZynqMP/* $BSP_DIR/include/
@@ -136,8 +135,8 @@ elif [ $PROC == "r5" ]; then
 	cp $BOARD_DIR/bspconfig32.h $BSP_DIR/libsrc/standalone/src/bspconfig.h
 
 	#copy xilpm src for rpu
-	cp -rf $SERVICES_DIR/xilpm/src/client_zynqmp/rpu/* $BSP_DIR/libsrc/xilpm/src/
-	cp -rf $SERVICES_DIR/xilpm/src/client_zynqmp/rpu/*.h $BSP_DIR/include/
+	cp -rf $SERVICES_DIR/xilpm/src/zynqmp/client/rpu/* $BSP_DIR/libsrc/xilpm/src/
+	cp -rf $SERVICES_DIR/xilpm/src/zynqmp/client/rpu/*.h $BSP_DIR/include/
 
 	#copy includes_ps from a53 directory
 	cp -rf $STANDALONE_DIR/arm/ARMv8/includes_ps/platform/ZynqMP/* $BSP_DIR/libsrc/standalone/src/includes_ps/

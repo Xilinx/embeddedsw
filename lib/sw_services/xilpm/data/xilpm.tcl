@@ -31,40 +31,43 @@ proc generate {libhandle} {
 	set proctype [common::get_property IP_NAME $hw_proc_handle]
 	set procname [common::get_property NAME    $hw_proc_handle]
 
-	set client_zynqmp_a53dir "./src/client_zynqmp/apu"
-	set client_zynqmp_r5dir "./src/client_zynqmp/rpu"
-	set client_zynqmp_commondir "./src/client_zynqmp/common"
-	set client_zynqmp_dir "./src/client_zynqmp"
-	set client_versal_dir "./src/client_versal"
-	set server_versal_dir "./src/server_versal"
+	set zynqmp_dir "./src/zynqmp"
+	set versal_dir "./src/versal"
+	set zynqmp_client_a53dir "$zynqmp_dir/client/apu"
+	set zynqmp_client_r5dir "$zynqmp_dir/client/rpu"
+	set zynqmp_client_commondir "$zynqmp_dir/client/common"
+	set versal_client_dir "$versal_dir/client"
+	set versal_server_dir "$versal_dir/server"
+	set versal_common_dir "$versal_dir/common"
 
 	switch $proctype {
 		"psu_cortexa53" {
-			copy_files_to_src $client_zynqmp_a53dir
-			copy_files_to_src $client_zynqmp_commondir
+			copy_files_to_src $zynqmp_client_a53dir
+			copy_files_to_src $zynqmp_client_commondir
 		}
 
 		"psu_cortexr5" {
-			copy_files_to_src $client_zynqmp_r5dir
-			copy_files_to_src $client_zynqmp_commondir
+			copy_files_to_src $zynqmp_client_r5dir
+			copy_files_to_src $zynqmp_client_commondir
 		}
 
 		"psv_cortexr5" -
 		"psv_cortexa72" {
-			copy_files_to_src $client_versal_dir
+			copy_files_to_src $versal_client_dir
+			copy_files_to_src $versal_common_dir
 		}
 
 		"psu_pmc" -
 		"psv_pmc" {
-			copy_files_to_src $server_versal_dir
+			copy_files_to_src $versal_server_dir
+			copy_files_to_src $versal_common_dir
 		}
 
 		"default"  {error "Error: Processor type $proctype is not supported\n"}
 	}
 
-	file delete -force $client_zynqmp_dir
-	file delete -force $client_versal_dir
-	file delete -force $server_versal_dir
+	file delete -force $zynqmp_dir
+	file delete -force $versal_dir
 
 	# Generate config object
 	if {($proctype == "psu_cortexa53") || ($proctype == "psu_cortexr5")} {
