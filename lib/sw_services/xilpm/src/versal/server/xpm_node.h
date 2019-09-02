@@ -35,6 +35,28 @@
 extern "C" {
 #endif
 
+#define NODE_IDLE_DONE			(0x4U)
+
+typedef struct XPm_Node XPm_Node;
+
+/**
+ * The node class.  This is the base class for all the power, clock, pin and
+ * reset node classes.
+ */
+struct XPm_Node {
+	u32 Id;	/**< Node ID: For LibPM clock and pin APIs */
+	u32 State; /**< Node state: Specific to node type */
+	u32 BaseAddress; /**< Base address: Specify to node type */
+	u32 LatencyMarg; /**< lowest latency requirement - powerup latency */
+	u8  Flags;
+	XStatus (* HandleEvent)(XPm_Node *Node, u32 Event);
+		/**< HandleEvent: Pointer to event handler */
+};
+
+/************************** Function Prototypes ******************************/
+XStatus XPmNode_Init(XPm_Node *Node, u32 Id, u32 State, u32 BaseAddress);
+
+
 #define NODE_CLASS_SHIFT	26U
 #define NODE_SUBCLASS_SHIFT	20U
 #define NODE_TYPE_SHIFT		14U
@@ -988,29 +1010,6 @@ typedef enum {
 	XPM_NODEIDX_ERROR_FPD_XMPU,	/* 0x74 */
 	XPM_NODEIDX_ERROR_PSMERR2_MAX,	/* 0x75 */
 } XPm_ErrorId;
-
-#define NODE_IDLE_DONE			(0x4U)
-
-typedef struct XPm_Node XPm_Node;
-
-/**
- * The node class.  This is the base class for all the power, clock, pin and
- * reset node classes.
- */
-struct XPm_Node {
-	u32 Id;	/**< Node ID: For LibPM clock and pin APIs */
-	u32 State; /**< Node state: Specific to node type */
-	u32 BaseAddress; /**< Base address: Specify to node type */
-	u32 LatencyMarg; /**< lowest latency requirement - powerup latency */
-	u8  Flags;
-	XStatus (* HandleEvent)(XPm_Node *Node, u32 Event);
-		/**< HandleEvent: Pointer to event handler */
-};
-
-/************************** Function Prototypes ******************************/
-XStatus XPmNode_Init(XPm_Node *Node,
-		u32 Id, u32 State, u32 BaseAddress);
-
 
 /**
  * Monitor node Ids
