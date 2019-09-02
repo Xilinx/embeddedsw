@@ -27,9 +27,9 @@
 #ifndef _XPM_CLIENT_NODEIDWRAPPER_H_
 #define _XPM_CLIENT_NODEIDWRAPPER_H_
 
-#warning This file will be deprecated in future. Please use xilpm_nodeid.h.
+#warning This file will be deprecated in future. Please use xpm_nodeid.h.
 
-#include "xilpm_nodeid.h"
+#include "xpm_nodeid.h"
 
 #define NODE_APU			PM_POWER_ACPU_0
 #define NODE_APU_0			PM_DEV_ACPU_0

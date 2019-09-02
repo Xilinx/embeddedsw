@@ -28,8 +28,8 @@
  * This is an automatically generated file from script.
  * Please do not modify this!
  */
-#ifndef _XILPM_NODEID_H_
-#define _XILPM_NODEID_H_
+#ifndef _XPM_NODEID_H_
+#define _XPM_NODEID_H_
 
 /* Power Nodes */
 #define PM_POWER_PMC				(0x4208001U)
@@ -434,4 +434,4 @@
 #define PM_SUBSYS_ME				(0x1c000008U)
 #define PM_SUBSYS_PL				(0x1c000009U)
 
-#endif /* _XILPM_NODEID_H_ */
+#endif /* _XPM_NODEID_H_ */

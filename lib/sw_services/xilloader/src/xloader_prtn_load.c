@@ -43,7 +43,7 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xilpm_nodeid.h"
+#include "xpm_nodeid.h"
 #include "xloader.h"
 #include "xplmi_dma.h"
 #include "xplmi_debug.h"
