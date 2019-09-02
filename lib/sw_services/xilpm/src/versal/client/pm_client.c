@@ -26,7 +26,7 @@
 
 #include "pm_client.h"
 #include <xil_cache.h>
-#include "xilpm_nodeid.h"
+#include "xpm_nodeid.h"
 #if defined (__aarch64__)
 #include <xreg_cortexa53.h>
 #elif defined (__arm__)

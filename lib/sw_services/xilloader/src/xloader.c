@@ -44,7 +44,7 @@
 /***************************** Include Files *********************************/
 #include "xloader.h"
 #include "xpm_api.h"
-#include "xilpm_nodeid.h"
+#include "xpm_nodeid.h"
 #include "xloader_secure.h"
 /************************** Constant Definitions *****************************/
 

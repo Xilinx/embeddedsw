@@ -52,7 +52,7 @@
 #include "xplmi_hw.h"
 #include "xpm_api.h"
 #include "xpm_subsystem.h"
-#include "xilpm_nodeid.h"
+#include "xpm_nodeid.h"
 #include "xplmi_status.h"
 
 /************************** Constant Definitions *****************************/
