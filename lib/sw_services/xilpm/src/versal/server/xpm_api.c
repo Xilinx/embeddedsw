@@ -308,9 +308,9 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  Initialize XilLibPM library
+ * @brief  Initialize XilPM library
  *
- * @param  IpiInst		IPI instance
+ * @param  IpiInst	IPI instance
  * @param  RequestCb 	Pointer to the request calbback handler
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
