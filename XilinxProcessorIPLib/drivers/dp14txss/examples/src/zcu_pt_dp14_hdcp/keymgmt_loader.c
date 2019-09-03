@@ -99,6 +99,7 @@ extern const uint64_t  KEYMGMT_TESTKEYS_B2[41];
 *   None.
 *
 ******************************************************************************/
+extern u8 keymgmt[2];
 static KEYMGMT_tError
 doLoadTable(
   tHandler*        theHandler,
@@ -119,14 +120,29 @@ doLoadTable(
 		!= KEYMGMT_ERROR_NONE)
     {
       /* Update theError */
-      theError = -2;
+	if(keymgmt[theHandler->fDevID])
+	{
+		theError = -2;
+	}else
+	{
+      theError = 0;
+	}
     }
   }
   /* Otherwise */
   else
   {
     /* Update theError */
-    theError = -1;
+	  if(keymgmt[theHandler->fDevID])
+	  {
+		  theError = -1;
+	  }
+	  else
+	  {
+		    theError = 0;
+	  }
+
+
   }
 
   /* Return */
