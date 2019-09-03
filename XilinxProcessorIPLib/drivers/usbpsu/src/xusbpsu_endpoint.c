@@ -250,7 +250,7 @@ s32 XUsbPsu_SetEpConfig(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 	Params = XUsbPsu_GetEpParams(InstancePtr);
 	Xil_AssertNonvoid(Params != NULL);
 
-	PhyEpNum = XUSBPSU_PhysicalEp(UsbEpNum , Dir);
+	PhyEpNum = XUSBPSU_PhysicalEp(UsbEpNum, Dir);
 	Ept = &InstancePtr->eps[PhyEpNum];
 
 	Params->Param0 = XUSBPSU_DEPCFG_EP_TYPE(Type)
@@ -301,8 +301,8 @@ s32 XUsbPsu_SetEpConfig(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 *
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
 * @param	UsbEpNum is USB endpoint number.
-* @param	Dir is direction of endpoint - XUSBPSU_EP_DIR_IN/
-*											XUSBPSU_EP_DIR_OUT.
+* @param	Dir is direction of endpoint
+*			-XUSBPSU_EP_DIR_IN/XUSBPSU_EP_DIR_OUT.
 *
 * @return	XST_SUCCESS else XST_FAILURE.
 *
@@ -360,7 +360,7 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 					  (Dir == XUSBPSU_EP_DIR_OUT));
 	Xil_AssertNonvoid((Maxsize >= 64U) && (Maxsize <= 1024U));
 
-	PhyEpNum = XUSBPSU_PhysicalEp(UsbEpNum , Dir);
+	PhyEpNum = XUSBPSU_PhysicalEp(UsbEpNum, Dir);
 	Ept = &InstancePtr->eps[PhyEpNum];
 
 	Ept->UsbEpNum	= UsbEpNum;
@@ -454,7 +454,7 @@ s32 XUsbPsu_EpDisable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 	Xil_AssertNonvoid((Dir == XUSBPSU_EP_DIR_IN) ||
 						(Dir == XUSBPSU_EP_DIR_OUT));
 
-	PhyEpNum = XUSBPSU_PhysicalEp(UsbEpNum , Dir);
+	PhyEpNum = XUSBPSU_PhysicalEp(UsbEpNum, Dir);
 	Ept = &InstancePtr->eps[PhyEpNum];
 
 	/* make sure HW endpoint isn't stalled */
@@ -603,8 +603,8 @@ void XUsbPsu_StopTransfer(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
 /**
 * Query endpoint state and save it in EpSavedState
 *
-* @param 	InstancePtr is a pointer to the XUsbPsu instance.
-* @param 	Ept is a pointer to the XUsbPsu pointer structure.
+* @param	InstancePtr is a pointer to the XUsbPsu instance.
+* @param	Ept is a pointer to the XUsbPsu pointer structure.
 *
 * @return	None.
 *
@@ -616,11 +616,11 @@ void XUsbPsu_SaveEndpointState(struct XUsbPsu *InstancePtr,
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 
-       struct XUsbPsu_EpParams *Params = XUsbPsu_GetEpParams(InstancePtr);
+	struct XUsbPsu_EpParams *Params = XUsbPsu_GetEpParams(InstancePtr);
 	Xil_AssertVoid(Params != NULL);
 
-       XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
-                       XUSBPSU_DEPCMD_GETEPSTATE, Params);
+	XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
+					XUSBPSU_DEPCMD_GETEPSTATE, Params);
 	Ept->EpSavedState = XUsbPsu_ReadReg(InstancePtr,
 				 XUSBPSU_DEPCMDPAR2(Ept->PhyEpNum));
 }
@@ -661,9 +661,9 @@ void XUsbPsu_ClearStalls(struct XUsbPsu *InstancePtr)
 		Ept->EpStatus &= ~XUSBPSU_EP_STALL;
 
 		(void)XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum,
-						  Ept->Direction,
-						 XUSBPSU_DEPCMD_CLEARSTALL,
-						  Params);
+						Ept->Direction,
+						XUSBPSU_DEPCMD_CLEARSTALL,
+						Params);
 	}
 }
 
@@ -1211,7 +1211,8 @@ void XUsbPsu_EpXferNotReady(struct XUsbPsu *InstancePtr,
 {
 	struct XUsbPsu_Ep	*Ept;
 	u32	Epnum;
-	u32 CurUf, Mask;
+	u32	CurUf;
+	u32	Mask;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Event != NULL);

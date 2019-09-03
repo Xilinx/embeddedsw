@@ -553,7 +553,7 @@ s32 XUsbPsu_Ep0Send(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 BufferLen)
 {
 	/* Control IN - EP1 */
 	struct XUsbPsu_EpParams *Params;
-	struct XUsbPsu_Ep 	*Ept;
+	struct XUsbPsu_Ep	*Ept;
 	struct XUsbPsu_Trb	*TrbPtr;
 	s32 Ret;
 
@@ -625,7 +625,7 @@ s32 XUsbPsu_Ep0Send(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 BufferLen)
 s32 XUsbPsu_Ep0Recv(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 Length)
 {
 	struct XUsbPsu_EpParams *Params;
-	struct XUsbPsu_Ep 	*Ept;
+	struct XUsbPsu_Ep	*Ept;
 	struct XUsbPsu_Trb	*TrbPtr;
 	u32 Size;
 	s32 Ret;
@@ -705,7 +705,8 @@ s32 XUsbPsu_Ep0Recv(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 Length)
 * @note		None.
 *
 ******************************************************************************/
-void XUsbSleep(u32 USeconds) {
+void XUsbSleep(u32 USeconds)
+{
 	(void)usleep(USeconds);
 }
 /** @} */

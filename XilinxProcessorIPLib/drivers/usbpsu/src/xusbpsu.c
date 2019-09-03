@@ -233,10 +233,12 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 			/* Wait until CMD ACT bit is cleared */
 			if (XUsbPsu_Wait_Clear_Timeout(InstancePtr,
 						XUSBPSU_DEPCMD(PhyEpNum),
-						XUSBPSU_DEPCMD_CMDACT, 500U)
-							 == XST_FAILURE) {
+						XUSBPSU_DEPCMD_CMDACT,
+						500U)	== XST_FAILURE) {
 #ifdef XUSBPSU_DEBUG
-				xil_printf("End Transfer on Endpoint %dOUT failed\n\r", CurEpNum);
+				xil_printf(
+				"End Transfer on Endpoint %dOUT failed\n\r",
+								CurEpNum);
 #endif
 			}
 		}
@@ -270,10 +272,12 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 			/* Wait until CMD ACT bit is cleared */
 			if (XUsbPsu_Wait_Clear_Timeout(InstancePtr,
 						XUSBPSU_DEPCMD(PhyEpNum),
-						XUSBPSU_DEPCMD_CMDACT, 500U)
-							 == XST_FAILURE) {
+						XUSBPSU_DEPCMD_CMDACT,
+						500U)	== XST_FAILURE) {
 #ifdef XUSBPSU_DEBUG
-				xil_printf("End Transfer on Endpoint %dIN failed\n\r", CurEpNum);
+				xil_printf(
+				"End Transfer on Endpoint %dIN failed\n\r",
+								CurEpNum);
 #endif
 			}
 		}
@@ -282,7 +286,7 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 		for (CurEpNum = 0U; CurEpNum < OutEpNums; CurEpNum++) {
 
 			PhyEpNum = XUSBPSU_PhysicalEp(CurEpNum,
-					XUSBPSU_EP_DIR_OUT);
+							XUSBPSU_EP_DIR_OUT);
 
 			RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DALEPENA);
 			RegVal &= ~XUSBPSU_DALEPENA_EP(PhyEpNum);
@@ -304,7 +308,7 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 		for (CurEpNum = 0U; CurEpNum < InEpNums; CurEpNum++) {
 
 			PhyEpNum = XUSBPSU_PhysicalEp(CurEpNum,
-					XUSBPSU_EP_DIR_IN);
+							XUSBPSU_EP_DIR_IN);
 
 			RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DALEPENA);
 			RegVal &= ~XUSBPSU_DALEPENA_EP(PhyEpNum);
@@ -409,8 +413,8 @@ void XUsbPsu_EventBuffersSetup(struct XUsbPsu *InstancePtr)
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTADRHI(0U),
 			((UINTPTR)(InstancePtr->EventBuffer) >> 16U) >> 16U);
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTSIZ(0U),
-			XUSBPSU_GEVNTSIZ_SIZE(
-				sizeof(InstancePtr->EventBuffer)));
+				XUSBPSU_GEVNTSIZ_SIZE(
+					sizeof(InstancePtr->EventBuffer)));
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0U), 0U);
 }
 
@@ -473,8 +477,8 @@ u32 XUsbPsu_ReadHwParams(struct XUsbPsu *InstancePtr, u8 RegIndex)
 * @param  InstancePtr is a pointer to the XUsbPsu instance to be worked on.
 *
 * @return
-*	 	- XST_SUCCESS if initialization was successful
-*		- XST_FAILURE if initialization was not successful
+*		-XST_SUCCESS if initialization was successful
+*		-XST_FAILURE if initialization was not successful
 *
 ******************************************************************************/
 s32 XUsbPsu_CoreInit(struct XUsbPsu *InstancePtr)
@@ -559,12 +563,12 @@ s32 XUsbPsu_CoreInit(struct XUsbPsu *InstancePtr)
 ******************************************************************************/
 void XUsbPsu_EnableIntr(struct XUsbPsu *InstancePtr, u32 Mask)
 {
-    u32	RegVal;
+	u32	RegVal;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
-    RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DEVTEN);
-    RegVal |= Mask;
+	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DEVTEN);
+	RegVal |= Mask;
 
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DEVTEN, RegVal);
 }
@@ -899,8 +903,7 @@ s32 XUsbPsu_SetDeviceAddress(struct XUsbPsu *InstancePtr, u16 Addr)
 
 	if (Addr > 0U) {
 		InstancePtr->AppData->State = XUSBPSU_STATE_ADDRESS;
-	}
-	else {
+	} else {
 		InstancePtr->AppData->State = XUSBPSU_STATE_DEFAULT;
 	}
 
