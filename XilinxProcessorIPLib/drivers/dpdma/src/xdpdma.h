@@ -112,7 +112,11 @@ typedef struct {
 	u32 SRC_ADDR5;			/**<	Source address of 5th page */
 	u32 CRC;			/**<	Reserved */
 
+#if defined(__GNUC__)
 } XDpDma_Descriptor __attribute__ ((aligned(XDPDMA_DESCRIPTOR_ALIGN)));
+#elif defined(__ICCARM__)
+} XDpDma_Descriptor _Pragma("data_alignment=XDPDMA_DESCRIPTOR_ALIGN");
+#endif
 
 /**
  * This typedef contains configuration information for the DPDMA.
