@@ -85,24 +85,39 @@
 #include "xgpio.h"
 //#include "xaxis_switch.h"
 
-#define ENABLE_HDCP22_IN_DESIGN XPAR_DP_RX_HIER_0_V_DP_RXSS1_0_HDCP22_ENABLE
-
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 #define ENABLE_HDCP_IN_DESIGN			1
+
+#if (ENABLE_HDCP_IN_DESIGN && XPAR_DPRXSS_0_HDCP22_ENABLE)
+#define ENABLE_HDCP22_IN_RX				1
 #else
-#define ENABLE_HDCP_IN_DESIGN			0
+#define ENABLE_HDCP22_IN_RX				0
 #endif
 
-#if ENABLE_HDCP_IN_DESIGN
+#if (ENABLE_HDCP_IN_DESIGN && XPAR_DPTXSS_0_HDCP22_ENABLE)
+#define ENABLE_HDCP22_IN_TX				1
+#else
+#define ENABLE_HDCP22_IN_TX				0
+#endif
+
+#if (ENABLE_HDCP_IN_DESIGN && XPAR_DPRXSS_0_HDCP_ENABLE)
+#define ENABLE_HDCP1x_IN_RX				1
+#else
+#define ENABLE_HDCP1x_IN_RX				0
+#endif
+
+#if (ENABLE_HDCP_IN_DESIGN && XPAR_DPTXSS_0_HDCP_ENABLE)
+#define ENABLE_HDCP1x_IN_TX				1
+#else
+#define ENABLE_HDCP1x_IN_TX				0
+#endif
+
 #include "xhdcp1x_debug.h"
 #include "xhdcp1x_example.h"
-#include "keymgmt.h"
-#endif
 
+#include "keymgmt.h"
 #include "xhdcp22_example.h"
-#if ENABLE_HDCP22_IN_DESIGN
 extern XHdcp22_Repeater     Hdcp22Repeater;
-#endif
+
 
 #define TxOnly
 #define RxOnly

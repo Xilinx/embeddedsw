@@ -53,10 +53,21 @@
 XIicPs Ps_Iic0, Ps_Iic1;
 //
 
-#if ENABLE_HDCP_IN_DESIGN
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 unsigned int gKeyMGMTBaseAddress[2] = {
-		XPAR_DP_RX_HIER_0_HDCP_KEYMNGMT_BLK_0_BASEADDR,
-		XPAR_DP_TX_HIER_0_HDCP_KEYMNGMT_BLK_0_BASEADDR};
+#if ENABLE_HDCP1x_IN_RX
+		XPAR_DP_RX_HIER_0_HDCP_KEYMNGMT_BLK_0_BASEADDR
+#else
+		0
+#endif
+		,
+
+#if ENABLE_HDCP1x_IN_TX
+		XPAR_DP_TX_HIER_0_HDCP_KEYMNGMT_BLK_0_BASEADDR
+#else
+		0
+#endif
+		};
 #else
 unsigned int gKeyMGMTBaseAddress[2] = {0, 0};
 #endif
@@ -522,7 +533,7 @@ u32 DpSs_Main(void)
 		xil_printf("DPRXSS config initialization failed.\n\r");
 		return XST_FAILURE;
 	}
-#if ENABLE_HDCP22_IN_DESIGN
+#if (ENABLE_HDCP22_IN_RX | ENABLE_HDCP22_IN_TX)
         /*Set HDCP upstream interface*/
         if (XHdcp22_SetUpstream(&Hdcp22Repeater, &DpRxSsInst) != XST_SUCCESS) {
                 xdbg_printf(XDBG_DEBUG_GENERAL,
@@ -590,7 +601,7 @@ u32 DpSs_Main(void)
 	}
 
 
-#if ENABLE_HDCP22_IN_DESIGN
+#if (ENABLE_HDCP22_IN_RX | ENABLE_HDCP22_IN_TX)
 	extern XHdcp22_Repeater     Hdcp22Repeater;
 	if (XDpTxSs_HdcpIsReady(&DpTxSsInst)) {
 		/* Initialize the HDCP instance */
@@ -652,7 +663,7 @@ u32 DpSs_Main(void)
     operationMenu();
 	while (1) {
 
-#if ENABLE_HDCP_IN_DESIGN
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 	XHdcp1xExample_Poll();
 #endif
 		UserInput = XUartPs_RecvByte_NonBlocking();
@@ -1407,6 +1418,12 @@ u32 DpSs_SetupIntrSystem(void)
 
 #endif
 #if ENABLE_HDCP_IN_DESIGN
+
+	XScuGic_Connect(IntcInstPtr, XPAR_FABRIC_DP14TXSS_0_DPTXSS_TIMER_IRQ_VEC_ID,
+			(Xil_InterruptHandler)XTmrCtr_InterruptHandler,
+			DpTxSsInst.TmrCtrPtr);
+	XScuGic_Enable(IntcInstPtr, XPAR_FABRIC_DP14TXSS_0_DPTXSS_TIMER_IRQ_VEC_ID);
+
 	/* Hook up Rx interrupt service routine */
 	Status = XScuGic_Connect(IntcInstPtr,
 			XPAR_FABRIC_DP14RXSS_0_DPRXSS_TIMER_IRQ_VEC_ID,

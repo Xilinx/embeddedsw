@@ -109,9 +109,11 @@ extern XIntc INTC;
 
 #define HDCP_TX_DEV_ID			\
 	(XPAR_DP_TX_HIER_0_V_DP_TXSS1_0_DP_TX_HDCP_DEVICE_ID)
+
+#if XPAR_DPTXSS_0_HDCP_ENABLE
 #define HDCP_TX_VEC_ID			\
 	(XPAR_FABRIC_DP14TXSS_0_DPTXSS_HDCP_IRQ_VEC_ID)
-
+#endif
 //#define INTC				(IntcInstance)
 
 
@@ -130,9 +132,10 @@ extern XIntc INTC;
 
 #define HDCP_RX_DEV_ID			\
 	(XPAR_DP_RX_HIER_0_V_DP_RXSS1_0_DP_RX_HDCP_DEVICE_ID)
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 #define HDCP_RX_VEC_ID			\
 	(XPAR_FABRIC_DP14RXSS_0_DPRXSS_HDCP_IRQ_VEC_ID)
-
+#endif
 //#undef  HDCP_TX_DEV_ID
 //#undef  HDCP_TX_VEC_ID
 
@@ -441,10 +444,10 @@ static int SetupInterrupts(void)
 	/* Connect and enable the hardware timer interrupt */
 //	XIntc_Connect(&INTC, HDCP_TIMER_VEC_ID, XTmrCtr_InterruptHandler,
 //			&HdcpTimer);
-	XScuGic_Connect(&INTC, HDCP_TIMER_VEC_ID,
-			(Xil_InterruptHandler)XTmrCtr_InterruptHandler,
-			DpTxSsInst.TmrCtrPtr);
-	XScuGic_Enable(&INTC, HDCP_TIMER_VEC_ID);
+//	XScuGic_Connect(&INTC, HDCP_TIMER_VEC_ID,
+//			(Xil_InterruptHandler)XTmrCtr_InterruptHandler,
+//			DpTxSsInst.TmrCtrPtr);
+//	XScuGic_Enable(&INTC, HDCP_TIMER_VEC_ID);
 #endif
 
 #if defined(HDCP_RX_VEC_ID)
@@ -599,8 +602,13 @@ void XHdcp1xExample_Poll(void)
 	for (DeviceID = 0; DeviceID < 1; DeviceID++) {
 //	for (DeviceID = 0; DeviceID < 1; DeviceID++) {
 //		XHdcp1x_Poll(&HdcpIf[DeviceID]);
+#if XPAR_DPRXSS_0_HDCP_ENABLE
 		XDpRxSs_Poll(&DpRxSsInst);
+#endif
+
+#if XPAR_DPTXSS_0_HDCP_ENABLE
 		XDpTxSs_Poll(&DpTxSsInst);
+#endif
 	}
 
 	/* Return */
@@ -628,9 +636,17 @@ XHdcp1x* XHdcp1xExample_Get(u16 DeviceId)
 	if (DeviceId < XPAR_XHDCP_NUM_INSTANCES) {
 //	if (DeviceId < 1) {
 		if (DeviceId == 0) //added by shadul
+#if XPAR_DPRXSS_0_HDCP_ENABLE
 			HdcpPtr = DpRxSsInst.Hdcp1xPtr; //added by shadul
+#else
+		{}
+#endif
 		else //added by shadul
+#if XPAR_DPTXSS_0_HDCP_ENABLE
 			HdcpPtr = DpTxSsInst.Hdcp1xPtr; //added by shadul
+#else
+		{}
+#endif
 	}
 
 	return (HdcpPtr);
@@ -702,6 +718,7 @@ int XHdcp1xExample_TxEncrypt(void)
 	return (Status);
 }
 
+#if XPAR_DPTXSS_0_HDCP_ENABLE
 /*****************************************************************************/
 /**
 *
@@ -755,9 +772,13 @@ int XHdcp1xExample_TxEncryptIfRxIsUp(void)
 
 	Status = XST_FAILURE;
 //	CurrentRxState = HdcpIf[HDCP_RX_DEV_ID].Rx.CurrentState;
+#if XPAR_DPRXSS_0_HDCP_ENABLE
 	CurrentRxState = DpRxSsInst.Hdcp1xPtr->Rx.CurrentState;
+#endif
 //	CurrentTxState = HdcpIf[HDCP_TX_DEV_ID].Tx.CurrentState;
+#if XPAR_DPTXSS_0_HDCP_ENABLE
 	CurrentTxState = DpTxSsInst.Hdcp1xPtr->Tx.CurrentState;
+#endif
 	if(CurrentRxState == 3 && CurrentTxState == 5){
 		// 3 = XHDCP1X_STATE_AUTHENTICATED
 			//in the XHdcp1x_StateType in xhdcp1x_rx.c
@@ -776,7 +797,9 @@ int XHdcp1xExample_TxEncryptIfRxIsUp(void)
 
 	return (Status);
 }
+#endif
 
+#if XPAR_DPTXSS_0_HDCP_ENABLE
 /*****************************************************************************/
 /**
 *
@@ -853,4 +876,5 @@ int XHdcp1xExample_TxIsAuthenticated(void)
 
 	return (Status);
 }
+#endif
 #endif

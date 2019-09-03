@@ -362,10 +362,17 @@ void DpPt_HpdEventHandler(void *InstancePtr)
 //		 HDCP block will disable Tx side encryption when hpd detected
 		#if ENABLE_HDCP_IN_DESIGN
 				XDpTxSs_DisableEncryption(&DpTxSsInst,0x1);
+#if ENABLE_HDCP1x_IN_TX
 				XDpTxSs_SetPhysicalState(&DpTxSsInst, TRUE);
+#endif
+
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 				XHdcp1xExample_Poll();
+#endif
 				XDpTxSs_HdcpEnable(&DpTxSsInst);
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 				XHdcp1xExample_Poll();
+#endif
 				if (DpRxSsInst.link_up_trigger == 1) {
 					rx_trained = 1;
 				}
@@ -405,8 +412,12 @@ void DpPt_HpdEventHandler(void *InstancePtr)
 			xdbg_printf(XDBG_DEBUG_GENERAL, ".~\r\n");
 			XDpTxSs_DisableEncryption(&DpTxSsInst,0x1);
 			XDpTxSs_HdcpDisable(&DpTxSsInst);
+#if ENABLE_HDCP1x_IN_TX
 			XDpTxSs_SetPhysicalState(&DpTxSsInst, hdcp_capable_org);
+#endif
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 			XHdcp1xExample_Poll();
+#endif
 		}
 #endif
 	}
@@ -542,13 +553,13 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 		}
 	}
 
-#if ENABLE_HDCP22_IN_DESIGN
+#if ENABLE_HDCP_IN_DESIGN
 	if(mon_is_hdcp22_cap)
 	{
 	if ((down_strm & 0x40) == 0x40) {
 //		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
 		retrain_link = 1;
-		xil_printf ("dwn strm\r\n");
+//		xil_printf ("dwn strm\r\n");
 	}
 	}
 #endif
@@ -559,7 +570,7 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 
 	if (!retrain_link) {
 
-#if (ENABLE_HDCP_IN_DESIGN || ENABLE_HDCP22_IN_DESIGN)
+#if (ENABLE_HDCP_IN_DESIGN)
 #define DEVICE_SERVICE_IRQ_VECTOR 0x0201
 #define DEVICE_SERVICE_IRQ_VECTOR_CP_IRQ_MASK 0x04
 
@@ -575,11 +586,14 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 		/* CP_IRQ is set, Call the HDCP22 Cp_Irq handler */
 //    	    	xil_printf("HPD_Pulse: CP_IRQ, dev_serv_intr_vec = 0x%x\n\r",
 //    	    			dev_serv_intr_vec);
+#if ENABLE_HDCP22_IN_TX
 			 DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 1000000);
+
 		if (XHdcp22Tx_IsInProgress (DpTxSsInst.Hdcp22Ptr)) {
 			/*Handle CP_IRQ*/
 			XHdcp22_Handle_Cp_Irq(DpTxSsInst.Hdcp22Ptr);
 		}
+#endif
 	 }
 	 else
 	 {
@@ -594,19 +608,31 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 #endif
 			/* State 5 : Authenticated,
 			 * State 6 : Link Integrity Check */
-			if(DpTxSsInst.Hdcp1xPtr->Tx.CurrentState == 6 ||
-					DpTxSsInst.Hdcp1xPtr->Tx.CurrentState == 5) {
+			if(
+#if ENABLE_HDCP1x_IN_TX
+					DpTxSsInst.Hdcp1xPtr->Tx.CurrentState == 6 ||
+					DpTxSsInst.Hdcp1xPtr->Tx.CurrentState == 5
+#else
+					0
+#endif
+					) {
 				/* Disable Encryption */
 				XDpTxSs_DisableEncryption(&DpTxSsInst,0x1);
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 				XHdcp1xExample_Poll();
+#endif
 
 				/* Re-start authentication (the expectation is
 				 * that HDCP is already in the authenticated state). */
 				xdbg_printf(XDBG_DEBUG_GENERAL, "\033[1m\033[43m\033[34m (*<*)Tx-> \033[0m \n");
 				XDpTxSs_Authenticate(&DpTxSsInst);
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 				XHdcp1xExample_Poll();
+#endif
 				XDpTxSs_EnableEncryption(&DpTxSsInst, 0x1);
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 				XHdcp1xExample_Poll();
+#endif
 			}
 	}
 
@@ -616,7 +642,13 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 			xdbg_printf(XDBG_DEBUG_GENERAL, "\033[1m\033[42m\033[37m (*<*)Ready! \033[0m \n");
 #endif
 			/* DP TX State 8 : Wait-for-Ready */
-			if(DpTxSsInst.Hdcp1xPtr->Tx.CurrentState == 8) {
+			if(
+#if ENABLE_HDCP1x_IN_TX
+					DpTxSsInst.Hdcp1xPtr->Tx.CurrentState == 8
+#else
+					0
+#endif
+			) {
 				/* Disable Encryption */
 				XDpTxSs_DisableEncryption(&DpTxSsInst,0x1);
 //				XHdcp1xExample_Poll();
@@ -638,7 +670,9 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 							"\033[0m \n");
 #endif
 			if ((BStatus & 0x01) != 0x01) {
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 				XHdcp1xExample_Poll();
+#endif
 			}
 		}
 
@@ -964,7 +998,9 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 				format, XVIDC_BT_601, XDP_DR_CEA);
 #if ENABLE_HDCP_IN_DESIGN
 	XDpTxSs_HdcpDisable(&DpTxSsInst);
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 	XHdcp1xExample_Poll();
+#endif
 #endif
 	// VTC requires linkup(video clk) before setting values.
 	// This is why we need to linkup once to get proper CLK on VTC.
@@ -1028,12 +1064,21 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	xil_printf ("..done !\r\n");
 #if ENABLE_HDCP_IN_DESIGN
 	if(hdcp_capable_org == 1)	{
+#if ENABLE_HDCP1x_IN_TX
 		XDpTxSs_SetLane(&DpTxSsInst,
 			DpTxSsInst.DpPtr->TxInstance.LinkConfig.LaneCount);
 		XDpTxSs_SetPhysicalState(&DpTxSsInst, !(hdcp_capable_org));
+#endif
+
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 		XHdcp1xExample_Poll();
+#endif
+#if ENABLE_HDCP1x_IN_TX
 		XDpTxSs_SetPhysicalState(&DpTxSsInst, (hdcp_capable_org));
+#endif
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 		XHdcp1xExample_Poll();
+#endif
 		DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 10000);
 	}
 #endif
@@ -1093,36 +1138,50 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 	 * onto TX. There is nothing special done in the hpd_connect handler.
 	 * On a HPD the application simply tries to retrain the monitor
 	 */
-#if ENABLE_HDCP_IN_DESIGN
+
 	u8 auxValues;
+#if  ENABLE_HDCP_IN_DESIGN
 	hdcp_capable=0;
+	retval =0;
+#endif
 	/*Wait to read the capabilities*/
 	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 2000000);
 
+#if ENABLE_HDCP22_IN_TX
 	XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x06921D, 1, &auxValues);
 	retval = auxValues & 0x2;
+#endif
 	if(retval==2)
 	{
+#if ENABLE_HDCP22_IN_TX
 		mon_is_hdcp22_cap=1;
 		hdcp_capable=1;
 	DpTxSsInst.HdcpProtocol=XDPTXSS_HDCP_22;
+#endif
 	}
 	else
 	{
+#if ENABLE_HDCP1x_IN_TX
 		XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x068028, 1, &auxValues);
 		retval = auxValues & 0x1;
+#endif
 		if(retval==1)
 		{
+#if ENABLE_HDCP1x_IN_TX
 			mon_is_hdcp22_cap=0;
 			hdcp_capable=1;
 		DpTxSsInst.HdcpProtocol=XDPTXSS_HDCP_1X;
+#endif
 		}
 		else
 		{
+#if ENABLE_HDCP_IN_DESIGN
 			hdcp_capable=0;
+#endif
 		}
 	}
 
+#if ENABLE_HDCP_IN_DESIGN
 		if (hdcp_capable != hdcp_capable_org) {
 			do_not_train_tx = 1;
 			hdcp_capable_org = hdcp_capable;

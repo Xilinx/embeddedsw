@@ -43,8 +43,15 @@
 #include "rx.h"
 
 #if ENABLE_HDCP_IN_DESIGN
+
+#if ENABLE_HDCP22_IN_RX
 #define RX_ENCRYPTION_OFFSET 0x4C
+#endif
+
+#if ENABLE_HDCP22_IN_TX
 #define TX_ENCRYPTION_OFFSET 0x4C
+#endif
+
 #endif
 
 u8 UpdateBuffer[sizeof(u8) + 16];
@@ -245,7 +252,7 @@ void DpPt_Main(void){
 
 #if  ENABLE_HDCP_IN_DESIGN
 
-#if (XPAR_DPRXSS_0_HDCP22_ENABLE > 0)
+#if (ENABLE_HDCP22_IN_RX > 0)
 	XHdcp22_RxSetRxCaps(DpRxSsInst.Hdcp22Ptr, TRUE);
 #endif
 
@@ -256,26 +263,35 @@ void DpPt_Main(void){
 #if ENABLE_HDCP_IN_DESIGN
 	u32 TxAuthAttempts = 0;
 	u8 auxValues_org;
+	retval=0;
 
 	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 2000000);
 
+#if ENABLE_HDCP22_IN_TX
 	XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x06921D, 1, &auxValues_org);
 	retval = auxValues_org & 0x2;
+#endif
 	if(retval==2)
 	{
+#if ENABLE_HDCP22_IN_TX
 		hdcp_capable_org=1;
 		mon_is_hdcp22_cap=1;
 		DpTxSsInst.HdcpProtocol=XDPTXSS_HDCP_22;
+#endif
 	}
 	else
 	{
+#if ENABLE_HDCP1x_IN_TX
 		XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x068028, 1, &auxValues_org);
 		retval = auxValues_org & 0x1;
+#endif
 		if(retval==1)
 		{
+#if ENABLE_HDCP1x_IN_TX
 			hdcp_capable_org=1;
 			mon_is_hdcp22_cap=0;
 			DpTxSsInst.HdcpProtocol=XDPTXSS_HDCP_1X;
+#endif
 		}
 		else
 		{
@@ -291,12 +307,22 @@ void DpPt_Main(void){
 		xil_printf ("System is capable of displaying HDCP content...\r\n");
 	}
 
+
+
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 	KEYMGMT_Init();
 	XHdcp1xExample_Init();
 
+#if ENABLE_HDCP1x_IN_TX
 	DpTxSsInst.Hdcp1xPtr->IsRepeater = 0;
+#endif
+#if ENABLE_HDCP1x_IN_RX
 	DpRxSsInst.Hdcp1xPtr->IsRepeater = 0;
-	XHdcp1xExample_Enable();
+#endif
+//	XHdcp1xExample_Enable();
+#endif
+	XDpRxSs_HdcpEnable(&DpRxSsInst);
+	XDpTxSs_HdcpEnable(&DpTxSsInst);
 #else
         xil_printf ("--->HDCP feature is not enabled in application<---\r\n");
 #endif
@@ -860,11 +886,14 @@ void DpPt_Main(void){
 					tx_after_rx = 1;
 					break;
 #endif
+
+#if ENABLE_HDCP_IN_DESIGN
 			case 'p':
 				xil_printf("****RX regs****\r\n");
 				if(DpRxSsInst.HdcpProtocol == XDPRXSS_HDCP_22)
 				{
 					/*RX HDCP 2.2 encryption status*/
+#if ENABLE_HDCP22_IN_RX
 					val=XDp_ReadReg(DpRxSsInst.Hdcp22Ptr->Config.BaseAddress,
 							RX_ENCRYPTION_OFFSET);
 					val=((val & 4)>>2);
@@ -876,9 +905,11 @@ void DpPt_Main(void){
 					{
 						xil_printf("RX HDCP 2.2 encryption disabled\r\n");
 					}
+#endif
 				}
 				else
 				{
+#if ENABLE_HDCP1x_IN_RX
 					if(DpRxSsInst.HdcpProtocol == XDPRXSS_HDCP_14)
 					{
 						xil_printf (
@@ -886,12 +917,14 @@ void DpPt_Main(void){
 									XDpRxSs_ReportHdcpInfo(&DpRxSsInst);
 
 					}
+#endif
 				}
 
 				xil_printf("****TX regs****\r\n");
 				if(DpTxSsInst.HdcpProtocol == XDPTXSS_HDCP_22)
 				{
 					/*TX HDCP 2.2 encryption status*/
+#if ENABLE_HDCP22_IN_TX
 					val=XDp_ReadReg(DpTxSsInst.Hdcp22Ptr->Config.BaseAddress,
 							TX_ENCRYPTION_OFFSET);
 					val=((val & 4)>>2);
@@ -903,17 +936,21 @@ void DpPt_Main(void){
 					{
 						xil_printf("TX HDCP 2.2 encryption disabled\r\n");
 					}
+#endif
 				}
 				else
 				{
+#if ENABLE_HDCP1x_IN_TX
 					if(DpTxSsInst.HdcpProtocol == XDPTXSS_HDCP_1X)
 					{
 						xil_printf (
 								"\r\n==========TX HDCP Debug Data===========\r\n");
 									XDpTxSs_ReportHdcpInfo(&DpTxSsInst);
 					}
+#endif
 				}
 				 break;
+#endif
 
 			case 'z':
 				pt_help_menu();
@@ -946,12 +983,13 @@ void DpPt_Main(void){
 				track_msa = 0;
 				rx_trained = 0;
 				tx_done = 0;
+#if ENABLE_HDCP22_IN_RX
 				XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 									XDP_RX_SOFT_RESET,
 									XDP_RX_SOFT_RESET_HDCP22_MASK);
 							XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 									XDP_RX_SOFT_RESET, 0);
-
+#endif
 #if ENABLE_HDCP_IN_DESIGN
 				hdcp_capable_org = 0;
 				hdcp_capable = 0;
@@ -1002,35 +1040,47 @@ void DpPt_Main(void){
 		if (tx_after_rx == 1 && rx_trained == 1
 				&& DpRxSsInst.link_up_trigger == 1
 				&& DpRxSsInst.TmrCtrResetDone
-						== 1)
-#else if
-			if (tx_after_rx == 1 && rx_trained == 1 && DpRxSsInst.link_up_trigger == 1  )
+						== 1
+
+						)
+#else
+						if (tx_after_rx == 1 && rx_trained == 1 && DpRxSsInst.link_up_trigger == 1 )
 #endif
 			{
 		    tx_after_rx = 0;
 		    if (track_msa == 1) {
 			usleep(20000);
 #if ENABLE_HDCP_IN_DESIGN
-							XDpTxSs_DisableEncryption(&DpTxSsInst,0x1);
-							XDpTxSs_HdcpDisable(&DpTxSsInst);
-							XDpTxSs_SetPhysicalState(&DpTxSsInst,
-											hdcp_capable_org);
-							XHdcp1xExample_Poll();
+				XDpTxSs_DisableEncryption(&DpTxSsInst,0x1);
+				XDpTxSs_HdcpDisable(&DpTxSsInst);
+#if ENABLE_HDCP1x_IN_TX
+				XDpTxSs_SetPhysicalState(&DpTxSsInst,
+						hdcp_capable_org);
 #endif
-			start_tx_after_rx();
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
+				XHdcp1xExample_Poll();
+#endif
+#endif
+				start_tx_after_rx();
 #if ENABLE_HDCP_IN_DESIGN
 				if (hdcp_capable_org == 1) {
 					xil_printf("$");
 					DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 2000000);
 					xil_printf(".");
+#if ENABLE_HDCP1x_IN_TX
 					XDpTxSs_SetLane(&DpTxSsInst,
 							DpTxSsInst.DpPtr->TxInstance.LinkConfig.LaneCount); //LaneCount_init_tx);
 					XDpTxSs_SetPhysicalState(&DpTxSsInst, !hdcp_capable_org);
-
+#endif
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 					XHdcp1xExample_Poll();
+#if ENABLE_HDCP1x_IN_TX
 					XDpTxSs_SetPhysicalState(&DpTxSsInst, hdcp_capable_org);
-
+#endif
+#endif
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 					XHdcp1xExample_Poll();
+#endif
 				} //hdcp_capable_org check
 				else {
 					if (DpRxSsInst.TmrCtrResetDone == 1) {
@@ -1059,14 +1109,41 @@ void DpPt_Main(void){
 			Dppt_DetectAudio();
 		}
 #if ENABLE_HDCP_IN_DESIGN
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 		XHdcp1xExample_Poll();
+#endif
 
-		if(((XHdcp1x_IsEncrypted(DpRxSsInst.Hdcp1xPtr)) || XHdcp22Rx_IsEncryptionEnabled(DpRxSsInst.Hdcp22Ptr))
+		if((
+#if ENABLE_HDCP1x_IN_RX
+				(XHdcp1x_IsEncrypted(DpRxSsInst.Hdcp1xPtr))
+#else
+				0
+#endif
+				||
+
+#if ENABLE_HDCP22_IN_RX
+				XHdcp22Rx_IsEncryptionEnabled(DpRxSsInst.Hdcp22Ptr)
+#else
+				0
+#endif
+		)
 				&& rx_trained
 				&& XDpTxSs_IsConnected(&DpTxSsInst) && tx_done)
 		{
-			if(((XHdcp1x_IsEncrypted(DpTxSsInst.Hdcp1xPtr)==0) && !mon_is_hdcp22_cap) ||
-					(((XHdcp22Tx_IsEncryptionEnabled(DpTxSsInst.Hdcp22Ptr))==0) && mon_is_hdcp22_cap ))
+			if((
+#if ENABLE_HDCP1x_IN_TX
+					(XHdcp1x_IsEncrypted(DpTxSsInst.Hdcp1xPtr)==0)
+#else
+					0
+#endif
+					&& !mon_is_hdcp22_cap) ||
+					(
+#if ENABLE_HDCP22_IN_TX
+							((XHdcp22Tx_IsEncryptionEnabled(DpTxSsInst.Hdcp22Ptr))==0)
+#else
+							(0)
+#endif
+							&& mon_is_hdcp22_cap ))
 			{
 				xil_printf("*");
 				if(TxAuthAttempts < 5)
@@ -1082,8 +1159,14 @@ void DpPt_Main(void){
 				{
 					if (XDpTxSs_IsAuthenticated(&DpTxSsInst) == 0)
 					{
-						if(XHdcp22Tx_IsInProgress(DpTxSsInst.Hdcp22Ptr)==0) {
-							XDpTxSs_Authenticate(&DpTxSsInst);
+						if(
+#if ENABLE_HDCP22_IN_TX
+								XHdcp22Tx_IsInProgress(DpTxSsInst.Hdcp22Ptr)==0
+#else
+								0
+#endif
+								) {
+									XDpTxSs_Authenticate(&DpTxSsInst);
 						}
 					}
 					else
@@ -1094,26 +1177,47 @@ void DpPt_Main(void){
 					}
 
 				} else {
-
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 					XHdcp1xExample_Poll();
+#endif
 					if (XDpTxSs_IsAuthenticated(&DpTxSsInst)==0 )
 					{
 						/* DP TX State 10 : Un-authenticated */
-						if(DpTxSsInst.Hdcp1xPtr->Tx.CurrentState == 10) {
-							XDpTxSs_Authenticate(&DpTxSsInst);
+						if(
+#if ENABLE_HDCP1x_IN_TX
+								DpTxSsInst.Hdcp1xPtr->Tx.CurrentState == 10
+#else
+								0
+#endif
+								) {
+										XDpTxSs_Authenticate(&DpTxSsInst);
 						} else if (
+#if ENABLE_HDCP1x_IN_TX
 								DpTxSsInst.Hdcp1xPtr->Tx.CurrentState == 0 ||
-								DpTxSsInst.Hdcp1xPtr->Tx.CurrentState == 11) {
+								DpTxSsInst.Hdcp1xPtr->Tx.CurrentState == 11
+#else
+								0
+#endif
+								) {
 							/* DP TX State 0 : Disabled
 							 * DP TX State 11 : Phy-layer-down */
+
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 							XDpTxSs_SetPhysicalState(&DpTxSsInst, TRUE);
 							XHdcp1xExample_Poll();
+#endif
 							XDpTxSs_HdcpEnable(&DpTxSsInst);
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 							XHdcp1xExample_Poll();
+#endif
 							XDpTxSs_Authenticate(&DpTxSsInst);
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 							XHdcp1xExample_Poll();
+#endif
 							XDpTxSs_EnableEncryption(&DpTxSsInst,0x1);
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 							XHdcp1xExample_Poll();
+#endif
 						}
 					} else {
 						DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 75000);
@@ -1145,18 +1249,24 @@ void DpPt_Main(void){
 				xil_printf(".~\r\n");
 				XDpTxSs_DisableEncryption(&DpTxSsInst,0x1);
 				XDpTxSs_HdcpDisable(&DpTxSsInst);
+#if ENABLE_HDCP1x_IN_TX
 				XDpTxSs_SetPhysicalState(&DpTxSsInst,
 						hdcp_capable_org);
+#endif
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 				XHdcp1xExample_Poll();
+#endif
 			}
 		}
 #endif
 
-#if ENABLE_HDCP22_IN_DESIGN
+#if ENABLE_HDCP_IN_DESIGN
+#if (ENABLE_HDCP22_IN_RX | ENABLE_HDCP22_IN_TX)
 		if (DpRxSsInst.HdcpIsReady || DpTxSsInst.HdcpIsReady) {
 			/* Poll HDCP22 */
 			XHdcp22_Poll(&Hdcp22Repeater);
 		}
+#endif
 #endif
 
 	}		//end while(1)
@@ -1415,13 +1525,12 @@ void audio_start_tx(void) {
 		filter_count_b++;
 		//Audio may not work properly on some monitors if this is started too early
 		//hence the delay here
-
-		if (filter_count_b == 100000) {
+		if (filter_count_b == 190) {
 			start_audio_passThrough(LineRate_init_tx);
 
-	}
+		}
 
-		else if (filter_count_b > 100000) {
+		else if (filter_count_b > 200) {
 			XGpio_WriteReg(aud_gpio_ConfigPtr->BaseAddress, 0x0, 0x2);
 			xil_printf("Starting audio on DP TX..\r\n");
 			i2s_started = 1;
@@ -1442,7 +1551,7 @@ void dprx_tracking(void) {
 			xil_printf ("Training Lost !!\r\n");
 			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 					XDP_TX_INTERRUPT_MASK, 0xFFF);
-#if ENABLE_HDCP22_IN_DESIGN
+#if ENABLE_HDCP22_IN_RX
 			XHdcp22_RxSetLaneCount(DpRxSsInst.Hdcp22Ptr,
 					DpRxSsInst.UsrOpt.LaneCount);
 #endif
