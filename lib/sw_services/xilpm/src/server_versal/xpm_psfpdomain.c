@@ -199,10 +199,6 @@ static XStatus FpdMbistClear(u32 *Args, u32 NumOfArgs)
 	(void)Args;
 	(void)NumOfArgs;
 
-	/* TODO: FPD interconnect mem clear causes linux boot hang
-	so skip for now. Needs to be debugged and fixed */
-	return XST_SUCCESS;
-
 	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);;
 	if (NULL == Psm) {
 		Status = XST_FAILURE;
@@ -258,6 +254,11 @@ static XStatus FpdMbistClear(u32 *Args, u32 NumOfArgs)
 
         PmRmw32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_PG_EN_OFFSET,
 		PSM_GLOBAL_MBIST_PG_EN_FPD_MASK, 0);
+
+	/* EDT-997247: Mem clear introduces apu gic ecc error,
+	so pulse gic reset as a work around to fix it */
+	XPmReset_AssertbyId(PM_RST_ACPU_GIC, PM_RESET_ACTION_ASSERT);
+	XPmReset_AssertbyId(PM_RST_ACPU_GIC, PM_RESET_ACTION_RELEASE);
 
 done:
         return Status;
