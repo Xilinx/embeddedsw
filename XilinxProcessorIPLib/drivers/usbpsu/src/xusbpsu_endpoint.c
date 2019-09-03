@@ -43,6 +43,7 @@
 *	myk 12/01/18 Added hibernation support for device mode
 * 1.4	vak 30/05/18 Removed xusb_wrapper files
 * 1.6	pm  22/07/19 Removed coverity warnings
+*	pm  28/08/19 Removed 80-character warnings
 * </pre>
 *
 *****************************************************************************/
@@ -132,7 +133,7 @@ u32 XUsbPsu_EpGetTransferIndex(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
 *
 *****************************************************************************/
 s32 XUsbPsu_SendEpCmd(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
-					  u32 Cmd, struct XUsbPsu_EpParams *Params)
+				  u32 Cmd, struct XUsbPsu_EpParams *Params)
 {
 	u32	PhyEpNum;
 
@@ -173,14 +174,14 @@ s32 XUsbPsu_SendEpCmd(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 * @return	XST_SUCCESS else XST_FAILURE.
 *
 * @note
-* 			As per data book this command should be issued by software
-*			under these conditions:
-*				1. After power-on-reset with XferRscIdx=0 before starting
-*				   to configure Physical Endpoints 0 and 1.
-*				2. With XferRscIdx=2 before starting to configure
-*				   Physical Endpoints > 1
-*				3. This command should always be issued to
-*				   Endpoint 0 (DEPCMD0).
+*		As per data book this command should be issued by software
+*		under these conditions:
+*		1. After power-on-reset with XferRscIdx=0 before starting
+*		   to configure Physical Endpoints 0 and 1.
+*		2. With XferRscIdx=2 before starting to configure
+*		   Physical Endpoints > 1
+*		3. This command should always be issued to
+*		   Endpoint 0 (DEPCMD0).
 *
 *****************************************************************************/
 s32 XUsbPsu_StartEpConfig(struct XUsbPsu *InstancePtr, u32 UsbEpNum, u8 Dir)
@@ -279,16 +280,19 @@ s32 XUsbPsu_SetEpConfig(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 	Params->Param1 |= XUSBPSU_DEPCFG_EP_NUMBER(PhyEpNum);
 
 	if (Dir != XUSBPSU_EP_DIR_OUT) {
-		 Params->Param0 |= XUSBPSU_DEPCFG_FIFO_NUMBER((u32)PhyEpNum >> 1U);
+		Params->Param0 |= XUSBPSU_DEPCFG_FIFO_NUMBER((u32)PhyEpNum >>
+									 1U);
 	}
 
 	if (Ept->Type == XUSBPSU_ENDPOINT_XFER_ISOC) {
-		Params->Param1 |= XUSBPSU_DEPCFG_BINTERVAL_M1(Ept->Interval - 1U);
+		Params->Param1 |= XUSBPSU_DEPCFG_BINTERVAL_M1(Ept->Interval -
+									 1U);
 		Params->Param1 |= XUSBPSU_DEPCFG_XFER_IN_PROGRESS_EN;
 	}
 
 	return XUsbPsu_SendEpCmd(InstancePtr, UsbEpNum, Dir,
-							 XUSBPSU_DEPCMD_SETEPCONFIG, Params);
+						 XUSBPSU_DEPCMD_SETEPCONFIG,
+						 Params);
 }
 
 /****************************************************************************/
@@ -321,7 +325,8 @@ s32 XUsbPsu_SetXferResource(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 	Params->Param0 = XUSBPSU_DEPXFERCFG_NUM_XFER_RES(1U);
 
 	return XUsbPsu_SendEpCmd(InstancePtr, UsbEpNum, Dir,
-							 XUSBPSU_DEPCMD_SETTRANSFRESOURCE, Params);
+					 XUSBPSU_DEPCMD_SETTRANSFRESOURCE,
+					 Params);
 }
 
 /****************************************************************************/
@@ -371,8 +376,8 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 
 	if (((Ept->EpStatus & XUSBPSU_EP_ENABLED) == 0U)
 			|| (InstancePtr->IsHibernated == TRUE)) {
-		if (XUsbPsu_StartEpConfig(InstancePtr, UsbEpNum, Dir)
-							== XST_FAILURE) {
+		if (XUsbPsu_StartEpConfig(InstancePtr, UsbEpNum,
+						Dir)	== XST_FAILURE) {
 			return XST_FAILURE;
 		}
 	}
@@ -384,8 +389,8 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 
 	if (((Ept->EpStatus & XUSBPSU_EP_ENABLED) == 0U)
 			|| (InstancePtr->IsHibernated == TRUE)) {
-		if (XUsbPsu_SetXferResource(InstancePtr, UsbEpNum, Dir)
-							== XST_FAILURE) {
+		if (XUsbPsu_SetXferResource(InstancePtr, UsbEpNum,
+						Dir)	== XST_FAILURE) {
 			return XST_FAILURE;
 		}
 
@@ -416,7 +421,8 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 
 		/* flush the link trb */
 		if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
-			Xil_DCacheFlushRange((INTPTR)TrbLink, sizeof(struct XUsbPsu_Trb));
+			Xil_DCacheFlushRange((INTPTR)TrbLink,
+						 sizeof(struct XUsbPsu_Trb));
 		}
 	}
 
@@ -453,7 +459,8 @@ s32 XUsbPsu_EpDisable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 
 	/* make sure HW endpoint isn't stalled */
 	if ((Ept->EpStatus & XUSBPSU_EP_STALL) != (u32)0U) {
-		XUsbPsu_EpClearStall(InstancePtr, Ept->UsbEpNum, Ept->Direction);
+		XUsbPsu_EpClearStall(InstancePtr, Ept->UsbEpNum,
+							 Ept->Direction);
 	}
 
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DALEPENA);
@@ -561,7 +568,8 @@ void XUsbPsu_StopTransfer(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(UsbEpNum <= (u8)16U);
-	Xil_AssertVoid((Dir == XUSBPSU_EP_DIR_IN) || (Dir == XUSBPSU_EP_DIR_OUT));
+	Xil_AssertVoid((Dir == XUSBPSU_EP_DIR_IN) ||
+						(Dir == XUSBPSU_EP_DIR_OUT));
 
 	PhyEpNum = XUSBPSU_PhysicalEp(UsbEpNum, Dir);
 	Params = XUsbPsu_GetEpParams(InstancePtr);
@@ -603,7 +611,8 @@ void XUsbPsu_StopTransfer(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
 * @note		None.
 *
 ****************************************************************************/
-void XUsbPsu_SaveEndpointState(struct XUsbPsu *InstancePtr, struct XUsbPsu_Ep *Ept)
+void XUsbPsu_SaveEndpointState(struct XUsbPsu *InstancePtr,
+						 struct XUsbPsu_Ep *Ept)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 
@@ -612,7 +621,8 @@ void XUsbPsu_SaveEndpointState(struct XUsbPsu *InstancePtr, struct XUsbPsu_Ep *E
 
        XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
                        XUSBPSU_DEPCMD_GETEPSTATE, Params);
-       Ept->EpSavedState = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DEPCMDPAR2(Ept->PhyEpNum));
+	Ept->EpSavedState = XUsbPsu_ReadReg(InstancePtr,
+				 XUSBPSU_DEPCMDPAR2(Ept->PhyEpNum));
 }
 
 /****************************************************************************/
@@ -651,7 +661,8 @@ void XUsbPsu_ClearStalls(struct XUsbPsu *InstancePtr)
 		Ept->EpStatus &= ~XUSBPSU_EP_STALL;
 
 		(void)XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum,
-						  Ept->Direction, XUSBPSU_DEPCMD_CLEARSTALL,
+						  Ept->Direction,
+						 XUSBPSU_DEPCMD_CLEARSTALL,
 						  Params);
 	}
 }
@@ -739,7 +750,8 @@ s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 			| XUSBPSU_TRB_CTRL_ISP_IMI);
 
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
-		Xil_DCacheFlushRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
+		Xil_DCacheFlushRange((INTPTR)TrbPtr,
+					 sizeof(struct XUsbPsu_Trb));
 		Xil_DCacheFlushRange((INTPTR)BufferPtr, BufferLen);
 	}
 
@@ -764,7 +776,8 @@ s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 			}
 
 			TrbTempNext->BufferPtrLow  = (UINTPTR)BufferPtr;
-			TrbTempNext->BufferPtrHigh  = ((UINTPTR)BufferPtr >> 16U) >> 16U;
+			TrbTempNext->BufferPtrHigh  = ((UINTPTR)BufferPtr >>
+								 16U) >> 16U;
 			TrbTempNext->Size = BufferLen & XUSBPSU_TRB_SIZE_MASK;
 
 			TrbTempNext->Ctrl = (XUSBPSU_TRBCTL_ISOCHRONOUS_FIRST
@@ -775,8 +788,9 @@ s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 
 			if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 				Xil_DCacheFlushRange((INTPTR)TrbTempNext,
-										sizeof(struct XUsbPsu_Trb));
-				Xil_DCacheFlushRange((INTPTR)BufferPtr, BufferLen);
+						sizeof(struct XUsbPsu_Trb));
+				Xil_DCacheFlushRange((INTPTR)BufferPtr,
+								 BufferLen);
 			}
 
 		}
@@ -898,7 +912,8 @@ s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
 
 
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
-		Xil_DCacheFlushRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
+		Xil_DCacheFlushRange((INTPTR)TrbPtr,
+					 sizeof(struct XUsbPsu_Trb));
 		Xil_DCacheInvalidateRange((INTPTR)BufferPtr, Length);
 	}
 
@@ -923,7 +938,8 @@ s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
 			}
 
 			TrbTempNext->BufferPtrLow  = (UINTPTR)BufferPtr;
-			TrbTempNext->BufferPtrHigh  = ((UINTPTR)BufferPtr >> 16U) >> 16U;
+			TrbTempNext->BufferPtrHigh  = ((UINTPTR)BufferPtr >>
+								 16U) >> 16U;
 			TrbTempNext->Size = Length & XUSBPSU_TRB_SIZE_MASK;
 
 			TrbTempNext->Ctrl = (XUSBPSU_TRBCTL_ISOCHRONOUS_FIRST
@@ -934,7 +950,7 @@ s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
 
 			if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 				Xil_DCacheFlushRange((INTPTR)TrbTempNext,
-										sizeof(struct XUsbPsu_Trb));
+						sizeof(struct XUsbPsu_Trb));
 				Xil_DCacheFlushRange((INTPTR)BufferPtr, Length);
 			}
 
@@ -982,7 +998,8 @@ void XUsbPsu_EpSetStall(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir)
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Epnum <= (u8)16U);
-	Xil_AssertVoid((Dir == XUSBPSU_EP_DIR_IN) || (Dir == XUSBPSU_EP_DIR_OUT));
+	Xil_AssertVoid((Dir == XUSBPSU_EP_DIR_IN) ||
+						(Dir == XUSBPSU_EP_DIR_OUT));
 
 	PhyEpNum = XUSBPSU_PhysicalEp(Epnum, Dir);
 	Ept = &InstancePtr->eps[PhyEpNum];
@@ -991,7 +1008,7 @@ void XUsbPsu_EpSetStall(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir)
 	Xil_AssertVoid(Params != NULL);
 
 	(void)XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
-							XUSBPSU_DEPCMD_SETSTALL, Params);
+					XUSBPSU_DEPCMD_SETSTALL, Params);
 
 	Ept->EpStatus |= XUSBPSU_EP_STALL;
 }
@@ -1017,7 +1034,8 @@ void XUsbPsu_EpClearStall(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir)
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Epnum <= (u8)16U);
-	Xil_AssertVoid((Dir == XUSBPSU_EP_DIR_IN) || (Dir == XUSBPSU_EP_DIR_OUT));
+	Xil_AssertVoid((Dir == XUSBPSU_EP_DIR_IN) ||
+						(Dir == XUSBPSU_EP_DIR_OUT));
 
 	PhyEpNum = XUSBPSU_PhysicalEp(Epnum, Dir);
 	Ept = &InstancePtr->eps[PhyEpNum];
@@ -1026,7 +1044,7 @@ void XUsbPsu_EpClearStall(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir)
 	Xil_AssertVoid(Params != NULL);
 
 	(void)XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
-							XUSBPSU_DEPCMD_CLEARSTALL, Params);
+					XUSBPSU_DEPCMD_CLEARSTALL, Params);
 
 	Ept->EpStatus &= ~XUSBPSU_EP_STALL;
 }
@@ -1053,7 +1071,8 @@ void XUsbPsu_SetEpHandler(struct XUsbPsu *InstancePtr, u8 Epnum,
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Epnum <= (u8)16U);
-	Xil_AssertVoid((Dir == XUSBPSU_EP_DIR_IN) || (Dir == XUSBPSU_EP_DIR_OUT));
+	Xil_AssertVoid((Dir == XUSBPSU_EP_DIR_IN) ||
+						(Dir == XUSBPSU_EP_DIR_OUT));
 
 	PhyEpNum = XUSBPSU_PhysicalEp(Epnum, Dir);
 	Ept = &InstancePtr->eps[PhyEpNum];
@@ -1082,7 +1101,8 @@ s32 XUsbPsu_IsEpStalled(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir)
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Epnum <= (u8)16U);
-	Xil_AssertNonvoid((Dir == XUSBPSU_EP_DIR_IN) || (Dir == XUSBPSU_EP_DIR_OUT));
+	Xil_AssertNonvoid((Dir == XUSBPSU_EP_DIR_IN) ||
+						(Dir == XUSBPSU_EP_DIR_OUT));
 
 	PhyEpNum = XUSBPSU_PhysicalEp(Epnum, Dir);
 	Ept = &InstancePtr->eps[PhyEpNum];
@@ -1103,7 +1123,7 @@ s32 XUsbPsu_IsEpStalled(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir)
 *
 *****************************************************************************/
 void XUsbPsu_EpXferComplete(struct XUsbPsu *InstancePtr,
-							const struct XUsbPsu_Event_Epevt *Event)
+					const struct XUsbPsu_Event_Epevt *Event)
 {
 	struct XUsbPsu_Ep	*Ept;
 	struct XUsbPsu_Trb	*TrbPtr;
@@ -1126,7 +1146,8 @@ void XUsbPsu_EpXferComplete(struct XUsbPsu *InstancePtr,
 	}
 
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
-		Xil_DCacheInvalidateRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
+		Xil_DCacheInvalidateRange((INTPTR)TrbPtr,
+						 sizeof(struct XUsbPsu_Trb));
 	}
 
 	if (Event->Endpoint_Event == XUSBPSU_DEPEVT_XFERCOMPLETE) {
@@ -1143,8 +1164,9 @@ void XUsbPsu_EpXferComplete(struct XUsbPsu *InstancePtr,
 			Ept->BytesTxed = Ept->RequestedBytes - Length;
 		} else {
 			if (Ept->UnalignedTx == 1U) {
-				Ept->BytesTxed = (u32)roundup(Ept->RequestedBytes,
-											  (u16)Ept->MaxSize);
+				Ept->BytesTxed = (u32)roundup(
+							Ept->RequestedBytes,
+							(u16)Ept->MaxSize);
 				Ept->BytesTxed -= Length;
 				Ept->UnalignedTx = 0U;
 			} else {
@@ -1160,12 +1182,14 @@ void XUsbPsu_EpXferComplete(struct XUsbPsu *InstancePtr,
 	if (Dir == XUSBPSU_EP_DIR_OUT) {
 		/* Invalidate Cache */
 		if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
-			Xil_DCacheInvalidateRange((INTPTR)Ept->BufferPtr, Ept->BytesTxed);
+			Xil_DCacheInvalidateRange((INTPTR)Ept->BufferPtr,
+							 Ept->BytesTxed);
 		}
 	}
 
 	if (Ept->Handler) {
-		Ept->Handler(InstancePtr->AppData, Ept->RequestedBytes, Ept->BytesTxed);
+		Ept->Handler(InstancePtr->AppData, Ept->RequestedBytes,
+							 Ept->BytesTxed);
 	}
 }
 
@@ -1183,7 +1207,7 @@ void XUsbPsu_EpXferComplete(struct XUsbPsu *InstancePtr,
 *
 *****************************************************************************/
 void XUsbPsu_EpXferNotReady(struct XUsbPsu *InstancePtr,
-							const struct XUsbPsu_Event_Epevt *Event)
+					const struct XUsbPsu_Event_Epevt *Event)
 {
 	struct XUsbPsu_Ep	*Ept;
 	u32	Epnum;

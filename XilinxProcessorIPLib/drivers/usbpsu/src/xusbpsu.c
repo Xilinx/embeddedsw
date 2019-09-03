@@ -46,6 +46,7 @@
 * 1.5	vak   02/06/19 Add API for idling usb controller
 * 1.6	pm    22/07/19 Removed coverity warnings
 *	pm    08/08/19 Added support to set AXI-Cache bits when CCI is enable
+*	pm    28/08/19 Removed 80-character warnings
 *
 * </pre>
 *
@@ -84,7 +85,7 @@
 *
 ******************************************************************************/
 s32 XUsbPsu_Wait_Clear_Timeout(struct XUsbPsu *InstancePtr, u32 Offset,
-								u32 BitMask, u32 Timeout)
+						u32 BitMask, u32 Timeout)
 {
 	u32 RegVal;
 	u32 LocalTimeout = Timeout;
@@ -122,7 +123,7 @@ s32 XUsbPsu_Wait_Clear_Timeout(struct XUsbPsu *InstancePtr, u32 Offset,
 *
 ******************************************************************************/
 s32 XUsbPsu_Wait_Set_Timeout(struct XUsbPsu *InstancePtr, u32 Offset,
-								u32 BitMask, u32 Timeout)
+						u32 BitMask, u32 Timeout)
 {
 	u32 RegVal;
 	u32 LocalTimeout = Timeout;
@@ -232,7 +233,8 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 			/* Wait until CMD ACT bit is cleared */
 			if (XUsbPsu_Wait_Clear_Timeout(InstancePtr,
 						XUSBPSU_DEPCMD(PhyEpNum),
-						XUSBPSU_DEPCMD_CMDACT, 500U) == XST_FAILURE) {
+						XUSBPSU_DEPCMD_CMDACT, 500U)
+							 == XST_FAILURE) {
 #ifdef XUSBPSU_DEBUG
 				xil_printf("End Transfer on Endpoint %dOUT failed\n\r", CurEpNum);
 #endif
@@ -268,7 +270,8 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 			/* Wait until CMD ACT bit is cleared */
 			if (XUsbPsu_Wait_Clear_Timeout(InstancePtr,
 						XUSBPSU_DEPCMD(PhyEpNum),
-						XUSBPSU_DEPCMD_CMDACT, 500U) == XST_FAILURE) {
+						XUSBPSU_DEPCMD_CMDACT, 500U)
+							 == XST_FAILURE) {
 #ifdef XUSBPSU_DEBUG
 				xil_printf("End Transfer on Endpoint %dIN failed\n\r", CurEpNum);
 #endif
@@ -406,7 +409,8 @@ void XUsbPsu_EventBuffersSetup(struct XUsbPsu *InstancePtr)
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTADRHI(0U),
 			((UINTPTR)(InstancePtr->EventBuffer) >> 16U) >> 16U);
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTSIZ(0U),
-			XUSBPSU_GEVNTSIZ_SIZE(sizeof(InstancePtr->EventBuffer)));
+			XUSBPSU_GEVNTSIZ_SIZE(
+				sizeof(InstancePtr->EventBuffer)));
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0U), 0U);
 }
 
@@ -427,7 +431,8 @@ void XUsbPsu_EventBuffersReset(struct XUsbPsu *InstancePtr)
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTADRLO(0U), 0U);
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTADRHI(0U), 0U);
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTSIZ(0U),
-			(u32)XUSBPSU_GEVNTSIZ_INTMASK | XUSBPSU_GEVNTSIZ_SIZE(0U));
+			(u32)XUSBPSU_GEVNTSIZ_INTMASK |
+					 XUSBPSU_GEVNTSIZ_SIZE(0U));
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GEVNTCOUNT(0U), 0U);
 }
 
@@ -457,7 +462,7 @@ u32 XUsbPsu_ReadHwParams(struct XUsbPsu *InstancePtr, u8 RegIndex)
 	Xil_AssertNonvoid(RegIndex <= (u8)XUSBPSU_GHWPARAMS7);
 
 	RegVal = XUsbPsu_ReadReg(InstancePtr, ((u32)XUSBPSU_GHWPARAMS0_OFFSET +
-							((u32)RegIndex * (u32)4U)));
+						((u32)RegIndex * (u32)4U)));
 	return RegVal;
 }
 
@@ -612,10 +617,10 @@ void XUsbPsu_DisableIntr(struct XUsbPsu *InstancePtr, u32 Mask)
 * @param	InstancePtr is a pointer to the XUsbPsu instance.
 * @param	ConfigPtr points to the XUsbPsu device configuration structure.
 * @param	BaseAddress is the device base address in the virtual memory
-*			address space. If the address translation is not used then the
-*			physical address is passed.
-*			Unexpected errors may occur if the address mapping is changed
-*			after this function is invoked.
+*		address space. If the address translation is not used then the
+*		physical address is passed.
+*		Unexpected errors may occur if the address mapping is changed
+*		after this function is invoked.
 *
 * @return	XST_SUCCESS else XST_FAILURE
 *
@@ -623,7 +628,7 @@ void XUsbPsu_DisableIntr(struct XUsbPsu *InstancePtr, u32 Mask)
 *
 *****************************************************************************/
 s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
-			XUsbPsu_Config *ConfigPtr, u32 BaseAddress)
+				XUsbPsu_Config *ConfigPtr, u32 BaseAddress)
 {
 	s32 Status;
 	u32 RegVal;
@@ -686,7 +691,7 @@ s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
 *****************************************************************************/
 s32 XUsbPsu_Start(struct XUsbPsu *InstancePtr)
 {
-	u32			RegVal;
+	u32	RegVal;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
