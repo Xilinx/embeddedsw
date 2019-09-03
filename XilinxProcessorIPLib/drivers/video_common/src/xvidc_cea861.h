@@ -110,7 +110,11 @@ typedef enum {
 	XVIDC_MAXFRLRATE_4X12GBITSPS
 } XV_VidC_MaxFrlRate;
 
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_cea861_timing_block {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_cea861_timing_block {
+#endif
     /* CEA Extension Header */
     u8  tag;
     u8  revision;
@@ -128,21 +132,37 @@ struct __attribute__ (( packed )) xvidc_cea861_timing_block {
     u8  checksum;
 };
 
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_cea861_data_block_header {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_cea861_data_block_header {
+#endif
     unsigned length : 5;
     unsigned tag    : 3;
 };
 
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_cea861_short_video_descriptor {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_cea861_short_video_descriptor {
+#endif
     unsigned video_identification_code : 8;
 };
 #if XVIDC_EDID_VERBOSITY > 1
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_cea861_video_data_block {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_cea861_video_data_block {
+#endif
     struct xvidc_cea861_data_block_header      header;
     struct xvidc_cea861_short_video_descriptor svd[];
 };
 #endif
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_cea861_short_audio_descriptor {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_cea861_short_audio_descriptor {
+#endif
     unsigned channels              : 3; /* = value + 1 */
     unsigned audio_format          : 4;
     unsigned                       : 1;
@@ -157,7 +177,11 @@ struct __attribute__ (( packed )) xvidc_cea861_short_audio_descriptor {
     unsigned                       : 1;
 
     union {
+#if defined(__GNUC__)
         struct __attribute__ (( packed )) {
+#elif defined(__ICCARM__)
+	struct _Pragma ("pack()") {
+#endif
             unsigned bitrate_16_bit : 1;
             unsigned bitrate_20_bit : 1;
             unsigned bitrate_24_bit : 1;
@@ -168,25 +192,41 @@ struct __attribute__ (( packed )) xvidc_cea861_short_audio_descriptor {
 
         u8 format_dependent;       /* formats 9-13; */
 
+#if defined(__GNUC__)
         struct __attribute__ (( packed )) {
+#elif defined(__ICCARM__)
+	struct _Pragma ("pack()") {
+#endif
             unsigned profile : 3;
             unsigned         : 5;
         } wma_pro;
 
+#if defined(__GNUC__)
         struct __attribute__ (( packed )) {
+#elif defined(__ICCARM__)
+	struct _Pragma ("pack()") {
+#endif
             unsigned      : 3;
             unsigned code : 5;
         } extension;
     } flags;
 };
 #if XVIDC_EDID_VERBOSITY > 1
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_cea861_audio_data_block {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_cea861_audio_data_block {
+#endif
     struct xvidc_cea861_data_block_header      header;
     struct xvidc_cea861_short_audio_descriptor sad[];
 };
 #endif
 #if XVIDC_EDID_VERBOSITY > 1
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_cea861_speaker_allocation {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_cea861_speaker_allocation {
+#endif
     unsigned front_left_right        : 1;
     unsigned front_lfe               : 1;   /* low frequency effects */
     unsigned front_center            : 1;
@@ -205,18 +245,30 @@ struct __attribute__ (( packed )) xvidc_cea861_speaker_allocation {
 };
 #endif
 #if XVIDC_EDID_VERBOSITY > 1
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_cea861_speaker_allocation_data_block {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_cea861_speaker_allocation_data_block {
+#endif
     struct xvidc_cea861_data_block_header  header;
     struct xvidc_cea861_speaker_allocation payload;
 };
 #endif
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_cea861_vendor_specific_data_block {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_cea861_vendor_specific_data_block {
+#endif
     struct xvidc_cea861_data_block_header  header;
     u8                               ieee_registration[3];
     u8                               data[30];
 };
 
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_cea861_extended_data_block {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_cea861_extended_data_block {
+#endif
     struct xvidc_cea861_data_block_header  header;
     u8                               xvidc_cea861_extended_tag_codes;
     u8                               data[30];
@@ -395,7 +447,11 @@ static const struct xvidc_cea861_timing {
 };
 #endif
 
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_cea861_hdmi_vendor_specific_data_block {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_cea861_hdmi_vendor_specific_data_block {
+#endif
     struct xvidc_cea861_data_block_header header;
 
     u8  ieee_registration_id[3];           /* LSB */
@@ -428,7 +484,11 @@ struct __attribute__ (( packed )) xvidc_cea861_hdmi_vendor_specific_data_block {
     u8  reserved[];
 };
 
+#if defined(__GNUC__)
 struct __attribute__ (( packed )) xvidc_cea861_hdmi_hf_vendor_specific_data_block {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_cea861_hdmi_hf_vendor_specific_data_block {
+#endif
     struct xvidc_cea861_data_block_header header;
 
     u8  ieee_registration_id[3];           /* LSB */
