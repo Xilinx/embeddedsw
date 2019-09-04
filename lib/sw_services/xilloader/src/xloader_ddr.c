@@ -97,10 +97,26 @@ int XLoader_DdrInit(u32 DeviceFlags)
 XStatus XLoader_DdrCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 {
 	int Status = XST_FAILURE;
+	u32 DmaFlags;
 
-	Flags = XPLMI_PMCDMA_0;
-	Status = XPlmi_DmaXfr((u64)SrcAddress, DestAddress, Length/4, Flags);
+	DmaFlags = XPLMI_PMCDMA_1;
+	Flags = Flags & XLOADER_DEVICE_COPY_STATE_MASK;
 
+	/** Just wait for the Data to be copied */
+	if (Flags == XLOADER_DEVICE_COPY_STATE_WAIT_DONE)
+	{
+		XPlmi_WaitForNonBlkDma();
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	/** Update the flags for NON blocking DMA call */
+	if (Flags == XLOADER_DEVICE_COPY_STATE_INITIATE)
+	{
+		DmaFlags |= XPLMI_DMA_SRC_NONBLK;
+	}
+	Status = XPlmi_DmaXfr((u64)SrcAddress, DestAddress, Length/4, DmaFlags);
+END:
 	return Status;
 }
 
