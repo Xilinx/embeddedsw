@@ -244,6 +244,8 @@
 *                       context structure.
 *       cog    09/01/19 Rename new XRFdc_S/GetLegacyCompatibilityMode() APIs to
 *                       XRFdc_S/GetDACCompMode().
+*       cog    09/01/19 Rename XRFdc_S/GetDigitalStepAttenuator() APIs to XRFdc_S/GetDSA().
+*                       Also, add new XRFdc_DSA_Settings structure.
 *
 * </pre>
 *
@@ -424,6 +426,14 @@ typedef struct {
 	u32 Coeff6;
 	u32 Coeff7;
 } XRFdc_Calibration_Coefficients;
+
+/**
+ * RFSoC DSA settings
+ */
+typedef struct {
+	u32 DisableRTS; /*Disables RTS control of DSA attenuation*/
+	float Attenuation; /*Attenuation*/
+} XRFdc_DSA_Settings;
 
 /**
  * RFSoC Calibration freeze settings struct
@@ -1107,7 +1117,7 @@ typedef struct {
 #define XRFDC_CSCAS_BLDR 0xE000U
 #define XRFDC_CSCAS_BIAS 0x001BU
 
-#define XRFDC_MAX_ATTEN -11
+#define XRFDC_MAX_ATTEN 11
 #define XRFDC_MIN_ATTEN 0
 #define XRFDC_STEP_ATTEN 0.5
 
@@ -2063,8 +2073,8 @@ u32 XRFdc_GetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Cal_
 u32 XRFdc_SetDACVOP(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurrent);
 u32 XRFdc_SetDACCompMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Enable);
 u32 XRFdc_GetDACCompMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *EnabledPtr);
-u32 XRFdc_SetDigitalStepAttenuator(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, float Attenuation);
-u32 XRFdc_GetDigitalStepAttenuator(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, float *AttenuationPtr);
+u32 XRFdc_SetDSA(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_DSA_Settings *SettingsPtr);
+u32 XRFdc_GetDSA(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_DSA_Settings *SettingsPtr);
 #ifndef __BAREMETAL__
 s32 XRFdc_GetDeviceNameByDeviceId(char *DevNamePtr, u16 DevId);
 #endif

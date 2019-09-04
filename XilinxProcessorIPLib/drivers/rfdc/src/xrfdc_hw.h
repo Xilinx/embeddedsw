@@ -80,6 +80,7 @@
 *       cog    07/26/19 Added XRFdc_S/GetLegacyCompatibilityMode() API shift.
 *       cog    08/02/19 Formatting changes.
 *       cog    09/01/19 Added offset for VOP control register.
+*       cog    09/01/19 Added masks/shifts for DSA.
 *
 *</pre>
 *
@@ -1941,6 +1942,7 @@ extern "C" {
 #define XRFDC_DAC_MC_CFG3_UPDATE_MASK 0x0020U
 #define XRFDC_DAC_MC_CFG0_CAS_BLDR_MASK 0xE000U
 #define XRFDC_DAC_MC_CFG2_CAS_BIAS_MASK 0x001FU
+#define XRFDC_ADC_DSA_RTS_PIN_MASK 0x0020U
 #define XRFDC_ADC_DSA_CODE_MASK 0x001FU
 #define XRFDC_ADC_DSA_UPDT_MASK 0x0001U
 
@@ -1953,6 +1955,7 @@ extern "C" {
 #define XRFDC_ADC_CMODE_SHIFT 10U
 #define XRFDC_COMMON_SHIFT 20U
 #define XRFDC_DAC_MC_CFG2_GEN1_COMP_SHIFT 5U
+#define XRFDC_ADC_DSA_RTS_PIN_SHIFT 5U
 
 #define XRFDC_DAC_TILE_DRP_ADDR(X) (0x6000U + (X * 0x4000U))
 #define XRFDC_DAC_TILE_CTRL_STATS_ADDR(X) (0x4000U + (X * 0x4000U))

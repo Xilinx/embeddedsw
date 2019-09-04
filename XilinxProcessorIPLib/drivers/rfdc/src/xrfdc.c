@@ -169,6 +169,8 @@
 *       cog    09/01/19 Added support for VOP in XRFdc_GetOutputCurr().
 *       cog    09/01/19 Rename new XRFdc_S/GetLegacyCompatibilityMode() APIs to
 *                       XRFdc_S/GetDACCompMode().
+*       cog    09/01/19 Rename XRFdc_S/GetDigitalStepAttenuator() APIs to XRFdc_S/GetDSA().
+*                       Also, refactored DSA to use struct and absolute value for Attenuation.
 *
 * </pre>
 *
@@ -5156,9 +5158,9 @@ RETURN_PATH:
 *           - XRFDC_SUCCESS if successful.
 *           - XRFDC_FAILURE if error occurs.
 *
-* @note     Range 0 - -ll dB with 0.5 dB resolution.
+* @note  Range 0 - ll dB with 0.5 dB resolution.
 ******************************************************************************/
-u32 XRFdc_SetDigitalStepAttenuator(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, float Attenuation)
+u32 XRFdc_SetDSA(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_DSA_Settings *SettingsPtr)
 {
 	u32 Status;
 	u32 BaseAddr;
@@ -5169,6 +5171,7 @@ u32 XRFdc_SetDigitalStepAttenuator(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(SettingsPtr != NULL);
 
 	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 		Status = XRFDC_FAILURE;
@@ -5189,12 +5192,12 @@ u32 XRFdc_SetDigitalStepAttenuator(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id
 		metal_log(METAL_LOG_ERROR, "\n API not available - Licensing in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
-	if (Attenuation < XRFDC_MAX_ATTEN) {
+	if (SettingsPtr->Attenuation > XRFDC_MAX_ATTEN) {
 		metal_log(METAL_LOG_ERROR, "\n Invalid current selection (too high) in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
-	if (Attenuation > XRFDC_MIN_ATTEN) {
+	if (SettingsPtr->Attenuation < XRFDC_MIN_ATTEN) {
 		metal_log(METAL_LOG_ERROR, "\n Invalid current selection (too low) in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
@@ -5212,9 +5215,12 @@ u32 XRFdc_SetDigitalStepAttenuator(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id
 	}
 
 	BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
-	Code = (u32)((Attenuation - XRFDC_MAX_ATTEN) / XRFDC_STEP_ATTEN);
+
+	Code = (u32)((XRFDC_MAX_ATTEN - SettingsPtr->Attenuation) / XRFDC_STEP_ATTEN);
 	for (; Index < NoOfBlocks; Index++) {
-		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CONV_DSA_STGS(Index), XRFDC_ADC_DSA_CODE_MASK, Code);
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CONV_DSA_STGS(Index),
+				(XRFDC_ADC_DSA_CODE_MASK | XRFDC_ADC_DSA_RTS_PIN_MASK),
+				(Code | (SettingsPtr->DisableRTS << XRFDC_ADC_DSA_RTS_PIN_SHIFT)));
 	}
 
 	/*trigger*/
@@ -5240,18 +5246,19 @@ RETURN_PATH:
 *           - XRFDC_SUCCESS if successful.
 *           - XRFDC_FAILURE if error occurs.
 *
-* @note     Range 0 - -ll dB with 0.5 dB resolution.
+* @note  Range 0 - ll dB with 0.5 dB resolution.
 ******************************************************************************/
-u32 XRFdc_GetDigitalStepAttenuator(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, float *AttenuationPtr)
+u32 XRFdc_GetDSA(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_DSA_Settings *SettingsPtr)
 {
 	u32 Status;
 	u32 BaseAddr;
 	u16 EFuse;
 	u32 Code;
+	u32 RTSENMode;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(AttenuationPtr != NULL);
+	Xil_AssertNonvoid(SettingsPtr != NULL);
 
 	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 		Status = XRFDC_FAILURE;
@@ -5281,7 +5288,10 @@ u32 XRFdc_GetDigitalStepAttenuator(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id
 
 	BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
 	Code = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CONV_DSA_STGS(Block_Id), XRFDC_ADC_DSA_CODE_MASK);
-	*AttenuationPtr = (float)((Code * XRFDC_STEP_ATTEN) + XRFDC_MAX_ATTEN);
+	RTSENMode = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CONV_DSA_STGS(Block_Id), XRFDC_ADC_DSA_RTS_PIN_MASK);
+
+	SettingsPtr->Attenuation = XRFDC_MAX_ATTEN - (float)(Code * XRFDC_STEP_ATTEN);
+	SettingsPtr->DisableRTS = RTSENMode >> XRFDC_ADC_DSA_RTS_PIN_SHIFT;
 
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
