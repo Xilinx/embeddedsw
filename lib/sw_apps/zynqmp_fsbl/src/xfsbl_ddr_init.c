@@ -46,6 +46,7 @@
  *                     checks
  * 2.0   mn   02/28/19 Add Dynamic DDR initialization support for all DDR DIMMs
  *       mn   03/12/19 Select EEPROM Lower Page for reading SPD data
+ *       mn   09/03/19 Fix coverity warnings
  * </pre>
  *
  * @note
@@ -197,6 +198,13 @@
 
 #define XFSBL_DDRPHY_BASE_ADDR		0xFD080000U
 
+#define XFSBL_DBI_INFO			XPAR_PSU_DDRC_0_DDR_DATA_MASK_AND_DBI
+
+#define XFSBL_VIDEOBUF			XPAR_PSU_DDRC_0_VIDEO_BUFFER_SIZE
+
+#define XFSBL_BRCMAPPING		XPAR_PSU_DDRC_0_BRC_MAPPING
+
+#define XFSBL_DDR4ADDRMAPPING		XPAR_PSU_DDRC_0_DDR4_ADDR_MAPPING
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -661,7 +669,7 @@ u32 XFsbl_ComputeLpDdrParams(u8 *SpdData, struct DdrcInitData *DdrDataPtr)
 		PDimmPtr->EccBusWidth = 8U;
 	else
 		PDimmPtr->EccBusWidth = 0U;
-	PDimmPtr->DramWidth = LpDdrSpdData->Organization & 0x7U;
+	PDimmPtr->DramWidth = 1U << ((LpDdrSpdData->Organization & 0x7U) + 2U);
 
 	PDimmPtr->AddrMirror = 0U;
 	PDimmPtr->RDimm = 0U;
@@ -807,6 +815,7 @@ static void XFsbl_DdrCalcDdr4HifAddr(struct DdrcInitData *DdrDataPtr, u32 *HifAd
 	}
 }
 
+#if (XFSBL_VIDEOBUF != 0U)
 /*****************************************************************************/
 /**
  * This function calculates the HIF Addresses for Video mapping mode
@@ -918,7 +927,9 @@ static void XFsbl_DdrCalcHifAddrVideo(struct DdrcInitData *DdrDataPtr,
 		}
 	}
 }
+#endif
 
+#if (XFSBL_BRCMAPPING == 1U)
 /*****************************************************************************/
 /**
  * This function calculates the HIF Addresses for Bank-Row-Column mapping mode
@@ -967,7 +978,9 @@ static void XFsbl_DdrCalcHifAddrBrcMap(struct DdrcInitData *DdrDataPtr,
 		Position++;
 	}
 }
+#endif
 
+#if (XFSBL_DDR4ADDRMAPPING == 1U)
 /*****************************************************************************/
 /**
  * This function calculates the HIF Addresses for Address Mapping Enabled mode
@@ -1015,6 +1028,7 @@ static void XFsbl_DdrCalcHifAddrMemMap(struct DdrcInitData *DdrDataPtr, u32 *Hif
 		Position++;
 	}
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -1076,7 +1090,7 @@ static void XFsbl_DdrCalcBankAddr(struct DdrcInitData *DdrDataPtr, u32 *HifAddr)
 	/* Calculate Bank Addresses */
 	for (BankBit = 0U; BankBit < XFSBL_MAX_BANKS; BankBit++) {
 		if (BankBit < PDimmPtr->NumBankAddr) {
-			Index = 0U;
+			Index = BankBit + 2U;
 
 			while (HifAddr[Index] != XFSBL_HIF_BANK(BankBit)) {
 				Index++;
@@ -1109,7 +1123,7 @@ static void XFsbl_DdrCalcBgAddr(struct DdrcInitData *DdrDataPtr, u32 *HifAddr)
 	/* Calculate Bank Group Addresses */
 	for (BgBit = 0U; BgBit < XFSBL_MAX_BANK_GROUPS; BgBit++) {
 		if (BgBit < PDimmPtr->NumBgAddr) {
-			Index = 0U;
+			Index = BgBit + 2U;
 
 			while (HifAddr[Index] != XFSBL_HIF_BG(BgBit)) {
 				Index++;
@@ -1146,7 +1160,7 @@ static void XFsbl_DdrCalcColAddr(struct DdrcInitData *DdrDataPtr, u32 *HifAddr)
 	/* Calculate Column Addresses */
 	for (ColBit = 2U; ColBit < XFSBL_MAX_COLUMNS; ColBit++) {
 		if (ColBit < PDimmPtr->NumColAddr) {
-			Index = 0U;
+			Index = ColBit;
 
 			while (HifAddr[Index] != XFSBL_HIF_COLUMN(ColBit)) {
 				Index++;
@@ -1181,7 +1195,7 @@ static void XFsbl_DdrCalcRowAddr(struct DdrcInitData *DdrDataPtr, u32 *HifAddr)
 	/* Calculate Row Addresses */
 	for (RowBit = 0U; RowBit < XFSBL_MAX_ROWS; RowBit++) {
 		if (RowBit < PDimmPtr->NumRowAddr) {
-			Index = 0U;
+			Index = RowBit + 6U;
 
 			while (HifAddr[Index] != XFSBL_HIF_ROW(RowBit)) {
 				Index++;
@@ -1208,50 +1222,47 @@ static void XFsbl_DdrCalcAddrMap(struct DdrcInitData *DdrDataPtr)
 {
 	XFsbl_DimmParams *PDimmPtr = &DdrDataPtr->PDimm;
 	u32 HifAddr[40U] = {0U};
-	u32 VideoBuf = XPAR_PSU_DDRC_0_VIDEO_BUFFER_SIZE;
-	u32 BrcMapping = XPAR_PSU_DDRC_0_BRC_MAPPING;
-	u32 Ddr4AddrMapping = XPAR_PSU_DDRC_0_DDR4_ADDR_MAPPING;
 	u32 RegVal[12U];
 	u32 Index;
 
-	if (VideoBuf != 0U) {
-		/* Calculate the HIF Addresses when Video Buffers are Enabled */
-		XFsbl_DdrCalcHifAddrVideo(DdrDataPtr, HifAddr, VideoBuf);
-	} else if (BrcMapping == 1U) {
-		if (PDimmPtr->MemType != SPD_MEMTYPE_DDR4) {
-			/*
-			 * Calculate the HIF Addresses for Non-DDR4 Mapping
-			 */
-			XFsbl_DdrCalcHifAddr(DdrDataPtr, HifAddr);
-		} else {
-			/*
-			 * Calculate the HIF Addresses when Bank-Row-Column Mapping is
-			 * Enabled
-			 */
-			XFsbl_DdrCalcHifAddrBrcMap(DdrDataPtr, HifAddr);
-		}
+#if (XFSBL_VIDEOBUF != 0U)
+	/* Calculate the HIF Addresses when Video Buffers are Enabled */
+	XFsbl_DdrCalcHifAddrVideo(DdrDataPtr, HifAddr, VideoBuf);
+#elif (XFSBL_BRCMAPPING == 1U)
+	if (PDimmPtr->MemType != SPD_MEMTYPE_DDR4) {
+		/*
+		 * Calculate the HIF Addresses for Non-DDR4 Mapping
+		 */
+		XFsbl_DdrCalcHifAddr(DdrDataPtr, HifAddr);
 	} else {
-		if (PDimmPtr->MemType != SPD_MEMTYPE_DDR4) {
-			/*
-			 * Calculate the HIF Addresses for Non-DDR4 Mapping
-			 */
-			XFsbl_DdrCalcHifAddr(DdrDataPtr, HifAddr);
-
-		} else {
-			if (Ddr4AddrMapping == 1U) {
-				/*
-				 * Calculate the HIF Addresses when DDR4 Address Mapping
-				 * is Enabled
-				 */
-				XFsbl_DdrCalcHifAddrMemMap(DdrDataPtr, HifAddr);
-			} else {
-				/*
-				 * Calculate the HIF Addresses for default DDR4 Mapping
-				 */
-				XFsbl_DdrCalcDdr4HifAddr(DdrDataPtr, HifAddr);
-			}
-		}
+		/*
+		 * Calculate the HIF Addresses when Bank-Row-Column Mapping is
+		 * Enabled
+		 */
+		XFsbl_DdrCalcHifAddrBrcMap(DdrDataPtr, HifAddr);
 	}
+#else
+	if (PDimmPtr->MemType != SPD_MEMTYPE_DDR4) {
+		/*
+		 * Calculate the HIF Addresses for Non-DDR4 Mapping
+		 */
+		XFsbl_DdrCalcHifAddr(DdrDataPtr, HifAddr);
+
+	} else {
+#if (XFSBL_DDR4ADDRMAPPING == 1U)
+		/*
+		 * Calculate the HIF Addresses when DDR4 Address Mapping
+		 * is Enabled
+		 */
+		XFsbl_DdrCalcHifAddrMemMap(DdrDataPtr, HifAddr);
+#else
+		/*
+		 * Calculate the HIF Addresses for default DDR4 Mapping
+		 */
+		XFsbl_DdrCalcDdr4HifAddr(DdrDataPtr, HifAddr);
+#endif
+	}
+#endif
 
     if (PDimmPtr->BusWidth <= 32U) {
 	for (Index = 0U; Index < 39U; Index++) {
@@ -1395,7 +1406,7 @@ static u32 XFsbl_DdrcCalcCommonRegVal(struct DdrcInitData *DdrDataPtr,
 		XFsbl_DimmParams *PDimmPtr, u32 *DdrCfg)
 {
 
-	DdrCfg[DDR_DEVICE_CONFIG] = XFsbl_GetLog2(PDimmPtr->DramWidth) - 2U;
+	DdrCfg[DDR_DEVICE_CONFIG] = (PDimmPtr->DramWidth >= 4U) ? XFsbl_GetLog2(PDimmPtr->DramWidth) - 2U : 0U;
 
 	DdrCfg[DDR_ACTIVE_RANKS] = (PDimmPtr->NumRankAddr * 2U) + 1U;
 
@@ -3263,7 +3274,7 @@ static u32 XFsbl_PhyCalcDdr4RegVal(XFsbl_DimmParams *PDimmPtr, u32 *PhyCfg)
 	if (PDimmPtr->AddrMirror && PDimmPtr->RDimm)
 		PhyCfg[PHY_RC13] = 0x8U;
 
-	PhyCfg[PHY_RC10] = XFSBL_MAX(0U, (PDimmPtr->SpeedBin - 1600U) / 266U);
+	PhyCfg[PHY_RC10] = (PDimmPtr->SpeedBin > 1600U) ? ((PDimmPtr->SpeedBin - 1600U) / 266U) : 0U;
 
 	if (PDimmPtr->Parity && PDimmPtr->RDimm)
 		PhyCfg[PHY_RC8] = 0x8U;
@@ -5510,7 +5521,7 @@ static void XFsbl_RdbiWrkAround(XFsbl_DimmParams *PDimmPtr)
 
 	for (Index = 0U; Index < (PDimmPtr->Ecc ? 9U : 8U); Index++) {
 		CalByte[Index] = 0U;
-		for (Index1 = 0U; Index1 < 8U; Index++) {
+		for (Index1 = 0U; Index1 < 8U; Index1++) {
 			CalByte[Index] = CalByte[Index] + DqRbd[Index][Index1];
 		}
 		CalByte[Index] = CalByte[Index] / 8U;
@@ -6313,24 +6324,22 @@ END:
 static void XFsbl_InitilizeDdrParams(struct DdrcInitData *DdrDataPtr)
 {
 	XFsbl_DimmParams *PDimmPtr = &DdrDataPtr->PDimm;
-	u32 DbiInfo;
 
-	DbiInfo = XPAR_PSU_DDRC_0_DDR_DATA_MASK_AND_DBI;
-	PDimmPtr->DataMask = (DbiInfo & 0x4U) >> 2U;
+	PDimmPtr->DataMask = (XFSBL_DBI_INFO & 0x4U) >> 2U;
 
-	if ((DbiInfo == 1U) || (DbiInfo == 4U)) {
-		PDimmPtr->RdDbi = 1U;
-		PDimmPtr->WrDbi = 1U;
-	} else if ((DbiInfo == 2U) || (DbiInfo == 5U)) {
-		PDimmPtr->RdDbi = 1U;
-		PDimmPtr->WrDbi = 0U;
-	} else if ((DbiInfo == 3U) || (DbiInfo == 6U)) {
-		PDimmPtr->RdDbi = 0U;
-		PDimmPtr->WrDbi = 1U;
-	} else {
-		PDimmPtr->RdDbi = 0U;
-		PDimmPtr->WrDbi = 0U;
-	}
+#if (XFSBL_DBI_INFO == 1U) || (XFSBL_DBI_INFO == 4U)
+	PDimmPtr->RdDbi = 1U;
+	PDimmPtr->WrDbi = 1U;
+#elif (XFSBL_DBI_INFO == 2U) || (XFSBL_DBI_INFO == 5U)
+	PDimmPtr->RdDbi = 1U;
+	PDimmPtr->WrDbi = 0U;
+#elif (XFSBL_DBI_INFO == 3U) || (XFSBL_DBI_INFO == 6U)
+	PDimmPtr->RdDbi = 0U;
+	PDimmPtr->WrDbi = 1U;
+#else
+	PDimmPtr->RdDbi = 0U;
+	PDimmPtr->WrDbi = 0U;
+#endif
 
 	PDimmPtr->Ecc = XPAR_PSU_DDRC_0_HAS_ECC;
 	PDimmPtr->En2ndClk = XPAR_PSU_DDRC_0_DDR_2ND_CLOCK;
