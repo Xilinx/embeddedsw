@@ -431,6 +431,8 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 	XPlmiCdo Cdo = {0};
 	XilPdi_PrtnHdr * PrtnHdr;
 	u32 LastChunk = FALSE;
+	u32 ChunkAddr = XLOADER_CHUNK_MEMORY;
+	u32 IsNextChunkCopyStarted = FALSE;
 	XLoader_SecureParms SecureParams;
 
 	XPlmi_Printf(DEBUG_INFO, "Processing CDO partition \n\r");
@@ -472,33 +474,78 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 	 * Process CDO in chunks.
 	 * Chunk size is based on the available PRAM size.
 	 */
-	ChunkLen = XLOADER_CHUNK_SIZE;
+	if ((PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR) &&
+		(SecureParams.SecureEn != TRUE))
+	{
+		ChunkLen = XLOADER_CHUNK_SIZE/2;
+	} else {
+		ChunkLen = XLOADER_CHUNK_SIZE;
+	}
+
 	SecureParams.IsCdo = TRUE;
 	while (Len > 0U)
 	{
 		/** Update the len for last chunk */
-		if (Len <= ChunkLen)
+		if ((Len <= ChunkLen) && (LastChunk != TRUE))
 		{
 			LastChunk = TRUE;
 			ChunkLen = Len;
 		}
 
 		if (SecureParams.SecureEn != TRUE) {
-			/** Copy the data to PRAM buffer */
-			PdiPtr->DeviceCopy(SrcAddr, XLOADER_CHUNK_MEMORY, ChunkLen, 0U);
-			Cdo.BufPtr = (u32 *)XLOADER_CHUNK_MEMORY;
+			if (IsNextChunkCopyStarted == TRUE)
+			{
+				IsNextChunkCopyStarted = FALSE;
+				/** wait for copy to get completed */
+				PdiPtr->DeviceCopy(SrcAddr,
+				  ChunkAddr, ChunkLen,
+				  XLOADER_DEVICE_COPY_STATE_WAIT_DONE);
+			} else {
+				/** Copy the data to PRAM buffer */
+				PdiPtr->DeviceCopy(SrcAddr, ChunkAddr, ChunkLen, 0U);
+			}
+			/** Update variables for next chunk */
+			Cdo.BufPtr = (u32 *)ChunkAddr;
 			Cdo.BufLen = ChunkLen/XIH_PRTN_WORD_LEN;
-		}
-		else {
+			SrcAddr += ChunkLen;
+			Len -= ChunkLen;
+			/** For DDR case, start the copy of the
+			 * next chunk for increasing performance */
+			if ((PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR)
+			    && (LastChunk != TRUE))
+			{
+				/** Update the next chunk address to other part */
+				if (ChunkAddr == XLOADER_CHUNK_MEMORY) {
+					ChunkAddr = XLOADER_CHUNK_MEMORY_1;
+				} else {
+					ChunkAddr = XLOADER_CHUNK_MEMORY;
+				}
+
+				/** Update the len for last chunk */
+				if (Len <= ChunkLen)
+				{
+					LastChunk = TRUE;
+					ChunkLen = Len;
+				}
+				IsNextChunkCopyStarted = TRUE;
+
+				/** Initiate the data copy */
+				PdiPtr->DeviceCopy(SrcAddr,
+					   ChunkAddr, ChunkLen,
+					   XLOADER_DEVICE_COPY_STATE_INITIATE);
+			}
+		} else {
 			/* Call security function */
-			Status = XLoader_SecurePrtn(&SecureParams, SecureParams.SecureData,
-									 ChunkLen, LastChunk);
+			Status = XLoader_SecurePrtn(&SecureParams,
+				SecureParams.SecureData, ChunkLen, LastChunk);
 			if(Status != XST_SUCCESS)
 			{
 				goto END;
 			}
 			Cdo.BufPtr = (u32 *)SecureParams.SecureData;
 			Cdo.BufLen = SecureParams.SecureDataLen/XIH_PRTN_WORD_LEN;
+			SrcAddr += ChunkLen;
+			Len -= ChunkLen;
 		}
 
 		/** Process the chunk */
@@ -508,9 +555,6 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 			goto END;
 		}
 
-		/** Update variables for next chunk */
-		SrcAddr += ChunkLen;
-		Len -= ChunkLen;
 	}
 	Status = XST_SUCCESS;
 END:

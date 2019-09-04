@@ -495,15 +495,12 @@ int XLoader_LoadPdi(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 		goto END;
 	}
 END:
-	if (Status != XST_SUCCESS)
+	/** Reset the SBI/DMA to clear the buffers */
+	if ((PdiSrc == XLOADER_PDI_SRC_JTAG) ||
+	    (PdiSrc == XLOADER_PDI_SRC_SMAP) ||
+	    (PdiSrc == XLOADER_PDI_SRC_SBI))
 	{
-		/** Reset the SBI to clear the buffer in case of error */
-		if ((PdiSrc == XLOADER_PDI_SRC_JTAG) ||
-		    (PdiSrc == XLOADER_PDI_SRC_SMAP) ||
-		    (PdiSrc == XLOADER_PDI_SRC_SBI))
-		{
-			XLoader_SbiRecovery();
-		}
+		XLoader_SbiRecovery();
 	}
 	return Status;
 }
