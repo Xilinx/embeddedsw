@@ -50,6 +50,7 @@
 *                       being set correctly.
 *       cog    07/03/19 Added new off mode for mixers (both mixers off).
 *       cog    08/02/19 Formatting changes.
+*       cog    09/01/19 Changed the MACRO for turning off the mixer.
 * </pre>
 *
 ******************************************************************************/
