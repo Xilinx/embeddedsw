@@ -51,6 +51,9 @@
 *       cog    07/03/19 Added new off mode for mixers (both mixers off).
 *       cog    08/02/19 Formatting changes.
 *       cog    09/01/19 Changed the MACRO for turning off the mixer.
+*       cog    09/01/19 Fixed issue where going from calibration mode 1 to
+*                       any calibration mode caused the course mixer mode to
+*                       be incorrect.
 * </pre>
 *
 ******************************************************************************/
@@ -900,6 +903,9 @@ u32 XRFdc_GetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 				break;
 			case XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO:
 				MixerSettingsPtr->CoarseMixFreq = XRFDC_COARSE_MIX_BYPASS;
+				MixerSettingsPtr->MixerMode = (MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2C) ?
+								      XRFDC_MIXER_MODE_R2R :
+								      XRFDC_MIXER_MODE_C2C;
 				break;
 			case XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR:
 				MixerSettingsPtr->CoarseMixFreq = XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
