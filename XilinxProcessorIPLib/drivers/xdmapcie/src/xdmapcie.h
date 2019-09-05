@@ -122,9 +122,11 @@ typedef  struct {
 	u8  LocalBarsNum;		/* The number of local bus (AXI) BARs
 					 * in hardware
 					 */
+#ifndef versal
 	u8  IncludeBarOffsetReg;	/**<Are BAR Offset registers built in
 					 * hardware
 					 */
+#endif
 	u8  IncludeRootComplex;		/**< Is IP built as root complex */
 
 	u64 Ecam;
