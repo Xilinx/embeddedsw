@@ -73,6 +73,128 @@ extern "C" {
 						       * core configuration
 						       * register offset
 						       */
+
+#ifdef versal
+#define XDMAPCIE_VSECC_OFFSET			0xE00 /**<
+						       * VSEC Capability
+						       * Register
+						       */
+#define XDMAPCIE_VSECH_OFFSET			0xE04 /**<
+						       * VSEC Header Register
+						       */
+#define XDMAPCIE_BI_OFFSET			0xE08 /**<
+						       * Bridge Info Register
+						       */
+#define XDMAPCIE_BSC_OFFSET			0xE0C /**<
+						       * Bridge Status and
+						       * Control Register
+						       */
+#define XDMAPCIE_ID_OFFSET			0xE10 /**<
+						       * Interrupt Decode
+						       * Register
+						       */
+#define XDMAPCIE_IM_OFFSET			0xE14 /**<
+						       * Interrupt Mask
+						       * Register
+						       */
+#define XDMAPCIE_BL_OFFSET			0xE18 /**<
+						       * Bus Location Register
+						       */
+#define XDMAPCIE_PHYSC_OFFSET			0xE1C /**<
+						       * Physical status and
+						       * Control Register
+						       */
+#define XDMAPCIE_RPSC_OFFSET			0xE20 /**<
+						       * Root Port Status &
+						       * Control Register
+						       */
+#define XDMAPCIE_RPMSIB_UPPER_OFFSET		0xE24 /**<
+						       * Root Port MSI Base 1
+						       * Register Upper 32 bits
+						       * from 64 bit address
+						       * are written
+						       */
+#define XDMAPCIE_RPMSIB_LOWER_OFFSET		0xE28 /**<
+						       * Root Port MSI Base 2
+						       * Register Lower 32 bits
+						       * from 64 bit address
+						       * are written
+						       */
+#define XDMAPCIE_RPEFR_OFFSET			0xE2C /**<
+						       * Root Port Error FIFO
+						       * Read Register
+						       */
+#define XDMAPCIE_RPIFR1_OFFSET			0xE30 /**<
+						       * Root Port Interrupt
+						       * FIFO Read1 Register
+						       */
+#define XDMAPCIE_RPIFR2_OFFSET			0xE34 /**<
+						       * Root Port Interrupt
+						       * FIFO Read2 Register
+						       */
+
+
+#define XDMAPCIE_AXIBAR2PCIBAR_0U_OFFSET	0xEE0 /**<
+						       * AXIBAR 2 PCIBAR
+						       * translation 0 upper
+						       * 32 bits
+						       */
+#define XDMAPCIE_AXIBAR2PCIBAR_0L_OFFSET	0xEE4 /**<
+						       * AXIBAR to PCIBAR
+						       * translation 0 lower
+						       * 32 bits
+						       */
+#define XDMAPCIE_AXIBAR2PCIBAR_1U_OFFSET	0xEE8 /**<
+						       * AXIBAR to PCIBAR
+						       * translation 1 upper
+						       * 32 bits
+						       */
+#define XDMAPCIE_AXIBAR2PCIBAR_1L_OFFSET	0xEEC /**<
+						       * AXIBAR to PCIBAR
+						       * translation 1 lower
+						       * 32 bits
+						       */
+#define XDMAPCIE_AXIBAR2PCIBAR_2U_OFFSET	0xEF0 /**<
+						       * AXIBAR to PCIBAR
+						       * translation 2 upper
+						       * 32 bits
+						       */
+#define XDMAPCIE_AXIBAR2PCIBAR_2L_OFFSET	0xEF4 /**<
+						       * AXIBAR to PCIBAR
+						       * translation 2 lower
+						       * 32 bits
+						       */
+#define XDMAPCIE_AXIBAR2PCIBAR_3U_OFFSET	0xEF8 /**<
+						       * AXIBAR to PCIBAR
+						       * translation 3 upper
+						       * 32 bits
+						       */
+#define XDMAPCIE_AXIBAR2PCIBAR_3L_OFFSET	0xEFC /**<
+						       * AXIBAR to PCIBAR
+						       * translation 3 lower
+						       * 32 bits
+						       */
+#define XDMAPCIE_AXIBAR2PCIBAR_4U_OFFSET	0xF00 /**<
+						       * AXIBAR to PCIBAR
+						       * translation 4 upper
+						       * 32 bits
+						       */
+#define XDMAPCIE_AXIBAR2PCIBAR_4L_OFFSET	0xF04 /**<
+						       * AXIBAR to PCIBAR
+						       * translation 4 lower
+						       * 32 bits
+						       */
+#define XDMAPCIE_AXIBAR2PCIBAR_5U_OFFSET	0xF08 /**<
+						       * AXIBAR to PCIBAR
+						       * translation 5 upper
+						       * 32 bits
+						       */
+#define XDMAPCIE_AXIBAR2PCIBAR_5L_OFFSET	0xF0C /**<
+						       * AXIBAR to PCIBAR
+						       * translation 5 lower
+						       * 32 bits
+						       */
+#else
 #define XDMAPCIE_VSECC_OFFSET			0x128 /**<
 						       * VSEC Capability
 						       * Register
@@ -192,6 +314,8 @@ extern "C" {
 						       * translation 5 lower
 						       * 32 bits
 						       */
+#endif /* versal */
+
 /*@}*/
 
 /** @name VSECC Register bitmaps and masks
