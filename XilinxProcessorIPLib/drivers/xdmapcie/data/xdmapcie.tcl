@@ -36,40 +36,79 @@
 #uses "xillib.tcl"
 
 proc generate {drv_handle} {
-    xdefine_pcie_include_file $drv_handle "xparameters.h" "XDmaPcie" \
-        "NUM_INSTANCES" \
-        "DEVICE_ID" \
-        "baseaddr" \
-        "C_INCLUDE_BAROFFSET_REG"\
-        "C_AXIBAR_NUM"\
-        "C_AXIBAR_HIGHADDR_0"\
-        "C_AXIBAR2PCIEBAR_0"\
-        "C_AXIBAR_HIGHADDR_1"\
-        "C_AXIBAR2PCIEBAR_1"\
-        "device_port_type"
+    set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
+    foreach periph $periphs {
+        if {[string compare -nocase "xdma_0" $periph] == 0} {
+            xdefine_pcie_include_file $drv_handle "xparameters.h" "XDmaPcie" \
+                "NUM_INSTANCES" \
+                "DEVICE_ID" \
+                "baseaddr" \
+                "C_INCLUDE_BAROFFSET_REG"\
+                "C_AXIBAR_NUM"\
+                "C_AXIBAR_HIGHADDR_0"\
+                "C_AXIBAR2PCIEBAR_0"\
+                "C_AXIBAR_HIGHADDR_1"\
+                "C_AXIBAR2PCIEBAR_1"\
+                "device_port_type"
 
-        ::hsi::utils::define_config_file $drv_handle "xdmapcie_g.c" "XDmaPcie" \
-        "DEVICE_ID" \
-        "baseaddr" \
-        "C_AXIBAR_NUM" \
-        "C_INCLUDE_BAROFFSET_REG" \
-        "device_port_type" \
-        "baseaddr" \
-        "C_AXIBAR2PCIEBAR_0"\
-        "C_AXIBAR2PCIEBAR_1"\
-        "C_AXIBAR_HIGHADDR_0"\
-        "C_AXIBAR_HIGHADDR_1"
+                ::hsi::utils::define_config_file $drv_handle "xdmapcie_g.c" "XDmaPcie" \
+                "DEVICE_ID" \
+                "baseaddr" \
+                "C_AXIBAR_NUM" \
+                "C_INCLUDE_BAROFFSET_REG"\
+                "device_port_type" \
+                "baseaddr" \
+                "C_AXIBAR2PCIEBAR_0"\
+                "C_AXIBAR2PCIEBAR_1"\
+                "C_AXIBAR_HIGHADDR_0"\
+                "C_AXIBAR_HIGHADDR_1"
 
-        xdefine_pcie_canonical_xpars $drv_handle "xparameters.h" "XDmaPcie" \
-        "DEVICE_ID" \
-        "baseaddr" \
-        "C_INCLUDE_BAROFFSET_REG"\
-        "C_AXIBAR_NUM"\
-        "C_AXIBAR_HIGHADDR_0"\
-        "C_AXIBAR2PCIEBAR_0"\
-        "C_AXIBAR_HIGHADDR_1"\
-        "C_AXIBAR2PCIEBAR_1"\
-        "device_port_type"
+                xdefine_pcie_canonical_xpars $drv_handle "xparameters.h" "XDmaPcie" \
+                "DEVICE_ID" \
+                "baseaddr" \
+                "C_INCLUDE_BAROFFSET_REG"\
+                "C_AXIBAR_NUM"\
+                "C_AXIBAR_HIGHADDR_0"\
+                "C_AXIBAR2PCIEBAR_0"\
+                "C_AXIBAR_HIGHADDR_1"\
+                "C_AXIBAR2PCIEBAR_1"\
+                "device_port_type"
+        }
+
+        if {[string compare -nocase "psv_pciea_attrib_0" $periph] == 0} {
+            xdefine_pcie_include_file $drv_handle "xparameters.h" "XDmaPcie" \
+                "NUM_INSTANCES" \
+                "DEVICE_ID" \
+                "C_NOCPSPCIE0_REGION0" \
+                "C_CPM_PCIE0_AXIBAR_NUM"\
+                "C_CPM_PCIE0_PF0_AXIBAR2PCIE_HIGHADDR_0"\
+                "C_CPM_PCIE0_PF0_AXIBAR2PCIE_BASEADDR_0"\
+                "C_CPM_PCIE0_PF0_AXIBAR2PCIE_HIGHADDR_1"\
+                "C_CPM_PCIE0_PF0_AXIBAR2PCIE_BASEADDR_1"\
+                "C_CPM_PCIE0_PORT_TYPE"
+
+                ::hsi::utils::define_config_file $drv_handle "xdmapcie_g.c" "XDmaPcie" \
+                "DEVICE_ID" \
+                "C_NOCPSPCIE0_REGION0" \
+                "C_CPM_PCIE0_AXIBAR_NUM" \
+                "C_CPM_PCIE0_PORT_TYPE" \
+                "C_NOCPSPCIE0_REGION0" \
+                "C_CPM_PCIE0_PF0_AXIBAR2PCIE_BASEADDR_0"\
+                "C_CPM_PCIE0_PF0_AXIBAR2PCIE_BASEADDR_1"\
+                "C_CPM_PCIE0_PF0_AXIBAR2PCIE_HIGHADDR_0"\
+                "C_CPM_PCIE0_PF0_AXIBAR2PCIE_HIGHADDR_1"
+
+                xdefine_pcie_canonical_xpars $drv_handle "xparameters.h" "XDmaPcie" \
+                "DEVICE_ID" \
+                "C_NOCPSPCIE0_REGION0" \
+                "C_CPM_PCIE0_AXIBAR_NUM"\
+                "C_CPM_PCIE0_PF0_AXIBAR2PCIE_HIGHADDR_0"\
+                "C_CPM_PCIE0_PF0_AXIBAR2PCIE_BASEADDR_0"\
+                "C_CPM_PCIE0_PF0_AXIBAR2PCIE_HIGHADDR_1"\
+                "C_CPM_PCIE0_PF0_AXIBAR2PCIE_BASEADDR_1"\
+                "C_CPM_PCIE0_PORT_TYPE"
+        }
+    }
 }
 
 proc xdefine_pcie_include_file {drv_handle file_name drv_string args} {
