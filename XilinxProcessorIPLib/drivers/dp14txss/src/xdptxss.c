@@ -1488,8 +1488,7 @@ u32 XDpTxSs_Authenticate(XDpTxSs *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->Config.Hdcp22Enable);
 #endif
 	/* Always disable encryption */
-	Status = XDpTxSs_DisableEncryption(InstancePtr, 0x01);
-	if (Status != XST_SUCCESS) {
+	if (XDpTxSs_DisableEncryption(InstancePtr, 0x01)) {
 		XDpTxSs_HdcpSetProtocol(InstancePtr, XDPTXSS_HDCP_NONE);
 		return XST_FAILURE;
 	}
