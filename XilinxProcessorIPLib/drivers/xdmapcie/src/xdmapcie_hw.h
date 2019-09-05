@@ -676,7 +676,10 @@ extern "C" {
 /* Offset used for getting the VSEC register contents */
 #define XDMAPCIE_VSEC2_OFFSET_WRT_VSEC1 	0xD8
 
-
+#ifdef versal
+/* Number of buses */
+#define XDMAPCIE_NUM_BUSES	16
+#endif
 
 /****************** Macros (Inline Functions) Definitions ********************/
 /*****************************************************************************/
