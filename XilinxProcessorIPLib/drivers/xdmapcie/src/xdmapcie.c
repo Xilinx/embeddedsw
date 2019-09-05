@@ -98,10 +98,14 @@ int XDmaPcie_CfgInitialize(XDmaPcie *InstancePtr, XDmaPcie_Config *CfgPtr,
 	XDmaPcie_DisableInterrupts(InstancePtr, XDMAPCIE_IM_DISABLE_ALL_MASK);
 
 	/* Max number of buses */
+#ifdef versal
+	InstancePtr->MaxNumOfBuses = XDMAPCIE_NUM_BUSES;
+#else
 	Data = XDmaPcie_ReadReg(InstancePtr->Config.BaseAddress,
 							XDMAPCIE_BI_OFFSET);
 	InstancePtr->MaxNumOfBuses = (u16)((Data & XDMAPCIE_BI_ECAM_SIZE_MASK) >>
 					XDMAPCIE_BI_ECAM_SIZE_SHIFT);
+#endif
 
 	return (XST_SUCCESS);
 }
@@ -1111,7 +1115,9 @@ void XDmaPcie_GetLocalBusBar2PcieBar(XDmaPcie *InstancePtr, u8 BarNumber,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(BarAddrPtr != NULL);
 	Xil_AssertVoid(BarNumber < InstancePtr->Config.LocalBarsNum);
+#ifndef versal
 	Xil_AssertVoid(InstancePtr->Config.IncludeBarOffsetReg != FALSE);
+#endif
 
 	BarAddrPtr->LowerAddr =
 		XDmaPcie_ReadReg(InstancePtr->Config.BaseAddress,
@@ -1146,7 +1152,9 @@ void XDmaPcie_SetLocalBusBar2PcieBar(XDmaPcie *InstancePtr, u8 BarNumber,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(BarAddrPtr != NULL);
 	Xil_AssertVoid(BarNumber < InstancePtr->Config.LocalBarsNum);
+#ifndef versal
 	Xil_AssertVoid(InstancePtr->Config.IncludeBarOffsetReg != FALSE);
+#endif
 
 	XDmaPcie_WriteReg(InstancePtr->Config.BaseAddress,
 		(XDMAPCIE_AXIBAR2PCIBAR_0L_OFFSET +
