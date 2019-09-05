@@ -608,6 +608,8 @@ int XDpRxSs_HdcpSetProtocol(XDpRxSs *InstancePtr,
 u32 XDpRxSs_HdcpEnable(XDpRxSs *InstancePtr);
 u32 XDpRxSs_HdcpDisable(XDpRxSs *InstancePtr);
 u32 XDpRxSs_SetLane(XDpRxSs *InstancePtr, u32 Lane);
+void XDpRxSs_StartTimer(XDpRxSs *InstancePtr);
+void XDpRxSs_StopTimer(XDpRxSs *InstancePtr);
 #endif
 #if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 /* Optional HDCP related functions */
@@ -618,8 +620,6 @@ u32 XDpRxSs_IsAuthenticated(XDpRxSs *InstancePtr);
 u64 XDpRxSs_GetEncryption(XDpRxSs *InstancePtr);
 void XDpRxSs_SetDebugPrintf(XDpRxSs *InstancePtr, XDpRxSs_Printf PrintfFunc);
 void XDpRxSs_SetDebugLogMsg(XDpRxSs *InstancePtr, XDpRxSs_LogMsg LogFunc);
-void XDpRxSs_StartTimer(XDpRxSs *InstancePtr);
-void XDpRxSs_StopTimer(XDpRxSs *InstancePtr);
 u32 XDpRxSs_DownstreamReady(XDpRxSs *InstancePtr);
 void XDpRxSs_HandleTimeout(XDpRxSs *InstancePtr);
 #endif

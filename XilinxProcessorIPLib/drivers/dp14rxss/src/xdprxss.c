@@ -1220,61 +1220,6 @@ void XDpRxSs_SetDebugLogMsg(XDpRxSs *InstancePtr, XDpRxSs_LogMsg LogFunc)
 /*****************************************************************************/
 /**
 *
-* This function starts the Timer Counter in count down, interrupt mode.
-*
-* @param	InstancePtr is a pointer to the XDpRxSs core instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void XDpRxSs_StartTimer(XDpRxSs *InstancePtr)
-{
-	/* Verify arguments.*/
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->Config.HdcpEnable == 0x1);
-
-	/* Enable the specified options for Timer Counter zero */
-	XTmrCtr_SetOptions(InstancePtr->TmrCtrPtr, 0,
-		XTC_DOWN_COUNT_OPTION | XTC_INT_MODE_OPTION);
-
-	/* Set the reset value to Timer Counter zero */
-	XTmrCtr_SetResetValue(InstancePtr->TmrCtrPtr, 0,
-				XDPRXSS_TMRCTR_RST_VAL);
-
-	/* Start Timer Counter 0 in count down mode */
-	XTmrCtr_Start(InstancePtr->TmrCtrPtr, 0);
-}
-
-/*****************************************************************************/
-/**
-*
-* This function stops the Timer Counter.
-*
-* @param	InstancePtr is a pointer to the XDpRxSs core instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void XDpRxSs_StopTimer(XDpRxSs *InstancePtr)
-{
-	/* Verify arguments.*/
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->Config.HdcpEnable == 0x1);
-
-	/* Stop Timer Counter 0 in count down mode */
-	XTmrCtr_Stop(InstancePtr->TmrCtrPtr, 0);
-
-	/* Reset Timer Counter reset done */
-	InstancePtr->TmrCtrResetDone = 0;
-}
-
-/*****************************************************************************/
-/**
-*
 * This function informs the HDCP state machine that the downstream interfaces
 * of the Repeater are ready (enabled or authenticated).
 *
@@ -1305,6 +1250,59 @@ u32 XDpRxSs_DownstreamReady(XDpRxSs *InstancePtr)
 #if (((XPAR_DPRXSS_0_HDCP_ENABLE > 0) || \
 	(XPAR_XHDCP22_RX_NUM_INSTANCES > 0)) \
 		&& (XPAR_XTMRCTR_NUM_INSTANCES > 0))
+/*****************************************************************************/
+/**
+*
+* This function starts the Timer Counter in count down, interrupt mode.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XDpRxSs_StartTimer(XDpRxSs *InstancePtr)
+{
+	/* Verify arguments.*/
+	Xil_AssertVoid(InstancePtr);
+
+	/* Enable the specified options for Timer Counter zero */
+	XTmrCtr_SetOptions(InstancePtr->TmrCtrPtr, 0,
+		XTC_DOWN_COUNT_OPTION | XTC_INT_MODE_OPTION);
+
+	/* Set the reset value to Timer Counter zero */
+	XTmrCtr_SetResetValue(InstancePtr->TmrCtrPtr, 0,
+				XDPRXSS_TMRCTR_RST_VAL);
+
+	/* Start Timer Counter 0 in count down mode */
+	XTmrCtr_Start(InstancePtr->TmrCtrPtr, 0);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function stops the Timer Counter.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XDpRxSs_StopTimer(XDpRxSs *InstancePtr)
+{
+	/* Verify arguments.*/
+	Xil_AssertVoid(InstancePtr);
+
+	/* Stop Timer Counter 0 in count down mode */
+	XTmrCtr_Stop(InstancePtr->TmrCtrPtr, 0);
+
+	/* Reset Timer Counter reset done */
+	InstancePtr->TmrCtrResetDone = 0;
+}
+
 /*****************************************************************************/
 /**
 *
