@@ -74,6 +74,7 @@ Set Read Delay field to 0x1 for NON-PHY mode.
 qspipsu_v1_10:
 Fixed issues in poll timeout feature.
 Set recommended tap delay values for Versal.
+Added Multi Die Erase and Muti Die Read support.
 
 rtcpsu_v1_8
 Updated driver source and example with right sequence
