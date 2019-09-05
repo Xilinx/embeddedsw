@@ -165,6 +165,7 @@
  * 1.10 sk  08/20/19 Fixed issues in poll timeout feature.
  * 1.10 akm 08/22/19 Set recommended tap delay values for 37.5MHZ, 100MHZ and
  *		     150MHZ frequencies in Versal.
+ * 1.10 akm 09/05/19 Added Multi Die Erase and Muti Die Read support.
  *
  * </pre>
  *
