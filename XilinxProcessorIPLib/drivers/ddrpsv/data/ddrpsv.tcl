@@ -26,7 +26,8 @@
  # MODIFICATION HISTORY:
  # Ver      Who    Date     Changes
  # -------- ------ -------- ------------------------------------
- # 1.0	    mus	   03/16/19 First Release.
+ # 1.0      mus    03/16/19 First Release.
+ #          mn     09/05/19 Correct the variable name for C0_DDR_CH2 block
  #
  ################################################################################
 
@@ -109,7 +110,7 @@ proc define_addr_params {drv_handle file_name} {
                         set is_ddr_ch_1 1
 		} elseif {$block_name == "C0_DDR_CH2" } {
                         if {$is_ddr_ch_2 == "0"} {
-                                set base_value_4 [common::get_property BASE_VALUE [lindex [get_mem_ranges \
+                                set base_value_5 [common::get_property BASE_VALUE [lindex [get_mem_ranges \
                                         -of_objects [get_cells -hier $sw_proc] $periph] $i]]
                         }
                         set high_value_5 [common::get_property HIGH_VALUE [lindex [get_mem_ranges \
