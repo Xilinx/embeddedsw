@@ -712,6 +712,7 @@ static XStatus Release(XPm_Device *Device,
 		XPm_Subsystem *Subsystem)
 {
 	u32 Status = XPM_ERR_DEVICE_RELEASE;
+	XPm_Requirement *Reqm;
 
 	if ((XPM_DEVSTATE_UNUSED != Device->Node.State) &&
 		(XPM_DEVSTATE_RUNNING != Device->Node.State) &&
@@ -725,6 +726,8 @@ static XStatus Release(XPm_Device *Device,
 		goto done;
 	}
 
+	Reqm = Device->PendingReqm;
+
 	if (0 == Device->PendingReqm->Allocated) {
 		Status = XST_SUCCESS;
 		goto done;
@@ -736,14 +739,14 @@ static XStatus Release(XPm_Device *Device,
 						   XPM_DEF_QOS);
 
 	if (XST_SUCCESS == Status) {
-		XPmRequirement_Clear(Device->PendingReqm);
+		XPmRequirement_Clear(Reqm);
 		Device->WfDealloc = 0;
 	}
 	else {
 		Status = XPM_ERR_DEVICE_RELEASE;
 	}
 
-	Status = XPmProt_Configure(Device->PendingReqm, FALSE);
+	Status = XPmProt_Configure(Reqm, FALSE);
 
 done:
 	if(Status != XST_SUCCESS) {
