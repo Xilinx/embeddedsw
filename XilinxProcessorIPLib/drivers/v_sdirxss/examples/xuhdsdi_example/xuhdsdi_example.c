@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -436,6 +436,9 @@ void RxStreamUpCallback(void *CallbackRef)
 	u32 Si5324_ClkIn;
 	XSdiVid_TransMode RxTransMode;
 	u8 IsFractional;
+	XVidC_VideoStream *SdiRxSsVidStreamPtr;
+
+	SdiRxSsVidStreamPtr = XV_SdiRxSs_GetVideoStream(&SdiRxSs, 0);
 
 	IsFractional = XV_SdiRxSs_GetTransportBitRate(&SdiRxSs);
 
@@ -506,14 +509,14 @@ void RxStreamUpCallback(void *CallbackRef)
 	XV_SdiRxSs_StreamFlowEnable(&SdiRxSs);
 
 	#ifdef XPAR_XSDIAUD_NUM_INSTANCES
-		/* Enable SDI Audio Pass-Through or AES Audio Playback (from this ISR) */
-		XSdiAud_IntrEnable(&SdiExtract, XSDIAUD_INT_EN_AUD_STAT_UPDATE_MASK);
+	/* Enable SDI Audio Pass-Through or AES Audio Playback (from this ISR) */
+	XSdiAud_IntrEnable(&SdiExtract, XSDIAUD_INT_EN_AUD_STAT_UPDATE_MASK);
 
-		/* Enable AES Capture */
-		if (XSDIAudioMode == XSDI_AES_CAPTURE_PLAYBACK)
-		{
-			XSdiEnableAESAudioCapture();
-		}
+	/* Enable AES Capture */
+	if (XSDIAudioMode == XSDI_AES_CAPTURE_PLAYBACK)
+	{
+		XSdiEnableAESAudioCapture();
+	}
 	#endif
 }
 
@@ -533,6 +536,9 @@ void RxStreamUpCallback(void *CallbackRef)
 void RxStreamDownCallback(void *CallbackRef)
 {
 	xil_printf("INFO>> SDI Rx: Lock Lost\r\n");
+	XV_SdiRxSs_ClearYCbCr444_RGB_10bit(&SdiRxSs);
+	XV_SdiTxSs_ClearYCbCr444_RGB_10bit(&SdiTxSs);
+	
 	XV_SdiTxSs_Stop(&SdiTxSs);
 
 #ifdef XPAR_XSDIAUD_NUM_INSTANCES
@@ -641,6 +647,17 @@ void StartTxAfterRx(void)
 	u32 *SdiTxSsPayloadIdPtr;
 
 	SdiRxSsVidStreamPtr = XV_SdiRxSs_GetVideoStream(&SdiRxSs, 0);
+
+	if (SdiRxSsVidStreamPtr->ColorFormatId == XVIDC_CSF_YCRCB_444 ||
+		    SdiRxSsVidStreamPtr->ColorFormatId == XVIDC_CSF_RGB ||
+		    SdiRxSsVidStreamPtr->ColorFormatId == XVIDC_CSF_MEM_YUVX10) {
+		XV_SdiRxSs_SetYCbCr444_RGB_10bit(&SdiRxSs);
+		XV_SdiTxSs_SetYCbCr444_RGB_10bit(&SdiTxSs);
+	} else if (SdiRxSsVidStreamPtr->ColorFormatId == XVIDC_CSF_YCBCR_422){
+		XV_SdiRxSs_ClearYCbCr444_RGB_10bit(&SdiRxSs);
+		XV_SdiTxSs_ClearYCbCr444_RGB_10bit(&SdiTxSs);
+	}
+
 	SdiTxSsVidStreamPtr = XV_SdiTxSs_GetVideoStream(&SdiTxSs, 0);
 	*SdiTxSsVidStreamPtr = *SdiRxSsVidStreamPtr;
 
