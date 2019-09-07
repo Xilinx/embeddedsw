@@ -1239,6 +1239,18 @@ XStatus XPm_ReleaseDevice(const u32 SubsystemId, const u32 DeviceId)
 		goto done;
 	}
 
+	/*
+	 * As per EDT-994842, whenever one of the TCM memory banks are powered down
+	 * the other locations become inaccessible.
+	 *
+	 * Skip TCM power down as workaround.
+	 */
+	if (PM_DEV_TCM_0_A == DeviceId || PM_DEV_TCM_0_B == DeviceId ||
+	    PM_DEV_TCM_1_A == DeviceId || PM_DEV_TCM_1_B == DeviceId) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
 	if (XST_SUCCESS != Status) {
 		Status = XPM_PM_NO_ACCESS;
