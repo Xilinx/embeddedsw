@@ -264,7 +264,7 @@ u32 Xil_ValidateHexStr(const char *HexStr)
 		goto END;
 	}
 
-	Len = strnlen(HexStr, XIL_MAX_HEX_STR_LEN + 1U);
+	Len = Xil_Strnlen(HexStr, XIL_MAX_HEX_STR_LEN + 1U);
 	if (Len > XIL_MAX_HEX_STR_LEN) {
 		goto END;
 	}
@@ -351,4 +351,39 @@ u32 Xil_ConvertStringToHexLE(const char *Str, u8 *Buf, u32 Len)
 	Status = XST_SUCCESS;
 END:
 	return Status;
+}
+
+/******************************************************************************/
+/**
+ * Returns the length of input string.
+ *
+ * @param   Str - Input string
+ * @param   MaxLen - Maximum expected length of the input string
+ *
+ * @return
+ *          Returns length of the input string if length is less than MaxLen.
+ *          Returns MaxLen if the length of the input string is >= MaxLen.
+ *
+ * @note
+ *
+ ******************************************************************************/
+u32 Xil_Strnlen(const char *Str, u32 MaxLen)
+{
+	const char *InStr = Str;
+	u32 StrLen = 0U;
+
+	if (NULL == Str) {
+		goto END;
+	}
+
+	while(StrLen < MaxLen) {
+		if ('\0' == *InStr) {
+			break;
+		}
+		StrLen++;
+		InStr++;
+	}
+
+END:
+	return StrLen;
 }
