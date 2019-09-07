@@ -102,6 +102,9 @@ u32 Xil_ValidateHexStr(const char *HexStr);
 /* Convert string to hex numbers in little enidian format */
 u32 Xil_ConvertStringToHexLE(const char *Str, u8 *Buf, u32 Len);
 
+/* Returns length of the input string */
+u32 Xil_Strnlen(const char *Str, u32 MaxLen);
+
 #ifdef __cplusplus
 }
 #endif
