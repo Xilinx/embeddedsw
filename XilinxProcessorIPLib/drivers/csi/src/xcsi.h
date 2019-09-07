@@ -142,7 +142,7 @@ extern "C" {
 #define XCSI_HANDLER_PROTLVL		3
 #define XCSI_HANDLER_SHORTPACKET	4
 #define XCSI_HANDLER_FRAMERECVD		5
-#define XCSI_HANDLER_VCXERR			6
+#define XCSI_HANDLER_VCXERR		6
 #define XCSI_HANDLER_OTHERERROR		7
 
 /*@}*/
@@ -197,6 +197,7 @@ typedef struct {
 	u8 StopState;	/**< Data Lane is in Stop State */
 	u8 SoTErr;	/**< Detected Start Of Transmission High Speed Error */
 	u8 SoTSyncErr;	/**< Detected SoT Synchronization Error */
+	u8 SkewCalHs;	/**< Data Lane Skew Reception status */
 } XCsi_DataLaneInfo;
 
 /**

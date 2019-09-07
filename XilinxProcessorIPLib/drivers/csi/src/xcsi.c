@@ -399,6 +399,9 @@ void XCsi_GetDataLaneInfo(XCsi *InstancePtr, u8 Lane,
 	DataLane->StopState = (Value & XCSI_LXINFR_STOP_MASK) >>
 				XCSI_LXINFR_STOP_SHIFT;
 
+	DataLane->SkewCalHs = (Value & XCSI_LXINFR_SKEWCALHS_MASK) >>
+				XCSI_LXINFR_SKEWCALHS_SHIFT;
+
 	DataLane->SoTErr = (Value & XCSI_LXINFR_SOTERR_MASK) >>
 				XCSI_LXINFR_SOTERR_SHIFT;
 
