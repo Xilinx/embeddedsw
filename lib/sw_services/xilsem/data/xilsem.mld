@@ -23,43 +23,24 @@
 #*
 #*
 #******************************************************************************/
+#
+# Modification History
+#
+# Ver   Who  Date     Changes
+# ----- ---- -------- -----------------------------------------------
+# 1.00  pc   01-21-19 Initial creation
+#
+##############################################################################
 
-PARAMETER VERSION = 2.2.0
+OPTION psf_version = 2.1;
 
-
-BEGIN OS
- PARAMETER OS_NAME = standalone
- PARAMETER STDIN =  *
- PARAMETER STDOUT = *
-END
-
-BEGIN LIBRARY
- PARAMETER LIBRARY_NAME = xilffs
- PARAMETER READ_ONLY = true
- PARAMETER USE_MKFS = false
- PARAMETER WORD_ACCESS = false
-END
-
-BEGIN LIBRARY
- PARAMETER LIBRARY_NAME = xilpdi
-END
-
-BEGIN LIBRARY
- PARAMETER LIBRARY_NAME = xilplmi
-END
-
-BEGIN LIBRARY
- PARAMETER LIBRARY_NAME = xilloader
-END
-
-BEGIN LIBRARY
- PARAMETER LIBRARY_NAME = xilpm
-END
-
-BEGIN LIBRARY
- PARAMETER LIBRARY_NAME = xilsecure
-END
-
-BEGIN LIBRARY
- PARAMETER LIBRARY_NAME = xilsem
-END
+BEGIN LIBRARY xilsem
+  OPTION drc = sem_drc;
+  OPTION copyfiles = all;
+  OPTION REQUIRES_OS = (standalone);
+  OPTION SUPPORTED_PERIPHERALS = (psu_pmc psv_pmc);
+  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilsem,-lxil,-lgcc,-lc,--end-group";
+  OPTION desc = "Xilinx Versal Soft Error Mitigation Library";
+  OPTION VERSION = 1.3;
+  OPTION NAME = xilsem;
+END LIBRARY
