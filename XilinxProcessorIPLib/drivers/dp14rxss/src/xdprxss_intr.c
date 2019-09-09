@@ -390,6 +390,27 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 			Status = XST_SUCCESS;
 			break;
 
+		case XDPRXSS_HANDLER_DP_VBLANK_STREAM_2_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_VBLANK_STREAM_2,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_HANDLER_DP_VBLANK_STREAM_3_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_VBLANK_STREAM_3,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_HANDLER_DP_VBLANK_STREAM_4_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_VBLANK_STREAM_4,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
 		case XDPRXSS_HANDLER_DP_TLOST_EVENT:
 			XDp_RxSetCallback(InstancePtr->DpPtr,
 					XDP_RX_HANDLER_TRAININGLOST,
