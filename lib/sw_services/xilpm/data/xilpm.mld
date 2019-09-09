@@ -30,7 +30,7 @@ BEGIN LIBRARY xilpm
   OPTION copyfiles = all;
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilpm,-lxil,-lgcc,-lc,--end-group";
-  OPTION desc = "Power Management API Library for ZynqMP";
+  OPTION desc = "Platform Management API Library for ZynqMP and Versal";
   OPTION VERSION = 2.4;
   OPTION NAME = xilpm;
 END LIBRARY
