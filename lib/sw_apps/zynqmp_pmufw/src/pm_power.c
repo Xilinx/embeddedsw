@@ -1094,6 +1094,13 @@ s32 PmPowerRequestRpu(PmSlaveTcm* const tcm)
 		goto ret;
 	}
 
+	/*
+	 * Ensure the comparators are in clean state when rpu comes up
+	 */
+	XPfw_RMW32(RPU_RPU_ERR_INJ,
+			RPU_RPU_ERR_INJ_DCCMINP2_MASK | RPU_RPU_ERR_INJ_DCCMINP_MASK,
+			0x0);
+
 	reset = XPfw_Read32(CRL_APB_RST_LPD_TOP);
 	/* If PGE and AMBA resets are asserted, deassert them now */
 	if (0U != (reset & resetMask)) {
