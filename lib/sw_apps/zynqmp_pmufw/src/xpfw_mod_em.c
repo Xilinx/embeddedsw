@@ -128,9 +128,9 @@ void NullHandler(u8 ErrorId)
  * @note      Called when an error from watchdog timer in the FPD subsystem
  *            occurs and it resets the FPD. APU resumes from HIVEC after reset
  */
-void FpdSwdtHandler(u8 ErrorId)
+void SwdtHandler(u8 ErrorId)
 {
-	XPfw_Printf(DEBUG_ERROR,"EM: FPD Watchdog Timer Error (Error ID: %d)\r\n",
+	XPfw_Printf(DEBUG_ERROR,"EM: Watchdog Timer Error (Error ID: %d)\r\n",
 			ErrorId);
 	XPfw_RecoveryHandler(ErrorId);
 }
@@ -207,6 +207,6 @@ void ModEmInit(void)
 #else /* ENABLE_EM */
 void ModEmInit(void) { }
 void RpuLsHandler(u8 ErrorId) { }
-void FpdSwdtHandler(u8 ErrorId) { }
+void SwdtHandler(u8 ErrorId) { }
 void NullHandler(u8 ErrorId) { }
 #endif /* ENABLE_EM */

@@ -210,7 +210,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_FPD_SWDT] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_FPD_SWDT_MASK,
-			.Handler = FpdSwdtHandler,
+			.Handler = SwdtHandler,
 			.Type = EM_ERR_TYPE_1,
 			.Action = EM_ACTION_SRST,
 			.ChngPerm = (u32)(IPI_PMU_0_IER_APU_MASK) |
@@ -220,7 +220,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_LPD_SWDT] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_LPD_SWDT_MASK,
-			.Handler = NullHandler,
+			.Handler = SwdtHandler,
 			.Type = EM_ERR_TYPE_1,
 			.Action = EM_ACTION_SRST,
 			.ChngPerm = (u32)(IPI_PMU_0_IER_RPU_0_MASK) |

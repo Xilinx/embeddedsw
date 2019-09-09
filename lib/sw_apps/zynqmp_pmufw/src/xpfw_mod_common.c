@@ -60,24 +60,36 @@ static void CheckFsblCompletion(void)
 		/* Set PS Error Out action for PLL lock errors */
 		(void)XPfw_EmSetAction(EM_ERR_ID_PLL_LOCK, EM_ACTION_PSERR, NULL);
 
-			/* If ENABLE_RECOVERY is defined, PMU need to call this function and
-		 * set FPD WDT error action to APU only restart after FSBL execution
-		 * is completed
+		/*
+		 * Once FSBL execution is completed, PMU need to enable the LPD/FPD WDT
+		 * error and set the error action as FSBL disables while exiting.
+		*/
+		if (FSBL_RUNNING_ON_A53 ==
+				(FsblCompletionStatus & FSBL_STATE_PROC_INFO_MASK)) {
+
+			(void)XPfw_EmSetAction(EM_ERR_ID_FPD_SWDT, SWDT_EM_ACTION,
+						ErrorTable[EM_ERR_ID_FPD_SWDT].Handler);
+
+			(void)XPfw_EmSetAction(EM_ERR_ID_LPD_SWDT, EM_ACTION_SRST,
+							ErrorTable[EM_ERR_ID_LPD_SWDT].Handler);
+		} else {
+
+			(void)XPfw_EmSetAction(EM_ERR_ID_FPD_SWDT, EM_ACTION_SRST,
+						ErrorTable[EM_ERR_ID_FPD_SWDT].Handler);
+
+			(void)XPfw_EmSetAction(EM_ERR_ID_LPD_SWDT, SWDT_EM_ACTION,
+							ErrorTable[EM_ERR_ID_LPD_SWDT].Handler);
+		}
+
+		/* If ENABLE_RECOVERY is defined, PMU need to call this function and
+		 * set FPD/LPD WDT error action accordingly after FSBL execution
+		 * is completed.
 		 */
-		(void)XPfw_EmSetAction(EM_ERR_ID_FPD_SWDT, FPD_WDT_EM_ACTION,
-				ErrorTable[EM_ERR_ID_FPD_SWDT].Handler);
 		if ((u32)XST_SUCCESS == XPfw_RecoveryInit()) {
-			/* This is to enable FPD WDT and enable recovery mechanism when
+			/* This is to enable FPD/LPD WDT and enable recovery mechanism when
 			* ENABLE_RECOVERY flag is defined.
 			*/
 		}
-
-		/*
-		 * Once FSBL execution is completed, PMU need to enable the LPD WDT
-		 * error and set the error action as FSBL disables while exiting.
-		 */
-		(void)XPfw_EmSetAction(EM_ERR_ID_LPD_SWDT, EM_ACTION_SRST,
-				ErrorTable[EM_ERR_ID_LPD_SWDT].Handler);
 #endif
 		/*
 		 * Store FSBL to reserved DDR memory location.

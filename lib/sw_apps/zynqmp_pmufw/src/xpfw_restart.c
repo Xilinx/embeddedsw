@@ -33,6 +33,7 @@
 #include "xpfw_resets.h"
 #include "xpfw_restart.h"
 #include "pm_csudma.h"
+#include "xpfw_aib.h"
 #include "xsecure_sha.h"
 
 static XSecure_Sha3 Sha3Instance;
@@ -54,19 +55,19 @@ static XSecure_Sha3 Sha3Instance;
 #define	XPFW_RESTART_STATE_INPROGRESS 1U
 #define	XPFW_RESTART_STATE_DONE 2U
 
-/* Check if PMU has access to FPD WDT (psu_wdt_1) */
-#ifdef XPAR_PSU_WDT_1_DEVICE_ID
+/* Check if PMU has access to FPD WDT (psu_wdt_1) and LPD WDT (psu_wdt_0)*/
+#if defined(XPAR_PSU_WDT_1_DEVICE_ID) && defined(XPAR_PSU_WDT_0_DEVICE_ID)
 	#include "xwdtps.h"
 	#define WDT_INSTANCE_COUNT	XPAR_XWDTPS_NUM_INSTANCES
 #else /* XPAR_PSU_WDT_1_DEVICE_ID */
-	#error "ENABLE_RECOVERY is defined but psu_wdt_1 is not assigned to PMU"
+	#error "ENABLE_RECOVERY is defined but psu_wdt_0 & psu_wdt_1 is not assigned to PMU"
 #endif
 
 /* Check if PMU has access to TTC_9 */
 #ifdef XPAR_PSU_TTC_9_DEVICE_ID
 	#include "xttcps.h"
 #else /* XPAR_PSU_TTC_9_DEVICE_ID */
-	#error "ENABLE_RECOVERY is defined but psu_tcc_9 is not assigned to PMU"
+	#error "ENABLE_RECOVERY is defined but psu_tcc_9 is not assigned to PMU, APU recovery will not work"
 #endif
 
 /* Check if a timeout value was provided in build flags else default to 120 secs */
@@ -87,7 +88,7 @@ static XSecure_Sha3 Sha3Instance;
 #define TTC_DEFAULT_NOTIFY_TIMEOUT_SEC	0U
 
 /* FPD WDT driver instance used within this file */
-static XWdtPs FpdWdtInstance;
+static XWdtPs WdtInstance;
 
 /* TTC driver instance used within this file */
 static XTtcPs FpdTtcInstance;
@@ -101,6 +102,7 @@ typedef struct XPfwRestartTracker {
 	u8 WdtTimeout; /* Timeout value for WDT */
 	u8 ErrorId; /* Error Id corresponding to the WDT */
 	XWdtPs* WdtPtr; /* Pointer to WDT for this master */
+	u32 WdtResetId; /* WDT reset ID */
 	u16 TtcDeviceId; /* TTC timer device ID */
 	XTtcPs *TtcPtr; /* Pointer to TTC for this master */
 	u8 TtcTimeout; /* Timeout to notify master for event */
@@ -113,7 +115,8 @@ static XPfwRestartTracker RstTrackerList[] ={
 			.RestartState = XPFW_RESTART_STATE_BOOT,
 			.WdtBaseAddress = XPAR_PSU_WDT_1_BASEADDR,
 			.WdtTimeout= WDT_DEFAULT_TIMEOUT_SEC,
-			.WdtPtr = &FpdWdtInstance,
+			.WdtPtr = &WdtInstance,
+			.WdtResetId = PM_RESET_SWDT_CRF,
 			.TtcDeviceId = XPAR_PSU_TTC_9_DEVICE_ID,
 			.TtcTimeout = TTC_DEFAULT_NOTIFY_TIMEOUT_SEC,
 			.TtcPtr = &FpdTtcInstance,
@@ -126,6 +129,44 @@ static XPfwRestartTracker RstTrackerList[] ={
 			.RestartScope = PMF_SHUTDOWN_SUBTYPE_SUBSYSTEM,
 #endif
 		},
+		{
+				.Master = &pmMasterRpu0_g,
+				.RestartState = XPFW_RESTART_STATE_BOOT,
+				.WdtBaseAddress = XPAR_PSU_WDT_0_BASEADDR,
+				.WdtTimeout= WDT_DEFAULT_TIMEOUT_SEC,
+				.WdtPtr = &WdtInstance,
+				.WdtResetId = PM_RESET_SWDT_CRL,
+				.TtcDeviceId = 0,
+				.TtcTimeout = 0,
+				.TtcPtr = NULL,
+				.TtcResetId = 0,
+	#ifdef ENABLE_RECOVERY_RESET_SYSTEM
+				.RestartScope = PMF_SHUTDOWN_SUBTYPE_SYSTEM,
+	#elif defined(ENABLE_RECOVERY_RESET_PS_ONLY)
+				.RestartScope = PMF_SHUTDOWN_SUBTYPE_PS_ONLY,
+	#else
+				.RestartScope = PMF_SHUTDOWN_SUBTYPE_SUBSYSTEM,
+	#endif
+		},
+		{
+				.Master = &pmMasterRpu_g,
+				.RestartState = XPFW_RESTART_STATE_BOOT,
+				.WdtBaseAddress = XPAR_PSU_WDT_0_BASEADDR,
+				.WdtTimeout= WDT_DEFAULT_TIMEOUT_SEC,
+				.WdtPtr = &WdtInstance,
+				.WdtResetId = PM_RESET_SWDT_CRL,
+				.TtcDeviceId = 0,
+				.TtcTimeout = 0,
+				.TtcPtr = NULL,
+				.TtcResetId = 0,
+	#ifdef ENABLE_RECOVERY_RESET_SYSTEM
+				.RestartScope = PMF_SHUTDOWN_SUBTYPE_SYSTEM,
+	#elif defined(ENABLE_RECOVERY_RESET_PS_ONLY)
+				.RestartScope = PMF_SHUTDOWN_SUBTYPE_PS_ONLY,
+	#else
+				.RestartScope = PMF_SHUTDOWN_SUBTYPE_SUBSYSTEM,
+	#endif
+		},
 };
 
 static XWdtPs_Config* GetWdtCfgPtr(u32 BaseAddress)
@@ -136,10 +177,10 @@ static XWdtPs_Config* GetWdtCfgPtr(u32 BaseAddress)
 	/* Search and return Config pointer with given base address */
 	for(WdtIdx = 0U; WdtIdx < WDT_INSTANCE_COUNT; WdtIdx++) {
 		WdtConfigPtr = XWdtPs_LookupConfig(WdtIdx);
-		if(WdtConfigPtr == NULL) {
+		if (WdtConfigPtr == NULL) {
 			goto Done;
 		}
-		if(WdtConfigPtr->BaseAddress == XPAR_PSU_WDT_1_BASEADDR) {
+		if (BaseAddress == WdtConfigPtr->BaseAddress) {
 			break;
 		}
 	}
@@ -176,6 +217,10 @@ static void WdtRestart(XWdtPs* WdtInstptr, u32 Timeout)
  */
 static void XPfw_TimerSetIntervalMode(XTtcPs *TtcInstancePtr, u32 PeriodInSec)
 {
+	if (!TtcInstancePtr) {
+		goto END;
+	}
+
 	/* Stop the timer */
 	XTtcPs_Stop(TtcInstancePtr);
 
@@ -184,6 +229,8 @@ static void XPfw_TimerSetIntervalMode(XTtcPs *TtcInstancePtr, u32 PeriodInSec)
 	XTtcPs_SetInterval(TtcInstancePtr, (PeriodInSec * TTC_COUNT_PER_SEC));
 	XTtcPs_ResetCounterValue(TtcInstancePtr);
 	XTtcPs_SetPrescaler(TtcInstancePtr, TTC_PRESCALER);
+END:
+	return;
 }
 
 /**
@@ -196,11 +243,17 @@ static void XPfw_TimerSetIntervalMode(XTtcPs *TtcInstancePtr, u32 PeriodInSec)
  */
 static void XPfw_TTCStart(XTtcPs *TtcInstancePtr, u32 Timeout)
 {
+	if (!TtcInstancePtr) {
+		goto END;
+	}
+
 	/* Enable interrupt */
 	XTtcPs_EnableInterrupts(TtcInstancePtr, XTTCPS_IXR_INTERVAL_MASK);
 
 	/* Start the timer */
 	XTtcPs_Start(TtcInstancePtr);
+END:
+	return;
 }
 
 /**
@@ -211,11 +264,17 @@ static void XPfw_TTCStart(XTtcPs *TtcInstancePtr, u32 Timeout)
  */
 static void XPfw_TTCStop(XTtcPs *TtcInstancePtr)
 {
+	if (!TtcInstancePtr) {
+		goto END;
+	}
+
 	/* Stop the timer */
 	XTtcPs_Stop(TtcInstancePtr);
 
 	/* Disable interrupt */
 	XTtcPs_DisableInterrupts(TtcInstancePtr, XTTCPS_IXR_INTERVAL_MASK);
+END:
+	return;
 }
 
 #ifdef CHECK_HEALTHY_BOOT
@@ -237,16 +296,6 @@ void XPfw_ClearBootHealthStatus(void)
 }
 
 #endif
-/**
- * XPfw_RestartIsPlDone - check the status of PL DONE bit
- *
- * @return TRUE if its done else FALSE
- */
-static bool XPfw_RestartIsPlDone(void)
-{
-	return ((XPfw_Read32(CSU_PCAP_STATUS_REG) &
-		CSU_PCAP_STATUS_PL_DONE_MASK_VAL) == CSU_PCAP_STATUS_PL_DONE_MASK_VAL);
-}
 
 /* Set up the restart scope */
 static void SetRestartScope(XPfwRestartTracker *RestartTracker)
@@ -270,6 +319,18 @@ static void MasterIdle(XTtcPs *TtcInstancePtr, u32 Timeout)
 	XPfw_TTCStart(TtcInstancePtr, Timeout);
 }
 
+#ifdef ENABLE_ESCALATION
+/**
+ * XPfw_RestartIsPlDone - check the status of PL DONE bit
+ *
+ * @return TRUE if its done else FALSE
+ */
+static bool XPfw_RestartIsPlDone(void)
+{
+	return ((XPfw_Read32(CSU_PCAP_STATUS_REG) &
+		CSU_PCAP_STATUS_PL_DONE_MASK_VAL) == CSU_PCAP_STATUS_PL_DONE_MASK_VAL);
+}
+
 static void XPfw_RestartSystemLevel(void)
 {
 	bool IsPlUp = XPfw_RestartIsPlDone();
@@ -282,6 +343,7 @@ static void XPfw_RestartSystemLevel(void)
 		XPfw_ResetSystem();
 	}
 }
+#endif /* ENABLE_ESCALATION */
 
 /**
  * Xpfw_TTCInit - Initialize TTC timer
@@ -298,19 +360,61 @@ static s32 Xpfw_TTCInit(u16 TtcDeviceId, XTtcPs *TtcInstancePtr)
 	XTtcPs_Config *timerConfig;
 	s32 Status = XST_FAILURE;
 
+	if (!TtcInstancePtr) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
 	/* Look up the configuration based on the device identifier */
 	timerConfig = XTtcPs_LookupConfig(TtcDeviceId);
 	if (NULL == timerConfig) {
-		return XST_FAILURE;
+		Status = XST_FAILURE;
+		goto END;
 	}
 
 	/* Initialize the device */
 	Status = XTtcPs_CfgInitialize(TtcInstancePtr, timerConfig, timerConfig->BaseAddress);
-	if (XST_SUCCESS != Status) {
-		return Status;
+
+END:
+	return Status;
+}
+
+/**
+ * Xpfw_GetRstTracker - Get WDT reset tracker
+ *
+ * @return XPfwRestartTracker in case of success else NULL
+ */
+static XPfwRestartTracker *Xpfw_GetRstTracker(void)
+{
+	XPfwRestartTracker *Handle = NULL;
+	u32 RstIdx;
+	u32 FsblProcInfo = XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5) & FSBL_STATE_PROC_INFO_MASK;
+
+	for (RstIdx = 0; RstIdx < ARRAY_SIZE(RstTrackerList); RstIdx++) {
+		if ((FSBL_RUNNING_ON_A53 == FsblProcInfo) &&
+				(NODE_APU == RstTrackerList[RstIdx].Master->nid)) {
+			XPfw_Printf(DEBUG_DETAILED,"APU\r\n");
+			break;
+		}
+
+		if ((FSBL_RUNNING_ON_R5_0 == FsblProcInfo) &&
+				(NODE_RPU_0 == RstTrackerList[RstIdx].Master->nid)) {
+			XPfw_Printf(DEBUG_DETAILED,"RPU0\r\n");
+			break;
+		}
+
+		if ((FSBL_RUNNING_ON_R5_L == FsblProcInfo) &&
+				(NODE_RPU == RstTrackerList[RstIdx].Master->nid)) {
+			XPfw_Printf(DEBUG_DETAILED,"RPU LS\r\n");
+			break;
+		}
 	}
 
-	return Status;
+	if (ARRAY_SIZE(RstTrackerList) > RstIdx) {
+		Handle = &RstTrackerList[RstIdx];
+	}
+
+	return Handle;
 }
 
 /**
@@ -322,43 +426,49 @@ static s32 Xpfw_TTCInit(u16 TtcDeviceId, XTtcPs *TtcInstancePtr)
 s32 XPfw_RecoveryInit(void)
 {
 	s32 Status = XST_FAILURE;
-	u32 RstIdx;
 	XWdtPs_Config *WdtConfigPtr;
+	XPfwRestartTracker *RstTracker = Xpfw_GetRstTracker();
+
+	if (NULL == RstTracker) {
+		XPfw_Printf(DEBUG_DETAILED,"ASSERT: No Valid Rst Tracker\r\n");
+		goto END;
+	}
 
 	/*
 	 * Reset TTC lines. TTC lines can be same for different TTC ID so
 	 * reset them in advance to avoid reset after initialization.
 	 */
-	for (RstIdx = 0; RstIdx < ARRAY_SIZE(RstTrackerList); RstIdx++) {
-		(void)PmResetAssertInt(RstTrackerList[RstIdx].TtcResetId,
-				PM_RESET_ACTION_PULSE);
+
+	if (NULL != RstTracker->TtcPtr) {
+		(void)PmResetAssertInt(RstTracker->TtcResetId,
+							PM_RESET_ACTION_PULSE);
 	}
 
-	for (RstIdx = 0; RstIdx < ARRAY_SIZE(RstTrackerList); RstIdx++) {
-		WdtConfigPtr = GetWdtCfgPtr(RstTrackerList[RstIdx].WdtBaseAddress);
-		if (WdtConfigPtr == NULL) {
-			Status = XST_FAILURE;
-			break;
-		}
-		/* Initialize and capture the status */
-		Status = XWdtPs_CfgInitialize(RstTrackerList[RstIdx].WdtPtr,
-				WdtConfigPtr, WdtConfigPtr->BaseAddress);
-		if (Status != XST_SUCCESS) {
-			break;
-		}
-		/* Reset the WDT */
-		(void)PmResetAssertInt(PM_RESET_SWDT_CRF, PM_RESET_ACTION_PULSE);
-		WdtRestart(RstTrackerList[RstIdx].WdtPtr, RstTrackerList[RstIdx].WdtTimeout);
-
-		Status = Xpfw_TTCInit(RstTrackerList[RstIdx].TtcDeviceId,
-				RstTrackerList[RstIdx].TtcPtr);
-		if (Status != XST_SUCCESS) {
-			break;
-		}
-		XPfw_TimerSetIntervalMode(RstTrackerList[RstIdx].TtcPtr,
-				RstTrackerList[RstIdx].TtcTimeout);
+	WdtConfigPtr = GetWdtCfgPtr(RstTracker->WdtBaseAddress);
+	if (NULL == WdtConfigPtr) {
+		goto END;
+	}
+	/* Initialize and capture the status */
+	Status = XWdtPs_CfgInitialize(RstTracker->WdtPtr,
+						WdtConfigPtr, WdtConfigPtr->BaseAddress);
+	if (XST_SUCCESS != Status) {
+		goto END;
 	}
 
+	/* Reset the WDT */
+	(void)PmResetAssertInt(RstTracker->WdtResetId, PM_RESET_ACTION_PULSE);
+
+	WdtRestart(RstTracker->WdtPtr, RstTracker->WdtTimeout);
+
+	if (NULL != RstTracker->TtcPtr) {
+		Status = Xpfw_TTCInit(RstTracker->TtcDeviceId, RstTracker->TtcPtr);
+		if (XST_SUCCESS != Status) {
+			goto END;
+		}
+
+		XPfw_TimerSetIntervalMode(RstTracker->TtcPtr, RstTracker->TtcTimeout);
+	}
+END:
 	return Status;
 }
 
@@ -369,12 +479,17 @@ s32 XPfw_RecoveryInit(void)
  */
 void XPfw_RecoveryHandler(u8 ErrorId)
 {
-	u32 RstIdx;
+	XPfwRestartTracker *RstTracker = Xpfw_GetRstTracker();
+
+	if (NULL == RstTracker) {
+		XPfw_Printf(DEBUG_DETAILED,"ASSERT: No Valid Rst Tracker\r\n");
+		goto END;
+	}
+
 #ifdef CHECK_HEALTHY_BOOT
 	u32 DoSubSystemRestart = 0U;
 
-	if(XPfw_GetBootHealthStatus())
-	{
+	if (XPfw_GetBootHealthStatus()) {
 		/*
 		 * Do subsystem restart only if last boot was healthy
 		 */
@@ -382,33 +497,91 @@ void XPfw_RecoveryHandler(u8 ErrorId)
 	}
 #endif
 
-	for (RstIdx = 0U; RstIdx < ARRAY_SIZE(RstTrackerList); RstIdx++) {
-		/* Currently we support only APU restart for FPD WDT timeout */
-		if(ErrorId == EM_ERR_ID_FPD_SWDT &&
-				RstTrackerList[RstIdx].Master->nid == NODE_APU) {
-#ifdef CHECK_HEALTHY_BOOT
-			if (RstTrackerList[RstIdx].RestartState != XPFW_RESTART_STATE_INPROGRESS &&
-					DoSubSystemRestart) {
-#else
-			if(RstTrackerList[RstIdx].RestartState != XPFW_RESTART_STATE_INPROGRESS ) {
-#endif
-				XPfw_Printf(DEBUG_DETAILED,"Request Master to idle its cores\r\n");
-				RstTrackerList[RstIdx].RestartState = XPFW_RESTART_STATE_INPROGRESS;
-				WdtRestart(RstTrackerList[RstIdx].WdtPtr, RstTrackerList[RstIdx].WdtTimeout);
-				SetRestartScope(&RstTrackerList[RstIdx]);
-				MasterIdle(RstTrackerList[RstIdx].TtcPtr,
-					RstTrackerList[RstIdx].TtcTimeout);
-			}
-			else{
-				XPfw_Printf(DEBUG_DETAILED,"Escalating to system level reset\r\n");
-				#ifdef ENABLE_ESCALATION
-					XPfw_RestartSystemLevel();
-				#else
-					(void)PmMasterRestart(RstTrackerList[RstIdx].Master);
-				#endif /* ENABLE_ESCALATION */
-			}
-		}
+	if ((EM_ERR_ID_FPD_SWDT == ErrorId) &&
+			(NODE_APU != RstTracker->Master->nid)) {
+		XPfw_Printf(DEBUG_DETAILED,"ASSERT: Nothing to be done for FPD swdt\r\n");
+		goto END;
 	}
+
+	if ((EM_ERR_ID_LPD_SWDT == ErrorId) &&
+			((NODE_RPU_0 != RstTracker->Master->nid) &&
+			(NODE_RPU != RstTracker->Master->nid))) {
+		XPfw_Printf(DEBUG_DETAILED,"ASSERT: Nothing to be done for LPD swdt\r\n");
+		goto END;
+	}
+
+#ifdef CHECK_HEALTHY_BOOT
+	if ((XPFW_RESTART_STATE_INPROGRESS != RstTracker->RestartState) &&
+			DoSubSystemRestart) {
+#else
+		if (XPFW_RESTART_STATE_INPROGRESS != RstTracker->RestartState) {
+#endif
+			XPfw_Printf(DEBUG_DETAILED,"Request Master to idle its cores\r\n");
+			RstTracker->RestartState = XPFW_RESTART_STATE_INPROGRESS;
+			WdtRestart(RstTracker->WdtPtr, RstTracker->WdtTimeout);
+
+
+			switch (ErrorId) {
+			case EM_ERR_ID_FPD_SWDT:
+				/*
+				 * Inform ATF to idle APU and issue the PmSystemShutdown for restart scope.
+				 */
+				SetRestartScope(RstTracker);
+				MasterIdle(RstTracker->TtcPtr, RstTracker->TtcTimeout);
+				break;
+			case EM_ERR_ID_LPD_SWDT:
+
+				/*
+				 * Apply Isolation for RPU(M), Slave interface
+				 * will be taken care while releasing tcm.
+				 * todo: Store the AIB enum in the RstTraker's structure.
+				 */
+
+				XPfw_AibEnable(XPFW_AIB_RPU0_TO_LPD);
+
+				/* Note: Need not to enable AIB over rpu1 even in case of
+				 * lock-step, as R5-0 will go to sleep.
+				 */
+
+				RstTracker->Master->procs[0]->sleep();
+
+				/*
+				 * Remove the isolation
+				 */
+				XPfw_AibDisable(XPFW_AIB_RPU0_TO_LPD);
+
+				if (PMF_SHUTDOWN_SUBTYPE_SUBSYSTEM ==
+							RstTracker->RestartScope) {
+
+					XPfw_Printf(DEBUG_DETAILED, "Restarting RPU from WDT\n\r");
+					(void)PmMasterRestart(RstTracker->Master);
+
+				} else if (PMF_SHUTDOWN_SUBTYPE_PS_ONLY ==
+							RstTracker->RestartScope) {
+					XPfw_ResetPsOnly();
+				} else if (PMF_SHUTDOWN_SUBTYPE_SYSTEM ==
+							RstTracker->RestartScope) {
+					XPfw_ResetSystem();
+				}
+
+				break;
+			default:
+				// Fatal: Never Happen
+				break;
+			}
+		} else {
+			XPfw_Printf(DEBUG_DETAILED,"Escalating to system level reset\r\n");
+#ifdef ENABLE_ESCALATION
+			XPfw_RestartSystemLevel();
+#else
+			/*
+			 * Fixme: reset as per the restartScope, don't assume subsystem only.
+			 */
+			(void)PmMasterRestart(RstTracker->Master);
+#endif /* ENABLE_ESCALATION */
+		}
+END:
+	XPfw_Printf(DEBUG_DETAILED,"Exit restart handler\r\n");
 }
 
 /**
