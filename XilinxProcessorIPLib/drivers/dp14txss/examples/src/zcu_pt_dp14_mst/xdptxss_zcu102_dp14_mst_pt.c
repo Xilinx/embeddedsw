@@ -33,6 +33,7 @@
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
 * 1.00 KU  02/05/19 Initial release.
+* 1.01 KU  09/09/19 Added support for unplug, enhanced audio check
 *
 * </pre>
 *
@@ -536,6 +537,16 @@ u32 Dp_SetupIntrSystem(void)
                         &DpRxSs_NoVideoHandler, &DpRxSsInst);
     XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_VBLANK_EVENT,
                         &DpRxSs_VerticalBlankHandler, &DpRxSsInst);
+
+    XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_VBLANK_STREAM_2_EVENT,
+                        &DpRxSs_VerticalBlank1Handler, &DpRxSsInst);
+
+    XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_VBLANK_STREAM_3_EVENT,
+                        &DpRxSs_VerticalBlank2Handler, &DpRxSsInst);
+
+    XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_VBLANK_STREAM_4_EVENT,
+                        &DpRxSs_VerticalBlank3Handler, &DpRxSsInst);
+
     XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_TLOST_EVENT,
                         &DpRxSs_TrainingLostHandler, &DpRxSsInst);
     XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_VID_EVENT,
@@ -707,6 +718,21 @@ void DpRxSs_NoVideoHandler(void *InstancePtr)
 *
 ******************************************************************************/
 void DpRxSs_VerticalBlankHandler(void *InstancePtr)
+{
+        DpRxSsInst.VBlankCount++;
+}
+
+void DpRxSs_VerticalBlank1Handler(void *InstancePtr)
+{
+        DpRxSsInst.VBlankCount++;
+}
+
+void DpRxSs_VerticalBlank2Handler(void *InstancePtr)
+{
+        DpRxSsInst.VBlankCount++;
+}
+
+void DpRxSs_VerticalBlank3Handler(void *InstancePtr)
 {
         DpRxSsInst.VBlankCount++;
 }
@@ -905,6 +931,9 @@ void DpRxSs_PllResetHandler(void *InstancePtr)
         /*Enable all interrupts except Unplug*/
         XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
                               XDP_RX_INTERRUPT_MASK_ALL_MASK);
+        XDp_RxInterruptEnable1(DpRxSsInst.DpPtr,
+                              0xFFFFFFFF);
+
         DpRxSsInst.no_video_trigger = 1;
         DpRxSsInst.VBlankCount = 0;
         DpRxSsInst.link_up_trigger = 0;
@@ -3073,6 +3102,7 @@ void resetIp_rd()
 
 u8 tx_ppc_set = 0;
 u8 stream_id_used = 0;
+u8 invalid_stream = 0;
 void Dppt_DetectResolution(void *InstancePtr, u16 offset,
 							XDpTxSs_MainStreamAttributes Msa[4], u8 stream){
 
@@ -3212,6 +3242,9 @@ void Dppt_DetectResolution(void *InstancePtr, u16 offset,
 				"%lu x %lu @ %luHz, BPC = %lu, PPC = 4***\n\r",
 			DpHres, DpVres,recv_frame_clk_int,bpc
 		);
+	    invalid_stream = 0;
+	} else {
+		invalid_stream = 1;
 	}
 
 
