@@ -1,7 +1,7 @@
 xilskey_bbram_example.c=xilskey_input.h
 xilskey_efuse_example.c=xilskey_input.h
-xilskey_efuseps_zynqmp_example.c = xilskey_efuseps_zynqmp_input.h
-xilskey_bbramps_zynqmp_example.c = NULL
-xilskey_bbram_ultrascale_example.c = xilskey_bbram_ultrascale_input.h
-xilskey_puf_registration.c = xilskey_puf_registration.h
-xilskey_puf_regeneration.c = NULL
+xilskey_efuseps_zynqmp_example.c=xilskey_efuseps_zynqmp_input.h
+xilskey_bbramps_zynqmp_example.c=NULL
+xilskey_bbram_ultrascale_example.c=xilskey_bbram_ultrascale_input.h
+xilskey_puf_registration.c=xilskey_puf_registration.h
+xilskey_puf_regeneration.c=NULL
