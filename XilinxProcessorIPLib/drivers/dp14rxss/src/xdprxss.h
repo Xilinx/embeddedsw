@@ -247,9 +247,21 @@ typedef enum {
 	XDPRXSS_HANDLER_ACCESS_LINK_QUAL_EVENT,    /**< Drv Access link qual
 						  *  interrupt type for
 						  *  DisplayPort core */
-	XDPRXSS_HANDLER_ACCESS_ERROR_COUNTER_EVENT   /**< Drv Access error counter
-						  *  interrupt type for
-						  *  DisplayPort core */
+	XDPRXSS_HANDLER_ACCESS_ERROR_COUNTER_EVENT,  /**< Drv Access error
+						      *	counter interrupt type
+						      *	for DisplayPort core */
+	XDPRXSS_HANDLER_DP_VBLANK_STREAM_2_EVENT,    /**< Vertical blanking
+						      *	event for stream 2
+						      *	interrupt type for
+						      *	DisplayPort core */
+	XDPRXSS_HANDLER_DP_VBLANK_STREAM_3_EVENT,    /**< Vertical blanking
+						      *	event for stream 3
+						      *	interrupt type for
+						      *	DisplayPort core */
+	XDPRXSS_HANDLER_DP_VBLANK_STREAM_4_EVENT     /**< Vertical blanking
+						      *	event for stream 4
+						      *	interrupt type for
+						      *	DisplayPort core */
 } XDpRxSs_HandlerType;
 
 /**
