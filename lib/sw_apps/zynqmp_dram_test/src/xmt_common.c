@@ -41,6 +41,7 @@
  *       mn   09/27/18 Modify code to add 2D Read/Write Eye Tests support
  *       mn   12/17/18 Limit VRefMin to minimum of 0 for 2D eye scan
  *       mn   07/01/19 Add support to specify number of iteration for memtest
+ *       mn   09/09/19 Correct the DDR type name for LPDDR4
  *
  * </pre>
  *
@@ -188,7 +189,7 @@ void XMt_PrintDdrConfigParams(XMt_CfgData *XMtPtr)
 	} else if (XMT_CHECK_BIT(DdrMstrRegval, 4U)) {
 		xil_printf("DDR4 ");
 	} else if (XMT_CHECK_BIT(DdrMstrRegval, 5U)) {
-		xil_printf("LPLPDDR2 ");
+		xil_printf("LPDDR4 ");
 	} else {
 		xil_printf("UNKNOWN! ");
 	}
