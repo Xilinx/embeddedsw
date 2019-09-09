@@ -44,6 +44,7 @@
 * 1.5   Jubaer  02/26/2019  Add group Event API
 * 1.6   Jubaer  03/01/2019  Add Combo Event API
 * 1.7   Jubaer  04/17/2019  Add Stream Switch Event Port Selection API
+* 1.8   Tejus   09/05/2019  Fix compiler warnings
 * </pre>
 *
 ******************************************************************************/
@@ -100,7 +101,7 @@ u32 XAieTileMem_EventBroadcastBlockValue(XAieGbl_Tile *TileInstPtr, u8 Dir)
 {
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
-	XAie_AssertNonvoid(Dir >= 0 && Dir < 4);
+	XAie_AssertNonvoid(Dir < 4);
 
 	return XAieGbl_Read32(TileInstPtr->TileAddr +
 			EventBroadcastValue[XAIETILE_EVENT_MODULE_MEM].RegOff[Dir]);
@@ -132,7 +133,7 @@ u32 XAieTilePl_EventBroadcastBlockValue(XAieGbl_Tile *TileInstPtr, u8 Dir, u8 Sw
 	 */
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_SHIMNOC ||
 			TileInstPtr->TileType == XAIEGBL_TILE_TYPE_SHIMPL);
-	XAie_AssertNonvoid(Dir >= 0 && Dir < 4);
+	XAie_AssertNonvoid(Dir < 4);
 
 	return XAieGbl_Read32(TileInstPtr->TileAddr +
 			EventBroadcastValue[XAIETILE_EVENT_MODULE_PL].RegOff[Dir + SwitchAB * 0x4U]);
@@ -157,7 +158,7 @@ u32 XAieTileCore_EventBroadcastBlockValue(XAieGbl_Tile *TileInstPtr, u8 Dir)
 {
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
-	XAie_AssertNonvoid(Dir >= 0 && Dir < 4);
+	XAie_AssertNonvoid(Dir < 4);
 
 	return XAieGbl_Read32(TileInstPtr->TileAddr +
 			EventBroadcastValue[XAIETILE_EVENT_MODULE_CORE].RegOff[Dir]);
@@ -187,7 +188,7 @@ u8 XAieTileMem_EventBroadcastBlockClear(XAieGbl_Tile *TileInstPtr, u8 Dir, u16 M
 {
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
-	XAie_AssertNonvoid(Dir >= 0 && Dir < 4);
+	XAie_AssertNonvoid(Dir < 4);
 
 	XAieGbl_Write32(TileInstPtr->TileAddr +
 			EventBroadcastClear[XAIETILE_EVENT_MODULE_MEM].RegOff[Dir],
@@ -223,7 +224,7 @@ u8 XAieTilePl_EventBroadcastBlockClear(XAieGbl_Tile *TileInstPtr, u8 Dir, u8 Swi
 	 */
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_SHIMNOC ||
 			TileInstPtr->TileType == XAIEGBL_TILE_TYPE_SHIMPL);
-	XAie_AssertNonvoid(Dir >= 0 && Dir < 4);
+	XAie_AssertNonvoid(Dir < 4);
 
 	XAieGbl_Write32(TileInstPtr->TileAddr +
 			EventBroadcastClear[XAIETILE_EVENT_MODULE_PL].RegOff[Dir + SwitchAB * 0x4U],
@@ -251,7 +252,7 @@ u8 XAieTileCore_EventBroadcastBlockClear(XAieGbl_Tile *TileInstPtr, u8 Dir, u16 
 {
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
-	XAie_AssertNonvoid(Dir >= 0 && Dir < 4);
+	XAie_AssertNonvoid(Dir < 4);
 
 	XAieGbl_Write32(TileInstPtr->TileAddr +
 		EventBroadcastClear[XAIETILE_EVENT_MODULE_CORE].RegOff[Dir],
@@ -283,7 +284,7 @@ u8 XAieTileMem_EventBroadcastBlockSet(XAieGbl_Tile *TileInstPtr, u8 Dir, u16 Mas
 {
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
-	XAie_AssertNonvoid(Dir >= 0 && Dir < 4);
+	XAie_AssertNonvoid(Dir < 4);
 
 	XAieGbl_Write32(TileInstPtr->TileAddr +
 			EventBroadcastSet[XAIETILE_EVENT_MODULE_MEM].RegOff[Dir],
@@ -319,7 +320,7 @@ u8 XAieTilePl_EventBroadcastBlockSet(XAieGbl_Tile *TileInstPtr, u8 Dir, u8 Switc
 	 */
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_SHIMNOC ||
 			TileInstPtr->TileType == XAIEGBL_TILE_TYPE_SHIMPL);
-	XAie_AssertNonvoid(Dir >= 0 && Dir < 4);
+	XAie_AssertNonvoid(Dir < 4);
 
 	XAieGbl_Write32(TileInstPtr->TileAddr +
 			EventBroadcastSet[XAIETILE_EVENT_MODULE_PL].RegOff[Dir + SwitchAB * 0x4U],
@@ -347,7 +348,7 @@ u8 XAieTileCore_EventBroadcastBlockSet(XAieGbl_Tile *TileInstPtr, u8 Dir, u16 Ma
 {
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
-	XAie_AssertNonvoid(Dir >= 0 && Dir < 4);
+	XAie_AssertNonvoid(Dir < 4);
 
 	XAieGbl_Write32(TileInstPtr->TileAddr +
 			EventBroadcastSet[XAIETILE_EVENT_MODULE_CORE].RegOff[Dir],
@@ -377,7 +378,7 @@ u8 XAieTileMem_EventBroadcast(XAieGbl_Tile *TileInstPtr, u8 BroadcastId, u8 Even
 {
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
-	XAie_AssertNonvoid(BroadcastId >= 0 && BroadcastId < 16);
+	XAie_AssertNonvoid(BroadcastId < 16);
 
 	XAieGbl_Write32(TileInstPtr->TileAddr +
 			EventBroadcast[XAIETILE_EVENT_MODULE_MEM].RegOff +
@@ -408,7 +409,7 @@ u8 XAieTilePl_EventBroadcast(XAieGbl_Tile *TileInstPtr, u8 BroadcastId, u8 Event
 	 */
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_SHIMNOC ||
 			TileInstPtr->TileType == XAIEGBL_TILE_TYPE_SHIMPL);
-	XAie_AssertNonvoid(BroadcastId >= 0 && BroadcastId < 16);
+	XAie_AssertNonvoid(BroadcastId < 16);
 
 	XAieGbl_Write32(TileInstPtr->TileAddr +
 			EventBroadcast[XAIETILE_EVENT_MODULE_PL].RegOff +
@@ -434,7 +435,7 @@ u8 XAieTileCore_EventBroadcast(XAieGbl_Tile *TileInstPtr, u8 BroadcastId, u8 Eve
 {
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
-	XAie_AssertNonvoid(BroadcastId >= 0 && BroadcastId < 16);
+	XAie_AssertNonvoid(BroadcastId < 16);
 
 	XAieGbl_Write32(TileInstPtr->TileAddr +
 			EventBroadcast[XAIETILE_EVENT_MODULE_CORE].RegOff +
@@ -751,7 +752,7 @@ u8 XAieTileMem_EventTraceEventWriteId(XAieGbl_Tile *TileInstPtr, u8 Event,
 {
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
-	XAie_AssertNonvoid(Idx >= 0 && Idx < XAIETILE_EVENT_NUM_TRACE_EVENT);
+	XAie_AssertNonvoid(Idx < XAIETILE_EVENT_NUM_TRACE_EVENT);
 
 	return _XAieTile_EventTraceEventId(TileInstPtr,
 			XAIETILE_EVENT_MODULE_MEM, Event, Idx);
@@ -781,7 +782,7 @@ u8 XAieTilePl_EventTraceEventWriteId(XAieGbl_Tile *TileInstPtr, u8 Event,
 	 */
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_SHIMNOC ||
 			TileInstPtr->TileType == XAIEGBL_TILE_TYPE_SHIMPL);
-	XAie_AssertNonvoid(Idx >= 0 && Idx < XAIETILE_EVENT_NUM_TRACE_EVENT);
+	XAie_AssertNonvoid(Idx < XAIETILE_EVENT_NUM_TRACE_EVENT);
 
 	return _XAieTile_EventTraceEventId(TileInstPtr,
 			XAIETILE_EVENT_MODULE_PL,Event, Idx);
@@ -806,7 +807,7 @@ u8 XAieTileCore_EventTraceEventWriteId(XAieGbl_Tile *TileInstPtr, u8 Event,
 {
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
-	XAie_AssertNonvoid(Idx >= 0 && Idx < XAIETILE_EVENT_NUM_TRACE_EVENT);
+	XAie_AssertNonvoid(Idx < XAIETILE_EVENT_NUM_TRACE_EVENT);
 
 	return _XAieTile_EventTraceEventId(TileInstPtr,
 			XAIETILE_EVENT_MODULE_CORE, Event, Idx);
@@ -954,7 +955,7 @@ u8 XAieTile_EventTraceEventAdd(XAieGbl_Tile *TileInstPtr,
 	(void)TileInstPtr;
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TraceEvents != XAIE_NULL);
-	XAie_AssertNonvoid(Idx >= 0 && Idx < XAIETILE_EVENT_NUM_TRACE_EVENT);
+	XAie_AssertNonvoid(Idx < XAIETILE_EVENT_NUM_TRACE_EVENT);
 
 	TraceEvents->TraceEvent[Idx] = Event;
 
