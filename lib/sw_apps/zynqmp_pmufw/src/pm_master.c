@@ -49,6 +49,9 @@
 #define PM_REQUESTED_SUSPEND        0x1U
 #define TO_ACK_CB(ack, status) (REQUEST_ACK_NON_BLOCKING == (ack))
 
+#define TCM_HIVEC_BKP_LOCATION	0xFFFFFFC0U
+#define HIVEC_TO_RESORE_CODE_BRANCH_OPCODE	0xEA003FBEU
+
 #define DEFINE_PM_PROCS(c)	.procs = ((c)), \
 				.procsCnt = ARRAY_SIZE((c))
 
@@ -59,6 +62,32 @@
 #endif
 
 static PmMaster* pmMasterHead = NULL;
+
+/* Restore code structure*/
+typedef struct RPURestoreCode {
+	unsigned int AddrLocation;
+	unsigned int RestoreData;
+}RPURestoreCode;
+
+static const RPURestoreCode RestoreCode[6] = {
+	// ldr r0,=0xFFFFFFC0
+	{ .AddrLocation = 0XFFFFFF00U, .RestoreData = 0XE3E0003FU },
+
+	// ldr r1, [r0]
+	{ .AddrLocation = 0XFFFFFF04U, .RestoreData = 0XE5901000U },
+
+	// ldr r0, [pc, #4]; ~0x14
+	{ .AddrLocation = 0XFFFFFF08U, .RestoreData = 0XE59F0004U },
+
+	// str r1, [r0]
+	{ .AddrLocation = 0XFFFFFF0CU, .RestoreData = 0XE5801000U },
+
+	// b 0xFFFC0000
+	{ .AddrLocation = 0XFFFFFF10U, .RestoreData = 0XEAFF003AU },
+
+	// =0xFFFF0000
+	{ .AddrLocation = 0XFFFFFF14U, .RestoreData = PM_PROC_RPU_HIVEC_ADDR },
+};
 
 static const PmSlave* pmApuMemories[] = {
 	&pmSlaveOcm0_g.slv,
@@ -904,6 +933,39 @@ s32 PmMasterWake(const PmMaster* const mst)
 }
 
 /**
+ * PmGetStartAddress() - Get master hand off address for restart
+ * @master	Master to restart
+ * @address	Hand off address
+ *
+ * @return	Void
+ */
+void PmGetStartAddress (PmMaster* const master, u64 *address)
+{
+	if (master == &pmMasterRpu_g || master == &pmMasterRpu0_g) {
+		u32 i;
+		*address = PM_PROC_RPU_HIVEC_ADDR;	/* Highvec */
+
+		/* Backup of HiVec memory */
+		XPfw_Write32(TCM_HIVEC_BKP_LOCATION,
+				XPfw_Read32(PM_PROC_RPU_HIVEC_ADDR));
+
+		/* Branch to restore location */
+		XPfw_Write32(PM_PROC_RPU_HIVEC_ADDR,
+				HIVEC_TO_RESORE_CODE_BRANCH_OPCODE);
+
+		/*
+		 * Code to restore HiVec and branch to FSBL
+		 */
+		for (i = 0; i < ARRAYSIZE(RestoreCode); i++) {
+			XPfw_Write32(RestoreCode[i].AddrLocation,
+					RestoreCode[i].RestoreData);
+		}
+	} else {
+		*address = FSBL_LOAD_ADDR;
+	}
+}
+
+/**
  * PmMasterRestart() - Restart the master
  * @master	Master to restart
  *
@@ -914,14 +976,21 @@ s32 PmMasterRestart(PmMaster* const master)
 	s32 status;
 	u64 address = 0xFFFC0000ULL;
 
-	/* Master restart is currently supported only for APU */
-	if (master != &pmMasterApu_g) {
-		status = XST_NO_FEATURE;
-		goto done;
-	}
+	u32 FsblProcInfo = XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5) &
+							FSBL_STATE_PROC_INFO_MASK;
 
-	status = XPfw_RestoreFsblToOCM();
-	if (XST_SUCCESS != status) {
+	if ((FSBL_RUNNING_ON_A53 == FsblProcInfo) && master == &pmMasterApu_g) {
+#ifdef ENABLE_SECURE
+		status = XPfw_RestoreFsblToOCM();
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+#endif
+	} else if (((FSBL_RUNNING_ON_R5_0 == FsblProcInfo) && (master == &pmMasterRpu0_g)) ||
+			((FSBL_RUNNING_ON_R5_L == FsblProcInfo) && (master == &pmMasterRpu_g))) {
+		/* Do nothing */
+	} else {
+		status = XST_NO_FEATURE;
 		goto done;
 	}
 
@@ -937,6 +1006,9 @@ s32 PmMasterRestart(PmMaster* const master)
 	}
 	XPfw_RMW32(PMU_GLOBAL_GLOBAL_GEN_STORAGE4, SUBSYSTEM_RESTART_MASK,
                         SUBSYSTEM_RESTART_MASK);
+
+	PmGetStartAddress (master, &address);
+
 #ifdef ENABLE_POS
 	/* Signal to FSBL */
 	XPfw_Write32(PMU_GLOBAL_GLOBAL_GEN_STORAGE1, 1U);
