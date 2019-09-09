@@ -462,6 +462,9 @@ typedef enum {
 	XDP_RX_HANDLER_HDCP22_PAIRING_READ_DONE,
 	XDP_RX_HANDLER_HDCP22_STREAM_TYPE,
 #endif
+	XDP_RX_HANDLER_VBLANK_STREAM_2,
+	XDP_RX_HANDLER_VBLANK_STREAM_3,
+	XDP_RX_HANDLER_VBLANK_STREAM_4,
 	XDP_RX_NUM_HANDLERS
 } Dp_Rx_HandlerType;
 
@@ -1017,13 +1020,16 @@ typedef struct {
 	void *IntrNoVideoCallbackRef;		/**< A pointer to the user data
 							passed to the no video
 							callback function. */
-	XDp_IntrHandler IntrVBlankHandler;	/**< Callback function for
-							vertical blanking
-							interrupts. */
-	void *IntrVBlankCallbackRef;		/**< A pointer to the user data
-							passed to the vertical
-							blanking callback
-							function. */
+	XDp_IntrHandler IntrVBlankHandler[XDP_RX_STREAM_ID4];	/**< Array of
+							callback functions
+							for vertical blanking
+							interrupts for all
+							streams*/
+	void *IntrVBlankCallbackRef[XDP_RX_STREAM_ID4];	/**< An array of pointer
+							  to the user data
+							  passed to the vertical
+							  blanking callback
+							  functions. */
 	XDp_IntrHandler IntrTrainingLostHandler;/**< Callback function for
 							training lost
 							interrupts. */
