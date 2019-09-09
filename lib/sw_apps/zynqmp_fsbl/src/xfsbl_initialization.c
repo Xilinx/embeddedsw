@@ -482,6 +482,7 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 	PTRSIZE ClusterId;
 	u32 RegValue;
 	u32 Index=0U;
+	u32 FsblProcType = 0;
 	char DevName[PART_NAME_LEN_MAX];
 
 	/**
@@ -519,6 +520,7 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 		XFsbl_Printf(DEBUG_GENERAL,"Running on A53-0 ");
 		FsblInstancePtr->ProcessorID =
 				XIH_PH_ATTRB_DEST_CPU_A53_0;
+		FsblProcType = XFSBL_RUNNING_ON_A53 << XFSBL_STATE_PROC_SHIFT;
 #ifdef __aarch64__
 		/* Running on A53 64-bit */
 		XFsbl_Printf(DEBUG_GENERAL,"(64-bit) Processor");
@@ -539,13 +541,14 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 				"Running on R5 Processor in Lockstep");
 			FsblInstancePtr->ProcessorID =
 				XIH_PH_ATTRB_DEST_CPU_R5_L;
+			FsblProcType = XFSBL_RUNNING_ON_R5_L << XFSBL_STATE_PROC_SHIFT;
 		} else {
 			XFsbl_Printf(DEBUG_GENERAL,
 				"Running on R5-0 Processor");
 			FsblInstancePtr->ProcessorID =
 				XIH_PH_ATTRB_DEST_CPU_R5_0;
+			FsblProcType = XFSBL_RUNNING_ON_R5_0 << XFSBL_STATE_PROC_SHIFT;
 		}
-
 
 		/* Update the Low Vector locations in R5 TCM */
 		while (Index<32U) {
@@ -565,6 +568,14 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 				"XFSBL_ERROR_UNSUPPORTED_CLUSTER_ID\n\r");
 		goto END;
 	}
+
+	/*
+	 * Update FSBL processor information to PMU Global Reg5
+	 * as PMU require this during boot for warm-restart feature.
+	*/
+	FsblProcType |= (XFsbl_In32(PMU_GLOBAL_GLOB_GEN_STORAGE5) & ~(XFSBL_STATE_PROC_INFO_MASK));
+
+	XFsbl_Out32(PMU_GLOBAL_GLOB_GEN_STORAGE5, FsblProcType);
 
 	/* Build Device name and print it */
 	(void)XFsbl_Strcpy(DevName, "XCZU");

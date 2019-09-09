@@ -173,10 +173,17 @@ typedef struct {
 #define XFSBL_R5_LOVEC_VALUE 	0xEAFEFFFEU
 #define XFSBL_R5_HIVEC_VALUE    0xEAFF3FFEU
 
-/* FSBL running status to update to PMU */
-#define XFSBL_RUNNING_STATUS			(0x1U << 0x1U)
-#define XFSBL_RUNNING_ON_A53			(0x1U << 0x2U)
-#define XFSBL_STATE_PROC_INFO_MASK		0x6U
+/*
+ * FSBL processor reporting to PMU
+ */
+#define XFSBL_RUNNING_ON_A53			(0x1U)
+#define XFSBL_RUNNING_ON_R5_0			(0x2U)
+#define XFSBL_RUNNING_ON_R5_L			(0x3U)
+
+#define XFSBL_STATE_PROC_SHIFT			(0x1U)
+
+#define XFSBL_STATE_PROC_INFO_MASK		(0x3U << XFSBL_STATE_PROC_SHIFT)
+
 
 /************************** Function Prototypes ******************************/
 /**
