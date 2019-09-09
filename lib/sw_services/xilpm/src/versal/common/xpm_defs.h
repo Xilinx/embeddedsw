@@ -275,6 +275,8 @@ enum pm_ioctl_id {
 	IOCTL_PROBE_COUNTER_WRITE,
 	/* Ospi mux select */
 	IOCTL_OSPI_MUX_SELECT,
+	/* USB PMU state req */
+	IOCTL_USB_SET_STATE,
 };
 
 /* PLL parameters */

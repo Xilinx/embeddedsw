@@ -2503,6 +2503,66 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  This function sets the controller into either D3 or D0 state
+ *
+ * @param  DeviceId	DeviceId of the device
+ * @param  ReqState	Requested State (0 - D0, 3 - D3)
+ * @param  TimeOut	TimeOut value in micro secs to wait for D3/D0 entry
+ *
+ * @return XST_SUCCESS if successful else error code
+ *
+ ****************************************************************************/
+static int XPm_USBDxState(const u32 DeviceId, const u32 ReqState,
+			  const u32 TimeOut)
+{
+	int Status = XST_SUCCESS;
+	XPm_Device *Device;
+	XPm_Pmc *Pmc;
+	u32 BaseAddress;
+	u32 Offset;
+	u32 CurState;
+	u32 LocalTimeOut;
+
+	(void)DeviceId;
+	LocalTimeOut = TimeOut;
+
+	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+
+	if (NULL == Pmc) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	/* Only (D0 == 0U) or (D3 == 3U) states allowed */
+	if ((ReqState != 0U) && (ReqState != 3U)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* PMC_IOU_SLCR base address */
+	BaseAddress = Pmc->PmcIouSlcrBaseAddr;;
+
+	/* power state request */
+	Offset = XPM_USB_PWR_REQ_OFFSET;
+	PmOut32(BaseAddress + Offset, ReqState);
+
+	/* current power state */
+	Offset = XPM_USB_CUR_PWR_OFFSET;
+	PmIn32(BaseAddress + Offset, CurState);
+
+	while((CurState != ReqState) && (LocalTimeOut > 0U)) {
+		LocalTimeOut--;
+		PmIn32(BaseAddress + Offset, CurState);
+		usleep(1U);
+	}
+
+	Status = ((LocalTimeOut == 0U) ? XST_FAILURE : XST_SUCCESS);
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function selects/returns the AXI interface to OSPI device
  *
  * @param  DeviceId	DeviceId of the device
@@ -2699,6 +2759,18 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 			goto done;
 		}
 		Status = XPm_OspiMuxSelect(DeviceId, Arg1, Response);
+		break;
+	case IOCTL_USB_SET_STATE:
+		if (PM_DEV_USB_0 != DeviceId) {
+			goto done;
+		}
+
+		Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		Status = XPm_USBDxState(DeviceId, Arg1, Arg2);
 		break;
 	default:
 		/* Not supported yet */
