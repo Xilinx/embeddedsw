@@ -63,6 +63,45 @@ static int XLoader_Reserved(XPlmi_Cmd * Cmd)
 	return XST_SUCCESS;
 }
 
+
+/*****************************************************************************/
+/**
+ * @brief This function provides load ddr copy image execution
+ * Command payload parameters are
+ *	* imgid - of ddr copied image
+ *
+ * @param Pointer to the command structure
+ *
+ * @return Returns the Load PDI command
+ *****************************************************************************/
+static int XLoader_LoadDdrCpyImg(XPlmi_Cmd * Cmd)
+{
+	int Status;
+	u32 imgId;
+	XilPdi* PdiPtr = Dic.PdiPtr;
+	Status = XST_FAILURE;
+	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
+
+	/** store the command fields in resume data */
+	imgId = Cmd->Payload[0];
+	XPlmi_Printf(DEBUG_GENERAL, "Ddr image copy Load: Started\n\r");
+
+	PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
+	Status = XLoader_StartDdrcpyImage(imgId);
+	if (Status != XST_SUCCESS)
+	{
+		/* Update the error code */
+		XPlmi_ErrMgr(Status);
+		goto END;
+	}
+
+	XPlmi_Printf(DEBUG_GENERAL, "Ddr image copy Load: Done\n\r");
+END:
+	Cmd->Response[0] = Status;
+	return Status;
+}
+
+
 /*****************************************************************************/
 /**
  * @brief This function provides load subsystem PDI command execution
@@ -115,6 +154,7 @@ static XPlmi_ModuleCmd XLoader_Cmds[] =
 {
 	XPLMI_MODULE_COMMAND(XLoader_Reserved),
 	XPLMI_MODULE_COMMAND(XLoader_LoadSubsystemPdi),
+	XPLMI_MODULE_COMMAND(XLoader_LoadDdrCpyImg)
 };
 
 /*****************************************************************************/

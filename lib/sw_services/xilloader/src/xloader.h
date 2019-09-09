@@ -68,6 +68,8 @@ extern "C" {
 #define XLoader_Printf		XPlmi_Printf
 #define XLOADER_32BIT_MASK	(0xFFFFFFFFU)
 #define PMC_LOCAL_BASEADDR	(0xF0000000U)
+#define DDR_COPYIMAGE_BASEADDR	(0x40000000U)
+
 #define XLOADER_CHUNK_MEMORY		(XPLMI_PMCRAM_BASEADDR)
 #define XLOADER_CHUNK_MEMORY_1		(XPLMI_PMCRAM_BASEADDR + 0x8100U)
 #define XLOADER_CHUNK_SIZE			(0x10000U) /** 64K */
@@ -105,6 +107,7 @@ extern "C" {
  */
 #define XLOADER_MAX_SUBSYSTEMS	10U
 #define XLOADER_RUNNING_CPU_SHIFT	(0x8U)
+#define XLOADER_MAX_DDRCOPYIMGS		(10U)
 
 /*
  * PDI type macros
@@ -228,6 +231,27 @@ typedef struct {
 	u32 Count; /**< Subsystem count */
 } XilSubsystem;
 
+/**
+ * This contains all the information required for DIC(Ddr image copy)
+ */
+typedef struct {
+	u64 DicAddr; /**< Corresponding Image copy ddr address */
+	u32 DicSize; /**< Image size */
+	u32 DicId; /**< Image size */
+	u32 DicPrtsnNum;
+	u32 DicNum; /**< Image Number */
+} XilDicData;
+
+/**
+ * This is a Ddr image copy container This stores all the information
+ * required for Ddr image copy along with its count
+ */
+typedef struct {
+	XilPdi *PdiPtr; /**< PDI source for that image */
+	XilDicData DicData[XLOADER_MAX_DDRCOPYIMGS];
+	u32 DicCnt; /**< Image count */
+} XilDic;
+
 /* Structure to store various attributes required for IDCODEs checks */
 
 typedef struct {
@@ -251,6 +275,8 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 extern XilPdi SubsystemPdiIns;
+extern XilDic Dic;
+
 #if 0
 int XSubSys_CopyPdi(u32 PdiSrc, u64 SrcAddr, u64 DestAddr, u32 PdiLen);
 #endif
@@ -268,9 +294,11 @@ void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi);
 void XLoader_ClearIntrSbiDataRdy();
 void XLoader_CfiErrorHandler(void);
 int XLoader_CframeInit();
+int XLoader_StartDdrcpyImage(u32 ImageId);
 
 /* functions defined in xloader_prtn_load.c */
 int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum);
+int XLoader_LoadDdrCpyImgPrtns(XilPdi *PdiPtr, u32 ImgNum, u32 PrtnNum);
 
 /** Functions defined in xloader_cmds.c */
 void XLoader_CmdsInit(void);

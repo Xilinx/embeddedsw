@@ -101,18 +101,27 @@ u32 XilPdi_GetVecLocation(const XilPdi_PrtnHdr * PrtnHdr)
         return PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_HIVEC_MASK;
 }
 
-u32 XilPdi_GetDelayLoad(const XilPdi_ImgHdr * ImgHdr)
+u32 XilPdi_GetDelayLoad(const XilPdi_ImgHdr *ImgHdr)
 {
-       return (((ImgHdr->ImgAttr & XILPDI_IH_ATTRIB_DELAY_LOAD_MASK) >>
-        XILPDI_IH_ATTRIB_DELAY_LOAD_SHIFT) & 0x1);
+	return (((ImgHdr->ImgAttr & XILPDI_IH_ATTRIB_DELAY_LOAD_MASK) >>
+		XILPDI_IH_ATTRIB_DELAY_LOAD_SHIFT) & 0x1);
 }
 
-u32 XilPdi_GetDelayHandoff(const XilPdi_ImgHdr * ImgHdr)
+u32 XilPdi_GetDelayHandoff(const XilPdi_ImgHdr *ImgHdr)
 {
-      return (((ImgHdr->ImgAttr & XILPDI_IH_ATTRIB_DELAY_HANDOFF_MASK) >>
-       XILPDI_IH_ATTRIB_DELAY_HANDOFF_SHIFT) & 0x1);
+	return (((ImgHdr->ImgAttr & XILPDI_IH_ATTRIB_DELAY_HANDOFF_MASK) >>
+		XILPDI_IH_ATTRIB_DELAY_HANDOFF_SHIFT) & 0x1);
 }
 
+void XilPdi_ResetDelayLoad(XilPdi_ImgHdr *ImgHdr)
+{
+	ImgHdr->ImgAttr = ((ImgHdr->ImgAttr) & (~XILPDI_IH_ATTRIB_DELAY_LOAD_MASK));
+}
+
+void XilPdi_ResetDelayHandoff(XilPdi_ImgHdr *ImgHdr)
+{
+	ImgHdr->ImgAttr = ((ImgHdr->ImgAttr) & (~XILPDI_IH_ATTRIB_DELAY_HANDOFF_MASK));
+}
 /****************************************************************************/
 /**
 * @brief This function will return the Secondary boot device

@@ -395,8 +395,11 @@ u32 XilPdi_IsEnc(const XilPdi_PrtnHdr * PrtnHdr);
 u32 XilPdi_GetA72ExecState(const XilPdi_PrtnHdr * PrtnHdr);
 u32 XilPdi_GetVecLocation(const XilPdi_PrtnHdr * PrtnHdr);
 u32 XilPdi_GetSBD(const XilPdi_ImgHdrTable * ImgHdrTbl);
-u32 XilPdi_GetDelayLoad(const XilPdi_ImgHdr * ImgHdr);
-u32 XilPdi_GetDelayHandoff(const XilPdi_ImgHdr * ImgHdr);
+u32 XilPdi_GetDelayLoad(const XilPdi_ImgHdr *ImgHdr);
+u32 XilPdi_GetDelayHandoff(const XilPdi_ImgHdr *ImgHdr);
+void XilPdi_ResetDelayLoad(XilPdi_ImgHdr *ImgHdr);
+void XilPdi_ResetDelayHandoff(XilPdi_ImgHdr *ImgHdr);
+
 
 XStatus XilPdi_ValidateChecksum(u32 Buffer[], u32 Len);
 XStatus XilPdi_ValidatePrtnHdr(XilPdi_PrtnHdr * PrtnHdr);
