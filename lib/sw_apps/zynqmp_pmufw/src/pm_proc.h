@@ -90,6 +90,9 @@ typedef u8 PmProcEvent;
 #define RPU0_STATUS_MASK		BIT(1U)
 #define RPU1_STATUS_MASK		BIT(2U)
 
+#define PM_PROC_RPU_LOVEC_ADDR  0x00000000U
+#define PM_PROC_RPU_HIVEC_ADDR  0xFFFF0000U
+
 /*********************************************************************
  * Structure definitions
  ********************************************************************/

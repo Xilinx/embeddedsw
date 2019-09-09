@@ -57,9 +57,6 @@
 /* Enable/disable macros for processor's wfi event in GPI2 register */
 #define ENABLE_WFI(mask)    XPfw_RMW32(PMU_LOCAL_GPI2_ENABLE, (mask), (mask));
 
-#define PM_PROC_RPU_LOVEC_ADDR  0x00000000U
-#define PM_PROC_RPU_HIVEC_ADDR  0xFFFF0000U
-
 /* Power consumptions for the APU for specific states */
 #define DEFAULT_APU_POWER_ACTIVE	200U
 #define DEFAULT_APU_POWER_SUSPENDING	100U
