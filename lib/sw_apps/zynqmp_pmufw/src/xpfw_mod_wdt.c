@@ -127,7 +127,7 @@ void XPfw_WdtSetVal(u32 TimeOutVal)
  * @note   None.
  *
  ****************************************************************************/
-static void InitCsuPmuWdt(void)
+void InitCsuPmuWdt(void)
 {
 	s32 Status;
 	XWdtPs_Config *WdtConfigPtr;
@@ -189,37 +189,11 @@ Done:
 
 /****************************************************************************/
 /**
- * @brief  This scheduler task checks for psu init completion and initializes
- * 			CSU PMU WDT.
+ * @brief  WDT module init
  *
- * @param  None.
- *
- * @return None.
- *
- * @note   None.
- *
- ****************************************************************************/
-static void CheckPsuInitConfig(void)
-{
-	s32 Status;
-	u32 FsblCompletionStatus = XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5);
-
-	if ((FsblCompletionStatus & FSBL_COMPLETION) == FSBL_COMPLETION) {
-		InitCsuPmuWdt();
-		Status = XPfw_CoreRemoveTask(WdtModPtr, CHECK_FSBL_COMPLETION,
-				CheckPsuInitConfig);
-		if(XST_FAILURE == Status) {
-			XPfw_Printf(DEBUG_ERROR,"WDT (MOD-%d):Removing WDT Cfg task failed.",
-							WdtModPtr->ModId);
-		}
-	}
-}
-
-/****************************************************************************/
-/**
- * @brief  This function schedules PSU init completion checking task.
- *
- * @param  None.
+ * @param  ModPtr Module pointer
+ *         CfgData Module config data
+ *         Len Length of config data
  *
  * @return None.
  *
@@ -228,15 +202,7 @@ static void CheckPsuInitConfig(void)
  ****************************************************************************/
 static void WdtCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 {
-	s32 Status;
-
-	Status = XPfw_CoreScheduleTask(ModPtr, CHECK_FSBL_COMPLETION, CheckPsuInitConfig);
-	if (XST_FAILURE == Status) {
-		XPfw_Printf(DEBUG_ERROR,"WDT (MOD-%d):Scheduling WDT Cfg task failed.",
-				ModPtr->ModId);
-	}
 }
-
 
 void ModWdtInit(void)
 {

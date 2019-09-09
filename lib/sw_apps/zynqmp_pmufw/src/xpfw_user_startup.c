@@ -38,6 +38,7 @@
 #include "xpfw_mod_sched.h"
 #include "xpfw_mod_stl.h"
 #include "xpfw_mod_wdt.h"
+#include "xpfw_mod_common.h"
 
 #include "xpfw_mod_ultra96.h"
 
@@ -89,4 +90,5 @@ void XPfw_UserStartUp(void)
 #endif
 
 	ModUltra96Init();
+	ModCommonInit();
 }
