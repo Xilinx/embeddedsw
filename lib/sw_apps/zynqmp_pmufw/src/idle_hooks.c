@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,7 @@
 
 #ifdef ENABLE_NODE_IDLING
 
-#define MAX_TIMEOUT 0x1FFFFFFF
+#define MAX_TIMEOUT 	10000		// Max Retry count
 
 #if defined(XPAR_PSU_TTC_0_DEVICE_ID)      || \
 	defined(XPAR_PSU_TTC_3_DEVICE_ID)  || \
