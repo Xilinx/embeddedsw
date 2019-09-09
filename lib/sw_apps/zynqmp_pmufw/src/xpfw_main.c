@@ -146,12 +146,6 @@ XStatus XPfw_Main(void)
 	}
 #endif
 
-	Status = XPfw_StoreFsblToDDR();
-	if (XST_SUCCESS != Status) {
-		XPfw_Printf(DEBUG_ERROR,"%s: Error! Storing FSBL for APU-only restart "
-				"failed. APU-only warm-restart may not work\r\n", __func__);
-	}
-
 	/* Wait to Service the Requests */
 	Status = XPfw_CoreLoop();
 
