@@ -964,7 +964,7 @@ void pt_loop(){
 	u32 user_lane_count;
 	u32 user_link_rate;
 	u32 data, addr;
-
+    u32 line_rst = 0;
 	int count;
 
 	char CommandKey;
@@ -1084,6 +1084,9 @@ void pt_loop(){
 			XDp_RxDtgDis(DpRxSsInst.DpPtr);
 			XDp_RxInterruptDisable(DpRxSsInst.DpPtr,
 					XDP_RX_INTERRUPT_MASK_VBLANK_MASK);
+			XDp_RxInterruptDisable1(DpRxSsInst.DpPtr,
+					0x00010410);
+
 			XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
 					XDP_RX_INTERRUPT_MASK_NO_VIDEO_MASK |
 					XDP_RX_INTERRUPT_MASK_TRAINING_LOST_MASK);
@@ -1197,6 +1200,19 @@ void pt_loop(){
 			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,XDP_RX_HPD_INTERRUPT,0xFBB80001);
 			xil_printf("\r\n- HPD Toggled for 3ms! -\n\r");
 			break;
+
+		case '4':
+			line_rst = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_LINE_RESET_DISABLE);
+			xil_printf ("Line reset was %d\r\n",line_rst & 0x1);
+			if (line_rst & 0x1) {
+				line_rst &= 0xFFFFFFFE;
+			} else {
+				line_rst |= 0xFFFFFFFF;
+			}
+			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_LINE_RESET_DISABLE, line_rst);
+
+			break;
+
 
 		case 'w':
 			xil_printf("\n\rEnter 4 hex characters: Sink Write address 0x");
@@ -1369,6 +1385,8 @@ char xil_getc(u32 timeout_ms){
 	return c;
 }
 
+extern u8 invalid_stream;
+
 void start_tx_after_rx(u8 stream_id, u8 only_tx) {
 	u32 mvid_rx;
 	u32 nvid_rx;
@@ -1385,6 +1403,10 @@ void start_tx_after_rx(u8 stream_id, u8 only_tx) {
 	u8 AudioStream_a;
 	u8 num_stream = 0;
 	int aud_timeout = 0;
+	u8 stream1_is_invalid = 0;
+	u8 stream2_is_invalid = 0;
+	u8 stream3_is_invalid = 0;
+	u8 stream4_is_invalid = 0;
 	Status = XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x1, 1, &max_cap_org);
 	Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x2, 1, &max_cap_lanes);
 	u8 rData = 0;
@@ -1444,12 +1466,37 @@ void start_tx_after_rx(u8 stream_id, u8 only_tx) {
 		//Detect resolution on each stream
 		for (num_stream=0;num_stream<4;num_stream++) {
 			Dppt_DetectResolution(DpRxSsInst.DpPtr, num_stream+1, Msa, num_stream+1);
+			if (invalid_stream && num_stream==0) {
+				stream1_is_invalid = 1;
+			}
+			if (invalid_stream && num_stream==1) {
+				stream2_is_invalid = 1;
+			}
+			if (invalid_stream && num_stream==2) {
+				stream3_is_invalid = 1;
+			}
+			if (invalid_stream && num_stream==3) {
+				stream4_is_invalid = 1;
+			}
 		}
 		//Set linereset enable/disable on each stream
 		for (num_stream=0;num_stream<4;num_stream++) {
 			XDp_RxSetLineReset(DpRxSsInst.DpPtr,num_stream+1);
 		}
 		usleep (400000);
+		//setting a valid stream to start TX
+		if (stream1_is_invalid && stream_id==1) {
+			if (!stream2_is_invalid) {
+				stream_id = 2;
+			} else if (!stream3_is_invalid) {
+				stream_id = 3;
+			} else if (!stream4_is_invalid) {
+				stream_id = 4;
+			} else {
+				xil_printf ("None of the RX streams has a valid video\r\n");
+			}
+		}
+
 		Dppt_DetectResolution(DpRxSsInst.DpPtr, stream_id, Msa, 1);
 		XDpRxSs_Mst_AudioDisable (&DpRxSsInst);
 		frameBuffer_start_wr(Msa, 0);
