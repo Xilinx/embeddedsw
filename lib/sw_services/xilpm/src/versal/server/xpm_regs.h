@@ -544,6 +544,13 @@ extern "C" {
 #define XPM_OSPI_MUX_SEL_MASK		(0x2U)
 #define XPM_OSPI_MUX_SEL_SHIFT		(0x1U)
 
+/**
+ * USB PMU registers
+ */
+#define XPM_USB_CUR_PWR_OFFSET		(0x00000600U)
+#define XPM_USB_PWR_REQ_OFFSET		(0x00000608U)
+#define XPM_USB_PWR_MASK		(0x3U)
+
 #ifdef __cplusplus
 }
 #endif
