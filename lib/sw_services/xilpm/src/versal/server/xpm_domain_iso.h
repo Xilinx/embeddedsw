@@ -38,7 +38,7 @@ extern "C" {
 
 typedef struct XPm_Iso {
 	XPm_Node Node; /**< Node: Node base class */
-	u8 Offset;
+	u32 Mask;
 	u8 Polarity;
 	u32 DependencyNodeHandles[2];
 }XPm_Iso;
