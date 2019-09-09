@@ -41,6 +41,7 @@
 * 1.2  Hyun    10/10/2018  Use the mask write API
 * 1.3  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.4  Jubaer  03/07/2019  Add PL if downsizer disable API
+* 1.5  Tejus   09/05/2019  Fix assertion issues
 * </pre>
 *
 ******************************************************************************/
@@ -87,11 +88,6 @@ void XAieTile_PlIntfStrmWidCfg(XAieGbl_Tile *TileInstPtr, u8 Pl2Me, u8 StreamId,
 	u8 Idx;
 
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
-	XAie_AssertNonvoid((Pl2Me == XAIETILE_PLIF_PLTOAIE_STRMS_ENABLE) &&
-			(StreamId < XAIEGBL_TILE_PLIF_PL2AIE_MAX_STRMS));
-
-	XAie_AssertNonvoid((Pl2Me != XAIETILE_PLIF_PLTOAIE_STRMS_ENABLE) &&
-                        (StreamId < XAIEGBL_TILE_PLIF_AIE2PL_MAX_STRMS));
 
 	XAie_AssertNonvoid((Width == XAIETILE_PLIF_STRM_WIDTH32) ||
 				(Width == XAIETILE_PLIF_STRM_WIDTH64) ||
@@ -101,10 +97,13 @@ void XAieTile_PlIntfStrmWidCfg(XAieGbl_Tile *TileInstPtr, u8 Pl2Me, u8 StreamId,
 	 * Supported streams for 128-bit width are 0,2,4,6 for ME2PL/upsizer
 	 * and 0,2,4 for PL2ME/downsizer
 	 */
-	XAie_AssertNonvoid((Width == XAIETILE_PLIF_STRM_WIDTH128) &&
-			((StreamId % XAIETILE_PLIF_STRM_WIDTH128_IDDIV) != 0U));
+	if(Width == XAIETILE_PLIF_STRM_WIDTH128) {
+		XAie_AssertNonvoid((StreamId %
+					XAIETILE_PLIF_STRM_WIDTH128_IDDIV) == 0U);
+	}
 
 	if(Pl2Me == XAIETILE_PLIF_PLTOAIE_STRMS_ENABLE) {
+		XAie_AssertNonvoid(StreamId < XAIEGBL_TILE_PLIF_PL2AIE_MAX_STRMS);
 		RegOff = DwszCfg.RegOff;
 		if(Width == XAIETILE_PLIF_STRM_WIDTH128) {
 			Idx = StreamId / XAIETILE_PLIF_STRM_WIDTH128_IDDIV;
@@ -120,6 +119,7 @@ void XAieTile_PlIntfStrmWidCfg(XAieGbl_Tile *TileInstPtr, u8 Pl2Me, u8 StreamId,
                         FldMask = DwszCfg.Wid3264[Idx].Mask;
 		}
 	} else {
+		XAie_AssertNonvoid(StreamId < XAIEGBL_TILE_PLIF_AIE2PL_MAX_STRMS);
 		RegOff = UpszCfg.RegOff;
 		if(Width == XAIETILE_PLIF_STRM_WIDTH128) {
 			Idx = StreamId / XAIETILE_PLIF_STRM_WIDTH128_IDDIV;
