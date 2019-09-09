@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 18 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 19 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -366,17 +366,11 @@ void XFsbl_PrintFsblBanner(void )
 
 	if(FsblInstance.ResetReason == XFSBL_PS_ONLY_RESET) {
 		XFsbl_Printf(DEBUG_GENERAL,"Reset Mode	:	PS Only Reset\r\n");
-	}
-	else if(FsblInstance.ResetReason == XFSBL_APU_ONLY_RESET)
-	{
-		XFsbl_Printf(DEBUG_GENERAL,"Reset Mode	:	APU Only Reset\r\n");
-	}
-	else if(FsblInstance.ResetReason == XFSBL_SYSTEM_RESET)
-	{
+	} else if (XFSBL_MASTER_ONLY_RESET == FsblInstance.ResetReason) {
+		XFsbl_Printf(DEBUG_GENERAL,"Reset Mode	:	Master Subsystem Only Reset\r\n");
+	} else if(FsblInstance.ResetReason == XFSBL_SYSTEM_RESET) {
 		XFsbl_Printf(DEBUG_GENERAL,"Reset Mode	:	System Reset\r\n");
-	}
-	else
-	{
+	} else {
 		/*MISRAC compliance*/
 	}
 #endif
@@ -487,7 +481,7 @@ static void XFsbl_FallBack(void)
 	u32 RegValue;
 
 #ifdef XFSBL_WDT_PRESENT
-	if (FsblInstance.ResetReason != XFSBL_APU_ONLY_RESET) {
+	if (XFSBL_MASTER_ONLY_RESET != FsblInstance.ResetReason) {
 		/* Stop WDT as we are restarting */
 		XFsbl_StopWdt();
 	}
@@ -544,7 +538,7 @@ static void XFsbl_UpdateMultiBoot(u32 MultiBootValue)
 	dsb();
 	isb();
 
-	if(FsblInstance.ResetReason != XFSBL_APU_ONLY_RESET) {
+	if (XFSBL_MASTER_ONLY_RESET != FsblInstance.ResetReason) {
 
 	/* Soft reset the system */
 	XFsbl_Printf(DEBUG_GENERAL,"Performing System Soft Reset\n\r");

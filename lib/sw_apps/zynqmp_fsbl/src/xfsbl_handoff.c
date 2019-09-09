@@ -754,7 +754,7 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 	*/
 	Xil_DCacheDisable();
 
-	if(FsblInstancePtr->ResetReason != XFSBL_APU_ONLY_RESET){
+	if (XFSBL_MASTER_ONLY_RESET != FsblInstancePtr->ResetReason) {
 
 	Status = XFsbl_PmInit();
 	if (Status != XFSBL_SUCCESS) {
@@ -1027,7 +1027,7 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 	XFsbl_Out32(XFSBL_ERROR_STATUS_REGISTER_OFFSET, XFSBL_COMPLETED);
 
 #ifdef XFSBL_WDT_PRESENT
-	if (FsblInstancePtr->ResetReason != XFSBL_APU_ONLY_RESET) {
+	if (XFSBL_MASTER_ONLY_RESET != FsblInstancePtr->ResetReason) {
 		/* Stop WDT as we are exiting FSBL */
 		XFsbl_StopWdt();
 	}

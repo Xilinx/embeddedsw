@@ -987,7 +987,7 @@ extern "C" {
 /* Reset Reason */
 #define XFSBL_SYSTEM_RESET		0U
 #define XFSBL_PS_ONLY_RESET		1U
-#define XFSBL_APU_ONLY_RESET	2U
+#define XFSBL_MASTER_ONLY_RESET	2U
 
 /* AMS PS Sysmon ANALOG_BUS value */
 #define PS_SYSMON_ANALOG_BUS_VAL 0X00003210U

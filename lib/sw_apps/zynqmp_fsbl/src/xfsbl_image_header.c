@@ -652,12 +652,16 @@ u32 XFsbl_ValidatePartitionHeader(
 #endif
 
 	DestinationCpu = XFsbl_GetDestinationCpu(PartitionHeader);
-		if(ResetType == XFSBL_APU_ONLY_RESET){
-		if((DestinationCpu <= XIH_PH_ATTRB_DEST_CPU_A53_3) && (DestinationCpu >= XIH_PH_ATTRB_DEST_CPU_A53_0)){
+	if (XFSBL_MASTER_ONLY_RESET == ResetType) {
+		if (((XIH_PH_ATTRB_DEST_CPU_A53_0 == RunningCpu) &&
+				(DestinationCpu <= XIH_PH_ATTRB_DEST_CPU_A53_3 ) &&
+				(DestinationCpu >= XIH_PH_ATTRB_DEST_CPU_A53_0 )) ||
+				((XIH_PH_ATTRB_DEST_CPU_R5_0 == RunningCpu) &&
+						(XIH_PH_ATTRB_DEST_CPU_R5_0 == DestinationCpu)) ||
+				((XIH_PH_ATTRB_DEST_CPU_R5_L == RunningCpu) &&
+						(XIH_PH_ATTRB_DEST_CPU_R5_L == DestinationCpu))) {
 			/* Do Nothing*/
-		}
-		else
-		{
+		} else {
 			Status = XFSBL_SUCCESS_NOT_PARTITION_OWNER;
 			goto END;
 		}
