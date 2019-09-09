@@ -323,9 +323,9 @@ extern "C" {
 
 /* FPD WDT recovery action */
 #ifdef ENABLE_RECOVERY
-#define FPD_WDT_EM_ACTION EM_ACTION_CUSTOM
+#define SWDT_EM_ACTION EM_ACTION_CUSTOM
 #else
-#define FPD_WDT_EM_ACTION EM_ACTION_SRST
+#define SWDT_EM_ACTION EM_ACTION_SRST
 #endif
 
 #ifdef ENABLE_POS
