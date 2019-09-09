@@ -479,14 +479,10 @@ s32 XPfw_StoreFsblToDDR(void)
 		goto END;
 	}
 
-	/* Check if FSBL started */
-	do {
-		FsblStatus = XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5);
-	} while ((FsblStatus & FSBL_RUNNING_STATUS) != FSBL_RUNNING_STATUS);
+	FsblStatus = XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5);
 
 	/* Check if FSBL is running on A53 and store it to DDR */
-	if ((XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5) & FSBL_IS_RUNNING_ON_A53)
-			== FSBL_IS_RUNNING_ON_A53) {
+	if (FSBL_RUNNING_ON_A53 == (FsblStatus & FSBL_STATE_PROC_INFO_MASK)) {
 		(void)memcpy((u32 *)FSBL_STORE_ADDR, (u32 *)FSBL_LOAD_ADDR,
 				FSBL_IMAGE_SIZE);
 
