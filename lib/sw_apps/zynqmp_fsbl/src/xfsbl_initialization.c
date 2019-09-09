@@ -241,7 +241,7 @@ static u32 XFsbl_GetResetReason (void)
 		}
 		else
 		{
-			Ret = XFSBL_APU_ONLY_RESET;
+			Ret = XFSBL_MASTER_ONLY_RESET;
 			XFsbl_RestoreData();
 		}
 	}
@@ -286,20 +286,11 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 	/**
 	 * Configure the system as in PSU
 	 */
-	if(FsblInstancePtr->ResetReason !=  XFSBL_APU_ONLY_RESET){
+	if (XFSBL_MASTER_ONLY_RESET != FsblInstancePtr->ResetReason) {
 		Status = XFsbl_SystemInit(FsblInstancePtr);
 		if (XFSBL_SUCCESS != Status) {
 			goto END;
 		}
-	}
-	else
-	{
-		/* XFSBL_APU_ONLY_RESET */
-		/* APU only restart with pending interrupts can cause the linux to
-		 * hang when it starts the second time. So FSBL clears all pending interrupts
-		 * in case of APU only restart.
-		 */
-		XFsbl_ClearPendingInterrupts();
 	}
 
 	/**
@@ -320,7 +311,18 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 		goto END;
 	}
 
-	if(FsblInstancePtr->ResetReason != XFSBL_APU_ONLY_RESET) {
+	if (XFSBL_MASTER_ONLY_RESET == FsblInstancePtr->ResetReason) {
+
+		if (FsblInstancePtr->ProcessorID == XIH_PH_ATTRB_DEST_CPU_A53_0) {
+			/* APU only restart with pending interrupts can cause the linux
+			 * to hang when it starts the second time. So FSBL clears all
+			 * pending interrupts in case of APU only restart.
+			 */
+			XFsbl_ClearPendingInterrupts();
+		}
+	}
+
+	if (XFSBL_MASTER_ONLY_RESET != FsblInstancePtr->ResetReason) {
 		/* Do ECC Initialization of TCM if required */
 		Status = XFsbl_TcmInit(FsblInstancePtr);
 		if (XFSBL_SUCCESS != Status) {
@@ -354,8 +356,8 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 
 #if defined(XFSBL_PL_CLEAR) && defined(XFSBL_BS)
 		/* In case of PS only reset and APU only reset skipping PCAP initialization*/
-		if ((FsblInstancePtr->ResetReason != XFSBL_PS_ONLY_RESET)&&
-			(FsblInstancePtr->ResetReason != XFSBL_APU_ONLY_RESET)) {
+		if ((XFSBL_PS_ONLY_RESET != FsblInstancePtr->ResetReason)&&
+			(XFSBL_MASTER_ONLY_RESET != FsblInstancePtr->ResetReason)) {
 			Status = XFsbl_PcapInit();
 			if (XFSBL_SUCCESS != Status) {
 				goto END;
@@ -734,13 +736,9 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 				goto END;
 			}
 		}
-	}
-	else if(FsblInstancePtr->ResetReason == XFSBL_APU_ONLY_RESET)
-	{
+	} else if (XFSBL_MASTER_ONLY_RESET == FsblInstancePtr->ResetReason) {
 		/*Do nothing*/
-	}
-	else
-	{
+	} else {
         /**
         * PMU-fw applied AIB between ps and pl only while ps only reset.
         * Remove the isolation so as to access pl again
@@ -866,7 +864,7 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 		 * Skip watching over APU using WDT during APU only restart
 		 * as PMU will watchover APU
 		 */
-		if (FsblInstance.ResetReason != XFSBL_APU_ONLY_RESET) {
+		if (XFSBL_MASTER_ONLY_RESET != FsblInstance.ResetReason) {
 			Status = XFsbl_InitWdt();
 			if (XFSBL_SUCCESS != Status) {
 				XFsbl_Printf(DEBUG_GENERAL,"WDT initialization failed \n\r");
