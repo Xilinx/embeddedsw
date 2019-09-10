@@ -238,6 +238,12 @@ static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
 			}
 		} else if (NodeId == PM_SUBSYS_PL) {
 			 Subsystem = XPmSubsystem_GetById(NodeId);
+
+			 if(NULL == Subsystem) {
+				Status = XPM_INVALID_SUBSYSID;
+				goto done;
+			 }
+
 			 if(Subsystem->State != ONLINE) {
 				 Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
 				 if (NULL == Pld) {
@@ -256,6 +262,9 @@ static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
 					 Status = XST_FAILURE;
 					 goto done;
 				}
+			} else {
+				Status = XPM_INVALID_STATE;
+				goto done;
 			}
 		} else {
 			Status = XST_FAILURE;
