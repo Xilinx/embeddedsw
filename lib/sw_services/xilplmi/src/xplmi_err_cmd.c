@@ -124,12 +124,7 @@ static XPlmi_ModuleCmd XPlmi_ErrCmds[] =
  * @brief Contains the module ID and PLM error commands array
  *
  *****************************************************************************/
-static XPlmi_Module XPlmi_ErrModule =
-{
-	XPLMI_MODULE_ERROR_ID,
-	XPlmi_ErrCmds,
-	sizeof XPlmi_ErrCmds / sizeof *XPlmi_ErrCmds,
-};
+static XPlmi_Module XPlmi_ErrModule;
 
 /*****************************************************************************/
 /**
@@ -142,5 +137,10 @@ static XPlmi_Module XPlmi_ErrModule =
  *****************************************************************************/
 void XPlmi_ErrModuleInit(void)
 {
+
+	XPlmi_ErrModule.Id = XPLMI_MODULE_ERROR_ID;
+	XPlmi_ErrModule.CmdAry = XPlmi_ErrCmds;
+	XPlmi_ErrModule.CmdCnt = sizeof XPlmi_ErrCmds / sizeof *XPlmi_ErrCmds;
+
 	XPlmi_ModuleRegister(&XPlmi_ErrModule);
 }

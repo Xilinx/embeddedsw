@@ -753,12 +753,7 @@ static XPlmi_ModuleCmd XPlmi_GenericCmds[] =
  * @brief Contains the module ID and PLM generic commands array
  *
  *****************************************************************************/
-static XPlmi_Module XPlmi_Generic =
-{
-	XPLMI_MODULE_GENERIC_ID,
-	XPlmi_GenericCmds,
-	sizeof XPlmi_GenericCmds / sizeof *XPlmi_GenericCmds,
-};
+static XPlmi_Module XPlmi_Generic;
 
 /*****************************************************************************/
 /**
@@ -771,5 +766,10 @@ static XPlmi_Module XPlmi_Generic =
  *****************************************************************************/
 void XPlmi_GenericInit(void)
 {
+
+	XPlmi_Generic.Id = XPLMI_MODULE_GENERIC_ID;
+	XPlmi_Generic.CmdAry = XPlmi_GenericCmds;
+	XPlmi_Generic.CmdCnt = sizeof XPlmi_GenericCmds / sizeof *XPlmi_GenericCmds;
+
 	XPlmi_ModuleRegister(&XPlmi_Generic);
 }
