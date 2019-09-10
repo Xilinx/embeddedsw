@@ -2255,17 +2255,17 @@ done:
 static int XPm_SdDllReset(const u32 DeviceId, const u32 Type)
 {
 	int Status = XST_SUCCESS;
-	XPm_Device *Device = XPmDevice_GetById(PM_DEV_PMC_PROC);
+	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 	u32 BaseAddress;
 	u32 Offset;
 
-	if (NULL == Device) {
+	if (NULL == Pmc) {
 		Status = XPM_INVALID_DEVICEID;
 		goto done;
 	}
 
 	/* PMC_IOU_SLCR base address */
-	BaseAddress = Device->Node.BaseAddress;
+	BaseAddress = Pmc->PmcIouSlcrBaseAddr;
 
 	if (PM_DEV_SDIO_0 == DeviceId) {
 		Offset = SD0_CTRL_OFFSET;
@@ -2584,19 +2584,20 @@ done:
 static int XPm_OspiMuxSelect(const u32 DeviceId, const u32 Type, u32 *Response)
 {
 	int Status = XST_SUCCESS;
-	XPm_Device *Device;
+	XPm_Pmc *Pmc;
 	u32 BaseAddress;
 	u32 Offset;
 
 	(void)DeviceId;
 
-	Device = XPmDevice_GetById(PM_DEV_PMC_PROC);
-	if (NULL == Device) {
+	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+	if (NULL == Pmc) {
 		Status = XST_DEVICE_NOT_FOUND;
 		goto done;
 	}
+
 	/* PMC_IOU_SLCR base address */
-	BaseAddress = Device->Node.BaseAddress;
+	BaseAddress = Pmc->PmcIouSlcrBaseAddr;
 	Offset = XPM_OSPI_MUX_SEL_OFFSET;
 
 	switch (Type) {
