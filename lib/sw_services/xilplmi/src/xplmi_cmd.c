@@ -43,7 +43,6 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include <xil_assert.h>
 #include "xplmi_cmd.h"
 #include "xplmi_debug.h"
 #include "xplmi_modules.h"
