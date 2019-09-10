@@ -83,10 +83,10 @@ typedef struct {
 #if (XPAR_XDUALSPLITTER_NUM_INSTANCES > 0)
 	XDualSplitter DsInst;
 #endif
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	XHdcp1x Hdcp1xInst;
 #endif
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 	XTmrCtr TmrCtrInst;
 #endif
 	XDp DpInst;
@@ -103,7 +103,7 @@ static void DpTxSs_CalculateMsa(XDpTxSs *InstancePtr, u8 Stream);
 static u32 DpTxSs_CheckRxDeviceMode(XDpTxSs *InstancePtr);
 static u32 DpTxSs_SetupSubCores(XDpTxSs *InstancePtr);
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 static int DpTxSs_HdcpStartTimer(void *InstancePtr, u16 TimeoutInMs);
 static int DpTxSs_HdcpStopTimer(void *InstancePtr);
 static int DpTxSs_HdcpBusyDelay(void *InstancePtr, u16 DelayInMs);
@@ -149,10 +149,10 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 				UINTPTR EffectiveAddr)
 {
 #if (XPAR_XDUALSPLITTER_NUM_INSTANCES > 0)
-	XDualSplitter_Config DualConfig;
+	XDualSplitter_Config *DualConfig;
 #endif
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
-	XHdcp1x_Config Hdcp1xConfig;
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	XHdcp1x_Config *Hdcp1xConfig;
 #endif
 	XDp_Config DpConfig;
 	XVtc_Config VtcConfig;
@@ -217,17 +217,13 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 				"Splitter IP\n\r");
 
 		/* Calculate absolute base address of Dual Splitter sub-core */
-		InstancePtr->Config.DsSubCore.DsConfig.BaseAddress +=
-					InstancePtr->Config.BaseAddress;
-
-		(void)memcpy((void *)&(DualConfig),
-			(const void *)&CfgPtr->DsSubCore.DsConfig,
-				sizeof(XDualSplitter_Config));
+		DualConfig = XDualSplitter_LookupConfig(InstancePtr->Config.
+				DsSubCore.DsConfig.DeviceId);
+		DualConfig->BaseAddress += InstancePtr->Config.BaseAddress;
 
 		/* Dual Splitter config initialize */
-		DualConfig.BaseAddress += InstancePtr->Config.BaseAddress;
 		Status = XDualSplitter_CfgInitialize(InstancePtr->DsPtr,
-				&DualConfig, DualConfig.BaseAddress);
+				DualConfig, DualConfig->BaseAddress);
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR:: Dual "
 				"Splitter initialization failed \n\r");
@@ -235,14 +231,14 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 		}
 	}
 #endif
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 	/* Check for Timer Counter availability */
 	if (InstancePtr->TmrCtrPtr != NULL) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO: Initializing Timer "
 				"Counter IP \n\r");
 
 		/* Calculate absolute base address of Timer Counter sub-core */
-		InstancePtr->Config.TmrCtrSubCore.TmrCtrConfig.BaseAddress +=
+		InstancePtr->Config.TmrCtrSubCore.TmrCtrConfig.AbsAddr +=
 			InstancePtr->Config.BaseAddress;
 
 		/* Timer Counter config initialize */
@@ -261,26 +257,23 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 		InstancePtr->TmrCtrPtr->BaseAddress +=
 			InstancePtr->Config.BaseAddress;
 	}
-#endif /*(XPAR_DPTXSS_0_HDCP_ENABLE > 0)||(XPAR_XHDCP22_TX_NUM_INSTANCES > 0)*/
+#endif /*(XPAR_XHDCP_NUM_INSTANCES > 0)||(XPAR_XHDCP22_TX_NUM_INSTANCES > 0)*/
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	/* Check for HDCP availability */
 	if (InstancePtr->Hdcp1xPtr != NULL) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO: Initializing HDCP IP "
 				"\n\r");
 
 		/* Calculate absolute base address of HDCP sub-core */
-		InstancePtr->Config.Hdcp1xSubCore.Hdcp1xConfig.BaseAddress +=
-					InstancePtr->Config.BaseAddress;
-		(void)memcpy((void *)&(Hdcp1xConfig),
-			(const void *)&CfgPtr->Hdcp1xSubCore.Hdcp1xConfig,
-				sizeof(XHdcp1x_Config));
+		Hdcp1xConfig = XHdcp1x_LookupConfig(InstancePtr->Config.
+				Hdcp1xSubCore.Hdcp1xConfig.DeviceId);
+		Hdcp1xConfig->BaseAddress += InstancePtr->Config.BaseAddress;
 
 		/* HDCP config initialize */
-		Hdcp1xConfig.BaseAddress += InstancePtr->Config.BaseAddress;
 		Status = XHdcp1x_CfgInitialize(InstancePtr->Hdcp1xPtr,
-				&Hdcp1xConfig, (void *)InstancePtr->DpPtr,
-				Hdcp1xConfig.BaseAddress);
+				Hdcp1xConfig, (void *)InstancePtr->DpPtr,
+				Hdcp1xConfig->BaseAddress);
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR:: HDCP "
 				"initialization failed\n\r");
@@ -327,7 +320,7 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 	}
 #endif
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) && (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0) && (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 	/* HDCP is ready when both HDCP cores are instantiated and both keys
 	 * are loaded */
 	if (InstancePtr->Hdcp1xPtr &&
@@ -337,8 +330,14 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 		InstancePtr->HdcpIsReady = TRUE;
 		XDpTxSs_HdcpSetCapability(InstancePtr, XDPTXSS_HDCP_BOTH);
 		XDpTxSs_HdcpSetProtocol(InstancePtr, XDPTXSS_HDCP_1X);
+	} else if (InstancePtr->Hdcp22Ptr &&
+			InstancePtr->Hdcp22Lc128Ptr &&
+			InstancePtr->Hdcp22SrmPtr) {
+		InstancePtr->HdcpIsReady = TRUE;
+		XDpTxSs_HdcpSetCapability(InstancePtr, XDPTXSS_HDCP_22);
+		XDpTxSs_HdcpSetProtocol(InstancePtr, XDPTXSS_HDCP_22);
 	}
-#elif (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+#elif (XPAR_XHDCP_NUM_INSTANCES > 0)
 	/* HDCP is ready when only the HDCP 1.4 core is instantiated
 	 * and the key is loaded */
 	if (InstancePtr->Hdcp1xPtr) {
@@ -454,7 +453,7 @@ void XDpTxSs_Reset(XDpTxSs *InstancePtr)
 	}
 #endif
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	/* Reset HDCP interface */
 	if (InstancePtr->Hdcp1xPtr) {
 		XHdcp1x_Reset(InstancePtr->Hdcp1xPtr);
@@ -504,13 +503,15 @@ u32 XDpTxSs_Start(XDpTxSs *InstancePtr)
 		return Status;
 	}
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	/* Set physical interface (DisplayPort) down */
-	Status = XHdcp1x_SetPhysicalState(InstancePtr->Hdcp1xPtr, 0);
-	if (Status != XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: Setting PHY down "
-			"failed.\n\r");
-		return Status;
+	if (InstancePtr->Hdcp1xPtr) {
+		Status = XHdcp1x_SetPhysicalState(InstancePtr->Hdcp1xPtr, 0);
+		if (Status != XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+					"SS ERR: Setting PHY down failed.\n\r");
+			return Status;
+		}
 	}
 #endif
 	/* Start DisplayPort sub-core configuration */
@@ -525,38 +526,41 @@ u32 XDpTxSs_Start(XDpTxSs *InstancePtr)
 		return Status;
 	}
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
-	/* Set lane count in HDCP */
-	Status = XHdcp1x_SetLaneCount(InstancePtr->Hdcp1xPtr,
-		InstancePtr->DpPtr->TxInstance.LinkConfig.LaneCount);
-	if (Status != XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: Setting HDCP lane "
-			"count failed.\n\r");
-		return Status;
-	}
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	if (InstancePtr->Hdcp1xPtr) {
+		/* Set lane count in HDCP */
+		Status = XHdcp1x_SetLaneCount(InstancePtr->Hdcp1xPtr,
+				InstancePtr->DpPtr->
+				TxInstance.LinkConfig.LaneCount);
+		if (Status != XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+				"SS ERR: Setting HDCP lane count failed.\n\r");
+			return Status;
+		}
 
-	/* Enable HDCP interface */
-	Status = XHdcp1x_Enable(InstancePtr->Hdcp1xPtr);
-	if (Status != XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: Enabling HDCP failed."
-			"\n\r");
-		return Status;
-	}
+		/* Enable HDCP interface */
+		Status = XHdcp1x_Enable(InstancePtr->Hdcp1xPtr);
+		if (Status != XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+					"SS ERR: Enabling HDCP failed.\n\r");
+			return Status;
+		}
 
-	/* Set physical interface (DisplayPort) up */
-	Status = XHdcp1x_SetPhysicalState(InstancePtr->Hdcp1xPtr, 1);
-	if (Status != XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: Setting PHY up failed."
-			"\n\r");
-		return Status;
-	}
+		/* Set physical interface (DisplayPort) up */
+		Status = XHdcp1x_SetPhysicalState(InstancePtr->Hdcp1xPtr, 1);
+		if (Status != XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+					"SS ERR: Setting PHY up failed.\n\r");
+			return Status;
+		}
 
-	/* Poll the HDCP state machine */
-	Status = XHdcp1x_Poll(InstancePtr->Hdcp1xPtr);
-	if (Status != XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: failed to poll HDCP "
-			"state machine.\n\r");
-		return Status;
+		/* Poll the HDCP state machine */
+		Status = XHdcp1x_Poll(InstancePtr->Hdcp1xPtr);
+		if (Status != XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+				"SS ERR: failed to poll HDCP state machine.\n\r");
+			return Status;
+		}
 	}
 #endif
 	/* Align video mode being set in DisplayPort */
@@ -625,13 +629,15 @@ u32 XDpTxSs_StartCustomMsa(XDpTxSs *InstancePtr,
 		DpTxSs_CalculateMsa(InstancePtr, Index);
 	}
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
-	/* Set physical interface (DisplayPort) down */
-	Status = XHdcp1x_SetPhysicalState(InstancePtr->Hdcp1xPtr, 0);
-	if (Status != XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: Setting PHY down "
-			"failed.\n\r");
-		return Status;
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	if (InstancePtr->Hdcp1xPtr) {
+		/* Set physical interface (DisplayPort) down */
+		Status = XHdcp1x_SetPhysicalState(InstancePtr->Hdcp1xPtr, 0);
+		if (Status != XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+					"SS ERR: Setting PHY down failed.\n\r");
+			return Status;
+		}
 	}
 #endif
 
@@ -647,22 +653,25 @@ u32 XDpTxSs_StartCustomMsa(XDpTxSs *InstancePtr,
 		return Status;
 	}
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
-	/* Set lane count in HDCP */
-	Status = XHdcp1x_SetLaneCount(InstancePtr->Hdcp1xPtr,
-		InstancePtr->DpPtr->TxInstance.LinkConfig.LaneCount);
-	if (Status != XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: Setting HDCP lane "
-			"count failed.\n\r");
-		return Status;
-	}
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	if (InstancePtr->Hdcp1xPtr) {
+		/* Set lane count in HDCP */
+		Status = XHdcp1x_SetLaneCount(InstancePtr->Hdcp1xPtr,
+				InstancePtr->DpPtr->
+				TxInstance.LinkConfig.LaneCount);
+		if (Status != XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+				"SS ERR: Setting HDCP lane count failed.\n\r");
+			return Status;
+		}
 
-	/* Set physical interface (DisplayPort) up */
-	Status = XHdcp1x_SetPhysicalState(InstancePtr->Hdcp1xPtr, 1);
-	if (Status != XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: Setting PHY up failed."
-			"\n\r");
-		return Status;
+		/* Set physical interface (DisplayPort) up */
+		Status = XHdcp1x_SetPhysicalState(InstancePtr->Hdcp1xPtr, 1);
+		if (Status != XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+					"SS ERR: Setting PHY up failed.\n\r");
+			return Status;
+		}
 	}
 #endif
 
@@ -706,7 +715,7 @@ void XDpTxSs_Stop(XDpTxSs *InstancePtr)
 	}
 #endif
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	if (InstancePtr->Hdcp1xPtr) {
 		/* Disable HDCP */
 		XHdcp1x_Disable(InstancePtr->Hdcp1xPtr);
@@ -1258,7 +1267,7 @@ void XDpTxSs_SetHasRedriverInPath(XDpTxSs *InstancePtr, u8 Set)
 	XDp_TxSetHasRedriverInPath(InstancePtr->DpPtr, Set);
 }
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 /*****************************************************************************/
 /**
 *
@@ -1282,18 +1291,20 @@ u32 XDpTxSs_HdcpEnable(XDpTxSs *InstancePtr)
 
 	/* Verify arguments.*/
 	Xil_AssertNonvoid(InstancePtr);
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
-	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable);
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	if (InstancePtr->Hdcp1xPtr)
+		Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable);
 #endif
 #if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
-	Xil_AssertNonvoid(InstancePtr->Config.Hdcp22Enable);
+	if (InstancePtr->Hdcp22Ptr)
+		Xil_AssertNonvoid(InstancePtr->Config.Hdcp22Enable);
 #endif
 
 	switch (InstancePtr->HdcpProtocol) {
 
 		/* Disable HDCP 1.4 and HDCP 2.2 */
 		case XDPTXSS_HDCP_NONE :
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 			if (InstancePtr->Hdcp1xPtr) {
 				Status1 = XHdcp1x_Disable(
 						InstancePtr->Hdcp1xPtr);
@@ -1313,7 +1324,7 @@ u32 XDpTxSs_HdcpEnable(XDpTxSs *InstancePtr)
 
 			/* Enable HDCP 1.4 and disable HDCP 2.2 */
 		case XDPTXSS_HDCP_1X :
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 			if (InstancePtr->Hdcp1xPtr) {
 				Status1 = XHdcp1x_Enable(
 						InstancePtr->Hdcp1xPtr);
@@ -1339,7 +1350,7 @@ u32 XDpTxSs_HdcpEnable(XDpTxSs *InstancePtr)
 
 			/* Enable HDCP 2.2 and disable HDCP 1.4 */
 		case XDPTXSS_HDCP_22 :
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 			if (InstancePtr->Hdcp1xPtr) {
 				Status1 = XHdcp1x_Disable(
 						InstancePtr->Hdcp1xPtr);
@@ -1399,7 +1410,7 @@ u32 XDpTxSs_HdcpDisable(XDpTxSs *InstancePtr)
 }
 #endif
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 /*****************************************************************************/
 /**
 *
@@ -1458,7 +1469,7 @@ u32 XDpTxSs_IsHdcpCapable(XDpTxSs *InstancePtr)
 }
 #endif
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 /*****************************************************************************/
 /**
 *
@@ -1481,11 +1492,13 @@ u32 XDpTxSs_Authenticate(XDpTxSs *InstancePtr)
 
 	/* Verify arguments.*/
 	Xil_AssertNonvoid(InstancePtr);
-#if (XPAR_DPTXSS_0_HDCP_ENABLE)
-	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable);
+#if (XPAR_XHDCP_NUM_INSTANCES)
+	if (InstancePtr->Hdcp1xPtr)
+		Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable);
 #endif
 #if (XPAR_XHDCP22_TX_NUM_INSTANCES)
-	Xil_AssertNonvoid(InstancePtr->Config.Hdcp22Enable);
+	if (InstancePtr->Hdcp22Ptr)
+		Xil_AssertNonvoid(InstancePtr->Config.Hdcp22Enable);
 #endif
 	/* Always disable encryption */
 	Status = XDpTxSs_DisableEncryption(InstancePtr, 0x01);
@@ -1530,7 +1543,7 @@ u32 XDpTxSs_Authenticate(XDpTxSs *InstancePtr)
 	}
 #endif
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	/*Authenticate HDCP1x*/
 	if ((InstancePtr->Hdcp1xPtr) && (Status == XST_FAILURE) &&
 			(InstancePtr->HdcpCapability == XDPTXSS_HDCP_1X ||
@@ -1579,14 +1592,16 @@ u32 XDpTxSs_IsAuthenticated(XDpTxSs *InstancePtr)
 
 	/* Verify arguments.*/
 	Xil_AssertNonvoid(InstancePtr);
-#if (XPAR_DPTXSS_0_HDCP_ENABLE)
-	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable);
+#if (XPAR_XHDCP_NUM_INSTANCES)
+	if (InstancePtr->Hdcp1xPtr)
+		Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable);
 #endif
 #if (XPAR_XHDCP22_TX_NUM_INSTANCES)
-	Xil_AssertNonvoid(InstancePtr->Config.Hdcp22Enable);
+	if (InstancePtr->Hdcp22Ptr)
+		Xil_AssertNonvoid(InstancePtr->Config.Hdcp22Enable);
 #endif
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE)
+#if (XPAR_XHDCP_NUM_INSTANCES)
 	if (InstancePtr->Hdcp1xPtr &&
 			(InstancePtr->HdcpProtocol == XDPTXSS_HDCP_1X)) {
 		/* Check authentication has completed successfully */
@@ -1626,14 +1641,16 @@ u32 XDpTxSs_EnableEncryption(XDpTxSs *InstancePtr, u64 StreamMap)
 
 	/* Verify arguments.*/
 	Xil_AssertNonvoid(InstancePtr);
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
-	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable);
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	if (InstancePtr->Hdcp1xPtr)
+		Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable);
 #endif
 #if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
-	Xil_AssertNonvoid(InstancePtr->Config.Hdcp22Enable);
+	if (InstancePtr->Hdcp22Ptr)
+		Xil_AssertNonvoid(InstancePtr->Config.Hdcp22Enable);
 #endif
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	if (InstancePtr->Hdcp1xPtr) {
 		/* Enable encryption on stream(s) */
 		Status = XHdcp1x_EnableEncryption(InstancePtr->Hdcp1xPtr,
@@ -1676,14 +1693,16 @@ u32 XDpTxSs_DisableEncryption(XDpTxSs *InstancePtr, u64 StreamMap)
 
 	/* Verify arguments.*/
 	Xil_AssertNonvoid(InstancePtr);
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
-	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable);
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	if (InstancePtr->Hdcp1xPtr)
+		Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable);
 #endif
 #if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
-	Xil_AssertNonvoid(InstancePtr->Config.Hdcp22Enable);
+	if (InstancePtr->Hdcp22Ptr)
+		Xil_AssertNonvoid(InstancePtr->Config.Hdcp22Enable);
 #endif
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	if (InstancePtr->Hdcp1xPtr) {
 		/* Disable encryption on stream(s) */
 		Status = XHdcp1x_DisableEncryption(InstancePtr->Hdcp1xPtr,
@@ -1703,7 +1722,7 @@ u32 XDpTxSs_DisableEncryption(XDpTxSs *InstancePtr, u64 StreamMap)
 }
 #endif
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 /*****************************************************************************/
 /**
 *
@@ -2128,23 +2147,28 @@ static void DpTxSs_GetIncludedSubCores(XDpTxSs *InstancePtr)
 		(&DpTxSsSubCores[InstancePtr->Config.DeviceId].DsInst) : NULL);
 #endif
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	/* Assign instance of HDCP core */
 	InstancePtr->Hdcp1xPtr =
 		((InstancePtr->Config.Hdcp1xSubCore.IsPresent) ?
 	(&DpTxSsSubCores[InstancePtr->Config.DeviceId].Hdcp1xInst) : NULL);
 #endif
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 	/* Assign instance of Timer Counter core */
 	InstancePtr->TmrCtrPtr =
 		((InstancePtr->Config.TmrCtrSubCore.IsPresent) ?
 		 (&DpTxSsSubCores[InstancePtr->Config.DeviceId].TmrCtrInst)
 		 : NULL);
 #endif
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
-	/* Set Timer Counter instance in HDCP that will be used in callbacks */
-	InstancePtr->Hdcp1xPtr->Hdcp1xRef = (void *)InstancePtr->TmrCtrPtr;
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	if (InstancePtr->Hdcp1xPtr)
+		/*
+		 * Set Timer Counter instance in HDCP
+		 * that will be used in callbacks
+		 */
+		InstancePtr->Hdcp1xPtr->Hdcp1xRef =
+			(void *)InstancePtr->TmrCtrPtr;
 #endif
 
 	/* Assign instance of DisplayPort core */
@@ -2420,7 +2444,7 @@ static u32 DpTxSs_SetupSubCores(XDpTxSs *InstancePtr)
 	return XST_SUCCESS;
 }
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 /*****************************************************************************/
 /**
 *
@@ -2443,7 +2467,7 @@ int XDpTxSs_HdcpReset(XDpTxSs *InstancePtr)
 
 	int Status = XST_SUCCESS;
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	/* HDCP 1.4 */
 	/* Resetting HDCP 1.4 causes the state machine to be enabled, therefore
 	 * disable must be called immediately after reset is called */
