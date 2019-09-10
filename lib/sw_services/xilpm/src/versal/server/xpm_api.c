@@ -908,6 +908,9 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 			}
 			/* Disable the direct wake in case of force power down */
 			DISABLE_WAKE(Core->SleepMask);
+		} else {
+			Status = XST_FAILURE;
+			goto done;
 		}
 
 		Reqm = Core->Device.Requirements;
@@ -2323,6 +2326,11 @@ static int XPm_SetSdTapDelay(const u32 DeviceId, const u32 Type,
 		goto done;
 	}
 
+	/*Check for Type */
+	if (XPM_TAPDELAY_INPUT != Type && XPM_TAPDELAY_OUTPUT != Type) {
+		Status = XPM_INVALID_TYPEID;
+		goto done;
+	}
 	/* SD0/1 base address */
 	BaseAddress = Device->Node.BaseAddress;
 
@@ -2349,7 +2357,8 @@ static int XPm_SetSdTapDelay(const u32 DeviceId, const u32 Type,
 			Value);
 		break;
 	default:
-		Status = XPM_INVALID_TYPEID;
+		/*No action taken because we check for type earlier in the function
+		 * but present as part of defensive programming in case we reach here */
 		break;
 	}
 
