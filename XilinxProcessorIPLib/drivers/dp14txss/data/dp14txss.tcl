@@ -43,15 +43,17 @@ proc generate {drv_handle} {
 # parameters.
 proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 	set args [::hsi::utils::get_exact_arg_list $args]
-	set brace 0
-	array set sub_core_params {}
 
+	set brace 0
+
+	array set sub_core_params {}
 	set sub_core_params(displayport) "BASEADDR S_AXI_ACLK LANE_COUNT LINK_RATE MAX_BITS_PER_COLOR QUAD_PIXEL_ENABLE DUAL_PIXEL_ENABLE YCRCB_ENABLE YONLY_ENABLE GT_DATAWIDTH SECONDARY_SUPPORT AUDIO_CHANNELS MST_ENABLE NUMBER_OF_MST_STREAMS PROTOCOL_SELECTION FLOW_DIRECTION"
 	set sub_core_params(v_tc) "BASEADDR"
-	set sub_core_params(v_dual_splitter) "BASEADDR ACTIVE_COLS ACTIVE_ROWS MAX_SEGMENTS AXIS_VIDEO_MAX_TDATA_WIDTH AXIS_VIDEO_MAX_ITDATASMPLS_PER_CLK AXIS_VIDEO_MAX_OTDATASMPLS_PER_CLK MAX_OVRLAP MAX_SMPL_WIDTH HAS_AXI4_LITE HAS_IRQ"
-	set sub_core_params(hdcp) "BASEADDR S_AXI_FREQUENCY IS_RX IS_HDMI"
-	set sub_core_params(axi_timer) "BASEADDR CLOCK_FREQ_HZ"
+	set sub_core_params(v_dual_splitter) "BASEADDR"
+	set sub_core_params(hdcp) "BASEADDR"
+	set sub_core_params(axi_timer) "BASEADDR"
 	set sub_core_params(hdcp22_tx_dp) "BASEADDR"
+	set total_subcores [array size sub_core_params]
 
 	set filename [file join "src" $file_name]
 	set config_file [open $filename w]
@@ -64,11 +66,23 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 
 	set periphs_g [::hsi::utils::get_common_driver_ips $drv_handle]
 
+	array set sub_core_inst {
+		displayport 1
+		v_tc 1
+		v_dual_splitter 1
+		hdcp 1
+		axi_timer 1
+		hdcp22_tx_dp 1
+	}
+
 	foreach periph_g $periphs_g {
 		::hsi::current_hw_instance $periph_g;
 
-		set child_cells_g [::hsi::get_cells -hier]
+		set child_cells_g [::hsi::get_cells]
 
+		puts $config_file "\n/*"
+		puts $config_file "* List of Sub-cores included from the subsystem"
+		puts $config_file "*/"
 		foreach child_cell_g $child_cells_g {
 			set child_cell_vlnv [::common::get_property VLNV $child_cell_g]
 			set vlnv_arr [split $child_cell_vlnv :]
@@ -91,6 +105,40 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 				}
 				if { $is_slave != 0 } {
 					puts -nonewline $config_file "#define [string toupper $final_child_cell_instance_name_present_g]\t1\n"
+
+					# create dictionary for ip name and it's instance names "ip_name {inst1_name inst2_name}"
+					dict lappend ss_ip_list $ip_name $child_cell_name_g
+				}
+			}
+		}
+
+		puts $config_file "\n/*"
+		puts $config_file "* List of Sub-cores excluded from the subsystem"
+		puts $config_file "*/"
+
+		foreach sub_core [lsort [array names sub_core_inst]] {
+			if {[dict exists $ss_ip_list $sub_core]} {
+				set max_instances $sub_core_inst($sub_core)
+				#check if core can have multiple instances
+				#It is possible that not all instances are used in the design
+				if {$max_instances > 1} {
+					set ip_instances [dict get $ss_ip_list $sub_core]
+					set avail_instances [llength $ip_instances]
+
+					#check if available instances are less than MAX
+					#if yes, mark the missing instance
+					#if all instances are present then skip the core
+					if {$avail_instances < $max_instances} {
+						set final_child_cell_instance_name_g "XPAR_${periph_g}_${strval}_PRESENT"
+						puts -nonewline $config_file "#define [string toupper $final_child_cell_instance_name_g] 0\n"
+					}
+				}
+			} else {
+				set count 0
+				while {$count<$sub_core_inst($sub_core)} {
+					set final_child_cell_instance_name_g "XPAR_${periph_g}_${sub_core}_${count}_PRESENT"
+					puts -nonewline $config_file "#define [string toupper $final_child_cell_instance_name_g] 0\n"
+					incr count
 				}
 			}
 		}
@@ -116,22 +164,22 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 		}
 
 		::hsi::current_hw_instance $periph
-		set child_cells [::hsi::get_cells -hier]
+		set child_cells_g [::hsi::get_cells]
 		puts $config_file ",\n"
 
-		foreach child_cell $child_cells {
-			set child_cell_vlnv [::common::get_property VLNV $child_cell]
+		#This is to get the dictionary of included subcores.
+		set ss_ip_list [dict create]
+		foreach child_cell_g $child_cells_g {
+			set child_cell_vlnv [::common::get_property VLNV $child_cell_g]
+			set child_cell_name_g [common::get_property NAME $child_cell_g]
 			set vlnv_arr [split $child_cell_vlnv :]
 
 			lassign $vlnv_arr ip_vendor ip_library ip_name ip_version
 
-			set ip_type [common::get_property IP_TYPE $child_cell]
-			set child_cell_name [common::get_property NAME $child_cell]
-			set final_child_cell_instance_name XPAR_${child_cell_name}_DEVICE_ID
-			set final_child_cell_instance_name_present XPAR_${child_cell_name}_PRESENT
+			set ip_type_g [common::get_property IP_TYPE $child_cell_g]
 
-			if { [string compare -nocase "BUS" $ip_type] != 0 } {
-				set interfaces [hsi::get_intf_pins -of_objects $child_cell]
+			if {[string compare -nocase "BUS" $ip_type_g] != 0} {
+				set interfaces [hsi::get_intf_pins -of_objects $child_cell_g]
 				set is_slave 0
 				foreach interface $interfaces {
 					set intf_type [common::get_property TYPE $interface]
@@ -139,64 +187,95 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 						set is_slave 1
 					}
 				}
-
-				if { $is_slave != 0 } {
-					if {$ip_name == "v_tc"} {
-						if {$brace == 1} {
-							puts $config_file "\t\t\t\},"
-						}
-
-						if { $brace == 0 } {
-							puts $config_file "\t\t\{"
-							incr brace
-						}
-
-						puts $config_file "\t\t\t\{"
-						puts -nonewline $config_file [format "\t\t\t\t%s" [string toupper $final_child_cell_instance_name_present]]
-						puts $config_file ","
-						puts $config_file "\t\t\t\t\{"
-						puts -nonewline $config_file [format "\t\t\t\t\t%s" [string toupper $final_child_cell_instance_name]]
-
-						set params_str $sub_core_params($ip_name)
-						set params_arr [split $params_str " " ]
-
-						foreach param $params_arr {
-								set final_child_cell_param_name XPAR_${child_cell_name}_$param
-								puts $config_file ","
-								puts -nonewline $config_file [format "\t\t\t\t\t%s" [string toupper $final_child_cell_param_name]]
-						}
-
-						puts $config_file "\n\t\t\t\t\}"
-					} elseif {($ip_name ne "hdcp22_cipher_dp") && ($ip_name ne "hdcp22_rng")} {
-						set comma ",\n"
-						puts $config_file "\t\t\{"
-						puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_name_present]]
-						puts $config_file ","
-						puts $config_file "\t\t\t\{"
-						puts -nonewline $config_file [format "\t\t\t\t%s" [string toupper $final_child_cell_instance_name]]
-
-						set params_str $sub_core_params($ip_name)
-						set params_arr [split $params_str " " ]
-
-						foreach param $params_arr {
-							set final_child_cell_param_name XPAR_${child_cell_name}_$param
-							puts $config_file ","
-							puts -nonewline $config_file [format "\t\t\t\t%s" [string toupper $final_child_cell_param_name]]
-						}
-						puts $config_file "\n\t\t\t\}"
-						puts $config_file "\t\t\},"
-					}
+				if {$is_slave != 0} {
+					# create dictionary for ip name and it's instance names "ip_name {inst1_name inst2_name}"
+					dict lappend ss_ip_list $ip_name $child_cell_name_g
 				}
 			}
 		}
 
-		if {$brace == 1} {
-			puts $config_file "\t\t\t\}"
-			puts $config_file "\t\t\}"
-			set brace 0
+		#Check for each subcore if it is included or excluded
+		foreach sub_core [lsort [array names sub_core_inst]] {
+			set max_instances $sub_core_inst($sub_core)
+
+			if {[dict exists $ss_ip_list $sub_core]} {
+				#subcore include
+				set ip_instances [dict get $ss_ip_list $sub_core]
+				set ip_inst_name [lindex $ip_instances 0]
+				set final_child_cell_instance_name_present "XPAR_${ip_inst_name}_PRESENT"
+				set final_child_cell_instance_name "XPAR_${ip_inst_name}_DEVICE_ID"
+
+				if {$sub_core == "v_tc"} {
+					puts $config_file "\t\t\{"
+					puts $config_file "\t\t\t\{"
+					puts -nonewline $config_file [format "\t\t\t\t%s" [string toupper $final_child_cell_instance_name_present]]
+					puts $config_file ","
+					puts $config_file "\t\t\t\t\{"
+					puts -nonewline $config_file [format "\t\t\t\t\t%s" [string toupper $final_child_cell_instance_name]]
+
+					set params_str $sub_core_params($sub_core)
+					set params_arr [split $params_str " " ]
+
+					foreach param $params_arr {
+							set final_child_cell_param_name XPAR_${ip_inst_name}_$param
+							puts $config_file ","
+							puts -nonewline $config_file [format "\t\t\t\t\t%s" [string toupper $final_child_cell_param_name]]
+					}
+
+					puts $config_file "\n\t\t\t\t\}"
+					puts $config_file "\t\t\t\}"
+					puts $config_file "\t\t\}"
+
+				} else {
+					set comma ",\n"
+					puts $config_file "\t\t\{"
+					puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_name_present]]
+					puts $config_file ","
+					puts $config_file "\t\t\t\{"
+					puts -nonewline $config_file [format "\t\t\t\t%s" [string toupper $final_child_cell_instance_name]]
+
+					set params_str $sub_core_params($sub_core)
+					set params_arr [split $params_str " " ]
+
+					foreach param $params_arr {
+						set final_child_cell_param_name XPAR_${ip_inst_name}_$param
+						puts $config_file ","
+						puts -nonewline $config_file [format "\t\t\t\t%s" [string toupper $final_child_cell_param_name]]
+					}
+					puts $config_file "\n\t\t\t\}"
+					if { $brace < $total_subcores - 1 } {
+						puts $config_file "\t\t\},"
+						incr brace
+					} else {
+						puts $config_file "\t\t\}"
+					}
+				}
+			} else {
+				#subcore excluded
+				set count 0
+				set comma ",\n"
+				while {$count<$max_instances} {
+					set final_child_cell_instance_name_present "XPAR_${periph}_${sub_core}_${count}_PRESENT"
+					puts $config_file "\t\t\{"
+					puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_name_present]]
+					puts $config_file ","
+					puts $config_file "\t\t\t\{"
+					puts -nonewline $config_file "\t\t\t\t0"
+					puts $config_file "\n\t\t\t\}"
+					if { $brace < $total_subcores - 1 } {
+						puts $config_file "\t\t\},"
+						incr brace
+					} else {
+						puts $config_file "\t\t\}"
+					}
+					incr count
+				}
+			}
 		}
 
 		::hsi::current_hw_instance
+
+		set brace 0
 
 		puts -nonewline $config_file "\t\}"
 		set start_comma ",\n"
