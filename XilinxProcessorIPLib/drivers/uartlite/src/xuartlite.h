@@ -139,6 +139,7 @@
 *                     for CR-965028.
 *       ms   03/17/17 Added readme.txt file in examples folder for doxygen
 *                     generation.
+* 3.3   sne 09/09/19  Updated driver tcl file for supporting pl and ps ip's.
 *
 * </pre>
 *
