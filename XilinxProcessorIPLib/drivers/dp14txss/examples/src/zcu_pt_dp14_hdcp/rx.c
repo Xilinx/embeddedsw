@@ -243,6 +243,10 @@ u32 DpRxSs_SetupIntrSystem(void)
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_HDCP_AUTHENTICATED,
 							&Dprx_HdcpAuthCallback, &DpRxSsInst);
 #endif
+#if (XPAR_DPRXSS_0_HDCP22_ENABLE > 0)
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_HDCP22_AUTHENTICATED,
+							&Dprx_HdcpAuthCallback, &DpRxSsInst);
+#endif
 
 	/* Set custom timer wait */
 	XDpRxSs_SetUserTimerHandler(&DpRxSsInst, &CustomWaitUs, &TmrCtr);
