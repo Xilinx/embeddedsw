@@ -36,7 +36,7 @@ extern "C" {
 #define FUNC_NAME_SIZE		(16)		/* Function name string size */
 #define MAX_GROUPS_PER_RES	(6)		/* Max No. of groups per query response */
 #define INVALID_FUNC_ID 	(0xFFFFU)
-#define END_OF_GRP		(0xFFFFU)	/* -1 */
+#define END_OF_GRP		(0xFFU)		/* -1 */
 #define RESERVED_GRP		(0xFFFEU)	/* -2 */
 
 typedef struct XPm_PinFunc XPm_PinFunc;
