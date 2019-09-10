@@ -129,7 +129,7 @@ extern void microblaze_init_dcache_range (s32 , s32 )  __attribute__((deprecated
                                                               "andi\t%0,%0,0x10" : "=d" (error))
 
 /* Pseudo assembler instructions */
-#define clz(v)          ({  u32 _rval;         \
+#define clz(v)          ({  u32 _rval = 0U;         \
                             __asm__ __volatile__ (      \
                                 "clz\t%0,%1\n" : "=d"(_rval): "d" (v) \
                             );                          \
@@ -140,14 +140,14 @@ extern void microblaze_init_dcache_range (s32 , s32 )  __attribute__((deprecated
 #define mb_sleep()     	({  __asm__ __volatile__ ("sleep\t"); })
 #define mb_hibernate() 	({  __asm__ __volatile__ ("hibernate\t"); })
 #define mb_suspend()   	({  __asm__ __volatile__ ("suspend\t"); })
-#define mb_swapb(v)		({	u32 _rval;         \
+#define mb_swapb(v)		({	u32 _rval = 0U;         \
 							__asm__ __volatile__ (      \
 								"swapb\t%0,%1\n" : "=d"(_rval) : "d" (v) \
 							 );                          \
 							 _rval;                      \
 						})
 
-#define mb_swaph(v)		({	u32 _rval;         \
+#define mb_swaph(v)		({	u32 _rval = 0U;         \
 							__asm__ __volatile__ (      \
 								"swaph\t%0,%1\n" : "=d"(_rval) : "d" (v) \
 							 );                          \
@@ -164,7 +164,7 @@ extern void microblaze_init_dcache_range (s32 , s32 )  __attribute__((deprecated
  Return value from the general purpose register (GPR) rn.
  @param rn     General purpose register to be read.
 */
-#define mfgpr(rn)       ({  UINTPTR _rval;         \
+#define mfgpr(rn)       ({  UINTPTR _rval = 0U;         \
                             __asm__ __volatile__ (      \
                                 "or\t%0,r0," stringify(rn) "\n" : "=d"(_rval) \
                             );                          \
@@ -175,7 +175,7 @@ extern void microblaze_init_dcache_range (s32 , s32 )  __attribute__((deprecated
  Return the current value of the MSR.
  @param  None
 */
-#define mfmsr()         ({  UINTPTR _rval;         \
+#define mfmsr()         ({  UINTPTR _rval = 0U;         \
                             __asm__ __volatile__ (      \
                                 "mfs\t%0,rmsr\n" : "=d"(_rval) \
                             );                          \
@@ -186,14 +186,14 @@ extern void microblaze_init_dcache_range (s32 , s32 )  __attribute__((deprecated
  Return the current value of the Exception Address Register (EAR).
  @param  None
 */
-#define mfear()         ({  UINTPTR _rval;         \
+#define mfear()         ({  UINTPTR _rval = 0U;         \
                             __asm__ __volatile__ (      \
                                 "mfs\t%0,rear\n" : "=d"(_rval) \
                             );                          \
                             _rval;                      \
                         })
 
-#define mfeare()        ({  UINTPTR _rval; \
+#define mfeare()        ({  UINTPTR _rval = 0U; \
                             __asm__ __volatile__ ( \
                                 "mfse\t%0,rear\n" : "=d"(_rval) \
                             ); \
@@ -203,7 +203,7 @@ extern void microblaze_init_dcache_range (s32 , s32 )  __attribute__((deprecated
  Return the current value of the Exception Status Register (ESR).
  @param  None
 */
-#define mfesr()         ({  UINTPTR _rval;         \
+#define mfesr()         ({  UINTPTR _rval = 0U;         \
                             __asm__ __volatile__ (      \
                                 "mfs\t%0,resr\n" : "=d"(_rval) \
                             );                          \
@@ -214,84 +214,84 @@ extern void microblaze_init_dcache_range (s32 , s32 )  __attribute__((deprecated
  Return the current value of the Floating Point Status (FPS).
  @param  None
 */
-#define mffsr()         ({  UINTPTR _rval;         \
+#define mffsr()         ({  UINTPTR _rval = 0U;         \
                             __asm__ __volatile__ (      \
                                 "mfs\t%0,rfsr\n" : "=d"(_rval) \
                             );                          \
                             _rval;                      \
                         })
 /*@}*/
-#define mfpvr(rn)       ({  UINTPTR _rval;         \
+#define mfpvr(rn)       ({  UINTPTR _rval = 0U;         \
                             __asm__ __volatile__ (                          \
                                 "mfs\t%0,rpvr" stringify(rn) "\n" : "=d"(_rval) \
                             );                                              \
                             _rval;                                          \
                         })
 
-#define mfpvre(rn)      ({  UINTPTR _rval; \
+#define mfpvre(rn)      ({  UINTPTR _rval = 0U; \
                             __asm__ __volatile__ ( \
                                 "mfse\t%0,rpvr" stringify(rn) "\n" : "=d"(_rval) \
                             ); \
                             _rval; \
                           })
 
-#define mfbtr()         ({  UINTPTR _rval;         \
+#define mfbtr()         ({  UINTPTR _rval = 0U;         \
                             __asm__ __volatile__ (      \
                                 "mfs\t%0,rbtr\n" : "=d"(_rval)  \
                             );                                  \
                             _rval;                              \
                         })
 
-#define mfedr()         ({  UINTPTR _rval;         \
+#define mfedr()         ({  UINTPTR _rval = 0U;         \
                             __asm__ __volatile__ (      \
                                 "mfs\t%0,redr\n" : "=d"(_rval)  \
                             );                                  \
                             _rval;                              \
                         })
 
-#define mfpid()         ({  UINTPTR _rval;         \
+#define mfpid()         ({  UINTPTR _rval = 0U;         \
                             __asm__ __volatile__ (            \
                                 "mfs\t%0,rpid\n" : "=d"(_rval)\
                             );                                \
                             _rval;                            \
                         })
 
-#define mfzpr()         ({  UINTPTR _rval;         \
+#define mfzpr()         ({  UINTPTR _rval = 0U;         \
                             __asm__ __volatile__ (                  \
                                 "mfs\t%0,rzpr\n" : "=d"(_rval)      \
                             );                                      \
                             _rval;                                  \
                         })
 
-#define mftlbx()        ({  UINTPTR _rval;         \
+#define mftlbx()        ({  UINTPTR _rval = 0U;         \
                             __asm__ __volatile__ (                  \
                                 "mfs\t%0,rtlbx\n" : "=d"(_rval)     \
                             );                                      \
                             _rval;                                  \
                         })
 
-#define mftlblo()       ({  UINTPTR _rval;                     \
+#define mftlblo()       ({  UINTPTR _rval = 0U;                     \
                             __asm__ __volatile__ (                  \
                                 "mfs\t%0,rtlblo\n" : "=d"(_rval)    \
                             );                                      \
                             _rval;                                  \
                         })
 
-#define mftlbhi()       ({  UINTPTR _rval;         \
+#define mftlbhi()       ({  UINTPTR _rval = 0U;         \
                             __asm__ __volatile__ (                  \
                                 "mfs\t%0,rtlbhi\n" : "=d"(_rval)    \
                             );                                      \
                             _rval;                                  \
                         })
 
-#define mfslr()         ({  UINTPTR _rval;         \
+#define mfslr()         ({  UINTPTR _rval = 0U;         \
                             __asm__ __volatile__ (                  \
                                 "mfs\t%0,rslr\n" : "=d"(_rval)    \
                             );                                      \
                             _rval;                                  \
                         })
 
-#define mfshr()         ({  UINTPTR _rval;         \
+#define mfshr()         ({  UINTPTR _rval = 0U;         \
                             __asm__ __volatile__ (                  \
                                 "mfs\t%0,rshr\n" : "=d"(_rval)    \
                             );                                      \
@@ -354,14 +354,14 @@ extern void microblaze_init_dcache_range (s32 , s32 )  __attribute__((deprecated
                             );                                      \
                         })
 
-#define lwx(address)	({  u32 _rval; \
+#define lwx(address)	({  u32 _rval = 0U; \
                               __asm__ __volatile__ ( \
                              "lwx\t%0,%1,r0\n" : "=d"(_rval) : "d" (address) \
                               ); \
                               _rval; \
                           })
 
-#define lwr(address)	({  u32 _rval; \
+#define lwr(address)	({  u32 _rval = 0U; \
                               __asm__ __volatile__ ( \
                              "lwr\t%0,%1,r0\n" : "=d"(_rval) : "d" (address) \
                               ); \
@@ -369,35 +369,35 @@ extern void microblaze_init_dcache_range (s32 , s32 )  __attribute__((deprecated
                           })
 
 
-#define lwea(lladdr)	({  u32 _rval; \
+#define lwea(lladdr)	({  u32 _rval = 0U; \
                               __asm__ __volatile__ ( \
                              "lwea\t%0,%M1,%L1\n" : "=d"(_rval) : "d" (lladdr) \
                               ); \
                               _rval; \
                           })
 
-#define lhur(address)	({  u32 _rval; \
+#define lhur(address)	({  u32 _rval = 0U; \
                               __asm__ __volatile__ ( \
                              "lhur\t%0,%1,r0\n" : "=d"(_rval) : "d" (address) \
                               ); \
                               _rval; \
                           })
 
-#define lhuea(lladdr)	({  u32 _rval; \
+#define lhuea(lladdr)	({  u32 _rval = 0U; \
                               __asm__ __volatile__ ( \
                              "lhuea\t%0,%M1,%L1\n" : "=d"(_rval) : "d" (lladdr) \
                               ); \
                               _rval; \
                           })
 
-#define lbur(address)	({  u32 _rval; \
+#define lbur(address)	({  u32 _rval = 0U; \
                               __asm__ __volatile__ ( \
                              "lbur\t%0,%1,r0\n" : "=d"(_rval) : "d" (address) \
                               ); \
                               _rval; \
                           })
 
-#define lbuea(lladdr)	({  u32 _rval; \
+#define lbuea(lladdr)	({  u32 _rval = 0U; \
                               __asm__ __volatile__ ( \
                              "lbuea\t%0,%M1,%L1\n" : "=d"(_rval) : "d" (lladdr) \
                               ); \
