@@ -104,7 +104,7 @@ void XDpRxSs_DpIntrHandler(void *InstancePtr)
 	XDp_InterruptHandler(XDpRxSsPtr->DpPtr);
 }
 
-#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 /*****************************************************************************/
 /**
 *
@@ -163,7 +163,7 @@ void XDpRxSs_Hdcp22LicFailHandler(void *InstancePtr)
 }
 #endif
 
-#if (((XPAR_DPRXSS_0_HDCP_ENABLE > 0) || \
+#if (((XPAR_XHDCP_NUM_INSTANCES > 0) || \
 	(XPAR_XHDCP22_RX_NUM_INSTANCES > 0)) \
 		&& (XPAR_XTMRCTR_NUM_INSTANCES > 0))
 /*****************************************************************************/
@@ -502,7 +502,7 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 			Status = XST_SUCCESS;
 			break;
 
-#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 		case XDPRXSS_HANDLER_HDCP_RPTR_TDSA_EVENT:
 			XHdcp1x_SetCallBack(InstancePtr->Hdcp1xPtr,
 				XHDCP1X_RPTR_HDLR_TRIG_DOWNSTREAM_AUTH,
