@@ -126,7 +126,7 @@ int XPlmi_IpiDispatchHandler(void *Data)
 {
 	int Status = XST_FAILURE;
 	u32 SrcCpuMask;
-	u32 Payload[XPLMI_IPI_MAX_MSG_LEN];
+	u32 Payload[XPLMI_IPI_MAX_MSG_LEN] = {0U};
 	u32 MaskIndex;
 	XPlmi_Cmd Cmd;
 
