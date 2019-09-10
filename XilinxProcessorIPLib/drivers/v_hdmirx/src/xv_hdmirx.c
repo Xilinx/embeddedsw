@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2016 - 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -1544,9 +1544,16 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
         Match = FALSE;
     }
 
-    if ((IsInterlaced == 1) & (!F1VFrontPorch | !F1VSyncWidth | !F1VBackPorch | !F1VTotal)) {
-        Match = FALSE;
-    }
+	if (IsInterlaced == 1) {
+		if (F1VTotal != (VActive + F1VFrontPorch +
+				F1VSyncWidth + F1VBackPorch)) {
+			Match = FALSE;
+		}
+	} else {
+		if (F1VFrontPorch | F1VSyncWidth | F1VBackPorch) {
+			Match = FALSE;
+		}
+	}
 
     // Htotal
     if (HTotal != InstancePtr->Stream.Video.Timing.HTotal) {
