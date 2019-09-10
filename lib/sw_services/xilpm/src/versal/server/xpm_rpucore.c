@@ -183,10 +183,19 @@ void XPm_RpuGetOperMode(const u32 DeviceId, u32 *Mode)
 void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 {
 	u32 Val;
-	XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
 	int Status;
 	XPm_Subsystem *DefSubsystem = XPmSubsystem_GetById(PM_SUBSYS_DEFAULT);
 
+	if (NULL == DefSubsystem) {
+		PmErr("Unable to get Subsystem for Id:0x%x\n\r", PM_SUBSYS_DEFAULT);
+		return;
+	}
+	XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
+
+	if (NULL == RpuCore)  {
+		PmErr("Unable to get RPU Core for Id: 0x%x\n\r", DeviceId);
+		return;
+	}
 	PmIn32(RpuCore->RpuBaseAddr + RPU_GLBL_CNTL_OFFSET, Val);
 	if (Mode == XPM_RPU_MODE_SPLIT) {
 		Val |= XPM_RPU_SLSPLIT_MASK;
