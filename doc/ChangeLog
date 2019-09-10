@@ -88,6 +88,7 @@ Initialized DeviceID in XSpiPs_CfgInitialize function.
 
 uartlite_v3_3:
 Updated driver tcl to export proper baseaddress for pmc_ppu1_mdm IP.
+Updated driver tcl file to support PS and PL ip's.
 
 usbpsu_v1_6:
 Fix coverity warnings.
