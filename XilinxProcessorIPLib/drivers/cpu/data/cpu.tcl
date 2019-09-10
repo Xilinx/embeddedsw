@@ -114,6 +114,7 @@ proc generate {drv_handle} {
             set xilinx_edk_gnu [array get env XILINX_EDK_GNU]
             set xilinx_sdk [array get env XILINX_SDK]
             set xilinx_vitis [array get env XILINX_VITIS]
+            set xilinx_approot [array get env HDI_APPROOT]
 
 			set gnu_osdir $osname
 			if {[string first "win64" $osname] != -1  || [string first "win" $osname] != -1 } {
@@ -121,14 +122,12 @@ proc generate {drv_handle} {
 			} elseif {[string first "lnx64" $osname] != -1   || [string first "lnx" $osname] != -1 } {
 				set gnu_osdir "lin"
 			}
-            if { $xilinx_vitis == "" && $xilinx_sdk == "" } {
+            if { $xilinx_approot != "" } {
                 append compiler_root $env(HDI_APPROOT) "/gnu/microblaze/" $gnu_osdir
-            } else {
-                if { $xilinx_sdk == "" } {
+            } elseif { $xilinx_vitis != "" } {
                     append compiler_root $env(XILINX_VITIS) "/gnu/microblaze/" $gnu_osdir
-                } else {
+            } elseif { $xilinx_sdk != "" } {
                     append compiler_root $env(XILINX_SDK) "/gnu/microblaze/" $gnu_osdir
-                }
             }
         } else {
             set compiler_root [file dirname $temp]
@@ -265,15 +264,14 @@ proc generate {drv_handle} {
    }
 
    if { ![file exists $libxil_path] } {
-	if { $xilinx_vitis == "" && $xilinx_sdk == "" } {
+	if { $xilinx_approot != "" } {
 		set libxil_path [file join $env(HDI_APPROOT) "data/embeddedsw/lib/microblaze/" $libxil]
-	} else {
-		if { $xilinx_sdk == "" } {
-			set libxil_path [file join $env(XILINX_VITIS) "data/embeddedsw/lib/microblaze/" $libxil]
-		} else {
-			set libxil_path [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/" $libxil]
-		}
+	} elseif { $xilinx_vitis != "" } {
+		set libxil_path [file join $env(XILINX_VITIS) "data/embeddedsw/lib/microblaze/" $libxil]
+	} elseif  { $xilinx_sdk != "" } {
+		set libxil_path [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/" $libxil]
 	}
+
    }
 
     file copy -force $libxil_path $targetdir
@@ -298,25 +296,21 @@ proc generate {drv_handle} {
         set xmdstub_periph_handle [xget_hwhandle $xmdstub_periph]
         set targetdir "../../code"
         set filename "xmdstub.s"
-	if { $xilinx_vitis == "" && $xilinx_sdk == "" } {
+	if { $xilinx_approot != "" } {
 		file copy -force [file join $env(HDI_APPROOT) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
-	} else {
-		if { $xilinx_sdk == "" } {
-			file copy -force [file join $env(XILINX_VITIS) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
-		} else {
-			file copy -force [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
-		}
+	} elseif { $xilinx_vitis != "" } {
+		file copy -force [file join $env(XILINX_VITIS) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
+	} elseif { $xilinx_sdk != "" } {
+		file copy -force [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
 	}
             file mtime [file join $targetdir $filename] [clock seconds]
         set filename "make.xmdstub"
-	if { $xilinx_vitis == "" && $xilinx_sdk == "" } {
+	if {$xilinx_approot != "" } {
 		file copy -force [file join $env(HDI_APPROOT) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
-	} else {
-		if { $xilinx_sdk == "" } {
-			file copy -force [file join $env(XILINX_VITIS) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
-		} else {
+	} elseif { $xilinx_vitis == "" } {
+		file copy -force [file join $env(XILINX_VITIS) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
+	} elseif { $xilinx_sdk == "" } {
 			file copy -force [file join $env(XILINX_SDK) "data/embeddedsw/lib/microblaze/src" $filename] $targetdir
-		}
 	}
             file mtime [file join $targetdir $filename] [clock seconds]
         set xmd_addr_file [open "../../code/xmdstubaddr.s" w]
