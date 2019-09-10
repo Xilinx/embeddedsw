@@ -99,7 +99,7 @@ u32 XDpRxSs_SelfTest(XDpRxSs *InstancePtr)
 		}
 	}
 
-#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	if ((InstancePtr->Hdcp1xPtr) && (InstancePtr->Config.HdcpEnable)) {
 		Status = XHdcp1x_SelfTest(InstancePtr->Hdcp1xPtr);
 		if (Status != XST_SUCCESS) {
@@ -110,7 +110,7 @@ u32 XDpRxSs_SelfTest(XDpRxSs *InstancePtr)
 	}
 #endif
 
-#if (((XPAR_DPRXSS_0_HDCP_ENABLE > 0) || \
+#if (((XPAR_XHDCP_NUM_INSTANCES > 0) || \
 	(XPAR_XHDCP22_RX_NUM_INSTANCES > 0)) \
 		&& (XPAR_XTMRCTR_NUM_INSTANCES > 0))
 	if (InstancePtr->TmrCtrPtr) {
