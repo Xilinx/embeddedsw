@@ -92,9 +92,9 @@ enum XPmSuspendReason {
 
 /* PM API callback ids */
 enum XPmApiCbId {
-	XPM_INIT_SUSPEND_CB		= (30U),
-	XPM_ACKNOWLEDGE_CB		= (31U),
-	XPM_NOTIFY_CB			= (32U),
+	PM_INIT_SUSPEND_CB		= (30U),
+	PM_ACKNOWLEDGE_CB		= (31U),
+	PM_NOTIFY_CB			= (32U),
 };
 
 /**

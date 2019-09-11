@@ -769,7 +769,7 @@ XStatus XPm_RequestSuspend(const u32 SubsystemId, const u32 TargetSubsystemId,
 	/* TODO: Check if other subsystem has sent suspend request to target subsystem */
 	/* Failure in this case should return XPM_PM_DOUBLE_REQ */
 
-	Payload[0] = XPM_INIT_SUSPEND_CB;
+	Payload[0] = PM_INIT_SUSPEND_CB;
 	Payload[1] = SUSPEND_REASON_SUBSYSTEM_REQ;
 	Payload[2] = Latency;
 	Payload[3] = State;
@@ -778,7 +778,7 @@ XStatus XPm_RequestSuspend(const u32 SubsystemId, const u32 TargetSubsystemId,
 
 	/* Send the suspend request via callback */
 	if (PmRequestCb) {
-		(*PmRequestCb)(IpiMask, XPM_INIT_SUSPEND_CB, Payload);
+		(*PmRequestCb)(IpiMask, PM_INIT_SUSPEND_CB, Payload);
 	}
 
 done:
