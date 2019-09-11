@@ -1,29 +1,14 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+/**
+ * @file xpm_defs.h
+ *
+ * @addtogroup xpm_versal_apis XilPM Versal APIs
+ * @{
+ *****************************************************************************/
 #ifndef XPM_DEFS_H_
 #define XPM_DEFS_H_
 
@@ -37,12 +22,12 @@ extern "C" {
  * Version number is a 32bit value, like:
  * (PM_VERSION_MAJOR << 16) | PM_VERSION_MINOR
  */
-#define PM_VERSION_MAJOR    1U
-#define PM_VERSION_MINOR    0U
+#define PM_VERSION_MAJOR    1UL
+#define PM_VERSION_MINOR    0UL
 #define PM_VERSION      ((PM_VERSION_MAJOR << 16) | PM_VERSION_MINOR)
 
 /**
- *  PM Abort Reasons Enum
+ *  PM abort reasons enumeration.
  */
 enum XPmAbortReason {
 	ABORT_REASON_WKUP_EVENT = 100,
@@ -52,7 +37,7 @@ enum XPmAbortReason {
 };
 
 /**
- *  @name Boot Status Enum
+ * Boot status enumeration.
  */
 enum XPmBootStatus {
 	PM_INITIAL_BOOT, /**< boot is a fresh system startup */
@@ -61,7 +46,7 @@ enum XPmBootStatus {
 };
 
 /**
- *  @name Device Capability Requirements Enum
+ *  Device capability requirements enumeration.
  */
 enum XPmCapability {
 	PM_CAP_ACCESS = 0x1U, /**< Full access */
@@ -85,20 +70,20 @@ enum XPmResetActions {
 
 /* Suspend reasons */
 enum XPmSuspendReason {
-	SUSPEND_REASON_SUBSYSTEM_REQ 	= (201U),
+	SUSPEND_REASON_PU_REQ		= (201U),
 	SUSPEND_REASON_ALERT		= (202U),
 	SUSPEND_REASON_SYS_SHUTDOWN	= (203U),
 };
 
 /* PM API callback ids */
 enum XPmApiCbId {
-	XPM_INIT_SUSPEND_CB		= (30U),
-	XPM_ACKNOWLEDGE_CB		= (31U),
-	XPM_NOTIFY_CB			= (32U),
+	PM_INIT_SUSPEND_CB		= (30U),
+	PM_ACKNOWLEDGE_CB		= (31U),
+	PM_NOTIFY_CB			= (32U),
 };
 
 /**
- * XPm_DeviceStatus - struct containing device status information
+ * Contains the device status information.
  */
 typedef struct XPm_DeviceStatus {
 	u32 Status; /**< Device power state */
@@ -107,7 +92,7 @@ typedef struct XPm_DeviceStatus {
 } XPm_DeviceStatus;
 
 /* Requirement limits */
-#define XPM_MAX_CAPABILITY	(PM_CAP_ACCESS | PM_CAP_CONTEXT | PM_CAP_WAKEUP)
+#define XPM_MAX_CAPABILITY	((u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT | (u32)PM_CAP_WAKEUP)
 #define XPM_MAX_LATENCY		(0xFFFFU)
 #define XPM_MAX_QOS			(100)
 #define XPM_MIN_CAPABILITY	(0)
@@ -142,6 +127,65 @@ enum pm_query_id {
 	XPM_QID_PINCTRL_GET_PIN_GROUPS,
 	XPM_QID_CLOCK_GET_NUM_CLOCKS,
 	XPM_QID_CLOCK_GET_MAX_DIVISOR,
+};
+
+enum PmPinFunIds {
+	PIN_FUNC_SPI0,
+	PIN_FUNC_SPI0_SS,
+	PIN_FUNC_SPI1,
+	PIN_FUNC_SPI1_SS,
+	PIN_FUNC_CAN0,
+	PIN_FUNC_CAN1,
+	PIN_FUNC_I2C0,
+	PIN_FUNC_I2C1,
+	PIN_FUNC_I2C_PMC,
+	PIN_FUNC_TTC0_CLK,
+	PIN_FUNC_TTC0_WAV,
+	PIN_FUNC_TTC1_CLK,
+	PIN_FUNC_TTC1_WAV,
+	PIN_FUNC_TTC2_CLK,
+	PIN_FUNC_TTC2_WAV,
+	PIN_FUNC_TTC3_CLK,
+	PIN_FUNC_TTC3_WAV,
+	PIN_FUNC_WWDT0,
+	PIN_FUNC_WWDT1,
+	PIN_FUNC_SYSMON_I2C0,
+	PIN_FUNC_SYSMON_I2C0_ALERT,
+	PIN_FUNC_UART0,
+	PIN_FUNC_UART0_CTRL,
+	PIN_FUNC_UART1,
+	PIN_FUNC_UART1_CTRL,
+	PIN_FUNC_GPIO0,
+	PIN_FUNC_GPIO1,
+	PIN_FUNC_GPIO2,
+	PIN_FUNC_EMIO0,
+	PIN_FUNC_GEM0,
+	PIN_FUNC_GEM1,
+	PIN_FUNC_TRACE0,
+	PIN_FUNC_TRACE0_CLK,
+	PIN_FUNC_MDIO0,
+	PIN_FUNC_MDIO1,
+	PIN_FUNC_GEM_TSU0,
+	PIN_FUNC_PCIE0,
+	PIN_FUNC_SMAP0,
+	PIN_FUNC_USB0,
+	PIN_FUNC_SD0,
+	PIN_FUNC_SD0_PC,
+	PIN_FUNC_SD0_CD,
+	PIN_FUNC_SD0_WP,
+	PIN_FUNC_SD1,
+	PIN_FUNC_SD1_PC,
+	PIN_FUNC_SD1_CD,
+	PIN_FUNC_SD1_WP,
+	PIN_FUNC_OSPI0,
+	PIN_FUNC_OSPI0_SS,
+	PIN_FUNC_QSPI0,
+	PIN_FUNC_QSPI0_FBCLK,
+	PIN_FUNC_QSPI0_SS,
+	PIN_FUNC_TEST_CLK,
+	PIN_FUNC_TEST_SCAN,
+	PIN_FUNC_TAMPER_TRIGGER,
+	MAX_FUNCTION,
 };
 
 enum pm_pinctrl_config_param {
@@ -216,6 +260,8 @@ enum pm_ioctl_id {
 	IOCTL_PROBE_COUNTER_WRITE,
 	/* Ospi mux select */
 	IOCTL_OSPI_MUX_SELECT,
+	/* USB PMU state req */
+	IOCTL_USB_SET_STATE,
 };
 
 /* PLL parameters */
@@ -257,7 +303,7 @@ enum XPmInitFunctions {
 };
 
 /**
- *  PM Operating Characteristic types Enum
+ *  PM operating characteristic types enumeration.
  */
 enum XPmOpCharType {
 	PM_OPCHAR_TYPE_POWER = 1,
@@ -266,7 +312,7 @@ enum XPmOpCharType {
 };
 
 /**
- *  PM Notify Events Enum
+ *  PM notify events enumeration.
  */
 enum XPmNotifyEvent {
         EVENT_STATE_CHANGE = 1,
@@ -332,6 +378,8 @@ enum XPmNotifyEvent {
 
 /* PM API versions */
 #define XST_API_BASE_VERSION		(1U)
+
+#define XST_API_QUERY_DATA_VERSION	(2U)
 
 /* PM API ids */
 #define PM_GET_API_VERSION              1U
@@ -420,3 +468,4 @@ enum XPmNotifyEvent {
 #endif
 
 #endif /* XPM_DEFS_H_ */
+ /** @} */
