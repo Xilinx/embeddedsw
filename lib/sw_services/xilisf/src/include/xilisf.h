@@ -535,6 +535,7 @@
  *      sk   02/28/19 Used 3B Sector erase and write commands for QSPI Micron
  *                    flashes.
  * 5.14 akm  08/01/19 Initialized Status variable to XST_FAILURE.
+ * 5.14	akm  09/09/19 Added message regarding deprecation of Xilisf.
  *
  *
  * </pre>

@@ -39,6 +39,7 @@
 # 5.4   sk   08/07/15 Updated to support QSPIPSU interface.
 #                     Updated to support SPIPS interface in ZynqMP.
 # 5.13	sk   02/11/19 Added OSPI interface support.
+# 5.14  akm  09/09/19 Added message regarding deprecation of Xilisf.
 #
 ##############################################################################
 
@@ -109,6 +110,7 @@ proc isf_spi_hw_drc {libhandle spi} {
 
 proc generate {libhandle} {
 
+	puts "WARNING: Xilisf library is being deprecated from 2020.1 release. It will be made obsolete in 2021.1 release."
 }
 
 
