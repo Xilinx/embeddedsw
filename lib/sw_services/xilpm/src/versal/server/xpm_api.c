@@ -770,7 +770,7 @@ XStatus XPm_RequestSuspend(const u32 SubsystemId, const u32 TargetSubsystemId,
 	/* Failure in this case should return XPM_PM_DOUBLE_REQ */
 
 	Payload[0] = PM_INIT_SUSPEND_CB;
-	Payload[1] = SUSPEND_REASON_SUBSYSTEM_REQ;
+	Payload[1] = SUSPEND_REASON_PU_REQ;
 	Payload[2] = Latency;
 	Payload[3] = State;
 	/* Payload[4] is for timeout which is not considered */
