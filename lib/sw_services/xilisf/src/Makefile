@@ -63,6 +63,8 @@ libxilisf.a: print_msg_xilisf $(XILISF_OBJS)
 
 print_msg_xilisf:
 	@echo "Compiling XilIsf Library"
+	@echo ""; echo "WARNING: Xilisf library is being deprecated from 2020.1 release. It will be made obsolete in 2021.1 release."
+	@echo "please use driver examples instead."; echo ""
 
 .PHONY: include
 include: libxilisf_includes
