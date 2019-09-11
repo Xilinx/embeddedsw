@@ -150,7 +150,7 @@ XStatus XPm_RequestSuspend(const u32 TargetSubsystemId, const u32 Ack,
 XStatus XPm_AbortSuspend(const enum XPmAbortReason Reason);
 XStatus XPm_ForcePowerDown(const u32 TargetDevId, const u32 Ack);
 XStatus XPm_SystemShutdown(const u32 Type, const u32 SubType);
-XStatus XPm_SetWakeupSource(const u32 TargetDeviceId,
+XStatus XPm_SetWakeUpSource(const u32 TargetDeviceId,
 			    const u32 DeviceId, const u32 Enable);
 XStatus XPm_Query(const u32 QueryId, const u32 Arg1, const u32 Arg2,
 		  const u32 Arg3, u32 *const Data);
