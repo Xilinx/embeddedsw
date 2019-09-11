@@ -7,6 +7,7 @@
 #include "xpm_api.h"
 #include "xpm_ipi.h"
 #include "xpm_notifier.h"
+#include "xpm_power.h"
 #include "xplmi_err.h"
 
 #define XPM_NOTIFIERS_COUNT	10U
@@ -83,7 +84,7 @@ int XPmNotifier_Register(const XPm_Subsystem* const Subsystem,
 	/*
 	 * Check if Node Class is EVENT and enable error action.
 	 */
-	if (XPM_NODECLASS_EVENT == NODECLASS(NodeId)) {
+	if ((u32)XPM_NODECLASS_EVENT == NODECLASS(NodeId)) {
 		Status = XPlmi_EmSetAction(NodeId, Event, XPLMI_EM_ACTION_CUSTOM,
 				XPmNotifier_Event);
 	}
@@ -124,7 +125,7 @@ void XPmNotifier_Unregister(const XPm_Subsystem* const Subsystem,
 			/*
 			 * Check if Node Class is EVENT and disable error action.
 			 */
-			if (XPM_NODECLASS_EVENT == NODECLASS(NodeId)) {
+			if ((u32)XPM_NODECLASS_EVENT == NODECLASS(NodeId)) {
 				(void)XPlmi_EmDisable(NodeId, Event);
 			}
 			break;
@@ -169,6 +170,7 @@ void XPmNotifier_Event(const u32 NodeId, const u32 Event)
 	XPmNotifier* Notifier = NULL;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 	XPm_Device* Device;
+	XPm_Power *Power;
 	int Status = XST_FAILURE;
 
 	for (Idx = 0U; Idx < ARRAY_SIZE(PmNotifiers); Idx++) {
@@ -180,55 +182,62 @@ void XPmNotifier_Event(const u32 NodeId, const u32 Event)
 		 * NodeId is matching, check for event
 		 * Event 0 is valid for Node Class EVENT.
 		 */
-		if ((XPM_NODECLASS_EVENT != NODECLASS(NodeId)) &&
+		if (((u32)XPM_NODECLASS_EVENT != NODECLASS(NodeId)) &&
 			(0U == (Event & PmNotifiers[Idx].EventMask))) {
 			continue;
 		}
 
 		Notifier = &PmNotifiers[Idx];
-		break;
-	}
 
-	if ((NULL == Notifier) || (NULL == PmRequestCb)) {
-		goto done;
-	}
-
-	/* Populate the PayLoad */
-	Payload[0] = (u32)PM_NOTIFY_CB;
-	Payload[1] = Notifier->NodeId;
-	Payload[2] = Event;
-
-	switch (NODECLASS(NodeId)) {
-	case (u32)XPM_NODECLASS_EVENT:
-		/* Disable the error event. Agent will re-register for
-		 * notification if needed */
-		(void)XPlmi_EmDisable(NodeId, Event);
-		Payload[3] = 0U;
-		Status = XST_SUCCESS;
-		break;
-	case (u32)XPM_NODECLASS_DEVICE:
-		Device = XPmDevice_GetById(NodeId);
-		if (NULL == Device) {
+		if (NULL == PmRequestCb) {
 			goto done;
 		}
-		Payload[3] = Device->Node.State;
-		Status = XST_SUCCESS;
-		break;
-	default:
-		PmErr("Unsupported Node Class: %d\r\n", NODECLASS(NodeId));
-		break;
-	}
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
 
-	/*
-	 * If subsystem is OFFLINE then it should be notified about
-	 * the event only if it requested to be woken up.
-	 */
-	if (((u8)OFFLINE != Notifier->Subsystem->State) ||
-	    (0U != (Event & Notifier->WakeMask))) {
-		(*PmRequestCb)(Notifier->IpiMask, PM_NOTIFY_CB, Payload);
+		/* Populate the PayLoad */
+		Payload[0] = (u32)PM_NOTIFY_CB;
+		Payload[1] = Notifier->NodeId;
+		Payload[2] = Event;
+
+		switch (NODECLASS(NodeId)) {
+		case (u32)XPM_NODECLASS_EVENT:
+			/* Disable the error event. Agent will re-register for
+			 * notification if needed */
+			(void)XPlmi_EmDisable(NodeId, Event);
+			Payload[3] = 0U;
+			Status = XST_SUCCESS;
+			break;
+		case (u32)XPM_NODECLASS_DEVICE:
+			Device = XPmDevice_GetById(NodeId);
+			if (NULL == Device) {
+				goto done;
+			}
+			Payload[3] = Device->Node.State;
+			Status = XST_SUCCESS;
+			break;
+		case (u32)XPM_NODECLASS_POWER:
+			Power = XPmPower_GetById(NodeId);
+			if (NULL == Power) {
+				goto done;
+			}
+			Payload[3] = Power->Node.State;
+			Status = XST_SUCCESS;
+			break;
+		default:
+			PmErr("Unsupported Node Class: %d\r\n", NODECLASS(NodeId));
+			break;
+		}
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		/*
+		 * If subsystem is OFFLINE then it should be notified about
+		 * the event only if it requested to be woken up.
+		 */
+		if (((u8)OFFLINE != Notifier->Subsystem->State) ||
+		    (0U != (Event & Notifier->WakeMask))) {
+			(*PmRequestCb)(Notifier->IpiMask, PM_NOTIFY_CB, Payload);
+		}
 	}
 
  done:
