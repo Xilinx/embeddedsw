@@ -195,10 +195,10 @@ void XPmNotifier_Event(const XPm_Device* const Device, const u32 Event)
 	 */
 	if ((OFFLINE != Notifier->Subsystem->State) ||
 	    (0U != (Event & Notifier->WakeMask))) {
-		Payload[0] = XPM_NOTIFY_CB;
+		Payload[0] = PM_NOTIFY_CB;
 		Payload[1] = Notifier->Device->Node.Id;
 		Payload[2] = Event;
 		Payload[3] = Notifier->Device->Node.State;
-		(*PmRequestCb)(Notifier->IpiMask, XPM_NOTIFY_CB, Payload);
+		(*PmRequestCb)(Notifier->IpiMask, PM_NOTIFY_CB, Payload);
 	}
 }
