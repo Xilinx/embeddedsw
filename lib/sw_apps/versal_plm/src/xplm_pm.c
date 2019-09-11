@@ -62,7 +62,7 @@ void XPlm_PmRequestCb(const u32 IpiMask, const u32 EventId, u32 *Payload)
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
 	XStatus Status;
 
-	if ((XPM_INIT_SUSPEND_CB == EventId) || (XPM_NOTIFY_CB == EventId)) {
+	if ((PM_INIT_SUSPEND_CB == EventId) || (PM_NOTIFY_CB == EventId)) {
 		Status = XPlmi_IpiWrite(IpiMask, Payload, XPLMI_CMD_RESP_SIZE, XIPIPSU_BUF_TYPE_MSG);
 		if (XST_SUCCESS != Status) {
 			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s Error in IPI write: %d\r\n", __func__, Status);
