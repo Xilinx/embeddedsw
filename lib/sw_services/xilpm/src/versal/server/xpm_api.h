@@ -104,7 +104,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId,
 XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type,
                              const u32 SubType);
 
-XStatus XPm_SetWakeupSource(const u32 SubsystemId,
+XStatus XPm_SetWakeUpSource(const u32 SubsystemId,
 			    const u32 TargetNodeId,
 			    const u32 SourceNodeId,
 			    const u32 Enable);

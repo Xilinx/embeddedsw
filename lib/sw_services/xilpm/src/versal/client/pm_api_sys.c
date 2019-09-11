@@ -1565,7 +1565,7 @@ done:
  * @note   None
  *
  ****************************************************************************/
-XStatus XPm_SetWakeupSource(const u32 TargetDeviceId, const u32 DeviceID,
+XStatus XPm_SetWakeUpSource(const u32 TargetDeviceId, const u32 DeviceID,
 			    const u32 Enable)
 {
 	XStatus Status;

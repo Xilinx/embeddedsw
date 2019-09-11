@@ -134,7 +134,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			Status = XPm_AbortSuspend(SubsystemId, Pload[0], Pload[1]);
 			break;
 		case PM_SET_WAKEUP_SOURCE:
-			Status = XPm_SetWakeupSource(SubsystemId, Pload[0], Pload[1], Pload[2]);
+			Status = XPm_SetWakeUpSource(SubsystemId, Pload[0], Pload[1], Pload[2]);
 			break;
 		case PM_CLOCK_SETPARENT:
 			Status = XPm_SetClockParent(SubsystemId, Pload[0], Pload[1]);
@@ -1114,7 +1114,7 @@ done:
  * the request has been received.
  *
  ****************************************************************************/
-XStatus XPm_SetWakeupSource(const u32 SubsystemId, const u32 TargetNodeId,
+XStatus XPm_SetWakeUpSource(const u32 SubsystemId, const u32 TargetNodeId,
 			    const u32 SourceNodeId, const u32 Enable)
 {
 	int Status = XST_SUCCESS;
