@@ -156,14 +156,17 @@ static int FlashReadID(XQspiPsu *QspiPsuPtr)
 		QspiFlashSize = FLASH_SIZE_256M;
 		XLoader_Printf(DEBUG_INFO, "256M Bits\r\n");
 	} else if ((ReadBuffer[2] == FLASH_SIZE_ID_512M)
-			|| (ReadBuffer[2] == MACRONIX_FLASH_SIZE_ID_512M)) {
+			|| (ReadBuffer[2] == MACRONIX_FLASH_SIZE_ID_512M)
+			|| (ReadBuffer[2] == MACRONIX_FALSH_1_8_V_SIZE_ID_512M)){
 		QspiFlashSize = FLASH_SIZE_512M;
 		XLoader_Printf(DEBUG_INFO, "512M Bits\r\n");
 	} else if ((ReadBuffer[2] == FLASH_SIZE_ID_1G)
-			|| (ReadBuffer[2] == MACRONIX_FLASH_SIZE_ID_1G)) {
+			|| (ReadBuffer[2] == MACRONIX_FLASH_SIZE_ID_1G)
+			|| (ReadBuffer[2] == MACRONIX_FALSH_1_8_V_SIZE_ID_1G)){
 		QspiFlashSize = FLASH_SIZE_1G;
 		XLoader_Printf(DEBUG_INFO, "1G Bits\r\n");
-	} else if ((ReadBuffer[2] == FLASH_SIZE_ID_2G)) {
+	} else if ((ReadBuffer[2] == FLASH_SIZE_ID_2G)
+			|| (ReadBuffer[2] == MACRONIX_FALSH_1_8_V_SIZE_ID_2G)){
 		QspiFlashSize = FLASH_SIZE_2G;
 		XLoader_Printf(DEBUG_INFO, "2G Bits\r\n");
 	}else {
