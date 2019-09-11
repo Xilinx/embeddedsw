@@ -113,6 +113,10 @@ Fixed coverity warnings.
 xxvethernet_v1_3:
 In tcl fix bsp generation error for axis_rx_0 external port design.
 
+xilisf_v5_14:
+Initialized Status variable to XST_FAILURE.
+Added message regarding deprecation of Xilisf.
+
 xilffs_v4_2:
 Initialize Status variables with failure values
 
