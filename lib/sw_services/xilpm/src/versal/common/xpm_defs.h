@@ -85,7 +85,7 @@ enum XPmResetActions {
 
 /* Suspend reasons */
 enum XPmSuspendReason {
-	SUSPEND_REASON_SUBSYSTEM_REQ 	= (201U),
+	SUSPEND_REASON_PU_REQ		= (201U),
 	SUSPEND_REASON_ALERT		= (202U),
 	SUSPEND_REASON_SYS_SHUTDOWN	= (203U),
 };
