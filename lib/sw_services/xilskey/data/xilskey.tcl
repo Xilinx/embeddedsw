@@ -91,7 +91,7 @@ proc xgen_opts_file {libhandle} {
 	if {$proc_type == "microblaze"} {
 		puts $file_handle "\n#define XPAR_XSK_MICROBLAZE_PLATFORM 1"
 		set mb_type [common::get_property CONFIG.C_FAMILY $hw_proc_handle]
-		if {$mb_type == "kintexuplus" || $mb_type == "virtexuplus"} {
+		if {$mb_type == "kintexuplus" || $mb_type == "virtexuplus" || $mb_type == "zynquplus"} {
 			puts $file_handle "\n#define XPAR_XSK_MICROBLAZE_ULTRA_PLUS 1"
 		}
 		if {$mb_type == "kintexu" || $mb_type == "virtexu"} {

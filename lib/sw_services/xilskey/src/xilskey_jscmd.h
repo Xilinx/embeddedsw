@@ -81,6 +81,9 @@ u32 GpioDeviceId;
 #define FUSE_CTS_SLRX		0x30
 #define FUSE_KEY_SLRX		0x31
 
+/* zu+ pl_idcode instruction */
+#define ZUPLUS_PL_IDCODE 	0x25U
+
 /*
  * Pre and post pads
  */
