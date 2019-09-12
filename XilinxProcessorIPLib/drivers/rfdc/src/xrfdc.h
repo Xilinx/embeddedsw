@@ -246,6 +246,7 @@
 *                       XRFdc_S/GetDACCompMode().
 *       cog    09/01/19 Rename XRFdc_S/GetDigitalStepAttenuator() APIs to XRFdc_S/GetDSA().
 *                       Also, add new XRFdc_DSA_Settings structure.
+*       cog    09/12/19 Swapped MIXER_TYPE_OFF and MIXER_TYPE_DISABLED macros.
 *
 * </pre>
 *
@@ -785,8 +786,8 @@ typedef struct {
 #define XRFDC_MIXER_TYPE_COARSE 0x1U
 #define XRFDC_MIXER_TYPE_FINE 0x2U
 
-#define XRFDC_MIXER_TYPE_OFF 0x3U
-#define XRFDC_MIXER_TYPE_DISABLED 0x0U
+#define XRFDC_MIXER_TYPE_OFF 0x0U
+#define XRFDC_MIXER_TYPE_DISABLED 0x3U
 
 #define XRFDC_COARSE_MIX_OFF 0x0U
 #define XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO 0x2U
