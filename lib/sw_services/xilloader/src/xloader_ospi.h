@@ -68,10 +68,12 @@ extern "C" {
 #define READ_ID					(0x9FU)
 #define MICRON_INDEX_START			(0x0U)
 #define WRITE_DISABLE_CMD			(0x4U)
-#define WRITE_ENABLE_CMD			(0x6U)
-#define ENTER_4B_ADDR_MODE      0xB7
-#define EXIT_4B_ADDR_MODE       0xE9
-#define READ_FLAG_STATUS_CMD	0X70
+#define OSPI_WRITE_ENABLE_CMD		(0x6U)
+#define ENTER_4B_ADDR_MODE      	(0xB7U)
+#define EXIT_4B_ADDR_MODE       	(0xE9U)
+#define READ_FLAG_STATUS_CMD		(0x70U)
+#define WRITE_CONFIG_REG			(0x81U)
+#define READ_CONFIG_REG				(0x85U)
 /*
  * Identification of Flash
  * Micron:
@@ -80,9 +82,9 @@ extern "C" {
  * Byte 2 is second byte of Device ID describes flash size:
  * 512Mbit : 0x1A
  */
-#define	MICRON_OCTAL_ID_BYTE0	0x2C
-#define MICRON_OCTAL_ID_BYTE2_512	0x1A
-
+#define	MICRON_OCTAL_ID_BYTE0		(0x2CU)
+#define MICRON_OCTAL_ID_BYTE2_512	(0x1AU)
+#define MICRON_OCTAL_ID_BYTE2_2G	(0x1CU)
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
