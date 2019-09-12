@@ -132,7 +132,7 @@ void dummy_printf(const char *ctrl1, ...);
 #define VIRTEX108_ULTRA_MB_DAP_ID 0x03842093	/**< VIRTEX 108 Ultrascale microblaze TAP id */
 #define VIRTEX_ULTRAPLUS_DAP_ID	0x04b31093		/**< VIRTEX Ultrascale plus microblaze TAP id */
 #define VIRTEX_ULTRAPLUS_VC13P_DAP_ID 0x04B51093  /**< XCVU13P VIRTEX Ultrascale Plus microblaze TAP id */
-
+#define ZYNQ_ULTRAPLUS_PL_DAP_ID	0x0484A093	/**< Zynq Ultrascale plus TAP ID */
 #define set_last_error(JS, ...) js_set_last_error(&(JS)->js.base, __VA_ARGS__)
 
 typedef struct js_port_impl_struct js_port_impl_t;
@@ -149,6 +149,7 @@ extern XSKEfusePl_Fpga PlFpgaFlag;
 #ifndef XSK_ARM_PLATFORM
 static inline int JtagValidateMioPins_Efuse_Ultra(void);
 static inline int JtagValidateMioPins_Bbram_Ultra(void);
+static inline u32 JtagGetZuPlusPlIdcode(void);
 #endif
 void dummy_printf(const char *ctrl1, ...)
 {
@@ -223,6 +224,7 @@ const id_codes_t IDcodeArray [] = {
   {.flag=XSK_FPGA_SERIES_ULTRA_PLUS, .id = KINTEX_ULTRAPLUS_DAP_ID, 		.irLen =  6, .numSlr = 1},  /**< Kintex Ultrascale plus microblaze TAP ID */
   {.flag=XSK_FPGA_SERIES_ULTRA_PLUS, .id = VIRTEX_ULTRAPLUS_DAP_ID, 		.irLen = 18, .numSlr = 3},  /**< VCU140 VIRTEX Ultrascale Plus microblaze TAP id */
   {.flag=XSK_FPGA_SERIES_ULTRA_PLUS, .id = VIRTEX_ULTRAPLUS_VC13P_DAP_ID, 	.irLen = 24, .numSlr = 4},  /**< XCVU13P VIRTEX Ultrascale Plus microblaze TAP id */
+  {.flag=XSK_FPGA_SERIES_ULTRA_PLUS, .id = ZYNQ_ULTRAPLUS_PL_DAP_ID,		.irLen = 6,  .numSlr = 1},  /**< Zynq Ultrascale plus TAP ID */
   {.flag=XSK_USER_DEVICE_SERIES,     .id = XSK_USER_DEVICE_ID,     .irLen = XSK_USER_DEVICE_IRLEN, .numSlr = XSK_USER_DEVICE_NUMSLR}   /**< USER_ENTRY */
 };
 
@@ -1401,7 +1403,17 @@ int JtagServerInit(XilSKey_EPl *InstancePtr)
     }
     js_printf("\n");
 
-	//Check if one of the tap code is for Zynq DAP ID: 4ba00477
+#ifndef XSK_ARM_PLATFORM
+
+	/* This may be a ZU+ device, attempt to get the PL IDCODE */
+	if ((num_taps == 1U) && (tap_codes[0] == 0x000000FFU)) {
+		js_printf("\r\n*** Searching for ZU+ PL IDCODE ***\r\n");
+		tap_codes[0] = JtagGetZuPlusPlIdcode();
+	}
+
+#endif
+
+    //Check if one of the tap code is for Zynq DAP ID: 4ba00477
     //and mask out most significant nibble which represents Production Version
 
   for (i = 0; i < num_taps; i++) {
@@ -1528,6 +1540,15 @@ int JtagServerInitBbram(XilSKey_Bbram *InstancePtr)
     }
     js_printf("\n");
 
+#ifndef XSK_ARM_PLATFORM
+
+	/* This may be a ZU+ device, attempt to get the PL IDCODE */
+	if ((num_taps == 1U) && (tap_codes[0] == 0x000000FFU)) {
+		js_printf("\r\n*** Searching for ZU+ PL IDCODE ***\r\n");
+		tap_codes[0] = JtagGetZuPlusPlIdcode();
+	}
+
+#endif
 
 	//Check if one of the tap code is for Zynq DAP ID: 4ba00477
     //and mask out most significant nibble which represents Production version
@@ -3043,4 +3064,49 @@ static inline int JtagValidateMioPins_Bbram_Ultra(void)
 	return XST_SUCCESS;
 
 }
+
+/****************************************************************************/
+/**
+*
+* This function attempt to get the ZU+ PL_IDCODE via JTAG.
+*
+* @param	None.
+*
+* @return	ZU+ PL IDCODE if it exists
+*
+* @note		None.
+*
+*****************************************************************************/
+static inline u32 JtagGetZuPlusPlIdcode(void)
+{
+	u8 WriteBuf[4];
+	u8 ReadBuf[4];
+	u32 *WriteBuf32 = (u32 *)WriteBuf;
+	u32 *ReadBuf32 = (u32 *)ReadBuf;
+	u32 IdCode;
+
+	/* Set zu+ pl tap parameters */
+	XilSKeyJtag.NumSlr = 1U;
+	XilSKeyJtag.IrLen = TAP_IR_LENGTH;
+
+	/* Reset the jtag tap */
+	jtag_navigate (g_port, JS_RESET);
+
+	/* Write zu+ pl_idcode instruction into the jtag ir */
+	*WriteBuf32 = calcInstr(ZUPLUS_PL_IDCODE, CALC_MSTR);
+	jtag_shift(g_port, ATOMIC_IR_SCAN, XilSKeyJtag.IrLen, WriteBuf,
+						NULL, JS_IREXIT1);
+
+	/* Get the zu+ pl_idcode from the jtag dr */
+	jtag_shift(g_port, ATOMIC_DR_SCAN, DRLENGTH_PROGRAM, NULL,
+						ReadBuf, JS_IDLE);
+
+	IdCode = *(u32 *)ReadBuf32;
+
+	js_printf("\r\n *** ZU+ PL_IDCODE Read: "
+			  "0x%08X ***\r\n", IdCode);
+
+	return IdCode;
+}
+
 #endif
