@@ -500,7 +500,6 @@ int XLoader_LoadPdi(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 END:
 	/** Reset the SBI/DMA to clear the buffers */
 	if ((PdiSrc == XLOADER_PDI_SRC_JTAG) ||
-	    (PdiSrc == XLOADER_PDI_SRC_SMAP) ||
 	    (PdiSrc == XLOADER_PDI_SRC_SBI))
 	{
 		XLoader_SbiRecovery();
