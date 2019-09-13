@@ -81,7 +81,8 @@
 ##     04/10/19 mus Updated intc_update_source_array proc to consider
 ##                  interrupt port width, while calculating
 ##                  total_source_intrs. It fixes CR#1020269
-##
+##     12/09/19 adk When interrupt source pin is connected to slice consider
+##		    slice width, while calculating the total interrupt sources.
 ##
 ##
 ## @END_CHANGELOG
@@ -89,6 +90,7 @@
 ############################################################
 # Global interrupt handlers array, default handler routine
 ############################################################
+source [file join [file dirname [info script]] slice_width.tcl]
 array set interrupt_handlers ""
 set default_interrupt_handler "XNullHandler"
 set cascade 0
@@ -754,7 +756,10 @@ proc intc_update_source_array {periph} {
                 incr j
             }
         } else {
-            set width [expr [common::get_property LEFT $source_pin] + 1]
+            set width [::hsi::utils::get_intr_connected_slice_width $periph $source_pin]
+            if {$width == 0 || $width == ""} {
+                set width [expr [common::get_property LEFT $source_pin] + 1]
+            }
             for {set count 0} {$count != $width} {incr count} {
                 set source_port_name($intr_cnt)         "${t_source_port_name}"
                 set source_name($intr_cnt)              $t_source_name
