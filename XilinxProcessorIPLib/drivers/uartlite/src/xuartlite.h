@@ -140,6 +140,7 @@
 *       ms   03/17/17 Added readme.txt file in examples folder for doxygen
 *                     generation.
 * 3.3   sne 09/09/19  Updated driver tcl file for supporting pl and ps ip's.
+* 3.3	sne 09/13/19  Updated driver tcl file for mdm & tmr_sem ip's.
 *
 * </pre>
 *

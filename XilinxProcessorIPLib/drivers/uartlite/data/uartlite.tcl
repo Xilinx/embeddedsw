@@ -133,29 +133,39 @@ proc xdefine_params_include_file {file_handle periph device_id} {
         set uSuffix "U"
         puts $file_handle "\n/* Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
         set is_pl [common::get_property IS_PL $periph]
+	set ip_name [common::get_property IP_NAME  $periph]
         if {$is_pl == 1} {
-				puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "DEVICE_ID"] $device_id$uSuffix"
-                puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] [common::get_property CONFIG.C_BASEADDR $periph]$uSuffix"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "DEVICE_ID"] $device_id$uSuffix"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] [common::get_property CONFIG.C_BASEADDR $periph]$uSuffix"
                 puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "HIGHADDR"] [common::get_property CONFIG.C_HIGHADDR $periph]$uSuffix"
-                puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BAUDRATE"] [common::get_property CONFIG.C_BAUDRATE $periph]$uSuffix"
-                puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "USE_PARITY"] [common::get_property CONFIG.C_USE_PARITY $periph]$uSuffix"
-                puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "ODD_PARITY"] [common::get_property CONFIG.C_ODD_PARITY $periph]$uSuffix"
-                puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "DATA_BITS"] [common::get_property CONFIG.C_DATA_BITS $periph]$uSuffix"
+		if {$ip_name != "mdm" && $ip_name != "tmr_sem"} {
+			puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BAUDRATE"] [common::get_property CONFIG.C_BAUDRATE $periph]$uSuffix"
+			puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "USE_PARITY"] [common::get_property CONFIG.C_USE_PARITY $periph]$uSuffix"
+			puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "ODD_PARITY"] [common::get_property CONFIG.C_ODD_PARITY $periph]$uSuffix"
+			puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "DATA_BITS"] [common::get_property CONFIG.C_DATA_BITS $periph]$uSuffix"
 		} else {
-			    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "DEVICE_ID"] $device_id$uSuffix"
-				puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] [common::get_property CONFIG.C_S_AXI_BASEADDR $periph]$uSuffix"
-				puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "HIGHADDR"] [common::get_property CONFIG.C_S_AXI_HIGHADDR $periph]$uSuffix"
-				puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BAUDRATE"] 0$uSuffix"
-                puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "USE_PARITY"] 0$uSuffix"
+			puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BAUDRATE"] 0$uSuffix"
+			puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "USE_PARITY"] 0$uSuffix"
+			puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "ODD_PARITY"] 0$uSuffix"
+			puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "DATA_BITS"] 0$uSuffix"
+		}
+
+	} else {
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "DEVICE_ID"] $device_id$uSuffix"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] [common::get_property CONFIG.C_S_AXI_BASEADDR $periph]$uSuffix"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "HIGHADDR"] [common::get_property CONFIG.C_S_AXI_HIGHADDR $periph]$uSuffix"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BAUDRATE"] 0$uSuffix"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "USE_PARITY"] 0$uSuffix"
                 puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "ODD_PARITY"] 0$uSuffix"
                 puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "DATA_BITS"] 0$uSuffix"
-		}
+	}
 }
 
 proc xdefine_params_canonical {file_handle periph device_id} {
 	set uSuffix "U"
 	puts $file_handle "\n/* Canonical definitions for peripheral [string toupper [get_property NAME $periph]] */"
 	set is_pl [common::get_property IS_PL $periph]
+	set ip_name [common::get_property IP_NAME  $periph]
 
 	set canonical_tag [string toupper [format "XPAR_UARTLITE_%d" $device_id]]
 
@@ -173,27 +183,48 @@ proc xdefine_params_canonical {file_handle periph device_id} {
 		# Handle HIGHADDR argument
 		set canonical_name [format "%s_HIGHADDR" $canonical_tag]
 		puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_HIGHADDR]$uSuffix"
-		add_field_to_periph_config_struct $device_id $canonical_name
 
-		# Handle BAUDRATE argument
-		set canonical_name [format "%s_BAUDRATE" $canonical_tag]
-		puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_BAUDRATE]$uSuffix"
-		add_field_to_periph_config_struct $device_id $canonical_name
+		if {$ip_name != "mdm" && $ip_name != "tmr_sem"} {
+			# Handle BAUDRATE argument
+			set canonical_name [format "%s_BAUDRATE" $canonical_tag]
+			puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_BAUDRATE]$uSuffix"
+			add_field_to_periph_config_struct $device_id $canonical_name
 
-		# Handle USE_PARITY argument
-		set canonical_name [format "%s_USE_PARITY" $canonical_tag]
-		puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_USE_PARITY]$uSuffix"
-		add_field_to_periph_config_struct $device_id $canonical_name
+			# Handle USE_PARITY argument
+			set canonical_name [format "%s_USE_PARITY" $canonical_tag]
+			puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_USE_PARITY]$uSuffix"
+			add_field_to_periph_config_struct $device_id $canonical_name
 
-		# Handle ODD_PARITY argument
-		set canonical_name [format "%s_ODD_PARITY" $canonical_tag]
-		puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_ODD_PARITY]$uSuffix"
-		add_field_to_periph_config_struct $device_id $canonical_name
+			# Handle ODD_PARITY argument
+			set canonical_name [format "%s_ODD_PARITY" $canonical_tag]
+			puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_ODD_PARITY]$uSuffix"
+			add_field_to_periph_config_struct $device_id $canonical_name
 
-		# Handle DATA_BITS argument
-		set canonical_name [format "%s_DATA_BITS" $canonical_tag]
-		puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_DATA_BITS]$uSuffix"
-		add_field_to_periph_config_struct $device_id $canonical_name
+			# Handle DATA_BITS argument
+			set canonical_name [format "%s_DATA_BITS" $canonical_tag]
+			puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_DATA_BITS]$uSuffix"
+			add_field_to_periph_config_struct $device_id $canonical_name
+		} else {
+			# Handle BAUDRATE argument
+			set canonical_name [format "%s_BAUDRATE" $canonical_tag]
+			puts $file_handle "\#define $canonical_name 0$uSuffix"
+			add_field_to_periph_config_struct $device_id $canonical_name
+
+			# Handle USE_PARITY argument
+			set canonical_name [format "%s_USE_PARITY" $canonical_tag]
+			puts $file_handle "\#define $canonical_name 0$uSuffix"
+			add_field_to_periph_config_struct $device_id $canonical_name
+
+			# Handle ODD_PARITY argument
+			set canonical_name [format "%s_ODD_PARITY" $canonical_tag]
+			puts $file_handle "\#define $canonical_name 0$uSuffix"
+			add_field_to_periph_config_struct $device_id $canonical_name
+
+			# Handle DATA_BITS argument
+			set canonical_name [format "%s_DATA_BITS" $canonical_tag]
+			puts $file_handle "\#define $canonical_name 0$uSuffix"
+			add_field_to_periph_config_struct $device_id $canonical_name
+		}
 	} else {
 		# Handle BASEADDR argument
 		set canonical_name [format "%s_BASEADDR" $canonical_tag]
@@ -203,6 +234,7 @@ proc xdefine_params_canonical {file_handle periph device_id} {
 		# Handle HIGHADDR argument
 		set canonical_name [format "%s_HIGHADDR" $canonical_tag]
 		puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_S_AXI_HIGHADDR]$uSuffix"
+
 		# Handle BAUDRATE argument
 		set canonical_name [format "%s_BAUDRATE" $canonical_tag]
 		puts $file_handle "\#define $canonical_name 0$uSuffix"
