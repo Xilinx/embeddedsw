@@ -129,7 +129,7 @@ extern void Sensor_Delay();
  extern void HaltVDMA();
  extern void RunVDMA();
 
-extern int SensorPreConfig(imx274_mode);
+extern int SensorPreConfig(pcam5c_mode);
 
 extern int SensorReg();
 

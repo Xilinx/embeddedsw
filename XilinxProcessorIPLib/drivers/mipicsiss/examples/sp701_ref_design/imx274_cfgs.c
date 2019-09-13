@@ -189,7 +189,7 @@
 */
 /************************** Function Prototypes ******************************/
 
-int imx274_mode = 1;
+int pcam5c_mode = 1;
 
 //init_zybo
 struct regval_list sensor_pre[] = {
@@ -299,7 +299,7 @@ struct regval_list sensor_pre[] = {
 	{0x5001, 0x03}
 };
 //pcam_iic_1080p_
-struct regval_list imx274_mode1[] =
+struct regval_list pcam5c_mode1[] =
 	{//1920 x 1080 @ 30fps, RAW10, MIPISCLK=420, SCLK=84MHz, PCLK=84M
 		//PLL1 configuration
 		{0x3035, 0x21}, // 30fps setting
@@ -408,8 +408,8 @@ struct regval_list sensor_list[] = {
 const int length_sensor_pre = sizeof(sensor_pre) / sizeof(sensor_pre[0]);
 const int size_sensor_pre = sizeof(sensor_pre);
 
-const int length_imx274_mode1 = sizeof(imx274_mode1) / sizeof(imx274_mode1[0]);
-const int size_length_imx274_mode1 = sizeof(length_imx274_mode1);
+const int length_pcam5c_mode1 = sizeof(pcam5c_mode1) / sizeof(pcam5c_mode1[0]);
+const int size_length_pcam5c_mode1 = sizeof(length_pcam5c_mode1);
 
 const int length_sensor_list= sizeof(sensor_list) / sizeof(sensor_list[0]);
 const int size_sensor_list= sizeof(sensor_list);

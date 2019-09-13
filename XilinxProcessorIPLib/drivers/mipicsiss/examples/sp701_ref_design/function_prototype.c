@@ -213,6 +213,7 @@ XV_demosaic				Demosaic;
 #define DSI_VFRONT_PORCH                (0x03)
 #define DSI_CONFIG                (0xb)
 #define DSI_START                (0x01)
+#define DSI_STOP                (0x00)
 #define timing1                (0x168004b0)
 #define timing2                (0x39d00b9)
 #define timing3                (0x050403)
@@ -632,8 +633,8 @@ void DisableCSI(void)
 void DisableDSI(void)
 {
         u32 Status;
-        XDsiTxSs_Reset(&DsiTxSs);
-
+     //  XDsiTxSs_Reset(&DsiTxSs);
+		                     Xil_Out32((DSI_BASE), DSI_STOP);
        /* XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DISABLE);
         do {
                 Status = XDsiTxSs_IsControllerReady(&DsiTxSs);
@@ -1479,7 +1480,7 @@ int WritetoReg(u8 buf1, u8 buf2, u8 buf3){
 /***************************************************************************/
 /***************************************************************************/
 
-extern int SensorPreConfig(imx274_mode) {
+extern int SensorPreConfig(pcam5c_mode) {
 
 
 	u32 Index, MaxIndex, MaxIndex1, MaxIndex2;
@@ -1516,13 +1517,13 @@ MaxIndex = length_sensor_pre;
     WritetoReg(0x30, 0x08, 0x42);
 
 
-    MaxIndex1 = length_imx274_mode1;
+    MaxIndex1 = length_pcam5c_mode1;
 
     for(Index = 0; Index < (MaxIndex1 - 0); Index++)
 	{
-	WriteBuffer[0] = imx274_mode1[Index].Address >> 8;
-	WriteBuffer[1] = imx274_mode1[Index].Address;
-	WriteBuffer[2] = imx274_mode1[Index].Data;
+	WriteBuffer[0] = pcam5c_mode1[Index].Address >> 8;
+	WriteBuffer[1] = pcam5c_mode1[Index].Address;
+	WriteBuffer[2] = pcam5c_mode1[Index].Data;
 
         Sensor_Delay();
 
