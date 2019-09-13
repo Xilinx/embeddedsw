@@ -48,8 +48,8 @@ extern struct regval_list sensor_pre[];
 extern const int length_sensor_pre;
 const int size_sensor_pre;
 
-extern struct regval_list imx274_mode1[];
-extern const int length_imx274_mode1;
+extern struct regval_list pcam5c_mode1[];
+extern const int length_pcam5c_mode1;
 
 extern struct regval_list seq_shrt[];
 extern const int length_seq_shrt;
