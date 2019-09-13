@@ -483,8 +483,8 @@ u8 EepromReadByte(AddressType Address, u8 *BufferPtr,
  ******************************************************************************/
 int main() {
 	int Status;
-		int imx274_mode = 1;
-	int usr_entry ;
+		int pcam5c_mode = 1;
+	int usr_entry ,prev_sel;
 	int dsi_hdmi_select = 0;
 
 
@@ -555,11 +555,11 @@ int main() {
 			        }
 
 
-			        Status = SetupDSI();
+			  /*      Status = SetupDSI();
 			        if (Status != XST_SUCCESS) {
 			        xil_printf("SetupDSI failed status = %x.\r\n" ,Status);
 			        return XST_FAILURE;
-			        }
+			        }*/
 
 
 
@@ -572,7 +572,11 @@ while(1) {
 		 xil_printf("\r\n    2 -> PCAM 5C to HDMI \n");
 
 		 usr_entry = getchar();
-             getchar();
+   if (prev_sel == usr_entry) {
+   xil_printf("\r\nAlready in the selected option. Please try again\n");
+   continue;
+			   }
+             prev_sel = usr_entry;
 
 
 		 switch(usr_entry) {
@@ -581,7 +585,6 @@ while(1) {
 		        dsi_hdmi_select = 1;
 		        resetIp();
 		       EnableCSI();
-		       // enablecsi();
 		        GPIOSelect(dsi_hdmi_select);
 
 		        Status = demosaic();
@@ -594,7 +597,7 @@ while(1) {
 			CamReset();
 
 			//Preconifgure Sensor
-			Status = SensorPreConfig(imx274_mode);
+			Status = SensorPreConfig(pcam5c_mode);
 			if (Status != XST_SUCCESS) {
 				xil_printf("\n\rSensor PreConfiguration Failed \n\r");
 				return XST_FAILURE;
@@ -627,7 +630,7 @@ while(1) {
 		        CamReset();
 
 		        //Preconifgure Sensor
-		        Status = SensorPreConfig(imx274_mode);
+		        Status = SensorPreConfig(pcam5c_mode);
 		        if (Status != XST_SUCCESS) {
 				xil_printf("\n\rSensor PreConfiguration Failed \n\r");
 				return XST_FAILURE;
