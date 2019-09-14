@@ -27,7 +27,7 @@
 /**
  *
  * @file xhdmic.c
- * @addtogroup hdmi_common_v1_0
+ * @addtogroup hdmi_common_v1_2
  * @{
  *
  * Contains common utility functions that are typically used by hdmi-related
@@ -321,11 +321,12 @@ u32 XHdmiC_FRL_GetNVal(XHdmiC_FRLCharRate FRLCharRate,
 	XHdmiC_FRL_CTS_N_Table_t const *item;
 	u8 SampleFreq;
 	u8 MultSampleFreq;
+	u8 FrlAudioCharRate = FRLCharRate;
 
 	/* Check for valid FRL Character Rate */
-	if (FRLCharRate < R_166_667 && FRLCharRate > R_666_667 ) {
+	if (FrlAudioCharRate > R_666_667 ) {
 		/* Since AudSampFreq not valid, return N Value = 0 */
-		FRLCharRate = R_166_667;
+		FrlAudioCharRate = R_166_667;
 	}
 
 	if (AudSampleFreqVal%XHDMIC_SAMPLING_FREQ_48K == 0) {
@@ -376,7 +377,7 @@ u32 XHdmiC_FRL_GetNVal(XHdmiC_FRLCharRate FRLCharRate,
 	}
 
 	item = &FRL_CTS_N_Table[SampleFreq];
-	return item->CTS_NVal[FRLCharRate].ACR_NVal[MultSampleFreq];
+	return item->CTS_NVal[FrlAudioCharRate].ACR_NVal[MultSampleFreq];
 
 }
 
