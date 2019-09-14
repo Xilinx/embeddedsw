@@ -161,7 +161,7 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 {
 	u32 RegVal;
 	int Status;
-	XLoader_SecureParms SecureParam;
+	XLoader_SecureParms SecureParam = {0U};
 
 	/**
 	 * Update PDI Ptr with source, addr, meta header

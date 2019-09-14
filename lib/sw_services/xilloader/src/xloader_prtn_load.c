@@ -85,7 +85,7 @@ static int XLoader_DdrCpyPrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 	u64 DestAddr;
 	u32 Len;
 	XilPdi_PrtnHdr * PrtnHdr;
-	XLoader_SecureParms SecureParams;
+	XLoader_SecureParms SecureParams = {0U};
 	Status = XST_FAILURE;
     XPlmi_Printf(DEBUG_GENERAL, "XLoader_DdrCpyPrtnCopy \n\r");
 	/* Secure init */
@@ -341,7 +341,7 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 	u32 DstnCpu;
 	u32 Len;
 	XilPdi_PrtnHdr * PrtnHdr;
-	XLoader_SecureParms SecureParams;
+	XLoader_SecureParms SecureParams = {0U};
 	u32 Mode=0;
 
 	/* Secure init */
@@ -588,7 +588,7 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 	u32 LastChunk = FALSE;
 	u32 ChunkAddr = XLOADER_CHUNK_MEMORY;
 	u32 IsNextChunkCopyStarted = FALSE;
-	XLoader_SecureParms SecureParams;
+	XLoader_SecureParms SecureParams = {0U};
 
 	XPlmi_Printf(DEBUG_INFO, "Processing CDO partition \n\r");
 	/* Secure init */
