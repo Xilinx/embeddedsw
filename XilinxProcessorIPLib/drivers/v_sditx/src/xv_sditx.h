@@ -312,6 +312,8 @@ int XV_SdiTx_SetCallback(XV_SdiTx *InstancePtr,	u32 HandlerType,
 				void *CallbackFunc, void *CallbackRef);
 void XV_SdiTx_IntrDisable(XV_SdiTx *InstancePtr, u32 Mask);
 void XV_SdiTx_IntrEnable(XV_SdiTx *InstancePtr, u32 Mask);
+void XV_SdiTx_SetYCbCr444_RGB_10bit(XV_SdiTx *InstancePtr);
+void XV_SdiTx_ClearYCbCr444_RGB_10bit(XV_SdiTx *InstancePtr);
 
 /************************** Variable Declarations ****************************/
 
