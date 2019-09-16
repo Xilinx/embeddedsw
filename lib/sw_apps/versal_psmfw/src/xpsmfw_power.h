@@ -152,6 +152,19 @@ extern "C" {
 #define XPSMFW_PWRON_VCCPSINTFP_POST_POR_WAIT	      MICROSECOND_TO_TICKS(1U)
 #define XPSMFW_PWRON_RST_FPD_WAIT_TIME		      NENOSECOND_TO_TICKS(40U)
 
+enum TcmPowerState {
+	STATE_POWER_DEFAULT,
+	STATE_POWER_ON,
+	STATE_POWER_DOWN,
+};
+
+enum TcmBankId {
+	TCM_0_A,
+	TCM_0_B,
+	TCM_1_A,
+	TCM_1_B,
+};
+
 /* Power control and wakeup Handler Table Structure */
 typedef XStatus (*HandlerFunction_t)(void);
 struct PwrCtlWakeupHandlerTable_t {
@@ -230,6 +243,22 @@ struct XPsmFwMemPwrCtrl_t {
 
 	/* mem_BANKx_PWRUP_WAIT_TIME */
 	u32 PwrUpWaitTime;
+};
+
+/*
+ * As per EDT-994842, whenever one of the TCM banks is powered down, some of the
+ * locations of other TCM is not accessible. Synchronize the TCM bank power
+ * down as workaround. This structure is used for synchronizing TCM bank power
+ * down.
+ */
+struct XPsmTcmPwrCtrl_t {
+	struct XPsmFwMemPwrCtrl_t TcmMemPwrCtrl;
+
+	/* Id of TCM bank */
+	enum TcmBankId Id;
+
+	/* Current power state of the TCM bank */
+	enum TcmPowerState PowerState;
 };
 
 struct XPsmFwGemPwrCtrl_t {

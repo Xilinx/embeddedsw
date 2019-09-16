@@ -193,52 +193,72 @@ static struct XPsmFwMemPwrCtrl_t Ocm3PwrCtrl = {
 	.PwrUpWaitTime = XPSMFW_OCM3_PWR_UP_WAIT_TIME,
 };
 
-static struct XPsmFwMemPwrCtrl_t Tcm0APwrCtrl = {
-	.PwrStateMask = PSM_LOCAL_PWR_STATE_TCM0A_MASK,
-	.ChipEnAddr = PSM_LOCAL_TCM_CE_CNTRL,
-	.ChipEnMask = PSM_LOCAL_TCM_CE_CNTRL_TCMA0_MASK,
-	.PwrCtrlAddr = PSM_LOCAL_TCM_PWR_CNTRL,
-	.PwrCtrlMask = PSM_LOCAL_TCM_PWR_CNTRL_TCMA0_MASK,
-	.PwrStatusAddr = PSM_LOCAL_TCM_PWR_STATUS,
-	.PwrStatusMask = PSM_LOCAL_TCM_PWR_STATUS_TCMA0_MASK,
-	.PwrStateAckTimeout = XPSMFW_TCM0A_PWR_STATE_ACK_TIMEOUT,
-	.PwrUpWaitTime = XPSMFW_TCM0A_PWR_UP_WAIT_TIME,
+static struct XPsmTcmPwrCtrl_t Tcm0APwrCtrl = {
+	.TcmMemPwrCtrl = {
+		.PwrStateMask = PSM_LOCAL_PWR_STATE_TCM0A_MASK,
+		.ChipEnAddr = PSM_LOCAL_TCM_CE_CNTRL,
+		.ChipEnMask = PSM_LOCAL_TCM_CE_CNTRL_TCMA0_MASK,
+		.PwrCtrlAddr = PSM_LOCAL_TCM_PWR_CNTRL,
+		.PwrCtrlMask = PSM_LOCAL_TCM_PWR_CNTRL_TCMA0_MASK,
+		.PwrStatusAddr = PSM_LOCAL_TCM_PWR_STATUS,
+		.PwrStatusMask = PSM_LOCAL_TCM_PWR_STATUS_TCMA0_MASK,
+		.PwrStateAckTimeout = XPSMFW_TCM0A_PWR_STATE_ACK_TIMEOUT,
+		.PwrUpWaitTime = XPSMFW_TCM0A_PWR_UP_WAIT_TIME,
+	},
+
+	.Id = TCM_0_A,
+	.PowerState = STATE_POWER_DEFAULT,
 };
 
-static struct XPsmFwMemPwrCtrl_t Tcm0BPwrCtrl = {
-	.PwrStateMask = PSM_LOCAL_PWR_STATE_TCM0B_MASK,
-	.ChipEnAddr = PSM_LOCAL_TCM_CE_CNTRL,
-	.ChipEnMask = PSM_LOCAL_TCM_CE_CNTRL_TCMB0_MASK,
-	.PwrCtrlAddr = PSM_LOCAL_TCM_PWR_CNTRL,
-	.PwrCtrlMask = PSM_LOCAL_TCM_PWR_CNTRL_TCMB0_MASK,
-	.PwrStatusAddr = PSM_LOCAL_TCM_PWR_STATUS,
-	.PwrStatusMask = PSM_LOCAL_TCM_PWR_STATUS_TCMB0_MASK,
-	.PwrStateAckTimeout = XPSMFW_TCM0B_PWR_STATE_ACK_TIMEOUT,
-	.PwrUpWaitTime = XPSMFW_TCM0B_PWR_UP_WAIT_TIME,
+static struct XPsmTcmPwrCtrl_t Tcm0BPwrCtrl = {
+	.TcmMemPwrCtrl = {
+		.PwrStateMask = PSM_LOCAL_PWR_STATE_TCM0B_MASK,
+		.ChipEnAddr = PSM_LOCAL_TCM_CE_CNTRL,
+		.ChipEnMask = PSM_LOCAL_TCM_CE_CNTRL_TCMB0_MASK,
+		.PwrCtrlAddr = PSM_LOCAL_TCM_PWR_CNTRL,
+		.PwrCtrlMask = PSM_LOCAL_TCM_PWR_CNTRL_TCMB0_MASK,
+		.PwrStatusAddr = PSM_LOCAL_TCM_PWR_STATUS,
+		.PwrStatusMask = PSM_LOCAL_TCM_PWR_STATUS_TCMB0_MASK,
+		.PwrStateAckTimeout = XPSMFW_TCM0B_PWR_STATE_ACK_TIMEOUT,
+		.PwrUpWaitTime = XPSMFW_TCM0B_PWR_UP_WAIT_TIME,
+	},
+
+	.Id = TCM_0_B,
+	.PowerState = STATE_POWER_DEFAULT,
 };
 
-static struct XPsmFwMemPwrCtrl_t Tcm1APwrCtrl = {
-	.PwrStateMask = PSM_LOCAL_PWR_STATE_TCM1A_MASK,
-	.ChipEnAddr = PSM_LOCAL_TCM_CE_CNTRL,
-	.ChipEnMask = PSM_LOCAL_TCM_CE_CNTRL_TCMA1_MASK,
-	.PwrCtrlAddr = PSM_LOCAL_TCM_PWR_CNTRL,
-	.PwrCtrlMask = PSM_LOCAL_TCM_PWR_CNTRL_TCMA1_MASK,
-	.PwrStatusAddr = PSM_LOCAL_TCM_PWR_STATUS,
-	.PwrStatusMask = PSM_LOCAL_TCM_PWR_STATUS_TCMA1_MASK,
-	.PwrStateAckTimeout = XPSMFW_TCM1A_PWR_STATE_ACK_TIMEOUT,
-	.PwrUpWaitTime = XPSMFW_TCM1A_PWR_UP_WAIT_TIME,
+static struct XPsmTcmPwrCtrl_t Tcm1APwrCtrl = {
+	.TcmMemPwrCtrl = {
+		.PwrStateMask = PSM_LOCAL_PWR_STATE_TCM1A_MASK,
+		.ChipEnAddr = PSM_LOCAL_TCM_CE_CNTRL,
+		.ChipEnMask = PSM_LOCAL_TCM_CE_CNTRL_TCMA1_MASK,
+		.PwrCtrlAddr = PSM_LOCAL_TCM_PWR_CNTRL,
+		.PwrCtrlMask = PSM_LOCAL_TCM_PWR_CNTRL_TCMA1_MASK,
+		.PwrStatusAddr = PSM_LOCAL_TCM_PWR_STATUS,
+		.PwrStatusMask = PSM_LOCAL_TCM_PWR_STATUS_TCMA1_MASK,
+		.PwrStateAckTimeout = XPSMFW_TCM1A_PWR_STATE_ACK_TIMEOUT,
+		.PwrUpWaitTime = XPSMFW_TCM1A_PWR_UP_WAIT_TIME,
+	},
+
+	.Id = TCM_1_A,
+	.PowerState = STATE_POWER_DEFAULT,
 };
 
-static struct XPsmFwMemPwrCtrl_t Tcm1BPwrCtrl = {
-	.PwrStateMask = PSM_LOCAL_PWR_STATE_TCM1B_MASK,
-	.ChipEnAddr = PSM_LOCAL_TCM_CE_CNTRL,
-	.ChipEnMask = PSM_LOCAL_TCM_CE_CNTRL_TCMB1_MASK,
-	.PwrCtrlAddr = PSM_LOCAL_TCM_PWR_CNTRL,
-	.PwrCtrlMask = PSM_LOCAL_TCM_PWR_CNTRL_TCMB1_MASK,
-	.PwrStatusAddr = PSM_LOCAL_TCM_PWR_STATUS,
-	.PwrStatusMask = PSM_LOCAL_TCM_PWR_STATUS_TCMB1_MASK,
-	.PwrStateAckTimeout = XPSMFW_TCM1B_PWR_STATE_ACK_TIMEOUT,
-	.PwrUpWaitTime = XPSMFW_TCM1B_PWR_UP_WAIT_TIME,
+static struct XPsmTcmPwrCtrl_t Tcm1BPwrCtrl = {
+	.TcmMemPwrCtrl = {
+		.PwrStateMask = PSM_LOCAL_PWR_STATE_TCM1B_MASK,
+		.ChipEnAddr = PSM_LOCAL_TCM_CE_CNTRL,
+		.ChipEnMask = PSM_LOCAL_TCM_CE_CNTRL_TCMB1_MASK,
+		.PwrCtrlAddr = PSM_LOCAL_TCM_PWR_CNTRL,
+		.PwrCtrlMask = PSM_LOCAL_TCM_PWR_CNTRL_TCMB1_MASK,
+		.PwrStatusAddr = PSM_LOCAL_TCM_PWR_STATUS,
+		.PwrStatusMask = PSM_LOCAL_TCM_PWR_STATUS_TCMB1_MASK,
+		.PwrStateAckTimeout = XPSMFW_TCM1B_PWR_STATE_ACK_TIMEOUT,
+		.PwrUpWaitTime = XPSMFW_TCM1B_PWR_UP_WAIT_TIME,
+	},
+
+	.Id = TCM_1_B,
+	.PowerState = STATE_POWER_DEFAULT,
 };
 
 static struct XPsmFwGemPwrCtrl_t Gem0PwrCtrl = {
@@ -973,6 +993,90 @@ done:
 	return Status;
 }
 
+static XStatus XTcmPwrUp(struct XPsmTcmPwrCtrl_t *Tcm)
+{
+	XStatus Status = XST_FAILURE;
+	struct XPsmTcmPwrCtrl_t *OtherTcm;
+
+	switch (Tcm->Id) {
+	case TCM_0_A:
+		OtherTcm = &Tcm0BPwrCtrl;
+		break;
+	case TCM_0_B:
+		OtherTcm = &Tcm0APwrCtrl;
+		break;
+	case TCM_1_A:
+		OtherTcm = &Tcm1BPwrCtrl;
+		break;
+	case TCM_1_B:
+		OtherTcm = &Tcm1APwrCtrl;
+		break;
+	default:
+		goto done;
+	}
+
+	/* Set power state to on */
+	Tcm->PowerState = STATE_POWER_ON;
+
+	/* Check state of OtherTcm. If powered off, power it up */
+	if (STATE_POWER_DOWN == OtherTcm->PowerState) {
+		OtherTcm->PowerState = STATE_POWER_ON;
+		Status = XPsmFwMemPwrUp(&OtherTcm->TcmMemPwrCtrl);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	Status = XPsmFwMemPwrUp(&Tcm->TcmMemPwrCtrl);
+
+done:
+	return Status;
+}
+
+static XStatus XTcmPwrDown(struct XPsmTcmPwrCtrl_t *Tcm)
+{
+	XStatus Status = XST_FAILURE;
+	struct XPsmTcmPwrCtrl_t *OtherTcm;
+
+	switch (Tcm->Id) {
+	case TCM_0_A:
+		OtherTcm = &Tcm0BPwrCtrl;
+		break;
+	case TCM_0_B:
+		OtherTcm = &Tcm0APwrCtrl;
+		break;
+	case TCM_1_A:
+		OtherTcm = &Tcm1BPwrCtrl;
+		break;
+	case TCM_1_B:
+		OtherTcm = &Tcm1APwrCtrl;
+		break;
+	default:
+		goto done;
+	}
+
+	Tcm->PowerState = STATE_POWER_DOWN;
+
+	/*
+	 * Check state of OtherTcm. If in power off state, power down both banks.
+	 * If OtherTcm state is still powered on, do not power down banks and
+	 * return success
+	 */
+	if (STATE_POWER_DOWN == OtherTcm->PowerState) {
+		Status = XPsmFwMemPwrDown(&Tcm->TcmMemPwrCtrl);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		Status = XPsmFwMemPwrDown(&OtherTcm->TcmMemPwrCtrl);
+	} else {
+		Status = XST_SUCCESS;
+	}
+
+done:
+	return Status;
+}
+
 /**
  * PowerUp_OCM_BANK0() - Power up OCM BANK0
  *
@@ -1020,7 +1124,7 @@ static XStatus PowerUp_OCM_BANK3(void)
  */
 static XStatus PowerUp_TCM0A(void)
 {
-	return XPsmFwMemPwrUp(&Tcm0APwrCtrl);
+	return XTcmPwrUp(&Tcm0APwrCtrl);
 }
 
 /**
@@ -1030,7 +1134,7 @@ static XStatus PowerUp_TCM0A(void)
  */
 static XStatus PowerUp_TCM0B(void)
 {
-	return XPsmFwMemPwrUp(&Tcm0BPwrCtrl);
+	return XTcmPwrUp(&Tcm0BPwrCtrl);
 }
 
 /**
@@ -1040,7 +1144,7 @@ static XStatus PowerUp_TCM0B(void)
  */
 static XStatus PowerUp_TCM1A(void)
 {
-	return XPsmFwMemPwrUp(&Tcm1APwrCtrl);
+	return XTcmPwrUp(&Tcm1APwrCtrl);
 }
 
 /**
@@ -1050,7 +1154,7 @@ static XStatus PowerUp_TCM1A(void)
  */
 static XStatus PowerUp_TCM1B(void)
 {
-	return XPsmFwMemPwrUp(&Tcm1BPwrCtrl);
+	return XTcmPwrUp(&Tcm1BPwrCtrl);
 }
 
 /**
@@ -1215,7 +1319,7 @@ static XStatus PowerDwn_OCM_BANK3(void)
  */
 static XStatus PowerDwn_TCM0A(void)
 {
-	return XPsmFwMemPwrDown(&Tcm0APwrCtrl);
+	return XTcmPwrDown(&Tcm0APwrCtrl);
 }
 
 /**
@@ -1225,7 +1329,7 @@ static XStatus PowerDwn_TCM0A(void)
  */
 static XStatus PowerDwn_TCM0B(void)
 {
-	return XPsmFwMemPwrDown(&Tcm0BPwrCtrl);
+	return XTcmPwrDown(&Tcm0BPwrCtrl);
 }
 
 /**
@@ -1235,7 +1339,7 @@ static XStatus PowerDwn_TCM0B(void)
  */
 static XStatus PowerDwn_TCM1A(void)
 {
-	return XPsmFwMemPwrDown(&Tcm1APwrCtrl);
+	return XTcmPwrDown(&Tcm1APwrCtrl);
 }
 
 /**
@@ -1245,7 +1349,7 @@ static XStatus PowerDwn_TCM1A(void)
  */
 static XStatus PowerDwn_TCM1B(void)
 {
-	return XPsmFwMemPwrDown(&Tcm1BPwrCtrl);
+	return XTcmPwrDown(&Tcm1BPwrCtrl);
 }
 
 /**
