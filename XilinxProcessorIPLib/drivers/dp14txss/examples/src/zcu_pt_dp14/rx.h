@@ -180,6 +180,7 @@ typedef struct
 	u8 channel_allocation;
 	u16 info_length;
 	u8 frame_count;
+	u8 all_count;
 } XilAudioInfoFrame_rx;
 
 /*The structure defines Generic Frame Packet fields*/

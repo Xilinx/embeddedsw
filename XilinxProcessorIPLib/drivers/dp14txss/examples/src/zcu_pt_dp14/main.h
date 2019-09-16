@@ -223,7 +223,7 @@
 /* Some Monitors require audio to be started after some delay
  * This param adds a delay to start the audio
  */
-#define AUD_START_DELAY 200000
+#define AUD_START_DELAY 500000
 
 /* VPHY Specific Defines
  */

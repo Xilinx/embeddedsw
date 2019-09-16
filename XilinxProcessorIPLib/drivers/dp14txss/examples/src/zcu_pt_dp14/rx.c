@@ -978,6 +978,12 @@ void DpRxSs_InfoPacketHandler(void *InstancePtr)
 				XDP_RX_AUDIO_INFO_DATA(i));
 	}
 
+	AudioinfoFrame.all_count++;
+
+	AudioinfoFrame.type = (InfoFrame[1]>>8)&0xFF;
+//	xil_printf ("%x\r\n",AudioinfoFrame.type);
+
+	if (AudioinfoFrame.type == 0x84) {
 	//storing the info frame here
 			AudioinfoFrame.frame_count++;
 
@@ -994,6 +1000,8 @@ void DpRxSs_InfoPacketHandler(void *InstancePtr)
 
 			AudioinfoFrame.level_shift = (InfoFrame[3]>>3)&0xF;
 			AudioinfoFrame.downmix_inhibit = (InfoFrame[3]>>7)&0x1;
+
+	}
 
 }
 

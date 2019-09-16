@@ -43,6 +43,7 @@
 *                         - Audio starts after infoframe
 * 1.02 KU 06/01/19 2019.2 - Using API to send AudioInfoframe on TX.
 *                         - CRC is reported on each component
+*                         - checking for 0x84 type frame in Infoframe
 *
 * </pre>
 *
