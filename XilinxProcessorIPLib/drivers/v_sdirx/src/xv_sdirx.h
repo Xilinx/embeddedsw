@@ -275,6 +275,8 @@ void XV_SdiRx_DisableMode(XV_SdiRx *InstancePtr,
 void XV_SdiRx_Start(XV_SdiRx *InstancePtr, XV_SdiRx_SearchMode Mode);
 int XV_SdiRx_Stop(XV_SdiRx *InstancePtr);
 u32 XV_SdiRx_ReportDetectedError(XV_SdiRx *InstancePtr);
+void XV_SdiRx_SetYCbCr444_RGB_10bit(XV_SdiRx *InstancePtr);
+void XV_SdiRx_ClearYCbCr444_RGB_10bit(XV_SdiRx *InstancePtr);
 void XV_SdiRx_SetVidLckWindow(XV_SdiRx *InstancePtr, u32 Data);
 
 /* Bridge and reset specific functions */

@@ -571,6 +571,56 @@ u32 XV_SdiRx_ReportDetectedError(XV_SdiRx *InstancePtr)
 
 	return RegValue;
 }
+/*****************************************************************************/
+/**
+*
+* This function enables 10bit YUV444 and RGB color format support for SDI Rx
+*
+* @param	InstancePtr is a pointer to the XV_SdiRx core instance.
+*
+* @return	None.
+*
+******************************************************************************/
+
+void XV_SdiRx_SetYCbCr444_RGB_10bit(XV_SdiRx *InstancePtr)
+{
+	u32 Data;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	Data = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
+				XV_SDIRX_RST_CTRL_OFFSET);
+	Data |= XV_SDIRX_RST_CTRL_CH_FORMAT_AXI_EN_MASK;
+
+	XV_SdiRx_WriteReg(InstancePtr->Config.BaseAddress,
+			  XV_SDIRX_RST_CTRL_OFFSET, Data);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function disables 10bit YUV444 and RGB color format support for SDI Rx
+*
+* @param	InstancePtr is a pointer to the XV_SdiRx core instance.
+*
+* @return	None.
+*
+******************************************************************************/
+void XV_SdiRx_ClearYCbCr444_RGB_10bit(XV_SdiRx *InstancePtr)
+{
+	u32 Data;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	Data = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
+				XV_SDIRX_RST_CTRL_OFFSET);
+	Data &= ~XV_SDIRX_RST_CTRL_CH_FORMAT_AXI_EN_MASK;
+
+	XV_SdiRx_WriteReg(InstancePtr->Config.BaseAddress,
+			  XV_SDIRX_RST_CTRL_OFFSET, Data);
+}
 
 /*****************************************************************************/
 /**
