@@ -1310,3 +1310,42 @@ void XV_SdiTxSs_SetCoreSettings(XV_SdiTxSs *InstancePtr, XV_SdiTxSs_CoreSelId Se
 		break;
 	};
 }
+
+/*****************************************************************************/
+/**
+*
+* This function enable the YUV444/RGB 10bit support SDI TX SS video stream
+*
+* @param	InstancePtr pointer to XV_SdiTxSs instance
+*
+* @return	None
+*
+******************************************************************************/
+void XV_SdiTxSs_SetYCbCr444_RGB_10bit(XV_SdiTxSs *InstancePtr)
+{
+        /* Verify arguments. */
+        Xil_AssertVoid(InstancePtr != NULL);
+
+        /* Print detected error information */
+        XV_SdiTx_SetYCbCr444_RGB_10bit(InstancePtr->SdiTxPtr);
+}
+
+
+/*****************************************************************************/
+/**
+*
+* This function disable the YUV444/RGB 10bit support SDI TX SS video stream
+*
+* @param	InstancePtr pointer to XV_SdiTxSs instance
+*
+* @return	None
+*
+******************************************************************************/
+void XV_SdiTxSs_ClearYCbCr444_RGB_10bit(XV_SdiTxSs *InstancePtr)
+{
+        /* Verify arguments. */
+        Xil_AssertVoid(InstancePtr != NULL);
+
+        /* Print detected error information */
+        XV_SdiTx_ClearYCbCr444_RGB_10bit(InstancePtr->SdiTxPtr);
+}

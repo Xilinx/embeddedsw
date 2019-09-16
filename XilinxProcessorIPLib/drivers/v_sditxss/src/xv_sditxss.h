@@ -285,6 +285,8 @@ void XV_SdiTxSs_ST352CStreamEnable(XV_SdiTxSs *InstancePtr);
 void XV_SdiTxSs_ST352CSwitch3GA(XV_SdiTxSs *InstancePtr);
 void XV_SdiTxSs_SetCoreSettings(XV_SdiTxSs *InstancePtr,
 					XV_SdiTxSs_CoreSelId SelId, u8 Data);
+void XV_SdiTxSs_SetYCbCr444_RGB_10bit(XV_SdiTxSs *InstancePtr);
+void XV_SdiTxSs_ClearYCbCr444_RGB_10bit(XV_SdiTxSs *InstancePtr);
 
 /************************** Variable Declarations ****************************/
 
