@@ -64,6 +64,7 @@
  *                     recognize it as documentation block for doxygen
  *                     generation of examples.
  * 4.6   rsp  09/13/19 Add error prints for failing scenarios.
+ *                     Fix cache maintenance ops for source and dest buffer.
  * </pre>
  *
  ****************************************************************************/
@@ -258,9 +259,7 @@ static int DoSimplePollTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 	 * is enabled
 	 */
 	Xil_DCacheFlushRange((UINTPTR)&SrcBuffer, Length);
-#ifdef __aarch64__
 	Xil_DCacheFlushRange((UINTPTR)&DestBuffer, Length);
-#endif
 
 	/* Try to start the DMA transfer
 	 */
@@ -346,9 +345,7 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 	/* Invalidate the DestBuffer before receiving the data, in case the
 	 * Data Cache is enabled
 	 */
-#ifndef __aarch64__
 	Xil_DCacheInvalidateRange((UINTPTR)DestPtr, Length);
-#endif
 
 	for (Index = 0; Index < Length; Index++) {
 		if ( DestPtr[Index] != SrcPtr[Index]) {

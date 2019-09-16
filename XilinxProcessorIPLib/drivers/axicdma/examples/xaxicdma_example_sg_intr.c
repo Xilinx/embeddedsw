@@ -69,6 +69,7 @@
  * 4.5   rsp  03/10/18 Fix compilation error in CheckData function when DEBUG
  *                     mode is enabled.
  *                     Reset error and done states before starting the DMA.
+ * 4.6   rsp  09/13/19 Fix cache maintenance ops for source and dest buffer.
  * </pre>
  *
  ****************************************************************************/
@@ -622,10 +623,8 @@ static int SetupTransfer(XAxiCdma * InstancePtr)
 	 */
 	Xil_DCacheFlushRange((UINTPTR)TransmitBufferPtr,
 		MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
-#ifdef __aarch64__
 	Xil_DCacheFlushRange((UINTPTR)ReceiveBufferPtr,
 		MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
-#endif
 
 	Status = XAxiCdma_SetCoalesce(InstancePtr, COALESCING_COUNT,
 		DELAY_COUNT);
@@ -751,9 +750,7 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 	/* Invalidate the DestBuffer before receiving the data, in case the
 	 * Data Cache is enabled
 	 */
-#ifndef __aarch64__
 	Xil_DCacheInvalidateRange((UINTPTR)DestPtr, Length);
-#endif
 
 	for (Index = 0; Index < Length; Index++) {
 		if ( DestPtr[Index] != SrcPtr[Index]) {

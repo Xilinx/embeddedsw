@@ -66,6 +66,7 @@
  *                     generation of examples.
  * 4.4   rsp  02/22/18 Support data buffers above 4GB.Use UINTPTR for
  *                     typecasting buffer address(CR-995116).
+ * 4.6   rsp  09/13/19 Fix cache maintenance ops for source and dest buffer.
  * </pre>
  *
  ****************************************************************************/
@@ -363,10 +364,8 @@ static int SetupTransfer(XAxiCdma * InstancePtr)
 	 */
 	Xil_DCacheFlushRange((UINTPTR)TransmitBufferPtr,
 		MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
-#ifdef __aarch64__
 	Xil_DCacheFlushRange((UINTPTR)ReceiveBufferPtr,
 		MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
-#endif
 
 	return XST_SUCCESS;
 }
@@ -477,9 +476,7 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 	/* Invalidate the DestBuffer before receiving the data, in case the
 	 * Data Cache is enabled
 	 */
-#ifndef __aarch64__
 	Xil_DCacheInvalidateRange((UINTPTR)DestPtr, Length);
-#endif
 
 	for (Index = 0; Index < Length; Index++) {
 		if ( DestPtr[Index] != SrcPtr[Index]) {
