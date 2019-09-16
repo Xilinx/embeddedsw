@@ -53,6 +53,7 @@
 * 2.2  Nishad  05/16/2019  Fix deallocation of pointer not on heap MISRA-c
 * 				mandatory violation
 * 2.3  Nishad  08/07/2019  Remove OS specific gaurd from XAieLib_usleep API
+* 2.4  Hyun    09/13/2019  Use the simulation elf loader function
 * </pre>
 *
 ******************************************************************************/
@@ -82,6 +83,9 @@
 
 #include "xaieio.h"
 #include "xaietile_proc.h"
+
+#include "xaiesim.h"
+#include "xaiesim_elfload.h"
 
 #endif
 
@@ -204,7 +208,8 @@ u32 XAieLib_LoadElf(XAieGbl_Tile *TileInstPtr, u8 *ElfPtr, u8 LoadSym)
 #elif defined __AIEBAREMTL__
 	return XAIELIB_FAILURE;
 #else
-	return XAieTileProc_LoadElfFile(TileInstPtr, ElfPtr, LoadSym);
+	/* Use the simulation elf load to workaround the elf loader issue. */
+	return XAieSim_LoadElf(TileInstPtr, ElfPtr, LoadSym);
 #endif
 }
 

@@ -44,6 +44,7 @@
 * 1.4  Naresh  07/26/2018  Fixed CR#1007367
 * 1.5  Hyun    08/27/2018  Fixed the incorrect remaining bytes, CR-1009665
 * 1.6  Nishad  12/05/2018  Renamed ME attributes to AIE
+* 1.7  Hyun    09/13/2019  Used global IO accessors and added more __AIESIM__
 * </pre>
 *
 ******************************************************************************/
@@ -105,6 +106,7 @@ uint32 XAieSim_LoadElf(XAieSim_Tile *TileInstPtr, uint8 *ElfPtr, uint8 LoadSym)
 	uint64_t DmbAddr;
 	uint64_t TgtTileAddr;
 
+#ifdef __AIESIM__
 	/* Get the stack range */
 	strcpy(MapPath, ElfPtr);
 	strcat(MapPath, ".map");
@@ -124,6 +126,7 @@ uint32 XAieSim_LoadElf(XAieSim_Tile *TileInstPtr, uint8 *ElfPtr, uint8 LoadSym)
 	if(LoadSym == XAIE_ENABLE) {
 		XAieSim_LoadSymbols(TileInstPtr, ElfPtr);
 	}
+#endif
 
 	/* Open the ELF file for reading */
 	Fd = fopen(ElfPtr, "r");
@@ -292,7 +295,7 @@ uint32 XAieSim_LoadElf(XAieSim_Tile *TileInstPtr, uint8 *ElfPtr, uint8 LoadSym)
 
                                 DmbAddr = TgtTileAddr +
                                         XAIESIM_ELF_TILECORE_DATMEM + DmbOff;
-				XAieSim_Write32(DmbAddr, 0U);
+				XAieGbl_Write32(DmbAddr, 0U);
                                 DoneSize += 4U;
 			}
 		}
@@ -321,6 +324,7 @@ uint32 XAieSim_LoadElf(XAieSim_Tile *TileInstPtr, uint8 *ElfPtr, uint8 LoadSym)
 *******************************************************************************/
 uint32 XAieSim_GetStackRange(uint8 *MapPtr, XAieSim_StackSz *StackSzPtr)
 {
+#ifdef __AIESIM__
 	FILE *Fd;
 	uint8 buffer[200U];
 
@@ -351,6 +355,7 @@ uint32 XAieSim_GetStackRange(uint8 *MapPtr, XAieSim_StackSz *StackSzPtr)
 		return XAIESIM_SUCCESS;
 	}
 	fclose(Fd);
+#endif
 }
 
 /*****************************************************************************/
@@ -368,8 +373,10 @@ uint32 XAieSim_GetStackRange(uint8 *MapPtr, XAieSim_StackSz *StackSzPtr)
 *******************************************************************************/
 void XAieSim_LoadSymbols(XAieSim_Tile *TileInstPtr, uint8 *ElfPtr)
 {
+#ifdef __AIESIM__
 	XAieSim_WriteCmd(XAIESIM_CMDIO_CMD_LOADSYM, TileInstPtr->ColId,
 					TileInstPtr->RowId, 0, 0, ElfPtr);
+#endif
 }
 
 
@@ -475,7 +482,7 @@ void XAieSim_WriteSection(XAieSim_Tile *TileInstPtr, uint8 *SectName,
 
                         DmbAddr = TgtTileAddr +
                                         XAIESIM_ELF_TILECORE_DATMEM + DmbOff;
-			XAieSim_Write32(DmbAddr, *CurrPtr++);
+			XAieGbl_Write32(DmbAddr, *CurrPtr++);
                         DoneSize += 4U;
 		}
         } else {
@@ -483,7 +490,7 @@ void XAieSim_WriteSection(XAieSim_Tile *TileInstPtr, uint8 *SectName,
                                                         SectPtr->sh_addr;
 
                 for(Idx = 0U; Idx < SectPtr->sh_size; Idx += 4U) {
-        		XAieSim_Write32((TgtTileAddr + Idx), *CurrPtr++);
+			XAieGbl_Write32((TgtTileAddr + Idx), *CurrPtr++);
         	}
         }
 
