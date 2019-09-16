@@ -569,6 +569,45 @@ void XV_SdiRxSs_ReportDetectedError(XV_SdiRxSs *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* This function enable the YUV444/RGB 10bit support SDI RX SS video stream
+*
+* @param	InstancePtr pointer to XV_SdiRxSs instance
+*
+* @return	None
+*
+******************************************************************************/
+void XV_SdiRxSs_SetYCbCr444_RGB_10bit(XV_SdiRxSs *InstancePtr)
+{
+        /* Verify arguments. */
+        Xil_AssertVoid(InstancePtr != NULL);
+
+        /* Print detected error information */
+        XV_SdiRx_SetYCbCr444_RGB_10bit(InstancePtr->SdiRxPtr);
+}
+
+
+/*****************************************************************************/
+/**
+*
+* This function disable the YUV444/RGB 10bit support SDI RX SS video stream
+*
+* @param	InstancePtr pointer to XV_SdiRxSs instance
+*
+* @return	None
+*
+******************************************************************************/
+void XV_SdiRxSs_ClearYCbCr444_RGB_10bit(XV_SdiRxSs *InstancePtr)
+{
+        /* Verify arguments. */
+        Xil_AssertVoid(InstancePtr != NULL);
+
+        /* Print detected error information */
+        XV_SdiRx_ClearYCbCr444_RGB_10bit(InstancePtr->SdiRxPtr);
+}
+
+/*****************************************************************************/
+/**
+*
 * This function prints the SDI RX SS information.
 *
 * @param	InstancePtr pointer to XV_SdiRxSs instance

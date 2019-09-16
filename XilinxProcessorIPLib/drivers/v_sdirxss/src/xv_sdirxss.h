@@ -220,6 +220,8 @@ void XV_SdiRxSs_StreamFlowDisable(XV_SdiRxSs *InstancePtr);
 void XV_SdiRxSs_Start(XV_SdiRxSs *InstancePtr, XV_SdiRx_SearchMode Mode);
 void XV_SdiRxSs_Stop(XV_SdiRxSs *InstancePtr);
 void XV_SdiRxSs_ReportDetectedError(XV_SdiRxSs *InstancePtr);
+void XV_SdiRxSs_SetYCbCr444_RGB_10bit(XV_SdiRxSs *InstancePtr);
+void XV_SdiRxSs_ClearYCbCr444_RGB_10bit(XV_SdiRxSs *InstancePtr);
 int XV_SdiRxSs_SetCallback(XV_SdiRxSs *InstancePtr, u32 HandlerType,
 		void *CallbackFunc, void *CallbackRef);
 void XV_SdiRxSs_ReportCoreInfo(XV_SdiRxSs *InstancePtr);
