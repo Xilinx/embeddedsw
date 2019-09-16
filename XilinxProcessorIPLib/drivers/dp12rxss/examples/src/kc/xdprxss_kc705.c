@@ -2459,7 +2459,7 @@ static void Dprx_DetectResolution(void *InstancePtr)
 		DpVres = (XDp_ReadReg(DpRxSsInst.Config.DpSubCore.DpConfig.BaseAddr,
 					XDP_RX_MSA_VHEIGHT));
 		GetResCount++;
-	} while ( (((DpHres == 0) || (DpVres == 0)) || (GetResCount < 10000))
+	} while ( (((DpHres == 0) || (DpVres == 0)) && (GetResCount < 10000))
 														&& training_done == 1);
 	dp_msa_hres = DpHres;
 	dp_msa_vres = DpVres;
@@ -2472,7 +2472,7 @@ static void Dprx_DetectResolution(void *InstancePtr)
 						XDP_RX_MSA_HTOTAL));
 	DpVres_total = (XDp_ReadReg(DpRxSsInst.Config.DpSubCore.DpConfig.BaseAddr,
 						XDP_RX_MSA_VTOTAL));
-	while ( ((DpHres_total ==0 || DpVres_total == 0) || GetResCount < 10000)
+	while ( ((DpHres_total ==0 || DpVres_total == 0) && GetResCount < 10000)
 														&& training_done == 1) {
 		DpHres_total = (XDp_ReadReg(
 			DpRxSsInst.Config.DpSubCore.DpConfig.BaseAddr, XDP_RX_MSA_HTOTAL));
@@ -2489,7 +2489,7 @@ static void Dprx_DetectResolution(void *InstancePtr)
 								& 0x00FFFFFF);
 	rxMsaNVid = (XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,XDP_RX_MSA_NVID)
 								& 0x00FFFFFF);
-	while ( ((rxMsaMVid ==0 || rxMsaNVid == 0) || GetResCount < 10000)
+	while ( ((rxMsaMVid ==0 || rxMsaNVid == 0) && GetResCount < 10000)
 														&& training_done == 1) {
 		rxMsaMVid = (XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 												XDP_RX_MSA_MVID) & 0x00FFFFFF);
