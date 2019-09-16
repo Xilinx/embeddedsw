@@ -54,6 +54,7 @@
 * 				mandatory violation
 * 2.3  Nishad  08/07/2019  Remove OS specific gaurd from XAieLib_usleep API
 * 2.4  Hyun    09/13/2019  Use the simulation elf loader function
+* 2.5  Hyun    09/13/2019  Use XAieSim_LoadElfMem()
 * </pre>
 *
 ******************************************************************************/
@@ -233,7 +234,7 @@ u32 XAieLib_LoadElfMem(XAieGbl_Tile *TileInstPtr, u8 *ElfPtr, u8 LoadSym)
 #elif defined __AIEBAREMTL__
 	return XAIELIB_FAILURE;
 #else
-	return XAieTileProc_LoadElfMem(TileInstPtr, ElfPtr, LoadSym);
+	return XAieSim_LoadElfMem(TileInstPtr, ElfPtr, LoadSym);
 #endif
 }
 

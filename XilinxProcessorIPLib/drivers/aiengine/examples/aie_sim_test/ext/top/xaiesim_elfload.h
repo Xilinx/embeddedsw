@@ -42,6 +42,7 @@
 * 1.2  Naresh  06/13/2018  Fixed CR#1003905
 * 1.3  Naresh  07/11/2018  Updated copyright info
 * 1.4  Nishad  12/05/2018  Renamed ME attributes to AIE
+* 1.8  Hyun    09/13/2019  Added XAieSim_LoadElfMem()
 * </pre>
 *
 ******************************************************************************/
@@ -82,6 +83,7 @@ typedef struct {
 /***************************** Macro Definitions *****************************/
 
 /************************** Function Prototypes  *****************************/
+uint32 XAieSim_LoadElfMem(XAieGbl_Tile *TileInstPtr, uint8 *ElfPtr, uint8 LoadSym);
 uint32 XAieSim_LoadElf(XAieGbl_Tile *TileInstPtr, uint8 *ElfPtr, uint8 LoadSym);
 uint32 XAieSim_GetStackRange(uint8 *MapPtr, XAieSim_StackSz *StackSzPtr);
 void XAieSim_LoadSymbols(XAieGbl_Tile *TileInstPtr, uint8 *ElfPtr);
