@@ -63,6 +63,7 @@
  *       ms   04/05/17 Modified Comment lines in functions to
  *                     recognize it as documentation block for doxygen
  *                     generation of examples.
+ * 4.6   rsp  09/13/19 Add error prints for failing scenarios.
  * </pre>
  *
  ****************************************************************************/
@@ -276,6 +277,8 @@ static int DoSimplePollTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 	/* Return failure if failed to submit the transfer
 	 */
 	if (!Retries) {
+		xdbg_printf(XDBG_DEBUG_ERROR,
+			    "Failed to submit the transfer with %d\r\n", Status);
 		return XST_FAILURE;
 	}
 
@@ -306,6 +309,7 @@ static int DoSimplePollTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 
 		/* Reset has failed, print a message to notify the user
 		 */
+		xdbg_printf(XDBG_DEBUG_ERROR, "Reset done failed\r\n");
 		return XST_FAILURE;
 	}
 
@@ -348,6 +352,9 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 
 	for (Index = 0; Index < Length; Index++) {
 		if ( DestPtr[Index] != SrcPtr[Index]) {
+			xdbg_printf(XDBG_DEBUG_ERROR,
+			    "Data check failure %d: %x/%x\r\n",
+			    Index, DestPtr[Index], SrcPtr[Index]);
 			return XST_FAILURE;
 		}
 	}

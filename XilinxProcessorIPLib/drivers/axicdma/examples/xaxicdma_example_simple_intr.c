@@ -66,6 +66,7 @@
  *                     generation of examples.
  * 4.4   rsp  02/22/18 Support data buffers above 4GB.Use UINTPTR for
  *                     typecasting buffer address(CR-995116).
+ * 4.6   rsp  09/13/19 Add error prints for failing scenarios.
  * </pre>
  *
  ****************************************************************************/
@@ -347,6 +348,8 @@ static int DoSimpleTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 	}
 
 	if (!Retries) {
+		xdbg_printf(XDBG_DEBUG_ERROR,
+			    "Failed to submit the transfer with %d\r\n", Status);
 		return XST_FAILURE;
 	}
 
@@ -357,6 +360,7 @@ static int DoSimpleTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 	}
 
 	if (Error) {
+		xdbg_printf(XDBG_DEBUG_ERROR, "DMA transfer error\r\n");
 		return XST_FAILURE;
 	}
 
@@ -373,6 +377,9 @@ static int DoSimpleTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 	 */
 	for (Index = 0; Index < Length; Index++) {
 		if ( DestPtr[Index] != SrcPtr[Index]) {
+			xdbg_printf(XDBG_DEBUG_ERROR,
+			    "Data check failure %d: %x/%x\r\n",
+			    Index, DestPtr[Index], SrcPtr[Index]);
 			return XST_FAILURE;
 		}
 	}
