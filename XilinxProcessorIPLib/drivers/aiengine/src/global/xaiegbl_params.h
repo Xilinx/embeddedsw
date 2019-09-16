@@ -40,6 +40,7 @@
 * 1.0  Naresh  03/14/2018  Initial creation
 * 1.1  Naresh  07/11/2018  Updated copyright info
 * 1.2  Nishad  12/05/2018  Renamed ME attributes to AIE
+* 1.3  Wendy   09/15/2019  Remove Private Registers
 * </pre>
 *
 ******************************************************************************/
