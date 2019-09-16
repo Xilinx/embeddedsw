@@ -129,6 +129,7 @@ extern u8 training_lost;
 u8 audio_info_avail = 0;
 int track_color = 0;
 u32 aud_start_delay = 0;
+u32 line_rst = 0;
 
 void DpPt_Main(void){
 	u32 Status;
@@ -696,32 +697,18 @@ void DpPt_Main(void){
 							XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR, 0x0604));
 				break;
 
-//				case 'q' :
-//					if(use_monitor_edid == 1){
-//						// change the mode to none-pass-through mdoe
-//						use_monitor_edid = 0;
-//						xil_printf(
-//						"Set as EDID non-pass-through mode\r\n");
-//					}else{
-//						// This is EDID pass-through mode
-//						use_monitor_edid = 1;
-//						for(int i=0;i<(384*4);i=i+(16*4)){
-//							for(int j=i;j<(i+(16*4));j=j+4){
-//								XDp_WriteReg (
-//										VID_EDID_BASEADDR,
-//								j,edid_monitor[(i/4)+1]);
-//							}
-//						}
-//						for(int i=0;i<(384*4);i=i+4){
-//							XDp_WriteReg (
-//									VID_EDID_BASEADDR,
-//								i, edid_monitor[i/4]);
-//						}
-//
-//						xil_printf(
-//							"Set as EDID pass-thorugh mode\r\n");
-//					}
-//					break;
+				case 'q' :
+                                        line_rst = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_LINE_RESET_DISABLE);
+                                        xil_printf ("Line reset was %d\r\n",line_rst & 0x1);
+                                        if (line_rst & 0x1) {
+                                            line_rst &= 0xFFFFFFFE;
+                                        } else {
+                                            line_rst |= 0xFFFFFFFF;
+                                        }
+                                        XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_LINE_RESET_DISABLE, line_rst);
+
+					break;
+
 				case 's':
 					xil_printf("DP Link Status --->\r\n");
 					XDpRxSs_ReportLinkInfo(&DpRxSsInst);
@@ -1181,6 +1168,7 @@ void unplug_proc (void) {
     DpRxSsInst.VBlankCount = 0;
     audio_info_avail = 0;
     AudioinfoFrame.frame_count = 0;
+    AudioinfoFrame.all_count = 0;
     appx_fs_dup = 0;
     XDp_RxDtgDis(DpRxSsInst.DpPtr);
 	frameBuffer_stop();
@@ -1325,6 +1313,17 @@ void audio_start_rx (void) {
 			xilInfoFrame->version = AudioinfoFrame.version;
 			audio_info_avail = 1;
 			AudioinfoFrame.frame_count = 0;
+			AudioinfoFrame.all_count = 0;
+		} else {
+			if (AudioinfoFrame.all_count > 100) {
+				//An audio infoframe was not received
+				//disabling the interrupt to avoid repeated calls
+				xil_printf ("*!*!\r\n");
+				XDp_RxInterruptDisable(DpRxSsInst.DpPtr,
+				            XDP_RX_INTERRUPT_MASK_INFO_PKT_MASK);
+				AudioinfoFrame.all_count = 0;
+
+			}
 		}
 #else
 		audio_info_avail = 1;
@@ -1342,7 +1341,7 @@ void audio_start_tx (void) {
 	if (filter_count_b == 50) {
 
 #if WAIT_ON_AUD_INFO
-		start_audio_passThrough();
+	start_audio_passThrough();
 #endif
 
 	} else if (filter_count_b > 200) {
@@ -1400,6 +1399,7 @@ void dprx_tracking (void) {
 		start_i2s_clk = 0;
 	    audio_info_avail = 0;
 	    AudioinfoFrame.frame_count = 0;
+	    AudioinfoFrame.all_count = 0;
 		xil_printf(
 		"> Rx Training done !!! (BW: 0x%x, Lanes: 0x%x, Status: "
 		"0x%x;0x%x).\n\r",
@@ -1446,6 +1446,7 @@ void dprx_tracking (void) {
 		XDpRxSs_AudioEnable(&DpRxSsInst);
 	    audio_info_avail = 0;
 	    AudioinfoFrame.frame_count = 0;
+	    AudioinfoFrame.all_count = 0;
 
 
 		//move to DPPT resolution function
@@ -1493,6 +1494,14 @@ void dptx_tracking (void) {
 		i2s_started = 0;
 		aud_start_delay = 0;
 		tx_done = 0;
+		AudioinfoFrame.all_count = 0;
+		//reading the Infoframe buffer to enable it for
+		//next interrupt
+		int info_rd = 0;
+		for(info_rd = 1 ; info_rd < 9 ; info_rd++) {
+				XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+						XDP_RX_AUDIO_INFO_DATA(info_rd));
+			}
 		XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
 		            XDP_RX_INTERRUPT_MASK_INFO_PKT_MASK);
 
