@@ -143,6 +143,7 @@ static void PmPllBypassAndReset(PmPll* const pll)
 	XPfw_Write32(PMU_GLOBAL_ERROR_POR_DIS_2, pllErrMask);
 	XPfw_Write32(PMU_GLOBAL_ERROR_SRST_DIS_2, pllErrMask);
 	XPfw_Write32(PMU_GLOBAL_ERROR_SIG_DIS_2, pllErrMask);
+	XPfw_RMW32(PMU_GLOBAL_ERROR_EN_2, pllErrMask, 0x0U);
 #endif
 
 	/* Bypass PLL before putting it into the reset */
@@ -182,6 +183,9 @@ static s32 PmPllLock(const PmPll* const pll)
 		     (((pll->errValue >> 2) & 1U) << pll->errShift));
 	XPfw_Write32(PMU_GLOBAL_ERROR_SIG_EN_2,
 		     (((pll->errValue >> 3) & 1U) << pll->errShift));
+	XPfw_RMW32(PMU_GLOBAL_ERROR_EN_2,
+			((pll->errValue & 1U) << pll->errShift),
+			((pll->errValue & 1U) << pll->errShift));
 #endif
 
 	return status;
