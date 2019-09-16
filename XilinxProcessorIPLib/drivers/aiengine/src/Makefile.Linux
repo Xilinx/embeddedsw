@@ -2,7 +2,7 @@ APP = aiengine
 
 CC ?= gcc
 CP = cp
-LIBSOURCES = $(wildcard ./*/*.c) $(wildcard ./*/*/*.c)
+LIBSOURCES = $(wildcard ./*/*.c) $(wildcard ./*/*/*.c) $(wildcard ../examples/aie_sim_test/ext/top/xaiesim_elfload.c)
 CFLAGS += -DXAIE_WRKARND_CRVO1692
 OUTS = $(LIBSOURCES:.c=.o)
 EXT = ../examples/aie_sim_test/ext/top
