@@ -45,6 +45,7 @@
 * 1.5  Hyun    08/27/2018  Fixed the incorrect remaining bytes, CR-1009665
 * 1.6  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.7  Hyun    09/13/2019  Used global IO accessors and added more __AIESIM__
+* 1.8  Hyun    09/13/2019  Added XAieSim_LoadElfMem()
 * </pre>
 *
 ******************************************************************************/
@@ -64,6 +65,224 @@ extern XAieGbl_Config XAieGbl_ConfigTable[];
 /************************** Function Prototypes  *****************************/
 
 /************************** Function Definitions *****************************/
+
+/*****************************************************************************/
+/**
+*
+* This routine is used to write to the specified section by reading the
+* corresponding data from the ELF buffer.
+*
+* @param	TileInstPtr: Pointer to the Tile instance structure.
+* @param        SectName: Name of the section.
+* @param        SectPtr: Poiner to the section entry in the ELF buffer.
+* @param	ElfPtr: Pointer to the ELF buffer.
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+static void XAieSim_WriteSectionMem(XAieSim_Tile *TileInstPtr, uint8 *SectName,
+		Elf32_Shdr *SectPtr, uint8 *ElfPtr)
+{
+	uint32 Idx;
+	uint32 DmbOff;
+	uint32 SectAddr;
+	uint32 RemSize;
+	uint32 DoneSize;
+	uint64_t DmbAddr;
+	uint64_t TgtTileAddr;
+
+	if(strstr(SectName, "data.DMb") != NULL) {
+		TgtTileAddr = XAieSim_GetTargetTileAddr(TileInstPtr,
+				SectPtr->sh_addr);
+
+		SectAddr = SectPtr->sh_addr;
+		RemSize = SectPtr->sh_size;
+		DoneSize = 0U;
+
+		/* Use 32 bit loads to match sim output */
+		for(Idx = 0U; Idx < RemSize; Idx += 4U){
+			/* Mask address as per the Data memory offset*/
+			DmbOff = (SectAddr &
+					XAIESIM_ELF_TILEADDR_DMB_MASK) + Idx;
+
+			if(DmbOff & 0x8000U) {
+				/*
+				 * 32 KB boundary cross. Data section
+				 * moving to the memory bank of next
+				 * cardinal direction. Change the target
+				 * tile address
+				 */
+				SectPtr->sh_addr += 0x8000U;
+				TgtTileAddr =
+					XAieSim_GetTargetTileAddr(TileInstPtr,
+							(SectPtr->sh_addr &
+							 0x1FFFFU));
+				SectAddr = 0x0U;
+				Idx = 0U;
+				DmbOff = 0U;
+				RemSize -= DoneSize;
+			}
+
+			DmbAddr = TgtTileAddr +
+				XAIESIM_ELF_TILECORE_DATMEM + DmbOff;
+			XAieGbl_Write32(DmbAddr, *ElfPtr++);
+			DoneSize += 4U;
+		}
+	} else {
+		TgtTileAddr = TileInstPtr->TileAddr+XAIESIM_ELF_TILECORE_PRGMEM +
+			SectPtr->sh_addr;
+
+		for(Idx = 0U; Idx < SectPtr->sh_size; Idx += 4U) {
+			XAieGbl_Write32((TgtTileAddr + Idx), *ElfPtr++);
+		}
+	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the API to load the specified ELF to the target AIE Tile program
+* memory followed by clearing of the BSS sections.
+*
+* @param	TileInstPtr - Pointer to the Tile instance structure.
+* @param	ElfPtr: Path to the ELF memory
+*
+* @return	XAIESIM_SUCCESS on success, else XAIESIM_FAILURE.
+*
+* @note		None.
+*
+*******************************************************************************/
+uint32 XAieSim_LoadElfMem(XAieSim_Tile *TileInstPtr, uint8 *ElfPtr,
+		uint8 LoadSym)
+{
+	Elf32_Ehdr *ElfHdr = ElfPtr;
+	Elf32_Shdr *SectHdr;
+
+	uint8 Count = 0U;
+	uint8 ShNameIdx = 0U;
+
+	uint32 Idx;
+	uint8 *DataPtr;
+	uint32 DmbOff;
+	uint32 SectAddr;
+	uint32 RemSize;
+	uint32 DoneSize;
+	uint64_t DmbAddr;
+	uint64_t TgtTileAddr;
+
+	XAieSim_print("**** ELF HEADER ****\n");
+	XAieSim_print("e_type\t\t : %08x\ne_machine\t : %08x\ne_version\t : "
+			"%08x\ne_entry\t\t : %08x\ne_phoff\t\t : %08x\n",
+			ElfHdr->e_type, ElfHdr->e_machine, ElfHdr->e_version,
+			ElfHdr->e_entry, ElfHdr->e_phoff);
+	XAieSim_print("e_shoff\t\t : ""%08x\ne_flags\t\t : %08x\ne_ehsize\t"
+			" : %08x\ne_phentsize\t : %08x\ne_phnum\t\t : %08x\n"
+			"e_shentsize\t : %08x\ne_shnum\t\t : %08x\ne_shstrndx\t : "
+			"%08x\n\n", ElfHdr->e_shoff, ElfHdr->e_flags,
+			ElfHdr->e_ehsize, ElfHdr->e_phentsize, ElfHdr->e_phnum,
+			ElfHdr->e_shentsize, ElfHdr->e_shnum, ElfHdr->e_shstrndx);
+
+	SectHdr = ElfPtr + ElfHdr->e_shoff;
+
+	/*
+	 * Get the section names from the .shstrtab section. First find the
+	 * index of this section among the section header entries
+	 */
+	while(Count < ElfHdr->e_shnum) {
+		if(SectHdr[Count].sh_type == SHT_STRTAB) {
+			ShNameIdx = Count;
+			break;
+		}
+		Count++;
+	}
+
+	/* Now point to the .shstrtab section in the ELF file */
+	DataPtr = ElfPtr + SectHdr[ShNameIdx].sh_offset;
+
+	XAieSim_print("**** SECTION HEADERS ****\n");
+	XAieSim_print("Idx\tsh_name\t\tsh_type\t\tsh_flags\tsh_addr\t\tsh_offset"
+			"\tsh_size\t\tsh_link\t\tsh_addralign\tsection_name\n");
+	Count = 0U;
+	while(Count < ElfHdr->e_shnum) {
+		XAieSim_print("%d\t%08x\t%08x\t%08x\t%08x\t%08x\t%08x\t%08x\t"
+				"%08x\t%s\n", Count, SectHdr[Count].sh_name,
+				SectHdr[Count].sh_type, SectHdr[Count].sh_flags,
+				SectHdr[Count].sh_addr, SectHdr[Count].sh_offset,
+				SectHdr[Count].sh_size, SectHdr[Count].sh_link,
+				SectHdr[Count].sh_addralign,
+				DataPtr + SectHdr[Count].sh_name);
+		Count++;
+	}
+
+	Count = 0U;
+	while(Count < ElfHdr->e_shnum) {
+		/* Copy the program data sections to memory */
+		if((SectHdr[Count].sh_type == SHT_PROGBITS) &&
+				((SectHdr[Count].sh_flags &
+				  (SHF_ALLOC | SHF_EXECINSTR)) ||
+				 (SectHdr[Count].sh_flags &
+				  (SHF_ALLOC | SHF_WRITE)))) {
+
+			XAieSim_WriteSectionMem(TileInstPtr,
+					DataPtr + SectHdr[Count].sh_name,
+					&SectHdr[Count],
+					ElfPtr + SectHdr[Count].sh_offset);
+		}
+
+		/* Zero out the bss sections */
+		if((SectHdr[Count].sh_type == SHT_NOBITS) &&
+				(strstr(DataPtr + SectHdr[Count].sh_name,
+					"bss.DMb") != NULL)) {
+			XAieSim_print("Zeroing out the bss sections\n");
+
+			TgtTileAddr = XAieSim_GetTargetTileAddr(TileInstPtr,
+					SectHdr[Count].sh_addr);
+			SectAddr = SectHdr[Count].sh_addr;
+			/*
+			 * Use the section header size. The AIE compiler uses
+			 * the section header for load size.
+			 */
+			RemSize = SectHdr[Count].sh_size;
+			DoneSize = 0U;
+
+			/* Use 32 bit loads to match sim output */
+			for(Idx = 0U; Idx < RemSize; Idx += 4U){
+				/* Mask address as per the Data memory offset*/
+				DmbOff = (SectAddr &
+						XAIESIM_ELF_TILEADDR_DMB_MASK) + Idx;
+
+				if(DmbOff & 0x8000U) {
+					/*
+					 * 32 KB boundary cross. Data section
+					 * moving to the memory bank of next
+					 * cardinal direction. Change the target
+					 * tile address
+					 */
+					SectHdr[Count].sh_addr += 0x8000U;
+					TgtTileAddr =
+						XAieSim_GetTargetTileAddr(TileInstPtr,
+								(SectHdr[Count].sh_addr &
+								 0x1FFFFU));
+					SectAddr = 0x0U;
+					Idx = 0U;
+					DmbOff = 0U;
+					RemSize -= DoneSize;
+					DoneSize = 0U;
+				}
+
+				DmbAddr = TgtTileAddr +
+					XAIESIM_ELF_TILECORE_DATMEM + DmbOff;
+				XAieGbl_Write32(DmbAddr, 0U);
+				DoneSize += 4U;
+			}
+		}
+		Count++;
+	}
+
+	return XAIESIM_SUCCESS;
+}
 
 /*****************************************************************************/
 /**
