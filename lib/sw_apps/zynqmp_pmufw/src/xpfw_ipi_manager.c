@@ -184,6 +184,11 @@ s32 XPfw_IpiReadMessage(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen)
 	 * This is only for safety applications.
 	 */
 	if (MsgPtr[7] != XPfw_CalculateCRC((u32)MsgPtr, XPFW_IPI_W0_TO_W6_SIZE)) {
+		/* Trigger FW Error1 */
+		XPfw_RMW32(PMU_LOCAL_PMU_SERV_ERR, PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK,
+					PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK);
+		XPfw_RMW32(PMU_LOCAL_PMU_SERV_ERR, PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK,
+					0x0U);
 		XPfw_Printf(DEBUG_ERROR, "ERROR: IPI buffer CRC mismatch\r\n");
 		Status = XST_FAILURE;
 		goto Done;
@@ -241,6 +246,11 @@ s32 XPfw_IpiReadResponse(const XPfw_Module_t *ModPtr, u32 SrcCpuMask, u32 *MsgPt
 	 * This is only for safety applications.
 	 */
 	if (MsgPtr[7] != XPfw_CalculateCRC((u32)MsgPtr, XPFW_IPI_W0_TO_W6_SIZE)) {
+		/* Trigger FW Error1 */
+		XPfw_RMW32(PMU_LOCAL_PMU_SERV_ERR, PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK,
+					PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK);
+		XPfw_RMW32(PMU_LOCAL_PMU_SERV_ERR, PMU_LOCAL_PMU_SERV_ERR_FWERR1_MASK,
+					0x0U);
 		XPfw_Printf(DEBUG_ERROR, "ERROR: IPI buffer CRC mismatch\r\n");
 		Status = XST_FAILURE;
 		goto Done;
