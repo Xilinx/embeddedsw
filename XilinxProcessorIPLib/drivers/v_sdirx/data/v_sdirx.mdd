@@ -42,6 +42,6 @@ BEGIN driver v_sdirx
   OPTION driver_state = ACTIVE;
   OPTION DEPENDS = (video_common sdi_common);
   OPTION copyfiles = all;
-  OPTION VERSION = 1.3;
+  OPTION VERSION = 1.4;
   OPTION NAME = v_sdirx;
 END driver
