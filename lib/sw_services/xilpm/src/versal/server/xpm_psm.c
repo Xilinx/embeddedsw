@@ -33,6 +33,7 @@
 #define PWR_UP_TRIG(BASE)	((BASE) + PSM_GLOBAL_REQ_PWRUP_TRIG)
 #define PWR_DN_EN(BASE)		((BASE) + PSM_GLOBAL_REQ_PWRDWN_EN)
 #define PWR_DN_TRIG(BASE)	((BASE) + PSM_GLOBAL_REQ_PWRDWN_TRIG)
+#define PWR_DN_STAT(BASE)	((BASE) + PSM_GLOBAL_REQ_PWRDWN_STAT)
 #define SLEEP_EN(BASE)		((BASE) + PSM_GLOBAL_PWR_CTRL_EN)
 #define SLEEP_DIS(BASE)		((BASE) + PSM_GLOBAL_PWR_CTRL_DIS)
 #define SLEEP_TRIG(BASE)	((BASE) + PSM_GLOBAL_PWR_CTRL_TRIG)
@@ -163,7 +164,7 @@ XStatus XPmPsm_SendPowerDownReq(u32 BitMask)
 	PmOut32(PWR_DN_TRIG(Psm->PsmGlobalBaseAddr), BitMask);
 	PmOut32(PWR_DN_EN(Psm->PsmGlobalBaseAddr), BitMask);
 	do {
-		PmIn32(PWR_STAT(Psm->PsmGlobalBaseAddr), Reg);
+		PmIn32(PWR_DN_STAT(Psm->PsmGlobalBaseAddr), Reg);
 	} while (0 != (Reg & BitMask));
 
 	Status = XST_SUCCESS;
