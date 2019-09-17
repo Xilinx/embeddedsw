@@ -106,7 +106,7 @@ typedef struct {
 
 /* Device capability in each state */
 typedef struct {
-	const u32 State; /**<  Device state */
+	const u8 State; /**<  Device state */
 	const u32 Cap; /**< Capability associated with state */
 } XPm_StateCap;
 

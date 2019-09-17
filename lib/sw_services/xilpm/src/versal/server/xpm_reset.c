@@ -71,7 +71,7 @@ static XStatus XPmReset_Init(XPm_ResetNode *Rst, u32 Id, u32 ControlReg, u8 Shif
 {
 	u32 Status = XST_SUCCESS, i = 0;
 
-	Status = XPmNode_Init(&Rst->Node, Id, (u32)XPM_RST_STATE_ASSERTED, 0);
+	Status = XPmNode_Init(&Rst->Node, Id, (u8)XPM_RST_STATE_ASSERTED, 0);
 
 	Rst->Node.BaseAddress = ControlReg;
 	Rst->Shift = Shift;

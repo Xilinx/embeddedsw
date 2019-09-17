@@ -124,14 +124,14 @@ static XStatus XPmClock_Init(XPm_ClockNode *Clk, u32 Id, u32 ControlReg,
 	u32 Subclass = NODESUBCLASS(Id);
 
 	if (Subclass == XPM_NODETYPE_CLOCK_REF) {
-		Status = XPmNode_Init(&Clk->Node, Id, (u32)XPM_CLK_STATE_ON, 0);
+		Status = XPmNode_Init(&Clk->Node, Id, (u8)XPM_CLK_STATE_ON, 0);
 	} else if (Subclass == XPM_NODETYPE_CLOCK_OUT) {
 		if (NumParents > MAX_MUX_PARENTS) {
 			Status = XST_INVALID_PARAM;
 			goto done;
 		}
 		XPm_OutClockNode *OutClkPtr = (XPm_OutClockNode *)Clk;
-		XPmNode_Init(&OutClkPtr->ClkNode.Node, Id, (u32)XPM_CLK_STATE_OFF, 0);
+		XPmNode_Init(&OutClkPtr->ClkNode.Node, Id, (u8)XPM_CLK_STATE_OFF, 0);
 		OutClkPtr->ClkNode.Node.BaseAddress = ControlReg;
 		OutClkPtr->ClkNode.ClkHandles = NULL;
 		OutClkPtr->ClkNode.UseCount = 0;

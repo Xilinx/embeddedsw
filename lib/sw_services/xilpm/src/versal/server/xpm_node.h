@@ -45,16 +45,16 @@ typedef struct XPm_Node XPm_Node;
  */
 struct XPm_Node {
 	u32 Id;	/**< Node ID: For LibPM clock and pin APIs */
-	u32 State; /**< Node state: Specific to node type */
 	u32 BaseAddress; /**< Base address: Specify to node type */
 	u32 LatencyMarg; /**< lowest latency requirement - powerup latency */
+	u8  State; /**< Node state: Specific to node type */
 	u8  Flags;
 	XStatus (* HandleEvent)(XPm_Node *Node, u32 Event);
 		/**< HandleEvent: Pointer to event handler */
 };
 
 /************************** Function Prototypes ******************************/
-XStatus XPmNode_Init(XPm_Node *Node, u32 Id, u32 State, u32 BaseAddress);
+XStatus XPmNode_Init(XPm_Node *Node, u32 Id, u8 State, u32 BaseAddress);
 
 
 #define NODE_CLASS_SHIFT	26U

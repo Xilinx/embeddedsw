@@ -28,7 +28,7 @@
 #include "xpm_common.h"
 #include "xpm_node.h"
 
-XStatus XPmNode_Init(XPm_Node *Node, u32 Id, u32 State, u32 BaseAddress)
+XStatus XPmNode_Init(XPm_Node *Node, u32 Id, u8 State, u32 BaseAddress)
 {
 	PmDbg("Node Init: Type=%d, Id=%d, State=%d, BaseAddress=0x%08X\n\r",
 		NODETYPE(Id), Id, State, BaseAddress);
