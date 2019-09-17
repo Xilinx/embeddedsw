@@ -734,8 +734,8 @@ typedef enum {
 							*  is already
 							*  programmed. */
 
-	XSK_EFUSEPS_ERROR_PROGRAMMING_TBIT_PATTERN,/**< 0x16<br>Error in
-						     *  programming TBITS. */
+	XSK_EFUSEPS_ERROR_IN_TBIT_PATTERN,/**< 0x16<br>Error in
+							*  TBITS pattern . */
 
 	XSK_EFUSEPS_ERROR_PROGRAMMING = 0x00A0U,/**< 0x00A0<br>Error in
 						 *  programming eFUSE.*/

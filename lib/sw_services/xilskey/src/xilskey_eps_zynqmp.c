@@ -76,6 +76,8 @@
 *       vns   08/07/19 Fixed CTRL LOCK in XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits
 *       psl   08/13/19 Fixed MISRA-C violation
 *       vns   08/29/19 Initialized Status variables
+*       vns   09/17/19 Removed Tbits programming from library as they are to be
+*                      programmed under manufacturing list.
 * </pre>
 *
 *****************************************************************************/
@@ -110,7 +112,6 @@ static inline u32 XilSKey_ZynqMp_EfusePsWrite_Checks(
 				XilSKey_ZynqMpEPs *InstancePtr);
 static inline u32 XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowRange(u8 *Data,
 		u8 RowStart, u8 RowEnd, XskEfusePs_Type EfuseType);
-static inline u32 XilSKey_ZynqMp_EfusePs_PrgrmTbits(void);
 static inline u32 XilSKey_ZynqMp_EfusePs_WriteBit(u8 Row, u8 Column,
 						XskEfusePs_Type EfuseType);
 static inline void XilSKey_ZynqMp_EfusePs_SetTimerValues(void);
@@ -877,98 +878,6 @@ END:
 }
 
 /*****************************************************************************/
-/* This function programs Tbits
-*
-* @param	None.
-*
-* @return
-*		XST_SUCCESS - On success
-*		ErrorCode - on Failure
-*
-* @note		None.
-*
-******************************************************************************/
-static inline u32 XilSKey_ZynqMp_EfusePs_PrgrmTbits(void)
-{
-	u32 RowDataVal = 0U;
-	u32 Status = (u32)XST_FAILURE;
-	u8 Column;
-	u32 TbitsPrgrmReg;
-
-	/* Enable TBITS programming bit */
-	TbitsPrgrmReg = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
-			XSK_ZYNQMP_EFUSEPS_TBITS_PRGRMG_EN_OFFSET);
-
-	XilSKey_WriteReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
-				XSK_ZYNQMP_EFUSEPS_TBITS_PRGRMG_EN_OFFSET,
-		(TbitsPrgrmReg & (~XSK_ZYNQMP_EFUSEPS_TBITS_PRGRMG_EN_MASK)));
-
-	Status = XilSKey_ZynqMp_EfusePs_ReadRow(XSK_ZYNQMP_EFUSEPS_TBITS_ROW,
-					XSK_ZYNQMP_EFUSEPS_EFUSE_0, &RowDataVal);
-	if (Status != (u32)XST_SUCCESS) {
-		 goto END;
-	}
-	if (((RowDataVal >> XSK_ZYNQMP_EFUSEPS_TBITS_SHIFT) &
-			XSK_ZYNQMP_EFUSEPS_TBITS_MASK) != 0x00U) {
-		Status = (u32)XSK_EFUSEPS_ERROR_PROGRAMMING_TBIT_PATTERN;
-		goto END;
-	}
-
-	Status = XilSKey_ZynqMp_EfusePs_ReadRow(XSK_ZYNQMP_EFUSEPS_TBITS_ROW,
-			XSK_ZYNQMP_EFUSEPS_EFUSE_2, &RowDataVal);
-	if (Status != (u32)XST_SUCCESS) {
-		goto END;
-	}
-	if (((RowDataVal >> XSK_ZYNQMP_EFUSEPS_TBITS_SHIFT) &
-				XSK_ZYNQMP_EFUSEPS_TBITS_MASK) != 0x00U) {
-		Status = (u32)XSK_EFUSEPS_ERROR_PROGRAMMING_TBIT_PATTERN;
-		goto END;
-	}
-
-	Status = XilSKey_ZynqMp_EfusePs_ReadRow(XSK_ZYNQMP_EFUSEPS_TBITS_ROW,
-					XSK_ZYNQMP_EFUSEPS_EFUSE_3, &RowDataVal);
-	if (Status != (u32)XST_SUCCESS) {
-		goto END;
-	}
-	if (((RowDataVal >> XSK_ZYNQMP_EFUSEPS_TBITS_SHIFT) &
-				XSK_ZYNQMP_EFUSEPS_TBITS_MASK) != 0x00U) {
-		Status = (u32)XSK_EFUSEPS_ERROR_PROGRAMMING_TBIT_PATTERN;
-		goto END;
-	}
-
-	/* Programming Tbits */
-	for (Column = 28U; Column <= 31U; Column++) {
-		if ((Column == 28U) || (Column == 30U)) {
-			continue;
-		}
-		Status = XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(
-				XSK_ZYNQMP_EFUSEPS_TBITS_ROW, Column,
-				XSK_ZYNQMP_EFUSEPS_EFUSE_0);
-		if (Status != (u32)XST_SUCCESS) {
-			goto END;
-		}
-		Status = XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(
-				XSK_ZYNQMP_EFUSEPS_TBITS_ROW, Column,
-					XSK_ZYNQMP_EFUSEPS_EFUSE_2);
-		if (Status != (u32)XST_SUCCESS) {
-			goto END;
-		}
-		Status = XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(
-				XSK_ZYNQMP_EFUSEPS_TBITS_ROW, Column,
-					XSK_ZYNQMP_EFUSEPS_EFUSE_3);
-		if (Status != (u32)XST_SUCCESS) {
-			goto END;
-		}
-	}
-
-	XilSKey_WriteReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
-		XSK_ZYNQMP_EFUSEPS_TBITS_PRGRMG_EN_OFFSET, TbitsPrgrmReg);
-END:
-	return Status;
-
-}
-
-/*****************************************************************************/
 /* This function programs and verifies the particular bit of eFUSE array
 *
 * @param	Row specifies the row number.
@@ -1264,15 +1173,11 @@ u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions(void)
 		(XSK_ZYNQMP_EFUSEPS_STS_0_TBIT_MASK |
 		XSK_ZYNQMP_EFUSEPS_STS_2_TBIT_MASK |
 		XSK_ZYNQMP_EFUSEPS_STS_3_TBIT_MASK)) {
-		/* program Tbits */
-		Status = XilSKey_ZynqMp_EfusePs_PrgrmTbits();
-		if (Status != (u32)XST_SUCCESS) {
-			goto END;
-		}
-		Status = XilSKey_ZynqMp_EfusePs_CacheLoad();
-		if (Status != (u32)XST_SUCCESS) {
-			goto END;
-		}
+		/* T bits pattern is incorrect */
+		Status = (u32)XSK_EFUSEPS_ERROR_IN_TBIT_PATTERN;
+	}
+	else {
+		Status = (u32)XST_SUCCESS;
 	}
 END:
 	return Status;
