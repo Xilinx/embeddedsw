@@ -275,7 +275,7 @@ done:
 	return Status;
 }
 
-XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u32 NumParents)
+XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u8 NumParents)
 {
 	XStatus Status = XST_SUCCESS;
 	u32 Idx = 0;

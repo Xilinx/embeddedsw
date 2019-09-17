@@ -86,7 +86,7 @@ done:
 	return Status;
 }
 
-XStatus XPmClockPll_AddParent(u32 Id, u32 *Parents, u32 NumParents)
+XStatus XPmClockPll_AddParent(u32 Id, u32 *Parents, u8 NumParents)
 {
 	XStatus Status = XST_SUCCESS;
 	XPm_PllClockNode *PllPtr = (XPm_PllClockNode *)XPmClock_GetById(Id);

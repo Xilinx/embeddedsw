@@ -98,11 +98,11 @@ typedef struct XPm_ClockHandle XPm_ClockHandle;
 struct XPm_ClockNode {
 	XPm_Node Node;
 	char Name[MAX_NAME_BYTES];
-	u16 NumParents;
+	u8 NumParents;
 	u8 Flags;
+	u16 UseCount;
 	u32 ParentId;
 	XPm_ClockHandle *ClkHandles; /**< Pointer to the clock/device pairs */
-	u32 UseCount;
 	XPm_Power *PwrDomain;
 };
 
@@ -177,7 +177,7 @@ XStatus XPmClock_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 			 u8 ClkFlags);
 XStatus XPmClock_AddClkName(u32 Id, char *Name);
 XStatus XPmClock_AddSubNode(u32 Id, u32 Type, u32 ControlReg, u8 Param1, u8 Param2, u32 Flags);
-XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u32 NumParents);
+XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u8 NumParents);
 XPm_ClockNode* XPmClock_GetById(u32 ClockId);
 XPm_ClockNode* XPmClock_GetByIdx(u32 ClockIdx);
 XStatus XPmClock_SetById(u32 ClockId, XPm_ClockNode *Clk);
