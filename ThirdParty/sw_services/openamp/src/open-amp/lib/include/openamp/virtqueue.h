@@ -52,6 +52,11 @@ struct virtqueue_buf {
 	int len;
 };
 
+struct vq_desc_extra {
+	void *cookie;
+	uint16_t ndescs;
+};
+
 struct virtqueue {
 	struct virtio_device *vq_dev;
 	const char *vq_name;
@@ -93,10 +98,7 @@ struct virtqueue {
 	 * Other fields in this structure are not used currently.
 	 */
 
-	struct vq_desc_extra {
-		void *cookie;
-		uint16_t ndescs;
-	} vq_descx[0];
+	struct vq_desc_extra vq_descx[0];
 };
 
 /* struct to hold vring specific information */
