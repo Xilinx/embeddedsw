@@ -138,6 +138,8 @@ struct XPm_Device {
 	u8 WfPwrUseCnt; /**< Pending power use count */
 	XPm_DeviceOps *DeviceOps; /**< Device operations */
 	const XPm_DeviceFsm* DeviceFsm; /**< Device finite state machine */
+	XStatus (* HandleEvent)(XPm_Node *Node, u32 Event);
+		/**< HandleEvent: Pointer to event handler */
 };
 
 /************************** Function Prototypes ******************************/
@@ -182,7 +184,7 @@ int XPmDevice_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
 
 XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState);
 XStatus XPmDevice_UpdateStatus(XPm_Device *Device);
-XStatus XPmDevice_BringUp(XPm_Node *Node);
+XStatus XPmDevice_BringUp(XPm_Device *Device);
 int XPmDevice_GetUsageStatus(XPm_Subsystem *Subsystem, XPm_Device *Device);
 int XPmDevice_IsClockActive(XPm_Device *Device);
 int XPmDevice_IsRequested(const u32 DeviceId, const u32 SubsystemId);

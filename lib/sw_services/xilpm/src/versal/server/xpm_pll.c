@@ -211,8 +211,8 @@ XStatus XPmClockPll_Suspend(XPm_PllClockNode *Pll)
 	}
 
 	if (NULL != PowerDomain) {
-		Status = PowerDomain->Node.HandleEvent(&PowerDomain->Node,
-						       XPM_POWER_EVENT_PWR_DOWN);
+		Status = PowerDomain->HandleEvent(&PowerDomain->Node,
+						  XPM_POWER_EVENT_PWR_DOWN);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
@@ -230,8 +230,8 @@ XStatus XPmClockPll_Resume(XPm_PllClockNode *Pll)
 	XPm_Power *PowerDomain = Pll->ClkNode.PwrDomain;
 
 	if (NULL != PowerDomain) {
-		Status = PowerDomain->Node.HandleEvent(&PowerDomain->Node,
-						       XPM_POWER_EVENT_PWR_UP);
+		Status = PowerDomain->HandleEvent(&PowerDomain->Node,
+						  XPM_POWER_EVENT_PWR_UP);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}

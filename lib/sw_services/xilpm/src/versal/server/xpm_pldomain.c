@@ -608,9 +608,8 @@ XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,
 	PlDomain->Domain.Power.Node.State = XPM_POWER_STATE_OFF;
 	PlDomain->Domain.Power.UseCount = 1;
 
-	HandlePowerEvent = PlDomain->Domain.Power.Node.HandleEvent;
-	PlDomain->Domain.Power.Node.HandleEvent =
-		HandlePlDomainEvent;
+	HandlePowerEvent = PlDomain->Domain.Power.HandleEvent;
+	PlDomain->Domain.Power.HandleEvent = HandlePlDomainEvent;
 
 	/* Make sure enough base addresses are being passed */
 	if (2 <= OtherBaseAddressCnt) {

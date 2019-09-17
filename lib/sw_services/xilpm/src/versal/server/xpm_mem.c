@@ -80,7 +80,7 @@ static XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState)
 	switch (Device->Node.State) {
 	case XPM_DEVSTATE_UNUSED:
 		if (XPM_DEVSTATE_RUNNING == NextState) {
-			Status = XPmDevice_BringUp(&Device->Node);
+			Status = XPmDevice_BringUp(Device);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
@@ -128,8 +128,8 @@ static XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState)
 		break;
 	case XPM_DEVSTATE_RUNNING:
 		if (XPM_DEVSTATE_UNUSED == NextState) {
-			Status = Device->Node.HandleEvent((XPm_Node *)Device,
-							  XPM_DEVEVENT_SHUTDOWN);
+			Status = Device->HandleEvent(&Device->Node,
+						     XPM_DEVEVENT_SHUTDOWN);
 		}
 		break;
 	default:
@@ -154,13 +154,13 @@ static XStatus HandleMemDeviceState(XPm_Device* const Device, const u32 NextStat
 	switch (Device->Node.State) {
 	case XPM_DEVSTATE_UNUSED:
 		if (XPM_DEVSTATE_RUNNING == NextState) {
-			Status = XPmDevice_BringUp(&Device->Node);
+			Status = XPmDevice_BringUp(Device);
 		}
 		break;
 	case XPM_DEVSTATE_RUNNING:
 		if (XPM_DEVSTATE_UNUSED == NextState) {
-			Status = Device->Node.HandleEvent((XPm_Node *)Device,
-							  XPM_DEVEVENT_SHUTDOWN);
+			Status = Device->HandleEvent(&Device->Node,
+						     XPM_DEVEVENT_SHUTDOWN);
 		}
 		break;
 	default:

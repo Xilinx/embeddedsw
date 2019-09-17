@@ -102,14 +102,14 @@ done:
 XStatus XPmCore_WakeUp(XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Node *PwrNode;
+	XPm_Power *PwrNode;
 
 	DISABLE_WAKE(Core->SleepMask);
 
 	if ((XPM_DEVSTATE_RUNNING != Core->Device.Node.State) &&
 	    (NULL != Core->Device.Power)) {
-		PwrNode = &Core->Device.Power->Node;
-		Status = PwrNode->HandleEvent(PwrNode, XPM_POWER_EVENT_PWR_UP);
+		PwrNode = Core->Device.Power;
+		Status = PwrNode->HandleEvent(&PwrNode->Node, XPM_POWER_EVENT_PWR_UP);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
@@ -136,6 +136,7 @@ done:
 XStatus XPmCore_PwrDwn(XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
+	XPm_Power *PwrNode;
 
 	if ((Core->Device.Node.State == XPM_DEVSTATE_PWR_OFF) ||
 	    (Core->Device.Node.State == XPM_DEVSTATE_UNUSED)) {
@@ -153,7 +154,8 @@ XStatus XPmCore_PwrDwn(XPm_Core *Core)
 	}
 
 	if (NULL != Core->Device.Power) {
-		Status = Core->Device.Power->Node.HandleEvent(&Core->Device.Power->Node, XPM_POWER_EVENT_PWR_DOWN);
+		PwrNode = Core->Device.Power;
+		Status = PwrNode->HandleEvent(&PwrNode->Node, XPM_POWER_EVENT_PWR_DOWN);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}

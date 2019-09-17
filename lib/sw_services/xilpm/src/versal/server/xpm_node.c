@@ -36,7 +36,6 @@ XStatus XPmNode_Init(XPm_Node *Node, u32 Id, u8 State, u32 BaseAddress)
 	Node->Id = Id;
 	Node->State = State;
 	Node->BaseAddress = BaseAddress;
-	Node->HandleEvent = NULL;
 	Node->Flags = 0;
 	Node->LatencyMarg = XPM_MAX_LATENCY;
 

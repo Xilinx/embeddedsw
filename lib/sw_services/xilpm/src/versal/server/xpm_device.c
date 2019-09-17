@@ -255,30 +255,28 @@ static u32 IsRunning(XPm_Device *Device)
 	return Running;
 }
 
-XStatus XPmDevice_BringUp(XPm_Node *Node)
+XStatus XPmDevice_BringUp(XPm_Device *Device)
 {
 	u32 Status = XPM_ERR_DEVICE_BRINGUP;
-	XPm_Device *Device = (XPm_Device *)Node;
 
 	if (NULL == Device->Power) {
 		goto done;
 	}
 
 	/* Check if device is already up and running */
-	if(Node->State == XPM_DEVSTATE_RUNNING)
-	{
+	if (Device->Node.State == XPM_DEVSTATE_RUNNING) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
 
 	Device->WfPwrUseCnt = Device->Power->UseCount + 1;
-	Status = Device->Power->Node.HandleEvent(
-		&Device->Power->Node, XPM_POWER_EVENT_PWR_UP);
+	Status = Device->Power->HandleEvent(&Device->Power->Node,
+					    XPM_POWER_EVENT_PWR_UP);
 	if (XST_SUCCESS == Status) {
-		Node->State = XPM_DEVSTATE_PWR_ON;
+		Device->Node.State = XPM_DEVSTATE_PWR_ON;
 		/* Todo: Start timer to poll the power node */
 		/* Hack */
-		Status = Node->HandleEvent(Node, XPM_DEVEVENT_TIMER);
+		Status = Device->HandleEvent(&Device->Node, XPM_DEVEVENT_TIMER);
 	}
 
 done:
@@ -373,7 +371,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 					}
 					/* Todo: Start timer to poll the clock node */
 					/* Hack */
-					Status = Node->HandleEvent(Node, XPM_DEVEVENT_TIMER);
+					Status = Device->HandleEvent(Node, XPM_DEVEVENT_TIMER);
 				} else {
 					/* Todo: Start timer to poll the power node */
 				}
@@ -442,7 +440,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 					}
 					/* Todo: Start timer to poll the reset node */
 					/* Hack */
-					Status = Node->HandleEvent(Node, XPM_DEVEVENT_TIMER);
+					Status = Device->HandleEvent(Node, XPM_DEVEVENT_TIMER);
 				} else {
 					/* Todo: Start timer to poll the clock node */
 				}
@@ -467,7 +465,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 			break;
 		case XPM_DEVSTATE_RUNNING:
 			if (XPM_DEVEVENT_BRINGUP_ALL == Event) {
-				Status = XPmDevice_BringUp(Node);
+				Status = XPmDevice_BringUp(Device);
 			} else if (XPM_DEVEVENT_BRINGUP_CLKRST == Event) {
 				Node->State = XPM_DEVSTATE_CLK_ON;
 				/* Enable all clocks */
@@ -477,7 +475,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				}
 				/* Todo: Start timer to poll the clock node */
 				/* Hack */
-				Status = Node->HandleEvent(Node, XPM_DEVEVENT_TIMER);
+				Status = Device->HandleEvent(Node, XPM_DEVEVENT_TIMER);
 			} else if (XPM_DEVEVENT_SHUTDOWN == Event) {
 				Node->State = XPM_DEVSTATE_RST_ON;
 				/* Assert reset for peripheral devices */
@@ -491,7 +489,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				}
 				/* Todo: Start timer to poll reset node */
 				/* Hack */
-				Status = Node->HandleEvent(Node, XPM_DEVEVENT_TIMER);
+				Status = Device->HandleEvent(Node, XPM_DEVEVENT_TIMER);
 			} else if (XPM_DEVEVENT_RUNTIME_SUSPEND == Event) {
 				Node->State = XPM_DEVSTATE_RUNTIME_SUSPEND;
 				/* Disable all clocks */
@@ -516,7 +514,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 					}
 					/* Todo: Start timer to poll clock node */
 					/* Hack */
-					Status = Node->HandleEvent(Node, XPM_DEVEVENT_TIMER);
+					Status = Device->HandleEvent(Node, XPM_DEVEVENT_TIMER);
 				} else {
 					/* Todo: Start timer to poll reset node */
 				}
@@ -529,11 +527,11 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				if (1 /* Hack: Clock disabled */) {
 					Node->State = XPM_DEVSTATE_PWR_OFF;
 					Device->WfPwrUseCnt = Device->Power->UseCount - 1U;
-					Status = Device->Power->Node.HandleEvent(
-						&Device->Power->Node, XPM_POWER_EVENT_PWR_DOWN);
+					Status = Device->Power->HandleEvent(
+						 &Device->Power->Node, XPM_POWER_EVENT_PWR_DOWN);
 					/* Todo: Start timer to poll power node use count */
 					/* Hack */
-					Status = Node->HandleEvent(Node, XPM_DEVEVENT_TIMER);
+					Status = Device->HandleEvent(Node, XPM_DEVEVENT_TIMER);
 				} else {
 					/* Todo: Start timer to poll clock node */
 				}
@@ -581,7 +579,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				 * clocks are disabled during runtime suspend.
 				 */
 				Node->State = XPM_DEVSTATE_CLK_OFF;
-				Status = Node->HandleEvent(Node, XPM_DEVEVENT_TIMER);
+				Status = Device->HandleEvent(Node, XPM_DEVEVENT_TIMER);
 			} else if (XPM_DEVEVENT_BRINGUP_ALL == Event) {
 				/* Enable all clocks */
 				Status = SetClocks(Device, TRUE);
@@ -611,27 +609,27 @@ static XStatus HandleDeviceState(XPm_Device* const Device, const u32 NextState)
 	switch (Device->Node.State) {
 	case XPM_DEVSTATE_UNUSED:
 		if (XPM_DEVSTATE_RUNNING == NextState) {
-			Status = XPmDevice_BringUp(&Device->Node);
+			Status = XPmDevice_BringUp(Device);
 		}
 		break;
 	case XPM_DEVSTATE_RUNNING:
 		if (XPM_DEVSTATE_UNUSED == NextState) {
-			Status = Device->Node.HandleEvent((XPm_Node *)Device,
-							  XPM_DEVEVENT_SHUTDOWN);
+			Status = Device->HandleEvent(&Device->Node,
+						     XPM_DEVEVENT_SHUTDOWN);
 		} else if (XPM_DEVSTATE_RUNTIME_SUSPEND == NextState) {
-			Status = Device->Node.HandleEvent((XPm_Node *)Device,
-							  XPM_DEVEVENT_RUNTIME_SUSPEND);
+			Status = Device->HandleEvent(&Device->Node,
+						     XPM_DEVEVENT_RUNTIME_SUSPEND);
 		} else {
 			/* Required by MISRA */
 		}
 		break;
 	case XPM_DEVSTATE_RUNTIME_SUSPEND:
 		if (XPM_DEVSTATE_RUNNING == NextState) {
-			Status = Device->Node.HandleEvent((XPm_Node *)Device,
-							  XPM_DEVEVENT_BRINGUP_ALL);
+			Status = Device->HandleEvent(&Device->Node,
+						     XPM_DEVEVENT_BRINGUP_ALL);
 		} else if (XPM_DEVSTATE_UNUSED == NextState) {
-			Status = Device->Node.HandleEvent((XPm_Node *)Device,
-							  XPM_DEVEVENT_SHUTDOWN);
+			Status = Device->HandleEvent(&Device->Node,
+						     XPM_DEVEVENT_SHUTDOWN);
 		} else {
 			/* Required by MISRA */
 		}
@@ -856,7 +854,7 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 		goto done;
 	}
 
-	Device->Node.HandleEvent = HandleDeviceEvent;
+	Device->HandleEvent = HandleDeviceEvent;
 
 	PmDeviceOps.Request = Request;
 	PmDeviceOps.SetRequirement = SetRequirement;
@@ -1589,8 +1587,7 @@ static int UpdatePwrLatencyReq(const XPm_Device *const Device)
 	if (Device->Node.LatencyMarg <
 	    (Power->PwrDnLatency + Power->PwrUpLatency)) {
 		Power->Node.LatencyMarg = 0U;
-		Status = Power->Node.HandleEvent(&Power->Node,
-						 XPM_POWER_EVENT_PWR_UP);
+		Status = Power->HandleEvent(&Power->Node, XPM_POWER_EVENT_PWR_UP);
 	}
 
 done:

@@ -70,6 +70,8 @@ struct XPm_Power {
 	u8 WfParentUseCnt; /**< Pending use count of the parent */
 	u16 PwrDnLatency; /**< Latency (in us) for transition to OFF state */
 	u16 PwrUpLatency; /**< Latency (in us) for transition to ON state */
+	XStatus (* HandleEvent)(XPm_Node *Node, u32 Event);
+		/**< HandleEvent: Pointer to event handler */
 };
 
 /************************** Function Prototypes ******************************/

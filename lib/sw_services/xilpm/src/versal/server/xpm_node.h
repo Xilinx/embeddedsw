@@ -49,8 +49,6 @@ struct XPm_Node {
 	u16 LatencyMarg; /**< lowest latency requirement - powerup latency */
 	u8  State; /**< Node state: Specific to node type */
 	u8  Flags;
-	XStatus (* HandleEvent)(XPm_Node *Node, u32 Event);
-		/**< HandleEvent: Pointer to event handler */
 };
 
 /************************** Function Prototypes ******************************/

@@ -200,18 +200,18 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 				if (NULL != Power->Parent) {
 					Node->State = XPM_POWER_STATE_PWR_UP_PARENT;
 					Power->WfParentUseCnt = Power->Parent->UseCount + 1;
-					Status = Power->Parent->Node.HandleEvent(
-						&Power->Parent->Node, XPM_POWER_EVENT_PWR_UP);
+					Status = Power->Parent->HandleEvent(
+						 &Power->Parent->Node, XPM_POWER_EVENT_PWR_UP);
 					/* Todo: Start timer to poll parent node */
 					/* Hack */
-					Status = Node->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
+					Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
 				} else {
 					/* Write to PSM power up request register */
 					SendPowerUpReq(Node);
 					Node->State = XPM_POWER_STATE_PWR_UP_SELF;
 					/* Todo: Start timer to poll PSM status register */
 					/* Hack */
-					Status = Node->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
+					Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
 				}
 			}
 			break;
@@ -225,7 +225,7 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 					Node->State = XPM_POWER_STATE_PWR_UP_SELF;
 					/* Todo: Start timer to poll PSM status register */
 					/* Hack */
-					Status = Node->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
+					Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
 				} else {
 					/* Todo: Restart timer to poll parent state */
 				}
@@ -247,8 +247,8 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 			if (XPM_POWER_EVENT_PWR_UP == Event) {
 				Status = XST_SUCCESS;
 				if (NULL != Power->Parent) {
-					Status = Power->Parent->Node.HandleEvent(
-						&Power->Parent->Node, XPM_POWER_EVENT_PWR_UP);
+					Status = Power->Parent->HandleEvent(
+						 &Power->Parent->Node, XPM_POWER_EVENT_PWR_UP);
 				}
 				Power->UseCount++;
 			} else if (XPM_POWER_EVENT_PWR_DOWN == Event) {
@@ -259,12 +259,12 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 					SendPowerDownReq(Node);
 					/* Todo: Start timer to poll PSM status register */
 					/* Hack */
-					Status = Node->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
+					Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
 				} else {
 					Power->UseCount--;
 					if (NULL != Power->Parent) {
-						Status = Power->Parent->Node.HandleEvent(
-							&Power->Parent->Node, XPM_POWER_EVENT_PWR_DOWN);
+						Status = Power->Parent->HandleEvent(
+							 &Power->Parent->Node, XPM_POWER_EVENT_PWR_DOWN);
 					}
 				}
 			} else {
@@ -280,11 +280,11 @@ static XStatus HandlePowerEvent(XPm_Node *Node, u32 Event)
 					if (NULL != Power->Parent) {
 						Node->State = XPM_POWER_STATE_PWR_DOWN_PARENT;
 						Power->WfParentUseCnt = Power->Parent->UseCount - 1;
-						Status = Power->Parent->Node.HandleEvent(
-							&Power->Parent->Node, XPM_POWER_EVENT_PWR_DOWN);
+						Status = Power->Parent->HandleEvent(
+							 &Power->Parent->Node, XPM_POWER_EVENT_PWR_DOWN);
 						/* Todo: Start timer to poll the parent node */
 						/* Hack */
-						Status = Node->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
+						Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
 					} else {
 						Node->State = XPM_POWER_STATE_OFF;
 					}
@@ -348,7 +348,7 @@ XStatus XPmPower_Init(XPm_Power *Power,
 
 	Power->Parent = Parent;
 	Power->NextPeer = NULL;
-	Power->Node.HandleEvent = HandlePowerEvent;
+	Power->HandleEvent = HandlePowerEvent;
 	Power->UseCount = 0;
 	Power->WfParentUseCnt = 0;
 	Power->PwrDnLatency = 0;
