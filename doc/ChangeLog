@@ -120,6 +120,32 @@ Added message regarding deprecation of Xilisf.
 xilffs_v4_2:
 Initialize Status variables with failure values
 
+xilskey_v6_8:
+Fixed MISRAC violations and coverity warnings
+Updated doxygen comments.
+Added support for user to add IDCODES for microblaze
+Moved floating point calculation to compile time
+Added assert statements
+Corrected length of data to be read.
+Fixed CHASH reading from wrong location of syndrome
+data in Zynqmp
+Fixed controller locking back in ZU+
+Reporting puf_acc_error to user.
+Added Debug define for dummy programming for microblaze
+Initialized Status variables to XST_FAILURE
+Added support to access ZU+ PL efuse and BBRAM
+Aligned spaces in dependecies.props
+Removed Tbits programming code in ZU+
+
+xilsecure_v4.1:
+Added AES interface for Versal
+Fixed coverity warnings and MISRAC violations
+Updated return status om Sha3DataUpdate function
+Optimized code in xsecure.c file
+Added assert statements to function parameters
+Added support for A72 and R5 of versal.
+Initialized status variables to XST_FAILURE.
+
 Changes for 2019.1
 ===============================
 v_hdmiphy1_v1_0:
