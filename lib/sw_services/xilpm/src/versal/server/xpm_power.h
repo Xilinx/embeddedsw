@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 #ifndef XPM_POWER_H_
 #define XPM_POWER_H_
@@ -70,6 +50,8 @@ struct XPm_Power {
 	u8 WfParentUseCnt; /**< Pending use count of the parent */
 	u16 PwrDnLatency; /**< Latency (in us) for transition to OFF state */
 	u16 PwrUpLatency; /**< Latency (in us) for transition to ON state */
+	XStatus (* HandleEvent)(XPm_Node *Node, u32 Event);
+		/**< HandleEvent: Pointer to event handler */
 };
 
 /************************** Function Prototypes ******************************/
@@ -78,6 +60,7 @@ XStatus XPmPower_Init(XPm_Power *Power,
 	u32 Id, u32 BaseAddress, XPm_Power *Parent);
 XStatus XPmPower_AddParent(u32 Id, u32 *Parents, u32 NumParents);
 XStatus XPmPower_GetStatus(const u32 SubsystemId, const u32 DeviceId, XPm_DeviceStatus *const DeviceStatus);
+int XPmPower_GetWakeupLatency(const u32 DeviceId, u32 *Latency);
 
 #ifdef __cplusplus
 }
