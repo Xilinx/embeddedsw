@@ -135,5 +135,21 @@
 *        vns  10/11/18 Added support for re-programming SPKID without reverting
 *                      existing programmed bits.
 * 6.7    arc  10/29/18 Fixed ARMCC compiler warnings
+*                      Added support to program SSIT microblaze devices
+* 6.8    vns  09/17/19 Fixed MISRAC violations and coverity warnings
+*                      Updated doxygen comments.
+*                      Added support for user to add IDCODES for microblaze
+*                      Moved floating point calculation to compile time
+*                      Added assert statements
+*                      Corrected length of data to be read.
+*                      Fixed CHASH reading from wrong location of syndrome
+*                      data in Zynqmp
+*                      Fixed controller locking back in ZU+
+*                      Reporting puf_acc_error to user.
+*                      Added Debug define for dummy programming for microblaze
+*                      Initialized Status variables to XST_FAILURE
+*                      Added support to access ZU+ PL efuse and BBRAM
+*                      Aligned spaces in dependecies.props
+*                      Removed Tbits programming code in ZU+
 *
  ********************************************************************************/
