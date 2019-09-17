@@ -146,6 +146,7 @@
 * 3.6   mn     08/01/18 Add support for using 64Bit DMA with 32-Bit Processor
 * 3.7   mn     02/01/19 Add support for idling of SDIO
 * 3.8   mn     04/12/19 Modified TapDelay code for supporting ZynqMP and Versal
+*       mn     09/17/19 Modified ADMA handling API for 32bit and 64bit addresses
 *
 * </pre>
 *
@@ -191,16 +192,28 @@ typedef struct {
 	u8 IsCacheCoherent; 		/**< If SD is Cache Coherent or not */
 } XSdPs_Config;
 
-/* ADMA2 descriptor table */
+/* ADMA2 32-Bit descriptor table */
+typedef struct {
+	u16 Attribute;		/**< Attributes of descriptor */
+	u16 Length;		/**< Length of current dma transfer */
+	u32 Address;		/**< Address of current dma transfer */
+#ifdef __ICCARM__
+#pragma data_alignment = 32
+} XSdPs_Adma2Descriptor32;
+#else
+}  __attribute__((__packed__))XSdPs_Adma2Descriptor32;
+#endif
+
+/* ADMA2 64-Bit descriptor table */
 typedef struct {
 	u16 Attribute;		/**< Attributes of descriptor */
 	u16 Length;		/**< Length of current dma transfer */
 	u64 Address;		/**< Address of current dma transfer */
 #ifdef __ICCARM__
 #pragma data_alignment = 32
-} XSdPs_Adma2Descriptor;
+} XSdPs_Adma2Descriptor64;
 #else
-}  __attribute__((__packed__))XSdPs_Adma2Descriptor;
+}  __attribute__((__packed__))XSdPs_Adma2Descriptor64;
 #endif
 
 /**
@@ -228,13 +241,6 @@ typedef struct {
 	u32 Mode;			/**< Bus Speed Mode */
 	u32	OTapDelay;		/**< Output Tap Delay */
 	u32	ITapDelay;		/**< Input Tap Delay */
-	/**< ADMA Descriptors */
-#ifdef __ICCARM__
-#pragma data_alignment = 32
-	XSdPs_Adma2Descriptor Adma2_DescrTbl[32];
-#else
-	XSdPs_Adma2Descriptor Adma2_DescrTbl[32] __attribute__ ((aligned(32)));
-#endif
 	u64 Dma64BitAddr;	/**< 64 Bit DMA Address */
 } XSdPs;
 
