@@ -32,7 +32,7 @@ OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lgcc,-lc,--end-group";
 OPTION DESC = "Standalone is a simple, low-level software layer. It provides access to basic processor features such as caches, interrupts and exceptions as well as the basic features of a hosted environment, such as standard input and output, profiling, abort and exit.";
 OPTION copyfiles = all;
 OPTION OS_STATE = ACTIVE;
-OPTION VERSION = 7.1;
+OPTION VERSION = 7.2;
 OPTION NAME = standalone;
 
 PARAM name = zynqmp_fsbl_bsp, type = bool, default = false, desc = "Disable or Enable Optimization for FSBL's BSP. ZynqMP FSBL will set this to true";
@@ -42,7 +42,7 @@ PARAM name = stdout, desc = "stdout peripheral", type = peripheral_instance, req
 
 BEGIN CATEGORY sw_intrusive_profiling
     PARAM name = enable_sw_intrusive_profiling, type = bool, default = false, desc = "Enable S/W Intrusive Profiling on Hardware Targets", permit = user;
-    PARAM name = profile_timer, type = peripheral_instance, range = (opb_timer, xps_timer, axi_timer), default = none, desc = "Specify the Timer to use for Profiling. For PowerPC system, specify none to use PIT timer. For ARM system, specify none to use SCU timer";
+    PARAM name = profile_timer, type = peripheral_instance, range = (opb_timer, axi_timer), default = none, desc = "Specify the Timer to use for Profiling. For PowerPC system, specify none to use PIT timer. For ARM system, specify none to use SCU timer";
 END CATEGORY
 
 BEGIN CATEGORY microblaze_exceptions

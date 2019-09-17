@@ -1597,7 +1597,7 @@ proc mb_drc_checks { sw_proc_handle hw_proc_handle os_handle } {
 		 }
 
 	if { $timer_count == 0 } {
-		error "FreeRTOS for Microblaze requires an axi_timer or xps_timer. The HW platform doesn't have a valid timer." "" "mdt_error"
+		error "FreeRTOS for Microblaze requires an axi_timer. The HW platform doesn't have a valid timer." "" "mdt_error"
 	}
 
 	if { $timer_has_intr == 0 } {
