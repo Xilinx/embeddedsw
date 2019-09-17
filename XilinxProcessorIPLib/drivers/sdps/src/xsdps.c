@@ -95,6 +95,7 @@
 * 3.7   mn     02/01/19 Add support for idling of SDIO
 *       aru    03/12/19 Modified the code according to MISRAC-2012.
 * 3.8   mn     04/12/19 Modified TapDelay code for supporting ZynqMP and Versal
+*       mn     09/17/19 Modified ADMA handling API for 32bit and 64bit addresses
 * </pre>
 *
 ******************************************************************************/
@@ -1595,6 +1596,12 @@ RETURN_PATH:
 ******************************************************************************/
 void XSdPs_SetupADMA2DescTbl64Bit(XSdPs *InstancePtr, u32 BlkCnt)
 {
+#ifdef __ICCARM__
+#pragma data_alignment = 32
+	XSdPs_Adma2Descriptor64 Adma2_DescrTbl[32];
+#else
+	XSdPs_Adma2Descriptor64 Adma2_DescrTbl[32] __attribute__ ((aligned(32)));
+#endif
 	u32 TotalDescLines;
 	u64 DescNum;
 	u32 BlkSize;
@@ -1618,35 +1625,174 @@ void XSdPs_SetupADMA2DescTbl64Bit(XSdPs *InstancePtr, u32 BlkCnt)
 	}
 
 	for (DescNum = 0U; DescNum < (TotalDescLines-1); DescNum++) {
-		InstancePtr->Adma2_DescrTbl[DescNum].Address =
+		Adma2_DescrTbl[DescNum].Address =
 				InstancePtr->Dma64BitAddr +
 				(DescNum*XSDPS_DESC_MAX_LENGTH);
-		InstancePtr->Adma2_DescrTbl[DescNum].Attribute =
+		Adma2_DescrTbl[DescNum].Attribute =
 				XSDPS_DESC_TRAN | XSDPS_DESC_VALID;
-		InstancePtr->Adma2_DescrTbl[DescNum].Length = 0U;
+		Adma2_DescrTbl[DescNum].Length = 0U;
 	}
 
-	InstancePtr->Adma2_DescrTbl[TotalDescLines-1].Address =
+	Adma2_DescrTbl[TotalDescLines-1].Address =
 				InstancePtr->Dma64BitAddr +
 				(DescNum*XSDPS_DESC_MAX_LENGTH);
 
-	InstancePtr->Adma2_DescrTbl[TotalDescLines-1].Attribute =
+	Adma2_DescrTbl[TotalDescLines-1].Attribute =
 			XSDPS_DESC_TRAN | XSDPS_DESC_END | XSDPS_DESC_VALID;
 
-	InstancePtr->Adma2_DescrTbl[TotalDescLines-1].Length =
+	Adma2_DescrTbl[TotalDescLines-1].Length =
 			(u16)((BlkCnt*BlkSize) - (u32)(DescNum*XSDPS_DESC_MAX_LENGTH));
 
 	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_OFFSET,
-			(u32)(UINTPTR)&(InstancePtr->Adma2_DescrTbl[0]));
+			(u32)(UINTPTR)&(Adma2_DescrTbl[0]));
 
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
-		Xil_DCacheFlushRange((INTPTR)&(InstancePtr->Adma2_DescrTbl[0]),
-			sizeof(XSdPs_Adma2Descriptor) * 32U);
+		Xil_DCacheFlushRange((INTPTR)&(Adma2_DescrTbl[0]),
+			sizeof(XSdPs_Adma2Descriptor64) * 32U);
 	}
 
 	/* Clear the 64-Bit Address variable */
 	InstancePtr->Dma64BitAddr = 0U;
 
+}
+
+/*****************************************************************************/
+/**
+*
+* API to setup ADMA2 descriptor table for 32-bit DMA
+*
+*
+* @param	InstancePtr is a pointer to the XSdPs instance.
+* @param	BlkCnt - block count.
+* @param	Buff pointer to data buffer.
+*
+* @return	None
+*
+* @note		None.
+*
+******************************************************************************/
+static void XSdPs_Setup32ADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
+{
+#ifdef __ICCARM__
+#pragma data_alignment = 32
+	XSdPs_Adma2Descriptor32 Adma2_DescrTbl[32];
+#else
+	XSdPs_Adma2Descriptor32 Adma2_DescrTbl[32] __attribute__ ((aligned(32)));
+#endif
+	u32 TotalDescLines;
+	u64 DescNum;
+	u32 BlkSize;
+
+	/* Setup ADMA2 - Write descriptor table and point ADMA SAR to it */
+	BlkSize = (u32)XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+					XSDPS_BLK_SIZE_OFFSET) &
+					XSDPS_BLK_SIZE_MASK;
+
+	if((BlkCnt*BlkSize) < XSDPS_DESC_MAX_LENGTH) {
+		TotalDescLines = 1U;
+	} else {
+		TotalDescLines = ((BlkCnt*BlkSize) / XSDPS_DESC_MAX_LENGTH);
+		if (((BlkCnt * BlkSize) % XSDPS_DESC_MAX_LENGTH) != 0U) {
+			TotalDescLines += 1U;
+		}
+	}
+
+	for (DescNum = 0U; DescNum < (TotalDescLines-1); DescNum++) {
+		Adma2_DescrTbl[DescNum].Address =
+				(u32)((UINTPTR)Buff + (DescNum*XSDPS_DESC_MAX_LENGTH));
+		Adma2_DescrTbl[DescNum].Attribute =
+				XSDPS_DESC_TRAN | XSDPS_DESC_VALID;
+		Adma2_DescrTbl[DescNum].Length = 0U;
+	}
+
+	Adma2_DescrTbl[TotalDescLines-1].Address =
+			(u32)((UINTPTR)Buff + (DescNum*XSDPS_DESC_MAX_LENGTH));
+
+	Adma2_DescrTbl[TotalDescLines-1].Attribute =
+			XSDPS_DESC_TRAN | XSDPS_DESC_END | XSDPS_DESC_VALID;
+
+	Adma2_DescrTbl[TotalDescLines-1].Length =
+			(u16)((BlkCnt*BlkSize) - (u32)(DescNum*XSDPS_DESC_MAX_LENGTH));
+
+	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_OFFSET,
+			(u32)(UINTPTR)&(Adma2_DescrTbl[0]));
+
+	if (InstancePtr->Config.IsCacheCoherent == 0U) {
+		Xil_DCacheFlushRange((INTPTR)&(Adma2_DescrTbl[0]),
+			sizeof(XSdPs_Adma2Descriptor32) * 32U);
+	}
+}
+
+/*****************************************************************************/
+/**
+*
+* API to setup ADMA2 descriptor table for 64-bit DMA
+*
+*
+* @param	InstancePtr is a pointer to the XSdPs instance.
+* @param	BlkCnt - block count.
+* @param	Buff pointer to data buffer.
+*
+* @return	None
+*
+* @note		None.
+*
+******************************************************************************/
+static void XSdPs_Setup64ADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
+{
+#ifdef __ICCARM__
+#pragma data_alignment = 32
+	XSdPs_Adma2Descriptor64 Adma2_DescrTbl[32];
+#else
+	XSdPs_Adma2Descriptor64 Adma2_DescrTbl[32] __attribute__ ((aligned(32)));
+#endif
+	u32 TotalDescLines;
+	u64 DescNum;
+	u32 BlkSize;
+
+	/* Setup ADMA2 - Write descriptor table and point ADMA SAR to it */
+	BlkSize = (u32)XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+					XSDPS_BLK_SIZE_OFFSET) &
+					XSDPS_BLK_SIZE_MASK;
+
+	if((BlkCnt*BlkSize) < XSDPS_DESC_MAX_LENGTH) {
+		TotalDescLines = 1U;
+	} else {
+		TotalDescLines = ((BlkCnt*BlkSize) / XSDPS_DESC_MAX_LENGTH);
+		if (((BlkCnt * BlkSize) % XSDPS_DESC_MAX_LENGTH) != 0U) {
+			TotalDescLines += 1U;
+		}
+	}
+
+	for (DescNum = 0U; DescNum < (TotalDescLines-1); DescNum++) {
+		Adma2_DescrTbl[DescNum].Address =
+				((UINTPTR)Buff + (DescNum*XSDPS_DESC_MAX_LENGTH));
+		Adma2_DescrTbl[DescNum].Attribute =
+				XSDPS_DESC_TRAN | XSDPS_DESC_VALID;
+		Adma2_DescrTbl[DescNum].Length = 0U;
+	}
+
+	Adma2_DescrTbl[TotalDescLines-1].Address =
+			(u64)((UINTPTR)Buff + (DescNum*XSDPS_DESC_MAX_LENGTH));
+
+	Adma2_DescrTbl[TotalDescLines-1].Attribute =
+			XSDPS_DESC_TRAN | XSDPS_DESC_END | XSDPS_DESC_VALID;
+
+	Adma2_DescrTbl[TotalDescLines-1].Length =
+			(u16)((BlkCnt*BlkSize) - (u32)(DescNum*XSDPS_DESC_MAX_LENGTH));
+
+#if defined(__aarch64__) || defined(__arch64__)
+	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_EXT_OFFSET,
+			(u32)((UINTPTR)(Adma2_DescrTbl)>>32U));
+#endif
+
+	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_OFFSET,
+			(u32)(UINTPTR)&(Adma2_DescrTbl[0]));
+
+	if (InstancePtr->Config.IsCacheCoherent == 0U) {
+		Xil_DCacheFlushRange((INTPTR)&(Adma2_DescrTbl[0]),
+			sizeof(XSdPs_Adma2Descriptor64) * 32U);
+	}
 }
 
 /*****************************************************************************/
@@ -1666,66 +1812,10 @@ void XSdPs_SetupADMA2DescTbl64Bit(XSdPs *InstancePtr, u32 BlkCnt)
 ******************************************************************************/
 void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 {
-	u32 TotalDescLines;
-	u64 DescNum;
-	u32 BlkSize;
-
-	/* Setup ADMA2 - Write descriptor table and point ADMA SAR to it */
-	BlkSize = (u32)XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
-					XSDPS_BLK_SIZE_OFFSET) &
-					XSDPS_BLK_SIZE_MASK;
-
-	if((BlkCnt*BlkSize) < XSDPS_DESC_MAX_LENGTH) {
-
-		TotalDescLines = 1U;
-
-	}else {
-
-		TotalDescLines = ((BlkCnt*BlkSize) / XSDPS_DESC_MAX_LENGTH);
-		if (((BlkCnt * BlkSize) % XSDPS_DESC_MAX_LENGTH) != 0U) {
-			TotalDescLines += 1U;
-		}
-
-	}
-
-	for (DescNum = 0U; DescNum < (TotalDescLines-1); DescNum++) {
-#if defined(__aarch64__) || defined(__arch64__)
-		InstancePtr->Adma2_DescrTbl[DescNum].Address =
-				((UINTPTR)Buff + (DescNum*XSDPS_DESC_MAX_LENGTH));
-#else
-		InstancePtr->Adma2_DescrTbl[DescNum].Address =
-				(u32)((UINTPTR)Buff + (DescNum*XSDPS_DESC_MAX_LENGTH));
-#endif
-		InstancePtr->Adma2_DescrTbl[DescNum].Attribute =
-				XSDPS_DESC_TRAN | XSDPS_DESC_VALID;
-		InstancePtr->Adma2_DescrTbl[DescNum].Length = 0U;
-	}
-
-#if defined(__aarch64__) || defined(__arch64__)
-	InstancePtr->Adma2_DescrTbl[TotalDescLines-1].Address =
-			(u64)((UINTPTR)Buff + (DescNum*XSDPS_DESC_MAX_LENGTH));
-#else
-	InstancePtr->Adma2_DescrTbl[TotalDescLines-1].Address =
-			(u32)((UINTPTR)Buff + (DescNum*XSDPS_DESC_MAX_LENGTH));
-#endif
-
-	InstancePtr->Adma2_DescrTbl[TotalDescLines-1].Attribute =
-			XSDPS_DESC_TRAN | XSDPS_DESC_END | XSDPS_DESC_VALID;
-
-	InstancePtr->Adma2_DescrTbl[TotalDescLines-1].Length =
-			(u16)((BlkCnt*BlkSize) - (u32)(DescNum*XSDPS_DESC_MAX_LENGTH));
-
-#if defined(__aarch64__) || defined(__arch64__)
-	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_EXT_OFFSET,
-			(u32)((UINTPTR)(InstancePtr->Adma2_DescrTbl)>>32U));
-#endif
-
-	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_OFFSET,
-			(u32)(UINTPTR)&(InstancePtr->Adma2_DescrTbl[0]));
-
-	if (InstancePtr->Config.IsCacheCoherent == 0U) {
-		Xil_DCacheFlushRange((INTPTR)&(InstancePtr->Adma2_DescrTbl[0]),
-			sizeof(XSdPs_Adma2Descriptor) * 32U);
+	if (InstancePtr->HC_Version == XSDPS_HC_SPEC_V3) {
+		XSdPs_Setup64ADMA2DescTbl(InstancePtr, BlkCnt, Buff);
+	} else {
+		XSdPs_Setup32ADMA2DescTbl(InstancePtr, BlkCnt, Buff);
 	}
 }
 
