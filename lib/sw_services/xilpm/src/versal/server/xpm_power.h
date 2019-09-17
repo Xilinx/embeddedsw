@@ -68,8 +68,8 @@ struct XPm_Power {
 	XPm_Power *NextPeer; /**< NextPeer: Next power node of the same parent  */
 	u8 UseCount; /**< No. of devices currently using this power node */
 	u8 WfParentUseCnt; /**< Pending use count of the parent */
-	u32 PwrDnLatency; /**< Latency (in us) for transition to OFF state */
-	u32 PwrUpLatency; /**< Latency (in us) for transition to ON state */
+	u16 PwrDnLatency; /**< Latency (in us) for transition to OFF state */
+	u16 PwrUpLatency; /**< Latency (in us) for transition to ON state */
 };
 
 /************************** Function Prototypes ******************************/
