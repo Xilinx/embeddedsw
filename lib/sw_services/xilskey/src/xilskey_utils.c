@@ -75,6 +75,8 @@
 *       psl     06/28/19 Added doxygen tags.
 *       psl     07/29/19 Fixed MISRA-C violation.
 *       vns     08/29/19 Initialized Status variables
+*       mmd     07/31/19 Avoided reconfiguration of sysmon, if it is in use
+*
  *****************************************************************************/
 
 /***************************** Include Files ********************************/
@@ -114,6 +116,9 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
 					XSKEfusePs_XAdc *XAdcInstancePtr);
 static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 					XSKEfusePs_XAdc *XAdcInstancePtr);
+#ifndef XSK_OVERRIDE_SYSMON_CFG
+static u32 XilSKey_Is_Valid_SysMon_Cfg(XSysMonPsu *InstancePtr);
+#endif
 #endif
 /***************************************************************************/
 /**
@@ -1499,3 +1504,130 @@ u32 XilSkey_CrcCalculation_AesKey(u8 *Key)
 
 	return Crc;
 }
+
+#if defined (XSK_ZYNQ_ULTRA_MP_PLATFORM) && !defined (XSK_OVERRIDE_SYSMON_CFG)
+
+/***************************************************************************/
+/**
+* This function is used to check ADC configuration is suitable for XilsKey
+*
+* @return
+* 		- XST_SUCCESS in case of valid ADC configuration for XilSKey
+*		- XST_FAILURE in case of invalid ADC configuration for XilSKey
+* 		- XSK_EFUSEPS_ERROR_XADC_CONFIG Error occurred with XADC config
+*
+* TDD Cases:
+*
+****************************************************************************/
+
+u32 XilSKey_EfusePs_XAdcCfgValidate (void)
+{
+	u32 Status = (u32)XST_FAILURE;
+
+	XSysMonPsu_Config *ConfigPtr;
+	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
+
+	/**
+	 * specify the Device ID that is
+	 * generated in xparameters.h
+	 */
+	XSysmonDevId = (u16)XSYSMON_DEVICE_ID;
+
+	/**
+	 * Initialize the XAdc driver.
+	 */
+	ConfigPtr = XSysMonPsu_LookupConfig(XSysmonDevId);
+	if (NULL == ConfigPtr) {
+		Status = (u32)XSK_EFUSEPS_ERROR_XADC_CONFIG;
+		goto END;
+	}
+
+	XSysMonPsu_InitInstance(XSysmonInstPtr, ConfigPtr);
+	Status = XilSKey_Is_Valid_SysMon_Cfg(XSysmonInstPtr);
+
+END:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * This function checks if sysmon is configured correctly for XilSKey
+ * functions to monitor LPD temperature, VPINT, and VPAUX.
+ *
+ * @param	InstancePtr Instance pointer of SysMon.
+ *
+ * @return	XST_SUCCESS - If sysmon is configured for XilSKey library usage.
+ *		XST_FAILURE - If sysmon is not configured correctly for XilSKey
+ *		              library usage.
+ * @note	None.
+ *
+ ****************************************************************************/
+static u32 XilSKey_Is_Valid_SysMon_Cfg(XSysMonPsu *InstancePtr)
+{
+	u32 Status = XST_FAILURE;
+	u32 CfgData;
+	u32 SeqMode;
+	u32 SleepMode;
+	u32 Mask;
+
+	/* Calculate the effective baseaddress based on the Sysmon instance. */
+	u32 EffectiveBaseAddress =
+		XSysMonPsu_GetEffBaseAddress(InstancePtr->Config.BaseAddress,
+					XSYSMON_PS);
+
+	/* Read Cfg0 and make sure averagining is enabled */
+	CfgData = Xil_In32(EffectiveBaseAddress + XSYSMONPSU_CFG_REG0_OFFSET);
+	if ((CfgData & XSYSMONPSU_CFG_REG0_AVRGNG_MASK) == 0U) {
+		goto END;
+	}
+
+	/* Read Cfg1 and make sure channels are configured to read in loop */
+	CfgData = Xil_In32(EffectiveBaseAddress + XSYSMONPSU_CFG_REG1_OFFSET);
+	SeqMode = (CfgData & XSYSMONPSU_CFG_REG1_SEQ_MDE_MASK) >>
+	                                     XSYSMONPSU_CFG_REG1_SEQ_MDE_SHIFT;
+	if ((SeqMode != XSM_SEQ_MODE_SAFE) &&
+	    (SeqMode != XSM_SEQ_MODE_CONTINPASS)) {
+		goto END;
+	}
+
+	/* When in continuous pass mode, make sure it includes below channels
+	 * for averaging
+	 *  1. Supply 1 (VPINT)
+	 *  2. Supply 3 (VPAUX)
+	 *  3. LPD Temeperature
+	 */
+	if (XSM_SEQ_MODE_CONTINPASS == SeqMode) {
+		/* Get Channel sequence mask */
+		CfgData = Xil_In32(EffectiveBaseAddress +
+		                  XSYSMONPSU_SEQ_CH0_OFFSET);
+
+		/* Get channel averaging enable mask and logically AND with
+		 * Channel sequence mask. This will provide mask of channels
+		 * that are enabled for reading and averaging
+		 */
+		CfgData &= Xil_In32(EffectiveBaseAddress +
+		                  XSYSMONPSU_SEQ_AVERAGE0_OFFSET);
+
+		Mask = XSYSMONPSU_SEQ_CH0_SUP3_MASK |
+		       XSYSMONPSU_SEQ_CH0_SUP1_MASK |
+		       XSYSMONPSU_SEQ_CH0_TEMP_MASK;
+
+		/* Make sure required channels by XilsKey are enabled for
+		 * averaging */
+		if ((CfgData & Mask) != Mask) {
+			goto END;
+		}
+	}
+
+	/* Read Cfg2 and make sure sysmon is not in power save mode */
+	CfgData = Xil_In32(EffectiveBaseAddress + XSYSMONPSU_CFG_REG2_OFFSET);
+	SleepMode = (CfgData & XSYSMONPSU_CFG_REG2_PWR_DOWN_MASK) >>
+	                                    XSYSMONPSU_CFG_REG2_PWR_DOWN_SHIFT;
+	if (XSM_PWR_MODE_NORMAL == SleepMode) {
+		Status = XST_SUCCESS;
+	}
+
+END:
+	return Status;
+}
+#endif
