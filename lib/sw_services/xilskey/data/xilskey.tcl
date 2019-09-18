@@ -81,6 +81,7 @@ proc xgen_opts_file {libhandle} {
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
+	set override_sysmon_cfg [common::get_property CONFIG.override_sysmon_cfg $libhandle]
 
 	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 
@@ -97,6 +98,10 @@ proc xgen_opts_file {libhandle} {
 		if {$mb_type == "kintexu" || $mb_type == "virtexu"} {
 			puts $file_handle "\n#define XPAR_XSK_MICROBLAZE_ULTRA 1"
 		}
+	}
+
+	if {$override_sysmon_cfg == true} {
+		puts $file_handle "\n#define XSK_OVERRIDE_SYSMON_CFG \n"
 	}
 
 	if {$proc_type == "psu_pmu" || $proc_type == "psu_cortexa53" || $proc_type == "psu_cortexr5"} {

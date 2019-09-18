@@ -1042,6 +1042,9 @@ typedef enum {
 
 /************************** Function Prototypes *****************************/
 u32 XilSKey_EfusePs_XAdcInit (void );
+#if defined (XSK_ZYNQ_ULTRA_MP_PLATFORM) && !defined (XSK_OVERRIDE_SYSMON_CFG)
+u32 XilSKey_EfusePs_XAdcCfgValidate (void);
+#endif
 void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstancePtr);
 u32 XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks(void);
 void XilSKey_Efuse_StartTimer(void);

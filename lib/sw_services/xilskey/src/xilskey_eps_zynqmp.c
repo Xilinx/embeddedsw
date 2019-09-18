@@ -2557,6 +2557,7 @@ u32 XilSKey_ZynqMp_EfusePs_Init(void)
 {
 	u32 Status = (u32)XST_FAILURE;
 
+#if defined (XSK_OVERRIDE_SYSMON_CFG)
 	if (Init_Done != TRUE) {
 		/* Initialize sysmon PSU */
 		Status = XilSKey_EfusePs_XAdcInit();
@@ -2568,9 +2569,19 @@ u32 XilSKey_ZynqMp_EfusePs_Init(void)
 		Init_Done = TRUE;
 	}
 	Status = (u32)XST_SUCCESS;
+#else
+	Status = XilSKey_EfusePs_XAdcCfgValidate();
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
+	if (Init_Done != TRUE) {
+		/* Set the timing constraints */
+		XilSKey_ZynqMp_EfusePs_SetTimerValues();
+		Init_Done = TRUE;
+	}
+#endif
 
 END:
-
 	return Status;
 }
 
