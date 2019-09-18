@@ -38,13 +38,13 @@ extern "C" {
 #define MAX_BASEADDR_LEN	3
 
 /* Global general storage register base address */
-#define GGS_BASEADDR	(0xFFC90030U)
+#define GGS_BASEADDR	(0xF1110030U)
 #define GGS_NUM_REGS	(4)
 
 #define GGS_4_OFFSET	(0x10U)
 
 /* Persistent global general storage register base address */
-#define PGGS_BASEADDR	(0xFFD90050U)
+#define PGGS_BASEADDR	(0xF1110050U)
 #define PGGS_NUM_REGS	(4)
 
 /* Tap delay bypass */
