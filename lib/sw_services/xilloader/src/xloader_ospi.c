@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018 - 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -221,23 +221,23 @@ END:
  *		- errors as mentioned in xloader_error.h
  *
  *****************************************************************************/
-int XLoader_OspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
+XStatus XLoader_OspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 {
 	
-	int Status;
+	XStatus Status = XST_FAILURE;
 
 	XLoader_Printf(DEBUG_INFO, "OSPI Reading Src 0x%0x, Dest 0x%0x%08x, "
 		"Length 0x%0x, Flags 0x%0x\r\n", SrcAddr, (u32)(DestAddr>>32),
 		(u32)(DestAddr), Length, Flags);
 
 	/*
-	 * Read ID
+	 * Read cmd
 	 */
 	FlashMsg.Opcode = READ_CMD_OCTAL_4B;
 	FlashMsg.Addrsize = 4U;
 	FlashMsg.Addrvalid = 1U;
 	FlashMsg.TxBfrPtr = NULL;
-	FlashMsg.RxBfrPtr = DestAddr;
+	FlashMsg.RxBfrPtr = (u8*)DestAddr;
 	FlashMsg.ByteCount = Length;
 	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
 	FlashMsg.Addr = SrcAddr;
@@ -260,13 +260,13 @@ END:
  *
  * @param	None
  *
- * @return	None
+ * @return	Success or error code
  *
  *****************************************************************************/
 int XLoader_OspiRelease(void)
 {
-	int Status = XLOADER_SUCCESS;
-	XLoader_FlashEnterExit4BAddMode(&OspiPsvInstance, 0U);
+	int Status = XST_FAILURE;
+	Status = XLoader_FlashEnterExit4BAddMode(&OspiPsvInstance, 0U);
 	return Status;
 }
 
@@ -301,7 +301,7 @@ int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 
         switch (OspiFlashMake) {
                 case MICRON_OCTAL_ID_BYTE0:
-                        FlashMsg.Opcode = WRITE_ENABLE_CMD;
+                        FlashMsg.Opcode = OSPI_WRITE_ENABLE_CMD;
                         FlashMsg.Addrsize = 0;
                         FlashMsg.Addrvalid = 0;
                         FlashMsg.TxBfrPtr = NULL;
