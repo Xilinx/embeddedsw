@@ -1892,4 +1892,37 @@ u32 XSysMonPsu_GetMonitorStatus(XSysMonPsu *InstancePtr)
 	return AMSMonStatusReg;
 }
 
+/*****************************************************************************/
+/**
+*
+* This function initializes XSysMonPsu device/instance.
+*
+* @param	InstancePtr is a pointer to the XSysMonPsu instance.
+* @param	ConfigPtr points to the XSysMonPsu device configuration
+*		structure.
+*
+* @return	None
+*
+* @note 	The user needs to first call the XSysMonPsu_LookupConfig() API
+*		which returns the Configuration structure pointer, this pointer
+*		is then passed as a parameter to the XSysMonPsu_InitInstance()
+*		API. Note that this function just initializes the instance and
+*		doesn't configure the System Monitor device.
+*
+******************************************************************************/
+void XSysMonPsu_InitInstance(XSysMonPsu *InstancePtr,
+	XSysMonPsu_Config *ConfigPtr)
+{
+	/* Assert the input arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(ConfigPtr != NULL);
+
+	/* Set the values read from the device config and the base address.*/
+	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+	InstancePtr->Config.BaseAddress = ConfigPtr->BaseAddress;
+
+	/* Indicate the instance is now ready to use */
+	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
+}
+
 /** @} */
