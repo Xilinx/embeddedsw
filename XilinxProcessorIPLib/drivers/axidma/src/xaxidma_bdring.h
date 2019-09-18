@@ -27,7 +27,7 @@
 /**
 *
 * @file xaxidma_bdring.h
-* @addtogroup axidma_v9_9
+* @addtogroup axidma_v9_10
 * @{
 *
 * This file contains DMA channel related structure and constant definition

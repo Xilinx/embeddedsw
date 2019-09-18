@@ -27,7 +27,7 @@
 /**
 *
 * @file xaxidma.h
-* @addtogroup axidma_v9_9
+* @addtogroup axidma_v9_10
 * @{
 * @details
 *
