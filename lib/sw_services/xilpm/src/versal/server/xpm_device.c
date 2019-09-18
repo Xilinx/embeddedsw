@@ -31,11 +31,14 @@
 #include "xpm_rpucore.h"
 #include "xpm_notifier.h"
 #include "xpm_api.h"
+#include "xpm_pmc.h"
 #include "xpm_pslpdomain.h"
 
 /** PSM RAM Base address */
 #define XPM_PSM_RAM_BASE_ADDR           (0xFFC00000U)
 #define XPM_PSM_RAM_SIZE                (0x40000U)
+
+#define SD_DLL_DIV_MAP_RESET_VAL	(0x50505050U)
 
 const char *PmDevStates[] = {
 	"UNUSED",
@@ -296,6 +299,52 @@ static XStatus SetClocks(XPm_Device *Device, u32 Enable)
 	return XST_SUCCESS;
 }
 
+static XStatus ResetSdDllRegs(XPm_Device *Device)
+{
+	XStatus Status = XST_SUCCESS;
+	u32 Value;
+	u32 BaseAddress;
+	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+	if (NULL == Pmc) {
+		Status = XPM_INVALID_DEVICEID;
+		goto done;
+	}
+
+	BaseAddress = Pmc->PmcIouSlcrBaseAddr;
+	if (PM_DEV_SDIO_0 == Device->Node.Id) {
+		PmIn32(BaseAddress + PMC_IOU_SLCR_SD0_DLL_DIV_MAP0_OFFSET,
+		       Value);
+		PmOut32(BaseAddress + PMC_IOU_SLCR_SD0_DLL_DIV_MAP0_OFFSET,
+			SD_DLL_DIV_MAP_RESET_VAL);
+		PmOut32(BaseAddress + PMC_IOU_SLCR_SD0_DLL_DIV_MAP0_OFFSET,
+			Value);
+		PmIn32(BaseAddress + PMC_IOU_SLCR_SD0_DLL_DIV_MAP1_OFFSET,
+		       Value);
+		PmOut32(BaseAddress + PMC_IOU_SLCR_SD0_DLL_DIV_MAP1_OFFSET,
+			SD_DLL_DIV_MAP_RESET_VAL);
+		PmOut32(BaseAddress + PMC_IOU_SLCR_SD0_DLL_DIV_MAP1_OFFSET,
+			Value);
+	} else if (PM_DEV_SDIO_1 == Device->Node.Id) {
+		PmIn32(BaseAddress + PMC_IOU_SLCR_SD1_DLL_DIV_MAP0_OFFSET,
+		       Value);
+		PmOut32(BaseAddress + PMC_IOU_SLCR_SD1_DLL_DIV_MAP0_OFFSET,
+			SD_DLL_DIV_MAP_RESET_VAL);
+		PmOut32(BaseAddress + PMC_IOU_SLCR_SD1_DLL_DIV_MAP0_OFFSET,
+			Value);
+		PmIn32(BaseAddress + PMC_IOU_SLCR_SD1_DLL_DIV_MAP1_OFFSET,
+		       Value);
+		PmOut32(BaseAddress + PMC_IOU_SLCR_SD1_DLL_DIV_MAP1_OFFSET,
+			SD_DLL_DIV_MAP_RESET_VAL);
+		PmOut32(BaseAddress + PMC_IOU_SLCR_SD1_DLL_DIV_MAP1_OFFSET,
+			Value);
+	} else {
+		/* Required by MISRA */
+	}
+
+done:
+	return Status;
+}
+
 static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 {
 	u32 Status = XST_FAILURE;
@@ -370,6 +419,19 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 							PM_RESET_ACTION_RELEASE);
 						if (XST_SUCCESS != Status) {
 							break;
+						}
+
+						/*
+						 * As per EDT-997700 SD/eMMC DLL modes are failing after
+						 * SD controller reset. Reset SD_DLL_MAP registers after
+						 * reset release as a workaround.
+						 */
+						if ((PM_DEV_SDIO_0 == Device->Node.Id) ||
+						    (PM_DEV_SDIO_1 == Device->Node.Id)) {
+							Status = ResetSdDllRegs(Device);
+							if (XST_SUCCESS != Status) {
+								break;
+							}
 						}
 					} else if(Node->Id == PM_DEV_RPU0_0 || Node->Id == PM_DEV_RPU0_1) {
 						/*RPU has a special handling */
