@@ -53,6 +53,11 @@
  * throughput mode, it is 512MB.  These limits are need to ensured for
  * proper operation of this code.
  *
+ * NOTE: The AXI DMA multichannel support is deprecated in the IP and it is
+ * no longer actively supported. For multichannel support, refer to the AXI
+ * multichannel direct memory access IP product guide(PG228) and it's example.
+ * This example is planned to be removed in next release.
+ *
  * <pre>
  * MODIFICATION HISTORY:
  *
