@@ -27,7 +27,7 @@
 /**
 *
 * @file xaxidma_porting_guide.h
-* @addtogroup axidma_v9_9
+* @addtogroup axidma_v9_10
 * @{
 *
 * This is a guide on how to move from using the xlldma driver to use xaxidma
