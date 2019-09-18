@@ -62,6 +62,7 @@
  *                     operation i.e. in TxSetup.
  * 9.9   rsp  01/21/19 Fix use of #elif check in deriving DDR_BASE_ADDR.
  *       rsp  02/05/19 For test completion wait for both TX and RX done counters.
+ * 9.10  rsp  09/17/19 Fix cache maintenance ops for source and dest buffer.
  *
  * </pre>
  *
@@ -423,9 +424,7 @@ static int CheckData(int Length, u8 StartValue)
 	/* Invalidate the DestBuffer before receiving the data, in case the
 	 * Data Cache is enabled
 	 */
-#ifndef __aarch64__
 	Xil_DCacheInvalidateRange((UINTPTR)RxPacket, Length);
-#endif
 
 	for(Index = 0; Index < Length; Index++) {
 		if (RxPacket[Index] != Value) {
@@ -1043,15 +1042,13 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr)
 		Value = (Value + 1) & 0xFF;
 	}
 
-	/* Flush the SrcBuffer before the DMA transfer, in case the Data Cache
+	/* Flush the buffers before the DMA transfer, in case the Data Cache
 	 * is enabled
 	 */
 	Xil_DCacheFlushRange((UINTPTR)TxPacket, MAX_PKT_LEN *
 							NUMBER_OF_BDS_TO_TRANSFER);
-#ifdef __aarch64__
 	Xil_DCacheFlushRange((UINTPTR)RX_BUFFER_BASE, MAX_PKT_LEN *
 							NUMBER_OF_BDS_TO_TRANSFER);
-#endif
 
 	Status = XAxiDma_BdRingAlloc(TxRingPtr, NUMBER_OF_BDS_TO_TRANSFER,
 								&BdPtr);
