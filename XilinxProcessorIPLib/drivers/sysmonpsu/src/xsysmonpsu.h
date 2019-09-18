@@ -309,6 +309,16 @@ extern "C" {
 /*@}*/
 
 /**
+ * @name Power down modes.
+ * @{
+ */
+#define XSM_PWR_MODE_NORMAL	 	0U /**< Normal operation */
+#define XSM_PWR_MODE_PARTIAL_SLEEP	1U /**< Partial sleep mode */
+#define XSM_PWR_MODE_SLEEP		3U /**< Full sleep mode */
+
+/*@}*/
+
+/**
  * @name Alarm Threshold(Limit) Register (ATR) indexes.
  * @{
  */
@@ -653,6 +663,8 @@ u16 XSysMonPsu_GetAlarmThreshold(XSysMonPsu *InstancePtr, u8 AlarmThrReg,
 		u32 SysmonBlk);
 void XSysMonPsu_SetPSAutoConversion(XSysMonPsu *InstancePtr);
 u32 XSysMonPsu_GetMonitorStatus(XSysMonPsu *InstancePtr);
+void XSysMonPsu_InitInstance(XSysMonPsu *InstancePtr,
+	XSysMonPsu_Config *ConfigPtr);
 
 /* interrupt functions in xsysmonpsu_intr.c */
 void XSysMonPsu_IntrEnable(XSysMonPsu *InstancePtr, u64 Mask);
