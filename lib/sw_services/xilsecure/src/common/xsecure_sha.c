@@ -649,12 +649,14 @@ static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 				InstancePtr->PartialLen = 0U;
 				(void)memset(&InstancePtr->PartialData, 0,
 						sizeof(InstancePtr->PartialData));
+				Status = (u32)XST_SUCCESS;
 			}
 			else {
 				(void)XSecure_MemCpy(InstancePtr->PartialData,
 					Data + TransferredBytes,
 							DataSize);
 				InstancePtr->PartialLen = DataSize;
+				Status = (u32)XST_SUCCESS;
 			}
 		}
 	}
