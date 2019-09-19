@@ -736,9 +736,6 @@ Metal log now more descriptive
 Updated examples
 Added Gen 1/2 compatibility support for Gen 3 devices
 
-mcdma_v1_4:
-Prefer using dmb in XMcdma_UpdateChanTDesc().
-
 Changes for 2019.2
 ===============================
 canfd_v2_2:

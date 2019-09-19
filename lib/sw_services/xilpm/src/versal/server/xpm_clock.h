@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 #ifndef XPM_CLOCK_H_
 #define XPM_CLOCK_H_
@@ -35,58 +15,45 @@
 extern "C" {
 #endif
 
-#define	XPM_NODEIDX_CLK_OUT_MIN	XPM_NODEIDX_CLK_PLL_MAX
-#define	XPM_NODEIDX_CLK_OUT_MAX	XPM_NODEIDX_CLK_OUTCLK_MAX
-#define XPM_NODEIDX_CLK_REF_MIN	XPM_NODEIDX_CLK_OUTCLK_MAX
-#define XPM_NODEIDX_CLK_REF_MAX	XPM_NODEIDX_CLK_MAX
-
-#define REFCLOCK_MASK \
-	(((XPM_NODECLASS_CLOCK & NODE_CLASS_MASK_BITS) << NODE_CLASS_SHIFT) | \
-	((XPM_NODESUBCL_CLOCK_REF & NODE_SUBCLASS_MASK_BITS) << NODE_SUBCLASS_SHIFT))
-#define OUTCLOCK_MASK \
-	(((XPM_NODECLASS_CLOCK & NODE_CLASS_MASK_BITS) << NODE_CLASS_SHIFT) | \
-	((XPM_NODESUBCL_CLOCK_OUT & NODE_SUBCLASS_MASK_BITS) << NODE_SUBCLASS_SHIFT))
-#define ISOUTCLK(id) \
-	( (((id & OUTCLOCK_MASK) == OUTCLOCK_MASK) && \
-	((id & NODE_INDEX_MASK_BITS) > XPM_NODEIDX_CLK_OUT_MIN) && \
-	((id & NODE_INDEX_MASK_BITS) < XPM_NODEIDX_CLK_OUT_MAX) ) ? 1 : 0)
-#define ISREFCLK(id) \
-	( (((id & REFCLOCK_MASK) == REFCLOCK_MASK) && \
-	((id & NODE_INDEX_MASK_BITS) > XPM_NODEIDX_CLK_REF_MIN) && \
-	((id & NODE_INDEX_MASK_BITS) < XPM_NODEIDX_CLK_REF_MAX) ) ? 1 : 0)
+#define ISOUTCLK(id)	((NODECLASS(id) == (u32)XPM_NODECLASS_CLOCK) && \
+			 (NODESUBCLASS(id) == (u32)XPM_NODESUBCL_CLOCK_OUT) && \
+			 (NODEINDEX(id) < (u32)XPM_NODEIDX_CLK_MAX))
+#define ISREFCLK(id)	((NODECLASS(id) == (u32)XPM_NODECLASS_CLOCK) && \
+			 (NODESUBCLASS(id) == (u32)XPM_NODESUBCL_CLOCK_REF) && \
+			 (NODEINDEX(id) < (u32)XPM_NODEIDX_CLK_MAX))
 
 /* Topology types */
-#define	TOPOLOGY_GENERIC_PLL		1
-#define	TOPOLOGY_NOC_PLL		2
-#define TOPOLOGY_GENERIC_MUX_DIV	3
-#define TOPOLOGY_GENERIC_MUX_GATE	4
-#define TOPOLOGY_GENERIC_DIV_GATE	5
-#define TOPOLOGY_GENERIC_MUX_DIV_GATE_1	6
-#define TOPOLOGY_GENERIC_MUX_DIV_GATE_2	7
-#define TOPOLOGY_CUSTOM			8
-#define MAX_TOPOLOGY			9
+#define	TOPOLOGY_GENERIC_PLL		1U
+#define	TOPOLOGY_NOC_PLL		2U
+#define TOPOLOGY_GENERIC_MUX_DIV	3U
+#define TOPOLOGY_GENERIC_MUX_GATE	4U
+#define TOPOLOGY_GENERIC_DIV_GATE	5U
+#define TOPOLOGY_GENERIC_MUX_DIV_GATE_1	6U
+#define TOPOLOGY_GENERIC_MUX_DIV_GATE_2	7U
+#define TOPOLOGY_CUSTOM			8U
+#define MAX_TOPOLOGY			9U
 
-#define MAX_MUX_PARENTS		8
-#define MAX_NAME_BYTES		16
+#define MAX_MUX_PARENTS		8U
+#define MAX_NAME_BYTES		16U
 
 /**
  * The topology node class.	 This is the class to represent each node
  * in clock topology. It can be mux/div/gate/fixed factor.
  */
 struct XPm_ClkTopologyNode {
-	uint8_t Type;
+	u32 Reg;
 	uint16_t Clkflags;
 	uint16_t Typeflags;
-	u32 Reg;
 	union {uint8_t Shift; uint8_t Mult;}Param1;
 	union {uint8_t Width; uint8_t Div;}Param2;
+	uint8_t Type;
 };
 
 typedef struct XPm_ClkTopology {
-	uint16_t Id;
-	uint16_t NumNodes;
-	int32_t MuxSources[MAX_MUX_PARENTS];
 	struct XPm_ClkTopologyNode(*Nodes)[];
+	uint8_t Id;
+	uint8_t NumNodes;
+	u16 MuxSources[MAX_MUX_PARENTS]; /**< Clock index of mux sources */
 }XPm_ClkTopology;
 
 typedef struct XPm_ClockNode XPm_ClockNode;
@@ -98,12 +65,13 @@ typedef struct XPm_ClockHandle XPm_ClockHandle;
 struct XPm_ClockNode {
 	XPm_Node Node;
 	char Name[MAX_NAME_BYTES];
+	u16 ParentIdx;
 	u8 NumParents;
 	u8 Flags;
-	u16 UseCount;
-	u32 ParentId;
+	u8 UseCount;
 	XPm_ClockHandle *ClkHandles; /**< Pointer to the clock/device pairs */
 	XPm_Power *PwrDomain;
+	u32 ClkRate;
 };
 
 /**
@@ -111,7 +79,7 @@ struct XPm_ClockNode {
  */
 struct XPm_ClockHandle {
 	XPm_ClockNode *Clock; /**< Clock used by device */
-	struct XPm_Device *Device; /**< Device which uses the clock */
+	struct XPm_DeviceNode *Device; /**< Device which uses the clock */
 	XPm_ClockHandle *NextClock; /**< Next handle of same device */
 	XPm_ClockHandle *NextDevice; /**< Next handle of same clock */
 };
@@ -149,18 +117,18 @@ enum XPm_ClockSubnodeType {
 #define PERIPH_GATE_WIDTH			1
 
 /* Common Flags */
-#define NA_TYPE_FLAGS				0U
-#define CLK_SET_RATE_GATE		BIT(0) /* must be gated across rate change */
-#define CLK_SET_PARENT_GATE		BIT(1) /* must be gated across re-parent */
-#define CLK_SET_RATE_PARENT		BIT(2) /* propagate rate change up one level */
-#define CLK_IGNORE_UNUSED		BIT(3) /* do not gate even if unused */
-#define CLK_IS_BASIC			BIT(5) /* Basic clk, can't do a to_clk_foo() */
-#define CLK_GET_RATE_NOCACHE	BIT(6) /* do not use the cached clk rate */
-#define CLK_SET_RATE_NO_REPARENT	BIT(7) /* don't re-parent on rate change */
-#define CLK_GET_ACCURACY_NOCACHE	BIT(8) /* do not use the cached clk accuracy */
-#define CLK_RECALC_NEW_RATES	BIT(9) /* recalc rates after notifications */
-#define CLK_SET_RATE_UNGATE		BIT(10) /* clock needs to run to set rate */
-#define CLK_IS_CRITICAL			BIT(11) /* do not gate, ever */
+#define NA_TYPE_FLAGS			0U
+#define CLK_SET_RATE_GATE		BIT16(0) /* must be gated across rate change */
+#define CLK_SET_PARENT_GATE		BIT16(1) /* must be gated across re-parent */
+#define CLK_SET_RATE_PARENT		BIT16(2) /* propagate rate change up one level */
+#define CLK_IGNORE_UNUSED		BIT16(3) /* do not gate even if unused */
+#define CLK_IS_BASIC			BIT16(5) /* Basic clk, can't do a to_clk_foo() */
+#define CLK_GET_RATE_NOCACHE		BIT16(6) /* do not use the cached clk rate */
+#define CLK_SET_RATE_NO_REPARENT	BIT16(7) /* don't re-parent on rate change */
+#define CLK_GET_ACCURACY_NOCACHE	BIT16(8) /* do not use the cached clk accuracy */
+#define CLK_RECALC_NEW_RATES		BIT16(9) /* recalc rates after notifications */
+#define CLK_SET_RATE_UNGATE		BIT16(10) /* clock needs to run to set rate */
+#define CLK_IS_CRITICAL			BIT16(11) /* do not gate, ever */
 
 /* Type Flags */
 #define CLK_DIVIDER_ONE_BASED		BIT(0)
@@ -186,7 +154,7 @@ XStatus XPmClock_Release(XPm_ClockHandle *ClkHandle);
 XStatus XPmClock_SetGate(XPm_OutClockNode *Clk, u32 Enable);
 XStatus XPmClock_SetParent(XPm_OutClockNode *Clk, u32 ParentIdx);
 XStatus XPmClock_SetDivider(XPm_OutClockNode *Clk, u32 Divider);
-XStatus XPmClock_GetClockData(XPm_OutClockNode *Clk, u32 NodeType, u32 *Value);
+XStatus XPmClock_GetClockData(XPm_OutClockNode *Clk, u32 Nodetype, u32 *Value);
 XStatus XPmClock_QueryName(u32 ClockId, u32 *Resp);
 XStatus XPmClock_QueryTopology(u32 ClockId, u32 Index, u32 *Resp);
 XStatus XPmClock_QueryFFParams(u32 ClockId, u32 *Resp);
@@ -195,6 +163,8 @@ XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp);
 XStatus XPmClock_GetNumClocks(u32 *Resp);
 XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId);
 XStatus XPmClock_GetMaxDivisor(u32 ClockId, u32 DivType, u32 *Resp);
+int XPmClock_SetRate(XPm_ClockNode *Clk, const u32 ClkRate);
+int XPmClock_GetRate(XPm_ClockNode *Clk, u32 *ClkRate);
 
 #ifdef __cplusplus
 }
