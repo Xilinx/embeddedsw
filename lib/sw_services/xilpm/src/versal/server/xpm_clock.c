@@ -280,6 +280,8 @@ XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u8 NumParents)
 	XStatus Status = XST_SUCCESS;
 	u32 Idx = 0;
 	u32 LastParentIdx = 0;
+	u8 ParentIdx = 0;
+	XPm_ClockNode *ParentClk = NULL;
 	XPm_OutClockNode *ClkPtr = (XPm_OutClockNode *)XPmClock_GetById(Id);
 
 	if (ClkPtr == NULL || NumParents > MAX_MUX_PARENTS || NumParents == 0) {
@@ -328,7 +330,12 @@ XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u8 NumParents)
 
 	/* For clocks involving mux */
 	for (Idx = 0; Idx < NumParents; Idx++) {
-		ClkPtr->Topology.MuxSources[LastParentIdx++] = Parents[Idx];
+		if ((u32)CLK_DUMMY_PARENT == Parents[Idx]) {
+			ParentIdx = CLK_DUMMY_PARENT;
+		} else {
+			ParentIdx = NODEINDEX(Parents[Idx]);
+		}
+		ClkPtr->Topology.MuxSources[LastParentIdx++] = ParentIdx;
 	}
 
 	/* Assign default parent */
@@ -339,7 +346,10 @@ XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u8 NumParents)
 		 */
 		ClkPtr->ClkNode.ParentId = CLOCK_PARENT_INVALID;
 	} else {
-		ClkPtr->ClkNode.ParentId = ClkPtr->Topology.MuxSources[0];
+		ParentClk = XPmClock_GetByIdx(ClkPtr->Topology.MuxSources[0]);
+		if (NULL != ParentClk) {
+			ClkPtr->ClkNode.ParentId = ParentClk->Node.Id;
+		}
 	}
 
 done:
@@ -445,13 +455,17 @@ static void XPmClock_InitParent(XPm_OutClockNode *Clk)
 {
 	u32 ParentIdx;
 	struct XPm_ClkTopologyNode *Ptr;
+	XPm_ClockNode *ParentClk = NULL;
 
 	Ptr = XPmClock_GetTopologyNode(Clk, TYPE_MUX);
 	if (NULL != Ptr) {
 		XPmClock_GetClockData(Clk, TYPE_MUX, &ParentIdx);
 
 		/* Update new parent id */
-		Clk->ClkNode.ParentId = Clk->Topology.MuxSources[ParentIdx];
+		ParentClk = XPmClock_GetByIdx(Clk->Topology.MuxSources[ParentIdx]);
+		if (NULL != ParentClk) {
+			Clk->ClkNode.ParentId = ParentClk->Node.Id;
+		}
 	}
 
 	return;
@@ -591,8 +605,9 @@ done:
 
 XStatus XPmClock_SetParent(XPm_OutClockNode *Clk, u32 ParentIdx)
 {
-	u32 Status = XST_SUCCESS, ClkId;
+	u32 Status = XST_SUCCESS;
 	struct XPm_ClkTopologyNode *Ptr;
+	XPm_ClockNode *ParentClk = NULL;
 
 	Ptr = XPmClock_GetTopologyNode(Clk, TYPE_MUX);
 	if (Ptr == NULL) {
@@ -606,13 +621,12 @@ XStatus XPmClock_SetParent(XPm_OutClockNode *Clk, u32 ParentIdx)
 		goto done;
 	}
 
-	/* Request new Parent*/
-	ClkId = Clk->Topology.MuxSources[ParentIdx];
-	if (ISOUTCLK(ClkId)) {
-		XPmClock_RequestInt(XPmClock_GetById(ClkId));
-	}
-	else if (ISPLL(ClkId)) {
-		XPmClockPll_Request(ClkId);
+	/* Request new parent */
+	ParentClk = XPmClock_GetByIdx(Clk->Topology.MuxSources[ParentIdx]);
+	if (ISOUTCLK(ParentClk->Node.Id)) {
+		XPmClock_RequestInt(ParentClk);
+	} else if (ISPLL(ParentClk->Node.Id)) {
+		XPmClockPll_Request(ParentClk->Node.Id);
 	}
 
 	XPm_RMW32(Ptr->Reg, BITNMASK(Ptr->Param1.Shift,Ptr->Param2.Width), ParentIdx << Ptr->Param1.Shift);
@@ -626,7 +640,7 @@ XStatus XPmClock_SetParent(XPm_OutClockNode *Clk, u32 ParentIdx)
 	}
 
 	/* Update new parent id */
-	Clk->ClkNode.ParentId = Clk->Topology.MuxSources[ParentIdx];
+	Clk->ClkNode.ParentId = ParentClk->Node.Id;
 
 done:
 	return Status;
@@ -788,11 +802,7 @@ XStatus XPmClock_QueryMuxSources(u32 ClockId, u32 Index, u32 *Resp)
 			Resp[i] = 0xFFFFFFFF;
 			break;
 		}
-		if (CLK_DUMMY_PARENT == Clk->Topology.MuxSources[Index + i]) {
-			Resp[i] = CLK_DUMMY_PARENT;
-			continue;
-		}
-		Resp[i] = NODEINDEX(Clk->Topology.MuxSources[Index + i]);
+		Resp[i] = Clk->Topology.MuxSources[Index + i];
 	}
 done:
 	return Status;

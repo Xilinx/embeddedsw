@@ -85,7 +85,7 @@ struct XPm_ClkTopologyNode {
 typedef struct XPm_ClkTopology {
 	uint16_t Id;
 	uint16_t NumNodes;
-	int32_t MuxSources[MAX_MUX_PARENTS];
+	u8 MuxSources[MAX_MUX_PARENTS];
 	struct XPm_ClkTopologyNode(*Nodes)[];
 }XPm_ClkTopology;
 
