@@ -145,7 +145,7 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 	for (i = XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN; i < XPM_NODEIDX_MONITOR_SYSMON_NPD_MAX; i++) {
 		/* Copy_trim< AMS_SAT_N> */
 		if (0 != SysmonAddresses[i])
-			XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[i], PM_POWER_NOC, i);
+			XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[i], PM_POWER_NOC, i-XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN);
 	}
 
 done:
