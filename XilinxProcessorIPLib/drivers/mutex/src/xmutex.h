@@ -108,6 +108,8 @@
 * 4.3   ms   04/18/17 Modified tcl file to add suffix U for all macros
 *                     definitions of mutex in xparameters.h
 *       ms   08/07/17 Fixed compilation warnings in xmutex_sinit.c
+* 4.4   adk  19/09/19 Updated tcl to generate proper canonical definitions when
+*                     mutex is configured for more then one axi interface.
 * </pre>
 *
 ******************************************************************************/
