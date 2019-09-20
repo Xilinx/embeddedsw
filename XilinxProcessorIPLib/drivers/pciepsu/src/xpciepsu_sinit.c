@@ -50,6 +50,7 @@
 /**************************** Variable Definitions ****************************/
 
 extern XPciePsu_Config XPciePsu_ConfigTable[];
+extern size_t XPciePsu_ConfigTableSize;
 
 /***************************** Function Prototypes ****************************/
 
@@ -68,9 +69,9 @@ extern XPciePsu_Config XPciePsu_ConfigTable[];
 XPciePsu_Config *XPciePsu_LookupConfig(u16 DeviceId)
 {
 	XPciePsu_Config *CfgPtr = NULL;
-	int Index;
+	unsigned int Index;
 
-	for (Index = 0; Index < 8; Index++) {
+	for (Index = 0; Index < XPciePsu_ConfigTableSize; Index++) {
 		if (XPciePsu_ConfigTable[Index].DeviceId == DeviceId) {
 			if(XPciePsu_ConfigTable[Index].BrigReg == 0xff ||
 					XPciePsu_ConfigTable[Index].Ecam == 0xff ||
