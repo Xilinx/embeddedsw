@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -75,6 +75,11 @@
 *                    APIs to replace IVAC instruction with CIVAC. So that, these
 *                    APIs will always do flush + invalidate in case of Cortexa53 as
 *                    well as Cortexa72 processor.
+* 7.1 mus  09/17/19  Xil_DCacheFlushRange and Xil_DCacheInvalidateRange are executing 
+*                    same functionality (clean + validate). Removed 
+*                    Xil_DCacheFlushRange function implementation and defined it as
+*                    macro. Xil_DCacheFlushRange macro points to the
+*                    Xil_DCacheInvalidateRange API to avoid code duplication.
 *
 * </pre>
 *
@@ -574,63 +579,6 @@ void Xil_DCacheFlushLine(INTPTR  adr)
 	mtcpdc(CIVAC,(adr & (~0x3F)));
 	/* Wait for flush to complete */
 	dsb();
-	mtcpsr(currmask);
-}
-/****************************************************************************/
-/*
-* @brief	Flush the Data cache for the given address range.
-* 			If the bytes specified by the address range are cached by the Data
-* 			cache, the cachelines containing those bytes are invalidated. If
-* 			the cachelines are modified (dirty), they are written to system
-* 			memory before the lines are invalidated.
-*
-* @param	adr: 64bit start address of the range to be flushed.
-* @param	len: Length of the range to be flushed in bytes.
-*
-* @return	None.
-*
-* @note		None.
-*
-****************************************************************************/
-void Xil_DCacheFlushRange(INTPTR  adr, INTPTR len)
-{
-	const u32 cacheline = 64U;
-	INTPTR end;
-	INTPTR tempadr = adr;
-	INTPTR tempend;
-	u32 currmask;
-	currmask = mfcpsr();
-	mtcpsr(currmask | IRQ_FIQ_MASK);
-	if (len != 0x00000000U) {
-		end = tempadr + len;
-		tempend = end;
-		if ((tempadr & (0x3F)) != 0) {
-			tempadr &= ~(0x3F);
-			Xil_DCacheFlushLine(tempadr);
-			tempadr += cacheline;
-		}
-		if ((tempend & (0x3F)) != 0) {
-			tempend &= ~(0x3F);
-			Xil_DCacheFlushLine(tempend);
-		}
-
-		while (tempadr < tempend) {
-			/* Select cache level 0 and D cache in CSSR */
-			mtcp(CSSELR_EL1,0x0);
-			/* Flush Data cache line */
-			mtcpdc(CIVAC,(tempadr & (~0x3F)));
-			/* Wait for flush to complete */
-			dsb();
-			/* Select cache level 1 and D cache in CSSR */
-			mtcp(CSSELR_EL1,0x2);
-			/* Flush Data cache line */
-			mtcpdc(CIVAC,(tempadr & (~0x3F)));
-			/* Wait for flush to complete */
-			dsb();
-			tempadr += cacheline;
-		}
-	}
-
 	mtcpsr(currmask);
 }
 
