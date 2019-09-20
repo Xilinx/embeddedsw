@@ -526,8 +526,9 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 
 			/* actual bar size is 2 << TestWrite */
 			BarAddr =
-				XPciePsu_ReserveBarMem(InstancePtr, MemAs,
-						(2 << (TestWrite - 1)));
+				XPciePsu_ReserveBarMem(
+						InstancePtr, MemAs,
+						((u64)2 << (TestWrite - 1)));
 
 			Tmp = (u32)BarAddr;
 
@@ -552,8 +553,9 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 			TestWrite = XPciePsu_PositionRightmostSetbit(Size);
 
 			/* actual bar size is 2 << TestWrite */
-			BarAddr = XPciePsu_ReserveBarMem(InstancePtr, MemAs,
-						(2 << (TestWrite - 1)));
+			BarAddr = XPciePsu_ReserveBarMem(
+						InstancePtr, MemAs,
+						((u64)2 << (TestWrite - 1)));
 
 			Tmp = (u32)BarAddr;
 
