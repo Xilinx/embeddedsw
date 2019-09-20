@@ -27,7 +27,7 @@
 /**
 *
 * @file xmcdma_intr.c
-* @addtogroup mcdma_v1_3
+* @addtogroup mcdma_v1_4
 * @{
 *
 * This file contains the implementation of the interrupt handling functions for

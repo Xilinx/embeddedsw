@@ -27,7 +27,7 @@
 /**
 *
 * @file xmcdma_bd.h
-* @addtogroup mcdma_v1_3
+* @addtogroup mcdma_v1_4
 * @{
 * MODIFICATION HISTORY:
 *
@@ -267,11 +267,11 @@ typedef u32 XMcdma_Bd[16];
  *
  * @param	BdPtr is the BD to operate on
  *
- * @return	None
+ * @return	control bits of a BD.
  *
  * @note
  *		C-style signature:
- *		u32 XMCDMA_BdGetId(XMCDMA_Bd* BdPtr)
+ *		u32 XMcDma_BdGetCtrl(XMCDMA_Bd* BdPtr)
  *
  *****************************************************************************/
 #define XMcDma_BdGetCtrl(BdPtr)				\
@@ -431,7 +431,7 @@ typedef u32 XMcdma_Bd[16];
  *
  * @param	BdPtr is the BD to operate on
  *
- * @return	None
+ * @return	BD Sw identifier
  *
  * @note
  *		C-style signature:
