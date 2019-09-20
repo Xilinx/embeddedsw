@@ -123,5 +123,8 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
         puts $config_file "\n\t\}"
 
         puts $config_file "\};"
+        puts $config_file "\n"
+        puts $config_file "size_t [format "%s_ConfigTableSize" $drv_string] = ARRAY_SIZE\([format "%s_ConfigTable" $drv_string]\);"
+        puts $config_file "\n"
         close $config_file
 }
