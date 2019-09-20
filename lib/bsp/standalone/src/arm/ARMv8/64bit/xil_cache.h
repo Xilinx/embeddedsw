@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -59,6 +59,9 @@ extern "C" {
 #define L1_DATA_PREFETCH_CONTROL_MASK  0xE000
 #define L1_DATA_PREFETCH_CONTROL_SHIFT  13
 
+/***************** Macros (Inline Functions) Definitions *********************/
+#define Xil_DCacheFlushRange Xil_DCacheInvalidateRange
+
 /************************** Function Prototypes ******************************/
 void Xil_DCacheEnable(void);
 void Xil_DCacheDisable(void);
@@ -66,7 +69,6 @@ void Xil_DCacheInvalidate(void);
 void Xil_DCacheInvalidateRange(INTPTR adr, INTPTR len);
 void Xil_DCacheInvalidateLine(INTPTR adr);
 void Xil_DCacheFlush(void);
-void Xil_DCacheFlushRange(INTPTR adr, INTPTR len);
 void Xil_DCacheFlushLine(INTPTR adr);
 
 void Xil_ICacheEnable(void);
