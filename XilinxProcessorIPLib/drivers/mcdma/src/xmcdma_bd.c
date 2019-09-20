@@ -41,6 +41,7 @@
 *  1.2  mus  11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
 *  1.3  rsp  02/11/19 Add top level submit XMcDma_Chan_Sideband_Submit() API
 *                     to program BD control and sideband information.
+*  1.4  rsp  09/17/19 Prefer using dmb in XMcdma_UpdateChanTDesc.
 ******************************************************************************/
 
 #include "xmcdma.h"
@@ -157,13 +158,13 @@ int XMcdma_UpdateChanTDesc(XMcdma_ChanCtrl *Chan)
 
 	if (Chan->BdPendingCnt > 0) {
 		XMCDMA_CACHE_INVALIDATE(Chan->BdTail);
+#if !defined (__MICROBLAZE__)
+			dmb();
+#endif
 		XMcdma_WriteReg(Chan->ChanBase,
 				(XMCDMA_TDESC_OFFSET + Offset),
 				LOWER_32_BITS((UINTPTR)Chan->BdTail));
 		if (Chan->ext_addr) {
-#if !defined (__MICROBLAZE__)
-			dsb();
-#endif
 			XMcdma_WriteReg(Chan->ChanBase,
 				  (XMCDMA_TDESC_MSB_OFFSET + Offset),
 				  UPPER_32_BITS((UINTPTR)Chan->BdTail));
