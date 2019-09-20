@@ -817,7 +817,9 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			goto done;
 		}
 		/* Skip in case of system reset or POR of a domain */
-		if ((1 == SystemResetFlag) || (1 == DomainPORFlag)) {
+		/* HACK: Dont skip scanclear for AIE */
+		if (((1 == SystemResetFlag) || (1 == DomainPORFlag)) &&
+		     (PwrDomain->Power.Node.Id != PM_POWER_ME)) {
 			goto done;
 		}
 		if (Ops && Ops->ScanClear) {
