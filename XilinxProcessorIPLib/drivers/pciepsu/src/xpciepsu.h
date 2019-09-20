@@ -85,6 +85,8 @@ extern "C" {
 #define XPciePsu_WriteReg(BaseAddr, RegOffset, Val)                            \
 	Xil_Out32((BaseAddr) + (RegOffset), (Val))
 
+#define ARRAY_SIZE(x)	sizeof(x) / sizeof(x[0])
+
 /****************************** Type Definitions ******************************/
 
 typedef struct {
