@@ -436,11 +436,11 @@ void Xil_DCacheInvalidateRange(INTPTR  adr, INTPTR len)
 	if (len != 0U) {
 		while (adr < end) {
 			mtcpdc(CIVAC,adr);
-			/* Wait for invalidate to complete */
-			dsb();
 			adr += cacheline;
 		}
 	}
+	/* Wait for invalidate to complete */
+	dsb();
 	mtcpsr(currmask);
 }
 
