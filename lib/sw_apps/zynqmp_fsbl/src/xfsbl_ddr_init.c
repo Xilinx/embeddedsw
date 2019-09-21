@@ -822,7 +822,7 @@ static void XFsbl_DdrCalcHifAddrVideo(struct DdrcInitData *DdrDataPtr,
 		u32 *HifAddr, u32 VideoBuf)
 {
 	XFsbl_DimmParams *PDimmPtr = &DdrDataPtr->PDimm;
-	u32 Position;
+	u32 Position=0U;
 	u32 Index;
 	u32 BufWidth;
 	u32 RemainingRow;
@@ -5269,7 +5269,7 @@ END:
  *****************************************************************************/
 static void XFsbl_RdbiWrkAround(XFsbl_DimmParams *PDimmPtr)
 {
-	u32 CalByte[9U];
+	u32 CalByte[9U]={0U};
 	u32 DqRbd[9U][8U];
 	u32 Index;
 	u32 Index1;
