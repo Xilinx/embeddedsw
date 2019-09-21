@@ -214,6 +214,33 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 		{
 			PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->PdiAddr + \
 				(RegVal * XLOADER_IMAGE_SEARCH_OFFSET);
+			if(PdiSrc == XLOADER_PDI_SRC_QSPI24)
+			{
+#ifdef XLOADER_QSPI
+				Status = XLoader_Qspi24GetBusWidth(PdiPtr-> \
+							MetaHdr.FlashOfstAddr);
+				if(Status != XST_SUCCESS)
+				{
+					goto END;
+				}
+#endif
+			}
+			else if(PdiSrc == XLOADER_PDI_SRC_QSPI32)
+                        {
+#ifdef XLOADER_QSPI
+                                Status = XLoader_Qspi32GetBusWidth(PdiPtr-> \
+                                                        MetaHdr.FlashOfstAddr);
+                                if(Status != XST_SUCCESS)
+                                {
+                                        goto END;
+                                }
+#endif
+                        }
+			else
+			{
+				/** For MISRA-C compliance */
+			}
+
 		}
 		else
 		{
@@ -455,6 +482,7 @@ int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 
 			memset(PdiPtr, 0U, sizeof(XilPdi));
 			PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
+			PdiPtr->SlrType = XLOADER_SSIT_MONOLITIC;
 			Status = XLoader_LoadPdi(PdiPtr, PdiSrc, PdiAddr);
 			if (Status != XST_SUCCESS)
 			{

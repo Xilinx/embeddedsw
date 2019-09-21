@@ -201,9 +201,6 @@ int XLoader_Qspi24Init(u32 DeviceFlags)
 	XQspiPsu_Config *QspiConfig;
 	int Status;
 	u32 QspiMode;
-	u32 QspiWidthBuffer[4]={0};
-	u32 MultiBootOffset;
-	u32 ImageOffsetAddress;
 	/**
 	 * This parameter is required as per the prototype
 	 */
@@ -283,17 +280,61 @@ int XLoader_Qspi24Init(u32 DeviceFlags)
 
 	}
 
+	switch ((u32)XPAR_XQSPIPSU_0_QSPI_BUS_WIDTH) {
+
+		case XLOADER_QSPI_BUSWIDTH_ONE:
+		{
+			ReadCommand = FAST_READ_CMD_24BIT;
+		} break;
+
+		case XLOADER_QSPI_BUSWIDTH_TWO:
+		{
+			ReadCommand = DUAL_READ_CMD_24BIT;
+		} break;
+
+		case XLOADER_QSPI_BUSWIDTH_FOUR:
+		{
+			ReadCommand = QUAD_READ_CMD_24BIT;
+		}break;
+		default:
+		{
+			Status = XPLMI_UPDATE_STATUS(
+				XLOADER_ERR_QSPI_CONNECTION, Status);
+			XLoader_Printf(DEBUG_GENERAL,
+					"XLOADER_ERR_QSPI_CONNECTION\r\n");
+			goto END;
+		} break;
+	}
+
 	/* Read Flash ID and extract Manufacture and Size information */
 	Status = FlashReadID(&QspiPsuInstance);
 	if (Status != XLOADER_SUCCESS) {
 		goto END;
 	}
 
-	/* Read multi boot  register */
-	MultiBootOffset = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT)&(XLOADER_MULTIBOOT_OFFSET_MASK);
-	ImageOffsetAddress = MultiBootOffset * (XLOADER_IMAGE_SEARCH_OFFSET);
-	XLoader_Printf(DEBUG_INFO,"MultiBootOffset: 0x%x\n\r",MultiBootOffset);
+	/* TODO add code: For a Stacked connection, read second Flash ID */
+        QspiMode=(XPAR_XQSPIPSU_0_QSPI_MODE);
+        if ((QspiMode ==(XQSPIPSU_CONNECTION_MODE_PARALLEL)) ||
+                (QspiMode ==(XQSPIPSU_CONNECTION_MODE_STACKED) )) {
+                QspiFlashSize = 2 * QspiFlashSize;
+        }
+END:
+	return Status;
+}
 
+/*****************************************************************************/
+/**
+ * This function is used to initialize the qspi controller and driver
+ *
+ * @param       Image Offset Address
+ *
+ * @return      Success or error code
+ *
+ *****************************************************************************/
+int XLoader_Qspi24GetBusWidth(u32 ImageOffsetAddress)
+{
+	int Status = XST_FAILURE;
+	u32 QspiWidthBuffer[4]={0};
 	/*Qspi width detection for 1x,2x and 4x*/
 	ReadCommand = QUAD_READ_CMD_24BIT;
 	Status=XLoader_Qspi24Copy((ImageOffsetAddress+XLOADER_QSPI_BUSWIDTH_PDI_OFFSET),
@@ -328,13 +369,6 @@ int XLoader_Qspi24Init(u32 DeviceFlags)
 				goto END;
 			}
 		}
-	}
-
-	/* TODO add code: For a Stacked connection, read second Flash ID */
-	QspiMode=(XPAR_XQSPIPSU_0_QSPI_MODE);
-	if ((QspiMode ==(XQSPIPSU_CONNECTION_MODE_PARALLEL)) ||
-		(QspiMode ==(XQSPIPSU_CONNECTION_MODE_STACKED) )) {
-		QspiFlashSize = 2 * QspiFlashSize;
 	}
 
 END:
@@ -841,9 +875,6 @@ int XLoader_Qspi32Init(u32 DeviceFlags)
 	XQspiPsu_Config *QspiConfig;
 	int Status;
 	u32 QspiMode;
-	u32 QspiWidthBuffer[4]={0};
-	u32 MultiBootOffset;
-	u32 ImageOffsetAddress;
 
 	/**
 	 * This parameter is required as per the prototype
@@ -928,16 +959,61 @@ int XLoader_Qspi32Init(u32 DeviceFlags)
 
 	}
 
+	switch ((u32)XPAR_XQSPIPSU_0_QSPI_BUS_WIDTH) {
+
+		case XLOADER_QSPI_BUSWIDTH_ONE:
+		{
+			ReadCommand = FAST_READ_CMD_32BIT;
+		} break;
+
+		case XLOADER_QSPI_BUSWIDTH_TWO:
+		{
+			ReadCommand = DUAL_READ_CMD_32BIT;
+		} break;
+
+		case XLOADER_QSPI_BUSWIDTH_FOUR:
+		{
+			ReadCommand = QUAD_READ_CMD_32BIT;
+		}break;
+		default:
+		{
+			Status = XPLMI_UPDATE_STATUS(
+				XLOADER_ERR_QSPI_CONNECTION, Status);
+			XLoader_Printf(DEBUG_GENERAL,
+					"XLOADER_ERR_QSPI_CONNECTION\r\n");
+			goto END;
+		} break;
+	}
+
 	/* Read Flash ID and extract Manufacture and Size information */
 	Status = FlashReadID(&QspiPsuInstance);
 	if (Status != XLOADER_SUCCESS) {
 		goto END;
 	}
 
-	/* Read multi boot  register */
-	MultiBootOffset = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT)&(XLOADER_MULTIBOOT_OFFSET_MASK);
-	ImageOffsetAddress = MultiBootOffset * (XLOADER_IMAGE_SEARCH_OFFSET);
-	XLoader_Printf(DEBUG_INFO,"MultiBootOffset: 0x%x\n\r",MultiBootOffset);
+	/* add code: For a Stacked connection, read second Flash ID */
+        QspiMode = XPAR_XQSPIPSU_0_QSPI_MODE;
+        if ((QspiMode == (s32)(XQSPIPSU_CONNECTION_MODE_PARALLEL)) ||
+            (QspiMode == (s32)(XQSPIPSU_CONNECTION_MODE_STACKED)) ) {
+                QspiFlashSize = 2 * QspiFlashSize;
+        }
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to initialize the qspi controller and driver
+ *
+ * @param       Image Offset Address
+ *
+ * @return      Success or error code
+ *
+ *****************************************************************************/
+int XLoader_Qspi32GetBusWidth(u32 ImageOffsetAddress)
+{
+	int Status = XST_FAILURE;
+	u32 QspiWidthBuffer[4]={0};
 
 	/*Detect connection type for 1x,2x and 4x*/
 	ReadCommand = QUAD_READ_CMD_32BIT;
@@ -974,13 +1050,6 @@ int XLoader_Qspi32Init(u32 DeviceFlags)
 				goto END;
 			}
 		}
-	}
-
-	/* add code: For a Stacked connection, read second Flash ID */
-	QspiMode = XPAR_XQSPIPSU_0_QSPI_MODE;
-	if ((QspiMode == (s32)(XQSPIPSU_CONNECTION_MODE_PARALLEL)) ||
-	    (QspiMode == (s32)(XQSPIPSU_CONNECTION_MODE_STACKED)) ) {
-		QspiFlashSize = 2 * QspiFlashSize;
 	}
 
 END:

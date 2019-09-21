@@ -185,6 +185,9 @@ extern "C" {
 #define XLOADER_QSPI_BUSWIDTH_DETECT_VALUE	(0xAA995566U)
 #define XLOADER_QSPI_BUSWIDTH_PDI_OFFSET	(0x10U)
 #define XLOADER_QSPI_BUSWIDTH_LENGTH		(0x10U)
+#define XLOADER_QSPI_BUSWIDTH_ONE		(0U)
+#define XLOADER_QSPI_BUSWIDTH_TWO		(1U)
+#define XLOADER_QSPI_BUSWIDTH_FOUR		(2U)
 
 /**************************** Type Definitions *******************************/
 
@@ -198,6 +201,9 @@ int XLoader_Qspi24Release(void );
 int XLoader_Qspi32Init(u32 DeviceFlags);
 XStatus XLoader_Qspi32Copy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 int XLoader_Qspi32Release(void );
+int XLoader_Qspi24GetBusWidth(u32 ImageOffsetAddress);
+int XLoader_Qspi32GetBusWidth(u32 ImageOffsetAddress);
+
 /************************** Variable Definitions *****************************/
 
 
