@@ -6655,7 +6655,7 @@ static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	Status = Xil_poll_timeout(Xil_In32, IicInstance.Config.BaseAddress +
+	Status = XFsbl_PollTimeout(IicInstance.Config.BaseAddress +
 			XIICPS_SR_OFFSET, Regval, (Regval & XIICPS_SR_BA_MASK) == 0x0U,
 			XFSBL_IIC_BUS_TIMEOUT);
 	if (Status != XST_SUCCESS) {
@@ -6676,7 +6676,7 @@ static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	Status = Xil_poll_timeout(Xil_In32, IicInstance.Config.BaseAddress +
+	Status = XFsbl_PollTimeout(IicInstance.Config.BaseAddress +
 			XIICPS_SR_OFFSET, Regval, (Regval &
 				XIICPS_SR_BA_MASK) == 0x0U,
 			XFSBL_IIC_BUS_TIMEOUT);
@@ -6696,7 +6696,7 @@ static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	Status = Xil_poll_timeout(Xil_In32, IicInstance.Config.BaseAddress +
+	Status = XFsbl_PollTimeout(IicInstance.Config.BaseAddress +
 			XIICPS_SR_OFFSET, Regval, (Regval &
 				XIICPS_SR_BA_MASK) == 0x0U,
 			XFSBL_IIC_BUS_TIMEOUT);
@@ -6718,7 +6718,7 @@ static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	Status = Xil_poll_timeout(Xil_In32, IicInstance.Config.BaseAddress +
+	Status = XFsbl_PollTimeout(IicInstance.Config.BaseAddress +
 			XIICPS_SR_OFFSET, Regval, (Regval &
 				XIICPS_SR_BA_MASK) == 0x0U,
 			XFSBL_IIC_BUS_TIMEOUT);
@@ -6740,7 +6740,7 @@ static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 	/*
 	 * Wait until bus is idle.
 	 */
-	Status = Xil_poll_timeout(Xil_In32, IicInstance.Config.BaseAddress +
+	Status = XFsbl_PollTimeout(IicInstance.Config.BaseAddress +
 			XIICPS_SR_OFFSET, Regval, (Regval &
 				XIICPS_SR_BA_MASK) == 0x0U,
 			XFSBL_IIC_BUS_TIMEOUT);
@@ -6761,7 +6761,7 @@ static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	Status = Xil_poll_timeout(Xil_In32, IicInstance.Config.BaseAddress +
+	Status = XFsbl_PollTimeout(IicInstance.Config.BaseAddress +
 			XIICPS_SR_OFFSET, Regval, (Regval &
 				XIICPS_SR_BA_MASK) == 0x0U,
 			XFSBL_IIC_BUS_TIMEOUT);
@@ -6783,7 +6783,7 @@ static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	Status = Xil_poll_timeout(Xil_In32, IicInstance.Config.BaseAddress +
+	Status = XFsbl_PollTimeout(IicInstance.Config.BaseAddress +
 			XIICPS_SR_OFFSET, Regval, (Regval &
 				XIICPS_SR_BA_MASK) == 0x0U,
 			XFSBL_IIC_BUS_TIMEOUT);
@@ -6805,7 +6805,7 @@ static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 	/*
 	 * Wait until bus is idle.
 	 */
-	Status = Xil_poll_timeout(Xil_In32, IicInstance.Config.BaseAddress +
+	Status = XFsbl_PollTimeout(IicInstance.Config.BaseAddress +
 			XIICPS_SR_OFFSET, Regval, (Regval &
 				XIICPS_SR_BA_MASK) == 0x0U,
 			XFSBL_IIC_BUS_TIMEOUT);
