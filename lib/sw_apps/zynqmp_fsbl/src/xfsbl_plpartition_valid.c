@@ -363,7 +363,7 @@ static u32 XFsbl_ReAuthenticationBlock(XFsblPs_PlPartition *PartitionParams,
 				Len = HashDataLen;
 			}
 			Offset = (UINTPTR)Address +
-				(u64)(PartitionParams->ChunkSize * Index);
+				(u64)((u64)PartitionParams->ChunkSize * (u64)Index);
 
 			/* Copy from DDR or flash to Buffer */
 			Status = XFsbl_CopyData(PartitionParams,
@@ -498,7 +498,7 @@ static u32 XFsbl_PlSignVer(XFsblPs_PlPartition *PartitionParams,
 			Len = HashDataLen;
 		}
 		Offset = (u64)BlockAdrs +
-			(u64)(PartitionParams->ChunkSize * Index);
+			(u64)((u64)PartitionParams->ChunkSize * (u64)Index);
 
 		Status = XFsbl_CopyData(PartitionParams,
 			PartitionParams->ChunkBuffer, (u8 *)(UINTPTR)Offset, Len);

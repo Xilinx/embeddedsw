@@ -90,7 +90,7 @@ void XFsbl_ShaDigest(const u8 *In, const u32 Size, u8 *Out, u32 HashLen)
  *              XST_FAILURE if selection is failed.
  *
  ******************************************************************************/
-u32 XFsbl_Sha3PadSelect(u8 PadType)
+u32 XFsbl_Sha3PadSelect(XSecure_Sha3PadType PadType)
 {
 	u32 Status;
 

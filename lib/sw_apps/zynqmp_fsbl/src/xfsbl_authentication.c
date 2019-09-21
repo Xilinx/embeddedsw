@@ -169,14 +169,8 @@ u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen)
 	}
 
 	/* Set SPK Signature pointer */
-	if(PpkExpPtr!=NULL) {
-		Status = (u32)XSecure_RsaInitialize(&SecureRsa, PpkModular,
-			PpkModularEx, PpkExpPtr);
-	}
-	else
-	{
-		Status = (u32)(XFSBL_FAILURE);
-	}
+	Status = (u32)XSecure_RsaInitialize(&SecureRsa, PpkModular,
+		PpkModularEx, PpkExpPtr);
 
 	if (Status != XFSBL_SUCCESS) {
 		Status = XFSBL_ERROR_RSA_INITIALIZE;

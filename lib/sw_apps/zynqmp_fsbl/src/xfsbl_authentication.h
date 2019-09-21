@@ -127,7 +127,7 @@ void XFsbl_ShaStart(void * Ctx, u32 HashLen);
 void XFsbl_ShaUpdate(void * Ctx, u8 * Data, u32 Size, u32 HashLen);
 void XFsbl_ShaFinish(void * Ctx, u8 * Hash, u32 HashLen);
 u32 XFsbl_CompareHashs(u8 *Hash1, u8 *Hash2, u32 HashLen);
-u32 XFsbl_Sha3PadSelect(u8 PadType);
+u32 XFsbl_Sha3PadSelect(XSecure_Sha3PadType PadType);
 u32 XFsbl_BhAuthentication(const XFsblPs * FsblInstancePtr, u8 *Data,
 					u64 AcOffset, u8 IsEfuseRsa);
 #endif

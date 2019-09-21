@@ -83,7 +83,7 @@ u32 XFsbl_SdInit(u32 DeviceFlags)
 	static FATFS fatfs;
 	u32 Status;
 	FRESULT rc;
-	char buffer[32];
+	char buffer[32U]={0U};
 	char *boot_file = buffer;
 	u32 MultiBootOffset;
 	u32 DrvNum;
@@ -117,7 +117,7 @@ u32 XFsbl_SdInit(u32 DeviceFlags)
 	 */
 	XFsbl_MakeSdFileName(boot_file, MultiBootOffset, DrvNum);
 
-	if(boot_file!=NULL) {
+	if(boot_file[0U]!=0U) {
 		rc = f_open(&fil, boot_file, (BYTE)FA_READ);
 		if (rc!=FR_OK) {
 		XFsbl_Printf(DEBUG_INFO,
@@ -130,6 +130,7 @@ u32 XFsbl_SdInit(u32 DeviceFlags)
 	else
 	{
 		Status = XFSBL_ERROR_SD_F_OPEN;
+		goto END;
 	}
 
 	Status = XFSBL_SUCCESS;
