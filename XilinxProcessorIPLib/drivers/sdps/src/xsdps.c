@@ -1598,9 +1598,9 @@ void XSdPs_SetupADMA2DescTbl64Bit(XSdPs *InstancePtr, u32 BlkCnt)
 {
 #ifdef __ICCARM__
 #pragma data_alignment = 32
-	XSdPs_Adma2Descriptor64 Adma2_DescrTbl[32];
+	static XSdPs_Adma2Descriptor64 Adma2_DescrTbl[32];
 #else
-	XSdPs_Adma2Descriptor64 Adma2_DescrTbl[32] __attribute__ ((aligned(32)));
+	static XSdPs_Adma2Descriptor64 Adma2_DescrTbl[32] __attribute__ ((aligned(32)));
 #endif
 	u32 TotalDescLines;
 	u64 DescNum;
@@ -1675,9 +1675,9 @@ static void XSdPs_Setup32ADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *
 {
 #ifdef __ICCARM__
 #pragma data_alignment = 32
-	XSdPs_Adma2Descriptor32 Adma2_DescrTbl[32];
+	static XSdPs_Adma2Descriptor32 Adma2_DescrTbl[32];
 #else
-	XSdPs_Adma2Descriptor32 Adma2_DescrTbl[32] __attribute__ ((aligned(32)));
+	static XSdPs_Adma2Descriptor32 Adma2_DescrTbl[32] __attribute__ ((aligned(32)));
 #endif
 	u32 TotalDescLines;
 	u64 DescNum;
@@ -1742,9 +1742,9 @@ static void XSdPs_Setup64ADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *
 {
 #ifdef __ICCARM__
 #pragma data_alignment = 32
-	XSdPs_Adma2Descriptor64 Adma2_DescrTbl[32];
+	static XSdPs_Adma2Descriptor64 Adma2_DescrTbl[32];
 #else
-	XSdPs_Adma2Descriptor64 Adma2_DescrTbl[32] __attribute__ ((aligned(32)));
+	static XSdPs_Adma2Descriptor64 Adma2_DescrTbl[32] __attribute__ ((aligned(32)));
 #endif
 	u32 TotalDescLines;
 	u64 DescNum;
