@@ -83,6 +83,14 @@ static XStatus XPmBoard_IicInit(XIicPs *Iic)
 	XStatus Status = XST_FAILURE;
 	XIicPs_Config *Config;
 
+	/* Request the PMC_I2C device */
+	Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_I2C_PMC, PM_CAP_ACCESS,
+				   XPM_MAX_QOS, 0);
+	if (XST_SUCCESS != Status) {
+		PmErr("Fail to request PMC_I2C device\n\r");
+		goto done;
+	}
+
 	Config = XIicPs_LookupConfig(IIC_DEVICE_ID);
 	if (NULL == Config) {
 		PmInfo("Could not find I2C\n\r");
