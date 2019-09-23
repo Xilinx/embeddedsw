@@ -71,6 +71,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 {
 	u32 ApiResponse[XPLMI_CMD_RESP_SIZE-1] = {0, 0, 0};
 	u32 Status = XST_SUCCESS;
+	XPm_Subsystem *Subsystem = NULL;
 	u32 SubsystemId = INVALID_SUBSYSID;
 	u32 *Pload = Cmd->Payload;
 	u32 Len = Cmd->Len;
@@ -92,10 +93,21 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			SubsystemId = XPmSubsystem_GetSubSysIdByIpiMask(Cmd->IpiMask);
 			PmDbg("Using subsystemId mapped to IPI: 0x%x\n\r", SubsystemId);
 		}
-		if(SubsystemId == INVALID_SUBSYSID) {
-			PmInfo("Failure: Invalid SubsystemId\n\r");
+
+		Subsystem = XPmSubsystem_GetById(SubsystemId);
+		if ((NULL == Subsystem) || (Subsystem->State == OFFLINE)) {
+			/* Subsystem must not be offline here */
+			PmErr("Invalid SubsystemId 0x%x\n\r", SubsystemId);
 			Status = XPM_INVALID_SUBSYSID;
 			goto done;
+		}
+		/* Set subsystem to online if suspended or powered off */
+		if ((Subsystem->State == SUSPENDED) ||
+		    (Subsystem->State == POWERED_OFF)) {
+			Status = XPmSubsystem_SetState(SubsystemId, ONLINE);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
 		}
 	}
 
