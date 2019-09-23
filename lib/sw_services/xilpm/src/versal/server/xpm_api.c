@@ -931,7 +931,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack)
 						goto done;
 					}
 
-					XPmSubsystem_SetState(TargetSubsystemId, OFFLINE);
+					XPmSubsystem_SetState(TargetSubsystemId, POWERED_OFF);
 				}
 			}
 			Reqm = Reqm->NextSubsystem;
@@ -1061,7 +1061,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType)
 			goto done;
 		}
 
-		XPmSubsystem_SetState(SubsystemId, OFFLINE);
+		XPmSubsystem_SetState(SubsystemId, POWERED_OFF);
 		goto done;
 	}
 

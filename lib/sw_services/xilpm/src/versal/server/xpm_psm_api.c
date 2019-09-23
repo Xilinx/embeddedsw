@@ -202,7 +202,7 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 	if (SUSPENDING == Subsystem->State) {
 		Status = XPmRequirement_UpdateScheduled(Subsystem, TRUE);
 
-		XPmSubsystem_SetState(SubsystemId, OFFLINE);
+		XPmSubsystem_SetState(SubsystemId, SUSPENDED);
 	}
 
 done:
