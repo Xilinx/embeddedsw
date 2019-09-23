@@ -509,7 +509,7 @@ done:
  */
 s32 PmSystemRequirementAdd(void)
 {
-	s32 status;
+	s32 status = XST_FAILURE;
 	u32 i;
 
 	for (i = 0U; i < ARRAY_SIZE(pmSystemReqs); i++) {
