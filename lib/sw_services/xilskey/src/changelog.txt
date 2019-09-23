@@ -151,5 +151,10 @@
 *                      Added support to access ZU+ PL efuse and BBRAM
 *                      Aligned spaces in dependecies.props
 *                      Removed Tbits programming code in ZU+
+*                      Added sysmon override or not option under BSP settings
+*                      for ZU+, added master SLR number in user device adding
+*                      under BSP settings.
+*                      Modified Microblaze SSIT devices based on CONFIG ORDER
+*                      INDEX.
 *
  ********************************************************************************/
