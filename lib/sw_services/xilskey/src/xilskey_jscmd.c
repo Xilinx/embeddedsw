@@ -217,15 +217,15 @@ int readPin (int pin);
 u32 Bbram_ReadKey[8];
 
 const id_codes_t IDcodeArray [] = {
-  {.flag=XSK_FPGA_SERIES_ZYNQ,       .id = ZYNQ_DAP_ID, 					.irLen =  6, .numSlr = 1},  /**< Zynq TAP ID */
-  {.flag=XSK_FPGA_SERIES_ULTRA,      .id = KINTEX_ULTRA_MB_DAP_ID, 			.irLen =  6, .numSlr = 1},  /**< Kintex Ultrascale microblaze TAP ID */
-  {.flag=XSK_FPGA_SERIES_ULTRA,      .id = VIRTEX110_ULTRA_MB_DAP_ID, 		.irLen = 18, .numSlr = 3},  /**< VCU110 xcvu190 VIRTEX Ultrascale microblaze TAP id */
-  {.flag=XSK_FPGA_SERIES_ULTRA,      .id = VIRTEX108_ULTRA_MB_DAP_ID, 		.irLen =  6, .numSlr = 1},  /**< VCU108 VIRTEX Ultrascale microblaze TAP id */
-  {.flag=XSK_FPGA_SERIES_ULTRA_PLUS, .id = KINTEX_ULTRAPLUS_DAP_ID, 		.irLen =  6, .numSlr = 1},  /**< Kintex Ultrascale plus microblaze TAP ID */
-  {.flag=XSK_FPGA_SERIES_ULTRA_PLUS, .id = VIRTEX_ULTRAPLUS_DAP_ID, 		.irLen = 18, .numSlr = 3},  /**< VCU140 VIRTEX Ultrascale Plus microblaze TAP id */
-  {.flag=XSK_FPGA_SERIES_ULTRA_PLUS, .id = VIRTEX_ULTRAPLUS_VC13P_DAP_ID, 	.irLen = 24, .numSlr = 4},  /**< XCVU13P VIRTEX Ultrascale Plus microblaze TAP id */
-  {.flag=XSK_FPGA_SERIES_ULTRA_PLUS, .id = ZYNQ_ULTRAPLUS_PL_DAP_ID,		.irLen = 6,  .numSlr = 1},  /**< Zynq Ultrascale plus TAP ID */
-  {.flag=XSK_USER_DEVICE_SERIES,     .id = XSK_USER_DEVICE_ID,     .irLen = XSK_USER_DEVICE_IRLEN, .numSlr = XSK_USER_DEVICE_NUMSLR}   /**< USER_ENTRY */
+  {.flag=XSK_FPGA_SERIES_ZYNQ,       .id = ZYNQ_DAP_ID, 					.irLen =  6, .numSlr = 1, .masterSlr = 0},  /**< Zynq TAP ID */
+  {.flag=XSK_FPGA_SERIES_ULTRA,      .id = KINTEX_ULTRA_MB_DAP_ID, 			.irLen =  6, .numSlr = 1, .masterSlr = 0},  /**< Kintex Ultrascale microblaze TAP ID */
+  {.flag=XSK_FPGA_SERIES_ULTRA,      .id = VIRTEX110_ULTRA_MB_DAP_ID, 		.irLen = 18, .numSlr = 3, .masterSlr = 1},  /**< VCU110 xcvu190 VIRTEX Ultrascale microblaze TAP id */
+  {.flag=XSK_FPGA_SERIES_ULTRA,      .id = VIRTEX108_ULTRA_MB_DAP_ID, 		.irLen =  6, .numSlr = 1, .masterSlr = 0},  /**< VCU108 VIRTEX Ultrascale microblaze TAP id */
+  {.flag=XSK_FPGA_SERIES_ULTRA_PLUS, .id = KINTEX_ULTRAPLUS_DAP_ID, 		.irLen =  6, .numSlr = 1, .masterSlr = 0},  /**< Kintex Ultrascale plus microblaze TAP ID */
+  {.flag=XSK_FPGA_SERIES_ULTRA_PLUS, .id = VIRTEX_ULTRAPLUS_DAP_ID, 		.irLen = 18, .numSlr = 3, .masterSlr = 1},  /**< VCU140 VIRTEX Ultrascale Plus microblaze TAP id */
+  {.flag=XSK_FPGA_SERIES_ULTRA_PLUS, .id = VIRTEX_ULTRAPLUS_VC13P_DAP_ID, 	.irLen = 24, .numSlr = 4, .masterSlr = 1},  /**< XCVU13P VIRTEX Ultrascale Plus microblaze TAP id */
+  {.flag=XSK_FPGA_SERIES_ULTRA_PLUS, .id = ZYNQ_ULTRAPLUS_PL_DAP_ID,		.irLen = 6,  .numSlr = 1, .masterSlr = 0},  /**< Zynq Ultrascale plus TAP ID */
+  {.flag=XSK_USER_DEVICE_SERIES,     .id = XSK_USER_DEVICE_ID,     .irLen = XSK_USER_DEVICE_IRLEN, .numSlr = XSK_USER_DEVICE_NUMSLR, .masterSlr = XSK_USER_DEVICE_MASTER_SLR}   /**< USER_ENTRY */
 };
 
 void GpioConfig(unsigned long addr, unsigned long mask, unsigned long val)
@@ -1421,6 +1421,7 @@ int JtagServerInit(XilSKey_EPl *InstancePtr)
 		if( (tap_codes[i] & 0x0FFFFFFF) == IDcodeArray[index].id) {
 			InstancePtr->FpgaFlag = IDcodeArray[index].flag;
 			InstancePtr->NumSlr    = IDcodeArray[index].numSlr;
+			InstancePtr->MasterSlr = IDcodeArray[index].masterSlr;
 			XilSKeyJtag.NumSlr    = IDcodeArray[index].numSlr;
 			XilSKeyJtag.IrLen     = IDcodeArray[index].irLen;
 			js_printf("Match. ID code: %08x\r\n", tap_codes[i]);
@@ -1558,6 +1559,7 @@ int JtagServerInitBbram(XilSKey_Bbram *InstancePtr)
 		if( (tap_codes[i] & 0x0FFFFFFF) == IDcodeArray[index].id) {
 			InstancePtr->FpgaFlag = IDcodeArray[index].flag;
 			InstancePtr->NumSlr	  = IDcodeArray[index].numSlr;
+			InstancePtr->MasterSlr = IDcodeArray[index].masterSlr;
 			XilSKeyJtag.NumSlr    = IDcodeArray[index].numSlr;
 			XilSKeyJtag.IrLen     = IDcodeArray[index].irLen;
 			js_printf("Match. ID code: %08x\r\n", tap_codes[i]);

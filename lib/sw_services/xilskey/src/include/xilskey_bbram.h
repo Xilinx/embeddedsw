@@ -131,7 +131,8 @@ typedef struct {
     /* Number of SLRs to iterate through */
     u32 NumSlr;
     /* Current SLR to iterate through */
-    u32 CurSlr;
+    u32 MasterSlr;
+    u32 SlrConfigOrderIndex;
     /**
      * Internal variable to check if timer, XADC and JTAG are initialized.
      */

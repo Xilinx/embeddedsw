@@ -1369,7 +1369,7 @@ u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits)
 		InstancePtr->SystemInitDone = 1;
 		PlFpgaFlag = InstancePtr->FpgaFlag;
 	}
-	XilSKeyJtag.CurSlr = InstancePtr->CurSlr;
+
 #ifdef XSK_ZYNQ_PLATFORM
 
 	/**
@@ -1396,6 +1396,7 @@ u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits)
 		ErrorCode = XSK_EFUSEPL_ERROR_READ_VCCINT_VOLTAGE_OUT_OF_RANGE;
 		return XST_FAILURE;
 	}
+	XilSKeyJtag.CurSlr = 0;
 
 	/*
 	 * Read row 0 for status bits
@@ -1406,6 +1407,8 @@ u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits)
 #endif
 	/* For Ultrascale */
 #ifdef XSK_MICROBLAZE_PLATFORM
+	XilSKey_GetSlrNum(InstancePtr->MasterSlr,
+			InstancePtr->SlrConfigOrderIndex, &(XilSKeyJtag.CurSlr));
 
 	/* Monitor Temperature and voltage */
 	XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(&PL_XAdc);
@@ -1537,6 +1540,7 @@ static inline u32 XilSKey_EfusePl_ReadKey_Zynq(XilSKey_EPl *InstancePtr)
 	u32 KeyCnt;
 	u32 RowCount;
 	unsigned int RowData;
+	XilSKeyJtag.CurSlr = 0;
 
 #ifdef XSK_ZYNQ_PLATFORM
 	XSKEfusePs_XAdc PL_XAdc = {0};
@@ -1637,6 +1641,8 @@ static inline u32 XilSKey_EfusePl_ReadKey_Ultra(XilSKey_EPl *InstancePtr)
 {
 
 	u32 Index;
+	XilSKey_GetSlrNum(InstancePtr->MasterSlr,
+			InstancePtr->SlrConfigOrderIndex, &(XilSKeyJtag.CurSlr));
 
 	/* Checks conditions for read key */
 	if (XilSKey_EfusePl_ReadKey_Checks(InstancePtr) != XST_SUCCESS) {
@@ -2402,7 +2408,7 @@ u32 XilSKey_EfusePl_Program_Zynq(XilSKey_EPl *InstancePtr)
 	u32 Index = 0;
 
 	/* Initialize current SLR */
-	InstancePtr->CurSlr = 0;
+	XilSKeyJtag.CurSlr = 0;
 	/**
 	 *	Read the FUSE_CNTL register bits [5:2], and if any of them is found to
 	 *	be set to 1 then we can not write to the eFUSE, so return with unique
@@ -2597,7 +2603,8 @@ static inline u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr)
 	u8 User32Data[XSK_EFUSEPL_ARRAY_FUSE_USER_KEY_SIZE];
 	u8 User128Data[XSK_EFUSEPL_ARRAY_FUSE_128BIT_USER_SIZE];
 
-	XilSKeyJtag.CurSlr = InstancePtr->CurSlr;
+	XilSKey_GetSlrNum(InstancePtr->MasterSlr,
+			InstancePtr->SlrConfigOrderIndex, &(XilSKeyJtag.CurSlr));
 
 	Status = XilSKey_EfusePl_Program_Checks(InstancePtr);
 	if (Status != XST_SUCCESS) {
