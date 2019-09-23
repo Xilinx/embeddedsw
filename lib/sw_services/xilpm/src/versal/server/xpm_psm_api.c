@@ -1,28 +1,8 @@
 /******************************************************************************
- *
- * Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- *
- *
- ******************************************************************************/
+* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+
 
 #include "xpm_defs.h"
 #include "xpm_psm_api.h"
@@ -31,7 +11,23 @@
 #include "xpm_core.h"
 #include "xpm_device.h"
 #include "xpm_ipi.h"
+#include "xpm_regs.h"
+#include "xpm_subsystem.h"
+#include "xpm_requirement.h"
+#include "sleep.h"
 
+#define PSM_TO_PLM_EVENT_ADDR			(0xFFC3FF00U)
+#define PSM_TO_PLM_EVENT_VERSION		(0x1U)
+#define PWR_UP_EVT				(0x1U)
+#define PWR_DWN_EVT				(0x100U)
+
+#ifdef STDOUT_BASEADDRESS
+#if (STDOUT_BASEADDRESS == 0xFF000000U)
+#define NODE_UART PM_DEV_UART_0 /* Assign node ID with UART0 device ID */
+#elif (STDOUT_BASEADDRESS == 0xFF010000U)
+#define NODE_UART PM_DEV_UART_1 /* Assign node ID with UART1 device ID */
+#endif
+#endif
 static XPlmi_ModuleCmd XPlmi_PsmCmds[PSM_API_MAX+1];
 static XPlmi_Module XPlmi_Psm =
 {
@@ -40,33 +36,76 @@ static XPlmi_Module XPlmi_Psm =
 	PSM_API_MAX+1,
 };
 
+static u32 ProcDevList[PROC_DEV_MAX] = {
+	[ACPU_0] = PM_DEV_ACPU_0,
+	[ACPU_1] = PM_DEV_ACPU_1,
+	[RPU0_0] = PM_DEV_RPU0_0,
+	[RPU0_1] = PM_DEV_RPU0_1,
+};
+
+/* This replicates PsmToPlmEvent stored at PSM reserved RAM location */
+static volatile struct PsmToPlmEvent_t *PsmToPlmEvent =
+				(struct PsmToPlmEvent_t *)PSM_TO_PLM_EVENT_ADDR;
+
 static int XPm_ProcessPsmCmd(XPlmi_Cmd * Cmd)
 {
-	u32 Status = XST_SUCCESS;
-	u32 *Pload = Cmd->Payload;
+	int Status = XST_FAILURE, EventStatus;
+	u32 Idx;
+	XPm_Power *Lpd;
 
-	PmDbg("Processing Cmd %x\n\r", Cmd->CmdId);
+	/* Ack the IPI interrupt first */
+	PmOut32(IPI_PMC_ISR_ADDR, PSM_IPI_BIT);
 
-	switch (Cmd->CmdId & 0xFF) {
-		case PM_PWR_DWN_EVENT:
-			Status = XPm_PwrDwnEvent(Pload[0]);
-			break;
-		case PM_WAKE_UP_EVENT:
-			Status = XPm_WakeUpEvent(Pload[0]);
-			break;
-		default:
-			Status = XST_INVALID_PARAM;
-			break;
+	PmDbg("Processing Psm Event\n\r");
+
+	/* Check for the version of the PsmToPlmEvent structure */
+	if (PsmToPlmEvent->Version != PSM_TO_PLM_EVENT_VERSION) {
+		PmErr("PSM-PLM are out of sync. Can't process PSM event\n\r");
+		goto done;
+	} else {
+		Status = XST_SUCCESS;
 	}
 
-	Cmd->Response[0] = Status;
+	Lpd = XPmPower_GetById(PM_POWER_LPD);
+	if (NULL == Lpd) {
+		goto done;
+	}
 
+	/* Check for the power up/down event register */
+	for (Idx = 0; ((u8)XPM_POWER_STATE_OFF != Lpd->Node.State) && Idx < ARRAY_SIZE(ProcDevList); Idx++) {
+		if (PsmToPlmEvent->Event[Idx] == PWR_UP_EVT) {
+			/* Clear power up event register bit */
+			PsmToPlmEvent->Event[Idx] = 0;
+
+			EventStatus = XPm_WakeUpEvent(ProcDevList[Idx]);
+			if (EventStatus != XST_SUCCESS) {
+				Status = EventStatus;
+				PmErr("Err %d in wakeup of 0x%x\r\n",
+						EventStatus, ProcDevList[Idx]);
+			}
+		} else if (PsmToPlmEvent->Event[Idx] == PWR_DWN_EVT) {
+			/* Clear power down event register bit */
+			PsmToPlmEvent->Event[Idx] = 0;
+
+			EventStatus = XPm_PwrDwnEvent(ProcDevList[Idx]);
+			if (EventStatus != XST_SUCCESS) {
+				Status = EventStatus;
+				PmErr("Err %d in powerdown of 0x%x\r\n",
+						EventStatus, ProcDevList[Idx]);
+			}
+		} else {
+			/* Required due to MISRA */
+			PmDbg("Invalid PSM event %d\r\n", PsmToPlmEvent->Event[Idx]);
+		}
+	}
+
+	Cmd->Response[0] = (u32)Status;
+
+done:
 	if (XST_SUCCESS == Status) {
 		Cmd->ResumeHandler = NULL;
 	} else {
-		PmErr("Error %d while processing command 0x%x\r\n", Status, Cmd->CmdId);
-		PmDbg("Command payload: 0x%x, 0x%x, 0x%x, 0x%x\r\n",
-				Pload[0], Pload[1], Pload[2], Pload[3]);
+		PmErr("Error %d in handling PSM event\r\n", Status);
 	}
 
 	return Status;
@@ -107,7 +146,7 @@ void XPm_PsmModuleInit(void)
  ****************************************************************************/
 XStatus XPm_DirectPwrUp(const u32 DeviceId)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	Payload[0] = PSM_API_DIRECT_PWR_UP;
@@ -138,7 +177,7 @@ done:
  ****************************************************************************/
 XStatus XPm_DirectPwrDwn(const u32 DeviceId)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	Payload[0] = PSM_API_DIRECT_PWR_DWN;
@@ -169,20 +208,21 @@ done:
  ****************************************************************************/
 XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_Core *Core;
 	XPm_Subsystem *Subsystem;
 	u32 SubsystemId;
+	XPm_Power *Lpd;
 
-	if ((XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) ||
-	    (XPM_NODESUBCL_DEV_CORE != NODESUBCLASS(DeviceId))) {
+	if (((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) ||
+	    ((u32)XPM_NODESUBCL_DEV_CORE != NODESUBCLASS(DeviceId))) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
 	Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
 
-	if (XPM_DEVSTATE_SUSPENDING != Core->Device.Node.State) {
+	if ((u8)XPM_DEVSTATE_SUSPENDING != Core->Device.Node.State) {
 		Status = XST_FAILURE;
 		goto done;
 	}
@@ -199,10 +239,41 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 		goto done;
 	}
 
-	if (SUSPENDING == Subsystem->State) {
-		Status = XPmRequirement_UpdateScheduled(Subsystem, TRUE);
+	if ((u8)SUSPENDING == Subsystem->State) {
+		Status = XPmRequirement_UpdateScheduled(Subsystem, 1U);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 
-		XPmSubsystem_SetState(SubsystemId, OFFLINE);
+		/* Release devices requested by PLM to turn of LPD domain */
+		Lpd = XPmPower_GetById(PM_POWER_LPD);
+		if (((Lpd->UseCount > 0U) && (Lpd->UseCount <= 3U)) &&
+		    (((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(DeviceId)) ||
+		     ((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(DeviceId)))) {
+			Status = XPmDevice_Release(PM_SUBSYS_PMC, PM_DEV_PSM_PROC);
+			if (XST_SUCCESS != Status) {
+				PmErr("Error %d in  XPmDevice_Release(PM_SUBSYS_DEFAULT, PM_DEV_PSM_PROC)\r\n");
+				goto done;
+			}
+			Status = XPmDevice_Release(PM_SUBSYS_PMC, PM_DEV_IPI_PMC);
+			if (XST_SUCCESS != Status) {
+				PmErr("Error %d in  XPmDevice_Release(PM_SUBSYS_PMC, PM_DEV_IPI_PMC)\r\n");
+				goto done;
+			}
+#ifdef DEBUG_UART_PS
+			XPlmi_ResetLpdInitialized();
+			/* Wait for UART buffer to flush */
+			usleep(1000);
+			Status = XPmDevice_Release(PM_SUBSYS_PMC, NODE_UART);
+			if (XST_SUCCESS != Status) {
+				PmErr("PMC Error %d in  XPmDevice_Release(PM_SUBSYS_DEFAULT, PM_DEV_UART_0)\r\n");
+				goto done;
+			}
+#endif
+		}
+		Status = XPmSubsystem_SetState(SubsystemId, (u32)SUSPENDED);
+	} else {
+		Status = XST_SUCCESS;
 	}
 
 done:
