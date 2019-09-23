@@ -137,6 +137,7 @@ proc xgen_opts_file {libhandle} {
 		set device_id [common::get_property CONFIG.device_id $libhandle]
 		set device_irlen [common::get_property CONFIG.device_irlen $libhandle]
 		set device_numslr [common::get_property CONFIG.device_numslr $libhandle]
+		set device_masterslr [common::get_property CONFIG.device_masterslr $libhandle]
 
 		set conffile  [skey_open_include_file "xilskey_config.h"]
 
@@ -151,17 +152,19 @@ proc xgen_opts_file {libhandle} {
 		puts $conffile ""
 
 		if { $device_id != 0 } {
-			if {$device_id != "0x0ba00477" && $device_id != "0x03822093" && $device_id != "0x03931093" && $device_id != "0x03842093" && $device_id != "0x04A62093" && $device_id != "0x04b31093" && $device_id != "0x04B51093"} {
+			if {$device_id != "0x0ba00477" && $device_id != "0x03822093" && $device_id != "0x03931093" && $device_id != "0x03842093" && $device_id != "0x04A62093" && $device_id != "0x04b31093" && $device_id != "0x04B51093"  && $device_id != "0x0484A093"} {
 				puts $conffile "#define XSK_USER_DEVICE_SERIES	$device_series"
 				puts $conffile "#define XSK_USER_DEVICE_ID	$device_id"
 				puts $conffile "#define XSK_USER_DEVICE_IRLEN	$device_irlen"
 				puts $conffile "#define XSK_USER_DEVICE_NUMSLR	$device_numslr"
+				puts $conffile "#define XSK_USER_DEVICE_MASTER_SLR $device_masterslr"
 			} else {
 				puts stderr "ERROR: Device IDCODE already exist by Default."
 				puts $conffile "#define XSK_USER_DEVICE_SERIES  0"
 				puts $conffile "#define XSK_USER_DEVICE_ID      0"
 				puts $conffile "#define XSK_USER_DEVICE_IRLEN   0"
 				puts $conffile "#define XSK_USER_DEVICE_NUMSLR  0"
+				 puts $conffile "#define XSK_USER_DEVICE_MASTER_SLR 0"
 			}
 		} else {
 			puts $conffile "/* No Value specified, assigning default values */"
@@ -169,6 +172,7 @@ proc xgen_opts_file {libhandle} {
 			puts $conffile "#define XSK_USER_DEVICE_ID	$device_id"
 			puts $conffile "#define XSK_USER_DEVICE_IRLEN	$device_irlen"
 			puts $conffile "#define XSK_USER_DEVICE_NUMSLR	$device_numslr"
+			puts $conffile "#define XSK_USER_DEVICE_MASTER_SLR $device_masterslr"
 		}
 
 
