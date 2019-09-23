@@ -25,15 +25,15 @@
 /*****************************************************************************/
 /**
 *
-* @file xilsem.h
+* @file xplm_sem_init.c
 *
-* This is the file which contains xilsem related interafce code.
-* This will be inteface for xilsem library
+* This file contains the startup tasks related code for PLM.
+*
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
-* ----- ---- -------- -------------------------------------------------------
+* ====  ==== ======== ======================================================-
 * 1.00  rm   09/22/2019 Initial release
 *
 * </pre>
@@ -42,29 +42,54 @@
 *
 ******************************************************************************/
 
-#ifndef XIL_SEM_H
-#define XIL_SEM_H
-
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /***************************** Include Files *********************************/
-/***************************** Global variables ******************************/
+#include "xplm_sem_init.h"
+#include "xplmi_scheduler.h"
+#include "xilsem.h"
+#include "xplm_default.h"
 
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 
+/***************** Macros (Inline Functions) Definitions *********************/
+
 /************************** Function Prototypes ******************************/
-int XSem_CfrInit(void);
-int XSem_NpiInit(void);
-int XSem_NpiRunScan(void);
 
+/************************** Variable Definitions *****************************/
 
-#ifdef __cplusplus
-}
+/*****************************************************************************/
+
+/*****************************************************************************/
+/**
+ * @brief This function call all the init functions of all xilsem 
+ * modules. As a part of init functions, modules can initiate scan on both cfi 
+ * npi,scan will be decided based on the CIPS params in xparameters.h.
+ *
+ * @param	None
+ *
+ * @return	Status as SUCCESS or FAILURE
+ *
+ *****************************************************************************/
+int XSem_Init(void)
+{
+	int Status;
+	Status = XST_SUCCESS;
+
+#ifdef XSEM_CFRSCAN_EN
+	Status = XSem_CfrInit();
 #endif
 
-#endif		/* XIL_SEM_H */
+#ifdef XSEM_NPISCAN_EN
+	Status = XSem_NpiInit();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	} else {
+		Status = XPlmi_SchedulerAddTask(XSem_NpiRunScan, 100U);
+	}
+END:
+
+#endif
+	return Status;
+}
+
