@@ -104,21 +104,6 @@
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
-/**
- * SLR Definitions
- */
-#define XSK_BBRAM_SLR1	0U
-#define	XSK_BBRAM_SLR2	1U
-#define	XSK_BBRAM_SLR3	2U
-#define XSK_BBRAM_SLR4	3U
-
-/**
- * Number of SLR present in target
- */
-#define XSK_BBRAM_TARGET_SLR_NUM1 1U
-#define XSK_BBRAM_TARGET_SLR_NUM2 2U
-#define XSK_BBRAM_TARGET_SLR_NUM3 3U
-#define XSK_BBRAM_TARGET_SLR_NUM4 4U
 
 /************************** Variable Definitions *****************************/
 
@@ -149,13 +134,13 @@ int main()
 	switch(InstancePtr.NumSlr)
 	{
 
-		case XSK_BBRAM_TARGET_SLR_NUM1:
-			if(((XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR2 == TRUE) ||
-					(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR3 == TRUE) ||
-					(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR4 == TRUE) ||
-					(XSK_BBRAM_PGM_AES_KEY_SLR2 == TRUE) ||
-					(XSK_BBRAM_PGM_AES_KEY_SLR3 == TRUE) ||
-					(XSK_BBRAM_PGM_AES_KEY_SLR4 == TRUE)) && (InstancePtr.NumSlr == 1U))
+		case XSK_TARGET_MAX_1_SLRS:
+			if(((XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_1 == TRUE) ||
+					(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_2 == TRUE) ||
+					(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3 == TRUE) ||
+					(XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_1 == TRUE) ||
+					(XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_2 == TRUE) ||
+					(XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_3 == TRUE)))
 			{
 				xil_printf("App: Only %d SLR(s) present in the target"
 						",example failed\r\n",
@@ -164,11 +149,11 @@ int main()
 				Status = (u32)XST_FAILURE;
 			}
 			break;
-		case XSK_BBRAM_TARGET_SLR_NUM2:
-			if(((XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR3 == TRUE) ||
-					(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR4 == TRUE) ||
-					(XSK_BBRAM_PGM_AES_KEY_SLR3 == TRUE) ||
-					(XSK_BBRAM_PGM_AES_KEY_SLR4 == TRUE)) && (InstancePtr.NumSlr == 2U))
+		case XSK_TARGET_MAX_2_SLRS:
+			if(((XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_2 == TRUE) ||
+					(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3 == TRUE) ||
+					(XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_2 == TRUE) ||
+					(XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_3 == TRUE)))
 			{
 				xil_printf("App: Only %d SLR(s) present in the target"
 						",example failed\r\n",
@@ -177,9 +162,9 @@ int main()
 				Status = (u32)XST_FAILURE;
 			}
 			break;
-		case XSK_BBRAM_TARGET_SLR_NUM3:
-			if(((XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR4 == TRUE) ||
-					(XSK_BBRAM_PGM_AES_KEY_SLR4 == TRUE)) && (InstancePtr.NumSlr == 3U)) {
+		case XSK_TARGET_MAX_3_SLRS:
+			if(((XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3 == TRUE) ||
+					(XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_3 == TRUE))) {
 				xil_printf("App: Only %d SLR(s) present in the target"
 						",example failed\r\n",
 						InstancePtr.NumSlr);
@@ -187,7 +172,7 @@ int main()
 				Status = (u32)XST_FAILURE;
 			}
 			break;
-		case XSK_BBRAM_TARGET_SLR_NUM4:
+		case XSK_TARGET_MAX_4_SLRS:
 			xil_printf("App: SLR Count verification passed\r\n");
 			Status = (u32)XST_SUCCESS;
 			break;
@@ -204,13 +189,13 @@ int main()
 
 	/*************************************************************************/
 
-	if(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR1_MONO == TRUE)
+	if(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_0 == TRUE)
 	{
 		/*
 		 * Convert key given in xilskey_input.h and
 		 * assign it to the variable in instance.
 		 */
-		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_OBFUSCATED_KEY_SLR1,
+		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_0,
 					&(InstancePtr.AESKey[0]),
 					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
 	}
@@ -220,16 +205,17 @@ int main()
 		 * Convert key given in xilskey_input.h and
 		 * assign it to the variable in instance.
 		 */
-		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_AES_KEY_SLR1,
+		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_0,
 					&(InstancePtr.AESKey[0]),
 					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
 	}
 
 
-	if((XSK_BBRAM_PGM_AES_KEY_SLR1_OR_MONO == TRUE) ||
-			(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR1_MONO == TRUE))
+	if((XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_0 == TRUE) ||
+			(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_0 == TRUE))
 	{
-		InstancePtr.CurSlr = XSK_BBRAM_SLR1;
+
+		InstancePtr.SlrConfigOrderIndex = XSK_SLR_CONFIG_ORDER_0;
 		Status = XilSKey_Bbram_ProgramSLR(&InstancePtr);
 		if(Status != XST_SUCCESS)
 		{
@@ -238,13 +224,13 @@ int main()
 	}
 
 	/*************************************************************************/
-	if(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR2 == TRUE)
+	if(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_1 == TRUE)
 	{
 		/*
 		 * Convert key given in xilskey_input.h and
 		 * assign it to the variable in instance.
 		 */
-		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_OBFUSCATED_KEY_SLR2,
+		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_1,
 					&(InstancePtr.AESKey[0]),
 					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
 	}
@@ -254,15 +240,15 @@ int main()
 		 * Convert key given in xilskey_input.h and
 		 * assign it to the variable in instance.
 		 */
-		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_AES_KEY_SLR2,
+		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_1,
 					&(InstancePtr.AESKey[0]),
 					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
 	}
 
-	if((XSK_BBRAM_PGM_AES_KEY_SLR2 	== TRUE) ||
-			(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR2 == TRUE))
-	{
-		InstancePtr.CurSlr = XSK_BBRAM_SLR2;
+	if((XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_1 	== TRUE) ||
+			(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_1 == TRUE))	{
+
+		InstancePtr.SlrConfigOrderIndex = XSK_SLR_CONFIG_ORDER_1;
 		Status = XilSKey_Bbram_ProgramSLR(&InstancePtr);
 		if(Status != XST_SUCCESS)
 		{
@@ -270,13 +256,13 @@ int main()
 		}
 	}
 	/*************************************************************************/
-	if(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR3 == TRUE)
+	if(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_2 == TRUE)
 	{
 		/*
 		 * Convert key given in xilskey_input.h and
 		 * assign it to the variable in instance.
 		 */
-		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_OBFUSCATED_KEY_SLR3,
+		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_2,
 					&(InstancePtr.AESKey[0]),
 					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
 	}
@@ -286,15 +272,15 @@ int main()
 		 * Convert key given in xilskey_input.h and
 		 * assign it to the variable in instance.
 		 */
-		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_AES_KEY_SLR3,
+		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_2,
 					&(InstancePtr.AESKey[0]),
 					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
 	}
 
-	if((XSK_BBRAM_PGM_AES_KEY_SLR3 	== TRUE) ||
-			(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR3 == TRUE))
+	if((XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_2 	== TRUE) ||
+			(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_2 == TRUE))
 	{
-		InstancePtr.CurSlr = XSK_BBRAM_SLR3;
+		InstancePtr.SlrConfigOrderIndex = XSK_SLR_CONFIG_ORDER_2;
 		Status = XilSKey_Bbram_ProgramSLR(&InstancePtr);
 		if(Status != XST_SUCCESS)
 		{
@@ -302,13 +288,13 @@ int main()
 		}
 	}
 	/*************************************************************************/
-	if(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR4 == TRUE)
+	if(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3 == TRUE)
 	{
 		/*
 		 * Convert key given in xilskey_input.h and
 		 * assign it to the variable in instance.
 		 */
-		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_OBFUSCATED_KEY_SLR4,
+		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3,
 					&(InstancePtr.AESKey[0]),
 					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
 	}
@@ -318,15 +304,15 @@ int main()
 		 * Convert key given in xilskey_input.h and
 		 * assign it to the variable in instance.
 		 */
-		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_AES_KEY_SLR4,
+		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_AES_KEY_SLR_CONFIG_ORDER_3,
 					&(InstancePtr.AESKey[0]),
 					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
 	}
 
-	if((XSK_BBRAM_PGM_AES_KEY_SLR4== TRUE) ||
-			(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR4 == TRUE))
+	if((XSK_BBRAM_PGM_AES_KEY_SLR_CONFIG_ORDER_3== TRUE) ||
+			(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3 == TRUE))
 	{
-		InstancePtr.CurSlr = XSK_BBRAM_SLR4;
+		InstancePtr.SlrConfigOrderIndex = XSK_SLR_CONFIG_ORDER_3;
 		Status = XilSKey_Bbram_ProgramSLR(&InstancePtr);
 		if(Status != XST_SUCCESS)
 		{
@@ -357,16 +343,18 @@ int XilSKey_Bbram_ProgramSLR(XilSKey_Bbram *BbramInstancePtr)
 {
 	u32 Status;
 
-	xil_printf("******** Processing SLR %d ********\r\n",
-			(BbramInstancePtr->CurSlr + 1));
+	xil_printf("******** Processing SLR of config order %d ********\r\n",
+			(BbramInstancePtr->SlrConfigOrderIndex));
 	Status = XilSKey_Bbram_Program(BbramInstancePtr);
 	if(Status != XST_SUCCESS) {
-		xil_printf("Ultrascale BBRAM key write failed for SLR%d\r\n",
-				(BbramInstancePtr->CurSlr + 1U));
+		xil_printf("Ultrascale BBRAM key write failed for SLR of"
+					" config order index %d\r\n",
+				(BbramInstancePtr->SlrConfigOrderIndex));
 		return XST_FAILURE;
 	}
 	xil_printf("Successfully programmed and verified Ultrascale"
-						" BBRAM key for SLR%d\r\n", (BbramInstancePtr->CurSlr + 1U));
+						" BBRAM key for SLR of config oder index %d\r\n",
+				(BbramInstancePtr->SlrConfigOrderIndex));
 	return XST_SUCCESS;
 
 }
@@ -406,10 +394,10 @@ int XilSKey_Bbram_InitData(XilSKey_Bbram *BbramInstancePtr)
 	}
 
 
-	if((XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR1_MONO 	== TRUE) ||
-		(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR2		== TRUE) ||
-		(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR3		== TRUE) ||
-		(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR4		== TRUE))
+	if((XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_0 	== TRUE) ||
+		(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_1		== TRUE) ||
+		(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_2		== TRUE) ||
+		(XSK_BBRAM_PGM_OBFUSCATED_KEY_SLR_CONFIG_ORDER_3		== TRUE))
 	{
 		BbramInstancePtr->IsKeyObfuscated = TRUE;
 
