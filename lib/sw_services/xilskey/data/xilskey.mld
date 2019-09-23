@@ -49,6 +49,7 @@
 # 6.8   psl  06/26/19 Added support for user to add IDCODE, IR_length, SLR Nos,
 #                     device series for different devices.
 #       mmd  09/05/19 Added support for enabling/disabling sysmon intialization
+#       vns  09/23/19 Added master SLR input into bsp settings to add new device
 ##############################################################################
 
 OPTION psf_version = 2.1;
@@ -64,5 +65,6 @@ BEGIN LIBRARY xilskey
   PARAM name = device_id, desc = "IDCODE", type = int, default = 0;
   PARAM name = device_irlen, desc = "IR length", type = int, default = 0;
   PARAM name = device_numslr, desc = "Number of SLRs", type = int, default = 1;
+  PARAM name = device_masterslr, desc = "Master SLR number", type = int, default = 0;
   PARAM name = override_sysmon_cfg, desc = "Override Sysmon configuration", type = bool, default = true;
 END LIBRARY
