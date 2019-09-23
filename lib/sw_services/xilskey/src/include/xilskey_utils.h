@@ -431,6 +431,24 @@ typedef enum {
 #define XSK_STRING_SIZE_96		(96U)
 
 /************************** Variable Definitions ****************************/
+typedef enum {
+	 XSK_SLR_NUM_0,
+	 XSK_SLR_NUM_1,
+	 XSK_SLR_NUM_2,
+	 XSK_SLR_NUM_3
+}XSK_SlrNum;
+typedef enum {
+	 XSK_SLR_CONFIG_ORDER_0,
+	 XSK_SLR_CONFIG_ORDER_1,
+	 XSK_SLR_CONFIG_ORDER_2,
+	 XSK_SLR_CONFIG_ORDER_3
+}XSK_SlrCfgOrder;
+typedef enum {
+	XSK_TARGET_MAX_1_SLRS = 1,
+	XSK_TARGET_MAX_2_SLRS,
+	XSK_TARGET_MAX_3_SLRS,
+	XSK_TARGET_MAX_4_SLRS
+}XSK_MaxSlrs;
 /**
  * 	XADC Structure
  */
@@ -1065,6 +1083,7 @@ u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len);
 u32 XilSKey_Timer_Intialise(void);
 u32 XilSKey_Efuse_ReverseHex(u32 Input);
 void XilSKey_StrCpyRange(u8 *Src, u8 *Dst, u32 From, u32 To);
+void XilSKey_GetSlrNum(u32 MasterSlr, u32 ConfigOrderIndex, u32 *SlrNum);
  /** @}
 @endcond */
 /**

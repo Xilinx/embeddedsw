@@ -243,7 +243,7 @@ static inline int XilSKey_Bbram_Program_Zynq(XilSKey_Bbram *InstancePtr)
 {
 	int Status = XST_FAILURE;
 
-	InstancePtr->CurSlr = 0;
+	XilSKeyJtag.CurSlr = 0;
 	/*
 	 * BBRAM Algorithm initialization
 	 */
@@ -296,7 +296,8 @@ static inline int XilSKey_Bbram_Program_Ultra(XilSKey_Bbram *InstancePtr)
 {
 	int Status = XST_FAILURE;
 
-	XilSKeyJtag.CurSlr = InstancePtr->CurSlr;
+	XilSKey_GetSlrNum(InstancePtr->MasterSlr,
+		 InstancePtr->SlrConfigOrderIndex, &(XilSKeyJtag.CurSlr));
 
 	/* Formation of control word */
 	XilSKey_Bbram_Framing_Ctrl_Word_Ultra(InstancePtr);

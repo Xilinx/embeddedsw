@@ -192,6 +192,7 @@ typedef struct {
 	u32 id;					/* Device ID */
 	u32 irLen;				/* IR length for device */
 	char numSlr;			/* Number of SLRs in device */
+	int masterSlr;		/* master SLR number */
 } id_codes_t;
 /**
  * XEfusePl is the PL eFUSE driver instance. Using this
@@ -445,7 +446,8 @@ typedef struct {
 	/* Number of SLRs to iterate through */
     u32 NumSlr;
     /* Current SLR to iterate through */
-    u32 CurSlr;
+    u32 MasterSlr;
+    u32 SlrConfigOrderIndex;
 
 }XilSKey_EPl;
 

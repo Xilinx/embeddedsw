@@ -1631,3 +1631,50 @@ END:
 	return Status;
 }
 #endif
+
+/****************************************************************************/
+/**
+*
+* This function provides correct SLR number to be accessed for corresponding
+* config order index.
+*
+* @param	ConfigOrderIndex	provide config order index of SLR
+* @param	SlrNum		Pointer to SLR number, where this API updates with
+* 			corresponding SLR number.
+*
+* @return	None.
+*
+* @note	If master SLR of target device is SLR0 then both config order index
+* 		and SLR number are same in order.
+* 		If master SLR of target device is SLR1 then config oder and SLR
+* 		numbers are as below.
+* 		SLR 1 = config order index 0
+* 		SLR 0 = config order index 1
+* 		SLR 2 = config order index 2
+* 		SLR 3 = config order index 3
+* 		Configuration order index is the order of SLRs starting from master
+* 		followed by slaves.
+*
+*****************************************************************************/
+void XilSKey_GetSlrNum(u32 MasterSlrNum, u32 ConfigOrderIndex, u32 *SlrNum)
+{
+	/* If master SLR is SLR 0 */
+	if (MasterSlrNum == XSK_SLR_NUM_0) {
+		*SlrNum = ConfigOrderIndex;
+	}
+	else {
+		/* If master SLR is SLR 1 */
+		if (ConfigOrderIndex == XSK_SLR_CONFIG_ORDER_0) {
+			/* Master SLR is 1 */
+			*SlrNum = XSK_SLR_NUM_1;
+		}
+		else if (ConfigOrderIndex == XSK_SLR_CONFIG_ORDER_1) {
+			/* SLave 0 is SLR 0 */
+			*SlrNum = XSK_SLR_NUM_0;
+		}
+		else {
+			/* remaining are same */
+			*SlrNum = ConfigOrderIndex;
+		}
+	}
+}
