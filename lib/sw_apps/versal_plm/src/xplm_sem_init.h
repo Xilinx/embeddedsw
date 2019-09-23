@@ -25,15 +25,15 @@
 /*****************************************************************************/
 /**
 *
-* @file xilsem.h
+* @file xplm_sem_init.h
 *
-* This is the file which contains xilsem related interafce code.
-* This will be inteface for xilsem library
+* This file contains the xilsem interfaces of PLM.
+*
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
-* ----- ---- -------- -------------------------------------------------------
+* ====  ==== ======== ======================================================-
 * 1.00  rm   09/22/2019 Initial release
 *
 * </pre>
@@ -41,30 +41,31 @@
 * @note
 *
 ******************************************************************************/
-
-#ifndef XIL_SEM_H
-#define XIL_SEM_H
-
+#ifndef XPLM_SEM_INIT_H
+#define XPLM_SEM_INIT_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-/***************************** Global variables ******************************/
+
 
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 
-/************************** Function Prototypes ******************************/
-int XSem_CfrInit(void);
-int XSem_NpiInit(void);
-int XSem_NpiRunScan(void);
+/***************** Macros (Inline Functions) Definitions *********************/
 
+/************************** Function Prototypes ******************************/
+int XSem_Init(void);
+
+/************************** Variable Definitions *****************************/
+
+/*****************************************************************************/
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif		/* XIL_SEM_H */
+#endif  /* XPLM_INIT_SEM_H */
