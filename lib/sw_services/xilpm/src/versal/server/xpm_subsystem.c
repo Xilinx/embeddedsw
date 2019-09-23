@@ -243,13 +243,13 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 			 * the use count of its clock and power. This makes unused
 			 * clock and power to be powered down.
 			 */
-			Status = XPmDevice_Request(SubsystemId, Device->Node.Id,
+			Status = XPmDevice_Request(PM_SUBSYS_PMC, Device->Node.Id,
 						   PM_CAP_ACCESS, XPM_MAX_QOS);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
 
-			Status = XPmDevice_Release(SubsystemId, Device->Node.Id);
+			Status = XPmDevice_Release(PM_SUBSYS_PMC, Device->Node.Id);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
