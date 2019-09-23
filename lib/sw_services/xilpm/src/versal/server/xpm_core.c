@@ -138,8 +138,7 @@ XStatus XPmCore_PwrDwn(XPm_Core *Core)
 	XStatus Status = XST_FAILURE;
 	XPm_Power *PwrNode;
 
-	if ((Core->Device.Node.State == XPM_DEVSTATE_PWR_OFF) ||
-	    (Core->Device.Node.State == XPM_DEVSTATE_UNUSED)) {
+	if (XPM_DEVSTATE_UNUSED == Core->Device.Node.State) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -165,7 +164,7 @@ XStatus XPmCore_PwrDwn(XPm_Core *Core)
 		ENABLE_WAKE(Core->SleepMask);
 	}
 
-	Core->Device.Node.State = XPM_DEVSTATE_PWR_OFF;
+	Core->Device.Node.State = XPM_DEVSTATE_UNUSED;
 
 done:
 	return Status;
