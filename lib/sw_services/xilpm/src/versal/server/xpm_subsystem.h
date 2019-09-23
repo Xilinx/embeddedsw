@@ -53,6 +53,8 @@ typedef enum {
 	RESERVED,
 	ONLINE,
 	SUSPENDING,
+	SUSPENDED,
+	POWERED_OFF,
 	MAX_STATE
 } XPm_SubsysState;
 
