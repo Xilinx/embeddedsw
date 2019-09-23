@@ -147,6 +147,12 @@ Added assert statements to function parameters
 Added support for A72 and R5 of versal.
 Initialized status variables to XST_FAILURE.
 
+axicdma_v4_6:
+In simple and sg example, fix data buffer cache maintenance ops.
+
+axidma_v9_10:
+In examples fix data buffer cache maintenance ops.
+
 Changes for 2019.1
 ===============================
 v_hdmiphy1_v1_0:
