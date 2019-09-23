@@ -47,7 +47,7 @@
 #include "xplm_pm.h"
 #include "xplm_module.h"
 #include "xplm_loader.h"
-#include "xilsem.h"
+#include "xplm_sem_init.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
