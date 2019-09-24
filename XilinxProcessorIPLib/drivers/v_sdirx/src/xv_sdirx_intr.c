@@ -695,8 +695,6 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 					SdiStream->VmId = XVIDC_VM_1920x1080_120_I;
 					break;
 				}
-				if ((color_format == XVIDC_CSF_YCRCB_444))
-					SdiStream->IsInterlaced = 0x1;
 				break;
 			case XST352_BYTE1_ST425_2008_750L_3GB:
 			switch (FrameRate) {
@@ -937,8 +935,7 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 			default:
 				xil_printf(" Error::: No ST352 valid payload available for 3G modes\n\r");
 			}
-			if ((color_format != XVIDC_CSF_YCRCB_444))
-				SdiStream->IsInterlaced = (~tscan) & 0x1;
+			SdiStream->IsInterlaced = (~tscan) & 0x1;
 			break;
 
 		case XV_SDIRX_MODE_6G:
