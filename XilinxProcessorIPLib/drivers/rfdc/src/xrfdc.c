@@ -172,6 +172,8 @@
 *       cog    09/01/19 Rename XRFdc_S/GetDigitalStepAttenuator() APIs to XRFdc_S/GetDSA().
 *                       Also, refactored DSA to use struct and absolute value for Attenuation.
 *       cog    09/18/19 Wider mask now needed for DAC Fabric Rate.
+*       cog    09/19/19 Calibration mode 1 does not need the frequency shifting workaround
+*                       for Gen 3 devices.
 *
 * </pre>
 *
@@ -3180,12 +3182,13 @@ u32 XRFdc_SetNyquistZone(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 			if (Status != XRFDC_SUCCESS) {
 				return XRFDC_FAILURE;
 			}
-
-			if (CalibrationMode == XRFDC_CALIB_MODE1) {
-				if (NyquistZone == XRFDC_ODD_NYQUIST_ZONE) {
-					NyquistZone = XRFDC_EVEN_NYQUIST_ZONE;
-				} else {
-					NyquistZone = XRFDC_ODD_NYQUIST_ZONE;
+			if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+				if (CalibrationMode == XRFDC_CALIB_MODE1) {
+					if (NyquistZone == XRFDC_ODD_NYQUIST_ZONE) {
+						NyquistZone = XRFDC_EVEN_NYQUIST_ZONE;
+					} else {
+						NyquistZone = XRFDC_ODD_NYQUIST_ZONE;
+					}
 				}
 			}
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_TI_TISK_CRL0_OFFSET);
@@ -3288,12 +3291,13 @@ u32 XRFdc_GetNyquistZone(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 	} else {
 		*NyquistZonePtr = XRFDC_EVEN_NYQUIST_ZONE;
 	}
-
-	if ((Type == XRFDC_ADC_TILE) && (CalibrationMode == XRFDC_CALIB_MODE1)) {
-		if (*NyquistZonePtr == XRFDC_EVEN_NYQUIST_ZONE) {
-			*NyquistZonePtr = XRFDC_ODD_NYQUIST_ZONE;
-		} else {
-			*NyquistZonePtr = XRFDC_EVEN_NYQUIST_ZONE;
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+		if ((Type == XRFDC_ADC_TILE) && (CalibrationMode == XRFDC_CALIB_MODE1)) {
+			if (*NyquistZonePtr == XRFDC_EVEN_NYQUIST_ZONE) {
+				*NyquistZonePtr = XRFDC_ODD_NYQUIST_ZONE;
+			} else {
+				*NyquistZonePtr = XRFDC_EVEN_NYQUIST_ZONE;
+			}
 		}
 	}
 
@@ -3521,7 +3525,27 @@ u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 C
 	if (Status != XRFDC_SUCCESS) {
 		return XRFDC_FAILURE;
 	}
-
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+		if (CalibrationMode == XRFDC_CALIB_MODE1) {
+			switch (Mixer_Settings.CoarseMixFreq) {
+			case XRFDC_COARSE_MIX_BYPASS:
+				Mixer_Settings.CoarseMixFreq = XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
+				break;
+			case XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR:
+				Mixer_Settings.CoarseMixFreq = XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+				break;
+			case XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO:
+				Mixer_Settings.CoarseMixFreq = XRFDC_COARSE_MIX_BYPASS;
+				break;
+			case XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR:
+				Mixer_Settings.CoarseMixFreq = XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+				break;
+			default:
+				Mixer_Settings.CoarseMixFreq = XRFDC_COARSE_MIX_OFF;
+				break;
+			}
+		}
+	}
 	/* Get Nyquist Zone */
 	Status = XRFdc_GetNyquistZone(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id, &NyquistZone);
 	if (Status != XRFDC_SUCCESS) {
@@ -3532,11 +3556,13 @@ u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 C
 		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) + XRFDC_BLOCK_ADDR_OFFSET(Index);
 		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL0_OFFSET);
 		ReadReg &= ~XRFDC_TI_DCB_MODE_MASK;
-		if (CalibrationMode == XRFDC_CALIB_MODE1) {
-			if (((Index % 2U) != 0U) && (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1)) {
-				ReadReg |= XRFDC_TI_DCB_MODE1_4GSPS;
-			} else if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 0) {
-				ReadReg |= XRFDC_TI_DCB_MODE1_2GSPS;
+		if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+			if (CalibrationMode == XRFDC_CALIB_MODE1) {
+				if (((Index % 2U) != 0U) && (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1)) {
+					ReadReg |= XRFDC_TI_DCB_MODE1_4GSPS;
+				} else if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 0) {
+					ReadReg |= XRFDC_TI_DCB_MODE1_2GSPS;
+				}
 			}
 		}
 		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL0_OFFSET, ReadReg);

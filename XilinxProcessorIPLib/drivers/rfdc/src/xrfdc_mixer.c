@@ -54,6 +54,8 @@
 *       cog    09/01/19 Fixed issue where going from calibration mode 1 to
 *                       any calibration mode caused the course mixer mode to
 *                       be incorrect.
+*       cog    09/19/19 Calibration mode 1 does not need the frequency shifting workaround
+*                       for Gen 3 devices.
 * </pre>
 *
 ******************************************************************************/
@@ -222,25 +224,27 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 			if (Status != XRFDC_SUCCESS) {
 				return XRFDC_FAILURE;
 			}
-			if (CalibrationMode == XRFDC_CALIB_MODE1) {
-				switch (CoarseMixFreq) {
-				case XRFDC_COARSE_MIX_BYPASS:
-					CoarseMixFreq = XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
-					break;
-				case XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR:
-					CoarseMixFreq = XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
-					break;
-				case XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO:
-					CoarseMixFreq = XRFDC_COARSE_MIX_BYPASS;
-					break;
-				case XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR:
-					CoarseMixFreq = XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
-					break;
-				default:
-					CoarseMixFreq = XRFDC_COARSE_MIX_OFF;
-					break;
+			if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+				if (CalibrationMode == XRFDC_CALIB_MODE1) {
+					switch (CoarseMixFreq) {
+					case XRFDC_COARSE_MIX_BYPASS:
+						CoarseMixFreq = XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
+						break;
+					case XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR:
+						CoarseMixFreq = XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+						break;
+					case XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO:
+						CoarseMixFreq = XRFDC_COARSE_MIX_BYPASS;
+						break;
+					case XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR:
+						CoarseMixFreq = XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+						break;
+					default:
+						CoarseMixFreq = XRFDC_COARSE_MIX_OFF;
+						break;
+					}
+					NCOFreq -= SamplingRate / 2.0;
 				}
-				NCOFreq -= SamplingRate / 2.0;
 			}
 		}
 
@@ -893,28 +897,31 @@ u32 XRFdc_GetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 			return XRFDC_FAILURE;
 		}
 
-		if (CalibrationMode == XRFDC_CALIB_MODE1) {
-			switch (MixerSettingsPtr->CoarseMixFreq) {
-			case XRFDC_COARSE_MIX_BYPASS:
-				MixerSettingsPtr->CoarseMixFreq = XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
-				break;
-			case XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR:
-				MixerSettingsPtr->CoarseMixFreq = XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
-				break;
-			case XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO:
-				MixerSettingsPtr->CoarseMixFreq = XRFDC_COARSE_MIX_BYPASS;
-				MixerSettingsPtr->MixerMode = (MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2C) ?
-								      XRFDC_MIXER_MODE_R2R :
-								      XRFDC_MIXER_MODE_C2C;
-				break;
-			case XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR:
-				MixerSettingsPtr->CoarseMixFreq = XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
-				break;
-			default:
-				MixerSettingsPtr->CoarseMixFreq = XRFDC_COARSE_MIX_OFF;
-				break;
+		if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+			if (CalibrationMode == XRFDC_CALIB_MODE1) {
+				switch (MixerSettingsPtr->CoarseMixFreq) {
+				case XRFDC_COARSE_MIX_BYPASS:
+					MixerSettingsPtr->CoarseMixFreq = XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
+					break;
+				case XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR:
+					MixerSettingsPtr->CoarseMixFreq = XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+					break;
+				case XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO:
+					MixerSettingsPtr->CoarseMixFreq = XRFDC_COARSE_MIX_BYPASS;
+					MixerSettingsPtr->MixerMode =
+						(MixerSettingsPtr->MixerMode == XRFDC_MIXER_MODE_R2C) ?
+							XRFDC_MIXER_MODE_R2R :
+							XRFDC_MIXER_MODE_C2C;
+					break;
+				case XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR:
+					MixerSettingsPtr->CoarseMixFreq = XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+					break;
+				default:
+					MixerSettingsPtr->CoarseMixFreq = XRFDC_COARSE_MIX_OFF;
+					break;
+				}
+				NCOFreq = (MixerConfigPtr->Freq - (SamplingRate / 2.0));
 			}
-			NCOFreq = (MixerConfigPtr->Freq - (SamplingRate / 2.0));
 		}
 	}
 
@@ -939,8 +946,10 @@ u32 XRFdc_GetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 			}
 		} while ((NCOFreq > (SamplingRate / 2.0)) || (NCOFreq < -(SamplingRate / 2.0)));
 	}
-	if ((Type == XRFDC_ADC_TILE) && (CalibrationMode == XRFDC_CALIB_MODE1)) {
-		MixerSettingsPtr->Freq += (SamplingRate / 2.0);
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+		if ((Type == XRFDC_ADC_TILE) && (CalibrationMode == XRFDC_CALIB_MODE1)) {
+			MixerSettingsPtr->Freq += (SamplingRate / 2.0);
+		}
 	}
 
 	Status = XRFDC_SUCCESS;
