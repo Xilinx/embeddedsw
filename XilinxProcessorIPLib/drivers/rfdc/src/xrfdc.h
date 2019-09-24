@@ -248,6 +248,8 @@
 *                       Also, add new XRFdc_DSA_Settings structure.
 *       cog    09/12/19 Swapped MIXER_TYPE_OFF and MIXER_TYPE_DISABLED macros.
 *       cog    09/18/19 Minumum output divider is now 1 for Gen 3 devices.
+*       cog    09/18/19 Changed clock distribution macros, also removed prototype for a function
+*                       that is now static.
 *
 * </pre>
 *
@@ -976,14 +978,14 @@ typedef struct {
 #define XRFDC_HSCOM_PWR_STATS_PLL 0xFFC0U
 #define XRFDC_HSCOM_PWR_STATS_EXTERNAL 0xF240U
 
-#define XRFDC_CLK_DST_DAC0 0
-#define XRFDC_CLK_DST_DAC1 1
-#define XRFDC_CLK_DST_DAC2 2
-#define XRFDC_CLK_DST_DAC3 3
-#define XRFDC_CLK_DST_ADC0 4
-#define XRFDC_CLK_DST_ADC1 5
-#define XRFDC_CLK_DST_ADC2 6
-#define XRFDC_CLK_DST_ADC3 7
+#define XRFDC_CLK_DST_TILE_231 0
+#define XRFDC_CLK_DST_TILE_230 1
+#define XRFDC_CLK_DST_TILE_229 2
+#define XRFDC_CLK_DST_TILE_228 3
+#define XRFDC_CLK_DST_TILE_227 4
+#define XRFDC_CLK_DST_TILE_226 5
+#define XRFDC_CLK_DST_TILE_225 6
+#define XRFDC_CLK_DST_TILE_224 7
 #define XRFDC_CLK_DST_INVALID 0xFFU
 
 #define XRFDC_GLBL_OFST_DAC 0U
@@ -1084,9 +1086,9 @@ typedef struct {
 
 #define XRFDC_INV_SYNC_EN_MAX 1
 
-#define XRFDC_CTRL_MASK 0x4800
-#define XRFDC_EXPORTCTRL_CLKDIST 0x4000
-#define XRFDC_PREMIUMCTRL_CLKDIST 0x0800
+#define XRFDC_CTRL_MASK 0x0440
+#define XRFDC_EXPORTCTRL_CLKDIST 0x0400
+#define XRFDC_PREMIUMCTRL_CLKDIST 0x0040
 #define XRFDC_EXPORTCTRL_VOP 0x2000
 #define XRFDC_EXPORTCTRL_DSA 0x0400
 
@@ -2059,7 +2061,6 @@ u32 XRFdc_SetDither(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mode);
 u32 XRFdc_GetDither(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *ModePtr);
 u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *DistributionSettingsPtr);
 u32 XRFdc_GetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *DistributionSettingsPtr);
-u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_Tile_Clock_Settings *SettingsPtr);
 u32 XRFdc_SetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mode);
 u32 XRFdc_GetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *ModePtr);
 u32 XRFdc_SetIMRPassMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mode);
