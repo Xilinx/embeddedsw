@@ -129,7 +129,10 @@ static void PmPllBypassAndReset(PmPll* const pll)
 #ifdef ENABLE_EM
 	u32 pllErrMask = 1 << pll->errShift;
 	pll->errValue = 0;
-	/* Store PLL lock error interrupt masks before disabling it */
+	/*
+	 * Store PLL lock error interrupt mask and error enable
+	 * before disabling it
+	 */
 	pll->errValue |= (~XPfw_Read32(PMU_GLOBAL_ERROR_INT_MASK_2) &
 			   pllErrMask) >> pll->errShift;
 	pll->errValue |= ((~XPfw_Read32(PMU_GLOBAL_ERROR_POR_MASK_2) &
@@ -138,6 +141,8 @@ static void PmPllBypassAndReset(PmPll* const pll)
 			   pllErrMask) >> pll->errShift) << 2;
 	pll->errValue |= ((~XPfw_Read32(PMU_GLOBAL_ERROR_SIG_MASK_2) &
 			   pllErrMask) >> pll->errShift) << 3;
+	pll->errValue |= ((~XPfw_Read32(PMU_GLOBAL_ERROR_EN_2) &
+			   pllErrMask) >> pll->errShift) << 4;
 	/* Disable PLL lock error interrupts before powering down PLL */
 	XPfw_Write32(PMU_GLOBAL_ERROR_INT_DIS_2, pllErrMask);
 	XPfw_Write32(PMU_GLOBAL_ERROR_POR_DIS_2, pllErrMask);
@@ -174,7 +179,10 @@ static s32 PmPllLock(const PmPll* const pll)
 				      PM_PLL_LOCK_TIMEOUT);
 
 #ifdef ENABLE_EM
-	/* Restore PLL lock error interrupts once PLL is locked */
+	/*
+	 * Restore PLL lock error interrupts and error enable
+	 * once PLL is locked
+	 */
 	XPfw_Write32(PMU_GLOBAL_ERROR_INT_EN_2,
 		     ((pll->errValue & 1U) << pll->errShift));
 	XPfw_Write32(PMU_GLOBAL_ERROR_POR_EN_2,
@@ -184,8 +192,8 @@ static s32 PmPllLock(const PmPll* const pll)
 	XPfw_Write32(PMU_GLOBAL_ERROR_SIG_EN_2,
 		     (((pll->errValue >> 3) & 1U) << pll->errShift));
 	XPfw_RMW32(PMU_GLOBAL_ERROR_EN_2,
-			((pll->errValue & 1U) << pll->errShift),
-			((pll->errValue & 1U) << pll->errShift));
+			(((pll->errValue >> 4) & 1U) << pll->errShift),
+			(((pll->errValue >> 4) & 1U) << pll->errShift));
 #endif
 
 	return status;
