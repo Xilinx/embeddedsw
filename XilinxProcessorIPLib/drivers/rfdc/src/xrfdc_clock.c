@@ -48,6 +48,9 @@
 *                       rate change.
 * 7.0   cog    05/13/19 Formatting changes.
 *       cog    08/02/19 Formatting changes and added a MACRO for the IP generation.
+*       cog    09/18/19 XRFdc_GetClockSourceAPI must handle GEN 3 devices differently
+*                       to previous generations.
+*       cog    09/18/19 Account for different PLL settings for GEN 3 devices.
 * </pre>
 *
 ******************************************************************************/
@@ -1016,6 +1019,7 @@ u32 XRFdc_GetClockSource(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 *ClockSo
 {
 	u32 BaseAddr;
 	u32 Status;
+	u32 PLLEnReg;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ClockSourcePtr != NULL);
@@ -1028,8 +1032,17 @@ u32 XRFdc_GetClockSource(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 *ClockSo
 
 	BaseAddr = XRFDC_DRP_BASE(Type, Tile_Id) + XRFDC_HSCOM_ADDR;
 
-	*ClockSourcePtr =
-		XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CLK_NETWORK_CTRL1, XRFDC_CLK_NETWORK_CTRL1_USE_PLL_MASK);
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+		*ClockSourcePtr = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CLK_NETWORK_CTRL1,
+					      XRFDC_CLK_NETWORK_CTRL1_USE_PLL_MASK);
+	} else {
+		PLLEnReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_PLL_DIVIDER0);
+		if ((PLLEnReg & XRFDC_PLL_DIVIDER0_BYP_PLL_MASK) != 0) {
+			*ClockSourcePtr = XRFDC_EXTERNAL_CLK;
+		} else {
+			*ClockSourcePtr = XRFDC_INTERNAL_PLL_CLK;
+		}
+	}
 
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
@@ -1180,7 +1193,22 @@ static u32 XRFdc_SetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double 
 			 * Sweep values of OutputDiv(M) to find the output frequency
 			 * that best matches the user requested value
 			 */
+			if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
+				OutputDiv = PLL_DIVIDER_MIN_GEN3;
+				CalcSamplingRate = (PllFreq / OutputDiv);
 
+				if (SamplingRate > CalcSamplingRate) {
+					SamplingError = SamplingRate - CalcSamplingRate;
+				} else {
+					SamplingError = CalcSamplingRate - SamplingRate;
+				}
+
+				if (Best_Error > SamplingError) {
+					Best_FeedbackDiv = FeedbackDiv;
+					Best_OutputDiv = OutputDiv;
+					Best_Error = SamplingError;
+				}
+			}
 			for (OutputDiv = PLL_DIVIDER_MIN; OutputDiv <= PLL_DIVIDER_MAX; OutputDiv += 2U) {
 				CalcSamplingRate = (PllFreq / OutputDiv);
 
@@ -1219,10 +1247,15 @@ static u32 XRFdc_SetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double 
 		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_SDM_CFG0, 0x80U);
 		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_SDM_SEED0, 0x111U);
 		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_SDM_SEED1, 0x11U);
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_VREG, 0x45U);
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_VCO0, 0x5800U);
 		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_VCO1, 0x08U);
+		if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_VREG, 0x45U);
+			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_VCO0, 0x5800U);
 
+		} else {
+			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_VREG, 0x2DU);
+			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_VCO0, 0x5F03U);
+		}
 		/*
 		 * Set Feedback divisor value
 		 */
@@ -1244,6 +1277,15 @@ static u32 XRFdc_SetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double 
 		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_PLL_DIVIDER0, XRFDC_PLL_DIVIDER0_MASK,
 				((DivideMode << XRFDC_PLL_DIVIDER0_SHIFT) | DivideValue));
 
+		if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
+			if (Best_OutputDiv > PLL_DIVIDER_MIN_GEN3) {
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_PLL_DIVIDER0, XRFDC_PLL_DIVIDER0_ALT_MASK,
+						XRFDC_DISABLED);
+			} else {
+				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_PLL_DIVIDER0, XRFDC_PLL_DIVIDER0_ALT_MASK,
+						XRFDC_PLL_DIVIDER0_BYPDIV_MASK);
+			}
+		}
 		/*
 		 * Enable fine sweep
 		 */
@@ -1252,13 +1294,19 @@ static u32 XRFdc_SetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double 
 		/*
 		 * Set default PLL spare inputs LSB
 		 */
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_SPARE0, 0x507U);
-
+		if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_SPARE0, 0x507U);
+		} else {
+			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_SPARE0, 0x0D37U);
+		}
 		/*
 		 * Set PLL spare inputs MSB
 		 */
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_SPARE1, 0x0U);
-
+		if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_SPARE1, 0x0U);
+		} else {
+			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_SPARE1, 0x80U);
+		}
 		PllFreq = RefClkFreq * Best_FeedbackDiv;
 
 		if (PllFreq < 9400U) {
@@ -1335,7 +1383,11 @@ static u32 XRFdc_SetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double 
 				/*
 				 * Set PLL spare inputs LSB
 				 */
-				XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_SPARE0, 0x577);
+				if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+					XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_SPARE0, 0x577);
+				} else {
+					XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_PLL_SPARE0, 0x0D37U);
+				}
 			} else if (Best_FeedbackDiv < 39U) {
 				FbDivIndex = 1U;
 			}
@@ -1346,6 +1398,7 @@ static u32 XRFdc_SetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double 
 		 * IP version 2.0.1 and above and using older version of IP is
 		 * not likely to work.
 		 */
+
 		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_PLL_CRS1, XRFDC_PLL_VCO_SEL_AUTO_MASK,
 				XRFDC_PLL_VCO_SEL_AUTO_MASK);
 
@@ -1488,13 +1541,9 @@ u32 XRFdc_GetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_PLL_Sett
 				goto RETURN_PATH;
 			}
 		}
-		if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
-			if (XRFdc_GetClockSource(InstancePtr, Type, Tile_Id, &Enabled) != XRFDC_SUCCESS) {
-				Status = XRFDC_FAILURE;
-				goto RETURN_PATH;
-			}
-		} else {
-			Enabled = (ReadReg & XRFDC_PLLREFDIV_INPUT_OFF) ? XRFDC_DISABLED : XRFDC_ENABLED;
+		if (XRFdc_GetClockSource(InstancePtr, Type, Tile_Id, &Enabled) != XRFDC_SUCCESS) {
+			Status = XRFDC_FAILURE;
+			goto RETURN_PATH;
 		}
 
 		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_PLL_DIVIDER0);
@@ -1668,11 +1717,18 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
-
+		if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_PLL_DIVIDER0, XRFDC_PLL_DIVIDER0_BYP_PLL_MASK,
+					XRFDC_DISABLED);
+		}
 		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CLK_NETWORK_CTRL1, XRFDC_CLK_NETWORK_CTRL1_USE_PLL_MASK,
 				XRFDC_CLK_NETWORK_CTRL1_USE_PLL_MASK);
 		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET, XRFDC_HSCOM_PWR_STATS_PLL);
 	} else {
+		if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_PLL_DIVIDER0, XRFDC_PLL_DIVIDER0_BYP_PLL_MASK,
+					XRFDC_PLL_DIVIDER0_BYP_PLL_MASK);
+		}
 		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CLK_NETWORK_CTRL1, XRFDC_CLK_NETWORK_CTRL1_USE_PLL_MASK,
 				0x0);
 		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_HSCOM_PWR_STATE_OFFSET, XRFDC_HSCOM_PWR_STATS_EXTERNAL);

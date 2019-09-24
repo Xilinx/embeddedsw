@@ -82,6 +82,7 @@
 *       cog    09/01/19 Added offset for VOP control register.
 *       cog    09/01/19 Added masks/shifts for DSA.
 *       cog    09/18/19 Wider mask now needed for DAC Fabric Rate.
+*       cog    09/18/19 Added mask for bypassing PLL output divider.
 *
 *</pre>
 *
@@ -301,7 +302,9 @@ extern "C" {
 
 #define XRFDC_HSCOM_NETWORK_CTRL1_MASK 0x02FU /**< Clock Network Register Mask for IntraTile*/
 #define XRFDC_PLL_REFDIV_MASK 0x0E0U /**< PLL Reference Divider Register Mask for IntraTile */
-#define XRFDC_PLL_DIVIDER0_ALT_MASK 0x800U /**< PLL Output Divider Register Mask for IntraTile */
+#define XRFDC_PLL_DIVIDER0_ALT_MASK 0xC00U /**< PLL Output Divider Register Mask for IntraTile */
+#define XRFDC_PLL_DIVIDER0_BYPPLL_MASK 0x800U /**< PLL Output Divider Register Mask for IntraTile */
+#define XRFDC_PLL_DIVIDER0_BYPDIV_MASK 0x400U /**< PLL Output Divider Register Mask for IntraTile */
 
 #define XRFDC_CAL_OCB1_OFFSET_COEFF0 0x200 /**< Foreground offset correction block */
 #define XRFDC_CAL_OCB1_OFFSET_COEFF1 0x208 /**< Foreground offset correction block */
@@ -1857,6 +1860,7 @@ extern "C" {
 
 #define XRFDC_PLL_DIVIDER0_MASK 0x00FFU
 #define XRFDC_PLL_DIVIDER0_MODE_MASK 0x00C0U
+#define XRFDC_PLL_DIVIDER0_BYP_PLL_MASK 0x0800U
 #define XRFDC_PLL_DIVIDER0_VALUE_MASK 0x003FU
 #define XRFDC_PLL_DIVIDER0_SHIFT 6U
 
