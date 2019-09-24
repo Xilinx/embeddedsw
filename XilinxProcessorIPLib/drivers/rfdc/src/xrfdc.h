@@ -247,6 +247,7 @@
 *       cog    09/01/19 Rename XRFdc_S/GetDigitalStepAttenuator() APIs to XRFdc_S/GetDSA().
 *                       Also, add new XRFdc_DSA_Settings structure.
 *       cog    09/12/19 Swapped MIXER_TYPE_OFF and MIXER_TYPE_DISABLED macros.
+*       cog    09/18/19 Minumum output divider is now 1 for Gen 3 devices.
 *
 * </pre>
 *
@@ -871,6 +872,7 @@ typedef struct {
 #define PLL_FPDIV_MIN 13U
 #define PLL_FPDIV_MAX 128U
 #define PLL_DIVIDER_MIN 2U
+#define PLL_DIVIDER_MIN_GEN3 1U
 #define PLL_DIVIDER_MAX 28U
 #define VCO_RANGE_MIN 8500U
 #define VCO_RANGE_MAX 13200U
