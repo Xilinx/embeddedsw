@@ -51,6 +51,7 @@
 *       cog    09/18/19 XRFdc_GetClockSourceAPI must handle GEN 3 devices differently
 *                       to previous generations.
 *       cog    09/18/19 Account for different PLL settings for GEN 3 devices.
+*       cog    09/18/19 Fixed issues with clock distribution functionallity.
 * </pre>
 *
 ******************************************************************************/
@@ -93,7 +94,7 @@ static u32 XRFdc_SetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double 
 *           - XRFDC_FAILURE if no valid distribution found.
 *
 ******************************************************************************/
-u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_Tile_Clock_Settings *SettingsPtr)
+static u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_Tile_Clock_Settings *SettingsPtr)
 {
 	u32 Status;
 	u32 BaseAddr;
@@ -106,25 +107,11 @@ u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_Ti
 	u16 DivideMode = 0;
 	u16 DivideValue = 0;
 
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(SettingsPtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
-
-	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
-		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Requested functionality not available for this IP in %s\r\n", __func__);
-		goto RETURN_PATH;
-	}
-
-	TileIndex = (Type == XRFDC_DAC_TILE) ? Tile_Id : Tile_Id + XRFDC_CLK_DST_ADC0;
+	TileIndex = (Type == XRFDC_DAC_TILE) ? (XRFDC_CLK_DST_TILE_228 - Tile_Id) : (XRFDC_CLK_DST_TILE_224 - Tile_Id);
 	Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Tile_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested Tile not available in %s\r\n", __func__);
-		goto RETURN_PATH;
-	}
-	if (SettingsPtr->SourceTile > XRFDC_CLK_DST_ADC3) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid Parameter Value for Source in %s\r\n", __func__);
-		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_INFO, "\n Requested Tile not available - Skipping in %s\r\n", __func__);
+		Status = XRFDC_SUCCESS;
 		goto RETURN_PATH;
 	}
 	if (SettingsPtr->DistributedClock > XRFDC_DIST_OUT_OUTDIV) {
@@ -132,12 +119,12 @@ u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_Ti
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
-	if (SettingsPtr->PLLEnable > 1) {
+	if (SettingsPtr->PLLEnable > XRFDC_ENABLED) {
 		metal_log(METAL_LOG_ERROR, "\n Invalid Parameter Value for PLLEnable in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
-	if ((SettingsPtr->PLLEnable == XRFDC_ENABLED) && (SettingsPtr->DivisionFactor < 1)) {
+	if ((SettingsPtr->PLLEnable != XRFDC_ENABLED) && (SettingsPtr->DivisionFactor < 1)) {
 		metal_log(METAL_LOG_ERROR, "\n Invalid Configuration in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
@@ -161,23 +148,34 @@ u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_Ti
 		Status = XRFdc_DynamicPLLConfig(InstancePtr, Type, Tile_Id, PLLSource,
 						SettingsPtr->PLLSettings.RefClkFreq,
 						SettingsPtr->PLLSettings.SampleRate);
-		SettingsPtr->DivisionFactor = SettingsPtr->PLLSettings.OutputDivider;
 		if (Status != XRFDC_SUCCESS) {
 			metal_log(METAL_LOG_ERROR, "\n Could not set up PLL in %s\r\n", __func__);
 			goto RETURN_PATH;
 		}
-	} else if (SettingsPtr->DivisionFactor > 1) {
-		if (SettingsPtr->DivisionFactor == 2U) {
-			DivideMode = XRFDC_PLL_OUTDIV_MODE_2;
-		} else if (SettingsPtr->DivisionFactor == 3U) {
-			DivideMode = XRFDC_PLL_OUTDIV_MODE_3;
-			DivideValue = XRFDC_PLL_OUTDIV_MODE_3_VAL;
-		} else if (SettingsPtr->DivisionFactor >= 4U) {
-			DivideMode = XRFDC_PLL_OUTDIV_MODE_N;
-			DivideValue = ((SettingsPtr->DivisionFactor - 4U) >> 1);
+		SettingsPtr->DivisionFactor = SettingsPtr->PLLSettings.OutputDivider;
+	} else {
+		PLLSource = XRFDC_EXTERNAL_CLK;
+		Status = XRFdc_DynamicPLLConfig(InstancePtr, Type, Tile_Id, PLLSource,
+						SettingsPtr->PLLSettings.RefClkFreq,
+						SettingsPtr->PLLSettings.SampleRate);
+		if (Status != XRFDC_SUCCESS) {
+			metal_log(METAL_LOG_ERROR, "\n Could not set up PLL in %s\r\n", __func__);
+			goto RETURN_PATH;
 		}
-		XRFdc_ClrSetReg(InstancePtr, XRFDC_DRP_BASE(Type, Tile_Id) + XRFDC_HSCOM_ADDR, XRFDC_PLL_DIVIDER0,
-				XRFDC_PLL_DIVIDER0_MASK, ((DivideMode << XRFDC_PLL_DIVIDER0_SHIFT) | DivideValue));
+		if (SettingsPtr->DivisionFactor > 1) {
+			if (SettingsPtr->DivisionFactor == 2U) {
+				DivideMode = XRFDC_PLL_OUTDIV_MODE_2;
+			} else if (SettingsPtr->DivisionFactor == 3U) {
+				DivideMode = XRFDC_PLL_OUTDIV_MODE_3;
+				DivideValue = XRFDC_PLL_OUTDIV_MODE_3_VAL;
+			} else {
+				DivideMode = XRFDC_PLL_OUTDIV_MODE_N;
+				DivideValue = ((SettingsPtr->DivisionFactor - 4U) >> 1);
+			}
+			XRFdc_ClrSetReg(InstancePtr, XRFDC_DRP_BASE(Type, Tile_Id) + XRFDC_HSCOM_ADDR,
+					XRFDC_PLL_DIVIDER0, XRFDC_PLL_DIVIDER0_MASK,
+					((DivideMode << XRFDC_PLL_DIVIDER0_SHIFT) | DivideValue));
+		}
 	}
 	DistCtrlReg = 0;
 	PLLRefDivReg = 0;
@@ -215,47 +213,71 @@ u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_Ti
 				NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_REC_PLL;
 			}
 		} else {
-			NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_T1_SRC_DIST;
-			DistCtrlReg |= XRFDC_DIST_CTRL_TO_T1;
 			if (SettingsPtr->PLLEnable == XRFDC_DISABLED) {
 				NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_REC_DIST_T1;
 				PLLRefDivReg |= XRFDC_PLLREFDIV_INPUT_OFF;
 				if (SettingsPtr->DivisionFactor < 2) {
 					/*
-					T1 From Distribution
+					T1 From Distribution (RX back)
 					No PLL
 					Do Not Use PLL Output Divider
 					Send to Distribution
 					*/
+					PLLRefDivReg |= XRFDC_PLLREFDIV_INPUT_OFF;
+					NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_T1_SRC_DIST;
+					DistCtrlReg |= XRFDC_DIST_CTRL_TO_T1;
 					DistCtrlReg |= XRFDC_DIST_CTRL_DIST_SRC_LOCAL;
-				} else {
+					PLLOpDivReg |= XRFDC_PLLOPDIV_INPUT_DIST_LOCAL;
+				} else if (SettingsPtr->DistributedClock == XRFDC_DIST_OUT_RX) {
 					/*
-					T1 From Distribution
+					RX Back From Distribution
 					No PLL
 					Use PLL Output Divider
 					Send to Distribution
 					*/
+					NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_INPUT_DIST;
+					DistCtrlReg |= XRFDC_DIST_CTRL_TO_PLL_DIV;
 					PLLOpDivReg |= XRFDC_PLLOPDIV_INPUT_DIST_LOCAL;
-					DistCtrlReg |= (SettingsPtr->DistributedClock == XRFDC_DIST_OUT_RX) ?
-							       XRFDC_DIST_CTRL_DIST_SRC_LOCAL :
-							       XRFDC_DIST_CTRL_DIST_SRC_PLL;
+					DistCtrlReg |= XRFDC_DIST_CTRL_DIST_SRC_LOCAL;
+				} else {
+					/*
+					PLL Output Divider Back From Distribution
+					No PLL
+					Use PLL Output Divider
+					Send to Distribution
+					*/
+					NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_REC_DIST_T1;
+					NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_T1_SRC_DIST;
+					NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_INPUT_DIST;
+					DistCtrlReg |= XRFDC_DIST_CTRL_TO_PLL_DIV;
+					PLLOpDivReg |= XRFDC_PLLOPDIV_INPUT_DIST_LOCAL;
+					DistCtrlReg |= XRFDC_DIST_CTRL_DIST_SRC_PLL;
 				}
 
 			} else {
 				/*
-				T1 From Distribution
+				RX Back From Distribution
 				PLL
 				Use PLL Output Divider
 				Send to Distribution
 				*/
-				DistCtrlReg |= (SettingsPtr->DistributedClock == XRFDC_DIST_OUT_RX) ?
-						       XRFDC_DIST_CTRL_DIST_SRC_LOCAL :
-						       XRFDC_DIST_CTRL_DIST_SRC_PLL;
-				NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_REC_PLL;
+				if (SettingsPtr->DistributedClock == XRFDC_DIST_OUT_RX) {
+					NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_REC_DIST_T1;
+					PLLRefDivReg |= XRFDC_PLLREFDIV_INPUT_DIST;
+					DistCtrlReg |= XRFDC_DIST_CTRL_TO_PLL_DIV;
+					DistCtrlReg |= XRFDC_DIST_CTRL_DIST_SRC_LOCAL;
+				} else {
+					NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_T1_SRC_DIST;
+					NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_REC_PLL;
+					PLLRefDivReg |= XRFDC_PLLOPDIV_INPUT_DIST_LOCAL;
+					DistCtrlReg |= XRFDC_DIST_CTRL_TO_T1;
+					DistCtrlReg |= XRFDC_DIST_CTRL_DIST_SRC_PLL;
+				}
 			}
 		}
 	} else {
 		if (SettingsPtr->PLLEnable == XRFDC_DISABLED) {
+			PLLOpDivReg |= XRFDC_PLLOPDIV_INPUT_DIST_LOCAL;
 			PLLRefDivReg |= XRFDC_PLLREFDIV_INPUT_OFF;
 			if (SettingsPtr->DivisionFactor > 1) {
 				/*
@@ -264,8 +286,6 @@ u32 XRFdc_SetTileClkSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_Ti
 				Use PLL Output Divider
 				Do Not Distribute
 				*/
-
-				PLLOpDivReg |= XRFDC_PLLOPDIV_INPUT_DIST_LOCAL;
 				NetworkCtrlReg |= XRFDC_NET_CTRL_CLK_INPUT_DIST;
 				DistCtrlReg |= XRFDC_DIST_CTRL_TO_PLL_DIV;
 			} else {
@@ -324,10 +344,10 @@ static u32 XRFdc_CheckClkDistValid(XRFdc *InstancePtr, XRFdc_Distribution_Settin
 	u32 Status;
 	u8 CurrentTile;
 	u8 *Source;
-	u8 Sources[8] = { DistributionSettingsPtr->DAC[0].SourceTile, DistributionSettingsPtr->DAC[1].SourceTile,
-			  DistributionSettingsPtr->DAC[2].SourceTile, DistributionSettingsPtr->DAC[3].SourceTile,
-			  DistributionSettingsPtr->ADC[0].SourceTile, DistributionSettingsPtr->ADC[1].SourceTile,
-			  DistributionSettingsPtr->ADC[2].SourceTile, DistributionSettingsPtr->ADC[3].SourceTile };
+	u8 Sources[8] = { DistributionSettingsPtr->DAC[3].SourceTile, DistributionSettingsPtr->DAC[2].SourceTile,
+			  DistributionSettingsPtr->DAC[1].SourceTile, DistributionSettingsPtr->DAC[0].SourceTile,
+			  DistributionSettingsPtr->ADC[3].SourceTile, DistributionSettingsPtr->ADC[2].SourceTile,
+			  DistributionSettingsPtr->ADC[1].SourceTile, DistributionSettingsPtr->ADC[0].SourceTile };
 	u8 LowBoundary;
 	u16 EFuse;
 	XRFdc_Distribution *DistributionPtr;
@@ -335,8 +355,8 @@ static u32 XRFdc_CheckClkDistValid(XRFdc *InstancePtr, XRFdc_Distribution_Settin
 	/*init for first distribution*/
 	DistributionPtr = DistributionSettingsPtr->DistributionStatus;
 	Source = Sources;
-	LowBoundary = DistributionSettingsPtr->DAC[0].SourceTile;
-	DistributionPtr->DistributionSource = DistributionSettingsPtr->DAC[0].SourceTile;
+	LowBoundary = DistributionSettingsPtr->DAC[3].SourceTile;
+	DistributionPtr->DistributionSource = DistributionSettingsPtr->DAC[3].SourceTile;
 	DistributionPtr->Enabled = XRFDC_ENABLED;
 	DistributionPtr->LowerBound = 0;
 
@@ -358,34 +378,36 @@ static u32 XRFdc_CheckClkDistValid(XRFdc *InstancePtr, XRFdc_Distribution_Settin
 				  "\n Invalid Source Sourcing from Tile that is not Distributing in %s\r\n", __func__);
 			goto RETURN_PATH;
 		}
-		if ((*Source == XRFDC_CLK_DST_DAC0) &&
-		    (InstancePtr->RFdc_Config.DACTile_Config[XRFDC_CLK_DST_DAC0].NumSlices == 2)) { /*HW: only 2 clks*/
+		if ((*Source == XRFDC_CLK_DST_TILE_231) &&
+		    (InstancePtr->RFdc_Config.DACTile_Config[XRFDC_CLK_DST_TILE_231].NumSlices ==
+		     2)) { /*HW: only 2 clks*/
 			Status = XRFDC_FAILURE;
 			metal_log(METAL_LOG_ERROR, "\n Invalid Source Sourcing from Tile Without Clock in %s\r\n",
 				  __func__);
 			goto RETURN_PATH;
 		}
-		if ((*Source == XRFDC_CLK_DST_DAC2) &&
-		    (InstancePtr->RFdc_Config.DACTile_Config[XRFDC_CLK_DST_DAC2].NumSlices == 2)) { /*HW: only 2 clks*/
+		if ((*Source == XRFDC_CLK_DST_TILE_229) &&
+		    (InstancePtr->RFdc_Config.DACTile_Config[XRFDC_CLK_DST_TILE_229].NumSlices ==
+		     2)) { /*HW: only 2 clks*/
 			metal_log(METAL_LOG_ERROR, "\n Invalid Source Sourcing from Tile Without Clock in %s\r\n",
 				  __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
-		if ((CurrentTile < XRFDC_CLK_DST_ADC0) &&
-		    (*Source > XRFDC_CLK_DST_DAC3)) { /*Cut between ADC0 MUX8 && DAC3 STH*/
+		if ((CurrentTile < XRFDC_CLK_DST_TILE_227) &&
+		    (*Source > XRFDC_CLK_DST_TILE_228)) { /*Cut between ADC0 MUX8 && DAC3 STH*/
 			metal_log(METAL_LOG_ERROR, "\n Invalid Configuration DAC Cannot Source from ADC in %s\r\n",
 				  __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
-		if (CurrentTile < XRFDC_CLK_DST_ADC0) { /*DAC*/
+		if (CurrentTile < XRFDC_CLK_DST_TILE_227) { /*DAC*/
 			EFuse = XRFdc_ReadReg16(InstancePtr,
 						XRFDC_DRP_BASE(XRFDC_DAC_TILE, CurrentTile) + XRFDC_HSCOM_ADDR,
 						XRFDC_HSCOM_EFUSE_2_OFFSET);
 		} else { /*ADC*/
 			EFuse = XRFdc_ReadReg16(InstancePtr,
-						XRFDC_DRP_BASE(XRFDC_ADC_TILE, (CurrentTile - XRFDC_CLK_DST_ADC0)) +
+						XRFDC_DRP_BASE(XRFDC_ADC_TILE, (CurrentTile - XRFDC_CLK_DST_TILE_227)) +
 							XRFDC_HSCOM_ADDR,
 						XRFDC_HSCOM_EFUSE_2_OFFSET);
 		}
@@ -405,11 +427,12 @@ static u32 XRFdc_CheckClkDistValid(XRFdc *InstancePtr, XRFdc_Distribution_Settin
 		    (DistributionSettingsPtr->ADC[0].PLLEnable != XRFDC_ENABLED) ||
 		    (DistributionSettingsPtr->ADC[1].PLLEnable != XRFDC_ENABLED) ||
 		    (DistributionSettingsPtr->ADC[2].PLLEnable != XRFDC_ENABLED) ||
-		    (DistributionSettingsPtr->ADC[3].PLLEnable != XRFDC_ENABLED)) { /*special case that is allowed.*/
+		    (DistributionSettingsPtr->ADC[3].PLLEnable != XRFDC_ENABLED) ||
+		    1) { /*special case that is allowed.*/
 
 			/*if PKG <2*/
 			if (EFuse & XRFDC_PREMIUMCTRL_CLKDIST) {
-				if ((CurrentTile > XRFDC_CLK_DST_ADC1) &&
+				if ((CurrentTile > XRFDC_CLK_DST_TILE_226) &&
 				    (*Source != CurrentTile)) { /*E: no dist past adc1*/
 					Status = XRFDC_FAILURE;
 					metal_log(METAL_LOG_ERROR,
@@ -420,22 +443,23 @@ static u32 XRFdc_CheckClkDistValid(XRFdc *InstancePtr, XRFdc_Distribution_Settin
 			}
 			/*if PKG <1*/
 			if ((EFuse & XRFDC_EXPORTCTRL_CLKDIST) == XRFDC_EXPORTCTRL_CLKDIST) {
-				if ((CurrentTile > XRFDC_CLK_DST_DAC3) && (*Source != CurrentTile)) { /*E: No ADC Dist*/
+				if ((CurrentTile > XRFDC_CLK_DST_TILE_228) &&
+				    (*Source != CurrentTile)) { /*E: No ADC Dist*/
 					Status = XRFDC_FAILURE;
 					metal_log(METAL_LOG_ERROR, "\n Invalid Configuration - Licensing in %s\r\n",
 						  __func__);
 					goto RETURN_PATH;
 				}
-				if ((CurrentTile == XRFDC_CLK_DST_DAC0) &&
-				    (*Source != XRFDC_CLK_DST_DAC1)) { /*E: DAC0 must source from DAC1*/
+				if ((CurrentTile == XRFDC_CLK_DST_TILE_228) &&
+				    (*Source != XRFDC_CLK_DST_TILE_229)) { /*E: DAC0 must source from DAC1*/
 					Status = XRFDC_FAILURE;
 					metal_log(METAL_LOG_ERROR,
 						  "\n Invalid Configuration - Licensing in - Export Control %s\r\n",
 						  __func__);
 					goto RETURN_PATH;
 				}
-				if ((CurrentTile == XRFDC_CLK_DST_DAC2) &&
-				    (*Source != XRFDC_CLK_DST_DAC3)) { /*E: DAC2 must source from DAC3*/
+				if ((CurrentTile == XRFDC_CLK_DST_TILE_230) &&
+				    (*Source != XRFDC_CLK_DST_TILE_231)) { /*E: DAC2 must source from DAC3*/
 					Status = XRFDC_FAILURE;
 					metal_log(METAL_LOG_ERROR, "\n Invalid Configuration - Licensing in %s\r\n",
 						  __func__);
@@ -458,6 +482,138 @@ static u32 XRFdc_CheckClkDistValid(XRFdc *InstancePtr, XRFdc_Distribution_Settin
 RETURN_PATH:
 	if (Status == XRFDC_FAILURE) {
 		memset(DistributionSettingsPtr, 0, sizeof(XRFdc_Distribution_Settings));
+	}
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is used to wait for a tile to reach a given state.
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type represents ADC or DAC.
+* @param    Tile_Id Valid values are 0-3.
+* @param    State represents the state which the tile must reach.
+*
+* @return
+*           - XRFDC_SUCCESS if valid.
+*           - XRFDC_FAILURE if not valid.
+*
+******************************************************************************/
+static u32 XRFdc_WaitForState(XRFdc *InstancePtr, u32 Type, u32 Tile, u32 State)
+{
+	u32 DelayCount;
+	u32 TileState;
+
+	TileState = XRFdc_RDReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile), 0xC, 0xF);
+	DelayCount = 0;
+	while (TileState < State) {
+		if (DelayCount == 10000) {
+			metal_log(METAL_LOG_ERROR, "\n timeout error in %s[%u] going to state %u in %s\r\n",
+				  (Type ? "DAC" : "ADC"), Tile, State, __func__);
+			return XRFDC_FAILURE;
+		} else {
+			/* Wait for 0.1 msec */
+#ifdef __BAREMETAL__
+			usleep(100);
+#else
+			metal_sleep_usec(100);
+#endif
+			DelayCount++;
+			TileState = XRFdc_RDReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile), 0xC, 0xF);
+		}
+	}
+	return XRFDC_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is used to start the distribution tiles
+*
+* @param        InstancePtr is a pointer to the XRfdc instance.
+* @param        DistributionSettingsPtr pointer to the distribution settings struct
+*
+* @return
+*           - XRFDC_SUCCESS if valid.
+*           - XRFDC_FAILURE if not valid.
+*
+******************************************************************************/
+static u32 XRFdc_StartUpDist(XRFdc *InstancePtr, XRFdc_Distribution_Settings *DistributionSettingsPtr)
+{
+	u32 Status;
+	u32 GlobalTile;
+	u32 Type;
+	u32 Tile;
+	u32 DistributionCount;
+	XRFdc_Distribution *Distribution;
+	u32 i;
+	u32 enables[8];
+	u32 BaseAddr;
+
+	Status = XRFDC_SUCCESS;
+	for (Distribution = DistributionSettingsPtr->DistributionStatus, DistributionCount = 0;
+	     DistributionCount < XRFDC_DIST_MAX; Distribution++, DistributionCount++) {
+		if (Distribution->Enabled == XRFDC_DISABLED) {
+			break;
+		}
+		/*Fully Start Source Tile*/
+		if ((Distribution->DistributionSource) < XRFDC_CLK_DST_TILE_227) { /*DAC*/
+			Type = XRFDC_DAC_TILE;
+			Tile = XRFDC_CLK_DST_TILE_228 - Distribution->DistributionSource;
+			BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile);
+		} else { /*ADC*/
+			Type = XRFDC_ADC_TILE;
+			Tile = XRFDC_CLK_DST_TILE_224 - Distribution->DistributionSource;
+			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile);
+		}
+		BaseAddr += XRFDC_HSCOM_ADDR;
+		enables[DistributionCount] = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_CLK_NETWORK_CTRL1, 0x3);
+	}
+
+	/*DAC0 Must reach state 4 in Startup FSM*/
+	for (i = 0; i < 4; i++) {
+		XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_DAC_TILE, i), 8, 0x1f, 0xFF);
+		XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, i), 8, 0x1f, 0xFF);
+		XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_DAC_TILE, i), 4, 0x1, 1);
+		XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, i), 4, 0x1, 1);
+	}
+	for (Distribution = DistributionSettingsPtr->DistributionStatus, DistributionCount = 0;
+	     DistributionCount < XRFDC_DIST_MAX; Distribution++, DistributionCount++) {
+		if (Distribution->Enabled == XRFDC_DISABLED) {
+			break;
+		}
+		/*Fully Start Source Tile*/
+		if ((Distribution->DistributionSource) < XRFDC_CLK_DST_TILE_227) { /*DAC*/
+			Type = XRFDC_DAC_TILE;
+			Tile = XRFDC_CLK_DST_TILE_228 - Distribution->DistributionSource;
+			BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile);
+		} else { /*ADC*/
+			Type = XRFDC_ADC_TILE;
+			Tile = XRFDC_CLK_DST_TILE_224 - Distribution->DistributionSource;
+			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile);
+		}
+
+		BaseAddr += XRFDC_HSCOM_ADDR;
+		Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Tile);
+		if (Status != XRFDC_SUCCESS) {
+			continue;
+		}
+
+		Status |= XRFdc_WaitForState(InstancePtr, Type, Tile, 7);
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CLK_NETWORK_CTRL1, 0x3, enables[DistributionCount]);
+		Status = XRFdc_WaitForState(InstancePtr, Type, Tile, 0xF);
+		for (GlobalTile = Distribution->LowerBound; GlobalTile <= Distribution->UpperBound; GlobalTile++) {
+			if (GlobalTile < XRFDC_CLK_DST_TILE_227) { /*DAC*/
+				Type = XRFDC_DAC_TILE;
+				Tile = XRFDC_CLK_DST_TILE_228 - GlobalTile;
+			} else { /*ADC*/
+				Type = XRFDC_ADC_TILE;
+				Tile = XRFDC_CLK_DST_TILE_224 - GlobalTile;
+			}
+			Status |= XRFdc_WaitForState(InstancePtr, Type, Tile, 0xF);
+		}
 	}
 	return Status;
 }
@@ -491,7 +647,9 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 	u16 ClkDetectReg;
 	u8 FeedBackForInputRight = 0;
 	u8 FeedBackForInputLeft = 0;
-	u8 Tile;
+	u32 Tile;
+	u32 Type;
+	XRFdc_Tile_Clock_Settings *SettingsPtr;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(DistributionSettingsPtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
@@ -507,14 +665,14 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 		metal_log(METAL_LOG_ERROR, "\n Invalid Distribution in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
-	Delays[0] = &DistributionSettingsPtr->DAC[0].Delay;
-	Delays[1] = &DistributionSettingsPtr->DAC[1].Delay;
-	Delays[2] = &DistributionSettingsPtr->DAC[2].Delay;
-	Delays[3] = &DistributionSettingsPtr->DAC[3].Delay;
-	Delays[4] = &DistributionSettingsPtr->ADC[0].Delay;
-	Delays[5] = &DistributionSettingsPtr->ADC[1].Delay;
-	Delays[6] = &DistributionSettingsPtr->ADC[2].Delay;
-	Delays[7] = &DistributionSettingsPtr->ADC[3].Delay;
+	Delays[0] = &DistributionSettingsPtr->DAC[3].Delay;
+	Delays[1] = &DistributionSettingsPtr->DAC[2].Delay;
+	Delays[2] = &DistributionSettingsPtr->DAC[1].Delay;
+	Delays[3] = &DistributionSettingsPtr->DAC[0].Delay;
+	Delays[4] = &DistributionSettingsPtr->ADC[3].Delay;
+	Delays[5] = &DistributionSettingsPtr->ADC[2].Delay;
+	Delays[6] = &DistributionSettingsPtr->ADC[1].Delay;
+	Delays[7] = &DistributionSettingsPtr->ADC[0].Delay;
 	Status = XRFdc_Shutdown(InstancePtr, XRFDC_ADC_TILE, -1);
 	if (Status != XRFDC_SUCCESS) {
 		Status = XRFDC_FAILURE;
@@ -546,8 +704,8 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 			} else {
 				Reg |= XRFDC_CLK_DISTR_MUX8_SRC_INT;
 			}
-			if (((Distribution->DistributionSource == XRFDC_CLK_DST_DAC3) ||
-			     (Distribution->DistributionSource == XRFDC_CLK_DST_ADC3)) &&
+			if (((Distribution->DistributionSource == XRFDC_CLK_DST_TILE_228) ||
+			     (Distribution->DistributionSource == XRFDC_CLK_DST_TILE_224)) &&
 			    ((DelayLeft > 1) || (DelayRight > 1))) /*cases for no FB from tile to right*/
 			{
 				Reg |= XRFDC_CLK_DISTR_MUX4A_SRC_INT | XRFDC_CLK_DISTR_MUX6_SRC_INT |
@@ -566,7 +724,7 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 					FeedBackForInputRight = 1;
 					FeedBackForInputLeft = 0;
 					if ((DelayRight > 1) &&
-					    (Distribution->DistributionSource != XRFDC_CLK_DST_DAC2)) {
+					    (Distribution->DistributionSource != XRFDC_CLK_DST_TILE_229)) {
 						Reg |= XRFDC_CLK_DISTR_MUX7_SRC_STH;
 						DelayOutSourceLeft = 2;
 					} else {
@@ -588,27 +746,23 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 
 		/* setup clk detect register */
 		ClkDetectReg =
-			(XRFDC_CLOCK_DETECT_CLK << ((XRFDC_CLK_DST_ADC3 - Distribution->DistributionSource) << 1));
+			(XRFDC_CLOCK_DETECT_CLK << ((XRFDC_CLK_DST_TILE_224 - Distribution->DistributionSource) << 1));
 
-		if ((Distribution->DistributionSource) < XRFDC_CLK_DST_ADC0) { /*DAC*/
-			XRFdc_ClrSetReg(InstancePtr,
-					XRFDC_DRP_BASE(XRFDC_DAC_TILE, (Distribution->DistributionSource)) +
-						XRFDC_HSCOM_ADDR,
-					XRFDC_HSCOM_CLK_DSTR_OFFSET, XRFDC_HSCOM_CLK_DSTR_MASK, Reg);
-			XRFdc_ClrSetReg(InstancePtr,
-					XRFDC_CTRL_STS_BASE(XRFDC_DAC_TILE, (Distribution->DistributionSource)),
-					XRFDC_CLOCK_DETECT_OFFSET, XRFDC_CLOCK_DETECT_MASK, ClkDetectReg);
+		if ((Distribution->DistributionSource) < XRFDC_CLK_DST_TILE_227) { /*DAC*/
+			Type = XRFDC_DAC_TILE;
+			Tile = XRFDC_CLK_DST_TILE_228 - Distribution->DistributionSource;
+			SettingsPtr = &DistributionSettingsPtr->DAC[Tile];
 		} else { /*ADC*/
-			XRFdc_ClrSetReg(InstancePtr,
-					XRFDC_DRP_BASE(XRFDC_ADC_TILE,
-						       (Distribution->DistributionSource - XRFDC_CLK_DST_ADC0)) +
-						XRFDC_HSCOM_ADDR,
-					XRFDC_HSCOM_CLK_DSTR_OFFSET, XRFDC_HSCOM_CLK_DSTR_MASK, Reg);
-			XRFdc_ClrSetReg(InstancePtr,
-					XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE,
-							    (Distribution->DistributionSource - XRFDC_CLK_DST_ADC0)),
-					XRFDC_CLOCK_DETECT_OFFSET, XRFDC_CLOCK_DETECT_MASK, ClkDetectReg);
+			Type = XRFDC_ADC_TILE;
+			Tile = XRFDC_CLK_DST_TILE_224 - Distribution->DistributionSource;
+			SettingsPtr = &DistributionSettingsPtr->ADC[Tile];
 		}
+		XRFdc_ClrSetReg(InstancePtr, (XRFDC_DRP_BASE(Type, Tile) + XRFDC_HSCOM_ADDR),
+				XRFDC_HSCOM_CLK_DSTR_OFFSET, XRFDC_HSCOM_CLK_DSTR_MASK, Reg);
+		XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile), XRFDC_CLOCK_DETECT_OFFSET,
+				XRFDC_CLOCK_DETECT_MASK, ClkDetectReg);
+		XRFdc_SetTileClkSettings(InstancePtr, Type, Tile, SettingsPtr);
+
 		/*Leftmost tile*/
 		if (DelayLeft) {
 			*Delays[Distribution->LowerBound] = DelayOutSourceLeft + (DelayLeft << 1);
@@ -620,35 +774,28 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 
 			/* setup clk detect register */
 			ClkDetectReg = (XRFDC_CLOCK_DETECT_BOTH
-					<< ((XRFDC_CLK_DST_ADC3 - Distribution->DistributionSource) << 1));
+					<< ((XRFDC_CLK_DST_TILE_224 - Distribution->DistributionSource) << 1));
 			for (ClkDetItr = DelayLeft - 1; ClkDetItr > 0; ClkDetItr--) {
 				ClkDetectReg |=
 					(XRFDC_CLOCK_DETECT_DIST
-					 << ((XRFDC_CLK_DST_ADC3 - (Distribution->DistributionSource - ClkDetItr))
+					 << ((XRFDC_CLK_DST_TILE_224 - (Distribution->DistributionSource - ClkDetItr))
 					     << 1));
 			}
 
-			if ((Distribution->DistributionSource - DelayLeft) < XRFDC_CLK_DST_ADC0) { /*DAC*/
-				XRFdc_ClrSetReg(InstancePtr,
-						XRFDC_DRP_BASE(XRFDC_DAC_TILE,
-							       (Distribution->DistributionSource - DelayLeft)) +
-							XRFDC_HSCOM_ADDR,
-						XRFDC_HSCOM_CLK_DSTR_OFFSET, XRFDC_HSCOM_CLK_DSTR_MASK, Reg);
-				XRFdc_ClrSetReg(InstancePtr,
-						XRFDC_CTRL_STS_BASE(XRFDC_DAC_TILE,
-								    (Distribution->DistributionSource - DelayLeft)),
-						XRFDC_CLOCK_DETECT_OFFSET, XRFDC_CLOCK_DETECT_MASK, ClkDetectReg);
+			if ((Distribution->DistributionSource - DelayLeft) < XRFDC_CLK_DST_TILE_227) { /*DAC*/
+				Type = XRFDC_DAC_TILE;
+				Tile = XRFDC_CLK_DST_TILE_228 - (Distribution->DistributionSource - DelayLeft);
+				SettingsPtr = &DistributionSettingsPtr->DAC[Tile];
 			} else { /*ADC*/
-				XRFdc_ClrSetReg(InstancePtr,
-						XRFDC_DRP_BASE(XRFDC_ADC_TILE, (Distribution->DistributionSource -
-										DelayLeft - XRFDC_CLK_DST_ADC0)) +
-							XRFDC_HSCOM_ADDR,
-						XRFDC_HSCOM_CLK_DSTR_OFFSET, XRFDC_HSCOM_CLK_DSTR_MASK, Reg);
-				XRFdc_ClrSetReg(InstancePtr,
-						XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, (Distribution->DistributionSource -
-										     DelayLeft - XRFDC_CLK_DST_ADC0)),
-						XRFDC_CLOCK_DETECT_OFFSET, XRFDC_CLOCK_DETECT_MASK, ClkDetectReg);
+				Type = XRFDC_ADC_TILE;
+				Tile = XRFDC_CLK_DST_TILE_224 - (Distribution->DistributionSource - DelayLeft);
+				SettingsPtr = &DistributionSettingsPtr->ADC[Tile];
 			}
+			XRFdc_ClrSetReg(InstancePtr, (XRFDC_DRP_BASE(Type, Tile) + XRFDC_HSCOM_ADDR),
+					XRFDC_HSCOM_CLK_DSTR_OFFSET, XRFDC_HSCOM_CLK_DSTR_MASK, Reg);
+			XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile), XRFDC_CLOCK_DETECT_OFFSET,
+					XRFDC_CLOCK_DETECT_MASK, ClkDetectReg);
+			XRFdc_SetTileClkSettings(InstancePtr, Type, Tile, SettingsPtr);
 		}
 		/*Rest of tiles left of Distribution->DistributionSource*/
 		for (Delay = 1; Delay < DelayLeft; Delay++) {
@@ -669,35 +816,28 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 
 			/* setup clk detect register */
 			ClkDetectReg = (XRFDC_CLOCK_DETECT_BOTH
-					<< ((XRFDC_CLK_DST_ADC3 - Distribution->DistributionSource) << 1));
+					<< ((XRFDC_CLK_DST_TILE_224 - Distribution->DistributionSource) << 1));
 			for (ClkDetItr = Delay - 1; ClkDetItr > 0; ClkDetItr--) {
 				ClkDetectReg |=
 					(XRFDC_CLOCK_DETECT_DIST
-					 << ((XRFDC_CLK_DST_ADC3 - (Distribution->DistributionSource - ClkDetItr))
+					 << ((XRFDC_CLK_DST_TILE_224 - (Distribution->DistributionSource - ClkDetItr))
 					     << 1));
 			}
 
-			if ((Distribution->DistributionSource - Delay) < XRFDC_CLK_DST_ADC0) { /*DAC*/
-				XRFdc_ClrSetReg(InstancePtr,
-						XRFDC_DRP_BASE(XRFDC_DAC_TILE,
-							       (Distribution->DistributionSource - Delay)) +
-							XRFDC_HSCOM_ADDR,
-						XRFDC_HSCOM_CLK_DSTR_OFFSET, XRFDC_HSCOM_CLK_DSTR_MASK, Reg);
-				XRFdc_ClrSetReg(InstancePtr,
-						XRFDC_CTRL_STS_BASE(XRFDC_DAC_TILE,
-								    (Distribution->DistributionSource - Delay)),
-						XRFDC_CLOCK_DETECT_OFFSET, XRFDC_CLOCK_DETECT_MASK, ClkDetectReg);
+			if ((Distribution->DistributionSource - Delay) < XRFDC_CLK_DST_TILE_227) { /*DAC*/
+				Type = XRFDC_DAC_TILE;
+				Tile = XRFDC_CLK_DST_TILE_228 - (Distribution->DistributionSource - Delay);
+				SettingsPtr = &DistributionSettingsPtr->DAC[Tile];
 			} else { /*ADC*/
-				XRFdc_ClrSetReg(InstancePtr,
-						XRFDC_DRP_BASE(XRFDC_ADC_TILE, (Distribution->DistributionSource -
-										Delay - XRFDC_CLK_DST_ADC0)) +
-							XRFDC_HSCOM_ADDR,
-						XRFDC_HSCOM_CLK_DSTR_OFFSET, XRFDC_HSCOM_CLK_DSTR_MASK, Reg);
-				XRFdc_ClrSetReg(InstancePtr,
-						XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, (Distribution->DistributionSource -
-										     Delay - XRFDC_CLK_DST_ADC0)),
-						XRFDC_CLOCK_DETECT_OFFSET, XRFDC_CLOCK_DETECT_MASK, ClkDetectReg);
+				Type = XRFDC_ADC_TILE;
+				Tile = XRFDC_CLK_DST_TILE_224 - (Distribution->DistributionSource - Delay);
+				SettingsPtr = &DistributionSettingsPtr->ADC[Tile];
 			}
+			XRFdc_ClrSetReg(InstancePtr, (XRFDC_DRP_BASE(Type, Tile) + XRFDC_HSCOM_ADDR),
+					XRFDC_HSCOM_CLK_DSTR_OFFSET, XRFDC_HSCOM_CLK_DSTR_MASK, Reg);
+			XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile), XRFDC_CLOCK_DETECT_OFFSET,
+					XRFDC_CLOCK_DETECT_MASK, ClkDetectReg);
+			XRFdc_SetTileClkSettings(InstancePtr, Type, Tile, SettingsPtr);
 		}
 		/*Rightmost tile*/
 		if (DelayRight) {
@@ -710,35 +850,28 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 
 			/* setup clk detect register */
 			ClkDetectReg = (XRFDC_CLOCK_DETECT_BOTH
-					<< ((XRFDC_CLK_DST_ADC3 - Distribution->DistributionSource) << 1));
+					<< ((XRFDC_CLK_DST_TILE_224 - Distribution->DistributionSource) << 1));
 			for (ClkDetItr = DelayRight - 1; ClkDetItr > 0; ClkDetItr--) {
 				ClkDetectReg |=
 					(XRFDC_CLOCK_DETECT_DIST
-					 << ((XRFDC_CLK_DST_ADC3 - (Distribution->DistributionSource + ClkDetItr))
+					 << ((XRFDC_CLK_DST_TILE_224 - (Distribution->DistributionSource + ClkDetItr))
 					     << 1));
 			}
 
-			if ((Distribution->DistributionSource + DelayRight) < XRFDC_CLK_DST_ADC0) { /*DAC*/
-				XRFdc_ClrSetReg(InstancePtr,
-						XRFDC_DRP_BASE(XRFDC_DAC_TILE,
-							       (Distribution->DistributionSource + DelayRight)) +
-							XRFDC_HSCOM_ADDR,
-						XRFDC_HSCOM_CLK_DSTR_OFFSET, XRFDC_HSCOM_CLK_DSTR_MASK, Reg);
-				XRFdc_ClrSetReg(InstancePtr,
-						XRFDC_CTRL_STS_BASE(XRFDC_DAC_TILE,
-								    (Distribution->DistributionSource + DelayRight)),
-						XRFDC_CLOCK_DETECT_OFFSET, XRFDC_CLOCK_DETECT_MASK, ClkDetectReg);
+			if ((Distribution->DistributionSource + DelayRight) < XRFDC_CLK_DST_TILE_227) { /*DAC*/
+				Type = XRFDC_DAC_TILE;
+				Tile = XRFDC_CLK_DST_TILE_228 - (Distribution->DistributionSource + DelayRight);
+				SettingsPtr = &DistributionSettingsPtr->DAC[Tile];
 			} else { /*ADC*/
-				XRFdc_ClrSetReg(InstancePtr,
-						XRFDC_DRP_BASE(XRFDC_ADC_TILE, (Distribution->DistributionSource +
-										DelayRight - XRFDC_CLK_DST_ADC0)) +
-							XRFDC_HSCOM_ADDR,
-						XRFDC_HSCOM_CLK_DSTR_OFFSET, XRFDC_HSCOM_CLK_DSTR_MASK, Reg);
-				XRFdc_ClrSetReg(InstancePtr,
-						XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, (Distribution->DistributionSource +
-										     DelayRight - XRFDC_CLK_DST_ADC0)),
-						XRFDC_CLOCK_DETECT_OFFSET, XRFDC_CLOCK_DETECT_MASK, ClkDetectReg);
+				Type = XRFDC_ADC_TILE;
+				Tile = XRFDC_CLK_DST_TILE_224 - (Distribution->DistributionSource + DelayRight);
+				SettingsPtr = &DistributionSettingsPtr->ADC[Tile];
 			}
+			XRFdc_ClrSetReg(InstancePtr, (XRFDC_DRP_BASE(Type, Tile) + XRFDC_HSCOM_ADDR),
+					XRFDC_HSCOM_CLK_DSTR_OFFSET, XRFDC_HSCOM_CLK_DSTR_MASK, Reg);
+			XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile), XRFDC_CLOCK_DETECT_OFFSET,
+					XRFDC_CLOCK_DETECT_MASK, ClkDetectReg);
+			XRFdc_SetTileClkSettings(InstancePtr, Type, Tile, SettingsPtr);
 		}
 		/*rest of tiles to right*/
 		for (Delay = 1; Delay < DelayRight; Delay++) {
@@ -761,53 +894,33 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 
 			/* setup clk detect register */
 			ClkDetectReg = (XRFDC_CLOCK_DETECT_BOTH
-					<< ((XRFDC_CLK_DST_ADC3 - Distribution->DistributionSource) << 1));
+					<< ((XRFDC_CLK_DST_TILE_224 - Distribution->DistributionSource) << 1));
 			for (ClkDetItr = Delay - 1; ClkDetItr > 0; ClkDetItr--) {
 				ClkDetectReg |=
 					(XRFDC_CLOCK_DETECT_DIST
-					 << ((XRFDC_CLK_DST_ADC3 - (Distribution->DistributionSource + ClkDetItr))
+					 << ((XRFDC_CLK_DST_TILE_224 - (Distribution->DistributionSource + ClkDetItr))
 					     << 1));
 			}
 
-			if ((Distribution->DistributionSource + Delay) < XRFDC_CLK_DST_ADC0) { /*DAC*/
-				XRFdc_ClrSetReg(InstancePtr,
-						XRFDC_DRP_BASE(XRFDC_DAC_TILE,
-							       (Distribution->DistributionSource + Delay)) +
-							XRFDC_HSCOM_ADDR,
-						XRFDC_HSCOM_CLK_DSTR_OFFSET, XRFDC_HSCOM_CLK_DSTR_MASK, Reg);
-				XRFdc_ClrSetReg(InstancePtr,
-						XRFDC_CTRL_STS_BASE(XRFDC_DAC_TILE,
-								    (Distribution->DistributionSource + Delay)),
-						XRFDC_CLOCK_DETECT_OFFSET, XRFDC_CLOCK_DETECT_MASK, ClkDetectReg);
+			if ((Distribution->DistributionSource + Delay) < XRFDC_CLK_DST_TILE_227) { /*DAC*/
+				Type = XRFDC_DAC_TILE;
+				Tile = XRFDC_CLK_DST_TILE_228 - (Distribution->DistributionSource + Delay);
+				SettingsPtr = &DistributionSettingsPtr->DAC[Tile];
 			} else { /*ADC*/
-				XRFdc_ClrSetReg(InstancePtr,
-						XRFDC_DRP_BASE(XRFDC_ADC_TILE, (Distribution->DistributionSource +
-										Delay - XRFDC_CLK_DST_ADC0)) +
-							XRFDC_HSCOM_ADDR,
-						XRFDC_HSCOM_CLK_DSTR_OFFSET, XRFDC_HSCOM_CLK_DSTR_MASK, Reg);
-				XRFdc_ClrSetReg(InstancePtr,
-						XRFDC_CTRL_STS_BASE(XRFDC_ADC_TILE, (Distribution->DistributionSource +
-										     Delay - XRFDC_CLK_DST_ADC0)),
-						XRFDC_CLOCK_DETECT_OFFSET, XRFDC_CLOCK_DETECT_MASK, ClkDetectReg);
+				Type = XRFDC_ADC_TILE;
+				Tile = XRFDC_CLK_DST_TILE_224 - (Distribution->DistributionSource + Delay);
+				SettingsPtr = &DistributionSettingsPtr->ADC[Tile];
 			}
+			XRFdc_ClrSetReg(InstancePtr, (XRFDC_DRP_BASE(Type, Tile) + XRFDC_HSCOM_ADDR),
+					XRFDC_HSCOM_CLK_DSTR_OFFSET, XRFDC_HSCOM_CLK_DSTR_MASK, Reg);
+			XRFdc_ClrSetReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile), XRFDC_CLOCK_DETECT_OFFSET,
+					XRFDC_CLOCK_DETECT_MASK, ClkDetectReg);
+			XRFdc_SetTileClkSettings(InstancePtr, Type, Tile, SettingsPtr);
 		}
 		Distribution->IsDelayBalanced = (Distribution->MaxDelay == Distribution->MinDelay) ? 1 : 0;
 	}
-	for (Tile = 0; Tile < XRFDC_NUM_OF_TILES4; Tile++) {
-		XRFdc_SetTileClkSettings(InstancePtr, XRFDC_ADC_TILE, Tile, &DistributionSettingsPtr->ADC[Tile]);
-		XRFdc_SetTileClkSettings(InstancePtr, XRFDC_DAC_TILE, Tile, &DistributionSettingsPtr->DAC[Tile]);
-	}
-	Status = XRFdc_StartUp(InstancePtr, XRFDC_ADC_TILE, -1);
-	if (Status != XRFDC_SUCCESS) {
-		Status = XRFDC_FAILURE;
-		goto RETURN_PATH;
-	}
-	Status = XRFdc_StartUp(InstancePtr, XRFDC_DAC_TILE, -1);
-	if (Status != XRFDC_SUCCESS) {
-		Status = XRFDC_FAILURE;
-		goto RETURN_PATH;
-	}
-	Status = XRFDC_SUCCESS;
+	/*start tiles*/
+	Status = XRFdc_StartUpDist(InstancePtr, DistributionSettingsPtr);
 RETURN_PATH:
 	return Status;
 }
@@ -855,14 +968,14 @@ u32 XRFdc_GetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 	Delays[5] = &DistributionSettingsPtr->ADC[1].Delay;
 	Delays[6] = &DistributionSettingsPtr->ADC[2].Delay;
 	Delays[7] = &DistributionSettingsPtr->ADC[3].Delay;
-	Tile[0] = &DistributionSettingsPtr->DAC[0].SourceTile;
-	Tile[1] = &DistributionSettingsPtr->DAC[1].SourceTile;
-	Tile[2] = &DistributionSettingsPtr->DAC[2].SourceTile;
-	Tile[3] = &DistributionSettingsPtr->DAC[3].SourceTile;
-	Tile[4] = &DistributionSettingsPtr->ADC[0].SourceTile;
-	Tile[5] = &DistributionSettingsPtr->ADC[1].SourceTile;
-	Tile[6] = &DistributionSettingsPtr->ADC[2].SourceTile;
-	Tile[7] = &DistributionSettingsPtr->ADC[3].SourceTile;
+	Tile[0] = &DistributionSettingsPtr->DAC[3].SourceTile;
+	Tile[1] = &DistributionSettingsPtr->DAC[2].SourceTile;
+	Tile[2] = &DistributionSettingsPtr->DAC[1].SourceTile;
+	Tile[3] = &DistributionSettingsPtr->DAC[0].SourceTile;
+	Tile[4] = &DistributionSettingsPtr->ADC[3].SourceTile;
+	Tile[5] = &DistributionSettingsPtr->ADC[2].SourceTile;
+	Tile[6] = &DistributionSettingsPtr->ADC[1].SourceTile;
+	Tile[7] = &DistributionSettingsPtr->ADC[0].SourceTile;
 	memset(DistributionSettingsPtr, XRFDC_CLK_DST_INVALID, sizeof(XRFdc_Distribution_Settings));
 
 	for (CurrentTile = 0; CurrentTile < XRFDC_DIST_MAX; CurrentTile++) {
@@ -872,17 +985,18 @@ u32 XRFdc_GetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 			continue;
 		}
 
-		if (CurrentTile < XRFDC_CLK_DST_ADC0) { /*DAC*/
+		if (CurrentTile < XRFDC_CLK_DST_TILE_227) { /*DAC*/
 			ReadReg = XRFdc_ReadReg16(InstancePtr,
 						  XRFDC_DRP_BASE(XRFDC_DAC_TILE, CurrentTile) + XRFDC_HSCOM_ADDR,
 						  XRFDC_HSCOM_CLK_DSTR_OFFSET) &
 				  XRFDC_HSCOM_CLK_DSTR_MASK;
 		} else { /*ADC*/
-			ReadReg = XRFdc_ReadReg16(InstancePtr,
-						  XRFDC_DRP_BASE(XRFDC_ADC_TILE, (CurrentTile - XRFDC_CLK_DST_ADC0)) +
-							  XRFDC_HSCOM_ADDR,
-						  XRFDC_HSCOM_CLK_DSTR_OFFSET) &
-				  XRFDC_HSCOM_CLK_DSTR_MASK;
+			ReadReg =
+				XRFdc_ReadReg16(InstancePtr,
+						XRFDC_DRP_BASE(XRFDC_ADC_TILE, (CurrentTile - XRFDC_CLK_DST_TILE_227)) +
+							XRFDC_HSCOM_ADDR,
+						XRFDC_HSCOM_CLK_DSTR_OFFSET) &
+				XRFDC_HSCOM_CLK_DSTR_MASK;
 		}
 
 		if (ReadReg == XRFDC_CLK_DISTR_OFF) { /*it is its own source no dist*/
@@ -907,23 +1021,24 @@ u32 XRFdc_GetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 			Distribution->MaxDelay = MAX(Distribution->MaxDelay, (*Delays[CurrentTile]));
 			Distribution->MinDelay = MIN(Distribution->MinDelay, (*Delays[CurrentTile]));
 			/*work right*/
-			for (AdjacentTile = CurrentTile + 1; AdjacentTile <= XRFDC_CLK_DST_ADC3; AdjacentTile++) {
-				if (AdjacentTile < XRFDC_CLK_DST_ADC0) { /*DAC*/
+			for (AdjacentTile = CurrentTile + 1; AdjacentTile <= XRFDC_CLK_DST_TILE_224; AdjacentTile++) {
+				if (AdjacentTile < XRFDC_CLK_DST_TILE_227) { /*DAC*/
 					ReadReg = XRFdc_ReadReg16(InstancePtr,
 								  XRFDC_DRP_BASE(XRFDC_DAC_TILE, AdjacentTile) +
 									  XRFDC_HSCOM_ADDR,
 								  XRFDC_HSCOM_CLK_DSTR_OFFSET) &
 						  XRFDC_HSCOM_CLK_DSTR_MASK;
 				} else { /*ADC*/
-					ReadReg = XRFdc_ReadReg16(InstancePtr,
-								  XRFDC_DRP_BASE(XRFDC_ADC_TILE,
-										 (AdjacentTile - XRFDC_CLK_DST_ADC0)) +
-									  XRFDC_HSCOM_ADDR,
-								  XRFDC_HSCOM_CLK_DSTR_OFFSET) &
+					ReadReg = XRFdc_ReadReg16(
+							  InstancePtr,
+							  XRFDC_DRP_BASE(XRFDC_ADC_TILE,
+									 (AdjacentTile - XRFDC_CLK_DST_TILE_227)) +
+								  XRFDC_HSCOM_ADDR,
+							  XRFDC_HSCOM_CLK_DSTR_OFFSET) &
 						  XRFDC_HSCOM_CLK_DSTR_MASK;
 				}
 				if ((ReadReg == XRFDC_CLK_DISTR_CONT_RIGHT_EVEN) &&
-				    (AdjacentTile != XRFDC_CLK_DST_DAC3)) {
+				    (AdjacentTile != XRFDC_CLK_DST_TILE_228)) {
 					*Tile[AdjacentTile] = CurrentTile;
 					*Delays[AdjacentTile] =
 						DelayOutSourceRight + ((AdjacentTile - CurrentTile) << 1) + 2;
@@ -947,22 +1062,23 @@ u32 XRFdc_GetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 				}
 			}
 			/*work left*/
-			for (AdjacentTile = CurrentTile - 1; AdjacentTile >= XRFDC_CLK_DST_DAC0; AdjacentTile--) {
+			for (AdjacentTile = CurrentTile - 1; AdjacentTile >= XRFDC_CLK_DST_TILE_231; AdjacentTile--) {
 				if (*Tile[AdjacentTile] != XRFDC_CLK_DST_INVALID) {
 					break;
 				}
-				if (AdjacentTile < XRFDC_CLK_DST_ADC0) { /*DAC*/
+				if (AdjacentTile < XRFDC_CLK_DST_TILE_227) { /*DAC*/
 					ReadReg = XRFdc_ReadReg16(InstancePtr,
 								  XRFDC_DRP_BASE(XRFDC_DAC_TILE, AdjacentTile) +
 									  XRFDC_HSCOM_ADDR,
 								  XRFDC_HSCOM_CLK_DSTR_OFFSET) &
 						  XRFDC_HSCOM_CLK_DSTR_MASK;
 				} else { /*ADC*/
-					ReadReg = XRFdc_ReadReg16(InstancePtr,
-								  XRFDC_DRP_BASE(XRFDC_ADC_TILE,
-										 (AdjacentTile - XRFDC_CLK_DST_ADC0)) +
-									  XRFDC_HSCOM_ADDR,
-								  XRFDC_HSCOM_CLK_DSTR_OFFSET) &
+					ReadReg = XRFdc_ReadReg16(
+							  InstancePtr,
+							  XRFDC_DRP_BASE(XRFDC_ADC_TILE,
+									 (AdjacentTile - XRFDC_CLK_DST_TILE_227)) +
+								  XRFDC_HSCOM_ADDR,
+							  XRFDC_HSCOM_CLK_DSTR_OFFSET) &
 						  XRFDC_HSCOM_CLK_DSTR_MASK;
 				}
 				if (ReadReg == XRFDC_CLK_DISTR_LEFTMOST_TILE) {
