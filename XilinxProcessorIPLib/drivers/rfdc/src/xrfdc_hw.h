@@ -81,6 +81,7 @@
 *       cog    08/02/19 Formatting changes.
 *       cog    09/01/19 Added offset for VOP control register.
 *       cog    09/01/19 Added masks/shifts for DSA.
+*       cog    09/18/19 Wider mask now needed for DAC Fabric Rate.
 *
 *</pre>
 *
@@ -438,7 +439,8 @@ extern "C" {
 
 #define XRFDC_ADC_FAB_RATE_WR_MASK 0x0000000FU /**< ADC FIFO Write Number of Words per clock */
 #define XRFDC_DAC_FAB_RATE_WR_MASK 0x0000001FU /**< DAC FIFO Write Number of Words per clock */
-#define XRFDC_FAB_RATE_RD_MASK 0x00000F00U /**< FIFO Read Number of words per clock */
+#define XRFDC_ADC_FAB_RATE_RD_MASK 0x00000F00U /**< ADC FIFO Read Number of Words per clock */
+#define XRFDC_DAC_FAB_RATE_RD_MASK 0x00001F00U /**< DAC FIFO Read Number of Words per clock */
 #define XRFDC_FAB_RATE_RD_SHIFT 8U /**< Fabric Read shift */
 
 /* @} */

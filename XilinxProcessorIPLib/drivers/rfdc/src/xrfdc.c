@@ -171,6 +171,7 @@
 *                       XRFdc_S/GetDACCompMode().
 *       cog    09/01/19 Rename XRFdc_S/GetDigitalStepAttenuator() APIs to XRFdc_S/GetDSA().
 *                       Also, refactored DSA to use struct and absolute value for Attenuation.
+*       cog    09/18/19 Wider mask now needed for DAC Fabric Rate.
 *
 * </pre>
 *
@@ -1979,7 +1980,7 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, 
 			Factor);
 
 	/* Fabric rate */
-	FabricRate = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_OFFSET, XRFDC_FAB_RATE_RD_MASK);
+	FabricRate = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_OFFSET, XRFDC_DAC_FAB_RATE_RD_MASK);
 	FabricRate = FabricRate >> XRFDC_FAB_RATE_RD_SHIFT;
 	if (DataType == XRFDC_ADC_MIXER_MODE_IQ) {
 		switch (InterpolationFactor) {
@@ -2035,7 +2036,7 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, 
 			break;
 		}
 	}
-	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_OFFSET, XRFDC_FAB_RATE_RD_MASK,
+	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_OFFSET, XRFDC_DAC_FAB_RATE_RD_MASK,
 			(FabricRate << XRFDC_FAB_RATE_RD_SHIFT));
 
 	Status = XRFDC_SUCCESS;
@@ -2259,7 +2260,7 @@ u32 XRFdc_SetFabRdVldWords(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Fa
 
 	for (; Index < NoOfBlocks; Index++) {
 		BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Index);
-		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_OFFSET, XRFDC_FAB_RATE_RD_MASK,
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_OFFSET, XRFDC_ADC_FAB_RATE_RD_MASK,
 				(FabricRdVldWords << XRFDC_FAB_RATE_RD_SHIFT));
 	}
 
@@ -2365,8 +2366,13 @@ u32 XRFdc_GetFabRdVldWords(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 	}
 	BaseAddr = XRFDC_BLOCK_BASE(Type, Tile_Id, Block_Id);
 
-	*FabricRdVldWordsPtr = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_OFFSET, XRFDC_FAB_RATE_RD_MASK);
+	*FabricRdVldWordsPtr = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_OFFSET);
 	*FabricRdVldWordsPtr = (*FabricRdVldWordsPtr) >> XRFDC_FAB_RATE_RD_SHIFT;
+	if (Type == XRFDC_ADC_TILE) {
+		*FabricRdVldWordsPtr &= XRFDC_ADC_FAB_RATE_WR_MASK;
+	} else {
+		*FabricRdVldWordsPtr &= XRFDC_DAC_FAB_RATE_WR_MASK;
+	}
 
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
