@@ -374,7 +374,7 @@ int XV_VScalerSetup(XV_Vscaler_l2  *InstancePtr,
   Xil_AssertNonvoid((HeightIn>0) && (HeightIn<=InstancePtr->Vsc.Config.MaxHeight));
   Xil_AssertNonvoid((HeightOut>0) && (HeightOut<=InstancePtr->Vsc.Config.MaxHeight));
   Xil_AssertNonvoid((InstancePtr->Vsc.Config.PixPerClk >= XVIDC_PPC_1) &&
-                    (InstancePtr->Vsc.Config.PixPerClk <= XVIDC_PPC_4));
+		  (InstancePtr->Vsc.Config.PixPerClk <= XVIDC_PPC_8));
 
   if(ColorFormat==XVIDC_CSF_YCRCB_420 && !XV_VscalerIs420Enabled(InstancePtr)) {
     return(XST_FAILURE);
