@@ -153,6 +153,16 @@ In simple and sg example, fix data buffer cache maintenance ops.
 axidma_v9_10:
 In examples fix data buffer cache maintenance ops.
 
+rfdc_v7_0:
+Added support for VOP for GEN3 devices.
+Added support for DSA for GEN3 devices.
+Added a get enabled interrupts API.
+Fixed minor NCO offset issue.
+Fixed calibration mode issue for GEN1/2 devices.
+Added API for registering RFDC with libmetal.
+Added support for reporting DAC current on GEN3 devices.
+Refactor of Clock distribution.
+
 Changes for 2019.1
 ===============================
 v_hdmiphy1_v1_0:

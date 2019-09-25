@@ -29,6 +29,7 @@
 # -------- ------ -------- ----------------------------------------------------
 # 1.0     sk    05/16/17  First releasae
 # 2.1     sk    09/21/17  Add APP_COMPILER_FLAGS Option
+#         cog   09/25/19  Added depends and APP_LINKER_FLAGS Options
 ##############################################################################
 
 OPTION psf_version = 2.1;
@@ -40,6 +41,8 @@ BEGIN driver rfdc
   OPTION copyfiles = all;
   OPTION VERSION = 7.0;
   OPTION NAME = rfdc;
+  OPTION depends = libmetal;
   OPTION APP_COMPILER_FLAGS = "-D __BAREMETAL__";
+  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lgcc,-lc,-lmetal,--end-group";
 
 END driver
