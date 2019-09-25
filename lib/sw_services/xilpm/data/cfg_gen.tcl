@@ -752,7 +752,7 @@ proc get_prealloc_section { } {
 
 set power_perms [dict create]
 dict set power_perms NODE_APU { psu_cortexr5_0 psu_cortexr5_1 }
-dict set power_perms NODE_RPU { psu_cortexa53_0 }
+dict set power_perms NODE_RPU { psu_cortexa53_0 psu_cortexr5_0 psu_cortexr5_1 }
 dict set power_perms NODE_FPD { psu_cortexr5_0 psu_cortexr5_1 }
 dict set power_perms NODE_PLD { psu_cortexa53_0 psu_cortexr5_0 psu_cortexr5_1 }
 
