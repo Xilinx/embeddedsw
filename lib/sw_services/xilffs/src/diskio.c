@@ -57,6 +57,7 @@
 * 3.9   mn   04/18/18 Resolve build warnings for xilffs library
 *       mn   07/06/18 Fix Cppcheck and Doxygen warnings
 * 4.2   mn   08/16/19 Initialize Status variables with failure values
+*       mn   09/25/19 Check if the SD is powered on or not in disk_status()
 *
 * </pre>
 *
@@ -168,6 +169,13 @@ DSTATUS disk_status (
 					SlotType[pdrv] = 0;
 				}
 		}
+
+		/* If SD is not powered up then mark it as not initialized */
+		if ((XSdPs_ReadReg8((u32)BaseAddress, XSDPS_POWER_CTRL_OFFSET) &
+			XSDPS_PC_BUS_PWR_MASK) == 0U) {
+			s |= STA_NOINIT;
+		}
+
 		StatusReg = XSdPs_GetPresentStatusReg((u32)BaseAddress);
 		if (SlotType[pdrv] != XSDPS_CAPS_EMB_SLOT) {
 			if (CardDetect) {
