@@ -365,6 +365,11 @@ static void PmForcePowerdown(const PmMaster *const master,
 	} else if (NODE_IS_PROC(nodePtr)) {
 		PmProc* proc = (PmProc*)nodePtr->derived;
 		power = (PmPower*)proc->node.parent;
+		/* Master can't force off its proc. */
+		if (proc->master->nid == master->nid) {
+			status = XST_PM_NO_ACCESS;
+			goto done;
+		}
 	} else {
 		/* Slaves and PLLs can not be force power down */
 		status = XST_INVALID_PARAM;
