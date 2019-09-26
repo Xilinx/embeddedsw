@@ -50,14 +50,19 @@ extern "C" {
 // 0x0030 : Data signal of HwReg_PixelRate
 //          bit 31~0 - HwReg_PixelRate[31:0] (Read/Write)
 // 0x0034 : reserved
-// 0x0400 ~
-// 0x07ff : Memory 'HwReg_hfltCoeff' (384 * 16b)
+// 0x0038 : Data signal of HwReg_ColorModeOut
+//          bit 7~0 - HwReg_ColorModeOut[7:0] (Read/Write)
+//          others  - reserved
+// 0x003c : reserved
+// 0x0800 ~
+// 0x0bff : Memory 'HwReg_hfltCoeff' (384 * 16b)
 //          Word n : bit [15: 0] - HwReg_hfltCoeff[2n]
 //                   bit [31:16] - HwReg_hfltCoeff[2n+1]
-// 0x2000 ~
-// 0x3fff : Memory 'HwReg_phasesH_V' (1920 * 18b)
-//          Word n : bit [17:0] - HwReg_phasesH_V[n]
-//                   others     - reserved
+// 0x4000 ~
+// 0x7fff : Memory 'HwReg_phasesH_V' (8192 * 9b)
+//          Word n : bit [ 8: 0] - HwReg_phasesH_V[2n]
+//                   bit [24:16] - HwReg_phasesH_V[2n+1]
+//                   others      - reserved
 // (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
 
 #define XV_HSCALER_CTRL_ADDR_AP_CTRL              0x0000
@@ -80,10 +85,10 @@ extern "C" {
 #define XV_HSCALER_CTRL_ADDR_HWREG_HFLTCOEFF_HIGH 0x0bff
 #define XV_HSCALER_CTRL_WIDTH_HWREG_HFLTCOEFF     16
 #define XV_HSCALER_CTRL_DEPTH_HWREG_HFLTCOEFF     384
-#define XV_HSCALER_CTRL_ADDR_HWREG_PHASESH_V_BASE 0x2000
-#define XV_HSCALER_CTRL_ADDR_HWREG_PHASESH_V_HIGH 0x3fff
-#define XV_HSCALER_CTRL_WIDTH_HWREG_PHASESH_V     18
-#define XV_HSCALER_CTRL_DEPTH_HWREG_PHASESH_V     1920
+#define XV_HSCALER_CTRL_ADDR_HWREG_PHASESH_V_BASE 0x4000
+#define XV_HSCALER_CTRL_ADDR_HWREG_PHASESH_V_HIGH 0x7fff
+#define XV_HSCALER_CTRL_WIDTH_HWREG_PHASESH_V     9
+#define XV_HSCALER_CTRL_DEPTH_HWREG_PHASESH_V     8192
 
 #ifdef __cplusplus
 }
