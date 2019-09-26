@@ -36,7 +36,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   kal  08/01/2019 Initial release
-*
+*		har	 09/24/2019 Fixed MISRA-C violations
 * </pre>
 *
 * @note
@@ -48,6 +48,7 @@
 #include "sleep.h"
 #include "xpuf.h"
 #include "xpuf_hw.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions ****************************/
 
@@ -240,7 +241,6 @@ u32 XPuf_Puf_Regeneration(XPuf_Data *PufData)
 	u32 PufChash;
 	u32 PufAux;
 	u32 PufStatus;
-	u32 Index;
 	u32 Debug = XPUF_DEBUG_GENERAL;
 
 	/* Validate input arguments */
