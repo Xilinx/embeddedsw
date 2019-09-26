@@ -35,7 +35,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   mmd  04/01/2019 Initial release
-*
+		har  09/24/2019 Fixed MISRA-C violations
 * </pre>
 *
 * @note
@@ -43,7 +43,6 @@
 *******************************************************************************/
 
 /***************************** Include Files **********************************/
-#include <string.h>
 #include "xnvm_utils.h"
 #include "xil_util.h"
 
@@ -87,7 +86,7 @@ u32 XNvm_ValidateAesKey(const char *Key)
 		goto END;
 	}
 
-	Len = strnlen(Key, XNVM_MAX_AES_KEY_LEN_IN_CHARS + 1U);
+	Len = Xil_Strnlen(Key, XNVM_MAX_AES_KEY_LEN_IN_CHARS + 1U);
 
 	if ((Len != XNVM_256_BITS_AES_KEY_LEN_IN_CHARS) &&
 	    (Len != XNVM_128_BITS_AES_KEY_LEN_IN_CHARS)) {
