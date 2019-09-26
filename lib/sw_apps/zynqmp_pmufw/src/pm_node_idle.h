@@ -85,7 +85,7 @@ void NodeQspiIdle(u32 BaseAddress);
 
 #if defined(XPAR_XUSBPSU_0_DEVICE_ID) || \
 	defined(XPAR_XUSBPSU_1_DEVICE_ID)
-#include "xusbpsu_hw.h"
+#include "xusbpsu.h"
 #include "xusbpsu_endpoint.h"
 void NodeUsbIdle(u32 BaseAddress);
 #endif
