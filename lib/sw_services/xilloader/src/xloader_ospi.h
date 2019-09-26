@@ -34,6 +34,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   02/21/2018 Initial release
+* 1.01  bsv  09/15/2019 Added Read Config and Write Config registers
 * </pre>
 *
 * @note
@@ -69,10 +70,12 @@ extern "C" {
 #define READ_ID					(0x9FU)
 #define MICRON_INDEX_START			(0x0U)
 #define WRITE_DISABLE_CMD			(0x4U)
-#define OSPI_WRITE_ENABLE_CMD			(0x6U)
-#define ENTER_4B_ADDR_MODE      0xB7
-#define EXIT_4B_ADDR_MODE       0xE9
-#define READ_FLAG_STATUS_CMD	0X70
+#define OSPI_WRITE_ENABLE_CMD		(0x6U)
+#define ENTER_4B_ADDR_MODE      	(0xB7U)
+#define EXIT_4B_ADDR_MODE       	(0xE9U)
+#define READ_FLAG_STATUS_CMD		(0x70U)
+#define WRITE_CONFIG_REG			(0x81U)
+#define READ_CONFIG_REG				(0x85U)
 /*
  * Identification of Flash
  * Micron:
@@ -94,6 +97,7 @@ int XLoader_OspiInit(u32 DeviceFlags);
 XStatus XLoader_OspiCopy(u32 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 int XLoader_OspiRelease(void );
 int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable);
+int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr);
 /************************** Variable Definitions *****************************/
 
 
