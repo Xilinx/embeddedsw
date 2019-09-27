@@ -113,6 +113,7 @@ wdttb_v4_5:
 Added hierarchical design support.
 Updated the test app tcl to support polled mode
 Fixed coverity warnings.
+Updated driver to support AXI Timebase WDT and WWDT
 
 xxvethernet_v1_3:
 In tcl fix bsp generation error for axis_rx_0 external port design.
