@@ -281,34 +281,47 @@ static XStatus ResetPulseLpd(XPm_ResetNode *Rst)
 	return Status;
 }
 
-struct ResetCustomOps {
+static const struct ResetCustomOps {
+	u32 ResetIdx;
 	XStatus (*const ActionAssert)(XPm_ResetNode *Rst);
 	XStatus (*const ActionRelease)(XPm_ResetNode *Rst);
 	XStatus (*const ActionPulse)(XPm_ResetNode *Rst);
-};
-
-static const struct ResetCustomOps Reset_Custom[] = {
-	[XPM_NODEIDX_RST_PS_SRST - XPM_NODEIDX_RST_MIN] = {
+} Reset_Custom[] = {
+	{
+		.ResetIdx = XPM_NODEIDX_RST_PS_SRST,
 		.ActionAssert = &PsOnlyResetAssert,
 		.ActionRelease = &PsOnlyResetRelease,
 		.ActionPulse = &PsOnlyResetPulse,
 	},
-	[XPM_NODEIDX_RST_LPD - XPM_NODEIDX_RST_MIN] = {
+	{
+		.ResetIdx = XPM_NODEIDX_RST_LPD,
 		.ActionPulse = &ResetPulseLpd,
 	},
 };
 
+static const struct ResetCustomOps *GetResetCustomOps(u32 ResetId)
+{
+	u16 i;
+
+	for (i = 0; i < ARRAY_SIZE(Reset_Custom); i++) {
+		if (Reset_Custom[i].ResetIdx == NODEINDEX(ResetId)) {
+			return &Reset_Custom[i];
+		}
+	}
+	return NULL;
+}
+
 static XStatus Reset_AssertCustom(XPm_ResetNode *Rst, const u32 Action)
 {
 	u32 Status = XST_FAILURE;
-	u32 Id = NODEINDEX(Rst->Node.Id);
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 	u32 ControlReg = Rst->Node.BaseAddress;
+	const struct ResetCustomOps *Ops = GetResetCustomOps(Rst->Node.Id);
 
 	switch (Action) {
 	case PM_RESET_ACTION_RELEASE:
-		if (Reset_Custom[Id].ActionRelease) {
-			Status = Reset_Custom[Id].ActionRelease(Rst);
+		if ((NULL != Ops) && (Ops->ActionRelease)) {
+			Status = Ops->ActionRelease(Rst);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
@@ -319,8 +332,8 @@ static XStatus Reset_AssertCustom(XPm_ResetNode *Rst, const u32 Action)
 		Status = XST_SUCCESS;
 		break;
 	case PM_RESET_ACTION_ASSERT:
-		if (Reset_Custom[Id].ActionAssert) {
-			Status = Reset_Custom[Id].ActionAssert(Rst);
+		if ((NULL != Ops) && (Ops->ActionAssert)) {
+			Status = Ops->ActionAssert(Rst);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
@@ -331,8 +344,8 @@ static XStatus Reset_AssertCustom(XPm_ResetNode *Rst, const u32 Action)
 		Status = XST_SUCCESS;
 		break;
 	case PM_RESET_ACTION_PULSE:
-		if (Reset_Custom[Id].ActionPulse) {
-			Status = Reset_Custom[Id].ActionPulse(Rst);
+		if ((NULL != Ops) && (Ops->ActionPulse)) {
+			Status = Ops->ActionPulse(Rst);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
