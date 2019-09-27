@@ -46,6 +46,9 @@
 *                     functions instead of XWdtTb_Initialize for
 *                     initialization.
 * 4.4   sne  02/12/19 Added support for Versal
+* 4.5	sne  09/27/19 Updated example file to support AXI Timebase WDT and
+*		      WWDT.
+*
 * </pre>
 *
 *****************************************************************************/
@@ -161,10 +164,12 @@ int WdtTbSelfTestExample(u16 DeviceId)
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-#ifdef versal
-	/*Enable Window Watchdog Feature */
-	WatchdogTimebase.EnableWinMode=1;
-#endif
+
+	/*Enable Window Watchdog Feature in WWDT*/
+	if(!WatchdogTimebase.Config.IsPl) {
+		WatchdogTimebase.EnableWinMode=1;
+	}
+
 	/*
 	 * Perform a self-test to ensure that the hardware was built
 	 * correctly

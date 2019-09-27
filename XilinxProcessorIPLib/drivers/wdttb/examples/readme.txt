@@ -51,4 +51,23 @@ This example performs the basic selftest using the driver.
 
 For details, see xwdttb_gwdt_selftest_example.c.
 
+NOTE:-
+More information on examples for each IP.
+WWDT:-
+-xwdttb_gwdt_selftest_example.c
+-xwdttb_gwdt_example.c
+-xwdttb_selftest_example.c
+-xwdttb_winwdt_example.c
+-Above examples works for WWDT driver.
+AXI TIMEBASE:-
+Case 1:-(Timebase WDT)
+-xwdttb_selftest_example.c
+-xwdttb_winwdt_example.c
+-xwdttb_intr_example.c
+Case 2:-(Window watchdog)
+-xwdttb_selftest_example.c
+-xwdttb_winwdt_example.c
+-xwdttb_winwdt_intr_example.c
+-Above examples works for AXI Timebase WDT.
+
 */
