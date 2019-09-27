@@ -57,6 +57,8 @@
 *                     Declared the pointer param as Pointer to const,
 *                     Procedure has more than one exit point.
 * 4.4   sne  03/04/19 Added Support for Versal.
+* 4.5	sne  09/27/19 Updated driver to support WWDT and AXI Timebase WDT.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -110,9 +112,7 @@
 ******************************************************************************/
 s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
 {
-#ifndef versal
 	u32 LoopCount;
-#endif
 	u32 TbrValue1;
 	u32 TbrValue2;
 	s32 Status;
@@ -178,7 +178,7 @@ s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
 		}
 	}
 	else {
-#ifdef versal
+		if (!InstancePtr->Config.IsPl) {
                 /*Set Generic Watchdog Compare Value Register 0 */
                 XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_GWCVR0_OFFSET,XWT_GWCVR0_COUNT);
                 /*Set Generic Watchdog Compare Value Register 1 */
@@ -207,7 +207,7 @@ s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
                 else {
                         Status = XST_FAILURE;
                 }
-#else
+		} else {
 
 		/*
 		 * Read the timebase register twice to start the test
@@ -239,7 +239,7 @@ s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
 		else {
 			Status = XST_WDTTB_TIMER_FAILED;
 		}
-#endif
+		}
 	}
 End:
 	return Status;
