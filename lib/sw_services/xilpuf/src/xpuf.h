@@ -18,10 +18,17 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   kal  08/01/2019 Initial release
-* 1.1   har  01/27/2020 Updated XPufData structure to support helper data
-*			programming
-*			Added macros for supporting ID only regeneration and
-*			black key programming
+* 1.1   har  01/27/2020 Updated XPufData structure to support on demand regeneration
+*                       from efuse cache
+*                       Added macros for supporting ID only regeneration and
+*                       black key programming
+* 1.2   har  07/03/2020 Renamed XPUF_ID_LENGTH macro as XPUF_ID_LEN_IN_WORDS
+*       am   08/04/2020 Resolved MISRA C Violations
+*       am   08/19/2020 Resolved MISRA C violations.
+*       har  09/30/2020 Removed header files which were not required
+*       har  10/17/2020 Updated default PUF shutter value
+*                       Added error code for mismatch in MSB of PUF shutter value
+*                       and Global Variation Filter option
 *
 * </pre>
 *
@@ -37,8 +44,6 @@ extern "C" {
 
 /****************************** Include Files *********************************/
 #include "xil_types.h"
-#include "xil_io.h"
-#include "xil_printf.h"
 
 /*************************** Constant Definitions *****************************/
 /** @cond xpuf_internal
@@ -50,18 +55,12 @@ extern "C" {
 #define XPUF_DEBUG_GENERAL (0U)
 #endif
 
-#define xPuf_printf(type, ...)	if ((type) == (1U)) {xil_printf (__VA_ARGS__);}
-
 #define XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS		(350U)
-#define XPUF_AES_KEY_LEN_IN_BYTES			(32U)
-#define XPUF_AES_KEY_IV_LEN_IN_BYTES			(12U)
 #define XPUF_4K_PUF_SYN_LEN_IN_WORDS			(140U)
-#define XPUF_4K_PUF_SYN_LEN_IN_BYTES			(560U)
 #define XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS		(127U)
 #define XPUF_12K_PUF_SYN_LEN_IN_WORDS			(350U)
-#define XPUF_12K_PUF_SYN_LEN_IN_BYTES			(1400U)
-#define XPUF_SHUTTER_VALUE				(0x1000040U)
-#define XPUF_ID_LENGTH					(0x8U)
+#define XPUF_SHUTTER_VALUE				(0x81000100U)
+#define XPUF_ID_LEN_IN_WORDS					(0x8U)
 #define XPUF_WORD_LENGTH				(0x4U)
 
 #define XPUF_REGISTRATION				(0x0U)
@@ -76,21 +75,23 @@ extern "C" {
 #define XPUF_LAST_WORD_MASK				(0xFFFFFFF0U)
 
 /* Key registration time error codes */
-#define XPUF_ERROR_INVALID_PARAM			((u32)0x02)
-#define XPUF_ERROR_INVALID_SYNDROME_MODE		((u32)0x03)
-#define XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT		((u32)0x04)
-#define XPUF_ERROR_SYNDROME_DATA_OVERFLOW		((u32)0x05)
-#define XPUF_ERROR_SYNDROME_DATA_UNDERFLOW		((u32)0x06)
-#define XPUF_ERROR_PUF_DONE_WAIT_TIMEOUT		((u32)0x07)
-#define XPUF_ERROR_REGISTRATION_INVALID			((u32)0x08)
+#define XPUF_ERROR_INVALID_PARAM				(0x02)
+#define XPUF_ERROR_INVALID_SYNDROME_MODE		(0x03)
+#define XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT	(0x04)
+#define XPUF_ERROR_PUF_DONE_WAIT_TIMEOUT		(0x07)
+#define XPUF_ERROR_REGISTRATION_INVALID			(0x08)
+#define XPUF_SHUTTER_GVF_MISMATCH			(0x09)
 
 /* Key regeneration time error codes */
-#define XPUF_ERROR_CHASH_NOT_PROGRAMMED			((u32)0x10)
-#define XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT		((u32)0x11)
-#define XPUF_ERROR_INVALID_REGENERATION_TYPE		((u32)0x12)
-#define XPUF_ERROR_INVALID_PUF_OPERATION		((u32)0x13)
-#define XPUF_ERROR_REGENERATION_INVALID			((u32)0x14)
-#define XPUF_ERROR_REGEN_PUF_HD_INVALID			((u32)0x15)
+#define XPUF_ERROR_CHASH_NOT_PROGRAMMED			(0x10)
+#define XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT		(0x11)
+#define XPUF_ERROR_INVALID_REGENERATION_TYPE	(0x12)
+#define XPUF_ERROR_INVALID_PUF_OPERATION		(0x13)
+#define XPUF_ERROR_REGENERATION_INVALID			(0x14)
+#define XPUF_ERROR_REGEN_PUF_HD_INVALID			(0x15)
+#define XPUF_ERROR_INVALID_READ_HD_INPUT		(0x16)
+#define XPUF_ERROR_PUF_DONE_KEY_ID_NT_RDY		(0x17)
+#define XPUF_ERROR_PUF_DONE_ID_NT_RDY			(0x18)
 
 /***************************** Type Definitions *******************************/
 typedef enum {
@@ -102,12 +103,13 @@ typedef struct {
 	u8 RegMode;		/* PUF Registration Mode 4K/12K*/
 	u8 PufOperation;
 	   /* PUF Registration/ Regeneration On Demand/ ID only regeneration) */
+	u8 GlobalVarFilter;
 	XPuf_ReadOption ReadOption;	/* Read helper data from eFuse Cache/DDR */
 	u32 ShutterValue;
 	u32 SyndromeData[XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS];
 	u32 Chash;
 	u32 Aux;
-	u32 PufID[XPUF_ID_LENGTH];
+	u32 PufID[XPUF_ID_LEN_IN_WORDS];
 	u32 SyndromeAddr;
 	u32 EfuseSynData[XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS];
 				 /* Trimmed data to be written in efuse */
@@ -119,9 +121,9 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /*************************** Function Prototypes ******************************/
-u32 XPuf_Registration(XPuf_Data *PufData);
-u32 XPuf_Regeneration(XPuf_Data *PufData);
-void XPuf_GenerateFuseFormat(XPuf_Data *PufData);
+int XPuf_Registration(XPuf_Data *PufData);
+int XPuf_Regeneration(XPuf_Data *PufData);
+int XPuf_GenerateFuseFormat(XPuf_Data *PufData);
 
 #ifdef __cplusplus
 }
