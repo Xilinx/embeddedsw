@@ -162,6 +162,12 @@ Added assert statements to function parameters
 Added support for A72 and R5 of versal.
 Initialized status variables to XST_FAILURE.
 
+xilnvm_v1_0:
+Initial release to support eFuse read/write and bbram programming
+
+xilpuf_v1_0:
+Initial release to support Puf Registration and Regeneration
+
 zynqmp_pmufw:
 Fixed warnings in PMU FW versionless compilation
 Change power state of power domain or island only if it is powered up
