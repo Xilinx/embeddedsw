@@ -1,0 +1,268 @@
+/******************************************************************************
+*
+* Copyright (C) 2017-2019 Xilinx, Inc.  All rights reserved.
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in
+* all copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
+*
+*
+*
+******************************************************************************/
+/*****************************************************************************/
+/**
+*
+* @file xrfclk_examples_app.c
+* @addtogroup xrfclk_examples_app_v1_0
+* @{
+*
+* Contains the examples which run most of the APIs.
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who    Date     Changes
+* ----- ---    -------- -----------------------------------------------
+* 1.0   dc     07/21/19 Initial version
+*
+* </pre>
+*
+******************************************************************************/
+
+#include "xrfclk.h"
+#include "xstatus.h"
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+
+#ifdef __BAREMETAL__
+#include "platform.h"
+#include "xil_printf.h"
+#else
+#include <errno.h>
+#include <sys/fcntl.h>
+#endif
+
+static u32 data[256];
+static int resetAll()
+{
+	int ret = EXIT_FAILURE;
+	printf("\nReset LMK");
+	if (XST_FAILURE == XRFClk_ResetChip(RFCLK_LMK)) {
+		printf("\nFailure in XRFClk_ResetChip(RFCLK_LMK)");
+		goto ret_jump;
+	} else
+		printf("      Pass");
+	printf("\nReset LMX2594_1");
+	if (XST_FAILURE == XRFClk_ResetChip(RFCLK_LMX2594_1)) {
+		printf("\nFailure in XRFClk_ResetChip(RFCLK_LMX2594_1)");
+		goto ret_jump;
+	} else
+		printf("      Pass");
+	printf("\nReset LMX2594_2");
+	if (XST_FAILURE == XRFClk_ResetChip(RFCLK_LMX2594_2)) {
+		printf("\nFailure in XRFClk_ResetChip(RFCLK_LMX2594_2)");
+		goto ret_jump;
+	} else
+		printf("      Pass");
+#ifdef XPS_BOARD_ZCU111
+	printf("\nReset LMX2594_3");
+	if (XST_FAILURE == XRFClk_ResetChip(RFCLK_LMX2594_3)) {
+		printf("\nFailure in XRFClk_ResetChip(RFCLK_LMX2594_3)");
+		goto ret_jump;
+	} else
+		printf("      Pass");
+#endif
+	ret = EXIT_SUCCESS;
+ret_jump:
+	return ret;
+}
+
+static int getConfigAll()
+{
+	int i;
+	int ret = EXIT_FAILURE;
+
+	printf("\nGet config from ID on LMX2594_1");
+	if (XST_FAILURE == XRFClk_GetConfigFromOneChip(RFCLK_LMX2594_1, data)) {
+		printf("\nFailure in XRFClk_ResetChip(RFCLK_LMX2594_1)");
+		goto ret_jump;
+	} else {
+		printf("      Pass");
+		printf("\nLMX2594 config data are:\n");
+		for (i = 0; i < LMX2594_COUNT; i++)
+			printf("%x,", data[i]);
+	}
+	printf("\nGet config from ID on LMX2594_2");
+	if (XST_FAILURE == XRFClk_GetConfigFromOneChip(RFCLK_LMX2594_2, data)) {
+		printf("\nFailure in XRFClk_ResetChip(RFCLK_LMX2594_2)");
+		goto ret_jump;
+	} else {
+		printf("      Pass");
+		printf("\nLMX2594 config data are:\n");
+		for (i = 0; i < LMX2594_COUNT; i++)
+			printf("%x,", data[i]);
+	}
+#ifdef XPS_BOARD_ZCU111
+	printf("\nGet config from ID on LMX2594_3");
+	if (XST_FAILURE == XRFClk_GetConfigFromOneChip(RFCLK_LMX2594_3, data)) {
+		printf("\nFailure in XRFClk_ResetChip(RFCLK_LMX2594_3)");
+		goto ret_jump;
+	} else {
+		printf("      Pass");
+		printf("\nLMX2594 config data are:\n");
+		for (i = 0; i < LMX2594_COUNT; i++)
+			printf("%x,", data[i]);
+	}
+#else
+	printf("\nGet config from ID on LMK");
+	if (XST_FAILURE == XRFClk_GetConfigFromOneChip(RFCLK_LMK, data)) {
+		printf("\nFailure in XRFClk_ResetChip(RFCLK_LMK)");
+		goto ret_jump;
+	} else {
+		printf("      Pass");
+		printf("\nLMK config data are:\n");
+		for (i = 0; i < LMK_COUNT; i++)
+			printf("%x,", data[i]);
+	}
+#endif
+	ret = EXIT_SUCCESS;
+ret_jump:
+	return ret;
+}
+
+int main()
+{
+	int ret = EXIT_FAILURE;
+	printf("\n----------- START ------------\n");
+	XRFClk_Init();
+
+	/* Reset */
+	if (resetAll() == EXIT_FAILURE)
+		goto ret_jump;
+
+	/* Write/Read dummy value to LMX2594 */
+	u32 d = 0x20112;
+	printf("\nWrite dummy data to register in LMX2594_1");
+	if (XST_FAILURE == XRFClk_WriteReg(RFCLK_LMX2594_1, d)) {
+		printf("\nFailure in XRFClk_WriteReg(RFCLK_LMX2594_1)");
+		goto ret_jump;
+	} else
+		printf("      Pass");
+	printf("\nRead and validate register value in LMX2594_1");
+	if (XST_FAILURE == XRFClk_ReadReg(RFCLK_LMX2594_1, &d)) {
+		printf("\nFailure in XRFClk_ReadReg(RFCLK_LMX2594_1)");
+		goto ret_jump;
+	}
+	printf("\nread value = %x      Pass", d);
+	d = 0x20212;
+	/* Write/Read dummy value to LMX2594 */
+	printf("\nWrite dummy data to register in LMX2594_1");
+	if (XST_FAILURE == XRFClk_WriteReg(RFCLK_LMX2594_2, d)) {
+		printf("\nFailure in XRFClk_WriteReg(RFCLK_LMX2594_2)");
+		goto ret_jump;
+	} else
+		printf("      Pass");
+	printf("\nRead and validate register value in LMX2594_1");
+	if (XST_FAILURE == XRFClk_ReadReg(RFCLK_LMX2594_2, &d)) {
+		printf("\nFailure in XRFClk_ReadReg(RFCLK_LMX2594_2)");
+		goto ret_jump;
+	}
+	printf("\nread value = %x      Pass", d);
+#ifdef XPS_BOARD_ZCU111
+	d = 0x20312;
+	/* Write/Read dummy value to LMX2594 */
+	printf("\nWrite dummy data to register in LMX2594_3");
+	if (XST_FAILURE == XRFClk_WriteReg(RFCLK_LMX2594_3, d)) {
+		printf("\nFailure in XRFClk_WriteReg(RFCLK_LMX2594_3)");
+		goto ret_jump;
+	} else
+		printf("      Pass");
+	printf("\nRead and validate register value in LMX2594_3");
+	if (XST_FAILURE == XRFClk_ReadReg(RFCLK_LMX2594_3, &d)) {
+		printf("\nFailure in XRFClk_ReadReg(RFCLK_LMX2594_3)");
+		goto ret_jump;
+	}
+	printf("\nread value = %x      Pass", d);
+#endif
+
+	/* Set config with ID */
+	printf("\nSet config from ID on LMK");
+	if (XST_FAILURE ==
+	    XRFClk_SetConfigOnOneChipFromConfigId(RFCLK_LMK, 0)) {
+		printf("\nFailure in XRFClk_ResetChip(RFCLK_LMK)");
+		goto ret_jump;
+	} else
+		printf("      Pass");
+	printf("\nSet config from ID on LMX2594_1");
+	if (XST_FAILURE ==
+	    XRFClk_SetConfigOnOneChipFromConfigId(RFCLK_LMX2594_1, 0)) {
+		printf("\nFailure in XRFClk_ResetChip(RFCLK_LMX2594_1)");
+		goto ret_jump;
+	} else
+		printf("      Pass");
+	printf("\nSet config from ID on LMX2594_2");
+	if (XST_FAILURE ==
+	    XRFClk_SetConfigOnOneChipFromConfigId(RFCLK_LMX2594_2, 1)) {
+		printf("\nFailure in XRFClk_ResetChip(RFCLK_LMX2594_2)");
+		goto ret_jump;
+	} else
+		printf("      Pass");
+#ifdef XPS_BOARD_ZCU111
+	printf("\nSet config from ID on LMX2594_3");
+	if (XST_FAILURE ==
+	    XRFClk_SetConfigOnOneChipFromConfigId(RFCLK_LMX2594_3, 2)) {
+		printf("\nFailure in XRFClk_ResetChip(RFCLK_LMX2594_3)");
+		goto ret_jump;
+	} else
+		printf("      Pass");
+#endif
+
+	/* Get config from chip */
+	if (getConfigAll() == EXIT_FAILURE)
+		goto ret_jump;
+
+	/* wait a little */
+	sleep(1);
+	/* Reset */
+	if (resetAll() == EXIT_FAILURE)
+		goto ret_jump;
+
+	/* Set config on all chips */
+	printf("\nSet config on all RF chips");
+#ifdef XPS_BOARD_ZCU111
+	if (XST_FAILURE == XRFClk_SetConfigOnAllChipsFromConfigId(1, 2, 3, 4)) {
+#else
+	if (XST_FAILURE == XRFClk_SetConfigOnAllChipsFromConfigId(1, 2, 3)) {
+#endif
+		printf("\nFailure in XRFClk_SetConfigOnAllChipsFromConfigId()");
+		goto ret_jump;
+	} else
+		printf("      Pass");
+
+	/* Get config from chip */
+	if (getConfigAll() == EXIT_FAILURE)
+		goto ret_jump;
+
+	printf("\n----------- STOP ------------\n");
+	XRFClk_Close();
+
+	ret = EXIT_SUCCESS;
+ret_jump:
+	return ret;
+}
