@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -1961,7 +1961,7 @@ XStatus XPmPin_Init(XPm_PinNode *Pin, u32 PinId, u32 BaseAddress)
 	Pin->Groups = PmPinGroups[PinIdx].GroupList;
 	Pin->NumGroups = PmPinGroups[PinIdx].GroupCount;
 	Pin->PinFunc = NULL;
-	Pin->SubsysId = INVALID_SUBSYSID;
+	Pin->SubsysIdx = XPM_NODEIDX_SUBSYS_MAX;
 
 	if (PinIdx <= PINS_PER_BANK) {
 		Pin->Bank = 0;
@@ -2398,15 +2398,15 @@ XStatus XPmPin_Request(const u32 SubsystemId, const u32 PinId)
 		goto done;
 	}
 
-	if (Pin->SubsysId != INVALID_SUBSYSID) {
-		if (SubsystemId == Pin->SubsysId) {
+	if (Pin->SubsysIdx != XPM_NODEIDX_SUBSYS_MAX) {
+		if (Pin->SubsysIdx == NODEINDEX(SubsystemId)) {
 			goto done;
 		}
 		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
 
-	Pin->SubsysId = SubsystemId;
+	Pin->SubsysIdx = NODEINDEX(SubsystemId);
 
 done:
 	return Status;
@@ -2433,12 +2433,12 @@ XStatus XPmPin_Release(const u32 SubsystemId, const u32 PinId)
 		goto done;
 	}
 
-	if (SubsystemId != Pin->SubsysId) {
+	if (Pin->SubsysIdx != NODEINDEX(SubsystemId)) {
 		Status = XST_FAILURE;
 		goto done;
 	}
 
-	Pin->SubsysId = INVALID_SUBSYSID;
+	Pin->SubsysIdx = XPM_NODEIDX_SUBSYS_MAX;
 
 done:
 	return Status;
@@ -2466,7 +2466,7 @@ XStatus XPmPin_CheckPerms(const u32 SubsystemId, const u32 PinId)
 		goto done;
 	}
 
-	if (SubsystemId != Pin->SubsysId) {
+	if (Pin->SubsysIdx != NODEINDEX(SubsystemId)) {
 		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
