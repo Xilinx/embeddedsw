@@ -74,19 +74,19 @@ extern "C" {
  * in clock topology. It can be mux/div/gate/fixed factor.
  */
 struct XPm_ClkTopologyNode {
-	uint8_t Type;
+	u32 Reg;
 	uint16_t Clkflags;
 	uint16_t Typeflags;
-	u32 Reg;
 	union {uint8_t Shift; uint8_t Mult;}Param1;
 	union {uint8_t Width; uint8_t Div;}Param2;
+	uint8_t Type;
 };
 
 typedef struct XPm_ClkTopology {
-	uint16_t Id;
-	uint16_t NumNodes;
-	u8 MuxSources[MAX_MUX_PARENTS];
 	struct XPm_ClkTopologyNode(*Nodes)[];
+	uint8_t Id;
+	uint8_t NumNodes;
+	u8 MuxSources[MAX_MUX_PARENTS];
 }XPm_ClkTopology;
 
 typedef struct XPm_ClockNode XPm_ClockNode;
@@ -100,7 +100,7 @@ struct XPm_ClockNode {
 	char Name[MAX_NAME_BYTES];
 	u8 NumParents;
 	u8 Flags;
-	u16 UseCount;
+	u8 UseCount;
 	u32 ParentId;
 	XPm_ClockHandle *ClkHandles; /**< Pointer to the clock/device pairs */
 	XPm_Power *PwrDomain;
