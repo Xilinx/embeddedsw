@@ -582,13 +582,13 @@ enum PmPinGrpIds {
  * The Pin Function class.
  */
 struct XPm_PinFunc {
-	u32 Id; /**< Function ID */
 	char Name[FUNC_NAME_SIZE]; /**< Function name */
-	u32 DevIdx; /**< Device index for this function */
+	u8 Id; /**< Function ID */
+	u8 NumPins; /**< Number of pins needed for this function */
+	u8 NumGroups; /**< Number of groups for this function */
+	u16 DevIdx; /**< Device index for this function */
 	u16 LmioRegMask; /**< Register mask value to select this function */
 	u16 PmioRegMask; /**< Register mask value to select this function */
-	u8 NumPins; /**< Number of pins needed for this function */
-	u16 NumGroups; /**< Number of groups for this function */
 	u16 *Groups; /**< Array of group identifier */
 };
 
