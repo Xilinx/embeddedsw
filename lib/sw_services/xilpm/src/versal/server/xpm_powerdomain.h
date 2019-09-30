@@ -63,8 +63,8 @@ struct XPm_PowerDomain {
 	XPm_Power Power; /**< Power: Power node base class */
 	XPm_Power *Children; /**< List of children power nodes */
 	struct XPm_PowerDomainOps *DomainOps; /**< house cleaning operations */
-	u32 InitMask; /**< Mask to indicate house cleaning functions present */
-	u32 InitFlag; /**< Flag to indicate house cleaning functions performed */
+	u16 InitMask; /**< Mask to indicate house cleaning functions present */
+	u16 InitFlag; /**< Flag to indicate house cleaning functions performed */
 };
 
 /************************** Function Prototypes ******************************/
