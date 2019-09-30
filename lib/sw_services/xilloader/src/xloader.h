@@ -165,11 +165,11 @@ enum XLOADER_PDI_SRC {
 /* Multiboot register offset mask */
 #define XLOADER_MULTIBOOT_OFFSET_MASK    	(0x001FFFFF)
 
-/* Minor Error codes for Major Error code: XLOADER_ERR_IDCODE */
-#define XLOADER_ERR_IDCODE			(0x1U) /**< IDCODE mismatch */
+/* Minor Error codes for Major Error code: XLOADER_ERR_GEN_IDCODE */
+#define XLOADER_ERR_IDCODE		(0x1U) /**< IDCODE mismatch */
 #define XLOADER_ERR_EXT_IDCODE		(0x2U) /**< EXTENDED IDCODE mismatch */
 #define XLOADER_ERR_EXT_ID_SI		(0x3U) /**< Invalid combination of
-										EXTENDED IDCODE - Device */
+						EXTENDED IDCODE - Device */
 
 /**************************** Type Definitions *******************************/
 
