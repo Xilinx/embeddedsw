@@ -99,7 +99,7 @@ XStatus XPmClockPll_AddParent(u32 Id, u32 *Parents, u8 NumParents)
 		Status = XST_INVALID_PARAM;
 		goto done;
 	} else {
-		PllPtr->ClkNode.ParentId = Parents[0];
+		PllPtr->ClkNode.ParentIdx = NODEINDEX(Parents[0]);
 	}
 
 done:
@@ -452,7 +452,7 @@ int XPmClockPll_QueryMuxSources(u32 Id, u32 Index, u32 *Resp)
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-	Resp[0] = NODEINDEX(PllPtr->ClkNode.ParentId);
+	Resp[0] = PllPtr->ClkNode.ParentIdx;
 	Resp[1] = 0xFFFFFFFF;
 
 done:

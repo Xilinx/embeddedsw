@@ -344,11 +344,11 @@ XStatus XPmClock_AddParent(u32 Id, u32 *Parents, u8 NumParents)
 		 * For mux clocks, parents are initialized when clock
 		 * requested. So assign invalid clock parent by default.
 		 */
-		ClkPtr->ClkNode.ParentId = CLOCK_PARENT_INVALID;
+		ClkPtr->ClkNode.ParentIdx = CLOCK_PARENT_INVALID;
 	} else {
 		ParentClk = XPmClock_GetByIdx(ClkPtr->Topology.MuxSources[0]);
 		if (NULL != ParentClk) {
-			ClkPtr->ClkNode.ParentId = ParentClk->Node.Id;
+			ClkPtr->ClkNode.ParentIdx = NODEINDEX(ParentClk->Node.Id);
 		}
 	}
 
@@ -464,7 +464,7 @@ static void XPmClock_InitParent(XPm_OutClockNode *Clk)
 		/* Update new parent id */
 		ParentClk = XPmClock_GetByIdx(Clk->Topology.MuxSources[ParentIdx]);
 		if (NULL != ParentClk) {
-			Clk->ClkNode.ParentId = ParentClk->Node.Id;
+			Clk->ClkNode.ParentIdx = NODEINDEX(ParentClk->Node.Id);
 		}
 	}
 
@@ -476,15 +476,16 @@ static void XPmClock_RequestInt(XPm_ClockNode *Clk)
 	if (Clk != NULL) {
 		if (0 == Clk->UseCount) {
 			/* Initialize the parent if not done before */
-			if (CLOCK_PARENT_INVALID == Clk->ParentId) {
+			if (CLOCK_PARENT_INVALID == Clk->ParentIdx) {
 				XPmClock_InitParent((XPm_OutClockNode *)Clk);
 			}
 
 			/* Request the parent first */
-			if (ISOUTCLK(Clk->ParentId)) {
-				XPmClock_RequestInt(XPmClock_GetById(Clk->ParentId));
-			} else if (ISPLL(Clk->ParentId)) {
-				XPmClockPll_Request(Clk->ParentId);
+			XPm_ClockNode *ParentClk = XPmClock_GetByIdx(Clk->ParentIdx);
+			if (ISOUTCLK(ParentClk->Node.Id)) {
+				XPmClock_RequestInt(ParentClk);
+			} else if (ISPLL(ParentClk->Node.Id)) {
+				XPmClockPll_Request(ParentClk->Node.Id);
 			}
 
 			/* Mark it as requested. If clock has a gate, state will be changed to On when enabled */
@@ -538,10 +539,11 @@ static void XPmClock_ReleaseInt(XPm_ClockNode *Clk)
 			XPmClock_SetGate((XPm_OutClockNode *)Clk, 0);
 
 			/* Release the clock parent */
-			if (ISOUTCLK(Clk->ParentId)) {
-				XPmClock_ReleaseInt(XPmClock_GetById(Clk->ParentId));
-			} else if (ISPLL(Clk->ParentId)) {
-				XPmClockPll_Release(Clk->ParentId);
+			XPm_ClockNode *ParentClk = XPmClock_GetByIdx(Clk->ParentIdx);
+			if (ISOUTCLK(ParentClk->Node.Id)) {
+				XPmClock_ReleaseInt(ParentClk);
+			} else if (ISPLL(ParentClk->Node.Id)) {
+				XPmClockPll_Release(ParentClk->Node.Id);
 			}
 		}
 	}
@@ -608,6 +610,7 @@ XStatus XPmClock_SetParent(XPm_OutClockNode *Clk, u32 ParentIdx)
 	u32 Status = XST_SUCCESS;
 	struct XPm_ClkTopologyNode *Ptr;
 	XPm_ClockNode *ParentClk = NULL;
+	XPm_ClockNode *OldParentClk = NULL;
 
 	Ptr = XPmClock_GetTopologyNode(Clk, TYPE_MUX);
 	if (Ptr == NULL) {
@@ -632,15 +635,15 @@ XStatus XPmClock_SetParent(XPm_OutClockNode *Clk, u32 ParentIdx)
 	XPm_RMW32(Ptr->Reg, BITNMASK(Ptr->Param1.Shift,Ptr->Param2.Width), ParentIdx << Ptr->Param1.Shift);
 
 	/* Release old parent */
-	if (ISOUTCLK(Clk->ClkNode.ParentId)) {
-		XPmClock_ReleaseInt(XPmClock_GetById(Clk->ClkNode.ParentId));
-	}
-	else if (ISPLL(Clk->ClkNode.ParentId)) {
-		XPmClockPll_Release(Clk->ClkNode.ParentId);
+	OldParentClk = XPmClock_GetByIdx(Clk->ClkNode.ParentIdx);
+	if (ISOUTCLK(OldParentClk->Node.Id)) {
+		XPmClock_ReleaseInt(OldParentClk);
+	} else if (ISPLL(OldParentClk->Node.Id)) {
+		XPmClockPll_Release(OldParentClk->Node.Id);
 	}
 
-	/* Update new parent id */
-	Clk->ClkNode.ParentId = ParentClk->Node.Id;
+	/* Update new parent idx */
+	Clk->ClkNode.ParentIdx = NODEINDEX(ParentClk->Node.Id);
 
 done:
 	return Status;

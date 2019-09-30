@@ -98,10 +98,10 @@ typedef struct XPm_ClockHandle XPm_ClockHandle;
 struct XPm_ClockNode {
 	XPm_Node Node;
 	char Name[MAX_NAME_BYTES];
+	u16 ParentIdx;
 	u8 NumParents;
 	u8 Flags;
 	u8 UseCount;
-	u32 ParentId;
 	XPm_ClockHandle *ClkHandles; /**< Pointer to the clock/device pairs */
 	XPm_Power *PwrDomain;
 };
