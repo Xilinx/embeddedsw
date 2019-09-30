@@ -131,7 +131,7 @@ static void XPuf_Capture_PufID(XPuf_Data *PufData);
  * @note	None.
  *
  ******************************************************************************/
-u32 XPuf_Puf_Registration(XPuf_Data *PufData)
+u32 XPuf_Registration(XPuf_Data *PufData)
 {
 	u32 Status = XST_FAILURE;
 	u32 MaxSyndromeSizeInWords;
@@ -235,7 +235,7 @@ END:
  * @note	None.
  *
  ******************************************************************************/
-u32 XPuf_Puf_Regeneration(XPuf_Data *PufData)
+u32 XPuf_Regeneration(XPuf_Data *PufData)
 {
 	u32 Status = XST_FAILURE;
 	u32 PufChash;

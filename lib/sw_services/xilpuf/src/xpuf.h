@@ -129,8 +129,8 @@ typedef struct {
 
 /*************************** Function Prototypes ******************************/
 
-u32 XPuf_Puf_Registration(XPuf_Data *PufData);
-u32 XPuf_Puf_Regeneration(XPuf_Data *PufData);
+u32 XPuf_Registration(XPuf_Data *PufData);
+u32 XPuf_Regeneration(XPuf_Data *PufData);
 
 #ifdef __cplusplus
 }

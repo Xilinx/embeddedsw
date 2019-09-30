@@ -26,7 +26,7 @@
 /*****************************************************************************/
 /**
  *
- * @file xpuf_regeneration_example.c
+ * @file xilpuf_regeneration_example.c
  *
  * This file illustrates PUF regeneration.
  *
@@ -96,7 +96,7 @@ int main()
 		PufData.SyndromeAddr = XPUF_SYN_DATA_ADDRESS;
 	}
 
-	Status = XPuf_Puf_Regeneration(&PufData);
+	Status = XPuf_Regeneration(&PufData);
 
 	if (Status != XST_SUCCESS) {
 		xPuf_printf(XPUF_DEBUG_INFO,
