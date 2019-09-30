@@ -51,13 +51,13 @@ struct XPm_CoreOps {
  */
 struct XPm_Core {
 	XPm_Device Device; /**< Device: Base class */
-	u8 DebugMode; /**< DebugMode: Debugger is connected */
 	u32 ImageId; /**< ImageId: Image ID */
-	u8 Ipi; /**< IPI channel */
 	u64 ResumeAddr;
 	struct XPm_CoreOps *CoreOps; /**< Core operations */
-	u32 SleepMask;
-	u32 PwrDwnMask;
+	u8 DebugMode; /**< DebugMode: Debugger is connected */
+	u8 Ipi; /**< IPI channel */
+	u8 SleepMask;
+	u8 PwrDwnMask;
 };
 
 /************************** Function Prototypes ******************************/
