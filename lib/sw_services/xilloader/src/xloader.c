@@ -309,7 +309,7 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 		Status = XLoader_IdCodeCheck(&(PdiPtr->MetaHdr.ImgHdrTable));
 		if (XST_SUCCESS != Status) {
 			XPlmi_Printf(DEBUG_GENERAL, "IDCODE Checks failed\n\r");
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_IMGHDR_TBL, Status);
+			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_GEN_IDCODE, Status);
 			goto END;
 		}
 	}
@@ -1067,15 +1067,15 @@ XStatus XLoader_IdCodeCheck(XilPdi_ImgHdrTable * ImgHdrTable)
 
 
 	/*
-	*	EXT_IDCODE
-	*	[26:14]is0?	VC1902-ES1?	BYPASS?	Checks done
-	*	--------------------------------------------------------------------
-	*	Y			Y			Y		Check IDCODE[27:0] (skip Si Rev chk)
-	*	Y			Y			N		Check IDCODE[31:0]
-	*	Y			N			X		Invalid combination (Error out)
-	*	N			X			Y		Check IDCODE[27:0] (skip Si Rev chk), check ext_idcode
-	*	N			X			N		Check IDCODE[31:0], check ext_idcode
-	*	--------------------------------------------------------------------
+	*  EXT_IDCODE
+	*  [26:14]is0?  VC1902-ES1?  BYPASS?  Checks done
+	*  --------------------------------------------------------------------
+	*  Y            Y            Y        Check IDCODE[27:0] (skip Si Rev chk)
+	*  Y		Y            N        Check IDCODE[31:0]
+	*  Y		N            X        Invalid combination (Error out)
+	*  N		X            Y        Check IDCODE[27:0] (skip Si Rev chk), check ext_idcode
+	*  N		X            N        Check IDCODE[31:0], check ext_idcode
+	*  --------------------------------------------------------------------
 	*/
 
 	/*

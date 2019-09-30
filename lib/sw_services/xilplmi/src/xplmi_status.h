@@ -251,7 +251,7 @@ enum {
 					 unsupported secondary boot mode */
 	XLOADER_ERR_SECURE_METAHDR,	/**< 0x325 - Error when meta header
 					  secure validations fail. */
-	XLOADER_ERR_IDCODE,			/**< 0X326 - Error caused due to
+	XLOADER_ERR_GEN_IDCODE,		/**< 0X326 - Error caused due to
 						mismatch in IDCODEs */
 };
 
