@@ -24,7 +24,7 @@
 
 /*****************************************************************************/
 /**
-* @file xnvm_bbram_versal_example.c
+* @file xilnvm_bbram_versal_example.c
 * @addtogroup xnvm_apis XilNvm APIs
 * @{
 * This file illustrates how to program AES key of Versal BBRAM. The key provided

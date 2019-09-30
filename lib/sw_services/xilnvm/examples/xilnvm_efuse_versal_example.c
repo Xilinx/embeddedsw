@@ -26,7 +26,7 @@
 /*****************************************************************************/
 /**
  *
- * @file xnvm_efuse_versal_example.c
+ * @file xilnvm_efuse_versal_example.c
  * @addtogroup xnvm_efuse_versal_example	XilNvm eFuse API Usage
  * @{
  *
