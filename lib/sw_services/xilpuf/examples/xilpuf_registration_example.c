@@ -26,7 +26,7 @@
 /*****************************************************************************/
 /**
  *
- * @file xpuf_registration_example.c
+ * @file xilpuf_registration_example.c
  *
  * This file illustrates PUF registration.
  *
@@ -76,7 +76,7 @@ int main()
 
 	PufData.RegMode = XPUF_4K_SYNDROME_MODE;
 	PufData.ShutterValue = XPUF_SHUTTER_VALUE;
-	Status = XPuf_Puf_Registration(&PufData);
+	Status = XPuf_Registration(&PufData);
 
 	if (Status == XPUF_ERROR_SYNDROME_DATA_OVERFLOW) {
 		xPuf_printf(XPUF_DEBUG_INFO,
