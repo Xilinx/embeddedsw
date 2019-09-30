@@ -82,7 +82,7 @@ struct XPm_ResetHandle {
  */
 struct XPm_ResetNode {
 	XPm_Node Node;
-	u32 Parents[MAX_RESET_PARENTS];
+	u16 Parents[MAX_RESET_PARENTS]; /**< List of Parent Reset Index */
 	uint8_t Shift;
 	uint8_t Width;
 	XPm_ResetOps *Ops;

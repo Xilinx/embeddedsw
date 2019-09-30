@@ -79,7 +79,7 @@ static XStatus XPmReset_Init(XPm_ResetNode *Rst, u32 Id, u32 ControlReg, u8 Shif
 	Rst->Ops = &ResetOps[ResetType];
 
 	for (i=0; i<NumParents; i++) {
-		Rst->Parents[i] = Parents[i];
+		Rst->Parents[i] = NODEINDEX(Parents[i]);
 	}
 
 	return Status;
