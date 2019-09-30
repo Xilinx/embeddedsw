@@ -32,7 +32,7 @@
 #include "xpm_psfpdomain.h"
 #include "xpm_pslpdomain.h"
 
-#define MAX_BYTEBUFFER_SIZE	(48 * 1024)
+#define MAX_BYTEBUFFER_SIZE	(32 * 1024)
 static u8 ByteBuffer[MAX_BYTEBUFFER_SIZE];
 static u8 *FreeBytes = ByteBuffer;
 
