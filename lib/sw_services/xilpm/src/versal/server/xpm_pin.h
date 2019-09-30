@@ -67,14 +67,14 @@ typedef struct XPm_PinNode XPm_PinNode;
  */
 struct XPm_PinNode {
 	XPm_Node Node; /**< Node: Base class */
-	u8 Bank; /**< Specifies the bank number */
-	u8 BiasStatus; /**< BiasStatus: 0 – Disable; 1 – Enable */
-	u8 PullCtrl; /**< PullCtrl: 0 – Pull Down; 1 – Pull Up */
-	u8 TriState; /**< TriState: 0 – Disable; 1 – Enable */
 	XPm_PinFunc *PinFunc; /**< Function that this pin is allocated to */
-	u16 NumGroups; /**< Number of function groups allocated to this pin */
 	u16 *Groups; /**< Array of group identifier supported by this pin */
-	u32 SubsysId;  /**< SubsystemId of the owner who is using this pin */
+	u16 SubsysIdx;  /**< Subsystem Idx of the owner who is using this pin */
+	u8 NumGroups; /**< Number of function groups allocated to this pin */
+	u8 Bank:2; /**< Specifies the bank number */
+	u8 BiasStatus:1; /**< BiasStatus: 0 – Disable; 1 – Enable */
+	u8 PullCtrl:1; /**< PullCtrl: 0 – Pull Down; 1 – Pull Up */
+	u8 TriState:1; /**< TriState: 0 – Disable; 1 – Enable */
 };
 
 /************************** Function Prototypes ******************************/
