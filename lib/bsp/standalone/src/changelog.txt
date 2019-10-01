@@ -590,4 +590,29 @@
  * 7.0 mus    04/08/19  Fix microblaze_disable_dcache for 64 bit microblaze
  * 7.0 mus    04/26/19  Added frequently used functions in common area in xil_utils.c,
  *                      so that other modules can make use of it.
+ * 7.1 mus    03/29/19  Updated standalone tcl to export trustzone information of
+ *                      Cortexr5 processor and different SLCR register space being
+ *                      accessed in Cortexr5 BSP. Files src/arm/cortexr5/gcc/xil-crt0.S,
+ *                      arm/cortexr5/gcc/boot.S and arm/common/xil_sleeptimer.c have been 
+ *                      updated to skip access to the secure address space if processor is
+ *                      marked as non secure in trustzone setting. It fixes CR#1015725.
+ * 7.1 aru    04/16/19  Updated arm/cortexr5/xpm_counter.c and arm/cortexr5/xpm_counter.h
+ *                      to fix Cortexr5 events.
+ * 7.1 sk     07/26/19  Updated src/arm/cortexr5/xil_mpu.c to fix infinite loop in
+ *                      Xil_MemMap API. It fixes CR#1032910
+ * 7.1 mus    07/30/19  Updated arm/ARMv8/32bit/xil_mmu.h to add #defines related to memory
+ *                      attributes.
+ * 7.1 mus    06/08/19  Updated arm/ARMv8/64bit/xil_smc.h with SMC ID's of Versal.
+ * 7.1 mus    29/08/19  Updated arm/ARMv8/64bit/platform/versal/translation_table.S to mark
+ *                      DDR_CH_1, DDR_CH_2 and DDR_CH_3 region as memory based on their 
+ *                      respective sizes in HW design.
+ * 7.1 scs    09/09/19  Updated inline assembly macros in microblaze/mb_interface.h to fix
+ *                      MISRA-C mandatory violations.
+ * 7.1 mus    09/09/19  In case, if DDR size is not in power of 2, Cortexr5 BSP maps range
+ *                      of memory as "normal memory", where "real" memory is not present in that
+ *                      memory region. This behavior is due to Cortexr5 MPU restriction,
+ *                      which allows MPU size only in power of 2. Updated Init_MPU funcion 
+ *                      in Cortexr5 BSP, to print warning, if DDR size is not in 
+ *                      power of 2. This has been done to warn users about incorrect mapping
+ *                      for specific memory region. It fixes CR#1038577.
  *****************************************************************************************/
