@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2011 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -92,7 +92,7 @@
  * because it is the value the timer counter is loaded with when it is started
  */
 #define RESET_VALUE_CNTR_0	 0xF0000000
-#define RESET_VALUE_CNTR_1	 0xFFFFFF00
+#define RESET_VALUE_CNTR_1	 0xFFFFFFFE
 
 
 
