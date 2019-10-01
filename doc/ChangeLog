@@ -178,6 +178,16 @@ Added power down permission check for processor and PLL nodes in
 Added support for RPU only subsystem restart case
 Handling PLL lock errors correctly when updating PLLs
 
+rfdc_v7_0:
+Added support for VOP for GEN3 devices.
+Added support for DSA for GEN3 devices.
+Added a get enabled interrupts API.
+Fixed minor NCO offset issue.
+Fixed calibration mode issue for GEN1/2 devices.
+Added API for registering RFDC with libmetal.
+Added support for reporting DAC current on GEN3 devices.
+Refactor of Clock distribution.
+
 Changes for 2019.1
 ===============================
 v_hdmiphy1_v1_0:
