@@ -527,13 +527,13 @@ void XUsbPsu_InitializeEps(struct XUsbPsu *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	for (i = 0U; i < InstancePtr->NumOutEps; i++) {
-		Epnum = (i << 1U) | XUSBPSU_EP_DIR_OUT;
+		Epnum = PhysicalEp(i, XUSBPSU_EP_DIR_OUT);
 		InstancePtr->eps[Epnum].PhyEpNum = Epnum;
 		InstancePtr->eps[Epnum].Direction = XUSBPSU_EP_DIR_OUT;
 		InstancePtr->eps[Epnum].ResourceIndex = 0U;
 	}
 	for (i = 0U; i < InstancePtr->NumInEps; i++) {
-		Epnum = (i << 1U) | XUSBPSU_EP_DIR_IN;
+		Epnum = PhysicalEp(i, XUSBPSU_EP_DIR_IN);
 		InstancePtr->eps[Epnum].PhyEpNum = Epnum;
 		InstancePtr->eps[Epnum].Direction = XUSBPSU_EP_DIR_IN;
 		InstancePtr->eps[Epnum].ResourceIndex = 0U;
