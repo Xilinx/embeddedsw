@@ -117,6 +117,13 @@ Added message regarding deprecation of Xilisf.
 xilffs_v4_2:
 Initialize Status variables with failure values
 
+xilpm_v2_4:
+Add versal server library code to xilpm (earlier it was in xillibpm)
+Add versal client library code to xilpm (earlier it was in xillibpm)
+Change xilpm directory structure to add support for versal
+Initialize status variable with XST_FAILURE in all function
+Modifies watchdog timer to avoid trip during secure operation
+
 xilskey_v6_8:
 Fixed MISRAC violations and coverity warnings
 Updated doxygen comments.
