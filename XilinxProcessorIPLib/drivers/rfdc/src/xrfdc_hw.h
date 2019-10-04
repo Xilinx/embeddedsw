@@ -84,6 +84,7 @@
 *       cog    09/18/19 Wider mask now needed for DAC Fabric Rate.
 *       cog    09/18/19 Added mask for bypassing PLL output divider.
 *       cog    10/02/19 Added mask for clock divider.
+*       cog    10/02/19 Added mask for PLL output clock divider.
 *
 *</pre>
 *
@@ -1862,6 +1863,7 @@ extern "C" {
 
 #define XRFDC_PLL_DIVIDER0_MASK 0x00FFU
 #define XRFDC_PLL_DIVIDER0_MODE_MASK 0x00C0U
+#define XRFDC_PLL_DIVIDER0_BYP_OPDIV_MASK 0x0400U
 #define XRFDC_PLL_DIVIDER0_BYP_PLL_MASK 0x0800U
 #define XRFDC_PLL_DIVIDER0_VALUE_MASK 0x003FU
 #define XRFDC_PLL_DIVIDER0_SHIFT 6U
