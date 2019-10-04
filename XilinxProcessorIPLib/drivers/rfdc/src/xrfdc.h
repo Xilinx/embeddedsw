@@ -252,6 +252,7 @@
 *                       that is now static.
 *       cog    10/02/19 Added macros for the clock divider.
 *       cog    10/02/19 Added macro for fabric rate of 16.
+*       cog    10/02/19 Added macros for new VCO ranges.
 *
 * </pre>
 *
@@ -880,6 +881,10 @@ typedef struct {
 #define PLL_DIVIDER_MAX 28U
 #define VCO_RANGE_MIN 8500U
 #define VCO_RANGE_MAX 13200U
+#define VCO_RANGE_ADC_MIN 8500U
+#define VCO_RANGE_ADC_MAX 12800U
+#define VCO_RANGE_DAC_MIN 7800U
+#define VCO_RANGE_DAC_MAX 13800U
 #define XRFDC_PLL_LPF1_VAL 0x6U
 #define XRFDC_PLL_CRS2_VAL 0x7008U
 #define XRFDC_VCO_UPPER_BAND 0x0U

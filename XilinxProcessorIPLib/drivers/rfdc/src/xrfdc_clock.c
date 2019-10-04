@@ -52,6 +52,8 @@
 *                       to previous generations.
 *       cog    09/18/19 Account for different PLL settings for GEN 3 devices.
 *       cog    09/18/19 Fixed issues with clock distribution functionallity.
+*       cog    10/02/19 Updated PLL VCO ranges and reset divide bits while bypassing
+*                       PLL output divider.
 * </pre>
 *
 ******************************************************************************/
@@ -1262,6 +1264,8 @@ static u32 XRFdc_SetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double 
 	u32 FbDivIndex = 0x0U;
 	u32 RefClkDiv = 0x1;
 	u16 ReadReg;
+	u32 VCOMin;
+	u32 VCOMax;
 
 	if (Type == XRFDC_ADC_TILE) {
 		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id);
@@ -1301,10 +1305,24 @@ static u32 XRFdc_SetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double 
 	 * Sweep valid integer values of FeedbackDiv(N) and record a list
 	 * of values that fall in the valid VCO range 8.5GHz - 12.8GHz
 	 */
+
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+		VCOMin = VCO_RANGE_MIN;
+		VCOMax = VCO_RANGE_MAX;
+	} else {
+		if (Type == XRFDC_ADC_TILE) {
+			VCOMin = VCO_RANGE_ADC_MIN;
+			VCOMax = VCO_RANGE_ADC_MAX;
+		} else {
+			VCOMin = VCO_RANGE_DAC_MIN;
+			VCOMax = VCO_RANGE_DAC_MAX;
+		}
+	}
+
 	for (FeedbackDiv = PLL_FPDIV_MIN; FeedbackDiv <= PLL_FPDIV_MAX; FeedbackDiv++) {
 		PllFreq = FeedbackDiv * RefClkFreq;
 
-		if ((PllFreq >= VCO_RANGE_MIN) && (PllFreq <= VCO_RANGE_MAX)) {
+		if ((PllFreq >= VCOMin) && (PllFreq <= VCOMax)) {
 			/*
 			 * Sweep values of OutputDiv(M) to find the output frequency
 			 * that best matches the user requested value
@@ -1380,7 +1398,9 @@ static u32 XRFdc_SetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double 
 		/*
 		 * Set Output divisor value
 		 */
-		if (Best_OutputDiv == 2U) {
+		if (Best_OutputDiv == 1U) {
+			DivideMode = 0x0U;
+		} else if (Best_OutputDiv == 2U) {
 			DivideMode = 0x1U;
 		} else if (Best_OutputDiv == 3U) {
 			DivideMode = 0x2U;
