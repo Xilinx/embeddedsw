@@ -250,6 +250,8 @@
 *       cog    09/18/19 Minumum output divider is now 1 for Gen 3 devices.
 *       cog    09/18/19 Changed clock distribution macros, also removed prototype for a function
 *                       that is now static.
+*       cog    10/02/19 Added macros for the clock divider.
+*       cog    10/02/19 Added macro for fabric rate of 16.
 *
 * </pre>
 *
@@ -970,6 +972,7 @@ typedef struct {
 #define XRFDC_MAX_GAIN_CORR_FACTOR 2.0
 #define XRFDC_MIN_GAIN_CORR_FACTOR 0.0
 
+#define XRFDC_FAB_RATE_16 16
 #define XRFDC_FAB_RATE_8 8
 #define XRFDC_FAB_RATE_4 4
 #define XRFDC_FAB_RATE_2 2
@@ -1130,6 +1133,9 @@ typedef struct {
 #define XRFDC_DAC_VOP_CTRL_TST_BLD_MASK 0x1U
 
 #define XRFDC_PLL_LOCK_DLY_CNT 1000U
+
+#define XRFDC_CLK_DIV_DP_FIRST_MODE 0x10U
+#define XRFDC_CLK_DIV_DP_OTHER_MODES 0x20U
 
 #define XRFDC_TILE_STARTED XRFDC_SM_STATE15
 /*****************************************************************************/

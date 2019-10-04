@@ -174,6 +174,7 @@
 *       cog    09/18/19 Wider mask now needed for DAC Fabric Rate.
 *       cog    09/19/19 Calibration mode 1 does not need the frequency shifting workaround
 *                       for Gen 3 devices.
+*       cog    10/02/19 Added explicit clock divider for datapath modes.
 *
 * </pre>
 *
@@ -3329,6 +3330,9 @@ u32 XRFdc_SetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mod
 	u32 Status = XRFDC_SUCCESS;
 	u32 BaseAddr;
 	u32 NyquistZone;
+	u32 GetClkDiv;
+	u32 SetClkDiv;
+	u32 FabricRate;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
@@ -3345,8 +3349,22 @@ u32 XRFdc_SetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mod
 		return Status;
 	}
 
+	BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id) + XRFDC_HSCOM_ADDR;
+	SetClkDiv = (Mode == XRFDC_DAC_MODE_7G_NQ1) ? XRFDC_CLK_DIV_DP_FIRST_MODE : XRFDC_CLK_DIV_DP_OTHER_MODES;
+	GetClkDiv = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_HSCOM_CLK_DIV_OFFSET, XRFDC_FAB_CLK_DIV_CAL_MASK);
+	if (GetClkDiv != SetClkDiv) {
+		metal_log(METAL_LOG_WARNING,
+			  "\n Setting mode that may not be compatible with other channels on this tile %s\r\n",
+			  __func__);
+	}
+	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_HSCOM_CLK_DIV_OFFSET, XRFDC_FAB_CLK_DIV_CAL_MASK, SetClkDiv);
+
 	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_DATAPATH_OFFSET, XRFDC_DATAPATH_MODE_MASK, Mode);
+
+	FabricRate = (Mode == XRFDC_DAC_MODE_10G_BYPASS) ? XRFDC_FAB_RATE_16 : XRFDC_FAB_RATE_8;
+	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_OFFSET, XRFDC_DAC_FAB_RATE_RD_MASK,
+			(FabricRate << XRFDC_FAB_RATE_RD_SHIFT));
 
 	NyquistZone = (Mode == XRFDC_DAC_MODE_7G_NQ2) ? XRFDC_EVEN_NYQUIST_ZONE : XRFDC_ODD_NYQUIST_ZONE;
 	XRFdc_SetNyquistZone(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, NyquistZone);
