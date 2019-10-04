@@ -118,6 +118,19 @@ int XPlmi_SchedulerHandler(void)
 	XPlmi_TaskNode *Task;
     /* XPlmi_Printf(DEBUG_GENERAL,"Received :XPlmi_SchedulerHandler\n\r"); */
 	XPlmi_UtilRMW(PMC_PMC_MB_IO_IRQ_ACK, PMC_PMC_MB_IO_IRQ_ACK, 0x20);
+
+	/*
+        There is a silicon problem where on 2-4% of Versal ES1 S80 devices
+        you can get 12A of VCCINT_PL current before CFI housecleaning is run.
+        The problem is eliminated when PL Vgg frame housecleaning is run
+        so we need to do that ASAP after PLM is loaded.
+	It is possible that rail is not up at boot, so keep checking at
+	regular interval. Ideally a task should be added and removed once done
+	But scheduler is not working as expected hence adding a direct call
+	TODO: Remove direct call from here when scheduler is fixed
+        */
+        XPmPlDomain_HcleanPl();
+
 	for (Idx = 0U; Idx < XPLMI_SCHED_MAX_TASK; Idx++)
 	{
 		/* Check if the task is triggered and has a valid Callback */
