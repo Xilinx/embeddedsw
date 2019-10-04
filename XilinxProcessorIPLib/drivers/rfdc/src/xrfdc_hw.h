@@ -83,6 +83,7 @@
 *       cog    09/01/19 Added masks/shifts for DSA.
 *       cog    09/18/19 Wider mask now needed for DAC Fabric Rate.
 *       cog    09/18/19 Added mask for bypassing PLL output divider.
+*       cog    10/02/19 Added mask for clock divider.
 *
 *</pre>
 *
@@ -1817,6 +1818,7 @@ extern "C" {
  */
 
 #define XRFDC_FAB_CLK_DIV_MASK 0x0000000FU /**< clk div mask */
+#define XRFDC_FAB_CLK_DIV_CAL_MASK 0x000000F0U /**< clk div cal mask */
 
 /* @} */
 
