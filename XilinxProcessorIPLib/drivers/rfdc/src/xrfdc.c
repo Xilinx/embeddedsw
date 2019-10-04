@@ -175,6 +175,7 @@
 *       cog    09/19/19 Calibration mode 1 does not need the frequency shifting workaround
 *                       for Gen 3 devices.
 *       cog    10/02/19 Added explicit clock divider for datapath modes.
+*       cog    10/02/19 The register value for the link coupling is inverted in Gen 3 Devices.
 *
 * </pre>
 *
@@ -4013,6 +4014,10 @@ u32 XRFdc_GetLinkCoupling(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *Mo
 		*ModePtr = XRFDC_LINK_COUPLING_AC;
 	} else {
 		*ModePtr = XRFDC_LINK_COUPLING_DC;
+	}
+
+	if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
+		*ModePtr = !(*ModePtr); /*logic is inverted for GEN3 devices */
 	}
 
 	Status = XRFDC_SUCCESS;
