@@ -95,6 +95,7 @@ int XLoader_SbiLoadPdi(void *Data)
 	int Status;
 	u32 PdiSrc;
 	u64 PdiAddr;
+	u32 RegVal;
 	XilPdi* PdiPtr = &SubsystemPdiIns;
 
 	(void ) Data;
@@ -108,7 +109,16 @@ int XLoader_SbiLoadPdi(void *Data)
 	XPlmi_PlmIntrDisable(XPLMI_SBI_DATA_RDY);
 
 	/** store the command fields in resume data */
-	PdiSrc = XLOADER_PDI_SRC_SBI;
+	RegVal = XPlmi_In32(SLAVE_BOOT_SBI_CTRL) &
+			SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK;
+	if(RegVal == 0U)
+	{
+		PdiSrc = XLOADER_PDI_SRC_SMAP;
+	}
+	else
+	{
+		PdiSrc = XLOADER_PDI_SRC_SBI;
+	}
 	PdiAddr = 0U;
 
 	XPlmi_Printf(DEBUG_INFO, "SBI PDI Load: Started\n\r");
