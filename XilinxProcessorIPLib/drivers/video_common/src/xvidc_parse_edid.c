@@ -202,9 +202,8 @@ xvidc_disp_edid1(const struct edid * const edid,
         xil_printf("  Product code............. %u\r\n",
                (u16) edid->product_u16);
 
-        if (*(u32 *) edid->serial_number_u32)
-            xil_printf("  Module serial number..... %u\r\n",
-                   (u32) edid->serial_number_u32);
+        xil_printf("  Module serial number..... %u\r\n",
+               (u32) edid->serial_number_u32);
 #endif
 #if defined(DISPLAY_UNKNOWN)
             xil_printf("  Plug and Play ID......... %s\r\n", NULL);

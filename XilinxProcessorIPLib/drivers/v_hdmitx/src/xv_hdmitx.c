@@ -662,7 +662,7 @@ void XV_HdmiTx_ShowSCDC(XV_HdmiTx *InstancePtr)
     /* Verify argument. */
     Xil_AssertVoid(InstancePtr != NULL);
 
-    /* Sink version. Offset Scrambler status */
+    /* Sink version. */
     DdcBuf[0] = 0x01;
     Status = XV_HdmiTx_DdcWrite(InstancePtr, 0x54, 1, (u8*)&DdcBuf, (FALSE));
 
@@ -672,7 +672,17 @@ void XV_HdmiTx_ShowSCDC(XV_HdmiTx *InstancePtr)
         xil_printf("HDMI TX: SCDC 0x01 : %0x\r\n", DdcBuf[0]);
     }
 
-    /* TMDS configuration. Offset Scrambler status */
+    /* Update 0. */
+    DdcBuf[0] = 0x10;
+    Status = XV_HdmiTx_DdcWrite(InstancePtr, 0x54, 1, (u8*)&DdcBuf, (FALSE));
+
+    /* Check if write was successful */
+    if (Status == (XST_SUCCESS)) {
+        Status = XV_HdmiTx_DdcRead(InstancePtr, 0x54, 1, (u8*)&DdcBuf, (TRUE));
+        xil_printf("HDMI TX: SCDC 0x10: %0x\r\n", DdcBuf[0]);
+    }
+
+    /* TMDS configuration. */
     DdcBuf[0] = 0x20;
     Status = XV_HdmiTx_DdcWrite(InstancePtr, 0x54, 1, (u8*)&DdcBuf, (FALSE));
 
@@ -682,7 +692,7 @@ void XV_HdmiTx_ShowSCDC(XV_HdmiTx *InstancePtr)
         xil_printf("HDMI TX: SCDC 0x20 : %0x\r\n", DdcBuf[0]);
     }
 
-    /* Scrambler status. Offset Scrambler status */
+    /* Scrambler status. */
     DdcBuf[0] = 0x21;
     Status = XV_HdmiTx_DdcWrite(InstancePtr, 0x54, 1, (u8*)&DdcBuf, (FALSE));
 
@@ -692,7 +702,7 @@ void XV_HdmiTx_ShowSCDC(XV_HdmiTx *InstancePtr)
         xil_printf("HDMI TX: SCDC 0x21 : %0x\r\n", DdcBuf[0]);
     }
 
-    /* Status flags. Offset Scrambler status */
+    /* Status flags. */
     DdcBuf[0] = 0x40;
     Status = XV_HdmiTx_DdcWrite(InstancePtr, 0x54, 1, (u8*)&DdcBuf, (FALSE));
 
