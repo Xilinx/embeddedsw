@@ -45,6 +45,7 @@
 	.nextNode = NULL, \
 }
 
+#define IOU_SLCR_WDT_CLK_SEL		(IOU_SLCR_BASE + 0x300U)
 #define IOU_SLCR_CAN_MIO_CTRL		(IOU_SLCR_BASE + 0x304U)
 #define IOU_SLCR_GEM_CLK_CTRL		(IOU_SLCR_BASE + 0x308U)
 
@@ -2420,7 +2421,7 @@ static PmClockGen pmClockGem3Rx = {
 	.useCount = 0U,
 };
 
-static const PmClockSel2ClkIn fpdWdtSel2ClkIn[] = {
+static const PmClockSel2ClkIn wdtSel2ClkIn[] = {
 	{
 		.clkIn = &pmClockTopSwLsBus.base,
 		.select = 0U,
@@ -2429,9 +2430,9 @@ static const PmClockSel2ClkIn fpdWdtSel2ClkIn[] = {
 		.select = 1U,
 	},
 };
-static PmClockMux fpdWdtMux = {
-	.inputs = fpdWdtSel2ClkIn,
-	.size = ARRAY_SIZE(fpdWdtSel2ClkIn),
+static PmClockMux wdtMux = {
+	.inputs = wdtSel2ClkIn,
+	.size = ARRAY_SIZE(wdtSel2ClkIn),
 	.bits = 1U,
 	.shift = 0U,
 };
@@ -2443,8 +2444,23 @@ static PmClockGen pmClockFpdWdt = {
 	},
 	.parent = NULL,
 	.users = NULL,
-	.mux = &fpdWdtMux,
+	.mux = &wdtMux,
 	.ctrlAddr = FPD_SLCR_WDT_CLK_SEL,
+	.ctrlVal = 0U,
+	.type = 0U,
+	.useCount = 0U,
+};
+
+static PmClockGen pmClockLpdWdt = {
+	.base = {
+		.derived = &pmClockLpdWdt,
+		.class = &pmClockClassGen,
+		.id = PM_CLOCK_LPD_WDT,
+	},
+	.parent = NULL,
+	.users = NULL,
+	.mux = &wdtMux,
+	.ctrlAddr = IOU_SLCR_WDT_CLK_SEL,
 	.ctrlVal = 0U,
 	.type = 0U,
 	.useCount = 0U,
@@ -2541,6 +2557,7 @@ static PmClock* pmClocks[] = {
 	&pmClockGem2Rx.base,
 	&pmClockGem3Rx.base,
 	&pmClockFpdWdt.base,
+	&pmClockLpdWdt.base,
 };
 
 static PmClockHandle pmClockHandles[] = {
