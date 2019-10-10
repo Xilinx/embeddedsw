@@ -177,6 +177,21 @@ Added API for registering RFDC with libmetal.
 Added support for reporting DAC current on GEN3 devices.
 Refactor of Clock distribution.
 
+zynqmp_pmufw:
+Fixed warnings in PMU FW versionless compilation
+Change power state of power domain or island only if it is powered up
+ by checking PWR_STATUS register
+Fixed IPI message buffer overflow issue which occurs when CRC is enabled
+Fixed PMU FW CPP check errors
+Fixed PMU FW coverity warnings
+Change WDT timeout when performing secure operations which take more time
+Fixed PMU versionless build issues
+Return error incase of invalid pin ID when calling XPm_PinCtrlGetParameter()
+Corrected source address in restore_training_data()
+Added power down permission check for processor and PLL nodes in 
+ PmForcePowerdown()
+Added support for RPU only subsystem restart case
+
 Changes for 2019.1
 ===============================
 v_hdmiphy1_v1_0:
