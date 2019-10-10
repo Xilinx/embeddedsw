@@ -155,6 +155,12 @@ Added assert statements to function parameters
 Added support for A72 and R5 of versal.
 Initialized status variables to XST_FAILURE.
 
+xilnvm_v1_0:
+Initial release to support eFuse read/write and bbram programming
+
+xilpuf_v1_0:
+Initial release to support Puf Registration and Regeneration
+
 axicdma_v4_6:
 In simple and sg example, fix data buffer cache maintenance ops.
 
