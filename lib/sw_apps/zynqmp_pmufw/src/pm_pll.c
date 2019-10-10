@@ -191,8 +191,7 @@ static s32 PmPllLock(const PmPll* const pll)
 		     (((pll->errValue >> 2) & 1U) << pll->errShift));
 	XPfw_Write32(PMU_GLOBAL_ERROR_SIG_EN_2,
 		     (((pll->errValue >> 3) & 1U) << pll->errShift));
-	XPfw_RMW32(PMU_GLOBAL_ERROR_EN_2,
-			(((pll->errValue >> 4) & 1U) << pll->errShift),
+	XPfw_RMW32(PMU_GLOBAL_ERROR_EN_2, (1U << pll->errShift),
 			(((pll->errValue >> 4) & 1U) << pll->errShift));
 #endif
 
