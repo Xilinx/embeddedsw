@@ -817,37 +817,18 @@ XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp)
 	unsigned int Attr = 0;
 	u32 InitEnable = 0;
 	u32 ClockId = 0;
-	u32 Class = XPM_NODECLASS_CLOCK;
-	u32 SubClass;
-	u32 NodeType;
+	XPm_ClockNode *Clk;
 
 	if (ClockIndex >= MaxClkNodes) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	if (ClockIndex < XPM_NODEIDX_CLK_PLL_MAX) {
-		SubClass = XPM_NODESUBCL_CLOCK_PLL;
-		NodeType = XPM_NODETYPE_CLOCK_PLL;
-	} else if ((ClockIndex > XPM_NODEIDX_CLK_OUT_MIN) &&
-		   (ClockIndex < XPM_NODEIDX_CLK_OUT_MAX)) {
-		SubClass = XPM_NODESUBCL_CLOCK_OUT;
-		NodeType = XPM_NODETYPE_CLOCK_OUT;
-	} else if ((ClockIndex > XPM_NODEIDX_CLK_REF_MIN) &&
-		   (ClockIndex < XPM_NODEIDX_CLK_REF_MAX)) {
-		SubClass = XPM_NODESUBCL_CLOCK_REF;
-		NodeType = XPM_NODETYPE_CLOCK_REF;
-	} else {
-		SubClass = 0;
-		NodeType = 0;
-		Class = 0;
-	}
-
-	ClockId = NODEID(Class, SubClass, NodeType, ClockIndex);
-
 	/* Clock valid bit. All clocks present in clock database is valid. */
 	if (NULL != ClkNodeList[ClockIndex]) {
 		Attr = 1U;
+		Clk = ClkNodeList[ClockIndex];
+		ClockId = Clk->Node.Id;
 	} else {
 		Attr = 0U;
 	}
@@ -884,11 +865,11 @@ XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp)
 		Attr |= 1 << CLK_TYPE_SHIFT;
 	}
 	/* Clock node type PLL, OUT or REF*/
-	Attr |= NodeType << CLK_NODETYPE_SHIFT;
+	Attr |= NODETYPE(ClockId) << CLK_NODETYPE_SHIFT;
 	/* Clock node subclass PLL, OUT or REF */
-	Attr |= SubClass << CLK_NODESUBCLASS_SHIFT;
+	Attr |= NODESUBCLASS(ClockId) << CLK_NODESUBCLASS_SHIFT;
 	/* Node class, i.e Clock */
-	Attr |= Class << CLK_NODECLASS_SHIFT;
+	Attr |= NODECLASS(ClockId) << CLK_NODECLASS_SHIFT;
 
 	*Resp = Attr;
 
