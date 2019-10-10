@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 #ifndef XPM_PLL_H_
 #define XPM_PLL_H_
@@ -49,6 +29,7 @@ struct XPm_PllTopology {
 	uint8_t BypassShift;
 	uint8_t LockShift;
 	uint8_t StableShift;
+	uint8_t PllReg3Offset;
 };
 
 typedef struct XPm_PllClockNode XPm_PllClockNode;
@@ -81,16 +62,9 @@ struct XPm_PllClockNode {
 	PmPllContext Context;
 };
 
-
-#define XPM_NODEIDX_CLK_PLL_MIN		XPM_NODEIDX_CLK_MIN
-#define XPM_NODEIDX_CLK_PLL_MAX		XPM_NODEIDX_CLK_PLL_MAX
-#define PLLCLOCK_MASK \
-	(((XPM_NODECLASS_CLOCK & NODE_CLASS_MASK_BITS) << NODE_CLASS_SHIFT) | \
-	((XPM_NODESUBCL_CLOCK_PLL & NODE_SUBCLASS_MASK_BITS) << NODE_SUBCLASS_SHIFT))
-#define ISPLL(id) \
-	( (((id & PLLCLOCK_MASK) == PLLCLOCK_MASK) && \
-	((id & NODE_INDEX_MASK_BITS) > XPM_NODEIDX_CLK_PLL_MIN) && \
-	((id & NODE_INDEX_MASK_BITS) < XPM_NODEIDX_CLK_PLL_MAX)) ? 1 : 0)
+#define ISPLL(id)	((NODECLASS(id) == (u32)XPM_NODECLASS_CLOCK) && \
+			 (NODESUBCLASS(id) == (u32)XPM_NODESUBCL_CLOCK_PLL) && \
+			 (NODEINDEX(id) < (u32)XPM_NODEIDX_CLK_MAX))
 
 #define RESET_SHIFT		0U
 #define BYPASS_SHIFT		3U
@@ -98,6 +72,12 @@ struct XPm_PllClockNode {
 #define NPLL_LOCK_SHIFT		1U
 #define GEN_STABLE_SHIFT	2U
 #define NPLL_STABLE_SHIFT	3U
+#define GEN_REG3_OFFSET		0x68U
+#define NPLL_REG3_OFFSET	0xA8U
+#define PPLL_REG3_OFFSET	0x78U
+
+#define PLL_REG3_CP_RES_H_SHIFT  20U
+#define PLL_REG3_CP_RES_H_WIDTH  2U
 
 #define PLLPARAMS {	\
 	[PM_PLL_PARAM_ID_DIV2] = {	\
@@ -172,6 +152,7 @@ XStatus XPmClockPll_Reset(XPm_PllClockNode *Pll, uint8_t Flags);
 XStatus XPmClockPll_SetParam(XPm_PllClockNode *Pll, u32 Param,u32 Value);
 XStatus XPmClockPll_GetParam(XPm_PllClockNode *Pll, u32 Param,u32 *Val);
 int XPmClockPll_QueryMuxSources(u32 Id, u32 Index, u32 *Resp);
+int XPmClockPll_GetWakeupLatency(const u32 Id, u32 *Latency);
 
 #ifdef __cplusplus
 }
