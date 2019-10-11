@@ -117,7 +117,7 @@ Added message regarding deprecation of Xilisf.
 xilffs_v4_2:
 Initialize Status variables with failure values
 
-xilpm_v2_4:
+xilpm_v3_0:
 Add versal server library code to xilpm (earlier it was in xillibpm)
 Add versal client library code to xilpm (earlier it was in xillibpm)
 Change xilpm directory structure to add support for versal
