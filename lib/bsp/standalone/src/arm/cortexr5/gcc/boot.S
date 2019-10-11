@@ -120,7 +120,7 @@
  * 0th bit of PROCESSOR_ACCESS_VALUE macro signifies trustzone
  * setting for RPU address space
  */
-.set RPU_TZ_MASK,	0x1
+#define RPU_TZ_MASK	0x1
 
 .section .boot,"axS"
 
