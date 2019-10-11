@@ -107,8 +107,13 @@
 .set RPU_ERR_INJ,	0xFF9A0020
 .set RPU_0_CFG,		0xFF9A0100
 .set RPU_1_CFG,		0xFF9A0200
+#if defined(versal)
+.set RST_LPD_DBG,	0xFF5E0338
+.set BOOT_MODE_USER,	0xF1260200
+#else
 .set RST_LPD_DBG,	0xFF5E0240
 .set BOOT_MODE_USER,	0xFF5E0200
+#endif
 .set fault_log_enable,	0x101
 
 /*
