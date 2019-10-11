@@ -75,6 +75,10 @@
 * 7.1  mus  03/27/19  Skip reading/writing to the RPU address space registers,
 *		      in case if processor is nonsecure and RPU
 *		      address space is secure. CR#1015725.
+* 7.2  mus  10/11/19  Resetting the r5_0 and r5_1 debug logic is sufficient
+*		      to avoid intervention for lock-step mode. So, removed
+*		      code which resets dbg_lpd_reset, to unblock debugger
+*		      access to LPD. Fix for CR#1027983.
 * </pre>
 *
 ******************************************************************************/
@@ -282,7 +286,6 @@ OKToRun:
 /* reset the debug logic */
 	ldr	r0,=RST_LPD_DBG
 	ldr	r1, [r0]
-	orr	r1, r1, #(0x1 << 1)
 	orr	r1, r1, #(0x1 << 4)
 	orr	r1, r1, #(0x1 << 5)
 	str	r1, [r0]
