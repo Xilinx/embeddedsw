@@ -54,6 +54,8 @@
 #                     accessible to the cortexr5 processor CR#1015725
 # 7.1   mus  05/20/19 Updated outbyte/inbyte in case stdout/stdin is set as
 #                     "none". This is done to fix warnings CR#1031423
+# 7.2   mus  10/11/19 Updated logic to export LOCKSTEP_MODE_DEBUG for Versal
+#                     as well. Fix for CR#1046243.
 #
 ##############################################################################
 
@@ -750,7 +752,8 @@ proc generate {os_handle} {
         puts $file_handle "#define versal"
         puts $file_handle "#endif"
         puts $file_handle ""
-    } elseif { $proctype == "psu_cortexr5"} {
+    }
+    if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5"} {
 	 set lockstep_debug [common::get_property CONFIG.lockstep_mode_debug $os_handle]
 	 puts $file_handle " "
 	 puts $file_handle "/* Definitions for debug logic configuration in lockstep mode */"
