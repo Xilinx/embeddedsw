@@ -93,6 +93,8 @@
  *		       to success only on successful completion of the operation
  *                     of the functions.
  * 5.1 Nava  16/07/19  Improve error handling in the bitstream validation path.
+ * 5.2 Nava  10/11/19  Clear the key info from DDR or Physical memory Once it
+ *                     preserves into the internal memory.
  * </pre>
  *
  * @note
@@ -529,13 +531,6 @@ static u32 XFpga_PostConfigPcap(XFpga *InstancePtr)
 	/* Disable the PCAP clk */
 	RegVal = Xil_In32(PCAP_CLK_CTRL);
 	Xil_Out32(PCAP_CLK_CTRL, RegVal & ~(PCAP_CLK_EN_MASK));
-#ifdef XFPGA_SECURE_MODE
-	if (((u8 *)InstancePtr->WriteInfo.AddrPtr_Size != NULL) &&
-	    ((InstancePtr->WriteInfo.Flags & XFPGA_ENCRYPTION_USERKEY_EN) != 0U)) {
-		(void)memset((u8 *)InstancePtr->WriteInfo.AddrPtr_Size, 0U,
-		KEY_LEN);
-	}
-#endif
 	if ((Status == XFPGA_SUCCESS) &&
 	    ((InstancePtr->WriteInfo.Flags & XFPGA_SECURE_FLAGS) != 0U)) {
 		XFpga_SetFirmwareState(XFPGA_FIRMWARE_STATE_SECURE);
@@ -1772,6 +1767,11 @@ static u32 XFpga_AesInit(XSecure_Aes *InstancePtr,
 		}
 	}
 END:
+	if ((Flags & XFPGA_ENCRYPTION_USERKEY_EN) != 0U) {
+		/* Clear the key info from DDR or Physical memory */
+		(void)memset(KeyPtr, 0U, KEY_LEN);
+	}
+
 	return Status;
 }
 
