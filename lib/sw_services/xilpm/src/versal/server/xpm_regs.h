@@ -49,8 +49,6 @@ extern "C" {
 #define PCIEA_ATTRIB_0_BASEADDR		0xFCA50000
 #define PCIEA_ATTRIB_1_BASEADDR		0xFCA60000
 #define PMC_TAP_BASEADDR		0XF11A0000
-#define CRP_BASEADDR			0xF1260000
-#define CFU_APB_BASEADDR		0XF12B0000
 
 /**
  * PMC Global module
@@ -510,10 +508,6 @@ extern "C" {
 #define CRP_RESET_REASON_SLR_POR_MASK			(0x00000004)
 #define CRP_RESET_REASON_SW_POR_MASK			(0x00000002)
 #define CRP_RESET_REASON_EXTERNAL_POR_MASK		(0x00000001)
-
-#define CRP_RST_PS_OFFSET				(0x31C)
-#define CRP_RST_PS_PL_POR_MASK				BIT(5)
-#define CRP_RST_PS_PL_SRST_MASK				BIT(1)
 
 /**
  * Definitions required from pmc_tap.h
