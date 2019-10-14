@@ -96,6 +96,7 @@ XV_demosaic				Demosaic;
 #ifdef KC705
     #define MIG_7SERIES_BASEADDRESS0  0x80000000
     #define MIG_7SERIES_BASEADDRESS1  0x80000000
+    #define CSC_BASEADDRESS  0x44AC0000
     #define VGAMMALUT_BASE  XPAR_V_GAMMA_LUT_0_S_AXI_CTRL_BASEADDR
 	#define IIC_FMC_DEVICE_ID	XPAR_IIC_0_DEVICE_ID
 	#define IIC_ADAPTER_DEVICE_ID	XPAR_IIC_1_DEVICE_ID
@@ -233,6 +234,7 @@ XV_demosaic				Demosaic;
 #define VDMA_S2MM    (VDMA_BASE + 0x30)
 #define VDMA_SET    (0x3008B)
 #define VDMA_RESET    (0x4)
+#define CSC_SET    (0x01)
 
 #define LANES 2
         #define TPG0_W 1920
@@ -1843,6 +1845,7 @@ xil_printf(" Transfer Started \r\n");
 
 int vdma_hdmi() {
 	u32 Status;
+	                    Xil_Out32((CSC_BASEADDRESS),CSC_SET);
 
 	  ResetVDMA();
 
