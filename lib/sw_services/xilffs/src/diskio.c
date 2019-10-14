@@ -147,19 +147,18 @@ DSTATUS disk_status (
 	u32 DelayCount = 0;
 
 		if (SdInstance[pdrv].Config.BaseAddress == (u32)0) {
-#ifdef XPAR_XSDPS_1_DEVICE_ID
-				if(pdrv == 1) {
-						BaseAddress = XPAR_XSDPS_1_BASEADDR;
-						CardDetect = XPAR_XSDPS_1_HAS_CD;
-						WriteProtect = XPAR_XSDPS_1_HAS_WP;
-				} else {
-#endif
-						BaseAddress = XPAR_XSDPS_0_BASEADDR;
-						CardDetect = XPAR_XSDPS_0_HAS_CD;
-						WriteProtect = XPAR_XSDPS_0_HAS_WP;
-#ifdef XPAR_XSDPS_1_DEVICE_ID
+				XSdPs_Config *SdConfig;
+
+				SdConfig = XSdPs_LookupConfig((u16)pdrv);
+				if (NULL == SdConfig) {
+					s |= STA_NOINIT;
+					return s;
 				}
-#endif
+
+				BaseAddress = SdConfig->BaseAddress;
+				CardDetect = SdConfig->CardDetect;
+				WriteProtect = SdConfig->WriteProtect;
+
 				HostCntrlrVer[pdrv] = (u8)(XSdPs_ReadReg16(BaseAddress,
 						XSDPS_HOST_CTRL_VER_OFFSET) & XSDPS_HC_SPEC_VER_MASK);
 				if (HostCntrlrVer[pdrv] == XSDPS_HC_SPEC_V3) {
