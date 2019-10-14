@@ -541,6 +541,13 @@ void RxStreamDownCallback(void *CallbackRef)
 	
 	XV_SdiTxSs_Stop(&SdiTxSs);
 
+#ifndef XPAR_XSDIAUD_NUM_INSTANCES
+	XSdiVid_TransMode RxTransMode;
+	RxTransMode =  XV_SdiRxSs_GetTransportMode(&SdiRxSs);
+	if(RxTransMode == XSDIVID_MODE_12G)
+	usleep(8000);
+#endif
+
 #ifdef XPAR_XSDIAUD_NUM_INSTANCES
 	/* Disable Audio */
 	if (XSDIAudioMode == XSDI_SDI_PASS_THROUGH) {
