@@ -201,6 +201,9 @@ Added API for registering RFDC with libmetal.
 Added support for reporting DAC current on GEN3 devices.
 Refactor of Clock distribution.
 
+pmonpsv_v1_1:
+Update the mdd files with the latest naming
+
 Changes for 2019.1
 ===============================
 v_hdmiphy1_v1_0:
