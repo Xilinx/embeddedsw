@@ -270,7 +270,7 @@ void XDpTxSs_ReportCoreInfo(XDpTxSs *InstancePtr)
 	}
 #endif
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 	if (InstancePtr->Hdcp1xPtr) {
 		xil_printf("High-Bandwidth Content protection (HDCP):Yes\n\r");
 	}
@@ -557,11 +557,10 @@ void XDpTxSs_ReportHdcpInfo(XDpTxSs *InstancePtr)
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
-	if (InstancePtr->Hdcp1xPtr)
-		XHdcp1x_Info(InstancePtr->Hdcp1xPtr);
-	else
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+	XHdcp1x_Info(InstancePtr->Hdcp1xPtr);
+#else
+	xil_printf("HDCP is not supported in this design.\n\r");
 #endif
-		xil_printf("HDCP is not supported in this design.\n\r");
 }
 /** @} */
