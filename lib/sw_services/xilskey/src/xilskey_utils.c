@@ -1575,12 +1575,6 @@ static u32 XilSKey_Is_Valid_SysMon_Cfg(XSysMonPsu *InstancePtr)
 		XSysMonPsu_GetEffBaseAddress(InstancePtr->Config.BaseAddress,
 					XSYSMON_PS);
 
-	/* Read Cfg0 and make sure averagining is enabled */
-	CfgData = Xil_In32(EffectiveBaseAddress + XSYSMONPSU_CFG_REG0_OFFSET);
-	if ((CfgData & XSYSMONPSU_CFG_REG0_AVRGNG_MASK) == 0U) {
-		goto END;
-	}
-
 	/* Read Cfg1 and make sure channels are configured to read in loop */
 	CfgData = Xil_In32(EffectiveBaseAddress + XSYSMONPSU_CFG_REG1_OFFSET);
 	SeqMode = (CfgData & XSYSMONPSU_CFG_REG1_SEQ_MDE_MASK) >>
@@ -1591,29 +1585,21 @@ static u32 XilSKey_Is_Valid_SysMon_Cfg(XSysMonPsu *InstancePtr)
 	}
 
 	/* When in continuous pass mode, make sure it includes below channels
-	 * for averaging
+	 * for sampling
 	 *  1. Supply 1 (VPINT)
 	 *  2. Supply 3 (VPAUX)
-	 *  3. LPD Temeperature
+	 *  3. LPD Temperature
 	 */
 	if (XSM_SEQ_MODE_CONTINPASS == SeqMode) {
 		/* Get Channel sequence mask */
 		CfgData = Xil_In32(EffectiveBaseAddress +
 		                  XSYSMONPSU_SEQ_CH0_OFFSET);
 
-		/* Get channel averaging enable mask and logically AND with
-		 * Channel sequence mask. This will provide mask of channels
-		 * that are enabled for reading and averaging
-		 */
-		CfgData &= Xil_In32(EffectiveBaseAddress +
-		                  XSYSMONPSU_SEQ_AVERAGE0_OFFSET);
-
 		Mask = XSYSMONPSU_SEQ_CH0_SUP3_MASK |
 		       XSYSMONPSU_SEQ_CH0_SUP1_MASK |
 		       XSYSMONPSU_SEQ_CH0_TEMP_MASK;
 
-		/* Make sure required channels by XilsKey are enabled for
-		 * averaging */
+		/* Make sure required channels for XilSKey are enabled */
 		if ((CfgData & Mask) != Mask) {
 			goto END;
 		}
