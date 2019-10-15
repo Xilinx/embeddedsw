@@ -27,7 +27,7 @@
 /**
 *
 * @file xpmonpsv.c
-* @addtogroup  pmonpsv_v1_0
+* @addtogroup  pmonpsv_v1_1
 * @{
 *
 * This file contains the driver API functions that can be used to access
