@@ -109,7 +109,7 @@ void XDpTxSs_DpIntrHandler(void *InstancePtr)
 	XDp_InterruptHandler(XDpTxSsPtr->DpPtr);
 }
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 /*****************************************************************************/
 /**
 *
@@ -139,7 +139,7 @@ void XDpTxSs_HdcpIntrHandler(void *InstancePtr)
 }
 #endif
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
 /*****************************************************************************/
 /**
 *
@@ -450,7 +450,7 @@ u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 			Status = XST_SUCCESS;
 			break;
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 		case XDPTXSS_HANDLER_HDCP_RPTR_EXCHG:
 			XHdcp1x_SetCallBack(InstancePtr->Hdcp1xPtr,
 				XHDCP1X_RPTR_HDLR_REPEATER_EXCHANGE,
