@@ -39,6 +39,7 @@
 * 1.0   Hyun    10/02/2018  Initial creation
 * 1.1   Hyun    10/10/2018  Use the mask write API
 * 1.2   Nishad  12/05/2018  Renamed ME attributes to AIE
+* 1.3   Tejus   10/14/2019  Remove unwanted assertions
 * </pre>
 *
 ******************************************************************************/
@@ -443,12 +444,6 @@ u32 XAieTileCore_PerfCounterEventValue(XAieGbl_Tile *TileInstPtr, u8 Counter,
 		u32 EventVal)
 {
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
-	/*
-	 * NOC / PL is actually not tile type. If any of those is set,
-	 * treat as Shim which always has a PL module
-	 */
-	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_SHIMNOC ||
-			TileInstPtr->TileType == XAIEGBL_TILE_TYPE_SHIMPL);
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
 	XAie_AssertNonvoid(Counter >= 0 && Counter < 4);
 
