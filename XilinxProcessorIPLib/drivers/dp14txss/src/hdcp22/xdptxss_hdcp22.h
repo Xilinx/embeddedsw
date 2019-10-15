@@ -62,6 +62,24 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 /**
+* This typedef contains configuration information for the HDCP22 core.
+*/
+typedef struct {
+	u16 DeviceId;   /**< Device ID of the sub-core */
+	UINTPTR AbsAddr; /**< Absolute Base Address of the Sub-cores*/
+} XDpTxSs_Hdcp22_Config;
+
+/**
+ * Sub-Core Configuration Table
+ */
+typedef struct
+{
+	u16 IsPresent;  /**< Flag to indicate if sub-core is present
+			  in the design*/
+	XDpTxSs_Hdcp22_Config Hdcp22Config; /**< HDCP22 core configuration */
+} XDpTxSs_Hdcp22SubCore;
+
+/**
 * These constants specify the HDCP Events
 */
 typedef enum
