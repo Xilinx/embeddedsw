@@ -49,6 +49,7 @@
 * 1.9  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 2.0  Hyun    01/08/2018  Add the MaskPoll
 * 2.1  Hyun    04/05/2018  NPI support
+* 2.2  Tejus   10/14/2019  Removed assertion macros for simulation
 * </pre>
 *
 ******************************************************************************/
@@ -78,9 +79,6 @@
 #define XAieSim_print                    {}
 #endif
 #define XAieSim_usleep                   usleep
-
-#define XAieSim_AssertNonvoid(arg)	{}
-#define XAieSim_AssertVoid(arg)          {}
 
 #define XAIESIM_IO_MODE_ESS		0U
 #define XAIESIM_IO_MODE_SOCK		1U

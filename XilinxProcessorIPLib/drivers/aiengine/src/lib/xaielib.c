@@ -55,6 +55,7 @@
 * 2.3  Nishad  08/07/2019  Remove OS specific gaurd from XAieLib_usleep API
 * 2.4  Hyun    09/13/2019  Use the simulation elf loader function
 * 2.5  Hyun    09/13/2019  Use XAieSim_LoadElfMem()
+* 2.6  Tejus   10/14/2019  Enable assertion for linux and simulation
 * </pre>
 *
 ******************************************************************************/
@@ -62,6 +63,7 @@
 
 #ifdef __AIESIM__ /* AIE simulator */
 
+#include <assert.h>
 #include "xaiesim.h"
 
 #elif defined __AIEBAREMTL__ /* Bare-metal application */
@@ -78,6 +80,7 @@
 
 #else /* Non-baremetal application, ex Linux */
 
+#include <assert.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -127,13 +130,14 @@ typedef struct XAieLib_MemInst
 * @note		None.
 *
 *******************************************************************************/
-u32 XAieLib_AssertNonvoid(u8 Cond)
+u32 XAieLib_AssertNonvoid(u8 Cond, const char *func, const u32 line)
 {
-#ifdef __AIESIM__
-	XAieSim_AssertNonvoid(Cond);
-#elif defined __AIEBAREMTL__
+	if(!Cond)
+		XAieLib_print("Assert: %s, line %d\n", func, line);
+#ifdef __AIEBAREMTL__
 	Xil_AssertNonvoid(Cond);
 #else
+	assert(Cond);
 #endif
 	return 0;
 }
@@ -151,13 +155,14 @@ u32 XAieLib_AssertNonvoid(u8 Cond)
 * @note		None.
 *
 *******************************************************************************/
-void XAieLib_AssertVoid(u8 Cond)
+void XAieLib_AssertVoid(u8 Cond, const char *func, const u32 line)
 {
-#ifdef __AIESIM__
-	XAieSim_AssertVoid(Cond);
-#elif defined __AIEBAREMTL__
+	if(!Cond)
+		XAieLib_print("Assert: %s, line %d\n", func, line);
+#ifdef __AIEBAREMTL__
 	Xil_AssertVoid(Cond);
 #else
+	assert(Cond);
 #endif
 }
 

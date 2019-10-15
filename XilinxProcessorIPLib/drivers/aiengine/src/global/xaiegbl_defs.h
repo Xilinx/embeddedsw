@@ -41,6 +41,7 @@
 * 1.2  Hyun    10/10/2018  Added the mask write API
 * 1.3  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.4  Hyun    01/08/2019  Add the mask poll function
+* 1.5  Tejus   10/14/2019  Enable assertion for linux and simulation
 * </pre>
 *
 ******************************************************************************/
@@ -67,8 +68,8 @@
 
 #define XAie_print			XAieLib_print
 #define XAie_usleep			XAieLib_usleep
-#define XAie_AssertNonvoid		XAieLib_AssertNonvoid
-#define XAie_AssertVoid			XAieLib_AssertVoid
+#define XAie_AssertNonvoid(Cond)	XAieLib_AssertNonvoid(Cond, __func__, __LINE__)
+#define XAie_AssertVoid(Cond)		XAieLib_AssertVoid(Cond, __func__, __LINE__)
 
 #define XAie_SetField(Val, Lsb, Mask)	(((u32)Val << Lsb) & Mask)
 #define XAie_GetField(Val, Lsb, Mask)	(((u32)Val & Mask) >> Lsb)
