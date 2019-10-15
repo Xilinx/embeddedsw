@@ -44,6 +44,7 @@
 * 1.5  Hyun    11/14/2018  Move platform dependent code to xaielib.c
 * 1.6  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.7  Hyun    01/08/2019  Add XAieLib_MaskPoll()
+* 1.8  Tejus   10/14/2019  Enable assertion for linux and simulation
 * </pre>
 *
 ******************************************************************************/
@@ -87,8 +88,8 @@ u32 XAieLib_NPIRead32(u64 Addr);
 void XAieLib_NPIWrite32(u64 Addr, u32 Data);
 u32 XAieLib_NPIMaskPoll(u64 Addr, u32 Mask, u32 Value, u32 TimeOutUs);
 
-u32 XAieLib_AssertNonvoid(u8 Cond);
-void XAieLib_AssertVoid(u8 Cond);
+u32 XAieLib_AssertNonvoid(u8 Cond, const char *func, const u32 line);
+void XAieLib_AssertVoid(u8 Cond, const char *func, const u32 line);
 int XAieLib_usleep(u64 Usec);
 
 struct XAieGbl_Tile;
