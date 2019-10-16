@@ -23496,6 +23496,188 @@
 #define DDR_PHY_DX8SLBDQSCTL_DQSRES_DEFVAL                     0x00000000
 #define DDR_PHY_DX8SLBDQSCTL_DQSRES_SHIFT                      0
 #define DDR_PHY_DX8SLBDQSCTL_DQSRES_MASK                       0x0000000FU
+#undef AFIFM0_AFIFM_RDQOS_OFFSET
+#define AFIFM0_AFIFM_RDQOS_OFFSET                                                  0XFD360008
+#undef AFIFM0_AFIFM_WRQOS_OFFSET
+#define AFIFM0_AFIFM_WRQOS_OFFSET                                                  0XFD36001C
+#undef AFIFM1_AFIFM_RDQOS_OFFSET
+#define AFIFM1_AFIFM_RDQOS_OFFSET                                                  0XFD370008
+#undef AFIFM1_AFIFM_WRQOS_OFFSET
+#define AFIFM1_AFIFM_WRQOS_OFFSET                                                  0XFD37001C
+#undef AFIFM2_AFIFM_RDQOS_OFFSET
+#define AFIFM2_AFIFM_RDQOS_OFFSET                                                  0XFD380008
+#undef AFIFM2_AFIFM_WRQOS_OFFSET
+#define AFIFM2_AFIFM_WRQOS_OFFSET                                                  0XFD38001C
+#undef AFIFM3_AFIFM_RDQOS_OFFSET
+#define AFIFM3_AFIFM_RDQOS_OFFSET                                                  0XFD390008
+#undef AFIFM3_AFIFM_WRQOS_OFFSET
+#define AFIFM3_AFIFM_WRQOS_OFFSET                                                  0XFD39001C
+#undef AFIFM4_AFIFM_RDQOS_OFFSET
+#define AFIFM4_AFIFM_RDQOS_OFFSET                                                  0XFD3A0008
+#undef AFIFM4_AFIFM_WRQOS_OFFSET
+#define AFIFM4_AFIFM_WRQOS_OFFSET                                                  0XFD3A001C
+#undef AFIFM5_AFIFM_RDQOS_OFFSET
+#define AFIFM5_AFIFM_RDQOS_OFFSET                                                  0XFD3B0008
+#undef AFIFM5_AFIFM_WRQOS_OFFSET
+#define AFIFM5_AFIFM_WRQOS_OFFSET                                                  0XFD3B001C
+#undef AFIFM6_AFIFM_RDQOS_OFFSET
+#define AFIFM6_AFIFM_RDQOS_OFFSET                                                  0XFF9B0008
+#undef AFIFM6_AFIFM_WRQOS_OFFSET
+#define AFIFM6_AFIFM_WRQOS_OFFSET                                                  0XFF9B001C
+
+/*
+* Sets the level of the QoS field to be used for the read channel 4'b0000:
+    *  Lowest Priority' ' '4'b1111: Highest Priority
+*/
+#undef AFIFM0_AFIFM_RDQOS_VALUE_DEFVAL
+#undef AFIFM0_AFIFM_RDQOS_VALUE_SHIFT
+#undef AFIFM0_AFIFM_RDQOS_VALUE_MASK
+#define AFIFM0_AFIFM_RDQOS_VALUE_DEFVAL                        0x00000007
+#define AFIFM0_AFIFM_RDQOS_VALUE_SHIFT                         0
+#define AFIFM0_AFIFM_RDQOS_VALUE_MASK                          0x0000000FU
+
+/*
+* Sets the level of the QoS field to be used for the write channel 4'b0000
+    * : Lowest Priority' ' '4'b1111: Highest Priority
+*/
+#undef AFIFM0_AFIFM_WRQOS_VALUE_DEFVAL
+#undef AFIFM0_AFIFM_WRQOS_VALUE_SHIFT
+#undef AFIFM0_AFIFM_WRQOS_VALUE_MASK
+#define AFIFM0_AFIFM_WRQOS_VALUE_DEFVAL                        0x00000007
+#define AFIFM0_AFIFM_WRQOS_VALUE_SHIFT                         0
+#define AFIFM0_AFIFM_WRQOS_VALUE_MASK                          0x0000000FU
+
+/*
+* Sets the level of the QoS field to be used for the read channel 4'b0000:
+    *  Lowest Priority' ' '4'b1111: Highest Priority
+*/
+#undef AFIFM1_AFIFM_RDQOS_VALUE_DEFVAL
+#undef AFIFM1_AFIFM_RDQOS_VALUE_SHIFT
+#undef AFIFM1_AFIFM_RDQOS_VALUE_MASK
+#define AFIFM1_AFIFM_RDQOS_VALUE_DEFVAL                        0x00000007
+#define AFIFM1_AFIFM_RDQOS_VALUE_SHIFT                         0
+#define AFIFM1_AFIFM_RDQOS_VALUE_MASK                          0x0000000FU
+
+/*
+* Sets the level of the QoS field to be used for the write channel 4'b0000
+    * : Lowest Priority' ' '4'b1111: Highest Priority
+*/
+#undef AFIFM1_AFIFM_WRQOS_VALUE_DEFVAL
+#undef AFIFM1_AFIFM_WRQOS_VALUE_SHIFT
+#undef AFIFM1_AFIFM_WRQOS_VALUE_MASK
+#define AFIFM1_AFIFM_WRQOS_VALUE_DEFVAL                        0x00000007
+#define AFIFM1_AFIFM_WRQOS_VALUE_SHIFT                         0
+#define AFIFM1_AFIFM_WRQOS_VALUE_MASK                          0x0000000FU
+
+/*
+* Sets the level of the QoS field to be used for the read channel 4'b0000:
+    *  Lowest Priority' ' '4'b1111: Highest Priority
+*/
+#undef AFIFM2_AFIFM_RDQOS_VALUE_DEFVAL
+#undef AFIFM2_AFIFM_RDQOS_VALUE_SHIFT
+#undef AFIFM2_AFIFM_RDQOS_VALUE_MASK
+#define AFIFM2_AFIFM_RDQOS_VALUE_DEFVAL                        0x00000007
+#define AFIFM2_AFIFM_RDQOS_VALUE_SHIFT                         0
+#define AFIFM2_AFIFM_RDQOS_VALUE_MASK                          0x0000000FU
+
+/*
+* Sets the level of the QoS field to be used for the write channel 4'b0000
+    * : Lowest Priority' ' '4'b1111: Highest Priority
+*/
+#undef AFIFM2_AFIFM_WRQOS_VALUE_DEFVAL
+#undef AFIFM2_AFIFM_WRQOS_VALUE_SHIFT
+#undef AFIFM2_AFIFM_WRQOS_VALUE_MASK
+#define AFIFM2_AFIFM_WRQOS_VALUE_DEFVAL                        0x00000007
+#define AFIFM2_AFIFM_WRQOS_VALUE_SHIFT                         0
+#define AFIFM2_AFIFM_WRQOS_VALUE_MASK                          0x0000000FU
+
+/*
+* Sets the level of the QoS field to be used for the read channel 4'b0000:
+    *  Lowest Priority' ' '4'b1111: Highest Priority
+*/
+#undef AFIFM3_AFIFM_RDQOS_VALUE_DEFVAL
+#undef AFIFM3_AFIFM_RDQOS_VALUE_SHIFT
+#undef AFIFM3_AFIFM_RDQOS_VALUE_MASK
+#define AFIFM3_AFIFM_RDQOS_VALUE_DEFVAL                        0x00000007
+#define AFIFM3_AFIFM_RDQOS_VALUE_SHIFT                         0
+#define AFIFM3_AFIFM_RDQOS_VALUE_MASK                          0x0000000FU
+
+/*
+* Sets the level of the QoS field to be used for the write channel 4'b0000
+    * : Lowest Priority' ' '4'b1111: Highest Priority
+*/
+#undef AFIFM3_AFIFM_WRQOS_VALUE_DEFVAL
+#undef AFIFM3_AFIFM_WRQOS_VALUE_SHIFT
+#undef AFIFM3_AFIFM_WRQOS_VALUE_MASK
+#define AFIFM3_AFIFM_WRQOS_VALUE_DEFVAL                        0x00000007
+#define AFIFM3_AFIFM_WRQOS_VALUE_SHIFT                         0
+#define AFIFM3_AFIFM_WRQOS_VALUE_MASK                          0x0000000FU
+
+/*
+* Sets the level of the QoS field to be used for the read channel 4'b0000:
+    *  Lowest Priority' ' '4'b1111: Highest Priority
+*/
+#undef AFIFM4_AFIFM_RDQOS_VALUE_DEFVAL
+#undef AFIFM4_AFIFM_RDQOS_VALUE_SHIFT
+#undef AFIFM4_AFIFM_RDQOS_VALUE_MASK
+#define AFIFM4_AFIFM_RDQOS_VALUE_DEFVAL                        0x00000007
+#define AFIFM4_AFIFM_RDQOS_VALUE_SHIFT                         0
+#define AFIFM4_AFIFM_RDQOS_VALUE_MASK                          0x0000000FU
+
+/*
+* Sets the level of the QoS field to be used for the write channel 4'b0000
+    * : Lowest Priority' ' '4'b1111: Highest Priority
+*/
+#undef AFIFM4_AFIFM_WRQOS_VALUE_DEFVAL
+#undef AFIFM4_AFIFM_WRQOS_VALUE_SHIFT
+#undef AFIFM4_AFIFM_WRQOS_VALUE_MASK
+#define AFIFM4_AFIFM_WRQOS_VALUE_DEFVAL                        0x00000007
+#define AFIFM4_AFIFM_WRQOS_VALUE_SHIFT                         0
+#define AFIFM4_AFIFM_WRQOS_VALUE_MASK                          0x0000000FU
+
+/*
+* Sets the level of the QoS field to be used for the read channel 4'b0000:
+    *  Lowest Priority' ' '4'b1111: Highest Priority
+*/
+#undef AFIFM5_AFIFM_RDQOS_VALUE_DEFVAL
+#undef AFIFM5_AFIFM_RDQOS_VALUE_SHIFT
+#undef AFIFM5_AFIFM_RDQOS_VALUE_MASK
+#define AFIFM5_AFIFM_RDQOS_VALUE_DEFVAL                        0x00000007
+#define AFIFM5_AFIFM_RDQOS_VALUE_SHIFT                         0
+#define AFIFM5_AFIFM_RDQOS_VALUE_MASK                          0x0000000FU
+
+/*
+* Sets the level of the QoS field to be used for the write channel 4'b0000
+    * : Lowest Priority' ' '4'b1111: Highest Priority
+*/
+#undef AFIFM5_AFIFM_WRQOS_VALUE_DEFVAL
+#undef AFIFM5_AFIFM_WRQOS_VALUE_SHIFT
+#undef AFIFM5_AFIFM_WRQOS_VALUE_MASK
+#define AFIFM5_AFIFM_WRQOS_VALUE_DEFVAL                        0x00000007
+#define AFIFM5_AFIFM_WRQOS_VALUE_SHIFT                         0
+#define AFIFM5_AFIFM_WRQOS_VALUE_MASK                          0x0000000FU
+
+/*
+* Sets the level of the QoS field to be used for the read channel 4'b0000:
+    *  Lowest Priority' ' '4'b1111: Highest Priority
+*/
+#undef AFIFM6_AFIFM_RDQOS_VALUE_DEFVAL
+#undef AFIFM6_AFIFM_RDQOS_VALUE_SHIFT
+#undef AFIFM6_AFIFM_RDQOS_VALUE_MASK
+#define AFIFM6_AFIFM_RDQOS_VALUE_DEFVAL                        0x00000007
+#define AFIFM6_AFIFM_RDQOS_VALUE_SHIFT                         0
+#define AFIFM6_AFIFM_RDQOS_VALUE_MASK                          0x0000000FU
+
+/*
+* Sets the level of the QoS field to be used for the write channel 4'b0000
+    * : Lowest Priority' ' '4'b1111: Highest Priority
+*/
+#undef AFIFM6_AFIFM_WRQOS_VALUE_DEFVAL
+#undef AFIFM6_AFIFM_WRQOS_VALUE_SHIFT
+#undef AFIFM6_AFIFM_WRQOS_VALUE_MASK
+#define AFIFM6_AFIFM_WRQOS_VALUE_DEFVAL                        0x00000007
+#define AFIFM6_AFIFM_WRQOS_VALUE_SHIFT                         0
+#define AFIFM6_AFIFM_WRQOS_VALUE_MASK                          0x0000000FU
 #undef IOU_SLCR_MIO_PIN_0_OFFSET
 #define IOU_SLCR_MIO_PIN_0_OFFSET                                                  0XFF180000
 #undef IOU_SLCR_MIO_PIN_1_OFFSET
