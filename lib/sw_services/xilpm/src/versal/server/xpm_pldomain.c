@@ -240,14 +240,15 @@ static XStatus GtyHouseClean()
 	XStatus Status = XST_SUCCESS;
 	unsigned int i;
 	XPm_Device *Device;
-	u32 GtyAddresses[XPM_NODEIDX_DEV_GT_MAX - XPM_NODEIDX_DEV_GT_MIN + 1];
+	u32 GtyAddresses[XPM_NODEIDX_DEV_GT_MAX - XPM_NODEIDX_DEV_GT_MIN + 1] = {0};
 
 	for (i = 0; i < ARRAY_SIZE(GtyAddresses); i++) {
 		Device = XPmDevice_GetById(GT_DEVID(XPM_NODEIDX_DEV_GT_MIN + i));
-		GtyAddresses[i] = Device->Node.BaseAddress;
+		if(Device)
+			GtyAddresses[i] = Device->Node.BaseAddress;
 	}
 
-	for (i = 0; i < ARRAY_SIZE(GtyAddresses); i++) {
+	for (i = 0; i < ARRAY_SIZE(GtyAddresses) && GtyAddresses[i]; i++) {
 		PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
 		/* Deassert INITCTRL */
 		PmOut32(GtyAddresses[i] + GTY_PCSR_MASK_OFFSET,
@@ -264,7 +265,7 @@ static XStatus GtyHouseClean()
 			goto done;
 		}
 
-		for (i = 0; i < ARRAY_SIZE(GtyAddresses); i++) {
+		for (i = 0; i < ARRAY_SIZE(GtyAddresses) && GtyAddresses[i]; i++) {
 			PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET,
 				PCSR_UNLOCK_VAL);
 			/* Mbist */
