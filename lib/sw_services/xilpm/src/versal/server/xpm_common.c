@@ -157,3 +157,22 @@ XStatus XPm_PollForMask(u32 RegAddress, u32 Mask, u32 TimeOutCount)
 
 	return ((TimeOut == 0U) ? XPM_PM_TIMEOUT : XST_SUCCESS);
 }
+
+
+XStatus XPm_PollForZero(u32 RegAddress, u32 Mask, u32 TimeOutCount)
+{
+        u32 l_RegValue;
+        u32 TimeOut = TimeOutCount;
+        /* Read the Register value       */
+        l_RegValue = XPm_In32(RegAddress);
+        /* Loop while the MAsk is not set or we timeout */
+        while(((l_RegValue & Mask) != 0) && (TimeOut > 0U))
+        {
+                /* Latch up the Register value again */
+                l_RegValue = XPm_In32(RegAddress);
+                /* Decrement the TimeOut Count */
+                TimeOut--;
+        }
+
+        return ((TimeOut == 0U) ? XPM_PM_TIMEOUT : XST_SUCCESS);
+}

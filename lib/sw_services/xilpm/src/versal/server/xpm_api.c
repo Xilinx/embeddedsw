@@ -3112,6 +3112,7 @@ static XStatus XPm_AddNodePower(u32 *Args, u32 NumArgs)
 
 	switch (PowerType) {
 		case XPM_NODETYPE_POWER_ISLAND:
+		case XPM_NODETYPE_POWER_ISLAND_XRAM:
 			Power = (XPm_Power *)XPm_AllocBytes(sizeof(XPm_Power));
 			if (NULL == Power) {
 				Status = XST_BUFFER_TOO_SMALL;
@@ -3408,6 +3409,7 @@ static XStatus AddMemDevice(u32 *Args, u32 PowerId)
 
 	switch (Type) {
 		case XPM_NODETYPE_DEV_OCM:
+		case XPM_NODETYPE_DEV_XRAM:
 		case XPM_NODETYPE_DEV_L2CACHE:
 		case XPM_NODETYPE_DEV_DDR:
 		case XPM_NODETYPE_DEV_TCM:

@@ -26,6 +26,7 @@
 
 #include "xpm_bisr.h"
 #include "xpm_power.h"
+#include "xpm_regs.h"
 #include "xpm_powerdomain.h"
 #include "xpm_pslpdomain.h"
 #include "xpm_psm.h"
@@ -69,6 +70,150 @@ static XStatus SetPowerNode(u32 Id, XPm_Power *PwrNode)
 	return Status;
 }
 
+
+static XStatus PowerUpXram(XPm_Node *Node)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Device *Device;
+	u32 XramSlcrAddress, PwrCtlAddress, PwrStatusAddress, RegVal;
+	u32 BitMask;
+
+	Device = XPmDevice_GetByIndex(XPM_NODEIDX_DEV_XRAM_0);
+	if (NULL == Device) {
+		goto done;
+	}
+	XramSlcrAddress = Device->Node.BaseAddress;
+	BitMask = Node->BaseAddress;
+
+	switch (NODEINDEX(Node->Id)) {
+		case XPM_NODEIDX_POWER_XRAM_0:
+		case XPM_NODEIDX_POWER_XRAM_1:
+		case XPM_NODEIDX_POWER_XRAM_2:
+		case XPM_NODEIDX_POWER_XRAM_3:
+			PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_UP_BANK0_OFFSET;
+			PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK0_OFFSET;
+			break;
+		case XPM_NODEIDX_POWER_XRAM_4:
+		case XPM_NODEIDX_POWER_XRAM_5:
+		case XPM_NODEIDX_POWER_XRAM_6:
+		case XPM_NODEIDX_POWER_XRAM_7:
+			PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_UP_BANK1_OFFSET;
+			PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK1_OFFSET;
+			break;
+		case XPM_NODEIDX_POWER_XRAM_8:
+		case XPM_NODEIDX_POWER_XRAM_9:
+		case XPM_NODEIDX_POWER_XRAM_10:
+		case XPM_NODEIDX_POWER_XRAM_11:
+			PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_UP_BANK2_OFFSET;
+			PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK2_OFFSET;
+			break;
+		case XPM_NODEIDX_POWER_XRAM_12:
+		case XPM_NODEIDX_POWER_XRAM_13:
+		case XPM_NODEIDX_POWER_XRAM_14:
+		case XPM_NODEIDX_POWER_XRAM_15:
+			PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_UP_BANK3_OFFSET;
+			PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK3_OFFSET;
+			break;
+		default:
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+
+	/* Check if already power up */
+	RegVal = XPm_In32(PwrStatusAddress);
+	if ((RegVal & BitMask) == BitMask) {
+		goto done;
+	}
+
+	/* Enable power state for selected bank */
+	PmRmw32(PwrCtlAddress, BitMask, BitMask);
+
+	/* Poll for power status to set */
+	Status = XPm_PollForMask(PwrStatusAddress, BitMask, XPM_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* TODO: Wait for power to ramp up */
+	usleep(1);
+
+	/* TODO: Set chip enable bit */
+
+done:
+	return Status;
+}
+
+static XStatus PowerDwnXram(XPm_Node *Node)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Device *Device;
+	u32 XramSlcrAddress, PwrCtlAddress, PwrStatusAddress, RegVal;
+	u32 BitMask;
+
+	Device = XPmDevice_GetByIndex(XPM_NODEIDX_DEV_XRAM_0);
+	if (NULL == Device) {
+		goto done;
+	}
+	XramSlcrAddress = Device->Node.BaseAddress;
+	BitMask = Node->BaseAddress;
+
+	switch (NODEINDEX(Node->Id)) {
+		case XPM_NODEIDX_POWER_XRAM_0:
+		case XPM_NODEIDX_POWER_XRAM_1:
+		case XPM_NODEIDX_POWER_XRAM_2:
+		case XPM_NODEIDX_POWER_XRAM_3:
+			PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_DWN_BANK0_OFFSET;
+			PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK0_OFFSET;
+			break;
+		case XPM_NODEIDX_POWER_XRAM_4:
+		case XPM_NODEIDX_POWER_XRAM_5:
+		case XPM_NODEIDX_POWER_XRAM_6:
+		case XPM_NODEIDX_POWER_XRAM_7:
+			PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_DWN_BANK1_OFFSET;
+			PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK1_OFFSET;
+			break;
+		case XPM_NODEIDX_POWER_XRAM_8:
+		case XPM_NODEIDX_POWER_XRAM_9:
+		case XPM_NODEIDX_POWER_XRAM_10:
+		case XPM_NODEIDX_POWER_XRAM_11:
+			PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_DWN_BANK2_OFFSET;
+			PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK2_OFFSET;
+			break;
+		case XPM_NODEIDX_POWER_XRAM_12:
+		case XPM_NODEIDX_POWER_XRAM_13:
+		case XPM_NODEIDX_POWER_XRAM_14:
+		case XPM_NODEIDX_POWER_XRAM_15:
+			PwrCtlAddress = XramSlcrAddress + XRAM_SLCR_PWR_DWN_BANK3_OFFSET;
+			PwrStatusAddress = XramSlcrAddress + XRAM_SLCR_PWR_STATUS_BANK3_OFFSET;
+			break;
+		default:
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+
+	/* Check if already power up */
+	RegVal = XPm_In32(PwrStatusAddress);
+	if ((RegVal & BitMask) == 0) {
+		goto done;
+	}
+
+	/* TODO: Clear chip enable bit */
+
+	/* Disable power state for selected bank */
+	PmRmw32(PwrCtlAddress, BitMask, ~BitMask);
+
+	/* Poll for power status to clear */
+	Status = XPm_PollForZero(PwrStatusAddress, BitMask, XPM_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+
+done:
+	return Status;
+}
+
+
 static XStatus SendPowerUpReq(XPm_Node *Node)
 {
 	u32 Status = XST_SUCCESS;
@@ -83,11 +228,17 @@ static XStatus SendPowerUpReq(XPm_Node *Node)
 		goto done;
 
 	if (XPM_NODESUBCL_POWER_ISLAND == NODESUBCLASS(Node->Id)) {
-		Status = XPmPsm_SendPowerUpReq(Node->BaseAddress);
-		if (XST_SUCCESS != Status) {
-			goto done;
+		if (XPM_NODETYPE_POWER_ISLAND_XRAM == NODETYPE(Node->Id)) {
+			Status = PowerUpXram(Node);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		} else {
+			Status = XPmPsm_SendPowerUpReq(Node->BaseAddress);
+                        if (XST_SUCCESS != Status) {
+                                goto done;
+                        }
 		}
-
 		/*
 		 * For S80 ES1, there is a bug in LPD which requires the
 		 * LPD_INT and RPU power domain signals needs to be
@@ -147,10 +298,19 @@ static XStatus SendPowerDownReq(XPm_Node *Node)
 	}
 
 	if (XPM_NODESUBCL_POWER_ISLAND == NODESUBCLASS(Node->Id)) {
-		Status = XPmPsm_SendPowerDownReq(Node->BaseAddress);
+		if (XPM_NODETYPE_POWER_ISLAND_XRAM == NODETYPE(Node->Id)) {
+                        Status = PowerDwnXram(Node);
+                        if (XST_SUCCESS != Status) {
+                                goto done;
+                        }
+                } else {
+			Status = XPmPsm_SendPowerDownReq(Node->BaseAddress);
+                        if (XST_SUCCESS != Status) {
+                                goto done;
+                        }
+                }
 
-		if ((XST_SUCCESS == Status) &&
-		    (XPM_NODEIDX_POWER_RPU0_0 == NODEINDEX(Node->Id))) {
+		if (XPM_NODEIDX_POWER_RPU0_0 == NODEINDEX(Node->Id)) {
 			LpDomain->LpdBisrFlags &= ~(LPD_BISR_DONE);
 		}
 	} else {
