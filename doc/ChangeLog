@@ -192,6 +192,61 @@ Added power down permission check for processor and PLL nodes in
  PmForcePowerdown()
 Added support for RPU only subsystem restart case
 
+scugic_v4_1:
+Fix issues in interrupt mapping/un-mapping for AMP use case. Default mapping
+of all
+interrupts to relevant CPU during initialization has been removed. Now,
+interrupt would
+be mapped to the CPU, only if request is made to enable that specific
+interrupt ID.
+Add support to generate pl-ps interrupt IDs for Versal.
+Add APIs to mark processor as asleep/awake, these APIs are applicable only
+for
+GIC500.
+
+freertos10_xilinx_v1_4:
+Added support for CortexA72.
+
+intc_v3_10:
+Updated intc_update_source_array  proc in tcl to calculate total_source_intrs
+based on width of interrupt port/pin.
+
+ttcps_v3_10:
+Added assert checks in XTtcPs_CalcIntervalFromFreq API.
+Modified xttcps_intr_example to make it generic, to
+use any intended TTC device.
+In XTtcPs_SetOptions() default condition will never reach. So replaced
+switch case as if-else.
+Added interrupt handler in driver. Updated examples to use ttc driver
+interrupt handler.
+Added the stack usage,memory foot-print and execution time for
+each API, compiler informations, assumptions of use in the header file
+and mentioned the parameters range in the source code.
+
+
+standalone_v7_1:
+Updated Cortexr5 BSP to skip access to secure address sapce,
+if processor is marked as non secure in trustzone setting.
+Fixed Cortexr5 events in arm/cortexr5/xpm_counter.c.
+Updated Cortexr5 BSP to fix infinite loop in Xil_MemMap API.
+Removed NULL pointer de-referencing from xil_printf function.
+Updated xil_smc.h to add SMC IDs related to Versal.
+Updated Init_MPU API in Cortexr5 BSP to print warning on console,
+if DDR size is not in power of 2.
+Updated transaltion table for versal
+ARMv8/64bit/platform/versal/translation_table.S
+to mark DDR_CH_1, DDR_CH_2 and DDR_CH_3 regions as memory, based on
+respective region
+sizes in hdf.
+Optimized Xil_DCacheInvalidateRange API in ARMv8 BSP, to fix performace drop
+obseved on Versal platform.
+Updated Xil_DCacheFlushRange to point to Xil_DCacheInvalidateRange API, since
+both
+APIs executes same functinality. It has been done to avoid code duplication.
+Added MPU mapping for AIE address space in Cortexr5 BSP
+arm/cortexr5/platform/versal/mpu.c.
+
+
 Changes for 2019.1
 ===============================
 v_hdmiphy1_v1_0:
