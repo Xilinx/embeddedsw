@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 #ifndef XPM_COMMON_H_
 #define XPM_COMMON_H_
@@ -44,6 +24,16 @@ extern "C" {
 #define xSELF_TEST_CLOCK_API
 #define xDEBUG_REG_IO
 
+#define TRUE	1U
+#define FALSE	0U
+
+/**
+ * GCC Specific attribute to suppress unused variable/function warning
+ */
+#ifndef maybe_unused
+#define maybe_unused __attribute__((unused))
+#endif
+
 /* Debug logs */
 #define PmAlert(...) \
 	XPlmi_Printf(DEBUG_GENERAL, "[ALERT] %s: ", __func__); \
@@ -64,16 +54,6 @@ extern "C" {
 #define PmDbg(...) \
 	XPlmi_Printf(DEBUG_DETAILED, "[DEBUG] %s: ", __func__); \
 	XPlmi_Printf(DEBUG_DETAILED, __VA_ARGS__)
-
-#ifdef __MICROBLAZE__
-#define VERIFY(X) \
-	if (!(X)) { \
-		PmErr("Assert failed: %s\n\r", #X); \
-		while (1); \
-	}
-#else
-#define VERIFY(X)	assert(X)
-#endif
 
 #ifdef DEBUG_REG_IO
 
@@ -103,25 +83,39 @@ extern "C" {
 
 #endif
 
-#define BIT(n)		(1U << (n))
+#define BIT(n)					(1U << (n))
+#define BIT8(n)					((u8)1U << (n))
+#define BIT16(n)				((u16)1U << (n))
+#define BIT32(n)				((u32)1U << (n))
 // set the first n bits to 1, rest to 0
-#define BITMASK(n) ((1ULL << (n)) - 1ULL)
+#define BITMASK(n)				(u32)((1ULL << (n)) - 1ULL)
 // set width specified bits at offset to 1, rest to 0
-#define BITNMASK(offset, width) (BITMASK(width) << offset)
+#define BITNMASK(offset, width) 		(BITMASK(width) << (offset))
 
-#define ARRAY_SIZE(x)	(sizeof(x) / sizeof((x)[0]))
+#define ARRAY_SIZE(x)				(sizeof(x) / sizeof((x)[0]))
 
-#define XPm_Read32			XPm_In32
-#define XPm_Write32			XPm_Out32
+#define XPm_Read32				XPm_In32
+#define XPm_Write32				XPm_Out32
 
 #define PLATFORM_VERSION_SILICON		(0x0U)
 #define PLATFORM_VERSION_SPP			(0x1U)
 #define PLATFORM_VERSION_EMU			(0x2U)
 #define PLATFORM_VERSION_QEMU			(0x3U)
+#define PLATFORM_VERSION_FCV			(0x4U)
 #define PLATFORM_VERSION_SILICON_ES1		(0x0U)
+
+#define SLR_TYPE_MONOLITHIC_DEV			(0x7U)
+#define SLR_TYPE_SSIT_DEV_MASTER_SLR		(0x6U)
+#define SLR_TYPE_SSIT_DEV_SLAVE_1_SLR_TOP	(0x5U)
+#define SLR_TYPE_SSIT_DEV_SLAVE_1_SLR_NTOP	(0x4U)
+#define SLR_TYPE_SSIT_DEV_SLAVE_2_SLR_TOP	(0x3U)
+#define SLR_TYPE_SSIT_DEV_SLAVE_2_SLR_NTOP	(0x2U)
+#define SLR_TYPE_SSIT_DEV_SLAVE_3_SLR_TOP	(0x1U)
+#define SLR_TYPE_INVALID			(0x0U)
 
 extern u32 Platform;
 extern u32 PlatformVersion;
+extern u32 SlrType;
 
 void *XPm_AllocBytes(u32 Size);
 
@@ -144,6 +138,15 @@ void XPm_Wait(u32 TimeOutCount);
  * Poll for mask for a period represented by TimeOut
  */
 XStatus XPm_PollForMask(u32 RegAddress, u32 Mask, u32 TimeOutCount);
+XStatus XPm_PollForZero(u32 RegAddress, u32 Mask, u32 TimeOutCount);
+
+/**
+ * Compute parity of a 32-bit word
+ */
+u32 XPm_ComputeParity(u32 Value);
+
+/* Dump Memory Related Data like Total Mem, Usaged Mem, Free Mem */
+void XPm_DumpMemUsage(void);
 
 #ifdef __cplusplus
 }

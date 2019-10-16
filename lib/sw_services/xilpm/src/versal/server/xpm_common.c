@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 #include "xil_io.h"
 
@@ -32,17 +12,18 @@
 #include "xpm_psfpdomain.h"
 #include "xpm_pslpdomain.h"
 
-#define MAX_BYTEBUFFER_SIZE	(32 * 1024)
+#define MAX_BYTEBUFFER_SIZE	(32U * 1024U)
 static u8 ByteBuffer[MAX_BYTEBUFFER_SIZE];
 static u8 *FreeBytes = ByteBuffer;
 
 u32 Platform;
 u32 PlatformVersion;
+u32 SlrType;
 
 void *XPm_AllocBytes(u32 Size)
 {
 	void *Bytes = NULL;
-	u32 BytesLeft = ByteBuffer + MAX_BYTEBUFFER_SIZE - FreeBytes;
+	u32 BytesLeft = (u32)ByteBuffer + MAX_BYTEBUFFER_SIZE - (u32)FreeBytes;
 	u32 i;
 	u32 NumWords;
 	u32 *Words;
@@ -59,14 +40,13 @@ void *XPm_AllocBytes(u32 Size)
 	FreeBytes += Size;
 
 	/* Zero the bytes */
-	NumWords = Size / 4;
+	NumWords = Size / 4U;
 	Words = (u32 *)Bytes;
 	for (i = 0; i < NumWords; i++) {
 		Words[i] = 0U;
 	}
 
 done:
-	VERIFY(Bytes != NULL);
 	return Bytes;
 }
 
@@ -74,7 +54,7 @@ void XPm_DumpMemUsage(void)
 {
 	xil_printf("Total buffer size = %d bytes\n\r", MAX_BYTEBUFFER_SIZE);
 	xil_printf("Used = %d bytes\n\r", FreeBytes - ByteBuffer);
-	xil_printf("Free = %d bytes\n\r", MAX_BYTEBUFFER_SIZE - (FreeBytes - ByteBuffer));
+	xil_printf("Free = %d bytes\n\r", MAX_BYTEBUFFER_SIZE - (u32)FreeBytes - (u32)ByteBuffer);
 	xil_printf("\n\r");
 }
 
@@ -90,27 +70,27 @@ void XPm_Out32(u32 RegAddress, u32 l_Val)
 	XPm_PsLpDomain *PsLpd = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 	XPm_PsFpDomain *PsFpd = (XPm_PsFpDomain *)XPmPower_GetById(PM_POWER_FPD);
 
-	if (Pmc && ((RegAddress & 0xFFFF0000) == Pmc->PmcIouSlcrBaseAddr)) {
+	if ((NULL != Pmc) && ((RegAddress & 0xFFFF0000U) == Pmc->PmcIouSlcrBaseAddr)) {
 		Xil_Out32(Pmc->PmcIouSlcrBaseAddr + PMC_IOU_SLCR_WPROT0_OFFSET,
 			  0x0U);
 		Xil_Out32(RegAddress, l_Val);
 		Xil_Out32(Pmc->PmcIouSlcrBaseAddr + PMC_IOU_SLCR_WPROT0_OFFSET,
 			  0x1U);
-	} else if (PsLpd && ((RegAddress & 0xFFFF0000) ==
+	} else if ((NULL != PsLpd) && ((RegAddress & 0xFFFF0000U) ==
 			     PsLpd->LpdIouSlcrBaseAddr)) {
                 Xil_Out32(PsLpd->LpdIouSlcrBaseAddr + LPD_IOU_SLCR_WPROT0_OFFSET,
 			  0x0U);
                 Xil_Out32(RegAddress, l_Val);
                 Xil_Out32(PsLpd->LpdIouSlcrBaseAddr + LPD_IOU_SLCR_WPROT0_OFFSET,
 			  0x1U);
-        }  else if (PsLpd && ((RegAddress & 0xFFFF0000) ==
+        }  else if ((NULL != PsLpd) && ((RegAddress & 0xFFFF0000U) ==
 			      PsLpd->LpdSlcrBaseAddr)) {
                 Xil_Out32(PsLpd->LpdSlcrBaseAddr + LPD_SLCR_WPROT0_OFFSET,
 			  0x0U);
                 Xil_Out32(RegAddress, l_Val);
                 Xil_Out32(PsLpd->LpdSlcrBaseAddr + LPD_SLCR_WPROT0_OFFSET,
 			  0x1U);
-        }  else if (PsFpd && ((RegAddress & 0xFFFF0000) ==
+        }  else if ((NULL != PsFpd) && ((RegAddress & 0xFFFF0000U) ==
 			      PsFpd->FpdSlcrBaseAddr)) {
                 Xil_Out32(PsFpd->FpdSlcrBaseAddr + FPD_SLCR_WPROT0_OFFSET,
 			  0x0U);
@@ -156,4 +136,34 @@ XStatus XPm_PollForMask(u32 RegAddress, u32 Mask, u32 TimeOutCount)
 	}
 
 	return ((TimeOut == 0U) ? XPM_PM_TIMEOUT : XST_SUCCESS);
+}
+
+
+XStatus XPm_PollForZero(u32 RegAddress, u32 Mask, u32 TimeOutCount)
+{
+        u32 l_RegValue;
+        u32 TimeOut = TimeOutCount;
+        /* Read the Register value       */
+        l_RegValue = XPm_In32(RegAddress);
+        /* Loop while the MAsk is not set or we timeout */
+        while(((l_RegValue & Mask) != 0U) && (TimeOut > 0U))
+        {
+                /* Latch up the Register value again */
+                l_RegValue = XPm_In32(RegAddress);
+                /* Decrement the TimeOut Count */
+                TimeOut--;
+        }
+
+        return ((TimeOut == 0U) ? XPM_PM_TIMEOUT : XST_SUCCESS);
+}
+
+u32 XPm_ComputeParity(u32 Value)
+{
+	Value ^= (Value >> 16U);
+	Value ^= (Value >> 8U);
+	Value ^= (Value >> 4U);
+	Value ^= (Value >> 2U);
+	Value ^= (Value >> 1U);
+
+	return (Value & 1U);
 }
