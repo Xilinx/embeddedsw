@@ -89,6 +89,10 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 			SubsystemId = Cmd->SubsystemId;
                         PmDbg("Using subsystemId passed by PLM: 0x%x\n\r",
 								SubsystemId);
+			/* Use PMC subsystem ID for power domain CDOs. */
+			if (XPM_NODECLASS_POWER == NODECLASS(SubsystemId)) {
+				SubsystemId = PM_SUBSYS_PMC;
+			}
 		} else if(Cmd->IpiMask) {
 			SubsystemId = XPmSubsystem_GetSubSysIdByIpiMask(Cmd->IpiMask);
 			PmDbg("Using subsystemId mapped to IPI: 0x%x\n\r", SubsystemId);
