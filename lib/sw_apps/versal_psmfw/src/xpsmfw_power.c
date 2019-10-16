@@ -1721,9 +1721,10 @@ XStatus XPsmFw_DispatchWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask)
 				(!CHECK_BIT(WakeupIntMask, WakeupHandlerTable[Index].Mask)) ) {
 			/* Call power up handler */
 			Status = WakeupHandlerTable[Index].Handler();
-		}
 
-		XPsmFw_Write32(PSM_GLOBAL_REG_WAKEUP_IRQ_DIS, WakeupHandlerTable[Index].Mask);
+			/* Disable wake-up interrupt */
+			XPsmFw_Write32(PSM_GLOBAL_REG_WAKEUP_IRQ_DIS, WakeupHandlerTable[Index].Mask);
+		}
 	}
 
 	return Status;
@@ -1747,9 +1748,10 @@ XStatus XPsmFw_DispatchPwrCtlHandler(u32 PwrCtlStatus, u32 PwrCtlIntMask)
 				(!CHECK_BIT(PwrCtlIntMask, SleepHandlerTable[Index].Mask)) ) {
 			/* Call power up handler */
 			Status = SleepHandlerTable[Index].Handler();
-		}
 
-		XPsmFw_Write32(PSM_GLOBAL_REG_PWR_CTRL_IRQ_DIS, SleepHandlerTable[Index].Mask);
+			/* Disable direct power-down interrupt */
+			XPsmFw_Write32(PSM_GLOBAL_REG_PWR_CTRL_IRQ_DIS, SleepHandlerTable[Index].Mask);
+		}
 	}
 
 	return Status;
