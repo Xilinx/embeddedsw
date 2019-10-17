@@ -108,6 +108,11 @@ void NodeSataIdle(u32 BaseAddress);
 void NodeZdmaIdle(u32 BaseAddress);
 #endif
 
+#if defined(XPAR_PSU_CAN_0_DEVICE_ID) || \
+	defined(XPAR_PSU_CAN_1_DEVICE_ID)
+#include "xcanps_hw.h"
+void NodeCanIdle(u32 BaseAddress);
+#endif
 #ifdef __cplusplus
 }
 #endif

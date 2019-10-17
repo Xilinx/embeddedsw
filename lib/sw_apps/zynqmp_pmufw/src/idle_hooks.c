@@ -575,4 +575,30 @@ void NodeZdmaIdle(u32 BaseAddress)
 }
 #endif /* ZDMA */
 
+#if defined(XPAR_PSU_CAN_0_DEVICE_ID) || \
+	defined(XPAR_PSU_CAN_1_DEVICE_ID)
+void NodeCanIdle(u32 BaseAddress)
+{
+	volatile u32 StatusReg;
+	u32 LocalTimeout = MAX_TIMEOUT;
+
+	StatusReg = XCanPs_ReadReg(BaseAddress, XCANPS_SRR_OFFSET);
+
+	/* Check for CAN enable */
+	if (StatusReg & XCANPS_SRR_CEN_MASK) {
+		StatusReg = XCanPs_ReadReg(BaseAddress, XCANPS_MSR_OFFSET);
+		/* Check for Normal Mode */
+		if (!StatusReg) {
+			XCanPs_WriteReg(BaseAddress,
+					XCANPS_MSR_OFFSET,
+					XCANPS_MSR_SLEEP_MASK);
+			do {
+				StatusReg = XCanPs_ReadReg(BaseAddress,
+							XCANPS_MSR_OFFSET);
+			} while (((StatusReg & XCANPS_MSR_SLEEP_MASK) != TRUE)
+				 && LocalTimeout --);
+		}
+	}
+}
+#endif /* CAN */
 #endif /* ENABLE_NODE_IDLING */
