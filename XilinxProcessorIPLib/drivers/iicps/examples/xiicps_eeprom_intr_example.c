@@ -58,7 +58,9 @@
 *                     Updated to use usleep instead of delay loop
 * 1.04a hk   09/03/13 Removed GPIO code to pull MUX out of reset - CR#722425.
 * 2.3 	sk	 10/07/14 Removed multiple initializations for read buffer.
-*
+* 4.0   rna  10/16/19 Added support for 64 page size Eeproms on Versal based
+*		      boards, scanning for eeprom until found on all I2C
+*		      instances - CR#1035348
 * </pre>
 *
 ******************************************************************************/
@@ -98,9 +100,10 @@
  * The page size determines how much data should be written at a time.
  * The write function should be called with this as a maximum byte count.
  */
-#define MAX_SIZE		32
+#define MAX_SIZE		64
 #define PAGE_SIZE_16	16
 #define PAGE_SIZE_32	32
+#define PAGE_SIZE_64	64
 
 /*
  * The Starting address in the IIC EEPROM on which this test is performed.
@@ -129,7 +132,7 @@ static int MuxInitChannel(u16 MuxIicAddr, u8 WriteBuffer);
 static int FindEepromDevice(u16 Address);
 static int IicPsFindEeprom(u16 *Eeprom_Addr, int *PageSize);
 static int IicPsConfig(u16 DeviceId, u32 Int_Id);
-static int IicPsFindDevice(u16 addr);
+static int IicPsFindDevice(u16 addr, u16 DeviceId);
 /************************** Variable Definitions *****************************/
 #ifndef TESTAPP_GEN
 XIicPs IicInstance;		/* The instance of the IIC device. */
@@ -618,25 +621,21 @@ static int IicPsConfig(u16 DeviceId, u32 Int_Id)
 	return XST_SUCCESS;
 }
 
-static int IicPsFindDevice(u16 addr)
+static int IicPsFindDevice(u16 addr, u16 DeviceId)
 {
 	int Status;
 
-	Status = IicPsSlaveMonitor(addr,0,XPAR_XIICPS_0_INTR);
-	if (Status == XST_SUCCESS) {
-		return XST_SUCCESS;
+	if (DeviceId == 0){
+		Status = IicPsSlaveMonitor(addr,DeviceId,XPAR_XIICPS_0_INTR);
+		if (Status == XST_SUCCESS) {
+			return XST_SUCCESS;
+		}
 	}
-	Status = IicPsSlaveMonitor(addr,1,XPAR_XIICPS_1_INTR);
-	if (Status == XST_SUCCESS) {
-		return XST_SUCCESS;
-	}
-	Status = IicPsSlaveMonitor(addr,0,XPAR_XIICPS_1_INTR);
-	if (Status == XST_SUCCESS) {
-		return XST_SUCCESS;
-	}
-	Status = IicPsSlaveMonitor(addr,1,XPAR_XIICPS_0_INTR);
-	if (Status == XST_SUCCESS) {
-		return XST_SUCCESS;
+	else if (DeviceId == 1) {
+		Status = IicPsSlaveMonitor(addr,DeviceId,XPAR_XIICPS_1_INTR);
+		if (Status == XST_SUCCESS) {
+			return XST_SUCCESS;
+		}
 	}
 	return XST_FAILURE;
 }
@@ -655,36 +654,44 @@ static int IicPsFindDevice(u16 addr)
 static int IicPsFindEeprom(u16 *Eeprom_Addr,int *PageSize)
 {
 	int Status;
+	u16 DeviceId;
 	int MuxIndex,Index;
 	u8 MuxChannel;
+	int Type_of_board;
 
-	for(MuxIndex=0;MuxAddr[MuxIndex] != 0;MuxIndex++){
-		Status = IicPsFindDevice(MuxAddr[MuxIndex]);
-		if (Status == XST_SUCCESS) {
-			for(Index=0;EepromAddr[Index] != 0;Index++) {
+	for (DeviceId = 0; DeviceId < XPAR_XIICPS_NUM_INSTANCES; DeviceId++) {
+		for(MuxIndex=0;MuxAddr[MuxIndex] != 0;MuxIndex++){
+			Status = IicPsFindDevice(MuxAddr[MuxIndex], DeviceId);
+			if (Status == XST_SUCCESS) {
+				for(Index=0;EepromAddr[Index] != 0;Index++) {
 					for(MuxChannel = 0x01; MuxChannel <= MAX_CHANNELS; MuxChannel = MuxChannel << 1) {
-					Status = MuxInitChannel(MuxAddr[MuxIndex], MuxChannel);
-					if (Status != XST_SUCCESS) {
-						xil_printf("Failed to enable the MUX channel\r\n");
-						return XST_FAILURE;
-					}
-					Status = FindEepromDevice(EepromAddr[Index]);
-					FindEepromDevice(MUX_ADDR);
-					if (Status == XST_SUCCESS) {
-						*Eeprom_Addr = EepromAddr[Index];
-						*PageSize = PAGE_SIZE_16;
-						return XST_SUCCESS;
+						Status = MuxInitChannel(MuxAddr[MuxIndex], MuxChannel);
+						if (Status != XST_SUCCESS) {
+							xil_printf("Failed to enable the MUX channel\r\n");
+							return XST_FAILURE;
+						}
+						Status = FindEepromDevice(EepromAddr[Index]);
+						FindEepromDevice(MUX_ADDR);
+						if (Status == XST_SUCCESS) {
+							*Eeprom_Addr = EepromAddr[Index];
+							Type_of_board = XGetPlatform_Info();
+							if (Type_of_board == XPLAT_VERSAL)
+								*PageSize = PAGE_SIZE_64;
+							else
+								*PageSize = PAGE_SIZE_16;
+							return XST_SUCCESS;
+						}
 					}
 				}
 			}
 		}
-	}
-	for(Index=0;EepromAddr[Index] != 0;Index++) {
-		Status = IicPsFindDevice(EepromAddr[Index]);
-		if (Status == XST_SUCCESS) {
-			*Eeprom_Addr = EepromAddr[Index];
-			*PageSize = PAGE_SIZE_32;
-			return XST_SUCCESS;
+		for(Index=0;EepromAddr[Index] != 0;Index++) {
+			Status = IicPsFindDevice(EepromAddr[Index], DeviceId);
+			if (Status == XST_SUCCESS) {
+				*Eeprom_Addr = EepromAddr[Index];
+				*PageSize = PAGE_SIZE_32;
+				return XST_SUCCESS;
+			}
 		}
 	}
 	return XST_FAILURE;
