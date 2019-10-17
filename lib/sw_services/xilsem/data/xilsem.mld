@@ -41,7 +41,7 @@ BEGIN LIBRARY xilsem
   OPTION SUPPORTED_PERIPHERALS = (psu_pmc psv_pmc);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilsem,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Versal Soft Error Mitigation Library";
-  OPTION VERSION = 1.7;
+  OPTION VERSION = 1.0;
   OPTION NAME = xilsem;
   BEGIN CATEGORY cfr_options
     PARAM name = SEM_CONFIG_MEM_SCAN, desc = "Defines if SEM Cframe scan is enabled(1) or disabled (0).", type = bool, default = false;
