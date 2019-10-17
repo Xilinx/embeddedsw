@@ -505,4 +505,74 @@ void NodeSataIdle(u32 BaseAddress)
 }
 #endif
 
+#if defined(XPAR_PSU_GDMA_0_DEVICE_ID) || \
+	defined(XPAR_PSU_ADMA_0_DEVICE_ID)
+
+/* Total number of channels and offset per DMA */
+
+#define XZDMA_CH_OFFSET		0X10000
+#define XZDMA_NUM_CHANNEL		8U	/* Number of channels */
+
+/**
+ * NodeZdmaIdle() - Custom code to idle the ZDMA (GDMA and ADMA)
+ *
+ * @BaseAddress: ZDMA base address of the first channel
+ */
+
+void NodeZdmaIdle(u32 BaseAddress)
+{
+	u8 channel = 0;
+	volatile u32 regVal = 0;
+	u32 LocalTimeout;
+
+	for (channel = 0; channel < XZDMA_NUM_CHANNEL; channel++) {
+		/*
+		 * Idle each of the 8 channels
+		 */
+
+		/* Disable / stop the channel the channel */
+		XZDma_WriteReg(BaseAddress, (XZDMA_CH_CTRL2_OFFSET),
+				(XZDMA_CH_CTRL2_DIS_MASK));
+
+		/*
+		 * wait till transfers are not completed or halted
+		 */
+		LocalTimeout = MAX_TIMEOUT; /* todo: not right to use max timeout. do calibrate*/
+
+		do {
+			regVal = XZDma_ReadReg(BaseAddress, XZDMA_CH_STS_OFFSET) & XZDMA_STS_BUSY_MASK;
+		}while (regVal && LocalTimeout --);
+
+		/* Disables and clear all interrupts */
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_IDS_OFFSET, XZDMA_IXR_ALL_INTR_MASK);
+
+		XZDma_WriteReg( BaseAddress, XZDMA_CH_ISR_OFFSET,
+				(XZDma_ReadReg(BaseAddress, XZDMA_CH_ISR_OFFSET) & XZDMA_IXR_ALL_INTR_MASK));
+
+		/* Reset all the configurations */
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_CTRL0_OFFSET, XZDMA_CTRL0_RESET_VALUE);
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_CTRL1_OFFSET, XZDMA_CTRL1_RESET_VALUE);
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_DATA_ATTR_OFFSET, XZDMA_DATA_ATTR_RESET_VALUE);
+		XZDma_WriteReg(BaseAddress,	XZDMA_CH_DSCR_ATTR_OFFSET, XZDMA_DSCR_ATTR_RESET_VALUE);
+
+		/* Clears total byte transferred */
+		XZDma_WriteReg(BaseAddress,	XZDMA_CH_TOTAL_BYTE_OFFSET,
+					XZDma_ReadReg(BaseAddress, XZDMA_CH_TOTAL_BYTE_OFFSET));
+
+		/* Read interrupt counts to clear it on both source and destination channels*/
+		XZDma_ReadReg(BaseAddress, XZDMA_CH_IRQ_SRC_ACCT_OFFSET);
+		XZDma_ReadReg(BaseAddress, XZDMA_CH_IRQ_DST_ACCT_OFFSET);
+
+		/*
+		 * Reset the channel's coherent attributes.
+		 */
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_DSCR_ATTR_OFFSET, 0x0);
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_SRC_DSCR_WORD3_OFFSET, 0x0);
+		XZDma_WriteReg(BaseAddress, XZDMA_CH_DST_DSCR_WORD3_OFFSET, 0x0);
+
+		BaseAddress += XZDMA_CH_OFFSET;
+	}
+}
+#endif /* ZDMA */
+
 #endif /* ENABLE_NODE_IDLING */

@@ -639,6 +639,48 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.IdleHookArgs = 0U
 #endif
 	},
+	{
+		.NodeId = NODE_GDMA,
+		.RstActionList= {
+			{	.ResetId = PM_RESET_GDMA,
+				.ResetAction = PM_RESET_ACTION_ASSERT,
+				.ResetPulseWait = 10,
+			},
+			{0,0,0}
+		},
+#ifdef XPAR_PSU_GDMA_0_DEVICE_ID
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NodeZdmaIdle,
+		.IdleHookArgs = XPAR_PSU_GDMA_0_BASEADDR
+#else
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NULL,
+		.IdleHookArgs = 0U
+#endif
+	},
+	{
+		.NodeId = NODE_ADMA,
+		.RstActionList= {
+			{	.ResetId = PM_RESET_ADMA,
+				.ResetAction = PM_RESET_ACTION_ASSERT,
+				.ResetPulseWait = 10,
+			},
+			{0,0,0}
+		},
+#ifdef XPAR_PSU_ADMA_0_DEVICE_ID
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NodeZdmaIdle,
+		.IdleHookArgs = XPAR_PSU_ADMA_0_BASEADDR
+#else
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NULL,
+		.IdleHookArgs = 0U
+#endif
+	},
 };
 
 /**

@@ -102,6 +102,12 @@ void NodeDpIdle(u32 BaseAddress);
 void NodeSataIdle(u32 BaseAddress);
 #endif
 
+#if defined(XPAR_PSU_ZDMA_0_DEVICE_ID) || \
+	defined(XPAR_PSU_ADMA_0_DEVICE_ID)
+#include "xzdma_hw.h"
+void NodeZdmaIdle(u32 BaseAddress);
+#endif
+
 #ifdef __cplusplus
 }
 #endif
