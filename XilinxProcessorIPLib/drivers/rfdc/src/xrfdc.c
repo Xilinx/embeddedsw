@@ -176,6 +176,7 @@
 *                       for Gen 3 devices.
 *       cog    10/02/19 Added explicit clock divider for datapath modes.
 *       cog    10/02/19 The register value for the link coupling is inverted in Gen 3 Devices.
+*       cog    10/18/19 DSA was checking DAC tile rather than ADC.
 *
 * </pre>
 *
@@ -5213,7 +5214,7 @@ RETURN_PATH:
 *           - XRFDC_SUCCESS if successful.
 *           - XRFDC_FAILURE if error occurs.
 *
-* @note  Range 0 - ll dB with 0.5 dB resolution.
+* @note  Range 0 - 11 dB with 0.5 dB resolution.
 ******************************************************************************/
 u32 XRFdc_SetDSA(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_DSA_Settings *SettingsPtr)
 {
@@ -5234,7 +5235,7 @@ u32 XRFdc_SetDSA(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_DSA_Settin
 		goto RETURN_PATH;
 	}
 
-	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
 		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
@@ -5321,7 +5322,7 @@ u32 XRFdc_GetDSA(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_DSA_Settin
 		goto RETURN_PATH;
 	}
 
-	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
 		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
