@@ -177,6 +177,7 @@
 *       cog    10/02/19 Added explicit clock divider for datapath modes.
 *       cog    10/02/19 The register value for the link coupling is inverted in Gen 3 Devices.
 *       cog    10/18/19 DSA was checking DAC tile rather than ADC.
+*       cog    10/18/19 Fix GCB read indexing issue with HSADC devices & TSCB coefficients.
 *
 * </pre>
 *
@@ -4589,7 +4590,7 @@ u32 XRFdc_SetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF0_ALT,
 						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff0 >> Shift);
 				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF1_ALT,
-						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff1);
+						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff1 >> Shift);
 				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF2_ALT,
 						XRFDC_CAL_TSCB_MASK, CoeffPtr->Coeff2 >> Shift);
 				XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CAL_TSCB_OFFSET_COEFF3_ALT,
@@ -4758,19 +4759,19 @@ u32 XRFdc_GetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 				} else {
 					CoeffPtr->Coeff0 |=
 						XRFdc_RDReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
-							    XRFDC_CAL_GCB_COEFF0_FAB(Block_Id), XRFDC_CAL_GCB_MASK)
+							    XRFDC_CAL_GCB_COEFF0_FAB(Index), XRFDC_CAL_GCB_MASK)
 						<< Shift;
 					CoeffPtr->Coeff1 |=
 						XRFdc_RDReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
-							    XRFDC_CAL_GCB_COEFF1_FAB(Block_Id), XRFDC_CAL_GCB_MASK)
+							    XRFDC_CAL_GCB_COEFF1_FAB(Index), XRFDC_CAL_GCB_MASK)
 						<< Shift;
 					CoeffPtr->Coeff2 |=
 						XRFdc_RDReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
-							    XRFDC_CAL_GCB_COEFF2_FAB(Block_Id), XRFDC_CAL_GCB_MASK)
+							    XRFDC_CAL_GCB_COEFF2_FAB(Index), XRFDC_CAL_GCB_MASK)
 						<< Shift;
 					CoeffPtr->Coeff3 |=
 						XRFdc_RDReg(InstancePtr, XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id),
-							    XRFDC_CAL_GCB_COEFF3_FAB(Block_Id), XRFDC_CAL_GCB_MASK)
+							    XRFDC_CAL_GCB_COEFF3_FAB(Index), XRFDC_CAL_GCB_MASK)
 						<< Shift;
 				}
 			} else {
