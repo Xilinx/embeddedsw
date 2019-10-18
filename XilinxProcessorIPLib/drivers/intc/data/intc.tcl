@@ -83,6 +83,8 @@
 ##                  total_source_intrs. It fixes CR#1020269
 ##     12/09/19 adk When interrupt source pin is connected to slice consider
 ##		    slice width, while calculating the total interrupt sources.
+##     18/10/19 adk Updated the get_slice_interrupt_sources_for_slice proc to consider
+##		    external interrupt source pin connected to slice use case.
 ##
 ##
 ## @END_CHANGELOG

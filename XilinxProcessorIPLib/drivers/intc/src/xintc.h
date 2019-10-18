@@ -158,6 +158,9 @@
 * 3.10  mus   04/10/19 Updated intc_update_source_array proc to
 * 		      calculate total_source_intrs, based on the width of
 *		      interrupt port/pins.
+* 3.11  adk   18/10/19 Updated the get_slice_interrupt_sources_for_slice proc
+*		       to consider external interrupt source pin connected to
+*		       slice use case.
 *
 * @note
 *		For Cascade mode, Interrupt IDs are generated in xparameters.h
