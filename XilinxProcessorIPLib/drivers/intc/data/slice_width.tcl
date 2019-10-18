@@ -127,7 +127,12 @@ proc ::hsi::__internal::get_slice_interrupt_sources_for_slice { slice_ip_obj int
                 }
             }
 
+        } else {
+              if { $pin eq $intr_src_pin } {
+                  set slice_width [ common::get_property CONFIG.DOUT_WIDTH $slice_ip_obj ]
+              }
         }
+
     }
     return $slice_width
 }
