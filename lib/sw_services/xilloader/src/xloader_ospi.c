@@ -132,6 +132,10 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 	if(ReadBuffer[2] == MICRON_OCTAL_ID_BYTE2_512) {
 		OspiFlashSize = FLASH_SIZE_512M;
 	}
+	else if(ReadBuffer[2] == MICRON_OCTAL_ID_BYTE2_1G)
+	{
+		OspiFlashSize = FLASH_SIZE_1G;
+	}
 	else if(ReadBuffer[2] == MICRON_OCTAL_ID_BYTE2_2G)
 	{
 		OspiFlashSize = FLASH_SIZE_2G;
