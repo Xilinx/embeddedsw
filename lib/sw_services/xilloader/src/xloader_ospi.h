@@ -65,6 +65,7 @@ extern "C" {
 #define MICRON_ID				(0x20U)
 #define FLASH_SIZE_ID_512M			(0x20U)
 #define FLASH_SIZE_512M				(0x4000000U)
+#define FLASH_SIZE_1G				(0x8000000U)
 #define FLASH_SIZE_2G                   	(0x10000000U)
 #define READ_CMD_OCTAL_4B    			(0x7CU)
 #define READ_ID					(0x9FU)
@@ -86,6 +87,7 @@ extern "C" {
  */
 #define	MICRON_OCTAL_ID_BYTE0		(0x2CU)
 #define MICRON_OCTAL_ID_BYTE2_512	(0x1AU)
+#define MICRON_OCTAL_ID_BYTE2_1G	(0x1BU)
 #define MICRON_OCTAL_ID_BYTE2_2G	(0x1CU)
 /**************************** Type Definitions *******************************/
 
