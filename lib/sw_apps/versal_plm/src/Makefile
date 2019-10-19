@@ -30,8 +30,6 @@ CFLAGS := -Os
 LN_FLAGS := -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxilffs,-lxilpdi,-lxilplmi,-lxilloader,-lxilpm,-lxilsecure,-lxilsem,-lxil,-lgcc,-lc,--end-group -Wl,--gc-sections
 
 c_SOURCES := $(wildcard *.c)
-S_SOURCES := $(wildcard *.S)
-s_SOURCES := $(wildcard *.s)
 INCLUDES := $(wildcard *.h)
 OBJS := $(patsubst %.c, %.o, $(c_SOURCES))
 OBJS += $(patsubst %.S, %.o, $(S_SOURCES))
@@ -41,7 +39,7 @@ LSCRIPT := -Tlscript.ld
 CURRENT_DIR = $(shell pwd)
 DEPFILES := $(patsubst %.o, %.d, $(OBJS))
 LIBS := ../misc/versal_plm_bsp/psv_pmc_0/lib/libxil.a
-EXEC := executable.elf
+EXEC := plm.elf
 
 INCLUDEPATH := -I../misc/versal_plm_bsp/psv_pmc_0/include -I.
 LIBPATH := -L../misc/versal_plm_bsp/psv_pmc_0/lib
@@ -60,14 +58,6 @@ $(LIBS):
 %.o:%.c
 	$(CC) $(CC_FLAGS) $(CFLAGS) -c $< -o $@ $(INCLUDEPATH)
 
-%.o:%.S
-	$(CC) $(CC_FLAGS) $(CFLAGS) -c $< -o $@ $(INCLUDEPATH)
-
-%.o:%.s
-	$(CC) $(CC_FLAGS) $(CFLAGS) -c $< -o $@ $(INCLUDEPATH)
-
 clean:
 	rm -rf $(OBJS) $(LIBS) $(EXEC) *.o *.d
 	rm -rf ../misc/versal_plm_bsp
-
--include $(DEPFILES)
