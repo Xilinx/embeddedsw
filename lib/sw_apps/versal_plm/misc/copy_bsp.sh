@@ -86,7 +86,6 @@ cp -r $STANDALONE_DIR/profile  $BSP_DIR/libsrc/standalone/src/
 cp $WORKING_DIR/bspconfig.h $BSP_DIR/libsrc/standalone/src/
 cp $WORKING_DIR/microblaze_interrupts_g.c $BSP_DIR/libsrc/standalone/src/
 cp $WORKING_DIR/bspconfig.h  $BSP_DIR/include/
-cp $WORKING_DIR/microblaze_interrupts_g.c  $BSP_DIR/include/
 cp $WORKING_DIR/Makefile $BSP_DIR/../
 cp $WORKING_DIR/xsysmonpsv_supplylist.h $BSP_DIR/include/
 
@@ -121,7 +120,6 @@ cp $WORKING_DIR/xparameters*.h $BSP_DIR/include/
 cp $WORKING_DIR/config.make $BSP_DIR/libsrc/standalone/src/
 cp $STANDALONE_DIR/common/*.h  $BSP_DIR/include/
 cp $STANDALONE_DIR/microblaze/*.h  $BSP_DIR/include/
-cp $STANDALONE_DIR/profile/*.h  $BSP_DIR/include/
 
 # no inbyte and outbyte present in standalone
 cp $WORKING_DIR/inbyte.c $WORKING_DIR/outbyte.c  $BSP_DIR/libsrc/standalone/src/
