@@ -26,7 +26,7 @@
 /**
 *
 * @file xcanfd.h
-* @addtogroup canfd_v2_2
+* @addtogroup canfd_v2_3
 * @{
 * @details
 *

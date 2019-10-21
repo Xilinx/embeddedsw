@@ -27,7 +27,7 @@
 /**
 *
 * @file xcanfd_hw.h
-* @addtogroup canfd_v2_2
+* @addtogroup canfd_v2_3
 * @{
 *
 * This header file contains the identifiers and basic driver functions (or

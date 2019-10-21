@@ -27,7 +27,7 @@
 /**
 *
 * @file xcanFd_sinit.c
-* @addtogroup canfd_v2_2
+* @addtogroup canfd_v2_3
 * @{
 *
 * This file contains the implementation of the XCanFd driver's static
