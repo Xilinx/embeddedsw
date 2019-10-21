@@ -31,10 +31,12 @@
 extern "C" {
 #endif
 
-#define XFPGA_OCM_ADDRESS 0xfffc0000
-#define XFPGA_NUMBYTES  100000
-#define XFPGA_BASE_ADDRESS 0x80000
-#define XFPGA_DEBUG 0
+#include <xilfpga.h>
+
+#define XFPGA_OCM_ADDRESS 0xfffc0000U
+#define XFPGA_BASE_ADDRESS 0x80000U
+#define XFPGA_SECURE_MODE
+#define XFPGA_DEBUG     (0U)
 
 #ifdef __cplusplus
 }
