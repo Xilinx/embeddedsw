@@ -52,6 +52,8 @@ struct XPm_CoreOps {
 struct XPm_Core {
 	XPm_Device Device; /**< Device: Base class */
 	u32 ImageId; /**< ImageId: Image ID */
+	u16 PwrUpLatency;
+	u16 PwrDwnLatency;
 	u64 ResumeAddr;
 	struct XPm_CoreOps *CoreOps; /**< Core operations */
 	u8 DebugMode; /**< DebugMode: Debugger is connected */
@@ -66,6 +68,7 @@ XStatus XPmCore_Init(XPm_Core *Core, u32 Id, XPm_Power *Power,
 		     struct XPm_CoreOps *Ops);
 XStatus XPmCore_PwrDwn(XPm_Core *Core);
 XStatus XPmCore_WakeUp(XPm_Core *Core);
+int XPmCore_GetWakeupLatency(const u32 DeviceId, u32 *Latency);
 
 #ifdef __cplusplus
 }

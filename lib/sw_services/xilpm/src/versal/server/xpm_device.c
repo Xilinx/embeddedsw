@@ -1761,3 +1761,33 @@ int XPmDevice_IsRequested(const u32 DeviceId, const u32 SubsystemId)
 done:
 	return Status;
 }
+
+int XPmDevice_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
+{
+	int Status = XST_SUCCESS;
+	XPm_Device *Device = XPmDevice_GetById(DeviceId);
+	u32 Lat = 0;
+
+	*Latency = 0;
+
+	if (NULL == Device) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if (XPM_DEVSTATE_RUNNING == Device->Node.State) {
+		goto done;
+	}
+
+	*Latency = GetLatencyFromState(Device, Device->Node.State);
+
+	if (NULL != Device->Power) {
+		Status = XPmPower_GetWakeupLatency(Device->Power->Node.Id, &Lat);
+		if (XST_SUCCESS != Status) {
+			*Latency += Lat;
+		}
+	}
+
+done:
+	return Status;
+}

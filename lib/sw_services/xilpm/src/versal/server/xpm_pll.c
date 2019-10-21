@@ -28,6 +28,9 @@
 
 #define CLK_PARENTS_PAYLOAD_LEN		12U
 
+/* Period of time needed to lock the PLL (TODO: measure actual latency) */
+#define PM_PLL_LOCKING_TIME		1U
+
 static struct XPm_PllTopology PllTopologies[] =
 {
 	{TOPOLOGY_GENERIC_PLL, PLLPARAMS, RESET_SHIFT, BYPASS_SHIFT, GEN_LOCK_SHIFT, GEN_STABLE_SHIFT },
@@ -454,6 +457,34 @@ int XPmClockPll_QueryMuxSources(u32 Id, u32 Index, u32 *Resp)
 	}
 	Resp[0] = PllPtr->ClkNode.ParentIdx;
 	Resp[1] = 0xFFFFFFFF;
+
+done:
+	return Status;
+}
+
+int XPmClockPll_GetWakeupLatency(const u32 Id, u32 *Latency)
+{
+	int Status = XST_SUCCESS;
+	XPm_PllClockNode *Pll = (XPm_PllClockNode *)XPmClock_GetById(Id);
+	u32 Lat = 0;
+
+	*Latency = 0;
+	if (NULL == Pll) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if (PM_PLL_STATE_LOCKED == Pll->ClkNode.Node.State) {
+		goto done;
+	}
+
+	*Latency += PM_PLL_LOCKING_TIME;
+
+	Status = XPmPower_GetWakeupLatency(Pll->ClkNode.PwrDomain->Node.Id,
+					   &Lat);
+	if (XST_SUCCESS == Status) {
+		*Latency += Lat;
+	}
 
 done:
 	return Status;

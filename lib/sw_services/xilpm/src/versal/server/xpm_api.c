@@ -3894,37 +3894,14 @@ done:
 	return Status;
 }
 
-/****************************************************************************/
-/**
- * @brief  This function gets operating characteristics of a device
- *
- * @param  DeviceId  Targeted device Id.
- * @param  Type      Type of the operating characteristics:
- *                       power, temperature, and latency
- * @param  Result    Returns the value of operating characteristic type
- *
- * @return XST_SUCCESS if successful else either XST_NO_FEATURE or XST_FAILURE.
- *
- * @note   Temperature reported in Celsius (signed Q8.7 format)
- *
- ****************************************************************************/
-XStatus XPm_GetOpCharacteristic(u32 const DeviceId, u32 const Type, u32 *Result)
+static int XPm_GetTemperature(u32 const DeviceId, u32 *Result)
 {
-	XStatus Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	static XSysMonPsv SysMonInst;
 	XSysMonPsv *SysMonInstPtr = &SysMonInst;
 	XSysMonPsv_Config *ConfigPtr;
 
 	if (XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
-		goto done;
-	}
-
-	/*
-	 * TODO - need to implement getting power and latency operating
-	 * characteristics.
-	 */
-	if (PM_OPCHAR_TYPE_TEMP != Type) {
-		Status = XST_NO_FEATURE;
 		goto done;
 	}
 
@@ -3950,6 +3927,70 @@ XStatus XPm_GetOpCharacteristic(u32 const DeviceId, u32 const Type, u32 *Result)
 	Status = XST_SUCCESS;
 
 done:
+	return Status;
+}
+
+static int XPm_GetLatency(const u32 DeviceId, u32 *Latency)
+{
+	int Status = XST_SUCCESS;
+
+	switch (NODECLASS(DeviceId)) {
+	case XPM_NODECLASS_DEVICE:
+		if (XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(DeviceId)) {
+			Status = XPmCore_GetWakeupLatency(DeviceId, Latency);
+		} else {
+			Status = XPmDevice_GetWakeupLatency(DeviceId, Latency);
+		}
+		break;
+	case XPM_NODECLASS_POWER:
+		Status = XPmPower_GetWakeupLatency(DeviceId, Latency);
+		break;
+	case XPM_NODECLASS_CLOCK:
+		if (XPM_NODESUBCL_CLOCK_PLL == NODESUBCLASS(DeviceId)) {
+			Status = XPmClockPll_GetWakeupLatency(DeviceId, Latency);
+		} else {
+			Status = XST_INVALID_PARAM;
+		}
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+	}
+
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function gets operating characteristics of a device
+ *
+ * @param  DeviceId  Targeted device Id.
+ * @param  Type      Type of the operating characteristics:
+ *                       power, temperature, and latency
+ * @param  Result    Returns the value of operating characteristic type
+ *
+ * @return XST_SUCCESS if successful else either XST_NO_FEATURE or XST_FAILURE.
+ *
+ * @note   Temperature reported in Celsius (signed Q8.7 format)
+ *
+ ****************************************************************************/
+XStatus XPm_GetOpCharacteristic(u32 const DeviceId, u32 const Type, u32 *Result)
+{
+	XStatus Status = XST_FAILURE;
+
+	switch(Type) {
+	case PM_OPCHAR_TYPE_TEMP:
+		Status = XPm_GetTemperature(DeviceId, Result);
+		break;
+	case PM_OPCHAR_TYPE_LATENCY:
+		Status = XPm_GetLatency(DeviceId, Result);
+		break;
+	case PM_OPCHAR_TYPE_POWER:
+		Status = XST_NO_FEATURE;
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+	}
+
 	return Status;
 }
 

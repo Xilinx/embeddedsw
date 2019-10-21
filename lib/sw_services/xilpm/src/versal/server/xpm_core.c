@@ -43,6 +43,8 @@ XStatus XPmCore_Init(XPm_Core *Core, u32 Id, XPm_Power *Power,
 	Core->ImageId = 0;
 	Core->Ipi = IpiCh;
 	Core->CoreOps = Ops;
+	Core->PwrUpLatency = 0;
+	Core->PwrDwnLatency = 0;
 
 done:
 	return Status;
@@ -165,6 +167,42 @@ XStatus XPmCore_PwrDwn(XPm_Core *Core)
 	}
 
 	Core->Device.Node.State = XPM_DEVSTATE_UNUSED;
+
+done:
+	return Status;
+}
+
+int XPmCore_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
+{
+	int Status = XST_SUCCESS;
+	XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+	XPm_Power *Power;
+	u32 Lat = 0;
+
+	*Latency = 0;
+
+	if (NULL == Core) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if (XPM_DEVSTATE_RUNNING == Core->Device.Node.State) {
+		goto done;
+	}
+
+	*Latency += Core->PwrUpLatency;
+	if (XPM_DEVSTATE_SUSPENDING == Core->Device.Node.State) {
+		*Latency += Core->PwrDwnLatency;
+		goto done;
+	}
+
+	Power = Core->Device.Power;
+	if (NULL != Power) {
+		Status = XPmPower_GetWakeupLatency(Power->Node.Id, &Lat);
+		if (XST_SUCCESS == Status) {
+			*Latency += Lat;
+		}
+	}
 
 done:
 	return Status;

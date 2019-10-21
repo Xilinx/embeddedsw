@@ -559,3 +559,37 @@ XStatus XPmPower_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 done:
 	return Status;
 }
+
+int XPmPower_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
+{
+	int Status = XST_SUCCESS;
+	XPm_Power *Power = XPmPower_GetById(DeviceId);
+	XPm_Power *Parent;
+
+	*Latency = 0;
+	if (NULL == Power) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if (XPM_POWER_STATE_ON == Power->Node.State) {
+		goto done;
+	}
+
+	*Latency += Power->PwrUpLatency;
+
+	Parent = Power->Parent;
+
+	/* Account latencies of parents if a parent is down */
+	while (NULL != Parent) {
+		if (XPM_POWER_STATE_ON == Parent->Node.State) {
+			break;
+		}
+
+		*Latency += Parent->PwrUpLatency;
+		Parent = Parent->Parent;
+	}
+
+done:
+	return Status;
+}
