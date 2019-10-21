@@ -149,15 +149,22 @@ ret_jump:
 int main()
 {
 	int ret = EXIT_FAILURE;
+	u32 d;
+
 	printf("\n----------- START ------------\n");
+#if defined __BAREMETAL__
 	XRFClk_Init();
+#else
+	/* The parameter is a gpioID, see Linux boot logging */
+	XRFClk_Init(486);
+#endif
 
 	/* Reset */
 	if (resetAll() == EXIT_FAILURE)
 		goto ret_jump;
 
 	/* Write/Read dummy value to LMX2594 */
-	u32 d = 0x20112;
+	d = 0x20112;
 	printf("\nWrite dummy data to register in LMX2594_1");
 	if (XST_FAILURE == XRFClk_WriteReg(RFCLK_LMX2594_1, d)) {
 		printf("\nFailure in XRFClk_WriteReg(RFCLK_LMX2594_1)");
