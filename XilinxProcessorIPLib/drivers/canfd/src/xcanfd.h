@@ -264,6 +264,7 @@ exclusion
 * 2.2   sn   06/11/19 Corrected below incorrect Mask values for CANFD2.0 in xcanfd_hw.h
 *		      XCANFD_MAILBOX_RB_MASK_BASE_OFFSET,XCANFD_WMR_RXFP_MASK
 *		      and CONTROL_STATUS_3.
+* 2.3	sne  21/11/19 Used correct macro to access RX FIFO1 buffer.
 *
 * </pre>
 *

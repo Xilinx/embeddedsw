@@ -73,6 +73,7 @@
 		      XCanFd_Addto_Queue(), to send more than 32 buffers.
 		      CR# 1022093
 * 2.2   sn   06/11/19 Inactivating Mailbox RX buffers based on requirement.
+* 2.3	sne  21/11/19 Used correct macro to access RX FIFO1 buffer.
 *
 * </pre>
 ******************************************************************************/
@@ -711,7 +712,7 @@ u32 XCanFd_Recv_Sequential(XCanFd *InstancePtr, u32 *FramePtr)
 		if (Result & XCANFD_FSR_FL_1_MASK) {
 		/*Fill the canfd frame for current RI value for Fifo 1 */
 
-				ReadIndex = ((Result & XCANFD_FSR_IRI_1_MASK)
+				ReadIndex = ((Result & XCANFD_FSR_RI_1_MASK)
 						>> XCANFD_FSR_RI_1_SHIFT);
 				FifoNo = XCANFD_RX_FIFO_1;
 		}
