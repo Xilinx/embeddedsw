@@ -664,10 +664,9 @@ s32 XPfw_StoreFsblToDDR(void)
 		XPfw_Printf(DEBUG_DETAILED, "Copied FSBL image to DDR and "
 				"image hash checksum calculation successful\r\n");
 	} else {
-		XPfw_Printf(DEBUG_DETAILED, "FSBL is running on RPU. \r\n"
-				"Note: APU-only restart is supported only "
-				"if FSBL boots on APU.\r\n");
-		Status = XST_FAILURE;
+		XPfw_Printf(DEBUG_PRINT_ALWAYS, "FSBL is running on RPU. \r\n"
+				"Warning: APU-only restart is not supported "
+				"if FSBL boots on RPU.\r\n");
 	}
 END:
 	return Status;
