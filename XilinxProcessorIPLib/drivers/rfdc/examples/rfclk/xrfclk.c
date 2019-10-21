@@ -68,11 +68,6 @@ XIicPs Iic1;
 #ifdef XPS_BOARD_ZCU111
 XIicPs Iic0;
 #define FD_I2C0 (&Iic0) /* I2C0 driver descriptor address */
-#else
-#include "xgpiops.h"
-#define GPIO_DEVICE_ID                                                         \
-	XPAR_PS_SUBSYSTEM_AXI_GPIO_SPI_MUX_DEVICE_ID /* GPIO base address */
-XGpioPs Gpio; /* The driver instance for GPIO Device. */
 #endif
 
 #else /* LINUX build */
@@ -101,8 +96,8 @@ int fd_bridge;
 int fd_i2c0;
 #define FD_I2C0 fd_i2c0 /* I2C0 driver file descriptor alias */
 #else
-#define GPIO_MUX_SEL0 "494" /* gpio MUX_SEL_0 */
-#define GPIO_MUX_SEL1 "494" /* TODO - new HDF should include this pin. */
+char GPIO_MUX_SEL0[12]; /* gpio MUX_SEL_0 */
+char GPIO_MUX_SEL1[12]; /* gpio MUX_SEL_1 */
 #endif
 
 #endif
@@ -160,6 +155,13 @@ u32 MuxOutRegStorage[RFCLK_CHIP_NUM];
 
 #ifdef XPS_BOARD_ZCU111
 static int XRFClk_I2cIoExpanderConfig();
+#else
+#ifdef __BAREMETAL__
+#define GPIO_DEVICE_ADDR                                                       \
+	XPAR_PS_SUBSYSTEM_AXI_GPIO_SPI_MUX_DEVICE_ID /* GPIO base address */
+#endif
+#define GPIO_DATA_REG 0 /* GPIO data register offset address */
+#define GPIO_CONTROL_REG 4 /* GPIO control register offset address */
 #endif
 
 #ifdef __BAREMETAL__
@@ -276,7 +278,7 @@ static u32 XRFClk_InitGPIO(void)
 		return XST_FAILURE;
 	}
 #elif defined __BAREMETAL__
-	Xil_Out32(0xA0205004, 0xfffffffC);
+	Xil_Out32(GPIO_DEVICE_ADDR + GPIO_CONTROL_REG, 0xfffffffC);
 #else
 	int expfd;
 	int dirfd;
@@ -386,7 +388,7 @@ static u32 XRFClk_MUX_SPI_SDO_GPIOPin(u8 ChipId)
 	}
 #elif defined(__BAREMETAL__)
 	/* Select MUX */
-	Xil_Out32(0xA0205000, ChipId);
+	Xil_Out32(GPIO_DEVICE_ADDR, ChipId);
 #else
 	int valfd;
 	char gpio_valpath[50];
@@ -407,7 +409,6 @@ static u32 XRFClk_MUX_SPI_SDO_GPIOPin(u8 ChipId)
 	sprintf(gpio_valpath, "/sys/class/gpio/gpio%s/value", GPIO_MUX_SEL1);
 	valfd = open(gpio_valpath, O_RDWR);
 	if (valfd < 0) {
-		close(valfd);
 		LOG;
 		return XST_FAILURE;
 	}
@@ -881,13 +882,21 @@ u32 XRFClk_ReadReg(u32 ChipId, u32 *d)
 *
 * @param	none
 *
-* @return	none
+* @return	GpioId gpio ID for Linux build, n/a for baremetal build.
 *
 * @note		None
 *
 ****************************************************************************/
+#if defined __BAREMETAL__
 u32 XRFClk_Init()
 {
+#else
+u32 XRFClk_Init(int GpioId)
+{
+	sprintf(GPIO_MUX_SEL0, "%d", GpioId);
+	sprintf(GPIO_MUX_SEL1, "%d", GpioId + 1);
+
+#endif
 	if (XST_FAILURE == XRFClk_InitI2C()) {
 		LOG;
 		return XST_FAILURE;

@@ -69,7 +69,11 @@ extern "C" {
 
 u32 XRFClk_WriteReg(u32 ChipId, u32 Data);
 u32 XRFClk_ReadReg(u32 ChipId, u32 *Data);
+#if defined __BAREMETAL__
 u32 XRFClk_Init();
+#else
+u32 XRFClk_Init(int GpioId);
+#endif
 void XRFClk_Close();
 u32 XRFClk_ResetChip(u32 ChipId);
 u32 XRFClk_SetConfigOnOneChipFromConfigId(u32 ChipId, u32 ConfigId);
