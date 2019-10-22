@@ -160,12 +160,14 @@ static XStatus PsOnlyResetAssert(XPm_ResetNode *Rst)
 	XPlmi_ResetLpdInitialized();
 
 	/* Block LPD-PL interfaces */
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_LPD_PL, TRUE);
+	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_LPD_PL,
+			TRUE_PENDING_REMOVE);
 	if (Status != XST_SUCCESS) {
 		goto done;
 	}
 
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_LPD_PL_TEST, TRUE);
+	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_LPD_PL_TEST,
+			TRUE_PENDING_REMOVE);
 	if (Status != XST_SUCCESS) {
 		goto done;
 	}
@@ -188,12 +190,14 @@ static XStatus PsOnlyResetAssert(XPm_ResetNode *Rst)
 	}
 
 	/* Block FPD-PL interfaces */
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_FPD_PL, TRUE);
+	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_FPD_PL,
+			TRUE_PENDING_REMOVE);
 	if (Status != XST_SUCCESS) {
 		goto done;
 	}
 
-	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_FPD_PL_TEST, TRUE);
+	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_FPD_PL_TEST,
+			TRUE_PENDING_REMOVE);
 	if (Status != XST_SUCCESS) {
 		goto done;
 	}

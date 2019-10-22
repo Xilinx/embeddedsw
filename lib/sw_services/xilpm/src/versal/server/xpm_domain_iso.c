@@ -309,12 +309,14 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 
 	Mask = XPmDomainIso_List[IsoIdx].Mask;
 
-	if(Enable == TRUE) {
+	if ((TRUE == Enable) || (TRUE_PENDING_REMOVE == Enable)) {
 		if(XPmDomainIso_List[IsoIdx].Polarity == PM_ACTIVE_HIGH)
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
 		else
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);
-		XPmDomainIso_List[IsoIdx].Node.State = PM_ISOLATION_ON;
+		/* Mark node state appropriately */
+		XPmDomainIso_List[IsoIdx].Node.State = (TRUE == Enable) ?
+			PM_ISOLATION_ON : PM_ISOLATION_REMOVE_PENDING;
 	} else if(Enable == FALSE_IMMEDIATE) {
 		if(XPmDomainIso_List[IsoIdx].Polarity == PM_ACTIVE_HIGH)
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, 0);

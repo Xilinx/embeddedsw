@@ -34,7 +34,8 @@
 extern "C" {
 #endif
 
-#define FALSE_IMMEDIATE		2
+#define FALSE_IMMEDIATE		2	/* Remove isolation immediately */
+#define TRUE_PENDING_REMOVE	3	/* Set isolation, but pending removal */
 
 typedef struct XPm_Iso {
 	XPm_Node Node; /**< Node: Node base class */
@@ -49,7 +50,7 @@ typedef enum {
         PM_ACTIVE_HIGH,
 }XPm_IsoPolarity;
 
-/* Isoaltion states */
+/* Isolation states */
 typedef enum {
 	PM_ISOLATION_ON,
 	PM_ISOLATION_OFF,
