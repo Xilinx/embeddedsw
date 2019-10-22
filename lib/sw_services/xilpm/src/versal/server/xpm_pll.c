@@ -40,7 +40,7 @@ static struct XPm_PllTopology PllTopologies[] =
 XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 			    u16 *Offsets, u32 PowerDomainId, u8 ClkFlags)
 {
-	int Status = XST_SUCCESS;
+	int Status = XST_FAILURE;
 	XPm_PllClockNode *PllClkPtr;
 
 	if (NULL != XPmClock_GetById(Id)) {
@@ -91,7 +91,7 @@ done:
 
 XStatus XPmClockPll_AddParent(u32 Id, u32 *Parents, u8 NumParents)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_PllClockNode *PllPtr = (XPm_PllClockNode *)XPmClock_GetById(Id);
 
 	if (PllPtr == NULL) {
@@ -103,6 +103,7 @@ XStatus XPmClockPll_AddParent(u32 Id, u32 *Parents, u8 NumParents)
 		goto done;
 	} else {
 		PllPtr->ClkNode.ParentIdx = NODEINDEX(Parents[0]);
+		Status = XST_SUCCESS;
 	}
 
 done:
@@ -111,7 +112,7 @@ done:
 
 XStatus XPmClockPll_SetMode(XPm_PllClockNode *Pll, u32 Mode)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status = XST_FAILURE;
 	u32 Val = 0;
 
 	if (PM_PLL_MODE_FRACTIONAL == Mode) {
@@ -155,7 +156,7 @@ done:
 XStatus XPmClockPll_GetMode(XPm_PllClockNode *Pll, u32 *Mode)
 {
 	u32 Val;
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_Power *PowerDomain = Pll->ClkNode.PwrDomain;
 
 	if (XPM_POWER_STATE_ON != PowerDomain->Node.State) {
@@ -176,6 +177,8 @@ XStatus XPmClockPll_GetMode(XPm_PllClockNode *Pll, u32 *Mode)
 	}
 
 	Pll->PllMode = *Mode;
+
+	Status = XST_SUCCESS;
 
 done:
 	return Status;
@@ -200,7 +203,7 @@ static void XPm_PllRestoreContext(XPm_PllClockNode* Pll)
 
 XStatus XPmClockPll_Suspend(XPm_PllClockNode *Pll)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status = XST_FAILURE;
 	XPm_Power *PowerDomain = Pll->ClkNode.PwrDomain;
 
 	XPm_PllSaveContext(Pll);
@@ -223,13 +226,15 @@ XStatus XPmClockPll_Suspend(XPm_PllClockNode *Pll)
 
 	Pll->ClkNode.Node.State = PM_PLL_STATE_SUSPENDED;
 
+	Status = XST_SUCCESS;
+
 done:
 	return Status;
 }
 
 XStatus XPmClockPll_Resume(XPm_PllClockNode *Pll)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status = XST_FAILURE;
 	XPm_Power *PowerDomain = Pll->ClkNode.PwrDomain;
 
 	if (NULL != PowerDomain) {
@@ -247,6 +252,7 @@ XStatus XPmClockPll_Resume(XPm_PllClockNode *Pll)
 	/* By saved configuration PLL is in reset, leave it as is */
 	if (Pll->Context.Ctrl & BIT(Pll->Topology->ResetShift)) {
 		Pll->ClkNode.Node.State = PM_PLL_STATE_RESET;
+		Status = XST_SUCCESS;
 	} else {
 		Status = XPmClockPll_Reset(Pll, PLL_RESET_RELEASE);
 	}
@@ -257,7 +263,7 @@ done:
 
 XStatus XPmClockPll_Request(u32 PllId)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status = XST_FAILURE;
 
 	XPm_PllClockNode *Pll = (XPm_PllClockNode *)XPmClock_GetById(PllId);
 	if (Pll == NULL) {
@@ -272,14 +278,17 @@ XStatus XPmClockPll_Request(u32 PllId)
 	}
 	else if (Pll->ClkNode.Node.State == PM_PLL_STATE_RESET) {
 		Status = XPmClockPll_Reset(Pll, PLL_RESET_RELEASE);
+	} else {
+		Status = XST_SUCCESS;
 	}
+
 done:
 	return Status;
 }
 
 XStatus XPmClockPll_Release(u32 PllId)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status = XST_FAILURE;
 	XPm_PllClockNode *Pll = (XPm_PllClockNode *)XPmClock_GetById(PllId);
 	if (Pll == NULL) {
 		Status = XST_INVALID_PARAM;
@@ -289,7 +298,11 @@ XStatus XPmClockPll_Release(u32 PllId)
 
 	if (Pll->ClkNode.UseCount == 0) {
 		Status = XPmClockPll_Suspend(Pll);
+		goto done;
 	}
+
+	Status = XST_SUCCESS;
+
 done:
 	return Status;
 }
@@ -297,7 +310,7 @@ done:
 
 XStatus XPmClockPll_Reset(XPm_PllClockNode *Pll, uint8_t Flags)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status = XST_FAILURE;
 	u32 ControlReg = Pll->ClkNode.Node.BaseAddress;
 
 	if (Flags & PLL_RESET_ASSERT) {
@@ -322,15 +335,20 @@ XStatus XPmClockPll_Reset(XPm_PllClockNode *Pll, uint8_t Flags)
 			XPm_RMW32(ControlReg, BIT(Pll->Topology->BypassShift),
 					~BIT(Pll->Topology->BypassShift));
 			Pll->ClkNode.Node.State = PM_PLL_STATE_LOCKED;
+		} else {
+			goto done;
 		}
 	}
 
+	Status = XST_SUCCESS;
+
+done:
 	return Status;
 }
 
 XStatus XPmClockPll_SetParam(XPm_PllClockNode *Pll, u32 Param, u32 Value)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status = XST_FAILURE;
 	XPm_PllParam *PtrParam;
 	u32 Mask, ParamValue, Reg = 0;
 
@@ -352,6 +370,7 @@ XStatus XPmClockPll_SetParam(XPm_PllClockNode *Pll, u32 Param, u32 Value)
 		 * re-parsing which re-sets PLL parameters.
 		 */
 		PmInfo("Warning: Setting PLL parameter while not in reset state.\r\n");
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
@@ -362,10 +381,12 @@ XStatus XPmClockPll_SetParam(XPm_PllClockNode *Pll, u32 Param, u32 Value)
 	case PM_PLL_PARAM_ID_DIV2:
 	case PM_PLL_PARAM_ID_FBDIV:
 		Reg = Pll->ClkNode.Node.BaseAddress;
-                break;
+		Status = XST_SUCCESS;
+		break;
 	case PM_PLL_PARAM_ID_DATA:
 		Reg = Pll->FracConfigReg;
-                break;
+		Status = XST_SUCCESS;
+		break;
 	case PM_PLL_PARAM_ID_PRE_SRC:
 	case PM_PLL_PARAM_ID_POST_SRC:
 	case PM_PLL_PARAM_ID_LOCK_DLY:
@@ -374,6 +395,7 @@ XStatus XPmClockPll_SetParam(XPm_PllClockNode *Pll, u32 Param, u32 Value)
 	case PM_PLL_PARAM_ID_CP:
 	case PM_PLL_PARAM_ID_RES:
 		Reg = Pll->ConfigReg;
+		Status = XST_SUCCESS;
 		break;
 	default:
 		Status = XST_FAILURE;
@@ -390,7 +412,7 @@ done:
 
 XStatus XPmClockPll_GetParam(XPm_PllClockNode *Pll, u32 Param, u32 *Val)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status = XST_FAILURE;
 	XPm_PllParam *PtrParam;
 	u32 Shift, Mask, Reg = 0;
 	XPm_Power *PowerDomain = Pll->ClkNode.PwrDomain;
@@ -413,10 +435,12 @@ XStatus XPmClockPll_GetParam(XPm_PllClockNode *Pll, u32 Param, u32 *Val)
 	case PM_PLL_PARAM_ID_DIV2:
 	case PM_PLL_PARAM_ID_FBDIV:
 		Reg = Pll->ClkNode.Node.BaseAddress;
-                break;
+		Status = XST_SUCCESS;
+		break;
 	case PM_PLL_PARAM_ID_DATA:
 		Reg = Pll->FracConfigReg;
-                break;
+		Status = XST_SUCCESS;
+		break;
 	case PM_PLL_PARAM_ID_PRE_SRC:
 	case PM_PLL_PARAM_ID_POST_SRC:
 	case PM_PLL_PARAM_ID_LOCK_DLY:
@@ -425,6 +449,7 @@ XStatus XPmClockPll_GetParam(XPm_PllClockNode *Pll, u32 Param, u32 *Val)
 	case PM_PLL_PARAM_ID_CP:
 	case PM_PLL_PARAM_ID_RES:
 		Reg = Pll->ConfigReg;
+		Status = XST_SUCCESS;
 		break;
 	default:
 		Status = XST_FAILURE;
@@ -441,7 +466,7 @@ done:
 
 int XPmClockPll_QueryMuxSources(u32 Id, u32 Index, u32 *Resp)
 {
-	int Status = XST_SUCCESS;
+	int Status = XST_FAILURE;
 	XPm_PllClockNode *PllPtr = (XPm_PllClockNode *)XPmClock_GetById(Id);
 
 	if (PllPtr == NULL) {
@@ -457,6 +482,8 @@ int XPmClockPll_QueryMuxSources(u32 Id, u32 Index, u32 *Resp)
 	}
 	Resp[0] = PllPtr->ClkNode.ParentIdx;
 	Resp[1] = 0xFFFFFFFF;
+
+	Status = XST_SUCCESS;
 
 done:
 	return Status;

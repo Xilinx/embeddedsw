@@ -150,7 +150,7 @@ u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask)
 
 XStatus XPmSubsystem_ForceDownCleanup(u32 SubsystemId)
 {
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
 	u32 SubSysIdx = NODEINDEX(SubsystemId);
 
@@ -170,7 +170,7 @@ XStatus XPmSubsystem_ForceDownCleanup(u32 SubsystemId)
 
 int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 {
-	int Status = XST_SUCCESS;
+	int Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
 	XPm_Device *Device;
 	XPm_Requirement *Reqm;
@@ -253,6 +253,8 @@ int XPmSubsystem_InitFinalize(const u32 SubsystemId)
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
+		} else {
+			Status = XST_SUCCESS;
 		}
 	}
 
@@ -262,7 +264,7 @@ done:
 
 int XPmSubsystem_Idle(u32 SubsystemId)
 {
-	int Status = XST_SUCCESS;
+	int Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
 	XPm_Requirement *Reqm;
 	XPm_Device *Device;
@@ -290,18 +292,19 @@ int XPmSubsystem_Idle(u32 SubsystemId)
 		Reqm = Reqm->NextDevice;
 	}
 
+	Status = XST_SUCCESS;
+
 done:
         return Status;
 }
 
 XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 SubSysIdx = NODEINDEX(SubsystemId);
 
 	if (SubSysIdx >= XPM_NODEIDX_SUBSYS_MAX) {
-		Status = XST_FAILURE;
-                goto done;
+		goto done;
 	}
 
 	/*Warning Fix*/
@@ -309,6 +312,9 @@ XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId)
 
 	/*TODO: Add validation based on permissions defined by user*/
 	/* No permission should return XPM_PM_NO_ACCESS */
+
+	Status = XST_SUCCESS;
+
 done:
 	return Status;
 }
@@ -382,20 +388,21 @@ XPm_Subsystem *XPmSubsystem_GetByIndex(u32 SubSysIdx)
 
 XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 SubSysIdx = NODEINDEX(SubsystemId);
 
 	if (SubSysIdx >= XPM_NODEIDX_SUBSYS_MAX) {
-		Status = XST_FAILURE;
-                goto done;
-        }
+		goto done;
+	}
 	if(NODECLASS(NodeId) != XPM_NODECLASS_DEVICE || NODESUBCLASS(NodeId) != XPM_NODESUBCL_DEV_CORE)
 	{
-                Status = XST_INVALID_PARAM;
-                goto done;
-        }
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
 
 	/*TODO: Add validation based on permissions defined by user*/
+	Status = XST_SUCCESS;
+
 done:
 	return Status;
 }
@@ -512,7 +519,7 @@ u32 XPmSubsystem_GetCurrent(void)
 
 XStatus XPmSubsystem_SetCurrent(u32 SubsystemId)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	if ((!ISVALIDSUBSYSTEM(SubsystemId)) &&
 	    (INVALID_SUBSYSID != SubsystemId)) {
@@ -522,13 +529,15 @@ XStatus XPmSubsystem_SetCurrent(u32 SubsystemId)
 
 	CurrentSubsystemId = SubsystemId;
 
+	Status = XST_SUCCESS;
+
 done:
 	return Status;
 }
 
 XStatus XPmSubsystem_Add(u32 SubsystemId)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
 	u32 i = 0;
 

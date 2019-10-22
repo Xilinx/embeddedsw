@@ -299,7 +299,7 @@ static XStatus SetClocks(XPm_Device *Device, u32 Enable)
 
 static XStatus ResetSdDllRegs(XPm_Device *Device)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 Value;
 	u32 BaseAddress;
 	XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
@@ -338,6 +338,8 @@ static XStatus ResetSdDllRegs(XPm_Device *Device)
 	} else {
 		/* Required by MISRA */
 	}
+
+	Status = XST_SUCCESS;
 
 done:
 	return Status;
@@ -604,12 +606,14 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 
 static XStatus HandleDeviceState(XPm_Device* const Device, const u32 NextState)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	switch (Device->Node.State) {
 	case XPM_DEVSTATE_UNUSED:
 		if (XPM_DEVSTATE_RUNNING == NextState) {
 			Status = XPmDevice_BringUp(Device);
+		} else {
+			Status = XST_SUCCESS;
 		}
 		break;
 	case XPM_DEVSTATE_RUNNING:
@@ -620,7 +624,7 @@ static XStatus HandleDeviceState(XPm_Device* const Device, const u32 NextState)
 			Status = Device->HandleEvent(&Device->Node,
 						     XPM_DEVEVENT_RUNTIME_SUSPEND);
 		} else {
-			/* Required by MISRA */
+			Status = XST_SUCCESS;
 		}
 		break;
 	case XPM_DEVSTATE_RUNTIME_SUSPEND:
@@ -631,7 +635,7 @@ static XStatus HandleDeviceState(XPm_Device* const Device, const u32 NextState)
 			Status = Device->HandleEvent(&Device->Node,
 						     XPM_DEVEVENT_SHUTDOWN);
 		} else {
-			/* Required by MISRA */
+			Status = XST_SUCCESS;
 		}
 		break;
 	default:
@@ -879,7 +883,7 @@ done:
 
 XStatus XPmDevice_AddClock(XPm_Device *Device, XPm_ClockNode *Clock)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_ClockHandle *ClkHandle;
 
 	if (NULL == Device) {
@@ -888,13 +892,14 @@ XStatus XPmDevice_AddClock(XPm_Device *Device, XPm_ClockNode *Clock)
 	}
 
 	if (NULL == Clock) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
 	ClkHandle = (XPm_ClockHandle *)XPm_AllocBytes(sizeof(XPm_ClockHandle));
 	if (NULL == ClkHandle) {
 		Status = XST_BUFFER_TOO_SMALL;
-                goto done;
+		goto done;
 	}
 
 	ClkHandle->Clock = Clock;
@@ -908,6 +913,8 @@ XStatus XPmDevice_AddClock(XPm_Device *Device, XPm_ClockNode *Clock)
 	ClkHandle->NextDevice = Clock->ClkHandles;
 	Clock->ClkHandles = ClkHandle;
 
+	Status = XST_SUCCESS;
+
 done:
 	if(Status != XST_SUCCESS) {
 		PmErr("Returned: 0x%x\n\r", Status);
@@ -917,7 +924,7 @@ done:
 
 XStatus XPmDevice_AddReset(XPm_Device *Device, XPm_ResetNode *Reset)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status = XST_FAILURE;
 	XPm_ResetHandle *RstHandle;
 
 	if (NULL == Device) {
@@ -926,6 +933,7 @@ XStatus XPmDevice_AddReset(XPm_Device *Device, XPm_ResetNode *Reset)
 	}
 
 	if (NULL == Reset) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
@@ -946,6 +954,8 @@ XStatus XPmDevice_AddReset(XPm_Device *Device, XPm_ResetNode *Reset)
 	RstHandle->NextDevice = Reset->RstHandles;
 	Reset->RstHandles = RstHandle;
 
+	Status = XST_SUCCESS;
+
 done:
 	if(Status != XST_SUCCESS) {
 		PmErr("Returned: 0x%x\n\r", Status);
@@ -955,7 +965,7 @@ done:
 
 XStatus XPmDevice_Reset(XPm_Device *Device, const XPm_ResetActions Action)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status = XST_FAILURE;
 	XPm_ResetHandle *RstHandle;
 
 	if (NULL == Device) {
@@ -968,6 +978,8 @@ XStatus XPmDevice_Reset(XPm_Device *Device, const XPm_ResetActions Action)
 		RstHandle->Reset->Ops->SetState(RstHandle->Reset, Action);
 		RstHandle = RstHandle->NextReset;
 	}
+
+	Status = XST_SUCCESS;
 
 done:
 	if(Status != XST_SUCCESS) {
@@ -1236,7 +1248,7 @@ done:
 
 XStatus XPmDevice_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 i = 0;
 	u32 DeviceIndex = NODEINDEX(Id);
 	XPm_Device *DevPtr = XPmDevice_GetById(Id);
@@ -1286,6 +1298,7 @@ XStatus XPmDevice_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 					Status = XST_DEVICE_NOT_FOUND;
 					goto done;
 				}
+				Status = XST_SUCCESS;
 			}
 		}
 		else
@@ -1300,7 +1313,7 @@ done:
 
 XStatus XPmDevice_GetPermissions(XPm_Device *Device, u32 *PermissionMask)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_Requirement *Reqm;
 	u32 Idx;
 
@@ -1320,6 +1333,8 @@ XStatus XPmDevice_GetPermissions(XPm_Device *Device, u32 *PermissionMask)
 		}
 		Reqm = Reqm->NextSubsystem;
 	}
+
+	Status = XST_SUCCESS;
 
 done:
 	return Status;
@@ -1341,7 +1356,7 @@ done:
 int XPmDevice_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
 			    const u32 Latency)
 {
-	int Status = XST_SUCCESS;
+	int Status = XST_FAILURE;
 	XPm_Requirement *Reqm;
 	XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
 	XPm_Device *Device = XPmDevice_GetById(DeviceId);
@@ -1576,10 +1591,11 @@ static int ConstrainStateByLatency(const XPm_Device *const Device,
  ****************************************************************************/
 static int UpdatePwrLatencyReq(const XPm_Device *const Device)
 {
-	int Status = XST_SUCCESS;
+	int Status = XST_FAILURE;
 	XPm_Power* Power = Device->Power;
 
 	if (XPM_POWER_STATE_ON == Power->Node.State) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
@@ -1588,6 +1604,8 @@ static int UpdatePwrLatencyReq(const XPm_Device *const Device)
 	    (Power->PwrDnLatency + Power->PwrUpLatency)) {
 		Power->Node.LatencyMarg = 0U;
 		Status = Power->HandleEvent(&Power->Node, XPM_POWER_EVENT_PWR_UP);
+	} else {
+		Status = XST_SUCCESS;
 	}
 
 done:

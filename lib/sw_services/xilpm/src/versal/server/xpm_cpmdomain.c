@@ -32,7 +32,7 @@
 
 static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_CpmDomain *Cpm;
 
 	/* This function does not use the args */
@@ -41,7 +41,6 @@ static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 
 	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM);
 	if (NULL == Cpm) {
-		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -64,24 +63,27 @@ static XStatus CpmInitStart(u32 *Args, u32 NumOfArgs)
 		PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_ECO_OFFSET, 0);
 	        PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_LOCK_OFFSET, 1);
 	}
+
 done:
 	return Status;
 }
 
 static XStatus CpmInitFinish(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	/* This function does not use the args */
 	(void)Args;
 	(void)NumOfArgs;
+
+	Status = XST_SUCCESS;
 
 	return Status;
 }
 
 static XStatus CpmScanClear(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_CpmDomain *Cpm;
 
 	/* This function does not use the args */
@@ -132,13 +134,14 @@ static XStatus CpmScanClear(u32 *Args, u32 NumOfArgs)
 
 	/* Lock PCSR */
 	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_LOCK_OFFSET, 1);
+
 done:
 	return Status;
 }
 
 static XStatus CpmBisr(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -158,7 +161,7 @@ done:
 
 static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_CpmDomain *Cpm;
 	u32 RegValue;
 
@@ -214,6 +217,7 @@ static XStatus CpmMbistClear(u32 *Args, u32 NumOfArgs)
 
 	/* Lock Writes */
 	PmOut32(Cpm->CpmSlcrSecureBaseAddr + CPM_SLCR_SECURE_WPROT0_OFFSET, 1);
+
 done:
         return Status;
 }
@@ -230,7 +234,7 @@ XStatus XPmCpmDomain_Init(XPm_CpmDomain *CpmDomain, u32 Id, u32 BaseAddress,
 			  XPm_Power *Parent, u32 *OtherBaseAddresses,
 			  u32 OtherBaseAddressesCnt)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	XPmPowerDomain_Init(&CpmDomain->Domain, Id, BaseAddress, Parent, &CpmOps);
 
@@ -240,6 +244,7 @@ XStatus XPmCpmDomain_Init(XPm_CpmDomain *CpmDomain, u32 Id, u32 BaseAddress,
 		CpmDomain->CpmSlcrSecureBaseAddr = OtherBaseAddresses[1];
 		CpmDomain->CpmPcsrBaseAddr = OtherBaseAddresses[2];
 		CpmDomain->CpmCrCpmBaseAddr = OtherBaseAddresses[3];
+		Status = XST_SUCCESS;
 	} else {
 		Status = XST_FAILURE;
 	}

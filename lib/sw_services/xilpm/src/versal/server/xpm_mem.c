@@ -71,7 +71,7 @@ static void TcmEccInit(XPm_MemDevice *Tcm, u32 Mode)
 
 static XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_Device *Rpu0Device = XPmDevice_GetById(PM_DEV_RPU0_0);
 	XPm_Device *Rpu1Device = XPmDevice_GetById(PM_DEV_RPU0_1);
 	u32 Id = Device->Node.Id;
@@ -87,8 +87,7 @@ static XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState)
 			/* TCM is only accessible when the RPU is powered on and out of reset and is in halted state
 			 * so bring up RPU too when TCM is requested*/
 			XPm_RpuGetOperMode(PM_DEV_RPU0_0, &Mode);
-			 if (XPM_RPU_MODE_SPLIT == Mode)
-			 {
+			if (XPM_RPU_MODE_SPLIT == Mode) {
 				if ((PM_DEV_TCM_0_A == Id ||
 				     PM_DEV_TCM_0_B == Id) &&
 				    (XPM_DEVSTATE_RUNNING !=
@@ -107,9 +106,9 @@ static XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState)
 						goto done;
 					}
 				}
-			 }
-			 if (XPM_RPU_MODE_LOCKSTEP == Mode)
-			 {
+			}
+			if (XPM_RPU_MODE_LOCKSTEP == Mode)
+			{
 				if ((PM_DEV_TCM_0_A == Id ||
 				     PM_DEV_TCM_0_B == Id ||
 				     PM_DEV_TCM_1_A == Id ||
@@ -125,12 +124,17 @@ static XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState)
 			/* Tcm should be ecc initialized */
 			TcmEccInit((XPm_MemDevice *)Device, Mode);
 		}
+		Status = XST_SUCCESS;
 		break;
 	case XPM_DEVSTATE_RUNNING:
 		if (XPM_DEVSTATE_UNUSED == NextState) {
 			Status = Device->HandleEvent(&Device->Node,
 						     XPM_DEVEVENT_SHUTDOWN);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
 		}
+		Status = XST_SUCCESS;
 		break;
 	default:
 		Status = XST_FAILURE;
@@ -149,18 +153,22 @@ static const XPm_DeviceFsm XPmTcmDeviceFsm = {
 
 static XStatus HandleMemDeviceState(XPm_Device* const Device, const u32 NextState)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	switch (Device->Node.State) {
 	case XPM_DEVSTATE_UNUSED:
 		if (XPM_DEVSTATE_RUNNING == NextState) {
 			Status = XPmDevice_BringUp(Device);
+		} else {
+			Status = XST_SUCCESS;
 		}
 		break;
 	case XPM_DEVSTATE_RUNNING:
 		if (XPM_DEVSTATE_UNUSED == NextState) {
 			Status = Device->HandleEvent(&Device->Node,
 						     XPM_DEVEVENT_SHUTDOWN);
+		} else {
+			Status = XST_SUCCESS;
 		}
 		break;
 	default:

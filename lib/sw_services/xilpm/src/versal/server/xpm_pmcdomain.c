@@ -67,7 +67,7 @@ static XStatus HandlePmcDomainEvent(XPm_Node *Node, u32 Event)
  ****************************************************************************/
 static XStatus PmcXppuCtrl(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 XppuNodeId, Enable;
 
 	if(NumOfArgs < 2) {

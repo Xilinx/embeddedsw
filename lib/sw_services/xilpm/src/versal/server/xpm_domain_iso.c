@@ -244,7 +244,7 @@ XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 
 static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 i=0, NodeId, Value;
 	XPm_PowerDomain *PwrDomainNode;
 	XPm_Subsystem *Subsystem;
@@ -260,33 +260,35 @@ static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
 				Status = XST_FAILURE;
 				goto done;
 			}
+			Status = XST_SUCCESS;
 		} else if (NodeId == PM_SUBSYS_PL) {
-			 Subsystem = XPmSubsystem_GetById(NodeId);
+			Subsystem = XPmSubsystem_GetById(NodeId);
 
-			 if(NULL == Subsystem) {
+			if(NULL == Subsystem) {
 				Status = XPM_INVALID_SUBSYSID;
 				goto done;
-			 }
+			}
 
-			 if(Subsystem->State != ONLINE) {
-				 Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
-				 if (NULL == Pld) {
-					 Status = XST_FAILURE;
-					 goto done;
-				 }
+			if(Subsystem->State != ONLINE) {
+				Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
+				if (NULL == Pld) {
+					Status = XST_FAILURE;
+					goto done;
+				}
 
-				 /* Right now as we don't have
-				  * init finish for PLD, we decide PLD status based on
-				  EOS bit */
-				 PmIn32(Pld->CfuApbBaseAddr + CFU_APB_CFU_FGCR_OFFSET, Value);
-				 if (CFU_APB_CFU_FGCR_EOS_MASK == (Value & CFU_APB_CFU_FGCR_EOS_MASK)) {
-					 XPmSubsystem_SetState(PM_SUBSYS_PL, ONLINE);
-					 Status = XST_SUCCESS;
-				 } else {
-					 Status = XST_FAILURE;
-					 goto done;
+				/* Right now as we don't have
+				 * init finish for PLD, we decide PLD status based on
+				 * EOS bit */
+				PmIn32(Pld->CfuApbBaseAddr + CFU_APB_CFU_FGCR_OFFSET, Value);
+				if (CFU_APB_CFU_FGCR_EOS_MASK == (Value & CFU_APB_CFU_FGCR_EOS_MASK)) {
+					XPmSubsystem_SetState(PM_SUBSYS_PL, ONLINE);
+					Status = XST_SUCCESS;
+				} else {
+					Status = XST_FAILURE;
+					goto done;
 				}
 			}
+			Status = XST_SUCCESS;
 		} else {
 			Status = XST_FAILURE;
 			goto done;
@@ -298,7 +300,7 @@ done:
 
 XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 Mask;
 
 	if (IsoIdx >= XPM_NODEIDX_ISO_MAX)
@@ -339,13 +341,16 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
 		XPmDomainIso_List[IsoIdx].Node.State = PM_ISOLATION_OFF;
 	}
+
+	Status = XST_SUCCESS;
+
 done:
 	return Status;
 }
 
 XStatus XPmDomainIso_ProcessPending(u32 PowerDomainId)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 i;
 
 	(void)PowerDomainId;
@@ -355,7 +360,10 @@ XStatus XPmDomainIso_ProcessPending(u32 PowerDomainId)
 		if(XPmDomainIso_List[i].Node.State == PM_ISOLATION_REMOVE_PENDING)
 		{
 			Status = XPmDomainIso_Control(i, FALSE);
+		} else {
+			Status = XST_SUCCESS;
 		}
 	}
+
 	return Status;
 }

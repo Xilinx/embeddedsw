@@ -42,7 +42,7 @@ static XPlmi_Module XPlmi_Psm =
 
 static int XPm_ProcessPsmCmd(XPlmi_Cmd * Cmd)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
 
 	PmDbg("Processing Cmd %x\n\r", Cmd->CmdId);
@@ -107,7 +107,7 @@ void XPm_PsmModuleInit(void)
  ****************************************************************************/
 XStatus XPm_DirectPwrUp(const u32 DeviceId)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	Payload[0] = PSM_API_DIRECT_PWR_UP;
@@ -138,7 +138,7 @@ done:
  ****************************************************************************/
 XStatus XPm_DirectPwrDwn(const u32 DeviceId)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	Payload[0] = PSM_API_DIRECT_PWR_DWN;
@@ -169,7 +169,7 @@ done:
  ****************************************************************************/
 XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_Core *Core;
 	XPm_Subsystem *Subsystem;
 	u32 SubsystemId;
@@ -203,6 +203,8 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 		Status = XPmRequirement_UpdateScheduled(Subsystem, TRUE);
 
 		XPmSubsystem_SetState(SubsystemId, SUSPENDED);
+	} else {
+		Status = XST_SUCCESS;
 	}
 
 done:

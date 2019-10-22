@@ -97,7 +97,7 @@ static XPmDevice_SoftResetInfo DeviceRstData[] = {
  */
 void NodeQspiIdle(u16 DeviceId, u32 BaseAddress)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	XQspiPsu_Config *ConfigPtr;
 	XQspiPsu QspiInst = {0};
 
@@ -127,7 +127,7 @@ done:
  */
 void NodeOspiIdle(u16 DeviceId, u32 BaseAddress)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	XOspiPsv_Config *ConfigPtr;
 	XOspiPsv OspiInst = {0};
 
@@ -160,7 +160,7 @@ done:
  */
 void NodeSdioIdle(u16 DeviceId, u32 BaseAddress)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	XSdPs_Config *ConfigPtr;
 	XSdPs SdioInst = {0};
 
@@ -190,7 +190,7 @@ done:
  */
 void NodeUsbIdle(u16 DeviceId, u32 BaseAddress)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	XUsbPsu_Config *ConfigPtr;
 	static struct XUsbPsu UsbInst;
 

@@ -42,7 +42,7 @@
 static XStatus XPmPsm_WakeUp(XPm_Core *Core, u32 SetAddress,
 			  u64 Address)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_Psm *Psm = (XPm_Psm *)Core;
 	u32 CRLBaseAddress = Psm->CrlBaseAddr;
 

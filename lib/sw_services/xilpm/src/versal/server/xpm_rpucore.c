@@ -46,7 +46,7 @@ XStatus XPmRpuCore_Halt(XPm_Device *Device)
 
 static int XPmRpuCore_RestoreResumeAddr(XPm_Core *Core)
 {
-	int Status = XST_SUCCESS;
+	int Status = XST_FAILURE;
 	XPm_RpuCore *RpuCore = (XPm_RpuCore *)Core;
 	u32 AddrLow = (u32) (Core->ResumeAddr & 0xffff0000ULL);
 
@@ -67,6 +67,8 @@ static int XPmRpuCore_RestoreResumeAddr(XPm_Core *Core)
 	}
 
 	Core->ResumeAddr = 0ULL;
+
+	Status = XST_SUCCESS;
 
 done:
 	return Status;
@@ -230,16 +232,18 @@ void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 
 XStatus XPm_RpuBootAddrConfig(const u32 DeviceId, const u32 BootAddr)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
 
 	/* CFG_VINITHI_MASK mask is common for both processors */
 	if (XPM_RPU_BOOTMEM_LOVEC == BootAddr) {
 		PmRmw32(RpuCore->ResumeCfg, XPM_RPU_VINITHI_MASK,
 			~XPM_RPU_VINITHI_MASK);
+		Status = XST_SUCCESS;
 	} else if (XPM_RPU_BOOTMEM_HIVEC == BootAddr) {
 		PmRmw32(RpuCore->ResumeCfg, XPM_RPU_VINITHI_MASK,
 			XPM_RPU_VINITHI_MASK);
+		Status = XST_SUCCESS;
 	} else {
 		Status = XST_FAILURE;
 	}
@@ -249,7 +253,7 @@ XStatus XPm_RpuBootAddrConfig(const u32 DeviceId, const u32 BootAddr)
 
 XStatus XPm_RpuTcmCombConfig(const u32 DeviceId, const u32 Config)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 Address;
 	XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
 
@@ -257,9 +261,11 @@ XStatus XPm_RpuTcmCombConfig(const u32 DeviceId, const u32 Config)
 	if (Config == XPM_RPU_TCM_SPLIT) {
 		PmRmw32(Address, XPM_RPU_TCM_COMB_MASK,
 			~XPM_RPU_TCM_COMB_MASK);
+		Status = XST_SUCCESS;
 	} else if (Config == XPM_RPU_TCM_COMB) {
 		PmRmw32(Address, XPM_RPU_TCM_COMB_MASK,
 			XPM_RPU_TCM_COMB_MASK);
+		Status = XST_SUCCESS;
 	} else {
 		Status = XST_INVALID_PARAM;
 	}

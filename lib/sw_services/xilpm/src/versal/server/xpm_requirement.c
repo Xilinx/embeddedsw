@@ -164,9 +164,14 @@ done:
  ****************************************************************************/
 XStatus XPmRequirement_UpdateScheduled(XPm_Subsystem *Subsystem, u32 Swap)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_Requirement *Reqm = Subsystem->Requirements;
 	XPm_ReqmInfo TempReq;
+
+	if (NULL == Reqm) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
 	while (NULL != Reqm) {
 		if (Reqm->Curr.Capabilities != Reqm->Next.Capabilities) {
@@ -193,5 +198,6 @@ XStatus XPmRequirement_UpdateScheduled(XPm_Subsystem *Subsystem, u32 Swap)
 		Reqm = Reqm->NextDevice;
 	}
 
+done:
 	return Status;
 }

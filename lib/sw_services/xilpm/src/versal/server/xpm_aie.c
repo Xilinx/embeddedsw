@@ -208,7 +208,7 @@ static void AieCoreEnable(u32 Col, u32 Row)
 static XStatus AieWaitForCoreDone(u32 Col, u32 Row)
 {
 	u64 StatusRegAddr = TILE_BASEADDRESS(Col, Row) + AIE_CORE_STATUS_OFFSET;
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 
 	Status = XPlmi_UtilPollForMask64((u32)(StatusRegAddr>>32),
 				(u32)(StatusRegAddr), AIE_CORE_STATUS_DONE_MASK, 10U);
@@ -286,7 +286,7 @@ static XStatus MemInit(void)
 
 static XStatus AieInitStart(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -296,7 +296,6 @@ static XStatus AieInitStart(u32 *Args, u32 NumOfArgs)
 	if( (XPm_In32(ME_NPI_REG_PCSR_STATUS) &
 			 ME_NPI_REG_PCSR_STATUS_ME_PWR_SUPPLY_MASK) !=
 			 ME_NPI_REG_PCSR_STATUS_ME_PWR_SUPPLY_MASK) {
-		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -310,13 +309,15 @@ static XStatus AieInitStart(u32 *Args, u32 NumOfArgs)
 	/* Hardcode ME_TOP_ROW value for S80 device */
 	PmOut32(ME_NPI_ME_TOP_ROW, 0x00000008U);
 
+	Status = XST_SUCCESS;
+
 done:
 	return Status;
 }
 
 static XStatus AieInitFinish(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -327,12 +328,14 @@ static XStatus AieInitFinish(u32 *Args, u32 NumOfArgs)
 		 ME_NPI_REG_PCSR_MASK_PCOMPLETE_MASK);
 	/* TODO: Check if we can lock PCSR registers here */
 
+	Status = XST_SUCCESS;
+
 	return Status;
 }
 
 static XStatus AieScanClear(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -377,13 +380,15 @@ static XStatus AieScanClear(u32 *Args, u32 NumOfArgs)
 	/* De-assert GATEREG */
 	AiePcsrWrite(ME_NPI_REG_PCSR_MASK_GATEREG_MASK, 0U);
 
+	Status = XST_SUCCESS;
+
 done:
 	return Status;
 }
 
 static XStatus AieBisr(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -413,7 +418,7 @@ done:
 
 static XStatus AieMbistClear(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -459,6 +464,9 @@ static XStatus AieMbistClear(u32 *Args, u32 NumOfArgs)
 		/* De-assert MEM_CLEAR_TRIGGER */
 		AiePcsrWrite(ME_NPI_REG_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK, 0U);
 	}
+
+	Status = XST_SUCCESS;
+
 done:
 	return Status;
 }

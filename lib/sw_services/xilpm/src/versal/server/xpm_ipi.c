@@ -44,7 +44,7 @@
  ****************************************************************************/
 XStatus XPm_IpiSend(u32 IpiMask, u32 *Payload)
 {
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 
 	Status = XPlmi_IpiPollForAck(IpiMask, PM_IPI_TIMEOUT);
 	if (XST_SUCCESS != Status) {
@@ -79,7 +79,7 @@ done:
 XStatus XPm_IpiReadStatus(u32 IpiMask)
 {
 	u32 Response[RESPONSE_ARG_CNT] = {0};
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 
 	/* Wait until current IPI interrupt is handled by target module */
 	Status = XPlmi_IpiPollForAck(IpiMask, PM_IPI_TIMEOUT);

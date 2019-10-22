@@ -33,7 +33,7 @@
 
 static XStatus FpdInitStart(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 
 	(void)Args;
@@ -42,6 +42,7 @@ static XStatus FpdInitStart(u32 *Args, u32 NumOfArgs)
 	/* Check vccint_fpd first to make sure power is on */
 	if (XST_SUCCESS != XPmPower_CheckPower(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_FPD_MASK)) {
 		/* TODO: Request PMC to power up VCCINT_FP rail and wait for the acknowledgement.*/
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
@@ -71,17 +72,19 @@ done:
 
 static XStatus FpdInitFinish(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	(void)Args;
 	(void)NumOfArgs;
+
+	Status = XST_SUCCESS;
 
 	return Status;
 }
 
 static XStatus FpdHcComplete(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 
 	(void)Args;
@@ -116,7 +119,7 @@ done:
 
 static XStatus FpdScanClear(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_Psm *Psm;
 
 	(void)Args;
@@ -159,7 +162,7 @@ done:
 
 static XStatus FpdBisr(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 
 	(void)Args;
@@ -192,7 +195,7 @@ done:
 
 static XStatus FpdMbistClear(u32 *Args, u32 NumOfArgs)
 {
-        XStatus Status = XST_SUCCESS;
+        XStatus Status = XST_FAILURE;
         u32 Payload[PAYLOAD_ARG_CNT] = {0};
 	XPm_Psm *Psm;
 
@@ -277,15 +280,17 @@ XStatus XPmPsFpDomain_Init(XPm_PsFpDomain *PsFpd, u32 Id, u32 BaseAddress,
 			   XPm_Power *Parent,  u32 *OtherBaseAddresses,
 			   u32 OtherBaseAddressCnt)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	XPmPowerDomain_Init(&PsFpd->Domain, Id, BaseAddress, Parent, &FpdOps);
 
 	/* Make sure enough base addresses are being passed */
-	if (1 <= OtherBaseAddressCnt)
+	if (1 <= OtherBaseAddressCnt) {
 		PsFpd->FpdSlcrBaseAddr = OtherBaseAddresses[0];
-	else
+		Status = XST_SUCCESS;
+	} else {
 		Status = XST_FAILURE;
+	}
 
 	return Status;
 }

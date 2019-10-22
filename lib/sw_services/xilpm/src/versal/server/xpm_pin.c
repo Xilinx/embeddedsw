@@ -1944,7 +1944,7 @@ static u8 ValidatePinFunc(XPm_PinNode *Pin, XPm_PinFunc *PinFunc)
  ****************************************************************************/
 XStatus XPmPin_Init(XPm_PinNode *Pin, u32 PinId, u32 BaseAddress)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 PinIdx;
 
 	PinIdx = NODEINDEX(PinId);
@@ -2025,7 +2025,7 @@ done:
  ****************************************************************************/
 XStatus XPmPin_SetPinFunction(u32 PinId, u32 FuncId)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_PinNode *Pin;
 	XPm_PinFunc *PinFunc;
 
@@ -2051,6 +2051,8 @@ XStatus XPmPin_SetPinFunction(u32 PinId, u32 FuncId)
 	}
 	Pin->PinFunc = PinFunc;
 	Pin->Node.State = XPM_PINSTATE_ASSIGNED;
+
+	Status = XST_SUCCESS;
 
 done:
 	return Status;
@@ -2101,7 +2103,7 @@ done:
  ****************************************************************************/
 XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 Value)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_PinNode *Pin;
 	u32 BitMask, BaseAddr;
 	u32 RegPuAddr, RegPdAddr;
@@ -2118,8 +2120,7 @@ XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 Value)
 	BitMask = 1 << (PINNUM(Pin->Node.Id) % PINS_PER_BANK);
 	BaseAddr = Pin->Node.BaseAddress + ((Pin->Bank) * (BNK_OFFSET));
 
-	switch (Param)
-	{
+	switch (Param) {
 		case PINCTRL_CONFIG_SLEW_RATE:
 			if (PINCTRL_SLEW_RATE_SLOW == Value) {
 				XPm_RMW32((BaseAddr + SEL_SLEW), BitMask, 0);
@@ -2127,6 +2128,7 @@ XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 Value)
 				XPm_RMW32((BaseAddr + SEL_SLEW), BitMask, BitMask);
 			} else {
 				Status = XST_INVALID_PARAM;
+				goto done;
 			}
 			break;
 		case PINCTRL_CONFIG_BIAS_STATUS:
@@ -2223,8 +2225,10 @@ XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 Value)
 			break;
 		default:
 			Status = XST_INVALID_PARAM;
-			break;
+			goto done;
 	}
+
+	Status = XST_SUCCESS;
 
 done:
 	return Status;
@@ -2243,7 +2247,7 @@ done:
  ****************************************************************************/
 XStatus XPmPin_GetPinConfig(u32 PinId, u32 Param, u32 *Value)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_PinNode *Pin;
 	u32 BitMask;
 	u32 Reg;
@@ -2261,8 +2265,7 @@ XStatus XPmPin_GetPinConfig(u32 PinId, u32 Param, u32 *Value)
 	BitMask = 1 << (PINNUM(Pin->Node.Id) % PINS_PER_BANK);
 	BaseAddr = Pin->Node.BaseAddress + ((Pin->Bank) * (BNK_OFFSET));
 
-	switch (Param)
-	{
+	switch (Param) {
 		case PINCTRL_CONFIG_SLEW_RATE:
 			PmIn32((BaseAddr + SEL_SLEW), Reg);
 			if (BitMask == (Reg & BitMask)) {
@@ -2307,8 +2310,10 @@ XStatus XPmPin_GetPinConfig(u32 PinId, u32 Param, u32 *Value)
 			break;
 		default:
 			Status = XST_INVALID_PARAM;
-			break;
+			goto done;
 	}
+
+	Status = XST_SUCCESS;
 
 done:
 	return Status;
@@ -2389,7 +2394,7 @@ done:
  ****************************************************************************/
 XStatus XPmPin_Request(const u32 SubsystemId, const u32 PinId)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_PinNode *Pin;
 
 	Pin = XPmPin_GetById(PinId);
@@ -2408,6 +2413,8 @@ XStatus XPmPin_Request(const u32 SubsystemId, const u32 PinId)
 
 	Pin->SubsysIdx = NODEINDEX(SubsystemId);
 
+	Status = XST_SUCCESS;
+
 done:
 	return Status;
 }
@@ -2424,7 +2431,7 @@ done:
  ****************************************************************************/
 XStatus XPmPin_Release(const u32 SubsystemId, const u32 PinId)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_PinNode *Pin;
 
 	Pin = XPmPin_GetById(PinId);
@@ -2439,6 +2446,8 @@ XStatus XPmPin_Release(const u32 SubsystemId, const u32 PinId)
 	}
 
 	Pin->SubsysIdx = XPM_NODEIDX_SUBSYS_MAX;
+
+	Status = XST_SUCCESS;
 
 done:
 	return Status;
@@ -2457,7 +2466,7 @@ done:
  ****************************************************************************/
 XStatus XPmPin_CheckPerms(const u32 SubsystemId, const u32 PinId)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_PinNode *Pin;
 
 	Pin = XPmPin_GetById(PinId);
@@ -2470,6 +2479,8 @@ XStatus XPmPin_CheckPerms(const u32 SubsystemId, const u32 PinId)
 		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
+
+	Status = XST_SUCCESS;
 
 done:
 	return Status;

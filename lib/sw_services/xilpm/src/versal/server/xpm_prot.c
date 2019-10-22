@@ -47,12 +47,11 @@ static XPm_Prot *PmProtNodes[XPM_NODEIDX_PROT_MAX];
 
 XStatus XPmProt_Init(XPm_Prot *ProtNode, u32 Id, u32 BaseAddr)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 NodeIndex = NODEINDEX(Id);
 	XPm_ProtPpu *PpuNode = (XPm_ProtPpu *)ProtNode;
 
 	if ((NULL == ProtNode) || (XPM_NODEIDX_PROT_MAX < NodeIndex)) {
-		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -97,13 +96,12 @@ done:
 
 XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	int i = 0;
 	XPm_ProtPpu *PpuNode = (XPm_ProtPpu *)XPmProt_GetById(NodeId);
 	u32 Address, BaseAddr, RegVal;
 
 	if (PpuNode == NULL) {
-		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -168,13 +166,15 @@ XStatus XPmProt_XppuEnable(u32 NodeId, u32 ApertureInitVal)
 
 	PpuNode->ProtNode.Node.State = XPM_PROT_ENABLED;
 
+	Status = XST_SUCCESS;
+
 done:
 	return Status;
 }
 
 XStatus XPmProt_XppuDisable(u32 NodeId)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_ProtPpu *PpuNode = (XPm_ProtPpu *)XPmProt_GetById(NodeId);
 	u32 Address, idx;
 
@@ -198,13 +198,15 @@ XStatus XPmProt_XppuDisable(u32 NodeId)
 
 	PpuNode->ProtNode.Node.State = XPM_PROT_DISABLED;
 
+	Status = XST_SUCCESS;
+
 done:
 	return Status;
 }
 
 static XStatus XPmProt_ConfigureXppu(XPm_Requirement *Reqm, u32 Enable)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 DeviceBaseAddr = Reqm->Device->Node.BaseAddress;
 	XPm_ProtPpu *PpuNode = NULL;
 	u32 ApertureOffset, ApertureAddress = 0;
@@ -245,11 +247,13 @@ static XStatus XPmProt_ConfigureXppu(XPm_Requirement *Reqm, u32 Enable)
 		}
 	}
 	if ((i==XPM_NODEIDX_PROT_MAX) || (PpuNode==NULL) || (ApertureAddress==0)) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
 	/* See if XPPU is enabled or not, if not, return */
 	if (XPM_PROT_DISABLED == PpuNode->ProtNode.Node.State)
+		Status = XST_SUCCESS;
 		goto done;
 
 	PmDbg("Aperoffset %x AperAddress %x DynamicReconfigAddrOffset %x\r\n",ApertureOffset, ApertureAddress, DynamicReconfigAddrOffset);
@@ -306,15 +310,18 @@ static XStatus XPmProt_ConfigureXppu(XPm_Requirement *Reqm, u32 Enable)
 		PmOut32(PpuNode->ProtNode.Node.BaseAddress + XPPU_DYNAMIC_RECONFIG_EN_OFFSET, 0);
 	}
 
+	Status = XST_SUCCESS;
+
 done:
 	return Status;
 }
 
 XStatus XPmProt_Configure(XPm_Requirement *Reqm, u32 Enable)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	if (PLATFORM_VERSION_SILICON != Platform) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
@@ -324,6 +331,7 @@ XStatus XPmProt_Configure(XPm_Requirement *Reqm, u32 Enable)
 		/* TODO: Need to know which addresse range particular XMPU protects */
 		Status = XPmProt_ConfigureXppu(Reqm, Enable);
 	} else {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 

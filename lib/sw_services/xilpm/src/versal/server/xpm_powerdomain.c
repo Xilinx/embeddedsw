@@ -80,13 +80,12 @@ XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 
 XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 SateliteIdx)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 EfuseCacheBaseAddress, StartbitOffset, RegValue, i, DeltaVal = 0;
 	static u32 OffsetVal,SlopeVal,ProcessVal,ResistorVal,BjtOffsetVal,ExtOffsetVal,AnaSpareVal,DigSpareVal,Arr[8];
 	static u32 CacheRead=0;
 
 	if (0 == DestAddress) {
-		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -195,15 +194,18 @@ XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 Sate
 	/* Lock writes */
 	PmOut32(DestAddress + NPI_PCSR_LOCK_OFFSET, 1);
 
+	Status = XST_SUCCESS;
+
 done:
 	return Status;
 }
 
 XStatus XPm_PowerUpLPD(XPm_Node *Node)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	if (XPM_POWER_STATE_ON == Node->State) {
+		Status = XST_SUCCESS;
 		goto done;
 	} else {
 		/* TODO: LPD CDO should be rexecuted. Right now we don't have separate LPD
@@ -241,11 +243,10 @@ done:
 
 XStatus XPm_PowerDwnLPD()
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 
 	if (NULL == LpDomain) {
-		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -345,11 +346,10 @@ done:
 
 XStatus XPm_PowerDwnFPD(XPm_Node *Node)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_Core *ApuCore = (XPm_Core *)XPmDevice_GetById(PM_DEV_ACPU_0);
 	XPm_Device *AmsRoot = XPmDevice_GetById(PM_DEV_AMS_ROOT);
 	if (NULL == AmsRoot) {
-		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -410,9 +410,10 @@ done:
 
 XStatus XPm_PowerUpPLD(XPm_Node *Node)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	if (XPM_POWER_STATE_ON == Node->State) {
+		Status = XST_SUCCESS;
 		goto done;
 	} else {
 		/* TODO: PLD CDO should be rexecuted. Right now we don't have separate PLD
@@ -434,7 +435,7 @@ done:
 
 XStatus XPm_PowerDwnPLD()
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	/* Isolate PL-NoC */
 	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PL_SOC, TRUE);
@@ -510,18 +511,19 @@ done:
 
 XStatus XPm_PowerUpME(XPm_Node *Node)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	(void)Node;
 
 	/* TODO: Reload ME CDO */
+	Status = XST_SUCCESS;
 
 	return Status;
 }
 
 XStatus XPm_PowerDwnME()
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	/* TODO: Isolate ME */
 
@@ -529,23 +531,26 @@ XStatus XPm_PowerDwnME()
 
 	/* TODO: Send PMC_I2C command to turn of ME power rail */
 
+	Status = XST_SUCCESS;
+
 	return Status;
 }
 
 XStatus XPm_PowerUpCPM(XPm_Node *Node)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	(void)Node;
 
 	/* TODO: Reload CPM CDO */
+	Status = XST_SUCCESS;
 
 	return Status;
 }
 
 XStatus XPm_PowerDwnCPM()
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	/* Isolate LPD-CPM */
 	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_LPD_CPM, TRUE);
@@ -582,9 +587,10 @@ done:
 
 XStatus XPm_PowerUpNoC(XPm_Node *Node)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
         if (XPM_POWER_STATE_ON == Node->State) {
+			Status = XST_SUCCESS;
                 goto done;
         } else {
                 Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, FUNC_INIT_START, NULL, 0);
@@ -610,7 +616,7 @@ done:
 
 XStatus XPm_PowerDwnNoC()
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_Device *AmsRoot = XPmDevice_GetById(PM_DEV_AMS_ROOT);
 	XPm_NpDomain *NpDomain = (XPm_NpDomain *)XPmPower_GetById(PM_POWER_NOC);
 
@@ -681,12 +687,13 @@ done:
 
 XStatus XPmPower_CheckPower(u32 VoltageRailMask)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 RegVal;
 	XPm_Pmc *Pmc;
 
 	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 	if (NULL == Pmc) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
@@ -695,6 +702,9 @@ XStatus XPmPower_CheckPower(u32 VoltageRailMask)
 		Status = XST_FAILURE;
 		goto done;
 	}
+
+	Status = XST_SUCCESS;
+
 done:
 	return Status;
 }
@@ -778,10 +788,11 @@ done:
 XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				  u32 *Args, u32 NumArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	struct XPm_PowerDomainOps *Ops = PwrDomain->DomainOps;
 
 	if ((XPM_POWER_STATE_ON == PwrDomain->Power.Node.State) && (Function != FUNC_XPPU_CTRL)) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
@@ -795,6 +806,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				goto done;
 			}
 		}
+		Status = XST_SUCCESS;
 		break;
 	case FUNC_INIT_FINISH:
 		if (XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
@@ -810,6 +822,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		PwrDomain->Power.Node.State = XPM_POWER_STATE_ON;
 		XPmDomainIso_ProcessPending(PwrDomain->Power.Node.Id);
 		XPmPower_UpdateResetFlags(PwrDomain, FUNC_INIT_FINISH);
+		Status = XST_SUCCESS;
 		break;
 	case FUNC_SCAN_CLEAR:
 		if (XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
@@ -820,6 +833,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		/* HACK: Dont skip scanclear for AIE */
 		if (((1 == SystemResetFlag) || (1 == DomainPORFlag)) &&
 		     (PwrDomain->Power.Node.Id != PM_POWER_ME)) {
+			Status = XST_SUCCESS;
 			goto done;
 		}
 		if (Ops && Ops->ScanClear) {
@@ -829,6 +843,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			}
 			PwrDomain->InitFlag |= BIT(FUNC_SCAN_CLEAR);
 		}
+		Status = XST_SUCCESS;
 		break;
 	case FUNC_BISR:
 		if (XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
@@ -838,6 +853,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		/* Skip in case of system reset */
 		if ((1 == SystemResetFlag) &&
 		    (PwrDomain->Power.Node.Id != PM_POWER_NOC)) {
+			Status = XST_SUCCESS;
 			goto done;
 		}
 		if (Ops && Ops->Bisr) {
@@ -847,6 +863,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			}
 			PwrDomain->InitFlag |= BIT(FUNC_BISR);
 		}
+		Status = XST_SUCCESS;
 		break;
 	case FUNC_LBIST:
 		if (XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
@@ -855,6 +872,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		}
 		/* Skip in case of system reset or POR of a domain */
 		if ((1 == SystemResetFlag) || (1 == DomainPORFlag)) {
+			Status = XST_SUCCESS;
 			goto done;
 		}
 		if (Ops && Ops->Lbist) {
@@ -864,6 +882,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			}
 			PwrDomain->InitFlag |= BIT(FUNC_LBIST);
 		}
+		Status = XST_SUCCESS;
 		break;
 	case FUNC_MBIST_CLEAR:
 		if (XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
@@ -872,6 +891,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		}
 		/* Skip in case of system reset or POR of a domain */
 		if ((1 == SystemResetFlag) || (1 == DomainPORFlag)) {
+			Status = XST_SUCCESS;
 			goto done;
 		}
 		if (Ops && Ops->Mbist) {
@@ -881,6 +901,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			}
 			PwrDomain->InitFlag |= BIT(FUNC_MBIST_CLEAR);
 		}
+		Status = XST_SUCCESS;
 		break;
 	case FUNC_HOUSECLEAN_PL:
 		if (XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
@@ -893,6 +914,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				goto done;
 			}
 		}
+		Status = XST_SUCCESS;
 		break;
 	case FUNC_MEM_INIT:
                 if (XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
@@ -905,6 +927,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
                                 goto done;
                         }
                 }
+				Status = XST_SUCCESS;
                 break;
 	case FUNC_HOUSECLEAN_COMPLETE:
                 if (XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
@@ -917,6 +940,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
                                 goto done;
                         }
                 }
+				Status = XST_SUCCESS;
                 break;
 	case FUNC_XPPU_CTRL:
                 if (XPM_POWER_STATE_ON != PwrDomain->Power.Node.State) {
@@ -929,6 +953,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
                                 goto done;
                         }
                 }
+				Status = XST_SUCCESS;
                 break;
 	default:
 		Status = XST_INVALID_PARAM;

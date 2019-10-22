@@ -47,7 +47,7 @@ u32 PlpdHouseCleanBypass = 0;
 
 static XStatus PldInitFinish(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -72,6 +72,8 @@ static XStatus PldInitFinish(u32 *Args, u32 NumOfArgs)
 
 	XCfupmc_GlblSeqInit(&CfupmcIns);
 
+	Status = XST_SUCCESS;
+
 done:
 	return Status;
 }
@@ -79,7 +81,7 @@ done:
 
 static XStatus PldGtyMbist(u32 BaseAddress)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	PmOut32(BaseAddress + GTY_PCSR_MASK_OFFSET, GTY_PCSR_MEM_CLEAR_TRIGGER_MASK);
 	PmOut32(BaseAddress + GTY_PCSR_CONTROL_OFFSET, GTY_PCSR_MEM_CLEAR_TRIGGER_MASK);
@@ -163,7 +165,7 @@ done:
 
 XStatus PldCfuInit()
 {
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 	XCfupmc_Config *Config;
 
 	if(CfupmcIns.IsReady)
@@ -200,7 +202,7 @@ done:
 }
 static XStatus PldCframeInit()
 {
-        XStatus Status;
+        XStatus Status = XST_FAILURE;
         XCframe_Config *Config;
 
         if(CframeIns.IsReady) {
@@ -237,7 +239,7 @@ done:
 
 static XStatus GtyHouseClean()
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	unsigned int i;
 	XPm_Device *Device;
 	u32 GtyAddresses[XPM_NODEIDX_DEV_GT_MAX - XPM_NODEIDX_DEV_GT_MIN + 1] = {0};
@@ -281,13 +283,16 @@ static XStatus GtyHouseClean()
 			PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, 1);
 		}
 	}
+
+	Status = XST_SUCCESS;
+
 done:
 	return Status;
 }
 
 static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_Pmc *Pmc;
 	u32 PlPowerUpTime=0;
 
@@ -373,7 +378,7 @@ done:
 
 static XStatus PldHouseClean(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_PlDomain *Pld;
 	u32 Value = 0;
 
@@ -603,7 +608,7 @@ XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,
 			 XPm_Power *Parent, u32 *OtherBaseAddresses,
 			 u32 OtherBaseAddressCnt)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	XPmPowerDomain_Init(&PlDomain->Domain, Id, BaseAddress, Parent, &PldOps);
 	PlDomain->Domain.Power.Node.State = XPM_POWER_STATE_OFF;
@@ -616,6 +621,7 @@ XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,
 	if (2 <= OtherBaseAddressCnt) {
 		PlDomain->CfuApbBaseAddr = OtherBaseAddresses[0];
 		PlDomain->Cframe0RegBaseAddr = OtherBaseAddresses[1];
+		Status = XST_SUCCESS;
 	} else {
 		Status = XST_FAILURE;
 	}

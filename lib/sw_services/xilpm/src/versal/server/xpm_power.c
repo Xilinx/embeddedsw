@@ -216,7 +216,7 @@ done:
 
 static XStatus SendPowerUpReq(XPm_Node *Node)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status = XST_FAILURE;
 	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 
 	if (NULL == LpDomain) {
@@ -224,8 +224,10 @@ static XStatus SendPowerUpReq(XPm_Node *Node)
 		goto done;
 	}
 
-	if (XPM_POWER_STATE_ON == Node->State)
+	if (XPM_POWER_STATE_ON == Node->State) {
+		Status = XST_SUCCESS;
 		goto done;
+	}
 
 	if (XPM_NODESUBCL_POWER_ISLAND == NODESUBCLASS(Node->Id)) {
 		if (XPM_NODETYPE_POWER_ISLAND_XRAM == NODETYPE(Node->Id)) {
@@ -289,7 +291,7 @@ done:
 
 static XStatus SendPowerDownReq(XPm_Node *Node)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status = XST_FAILURE;
 	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 
 	if (NULL == LpDomain) {
@@ -492,6 +494,7 @@ XStatus XPmPower_GetStatus(const u32 SubsystemId, const u32 DeviceId, XPm_Device
 done:
 	return Status;
 }
+
 XStatus XPmPower_Init(XPm_Power *Power,
 	u32 Id, u32 BaseAddress, XPm_Power *Parent)
 {
@@ -533,7 +536,7 @@ done:
 
 XStatus XPmPower_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 {
-	int Status = XST_SUCCESS;
+	int Status = XST_FAILURE;
 	XPm_Power *Power;
 	XPm_Power *PowerParent;
 	u32 i;
@@ -555,6 +558,8 @@ XStatus XPmPower_AddParent(u32 Id, u32 *Parents, u32 NumParents)
 		/* Todo: Handle more than one parent */
 		Power->Parent = PowerParent;
 	}
+
+	Status = XST_SUCCESS;
 
 done:
 	return Status;

@@ -251,7 +251,7 @@ done:
 
 static XStatus XPmBisr_RepairGty(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 RegValue;
 	u64 BaseAddr, BisrDataDestAddr;
 
@@ -292,12 +292,11 @@ done:
 
 static XStatus XPmBisr_RepairLpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr)
 {
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 	u64 BisrDataDestAddr;
 	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 
 	if (NULL == LpDomain) {
-		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -316,13 +315,12 @@ done:
 
 int XPmBisr_TriggerLpd(void)
 {
-	int Status = XST_SUCCESS;
+	int Status = XST_FAILURE;
 	XPm_PsLpDomain *PsLpd;
 	u32 RegValue;
 
 	PsLpd = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 	if (NULL == PsLpd) {
-		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -366,14 +364,13 @@ done:
 
 static XStatus XPmBisr_RepairFpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_PsFpDomain *PsFpd;
 	u32 RegValue;
 	u64 BisrDataDestAddr;
 
 	PsFpd = (XPm_PsFpDomain *)XPmPower_GetById(PM_POWER_FPD);
 	if (NULL == PsFpd) {
-		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -439,14 +436,13 @@ done:
 
 static XStatus XPmBisr_RepairCpm(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_CpmDomain *Cpm;
 	u32 RegValue;
 	u64 BisrDataDestAddr;
 
 	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM);
 	if (NULL == Cpm) {
-		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -488,13 +484,12 @@ done:
 
 static XStatus XPmBisr_RepairDdrMc(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 RegValue;
 	u64 BaseAddr, BisrDataDestAddr;
 	XPm_NpDomain *NpDomain = (XPm_NpDomain *)XPmPower_GetById(PM_POWER_NOC);
 
 	if (NULL == NpDomain) {
-		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -548,7 +543,7 @@ done:
 
 static XStatus XPmBisr_RepairME(u32 EfuseTagAddr, u32 TagId,u32 TagSize,u32 TagOptional, u32 *TagDataAddr)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 RegValue;
 	u64 BaseAddr, BisrDataDestAddr;
 
@@ -852,7 +847,7 @@ done:
 
 XStatus XPmBisr_Repair(u32 TagId)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 EfuseRowTag;
 	u32 EfuseCurrAddr;
 	u32 EfuseNextAddr;
@@ -863,7 +858,6 @@ XStatus XPmBisr_Repair(u32 TagId)
 	u32 TagType;
 	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	if (NULL == EfuseCache) {
-		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -966,6 +960,8 @@ XStatus XPmBisr_Repair(u32 TagId)
 			EfuseNextAddr += 4;
 		}
 	}
+
+	Status = XST_SUCCESS;
 
 done:
 	return Status;

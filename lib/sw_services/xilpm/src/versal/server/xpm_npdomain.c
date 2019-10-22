@@ -42,7 +42,7 @@ static u32 NpdMemIcAddresses[XPM_NODEIDX_MEMIC_MAX];
 
 static XStatus NpdInitStart(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -59,8 +59,8 @@ static XStatus NpdInitStart(u32 *Args, u32 NumOfArgs)
 	}
 
 	/* Release POR for NoC */
-	Status = XPmReset_AssertbyId(PM_RST_NOC_POR,
-				     PM_RESET_ACTION_RELEASE);
+	Status = XPmReset_AssertbyId(PM_RST_NOC_POR, PM_RESET_ACTION_RELEASE);
+
 done:
 	return Status;
 }
@@ -88,7 +88,7 @@ static void NpdPreBisrReqs()
 
 static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 i=0;
 	XPm_Device *Device;
 	u32 BaseAddress;
@@ -155,7 +155,7 @@ done:
 
 static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_Pmc *Pmc;
 	u32 RegValue;
 	XPm_OutClockNode *Clk;
@@ -205,13 +205,15 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 	PmRmw32(PMC_ANALOG_SCAN_CLEAR_TRIGGER,
                 PMC_ANALOG_SCAN_CLEAR_TRIGGER_NOC_MASK, 0);
 
+	Status = XST_SUCCESS;
+
 done:
 	return Status;
 }
 
 static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 RegValue;
 	u32 i;
 	XPm_Device *Device;
@@ -316,21 +318,23 @@ static XStatus NpdMbist(u32 *Args, u32 NumOfArgs)
         for (i = 0; i < ARRAY_SIZE(DdrMcAddresses) && DdrMcAddresses[i]; i++) {
                 PmOut32(DdrMcAddresses[i] + NPI_PCSR_MASK_OFFSET,
                         NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
-                PmOut32(DdrMcAddresses[i] + NPI_PCSR_CONTROL_OFFSET, 0);
-        }
-
+		PmOut32(DdrMcAddresses[i] + NPI_PCSR_CONTROL_OFFSET, 0);
+	}
 
 	/* Assert PCSR Lock*/
 	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses) && NpdMemIcAddresses[i]; i++) {
 		PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_LOCK_OFFSET, 1);
 	}
+
+	Status = XST_SUCCESS;
+
 done:
 	return Status;
 }
 
 static XStatus NpdBisr(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 i = 0;
 	XPm_Device *Device;
 	u32 DdrMcAddresses[XPM_NODEIDX_DEV_DDRMC_MAX - XPM_NODEIDX_DEV_DDRMC_MIN + 1] = {0};
@@ -397,7 +401,7 @@ XStatus XPmNpDomain_Init(XPm_NpDomain *Npd, u32 Id, u32 BaseAddress,
 
 XStatus XPmNpDomain_MemIcInit(u32 DeviceId, u32 BaseAddr)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 Idx = NODEINDEX(DeviceId);
 	u32 Type = NODETYPE(DeviceId);
 
@@ -409,6 +413,8 @@ XStatus XPmNpDomain_MemIcInit(u32 DeviceId, u32 BaseAddr)
 	}
 
 	NpdMemIcAddresses[Idx] = BaseAddr;
+
+	Status = XST_SUCCESS;
 
 done:
 	return Status;

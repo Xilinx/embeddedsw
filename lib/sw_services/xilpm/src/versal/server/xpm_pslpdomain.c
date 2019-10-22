@@ -35,7 +35,7 @@
 
 static XStatus LpdInitStart(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -43,6 +43,7 @@ static XStatus LpdInitStart(u32 *Args, u32 NumOfArgs)
 	/* Check vccint_pslp first to make sure power is on */
 	if (XST_SUCCESS != XPmPower_CheckPower(PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_LPD_MASK)) {
 		/* TODO: Request PMC to power up VCCINT_LP rail and wait for the acknowledgement.*/
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
@@ -62,7 +63,7 @@ done:
 
 static XStatus LpdPreBisrReqs()
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	/* Remove PMC LPD isolation */
 	Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_PMC_LPD, FALSE);
@@ -78,17 +79,19 @@ done:
 
 static XStatus LpdInitFinish(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	(void)Args;
 	(void)NumOfArgs;
+
+	Status = XST_SUCCESS;
 
 	return Status;
 }
 
 static XStatus LpdHcComplete(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -118,7 +121,7 @@ done:
  ****************************************************************************/
 static XStatus LpdScanClear(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -178,7 +181,7 @@ done:
  ****************************************************************************/
 static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	u32 RegVal;
 
@@ -198,6 +201,7 @@ static XStatus LpdLbist(u32 *Args, u32 NumOfArgs)
 	/* Check if Lbist is enabled*/
 	PmIn32(EfuseCache->Node.BaseAddress + EFUSE_CACHE_MISC_CTRL_OFFSET, RegVal);
 	if ((RegVal & EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK) != EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
@@ -253,11 +257,10 @@ done:
  ****************************************************************************/
 static XStatus LpdBisr(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 
 	if (NULL == LpDomain) {
-		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -287,7 +290,7 @@ done:
  ****************************************************************************/
 static XStatus LpdMbist(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -380,7 +383,7 @@ done:
  ****************************************************************************/
 static XStatus LpdXppuCtrl(u32 *Args, u32 NumOfArgs)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 XppuNodeId, Enable;
 
 	if(NumOfArgs < 2) {
@@ -425,7 +428,7 @@ XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
 			   XPm_Power *Parent, u32 *OtherBaseAddresses,
 			   u32 OtherBaseAddressesCnt)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	XPmPowerDomain_Init(&PsLpd->Domain, Id, BaseAddress, Parent, &LpdOps);
 
@@ -436,6 +439,7 @@ XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
 		PsLpd->LpdIouSlcrBaseAddr = OtherBaseAddresses[0];
 		PsLpd->LpdSlcrBaseAddr = OtherBaseAddresses[1];
 		PsLpd->LpdSlcrSecureBaseAddr = OtherBaseAddresses[2];
+		Status = XST_SUCCESS;
 	} else {
 		Status = XST_FAILURE;
 	}

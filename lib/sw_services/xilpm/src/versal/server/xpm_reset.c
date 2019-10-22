@@ -69,7 +69,7 @@ static XStatus SetResetNode(u32 Id, XPm_ResetNode *Rst)
 
 static XStatus XPmReset_Init(XPm_ResetNode *Rst, u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetType, u8 NumParents, u32* Parents)
 {
-	u32 Status = XST_SUCCESS, i = 0;
+	u32 Status = XST_FAILURE, i = 0;
 
 	Status = XPmNode_Init(&Rst->Node, Id, (u8)XPM_RST_STATE_ASSERTED, 0);
 
@@ -87,7 +87,7 @@ static XStatus XPmReset_Init(XPm_ResetNode *Rst, u32 Id, u32 ControlReg, u8 Shif
 
 XStatus XPmReset_AddNode(u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetType, u8 NumParents, u32* Parents)
 {
-	int Status = XST_SUCCESS;
+	int Status = XST_FAILURE;
 	u32 SubClass = NODESUBCLASS(Id);
 	XPm_ResetNode *Rst = NULL;
 
@@ -150,7 +150,7 @@ XPm_ResetNode* XPmReset_GetById(u32 ResetId)
 
 static XStatus PsOnlyResetAssert(XPm_ResetNode *Rst)
 {
-	u32 i, Status = XST_SUCCESS;
+	u32 i, Status = XST_FAILURE;
 	const u32 PsDomainIds[] = { PM_POWER_LPD, PM_POWER_FPD };
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 
@@ -254,7 +254,7 @@ static XStatus PsOnlyResetRelease(XPm_ResetNode *Rst)
 
 static XStatus PsOnlyResetPulse(XPm_ResetNode *Rst)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status = XST_FAILURE;
 
 	/* Assert PS System Reset */
 	Status = PsOnlyResetAssert(Rst);
@@ -274,13 +274,15 @@ done:
 
 static XStatus ResetPulseLpd(XPm_ResetNode *Rst)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status = XST_FAILURE;
 	//u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 
 	/* This parameter is required as per the prototype */
 	(void)(Rst);
 
 	/* TODO: TBD */
+
+	Status = XST_SUCCESS;
 
 	return Status;
 }
@@ -367,7 +369,7 @@ done:
 
 static XStatus Reset_AssertCommon(XPm_ResetNode *Rst, const u32 Action)
 {
-	u32 Status = XST_SUCCESS;
+	u32 Status = XST_FAILURE;
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 	u32 ControlReg = Rst->Node.BaseAddress;
 
@@ -375,16 +377,19 @@ static XStatus Reset_AssertCommon(XPm_ResetNode *Rst, const u32 Action)
 	case PM_RESET_ACTION_RELEASE:
 		XPm_RMW32(ControlReg, Mask, 0);
 		Rst->Node.State = XPM_RST_STATE_DEASSERTED;
+		Status = XST_SUCCESS;
 		break;
 	case PM_RESET_ACTION_ASSERT:
 		XPm_RMW32(ControlReg, Mask, Mask);
 		Rst->Node.State = XPM_RST_STATE_ASSERTED;
+		Status = XST_SUCCESS;
 		break;
 	case PM_RESET_ACTION_PULSE:
 		XPm_RMW32(ControlReg, Mask, Mask);
 		//Wait for xms ??
 		XPm_RMW32(ControlReg, Mask, 0);
 		Rst->Node.State = XPM_RST_STATE_DEASSERTED;
+		Status = XST_SUCCESS;
 		break;
 	default:
 		Status = XST_INVALID_PARAM;
@@ -396,7 +401,7 @@ static XStatus Reset_AssertCommon(XPm_ResetNode *Rst, const u32 Action)
 
 XStatus XPmReset_AssertbyId(u32 ResetId, const u32 Action)
 {
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 	XPm_ResetNode *Rst = XPmReset_GetById(ResetId);
 
 	if (Rst) {
@@ -450,7 +455,7 @@ done:
 
 int XPmReset_SystemReset()
 {
-	int Status = XST_SUCCESS;
+	int Status = XST_FAILURE;
 
 	/* TODO: Confirm if idling is required here or not */
 

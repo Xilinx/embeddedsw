@@ -58,7 +58,7 @@ int XPmNotifier_Register(const XPm_Subsystem* const Subsystem,
 			 const XPm_Device* const Device,
 			 const u32 Event, const u32 Wake, const u32 IpiMask)
 {
-	int Status = XST_SUCCESS;
+	int Status = XST_FAILURE;
 	u32 Idx, EmptyIdx = ARRAY_SIZE(PmNotifiers);
 
 	for (Idx = 0U; Idx < ARRAY_SIZE(PmNotifiers); Idx++) {
@@ -97,6 +97,8 @@ int XPmNotifier_Register(const XPm_Subsystem* const Subsystem,
 		/* Wake subsystem for this event */
 		PmNotifiers[Idx].WakeMask |= Event;
 	}
+
+	Status = XST_SUCCESS;
 
 done:
 	return Status;
