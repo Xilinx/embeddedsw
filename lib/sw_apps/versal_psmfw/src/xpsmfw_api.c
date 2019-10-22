@@ -43,7 +43,7 @@
 
 static XStatus XPsmFw_FpHouseClean(u32 FunctionId)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	switch (FunctionId) {
 	case FUNC_INIT_START:
@@ -132,7 +132,7 @@ XStatus XPsmFw_ProcessIpi(u32 *Payload)
  ****************************************************************************/
 XStatus XPsmFw_PowerDownEvent(u32 DevId)
 {
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD1(Payload, PM_PWR_DWN_EVENT, DevId);
@@ -155,7 +155,7 @@ XStatus XPsmFw_PowerDownEvent(u32 DevId)
  ****************************************************************************/
 XStatus XPsmFw_WakeEvent(u32 DevId)
 {
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	PACK_PAYLOAD1(Payload, PM_WAKE_UP_EVENT, DevId);

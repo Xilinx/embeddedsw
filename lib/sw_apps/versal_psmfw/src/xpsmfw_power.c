@@ -316,7 +316,7 @@ enum XPsmFWPwrUpDwnType {
 
 int XPsmFw_FpdMbisr()
 {
-	int Status = XST_SUCCESS;
+	int Status = XST_FAILURE;
 
 	/* Release FPD reset */
 	XPsmFw_RMW32(CRL_RST_FPD, CRL_RST_FPD_SRST_MASK,
@@ -330,19 +330,19 @@ int XPsmFw_FpdMbisr()
 	/* Bisr will now be triggered by libpm when this call
 		returns*/
 
+	Status = XST_SUCCESS;
+
 	return Status;
 }
 
 int XPsmFw_FpdScanClear()
 {
-	int Status = XST_SUCCESS;
-
-	return Status;
+	return XST_SUCCESS;
 }
 
 int XPsmFw_FpdMbistClear()
 {
-	int Status = XST_SUCCESS;
+	int Status = XST_FAILURE;
 
 	/* Release FPD reset */
 	XPsmFw_RMW32(CRL_RST_FPD, CRL_RST_FPD_SRST_MASK,
@@ -353,19 +353,20 @@ int XPsmFw_FpdMbistClear()
 			PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK,
 			~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK);
 
+	Status = XST_SUCCESS;
+
 	return Status;
 }
 
 int XPsmFw_FpdPreHouseClean()
 {
-	int Status = XST_SUCCESS;
+	int Status = XST_FAILURE;
 	u32 RegVal;
 
 	/* Check vccint_fpd first to make sure power is on */
 	RegVal = XPsmFw_Read32(PMC_GLOBAL_PWR_SUPPLY_STATUS);
 	if ((RegVal & PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_FPD_MASK) != PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_FPD_MASK) {
 		/* TODO: Request PMC to power up VCCINT_FP rail and wait for the acknowledgement.*/
-		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -406,13 +407,16 @@ int XPsmFw_FpdPreHouseClean()
 
 	/* Wait until reset is propagated in FPD */
 	XPsmFw_UtilWait(XPSMFW_PWRON_RST_FPD_WAIT_TIME);
+
+	Status = XST_SUCCESS;
+
 done:
 	return Status;
 }
 
 int XPsmFw_FpdPostHouseClean()
 {
-	int Status = XST_SUCCESS;
+	int Status = XST_FAILURE;
 
 	/* Disable Remaining LP-FP isolation - in case bisr and mbist was skipped */
 	XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
@@ -440,12 +444,14 @@ int XPsmFw_FpdPostHouseClean()
 	}
 	/* TODO: Enable PSM Interrupts */
 
+	Status = XST_SUCCESS;
+
 	return Status;
 }
 
 static XStatus XPsmFwIslandPwrUp(struct XPsmFwPwrCtrl_t *Args)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 Index;
 	u32 Bit = PSM_LOCAL_PWR_CTRL_GATES_SHIFT;
 
@@ -465,13 +471,14 @@ static XStatus XPsmFwIslandPwrUp(struct XPsmFwPwrCtrl_t *Args)
 
 		Bit++;
 	}
+
 done:
 	return Status;
 }
 
 static XStatus XPsmFwACPUxPwrUp(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDwnType Type)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	Status = XPsmFwIslandPwrUp(Args);
 	if (XST_SUCCESS != Status) {
@@ -504,7 +511,7 @@ done:
 
 static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 RegVal;
 
 	/* Power up ACPUx only if powered down */
@@ -556,29 +563,34 @@ static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	 */
 	XPsmFw_Write32(PSM_GLOBAL_REG_REQ_PWRUP_INT_EN, XPsmFw_Read32(PSM_GLOBAL_REG_REQ_PWRDWN_STATUS));
 	XPsmFw_Write32(PSM_GLOBAL_REG_REQ_SWRST_INT_EN, XPsmFw_Read32(PSM_GLOBAL_REG_REQ_SWRST_STATUS));
+
+	Status = XST_SUCCESS;
+
 done:
 	return Status;
 }
 
 static XStatus XPsmFwACPUxReqPwrUp(struct XPsmFwPwrCtrl_t *Args)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 RegVal;
 
 	/* Check if already power up */
 	RegVal = XPsmFw_Read32(PSM_GLOBAL_REG_PWR_STATE);
 	if (CHECK_BIT(RegVal, Args->PwrStateMask)) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
 	Status = XPsmFwACPUxPwrUp(Args, XPSMFW_PWR_UPDWN_REQUEST);
+
 done:
 	return Status;
 }
 
 static XStatus XPsmFwIslandPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 {
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 
 	/* Enable isolation */
 	XPsmFw_RMW32(Args->PwrCtrlAddr, PSM_LOCAL_PWR_CTRL_ISO_MASK, PSM_LOCAL_PWR_CTRL_ISO_MASK);
@@ -594,7 +606,7 @@ static XStatus XPsmFwIslandPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 
 static XStatus XPsmFwACPUxPwrDwn(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDwnType Type)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 RegVal;
 
 	/* Mark ACPUx powered down in LOCAL_PWR_STATUS register */
@@ -607,6 +619,7 @@ static XStatus XPsmFwACPUxPwrDwn(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpD
 		XPsmFw_RMW32(PSM_LOCAL_AUX_PWR_STATE,
 				(Args->PwrStateMask << PSM_LOCAL_AUX_PWR_STATE_ACPU0_EMUL_SHIFT),
 				(Args->PwrStateMask << PSM_LOCAL_AUX_PWR_STATE_ACPU0_EMUL_SHIFT));
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
@@ -634,7 +647,7 @@ done:
 
 static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 RegVal;
 
 	/* NOTE: As per sequence specs, global power state need to be checked.
@@ -644,6 +657,7 @@ static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	/* Check for FPD bit in local PWR_STATE register */
 	RegVal = XPsmFw_Read32(PSM_LOCAL_PWR_STATE);
 	if (!CHECK_BIT(RegVal, PSM_LOCAL_PWR_STATE_FP_MASK)) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
@@ -677,13 +691,16 @@ static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	if (CHECK_BIT(RegVal, PSM_GLOBAL_REG_REQ_PWRDWN_STATUS_FP_MASK)) {
 		XPsmFw_Write32(PSM_GLOBAL_REG_REQ_PWRDWN_INT_EN, PSM_GLOBAL_REG_REQ_PWRDWN_INT_EN_FP_MASK);
 	}
+
+	Status = XST_SUCCESS;
+
 done:
 	return Status;
 }
 
 static XStatus XPsmFwACPUxReqPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 RegVal;
 
 	/* Mask and clear ACPUx requested power-down interrupt request */
@@ -696,12 +713,14 @@ static XStatus XPsmFwACPUxReqPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	/* Check for FPD bit in local PWR_STATE register */
 	RegVal = XPsmFw_Read32(PSM_LOCAL_PWR_STATE);
 	if (!CHECK_BIT(RegVal, PSM_LOCAL_PWR_STATE_FP_MASK)) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
 	/* Check if ACPUx is already power down */
 	RegVal = XPsmFw_Read32(PSM_GLOBAL_REG_PWR_STATE);
 	if(!CHECK_BIT(RegVal, Args->PwrStateMask)) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
@@ -715,7 +734,7 @@ done:
 
 static XStatus XPsmFwRPUxPwrUp(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDwnType Type)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	Status = XPsmFwIslandPwrUp(Args);
 	if (XST_SUCCESS != Status) {
@@ -741,7 +760,7 @@ done:
 
 static XStatus XPsmFwRPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 PwrStateMask, IsLockStep;
 	u32 RegVal;
 
@@ -794,18 +813,22 @@ static XStatus XPsmFwRPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	 */
 	XPsmFw_Write32(PSM_GLOBAL_REG_REQ_PWRUP_INT_EN, XPsmFw_Read32(PSM_GLOBAL_REG_REQ_PWRDWN_STATUS));
 	XPsmFw_Write32(PSM_GLOBAL_REG_REQ_SWRST_INT_EN, XPsmFw_Read32(PSM_GLOBAL_REG_REQ_SWRST_STATUS));
+
+	Status = XST_SUCCESS;
+
 done:
 	return Status;
 }
 
 static XStatus XPsmFwRPUxReqPwrUp(struct XPsmFwPwrCtrl_t *Args)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 RegVal;
 
 	/* Check if already power up */
 	RegVal = XPsmFw_Read32(PSM_GLOBAL_REG_PWR_STATE);
 	if (CHECK_BIT(RegVal, Args->PwrStateMask)) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
@@ -831,7 +854,7 @@ done:
 
 static XStatus XPsmFwRPUxPwrDwn(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDwnType Type)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 RegVal;
 
 	/* Check for DEBUGNOPWRDWN bit */
@@ -841,6 +864,7 @@ static XStatus XPsmFwRPUxPwrDwn(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDw
 		XPsmFw_RMW32(PSM_LOCAL_AUX_PWR_STATE,
 				PSM_LOCAL_AUX_PWR_STATE_RPU_EMUL_MASK,
 				PSM_LOCAL_AUX_PWR_STATE_RPU_EMUL_MASK);
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
@@ -863,7 +887,7 @@ done:
 
 static XStatus XPsmFwRPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 PwrStateMask, OtherCorePowerState, OtherCorePowerStateMask;
 	u32 IsLockStep;
 	u32 RegVal;
@@ -890,6 +914,7 @@ static XStatus XPsmFwRPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	OtherCorePowerStateMask = Args->PwrStateMask ^ (PSM_LOCAL_PWR_STATE_R5_0_MASK | PSM_LOCAL_PWR_STATE_R5_1_MASK);
 	OtherCorePowerState = XPsmFw_Read32(PSM_LOCAL_PWR_STATE) & OtherCorePowerStateMask;
 	if (!IsLockStep && OtherCorePowerState) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
@@ -897,6 +922,8 @@ static XStatus XPsmFwRPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	RegVal = XPsmFw_Read32(PSM_GLOBAL_REG_PWR_STATE);
 	if (CHECK_BIT(RegVal, Args->PwrStateMask)) {
 		Status = XPsmFwRPUxPwrDwn(Args, XPSMFW_PWR_UPDWN_DIRECT);
+	} else {
+		Status = XST_SUCCESS;
 	}
 
 done:
@@ -905,12 +932,13 @@ done:
 
 static XStatus XPsmFwRPUxReqPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 RegVal;
 
 	/* Check if already power down */
 	RegVal = XPsmFw_Read32(PSM_GLOBAL_REG_PWR_STATE);
 	if (!CHECK_BIT(RegVal, Args->PwrStateMask)) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
@@ -928,12 +956,14 @@ done:
 
 static XStatus XPsmFwMemPwrUp(struct XPsmFwMemPwrCtrl_t *Args)
 {
-	XStatus Status = XST_SUCCESS;
+	/* HERE */
+	XStatus Status = XST_FAILURE;
 	u32 RegVal;
 
 	/* Check if already power up */
 	RegVal = XPsmFw_Read32(PSM_LOCAL_PWR_STATE);
 	if (CHECK_BIT(RegVal, Args->PwrStateMask)) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
@@ -964,7 +994,7 @@ done:
 
 static XStatus XPsmFwMemPwrDown(struct XPsmFwMemPwrCtrl_t *Args)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	/* Mask and clear memory power-down interrupt request */
 	/* This is already handled by common handler so no need to handle here */
@@ -1224,10 +1254,12 @@ static XStatus PowerUp_GEM1(void)
  */
 static XStatus PowerUp_FP(void)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	/* Instead of trigeering this interrupt
 	FPD CDO should be reexecuted by libPM */
+
+	Status = XST_SUCCESS;
 
 	return Status;
 }
@@ -1419,7 +1451,7 @@ static XStatus PowerDwn_GEM1(void)
  */
 static XStatus PowerDwn_FP(void)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 RegVal;
 
 	/* Check if already power down */
@@ -1441,6 +1473,9 @@ static XStatus PowerDwn_FP(void)
 		XPsmFw_RMW32(PSM_LOCAL_PWR_STATE, PSM_LOCAL_PWR_STATE_FP_MASK,
 			     ~PSM_LOCAL_PWR_STATE_FP_MASK);
 	}
+
+	Status = XST_SUCCESS;
+
 	return Status;
 }
 
@@ -1473,7 +1508,7 @@ static struct PwrHandlerTable_t PwrUpDwnHandlerTable[] = {
  */
 XStatus XPsmFw_DispatchPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 Index;
 
 	for (Index = 0U; Index < ARRAYSIZE(PwrUpDwnHandlerTable); Index++) {
@@ -1489,8 +1524,9 @@ XStatus XPsmFw_DispatchPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask)
 			/* Ack the service if status is 1 but interrupt is not enabled */
 			XPsmFw_Write32(PSM_GLOBAL_REG_REQ_PWRUP_STATUS, PwrUpDwnHandlerTable[Index].PwrUpMask);
 			XPsmFw_Write32(PSM_GLOBAL_REG_REQ_PWRUP_INT_DIS, PwrUpDwnHandlerTable[Index].PwrUpMask);
+			Status = XST_SUCCESS;
 		} else {
-			/* For MISRA-C compliance */
+			Status = XST_SUCCESS;
 		}
 	}
 
@@ -1510,7 +1546,7 @@ XStatus XPsmFw_DispatchPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask)
 XStatus XPsmFw_DispatchPwrDwnHandler(u32 PwrDwnStatus, u32 pwrDwnIntMask,
 		u32 PwrUpStatus, u32 PwrUpIntMask)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 Index;
 
 	for (Index = 0U; Index < ARRAYSIZE(PwrUpDwnHandlerTable); Index++) {
@@ -1528,9 +1564,9 @@ XStatus XPsmFw_DispatchPwrDwnHandler(u32 PwrDwnStatus, u32 pwrDwnIntMask,
 			/* Ack the service  if power up and power down interrupt arrives simultaneously */
 			XPsmFw_Write32(PSM_GLOBAL_REG_REQ_PWRDWN_STATUS, PwrUpDwnHandlerTable[Index].PwrDwnMask);
 			XPsmFw_Write32(PSM_GLOBAL_REG_REQ_PWRDWN_INT_DIS, PwrUpDwnHandlerTable[Index].PwrDwnMask);
-
+			Status = XST_SUCCESS;
 		} else {
-			/* For MISRA-C compliance */
+			Status = XST_SUCCESS;
 		}
 	}
 
@@ -1630,7 +1666,7 @@ static XStatus R51Sleep(void)
  ****************************************************************************/
 XStatus XPsmFw_DirectPwrDwn(const u32 DeviceId)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	switch (DeviceId) {
 		case XPSMFW_DEV_ACPU_0:
@@ -1666,7 +1702,7 @@ XStatus XPsmFw_DirectPwrDwn(const u32 DeviceId)
  ****************************************************************************/
 XStatus XPsmFw_DirectPwrUp(const u32 DeviceId)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 
 	switch (DeviceId) {
 		case XPSMFW_DEV_ACPU_0:
@@ -1713,7 +1749,7 @@ static struct PwrCtlWakeupHandlerTable_t SleepHandlerTable[] = {
  */
 XStatus XPsmFw_DispatchWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 Index;
 
 	for (Index = 0U; Index < ARRAYSIZE(WakeupHandlerTable); Index++) {
@@ -1724,6 +1760,8 @@ XStatus XPsmFw_DispatchWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask)
 
 			/* Disable wake-up interrupt */
 			XPsmFw_Write32(PSM_GLOBAL_REG_WAKEUP_IRQ_DIS, WakeupHandlerTable[Index].Mask);
+		} else {
+			Status = XST_SUCCESS;
 		}
 	}
 
@@ -1740,7 +1778,7 @@ XStatus XPsmFw_DispatchWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask)
  */
 XStatus XPsmFw_DispatchPwrCtlHandler(u32 PwrCtlStatus, u32 PwrCtlIntMask)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 Index;
 
 	for (Index = 0U; Index < ARRAYSIZE(SleepHandlerTable); Index++) {
@@ -1751,6 +1789,8 @@ XStatus XPsmFw_DispatchPwrCtlHandler(u32 PwrCtlStatus, u32 PwrCtlIntMask)
 
 			/* Disable direct power-down interrupt */
 			XPsmFw_Write32(PSM_GLOBAL_REG_PWR_CTRL_IRQ_DIS, SleepHandlerTable[Index].Mask);
+		} else {
+			Status = XST_SUCCESS;
 		}
 	}
 

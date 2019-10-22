@@ -75,7 +75,7 @@ static void XPsmFw_IpiHandler(void)
 static void XPsmfw_InterruptPwrUpHandler(void)
 {
 	u32 PwrUpStatus, PwrUpIntMask;
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 
 	PwrUpStatus = XPsmFw_Read32(PSM_GLOBAL_REG_REQ_PWRUP_STATUS);
 	PwrUpIntMask = XPsmFw_Read32(PSM_GLOBAL_REG_REQ_PWRUP_INT_MASK);
@@ -88,7 +88,7 @@ static void XPsmfw_InterruptPwrUpHandler(void)
 static void XPsmfw_InterruptPwrDwnHandler(void)
 {
 	u32 PwrDwnStatus, PwrDwnIntMask, PwrUpStatus, PwrUpIntMask;
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 
 	PwrDwnStatus = XPsmFw_Read32(PSM_GLOBAL_REG_REQ_PWRDWN_STATUS);
 	PwrDwnIntMask = XPsmFw_Read32(PSM_GLOBAL_REG_REQ_PWRDWN_INT_MASK);
@@ -104,7 +104,7 @@ static void XPsmfw_InterruptPwrDwnHandler(void)
 static void XPsmfw_InterruptWakeupHandler(void)
 {
 	u32 WakeupStatus, WakeupIntMask;
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 
 	WakeupStatus = XPsmFw_Read32(PSM_GLOBAL_REG_WAKEUP_IRQ_STATUS);
 	WakeupIntMask = XPsmFw_Read32(PSM_GLOBAL_REG_WAKEUP_IRQ_MASK);
@@ -117,7 +117,7 @@ static void XPsmfw_InterruptWakeupHandler(void)
 static void XPsmfw_InterruptPwrCtlHandler(void)
 {
 	u32 PwrCtlStatus, PwrCtlIntMask;
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 
 	PwrCtlStatus = XPsmFw_Read32(PSM_GLOBAL_REG_PWR_CTRL_IRQ_STATUS);
 	PwrCtlIntMask = XPsmFw_Read32(PSM_GLOBAL_REG_PWR_CTRL_IRQ_MASK);
@@ -130,7 +130,7 @@ static void XPsmfw_InterruptPwrCtlHandler(void)
 static void XPsmfw_InterruptSwRstHandler(void)
 {
 	u32 SwRstStatus, SwRstIntMask;
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 
 	SwRstStatus = XPsmFw_Read32(PSM_GLOBAL_REG_REQ_SWRST_STATUS);
 	SwRstIntMask = XPsmFw_Read32(PSM_GLOBAL_REG_REQ_SWRST_INT_MASK);
@@ -163,7 +163,7 @@ static struct HandlerTable g_TopLevelInterruptTable[] = {
 ********************************************************************************/
 int XPsmFw_IoModuleInit(u32 DeviceId)
 {
-    u32 Status;
+    u32 Status = XST_FAILURE;
 
     /*
      * Initialize the IO Module so that it's ready to use, specify the device
@@ -190,7 +190,7 @@ int XPsmFw_IoModuleInit(u32 DeviceId)
 
 	XPsmFw_Printf(DEBUG_DETAILED, "IO Module init completed\r\n");
 
- 	Status = XST_SUCCESS;
+	//Status = XST_SUCCESS;
 
 END:
 	return Status;

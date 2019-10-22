@@ -55,7 +55,7 @@ u32 IpiMaskList[XPSMFW_IPI_MASK_COUNT] = {0U};
 
 s32 XPsmfw_IpiManagerInit(void)
  {
-	s32 Status;
+	s32 Status = XST_FAILURE;
 	XIpiPsu_Config *IpiCfgPtr;
 	u32 i;
 
@@ -92,7 +92,7 @@ Done:
  */
 int XPsmFw_DispatchIpiHandler(u32 SrcMask)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	u32 MaskIndex;
 	u32 Payload[XPSMFW_IPI_MAX_MSG_LEN];
 	u32 Response[XPSMFW_IPI_MAX_MSG_LEN];
@@ -112,6 +112,8 @@ int XPsmFw_DispatchIpiHandler(u32 SrcMask)
 				XPsmFw_IpiSendResponse(IPI_PSM_IER_PMC_MASK,
 						       Response);
 			}
+		} else {
+			Status = XST_SUCCESS;
 		}
 	}
 	return Status;
@@ -133,7 +135,7 @@ int XPsmFw_DispatchIpiHandler(u32 SrcMask)
  ****************************************************************************/
 XStatus XPsmFw_IpiSend(u32 IpiMask, u32 *Payload)
 {
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 
 	/* Wait until current IPI interrupt is handled by target */
 	Status = XIpiPsu_PollForAck(IpiInstPtr, IpiMask, XPSMFW_IPI_TIMEOUT);
@@ -171,7 +173,7 @@ done:
  ****************************************************************************/
 XStatus XPsmFw_IpiSendResponse(u32 IpiMask, u32 *Payload)
 {
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 
 	Status = XIpiPsu_WriteMessage(IpiInstPtr, IpiMask, Payload,
 				      PAYLOAD_ARG_CNT, XIPIPSU_BUF_TYPE_RESP);

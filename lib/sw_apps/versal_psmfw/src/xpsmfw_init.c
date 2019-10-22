@@ -50,7 +50,7 @@ u32 Platform;
 
 int XPsmFw_Init()
 {
-	int Status = XST_SUCCESS;
+	int Status = XST_FAILURE;
 	
 #ifdef XPAR_PSV_IPI_PSM_DEVICE_ID
 	XPsmfw_IpiManagerInit();
@@ -61,6 +61,8 @@ int XPsmFw_Init()
 
 	Platform = ((Xil_In32(PMC_TAP_VERSION) & PMC_TAP_VERSION_PLATFORM_MASK)
 		    >> PMC_TAP_VERSION_PLATFORM_SHIFT);
+
+	Status = XST_SUCCESS;
 
 	return Status;
 }

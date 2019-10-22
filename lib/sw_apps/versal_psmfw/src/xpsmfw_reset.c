@@ -177,7 +177,7 @@ static struct SwResetHandlerTable_t ResetHandlerTable[] = {
  */
 XStatus XPsmFw_DispatchSwRstHandler(u32 SwRstStatus, u32 SwRstIntMask)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 Idx;
 
 	for (Idx = 0U; Idx < ARRAYSIZE(ResetHandlerTable); Idx++) {
@@ -185,6 +185,8 @@ XStatus XPsmFw_DispatchSwRstHandler(u32 SwRstStatus, u32 SwRstIntMask)
 		     (!CHECK_BIT(SwRstIntMask, ResetHandlerTable[Idx].Mask)) ) {
 			/* Call sw reset handler */
 			Status = ResetHandlerTable[Idx].Handler();
+		} else {
+			Status = XST_SUCCESS;
 		}
 
 		/* Ack the service */
