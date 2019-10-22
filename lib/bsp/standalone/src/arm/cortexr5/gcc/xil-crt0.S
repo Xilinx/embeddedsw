@@ -42,6 +42,7 @@
 * 6.6   srm  10/18/17 Updated the timer configuration with XTime_StartTTCTimer.
 *                     Now the timer instance as specified by the user will be
 *		      started.
+* 7.2   mus  10/22/19 Defined RPU_TZ_MASK as #define instead of variable.
 * </pre>
 *
 * @note
@@ -57,7 +58,7 @@
  * 0th bit of PROCESSOR_ACCESS_VALUE macro signifies trustzone
  * setting for RPU address space
  */
-.set RPU_TZ_MASK,	0x1
+#define RPU_TZ_MASK	0x1
 	.text
 .Lsbss_start:
 	.long	__sbss_start
