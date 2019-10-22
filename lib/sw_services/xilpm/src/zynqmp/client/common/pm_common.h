@@ -45,39 +45,19 @@
 #ifdef DEBUG_MODE
 #include "xil_printf.h"
 #endif
-<<<<<<< HEAD
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-=======
-
-<<<<<<< HEAD
-
->>>>>>> Xilpm: Fixed MISRA-C:2012 R.17.3 in pm_common.h
-=======
-#ifdef __cplusplus
-extern "C" {
-#endif
->>>>>>> xilpm: Extern C added to header files
 
 #define PM_ARRAY_SIZE(x)	(sizeof(x) / sizeof(x[0]))
 
 /* 1 for API ID + 5 for API arguments + 1 for Reserved + 1 for CRC */
 #define PAYLOAD_ARG_CNT		8U
-<<<<<<< HEAD
-=======
 
 /* 1 for status + 3 for values + 3 for Reserved + 1 for CRC */
 #define RESPONSE_ARG_CNT	8U
->>>>>>> sw_services: xilpm: Add checksum support for IPI data
 
-<<<<<<< HEAD
-/* 1 for status + 3 for values + 3 for Reserved + 1 for CRC */
-#define RESPONSE_ARG_CNT	8U
-
-=======
->>>>>>> Xilpm: FIxed MISRA-C: R.7.2, R.10.3, R.10.4 in pm_common.h
 #define PM_IPI_TIMEOUT		(~0U)
 
 #define IPI_PMU_PM_INT_MASK	XPAR_XIPIPS_TARGET_PSU_PMU_0_CH0_MASK
@@ -134,17 +114,8 @@ void XPm_ClientSetPrimaryMaster(void);
 extern const enum XPmNodeId subsystem_node;
 extern struct XPm_Master *primary_master;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> xilpm: Extern C added to header files
 #ifdef __cplusplus
 }
 #endif
 
-<<<<<<< HEAD
-=======
->>>>>>> Xilpm: Fixed MISRA-C:2012 R.21.1, R.21.2 in pm_common.h
-=======
->>>>>>> xilpm: Extern C added to header files
 #endif /* PM_COMMON_H */

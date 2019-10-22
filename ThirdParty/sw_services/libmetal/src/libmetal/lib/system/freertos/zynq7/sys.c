@@ -17,6 +17,7 @@
 #include "xil_cache.h"
 #include "xil_exception.h"
 #include "xil_mmu.h"
+#include "xscugic.h"
 
 /* Translation table is 16K in size */
 #define     ARM_AR_MEM_TTB_SIZE                    16*1024

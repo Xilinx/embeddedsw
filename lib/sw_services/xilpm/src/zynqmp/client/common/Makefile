@@ -8,7 +8,6 @@ LIB=libxilpm.a
 ifeq ($(notdir $(COMPILER)) , iccarm)
 	EXTRA_ARCHIVE_FLAGS=--create
 else
-<<<<<<< HEAD
 ifeq ($(notdir $(COMPILER)) , armclang)
 	EXTRA_ARCHIVE_FLAGS=-rc
 else
@@ -16,10 +15,6 @@ else
 endif
 endif
 
-=======
-	EXTRA_ARCHIVE_FLAGS=rc
-endif
->>>>>>> Xilpm: Support for IAR compier
 CC_FLAGS = $(COMPILER_FLAGS)
 ECC_FLAGS = $(EXTRA_COMPILER_FLAGS)
 

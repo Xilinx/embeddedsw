@@ -38,9 +38,16 @@
 #define LWIP_HDR_PROT_ETHERNET_H
 
 #include "lwip/arch.h"
+#include "xlwipconfig.h"
 
 #ifdef __cplusplus
 extern "C" {
+#endif
+
+#if XLWIP_CONFIG_AXI_ETHERNET_ENABLE_1588
+#define IEEE_1588_PAD_SIZE    8
+#else
+#define IEEE_1588_PAD_SIZE    0
 #endif
 
 #ifndef ETH_HWADDR_LEN
@@ -72,6 +79,9 @@ struct eth_hdr {
 #if ETH_PAD_SIZE
   PACK_STRUCT_FLD_8(u8_t padding[ETH_PAD_SIZE]);
 #endif
+#if XLWIP_CONFIG_AXI_ETHERNET_ENABLE_1588
+  PACK_STRUCT_FLD_8(u8_t padding[IEEE_1588_PAD_SIZE]);
+#endif
   PACK_STRUCT_FLD_S(struct eth_addr dest);
   PACK_STRUCT_FLD_S(struct eth_addr src);
   PACK_STRUCT_FIELD(u16_t type);
@@ -81,7 +91,7 @@ PACK_STRUCT_END
 #  include "arch/epstruct.h"
 #endif
 
-#define SIZEOF_ETH_HDR (14 + ETH_PAD_SIZE)
+#define SIZEOF_ETH_HDR (14 + ETH_PAD_SIZE + IEEE_1588_PAD_SIZE)
 
 #ifdef PACK_STRUCT_USE_INCLUDES
 #  include "arch/bpstruct.h"

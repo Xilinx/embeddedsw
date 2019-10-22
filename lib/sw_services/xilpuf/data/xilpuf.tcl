@@ -43,7 +43,7 @@ proc puf_drc {libhandle} {
 	set os_type [hsi::get_os];
 
 	if {$proc_type != "psv_pmc" && $proc_type != "psv_cortexa72" &&
-		$proc_type != "psv_r5"} {
+		$proc_type != "psv_cortexr5"} {
 		error "ERROR: XilPuf library is supported only for Versal";
 		return;
 	}

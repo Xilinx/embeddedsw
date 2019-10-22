@@ -1,6 +1,7 @@
 Change Log for libmetal
 =================================
 2018.3
+	* fix urandom read seed for linux platform.
 	* Add API to read device tree property
 	* Change the log level from error log to info when
 	  the device is already bound to other driver.

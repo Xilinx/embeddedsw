@@ -73,15 +73,7 @@ static struct XPm_Master *const pm_masters_all[] = {
 struct XPm_Master *pm_get_master(const u32 cpuid)
 {
 	struct XPm_Master *master = NULL;
-<<<<<<< HEAD
-<<<<<<< HEAD
 	if (PM_ARRAY_SIZE(pm_masters_all) != 0U) {
-=======
-	if (PM_ARRAY_SIZE(pm_masters_all)) {
->>>>>>> Xilpm: Fixed MISRA-C:2012 R.15.5 in pm_client.c
-=======
-	if (PM_ARRAY_SIZE(pm_masters_all) != 0U) {
->>>>>>> Xilpm: Fixes MISRA-C:R.10.1, R.14.4 pm_client.c
 		master = pm_masters_all[cpuid];
 		goto done;
 	}
@@ -140,23 +132,11 @@ void XPm_ClientSuspend(const struct XPm_Master *const master)
 	/* Disable interrupts at processor level */
 	pm_disable_int();
 	/* Set powerdown request */
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_client.c
 	if (NULL != master) {
 		pwrdn_req = pm_read(master->pwrctl);
 		pwrdn_req |= master->pwrdn_mask;
 		pm_write(master->pwrctl, pwrdn_req);
 	}
-<<<<<<< HEAD
-=======
-	pwrdn_req = pm_read(master->pwrctl);
-	pwrdn_req |= master->pwrdn_mask;
-	pm_write(master->pwrctl, pwrdn_req);
->>>>>>> Xilpm: Fixes DU anomaly dead code in pm_client.c
-=======
->>>>>>> Xilpm: Fixes MISRA-C:2012 D.4.1 in pm_client.c
 }
 
 void XPm_ClientAbortSuspend(void)
@@ -203,24 +183,10 @@ void XPm_ClientSuspendFinalize(void)
 #if defined (__GNUC__)
 	/* Flush data cache if the cache is enabled */
 	ctrlReg = mfcp(XREG_CP15_SYS_CONTROL);
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 #elif defined (__ICCARM__)
 	mfcp(XREG_CP15_SYS_CONTROL, ctrlReg);
 #endif
 	if ((XREG_CP15_CONTROL_C_BIT & ctrlReg) != 0U) {
-=======
-	if ((XREG_CP15_CONTROL_C_BIT & ctrlReg) != 0U)
->>>>>>> Xilpm: Fixes MISRA-C:R.10.1, R.14.4 pm_client.c
-=======
-=======
-#elif defined (__ICCARM__)
-	mfcp(XREG_CP15_SYS_CONTROL, ctrlReg);
-#endif
->>>>>>> Xilpm: Support for IAR compier
-	if ((XREG_CP15_CONTROL_C_BIT & ctrlReg) != 0U) {
->>>>>>> Xilpm: Fixes MISRA-C:2012 R.15.6 in pm_client.c
 		Xil_DCacheFlush();
 	}
 
@@ -246,15 +212,7 @@ const char* XPm_GetMasterName(void)
 	bool lockstep = !(pm_read(RPU_RPU_GLBL_CNTL) &
 		     (u32)RPU_RPU_GLBL_CNTL_SLSPLIT_MASK);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	if (lockstep != 0U) {
-=======
-	if (lockstep) {
->>>>>>> Xilpm: Fixed MISRA-C:2012 R.15.5 in pm_client.c
-=======
-	if (lockstep != 0U) {
->>>>>>> Xilpm: Fixes MISRA-C:R.10.1, R.14.4 pm_client.c
 		retptr = "RPU";
 	}
 	else {
