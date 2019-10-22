@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 #include "xil_io.h"
 #include "xpm_regs.h"
@@ -42,14 +22,15 @@
 static XStatus XPmPsm_WakeUp(XPm_Core *Core, u32 SetAddress,
 			  u64 Address)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_Psm *Psm = (XPm_Psm *)Core;
 	u32 CRLBaseAddress = Psm->CrlBaseAddr;
 
 	/* Set reset address */
-	if (1 == SetAddress) {
-		if(Address)
+	if (1U == SetAddress) {
+		if (0U != Address) {
 			PmWarn("Handoff address is not used for PSM.\r\n");
+		}
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -66,7 +47,7 @@ done:
 	return Status;
 }
 
-struct XPm_CoreOps PsmOps = {
+static struct XPm_CoreOps PsmOps = {
 		.RestoreResumeAddr = NULL,
 		.HasResumeAddr = NULL,
 		.RequestWakeup = XPmPsm_WakeUp,
@@ -80,8 +61,8 @@ XStatus XPmPsm_Init(XPm_Psm *Psm,
 {
 	XStatus Status = XST_FAILURE;
 
-	Status = XPmCore_Init(&Psm->Core, PM_DEV_PSM_PROC, Power, Clock, Reset, Ipi,
-			      &PsmOps);
+	Status = XPmCore_Init(&Psm->Core, PM_DEV_PSM_PROC, Power, Clock, Reset,
+			      (u8)Ipi, &PsmOps);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -105,8 +86,15 @@ XStatus XPmPsm_SendPowerUpReq(u32 BitMask)
 		goto done;
 	}
 
-	if (XPmPsm_FwIsPresent() != TRUE) {
+	if (1U != XPmPsm_FwIsPresent()) {
 		Status = XST_NOT_ENABLED;
+		goto done;
+	}
+
+	/* Check if already powered up */
+	PmIn32(PWR_STAT(Psm->PsmGlobalBaseAddr), Reg);
+	if (BitMask == (Reg & BitMask)) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
@@ -156,8 +144,15 @@ XStatus XPmPsm_SendPowerDownReq(u32 BitMask)
 		goto done;
 	}
 
-	if (XPmPsm_FwIsPresent() != TRUE) {
+	if (1U != XPmPsm_FwIsPresent()) {
 		Status = XST_NOT_ENABLED;
+		goto done;
+	}
+
+	/* Check if already powered down */
+	PmIn32(PWR_STAT(Psm->PsmGlobalBaseAddr), Reg);
+	if (0U == (Reg & BitMask)) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
@@ -165,7 +160,7 @@ XStatus XPmPsm_SendPowerDownReq(u32 BitMask)
 	PmOut32(PWR_DN_EN(Psm->PsmGlobalBaseAddr), BitMask);
 	do {
 		PmIn32(PWR_DN_STAT(Psm->PsmGlobalBaseAddr), Reg);
-	} while (0 != (Reg & BitMask));
+	} while (0U != (Reg & BitMask));
 
 	Status = XST_SUCCESS;
 
@@ -175,7 +170,7 @@ done:
 
 u32 XPmPsm_FwIsPresent(void)
 {
-	u32 Reg = FALSE;
+	u32 Reg = 0U;
 	XPm_Psm *Psm;
 
 	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
@@ -186,7 +181,7 @@ u32 XPmPsm_FwIsPresent(void)
 	PmIn32(GLOBAL_CNTRL(Psm->PsmGlobalBaseAddr), Reg)
 	if (PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK ==
 		(Reg & PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK)) {
-		Reg = TRUE;
+		Reg = 1U;
 	}
 
 done:

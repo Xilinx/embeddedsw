@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 #include "xpm_device_idle.h"
 #include "xpm_common.h"
@@ -97,7 +77,7 @@ static XPmDevice_SoftResetInfo DeviceRstData[] = {
  */
 void NodeQspiIdle(u16 DeviceId, u32 BaseAddress)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	XQspiPsu_Config *ConfigPtr;
 	XQspiPsu QspiInst = {0};
 
@@ -127,7 +107,7 @@ done:
  */
 void NodeOspiIdle(u16 DeviceId, u32 BaseAddress)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	XOspiPsv_Config *ConfigPtr;
 	XOspiPsv OspiInst = {0};
 
@@ -160,7 +140,7 @@ done:
  */
 void NodeSdioIdle(u16 DeviceId, u32 BaseAddress)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	XSdPs_Config *ConfigPtr;
 	XSdPs SdioInst = {0};
 
@@ -190,7 +170,7 @@ done:
  */
 void NodeUsbIdle(u16 DeviceId, u32 BaseAddress)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	XUsbPsu_Config *ConfigPtr;
 	static struct XUsbPsu UsbInst;
 
@@ -228,9 +208,10 @@ void NodeGemIdle(u16 DeviceId, u32 BaseAddress)
 	/* Make sure MDIO is in IDLE state */
 	do {
 		Reg = XEmacPs_ReadReg(BaseAddress, XEMACPS_NWSR_OFFSET);
-	} while ((!(Reg & XEMACPS_NWSR_MDIOIDLE_MASK)) && --Timeout);
+		Timeout--;
+	} while ((0U == (Reg & XEMACPS_NWSR_MDIOIDLE_MASK)) && (Timeout > 0U));
 
-	if (Timeout == 0) {
+	if (0U == Timeout) {
 		PmWarn("gem not idle\r\n");
 	}
 
@@ -239,15 +220,15 @@ void NodeGemIdle(u16 DeviceId, u32 BaseAddress)
 
 	/* Disable the receiver & transmitter */
 	Reg = XEmacPs_ReadReg(BaseAddress, XEMACPS_NWCTRL_OFFSET);
-	Reg &= (u32)(~XEMACPS_NWCTRL_RXEN_MASK);
-	Reg &= (u32)(~XEMACPS_NWCTRL_TXEN_MASK);
+	Reg &= ~((u32)XEMACPS_NWCTRL_RXEN_MASK);
+	Reg &= ~((u32)XEMACPS_NWCTRL_TXEN_MASK);
 	XEmacPs_WriteReg(BaseAddress, XEMACPS_NWCTRL_OFFSET, Reg);
 }
 #endif
 
 #if defined(XPAR_PSV_GDMA_0_DEVICE_ID) || defined(XPAR_PSV_ADMA_0_DEVICE_ID)
 
-#define XZDMA_CH_OFFSET		(0X10000)	/* Channel offset per DMA */
+#define XZDMA_CH_OFFSET		(0x10000U)	/* Channel offset per DMA */
 #define XZDMA_NUM_CHANNEL	(8U)		/* Number of Channels */
 /**
  * NodeZdmaIdle() - Custom code to idle the ZDMA (GDMA and ADMA)
@@ -274,7 +255,8 @@ void NodeZdmaIdle(u16 DeviceId, u32 BaseAddress)
 		LocalTimeout = XPM_MAX_TIMEOUT;
 		do {
 			RegVal = XZDma_ReadReg(BaseAddress, XZDMA_CH_STS_OFFSET) & XZDMA_STS_BUSY_MASK;
-		} while (RegVal && LocalTimeout--);
+			LocalTimeout--;
+		} while ((0U != RegVal) && (LocalTimeout > 0U));
 
 		/* Disable and clear all interrupts */
 		XZDma_WriteReg(BaseAddress, XZDMA_CH_IDS_OFFSET, XZDMA_IXR_ALL_INTR_MASK);
@@ -294,8 +276,8 @@ void NodeZdmaIdle(u16 DeviceId, u32 BaseAddress)
 		XZDma_WriteReg(BaseAddress, XZDMA_CH_TOTAL_BYTE_OFFSET, RegVal);
 
 		/* Read interrupt counts to clear it on both source and destination Channels*/
-		XZDma_ReadReg(BaseAddress, XZDMA_CH_IRQ_SRC_ACCT_OFFSET);
-		XZDma_ReadReg(BaseAddress, XZDMA_CH_IRQ_DST_ACCT_OFFSET);
+		(void)XZDma_ReadReg(BaseAddress, XZDMA_CH_IRQ_SRC_ACCT_OFFSET);
+		(void)XZDma_ReadReg(BaseAddress, XZDMA_CH_IRQ_DST_ACCT_OFFSET);
 
 		/* Reset the channel's coherent attributes. */
 		XZDma_WriteReg(BaseAddress, XZDMA_CH_DSCR_ATTR_OFFSET, 0x0);
@@ -310,12 +292,15 @@ void NodeZdmaIdle(u16 DeviceId, u32 BaseAddress)
 void XPmDevice_SoftResetIdle(XPm_Device *Device, const u32 IdleReq)
 {
 	u32 Idx;
+	u32 DevRstDataSize = ARRAY_SIZE(DeviceRstData);
 	XPmDevice_SoftResetInfo *RstInfo = NULL;
 
-	for (Idx = 0; Idx < ARRAY_SIZE(DeviceRstData); Idx++) {
-		if (Device->Node.Id == DeviceRstData[Idx].DeviceId) {
-			RstInfo = &DeviceRstData[Idx];
-			break;
+	if (0U != DevRstDataSize) {
+		for (Idx = 0; Idx < DevRstDataSize; Idx++) {
+			if (Device->Node.Id == DeviceRstData[Idx].DeviceId) {
+				RstInfo = &DeviceRstData[Idx];
+				break;
+			}
 		}
 	}
 
@@ -324,12 +309,12 @@ void XPmDevice_SoftResetIdle(XPm_Device *Device, const u32 IdleReq)
 	}
 
 	if (DEVICE_IDLE_REQ == IdleReq) {
-		if (RstInfo->IdleHook) {
+		if (NULL != RstInfo->IdleHook) {
 			RstInfo->IdleHook(RstInfo->IdleHookArgs,
 					  Device->Node.BaseAddress);
 		}
 
-		if (RstInfo->SoftRst) {
+		if (NULL != RstInfo->SoftRst) {
 			RstInfo->SoftRst(Device->Node.BaseAddress);
 		}
 	}

@@ -1,38 +1,23 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 #include "xil_io.h"
 #include "xpm_rpucore.h"
 #include "xpm_regs.h"
 #include "xpm_api.h"
+#include "xpm_subsystem.h"
+#include "xpm_psm.h"
 
 XStatus XPmRpuCore_Halt(XPm_Device *Device)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_RpuCore *RpuCore = (XPm_RpuCore *)Device;
+
+	/* RPU should be in reset state before putting it into halt state */
+	Status = XPmDevice_Reset(&RpuCore->Core.Device, PM_RESET_ACTION_ASSERT);
 
 	/* Put RPU in  halt state */
 	PmRmw32(RpuCore->ResumeCfg, XPM_RPU_NCPUHALT_MASK,
@@ -46,12 +31,12 @@ XStatus XPmRpuCore_Halt(XPm_Device *Device)
 
 static int XPmRpuCore_RestoreResumeAddr(XPm_Core *Core)
 {
-	int Status = XST_SUCCESS;
+	int Status = XST_FAILURE;
 	XPm_RpuCore *RpuCore = (XPm_RpuCore *)Core;
 	u32 AddrLow = (u32) (Core->ResumeAddr & 0xffff0000ULL);
 
 	/* Check for valid resume address */
-	if (0 == (Core->ResumeAddr & 1ULL)) {
+	if (0U == (Core->ResumeAddr & 1ULL)) {
 		PmErr("Invalid resume address\r\n");
 		Status = XST_FAILURE;
 		goto done;
@@ -67,6 +52,8 @@ static int XPmRpuCore_RestoreResumeAddr(XPm_Core *Core)
 	}
 
 	Core->ResumeAddr = 0ULL;
+
+	Status = XST_SUCCESS;
 
 done:
 	return Status;
@@ -89,7 +76,7 @@ static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	XPm_RpuCore *RpuCore = (XPm_RpuCore *)Core;
 
 	/* Set reset address */
-	if (1 == SetAddress) {
+	if (1U == SetAddress) {
 		Core->ResumeAddr = Address | 1U;
 	}
 
@@ -109,7 +96,7 @@ static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	PmRmw32(RpuCore->ResumeCfg, XPM_RPU_NCPUHALT_MASK,
 		XPM_RPU_NCPUHALT_MASK);
 
-	Core->Device.Node.State = XPM_DEVSTATE_RUNNING;
+	Core->Device.Node.State = (u8)XPM_DEVSTATE_RUNNING;
 
 done:
 	return Status;
@@ -130,7 +117,7 @@ done:
 	return Status;
 }
 
-struct XPm_CoreOps RpuOps = {
+static struct XPm_CoreOps RpuOps = {
 		.RestoreResumeAddr = XPmRpuCore_RestoreResumeAddr,
 		.HasResumeAddr = XPmRpuCore_HasResumeAddr,
 		.RequestWakeup = XPmRpuCore_WakeUp,
@@ -144,7 +131,7 @@ XStatus XPmRpuCore_Init(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, u32 *BaseAddress,
 {
 	XStatus Status = XST_FAILURE;
 
-	Status = XPmCore_Init(&RpuCore->Core, Id, Power, Clock, Reset, Ipi,
+	Status = XPmCore_Init(&RpuCore->Core, Id, Power, Clock, Reset, (u8)Ipi,
 			      &RpuOps);
 	if (XST_SUCCESS != Status) {
 		goto done;
@@ -173,7 +160,7 @@ void XPm_RpuGetOperMode(const u32 DeviceId, u32 *Mode)
 
 	PmIn32(RpuCore->RpuBaseAddr + RPU_GLBL_CNTL_OFFSET, Val);
 	Val &= XPM_RPU_SLSPLIT_MASK;
-	if (0 == Val) {
+	if (0U == Val) {
 		*Mode = XPM_RPU_MODE_LOCKSTEP;
 	} else {
 		*Mode = XPM_RPU_MODE_SPLIT;
@@ -186,10 +173,6 @@ void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 	int Status;
 	XPm_Subsystem *DefSubsystem = XPmSubsystem_GetById(PM_SUBSYS_DEFAULT);
 
-	if (NULL == DefSubsystem) {
-		PmErr("Unable to get Subsystem for Id:0x%x\n\r", PM_SUBSYS_DEFAULT);
-		return;
-	}
 	XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
 
 	if (NULL == RpuCore)  {
@@ -212,17 +195,32 @@ void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 	PmOut32(RpuCore->RpuBaseAddr + RPU_GLBL_CNTL_OFFSET, Val);
 
 	/* Add or remove R50_1 core in default subsystem according to its mode */
-	Status = XPmDevice_IsRequested(PM_DEV_RPU0_0, PM_SUBSYS_DEFAULT);
-	if ((XST_SUCCESS == Status) && (ONLINE == DefSubsystem->State)) {
-		if (Mode == XPM_RPU_MODE_SPLIT) {
-			XPmDevice_Request(PM_SUBSYS_DEFAULT, PM_DEV_RPU0_1,
-					  PM_CAP_ACCESS, XPM_MAX_QOS);
-		} else if (Mode == XPM_RPU_MODE_LOCKSTEP) {
-			Status = XPmDevice_IsRequested(PM_DEV_RPU0_1,
-						       PM_SUBSYS_DEFAULT);
-			if (XST_SUCCESS == Status) {
-				XPmDevice_Release(PM_SUBSYS_DEFAULT,
-						  PM_DEV_RPU0_1);
+	if (NULL != DefSubsystem) {
+		Status = XPmDevice_IsRequested(PM_DEV_RPU0_0,
+					       PM_SUBSYS_DEFAULT);
+		if ((XST_SUCCESS == Status) &&
+		    ((u8)ONLINE == DefSubsystem->State)) {
+			if (Mode == XPM_RPU_MODE_SPLIT) {
+				Status = XPmDevice_Request(PM_SUBSYS_DEFAULT,
+							   PM_DEV_RPU0_1,
+							   (u32)PM_CAP_ACCESS,
+							   XPM_MAX_QOS);
+				if (XST_SUCCESS != Status) {
+					PmErr("Unable to request RPU 1 Core\n\r");
+				}
+			} else if (Mode == XPM_RPU_MODE_LOCKSTEP) {
+				Status = XPmDevice_IsRequested(PM_DEV_RPU0_1,
+						PM_SUBSYS_DEFAULT);
+				if (XST_SUCCESS == Status) {
+					Status = XPmDevice_Release(PM_SUBSYS_DEFAULT,
+								PM_DEV_RPU0_1);
+					if (XST_SUCCESS != Status) {
+						PmErr("Unable to release RPU 1 Core\n\r");
+					}
+				}
+			} else {
+				/* Required due to MISRA */
+				PmDbg("Invalid RPU mode %d\r\n", Mode);
 			}
 		}
 	}
@@ -230,16 +228,18 @@ void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 
 XStatus XPm_RpuBootAddrConfig(const u32 DeviceId, const u32 BootAddr)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
 
 	/* CFG_VINITHI_MASK mask is common for both processors */
 	if (XPM_RPU_BOOTMEM_LOVEC == BootAddr) {
 		PmRmw32(RpuCore->ResumeCfg, XPM_RPU_VINITHI_MASK,
 			~XPM_RPU_VINITHI_MASK);
+		Status = XST_SUCCESS;
 	} else if (XPM_RPU_BOOTMEM_HIVEC == BootAddr) {
 		PmRmw32(RpuCore->ResumeCfg, XPM_RPU_VINITHI_MASK,
 			XPM_RPU_VINITHI_MASK);
+		Status = XST_SUCCESS;
 	} else {
 		Status = XST_FAILURE;
 	}
@@ -249,7 +249,7 @@ XStatus XPm_RpuBootAddrConfig(const u32 DeviceId, const u32 BootAddr)
 
 XStatus XPm_RpuTcmCombConfig(const u32 DeviceId, const u32 Config)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	u32 Address;
 	XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
 
@@ -257,12 +257,34 @@ XStatus XPm_RpuTcmCombConfig(const u32 DeviceId, const u32 Config)
 	if (Config == XPM_RPU_TCM_SPLIT) {
 		PmRmw32(Address, XPM_RPU_TCM_COMB_MASK,
 			~XPM_RPU_TCM_COMB_MASK);
+		Status = XST_SUCCESS;
 	} else if (Config == XPM_RPU_TCM_COMB) {
 		PmRmw32(Address, XPM_RPU_TCM_COMB_MASK,
 			XPM_RPU_TCM_COMB_MASK);
+		Status = XST_SUCCESS;
 	} else {
 		Status = XST_INVALID_PARAM;
 	}
 
+	return Status;
+}
+
+XStatus XPm_RpuRstComparators(const u32 DeviceId)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_RpuCore *RpuCore = NULL;
+
+	RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
+
+	if(RpuCore == NULL) {
+		PmInfo("Device Id does not correspond to any RPU Core\n\r");
+		PmInfo("Invalid Device Id: 0x%x\n\r", DeviceId);
+		goto done;
+	}
+
+	PmOut32(RpuCore->RpuBaseAddr + RPU_ERR_INJ_OFFSET, 0x0);
+	Status = XST_SUCCESS;
+
+done:
 	return Status;
 }

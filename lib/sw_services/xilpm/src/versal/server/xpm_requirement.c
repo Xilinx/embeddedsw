@@ -1,29 +1,10 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+
+#include "xplmi_util.h"
 #include "xpm_requirement.h"
 #include "xpm_power.h"
 #include "xpm_api.h"
@@ -44,11 +25,14 @@ static XStatus XPmRequirement_Init(XPm_Requirement *Reqm,
 	Reqm->Allocated = 0;
 	Reqm->SetLatReq = 0;
 
-	Reqm->Flags = Flags & 0xF;
+	Reqm->Flags = (u8)(Flags & 0xFU);
 
-	if (Params && NumParams && NumParams <= MAX_REQ_PARAMS) {
-		memcpy(Reqm->Params, Params, NumParams);
-		Reqm->Flags |= ((NumParams & 0xF) << 4);
+	if ((NULL != Params) && (0U != NumParams) && (NumParams <= MAX_REQ_PARAMS)) {
+		(void)XPlmi_MemCpy(Reqm->Params, Params, NumParams * sizeof(*Params));
+		Reqm->NumParams = NumParams;
+	} else {
+		(void)memset(Reqm->Params, 0, sizeof(Reqm->Params));
+		Reqm->NumParams = 0;
 	}
 
 	Reqm->Curr.Capabilities = XPM_MIN_CAPABILITY;
@@ -79,7 +63,7 @@ done:
 
 void XPm_RequiremntUpdate(XPm_Requirement *Reqm)
 {
-	if(Reqm)
+	if(NULL != Reqm)
 	{
 		Reqm->Next.Capabilities = Reqm->Curr.Capabilities;
 		Reqm->Next.Latency = Reqm->Curr.Latency;
@@ -89,7 +73,7 @@ void XPm_RequiremntUpdate(XPm_Requirement *Reqm)
 
 void XPmRequirement_Clear(XPm_Requirement* Reqm)
 {
-	if(Reqm) {
+	if(NULL != Reqm) {
 		/* Clear flag - master is not using slave anymore */
 		Reqm->Allocated = 0;
 		/* Release current and next requirements */
@@ -129,8 +113,9 @@ XStatus XPmRequirement_Release(XPm_Requirement *Reqm, XPm_ReleaseScope Scope)
 	}
 
 	while (NULL != Reqm) {
-		if (((RELEASE_ALL == Scope) && (1 == Reqm->Allocated)) ||
-		    ((RELEASE_UNREQUESTED == Scope) && (0 == Reqm->Allocated))) {
+		if ((((RELEASE_ALL == Scope) && (1U == Reqm->Allocated)) ||
+		     ((RELEASE_UNREQUESTED == Scope) && (0U == Reqm->Allocated))) &&
+		     ((u32)XPM_NODETYPE_DEV_DDR != NODETYPE(Reqm->Device->Node.Id))) {
 			Status = XPmDevice_Release(Reqm->Subsystem->Id, Reqm->Device->Node.Id);
 			if (XST_SUCCESS != Status) {
 				goto done;
@@ -164,9 +149,14 @@ done:
  ****************************************************************************/
 XStatus XPmRequirement_UpdateScheduled(XPm_Subsystem *Subsystem, u32 Swap)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XST_FAILURE;
 	XPm_Requirement *Reqm = Subsystem->Requirements;
 	XPm_ReqmInfo TempReq;
+
+	if (NULL == Reqm) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
 	while (NULL != Reqm) {
 		if (Reqm->Curr.Capabilities != Reqm->Next.Capabilities) {
@@ -174,7 +164,7 @@ XStatus XPmRequirement_UpdateScheduled(XPm_Subsystem *Subsystem, u32 Swap)
 			TempReq.Latency = Reqm->Next.Latency;
 			TempReq.QoS = Reqm->Next.QoS;
 
-			if (TRUE == Swap) {
+			if (1U == Swap) {
 				Reqm->Next.Capabilities = Reqm->Curr.Capabilities;
 				Reqm->Next.Latency = Reqm->Curr.Latency;
 				Reqm->Next.QoS = Reqm->Curr.QoS;
@@ -193,5 +183,32 @@ XStatus XPmRequirement_UpdateScheduled(XPm_Subsystem *Subsystem, u32 Swap)
 		Reqm = Reqm->NextDevice;
 	}
 
+done:
+	return Status;
+}
+
+XStatus XPmRequirement_IsExclusive(XPm_Requirement *Reqm)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Requirement *Next_Reqm;
+
+	if (NULL == Reqm) {
+		goto done;
+	}
+
+	if (1U != Reqm->Allocated) {
+		goto done;
+	}
+
+	Next_Reqm = Reqm->NextSubsystem;
+	while (NULL != Next_Reqm) {
+		if (1U == Next_Reqm->Allocated) {
+			goto done;
+		}
+		Next_Reqm = Next_Reqm->NextSubsystem;
+	}
+
+	Status = XST_SUCCESS;
+done:
 	return Status;
 }
