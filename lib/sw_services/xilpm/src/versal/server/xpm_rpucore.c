@@ -18,6 +18,9 @@ XStatus XPmRpuCore_Halt(XPm_Device *Device)
 
 	/* RPU should be in reset state before putting it into halt state */
 	Status = XPmDevice_Reset(&RpuCore->Core.Device, PM_RESET_ACTION_ASSERT);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	/* Put RPU in  halt state */
 	PmRmw32(RpuCore->ResumeCfg, XPM_RPU_NCPUHALT_MASK,
@@ -26,47 +29,7 @@ XStatus XPmRpuCore_Halt(XPm_Device *Device)
 	/* Release reset for all resets attached to this core */
 	Status = XPmDevice_Reset(&RpuCore->Core.Device, PM_RESET_ACTION_RELEASE);
 
-	return Status;
-}
-
-static int XPmRpuCore_RestoreResumeAddr(XPm_Core *Core)
-{
-	int Status = XST_FAILURE;
-	XPm_RpuCore *RpuCore = (XPm_RpuCore *)Core;
-	u32 AddrLow = (u32) (Core->ResumeAddr & 0xffff0000ULL);
-
-	/* Check for valid resume address */
-	if (0U == (Core->ResumeAddr & 1ULL)) {
-		PmErr("Invalid resume address\r\n");
-		Status = XST_FAILURE;
-		goto done;
-	}
-
-	/* CFG_VINITHI_MASK mask is common for both processors */
-	if (XPM_PROC_RPU_HIVEC_ADDR == AddrLow) {
-		PmRmw32(RpuCore->ResumeCfg, XPM_RPU_VINITHI_MASK,
-			XPM_RPU_VINITHI_MASK);
-	} else {
-		PmRmw32(RpuCore->ResumeCfg, XPM_RPU_VINITHI_MASK,
-			~XPM_RPU_VINITHI_MASK);
-	}
-
-	Core->ResumeAddr = 0ULL;
-
-	Status = XST_SUCCESS;
-
 done:
-	return Status;
-}
-
-static int XPmRpuCore_HasResumeAddr(XPm_Core *Core)
-{
-	XStatus Status = XST_FAILURE;
-
-	if (0U != (Core->ResumeAddr & 1ULL)) {
-		Status = XST_SUCCESS;
-	}
-
 	return Status;
 }
 
@@ -75,28 +38,15 @@ static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	XStatus Status = XST_FAILURE;
 	XPm_RpuCore *RpuCore = (XPm_RpuCore *)Core;
 
-	/* Set reset address */
-	if (1U == SetAddress) {
-		Core->ResumeAddr = Address | 1U;
-	}
-
-	Status = XPmCore_WakeUp(Core);
+	Status = XPmCore_WakeUp(Core, SetAddress, Address);
 	if (XST_SUCCESS != Status) {
-		PmErr("Core Wake Up failed, Status = %x\r\n", Status);
-		goto done;
-	}
-
-	/* Release reset for all resets attached to this core */
-	Status = XPmDevice_Reset(&Core->Device, PM_RESET_ACTION_RELEASE);
-	if (XST_SUCCESS != Status) {
+		PmErr("Status = %x\r\n", Status);
 		goto done;
 	}
 
 	/* Put RPU in running state from halt state */
 	PmRmw32(RpuCore->ResumeCfg, XPM_RPU_NCPUHALT_MASK,
 		XPM_RPU_NCPUHALT_MASK);
-
-	Core->Device.Node.State = (u8)XPM_DEVSTATE_RUNNING;
 
 done:
 	return Status;
@@ -118,10 +68,8 @@ done:
 }
 
 static struct XPm_CoreOps RpuOps = {
-		.RestoreResumeAddr = XPmRpuCore_RestoreResumeAddr,
-		.HasResumeAddr = XPmRpuCore_HasResumeAddr,
-		.RequestWakeup = XPmRpuCore_WakeUp,
-		.PowerDown = XPmRpuCore_PwrDwn,
+	.RequestWakeup = XPmRpuCore_WakeUp,
+	.PowerDown = XPmRpuCore_PwrDwn,
 };
 
 
@@ -134,6 +82,7 @@ XStatus XPmRpuCore_Init(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, u32 *BaseAddress,
 	Status = XPmCore_Init(&RpuCore->Core, Id, Power, Clock, Reset, (u8)Ipi,
 			      &RpuOps);
 	if (XST_SUCCESS != Status) {
+		PmErr("Status: 0x%x\r\n", Status);
 		goto done;
 	}
 
@@ -277,7 +226,6 @@ XStatus XPm_RpuRstComparators(const u32 DeviceId)
 	RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
 
 	if(RpuCore == NULL) {
-		PmInfo("Device Id does not correspond to any RPU Core\n\r");
 		PmInfo("Invalid Device Id: 0x%x\n\r", DeviceId);
 		goto done;
 	}
