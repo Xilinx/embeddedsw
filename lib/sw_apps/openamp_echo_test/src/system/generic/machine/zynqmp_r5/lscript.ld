@@ -24,6 +24,7 @@
 *
 ******************************************************************************/
 
+
 _STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x2000;
 _HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 0x4000;
 
@@ -34,13 +35,13 @@ _FIQ_STACK_SIZE = DEFINED(_FIQ_STACK_SIZE) ? _FIQ_STACK_SIZE : 1024;
 _UNDEF_STACK_SIZE = DEFINED(_UNDEF_STACK_SIZE) ? _UNDEF_STACK_SIZE : 1024;
 
 /* Define Memories in the system */
-
+/* TCM size is set to 2*0x20000 for R5 in lockstep mode */
 MEMORY
 {
-   psu_ddr_S_AXI_BASEADDR : ORIGIN = 0x3ED00000, LENGTH = 0x00020000
+   psu_ddr_S_AXI_BASEADDR : ORIGIN = 0x3ED00000, LENGTH = 0x00040000
    psu_ocm_ram_1_S_AXI_BASEADDR : ORIGIN = 0xFFFF0000, LENGTH = 0x00010000
-   psu_r5_tcm_ram_0_S_AXI_BASEADDR : ORIGIN = 0x00000000, LENGTH = 0x00010000
-   psu_r5_tcm_ram_1_S_AXI_BASEADDR : ORIGIN = 0x00020000, LENGTH = 0x00010000
+   psu_r5_tcm_ram_0_S_AXI_BASEADDR : ORIGIN = 0x00000000, LENGTH = 0x00020000
+   psu_r5_tcm_ram_1_S_AXI_BASEADDR : ORIGIN = 0x00020000, LENGTH = 0x00020000
 }
 
 /* Specify the default entry point to the program */
@@ -70,23 +71,23 @@ SECTIONS
    *(.vfp11_veneer)
    *(.ARM.extab)
    *(.gnu.linkonce.armextab.*)
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_1_S_AXI_BASEADDR
 
 .init : {
    KEEP (*(.init))
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 .fini : {
    KEEP (*(.fini))
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 .interp : {
    KEEP (*(.interp))
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 .note-ABI-tag : {
    KEEP (*(.note-ABI-tag))
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 .rodata : {
    __rodata_start = .;
@@ -94,14 +95,14 @@ SECTIONS
    *(.rodata.*)
    *(.gnu.linkonce.r.*)
    __rodata_end = .;
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 .rodata1 : {
    __rodata1_start = .;
    *(.rodata1)
    *(.rodata1.*)
    __rodata1_end = .;
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 .sdata2 : {
    __sdata2_start = .;
@@ -109,7 +110,7 @@ SECTIONS
    *(.sdata2.*)
    *(.gnu.linkonce.s2.*)
    __sdata2_end = .;
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 .sbss2 : {
    __sbss2_start = .;
@@ -117,7 +118,7 @@ SECTIONS
    *(.sbss2.*)
    *(.gnu.linkonce.sb2.*)
    __sbss2_end = .;
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 .data : {
    __data_start = .;
@@ -135,11 +136,11 @@ SECTIONS
    *(.data1)
    *(.data1.*)
    __data1_end = .;
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 .got : {
    *(.got)
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 .ctors : {
    __CTOR_LIST__ = .;
@@ -150,7 +151,7 @@ SECTIONS
    KEEP (*(.ctors))
    __CTOR_END__ = .;
    ___CTORS_END___ = .;
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 .dtors : {
    __DTOR_LIST__ = .;
@@ -161,67 +162,67 @@ SECTIONS
    KEEP (*(.dtors))
    __DTOR_END__ = .;
    ___DTORS_END___ = .;
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 .fixup : {
    __fixup_start = .;
    *(.fixup)
    __fixup_end = .;
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 .eh_frame : {
    *(.eh_frame)
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 .eh_framehdr : {
    __eh_framehdr_start = .;
    *(.eh_framehdr)
    __eh_framehdr_end = .;
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 .gcc_except_table : {
    *(.gcc_except_table)
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 .mmu_tbl (ALIGN(16384)) : {
    __mmu_tbl_start = .;
    *(.mmu_tbl)
    __mmu_tbl_end = .;
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 .ARM.exidx : {
    __exidx_start = .;
    *(.ARM.exidx*)
    *(.gnu.linkonce.armexidix.*.*)
    __exidx_end = .;
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 .preinit_array : {
    __preinit_array_start = .;
    KEEP (*(SORT(.preinit_array.*)))
    KEEP (*(.preinit_array))
    __preinit_array_end = .;
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 .init_array : {
    __init_array_start = .;
    KEEP (*(SORT(.init_array.*)))
    KEEP (*(.init_array))
    __init_array_end = .;
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 .fini_array : {
    __fini_array_start = .;
    KEEP (*(SORT(.fini_array.*)))
    KEEP (*(.fini_array))
    __fini_array_end = .;
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 .ARM.attributes : {
    __ARM.attributes_start = .;
    *(.ARM.attributes)
    __ARM.attributes_end = .;
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 .sdata : {
    __sdata_start = .;
@@ -229,7 +230,7 @@ SECTIONS
    *(.sdata.*)
    *(.gnu.linkonce.s.*)
    __sdata_end = .;
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 .sbss (NOLOAD) : {
    __sbss_start = .;
@@ -237,7 +238,7 @@ SECTIONS
    *(.sbss.*)
    *(.gnu.linkonce.sb.*)
    __sbss_end = .;
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 .tdata : {
    __tdata_start = .;
@@ -245,7 +246,7 @@ SECTIONS
    *(.tdata.*)
    *(.gnu.linkonce.td.*)
    __tdata_end = .;
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 .tbss : {
    __tbss_start = .;
@@ -253,7 +254,7 @@ SECTIONS
    *(.tbss.*)
    *(.gnu.linkonce.tb.*)
    __tbss_end = .;
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 .bss (NOLOAD) : {
    . = ALIGN(4);
@@ -264,7 +265,7 @@ SECTIONS
    *(COMMON)
    . = ALIGN(4);
    __bss_end__ = .;
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 _SDA_BASE_ = __sdata_start + ((__sbss_end - __sdata_start) / 2 );
 
@@ -309,6 +310,11 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    . = ALIGN(16);
    __undef_stack = .;
 } > psu_r5_tcm_ram_0_S_AXI_BASEADDR
+
+.resource_table 0x3ed20000 : {
+	. = ALIGN(4);
+	*(.resource_table)
+} > psu_ddr_S_AXI_BASEADDR
 
 _end = .;
 }
