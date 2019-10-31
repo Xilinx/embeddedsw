@@ -16,7 +16,11 @@
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.0   bvikram  02/10/19 First release
+* 1.00   bsv 02/10/2019 First release
+*        bsv 04/09/2020 Code clean up
+* 1.01   bsv 07/08/2020 Moved Ch9Handler APIs to xloader_dfu_util.c
+*        skd 07/14/2020 XLoader_UsbCopy prototype changed
+*        td  08/19/2020 Fixed MISRA C violations Rule 10.3
 *
 * </pre>
 *
@@ -27,27 +31,14 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#include "xplmi_hw.h"
 #ifdef XLOADER_USB
 #include "xusbpsu.h"
 
 /************************** TypeDef Definitions *****************************/
-struct dfu_if {
-	struct Usb_DevData *InstancePtr;
-	u8 curr_state;
-	u8 next_state;
-	u8 status;
-	u8 got_reset;
-	u32 current_inf;	/**< Current interface */
-	u8 got_dnload_rqst;
-	u32 total_transfers;
-	u32 total_bytes_dnloaded;
-	u32 total_bytes_uploaded;
-	volatile u8 dfu_wait_for_interrupt;
-	u8 is_dfu;
-	u8 runtime_to_dfu;
-};
+
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XLOADER_REQ_REPLY_LEN		(256U)	/* Max size of reply buffer. */
+
 /*
  * @brief	Request types
  */
@@ -66,8 +57,6 @@ struct dfu_if {
 #define XLOADER_REQ_SET_CONFIGURATION		(0x09U)
 #define XLOADER_REQ_SET_INTERFACE		(0x0BU)
 #define XLOADER_REQ_SET_SEL			(0x30U)
-#define XLOADER_ENDPOINT_NUMBER_MASK		(0x0FU)
-#define XLOADER_ENDPOINT_DIR_MASK		(0x80U)
 #define XLOADER_ENDPOINT_HALT			(0x00U)
 #define XLOADER_ENDPOINT_SELF_PWRD_STATUS	(0x0100U)
 #define XLOADER_USB_ENDPOINT_NUMBER_MASK	(0xFU)
@@ -92,36 +81,10 @@ struct dfu_if {
 #define XLOADER_DFU_STATUS_SIZE			(0x6U)
 
 /************************** Function Prototypes **************************/
-void XLoader_DfuInit(void);
-void XLoader_DfuSetIntf(struct Usb_DevData* XLoader_UsbInstancePtr,
-	SetupPacket *SetupData);
-void XLoader_DfuClassReq(struct Usb_DevData* XLoader_UsbInstancePtr,
-	SetupPacket *SetupData);
-void XLoader_DfuReset(struct Usb_DevData* UsbInstancePtr);
-u32 XLoader_Ch9SetupDevDescReply(struct Usb_DevData* XLoader_UsbInstancePtr,
-	u8 *BufPtr, u32 BufferLen);
-u32 XLoader_Ch9SetupCfgDescReply(struct Usb_DevData* XLoader_UsbInstancePtr,
-	u8 *BufPtr, u32 BufferLen);
-u32 XLoader_Ch9SetupStrDescReply(struct Usb_DevData* XLoader_UsbInstancePtr,
-	u8 *BufPtr, u32 BufferLen, u8 Index);
-u32 XLoader_Ch9SetupBosDescReply(struct Usb_DevData* XLoader_UsbInstancePtr,
-	u8 *BufPtr, u32 BufferLen);
-int XLoader_SetConfiguration(struct Usb_DevData* XLoader_UsbInstancePtr,
-	SetupPacket *Ctrl);
-void XLoader_DfuSetState(struct Usb_DevData* XLoader_UsbInstancePtr,
-	u32 DfuState );
-void XLoader_StdDevReq(struct Usb_DevData *InstancePtr,
-	SetupPacket *SetupData);
 void XLoader_Ch9Handler(struct Usb_DevData *InstancePtr,
 	SetupPacket *SetupData);
 int XLoader_UsbInit(u32 DeviceFlags);
-int XLoader_UsbCopy(u32 SrcAddress, u64 DestAddress, u32 Length, u32 Flags);
-int XLoader_UsbReqGetStatus(struct Usb_DevData *InstancePtr,
-		SetupPacket *SetupData);
-int XLoader_UsbReqGetDescriptor(struct Usb_DevData *InstancePtr,
-	SetupPacket *SetupData);
-int XLoader_UsbReqSetFeature(struct Usb_DevData *InstancePtr,
-	SetupPacket *SetupData);
+int XLoader_UsbCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags);
 
 #endif/*XLOADER_USB*/
 

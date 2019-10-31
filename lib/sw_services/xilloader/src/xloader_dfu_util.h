@@ -16,7 +16,10 @@
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.0   bvikram  02/10/19 First release
+* 1.00   bsv 02/10/2019 First release
+*        bsv 04/09/2020 Code clean up
+* 1.01   bsv 07/08/2020 Moved Ch9Handler APIs from xloader_usb.c
+*        td  08/19/2020 Fixed MISRA C violations Rule 10.3
 *
 * </pre>
 *
@@ -45,6 +48,7 @@ extern "C" {
 #define XLOADER_DFUFUNC_DESCR				(u8)(0x21U)    /* DFU Functional Desc */
 #define XLOADER_USB_MODES_NUM				(2U)
 #define XLOADER_STRING_DESCRIPTORS_NUM			(6U)
+#define XLOADER_MAX_STR_DESC_LEN			(25U)
 
 /* DFU macros */
 #define XLOADER_DFU_MAX_TRANSFER		(u16)(1024U)
@@ -299,12 +303,6 @@ typedef struct {
 } __attribute__((__packed__))XLoaderPs_Usb30Config;
 
 typedef struct {
-	XLoaderPs_UsbStdCfgDesc StdCfg;
-	XLoaderPs_UsbStdIfDesc IfCfgAltDfu;
-	XLoaderPs_UsbDfuFuncDesc DfuFuncDesc;
-} __attribute__((__packed__))XLoaderPs_DfuUsbConfig;
-
-typedef struct {
 	u8 Length;
 	u8 DescriptorType;
 	u16 TotalLength;
@@ -351,15 +349,24 @@ struct XLoaderPs_DfuIf {
 };
 
 typedef struct {
-	u32 (*XLoaderPs_Ch9SetupDevDescReply)(struct Usb_DevData *, u8 *, u32);
-	u32 (*XLoaderPs_Ch9SetupCfgDescReply)(struct Usb_DevData *, u8 *, u32);
-	u32 (*XLoaderPs_Ch9SetupBosDescReply)(struct Usb_DevData *, u8 *, u32);
-	u32 (*XLoaderPs_Ch9SetupStrDescReply)(struct Usb_DevData *, u8 *, u32, u8);
-	int (*XLoaderPs_SetConfiguration)(struct Usb_DevData *, SetupPacket *);
-	int (*XLoaderPs_SetConfigurationApp)(struct Usb_DevData *, SetupPacket *);
-	void (*XLoaderPs_SetInterfaceHandler)(struct Usb_DevData *, SetupPacket *);
-	void (*XLoaderPs_ClassReq)(struct Usb_DevData *, SetupPacket *);
-	u32 (*XLoaderPs_GetDescReply)(struct Usb_DevData *, SetupPacket *,u8 *);
+	u8 (*XLoaderPs_Ch9SetupDevDescReply)(const struct Usb_DevData* InstancePtr,
+		u8 *BufPtr, u32 BufferLen);
+	u8 (*XLoaderPs_Ch9SetupCfgDescReply)(const struct Usb_DevData* InstancePtr,
+		u8 *BufPtr, const u32 BufferLen);
+	u8 (*XLoaderPs_Ch9SetupBosDescReply)(const struct Usb_DevData* InstancePtr,
+		u8 *BufPtr, u32 BufferLen);
+	u8 (*XLoaderPs_Ch9SetupStrDescReply)(const struct Usb_DevData* InstancePtr,
+		u8 *BufPtr, const u32 BufferLen, u8 Index);
+	int (*XLoaderPs_SetConfiguration)(struct Usb_DevData* InstancePtr,
+		const SetupPacket *SetupData);
+	int (*XLoaderPs_SetConfigurationApp)(struct Usb_DevData* InstancePtr,
+		SetupPacket *SetupData);
+	void (*XLoaderPs_SetInterfaceHandler)(const struct Usb_DevData* InstancePtr,
+		const SetupPacket *SetupData);
+	void (*XLoaderPs_ClassReq)(const struct Usb_DevData* InstancePtr,
+		const SetupPacket *SetupData);
+	u32 (*XLoaderPs_GetDescReply)(struct Usb_DevData* InstancePtr,
+                SetupPacket *SetupData, u8 *BufPtr);
 }XLoader_Ch9Func_Container;
 
 typedef struct {
@@ -367,7 +374,14 @@ typedef struct {
 	void * Data_ptr;
 }XLoader_UsbCh9_Data;
 
+extern u32 DownloadDone;
+extern u8* DfuVirtFlash;
+extern XLoader_UsbCh9_Data Dfu_data;
+extern struct XLoaderPs_DfuIf DfuObj;
+
 /************************** Function Prototypes ******************************/
+void XLoader_DfuReset(struct Usb_DevData* UsbInstancePtr);
+void XLoader_DfuSetState(const struct Usb_DevData* InstancePtr, u32 DfuState);
 
 #endif/*XLOADER_USB*/
 
