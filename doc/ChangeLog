@@ -7,6 +7,9 @@ csudma_v1_6:
 Added assert check XCsuDma_WaitForDoneTimeout().
 Modified usleep(100) to usleep(1) and XCSUDMA_DONE_TIMEOUT_VAL increased by 100 times.
 
+lwip211_v1_2:
+Add dependencies.props file for examples.
+
 mcdma_v1_4:
 Prefer using dmb in XMcdma_UpdateChanTDesc().
 
