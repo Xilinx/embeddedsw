@@ -253,6 +253,10 @@ enum {
 					  secure validations fail. */
 	XLOADER_ERR_GEN_IDCODE,		/**< 0X326 - Error caused due to
 						mismatch in IDCODEs */
+	XLOADER_ERR_USB_LOOKUP,		/**< 0x327 - Error when USB lookup fails*/
+	XLOADER_ERR_USB_CFG,		/**< 0x328 - Error when USB cfg initialize fails */
+	XLOADER_ERR_USB_START,		/**< 0x329 - Error when USB fails to start */
+	XLOADER_ERR_DFU_DWNLD,		/**< 0x32A - Error when pdi fails to download */
 };
 
 /**************************** Type Definitions *******************************/

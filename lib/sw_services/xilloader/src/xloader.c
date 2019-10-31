@@ -93,7 +93,11 @@ XLoader_DeviceOps DeviceOps[] =
 #else
 	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
 #endif
-	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),  /* 7U */
+#ifdef XLOADER_USB
+	XLOADER_DEVICEOPS_INIT("USB", XLoader_UsbInit, XLoader_UsbCopy), /* USB - 7U */
+#else
+	XLOADER_DEVICEOPS_INIT(NULL, NULL, NULL),
+#endif
 #ifdef  XLOADER_OSPI
 	XLOADER_DEVICEOPS_INIT("OSPI", XLoader_OspiInit, XLoader_OspiCopy), /* OSPI - 8U */
 #else
@@ -194,6 +198,10 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 		if(Status != XST_SUCCESS)
 		{
 			goto END;
+		}
+		if(PdiSrc == XLOADER_PDI_SRC_USB)
+		{
+			PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
 		}
 	}
 
@@ -471,6 +479,12 @@ int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 				{
 					PdiSrc = XLOADER_PDI_SRC_OSPI;
 					PdiAddr = PdiPtr->MetaHdr.ImgHdrTable.SBDAddr;
+				}
+				break;
+				case XIH_IHT_ATTR_SBD_USB:
+				{
+					PdiSrc = XLOADER_PDI_SRC_USB;
+					PdiAddr = 0U;
 				}
 				break;
 				default:

@@ -58,6 +58,7 @@ extern "C" {
 #include "xloader_sbi.h"
 #include "xloader_qspi.h"
 #include "xloader_ddr.h"
+#include "xloader_usb.h"
 #include "xplmi_dma.h"
 #include "xpm_device.h"
 #include "xcfupmc.h"
@@ -69,7 +70,7 @@ extern "C" {
 #define XLOADER_32BIT_MASK	(0xFFFFFFFFU)
 #define PMC_LOCAL_BASEADDR	(0xF0000000U)
 #define DDR_COPYIMAGE_BASEADDR	(0x40000000U)
-
+#define XLOADER_DDR_TEMP_BUFFER_ADDRESS	(0xFFFC0000U)
 #define XLOADER_CHUNK_MEMORY		(XPLMI_PMCRAM_BASEADDR)
 #define XLOADER_CHUNK_MEMORY_1		(XPLMI_PMCRAM_BASEADDR + 0x8100U)
 #define XLOADER_CHUNK_SIZE			(0x10000U) /** 64K */

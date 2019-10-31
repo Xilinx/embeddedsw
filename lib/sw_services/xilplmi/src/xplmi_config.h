@@ -100,7 +100,8 @@ extern "C" {
  */
 //#define PLM_QSPI_EXCLUDE
 //#define PLM_SD_EXCLUDE
-
+//#define PLM_OSPI_EXCLUDE
+//#define PLM_USB_EXCLUDE
 /**
  * @name PLM Error management options
  *

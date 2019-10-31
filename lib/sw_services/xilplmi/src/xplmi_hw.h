@@ -181,6 +181,11 @@ extern "C" {
 #define XLOADER_SBI
 #endif
 
+#if (!defined(PLM_USB_EXCLUDE) && defined(XPAR_XUSBPSU_0_DEVICE_ID) &&\
+		(XPAR_XUSBPSU_0_BASEADDR == 0xFE200000))
+#define XLOADER_USB
+#endif
+
 /**
  * Definitions required from crp.h
  */
