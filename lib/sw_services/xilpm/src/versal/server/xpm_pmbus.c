@@ -31,8 +31,9 @@
 #ifdef XPAR_XIICPS_1_DEVICE_ID
 
 /*************************** Variable Definitions ****************************/
-u8 SendBuffer[BUFFER_SIZE]; /**< Data Transmitting Buffer */
+#define PMBUS_BUFFER_SIZE	3	/**< I2C Buffer size */
 
+u8 SendBuffer[PMBUS_BUFFER_SIZE];	/**< Data Transmitting Buffer */
 
 /*****************************************************************************/
 /**
