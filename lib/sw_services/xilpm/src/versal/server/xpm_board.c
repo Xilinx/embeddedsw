@@ -70,6 +70,19 @@ done:
 }
 
 #ifdef XPAR_XIICPS_1_DEVICE_ID
+
+/**
+ * Forward declarations of private functions
+ */
+static XStatus XPmBoard_MuxConfigure(XIicPs * Iic, u16 MuxAddr, u8 Channel)
+		__maybe_unused;
+
+static XStatus XPmBoard_PowerUpRail(u8 RegulatorAddress,
+		u32 PmcPowerSupplyMask) __maybe_unused;
+
+static XStatus XPmBoard_PowerDownRail(u8 RegulatorAddress)
+		__maybe_unused;
+
 /*****************************************************************************/
 /**
  * This function initializes the I2C Bus
