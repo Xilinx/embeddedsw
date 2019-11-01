@@ -47,4 +47,5 @@ BEGIN LIBRARY openamp
   OPTION NAME = openamp;
 
   PARAM NAME = WITH_PROXY, type = bool, default = true, desc = "Add support for proxy", permit = all_users;
+  PARAM NAME = WITH_RPMSG_USERSPACE, type = bool, default = false, desc = "Add support for rpmsg userspace", permit = all_users;
 END LIBRARY
