@@ -1,34 +1,17 @@
 /******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* AUTHORS OR COPYRIGHT HOLDERS  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-*
-*
+* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 #include "xpm_board.h"
 #include "xpm_common.h"
 #include "xpm_pmc.h"
 #include "xplmi_util.h"
 #include "xpm_regs.h"
+#include "xpm_pmbus.h"
+
+#ifdef XPAR_XIICPS_1_DEVICE_ID
 
 /**
  * I2C master instance
@@ -69,7 +52,18 @@ done:
 	return Status;
 }
 
-#ifdef XPAR_XIICPS_1_DEVICE_ID
+/**
+ * Forward declarations of private functions
+ */
+static XStatus XPmBoard_MuxConfigure(XIicPs * Iic, u16 MuxAddr, u8 Channel)
+		maybe_unused;
+
+static XStatus XPmBoard_PowerUpRail(u8 RegulatorAddress, u32 PmcPowerSupplyMask)
+		maybe_unused;
+
+static XStatus XPmBoard_PowerDownRail(u8 RegulatorAddress)
+		maybe_unused;
+
 /*****************************************************************************/
 /**
  * This function initializes the I2C Bus
@@ -86,8 +80,8 @@ static XStatus XPmBoard_IicInit(XIicPs *Iic)
 	XIicPs_Config *Config;
 
 	/* Request the PMC_I2C device */
-	Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_I2C_PMC, PM_CAP_ACCESS,
-				   XPM_MAX_QOS, 0);
+	Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_I2C_PMC,
+				   (u32)PM_CAP_ACCESS, XPM_MAX_QOS, 0);
 	if (XST_SUCCESS != Status) {
 		PmErr("Fail to request PMC_I2C device\n\r");
 		goto done;
@@ -149,7 +143,7 @@ static XStatus XPmBoard_MuxConfigure(XIicPs *Iic, u16 MuxAddr, u8 Channel)
 	 * Wait for idle bus and check for arbitration
 	 */
 	do {
-		while (XIicPs_BusIsBusy(Iic));
+		while (0 != XIicPs_BusIsBusy(Iic)) {};
 
 		Status = XIicPs_MasterSendPolled(Iic, WriteBuffer, 1, MuxAddr);
 
@@ -254,7 +248,12 @@ XStatus XPmBoard_ControlRail(const enum power_rail_function Function,
 		MuxChannel = MUX_SEL_CHANNEL_0;
 		PmcPowerSupplyMask = PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_FPD_MASK;
 		break;
-	/*TODO: Add cases for other power rails i.e. LPD */
+	case POWER_RAIL_LPD:
+		RegulatorAddress = PSLP_REGULATOR_ADDR;
+		MuxChannel = MUX_SEL_CHANNEL_0;
+		PmcPowerSupplyMask = PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_LPD_MASK;
+		break;
+	/*TODO: Add cases for other power rails */
 	default:
 		PmErr("Invalid Regulator Id\n\r");
 		goto done;
@@ -272,7 +271,7 @@ XStatus XPmBoard_ControlRail(const enum power_rail_function Function,
 		/* Send PMBus commands to Power up rail */
 		Status = XPmBoard_PowerUpRail(RegulatorAddress, PmcPowerSupplyMask);
 		if (XST_SUCCESS != Status) {
-			PmErr("Failure powering up FPD power rail\n\r");
+			PmErr("Failure powering up power rail\n\r");
 			goto done;
 		}
 		break;
@@ -280,7 +279,7 @@ XStatus XPmBoard_ControlRail(const enum power_rail_function Function,
 		/* Send PMC_I2C command to turn off power rail */
 		Status = XPmBoard_PowerDownRail(RegulatorAddress);
 		if (XST_SUCCESS != Status) {
-			PmErr("Failure turning off FPD power rail\n\r");
+			PmErr("Failure turning off power rail\n\r");
 			goto done;
 		}
 		break;
