@@ -36,6 +36,9 @@ extern "C" {
 #ifdef XPAR_XIICPS_1_DEVICE_ID
 #include "xiicps.h"
 
+/************************** Variable Declarations ****************************/
+XIicPs IicInstance;
+
 /****************************** PMBus Commands *******************************/
 #define OPERATION				0x01
 #define ON_OFF_CONFIG				0x02
