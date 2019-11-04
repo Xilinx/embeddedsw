@@ -30,7 +30,6 @@
 #include "xpm_powerdomain.h"
 #include "xpm_pslpdomain.h"
 #include "xpm_psm.h"
-#include "sleep.h"
 
 static XPm_Power *PmPowers[XPM_NODEIDX_POWER_MAX];
 static u32 PmNumPowers;
