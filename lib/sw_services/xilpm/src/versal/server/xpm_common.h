@@ -44,13 +44,6 @@ extern "C" {
 #define xSELF_TEST_CLOCK_API
 #define xDEBUG_REG_IO
 
-/**
- * GCC Specific attribute to suppress unused variable/function warning
- */
-#ifndef __maybe_unused
-#define __maybe_unused __attribute__((unused))
-#endif
-
 /* Debug logs */
 #define PmAlert(...) \
 	XPlmi_Printf(DEBUG_GENERAL, "[ALERT] %s: ", __func__); \
