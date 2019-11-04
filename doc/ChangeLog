@@ -69,9 +69,6 @@ lwip211_v1_2:
 Add dependencies.props file for examples.
 Avoid using *.o in Makefile.
 
-lwip211_v1_2:
-Add dependencies.props file for examples.
-
 mcdma_v1_4:
 Prefer using dmb in XMcdma_UpdateChanTDesc().
 
