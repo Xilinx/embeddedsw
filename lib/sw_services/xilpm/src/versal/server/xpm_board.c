@@ -30,10 +30,8 @@
 #include "xplmi_util.h"
 #include "xpm_regs.h"
 
-/**
- * I2C master instance
- */
-static XIicPs IicInstance;
+/*********************** Variable Definitions **************************/
+static u8 WriteBuffer[BUFFER_SIZE];
 
 /*****************************************************************************/
 /**
@@ -124,14 +122,13 @@ done:
  *
  * @param Iic			I2C instance
  * @param MuxAddr		The address of the MUX
- * @param channel		The channel select value
+ * @param WriteBuffer   The channel select value
  *
  * @return XST_SUCCESS or XST_FAILURE
  ***********************************************************************/
 static XStatus XPmBoard_MuxConfigure(XIicPs *Iic, u16 MuxAddr, u8 Channel)
 {
 	XStatus Status = XST_FAILURE;
-	u8 WriteBuffer[1];	/* mux channel select value */
 
 	/* Initialize the I2C instance if it has not been done already */
 	if ((u32)XIL_COMPONENT_IS_READY != Iic->IsReady) {
