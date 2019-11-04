@@ -231,11 +231,9 @@ done:
  * @return   XST_SUCCESS if successful, otherwise XST_FAILURE
  *****************************************************************************/
 XStatus XPmBoard_ControlRail(const enum power_rail_function Function,
-			const enum power_rail_id PowerRegulatorId)
+				     const enum power_rail_id PowerRegulatorId)
 {
 	XStatus Status = XST_FAILURE;
-	(void)Function;
-	(void)PowerRegulatorId;
 
 #ifdef CUSTOM_PMBUS
 	u8 MuxChannel;
