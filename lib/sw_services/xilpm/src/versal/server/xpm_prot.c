@@ -252,10 +252,9 @@ static XStatus XPmProt_ConfigureXppu(XPm_Requirement *Reqm, u32 Enable)
 	}
 
 	/* See if XPPU is enabled or not, if not, return */
-	if (XPM_PROT_DISABLED == PpuNode->ProtNode.Node.State) {
+	if (XPM_PROT_DISABLED == PpuNode->ProtNode.Node.State)
 		Status = XST_SUCCESS;
 		goto done;
-	}
 
 	PmDbg("Aperoffset %x AperAddress %x DynamicReconfigAddrOffset %x\r\n",ApertureOffset, ApertureAddress, DynamicReconfigAddrOffset);
 
