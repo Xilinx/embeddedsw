@@ -191,6 +191,8 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 		 "Loading PDI from %s\n\r", DeviceOps[PdiSrc &
 								XLOADER_PDISRC_FLAGS_MASK].Name);
 
+	PdiPtr->SlrType = XPlmi_In32(PMC_TAP_SLR_TYPE) &
+				PMC_TAP_SLR_TYPE_VAL_MASK;
 	if ((PdiPtr->SlrType == XLOADER_SSIT_MASTER_SLR) ||
 		(PdiPtr->SlrType == XLOADER_SSIT_MONOLITIC)) {
 		XPlmi_Printf(DEBUG_GENERAL, "Monolithic/Master Device\n\r");
@@ -496,7 +498,6 @@ int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 
 			memset(PdiPtr, 0U, sizeof(XilPdi));
 			PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
-			PdiPtr->SlrType = XLOADER_SSIT_MONOLITIC;
 			Status = XLoader_LoadPdi(PdiPtr, PdiSrc, PdiAddr);
 			if (Status != XST_SUCCESS)
 			{
