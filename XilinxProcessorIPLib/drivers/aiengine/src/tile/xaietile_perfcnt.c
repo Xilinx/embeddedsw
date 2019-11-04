@@ -40,6 +40,7 @@
 * 1.1   Hyun    10/10/2018  Use the mask write API
 * 1.2   Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.3   Tejus   10/14/2019  Remove unwanted assertions
+* 1.4   Dishita 11/01/2019  Fix coverity warnings
 * </pre>
 *
 ******************************************************************************/
@@ -145,7 +146,7 @@ u8 XAieTileMem_PerfCounterControl(XAieGbl_Tile *TileInstPtr, u8 Counter,
 {
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
-	XAie_AssertNonvoid(Counter >= 0 && Counter < 2);
+	XAie_AssertNonvoid(Counter < 2);
 
 	return _XAieTile_PerfCounterControl(TileInstPtr,
 			XAIETILE_PERFCNT_MODULE_MEM, Counter, StartEvent,
@@ -178,7 +179,7 @@ u8 XAieTilePl_PerfCounterControl(XAieGbl_Tile *TileInstPtr, u8 Counter,
 	 */
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_SHIMNOC ||
 			TileInstPtr->TileType == XAIEGBL_TILE_TYPE_SHIMPL);
-	XAie_AssertNonvoid(Counter >= 0 && Counter < 2);
+	XAie_AssertNonvoid(Counter < 2);
 
 	return _XAieTile_PerfCounterControl(TileInstPtr,
 			XAIETILE_PERFCNT_MODULE_PL, Counter,
@@ -206,7 +207,7 @@ u8 XAieTileCore_PerfCounterControl(XAieGbl_Tile *TileInstPtr, u8 Counter,
 {
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
-	XAie_AssertNonvoid(Counter >= 0 && Counter < 4);
+	XAie_AssertNonvoid(Counter < 4);
 
 	return _XAieTile_PerfCounterControl(TileInstPtr,
 			XAIETILE_PERFCNT_MODULE_CORE, Counter,
@@ -230,7 +231,7 @@ u32 XAieTileMem_PerfCounterGet(XAieGbl_Tile *TileInstPtr, u8 Counter)
 {
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
-	XAie_AssertNonvoid(Counter >= 0 && Counter < 2);
+	XAie_AssertNonvoid(Counter < 2);
 
 	return XAieGbl_Read32(TileInstPtr->TileAddr +
 		PerfCounter[XAIETILE_PERFCNT_MODULE_MEM].RegOff[Counter]);
@@ -258,7 +259,7 @@ u32 XAieTilePl_PerfCounterGet(XAieGbl_Tile *TileInstPtr, u8 Counter)
 	 */
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_SHIMNOC ||
 			TileInstPtr->TileType == XAIEGBL_TILE_TYPE_SHIMPL);
-	XAie_AssertNonvoid(Counter >= 0 && Counter < 2);
+	XAie_AssertNonvoid(Counter < 2);
 
 	return XAieGbl_Read32(TileInstPtr->TileAddr +
 			PerfCounter[XAIETILE_PERFCNT_MODULE_PL].RegOff[Counter]);
@@ -281,7 +282,7 @@ u32 XAieTileCore_PerfCounterGet(XAieGbl_Tile *TileInstPtr, u8 Counter)
 {
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
-	XAie_AssertNonvoid(Counter >= 0 && Counter < 4);
+	XAie_AssertNonvoid(Counter < 4);
 
 	return XAieGbl_Read32(TileInstPtr->TileAddr +
 		PerfCounter[XAIETILE_PERFCNT_MODULE_CORE].RegOff[Counter]);
@@ -306,7 +307,7 @@ u32 XAieTileMem_PerfCounterSet(XAieGbl_Tile *TileInstPtr, u8 Counter,
 {
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
-	XAie_AssertNonvoid(Counter >= 0 && Counter < 2);
+	XAie_AssertNonvoid(Counter < 2);
 
 	XAieGbl_Write32(TileInstPtr->TileAddr +
 			PerfCounter[XAIETILE_PERFCNT_MODULE_MEM].RegOff[Counter],
@@ -338,7 +339,7 @@ u32 XAieTilePl_PerfCounterSet(XAieGbl_Tile *TileInstPtr, u8 Counter,
 	 */
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_SHIMNOC ||
 			TileInstPtr->TileType == XAIEGBL_TILE_TYPE_SHIMPL);
-	XAie_AssertNonvoid(Counter >= 0 && Counter < 2);
+	XAie_AssertNonvoid(Counter < 2);
 
 	XAieGbl_Write32(TileInstPtr->TileAddr +
 			PerfCounter[XAIETILE_PERFCNT_MODULE_PL].RegOff[Counter],
@@ -365,7 +366,7 @@ u32 XAieTileCore_PerfCounterSet(XAieGbl_Tile *TileInstPtr, u8 Counter,
 {
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
-	XAie_AssertNonvoid(Counter >= 0 && Counter < 4);
+	XAie_AssertNonvoid(Counter < 4);
 
 	XAieGbl_Write32(TileInstPtr->TileAddr +
 		PerfCounter[XAIETILE_PERFCNT_MODULE_CORE].RegOff[Counter],
@@ -392,7 +393,7 @@ u32 XAieTileMem_PerfCounterEventValue(XAieGbl_Tile *TileInstPtr, u8 Counter,
 {
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
-	XAie_AssertNonvoid(Counter >= 0 && Counter < 2);
+	XAie_AssertNonvoid(Counter < 2);
 
 	XAieGbl_Write32(TileInstPtr->TileAddr +
 		PerfCounterEvent[XAIETILE_PERFCNT_MODULE_MEM].RegOff[Counter],
@@ -418,7 +419,7 @@ u32 XAieTilePl_PerfCounterEventValue(XAieGbl_Tile *TileInstPtr, u8 Counter,
 		u32 EventVal)
 {
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
-	XAie_AssertNonvoid(Counter >= 0 && Counter < 2);
+	XAie_AssertNonvoid(Counter < 2);
 
 	XAieGbl_Write32(TileInstPtr->TileAddr +
 		PerfCounterEvent[XAIETILE_PERFCNT_MODULE_PL].RegOff[Counter],
@@ -445,7 +446,7 @@ u32 XAieTileCore_PerfCounterEventValue(XAieGbl_Tile *TileInstPtr, u8 Counter,
 {
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
-	XAie_AssertNonvoid(Counter >= 0 && Counter < 4);
+	XAie_AssertNonvoid(Counter < 4);
 
 	XAieGbl_Write32(TileInstPtr->TileAddr +
 		PerfCounterEvent[XAIETILE_PERFCNT_MODULE_CORE].RegOff[Counter],

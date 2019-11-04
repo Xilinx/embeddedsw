@@ -45,6 +45,7 @@
 * 1.6   Jubaer  03/01/2019  Add Combo Event API
 * 1.7   Jubaer  04/17/2019  Add Stream Switch Event Port Selection API
 * 1.8   Tejus   09/05/2019  Fix compiler warnings
+* 1.9   Dishita 11/1/2019   Fix coverity warnings
 * </pre>
 *
 ******************************************************************************/
@@ -1015,8 +1016,7 @@ u8 XAieTileCore_EventPCEvent(XAieGbl_Tile *TileInstPtr, u8 PCEvent, u16 PCAddr,
 
 	XAie_AssertNonvoid(TileInstPtr != XAIE_NULL);
 	XAie_AssertNonvoid(TileInstPtr->TileType == XAIEGBL_TILE_TYPE_AIETILE);
-	XAie_AssertNonvoid(PCEvent >= XAIETILE_EVENT_CORE_PC_EVENT0 &&
-			PCEvent <= XAIETILE_EVENT_CORE_PC_EVENT3);
+	XAie_AssertNonvoid(PCEvent <= XAIETILE_EVENT_CORE_PC_EVENT3);
 	XAie_AssertNonvoid(Valid == 0 || Valid == 1);
 
 	RegVal = XAie_SetField(PCAddr, CorePCEvents[PCEvent].PCAddr.Lsb,
