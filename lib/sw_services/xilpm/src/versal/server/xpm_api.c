@@ -2968,6 +2968,7 @@ static int XPm_USBDxState(const u32 DeviceId, const u32 ReqState,
 			  const u32 TimeOut)
 {
 	int Status = XST_FAILURE;
+	XPm_Device *Device;
 	XPm_Pmc *Pmc;
 	u32 BaseAddress;
 	u32 Offset;
