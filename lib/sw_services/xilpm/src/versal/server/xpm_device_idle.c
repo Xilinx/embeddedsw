@@ -310,12 +310,15 @@ void NodeZdmaIdle(u16 DeviceId, u32 BaseAddress)
 void XPmDevice_SoftResetIdle(XPm_Device *Device, const u32 IdleReq)
 {
 	u32 Idx;
+	u32 DevRstDataSize = ARRAY_SIZE(DeviceRstData);
 	XPmDevice_SoftResetInfo *RstInfo = NULL;
 
-	for (Idx = 0; Idx < ARRAY_SIZE(DeviceRstData); Idx++) {
-		if (Device->Node.Id == DeviceRstData[Idx].DeviceId) {
-			RstInfo = &DeviceRstData[Idx];
-			break;
+	if (DevRstDataSize) {
+		for (Idx = 0; Idx < DevRstDataSize; Idx++) {
+			if (Device->Node.Id == DeviceRstData[Idx].DeviceId) {
+				RstInfo = &DeviceRstData[Idx];
+				break;
+			}
 		}
 	}
 
