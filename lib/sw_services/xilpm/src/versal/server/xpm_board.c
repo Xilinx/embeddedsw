@@ -29,6 +29,9 @@
 #include "xpm_pmc.h"
 #include "xplmi_util.h"
 #include "xpm_regs.h"
+#include "xpm_pmbus.h"
+
+#ifdef XPAR_XIICPS_1_DEVICE_ID
 
 /**
  * I2C master instance
@@ -68,8 +71,6 @@ static XStatus XPmBoard_WaitForPowerRailUp(u32 VoltageRailMask)
 done:
 	return Status;
 }
-
-#ifdef XPAR_XIICPS_1_DEVICE_ID
 
 /**
  * Forward declarations of private functions

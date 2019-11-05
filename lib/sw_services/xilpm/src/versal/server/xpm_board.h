@@ -33,11 +33,6 @@ extern "C" {
 #include "xstatus.h"
 #include "xil_types.h"
 
-#ifdef XPAR_XIICPS_1_DEVICE_ID
-#include "xiicps.h"
-#include "xpm_pmbus.h"
-#endif /* XPAR_XIICPS_1_DEVICE_ID */
-
 /************************** I2C Configurations *******************************/
 #define IIC_DEVICE_ID			0
 #define IIC_CLK_FREQ_HZ			100000000
