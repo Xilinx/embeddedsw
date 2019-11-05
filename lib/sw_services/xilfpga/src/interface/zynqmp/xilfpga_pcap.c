@@ -93,8 +93,10 @@
  *		       to success only on successful completion of the operation
  *                     of the functions.
  * 5.1 Nava  16/07/19  Improve error handling in the bitstream validation path.
- * 5.2 Nava  10/11/19  Clear the key info from DDR or Physical memory Once it
+ * 5.2 Nava  11/10/19  Clear the key info from DDR or Physical memory Once it
  *                     preserves into the internal memory.
+ * 5.2 Nava  1/11/19   Clear the Aes-key info from internal memory after
+ *                     completion of its usage.
  * </pre>
  *
  * @note
@@ -789,6 +791,12 @@ static u32 XFpga_SecureLoadToPl(XFpga *InstancePtr)
         break;
 
 	}
+	if ((InstancePtr->WriteInfo.Flags & XFPGA_ENCRYPTION_USERKEY_EN) != 0U)
+	{
+		/* Clear the key info from internal memory */
+		(void)memset((u8 *)XsecureKey, 0U, (sizeof(XsecureKey[0]) * ARRAY_LENGTH(XsecureKey)));
+	}
+
 
 return Status;
 }
@@ -1741,6 +1749,8 @@ static u32 XFpga_AesInit(XSecure_Aes *InstancePtr,
 	if ((Flags & XFPGA_ENCRYPTION_USERKEY_EN) != 0U) {
 		Status = Xil_ConvertStringToHex(KeyPtr,
 						    XsecureKey, KEY_LEN);
+		/* Clear the key info from DDR or Physical memory */
+		(void)memset(KeyPtr, 0U, KEY_LEN);
 		if (Status != XFPGA_SUCCESS) {
 			goto END;
 		}
@@ -1767,11 +1777,6 @@ static u32 XFpga_AesInit(XSecure_Aes *InstancePtr,
 		}
 	}
 END:
-	if ((Flags & XFPGA_ENCRYPTION_USERKEY_EN) != 0U) {
-		/* Clear the key info from DDR or Physical memory */
-		(void)memset(KeyPtr, 0U, KEY_LEN);
-	}
-
 	return Status;
 }
 
