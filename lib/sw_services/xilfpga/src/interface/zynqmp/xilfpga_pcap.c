@@ -502,6 +502,18 @@ END:
  *		- XFPGA_SUCCESS on success
  *		- Error code on failure
  *		- XFPGA_ERROR_PL_POWER_UP
+ * @note:
+ *        PS_PL Isolation (Non PCAP) Enable/Disable should be done before
+ *        and after writing the configuring data into the PL.The relevant
+ *        register to enable/disable the PS_PL Isolation is part of the
+ *        XPBR domain. So those registers can be accessed only through
+ *        PMU_ROM code. PMU_ROM interface is having a separate call for
+ *        PS_PL Isolation Enable and we are handlings this logic as part
+ *        XFpga_PreConfigPcap() API. But to Disable the isolation PMU_ROM
+ *        interface doesn't have any separate call. The PS_PL isolation
+ *        disable logic is part of the Power_up sequence. So to disable
+ *        the PS_PL Isolation we should call PL Power_up again in the
+ *        Post_config sequence.
  *
  *****************************************************************************/
 static u32 XFpga_PostConfigPcap(XFpga *InstancePtr)
