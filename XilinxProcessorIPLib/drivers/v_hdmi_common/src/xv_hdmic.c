@@ -45,6 +45,8 @@
  * 1.2   EB   15/08/19 Added enumeration for HDMI 2.1 Support
  *       mmo  15/08/19 Updated the VIC table to support HDMI 2.1 Resolution
  *                     Added Audio ACR CTS/N Enumeration and Library
+ * 1.3   EB  29/10/19 Fixed a bug where XV_HdmiC_AVIIF_GeneratePacket and
+ *                        XV_HdmiC_AudioIF_GeneratePacket return incorrect Aux
  * </pre>
  *
 *******************************************************************************/
@@ -674,6 +676,8 @@ XHdmiC_Aux XV_HdmiC_AVIIF_GeneratePacket(XHdmiC_AVI_InfoFrame *infoFramePtr)
 	u8 Crc;
 	XHdmiC_Aux aux;
 
+	(void)memset((void *)&aux, 0, sizeof(XHdmiC_Aux));
+
 	/* Header, Packet type*/
 	aux.Header.Byte[0] = AUX_AVI_INFOFRAME_TYPE;
 
@@ -737,7 +741,8 @@ XHdmiC_Aux XV_HdmiC_AVIIF_GeneratePacket(XHdmiC_AVI_InfoFrame *infoFramePtr)
    /* PB14 */
    aux.Data.Byte[14] = (infoFramePtr->RightBar & 0xff00) >> 8;
 
-   /* Index references the length to calculate start of loop from where values are reserved */
+   /* Index references the length to calculate start of loop from where values
+    * are reserved */
    for (Index = aux.Header.Byte[2] + 2; Index < 32; Index++) {
 	   aux.Data.Byte[Index] = 0;
    }
@@ -782,6 +787,8 @@ XHdmiC_Aux XV_HdmiC_AudioIF_GeneratePacket(XHdmiC_AudioInfoFrame *AudioInfoFrame
 	u8 Index;
 	u8 Crc;
 	XHdmiC_Aux aux;
+
+	(void)memset((void *)&aux, 0, sizeof(XHdmiC_Aux));
 
 	/* Header, Packet Type */
 	aux.Header.Byte[0] = AUX_AUDIO_INFOFRAME_TYPE;
