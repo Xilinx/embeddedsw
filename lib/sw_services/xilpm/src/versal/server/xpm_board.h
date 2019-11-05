@@ -58,7 +58,6 @@ extern "C" {
 #define MUX_SEL_CHANNEL_4       0x10
 
 /************************** Variable Definitions *****************************/
-#define BUFFER_SIZE				1 /**< I2C Buffer size */
 
 enum power_rail_id {
 	POWER_RAIL_FPD,
