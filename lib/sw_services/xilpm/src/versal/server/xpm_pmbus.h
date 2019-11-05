@@ -38,10 +38,9 @@ extern "C" {
 
 /************************** Variable Declarations ****************************/
 XIicPs IicInstance;
-#define BUFFER_SIZE					3 /**< I2C Buffer size */
 
 /****************************** PMBus Commands *******************************/
-#define OPERATION					0x01
+#define OPERATION				0x01
 #define ON_OFF_CONFIG				0x02
 
 /* Operation */
