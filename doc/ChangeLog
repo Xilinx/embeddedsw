@@ -65,9 +65,6 @@ Correct the stale interrupt triggering by clearing the ISR before enabling inter
 Re-organize the driver and fix Misra-c violations.
 Update eeprom examples with dynamic page size detection.
 
-gpio_v4_6:
-Fixed compilation error of armcc compiler.
-
 lwip211_v1_2:
 Add dependencies.props file for examples.
 Avoid using *.o in Makefile.
