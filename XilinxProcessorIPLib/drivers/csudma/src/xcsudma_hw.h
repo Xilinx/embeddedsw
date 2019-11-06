@@ -264,7 +264,7 @@ extern "C" {
 						  *  address */
 /*@}*/
 
-#define XCSUDMA_DONE_TIMEOUT_VAL 3000000U
+#define XCSUDMA_DONE_TIMEOUT_VAL 300000000U
 
 /***************** Macros (Inline Functions) Definitions *********************/
 

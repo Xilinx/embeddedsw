@@ -50,6 +50,8 @@
 *       arc     03/26/19 Fixed MISRA-C violations.
 * 1.5   aru     07/05/19 Fixed coverity warning.
 * 1.6   aru     08/29/19 Added assert check in XCsuDma_WaitForDoneTimeout().
+* 1.6   rm      11/05/19 Modified usleep waitloop and timeout value in
+*				XCsuDma_WaitForDoneTimeout().
 * </pre>
 *
 ******************************************************************************/
@@ -624,7 +626,7 @@ u32 XCsuDma_WaitForDoneTimeout(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 			TimeoutFlag = (u32)XST_SUCCESS;
 			goto done;
 		}
-		usleep(100U);
+		usleep(1U);
 		Timeout--;
 	}
 
