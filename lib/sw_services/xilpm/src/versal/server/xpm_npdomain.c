@@ -201,10 +201,6 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 		Status = XST_FAILURE;
 	}
 
-	/* Unwrite trigger bits */
-	PmRmw32(PMC_ANALOG_SCAN_CLEAR_TRIGGER,
-                PMC_ANALOG_SCAN_CLEAR_TRIGGER_NOC_MASK, 0);
-
 	Status = XST_SUCCESS;
 
 done:
