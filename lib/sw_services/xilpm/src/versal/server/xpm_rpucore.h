@@ -65,6 +65,7 @@ void XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode);
 XStatus XPm_RpuBootAddrConfig(const u32 DeviceId, const u32 BootAddr);
 XStatus XPm_RpuTcmCombConfig(const u32 DeviceId, const u32 Config);
 XStatus XPmRpuCore_Halt(XPm_Device *Device);
+XStatus XPm_RpuRstComparators(const u32 DeviceId);
 
 #ifdef __cplusplus
 }

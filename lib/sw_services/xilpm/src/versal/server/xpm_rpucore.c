@@ -272,3 +272,23 @@ XStatus XPm_RpuTcmCombConfig(const u32 DeviceId, const u32 Config)
 
 	return Status;
 }
+
+XStatus XPm_RpuRstComparators(const u32 DeviceId)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_RpuCore *RpuCore = NULL;
+
+	RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
+
+	if(RpuCore == NULL) {
+		PmInfo("Device Id does not correspond to any RPU Core\n\r");
+		PmInfo("Invalid Device Id: 0x%x\n\r", DeviceId);
+		goto done;
+	}
+
+	PmOut32(RpuCore->RpuBaseAddr + RPU_ERR_INJ_OFFSET, 0x0);
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}

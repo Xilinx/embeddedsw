@@ -31,6 +31,7 @@
 #include "xpm_pslpdomain.h"
 #include "xpm_psm.h"
 #include "sleep.h"
+#include "xpm_rpucore.h"
 
 static XPm_Power *PmPowers[XPM_NODEIDX_POWER_MAX];
 static u32 PmNumPowers;
@@ -315,6 +316,16 @@ static XStatus SendPowerDownReq(XPm_Node *Node)
 
 		if (XPM_NODEIDX_POWER_RPU0_0 == NODEINDEX(Node->Id)) {
 			LpDomain->LpdBisrFlags &= ~(LPD_BISR_DONE);
+			/*
+			 * Clear and Disable RPU internal reg comparators to prevent
+			 * PSM_GLOBAL_REG.PSM_ERR1_STATUS.rpu_ls from erroring out
+			 */
+			 Status = XPm_RpuRstComparators(PM_DEV_RPU0_0);
+
+			 if (Status != XST_SUCCESS) {
+				PmErr("Unable to reset RPU Comparators\n\r");
+				goto done;
+			 }
 		}
 	} else {
 		PmDbg("Request to power down domain %x\r\n",Node->Id);
