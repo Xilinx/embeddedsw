@@ -735,10 +735,19 @@ done:
 static XStatus XPsmFwRPUxPwrUp(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDwnType Type)
 {
 	XStatus Status = XST_FAILURE;
+	u32 RegVal;
 
 	Status = XPsmFwIslandPwrUp(Args);
 	if (XST_SUCCESS != Status) {
 		goto done;
+	}
+
+	/* Check if RPU Comparators have been turned off */
+	RegVal = XPsmFw_Read32(RPU_RPU_ERR_INJ);
+	if(CHECK_BIT(RegVal, 1 << RPU_RPU_ERR_INJ_DCCMINP_SHIFT) ||
+		CHECK_BIT(RegVal, 1 << RPU_RPU_ERR_INJ_DCCMINP2_SHIFT)) {
+		XPsmFw_Printf(DEBUG_DETAILED,
+		"RPU Register Comparator is on. This may trigger lockstep error\r\n");
 	}
 
 	/* Enable the R5 main clock if not enabled */
@@ -750,6 +759,9 @@ static XStatus XPsmFwRPUxPwrUp(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDwn
 
 	/* Allow the clock to propagate */
 	XPsmFw_UtilWait(Args->ClkPropTime);
+
+	/* De-assert RPU AMBA RST for comparator logic gates to be operational */
+	XPsmFw_RMW32(CRL_RST_CPU_R5, CRL_RST_CPU_R5_RESET_AMBA_MASK, ~CRL_RST_CPU_R5_RESET_AMBA_MASK);
 
 	/* Disable isolation */
 	XPsmFw_RMW32(Args->PwrCtrlAddr, PSM_LOCAL_PWR_CTRL_ISO_MASK, ~PSM_LOCAL_PWR_CTRL_ISO_MASK);
