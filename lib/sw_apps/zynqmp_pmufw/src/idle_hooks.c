@@ -207,6 +207,9 @@ void NodeI2cIdle(u32 BaseAddress)
 	defined(XPAR_PSU_ETHERNET_2_DEVICE_ID) || \
 	defined(XPAR_PSU_ETHERNET_3_DEVICE_ID)
 
+#define DMA_STOP_TIMEOUT		(500)
+#define REG_POLL_STATUS_DELAY		(3000) /* in us */
+
 /**
  * NodeGemIdle() - Custom code to idle the GEM
  *
@@ -227,17 +230,56 @@ void NodeGemIdle(u32 BaseAddress)
 		PmWarn("gem not idle\r\n");
 	}
 
-	/* stop all transactions of the Ethernet */
 	/* Disable all interrupts */
-	XEmacPs_WriteReg(BaseAddress, XEMACPS_IDR_OFFSET,
-			   XEMACPS_IXR_ALL_MASK);
+	XEmacPs_WriteReg(BaseAddress, XEMACPS_IDR_OFFSET, XEMACPS_IXR_ALL_MASK);
+
+	/* Halt the TX traffic */
+	Reg = XEmacPs_ReadReg(BaseAddress, XEMACPS_NWCTRL_OFFSET);
+	Reg |= XEMACPS_NWCTRL_HALTTX_MASK;
+	XEmacPs_WriteReg(BaseAddress, XEMACPS_NWCTRL_OFFSET, Reg);
+
+	/* Do not accept RX frames addressed to broadcast address */
+	Reg = XEmacPs_ReadReg(BaseAddress, XEMACPS_NWCFG_OFFSET);
+	Reg |= XEMACPS_NWCFG_BCASTDI_MASK;	/* No Broadcast bit */
+	XEmacPs_WriteReg(BaseAddress, XEMACPS_NWCFG_OFFSET, Reg);
+
+	/* Disable specific address filtering and thereby stop accept other RX frames */
+	XEmacPs_WriteReg(BaseAddress, XEMACPS_LADDR1L_OFFSET, 0x0);
+	XEmacPs_WriteReg(BaseAddress, XEMACPS_LADDR2L_OFFSET, 0x0);
+	XEmacPs_WriteReg(BaseAddress, XEMACPS_LADDR3L_OFFSET, 0x0);
+	XEmacPs_WriteReg(BaseAddress, XEMACPS_LADDR4L_OFFSET, 0x0);
+
+	/*
+	 * Check for the DMA stop. Poll on the current bd ptr and make sure it
+	 * doesn't move for considerable time.
+	 */
+	/* Wait for TX DMA to stop */
+	Timeout = DMA_STOP_TIMEOUT; /* Worst case timeout */
+	do {
+		Reg = XEmacPs_ReadReg(BaseAddress, XEMACPS_TXQBASE_OFFSET);
+		usleep(REG_POLL_STATUS_DELAY);
+	} while ((Reg != XEmacPs_ReadReg(BaseAddress, XEMACPS_TXQBASE_OFFSET)) && --Timeout);
+
+	if (0 == Timeout) {
+		PmWarn("GEM TX Not Idled\r\n");
+	}
+
+	/* Wait for RX DMA to stop */
+	Timeout = DMA_STOP_TIMEOUT; /* Worst case timeout */
+	do {
+		Reg = XEmacPs_ReadReg(BaseAddress, XEMACPS_RXQBASE_OFFSET);
+		usleep(REG_POLL_STATUS_DELAY);
+	} while ((Reg != XEmacPs_ReadReg(BaseAddress, XEMACPS_RXQBASE_OFFSET)) && --Timeout);
+
+	if (0 == Timeout) {
+		PmWarn("GEM RX Not Idled\r\n");
+	}
 
 	/* Disable the receiver & transmitter */
 	Reg = XEmacPs_ReadReg(BaseAddress, XEMACPS_NWCTRL_OFFSET);
 	Reg &= (u32)(~XEMACPS_NWCTRL_RXEN_MASK);
 	Reg &= (u32)(~XEMACPS_NWCTRL_TXEN_MASK);
 	XEmacPs_WriteReg(BaseAddress, XEMACPS_NWCTRL_OFFSET, Reg);
-
 }
 #endif
 
