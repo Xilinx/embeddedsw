@@ -53,6 +53,7 @@
 #include "rpu.h"
 #include "pm_system.h"
 #include "pm_clock.h"
+#include "xpfw_aib.h"
 
 /* Enable/disable macros for processor's wfi event in GPI2 register */
 #define ENABLE_WFI(mask)    XPfw_RMW32(PMU_LOCAL_GPI2_ENABLE, (mask), (mask));
@@ -219,6 +220,9 @@ static s32 PmProcApu3Sleep(void)
  */
 static s32 PmProcRpu0Sleep(void)
 {
+	(void)XPfw_AibEnable(XPFW_AIB_RPU0_TO_LPD);
+	(void)XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU0);
+
 	XPfw_RMW32(CRL_APB_RST_LPD_TOP,
 		   CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK,
 		   CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK);
@@ -229,6 +233,9 @@ static s32 PmProcRpu0Sleep(void)
 		   CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK,
 		  ~CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK);
 
+	(void)XPfw_AibDisable(XPFW_AIB_RPU0_TO_LPD);
+	(void)XPfw_AibDisable(XPFW_AIB_LPD_TO_RPU0);
+
 	return XST_SUCCESS;
 }
 
@@ -238,6 +245,9 @@ static s32 PmProcRpu0Sleep(void)
  */
 static s32 PmProcRpu1Sleep(void)
 {
+	(void)XPfw_AibEnable(XPFW_AIB_RPU1_TO_LPD);
+	(void)XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU1);
+
 	XPfw_RMW32(CRL_APB_RST_LPD_TOP,
 		   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK,
 		   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK);
@@ -247,6 +257,9 @@ static s32 PmProcRpu1Sleep(void)
 	XPfw_RMW32(CRL_APB_RST_LPD_TOP,
 		   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK,
 		  ~CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK);
+
+	(void)XPfw_AibDisable(XPFW_AIB_RPU1_TO_LPD);
+	(void)XPfw_AibDisable(XPFW_AIB_LPD_TO_RPU1);
 
 	return XST_SUCCESS;
 }
