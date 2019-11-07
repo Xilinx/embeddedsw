@@ -199,6 +199,7 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 	if (0 != (RegValue & (PMC_GLOBAL_ERR1_STATUS_NOC_TYPE_1_NCR_MASK |
 			     PMC_GLOBAL_ERR1_STATUS_DDRMC_MC_NCR_MASK))) {
 		Status = XST_FAILURE;
+		goto done;
 	}
 
 	Status = XST_SUCCESS;
