@@ -113,6 +113,12 @@ void NodeZdmaIdle(u32 BaseAddress);
 #include "xcanps_hw.h"
 void NodeCanIdle(u32 BaseAddress);
 #endif
+
+#if defined(XPAR_PSU_NAND_0_DEVICE_ID)
+#include "xnandpsu.h"
+void NodeNandIdle(u32 BaseAddress);
+#endif
+
 #ifdef __cplusplus
 }
 #endif

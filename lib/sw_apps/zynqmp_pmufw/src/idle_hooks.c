@@ -631,4 +631,23 @@ void NodeCanIdle(u32 BaseAddress)
 	} while (!(StatusReg & XCANPS_SR_CONFIG_MASK) && LocalTimeout--);
 }
 #endif /* CAN */
+
+#if defined(XPAR_PSU_NAND_0_DEVICE_ID)
+void NodeNandIdle(u32 BaseAddress)
+{
+	volatile u32 StatusReg;
+	u32 LocalTimeout = MAX_TIMEOUT;
+
+	/* Wait for transfer to complete if any */
+	do {
+		StatusReg =  XNandPsu_ReadReg(BaseAddress,
+				XNANDPSU_INTR_STS_OFFSET);
+	} while ((StatusReg & XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK) && LocalTimeout--);
+
+	/* Disable the Interrupts */
+	XNandPsu_WriteReg(BaseAddress,
+			  XNANDPSU_INTR_STS_EN_OFFSET, 0U);
+}
+#endif /* NAND */
+
 #endif /* ENABLE_NODE_IDLING */

@@ -729,6 +729,31 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.IdleHookArgs = 0U
 #endif
 	},
+	{
+		.NodeId = NODE_NAND,
+		.RstActionList= {
+			{	.ResetId = PM_RESET_NAND,
+				.ResetAction = PM_RESET_ACTION_ASSERT,
+				.ResetPulseWait = 10U,
+			},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U},
+			{0U,0U,0U}
+		},
+#ifdef XPAR_PSU_NAND_0_DEVICE_ID
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NodeNandIdle,
+		.IdleHookArgs = XPAR_PSU_NAND_0_BASEADDR,
+#else
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NULL,
+		.IdleHookArgs = 0U
+#endif
+	},
+
 };
 
 /**
