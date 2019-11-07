@@ -60,7 +60,7 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 int XSem_CfrInit(void);
 int XSem_NpiInit(void);
-int XSem_NpiRunScan(void);
+int XSem_NpiRunScan();
 
 
 #ifdef __cplusplus

@@ -30,8 +30,19 @@
 
 
 static XPlmi_Scheduler_t Sched;
+/******************************************************************************/
+/**
+*
+* The function checks the specified task is active or not, returns
+* corresponding status of the task.
+* @param    scheduler pointer
+* @param    task index.
+*
+* @return	TRUE or FALSE based on the task active status.
+****************************************************************************/
 
-static int XPlimi_IsTask_active(XPlmi_Scheduler_t *SchedPtr, int TaskListIndex)
+
+int XPlimi_IsTask_active(XPlmi_Scheduler_t *SchedPtr, u32 TaskListIndex)
 {
 	int ReturnVal = FALSE;
 
@@ -52,7 +63,19 @@ static int XPlimi_IsTask_active(XPlmi_Scheduler_t *SchedPtr, int TaskListIndex)
 	return ReturnVal;
 }
 
-static int XPlmi_IsTask_NonPeriodic(XPlmi_Scheduler_t *SchedPtr, int TaskListIndex)
+/******************************************************************************/
+/**
+*
+* The function checks the specified task is periodic or not, returns
+* corresponding periodicity status
+* @param    scheduler pointer
+* @param    task index.
+*
+* @return	TRUE or FALSE based on the task peridocity status
+****************************************************************************/
+
+
+int XPlmi_IsTask_NonPeriodic(XPlmi_Scheduler_t *SchedPtr, u32 TaskListIndex)
 {
 	int ReturnVal = FALSE;
 
@@ -66,10 +89,19 @@ static int XPlmi_IsTask_NonPeriodic(XPlmi_Scheduler_t *SchedPtr, int TaskListInd
 	return ReturnVal;
 }
 
-int XPlmi_SchedulerInit(void)
+/******************************************************************************/
+/**
+*
+* The function initializes scheduler and returns the initialization status
+* @param    None.
+*
+* @return	XST_SUCCESS if Scheduler initializes without any errors
+****************************************************************************/
+
+u32 XPlmi_SchedulerInit(void)
 {
-	int Idx;
-	int Status = XST_FAILURE;
+	u32 Idx;
+	u32 Status = XST_FAILURE;
 
 
 	/* Disable all the tasks */
@@ -88,15 +120,22 @@ int XPlmi_SchedulerInit(void)
 	return Status;
 }
 
-int XPlmi_SchedulerStart(XPlmi_Scheduler_t *SchedPtr)
+/******************************************************************************/
+/**
+*
+* The function starts the scheduler and updates start status.
+* @param    schduler pointer
+*
+* @return	XST_SUCCESS if schedulaer is started successfully
+****************************************************************************/
+
+u32 XPlmi_SchedulerStart(XPlmi_Scheduler_t *SchedPtr)
 {
-	int Status = XST_FAILURE;
+	u32 Status = XST_FAILURE;
 
 	if (SchedPtr == NULL) {
 		goto done;
-	}
-	else
-	{
+	} else {
 		SchedPtr->Enabled = TRUE;
 		Status = XST_SUCCESS;
 	}
@@ -105,46 +144,75 @@ done:
 	return Status;
 }
 
-int XPlmi_SchedulerStop(XPlmi_Scheduler_t *SchedPtr)
+/******************************************************************************/
+/**
+*
+* The function stops the scheduler and updates stop status.
+* @param    scheduler pointer
+*
+* @return	XST_SUCCESS if schedulaer is stopped successfully
+****************************************************************************/
+
+
+u32 XPlmi_SchedulerStop(XPlmi_Scheduler_t *SchedPtr)
 {
-	SchedPtr->Enabled =FALSE;
+	SchedPtr->Enabled = FALSE;
 	return XST_SUCCESS;
 }
 
-int XPlmi_SchedulerHandler(void)
+/******************************************************************************/
+/**
+*
+* The function is scheduler handler and it is called at regular intervals based on user
+* configured interval. Scheduler handler adds the user periodic task to PLM task queue
+* @param    user call back funtion
+*
+* @return	None
+****************************************************************************/
+
+void XPlmi_SchedulerHandler(void *data)
 {
-	int Idx;
-	int Status = XST_FAILURE;
+	u32 Idx;
+	u32 Status = XST_FAILURE;
 	XPlmi_TaskNode *Task;
+	(void)data;
     /* XPlmi_Printf(DEBUG_GENERAL,"Received :XPlmi_SchedulerHandler\n\r"); */
 	XPlmi_UtilRMW(PMC_PMC_MB_IO_IRQ_ACK, PMC_PMC_MB_IO_IRQ_ACK, 0x20);
-	for (Idx = 0U; Idx < XPLMI_SCHED_MAX_TASK; Idx++)
-	{
+	for (Idx = 0U; Idx < XPLMI_SCHED_MAX_TASK; Idx++) {
 		/* Check if the task is triggered and has a valid Callback */
-		if (NULL != Sched.TaskList[Idx].CustomerFunc)
-		{
+		if (NULL != Sched.TaskList[Idx].CustomerFunc) {
 			/* Execute the Task */
 			Task = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_1, Sched.TaskList[Idx].CustomerFunc, 0U);
-			if (Task == NULL)
-			{
+			if (Task == NULL) {
 				Status = XPLMI_UPDATE_STATUS(XPLM_ERR_TASK_CREATE, 0x0);
+				XPlmi_Printf(DEBUG_GENERAL, "Task Creation Err:0x%x\n\r", Status);
 				goto END;
 			}
 			XPlmi_TaskTriggerNow(Task);
-			}
+		}
 	}
-END:
-	return Status;
+	END:
+	return;
 }
 
-int XPlmi_SchedulerAddTask(XPlmi_Callback_t CallbackFn, int MilliSeconds)
+/******************************************************************************/
+/**
+*
+* The function adds user periodic task to scheduler queue.The user shall call this
+* funtion to register their scheduler task
+* @param    user scheduler task and its periodicity.
+*
+* @return	XST_SUCCESS if scheduler task is registered properly
+****************************************************************************/
+
+int XPlmi_SchedulerAddTask(XPlmi_Callback_t CallbackFn, u32 MilliSeconds)
 {
-	int Idx;
-	int Status = XST_FAILURE;
+	u32 Idx;
+	u32 Status = XST_FAILURE;
 
 	/* Get the Next Free Task Index */
-	for (Idx=0U;Idx < XPLMI_SCHED_MAX_TASK;Idx++) {
-		if (NULL == Sched.TaskList[Idx].CustomerFunc){
+	for (Idx = 0U; Idx < XPLMI_SCHED_MAX_TASK; Idx++) {
+		if (NULL == Sched.TaskList[Idx].CustomerFunc) {
 			break;
 		}
 	}
@@ -164,9 +232,23 @@ done:
 	return Status;
 }
 
-int XPlmi_SchedulerRemoveTask(XPlmi_Scheduler_t *SchedPtr, int OwnerId, int MilliSeconds, XPlmi_Callback_t CallbackFn)
+/******************************************************************************/
+/**
+*
+* The function removes scheduler task from scheduler queue. The funtion called by
+* the user for deregistering the scheduler task.
+* @param    scheduler pointer
+* @param    scheduler task
+* @param    periodicity
+* @param    user id
+* @return	XST_SUCCESS if handlers are deregistered properly
+****************************************************************************/
+
+
+u32 XPlmi_SchedulerRemoveTask(XPlmi_Scheduler_t *SchedPtr, u32 OwnerId,
+	u32 MilliSeconds, XPlmi_Callback_t CallbackFn)
 {
-	int Idx;
+	u32 Idx;
 	u32 TaskCount = 0U;
 
 	/*Find the Task Index */
@@ -182,7 +264,7 @@ int XPlmi_SchedulerRemoveTask(XPlmi_Scheduler_t *SchedPtr, int OwnerId, int Mill
 		}
 	}
 
-	XPlmi_Printf(DEBUG_DETAILED,"%s: Removed %lu tasks\r\n",
+	XPlmi_Printf(DEBUG_DETAILED, "%s: Removed %lu tasks\r\n",
 			__func__, TaskCount);
 
 	return ((TaskCount > 0U) ? XST_SUCCESS : XST_FAILURE);

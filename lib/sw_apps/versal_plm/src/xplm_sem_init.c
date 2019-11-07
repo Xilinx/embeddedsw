@@ -64,14 +64,14 @@
 /**
  * @brief This function call all the init functions of all xilsem 
  * modules. As a part of init functions, modules can initiate scan on both cfi 
- * npi,scan will be decided based on the CIPS params in xparameters.h.
+ * npi, scan will be decided based on the CIPS params in xparameters.h.
  *
  * @param	None
  *
  * @return	Status as SUCCESS or FAILURE
  *
  *****************************************************************************/
-int XSem_Init(void)
+int XSem_Init()
 {
 	int Status;
 	Status = XST_SUCCESS;

@@ -32,6 +32,7 @@
 extern "C" {
 #endif
 
+#include "xil_types.h"
 
 
 #define XPLMI_SCHED_MAX_TASK	10U
@@ -45,11 +46,11 @@ extern "C" {
 #define PMC_PMC_MB_IO_IRQ_ACK_WIDTH   (0x1U)
 #define PMC_PMC_MB_IO_IRQ_ACK_MASK    (0X0000020U)
 
-typedef int (*XPlmi_Callback_t)(void);
+typedef int (*XPlmi_Callback_t)(void *);
 
 struct XPlmi_Task_t{
-	int Interval;
-	int OwnerId;
+	u32 Interval;
+	u32 OwnerId;
 	int Status;
 	XPlmi_Callback_t CustomerFunc;
 };
@@ -62,12 +63,15 @@ typedef struct {
 	int Enabled;
 } XPlmi_Scheduler_t ;
 
-int XPlmi_SchedulerInit(void);
-int XPlmi_SchedulerStart(XPlmi_Scheduler_t *SchedPtr);
-int XPlmiSchedulerStop(XPlmi_Scheduler_t *SchedPtr);
-int XPlmi_SchedulerHandler(void);
-int XPlmi_SchedulerAddTask( XPlmi_Callback_t UserFunc, int MilliSeconds);
-int XPLmi_SchedulerRemoveTask(XPlmi_Scheduler_t *SchedPtr, int CustId, int MilliSeconds,XPlmi_Callback_t UserFunc);
+u32 XPlmi_SchedulerInit(void);
+u32 XPlmi_SchedulerStart(XPlmi_Scheduler_t *SchedPtr);
+u32 XPlmiSchedulerStop(XPlmi_Scheduler_t *SchedPtr);
+void XPlmi_SchedulerHandler(void *data);
+int XPlmi_SchedulerAddTask( XPlmi_Callback_t UserFunc, u32 MilliSeconds);
+u32 XPLmi_SchedulerRemoveTask(XPlmi_Scheduler_t *SchedPtr, u32 CustId,
+	u32 MilliSeconds,XPlmi_Callback_t UserFunc);
+int XPlimi_IsTask_active(XPlmi_Scheduler_t *SchedPtr, u32 TaskListIndex);
+int XPlmi_IsTask_NonPeriodic(XPlmi_Scheduler_t *SchedPtr, u32 TaskListIndex);
 
 #ifdef __cplusplus
 }
