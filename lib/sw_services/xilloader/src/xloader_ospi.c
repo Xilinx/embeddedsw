@@ -219,31 +219,34 @@ int XLoader_OspiInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	/* Set Flash device and Controller modes */
-	Status = XLoader_FlashSetDDRMode(&OspiPsvInstance);
-	if (Status != XST_SUCCESS)
+	/** OSPI DDR mode is not supported on SPP and EMU platforms */
+	if(XPLMI_PLATFORM == PMC_TAP_VERSION_SILICON)
 	{
-		Status = XOspiPsv_DeviceReset(XOSPIPSV_HWPIN_RESET);
+		/* Set Flash device and Controller modes */
+		Status = XLoader_FlashSetDDRMode(&OspiPsvInstance);
 		if (Status != XST_SUCCESS)
 		{
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_OSPI_READID, Status);
-			goto END;
+			Status = XOspiPsv_DeviceReset(XOSPIPSV_HWPIN_RESET);
+			if (Status != XST_SUCCESS)
+			{
+				Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_OSPI_READID, Status);
+				goto END;
+			}
+			Status = XOspiPsv_SetSdrDdrMode(&OspiPsvInstance, XOSPIPSV_EDGE_MODE_SDR_NON_PHY);
+			if (Status != XST_SUCCESS)
+			{
+				Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_OSPI_READID, Status);
+				goto END;
+			}
+			OspiPsvInstance.Extra_DummyCycle = 0U;
 		}
-		Status = XOspiPsv_SetSdrDdrMode(&OspiPsvInstance, XOSPIPSV_EDGE_MODE_SDR_NON_PHY);
-		if (Status != XST_SUCCESS)
+		else
 		{
-			Status = XPLMI_UPDATE_STATUS(XLOADER_ERR_OSPI_READID, Status);
-			goto END;
+			XOspiPsv_SetClkPrescaler(OspiPsvInstancePtr, XOSPIPSV_CLK_PRESCALE_2);
 		}
-		OspiPsvInstance.Extra_DummyCycle = 0U;
-	}
-	else
-	{
-		XOspiPsv_SetClkPrescaler(OspiPsvInstancePtr, XOSPIPSV_CLK_PRESCALE_2);
 	}
 
 	XLoader_FlashEnterExit4BAddMode(&OspiPsvInstance, 1U);
-
 END:
 	return Status;
 }
