@@ -37,6 +37,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 4.0 	vns  03/27/19 First Release
+* 4.2   har  11/07/19 Typo correction to enable compilation in C++
 *
 * </pre>
 *
@@ -96,7 +97,7 @@ int P384_ecdsaverify(unsigned char *z, unsigned char *Qx,
 		unsigned char *Qy, unsigned char *r, unsigned char *s);
 
 #ifdef __cplusplus
-extern "C" }
+}
 #endif
 
 #endif

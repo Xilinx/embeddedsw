@@ -35,7 +35,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 4.0   vns  03/09/19 Initial release
-*
+* 4.2   har  11/07/19 Typo correction to enable compilation in C++
+*                     Typo correction in comments
 * </pre>
 *
 * @endcond
@@ -56,10 +57,10 @@ extern "C" {
 /**< SHA3 base address */
 #ifndef XSECURE_VERSAL
 #define XSECURE_CSU_SHA3_BASE	(XSECURE_CSU_REG_BASE_ADDR + 0x2000U)
-				/**< Versal base address */
+				/**< ZynqMP base address */
 #else
 #define XSECURE_CSU_SHA3_BASE	(0xF1210000U)
-				/**< ZynqMP base address */
+				/**< Versal base address */
 #endif
 
 
@@ -79,7 +80,7 @@ extern "C" {
 /* @} */
 
 #ifdef __cplusplus
-extern "C" }
+}
 #endif
 
 #endif /* XSECURE_SHA_HW_H */

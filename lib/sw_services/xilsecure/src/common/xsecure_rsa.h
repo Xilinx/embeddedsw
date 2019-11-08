@@ -74,6 +74,7 @@
 *       vns  03/12/19 Modified as part of XilSecure code re-arch.
 *                     Moved all macro definitions and instance structure to
 *                     xsecure_rsa_core.h
+* 4.2   har  11/07/19 Typo correcton to enable compilation in C++
 * </pre>
 *
 * @endcond
@@ -111,7 +112,7 @@ s32 XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
 								u8 *Result);
 
 #ifdef __cplusplus
-extern "C" }
+}
 #endif
 
 #endif /* XSECURE_RSA_H_ */
