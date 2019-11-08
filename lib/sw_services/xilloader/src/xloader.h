@@ -296,6 +296,7 @@ void XLoader_ClearIntrSbiDataRdy();
 void XLoader_CfiErrorHandler(void);
 int XLoader_CframeInit();
 int XLoader_StartDdrcpyImage(u32 ImageId);
+int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr);
 
 /* functions defined in xloader_prtn_load.c */
 int XLoader_LoadImagePrtns(XilPdi* PdiPtr, u32 ImgNum, u32 PrtnNum);

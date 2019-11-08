@@ -357,15 +357,15 @@ END:
 
 /*****************************************************************************/
 /**
- * This function is used to load and start the PDI image. It reads meta header,
- * loads the images as present in the PDI and starts based on hand-off
- * information present in PDI
+ * This function is used to load and start images. It reads meta header, loads
+ * the images as present in the PDI and starts images based on hand-off information
+ * present in PDI.
  *
  * @param PdiPtr Pdi instance pointer
  *
- * @return	returns XLOADER_SUCCESS on success
+ * @return	returns XLOADER_SUCCESS on success and error on failure
  *****************************************************************************/
-int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
+int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 {
 	u64 ImageLoadTime;
 
@@ -380,9 +380,7 @@ int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 	 *   3. Load partitions to respective memories
 	 */
 	int Status = XST_FAILURE;
-	u32 SecBootMode;
-	u32 PdiSrc;
-	u64 PdiAddr;
+
 	for ( ;PdiPtr->ImageNum < PdiPtr->MetaHdr.ImgHdrTable.NoOfImgs;
 			++PdiPtr->ImageNum)
 	{
@@ -402,6 +400,31 @@ int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 		XPlmi_MeasurePerfTime(ImageLoadTime);
 		XPlmi_Printf(DEBUG_PRINT_PERF,
 			"for Image: %d\n\r", PdiPtr->ImageNum);
+    }
+	Status = XST_SUCCESS;
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to load the primary and secondary PDIs.
+ *
+ * @param PdiPtr Pdi instance pointer
+ *
+ * @return	returns XLOADER_SUCCESS on success
+ *****************************************************************************/
+int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
+{
+	int Status = XST_FAILURE;
+	u32 SecBootMode;
+	u32 PdiSrc;
+	u64 PdiAddr;
+
+	Status = XLoader_LoadAndStartSubSystemImages(PdiPtr);
+	if(Status != XST_SUCCESS)
+	{
+		goto END;
 	}
 	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
 		SubSystemInfo.PdiPtr = PdiPtr;
@@ -498,7 +521,13 @@ int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 
 			memset(PdiPtr, 0U, sizeof(XilPdi));
 			PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
-			Status = XLoader_LoadPdi(PdiPtr, PdiSrc, PdiAddr);
+			Status = XLoader_PdiInit(PdiPtr, PdiSrc, PdiAddr);
+			if(Status != XST_SUCCESS)
+			{
+				goto END;
+			}
+
+			Status = XLoader_LoadAndStartSubSystemImages(PdiPtr);
 			if (Status != XST_SUCCESS)
 			{
 				goto END;
