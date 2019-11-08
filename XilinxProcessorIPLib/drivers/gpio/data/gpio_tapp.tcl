@@ -30,6 +30,8 @@
 # 4.0     adk    12/10/13 Updated as per the New Tcl API's
 # 4.5     sd     08/05/19 Added a check for custom for running
 # 				gpiooutput example
+# 4.6	  sne    11/08/19 Fixed compilation error of armcc compiler
+#
 ##############################################################################
 
 ## @BEGIN_CHANGELOG EDK_I
@@ -276,10 +278,10 @@ proc gen_testfunc_call {swproj mhsinst} {
 
    {
       u32 status;
+      u32 DataRead;
       
       print(\"\\r\\nRunning GpioInputExample() for ${ipname}...\\r\\n\");
 
-      u32 DataRead;
       
       status = GpioInputExample(${deviceid}, &DataRead);
       

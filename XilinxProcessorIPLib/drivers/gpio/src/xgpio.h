@@ -113,6 +113,7 @@
 *                     generation.
 * 4.4   sne  04/25/19 Updated Makefile for IAR compier (CR-1029421).
 * 4.5   sne  06/14/19 Fixed IAR compiler warnings on example files.
+* 4.6	sne  08/11/19 Fixed compilation error of armcc compiler.
 *
 * </pre>
 *****************************************************************************/
