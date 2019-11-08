@@ -24,6 +24,7 @@
 *
 ******************************************************************************/
 
+#include "xplmi_util.h"
 #include "xpm_clock.h"
 #include "xpm_pll.h"
 #include "xpm_device.h"
@@ -232,7 +233,7 @@ XStatus XPmClock_AddClkName(u32 Id, char *Name)
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-	memcpy(Clk->Name, Name, MAX_NAME_BYTES);
+	XPlmi_MemCpy(Clk->Name, Name, MAX_NAME_BYTES);
 
 	Status = XST_SUCCESS;
 
@@ -462,7 +463,7 @@ static struct XPm_ClkTopologyNode* XPmClock_GetTopologyNode(XPm_OutClockNode *Cl
 
 static void XPmClock_InitParent(XPm_OutClockNode *Clk)
 {
-	u32 ParentIdx;
+	u32 ParentIdx = 0;
 	struct XPm_ClkTopologyNode *Ptr;
 	XPm_ClockNode *ParentClk = NULL;
 

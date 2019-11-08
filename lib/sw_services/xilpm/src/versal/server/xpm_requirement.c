@@ -24,6 +24,7 @@
 *
 ******************************************************************************/
 
+#include "xplmi_util.h"
 #include "xpm_requirement.h"
 #include "xpm_power.h"
 #include "xpm_api.h"
@@ -47,7 +48,7 @@ static XStatus XPmRequirement_Init(XPm_Requirement *Reqm,
 	Reqm->Flags = Flags & 0xF;
 
 	if (Params && NumParams && NumParams <= MAX_REQ_PARAMS) {
-		memcpy(Reqm->Params, Params, NumParams);
+		XPlmi_MemCpy(Reqm->Params, Params, NumParams);
 		Reqm->Flags |= ((NumParams & 0xF) << 4);
 	}
 

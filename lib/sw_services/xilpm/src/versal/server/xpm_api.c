@@ -24,6 +24,7 @@
 *
 ******************************************************************************/
 
+#include "xplmi_util.h"
 #include "xpm_api.h"
 #include "xpm_defs.h"
 #include "xpm_psm_api.h"
@@ -288,7 +289,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 
 	/* First word of the response is status */
 	Cmd->Response[0] = Status;
-	memcpy(&Cmd->Response[1], ApiResponse, sizeof(ApiResponse));
+	XPlmi_MemCpy(&Cmd->Response[1], ApiResponse, sizeof(ApiResponse));
 
 	/*
 	 * XPM_QID_CLOCK_GET_NAME and XPM_QID_PINCTRL_GET_FUNCTION_NAME store part
@@ -1518,7 +1519,7 @@ XStatus XPm_SetClockState(const u32 SubsystemId, const u32 ClockId, const u32 En
 {
 	XStatus Status = XST_FAILURE;
 	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
-	u32 CurrState;
+	u32 CurrState = 0;
 
 	/* HACK: Don't disable PLL clocks for now */
 	if(Enable == 0 && ISPLL(ClockId))
