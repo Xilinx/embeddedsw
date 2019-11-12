@@ -51,7 +51,8 @@
 /***************************** Include Files *********************************/
 #include "xfsbl_board.h"
 #if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)		\
-		|| defined(XPS_BOARD_ZCU104) || defined(XPS_BOARD_ZCU111)
+		|| defined(XPS_BOARD_ZCU104) || defined(XPS_BOARD_ZCU111) \
+		|| defined(XPS_BOARD_ZCU216)
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -59,17 +60,17 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-#ifdef XPS_BOARD_ZCU104
+#if defined(XPS_BOARD_ZCU104) || defined(XPS_BOARD_ZCU216)
 static u32 XFsbl_ReadMinMaxEepromVadj(XIicPs* I2c0InstancePtr, u32 *MinVadj, u32 *MaxVadj);
 static u32 XFsbl_CalVadj(u16 MinVoltage, u16 MaxVoltage);
 #endif
 static u32 XFsbl_BoardConfig(void);
-static u32 XFsbl_FMCEnable(XIicPs* I2c0InstancePtr);
+static u32 XFsbl_FMCEnable(XIicPs* I2c0InstancePtr, XIicPs* I2c1InstancePtr);
 #if defined(XPS_BOARD_ZCU102)
 static void XFsbl_PcieReset(void);
 #endif
 /************************** Variable Definitions *****************************/
-#ifdef XPS_BOARD_ZCU104
+#if defined(XPS_BOARD_ZCU104) || defined(XPS_BOARD_ZCU216)
 /*****************************************************************************/
 /**
  * This function is used Read the min and max VADJ values from the FMC EEPROM.
@@ -238,13 +239,17 @@ static u32 XFsbl_CalVadj(u16 MinVoltage, u16 MaxVoltage)
  *	- errors as mentioned in xfsbl_error.h
  *
  *****************************************************************************/
-static u32 XFsbl_FMCEnable(XIicPs* I2c0InstancePtr)
+static u32 XFsbl_FMCEnable(XIicPs* I2c0InstancePtr, XIicPs* I2c1InstancePtr)
 {
 	u8 WriteBuffer[BUF_LEN] = {0U};
 	s32 Status;
 	u32 UStatus;
 	u32 SlaveAddr;
-#if defined(XPS_BOARD_ZCU104) || defined(XPS_BOARD_ZCU111)
+#ifndef XPS_BOARD_ZCU216
+	(void) I2c1InstancePtr;
+#endif
+#if defined(XPS_BOARD_ZCU104) || defined(XPS_BOARD_ZCU111) || \
+	defined(XPS_BOARD_ZCU216)
 	XVoutCommands *VoutPtr;
 	u32 VadjSetting = SET_VADJ_0V0;
 	/**
@@ -275,7 +280,7 @@ static u32 XFsbl_FMCEnable(XIicPs* I2c0InstancePtr)
 				VOUT_UV_WARNL_1V8, VOUT_UV_WARNH_1V8, VOUT_UV_FAULTL_1V8,
 				VOUT_UV_FAULTH_1V8}
 	};
-#ifdef XPS_BOARD_ZCU104
+#if defined(XPS_BOARD_ZCU104) || defined(XPS_BOARD_ZCU216)
 	u32 LpcMin;
 	u32 LpcMax;
 #endif
@@ -286,11 +291,21 @@ static u32 XFsbl_FMCEnable(XIicPs* I2c0InstancePtr)
 	if (Status != XST_SUCCESS) {
 		UStatus  = XFSBL_ERROR_I2C_SET_SCLK;
 		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_SET_SCLK\r\n");
+	}
+
+	Status = XIicPs_SetSClk(I2c1InstancePtr, IIC_SCLK_RATE_I2CMUX);
+	if (Status != XST_SUCCESS) {
+		UStatus  = XFSBL_ERROR_I2C_SET_SCLK;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_SET_SCLK\r\n");
 		goto END;
 	}
 
-#ifdef XPS_BOARD_ZCU104
+#if defined(XPS_BOARD_ZCU104) || defined(XPS_BOARD_ZCU216)
+#if defined(XPS_BOARD_ZCU104)
 	UStatus = XFsbl_ReadMinMaxEepromVadj(I2c0InstancePtr, &LpcMin, &LpcMax);
+#else
+	UStatus = XFsbl_ReadMinMaxEepromVadj(I2c1InstancePtr, &LpcMin, &LpcMax);
+#endif
 	if(UStatus != XFSBL_SUCCESS)
 	{
 		goto END;
@@ -298,13 +313,12 @@ static u32 XFsbl_FMCEnable(XIicPs* I2c0InstancePtr)
 	VadjSetting = XFsbl_CalVadj(LpcMin, LpcMax);
 #endif
 
-#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU111) || defined(XPS_BOARD_ZCU106)
+#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU111) || \
+	defined(XPS_BOARD_ZCU216)
 	/* Set I2C Mux for channel-2 */
 	WriteBuffer[0U] = CMD_CH_2_REG;
 	SlaveAddr = PCA9544A_ADDR;
-#endif
-
-#ifdef XPS_BOARD_ZCU104
+#else //ZCU104
 	/* Set I2C Mux for channel-2 (IRPS5401) */
 	WriteBuffer[0U] = CMD_CH_2_REG_IRPS;
 	SlaveAddr = TCA9548A_ADDR;
@@ -349,7 +363,8 @@ static u32 XFsbl_FMCEnable(XIicPs* I2c0InstancePtr)
 #endif
 #endif
 
-#if defined(XPS_BOARD_ZCU104) || defined(XPS_BOARD_ZCU111)
+#if defined(XPS_BOARD_ZCU104) || defined(XPS_BOARD_ZCU111) || \
+	defined(XPS_BOARD_ZCU216)
 	/* PMbus Command for Page Selection */
 	WriteBuffer[0U] = CMD_PAGE_CFG;
 #ifdef XPS_BOARD_ZCU104
@@ -570,11 +585,12 @@ END:
  *****************************************************************************/
 static u32 XFsbl_BoardConfig(void)
 {
-	XIicPs I2c0Instance;
-	XIicPs_Config *I2c0CfgPtr;
+	XIicPs I2c0Instance, I2c1Instance;
+	XIicPs_Config *I2c0CfgPtr, *I2c1CfgPtr;
 	s32 Status;
 	u32 UStatus;
-#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)
+#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106) \
+	|| defined(XPS_BOARD_ZCU216)
 	u8 WriteBuffer[BUF_LEN] = {0U};
 #endif
 #if defined(XPS_BOARD_ZCU102)
@@ -597,7 +613,27 @@ static u32 XFsbl_BoardConfig(void)
 		goto END;
 	}
 
-#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)
+#if defined(XPS_BOARD_ZCU216)
+	/* Initialize the IIC1 driver so that it is ready to use */
+	I2c1CfgPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_DEVICE_ID);
+	if (I2c1CfgPtr == NULL) {
+		UStatus = XFSBL_ERROR_I2C_INIT;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_INIT\r\n");
+		goto END;
+	}
+	Status = XIicPs_CfgInitialize(&I2c1Instance, I2c1CfgPtr,
+			I2c1CfgPtr->BaseAddress);
+	if (Status != XST_SUCCESS) {
+		UStatus = XFSBL_ERROR_I2C_INIT;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_INIT\r\n");
+		goto END;
+	}
+#else
+	(void) I2c1CfgPtr;
+#endif
+
+#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106) || \
+	defined(XPS_BOARD_ZCU216)
 	/* Set the IIC serial clock rate */
 	Status = XIicPs_SetSClk(&I2c0Instance, IIC_SCLK_RATE_IOEXP);
 	if (Status != XST_SUCCESS) {
@@ -702,7 +738,7 @@ static u32 XFsbl_BoardConfig(void)
 #endif
 
 
-	Status = XFsbl_FMCEnable(&I2c0Instance);
+	Status = XFsbl_FMCEnable(&I2c0Instance, &I2c1Instance);
 	if (Status != XST_SUCCESS) {
 		XFsbl_Printf(DEBUG_INFO, "FMC VADJ Configuration Not Successful");
 	}
@@ -780,7 +816,8 @@ u32 XFsbl_BoardInit(void)
 {
 	u32 Status;
 #if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)		\
-		|| defined(XPS_BOARD_ZCU104) || defined(XPS_BOARD_ZCU111)
+		|| defined(XPS_BOARD_ZCU104) || defined(XPS_BOARD_ZCU111) \
+		|| defined(XPS_BOARD_ZCU216)
 	/* Program I2C to configure GT lanes */
 	Status = XFsbl_BoardConfig();
 	if (Status != XFSBL_SUCCESS) {
