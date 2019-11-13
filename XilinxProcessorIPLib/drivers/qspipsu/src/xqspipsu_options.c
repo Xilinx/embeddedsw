@@ -27,7 +27,7 @@
 /**
 *
 * @file xqspipsu_options.c
-* @addtogroup qspipsu_v1_10
+* @addtogroup qspipsu_v1_11
 * @{
 *
 * This file implements functions to configure the QSPIPSU component,
@@ -59,6 +59,7 @@
 *		   100MHZ and 150MHZ frequencies(CR#1023187)
 * 1.10 akm 08/22/19 Set recommended tap delay values for 37.5MHZ, 100MHZ and
 *		    150MHZ frequencies in Versal.
+* 1.11 	akm 11/07/19 Removed LQSPI register access in Versal.
 *
 * </pre>
 *
@@ -111,7 +112,9 @@ static OptionsMap OptionsTable[] = {
 	{XQSPIPSU_CLK_ACTIVE_LOW_OPTION, XQSPIPSU_CFG_CLK_POL_MASK},
 	{XQSPIPSU_CLK_PHASE_1_OPTION, XQSPIPSU_CFG_CLK_PHA_MASK},
 	{XQSPIPSU_MANUAL_START_OPTION, XQSPIPSU_CFG_GEN_FIFO_START_MODE_MASK},
+#if !defined (versal)
 	{XQSPIPSU_LQSPI_MODE_OPTION, XQSPIPSU_CFG_WP_HOLD_MASK},
+#endif
 };
 
 #define XQSPIPSU_NUM_OPTIONS	(sizeof(OptionsTable) / sizeof(OptionsMap))
@@ -143,7 +146,9 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 {
 	u32 ConfigReg;
 	u32 Index;
+#if !defined (versal)
 	u32 QspiPsuOptions;
+#endif
 	s32 Status;
 	u32 OptionsVal;
 	OptionsVal = Options;
@@ -161,8 +166,10 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 
 		ConfigReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
 					      XQSPIPSU_CFG_OFFSET);
+#if !defined (versal)
 		QspiPsuOptions = OptionsVal & XQSPIPSU_LQSPI_MODE_OPTION;
 		OptionsVal &= (~XQSPIPSU_LQSPI_MODE_OPTION);
+#endif
 		/*
 		 * Loop through the options table, turning the option on
 		 * depending on whether the bit is set in the incoming options flag.
@@ -187,7 +194,7 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 		if ((OptionsVal & XQSPIPSU_MANUAL_START_OPTION) != FALSE) {
 			InstancePtr->IsManualstart = TRUE;
 		}
-
+#if !defined (versal)
 		if ((QspiPsuOptions & XQSPIPSU_LQSPI_MODE_OPTION) != FALSE) {
 			if ((Options & XQSPIPSU_LQSPI_LESS_THEN_SIXTEENMB) != FALSE) {
 				XQspiPsu_WriteReg(XQSPIPS_BASEADDR,XQSPIPSU_LQSPI_CR_OFFSET,XQSPIPS_LQSPI_CR_RST_STATE);
@@ -205,6 +212,7 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 			ConfigReg &= ~(XQSPIPSU_LQSPI_CR_LINEAR_MASK);
 			XQspiPsu_WriteReg(XQSPIPS_BASEADDR,XQSPIPSU_LQSPI_CR_OFFSET, ConfigReg);
 		}
+#endif
 
 		Status = XST_SUCCESS;
 	}

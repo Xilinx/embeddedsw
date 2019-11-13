@@ -28,7 +28,7 @@
 /**
  *
  * @file xqspipsu.h
- * @addtogroup qspipsu_v1_10
+ * @addtogroup qspipsu_v1_11
  * @{
  * @details
  *
@@ -166,6 +166,7 @@
  * 1.10 akm 08/22/19 Set recommended tap delay values for 37.5MHZ, 100MHZ and
  *		     150MHZ frequencies in Versal.
  * 1.10 akm 09/05/19 Added Multi Die Erase and Muti Die Read support.
+ * 1.11 akm 11/07/19 Removed LQSPI register access in Versal.
  *
  * </pre>
  *
@@ -319,9 +320,11 @@ typedef struct {
 #define XQSPIPSU_CLK_ACTIVE_LOW_OPTION	0x2U
 #define XQSPIPSU_CLK_PHASE_1_OPTION	0x4U
 #define XQSPIPSU_MANUAL_START_OPTION	0x8U
+#if !defined (versal)
 #define XQSPIPSU_LQSPI_MODE_OPTION	0x20U
 
 #define XQSPIPSU_LQSPI_LESS_THEN_SIXTEENMB	1U
+#endif
 
 #define XQSPIPSU_GENFIFO_EXP_START	0x100U
 
@@ -370,9 +373,11 @@ typedef struct {
 	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + \
 			XQSPIPSU_EN_OFFSET, 0x0U)
 
+#if !defined (versal)
 #define XQspiPsu_GetLqspiConfigReg(InstancePtr)	\
 	XQspiPsu_In32((XQSPIPS_BASEADDR) + \
 			XQSPIPSU_LQSPI_CR_OFFSET)
+#endif
 
 /************************** Function Prototypes ******************************/
 
