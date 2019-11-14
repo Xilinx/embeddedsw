@@ -73,6 +73,7 @@ extern "C" {
  * 	- ENABLE_PM : Enables Power Management Module
  * 	- ENABLE_EM : Enables Error Management Module
  * 	- ENABLE_SCHEDULER : Enables the scheduler
+ *  - ENABLE_MOD_ULTRA96 : Enables support for Ultra96 power button
  * 	- ENABLE_RECOVERY : Enables WDT based restart of APU sub-system
  *	- ENABLE_RECOVERY_RESET_SYSTEM : Enables WDT based restart of system
  *	- ENABLE_RECOVERY_RESET_PS_ONLY : Enables WDT based restart of PS
@@ -116,6 +117,7 @@ extern "C" {
 #define	ENABLE_PM_VAL					(1U)
 #define	ENABLE_EM_VAL					(0U)
 #define	ENABLE_SCHEDULER_VAL			(1U)
+#define ENABLE_MOD_ULTRA96_VAL			(0U)
 #define	ENABLE_RECOVERY_VAL				(0U)
 #define	ENABLE_RECOVERY_RESET_SYSTEM_VAL		(0U)
 #define	ENABLE_RECOVERY_RESET_PS_ONLY_VAL		(0U)
@@ -196,6 +198,10 @@ extern "C" {
 
 #if ENABLE_SCHEDULER_VAL
 #define ENABLE_SCHEDULER
+#endif
+
+#if ENABLE_MOD_ULTRA96_VAL
+#define ENABLE_MOD_ULTRA96
 #endif
 
 #if ENABLE_RECOVERY_VAL
