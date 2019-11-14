@@ -56,6 +56,10 @@
 #                     "none". This is done to fix warnings CR#1031423
 # 7.2   mus  10/11/19 Updated logic to export LOCKSTEP_MODE_DEBUG for Versal
 #                     as well. Fix for CR#1046243.
+# 7.2   mus  11/14/19 Remove logic for deletion of source directories, to
+#                     avoid race condition in tcl. Deletion of source
+#                     directories would happen through makefiles. It fixes
+#                      CR#1038151.
 #
 ##############################################################################
 
@@ -271,10 +275,8 @@ proc generate {os_handle} {
     }
     if { $proctype == "psu_cortexa53" || $proctype == "psu_cortexa72" || $proctype == "ps7_cortexa9" || $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" || $proctype == "psv_cortexa72"} {
         set compiler [common::get_property CONFIG.compiler $procdrv]
-        foreach entry [glob -nocomplain [file join $armcommonsrcdir *]] {
+        foreach entry [glob -nocomplain -types f [file join $armcommonsrcdir *]] {
             file copy -force $entry "./src"
-            file delete -force "./src/gcc"
-            file delete -force "./src/iccarm"
         }
         if {[string compare -nocase $compiler "armcc"] != 0 && [string compare -nocase $compiler "iccarm"] != 0
 	    &&  [string compare -nocase $compiler "armclang"] != 0} {
@@ -422,24 +424,18 @@ proc generate {os_handle} {
 	        set platformincludedir "./src/arm/ARMv8/includes_ps/platform/ZynqMP"
 	    }
 
-            foreach entry [glob -nocomplain [file join $cortexa53srcdir1 *]] {
+            foreach entry [glob -nocomplain -types f [file join $cortexa53srcdir1 *]] {
                 file copy -force $entry "./src/"
             }
             foreach entry [glob -nocomplain [file join $ccdir *]] {
                 file copy -force $entry "./src/"
             }
-	    foreach entry [glob -nocomplain [file join $platformsrcdir *]] {
+	    foreach entry [glob -nocomplain -types f [file join $platformsrcdir *]] {
 	    	file copy -force $entry "./src/"
 	    }
-	    file delete -force $platformsrcdir     
-	    foreach entry [glob -nocomplain [file join $platformincludedir *]] {
+	    foreach entry [glob -nocomplain -types f [file join $platformincludedir *]] {
 	        file copy -force $entry "./src/includes_ps/"
 	    }
-            file delete -force "./src/gcc"
-	    file delete -force "./src/armclang"
-            file delete -force "./src/profile"
-	    file delete -force "./src/xpvxenconsole"
-	    file delete -force "./src/includes_ps/platform"
             if { $enable_sw_profile == "true" } {
                 error "ERROR: Profiling is not supported for A53/A72"
             }
@@ -484,7 +480,7 @@ proc generate {os_handle} {
             } else {
 	           set ccdir "./src/arm/cortexr5/gcc"
 	   }
-	    foreach entry [glob -nocomplain [file join $cortexr5srcdir *]] {
+	    foreach entry [glob -nocomplain -types f [file join $cortexr5srcdir *]] {
 		file copy -force $entry "./src/"
 	    }
 	    foreach entry [glob -nocomplain [file join $ccdir *]] {
@@ -495,10 +491,6 @@ proc generate {os_handle} {
 	        file copy -force $entry "./src/includes_ps/"
 	    }
 
-	    file delete -force "./src/gcc"
-	    file delete -force "./src/iccarm"
-	    file delete -force "./src/profile"
-	    file delete -force "./src/includes_ps/platform"
             if { $enable_sw_profile == "true" } {
                 error "ERROR: Profiling is not supported for R5"
             }
@@ -522,7 +514,6 @@ proc generate {os_handle} {
 	    foreach entry [glob -nocomplain [file join $platformsrcdir *]] {
 		file copy -force $entry "./src/"
 	    }
-            file delete -force $platformsrcdir   
 	    
             # If board name is valid, define corresponding symbol in xparameters
             if { [string length $boardname] != 0 } {
@@ -559,21 +550,16 @@ proc generate {os_handle} {
                    } else {
                        set ccdir "./src/arm/cortexa9/gcc"
                    }
-                   foreach entry [glob -nocomplain [file join $cortexa9srcdir *]] {
+                   foreach entry [glob -nocomplain -types f [file join $cortexa9srcdir *]] {
                        file copy -force $entry "./src/"
                    }
                    foreach entry [glob -nocomplain [file join $ccdir *]] {
                        file copy -force $entry "./src/"
                    }
-                       file delete -force "./src/armcc"
-                       file delete -force "./src/gcc"
-			file delete -force "./src/iccarm"
                    if {[string compare -nocase $compiler "armcc"] == 0} {
-                       file delete -force "./src/profile"
                        set enable_sw_profile "false"
 	    }
 		if {[string compare -nocase $compiler "iccarm"] == 0} {
-                           file delete -force "./src/profile"
                            set enable_sw_profile "false"
                    }
                    set file_handle [::hsi::utils::open_include_file "xparameters.h"]
@@ -613,10 +599,6 @@ proc generate {os_handle} {
     }
     close $makeconfig
 
-    # Remove microblaze,  cortexr5, cortexa53 and common directories...
-    file delete -force $mbsrcdir
-    file delete -force $commonsrcdir
-    file delete -force $armsrcdir
 
     # Handle stdin
     set stdin [common::get_property CONFIG.stdin $os_handle]
