@@ -97,6 +97,8 @@
  *                     preserves into the internal memory.
  * 5.2 Nava  1/11/19   Clear the Aes-key info from internal memory after
  *                     completion of its usage.
+ * 5.2 Nava 14/11/19   Rename the XFpga_GetPLConfigData() function name
+ *                     to improve the code readability.
  * </pre>
  *
  * @note
@@ -191,7 +193,7 @@ static u32 XFpga_WriteToPlPcap(XFpga *InstancePtr);
 static u32 XFpga_PostConfigPcap(XFpga *InstancePtr);
 static u32 XFpga_PcapStatus(void);
 static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr);
-static u32 XFpga_GetPLConfigData(const XFpga *InstancePtr);
+static u32 XFpga_GetPLConfigDataPcap(const XFpga *InstancePtr);
 static void XFpga_SetFirmwareState(u8 State);
 static u8 XFpga_GetFirmwareState(void);
 static u32 XFpga_SelectEndianess(u8 *Buf, u32 Size, u32 *Pos);
@@ -259,7 +261,7 @@ u32 XFpga_Initialize(XFpga *InstancePtr) {
 	InstancePtr->XFpga_PostConfig = XFpga_PostConfigPcap;
 	InstancePtr->XFpga_GetInterfaceStatus = XFpga_PcapStatus;
 	InstancePtr->XFpga_GetConfigReg = XFpga_GetConfigRegPcap;
-	InstancePtr->XFpga_GetConfigData = XFpga_GetPLConfigData;
+	InstancePtr->XFpga_GetConfigData = XFpga_GetPLConfigDataPcap;
 
 	/* Initialize CSU DMA driver */
 	CsuDmaPtr = Xsecure_GetCsuDma();
@@ -2144,7 +2146,7 @@ END:
  *
  * @note None.
  ****************************************************************************/
-static u32 XFpga_GetPLConfigData(const XFpga *InstancePtr)
+static u32 XFpga_GetPLConfigDataPcap(const XFpga *InstancePtr)
 {
 	u32 Status = XFPGA_FAILURE;
 	UINTPTR Address = InstancePtr->ReadInfo.ReadbackAddr;
