@@ -27,7 +27,7 @@
 /**
 *
 * @file xpmonpsv_hw.h
-* @addtogroup pmonpsv_v1_1
+* @addtogroup pmonpsv_v1_2
 * @{
 *
 * This header file contains identifiers and basic driver functions (or

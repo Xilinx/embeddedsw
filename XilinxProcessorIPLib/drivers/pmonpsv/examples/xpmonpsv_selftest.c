@@ -44,6 +44,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0 sd  01/20/19 First release
+* 1.2 sd  11/14/19 Update the name of the device id.
 * </pre>
 *
 *****************************************************************************/
@@ -58,7 +59,7 @@
 
 /************************** Constant Definitions ****************************/
 #define TESTADDRESS  0x80000000; /* LPD AFI interface */
-#define PMON_DEVICE_ID XPAR_PSU_CORESIGHT_LPD_ATM_DEVICE_ID
+#define PMON_DEVICE_ID XPAR_XPMONPSV_1_DEVICE_ID
 
 
 /**************************** Type Definitions ******************************/

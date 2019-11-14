@@ -27,7 +27,7 @@
 /**
 *
 * @file xpmonpsv_g.c
-* @addtogroup pmonpsv_v1_1
+* @addtogroup pmonpsv_v1_2
 * @{
 *
 * This file contains a configuration table that specifies the configuration
