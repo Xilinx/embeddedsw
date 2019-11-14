@@ -178,6 +178,7 @@
 *       cog    10/02/19 The register value for the link coupling is inverted in Gen 3 Devices.
 *       cog    10/18/19 DSA was checking DAC tile rather than ADC.
 *       cog    10/18/19 Fix GCB read indexing issue with HSADC devices & TSCB coefficients.
+* 7.1   cog    11/14/19 Increased ADC fabric read rate to 12 words per cycle for Gen 3 devices.
 *
 * </pre>
 *
@@ -2247,7 +2248,7 @@ u32 XRFdc_SetFabRdVldWords(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Fa
 		goto RETURN_PATH;
 	}
 
-	if (FabricRdVldWords > XRFDC_ADC_MAX_RD_FAB_RATE) {
+	if (FabricRdVldWords > XRFDC_ADC_MAX_RD_FAB_RATE(InstancePtr->RFdc_Config.IPType)) {
 		metal_log(METAL_LOG_ERROR, "\n Requested read valid words is Invalid in %s\r\n", __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;

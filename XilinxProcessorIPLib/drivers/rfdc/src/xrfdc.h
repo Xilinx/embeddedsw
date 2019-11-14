@@ -253,6 +253,7 @@
 *       cog    10/02/19 Added macros for the clock divider.
 *       cog    10/02/19 Added macro for fabric rate of 16.
 *       cog    10/02/19 Added macros for new VCO ranges.
+* 7.1   cog    11/14/19 Increased ADC fabric read rate to 12 words per cycle for Gen 3 devices.
 *
 * </pre>
 *
@@ -970,7 +971,7 @@ typedef struct {
 #define XRFDC_DECIM_2G_IQ_DATA_TYPE 0x2U
 
 #define XRFDC_DAC_MAX_WR_FAB_RATE 16U
-#define XRFDC_ADC_MAX_RD_FAB_RATE 8U
+#define XRFDC_ADC_MAX_RD_FAB_RATE(X) ((X < XRFDC_GEN3) ? 8U : 12U)
 
 #define XRFDC_MIN_PHASE_CORR_FACTOR -26.5
 #define XRFDC_MAX_PHASE_CORR_FACTOR 26.5
