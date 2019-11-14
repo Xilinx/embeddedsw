@@ -47,6 +47,11 @@ INCLUDES=-I./. -I${INCLUDEDIR}
 
 INCLUDEFILES=*.h
 
+COMMONDIR=./common
+ARMDIR=./arm
+MBDIR=./microblaze
+PROFILEDIR=./profile
+
 COBJS	=	$(addsuffix .o, $(basename $(wildcard *.c)))
 AOBJS1	=	asm_vectors.o
 AOBJS2	=	translation_table.o
@@ -58,7 +63,7 @@ ASOURCES2 = translation_table.s
 # Replace boot.o with boot_post.o
 OBJECTS = $(OBJS)
 
-libs: boot_libs banner $(LIBS)
+libs: boot_libs banner $(LIBS) clean
 
 boot_libs:
 ifeq ($(findstring boot.S,$(wildcard *.S)),boot.S)
@@ -89,4 +94,5 @@ standalone_includes:
 	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
+	rm -rf ${COMMONDIR} ${ARMDIR} ${MBDIR} ${PROFILEDIR}
 	rm -rf ${OBJECTS}

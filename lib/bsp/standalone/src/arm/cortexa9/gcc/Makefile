@@ -51,12 +51,17 @@ RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
 
+COMMONDIR=./common
+ARMDIR=./arm
+MBDIR=./microblaze
+
+
 OUTS = *.o
 OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 ASSEMBLY_OBJECTS  = $(addsuffix .o, $(basename $(wildcard *.S)))
 INCLUDEFILES=*.h
 
-libs: $(LIBS)
+libs: $(LIBS) clean
 
 standalone_libs: $(LIBSOURCES)
 	echo "Compiling standalone"
@@ -76,6 +81,7 @@ profile_includes:
 	$(MAKE) -C profile COMPILER_FLAGS="$(COMPILER_FLAGS)" EXTRA_COMPILER_FLAGS="$(EXTRA_COMPILER_FLAGS)" COMPILER="$(CC)" ARCHIVER="$(AR)" include
 
 clean:
+	rm -rf ${COMMONDIR} ${ARMDIR} ${MBDIR}
 	rm -rf ${OBJECTS}
 	rm -rf ${ASSEMBLY_OBJECTS}
 	$(MAKE) -C profile COMPILER_FLAGS="$(COMPILER_FLAGS)" EXTRA_COMPILER_FLAGS="$(EXTRA_COMPILER_FLAGS)" COMPILER="$(CC)" ARCHIVER="$(AR)" clean

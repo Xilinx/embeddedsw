@@ -46,13 +46,19 @@ RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
 
+COMMONDIR=./common
+ARMDIR=./arm
+MBDIR=./microblaze
+PROFILEDIR=./profile
+INCLUDE_PS_PLATFORMDIR=./includes_ps/platform
+
 OUTS = *.o
 OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 ASSEMBLY_OBJECTS  = $(addsuffix .o, $(basename $(wildcard *.S)))
 INCLUDEFILES=*.h
 INCLUDEFILES+=includes_ps/*.h
 
-libs: $(LIBS)
+libs: $(LIBS) clean
 
 standalone_libs: $(LIBSOURCES)
 	echo "Compiling standalone R5"
@@ -67,5 +73,6 @@ standalone_includes:
 	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
+	rm -rf ${COMMONDIR} ${ARMDIR} ${MBDIR} ${PROFILEDIR} ${INCLUDE_PS_PLATFORMDIR}
 	rm -rf ${OBJECTS}
 	rm -rf ${ASSEMBLY_OBJECTS}
