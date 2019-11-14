@@ -100,6 +100,7 @@ u32 XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen)
 	if ((KeyLen != XNVM_128_BITS_AES_KEY_LEN_IN_BYTES) &&
 	    (KeyLen != XNVM_256_BITS_AES_KEY_LEN_IN_BYTES)) {
 		Status = XST_INVALID_PARAM;
+		goto END;
 	}
 
 	Status = XNvm_BbramEnablePgmMode();
