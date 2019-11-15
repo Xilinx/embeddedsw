@@ -179,6 +179,8 @@ extern "C" {
 /* Macronix size constants are different for 512M and 1G */
 #define MACRONIX_FLASH_SIZE_ID_512M		(0x1AU)
 #define MACRONIX_FLASH_SIZE_ID_1G		(0x1BU)
+#define MACRONIX_FLASH_SIZE_ID_2G		(0x1CU)
+#define MACRONIX_FLASH_1_8_V_SIZE_ID_2G		(0x3CU)
 #define MACRONIX_FLASH_1_8_V_SIZE_ID_1G  	(0x3BU)
 #define MACRONIX_FLASH_1_8_V_MX25_ID_256	(0x39U)
 #define MACRONIX_FLASH_1_8_V_MX66_ID_512	(0x3AU)

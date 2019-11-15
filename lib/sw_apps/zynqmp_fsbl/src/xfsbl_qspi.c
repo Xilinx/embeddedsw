@@ -191,7 +191,9 @@ static u32 FlashReadID(XQspiPsu *QspiPsuPtr)
 			|| (ReadBuffer[2] == MACRONIX_FLASH_1_8_V_SIZE_ID_1G)) {
 		QspiFlashSize = FLASH_SIZE_1G;
 		XFsbl_Printf(DEBUG_INFO, "1G Bits\r\n");
-	} else if (ReadBuffer[2] == FLASH_SIZE_ID_2G) {
+	} else if ((ReadBuffer[2] == FLASH_SIZE_ID_2G)
+			|| (ReadBuffer[2] == MACRONIX_FLASH_SIZE_ID_2G)
+			|| (ReadBuffer[2] == MACRONIX_FLASH_1_8_V_SIZE_ID_2G)) {
                 QspiFlashSize = FLASH_SIZE_2G;
                 XFsbl_Printf(DEBUG_INFO, "2G Bits\r\n");
 	}else {
