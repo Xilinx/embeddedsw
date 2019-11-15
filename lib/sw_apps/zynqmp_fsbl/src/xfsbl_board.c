@@ -314,7 +314,7 @@ static u32 XFsbl_FMCEnable(XIicPs* I2c0InstancePtr, XIicPs* I2c1InstancePtr)
 #endif
 
 #if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU111) || \
-	defined(XPS_BOARD_ZCU216)
+	defined(XPS_BOARD_ZCU106) || defined(XPS_BOARD_ZCU216)
 	/* Set I2C Mux for channel-2 */
 	WriteBuffer[0U] = CMD_CH_2_REG;
 	SlaveAddr = PCA9544A_ADDR;
