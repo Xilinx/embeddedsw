@@ -167,6 +167,8 @@
  *		     150MHZ frequencies in Versal.
  * 1.10 akm 09/05/19 Added Multi Die Erase and Muti Die Read support.
  * 1.11 akm 11/07/19 Removed LQSPI register access in Versal.
+ * 1.11	akm 11/15/19 Fixed Coverity deadcode warning in
+ * 				XQspipsu_Calculate_Tapdelay().
  *
  * </pre>
  *

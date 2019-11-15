@@ -60,6 +60,8 @@
 * 1.10 akm 08/22/19 Set recommended tap delay values for 37.5MHZ, 100MHZ and
 *		    150MHZ frequencies in Versal.
 * 1.11 	akm 11/07/19 Removed LQSPI register access in Versal.
+* 1.11	akm 11/15/19 Fixed Coverity deadcode warning in
+* 				XQspipsu_Calculate_Tapdelay().
 *
 * </pre>
 *
@@ -413,11 +415,6 @@ static s32 XQspipsu_Calculate_Tapdelay(const XQspiPsu *InstancePtr, u8 Prescaler
 	u32 LBkModeReg = 0;
 	u32 delayReg = 0;
 	s32 Status;
-#if defined (versal)
-	u32 IsVersal = 1;
-#else
-	u32 IsVersal = 0;
-#endif
 
 	Divider = (1U << (Prescaler+1U));
 
@@ -435,21 +432,25 @@ static s32 XQspipsu_Calculate_Tapdelay(const XQspiPsu *InstancePtr, u8 Prescaler
 			     IOU_TAPDLY_BYPASS_LQSPI_RX_SHIFT);
 		LBkModeReg |= (USE_DLY_LPBK <<
 			       XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_SHIFT);
-		delayReg |= (IsVersal != 0) ?
-			    (USE_DATA_DLY_ADJ  <<
-                             XQSPIPSU_DATA_DLY_ADJ_USE_DATA_DLY_SHIFT) :
-			    ((USE_DATA_DLY_ADJ  <<
-			      XQSPIPSU_DATA_DLY_ADJ_USE_DATA_DLY_SHIFT) |
-			     (DATA_DLY_ADJ_DLY  <<
-			      XQSPIPSU_DATA_DLY_ADJ_DLY_SHIFT));
+#if defined (versal)
+		delayReg |= USE_DATA_DLY_ADJ  <<
+				XQSPIPSU_DATA_DLY_ADJ_USE_DATA_DLY_SHIFT;
+#else
+		delayReg |= (USE_DATA_DLY_ADJ  <<
+                              XQSPIPSU_DATA_DLY_ADJ_USE_DATA_DLY_SHIFT) |
+                             (DATA_DLY_ADJ_DLY  <<
+                              XQSPIPSU_DATA_DLY_ADJ_DLY_SHIFT);
+#endif
 	} else if (FreqDiv <= XQSPIPSU_FREQ_150MHZ) {
-		LBkModeReg |= (IsVersal != 0) ?
-			      ((USE_DLY_LPBK  <<
-			        XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_SHIFT) |
-			       (LPBK_DLY_ADJ_DLY1 <<
-			        XQSPIPSU_LPBK_DLY_ADJ_DLY1_SHIFT)) :
-			      (USE_DLY_LPBK  <<
-			       XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_SHIFT);
+#if defined (versal)
+		LBkModeReg |= (USE_DLY_LPBK  <<
+                                XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_SHIFT) |
+                               (LPBK_DLY_ADJ_DLY1 <<
+                                XQSPIPSU_LPBK_DLY_ADJ_DLY1_SHIFT);
+#else
+		LBkModeReg |= USE_DLY_LPBK  <<
+                               XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_SHIFT;
+#endif
 	} else {
 		Status = XST_FAILURE;
 		goto END;
