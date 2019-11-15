@@ -639,15 +639,17 @@ static u32 XFsbl_ResetValidation(void)
 {
 	u32 Status;
 	u32 FsblErrorStatus;
+#ifdef XFSBL_WDT_PRESENT
 	u32 ResetReasonValue;
 	u32 ErrStatusRegValue;
-
+#endif
 	/**
 	 *  Read the Error Status register
 	 *  If WDT reset, do fallback
 	 */
 	FsblErrorStatus = XFsbl_In32(XFSBL_ERROR_STATUS_REGISTER_OFFSET);
 
+#ifdef XFSBL_WDT_PRESENT
 	ResetReasonValue = XFsbl_In32(CRL_APB_RESET_REASON);
 
 	/**
@@ -657,13 +659,10 @@ static u32 XFsbl_ResetValidation(void)
 	if ((ResetReasonValue & CRL_APB_RESET_REASON_PMU_SYS_RESET_MASK)
 			== CRL_APB_RESET_REASON_PMU_SYS_RESET_MASK) {
 		ErrStatusRegValue = XFsbl_In32(PMU_GLOBAL_ERROR_STATUS_1);
-		if(((ErrStatusRegValue& PMU_GLOBAL_ERROR_STATUS_1_LPD_SWDT_MASK)
-			== PMU_GLOBAL_ERROR_STATUS_1_LPD_SWDT_MASK) &&
+		if(((ErrStatusRegValue & XFSBL_WDT_MASK) == XFSBL_WDT_MASK) &&
 			(FsblErrorStatus == XFSBL_RUNNING)) {
-#ifdef XFSBL_WDT_PRESENT
 			/* Clear the SWDT0/1 reset error */
 			XFsbl_Out32(PMU_GLOBAL_ERROR_STATUS_1, XFSBL_WDT_MASK);
-#endif
 		/**
 		 * reset is due to System WDT.
 		 * Do a fallback
@@ -673,7 +672,7 @@ static u32 XFsbl_ResetValidation(void)
 		goto END;
 		}
 	}
-
+#endif
 	/**
 	 * Mark FSBL running in error status register to
 	 * detect the WDT reset while FSBL execution
@@ -689,7 +688,9 @@ static u32 XFsbl_ResetValidation(void)
 	 */
 
 	Status = XFSBL_SUCCESS;
+#ifdef XFSBL_WDT_PRESENT
 END:
+#endif
 	return Status;
 }
 
