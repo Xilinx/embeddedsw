@@ -114,8 +114,15 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
-	/* Assert ODISABLE NPP for all NMU and NSU*/
+	/* Assert ODISABLE NPP for all NMU and NSU
+	 * This step is omitted for SSIT Device Slave SLR for  NSU_1 as config is
+	 * done by BOOT ROM
+	 */
 	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses) && NpdMemIcAddresses[i]; i++) {
+			if (i == XPM_NODEIDX_MEMIC_NSU_1 &&
+				SlrType < SLR_TYPE_SSIT_DEV_MASTER_SLR)
+				continue;
+
 			PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_LOCK_OFFSET,
 				PCSR_UNLOCK_VAL);
 			PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_MASK_OFFSET,
