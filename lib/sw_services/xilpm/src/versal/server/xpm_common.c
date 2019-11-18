@@ -38,6 +38,7 @@ static u8 *FreeBytes = ByteBuffer;
 
 u32 Platform;
 u32 PlatformVersion;
+u32 SlrType;
 
 void *XPm_AllocBytes(u32 Size)
 {

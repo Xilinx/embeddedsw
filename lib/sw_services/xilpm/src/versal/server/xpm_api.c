@@ -340,6 +340,7 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u3
 	XStatus Status = XST_FAILURE;
 	unsigned int i;
 	u32 Version;
+	u32 RegValue;
 	u32 PmcIPORMask = (CRP_RESET_REASON_ERR_POR_MASK |
 			   CRP_RESET_REASON_SLR_POR_MASK |
 			   CRP_RESET_REASON_SW_POR_MASK);
@@ -379,6 +380,8 @@ XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u3
                         PMC_TAP_VERSION_PLATFORM_VERSION_SHIFT);
 	Platform = ((Version & PMC_TAP_VERSION_PLATFORM_MASK) >>
                         PMC_TAP_VERSION_PLATFORM_SHIFT);
+	PmIn32(PMC_TAP_SLR_TYPE_OFFSET + PMC_TAP_BASEADDR, RegValue);
+	SlrType = (RegValue & PMC_TAP_SLR_TYPE_MASK);
 
 	/* Read and store the reset reason value */
 	PmIn32(CRP_RESET_REASON, ResetReason);

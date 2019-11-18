@@ -127,8 +127,18 @@ extern "C" {
 #define PLATFORM_VERSION_QEMU			(0x3U)
 #define PLATFORM_VERSION_SILICON_ES1		(0x0U)
 
+#define SLR_TYPE_MONOLITHIC_DEV				(0x7)
+#define SLR_TYPE_SSIT_DEV_MASTER_SLR		(0x6)
+#define SLR_TYPE_SSIT_DEV_SLAVE_1_SLR_TOP	(0x5)
+#define SLR_TYPE_SSIT_DEV_SLAVE_1_SLR_NTOP	(0x4)
+#define SLR_TYPE_SSIT_DEV_SLAVE_2_SLR_TOP	(0x3)
+#define SLR_TYPE_SSIT_DEV_SLAVE_2_SLR_NTOP	(0x2)
+#define SLR_TYPE_SSIT_DEV_SLAVE_3_SLR_TOP	(0x1)
+#define SLR_TYPE_INVALID					(0x0)
+
 extern u32 Platform;
 extern u32 PlatformVersion;
+extern u32 SlrType;
 
 void *XPm_AllocBytes(u32 Size);
 
