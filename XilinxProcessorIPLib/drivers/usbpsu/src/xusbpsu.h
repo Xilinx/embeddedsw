@@ -61,6 +61,7 @@
 * 1.5	vak   02/06/19 Added "xusbpsu_endpoint.h" header
 * 1.5	vak   03/25/19 Fixed incorrect data_alignment pragma directive for IAR
 * 1.6	pm    22/07/19 Removed coverity warnings
+* 1.7	pm    14/11/19 Updated number of TRB to improve performance
 *
 * </pre>
 *
@@ -100,7 +101,7 @@ extern "C" {
 
 /************************** Constant Definitions ****************************/
 
-#define NO_OF_TRB_PER_EP		2U
+#define NO_OF_TRB_PER_EP		4U
 
 #if defined (PLATFORM_ZYNQMP) || defined (versal)
 #define ALIGNMENT_CACHELINE		__attribute__ ((aligned(64)))
