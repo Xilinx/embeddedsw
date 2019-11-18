@@ -1,39 +1,46 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-#ifndef _PM_API_SYS_H_
-#define _PM_API_SYS_H_
+/**
+ * @file pm_api_sys.h
+ *
+ * @addtogroup xpm_versal_apis XilPM Versal APIs
+ * @{
+ *****************************************************************************/
+#ifndef PM_API_SYS_H_
+#define PM_API_SYS_H_
 
 #include "pm_client.h"
 #include "xpm_defs.h"
 #include "xpm_err.h"
+#include "xpm_nodeid.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/*
+ * pm_init_suspend - Init suspend callback arguments (save for custom handling)
+ */
+struct pm_init_suspend {
+	volatile u8 received;		/**< Has init suspend callback been received/handled */
+	enum XPmSuspendReason reason;	/**< Reason of initializing suspend */
+	u32 latency;			/**< Maximum allowed latency */
+	u32 state;			/**< Targeted sleep/suspend state */
+	u32 timeout;			/**< Period of time the client has to response */
+};
+
+/*
+ * pm_acknowledge - Acknowledge callback arguments (save for custom handling)
+ */
+struct pm_acknowledge {
+	volatile u8 received;		/**< Has acknowledge argument been received? */
+	u32 node;			/**< Node argument about which the acknowledge is */
+	XStatus status;			/**< Acknowledged status */
+	u32 opp;			/**< Operating point of node in question */
+};
 
 /**
  * XPm_NodeStatus - struct containing node status information
@@ -78,10 +85,14 @@ typedef struct XPm_Ntfier {
 	struct XPm_Ntfier* next;
 } XPm_Notifier;
 
+/* Global data declarations */
+extern struct pm_init_suspend pm_susp;
+extern struct pm_acknowledge pm_ack;
+
 XStatus XPm_InitXilpm(XIpiPsu *IpiInst);
 enum XPmBootStatus XPm_GetBootStatus(void);
 XStatus XPm_GetChipID(u32* IDCode, u32 *Version);
-XStatus XPm_GetApiVersion(u32 *version);
+XStatus XPm_GetApiVersion(u32 *Version);
 XStatus XPm_RequestNode(const u32 DeviceId, const u32 Capabilities,
 			const u32 QoS, const u32 Ack);
 XStatus XPm_ReleaseNode(const u32 DeviceId);
@@ -104,8 +115,8 @@ XStatus XPm_ClockDisable(const u32 ClockId);
 XStatus XPm_ClockGetStatus(const u32 ClockId, u32 *const State);
 XStatus XPm_ClockSetDivider(const u32 ClockId, const u32 Divider);
 XStatus XPm_ClockGetDivider(const u32 ClockId, u32 *const Divider);
-XStatus XPm_ClockSetParent(const u32 ClockId, const u32 ParentId);
-XStatus XPm_ClockGetParent(const u32 ClockId, u32 *const ParentId);
+XStatus XPm_ClockSetParent(const u32 ClockId, const u32 ParentIdx);
+XStatus XPm_ClockGetParent(const u32 ClockId, u32 *const ParentIdx);
 XStatus XPm_PllSetParameter(const u32 ClockId,
 			    const enum XPm_PllConfigParams ParamId,
 			    const u32 Value);
@@ -116,7 +127,7 @@ XStatus XPm_PllSetMode(const u32 ClockId, const u32 Value);
 XStatus XPm_PllGetMode(const u32 ClockId, u32 *const Value);
 XStatus XPm_SelfSuspend(const u32 DeviceId, const u32 Latency, const u8 State,
 			const u64 Address);
-XStatus XPm_RequestWakeUp(const u32 TargetDevId, const bool SetAddress,
+XStatus XPm_RequestWakeUp(const u32 TargetDevId, const u8 SetAddress,
 			  const u64 Address, const u32 Ack);
 void XPm_SuspendFinalize(void);
 XStatus XPm_RequestSuspend(const u32 TargetSubsystemId, const u32 Ack,
@@ -124,7 +135,7 @@ XStatus XPm_RequestSuspend(const u32 TargetSubsystemId, const u32 Ack,
 XStatus XPm_AbortSuspend(const enum XPmAbortReason Reason);
 XStatus XPm_ForcePowerDown(const u32 TargetDevId, const u32 Ack);
 XStatus XPm_SystemShutdown(const u32 Type, const u32 SubType);
-XStatus XPm_SetWakeupSource(const u32 TargetDeviceId,
+XStatus XPm_SetWakeUpSource(const u32 TargetDeviceId,
 			    const u32 DeviceId, const u32 Enable);
 XStatus XPm_Query(const u32 QueryId, const u32 Arg1, const u32 Arg2,
 		  const u32 Arg3, u32 *const Data);
@@ -138,8 +149,18 @@ int XPm_UnregisterNotifier(XPm_Notifier* const Notifier);
 void XPm_NotifyCb(const u32 Node, const enum XPmNotifyEvent Event,
 		  const u32 Oppoint);
 
+void XPm_InitSuspendCb(const enum XPmSuspendReason Reason,
+		       const u32 Latency, const u32 State, const u32 Timeout);
+void XPm_AcknowledgeCb(const u32 Node, const XStatus Status, const u32 Oppoint);
+int XPm_SetConfiguration(const u32 Address);
+int XPm_ClockSetRate(const u32 ClockId, const u32 Rate);
+int XPm_ClockGetRate(const u32 ClockId, u32 *const Rate);
+int XPm_MmioWrite(const u32 Address, const u32 Mask, const u32 Value);
+int XPm_MmioRead(const u32 Address, u32 *const Value);
+
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _PM_API_SYS_H_ */
+#endif /* PM_API_SYS_H_ */
+ /** @} */
