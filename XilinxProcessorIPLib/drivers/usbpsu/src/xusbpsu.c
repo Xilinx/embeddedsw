@@ -27,7 +27,7 @@
 /**
 *
 * @file xusbpsu.c
-* @addtogroup usbpsu_v1_6
+* @addtogroup usbpsu_v1_7
 * @{
 *
 * <pre>
