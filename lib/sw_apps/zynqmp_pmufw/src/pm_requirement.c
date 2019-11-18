@@ -228,7 +228,15 @@ s32 PmRequirementRelease(PmRequirement* const first, const PmReleaseScope scope)
 			if (XST_SUCCESS != status) {
 				break;
 			}
+		} else if (MASTER_REQUESTED_SLAVE(req)) {
+			status = XST_SUCCESS;
+		} else {
+			/* Invalid Scope */
+			PmErr("Invalid scope #%d\r\n", scope);
+			status = XST_FAILURE;
+			break;
 		}
+
 		req = req->nextSlave;
 	}
 
