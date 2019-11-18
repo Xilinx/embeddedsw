@@ -174,6 +174,7 @@
 *                       in sysmonpsu_header.h
 *       mn     03/08/18 Update Clock Divisor to the proper value
 * 2.4   mn     04/20/18 Remove looping check for PL accessible bit
+* 2.6   aad    11/18/19 Fixed typo in alarm macro comments
 *
 * </pre>
 *
@@ -357,16 +358,16 @@ extern "C" {
  * @name Alarm masks for channels in Configuration registers 1
  * @{
  */
-#define XSM_CFR_ALM_SUPPLY13_MASK	0x200000 /**< Alarm 6 - SUPPLY6 */
-#define XSM_CFR_ALM_SUPPLY12_MASK	0x100000 /**< Alarm 6 - SUPPLY6 */
-#define XSM_CFR_ALM_SUPPLY11_MASK	0x080000 /**< Alarm 6 - SUPPLY6 */
-#define XSM_CFR_ALM_SUPPLY10_MASK	0x040000 /**< Alarm 6 - SUPPLY6 */
-#define XSM_CFR_ALM_SUPPLY9_MASK	0x020000 /**< Alarm 6 - SUPPLY6 */
-#define XSM_CFR_ALM_SUPPLY8_MASK	0x010000 /**< Alarm 6 - SUPPLY6 */
+#define XSM_CFR_ALM_SUPPLY13_MASK	0x200000 /**< Alarm 13 - FPD Temperature */
+#define XSM_CFR_ALM_SUPPLY12_MASK	0x100000 /**< Alarm 12 - VCCAMS/VCCADC */
+#define XSM_CFR_ALM_SUPPLY11_MASK	0x080000 /**< Alarm 11 - SUPPLY10 */
+#define XSM_CFR_ALM_SUPPLY10_MASK	0x040000 /**< Alarm 10 - SUPPLY9 */
+#define XSM_CFR_ALM_SUPPLY9_MASK	0x020000 /**< Alarm 9 - SUPPLY8 */
+#define XSM_CFR_ALM_SUPPLY8_MASK	0x010000 /**< Alarm 8 - SUPPLY7 */
 #define XSM_CFR_ALM_SUPPLY6_MASK	0x0800 /**< Alarm 6 - SUPPLY6 */
 #define XSM_CFR_ALM_SUPPLY5_MASK	0x0400 /**< Alarm 5 - SUPPLY5 */
 #define XSM_CFR_ALM_SUPPLY4_MASK	0x0200 /**< Alarm 4 - SUPPLY4 */
-#define XSM_CFR_ALM_SUPPLY3_MASK 	0x0100 /**< Alarm 3 - SUPPLY3 */
+#define XSM_CFR_ALM_SUPPLY3_MASK	0x0100 /**< Alarm 3 - SUPPLY3 */
 #define XSM_CFR_ALM_SUPPLY2_MASK	0x0008 /**< Alarm 2 - SUPPLY2 */
 #define XSM_CFR_ALM_SUPPLY1_MASK	0x0004 /**< Alarm 1 - SUPPLY1 */
 #define XSM_CFR_ALM_TEMP_MASK		0x0002 /**< Alarm 0 - Temperature */
