@@ -265,6 +265,7 @@ exclusion
 *		      XCANFD_MAILBOX_RB_MASK_BASE_OFFSET,XCANFD_WMR_RXFP_MASK
 *		      and CONTROL_STATUS_3.
 * 2.3	sne  21/11/19 Used correct macro to access RX FIFO1 buffer.
+* 2.3	sne  11/18/19 Fix for missing RX can packets on CANFD2.0.
 *
 * </pre>
 *

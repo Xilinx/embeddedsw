@@ -74,6 +74,7 @@
 		      CR# 1022093
 * 2.2   sn   06/11/19 Inactivating Mailbox RX buffers based on requirement.
 * 2.3	sne  21/11/19 Used correct macro to access RX FIFO1 buffer.
+* 2.3	sne  11/18/19 Fix for missing RX can packets on CANFD2.0.
 *
 * </pre>
 ******************************************************************************/
@@ -135,6 +136,8 @@ static u32 XCanFd_SeqRecv_logic(XCanFd *InstancePtr, u32 ReadIndex,
 int XCanFd_CfgInitialize(XCanFd *InstancePtr, XCanFd_Config *ConfigPtr,
 				UINTPTR EffectiveAddr)
 {
+	u32 FilterIndex;
+
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
 
@@ -161,6 +164,11 @@ int XCanFd_CfgInitialize(XCanFd *InstancePtr, XCanFd_Config *ConfigPtr,
 
 	/* Reset the device to get it into its initial state. */
 	XCanFd_Reset(InstancePtr);
+	/* Update all AFID and AFMASK registers with Zero */
+	for (FilterIndex = 1; FilterIndex <= MAX_FILTER_INDEX; FilterIndex++) {
+		XCanFd_AcceptFilterSet(InstancePtr, FilterIndex,
+				       (u32)0, (u32)0);
+	}
 
 	return XST_SUCCESS;
 }
