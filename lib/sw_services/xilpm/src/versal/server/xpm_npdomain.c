@@ -365,6 +365,8 @@ static XStatus NpdBisr(u32 *Args, u32 NumOfArgs)
 
 	/* Run BISR */
 	Status = XPmBisr_Repair(DDRMC_TAG_ID);
+	if (Status != XST_SUCCESS)
+		goto done;
 
 	/* Disable Bisr clock */
 	for (i = 0; i < ARRAY_SIZE(DdrMcAddresses) && DdrMcAddresses[i]; i++) {
@@ -373,6 +375,9 @@ static XStatus NpdBisr(u32 *Args, u32 NumOfArgs)
 		/* Lock writes */
 		PmOut32(DdrMcAddresses[i] + NPI_PCSR_LOCK_OFFSET, 1);
 	}
+
+	/* NIDB Lane Repair */
+	Status = XPmBisr_NidbLaneRepair();
 
 done:
 	return Status;

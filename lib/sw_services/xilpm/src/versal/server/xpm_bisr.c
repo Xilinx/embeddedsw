@@ -169,7 +169,26 @@
 #define CFRM_HB_EXP_REPAIR_VAL1_MASK 		0x001FFFFF
 #define CFRM_HB_EXP_REPAIR_VAL1_SHIFT 		0
 
+//NIDB Lane Repair
+#define MAX_NIDB_EFUSE_GROUPS			0x5
+#define NPI_ROOT_BASEADDR				NPI_BASEADDR + NPI_NIR_0_OFFSET
+#define NIDB_OFFSET_DIFF				0x00010000
+#define NIDB_PCSR_LOCK_OFFSET			0x0000000C
+#define NIDB_PCSR_MASK_OFFSET			0x00000000
+#define NIDB_PCSR_MASK_ODISABLE_MASK	0x00000004
+#define NIDB_PCSR_CONTROL_OFFSET		0x00000004
+#define NIDB_LANE_REPAIR_UNLOCK_OFFSET	0x00000038
+#define NIDB_LANE_REPAIR_UNLOCK_VAL		0xE6172839
+#define NIDB_REPAIR_OFFSET				0x00000010
+
+typedef struct XPm_NidbEfuseGrpInfo {
+	u8 RdnCntl;
+	u16 NpiBase;
+	u8 NpiOffset;
+} XPm_NidbEfuseGrpInfo;
+
 static u32 XPmTagIdWhiteList[TAG_ID_ARRAY_SIZE] = {0};
+
 static void XPmBisr_InitTagIdList()
 {
 	XPmTagIdWhiteList[LPD_TAG_ID] =	TAG_ID_VALID_MASK | TAG_ID_TYPE_LPD;
@@ -961,6 +980,136 @@ XStatus XPmBisr_Repair(u32 TagId)
 		}
 	}
 
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+static void NidbEfuseGrpInit(XPm_NidbEfuseGrpInfo *EfuseGroup)
+{
+	XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
+	u32 BaseAddr = EfuseCache->Node.BaseAddress;
+	u32 RegVal;
+
+	/* Initialize 1st NIDB Group */
+	RegVal = XPm_In32(BaseAddr + EFUSE_CACHE_NIDB_0_OFFSET);
+	EfuseGroup[0].NpiOffset = ((RegVal & EFUSE_CACHE_NIDB_0_NPI_OFFSET_0_MASK)
+	>> EFUSE_CACHE_NIDB_0_NPI_OFFSET_0_SHIFT);
+	EfuseGroup[0].NpiBase = ((RegVal & EFUSE_CACHE_NIDB_0_NPI_BASE_0_MASK) >>
+	EFUSE_CACHE_NIDB_0_NPI_BASE_0_SHIFT);
+	EfuseGroup[0].RdnCntl = ((RegVal & EFUSE_CACHE_NIDB_0_RDN_CNTRL_0_MASK) >>
+	EFUSE_CACHE_NIDB_0_RDN_CNTRL_0_SHIFT);
+
+	/* Initialize 2nd NIDB Group */
+	EfuseGroup[1].NpiOffset = ((RegVal & EFUSE_CACHE_NIDB_0_NPI_OFFSET_1_MASK)
+	>> EFUSE_CACHE_NIDB_0_NPI_OFFSET_1_SHIFT);
+	EfuseGroup[1].NpiBase = ((RegVal & EFUSE_CACHE_NIDB_0_NPI_BASE_1_MASK) >>
+	EFUSE_CACHE_NIDB_0_NPI_BASE_1_SHIFT);
+	RegVal = XPm_In32(BaseAddr + EFUSE_CACHE_NIDB_1_OFFSET);
+	EfuseGroup[1].RdnCntl = ((RegVal & EFUSE_CACHE_NIDB_1_RDN_CNTRL_1_MASK) >>
+	EFUSE_CACHE_NIDB_1_RDN_CNTRL_1_SHIFT);
+
+	/* Initialize 3rd NIDB Group */
+	EfuseGroup[2].NpiOffset = ((RegVal & EFUSE_CACHE_NIDB_1_NPI_OFFSET_2_MASK)
+	>> EFUSE_CACHE_NIDB_1_NPI_OFFSET_2_SHIFT);
+	EfuseGroup[2].NpiBase = ((RegVal & EFUSE_CACHE_NIDB_1_NPI_BASE_2_MASK) >>
+	EFUSE_CACHE_NIDB_1_NPI_BASE_2_SHIFT);
+	EfuseGroup[2].RdnCntl = ((RegVal & EFUSE_CACHE_NIDB_1_RDN_CNTL_2_MASK) >>
+	EFUSE_CACHE_NIDB_1_RDN_CNTL_2_SHIFT);
+
+	/* Initialize 4th NIDB Group */
+	/* Portion of NPI_BASE_3 is stored in NIDB_2 [8:3] and NIDB_1 [2:0] */
+	EfuseGroup[3].NpiOffset = ((RegVal & EFUSE_CACHE_NIDB_1_NPI_OFFSET_3_MASK
+	>> EFUSE_CACHE_NIDB_1_NPI_OFFSET_3_SHIFT));
+	EfuseGroup[3].NpiBase = ((RegVal & EFUSE_CACHE_NIDB_1_NPI_BASE_3_MASK) >>
+	EFUSE_CACHE_NIDB_1_NPI_BASE_3_SHIFT);
+	RegVal = XPm_In32(BaseAddr + EFUSE_CACHE_NIDB_2_OFFSET);
+	EfuseGroup[3].NpiBase |= ((RegVal & EFUSE_CACHE_NIDB_2_NPI_BASE_3_MASK) <<
+	EFUSE_CACHE_NIDB_1_NPI_BASE_3_WIDTH);
+	EfuseGroup[3].RdnCntl = ((RegVal & EFUSE_CACHE_NIDB_2_RDN_CNTL_3_MASK) >>
+	EFUSE_CACHE_NIDB_2_RDN_CNTL_3_SHIFT);
+
+	/* Initialize 5th Group*/
+	EfuseGroup[4].NpiOffset = ((RegVal & EFUSE_CACHE_NIDB_2_NPI_OFFSET_4_MASK)
+	>> EFUSE_CACHE_NIDB_2_NPI_OFFSET_4_SHIFT);
+	EfuseGroup[4].NpiBase = ((RegVal & EFUSE_CACHE_NIDB_2_NPI_BASE_4_MASK) >>
+	EFUSE_CACHE_NIDB_2_NPI_BASE_4_SHIFT);
+	EfuseGroup[4].RdnCntl = ((RegVal & EFUSE_CACHE_NIDB_2_RDN_CNTRL_4_MASK) >>
+	EFUSE_CACHE_NIDB_2_RDN_CNTRL_4_SHIFT);
+
+}
+
+XStatus XPmBisr_NidbLaneRepair(void)
+{
+	XStatus Status = XST_FAILURE;
+	u32 i;
+	u32 RepairAddr  = 0x0;
+	u32 NocSwId     = 0x0;
+	u32 SlvSkipAddr = 0x0;
+	u32 NidbAddr    = 0x0;
+	struct XPm_NidbEfuseGrpInfo NidbEfuseGrpInfo[MAX_NIDB_EFUSE_GROUPS];
+
+	/* Check SLR TYPE */
+	if ( SlrType == SLR_TYPE_MONOLITHIC_DEV ||
+		 SlrType == SLR_TYPE_INVALID) {
+		PmInfo("Not an SSIT Device\n\r");
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* Calculates first NIDB Address */
+	NocSwId = XPm_In32(PMC_GLOBAL_BASEADDR + PMC_GLOBAL_SSIT_NOC_ID_OFFSET) &
+	PMC_GLOBAL_SSIT_NOC_ID_SWITCHID_MASK;
+	/* This is partial address of NoC */
+	SlvSkipAddr =  ((NocSwId << 10) - NIDB_OFFSET_DIFF) >> 16U;
+
+	/* Initialize NIDB Group Info Array */
+	NidbEfuseGrpInit(NidbEfuseGrpInfo);
+
+	/* lane repair logic */
+	for(i=0; i<MAX_NIDB_EFUSE_GROUPS; ++i) {
+		if(NidbEfuseGrpInfo[i].RdnCntl == 0x0)
+			continue;
+
+		/* Skip Lane Repair for left most NIDB for Slave SSIT */
+		if(SlrType != SLR_TYPE_SSIT_DEV_MASTER_SLR &&
+			NidbEfuseGrpInfo[i].NpiBase == SlvSkipAddr)
+			continue;
+
+		/* Calculate Absolute Base Address */
+		NidbAddr = NidbEfuseGrpInfo[i].NpiBase;
+		NidbAddr = (NidbAddr << 16U) + NPI_ROOT_BASEADDR;
+
+		/* Unlock PCSR */
+		XPm_Out32(NidbAddr + NIDB_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+
+		/* Unlock Lane Repair Registers */
+		XPm_Out32(NidbAddr + NIDB_LANE_REPAIR_UNLOCK_OFFSET,
+		NIDB_LANE_REPAIR_UNLOCK_VAL);
+
+		/* Calculate Repair Address */
+		RepairAddr = NidbAddr + NIDB_REPAIR_OFFSET +
+		(NidbEfuseGrpInfo[i].NpiOffset << 2);
+
+		/* Write Repair Data */
+		XPm_Out32(RepairAddr, NidbEfuseGrpInfo[i].RdnCntl);
+	}
+
+	for(i=0; i<MAX_NIDB_EFUSE_GROUPS; ++i) {
+
+		NidbAddr = NidbEfuseGrpInfo[i].NpiBase;
+		NidbAddr = (NidbAddr << 16U) + NPI_ROOT_BASEADDR;
+
+		/* Lock Lane Repair Registers */
+		XPm_Out32(NidbAddr + NIDB_LANE_REPAIR_UNLOCK_OFFSET, 0x1);
+
+		/* Lock PCSR Register */
+		XPm_Out32(NidbAddr + NIDB_PCSR_MASK_OFFSET,
+		NIDB_PCSR_MASK_ODISABLE_MASK);
+		XPm_Out32(NidbAddr + NIDB_PCSR_CONTROL_OFFSET, 0x0);
+		XPm_Out32(NidbAddr + NIDB_PCSR_LOCK_OFFSET, 0x0);
+	}
 	Status = XST_SUCCESS;
 
 done:
