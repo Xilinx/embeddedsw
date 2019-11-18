@@ -23,7 +23,12 @@
 *
 *
 ******************************************************************************/
-
+/**
+ * @file xpm_defs.h
+ *
+ * @addtogroup xpm_versal_apis XilPM Versal APIs
+ * @{
+ *****************************************************************************/
 #ifndef XPM_DEFS_H_
 #define XPM_DEFS_H_
 
@@ -42,7 +47,7 @@ extern "C" {
 #define PM_VERSION      ((PM_VERSION_MAJOR << 16) | PM_VERSION_MINOR)
 
 /**
- *  PM Abort Reasons Enum
+ *  PM abort reasons enumeration.
  */
 enum XPmAbortReason {
 	ABORT_REASON_WKUP_EVENT = 100,
@@ -52,7 +57,7 @@ enum XPmAbortReason {
 };
 
 /**
- *  @name Boot Status Enum
+ * Boot status enumeration.
  */
 enum XPmBootStatus {
 	PM_INITIAL_BOOT, /**< boot is a fresh system startup */
@@ -61,7 +66,7 @@ enum XPmBootStatus {
 };
 
 /**
- *  @name Device Capability Requirements Enum
+ *  Device capability requirements enumeration.
  */
 enum XPmCapability {
 	PM_CAP_ACCESS = 0x1U, /**< Full access */
@@ -98,7 +103,7 @@ enum XPmApiCbId {
 };
 
 /**
- * XPm_DeviceStatus - struct containing device status information
+ * Contains the device status information.
  */
 typedef struct XPm_DeviceStatus {
 	u32 Status; /**< Device power state */
@@ -318,7 +323,7 @@ enum XPmInitFunctions {
 };
 
 /**
- *  PM Operating Characteristic types Enum
+ *  PM operating characteristic types enumeration.
  */
 enum XPmOpCharType {
 	PM_OPCHAR_TYPE_POWER = 1,
@@ -327,7 +332,7 @@ enum XPmOpCharType {
 };
 
 /**
- *  PM Notify Events Enum
+ *  PM notify events enumeration.
  */
 enum XPmNotifyEvent {
         EVENT_STATE_CHANGE = 1,
@@ -481,3 +486,4 @@ enum XPmNotifyEvent {
 #endif
 
 #endif /* XPM_DEFS_H_ */
+ /** @} */

@@ -21,9 +21,14 @@
 * THE SOFTWARE.
 *
 *
-*
 ******************************************************************************/
-
+/**
+ * @file pm_api_sys.c
+ *
+ * PM Definitions implementation
+ * @addtogroup xpm_versal_apis XilPM Versal APIs
+ * @{
+ *****************************************************************************/
 #include "pm_api_sys.h"
 #include "pm_callbacks.h"
 #include "pm_client.h"
@@ -65,7 +70,7 @@
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_IpiSend(struct XPm_Proc *const Proc, u32 *Payload)
@@ -104,7 +109,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus Xpm_IpiReadBuff32(struct XPm_Proc *const Proc, u32 *Val1,
@@ -188,7 +193,7 @@ done:
  * - PM_RESUME : If the boot reason is because of system resume.
  * - PM_INITIAL_BOOT : If this boot is the initial system startup.
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 enum XPmBootStatus XPm_GetBootStatus(void)
@@ -229,7 +234,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_GetChipID(u32* IDCode, u32 *Version)
@@ -262,7 +267,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_GetApiVersion(u32 *Version)
@@ -300,7 +305,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_RequestNode(const u32 DeviceId, const u32 Capabilities,
@@ -334,7 +339,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_ReleaseNode(const u32 DeviceId)
@@ -372,7 +377,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_SetRequirement(const u32 DeviceId, const u32 Capabilities,
@@ -426,7 +431,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_GetNodeStatus(const u32 DeviceId, XPm_NodeStatus *const NodeStatus)
@@ -471,7 +476,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_ResetAssert(const u32 ResetId, const u32 Action)
@@ -506,7 +511,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_ResetGetStatus(const u32 ResetId, u32 *const State)
@@ -544,7 +549,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_PinCtrlRequest(const u32 PinId)
@@ -576,7 +581,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_PinCtrlRelease(const u32 PinId)
@@ -609,7 +614,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_PinCtrlSetFunction(const u32 PinId, const u32 FunctionId)
@@ -642,7 +647,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_PinCtrlGetFunction(const u32 PinId, u32 *const FunctionId)
@@ -679,34 +684,23 @@ done:
  * @param  ParamId		Parameter ID
  * @param  ParamVal		Value of the parameter
  *
+ * @details The following table lists the parameter ID and their respective values:
+ *
  * ----------------------------------------------------------------------------
  *  ParamId				| ParamVal
- * ----------------------------------------------------------------------------
- *  PINCTRL_CONFIG_SLEW_RATE		| PINCTRL_SLEW_RATE_SLOW
- *					| PINCTRL_SLEW_RATE_FAST
- *					|
- *  PINCTRL_CONFIG_BIAS_STATUS		| PINCTRL_BIAS_DISABLE
- *					| PINCTRL_BIAS_ENABLE
- *					|
- *  PINCTRL_CONFIG_PULL_CTRL		| PINCTRL_BIAS_PULL_DOWN
- *					| PINCTRL_BIAS_PULL_UP
- *					|
- *  PINCTRL_CONFIG_SCHMITT_CMOS		| PINCTRL_INPUT_TYPE_CMOS
- *					| PINCTRL_INPUT_TYPE_SCHMITT
- *					|
- *  PINCTRL_CONFIG_DRIVE_STRENGTH	| PINCTRL_DRIVE_STRENGTH_TRISTATE
- *					| PINCTRL_DRIVE_STRENGTH_4MA
- *					| PINCTRL_DRIVE_STRENGTH_8MA
- *					| PINCTRL_DRIVE_STRENGTH_12MA
- *					|
- *  PINCTRL_CONFIG_TRI_STATE		| PINCTRL_TRI_STATE_DISABLE
- *					| PINCTRL_TRI_STATE_ENABLE
+ * ---------------------|------------------------------------------------------
+ *  PINCTRL_CONFIG_SLEW_RATE | PINCTRL_SLEW_RATE_SLOW, PINCTRL_SLEW_RATE_FAST
+ *  PINCTRL_CONFIG_BIAS_STATUS | PINCTRL_BIAS_DISABLE, PINCTRL_BIAS_ENABLE
+ *  PINCTRL_CONFIG_PULL_CTRL | PINCTRL_BIAS_PULL_DOWN, PINCTRL_BIAS_PULL_UP
+ *  PINCTRL_CONFIG_SCHMITT_CMOS | PINCTRL_INPUT_TYPE_CMOS, PINCTRL_INPUT_TYPE_SCHMITT
+ *  PINCTRL_CONFIG_DRIVE_STRENGTH | PINCTRL_DRIVE_STRENGTH_TRISTATE, PINCTRL_DRIVE_STRENGTH_4MA, PINCTRL_DRIVE_STRENGTH_8MA, PINCTRL_DRIVE_STRENGTH_12MA
+ *  PINCTRL_CONFIG_TRI_STATE | PINCTRL_TRI_STATE_DISABLE, PINCTRL_TRI_STATE_ENABLE
  * ----------------------------------------------------------------------------
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_PinCtrlSetParameter(const u32 PinId, const u32 ParamId, const u32 ParamVal)
@@ -737,37 +731,24 @@ done:
  * @param  ParamId		Parameter ID
  * @param  ParamVal		Pointer to the value of the parameter
  *
+ * @details The following table lists the parameter ID and their respective values:
+ *
  * ----------------------------------------------------------------------------
  *  ParamId				| ParamVal
- * ----------------------------------------------------------------------------
- *  PINCTRL_CONFIG_SLEW_RATE		| PINCTRL_SLEW_RATE_SLOW
- *					| PINCTRL_SLEW_RATE_FAST
- *					|
- *  PINCTRL_CONFIG_BIAS_STATUS		| PINCTRL_BIAS_DISABLE
- *					| PINCTRL_BIAS_ENABLE
- *					|
- *  PINCTRL_CONFIG_PULL_CTRL		| PINCTRL_BIAS_PULL_DOWN
- *					| PINCTRL_BIAS_PULL_UP
- *					|
- *  PINCTRL_CONFIG_SCHMITT_CMOS		| PINCTRL_INPUT_TYPE_CMOS
- *					| PINCTRL_INPUT_TYPE_SCHMITT
- *					|
- *  PINCTRL_CONFIG_DRIVE_STRENGTH	| PINCTRL_DRIVE_STRENGTH_TRISTATE
- *					| PINCTRL_DRIVE_STRENGTH_4MA
- *					| PINCTRL_DRIVE_STRENGTH_8MA
- *					| PINCTRL_DRIVE_STRENGTH_12MA
- *					|
- *  PINCTRL_CONFIG_VOLTAGE_STATUS	| 1 for 1.8v mode
- *					| 0 for 3.3v mode
- *					|
- *  PINCTRL_CONFIG_TRI_STATE		| PINCTRL_TRI_STATE_DISABLE
- *					| PINCTRL_TRI_STATE_ENABLE
+ * ---------------------|------------------------------------------------------
+ *  PINCTRL_CONFIG_SLEW_RATE | PINCTRL_SLEW_RATE_SLOW, PINCTRL_SLEW_RATE_FAST
+ *  PINCTRL_CONFIG_BIAS_STATUS | PINCTRL_BIAS_DISABLE, PINCTRL_BIAS_ENABLE
+ *  PINCTRL_CONFIG_PULL_CTRL | PINCTRL_BIAS_PULL_DOWN, PINCTRL_BIAS_PULL_UP
+ *  PINCTRL_CONFIG_SCHMITT_CMOS | PINCTRL_INPUT_TYPE_CMOS, PINCTRL_INPUT_TYPE_SCHMITT
+ *  PINCTRL_CONFIG_DRIVE_STRENGTH | PINCTRL_DRIVE_STRENGTH_TRISTATE, PINCTRL_DRIVE_STRENGTH_4MA, PINCTRL_DRIVE_STRENGTH_8MA, PINCTRL_DRIVE_STRENGTH_12MA
+ *  PINCTRL_CONFIG_VOLTAGE_STATUS | 1 for 1.8v mode, 0 for 3.3v mode
+ *  PINCTRL_CONFIG_TRI_STATE | PINCTRL_TRI_STATE_DISABLE, PINCTRL_TRI_STATE_ENABLE
  * ----------------------------------------------------------------------------
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_PinCtrlGetParameter(const u32 PinId, const u32 ParamId, u32 *const ParamVal)
@@ -809,7 +790,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_DevIoctl(const u32 DeviceId, const u32 IoctlId, const u32 Arg1,
@@ -848,7 +829,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_ClockEnable(const u32 ClockId)
@@ -880,7 +861,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_ClockDisable(const u32 ClockId)
@@ -914,7 +895,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_ClockGetStatus(const u32 ClockId, u32 *const State)
@@ -952,7 +933,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_ClockSetDivider(const u32 ClockId, const u32 Divider)
@@ -985,7 +966,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_ClockGetDivider(const u32 ClockId, u32 *const Divider)
@@ -1024,7 +1005,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_ClockSetParent(const u32 ClockId, const u32 ParentIdx)
@@ -1057,7 +1038,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_ClockGetParent(const u32 ClockId, u32 *const ParentIdx)
@@ -1107,7 +1088,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_PllSetParameter(const u32 ClockId,
@@ -1154,7 +1135,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_PllGetParameter(const u32 ClockId,
@@ -1197,7 +1178,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_PllSetMode(const u32 ClockId, const u32 Value)
@@ -1233,7 +1214,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_PllGetMode(const u32 ClockId, u32 *const Value)
@@ -1276,7 +1257,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_SelfSuspend(const u32 DeviceId, const u32 Latency,
@@ -1327,7 +1308,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_RequestWakeUp(const u32 TargetDevId, const bool SetAddress,
@@ -1404,7 +1385,7 @@ void XPm_SuspendFinalize(void)
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_RequestSuspend(const u32 TargetSubsystemId, const u32 Ack,
@@ -1446,7 +1427,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_AbortSuspend(const enum XPmAbortReason Reason)
@@ -1525,7 +1506,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_SystemShutdown(const u32 Type, const u32 SubType)
@@ -1559,7 +1540,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_SetWakeUpSource(const u32 TargetDeviceId, const u32 DeviceID,
@@ -1720,7 +1701,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 XStatus XPm_GetOpCharacteristic(const u32 DeviceId,
@@ -1833,7 +1814,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 int XPm_UnregisterNotifier(XPm_Notifier* const Notifier)
@@ -1941,7 +1922,7 @@ void XPm_InitSuspendCb(const enum XPmSuspendReason Reason,
  *
  * @return None
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 void XPm_AcknowledgeCb(const u32 Node, const XStatus Status, const u32 Oppoint)
@@ -1971,7 +1952,7 @@ void XPm_AcknowledgeCb(const u32 Node, const XStatus Status, const u32 Oppoint)
  *
  * @return None
  *
- * @note   None
+ *
  *
  ****************************************************************************/
 void XPm_NotifyCb(const u32 Node, const enum XPmNotifyEvent Event,
@@ -2025,3 +2006,4 @@ int XPm_MmioRead(const u32 Address, u32 *const Value)
 	XPm_Dbg("ERROR: %s() API is not supported\r\n", __func__);
 	return XST_FAILURE;
 }
+ /** @} */

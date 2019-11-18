@@ -23,7 +23,12 @@
 *
 *
 ******************************************************************************/
-
+/**
+ * @file pm_api_sys.h
+ *
+ * @addtogroup xpm_versal_apis XilPM Versal APIs
+ * @{
+ *****************************************************************************/
 #ifndef _PM_API_SYS_H_
 #define _PM_API_SYS_H_
 
@@ -178,3 +183,4 @@ int XPm_MmioRead(const u32 Address, u32 *const Value);
 #endif
 
 #endif /* _PM_API_SYS_H_ */
+ /** @} */
