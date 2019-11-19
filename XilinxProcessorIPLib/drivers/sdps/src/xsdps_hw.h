@@ -27,7 +27,7 @@
 /**
 *
 * @file xsdps_hw.h
-* @addtogroup sdps_v3_8
+* @addtogroup sdps_v3_9
 * @{
 *
 * This header file contains the identifiers and basic HW access driver

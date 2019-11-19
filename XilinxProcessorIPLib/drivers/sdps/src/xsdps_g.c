@@ -27,7 +27,7 @@
 /**
 *
 * @file xsdps_g.c
-* @addtogroup sdps_v3_8
+* @addtogroup sdps_v3_9
 * @{
 *
 * This file contains a configuration table that specifies the configuration of
