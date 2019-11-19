@@ -27,7 +27,7 @@
 /**
 *
 * @file xqspips_options.c
-* @addtogroup qspips_v3_6
+* @addtogroup qspips_v3_7
 * @{
 *
 * Contains functions for the configuration of the XQspiPs driver component.
