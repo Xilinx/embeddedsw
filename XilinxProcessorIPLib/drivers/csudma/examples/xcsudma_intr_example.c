@@ -50,6 +50,7 @@
 *	adk    18/01/18 Remove unnecessary column in XIntc_Connect() API.
 * 1.5   adk    09/05/19 Added volatile keyword for DstDone variable to disable
 *			optimizations.
+* 1.6   hk     11/18/19 Correct Versal INTR definition.
 * </pre>
 *
 ******************************************************************************/
@@ -81,7 +82,7 @@
 #define INTC		XScuGic
 #define INTG_INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #if defined (versal)
-#define INTG_CSUDMA_INTR_DEVICE_ID	XPAR_PSU_PMCDMA_0_INTR /**< Interrupt device ID
+#define INTG_CSUDMA_INTR_DEVICE_ID	XPAR_PSV_PMC_DMA_0_INTR /**< Interrupt device ID
 						 *  of PMC DMA 0 device ID */
 #else
 #define INTG_CSUDMA_INTR_DEVICE_ID 	XPAR_XCSUDMA_INTR /**< Interrupt device ID
