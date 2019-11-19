@@ -1385,7 +1385,7 @@ s32 XSdPs_ReadPolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)
 		XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, Buff);
 		if (InstancePtr->Config.IsCacheCoherent == 0U) {
 			Xil_DCacheInvalidateRange((INTPTR)Buff,
-				BlkCnt * XSDPS_BLK_SIZE_512_MASK);
+				(INTPTR)BlkCnt * XSDPS_BLK_SIZE_512_MASK);
 		}
 	}
 
@@ -1432,7 +1432,7 @@ s32 XSdPs_ReadPolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)
 
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
 		Xil_DCacheInvalidateRange((INTPTR)Buff,
-				BlkCnt * XSDPS_BLK_SIZE_512_MASK);
+				(INTPTR)BlkCnt * XSDPS_BLK_SIZE_512_MASK);
 	}
 
 	Status = XST_SUCCESS;
@@ -1495,7 +1495,7 @@ s32 XSdPs_WritePolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff)
 		XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, Buff);
 		if (InstancePtr->Config.IsCacheCoherent == 0U) {
 			Xil_DCacheFlushRange((INTPTR)Buff,
-				BlkCnt * XSDPS_BLK_SIZE_512_MASK);
+				(INTPTR)BlkCnt * XSDPS_BLK_SIZE_512_MASK);
 		}
 	}
 
