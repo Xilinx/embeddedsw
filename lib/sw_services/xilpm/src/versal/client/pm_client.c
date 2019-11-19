@@ -77,7 +77,7 @@ static struct XPm_Proc Proc_RPU0 = {
 };
 
 static struct XPm_Proc Proc_RPU1 = {
-	.DevId = PM_DEV_RPU0_0,
+	.DevId = PM_DEV_RPU0_1,
 	.PwrCtrl = XPAR_PSV_RPU_0_S_AXI_BASEADDR + RPU_1_PWRDWN_OFFSET,
 	.PwrDwnMask = RPU_PWRDWN_EN_MASK,
 	.Ipi = NULL,
