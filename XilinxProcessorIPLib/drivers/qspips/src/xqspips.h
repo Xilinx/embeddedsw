@@ -27,7 +27,7 @@
 /**
 *
 * @file xqspips.h
-* @addtogroup qspips_v3_6
+* @addtogroup qspips_v3_7
 * @{
 * @details
 *
@@ -284,6 +284,8 @@
 * 3.6   akm 04/15/19 Modified the mask in XQspiPs_GetReadData() API to retrieve
 *                    configuration register values of both the Flashes in dual
 *                    parellel connection.
+* 3.7	akm 11/19/19 Fixed Coverity unused value warning in XQspiPs_PolledTransfer()
+* 			and XQspiPs_Transfer() APIs.
 *
 * </pre>
 *

@@ -27,7 +27,7 @@
 /**
 *
 * @file xqspips.c
-* @addtogroup qspips_v3_6
+* @addtogroup qspips_v3_7
 * @{
 *
 * Contains implements the interface functions of the XQspiPs driver.
@@ -101,6 +101,8 @@
 * 3.6 	akm 04/15/19 Modified the mask in XQspiPs_GetReadData() API to retrieve
 *		     configuration register values of both the Flashes in dual
 *		     parellel connection.
+* 3.7	akm 11/19/19 Fixed Coverity unused value warning in XQspiPs_PolledTransfer()
+* 			and XQspiPs_Transfer() APIs.
 *
 * </pre>
 *
@@ -587,7 +589,6 @@ s32 XQspiPs_Transfer(XQspiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
 	 * check for FIFO empty
 	 */
 	if (SwitchFlag == 1) {
-		SwitchFlag = 0;
 		/*
 		 * If, in Manual Start mode, start the transfer.
 		 */
@@ -881,7 +882,6 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 	 * check for FIFO empty
 	 */
 	if (SwitchFlag == 1) {
-		SwitchFlag = 0;
 		/*
 		 * If, in Manual Start mode, start the transfer.
 		 */
