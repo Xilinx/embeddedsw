@@ -736,9 +736,6 @@ Metal log now more descriptive
 Updated examples
 Added Gen 1/2 compatibility support for Gen 3 devices
 
-usbps_v2_5:
-Added dependencies.props file to support automation testing.
-
 Changes for 2019.2
 ===============================
 canfd_v2_2:
