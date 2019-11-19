@@ -45,12 +45,6 @@ INCLUDES=-I./. -I${INCLUDEDIR}
 
 INCLUDEFILES=*.h
 
-COMMONDIR=./common
-ARMDIR=./arm
-MBDIR=./microblaze
-PROFILEDIR=./profile
-INCLUDE_PS_PLATFORMDIR=./includes_ps/platform
-
 COBJS	=	$(addsuffix .o, $(basename $(wildcard *.c)))
 AOBJS1	=	asm_vectors.o
 AOBJS2	=	translation_table.o
@@ -99,5 +93,4 @@ standalone_includes:
 	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
-	rm -rf ${COMMONDIR} ${ARMDIR} ${MBDIR} ${PROFILEDIR} ${INCLUDE_PS_PLATFORMDIR}
 	rm -rf ${OBJECTS}

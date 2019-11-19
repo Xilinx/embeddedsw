@@ -44,11 +44,6 @@ RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
 
-COMMONDIR=./common
-ARMDIR=./arm
-MBDIR=./microblaze
-PROFILEDIR=./profile
-INCLUDE_PS_PLATFORMDIR=./includes_ps/platform
 
 OUTS = *.o
 OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
@@ -70,6 +65,5 @@ standalone_includes:
 	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
-	rm -rf ${COMMONDIR} ${ARMDIR} ${MBDIR} ${PROFILEDIR} ${INCLUDE_PS_PLATFORMDIR}
 	rm -rf ${OBJECTS}
 	rm -rf ${ASSEMBLY_OBJECTS}

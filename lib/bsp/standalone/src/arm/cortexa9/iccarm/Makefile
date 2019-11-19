@@ -47,11 +47,6 @@ INCLUDES=-I./. -I${INCLUDEDIR}
 
 INCLUDEFILES=*.h
 
-COMMONDIR=./common
-ARMDIR=./arm
-MBDIR=./microblaze
-PROFILEDIR=./profile
-
 OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 OBJECTS +=	$(addsuffix .o, $(basename $(wildcard *.s)))
 #OBJECTS +=	boot.o
@@ -82,5 +77,4 @@ standalone_includes:
 	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
-	rm -rf ${COMMONDIR} ${ARMDIR} ${MBDIR} ${PROFILEDIR}
 	rm -rf ${OBJECTS}
