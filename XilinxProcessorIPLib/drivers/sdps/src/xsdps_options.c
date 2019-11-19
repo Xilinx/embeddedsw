@@ -787,14 +787,15 @@ s32 XSdPs_Change_ClkFreq(XSdPs *InstancePtr, u32 SelFreq)
 
 	if (InstancePtr->HC_Version == XSDPS_HC_SPEC_V3) {
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (__MICROBLAZE__)
-	if ((InstancePtr->Mode != XSDPS_DEFAULT_SPEED_MODE) &&
+		if ((InstancePtr->Mode != XSDPS_DEFAULT_SPEED_MODE) &&
 			(InstancePtr->Mode != XSDPS_UHS_SPEED_MODE_SDR12)) {
-		/* Program the Tap delays */
-		XSdPs_SetTapDelay(InstancePtr);
-	}
+			/* Program the Tap delays */
+			XSdPs_SetTapDelay(InstancePtr);
+		}
 #endif
+
 		/* Calculate divisor */
-		for (DivCnt = 0x1U; DivCnt <= XSDPS_CC_EXT_MAX_DIV_CNT;DivCnt++) {
+		for (DivCnt = 0x1U; DivCnt <= XSDPS_CC_EXT_MAX_DIV_CNT; DivCnt++) {
 			if (((InstancePtr->Config.InputClockHz) / DivCnt) <= SelFreq) {
 				Divisor = DivCnt >> 1;
 				break;
