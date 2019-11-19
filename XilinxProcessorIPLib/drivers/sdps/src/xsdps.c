@@ -1644,7 +1644,7 @@ void XSdPs_SetupADMA2DescTbl64Bit(XSdPs *InstancePtr, u32 BlkCnt)
 			(u16)((BlkCnt*BlkSize) - (u32)(DescNum*XSDPS_DESC_MAX_LENGTH));
 
 	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_OFFSET,
-			(u32)(UINTPTR)&(Adma2_DescrTbl[0]));
+			(u32)((UINTPTR)&(Adma2_DescrTbl[0]) & (u32)~0x0));
 
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
 		Xil_DCacheFlushRange((INTPTR)&(Adma2_DescrTbl[0]),
@@ -1715,7 +1715,7 @@ static void XSdPs_Setup32ADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *
 			(u16)((BlkCnt*BlkSize) - (u32)(DescNum*XSDPS_DESC_MAX_LENGTH));
 
 	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_OFFSET,
-			(u32)(UINTPTR)&(Adma2_DescrTbl[0]));
+			(u32)((UINTPTR)&(Adma2_DescrTbl[0]) & (u32)~0x0));
 
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
 		Xil_DCacheFlushRange((INTPTR)&(Adma2_DescrTbl[0]),
@@ -1787,7 +1787,7 @@ static void XSdPs_Setup64ADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *
 #endif
 
 	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_OFFSET,
-			(u32)(UINTPTR)&(Adma2_DescrTbl[0]));
+			(u32)((UINTPTR)&(Adma2_DescrTbl[0]) & (u32)~0x0));
 
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
 		Xil_DCacheFlushRange((INTPTR)&(Adma2_DescrTbl[0]),
