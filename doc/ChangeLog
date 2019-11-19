@@ -159,6 +159,9 @@ Fix added to correct example application wrt IP GUI configuration.
 vtc_v8_2:
 Fix handling of spurious interrupt
 
+sdps_v3_9:
+Resolved coverity warnings
+
 xilffs_v4_3:
 Modified disk_status API to remove dependency on canonical params
 Add support for Multi Partitions
