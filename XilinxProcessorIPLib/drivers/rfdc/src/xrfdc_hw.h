@@ -85,6 +85,8 @@
 *       cog    09/18/19 Added mask for bypassing PLL output divider.
 *       cog    10/02/19 Added mask for clock divider.
 *       cog    10/02/19 Added mask for PLL output clock divider.
+* 7.1   cog    11/15/19 Added offsets & masks for calibration mode support for
+*                       Gen 3 devices.
 *
 *</pre>
 *
@@ -175,7 +177,8 @@ extern "C" {
 #define XRFDC_ADC_TI_TISK_CRL2_OFFSET 0x15CU /**< ADC Time skew correction control bits2 Register */
 #define XRFDC_ADC_TI_TISK_CRL3_OFFSET 0x160U /**< ADC Time skew correction control bits3 Register */
 #define XRFDC_ADC_TI_TISK_CRL4_OFFSET 0x164U /**< ADC Time skew correction control bits4 Register */
-#define XRFDC_ADC_TI_TISK_DAC0_OFFSET 0x168U /**< ADC Time skew DAC cal code of subadc ch0 Register */
+#define XRFDC_ADC_TI_TISK_CRL5_OFFSET 0x168U /**< ADC Time skew correction control bits5 Register (Gen 3 only) */
+#define XRFDC_ADC_TI_TISK_DAC0_OFFSET 0x168U /**< ADC Time skew DAC cal code of subadc ch0 Register(Below Gen 3) */
 #define XRFDC_ADC_TI_TISK_DAC1_OFFSET 0x16CU /**< ADC Time skew DAC cal code of subadc ch1 Register */
 #define XRFDC_ADC_TI_TISK_DAC2_OFFSET 0x170U /**< ADC Time skew DAC cal code of subadc ch2 Register */
 #define XRFDC_ADC_TI_TISK_DAC3_OFFSET 0x174U /**< ADC Time skew DAC cal code of subadc ch3 Register */
@@ -343,6 +346,16 @@ extern "C" {
 
 /* @} */
 
+/** @name Calibration Mode - Calibration mode registers
+ *
+ * This register contains bits for calibration modes
+ * for ADC.
+ * @{
+ */
+
+#define XRFDC_CAL_MODES_MASK 0x0003 /**< Calibration modes for Gen 3 mask*/
+
+/* @} */
 /** @name Calibration Coefficients - Calibration coefficients and disable registers
  *
  * This register contains bits for calibration coefficients

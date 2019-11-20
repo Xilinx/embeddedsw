@@ -254,6 +254,7 @@
 *       cog    10/02/19 Added macro for fabric rate of 16.
 *       cog    10/02/19 Added macros for new VCO ranges.
 * 7.1   cog    11/14/19 Increased ADC fabric read rate to 12 words per cycle for Gen 3 devices.
+*       cog    11/15/19 Added macros for calibration mode support for Gen 3 devices.
 *
 * </pre>
 *
@@ -865,6 +866,9 @@ typedef struct {
 
 #define XRFDC_CALIB_MODE1 0x1U
 #define XRFDC_CALIB_MODE2 0x2U
+#define XRFDC_CALIB_MODE_ABS_DIFF 0x1U
+#define XRFDC_CALIB_MODE_NEG_ABS_DIFF 0x2U
+#define XRFDC_CALIB_MODE_MIXED 0x3U
 #define XRFDC_TI_DCB_MODE1_4GSPS 0x00007800U
 #define XRFDC_TI_DCB_MODE1_2GSPS 0x00005000U
 

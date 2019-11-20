@@ -179,6 +179,8 @@
 *       cog    10/18/19 DSA was checking DAC tile rather than ADC.
 *       cog    10/18/19 Fix GCB read indexing issue with HSADC devices & TSCB coefficients.
 * 7.1   cog    11/14/19 Increased ADC fabric read rate to 12 words per cycle for Gen 3 devices.
+*       cog    11/15/19 Added calibration mode support for Gen 3 devices and fixed issue with going
+*                       to calibration mode 1 when in real mode.
 *
 * </pre>
 *
@@ -3526,8 +3528,18 @@ u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 C
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
-	if ((CalibrationMode != XRFDC_CALIB_MODE1) && (CalibrationMode != XRFDC_CALIB_MODE2)) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid Calibration mode value in %s\r\n", __func__);
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+		if (InstancePtr->ADC_Tile[Tile_Id].MultibandConfig != XRFDC_MB_MODE_SB) {
+			Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
+		} else {
+			Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
+		}
+	} else {
+		Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
+	}
+
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		return XRFDC_FAILURE;
 	}
 
@@ -3542,65 +3554,66 @@ u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 C
 		NoOfBlocks = Block_Id + 1U;
 	}
 
-	/* Get Mixer Configurations */
-	Status = XRFdc_GetMixerSettings(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id, &Mixer_Settings);
-	if (Status != XRFDC_SUCCESS) {
-		return XRFDC_FAILURE;
-	}
 	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
-		if (CalibrationMode == XRFDC_CALIB_MODE1) {
-			switch (Mixer_Settings.CoarseMixFreq) {
-			case XRFDC_COARSE_MIX_BYPASS:
-				Mixer_Settings.CoarseMixFreq = XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
-				break;
-			case XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR:
-				Mixer_Settings.CoarseMixFreq = XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
-				break;
-			case XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO:
-				Mixer_Settings.CoarseMixFreq = XRFDC_COARSE_MIX_BYPASS;
-				break;
-			case XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR:
-				Mixer_Settings.CoarseMixFreq = XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
-				break;
-			default:
-				Mixer_Settings.CoarseMixFreq = XRFDC_COARSE_MIX_OFF;
-				break;
-			}
+		if ((CalibrationMode != XRFDC_CALIB_MODE1) && (CalibrationMode != XRFDC_CALIB_MODE2)) {
+			metal_log(METAL_LOG_ERROR, "\n Invalid Calibration mode value in %s\r\n", __func__);
+			return XRFDC_FAILURE;
 		}
-	}
-	/* Get Nyquist Zone */
-	Status = XRFdc_GetNyquistZone(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id, &NyquistZone);
-	if (Status != XRFDC_SUCCESS) {
-		return XRFDC_FAILURE;
-	}
 
-	for (; Index < NoOfBlocks; Index++) {
-		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) + XRFDC_BLOCK_ADDR_OFFSET(Index);
-		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL0_OFFSET);
-		ReadReg &= ~XRFDC_TI_DCB_MODE_MASK;
-		if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
-			if (CalibrationMode == XRFDC_CALIB_MODE1) {
-				if (((Index % 2U) != 0U) && (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1)) {
-					ReadReg |= XRFDC_TI_DCB_MODE1_4GSPS;
-				} else if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 0) {
-					ReadReg |= XRFDC_TI_DCB_MODE1_2GSPS;
+		/* Get Mixer Configurations */
+		Status = XRFdc_GetMixerSettings(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id, &Mixer_Settings);
+		if (Status != XRFDC_SUCCESS) {
+			return XRFDC_FAILURE;
+		}
+
+		/* Get Nyquist Zone */
+		Status = XRFdc_GetNyquistZone(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id, &NyquistZone);
+		if (Status != XRFDC_SUCCESS) {
+			return XRFDC_FAILURE;
+		}
+
+		for (; Index < NoOfBlocks; Index++) {
+			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) + XRFDC_BLOCK_ADDR_OFFSET(Index);
+			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL0_OFFSET);
+			ReadReg &= ~XRFDC_TI_DCB_MODE_MASK;
+			if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+				if (CalibrationMode == XRFDC_CALIB_MODE1) {
+					if (((Index % 2U) != 0U) && (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1)) {
+						ReadReg |= XRFDC_TI_DCB_MODE1_4GSPS;
+					} else if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 0) {
+						ReadReg |= XRFDC_TI_DCB_MODE1_2GSPS;
+					}
 				}
 			}
+			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL0_OFFSET, ReadReg);
+			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Analog_Datapath[Index].CalibrationMode =
+				CalibrationMode;
 		}
-		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL0_OFFSET, ReadReg);
-		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Analog_Datapath[Index].CalibrationMode = CalibrationMode;
-	}
 
-	/* Set Nyquist Zone */
-	Status = XRFdc_SetNyquistZone(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id, NyquistZone);
-	if (Status != XRFDC_SUCCESS) {
-		return XRFDC_FAILURE;
-	}
+		/* Set Nyquist Zone */
+		Status = XRFdc_SetNyquistZone(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id, NyquistZone);
+		if (Status != XRFDC_SUCCESS) {
+			return XRFDC_FAILURE;
+		}
 
-	/* Set Mixer Configurations */
-	Status = XRFdc_SetMixerSettings(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id, &Mixer_Settings);
-	if (Status != XRFDC_SUCCESS) {
-		return XRFDC_FAILURE;
+		/* Set Mixer Configurations */
+		Status = XRFdc_SetMixerSettings(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id, &Mixer_Settings);
+		if (Status != XRFDC_SUCCESS) {
+			return XRFDC_FAILURE;
+		}
+	} else {
+		if ((CalibrationMode != XRFDC_CALIB_MODE_ABS_DIFF) &&
+		    (CalibrationMode != XRFDC_CALIB_MODE_NEG_ABS_DIFF) && (CalibrationMode != XRFDC_CALIB_MODE_MIXED)) {
+			metal_log(METAL_LOG_ERROR, "\n Invalid Calibration mode value in %s\r\n", __func__);
+			return XRFDC_FAILURE;
+		}
+		for (; Index < NoOfBlocks; Index++) {
+			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) + XRFDC_BLOCK_ADDR_OFFSET(Index);
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_TISK_CRL5_OFFSET, XRFDC_CAL_MODES_MASK,
+					CalibrationMode);
+			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Analog_Datapath[Index].CalibrationMode =
+				CalibrationMode;
+		}
 	}
 
 	Status = XRFDC_SUCCESS;
@@ -3636,11 +3649,16 @@ u32 XRFdc_GetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 *
 	Xil_AssertNonvoid(CalibrationModePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
-	if (InstancePtr->ADC_Tile[Tile_Id].MultibandConfig != XRFDC_MB_MODE_SB) {
-		Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+		if (InstancePtr->ADC_Tile[Tile_Id].MultibandConfig != XRFDC_MB_MODE_SB) {
+			Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
+		} else {
+			Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
+		}
 	} else {
 		Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	}
+
 	if (Status != XRFDC_SUCCESS) {
 		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
 		goto RETURN_PATH;
@@ -3656,11 +3674,20 @@ u32 XRFdc_GetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 *
 	}
 
 	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Block_Id);
-	ReadReg = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL0_OFFSET, XRFDC_TI_DCB_MODE_MASK);
-	if (ReadReg != 0U) {
-		*CalibrationModePtr = XRFDC_CALIB_MODE1;
+
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+		ReadReg = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_DCB_CRL0_OFFSET, XRFDC_TI_DCB_MODE_MASK);
+		if (ReadReg != 0U) {
+			*CalibrationModePtr = XRFDC_CALIB_MODE1;
+		} else {
+			*CalibrationModePtr = XRFDC_CALIB_MODE2;
+		}
 	} else {
-		*CalibrationModePtr = XRFDC_CALIB_MODE2;
+		*CalibrationModePtr =
+			XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_TI_TISK_CRL5_OFFSET, XRFDC_CAL_MODES_MASK);
+		if (*CalibrationModePtr == 0U) {
+			*CalibrationModePtr = XRFDC_CALIB_MODE_MIXED; /*mode 0 same as XRFDC_CALIB_MODE_MIXER*/
+		}
 	}
 
 	Status = XRFDC_SUCCESS;
