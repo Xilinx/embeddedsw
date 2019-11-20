@@ -130,7 +130,7 @@
 *       ms   04/05/17 Added tabspace for return statements in functions
 *                     of axipcie examples for proper documentation while
 *                     generating doxygen.
-*
+* 3.2	nsk  11/20/19 Added support for axi_pcie3
 * </pre>
 *
 *****************************************************************************/

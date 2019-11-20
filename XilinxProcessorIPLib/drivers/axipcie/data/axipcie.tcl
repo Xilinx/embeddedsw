@@ -80,6 +80,10 @@ proc generate {drv_handle} {
 	"C_PCIEBAR2AXIBAR_2"\
 	"C_PCIEBAR_LEN_3"\
 	"C_PCIEBAR2AXIBAR_3"\
+	"C_PCIEBAR_LEN_4"\
+	"C_PCIEBAR2AXIBAR_4"\
+	"C_PCIEBAR_LEN_5"\
+	"C_PCIEBAR2AXIBAR_5"\
 	"C_INCLUDE_RC" 
   
         ::hsi::utils::define_config_file $drv_handle "xaxipcie_g.c" "XAxiPcie" \
@@ -131,6 +135,10 @@ proc generate {drv_handle} {
 	"C_PCIEBAR2AXIBAR_2"\
 	"C_PCIEBAR_LEN_3"\
 	"C_PCIEBAR2AXIBAR_3"\
+	"C_PCIEBAR_LEN_4"\
+	"C_PCIEBAR2AXIBAR_4"\
+	"C_PCIEBAR_LEN_5"\
+	"C_PCIEBAR2AXIBAR_5"\
  	"C_INCLUDE_RC" 
 }
 
@@ -140,7 +148,7 @@ proc xdefine_pcie_include_file {drv_handle file_name drv_string args} {
 
     # Get all peripherals connected to this driver
     set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
-
+    set ipname [common::get_property IP_NAME [get_cells -hier $drv_handle]]
     # Handle special cases
     set arg "NUM_INSTANCES"
     set posn [lsearch -exact $args $arg]
@@ -190,6 +198,10 @@ proc xdefine_pcie_include_file {drv_handle file_name drv_string args} {
 		set arg "HIGHADDR"
                 set value [::hsi::utils::get_param_value $periph $arg]
 	    }	
+	    if { $value == 0 && $arg == "C_PCIEBAR_NUM" && [string match -nocase $ipname "axi_pcie3"]} {
+		set arg "PCIEBAR_NUM"
+                set value [::hsi::utils::get_param_value $periph $arg]
+	    }
 
             set value [::hsi::utils::format_addr_string $value $arg]
             if {[string compare -nocase "HW_VER" $arg] == 0} {
@@ -208,6 +220,7 @@ proc xdefine_pcie_canonical_xpars {drv_handle file_name drv_string args} {
     # Open include file
     set file_handle [::hsi::utils::open_include_file $file_name]
 
+    set ipname [common::get_property IP_NAME [get_cells -hier $drv_handle]]
     # Get all the peripherals connected to this driver
     set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
 
@@ -265,6 +278,10 @@ proc xdefine_pcie_canonical_xpars {drv_handle file_name drv_string args} {
 		    set arg "HIGHADDR"
                     set rvalue [::hsi::utils::get_param_value $periph $arg]
 	        }	
+	        if { $rvalue == 0 && $arg == "C_PCIEBAR_NUM" && [string match -nocase $ipname "axi_pcie3"]} {
+		    set arg "PCIEBAR_NUM"
+		    set rvalue [::hsi::utils::get_param_value $periph $arg]
+		}
 
                 set rvalue [::hsi::utils::format_addr_string $rvalue $arg]
 
