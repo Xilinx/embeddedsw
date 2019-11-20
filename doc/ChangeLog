@@ -1,5 +1,8 @@
 Changes for 2020.1
 ===============================
+axipcie_v3_2:
+Added support for axi_pcie3
+
 canfd_v2_3:
 Used correct macro to access RX FIFO1 buffer.
 
