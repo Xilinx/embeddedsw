@@ -292,14 +292,14 @@ static u32 XFsbl_FMCEnable(XIicPs* I2c0InstancePtr, XIicPs* I2c1InstancePtr)
 		UStatus  = XFSBL_ERROR_I2C_SET_SCLK;
 		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_SET_SCLK\r\n");
 	}
-
+#ifdef XPS_BOARD_ZCU216
 	Status = XIicPs_SetSClk(I2c1InstancePtr, IIC_SCLK_RATE_I2CMUX);
 	if (Status != XST_SUCCESS) {
 		UStatus  = XFSBL_ERROR_I2C_SET_SCLK;
 		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_SET_SCLK\r\n");
 		goto END;
 	}
-
+#endif
 #if defined(XPS_BOARD_ZCU104) || defined(XPS_BOARD_ZCU216)
 #if defined(XPS_BOARD_ZCU104)
 	UStatus = XFsbl_ReadMinMaxEepromVadj(I2c0InstancePtr, &LpcMin, &LpcMax);
