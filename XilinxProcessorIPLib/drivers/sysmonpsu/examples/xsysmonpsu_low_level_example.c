@@ -49,6 +49,7 @@
 * 1.0   kvn    12/15/15 First release
 *       mn     03/08/18 Update code to run at higher frequency
 *
+* 2.6   aad    11/21/19 Removed reading of AUX channels
 * </pre>
 *
 *****************************************************************************/
@@ -166,54 +167,24 @@ int SysMonPsuLowLevelExample(u32 BaseAddress)
 			XSYSMONPSU_CFG_REG0_OFFSET,
 				RegValue | (XSM_AVG_16_SAMPLES << XSYSMONPSU_CFG_REG0_AVRGNG_SHIFT));
 
-	/*
-	 * Setup the Sequence register for 1st Auxiliary channel
-	 * Setting is:
-	 *	- Add acquisition time by 6 ADCCLK cycles.
-	 *	- Bipolar Mode
-	 *
-	 * Setup the Sequence register for 16th Auxiliary channel
-	 * Setting is:
-	 *	- Add acquisition time by 6 ADCCLK cycles.
-	 *	- Unipolar Mode
-	 */
-
-	/* Set the Acquisition time for the specified channels. */
-	XSysmonPsu_WriteReg(BaseAddress + XPS_BA_OFFSET + XSYSMONPSU_SEQ_ACQ1_OFFSET,
-				(XSYSMONPSU_SEQ_CH1_VAUX00_MASK | XSYSMONPSU_SEQ_CH1_VAUX0F_MASK));
-
-	/* Set the input mode for the specified channels. */
-	XSysmonPsu_WriteReg(BaseAddress + XPS_BA_OFFSET + XSYSMONPSU_SEQ_INPUT_MDE1_OFFSET,
-				XSYSMONPSU_SEQ_CH1_VAUX00_MASK);
-
-
 
 	/*
 	 * Enable the averaging on the following channels in the Sequencer
 	 * registers:
 	 * 	- On-chip Temperature
 	 * 	- On-chip VCCAUX supply sensor
-	 * 	- 1st Auxiliary Channel
-	 * 	- 16th Auxiliary Channel
 	 */
 	XSysmonPsu_WriteReg(BaseAddress + XPS_BA_OFFSET + XSYSMONPSU_SEQ_AVERAGE0_OFFSET,
 			(XSYSMONPSU_SEQ_CH0_TEMP_MASK | XSYSMONPSU_SEQ_CH0_SUP3_MASK));
-
-	XSysmonPsu_WriteReg(BaseAddress + XPS_BA_OFFSET + XSYSMONPSU_SEQ_AVERAGE1_OFFSET,
-				(XSYSMONPSU_SEQ_CH1_VAUX00_MASK | XSYSMONPSU_SEQ_CH1_VAUX0F_MASK));
 
 
 	/*
 	 * Enable the following channels in the Sequencer registers:
 	 * 	- On-chip Temperature
 	 * 	- On-chip VCCAUX supply sensor
-	 * 	- 1st Auxiliary Channel
-	 * 	- 16th Auxiliary Channel
 	 */
 	XSysmonPsu_WriteReg(BaseAddress + XPS_BA_OFFSET + XSYSMONPSU_SEQ_CH0_OFFSET,
 			(XSYSMONPSU_SEQ_CH0_TEMP_MASK | XSYSMONPSU_SEQ_CH0_SUP3_MASK));
-	XSysmonPsu_WriteReg(BaseAddress + XPS_BA_OFFSET + XSYSMONPSU_SEQ_CH1_OFFSET,
-			(XSYSMONPSU_SEQ_CH1_VAUX00_MASK | XSYSMONPSU_SEQ_CH1_VAUX0F_MASK));
 
 
 	/* Clear any bits set in the Interrupt Status Register. */

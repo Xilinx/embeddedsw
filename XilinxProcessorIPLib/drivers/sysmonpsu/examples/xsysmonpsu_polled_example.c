@@ -48,6 +48,7 @@
 *                       generation.
 * 2.3   ms    12/12/17 Added peripheral test support.
 *       mn    03/08/18 Update code to run at higher frequency and remove sleep
+* 2.6   aad   11/21/19 Removed reading of AUX channels
 * </pre>
 *
 *****************************************************************************/
@@ -190,43 +191,16 @@ int SysMonPsuPolledPrintfExample(u16 SysMonDeviceId)
 	 */
 	XSysMonPsu_SetAvg(SysMonInstPtr, XSM_AVG_16_SAMPLES, XSYSMON_PS);
 
-	/*
-	 * Setup the Sequence register for 1st Auxiliary channel
-	 * Setting is:
-	 *	- Add acquisition time by 6 ADCCLK cycles.
-	 *	- Bipolar Mode
-	 *
-	 * Setup the Sequence register for 16th Auxiliary channel
-	 * Setting is:
-	 *	- Add acquisition time by 6 ADCCLK cycles.
-	 *	- Unipolar Mode
-	 */
-	Status = XSysMonPsu_SetSeqInputMode(SysMonInstPtr,
-			XSYSMONPSU_SEQ_CH1_VAUX00_MASK << 16, XSYSMON_PS);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	Status = XSysMonPsu_SetSeqAcqTime(SysMonInstPtr,
-			(XSYSMONPSU_SEQ_CH1_VAUX0F_MASK | XSYSMONPSU_SEQ_CH1_VAUX00_MASK) << 16,
-			XSYSMON_PS);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
 
 	/*
 	 * Enable the averaging on the following channels in the Sequencer
 	 * registers:
 	 * 	- On-chip Temperature, VCCINT/VCCAUX  supply sensors
-	 * 	- 1st/16th Auxiliary Channels
 	  *	- Calibration Channel
 	 */
 	Status =  XSysMonPsu_SetSeqAvgEnables(SysMonInstPtr, XSYSMONPSU_SEQ_CH0_TEMP_MASK |
 			XSYSMONPSU_SEQ_CH0_SUP1_MASK |
 			XSYSMONPSU_SEQ_CH0_SUP3_MASK |
-			((XSYSMONPSU_SEQ_CH1_VAUX00_MASK |
-			XSYSMONPSU_SEQ_CH1_VAUX0F_MASK) << 16) |
 			XSYSMONPSU_SEQ_CH0_CALIBRTN_MASK, XSYSMON_PS);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -235,14 +209,11 @@ int SysMonPsuPolledPrintfExample(u16 SysMonDeviceId)
 	/*
 	 * Enable the following channels in the Sequencer registers:
 	 * 	- On-chip Temperature, VCCINT/VCCAUX supply sensors
-	 * 	- 1st/16th Auxiliary Channel
 	 *	- Calibration Channel
 	 */
 	Status =  XSysMonPsu_SetSeqChEnables(SysMonInstPtr, XSYSMONPSU_SEQ_CH0_TEMP_MASK |
 			XSYSMONPSU_SEQ_CH0_SUP1_MASK |
 			XSYSMONPSU_SEQ_CH0_SUP3_MASK |
-			((XSYSMONPSU_SEQ_CH1_VAUX00_MASK |
-			XSYSMONPSU_SEQ_CH1_VAUX0F_MASK) << 16) |
 			XSYSMONPSU_SEQ_CH0_CALIBRTN_MASK, XSYSMON_PS);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
