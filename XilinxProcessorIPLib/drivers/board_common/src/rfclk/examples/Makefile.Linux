@@ -1,0 +1,16 @@
+APP = rfclk-test
+APPSOURCES=xrfclk_example_app.c
+OUTS = rfclk-example-app
+RFCLK_OBJS =
+INCLUDES =
+BOARD_FLAG =
+OBJS =
+
+%.o: %.c
+	$(CC) ${LDFLAGS} ${BOARD_FLAG} $(INCLUDES) ${CFLAGS} -c $(APPSOURCES)
+
+all: $(RFCLK_OBJS)
+	$(CC) ${LDFLAGS} $(INCLUDES) $(OBJS) $(RFCLK_OBJS) -o $(OUTS) -lrfclk
+
+clean:
+	rm -rf $(OUTS) *.o
