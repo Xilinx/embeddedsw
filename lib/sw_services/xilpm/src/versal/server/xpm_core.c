@@ -85,8 +85,10 @@ static XStatus XPmCore_Sleep(XPm_Core *Core)
 		Reset = RstHandle->Reset;
 		DeviceHandle = Reset->RstHandles;
 		while (NULL != DeviceHandle) {
-			if (XPM_DEVSTATE_RUNNING ==
-			    DeviceHandle->Device->Node.State) {
+			if ((Core->Device.Node.Id !=
+			    DeviceHandle->Device->Node.Id) &&
+			    (XPM_DEVSTATE_RUNNING ==
+			    DeviceHandle->Device->Node.State)) {
 				break;
 			}
 			DeviceHandle = DeviceHandle->NextDevice;
