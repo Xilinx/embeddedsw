@@ -37,9 +37,14 @@ extern "C" {
 
 /* Interrupt vectors */
 #ifdef versal
-#define IPI_IRQ_VECT_ID         63
+#define IPI_IRQ_VECT_ID     63
+#define IPI_BASE_ADDR       0xFF340000 /* IPI base address*/
+#define IPI_CHN_BITMASK     0x0000020 /* IPI channel bit mask for IPI from/to
+					   APU */
 #else
-#define IPI_IRQ_VECT_ID         XPAR_XIPIPSU_0_INT_ID
+#define IPI_IRQ_VECT_ID     XPAR_XIPIPSU_0_INT_ID
+#define IPI_BASE_ADDR       XPAR_XIPIPSU_0_BASE_ADDRESS
+#define IPI_CHN_BITMASK     0x01000000
 #endif /* versal */
 
 struct remoteproc_priv {
