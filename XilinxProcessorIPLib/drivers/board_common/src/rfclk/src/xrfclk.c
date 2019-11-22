@@ -27,7 +27,7 @@
 /**
 *
 * @file xrfclk.c
-* @addtogroup xrfclk_v1_0
+* @addtogroup xrfclk_v1_1
 * @{
 *
 * Contains the API of the XRFclk middleware.
@@ -39,15 +39,12 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     07/21/19 Initial version
-*
+* 1.1   dc     11/21/19 Remove xil dependencies from linux build
 * </pre>
 *
 ******************************************************************************/
 
 #include "xrfclk.h"
-#include "xil_assert.h"
-#include "xil_types.h"
-#include "xstatus.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -56,6 +53,9 @@
 
 #ifdef __BAREMETAL__
 
+#include "xil_assert.h"
+#include "xil_types.h"
+#include "xstatus.h"
 #include "platform.h"
 #include "xil_printf.h"
 #include "xiicps.h"
@@ -74,6 +74,7 @@ XIicPs Iic0;
 
 /* User Headers */
 #include <errno.h>
+#include <assert.h>
 
 /* Kernel Headers */
 #include <sys/fcntl.h>
@@ -81,6 +82,7 @@ XIicPs Iic0;
 #include <linux/i2c.h>
 #include <linux/i2c-dev.h>
 
+#define Xil_AssertNonvoid(a) assert(a) /* use linux assert */
 #define PRINTF printf /* Print macro for Linux driver */
 #define RFCLK_I2C1_DEVICE_PATH "/dev/i2c-1" /* i2c1 device path */
 #define RFCLK_I2C_I2C2SPI_BRIDGE_DEVICE_PATH                                   \
@@ -1439,3 +1441,4 @@ u32 XRFClk_ConfigOutputDividerAndMUXOnLMK(u32 PortId, u32 DCLKoutX_DIV,
 #endif
 	return ret;
 }
+/** @} */

@@ -38,6 +38,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     08/28/19 Initial version
+* 1.1   dc     11/21/19 Remove xil dependencies from linux build
 *
 * </pre>
 *
@@ -1192,3 +1193,4 @@ const u32 LMX2594[][LMX2594_COUNT] = {
 #endif
 
 #endif
+/** @} */
