@@ -39,7 +39,7 @@
 #define XPM_NODEIDX_DEV_GT_MAX		XPM_NODEIDX_DEV_GT_10
 
 //If TRIM_CRAM[31:0]=0 (FUSE not programmed). Then set rw_read_voltages to 0.61V + 0.625V
-#define CRAM_TRIM_RW_READ_VOLTAGE	0x185
+#define CRAM_TRIM_RW_READ_VOLTAGE	0x0600019FU
 
 XCframe CframeIns={0}; /* CFRAME Driver Instance */
 XCfupmc CfupmcIns={0}; /* CFU Driver Instance */
