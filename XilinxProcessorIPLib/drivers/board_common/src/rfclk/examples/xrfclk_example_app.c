@@ -27,8 +27,6 @@
 /**
 *
 * @file xrfclk_examples_app.c
-* @addtogroup xrfclk_examples_app_v1_0
-* @{
 *
 * Contains the examples which run most of the APIs.
 *
@@ -38,19 +36,20 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     07/21/19 Initial version
+* 1.1   dc     11/21/19 Remove xil dependencies from linux build
 *
 * </pre>
 *
 ******************************************************************************/
 
 #include "xrfclk.h"
-#include "xstatus.h"
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
 
 #ifdef __BAREMETAL__
+#include "xstatus.h"
 #include "platform.h"
 #include "xil_printf.h"
 #else

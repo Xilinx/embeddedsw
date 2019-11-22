@@ -26,10 +26,10 @@
 
 OPTION psf_version = 2.1;
 
-BEGIN driver video_common
+BEGIN driver board_common
 	OPTION supported_peripherals = ();
 	OPTION driver_state = ACTIVE;
 	OPTION copyfiles = all;
-	OPTION VERSION = 4.8;
+	OPTION VERSION = 1.0;
 	OPTION NAME = board_common;
 END driver
