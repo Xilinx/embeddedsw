@@ -64,7 +64,7 @@ extern "C" {
 
 /* pseudo assembler instructions */
 #define mfcpsr()	({u32 rval = 0U; \
-			    asm volatile("mrs %x0, DAIF" : "=r" (rval)); \
+			    __asm__ volatile("mrs %x0, DAIF" : "=r" (rval)); \
 			    rval; \
 			})
 
