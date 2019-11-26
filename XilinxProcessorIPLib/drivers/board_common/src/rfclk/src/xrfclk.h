@@ -27,7 +27,7 @@
 /**
 *
 * @file xrfclk.h
-* @addtogroup xrfclk_v1_1
+* @addtogroup xrfclk_v1_2
 * @{
 *
 * Contains the API of the XRFclk middleware.
@@ -39,6 +39,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     07/21/19 Initial version
 * 1.1   dc     11/21/19 Remove xil dependencies from linux build
+* 1.2   dc     11/25/19 update LMX and LMK configs
 *
 * </pre>
 *
@@ -55,11 +56,11 @@ extern "C" {
 #if defined __BAREMETAL__
 #include "xil_types.h"
 #else
-typedef unsigned char		u8;
-typedef unsigned int		u32;
-typedef int			s32;
-#define XST_SUCCESS	0L
-#define XST_FAILURE	1L
+typedef unsigned char u8;
+typedef unsigned int u32;
+typedef int s32;
+#define XST_SUCCESS 0L
+#define XST_FAILURE 1L
 #endif
 
 #define RFCLK_LMX2594_1 0 /* I0 on MUX and SS3 on Bridge */
