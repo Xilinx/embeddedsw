@@ -36,7 +36,7 @@ extern "C" {
 /************************** I2C Configurations *******************************/
 #define IIC_DEVICE_ID			0
 #define IIC_CLK_FREQ_HZ			100000000
-#define IIC_SCLK_RATE			100000
+#define IIC_SCLK_RATE			400000
 #define IIC_BASE_ADDR			PMC_I2C_ADDR
 
 /************************** Address Definitions ******************************/
