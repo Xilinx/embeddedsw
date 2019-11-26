@@ -54,6 +54,12 @@ void outbyte(char c);
 #define XPLMI_UART_INDEX	(0U)
 #endif
 
+#if ((XPAR_XUARTPSV_NUM_INSTANCES == 2U) && (STDOUT_BASEADDRESS == 0xFF010000))
+#define XPLMI_UART_INDEX 1U
+#else
+#define XPLMI_UART_INDEX 0U
+#endif
+
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
