@@ -49,6 +49,7 @@
 * 2.3   ms    12/12/17 Added peripheral test support.
 *       mn    03/08/18 Update code to run at higher frequency and remove sleep
 * 2.6   aad   11/21/19 Removed reading of AUX channels
+*       aad   11/22/19 Added support for XSYSMON_PL
 * </pre>
 *
 *****************************************************************************/
@@ -74,6 +75,15 @@
 
 
 /***************** Macros (Inline Functions) Definitions ********************/
+
+/* User needs to define the macro PL_EXAMPLE to run the code on PL SYSMON.
+ * By default the example will run on XSYSMON_PS
+ */
+#ifdef PL_EXAMPLE
+#define XSYSMON_TYPE	XSYSMON_PL
+#else
+#define XSYSMON_TYPE	XSYSMON_PS
+#endif
 
 #define printf xil_printf /* Small foot-print printf function */
 
@@ -115,7 +125,12 @@ int main(void)
 		return XST_FAILURE;
 	}
 
-	xil_printf("Successfully ran Sysmon Polled Example Test\r\n");
+#ifdef PL_EXAMPLE
+	xil_printf("Successfully ran Sysmon PL Polled Example Test\r\n");
+#else
+	xil_printf("Successfully ran Sysmon PS Polled Example Test\r\n");
+#endif
+
 	return XST_SUCCESS;
 }
 #endif
@@ -129,9 +144,9 @@ int main(void)
 *	- Initiate the System Monitor device driver instance
 *	- Run self-test on the device
 *	- Setup the sequence registers to continuously monitor on-chip
-*	temperature, VCCINT and VCCAUX
+*	temperature, Supply 1 and Supply 3
 *	- Setup configuration registers to start the sequence
-*	- Read the latest on-chip temperature, VCCINT and VCCAUX
+*	- Read the latest on-chip temperature, Supply 1 and Supply 3
 *
 * @param	SysMonDeviceId is the XPAR_<SYSMON_instance>_DEVICE_ID value
 *		from xparameters.h.
@@ -148,11 +163,11 @@ int SysMonPsuPolledPrintfExample(u16 SysMonDeviceId)
 	int Status;
 	XSysMonPsu_Config *ConfigPtr;
 	u32 TempRawData;
-	u32 VccAuxRawData;
-	u32 VccIntRawData;
+	u32 Supply3RawData;
+	u32 Supply1RawData;
 	float TempData;
-	float VccAuxData;
-	float VccIntData;
+	float Supply3Data;
+	float Supply1Data;
 	float MaxData;
 	float MinData;
 	u64 IntrStatus;
@@ -178,43 +193,43 @@ int SysMonPsuPolledPrintfExample(u16 SysMonDeviceId)
 	 * Disable the Channel Sequencer before configuring the Sequence
 	 * registers.
 	 */
-	XSysMonPsu_SetSequencerMode(SysMonInstPtr, XSM_SEQ_MODE_SAFE, XSYSMON_PS);
+	XSysMonPsu_SetSequencerMode(SysMonInstPtr, XSM_SEQ_MODE_SAFE, XSYSMON_TYPE);
 
 
 	/* Disable all the alarms in the Configuration Register 1. */
-	XSysMonPsu_SetAlarmEnables(SysMonInstPtr, 0x0, XSYSMON_PS);
+	XSysMonPsu_SetAlarmEnables(SysMonInstPtr, 0x0, XSYSMON_TYPE);
 
 
 	/*
 	 * Setup the Averaging to be done for the channels in the
 	 * Configuration 0 register as 16 samples:
 	 */
-	XSysMonPsu_SetAvg(SysMonInstPtr, XSM_AVG_16_SAMPLES, XSYSMON_PS);
+	XSysMonPsu_SetAvg(SysMonInstPtr, XSM_AVG_16_SAMPLES, XSYSMON_TYPE);
 
 
 	/*
 	 * Enable the averaging on the following channels in the Sequencer
 	 * registers:
-	 * 	- On-chip Temperature, VCCINT/VCCAUX  supply sensors
+	 * 	- On-chip Temperature, Supply 1/Supply 3  supply sensors
 	  *	- Calibration Channel
 	 */
 	Status =  XSysMonPsu_SetSeqAvgEnables(SysMonInstPtr, XSYSMONPSU_SEQ_CH0_TEMP_MASK |
 			XSYSMONPSU_SEQ_CH0_SUP1_MASK |
 			XSYSMONPSU_SEQ_CH0_SUP3_MASK |
-			XSYSMONPSU_SEQ_CH0_CALIBRTN_MASK, XSYSMON_PS);
+			XSYSMONPSU_SEQ_CH0_CALIBRTN_MASK, XSYSMON_TYPE);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 	/*
 	 * Enable the following channels in the Sequencer registers:
-	 * 	- On-chip Temperature, VCCINT/VCCAUX supply sensors
+	 * 	- On-chip Temperature, Supply 1/Supply 3 supply sensors
 	 *	- Calibration Channel
 	 */
 	Status =  XSysMonPsu_SetSeqChEnables(SysMonInstPtr, XSYSMONPSU_SEQ_CH0_TEMP_MASK |
 			XSYSMONPSU_SEQ_CH0_SUP1_MASK |
 			XSYSMONPSU_SEQ_CH0_SUP3_MASK |
-			XSYSMONPSU_SEQ_CH0_CALIBRTN_MASK, XSYSMON_PS);
+			XSYSMONPSU_SEQ_CH0_CALIBRTN_MASK, XSYSMON_TYPE);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -224,7 +239,7 @@ int SysMonPsuPolledPrintfExample(u16 SysMonDeviceId)
 	XSysMonPsu_IntrClear(SysMonInstPtr, IntrStatus);
 
 	/* Enable the Channel Sequencer in continuous sequencer cycling mode. */
-	XSysMonPsu_SetSequencerMode(SysMonInstPtr, XSM_SEQ_MODE_CONTINPASS, XSYSMON_PS);
+	XSysMonPsu_SetSequencerMode(SysMonInstPtr, XSM_SEQ_MODE_CONTINPASS, XSYSMON_TYPE);
 
 	/* Wait till the End of Sequence occurs */
 	while ((XSysMonPsu_IntrGetStatus(SysMonInstPtr) & ((u64)XSYSMONPSU_ISR_1_EOS_MASK<< 32)) !=
@@ -234,63 +249,63 @@ int SysMonPsuPolledPrintfExample(u16 SysMonDeviceId)
 	 * Read the on-chip Temperature Data (Current/Maximum/Minimum)
 	 * from the ADC data registers.
 	 */
-	TempRawData = XSysMonPsu_GetAdcData(SysMonInstPtr, XSM_CH_TEMP, XSYSMON_PS);
+	TempRawData = XSysMonPsu_GetAdcData(SysMonInstPtr, XSM_CH_TEMP, XSYSMON_TYPE);
 	TempData = XSysMonPsu_RawToTemperature_OnChip(TempRawData);
 	printf("\r\nThe Current Temperature is %0d.%03d Centigrades.\r\n",
 				(int)(TempData), SysMonPsuFractionToInt(TempData));
 
 
-	TempRawData = XSysMonPsu_GetMinMaxMeasurement(SysMonInstPtr, XSM_MAX_TEMP, XSYSMON_PS);
+	TempRawData = XSysMonPsu_GetMinMaxMeasurement(SysMonInstPtr, XSM_MAX_TEMP, XSYSMON_TYPE);
 	MaxData = XSysMonPsu_RawToTemperature_OnChip(TempRawData);
 	printf("The Maximum Temperature is %0d.%03d Centigrades. \r\n",
 				(int)(MaxData), SysMonPsuFractionToInt(MaxData));
 
-	TempRawData = XSysMonPsu_GetMinMaxMeasurement(SysMonInstPtr, XSM_MIN_TEMP, XSYSMON_PS);
+	TempRawData = XSysMonPsu_GetMinMaxMeasurement(SysMonInstPtr, XSM_MIN_TEMP, XSYSMON_TYPE);
 	MinData = XSysMonPsu_RawToTemperature_OnChip(TempRawData);
 	printf("The Minimum Temperature is %0d.%03d Centigrades. \r\n",
 				(int)(MinData), SysMonPsuFractionToInt(MinData));
 
 	/*
-	 * Read the VccInt Votage Data (Current/Maximum/Minimum) from the
+	 * Read the Supply 1 Votage Data (Current/Maximum/Minimum) from the
 	 * ADC data registers.
 	 */
-	VccIntRawData = XSysMonPsu_GetAdcData(SysMonInstPtr, XSM_CH_SUPPLY1, XSYSMON_PS);
-	VccIntData = XSysMonPsu_RawToVoltage(VccIntRawData);
-	printf("\r\nThe Current VCCINT is %0d.%03d Volts. \r\n",
-			(int)(VccIntData), SysMonPsuFractionToInt(VccIntData));
+	Supply1RawData = XSysMonPsu_GetAdcData(SysMonInstPtr, XSM_CH_SUPPLY1, XSYSMON_TYPE);
+	Supply1Data = XSysMonPsu_RawToVoltage(Supply1RawData);
+	printf("\r\nThe Current Supply 1 is %0d.%03d Volts. \r\n",
+			(int)(Supply1Data), SysMonPsuFractionToInt(Supply1Data));
 
-	VccIntRawData = XSysMonPsu_GetMinMaxMeasurement(SysMonInstPtr,
-							XSM_MAX_SUPPLY1, XSYSMON_PS);
-	MaxData = XSysMonPsu_RawToVoltage(VccIntRawData);
-	printf("The Maximum VCCINT is %0d.%03d Volts. \r\n",
+	Supply1RawData = XSysMonPsu_GetMinMaxMeasurement(SysMonInstPtr,
+							XSM_MAX_SUPPLY1, XSYSMON_TYPE);
+	MaxData = XSysMonPsu_RawToVoltage(Supply1RawData);
+	printf("The Maximum Supply 1 is %0d.%03d Volts. \r\n",
 			(int)(MaxData), SysMonPsuFractionToInt(MaxData));
 
-	VccIntRawData = XSysMonPsu_GetMinMaxMeasurement(SysMonInstPtr,
-							XSM_MIN_SUPPLY1, XSYSMON_PS);
-	MinData = XSysMonPsu_RawToVoltage(VccIntRawData);
-	printf("The Minimum VCCINT is %0d.%03d Volts. \r\n",
+	Supply1RawData = XSysMonPsu_GetMinMaxMeasurement(SysMonInstPtr,
+							XSM_MIN_SUPPLY1, XSYSMON_TYPE);
+	MinData = XSysMonPsu_RawToVoltage(Supply1RawData);
+	printf("The Minimum Supply 1 is %0d.%03d Volts. \r\n",
 			(int)(MinData), SysMonPsuFractionToInt(MinData));
 
 	/*
-	 * Read the VccAux Votage Data (Current/Maximum/Minimum) from the
+	 * Read the Supply 3 Votage Data (Current/Maximum/Minimum) from the
 	 * ADC data registers.
 	 */
-	VccAuxRawData = XSysMonPsu_GetAdcData(SysMonInstPtr, XSM_CH_SUPPLY3, XSYSMON_PS);
-	VccAuxData = XSysMonPsu_RawToVoltage(VccAuxRawData);
-	printf("\r\nThe Current VCCAUX is %0d.%03d Volts. \r\n",
-			(int)(VccAuxData), SysMonPsuFractionToInt(VccAuxData));
+	Supply3RawData = XSysMonPsu_GetAdcData(SysMonInstPtr, XSM_CH_SUPPLY3, XSYSMON_TYPE);
+	Supply3Data = XSysMonPsu_RawToVoltage(Supply3RawData);
+	printf("\r\nThe Current Supply 3 is %0d.%03d Volts. \r\n",
+			(int)(Supply3Data), SysMonPsuFractionToInt(Supply3Data));
 
-	VccAuxRawData = XSysMonPsu_GetMinMaxMeasurement(SysMonInstPtr,
-							XSM_MAX_SUPPLY3, XSYSMON_PS);
-	MaxData = XSysMonPsu_RawToVoltage(VccAuxRawData);
-	printf("The Maximum VCCAUX is %0d.%03d Volts. \r\n",
+	Supply3RawData = XSysMonPsu_GetMinMaxMeasurement(SysMonInstPtr,
+							XSM_MAX_SUPPLY3, XSYSMON_TYPE);
+	MaxData = XSysMonPsu_RawToVoltage(Supply3RawData);
+	printf("The Maximum Supply 3 is %0d.%03d Volts. \r\n",
 				(int)(MaxData), SysMonPsuFractionToInt(MaxData));
 
 
-	VccAuxRawData = XSysMonPsu_GetMinMaxMeasurement(SysMonInstPtr,
-							XSM_MIN_SUPPLY3, XSYSMON_PS);
-	MinData = XSysMonPsu_RawToVoltage(VccAuxRawData);
-	printf("The Minimum VCCAUX is %0d.%03d Volts. \r\n\r\n",
+	Supply3RawData = XSysMonPsu_GetMinMaxMeasurement(SysMonInstPtr,
+							XSM_MIN_SUPPLY3, XSYSMON_TYPE);
+	MinData = XSysMonPsu_RawToVoltage(Supply3RawData);
+	printf("The Minimum Supply 3 is %0d.%03d Volts. \r\n\r\n",
 				(int)(MinData), SysMonPsuFractionToInt(MinData));
 
 	printf("Exiting the SysMon Polled Example. \r\n");
