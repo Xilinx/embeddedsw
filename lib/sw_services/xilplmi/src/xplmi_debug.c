@@ -67,6 +67,12 @@
 #endif
 #endif
 
+#if ((XPAR_XUARTPSV_NUM_INSTANCES == 2U) && (STDOUT_BASEADDRESS == 0xFF010000))
+#define XPLMI_UART_INDEX 1U
+#else
+#define XPLMI_UART_INDEX 0U
+#endif
+
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
@@ -116,7 +122,7 @@ int XPlmi_InitUart(void )
 	}
 	XUartPsv_Config *Config;
 
-	Config = XUartPsv_LookupConfig(0);
+	Config = XUartPsv_LookupConfig(XPLMI_UART_INDEX);
 	if (NULL == Config) {
 		Status = XPLMI_UPDATE_STATUS(XPLMI_ERR_UART_LOOKUP, Status);
 		goto END;
