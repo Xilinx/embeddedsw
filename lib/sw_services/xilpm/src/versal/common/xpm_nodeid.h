@@ -54,6 +54,7 @@
 #define PM_POWER_ACPU_0				(0x4104014U)
 #define PM_POWER_ACPU_1				(0x4104015U)
 #define PM_POWER_L2_BANK_0			(0x4104016U)
+#define PM_POWER_CPM5				(0x4218027U)
 
 /* Reset Nodes */
 #define PM_RST_PMC_POR				(0xc30c001U)
@@ -421,6 +422,18 @@
 #define PM_DEV_GT_10				(0x1862c053U)
 #define PM_DEV_EFUSE_CACHE			(0x18330054U)
 #define PM_DEV_AMS_ROOT				(0x18224055U)
+#define PM_DEV_GTM_0				(0x1862c066U)
+#define PM_DEV_GTM_1				(0x1862c067U)
+#define PM_DEV_GTM_2				(0x1862c068U)
+#define PM_DEV_GTM_3				(0x1862c069U)
+#define PM_DEV_GTM_4				(0x1862c06aU)
+#define PM_DEV_GTM_5				(0x1862c06bU)
+#define PM_DEV_GTM_6				(0x1862c06cU)
+#define PM_DEV_GTYP_0				(0x1862c06dU)
+#define PM_DEV_GTYP_1				(0x1862c06eU)
+#define PM_DEV_GTYP_2				(0x1862c06fU)
+#define PM_DEV_GTYP_3				(0x1862c070U)
+#define PM_DEV_GTYP_4				(0x1862c071U)
 
 /* Subsystem Nodes */
 #define PM_SUBSYS_DEFAULT			(0x1c000000U)
