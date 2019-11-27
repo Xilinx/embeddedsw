@@ -1,35 +1,15 @@
 /******************************************************************************
-*
-* Copyright (C) 2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*
  * This is an automatically generated file from script.
  * Please do not modify this!
  */
-#ifndef _XPM_NODEID_H_
-#define _XPM_NODEID_H_
+#ifndef XPM_NODEID_H_
+#define XPM_NODEID_H_
 
 /* Power Nodes */
 #define PM_POWER_PMC				(0x4208001U)
@@ -54,6 +34,23 @@
 #define PM_POWER_ACPU_0				(0x4104014U)
 #define PM_POWER_ACPU_1				(0x4104015U)
 #define PM_POWER_L2_BANK_0			(0x4104016U)
+#define PM_POWER_XRAM_0				(0x4124017U)
+#define PM_POWER_XRAM_1				(0x4124018U)
+#define PM_POWER_XRAM_2				(0x4124019U)
+#define PM_POWER_XRAM_3				(0x412401aU)
+#define PM_POWER_XRAM_4				(0x412401bU)
+#define PM_POWER_XRAM_5				(0x412401cU)
+#define PM_POWER_XRAM_6				(0x412401dU)
+#define PM_POWER_XRAM_7				(0x412401eU)
+#define PM_POWER_XRAM_8				(0x412401fU)
+#define PM_POWER_XRAM_9				(0x4124020U)
+#define PM_POWER_XRAM_10			(0x4124021U)
+#define PM_POWER_XRAM_11			(0x4124022U)
+#define PM_POWER_XRAM_12			(0x4124023U)
+#define PM_POWER_XRAM_13			(0x4124024U)
+#define PM_POWER_XRAM_14			(0x4124025U)
+#define PM_POWER_XRAM_15			(0x4124026U)
+#define PM_POWER_CPM5				(0x4218027U)
 
 /* Reset Nodes */
 #define PM_RST_PMC_POR				(0xc30c001U)
@@ -148,6 +145,9 @@
 #define PM_RST_ADDR_REMAP			(0xc41005aU)
 #define PM_RST_CPI0				(0xc41005bU)
 #define PM_RST_CPI1				(0xc41005cU)
+#define PM_RST_XRAM				(0xc30c05dU)
+#define PM_RST_AIE_ARRAY			(0xc10405eU)
+#define PM_RST_AIE_SHIM				(0xc10405fU)
 
 /* Clock nodes */
 #define PM_CLK_PMC_PLL				(0x8104001U)
@@ -262,6 +262,8 @@
 #define PM_CLK_MIO_24_OR_25			(0x830c070U)
 #define PM_CLK_EMIO				(0x830c071U)
 #define PM_CLK_MIO				(0x830c072U)
+#define PM_CLK_XRAM_MAIN_CLK			(0x8208074U)
+#define PM_CLK_XRAM_APB				(0x8208075U)
 
 /* MIO nodes */
 #define PM_STMIC_LMIO_0				(0x14104001U)
@@ -344,6 +346,7 @@
 #define PM_STMIC_PMIO_51			(0x1410804eU)
 
 /* Device Nodes */
+#define PM_DEV_PLD_0				(0x18700000U)
 #define PM_DEV_PMC_PROC				(0x18104001U)
 #define PM_DEV_PSM_PROC				(0x18108002U)
 #define PM_DEV_ACPU_0				(0x1810c003U)
@@ -360,6 +363,13 @@
 #define PM_DEV_TCM_1_B				(0x1831800eU)
 #define PM_DEV_L2_BANK_0			(0x1831c00fU)
 #define PM_DEV_DDR_0				(0x18320010U)
+#define PM_DEV_DDR_1				(0x18320011U)
+#define PM_DEV_DDR_2				(0x18320012U)
+#define PM_DEV_DDR_3				(0x18320013U)
+#define PM_DEV_DDR_4				(0x18320014U)
+#define PM_DEV_DDR_5				(0x18320015U)
+#define PM_DEV_DDR_6				(0x18320016U)
+#define PM_DEV_DDR_7				(0x18320017U)
 #define PM_DEV_USB_0				(0x18224018U)
 #define PM_DEV_GEM_0				(0x18224019U)
 #define PM_DEV_GEM_1				(0x1822401aU)
@@ -404,6 +414,7 @@
 #define PM_DEV_IPI_4				(0x18224041U)
 #define PM_DEV_IPI_5				(0x18224042U)
 #define PM_DEV_IPI_6				(0x18224043U)
+#define PM_DEV_SOC				(0x18428044U)
 #define PM_DEV_DDRMC_0				(0x18520045U)
 #define PM_DEV_DDRMC_1				(0x18520046U)
 #define PM_DEV_DDRMC_2				(0x18520047U)
@@ -421,17 +432,82 @@
 #define PM_DEV_GT_10				(0x1862c053U)
 #define PM_DEV_EFUSE_CACHE			(0x18330054U)
 #define PM_DEV_AMS_ROOT				(0x18224055U)
+#define PM_DEV_XRAM_0				(0x18334056U)
+#define PM_DEV_XRAM_1				(0x18334057U)
+#define PM_DEV_XRAM_2				(0x18334058U)
+#define PM_DEV_XRAM_3				(0x18334059U)
+#define PM_DEV_XRAM_4				(0x1833405aU)
+#define PM_DEV_XRAM_5				(0x1833405bU)
+#define PM_DEV_XRAM_6				(0x1833405cU)
+#define PM_DEV_XRAM_7				(0x1833405dU)
+#define PM_DEV_XRAM_8				(0x1833405eU)
+#define PM_DEV_XRAM_9				(0x1833405fU)
+#define PM_DEV_XRAM_10				(0x18334060U)
+#define PM_DEV_XRAM_11				(0x18334061U)
+#define PM_DEV_XRAM_12				(0x18334062U)
+#define PM_DEV_XRAM_13				(0x18334063U)
+#define PM_DEV_XRAM_14				(0x18334064U)
+#define PM_DEV_XRAM_15				(0x18334065U)
+#define PM_DEV_GTM_0				(0x1862c066U)
+#define PM_DEV_GTM_1				(0x1862c067U)
+#define PM_DEV_GTM_2				(0x1862c068U)
+#define PM_DEV_GTM_3				(0x1862c069U)
+#define PM_DEV_GTM_4				(0x1862c06aU)
+#define PM_DEV_GTYP_0				(0x1862c06bU)
+#define PM_DEV_GTYP_1				(0x1862c06cU)
+#define PM_DEV_GTYP_2				(0x1862c06dU)
+#define PM_DEV_GTYP_CPM5_0			(0x1862c06eU)
+#define PM_DEV_GTYP_CPM5_1			(0x1862c06fU)
+#define PM_DEV_GTYP_CPM5_2			(0x1862c070U)
+#define PM_DEV_GTYP_CPM5_3			(0x1862c071U)
+#define PM_DEV_AIE				(0x18224072U)
+#define PM_DEV_IPI_PMC				(0x18224073U)
 
 /* Subsystem Nodes */
 #define PM_SUBSYS_DEFAULT			(0x1c000000U)
 #define PM_SUBSYS_PMC				(0x1c000001U)
-#define PM_SUBSYS_PSM				(0x1c000002U)
-#define PM_SUBSYS_APU				(0x1c000003U)
-#define PM_SUBSYS_RPU0_LOCK			(0x1c000004U)
-#define PM_SUBSYS_RPU0_0			(0x1c000005U)
-#define PM_SUBSYS_RPU0_1			(0x1c000006U)
-#define PM_SUBSYS_DDR0				(0x1c000007U)
-#define PM_SUBSYS_ME				(0x1c000008U)
-#define PM_SUBSYS_PL				(0x1c000009U)
 
-#endif /* _XPM_NODEID_H_ */
+/* Isolation Nodes */
+#define PM_ISO_FPD_PL_TEST			(0x20000000U)
+#define PM_ISO_FPD_PL				(0x20000001U)
+#define PM_ISO_FPD_SOC				(0x20000002U)
+#define PM_ISO_LPD_CPM_DFX			(0x20000003U)
+#define PM_ISO_LPD_CPM				(0x20000004U)
+#define PM_ISO_LPD_PL_TEST			(0x20000005U)
+#define PM_ISO_LPD_PL				(0x20000006U)
+#define PM_ISO_LPD_SOC				(0x20000007U)
+#define PM_ISO_PMC_LPD_DFX			(0x20000008U)
+#define PM_ISO_PMC_LPD				(0x20000009U)
+#define PM_ISO_PMC_PL_CFRAME			(0x2000000aU)
+#define PM_ISO_PMC_PL_TEST			(0x2000000bU)
+#define PM_ISO_PMC_PL				(0x2000000cU)
+#define PM_ISO_PMC_SOC_NPI			(0x2000000dU)
+#define PM_ISO_PMC_SOC				(0x2000000eU)
+#define PM_ISO_PL_SOC				(0x2000000fU)
+#define PM_ISO_VCCAUX_SOC			(0x20000010U)
+#define PM_ISO_VCCRAM_SOC			(0x20000011U)
+#define PM_ISO_VCCAUX_VCCRAM			(0x20000012U)
+#define PM_ISO_PL_CPM_PCIEA0_ATTR		(0x20000013U)
+#define PM_ISO_PL_CPM_PCIEA1_ATTR		(0x20000014U)
+#define PM_ISO_PL_CPM_RST_CPI0			(0x20000015U)
+#define PM_ISO_PL_CPM_RST_CPI1			(0x20000016U)
+#define PM_ISO_GEM_TSU_CLK			(0x20000017U)
+#define PM_ISO_GEM0_TXRX_CLK			(0x20000018U)
+#define PM_ISO_GEM1_TXRX_CLK			(0x20000019U)
+#define PM_ISO_CPM5_PL				(0x2000001aU)
+#define PM_ISO_CPM5_PL_AXIMM			(0x2000001bU)
+#define PM_ISO_CPM5_PL_CHI0			(0x2000001cU)
+#define PM_ISO_CPM5_PL_CHI1			(0x2000001dU)
+#define PM_ISO_CPM5_PL_TST			(0x2000001eU)
+#define PM_ISO_CPM5_PL_PCIEA0_MPIO		(0x2000001fU)
+#define PM_ISO_CPM5_PL_PCIEA1_MPIO		(0x20000020U)
+#define PM_ISO_CPM5_RAM				(0x20000021U)
+#define PM_ISO_LPD_CPM5				(0x20000022U)
+#define PM_ISO_LPD_CPM5_DFX			(0x20000023U)
+#define PM_ISO_XRAM_PL_AXI0			(0x20000024U)
+#define PM_ISO_XRAM_PL_AXI1			(0x20000025U)
+#define PM_ISO_XRAM_PL_AXI2			(0x20000026U)
+#define PM_ISO_XRAM_PL_AXILITE			(0x20000027U)
+#define PM_ISO_XRAM_PL_FABRIC			(0x20000028U)
+
+#endif /* XPM_NODEID_H_ */
