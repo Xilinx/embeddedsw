@@ -465,6 +465,9 @@ static void PmPowerForceDownRpu(PmPower* const power)
 	PmNodeForceDown(&pmSlaveTcm0B_g.sram.slv.node);
 	PmNodeForceDown(&pmSlaveTcm1A_g.sram.slv.node);
 	PmNodeForceDown(&pmSlaveTcm1B_g.sram.slv.node);
+
+	/* Reset RPU AMBA */
+	PmResetAssertInt(PM_RESET_RPU_AMBA, PM_RESET_ACTION_ASSERT);
 }
 
 /**
