@@ -520,6 +520,7 @@ u32 FlashReadID(void)
 		QspiFlashSize = FLASH_SIZE_256M;
 		fsbl_printf(DEBUG_INFO, "256M Bits\r\n");
 	} else if ((ReadBuffer[3] == FLASH_SIZE_ID_512M)
+			|| (ReadBuffer[3] == MACRONIX_FLASH_1_8_V_MX66_ID_512)
 			|| (ReadBuffer[3] == MACRONIX_FLASH_SIZE_ID_512M)) {
 		QspiFlashSize = FLASH_SIZE_512M;
 		fsbl_printf(DEBUG_INFO, "512M Bits\r\n");
@@ -528,7 +529,6 @@ u32 FlashReadID(void)
 		QspiFlashSize = FLASH_SIZE_1G;
 		fsbl_printf(DEBUG_INFO, "1G Bits\r\n");
 	}
-
 	return XST_SUCCESS;
 }
 
