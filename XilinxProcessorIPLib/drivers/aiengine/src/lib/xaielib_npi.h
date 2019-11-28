@@ -38,7 +38,6 @@
 * ----- ------  -------- -----------------------------------------------------
 * 1.0  Jubaer  03/08/2019  Initial creation
 * 1.1  Hyun    04/04/2019  Add the unlock and lock definitions
-* 1.2  Wendy   09/15/2019  Remove AIE array reset and shim reset implementation
 * </pre>
 *
 *******************************************************************************/
@@ -48,6 +47,25 @@
 /***************************** Include Files *********************************/
 
 /***************************** Constant Definitions **************************/
+
+#define XAIE_NPI_BASEADDR				0xF70A0000
+
+#define XAIE_NPI_PCSR_MASK				((XAIE_NPI_BASEADDR) + 0X00000000)
+#define XAIE_NPI_PCSR_MASK_SHIM_RESET_MSK		0x08000000
+#define XAIE_NPI_PCSR_MASK_SHIM_RESET_LSB		27U
+#define XAIE_NPI_PCSR_MASK_AIE_ARRAY_RESET_MASK		0x04000000
+#define XAIE_NPI_PCSR_MASK_AIE_ARRAY_RESET_LSB		26U
+
+#define XAIE_NPI_PCSR_CONTROL				((XAIE_NPI_BASEADDR) + 0X00000004)
+#define XAIE_NPI_PCSR_CONTROL_SHIM_RESET_MSK		0x08000000
+#define XAIE_NPI_PCSR_CONTROL_SHIM_RESET_LSB		27U
+#define XAIE_NPI_PCSR_CONTROL_AIE_ARRAY_RESET_MASK	0x04000000
+#define XAIE_NPI_PCSR_CONTROL_AIE_ARRAY_RESET_LSB	26U
+
+#define XAIE_NPI_PCSR_LOCK				((XAIE_NPI_BASEADDR) + 0X0000000C)
+#define XAIE_NPI_PCSR_LOCK_STATE_LSB			0
+#define XAIE_NPI_PCSR_LOCK_STATE_UNLOCK_CODE		0xF9E8D7C6
+#define XAIE_NPI_PCSR_LOCK_STATE_LOCK_CODE		0x0
 
 /************************** Function Prototypes  *****************************/
 
