@@ -80,7 +80,7 @@ proc xgen_opts_file {libhandle} {
 		file mkdir $dstdir
 	}
 
-	foreach entry [glob -nocomplain [file join $psdir *]] {
+	foreach entry [glob -nocomplain -types f [file join $psdir *]] {
             file copy -force $entry "./src"
         }
 
@@ -91,5 +91,4 @@ proc xgen_opts_file {libhandle} {
 	foreach source $sources {
 		file copy -force $source $dstdir
 	}
-	file delete -force $psdir
 }
