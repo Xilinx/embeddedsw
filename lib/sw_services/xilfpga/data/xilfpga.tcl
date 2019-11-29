@@ -100,13 +100,13 @@ proc generate {lib_handle} {
 	set new_flags "-Wl,--start-group,-lxilfpga,-lxil,-lxilsecure,-lgcc,-lc,--end-group $def_flags"
 	set_property -name APP_LINKER_FLAGS -value $new_flags -objects [current_sw_design]
 
-	foreach entry [glob -nocomplain [file join $zynqmp *]] {
+	foreach entry [glob -nocomplain -types f [file join $zynqmp *]] {
             file copy -force $entry "./src"
         }
     } else {
 		error "This library supports Only ZyqnMP platform."
     }
-    file delete -force $interface
+
     puts $conffile "#ifndef _XFPGA_CONFIG_H"
     puts $conffile "#define _XFPGA_CONFIG_H"
     puts $conffile "#include <xilfpga.h>"
