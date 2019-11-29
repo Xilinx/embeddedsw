@@ -135,14 +135,11 @@ proc generate {os_handle} {
 	}
 
 	if { $proctype == "psu_cortexa53" || $proctype == "ps7_cortexa9" || $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" || $proctype == "psv_cortexa72" } {
-	        foreach entry [glob -nocomplain [file join $armcommonsrcdir *]] {
+	        foreach entry [glob -nocomplain -types f [file join $armcommonsrcdir *]] {
 	       file copy -force $entry [file join ".." "${standalone_version}" "src"]
-	       file delete -force "../${standalone_version}/src/gcc"
-	       file delete -force "../${standalone_version}/src/iccarm"
-	       file delete -force "../${standalone_version}/src/armclang"
 	     }
 	     set commonccdir "../${standalone_version}/src/arm/common/gcc"
-	     foreach entry [glob -nocomplain [file join $commonccdir *]] {
+	     foreach entry [glob -nocomplain -types f [file join $commonccdir *]] {
                  file copy -force $entry [file join ".." "${standalone_version}" "src"]
 	     }
 	 }
@@ -169,13 +166,9 @@ proc generate {os_handle} {
 				} else {
 				    set platformincludedir "../${standalone_version}/src/arm/ARMv8/includes_ps/platform/ZynqMP"
 				}
-				foreach entry [glob -nocomplain [file join $platformincludedir *]] {
+				foreach entry [glob -nocomplain -types f [file join $platformincludedir *]] {
 				    file copy -force $entry "../${standalone_version}/src/includes_ps/"
 				}
-				file delete -force "../${standalone_version}/src/gcc"
-				file delete -force "../${standalone_version}/src/iccarm"
-				file delete -force "../${standalone_version}/src/profile"
-				file delete -force "../${standalone_version}/src/includes_ps/platform"
 				if { $enable_sw_profile == "true" } {
 					error "ERROR: Profiling is not supported for R5"
 				}
@@ -200,11 +193,10 @@ proc generate {os_handle} {
 				        set platformsrcdir "../${standalone_version}/src/arm/cortexr5/platform/ZynqMP"
 				}
 				
-                                foreach entry [glob -nocomplain [file join $platformsrcdir *]] {
+                                foreach entry [glob -nocomplain -types f [file join $platformsrcdir *]] {
 		                     file copy -force $entry [file join ".." "${standalone_version}" "src"]
 	                        }
 				
-				file delete -force $platformsrcdir 
 				close $file_handle
 			}
 		"psv_cortexa72" -
@@ -240,14 +232,9 @@ proc generate {os_handle} {
 				} else {
 				    set platformincludedir "../${standalone_version}/src/arm/ARMv8/includes_ps/platform/ZynqMP"
 				}
-				foreach entry [glob -nocomplain [file join $platformincludedir *]] {
+				foreach entry [glob -nocomplain -types f [file join $platformincludedir *]] {
 				    file copy -force $entry "../${standalone_version}/src/includes_ps/"
 				}
-				file delete -force "../${standalone_version}/src/gcc"
-				file delete -force "../${standalone_version}/src/armclang"
-				file delete -force "../${standalone_version}/src/platform"
-				file delete -force "../${standalone_version}/src/profile"
-				file delete -force "../${standalone_version}/src/includes_ps/platform"
 				if { $enable_sw_profile == "true" } {
 					error "ERROR: Profiling is not supported for A53/A72"
 				}
@@ -275,13 +262,10 @@ proc generate {os_handle} {
 					file copy -force $entry [file join ".." "${standalone_version}" "src"]
 				}
 
-				foreach entry [glob -nocomplain [file join $arma9gccdir *]] {
+				foreach entry [glob -nocomplain -types f [file join $arma9gccdir *]] {
 					file copy -force $entry [file join ".." "${standalone_version}" "src"]
 				}
 
-				file delete -force "../${standalone_version}/src/gcc"
-				file delete -force "../${standalone_version}/src/iccarm"
-				file delete -force "../${standalone_version}/src/armcc"
 				set need_config_file "true"
 
 				set file_handle [::hsi::utils::open_include_file "xparameters.h"]
@@ -320,11 +304,6 @@ proc generate {os_handle} {
 
 	close $makeconfig
 
-	# Remove arm directory...
-	file delete -force $armr5srcdir
-	file delete -force $arma9srcdir
-	file delete -force $arma5364srcdir
-	file delete -force $mbsrcdir
 
 	# Copy core kernel files to the main src directory
 	file copy -force [file join src Source tasks.c] ./src
@@ -455,12 +434,7 @@ proc generate {os_handle} {
 		file copy -force $header src
 	}
 
-	file delete -force [file join src Source]
 
-	# Remove microblaze, cortexa9 and common directories...
-	file delete -force $mbsrcdir
-	file delete -force $commonsrcdir
-	file delete -force $armsrcdir
 
 	# Handle stdin
 	set stdin [common::get_property CONFIG.stdin $os_handle]
