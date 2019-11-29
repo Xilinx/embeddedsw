@@ -159,9 +159,6 @@ Fix added to correct example application wrt IP GUI configuration.
 vtc_v8_2:
 Fix handling of spurious interrupt
 
-uartps_v3_9:
-Changed the XUARTPS_MAX_RATE macro to enable configuration of higher baud rates.
-
 xilffs_v4_3:
 Modified disk_status API to remove dependency on canonical params
 Add support for Multi Partitions
