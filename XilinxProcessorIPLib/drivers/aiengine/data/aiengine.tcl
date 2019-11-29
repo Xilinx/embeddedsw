@@ -41,9 +41,6 @@ proc copy_sub_files {dir} {
 
 proc generate {libhandle} {
 	copy_sub_files "./src"
-	foreach dir [glob -nocomplain -directory "./src" -type d *] {
-		file delete -force $dir
-	}
 	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 	puts $file_handle ""
 	puts $file_handle "#include \"xaiengine/xparameters_aie.h\""
