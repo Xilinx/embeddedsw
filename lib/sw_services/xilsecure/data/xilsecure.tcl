@@ -50,26 +50,21 @@ proc secure_drc {libhandle} {
 	set zynqmp "src/zynqmp/"
 	set versal "src/versal/"
 
-	foreach entry [glob -nocomplain [file join $common *]] {
+	foreach entry [glob -nocomplain -types f [file join $common *]] {
 			file copy -force $entry "./src"
 	}
-	file delete -force $common
 
 	if {$proc_type == "psu_cortexa53" ||
 		$proc_type == "psu_cortexr5" || $proc_type == "psu_pmu"} {
-			foreach entry [glob -nocomplain [file join $zynqmp *]] {
+			foreach entry [glob -nocomplain -types f [file join $zynqmp *]] {
 				file copy -force $entry "./src"
 			}
-			file delete -force $zynqmp
-			file delete -force $versal
 	} elseif {$proc_type == "psu_pmc" || $proc_type == "psu_cortexa72" ||
 				$proc_type == "psv_pmc" || $proc_type == "psv_cortexa72" ||
 				$proc_type == "psv_cortexr5" } {
-			foreach entry [glob -nocomplain [file join $versal *]] {
+			foreach entry [glob -nocomplain -types f [file join $versal *]] {
 				file copy -force $entry "./src"
 			}
-			file delete -force $zynqmp
-			file delete -force $versal
 
 			if {[string compare -nocase $compiler "mb-gcc"] == 0} {
 				file delete -force ./src/libxilsecure_a72_64.a
