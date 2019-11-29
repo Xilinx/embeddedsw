@@ -136,6 +136,8 @@ static inline void XV_SdiRx_ResetGlobalInterrupt(XV_SdiRx *InstancePtr)
 int XV_SdiRx_CfgInitialize(XV_SdiRx *InstancePtr, XV_SdiRx_Config *CfgPtr,
 				UINTPTR EffectiveAddr)
 {
+	XV_SdiRx_SupportedModes SupportModes = XV_SDIRX_SUPPORT_ALL;
+
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
@@ -169,7 +171,14 @@ int XV_SdiRx_CfgInitialize(XV_SdiRx *InstancePtr, XV_SdiRx_Config *CfgPtr,
 
 	/* Configure SDI RX Core */
 	XV_SdiRx_FramerEnable(InstancePtr);
-	XV_SdiRx_EnableMode(InstancePtr, XV_SDIRX_SUPPORT_ALL);
+
+	if (InstancePtr->Config.MaxRateSupported < XSDIRX_LINE_RATE_12G8DS)
+		SupportModes &= ~(XV_SDIRX_SUPPORT_12GI | XV_SDIRX_SUPPORT_12GF);
+
+	if (InstancePtr->Config.MaxRateSupported < XSDIRX_LINE_RATE_6G)
+		SupportModes &= ~XV_SDIRX_SUPPORT_6G;
+
+	XV_SdiRx_EnableMode(InstancePtr, SupportedModes);
 
 	/* Enables FF EDH and AP EDH errors counter */
 	XV_SdiRx_SetEdhErrCntTrigger(InstancePtr, 0x420);
