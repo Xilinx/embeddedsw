@@ -389,7 +389,9 @@ XStatus XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
 		goto END;
 	}
 
-	if (SMAP_BUS_WIDTH_WORD1 == SmapBusWidthCheck[0U]) {
+	if ((SMAP_BUS_WIDTH_8_WORD1 == SmapBusWidthCheck[0U]) ||
+		(SMAP_BUS_WIDTH_16_WORD1 == SmapBusWidthCheck[0U]) ||
+		(SMAP_BUS_WIDTH_32_WORD1 == SmapBusWidthCheck[0U])) {
 
 		Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
 			    MetaHdrPtr->BootHdr.BootHdrFwRsvd.MetaHdrOfst +
