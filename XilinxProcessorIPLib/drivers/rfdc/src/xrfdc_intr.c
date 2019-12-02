@@ -27,7 +27,7 @@
 /**
 *
 * @file xrfdc_intr.c
-* @addtogroup rfdc_v7_0
+* @addtogroup rfdc_v7_1
 * @{
 *
 * This file contains functions related to RFdc interrupt handling.
@@ -60,6 +60,8 @@
 *       cog    05/13/19 Added handling for common power up interrupt.
 *       cog    07/29/19 Added XRFdc_GetEnabledInterrupts() API.
 *       cog    08/02/19 Formatting changes.
+* 7.1   aad    12/01/19 Fixed static analysis errors
+*
 * </pre>
 *
 ******************************************************************************/
@@ -689,7 +691,7 @@ u32 XRFdc_IntrHandler(u32 Vector, void *XRFdcPtr)
 	XRFdc *InstancePtr = (XRFdc *)XRFdcPtr;
 	u32 Intrsts = 0x0U;
 	u32 Tile_Id = XRFDC_TILE_ID_INV;
-	s32 Block_Id = XRFDC_BLK_ID_INV;
+	s32 Block_Id;
 	u32 ReadReg;
 	u16 Type = 0U;
 	u32 BaseAddr;
@@ -730,6 +732,7 @@ u32 XRFdc_IntrHandler(u32 Vector, void *XRFdcPtr)
 		Tile_Id = XRFDC_TILE_ID3;
 	} else {
 		metal_log(METAL_LOG_DEBUG, "\n Invalid Tile_Id \r\n");
+		goto END_OF_BLOCK_LEVEL;
 	}
 
 	BaseAddr = XRFDC_CTRL_STS_BASE(Type, Tile_Id);
