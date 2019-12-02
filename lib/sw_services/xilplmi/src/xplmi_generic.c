@@ -674,11 +674,10 @@ int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd)
 					--Len;
 					++Count;
 				}
-				Status = XPlmi_DmaXfr((u32)&Cmd->ResumeData[4U], DestAddr, 4U, Flags);
-				if(Status != XST_SUCCESS) {
-					XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
-					goto END;
-				}
+				XPlmi_Out64(DestAddr, Xil_In32((u32)&Cmd->ResumeData[4U]));
+				XPlmi_Out64(DestAddr+4U, Xil_In32((u32)&Cmd->ResumeData[5U]));
+				XPlmi_Out64(DestAddr+8U, Xil_In32((u32)&Cmd->ResumeData[6U]));
+				XPlmi_Out64(DestAddr+12U, Xil_In32((u32)&Cmd->ResumeData[7U]));
 				DestAddr = ((Cmd->ProcessedLen-Cmd->ResumeData[3U]-DestOffset+Count)*4U)%Keyholesize + BaseAddr;
 			}
 			Cmd->ResumeData[3U] = 0U;
