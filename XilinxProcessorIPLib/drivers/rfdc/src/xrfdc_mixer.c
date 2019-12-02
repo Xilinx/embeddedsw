@@ -56,6 +56,8 @@
 *                       be incorrect.
 *       cog    09/19/19 Calibration mode 1 does not need the frequency shifting workaround
 *                       for Gen 3 devices.
+* 7.1   cog    11/28/19 Prevent setting non compliant mixer settings when in the bypass
+*                       datapath mode.
 * </pre>
 *
 ******************************************************************************/
@@ -119,6 +121,7 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 	double NCOFreq;
 	u32 NyquistZone = 0U;
 	u32 Offset;
+	u32 DatapathMode;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(MixerSettingsPtr != NULL);
@@ -127,6 +130,18 @@ u32 XRFdc_SetMixerSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 	Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
 		goto RETURN_PATH;
+	}
+	if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
+		if (Type == XRFDC_DAC_TILE) {
+			DatapathMode = XRFdc_RDReg(InstancePtr, XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id),
+						   XRFDC_DAC_DATAPATH_OFFSET, XRFDC_DATAPATH_MODE_MASK);
+			if (DatapathMode == XRFDC_DAC_INT_MODE_FULL_BW_BYPASS) {
+				Status = XRFDC_FAILURE;
+				metal_log(METAL_LOG_ERROR, "\n Can't set mixer as DUC is in bypass mode in %s\r\n",
+					  __func__);
+				goto RETURN_PATH;
+			}
+		}
 	}
 
 	Status = XRFdc_MixerRangeCheck(InstancePtr, Type, Tile_Id, MixerSettingsPtr);

@@ -184,6 +184,8 @@
 *       cog    11/28/19 Datapath "Mode 2" is now half bandwith with low pass IMR (previously it was
 *                       full bandwidth, no IMR, even Nyquist zone).
 *       cog    11/28/19 Set defalult compatibility setting when moving to Bypass Mode (Mode 4).
+*       cog    11/28/19 Prevent setting non compliant interpolation rates when in the bypass
+*                       datapath mode.
 *
 * </pre>
 *
@@ -1937,6 +1939,7 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, 
 	u16 FabricRate;
 	u8 DataType;
 	u32 Factor;
+	u32 DatapathMode;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
@@ -1962,6 +1965,16 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, 
 	}
 
 	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
+
+	if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
+		DatapathMode = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_DAC_DATAPATH_OFFSET, XRFDC_DATAPATH_MODE_MASK);
+		if (DatapathMode == XRFDC_DAC_INT_MODE_FULL_BW_BYPASS) {
+			Status = XRFDC_FAILURE;
+			metal_log(METAL_LOG_ERROR, "\n Can't set interpolation mode as DUC is in bypass mode in %s\r\n",
+				  __func__);
+			goto RETURN_PATH;
+		}
+	}
 
 	DataType = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_DAC_ITERP_DATA_OFFSET);
 	if ((DataType == XRFDC_ADC_MIXER_MODE_IQ) && (InterpolationFactor == XRFDC_INTERP_DECIM_1X)) {
