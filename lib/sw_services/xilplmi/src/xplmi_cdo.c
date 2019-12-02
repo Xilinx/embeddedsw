@@ -44,6 +44,7 @@
 
 /***************************** Include Files *********************************/
 #include "xplmi_cdo.h"
+#include "xplmi_proc.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_CMD_LEN_TEMPBUF		(0x8U)
@@ -372,6 +373,9 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 	u32 CopiedCmdLen = CdoPtr->CopiedCmdLen;
 	u32 *BufPtr = CdoPtr->BufPtr;
 	u32 BufLen = CdoPtr->BufLen;
+#ifdef	PLM_PRINT_PERF_CDO_PROCESS
+	u64 ProcessTime = XPlmi_GetTimerValue();
+#endif
 
 	/** verify the header for the first chunk of CDO */
 	if (CdoPtr->Cdo1stChunk == TRUE)
@@ -462,5 +466,10 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 
 	CdoPtr->ProcessedCdoLen += CdoPtr->BufLen;
 END:
+#ifdef	PLM_PRINT_PERF_CDO_PROCESS
+	XPlmi_MeasurePerfTime(ProcessTime);
+	XPlmi_Printf(DEBUG_PRINT_PERF,
+	     " Cdo Processing time \n\r");
+#endif
 	return Status;
 }

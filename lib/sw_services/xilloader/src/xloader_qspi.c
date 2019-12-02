@@ -1082,6 +1082,9 @@ XStatus XLoader_Qspi32Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	u32 RemainingBytes;
 	u32 TransferBytes;
 	u32 DiscardByteCnt;
+#ifdef PLM_PRINT_PERF_DMA
+	u64 QspiCopyTime = XPlmi_GetTimerValue();
+#endif
 
 	XLoader_Printf(DEBUG_INFO, "QSPI Reading Src 0x%08x, Dest 0x%0x%08x, "
 		       "Length 0x%0lx, Flags 0x%0x\r\n",
@@ -1222,6 +1225,13 @@ XStatus XLoader_Qspi32Copy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	}
 	Status = XLOADER_SUCCESS;
 END:
+#ifdef	PLM_PRINT_PERF_DMA
+	XPlmi_MeasurePerfTime(QspiCopyTime);
+	XPlmi_Printf(DEBUG_PRINT_PERF,
+	     " QSPI Copy time: SrcAddr: 0x%08x, DestAddr: 0x%0x08x,"
+	     "%d Bytes, Flags: 0x%0x\n\r",
+	     SrcAddr, (u32)(DestAddr>>32), (u32)DestAddr, Length, Flags);
+#endif
 	return Status;
 }
 

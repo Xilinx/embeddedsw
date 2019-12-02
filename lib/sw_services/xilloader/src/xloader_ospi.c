@@ -43,6 +43,7 @@
 ******************************************************************************/
 /***************************** Include Files *********************************/
 #include "xloader_ospi.h"
+#include "xplmi_proc.h"
 #include "xloader.h"
 
 #ifdef XLOADER_OSPI
@@ -273,11 +274,13 @@ XStatus XLoader_OspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 {
 	
 	XStatus Status = XST_FAILURE;
+#ifdef PLM_PRINT_PERF_DMA
+	u64 OspiCopyTime = XPlmi_GetTimerValue();
+#endif
 
 	XLoader_Printf(DEBUG_INFO, "OSPI Reading Src 0x%0x, Dest 0x%0x%08x, "
 		"Length 0x%0x, Flags 0x%0x\r\n", SrcAddr, (u32)(DestAddr>>32),
 		(u32)(DestAddr), Length, Flags);
-
 	/*
 	 * Read cmd
 	 */
@@ -306,6 +309,13 @@ XStatus XLoader_OspiCopy(u32 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		goto END;
 	}
 
+#ifdef	PLM_PRINT_PERF_DMA
+	XPlmi_MeasurePerfTime(OspiCopyTime);
+	XPlmi_Printf(DEBUG_PRINT_PERF,
+	     " OSPI Copy time: SrcAddr: 0x%08x, DestAddr: 0x%0x08x,"
+	     "%d Bytes, Flags: 0x%0x\n\r",
+	     SrcAddr, (u32)(DestAddr>>32), (u32)DestAddr, Length, Flags);
+#endif
 END:
 	return Status;
 }

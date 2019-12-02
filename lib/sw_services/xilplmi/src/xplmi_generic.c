@@ -46,6 +46,7 @@
 #include "xplmi_generic.h"
 #include "xstatus.h"
 #include "xplmi_util.h"
+#include "xplmi_proc.h"
 #include "xplmi_hw.h"
 #include "xcfupmc.h"
 #include "sleep.h"
@@ -88,6 +89,9 @@ static int XPlmi_MaskPoll(XPlmi_Cmd * Cmd)
 	u32 ExpectedValue = Cmd->Payload[2];
 	u32 TimeOutInUs = Cmd->Payload[3];
 	int Status;
+#ifdef PLM_PRINT_PERF_POLL
+	u64 PollTime = XPlmi_GetTimerValue();
+#endif
 	/** HACK  **/
 	TimeOutInUs = 1000000;
 
@@ -105,6 +109,12 @@ static int XPlmi_MaskPoll(XPlmi_Cmd * Cmd)
 		"Timeout: %d ...Done\r\n",  __func__,
 		Addr, Mask, ExpectedValue, TimeOutInUs);
 	}
+#ifdef PLM_PRINT_PERF_POLL
+	XPlmi_MeasurePerfTime(PollTime);
+	XPlmi_Printf(DEBUG_PRINT_PERF,
+	" Poll Time: Addr: 0x%0x,  Mask: 0x%0x, ExpVal: 0x%0x, "
+	"Timeout: %d \r\n", Addr, Mask, ExpectedValue, TimeOutInUs);
+#endif
 	return Status;
 }
 

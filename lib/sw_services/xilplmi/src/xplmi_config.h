@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -88,6 +88,16 @@ extern "C" {
  * debug defines to print the timings.
  */
 #define PLM_PRINT_PERF
+/**
+ * Enable the below defines as per the requirement.
+ * POLL prints the time taken for any poll for MASK_POLL command.
+ * DMA prints the time taken for PMC DMA, QSPI, OSPI.
+ * CDO_PROCESS will print the time taken to process CDO file.
+ * Make sure to enable PLM_PRINT_PERF to see prints.
+ */
+//#define PLM_PRINT_PERF_POLL
+//#define PLM_PRINT_PERF_DMA
+//#define PLM_PRINT_PERF_CDO_PROCESS
 
 /**
  * @name PLM code include options

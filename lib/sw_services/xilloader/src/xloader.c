@@ -166,6 +166,7 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	u32 RegVal;
 	int Status;
 	XLoader_SecureParms SecureParam = {0U};
+	u64 PdiInitTime = XPlmi_GetTimerValue();
 
 	/**
 	 * Update PDI Ptr with source, addr, meta header
@@ -352,6 +353,9 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	}
 
 END:
+	XPlmi_MeasurePerfTime(PdiInitTime);
+	XPlmi_Printf(DEBUG_PRINT_PERF,
+		"PDI initialization time\n\r");
 	return Status;
 }
 
@@ -367,7 +371,6 @@ END:
  *****************************************************************************/
 int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 {
-	u64 ImageLoadTime;
 
 	/**
 	 * From the meta header present in PDI pointer, read the subsystem
@@ -384,7 +387,6 @@ int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 	for ( ;PdiPtr->ImageNum < PdiPtr->MetaHdr.ImgHdrTable.NoOfImgs;
 			++PdiPtr->ImageNum)
 	{
-		ImageLoadTime = XPlmi_GetTimerValue();
 		Status = XLoader_LoadImage(PdiPtr, 0xFFFFFFFFU);
 		/** Check for Cfi errors */
 		XLoader_CfiErrorHandler();
@@ -397,9 +399,6 @@ int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 		{
 			goto END;
 		}
-		XPlmi_MeasurePerfTime(ImageLoadTime);
-		XPlmi_Printf(DEBUG_PRINT_PERF,
-			"for Image: %d\n\r", PdiPtr->ImageNum);
     }
 	Status = XST_SUCCESS;
 END:

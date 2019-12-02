@@ -706,7 +706,6 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 		{
 			goto END;
 		}
-
 	}
 	Status = XST_SUCCESS;
 END:

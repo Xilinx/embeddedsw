@@ -45,6 +45,7 @@
 #include "xplmi_dma.h"
 #include "xplmi_debug.h"
 #include "xplmi_generic.h"
+#include "xplmi_proc.h"
 #include "xplmi_util.h"
 #include "xplmi_status.h"
 #include "xplmi_hw.h"
@@ -426,7 +427,9 @@ int XPlmi_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 {
 	int Status;
 	XCsuDma *DmaPtr;
-
+#ifdef PLM_PRINT_PERF_DMA
+	u64 XfrTime = XPlmi_GetTimerValue();
+#endif
 	Status = XPlmi_StartDma(SrcAddr, DestAddr, Len, Flags, &DmaPtr);
 
 	/* Polling for transfer to be done */
@@ -473,6 +476,14 @@ int XPlmi_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 	}
 	Status = XST_SUCCESS;
 END:
+#ifdef PLM_PRINT_PERF_DMA
+	XPlmi_MeasurePerfTime(XfrTime);
+	XPlmi_Printf(DEBUG_PRINT_PERF,
+		     " DMA Xfr time: SrcAddr: 0x%0x%08x, DestAddr: 0x%0x%08x,"
+		     "%d Bytes, Flags: 0x%0x\n\r",
+		     (u32)(SrcAddr>>32), (u32)SrcAddr, (u32)(DestAddr>>32),
+		     (u32)DestAddr, Len*4, Flags);
+#endif
 	return Status;
 }
 
