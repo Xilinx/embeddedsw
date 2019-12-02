@@ -87,6 +87,7 @@
 *       cog    10/02/19 Added mask for PLL output clock divider.
 * 7.1   cog    11/15/19 Added offsets & masks for calibration mode support for
 *                       Gen 3 devices.
+*       cog    11/28/19 Added offset & shift for datapath modes.
 *
 *</pre>
 *
@@ -116,6 +117,7 @@ extern "C" {
 #define XRFDC_CLK_EN_OFFSET 0x000U /**< ADC Clock Enable Register */
 #define XRFDC_ADC_DEBUG_RST_OFFSET 0x004U /**< ADC Debug Reset Register */
 #define XRFDC_ADC_FABRIC_RATE_OFFSET 0x008U /**< ADC Fabric Rate Register */
+#define XRFDC_DAC_FABRIC_RATE_OFFSET 0x008U /**< DAC Fabric Rate Register */
 #define XRFDC_ADC_FABRIC_OFFSET 0x00CU /**< ADC Fabric Register */
 #define XRFDC_ADC_FABRIC_ISR_OFFSET 0x010U /**< ADC Fabric ISR Register */
 #define XRFDC_DAC_FABRIC_ISR_OFFSET 0x014U /**< DAC Fabric ISR Register */
@@ -578,6 +580,8 @@ extern "C" {
 #define XRFDC_DATAPATH_MODE_MASK 0x00000003U /**< DataPath Mode */
 #define XRFDC_DATAPATH_IMR_MASK 0x00000004U /**< IMR Mode */
 #define XRFDC_DATAPATH_LATENCY_MASK 0x00000008U /**< DataPath Latency */
+
+#define XRFDC_DATAPATH_IMR_SHIFT 2U /**< IMR Mode shift */
 
 /* @} */
 

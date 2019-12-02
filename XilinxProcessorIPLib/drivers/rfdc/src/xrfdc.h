@@ -255,6 +255,7 @@
 *       cog    10/02/19 Added macros for new VCO ranges.
 * 7.1   cog    11/14/19 Increased ADC fabric read rate to 12 words per cycle for Gen 3 devices.
 *       cog    11/15/19 Added macros for calibration mode support for Gen 3 devices.
+*       cog    11/28/19 Datapath mode macros have been changed to reflect the new functionality.
 *
 * </pre>
 *
@@ -1105,11 +1106,14 @@ typedef struct {
 #define XRFDC_EXPORTCTRL_VOP 0x2000
 #define XRFDC_EXPORTCTRL_DSA 0x0400
 
-#define XRFDC_DAC_MODE_7G_NQ1 0U
-#define XRFDC_DAC_MODE_7G_NQ2 1U
-#define XRFDC_DAC_MODE_10G_IMR 2U
-#define XRFDC_DAC_MODE_10G_BYPASS 3U
-#define XRFDC_DAC_MODE_MAX XRFDC_DAC_MODE_10G_BYPASS
+#define XRFDC_DATAPATH_MODE_DUC_0_FSDIVTWO 1U
+#define XRFDC_DATAPATH_MODE_DUC_0_FSDIVFOUR 2U
+#define XRFDC_DATAPATH_MODE_FSDIVFOUR_FSDIVTWO 3U
+#define XRFDC_DATAPATH_MODE_NODUC_0_FSDIVTWO 4U
+#define XRFDC_DAC_INT_MODE_FULL_BW 0U
+#define XRFDC_DAC_INT_MODE_HALF_BW_IMR 2U
+#define XRFDC_DAC_INT_MODE_FULL_BW_BYPASS 3U
+#define XRFDC_DAC_MODE_MAX XRFDC_DATAPATH_MODE_NODUC_0_FSDIVTWO
 
 #define XRFDC_DAC_IMR_MODE_LOWPASS 0U
 #define XRFDC_DAC_IMR_MODE_HIGHPASS 1U
@@ -2005,7 +2009,7 @@ RETURN_PATH:
 ******************************************************************************/
 static inline double XRFdc_GetDriverVersion(void)
 {
-	return 7.0;
+	return 7.1;
 }
 
 /************************** Function Prototypes ******************************/

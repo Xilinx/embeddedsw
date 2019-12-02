@@ -181,6 +181,9 @@
 * 7.1   cog    11/14/19 Increased ADC fabric read rate to 12 words per cycle for Gen 3 devices.
 *       cog    11/15/19 Added calibration mode support for Gen 3 devices and fixed issue with going
 *                       to calibration mode 1 when in real mode.
+*       cog    11/28/19 Datapath "Mode 2" is now half bandwith with low pass IMR (previously it was
+*                       full bandwidth, no IMR, even Nyquist zone).
+*       cog    11/28/19 Set defalult compatibility setting when moving to Bypass Mode (Mode 4).
 *
 * </pre>
 *
@@ -3335,45 +3338,123 @@ u32 XRFdc_SetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mod
 {
 	u32 Status = XRFDC_SUCCESS;
 	u32 BaseAddr;
-	u32 NyquistZone;
 	u32 GetClkDiv;
 	u32 SetClkDiv;
+	u32 GetInterpolationFactor;
+	XRFdc_Mixer_Settings MixerSettings;
 	u32 FabricRate;
+	u32 DatapathReg;
+	u32 CurrentMode;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR, "\n Requested functionality not available for this IP in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
-		return Status;
+		metal_log(METAL_LOG_ERROR, "\n Tile %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
+		goto RETURN_PATH;
 	}
 
-	if (Mode > XRFDC_DAC_MODE_MAX) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid Mode value in %s\r\n", __func__);
+	SetClkDiv = XRFDC_CLK_DIV_DP_OTHER_MODES;
+	FabricRate = XRFDC_FAB_RATE_8;
+	switch (Mode) {
+	case XRFDC_DATAPATH_MODE_DUC_0_FSDIVTWO:
+		DatapathReg = XRFDC_DAC_INT_MODE_FULL_BW;
+		SetClkDiv = XRFDC_CLK_DIV_DP_FIRST_MODE;
+		break;
+	case XRFDC_DATAPATH_MODE_DUC_0_FSDIVFOUR:
+		DatapathReg = XRFDC_DAC_INT_MODE_HALF_BW_IMR;
+		break;
+	case XRFDC_DATAPATH_MODE_FSDIVFOUR_FSDIVTWO:
+		DatapathReg = XRFDC_DAC_INT_MODE_HALF_BW_IMR;
+		DatapathReg |= (XRFDC_DAC_IMR_MODE_HIGHPASS << XRFDC_DATAPATH_IMR_SHIFT);
+		break;
+	case XRFDC_DATAPATH_MODE_NODUC_0_FSDIVTWO:
+		DatapathReg = XRFDC_DAC_INT_MODE_FULL_BW_BYPASS;
+		FabricRate = XRFDC_FAB_RATE_16;
+		break;
+	default:
+		metal_log(METAL_LOG_ERROR, "\n Invalid Mode value in (%u)%s\r\n", Mode, __func__);
 		Status = XRFDC_FAILURE;
-		return Status;
+		goto RETURN_PATH;
 	}
+
+	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
+
+	/*
+	Interpolation factor, mixer settings and fabric rate needs to be set if going to Mode 4.
+	Fabric rate needs to be set if going from mode 4 to another Mode.
+	*/
+	if ((Mode == XRFDC_DATAPATH_MODE_NODUC_0_FSDIVTWO)) {
+		Status = XRFdc_GetMixerSettings(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, &MixerSettings);
+		if (Status != XRFDC_SUCCESS) {
+			metal_log(METAL_LOG_ERROR, "\n Failed to get mixer settings for DAC tile %u block %u in %s\r\n",
+				  Tile_Id, Block_Id, __func__);
+			goto RETURN_PATH;
+		}
+
+		if (MixerSettings.MixerMode != XRFDC_MIXER_MODE_R2R) {
+			MixerSettings.CoarseMixFreq = XRFDC_COARSE_MIX_BYPASS;
+			MixerSettings.MixerMode = XRFDC_MIXER_MODE_R2R;
+			MixerSettings.MixerType = XRFDC_MIXER_TYPE_COARSE;
+			metal_log(
+				METAL_LOG_WARNING,
+				"\n Setting mixer mode to remain compatible with datapath mode for DAC tile %u block %u (R2R) in %s\r\n",
+				Tile_Id, Block_Id, __func__);
+
+			Status = XRFdc_SetMixerSettings(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, &MixerSettings);
+			if (Status != XRFDC_SUCCESS) {
+				metal_log(METAL_LOG_ERROR,
+					  "\n Failed to set mixer settings for DAC tile %u block %u in %s\r\n", Tile_Id,
+					  Block_Id, __func__);
+				goto RETURN_PATH;
+			}
+		}
+
+		GetInterpolationFactor =
+			XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_DAC_INTERP_CTRL_OFFSET, XRFDC_INTERP_MODE_I_MASK_EXT);
+		if (GetInterpolationFactor != XRFDC_INTERP_DECIM_1X) {
+			metal_log(
+				METAL_LOG_WARNING,
+				"\n Setting Interpolation settings mode to remain compatible with datapath mode for DAC tile %u block %u (x1 Real) in %s\r\n",
+				Tile_Id, Block_Id, __func__);
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_INTERP_CTRL_OFFSET, XRFDC_INTERP_MODE_MASK_EXT,
+					XRFDC_INTERP_DECIM_1X);
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_ITERP_DATA_OFFSET, XRFDC_DAC_INTERP_DATA_MASK,
+					XRFDC_DISABLED);
+		}
+
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_FABRIC_RATE_OFFSET, XRFDC_DAC_FAB_RATE_RD_MASK,
+				(FabricRate << XRFDC_FAB_RATE_RD_SHIFT));
+	} else { /*Modes 1-3*/
+		CurrentMode = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_DAC_DATAPATH_OFFSET, XRFDC_DATAPATH_MODE_MASK);
+		if (CurrentMode == XRFDC_DAC_INT_MODE_FULL_BW_BYPASS) {
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_FABRIC_RATE_OFFSET, XRFDC_DAC_FAB_RATE_RD_MASK,
+					(FabricRate << XRFDC_FAB_RATE_RD_SHIFT));
+		}
+	}
+
+	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_DATAPATH_OFFSET,
+			(XRFDC_DATAPATH_MODE_MASK | XRFDC_DATAPATH_IMR_MASK), DatapathReg);
 
 	BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id) + XRFDC_HSCOM_ADDR;
-	SetClkDiv = (Mode == XRFDC_DAC_MODE_7G_NQ1) ? XRFDC_CLK_DIV_DP_FIRST_MODE : XRFDC_CLK_DIV_DP_OTHER_MODES;
 	GetClkDiv = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_HSCOM_CLK_DIV_OFFSET, XRFDC_FAB_CLK_DIV_CAL_MASK);
 	if (GetClkDiv != SetClkDiv) {
 		metal_log(METAL_LOG_WARNING,
 			  "\n Setting mode that may not be compatible with other channels on this tile %s\r\n",
 			  __func__);
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_HSCOM_CLK_DIV_OFFSET, XRFDC_FAB_CLK_DIV_CAL_MASK,
+				SetClkDiv);
 	}
-	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_HSCOM_CLK_DIV_OFFSET, XRFDC_FAB_CLK_DIV_CAL_MASK, SetClkDiv);
 
-	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
-	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_DATAPATH_OFFSET, XRFDC_DATAPATH_MODE_MASK, Mode);
-
-	FabricRate = (Mode == XRFDC_DAC_MODE_10G_BYPASS) ? XRFDC_FAB_RATE_16 : XRFDC_FAB_RATE_8;
-	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_FABRIC_RATE_OFFSET, XRFDC_DAC_FAB_RATE_RD_MASK,
-			(FabricRate << XRFDC_FAB_RATE_RD_SHIFT));
-
-	NyquistZone = (Mode == XRFDC_DAC_MODE_7G_NQ2) ? XRFDC_EVEN_NYQUIST_ZONE : XRFDC_ODD_NYQUIST_ZONE;
-	XRFdc_SetNyquistZone(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, NyquistZone);
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
 	return Status;
 }
 
@@ -3399,19 +3480,46 @@ u32 XRFdc_GetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *Mo
 {
 	u32 Status = XRFDC_SUCCESS;
 	u32 BaseAddr;
+	u32 DatapathReg;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(ModePtr != NULL);
 
+	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR, "\n Requested functionality not available for this IP in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
-		return Status;
+		metal_log(METAL_LOG_ERROR, "\n Tile %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
+		goto RETURN_PATH;
 	}
 
 	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
-	*ModePtr = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_DAC_DATAPATH_OFFSET, XRFDC_DATAPATH_MODE_MASK);
+	DatapathReg = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_DAC_DATAPATH_OFFSET,
+				  (XRFDC_DATAPATH_MODE_MASK | XRFDC_DATAPATH_IMR_MASK));
+	switch (DatapathReg & XRFDC_DATAPATH_MODE_MASK) {
+	case XRFDC_DAC_INT_MODE_FULL_BW_BYPASS:
+		*ModePtr = XRFDC_DATAPATH_MODE_NODUC_0_FSDIVTWO;
+		break;
+	case XRFDC_DAC_INT_MODE_HALF_BW_IMR:
+		if ((DatapathReg >> XRFDC_DATAPATH_IMR_SHIFT) == XRFDC_DAC_IMR_MODE_HIGHPASS) {
+			*ModePtr = XRFDC_DATAPATH_MODE_FSDIVFOUR_FSDIVTWO;
+		} else {
+			*ModePtr = XRFDC_DATAPATH_MODE_DUC_0_FSDIVFOUR;
+		}
+		break;
+	case XRFDC_DAC_INT_MODE_FULL_BW:
+	default:
+		*ModePtr = XRFDC_DATAPATH_MODE_DUC_0_FSDIVTWO;
+		break;
+	}
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
 	return Status;
 }
 
