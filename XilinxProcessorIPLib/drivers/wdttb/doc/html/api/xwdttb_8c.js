@@ -1,7 +1,7 @@
 var xwdttb_8c =
 [
     [ "XWdtTb_AlwaysEnable", "xwdttb_8c.html#ga9b3e984acc19cf7d0f45eaa09298e0a7", null ],
-    [ "XWdtTb_CfgInitialize", "xwdttb_8c.html#ga6fcca4fb96e09aa0ed2a6065b54e6076", null ],
+    [ "XWdtTb_CfgInitialize", "xwdttb_8c.html#gadf3c428b985d77e28b5df5cd5d82dff3", null ],
     [ "XWdtTb_ClearLastEvent", "xwdttb_8c.html#ga043f754323225b43513c2f7a2f71aedb", null ],
     [ "XWdtTb_ClearResetPending", "xwdttb_8c.html#gafbd0c485e4a716fd1c6dc5cea084f759", null ],
     [ "XWdtTb_DisableExtraProtection", "xwdttb_8c.html#ga31311c4f3e1f921ab55d005e0a0ff028", null ],

@@ -12,5 +12,6 @@ var xqspipsu__generic__flash__polled__example_8c =
     [ "FlashWrite", "xqspipsu__generic__flash__polled__example_8c.html#a333c8e44e9af52811dee98f2cfcacf53", null ],
     [ "GetRealAddr", "xqspipsu__generic__flash__polled__example_8c.html#af45c38b76bbabbaf848a33cdc889ebfb", null ],
     [ "main", "xqspipsu__generic__flash__polled__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe", null ],
+    [ "MultiDieRead", "xqspipsu__generic__flash__polled__example_8c.html#aa6007218826af36e0df62b747de40de5", null ],
     [ "QspiPsuPolledFlashExample", "xqspipsu__generic__flash__polled__example_8c.html#ac7a0e7a44578f580f46491eb6f6ce726", null ]
 ];

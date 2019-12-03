@@ -13,5 +13,7 @@ var annotated =
     [ "XAvb_SequenceIdStruct", "struct_x_avb___sequence_id_struct.html", "struct_x_avb___sequence_id_struct" ],
     [ "XAvb_SignallingFrameData", "struct_x_avb___signalling_frame_data.html", "struct_x_avb___signalling_frame_data" ],
     [ "XAvb_StateMachineData", "struct_x_avb___state_machine_data.html", "struct_x_avb___state_machine_data" ],
-    [ "XAvb_Uint64", "struct_x_avb___uint64.html", "struct_x_avb___uint64" ]
+    [ "XAvb_Uint64", "struct_x_avb___uint64.html", "struct_x_avb___uint64" ],
+    [ "XAxiEthernet", "struct_x_axi_ethernet.html", "struct_x_axi_ethernet" ],
+    [ "XAxiEthernet_Config", "struct_x_axi_ethernet___config.html", "struct_x_axi_ethernet___config" ]
 ];

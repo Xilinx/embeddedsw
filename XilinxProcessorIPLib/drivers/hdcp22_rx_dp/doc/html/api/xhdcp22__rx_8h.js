@@ -90,6 +90,7 @@ var xhdcp22__rx_8h =
     ] ],
     [ "XHdcp22_RxSetLaneCount", "xhdcp22__rx_8h.html#gae830d4217037a71ee510ce2a92dc75c2", null ],
     [ "XHdcp22_RxSetRxCaps", "xhdcp22__rx_8h.html#ga6424255a6111174e64e1b440c080d5ee", null ],
+    [ "XHdcp22_RxSetStreamType", "xhdcp22__rx_8h.html#ga18f25ca97d7070bac85bf0cbc38d96de", null ],
     [ "XHdcp22_timer_attach", "xhdcp22__rx_8h.html#ga6c05e345b539e8ab4cb3341f2db798c8", null ],
     [ "XHdcp22Rx_CfgInitialize", "xhdcp22__rx_8h.html#gad9f0da4bb3fd46bcbc144b3adbcd4b96", null ],
     [ "XHdcp22Rx_Disable", "xhdcp22__rx_8h.html#ga6ae8f7530fdd796d0117cb8f12a585d2", null ],

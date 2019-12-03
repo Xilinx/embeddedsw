@@ -84,7 +84,7 @@ var xv__hdmitx_8h =
     [ "XV_HdmiTx_SetAudioChannels", "xv__hdmitx_8h.html#a32872739c2a5ea02cf92aadc79aa385f", null ],
     [ "XV_HdmiTx_SetAudioFormat", "xv__hdmitx_8h.html#ad2d696a57ba6d62205853f83b4fdc589", null ],
     [ "XV_HdmiTx_SetAxiClkFreq", "xv__hdmitx_8h.html#a0fed91323d21a830029d3cb79af7afeb", null ],
-    [ "XV_HdmiTx_SetCallback", "xv__hdmitx_8h.html#a4553a717d1de514d23a105d7544a591e", null ],
+    [ "XV_HdmiTx_SetCallback", "xv__hdmitx_8h.html#ad5d2e73cdff6d7aeb5aaf3d2520b0df6", null ],
     [ "XV_HdmiTx_SetColorDepth", "xv__hdmitx_8h.html#a9271b92c3193e1ce46a2b610080c6f06", null ],
     [ "XV_HdmiTx_SetColorFormat", "xv__hdmitx_8h.html#aa8eb6378fdb4a48a22fdedb89cc3702a", null ],
     [ "XV_HdmiTx_SetDviMode", "xv__hdmitx_8h.html#a6dc5aa725b963236382283b2c4810dc1", null ],

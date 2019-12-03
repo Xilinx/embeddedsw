@@ -38,6 +38,7 @@ var xiicps__hw_8h =
     [ "XIICPS_IXR_SLV_RDY_MASK", "xiicps__hw_8h.html#ga5c873e7df9f7a05e458b0d7e9b50faa9", null ],
     [ "XIICPS_IXR_TO_MASK", "xiicps__hw_8h.html#ga6df84833528a63b5f5fb07a7d1743c91", null ],
     [ "XIICPS_IXR_TX_OVR_MASK", "xiicps__hw_8h.html#gad2473caf4558fac9af1bd071a022e3cf", null ],
+    [ "XIICPS_POLL_DEFAULT_TIMEOUT_VAL", "xiicps__hw_8h.html#ga0c6511172b8fc3df28abc027c0d75ff4", null ],
     [ "XIicPs_ReadIER", "xiicps__hw_8h.html#gab8f0f78d7389924d17d2b7b49f622cf1", null ],
     [ "XIicPs_ReadReg", "xiicps__hw_8h.html#gabcc20fce80c1e8dff27be4e584c2cc27", null ],
     [ "XIICPS_SLV_PAUSE_MASK", "xiicps__hw_8h.html#ga6bc4423ced1691dc807ed57ddf4d2a97", null ],

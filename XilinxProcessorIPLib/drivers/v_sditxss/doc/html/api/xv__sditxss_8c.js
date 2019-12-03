@@ -1,6 +1,7 @@
 var xv__sditxss_8c =
 [
     [ "XV_SdiTxSs_CfgInitialize", "xv__sditxss_8c.html#a4bdb55bb1af5300e000e420e35256eb8", null ],
+    [ "XV_SdiTxSs_ClearYCbCr444_RGB_10bit", "xv__sditxss_8c.html#a903bb6e497715ec5a015bf1868d7f073", null ],
     [ "XV_SdiTxSs_GetPayload", "xv__sditxss_8c.html#a1e4ab17028b7fba1d87736a18436a212", null ],
     [ "XV_SdiTxSs_GetPayloadId", "xv__sditxss_8c.html#a86b8ffdde3c9c91179db78f2f10f74f7", null ],
     [ "XV_SdiTxSs_GetTransport", "xv__sditxss_8c.html#adaebb8bd7d00ac988d31f971c4a227e5", null ],
@@ -18,6 +19,7 @@ var xv__sditxss_8c =
     [ "XV_SdiTxSs_SetCoreSettings", "xv__sditxss_8c.html#a1d4fc65e3e0bf26e83db1ae9caf2cdd9", null ],
     [ "XV_SdiTxSs_SetStream", "xv__sditxss_8c.html#a926a8be7d91d7ea5963b38fee737b180", null ],
     [ "XV_SdiTxSs_SetVideoStream", "xv__sditxss_8c.html#a54cbf51612a95c4f1dca721f9888250f", null ],
+    [ "XV_SdiTxSs_SetYCbCr444_RGB_10bit", "xv__sditxss_8c.html#aeb20cd48e3831e8e66b1fbbdb3b92cb6", null ],
     [ "XV_SdiTxSs_ST352CStreamEnable", "xv__sditxss_8c.html#ac6a4e5af042d945efa96a2d510c08a4b", null ],
     [ "XV_SdiTxSs_ST352CSwitch3GA", "xv__sditxss_8c.html#a8b2b3cc3de317fdcd41dabf6dd330c60", null ],
     [ "XV_SdiTxSs_Stop", "xv__sditxss_8c.html#aa665c8a153ad4e024a9b02d5fc4fb691", null ],

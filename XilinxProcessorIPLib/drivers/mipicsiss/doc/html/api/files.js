@@ -1,5 +1,10 @@
 var files =
 [
+    [ "function_prototype.c", "function__prototype_8c.html", "function__prototype_8c" ],
+    [ "function_prototype.h", "function__prototype_8h.html", "function__prototype_8h" ],
+    [ "imx274_cfgs.c", "imx274__cfgs_8c.html", null ],
+    [ "imx274_cfgs.h", "imx274__cfgs_8h.html", null ],
+    [ "mipi_imx274.c", "mipi__imx274_8c.html", "mipi__imx274_8c" ],
     [ "pipeline_program.c", "pipeline__program_8c.html", "pipeline__program_8c" ],
     [ "pipeline_program.h", "pipeline__program_8h.html", "pipeline__program_8h" ],
     [ "sensor_cfgs.c", "sensor__cfgs_8c.html", null ],

@@ -1,5 +1,8 @@
 var NAVTREEINDEX1 =
 {
+"xdprxss__hdcp__example_8c.html#ae690e4e95545e8f6b37672430f1f910a":[2,24,2],
+"xdprxss__hw_8h.html":[2,25],
+"xdprxss__hw_8h.html#ga095994354c25ffec57830008cd335059":[2,25,3],
 "xdprxss__hw_8h.html#ga240806c20a656dc4d273f6bcd6e024b8":[2,25,2],
 "xdprxss__hw_8h.html#ga3a6d3739a23b0a6c4742f32e376ef3f5":[2,25,0],
 "xdprxss__hw_8h.html#ga47f85cb61201d8a04e80a72de6e25576":[2,25,18],

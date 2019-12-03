@@ -76,7 +76,8 @@ var xv__hdmirx_8h =
       [ "XV_HDMIRX_HANDLER_LINK_ERROR", "xv__hdmirx_8h.html#a93574b274899e5038d38e6524eab66fcaf5b1a36e9a7d6f0fae43b84fe2ae8287", null ],
       [ "XV_HDMIRX_HANDLER_SYNC_LOSS", "xv__hdmirx_8h.html#a93574b274899e5038d38e6524eab66fcafbe340f87937ffaf36f6456bc4385152", null ],
       [ "XV_HDMIRX_HANDLER_MODE", "xv__hdmirx_8h.html#a93574b274899e5038d38e6524eab66fcadd79a4e97d3958caf5b10fb4ef5dc7e2", null ],
-      [ "XV_HDMIRX_HANDLER_TMDS_CLK_RATIO", "xv__hdmirx_8h.html#a93574b274899e5038d38e6524eab66fca4e5cde1d3f281a79cf48fdce32329202", null ]
+      [ "XV_HDMIRX_HANDLER_TMDS_CLK_RATIO", "xv__hdmirx_8h.html#a93574b274899e5038d38e6524eab66fca4e5cde1d3f281a79cf48fdce32329202", null ],
+      [ "XV_HDMIRX_HANDLER_VIC_ERROR", "xv__hdmirx_8h.html#a93574b274899e5038d38e6524eab66fcaea70b1a55b66bbe82b31eff507cb8921", null ]
     ] ],
     [ "XV_HdmiRx_State", "xv__hdmirx_8h.html#a1a0a96c3c2d056c688b7444355656695", [
       [ "XV_HDMIRX_STATE_STREAM_DOWN", "xv__hdmirx_8h.html#a1a0a96c3c2d056c688b7444355656695a4998c41076823a110a2794ed12e48485", null ],
@@ -123,8 +124,9 @@ var xv__hdmirx_8h =
     [ "XV_HdmiRx_IsStreamScrambled", "xv__hdmirx_8h.html#a0cc46a138f5d16ad0b85da090e3abb11", null ],
     [ "XV_HdmiRx_IsStreamUp", "xv__hdmirx_8h.html#ac7b5ed80c20dbf62ab2e98569097be2f", null ],
     [ "XV_HdmiRx_LookupConfig", "xv__hdmirx_8h.html#aa9275414e0f720ec95719eb7bfdabad3", null ],
+    [ "XV_HdmiRx_LookupVmId", "xv__hdmirx_8h.html#ae971dd56fea8451e407ceba3af0612f7", null ],
     [ "XV_HdmiRx_SelfTest", "xv__hdmirx_8h.html#a6b25b29eebf53f7084b6a154ad89a66f", null ],
-    [ "XV_HdmiRx_SetCallback", "xv__hdmirx_8h.html#ada318e0806f7d1fff347b2a4559ecc86", null ],
+    [ "XV_HdmiRx_SetCallback", "xv__hdmirx_8h.html#a7e2ed00de2174fd7e00f6829851f24f6", null ],
     [ "XV_HdmiRx_SetColorFormat", "xv__hdmirx_8h.html#a72457c11b43becc2fd5bffc1b748bf30", null ],
     [ "XV_HdmiRx_SetHpd", "xv__hdmirx_8h.html#a8601d159dffdd4fd77d05d248b366a54", null ],
     [ "XV_HdmiRx_SetPixelRate", "xv__hdmirx_8h.html#ab48ac8ab5eeddd6197c6220db1ac8ee5", null ],

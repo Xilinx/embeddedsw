@@ -41,5 +41,7 @@ var struct_x_v___hdmi_rx_ss =
     [ "TMDSClockRatio", "struct_x_v___hdmi_rx_ss.html#aaccf9db2828b2d0ee5f6e05e80665a9d", null ],
     [ "UserTimerPtr", "struct_x_v___hdmi_rx_ss.html#ae099cade24fdc0ec177759907006f5ed", null ],
     [ "UserTimerWaitUs", "struct_x_v___hdmi_rx_ss.html#ac9c0602439eff8c90c74c19129879e90", null ],
+    [ "VicErrorCallback", "struct_x_v___hdmi_rx_ss.html#a2faede6ec5615a38df54e4ced6837b24", null ],
+    [ "VicErrorRef", "struct_x_v___hdmi_rx_ss.html#af2422ee77c4c395b373829b76cb1fd8d", null ],
     [ "VSIF", "struct_x_v___hdmi_rx_ss.html#aed8607cabba43e5efcf59aba9b810ff4", null ]
 ];

@@ -23,7 +23,8 @@ var xv__hdmirxss_8h =
       [ "XV_HDMIRXSS_HANDLER_HDCP_STREAM_MANAGE_REQUEST", "xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca3d2a7adebe7dc6a7bfa77df401c66011", null ],
       [ "XV_HDMIRXSS_HANDLER_HDCP_TOPOLOGY_UPDATE", "xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca8e3b76e177cee74843e7fd0ba83eac11", null ],
       [ "XV_HDMIRXSS_HANDLER_HDCP_ENCRYPTION_UPDATE", "xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca4296543c68b257e88bed08c9613c9db3", null ],
-      [ "XV_HDMIRXSS_HANDLER_TMDS_CLK_RATIO", "xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdcae0e8cd62ff6fc40b785c4c5634b6500e", null ]
+      [ "XV_HDMIRXSS_HANDLER_TMDS_CLK_RATIO", "xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdcae0e8cd62ff6fc40b785c4c5634b6500e", null ],
+      [ "XV_HDMIRXSS_HANDLER_VIC_ERROR", "xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca81c45071cb4d63f29d39e1c07bd53809", null ]
     ] ],
     [ "XV_HdmiRxSs_HdcpProtocol", "xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828d", [
       [ "XV_HDMIRXSS_HDCP_NONE", "xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828da60bae6631c611be7225e9993e5a9b754", null ],
@@ -57,6 +58,7 @@ var xv__hdmirxss_8h =
       [ "XV_HDMIRXSS_LOG_EVT_SYNCLOSS", "xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a0abb5026b485d00a8e47e2a654ce8fa0", null ],
       [ "XV_HDMIRXSS_LOG_EVT_PIX_REPEAT_ERR", "xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15aca19273252946ec4a47ccc13efada7fd", null ],
       [ "XV_HDMIRXSS_LOG_EVT_SYNCEST", "xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a3df268d692b5be88acf20c37ac15709d", null ],
+      [ "XV_HDMIRXSS_LOG_EVT_VICERROR", "xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15ab4b2c5a8b53ad68d642cd2df015dc7dc", null ],
       [ "XV_HDMIRXSS_LOG_EVT_DUMMY", "xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a7358229960ff258552c62dce8a49b98f", null ]
     ] ],
     [ "XV_HdmiRxSs_AudioMute", "xv__hdmirxss_8h.html#afbf6577a7f6af0c3e2da373f736ca49e", null ],
@@ -87,7 +89,7 @@ var xv__hdmirxss_8h =
     [ "XV_HdmiRxSs_RXCore_LRST", "xv__hdmirxss_8h.html#ad80971e7c26c2eb3801c0103415c569a", null ],
     [ "XV_HdmiRxSs_RXCore_VRST", "xv__hdmirxss_8h.html#a17cec7ac888263b32c8d59a4d4644c34", null ],
     [ "XV_HdmiRxSS_SetAppVersion", "xv__hdmirxss_8h.html#a3c8f4247ffd9a6540e8aed78e23699a7", null ],
-    [ "XV_HdmiRxSs_SetCallback", "xv__hdmirxss_8h.html#aa2c1cbe31410b05b71e999b585a89e8c", null ],
+    [ "XV_HdmiRxSs_SetCallback", "xv__hdmirxss_8h.html#a28a3e9a8fa80fab9e0cab44b6589a682", null ],
     [ "XV_HdmiRxSs_SetDefaultPpc", "xv__hdmirxss_8h.html#a93b6769e137d23ae6a4fe0d61864f5cd", null ],
     [ "XV_HdmiRxSs_SetEdidParam", "xv__hdmirxss_8h.html#a277acac840c40692bcc133be2137a6e6", null ],
     [ "XV_HdmiRxSs_SetHpd", "xv__hdmirxss_8h.html#a08f531fa69066bf7cf1491d98b5a16e0", null ],

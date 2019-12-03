@@ -8,10 +8,6 @@ var NAVTREE =
         [ "Variables", "functions_vars.html", null ]
       ] ]
     ] ],
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", null ],
-      [ "Functions", "globals_func.html", null ]
-    ] ],
     [ "File List", "files.html", "files" ],
     [ "Examples", "example.html", [
       [ "main.c", "example.html#ex1", null ],
@@ -25,6 +21,8 @@ var NAVTREEINDEX =
 "annotated.html"
 ];
 
+var SYNCONMSG = 'click to disable panel synchronisation';
+var SYNCOFFMSG = 'click to enable panel synchronisation';
 var SYNCONMSG = 'click to disable panel synchronisation';
 var SYNCOFFMSG = 'click to enable panel synchronisation';
 var navTreeSubIndices = new Array();
@@ -107,12 +105,12 @@ function createIndent(o,domNode,node,level)
   var level=-1;
   var n = node;
   while (n.parentNode) { level++; n=n.parentNode; }
-  var imgNode = document.createElement("img");
-  imgNode.style.paddingLeft=(16*level).toString()+'px';
-  imgNode.width  = 16;
-  imgNode.height = 22;
-  imgNode.border = 0;
   if (node.childrenData) {
+    var imgNode = document.createElement("img");
+    imgNode.style.paddingLeft=(16*level).toString()+'px';
+    imgNode.width  = 16;
+    imgNode.height = 22;
+    imgNode.border = 0;
     node.plus_img = imgNode;
     node.expandToggle = document.createElement("a");
     node.expandToggle.href = "javascript:void(0)";
@@ -129,8 +127,12 @@ function createIndent(o,domNode,node,level)
     domNode.appendChild(node.expandToggle);
     imgNode.src = node.relpath+"ftv2pnode.png";
   } else {
-    imgNode.src = node.relpath+"ftv2node.png";
-    domNode.appendChild(imgNode);
+    var span = document.createElement("span");
+    span.style.display = 'inline-block';
+    span.style.width   = 16*(level+1)+'px';
+    span.style.height  = '22px';
+    span.innerHTML = '&nbsp;';
+    domNode.appendChild(span);
   } 
 }
 
@@ -349,7 +351,7 @@ function showNode(o, node, index, hash)
       if (!node.childrenVisited) {
         getNode(o, node);
       }
-      $(node.getChildrenUL()).show();
+      $(node.getChildrenUL()).css({'display':'block'});
       if (node.isLast) {
         node.plus_img.src = node.relpath+"ftv2mlastnode.png";
       } else {
@@ -381,8 +383,22 @@ function showNode(o, node, index, hash)
   }
 }
 
+function removeToInsertLater(element) {
+  var parentNode = element.parentNode;
+  var nextSibling = element.nextSibling;
+  parentNode.removeChild(element);
+  return function() {
+    if (nextSibling) {
+      parentNode.insertBefore(element, nextSibling);
+    } else {
+      parentNode.appendChild(element);
+    }
+  };
+}
+
 function getNode(o, po)
 {
+  var insertFunction = removeToInsertLater(po.li);
   po.childrenVisited = true;
   var l = po.childrenData.length-1;
   for (var i in po.childrenData) {
@@ -390,6 +406,7 @@ function getNode(o, po)
     po.children[i] = newNode(o, po, nodeData[0], nodeData[1], nodeData[2],
       i==l);
   }
+  insertFunction();
 }
 
 function gotoNode(o,subIndex,root,hash,relpath)
@@ -493,7 +510,10 @@ function initNavTree(toroot,relpath)
     navSync.click(function(){ toggleSyncButton(relpath); });
   }
 
-  navTo(o,toroot,window.location.hash,relpath);
+  $(window).load(function(){
+    navTo(o,toroot,window.location.hash,relpath);
+    showRoot();
+  });
 
   $(window).bind('hashchange', function(){
      if (window.location.hash && window.location.hash.length>1){
@@ -516,7 +536,5 @@ function initNavTree(toroot,relpath)
        navTo(o,toroot,window.location.hash,relpath);
      }
   })
-
-  $(window).load(showRoot);
 }
 

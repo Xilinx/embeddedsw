@@ -28,6 +28,7 @@ var xv__sdirxss_8h =
       [ "XV_SDIRXSS_LOG_EVT_DUMMY", "xv__sdirxss_8h.html#ade9ffd7c4cd3343a53668c77788e00baa51fc4231632e2b7294e582fe600c6ef9", null ]
     ] ],
     [ "XV_SdiRxSs_CfgInitialize", "xv__sdirxss_8h.html#a43a9c2aa8bc176afeaa71534eb0e8304", null ],
+    [ "XV_SdiRxSs_ClearYCbCr444_RGB_10bit", "xv__sdirxss_8h.html#af49a48ec567ed898bcfeb44aca665f13", null ],
     [ "XV_SdiRxSs_GetVideoStream", "xv__sdirxss_8h.html#a890d07c87dfb74ed53a8cdedfd13d463", null ],
     [ "XV_SdiRxSs_IntrDisable", "xv__sdirxss_8h.html#a1c43a11c0334d76865b099c1c9e126f8", null ],
     [ "XV_SdiRxSs_IntrEnable", "xv__sdirxss_8h.html#a68c587dc98e40471fbf8f033ea32b2c4", null ],
@@ -43,6 +44,7 @@ var xv__sdirxss_8h =
     [ "XV_SdiRxSS_SdiRxIntrHandler", "xv__sdirxss_8h.html#a8e0c0ac7a26fe796c72794420092430c", null ],
     [ "XV_SdiRxSs_SelfTest", "xv__sdirxss_8h.html#ga5fe6048ab8f1692c136fd89d6fdf4e46", null ],
     [ "XV_SdiRxSs_SetCallback", "xv__sdirxss_8h.html#accc1c969a550cbdc4ed5612184a03f6f", null ],
+    [ "XV_SdiRxSs_SetYCbCr444_RGB_10bit", "xv__sdirxss_8h.html#ab6de65113833af27d572301a00eaa7ec", null ],
     [ "XV_SdiRxSs_Start", "xv__sdirxss_8h.html#a691319ac2baf302e4f0b833c0aafc963", null ],
     [ "XV_SdiRxSs_Stop", "xv__sdirxss_8h.html#ac4e45bc8ac7c85d1ad5958be34844543", null ],
     [ "XV_SdiRxSs_StreamFlowDisable", "xv__sdirxss_8h.html#a3843cd72bcb3260ba7002756dcda7eeb", null ],

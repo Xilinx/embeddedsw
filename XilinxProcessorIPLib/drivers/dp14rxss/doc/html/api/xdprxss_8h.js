@@ -55,7 +55,10 @@ var xdprxss_8h =
       [ "XDPRXSS_DRV_HANDLER_DP_NO_VID_EVENT", "xdprxss_8h.html#gga3ca7c841e35b2dfe41310092b3837b31a428d19d1a9c1e542daeb251a863ab07b", null ],
       [ "XDPRXSS_HANDLER_ACCESS_LANE_SET_EVENT", "xdprxss_8h.html#gga3ca7c841e35b2dfe41310092b3837b31a911f359d919c9b6d7b945674f7910eff", null ],
       [ "XDPRXSS_HANDLER_ACCESS_LINK_QUAL_EVENT", "xdprxss_8h.html#gga3ca7c841e35b2dfe41310092b3837b31a90bd0bc7d763792b6e8abcc4136f7fb9", null ],
-      [ "XDPRXSS_HANDLER_ACCESS_ERROR_COUNTER_EVENT", "xdprxss_8h.html#gga3ca7c841e35b2dfe41310092b3837b31ae849672cbd7972a17de1262735966e9b", null ]
+      [ "XDPRXSS_HANDLER_ACCESS_ERROR_COUNTER_EVENT", "xdprxss_8h.html#gga3ca7c841e35b2dfe41310092b3837b31ae849672cbd7972a17de1262735966e9b", null ],
+      [ "XDPRXSS_HANDLER_DP_VBLANK_STREAM_2_EVENT", "xdprxss_8h.html#gga3ca7c841e35b2dfe41310092b3837b31a787777e4c0e3b27e0ca0c616b0f43906", null ],
+      [ "XDPRXSS_HANDLER_DP_VBLANK_STREAM_3_EVENT", "xdprxss_8h.html#gga3ca7c841e35b2dfe41310092b3837b31a558df4ac29ad329960e0a42cc9997b23", null ],
+      [ "XDPRXSS_HANDLER_DP_VBLANK_STREAM_4_EVENT", "xdprxss_8h.html#gga3ca7c841e35b2dfe41310092b3837b31afba12dbf314bf794808757bc49c8d393", null ]
     ] ],
     [ "XDpRxSs_HdcpProtocol", "xdprxss_8h.html#ga7b73be64577a646cadafa5a3398a8d3d", [
       [ "XDPRXSS_HDCP_NONE", "xdprxss_8h.html#gga7b73be64577a646cadafa5a3398a8d3da1192b5522e315ff3b6c1bda6b76e3ead", null ],

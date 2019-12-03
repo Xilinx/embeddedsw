@@ -4,6 +4,8 @@ var xcfupmc_8c =
     [ "XCfupmc_CfiErrHandler", "xcfupmc_8c.html#aec6cd28c30c5e3f1ca96d7c9b810903c", null ],
     [ "XCfupmc_CfuErrHandler", "xcfupmc_8c.html#afa6a9976b19e5e4592c9cca62c4740ec", null ],
     [ "XCfupmc_CheckParam", "xcfupmc_8c.html#a0ce4198e07f0f6ab510e97625ed8d0be", null ],
+    [ "XCfupmc_ClearCfuIsr", "xcfupmc_8c.html#a0b02bce540c5ed5e971379bb4eba04c6", null ],
+    [ "XCfupmc_ClearIgnoreCfiErr", "xcfupmc_8c.html#a33fe253d9b63b5ce2eb54615ff65441a", null ],
     [ "XCfupmc_EndGlblSeq", "xcfupmc_8c.html#a929851858e1ea4742efa02a54d6a44b7", null ],
     [ "XCfupmc_ExtErrorHandler", "xcfupmc_8c.html#a26e817b3b686f3076f531e7b5d7749c3", null ],
     [ "XCfupmc_GlblSeqInit", "xcfupmc_8c.html#a070b11121d3e960f921a67f67b107fe0", null ],

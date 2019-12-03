@@ -25,7 +25,7 @@ var xv__hdmirxss_8c =
     [ "XV_HdmiRxSs_RXCore_LRST", "xv__hdmirxss_8c.html#ad80971e7c26c2eb3801c0103415c569a", null ],
     [ "XV_HdmiRxSs_RXCore_VRST", "xv__hdmirxss_8c.html#a17cec7ac888263b32c8d59a4d4644c34", null ],
     [ "XV_HdmiRxSS_SetAppVersion", "xv__hdmirxss_8c.html#a3c8f4247ffd9a6540e8aed78e23699a7", null ],
-    [ "XV_HdmiRxSs_SetCallback", "xv__hdmirxss_8c.html#aa2c1cbe31410b05b71e999b585a89e8c", null ],
+    [ "XV_HdmiRxSs_SetCallback", "xv__hdmirxss_8c.html#a28a3e9a8fa80fab9e0cab44b6589a682", null ],
     [ "XV_HdmiRxSs_SetDefaultPpc", "xv__hdmirxss_8c.html#a93b6769e137d23ae6a4fe0d61864f5cd", null ],
     [ "XV_HdmiRxSs_SetEdidParam", "xv__hdmirxss_8c.html#a277acac840c40692bcc133be2137a6e6", null ],
     [ "XV_HdmiRxSs_SetHpd", "xv__hdmirxss_8c.html#a08f531fa69066bf7cf1491d98b5a16e0", null ],

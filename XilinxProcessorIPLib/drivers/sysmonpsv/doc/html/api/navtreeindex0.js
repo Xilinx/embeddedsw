@@ -2,6 +2,7 @@ var NAVTREEINDEX0 =
 {
 "example.html":[2],
 "example.html#ex1":[2,0],
+"example.html#ex2":[2,1],
 "files.html":[1],
 "globals.html":[0,0],
 "globals_defs.html":[0,5],
@@ -174,9 +175,12 @@ var NAVTREEINDEX0 =
 "xsysmonpsv__intr_8c.html#ac5de90395d396c7106b2d4c1290fed3c":[1,3,1],
 "xsysmonpsv__intr_8c.html#af215e9abbe11273d3dd56283fed78093":[1,3,2],
 "xsysmonpsv__intr_8c.html#af4ecf364c69e54ddaadd4b7d2706fcf8":[1,3,3],
-"xsysmonpsv__polled__example_8c.html":[1,4],
-"xsysmonpsv__polled__example_8c.html#a2a85002146b9f72b8f0f12efaa00d802":[1,4,1],
-"xsysmonpsv__polled__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe":[1,4,0],
-"xsysmonpsv__sinit_8c.html":[1,5],
-"xsysmonpsv__sinit_8c.html#a00b971717cc516fac2e07b91bedfcd4b":[1,5,0]
+"xsysmonpsv__intr__example_8c.html":[1,4],
+"xsysmonpsv__intr__example_8c.html#a08f29d1a3ede32c28ff1b454b3b68a28":[1,4,1],
+"xsysmonpsv__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe":[1,4,0],
+"xsysmonpsv__polled__example_8c.html":[1,5],
+"xsysmonpsv__polled__example_8c.html#a2a85002146b9f72b8f0f12efaa00d802":[1,5,1],
+"xsysmonpsv__polled__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe":[1,5,0],
+"xsysmonpsv__sinit_8c.html":[1,6],
+"xsysmonpsv__sinit_8c.html#a00b971717cc516fac2e07b91bedfcd4b":[1,6,0]
 };

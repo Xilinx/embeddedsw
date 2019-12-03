@@ -7,7 +7,7 @@ var xusbpsu_8c =
     [ "XUsbPsu_EnableIntr", "xusbpsu_8c.html#ga48e6e534c10a7a99be5606a0583c2129", null ],
     [ "XUsbPsu_EventBuffersReset", "xusbpsu_8c.html#ga2a632b97b8857d2b93040c018f31efb2", null ],
     [ "XUsbPsu_EventBuffersSetup", "xusbpsu_8c.html#ga2137782bf79ed3f9148defc507786a9c", null ],
-    [ "XUsbPsu_GetLinkState", "xusbpsu_8c.html#ga9cbed8bca45ba92f86a74aa96eab3477", null ],
+    [ "XUsbPsu_GetLinkState", "xusbpsu_8c.html#ga8eb71617c93d98325d328d7801bbb6bf", null ],
     [ "XUsbPsu_Idle", "xusbpsu_8c.html#gad13cbcf5858fa37dcba606bed25ed338", null ],
     [ "XUsbPsu_IsSuperSpeed", "xusbpsu_8c.html#ga7e0a64e9adf5e221b4bd8386ad38055e", null ],
     [ "XUsbPsu_PhyReset", "xusbpsu_8c.html#ga4c5f57fc85b14ae756481518c5318362", null ],

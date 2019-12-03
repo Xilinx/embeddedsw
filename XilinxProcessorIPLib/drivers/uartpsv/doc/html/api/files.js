@@ -8,6 +8,7 @@ var files =
     [ "xuartpsv_intr.c", "xuartpsv__intr_8c.html", "xuartpsv__intr_8c" ],
     [ "xuartpsv_intr_example.c", "xuartpsv__intr__example_8c.html", "xuartpsv__intr__example_8c" ],
     [ "xuartpsv_options.c", "xuartpsv__options_8c.html", "xuartpsv__options_8c" ],
+    [ "xuartpsv_polled_example.c", "xuartpsv__polled__example_8c.html", "xuartpsv__polled__example_8c" ],
     [ "xuartpsv_selftest.c", "xuartpsv__selftest_8c.html", "xuartpsv__selftest_8c" ],
     [ "xuartpsv_selftest_example.c", "xuartpsv__selftest__example_8c.html", "xuartpsv__selftest__example_8c" ],
     [ "xuartpsv_sinit.c", "xuartpsv__sinit_8c.html", "xuartpsv__sinit_8c" ]

@@ -24,9 +24,11 @@ var xttcps_8h =
     [ "XTtcPs_GetMatchValue", "xttcps_8h.html#ga1e494683b5f905fdd8184192680b8a3c", null ],
     [ "XTtcPs_GetOptions", "xttcps_8h.html#gac33ce44553e83555369c400b964234e7", null ],
     [ "XTtcPs_GetPrescaler", "xttcps_8h.html#ga9d528bcd850e49f08fc585cb867ca11c", null ],
-    [ "XTtcPs_LookupConfig", "xttcps_8h.html#ga3b54c9984828002e1df64dad7ed0afac", null ],
+    [ "XTtcPs_InterruptHandler", "xttcps_8h.html#ga30d6a84844676b794d8cf1a43a727bac", null ],
+    [ "XTtcPs_LookupConfig", "xttcps_8h.html#ga88827c48fd065f14c8c0a1383c5da74e", null ],
     [ "XTtcPs_SelfTest", "xttcps_8h.html#ga38ff3b491801add8d2b5faa22e2e0a08", null ],
     [ "XTtcPs_SetMatchValue", "xttcps_8h.html#gaf400713723ba81109ac83fc1800681b2", null ],
     [ "XTtcPs_SetOptions", "xttcps_8h.html#ga7053f4ac8c20f1d1fd335a755960aea9", null ],
-    [ "XTtcPs_SetPrescaler", "xttcps_8h.html#gac08478cc050c41cc435a3f2b49b4c874", null ]
+    [ "XTtcPs_SetPrescaler", "xttcps_8h.html#gac08478cc050c41cc435a3f2b49b4c874", null ],
+    [ "XTtcPs_SetStatusHandler", "xttcps_8h.html#ga8fb59113e183b65dabff6e2c34bbf7e2", null ]
 ];

@@ -62,7 +62,7 @@ var xusbpsu_8h =
     [ "XUsbPsu_EventBuffersSetup", "xusbpsu_8h.html#ga2137782bf79ed3f9148defc507786a9c", null ],
     [ "XUsbPsu_EventHandler", "xusbpsu_8h.html#gae4f3c8a44c949edec84f94fc3346e77b", null ],
     [ "XUsbPsu_GetEpParams", "xusbpsu_8h.html#gac0f03c974b69a658189698e083456080", null ],
-    [ "XUsbPsu_GetLinkState", "xusbpsu_8h.html#ga9cbed8bca45ba92f86a74aa96eab3477", null ],
+    [ "XUsbPsu_GetLinkState", "xusbpsu_8h.html#ga8eb71617c93d98325d328d7801bbb6bf", null ],
     [ "XUsbPsu_Idle", "xusbpsu_8h.html#gad13cbcf5858fa37dcba606bed25ed338", null ],
     [ "XUsbPsu_InitializeEps", "xusbpsu_8h.html#ga0a8dac1b0ab6d81d8a4e797f2be49845", null ],
     [ "XUsbPsu_IntrHandler", "xusbpsu_8h.html#ga9b106790d1b007e134bda766af314a9a", null ],

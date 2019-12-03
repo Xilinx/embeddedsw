@@ -38,6 +38,9 @@ var xdp_8h =
       [ "XDP_RX_HANDLER_DRV_PWRSTATE", "xdp_8h.html#gga5db20613deebfd3e04727fb96f20e01baf8ae0ea296ef06d69bad01ba788ceeaa", null ],
       [ "XDP_RX_HANDLER_DRV_NOVIDEO", "xdp_8h.html#gga5db20613deebfd3e04727fb96f20e01ba4f4eb825507014f59d56a6cffda72984", null ],
       [ "XDP_RX_HANDLER_DRV_VIDEO", "xdp_8h.html#gga5db20613deebfd3e04727fb96f20e01bac39a020404938af4e8b5e0b888439930", null ],
+      [ "XDP_RX_HANDLER_VBLANK_STREAM_2", "xdp_8h.html#gga5db20613deebfd3e04727fb96f20e01ba69af0ab911404480d9fc3a10653c1803", null ],
+      [ "XDP_RX_HANDLER_VBLANK_STREAM_3", "xdp_8h.html#gga5db20613deebfd3e04727fb96f20e01ba580b13e527dadfd031b4f1d42700f17c", null ],
+      [ "XDP_RX_HANDLER_VBLANK_STREAM_4", "xdp_8h.html#gga5db20613deebfd3e04727fb96f20e01ba52d0e37e0ef0acfa5725f610451ff57c", null ],
       [ "XDP_RX_NUM_HANDLERS", "xdp_8h.html#gga5db20613deebfd3e04727fb96f20e01bac9cf2a371aef9a97b58ab841a1ccf80d", null ]
     ] ],
     [ "XDp_CoreType", "xdp_8h.html#ga8d85f6071200723596c18f46ce9ef438", [

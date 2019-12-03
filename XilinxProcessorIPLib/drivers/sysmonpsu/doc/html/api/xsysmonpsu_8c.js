@@ -17,6 +17,7 @@ var xsysmonpsu_8c =
     [ "XSysMonPsu_GetSequencerEvent", "xsysmonpsu_8c.html#a6a0b98e18bb6c2c8b3587e2fe2cffde8", null ],
     [ "XSysMonPsu_GetSequencerMode", "xsysmonpsu_8c.html#a2f2d5053a1406cecd4fa311525f68ce7", null ],
     [ "XSysMonPsu_GetStatus", "xsysmonpsu_8c.html#a5e1841bc7888195dd3f9381947e4f8d3", null ],
+    [ "XSysMonPsu_InitInstance", "xsysmonpsu_8c.html#ac2e9db41a161cbf730baba617a545bbf", null ],
     [ "XSysMonPsu_Reset", "xsysmonpsu_8c.html#ad6fc9daa41e50955a71e2fe7a107a0e5", null ],
     [ "XSysMonPsu_SetAdcClkDivisor", "xsysmonpsu_8c.html#a11e8fc0b9dffbe33b41ec4e6825ffc4a", null ],
     [ "XSysMonPsu_SetAlarmEnables", "xsysmonpsu_8c.html#a3ce8ca01b6992994737213f342847662", null ],

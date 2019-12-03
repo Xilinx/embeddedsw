@@ -12,6 +12,7 @@ var pipeline__program_8h =
     [ "InitIIC", "pipeline__program_8h.html#a1f5ca95d93d51e6aeaa5b5e53b226ac5", null ],
     [ "InitTreadyGpio", "pipeline__program_8h.html#ac67647426334e9f2273c17cbd24f4c15", null ],
     [ "InitVprocSs_Scaler", "pipeline__program_8h.html#a3f6ed57e5466f68d54c672459f64f82a", null ],
+    [ "MuxInit", "pipeline__program_8h.html#abb01e2a9be230281dc95655303e9e68f", null ],
     [ "PrintPipeConfig", "pipeline__program_8h.html#ae0af0a350e50fea795e63a85a698c2c7", null ],
     [ "SelectDSIOuptut", "pipeline__program_8h.html#ac7e2dc72f4d696dd2e05919f1f626af2", null ],
     [ "SelectHDMIOutput", "pipeline__program_8h.html#a56f64108083ce8ee138d8f0448b28fd9", null ],

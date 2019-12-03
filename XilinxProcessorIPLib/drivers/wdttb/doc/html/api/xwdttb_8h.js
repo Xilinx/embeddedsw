@@ -7,7 +7,7 @@ var xwdttb_8h =
       [ "XWDTTB_SEC_WIN_EVENT", "xwdttb_8h.html#gga6ce266ea00535f8b8c9594d2e1f0e630a716510d9e30db9a27c4da27d959edcab", null ]
     ] ],
     [ "XWdtTb_AlwaysEnable", "xwdttb_8h.html#ga9b3e984acc19cf7d0f45eaa09298e0a7", null ],
-    [ "XWdtTb_CfgInitialize", "xwdttb_8h.html#ga6fcca4fb96e09aa0ed2a6065b54e6076", null ],
+    [ "XWdtTb_CfgInitialize", "xwdttb_8h.html#gadf3c428b985d77e28b5df5cd5d82dff3", null ],
     [ "XWdtTb_ClearLastEvent", "xwdttb_8h.html#ga043f754323225b43513c2f7a2f71aedb", null ],
     [ "XWdtTb_ClearResetPending", "xwdttb_8h.html#gafbd0c485e4a716fd1c6dc5cea084f759", null ],
     [ "XWdtTb_DisableExtraProtection", "xwdttb_8h.html#ga31311c4f3e1f921ab55d005e0a0ff028", null ],

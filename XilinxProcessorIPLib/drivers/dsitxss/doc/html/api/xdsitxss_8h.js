@@ -17,8 +17,10 @@ var xdsitxss_8h =
     [ "XDsiTxSs_ReportCoreInfo", "xdsitxss_8h.html#gacdbf8bdffcc5c58bafabca09ce89ffbb", null ],
     [ "XDsiTxSs_Reset", "xdsitxss_8h.html#ga72465c9ad620c0103bfdc2055f4db426", null ],
     [ "XDsiTxSs_SelfTest", "xdsitxss_8h.html#ga5c2a0c949b32000d56edf503bcee3b48", null ],
+    [ "XDsiTxSs_SendCmdModePacket", "xdsitxss_8h.html#gaa327e5adf508da3fec9e669c2110da1b", null ],
     [ "XDsiTxSs_SendShortPacket", "xdsitxss_8h.html#ga8792189e4eb55d1bd09b2f60c4dcae3f", null ],
     [ "XDsiTxSs_SetCallback", "xdsitxss_8h.html#ga4b5639796dfc2bd954a848268daa116d", null ],
     [ "XDsiTxSs_SetCustomVideoInterfaceTiming", "xdsitxss_8h.html#ga1b9246c8e349c6dac5aa6c7f40a69bf8", null ],
+    [ "XDsiTxSs_SetDSIMode", "xdsitxss_8h.html#ga8412315a375f8096c48c24be87cc09fb", null ],
     [ "XDsiTxSs_SetVideoInterfaceTiming", "xdsitxss_8h.html#gab4c4ef25cc3f604f21ce98446cdfe482", null ]
 ];

@@ -4,7 +4,6 @@ var files =
     [ "periph.h", "periph_8h.html", "periph_8h" ],
     [ "system.c", "system_8c.html", "system_8c" ],
     [ "system.h", "system_8h.html", "system_8h" ],
-    [ "vpss_example.tcl", "vpss__example_8tcl.html", "vpss__example_8tcl" ],
     [ "xvprocss.c", "xvprocss_8c.html", "xvprocss_8c" ],
     [ "xvprocss.h", "xvprocss_8h.html", "xvprocss_8h" ],
     [ "xvprocss_coreinit.c", "xvprocss__coreinit_8c.html", "xvprocss__coreinit_8c" ],

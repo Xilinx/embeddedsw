@@ -21,7 +21,6 @@ var xdptxss__kcu105__dp14_8c =
     [ "remap_start", "xdptxss__kcu105__dp14_8c.html#a168c85710af4079bf2b90ddc7f764006", null ],
     [ "reset_clkwiz", "xdptxss__kcu105__dp14_8c.html#a813500920ecee36360482a8078fcd5c5", null ],
     [ "resetIp", "xdptxss__kcu105__dp14_8c.html#a56361447f4b2f2b7e4c28bd94e142116", null ],
-    [ "sendAudioInfoFrame", "xdptxss__kcu105__dp14_8c.html#a58e262e2648459a5f3dedd178e7d65bd", null ],
     [ "sink_power_cycle", "xdptxss__kcu105__dp14_8c.html#a0f0a1dce20baa6103b48f0bf9fe44cde", null ],
     [ "start_tx", "xdptxss__kcu105__dp14_8c.html#a87878b159735f42a419a35fa296606da", null ],
     [ "switch_to_Tx_only", "xdptxss__kcu105__dp14_8c.html#adac5f2cdc61511609847ab58554d635a", null ],

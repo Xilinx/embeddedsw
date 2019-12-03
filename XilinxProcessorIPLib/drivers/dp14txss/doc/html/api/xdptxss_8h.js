@@ -5,6 +5,7 @@ var xdptxss_8h =
     [ "XDpTxSs_MainStreamAttributes", "xdptxss_8h.html#gaa1430b8060c5df2fd8c8e664247143f8", null ],
     [ "XDpTxSs_Mst_AudioDisable", "xdptxss_8h.html#ga49462a0de094578203c4480c6a490099", null ],
     [ "XDpTxSs_Mst_AudioEnable", "xdptxss_8h.html#ga5aa8245251b6fc9e022c70303370d698", null ],
+    [ "XDpTxSs_SendAudioInfoFrame", "xdptxss_8h.html#ga32cda283517509583547d7c319edcae9", null ],
     [ "XDpTxSs_TimerHandler", "xdptxss_8h.html#gaa5164c065e24357370110315173faade", null ],
     [ "XDpTxSs_HandlerType", "xdptxss_8h.html#ga22c23bc4a70466cc2eb177c2ce4f7aad", [
       [ "ONLY_READ", "dppt__vdma_8h.html#ad741188f488f37a28122120999267d38adca1a29221a79231f6a839e439cf01f8", null ],
