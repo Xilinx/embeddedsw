@@ -322,6 +322,12 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 	Status = XPmReset_AssertbyId(PM_RST_PL_POR,
 				     PM_RESET_ACTION_RELEASE);
 
+	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);;
+	if (NULL == Pmc) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
 	/* Toggle PS POR */
 	if((PLATFORM_VERSION_SILICON == Platform) && (PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
 		/* EDT-995767: Theres a bug with ES1, due to which a small percent (<2%) of device
@@ -329,12 +335,25 @@ static XStatus PldInitStart(u32 *Args, u32 NumOfArgs)
 		The work around requires to toggle PL_POR twice after PL supplies is up. */
 		Status = XPmReset_AssertbyId(PM_RST_PL_POR,
 				     PM_RESET_ACTION_PULSE);
-	}
-
-	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);;
-	if (NULL == Pmc) {
-		Status = XST_FAILURE;
-		goto done;
+		/*
+		 * Clear sticky ERROR and interrupt status (They are not
+		 * cleared by PL_POR). Otherwise, once ERROR/interrupt is
+		 * enabled by PLM, PLM may behave incorrectly.
+		 */
+		XPm_Write32(Pmc->PmcGlobalBaseAddr +
+			    PMC_GLOBAL_GIC_PROXY_BASE_OFFSET +
+			    GIC_PROXY_GROUP_OFFSET(3) +
+			    GIC_PROXY_IRQ_STATUS_OFFSET,
+			    GICP3_CFRAME_SEU_MASK | GICP3_CFU_MASK);
+		XPm_Write32(Pmc->PmcGlobalBaseAddr +
+			    PMC_GLOBAL_ERR1_STATUS_OFFSET,
+			    PMC_GLOBAL_ERR1_STATUS_CFU_MASK |
+			    PMC_GLOBAL_ERR1_STATUS_CFRAME_MASK);
+		XPm_Write32(Pmc->PmcGlobalBaseAddr +
+			    PMC_GLOBAL_ERR2_STATUS_OFFSET,
+			    PMC_GLOBAL_ERR2_STATUS_CFI_MASK |
+			    PMC_GLOBAL_ERR2_STATUS_CFRAME_SEU_CRC_MASK |
+			    PMC_GLOBAL_ERR2_STATUS_CFRAME_SEU_ECC_MASK);
 	}
 
         /* Check for PL PowerUp */
