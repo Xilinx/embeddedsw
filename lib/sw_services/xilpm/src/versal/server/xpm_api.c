@@ -4096,6 +4096,7 @@ int XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 	case PM_GET_API_VERSION:
 	case PM_GET_NODE_STATUS:
 	case PM_GET_OP_CHARACTERISTIC:
+	case PM_REGISTER_NOTIFIER:
 	case PM_REQUEST_SUSPEND:
 	case PM_SELF_SUSPEND:
 	case PM_FORCE_POWERDOWN:
@@ -4109,6 +4110,8 @@ int XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 	case PM_SET_MAX_LATENCY:
 	case PM_RESET_ASSERT:
 	case PM_RESET_GET_STATUS:
+	case PM_INIT_FINALIZE:
+	case PM_GET_CHIPID:
 	case PM_PINCTRL_REQUEST:
 	case PM_PINCTRL_RELEASE:
 	case PM_PINCTRL_GET_FUNCTION:
