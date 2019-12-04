@@ -165,6 +165,7 @@
 * 3.6   ms     02/16/18 Updates the flow control mode offset value in modem
 *                       control register.
 * 3.7   aru    08/17/18 Resolved MISRA-C:2012 compliance mandatory violations.
+* 3.9   rna    12/03/19 Modified the XUARTPS_MAX_RATE macro.
 *
 * </pre>
 *
@@ -192,7 +193,7 @@ extern "C" {
  * numbers are based only on the testing that has been done. The hardware
  * is capable of other baud rates.
  */
-#define XUARTPS_MAX_RATE	 921600U
+#define XUARTPS_MAX_RATE	 6240000U
 #define XUARTPS_MIN_RATE	 110U
 
 #define XUARTPS_DFT_BAUDRATE  115200U   /* Default baud rate */
