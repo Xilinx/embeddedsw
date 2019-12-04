@@ -596,13 +596,6 @@ void PmSystemRestartDone(const PmMaster* const master)
 		req->currReq &= ~(u8)PM_CAP_ACCESS;
 	}
 
-	/* Clear system requirement for PL once restart is done*/
-	req = PmRequirementGetNoMaster(&pmSlavePl_g);
-	caps = PmSystemGetRequirement(&pmSlavePl_g);
-	if ((NULL != req) && (0U == (PM_CAP_ACCESS & caps))) {
-		req->currReq &= ~PM_CAP_ACCESS;
-	}
-
 	return;
 }
 
