@@ -16,6 +16,9 @@ Correct interrupt ID definition for Versal in example.
 gpio_v4_6:
 Fixed compilation error of armcc compiler.
 
+gpiops_v3_7:
+Reverted versal support.
+
 lwip211_v1_2:
 Add dependencies.props file for examples.
 
