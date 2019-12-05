@@ -293,6 +293,7 @@ int XPmSubsystem_Idle(u32 SubsystemId)
 		/* Check if device is requested and its clock is active */
 		if ((TRUE == Reqm->Allocated) &&
 		    (0 == (Device->Node.Flags & NODE_IDLE_DONE)) &&
+		    (XPM_DEVSTATE_RUNNING == Device->Node.State) &&
 		    (XST_SUCCESS == XPmDevice_IsClockActive(Device)) &&
 		    (PM_USAGE_CURRENT_SUBSYSTEM == Usage)) {
 			XPmDevice_SoftResetIdle(Device, DEVICE_IDLE_REQ);
