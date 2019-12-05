@@ -111,6 +111,7 @@
 *                     sync with standalone BSP
 * 3.6	sne  06/12/19 Fixed IAR compiler warning.
 * 3.6   sne  08/14/19 Added interrupt handler support on versal.
+* 3.7	sne  12/04/19 Reverted versal examples support.
 *
 * </pre>
 *

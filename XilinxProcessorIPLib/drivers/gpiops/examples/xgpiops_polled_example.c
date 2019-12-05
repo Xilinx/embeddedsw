@@ -40,11 +40,6 @@
 * For Zynq Platform, Input Pins are 12(sw14 on zc702 board), 14(sw13 on
 * zc702 board) and Output Pin is 10(DS23 on zc702 board).
 *
-* In versal Platform we have two devices(PMC GPIO and PS GPIO),PMC contain 4
-* banks and 116 pins,PS GPIO  contain 2 banks and 58 pins.
-* This example can work for both PS and PMC GPIO based on the value of GPIO_DEVICE_ID
-* The default value of 0 makes this example work for PMC GPIO controller.
-*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -56,11 +51,7 @@
 *		      Updated the example to use only pin APIs.
 * 3.3   ms   04/17/17 Added notes about input and output pin description
 *                     for zcu102 and zc702 boards.
-* 3.5   sne  04/26/19 Added versal support.
-* 3.6	sne  08/19/19 Updated gpio pin numbers for versal platform.
-*		      Using pmc_MIO38,pmc_MIO39 for PMC device and
-*		      LPD_MIO14,LPD_MIO15 for PS device.
-*
+* 3.7	sne  12/04/19 Reverted versal example support.
 * </pre>
 *
 *****************************************************************************/
@@ -79,11 +70,6 @@
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place for ZYNQ & ZYNQMP.
- *
- * For Versal users can pass GPIO_DEVICE_ID value as a compile time argument
- *  to make the same example work for PS or PMC.
- * -DGPIO_DEVICE_ID=0 ensures that the example compiles for PMC GPIO.
- * Similarly -DGPIO_DEVICE_ID=1 ensures that the example compiles for PS GPIO.
  */
 
 #ifndef GPIO_DEVICE_ID
@@ -178,13 +164,6 @@ int GpioPolledExample(u16 DeviceId, u32 *DataRead)
 
 	/* Initialize the GPIO driver. */
 	ConfigPtr = XGpioPs_LookupConfig(GPIO_DEVICE_ID);
-#ifdef versal
-	if(ConfigPtr->DeviceId == 0x0U)
-	{
-		/* Accessing PMC GPIO by setting 1 value*/
-		Gpio.PmcGpio=1;
-	}
-#endif
 	Type_of_board = XGetPlatform_Info();
 	switch (Type_of_board) {
 		case XPLAT_ZYNQ_ULTRA_MP:
@@ -196,20 +175,6 @@ int GpioPolledExample(u16 DeviceId, u32 *DataRead)
 			Input_Pin = 14;
 			Output_Pin = 10;
 			break;
-
-#ifdef versal
-		case XPLAT_versal:
-			if(Gpio.PmcGpio == 0x1U) {
-				Input_Pin = 38;
-				Output_Pin = 39;
-				break;
-			}
-			else {
-				Input_Pin = 14;
-				Output_Pin = 15;
-				break;
-			}
-#endif
 	}
 
 	Status = XGpioPs_CfgInitialize(&Gpio, ConfigPtr,
