@@ -67,6 +67,7 @@
  * 4.4   rsp  02/22/18 Support data buffers above 4GB.Use UINTPTR for
  *                     typecasting buffer address(CR-995116).
  * 4.6   rsp  09/13/19 Fix cache maintenance ops for source and dest buffer.
+ * 4.7   rsp  12/06/19 For aarch64 include xil_mmu.h. Fixes gcc warning.
  * </pre>
  *
  ****************************************************************************/
@@ -75,6 +76,9 @@
 #include "xenv.h"	/* memset */
 #include "xil_cache.h"
 #include "xparameters.h"
+#ifdef __aarch64__
+#include "xil_mmu.h"
+#endif
 
 #if defined(XPAR_UARTNS550_0_BASEADDR)
 #include "xuartns550_l.h"       /* to use uartns550 */

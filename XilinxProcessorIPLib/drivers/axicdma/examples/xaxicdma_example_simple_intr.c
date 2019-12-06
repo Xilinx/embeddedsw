@@ -68,6 +68,7 @@
  *                     typecasting buffer address(CR-995116).
  * 4.6   rsp  09/13/19 Add error prints for failing scenarios.
  *                     Fix cache maintenance ops for source and dest buffer.
+ * 4.7   rsp  12/06/19 For aarch64 include xil_mmu.h. Fixes gcc warning.
  * </pre>
  *
  ****************************************************************************/
@@ -93,6 +94,7 @@
 
 #ifdef __aarch64__
 #include "xreg_cortexa53.h"
+#include "xil_mmu.h"
 #endif
 
 

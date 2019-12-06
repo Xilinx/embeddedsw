@@ -23,8 +23,8 @@
 * 
 *
 ******************************************************************************/
-#ifndef XAXICDMA_SIMPLE_INTR_HEADER_H		/* prevent circular inclusions */
-#define XAXICDMA_SIMPLE_INTR_HEADER_H		/* by using protection macros */
+#ifndef XAXICDMA_SG_INTR_HEADER_H		/* prevent circular inclusions */
+#define XAXICDMA_SG_INTR_HEADER_H		/* by using protection macros */
 
 #include "xil_types.h"
 #include "xil_assert.h"
