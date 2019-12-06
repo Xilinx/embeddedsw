@@ -137,6 +137,10 @@ PmSystemRequirement pmSystemReqs[] = {
 		.slave = &pmSlaveDdr_g,
 		.caps = PM_CAP_CONTEXT,
 		.posCaps = PM_CAP_ACCESS,
+	},{
+		.slave = &pmSlavePl_g,
+		.caps = 0U,
+		.posCaps = 0U,
 	},
 #ifdef DEBUG_MODE
 #if (STDOUT_BASEADDRESS == XPAR_PSU_UART_0_BASEADDR)
@@ -578,6 +582,12 @@ void PmSystemPrepareForRestart(const PmMaster* const master)
 		req->currReq |= PM_CAP_ACCESS;
 	}
 
+	/* Change system requirement for PL to hold it ON while restarting */
+	req = PmRequirementGetNoMaster(&pmSlavePl_g);
+	if ((NULL != req) && (0U == (PM_CAP_ACCESS & req->currReq))) {
+		req->currReq |= PM_CAP_ACCESS;
+	}
+
 	return;
 }
 
@@ -593,6 +603,13 @@ void PmSystemRestartDone(const PmMaster* const master)
 	/* Change system requirement for DDR to hold it ON while restarting */
 	req = PmRequirementGetNoMaster(&pmSlaveDdr_g);
 	caps = PmSystemGetRequirement(&pmSlaveDdr_g);
+	if ((NULL != req) && (0U == (PM_CAP_ACCESS & caps))) {
+		req->currReq &= ~PM_CAP_ACCESS;
+	}
+
+	/* Clear system requirement for PL once restart is done*/
+	req = PmRequirementGetNoMaster(&pmSlavePl_g);
+	caps = PmSystemGetRequirement(&pmSlavePl_g);
 	if ((NULL != req) && (0U == (PM_CAP_ACCESS & caps))) {
 		req->currReq &= ~PM_CAP_ACCESS;
 	}
