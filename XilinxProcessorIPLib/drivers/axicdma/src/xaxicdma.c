@@ -43,6 +43,7 @@
  * 2.02a srt  01/18/13 Added support for Key Hole feature (CR: 687217).
  * 4.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
  *                     Changed the prototype of XAxiCdma_CfgInitialize API.
+ * 4.7   rsp  11/29/19 Fix XAxiCdma_SimpleTransfer documentation for BTT.
  * </pre>
  *
  *****************************************************************************/
@@ -452,7 +453,7 @@ int XAxiCdma_SwitchMode(XAxiCdma *InstancePtr, int Mode)
  *			Another simple transfer is still going
  *   . 		Another SG transfer is still going
  *		- XST_INVALID_PARAM if:
- *		Length out of valid range [1:8M]
+ *		Length out of valid range [1: XAXICDMA_MAX_TRANSFER_LEN]
  *		Or, address not aligned when DRE is not built in
  *
  * @note	Only set the callback function if using interrupt to signal

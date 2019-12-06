@@ -39,6 +39,8 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.00a jz   04/08/10 First release
  * 2.02a srt  01/18/13 Added support for Key Hole feature (CR: 687217).
+ * 4.7   rsp  11/29/19 Remove hard-coded XAXICDMA_MAX_TRANSFER_LEN. In driver tcl
+ *                     derive it based on IP version.
  * </pre>
  *
  *****************************************************************************/
@@ -63,13 +65,6 @@ extern "C" {
                                                requirement for descriptors to
                                                satisfy both hardware/software
                                                needs */
-/*@}*/
-
-/** @name Maximum transfer length
- *    This is determined by hardware
- * @{
- */
-#define XAXICDMA_MAX_TRANSFER_LEN	0x7FFFFF  /**< Max length hw supports */
 /*@}*/
 
 /** @name Register offset definitions
