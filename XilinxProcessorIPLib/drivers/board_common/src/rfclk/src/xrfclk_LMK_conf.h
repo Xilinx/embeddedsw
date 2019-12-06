@@ -27,7 +27,7 @@
 /**
 *
 * @file xrfclk_LMK_conf.h
-* @addtogroup xrfclk_LMK_conf_v1_2
+* @addtogroup xrfclk_LMK_conf_v1_1
 * @{
 *
 * Contains the configuration data for LMK.
@@ -39,7 +39,8 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     08/28/19 Initial version
 * 1.1   dc     11/21/19 Remove xil dependencies from linux build
-* 1.2   dc     11/25/19 update LMX and LMK configs
+*       dc     11/25/19 update LMX and LMK configs
+*       dc     12/05/19 adjust LMX and LMK configs to a rftool needs
 *
 * </pre>
 *
@@ -55,7 +56,7 @@ extern "C" {
 
 /* Frequency values for LMK04208 PLL */
 #ifdef XPS_BOARD_ZCU111
-const u32 LMK_CKin[][LMK_COUNT] = {
+const u32 LMK_CKin[LMK_FREQ_NUM][LMK_COUNT] = {
 
 	/* LMK04208_12M8_3072M_122M88_REVAB input 12M8 VCO 3072M Output 122.88M Rev
 	A and B auto detect SYSREF 7.68, PL REFCLK 122.88 */
@@ -87,7 +88,7 @@ const u32 LMK_CKin[][LMK_COUNT] = {
 };
 #else
 
-const u32 LMK_CKin[][LMK_COUNT] = {
+const u32 LMK_CKin[LMK_FREQ_NUM][LMK_COUNT] = {
 	/* LMK04828B_B2457M6_DualLoop_C0in10M_C1in10M_C2in156M25_10102019.txt */
 	{
 		0x000090, 0x000010, 0x000200, 0x000306, 0x0004D0, 0x00055B,
