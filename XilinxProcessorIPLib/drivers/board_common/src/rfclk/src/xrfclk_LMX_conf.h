@@ -27,7 +27,7 @@
 /**
 *
 * @file xrfclk_LMX_conf.h
-* @addtogroup xrfclk_LMX_conf_v1_2
+* @addtogroup xrfclk_LMX_conf_v1_1
 * @{
 *
 * Contains the configuration data for LMX.
@@ -39,7 +39,8 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     08/28/19 Initial version
 * 1.1   dc     11/21/19 Remove xil dependencies from linux build
-* 1.2   dc     11/25/19 update LMX and LMK configs
+*       dc     11/25/19 update LMX and LMK configs
+*       dc     12/05/19 adjust LMX and LMK configs to a rftool needs
 *
 * </pre>
 *
@@ -53,9 +54,24 @@ extern "C" {
 
 #include "xrfclk.h"
 
-#define FREQ_LIST_STR_SIZE 16
-
 #ifdef XPS_BOARD_ZCU111
+
+/* ADC Frequency list for LMX2594(A/B) PLL */
+const u8 ADC_FREQ_LIST[LMX_ADC_NUM][FREQ_LIST_STR_SIZE] = {
+	"102.40",  "204.80",  "245.76",  "409.60",  "491.52",  "737.28",
+	"1474.56", "1966_08", "2048.00", "2457.60", "2949.12", "3072.00",
+	"3194.88", "3276.80", "3686.40", "3932.16", "4096.00"
+};
+
+/* DAC Frequency list for LMX2594(C) PLL */
+const u8 DAC_FREQ_LIST[LMX_DAC_NUM][FREQ_LIST_STR_SIZE] = {
+	"102.40",  "204.80",  "245.76",  "409.60",  "491.52",  "737.28",
+	"1474.56", "1966_08", "2048.00", "2457.60", "2949.12", "3072.00",
+	"3194.88", "3276.80", "3686.40", "3932.16", "4096.00", "4423.68",
+	"4669.44", "4915.20", "5734.40", "5898.24", "6144.00", "6389.76",
+	"6400.00", "6553.60"
+};
+
 /* Frequency values for LMX2594(A/B/C) PLL */
 const u32 LMX2594[][LMX2594_COUNT] = {
 	/* 0 PLL_102_4_MHZ LMK 122.88MHz, LMX2594 102.4. Use with internal
@@ -559,14 +575,14 @@ const u32 LMX2594[][LMX2594_COUNT] = {
 
 #else
 
-/* ADC Frequency list for LMX2594(A/B) PLL */
-const u8 ADC_FREQ_LIST[][FREQ_LIST_STR_SIZE] = {
+/* ADC Frequency list for LMX2594(A) PLL */
+const u8 ADC_FREQ_LIST[LMX_ADC_NUM][FREQ_LIST_STR_SIZE] = {
 	"204.80",  "245.76",  "491.52",  "1024.00", "1966.08",
 	"2000.00", "2211.84", "2457.60", "2500.00",
 };
 
-/* DAC Frequency list for LMX2594(A/B) PLL */
-const u8 DAC_FREQ_LIST[][FREQ_LIST_STR_SIZE] = {
+/* DAC Frequency list for LMX2594(B) PLL */
+const u8 DAC_FREQ_LIST[LMX_DAC_NUM][FREQ_LIST_STR_SIZE] = {
 	"204.80",  "245.76",  "491.52",  "1024.00", "1966.08",
 	"2000.00", "2211.84", "2457.60", "2500.00", "3072.00",
 	"3932.16", "4000.00", "4096.00", "4423.68", "4915.20",

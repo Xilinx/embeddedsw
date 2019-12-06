@@ -27,7 +27,7 @@
 /**
 *
 * @file xrfclk.h
-* @addtogroup xrfclk_v1_2
+* @addtogroup xrfclk_v1_1
 * @{
 *
 * Contains the API of the XRFclk middleware.
@@ -39,7 +39,8 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     07/21/19 Initial version
 * 1.1   dc     11/21/19 Remove xil dependencies from linux build
-* 1.2   dc     11/25/19 update LMX and LMK configs
+*       dc     11/25/19 update LMX and LMK configs
+*       dc     12/05/19 adjust LMX and LMK configs to a rftool needs
 *
 * </pre>
 *
@@ -51,7 +52,9 @@
 extern "C" {
 #endif
 
-#define XPS_BOARD_ZCU216 /* to build zcu111 use XPS_BOARD_ZCU111 */
+#if !defined(XPS_BOARD_ZCU111) && !defined(XPS_BOARD_ZCU216)
+#define XPS_BOARD_ZCU216
+#endif
 
 #if defined __BAREMETAL__
 #include "xil_types.h"
@@ -70,16 +73,23 @@ typedef int s32;
 #define RFCLK_LMX2594_3 3 /* I3 on MUX and SS0 on Bridge */
 #define RFCLK_CHIP_NUM 4
 #define LMK_COUNT 26
+#define LMK_FREQ_NUM 3 /* Number of LMK freq. configs */
+#define LMX_ADC_NUM 17 /* Number of LMX ADC configs */
+#define LMX_DAC_NUM 26 /* Number of LMX DAC configs */
 #else
 #define RFCLK_CHIP_NUM 3
 #define LMK_COUNT 128
+#define LMK_FREQ_NUM 3 /* Number of LMK freq. configs */
+#define LMX_ADC_NUM 9 /* Number of LMX ADC configs */
+#define LMX_DAC_NUM 25 /* Number of LMX DAC configs */
 #endif
 
 #define LMX2594_COUNT 116
+#define FREQ_LIST_STR_SIZE 16 /* Frequency string size */
 
 u32 XRFClk_WriteReg(u32 ChipId, u32 Data);
 u32 XRFClk_ReadReg(u32 ChipId, u32 *Data);
-#if defined __BAREMETAL__
+#if defined __BAREMETAL__ || defined XPS_BOARD_ZCU111
 u32 XRFClk_Init();
 #else
 u32 XRFClk_Init(int GpioId);
