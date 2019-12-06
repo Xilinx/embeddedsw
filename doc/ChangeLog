@@ -41,6 +41,10 @@ Modified disk_status API to remove dependency on canonical params
 usbps_v2_5:
 Added dependencies.props file to support automation testing.
 
+axicdma_v4_7:
+Support 26bit dma transfer length.
+Fix gcc warning in peripheral test and examples.
+
 Changes for 2019.2
 ===============================
 canfd_v2_2:
