@@ -100,11 +100,11 @@
 #define GTY_NPI_CACHE_DATA_REGISTER_OFFSET 	0x64
 
 //BRAM Repair
-#define CFRM_BRAM_REPAIR_ROW_MASK 		0x00078000
-#define CFRM_BRAM_REPAIR_ROW_SHIFT 		15
-#define CFRM_BRAM_REPAIR_COL_MASK 		0x00007E00
-#define CFRM_BRAM_REPAIR_COL_SHIFT 		9
-#define CFRM_BRAM_REPAIR_INDEX_MASK 		0x000001E0
+#define CFRM_BRAM_REPAIR_ROW_MASK 		0x000f0000
+#define CFRM_BRAM_REPAIR_ROW_SHIFT 		16
+#define CFRM_BRAM_REPAIR_COL_MASK 		0x0000fc00
+#define CFRM_BRAM_REPAIR_COL_SHIFT 		10
+#define CFRM_BRAM_REPAIR_INDEX_MASK 		0x000003E0
 #define CFRM_BRAM_REPAIR_INDEX_SHIFT 		5
 #define CFRM_BRAM_REPAIR_VAL_MASK 		0x0000001F
 #define CFRM_BRAM_REPAIR_VAL_SHIFT 		0
@@ -122,9 +122,9 @@
 #define CFRM_BRAM_EXP_REPAIR_VAL_SHIFT 		0
 
 //URAM Repair
-#define CFRM_URAM_REPAIR_ROW_MASK 		0x00078000
-#define CFRM_URAM_REPAIR_ROW_SHIFT 		15
-#define CFRM_URAM_REPAIR_COL_MASK 		0x00007800
+#define CFRM_URAM_REPAIR_ROW_MASK 		0x000f0000
+#define CFRM_URAM_REPAIR_ROW_SHIFT 		16
+#define CFRM_URAM_REPAIR_COL_MASK 		0x0000f800
 #define CFRM_URAM_REPAIR_COL_SHIFT 		11
 #define CFRM_URAM_REPAIR_INDEX_MASK 		0x000007C0
 #define CFRM_URAM_REPAIR_INDEX_SHIFT 		6
@@ -675,6 +675,10 @@ static int XPmBisr_RepairBram(u32 EfuseTagAddr, u32 TagSize)
 		}
 		//Trigger repair command
 		XPm_Out32((CframeRowAddr+0x60), 0xD);
+		XPm_Out32((CframeRowAddr+0x64),0x0);
+                XPm_Out32((CframeRowAddr+0x68),0x0);
+                XPm_Out32((CframeRowAddr+0x6C),0x0);
+
 	}
 
 done:
@@ -755,6 +759,9 @@ static int XPmBisr_RepairUram(u32 EfuseTagAddr, u32 TagSize)
 		}
 		//Trigger repair command
 		XPm_Out32((CframeRowAddr+0x60),0xD);
+		XPm_Out32((CframeRowAddr+0x64),0x0);
+                XPm_Out32((CframeRowAddr+0x68),0x0);
+                XPm_Out32((CframeRowAddr+0x6C),0x0);
 	}
 
 done:
@@ -857,6 +864,9 @@ static int XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 		}
 		//Trigger repair command
 		XPm_Out32((CframeRowAddr+0x60),0xD);
+		XPm_Out32((CframeRowAddr+0x64),0x0);
+                XPm_Out32((CframeRowAddr+0x68),0x0);
+                XPm_Out32((CframeRowAddr+0x6C),0x0);
 
 	}
 
