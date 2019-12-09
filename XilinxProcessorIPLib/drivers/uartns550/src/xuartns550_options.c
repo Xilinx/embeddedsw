@@ -210,7 +210,7 @@ int XUartNs550_SetOptions(XUartNs550 *InstancePtr, u16 Options)
 		} else {
 			/*
 			 * Read the register which contains option so that the
-			 * register can be changed without destoying any other
+			 * register can be changed without destroying any other
 			 * bits of the register
 			 */
 			Register = XUartNs550_ReadReg(InstancePtr->BaseAddress,
