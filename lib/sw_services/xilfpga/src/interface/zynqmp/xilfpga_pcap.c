@@ -99,6 +99,8 @@
  *                     completion of its usage.
  * 5.2 Nava 14/11/19   Rename the XFpga_GetPLConfigData() function name
  *                     to improve the code readability.
+ * 5.2 Nava 06/12/19   Removed unwanted pcap interface status check In
+ *                     XFpga_DecrypSecureHdr path.
  * </pre>
  *
  * @note
@@ -1713,8 +1715,6 @@ static u32 XFpga_DecrypSecureHdr(XSecure_Aes *InstancePtr, u64 SrcAddr)
 	ConfigurValues.EndianType = 0U;
 	XCsuDma_SetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 							&ConfigurValues);
-
-	XSecure_PcapWaitForDone();
 
 	Status = XSecure_AesWaitForDone(InstancePtr);
 	if (Status != XST_SUCCESS) {
