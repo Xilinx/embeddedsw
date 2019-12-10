@@ -46,6 +46,7 @@
 * 1.6  Nishad  12/05/2018  Renamed ME attributes to AIE
 * 1.7  Hyun    09/13/2019  Used global IO accessors and added more __AIESIM__
 * 1.8  Hyun    09/13/2019  Added XAieSim_LoadElfMem()
+* 1.9  Tejus   12/04/2019  Support for new .bss/.data section prefixes in elf
 * </pre>
 *
 ******************************************************************************/
@@ -93,7 +94,7 @@ static void XAieSim_WriteSectionMem(XAieSim_Tile *TileInstPtr, uint8 *SectName,
 	uint64_t DmbAddr;
 	uint64_t TgtTileAddr;
 
-	if(strstr(SectName, "data.DMb") != NULL) {
+	if(strstr(SectName, "data.DM") != NULL) {
 		TgtTileAddr = XAieSim_GetTargetTileAddr(TileInstPtr,
 				SectPtr->sh_addr);
 
@@ -234,7 +235,7 @@ uint32 XAieSim_LoadElfMem(XAieSim_Tile *TileInstPtr, uint8 *ElfPtr,
 		/* Zero out the bss sections */
 		if((SectHdr[Count].sh_type == SHT_NOBITS) &&
 				(strstr(DataPtr + SectHdr[Count].sh_name,
-					"bss.DMb") != NULL)) {
+					"bss.DM") != NULL)) {
 			XAieSim_print("Zeroing out the bss sections\n");
 
 			TgtTileAddr = XAieSim_GetTargetTileAddr(TileInstPtr,
@@ -478,7 +479,7 @@ uint32 XAieSim_LoadElf(XAieSim_Tile *TileInstPtr, uint8 *ElfPtr, uint8 LoadSym)
 
 		/* Zero out the bss sections */
 		if((SectHdr[Count].sh_type == SHT_NOBITS) &&
-				(strstr(ShName[Count], "bss.DMb") != NULL)) {
+				(strstr(ShName[Count], "bss.DM") != NULL)) {
 			XAieSim_print("Zeroing out the bss sections\n");
 
 			TgtTileAddr = XAieSim_GetTargetTileAddr(TileInstPtr,
@@ -667,7 +668,7 @@ void XAieSim_WriteSection(XAieSim_Tile *TileInstPtr, uint8 *SectName,
 
 	CurrPtr = DataPtr;
 
-	if(strstr(SectName, "data.DMb") != NULL) {
+	if(strstr(SectName, "data.DM") != NULL) {
                 TgtTileAddr = XAieSim_GetTargetTileAddr(TileInstPtr, 
                 					SectPtr->sh_addr);
 
