@@ -175,7 +175,7 @@ static void vTimerCallback( TimerHandle_t pxTimer )
 	 The timer expires after 10 seconds. We expect the RxtaskCntr to at least
 	 have a value of 9 (TIMER_CHECK_THRESHOLD) when the timer expires. */
 	if (RxtaskCntr >= TIMER_CHECK_THRESHOLD) {
-		xil_printf("FreeRTOS Hello World Example PASSED");
+		xil_printf("Successfully ran FreeRTOS Hello World Example");
 	} else {
 		xil_printf("FreeRTOS Hello World Example FAILED");
 	}
