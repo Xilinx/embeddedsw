@@ -156,6 +156,24 @@ static XStatus NpdInitFinish(u32 *Args, u32 NumOfArgs)
 			XPmPowerDomain_ApplyAmsTrim(SysmonAddresses[i], PM_POWER_NOC, i-XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN);
 		}
 	}
+
+	/* Assert pcomplete to indicate HC is done and NoC is ready to use */
+	/* Unlock PCSR Register*/
+	PmOut32(NPI_BASEADDR + NPI_NIR_0_OFFSET + NPI_PCSR_LOCK_OFFSET,
+		PCSR_UNLOCK_VAL);
+
+	/* Unmask the pcomplete bit */
+	PmOut32(NPI_BASEADDR + NPI_NIR_0_OFFSET + NPI_PCSR_MASK_OFFSET,
+		NPI_PCSR_CONTROL_PCOMPLETE_MASK);
+
+	/*Assert control on pcomplete bit*/
+	PmOut32(NPI_BASEADDR + NPI_NIR_0_OFFSET + NPI_PCSR_CONTROL_OFFSET,
+		NPI_PCSR_CONTROL_PCOMPLETE_MASK);
+
+	/*Lock PCSR Register */
+	PmOut32(NPI_BASEADDR + NPI_NIR_0_OFFSET + NPI_PCSR_LOCK_OFFSET,
+		0x1);
+
 done:
 	return Status;
 }
