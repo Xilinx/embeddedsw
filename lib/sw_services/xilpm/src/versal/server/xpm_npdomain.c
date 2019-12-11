@@ -192,13 +192,6 @@ static XStatus NpdScanClear(u32 *Args, u32 NumOfArgs)
 		goto done;
 	}
 
-	if (SlrType != SLR_TYPE_MONOLITHIC_DEV &&
-		SlrType != SLR_TYPE_SSIT_DEV_MASTER_SLR) {
-		PmDbg("Skipping Scan-Clear of NPD for Slave SLR\n\r");
-		Status = XST_SUCCESS;
-		goto done;
-	}
-
 	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 	if (NULL == Pmc) {
 		Status = XST_FAILURE;
