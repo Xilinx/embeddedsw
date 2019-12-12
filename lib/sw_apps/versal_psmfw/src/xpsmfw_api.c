@@ -121,44 +121,19 @@ XStatus XPsmFw_ProcessIpi(u32 *Payload)
 
 /****************************************************************************/
 /**
- * @brief	Send power down event to PMC
- *
- * @param DevId	Device ID of powering down processor
+ * @brief	Trigger IPI of PLM to notify the event to PLM
  *
  * @return	XST_SUCCESS or error code
  *
  * @note	None
  *
  ****************************************************************************/
-XStatus XPsmFw_PowerDownEvent(u32 DevId)
+XStatus XPsmFw_NotifyPlmEvent(void)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
-	PACK_PAYLOAD1(Payload, PM_PWR_DWN_EVENT, DevId);
-
-	Status = XPsmFw_IpiSend(IPI_PSM_IER_PMC_MASK, Payload);
-
-	return Status;
-}
-
-/****************************************************************************/
-/**
- * @brief	Send wake event to PMC
- *
- * @param DevId	Device ID of powering down processor
- *
- * @return	XST_SUCCESS or error code
- *
- * @note	None
- *
- ****************************************************************************/
-XStatus XPsmFw_WakeEvent(u32 DevId)
-{
-	XStatus Status = XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
-
-	PACK_PAYLOAD1(Payload, PM_WAKE_UP_EVENT, DevId);
+	PACK_PAYLOAD0(Payload, PM_PSM_TO_PLM_EVENT);
 
 	Status = XPsmFw_IpiSend(IPI_PSM_IER_PMC_MASK, Payload);
 

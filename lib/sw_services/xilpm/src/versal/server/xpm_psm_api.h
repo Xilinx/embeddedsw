@@ -34,14 +34,26 @@
 extern "C" {
 #endif
 
-#define PM_PWR_DWN_EVENT			(1U)
-#define PM_WAKE_UP_EVENT			(2U)
-#define PSM_API_MIN				PM_PWR_DWN_EVENT
-#define PSM_API_MAX				PM_WAKE_UP_EVENT
+#define PM_PSM_TO_PLM_EVENT			(1U)
+#define PSM_API_MIN				PM_PSM_TO_PLM_EVENT
+#define PSM_API_MAX				PM_PSM_TO_PLM_EVENT
 
 #define PSM_API_DIRECT_PWR_DWN			(1U)
 #define PSM_API_DIRECT_PWR_UP			(2U)
 #define PSM_API_FPD_HOUSECLEAN			(3U)
+
+enum ProcDeviceId {
+	ACPU_0,
+	ACPU_1,
+	RPU0_0,
+	RPU0_1,
+	PROC_DEV_MAX,
+};
+
+struct PsmToPlmEvent_t {
+	u32 Version;	/* Version of the event structure */
+	u32 Event[PROC_DEV_MAX];
+};
 
 void XPm_PsmModuleInit(void);
 XStatus XPm_PwrDwnEvent(const u32 DeviceId);

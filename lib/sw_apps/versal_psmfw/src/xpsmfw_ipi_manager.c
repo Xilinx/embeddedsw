@@ -137,14 +137,6 @@ XStatus XPsmFw_IpiSend(u32 IpiMask, u32 *Payload)
 {
 	XStatus Status = XST_FAILURE;
 
-	/* Wait until current IPI interrupt is handled by target */
-	Status = XIpiPsu_PollForAck(IpiInstPtr, IpiMask, XPSMFW_IPI_TIMEOUT);
-	if (XST_SUCCESS != Status) {
-		XPsmFw_Printf(DEBUG_ERROR, "%s: ERROR: Timeout expired\n",
-			      __func__);
-		goto done;
-	}
-
 	Status = XIpiPsu_WriteMessage(IpiInstPtr, IpiMask, Payload,
 				      PAYLOAD_ARG_CNT, XIPIPSU_BUF_TYPE_MSG);
 	if (XST_SUCCESS != Status) {

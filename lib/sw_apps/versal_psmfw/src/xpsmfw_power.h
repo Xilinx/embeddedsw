@@ -165,6 +165,14 @@ enum TcmBankId {
 	TCM_1_B,
 };
 
+enum ProcDeviceId {
+	ACPU_0,
+	ACPU_1,
+	RPU0_0,
+	RPU0_1,
+	PROC_DEV_MAX,
+};
+
 /* Power control and wakeup Handler Table Structure */
 typedef XStatus (*HandlerFunction_t)(void);
 struct PwrCtlWakeupHandlerTable_t {
@@ -275,6 +283,11 @@ struct XPsmFwGemPwrCtrl_t {
 
         /* Bit number in the reset control register */
         u32 RstCtrlMask;
+};
+
+struct PsmToPlmEvent_t {
+	u32 Version;	/* Version of the event structure */
+	u32 Event[PROC_DEV_MAX];
 };
 
 XStatus XPsmFw_DispatchPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask);

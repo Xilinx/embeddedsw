@@ -32,6 +32,11 @@
 #include "xpm_device.h"
 #include "xpm_ipi.h"
 
+#define PSM_TO_PLM_EVENT_ADDR			(0xFFC3FF00U)
+#define PSM_TO_PLM_EVENT_VERSION		(0x1U)
+#define PWR_UP_EVT				(0x1U)
+#define PWR_DWN_EVT				(0x100U)
+
 static XPlmi_ModuleCmd XPlmi_PsmCmds[PSM_API_MAX+1];
 static XPlmi_Module XPlmi_Psm =
 {
@@ -40,33 +45,65 @@ static XPlmi_Module XPlmi_Psm =
 	PSM_API_MAX+1,
 };
 
+static u32 ProcDevList[] = {
+	[ACPU_0] = PM_DEV_ACPU_0,
+	[ACPU_1] = PM_DEV_ACPU_1,
+	[RPU0_0] = PM_DEV_RPU0_0,
+	[RPU0_1] = PM_DEV_RPU0_1,
+};
+
+/* This replicates PsmToPlmEvent stored at PSM reserved RAM location */
+volatile struct PsmToPlmEvent_t *PsmToPlmEvent =
+				(struct PsmToPlmEvent_t *)PSM_TO_PLM_EVENT_ADDR;
+
 static int XPm_ProcessPsmCmd(XPlmi_Cmd * Cmd)
 {
 	u32 Status = XST_FAILURE;
-	u32 *Pload = Cmd->Payload;
+	u32 Idx, EventStatus;
 
-	PmDbg("Processing Cmd %x\n\r", Cmd->CmdId);
+	PmDbg("Processing Psm Event\n\r");
 
-	switch (Cmd->CmdId & 0xFF) {
-		case PM_PWR_DWN_EVENT:
-			Status = XPm_PwrDwnEvent(Pload[0]);
-			break;
-		case PM_WAKE_UP_EVENT:
-			Status = XPm_WakeUpEvent(Pload[0]);
-			break;
-		default:
-			Status = XST_INVALID_PARAM;
-			break;
+	/* Check for the version of the PsmToPlmEvent structure */
+	if (PsmToPlmEvent->Version != PSM_TO_PLM_EVENT_VERSION) {
+		PmErr("PSM-PLM are out of sync. Can't process PSM event\n\r");
+		goto done;
+	} else {
+		Status = XST_SUCCESS;
+	}
+
+	/* Check for the power up/down event register */
+	for (Idx = 0; Idx < ARRAY_SIZE(ProcDevList); Idx++) {
+		if (PsmToPlmEvent->Event[Idx] == PWR_UP_EVT) {
+			/* Clear power up event register bit */
+			PsmToPlmEvent->Event[Idx] = 0;
+
+			EventStatus = XPm_WakeUpEvent(ProcDevList[Idx]);
+			if (EventStatus != XST_SUCCESS) {
+				Status = EventStatus;
+				PmErr("Err %d in wakeup of 0x%x\r\n",
+						EventStatus, ProcDevList[Idx]);
+			}
+		} else if (PsmToPlmEvent->Event[Idx] == PWR_DWN_EVT) {
+			/* Clear power down event register bit */
+			PsmToPlmEvent->Event[Idx] = 0;
+
+			EventStatus = XPm_PwrDwnEvent(ProcDevList[Idx]);
+			if (EventStatus != XST_SUCCESS) {
+				Status = EventStatus;
+				PmErr("Err %d in powerdown of 0x%x\r\n",
+						EventStatus, ProcDevList[Idx]);
+			}
+
+		}
 	}
 
 	Cmd->Response[0] = Status;
 
+done:
 	if (XST_SUCCESS == Status) {
 		Cmd->ResumeHandler = NULL;
 	} else {
-		PmErr("Error %d while processing command 0x%x\r\n", Status, Cmd->CmdId);
-		PmDbg("Command payload: 0x%x, 0x%x, 0x%x, 0x%x\r\n",
-				Pload[0], Pload[1], Pload[2], Pload[3]);
+		PmErr("Error %d in handling PSM event\r\n", Status);
 	}
 
 	return Status;

@@ -53,7 +53,18 @@
 #include "crl.h"
 #include "crf.h"
 #include "pmc_global.h"
+#include <assert.h>
 #define CHECK_BIT(reg, mask)	((reg & mask) == mask)
+
+#define PSM_TO_PLM_EVENT_VERSION		(0x1U)
+#define PWR_UP_EVT				(0x1U)
+#define PWR_DWN_EVT				(0x100U)
+
+__attribute__((used, section(".reserved_memory")))
+	volatile struct PsmToPlmEvent_t PsmToPlmEvent = {
+		.Version	= PSM_TO_PLM_EVENT_VERSION,
+		.Event	= {0x0},
+	};
 
 static u32 LocalPwrState;
 
@@ -1592,7 +1603,11 @@ XStatus XPsmFw_DispatchPwrDwnHandler(u32 PwrDwnStatus, u32 pwrDwnIntMask,
  */
 static XStatus ACPU0Wakeup(void)
 {
-	return XPsmFw_WakeEvent(XPSMFW_DEV_ACPU_0);
+	/* Set the event bit for PLM */
+	assert(PsmToPlmEvent.Event[ACPU_0] == 0);
+	PsmToPlmEvent.Event[ACPU_0] = PWR_UP_EVT;
+
+	return XPsmFw_NotifyPlmEvent();
 }
 
 /**
@@ -1602,7 +1617,11 @@ static XStatus ACPU0Wakeup(void)
  */
 static XStatus ACPU0Sleep(void)
 {
-	return XPsmFw_PowerDownEvent(XPSMFW_DEV_ACPU_0);
+	/* Set the event bit for PLM */
+	assert(PsmToPlmEvent.Event[ACPU_0] == 0);
+	PsmToPlmEvent.Event[ACPU_0] = PWR_DWN_EVT;
+
+	return XPsmFw_NotifyPlmEvent();
 }
 
 /**
@@ -1612,7 +1631,11 @@ static XStatus ACPU0Sleep(void)
  */
 static XStatus ACPU1Wakeup(void)
 {
-	return XPsmFw_WakeEvent(XPSMFW_DEV_ACPU_1);
+	/* Set the event bit for PLM */
+	assert(PsmToPlmEvent.Event[ACPU_1] == 0);
+	PsmToPlmEvent.Event[ACPU_1] = PWR_UP_EVT;
+
+	return XPsmFw_NotifyPlmEvent();
 }
 
 /**
@@ -1622,7 +1645,11 @@ static XStatus ACPU1Wakeup(void)
  */
 static XStatus ACPU1Sleep(void)
 {
-	return XPsmFw_PowerDownEvent(XPSMFW_DEV_ACPU_1);
+	/* Set the event bit for PLM */
+	assert(PsmToPlmEvent.Event[ACPU_1] == 0);
+	PsmToPlmEvent.Event[ACPU_1] = PWR_DWN_EVT;
+
+	return XPsmFw_NotifyPlmEvent();
 }
 
 /**
@@ -1632,7 +1659,11 @@ static XStatus ACPU1Sleep(void)
  */
 static XStatus R50Wakeup(void)
 {
-	return XPsmFw_WakeEvent(XPSMFW_DEV_RPU0_0);
+	/* Set the event bit for PLM */
+	assert(PsmToPlmEvent.Event[RPU0_0] == 0);
+	PsmToPlmEvent.Event[RPU0_0] = PWR_UP_EVT;
+
+	return XPsmFw_NotifyPlmEvent();
 }
 
 /**
@@ -1642,7 +1673,11 @@ static XStatus R50Wakeup(void)
  */
 static XStatus R50Sleep(void)
 {
-	return XPsmFw_PowerDownEvent(XPSMFW_DEV_RPU0_0);
+	/* Set the event bit for PLM */
+	assert(PsmToPlmEvent.Event[RPU0_0] == 0);
+	PsmToPlmEvent.Event[RPU0_0] = PWR_DWN_EVT;
+
+	return XPsmFw_NotifyPlmEvent();
 }
 
 /**
@@ -1652,7 +1687,11 @@ static XStatus R50Sleep(void)
  */
 static XStatus R51Wakeup(void)
 {
-	return XPsmFw_WakeEvent(XPSMFW_DEV_RPU0_1);
+	/* Set the event bit for PLM */
+	assert(PsmToPlmEvent.Event[RPU0_1] == 0);
+	PsmToPlmEvent.Event[RPU0_1] = PWR_UP_EVT;
+
+	return XPsmFw_NotifyPlmEvent();
 }
 
 /**
@@ -1662,7 +1701,11 @@ static XStatus R51Wakeup(void)
  */
 static XStatus R51Sleep(void)
 {
-	return XPsmFw_PowerDownEvent(XPSMFW_DEV_RPU0_1);
+	/* Set the event bit for PLM */
+	assert(PsmToPlmEvent.Event[RPU0_1] == 0);
+	PsmToPlmEvent.Event[RPU0_1] = PWR_DWN_EVT;
+
+	return XPsmFw_NotifyPlmEvent();
 }
 
 /****************************************************************************/

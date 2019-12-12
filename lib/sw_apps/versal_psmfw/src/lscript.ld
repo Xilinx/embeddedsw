@@ -18,7 +18,8 @@ _HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 0x800;
 MEMORY
 {
    tmr_ram_instr_cntlr_Mem : ORIGIN = 0xFFC00050, LENGTH = 0x1FFB0
-   tmr_ram_data_cntlr_Mem : ORIGIN = 0xFFC20000, LENGTH = 0x20000
+   tmr_ram_data_cntlr_Mem : ORIGIN = 0xFFC20000, LENGTH = 0x1FF00
+   tmr_ram_reserved_Mem : ORIGIN = 0xFFC3FF00, LENGTH = 0x100
    axi_dp_bram_ctrl_Mem0 : ORIGIN = 0x0, LENGTH = 0x10000
 }
 
@@ -208,6 +209,10 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    _stack = .;
    __stack = _stack;
 } > tmr_ram_instr_cntlr_Mem
+
+.reserved_memory : {
+   KEEP (*(.reserved_memory))
+} > tmr_ram_reserved_Mem
 
 _end = .;
 }
