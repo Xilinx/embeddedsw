@@ -98,6 +98,13 @@ XStatus XPmPsm_SendPowerUpReq(u32 BitMask)
 		goto done;
 	}
 
+	/* Check if already powered up */
+	PmIn32(PWR_STAT(Psm->PsmGlobalBaseAddr), Reg);
+	if (BitMask == (Reg & BitMask)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	PmOut32(PWR_UP_TRIG(Psm->PsmGlobalBaseAddr), BitMask);
 	PmOut32(PWR_UP_EN(Psm->PsmGlobalBaseAddr), BitMask);
 	do {
@@ -152,6 +159,13 @@ XStatus XPmPsm_SendPowerDownReq(u32 BitMask)
 	/* Check if already powered down */
 	PmIn32(PWR_STAT(Psm->PsmGlobalBaseAddr), Reg);
 	if (0U == (Reg & BitMask)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* Check if already powered down */
+	PmIn32(PWR_STAT(Psm->PsmGlobalBaseAddr), Reg);
+	if (0 == (Reg & BitMask)) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
