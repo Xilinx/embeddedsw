@@ -624,6 +624,11 @@ extern "C" {
 #define XPM_USB_PWR_REQ_OFFSET		(0x00000608U)
 #define XPM_USB_PWR_MASK		(0x3U)
 
+/**
+ * IPI register masks
+ */
+#define IPI_PMC_ISR_ADDR		(0xFF320010)
+#define PSM_IPI_BIT			(0x1)
 
 /**
  * XRAM registers

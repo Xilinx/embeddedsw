@@ -67,6 +67,7 @@ extern "C" {
 #define IPI_BASEADDR				0xFF300000
 
 #define IPI_PMC_ISR					( IPI_BASEADDR + 0x20010)
+#define IPI_PMC_ISR_PSM_BIT_MASK			(0x1)
 /* Error codes */
 
 /**************************** Type Definitions *******************************/

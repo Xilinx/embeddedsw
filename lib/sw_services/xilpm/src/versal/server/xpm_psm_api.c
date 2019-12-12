@@ -31,6 +31,7 @@
 #include "xpm_core.h"
 #include "xpm_device.h"
 #include "xpm_ipi.h"
+#include "xpm_regs.h"
 
 #define PSM_TO_PLM_EVENT_ADDR			(0xFFC3FF00U)
 #define PSM_TO_PLM_EVENT_VERSION		(0x1U)
@@ -60,6 +61,9 @@ static int XPm_ProcessPsmCmd(XPlmi_Cmd * Cmd)
 {
 	u32 Status = XST_FAILURE;
 	u32 Idx, EventStatus;
+
+	/* Ack the IPI interrupt first */
+	PmOut32(IPI_PMC_ISR_ADDR, PSM_IPI_BIT);
 
 	PmDbg("Processing Psm Event\n\r");
 

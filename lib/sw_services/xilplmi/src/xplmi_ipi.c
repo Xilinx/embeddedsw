@@ -163,7 +163,10 @@ int XPlmi_IpiDispatchHandler(void *Data)
 		XPlmi_Printf(DEBUG_GENERAL, "%s: Error: Unhandled IPI received\n\r", __func__);
 	}
 	if ((LpdInitialized & LPD_INITIALIZED) == LPD_INITIALIZED) {
-		Xil_Out32(IPI_PMC_ISR, SrcCpuMask);
+		/* Do not ack the PSM IPI interrupt as it is acked in LibPM */
+		if (0 == (SrcCpuMask & IPI_PMC_ISR_PSM_BIT_MASK)) {
+			Xil_Out32(IPI_PMC_ISR, SrcCpuMask);
+		}
 	}
 END:
 	return Status;
