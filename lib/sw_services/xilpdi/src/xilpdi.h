@@ -216,11 +216,16 @@ extern "C" {
 #define XIH_ATTRB_TR_SECURE_SHIFT_DIFF      (2U)
 #define XIH_ATTRB_TARGET_EL_SHIFT_DIFF      (2U)
 
+#define XIH_ATTRB_EL_MASK			(u32)(0x18U)
+#define XIH_PRTN_FLAGS_EL_2			(u32)(0x10U)
 #define XIH_PRTN_FLAGS_DSTN_CPU_A72_MASK	(u32)(0x60U)
 #define XIH_PRTN_FLAGS_DSTN_CPU_A72_0		(u32)(0x00U)
 #define XIH_PRTN_FLAGS_DSTN_CPU_A72_1		(u32)(0x20U)
 #define XIH_PRTN_FLAGS_DSTN_CPU_A72_2		(u32)(0x40U)
 #define XIH_PRTN_FLAGS_DSTN_CPU_A72_3		(u32)(0x60U)
+
+/* Number of entries possible in ATF: 4 cores * 2 (secure, nonsecure) */
+#define XILPDI_MAX_ENTRIES_FOR_ATF	8U
 
 /**
  * Errors during XILDPI processing
@@ -379,6 +384,24 @@ typedef struct {
 	u64 BufferAddr;
 	void* (*XMemCpy)(void * DestPtr, const void * SrcPtr, u32 Len);
 } XilPdi_MetaHdr __attribute__ ((aligned(16)));
+
+/*
+ * Structure corresponding to each partition entry
+ */
+typedef struct {
+	u64 EntryPoint; /**< Entry point */
+	u64 PartitionFlags; /**< Attributes of partition */
+} XilPdi_PartitionEntry;
+
+/*
+ * Structure for handoff parameters to ARM Trusted Firmware (ATF)
+ */
+typedef struct {
+	char8 MagicValue[4U]; /**< 32 bit magic string */
+	u32 NumEntries; /**< Number of Entries */
+	XilPdi_PartitionEntry Entry[XILPDI_MAX_ENTRIES_FOR_ATF];
+		/**< Structure corresponding to each entry */
+} XilPdi_ATFHandoffParams __attribute__ ((aligned(16)));
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifdef XILPDI_DEBUG
