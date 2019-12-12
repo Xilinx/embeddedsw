@@ -340,6 +340,7 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 	XilPdi_PrtnHdr * PrtnHdr;
 	XLoader_SecureParms SecureParams = {0U};
 	u32 Mode=0;
+	u32 PrtnType;
 
 	/* Secure init */
 	Status = XLoader_SecureInit(&SecureParams, PdiPtr, PrtnNum);
@@ -444,6 +445,21 @@ static int XLoader_PrtnCopy(XilPdi* PdiPtr, u32 PrtnNum)
 		if (XST_SUCCESS != Status) {
 			goto END;
 		}
+	}
+
+	PrtnType = XilPdi_GetPrtnType(PrtnHdr);
+
+	if ((PrtnType == XIH_PH_ATTRB_PRTN_TYPE_ELF) &&
+		(((DstnCpu >= XIH_PH_ATTRB_DSTN_CPU_A72_0) &&
+		(DstnCpu <= XIH_PH_ATTRB_DSTN_CPU_A72_1))||
+		(DstnCpu == XIH_PH_ATTRB_DSTN_CPU_NONE)))
+	{
+		/**
+		 *  Populate handoff parameters to ATF
+		 *  These correspond to the partition of application
+		 *  which ATF will be loading
+		 */
+		XLoader_SetATFHandoffParameters(PrtnHdr);
 	}
 
 END:

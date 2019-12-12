@@ -56,7 +56,7 @@
 XilSubsystem SubSystemInfo = {0};
 XilPdi SubsystemPdiIns;
 XilDic Dic;
-
+XilPdi_ATFHandoffParams ATFHandoffParams = {0U};
 
 /*****************************************************************************/
 #define XLOADER_DEVICEOPS_INIT(DevSrc, DevInit, DevCopy)	\
@@ -178,6 +178,12 @@ int XLoader_PdiInit(XilPdi* PdiPtr, u32 PdiSrc, u64 PdiAddr)
 	 * Mark PDI loading is started.
 	 */
 	XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_STARTED);
+
+	/**
+	 * Store address of the structure in PMC_GLOBAL.GLOBAL_GEN_STORAGE4.
+	 */
+	XPlmi_Out32(PMC_GLOBAL_GLOBAL_GEN_STORAGE4,
+			(u32)((UINTPTR) &ATFHandoffParams));
 
 	if(DeviceOps[PdiSrc & XLOADER_PDISRC_FLAGS_MASK].Init==NULL)
 	{
@@ -1159,3 +1165,83 @@ END:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+* This function sets the handoff parameters to the ARM Trusted Firmware (ATF)
+* Some of the inputs for this are taken from image partition header
+* A pointer to the structure containing these parameters is stored in the
+* PMC_GLOBAL.GLOBAL_GEN_STORAGE4 register, which ATF reads.
+*
+* @param PartitionHeader is pointer to the XilPdi_PrtnHdr structure
+*
+* @return None
+*
+* @note
+*
+*****************************************************************************/
+void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PartitionHeader)
+{
+	u32 PartitionAttributes;
+	u32 PartitionFlags = 0U;
+	u32 LoopCount = 0U;
+
+	PartitionAttributes = PartitionHeader->PrtnAttrb;
+
+	PartitionFlags =
+		(((PartitionAttributes & XIH_PH_ATTRB_A72_EXEC_ST_MASK)
+				>> XIH_ATTRB_A72_EXEC_ST_SHIFT_DIFF) |
+		((PartitionAttributes & XIH_PH_ATTRB_ENDIAN_MASK)
+				>> XIH_ATTRB_ENDIAN_SHIFT_DIFF) |
+		((PartitionAttributes & XIH_PH_ATTRB_TZ_SECURE_MASK)
+				<< XIH_ATTRB_TR_SECURE_SHIFT_DIFF) |
+		((PartitionAttributes & XIH_PH_ATTRB_TARGET_EL_MASK)
+				<< XIH_ATTRB_TARGET_EL_SHIFT_DIFF));
+
+	/* Update CPU number based on destination CPU */
+	if ((PartitionAttributes & XIH_PH_ATTRB_DSTN_CPU_MASK)
+			== XIH_PH_ATTRB_DSTN_CPU_A72_0) {
+		PartitionFlags |= XIH_PRTN_FLAGS_DSTN_CPU_A72_0;
+	}
+	else if ((PartitionAttributes & XIH_PH_ATTRB_DSTN_CPU_MASK)
+				== XIH_PH_ATTRB_DSTN_CPU_A72_1) {
+		PartitionFlags |= XIH_PRTN_FLAGS_DSTN_CPU_A72_1;
+	}
+	else if ((PartitionAttributes & XIH_PH_ATTRB_DSTN_CPU_MASK)
+				== XIH_PH_ATTRB_DSTN_CPU_NONE) {
+		/*
+		 * This is required for u-boot handoff to work
+		 * when BOOTGEN_SUBSYSTEM_PDI is set to 0 in bootgen
+		 */
+		PartitionFlags &= (~(XIH_ATTRB_EL_MASK) |
+				XIH_PRTN_FLAGS_EL_2) |
+				XIH_PRTN_FLAGS_DSTN_CPU_A72_0;
+	}
+
+	if (ATFHandoffParams.NumEntries == 0U)
+	{
+		/* Insert magic string */
+		ATFHandoffParams.MagicValue[0U] = 'X';
+		ATFHandoffParams.MagicValue[1U] = 'L';
+		ATFHandoffParams.MagicValue[2U] = 'N';
+		ATFHandoffParams.MagicValue[3U] = 'X';
+	} else {
+		for (;LoopCount < ATFHandoffParams.NumEntries; LoopCount++) {
+			if (ATFHandoffParams.Entry[LoopCount].PartitionFlags ==
+					PartitionFlags) {
+				ATFHandoffParams.Entry[LoopCount].EntryPoint =
+						PartitionHeader->DstnExecutionAddr;
+				break;
+			}
+		}
+	}
+
+	if ((ATFHandoffParams.NumEntries < XILPDI_MAX_ENTRIES_FOR_ATF) &&
+		(ATFHandoffParams.NumEntries == LoopCount)) {
+		ATFHandoffParams.NumEntries += 1U;
+
+		ATFHandoffParams.Entry[LoopCount].EntryPoint =
+				PartitionHeader->DstnExecutionAddr;
+
+		ATFHandoffParams.Entry[LoopCount].PartitionFlags = PartitionFlags;
+	}
+}
