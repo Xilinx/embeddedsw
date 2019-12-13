@@ -103,6 +103,7 @@ enum {
 #define XPLMI_READBK_INTF_TYPE_SMAP		(0x0U)
 #define XPLMI_READBK_INTF_TYPE_JTAG		(0x1U)
 #define XPLMI_READBK_INTF_TYPE_DDR		(0x2U)
+#define XPLMI_SET_CHUNK_SIZE			(128U)
 /************************** Function Prototypes ******************************/
 void XPlmi_GenericInit(void);
 int XPlmi_CfiRead(XPlmi_Cmd * Cmd);

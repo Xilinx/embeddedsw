@@ -68,6 +68,20 @@ static int XPlmi_Reserved(XPlmi_Cmd * Cmd)
 	XPlmi_Printf(DEBUG_DETAILED, "%s %p\n\r", __func__, Cmd);
 	return XST_SUCCESS;
 }
+/*****************************************************************************/
+/**
+ * @brief This function provides no operation. The command is supported for
+ *        alignment purposes. Zero command payload parameters.
+ *
+ * @param Pointer to the command structure
+ *
+ * @return Returns XST_SUCCESS always
+ *****************************************************************************/
+static int XPlmi_Nop(XPlmi_Cmd * Cmd)
+{
+	XPlmi_Printf(DEBUG_DETAILED, "%s %p\n\r", __func__, Cmd);
+	return XST_SUCCESS;
+}
 
 /*****************************************************************************/
 /**
@@ -615,10 +629,52 @@ END:
  *****************************************************************************/
 static int XPlmi_Set(XPlmi_Cmd * Cmd)
 {
-	/** for MISRA C */
-	(void )Cmd;
+	int Status = XST_FAILURE;
+	u64 DestAddrHigh = Cmd->Payload[0U];
+	u32 DestAddrLow = Cmd->Payload[1U];
+	u64 DestAddr = DestAddrHigh<<32U | DestAddrLow;
+	u32 Len = Cmd->Payload[2U];
+	u32 Val = Cmd->Payload[3U];
+	u32 Src[XPLMI_SET_CHUNK_SIZE];
+	u32 Count;
+	u32 Index;
+	u32 SrcAddrLow = (u32)(&Src[0U]);
+	u64 SrcAddr = (u64)(SrcAddrLow);
+	u32 ChunkSize;
+	if(Val == XPLMI_DATA_INIT_PZM)
+	{
+		XPlmi_EccInit(DestAddr, Len<<2U);
+	}
+	else
+	{
+		if(Len < XPLMI_SET_CHUNK_SIZE)
+		{
+			ChunkSize = Len;
+		}
+		else
+		{
+			ChunkSize = XPLMI_SET_CHUNK_SIZE;
+		}
 
-	return XPLMI_ERR_CMD_NOT_SUPPORTED;
+		for(Index = 0U; Index < ChunkSize; ++Index)
+		{
+			Src[Index] = Val;
+		}
+
+		Count = Len / XPLMI_SET_CHUNK_SIZE ;
+
+		/** DMA in chunks of 512 Bytes */
+		for(Index = 0U; Index < Count; ++Index, DestAddr += (XPLMI_SET_CHUNK_SIZE << 2U))
+		{
+			XPlmi_DmaXfr(SrcAddr, DestAddr, XPLMI_SET_CHUNK_SIZE, XPLMI_PMCDMA_0);
+		}
+
+		/** DMA of residual bytes */
+		XPlmi_DmaXfr(SrcAddr, DestAddr, Len % XPLMI_SET_CHUNK_SIZE, XPLMI_PMCDMA_0);
+	}
+
+	Status = XST_SUCCESS;
+	return Status;
 }
 
 /*****************************************************************************/
@@ -753,6 +809,7 @@ static XPlmi_ModuleCmd XPlmi_GenericCmds[] =
 	XPLMI_MODULE_COMMAND(XPlmi_SsitSyncMaster),
 	XPLMI_MODULE_COMMAND(XPlmi_SsitSyncSlaves),
 	XPLMI_MODULE_COMMAND(XPlmi_SsitWaitSlaves),
+	XPLMI_MODULE_COMMAND(XPlmi_Nop),
 };
 
 /*****************************************************************************/
