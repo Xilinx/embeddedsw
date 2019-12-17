@@ -6,6 +6,7 @@ Added support for axi_pcie3
 canfd_v2_3:
 Used correct macro to access RX FIFO1 buffer.
 Fix for missing RX can packets on CAND2.0
+Fix for missing TX canfd packet on CANFD2.0.
 
 csudma_v1_6:
 Added assert check XCsuDma_WaitForDoneTimeout().
