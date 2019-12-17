@@ -56,7 +56,6 @@
 #include "xvidc_edid.h"
 #include "xdebug.h"
 #include "string.h"
-#include "xvphy_dp.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -1117,13 +1116,13 @@ static void Dp_ConfigVideoPackingClockControl(XDp *InstancePtr, u8 Bpc)
 
 		switch (InstancePtr->TxInstance.LinkConfig.LinkRate) {
 		case XDP_TX_LINK_BW_SET_540GBPS:
-			DpLinkRateHz = XVPHY_DP_LINK_RATE_HZ_540GBPS;
+			DpLinkRateHz = DP_LINK_RATE_HZ_540GBPS;
 			break;
 		case XDP_TX_LINK_BW_SET_270GBPS:
-			DpLinkRateHz = XVPHY_DP_LINK_RATE_HZ_270GBPS;
+			DpLinkRateHz = DP_LINK_RATE_HZ_270GBPS;
 			break;
 		default:
-			DpLinkRateHz = XVPHY_DP_LINK_RATE_HZ_162GBPS;
+			DpLinkRateHz = DP_LINK_RATE_HZ_162GBPS;
 			break;
 		}
 		/* link clock */

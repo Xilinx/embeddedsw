@@ -60,6 +60,11 @@ extern "C" {
 #define XDPTXSS_DPTX_MST	1	/**< Multi-Stream Transport */
 #define XDPTXSS_DPTX_SST	0	/**< Single Stream Transport */
 
+/** DP lane rates. */
+#define DP_LINK_RATE_HZ_162GBPS   1620000000LL
+#define DP_LINK_RATE_HZ_270GBPS   2700000000LL
+#define DP_LINK_RATE_HZ_540GBPS   5400000000LL
+#define DP_LINK_RATE_HZ_810GBPS   8100000000LL
 /**************************** Type Definitions *******************************/
 
 
