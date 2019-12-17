@@ -266,6 +266,8 @@ exclusion
 *		      and CONTROL_STATUS_3.
 * 2.3	sne  21/11/19 Used correct macro to access RX FIFO1 buffer.
 * 2.3	sne  11/18/19 Fix for missing RX can packets on CANFD2.0.
+* 2.3   sne  11/29/19 Fix for missing TX canfd packet while sending multiple packets
+*                     by using multi buffer in loopback mode, CR# 1048366.
 *
 * </pre>
 *
@@ -279,7 +281,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-
+#include "xplatform_info.h"
 #include "xstatus.h"
 #include "xcanfd_hw.h"
 
@@ -348,6 +350,7 @@ typedef struct {
 	u32 Rx_Mode;			/**< 1-Mailbox 0-sequential */
 	u32 NumofRxMbBuf;	/**< Number of RxBuffers */
 	u32 NumofTxBuf;         /**< Number of TxBuffers */
+	u32 IsPl;		/**< IsPl, 1= AXI CANFD instance,0= CANFD instance */
 } XCanFd_Config;
 
 /*****************************************************************************/

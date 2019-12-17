@@ -75,6 +75,8 @@
 * 2.2   sn   06/11/19 Inactivating Mailbox RX buffers based on requirement.
 * 2.3	sne  21/11/19 Used correct macro to access RX FIFO1 buffer.
 * 2.3	sne  11/18/19 Fix for missing RX can packets on CANFD2.0.
+* 2.3	sne  11/29/19 Fix for missing TX canfd packet while sending multiple packets
+*		      by using multi buffer in loopback mode, CR# 1048366.
 *
 * </pre>
 ******************************************************************************/
@@ -1523,6 +1525,9 @@ int XCanFd_Send_Queue(XCanFd *InstancePtr)
 {
 
 	u32 TrrVal;
+#ifdef versal
+	u32 BufferNumber;
+#endif
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -1533,7 +1538,20 @@ int XCanFd_Send_Queue(XCanFd *InstancePtr)
 	 * XCanFd_Addto_Queue()
 	 */
 	TrrVal = InstancePtr->MultiBuffTrr;
-
+#ifdef versal
+	if(XGetPSVersion_Info() == (u32)0x10 && (!InstancePtr->CanFdConfig.IsPl)) {
+		for (BufferNumber = 0;BufferNumber < MAX_BUFFER_VAL;
+		     BufferNumber++) {
+			XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
+					XCANFD_TRR_OFFSET, (TrrVal &
+					(1<<BufferNumber)));
+		}
+	} else
+#endif
+	{
+		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
+				XCANFD_TRR_OFFSET, TrrVal);
+	}
 	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress, XCANFD_TRR_OFFSET, TrrVal);
 	InstancePtr->GlobalTrrValue = TRR_INIT_VAL;
 	InstancePtr->GlobalTrrMask  = TRR_MASK_INIT_VAL;
