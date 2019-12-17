@@ -257,6 +257,9 @@ enum {
 	XLOADER_ERR_USB_CFG,		/**< 0x328 - Error when USB cfg initialize fails */
 	XLOADER_ERR_USB_START,		/**< 0x329 - Error when USB fails to start */
 	XLOADER_ERR_DFU_DWNLD,		/**< 0x32A - Error when pdi fails to download */
+	XLOADER_ERR_DEFERRED_CDO_PROCESS, /**< 0x32B - Error occured while
+					  processing CDO but error is deferred
+					  till whole CDO processing is completed */
 };
 
 /**************************** Type Definitions *******************************/

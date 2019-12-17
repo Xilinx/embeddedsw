@@ -723,6 +723,13 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 			goto END;
 		}
 	}
+	/** if deferred error, flagging it after CDO process complete */
+	if (Cdo.DeferredError == TRUE)
+	{
+		Status = XPLMI_UPDATE_STATUS(
+				XLOADER_ERR_DEFERRED_CDO_PROCESS, 0x0U);
+		goto END;
+	}
 	Status = XST_SUCCESS;
 END:
 	return Status;

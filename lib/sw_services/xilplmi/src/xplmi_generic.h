@@ -104,6 +104,14 @@ enum {
 #define XPLMI_READBK_INTF_TYPE_JTAG		(0x1U)
 #define XPLMI_READBK_INTF_TYPE_DDR		(0x2U)
 #define XPLMI_SET_CHUNK_SIZE			(128U)
+
+/** Mask poll command flag descriptions */
+#define XPLMI_MASKPOLL_LEN_EXT			(5U)
+#define XPLMI_MASKPOLL64_LEN_EXT		(6U)
+#define XPLMI_MASKPOLL_FLAGS_MASK		(0x3U)
+#define XPLMI_MASKPOLL_FLAGS_ERR		(0x0U)
+#define XPLMI_MASKPOLL_FLAGS_SUCCESS		(0x1U)
+#define XPLMI_MASKPOLL_FLAGS_DEFERRED_ERR	(0x2U)
 /************************** Function Prototypes ******************************/
 void XPlmi_GenericInit(void);
 int XPlmi_CfiRead(XPlmi_Cmd * Cmd);

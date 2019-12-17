@@ -91,6 +91,10 @@ static int XPlmi_Nop(XPlmi_Cmd * Cmd)
  *	* Mask
  *	* Expected Value
  *	* Timeout in us
+ *	* Deferred Error flag - Optional
+ *	*	0 - Return error in case of failure,
+ *	*	1 - Ignore error, return success always
+ *	*	2 - Defer error till the end of partition load
  *
  * @param Pointer to the command structure
  *
@@ -102,6 +106,7 @@ static int XPlmi_MaskPoll(XPlmi_Cmd * Cmd)
 	u32 Mask = Cmd->Payload[1];
 	u32 ExpectedValue = Cmd->Payload[2];
 	u32 TimeOutInUs = Cmd->Payload[3];
+	u32 Flags=0U;
 	int Status;
 #ifdef PLM_PRINT_PERF_POLL
 	u64 PollTime = XPlmi_GetTimerValue();
@@ -129,6 +134,24 @@ static int XPlmi_MaskPoll(XPlmi_Cmd * Cmd)
 	" Poll Time: Addr: 0x%0x,  Mask: 0x%0x, ExpVal: 0x%0x, "
 	"Timeout: %d \r\n", Addr, Mask, ExpectedValue, TimeOutInUs);
 #endif
+
+	/** if command length is 5, flags are included */
+	if ((Cmd->Len == XPLMI_MASKPOLL_LEN_EXT) && (Status != XST_SUCCESS))
+	{
+		Flags = Cmd->Payload[4U] & XPLMI_MASKPOLL_FLAGS_MASK;
+		if (Flags == XPLMI_MASKPOLL_FLAGS_SUCCESS)
+		{
+			/** Ignore the error */
+			Status = XST_SUCCESS;
+		} else if (Flags == XPLMI_MASKPOLL_FLAGS_DEFERRED_ERR) {
+			/** Defer the error till the end of CDO processing */
+			Status = XST_SUCCESS;
+			Cmd->DeferredError = TRUE;
+		} else {
+			/** return mask_poll status */
+		}
+	}
+
 	return Status;
 }
 
@@ -268,6 +291,10 @@ END:
  *	* Mask
  *	* Expected Value
  *	* Timeout in us
+ *	* Deferred Error flag - Optional
+ *	*	0 - Return error in case of failure,
+ *	*	1 - Ignore error, return success always
+ *	*	2 - Defer error till the end of partition load
  *
  * @param Pointer to the command structure
  *
@@ -280,6 +307,7 @@ static int XPlmi_MaskPoll64(XPlmi_Cmd * Cmd)
 	u32 Mask = Cmd->Payload[2U];
 	u32 ExpectedValue = Cmd->Payload[3U];
 	u32 TimeOutInUs = Cmd->Payload[4U];
+	u32 Flags=0U;
 
 	XPlmi_Printf(DEBUG_DETAILED,
 	    "%s, Addr: 0x%0x%08x,  Mask 0x%0x, ExpVal: 0x%0x, Timeout: %d\n\r",
@@ -290,6 +318,24 @@ static int XPlmi_MaskPoll64(XPlmi_Cmd * Cmd)
 	{
 		Status = XPLMI_ERR_MASKPOLL64;
 	}
+
+	/** if command length is 6, flags are included */
+	if ((Cmd->Len == XPLMI_MASKPOLL64_LEN_EXT) && (Status != XST_SUCCESS))
+	{
+		Flags = Cmd->Payload[5U] & XPLMI_MASKPOLL_FLAGS_MASK;
+		if (Flags == XPLMI_MASKPOLL_FLAGS_SUCCESS)
+		{
+			/** Ignore the error */
+			Status = XST_SUCCESS;
+		} else if (Flags == XPLMI_MASKPOLL_FLAGS_DEFERRED_ERR) {
+			/** Defer the error till the end of CDO processing */
+			Status = XST_SUCCESS;
+			Cmd->DeferredError = TRUE;
+		} else {
+			/** return mask_poll status */
+		}
+	}
+
 	return Status;
 }
 

@@ -74,6 +74,7 @@ struct XPlmi_Cmd {
 	u32 Response[XPLMI_CMD_RESP_SIZE];
 	int (*ResumeHandler)(XPlmi_Cmd * CmdPtr);
 	u32 ResumeData[XPLMI_CMD_RESUME_DATALEN];
+	u32 DeferredError;
 };
 
 /***************** Macros (Inline Functions) Definitions *********************/

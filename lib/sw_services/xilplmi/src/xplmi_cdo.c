@@ -193,6 +193,7 @@ void XPlmi_InitCdo(XPlmiCdo *CdoPtr)
 	CdoPtr->ProcessedCdoLen = 0U;
 	CdoPtr->ImgId = 0U;
 	CdoPtr->PrtnId = 0U;
+	CdoPtr->DeferredError = FALSE;
 
 	/** Initialize the CDO buffer user params */
 	CdoPtr->CmdEndDetected = FALSE;
@@ -344,6 +345,7 @@ int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Size)
 
 	/** Execute the command */
 	XPlmi_SetupCmd(CmdPtr, BufPtr, *Size);
+	CmdPtr->DeferredError = FALSE;
 	Status = XPlmi_CmdExecute(CmdPtr);
 	if (Status != XST_SUCCESS)
 	{
@@ -442,6 +444,8 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 			Status =
 			   XPlmi_CdoCmdExecute(CdoPtr, BufPtr, BufLen, &Size);
 		}
+		CdoPtr->DeferredError |= CdoPtr->Cmd.DeferredError;
+
 		/**
 		 * if command end is detected, or in case of any error,
 		 * exit the loop
