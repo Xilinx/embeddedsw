@@ -51,7 +51,6 @@
 /***************************** Include Files *********************************/
 
 #include "xdprxss.h"
-#include "xdprxss_dp159.h"
 #include "xdebug.h"
 
 /************************** Constant Definitions *****************************/
@@ -256,27 +255,6 @@ void XDpRxSs_ReportMsaInfo(XDpRxSs *InstancePtr)
 		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_VBID));
 
 	xil_printf("\n\r");
-}
-
-/*****************************************************************************/
-/**
-*
-* This function prints the bit error encountered in DP159.
-*
-* @param	InstancePtr is a pointer to the XDpRxSs core instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void XDpRxSs_ReportDp159BitErrCount(XDpRxSs *InstancePtr)
-{
-	/* Verify argument. */
-	Xil_AssertVoid(InstancePtr != NULL);
-
-	/* Print bit error count */
-	XDpRxSs_Dp159BitErrCount(InstancePtr->IicPtr);
 }
 
 /*****************************************************************************/

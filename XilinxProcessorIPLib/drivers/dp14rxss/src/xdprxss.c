@@ -70,7 +70,6 @@
 
 #include "xdprxss.h"
 #include "xdprxss_mcdp6000.h"
-#include "xdprxss_dp159.h"
 #include "string.h"
 #include "xdebug.h"
 
@@ -233,11 +232,6 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 			return XST_FAILURE;
 		}
 
-		/* Reset DP159 */
-		if (InstancePtr->DpPtr->Config.DpProtocol != XDP_PROTOCOL_DP_1_4) {
-			XDpRxSs_Dp159Reset(InstancePtr->IicPtr, TRUE);
-		}
-
 		/* IIC initialization for dynamic functionality */
 		Status = XIic_DynamicInitialize(InstancePtr->IicPtr);
 		if (Status != XST_SUCCESS) {
@@ -286,18 +280,8 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 		XDp_RxSetLaneCount(InstancePtr->DpPtr,
 				InstancePtr->Config.MaxLaneCount);
 
-		/* Bring DP159 out of reset */
-		if (InstancePtr->DpPtr->Config.DpProtocol != XDP_PROTOCOL_DP_1_4) {
-			XDpRxSs_Dp159Reset(InstancePtr->IicPtr, FALSE);
-		}
-
 		/* Wait for us */
 		XDp_WaitUs(InstancePtr->DpPtr, 1000);
-
-		/* Initialize DP159 */
-		if (InstancePtr->DpPtr->Config.DpProtocol != XDP_PROTOCOL_DP_1_4) {
-			XDpRxSs_Dp159Initialize(InstancePtr->IicPtr);
-		}
 
 		/* Wait for us */
 		XDp_WaitUs(InstancePtr->DpPtr, 1000);
@@ -1756,13 +1740,6 @@ static void StubTp1Callback(void *InstancePtr)
 		XDpRxSs_ReadReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
 			XDPRXSS_DPCD_LANE_COUNT_SET);
 
-	if (DpRxSsPtr->DpPtr->Config.DpProtocol != XDP_PROTOCOL_DP_1_4) {
-		/* DP159 config for TP1 */
-		XDpRxSs_Dp159Config(DpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_TP1,
-					DpRxSsPtr->UsrOpt.LinkRate,
-					DpRxSsPtr->UsrOpt.LaneCount);
-	}
-
 	if (MCDP6000_IC_Rev == 0x2100) {
 		XDpRxSs_MCDP6000_AccessLaneSet(DpRxSsPtr->IicPtr->BaseAddress,
 				XDPRXSS_MCDP6000_IIC_SLAVE);
@@ -1835,11 +1812,6 @@ static void StubTp2Callback(void *InstancePtr)
 		DpRxSsPtr->ltState = 2;
 		return;
 	}
-
-	/* DP159 config for TP2 */
-	XDpRxSs_Dp159Config(DpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_TP2,
-			DpRxSsPtr->UsrOpt.LinkRate,
-				DpRxSsPtr->UsrOpt.LaneCount);
 }
 
 /*****************************************************************************/
@@ -1873,13 +1845,6 @@ static void StubUnplugCallback(void *InstancePtr)
 	if (MCDP6000_IC_Rev == 0x2100) {
 		XDpRxSs_MCDP6000_ResetDpPath(DpRxSsPtr->IicPtr->BaseAddress,
 				XDPRXSS_MCDP6000_IIC_SLAVE);
-	}
-
-	if (DpRxSsPtr->DpPtr->Config.DpProtocol != XDP_PROTOCOL_DP_1_4) {
-		/* DP159 config for TP2 */
-		XDpRxSs_Dp159Config(DpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_UNPLUG,
-					DpRxSsPtr->UsrOpt.LinkRate,
-					DpRxSsPtr->UsrOpt.LaneCount);
 	}
 
 	XDpRxSs_MCDP6000_ModifyRegister(DpRxSsPtr->IicPtr->BaseAddress,

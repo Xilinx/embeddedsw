@@ -54,7 +54,6 @@
 /***************************** Include Files *********************************/
 
 #include "xdprxss.h"
-#include "xdprxss_dp159.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -279,13 +278,6 @@ void XDpRxSs_DrvPowerChangeHandler(void *InstancePtr)
        if (Rdata == PowerDownMode) {
                XDp_RxInterruptDisable(XDpRxSsPtr->DpPtr,
                                XDP_RX_INTERRUPT_MASK_UNPLUG_MASK);
-               if (XDpRxSsPtr->DpPtr->Config.DpProtocol != 
-						XDP_PROTOCOL_DP_1_4) {
-                       XDpRxSs_Dp159Config(XDpRxSsPtr->IicPtr,
-					   XDPRXSS_DP159_CT_UNPLUG,
-					   XDpRxSsPtr->UsrOpt.LinkRate,
-					   XDpRxSsPtr->UsrOpt.LaneCount);
-               }
        }
 }
 
