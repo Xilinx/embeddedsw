@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -49,9 +49,10 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-
+#ifdef XPAR_XIIC_NUM_INSTANCES
 #include "xiic.h"
-
+#endif
+#include "xiicps.h"
 /************************** Constant Definitions *****************************/
 
 

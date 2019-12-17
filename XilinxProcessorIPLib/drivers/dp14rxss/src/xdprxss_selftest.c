@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -93,7 +93,7 @@ u32 XDpRxSs_SelfTest(XDpRxSs *InstancePtr)
 	if (InstancePtr->DpPtr) {
 		Status = XDp_SelfTest(InstancePtr->DpPtr);
 		if (Status != XST_SUCCESS) {
-			xdbg_printf(XDBG_DEBUG_GENERAL,"ERR::DP Self test "
+			xdbg_printf(XDBG_DEBUG_GENERAL, "ERR::DP Self test "
 				"failed\n\r");
 			return XST_FAILURE;
 		}
@@ -103,7 +103,7 @@ u32 XDpRxSs_SelfTest(XDpRxSs *InstancePtr)
 	if ((InstancePtr->Hdcp1xPtr) && (InstancePtr->Config.HdcpEnable)) {
 		Status = XHdcp1x_SelfTest(InstancePtr->Hdcp1xPtr);
 		if (Status != XST_SUCCESS) {
-			xdbg_printf(XDBG_DEBUG_GENERAL,"ERR::HDCP Self test "
+			xdbg_printf(XDBG_DEBUG_GENERAL, "ERR::HDCP Self test "
 				"failed\r\n");
 			return XST_FAILURE;
 		}
@@ -123,16 +123,28 @@ u32 XDpRxSs_SelfTest(XDpRxSs *InstancePtr)
 	}
 #endif
 
+#ifdef XPAR_XIIC_NUM_INSTANCES
 	/* Check IIC availability */
-	if (InstancePtr->IicPtr) {
+	if (InstancePtr->Config.IncludeAxiIic && InstancePtr->IicPtr) {
 		Status = (u32)XIic_SelfTest(InstancePtr->IicPtr);
-		if (Status != XST_SUCCESS) {
-			xdbg_printf(XDBG_DEBUG_GENERAL,"ERR::IIC Self test "
-				"failed\n\r");
-			return XST_FAILURE;
+			if (Status != XST_SUCCESS) {
+				xdbg_printf(XDBG_DEBUG_GENERAL,
+					"ERR::IIC Self test failed\n\r");
+				return XST_FAILURE;
+			}
+	}
+	else
+#endif
+	{
+		if (InstancePtr->IicPsPtr) {
+			Status = (u32)XIicPs_SelfTest(InstancePtr->IicPsPtr);
+			if (Status != XST_SUCCESS) {
+				xdbg_printf(XDBG_DEBUG_GENERAL,
+					"ERR::PS IIC Self test failed\n\r");
+				return XST_FAILURE;
+			}
 		}
 	}
-
 	return XST_SUCCESS;
 }
 /** @} */

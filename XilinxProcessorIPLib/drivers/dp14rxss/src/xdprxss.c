@@ -86,7 +86,9 @@ extern u32 MCDP6000_IC_Rev;
 /* Subsystem sub-core's structure includes instances of each sub-core */
 typedef struct {
 	XDp DpInst;
+#ifdef XPAR_XIIC_NUM_INSTANCES
 	XIic IicInst;
+#endif
 #if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 	XHdcp1x Hdcp1xInst;
 #endif
@@ -189,9 +191,10 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 #if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 	XHdcp1x_Config Hdcp1xConfig;
 #endif
+#ifdef XPAR_XIIC_NUM_INSTANCES
 	XIic_Config IicConfig;
+#endif
 	XDp_Config DpConfig;
-	u32 Status;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -208,7 +211,8 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 	DpRxSs_GetIncludedSubCores(InstancePtr);
 
 	/* Check for IIC availability */
-	if (InstancePtr->IicPtr) {
+#ifdef XPAR_XIIC_NUM_INSTANCES
+	if (InstancePtr->Config.IncludeAxiIic && InstancePtr->IicPtr) {
 		xdbg_printf((XDBG_DEBUG_GENERAL),"SS INFO: Initializing "
 			"IIC IP\n\r");
 
@@ -240,7 +244,7 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 			return XST_FAILURE;
 		}
 	}
-
+#endif
 	/* Check for DisplayPort availability */
 	if (InstancePtr->DpPtr) {
 		xdbg_printf((XDBG_DEBUG_GENERAL),"SS INFO: Initializing "
@@ -520,7 +524,18 @@ void XDpRxSs_Reset(XDpRxSs *InstancePtr)
 				XDP_RX_SOFT_RESET_AUX_MASK);
 
 	/* Reset the IIC core */
-	XIic_Reset(InstancePtr->IicPtr);
+#ifdef XPAR_XIIC_NUM_INSTANCES
+	if (InstancePtr->Config.IncludeAxiIic && InstancePtr->IicPtr) {
+		XIic_Reset(InstancePtr->IicPtr);
+	}
+	else
+#endif
+	{
+		if (InstancePtr->IicPsPtr) {
+			/* Reset the IIC core */
+			XIicPs_Reset(InstancePtr->IicPsPtr);
+		}
+	}
 }
 
 /*****************************************************************************/
@@ -1561,11 +1576,15 @@ static void DpRxSs_GetIncludedSubCores(XDpRxSs *InstancePtr)
 	/* Assign instance of DisplayPort core */
 	InstancePtr->DpPtr = ((InstancePtr->Config.DpSubCore.IsPresent) ?
 		(&DpRxSsSubCores[InstancePtr->Config.DeviceId].DpInst) : NULL);
-
+#ifdef XPAR_XIIC_NUM_INSTANCES
+	if (InstancePtr->Config.IncludeAxiIic) {
 	/* Assign instance of IIC core */
-	InstancePtr->IicPtr = ((InstancePtr->Config.DpSubCore.IsPresent) ?
-		(&DpRxSsSubCores[
-			InstancePtr->Config.DeviceId].IicInst) : NULL);
+		InstancePtr->IicPtr =
+			((InstancePtr->Config.DpSubCore.IsPresent) ?
+			(&DpRxSsSubCores[InstancePtr->Config.DeviceId].IicInst)
+			: NULL);
+	}
+#endif
 
 #if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 	/* Assign instance of HDCP core */
@@ -1741,7 +1760,7 @@ static void StubTp1Callback(void *InstancePtr)
 			XDPRXSS_DPCD_LANE_COUNT_SET);
 
 	if (MCDP6000_IC_Rev == 0x2100) {
-		XDpRxSs_MCDP6000_AccessLaneSet(DpRxSsPtr->IicPtr->BaseAddress,
+		XDpRxSs_MCDP6000_AccessLaneSet(DpRxSsPtr,
 				XDPRXSS_MCDP6000_IIC_SLAVE);
 	}
 
@@ -1843,11 +1862,11 @@ static void StubUnplugCallback(void *InstancePtr)
 	}
  
 	if (MCDP6000_IC_Rev == 0x2100) {
-		XDpRxSs_MCDP6000_ResetDpPath(DpRxSsPtr->IicPtr->BaseAddress,
+		XDpRxSs_MCDP6000_ResetDpPath(DpRxSsPtr,
 				XDPRXSS_MCDP6000_IIC_SLAVE);
 	}
 
-	XDpRxSs_MCDP6000_ModifyRegister(DpRxSsPtr->IicPtr->BaseAddress,
+	XDpRxSs_MCDP6000_ModifyRegister(DpRxSsPtr,
 			XDPRXSS_MCDP6000_IIC_SLAVE, 0x0A00,
 			0x55000000, 0x55000000);
 
@@ -1899,7 +1918,7 @@ static void StubAccessLaneSetCallback(void *InstancePtr)
 
 		if (MCDP6000_IC_Rev==0x2100) {
 			if (DpRxSsPtr->ceRequestValue != read_val) {
-				XDpRxSs_MCDP6000_AccessLaneSet(DpRxSsPtr->IicPtr->BaseAddress,
+				XDpRxSs_MCDP6000_AccessLaneSet(DpRxSsPtr,
 					       XDPRXSS_MCDP6000_IIC_SLAVE);
 			}
 		}
@@ -1925,15 +1944,13 @@ static void StubAccessLaneSetCallback(void *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-void XDpRxSs_McDp6000_init(void *InstancePtr, u32 I2CAddress)
+void XDpRxSs_McDp6000_init(void *InstancePtr)
 {
 	/* Verify argument.*/
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	XDpRxSs *DpRxSsPtr = (XDpRxSs *)InstancePtr;
-	DpRxSsPtr->IicPtr->BaseAddress = I2CAddress;
-
-	XDpRxSs_MCDP6000_DpInit(DpRxSsPtr->IicPtr->BaseAddress,
+	XDpRxSs_MCDP6000_DpInit(DpRxSsPtr,
 				XDPRXSS_MCDP6000_IIC_SLAVE);
 
 }

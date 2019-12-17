@@ -20,7 +20,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 *
-* 
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -105,9 +105,16 @@ void XDpRxSs_ReportCoreInfo(XDpRxSs *InstancePtr)
 	if (InstancePtr->DpPtr) {
 		xil_printf("DisplayPort Receiver(DPRX):Yes\n\r");
 	}
-
-	if (InstancePtr->IicPtr) {
+#ifdef XPAR_XIIC_NUM_INSTANCES
+	if (InstancePtr->Config.IncludeAxiIic && InstancePtr->IicPtr) {
 		xil_printf("IIC:Yes\n\r");
+	}
+	else
+#endif
+	{
+		if (InstancePtr->IicPsPtr) {
+			xil_printf("PS IIC:Yes\n\r");
+		}
 	}
 
 	xil_printf("Audio enabled:%s\n\r",
