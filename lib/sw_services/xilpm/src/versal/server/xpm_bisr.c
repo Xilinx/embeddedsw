@@ -59,6 +59,7 @@
 #define TAG_ID_TYPE_GTY			7
 #define TAG_ID_TYPE_LPD			8
 #define TAG_ID_TYPE_FPD			9
+#define TAG_ID_TYPE_CPM5		10
 #define TAG_ID_ARRAY_SIZE 		256
 
 #define PMC_EFUSE_BISR_UNKN_TAG_ID 	0x1
@@ -194,6 +195,7 @@ static void XPmBisr_InitTagIdList()
 	XPmTagIdWhiteList[LPD_TAG_ID] =	TAG_ID_VALID_MASK | TAG_ID_TYPE_LPD;
 	XPmTagIdWhiteList[FPD_TAG_ID] =	TAG_ID_VALID_MASK | TAG_ID_TYPE_FPD;
 	XPmTagIdWhiteList[CPM_TAG_ID] =	TAG_ID_VALID_MASK | TAG_ID_TYPE_CPM;
+	XPmTagIdWhiteList[CPM5_TAG_ID] = TAG_ID_VALID_MASK | TAG_ID_TYPE_CPM5;
 	XPmTagIdWhiteList[MEA_TAG_ID] =	TAG_ID_VALID_MASK | TAG_ID_TYPE_ME;
 	XPmTagIdWhiteList[MEB_TAG_ID] =	TAG_ID_VALID_MASK | TAG_ID_TYPE_ME;
 	XPmTagIdWhiteList[MEC_TAG_ID] =	TAG_ID_VALID_MASK | TAG_ID_TYPE_ME;
@@ -500,6 +502,61 @@ static XStatus XPmBisr_RepairCpm(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 done:
 	return Status;
 }
+
+static XStatus XPmBisr_RepairCpm5(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr)
+{
+	XStatus Status = XPM_ERR_BISR;
+	XPm_CpmDomain *Cpm;
+	u32 RegValue;
+	u64 BisrDataDestAddr;
+
+	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM5);
+	if (NULL == Cpm) {
+		goto done;
+	}
+
+	BisrDataDestAddr = Cpm->CpmSlcrBaseAddr + CPM5_SLCR_BISR_CACHE_DATA_0_OFFSET;
+	/* Disable write protection */
+	PmOut32(Cpm->CpmSlcrBaseAddr + CPM5_SLCR_WPROTP_OFFSET, 0x0);
+
+	/* Copy repair data */
+	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
+
+	/* Clear BISR data test registers */
+	PmOut32(Cpm->CpmSlcrBaseAddr + CPM5_SLCR_BISR_CACHE_CTRL_OFFSET,
+		CPM5_SLCR_BISR_CACHE_CTRL_CLR_MASK);
+	PmOut32(Cpm->CpmSlcrBaseAddr + CPM5_SLCR_BISR_CACHE_CTRL_OFFSET, 0x0);
+
+	/* Trigger Bisr */
+	PmRmw32(Cpm->CpmSlcrBaseAddr + CPM5_SLCR_BISR_CACHE_CTRL_OFFSET,
+		CPM5_SLCR_BISR_CACHE_CTRL_TRIGGER_MASK,
+		CPM5_SLCR_BISR_CACHE_CTRL_TRIGGER_MASK);
+
+	/* Wait for Bisr to finish */
+	Status = XPm_PollForMask(Cpm->CpmSlcrBaseAddr + CPM5_SLCR_BISR_CACHE_STATUS_OFFSET,
+				 CPM5_SLCR_BISR_CACHE_STATUS_DONE_MASK,
+				 XPM_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Check Bisr status */
+	PmIn32(Cpm->CpmSlcrBaseAddr + CPM5_SLCR_BISR_CACHE_STATUS_OFFSET, RegValue);
+	if ((RegValue & CPM5_SLCR_BISR_CACHE_STATUS_PASS_MASK) !=
+		CPM5_SLCR_BISR_CACHE_STATUS_PASS_MASK) {
+		goto done;
+	}
+
+	/* Unwrite trigger bit */
+	PmOut32(Cpm->CpmSlcrBaseAddr + CPM5_SLCR_BISR_CACHE_CTRL_OFFSET, 0x0);
+
+	/* Enable write protection */
+	PmOut32(Cpm->CpmSlcrBaseAddr + CPM5_SLCR_WPROTP_OFFSET, 0x1);
+
+done:
+	return Status;
+}
+
 
 static XStatus XPmBisr_RepairDdrMc(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr)
 {
@@ -961,6 +1018,9 @@ XStatus XPmBisr_Repair(u32 TagId)
 							break;
 						case TAG_ID_TYPE_CFRM_HB: //HardBlock repair function
 							EfuseNextAddr = XPmBisr_RepairHardBlock(EfuseCurrAddr, EfuseBisrSize);
+							break;
+						case TAG_ID_TYPE_CPM5:
+							Status = XPmBisr_RepairCpm5(EfuseCurrAddr, EfuseBisrSize, &EfuseNextAddr);
 							break;
 						default: //block type not recognized, no function to handle it
 							XPmBisr_SwError(PMC_EFUSE_BISR_BAD_TAG_TYPE);

@@ -36,6 +36,7 @@ extern "C" {
 #define LPD_TAG_ID 	0x03
 #define FPD_TAG_ID 	0x04
 #define CPM_TAG_ID 	0x05
+#define CPM5_TAG_ID 	0x07
 #define MEA_TAG_ID 	0x08
 #define MEB_TAG_ID 	0x09
 #define MEC_TAG_ID 	0x0A
