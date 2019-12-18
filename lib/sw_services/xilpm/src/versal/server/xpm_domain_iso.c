@@ -240,6 +240,22 @@ XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
                 .Polarity = PM_ACTIVE_LOW,
                 .DependencyNodeHandles = { PM_SUBSYS_PL, PM_POWER_LPD },
         },
+	[XPM_NODEIDX_ISO_LPD_CPM5_DFX] = {
+		.Node.Id = ISOID(XPM_NODEIDX_ISO_LPD_CPM5_DFX),
+		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
+		.Node.State = PM_ISOLATION_ON,
+		.Mask = BIT(PMC_GLOBAL_DOMAIN_ISO_CNTRL_LPD_CPM_DFX_SHIFT),
+		.Polarity = PM_ACTIVE_HIGH,
+		.DependencyNodeHandles = { PM_POWER_LPD, PM_POWER_CPM5 },
+	},
+	[XPM_NODEIDX_ISO_LPD_CPM5] = {
+		.Node.Id = ISOID(XPM_NODEIDX_ISO_LPD_CPM5),
+		.Node.BaseAddress = PMC_GLOBAL_DOMAIN_ISO_CONTROL,
+		.Node.State = PM_ISOLATION_ON,
+		.Mask = BIT(PMC_GLOBAL_DOMAIN_ISO_CNTRL_LPD_CPM_SHIFT),
+		.Polarity = PM_ACTIVE_HIGH,
+		.DependencyNodeHandles = { PM_POWER_LPD, PM_POWER_CPM5 },
+	},
 };
 
 static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
