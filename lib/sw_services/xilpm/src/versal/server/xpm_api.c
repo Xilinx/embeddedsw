@@ -560,6 +560,7 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, u32 *Args, u32 NumArgs)
 	case XPM_NODEIDX_POWER_PLD:
 	case XPM_NODEIDX_POWER_ME:
 	case XPM_NODEIDX_POWER_CPM:
+	case XPM_NODEIDX_POWER_CPM5:
 		Status = XPmPowerDomain_InitDomain(PwrDomainNode, Function, Args, NumArgs);
 		break;
 	default:
