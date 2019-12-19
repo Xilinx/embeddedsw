@@ -173,7 +173,7 @@ u32 XSecure_SssAes(XSecure_Sss *InstancePtr,
  *****************************************************************************/
 u32 XSecure_SssSha(XSecure_Sss *InstancePtr, u16 DmaId)
 {
-	XSecure_SssSrc InputSrc = (XSecure_SssSrc)0U;
+	XSecure_SssSrc InputSrc = XSECURE_SSS_INVALID;
 
 	XSecure_SssDmaSrc(DmaId, &InputSrc);
 
@@ -195,7 +195,7 @@ u32 XSecure_SssSha(XSecure_Sss *InstancePtr, u16 DmaId)
  *****************************************************************************/
 u32 XSecure_SssDmaLoopBack(XSecure_Sss *InstancePtr, u16 DmaId)
 {
-	XSecure_SssSrc Resource = (XSecure_SssSrc)0U;
+	XSecure_SssSrc Resource = XSECURE_SSS_INVALID;
 
 	XSecure_SssDmaSrc(DmaId, &Resource);
 
