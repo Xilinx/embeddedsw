@@ -152,6 +152,12 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		case PM_SET_WAKEUP_SOURCE:
 			Status = XPm_SetWakeUpSource(SubsystemId, Pload[0], Pload[1], Pload[2]);
 			break;
+		case PM_CLOCK_SETRATE:
+			Status = XPm_SetClockRate(SubsystemId, Pload[0], Pload[1]);
+			break;
+		case PM_CLOCK_GETRATE:
+			Status = XPm_GetClockRate(Pload[0], ApiResponse);
+			break;
 		case PM_CLOCK_SETPARENT:
 			Status = XPm_SetClockParent(SubsystemId, Pload[0], Pload[1]);
 			break;
@@ -1716,6 +1722,79 @@ done:
 	if(Status != XST_SUCCESS) {
 		PmErr("Returned: 0x%x\n\r", Status);
 	}
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function sets the rate of the clock.
+ *
+ * @param SubsystemId	Subsystem ID.
+ * @param ClockId	Clock node ID
+ * @param ClkRate		Clock rate
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+int XPm_SetClockRate(const u32 SubsystemId, const u32 ClockId, const u32 ClkRate)
+{
+	int Status = XST_SUCCESS;
+	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
+
+	/* Check if subsystem is allowed to access requested clock or not */
+	Status = XPm_IsAccessAllowed(SubsystemId, ClockId);
+	if (Status != XST_SUCCESS) {
+		Status = XPM_PM_NO_ACCESS;
+		goto done;
+	}
+
+	/* Set rate is allowed only for ref clocks */
+	if (!ISREFCLK(ClockId)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = XPmClock_SetRate(Clk, ClkRate);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function gets the rate of the clock.
+ *
+ * @param ClockId	Clock node ID
+ * @param ClkRate		Pointer to store clock rate.
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+int XPm_GetClockRate(const u32 ClockId, u32 *ClkRate)
+{
+	int Status = XST_SUCCESS;
+	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
+
+	if (NULL == Clk) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Get rate is allowed only for ref clocks */
+	if (!ISREFCLK(ClockId)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = XPmClock_GetRate(Clk, ClkRate);
+
+done:
 	return Status;
 }
 

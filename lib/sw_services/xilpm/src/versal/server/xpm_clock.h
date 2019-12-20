@@ -91,6 +91,7 @@ struct XPm_ClockNode {
 	u8 UseCount;
 	XPm_ClockHandle *ClkHandles; /**< Pointer to the clock/device pairs */
 	XPm_Power *PwrDomain;
+	u32 ClkRate;
 };
 
 /**
@@ -182,6 +183,8 @@ XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp);
 XStatus XPmClock_GetNumClocks(u32 *Resp);
 XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId);
 XStatus XPmClock_GetMaxDivisor(u32 ClockId, u32 DivType, u32 *Resp);
+int XPmClock_SetRate(XPm_ClockNode *Clk, const u32 ClkRate);
+int XPmClock_GetRate(XPm_ClockNode *Clk, u32 *ClkRate);
 
 #ifdef __cplusplus
 }

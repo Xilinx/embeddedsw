@@ -198,6 +198,8 @@ int XPm_RegisterNotifier(const u32 SubsystemId, const u32 DeviceId,
 			 const u32 IpiMask);
 int XPm_GicProxyWakeUp(const u32 PeriphIdx);
 XStatus XPm_HookAfterPlmCdo();
+int XPm_SetClockRate(const u32 SubsystemId, const u32 ClockId, const u32 ClkRate);
+int XPm_GetClockRate(const u32 ClockId, u32 *ClkRate);
 
 #ifdef __cplusplus
 }

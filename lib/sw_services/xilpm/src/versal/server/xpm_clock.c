@@ -169,6 +169,8 @@ static XStatus XPmClock_Init(XPm_ClockNode *Clk, u32 Id, u32 ControlReg,
 		goto done;
 	}
 
+	Clk->ClkRate = 0;
+
 	Status = XST_SUCCESS;
 
 done:
@@ -999,4 +1001,18 @@ XStatus XPmClock_GetMaxDivisor(u32 ClockId, u32 DivType, u32 *Resp)
 
 done:
 	return Status;
+}
+
+int XPmClock_SetRate(XPm_ClockNode *Clk, const u32 ClkRate)
+{
+	Clk->ClkRate = ClkRate;
+
+	return XST_SUCCESS;
+}
+
+int XPmClock_GetRate(XPm_ClockNode *Clk, u32 *ClkRate)
+{
+	*ClkRate = Clk->ClkRate;
+
+	return XST_SUCCESS;
 }
