@@ -11,62 +11,21 @@
 #include "xstatus.h"
 #include "xpm_defs.h"
 
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#define MAX_BASEADDR_LEN	3
-
-/* Global general storage register base address */
-#define GGS_BASEADDR	(0xF1110030U)
-#define GGS_NUM_REGS	(4U)
-
-#define GGS_4_OFFSET	(0x10U)
-
 /* Persistent global general storage register base address */
 #define PGGS_BASEADDR	(0xF1110050U)
-#define PGGS_NUM_REGS	(4U)
 
-/* Tap delay bypass */
-#define TAPDLY_BYPASS_OFFSET			(0x0000003CU)
-#define XPM_TAP_DELAY_MASK			(0x4U)
-
-/* SD DLL control */
-#define SD0_CTRL_OFFSET				(0x00000404U)
-#define SD1_CTRL_OFFSET				(0x00000484U)
-#define XPM_SD_DLL_RST_MASK			(0x4U)
-
-/* SD ITAPDLY */
-#define ITAPDLY_OFFSET				(0x0000F0F8U)
-#define XPM_SD_ITAPCHGWIN_MASK			(0x200U)
-#define XPM_SD_ITAPDLYENA_MASK			(0x100U)
-#define XPM_SD_ITAPDLYSEL_MASK			(0xFFU)
-
-/* SD OTAPDLY */
-#define OTAPDLY_OFFSET				(0x0000F0FCU)
-#define XPM_SD_OTAPDLYENA_MASK			(0x40U)
-#define XPM_SD_OTAPDLYSEL_MASK			(0x3FU)
-
-/* Probe Counter Register related macros */
-#define PROBE_COUNTER_REQ_TYPE_SHIFT		(16U)
-#define PROBE_COUNTER_REQ_TYPE_MASK		(0xFFU)
-#define PROBE_COUNTER_TYPE_SHIFT		(8U)
-#define PROBE_COUNTER_TYPE_MASK			(0xFFU)
-#define PROBE_COUNTER_IDX_SHIFT			(0U)
-#define PROBE_COUNTER_IDX_MASK			(0xFFU)
-
-#define PROBE_COUNTER_CPU_R5_MAX_IDX		(9U)
-#define PROBE_COUNTER_LPD_MAX_IDX		(5U)
-#define PROBE_COUNTER_FPD_MAX_IDX		(15U)
-
-#define PROBE_COUNTER_CPU_R5_MAX_REQ_TYPE	(3U)
-#define PROBE_COUNTER_LPD_MAX_REQ_TYPE		(7U)
-#define PROBE_COUNTER_FPD_MAX_REQ_TYPE		(3U)
+#define MAX_BASEADDR_LEN	3
 
 /* Extern Variable and Function */
-extern int XLoader_RestartImage(u32 SubsystemId);
+extern u32 ResetReason;
 
-XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u32 *Payload));
+XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload),
+		 int (*const RestartCb)(u32 ImageId, u32 *FuncId));
 
 int XPm_GetChipID(u32* IDCode, u32 *Version);
 
@@ -153,7 +112,7 @@ XStatus XPm_PinCtrlRequest(const u32 SubsystemId, const u32 PinId);
 XStatus XPm_PinCtrlRelease(const u32 SubsystemId, const u32 PinId);
 
 XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
-                        const u32 IoctlId,
+                        const pm_ioctl_id IoctlId,
                         const u32 Arg1,
                         const u32 Arg2,u32 *const Response);
 int XPm_InitFinalize(const u32 SubsystemId);
@@ -180,8 +139,8 @@ int XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 			 const u32 Event, const u32 Wake, const u32 Enable,
 			 const u32 IpiMask);
 int XPm_GicProxyWakeUp(const u32 PeriphIdx);
-int XPm_DispatchWakeHandler(void *DeviceIdx);
 XStatus XPm_HookAfterPlmCdo(void);
+int XPm_RestartCbWrapper(const u32 SubsystemId);
 
 #ifdef __cplusplus
 }
