@@ -79,7 +79,7 @@ typedef int s32;
 #else
 #define RFCLK_CHIP_NUM 3
 #define LMK_COUNT 128
-#define LMK_FREQ_NUM 3 /* Number of LMK freq. configs */
+#define LMK_FREQ_NUM 6 /* Number of LMK freq. configs */
 #define LMX_ADC_NUM 9 /* Number of LMX ADC configs */
 #define LMX_DAC_NUM 25 /* Number of LMX DAC configs */
 #endif
