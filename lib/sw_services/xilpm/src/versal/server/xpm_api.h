@@ -1,28 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 #ifndef XPM_API_H_
 #define XPM_API_H_
@@ -39,13 +19,13 @@ extern "C" {
 
 /* Global general storage register base address */
 #define GGS_BASEADDR	(0xF1110030U)
-#define GGS_NUM_REGS	(4)
+#define GGS_NUM_REGS	(4U)
 
 #define GGS_4_OFFSET	(0x10U)
 
 /* Persistent global general storage register base address */
 #define PGGS_BASEADDR	(0xF1110050U)
-#define PGGS_NUM_REGS	(4)
+#define PGGS_NUM_REGS	(4U)
 
 /* Tap delay bypass */
 #define TAPDLY_BYPASS_OFFSET			(0x0000003CU)
@@ -69,19 +49,22 @@ extern "C" {
 
 /* Probe Counter Register related macros */
 #define PROBE_COUNTER_REQ_TYPE_SHIFT		(16U)
-#define PROBE_COUNTER_REQ_TYPE_MASK		(0xFF)
+#define PROBE_COUNTER_REQ_TYPE_MASK		(0xFFU)
 #define PROBE_COUNTER_TYPE_SHIFT		(8U)
-#define PROBE_COUNTER_TYPE_MASK			(0xFF)
+#define PROBE_COUNTER_TYPE_MASK			(0xFFU)
 #define PROBE_COUNTER_IDX_SHIFT			(0U)
-#define PROBE_COUNTER_IDX_MASK			(0xFF)
+#define PROBE_COUNTER_IDX_MASK			(0xFFU)
 
 #define PROBE_COUNTER_CPU_R5_MAX_IDX		(9U)
 #define PROBE_COUNTER_LPD_MAX_IDX		(5U)
 #define PROBE_COUNTER_FPD_MAX_IDX		(15U)
 
-#define PROBE_COUNTER_CPU_R5_MAX_REQ_TYPE	(3)
-#define PROBE_COUNTER_LPD_MAX_REQ_TYPE		(7)
-#define PROBE_COUNTER_FPD_MAX_REQ_TYPE		(3)
+#define PROBE_COUNTER_CPU_R5_MAX_REQ_TYPE	(3U)
+#define PROBE_COUNTER_LPD_MAX_REQ_TYPE		(7U)
+#define PROBE_COUNTER_FPD_MAX_REQ_TYPE		(3U)
+
+/* Extern Variable and Function */
+extern int XLoader_RestartImage(u32 SubsystemId);
 
 XStatus XPm_Init(void (* const RequestCb)(u32 SubsystemId, const u32 EventId, u32 *Payload));
 
@@ -136,9 +119,9 @@ XStatus XPm_SetClockDivider(const u32 SubsystemId, const u32 ClockId, const u32 
 
 XStatus XPm_GetClockDivider(const u32 ClockId, u32 *const Divider);
 
-XStatus XPm_SetClockParent(const u32 SubsystemId, const u32 ClockId, const u32 ParentId);
+XStatus XPm_SetClockParent(const u32 SubsystemId, const u32 ClockId, const u32 ParentIdx);
 
-XStatus XPm_GetClockParent(const u32 ClockId, u32 *const ParentId);
+XStatus XPm_GetClockParent(const u32 ClockId, u32 *const ParentIdx);
 
 XStatus XPm_SetPllParameter(const u32 SubsystemId, const u32 ClockId, const u32 ParamId, const u32 Value);
 
@@ -149,13 +132,13 @@ XStatus XPm_SetPllMode(const u32 SubsystemId, const u32 ClockId, const u32 Value
 XStatus XPm_GetPllMode(const u32 ClockId, u32 *const Value);
 
 XStatus XPm_SetResetState(const u32 SubsystemId, const u32 IpiMask,
-			  const u32 DeviceId, const u32 Reset);
+			  const u32 ResetId, const u32 Action);
 
-XStatus XPm_GetResetState(const u32 DeviceId, u32 *const Reset);
+XStatus XPm_GetResetState(const u32 ResetId, u32 *const State);
 
 XStatus XPm_SetPinFunction(const u32 SubsystemId, const u32 PinId, const u32 FunctionId);
 
-XStatus XPm_GetPinFunction(const u32 PinId, u32 *const DeviceId);
+XStatus XPm_GetPinFunction(const u32 PinId, u32 *const FunctionId);
 
 XStatus XPm_SetPinParameter(const u32 SubsystemId, const u32 PinId,
 			const u32 ParamId,
@@ -173,6 +156,7 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
                         const u32 IoctlId,
                         const u32 Arg1,
                         const u32 Arg2,u32 *const Response);
+int XPm_InitFinalize(const u32 SubsystemId);
 
 XStatus XPm_DescribeNodes(u32 NumArgs);
 XStatus XPm_AddNodeParent(u32 *Args, u32 NumArgs);
@@ -192,11 +176,12 @@ int XPm_FeatureCheck(const u32 ApiId, u32 *const Version);
 XStatus XPm_IsoControl(u32 NodeId, u32 Enable);
 XStatus XPm_GetOpCharacteristic(const u32 DeviceId, const u32 Type,
 				u32 *Result);
-int XPm_RegisterNotifier(const u32 SubsystemId, const u32 DeviceId,
+int XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 			 const u32 Event, const u32 Wake, const u32 Enable,
 			 const u32 IpiMask);
 int XPm_GicProxyWakeUp(const u32 PeriphIdx);
-XStatus XPm_HookAfterPlmCdo();
+int XPm_DispatchWakeHandler(void *DeviceIdx);
+XStatus XPm_HookAfterPlmCdo(void);
 
 #ifdef __cplusplus
 }
