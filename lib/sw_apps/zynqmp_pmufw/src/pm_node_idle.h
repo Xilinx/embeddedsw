@@ -119,6 +119,13 @@ void NodeCanIdle(u32 BaseAddress);
 void NodeNandIdle(u32 BaseAddress);
 #endif
 
+#ifdef XPAR_PSU_GPU_S_AXI_BASEADDR
+#define GPU_PP_0_OFFSET		0x8000
+#define GPU_PP_1_OFFSET		0xA000
+void NodeGpuIdle(u32 BaseAddress);
+void NodeGpuPPIdle(u32 BaseAddress);
+#endif
+
 #ifdef __cplusplus
 }
 #endif

@@ -650,4 +650,32 @@ void NodeNandIdle(u32 BaseAddress)
 }
 #endif /* NAND */
 
+#ifdef XPAR_PSU_GPU_S_AXI_BASEADDR
+#define XGPU_PP_CTRL_MGMT_REG_OFFSET		0x100C
+#define XGPU_PP_SOFT_RESET_MASK			(1U << 7)
+#define XGPU_PP_INT_RAWSTAT_REG_OFFSET		0x1020
+#define XGPU_PP_RESET_COMPLETED_MASK		(1U << 12)
+
+void NodeGpuPPIdle(u32 BaseAddress)
+{
+	volatile u32 StatusReg;
+	u32 LocalTimeout = MAX_TIMEOUT;
+
+	XPfw_RMW32(BaseAddress + XGPU_PP_CTRL_MGMT_REG_OFFSET,
+		   XGPU_PP_SOFT_RESET_MASK,
+		   XGPU_PP_SOFT_RESET_MASK);
+
+	do {
+		StatusReg = Xil_In32(BaseAddress +
+				     XGPU_PP_INT_RAWSTAT_REG_OFFSET);
+	} while (!(StatusReg & XGPU_PP_RESET_COMPLETED_MASK) &&
+		 LocalTimeout--);
+}
+
+void NodeGpuIdle(u32 BaseAddress)
+{
+	NodeGpuPPIdle(BaseAddress + GPU_PP_0_OFFSET);
+	NodeGpuPPIdle(BaseAddress + GPU_PP_1_OFFSET);
+}
+#endif /* GPU */
 #endif /* ENABLE_NODE_IDLING */

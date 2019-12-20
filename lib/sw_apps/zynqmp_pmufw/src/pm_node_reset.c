@@ -753,7 +753,65 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.IdleHookArgs = 0U
 #endif
 	},
-
+	{
+		.NodeId = NODE_GPU,
+		.RstActionList = {
+			{
+				.ResetId = PM_RESET_GPU,
+				.ResetAction = PM_RESET_ACTION_ASSERT,
+				.ResetPulseWait = 10U,
+			},
+		},
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+#ifdef XPAR_PSU_GPU_S_AXI_BASEADDR
+		.IdleHook = NodeGpuIdle,
+		.IdleHookArgs = XPAR_PSU_GPU_S_AXI_BASEADDR,
+#else
+		.IdleHook = NULL,
+		.IdleHookArgs = 0U,
+#endif
+	},
+	{
+		.NodeId = NODE_GPU_PP_0,
+		.RstActionList = {
+			{
+				.ResetId = PM_RESET_GPU_PP0,
+				.ResetAction = PM_RESET_ACTION_ASSERT,
+				.ResetPulseWait = 10U,
+			},
+		},
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+#ifdef XPAR_PSU_GPU_S_AXI_BASEADDR
+		.IdleHook = NodeGpuPPIdle,
+		.IdleHookArgs = XPAR_PSU_GPU_S_AXI_BASEADDR +
+				GPU_PP_0_OFFSET,
+#else
+		.IdleHook = NULL,
+		.IdleHookArgs = 0U,
+#endif
+	},
+	{
+		.NodeId = NODE_GPU_PP_1,
+		.RstActionList = {
+			{
+				.ResetId = PM_RESET_GPU_PP1,
+				.ResetAction = PM_RESET_ACTION_ASSERT,
+				.ResetPulseWait = 10U,
+			},
+		},
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+#ifdef XPAR_PSU_GPU_S_AXI_BASEADDR
+		.IdleHook = NodeGpuPPIdle,
+		.IdleHookArgs = XPAR_PSU_GPU_S_AXI_BASEADDR +
+				GPU_PP_1_OFFSET,
+#else
+		.IdleHook = NULL,
+		.IdleHookArgs = 0U,
+#endif
+	},
 };
 
 /**
