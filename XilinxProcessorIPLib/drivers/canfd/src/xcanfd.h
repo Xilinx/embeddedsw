@@ -268,6 +268,8 @@ exclusion
 * 2.3	sne  11/18/19 Fix for missing RX can packets on CANFD2.0.
 * 2.3   sne  11/29/19 Fix for missing TX canfd packet while sending multiple packets
 *                     by using multi buffer in loopback mode, CR# 1048366.
+* 2.3	sne  12/18/19 Added Protocol Exception Event and BusOff event support
+*		      CR#1048363 & CR#1046723.
 *
 * </pre>
 *
@@ -1078,6 +1080,7 @@ int XCanFd_TxBuffer_Cancel_Request(XCanFd *InstancePtr, u32 BufferNumber);
 void XCanFd_Enable_Tranceiver_Delay_Compensation(XCanFd *InstancePtr);
 void XCanFd_Set_Tranceiver_Delay_Compensation(XCanFd *InstancePtr, u32 TdcOffset);
 void XCanFd_Disable_Tranceiver_Delay_Compensation(XCanFd *InstancePtr);
+void XCanFd_Pee_BusOff_Handler(XCanFd *InstancePtr);
 
 /* Configuration functions in xcan_config.c */
 int XCanFd_SetBaudRatePrescaler(XCanFd *InstancePtr, u8 Prescaler);

@@ -77,6 +77,7 @@
 * 2.3	sne  11/18/19 Fix for missing RX can packets on CANFD2.0.
 * 2.3	sne  11/29/19 Fix for missing TX canfd packet while sending multiple packets
 *		      by using multi buffer in loopback mode, CR# 1048366.
+* 2.3  sne  12/18/19 Added Protocol Exception Event and BusOff event support.
 *
 * </pre>
 ******************************************************************************/
@@ -1891,4 +1892,33 @@ static u32 XCanFd_SeqRecv_logic(XCanFd *InstancePtr, u32 ReadIndex, u32 FsrVal, 
 
 		return XST_SUCCESS;
 }
+/*****************************************************************************/
+/**
+*
+* This function recovers the CAN device from Protocol Exception Event & Busoff
+* Event States.
+*
+* @param        InstancePtr is a pointer to the XCanFd instance to be worked on.
+*
+* @return       None.
+*
+* @note         None.
+*
+******************************************************************************/
+void XCanFd_Pee_BusOff_Handler(XCanFd *InstancePtr)
+{
+	u32 RegValue;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	RegValue = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
+				  XCANFD_TRR_OFFSET);
+	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
+			XCANFD_TCR_OFFSET, RegValue);
+	while (XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
+			      XCANFD_TRR_OFFSET));
+	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
+			XCANFD_TRR_OFFSET, RegValue);
+}
+/*****************************************************************************/
 /** @} */
