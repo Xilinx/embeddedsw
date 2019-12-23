@@ -63,6 +63,8 @@
 *                              Overflow Interrupt. Made logic generic for both
 *                                              scugic and intc vectors.
 * 2.1	nsk  03/09/19 Fix build error in example
+* 2.3	sne  07/11/19 Added Protocol Exception support in EventHandler and updated
+*		      Bus Off EventHandler.
 *
 * </pre>
 *
@@ -628,11 +630,15 @@ static void EventHandler(void *CallBackRef, u32 IntrMask)
 
 	if (IntrMask & XCANFD_IXR_BSOFF_MASK) {
 		/*
-		 * Entering Bus off status interrupt requires the CAN device be
-		 * reset  and re-configurated.
+		 * The CAN device requires 128 * 11 consecutive recessive bits
+		 * to recover from bus off.
 		 */
-		XCanFd_Reset(CanPtr);
-		Config(CanPtr);
+		XCanFd_Pee_BusOff_Handler(CanPtr);
+		return;
+	}
+
+	if (IntrMask & XCANFD_IXR_PEE_MASK) {
+		XCanFd_Pee_BusOff_Handler(CanPtr);
 		return;
 	}
 
