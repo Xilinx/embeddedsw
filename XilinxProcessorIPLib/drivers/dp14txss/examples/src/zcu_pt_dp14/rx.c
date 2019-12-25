@@ -289,6 +289,7 @@ void DpRxSs_NoVideoHandler(void *InstancePtr)
 	DpRxSsInst.no_video_trigger = 1;
 
 	AudioinfoFrame.frame_count=0;
+	AudioinfoFrame.all_count=0;
 	XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
 			XDP_RX_INTERRUPT_MASK_INFO_PKT_MASK);
 
@@ -353,6 +354,7 @@ void DpRxSs_TrainingLostHandler(void *InstancePtr)
 	tx_after_rx = 0;
 //	audio_info_avail = 0;
     AudioinfoFrame.frame_count = 0;
+    AudioinfoFrame.all_count = 0;
 	if (rx_trained == 1) {
 		xil_printf ("Training Lost !!\r\n");
 	}
@@ -427,6 +429,7 @@ void DpRxSs_UnplugHandler(void *InstancePtr)
 //	XDpRxSs_AudioDisable(&DpRxSsInst);
 //    audio_info_avail = 0;
     AudioinfoFrame.frame_count = 0;
+    AudioinfoFrame.all_count = 0;
 	SdpExtFrame.Header[1] = 0;
 	SdpExtFrame_q.Header[1] = 0;
 	SdpExtFrame.frame_count = 0;

@@ -1315,7 +1315,7 @@ void audio_start_rx (void) {
 			AudioinfoFrame.frame_count = 0;
 			AudioinfoFrame.all_count = 0;
 		} else {
-			if (AudioinfoFrame.all_count > 100) {
+			if (AudioinfoFrame.all_count > 200) {
 				//An audio infoframe was not received
 				//disabling the interrupt to avoid repeated calls
 				xil_printf ("*!*!\r\n");
