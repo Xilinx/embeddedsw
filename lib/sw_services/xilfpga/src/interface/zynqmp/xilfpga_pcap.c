@@ -101,6 +101,7 @@
  *                     to improve the code readability.
  * 5.2 Nava 06/12/19   Removed unwanted pcap interface status check In
  *                     XFpga_DecrypSecureHdr path.
+ * 5.2 Nava 18/12/19   Fix for security violation in the readback path.
  * </pre>
  *
  * @note
@@ -153,6 +154,9 @@
 
 #define XFPGA_AES_TAG_SIZE	(XSECURE_SECURE_HDR_SIZE + \
 		XSECURE_SECURE_GCM_TAG_SIZE) /* AES block decryption tag size */
+
+#define XFPGA_REG_CONFIG_CMD_LEN	9U
+#define XFPGA_DATA_CONFIG_CMD_LEN	88U
 
 /* Firmware State Definitions */
 #define XFPGA_FIRMWARE_STATE_UNKNOWN	0U
@@ -2007,9 +2011,7 @@ static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 	u32 RegVal;
 	UINTPTR Address = InstancePtr->ReadInfo.ReadbackAddr;
 	u32 CmdIndex;
-	u32 *CmdBuf;
-
-	CmdBuf = (u32*)Address;
+	u32 CmdBuf[XFPGA_REG_CONFIG_CMD_LEN];
 
 	Status = XFpga_GetFirmwareState();
 	if (Status == XFPGA_FIRMWARE_STATE_SECURE) {
@@ -2027,7 +2029,7 @@ static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 	 * Create the data to be written to read back the
 	 * Configuration Registers from PL Region.
 	 */
-	CmdIndex = 2U;
+	CmdIndex = 0U;
 	CmdBuf[CmdIndex] = 0xFFFFFFFFU; /* Dummy Word */
 	CmdIndex++;
 	CmdBuf[CmdIndex] = 0x000000BBU; /* Bus Width Sync Word */
@@ -2067,7 +2069,7 @@ static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 		goto END;
 	}
 
-	Status = XFpga_WriteToPcap(CmdIndex, Address + CFGREG_SRCDMA_OFFSET);
+	Status = XFpga_WriteToPcap(CmdIndex, (UINTPTR)CmdBuf);
 	if (Status != XFPGA_SUCCESS) {
 		Xfpga_Printf(XFPGA_DEBUG, "Write to PCAP Failed\n\r");
 		Status = XFPGA_FAILURE;
@@ -2091,7 +2093,7 @@ static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 	/* Acknowledge the transfer has completed */
 	XCsuDma_IntrClear(CsuDmaPtr, XCSUDMA_DST_CHANNEL, XCSUDMA_IXR_DONE_MASK);
 
-	CmdIndex = 2U;
+	CmdIndex = 0U;
 	CmdBuf[CmdIndex] = 0x30008001U; /* Type 1 Write 1 word to CMD */
 	CmdIndex++;
 	CmdBuf[CmdIndex] = 0x0000000DU; /* DESYNC command */
@@ -2101,7 +2103,7 @@ static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 	CmdBuf[CmdIndex] = 0x20000000U; /* NOOP Word */
 	CmdIndex++;
 
-	Status = XFpga_WriteToPcap(CmdIndex, Address + CFGREG_SRCDMA_OFFSET);
+	Status = XFpga_WriteToPcap(CmdIndex, (UINTPTR)CmdBuf);
 	if (Status != XFPGA_SUCCESS) {
 		Xfpga_Printf(XFPGA_DEBUG, "Write to PCAP Failed\n\r");
 		Status = XFPGA_FAILURE;
@@ -2135,7 +2137,7 @@ static u32 XFpga_GetPLConfigDataPcap(const XFpga *InstancePtr)
 	u32 NumFrames = InstancePtr->ReadInfo.ConfigReg_NumFrames;
 	u32 RegVal;
 	u32 cmdindex;
-	u32 *CmdBuf;
+	u32 CmdBuf[XFPGA_DATA_CONFIG_CMD_LEN];
 	s32 i;
 
 	Status = XFpga_GetFirmwareState();
@@ -2152,8 +2154,6 @@ static u32 XFpga_GetPLConfigDataPcap(const XFpga *InstancePtr)
 		Status = XFPGA_FAILURE;
 		goto END;
 	}
-
-	CmdBuf = (u32*)Address;
 
 	/* Enable the PCAP clk */
 	RegVal = Xil_In32(PCAP_CLK_CTRL);
@@ -2248,7 +2248,7 @@ static u32 XFpga_GetPLConfigDataPcap(const XFpga *InstancePtr)
 
 	/* Set up the Destination DMA Channel*/
 	XCsuDma_Transfer(CsuDmaPtr, XCSUDMA_DST_CHANNEL,
-			 Address + CFGDATA_DSTDMA_OFFSET, NumFrames, 0U);
+			 Address, NumFrames, 0U);
 
 	Status = XFpga_PcapWaitForDone();
 	if (Status != XFPGA_SUCCESS) {
@@ -2257,7 +2257,7 @@ static u32 XFpga_GetPLConfigDataPcap(const XFpga *InstancePtr)
 		goto END;
 	}
 
-	Status = XFpga_WriteToPcap(cmdindex, Address);
+	Status = XFpga_WriteToPcap(cmdindex, (UINTPTR)CmdBuf);
 	if (Status != XFPGA_SUCCESS) {
 		Xfpga_Printf(XFPGA_DEBUG, "Write to PCAP Failed\n\r");
 		Status = XFPGA_FAILURE;
@@ -2322,7 +2322,7 @@ static u32 XFpga_GetPLConfigDataPcap(const XFpga *InstancePtr)
 	CmdBuf[cmdindex] = 0x20000000U; /* Type 1 NOOP Word 0 */
 	cmdindex++;
 
-	Status = XFpga_WriteToPcap(cmdindex, (UINTPTR)Address);
+	Status = XFpga_WriteToPcap(cmdindex, (UINTPTR)CmdBuf);
 	if (Status != XFPGA_SUCCESS) {
 		Xfpga_Printf(XFPGA_DEBUG, "Write to PCAP 1 Failed\n\r");
 		Status = XFPGA_FAILURE;

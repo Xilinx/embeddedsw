@@ -43,7 +43,8 @@
  * 4.2   Nava 16/08/18 Modified the PL data handling Logic to support
  *                     different PL programming interfaces.
  * 5.0   Nava 06/02/19 Updated the example to sync with 5.0 version API's
- *		 rama 03/04/19 Fixed IAR compiler warning
+ *       rama 03/04/19 Fixed IAR compiler warning
+ * 5.2   Nava 18/12/19 Fix for security violation in the readback path.
  *</pre>
  ******************************************************************************/
 
@@ -145,7 +146,7 @@ void PrintBitStream(u32 NumFrames)
 
 	xil_printf("Bitstream contents are\r\n");
 
-	for (i = CFGDATA_DSTDMA_OFFSET/4; i < NumFrames; i+=4) {
+	for (i = 0; i < NumFrames; i+=4) {
 		xil_printf("%04x %04x %04x %04x %04x %04x %04x %04x\n\r",
 		            (readback_buffer[i] >> 16), (readback_buffer[i] & 0xFFFF),
 					(readback_buffer[i+1] >> 16), (readback_buffer[i+1] & 0xFFFF),

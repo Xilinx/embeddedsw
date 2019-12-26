@@ -116,6 +116,7 @@
  *		       address return error.
  * 5.0 sne   27/03/19  Fixed misra-c violations.
  * 5.0 Nava  23/04/19  Optimize the API's logic to avoid code duplication.
+ * 5.2 Nava  18/12/19  Fix for security violation in the readback path.
  * </pre>
  *
  * @note
@@ -265,8 +266,6 @@ extern "C" {
 
 #define XFPGA_STATE_MASK	0x00FF0000U
 #define XFPGA_STATE_SHIFT	16U
-#define CFGREG_SRCDMA_OFFSET	0x8U
-#define CFGDATA_DSTDMA_OFFSET	0x1FCU
 
 /* FPGA Configuration Registers Offsets */
 #define CRC		0U  /* Status Register */
