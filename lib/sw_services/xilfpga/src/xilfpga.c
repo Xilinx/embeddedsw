@@ -57,6 +57,8 @@
  * 5.1 Nava  27/06/19  Updated documentation for readback API's.
  * 5.1 Nava  16/07/19  Initialize empty status (or) status success to status failure
  *                     to avoid security violations.
+ * 5.2 Nava  05/12/19  Added Versal platform support.
+ *
  *</pre>
  *
  *@note
@@ -125,7 +127,8 @@ u32 XFpga_PL_BitStream_Load(XFpga *InstancePtr,
 
 	/* Prepare the FPGA to receive configuration Data */
 	Status = XFpga_PL_Preconfig(InstancePtr);
-	if (Status != XFPGA_SUCCESS) {
+	if (Status != XFPGA_SUCCESS &&
+	    Status != XFPGA_OPS_NOT_IMPLEMENTED) {
 		goto END;
 	}
 
@@ -140,6 +143,11 @@ u32 XFpga_PL_BitStream_Load(XFpga *InstancePtr,
 
 	/* set FPGA to operating state after writing */
 	Status = XFpga_PL_PostConfig(InstancePtr);
+#ifdef versal
+	if (Status == XFPGA_OPS_NOT_IMPLEMENTED) {
+		Status = XFPGA_SUCCESS;
+	}
+#endif
 
 END:
 	return Status;
@@ -314,6 +322,7 @@ u32 XFpga_PL_PostConfig(XFpga *InstancePtr)
 	return Status;
 }
 
+#ifndef versal
 /*****************************************************************************/
 /**
  * This function provides functionality to read back the PL configuration data
@@ -414,3 +423,4 @@ u32 XFpga_InterfaceStatus(XFpga *InstancePtr)
 
 	return Status;
 }
+#endif

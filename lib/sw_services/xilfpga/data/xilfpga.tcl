@@ -48,11 +48,13 @@
 #			in the bsp.
 # 5.0   Nava  11/05/18  Added full bitstream loading support for versal Platform.
 # 5.0	sne   27/03/19 Fixed Misra-C violations.
-# 5.0   Nava  29/03/19  Removed vesal platform related changes.As per the new
+# 5.0   Nava  29/03/19  Removed Versal platform related changes.As per the new
 #                       design, the Bitstream loading for versal platform is
 #                       done by PLM based on the CDO's data exists in the PDI
 #                       images. So there is no need of xilfpga API's for versal
 #                       platform to configure the PL.
+# 5.2   Nava  05/12/19  Added Versal platform support.
+#
 ##############################################################################
 
 #---------------------------------------------
@@ -84,13 +86,21 @@ proc generate {lib_handle} {
 
     set conffile  [xfpga_open_include_file "xfpga_config.h"]
     set zynqmp "src/interface/zynqmp/"
+    set versal "src/interface/versal/"
     set interface "src/interface/"
     set cortexa53proc [hsi::get_cells -hier -filter "IP_NAME==psu_cortexa53"]
+    set cortexa72proc [hsi::get_cells -hier -filter "IP_NAME==psv_cortexa72"]
+    set cortexr5proc  [hsi::get_cells -hier -filter "IP_NAME==psv_cortexr5"]
     if {[llength $cortexa53proc] > 0} {
 	set iszynqmp 1
+    } elseif {([llength $cortexa72proc] > 0) || ([llength $cortexr5proc] > 0)} {
+	set iszynqmp 0
+	set isversal 1
     } else {
 	set iszynqmp 0
+	set isversal 0
     }
+
     if { $iszynqmp == 1} {
 	set librarylist [hsi::get_libs -filter "NAME==xilsecure"];
 	if { [llength $librarylist] == 0 } {
@@ -103,8 +113,20 @@ proc generate {lib_handle} {
 	foreach entry [glob -nocomplain -types f [file join $zynqmp *]] {
             file copy -force $entry "./src"
         }
+    } elseif {$isversal == 1} {
+	set librarylist [hsi::get_libs -filter "NAME==xilmailbox"];
+	if { [llength $librarylist] == 0 } {
+	    error "This library requires xilmailbox library in the Board Support Package.";
+	}
+	set def_flags [common::get_property APP_LINKER_FLAGS [hsi::current_sw_design]]
+	set new_flags "-Wl,--start-group,-lxilfpga,-lxil,-lxilmailbox,-lgcc,-lc,--end-group $def_flags"
+	set_property -name APP_LINKER_FLAGS -value $new_flags -objects [current_sw_design]
+
+	foreach entry [glob -nocomplain -types f [file join $versal *]] {
+            file copy -force $entry "./src"
+        }
     } else {
-		error "This library supports Only ZyqnMP platform."
+		error "This library supports Only ZyqnMP/Versal platform."
     }
 
     puts $conffile "#ifndef _XFPGA_CONFIG_H"
