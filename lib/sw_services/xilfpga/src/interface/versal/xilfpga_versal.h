@@ -38,8 +38,9 @@
  *
  * Ver   Who  Date        Changes
  * ---- ---- --------  --------------------------------------------------------
- * 5.2  Nava 05/12/19  Added Versal platform support.
- * 5.2  Nava 14/02/20  Removed unwanted header file inclusion.
+ * 5.2  Nava 12/05/19  Added Versal platform support.
+ * 5.2  Nava 02/14/20  Removed unwanted header file inclusion.
+ * 5.3  Nava 06/16/20  Modified the date format from dd/mm to mm/dd.
  * </pre>
  *
  * @note

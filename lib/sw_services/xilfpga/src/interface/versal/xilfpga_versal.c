@@ -15,10 +15,14 @@
  *
  * Ver   Who  Date        Changes
  * ---- ----- --------  -------------------------------------------------------
- * 5.2  Nava  05/12/19  Added Versal platform support.
- * 5.2  Nava  27/02/20  Updated the write path to read the pdi/bin image ipi
+ * 5.2  Nava  12/05/19  Added Versal platform support.
+ * 5.2  Nava  02/27/20  Updated the write path to read the pdi/bin image ipi
  *                      load response to handle the pdi/bin image load
  *                      errors properly.
+ * 5.3  Nava  06/16/20  Modified the date format from dd/mm to mm/dd.
+ * 5.3  Nava  06/29/20  Added asserts to validate input params.
+ * 5.3  Nava  09/09/20  Replaced the asserts with input validations for non void
+ *                      API's.
  * </pre>
  *
  * @note
@@ -47,7 +51,7 @@ static u32 XFpga_WriteToPl(XFpga *InstancePtr);
 /************************** Variable Definitions *****************************/
 
 XMailbox XMboxInstance;
-static u32 ReqBuffer[LOAD_PDI_MSG_LEN];
+static u32 ReqBuffer[LOAD_PDI_MSG_LEN] = {0U};
 
 /*****************************************************************************/
 /* This API when called initializes the XFPGA interface with default settings.
@@ -59,12 +63,18 @@ static u32 ReqBuffer[LOAD_PDI_MSG_LEN];
  *		- XFPGA_SUCCESS on success
  *		- Error code on failure
  ******************************************************************************/
-u32 XFpga_Initialize(XFpga *InstancePtr) {
+u32 XFpga_Initialize(XFpga *InstancePtr)
+{
+	u32 Status = XFPGA_INVALID_PARAM;
 
-	(void)memset(InstancePtr, 0U, sizeof(*InstancePtr));
-	InstancePtr->XFpga_WriteToPl = XFpga_WriteToPl;
+	/* Validate the input arguments */
+	if (InstancePtr != NULL) {
+		(void)memset(InstancePtr, 0U, sizeof(*InstancePtr));
+		InstancePtr->XFpga_WriteToPl = XFpga_WriteToPl;
+		Status = XFPGA_SUCCESS;
+	}
 
-	return XFPGA_SUCCESS;
+	return Status;
 }
 
 /*****************************************************************************/
@@ -89,6 +99,8 @@ static u32 XFpga_WriteToPl(XFpga *InstancePtr)
 	if (InstancePtr->WriteInfo.Flags & PDI_LOAD_TYPE_MASK) {
 		ReqBuffer[0U] = DELAYED_PDI_LOAD;
 		ReqBuffer[1U] = (u32)BitstreamAddr; /* Image ID */
+		ReqBuffer[2U] = 0U;
+		ReqBuffer[3U] = 0U;
 	} else {
 		ReqBuffer[0U] = PDI_LOAD;
 		ReqBuffer[1U] = FPGA_PDI_SRC_DDR;
