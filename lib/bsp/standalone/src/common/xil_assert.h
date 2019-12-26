@@ -24,9 +24,6 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00a hbm  07/14/09 First release
 * 6.0   kvn  05/31/16 Make Xil_AsserWait a global variable
-* 7.2   mus  11/29/19 Return correct error code from Xil_AssertNonvoid and
-*                     Xil_AssertNonvoidAlways on assert failure. It fixes
-*                     CR#1049113.
 * </pre>
 *
 ******************************************************************************/
@@ -35,7 +32,6 @@
 #define XIL_ASSERT_H	/* by using protection macros */
 
 #include "xil_types.h"
-#include "xstatus.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -112,7 +108,7 @@ typedef void (*Xil_AssertCallback) (const char8 *File, s32 Line);
     } else {                                       \
         Xil_Assert(__FILE__, __LINE__);            \
         Xil_AssertStatus = XIL_ASSERT_OCCURRED;   \
-        return XST_FAILURE;                                  \
+        return 0;                                  \
     }                                              \
 }
 
@@ -146,7 +142,7 @@ typedef void (*Xil_AssertCallback) (const char8 *File, s32 Line);
 {                                                  \
    Xil_Assert(__FILE__, __LINE__);                 \
    Xil_AssertStatus = XIL_ASSERT_OCCURRED;        \
-   return XST_FAILURE;                                       \
+   return 0;                                       \
 }
 
 
