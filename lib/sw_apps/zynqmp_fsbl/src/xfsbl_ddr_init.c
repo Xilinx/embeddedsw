@@ -47,6 +47,7 @@
  * 2.0   mn   02/28/19 Add Dynamic DDR initialization support for all DDR DIMMs
  *       mn   03/12/19 Select EEPROM Lower Page for reading SPD data
  *       mn   09/03/19 Fix coverity warnings
+ * 2.1   mn   12/24/19 Enable Address Mirroring based on SPD data
  * </pre>
  *
  * @note
@@ -447,7 +448,7 @@ u32 XFsbl_ComputeDdr4Params(u8 *SpdData, struct DdrcInitData *DdrDataPtr)
 		case DDR4_SPD_MODULETYPE_72B_SO_UDIMM:
 			PDimmPtr->UDimm = 1U;
 			if (Ddr4SpdData->ModSection.unbuffered.AddrMapping & 0x1U)
-				PDimmPtr->AddrMirror = XPAR_PSU_DDRC_0_DDR_ADDRESS_MIRRORING;
+				PDimmPtr->AddrMirror = 1U;
 			break;
 
 		default:
@@ -574,7 +575,7 @@ u32 XFsbl_ComputeDdr3Params(u8 *SpdData, struct DdrcInitData *DdrDataPtr)
 		case DDR3_SPD_MODULETYPE_16B_SO_DIMM:
 		case DDR3_SPD_MODULETYPE_32B_SO_DIMM:
 			if (Ddr3SpdData->ModSection.unbuffered.AddrMapping & 0x1U)
-				PDimmPtr->AddrMirror = XPAR_PSU_DDRC_0_DDR_ADDRESS_MIRRORING;
+				PDimmPtr->AddrMirror = 1U;
 			break;
 
 		default:
