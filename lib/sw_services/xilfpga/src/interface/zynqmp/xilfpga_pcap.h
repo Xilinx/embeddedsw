@@ -313,8 +313,6 @@ extern "C" {
  * @TotalBitPartCount Used to store the number of Authenticated partitions info.
  * @SecureOcmState Used to Preserve the initialization states for the OCM
  *                 use cases.
- * @ConfigStatus Used to preserve the software PL configuration status
- * @State Used to Preserve the software state machine.
  * @RemaningBytes used to preserve the remaining byte to process Authenticated
  *                bitstream Images.
  * @AcPtr Used to Access the authenticate certificate buffer address
@@ -326,8 +324,6 @@ typedef struct {
 	XSecure_Aes Secure_Aes;
 	u32 TotalBitPartCount;
 	u32 SecureOcmState;
-	u32 ConfigStatus;
-	u32 State;
 	u32 RemaningBytes;
 	UINTPTR AcPtr;
 	UINTPTR BitAddr;

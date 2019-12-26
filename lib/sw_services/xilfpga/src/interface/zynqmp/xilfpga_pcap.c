@@ -274,9 +274,6 @@ u32 XFpga_Initialize(XFpga *InstancePtr) {
 		Status = XFPGA_SUCCESS;
 	}
 
-	InstancePtr->PLInfo.State = XFPGA_VALIDATE_INIT;
-	InstancePtr->PLInfo.ConfigStatus = XFPGA_CONFIG_INPROG;
-
 	return Status;
 }
 /*****************************************************************************/
@@ -373,7 +370,6 @@ UPDATE:
 		InstancePtr->WriteInfo.BitstreamAddr += BitstreamPos;
 	}
 END:
-	InstancePtr->PLInfo.State = XFPGA_PRE_CONFIG;
 
 	return Status;
 
@@ -427,8 +423,6 @@ static u32 XFpga_PreConfigPcap(XFpga *InstancePtr)
 		Status = XFPGA_PCAP_UPDATE_ERR((u32)XPFGA_ERROR_PCAP_INIT, (u32)0U);
 	}
 
-	InstancePtr->PLInfo.State = XFPGA_WRITE_INIT;
-
 END:
 	return Status;
 }
@@ -471,7 +465,6 @@ static u32 XFpga_WriteToPlPcap(XFpga *InstancePtr)
 		BitstreamSize = (u32)InstancePtr->WriteInfo.AddrPtr_Size;
 		Status = XFpga_WriteToPcap(BitstreamSize/WORD_LEN,
 				InstancePtr->WriteInfo.BitstreamAddr);
-		InstancePtr->PLInfo.State = XFPGA_POST_CONFIG;
 		if (Status != XFPGA_SUCCESS) {
 			Status = XFPGA_PCAP_UPDATE_ERR(
 					(u32)XFPGA_ERROR_BITSTREAM_LOAD_FAIL, (u32)0U);
@@ -484,14 +477,12 @@ static u32 XFpga_WriteToPlPcap(XFpga *InstancePtr)
 		goto END;
 	}
 
-	if (InstancePtr->PLInfo.State == XFPGA_POST_CONFIG) {
-		Status = XFpga_PLWaitForDone();
-		if (Status != XFPGA_SUCCESS) {
-			Status = XFPGA_PCAP_UPDATE_ERR(Status, (u32)0U);
-			Xfpga_Printf(XFPGA_DEBUG,
+	Status = XFpga_PLWaitForDone();
+	if (Status != XFPGA_SUCCESS) {
+		Status = XFPGA_PCAP_UPDATE_ERR(Status, (u32)0U);
+		Xfpga_Printf(XFPGA_DEBUG,
 			"FPGA fail to get the PCAP Done status Error Code:0x%08x\r\n",
 			Status);
-		}
 	}
 END:
 	return Status;
@@ -570,9 +561,6 @@ static u32 XFpga_PostConfigPcap(XFpga *InstancePtr)
 			 ((u32)(XCSUDMA_CTRL_OFFSET) +
 			 ((u32)XCSUDMA_SRC_CHANNEL *
 			 (u32)(XCSUDMA_OFFSET_DIFF))), RegVal);
-
-	InstancePtr->PLInfo.State = XFPGA_CONFIG_COMPLETE;
-	InstancePtr->PLInfo.ConfigStatus = XFPGA_CONFIG_DONE;
 
 	return Status;
 }
@@ -798,7 +786,6 @@ static u32 XFpga_SecureLoadToPl(XFpga *InstancePtr)
 	case XFPGA_ENCRYPTION_DEVKEY_EN:
 #endif
 		Status = XFpga_WriteEncryptToPcap(InstancePtr);
-		InstancePtr->PLInfo.State = XFPGA_POST_CONFIG;
 		break;
 
 	default:
@@ -899,11 +886,6 @@ static u32 XFpga_SecureBitstreamLoad(XFpga *InstancePtr)
 		} else {
 			InstancePtr->PLInfo.RemaningBytes = 0U;
 		}
-	}
-
-	if ((InstancePtr->PLInfo.RemaningBytes == 0U) &&
-			((u32)InstancePtr->PLInfo.TotalBitPartCount == 0U)){
-		InstancePtr->PLInfo.State = XFPGA_POST_CONFIG;
 	}
 
 END:
