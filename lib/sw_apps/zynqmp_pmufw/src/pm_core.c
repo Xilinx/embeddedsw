@@ -926,7 +926,6 @@ static void PmFpgaRead(const PmMaster *const master,
 	if (Readback_Type != 0U) {
 #if defined(ENABLE_FPGA_READ_CONFIG_DATA)
 		Status = XFpga_GetPlConfigData(&XFpgaInstance, Address, Reg_Numframes);
-		Value = CFGDATA_DSTDMA_OFFSET/4U;
 #else
 		PmWarn("Unsupported EEMI API\r\n");
 		Status = XST_NO_ACCESS;
