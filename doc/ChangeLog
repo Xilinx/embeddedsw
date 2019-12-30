@@ -45,6 +45,9 @@ axicdma_v4_7:
 Support 26bit dma transfer length.
 Fix gcc warning in peripheral test and examples.
 
+wdttb_v4_5:
+-Updated example files with "Successfully ran" string.
+
 Changes for 2019.2
 ===============================
 canfd_v2_2:
