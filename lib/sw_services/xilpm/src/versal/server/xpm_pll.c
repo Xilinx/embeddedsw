@@ -33,8 +33,10 @@
 
 static struct XPm_PllTopology PllTopologies[] =
 {
-	{TOPOLOGY_GENERIC_PLL, PLLPARAMS, RESET_SHIFT, BYPASS_SHIFT, GEN_LOCK_SHIFT, GEN_STABLE_SHIFT },
-	{TOPOLOGY_NOC_PLL, PLLPARAMS, RESET_SHIFT, BYPASS_SHIFT, NPLL_LOCK_SHIFT, NPLL_STABLE_SHIFT },
+	{ TOPOLOGY_GENERIC_PLL, PLLPARAMS, RESET_SHIFT, BYPASS_SHIFT,
+	  GEN_LOCK_SHIFT, GEN_STABLE_SHIFT, GEN_REG3_OFFSET },
+	{ TOPOLOGY_NOC_PLL, PLLPARAMS, RESET_SHIFT, BYPASS_SHIFT,
+	  NPLL_LOCK_SHIFT, NPLL_STABLE_SHIFT, NPLL_REG3_OFFSET },
 };
 
 XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
@@ -322,6 +324,26 @@ XStatus XPmClockPll_Reset(XPm_PllClockNode *Pll, uint8_t Flags)
 		XPm_RMW32(ControlReg, BIT(Pll->Topology->ResetShift),
 			   BIT(Pll->Topology->ResetShift));
 		Pll->ClkNode.Node.State = PM_PLL_STATE_RESET;
+
+		if ((PLATFORM_VERSION_SILICON == Platform) &&
+		    (PLATFORM_VERSION_SILICON_ES1 != PlatformVersion)) {
+			/*
+			 * The value of the CRX.XPLL_REG3.CP_RES_H must be set
+			 * to 0x1 while the PLL is in reset for ES2 and forward
+			 */
+			u32 Reg;
+			if (XPM_NODEIDX_CLK_PMC_PLL ==
+			   NODEINDEX(Pll->ClkNode.Node.Id)) {
+			   Reg = ((ControlReg & (0xFFFFFF00)) +
+				  PPLL_REG3_OFFSET);
+			} else {
+			   Reg = ((ControlReg & (0xFFFFFF00)) +
+				  (Pll->Topology->PllReg3Offset));
+			}
+			XPm_RMW32(Reg, BITNMASK(PLL_REG3_CP_RES_H_SHIFT,
+				  PLL_REG3_CP_RES_H_WIDTH),
+				  0x1 << PLL_REG3_CP_RES_H_SHIFT);
+		}
 	}
 	if (Flags & PLL_RESET_RELEASE) {
 		/* Deassert the reset */

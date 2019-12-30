@@ -49,6 +49,7 @@ struct XPm_PllTopology {
 	uint8_t BypassShift;
 	uint8_t LockShift;
 	uint8_t StableShift;
+	uint8_t PllReg3Offset;
 };
 
 typedef struct XPm_PllClockNode XPm_PllClockNode;
@@ -91,6 +92,12 @@ struct XPm_PllClockNode {
 #define NPLL_LOCK_SHIFT		1U
 #define GEN_STABLE_SHIFT	2U
 #define NPLL_STABLE_SHIFT	3U
+#define GEN_REG3_OFFSET		0x68U
+#define NPLL_REG3_OFFSET	0xA8U
+#define PPLL_REG3_OFFSET	0x78U
+
+#define PLL_REG3_CP_RES_H_SHIFT  20U
+#define PLL_REG3_CP_RES_H_WIDTH  2U
 
 #define PLLPARAMS {	\
 	[PM_PLL_PARAM_ID_DIV2] = {	\
