@@ -517,6 +517,12 @@ int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 					PdiAddr = 0U;
 				}
 				break;
+				case XIH_IHT_ATTR_SBD_SMAP:
+				{
+					PdiSrc = XLOADER_PDI_SRC_SMAP;
+					PdiAddr = 0U;
+				}
+				break;
 				default:
 				{
 					Status = XLOADER_ERR_UNSUPPORTED_SEC_BOOT_MODE;
