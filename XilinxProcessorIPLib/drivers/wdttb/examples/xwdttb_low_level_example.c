@@ -112,7 +112,7 @@ int main(void)
 		return XST_FAILURE;
 	}
 
-	xil_printf("WDTTB low level example ran successfully.\n\r");
+	xil_printf("Successfully ran WDTTB low level example.\n\r");
 	return XST_SUCCESS;
 }
 

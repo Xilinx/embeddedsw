@@ -177,6 +177,7 @@
 *		      Updated driver to support for WWDT and AXI Timebase WDT.
 *		      While accessing AXI Timebase WDT appending "C" to base
 *		      address for getting AXI Watchdog offsets.
+* 4.6	sne  12/30/19 Updated example files with "Successfully ran"string.CR#1050724
 *
 * </pre>
 *

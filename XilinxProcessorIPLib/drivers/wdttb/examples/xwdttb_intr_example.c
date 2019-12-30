@@ -165,7 +165,7 @@ int main(void)
 		return XST_FAILURE;
 	}
 
-	xil_printf("WDTTB interrupt example ran successfully.\n\r");
+	xil_printf("Successfully ran WDTTB interrupt example\n\r");
 	return XST_SUCCESS;
 }
 #endif

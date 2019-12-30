@@ -62,7 +62,7 @@ WWDT:-
 AXI TIMEBASE:-
 Case 1:-(Timebase WDT)
 -xwdttb_selftest_example.c
--xwdttb_winwdt_example.c
+-xwdttb_example.c
 -xwdttb_intr_example.c
 Case 2:-(Window watchdog)
 -xwdttb_selftest_example.c

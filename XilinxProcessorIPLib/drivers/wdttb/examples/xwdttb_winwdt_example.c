@@ -138,7 +138,7 @@ int main(void)
 		return XST_FAILURE;
 	}
 
-	xil_printf("Window WDT example ran successfully\n\r");
+	xil_printf("Successfully ran Window WDT example.\n\r");
 
 	return XST_SUCCESS;
 }

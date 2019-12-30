@@ -95,7 +95,7 @@ int main(void)
                 xil_printf("GWDT self test example failed\n\r");
                 return XST_FAILURE;
         }
-        xil_printf("\nGWDT self test example ran successfully\n\r");
+        xil_printf("Successfully ran GWDT self test example\n\r");
 
         return XST_SUCCESS;
 }

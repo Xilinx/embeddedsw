@@ -101,7 +101,7 @@ int main(void)
                 xil_printf("Generic WdtTb example failed\n\r");
                 return XST_FAILURE;
         }
-        xil_printf("Generic WdtTb example ran successfully\n\r");
+        xil_printf("Successfully ran Generic WdtTb example \n\r");
 
         return XST_SUCCESS;
 }

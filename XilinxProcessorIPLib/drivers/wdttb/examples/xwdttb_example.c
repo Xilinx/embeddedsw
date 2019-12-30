@@ -111,7 +111,7 @@ int main(void)
 		xil_printf("WDTTB example failed\n\r");
 		return XST_FAILURE;
 	}
-	xil_printf("WDTTB example ran successfully\n\r");
+	xil_printf("Successfully ran WDTTB example \n\r");
 
 	return XST_SUCCESS;
 }
