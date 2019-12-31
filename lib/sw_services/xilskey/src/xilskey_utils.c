@@ -253,9 +253,6 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 		goto END;
 	}
 
-	if (NULL == XSysmonInstPtr) {
-		goto END;
-	}
 	/**
 	 * Read the on-chip Temperature Data (Current)
 	 * from the Sysmon PSU data registers.
@@ -296,9 +293,6 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
 		goto END;
 	}
 
-	if (NULL == XSysmonInstPtr) {
-		goto END;
-	}
 	/**
 	 * Read the VccPint/PAUX Voltage Data (Current/Maximum/Minimum) from
 	 * Sysmon data registers.
@@ -363,9 +357,6 @@ void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstance
 	u8 V, VMin, VMax;
 
 
-	if (NULL == XAdcInstPtr) {
-		goto END;
-	}
 
 	/**
 	 * Read the on-chip Temperature Data (Current/Maximum/Minimum)
