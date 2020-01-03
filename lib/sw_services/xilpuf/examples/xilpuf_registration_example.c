@@ -114,7 +114,7 @@ int main()
 	xPuf_printf(XPUF_DEBUG_INFO, "\r\n");
 
 	xPuf_printf(XPUF_DEBUG_INFO,
-		"Puf Registration example run successfully!!");
+		"Successfully ran Puf Registration example!!");
 
 ENDF :
 	return Status;

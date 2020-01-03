@@ -105,7 +105,7 @@ int main()
 		goto END;
 	}
 	xPuf_printf(XPUF_DEBUG_INFO,
-		"Puf Regeneration example run successfully!!\r\n");
+		"Successfully ran Puf Regeneration example!!\r\n");
 
 END:
 	return Status;
