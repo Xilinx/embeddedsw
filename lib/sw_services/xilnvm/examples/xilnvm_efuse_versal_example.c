@@ -176,7 +176,7 @@ int main()
 		goto END;
 	}
 	XNvm_Printf(XNVM_EFUSE_DEBUG_INFO,
-		"App: Versal Efuse Example run successfully : 0x%04X\r\n",
+		"App: Successfully ran Versal Efuse Example : 0x%04X\r\n",
 		Status);
 END:
 	return Status;
