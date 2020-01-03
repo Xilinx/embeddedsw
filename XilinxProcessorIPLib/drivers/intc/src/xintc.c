@@ -840,7 +840,7 @@ int XIntc_ConnectFastHandler(XIntc *InstancePtr, u8 Id,
 					((Id%32) * 8), (UINTPTR) Handler);
 		} else {
 			XIntc_Out32(CfgPtr->BaseAddress + XIN_IVAR_OFFSET +
-					((Id%32) * 4), (u32) Handler);
+					((Id%32) * 4), (UINTPTR) Handler);
 		}
 
 		/* Slave controllers in Cascade Mode should have all as Fast
@@ -876,7 +876,7 @@ int XIntc_ConnectFastHandler(XIntc *InstancePtr, u8 Id,
 				XIN_IVEAR_OFFSET + (Id * 8), (UINTPTR) Handler);
 		} else {
 			XIntc_Out32(InstancePtr->BaseAddress +
-				XIN_IVAR_OFFSET + (Id * 4), (u32) Handler);
+				XIN_IVAR_OFFSET + (Id * 4), (UINTPTR) Handler);
 		}
 
 		Imr = XIntc_In32(InstancePtr->BaseAddress + XIN_IMR_OFFSET);
