@@ -317,12 +317,7 @@ int XIntc_Start(XIntc * InstancePtr, u8 Mode)
 	/*
 	 * Check for simulation mode
 	 */
-	if (Mode == XIN_SIMULATION_MODE) {
-		if (MasterEnable & XIN_INT_HARDWARE_ENABLE_MASK) {
-			return XST_FAILURE;
-		}
-	}
-	else {
+	if (Mode == XIN_REAL_MODE) {
 		MasterEnable |= XIN_INT_HARDWARE_ENABLE_MASK;
 	}
 
