@@ -397,6 +397,9 @@ void XIntc_RegisterHandler(UINTPTR BaseAddress, int InterruptId,
 
 		if (InterruptId > 31) {
 			CfgPtr = XIntc_LookupConfig(InterruptId/32);
+			if (CfgPtr == NULL) {
+				return;
+			}
 			CfgPtr->HandlerTable[InterruptId%32].Handler = Handler;
 			CfgPtr->HandlerTable[InterruptId%32].CallBackRef =
 								CallBackRef;
@@ -434,6 +437,9 @@ static XIntc_Config *LookupConfigByBaseAddress(UINTPTR BaseAddress)
 	for (Index = 0; Index < XPAR_XINTC_NUM_INSTANCES; Index++) {
 		if (XIntc_ConfigTable[Index].BaseAddress == BaseAddress) {
 			CfgPtr = &XIntc_ConfigTable[Index];
+			if (CfgPtr == NULL) {
+				return NULL;
+			}
 			break;
 		}
 	}
@@ -475,6 +481,9 @@ void XIntc_RegisterFastHandler(UINTPTR BaseAddress, u8 Id,
 	if (Id > 31) {
 		/* Enable user required Id in Slave controller */
 		CfgPtr = XIntc_LookupConfig(Id/32);
+		if (CfgPtr == NULL) {
+			return;
+		}
 
 		/* Get the Enabled Interrupts */
 		CurrentIER = XIntc_In32(CfgPtr->BaseAddress + XIN_IER_OFFSET);
@@ -527,6 +536,9 @@ void XIntc_RegisterFastHandler(UINTPTR BaseAddress, u8 Id,
 		}
 
 		CfgPtr = XIntc_LookupConfig(Id/32);
+		if (CfgPtr == NULL) {
+			return;
+		}
 		if (CfgPtr->VectorAddrWidth >
 			XINTC_STANDARD_VECTOR_ADDRESS_WIDTH) {
 			XIntc_Out64(BaseAddress + XIN_IVEAR_OFFSET +
@@ -586,6 +598,9 @@ static void XIntc_CascadeHandler(void *DeviceId)
 
 	/* Get the configuration data using the device ID */
 	CfgPtr = &XIntc_ConfigTable[(u32)DeviceId];
+	if (CfgPtr == NULL) {
+		return;
+	}
 
 	/* Get the interrupts that are waiting to be serviced */
 	IntrStatus = XIntc_GetIntrStatus(CfgPtr->BaseAddress);

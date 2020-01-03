@@ -421,6 +421,9 @@ int XIntc_Connect(XIntc * InstancePtr, u8 Id,
 	if (Id > 31) {
 
 		CfgPtr = XIntc_LookupConfig(Id/32);
+		if (CfgPtr == NULL) {
+			return XST_FAILURE;
+		}
 
 		CfgPtr->HandlerTable[Id%32].Handler = Handler;
 		CfgPtr->HandlerTable[Id%32].CallBackRef = CallBackRef;
@@ -481,6 +484,9 @@ void XIntc_Disconnect(XIntc * InstancePtr, u8 Id)
 	if (Id > 31) {
 
 		CfgPtr = XIntc_LookupConfig(Id/32);
+		if (CfgPtr == NULL) {
+			return;
+		}
 
 		CurrentIER = XIntc_In32(CfgPtr->BaseAddress + XIN_IER_OFFSET);
 
@@ -550,6 +556,9 @@ void XIntc_Enable(XIntc * InstancePtr, u8 Id)
 
 		/* Enable user required Id in Slave controller */
 		CfgPtr = XIntc_LookupConfig(Id/32);
+		if (CfgPtr == NULL) {
+			return;
+		}
 
 		CurrentIER = XIntc_In32(CfgPtr->BaseAddress + XIN_IER_OFFSET);
 
@@ -613,6 +622,9 @@ void XIntc_Disable(XIntc * InstancePtr, u8 Id)
 	if (Id > 31) {
 		/* Enable user required Id in Slave controller */
 		CfgPtr = XIntc_LookupConfig(Id/32);
+		if (CfgPtr == NULL) {
+			return;
+		}
 
 		CurrentIER = XIntc_In32(CfgPtr->BaseAddress + XIN_IER_OFFSET);
 
@@ -673,6 +685,9 @@ void XIntc_Acknowledge(XIntc * InstancePtr, u8 Id)
 	if (Id > 31) {
 		/* Enable user required Id in Slave controller */
 		CfgPtr = XIntc_LookupConfig(Id/32);
+		if (CfgPtr == NULL) {
+			return;
+		}
 
 		/* Convert from integer id to bit mask */
 		Mask = XIntc_BitPosMask[(Id%32)];
@@ -742,6 +757,9 @@ XIntc_Config *XIntc_LookupConfig(u16 DeviceId)
 	for (Index = 0; Index < XPAR_XINTC_NUM_INSTANCES; Index++) {
 		if (XIntc_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XIntc_ConfigTable[Index];
+			if (CfgPtr == NULL) {
+				return NULL;
+			}
 			break;
 		}
 	}
@@ -799,6 +817,9 @@ int XIntc_ConnectFastHandler(XIntc *InstancePtr, u8 Id,
 	if (Id > 31) {
 		/* Enable user required Id in Slave controller */
 		CfgPtr = XIntc_LookupConfig(Id/32);
+		if (CfgPtr == NULL) {
+			return XST_FAILURE;
+		}
 
 		if (CfgPtr->FastIntr != TRUE) {
 			/*Fast interrupts of slave controller are not enabled*/
@@ -919,6 +940,9 @@ void XIntc_SetNormalIntrMode(XIntc *InstancePtr, u8 Id)
 	if (Id > 31) {
 		/* Enable user required Id in Slave controller */
 		CfgPtr = XIntc_LookupConfig(Id/32);
+		if (CfgPtr == NULL) {
+			return;
+		}
 
 		/* Get the Enabled Interrupts */
 		CurrentIER = XIntc_In32(CfgPtr->BaseAddress + XIN_IER_OFFSET);
@@ -1079,6 +1103,9 @@ static void XIntc_InitializeSlaves(XIntc * InstancePtr)
 
 	for (Index = 1; Index <= XPAR_XINTC_NUM_INSTANCES - 1; Index++) {
 		CfgPtr = XIntc_LookupConfig(Index);
+		if (CfgPtr == NULL) {
+			return;
+		}
 
 		XIntc_Out32(CfgPtr->BaseAddress + XIN_IAR_OFFSET,
 							0xFFFFFFFF);

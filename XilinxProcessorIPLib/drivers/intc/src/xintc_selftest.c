@@ -211,6 +211,10 @@ int XIntc_SimulateIntr(XIntc * InstancePtr, u8 Id)
 		DeviceId = Id/32;
 
 		CfgPtr = XIntc_LookupConfig(Id/32);
+		if (CfgPtr == NULL) {
+			return XST_FAILURE;
+		}
+
 		Mask = XIntc_BitPosMask[Id%32];
 		XIntc_Out32(CfgPtr->BaseAddress + XIN_ISR_OFFSET, Mask);
 
@@ -222,7 +226,9 @@ int XIntc_SimulateIntr(XIntc * InstancePtr, u8 Id)
 		for (Index = DeviceId - 1; Index >= 0; Index--)
 		{
 			CfgPtr = XIntc_LookupConfig(Index);
-
+			if (CfgPtr == NULL) {
+				return XST_FAILURE;
+			}
 			XIntc_Out32(CfgPtr->BaseAddress + XIN_ISR_OFFSET,
 									Mask);
 		}
