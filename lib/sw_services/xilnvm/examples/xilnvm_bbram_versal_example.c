@@ -114,7 +114,7 @@ int main(void)
 	Status = BbramWriteAesKey();
 
 	if (XST_SUCCESS == Status) {
-		xil_printf("Key programmed successfully to BBRAM....\n\r");
+		xil_printf("Successfully ran Versal BBRAM example....\n\r");
 	}
 	else {
 		xil_printf("BBRAM programming exit with error code = %08x\n\r",
