@@ -41,6 +41,6 @@ BEGIN LIBRARY xilpuf
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilpuf,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx PUF Library provides interface for registration and regeneration";
-  OPTION VERSION = 1.0;
+  OPTION VERSION = 1.1;
   OPTION NAME = xilpuf;
 END LIBRARY
