@@ -413,11 +413,12 @@ static int XPlmi_Write64(XPlmi_Cmd * Cmd)
  ******************************************************************************/
 int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 {
-	u64 RegVal;
+	u32 RegVal;
 	u32 Count = 0U;
 	int Status;
 	u32 Offset;
 	u32 ProcWords=0U;
+	u32 RegValAddr = (u32)(&RegVal);
 
 	/** For NPI READ command, the source address needs to be
 	 * 16 byte aligned. Use XPlmi_Out64 till the destination address
@@ -425,13 +426,31 @@ int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 	while((ProcWords<Len)&&(((SrcAddr+Count)&(0xFU)) != 0U))
 	{
 		RegVal = XPlmi_In64(SrcAddr + Count);
-		XPlmi_Out64(DestAddr + (ProcWords<<2U), RegVal);
+		if(DestAddr != XPLMI_SBI_DEST_ADDR)
+		{
+			XPlmi_Out64(DestAddr + (ProcWords<<2U), RegVal);
+		}
+		else
+		{
+			Status = XPlmi_DmaSbiXfer(RegValAddr, 1U, XPLMI_PMCDMA_1);
+			if(Status != XST_SUCCESS)
+			{
+				goto END;
+			}
+		}
 		Count+=4U;
 		++ProcWords;
 	}
 
-	Status = XPlmi_DmaXfr((u64)(SrcAddr+Count),
-		(u64)(DestAddr+Count), (Len - ProcWords)&(~(0x3U)), XPLMI_PMCDMA_0);
+	if(DestAddr != XPLMI_SBI_DEST_ADDR)
+	{
+		Status = XPlmi_DmaXfr((u64)(SrcAddr+Count),
+			(u64)(DestAddr+Count), (Len - ProcWords)&(~(0x3U)), XPLMI_PMCDMA_0);
+	}
+	else
+	{
+		Status = XPlmi_DmaSbiXfer((u64)(SrcAddr+Count),(Len - ProcWords)&(~(0x3U)), XPLMI_PMCDMA_1);
+	}
 	if(Status != XST_SUCCESS)
 	{
 		goto END;
@@ -445,7 +464,18 @@ int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 	while(ProcWords < Len)
 	{
 		RegVal = XPlmi_In64(SrcAddr + Offset);
-		XPlmi_Out64(DestAddr + Offset, RegVal);
+		if(DestAddr != XPLMI_SBI_DEST_ADDR)
+		{
+			XPlmi_Out64(DestAddr + Offset, RegVal);
+		}
+		else
+		{
+			Status = XPlmi_DmaSbiXfer(RegValAddr, 1U, XPLMI_PMCDMA_1);
+			if(Status != XST_SUCCESS)
+			{
+				goto END;
+			}
+		}
 		Offset += 4U;
 		ProcWords++;
 	}
@@ -506,23 +536,57 @@ static int XPlmi_DmaXfer(XPlmi_Cmd * Cmd)
 		XPlmi_UtilRMW(SLAVE_BOOT_SBI_MODE,
 			SLAVE_BOOT_SBI_MODE_SELECT_MASK,
 			SLAVE_BOOT_SBI_MODE_SELECT_MASK);
+		if((Flags & XPLMI_DMA_SRC_NPI) == XPLMI_DMA_SRC_NPI)
+		{
+			Status = XPlmi_NpiRead(SrcAddr,DestAddr,Len);
+		}
+		else
+		{
+			Status = XPlmi_DmaSbiXfer(SrcAddr, Len, Cmd->ResumeData[5]
+													| XPLMI_PMCDMA_1);
+		}
+		if(Status != XST_SUCCESS)
+		{
+			XPlmi_UtilRMW(SLAVE_BOOT_SBI_MODE,
+				SLAVE_BOOT_SBI_MODE_SELECT_MASK, 0U);
+			goto END;
+		}
 
-		Status = XPlmi_DmaSbiXfer(SrcAddr, Len, XPLMI_PMCDMA_1);
-		XPlmi_UtilRMW(SLAVE_BOOT_SBI_MODE, SLAVE_BOOT_SBI_MODE_SELECT_MASK,0U);
-	}
-	else if((Flags & XPLMI_DMA_SRC_NPI) == XPLMI_DMA_SRC_NPI)
-	{
-		Status = XPlmi_NpiRead(SrcAddr,DestAddr,Len);
+		Status = XPlmi_UtilPoll(SLAVE_BOOT_SBI_STATUS,
+				SLAVE_BOOT_SBI_STATUS_CMN_BUF_SPACE_MASK,
+				0x1000U, XPLMI_TIME_OUT_DEFAULT);
+		if(Status != XST_SUCCESS)
+		{
+			XPlmi_UtilRMW(SLAVE_BOOT_SBI_MODE,
+				SLAVE_BOOT_SBI_MODE_SELECT_MASK, 0U);
+			goto END;
+		}
+
+		Status = XPlmi_UtilPoll(SLAVE_BOOT_SBI_STATUS,
+				SLAVE_BOOT_SBI_STATUS_JTAG_DOUT_FIFO_SPACE_MASK,
+					0x80000000U, XPLMI_TIME_OUT_DEFAULT);
+		XPlmi_UtilRMW(SLAVE_BOOT_SBI_MODE,
+				SLAVE_BOOT_SBI_MODE_SELECT_MASK, 0U);
+		if(Status != XST_SUCCESS)
+        {
+            goto END;
+        }
 	}
 	else
 	{
-		Status = XPlmi_DmaXfr(SrcAddr, DestAddr, Len, Flags);
-	}
-
-	if(Status != XST_SUCCESS)
-	{
-		XPlmi_Printf(DEBUG_GENERAL, "DMA XFER Failed\n\r");
-		goto END;
+		if((Flags & XPLMI_DMA_SRC_NPI) == XPLMI_DMA_SRC_NPI)
+		{
+			Status = XPlmi_NpiRead(SrcAddr,DestAddr,Len);
+		}
+		else
+		{
+			Status = XPlmi_DmaXfr(SrcAddr, DestAddr, Len, Flags);
+		}
+		if(Status != XST_SUCCESS)
+		{
+			XPlmi_Printf(DEBUG_GENERAL, "DMA XFER Failed\n\r");
+			goto END;
+		}
 	}
 END:
 	return Status;
