@@ -54,6 +54,8 @@
 #                       images. So there is no need of xilfpga API's for versal
 #                       platform to configure the PL.
 # 5.2   Nava  05/12/19  Added Versal platform support.
+# 5.2   Nava  02/01/20  Added XFPGA_SECURE_READBACK_MODE flag to support secure
+#                       PL configuration data readback.
 #
 ##############################################################################
 
@@ -140,6 +142,11 @@ proc generate {lib_handle} {
 
     if {$value == true} {
 	puts $conffile "#define XFPGA_SECURE_MODE"
+    }
+
+    set value  [common::get_property CONFIG.secure_readback $lib_handle]
+    if {$value == true} {
+	puts $conffile "#define XFPGA_SECURE_READBACK_MODE"
     }
 
    set value  [common::get_property CONFIG.debug_mode $lib_handle]

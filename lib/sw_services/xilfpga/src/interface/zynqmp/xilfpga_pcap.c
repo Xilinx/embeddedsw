@@ -102,6 +102,7 @@
  * 5.2 Nava 06/12/19   Removed unwanted pcap interface status check In
  *                     XFpga_DecrypSecureHdr path.
  * 5.2 Nava 18/12/19   Fix for security violation in the readback path.
+ * 5.2 Nava 02/01/20  Added conditional compilation support for readback feature.
  * </pre>
  *
  * @note
@@ -177,6 +178,12 @@ typedef u32 (*XpbrServHndlr_t) (void);
 #define XFPGA_SECURE_MODE_EN    1U
 #else
 #define XFPGA_SECURE_MODE_EN    0U
+#endif
+
+#ifdef XFPGA_SECURE_READBACK_MODE
+#define XFPGA_SECURE_READBACK_MODE_EN	1U
+#else
+#define XFPGA_SECURE_READBACK_MODE_EN	0U
 #endif
 
 /************************** Function Prototypes ******************************/
@@ -2014,7 +2021,8 @@ static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
 	u32 CmdBuf[XFPGA_REG_CONFIG_CMD_LEN];
 
 	Status = XFpga_GetFirmwareState();
-	if (Status == XFPGA_FIRMWARE_STATE_SECURE) {
+	if ((Status == XFPGA_FIRMWARE_STATE_SECURE) &&
+	    (XFPGA_SECURE_READBACK_MODE_EN == 0U)) {
 		Xfpga_Printf(XFPGA_DEBUG, "Operation not permitted\n\r");
 		Status = XFPGA_FAILURE;
 		goto END;
@@ -2149,7 +2157,8 @@ static u32 XFpga_GetPLConfigDataPcap(const XFpga *InstancePtr)
 		goto END;
 	}
 
-	if (Status == XFPGA_FIRMWARE_STATE_SECURE) {
+	if ((Status == XFPGA_FIRMWARE_STATE_SECURE) &&
+	    (XFPGA_SECURE_READBACK_MODE_EN == 0U)) {
 		Xfpga_Printf(XFPGA_DEBUG, "Operation not permitted\n\r");
 		Status = XFPGA_FAILURE;
 		goto END;

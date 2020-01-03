@@ -56,6 +56,8 @@
 # 5.2 Nava   10/11/19  Clear the key info from DDR or Physical memory Once it
 #                      preserves into the internal memory.
 # 5.2 Nava   05/12/19  Added Versal platform support.
+# 5.2 Nava   02/01/20  Added secure_readback param to support secure PL
+#                      configuration data readback.
 #
 ##############################################################################
 
@@ -74,4 +76,5 @@ PARAM name = secure_mode, desc = "Enable secure Bitstream loading support", type
 PARAM name = debug_mode, desc = "Which is used to Enable the Debug messages in the library", type = bool, default = false;
 PARAM name = ocm_address, desc = "OCM Address which is used for Bitstream Authentication", type = int, default = 0xfffc0000, drc = drc_ocm_address ;
 PARAM name = base_address, desc = "Bitstream Image Base Address", type = int, default = 0x80000, drc = drc_base_address ;
+PARAM name = secure_readback, desc = "Which is used to Enable the secure PL configuration Read-back support", type = bool, default = false;
 END LIBRARY
