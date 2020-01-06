@@ -9,7 +9,10 @@
 static const char *virtio_feature_name(unsigned long feature,
 				       const struct virtio_feature_desc *);
 
-//TODO : This structure may change depending on the types of devices we support.
+/*
+ * TODO :
+ * This structure may change depending on the types of devices we support.
+ */
 static const struct virtio_ident {
 	unsigned short devid;
 	const char *name;
@@ -76,7 +79,7 @@ void virtio_describe(struct virtio_device *dev, const char *msg,
 	(void)msg;
 	(void)features;
 
-	// TODO: Not used currently - keeping it for future use
+	/* TODO: Not used currently - keeping it for future use*/
 	virtio_feature_name(0, desc);
 }
 

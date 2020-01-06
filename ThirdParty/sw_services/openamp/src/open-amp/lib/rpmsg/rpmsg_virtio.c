@@ -339,7 +339,7 @@ static int rpmsg_virtio_send_offchannel_raw(struct rpmsg_device *rdev,
 
 	status = metal_io_block_write(io,
 				      metal_io_virt_to_offset(io,
-				      RPMSG_LOCATE_DATA(buffer)),
+						RPMSG_LOCATE_DATA(buffer)),
 				      data, size);
 	RPMSG_ASSERT(status == size, "failed to write buffer\r\n");
 	metal_mutex_acquire(&rdev->lock);

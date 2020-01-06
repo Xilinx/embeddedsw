@@ -70,9 +70,9 @@ int handle_rsc_table(struct remoteproc *rproc,
 		if (status == -RPROC_ERR_RSC_TAB_NS) {
 			status = 0;
 			continue;
-		}
-		else if (status)
+		} else if (status) {
 			break;
+		}
 	}
 
 	return status;
