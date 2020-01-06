@@ -109,8 +109,8 @@ struct vring_alloc_info {
 	uint16_t pad;
 };
 
-typedef void vq_callback(struct virtqueue *);
-typedef void vq_notify(struct virtqueue *);
+typedef void (*vq_callback)(struct virtqueue *);
+typedef void (*vq_notify)(struct virtqueue *);
 
 #ifdef VQUEUE_DEBUG
 #include <metal/log.h>

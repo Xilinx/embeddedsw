@@ -89,7 +89,7 @@ static inline int
 rpmsg_virtio_create_virtqueues(struct rpmsg_virtio_device *rvdev,
 			       int flags, unsigned int nvqs,
 			       const char *names[],
-			       vq_callback *callbacks[])
+			       vq_callback *callbacks)
 {
 	return virtio_create_virtqueues(rvdev->vdev, flags, nvqs, names,
 					callbacks);

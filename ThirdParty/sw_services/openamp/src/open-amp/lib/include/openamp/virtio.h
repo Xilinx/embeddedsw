@@ -141,7 +141,7 @@ struct virtio_dispatch {
 
 int virtio_create_virtqueues(struct virtio_device *vdev, unsigned int flags,
 			     unsigned int nvqs, const char *names[],
-			     vq_callback *callbacks[]);
+			     vq_callback callbacks[]);
 
 #if defined __cplusplus
 }

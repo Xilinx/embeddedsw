@@ -519,7 +519,7 @@ int rpmsg_init_vdev(struct rpmsg_virtio_device *rvdev,
 {
 	struct rpmsg_device *rdev;
 	const char *vq_names[RPMSG_NUM_VRINGS];
-	vq_callback *callback[RPMSG_NUM_VRINGS];
+	vq_callback callback[RPMSG_NUM_VRINGS];
 	int status;
 	unsigned int i, role;
 
