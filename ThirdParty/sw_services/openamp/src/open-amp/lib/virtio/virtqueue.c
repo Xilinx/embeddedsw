@@ -567,11 +567,13 @@ static int vq_ring_enable_interrupt(struct virtqueue *vq, uint16_t ndesc)
 	if (vq->vq_dev->features & VIRTIO_RING_F_EVENT_IDX) {
 #ifndef VIRTIO_SLAVE_ONLY
 		if (vq->vq_dev->role == VIRTIO_DEV_MASTER)
-			vring_used_event(&vq->vq_ring) = vq->vq_used_cons_idx + ndesc;
+			vring_used_event(&vq->vq_ring) =
+				vq->vq_used_cons_idx + ndesc;
 #endif /*VIRTIO_SLAVE_ONLY*/
 #ifndef VIRTIO_MASTER_ONLY
 		if (vq->vq_dev->role == VIRTIO_DEV_SLAVE)
-			vring_avail_event(&vq->vq_ring) = vq->vq_available_idx + ndesc;
+			vring_avail_event(&vq->vq_ring) =
+				vq->vq_available_idx + ndesc;
 #endif /*VIRTIO_MASTER_ONLY*/
 	} else {
 #ifndef VIRTIO_SLAVE_ONLY
@@ -636,7 +638,8 @@ static int vq_ring_must_notify(struct virtqueue *vq)
 			new_idx = vq->vq_ring.avail->idx;
 			prev_idx = new_idx - vq->vq_queued_cnt;
 			event_idx = vring_avail_event(&vq->vq_ring);
-			return vring_need_event(event_idx, new_idx, prev_idx) != 0;
+			return vring_need_event(event_idx, new_idx,
+						prev_idx) != 0;
 		}
 #endif /*VIRTIO_SLAVE_ONLY*/
 #ifndef VIRTIO_MASTER_ONLY
@@ -644,17 +647,20 @@ static int vq_ring_must_notify(struct virtqueue *vq)
 			new_idx = vq->vq_ring.used->idx;
 			prev_idx = new_idx - vq->vq_queued_cnt;
 			event_idx = vring_used_event(&vq->vq_ring);
-			return vring_need_event(event_idx, new_idx, prev_idx) != 0;
+			return vring_need_event(event_idx, new_idx,
+						prev_idx) != 0;
 		}
 #endif /*VIRTIO_MASTER_ONLY*/
 	} else {
 #ifndef VIRTIO_SLAVE_ONLY
 		if (vq->vq_dev->role == VIRTIO_DEV_MASTER)
-			return (vq->vq_ring.used->flags & VRING_USED_F_NO_NOTIFY) == 0;
+			return (vq->vq_ring.used->flags &
+				VRING_USED_F_NO_NOTIFY) == 0;
 #endif /*VIRTIO_SLAVE_ONLY*/
 #ifndef VIRTIO_MASTER_ONLY
 		if (vq->vq_dev->role == VIRTIO_DEV_SLAVE)
-			return (vq->vq_ring.avail->flags & VRING_AVAIL_F_NO_INTERRUPT) == 0;
+			return (vq->vq_ring.avail->flags &
+				VRING_AVAIL_F_NO_INTERRUPT) == 0;
 #endif /*VIRTIO_MASTER_ONLY*/
 	}
 

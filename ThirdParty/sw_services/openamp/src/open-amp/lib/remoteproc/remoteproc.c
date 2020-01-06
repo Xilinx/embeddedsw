@@ -436,7 +436,7 @@ int remoteproc_load(struct remoteproc *rproc, const char *path,
 		loader = remoteproc_check_fw_format(img_data, len);
 		if (!loader) {
 			metal_log(METAL_LOG_ERROR,
-			       "load failure: failed to get store ops.\r\n");
+				  "load failure: failed to get store ops.\r\n");
 			ret = -RPROC_EINVAL;
 			goto error1;
 		}
@@ -447,7 +447,7 @@ int remoteproc_load(struct remoteproc *rproc, const char *path,
 	metal_log(METAL_LOG_DEBUG, "%s: loading headers\r\n", __func__);
 	offset = 0;
 	last_load_state = RPROC_LOADER_NOT_READY;
-	while(1) {
+	while (1) {
 		ret = loader->load_header(img_data, offset, len,
 					  &limg_info, last_load_state,
 					  &noffset, &nlen);
@@ -502,7 +502,7 @@ int remoteproc_load(struct remoteproc *rproc, const char *path,
 	metal_log(METAL_LOG_DEBUG, "%s: load executable data\r\n", __func__);
 	offset = 0;
 	len = 0;
-	while(1) {
+	while (1) {
 		unsigned char padding;
 		size_t nmemsize;
 		metal_phys_addr_t pa;
@@ -698,7 +698,7 @@ int remoteproc_load_noblock(struct remoteproc *rproc,
 		loader = remoteproc_check_fw_format(img_data, len);
 		if (!loader) {
 			metal_log(METAL_LOG_ERROR,
-			       "load failure: failed to identify image.\r\n");
+				  "load failure: failed to identify image.\r\n");
 			metal_mutex_release(&rproc->lock);
 			return -RPROC_EINVAL;
 		}
@@ -812,7 +812,7 @@ int remoteproc_load_noblock(struct remoteproc *rproc,
 			}
 			/* Update resource table */
 			ret = metal_io_block_write(*io, rsc_io_offset,
-						  lrsc_table, rsc_size);
+						   lrsc_table, rsc_size);
 			if (ret != (int)rsc_size) {
 				metal_log(METAL_LOG_WARNING,
 					  "load executable, failed to update rsc\r\n");

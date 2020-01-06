@@ -118,7 +118,9 @@ static uint32_t rproc_virtio_negotiate_features(struct virtio_device *vdev,
 						uint32_t features)
 {
 	uint32_t dfeatures = rproc_virtio_get_dfeatures(vdev);
+
 	rproc_virtio_set_features(vdev, dfeatures & features);
+
 	return 0;
 }
 #endif

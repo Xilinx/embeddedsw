@@ -363,7 +363,7 @@ static const void *elf_next_load_segment(void *elf_info, int *nseg,
 
 	if (elf_info == NULL || nseg == NULL)
 		return NULL;
-	while(p_type != PT_LOAD) {
+	while (p_type != PT_LOAD) {
 		phdr = elf_get_segment_from_index(elf_info, *nseg);
 		if (phdr == NULL)
 			return NULL;

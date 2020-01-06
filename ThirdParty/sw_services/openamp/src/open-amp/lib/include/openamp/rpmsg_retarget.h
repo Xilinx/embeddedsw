@@ -52,7 +52,7 @@ struct rpmsg_rpc_data {
 /**
  * rpmsg_rpc_init - initialize RPMsg remote procedure call
  *
- * This function is to intialize the remote procedure call
+ * This function is to initialize the remote procedure call
  * global data. RPMsg RPC will send request to remote and
  * wait for callback.
  *
