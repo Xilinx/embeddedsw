@@ -85,7 +85,7 @@ void virtio_describe(struct virtio_device *dev, const char *msg,
 
 int virtio_create_virtqueues(struct virtio_device *vdev, unsigned int flags,
 			     unsigned int nvqs, const char *names[],
-			     vq_callback *callbacks[])
+			     vq_callback callbacks[])
 {
 	struct virtio_vring_info *vring_info;
 	struct vring_alloc_info *vring_alloc;
