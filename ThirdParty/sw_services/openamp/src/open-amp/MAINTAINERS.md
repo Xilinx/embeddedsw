@@ -10,6 +10,8 @@ names to be CC'd when submitting a patch.
 
 ## Project Administration
 Wendy Liang <wendy.liang@xilinx.com>
+Ed T. Mooring <emooring@xilinx.com>
+Arnaud Pouliquen <arnaud.pouliquen@st.com>
 
 ### All patches CC here
 open-amp@googlegroups.com
@@ -17,6 +19,8 @@ open-amp@googlegroups.com
 ## Machines
 ### Xilinx Platform - Zynq-7000
 Wendy Liang <wendy.liang@xilinx.com>
+Ed T. Mooring <emooring@xilinx.com>
 
 ### Xilinx Platform - Zynq UltraScale+ MPSoC
 Wendy Liang <wendy.liang@xilinx.com>
+Ed T. Mooring <emooring@xilinx.com>
