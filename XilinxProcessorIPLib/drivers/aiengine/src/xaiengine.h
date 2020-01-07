@@ -21,6 +21,7 @@ extern "C" {
 #include <xaiengine/xaietile_plif.h>
 #include <xaiengine/xaietile_shim.h>
 #include <xaiengine/xaietile_strm.h>
+#include <xaiengine/xaietile_timer.h>
 #include <xaiengine/xparameters_aie.h>
 
 #ifdef __AIESIM__
