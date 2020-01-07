@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -48,6 +48,7 @@
 * 1.6  Hyun    12/13/2018  Added the core PC event registers
 * 1.9  Jubaer  02/26/2019  Added the Group Event registers
 * 2.0  Hyun    07/01/2019  Added XAIETILE_TIMER_MODULE_* macros
+* 2.1  Wendy   12/18/2019  Added timer control and timer events macros
 * </pre>
 *
 ******************************************************************************/
@@ -116,6 +117,10 @@ typedef struct {
 	u32 CtrlOff;                    /**< Timer control Register offset */
 	u32 LowOff;                     /**< Timer low value Register offset */
 	u32 HighOff;                    /**< Timer high value Register offset */
+	u32 TrigEventLowValOff;         /**< Timer trigger evel low value register offset */
+	u32 TrigEventHighValOff;        /**< Timer trigger evel high value register offset */
+	XAieGbl_RegFldAttr CtrlReset;   /**< Timer control reset field */
+	XAieGbl_RegFldAttr CtrlResetEvent; /**< Timer control reset event field */
 } XAieGbl_RegTimer;
 
 /* Index values to TimerReg[] */

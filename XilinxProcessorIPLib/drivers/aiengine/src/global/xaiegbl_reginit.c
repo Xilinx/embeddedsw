@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2005 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2005 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -48,6 +48,7 @@
 * 1.8  Hyun    12/13/2018  Added the core PC event registers
 * 1.9  Jubaer  02/26/2019  Add Group Event registers
 * 2.0  Hyun    06/27/2019  Change CoreTimerReg to TimerReg
+* 2.1  Wendy   12/18/2019  Added Timer control and events to TimerReg
 * </pre>
 *
 ******************************************************************************/
@@ -92,17 +93,29 @@ XAieGbl_RegTimer TimerReg[] =
 	{
 	        XAIEGBL_CORE_TIMCTRL,
 	        XAIEGBL_CORE_TIMLOW,
-	        XAIEGBL_CORE_TIMHIG
+	        XAIEGBL_CORE_TIMHIG,
+	        XAIEGBL_CORE_TIMTRIEVTLOWVAL,
+	        XAIEGBL_CORE_TIMTRIEVTHIGVAL,
+	        {XAIEGBL_CORE_TIMCTRL_RST_LSB, XAIEGBL_CORE_TIMCTRL_RST_MASK},
+	        {XAIEGBL_CORE_TIMCTRL_RSTEVT_LSB, XAIEGBL_CORE_TIMCTRL_RSTEVT_MASK},
 	},
 	{
 	        XAIEGBL_PL_TIMCTRL,
 	        XAIEGBL_PL_TIMLOW,
-	        XAIEGBL_PL_TIMHIG
+	        XAIEGBL_PL_TIMHIG,
+	        XAIEGBL_PL_TIMTRIEVTLOWVAL,
+	        XAIEGBL_PL_TIMTRIEVTHIGVAL,
+	        {XAIEGBL_PL_TIMCTRL_RST_LSB, XAIEGBL_PL_TIMCTRL_RST_MASK},
+	        {XAIEGBL_PL_TIMCTRL_RSTEVT_LSB, XAIEGBL_PL_TIMCTRL_RSTEVT_MASK},
 	},
 	{
 	        XAIEGBL_MEM_TIMCTRL,
 	        XAIEGBL_MEM_TIMLOW,
-	        XAIEGBL_MEM_TIMHIG
+	        XAIEGBL_MEM_TIMHIG,
+	        XAIEGBL_MEM_TIMTRIEVTLOWVAL,
+	        XAIEGBL_MEM_TIMTRIEVTHIGVAL,
+	        {XAIEGBL_MEM_TIMCTRL_RST_LSB, XAIEGBL_MEM_TIMCTRL_RST_MASK},
+	        {XAIEGBL_MEM_TIMCTRL_RSTEVT_LSB, XAIEGBL_MEM_TIMCTRL_RSTEVT_MASK},
 	},
 };
 
