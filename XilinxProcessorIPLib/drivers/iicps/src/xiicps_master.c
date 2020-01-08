@@ -63,6 +63,8 @@
 * 3.9   sg 03/09/19  Added arbitration lost support in polled transfer
 * 3.11  rna 12/20/19 Clear the ISR before enabling interrupts in Send/Receive.
 *           12/23/19 Add 10 bit address support for Master/Slave
+*           12/24/19 Disable slave monitor with XIICPS_CR_NEA_MASK for 10 bit
+*                    addresses according to the IP spec.
 * </pre>
 *
 ******************************************************************************/
@@ -661,23 +663,47 @@ void XIicPs_EnableSlaveMonitor(XIicPs *InstancePtr, u16 SlaveAddr)
 void XIicPs_DisableSlaveMonitor(XIicPs *InstancePtr)
 {
 	u32 BaseAddr;
+	u32 ControlReg;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	BaseAddr = InstancePtr->Config.BaseAddress;
 
 	/*
+	 * Read the control register, check the NEA bit.
+	 * If 10 bit address mode is enabled, it has to be
+	 * cleared to make the controller go from slave monitor
+	 * mode into normal mode according to the IP document.
+	 */
+	ControlReg = XIicPs_ReadReg(BaseAddr, XIICPS_CR_OFFSET);
+	if (!(ControlReg & (XIICPS_CR_NEA_MASK))) {
+		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
+				ControlReg | (XIICPS_CR_NEA_MASK));
+	}
+
+	/*
 	 * Clear slave monitor control bit.
 	 */
 	XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
-		XIicPs_ReadReg(BaseAddr, XIICPS_CR_OFFSET)
-			& (~XIICPS_CR_SLVMON_MASK));
+			XIicPs_ReadReg(BaseAddr, XIICPS_CR_OFFSET)
+					& (~XIICPS_CR_SLVMON_MASK));
 
 	/*
 	 * wait for slv monitor control bit to be clear
 	 */
 	while (XIicPs_ReadReg(BaseAddr, XIICPS_CR_OFFSET)
 				& XIICPS_CR_SLVMON_MASK);
+
+	/*
+	 * Write back the previous value of NEA bit in control register,
+	 * in case it is modified above.
+	 */
+	if (!(ControlReg & (XIICPS_CR_NEA_MASK))) {
+		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
+				XIicPs_ReadReg(BaseAddr, XIICPS_CR_OFFSET)
+						& (~XIICPS_CR_NEA_MASK));
+	}
+
 	/*
 	 * Clear interrupt flag for slave monitor interrupt.
 	 */
