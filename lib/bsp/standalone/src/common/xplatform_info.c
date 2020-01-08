@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -48,6 +48,7 @@
 *                     APIs.
 * 7.0	aru 03/15/19  Check for versal before aarch64 and armr5
 *		      in XGetPlatform_Info()
+* 7.2   adk 08/01/20  Added versal support for the XGetPSVersion_Info function.
 * </pre>
 *
 ******************************************************************************/
@@ -137,7 +138,7 @@ u32 XGet_Zynq_UltraMp_Platform_info()
 * @return   The information about PS Silicon version.
 *
 ******************************************************************************/
-#if defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU)
+#if defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU) || defined(versal)
 u32 XGetPSVersion_Info()
 {
 #if EL1_NONSECURE

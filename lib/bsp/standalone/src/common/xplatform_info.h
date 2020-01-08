@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -42,6 +42,7 @@
 * ----- ---- --------- -------------------------------------------------------
 * 6.4    ms   05/23/17 Added PSU_PMU macro to support XGetPSVersion_Info
 *                      function for PMUFW.
+* 7.2    adk  08/01/20 Added versal support for the XGetPSVersion_Info function.
 * </pre>
 *
 ******************************************************************************/
@@ -98,7 +99,7 @@ extern "C" {
 
 u32 XGetPlatform_Info(void);
 
-#if defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU)
+#if defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU) || defined(versal)
 u32 XGetPSVersion_Info();
 #endif
 
