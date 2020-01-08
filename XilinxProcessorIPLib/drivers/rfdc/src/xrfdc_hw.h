@@ -1815,7 +1815,8 @@ extern "C" {
  * @{
  */
 #define XRFDC_ADC_SIG_DETECT_MASK 0xFF /**< signal detector mask */
-#define XRFDC_ADC_SIG_DETECT_THRESH_MASK 0xFF /**< signal detector thresholds mask */
+#define XRFDC_ADC_SIG_DETECT_THRESH_MASK 0xFFFF /**< signal detector thresholds mask */
+#define XRFDC_ADC_SIG_DETECT_THRESH_CNT_MASK 0xFFFF /**< signal detector thresholds counter mask */
 #define XRFDC_ADC_SIG_DETECT_INTG_MASK 0x01 /**< leaky integrator enable mask */
 #define XRFDC_ADC_SIG_DETECT_FLUSH_MASK 0x02 /**< leaky integrator flush mask */
 #define XRFDC_ADC_SIG_DETECT_TCONST_MASK 0x1C /**< time constant mask */

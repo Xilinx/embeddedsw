@@ -256,6 +256,7 @@
 * 7.1   cog    11/14/19 Increased ADC fabric read rate to 12 words per cycle for Gen 3 devices.
 *       cog    11/15/19 Added macros for calibration mode support for Gen 3 devices.
 *       cog    11/28/19 Datapath mode macros have been changed to reflect the new functionality.
+*       cog    01/08/20	Added programmable hysteresis counters for ADC signal detector.
 *
 * </pre>
 *
@@ -377,6 +378,10 @@ typedef struct {
 	u8 EnableIntegrator;
 	u16 HighThreshold;
 	u16 LowThreshold;
+	u16 HighThreshOnTriggerCnt; /* the number of times value must exceed HighThreshold before turning on*/
+	u16 HighThreshOffTriggerCnt; /* the number of times value must be less than HighThreshold before turning off*/
+	u16 LowThreshOnTriggerCnt; /* the number of times value must exceed LowThreshold before turning on*/
+	u16 LowThreshOffTriggerCnt; /* the number of times value must be less than LowThreshold before turning off*/
 	u8 HysteresisEnable;
 } XRFdc_Signal_Detector_Settings;
 /**

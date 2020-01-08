@@ -188,6 +188,7 @@
 *                       datapath mode.
 *       cog    12/19/19 Update FIFO widths for higher interpolation & decimation factors.
 *       cog    12/20/19 Metal log messages are now more descriptive.
+*       cog    01/08/20	Added programmable hysteresis for counters ADC signal detector.
 *
 * </pre>
 *
@@ -4478,10 +4479,18 @@ u32 XRFdc_SetSignalDetector(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc
 		BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Index);
 		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_CTRL_OFFSET, XRFDC_ADC_SIG_DETECT_MASK,
 				SignalDetCtrlReg);
-		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD0_LEVEL_OFFSET,
-				XRFDC_ADC_SIG_DETECT_THRESH_MASK, SettingsPtr->HighThreshold);
-		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD1_LEVEL_OFFSET,
-				XRFDC_ADC_SIG_DETECT_THRESH_MASK, SettingsPtr->LowThreshold);
+		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD0_LEVEL_OFFSET,
+				 SettingsPtr->HighThreshold);
+		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD1_LEVEL_OFFSET,
+				 SettingsPtr->LowThreshold);
+		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD0_CNT_ON_OFFSET,
+				 SettingsPtr->HighThreshOnTriggerCnt);
+		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD0_CNT_OFF_OFFSET,
+				 SettingsPtr->HighThreshOffTriggerCnt);
+		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD1_CNT_ON_OFFSET,
+				 SettingsPtr->LowThreshOnTriggerCnt);
+		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD1_CNT_OFF_OFFSET,
+				 SettingsPtr->LowThreshOffTriggerCnt);
 	}
 
 	Status = XRFDC_SUCCESS;
@@ -4545,10 +4554,18 @@ u32 XRFdc_GetSignalDetector(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc
 
 	SettingsPtr->HysteresisEnable =
 		(SignalDetCtrlReg & XRFDC_ADC_SIG_DETECT_HYST_MASK) >> XRFDC_ADC_SIG_DETECT_HYST_SHIFT;
-	SettingsPtr->HighThreshold = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD0_LEVEL_OFFSET,
-						 XRFDC_ADC_SIG_DETECT_THRESH_MASK);
-	SettingsPtr->LowThreshold = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD1_LEVEL_OFFSET,
-						XRFDC_ADC_SIG_DETECT_THRESH_MASK);
+	SettingsPtr->HighThreshold =
+		XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD0_LEVEL_OFFSET);
+	SettingsPtr->LowThreshold =
+		XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD1_LEVEL_OFFSET);
+	SettingsPtr->HighThreshOnTriggerCnt =
+		XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD0_CNT_ON_OFFSET);
+	SettingsPtr->HighThreshOffTriggerCnt =
+		XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD0_CNT_OFF_OFFSET);
+	SettingsPtr->LowThreshOnTriggerCnt =
+		XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD1_CNT_ON_OFFSET);
+	SettingsPtr->LowThreshOffTriggerCnt =
+		XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_ADC_SIG_DETECT_THRESHOLD1_CNT_OFF_OFFSET);
 	Status = XRFDC_SUCCESS;
 RETURN_PATH:
 	return Status;
