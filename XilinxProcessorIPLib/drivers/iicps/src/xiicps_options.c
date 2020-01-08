@@ -50,7 +50,7 @@
 * 3.0	sk	12/06/14 Implemented Repeated start feature.
 *			01/31/15 Modified the code according to MISRAC 2012 Compliant.
 * 3.3   kvn 05/05/16 Modified latest code for MISRA-C:2012 Compliance.
-*
+* 3.11  rna 12/23/19 Add 10 bit address support for Master/Slave
 * </pre>
 *
 ******************************************************************************/
@@ -148,9 +148,11 @@ s32 XIicPs_SetOptions(XIicPs *InstancePtr, u32 Options)
 			if ((OptionsTable[Index].Option &
 				XIICPS_10_BIT_ADDR_OPTION) != (u32)0x0U) {
 				/* Turn 7-bit off */
+				InstancePtr->Is10BitAddr = 1;
 				ControlReg &= ~OptionsTable[Index].Mask;
 			} else {
 				/* Turn 7-bit on */
+				InstancePtr->Is10BitAddr = 0;
 				ControlReg |= OptionsTable[Index].Mask;
 			}
 		}
@@ -228,12 +230,13 @@ s32 XIicPs_ClearOptions(XIicPs *InstancePtr, u32 Options)
 			 */
 			if ((OptionsTable[Index].Option &
 				XIICPS_10_BIT_ADDR_OPTION) != (u32)0x0U) {
-
 				/* Turn 7-bit on */
+				InstancePtr->Is10BitAddr = 0;
 				ControlReg |= OptionsTable[Index].Mask;
 			} else {
 
 				/* Turn 7-bit off */
+				InstancePtr->Is10BitAddr = 1;
 				ControlReg &= ~OptionsTable[Index].Mask;
 			}
 		}

@@ -62,6 +62,7 @@
 * 3.8   sd 09/06/18  Enable the Timeout interrupt
 * 3.9   sg 03/09/19  Added arbitration lost support in polled transfer
 * 3.11  rna 12/20/19 Clear the ISR before enabling interrupts in Send/Receive.
+*           12/23/19 Add 10 bit address support for Master/Slave
 * </pre>
 *
 ******************************************************************************/
@@ -612,9 +613,18 @@ void XIicPs_EnableSlaveMonitor(XIicPs *InstancePtr, u16 SlaveAddr)
 	 * Enable slave monitor mode in control register.
 	 */
 	ConfigReg = XIicPs_ReadReg(BaseAddr, (u32)XIICPS_CR_OFFSET);
-	ConfigReg |= (u32)XIICPS_CR_MS_MASK | (u32)XIICPS_CR_NEA_MASK |
-			(u32)XIICPS_CR_CLR_FIFO_MASK | (u32)XIICPS_CR_SLVMON_MASK;
+	ConfigReg |= (u32)XIICPS_CR_MS_MASK | (u32)XIICPS_CR_CLR_FIFO_MASK |
+			(u32)XIICPS_CR_SLVMON_MASK;
 	ConfigReg &= (u32)(~XIICPS_CR_RD_WR_MASK);
+
+	/*
+	 * Check if 10 bit address option is set.
+	 */
+	if (InstancePtr->Is10BitAddr == 1) {
+		ConfigReg &= (u32)(~XIICPS_CR_NEA_MASK);
+	} else {
+		ConfigReg |= (u32)(XIICPS_CR_NEA_MASK);
+	}
 
 	XIicPs_WriteReg(BaseAddr, (u32)XIICPS_CR_OFFSET, ConfigReg);
 
@@ -974,10 +984,19 @@ static s32 XIicPs_SetupMaster(XIicPs *InstancePtr, s32 Role)
 	}
 
 	/*
-	 * Set up master, AckEn, nea and also clear fifo.
+	 * Set up master, AckEn, and also clear fifo.
 	 */
 	ControlReg |= (u32)XIICPS_CR_ACKEN_MASK | (u32)XIICPS_CR_CLR_FIFO_MASK |
-			(u32)XIICPS_CR_NEA_MASK | (u32)XIICPS_CR_MS_MASK;
+			(u32)XIICPS_CR_MS_MASK;
+
+	/*
+	 * Check if 10 bit address option is set. Clear/Set NEA accordingly.
+	 */
+	if (InstancePtr->Is10BitAddr == 1) {
+		ControlReg &= (u32)(~XIICPS_CR_NEA_MASK);
+	} else {
+		ControlReg |= (u32)(XIICPS_CR_NEA_MASK);
+	}
 
 	if (Role == RECVING_ROLE) {
 		ControlReg |= (u32)XIICPS_CR_RD_WR_MASK;

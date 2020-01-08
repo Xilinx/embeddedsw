@@ -42,6 +42,7 @@
 * 3.8   ask 08/01/18 Fix for Cppcheck and Doxygen warnings.
 * 3.10 sg   06/24/19 Fix for Slave send polled and interruput transfers.
 * 3.11  rna 12/20/19 Clear the ISR before enabling interrupts in Send/Receive.
+*           12/23/19 Add 10 bit address support for Master/Slave
 * </pre>
 *
 ******************************************************************************/
@@ -93,11 +94,19 @@ void XIicPs_SetupSlave(XIicPs *InstancePtr, u16 SlaveAddr)
 	ControlReg = XIicPs_In32(BaseAddr + XIICPS_CR_OFFSET);
 
 	/*
-	 * Set up master, AckEn, nea and also clear fifo.
+	 * Set up master, AckEn and also clear fifo.
 	 */
 	ControlReg |= (u32)XIICPS_CR_ACKEN_MASK | (u32)XIICPS_CR_CLR_FIFO_MASK;
-	ControlReg |= (u32)XIICPS_CR_NEA_MASK;
 	ControlReg &= (u32)(~XIICPS_CR_MS_MASK);
+
+	/*
+	 * Check if 10 bit address option is set. Clear/Set NEA accordingly.
+	 */
+	if (InstancePtr->Is10BitAddr == 1) {
+		ControlReg &= (u32)(~XIICPS_CR_NEA_MASK);
+	} else {
+		ControlReg |= (u32)(XIICPS_CR_NEA_MASK);
+	}
 
 	XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 			  ControlReg);

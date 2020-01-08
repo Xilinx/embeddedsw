@@ -185,7 +185,7 @@
 * 3.8   ask  08/01/18   Fix for Cppcheck and Doxygen warnings
 * 3.8   sd 09/06/18  Enable the Timeout interrupt
 * 3.9   sg 03/09/19  Added arbitration lost support in polled transfer
-*
+* 3.11  rna  12/23/19 Added 10 bit address support for Master/Slave
 * </pre>
 *
 ******************************************************************************/
@@ -295,6 +295,7 @@ typedef struct {
 	s32 UpdateTxSize;	/* If tx size register has to be updated */
 	s32 IsSend;		/* Whether master is sending or receiving */
 	s32 IsRepeatedStart;	/* Indicates if user set repeated start */
+	s32 Is10BitAddr;	/* Indicates if user set 10 bit address */
 
 	XIicPs_IntrHandler StatusHandler;  /* Event handler function */
 	void *CallBackRef;	/* Callback reference for event handler */
