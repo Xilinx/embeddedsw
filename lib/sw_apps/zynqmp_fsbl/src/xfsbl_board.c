@@ -586,13 +586,17 @@ END:
 static u32 XFsbl_BoardConfig(void)
 {
 	XIicPs I2c0Instance, I2c1Instance;
-	XIicPs_Config *I2c0CfgPtr, *I2c1CfgPtr;
+	XIicPs_Config *I2c0CfgPtr;
 	s32 Status;
 	u32 UStatus;
 #if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106) \
 	|| defined(XPS_BOARD_ZCU216)
 	u8 WriteBuffer[BUF_LEN] = {0U};
+#if defined(XPS_BOARD_ZCU216)
+	XIicPs_Config *I2c1CfgPtr;
 #endif
+#endif
+
 #if defined(XPS_BOARD_ZCU102)
 	u32 ICMCfgLane[NUM_GT_LANES];
 #endif
@@ -628,8 +632,6 @@ static u32 XFsbl_BoardConfig(void)
 		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_INIT\r\n");
 		goto END;
 	}
-#else
-	(void) I2c1CfgPtr;
 #endif
 
 #if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106) || \
