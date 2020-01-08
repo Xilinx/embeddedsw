@@ -88,6 +88,7 @@
 * 7.1   cog    11/15/19 Added offsets & masks for calibration mode support for
 *                       Gen 3 devices.
 *       cog    11/28/19 Added offset & shift for datapath modes.
+*       cog    01/03/19 Change shift and mask for alternate bondout devices.
 *
 *</pre>
 *
@@ -1792,8 +1793,8 @@ extern "C" {
 
 #define XRFDC_EN_MB_MASK 0x00000008U /**< multi-band adder mask */
 #define XRFDC_EN_MB_SHIFT 3U /** <Enable Multiband shift */
-#define XRFDC_ALT_BOND_MASK 0x0100 /** <Alt bondout mask */
-#define XRFDC_ALT_BOND_SHIFT 8U /** <Alt bondout shift */
+#define XRFDC_ALT_BOND_MASK 0x0200 /** <Alt bondout mask */
+#define XRFDC_ALT_BOND_SHIFT 9U /** <Alt bondout shift */
 
 /* @} */
 
