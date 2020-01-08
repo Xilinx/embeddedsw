@@ -53,6 +53,7 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 3.6   rna  01/06/20 Clean up options at end to get Success/Failure strings
 * </pre>
 ******************************************************************************/
 
@@ -323,6 +324,14 @@ int UartNs550IntrExample(INTC *IntcInstancePtr,
 	TotalErrorCount = 0;
 	TotalReceivedCount = 0;
 	TotalSentCount = 0;
+
+	/*
+	 * Clean up the options
+	 */
+	Options = XUartNs550_GetOptions(UartInstancePtr);
+	Options = Options & ~(XUN_OPTION_DATA_INTR | XUN_OPTION_LOOPBACK |
+			XUN_OPTION_FIFOS_ENABLE);
+	XUartNs550_SetOptions(UartInstancePtr, Options);
 
 	return XST_SUCCESS;
 }
