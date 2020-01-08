@@ -19,6 +19,10 @@ Fixed compilation error of armcc compiler.
 gpiops_v3_7:
 Reverted versal support.
 
+iicps_v3_11:
+Added 10-bit address support for I2C Master/Slave, Slave monitor.
+Correct the stale interrupt triggering by clearing the ISR before enabling interrupts.
+
 lwip211_v1_2:
 Add dependencies.props file for examples.
 
