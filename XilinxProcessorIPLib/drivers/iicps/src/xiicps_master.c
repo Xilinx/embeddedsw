@@ -61,6 +61,7 @@
 * 		     before slave address. Fix for CR996440.
 * 3.8   sd 09/06/18  Enable the Timeout interrupt
 * 3.9   sg 03/09/19  Added arbitration lost support in polled transfer
+* 3.11  rna 12/20/19 Clear the ISR before enabling interrupts in Send/Receive.
 * </pre>
 *
 ******************************************************************************/
@@ -137,6 +138,11 @@ void XIicPs_MasterSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 	(void)XIicPs_SetupMaster(InstancePtr, SENDING_ROLE);
 
 	(void)TransmitFifoFill(InstancePtr);
+
+	/*
+	 * Clear the interrupt status register before use it to monitor.
+	 */
+	XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET, XIICPS_IXR_ALL_INTR_MASK);
 
 	XIicPs_EnableInterrupts(BaseAddr,
 		(u32)XIICPS_IXR_NACK_MASK | (u32)XIICPS_IXR_COMP_MASK |
@@ -224,6 +230,11 @@ void XIicPs_MasterRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 		InstancePtr->UpdateTxSize = 0;
 	}
 
+	/*
+	 * Clear the interrupt status register before use it to monitor.
+	 */
+	XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET, XIICPS_IXR_ALL_INTR_MASK);
+
 	XIicPs_EnableInterrupts(BaseAddr,
 		(u32)XIICPS_IXR_NACK_MASK | (u32)XIICPS_IXR_DATA_MASK |
 		(u32)XIICPS_IXR_RX_OVR_MASK | (u32)XIICPS_IXR_COMP_MASK |
@@ -298,8 +309,7 @@ s32 XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	/*
 	 * Clear the interrupt status register before use it to monitor.
 	 */
-	IntrStatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_ISR_OFFSET);
-	XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET, IntrStatusReg);
+	XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET, XIICPS_IXR_ALL_INTR_MASK);
 
 	/*
 	 * Transmit first FIFO full of data.
@@ -437,8 +447,7 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	/*
 	 * Clear the interrupt status register before use it to monitor.
 	 */
-	IntrStatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_ISR_OFFSET);
-	XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET, IntrStatusReg);
+	XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET, XIICPS_IXR_ALL_INTR_MASK);
 
 
 	/*

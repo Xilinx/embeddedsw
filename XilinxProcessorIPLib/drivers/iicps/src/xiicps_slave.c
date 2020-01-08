@@ -41,7 +41,7 @@
 * 3.3   kvn 05/05/16 Modified latest code for MISRA-C:2012 Compliance.
 * 3.8   ask 08/01/18 Fix for Cppcheck and Doxygen warnings.
 * 3.10 sg   06/24/19 Fix for Slave send polled and interruput transfers.
-*
+* 3.11  rna 12/20/19 Clear the ISR before enabling interrupts in Send/Receive.
 * </pre>
 *
 ******************************************************************************/
@@ -142,6 +142,11 @@ void XIicPs_SlaveSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 	InstancePtr->SendByteCount = ByteCount;
 	InstancePtr->RecvBufferPtr = NULL;
 
+	/*
+	 * Clear the interrupt status register.
+	 */
+	XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET, XIICPS_IXR_ALL_INTR_MASK);
+
 	XIicPs_EnableInterrupts(BaseAddr,
 			(u32)XIICPS_IXR_DATA_MASK | (u32)XIICPS_IXR_COMP_MASK |
 			(u32)XIICPS_IXR_TO_MASK | (u32)XIICPS_IXR_NACK_MASK |
@@ -164,6 +169,8 @@ void XIicPs_SlaveSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 ****************************************************************************/
 void XIicPs_SlaveRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 {
+	u32 BaseAddr;
+
 	/*
 	 * Assert validates the input arguments.
 	 */
@@ -172,11 +179,17 @@ void XIicPs_SlaveRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 
 
+	BaseAddr = InstancePtr->Config.BaseAddress;
 	InstancePtr->RecvBufferPtr = MsgPtr;
 	InstancePtr->RecvByteCount = ByteCount;
 	InstancePtr->SendBufferPtr = NULL;
 
-	XIicPs_EnableInterrupts(InstancePtr->Config.BaseAddress,
+	/*
+	 * Clear the interrupt status register.
+	 */
+	XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET, XIICPS_IXR_ALL_INTR_MASK);
+
+	XIicPs_EnableInterrupts(BaseAddr,
 		(u32)XIICPS_IXR_DATA_MASK | (u32)XIICPS_IXR_COMP_MASK |
 		(u32)XIICPS_IXR_NACK_MASK | (u32)XIICPS_IXR_TO_MASK |
 		(u32)XIICPS_IXR_RX_OVR_MASK | (u32)XIICPS_IXR_RX_UNF_MASK);
@@ -251,8 +264,7 @@ s32 XIicPs_SlaveSendPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 		/*
 		 * Clear the interrupt status register.
 		 */
-		IntrStatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_ISR_OFFSET);
-		XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET, IntrStatusReg);
+		XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET, XIICPS_IXR_ALL_INTR_MASK);
 
 		/*
 		 * Send data as long as there is more data to send and
@@ -366,8 +378,7 @@ s32 XIicPs_SlaveRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 	/*
 	 * Clear the interrupt status register.
 	 */
-	IntrStatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_ISR_OFFSET);
-	XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET, IntrStatusReg);
+	XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET, XIICPS_IXR_ALL_INTR_MASK);
 
 	/*
 	 * Clear the status register.
