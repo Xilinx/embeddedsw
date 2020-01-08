@@ -187,6 +187,7 @@
 *       cog    11/28/19 Prevent setting non compliant interpolation rates when in the bypass
 *                       datapath mode.
 *       cog    12/19/19 Update FIFO widths for higher interpolation & decimation factors.
+*       cog    12/20/19 Metal log messages are now more descriptive.
 *
 * </pre>
 *
@@ -725,7 +726,9 @@ static u32 XRFdc_WaitForRestartClr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u3
 		DelayCount = 0U;
 		while (LockStatus != XRFDC_PLL_LOCKED) {
 			if (DelayCount == XRFDC_PLL_LOCK_DLY_CNT) {
-				metal_log(METAL_LOG_ERROR, "\n PLL Lock timeout error in %s\r\n", __func__);
+				metal_log(METAL_LOG_ERROR, "\n %s %u timed out at state %u in %s\r\n",
+					  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id,
+					  XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_CURRENT_STATE_OFFSET), __func__);
 				Status = XRFDC_FAILURE;
 				goto RETURN_PATH;
 			} else {
@@ -745,7 +748,9 @@ static u32 XRFdc_WaitForRestartClr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u3
 	DelayCount = 0U;
 	while (XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_RESTART_OFFSET) != 0U) {
 		if (DelayCount == XRFDC_PLL_LOCK_DLY_CNT) {
-			metal_log(METAL_LOG_ERROR, "\n Failed to clear the restart bit in %s\r\n", __func__);
+			metal_log(METAL_LOG_ERROR, "\n %s %u timed out at state %u in %s\r\n",
+				  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id,
+				  XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_CURRENT_STATE_OFFSET), __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		} else {
@@ -804,10 +809,12 @@ static u32 XRFdc_RestartIPSM(XRFdc *InstancePtr, u32 Type, int Tile_Id, u32 Star
 		BaseAddr = XRFDC_CTRL_STS_BASE(Type, Index);
 		Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Index);
 		if ((Status != XRFDC_SUCCESS) && (Tile_Id != XRFDC_SELECT_ALL_TILES)) {
-			metal_log(METAL_LOG_ERROR, "\n Requested tile%d not available in %s\r\n", Index, __func__);
+			metal_log(METAL_LOG_ERROR, "\n Requested tile (%s %u) not available in %s\r\n",
+				  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Index, __func__);
 			goto RETURN_PATH;
 		} else if (Status != XRFDC_SUCCESS) {
-			metal_log(METAL_LOG_DEBUG, "\n Tile%d not available in %s\r\n", Index, __func__);
+			metal_log(METAL_LOG_DEBUG, "\n %s %u not available in %s\r\n",
+				  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Index, __func__);
 			continue;
 		} else {
 			/* Write Start and End states */
@@ -927,7 +934,8 @@ u32 XRFdc_GetBlockStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n %s %u block %u not available in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -1009,7 +1017,8 @@ static u32 XRFdc_GetADCBlockStatus(XRFdc *InstancePtr, u32 BaseAddr, u32 Tile_Id
 		MixerMode = XRFDC_MIXER_MODE_OFF;
 		break;
 	default:
-		metal_log(METAL_LOG_ERROR, "\n Invalid MixerMode for ADC in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid MixerMode (%u) for ADC %u block %u in %s\r\n", ReadReg, Tile_Id,
+			  Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -1084,7 +1093,8 @@ static u32 XRFdc_GetDACBlockStatus(XRFdc *InstancePtr, u32 BaseAddr, u32 Tile_Id
 		MixerMode = XRFDC_MIXER_MODE_OFF;
 		break;
 	default:
-		metal_log(METAL_LOG_ERROR, "\n Invalid MixerMode for ADC in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid MixerMode (%u) for DAC %u block %u in %s\r\n", ReadReg, Tile_Id,
+			  Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -1147,7 +1157,8 @@ u32 XRFdc_SetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n %s %u block %u not available in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -1181,31 +1192,44 @@ u32 XRFdc_SetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 		BaseAddr = XRFDC_BLOCK_BASE(Type, Tile_Id, Index);
 
 		if ((QMCSettingsPtr->EnableGain != 0U) && (QMCSettingsPtr->EnableGain != 1U)) {
-			metal_log(METAL_LOG_ERROR, "\n Invalid QMC gain option in %s\r\n", __func__);
+			metal_log(METAL_LOG_ERROR, "\n Invalid QMC gain option (%u) for %s %u block %u in %s\r\n",
+				  QMCSettingsPtr->EnableGain, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id,
+				  Block_Id, __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
 		if ((QMCSettingsPtr->EnablePhase != 0U) && (QMCSettingsPtr->EnablePhase != 1U)) {
-			metal_log(METAL_LOG_ERROR, "\n Invalid QMC phase option in %s\r\n", __func__);
+			metal_log(METAL_LOG_ERROR, "\n Invalid QMC phase option (%u) for %s %u block %u in %s\r\n",
+				  QMCSettingsPtr->EnableGain, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id,
+				  Block_Id, __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
 		if ((QMCSettingsPtr->PhaseCorrectionFactor <= XRFDC_MIN_PHASE_CORR_FACTOR) ||
 		    (QMCSettingsPtr->PhaseCorrectionFactor >= XRFDC_MAX_PHASE_CORR_FACTOR)) {
-			metal_log(METAL_LOG_ERROR, "\n Invalid QMC Phase Correction factor in %s\r\n", __func__);
+			metal_log(METAL_LOG_ERROR,
+				  "\n Invalid QMC Phase Correction factor (%d) for %s %u block %u in %s\r\n",
+				  QMCSettingsPtr->PhaseCorrectionFactor, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC",
+				  Tile_Id, Block_Id, __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
 		if ((QMCSettingsPtr->GainCorrectionFactor < XRFDC_MIN_GAIN_CORR_FACTOR) ||
 		    (QMCSettingsPtr->GainCorrectionFactor >= XRFDC_MAX_GAIN_CORR_FACTOR)) {
-			metal_log(METAL_LOG_ERROR, "\n Invalid QMC Gain Correction factor in %s\r\n", __func__);
+			metal_log(METAL_LOG_ERROR,
+				  "\n Invalid QMC Gain Correction factor (%d) for %s %u block %u in %s\r\n",
+				  QMCSettingsPtr->GainCorrectionFactor, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC",
+				  Tile_Id, Block_Id, __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
 
 		if ((QMCSettingsPtr->EventSource > XRFDC_EVNT_SRC_PL) ||
 		    ((QMCSettingsPtr->EventSource == XRFDC_EVNT_SRC_MARKER) && (Type == XRFDC_ADC_TILE))) {
-			metal_log(METAL_LOG_ERROR, "\n Invalid event source selection in %s\r\n", __func__);
+			metal_log(METAL_LOG_ERROR,
+				  "\n Invalid event source selection (%u) for %s %u block %u in %s\r\n",
+				  QMCSettingsPtr->EventSource, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id,
+				  Block_Id, __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
@@ -1213,9 +1237,10 @@ u32 XRFdc_SetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 		if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) && (Type == XRFDC_ADC_TILE) &&
 		    ((QMCSettingsPtr->EventSource == XRFDC_EVNT_SRC_SLICE) ||
 		     (QMCSettingsPtr->EventSource == XRFDC_EVNT_SRC_IMMEDIATE))) {
-			metal_log(METAL_LOG_ERROR,
-				  "\n Invalid Event Source, event source is not supported in 4GSPS ADC %s\r\n",
-				  __func__);
+			metal_log(
+				METAL_LOG_ERROR,
+				"\n Invalid Event Source, event source is not supported in 4GSPS ADC (%u) for ADC %u block %u in %s\r\n",
+				QMCSettingsPtr->EventSource, Tile_Id, Block_Id, __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
@@ -1314,7 +1339,8 @@ u32 XRFdc_GetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n %s %u block %u not available in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -1407,7 +1433,8 @@ u32 XRFdc_SetCoarseDelaySettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 
 	MaxDelay = (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) ? XRFDC_CRSE_DLY_MAX : XRFDC_CRSE_DLY_MAX_EXT;
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n %s %u block %u not available in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -1434,13 +1461,19 @@ u32 XRFdc_SetCoarseDelaySettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 
 		BaseAddr = XRFDC_BLOCK_BASE(Type, Tile_Id, Index);
 
 		if (CoarseDelaySettingsPtr->CoarseDelay > MaxDelay) {
-			metal_log(METAL_LOG_ERROR, "\n Requested coarse delay not valid in %s\r\n", __func__);
+			metal_log(METAL_LOG_ERROR,
+				  "\n Requested coarse delay not valid (%u) for %s %u block %u in %s\r\n",
+				  CoarseDelaySettingsPtr->CoarseDelay, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC",
+				  Tile_Id, Block_Id, __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
 		if ((CoarseDelaySettingsPtr->EventSource > XRFDC_EVNT_SRC_PL) ||
 		    ((CoarseDelaySettingsPtr->EventSource == XRFDC_EVNT_SRC_MARKER) && (Type == XRFDC_ADC_TILE))) {
-			metal_log(METAL_LOG_ERROR, "\n Invalid event source selection in %s\r\n", __func__);
+			metal_log(METAL_LOG_ERROR,
+				  "\n Invalid event source selection (%u) for %s %u block %u in %s\r\n",
+				  CoarseDelaySettingsPtr->EventSource, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC",
+				  Tile_Id, Block_Id, __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
@@ -1448,9 +1481,10 @@ u32 XRFdc_SetCoarseDelaySettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 
 		    ((CoarseDelaySettingsPtr->EventSource == XRFDC_EVNT_SRC_SLICE) ||
 		     (CoarseDelaySettingsPtr->EventSource == XRFDC_EVNT_SRC_IMMEDIATE))) {
 			Status = XRFDC_FAILURE;
-			metal_log(METAL_LOG_ERROR,
-				  "\n Invalid Event Source, event source is not supported in 4GSPS ADC %s\r\n",
-				  __func__);
+			metal_log(
+				METAL_LOG_ERROR,
+				"\n Invalid Event Source, event source is not supported in 4GSPS ADC (%u) for ADC %u block %u in %s\r\n",
+				CoarseDelaySettingsPtr->EventSource, Tile_Id, Block_Id, __func__);
 			goto RETURN_PATH;
 		}
 		if (Type == XRFDC_ADC_TILE) {
@@ -1514,7 +1548,8 @@ u32 XRFdc_GetCoarseDelaySettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n %s %u block %u not available in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -1594,7 +1629,8 @@ u32 XRFdc_UpdateEvent(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u
 	}
 
 	if ((Event != XRFDC_EVENT_MIXER) && (Event != XRFDC_EVENT_QMC) && (Event != XRFDC_EVENT_CRSE_DLY)) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid Event value in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Event value (%u) for %s %u block %u in %s\r\n", Event,
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -1618,16 +1654,18 @@ u32 XRFdc_UpdateEvent(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u
 				XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_QMC_UPDT_OFFSET, XRFDC_QMC_UPDT_MODE_MASK);
 		}
 		if (Status != XRFDC_SUCCESS) {
-			metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+			metal_log(METAL_LOG_ERROR, "\n %s %u block %u not available in %s\r\n",
+				  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 			goto RETURN_PATH;
 		}
 
 		if ((EventSource == XRFDC_EVNT_SRC_SYSREF) || (EventSource == XRFDC_EVNT_SRC_PL) ||
 		    (EventSource == XRFDC_EVNT_SRC_MARKER)) {
 			Status = XRFDC_FAILURE;
-			metal_log(METAL_LOG_ERROR,
-				  "\n Invalid Event Source, this should be issued external to the driver %s\r\n",
-				  __func__);
+			metal_log(
+				METAL_LOG_ERROR,
+				"\n Invalid Event Source (%u), this should be issued external to the driver for %s %u block %u in %s\r\n",
+				Event, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 			goto RETURN_PATH;
 		}
 		if (Type == XRFDC_ADC_TILE) {
@@ -1695,7 +1733,8 @@ u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32
 
 	Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block digital path not enabled in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n ADC %u digital path %u not enabled in %s\r\n", Tile_Id, Block_Id,
+			  __func__);
 		goto RETURN_PATH;
 	}
 
@@ -1708,7 +1747,8 @@ u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32
 	      (DecimationFactor != XRFDC_INTERP_DECIM_12X) && (DecimationFactor != XRFDC_INTERP_DECIM_16X) &&
 	      (DecimationFactor != XRFDC_INTERP_DECIM_20X) && (DecimationFactor != XRFDC_INTERP_DECIM_24X) &&
 	      (DecimationFactor != XRFDC_INTERP_DECIM_40X)))) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid Decimation factor value in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Decimation factor value (%u) for ADC %u block %u in %s\r\n",
+			  DecimationFactor, Tile_Id, Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -1772,7 +1812,8 @@ u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32
 											  XRFDC_FAB_RATE_2;
 				break;
 			default:
-				metal_log(METAL_LOG_DEBUG, "\n Decimation block is OFF in %s\r\n", __func__);
+				metal_log(METAL_LOG_DEBUG, "\n Decimation block is OFF in ADC %u block %u in %s\r\n",
+					  Tile_Id, Block_Id, __func__);
 				break;
 			}
 		} else {
@@ -1838,14 +1879,16 @@ u32 XRFdc_SetFabClkOutDiv(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u16 FabClkD
 
 	Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Tile_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested tile not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested tile (%s %u) not available in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		goto RETURN_PATH;
 	}
 
 	if ((FabClkDiv != XRFDC_FAB_CLK_DIV1) && (FabClkDiv != XRFDC_FAB_CLK_DIV2) &&
 	    (FabClkDiv != XRFDC_FAB_CLK_DIV4) && (FabClkDiv != XRFDC_FAB_CLK_DIV8) &&
 	    (FabClkDiv != XRFDC_FAB_CLK_DIV16)) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid Fabric clock out divider value in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Fabric clock out divider value (%u) for %s %u in %s\r\n",
+			  FabClkDiv, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -1854,7 +1897,8 @@ u32 XRFdc_SetFabClkOutDiv(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u16 FabClkD
 
 	if ((Type == XRFDC_ADC_TILE) && (FabClkDiv == XRFDC_FAB_CLK_DIV1)) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Invalid clock divider in %s \r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid clock divider (%u) for %s %u in %s\r\n", FabClkDiv,
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		goto RETURN_PATH;
 	} else {
 		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_HSCOM_CLK_DIV_OFFSET, XRFDC_FAB_CLK_DIV_MASK, FabClkDiv);
@@ -1894,7 +1938,8 @@ u32 XRFdc_GetFabClkOutDiv(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u16 *FabClk
 
 	Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Tile_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested tile not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested tile (%s %u) not available in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -1945,7 +1990,8 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, 
 
 	Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block digital path not enabled in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n DAC %u digital path %u not enabled in %s\r\n", Tile_Id, Block_Id,
+			  __func__);
 		goto RETURN_PATH;
 	}
 
@@ -1958,7 +2004,9 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, 
 	      (InterpolationFactor != XRFDC_INTERP_DECIM_12X) && (InterpolationFactor != XRFDC_INTERP_DECIM_16X) &&
 	      (InterpolationFactor != XRFDC_INTERP_DECIM_20X) && (InterpolationFactor != XRFDC_INTERP_DECIM_24X) &&
 	      (InterpolationFactor != XRFDC_INTERP_DECIM_40X)))) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid Interpolation factor divider value in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR,
+			  "\n Invalid Interpolation factor divider value (%u) for DAC %u block %u in %s\r\n",
+			  InterpolationFactor, Tile_Id, Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -1969,8 +2017,10 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, 
 		DatapathMode = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_DAC_DATAPATH_OFFSET, XRFDC_DATAPATH_MODE_MASK);
 		if (DatapathMode == XRFDC_DAC_INT_MODE_FULL_BW_BYPASS) {
 			Status = XRFDC_FAILURE;
-			metal_log(METAL_LOG_ERROR, "\n Can't set interpolation mode as DUC is in bypass mode in %s\r\n",
-				  __func__);
+			metal_log(
+				METAL_LOG_ERROR,
+				"\n Can't set interpolation mode as DUC is in bypass mode for DAC %u block %u in %s\r\n",
+				Tile_Id, Block_Id, __func__);
 			goto RETURN_PATH;
 		}
 	}
@@ -1978,7 +2028,10 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, 
 	DataType = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_DAC_ITERP_DATA_OFFSET);
 	if ((DataType == XRFDC_ADC_MIXER_MODE_IQ) && (InterpolationFactor == XRFDC_INTERP_DECIM_1X)) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Invalid interpolation factor in %s\r\n", __func__);
+		metal_log(
+			METAL_LOG_ERROR,
+			"\n Invalid interpolation factor (x1 interpolation factor in IQ mode) for DAC %u block %u in %s\r\n",
+			Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -2027,7 +2080,8 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, 
 			FabricRate = XRFDC_FAB_RATE_2;
 			break;
 		default:
-			metal_log(METAL_LOG_DEBUG, "\n Interpolation block is OFF in %s\r\n", __func__);
+			metal_log(METAL_LOG_DEBUG, "\n Interpolation block is OFF for DAC %u block %u in %s\r\n",
+				  Tile_Id, Block_Id, __func__);
 			break;
 		}
 	} else {
@@ -2054,7 +2108,8 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, 
 			FabricRate = XRFDC_FAB_RATE_1;
 			break;
 		default:
-			metal_log(METAL_LOG_DEBUG, "\n Interpolation block is OFF in %s\r\n", __func__);
+			metal_log(METAL_LOG_DEBUG, "\n Interpolation block is OFF for DAC %u block %u in %s\r\n",
+				  Tile_Id, Block_Id, __func__);
 			break;
 		}
 	}
@@ -2096,7 +2151,8 @@ u32 XRFdc_GetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, 
 
 	Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block digital path not enabled in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n DAC %u digital path %u not enabled in %s\r\n", Tile_Id, Block_Id,
+			  __func__);
 		goto RETURN_PATH;
 	}
 
@@ -2150,7 +2206,8 @@ u32 XRFdc_GetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32
 
 	Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block digital path not enabled in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n ADC %u digital path %u not enabled in %s\r\n", Tile_Id, Block_Id,
+			  __func__);
 		goto RETURN_PATH;
 	}
 
@@ -2208,12 +2265,15 @@ u32 XRFdc_SetFabWrVldWords(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Fa
 
 	Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block digital path not enabled in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n DAC %u digital path %u not enabled in %s\r\n", Tile_Id, Block_Id,
+			  __func__);
 		goto RETURN_PATH;
 	}
 
 	if (FabricWrVldWords > XRFDC_DAC_MAX_WR_FAB_RATE) {
-		metal_log(METAL_LOG_ERROR, "\n Requested write valid words is Invalid in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR,
+			  "\n Requested write valid words is Invalid (%u) for DAC %u block %u in %s\r\n",
+			  FabricWrVldWords, Tile_Id, Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -2259,12 +2319,15 @@ u32 XRFdc_SetFabRdVldWords(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Fa
 
 	Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block digital path not enabled in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n ADC %u digital path %u not enabled in %s\r\n", Tile_Id, Block_Id,
+			  __func__);
 		goto RETURN_PATH;
 	}
 
 	if (FabricRdVldWords > XRFDC_ADC_MAX_RD_FAB_RATE(InstancePtr->RFdc_Config.IPType)) {
-		metal_log(METAL_LOG_ERROR, "\n Requested read valid words is Invalid in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR,
+			  "\n Requested read valid words is Invalid (%u) for ADC %u block %u in %s\r\n",
+			  FabricRdVldWords, Tile_Id, Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -2323,7 +2386,8 @@ u32 XRFdc_GetFabWrVldWords(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 
 	Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block digital path not enabled in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n %s %u digital path %u not enabled in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -2378,7 +2442,8 @@ u32 XRFdc_GetFabRdVldWords(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_
 
 	Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block digital path not enabled in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n %s %u digital path %u not enabled in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -2432,13 +2497,14 @@ u32 XRFdc_ThresholdStickyClear(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u3
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n ADC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
 	if ((ThresholdToUpdate != XRFDC_UPDATE_THRESHOLD_0) && (ThresholdToUpdate != XRFDC_UPDATE_THRESHOLD_1) &&
 	    (ThresholdToUpdate != XRFDC_UPDATE_THRESHOLD_BOTH)) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid ThresholdToUpdate value in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid ThresholdToUpdate value (%u) for ADC %u block %u in %s\r\n",
+			  ThresholdToUpdate, Tile_Id, Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -2526,19 +2592,21 @@ u32 XRFdc_SetThresholdClrMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n ADC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
 	if ((ThresholdToUpdate != XRFDC_UPDATE_THRESHOLD_0) && (ThresholdToUpdate != XRFDC_UPDATE_THRESHOLD_1) &&
 	    (ThresholdToUpdate != XRFDC_UPDATE_THRESHOLD_BOTH)) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid ThresholdToUpdate value in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid ThresholdToUpdate value (%u) for ADC %u block %u in %s\r\n",
+			  ThresholdToUpdate, Tile_Id, Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
 
 	if ((ClrMode != XRFDC_THRESHOLD_CLRMD_MANUAL_CLR) && (ClrMode != XRFDC_THRESHOLD_CLRMD_AUTO_CLR)) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid Clear mode value in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Clear mode value (%u) for ADC %u block %u in %s\r\n", ClrMode,
+			  Tile_Id, Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -2638,7 +2706,7 @@ u32 XRFdc_SetThresholdSettings(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n ADC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -2668,23 +2736,29 @@ u32 XRFdc_SetThresholdSettings(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 		if ((ThresholdSettingsPtr->UpdateThreshold != XRFDC_UPDATE_THRESHOLD_0) &&
 		    (ThresholdSettingsPtr->UpdateThreshold != XRFDC_UPDATE_THRESHOLD_1) &&
 		    (ThresholdSettingsPtr->UpdateThreshold != XRFDC_UPDATE_THRESHOLD_BOTH)) {
-			metal_log(METAL_LOG_ERROR, "\n Invalid UpdateThreshold value in %s\r\n", __func__);
+			metal_log(METAL_LOG_ERROR,
+				  "\n Invalid UpdateThreshold value (%u) for ADC %u block %u in %s\r\n",
+				  ThresholdSettingsPtr->UpdateThreshold, Tile_Id, Block_Id, __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
 		if (((ThresholdSettingsPtr->UpdateThreshold == XRFDC_UPDATE_THRESHOLD_0) ||
 		     (ThresholdSettingsPtr->UpdateThreshold == XRFDC_UPDATE_THRESHOLD_BOTH)) &&
 		    (ThresholdSettingsPtr->ThresholdMode[0] > XRFDC_TRSHD_HYSTERISIS)) {
-			metal_log(METAL_LOG_ERROR, "\n Requested threshold mode for threshold0 is invalid in %s\r\n",
-				  __func__);
+			metal_log(
+				METAL_LOG_ERROR,
+				"\n Requested threshold mode for threshold0 is invalid (%u) for ADC %u block %u in %s\r\n",
+				ThresholdSettingsPtr->ThresholdMode[0], Tile_Id, Block_Id, __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
 		if (((ThresholdSettingsPtr->UpdateThreshold == XRFDC_UPDATE_THRESHOLD_1) ||
 		     (ThresholdSettingsPtr->UpdateThreshold == XRFDC_UPDATE_THRESHOLD_BOTH)) &&
 		    (ThresholdSettingsPtr->ThresholdMode[1] > XRFDC_TRSHD_HYSTERISIS)) {
-			metal_log(METAL_LOG_ERROR, "\n Requested threshold mode for threshold1 is invalid in %s\r\n",
-				  __func__);
+			metal_log(
+				METAL_LOG_ERROR,
+				"\n Requested threshold mode for threshold1 is invalid (%u) for ADC %u block %u in %s\r\n",
+				ThresholdSettingsPtr->ThresholdMode[0], Tile_Id, Block_Id, __func__);
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
 		}
@@ -2777,7 +2851,7 @@ u32 XRFdc_GetThresholdSettings(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id,
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n ADC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -2854,7 +2928,7 @@ u32 XRFdc_SetDecoderMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Deco
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n DAC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -2862,7 +2936,8 @@ u32 XRFdc_SetDecoderMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Deco
 	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
 
 	if ((DecoderMode != XRFDC_DECODER_MAX_SNR_MODE) && (DecoderMode != XRFDC_DECODER_MAX_LINEARITY_MODE)) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid decoder mode in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid decoder mode (%u) for DAC %u block %u in %s\r\n", DecoderMode,
+			  Tile_Id, Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -2905,7 +2980,7 @@ u32 XRFdc_GetDecoderMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *Dec
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n DAC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -2947,7 +3022,8 @@ u32 XRFdc_ResetNCOPhase(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
 
 	Status = XRFdc_CheckDigitalPathEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block digital path not enabled in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n %s %u digital path %u not enabled in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -3001,7 +3077,8 @@ u32 XRFdc_SetupFIFO(XRFdc *InstancePtr, u32 Type, int Tile_Id, u8 Enable)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
 	if ((Enable != 0U) && (Enable != 1U)) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid enable value in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid enable value (%u) for %s %d in %s\r\n", Enable,
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -3020,10 +3097,12 @@ u32 XRFdc_SetupFIFO(XRFdc *InstancePtr, u32 Type, int Tile_Id, u8 Enable)
 
 		Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Index);
 		if ((Status != XRFDC_SUCCESS) && (Tile_Id != XRFDC_SELECT_ALL_TILES)) {
-			metal_log(METAL_LOG_ERROR, "\n Requested tile%d not available in %s\r\n", Index, __func__);
+			metal_log(METAL_LOG_ERROR, "\n %s %u not available in %s\r\n",
+				  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Index, __func__);
 			goto RETURN_PATH;
 		} else if (Status != XRFDC_SUCCESS) {
-			metal_log(METAL_LOG_DEBUG, "\n Tile%d not available in %s\r\n", Index, __func__);
+			metal_log(METAL_LOG_ERROR, "\n %s %u not available in %s\r\n",
+				  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Index, __func__);
 			continue;
 		} else {
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_FIFO_ENABLE, XRFDC_FIFO_EN_MASK, (!Enable));
@@ -3064,7 +3143,8 @@ u32 XRFdc_GetFIFOStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 *EnablePtr
 
 	Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Tile_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested tile not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested tile (%s %u) not available in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -3107,7 +3187,7 @@ u32 XRFdc_GetOutputCurr(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *Outp
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n DAC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -3128,7 +3208,8 @@ u32 XRFdc_GetOutputCurr(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *Outp
 			*OutputCurrPtr = 0x0;
 		} else {
 			Status = XRFDC_FAILURE;
-			metal_log(METAL_LOG_ERROR, "\n Invalid output current value %s\r\n", __func__);
+			metal_log(METAL_LOG_ERROR, "\n Invalid output current value (%u) for DAC %u block %u in %s\r\n",
+				  *OutputCurrPtr, Tile_Id, Block_Id, __func__);
 			goto RETURN_PATH;
 		}
 	} else {
@@ -3173,12 +3254,14 @@ u32 XRFdc_SetNyquistZone(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n %s %u block %u not available in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
 	if ((NyquistZone != XRFDC_ODD_NYQUIST_ZONE) && (NyquistZone != XRFDC_EVEN_NYQUIST_ZONE)) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid NyquistZone value in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid NyquistZone value (%u) for %s %u block %u in %s\r\n",
+			  NyquistZone, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -3282,7 +3365,8 @@ u32 XRFdc_GetNyquistZone(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 		Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	}
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n %s %u block %u not available in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -3367,7 +3451,7 @@ u32 XRFdc_SetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mod
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Tile %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
+		metal_log(METAL_LOG_ERROR, "\n DAC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -3390,7 +3474,8 @@ u32 XRFdc_SetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mod
 		FabricRate = XRFDC_FAB_RATE_16;
 		break;
 	default:
-		metal_log(METAL_LOG_ERROR, "\n Invalid Mode value in (%u)%s\r\n", Mode, __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Mode value in (%u)%s for DAC %u block %u in \r\n", Mode, Tile_Id,
+			  Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -3404,7 +3489,7 @@ u32 XRFdc_SetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mod
 	if ((Mode == XRFDC_DATAPATH_MODE_NODUC_0_FSDIVTWO)) {
 		Status = XRFdc_GetMixerSettings(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, &MixerSettings);
 		if (Status != XRFDC_SUCCESS) {
-			metal_log(METAL_LOG_ERROR, "\n Failed to get mixer settings for DAC tile %u block %u in %s\r\n",
+			metal_log(METAL_LOG_ERROR, "\n Failed to get mixer settings for DAC %u block %u in %s\r\n",
 				  Tile_Id, Block_Id, __func__);
 			goto RETURN_PATH;
 		}
@@ -3415,13 +3500,13 @@ u32 XRFdc_SetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mod
 			MixerSettings.MixerType = XRFDC_MIXER_TYPE_COARSE;
 			metal_log(
 				METAL_LOG_WARNING,
-				"\n Setting mixer mode to remain compatible with datapath mode for DAC tile %u block %u (R2R) in %s\r\n",
+				"\n Setting mixer mode to remain compatible with datapath mode for DAC %u block %u (R2R) in %s\r\n",
 				Tile_Id, Block_Id, __func__);
 
 			Status = XRFdc_SetMixerSettings(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, &MixerSettings);
 			if (Status != XRFDC_SUCCESS) {
 				metal_log(METAL_LOG_ERROR,
-					  "\n Failed to set mixer settings for DAC tile %u block %u in %s\r\n", Tile_Id,
+					  "\n Failed to set mixer settings for DAC %u block %u in %s\r\n", Tile_Id,
 					  Block_Id, __func__);
 				goto RETURN_PATH;
 			}
@@ -3432,7 +3517,7 @@ u32 XRFdc_SetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mod
 		if (GetInterpolationFactor != XRFDC_INTERP_DECIM_1X) {
 			metal_log(
 				METAL_LOG_WARNING,
-				"\n Setting Interpolation settings mode to remain compatible with datapath mode for DAC tile %u block %u (x1 Real) in %s\r\n",
+				"\n Setting Interpolation settings mode to remain compatible with datapath mode for DAC %u block %u (x1 Real) in %s\r\n",
 				Tile_Id, Block_Id, __func__);
 			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_INTERP_CTRL_OFFSET, XRFDC_INTERP_MODE_MASK_EXT,
 					XRFDC_INTERP_DECIM_1X);
@@ -3504,7 +3589,7 @@ u32 XRFdc_GetDataPathMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *Mo
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Tile %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
+		metal_log(METAL_LOG_ERROR, "\n DAC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -3561,12 +3646,13 @@ u32 XRFdc_SetIMRPassMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mode
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n DAC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		return Status;
 	}
 
 	if (Mode > XRFDC_DAC_IMR_MODE_MAX) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid Mode value in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Mode value in (%u) for DAC %u block %u in %s\r\n", Mode, Tile_Id,
+			  Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		return Status;
 	}
@@ -3606,7 +3692,7 @@ u32 XRFdc_GetIMRPassMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *Mod
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n DAC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		return Status;
 	}
 
@@ -3657,7 +3743,7 @@ u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 C
 	}
 
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n ADC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		return XRFDC_FAILURE;
 	}
 
@@ -3674,7 +3760,9 @@ u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 C
 
 	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
 		if ((CalibrationMode != XRFDC_CALIB_MODE1) && (CalibrationMode != XRFDC_CALIB_MODE2)) {
-			metal_log(METAL_LOG_ERROR, "\n Invalid Calibration mode value in %s\r\n", __func__);
+			metal_log(METAL_LOG_ERROR,
+				  "\n Invalid Calibration mode value (%u) for ADC %u block %u in %s\r\n",
+				  CalibrationMode, Tile_Id, Block_Id, __func__);
 			return XRFDC_FAILURE;
 		}
 
@@ -3722,7 +3810,9 @@ u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 C
 	} else {
 		if ((CalibrationMode != XRFDC_CALIB_MODE_ABS_DIFF) &&
 		    (CalibrationMode != XRFDC_CALIB_MODE_NEG_ABS_DIFF) && (CalibrationMode != XRFDC_CALIB_MODE_MIXED)) {
-			metal_log(METAL_LOG_ERROR, "\n Invalid Calibration mode value in %s\r\n", __func__);
+			metal_log(METAL_LOG_ERROR,
+				  "\n Invalid Calibration mode value (%u) for ADC %u block %u in %s\r\n",
+				  CalibrationMode, Tile_Id, Block_Id, __func__);
 			return XRFDC_FAILURE;
 		}
 		for (; Index < NoOfBlocks; Index++) {
@@ -3778,7 +3868,7 @@ u32 XRFdc_GetCalibrationMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u8 *
 	}
 
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n ADC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -3841,13 +3931,15 @@ u32 XRFdc_SetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u16 Mode)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
 	if (Mode > ((InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) ? XRFDC_INV_SYNC_EN_MAX : XRFDC_INV_SYNC_MODE_MAX)) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid mode value in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid mode value (%u) for DAC %u block %u in %s\r\n", Mode, Tile_Id,
+			  Block_Id, __func__);
+		;
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n DAC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -3890,7 +3982,7 @@ u32 XRFdc_GetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u16 *Mode
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n DAC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -4147,7 +4239,7 @@ u32 XRFdc_GetLinkCoupling(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *Mo
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n ADC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -4203,13 +4295,14 @@ u32 XRFdc_SetDither(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mode)
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n ADC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
 	if (Mode > XRFDC_DITH_ENABLE) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Invalid Dither Mode in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Dither Mode (%u) for ADC %u block %u in %s\r\n", Mode, Tile_Id,
+			  Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 	Index = Block_Id;
@@ -4263,7 +4356,7 @@ u32 XRFdc_GetDither(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *ModePtr)
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n ADC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -4324,32 +4417,40 @@ u32 XRFdc_SetSignalDetector(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n ADC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 	if (SettingsPtr->Mode > XRFDC_SIGDET_MODE_RNDM) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Invalid Signal Detector Mode in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Signal Detector Mode (%u) for ADC %u block %u in %s\r\n",
+			  SettingsPtr->Mode, Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 	if (SettingsPtr->EnableIntegrator > XRFDC_ENABLED) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Invalid Signal Detector Integrator Enable in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR,
+			  "\n Invalid Signal Detector Integrator Enable (%u) for ADC %u block %u in %s\r\n",
+			  SettingsPtr->EnableIntegrator, Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 	if (SettingsPtr->HysteresisEnable > XRFDC_ENABLED) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Invalid Signal Detector Hysteresis Enable in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR,
+			  "\n Invalid Signal Detector Hysteresis Enable (%u) for ADC %u block %u in %s\r\n",
+			  SettingsPtr->HysteresisEnable, Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 	if (SettingsPtr->Flush > XRFDC_ENABLED) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Invalid Signal Detector Flush Option in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid Signal Detector Flush Option (%u) for ADC %u block %u in %s\r\n",
+			  SettingsPtr->Flush, Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 	if (SettingsPtr->TimeConstant > XRFDC_SIGDET_TC_2_18) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Invalid Signal Detector Time Constant in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR,
+			  "\n Invalid Signal Detector Time Constant (%u) for ADC %u block %u in %s\r\n",
+			  SettingsPtr->TimeConstant, Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 	SignalDetCtrlReg |= SettingsPtr->EnableIntegrator << XRFDC_ADC_SIG_DETECT_INTG_SHIFT;
@@ -4423,7 +4524,7 @@ u32 XRFdc_GetSignalDetector(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n ADC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -4482,7 +4583,7 @@ u32 XRFdc_DisableCoefficientsOverride(XRFdc *InstancePtr, u32 Tile_Id, u32 Block
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n ADC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -4571,7 +4672,8 @@ u32 XRFdc_DisableCoefficientsOverride(XRFdc *InstancePtr, u32 Tile_Id, u32 Block
 			break;
 		default:
 			Status = XRFDC_FAILURE;
-			metal_log(METAL_LOG_ERROR, "\n Invalid Calibration Mode in %s\r\n", __func__);
+			metal_log(METAL_LOG_ERROR, "\n Invalid Calibration Mode (%u) for ADC %u block %u in %s\r\n",
+				  CalibrationBlock, Tile_Id, Block_Id, __func__);
 			goto RETURN_PATH;
 		}
 	}
@@ -4623,7 +4725,10 @@ u32 XRFdc_SetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 		if ((CoeffPtr->Coeff0 | CoeffPtr->Coeff1 | CoeffPtr->Coeff2 | CoeffPtr->Coeff3) &
 		    ~(XRFDC_CAL_GCB_MASK | (XRFDC_CAL_GCB_MASK << XRFDC_CAL_SLICE_SHIFT))) {
 			Status = XRFDC_FAILURE;
-			metal_log(METAL_LOG_ERROR, "\n Bad Coefficient available for this IP in %s\r\n", __func__);
+			metal_log(METAL_LOG_ERROR,
+				  "\n Bad GCB Coefficient(s) {%u %u %u %u} for ADC %u block %u in %s\r\n",
+				  CoeffPtr->Coeff0, CoeffPtr->Coeff1, CoeffPtr->Coeff2, CoeffPtr->Coeff3, Tile_Id,
+				  Block_Id, __func__);
 			goto RETURN_PATH;
 		}
 	}
@@ -4633,13 +4738,17 @@ u32 XRFdc_SetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 		     CoeffPtr->Coeff5 | CoeffPtr->Coeff6 | CoeffPtr->Coeff7) &
 		    ~(XRFDC_CAL_TSCB_MASK | (XRFDC_CAL_TSCB_MASK << XRFDC_CAL_SLICE_SHIFT))) {
 			Status = XRFDC_FAILURE;
-			metal_log(METAL_LOG_ERROR, "\n Bad Coefficient available for this IP in %s\r\n", __func__);
+			metal_log(METAL_LOG_ERROR,
+				  "\n Bad TSCB Coefficient(s) {%u %u %u %u %u %u %u %u} for ADC %u block %u in %s\r\n",
+				  CoeffPtr->Coeff0, CoeffPtr->Coeff1, CoeffPtr->Coeff2, CoeffPtr->Coeff3,
+				  CoeffPtr->Coeff4, CoeffPtr->Coeff5, CoeffPtr->Coeff6, CoeffPtr->Coeff7, Tile_Id,
+				  Block_Id, __func__);
 			goto RETURN_PATH;
 		}
 	}
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n ADC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -4786,7 +4895,8 @@ u32 XRFdc_SetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 			break;
 		default:
 			Status = XRFDC_FAILURE;
-			metal_log(METAL_LOG_ERROR, "\n Invalid Calibration Mode in %s\r\n", __func__);
+			metal_log(METAL_LOG_ERROR, "\n Invalid calibration block (%u) for ADC %u block %u in %s\r\n",
+				  CalibrationBlock, Tile_Id, Block_Id, __func__);
 			goto RETURN_PATH;
 		}
 	}
@@ -4830,7 +4940,7 @@ u32 XRFdc_GetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n ADC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -4990,7 +5100,8 @@ u32 XRFdc_GetCalCoefficients(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 
 			break;
 		default:
 			Status = XRFDC_FAILURE;
-			metal_log(METAL_LOG_ERROR, "\n Invalid Calibration Mode in %s\r\n", __func__);
+			metal_log(METAL_LOG_ERROR, "\n Invalid calibration block (%u) for ADC %u block %u in %s\r\n",
+				  CalibrationBlock, Tile_Id, Block_Id, __func__);
 			goto RETURN_PATH;
 		}
 	}
@@ -5029,19 +5140,21 @@ u32 XRFdc_SetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Cal_
 
 	if (CalFreezePtr->FreezeCalibration > XRFDC_CAL_FREEZE_CALIB) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Invalid FreezeCalibration option in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid FreezeCalibration option (%u) for ADC %u block %u in %s\r\n",
+			  CalFreezePtr->FreezeCalibration, Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
 	if (CalFreezePtr->DisableFreezePin > XRFDC_CAL_FRZ_PIN_DISABLE) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Invalid DisableFreezePin option in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid DisableFreezePin option (%u) for ADC %u block %u in %s\r\n",
+			  CalFreezePtr->DisableFreezePin, Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n ADC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -5097,7 +5210,7 @@ u32 XRFdc_GetCalFreeze(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_Cal_
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n ADC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -5165,7 +5278,7 @@ u32 XRFdc_SetDACVOP(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurrent
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n DAC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -5174,23 +5287,28 @@ u32 XRFdc_SetDACVOP(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurrent
 	if ((EFuse & XRFDC_EXPORTCTRL_VOP) == XRFDC_EXPORTCTRL_VOP) {
 		if ((uACurrent != XRFDC_GEN1_LOW_I) && (uACurrent != XRFDC_GEN1_HIGH_I)) {
 			Status = XRFDC_FAILURE;
-			metal_log(METAL_LOG_ERROR, "\n API not available - Licensing in %s\r\n", __func__);
+			metal_log(METAL_LOG_ERROR, "\n API not available - Licensing - for DAC %u block %u in %s\r\n",
+				  Tile_Id, Block_Id, __func__);
 			goto RETURN_PATH;
 		}
 	}
 	if (uACurrent > XRFDC_MAX_I_UA) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid current selection (too high) in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid current selection (too high - %u) for DAC %u block %u in %s\r\n",
+			  uACurrent, Tile_Id, Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
 	if (uACurrent < XRFDC_MIN_I_UA) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid current selection (too low) in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid current selection (too low - %u) for DAC %u block %u in %s\r\n",
+			  uACurrent, Tile_Id, Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
 	if (uACurrent % XRFDC_STEP_I_UA) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid current selection (please use a multiple of 25 uA) in %s\r\n",
-			  __func__);
+		metal_log(
+			METAL_LOG_ERROR,
+			"\n Invalid current selection (%u - please use a multiple of 25 uA)  for DAC %u block %u in %s\r\n",
+			uACurrent, Tile_Id, Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -5198,7 +5316,8 @@ u32 XRFdc_SetDACVOP(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurrent
 	Gen1CompatibilityMode =
 		XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_DAC_MC_CFG2_OFFSET, XRFDC_DAC_MC_CFG2_GEN1_COMP_MASK);
 	if (Gen1CompatibilityMode == XRFDC_DAC_MC_CFG2_GEN1_COMP_MASK) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid compatibility mode is set in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid compatibility mode is set for DAC %u block %u in %s\r\n",
+			  Tile_Id, Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -5280,7 +5399,7 @@ u32 XRFdc_GetDACCompMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *Ena
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n DAC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -5327,13 +5446,14 @@ u32 XRFdc_SetDACCompMode(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Enab
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n DAC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
 	if (Enable > XRFDC_ENABLED) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Bad enable parameter (%u) in %s\r\n", Enable, __func__);
+		metal_log(METAL_LOG_ERROR, "\n Bad enable parameter (%u) for DAC %u block %u in %s\r\n", Enable,
+			  Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -5384,7 +5504,7 @@ u32 XRFdc_SetDSA(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_DSA_Settin
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n ADC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -5392,16 +5512,19 @@ u32 XRFdc_SetDSA(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_DSA_Settin
 				XRFDC_HSCOM_EFUSE_2_OFFSET);
 	if ((EFuse & XRFDC_EXPORTCTRL_DSA) == XRFDC_EXPORTCTRL_DSA) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n API not available - Licensing in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n API not available - Licensing - for ADC %u block %u in %s\r\n", Tile_Id,
+			  Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 	if (SettingsPtr->Attenuation > XRFDC_MAX_ATTEN) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid current selection (too high) in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid attenuation selection (too high - %f) in %s\r\n",
+			  SettingsPtr->Attenuation, Tile_Id, Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
 	if (SettingsPtr->Attenuation < XRFDC_MIN_ATTEN) {
-		metal_log(METAL_LOG_ERROR, "\n Invalid current selection (too low) in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid current selection (too low - %f) in %s\r\n",
+			  SettingsPtr->Attenuation, Tile_Id, Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -5471,7 +5594,7 @@ u32 XRFdc_GetDSA(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_DSA_Settin
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n ADC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -5479,7 +5602,8 @@ u32 XRFdc_GetDSA(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, XRFdc_DSA_Settin
 				XRFDC_HSCOM_EFUSE_2_OFFSET);
 	if ((EFuse & XRFDC_EXPORTCTRL_DSA) == XRFDC_EXPORTCTRL_DSA) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n API not available - Licensing in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n API not available - Licensing - for ADC %u block %u in %s\r\n", Tile_Id,
+			  Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 

@@ -53,6 +53,7 @@
 * 6.0   cog    02/17/19 Added XRFdc_GetMTSEnable API.
 * 7.0   cog    05/13/19 Formatting changes.
 *       cog    08/02/19 Formatting changes.
+* 7.1   cog    12/20/19 Metal log messages are now more descriptive.
 *
 * </pre>
 *
@@ -927,9 +928,10 @@ static u32 XRFdc_MTS_Latency(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter_
 			/* check for excessive delay correction values */
 			if (Offset > (int)XRFDC_MTS_DELAY_MAX) {
 				Offset = (int)XRFDC_MTS_DELAY_MAX;
-				metal_log(METAL_LOG_ERROR,
-					  "Alignment correction delay %d required exceeds maximum for %s Tile %d\n",
-					  Offset, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", XRFDC_MTS_DELAY_MAX, Index);
+				metal_log(
+					METAL_LOG_ERROR,
+					"Alignment correction delay %d required exceeds maximum (%u) for %s Tile %d\n",
+					Offset, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", XRFDC_MTS_DELAY_MAX, Index);
 				Status |= XRFDC_MTS_DELAY_OVER;
 			}
 
@@ -1196,7 +1198,8 @@ u32 XRFdc_GetMTSEnable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 *EnablePtr
 
 	Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Tile_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested Tile not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n Requested Tile (%s %u) not available in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 		goto RETURN_PATH;
 	}
 

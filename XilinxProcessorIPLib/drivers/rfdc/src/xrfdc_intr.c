@@ -60,7 +60,8 @@
 *       cog    05/13/19 Added handling for common power up interrupt.
 *       cog    07/29/19 Added XRFdc_GetEnabledInterrupts() API.
 *       cog    08/02/19 Formatting changes.
-* 7.1   aad    12/01/19 Fixed static analysis errors
+* 7.1   aad    12/01/19 Fixed static analysis errors.
+*              12/20/19 Metal log messages are now more descriptive.
 *
 * </pre>
 *
@@ -115,7 +116,8 @@ u32 XRFdc_IntrEnable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u3
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n %s %u block %u not available in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -248,7 +250,8 @@ u32 XRFdc_IntrDisable(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n %s %u block %u not available in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -367,7 +370,8 @@ u32 XRFdc_GetEnabledInterrupts(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Bl
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n %s %u block %u not available in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -375,7 +379,8 @@ u32 XRFdc_GetEnabledInterrupts(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Bl
 	ReadReg = XRFdc_ReadReg16(InstancePtr, XRFDC_IP_BASE, XRFDC_COMMON_INTR_ENABLE);
 	TileIdMask = XRFDC_ENABLED << XRFDC_TILE_GLBL_ADDR(Type, Tile_Id);
 	if ((ReadReg & TileIdMask) == XRFDC_DISABLED) {
-		metal_log(METAL_LOG_DEBUG, "\n Tile interrupt bit not set in %s\r\n", __func__);
+		metal_log(METAL_LOG_DEBUG, "\n Tile interrupt bit not set for %s %u in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 		Status = XRFDC_SUCCESS;
 		goto RETURN_PATH;
 	}
@@ -494,7 +499,8 @@ u32 XRFdc_GetIntrStatus(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id,
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n %s %u block %u not available in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
@@ -582,7 +588,8 @@ u32 XRFdc_IntrClr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 I
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
-		metal_log(METAL_LOG_ERROR, "\n Requested block not available in %s\r\n", __func__);
+		metal_log(METAL_LOG_ERROR, "\n %s %u block %u not available in %s\r\n",
+			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
 	}
 
