@@ -58,6 +58,8 @@
 *                       the clock distribution to XRFdc_DynamicPLLConfig() API.
 *       cog    10/02/19 Refactor of XRFdc_GetClkDistribution() API.
 * 7.1   cog    12/20/19 Metal log messages are now more descriptive.
+*       cog    01/08/20 Changed clocking checks to allow ADC distribution to all
+*                       ADC tiles.
 * </pre>
 *
 ******************************************************************************/
@@ -365,15 +367,13 @@ static u32 XRFdc_CheckClkDistValid(XRFdc *InstancePtr, XRFdc_Distribution_Settin
 							XRFDC_HSCOM_ADDR,
 						XRFDC_HSCOM_EFUSE_2_OFFSET);
 		}
-		/*if PKG <2*/
-
 		if ((DistributionSettingsPtr->DAC[0].SourceTile != DistributionSettingsPtr->DAC[1].SourceTile) ||
 		    (DistributionSettingsPtr->DAC[0].SourceTile != DistributionSettingsPtr->DAC[2].SourceTile) ||
 		    (DistributionSettingsPtr->DAC[0].SourceTile != DistributionSettingsPtr->DAC[3].SourceTile) ||
-		    (DistributionSettingsPtr->DAC[0].SourceTile != DistributionSettingsPtr->ADC[0].SourceTile) ||
-		    (DistributionSettingsPtr->DAC[0].SourceTile != DistributionSettingsPtr->ADC[1].SourceTile) ||
-		    (DistributionSettingsPtr->DAC[0].SourceTile != DistributionSettingsPtr->ADC[2].SourceTile) ||
 		    (DistributionSettingsPtr->DAC[0].SourceTile != DistributionSettingsPtr->ADC[3].SourceTile) ||
+		    (DistributionSettingsPtr->DAC[0].SourceTile != DistributionSettingsPtr->ADC[2].SourceTile) ||
+		    (DistributionSettingsPtr->DAC[0].SourceTile != DistributionSettingsPtr->ADC[1].SourceTile) ||
+		    (DistributionSettingsPtr->DAC[0].SourceTile != DistributionSettingsPtr->ADC[0].SourceTile) ||
 		    (DistributionSettingsPtr->DAC[0].PLLEnable != XRFDC_ENABLED) ||
 		    (DistributionSettingsPtr->DAC[1].PLLEnable != XRFDC_ENABLED) ||
 		    (DistributionSettingsPtr->DAC[2].PLLEnable != XRFDC_ENABLED) ||
@@ -381,36 +381,13 @@ static u32 XRFdc_CheckClkDistValid(XRFdc *InstancePtr, XRFdc_Distribution_Settin
 		    (DistributionSettingsPtr->ADC[0].PLLEnable != XRFDC_ENABLED) ||
 		    (DistributionSettingsPtr->ADC[1].PLLEnable != XRFDC_ENABLED) ||
 		    (DistributionSettingsPtr->ADC[2].PLLEnable != XRFDC_ENABLED) ||
-		    (DistributionSettingsPtr->ADC[3].PLLEnable != XRFDC_ENABLED) ||
-		    1) { /*special case that is allowed.*/
+		    (DistributionSettingsPtr->ADC[3].PLLEnable != XRFDC_ENABLED)) { /*special case that is allowed.*/
 
-			/*if PKG <2*/
 			if (EFuse & XRFDC_PREMIUMCTRL_CLKDIST) {
 				if ((CurrentTile > XRFDC_CLK_DST_TILE_226) &&
-				    (*Source != CurrentTile)) { /*E: no dist past adc1*/
+				    (*Source < XRFDC_CLK_DST_TILE_227)) { /*E: no dist past adc2*/
 					Status = XRFDC_FAILURE;
 					metal_log(METAL_LOG_ERROR, "\n Invalid Configuration in %s\r\n", __func__);
-					goto RETURN_PATH;
-				}
-			}
-			/*if PKG <1*/
-			if ((EFuse & XRFDC_EXPORTCTRL_CLKDIST) == XRFDC_EXPORTCTRL_CLKDIST) {
-				if ((CurrentTile > XRFDC_CLK_DST_TILE_228) &&
-				    (*Source != CurrentTile)) { /*E: No ADC Dist*/
-					Status = XRFDC_FAILURE;
-					metal_log(METAL_LOG_ERROR, "\n Export Control in %s\r\n", __func__);
-					goto RETURN_PATH;
-				}
-				if ((CurrentTile == XRFDC_CLK_DST_TILE_228) &&
-				    (*Source != XRFDC_CLK_DST_TILE_229)) { /*E: DAC0 must source from DAC1*/
-					Status = XRFDC_FAILURE;
-					metal_log(METAL_LOG_ERROR, "\n Export Control %s\r\n", __func__);
-					goto RETURN_PATH;
-				}
-				if ((CurrentTile == XRFDC_CLK_DST_TILE_230) &&
-				    (*Source != XRFDC_CLK_DST_TILE_231)) { /*E: DAC2 must source from DAC3*/
-					Status = XRFDC_FAILURE;
-					metal_log(METAL_LOG_ERROR, "\n Export Control %s\r\n", __func__);
 					goto RETURN_PATH;
 				}
 			}
