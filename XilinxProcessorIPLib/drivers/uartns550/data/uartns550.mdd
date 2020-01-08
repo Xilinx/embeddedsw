@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2004 - 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2004 - 2020 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -53,7 +53,7 @@ BEGIN driver uartns550
   OPTION supported_peripherals = (axi_uart16550);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 3.5;
+  OPTION VERSION = 3.6;
   OPTION NAME = uartns550;
 
   PARAM name = CLOCK_HZ, state = DEPRECATED, desc = "Clock Frequency in Hz. This parameter is deprecated. The driver uses the bus frequency from mhs", type = int, default = 66000000;
