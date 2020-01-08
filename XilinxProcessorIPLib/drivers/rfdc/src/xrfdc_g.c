@@ -28,7 +28,7 @@
 /**
 *
 * @file xrfdc_g.c
-* @addtogroup rfdc_v7_0
+* @addtogroup rfdc_v7_1
 * @{
 *
 * This file contains a configuration table that specifies the configuration of

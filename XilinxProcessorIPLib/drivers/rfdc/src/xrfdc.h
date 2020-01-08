@@ -27,7 +27,7 @@
 /**
 *
 * @file xrfdc.h
-* @addtogroup rfdc_v7_0
+* @addtogroup rfdc_v7_1
 * @{
 * @details
 *

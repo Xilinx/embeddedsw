@@ -27,7 +27,7 @@
 /**
 *
 * @file xrfdc_sinit.c
-* @addtogroup rfdc_v7_0
+* @addtogroup rfdc_v7_1
 * @{
 *
 * The implementation of the XRFdc component's static initialization

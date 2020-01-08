@@ -27,7 +27,7 @@
 /**
 *
 * @file xrfdc_mts.c
-* @addtogroup xrfdc_v7_0
+* @addtogroup rfdc_v7_1
 * @{
 *
 * Contains the multi tile sync related structures, Macros of the XRFdc driver.
