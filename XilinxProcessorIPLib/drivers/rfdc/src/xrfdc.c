@@ -186,6 +186,7 @@
 *       cog    11/28/19 Set defalult compatibility setting when moving to Bypass Mode (Mode 4).
 *       cog    11/28/19 Prevent setting non compliant interpolation rates when in the bypass
 *                       datapath mode.
+*       cog    12/19/19 Update FIFO widths for higher interpolation & decimation factors.
 *
 * </pre>
 *
@@ -1760,17 +1761,15 @@ u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32
 			case XRFDC_INTERP_DECIM_6X:
 				FabricRate = XRFDC_FAB_RATE_2;
 				break;
+			case XRFDC_INTERP_DECIM_8X:
 			case XRFDC_INTERP_DECIM_10X:
 			case XRFDC_INTERP_DECIM_12X:
-			case XRFDC_INTERP_DECIM_8X:
-				FabricRate = XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) ? XRFDC_FAB_RATE_1 :
-											  XRFDC_FAB_RATE_2;
-				break;
 			case XRFDC_INTERP_DECIM_16X:
 			case XRFDC_INTERP_DECIM_20X:
 			case XRFDC_INTERP_DECIM_24X:
 			case XRFDC_INTERP_DECIM_40X:
-				FabricRate = XRFDC_FAB_RATE_1;
+				FabricRate = XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) ? XRFDC_FAB_RATE_1 :
+											  XRFDC_FAB_RATE_2;
 				break;
 			default:
 				metal_log(METAL_LOG_DEBUG, "\n Decimation block is OFF in %s\r\n", __func__);
@@ -2021,13 +2020,11 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, 
 		case XRFDC_INTERP_DECIM_8X:
 		case XRFDC_INTERP_DECIM_10X:
 		case XRFDC_INTERP_DECIM_12X:
-			FabricRate = XRFDC_FAB_RATE_2;
-			break;
 		case XRFDC_INTERP_DECIM_16X:
 		case XRFDC_INTERP_DECIM_20X:
 		case XRFDC_INTERP_DECIM_24X:
 		case XRFDC_INTERP_DECIM_40X:
-			FabricRate = XRFDC_FAB_RATE_1;
+			FabricRate = XRFDC_FAB_RATE_2;
 			break;
 		default:
 			metal_log(METAL_LOG_DEBUG, "\n Interpolation block is OFF in %s\r\n", __func__);
