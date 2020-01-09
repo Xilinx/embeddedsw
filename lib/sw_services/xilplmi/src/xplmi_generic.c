@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -836,11 +836,23 @@ int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd)
 	DestAddr = ((u64 )Cmd->ResumeData[1U] |
 			(DestAddr<<32U));
 	BaseAddr = DestAddr;
-	DestAddr = ((Cmd->ProcessedLen-Cmd->ResumeData[3U]-DestOffset)*4U)%Keyholesize + BaseAddr;
-	/** Set DMA flags to DMA0 and FIXED */
-	Flags = XPLMI_PMCDMA_0;
-	if(Cmd->ProcessedLen != 0U)
+
+	if(Cmd->KeyHoleParams.PdiSrc != 0xFFU)
 	{
+		/** This is for direct DMA to CFI from PdiSrc bypassing PMCRAM */
+		Status = XPlmi_CfiWrite(SrcAddr, DestAddr, Keyholesize, Len, Cmd);
+		if(Status != XST_SUCCESS)
+		{
+			goto END;
+		}
+	}
+	else
+	{
+		DestAddr = ((Cmd->ProcessedLen-Cmd->ResumeData[3U]-DestOffset)*4U)%Keyholesize + BaseAddr;
+		/** Set DMA flags to DMA0 and FIXED */
+		Flags = XPLMI_PMCDMA_0;
+		if(Cmd->ProcessedLen != 0U)
+		{
 			Count = Cmd->ResumeData[3U];
 			if (Count > 0U) {
 				while ((Count > 0U) && (Count < 4U)) {
@@ -884,9 +896,10 @@ int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd)
 	 */
 	if ((Cmd->ProcessedLen + (ChunkLen-(Len % 4U)) + (Cmd->PayloadLen - Len)) ==
 			(Cmd->Len - (Len % 4U))) {
-		if (Count > 0) {
-			XPlmi_Printf(DEBUG_DETAILED, "Last remaining bytes\r\n");
-			Status = XPlmi_DmaXfr((u32)&Cmd->ResumeData[4U], DestAddr, Count, Flags);
+			if (Count > 0) {
+				XPlmi_Printf(DEBUG_DETAILED, "Last remaining bytes\r\n");
+				Status = XPlmi_DmaXfr((u32)&Cmd->ResumeData[4U], DestAddr, Count, Flags);
+			}
 		}
 	}
 
@@ -946,4 +959,133 @@ void XPlmi_GenericInit(void)
 	XPlmi_Generic.CmdCnt = sizeof XPlmi_GenericCmds / sizeof *XPlmi_GenericCmds;
 
 	XPlmi_ModuleRegister(&XPlmi_Generic);
+}
+
+/*****************************************************************************/
+/**
+ * @brief This function provides DMA transfer to CFI bypassing PMCRAM
+ *
+ * Command payload parameters are
+ * @param Source Address
+ * @param Destination Address
+ * @param Keyhole size
+ * @param Number of words already transferred
+ * @param Pointer to the command structure
+ *
+ * @return Returns the Status of DMA
+ *****************************************************************************/
+int XPlmi_CfiWrite(u32 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
+														XPlmi_Cmd* Cmd)
+{
+	int Status = XST_FAILURE;
+	u32 Flags = XPLMI_PMCDMA_0 | XPLMI_DST_CH_AXI_FIXED;
+	u64 BaseAddr;
+
+	Status = XPlmi_DmaXfr(SrcAddr, DestAddr, Len, Flags);
+	if(Status != XST_SUCCESS)
+	{
+		XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
+		goto END;
+	}
+
+	BaseAddr = DestAddr;
+	DestAddr = (Len<<2U)%Keyholesize + BaseAddr;
+	SrcAddr = Cmd->KeyHoleParams.SrcAddr;
+
+	if(Cmd->KeyHoleParams.Func != NULL)
+	{
+		/** The block is for qspi, ospi, sbi and smap boot modes */
+		if(Cmd->KeyHoleParams.InChunkCopy == FALSE)
+		{
+			 /** The block is for sbi and smap boot modes which
+			 * support fixed modes
+			 */
+			Status = (int) Cmd->KeyHoleParams.Func(SrcAddr, DestAddr,
+				(Cmd->Len - Cmd->PayloadLen)<<2U, XPLMI_DST_CH_AXI_FIXED);
+			if(Status != XST_SUCCESS)
+			{
+				XPlmi_Printf(DEBUG_GENERAL,
+				"DMA WRITE Key Hole Failed\n\r");
+				goto END;
+			}
+			Cmd->ProcessedLen = Cmd->Len;
+		}
+		else
+		{
+			/** Qspi and Ospi donot support fixed modes.
+			 * Hence the bitstream is copied in chunks of keyhole size.
+			 */
+			if(Cmd->Len - Cmd->PayloadLen > ((Keyholesize -
+						((Len<<2U)%Keyholesize))%Keyholesize)>>2U)
+			{
+				Status = (int) Cmd->KeyHoleParams.Func(SrcAddr, DestAddr, (Keyholesize -
+						((Len<<2U)%Keyholesize))%Keyholesize, 0U);
+				if(Status != XST_SUCCESS)
+				{
+					XPlmi_Printf(DEBUG_GENERAL,
+							"DMA WRITE Key Hole Failed\n\r");
+					goto END;
+				}
+
+				SrcAddr += ((Keyholesize -
+							((Len<<2U)%Keyholesize))%Keyholesize);
+				Len +=  (((Keyholesize -
+							((Len<<2U)%Keyholesize))%Keyholesize)>>2U);
+				Cmd->ProcessedLen = Len + 3U;
+				DestAddr = BaseAddr;
+
+				while(Cmd->ProcessedLen < Cmd->Len)
+				{
+					if(Cmd->Len - Cmd->ProcessedLen > (Keyholesize>>2U))
+					{
+						Status = (int) Cmd->KeyHoleParams.Func(SrcAddr, DestAddr,
+												Keyholesize, 0U);
+						Cmd->ProcessedLen += (Keyholesize>>2U);
+						SrcAddr += Keyholesize;
+					}
+					else
+					{
+						Status = (int) Cmd->KeyHoleParams.Func(SrcAddr,
+							DestAddr, (Cmd->Len - Cmd->ProcessedLen)<<2U, 0U);
+						Cmd->ProcessedLen = Cmd->Len;
+					}
+					if(Status != XST_SUCCESS)
+					{
+						XPlmi_Printf(DEBUG_GENERAL,
+						"DMA WRITE Key Hole Failed\n\r");
+						goto END;
+					}
+				}
+			}
+			else
+			{
+				Status = (int) Cmd->KeyHoleParams.Func(SrcAddr, DestAddr,
+							(Cmd->Len - Cmd->PayloadLen )<<2U, 0U);
+				if(Status != XST_SUCCESS)
+				{
+					XPlmi_Printf(DEBUG_GENERAL,
+						"DMA WRITE Key Hole Failed\n\r");
+					goto END;
+				}
+				Cmd->ProcessedLen = Cmd->Len;
+			}
+		}
+	}
+	else
+	{
+		/** The code is for for direct DMA from DDR to CFI */
+		Status = XPlmi_DmaXfr(SrcAddr, DestAddr, (Cmd->Len - Cmd->PayloadLen),
+					XPLMI_DST_CH_AXI_FIXED | XPLMI_PMCDMA_0);
+		if(Status != XST_SUCCESS)
+		{
+			XPlmi_Printf(DEBUG_GENERAL,
+					"DMA WRITE Key Hole Failed\n\r");
+			goto END;
+		}
+		Cmd->ProcessedLen = Cmd->Len;
+	}
+	Cmd->KeyHoleParams.ExtraWords = Cmd->Len - Cmd->PayloadLen;
+	Cmd->PayloadLen = Cmd->Len+1;
+END:
+	return Status;
 }

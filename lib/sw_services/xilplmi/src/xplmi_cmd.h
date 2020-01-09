@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -62,6 +62,19 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 typedef struct XPlmi_Cmd XPlmi_Cmd;
+typedef struct XPlmi_KeyHoleParams XPlmi_KeyHoleParams;
+
+struct XPlmi_KeyHoleParams {
+	u32 PdiSrc; /** Source of Pdi */
+	u32 SrcAddr; /** Boot Source address */
+	u32 ExtraWords; /** Words that are directly DMAed to CFI */
+
+	/** True implies copied in chunks of 64K,
+	 *  else complete bitstream is copied in one chunk
+	 */
+	u32 InChunkCopy;
+	XStatus (*Func) (u32, u64, u32, u32);
+};
 
 struct XPlmi_Cmd {
 	u32 SubsystemId;
@@ -75,6 +88,7 @@ struct XPlmi_Cmd {
 	int (*ResumeHandler)(XPlmi_Cmd * CmdPtr);
 	u32 ResumeData[XPLMI_CMD_RESUME_DATALEN];
 	u32 DeferredError;
+	XPlmi_KeyHoleParams KeyHoleParams;
 };
 
 /***************** Macros (Inline Functions) Definitions *********************/

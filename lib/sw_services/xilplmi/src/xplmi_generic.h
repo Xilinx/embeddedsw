@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -116,7 +116,8 @@ enum {
 void XPlmi_GenericInit(void);
 int XPlmi_CfiRead(XPlmi_Cmd * Cmd);
 int XPlmi_DmaWriteKeyHole(XPlmi_Cmd * Cmd);
-
+int XPlmi_CfiWrite(u32 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
+		XPlmi_Cmd* Cmd);
 
 /************************** Variable Definitions *****************************/
 

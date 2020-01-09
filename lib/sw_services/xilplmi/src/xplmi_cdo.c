@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -194,7 +194,8 @@ void XPlmi_InitCdo(XPlmiCdo *CdoPtr)
 	CdoPtr->ImgId = 0U;
 	CdoPtr->PrtnId = 0U;
 	CdoPtr->DeferredError = FALSE;
-
+	memset(&CdoPtr->Cmd.KeyHoleParams, 0U, sizeof(XPlmi_KeyHoleParams));
+	CdoPtr->Cmd.KeyHoleParams.PdiSrc = 0xFFU;
 	/** Initialize the CDO buffer user params */
 	CdoPtr->CmdEndDetected = FALSE;
 	CdoPtr->Cdo1stChunk = TRUE;
@@ -354,6 +355,14 @@ int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Size)
 		     CmdPtr->CmdId,
 		     CdoPtr->ProcessedCdoLen + CdoPtr->BufLen - BufLen);
 		goto END;
+	}
+
+	if(CmdPtr->Len == CmdPtr->PayloadLen - 1U)
+	{
+		CdoPtr->ProcessedCdoLen +=  CdoPtr->Cmd.KeyHoleParams.ExtraWords;
+		CmdPtr->PayloadLen = CmdPtr->Len;
+		CdoPtr->CmdState = 0U;
+		CdoPtr->CopiedCmdLen = 0U;
 	}
 END:
 	return Status;

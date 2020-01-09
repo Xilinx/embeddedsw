@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018-2019 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -665,8 +665,8 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 			{
 				IsNextChunkCopyStarted = FALSE;
 				/** wait for copy to get completed */
-				PdiPtr->DeviceCopy(SrcAddr,
-				  ChunkAddr, ChunkLen,
+				PdiPtr->DeviceCopy(SrcAddr - Cdo.Cmd.KeyHoleParams.ExtraWords,
+					ChunkAddr, ChunkLen,
 				  XLOADER_DEVICE_COPY_STATE_WAIT_DONE);
 			} else {
 				/** Copy the data to PRAM buffer */
@@ -677,6 +677,41 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 			Cdo.BufLen = ChunkLen/XIH_PRTN_WORD_LEN;
 			SrcAddr += ChunkLen;
 			Len -= ChunkLen;
+			Cdo.Cmd.KeyHoleParams.ExtraWords = 0x0U;
+
+			if((PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI24) ||
+				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI32) ||
+				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_OSPI) ||
+				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_SMAP) ||
+				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_JTAG) ||
+				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_SBI))
+			{
+				/** The below line will be uncommented after
+				 * alignment changes in bootgen get checked in
+				 */
+//				Cdo.Cmd.KeyHoleParams.PdiSrc = PdiPtr->PdiSrc;
+				Cdo.Cmd.KeyHoleParams.SrcAddr = SrcAddr;
+				Cdo.Cmd.KeyHoleParams.Func = PdiPtr->DeviceCopy;
+			}
+			else if(PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR)
+			{
+				/** The below line will be uncommented after
+				 * alignment changes in bootgen get checked in
+				 */
+//			 	Cdo.Cmd.KeyHoleParams.PdiSrc = PdiPtr->PdiSrc;
+				Cdo.Cmd.KeyHoleParams.SrcAddr = SrcAddr;
+			}
+			else
+			{
+				/** MISRA-C compliance */
+			}
+
+			if((PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI24) ||
+				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_QSPI32) ||
+				(PdiPtr->PdiSrc == XLOADER_PDI_SRC_OSPI))
+			{
+				Cdo.Cmd.KeyHoleParams.InChunkCopy = TRUE;
+			}
 			/** For DDR case, start the copy of the
 			 * next chunk for increasing performance */
 			if ((PdiPtr->PdiSrc == XLOADER_PDI_SRC_DDR)
@@ -721,6 +756,12 @@ static int XLoader_ProcessCdo (XilPdi* PdiPtr, u32 PrtnNum)
 		if(Status != XST_SUCCESS)
 		{
 			goto END;
+		}
+		if(Cdo.Cmd.KeyHoleParams.ExtraWords != 0x0U)
+		{
+			Cdo.Cmd.KeyHoleParams.ExtraWords *= 4U;
+			Len = Len - Cdo.Cmd.KeyHoleParams.ExtraWords;
+			SrcAddr += Cdo.Cmd.KeyHoleParams.ExtraWords;
 		}
 	}
 	/** if deferred error, flagging it after CDO process complete */
