@@ -1,6 +1,6 @@
 ##############################################################################
 #
-# Copyright (C) 2014 - 2019 Xilinx, Inc. All rights reserved.
+# Copyright (C) 2014 - 2020 Xilinx, Inc. All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -60,6 +60,8 @@
 #                     avoid race condition in tcl. Deletion of source
 #                     directories would happen through makefiles. It fixes
 #                      CR#1038151.
+# 7.2   mus  09/01/20 Updated to add armclang compiler support for Cortexa72.
+#                     It fixes CR#1051552
 #
 ##############################################################################
 
@@ -405,7 +407,12 @@ proc generate {os_handle} {
 			set platformsrcdir "./src/arm/ARMv8/64bit/platform/ZynqMP/gcc"
 		    }
 		 } else {
-		    set platformsrcdir "./src/arm/ARMv8/64bit/platform/versal"
+             file copy -force [file join $cortexa53srcdir1 platform versal xparameters_ps.h] ./src
+             if {[string compare -nocase $compiler "armclang"] == 0} {
+                 set platformsrcdir "./src/arm/ARMv8/64bit/platform/versal/armclang"
+             } else {
+                 set platformsrcdir "./src/arm/ARMv8/64bit/platform/versal/gcc"
+             }
 		 }
 	        set pvconsoledir "./src/arm/ARMv8/64bit/xpvxenconsole"
 	        set hypervisor_guest [common::get_property CONFIG.hypervisor_guest $os_handle ]

@@ -1,6 +1,6 @@
 ;/******************************************************************************
 ;*
-;* Copyright (C) 2019 Xilinx, Inc. All rights reserved.
+;* Copyright (C) 2019 - 2020 Xilinx, Inc. All rights reserved.
 ;*
 ;* Permission is hereby granted, free of charge, to any person obtaining a copy
 ;* of this software and associated documentation files (the "Software"), to deal
@@ -68,6 +68,7 @@
 ;* Ver   Who     Date     Changes
 ;* ----- ------- -------- ---------------------------------------------------
 ;* 7.0   mus     02/26/19 First release
+;* 7.2   mus     01/08/19 Added support for versal
 ;*
 ;******************************************************************************/
 
@@ -194,8 +195,12 @@ InitEL3
    msr	S3_1_C15_C2_0, x0			; CPUACTLR_EL1
 
 ; Program the counter frequency
+#if defined (versal)
+   ldr	x0, =XPAR_CPU_CORTEXA72_0_TIMESTAMP_CLK_FREQ
+#else
    ldr	x0, =XPAR_CPU_CORTEXA53_0_TIMESTAMP_CLK_FREQ
    msr	CNTFRQ_EL0, x0
+#endif
 
 ; Enable hardware coherency between cores
    mrs	x0, S3_1_c15_c2_1			; Read EL1 CPU Extended Control Register
@@ -223,7 +228,13 @@ InitEL3
 ;
    ldr	x1, =0x000000BB0400FF44
    msr	MAIR_EL3, x1
-
+#if defined (versal)
+; Set up TCR_EL3
+; Physical Address Size PS =  100 -> 44bits 16 TB
+; Granual Size TG0 = 00 -> 4KB
+; size offset of the memory region T0SZ = 20 -> (region size 2^(64-20) = 2^44)
+    ldr     x1,=0x80843514
+#else
 ;
 ; Set up TCR_EL3
 ; Physical Address Size PS =  010 -> 40bits 1TB
@@ -231,6 +242,7 @@ InitEL3
 ; Size offset of the memory region T0SZ = 24 -> (region size 2^(64-24) = 2^40)
 ;
    ldr	x1, =0x80823518
+#endif
    msr	TCR_EL3, x1
    isb
 
@@ -309,6 +321,15 @@ InitEL1
    ldr	x1, =0x000000BB0400FF44
    msr	MAIR_EL1, x1
 
+#if defined (versal)
+;
+; Set up TCR_EL1
+; Physical Address Size PS =  100 -> 44bits 16TB
+; Granual Size TG0 = 00 -> 4KB
+; size offset of the memory region T0SZ = 20 -> (region size 2^(64-20) = 2^44)
+;
+    ldr	x1,=0x485800514
+#else
 ;
 ; Set up TCR_EL1
 ; Physical Address Size PS =  010 -> 40bits 1TB
@@ -316,6 +337,7 @@ InitEL1
 ; Size offset of the memory region T0SZ = 24 -> (region size 2^(64-24) = 2^40)
 ;
    ldr	x1, =0x285800518
+#endif
    msr	TCR_EL1, x1
    isb
 
