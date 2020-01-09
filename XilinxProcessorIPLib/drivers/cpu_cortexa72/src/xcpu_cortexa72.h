@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@
 /**
 *
 * @file xcpu_cortexa72.h
-* @addtogroup cpu_cortexa72_v1_0
+* @addtogroup cpu_cortexa72_v1_1
 * @{
 * @details
 *
@@ -37,6 +37,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
 * 1.0   mus   09/20/17 Initial version
+* 1.1   mus   01/09/20 Added armclang compiler support.
 *
 ******************************************************************************/
 /** @} */
