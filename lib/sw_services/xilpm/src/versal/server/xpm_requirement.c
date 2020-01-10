@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2018-2019 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018-2020 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -199,6 +199,32 @@ XStatus XPmRequirement_UpdateScheduled(XPm_Subsystem *Subsystem, u32 Swap)
 		Reqm = Reqm->NextDevice;
 	}
 
+done:
+	return Status;
+}
+
+XStatus XPmRequirement_IsExclusive(XPm_Requirement *Reqm)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Requirement *Next_Reqm;
+
+	if (NULL == Reqm) {
+		goto done;
+	}
+
+	if (TRUE != Reqm->Allocated) {
+		goto done;
+	}
+
+	Next_Reqm = Reqm->NextSubsystem;
+	while (NULL != Next_Reqm) {
+		if (TRUE == Next_Reqm->Allocated) {
+			goto done;
+		}
+		Next_Reqm = Next_Reqm->NextSubsystem;
+	}
+
+	Status = XST_SUCCESS;
 done:
 	return Status;
 }
